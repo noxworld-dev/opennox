@@ -39,7 +39,7 @@ void nox_xxx_clientDrawAll_436100_draw() {
 	int v24;               // [esp+14h] [ebp-204h]
 	wchar_t v25[128];      // [esp+18h] [ebp-200h]
 
-	v0 = nox_call_get_ticks();
+	v0 = nox_platform_get_ticks();
 	v1 = HIDWORD(v0);
 	v2 = v0;
 	if ((unsigned int)(v0 - *getMemU32Ptr(0x5D4594, 814532)) < *getMemIntPtr(0x587000, 85748)) {
@@ -105,7 +105,7 @@ void nox_xxx_clientDrawAll_436100_draw() {
 	if (dword_5d4594_811904)
 		sub_436F50();
 	if (nox_common_gameFlags_check_40A5C0(8)) {
-		v13 = nox_call_get_ticks() - *getMemU64Ptr(0x5D4594, 811908);
+		v13 = nox_platform_get_ticks() - *getMemU64Ptr(0x5D4594, 811908);
 		v24 = HIDWORD(v13);
 		if (v13 > 0x2710 && !nox_common_gameFlags_check_40A5C0(1))
 			nox_common_gameFlags_unset_40A540(8);

@@ -367,11 +367,11 @@ void NET_CONNECT_THEN(sm_args_t* args) {
 	nox_xxx_netBufs_40ED10(31, 0);
 	nox_xxx_set3512_40A340(0);
 	nox_xxx_setMapCRC_40A360(0);
-	GOTO_CONNECT_WAIT_LOOP(nox_call_get_ticks() + 10000);
+	GOTO_CONNECT_WAIT_LOOP(nox_platform_get_ticks() + 10000);
 }
 
 void CONNECT_WAIT_LOOP(sm_args_t* args) {
-	if (nox_call_get_ticks() >= args->connect_wait_loop.timeout) {
+	if (nox_platform_get_ticks() >= args->connect_wait_loop.timeout) {
 		GOTO_CONNECT_WAIT_THEN(0);
 	}
 

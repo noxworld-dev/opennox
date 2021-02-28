@@ -728,7 +728,7 @@ _DWORD*  sub_48D5A0(int a1) {
 				sub_425770(result);
 				v2[2] = *(unsigned __int16*)(a1 + 1);
 				*((_WORD*)v2 + 12) = *(unsigned __int8*)(a1 + 3);
-				*((_QWORD*)v2 + 2) = nox_call_get_ticks();
+				*((_QWORD*)v2 + 2) = nox_platform_get_ticks();
 				memcpy(v2 + 8, (const void*)(a1 + 4), *(unsigned __int8*)(a1 + 3));
 				if (*getMemU16Ptr(0x5D4594, 1197360) == *(_WORD*)(a1 + 1))
 					dword_5d4594_1197352 = v2;
@@ -748,7 +748,7 @@ int sub_48D660() {
 	LODWORD(v0) = dword_5d4594_1197352;
 	if (!dword_5d4594_1197352) {
 		if (dword_5d4594_1197356) {
-			v0 = nox_call_get_ticks() - *(_QWORD*)(dword_5d4594_1197356 + 16);
+			v0 = nox_platform_get_ticks() - *(_QWORD*)(dword_5d4594_1197356 + 16);
 			if (v0 > 0x7530) {
 				*getMemU16Ptr(0x5D4594, 1197360) = *(_WORD*)(dword_5d4594_1197356 + 8);
 				dword_5d4594_1197352 = dword_5d4594_1197356;

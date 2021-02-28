@@ -2219,7 +2219,7 @@ BOOL sub_57B140() {
 	result = 0;
 	if (*getMemU64Ptr(0x5D4594, 2523796)) {
 		v0 = nox_xxx___Getcvt_57B180() + 5000;
-		if (v0 < nox_call_get_ticks())
+		if (v0 < nox_platform_get_ticks())
 			result = 1;
 	}
 	return result;
@@ -2563,7 +2563,7 @@ int nox_xxx_mapExitAndCheckNext_4D1860_server() {
 //----- (004D2580) --------------------------------------------------------
 void nox_xxx_gameTick_4D2580_server_A(int v2, char* v38) {
 	if (!*getMemU64Ptr(0x5D4594, 1548676)) {
-		*getMemU64Ptr(0x5D4594, 1548676) = nox_call_get_ticks() + 10000;
+		*getMemU64Ptr(0x5D4594, 1548676) = nox_platform_get_ticks() + 10000;
 		nox_xxx_guiServerOptionsHide_4597E0(0);
 		if (sub_43AF70() == 1) {
 			if (!nox_common_gameFlags_check_40A5C0(128)) {
@@ -2579,7 +2579,7 @@ void nox_xxx_gameTick_4D2580_server_A(int v2, char* v38) {
 	}
 	nox_server_netMaybeSendInitialPackets_4DEB30();
 	nox_xxx_netlist_4DEB50();
-	if (!((unsigned __int64)nox_call_get_ticks() > *getMemU64Ptr(0x5D4594, 1548676) && !v2)) {
+	if (!((unsigned __int64)nox_platform_get_ticks() > *getMemU64Ptr(0x5D4594, 1548676) && !v2)) {
 		return;
 	}
 	*getMemU32Ptr(0x5D4594, 1548676) = 0;
@@ -2765,7 +2765,7 @@ void nox_xxx_gameTick_4D2580_server_D() {
 int nox_xxx_gameTick_4D2580_server() {
 	char v38[16];         // [esp+10h] [ebp-30h]
 
-	__int64 v0 = nox_call_get_ticks();
+	__int64 v0 = nox_platform_get_ticks();
 	unsigned int v1 = v0;
 	int v2 = 0;
 	unsigned int v3 = HIDWORD(v0);

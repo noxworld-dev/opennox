@@ -1056,7 +1056,7 @@ int  sub_553ED0(int a3) {
 	int result;          // eax
 	int v4;              // edi
 
-	v1 = nox_call_get_ticks();
+	v1 = nox_platform_get_ticks();
 	LODWORD(v2) = *getMemU32Ptr(0x5D4594, 8 * a3 + 2499052);
 	HIDWORD(v2) = *getMemU32Ptr(0x5D4594, 8 * a3 + 2499056);
 	if (v1 < v2 + 1000)

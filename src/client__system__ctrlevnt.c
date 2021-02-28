@@ -756,7 +756,7 @@ void nox_xxx_clientControl_42D6B0_C() {
 	}
 }
 void nox_xxx_clientControl_42D6B0(nox_mouse_state_t* mouse, int a4) {
-	nox_ctrlevent_ticks = nox_call_get_ticks();
+	nox_ctrlevent_ticks = nox_platform_get_ticks();
 	if (nox_common_gameFlags_check_40A5C0(1) && nox_common_gameFlags_check_40A5C0(0x2000)) {
 		nox_ctrlevent_ticks += nox_ctrlevent_add_ticks_42E630();
 	}
