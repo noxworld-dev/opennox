@@ -1,4 +1,5 @@
 #include "client__gui__servopts__general.h"
+#include "client__gui__window.h"
 
 #include "proto.h"
 extern _DWORD nox_server_sendMotd_108752;

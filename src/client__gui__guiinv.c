@@ -1,4 +1,5 @@
 #include "client__gui__guiinv.h"
+#include "client__gui__window.h"
 
 #include "common__object__modifier.h"
 #include "proto.h"

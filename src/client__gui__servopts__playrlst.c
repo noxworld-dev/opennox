@@ -1,4 +1,5 @@
 #include "client__gui__servopts__playrlst.h"
+#include "client__gui__window.h"
 
 #include "common__system__team.h"
 #include "proto.h"

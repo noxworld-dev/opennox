@@ -1,4 +1,5 @@
 #include "client__gui__guirank.h"
+#include "client__gui__window.h"
 
 #include "proto.h"
 #include "client__gui__gadgets__listbox.h"

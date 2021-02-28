@@ -1,4 +1,5 @@
 #include "client__gui__guispell.h"
+#include "client__gui__window.h"
 
 #include "common__random.h"
 #include "proto.h"

@@ -1,4 +1,5 @@
 #include "client__gui__chaticon.h"
+#include "client__gui__window.h"
 
 #include "proto.h"
 #include "client__gui__gamewin__gamewin.h"

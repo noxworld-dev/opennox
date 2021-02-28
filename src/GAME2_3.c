@@ -2,6 +2,7 @@
 #include "common__system__team.h"
 
 #include "client__gui__chathelp.h"
+#include "client__gui__window.h"
 #include "client__gui__gadgets__listbox.h"
 #include "client__gui__gamewin__psscript.h"
 #include "client__gui__guiinv.h"
@@ -1138,7 +1139,7 @@ void  sub_48DCF0(_DWORD* a1) {
 					*(_DWORD*)(v23 + 688) = *(_DWORD*)(v2 + 688);
 				else
 					dword_5d4594_1197372 = *(_DWORD*)(v2 + 688);
-				nox_xxx_memDeleteAdv_414330(*(unsigned int**)&nox_alloc_chat_1197364, (_QWORD*)v2);
+				nox_alloc_class_free_obj_414330(*(unsigned int**)&nox_alloc_chat_1197364, (_QWORD*)v2);
 			}
 			v2 = v25;
 			if (!v25) {
@@ -1561,7 +1562,7 @@ void  sub_48E8E0(int a1) {
 		v3 = *(_DWORD*)(v1 + 684);
 		if (v3)
 			*(_DWORD*)(v3 + 688) = *(_DWORD*)(v1 + 688);
-		nox_xxx_memDeleteAdv_414330(*(unsigned int**)&nox_alloc_chat_1197364, (_QWORD*)v1);
+		nox_alloc_class_free_obj_414330(*(unsigned int**)&nox_alloc_chat_1197364, (_QWORD*)v1);
 	}
 }
 
@@ -2469,7 +2470,7 @@ void  sub_495A20(int a1) {
 			*(_DWORD*)(v2 + 4) = *(_DWORD*)(v1 + 4);
 		else
 			dword_5d4594_1203864 = *(_DWORD*)(v1 + 4);
-		nox_xxx_memDeleteAdv_414330(*(unsigned int**)&nox_alloc_friendList_1203860, (_QWORD*)v1);
+		nox_alloc_class_free_obj_414330(*(unsigned int**)&nox_alloc_friendList_1203860, (_QWORD*)v1);
 	}
 }
 
@@ -2523,7 +2524,7 @@ void  sub_495B00(nox_drawable* dr) {
 		do {
 			v2 = (_DWORD*)v1[16];
 			sub_495B50(v1);
-			nox_xxx_memDeleteAdv_414330(*(unsigned int**)getMemAt(0x5D4594, 1203868), v1);
+			nox_alloc_class_free_obj_414330(*(unsigned int**)getMemAt(0x5D4594, 1203868), v1);
 			v1 = v2;
 		} while (v2);
 		*(_DWORD*)(a1 + 456) = 0;
@@ -2784,7 +2785,7 @@ void  sub_495F30(int a1, int a2) {
 				return;
 		}
 		sub_495B50(v2);
-		nox_xxx_memDeleteAdv_414330(*(unsigned int**)getMemAt(0x5D4594, 1203868), v2);
+		nox_alloc_class_free_obj_414330(*(unsigned int**)getMemAt(0x5D4594, 1203868), v2);
 	}
 }
 
@@ -5430,7 +5431,7 @@ void  sub_49A880(int a1) {
 	v2 = *(_DWORD*)(a1 + 12);
 	if (v2)
 		*(_DWORD*)(v2 + 16) = *(_DWORD*)(a1 + 16);
-	nox_xxx_memDeleteAdv_414330(*(unsigned int**)&nox_alloc_healthChange_1301772, (_QWORD*)a1);
+	nox_alloc_class_free_obj_414330(*(unsigned int**)&nox_alloc_healthChange_1301772, (_QWORD*)a1);
 }
 
 //----- (0049A8C0) --------------------------------------------------------
@@ -5930,7 +5931,7 @@ int  sub_49B1A0(int a1) {
 	if (a1) {
 		do {
 			v2 = *(_DWORD*)(result + 8);
-			nox_xxx_memDeleteAdv_414330(*(unsigned int**)&nox_alloc_pixelSpan_1301844, (_QWORD*)result);
+			nox_alloc_class_free_obj_414330(*(unsigned int**)&nox_alloc_pixelSpan_1301844, (_QWORD*)result);
 			result = v2;
 		} while (v2);
 	}
@@ -5947,7 +5948,7 @@ int  sub_49B1D0(int a1, int a2) {
 			if (result == a2)
 				break;
 			*(_DWORD*)(a1 + 8) = *(_DWORD*)(result + 8);
-			nox_xxx_memDeleteAdv_414330(*(unsigned int**)&nox_alloc_pixelSpan_1301844, (_QWORD*)result);
+			nox_alloc_class_free_obj_414330(*(unsigned int**)&nox_alloc_pixelSpan_1301844, (_QWORD*)result);
 		}
 	} else {
 		v2 = (int*)(dword_5d4594_1301848 + 4 * dword_5d4594_1301836);
@@ -5955,7 +5956,7 @@ int  sub_49B1D0(int a1, int a2) {
 			if (result == a2)
 				break;
 			*v2 = *(_DWORD*)(result + 8);
-			nox_xxx_memDeleteAdv_414330(*(unsigned int**)&nox_alloc_pixelSpan_1301844, (_QWORD*)result);
+			nox_alloc_class_free_obj_414330(*(unsigned int**)&nox_alloc_pixelSpan_1301844, (_QWORD*)result);
 			result = *(_DWORD*)(dword_5d4594_1301848 + 4 * dword_5d4594_1301836);
 		}
 	}

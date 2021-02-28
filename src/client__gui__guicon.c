@@ -1,4 +1,5 @@
 #include "client__gui__guicon.h"
+#include "client__gui__window.h"
 
 #include "client__system__parsecmd.h"
 

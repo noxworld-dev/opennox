@@ -1,4 +1,5 @@
 #include "client__gui__guidlg.h"
+#include "client__gui__window.h"
 
 #include "proto.h"
 

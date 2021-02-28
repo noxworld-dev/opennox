@@ -279,6 +279,7 @@ set (
     client__gui__servopts__playrlst.c
     client__gui__servopts__spelllst.c
     client__gui__tooltip.c
+    client__gui__window.c
     client__gui__woldisc.c
     client__io__console.c
     client__io__win95__dxinput.c
@@ -311,6 +312,7 @@ set (
     client__system__gameloop.c
     client__system__npcinfo.c
     client__system__parsecmd.c
+    common__alloc_class.c
     common__random.c
     common__strman.c
     common__noxfile.c

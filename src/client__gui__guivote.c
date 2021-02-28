@@ -1,4 +1,5 @@
 #include "client__gui__guivote.h"
+#include "client__gui__window.h"
 
 #include "proto.h"
 extern _DWORD dword_5d4594_1197308;

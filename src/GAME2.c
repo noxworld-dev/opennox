@@ -15,6 +15,7 @@
 #include "client__gui__servopts__general.h"
 #include "client__gui__servopts__guiserv.h"
 #include "client__gui__servopts__playrlst.h"
+#include "client__gui__window.h"
 #include "client__shell__mainmenu.h"
 #include "common__gamemech__pausefx.h"
 
@@ -5723,7 +5724,7 @@ void  nox_xxx_sprite_45A480_drawable(int a1) {
 //----- (0045A4B0) --------------------------------------------------------
 int  nox_xxx_spriteDelete_45A4B0(nox_drawable* dr) {
 	sub_495B00(dr);
-	nox_xxx_memDeleteAdv_414330(nox_alloc_drawable, dr);
+	nox_alloc_class_free_obj_414330(nox_alloc_drawable, dr);
 	return --nox_drawable_count;
 }
 

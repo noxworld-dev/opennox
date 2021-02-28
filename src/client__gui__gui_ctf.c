@@ -1,4 +1,5 @@
 #include "client__gui__gui_ctf.h"
+#include "client__gui__window.h"
 
 #include "client__gui__gamewin__gamewin.h"
 
