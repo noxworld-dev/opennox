@@ -39,7 +39,7 @@ extern _DWORD dword_5d4594_1193704;
 extern _DWORD dword_5d4594_3804668;
 extern _DWORD dword_5d4594_1193584;
 extern int nox_pitch_3801808;
-extern _DWORD dword_5d4594_3801804;
+extern _DWORD cpuid_5d4594_3801804;
 extern _DWORD dword_5d4594_3799492;
 extern _DWORD dword_5d4594_810640;
 extern _DWORD dword_5d4594_1193516;

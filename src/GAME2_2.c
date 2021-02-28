@@ -89,7 +89,7 @@ extern _DWORD dword_5d4594_2650676;
 extern _DWORD dword_5d4594_3798156;
 extern _DWORD dword_5d4594_1189596;
 extern _DWORD dword_5d4594_1189592;
-extern _DWORD dword_5d4594_3801804;
+extern _DWORD cpuid_5d4594_3801804;
 extern _DWORD dword_5d4594_3798816;
 extern _DWORD dword_5d4594_1096640;
 extern _DWORD nox_client_highResFloors_154952;
@@ -4193,7 +4193,7 @@ LPVOID sub_47D150() {
 int sub_47D200() {
 	if (dword_5d4594_3801780) {
 		if (dword_5d4594_3801780 == 1) {
-			if (dword_5d4594_3801804)
+			if (cpuid_5d4594_3801804)
 				dword_5d4594_3799500 = nox_xxx_smthPlayerAnim_4C7670;
 			else
 				dword_5d4594_3799500 = sub_4C7440;
@@ -6416,7 +6416,7 @@ int*  nox_xxx_someEdgeProcessing_480EF0(int a1, int a2, int a3, int* a4, int* a5
 		return result;
 	}
 	v42 = sub_480700;
-	if (!dword_5d4594_3801804)
+	if (!cpuid_5d4594_3801804)
 		v42 = sub_480860;
 	result = (int*)nox_xxx_tileEdgeCrashHere_42FB30(a1);
 	if (!result) {
@@ -12913,7 +12913,7 @@ int  sub_48B6B0(int a1, int a2, int a3) {
 	ptr_5D4594_3799572->data[34] = (unsigned __int8)a1;
 	ptr_5D4594_3799572->data[35] = (unsigned __int8)a2;
 	ptr_5D4594_3799572->data[36] = (unsigned __int8)a3;
-	if (dword_5d4594_3801804) {
+	if (cpuid_5d4594_3801804) {
 		v4 = (unsigned __int8)a1 | ((unsigned __int8)a1 << 16);
 		HIDWORD(v4) = 0;
 		v4 <<= 16;
