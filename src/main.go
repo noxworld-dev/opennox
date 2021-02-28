@@ -27,7 +27,7 @@ extern int nox_enable_threads;
 extern unsigned int nox_gameDisableMapDraw_5d4594_2650672;
 extern unsigned int nox_gameFPS;
 extern unsigned int nox_profiled_805856;
-extern unsigned int nox_xxx_useAudio_587000_80800;
+extern unsigned int nox_xxx_useMMX_587000_80800;
 
 extern unsigned int dword_5d4594_2650652;
 extern unsigned int dword_5d4594_3804680;
@@ -229,7 +229,7 @@ func runNox(args []string) error {
 		setEngineFlag(NOX_ENGINE_FLAG_ENABLE_WINDOWED_MODE)
 		C.nox_enable_audio = 0
 		C.nox_video_dxUnlockSurface = 1
-		C.nox_xxx_useAudio_587000_80800 = 0
+		C.nox_xxx_useMMX_587000_80800 = 0
 		*memmap.PtrUint32(0x5D4594, 805840) = 1
 		C.nox_enable_threads = 0
 		depth := 16
@@ -247,7 +247,7 @@ func runNox(args []string) error {
 		C.nox_enable_audio = 0
 	}
 	if *fNoMMX {
-		C.nox_xxx_useAudio_587000_80800 = 0
+		C.nox_xxx_useMMX_587000_80800 = 0
 		*memmap.PtrUint32(0x5D4594, 805840) = 1
 	}
 	if *fNoThreads {
