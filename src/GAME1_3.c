@@ -3798,46 +3798,7 @@ void sub_4445C0() {
 	int v10;    // [esp+14h] [ebp-8h]
 	int v11;    // [esp+18h] [ebp-4h]
 
-#if 0
-    signed int v1; // eax
-    int v2; // esi
-    int v3; // eax
-    if (nox_xxx_testCPUID2_444D90())
-    {
-        v1 = sub_444DD0();
-        v2 = v1;
-        if (v1)
-        {
-            v3 = v1 + 5;
-            if (v2 + 5 <= 450)
-            {
-                if (v3 <= 300)
-                {
-                    if (v3 <= 266)
-                        v0 = v3 <= 200 ? 0 : 0xC8;
-                    else
-                        v0 = 266;
-                }
-                else
-                {
-                    v0 = 300;
-                }
-            }
-            else
-            {
-                v0 = 450;
-            }
-        }
-        else
-        {
-            v0 = 0;
-        }
-        if (!nox_xxx____crtGetStringTypeA_0_444830() && v2 < 550)
-            v0 = 200;
-    }
-    else
-#endif
-	{ v0 = 0; }
+	v0 = 0;
 	*getMemU32Ptr(0x587000, 80808) = 1;
 	*getMemU32Ptr(0x587000, 80816) = 1;
 	nox_xxx_useAudio_587000_80840 = 1;
@@ -3921,19 +3882,6 @@ BOOL nox_xxx____crtGetStringTypeA_0_444830() {
 	DebugBreak();
 	return 0;
 }
-#if 0
-//----- (00444830) --------------------------------------------------------
-BOOL nox_xxx____crtGetStringTypeA_0_444830()
-{
-    unsigned __int8 v11[40]; // [esp+Ch] [ebp-28h]
-
-    _EAX = 0;
-    __asm { cpuid }
-    _EAX = 0;
-    __asm { cpuid }
-    return strcmp("GenuineIntel", (const char*)v11) == 0;
-}
-#endif
 
 //----- (004449D0) --------------------------------------------------------
 int  nox_client_drawInitAll_4449D0(HWND wnd, int w, int h, int depth, int flags) {
@@ -4070,116 +4018,6 @@ void  sub_444D50(obj_5D4594_3799572_t* a1) { memcpy(a1, ptr_5D4594_3799572, size
 
 //----- (00444D70) --------------------------------------------------------
 void  sub_444D70(obj_5D4594_3799572_t* a1) { memcpy(ptr_5D4594_3799572, a1, sizeof(obj_5D4594_3799572_t)); }
-
-#if 0
-//----- (00444D90) --------------------------------------------------------
-BOOL nox_xxx_testCPUID2_444D90()
-{
-    unsigned int v0; // edx
-    unsigned int v1; // et0
-    unsigned int v2; // ebx
-    unsigned int v3; // et0
-
-    v0 = 0;
-    v1 = __readeflags();
-    v2 = v1;
-    __writeeflags(v1 ^ 0x200000);
-    v3 = __readeflags();
-    if (v3 != v2)
-    {
-        _EAX = 0;
-        __asm { cpuid }
-        v0 = 0;
-        if (BYTE1(_EAX) != 5)
-        {
-            if (_EAX)
-            {
-                _EAX = 1;
-                __asm { cpuid }
-                v0 = 0x800000 & _EDX;
-            }
-        }
-    }
-    return v0 != 0;
-}
-
-//----- (00444DD0) --------------------------------------------------------
-signed int sub_444DD0()
-{
-    int v0; // ecx
-    int v1; // eax
-    unsigned int v2; // ebx
-    unsigned __int64 v3; // rax
-    unsigned __int64 v4; // rax
-    unsigned int v5; // esi
-    DWORD v6; // edi
-    int v7; // eax
-    unsigned int v8; // ecx
-    signed int result; // eax
-    LARGE_INTEGER Frequency; // [esp+4h] [ebp-30h]
-    LARGE_INTEGER PerformanceCount; // [esp+Ch] [ebp-28h]
-    LARGE_INTEGER v12; // [esp+14h] [ebp-20h]
-    int v13; // [esp+1Ch] [ebp-18h]
-    int v14; // [esp+20h] [ebp-14h]
-    int v15; // [esp+24h] [ebp-10h]
-    unsigned int v16; // [esp+28h] [ebp-Ch]
-    int v17; // [esp+2Ch] [ebp-8h]
-    int v18; // [esp+30h] [ebp-4h]
-
-    if (!QueryPerformanceFrequency(&Frequency))
-        return 0;
-    v0 = 0;
-    v1 = 0;
-    v2 = 0;
-    v16 = 0;
-    v18 = 0;
-    while (1)
-    {
-        v17 = v0;
-        ++v18;
-        v15 = v1;
-        QueryPerformanceCounter(&PerformanceCount);
-        v12 = PerformanceCount;
-        do
-            QueryPerformanceCounter(&v12);
-        while (v12.LowPart - PerformanceCount.LowPart < 0x32);
-        v3 = __rdtsc();
-        v13 = v3;
-        PerformanceCount = v12;
-        do
-            QueryPerformanceCounter(&v12);
-        while (v12.LowPart - PerformanceCount.LowPart < 0x3E8);
-        v4 = __rdtsc();
-        v14 = v4;
-        v5 = v4 - v13;
-        v2 += v4 - v13;
-        v6 = (100000 * v12.LowPart - 100000 * PerformanceCount.LowPart) / (Frequency.LowPart / 0xA);
-        v16 += v6;
-        if (v6 % Frequency.LowPart > Frequency.LowPart >> 1)
-            ++v6;
-        v0 = v5 / v6;
-        if (v5 % v6 > v6 >> 1)
-            ++v0;
-        v7 = v0 + v15 + v17;
-        if (v18 >= 3
-            && (v18 >= 20
-                || (unsigned int)(3 * v0 - v7) <= 3 && (unsigned int)(3 * v17 - v7) <= 3 && (unsigned int)(3 * v15 - v7) <= 3))
-        {
-            break;
-        }
-        v1 = v17;
-    }
-    v8 = 10 * v2 / v16;
-    if (100 * v2 / v16 - 10 * v8 >= 6)
-        ++v8;
-    result = v2 / v16;
-    if (v8 - 10 * (v2 / v16) >= 6)
-        ++result;
-    if (result < 0)
-        result = 0;
-    return result;
-}
-#endif
 
 //----- (00445440) --------------------------------------------------------
 int sub_445440() { return 1; }

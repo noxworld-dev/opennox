@@ -1,3 +1,5 @@
+//+build none
+
 // This code is kept only for the reference. Please DO NOT REMOVE it and try to refactor if you touch any of the
 // variables used here.
 #ifdef USE_DDRAW
