@@ -56,7 +56,7 @@ extern _DWORD nox_server_sanctuaryHelp_54276;
 extern _DWORD dword_5d4594_814548;
 extern _DWORD dword_5d4594_3804684;
 extern _DWORD dword_5d4594_1193156;
-extern _DWORD nox_xxx_useAudio_587000_80800;
+extern _DWORD nox_xxx_useMMX_587000_80800;
 extern _DWORD dword_5d4594_3807140;
 extern _DWORD dword_5d4594_814552;
 extern _DWORD dword_5d4594_815056;
@@ -5300,8 +5300,8 @@ int  nox_xxx_tileInitBuf_430DB0(int a1, int a2) {
 int sub_430E70() {
 	int result; // eax
 
-	result = nox_xxx_useAudio_587000_80800;
-	if (nox_xxx_useAudio_587000_80800) {
+	result = nox_xxx_useMMX_587000_80800;
+	if (nox_xxx_useMMX_587000_80800) {
 		result = dword_5d4594_805836;
 		if (dword_5d4594_805836) {
 			dword_5d4594_805836 = 0;

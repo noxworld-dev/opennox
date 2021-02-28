@@ -49,7 +49,7 @@ var noxMemmap = []struct {
 	{0x587000, 72016, 660, "nox_ctrlevent_code_infos"},               // 0x598950
 	{0x587000, 80764, 8, "nox_mouse_max"},                            // 0x59AB7C
 	{0x587000, 80772, 4, "nox_xxx_useAudio_587000_80772"},            // 0x59AB84
-	{0x587000, 80800, 4, "nox_xxx_useAudio_587000_80800"},            // 0x59ABA0
+	{0x587000, 80800, 4, "nox_xxx_useMMX_587000_80800"},              // 0x59ABA0
 	{0x587000, 80804, 4, "nox_enable_threads"},                       // 0x59ABA4
 	{0x587000, 80812, 4, "nox_client_drawFrontWalls_80812"},          // 0x59ABAC
 	{0x587000, 80820, 4, "nox_client_highResFrontWalls_80820"},       // 0x59ABB4
