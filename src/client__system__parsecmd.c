@@ -2162,7 +2162,7 @@ int nox_cmd_offonly2(int tokInd, int tokCnt, wchar_t** tokens) {
 int nox_cmd_set_fr(int tokInd, int tokCnt, wchar_t** tokens) {
 	if (tokCnt != 2)
 		return 0;
-	sub_43DDE0(1);
+	nox_xxx_setFrameLimit_43DDE0(1);
 	return 1;
 }
 
@@ -2170,7 +2170,7 @@ int nox_cmd_set_fr(int tokInd, int tokCnt, wchar_t** tokens) {
 int nox_cmd_unset_fr(int tokInd, int tokCnt, wchar_t** tokens) {
 	if (tokCnt != 2)
 		return 0;
-	sub_43DDE0(0);
+	nox_xxx_setFrameLimit_43DDE0(0);
 	return 1;
 }
 

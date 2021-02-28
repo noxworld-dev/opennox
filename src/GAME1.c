@@ -214,7 +214,7 @@ int cmain(int argc, const char* argv[]) {
 	for (int i = 1; i < argc; i++) {
 		char* flag = argv[i];
 		if (!_strcmpi(flag, "-nolimit")) {
-			sub_43DDE0(0);
+			nox_xxx_setFrameLimit_43DDE0(0);
 			*getMemU32Ptr(0x587000, 84) = 0;
 		} else if (!_strcmpi(flag, "-serveronly")) {
 			nox_enable_audio = 0;
