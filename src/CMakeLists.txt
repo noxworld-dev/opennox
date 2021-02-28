@@ -148,7 +148,7 @@ set (
 	SOURCE_LIST
     main/main.c
 	ConvertUTF.c
-    platform.c
+    common/platform/platform.c
     GAME1.c
     GAME1_1.c
     GAME1_2.c
@@ -312,7 +312,7 @@ set (
     client__system__gameloop.c
     client__system__npcinfo.c
     client__system__parsecmd.c
-    common__alloc_class.c
+    common/alloc/classes/alloc_class.c
     common__random.c
     common__strman.c
     common__noxfile.c

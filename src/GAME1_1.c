@@ -5359,7 +5359,7 @@ void  nox_xxx_net_420830(_DWORD* a1) {
 	a1[2] = 0;
 	a1[4] = 0;
 	a1[5] = 0;
-	nox_xxx_class_4144D0(v2);
+	nox_alloc_class_yyy_4144D0(v2);
 }
 
 //----- (00420890) --------------------------------------------------------
@@ -5443,7 +5443,7 @@ int  nox_xxx_net_420940(int a1, int a2, int a3, int a4) {
 }
 
 //----- (004209C0) --------------------------------------------------------
-void  nox_xxx_net_4209C0(int a1, _QWORD* a2) { nox_alloc_class_free_obj_414330(*(unsigned int**)(a1 + 12), a2); }
+void  nox_xxx_net_4209C0(int a1, _QWORD* a2) { nox_alloc_class_free_obj(*(unsigned int**)(a1 + 12), a2); }
 
 //----- (004209E0) --------------------------------------------------------
 void  sub_4209E0(int* a1, int a2) {

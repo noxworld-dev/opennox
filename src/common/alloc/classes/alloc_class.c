@@ -2,11 +2,39 @@
 #include <string.h>
 #include <stdio.h>
 
-#include "common__alloc_class.h"
-#include "platform.h"
+#include "alloc_class.h"
+#include "../../platform/platform.h"
 
 unsigned int dword_5d4594_252276 = 0;
 unsigned int dword_5d4594_338300 = 0;
+
+//----- (00414130) --------------------------------------------------------
+void  nox_free_alloc_class_f30(nox_alloc_class* p) {
+	if (!p)
+		return;
+
+	if (p->field_26) {
+		unsigned int* ptr = (unsigned int*)p->field_26;
+		while (ptr) {
+			unsigned int* next = (unsigned int*)ptr[2];
+			free(ptr);
+			ptr = next;
+		}
+	}
+
+	if (p->field_28) {
+		unsigned int* ptr = (unsigned int*)p->field_28;
+		while (ptr) {
+			unsigned int* next = (unsigned int*)ptr[2];
+			if (*(uint64_t*)ptr)
+				free(ptr);
+			ptr = next;
+		}
+	}
+
+	p->field_26 = 0;
+	p->field_27 = 0;
+}
 
 #ifndef NOX_CGO
 //----- (00413FE0) --------------------------------------------------------
@@ -71,34 +99,6 @@ void  nox_free_alloc_class(nox_alloc_class* p) {
 	free(p);
 }
 #endif // NOX_CGO
-
-//----- (00414130) --------------------------------------------------------
-void  nox_free_alloc_class_f30(nox_alloc_class* p) {
-	if (!p)
-		return;
-
-	if (p->field_26) {
-		unsigned int* ptr = (unsigned int*)p->field_26;
-		while (ptr) {
-			unsigned int* next = (unsigned int*)ptr[2];
-			free(ptr);
-			ptr = next;
-		}
-	}
-
-	if (p->field_28) {
-		unsigned int* ptr = (unsigned int*)p->field_28;
-		while (ptr) {
-			unsigned int* next = (unsigned int*)ptr[2];
-			if (*(uint64_t*)ptr)
-				free(ptr);
-			ptr = next;
-		}
-	}
-
-	p->field_26 = 0;
-	p->field_27 = 0;
-}
 
 //----- (00414190) --------------------------------------------------------
 void* nox_alloc_class_new_obj(nox_alloc_class* al) {
@@ -193,7 +193,8 @@ void*  nox_alloc_class_new_obj_zero(nox_alloc_class* al) {
 #endif // NOX_CGO
 
 //----- (004144D0) --------------------------------------------------------
-void  nox_xxx_class_4144D0(unsigned int* a1) {
+void  nox_alloc_class_yyy_4144D0(nox_alloc_class* al) {
+	unsigned int* a1 = al;
 	int v1; // edx
 	int v2; // eax
 
@@ -245,7 +246,9 @@ int  sub_4143D0(int a1, int a2) {
 }
 
 //----- (00414330) --------------------------------------------------------
-void  nox_alloc_class_free_obj_414330(unsigned int* a1, uint64_t* a2) {
+void  nox_alloc_class_free_obj(nox_alloc_class* al, void* obj) {
+	unsigned int* a1 = al;
+	uint64_t* a2 = obj;
 	uint64_t* v2;      // esi
 	unsigned int v3; // ecx
 	unsigned int v4; // edx
@@ -275,7 +278,9 @@ void  nox_alloc_class_free_obj_414330(unsigned int* a1, uint64_t* a2) {
 }
 
 //----- (00414400) --------------------------------------------------------
-void  sub_414400(unsigned int* a1, uint64_t* a2) {
+void  nox_alloc_class_xxx_414400(nox_alloc_class* al, void* obj) {
+	unsigned int* a1 = al;
+	uint64_t* a2 = obj;
 	uint64_t* v2;      // esi
 	unsigned int v3; // eax
 	unsigned int v4; // eax

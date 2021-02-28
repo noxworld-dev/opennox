@@ -29,7 +29,7 @@
 #define USE_SDL 1
 
 #include "memmap.h"
-#include "platform.h"
+#include "common/platform/platform.h"
 
 #ifdef __EMSCRIPTEN__
 #define wchar_t int16_t
@@ -65,7 +65,7 @@ typedef long LSTATUS;
 #include "common__poison.h"
 #endif // _WIN32
 
-#include "common__alloc_class.h"
+#include "common/alloc/classes/alloc_class.h"
 #include "client__gui__window.h"
 
 // For now bools are kept 1-byte long

@@ -33,7 +33,7 @@ int  sub_50E7A0(_DWORD* a1, int a2) {
 	if (!(*(_BYTE*)(v6 + 8) & 4))
 		v6 = a1[3];
 	sub_50E820(v6, *v2);
-	nox_alloc_class_free_obj_414330(*(unsigned int**)&nox_alloc_tradeItems_2386496, v2);
+	nox_alloc_class_free_obj(*(unsigned int**)&nox_alloc_tradeItems_2386496, v2);
 	return 1;
 }
 

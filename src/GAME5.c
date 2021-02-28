@@ -2320,7 +2320,7 @@ void nox_xxx_allocHitArray_5486D0() {
 	}
 	for (i = dword_5d4594_2491544; i; i = *(_DWORD*)(i + 4))
 		*getMemU32Ptr(0x5D4594, 2490520 + 4 * *(_DWORD*)(i + 24)) = 0;
-	nox_xxx_class_4144D0(v0);
+	nox_alloc_class_yyy_4144D0(v0);
 	dword_5d4594_2491544 = 0;
 }
 
