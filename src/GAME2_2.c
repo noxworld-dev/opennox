@@ -11,6 +11,8 @@
 
 #include "client__draw__drawwin.h"
 
+#include "client__video__draw_common.h"
+
 #include "mutexes.h"
 #include "input.h"
 #include "proto.h"
@@ -5650,7 +5652,7 @@ _WORD*  sub_480250(_BYTE* a1, _WORD* a2) {
 	return result;
 }
 
-unsigned int  sub_480290(__m64* a1, int a2, int a3, unsigned int* a4, unsigned int* a5) {
+unsigned int  sub_480290(void* a1, int a2, int a3, unsigned int* a4, unsigned int* a5) {
 	DebugBreak();
 	return 0;
 }
@@ -5864,7 +5866,7 @@ unsigned int  sub_480290(__m64 * a1, int a2, int a3, unsigned int* a4, unsigned 
 }
 #endif
 
-__int16  sub_4805A0(int a1, __m64* a2, int a3, unsigned int* a4, unsigned int* a5) {
+__int16  sub_4805A0(int a1, void* a2, int a3, unsigned int* a4, unsigned int* a5) {
 	DebugBreak();
 	return 0;
 }

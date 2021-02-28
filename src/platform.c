@@ -1,9 +1,10 @@
 //+build none
 
-#include "proto.h"
 #include <time.h>
 
 #include "platform.h"
+
+#include <SDL2/SDL.h>
 
 #ifdef __EMSCRIPTEN__
 #include <emscripten/emscripten.h>

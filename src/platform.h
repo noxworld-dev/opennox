@@ -1,8 +1,6 @@
 #ifndef NOX_PLATFORM_H
 #define NOX_PLATFORM_H
 
-#include <SDL2/SDL.h>
-
 int nox_platform_rand();
 void nox_platform_srand(unsigned int seed);
 void nox_platform_srand_time();

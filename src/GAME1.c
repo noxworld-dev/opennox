@@ -10,6 +10,7 @@
 #include "common__system__team.h"
 #include "common__xfer__savegame__xferplyr.h"
 
+#include "client__video__draw_common.h"
 #include "client__gui__servopts__playrlst.h"
 #include "client__gui__woldisc.h"
 #include "client__network__netclint.h"

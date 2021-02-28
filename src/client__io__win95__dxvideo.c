@@ -1,4 +1,5 @@
 #include "client__io__win95__dxvideo.h"
+#include "client__video__draw_common.h"
 
 #include "proto.h"
 

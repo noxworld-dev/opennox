@@ -66,11 +66,6 @@ int sub_401060();
 int  cmain(int argc, const char* argv[]);
 void  sub_401B20(char*);
 // int __stdcall WinMain(HINSTANCE hInstance, int, int, int); // idb
-#ifdef USE_SDL
-SDL_Window* nox_video_getWindow_401FD0();
-#else
-HWND nox_video_getWindow_401FD0();
-#endif // USE_SDL
 void  sub_401FE0(LPCSTR);
 // void  srand(unsigned int);
 // int  rand();
@@ -2746,9 +2741,7 @@ char  sub_4801B0(_BYTE* a2, _BYTE* a3);
 _WORD*  sub_4801E0(_BYTE* a1, _WORD* a2);
 _BYTE*  sub_480220(_BYTE*, _BYTE*);
 _WORD*  sub_480250(_BYTE* a1, _WORD* a2);
-unsigned int  sub_480290(__m64* a1, int a2, int a3, unsigned int* a4, unsigned int* a5);
-__int16  sub_4805A0(int a1, __m64* a2, int a3, unsigned int* a4, unsigned int* a5);
-__int16  sub_480700(int a1, __m64* a2, int a3, unsigned int* a4, unsigned int* a5);
+__int16  sub_4805A0(int a1, void* a2, int a3, unsigned int* a4, unsigned int* a5);
 void  sub_480860(WORD* a1, WORD* a2, int a3, int* a4, int* a5);
 int  sub_480950(int* a1, int* a2, int a3, int a4, int a5);
 void  sub_480BE0(_DWORD* a1, int* a2, int a3, int a4, int a5);
