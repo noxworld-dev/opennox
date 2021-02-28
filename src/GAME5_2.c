@@ -1904,7 +1904,7 @@ int  sub_555360(unsigned int a1, unsigned __int8 a2, int a3) {
 					ns->field_29 = *v7;
 				*(_DWORD*)v5 = **(_DWORD**)v5;
 				*(_DWORD*)v6 = 0;
-				nox_alloc_class_free_obj_414330(nox_alloc_gQueue_3844300, v6);
+				nox_alloc_class_free_obj(nox_alloc_gQueue_3844300, v6);
 				continue;
 			}
 		} else if (*(_BYTE*)(*(_DWORD*)v5 + 21) == a2) {
@@ -4921,8 +4921,8 @@ char* nox_xxx_allocGroupRelatedArrays_57BFB0() {
 //----- (0057C000) --------------------------------------------------------
 void sub_57C000() {
 	dword_5d4594_2523904 = 0;
-	nox_xxx_class_4144D0(*(_DWORD**)&nox_alloc_itemGroupElem_2523896);
-	nox_xxx_class_4144D0(*(_DWORD**)&nox_alloc_groupInfo_2523892);
+	nox_alloc_class_yyy_4144D0(*(_DWORD**)&nox_alloc_itemGroupElem_2523896);
+	nox_alloc_class_yyy_4144D0(*(_DWORD**)&nox_alloc_groupInfo_2523892);
 	dword_5d4594_2523900 = 0;
 }
 
@@ -5020,7 +5020,7 @@ int  sub_57C130(_DWORD* a1, int a2) {
 	if (result) {
 		if (v4 && v4 != 1 && v4 != 3) {
 			if (v4 != 2) {
-				nox_alloc_class_free_obj_414330(*(unsigned int**)&nox_alloc_itemGroupElem_2523896, (_QWORD*)result);
+				nox_alloc_class_free_obj(*(unsigned int**)&nox_alloc_itemGroupElem_2523896, (_QWORD*)result);
 				return 0;
 			}
 			*(_DWORD*)result = *a1;
@@ -5106,10 +5106,10 @@ void* sub_57C330() {
 void* sub_57C360() { return nox_alloc_class_new_obj_zero(*(_DWORD**)&nox_alloc_itemGroupElem_2523896); }
 
 //----- (0057C370) --------------------------------------------------------
-void  sub_57C370(_QWORD* a1) { nox_alloc_class_free_obj_414330(*(unsigned int**)&nox_alloc_groupInfo_2523892, a1); }
+void  sub_57C370(_QWORD* a1) { nox_alloc_class_free_obj(*(unsigned int**)&nox_alloc_groupInfo_2523892, a1); }
 
 //----- (0057C390) --------------------------------------------------------
-void  sub_57C390(_QWORD* a1) { nox_alloc_class_free_obj_414330(*(unsigned int**)&nox_alloc_itemGroupElem_2523896, a1); }
+void  sub_57C390(_QWORD* a1) { nox_alloc_class_free_obj(*(unsigned int**)&nox_alloc_itemGroupElem_2523896, a1); }
 
 //----- (0057C3B0) --------------------------------------------------------
 int  nox_server_addNewMapGroup_57C3B0(int a1) {
@@ -5146,7 +5146,7 @@ BOOL nox_xxx_allocDebugDataArray_57C410() {
 
 //----- (0057C440) --------------------------------------------------------
 void sub_57C440() {
-	nox_xxx_class_4144D0(*(_DWORD**)&nox_alloc_debugData_2523908);
+	nox_alloc_class_yyy_4144D0(*(_DWORD**)&nox_alloc_debugData_2523908);
 	dword_5d4594_2523912 = 0;
 }
 
@@ -5213,7 +5213,7 @@ void  sub_57C5A0(const char* a1) {
 		v3 = *(_DWORD*)(v1 + 336);
 		if (v3)
 			*(_DWORD*)(v3 + 340) = *(_DWORD*)(v1 + 340);
-		nox_alloc_class_free_obj_414330(*(unsigned int**)&nox_alloc_debugData_2523908, (_QWORD*)v1);
+		nox_alloc_class_free_obj(*(unsigned int**)&nox_alloc_debugData_2523908, (_QWORD*)v1);
 	}
 }
 
