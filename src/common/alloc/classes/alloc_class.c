@@ -5,9 +5,6 @@
 #include "alloc_class.h"
 #include "../../platform/platform.h"
 
-unsigned int dword_5d4594_252276 = 0;
-unsigned int dword_5d4594_338300 = 0;
-
 //----- (00414130) --------------------------------------------------------
 void  nox_free_alloc_class_f30(nox_alloc_class* p) {
 	if (!p)
@@ -194,33 +191,32 @@ void*  nox_alloc_class_new_obj_zero(nox_alloc_class* al) {
 
 //----- (004144D0) --------------------------------------------------------
 void  nox_alloc_class_yyy_4144D0(nox_alloc_class* al) {
-	unsigned int* a1 = al;
-	int v1; // edx
-	int v2; // eax
+	if (!al)
+		return;
 
-	if (a1) {
-		if (a1[30])
-			nox_free_alloc_class_f30(a1);
-		dword_5d4594_252276 = a1[28];
-		v1 = dword_5d4594_252276;
-		if (dword_5d4594_252276) {
-			do {
-				dword_5d4594_338300 = *(unsigned int*)(v1 + 8);
-				memset((void*)(v1 + 16), 0xACu, a1[22]);
-				v2 = a1[24];
-				if (!v2)
-					a1[25] = dword_5d4594_252276;
-				*(unsigned int*)(dword_5d4594_252276 + 8) = v2;
-				a1[24] = dword_5d4594_252276;
-				v1 = dword_5d4594_338300;
-				dword_5d4594_252276 = dword_5d4594_338300;
-			} while (dword_5d4594_338300);
-		}
-		a1[28] = 0;
-		a1[26] = 0;
-		a1[27] = 0;
-		a1[35] = 0;
+	if (al->field_30)
+		nox_free_alloc_class_f30(al);
+
+	if (al->field_28) {
+		int g1 = al->field_28;
+		int v1 = g1;
+		int g2 = 0;
+		do {
+			g2 = *(unsigned int*)(v1 + 8);
+			memset((void*)(v1 + 16), 0xAC, al->size);
+			int v2 = al->field_24;
+			if (!v2)
+				al->field_25 = g1;
+			*(unsigned int*)(g1 + 8) = v2;
+			al->field_24 = g1;
+			v1 = g2;
+			g1 = g2;
+		} while (g2);
 	}
+	al->field_26 = 0;
+	al->field_27 = 0;
+	al->field_28 = 0;
+	al->field_35 = 0;
 }
 
 //----- (004143D0) --------------------------------------------------------
