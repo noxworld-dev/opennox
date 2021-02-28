@@ -69,7 +69,7 @@ extern _DWORD dword_5d4594_1301776;
 extern _DWORD dword_5d4594_1197316;
 extern _DWORD dword_5d4594_3798720;
 extern _DWORD dword_5d4594_1217460;
-extern _DWORD dword_5d4594_3801804;
+extern _DWORD cpuid_5d4594_3801804;
 extern void* nox_alloc_pixelSpan_1301844;
 extern _DWORD dword_5d4594_1197320;
 extern _DWORD nox_xxx_connresult_587000_166704;
@@ -6661,7 +6661,7 @@ int nox_video_initRectDrawingFuncs_49CB50() {
 	if (dword_5d4594_3801780 != 1)
 		return 1;
 	*getMemU32Ptr(0x5D4594, 1305704) = nox_xxx_draw_49D270_MBRect_49D270; // alpha filled
-	if (dword_5d4594_3801804) {
+	if (cpuid_5d4594_3801804) {
 		*getMemU32Ptr(0x5D4594, 1305692) = sub_49D540;
 		dword_5d4594_1305712 = sub_49D770;
 		dword_5d4594_1305720 = sub_49D770;
@@ -8032,7 +8032,7 @@ int nox_video_initLineDrawingFuncs_49E3F0() {
 		return 1;
 	dword_5d4594_3798720 = sub_49F180;
 	dword_5d4594_3798708 = sub_49F210;
-	if (!dword_5d4594_3801804)
+	if (!cpuid_5d4594_3801804)
 		dword_5d4594_3798708 = sub_49F180;
 	dword_5d4594_3798712 = sub_49F420;
 	dword_5d4594_3798716 = sub_49E930;

@@ -106,7 +106,7 @@ extern _DWORD dword_5d4594_787208;
 extern _DWORD dword_5d4594_815088;
 extern void* dword_587000_127004;
 extern _DWORD dword_5d4594_814624;
-extern _DWORD dword_5d4594_3801804;
+extern _DWORD cpuid_5d4594_3801804;
 extern _DWORD dword_5d4594_528256;
 extern _DWORD dword_5d4594_3798816;
 extern _DWORD nox_client_highResFloors_154952;
@@ -7115,7 +7115,7 @@ int  nox_xxx_drawMakeRGB_433F10(unsigned __int8 a1, unsigned __int8 a2, unsigned
 	ptr_5D4594_3799572->data[54] = a1;
 	ptr_5D4594_3799572->data[55] = a2;
 	ptr_5D4594_3799572->data[56] = a3;
-	if (dword_5d4594_3801804) {
+	if (cpuid_5d4594_3801804) {
 		v4 = a1 | (a1 << 16);
 		HIDWORD(v4) = 0;
 		v4 <<= 16;
