@@ -195,7 +195,6 @@ int cmain(int argc, const char* argv[]) {
 
 	// v24 = 0;
 	// v27 = 0;
-	nox_init_ticks_func();
 	*getMemU32Ptr(0x5D4594, 2650640) = 0;
 	*getMemU32Ptr(0x5D4594, 2618916) = 0;
 	nox_gameDisableMapDraw_5d4594_2650672 = 0;
@@ -220,7 +219,6 @@ int cmain(int argc, const char* argv[]) {
 		} else if (!_strcmpi(flag, "-serveronly")) {
 			nox_enable_audio = 0;
 			nox_common_setEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING | NOX_ENGINE_FLAG_31);
-			nox_init_ticks_func();
 		} else if (!_strcmpi(flag, "-sleep")) {
 			nox_common_setEngineFlag(NOX_ENGINE_FLAG_31);
 		} else if (!_strcmpi(flag, "-drop")) {
@@ -1294,7 +1292,7 @@ BOOL sub_40A1A0() {
 
 	v0 = nox_common_gameFlags_getVal_40A5B0();
 	return (sub_40A180(v0) || dword_5d4594_3592) && *getMemU32Ptr(0x587000, 4660) &&
-		   (unsigned __int64)nox_call_get_ticks() > *getMemU64Ptr(0x5D4594, 3468);
+		   (unsigned __int64)nox_platform_get_ticks() > *getMemU64Ptr(0x5D4594, 3468);
 }
 
 //----- (0040A1F0) --------------------------------------------------------
@@ -1312,7 +1310,7 @@ int  sub_40A1F0(int a1) {
 int sub_40A220() { return *getMemU32Ptr(0x587000, 4660); }
 
 //----- (0040A230) --------------------------------------------------------
-int sub_40A230() { return *getMemU32Ptr(0x5D4594, 3468) - (unsigned __int64)nox_call_get_ticks(); }
+int sub_40A230() { return *getMemU32Ptr(0x5D4594, 3468) - (unsigned __int64)nox_platform_get_ticks(); }
 
 //----- (0040A250) --------------------------------------------------------
 __int64 sub_40A250() {
@@ -1323,7 +1321,7 @@ __int64 sub_40A250() {
 
 	v0 = nox_common_gameFlags_getVal_40A5B0();
 	v1 = sub_409A70(v0);
-	v2 = nox_call_get_ticks();
+	v2 = nox_platform_get_ticks();
 	result = 60000 * getMemByte(0x5D4594, v1 + 3500);
 	*getMemU64Ptr(0x5D4594, 3468) = result + v2;
 	return result;
@@ -1333,7 +1331,7 @@ __int64 sub_40A250() {
 const char*  nox_xxx_servStartCountdown_40A2A0(int a1, const char* a2) {
 	const char* result; // eax
 
-	*getMemU64Ptr(0x5D4594, 3468) = 1000 * a1 + nox_call_get_ticks();
+	*getMemU64Ptr(0x5D4594, 3468) = 1000 * a1 + nox_platform_get_ticks();
 	sub_40A1F0(1);
 	result = a2;
 	if (a2)
@@ -1350,7 +1348,7 @@ __int64  sub_40A310(int a1) {
 	__int64 v1;     // kr00_8
 	__int64 result; // rax
 
-	v1 = nox_call_get_ticks();
+	v1 = nox_platform_get_ticks();
 	result = a1;
 	*getMemU64Ptr(0x5D4594, 3468) = a1 + v1;
 	return result;
@@ -7788,7 +7786,7 @@ void* nox_alloc_class_new_obj(nox_alloc_class* al) {
 	}
 	al->field_28 = v2;
 	int v20 = v2 + 16;
-	unsigned __int64 ticks = nox_call_get_ticks();
+	unsigned __int64 ticks = nox_platform_get_ticks();
 	if (ticks != al->ticks) {
 		_DWORD* v12 = (_DWORD*)al->field_26;
 		if (v12) {
@@ -7851,7 +7849,7 @@ void  nox_xxx_memDeleteAdv_414330(unsigned int* a1, nox_drawable* dr) {
 			*((_DWORD*)v2 + 3) = 0;
 			*((_DWORD*)v2 + 2) = v4;
 			a1[26] = (unsigned int)v2;
-			*v2 = nox_call_get_ticks() + 10000;
+			*v2 = nox_platform_get_ticks() + 10000;
 		} else {
 			if (!a1[25])
 				a1[25] = (unsigned int)v2;
@@ -7906,7 +7904,7 @@ void  sub_414400(unsigned int* a1, _QWORD* a2) {
 			if (v4)
 				*(_DWORD*)(v4 + 8) = v2;
 			a1[27] = (unsigned int)v2;
-			*v2 = nox_call_get_ticks() + 10000;
+			*v2 = nox_platform_get_ticks() + 10000;
 		} else {
 			if (!a1[24])
 				a1[24] = (unsigned int)v2;
@@ -9501,7 +9499,7 @@ void sub_416720() {
 	while (v2) {
 		int* v3 = sub_416910((int*)v2);
 		if (*(_DWORD*)(v2 + 68) || (*(_DWORD*)(v2 + 64))) {
-			if (nox_call_get_ticks() > *(_QWORD*)(v2 + 64)) {
+			if (nox_platform_get_ticks() > *(_QWORD*)(v2 + 64)) {
 				sub_416820(v0);
 			}
 		}
@@ -9523,7 +9521,7 @@ int*  sub_416770(int a1, wchar_t* a2, const char* a3) {
 		*((_BYTE*)v3 + 72) = 0;
 	sub_4258E0((int)getMemAt(0x5D4594, 371500), v3);
 	if (a1) {
-		*((_QWORD*)v3 + 8) = 60000 * a1 + nox_call_get_ticks();
+		*((_QWORD*)v3 + 8) = 60000 * a1 + nox_platform_get_ticks();
 	} else {
 		v3[16] = 0;
 		v3[17] = 0;
@@ -9688,62 +9686,7 @@ BOOL nox_check_tick_flags() {
 			!nox_get_audio_enabled();
 }
 
-//----- (00416BC0) --------------------------------------------------------
-unsigned __int64 nox_tick_freq = 0;
-__int64 nox_get_ticks_freq() {
-	LARGE_INTEGER cnt;
-	QueryPerformanceCounter(&cnt);
-	return cnt.QuadPart / nox_tick_freq;
-}
-
-
-//----- (00416B20) --------------------------------------------------------
 #ifndef NOX_CGO
-__int64 nox_get_ticks() { return nox_platform_get_ticks(); }
-
-__int64 (*nox_get_ticks_func)(void) = 0;
-__int64 nox_call_get_ticks() {
-	return nox_get_ticks_func();
-}
-void nox_init_ticks_func() {
-#ifdef USE_SDL
-	nox_get_ticks_func = nox_get_ticks;
-#else
-	LARGE_INTEGER freq;
-	if (nox_check_tick_flags() && QueryPerformanceFrequency(&freq)) {
-		nox_tick_freq = freq.QuadPart / 1000;
-		nox_get_ticks_func = nox_get_ticks_freq;
-	} else {
-		nox_get_ticks_func = nox_get_ticks_fallback;
-	}
-#endif
-}
-
-//----- (00416BF0) --------------------------------------------------------
-__int64 nox_get_ticks_fallback() {
-	int v0;   // esi
-	int v1;   // edi
-	DWORD i;  // ebx
-	DWORD v3; // eax
-
-	v0 = ++dword_5d4594_371756;
-	v1 = *getMemU32Ptr(0x587000, 54420);
-	for (i = *getMemU32Ptr(0x587000, 54416); dword_5d4594_371756 != dword_5d4594_371756; v0 = dword_5d4594_371756) {
-		;
-	}
-	while (1) {
-		v3 = nox_platform_get_ticks();
-		if (v3 < i)
-			++v1;
-		*getMemU32Ptr(0x587000, 54420) = v1;
-		*getMemU32Ptr(0x587000, 54416) = v3;
-		if (v0 == dword_5d4594_371756)
-			break;
-		v0 = dword_5d4594_371756;
-	}
-	return *getMemU64Ptr(0x587000, 54416);
-}
-
 //----- (00416C70) --------------------------------------------------------
 unsigned __int64 nox_framerate_cur_ticks = 0;
 unsigned __int64 nox_framerate_next_ticks = 0;
@@ -9755,20 +9698,20 @@ void nox_framerate_limit_416C70(int fps) {
 	} else {
 		nox_framerate_step_ticks = 0;
 	}
-	__int64 ticks = nox_call_get_ticks();
+	__int64 ticks = nox_platform_get_ticks();
 	nox_framerate_cur_ticks = ticks;
 	nox_framerate_next_ticks = nox_framerate_step_ticks + ticks;
 }
 
 //----- (00416CD0) --------------------------------------------------------
 bool nox_ticks_should_update_416CD0() {
-	nox_framerate_cur_ticks = nox_call_get_ticks();
+	nox_framerate_cur_ticks = nox_platform_get_ticks();
 	return nox_framerate_cur_ticks >= nox_framerate_next_ticks;
 }
 
 //----- (00416D00) --------------------------------------------------------
 __int64 nox_ticks_until_next_416D00() {
-	__int64 diff = nox_framerate_next_ticks - (unsigned __int64)nox_call_get_ticks();
+	__int64 diff = nox_framerate_next_ticks - (unsigned __int64)nox_platform_get_ticks();
 	if (diff < 0 || (unsigned __int64)diff > nox_framerate_next_ticks)
 		return 0;
 	return diff;
@@ -9776,7 +9719,7 @@ __int64 nox_ticks_until_next_416D00() {
 
 //----- (00416D40) --------------------------------------------------------
 void nox_ticks_xxx_416D40() {
-	*getMemU64Ptr(0x5D4594, 371764) = nox_call_get_ticks();
+	*getMemU64Ptr(0x5D4594, 371764) = nox_platform_get_ticks();
 	*getMemU32Ptr(0x5D4594, 371772) = *getMemU32Ptr(0x5D4594, 2598000);
 
 	nox_common_resetEngineFlag(NOX_ENGINE_FLAG_32);
@@ -9788,14 +9731,14 @@ bool sub_416D70() {
 
 	v2 = (double)(unsigned int)(*getMemU32Ptr(0x5D4594, 2598000) - *getMemU32Ptr(0x5D4594, 371772)) *
 		 *getMemFloatPtr(0x587000, 54424);
-	return (double)(int)((unsigned __int64)nox_call_get_ticks() - *getMemU32Ptr(0x5D4594, 371764)) * 0.001 <= v2;
+	return (double)(int)((unsigned __int64)nox_platform_get_ticks() - *getMemU32Ptr(0x5D4594, 371764)) * 0.001 <= v2;
 }
 
 //----- (00416DD0) --------------------------------------------------------
 void nox_ticks_maybe_sleep_416DD0() {
 	int v1 = (__int64)((double)(unsigned int)(*getMemU32Ptr(0x5D4594, 2598000) - *getMemU32Ptr(0x5D4594, 371772)) *
 					   *getMemFloatPtr(0x587000, 54428));
-	int ms = v1 + *getMemU32Ptr(0x5D4594, 371764) - (unsigned __int64)nox_call_get_ticks();
+	int ms = v1 + *getMemU32Ptr(0x5D4594, 371764) - (unsigned __int64)nox_platform_get_ticks();
 	if (ms > 0)
 		nox_platform_sleep(ms);
 }
@@ -10620,7 +10563,7 @@ int  sub_417F50(int a1) {
 	if (!v6)
 		return 0;
 	v8 = v6[187];
-	*(_QWORD*)(v8 + 8) = nox_call_get_ticks();
+	*(_QWORD*)(v8 + 8) = nox_platform_get_ticks();
 	v10 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 55236));
 	*(_DWORD*)(v8 + 20) = nox_float2int(v10);
 	*(float*)(v8 + 24) = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 55260));

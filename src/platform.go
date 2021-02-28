@@ -50,11 +50,6 @@ func nox_platform_sleep(ms C.uint) {
 	platform.Sleep(time.Duration(ms) * time.Millisecond)
 }
 
-//export nox_call_get_ticks
-func nox_call_get_ticks() int64 {
-	return int64(platformTicks())
-}
-
 //export nox_framerate_limit_416C70
 func nox_framerate_limit_416C70(fps C.int) {
 	if fps != 0 {

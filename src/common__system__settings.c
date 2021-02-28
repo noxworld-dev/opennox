@@ -60,6 +60,6 @@ void  sub_40A040_settings(__int16 a1, unsigned __int8 a2) {
 		}
 	}
 	*getMemU8Ptr( 0x5D4594, v2 + 3500) = a2;
-	*getMemU64Ptr(0x5D4594, 3468) = 60000 * a2 + nox_call_get_ticks();
+	*getMemU64Ptr(0x5D4594, 3468) = 60000 * a2 + nox_platform_get_ticks();
 }
 // 40A0D1: variable 'v4' is possibly undefined

@@ -3934,7 +3934,7 @@ int nox_xxx_keyCanPauseMode_42D4B0(nox_ctrlevent_code code) {
 
 //----- (0042D510) --------------------------------------------------------
 void nox_xxx_netBuf_42D510() {
-	__int64 ticks = nox_call_get_ticks();
+	__int64 ticks = nox_platform_get_ticks();
 	*getMemU32Ptr(0x5D4594, 747864) = 0;
 	if (nox_common_gameFlags_check_40A5C0(1)) {
 		if (dword_5d4594_754040 != dword_5d4594_754036) {
@@ -5440,7 +5440,7 @@ void sub_4312C0() {
 		return;
 	}
 	dword_5d4594_805988 = 1;
-	__int64 v1 = nox_call_get_ticks();
+	__int64 v1 = nox_platform_get_ticks();
 	__int64 v3 = v1 - *getMemU64Ptr(0x5D4594, 805996);
 	if (v3 > 33) {
 		sub_44D3A0();
@@ -7656,7 +7656,7 @@ void  sub_435280(__int16 a1, _BYTE* a2, _BYTE* a3, _BYTE* a4) {
 __int64 nox_xxx_initTime_435570() {
 	__int64 result; // rax
 
-	result = nox_call_get_ticks();
+	result = nox_platform_get_ticks();
 	*getMemU64Ptr(0x5D4594, 811908) = result;
 	return result;
 }
@@ -8446,7 +8446,7 @@ int nox_client_joinGame_438A90() {
 		buf[98] = !nox_xxx_checkHasSoloMaps_40ABD0();
 
 		sub_43AF90(3);
-		*(_QWORD*)&qword_5d4594_814956 = nox_call_get_ticks() + 20000;
+		*(_QWORD*)&qword_5d4594_814956 = nox_platform_get_ticks() + 20000;
 
 		uint16_t port = nox_client_getServerPort_43B320();
 		unsigned int addr = nox_client_getServerAddr_43B300();

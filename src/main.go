@@ -174,8 +174,6 @@ func runNox(args []string) error {
 		*memmap.PtrUint32(0x5D4594, 805864) = 1
 	}
 
-	// static, don't need this
-	//C.nox_init_ticks_func()
 	*memmap.PtrUint32(0x5D4594, 2650640) = 0
 	*memmap.PtrUint32(0x5D4594, 2618916) = 0
 	C.nox_gameDisableMapDraw_5d4594_2650672 = 0
@@ -199,8 +197,6 @@ func runNox(args []string) error {
 	if *fServer {
 		C.nox_enable_audio = 0
 		setEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING | NOX_ENGINE_FLAG_31)
-		// static, don't need this
-		//C.nox_init_ticks_func()
 	}
 	if *fSleep {
 		setEngineFlag(NOX_ENGINE_FLAG_31)

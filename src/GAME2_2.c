@@ -9904,7 +9904,7 @@ int sub_486230() {
 //----- (004862E0) --------------------------------------------------------
 int  sub_4862E0(int a3, int a4) {
 	*(_DWORD*)a3 = 0;
-	*(_QWORD*)(a3 + 24) = nox_call_get_ticks();
+	*(_QWORD*)(a3 + 24) = nox_platform_get_ticks();
 	sub_486380((_DWORD*)a3, 0x3E8u, 0, 0x4000);
 	sub_486320((_DWORD*)a3, a4);
 	return sub_4863B0((unsigned int*)a3);
@@ -9938,7 +9938,7 @@ int  sub_486350(int a1, int a2) {
 	v3 = *(_DWORD*)(a1 + 4);
 	*(_DWORD*)a1 &= 0xFFFFFFFE;
 	if ((_DWORD)v2 == v3) {
-		v2 = nox_call_get_ticks();
+		v2 = nox_platform_get_ticks();
 		*(_QWORD*)(a1 + 24) = v2;
 	}
 	*(_DWORD*)(a1 + 8) = a2 << 16;
@@ -9984,7 +9984,7 @@ int  sub_4863B0(unsigned int* a2) {
 		*a2 = v2;
 		result = 1;
 	} else {
-		v4 = nox_call_get_ticks();
+		v4 = nox_platform_get_ticks();
 		v5 = a2[6];
 		v6 = a2[7];
 		v7 = v4;
@@ -10714,7 +10714,7 @@ int  sub_4873C0(int a3) {
 	v1 = a3;
 	if (*(_DWORD*)(a3 + 212))
 		return -2146304000;
-	v3 = nox_call_get_ticks();
+	v3 = nox_platform_get_ticks();
 	v4 = *(_DWORD*)(a3 + 248);
 	v5 = v3;
 	v6 = (unsigned int)v3 < v4;

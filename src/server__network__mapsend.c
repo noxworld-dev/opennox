@@ -70,7 +70,7 @@ void  nox_xxx_netSendMap_5199F0_net_mapsend(unsigned __int8* a1) {
 			if (v8 < v7) {
 				*((_WORD*)a1 + 1) = 1;
 			} else {
-				v9 = (nox_call_get_ticks() - *((_QWORD*)a1 + 5)) / (unsigned __int64)1000;
+				v9 = (nox_platform_get_ticks() - *((_QWORD*)a1 + 5)) / (unsigned __int64)1000;
 				if (v9)
 					v10 = *((_DWORD*)a1 + 3) / v9;
 				else
@@ -144,7 +144,7 @@ char*  nox_xxx_netMapSend_519D20(int a1) {
 		*((_DWORD*)v1 + 4) = 1;
 		*((_WORD*)v1 + 10) = 512;
 		*((_DWORD*)v1 + 3) = *getMemU32Ptr(0x5D4594, 2388644);
-		*((_QWORD*)v1 + 5) = nox_call_get_ticks();
+		*((_QWORD*)v1 + 5) = nox_platform_get_ticks();
 		result = nox_common_playerInfoFromNum_417090(a1);
 	}
 	return result;

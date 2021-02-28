@@ -2364,7 +2364,7 @@ int  sub_4D39F0(const char* a3) {
 	int result;           // eax
 	char v18[2048];       // [esp+10h] [ebp-800h]
 
-	*getMemU64Ptr(0x5D4594, 1549772) = nox_call_get_ticks();
+	*getMemU64Ptr(0x5D4594, 1549772) = nox_platform_get_ticks();
 	memset(getMemAt(0x5D4594, 3835340), 0, 0x48u);
 	*getMemU32Ptr(0x5D4594, 3835340) = 0;
 	*getMemU32Ptr(0x5D4594, 3835340 + 4) = 0;
@@ -2450,7 +2450,7 @@ __int64 sub_4D3C30() {
 	nox_xxx_free_503F40();
 	sub_51D0E0();
 	sub_502DF0();
-	return nox_call_get_ticks();
+	return nox_platform_get_ticks();
 }
 
 //----- (004D3C50) --------------------------------------------------------
@@ -5265,7 +5265,7 @@ int sub_4D7CC0() {
 	_DWORD* v6; // edi
 	int v7;     // eax
 
-	nox_call_get_ticks();
+	nox_platform_get_ticks();
 	result = sub_409F40(0x2000);
 	if (result) {
 		if ((unsigned int)(*getMemU32Ptr(0x5D4594, 2598000) - dword_5d4594_1556316) > *getMemIntPtr(0x5D4594, 1556312)) {
