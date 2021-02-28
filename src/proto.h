@@ -649,7 +649,6 @@ int  nox_xxx_cliSetSettingsAcquired_4169D0(int a1);
 char* sub_4169E0();
 char* sub_4169F0();
 unsigned int sub_416A00();
-int nox_xxx_createMutexCheck_416A10();
 void nox_init_ticks_func();
 __int64 nox_call_get_ticks();
 __int64 nox_get_ticks_freq();
