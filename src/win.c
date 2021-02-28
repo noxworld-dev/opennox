@@ -6,6 +6,8 @@
 #include "proto.h"
 
 #ifdef USE_SDL
+#include <SDL2/SDL.h>
+
 SDL_Window* g_window;
 #else
 WNDCLASSEXA g_wnd_class;

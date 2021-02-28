@@ -12,6 +12,8 @@
 #include "input.h"
 #include "ConvertUTF.h"
 
+#include "client__video__draw_common.h" // for nox_video_getWindow_401FD0
+
 #include "proto.h"
 
 float input_sensitivity = 1.0;

@@ -4,6 +4,7 @@
 #include "client__gui__guimsg.h"
 
 #include "client__shell__noxworld.h"
+#include <SDL2/SDL.h>
 
 extern int nox_win_width_1;
 extern int nox_win_height_1;

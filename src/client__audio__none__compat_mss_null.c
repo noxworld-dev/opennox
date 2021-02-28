@@ -1,5 +1,4 @@
 #include "defs.h"
-#include <SDL2/SDL.h>
 
 struct _SAMPLE {
 	int h;

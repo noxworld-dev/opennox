@@ -27,7 +27,6 @@
 #define NOX_CLIENT_VERS_CODE 0x0001039A
 
 #define USE_SDL 1
-#include <SDL2/SDL.h>
 
 #include "memmap.h"
 #include "platform.h"
@@ -73,10 +72,6 @@ typedef unsigned char _BYTE;
 typedef unsigned short _WORD;
 typedef unsigned int _DWORD;
 typedef unsigned __int64 _QWORD;
-
-#if !defined(__MMINTRIN_H) && !defined(_MMINTRIN_H_INCLUDED)
-typedef struct __m64 __m64;
-#endif
 
 #undef LOBYTE
 #undef HIBYTE

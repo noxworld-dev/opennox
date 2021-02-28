@@ -13,6 +13,8 @@
 
 #include "proto.h"
 
+#include <SDL2/SDL.h>
+
 extern unsigned char byte_581450_9176[160];
 extern unsigned char byte_581450_9336[160];
 
@@ -135,5 +137,11 @@ enum {
 	DDSCAPS_VIDEOMEMORY = 4,
 	DDSCAPS_PRIMARYSURFACE = 8,
 };
+
+#ifdef USE_SDL
+SDL_Window* nox_video_getWindow_401FD0();
+#else
+HWND nox_video_getWindow_401FD0();
+#endif // USE_SDL
 
 #endif
