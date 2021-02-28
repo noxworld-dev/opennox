@@ -13,7 +13,9 @@
 #include <dirent.h>
 #include <errno.h>
 
+#ifndef NOX_CGO
 #include <SDL2/SDL_stdinc.h>
+#endif // NOX_CGO
 
 #ifdef __EMSCRIPTEN__
 #include <emscripten/emscripten.h>
@@ -138,9 +140,24 @@ char* _strrev(char* str) {
 	return str;
 }
 
-char* _itoa(int val, char* s, int radix) { return SDL_itoa(val, s, radix); }
+#ifndef NOX_CGO
+char* _itoa(int val, char* s, int radix) {
+	return SDL_itoa(val, s, radix);
+}
 
-char* _utoa(unsigned int val, char* s, int radix) { return SDL_uitoa(val, s, radix); }
+char* _utoa(unsigned int val, char* s, int radix) {
+	return SDL_uitoa(val, s, radix);
+}
+#else // NOX_CGO
+char* nox_itoa(int val, char* s, int radix);
+char* nox_utoa(int val, char* s, int radix);
+char* _itoa(int val, char* s, int radix) {
+	return nox_itoa(val, s, radix);
+}
+char* _utoa(unsigned int val, char* s, int radix) {
+	return nox_utoa(val, s, radix);
+}
+#endif // NOX_CGO
 
 wchar_t* _itow(int val, wchar_t* s, int radix) {
 	char tmp[32];
