@@ -208,18 +208,6 @@ int cmain(int argc, const char* argv[]) {
 	nox_gameFPS = 30; // gameFPS
 	*getMemU32Ptr(0x5D4594, 2598000) = v2;
 	nox_ticks_xxx_416D40();
-	bool isServer = 0;
-	for (int i = 0; i < argc; i++) {
-		if (!_strcmpi(argv[i], "-serveronly")) {
-			isServer = 1;
-			break;
-		}
-	}
-	if (!isServer) {
-		result = nox_xxx_createMutexCheck_416A10();
-		if (!result)
-			return 0;
-	}
 	nox_xxx_setGameState_43DDF0(0);
 	nox_game_SetCliDrawFunc(0);
 	sub_43DE40(0);

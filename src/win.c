@@ -126,10 +126,3 @@ void nox_xxx_showWindow_47D8A0() {
 BOOL  sub_4147E0(HWND hWnd) {
 	return 0;
 }
-
-// 4514E0: using guessed type void  nullsub_4(_DWORD, _DWORD, _DWORD, _DWORD);
-
-//----- (00416A10) --------------------------------------------------------
-int nox_xxx_createMutexCheck_416A10() {
-	return 1;
-}

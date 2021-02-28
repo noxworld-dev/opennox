@@ -188,12 +188,6 @@ func runNox(args []string) error {
 	C.nox_gameFPS = 30
 	*memmap.PtrUint32(0x5D4594, 2598000) = uint32(bool2int(v2))
 	nox_ticks_xxx_416D40()
-	// does nothing on SDL
-	//if !*fServer {
-	//	if C.nox_xxx_createMutexCheck_416A10() == 0 {
-	//		return errors.New("create mutex failed")
-	//	}
-	//}
 	C.nox_xxx_setGameState_43DDF0(nil)
 	C.nox_game_SetCliDrawFunc(nil)
 	C.sub_43DE40(nil)
