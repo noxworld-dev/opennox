@@ -1,7 +1,6 @@
 #include "client__shell__mainmenu.h"
 
 #include "common__random.h"
-#include "proto.h"
 #include "client__shell__noxworld.h"
 #include "client__shell__selchar.h"
 #include "client__shell__optsback.h"
@@ -26,7 +25,7 @@ int sub_4A1D40() {
 
 //----- (004A2500) --------------------------------------------------------
 int sub_4A2500() {
-	sub_43DDE0(1);
+	nox_xxx_setFrameLimit_43DDE0(1);
 	nox_window_set_hidden(nox_win_main_bg, 0);
 	nox_window_set_hidden(nox_win_main_menu, 0);
 	return sub_4A24F0();
@@ -34,7 +33,7 @@ int sub_4A2500() {
 
 //----- (004A2530) --------------------------------------------------------
 int sub_4A2530() {
-	sub_43DDE0(0);
+	nox_xxx_setFrameLimit_43DDE0(0);
 	nox_window_set_hidden(nox_win_main_bg, 1);
 	return nox_window_set_hidden(nox_win_main_menu, 1);
 }

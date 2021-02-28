@@ -191,7 +191,7 @@ func runNox(args []string) error {
 	C.sub_43DE40(nil)
 	setGameFlag(256)
 	if *fNoLimit {
-		C.sub_43DDE0(0)
+		C.nox_xxx_setFrameLimit_43DDE0(0)
 		*memmap.PtrUint32(0x587000, 84) = 0
 	}
 	if *fServer {
