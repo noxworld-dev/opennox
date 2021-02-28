@@ -1,9 +1,11 @@
 #include "client__shell__mainmenu.h"
+#include "client__gui__window.h"
 
 #include "common__random.h"
 #include "client__shell__noxworld.h"
 #include "client__shell__selchar.h"
 #include "client__shell__optsback.h"
+#include "proto.h"
 
 extern _DWORD dword_5d4594_815132;
 

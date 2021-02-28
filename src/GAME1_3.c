@@ -12,6 +12,7 @@
 #include "client__system__parsecmd.h"
 
 #include "client__gui__guiquit.h"
+#include "client__gui__window.h"
 #include "client__network__cdecode.h"
 #include "client__shell__noxworld.h"
 #include "client__shell__selchar.h"
@@ -1741,7 +1742,7 @@ int map_download_loop(int first) {
 	if (!nox_xxx_gameDownloadInProgress_587000_173328)
 		return map_download_finish();
 
-	mainloop_draw();
+	nox_gui_draw();
 	nox_client_drawCursorAndTooltips_477830();
 	nox_xxx_directDrawBlitMB_48A220();
 	sub_4AD170_call_copy_backbuffer();

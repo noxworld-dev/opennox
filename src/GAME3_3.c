@@ -913,7 +913,7 @@ int  nox_xxx_allocClassArrayObjects_4E3360(unsigned int a1) {
 						v5 = v1;
 						v1 = (_DWORD*)v1[111];
 						v6 = v5[9];
-						nox_xxx_memDeleteAdv_414330(*(unsigned int**)&nox_alloc_objMem_1563344, v5);
+						nox_alloc_class_free_obj_414330(*(unsigned int**)&nox_alloc_objMem_1563344, v5);
 						v5[9] = v6;
 					} while (v1);
 					result = nox_alloc_objMem_1563344;
@@ -924,7 +924,7 @@ int  nox_xxx_allocClassArrayObjects_4E3360(unsigned int a1) {
 			while (v1) {
 				v7 = v1;
 				v1 = (_DWORD*)v1[111];
-				nox_xxx_memDeleteAdv_414330(*(unsigned int**)&nox_alloc_objMem_1563344, v7);
+				nox_alloc_class_free_obj_414330(*(unsigned int**)&nox_alloc_objMem_1563344, v7);
 			}
 			result = 0;
 		} else {
@@ -2228,7 +2228,7 @@ void  sub_4E4FC0(int a1) {
 		*(_DWORD*)(v2 + 412) = *(_DWORD*)(a1 + 412);
 	else
 		dword_5d4594_1565516 = *(_DWORD*)(a1 + 412);
-	nox_xxx_memDeleteAdv_414330(*(unsigned int**)getMemAt(0x5D4594, 1565508), (_QWORD*)a1);
+	nox_alloc_class_free_obj_414330(*(unsigned int**)getMemAt(0x5D4594, 1565508), (_QWORD*)a1);
 }
 
 //----- (004E5030) --------------------------------------------------------
@@ -7422,7 +7422,7 @@ void  sub_4EC6A0(int a1) {
 		v3 = *(_DWORD*)(v1 + 52);
 		if (v3)
 			*(_DWORD*)(v3 + 56) = 0;
-		nox_xxx_memDeleteAdv_414330(*(unsigned int**)&nox_alloc_respawn_1568020, v2);
+		nox_alloc_class_free_obj_414330(*(unsigned int**)&nox_alloc_respawn_1568020, v2);
 	} else if (dword_5d4594_1568024) {
 		while (*(_DWORD*)(v1 + 4) != a1) {
 			v1 = *(_DWORD*)(v1 + 52);
@@ -7435,7 +7435,7 @@ void  sub_4EC6A0(int a1) {
 		v5 = *(_DWORD*)(v1 + 52);
 		if (v5)
 			*(_DWORD*)(v5 + 56) = *(_DWORD*)(v1 + 56);
-		nox_xxx_memDeleteAdv_414330(*(unsigned int**)&nox_alloc_respawn_1568020, (_QWORD*)v1);
+		nox_alloc_class_free_obj_414330(*(unsigned int**)&nox_alloc_respawn_1568020, (_QWORD*)v1);
 	}
 }
 

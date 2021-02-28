@@ -2,6 +2,7 @@
 #include "proto.h"
 #include "client__system__parsecmd.h"
 #include "client__system__ctrlevnt.h"
+#include "client__gui__window.h"
 
 extern _DWORD dword_5d4594_754056;
 extern _DWORD dword_5d4594_1193132;

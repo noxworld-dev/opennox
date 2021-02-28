@@ -1253,7 +1253,7 @@ void nox_xxx_abilUpdateMB_4FBEE0() {
 		} else {
 			*getMemU32Ptr(0x5D4594, 1569648)  = p[4];
 		}
-		nox_xxx_memDeleteAdv_414330(*(unsigned int**)&nox_alloc_execAbil_1569644, p);
+		nox_alloc_class_free_obj_414330(*(unsigned int**)&nox_alloc_execAbil_1569644, p);
 	}
 }
 

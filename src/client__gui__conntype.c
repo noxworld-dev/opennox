@@ -2,6 +2,7 @@
 
 #include "proto.h"
 #include "client__gui__servopts__guiserv.h"
+#include "client__gui__window.h"
 
 extern _DWORD dword_5d4594_1305684;
 extern int nox_win_width;

@@ -736,7 +736,7 @@ func mainloopMaybeSwitchMapXXX() {
 func mainloopDrawAndPresent() {
 	C.sub_437180()
 	if C.dword_5d4594_1556112 == 0 {
-		C.mainloop_draw() // Draw game windows
+		C.nox_gui_draw() // Draw game windows
 	}
 	mainloopDrawSparks()
 	if !getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) || getEngineFlag(NOX_ENGINE_FLAG_9) || C.dword_5d4594_815132 != 0 {

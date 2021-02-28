@@ -1,4 +1,5 @@
 #include "client__gui__guiquit.h"
+#include "client__gui__window.h"
 
 #include "proto.h"
 #include "client__system__parsecmd.h"

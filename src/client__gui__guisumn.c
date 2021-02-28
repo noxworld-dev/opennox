@@ -1,4 +1,5 @@
 #include "client__gui__guisumn.h"
+#include "client__gui__window.h"
 
 #include "proto.h"
 #include "client__gui__gamewin__gamewin.h"

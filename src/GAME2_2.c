@@ -8,6 +8,7 @@
 #include "client__gui__guishop.h"
 #include "client__gui__servopts__guiserv.h"
 #include "client__gui__tooltip.h"
+#include "client__gui__window.h"
 
 #include "client__draw__drawwin.h"
 

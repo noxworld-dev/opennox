@@ -13,6 +13,7 @@
 #include "client__gui__servopts__objlst.h"
 #include "client__gui__servopts__spelllst.h"
 #include "client__gui__tooltip.h"
+#include "client__gui__window.h"
 #include "client__shell__inputcfg__inputcfg.h"
 #include "client__shell__mainmenu.h"
 

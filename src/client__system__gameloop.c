@@ -374,7 +374,7 @@ void mainloop() {
 	if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_32)) {
 		sub_437180();
 		if (!dword_5d4594_1556112)
-			mainloop_draw(); // Draw game windows
+			nox_gui_draw(); // Draw game windows
 		if (dword_5d4594_815132) {
 			v28[0] = 0;
 			v28[1] = 0;

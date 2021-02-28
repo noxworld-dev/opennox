@@ -1,4 +1,5 @@
 #include "client__gui__servopts__guiserv.h"
+#include "client__gui__window.h"
 
 #include "proto.h"
 #include "client__system__parsecmd.h"

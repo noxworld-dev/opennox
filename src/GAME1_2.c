@@ -11,6 +11,7 @@
 #include "client__gui__gamewin__gamewin.h"
 #include "client__gui__guiggovr.h"
 #include "client__gui__guiquit.h"
+#include "client__gui__window.h"
 #include "client__shell__noxworld.h"
 #include "client__shell__selchar.h"
 #include "client__system__client.h"
@@ -4838,22 +4839,6 @@ char*  nox_xxx_readImgMB_42FAA0(int known_idx, const char* a2, char* a3) {
 //----- (0042FAD0) --------------------------------------------------------
 int sub_42FAD0() { return 0; }
 
-//----- (0042FAE0) --------------------------------------------------------
-_DWORD*  sub_42FAE0(int a1) {
-	_DWORD* result; // eax
-
-	result = (_DWORD*)(dword_5d4594_787148 + 36 * *(unsigned __int16*)(a1 + 8));
-	if (result[6] == -1) {
-		result = (_DWORD*)*result;
-		if (result) {
-			free(result);
-			result = *(_DWORD**)&dword_5d4594_787148;
-			*(_DWORD*)(dword_5d4594_787148 + 36 * *(unsigned __int16*)(a1 + 8)) = 0;
-		}
-	}
-	return result;
-}
-
 //----- (0042FB30) --------------------------------------------------------
 int  nox_xxx_tileEdgeCrashHere_42FB30(int a1) {
 	int v2;     // ecx
@@ -5609,7 +5594,7 @@ void sub_4316C0(nox_screenParticle* p) {
 //----- (00431700) --------------------------------------------------------
 void  sub_431700(_QWORD* a1) {
 	sub_4316C0((int)a1);
-	nox_xxx_memDeleteAdv_414330(*(unsigned int**)&nox_alloc_screenParticles_806044, a1);
+	nox_alloc_class_free_obj_414330(*(unsigned int**)&nox_alloc_screenParticles_806044, a1);
 }
 
 //----- (00431720) --------------------------------------------------------
