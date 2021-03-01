@@ -210,25 +210,22 @@ void  nox_alloc_class_yyy_4144D0(nox_alloc_class* al) {
 }
 
 //----- (004143D0) --------------------------------------------------------
-int  sub_4143D0(int a1, int a2) {
-	int result; // eax
-	int v3;     // ecx
-	int v4;     // ecx
+void nox_alloc_class_zzz_4143D0(nox_alloc_class* al, void* obj) {
+	if (!obj)
+		return;
 
-	result = a2;
-	if (a2) {
-		v3 = *(unsigned int*)(a2 - 4);
-		if (v3)
-			*(unsigned int*)(v3 + 8) = *(unsigned int*)(a2 - 8);
-		else
-			*(unsigned int*)(a1 + 112) = *(unsigned int*)(a2 - 8);
-		v4 = *(unsigned int*)(a2 - 8);
-		if (v4) {
-			result = *(unsigned int*)(a2 - 4);
-			*(unsigned int*)(v4 + 12) = result;
-		}
+	nox_alloc_hdr* hdr = (nox_alloc_hdr*)obj - 1;
+
+	nox_alloc_hdr* v3 = hdr->field_3;
+	if (v3)
+		v3->field_2 = hdr->field_2;
+	else
+		al->field_28 = hdr->field_2;
+
+	nox_alloc_hdr* v4 = hdr->field_2;
+	if (v4) {
+		v4->field_3 = hdr->field_3;
 	}
-	return result;
 }
 
 //----- (00414330) --------------------------------------------------------
@@ -237,7 +234,7 @@ void  nox_alloc_class_free_obj(nox_alloc_class* al, void* obj) {
 		return;
 
 	nox_alloc_hdr* hdr = (nox_alloc_hdr*)obj - 1;
-	sub_4143D0(al, obj);
+	nox_alloc_class_zzz_4143D0(al, obj);
 	al->field_35--;
 	if (hdr->ticks) {
 		if (!al->field_27)
@@ -265,7 +262,7 @@ void  nox_alloc_class_xxx_414400(nox_alloc_class* al, void* obj) {
 		return;
 
 	nox_alloc_hdr* hdr = (nox_alloc_hdr*)obj - 1;
-	sub_4143D0(al, obj);
+	nox_alloc_class_zzz_4143D0(al, obj);
 	al->field_35--;
 	if (hdr->ticks) {
 		if (!al->field_26)
