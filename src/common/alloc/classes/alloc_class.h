@@ -20,7 +20,7 @@ typedef struct nox_alloc_class {
 	nox_alloc_hdr* field_25; // 25
 	nox_alloc_hdr* field_26; // 26
 	nox_alloc_hdr* field_27; // 27
-	unsigned int field_28;         // 28
+	nox_alloc_hdr* field_28; // 28
 	void* items;             // 29
 	unsigned int field_30;         // 30
 	unsigned int field_31;         // 31
