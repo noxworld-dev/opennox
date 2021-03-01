@@ -5,6 +5,8 @@
 #include "alloc_class.h"
 #include "../../platform/platform.h"
 
+#define ALLOC_DEAD_CHAR 0xAC
+
 //----- (00414130) --------------------------------------------------------
 void  nox_free_alloc_class_f30(nox_alloc_class* p) {
 	if (!p)
@@ -117,11 +119,10 @@ void* nox_alloc_class_new_obj(nox_alloc_class* al) {
 			if (!item)
 				return 0;
 			al->cnt2++;
+			item->ticks = 1;
 			item->field_2 = 0;
-			nox_alloc_hdr* v7 = al->field_26;
-			v7->ticks = 1;
-			v7->field_3 = 0;
-			al->field_27 = v7;
+			item->field_3 = 0;
+			al->field_27 = item;
 		}
 		h = al->field_26;
 		dst = &h->field_2;
@@ -192,7 +193,7 @@ void  nox_alloc_class_yyy_4144D0(nox_alloc_class* al) {
 		int g2 = 0;
 		do {
 			g2 = *(unsigned int*)(v1 + 8);
-			memset((void*)(v1 + 16), 0xAC, al->size);
+			memset((void*)(v1 + 16), ALLOC_DEAD_CHAR, al->size);
 			int v2 = al->field_24;
 			if (!v2)
 				al->field_25 = g1;
@@ -255,41 +256,36 @@ void  nox_alloc_class_free_obj(nox_alloc_class* al, void* obj) {
 		hdr->field_3 = 0;
 		al->field_24 = hdr;
 	}
-	memset(obj, 0xAC, al->size);
+	memset(obj, ALLOC_DEAD_CHAR, al->size);
 }
 
 //----- (00414400) --------------------------------------------------------
 void  nox_alloc_class_xxx_414400(nox_alloc_class* al, void* obj) {
-	unsigned int* a1 = al;
-	uint64_t* a2 = obj;
-	uint64_t* v2;      // esi
-	unsigned int v3; // eax
-	unsigned int v4; // eax
+	if (!obj)
+		return;
 
-	if (a2) {
-		v2 = a2 - 2;
-		sub_4143D0((int)a1, (int)a2);
-		--a1[35];
-		if (*(a2 - 2)) {
-			if (!a1[26])
-				a1[26] = (unsigned int)v2;
-			*((unsigned int*)v2 + 2) = 0;
-			*((unsigned int*)v2 + 3) = a1[27];
-			v4 = a1[27];
-			if (v4)
-				*(unsigned int*)(v4 + 8) = v2;
-			a1[27] = (unsigned int)v2;
-			*v2 = nox_platform_get_ticks() + 10000;
-		} else {
-			if (!a1[24])
-				a1[24] = (unsigned int)v2;
-			*((unsigned int*)v2 + 2) = 0;
-			*((unsigned int*)v2 + 3) = a1[25];
-			v3 = a1[25];
-			if (v3)
-				*(unsigned int*)(v3 + 8) = v2;
-			a1[25] = (unsigned int)v2;
-		}
-		memset(a2, 0xACu, a1[22]);
+	nox_alloc_hdr* hdr = (nox_alloc_hdr*)obj - 1;
+	sub_4143D0(al, obj);
+	al->field_35--;
+	if (hdr->ticks) {
+		if (!al->field_26)
+			al->field_26 = hdr;
+		hdr->field_2 = 0;
+		hdr->field_3 = al->field_27;
+		nox_alloc_hdr* v4 = al->field_27;
+		if (v4)
+			v4->field_2 = hdr;
+		al->field_27 = hdr;
+		hdr->ticks = nox_platform_get_ticks() + 10000;
+	} else {
+		if (!al->field_24)
+			al->field_24 = hdr;
+		hdr->field_2 = 0;
+		hdr->field_3 = al->field_25;
+		nox_alloc_hdr* v3 = al->field_25;
+		if (v3)
+			v3->field_2 = hdr;
+		al->field_25 = hdr;
 	}
+	memset(obj, ALLOC_DEAD_CHAR, al->size);
 }
