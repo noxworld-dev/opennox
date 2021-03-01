@@ -188,16 +188,16 @@ void  nox_alloc_class_yyy_4144D0(nox_alloc_class* al) {
 		nox_free_alloc_class_f30(al);
 
 	if (al->field_28) {
-		int g1 = al->field_28;
-		int v1 = g1;
-		int g2 = 0;
+		nox_alloc_hdr* g1 = al->field_28;
+		nox_alloc_hdr* v1 = g1;
+		nox_alloc_hdr* g2 = 0;
 		do {
-			g2 = *(unsigned int*)(v1 + 8);
-			memset((void*)(v1 + 16), ALLOC_DEAD_CHAR, al->size);
+			g2 = v1->field_2;
+			memset((void*)(v1 + 1), ALLOC_DEAD_CHAR, al->size);
 			int v2 = al->field_24;
 			if (!v2)
 				al->field_25 = g1;
-			*(unsigned int*)(g1 + 8) = v2;
+			g1->field_2 = v2;
 			al->field_24 = g1;
 			v1 = g2;
 			g1 = g2;
