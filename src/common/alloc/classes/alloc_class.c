@@ -60,8 +60,7 @@ nox_alloc_class*  nox_new_alloc_class(const char* name, int size, int cnt) {
 	for (int i = 0; i < cnt; i++) {
 		nox_alloc_hdr* h = (nox_alloc_hdr*)((char*)p->items + isize * i);
 
-		h->field_0 = 0;
-		h->field_1 = 0;
+		h->ticks = 0;
 		h->field_2 = p->field_24;
 		p->field_24 = h;
 		if (i != 0)
@@ -120,7 +119,7 @@ void* nox_alloc_class_new_obj(nox_alloc_class* al) {
 				return 0;
 			al->cnt2++;
 			v5[2] = 0;
-			*(unsigned int*)(al->field_26 + 12) = 0;
+			*(unsigned int*)((int)al->field_26 + 12) = 0;
 			unsigned int* v7 = (unsigned int*)al->field_26;
 			v7[0] = 1;
 			v7[1] = 0;
@@ -243,34 +242,30 @@ int  sub_4143D0(int a1, int a2) {
 
 //----- (00414330) --------------------------------------------------------
 void  nox_alloc_class_free_obj(nox_alloc_class* al, void* obj) {
-	unsigned int* a1 = al;
-	uint64_t* a2 = obj;
-	uint64_t* v2;      // esi
-	unsigned int v3; // ecx
-	unsigned int v4; // edx
+	if (!obj)
+		return;
 
-	if (a2) {
-		v2 = a2 - 2;
-		sub_4143D0((int)a1, a2);
-		--a1[35];
-		if (*(a2 - 2)) {
-			if (!a1[27])
-				a1[27] = (unsigned int)v2;
-			v4 = a1[26];
-			*((unsigned int*)v2 + 3) = 0;
-			*((unsigned int*)v2 + 2) = v4;
-			a1[26] = (unsigned int)v2;
-			*v2 = nox_platform_get_ticks() + 10000;
-		} else {
-			if (!a1[25])
-				a1[25] = (unsigned int)v2;
-			v3 = a1[24];
-			*((unsigned int*)v2 + 3) = 0;
-			*((unsigned int*)v2 + 2) = v3;
-			a1[24] = (unsigned int)v2;
-		}
-		memset(a2, 0xACu, a1[22]);
+	nox_alloc_hdr* hdr = (nox_alloc_hdr*)obj - 1;
+	sub_4143D0(al, obj);
+	al->field_35--;
+	if (hdr->ticks) {
+		if (!al->field_27)
+			al->field_27 = hdr;
+
+		hdr->field_2 = al->field_26;
+		hdr->field_3 = 0;
+		al->field_26 = hdr;
+		
+		hdr->ticks = nox_platform_get_ticks() + 10000;
+	} else {
+		if (!al->field_25)
+			al->field_25 = hdr;
+
+		hdr->field_2 = al->field_24;
+		hdr->field_3 = 0;
+		al->field_24 = hdr;
 	}
+	memset(obj, 0xAC, al->size);
 }
 
 //----- (00414400) --------------------------------------------------------
