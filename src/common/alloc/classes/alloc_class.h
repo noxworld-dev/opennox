@@ -8,8 +8,8 @@
 typedef struct nox_alloc_hdr nox_alloc_hdr;
 typedef struct nox_alloc_hdr {
 	uint64_t ticks; // 0
-	nox_alloc_hdr* field_2;
-	int field_3;
+	nox_alloc_hdr* field_2; // 8
+	nox_alloc_hdr* field_3; // 12
 } nox_alloc_hdr;
 
 typedef struct nox_alloc_class {

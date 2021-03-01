@@ -100,73 +100,63 @@ void  nox_free_alloc_class(nox_alloc_class* p) {
 void* nox_alloc_class_new_obj(nox_alloc_class* al) {
 	if (!al)
 		return 0;
-	int v2 = al->field_24;
-	unsigned int* v4;
-	if (v2) {
-		int v3 = *(unsigned int*)(v2 + 8);
-		v4 = (unsigned int*)(v2 + 8);
-		al->field_24 = v3;
-		if (!v3)
+	nox_alloc_hdr* h = al->field_24;
+	nox_alloc_hdr** dst;
+	if (h) {
+		dst = &h->field_2;
+		al->field_24 = h->field_2;
+		if (!h->field_2)
 			al->field_25 = 0;
 	} else {
 		if (!al->field_26) {
 			if (!al->field_30)
 				return 0;
-			unsigned int* v5 = malloc(al->size + 16); // TODO: sizeof(nox_alloc_hdr) ?
-			al->field_26 = v5;
+			nox_alloc_hdr* item = malloc(al->size + sizeof(nox_alloc_hdr));
+			al->field_26 = item;
 			al->field_31++;
-			if (!v5)
+			if (!item)
 				return 0;
 			al->cnt2++;
-			v5[2] = 0;
-			*(unsigned int*)((int)al->field_26 + 12) = 0;
-			unsigned int* v7 = (unsigned int*)al->field_26;
-			v7[0] = 1;
-			v7[1] = 0;
-			al->field_27 = al->field_26;
+			item->field_2 = 0;
+			nox_alloc_hdr* v7 = al->field_26;
+			v7->ticks = 1;
+			v7->field_3 = 0;
+			al->field_27 = v7;
 		}
-		v2 = al->field_26;
-		int v8 = *(unsigned int*)(v2 + 8);
-		v4 = (unsigned int*)(v2 + 8);
-		al->field_26 = v8;
-		if (!v8)
+		h = al->field_26;
+		dst = &h->field_2;
+		al->field_26 = h->field_2;
+		if (!h->field_2)
 			al->field_27 = 0;
-		if (!v2)
+		if (!h)
 			return 0;
 	}
-	int v9 = al->field_28;
-	*(unsigned int*)(v2 + 12) = 0;
-	*v4 = v9;
-	int v10 = al->field_28;
+	h->field_3 = 0;
+	*dst = al->field_28;
+	nox_alloc_hdr* v10 = al->field_28;
 	if (v10) {
-		*(unsigned int*)(v10 + 12) = v2;
+		v10->field_3 = h;
 	}
-	al->field_28 = v2;
-	int v20 = v2 + 16;
+	al->field_28 = h;
+	void* data = (void*)(h + 1);
 	uint64_t ticks = nox_platform_get_ticks();
 	if (ticks != al->ticks) {
-		unsigned int* v12 = (unsigned int*)al->field_26;
-		if (v12) {
-			unsigned int* v14;
-			do {
-				int v13 = v12[2];
-				v14 = (unsigned int*)v12[2];
-				if (ticks > *(uint64_t*)v12) {
-					int v15 = v12[3];
-					if (v15)
-						*(unsigned int*)(v15 + 8) = v13;
-					else
-						al->field_26 = v13;
-					int v16 = v12[2];
-					if (v16)
-						*(unsigned int*)(v16 + 12) = v12[3];
-					else
-						al->field_27 = v12[3];
-					--al->field_31;
-					free(v12);
-				}
-				v12 = v14;
-			} while (v14);
+		for (nox_alloc_hdr* i = al->field_26; i; i = i->field_2) {
+			if (ticks > i->ticks) {
+				nox_alloc_hdr* v13 = i->field_2;
+				nox_alloc_hdr* v15 = i->field_3;
+				if (v15)
+					v15->field_2 = v13;
+				else
+					al->field_26 = v13;
+				nox_alloc_hdr* v16 = i->field_2;
+				if (v16)
+					v16->field_3 = i->field_3;
+				else
+					al->field_27 = i->field_3;
+				al->field_31--;
+				free(i);
+			}
 		}
 		al->ticks = ticks;
 	}
@@ -174,7 +164,7 @@ void* nox_alloc_class_new_obj(nox_alloc_class* al) {
 	if (al->field_35 > al->field_34) {
 		al->field_34 = al->field_35;
 	}
-	return v20;
+	return data;
 }
 
 #ifndef NOX_CGO
@@ -255,7 +245,7 @@ void  nox_alloc_class_free_obj(nox_alloc_class* al, void* obj) {
 		hdr->field_2 = al->field_26;
 		hdr->field_3 = 0;
 		al->field_26 = hdr;
-		
+
 		hdr->ticks = nox_platform_get_ticks() + 10000;
 	} else {
 		if (!al->field_25)
