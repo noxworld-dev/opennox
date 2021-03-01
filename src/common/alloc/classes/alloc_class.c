@@ -13,19 +13,19 @@ void  nox_free_alloc_class_f30(nox_alloc_class* p) {
 		return;
 
 	if (p->field_26) {
-		unsigned int* ptr = (unsigned int*)p->field_26;
+		nox_alloc_hdr* ptr = p->field_26;
 		while (ptr) {
-			unsigned int* next = (unsigned int*)ptr[2];
+			nox_alloc_hdr* next = ptr->field_2;
 			free(ptr);
 			ptr = next;
 		}
 	}
 
 	if (p->field_28) {
-		unsigned int* ptr = (unsigned int*)p->field_28;
+		nox_alloc_hdr* ptr = p->field_28;
 		while (ptr) {
-			unsigned int* next = (unsigned int*)ptr[2];
-			if (*(uint64_t*)ptr)
+			nox_alloc_hdr* next = ptr->field_2;
+			if (ptr->ticks)
 				free(ptr);
 			ptr = next;
 		}
