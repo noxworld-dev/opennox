@@ -7,8 +7,7 @@
 
 typedef struct nox_alloc_hdr nox_alloc_hdr;
 typedef struct nox_alloc_hdr {
-	int field_0;
-	int field_1;
+	uint64_t ticks; // 0
 	nox_alloc_hdr* field_2;
 	int field_3;
 } nox_alloc_hdr;
@@ -19,8 +18,8 @@ typedef struct nox_alloc_class {
 	int cnt1;                // 23
 	nox_alloc_hdr* field_24; // 24
 	nox_alloc_hdr* field_25; // 25
-	unsigned int field_26;         // 26
-	unsigned int field_27;         // 27
+	nox_alloc_hdr* field_26; // 26
+	nox_alloc_hdr* field_27; // 27
 	unsigned int field_28;         // 28
 	void* items;             // 29
 	unsigned int field_30;         // 30

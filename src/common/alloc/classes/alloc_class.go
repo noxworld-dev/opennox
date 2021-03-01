@@ -85,8 +85,7 @@ func New(name string, size, cnt int) *AllocClass {
 
 	for i := 0; i < cnt; i++ {
 		h := (*C.nox_alloc_hdr)(unsafe.Pointer(uintptr(arrp) + isize*uintptr(i)))
-		h.field_0 = 0
-		h.field_1 = 0
+		h.ticks = 0
 		h.field_2 = p.field_24
 		p.field_24 = h
 		if i > 0 {
