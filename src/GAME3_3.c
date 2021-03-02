@@ -2252,7 +2252,7 @@ int  nox_xxx_netSendPacket_4E5030(int a1, const void* a2, signed int a3, int a4,
 			else
 				dword_5d4594_1565520 = nox_common_gameFlags_check_40A5C0(1) ? 3072 : 256;
 			if (nox_common_gameFlags_check_40A5C0(2048))
-				v7 = nox_new_alloc_class_f30("importantClass", 416, *(int*)&dword_5d4594_1565520);
+				v7 = nox_new_alloc_class_dynamic("importantClass", 416, *(int*)&dword_5d4594_1565520);
 			else
 				v7 = nox_new_alloc_class("importantClass", 416, *(int*)&dword_5d4594_1565520);
 			*getMemU32Ptr(0x5D4594, 1565508) = v7;

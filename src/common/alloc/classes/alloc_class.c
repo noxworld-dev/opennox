@@ -8,14 +8,14 @@
 #define ALLOC_DEAD_CHAR 0xAC
 
 //----- (00414130) --------------------------------------------------------
-void  nox_free_alloc_class_f30(nox_alloc_class* p) {
+void  nox_free_alloc_class_dynamic(nox_alloc_class* p) {
 	if (!p)
 		return;
 
-	if (p->field_26) {
-		nox_alloc_hdr* ptr = p->field_26;
+	if (p->first_free_add) {
+		nox_alloc_hdr* ptr = p->first_free_add;
 		while (ptr) {
-			nox_alloc_hdr* next = ptr->field_2;
+			nox_alloc_hdr* next = ptr->next;
 			free(ptr);
 			ptr = next;
 		}
@@ -24,15 +24,15 @@ void  nox_free_alloc_class_f30(nox_alloc_class* p) {
 	if (p->field_28) {
 		nox_alloc_hdr* ptr = p->field_28;
 		while (ptr) {
-			nox_alloc_hdr* next = ptr->field_2;
-			if (ptr->ticks)
+			nox_alloc_hdr* next = ptr->next;
+			if (ptr->expires)
 				free(ptr);
 			ptr = next;
 		}
 	}
 
-	p->field_26 = 0;
-	p->field_27 = 0;
+	p->first_free_add = 0;
+	p->last_free_add = 0;
 }
 
 #ifndef NOX_CGO
@@ -62,28 +62,28 @@ nox_alloc_class*  nox_new_alloc_class(const char* name, int size, int cnt) {
 	for (int i = 0; i < cnt; i++) {
 		nox_alloc_hdr* h = (nox_alloc_hdr*)((char*)p->items + isize * i);
 
-		h->ticks = 0;
-		h->field_2 = p->field_24;
-		p->field_24 = h;
+		h->expires = 0;
+		h->next = p->first_free;
+		p->first_free = h;
 		if (i != 0)
-			p->field_25 = h;
+			p->last_free = h;
 	}
 	p->size = size;
 	p->cnt1 = cnt;
 	p->cnt2 = cnt;
 	p->ticks = 0;
-	p->field_26 = 0;
-	p->field_27 = 0;
+	p->first_free_add = 0;
+	p->last_free_add = 0;
 	p->field_31 = 0;
 	return p;
 }
 
 //----- (004140D0) --------------------------------------------------------
-nox_alloc_class*  nox_new_alloc_class_f30(const char* name, int size, int cnt) {
+nox_alloc_class*  nox_new_alloc_class_dynamic(const char* name, int size, int cnt) {
 	nox_alloc_class* p = nox_new_alloc_class(name, size, cnt);
 	if (!p)
 		return 0;
-	p->field_30 = 1;
+	p->can_grow = 1;
 	return p;
 }
 
@@ -91,91 +91,100 @@ nox_alloc_class*  nox_new_alloc_class_f30(const char* name, int size, int cnt) {
 void  nox_free_alloc_class(nox_alloc_class* p) {
 	if (!p)
 		return;
-	if (p->field_30)
-		nox_free_alloc_class_f30(p);
+	if (p->can_grow)
+		nox_free_alloc_class_dynamic(p);
 	free(p->items);
 	free(p);
 }
 #endif // NOX_CGO
 
 //----- (00414190) --------------------------------------------------------
+void nox_alloc_maybe_free_dynamic(nox_alloc_class* al) {
+	uint64_t ticks = nox_platform_get_ticks();
+	if (ticks == al->ticks) {
+		return;
+	}
+	for (nox_alloc_hdr* i = al->first_free_add; i; i = i->next) {
+		if (ticks <= i->expires) {
+			continue;
+		}
+		nox_alloc_hdr* v13 = i->next;
+		nox_alloc_hdr* v15 = i->field_3;
+		if (v15)
+			v15->next = v13;
+		else
+			al->first_free_add = v13;
+
+		nox_alloc_hdr* v16 = i->next;
+		if (v16)
+			v16->field_3 = i->field_3;
+		else
+			al->last_free_add = i->field_3;
+		al->field_31--;
+		free(i);
+	}
+	al->ticks = ticks;
+}
 void* nox_alloc_class_new_obj(nox_alloc_class* al) {
 	if (!al)
 		return 0;
-	nox_alloc_hdr* h = al->field_24;
+	nox_alloc_hdr* h = al->first_free;
 	nox_alloc_hdr** dst;
 	if (h) {
-		dst = &h->field_2;
-		al->field_24 = h->field_2;
-		if (!h->field_2)
-			al->field_25 = 0;
+		// still have free items in the linear memory segment
+		dst = &h->next;
+		al->first_free = h->next;
+		if (!h->next)
+			al->last_free = 0;
 	} else {
-		if (!al->field_26) {
-			if (!al->field_30)
+		// no more free items
+		if (!al->first_free_add) {
+			// allocate new items as needed, if we are allowed to
+			if (!al->can_grow)
 				return 0;
 			nox_alloc_hdr* item = malloc(al->size + sizeof(nox_alloc_hdr));
-			al->field_26 = item;
+			al->first_free_add = item;
 			al->field_31++;
 			if (!item)
 				return 0;
 			al->cnt2++;
-			item->ticks = 1;
-			item->field_2 = 0;
+			item->expires = 1;
+			item->next = 0;
 			item->field_3 = 0;
-			al->field_27 = item;
+			al->last_free_add = item;
 		}
-		h = al->field_26;
-		dst = &h->field_2;
-		al->field_26 = h->field_2;
-		if (!h->field_2)
-			al->field_27 = 0;
+		// pick existing free dynamic item
+		h = al->first_free_add;
+		dst = &h->next;
+		al->first_free_add = h->next;
+		if (!h->next)
+			al->last_free_add = 0;
 		if (!h)
 			return 0;
 	}
 	h->field_3 = 0;
-	*dst = al->field_28;
 	nox_alloc_hdr* v10 = al->field_28;
+	*dst = v10;
 	if (v10) {
 		v10->field_3 = h;
 	}
 	al->field_28 = h;
-	void* data = (void*)(h + 1);
-	uint64_t ticks = nox_platform_get_ticks();
-	if (ticks != al->ticks) {
-		for (nox_alloc_hdr* i = al->field_26; i; i = i->field_2) {
-			if (ticks > i->ticks) {
-				nox_alloc_hdr* v13 = i->field_2;
-				nox_alloc_hdr* v15 = i->field_3;
-				if (v15)
-					v15->field_2 = v13;
-				else
-					al->field_26 = v13;
-				nox_alloc_hdr* v16 = i->field_2;
-				if (v16)
-					v16->field_3 = i->field_3;
-				else
-					al->field_27 = i->field_3;
-				al->field_31--;
-				free(i);
-			}
-		}
-		al->ticks = ticks;
-	}
+	nox_alloc_maybe_free_dynamic(al);
 	al->field_35++;
 	if (al->field_35 > al->field_34) {
 		al->field_34 = al->field_35;
 	}
-	return data;
+	return (void*)(h + 1);
 }
 
 #ifndef NOX_CGO
 //----- (004142F0) --------------------------------------------------------
 void*  nox_alloc_class_new_obj_zero(nox_alloc_class* al) {
-	void* v1 = (void*)nox_alloc_class_new_obj(al);
-	if (!v1)
+	void* data = (void*)nox_alloc_class_new_obj(al);
+	if (!data)
 		return 0;
-	memset(v1, 0, al->size);
-	return v1;
+	memset(data, 0, al->size);
+	return data;
 }
 #endif // NOX_CGO
 
@@ -184,27 +193,27 @@ void  nox_alloc_class_yyy_4144D0(nox_alloc_class* al) {
 	if (!al)
 		return;
 
-	if (al->field_30)
-		nox_free_alloc_class_f30(al);
+	if (al->can_grow)
+		nox_free_alloc_class_dynamic(al);
 
 	if (al->field_28) {
 		nox_alloc_hdr* g1 = al->field_28;
 		nox_alloc_hdr* v1 = g1;
 		nox_alloc_hdr* g2 = 0;
 		do {
-			g2 = v1->field_2;
+			g2 = v1->next;
 			memset((void*)(v1 + 1), ALLOC_DEAD_CHAR, al->size);
-			int v2 = al->field_24;
+			int v2 = al->first_free;
 			if (!v2)
-				al->field_25 = g1;
-			g1->field_2 = v2;
-			al->field_24 = g1;
+				al->last_free = g1;
+			g1->next = v2;
+			al->first_free = g1;
 			v1 = g2;
 			g1 = g2;
 		} while (g2);
 	}
-	al->field_26 = 0;
-	al->field_27 = 0;
+	al->first_free_add = 0;
+	al->last_free_add = 0;
 	al->field_28 = 0;
 	al->field_35 = 0;
 }
@@ -218,11 +227,11 @@ void nox_alloc_class_zzz_4143D0(nox_alloc_class* al, void* obj) {
 
 	nox_alloc_hdr* v3 = hdr->field_3;
 	if (v3)
-		v3->field_2 = hdr->field_2;
+		v3->next = hdr->next;
 	else
-		al->field_28 = hdr->field_2;
+		al->field_28 = hdr->next;
 
-	nox_alloc_hdr* v4 = hdr->field_2;
+	nox_alloc_hdr* v4 = hdr->next;
 	if (v4) {
 		v4->field_3 = hdr->field_3;
 	}
@@ -236,22 +245,22 @@ void  nox_alloc_class_free_obj(nox_alloc_class* al, void* obj) {
 	nox_alloc_hdr* hdr = (nox_alloc_hdr*)obj - 1;
 	nox_alloc_class_zzz_4143D0(al, obj);
 	al->field_35--;
-	if (hdr->ticks) {
-		if (!al->field_27)
-			al->field_27 = hdr;
+	if (hdr->expires) {
+		if (!al->last_free_add)
+			al->last_free_add = hdr;
 
-		hdr->field_2 = al->field_26;
+		hdr->next = al->first_free_add;
 		hdr->field_3 = 0;
-		al->field_26 = hdr;
+		al->first_free_add = hdr;
 
-		hdr->ticks = nox_platform_get_ticks() + 10000;
+		hdr->expires = nox_platform_get_ticks() + 10000;
 	} else {
-		if (!al->field_25)
-			al->field_25 = hdr;
+		if (!al->last_free)
+			al->last_free = hdr;
 
-		hdr->field_2 = al->field_24;
+		hdr->next = al->first_free;
 		hdr->field_3 = 0;
-		al->field_24 = hdr;
+		al->first_free = hdr;
 	}
 	memset(obj, ALLOC_DEAD_CHAR, al->size);
 }
@@ -264,25 +273,25 @@ void  nox_alloc_class_xxx_414400(nox_alloc_class* al, void* obj) {
 	nox_alloc_hdr* hdr = (nox_alloc_hdr*)obj - 1;
 	nox_alloc_class_zzz_4143D0(al, obj);
 	al->field_35--;
-	if (hdr->ticks) {
-		if (!al->field_26)
-			al->field_26 = hdr;
-		hdr->field_2 = 0;
-		hdr->field_3 = al->field_27;
-		nox_alloc_hdr* v4 = al->field_27;
+	if (hdr->expires) {
+		if (!al->first_free_add)
+			al->first_free_add = hdr;
+		hdr->next = 0;
+		hdr->field_3 = al->last_free_add;
+		nox_alloc_hdr* v4 = al->last_free_add;
 		if (v4)
-			v4->field_2 = hdr;
-		al->field_27 = hdr;
-		hdr->ticks = nox_platform_get_ticks() + 10000;
+			v4->next = hdr;
+		al->last_free_add = hdr;
+		hdr->expires = nox_platform_get_ticks() + 10000;
 	} else {
-		if (!al->field_24)
-			al->field_24 = hdr;
-		hdr->field_2 = 0;
-		hdr->field_3 = al->field_25;
-		nox_alloc_hdr* v3 = al->field_25;
+		if (!al->first_free)
+			al->first_free = hdr;
+		hdr->next = 0;
+		hdr->field_3 = al->last_free;
+		nox_alloc_hdr* v3 = al->last_free;
 		if (v3)
-			v3->field_2 = hdr;
-		al->field_25 = hdr;
+			v3->next = hdr;
+		al->last_free = hdr;
 	}
 	memset(obj, ALLOC_DEAD_CHAR, al->size);
 }
