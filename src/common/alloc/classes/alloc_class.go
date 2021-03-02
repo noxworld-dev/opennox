@@ -7,7 +7,7 @@ package classes
 #cgo CFLAGS: -DNOX_CGO -DNOX_CGO_ALLOC -Wno-int-conversion -Wno-incompatible-pointer-types
 #include <stdlib.h>
 #include "alloc_class.h"
-void  nox_free_alloc_class_f30(nox_alloc_class* p);
+void  nox_free_alloc_class_dynamic(nox_alloc_class* p);
 */
 import "C"
 
@@ -85,19 +85,19 @@ func New(name string, size, cnt int) *AllocClass {
 
 	for i := 0; i < cnt; i++ {
 		h := (*C.nox_alloc_hdr)(unsafe.Pointer(uintptr(arrp) + isize*uintptr(i)))
-		h.ticks = 0
-		h.field_2 = p.field_24
-		p.field_24 = h
+		h.expires = 0
+		h.next = p.first_free
+		p.first_free = h
 		if i > 0 {
-			p.field_25 = h
+			p.last_free = h
 		}
 	}
 	p.size = C.int(size)
 	p.cnt1 = C.int(cnt)
 	p.cnt2 = C.int(cnt)
 	p.ticks = 0
-	p.field_26 = 0
-	p.field_27 = 0
+	p.first_free_add = nil
+	p.last_free_add = nil
 	p.field_31 = 0
 
 	al := &allocClass{
@@ -110,12 +110,12 @@ func New(name string, size, cnt int) *AllocClass {
 	return asClass(p)
 }
 
-func NewF30(name string, size, cnt int) *AllocClass {
+func NewDynamic(name string, size, cnt int) *AllocClass {
 	p := New(name, size, cnt)
 	if p == nil {
 		return nil
 	}
-	p.field_30 = 1
+	p.can_grow = 1
 	return p
 }
 
@@ -123,8 +123,8 @@ func (c *AllocClass) Free() {
 	if c == nil {
 		return
 	}
-	if c.field_30 != 0 {
-		C.nox_free_alloc_class_f30(c.C())
+	if c.can_grow != 0 {
+		C.nox_free_alloc_class_dynamic(c.C())
 	}
 	if _, ok := allocClasses[c.C()]; ok {
 		delete(allocClasses, c.C())
