@@ -1,3 +1,5 @@
+//+build none
+
 #ifdef __EMSCRIPTEN__
 #include <emscripten/emscripten.h>
 #endif
@@ -8,7 +10,6 @@
 #include <SDL2/SDL.h>
 
 SDL_Window* g_window;
-DWORD dword_974854;
 int g_fullscreen = -4; // -4 means "unset"
 extern _DWORD dword_5d4594_371712;
 extern _DWORD dword_5d4594_805860;
@@ -21,6 +22,12 @@ extern int nox_win_width;
 extern int nox_win_height;
 
 #ifndef NOX_CGO
+int nox_video_getFullScreen() {
+	return g_fullscreen;
+}
+void nox_video_setFullScreen(int v) {
+	g_fullscreen = v;
+}
 //----- (00401C70) --------------------------------------------------------
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd) {
 	char* v4; // edi
@@ -112,9 +119,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 SDL_Window* nox_video_getWindow_401FD0() { return g_window; }
 
 //----- (00401FE0) --------------------------------------------------------
-void  sub_401FE0(LPCSTR lpString) {
-	if (lpString)
-		SDL_SetWindowTitle(g_window, lpString);
+void  nox_video_setWinTitle_401FE0(char* s) {
+	if (s)
+		SDL_SetWindowTitle(g_window, s);
 }
 
 //----- (0047D8A0) --------------------------------------------------------

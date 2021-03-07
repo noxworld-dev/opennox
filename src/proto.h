@@ -66,7 +66,7 @@ int sub_401060();
 int  cmain(int argc, const char* argv[]);
 void  sub_401B20(char*);
 // int __stdcall WinMain(HINSTANCE hInstance, int, int, int); // idb
-void  sub_401FE0(LPCSTR);
+void  nox_video_setWinTitle_401FE0(char*);
 // void  srand(unsigned int);
 // int  rand();
 // int swprintf(wchar_t *, const wchar_t *, ...);

@@ -12,6 +12,7 @@
 #include "client__gui__guiggovr.h"
 #include "client__gui__guiquit.h"
 #include "client__gui__window.h"
+#include "client__video__draw_common.h"
 #include "client__shell__noxworld.h"
 #include "client__shell__selchar.h"
 #include "client__system__client.h"
@@ -172,7 +173,6 @@ int nox_win_depth_2 = NOX_DEFAULT_DEPTH;
 int nox_max_width = NOX_MAX_WIDTH;
 int nox_max_height = NOX_MAX_HEIGHT;
 
-extern int g_fullscreen;
 int g_scaled = 0;
 int g_fullscreen_cfg = 0;
 int g_scaled_cfg = 0;
@@ -5875,8 +5875,8 @@ LABEL_2:
 			token = strtok(NULL, " \r\t\n");
 			if (token) {
 				g_fullscreen_cfg = atoi(token);
-				if (g_fullscreen <= -4) {
-					g_fullscreen = g_fullscreen_cfg;
+				if (nox_video_getFullScreen() <= -4) {
+					nox_video_setFullScreen(g_fullscreen_cfg);
 				}
 			}
 

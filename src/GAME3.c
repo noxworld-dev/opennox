@@ -5,6 +5,7 @@
 #include "client__draw__animdraw.h"
 #include "client__draw__vectdraw.h"
 #include "client__drawable__drawable.h"
+#include "client__video__draw_common.h"
 #include "client__shell__wolapi__locale.h"
 #include "common__system__team.h"
 
@@ -141,7 +142,6 @@ extern _DWORD dword_5d4594_3804672;
 extern _DWORD dword_5d4594_3804656;
 extern _DWORD dword_5d4594_3804664;
 extern BYTE** nox_pixbuffer_rows_3798784;
-extern int g_fullscreen;
 extern float draw_gamma;
 extern float input_sensitivity;
 extern int nox_win_width;
@@ -4083,7 +4083,7 @@ _DWORD* sub_4AAA70() {
 		v1 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1309720, 332);
 	}
 	nox_window_call_field_94((int)v1, 16392, 1, 0);
-	if (g_fullscreen)
+	if (nox_video_getFullScreen())
 		v1 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1309720, 333);
 	else
 		v1 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1309720, 334);
@@ -4212,12 +4212,12 @@ int  sub_4AABE0(int a1, int a2, int* a3, int a4) {
 			case 332:
 				nox_xxx_normalWndBits_587000_172880 = 16;
 			case 333:
-				g_fullscreen = 1;
+				nox_video_setFullScreen(1);
 				break;
 			case 331:
 				nox_xxx_normalWndBits_587000_172880 = 8;
 			case 334:
-				g_fullscreen = 0;
+				nox_video_setFullScreen(0);
 				break;
 			default:
 				break;
@@ -5769,7 +5769,7 @@ int sub_4ADAD0() {
 				v31 = 323;
 			v16 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1309820, v31);
 			nox_window_call_field_94((int)v16, 16392, 1, 0);
-			if (g_fullscreen)
+			if (nox_video_getFullScreen())
 				v17 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1309820, 333);
 			else
 				v17 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1309820, 334);

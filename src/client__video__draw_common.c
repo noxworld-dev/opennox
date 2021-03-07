@@ -21,6 +21,7 @@ int nox_video_cursorDrawIsThreaded = 0;
 int nox_video_gammaValue = 0;
 int (*func_5d4594_1311924)(void) = 0;
 
+DWORD dword_974854;
 DWORD dword_973C70;
 DWORD g_present_ticks;
 DWORD g_backbuffer_count;
@@ -195,7 +196,7 @@ void change_windowed_fullscreen() {
 	int centeredPositionY = displaySize.field_C + (displaySize.field_4 - windowSizeH) / 2;
 	int2 windowedPosition;
 	int2 fullscreenPosition;
-	int mode = g_fullscreen;
+	int mode = nox_video_getFullScreen();
 
 	// Init all sizes
 

@@ -61,7 +61,6 @@ extern obj_5D4594_3799572_t obj_5D4594_3800716;
 extern HANDLE* nox_video_cursorDrawThreadHandle;
 extern DWORD dword_974854;
 
-extern int g_fullscreen;
 extern int g_scaled;
 
 #ifndef IGNORE_EXTERNS
@@ -138,6 +137,8 @@ enum {
 	DDSCAPS_PRIMARYSURFACE = 8,
 };
 
+int nox_video_getFullScreen();
+void nox_video_setFullScreen(int v);
 #ifdef USE_SDL
 SDL_Window* nox_video_getWindow_401FD0();
 #else
