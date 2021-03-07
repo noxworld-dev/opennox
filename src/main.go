@@ -2,7 +2,6 @@ package main
 
 /*
 #include <fenv.h>
-#include <SDL2/SDL.h>
 #include "proto.h"
 #include "common__object__armrlook.h"
 #include "common__object__weaplook.h"
@@ -10,7 +9,6 @@ package main
 #include "client__system__parsecmd.h"
 
 extern unsigned int dword_5d4594_805860;
-extern int g_fullscreen;
 extern int g_scaled;
 extern int nox_win_width;
 extern int nox_win_height;
@@ -39,8 +37,6 @@ extern unsigned int dword_5d4594_816340;
 extern unsigned int dword_5d4594_816348;
 extern unsigned int dword_5d4594_805988;
 
-extern SDL_Window* g_window;
-
 void init_data();
 */
 import "C"
@@ -56,8 +52,6 @@ import (
 	"os"
 	"strings"
 	"unsafe"
-
-	"github.com/veandco/go-sdl2/sdl"
 )
 
 const noxVersionStr = "1.2g"
@@ -76,7 +70,6 @@ const (
 )
 
 var (
-	noxWindow     *sdl.Window
 	noxDataPath   string
 	isServer      bool
 	isServerQuest bool
@@ -132,40 +125,31 @@ func runNox(args []string) error {
 	isServerQuest = *fAutoQuest
 	serverExec = strings.Split(*fAutoExec, ";")
 	if !*fServer && !*fNoDraw {
-		nox_xxx_gameResizeScreen_43BEF0_set_video_mode(0, 0, 0) // probably not needed
-		if err := sdl.Init(sdl.INIT_VIDEO | sdl.INIT_TIMER | sdl.INIT_GAMECONTROLLER); err != nil {
-			return fmt.Errorf("SDL Initialization failed: %w", err)
+		winCleanup, err := windowInit()
+		if err != nil {
+			return err
 		}
-		defer sdl.Quit()
+		defer winCleanup()
 
-		sdl.SetHint(sdl.HINT_RENDER_SCALE_QUALITY, "1")
 		inp, err := input.NewHandler(noxInput{})
 		if err != nil {
 			return fmt.Errorf("input initialization failed: %w", err)
 		}
 		defer inp.Close()
 		inpHandler = inp
-
-		win, err := sdl.CreateWindow("Nox Game Window", sdl.WINDOWPOS_UNDEFINED, sdl.WINDOWPOS_UNDEFINED,
-			int32(C.nox_win_width), int32(C.nox_win_height), sdl.WINDOW_RESIZABLE)
-		if err != nil {
-			return fmt.Errorf("SDL Window creation failed: %w", err)
-		}
-		noxWindow = win
-		C.g_window = (*C.SDL_Window)(win)
 	}
 	if *fWindow {
 		C.nox_video_dxFullScreen = 0
 		C.dword_5d4594_805860 = 0
-		C.g_fullscreen = -2
+		noxFullScreen = -2
 	}
 	if *fSWindow {
 		C.nox_video_dxFullScreen = 0
 		C.dword_5d4594_805860 = 1
-		C.g_fullscreen = -3
+		noxFullScreen = -3
 	}
 	if *fFullScreen {
-		C.g_fullscreen = -1
+		noxFullScreen = -1
 	}
 	if *fStretch {
 		C.g_scaled = -1
@@ -334,8 +318,6 @@ func runNox(args []string) error {
 	if C.nox_client_initScreenParticles_431390() == 0 {
 		return fmt.Errorf("failed to init particles")
 	}
-	// does nothing on SDL
-	// C.sub_4147E0(C.int(uintptr(unsafe.Pointer(noxWindow))))
 	g_argc2 = len(args)
 	g_argv2 = &CStringArray(args)[0]
 	cmainLoop()
@@ -404,43 +386,9 @@ func noxGetWinSize1() types.Size {
 	return types.Size{W: int(C.nox_win_width_1), H: int(C.nox_win_height_1)}
 }
 
-func noxGetScreenMode() int {
-	return int(C.g_fullscreen)
-}
-
 //export change_windowed_fullscreen
 func change_windowed_fullscreen() {
 	changeWindowedOrFullscreen()
-}
-
-//export sdl_set_window_rect
-func sdl_set_window_rect(size, pos C.int2) {
-	sdlSetWindowRect(int2size(size), int2pos(pos))
-}
-
-func int2size(v C.int2) types.Size {
-	return types.Size{
-		W: int(v.field_0),
-		H: int(v.field_4),
-	}
-}
-
-func int2pos(v C.int2) types.Point {
-	return types.Point{
-		X: int(v.field_0),
-		Y: int(v.field_4),
-	}
-}
-
-//export sdl_get_display_dim
-func sdl_get_display_dim() C.int4 {
-	r := sdlGetDisplayDim()
-	var v C.int4
-	v.field_0 = C.int(r[0])
-	v.field_4 = C.int(r[1])
-	v.field_8 = C.int(r[2])
-	v.field_C = C.int(r[3])
-	return v
 }
 
 func cleanup() {

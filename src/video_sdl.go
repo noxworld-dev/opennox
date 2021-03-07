@@ -1,0 +1,175 @@
+package main
+
+/*
+#include <SDL2/SDL.h>
+#include "client__video__draw_common.h"
+
+extern SDL_Renderer* g_ddraw;
+extern uint32_t g_texture, g_program, g_tex_coord_buffer, g_tex_coord_attr, g_gamma_uniform, g_matrix_uniform, g_sampler_uniform;
+*/
+import "C"
+import (
+	"fmt"
+	"log"
+	"unsafe"
+
+	"nox/common/types"
+
+	"github.com/veandco/go-sdl2/sdl"
+)
+
+var (
+	noxFullScreen int = -4 // unset
+	noxWindow     *sdl.Window
+)
+
+//export nox_video_getFullScreen
+func nox_video_getFullScreen() C.int {
+	return C.int(noxFullScreen)
+}
+
+//export nox_video_setFullScreen
+func nox_video_setFullScreen(v C.int) {
+	noxFullScreen = int(v)
+}
+
+//export nox_video_setWinTitle_401FE0
+func nox_video_setWinTitle_401FE0(title *C.char) {
+	noxWindow.SetTitle(C.GoString(title))
+}
+
+//export nox_video_getWindow_401FD0
+func nox_video_getWindow_401FD0() *C.SDL_Window {
+	return (*C.SDL_Window)(unsafe.Pointer(noxWindow))
+}
+
+func windowInit() (func(), error) {
+	nox_xxx_gameResizeScreen_43BEF0_set_video_mode(0, 0, 0) // probably not needed
+	if err := sdl.Init(sdl.INIT_VIDEO | sdl.INIT_TIMER | sdl.INIT_GAMECONTROLLER); err != nil {
+		return nil, fmt.Errorf("SDL Initialization failed: %w", err)
+	}
+	sdl.SetHint(sdl.HINT_RENDER_SCALE_QUALITY, "1")
+
+	win, err := sdl.CreateWindow("Nox Game Window", sdl.WINDOWPOS_UNDEFINED, sdl.WINDOWPOS_UNDEFINED,
+		int32(C.nox_win_width), int32(C.nox_win_height), sdl.WINDOW_RESIZABLE)
+	if err != nil {
+		sdl.Quit()
+		return nil, fmt.Errorf("SDL Window creation failed: %w", err)
+	}
+	noxWindow = win
+	return func() {
+		sdl.Quit()
+	}, nil
+}
+
+func setWindowRect(size types.Size, pos types.Point) {
+	inpHandler.SetWinSize(size)
+	noxWindow.SetSize(int32(size.W), int32(size.H))
+	noxWindow.SetPosition(int32(pos.X), int32(pos.Y))
+}
+
+func setFullScreenMode(size types.Size, pos types.Point) {
+	noxWindow.SetResizable(false)
+	noxWindow.SetBordered(false)
+	setWindowRect(size, pos)
+	noxWindow.SetFullscreen(sdl.WINDOW_FULLSCREEN_DESKTOP)
+}
+
+func setFullScreenBorderlessMode(size types.Size, pos types.Point) {
+	noxWindow.SetFullscreen(0)
+	noxWindow.SetResizable(false)
+	noxWindow.SetBordered(true)
+	setWindowRect(size, pos)
+}
+
+func setWindowedMode(size types.Size, pos types.Point) {
+	noxWindow.SetFullscreen(0)
+	noxWindow.SetResizable(true)
+	noxWindow.SetBordered(true)
+	setWindowRect(size, pos)
+}
+
+func getDisplayDim() (r [4]int) {
+	r = [4]int{-1, -1, 0, 0}
+	disp, err := noxWindow.GetDisplayIndex()
+	if err != nil {
+		log.Println("can't get display index: ", err)
+		return
+	}
+	rect, err := sdl.GetDisplayBounds(disp)
+	if err != nil {
+		log.Println("can't get display bounds: ", err)
+		return
+	}
+	return [4]int{
+		int(rect.W),
+		int(rect.H),
+		int(rect.X),
+		int(rect.Y),
+	}
+}
+
+func setViewport(srcw, srch float32) {
+	var (
+		ratio              = srcw / srch
+		offx               = 0
+		offy               = 0
+		vpw, vph, vpx, vpy int
+	)
+
+	var tw, th C.int
+	C.SDL_GL_GetDrawableSize(C.windowHandle_dword_973FE0, &tw, &th)
+	vpw, vph = int(tw), int(th)
+
+	// Maintain source aspect ratio
+	if C.g_rotate != 0 && float32(vph)-ratio*float32(vpw) > float32(vpw)-ratio*float32(vph) {
+		C.g_rotated = 1
+	} else {
+		C.g_rotated = 0
+	}
+	if C.g_rotated != 0 {
+		ratio = 1.0 / ratio
+	}
+
+	if ratio*float32(vph) <= float32(vpw) {
+		offx = int(float32(vpw)-float32(vph)*ratio) / 2
+		vpw = int(float32(vph) * ratio)
+	} else {
+		offy = int(float32(vph)-float32(vpw)/ratio) / 2
+		vph = int(float32(vpw) / ratio)
+	}
+	vpx = offx
+	vpy = offy
+	_ = vpx
+	_ = vpy
+}
+
+//export sdl_present
+func sdl_present() {
+	if C.g_backbuffer1 == nil {
+		return
+	}
+	var srcrect C.SDL_Rect
+	dstw, dsth := noxWindow.GetSize()
+	C.SDL_GetClipRect(C.g_backbuffer1, &srcrect)
+
+	C.sub_48BE50(1)
+	C.nox_video_waitVBlankAndDrawCursorFromThread_48B5D0(0, 0)
+
+	setViewport(float32(C.g_backbuffer1.w), float32(C.g_backbuffer1.h))
+
+	tex := C.SDL_CreateTextureFromSurface(C.g_ddraw, C.g_backbuffer1) // maybe find a way to get the buffer
+
+	//This is only available after SDL 2.0.12
+	//C.SDL_SetTextureScaleMode(tex, C.SDL_ScaleModeBest)
+
+	var dstrect C.SDL_Rect
+	dstrect.w = C.int(dstw)
+	dstrect.h = C.int(dsth)
+
+	C.SDL_RenderCopy(C.g_ddraw, tex, &srcrect, &dstrect)
+	C.SDL_RenderPresent(C.g_ddraw)
+	C.SDL_DestroyTexture(tex)
+
+	C.sub_48BE50(0)
+}

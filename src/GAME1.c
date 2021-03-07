@@ -1395,7 +1395,7 @@ void  nox_xxx_setPortParam_40A3E0(int a1) {
 
 	*getMemU32Ptr(0x5D4594, 3524) = a1;
 	nox_sprintf(String, "Nox - %d", a1);
-	sub_401FE0(String);
+	nox_video_setWinTitle_401FE0(String);
 }
 
 //----- (0040A410) --------------------------------------------------------
