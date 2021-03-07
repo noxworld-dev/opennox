@@ -91,9 +91,9 @@ extern DWORD dword_5ACFAC;
 extern DWORD dword_6F7B9C;
 extern void (*g_present_ptr)();
 extern DWORD dword_6F7BB0;
-extern DWORD dword_6F7BF8;
-extern BYTE* dword_6F7C74;
-extern BYTE* dword_6F7C78;
+extern DWORD g_cursor_surf_pitch;
+extern BYTE* g_cursor_surf_pixels;
+extern BYTE* g_cursor_surf_pixels_6F7C78;
 extern int (*nox_video_cursorThreadedDrawFnPtr)(int);
 extern void (*dword_6F7C10)(_DWORD, _DWORD, _DWORD);
 extern __int16 (*dword_6F7C40)();
@@ -103,7 +103,7 @@ extern int (*dword_975380)(_DWORD, _DWORD, _DWORD);
 extern void (*nox_color_rgb_func)(uint8_t, uint8_t, uint8_t, uint32_t*);
 extern void (*g_copy_backbuffer_ptr)();
 
-extern SDL_Surface* dword_6F7C48;
+extern SDL_Surface* g_cursor_surf_6F7C48;
 extern SDL_Surface* g_cursor_surf;
 extern SDL_Surface* dword_973C60;
 extern SDL_Surface* g_backbuffer1;
@@ -123,12 +123,6 @@ extern int nox_backbuffer_pitch32;
 extern int nox_backbuffer_width32;
 
 #endif
-
-enum {
-	DDSD_CAPS = 1,
-	DDSD_WIDTH = 2,
-	DDSD_HEIGHT = 4,
-};
 
 enum {
 	DDSCAPS_OFFSCREENPLAIN = 1,
