@@ -53,26 +53,17 @@ void sub_48A120() {
 	sub_48AA40();
 }
 
-SDL_Surface*  nox_video_createSurface_48A600(int width, int height, int flags, int caps) {
-	if (!(flags & DDSD_WIDTH))
-		DebugBreak();
-	if (!(flags & DDSD_HEIGHT))
-		DebugBreak();
-
+SDL_Surface*  nox_video_createSurface_48A600(int width, int height, int caps) {
 	SDL_Surface* pSurface = SDL_CreateRGBSurfaceWithFormat(0, width, height, 16, g_format);
 
 	return pSurface;
 }
 
-int  sub_48A720(SDL_Surface* a1, _DWORD* a2, _DWORD* a3, _DWORD* a4, int* a5) {
-	if (a2)
-		*a2 = a1->w;
-	if (a3)
-		*a3 = a1->h;
-	if (a4)
-		*a4 = a1->pitch;
-	if (a5)
-		*a5 = a1->pixels;
+int  sub_48A720(SDL_Surface* surf, int* outPitch, void** outPixels) {
+	if (outPitch)
+		*outPitch = surf->pitch;
+	if (outPixels)
+		*outPixels = surf->pixels;
 	return 0;
 }
 
@@ -161,7 +152,7 @@ void sdl_present() {
 		}
 		if (g_scaled && g_frontbuffer1 == 0) {
 			g_frontbuffer1 =
-				nox_video_createSurface_48A600(dstrect.w, dstrect.h, DDSD_CAPS | DDSD_HEIGHT | DDSD_WIDTH, DDSCAPS_OFFSCREENPLAIN);
+				nox_video_createSurface_48A600(dstrect.w, dstrect.h, DDSCAPS_OFFSCREENPLAIN);
 			SDL_SetSurfaceBlendMode(g_backbuffer1, SDL_BLENDMODE_NONE);
 			SDL_SetSurfaceBlendMode(g_frontbuffer1, SDL_BLENDMODE_NONE);
 		}
@@ -246,7 +237,7 @@ int create_surfaces(HWND a1, int width, int height) {
 
 	v3 = nox_video_renderTargetFlags;
 
-	g_backbuffer1 = nox_video_createSurface_48A600(width, height, DDSD_CAPS | DDSD_HEIGHT | DDSD_WIDTH, DDSCAPS_OFFSCREENPLAIN);
+	g_backbuffer1 = nox_video_createSurface_48A600(width, height, DDSCAPS_OFFSCREENPLAIN);
 	// g_backbufferrgb = SDL_CreateRGBSurfaceWithFormat(0, width, height, 32, SDL_PIXELFORMAT_ABGR8888);
 	if (g_backbuffer1) {
 		// if (SDL_RenderSetLogicalSize(g_ddraw, width, height) == 0)
