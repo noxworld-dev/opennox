@@ -2,6 +2,8 @@ package input
 
 import (
 	"fmt"
+	"image"
+
 	"nox/common/types"
 
 	"github.com/veandco/go-sdl2/sdl"
@@ -27,9 +29,9 @@ const (
 )
 
 type Interface interface {
-	MouseButtonAt(p types.Point, button MouseButton, pressed bool)
-	MouseMotion(p types.Point)
-	MouseWheel(p types.Point, dv int)
+	MouseButtonAt(p image.Point, button MouseButton, pressed bool)
+	MouseMotion(p image.Point)
+	MouseWheel(p image.Point, dv int)
 	InputKeyboard(code Scancode, pressed bool)
 	TextEdit(text string)
 	TextInput(text string)

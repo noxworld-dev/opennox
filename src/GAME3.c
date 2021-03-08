@@ -3842,7 +3842,7 @@ int nox_xxx_compassGenStrings_4A9C80() {
 	return 1;
 }
 
-// 4AD170: using guessed type int sub_4AD170_call_copy_backbuffer(void);
+// 4AD170: using guessed type int nox_video_callCopyBackBuffer_4AD170(void);
 
 //----- (004AA270) --------------------------------------------------------
 int nox_game_showOnlineOrLAN_413800() {
@@ -4606,7 +4606,7 @@ int nox_xxx_gameDownloadMap_4AB5E0() {
 		nox_gui_draw();
 		nox_client_drawCursorAndTooltips_477830();
 		nox_xxx_directDrawBlitMB_48A220();
-		sub_4AD170_call_copy_backbuffer();
+		nox_video_callCopyBackBuffer_4AD170();
 		sub_48A290_call_present();
 		while (!nox_ticks_should_update_416CD0())
 			;
@@ -4621,7 +4621,7 @@ int nox_xxx_gameDownloadMap_4AB5E0() {
 	}
 	return result;
 }
-// 4AD170: using guessed type int sub_4AD170_call_copy_backbuffer(void);
+// 4AD170: using guessed type int nox_video_callCopyBackBuffer_4AD170(void);
 
 //----- (004AB720) --------------------------------------------------------
 int nox_xxx_mapDeleteFile_4AB720() {

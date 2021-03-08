@@ -1,11 +1,8 @@
 package types
 
-type Point struct {
-	X int
-	Y int
-}
+import "image"
 
-func (p Point) Pointf() Pointf {
+func Point2f(p image.Point) Pointf {
 	return Pointf{
 		X: float32(p.X),
 		Y: float32(p.Y),
@@ -17,8 +14,8 @@ type Pointf struct {
 	Y float32
 }
 
-func (p Pointf) Point() Point {
-	return Point{
+func (p Pointf) Point() image.Point {
+	return image.Point{
 		X: int(p.X),
 		Y: int(p.Y),
 	}
@@ -32,4 +29,15 @@ type Size struct {
 type Sizef struct {
 	W float32
 	H float32
+}
+
+type Rect struct {
+	Left   int
+	Top    int
+	Right  int
+	Bottom int
+}
+
+func (r *Rect) IsEmpty() bool {
+	return r.Right <= r.Left || r.Bottom <= r.Top
 }

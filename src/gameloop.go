@@ -33,14 +33,15 @@ import "C"
 import (
 	"fmt"
 	"math"
-	"nox/common/alloc"
-	"nox/common/memmap"
-	"nox/common/platform"
 	"path/filepath"
 	"runtime"
 	"strings"
 	"time"
 	"unsafe"
+
+	"nox/common/alloc"
+	"nox/common/memmap"
+	"nox/common/platform"
 )
 
 const NOX_CLIENT_VERS_CODE = C.NOX_CLIENT_VERS_CODE
@@ -747,9 +748,9 @@ func mainloopDrawAndPresent() {
 		C.nox_xxx_screenshot_46D830()
 	}
 	if !getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) || getEngineFlag(NOX_ENGINE_FLAG_9) || C.dword_5d4594_815132 != 0 {
-		C.nox_xxx_directDrawBlitMB_48A220()
-		C.sub_4AD170_call_copy_backbuffer()
-		C.sub_48A290_call_present()
+		// C.nox_xxx_directDrawBlitMB_48A220() // does nothing
+		nox_video_callCopyBackBuffer_4AD170()
+		callPresent()
 	}
 }
 

@@ -81,7 +81,7 @@ extern _DWORD dword_5d4594_3799508;
 extern _DWORD dword_5d4594_3798812;
 extern _DWORD dword_5d4594_3798800;
 extern _DWORD dword_5d4594_1193584;
-extern int nox_pitch_3801808;
+extern int nox_backbuffer_pitch_3801808;
 extern _DWORD dword_5d4594_3798828;
 extern _QWORD qword_581450_9552;
 extern _QWORD qword_581450_9544;
@@ -5592,7 +5592,7 @@ int sub_4800F0() {
 		sub_49F6D0(1);
 		sub_437290();
 		dword_5d4594_3804680 = dword_5d4594_3801780;
-		*getMemU32Ptr(0x5D4594, 3805488) = nox_pitch_3801808 * nox_backbuffer_height;
+		*getMemU32Ptr(0x5D4594, 3805488) = nox_backbuffer_pitch_3801808 * nox_backbuffer_height;
 		*getMemU32Ptr(0x5D4594, 3807124) = dword_5d4594_3801780 == 1;
 		sub_430B50(0, 0, 639, 479);
 		nox_input_pollEvents_4453A0();
@@ -6171,7 +6171,7 @@ int*  nox_xxx_someEdgeProcessing_480EF0(int a1, int a2, int a3, int* a4, int* a5
 			}
 		}
 		v31 = v52;
-		v52 += nox_pitch_3801808;
+		v52 += nox_backbuffer_pitch_3801808;
 		++v45.field_4;
 		result = (int*)--v56;
 		if (!v56)
@@ -9856,14 +9856,14 @@ int sub_4861D0() {
 	if (*getMemU32Ptr(0x5D4594, 1193200))
 		return 1;
 
-	nox_pixbuffer_3798780 = calloc(nox_pitch_3801808 * nox_backbuffer_height, 1u);
+	nox_pixbuffer_3798780 = calloc(nox_backbuffer_pitch_3801808 * nox_backbuffer_height, 1u);
 	if (!nox_pixbuffer_3798780)
 		return 0;
 
 	if (!(nox_video_renderTargetFlags & 0x40))
 		return 1;
 
-	nox_pixbuffer_3798788 = calloc(nox_pitch_3801808 * nox_backbuffer_height, 1u);
+	nox_pixbuffer_3798788 = calloc(nox_backbuffer_pitch_3801808 * nox_backbuffer_height, 1u);
 	if (!nox_pixbuffer_3798788) {
 		return 0;
 	}
@@ -9880,7 +9880,7 @@ int sub_486230() {
 		BYTE **rows = nox_pixbuffer_rows_3798784;
 		BYTE *pix = nox_pixbuffer_3798780;
 		for (int y = 0; y < nox_backbuffer_height; y++) {
-			rows[y] = &pix[y * nox_pitch_3801808];
+			rows[y] = &pix[y * nox_backbuffer_pitch_3801808];
 		}
 	}
 
@@ -9896,7 +9896,7 @@ int sub_486230() {
 		BYTE** rows = nox_pixbuffer_rows_3798776;
 		BYTE* pix = nox_pixbuffer_3798788;
 		for (int y = 0; y < nox_backbuffer_height; y++) {
-			rows[y] = &pix[y * nox_pitch_3801808];
+			rows[y] = &pix[y * nox_backbuffer_pitch_3801808];
 		}
 	}
 	return 1;
@@ -12524,7 +12524,7 @@ void  sub_48BD90(int a1) {
 }
 
 //----- (0048BE50) --------------------------------------------------------
-int  sub_48BE50(int a1) {
+int  nox_video_mouseThreadXxx_48BE50(int a1) {
 	int result; // eax
 
 	result = nox_video_drawCursorThreadOk;

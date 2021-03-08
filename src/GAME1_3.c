@@ -367,14 +367,14 @@ int  nox_xxx_video_43BF10_upd_video_mode(int defaults) {
 	if (v1 == nox_backbuffer_width && v2 == nox_backbuffer_height && v3 == nox_backbuffer_depth) {
 		return 1;
 	}
-	sub_48BE50(1);
+	nox_video_mouseThreadXxx_48BE50(1);
 	if (v3 == nox_backbuffer_depth || (result = nox_video_parse_videobag(*(int*)&dword_5d4594_3804680)) != 0) {
 		result = nox_video_recreateBuffersAndTarget_430BA0();
 		if (result) {
 			nox_xxx_loadPal_4A96C0_video_read_palette("default.pal");
 			sub_461520();
 			nox_xxx_setMouseBounds_430A70(0, v1 - 1, 0, v2 - 1);
-			sub_48BE50(0);
+			nox_video_mouseThreadXxx_48BE50(0);
 			return 1;
 		}
 	}
@@ -1745,7 +1745,7 @@ int map_download_loop(int first) {
 	nox_gui_draw();
 	nox_client_drawCursorAndTooltips_477830();
 	nox_xxx_directDrawBlitMB_48A220();
-	sub_4AD170_call_copy_backbuffer();
+	nox_video_callCopyBackBuffer_4AD170();
 	sub_48A290_call_present();
 
 	if (!nox_xxx_gameDownloadInProgress_587000_173328)
@@ -1821,7 +1821,7 @@ void mainloop_43E290() {
 }
 #endif // NOX_CGO
 // 43E815: variable 'v18' is possibly undefined
-// 4AD170: using guessed type int sub_4AD170_call_copy_backbuffer(void);
+// 4AD170: using guessed type int nox_video_callCopyBackBuffer_4AD170(void);
 
 //----- (0043E8B0) --------------------------------------------------------
 int nox_xxx_debugSub_43E8B0() { return *getMemU32Ptr(0x5D4594, 816404); }
@@ -3924,7 +3924,7 @@ int  nox_client_drawInitAll_4449D0(HWND wnd, int w, int h, int depth, int flags)
 	if (!result)
 		return result;
 
-	result = sub_4AD100();
+	result = nox_video_setBackBufferCopyFunc_4AD100();
 	printf("%s: %d\n", __FUNCTION__, result);
 	if (!result)
 		return result;
@@ -4007,8 +4007,8 @@ int  nox_client_drawInitAll_4449D0(HWND wnd, int w, int h, int depth, int flags)
 //----- (00444D00) --------------------------------------------------------
 void sub_444D00() {
 	nox_mutex_lock(getMemAt(0x5D4594, 3799596));
-	sub_48A190();
-	sub_4AD150();
+	nox_video_setBackBufferPtrs_48A190();
+	nox_video_setBackBufferCopyFunc2_4AD150();
 	nox_mutex_unlock(getMemAt(0x5D4594, 3799596));
 }
 

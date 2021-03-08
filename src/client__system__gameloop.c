@@ -396,7 +396,7 @@ void mainloop() {
 		}
 		if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) || nox_common_getEngineFlag(NOX_ENGINE_FLAG_9) || dword_5d4594_815132) {
 			nox_xxx_directDrawBlitMB_48A220();
-			sub_4AD170_call_copy_backbuffer();
+			nox_video_callCopyBackBuffer_4AD170();
 			sub_48A290_call_present();
 		}
 	}

@@ -1,18 +1,15 @@
 #include "client__video__draw_common.h"
 
+#ifndef NOX_CGO
+extern DWORD g_present_ticks;
 SDL_Renderer* g_ddraw;
-uint32_t g_texture, g_program, g_tex_coord_buffer, g_tex_coord_attr, g_gamma_uniform, g_matrix_uniform, g_sampler_uniform;
-
-
-
-
 
 //----- (0048A120) --------------------------------------------------------
-void sub_48A120() {
+void nox_video_free_renderer_48A120() {
 	dword_6F7BB0 = 0;
 
-	sub_48B1D0_free_surface(&dword_973C60);
-	sub_48B1D0_free_surface(&dword_973C88);
+	sub_48B1D0_free_surface(&g_surface_973C60);
+	sub_48B1D0_free_surface(&g_surface_973C88);
 	sub_48B1D0_free_surface(&g_backbuffer1);
 	sub_48A9C0(0);
 	sub_48AA40();
@@ -25,7 +22,7 @@ SDL_Surface*  nox_video_createSurface_48A600(int width, int height, int caps) {
 	return pSurface;
 }
 
-int  sub_48A720(SDL_Surface* surf, int* outPitch, void** outPixels) {
+int  nox_video_getSurfaceData_48A720(SDL_Surface* surf, int* outPitch, void** outPixels) {
 	if (outPitch)
 		*outPitch = surf->pitch;
 	if (outPixels)
@@ -34,7 +31,6 @@ int  sub_48A720(SDL_Surface* surf, int* outPitch, void** outPixels) {
 }
 
 
-#ifndef NOX_CGO
 static void set_viewport(float srcw, float srch) {
 	float ratio = srcw / srch, offx = 0, offy = 0;
 	int vpw, vph, vpx, vpy;
@@ -52,7 +48,7 @@ static void set_viewport(float srcw, float srch) {
 	vpw = EM_ASM_INT(return canvas.width);
 	vph = EM_ASM_INT(return canvas.height);
 #else
-	SDL_GL_GetDrawableSize(windowHandle_dword_973FE0, &vpw, &vph);
+	SDL_GL_GetDrawableSize(nox_video_getWindow_401FD0(), &vpw, &vph);
 #endif
 
 	//
@@ -88,7 +84,7 @@ void sdl_present() {
 		SDL_GetWindowSize(nox_video_getWindow_401FD0(), &(dstrect.w), &(dstrect.h));
 		SDL_GetClipRect(g_backbuffer1, &srcrect);
 
-		sub_48BE50(1);
+		nox_video_mouseThreadXxx_48BE50(1);
 		nox_video_waitVBlankAndDrawCursorFromThread_48B5D0(0, 0);
 
 		set_viewport(g_backbuffer1->w, g_backbuffer1->h);
@@ -99,12 +95,11 @@ void sdl_present() {
 		SDL_RenderPresent(g_ddraw);
 		SDL_DestroyTexture(tex);
 
-		sub_48BE50(0);
+		nox_video_mouseThreadXxx_48BE50(0);
 	}
 }
-#endif // NOX_CGO
 
-int create_surfaces(HWND a1, int width, int height) {
+int create_surfaces(int width, int height) {
 	BYTE v3;
 
 	v3 = nox_video_renderTargetFlags;
@@ -117,7 +112,7 @@ int create_surfaces(HWND a1, int width, int height) {
 	return 0;
 }
 
-int nox_xxx_initDDraw_48B000() {
+int nox_video_init_renderer_48B000() {
 #if __EMSCRIPTEN__
 	g_rotate = EM_ASM_INT(return Module['shouldRotate']());
 #else
@@ -126,7 +121,7 @@ int nox_xxx_initDDraw_48B000() {
 	g_format = SDL_PIXELFORMAT_RGB555;
 	if (!g_ddraw) {
 		g_ddraw =
-			SDL_CreateRenderer(windowHandle_dword_973FE0, 0, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+			SDL_CreateRenderer(nox_video_getWindow_401FD0(), 0, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 		if (g_ddraw == NULL) {
 			fprintf(stderr, "SDL Renderer context creation failed: %s\n", SDL_GetError());
 			return 0;
@@ -136,29 +131,35 @@ int nox_xxx_initDDraw_48B000() {
 	return 1;
 }
 
+void nox_video_drop_renderer() {
+	g_ddraw = 0; // TODO: shouldn't we free it?
+	g_present_ticks = 0;
+}
+
 
 
 //----- (0048A3D0) --------------------------------------------------------
-int sub_48A3D0() {
+int nox_video_setBackBufSizes_48A3D0() {
 	dword_5d4594_3801780 = 2;
 	*getMemU32Ptr(0x5D4594, 3801796) = 0;
-	if (g_backbuffer1) {
-		nox_backbuffer_width = g_backbuffer1->w;
-		nox_backbuffer_height = g_backbuffer1->h;
-		*getMemU32Ptr(0x5D4594, 3799564) = g_backbuffer1->pitch;
-		*getMemU32Ptr(0x5D4594, 3801796) = 1;
-		sub_48A190();
-
-		nox_backbuffer_width32 = g_backbuffer1->w >> 4;
-		*getMemU32Ptr(0x5D4594, 3801776) = g_backbuffer1->w >> 1;
-		dword_5d4594_3801780 = 1;
-		nox_pitch_3801808 = 2 * g_backbuffer1->w;
-		nox_backbuffer_pitch32 = g_backbuffer1->pitch - 2 * g_backbuffer1->w;
-		dword_5d4594_3799624 = 1;
-		return 1;
+	if (!g_backbuffer1) {
+		return 0;
 	}
-	return 0;
+	nox_backbuffer_width = g_backbuffer1->w;
+	nox_backbuffer_height = g_backbuffer1->h;
+	*getMemU32Ptr(0x5D4594, 3799564) = g_backbuffer1->pitch;
+	*getMemU32Ptr(0x5D4594, 3801796) = 1;
+	nox_video_setBackBufferPtrs_48A190();
+
+	nox_backbuffer_width32 = g_backbuffer1->w >> 4;
+	*getMemU32Ptr(0x5D4594, 3801776) = g_backbuffer1->w >> 1;
+	dword_5d4594_3801780 = 1;
+	nox_backbuffer_pitch_3801808 = 2 * g_backbuffer1->w;
+	nox_backbuffer_pitchDiff = g_backbuffer1->pitch - 2 * g_backbuffer1->w;
+	dword_5d4594_3799624 = 1;
+	return 1;
 }
+#endif // NOX_CGO
 
 
 #ifdef NOX_PLAY_MOVIES
@@ -221,9 +222,9 @@ int  nox_client_drawGeneral_4B0340(int a1) // draw general
 
 		if (!v2) {
 			nox_free_pixbuffers_486110();
-			sub_48A120();
+			nox_video_free_renderer_48A120();
 			nox_video_renderTargetFlags = v4;
-			result = sub_48A040(v3, v8, v7, a1);
+			result = nox_video_resetRenderer_48A040(v8, v7, a1);
 			if (!result)
 				return result;
 			result = sub_486090();
@@ -247,7 +248,6 @@ int  nox_client_drawGeneral_4B0340(int a1) // draw general
 	}
 	sub_48B590(&v11, &v10, &v9);
 	v2 = dword_5d4594_3801780;
-	v3 = windowHandle_dword_973FE0;
 	v4 = nox_video_renderTargetFlags;
 	v8 = nox_backbuffer_width;
 	v7 = nox_backbuffer_height;
@@ -255,9 +255,9 @@ int  nox_client_drawGeneral_4B0340(int a1) // draw general
 	nox_video_stopCursorDrawThread_48B350();
 	sub_433C20();
 	nox_free_pixbuffers_486110();
-	sub_48A120();
+	nox_video_free_renderer_48A120();
 	nox_video_renderTargetFlags = v4;
-	result = sub_48A040(v3, NOX_DEFAULT_WIDTH, NOX_DEFAULT_HEIGHT, NOX_DEFAULT_DEPTH);
+	result = nox_video_resetRenderer_48A040(NOX_DEFAULT_WIDTH, NOX_DEFAULT_HEIGHT, NOX_DEFAULT_DEPTH);
 	if (result) {
 		result = sub_486090();
 		if (result)
@@ -267,40 +267,35 @@ int  nox_client_drawGeneral_4B0340(int a1) // draw general
 }
 
 //----- (0048A040) --------------------------------------------------------
-int  sub_48A040(HWND a1, int a2, int a3, int a4) {
-	int result; // eax
-
+#ifndef NOX_CGO
+int  nox_video_resetRenderer_48A040(int width, int height, int depth) {
 	g_backbuffer_count = 2;
 	dword_6F7BB0 = 0;
 
-	g_ddraw = 0;
+	nox_video_drop_renderer();
 	g_backbuffer1 = 0;
 
-	dword_973C88 = 0;
-	dword_973C60 = 0;
+	g_surface_973C88 = 0;
+	g_surface_973C60 = 0;
 	dword_973C70 = 0;
-	g_present_ticks = 0;
 	dword_974854 = 0;
 	dword_6F7B9C = 1;
 	dword_5ACFAC = 1;
 	if (!(nox_video_renderTargetFlags & 4)) {
 		sub_48AA40();
-		result = nox_xxx_initDDraw_48B000();
-		if (!result)
-			return result;
+		if (!nox_video_init_renderer_48B000())
+			return 0;
 
-		create_surfaces(a1, a2, a3);
-
+		create_surfaces(width, height);
 	}
 	dword_6F7BB0 = 1;
-	sub_48A820(1u);
-	result = sub_48A3D0();
-	if (result) {
-		sub_48A7F0();
-		result = 1;
-	}
-	return result;
+	sub_48A820(1);
+	if (!nox_video_setBackBufSizes_48A3D0())
+		return 0;
+	sub_48A7F0();
+	return 1;
 }
+#endif // NOX_CGO
 
 void sub_48B1B0() {
 	// nop
