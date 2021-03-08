@@ -1,10 +1,10 @@
+//+build !server
+
 package input
 
 import (
 	"github.com/veandco/go-sdl2/sdl"
 )
-
-type Keymod uint
 
 const (
 	KeyShift = Keymod(sdl.KMOD_RSHIFT | sdl.KMOD_LSHIFT)

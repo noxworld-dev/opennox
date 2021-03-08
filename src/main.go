@@ -46,15 +46,13 @@ import (
 	"log"
 	"net/http"
 	_ "net/http/pprof"
-	"nox/client/input"
-	"nox/common/memmap"
-	"nox/common/types"
 	"os"
 	"strings"
 	"unsafe"
-)
 
-const noxVersionStr = "1.2g"
+	"nox/common/memmap"
+	"nox/common/types"
+)
 
 func init() {
 	go func() {
@@ -114,7 +112,7 @@ func runNox(args []string) error {
 		fClientPort = flags.Int("clientport", 0, "clientport")
 		fNoSoft     = flags.Bool("nosoft", false, "nosoft")
 		// TODO: replace with -serveronly once we figure out all the details
-		fAutoServer = flags.Bool("autosrv", false, "automatically start the server")
+		fAutoServer = flags.Bool("autosrv", isDedicatedServer, "automatically start the server")
 		fAutoQuest  = flags.Bool("autoquest", false, "automatically start the quest game")
 		fAutoExec   = flags.String("autoexec", "load estate", "run the specified command at server startup")
 	)
@@ -131,12 +129,11 @@ func runNox(args []string) error {
 		}
 		defer winCleanup()
 
-		inp, err := input.NewHandler(noxInput{})
+		inpCleanup, err := inputInit()
 		if err != nil {
-			return fmt.Errorf("input initialization failed: %w", err)
+			return err
 		}
-		defer inp.Close()
-		inpHandler = inp
+		defer inpCleanup()
 	}
 	if *fWindow {
 		C.nox_video_dxFullScreen = 0

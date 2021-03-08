@@ -6,7 +6,10 @@ import (
 	"nox/common/types"
 )
 
-var noxPresentTicks uint
+var (
+	noxFullScreen   int = -4 // unset
+	noxPresentTicks uint
+)
 
 func callPresent() {
 	presentFrame()
