@@ -7,11 +7,22 @@ import "C"
 import (
 	"sync"
 	"sync/atomic"
+	"unsafe"
 )
 
 var mutexes struct {
 	last uint32
 	byID sync.Map
+}
+
+func asMutex(p unsafe.Pointer) *sync.Mutex {
+	m := (*C.nox_mutex_t)(p)
+	id := uint32(m.p)
+	v, ok := mutexes.byID.Load(id)
+	if !ok {
+		panic("no such mutex")
+	}
+	return v.(*sync.Mutex)
 }
 
 //export nox_mutex_init

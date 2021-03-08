@@ -50,7 +50,7 @@ void nox_video_free_renderer_48A120() {
 		g_frontbuffer1 = 0;
 	}
 	sub_48B1D0_free_surface(&g_backbuffer1);
-	sub_48A9C0(0);
+	nox_video_minimizeOrMaximize_48A9C0(0);
 	sub_48AA40();
 }
 

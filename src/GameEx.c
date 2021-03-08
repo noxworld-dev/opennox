@@ -5,7 +5,9 @@
 #include "client__gui__window.h"
 
 #include "client__shell__noxworld.h"
+#ifndef NOX_CGO
 #include <SDL2/SDL.h>
+#endif // NOX_CGO
 
 extern int nox_win_width_1;
 extern int nox_win_height_1;
@@ -828,13 +830,15 @@ unsigned int invalidIpChecker(unsigned int interval, void* param) {
 // 100129C1: using guessed type char isInvalidIp;
 
 //----- (10002470) --------------------------------------------------------
-HANDLE __usercall startInvalidIpChecker() {
-	HANDLE result; // eax
+#ifndef NOX_CGO
+int startInvalidIpChecker() {
+	int result; // eax
 
 	if (!dword_587000_87404)
-		result = SDL_AddTimer(0x12Cu, invalidIpChecker, NULL);
+		result = SDL_AddTimer(300, invalidIpChecker, NULL);
 	return result;
 }
+#endif // NOX_CGO
 
 //----- (100024A0) --------------------------------------------------------
 int  modifyWndInputHandler(int a1, int a2, int a3, int a4) {

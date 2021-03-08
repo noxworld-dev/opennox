@@ -2,7 +2,6 @@ package main
 
 /*
 #include <stdbool.h>
-#include <SDL2/SDL.h>
 
 #include "defs.h"
 
@@ -11,9 +10,10 @@ void OnLibraryNotice_265(unsigned int arg1, unsigned int arg2, unsigned int arg3
 */
 import "C"
 import (
+	"unsafe"
+
 	"nox/client/input"
 	"nox/common/types"
-	"unsafe"
 )
 
 type noxMouseEventType uint

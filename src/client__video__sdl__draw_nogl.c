@@ -11,7 +11,7 @@ void nox_video_free_renderer_48A120() {
 	sub_48B1D0_free_surface(&g_surface_973C60);
 	sub_48B1D0_free_surface(&g_surface_973C88);
 	sub_48B1D0_free_surface(&g_backbuffer1);
-	sub_48A9C0(0);
+	nox_video_minimizeOrMaximize_48A9C0(0);
 	sub_48AA40();
 	SDL_DestroyRenderer(g_ddraw);
 }

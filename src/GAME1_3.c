@@ -3886,10 +3886,10 @@ BOOL nox_xxx____crtGetStringTypeA_0_444830() {
 }
 
 //----- (004449D0) --------------------------------------------------------
-int  nox_client_drawInitAll_4449D0(HWND wnd, int w, int h, int depth, int flags) {
+int  nox_client_drawInitAll_4449D0(int w, int h, int depth, int flags) {
 	int result; // eax
 
-	result = nox_client_drawXxx_444AC0(wnd, w, h, depth, flags);
+	result = nox_client_drawXxx_444AC0(w, h, depth, flags);
 	printf("%s: %d\n", __FUNCTION__, result);
 	if (!result)
 		return result;
