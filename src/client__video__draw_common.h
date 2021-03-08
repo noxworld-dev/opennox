@@ -13,7 +13,12 @@
 
 #include "proto.h"
 
+#ifndef NOX_CGO
 #include <SDL2/SDL.h>
+#else // NOX_CGO
+#define SDL_Surface void
+#define __m64 void
+#endif // NOX_CGO
 
 extern unsigned char byte_581450_9176[160];
 extern unsigned char byte_581450_9336[160];
@@ -106,7 +111,7 @@ extern SDL_Surface* g_cursor_surf_6F7C48;
 extern SDL_Surface* g_cursor_surf;
 extern SDL_Surface* g_surface_973C60;
 extern SDL_Surface* g_surface_973C88;
-extern Uint32 g_format;
+extern unsigned int g_format;
 
 extern int g_rotate;
 extern int g_rotated;
@@ -129,10 +134,13 @@ enum {
 
 int nox_video_getFullScreen();
 void nox_video_setFullScreen(int v);
+
+#ifndef NOX_CGO
 #ifdef USE_SDL
 SDL_Window* nox_video_getWindow_401FD0();
-#else
+#else // !USE_SDL
 HWND nox_video_getWindow_401FD0();
 #endif // USE_SDL
+#endif // NOX_CGO
 
 #endif

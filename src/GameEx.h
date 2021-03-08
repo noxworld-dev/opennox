@@ -58,7 +58,7 @@ unsigned int __usercall pingAllServersInGameIp(int ebx0, int edi0, int a1, int a
 signed int __usercall inputNewIp_(int a1, int ebx0, int a2, int a3, int a4);
 void playErrSoundClient();
 unsigned int invalidIpChecker(unsigned int interval, void* param);
-HANDLE __usercall startInvalidIpChecker();
+int startInvalidIpChecker();
 int  modifyWndInputHandler(int a1, int a2, int a3, int a4);
 // int __stdcall MixRecvFromReplacer(SOCKET s, char *buf, int len, int flags, struct sockaddr *from, int *fromlen); //
 // idb _DWORD *OnLibraryNotice(int, ...);

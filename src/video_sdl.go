@@ -1,7 +1,6 @@
 package main
 
 /*
-#include <SDL2/SDL.h>
 #include "client__video__draw_common.h"
 */
 import "C"
@@ -40,18 +39,22 @@ func nox_video_setWinTitle_401FE0(title *C.char) {
 	noxWindow.SetTitle(C.GoString(title))
 }
 
-//export nox_video_getWindow_401FD0
-func nox_video_getWindow_401FD0() *C.SDL_Window {
-	return (*C.SDL_Window)(unsafe.Pointer(noxWindow))
-}
-
 //export nox_video_createSurface_48A600
-func nox_video_createSurface_48A600(w, h, caps C.int) *C.SDL_Surface {
+func nox_video_createSurface_48A600(w, h, caps C.int) unsafe.Pointer {
 	surf, err := createSurface(int(w), int(h))
 	if err != nil {
 		panic(err)
 	}
-	return (*C.SDL_Surface)(unsafe.Pointer(surf))
+	return unsafe.Pointer(surf)
+}
+
+//export sub_48B1D0_free_surface
+func sub_48B1D0_free_surface(p *unsafe.Pointer) {
+	if s := *p; s != nil {
+		surf := (*sdl.Surface)(unsafe.Pointer(s))
+		surf.Free()
+		*p = nil
+	}
 }
 
 func createSurface(w, h int) (*sdl.Surface, error) {
@@ -59,12 +62,13 @@ func createSurface(w, h int) (*sdl.Surface, error) {
 }
 
 //export nox_video_getSurfaceData_48A720
-func nox_video_getSurfaceData_48A720(surf *C.SDL_Surface, outPitch *C.int, outPixels *unsafe.Pointer) C.int {
+func nox_video_getSurfaceData_48A720(s unsafe.Pointer, outPitch *C.int, outPixels *unsafe.Pointer) C.int {
+	surf := (*sdl.Surface)(unsafe.Pointer(s))
 	if outPitch != nil {
-		*outPitch = C.int(surf.pitch)
+		*outPitch = C.int(surf.Pitch)
 	}
 	if outPixels != nil {
-		*outPixels = unsafe.Pointer(surf.pixels)
+		*outPixels = surf.Data()
 	}
 	return 0
 }
@@ -132,13 +136,13 @@ func nox_video_setBackBufferPtrs_48A190() {
 }
 
 //export nox_video_lockSurface_48A670
-func nox_video_lockSurface_48A670(s *C.SDL_Surface) {
+func nox_video_lockSurface_48A670(s unsafe.Pointer) {
 	surf := (*sdl.Surface)(unsafe.Pointer(s))
 	_ = surf.Lock()
 }
 
 //export nox_video_unlockSurface_48A6B0
-func nox_video_unlockSurface_48A6B0(s *C.SDL_Surface) {
+func nox_video_unlockSurface_48A6B0(s unsafe.Pointer) {
 	surf := (*sdl.Surface)(unsafe.Pointer(s))
 	surf.Unlock()
 }
@@ -352,7 +356,7 @@ func nox_video_free_renderer_48A120() {
 		noxBackbuf.Free()
 		noxBackbuf = nil
 	}
-	C.sub_48A9C0(0)
+	nox_video_minimizeOrMaximize_48A9C0(0)
 	C.sub_48AA40()
 	_ = noxRenderer.Destroy()
 }
@@ -404,7 +408,7 @@ func presentFrame() {
 }
 
 //export nox_video_showMovieFrame
-func nox_video_showMovieFrame(s *C.SDL_Surface) {
+func nox_video_showMovieFrame(s unsafe.Pointer) {
 	surf := (*sdl.Surface)(unsafe.Pointer(s))
 
 	noxBackbuf.SetBlendMode(sdl.BLENDMODE_NONE)
@@ -516,5 +520,68 @@ func sdl_drawCursorThreaded(a1 C.int) C.int {
 
 	C.dword_5d4594_1193664 = 0
 	C.dword_5d4594_1193668 = 0
+	return 1
+}
+
+//export nox_xxx_makeFillerColor_48BDE0
+func nox_xxx_makeFillerColor_48BDE0() C.bool {
+	v0 := nox_color_rgb_4344A0(255, 0, 255)
+	*memmap.PtrUint32(0x5D4594, 1193592) = uint32(v0)
+	csurf := (*sdl.Surface)(unsafe.Pointer(C.g_cursor_surf))
+	if csurf != nil {
+		// FIXME use SDL_MapRGB instead?
+		var v uint32
+		if C.dword_5d4594_3799624 != 0 {
+			v = uint32(uint16(v0))
+		} else {
+			v = uint32(uint8(v0))
+		}
+		csurf.SetColorKey(true, v)
+	}
+	return true
+}
+
+func nox_video_minimizeOrMaximize_48A9C0(a1 int) {
+	if C.dword_6F7BB0 == 0 {
+		return
+	}
+	mu := asMutex(memmap.PtrOff(0x5D4594, 3799596))
+	mu.Lock()
+	defer mu.Unlock()
+
+	if C.dword_974854 != 0 {
+		return
+	}
+
+	if C.nox_video_renderTargetFlags&0x10 != 0 {
+		C.dword_974854 = 1
+		fmt.Println("Ungrab")
+		noxWindow.SetGrab(false)
+		return
+	}
+	if a1 != 0 {
+		C.dword_974854 = 1
+		C.dword_973C70 = 1
+		fmt.Println("Minimize")
+		noxWindow.Minimize()
+	}
+}
+
+//export nox_xxx_GfxInit_444930
+func nox_xxx_GfxInit_444930(w, h, depth, flags C.int) C.int {
+	C.dword_5d4594_823776 = 0
+	C.ptr_5D4594_3799572 = &C.obj_5D4594_3799660
+	result := C.nox_client_drawInitAll_4449D0(w, h, depth, flags)
+	fmt.Printf("nox_client_drawInitAll_4449D0: %d\n", int(result))
+	if result == 0 {
+		return 0
+	}
+	C.ptr_5D4594_3799572 = &C.obj_5D4594_3800716
+	C.obj_5D4594_3800716 = C.obj_5D4594_3799660
+	if C.nox_video_renderTargetFlags&0x200 != 0 {
+		noxWindow.Minimize()
+	}
+	C.dword_5d4594_823776 = 1
+	C.dword_5d4594_823772++
 	return 1
 }

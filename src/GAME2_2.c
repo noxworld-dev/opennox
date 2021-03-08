@@ -5575,7 +5575,6 @@ int nox_xxx_setupSomeVideo_47FEF0() {
 
 //----- (004800F0) --------------------------------------------------------
 int sub_4800F0() {
-	int result; // eax
 	int v2;     // [esp-10h] [ebp-10h]
 	int v3;     // [esp-Ch] [ebp-Ch]
 	int v4;     // [esp-8h] [ebp-8h]
@@ -5586,22 +5585,20 @@ int sub_4800F0() {
 	v4 = dword_5d4594_3804680 != 0 ? 16 : 8;
 	v3 = nox_win_height;
 	v2 = nox_win_width;
-	if (nox_xxx_GfxInit_444930(nox_video_getWindow_401FD0(), v2, v3, v4, v5)) {
-		sub_440900();
-		nox_xxx_setupSomeVideo_47FEF0();
-		sub_49F6D0(1);
-		sub_437290();
-		dword_5d4594_3804680 = dword_5d4594_3801780;
-		*getMemU32Ptr(0x5D4594, 3805488) = nox_backbuffer_pitch_3801808 * nox_backbuffer_height;
-		*getMemU32Ptr(0x5D4594, 3807124) = dword_5d4594_3801780 == 1;
-		sub_430B50(0, 0, 639, 479);
-		nox_input_pollEvents_4453A0();
-		result = 1;
-	} else {
+	if (!nox_xxx_GfxInit_444930(v2, v3, v4, v5)) {
 		MessageBoxA(0, (LPCSTR)getMemAt(0x587000, 154896), (LPCSTR)getMemAt(0x587000, 154880), 0);
-		result = 0;
+		return 0;
 	}
-	return result;
+	sub_440900();
+	nox_xxx_setupSomeVideo_47FEF0();
+	sub_49F6D0(1);
+	sub_437290();
+	dword_5d4594_3804680 = dword_5d4594_3801780;
+	*getMemU32Ptr(0x5D4594, 3805488) = nox_backbuffer_pitch_3801808 * nox_backbuffer_height;
+	*getMemU32Ptr(0x5D4594, 3807124) = dword_5d4594_3801780 == 1;
+	sub_430B50(0, 0, 639, 479);
+	nox_input_pollEvents_4453A0();
+	return 1;
 }
 
 //----- (004801B0) --------------------------------------------------------
@@ -5663,7 +5660,7 @@ __int16  sub_4805A0(int a1, void* a2, int a3, unsigned int* a4, unsigned int* a5
 	return 0;
 }
 
-__int16  sub_480700(int a1, __m64* a2, int a3, unsigned int* a4, unsigned int* a5) {
+__int16  sub_480700(int a1, void* a2, int a3, unsigned int* a4, unsigned int* a5) {
 	DebugBreak();
 	return 0;
 }

@@ -1,6 +1,11 @@
 #include "input.h"
 #include "proto.h"
+
+#ifndef NOX_CGO
 #include <SDL2/SDL.h>
+#else // NOX_CGO
+#define SDL_Surface void
+#endif // NOX_CGO
 
 #ifdef NO_MOVIE
 
@@ -15,10 +20,14 @@ unsigned short int rgb888Toargb1555(int red, int green, int blue) {
 
 SDL_Surface* movieSurface = NULL;
 
+int  nox_video_getSurfaceData_48A720(SDL_Surface* surf, int* outPitch, void** outPixels);
 void nox_video_showMovieFrame(SDL_Surface* surf);
 void DrawMovieFrame(BYTE* frame, unsigned long cx, unsigned long cy) {
+	void* pixels = 0;
+	int pitch = 0;
+	nox_video_getSurfaceData_48A720(movieSurface, &pitch, &pixels);
 	for (int i = 0; i < cy; i++) {
-		unsigned short* surfaceRow = (BYTE*)(movieSurface->pixels) + (i * movieSurface->pitch);
+		unsigned short* surfaceRow = (BYTE*)(pixels) + (i * pitch);
 		unsigned short* frameRow = frame + (i * cx * 2);
 		for (int j = 0; j < cx; j++) {
 #ifndef __EMSCRIPTEN__

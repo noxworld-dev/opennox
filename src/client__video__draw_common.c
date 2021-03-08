@@ -41,13 +41,20 @@ void (*nox_color_rgb_func)(uint8_t, uint8_t, uint8_t, uint32_t*);
 DWORD g_present_ticks;
 void (*g_copy_backbuffer_ptr)();
 SDL_Surface* g_backbuffer1;
+
+static inline void rect_to_sdl(const RECT* r, SDL_Rect* sr) {
+	sr->x = r->left;
+	sr->y = r->top;
+	sr->w = r->right - r->left;
+	sr->h = r->bottom - r->top;
+}
 #endif // NOX_CGO
 
 SDL_Surface* g_cursor_surf_6F7C48;
 SDL_Surface* g_cursor_surf;
 SDL_Surface* g_surface_973C60;
 SDL_Surface* g_surface_973C88;
-Uint32 g_format;
+unsigned int g_format;
 
 int g_rotate;
 int g_rotated;
@@ -58,14 +65,6 @@ unsigned int g_tex_coord_itemsize, g_tex_coord_numitems;
 
 int nox_backbuffer_pitchDiff;
 int nox_backbuffer_width32;
-
-
-static inline void rect_to_sdl(const RECT* r, SDL_Rect* sr) {
-	sr->x = r->left;
-	sr->y = r->top;
-	sr->w = r->right - r->left;
-	sr->h = r->bottom - r->top;
-}
 void sdl_present();
 int sdl_drawCursorThreaded(int);
 int create_surfaces(int width, int height);
@@ -78,7 +77,7 @@ void  nox_video_unlockSurface_48A6B0(SDL_Surface* a1);
 DWORD dword_973C64;
 
 //----- (00444AC0) --------------------------------------------------------
-int  nox_client_drawXxx_444AC0(HWND wnd, int w, int h, int depth, int flags) {
+int  nox_client_drawXxx_444AC0(int w, int h, int depth, int flags) {
 	int v5;             // eax
 	bool v6;            // zf
 	unsigned __int8 v7; // al
@@ -245,6 +244,36 @@ void nox_video_setBackBufferPtrs_48A190() {
 void  nox_video_lockSurface_48A670(SDL_Surface* a1) { SDL_LockSurface(a1); }
 
 void  nox_video_unlockSurface_48A6B0(SDL_Surface* a1) { SDL_UnlockSurface(a1); }
+
+//----- (0048A9C0) --------------------------------------------------------
+void  nox_video_minimizeOrMaximize_48A9C0(int a1) {
+	if (dword_6F7BB0) {
+		nox_mutex_lock(getMemAt(0x5D4594, 3799596));
+		if (!dword_974854) {
+			if (nox_video_renderTargetFlags & 0x10) {
+				dword_974854 = 1;
+				printf("Ungrab\n");
+				SDL_SetWindowGrab(nox_video_getWindow_401FD0(), SDL_FALSE);
+				nox_mutex_unlock(getMemAt(0x5D4594, 3799596));
+				return;
+			}
+			if (a1) {
+				dword_974854 = 1;
+				dword_973C70 = 1;
+				printf("Minimize\n");
+				SDL_MinimizeWindow(nox_video_getWindow_401FD0());
+			}
+		}
+		nox_mutex_unlock(getMemAt(0x5D4594, 3799596));
+	}
+}
+
+void  sub_48B1D0_free_surface(SDL_Surface** a1) {
+	if (*a1) {
+		SDL_FreeSurface(*a1);
+		*a1 = NULL;
+	}
+}
 #endif // NOX_CGO
 
 //----- (0048A220) --------------------------------------------------------
@@ -268,39 +297,9 @@ void  sub_48A820(UINT uFlags) {
 	// SDL_SetWindowGrab(nox_video_getWindow_401FD0(), SDL_TRUE);
 }
 
-//----- (0048A9C0) --------------------------------------------------------
-void  sub_48A9C0(int a1) {
-	if (dword_6F7BB0) {
-		nox_mutex_lock(getMemAt(0x5D4594, 3799596));
-		if (!dword_974854) {
-			if (nox_video_renderTargetFlags & 0x10) {
-				dword_974854 = 1;
-				printf("Ungrab\n");
-				SDL_SetWindowGrab(nox_video_getWindow_401FD0(), SDL_FALSE);
-				nox_mutex_unlock(getMemAt(0x5D4594, 3799596));
-				return;
-			}
-			if (a1) {
-				dword_974854 = 1;
-				dword_973C70 = 1;
-				printf("Minimize\n");
-				SDL_MinimizeWindow(nox_video_getWindow_401FD0());
-			}
-		}
-		nox_mutex_unlock(getMemAt(0x5D4594, 3799596));
-	}
-}
-
 //----- (0048AA40) --------------------------------------------------------
 void sub_48AA40() {
 	// FIXME
-}
-
-void  sub_48B1D0_free_surface(SDL_Surface** a1) {
-	if (*a1) {
-		SDL_FreeSurface(*a1);
-		*a1 = NULL;
-	}
 }
 
 //----- (0048B1F0) --------------------------------------------------------
@@ -546,10 +545,11 @@ void sub_433C20() {
 }
 
 //----- (00444930) --------------------------------------------------------
-int  nox_xxx_GfxInit_444930(HWND wnd, int w, int h, int depth, int flags) {
+#ifndef NOX_CGO
+int  nox_xxx_GfxInit_444930(int w, int h, int depth, int flags) {
 	dword_5d4594_823776 = 0;
 	ptr_5D4594_3799572 = &obj_5D4594_3799660;
-	int result = nox_client_drawInitAll_4449D0(wnd, w, h, depth, flags);
+	int result = nox_client_drawInitAll_4449D0(w, h, depth, flags);
 	printf("%s: %d\n", __FUNCTION__, result);
 	if (!result) {
 		return 0;
@@ -559,11 +559,11 @@ int  nox_xxx_GfxInit_444930(HWND wnd, int w, int h, int depth, int flags) {
 	if (nox_video_renderTargetFlags & 0x200) {
 		SDL_MinimizeWindow(nox_video_getWindow_401FD0());
 	}
-	result = 1;
 	dword_5d4594_823776 = 1;
 	++dword_5d4594_823772;
 	return 1;
 }
+#endif // NOX_CGO
 
 //----- (00444C50) --------------------------------------------------------
 void sub_444C50() {
@@ -781,7 +781,8 @@ int  sub_48B3F0(int a1, int a2, int a3) {
 }
 
 //----- (0048BDE0) --------------------------------------------------------
-BOOL nox_xxx_makeFillerColor_48BDE0() {
+#ifndef NOX_CGO
+bool nox_xxx_makeFillerColor_48BDE0() {
 	int v0; // eax
 
 	v0 = nox_color_rgb_4344A0(255, 0, 255);
@@ -793,6 +794,7 @@ BOOL nox_xxx_makeFillerColor_48BDE0() {
 	}
 	return 1;
 }
+#endif // NOX_CGO
 
 //----- (0048C060) --------------------------------------------------------
 int sub_48C060() {
