@@ -804,21 +804,21 @@ int  sub_48B840(int a1)
             0);
     }
     *getMemU32Ptr(0x5D4594, 1193532) = *(_DWORD*)& dword_5d4594_1193648 - *getMemU32Ptr(0x5D4594, 1193580);
-    *getMemU32Ptr(0x5D4594, 1193540) = *(_DWORD*)& dword_5d4594_1193648
+    *getMemU32Ptr(0x5D4594, 1193532 + 8) = *(_DWORD*)& dword_5d4594_1193648
         - *getMemU32Ptr(0x5D4594, 1193580)
         + *getMemU32Ptr(0x5D4594, 1193600);
-    *getMemU32Ptr(0x5D4594, 1193536) = *(_DWORD*)& dword_5d4594_1193524 - *getMemU32Ptr(0x5D4594, 1193636);
-    *getMemU32Ptr(0x5D4594, 1193544) = *(_DWORD*)& dword_5d4594_1193524
+    *getMemU32Ptr(0x5D4594, 1193532 + 4) = *(_DWORD*)& dword_5d4594_1193524 - *getMemU32Ptr(0x5D4594, 1193636);
+    *getMemU32Ptr(0x5D4594, 1193532 + 12) = *(_DWORD*)& dword_5d4594_1193524
         - *getMemU32Ptr(0x5D4594, 1193636)
         + *getMemU32Ptr(0x5D4594, 1193620);
     if ((!a1 || *(_DWORD*)& dword_5d4594_1193668 || *(_DWORD*)& dword_5d4594_1193664)
         && nox_xxx_utilRect_49F930((int4*)& v4, (int4*)getMemAt(0x5D4594, 1193532),(int4*)(&obj_5D4594_3800716.data[9])))
     {
-        *getMemU32Ptr(0x5D4594, 1193556) = v4.right - v4.left;
+        *getMemU32Ptr(0x5D4594, 1193548 + 8) = v4.right - v4.left;
         v1 = g_frontbuffer;
         *getMemU32Ptr(0x5D4594, 1193548) = 0;
-        *getMemU32Ptr(0x5D4594, 1193552) = 0;
-        *getMemU32Ptr(0x5D4594, 1193560) = v4.bottom - v4.top;
+        *getMemU32Ptr(0x5D4594, 1193548 + 4) = 0;
+        *getMemU32Ptr(0x5D4594, 1193548 + 12) = v4.bottom - v4.top;
         if (!a1)
             v1 = g_backbuffer1;
         if (dword_6F7C48->lpVtbl->Blt(dword_6F7C48,
@@ -834,10 +834,10 @@ int  sub_48B840(int a1)
     if (nox_xxx_utilRect_49F930((int4*)& v4, (int4*)getMemAt(0x5D4594, 1193532), (int4*)(&obj_5D4594_3800716.data[9])))
     {
         *getMemU32Ptr(0x5D4594, 1193604) = v4.left - *getMemU32Ptr(0x5D4594, 1193532);
-        *getMemU32Ptr(0x5D4594, 1193608) = v4.top - *getMemU32Ptr(0x5D4594, 1193536);
-        *getMemU32Ptr(0x5D4594, 1193612) = v4.right - *getMemU32Ptr(0x5D4594, 1193532);
+        *getMemU32Ptr(0x5D4594, 1193604 + 4) = v4.top - *getMemU32Ptr(0x5D4594, 1193532 + 4);
+        *getMemU32Ptr(0x5D4594, 1193604 + 8) = v4.right - *getMemU32Ptr(0x5D4594, 1193532);
         v3 = g_frontbuffer;
-        *getMemU32Ptr(0x5D4594, 1193616) = v4.bottom - *getMemU32Ptr(0x5D4594, 1193536);
+        *getMemU32Ptr(0x5D4594, 1193604 + 12) = v4.bottom - *getMemU32Ptr(0x5D4594, 1193532 + 4);
         if (!a1)
             v3 = g_backbuffer1;
         if (v3->lpVtbl->Blt(v3,
@@ -883,20 +883,20 @@ int  sub_48BA50(int a1)
             0);
     }
     *getMemU32Ptr(0x5D4594, 1193532) = *(_DWORD*)& dword_5d4594_1193648 - *getMemU32Ptr(0x5D4594, 1193580);
-    *getMemU32Ptr(0x5D4594, 1193540) = *(_DWORD*)& dword_5d4594_1193648
+    *getMemU32Ptr(0x5D4594, 1193532 + 8) = *(_DWORD*)& dword_5d4594_1193648
         - *getMemU32Ptr(0x5D4594, 1193580)
         + *getMemU32Ptr(0x5D4594, 1193600);
-    *getMemU32Ptr(0x5D4594, 1193536) = *(_DWORD*)& dword_5d4594_1193524 - *getMemU32Ptr(0x5D4594, 1193636);
-    *getMemU32Ptr(0x5D4594, 1193544) = *(_DWORD*)& dword_5d4594_1193524
+    *getMemU32Ptr(0x5D4594, 1193532 + 4) = *(_DWORD*)& dword_5d4594_1193524 - *getMemU32Ptr(0x5D4594, 1193636);
+    *getMemU32Ptr(0x5D4594, 1193532 + 12) = *(_DWORD*)& dword_5d4594_1193524
         - *getMemU32Ptr(0x5D4594, 1193636)
         + *getMemU32Ptr(0x5D4594, 1193620);
     if ((!a1 || *(_DWORD*)& dword_5d4594_1193668 || *(_DWORD*)& dword_5d4594_1193664)
         && nox_xxx_utilRect_49F930((int4*)& v4, (int4*)getMemAt(0x5D4594, 1193532), (int4*)(&obj_5D4594_3800716.data[9])))
     {
-        *getMemU32Ptr(0x5D4594, 1193556) = v4.right - v4.left;
+        *getMemU32Ptr(0x5D4594, 1193548 + 8) = v4.right - v4.left;
         *getMemU32Ptr(0x5D4594, 1193548) = 0;
-        *getMemU32Ptr(0x5D4594, 1193552) = 0;
-        *getMemU32Ptr(0x5D4594, 1193560) = v4.bottom - v4.top;
+        *getMemU32Ptr(0x5D4594, 1193548 + 4) = 0;
+        *getMemU32Ptr(0x5D4594, 1193548 + 12) = v4.bottom - v4.top;
         if (a1)
         {
             sub_48C170((int4*)& rc, (int4*)& v4);
@@ -932,9 +932,9 @@ int  sub_48BA50(int a1)
     if (nox_xxx_utilRect_49F930((int4*)& v4, (int4*)getMemAt(0x5D4594, 1193532), (int4*)(&obj_5D4594_3800716.data[9])))
     {
         *getMemU32Ptr(0x5D4594, 1193604) = v4.left - *getMemU32Ptr(0x5D4594, 1193532);
-        *getMemU32Ptr(0x5D4594, 1193608) = v4.top - *getMemU32Ptr(0x5D4594, 1193536);
-        *getMemU32Ptr(0x5D4594, 1193612) = v4.right - *getMemU32Ptr(0x5D4594, 1193532);
-        *getMemU32Ptr(0x5D4594, 1193616) = v4.bottom - *getMemU32Ptr(0x5D4594, 1193536);
+        *getMemU32Ptr(0x5D4594, 1193604 + 4) = v4.top - *getMemU32Ptr(0x5D4594, 1193532 + 4);
+        *getMemU32Ptr(0x5D4594, 1193604 + 8) = v4.right - *getMemU32Ptr(0x5D4594, 1193532);
+        *getMemU32Ptr(0x5D4594, 1193604 + 12) = v4.bottom - *getMemU32Ptr(0x5D4594, 1193532 + 4);
         if (a1)
         {
             sub_48C170((int4*)& rc, (int4*)& v4);

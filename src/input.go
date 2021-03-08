@@ -1,6 +1,7 @@
 package main
 
 import (
+	"image"
 	"log"
 	"unicode/utf16"
 
@@ -17,7 +18,7 @@ var _ input.Interface = noxInput{}
 
 type noxInput struct{}
 
-func (noxInput) MouseButtonAt(p types.Point, button input.MouseButton, pressed bool) {
+func (noxInput) MouseButtonAt(p image.Point, button input.MouseButton, pressed bool) {
 	var typ noxMouseEventType
 	switch button {
 	case input.MouseButtonLeft:
@@ -37,7 +38,7 @@ func (noxInput) MouseButtonAt(p types.Point, button input.MouseButton, pressed b
 	})
 }
 
-func (noxInput) MouseMotion(p types.Point) {
+func (noxInput) MouseMotion(p image.Point) {
 	pushMouseEvent(noxMouseEvent{
 		Type:  noxMouseEventMotion,
 		X:     p.X,
@@ -46,7 +47,7 @@ func (noxInput) MouseMotion(p types.Point) {
 	})
 }
 
-func (noxInput) MouseWheel(p types.Point, dv int) {
+func (noxInput) MouseWheel(p image.Point, dv int) {
 	pushMouseEvent(noxMouseEvent{
 		Type:  noxMouseEventWheel,
 		X:     p.X,

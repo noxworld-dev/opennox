@@ -49,7 +49,7 @@ __int16  nox_xxx_mapGenClientText_4A9D00(unsigned __int8* a1) {
 	if (++*getMemU32Ptr(0x5D4594, 1309672) >= 32)
 		*getMemU32Ptr(0x5D4594, 1309672) = 0;
 	nox_xxx_directDrawBlitMB_48A220();
-	sub_4AD170_call_copy_backbuffer();
+	nox_video_callCopyBackBuffer_4AD170();
 	sub_48A290_call_present();
 	return v2;
 }

@@ -2,6 +2,7 @@ package input
 
 import (
 	"fmt"
+	"image"
 	"log"
 	"math"
 
@@ -19,8 +20,8 @@ const (
 )
 
 type Stick struct {
-	Pos  types.Point
-	DPos types.Point
+	Pos  image.Point
+	DPos image.Point
 }
 
 func (s *Stick) SetX(v int) {

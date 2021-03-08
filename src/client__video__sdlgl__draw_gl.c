@@ -21,6 +21,7 @@
 
 
 SDL_GLContext g_ddraw;
+extern DWORD g_present_ticks;
 GLuint g_texture, g_program, g_tex_coord_buffer, g_tex_coord_attr, g_gamma_uniform, g_matrix_uniform, g_sampler_uniform;
 
 SDL_Surface* g_frontbuffer1;
@@ -38,11 +39,11 @@ static void glCheckError() {
 
 
 //----- (0048A120) --------------------------------------------------------
-void sub_48A120() {
+void nox_video_free_renderer_48A120() {
 	dword_6F7BB0 = 0;
 
-	sub_48B1D0_free_surface(&dword_973C60);
-	sub_48B1D0_free_surface(&dword_973C88);
+	sub_48B1D0_free_surface(&g_surface_973C60);
+	sub_48B1D0_free_surface(&g_surface_973C88);
 	if (g_backbuffer1 != g_frontbuffer1) {
 		sub_48B1D0_free_surface(&g_frontbuffer1);
 	} else {
@@ -59,7 +60,7 @@ SDL_Surface*  nox_video_createSurface_48A600(int width, int height, int caps) {
 	return pSurface;
 }
 
-int  sub_48A720(SDL_Surface* surf, int* outPitch, void** outPixels) {
+int  nox_video_getSurfaceData_48A720(SDL_Surface* surf, int* outPitch, void** outPixels) {
 	if (outPitch)
 		*outPitch = surf->pitch;
 	if (outPixels)
@@ -85,7 +86,7 @@ static void set_viewport(float srcw, float srch) {
 	vpw = EM_ASM_INT(return canvas.width);
 	vph = EM_ASM_INT(return canvas.height);
 #else
-	SDL_GL_GetDrawableSize(windowHandle_dword_973FE0, &vpw, &vph);
+	SDL_GL_GetDrawableSize(nox_video_getWindow_401FD0(), &vpw, &vph);
 #endif
 
 	//
@@ -164,7 +165,7 @@ void sdl_present() {
 		const float matrix[] = {1.0, 0.0, 0.0, 1.0};
 		const float matrixRotated[] = {0.0, 1.0, 1.0, 0.0};
 
-		sub_48BE50(1);
+		nox_video_mouseThreadXxx_48BE50(1);
 		nox_video_waitVBlankAndDrawCursorFromThread_48B5D0(0, 0);
 
 		glBindTexture(GL_TEXTURE_2D, g_texture);
@@ -224,14 +225,14 @@ void sdl_present() {
 		glDrawArrays(GL_TRIANGLE_STRIP, 0, g_tex_coord_numitems);
 		glCheckError();
 
-		SDL_GL_SwapWindow(windowHandle_dword_973FE0);
+		SDL_GL_SwapWindow(nox_video_getWindow_401FD0());
 
-		sub_48BE50(0);
+		nox_video_mouseThreadXxx_48BE50(0);
 	}
 }
 #endif // NOX_CGO
 
-int create_surfaces(HWND a1, int width, int height) {
+int create_surfaces(int width, int height) {
 	int result = 0;
 	BYTE v3;
 
@@ -273,7 +274,7 @@ const GLchar* fragment_source =
 					"    gl_FragColor.rgb = pow(texture2D(uSampler, coordTex * uMatrix).rgb, vec3(1.0/uGamma));\n"
 					"}\n";
 
-int nox_xxx_initDDraw_48B000() {
+int nox_video_init_renderer_48B000() {
 	GLint status;
 	GLuint vertex, fragment;
 	float coords[] = {1.0, 1.0, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0};
@@ -285,7 +286,7 @@ int nox_xxx_initDDraw_48B000() {
 #endif
 	g_format = SDL_PIXELFORMAT_RGBA5551;
 	if (!g_ddraw) {
-		g_ddraw = SDL_GL_CreateContext(windowHandle_dword_973FE0);
+		g_ddraw = SDL_GL_CreateContext(nox_video_getWindow_401FD0());
 		if (g_ddraw == NULL) {
 			fprintf(stderr, "SDL GL context creation failed: %s\n", SDL_GetError());
 			return 0;
@@ -385,7 +386,7 @@ int nox_xxx_initDDraw_48B000() {
 
 
 //----- (0048A3D0) --------------------------------------------------------
-int sub_48A3D0() {
+int nox_video_setBackBufSizes_48A3D0() {
 	dword_5d4594_3801780 = 2;
 	*getMemU32Ptr(0x5D4594, 3801796) = 0;
 	if (g_backbuffer1) {
@@ -393,13 +394,13 @@ int sub_48A3D0() {
 		nox_backbuffer_height = g_backbuffer1->h;
 		*getMemU32Ptr(0x5D4594, 3799564) = g_backbuffer1->pitch;
 		*getMemU32Ptr(0x5D4594, 3801796) = 1;
-		sub_48A190();
+		nox_video_setBackBufferPtrs_48A190();
 		if (g_format == SDL_PIXELFORMAT_RGBA5551 || g_format == SDL_PIXELFORMAT_RGB565) {
 			nox_backbuffer_width32 = g_backbuffer1->w >> 4;
 			*getMemU32Ptr(0x5D4594, 3801776) = g_backbuffer1->w >> 1;
 			dword_5d4594_3801780 = 1;
-			nox_pitch_3801808 = 2 * g_backbuffer1->w;
-			nox_backbuffer_pitch32 = g_backbuffer1->pitch - 2 * g_backbuffer1->w;
+			nox_backbuffer_pitch_3801808 = 2 * g_backbuffer1->w;
+			nox_backbuffer_pitchDiff = g_backbuffer1->pitch - 2 * g_backbuffer1->w;
 
 			if (g_format == SDL_PIXELFORMAT_RGBA5551)
 				dword_5d4594_3799624 = 1;
@@ -470,9 +471,9 @@ int  nox_client_drawGeneral_4B0340(int a1) // draw general
 		;
 		if (!v2) {
 			nox_free_pixbuffers_486110();
-			sub_48A120();
+			nox_video_free_renderer_48A120();
 			nox_video_renderTargetFlags = v4;
-			result = sub_48A040(v3, v8, v7, a1);
+			result = nox_video_resetRenderer_48A040(v8, v7, a1);
 			if (!result)
 				return result;
 			result = sub_486090();
@@ -496,7 +497,6 @@ int  nox_client_drawGeneral_4B0340(int a1) // draw general
 	}
 	sub_48B590(&v11, &v10, &v9);
 	v2 = dword_5d4594_3801780;
-	v3 = windowHandle_dword_973FE0;
 	v4 = nox_video_renderTargetFlags;
 	v8 = nox_backbuffer_width;
 	v7 = nox_backbuffer_height;
@@ -504,9 +504,9 @@ int  nox_client_drawGeneral_4B0340(int a1) // draw general
 	nox_video_stopCursorDrawThread_48B350();
 	sub_433C20();
 	nox_free_pixbuffers_486110();
-	sub_48A120();
+	nox_video_free_renderer_48A120();
 	nox_video_renderTargetFlags = v4;
-	result = sub_48A040(v3, NOX_DEFAULT_WIDTH, NOX_DEFAULT_HEIGHT, NOX_DEFAULT_DEPTH);
+	result = nox_video_resetRenderer_48A040(NOX_DEFAULT_WIDTH, NOX_DEFAULT_HEIGHT, NOX_DEFAULT_DEPTH);
 	if (result) {
 		result = sub_486090();
 		if (result)
@@ -516,7 +516,7 @@ int  nox_client_drawGeneral_4B0340(int a1) // draw general
 }
 
 //----- (0048A040) --------------------------------------------------------
-int  sub_48A040(HWND a1, int a2, int a3, int a4) {
+int  nox_video_resetRenderer_48A040(int a2, int a3, int a4) {
 	int result; // eax
 
 	g_backbuffer_count = 2;
@@ -525,8 +525,8 @@ int  sub_48A040(HWND a1, int a2, int a3, int a4) {
 	g_ddraw = 0;
 	g_backbuffer1 = 0;
 
-	dword_973C88 = 0;
-	dword_973C60 = 0;
+	g_surface_973C88 = 0;
+	g_surface_973C60 = 0;
 	dword_973C70 = 0;
 	g_present_ticks = 0;
 	dword_974854 = 0;
@@ -534,16 +534,16 @@ int  sub_48A040(HWND a1, int a2, int a3, int a4) {
 	dword_5ACFAC = 1;
 	if (!(nox_video_renderTargetFlags & 4)) {
 		sub_48AA40();
-		result = nox_xxx_initDDraw_48B000();
+		result = nox_video_init_renderer_48B000();
 		if (!result)
 			return result;
 
-		create_surfaces(a1, a2, a3);
+		create_surfaces(a2, a3);
 
 	}
 	dword_6F7BB0 = 1;
 	sub_48A820(1u);
-	result = sub_48A3D0();
+	result = nox_video_setBackBufSizes_48A3D0();
 	if (result) {
 		sub_48A7F0();
 		result = 1;

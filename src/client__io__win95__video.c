@@ -4,7 +4,7 @@
 #include "client__io__console.h"
 
 extern BYTE* nox_pixbuffer_3798780;
-extern int nox_pitch_3801808;
+extern int nox_backbuffer_pitch_3801808;
 extern int nox_backbuffer_width;
 extern int nox_backbuffer_height;
 
@@ -33,7 +33,7 @@ int sub_430F00_screenshot() {
 					getMemByte(0x5D4594, 3 * *(unsigned __int8*)(v7 + v4) + 3804717),
 					getMemByte(0x5D4594, 3 * *(unsigned __int8*)(v7 + v4) + 3804718));
 		}
-		v4 += nox_pitch_3801808;
+		v4 += nox_backbuffer_pitch_3801808;
 	}
 	v8 = nox_strman_loadString_40F1D0("SnapshotWritten", 0, "C:\\NoxPost\\src\\Client\\Io\\Win95\\Video.c", 399);
 	sub_4517A0(v8, path);

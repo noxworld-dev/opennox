@@ -38,7 +38,7 @@ extern BYTE* nox_pixbuffer_3798780;
 extern _DWORD dword_5d4594_1193704;
 extern _DWORD dword_5d4594_3804668;
 extern _DWORD dword_5d4594_1193584;
-extern int nox_pitch_3801808;
+extern int nox_backbuffer_pitch_3801808;
 extern _DWORD cpuid_5d4594_3801804;
 extern _DWORD dword_5d4594_3799492;
 extern _DWORD dword_5d4594_810640;
@@ -85,32 +85,28 @@ extern int nox_video_gammaValue;
 extern int (*func_5d4594_1311924)(void);
 
 extern DWORD dword_973C70;
-extern DWORD g_present_ticks;
 extern DWORD g_backbuffer_count;
 extern DWORD dword_5ACFAC;
 extern DWORD dword_6F7B9C;
-extern void (*g_present_ptr)();
 extern DWORD dword_6F7BB0;
 extern DWORD g_cursor_surf_pitch;
 extern BYTE* g_cursor_surf_pixels;
 extern BYTE* g_cursor_surf_pixels_6F7C78;
-extern int (*nox_video_cursorThreadedDrawFnPtr)(int);
 extern void (*dword_6F7C10)(_DWORD, _DWORD, _DWORD);
 extern __int16 (*dword_6F7C40)();
 extern __int16 (*dword_6F7C34)();
 extern void (*dword_975240)(_DWORD, _DWORD*, _DWORD*, _DWORD*);
 extern int (*dword_975380)(_DWORD, _DWORD, _DWORD);
 extern void (*nox_color_rgb_func)(uint8_t, uint8_t, uint8_t, uint32_t*);
-extern void (*g_copy_backbuffer_ptr)();
 
+#ifndef NOX_CGO
+extern SDL_Surface* g_backbuffer1;
+#endif // NOX_CGO
 extern SDL_Surface* g_cursor_surf_6F7C48;
 extern SDL_Surface* g_cursor_surf;
-extern SDL_Surface* dword_973C60;
-extern SDL_Surface* g_backbuffer1;
-extern SDL_Surface* dword_973C88;
+extern SDL_Surface* g_surface_973C60;
+extern SDL_Surface* g_surface_973C88;
 extern Uint32 g_format;
-
-extern SDL_Window* windowHandle_dword_973FE0;
 
 extern int g_rotate;
 extern int g_rotated;
@@ -119,7 +115,7 @@ extern float draw_gamma;
 
 extern unsigned int g_tex_coord_itemsize, g_tex_coord_numitems;
 
-extern int nox_backbuffer_pitch32;
+extern int nox_backbuffer_pitchDiff;
 extern int nox_backbuffer_width32;
 
 #endif

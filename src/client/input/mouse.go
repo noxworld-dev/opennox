@@ -1,12 +1,15 @@
 package input
 
 import (
+	"image"
+
 	"github.com/veandco/go-sdl2/sdl"
+
 	"nox/common/types"
 )
 
 type mouse struct {
-	pos      types.Point // last mouse coordinates (in window space)
+	pos      image.Point // last mouse coordinates (in window space)
 	grab     bool
 	acquired bool
 }
@@ -34,9 +37,9 @@ func (h *Handler) UnacquireMouse() {
 	h.mouse.acquired = false
 }
 
-func (h *Handler) GlobalMousePos() types.Point {
+func (h *Handler) GlobalMousePos() image.Point {
 	mouseX, mouseY, _ := sdl.GetGlobalMouseState()
-	return types.Point{
+	return image.Point{
 		X: int(mouseX),
 		Y: int(mouseY),
 	}
@@ -63,20 +66,20 @@ func (h *Handler) processMouseEvent(ev *sdl.MouseButtonEvent) {
 	default:
 		return
 	}
-	h.MouseButtonAt(types.Point{
+	h.MouseButtonAt(image.Point{
 		X: int(ev.X), Y: int(ev.Y),
 	}, button, pressed)
 }
 
 // MouseButtonAt sets mouse pos to a given position and sets a specified mouse button state.
-func (h *Handler) MouseButtonAt(p types.Point, button MouseButton, pressed bool) {
+func (h *Handler) MouseButtonAt(p image.Point, button MouseButton, pressed bool) {
 	h.mouse.pos = p
 	p = h.win.toDrawSpace(p)
 	h.iface.MouseButtonAt(p, button, pressed)
 }
 
 // MouseSet sets mouse to a specific position in the window space.
-func (h *Handler) MouseSet(p types.Point) {
+func (h *Handler) MouseSet(p image.Point) {
 	h.mouse.pos = p
 	p = h.win.toDrawSpace(p)
 	h.iface.MouseMotion(p)
@@ -102,11 +105,11 @@ func (h *Handler) MouseButton(button MouseButton, pressed bool) {
 	h.MouseButtonAt(h.mouse.pos, button, pressed)
 }
 
-func (h *Handler) MouseDownAt(p types.Point, button MouseButton) {
+func (h *Handler) MouseDownAt(p image.Point, button MouseButton) {
 	h.MouseButtonAt(p, button, true)
 }
 
-func (h *Handler) MouseUpAt(p types.Point, button MouseButton) {
+func (h *Handler) MouseUpAt(p image.Point, button MouseButton) {
 	h.MouseButtonAt(p, button, false)
 }
 
@@ -119,7 +122,7 @@ func (h *Handler) MouseUp(button MouseButton) {
 }
 
 func (h *Handler) processMotionEvent(ev *sdl.MouseMotionEvent) {
-	h.MouseSet(types.Point{X: int(ev.X), Y: int(ev.Y)})
+	h.MouseSet(image.Point{X: int(ev.X), Y: int(ev.Y)})
 }
 
 func (h *Handler) processWheelEvent(ev *sdl.MouseWheelEvent) {

@@ -1,6 +1,8 @@
 package input
 
 import (
+	"image"
+
 	"nox/common/types"
 
 	"github.com/veandco/go-sdl2/sdl"
@@ -18,7 +20,7 @@ func (win *window) updateScale() {
 }
 
 // toDrawSpace remaps window position to position on the video buffer
-func (win *window) toDrawSpace(p types.Point) types.Point {
+func (win *window) toDrawSpace(p image.Point) image.Point {
 	p.X = int(float32(p.X) * win.scale.W)
 	p.Y = int(float32(p.Y) * win.scale.H)
 	return p
@@ -42,7 +44,7 @@ func (win *window) inputClampf(p types.Pointf) types.Pointf {
 }
 
 // inputClamp clamps window coords according to the current screen size.
-func (win *window) inputClamp(p types.Point) types.Point {
+func (win *window) inputClamp(p image.Point) image.Point {
 	if p.X < 0 {
 		p.X = 0
 	}
