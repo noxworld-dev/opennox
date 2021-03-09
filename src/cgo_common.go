@@ -11,6 +11,7 @@ package main
 #cgo CFLAGS: -Werror=address
 //#cgo CFLAGS: -Werror=unused-variable
 #cgo CFLAGS: -Werror=cast-function-type
+#cgo CFLAGS: -Werror=attribute-warning
 
 #cgo CFLAGS: -Wno-pointer-to-int-cast
 #cgo CFLAGS: -Wno-int-to-pointer-cast
@@ -23,6 +24,7 @@ package main
 #cgo CFLAGS: -Wno-strict-prototypes
 #cgo CFLAGS: -Wno-discarded-qualifiers
 #cgo CFLAGS: -Wno-return-local-addr
+#cgo CFLAGS: -Wno-unused-result
 
 #cgo windows LDFLAGS: -lws2_32
 #cgo linux LDFLAGS: -lm

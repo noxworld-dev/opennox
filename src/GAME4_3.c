@@ -12181,11 +12181,11 @@ int  sub_541A50(FILE* a1, FILE* a2, FILE* a3) {
 	int i;           // ebx
 	int j;           // edi
 	size_t v7;       // [esp+10h] [ebp-101Ch]
-	char v8;         // [esp+14h] [ebp-1018h]
-	char v9;         // [esp+18h] [ebp-1014h]
+	int v8;         // [esp+14h] [ebp-1018h]
+	int v9;         // [esp+18h] [ebp-1014h]
 	int v10;         // [esp+1Ch] [ebp-1010h]
 	int v11;         // [esp+20h] [ebp-100Ch]
-	char v12;        // [esp+24h] [ebp-1008h]
+	int v12;        // [esp+24h] [ebp-1008h]
 	int v13;         // [esp+28h] [ebp-1004h]
 	char v14[4096];  // [esp+2Ch] [ebp-1000h]
 
@@ -12252,9 +12252,9 @@ int  sub_541D80(FILE* a1, FILE* a2) {
 	int v2;     // ebx
 	int result; // eax
 	int v4;     // [esp+Ch] [ebp-100Ch]
-	char v5;    // [esp+10h] [ebp-1008h]
-	char v6;    // [esp+14h] [ebp-1004h]
-	char v7;    // [esp+18h] [ebp-1000h]
+	int v5;    // [esp+10h] [ebp-1008h]
+	int v6;    // [esp+14h] [ebp-1004h]
+	int v7;    // [esp+18h] [ebp-1000h]
 
 	fread(&v7, 4u, 1u, a1);
 	v2 = 0;
@@ -12278,19 +12278,19 @@ int  sub_541D80(FILE* a1, FILE* a2) {
 //----- (00541E40) --------------------------------------------------------
 int  sub_541E40(FILE* a1, FILE* a2, FILE* a3) {
 	size_t v4; // [esp+10h] [ebp-1034h]
-	char v5;   // [esp+14h] [ebp-1030h]
+	int v5;   // [esp+14h] [ebp-1030h]
 	int i;     // [esp+18h] [ebp-102Ch]
 	int v7;    // [esp+1Ch] [ebp-1028h]
-	char v8;   // [esp+20h] [ebp-1024h]
-	char v9;   // [esp+24h] [ebp-1020h]
-	char v10;  // [esp+28h] [ebp-101Ch]
+	int v8;   // [esp+20h] [ebp-1024h]
+	int v9;   // [esp+24h] [ebp-1020h]
+	int v10;  // [esp+28h] [ebp-101Ch]
 	int v11;   // [esp+2Ch] [ebp-1018h]
 	int v12;   // [esp+30h] [ebp-1014h]
 	int v13;   // [esp+34h] [ebp-1010h]
 	int v14;   // [esp+38h] [ebp-100Ch]
-	char v15;  // [esp+3Ch] [ebp-1008h]
+	int v15;  // [esp+3Ch] [ebp-1008h]
 	int v16;   // [esp+40h] [ebp-1004h]
-	char v17;  // [esp+44h] [ebp-1000h]
+	int v17;  // [esp+44h] [ebp-1000h]
 
 	v4 = 4;
 	fread(&v17, 4u, 1u, a1);
@@ -12911,8 +12911,8 @@ int  sub_543110(LPCSTR lpExistingFileName, int2* a2) {
 	int v14;                // [esp+18h] [ebp-1014h]
 	int v15;                // [esp+1Ch] [ebp-1010h]
 	int j;                  // [esp+20h] [ebp-100Ch]
-	char v17;               // [esp+24h] [ebp-1008h]
-	char v18;               // [esp+28h] [ebp-1004h]
+	int v17;               // [esp+24h] [ebp-1008h]
+	int v18;               // [esp+28h] [ebp-1004h]
 	char v19[2048];         // [esp+2Ch] [ebp-1000h]
 	char NewFileName[2048]; // [esp+82Ch] [ebp-800h]
 
