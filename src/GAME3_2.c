@@ -2027,22 +2027,20 @@ int nox_xxx_servNewSession_4D1660() {
 
 //----- (004D17F0) --------------------------------------------------------
 int nox_xxx_servInitialMapLoad_4D17F0() {
-	int result; // eax
-
 	sub_4E79B0(0);
-	if (!memcmp(nox_server_currentMapGetFilename_409B30(), getMemAt(0x5D4594, 1548720), 1u))
+	if (!memcmp(nox_server_currentMapGetFilename_409B30(), getMemAt(0x5D4594, 1548720), 1u)) {
 		nox_xxx_gameSetMapPath_409D70("tutorial.map");
-	nox_xxx_netMapSendStop_519870();
-	result = nox_xxx_mapExitAndCheckNext_4D1860_server();
-	if (result) {
-		nox_xxx_setGameState_43DDF0(nox_xxx_gameTick_4D2580_server);
-		nox_xxx_netBuf_40EE90(1);
-		nox_xxx_setGameFlags_40A4D0(0x20000);
-		nox_xxx_netGameSettings_4DEF00();
-		nox_server_gameUnsetMapLoad_40A690();
-		result = 1;
 	}
-	return result;
+	nox_xxx_netMapSendStop_519870();
+	if (!nox_xxx_mapExitAndCheckNext_4D1860_server()) {
+		return 0;
+	}
+	nox_xxx_setGameState_43DDF0(nox_xxx_gameTick_4D2580_server);
+	nox_xxx_netBuf_40EE90(1);
+	nox_xxx_setGameFlags_40A4D0(0x20000);
+	nox_xxx_netGameSettings_4DEF00();
+	nox_server_gameUnsetMapLoad_40A690();
+	return 1;
 }
 
 //----- (004D23C0) --------------------------------------------------------
