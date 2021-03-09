@@ -3166,7 +3166,7 @@ nox_window*  nox_gui_parseWindowOrWidget_4A1440(const char* typ, int id, int a3,
 nox_window*  nox_gui_parseWidget_4A1510(const char* typ, nox_window* parent, int a3, int px, int py, int w, int h,
 											_DWORD* drawData, void* data);
 BOOL  nox_xxx_guiParse_4A1780(int a1, FILE* a2, char* a3);
-#else NOX_CGO
+#else // NOX_CGO
 nox_window*  nox_new_window_from_file(char* a1, void* a2);
 #endif // NOX_CGO
 int  sub_4A18E0(int, int, int, int); // weak
