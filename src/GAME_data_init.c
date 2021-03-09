@@ -3578,6 +3578,7 @@ void init_data() {
 	*(void**)getMemAt(0x587000, 239448) = getMemAt(0x587000, 245840);
 	*(void**)getMemAt(0x587000, 239452) = getMemAt(0x587000, 245864);
 	*(void**)getMemAt(0x587000, 239456) = getMemAt(0x587000, 245880);
+
 	*(void**)getMemAt(0x587000, 245900) = &nox_xxx_scriptGetWall_511EB0;
 	*(void**)getMemAt(0x587000, 245904) = &nox_xxx_scriptOpenSecretWall_511F50;
 	*(void**)getMemAt(0x587000, 245908) = &nox_xxx_scriptOpenWallGroup_512010;
@@ -3801,6 +3802,7 @@ void init_data() {
 	*(void**)getMemAt(0x587000, 246788) = &nox_xxx_script_Walk_5140B0;
 	*(void**)getMemAt(0x587000, 246792) = &nox_xxx_script_GroupWalk_514170;
 	*(void**)getMemAt(0x587000, 246796) = &nox_xxx_script_Effect_514210;
+
 	*(void**)getMemAt(0x587000, 247336) = getMemAt(0x587000, 247352);
 	*(void**)getMemAt(0x587000, 247340) = getMemAt(0x587000, 247368);
 	*(void**)getMemAt(0x587000, 247344) = getMemAt(0x587000, 247384);

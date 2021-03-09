@@ -5353,16 +5353,16 @@ int nox_xxx_scriptGetWall_511EB0() {
 	int v0; // edi
 	int v1; // esi
 
-	v0 = script_pop();
-	v1 = script_pop();
+	v0 = nox_script_pop();
+	v1 = nox_script_pop();
 	if (dword_5d4594_3821636 || dword_5d4594_3821640) {
 		v1 = (*(int*)&dword_5d4594_3821636 + 23 * v1) / 23;
 		v0 = (*(int*)&dword_5d4594_3821640 + 23 * v0) / 23;
 	}
 	if (nox_server_getWallAtPoint_410580(v1, v0))
-		nox_xxx_scriptPushValue_507230(v0 | (v1 << 16));
+		nox_script_push(v0 | (v1 << 16));
 	else
-		nox_xxx_scriptPushValue_507230(0);
+		nox_script_push(0);
 	return 0;
 }
 
@@ -5371,7 +5371,7 @@ int nox_xxx_scriptOpenSecretWall_511F50() {
 	int v0; // eax
 	int v1; // eax
 
-	v0 = script_pop();
+	v0 = nox_script_pop();
 	v1 = nox_server_getWallAtPoint_410580(v0 >> 16, (unsigned __int16)v0);
 	if (v1)
 		sub_511F80(v1);
@@ -5413,7 +5413,7 @@ int nox_xxx_scriptOpenWallGroup_512010() {
 	int v0;              // eax
 	unsigned __int8* v1; // eax
 
-	v0 = script_pop();
+	v0 = nox_script_pop();
 	v1 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v0);
 	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 2, sub_511F80, 0);
 	return 0;
@@ -5424,7 +5424,7 @@ int nox_xxx_scriptCloseWall_512040() {
 	int v0; // eax
 	int v1; // eax
 
-	v0 = script_pop();
+	v0 = nox_script_pop();
 	v1 = nox_server_getWallAtPoint_410580(v0 >> 16, (unsigned __int16)v0);
 	if (v1)
 		sub_512070(v1);
@@ -5466,7 +5466,7 @@ int nox_xxx_scriptCloseWallGroup_512100() {
 	int v0;              // eax
 	unsigned __int8* v1; // eax
 
-	v0 = script_pop();
+	v0 = nox_script_pop();
 	v1 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v0);
 	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 2, sub_512070, 0);
 	return 0;
@@ -5477,7 +5477,7 @@ int nox_xxx_scriptToggleWall_512130() {
 	int v0; // eax
 	int v1; // eax
 
-	v0 = script_pop();
+	v0 = nox_script_pop();
 	v1 = nox_server_getWallAtPoint_410580(v0 >> 16, (unsigned __int16)v0);
 	if (v1)
 		sub_512160(v1);
@@ -5524,7 +5524,7 @@ int nox_xxx_scriptToggleWallGroup_512260() {
 	int v0;              // eax
 	unsigned __int8* v1; // eax
 
-	v0 = script_pop();
+	v0 = nox_script_pop();
 	v1 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v0);
 	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 2, sub_512160, 0);
 	return 0;
@@ -5535,7 +5535,7 @@ int nox_xxx_scriptWallBreakMB_512290() {
 	int v0; // eax
 	int v1; // eax
 
-	v0 = script_pop();
+	v0 = nox_script_pop();
 	v1 = nox_server_getWallAtPoint_410580(v0 >> 16, (unsigned __int16)v0);
 	if (v1)
 		nox_xxx_wallPreDestroyByPtr_5122C0(v1);
@@ -5558,7 +5558,7 @@ int nox_xxx_scriptWallGroupBreak_5122F0() {
 	int v0;              // eax
 	unsigned __int8* v1; // eax
 
-	v0 = script_pop();
+	v0 = nox_script_pop();
 	v1 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v0);
 	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 2, nox_xxx_wallPreDestroyByPtr_5122C0, 0);
 	return 0;
@@ -5569,8 +5569,8 @@ int nox_xxx_scriptSecondTimer_512320() {
 	int v0; // esi
 	int v1; // eax
 
-	v0 = script_pop();
-	v1 = script_pop();
+	v0 = nox_script_pop();
+	v1 = nox_script_pop();
 	nox_xxx_script_51ACA0(v1 * nox_gameFPS, v0, 0);
 	return 0;
 }
@@ -5580,8 +5580,8 @@ int nox_xxx_scriptFrameTimer_512350() {
 	int v0; // esi
 	int v1; // eax
 
-	v0 = script_pop();
-	v1 = script_pop();
+	v0 = nox_script_pop();
+	v1 = nox_script_pop();
 	nox_xxx_script_51ACA0(v1, v0, 0);
 	return 0;
 }
@@ -5595,8 +5595,8 @@ int nox_xxx_scriptMoverOrMonsterGo_512370() {
 	int v4;     // eax
 	_DWORD* v5; // eax
 
-	v0 = script_pop();
-	v1 = script_pop();
+	v0 = nox_script_pop();
+	v1 = nox_script_pop();
 	v2 = nox_server_scriptValToObjectPtr_511B60(v1);
 	v3 = v2;
 	if (v2) {
@@ -5677,8 +5677,8 @@ int nox_server_scriptGroupGoTo_512500() {
 	int* i;     // esi
 	int v5;     // eax
 
-	v0 = script_pop();
-	v1 = script_pop();
+	v0 = nox_script_pop();
+	v1 = nox_script_pop();
 	v2 = nox_server_scriptGetGroup_57C0A0(v1);
 	v3 = nox_server_getWaypointById_579C40(v0);
 	if (v3) {
@@ -5700,8 +5700,8 @@ int nox_xxx_script_LookAtDirection_512560() {
 	int v2; // eax
 	int v3; // ecx
 
-	v0 = script_pop();
-	v1 = script_pop();
+	v0 = nox_script_pop();
+	v1 = nox_script_pop();
 	v2 = nox_server_scriptValToObjectPtr_511B60(v1);
 	if (v2) {
 		if (*(_BYTE*)(v2 + 8) & 2) {
@@ -5745,8 +5745,8 @@ int nox_xxx_script_GroupLookAtDirection_512610() {
 	int v4;     // eax
 	int v5;     // ecx
 
-	v0 = script_pop();
-	v1 = script_pop();
+	v0 = nox_script_pop();
+	v1 = nox_script_pop();
 	result = nox_server_scriptGetGroup_57C0A0(v1);
 	if (result) {
 		for (i = *(int**)(result + 84); i; i = (int*)i[2]) {
@@ -5767,7 +5767,7 @@ int nox_xxx_script_ObjectOn_512670() {
 	int v0; // eax
 	int v1; // eax
 
-	v0 = script_pop();
+	v0 = nox_script_pop();
 	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v1)
 		nox_xxx_objectSetOn_4E75B0(v1);
@@ -5779,7 +5779,7 @@ int nox_xxx_scriptObjGroupOn_512690() {
 	int v0;              // eax
 	unsigned __int8* v1; // eax
 
-	v0 = script_pop();
+	v0 = nox_script_pop();
 	v1 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v0);
 	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 0, sub_5126C0, 0);
 	return 0;
@@ -5793,7 +5793,7 @@ int nox_xxx_scriptWaypointOn_5126D0() {
 	int v0;     // eax
 	_DWORD* v1; // eax
 
-	v0 = script_pop();
+	v0 = nox_script_pop();
 	v1 = nox_server_getWaypointById_579C40(v0);
 	if (v1)
 		v1[120] |= 1u;
@@ -5805,7 +5805,7 @@ int nox_xxx_scriptWaypointGroupOn_5126F0() {
 	int v0;              // eax
 	unsigned __int8* v1; // eax
 
-	v0 = script_pop();
+	v0 = nox_script_pop();
 	v1 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v0);
 	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 1, sub_512720, 0);
 	return 0;
@@ -5825,7 +5825,7 @@ int nox_xxx_script_ObjectOff_512730() {
 	int v0; // eax
 	int v1; // eax
 
-	v0 = script_pop();
+	v0 = nox_script_pop();
 	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v1)
 		nox_xxx_objectSetOff_4E7600(v1);
@@ -5837,7 +5837,7 @@ int nox_xxx_scriptObjGroupOff_512750() {
 	int v0;              // eax
 	unsigned __int8* v1; // eax
 
-	v0 = script_pop();
+	v0 = nox_script_pop();
 	v1 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v0);
 	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 0, sub_512780, 0);
 	return 0;
@@ -5851,7 +5851,7 @@ int nox_xxx_scriptWaypointOff_512790() {
 	int v0;     // eax
 	_DWORD* v1; // eax
 
-	v0 = script_pop();
+	v0 = nox_script_pop();
 	v1 = nox_server_getWaypointById_579C40(v0);
 	if (v1)
 		v1[120] &= 0xFFFFFFFE;
@@ -5863,7 +5863,7 @@ int nox_xxx_scriptWaypointGroupOff_5127B0() {
 	int v0;              // eax
 	unsigned __int8* v1; // eax
 
-	v0 = script_pop();
+	v0 = nox_script_pop();
 	v1 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v0);
 	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 1, sub_5127E0, 0);
 	return 0;
@@ -5883,7 +5883,7 @@ int nox_xxx_scriptToggleObject_5127F0() {
 	int v0; // eax
 	int v1; // eax
 
-	v0 = script_pop();
+	v0 = nox_script_pop();
 	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v1)
 		nox_xxx_objectToggle_4E7650(v1);
@@ -5895,7 +5895,7 @@ int nox_xxx_scriptToggleObjectGroup_512810() {
 	int v0;              // eax
 	unsigned __int8* v1; // eax
 
-	v0 = script_pop();
+	v0 = nox_script_pop();
 	v1 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v0);
 	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 0, sub_512840, 0);
 	return 0;
@@ -5909,7 +5909,7 @@ int nox_xxx_scriptToggleWaypoint_512850() {
 	int v0;     // eax
 	_DWORD* v1; // eax
 
-	v0 = script_pop();
+	v0 = nox_script_pop();
 	v1 = nox_server_getWaypointById_579C40(v0);
 	if (v1)
 		v1[120] ^= 1u;
@@ -5921,7 +5921,7 @@ int nox_xxx_scriptToggleWaypointGroup_512870() {
 	int v0;              // eax
 	unsigned __int8* v1; // eax
 
-	v0 = script_pop();
+	v0 = nox_script_pop();
 	v1 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v0);
 	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 1, sub_5128A0, 0);
 	return 0;
@@ -5941,7 +5941,7 @@ int nox_xxx_scriptDeleteObject_5128B0() {
 	int v0; // eax
 	int v1; // eax
 
-	v0 = script_pop();
+	v0 = nox_script_pop();
 	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v1)
 		nox_xxx_delayedDeleteObject_4E5CC0(v1);
@@ -5953,7 +5953,7 @@ int nox_xxx_scriptDeleteObjectGroup_5128D0() {
 	int v0;              // eax
 	unsigned __int8* v1; // eax
 
-	v0 = script_pop();
+	v0 = nox_script_pop();
 	v1 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v0);
 	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 0, sub_512900, 0);
 	return 0;
@@ -5967,7 +5967,7 @@ int nox_xxx_scriptFollowNearestWaypoint_512910() {
 	int v0; // eax
 	int v1; // eax
 
-	v0 = script_pop();
+	v0 = nox_script_pop();
 	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v1)
 		nox_xxx_scriptMonsterRoam_512930(v1);
@@ -6003,7 +6003,7 @@ int nox_xxx_scriptGroupRoam_512990() {
 	int v0;              // eax
 	unsigned __int8* v1; // eax
 
-	v0 = script_pop();
+	v0 = nox_script_pop();
 	v1 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v0);
 	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 0, nox_xxx_scriptMonsterRoam_512930, 0);
 	return 0;
@@ -6013,7 +6013,7 @@ int nox_xxx_scriptGroupRoam_512990() {
 int nox_xxx_scriptGetObject2_5129C0() {
 	int v0; // eax
 
-	v0 = script_pop();
+	v0 = nox_script_pop();
 	nox_server_scriptValToObjectPtr_511B60(v0);
 	return 0;
 }
@@ -6022,7 +6022,7 @@ int nox_xxx_scriptGetObject2_5129C0() {
 int nox_xxx_scriptGetObject3_5129E0() {
 	int v0; // eax
 
-	v0 = script_pop();
+	v0 = nox_script_pop();
 	nox_server_scriptValToObjectPtr_511B60(v0);
 	return 0;
 }
@@ -6038,7 +6038,7 @@ int nox_xxx_scriptGotoHome_512A00() {
 	int* v6;    // eax
 	int* v7;    // eax
 
-	v0 = script_pop();
+	v0 = nox_script_pop();
 	result = nox_server_scriptValToObjectPtr_511B60(v0);
 	v2 = result;
 	if (result) {
@@ -6080,8 +6080,8 @@ int nox_xxx_scriptAudioEven_512AC0() {
 	int v3;     // eax
 	float2* v5; // [esp-Ch] [ebp-14h]
 
-	v0 = script_pop();
-	v1 = script_pop();
+	v0 = nox_script_pop();
+	v1 = nox_script_pop();
 	v2 = (float2*)nox_server_getWaypointById_579C40(v0);
 	if (v2) {
 		v5 = v2 + 1;
@@ -6099,7 +6099,7 @@ int nox_xxx_scriptUnlockDoor_512C20() {
 	int v0; // eax
 	int v1; // eax
 
-	v0 = script_pop();
+	v0 = nox_script_pop();
 	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v1 && (*(_BYTE*)(v1 + 8) & 0x80)) {
 		*(_BYTE*)(*(_DWORD*)(v1 + 748) + 1) = 0;
@@ -6113,7 +6113,7 @@ int nox_xxx_scriptLockDoor_512C60() {
 	int v0; // eax
 	int v1; // eax
 
-	v0 = script_pop();
+	v0 = nox_script_pop();
 	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v1 && (*(_BYTE*)(v1 + 8) & 0x80)) {
 		*(_BYTE*)(*(_DWORD*)(v1 + 748) + 1) = 5;
@@ -6128,13 +6128,13 @@ int nox_xxx_script_IsOn_512CA0() {
 	int v1;     // eax
 	int result; // eax
 
-	v0 = script_pop();
+	v0 = nox_script_pop();
 	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v1 && *(_DWORD*)(v1 + 16) & 0x1000000) {
-		nox_xxx_scriptPushValue_507230(1);
+		nox_script_push(1);
 		result = 0;
 	} else {
-		nox_xxx_scriptPushValue_507230(0);
+		nox_script_push(0);
 		result = 0;
 	}
 	return result;
@@ -6146,13 +6146,13 @@ int nox_xxx_scriptWpIsEnabled_512CE0() {
 	_DWORD* v1; // eax
 	int result; // eax
 
-	v0 = script_pop();
+	v0 = nox_script_pop();
 	v1 = nox_server_getWaypointById_579C40(v0);
 	if (v1 && v1[120] & 1) {
-		nox_xxx_scriptPushValue_507230(1);
+		nox_script_push(1);
 		result = 0;
 	} else {
-		nox_xxx_scriptPushValue_507230(0);
+		nox_script_push(0);
 		result = 0;
 	}
 	return result;
@@ -6164,13 +6164,13 @@ int nox_xxx_scriptDoorIsLocked_512D20() {
 	int v1;     // eax
 	int result; // eax
 
-	v0 = script_pop();
+	v0 = nox_script_pop();
 	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v1 && (*(_BYTE*)(v1 + 8) & 0x80)) {
-		nox_xxx_scriptPushValue_507230(*(_BYTE*)(*(_DWORD*)(v1 + 748) + 1) != 0);
+		nox_script_push(*(_BYTE*)(*(_DWORD*)(v1 + 748) + 1) != 0);
 		result = 0;
 	} else {
-		nox_xxx_scriptPushValue_507230(0);
+		nox_script_push(0);
 		result = 0;
 	}
 	return result;
@@ -6182,10 +6182,10 @@ int nox_xxx_scriptRandomFloat_512D70() {
 	int v1; // eax
 	int v3; // [esp+0h] [ebp-4h]
 
-	v0 = script_pop();
-	v1 = script_pop();
+	v0 = nox_script_pop();
+	v1 = nox_script_pop();
 	*(float*)&v3 = nox_common_randomFloat_416030(*(float*)&v1, *(float*)&v0);
-	nox_xxx_scriptPushValue_507230(v3);
+	nox_script_push(v3);
 	return 0;
 }
 
@@ -6195,10 +6195,10 @@ int nox_xxx_scriptRandomInt_512DB0() {
 	int v1; // eax
 	int v2; // eax
 
-	v0 = script_pop();
-	v1 = script_pop();
+	v0 = nox_script_pop();
+	v1 = nox_script_pop();
 	v2 = nox_common_randomInt_415FA0(v1, v0);
-	nox_xxx_scriptPushValue_507230(v2);
+	nox_script_push(v2);
 	return 0;
 }
 
@@ -6208,9 +6208,9 @@ int nox_xxx_scriptTimerSecSpecial_512DE0() {
 	int v1; // edi
 	int v2; // eax
 
-	v0 = script_pop();
-	v1 = script_pop();
-	v2 = script_pop();
+	v0 = nox_script_pop();
+	v1 = nox_script_pop();
+	v2 = nox_script_pop();
 	nox_xxx_script_51ACA0(v2 * nox_gameFPS, v0, v1);
 	return 0;
 }
@@ -6221,9 +6221,9 @@ int nox_xxx_scriptSpecialTimer_512E10() {
 	int v1; // edi
 	int v2; // eax
 
-	v0 = script_pop();
-	v1 = script_pop();
-	v2 = script_pop();
+	v0 = nox_script_pop();
+	v1 = nox_script_pop();
+	v2 = nox_script_pop();
 	nox_xxx_script_51ACA0(v2, v0, v1);
 	return 0;
 }
@@ -6247,10 +6247,10 @@ int nox_xxx_scriptIntToString_512EA0() {
 	int v0; // eax
 	int v1; // eax
 
-	v0 = script_pop();
+	v0 = nox_script_pop();
 	_itoa(v0, (char*)getMemAt(0x5D4594, 3821708), 10);
 	v1 = nox_xxx_addScriptString_512E40((char*)getMemAt(0x5D4594, 3821708));
-	nox_xxx_scriptPushValue_507230(v1);
+	nox_script_push(v1);
 	return 0;
 }
 
@@ -6259,10 +6259,10 @@ int nox_xxx_scriptFloatToString_512ED0() {
 	float v0; // eax
 	int v1;   // eax
 
-	v0 = COERCE_FLOAT(script_pop());
+	v0 = COERCE_FLOAT(nox_script_pop());
 	nox_sprintf((char*)getMemAt(0x5D4594, 3821708), "%f", v0, v0);
 	v1 = nox_xxx_addScriptString_512E40((char*)getMemAt(0x5D4594, 3821708));
-	nox_xxx_scriptPushValue_507230(v1);
+	nox_script_push(v1);
 	return 0;
 }
 
@@ -6274,18 +6274,18 @@ int nox_xxx_scriptCreate_512F10() {
 	_DWORD* v3; // eax
 	_DWORD* v4; // edi
 
-	v0 = script_pop();
-	v1 = script_pop();
+	v0 = nox_script_pop();
+	v1 = nox_script_pop();
 	v2 = (float*)nox_server_getWaypointById_579C40(v0);
 	if (v2) {
 		v3 = nox_xxx_objectCreateByName_4E3810(*(CHAR**)getMemAt(0x5D4594, 4 * v1 + 3831212));
 		v4 = v3;
 		if (!v3) {
-			nox_xxx_scriptPushValue_507230(0);
+			nox_script_push(0);
 			return 0;
 		}
 		nox_xxx_createAt_4DAA50((int)v3, 0, v2[2], v2[3]);
-		nox_xxx_scriptPushValue_507230(v4[11]);
+		nox_script_push(v4[11]);
 	}
 	return 0;
 }
@@ -6299,10 +6299,10 @@ int nox_xxx_scriptDamage_512F80() {
 	int v4;    // esi
 	int v6[3]; // [esp+10h] [ebp-Ch]
 
-	v0 = script_pop();
-	v1 = script_pop();
-	v2 = script_pop();
-	v3 = script_pop();
+	v0 = nox_script_pop();
+	v1 = nox_script_pop();
+	v2 = nox_script_pop();
+	v3 = nox_script_pop();
 	v4 = nox_server_scriptValToObjectPtr_511B60(v3);
 	if (v4) {
 		v6[0] = nox_server_scriptValToObjectPtr_511B60(v2);
@@ -6338,10 +6338,10 @@ int nox_xxx_scriptGroupDamage_513010() {
 	unsigned __int8* v4; // eax
 	int v6[3];
 
-	v0 = script_pop();
-	v1 = script_pop();
-	v2 = script_pop();
-	v3 = script_pop();
+	v0 = nox_script_pop();
+	v1 = nox_script_pop();
+	v2 = nox_script_pop();
+	v3 = nox_script_pop();
 	v6[0] = nox_server_scriptValToObjectPtr_511B60(v2);
 	v6[1] = v1;
 	v6[2] = v0;
@@ -6358,17 +6358,17 @@ int sub_513070() {
 	float v4;  // [esp+8h] [ebp-10h]
 	int v5[3]; // [esp+Ch] [ebp-Ch]
 
-	v4 = COERCE_FLOAT(script_pop());
-	v0 = script_pop();
-	v1 = script_pop();
+	v4 = COERCE_FLOAT(nox_script_pop());
+	v0 = nox_script_pop();
+	v1 = nox_script_pop();
 	v2 = nox_server_scriptValToObjectPtr_511B60(v1);
 	if (v2) {
 		v5[1] = v0;
 		v5[0] = (__int64)v4;
 		sub_5130E0(v2, v5);
-		nox_xxx_scriptPushValue_507230(v5[2]);
+		nox_script_push(v5[2]);
 	} else {
-		nox_xxx_scriptPushValue_507230(0);
+		nox_script_push(0);
 	}
 	return 0;
 }
@@ -6410,9 +6410,9 @@ int sub_513160() {
 	float v4;            // [esp+8h] [ebp-10h]
 	int v5[3];           // [esp+Ch] [ebp-Ch]
 
-	v4 = COERCE_FLOAT(script_pop());
-	v0 = script_pop();
-	v1 = script_pop();
+	v4 = COERCE_FLOAT(nox_script_pop());
+	v0 = nox_script_pop();
+	v1 = nox_script_pop();
 	v5[1] = v0;
 	v5[0] = (__int64)v4;
 	v2 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v1);
@@ -6429,20 +6429,20 @@ int nox_xxx_script_AwardSpell_5131C0() {
 	int v4;     // eax
 	int v5;     // eax
 
-	v0 = script_pop();
-	v1 = script_pop();
+	v0 = nox_script_pop();
+	v1 = nox_script_pop();
 	v2 = nox_xxx_spellNameToN_4243F0(*(const char**)getMemAt(0x5D4594, 4 * v0 + 3831212));
 	if (v2) {
 		v4 = nox_server_scriptValToObjectPtr_511B60(v1);
 		if (v4) {
 			v5 = nox_xxx_spellGrantToPlayer_4FB550_magic_plyrspel(v4, v2, 1, 0, 0);
-			nox_xxx_scriptPushValue_507230(v5);
+			nox_script_push(v5);
 		} else {
-			nox_xxx_scriptPushValue_507230(0);
+			nox_script_push(0);
 		}
 		result = 0;
 	} else {
-		nox_xxx_scriptPushValue_507230(0);
+		nox_script_push(0);
 		result = 0;
 	}
 	return result;
@@ -6455,8 +6455,8 @@ int nox_xxx_script_AwardSpellGroup_513230() {
 	unsigned __int8* v2; // eax
 	int v4;              // [esp+8h] [ebp-4h]
 
-	v0 = script_pop();
-	v1 = script_pop();
+	v0 = nox_script_pop();
+	v1 = nox_script_pop();
 	v4 = nox_xxx_spellNameToN_4243F0(*(const char**)getMemAt(0x5D4594, 4 * v0 + 3831212));
 	if (v4) {
 		v2 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v1);
@@ -6487,9 +6487,9 @@ int nox_xxx_scriptEnchant_5132E0() {
 	int v6[2];   // [esp+18h] [ebp-48h]
 	char v8[64]; // [esp+20h] [ebp-40h]
 
-	v5 = COERCE_FLOAT(script_pop());
-	v0 = script_pop();
-	v1 = script_pop();
+	v5 = COERCE_FLOAT(nox_script_pop());
+	v0 = nox_script_pop();
+	v1 = nox_script_pop();
 	strcpy(v8, *(const char**)getMemAt(0x5D4594, 4 * v0 + 3831212));
 	v2 = nox_xxx_enchantByName_424880(v8);
 	if (v2 != -1) {
@@ -6516,9 +6516,9 @@ int nox_xxx_scriptGroupEnchant_5133B0() {
 	int v6[2];           // [esp+18h] [ebp-48h]
 	char v7[64];         // [esp+20h] [ebp-40h]
 
-	v5 = COERCE_FLOAT(script_pop());
-	v0 = script_pop();
-	v1 = script_pop();
+	v5 = COERCE_FLOAT(nox_script_pop());
+	v0 = nox_script_pop();
+	v1 = nox_script_pop();
 	strcpy(v7, *(const char**)getMemAt(0x5D4594, 4 * v0 + 3831212));
 	v2 = nox_xxx_enchantByName_424880(v7);
 	if (v2 != -1) {
@@ -6536,9 +6536,9 @@ int nox_xxx_scriptGetHost_513460() {
 
 	v0 = *((_DWORD*)nox_common_playerInfoFromNum_417090(31) + 514);
 	if (v0)
-		nox_xxx_scriptPushValue_507230(*(_DWORD*)(v0 + 44));
+		nox_script_push(*(_DWORD*)(v0 + 44));
 	else
-		nox_xxx_scriptPushValue_507230(0);
+		nox_script_push(0);
 	return 0;
 }
 
@@ -6547,13 +6547,13 @@ int nox_xxx_script_ObjectGet_513490() {
 	int v0;      // eax
 	char v2[76]; // [esp+4h] [ebp-4Ch]
 
-	strcpy(v2, *(const char**)getMemAt(0x5D4594, 4 * script_pop() + 3831212));
+	strcpy(v2, *(const char**)getMemAt(0x5D4594, 4 * nox_script_pop() + 3831212));
 	strcat(v2, (const char*)getMemAt(0x5D4594, 3821644));
 	v0 = nox_xxx_getObjectByScrName_4DA4F0(v2);
 	if (v0)
-		nox_xxx_scriptPushValue_507230(*(_DWORD*)(v0 + 44));
+		nox_script_push(*(_DWORD*)(v0 + 44));
 	else
-		nox_xxx_scriptPushValue_507230(0);
+		nox_script_push(0);
 	return 0;
 }
 
@@ -6562,12 +6562,12 @@ int nox_xxx_script_GetObjectX_513530() {
 	int v0; // eax
 	int v1; // eax
 
-	v0 = script_pop();
+	v0 = nox_script_pop();
 	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v1)
-		nox_xxx_scriptPushValue_507230(*(_DWORD*)(v1 + 56));
+		nox_script_push(*(_DWORD*)(v1 + 56));
 	else
-		nox_xxx_scriptPushValue_507230(0);
+		nox_script_push(0);
 	return 0;
 }
 
@@ -6576,12 +6576,12 @@ int nox_xxx_script_GetWaypointX_513570() {
 	int v0;     // eax
 	_DWORD* v1; // eax
 
-	v0 = script_pop();
+	v0 = nox_script_pop();
 	v1 = nox_server_getWaypointById_579C40(v0);
 	if (v1)
-		nox_xxx_scriptPushValue_507230(v1[2]);
+		nox_script_push(v1[2]);
 	else
-		nox_xxx_scriptPushValue_507230(0);
+		nox_script_push(0);
 	return 0;
 }
 
@@ -6590,12 +6590,12 @@ int nox_xxx_script_GetObjectY_5135B0() {
 	int v0; // eax
 	int v1; // eax
 
-	v0 = script_pop();
+	v0 = nox_script_pop();
 	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v1)
-		nox_xxx_scriptPushValue_507230(*(_DWORD*)(v1 + 60));
+		nox_script_push(*(_DWORD*)(v1 + 60));
 	else
-		nox_xxx_scriptPushValue_507230(0);
+		nox_script_push(0);
 	return 0;
 }
 
@@ -6604,12 +6604,12 @@ int nox_xxx_scriptWaypointY_5135F0() {
 	int v0;     // eax
 	_DWORD* v1; // eax
 
-	v0 = script_pop();
+	v0 = nox_script_pop();
 	v1 = nox_server_getWaypointById_579C40(v0);
 	if (v1)
-		nox_xxx_scriptPushValue_507230(v1[3]);
+		nox_script_push(v1[3]);
 	else
-		nox_xxx_scriptPushValue_507230(0);
+		nox_script_push(0);
 	return 0;
 }
 
@@ -6618,12 +6618,12 @@ int nox_xxx_script_UnitHeight_513630() {
 	int v0; // eax
 	int v1; // eax
 
-	v0 = script_pop();
+	v0 = nox_script_pop();
 	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v1)
-		nox_xxx_scriptPushValue_507230(*(_DWORD*)(v1 + 104));
+		nox_script_push(*(_DWORD*)(v1 + 104));
 	else
-		nox_xxx_scriptPushValue_507230(0);
+		nox_script_push(0);
 	return 0;
 }
 
@@ -6632,12 +6632,12 @@ int nox_xxx_script_GetUnitLook_513670() {
 	int v0; // eax
 	int v1; // eax
 
-	v0 = script_pop();
+	v0 = nox_script_pop();
 	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v1)
-		nox_xxx_scriptPushValue_507230(*(__int16*)(v1 + 124));
+		nox_script_push(*(__int16*)(v1 + 124));
 	else
-		nox_xxx_scriptPushValue_507230(0);
+		nox_script_push(0);
 	return 0;
 }
 
@@ -6648,9 +6648,9 @@ int nox_xxx_scriptMoveObject_5136A0() {
 	float2 v3; // [esp+0h] [ebp-Ch]
 	float v4;  // [esp+8h] [ebp-4h]
 
-	v4 = COERCE_FLOAT(script_pop());
-	LODWORD(v3.field_0) = script_pop();
-	v0 = script_pop();
+	v4 = COERCE_FLOAT(nox_script_pop());
+	LODWORD(v3.field_0) = nox_script_pop();
+	v0 = nox_script_pop();
 	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v1) {
 		v3.field_0 = (double)*(int*)&dword_5d4594_3821636 + v3.field_0;
@@ -6667,9 +6667,9 @@ int nox_xxx_script_MoveWaypoint_513700() {
 	float v3;  // [esp+0h] [ebp-8h]
 	float v4;  // [esp+4h] [ebp-4h]
 
-	v4 = COERCE_FLOAT(script_pop());
-	v3 = COERCE_FLOAT(script_pop());
-	v0 = script_pop();
+	v4 = COERCE_FLOAT(nox_script_pop());
+	v3 = COERCE_FLOAT(nox_script_pop());
+	v0 = nox_script_pop();
 	v1 = (float*)nox_server_getWaypointById_579C40(v0);
 	if (v1) {
 		v1[2] = (double)*(int*)&dword_5d4594_3821636 + v3;
@@ -6684,8 +6684,8 @@ int nox_xxx_script_Raise_513750() {
 	int v1; // eax
 	int v2; // eax
 
-	v0 = script_pop();
-	v1 = script_pop();
+	v0 = nox_script_pop();
+	v1 = nox_script_pop();
 	v2 = nox_server_scriptValToObjectPtr_511B60(v1);
 	if (v2)
 		nox_xxx_unitRaise_4E46F0(v2, *(float*)&v0);
@@ -6699,8 +6699,8 @@ int nox_xxx_scriptFaceAngle_513780() {
 	int v2;          // eax
 	unsigned int v3; // ecx
 
-	v0 = script_pop();
-	v1 = script_pop();
+	v0 = nox_script_pop();
+	v1 = nox_script_pop();
 	v2 = nox_server_scriptValToObjectPtr_511B60(v1);
 	if (v2) {
 		v3 = v0;
@@ -6721,9 +6721,9 @@ int nox_xxx_scriptPushObject_5137D0() {
 	float v3; // [esp+0h] [ebp-8h]
 	float v4; // [esp+4h] [ebp-4h]
 
-	v4 = COERCE_FLOAT(script_pop());
-	v3 = COERCE_FLOAT(script_pop());
-	v0 = script_pop();
+	v4 = COERCE_FLOAT(nox_script_pop());
+	v3 = COERCE_FLOAT(nox_script_pop());
+	v0 = nox_script_pop();
 	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v1) {
 		*(float*)(v1 + 88) = v3 + *(float*)(v1 + 88);
@@ -6744,10 +6744,10 @@ int nox_xxx_scriptPushObjectTo_513820() {
 	float v8;  // [esp+8h] [ebp-4h]
 	float v9;  // [esp+8h] [ebp-4h]
 
-	v5 = COERCE_FLOAT(script_pop());
-	v8 = COERCE_FLOAT(script_pop());
-	v7 = COERCE_FLOAT(script_pop());
-	v0 = script_pop();
+	v5 = COERCE_FLOAT(nox_script_pop());
+	v8 = COERCE_FLOAT(nox_script_pop());
+	v7 = COERCE_FLOAT(nox_script_pop());
+	v0 = nox_script_pop();
 	v1 = (float*)nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v1) {
 		v2 = v1[14] - v8 + (double)*(int*)&dword_5d4594_3821636;
@@ -6767,7 +6767,7 @@ int nox_xxx_scriptGetFirstInvItem_5138B0() {
 	int v2; // eax
 	int v3; // eax
 
-	v0 = script_pop();
+	v0 = nox_script_pop();
 	v1 = 0;
 	v2 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v2) {
@@ -6775,7 +6775,7 @@ int nox_xxx_scriptGetFirstInvItem_5138B0() {
 		if (v3)
 			v1 = *(_DWORD*)(v3 + 44);
 	}
-	nox_xxx_scriptPushValue_507230(v1);
+	nox_script_push(v1);
 	return 0;
 }
 
@@ -6786,7 +6786,7 @@ int nox_xxx_scriptGetNextInvItem_5138E0() {
 	int v2; // eax
 	int v3; // eax
 
-	v0 = script_pop();
+	v0 = nox_script_pop();
 	v1 = 0;
 	v2 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v2) {
@@ -6794,7 +6794,7 @@ int nox_xxx_scriptGetNextInvItem_5138E0() {
 		if (v3)
 			v1 = *(_DWORD*)(v3 + 44);
 	}
-	nox_xxx_scriptPushValue_507230(v1);
+	nox_script_push(v1);
 	return 0;
 }
 
@@ -6806,14 +6806,14 @@ int nox_xxx_scriptHasItem_513910() {
 	int v3; // eax
 	int v4; // edi
 
-	v0 = script_pop();
-	v1 = script_pop();
+	v0 = nox_script_pop();
+	v1 = nox_script_pop();
 	v2 = nox_server_scriptValToObjectPtr_511B60(v1);
 	v3 = nox_server_scriptValToObjectPtr_511B60(v0);
 	v4 = 0;
 	if (v2 && v3 && nox_xxx_unitInventoryContains_4F78E0(v2, v3))
 		v4 = 1;
-	nox_xxx_scriptPushValue_507230(v4);
+	nox_script_push(v4);
 	return 0;
 }
 
@@ -6822,12 +6822,12 @@ int nox_xxx_scriptGetInvHolder_513960() {
 	int v0; // eax
 	int v1; // eax
 
-	v0 = script_pop();
+	v0 = nox_script_pop();
 	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v1)
-		nox_xxx_scriptPushValue_507230(*(_DWORD*)(*(_DWORD*)(v1 + 492) + 44));
+		nox_script_push(*(_DWORD*)(*(_DWORD*)(v1 + 492) + 44));
 	else
-		nox_xxx_scriptPushValue_507230(0);
+		nox_script_push(0);
 	return 0;
 }
 
@@ -6846,8 +6846,8 @@ int nox_xxx_script_Pickup_5139A0() {
 		*getMemU32Ptr(0x5D4594, 2386864) = nox_xxx_getNameId_4E3AA0("QuestGoldPile");
 		*getMemU32Ptr(0x5D4594, 2386868) = nox_xxx_getNameId_4E3AA0("QuestGoldChest");
 	}
-	v0 = script_pop();
-	v1 = script_pop();
+	v0 = nox_script_pop();
+	v1 = nox_script_pop();
 	v2 = nox_server_scriptValToObjectPtr_511B60(v1);
 	v3 = nox_server_scriptValToObjectPtr_511B60(v0);
 	v4 = v3;
@@ -6871,13 +6871,13 @@ int nox_xxx_script_Pickup_5139A0() {
 		if (v6 == 1 && *(_BYTE*)(v2 + 8) & 4 && nox_common_gameFlags_check_40A5C0(2048) &&
 			*(unsigned __int16*)(v4 + 4) != dword_5d4594_2386860) {
 			++dword_5d4594_2386848;
-			nox_xxx_scriptPushValue_507230(1);
+			nox_script_push(1);
 			return 0;
 		}
 	} else {
 		v6 = 0;
 	}
-	nox_xxx_scriptPushValue_507230(v6);
+	nox_script_push(v6);
 	return 0;
 }
 
@@ -6932,16 +6932,16 @@ int nox_xxx_scriptDrop_513C10() {
 	int v4;     // eax
 	int result; // eax
 
-	v0 = script_pop();
-	v1 = script_pop();
+	v0 = nox_script_pop();
+	v1 = nox_script_pop();
 	v2 = nox_server_scriptValToObjectPtr_511B60(v1);
 	v3 = (_DWORD*)nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v2 && v3) {
 		v4 = nox_xxx_invForceDropItem_4ED930(v2, v3);
-		nox_xxx_scriptPushValue_507230(v4);
+		nox_script_push(v4);
 		result = 0;
 	} else {
-		nox_xxx_scriptPushValue_507230(0);
+		nox_script_push(0);
 		result = 0;
 	}
 	return result;
@@ -6961,17 +6961,17 @@ int nox_xxx_script_TestBuffs_513C70() {
 	int result;  // eax
 	char v7[64]; // [esp+Ch] [ebp-40h]
 
-	v0 = script_pop();
-	v1 = script_pop();
+	v0 = nox_script_pop();
+	v1 = nox_script_pop();
 	strcpy(v7, *(const char**)getMemAt(0x5D4594, 4 * v0 + 3831212));
 	v2 = nox_xxx_enchantByName_424880(v7);
 	v3 = v2;
 	if (v2 != -1 && (v4 = nox_server_scriptValToObjectPtr_511B60(v1)) != 0) {
 		v5 = nox_xxx_testUnitBuffs_4FF350(v4, v3);
-		nox_xxx_scriptPushValue_507230(v5);
+		nox_script_push(v5);
 		result = 0;
 	} else {
-		nox_xxx_scriptPushValue_507230(0);
+		nox_script_push(0);
 		result = 0;
 	}
 	return result;
@@ -6985,8 +6985,8 @@ int nox_xxx_scriptCancelBuff_513D00() {
 	int v3;      // eax
 	char v5[64]; // [esp+Ch] [ebp-40h]
 
-	v0 = script_pop();
-	v1 = script_pop();
+	v0 = nox_script_pop();
+	v1 = nox_script_pop();
 	strcpy(v5, *(const char**)getMemAt(0x5D4594, 4 * v0 + 3831212));
 	v2 = nox_xxx_enchantByName_424880(v5);
 	if (v2 != -1) {
@@ -7004,13 +7004,13 @@ int nox_xxx_scriptGetCurrentHP_513D70() {
 	unsigned __int16* v2; // ecx
 	int result;           // eax
 
-	v0 = script_pop();
+	v0 = nox_script_pop();
 	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v1 && (v2 = *(unsigned __int16**)(v1 + 556)) != 0) {
-		nox_xxx_scriptPushValue_507230(*v2);
+		nox_script_push(*v2);
 		result = 0;
 	} else {
-		nox_xxx_scriptPushValue_507230(0);
+		nox_script_push(0);
 		result = 0;
 	}
 	return result;
@@ -7023,13 +7023,13 @@ int nox_xxx_scriptGetMaxHP_513DB0() {
 	int v2;     // ecx
 	int result; // eax
 
-	v0 = script_pop();
+	v0 = nox_script_pop();
 	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v1 && (v2 = *(_DWORD*)(v1 + 556)) != 0) {
-		nox_xxx_scriptPushValue_507230(*(unsigned __int16*)(v2 + 4));
+		nox_script_push(*(unsigned __int16*)(v2 + 4));
 		result = 0;
 	} else {
-		nox_xxx_scriptPushValue_507230(0);
+		nox_script_push(0);
 		result = 0;
 	}
 	return result;
@@ -7041,8 +7041,8 @@ int nox_xxx_scriptRestoreHP_513DF0() {
 	int v1; // eax
 	int v2; // eax
 
-	v0 = script_pop();
-	v1 = script_pop();
+	v0 = nox_script_pop();
+	v1 = nox_script_pop();
 	v2 = nox_server_scriptValToObjectPtr_511B60(v1);
 	if (v2 && v0 > 0)
 		nox_xxx_unitAdjustHP_4EE460(v2, v0);
@@ -7057,12 +7057,12 @@ int nox_xxx_scriptGetDistance_513E20() {
 	float v4; // [esp+Ch] [ebp-4h]
 	int v5;   // [esp+Ch] [ebp-4h]
 
-	v4 = COERCE_FLOAT(script_pop());
-	v2 = COERCE_FLOAT(script_pop());
-	v3 = COERCE_FLOAT(script_pop());
-	v0 = COERCE_FLOAT(script_pop());
+	v4 = COERCE_FLOAT(nox_script_pop());
+	v2 = COERCE_FLOAT(nox_script_pop());
+	v3 = COERCE_FLOAT(nox_script_pop());
+	v0 = COERCE_FLOAT(nox_script_pop());
 	*(float*)&v5 = sqrt((v3 - v4) * (v3 - v4) + (v0 - v2) * (v0 - v2));
-	nox_xxx_scriptPushValue_507230(v5);
+	nox_script_push(v5);
 	return 0;
 }
 
@@ -7076,8 +7076,8 @@ int nox_xxx_scriptCanInteract_513E80() {
 	double v5; // st7
 	double v6; // st7
 
-	v0 = script_pop();
-	v1 = script_pop();
+	v0 = nox_script_pop();
+	v1 = nox_script_pop();
 	v2 = nox_server_scriptValToObjectPtr_511B60(v1);
 	v3 = nox_server_scriptValToObjectPtr_511B60(v0);
 	v4 = 0;
@@ -7093,49 +7093,49 @@ int nox_xxx_scriptCanInteract_513E80() {
 				v4 = nox_xxx_unitCanInteractWith_5370E0(v2, v3, 0);
 		}
 	}
-	nox_xxx_scriptPushValue_507230(v4);
+	nox_script_push(v4);
 	return 0;
 }
 
 //----- (00513F10) --------------------------------------------------------
 int nox_xxx_script_Fn58_513F10() {
-	script_pop();
-	script_pop();
+	nox_script_pop();
+	nox_script_pop();
 	return 0;
 }
 
 //----- (00513F20) --------------------------------------------------------
 int nox_xxx_script_Fn59_513F20() {
-	script_pop();
-	script_pop();
+	nox_script_pop();
+	nox_script_pop();
 	return 0;
 }
 
 //----- (00513F30) --------------------------------------------------------
 int nox_xxx_script_Fn5A_513F30() {
-	script_pop();
-	script_pop();
+	nox_script_pop();
+	nox_script_pop();
 	return 0;
 }
 
 //----- (00513F40) --------------------------------------------------------
 int nox_xxx_script_Fn5B_513F40() {
-	script_pop();
-	script_pop();
+	nox_script_pop();
+	nox_script_pop();
 	return 0;
 }
 
 //----- (00513F50) --------------------------------------------------------
 int nox_xxx_script_Fn5C_513F50() {
-	script_pop();
-	script_pop();
+	nox_script_pop();
+	nox_script_pop();
 	return 0;
 }
 
 //----- (00513F60) --------------------------------------------------------
 int nox_xxx_script_Fn5D_513F60() {
-	script_pop();
-	script_pop();
+	nox_script_pop();
+	nox_script_pop();
 	return 0;
 }
 
@@ -7145,35 +7145,35 @@ int nox_xxx_script_GetHostInfo_513FA0() {
 	char* v1;   // eax
 	int result; // eax
 
-	v0 = script_pop();
+	v0 = nox_script_pop();
 	v1 = nox_xxx_getHostInfoPtr_431770();
 	switch (v0) {
 	case 0:
-		nox_xxx_scriptPushValue_507230(*(_DWORD*)(v1 + 50));
+		nox_script_push(*(_DWORD*)(v1 + 50));
 		result = 0;
 		break;
 	case 1:
-		nox_xxx_scriptPushValue_507230(*(_DWORD*)(v1 + 54));
+		nox_script_push(*(_DWORD*)(v1 + 54));
 		result = 0;
 		break;
 	case 2:
-		nox_xxx_scriptPushValue_507230(*(_DWORD*)(v1 + 58));
+		nox_script_push(*(_DWORD*)(v1 + 58));
 		result = 0;
 		break;
 	case 3:
-		nox_xxx_scriptPushValue_507230(*(_DWORD*)(v1 + 62));
+		nox_script_push(*(_DWORD*)(v1 + 62));
 		result = 0;
 		break;
 	case 4:
-		nox_xxx_scriptPushValue_507230((unsigned __int8)v1[66]);
+		nox_script_push((unsigned __int8)v1[66]);
 		result = 0;
 		break;
 	case 5:
-		nox_xxx_scriptPushValue_507230((unsigned __int8)v1[67]);
+		nox_script_push((unsigned __int8)v1[67]);
 		result = 0;
 		break;
 	default:
-		nox_xxx_scriptPushValue_507230(0);
+		nox_script_push(0);
 		result = 0;
 		break;
 	}
@@ -7189,8 +7189,8 @@ int nox_xxx_scriptFaceObject_514050() {
 	__int16 v4; // ax
 	float2 v6;  // [esp+8h] [ebp-8h]
 
-	v0 = script_pop();
-	v1 = script_pop();
+	v0 = nox_script_pop();
+	v1 = nox_script_pop();
 	v2 = nox_server_scriptValToObjectPtr_511B60(v1);
 	v3 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v2 && v3) {
@@ -7212,9 +7212,9 @@ int nox_xxx_script_Walk_5140B0() {
 	float v5; // [esp+8h] [ebp-8h]
 	float v6; // [esp+Ch] [ebp-4h]
 
-	v5 = COERCE_FLOAT(script_pop());
-	v6 = COERCE_FLOAT(script_pop());
-	v0 = script_pop();
+	v5 = COERCE_FLOAT(nox_script_pop());
+	v6 = COERCE_FLOAT(nox_script_pop());
+	v0 = nox_script_pop();
 	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v1) {
 		*(float*)&v4 = (double)*(int*)&dword_5d4594_3821640 + v5;
@@ -7256,9 +7256,9 @@ int nox_xxx_script_GroupWalk_514170() {
 	float v6;   // [esp+Ch] [ebp-8h]
 	float v7;   // [esp+10h] [ebp-4h]
 
-	v6 = COERCE_FLOAT(script_pop());
-	v7 = COERCE_FLOAT(script_pop());
-	v0 = script_pop();
+	v6 = COERCE_FLOAT(nox_script_pop());
+	v7 = COERCE_FLOAT(nox_script_pop());
+	v0 = nox_script_pop();
 	result = nox_server_scriptGetGroup_57C0A0(v0);
 	if (result) {
 		for (i = *(int**)(result + 84); i; i = (int*)i[2]) {
@@ -7279,9 +7279,9 @@ int nox_xxx_scriptCancelTimer_5141F0() {
 	int v0; // eax
 	int v1; // eax
 
-	v0 = script_pop();
+	v0 = nox_script_pop();
 	v1 = sub_51AD60(v0);
-	nox_xxx_scriptPushValue_507230(v1 != 0);
+	nox_script_push(v1 != 0);
 	return 0;
 }
 
@@ -7308,11 +7308,11 @@ int nox_xxx_script_Effect_514210() {
 	int v19[4];          // [esp+28h] [ebp-50h]
 	char v20[64];        // [esp+38h] [ebp-40h]
 
-	v16 = script_pop();
-	v0 = script_pop();
-	v15 = COERCE_FLOAT(script_pop());
-	v14 = COERCE_FLOAT(script_pop());
-	v1 = *(const char**)getMemAt(0x5D4594, 4 * script_pop() + 3831212);
+	v16 = nox_script_pop();
+	v0 = nox_script_pop();
+	v15 = COERCE_FLOAT(nox_script_pop());
+	v14 = COERCE_FLOAT(nox_script_pop());
+	v1 = *(const char**)getMemAt(0x5D4594, 4 * nox_script_pop() + 3831212);
 	strcpy(v20, "MSG_FX_");
 	v17.field_0 = (double)*(int*)&dword_5d4594_3821636 + v14;
 	v17.field_4 = (double)*(int*)&dword_5d4594_3821640 + v15;
@@ -7400,8 +7400,8 @@ int nox_xxx_scriptSetOwner_514490() {
 	int v2; // edi
 	int v3; // eax
 
-	v0 = script_pop();
-	v1 = script_pop();
+	v0 = nox_script_pop();
+	v1 = nox_script_pop();
 	v2 = nox_server_scriptValToObjectPtr_511B60(v1);
 	v3 = nox_server_scriptValToObjectPtr_511B60(v0);
 	nox_xxx_unitSetOwner_4EC290(v2, v3);
@@ -7417,8 +7417,8 @@ int nox_xxx_scriptGroupSetOwner_5144C0() {
 	int* i; // esi
 	int v5; // eax
 
-	v0 = script_pop();
-	v1 = script_pop();
+	v0 = nox_script_pop();
+	v1 = nox_script_pop();
 	v2 = nox_server_scriptValToObjectPtr_511B60(v1);
 	v3 = nox_server_scriptGetGroup_57C0A0(v0);
 	if (v3) {
@@ -7441,8 +7441,8 @@ int nox_xxx_scriptSetOwnerGroup_514510() {
 	int i;   // edi
 	int v6;  // eax
 
-	v0 = script_pop();
-	v1 = script_pop();
+	v0 = nox_script_pop();
+	v1 = nox_script_pop();
 	v2 = nox_server_scriptGetGroup_57C0A0(v1);
 	if (v2) {
 		v3 = nox_server_scriptValToObjectPtr_511B60(v0);
@@ -7468,8 +7468,8 @@ int sub_514570() {
 	int* j; // esi
 	int v8; // eax
 
-	v0 = script_pop();
-	v1 = script_pop();
+	v0 = nox_script_pop();
+	v1 = nox_script_pop();
 	v2 = nox_server_scriptGetGroup_57C0A0(v1);
 	v3 = nox_server_scriptGetGroup_57C0A0(v0);
 	v4 = v3;
@@ -7498,12 +7498,12 @@ int sub_5145F0() {
 	int v3; // eax
 	int v4; // eax
 
-	v0 = script_pop();
-	v1 = script_pop();
+	v0 = nox_script_pop();
+	v1 = nox_script_pop();
 	v2 = nox_server_scriptValToObjectPtr_511B60(v0);
 	v3 = nox_server_scriptValToObjectPtr_511B60(v1);
 	v4 = nox_xxx_unitHasThatParent_4EC4F0(v3, v2);
-	nox_xxx_scriptPushValue_507230(v4);
+	nox_script_push(v4);
 	return 0;
 }
 
@@ -7519,8 +7519,8 @@ int sub_514630() {
 	int v7;     // ebx
 	int v8;     // eax
 
-	v0 = script_pop();
-	v1 = script_pop();
+	v0 = nox_script_pop();
+	v1 = nox_script_pop();
 	result = nox_server_scriptGetGroup_57C0A0(v0);
 	v3 = result;
 	if (result) {
@@ -7537,13 +7537,13 @@ int sub_514630() {
 				}
 				v5 = (int*)v5[2];
 				if (!v5) {
-					nox_xxx_scriptPushValue_507230(1);
+					nox_script_push(1);
 					return 0;
 				}
 			}
 			v7 = 0;
 		}
-		nox_xxx_scriptPushValue_507230(v7);
+		nox_script_push(v7);
 		result = 0;
 	}
 	return result;
@@ -7561,8 +7561,8 @@ int sub_5146B0() {
 	int v7;     // ebx
 	int v8;     // eax
 
-	v0 = script_pop();
-	v1 = script_pop();
+	v0 = nox_script_pop();
+	v1 = nox_script_pop();
 	result = nox_server_scriptGetGroup_57C0A0(v1);
 	v3 = result;
 	if (result) {
@@ -7579,13 +7579,13 @@ int sub_5146B0() {
 				}
 				v5 = (int*)v5[2];
 				if (!v5) {
-					nox_xxx_scriptPushValue_507230(1);
+					nox_script_push(1);
 					return 0;
 				}
 			}
 			v7 = 0;
 		}
-		nox_xxx_scriptPushValue_507230(v7);
+		nox_script_push(v7);
 		result = 0;
 	}
 	return result;
@@ -7604,8 +7604,8 @@ int sub_514730() {
 	int v8;  // eax
 	int v10; // [esp+8h] [ebp-4h]
 
-	v0 = script_pop();
-	v1 = script_pop();
+	v0 = nox_script_pop();
+	v1 = nox_script_pop();
 	v2 = nox_server_scriptGetGroup_57C0A0(v0);
 	v3 = nox_server_scriptGetGroup_57C0A0(v1);
 	v10 = v3;
@@ -7634,7 +7634,7 @@ int sub_514730() {
 		}
 	LABEL_12:;
 	}
-	nox_xxx_scriptPushValue_507230(i);
+	nox_script_push(i);
 	return 0;
 }
 
@@ -7643,7 +7643,7 @@ int nox_xxx_script_ClearOwner_5147E0() {
 	int v0; // eax
 	int v1; // eax
 
-	v0 = script_pop();
+	v0 = nox_script_pop();
 	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
 	nox_xxx_unitClearOwner_4EC300(v1);
 	return 0;
@@ -7654,13 +7654,13 @@ int nox_xxx_script_Waypoint_514800() {
 	int* v0;     // eax
 	char v2[76]; // [esp+4h] [ebp-4Ch]
 
-	strcpy(v2, *(const char**)getMemAt(0x5D4594, 4 * script_pop() + 3831212));
+	strcpy(v2, *(const char**)getMemAt(0x5D4594, 4 * nox_script_pop() + 3831212));
 	strcat(v2, (const char*)getMemAt(0x5D4594, 3821644));
 	v0 = (int*)nox_xxx_waypointByName_579E30(v2);
 	if (v0)
-		nox_xxx_scriptPushValue_507230(*v0);
+		nox_script_push(*v0);
 	else
-		nox_xxx_scriptPushValue_507230(0);
+		nox_script_push(0);
 	return 0;
 }
 
@@ -7669,13 +7669,13 @@ int nox_xxx_scriptGetWaypointGroup_5148A0() {
 	int v0;      // eax
 	char v2[76]; // [esp+4h] [ebp-4Ch]
 
-	strcpy(v2, *(const char**)getMemAt(0x5D4594, 4 * script_pop() + 3831212));
+	strcpy(v2, *(const char**)getMemAt(0x5D4594, 4 * nox_script_pop() + 3831212));
 	strcat(v2, (const char*)getMemAt(0x5D4594, 3821644));
 	v0 = nox_server_scriptGetMapGroupByName_57C280(v2, 1);
 	if (v0)
-		nox_xxx_scriptPushValue_507230(*(_DWORD*)(v0 + 4));
+		nox_script_push(*(_DWORD*)(v0 + 4));
 	else
-		nox_xxx_scriptPushValue_507230(0);
+		nox_script_push(0);
 	return 0;
 }
 
@@ -7684,13 +7684,13 @@ int nox_xxx_scriptGetObjectGroup_514940() {
 	int v0;      // eax
 	char v2[76]; // [esp+4h] [ebp-4Ch]
 
-	strcpy(v2, *(const char**)getMemAt(0x5D4594, 4 * script_pop() + 3831212));
+	strcpy(v2, *(const char**)getMemAt(0x5D4594, 4 * nox_script_pop() + 3831212));
 	strcat(v2, (const char*)getMemAt(0x5D4594, 3821644));
 	v0 = nox_server_scriptGetMapGroupByName_57C280(v2, 0);
 	if (v0)
-		nox_xxx_scriptPushValue_507230(*(_DWORD*)(v0 + 4));
+		nox_script_push(*(_DWORD*)(v0 + 4));
 	else
-		nox_xxx_scriptPushValue_507230(0);
+		nox_script_push(0);
 	return 0;
 }
 
@@ -7699,20 +7699,20 @@ int nox_xxx_scriptGetWallGroup_5149E0() {
 	int v0; // eax
 	char v2[76];
 
-	strcpy(v2, *(const char**)getMemAt(0x5D4594, 4 * script_pop() + 3831212));
+	strcpy(v2, *(const char**)getMemAt(0x5D4594, 4 * nox_script_pop() + 3831212));
 	strcat(v2, (const char*)getMemAt(0x5D4594, 3821644));
 	v0 = nox_server_scriptGetMapGroupByName_57C280(v2, 2);
 	if (v0)
-		nox_xxx_scriptPushValue_507230(*(_DWORD*)(v0 + 4));
+		nox_script_push(*(_DWORD*)(v0 + 4));
 	else
-		nox_xxx_scriptPushValue_507230(0);
+		nox_script_push(0);
 	return 0;
 }
 
 //----- (00514BA0) --------------------------------------------------------
 int nox_xxx_scriptPop2_74_514BA0() {
-	script_pop();
-	script_pop();
+	nox_script_pop();
+	nox_script_pop();
 	return 0;
 }
 
@@ -7721,7 +7721,7 @@ int nox_xxx_scriptRemoveChat_514BB0() {
 	int v0;     // eax
 	_DWORD* v1; // eax
 
-	v0 = script_pop();
+	v0 = nox_script_pop();
 	v1 = (_DWORD*)nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v1)
 		nox_xxx_netKillChat_528D00(v1);
@@ -7739,8 +7739,8 @@ int nox_xxx_scriptJournalQuest_514BE0() {
 	int v0; // esi
 	int v1; // eax
 
-	v0 = script_pop();
-	v1 = script_pop();
+	v0 = nox_script_pop();
+	v1 = nox_script_pop();
 	nox_xxx_journalQuestSet_500540(*(char**)getMemAt(0x5D4594, 4 * v0 + 3831212), v1);
 	return 0;
 }
@@ -7750,8 +7750,8 @@ int nox_xxx_scriptJournalQuestBool_514C10() {
 	int v0; // esi
 	int v1; // eax
 
-	v0 = script_pop();
-	v1 = script_pop();
+	v0 = nox_script_pop();
+	v1 = nox_script_pop();
 	nox_xxx_journalQuestSetBool_5006B0(*(char**)getMemAt(0x5D4594, 4 * v0 + 3831212), v1);
 	return 0;
 }
@@ -7761,9 +7761,9 @@ int nox_xxx_scriptJournalGetQuest_514C40() {
 	int v0; // eax
 	int v1; // eax
 
-	v0 = script_pop();
+	v0 = nox_script_pop();
 	v1 = sub_500750(*(char**)getMemAt(0x5D4594, 4 * v0 + 3831212));
-	nox_xxx_scriptPushValue_507230(v1);
+	nox_script_push(v1);
 	return 0;
 }
 
@@ -7772,9 +7772,9 @@ int nox_xxx_scriptJournalGetQuestBool_514C60() {
 	int v0; // eax
 	int v2; // [esp+0h] [ebp-4h]
 
-	v0 = script_pop();
+	v0 = nox_script_pop();
 	*(float*)&v2 = sub_500770((char*)*getMemU32Ptr(0x5D4594, 4 * v0 + 3831212));
-	nox_xxx_scriptPushValue_507230(v2);
+	nox_script_push(v2);
 	return 0;
 }
 
@@ -7782,7 +7782,7 @@ int nox_xxx_scriptJournalGetQuestBool_514C60() {
 int nox_xxx_scriptRestoreQuestStatus_514C90() {
 	int v0; // eax
 
-	v0 = script_pop();
+	v0 = nox_script_pop();
 	sub_5007E0(*(char**)getMemAt(0x5D4594, 4 * v0 + 3831212));
 	return 0;
 }
@@ -7793,13 +7793,13 @@ int nox_xxx_scriptObjIsTrigger_514CB0() {
 	int v1; // esi
 	int v2; // eax
 
-	v0 = script_pop();
+	v0 = nox_script_pop();
 	v1 = 0;
 	v2 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v2 && dword_5d4594_3821968 && *(_DWORD*)(v2 + 44) == *(_DWORD*)(dword_5d4594_3821968 + 44)) {
 		v1 = 1;
 	}
-	nox_xxx_scriptPushValue_507230(v1);
+	nox_script_push(v1);
 	return 0;
 }
 
@@ -7809,31 +7809,31 @@ int sub_514CF0() {
 	int v1; // esi
 	int v2; // eax
 
-	v0 = script_pop();
+	v0 = nox_script_pop();
 	v1 = 0;
 	v2 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v2 && dword_5d4594_3821964 && *(_DWORD*)(v2 + 44) == *(_DWORD*)(dword_5d4594_3821964 + 44)) {
 		v1 = 1;
 	}
-	nox_xxx_scriptPushValue_507230(v1);
+	nox_script_push(v1);
 	return 0;
 }
 
 //----- (00514D30) --------------------------------------------------------
 int nox_xxx_scriptGetTrigger_514D30() {
 	if (dword_5d4594_3821968)
-		nox_xxx_scriptPushValue_507230(*(_DWORD*)(dword_5d4594_3821968 + 44));
+		nox_script_push(*(_DWORD*)(dword_5d4594_3821968 + 44));
 	else
-		nox_xxx_scriptPushValue_507230(*(int*)&dword_5d4594_3821968);
+		nox_script_push(*(int*)&dword_5d4594_3821968);
 	return 0;
 }
 
 //----- (00514D60) --------------------------------------------------------
 int nox_xxx_scriptGetCaller_514D60() {
 	if (dword_5d4594_3821964)
-		nox_xxx_scriptPushValue_507230(*(_DWORD*)(dword_5d4594_3821964 + 44));
+		nox_script_push(*(_DWORD*)(dword_5d4594_3821964 + 44));
 	else
-		nox_xxx_scriptPushValue_507230(*(int*)&dword_5d4594_3821964);
+		nox_script_push(*(int*)&dword_5d4594_3821964);
 	return 0;
 }
 
@@ -7846,10 +7846,10 @@ int nox_xxx_scriptSetDialog_514D90() {
 	int v4;  // eax
 	char v6; // [esp+10h] [ebp-4h]
 
-	v0 = script_pop();
-	v1 = script_pop();
-	v2 = script_pop();
-	v3 = script_pop();
+	v0 = nox_script_pop();
+	v1 = nox_script_pop();
+	v2 = nox_script_pop();
+	v3 = nox_script_pop();
 	v6 = nox_xxx_scriptGetDialogIdx_548F70(*(const char**)getMemAt(0x5D4594, 4 * v2 + 3831212));
 	v4 = nox_server_scriptValToObjectPtr_511B60(v3);
 	if (v4)
@@ -7863,7 +7863,7 @@ int nox_xxx_scriptCancelDialog_514DF0() {
 	int v1; // eax
 	int v2; // ecx
 
-	v0 = script_pop();
+	v0 = nox_script_pop();
 	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v1) {
 		v2 = *(_DWORD*)(v1 + 748);
@@ -7882,8 +7882,8 @@ int nox_xxx_scriptDialogPortrait_514E30() {
 	int v1; // eax
 	int v2; // eax
 
-	v0 = script_pop();
-	v1 = script_pop();
+	v0 = nox_script_pop();
+	v1 = nox_script_pop();
 	v2 = nox_server_scriptValToObjectPtr_511B60(v1);
 	if (v2 && *(_BYTE*)(v2 + 8) & 2)
 		strcpy((char*)(*(_DWORD*)(v2 + 748) + 2106), *(const char**)getMemAt(0x5D4594, 4 * v0 + 3831212));
@@ -7897,8 +7897,8 @@ int nox_xxx_scriptTellStory_514E90() {
 	int v2;         // eax
 	const char* v4; // [esp-4h] [ebp-8h]
 
-	v0 = script_pop();
-	v1 = script_pop();
+	v0 = nox_script_pop();
+	v1 = nox_script_pop();
 	v4 = *(const char**)getMemAt(0x5D4594, 4 * v0 + 3831212);
 	v2 = nox_xxx_utilFindSound_40AF50(*(void**)getMemAt(0x5D4594, 4 * v1 + 3831212));
 	nox_xxx_startShopDialog_548DE0(*(int*)&dword_5d4594_3821964, *(int*)&dword_5d4594_3821968, v2, v4);
@@ -7912,8 +7912,8 @@ int nox_xxx_scriptForceDialog_514ED0() {
 	int v2; // esi
 	int v3; // eax
 
-	v0 = script_pop();
-	v1 = script_pop();
+	v0 = nox_script_pop();
+	v1 = nox_script_pop();
 	v2 = nox_server_scriptValToObjectPtr_511B60(v0);
 	v3 = nox_server_scriptValToObjectPtr_511B60(v1);
 	if (v2 && v3)
@@ -7934,9 +7934,9 @@ int nox_xxx_script_514F10() {
 	float2 v9;  // [esp+10h] [ebp-14h]
 	int v10[3]; // [esp+18h] [ebp-Ch]
 
-	v0 = script_pop();
-	v1 = script_pop();
-	v2 = script_pop();
+	v0 = nox_script_pop();
+	v1 = nox_script_pop();
+	v2 = nox_script_pop();
 	v3 = nox_xxx_spellNameToN_4243F0(*(const char**)getMemAt(0x5D4594, 4 * v2 + 3831212));
 	if (v3) {
 		v4 = nox_server_scriptValToObjectPtr_511B60(v1);
@@ -7972,10 +7972,10 @@ int sub_514FC0() {
 	float2 v8;   // [esp+10h] [ebp-14h]
 	float v9[3]; // [esp+18h] [ebp-Ch]
 
-	v7 = COERCE_FLOAT(script_pop());
-	v6 = COERCE_FLOAT(script_pop());
-	v0 = script_pop();
-	v1 = script_pop();
+	v7 = COERCE_FLOAT(nox_script_pop());
+	v6 = COERCE_FLOAT(nox_script_pop());
+	v0 = nox_script_pop();
+	v1 = nox_script_pop();
 	v2 = nox_xxx_spellNameToN_4243F0(*(const char**)getMemAt(0x5D4594, 4 * v1 + 3831212));
 	if (v2) {
 		v3 = nox_server_scriptValToObjectPtr_511B60(v0);
@@ -8003,10 +8003,10 @@ int nox_xxx_script_515060() {
 	float2 v6; // [esp+10h] [ebp-14h]
 	int v7[3]; // [esp+18h] [ebp-Ch]
 
-	v0 = script_pop();
-	LODWORD(v5.field_4) = script_pop();
-	LODWORD(v5.field_0) = script_pop();
-	v1 = script_pop();
+	v0 = nox_script_pop();
+	LODWORD(v5.field_4) = nox_script_pop();
+	LODWORD(v5.field_0) = nox_script_pop();
+	v1 = nox_script_pop();
 	v2 = nox_xxx_spellNameToN_4243F0(*(const char**)getMemAt(0x5D4594, 4 * v1 + 3831212));
 	if (v2) {
 		v3 = nox_server_scriptValToObjectPtr_511B60(v0);
@@ -8035,11 +8035,11 @@ int nox_xxx_cast_515130() {
 	float2 v6;   // [esp+14h] [ebp-14h]
 	float v7[3]; // [esp+1Ch] [ebp-Ch]
 
-	v5 = COERCE_FLOAT(script_pop());
-	v4 = COERCE_FLOAT(script_pop());
-	LODWORD(v3.field_4) = script_pop();
-	LODWORD(v3.field_0) = script_pop();
-	v0 = script_pop();
+	v5 = COERCE_FLOAT(nox_script_pop());
+	v4 = COERCE_FLOAT(nox_script_pop());
+	LODWORD(v3.field_4) = nox_script_pop();
+	LODWORD(v3.field_0) = nox_script_pop();
+	v0 = nox_script_pop();
 	v1 = nox_xxx_spellNameToN_4243F0(*(const char**)getMemAt(0x5D4594, 4 * v0 + 3831212));
 	if (v1) {
 		v6 = v3;
@@ -8082,7 +8082,7 @@ int nox_xxx_scriptWideScreen_515240() {
 
 	if (!dword_5d4594_2386872)
 		dword_5d4594_2386872 = nox_xxx_getNameId_4E3AA0("TelekinesisHand");
-	if (script_pop() != 1) {
+	if (nox_script_pop() != 1) {
 		if (sub_44DCA0(16, 30))
 			sub_477530(0);
 		for (i = nox_server_getFirstObject_4DA790(); i; i = nox_server_getNextObject_4DA7A0(i)) {
@@ -8164,14 +8164,14 @@ int nox_xxx_scriptGetElevatorStat_5154A0() {
 	int v3; // ecx
 
 	v0 = -1;
-	v1 = script_pop();
+	v1 = nox_script_pop();
 	v2 = nox_server_scriptValToObjectPtr_511B60(v1);
 	if (v2) {
 		v3 = *(_DWORD*)(v2 + 8);
 		if (v3 & 0x4000)
 			v0 = *(unsigned __int8*)(*(_DWORD*)(v2 + 748) + 12);
 	}
-	nox_xxx_scriptPushValue_507230(v0);
+	nox_script_push(v0);
 	return 0;
 }
 
@@ -8182,9 +8182,9 @@ int sub_5154E0() {
 	int v2;     // eax
 	int v3;     // esi
 
-	v0 = script_pop();
-	v1 = script_pop();
-	v2 = script_pop();
+	v0 = nox_script_pop();
+	v1 = nox_script_pop();
+	v2 = nox_script_pop();
 	if (v2) {
 		v3 = nox_server_scriptValToObjectPtr_511B60(v2);
 		if (v3) {
@@ -8206,8 +8206,8 @@ int nox_xxx_scriptDeleteJournalEntry_515550() {
 	int v1; // eax
 	int v2; // eax
 
-	v0 = script_pop();
-	v1 = script_pop();
+	v0 = nox_script_pop();
+	v1 = nox_script_pop();
 	if (v1) {
 		v2 = nox_server_scriptValToObjectPtr_511B60(v1);
 		if (v2) {
@@ -8227,9 +8227,9 @@ int sub_5155A0() {
 	int v2;     // eax
 	int v3;     // eax
 
-	v0 = script_pop();
-	v1 = script_pop();
-	v2 = script_pop();
+	v0 = nox_script_pop();
+	v1 = nox_script_pop();
+	v2 = nox_script_pop();
 	if (v2) {
 		v3 = nox_server_scriptValToObjectPtr_511B60(v2);
 		if (v3) {
@@ -8253,12 +8253,12 @@ int nox_xxx_scriptSetGuardPoint_515600() {
 	int v7;    // [esp+10h] [ebp-18h]
 	int v8[5]; // [esp+14h] [ebp-14h]
 
-	v7 = script_pop();
-	v6 = script_pop();
-	v5 = script_pop();
-	v4 = script_pop();
-	v3 = script_pop();
-	v0 = script_pop();
+	v7 = nox_script_pop();
+	v6 = nox_script_pop();
+	v5 = nox_script_pop();
+	v4 = nox_script_pop();
+	v3 = nox_script_pop();
+	v0 = nox_script_pop();
 	v8[0] = v3;
 	v8[1] = v4;
 	v8[2] = v5;
@@ -8308,12 +8308,12 @@ int sub_515700() {
 	int v7;              // [esp+10h] [ebp-18h]
 	int v8[5];           // [esp+14h] [ebp-14h]
 
-	v7 = script_pop();
-	v6 = script_pop();
-	v5 = script_pop();
-	v4 = script_pop();
-	v3 = script_pop();
-	v0 = script_pop();
+	v7 = nox_script_pop();
+	v6 = nox_script_pop();
+	v5 = nox_script_pop();
+	v4 = nox_script_pop();
+	v3 = nox_script_pop();
+	v0 = nox_script_pop();
 	v8[1] = v4;
 	v8[3] = v6;
 	v8[0] = v3;
@@ -8329,7 +8329,7 @@ int nox_xxx_scriptMonsterHunt_515780() {
 	int v0; // eax
 	int v1; // eax
 
-	v0 = script_pop();
+	v0 = nox_script_pop();
 	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v1)
 		sub_5157A0(v1);
@@ -8354,7 +8354,7 @@ int sub_5157D0() {
 	int v0;              // eax
 	unsigned __int8* v1; // eax
 
-	v0 = script_pop();
+	v0 = nox_script_pop();
 	v1 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v0);
 	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 0, sub_5157A0, 0);
 	return 0;
@@ -8365,7 +8365,7 @@ int sub_515800() {
 	int v0; // eax
 	int v1; // eax
 
-	v0 = script_pop();
+	v0 = nox_script_pop();
 	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v1)
 		sub_515820(v1);
@@ -8390,7 +8390,7 @@ int sub_515850() {
 	int v0;              // eax
 	unsigned __int8* v1; // eax
 
-	v0 = script_pop();
+	v0 = nox_script_pop();
 	v1 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v0);
 	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 0, sub_515820, 0);
 	return 0;
@@ -8403,8 +8403,8 @@ int nox_xxx_script_Follow_515880() {
 	int v2; // esi
 	int v3; // eax
 
-	v0 = script_pop();
-	v1 = script_pop();
+	v0 = nox_script_pop();
+	v1 = nox_script_pop();
 	v2 = nox_server_scriptValToObjectPtr_511B60(v1);
 	if (v2) {
 		v3 = nox_server_scriptValToObjectPtr_511B60(v0);
@@ -8447,8 +8447,8 @@ int sub_515910() {
 	unsigned __int8* v3; // eax
 	int v5;              // [esp-4h] [ebp-Ch]
 
-	v0 = script_pop();
-	v1 = script_pop();
+	v0 = nox_script_pop();
+	v1 = nox_script_pop();
 	v2 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v2) {
 		v5 = v2;
@@ -8464,8 +8464,8 @@ int nox_xxx_scriptAgresssionLevel_515950() {
 	int v1; // eax
 	int v3; // [esp+0h] [ebp-4h]
 
-	v3 = script_pop();
-	v0 = script_pop();
+	v3 = nox_script_pop();
+	v0 = nox_script_pop();
 	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v1)
 		nox_xxx_monsterSetAgressiveness_515980(v1, &v3);
@@ -8492,8 +8492,8 @@ int sub_5159B0() {
 	unsigned __int8* v1; // eax
 	int v3;              // [esp+0h] [ebp-4h]
 
-	v3 = script_pop();
-	v0 = script_pop();
+	v3 = nox_script_pop();
+	v0 = nox_script_pop();
 	v1 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v0);
 	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 0, nox_xxx_monsterSetAgressiveness_515980, (int)&v3);
 	return 0;
@@ -8507,9 +8507,9 @@ int nox_xxx_scriptHitLocation_5159E0() {
 	float v4; // [esp+4h] [ebp-Ch]
 	float2 v5;
 
-	v4 = COERCE_FLOAT(script_pop());
-	v3 = COERCE_FLOAT(script_pop());
-	v0 = script_pop();
+	v4 = COERCE_FLOAT(nox_script_pop());
+	v3 = COERCE_FLOAT(nox_script_pop());
+	v0 = nox_script_pop();
 	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v1) {
 		v5.field_0 = v3;
@@ -8561,9 +8561,9 @@ int sub_515AE0() {
 	float2 v3;           // [esp+0h] [ebp-10h]
 	float2 v4;           // [esp+8h] [ebp-8h]
 
-	LODWORD(v3.field_4) = script_pop();
-	LODWORD(v3.field_0) = script_pop();
-	v0 = script_pop();
+	LODWORD(v3.field_4) = nox_script_pop();
+	LODWORD(v3.field_0) = nox_script_pop();
+	v0 = nox_script_pop();
 	v4 = v3;
 	v1 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v0);
 	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 0, nox_xxx_monsterActionMelee_515A30, (int)&v4);
@@ -8577,9 +8577,9 @@ int nox_xxx_scriptShootLocation_515B30() {
 	int v3[2]; // [esp+0h] [ebp-10h]
 	int v4[2]; // [esp+8h] [ebp-8h]
 
-	v3[1] = script_pop();
-	v3[0] = script_pop();
-	v0 = script_pop();
+	v3[1] = nox_script_pop();
+	v3[0] = nox_script_pop();
+	v0 = nox_script_pop();
 	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v1) {
 		*(_QWORD*)v4 = *(_QWORD*)v3;
@@ -8624,9 +8624,9 @@ int sub_515BF0() {
 	int v3[2];           // [esp+0h] [ebp-10h]
 	int v4[2];           // [esp+8h] [ebp-8h]
 
-	v3[1] = script_pop();
-	v3[0] = script_pop();
-	v0 = script_pop();
+	v3[1] = nox_script_pop();
+	v3[0] = nox_script_pop();
+	v0 = nox_script_pop();
 	*(_QWORD*)v4 = *(_QWORD*)v3;
 	v1 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v0);
 	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 0, nox_xxx_monsterMissileAttack_515B80, (int)v4);
@@ -8641,8 +8641,8 @@ int __fastcall nox_xxx_scriptMonsterWayFlag_515C40(int a1) {
 	char v5; // [esp+1h] [ebp-1h]
 
 	v5 = HIBYTE(a1);
-	v1 = script_pop();
-	v2 = script_pop();
+	v1 = nox_script_pop();
+	v2 = nox_script_pop();
 	v3 = nox_server_scriptValToObjectPtr_511B60(v2);
 	if (v3) {
 		v5 = v1;
@@ -8672,8 +8672,8 @@ int sub_515CB0() {
 	unsigned __int8* v2; // eax
 	char v4;             // [esp+1h] [ebp-1h]
 
-	v0 = script_pop();
-	v1 = script_pop();
+	v0 = nox_script_pop();
+	v1 = nox_script_pop();
 	v4 = v0;
 	v2 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v1);
 	nox_server_scriptExecuteFnForEachGroupObj_502670(v2, 0, sub_515C80, (int)&v4);
@@ -8687,8 +8687,8 @@ int nox_xxx_scriptAttack_515CF0() {
 	int v2; // esi
 	int v3; // eax
 
-	v0 = script_pop();
-	v1 = script_pop();
+	v0 = nox_script_pop();
+	v1 = nox_script_pop();
 	v2 = nox_server_scriptValToObjectPtr_511B60(v1);
 	if (v2) {
 		v3 = nox_server_scriptValToObjectPtr_511B60(v0);
@@ -8737,8 +8737,8 @@ int sub_515DB0() {
 	unsigned __int8* v2; // eax
 	int v4;              // [esp-4h] [ebp-Ch]
 
-	v0 = script_pop();
-	v1 = script_pop();
+	v0 = nox_script_pop();
+	v1 = nox_script_pop();
 	v4 = nox_server_scriptValToObjectPtr_511B60(v0);
 	v2 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v1);
 	nox_server_scriptExecuteFnForEachGroupObj_502670(v2, 0, nox_xxx_mobSetFightTarg_515D30, v4);
@@ -8751,8 +8751,8 @@ int nox_xxx_scriptSetIdleLevel_515DF0() {
 	int v1; // eax
 	int v3; // [esp+0h] [ebp-4h]
 
-	v3 = script_pop();
-	v0 = script_pop();
+	v3 = nox_script_pop();
+	v0 = nox_script_pop();
 	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v1)
 		sub_515E20(v1, &v3);
@@ -8779,8 +8779,8 @@ int nox_xxx_scriptGroupSetIdleHP_515E50() {
 	unsigned __int8* v1; // eax
 	int v3;              // [esp+0h] [ebp-4h]
 
-	v3 = script_pop();
-	v0 = script_pop();
+	v3 = nox_script_pop();
+	v0 = nox_script_pop();
 	v1 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v0);
 	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 0, sub_515E20, (int)&v3);
 	return 0;
@@ -8792,8 +8792,8 @@ int nox_xxx_scriptSetResumeLevel_515E80() {
 	int v1; // eax
 	int v3; // [esp+0h] [ebp-4h]
 
-	v3 = script_pop();
-	v0 = script_pop();
+	v3 = nox_script_pop();
+	v0 = nox_script_pop();
 	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v1)
 		sub_515EB0(v1, &v3);
@@ -8820,8 +8820,8 @@ int sub_515EE0() {
 	unsigned __int8* v1; // eax
 	int v3;              // [esp+0h] [ebp-4h]
 
-	v3 = script_pop();
-	v0 = script_pop();
+	v3 = nox_script_pop();
+	v0 = nox_script_pop();
 	v1 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v0);
 	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 0, sub_515EB0, (int)&v3);
 	return 0;
@@ -8835,9 +8835,9 @@ int nox_xxx_scriptRunAway_515F10() {
 	int v3;    // eax
 	int v5[2]; // [esp+Ch] [ebp-8h]
 
-	v0 = script_pop();
-	v1 = script_pop();
-	v2 = script_pop();
+	v0 = nox_script_pop();
+	v1 = nox_script_pop();
+	v2 = nox_script_pop();
 	v5[0] = nox_server_scriptValToObjectPtr_511B60(v1);
 	if (v5[0]) {
 		v3 = nox_server_scriptValToObjectPtr_511B60(v2);
@@ -8889,9 +8889,9 @@ int nox_server_scriptMonsterGroupFleeFrom_516000() {
 	unsigned __int8* v3; // eax
 	int v5[2];           // [esp+Ch] [ebp-8h]
 
-	v0 = script_pop();
-	v1 = script_pop();
-	v2 = script_pop();
+	v0 = nox_script_pop();
+	v1 = nox_script_pop();
+	v2 = nox_script_pop();
 	v5[0] = nox_server_scriptValToObjectPtr_511B60(v1);
 	if (v5[0]) {
 		v5[1] = v0;
@@ -8907,8 +8907,8 @@ int nox_xxx_scriptMonsterWait_516060() {
 	int v1; // eax
 	int v3; // [esp+0h] [ebp-4h]
 
-	v3 = script_pop();
-	v0 = script_pop();
+	v3 = nox_script_pop();
+	v0 = nox_script_pop();
 	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v1)
 		sub_516090(v1, &v3);
@@ -8944,8 +8944,8 @@ int sub_5160F0() {
 	unsigned __int8* v1; // eax
 	int v3;              // [esp+0h] [ebp-4h]
 
-	v3 = script_pop();
-	v0 = script_pop();
+	v3 = nox_script_pop();
+	v0 = nox_script_pop();
 	v1 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v0);
 	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 0, sub_516090, (int)&v3);
 	return 0;
@@ -8957,13 +8957,13 @@ int sub_516120() {
 	int v1; // eax
 	int v2; // eax
 
-	v0 = script_pop();
+	v0 = nox_script_pop();
 	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v1) {
 		v2 = sub_4FA6D0(v1);
-		nox_xxx_scriptPushValue_507230(v2);
+		nox_script_push(v2);
 	} else {
-		nox_xxx_scriptPushValue_507230(0);
+		nox_script_push(0);
 	}
 	return 0;
 }
@@ -8974,8 +8974,8 @@ int sub_516160() {
 	int v1; // eax
 	int v2; // eax
 
-	v0 = script_pop();
-	v1 = script_pop();
+	v0 = nox_script_pop();
+	v1 = nox_script_pop();
 	v2 = nox_server_scriptValToObjectPtr_511B60(v1);
 	if (v2)
 		sub_4FA620(v2, v0);
@@ -8988,8 +8988,8 @@ int nox_xxx_scriptGiveExp_516190() {
 	int v1; // eax
 	int v2; // eax
 
-	v0 = script_pop();
-	v1 = script_pop();
+	v0 = nox_script_pop();
+	v1 = nox_script_pop();
 	v2 = nox_server_scriptValToObjectPtr_511B60(v1);
 	if (v2)
 		nox_xxx_plyrGiveExp_4EF3A0_exp_level(v2, *(float*)&v0);
@@ -9004,14 +9004,14 @@ int sub_5161C0() {
 	int v3; // eax
 	int v4; // edi
 
-	v0 = script_pop();
-	v1 = script_pop();
+	v0 = nox_script_pop();
+	v1 = nox_script_pop();
 	v2 = nox_server_scriptValToObjectPtr_511B60(v1);
 	v3 = nox_server_scriptValToObjectPtr_511B60(v0);
 	v4 = 0;
 	if (v2 && v3 && nox_xxx_unitIsEnemyTo_5330C0(v2, v3))
 		v4 = 1;
-	nox_xxx_scriptPushValue_507230(v4);
+	nox_script_push(v4);
 	return 0;
 }
 
@@ -9026,8 +9026,8 @@ int nox_xxx_script_GetObjectType_516210() {
 	unsigned __int8* v6; // edi
 	int v7;              // [esp+10h] [ebp-4h]
 
-	v0 = script_pop();
-	v1 = script_pop();
+	v0 = nox_script_pop();
+	v1 = nox_script_pop();
 	v7 = nox_server_scriptValToObjectPtr_511B60(v1);
 	if (v7) {
 		v3 = *(const char**)getMemAt(0x587000, 237172);
@@ -9042,11 +9042,11 @@ int nox_xxx_script_GetObjectType_516210() {
 				if (!v3)
 					return 0;
 			}
-			nox_xxx_scriptPushValue_507230((v4 & *(_DWORD*)(v7 + 8)) != 0);
+			nox_script_push((v4 & *(_DWORD*)(v7 + 8)) != 0);
 		}
 		result = 0;
 	} else {
-		nox_xxx_scriptPushValue_507230(0);
+		nox_script_push(0);
 		result = 0;
 	}
 	return result;
@@ -9065,8 +9065,8 @@ int sub_5162D0() {
 	int v8;              // [esp+18h] [ebp-8h]
 	int v9;              // [esp+1Ch] [ebp-4h]
 
-	v8 = script_pop();
-	v0 = script_pop();
+	v8 = nox_script_pop();
+	v0 = nox_script_pop();
 	v9 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v9) {
 		v2 = getMemAt(0x587000, 237304);
@@ -9091,11 +9091,11 @@ int sub_5162D0() {
 				if (!v4)
 					goto LABEL_8;
 			}
-			nox_xxx_scriptPushValue_507230((v3 & *(_DWORD*)(v9 + 12)) != 0);
+			nox_script_push((v3 & *(_DWORD*)(v9 + 12)) != 0);
 		}
 		result = 0;
 	} else {
-		nox_xxx_scriptPushValue_507230(0);
+		nox_script_push(0);
 		result = 0;
 	}
 	return result;
@@ -9107,13 +9107,13 @@ int nox_xxx_scriptDialogResult_5163C0() {
 	int v1; // eax
 	int v2; // eax
 
-	v0 = script_pop();
+	v0 = nox_script_pop();
 	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v1) {
 		v2 = sub_548F40(v1);
-		nox_xxx_scriptPushValue_507230(v2);
+		nox_script_push(v2);
 	} else {
-		nox_xxx_scriptPushValue_507230(0);
+		nox_script_push(0);
 	}
 	return 0;
 }
@@ -9133,8 +9133,8 @@ int nox_xxx_script_Music_516430() {
 	char v2[3]; // [esp+4h] [ebp-8h]
 	int v3;     // [esp+8h] [ebp-4h]
 
-	v0 = script_pop();
-	v3 = script_pop();
+	v0 = nox_script_pop();
+	v3 = nox_script_pop();
 	if (nox_common_gameFlags_check_40A5C0(2048)) {
 		sub_43D9B0(v3, v0);
 	} else {
@@ -9212,7 +9212,7 @@ int __thiscall sub_516570(_BYTE* this) {
 
 //----- (005165D0) --------------------------------------------------------
 int sub_5165D0() {
-	*getMemU32Ptr(0x5D4594, 2386828) = script_pop() - 1;
+	*getMemU32Ptr(0x5D4594, 2386828) = nox_script_pop() - 1;
 	sub_413A00(1);
 	return nox_client_screenFadeTimeout_44DAB0(25, 1, (void (*)(void))sub_516570);
 }
@@ -9258,7 +9258,7 @@ int sub_5166A0() {
 	v1 = 0;
 	if (v0 && *(_DWORD*)(*(_DWORD*)(*((_DWORD*)v0 + 514) + 748) + 284))
 		v1 = 1;
-	nox_xxx_scriptPushValue_507230(v1);
+	nox_script_push(v1);
 	return 0;
 }
 
@@ -9271,7 +9271,7 @@ int nox_xxx_scriptPlayerIsTrading_5166E0() {
 	v1 = 0;
 	if (v0 && *(_DWORD*)(*(_DWORD*)(*((_DWORD*)v0 + 514) + 748) + 280))
 		v1 = 1;
-	nox_xxx_scriptPushValue_507230(v1);
+	nox_script_push(v1);
 	return 0;
 }
 
@@ -9284,7 +9284,7 @@ int sub_516720() {
 	int v4;   // ecx
 
 	v0 = nox_common_playerInfoFromNum_417090(31);
-	v1 = script_pop();
+	v1 = nox_script_pop();
 	v2 = nox_server_scriptValToObjectPtr_511B60(v1);
 	if (v2) {
 		v3 = *(_DWORD*)(v2 + 12);
@@ -9303,7 +9303,7 @@ int sub_516760() {
 	int v1; // eax
 	int v2; // edx
 
-	v0 = script_pop();
+	v0 = nox_script_pop();
 	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v1) {
 		v2 = *(_DWORD*)(v1 + 12);
@@ -9321,12 +9321,12 @@ int __thiscall sub_516790(void* this) {
 	void* v4; // [esp+0h] [ebp-4h]
 
 	v4 = this;
-	v1 = script_pop();
+	v1 = nox_script_pop();
 	v2 = nox_server_scriptValToObjectPtr_511B60(v1);
 	if (v2)
-		nox_xxx_scriptPushValue_507230((*(_DWORD*)(v2 + 12) >> 8) & 1);
+		nox_script_push((*(_DWORD*)(v2 + 12) >> 8) & 1);
 	else
-		nox_xxx_scriptPushValue_507230((int)v4);
+		nox_script_push((int)v4);
 	return 0;
 }
 
@@ -9338,7 +9338,7 @@ int nox_xxx_scriptBecomePet_5167D0() {
 	int v3;   // ecx
 
 	v0 = nox_common_playerInfoFromNum_417090(31);
-	v1 = script_pop();
+	v1 = nox_script_pop();
 	v2 = nox_server_scriptValToObjectPtr_511B60(v1);
 	if (v2) {
 		v3 = *((_DWORD*)v0 + 514);
@@ -9356,7 +9356,7 @@ int nox_xxx_scriptBecomeEnemy_516810() {
 	int v3;     // ecx
 
 	v0 = nox_common_playerInfoFromNum_417090(31);
-	v1 = script_pop();
+	v1 = nox_script_pop();
 	v2 = (_DWORD*)nox_server_scriptValToObjectPtr_511B60(v1);
 	if (v2) {
 		v3 = *((_DWORD*)v0 + 514);
@@ -9373,12 +9373,12 @@ int __thiscall sub_516850(void* this) {
 	void* v4; // [esp+0h] [ebp-4h]
 
 	v4 = this;
-	v1 = script_pop();
+	v1 = nox_script_pop();
 	v2 = nox_server_scriptValToObjectPtr_511B60(v1);
 	if (v2)
-		nox_xxx_scriptPushValue_507230((*(_DWORD*)(v2 + 12) & 0xFFu) >> 7);
+		nox_script_push((*(_DWORD*)(v2 + 12) & 0xFFu) >> 7);
 	else
-		nox_xxx_scriptPushValue_507230((int)v4);
+		nox_script_push((int)v4);
 	return 0;
 }
 
@@ -9392,7 +9392,7 @@ int nox_xxx_scriptOblivionGive_516890() {
 
 	v0 = (_DWORD*)*((_DWORD*)nox_common_playerInfoFromNum_417090(31) + 514);
 	v1 = 0;
-	v2 = script_pop();
+	v2 = nox_script_pop();
 	v3 = (_DWORD*)v0[126];
 	if (v3) {
 		while (!(v3[2] & 0x1000000) || !(v3[3] & 0x7800000)) {
@@ -9416,8 +9416,8 @@ int nox_xxx_script_Frozen_516920() {
 	int v1; // eax
 	int v2; // eax
 
-	v0 = script_pop();
-	v1 = script_pop();
+	v0 = nox_script_pop();
+	v1 = nox_script_pop();
 	v2 = nox_server_scriptValToObjectPtr_511B60(v1);
 	if (v2) {
 		if (v0 == 1) {
@@ -9431,7 +9431,7 @@ int nox_xxx_script_Frozen_516920() {
 
 //----- (00516960) --------------------------------------------------------
 int sub_516960() {
-	dword_5d4594_2386840 = script_pop();
+	dword_5d4594_2386840 = nox_script_pop();
 	return 0;
 }
 
@@ -9444,9 +9444,9 @@ int nox_xxx_scriptSetProperty_516970() {
 	_DWORD* v4; // eax
 	int result; // eax
 
-	v0 = script_pop();
-	v1 = script_pop();
-	v2 = script_pop();
+	v0 = nox_script_pop();
+	v1 = nox_script_pop();
+	v2 = nox_script_pop();
 	v3 = nox_server_scriptValToObjectPtr_511B60(v2);
 	if (!v3 || !(*(_BYTE*)(v3 + 8) & 2))
 		return 0;
@@ -9503,8 +9503,8 @@ int nox_xxx_scriptDecayObject_516A50() {
 	int v1;     // eax
 	_DWORD* v2; // eax
 
-	v0 = script_pop();
-	v1 = script_pop();
+	v0 = nox_script_pop();
+	v1 = nox_script_pop();
 	v2 = (_DWORD*)nox_server_scriptValToObjectPtr_511B60(v1);
 	if (v2)
 		nox_xxx_unitSetDecayTime_511660(v2, v0);
@@ -9562,10 +9562,10 @@ int nox_xxx_scriptTrapSpells_516B40() {
 	int v8; // ebx
 	int v9; // eax
 
-	v0 = script_pop();
-	v1 = script_pop();
-	v2 = script_pop();
-	v3 = script_pop();
+	v0 = nox_script_pop();
+	v1 = nox_script_pop();
+	v2 = nox_script_pop();
+	v3 = nox_script_pop();
 	v4 = nox_server_scriptValToObjectPtr_511B60(v3);
 	v5 = v4;
 	if (v4) {
@@ -9587,7 +9587,7 @@ int sub_516BC0() {
 	int v0; // eax
 	int v1; // eax
 
-	v0 = script_pop();
+	v0 = nox_script_pop();
 	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v1)
 		nox_xxx_netScriptMessageKill_4D9760(v1);
@@ -9600,8 +9600,8 @@ int nox_xxx_scriptSetShopkeeperGreet_516BE0() {
 	int v1; // eax
 	int v2; // eax
 
-	v0 = script_pop();
-	v1 = script_pop();
+	v0 = nox_script_pop();
+	v1 = nox_script_pop();
 	v2 = nox_server_scriptValToObjectPtr_511B60(v1);
 	if (v2)
 		sub_548FE0(v2, *(const char**)getMemAt(0x5D4594, 4 * v0 + 3831212));
@@ -9626,12 +9626,12 @@ int nox_xxx_scriptTestMobStatus_516C30() {
 	int v1; // esi
 	int v2; // eax
 
-	v0 = script_pop();
+	v0 = nox_script_pop();
 	v1 = 0;
 	v2 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v2 && *(_BYTE*)(v2 + 8) & 2)
 		v1 = (*(_DWORD*)(*(_DWORD*)(v2 + 748) + 1440) >> 7) & 1;
-	nox_xxx_scriptPushValue_507230(v1);
+	nox_script_push(v1);
 	return 0;
 }
 
@@ -9640,7 +9640,7 @@ int sub_516C70() {
 	int v0; // eax
 	int v1; // eax
 
-	v0 = script_pop();
+	v0 = nox_script_pop();
 	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v1)
 		nox_xxx_zombieSetStayDead_516C90(v1);
@@ -9664,7 +9664,7 @@ int sub_516CB0() {
 	int v0;              // eax
 	unsigned __int8* v1; // eax
 
-	v0 = script_pop();
+	v0 = nox_script_pop();
 	v1 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v0);
 	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 0, nox_xxx_zombieSetStayDead_516C90, 0);
 	return 0;
@@ -9675,7 +9675,7 @@ int sub_516CE0() {
 	int v0; // eax
 	int v1; // eax
 
-	v0 = script_pop();
+	v0 = nox_script_pop();
 	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v1)
 		sub_516D00(v1);
@@ -9703,7 +9703,7 @@ int sub_516D40() {
 	int v0;              // eax
 	unsigned __int8* v1; // eax
 
-	v0 = script_pop();
+	v0 = nox_script_pop();
 	v1 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v0);
 	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 0, sub_516D00, 0);
 	return 0;
@@ -9715,7 +9715,7 @@ int nox_xxx_scriptObjIsGameball_516D70() {
 	int v1; // esi
 	int v2; // eax
 
-	v0 = script_pop();
+	v0 = nox_script_pop();
 	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v1) {
 		v2 = *getMemU32Ptr(0x5D4594, 2386908);
@@ -9723,7 +9723,7 @@ int nox_xxx_scriptObjIsGameball_516D70() {
 			v2 = nox_xxx_getNameId_4E3AA0("GameBall");
 			*getMemU32Ptr(0x5D4594, 2386908) = v2;
 		}
-		nox_xxx_scriptPushValue_507230(*(unsigned __int16*)(v1 + 4) == v2);
+		nox_script_push(*(unsigned __int16*)(v1 + 4) == v2);
 	}
 	return 0;
 }
@@ -9734,7 +9734,7 @@ int nox_xxx_scriptObjIsCrown_516DC0() {
 	int v1; // esi
 	int v2; // eax
 
-	v0 = script_pop();
+	v0 = nox_script_pop();
 	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v1) {
 		v2 = *getMemU32Ptr(0x5D4594, 2386912);
@@ -9742,7 +9742,7 @@ int nox_xxx_scriptObjIsCrown_516DC0() {
 			v2 = nox_xxx_getNameId_4E3AA0("Crown");
 			*getMemU32Ptr(0x5D4594, 2386912) = v2;
 		}
-		nox_xxx_scriptPushValue_507230(*(unsigned __int16*)(v1 + 4) == v2);
+		nox_script_push(*(unsigned __int16*)(v1 + 4) == v2);
 	}
 	return 0;
 }
@@ -9751,7 +9751,7 @@ int nox_xxx_scriptObjIsCrown_516DC0() {
 int nox_xxx_scriptEndGame_516E10() {
 	int v0; // eax
 
-	v0 = script_pop();
+	v0 = nox_script_pop();
 	sub_578C90(v0);
 	return 0;
 }
@@ -9764,8 +9764,8 @@ int nox_xxx_scriptPlayerScore_516E30() {
 	int v3;   // esi
 	char* v4; // eax
 
-	v0 = script_pop();
-	v1 = script_pop();
+	v0 = nox_script_pop();
+	v1 = nox_script_pop();
 	v2 = nox_server_scriptValToObjectPtr_511B60(v1);
 	v3 = v2;
 	if (v2 && *(_BYTE*)(v2 + 8) & 4) {
@@ -9787,12 +9787,12 @@ int sub_516EA0() {
 	int v1; // esi
 	int v2; // eax
 
-	v0 = script_pop();
+	v0 = nox_script_pop();
 	v1 = 0;
 	v2 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v2 && *(_BYTE*)(v2 + 8) & 4)
 		v1 = *(_DWORD*)(*(_DWORD*)(*(_DWORD*)(v2 + 748) + 276) + 2136);
-	nox_xxx_scriptPushValue_507230(v1);
+	nox_script_push(v1);
 	return 0;
 }
 
@@ -12211,15 +12211,17 @@ void sub_51AC60() {
 }
 
 //----- (0051ACA0) --------------------------------------------------------
-int  nox_xxx_script_51ACA0(int a1, int a2, int a3) {
+void  nox_xxx_script_51ACA0(int a1, int a2, int a3) {
 	_DWORD* v3; // esi
 	int result; // eax
 	int v5;     // eax
 	int i;      // ecx
 
 	v3 = nox_xxx_scriptActivatorNew_51AD40();
-	if (!v3)
-		return nox_xxx_scriptPushValue_507230(0);
+	if (!v3) {
+		nox_script_push(0);
+		return;
+	}
 	*v3 = a1 + *getMemU32Ptr(0x5D4594, 2598000);
 	v3[1] = a2;
 	v3[2] = a3;
@@ -12228,7 +12230,7 @@ int  nox_xxx_script_51ACA0(int a1, int a2, int a3) {
 	v3[4] = 0;
 	v3[5] = 0;
 	v3[6] = 0;
-	nox_xxx_scriptPushValue_507230(v5);
+	nox_script_push(v5);
 	result = dword_5d4594_2487236;
 	if (dword_5d4594_2487236) {
 		for (i = *(_DWORD*)(dword_5d4594_2487236 + 24); i; i = *(_DWORD*)(i + 24))
@@ -12239,7 +12241,6 @@ int  nox_xxx_script_51ACA0(int a1, int a2, int a3) {
 		dword_5d4594_2487236 = v3;
 		v3[7] = 0;
 	}
-	return result;
 }
 
 //----- (0051AD20) --------------------------------------------------------

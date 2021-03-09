@@ -729,6 +729,22 @@ typedef struct obj_412ae0_t {
 } obj_412ae0_t;
 _Static_assert(sizeof(obj_412ae0_t) == 144, "wrong size of obj_412ae0_t structure!");
 
+typedef struct nox_script_xxx_t {
+	char* field_0; // 0, 0
+	_DWORD field_4; // 1, 4
+	int field_8; // 2, 8
+	_DWORD field_12; // 3, 12
+	_DWORD field_16; // 4, 16
+	void* field_20; // 5, 20; int[]
+	void* field_24; // 6, 24; int[]
+	void* field_28; // 7, 28; float[]?
+	void* field_32; // 8, 32
+	char* field_36; // 9, 36
+	_DWORD field_40; // 10, 40
+	_DWORD field_44; // 11, 44
+} nox_script_xxx_t;
+_Static_assert(sizeof(nox_script_xxx_t) == 48, "wrong size of nox_script_xxx_t structure!");
+
 typedef struct table_26792_t {
 	const char* name;
 	void* fnc;

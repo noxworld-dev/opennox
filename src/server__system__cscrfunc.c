@@ -64,7 +64,7 @@ int nox_xxx_scriptPrintToCaller_512B10() {
 	int v0;      // eax
 	wchar_t* v1; // eax
 
-	v0 = script_pop();
+	v0 = nox_script_pop();
 	if (dword_5d4594_3821964 && *(_BYTE*)(dword_5d4594_3821964 + 8) & 4) {
 		v1 = nox_strman_loadString_40F1D0(*(char**)getMemAt(0x5D4594, 4 * v0 + 3831212), 0,
 								   "C:\\NoxPost\\src\\Server\\System\\CScrFunc.c", 1285);
@@ -78,7 +78,7 @@ int nox_xxx_scriptPrintToAll_512B60() {
 	int v0;      // eax
 	wchar_t* v1; // eax
 
-	v0 = script_pop();
+	v0 = nox_script_pop();
 	v1 = nox_strman_loadString_40F1D0(*(char**)getMemAt(0x5D4594, 4 * v0 + 3831212), 0,
 							   "C:\\NoxPost\\src\\Server\\System\\CScrFunc.c", 1310);
 	nox_xxx_printToAll_4D9FD0(0, v1);
@@ -94,8 +94,8 @@ int nox_xxx_scriptSayChat_512B90() {
 	wchar_t* v4; // eax
 	int v6;      // [esp+8h] [ebp-4h]
 
-	v0 = script_pop();
-	v1 = script_pop();
+	v0 = nox_script_pop();
+	v1 = nox_script_pop();
 	v2 = nox_server_scriptValToObjectPtr_511B60(v1);
 	if (v2) {
 		v3 = *(char**)getMemAt(0x5D4594, 4 * v0 + 3831212);
@@ -114,11 +114,11 @@ int nox_xxx_script_Fn5E_513F70() {
 	wchar_t* v1; // eax
 	int v2;      // eax
 
-	v0 = script_pop();
+	v0 = nox_script_pop();
 	v1 = nox_strman_loadString_40F1D0(*(char**)getMemAt(0x5D4594, 4 * v0 + 3831212), 0,
 							   "C:\\NoxPost\\src\\Server\\System\\CScrFunc.c", 2901);
 	v2 = sub_512E80((int)v1);
-	nox_xxx_scriptPushValue_507230(v2);
+	nox_script_push(v2);
 	return 0;
 }
 
@@ -133,9 +133,9 @@ int sub_514A80() {
 	wchar_t v7;  // [esp-4h] [ebp-14h]
 	int v8;      // [esp+Ch] [ebp-4h]
 
-	v0 = script_pop();
-	v1 = script_pop();
-	v2 = script_pop();
+	v0 = nox_script_pop();
+	v1 = nox_script_pop();
+	v2 = nox_script_pop();
 	v3 = nox_server_scriptValToObjectPtr_511B60(v2);
 	if (v3) {
 		v4 = *(char**)getMemAt(0x5D4594, 4 * v1 + 3831212);
@@ -159,9 +159,9 @@ int sub_514B10() {
 	wchar_t* v5; // eax
 	int v7;      // [esp+Ch] [ebp-4h]
 
-	v0 = script_pop();
-	v1 = script_pop();
-	v2 = script_pop();
+	v0 = nox_script_pop();
+	v1 = nox_script_pop();
+	v2 = nox_script_pop();
 	v3 = nox_server_scriptValToObjectPtr_511B60(v2);
 	if (v3) {
 		v4 = *(char**)getMemAt(0x5D4594, 4 * v1 + 3831212);
