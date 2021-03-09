@@ -805,7 +805,9 @@ int sub_4DCF20() {
 }
 
 //----- (004DEB30) --------------------------------------------------------
-#ifndef NOX_CGO
+#ifdef NOX_CGO
+void nox_server_netMaybeSendInitialPackets_4DEB30();
+#else // NOX_CGO
 void nox_server_netMaybeSendInitialPackets_4DEB30() {
 	if (!(nox_common_getEngineFlag(NOX_ENGINE_FLAG_23))) {
 		nox_xxx_servNetInitialPackets_552A80(*getMemUintPtr(0x5D4594, 1563148), 1);
@@ -2622,7 +2624,9 @@ void nox_xxx_gameTick_4D2580_server_A(int v2, char* v38) {
 	}
 }
 
-#ifndef NOX_CGO
+#ifdef NOX_CGO
+int nox_xxx_gameTick_4D2580_server_B(__int64 ticks);
+#else // NOX_CGO
 int nox_xxx_gameTick_4D2580_server_B(__int64 ticks) {
 	nox_xxx_updateServer_4D2DA0(ticks);
 	nox_server_netMaybeSendInitialPackets_4DEB30();

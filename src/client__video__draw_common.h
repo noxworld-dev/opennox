@@ -68,8 +68,8 @@ extern DWORD dword_974854;
 
 extern int g_scaled;
 
-#ifndef IGNORE_EXTERNS
 void  sub_48B1D0_free_surface(SDL_Surface** a1);
+#ifndef IGNORE_EXTERNS
 
 extern unsigned char byte_5D4594_3804364[160];
 
