@@ -1881,7 +1881,7 @@ int nox_xxx_serverHandleClientConsole_443E90(nox_playerInfo* pl, char a2, wchar_
 		nox_wcstok((wchar_t*)getMemAt(0x5D4594, 818228), L" ");
 		v10 = nox_wcstok(0, L" ");
 		nox_sprintf(v22, "%S", v10);
-		v11 = nox_xxx_scriptByNameMB_5071D0(v22);
+		v11 = nox_script_indexByName(v22);
 		if (v11 != -1 && dword_5d4594_823692) {
 			v12 = nox_strman_loadString_40F1D0("ExecutingFunction", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c",
 										4332);

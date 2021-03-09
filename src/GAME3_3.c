@@ -51,7 +51,7 @@ extern _DWORD dword_5d4594_3843628;
 extern _DWORD dword_5d4594_1568024;
 extern _DWORD dword_5d4594_1565512;
 extern _DWORD dword_5d4594_2650652;
-extern void* nox_script_arr_xxx_1599636;
+extern nox_script_xxx_t* nox_script_arr_xxx_1599636;
 extern nox_memfile* nox_loaded_thing_bin;
 extern unsigned int nox_gameFPS;
 
@@ -13628,7 +13628,7 @@ int  nox_xxx_xferReadScriptHandler_4F5580(int a1, char* a2) {
 			if (nox_common_gameFlags_check_40A5C0(6291456))
 				strcpy(a2, v7);
 			else
-				*(_DWORD*)(a1 + 4) = nox_xxx_scriptByNameMB_5071D0(v7);
+				*(_DWORD*)(a1 + 4) = nox_script_indexByName(v7);
 		}
 	} else {
 		if (nox_common_gameFlags_check_40A5C0(6291456)) {
@@ -13641,9 +13641,9 @@ int  nox_xxx_xferReadScriptHandler_4F5580(int a1, char* a2) {
 		} else {
 			v4 = *(_DWORD*)(a1 + 4);
 			if (v4 != -1) {
-				v5 = strlen(*(const char**)(48 * v4 + (char*)nox_script_arr_xxx_1599636));
+				v5 = strlen(nox_script_arr_xxx_1599636[v4].field_0);
 				nox_xxx_fileReadWrite_426AC0_file3_fread(&v5, 4u);
-				nox_xxx_fileReadWrite_426AC0_file3_fread(*(_BYTE**)(48 * *(_DWORD*)(a1 + 4) + (char*)nox_script_arr_xxx_1599636), v5);
+				nox_xxx_fileReadWrite_426AC0_file3_fread(nox_script_arr_xxx_1599636[*(_DWORD*)(a1 + 4)].field_0, v5);
 				goto LABEL_16;
 			}
 		}

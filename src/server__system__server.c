@@ -48,7 +48,7 @@ extern _DWORD dword_5d4594_2487236;
 extern _DWORD dword_5d4594_1599656;
 extern _DWORD dword_5d4594_2650652;
 
-void* nox_script_arr_xxx_1599636 = 0;
+nox_script_xxx_t* nox_script_arr_xxx_1599636 = 0;
 int nox_script_count_xxx_1599640 = 0;
 
 extern unsigned int nox_gameFPS;
@@ -1265,7 +1265,6 @@ void nox_xxx_abilUpdateMB_4FBEE0() {
 int nox_xxx_mapInitialize_4FC590() {
 	int result; // eax
 	int v1;     // esi
-	int v2;     // edi
 
 	result = dword_5d4594_1569652;
 	if (dword_5d4594_1569652) {
@@ -1273,12 +1272,10 @@ int nox_xxx_mapInitialize_4FC590() {
 		if (result) {
 			v1 = 0;
 			if (nox_script_count_xxx_1599640 > 0) {
-				v2 = 0;
 				do {
-					if (!strncmp("MapInitialize", *(const char**)(v2 + (char*)nox_script_arr_xxx_1599636), 0xDu))
+					if (!strncmp("MapInitialize", nox_script_arr_xxx_1599636[v1].field_0, 13))
 						nox_server_doMapScript_507310(v1, 0, 0);
 					++v1;
-					v2 += 48;
 				} while (v1 < nox_script_count_xxx_1599640);
 			}
 			result = nox_xxx_resetMapInit_4FC570(0);
@@ -1291,7 +1288,6 @@ int nox_xxx_mapInitialize_4FC590() {
 int nox_xxx_mapEntry_4FC600() {
 	int result; // eax
 	int v1;     // esi
-	int v2;     // edi
 
 	result = dword_5d4594_1569656;
 	if (dword_5d4594_1569656) {
@@ -1299,12 +1295,10 @@ int nox_xxx_mapEntry_4FC600() {
 		if (result) {
 			v1 = 0;
 			if (nox_script_count_xxx_1599640 > 0) {
-				v2 = 0;
 				do {
-					if (!strncmp("MapEntry", *(const char**)(v2 + (char*)nox_script_arr_xxx_1599636), 8u))
+					if (!strncmp("MapEntry", nox_script_arr_xxx_1599636[v1].field_0, 8))
 						nox_server_doMapScript_507310(v1, 0, 0);
 					++v1;
-					v2 += 48;
 				} while (v1 < nox_script_count_xxx_1599640);
 			}
 			result = sub_4FC580(0);
@@ -1886,8 +1880,8 @@ void nox_xxx_scriptLeverReact_51ADF0() {
 				v1 = v0[1];
 				v2 = v0[5];
 				v3 = v0[4];
-				if (*(_DWORD*)(48 * v1 + (char*)nox_script_arr_xxx_1599636 + 8))
-					nox_xxx_scriptPushValue_507230(v0[2]);
+				if (nox_script_arr_xxx_1599636[v1].field_8)
+					nox_script_push(v0[2]);
 				v0 = (_DWORD*)nox_xxx_scriptAct_51AD90((int)v0);
 				nox_server_doMapScript_507310(v1, v2, v3);
 			}
@@ -2232,7 +2226,6 @@ BOOL sub_57B140() {
 //----- (004D1860) --------------------------------------------------------
 int nox_xxx_mapExitAndCheckNext_4D1860_server() {
 	int v0;           // esi
-	int v1;           // edi
 	char* v2;         // eax
 	int i;            // eax
 	int j;            // eax
@@ -2300,12 +2293,10 @@ int nox_xxx_mapExitAndCheckNext_4D1860_server() {
 	nox_xxx_netMsgFadeBegin_4D9800(0, 1);
 	v0 = 0;
 	if (nox_script_count_xxx_1599640 > 0) {
-		v1 = 0;
 		do {
-			if (!strncmp("MapExit", *(const char**)(v1 + (char*)nox_script_arr_xxx_1599636), 7u))
+			if (!strncmp("MapExit", nox_script_arr_xxx_1599636[v0].field_0, 7))
 				nox_server_doMapScript_507310(v0, 0, 0);
 			++v0;
-			v1 += 48;
 		} while (v0 < nox_script_count_xxx_1599640);
 	}
 	v2 = nox_xxx_mapGetMapName_409B40();
@@ -2731,12 +2722,10 @@ void nox_xxx_gameTick_4D2580_server_D() {
 	int v24 = (*(_DWORD*)(v22 + 16) >> 15) & 1;
 	if (!v24) {
 		if (nox_script_count_xxx_1599640 > 0) {
-			int v25 = 0;
 			do {
-				if (!strncmp("MapShutdown", *(const char**)(v25 + (char*)nox_script_arr_xxx_1599636), 0xBu))
+				if (!strncmp("MapShutdown", nox_script_arr_xxx_1599636[v23].field_0, 11))
 					nox_server_doMapScript_507310(v23, 0, 0);
 				++v23;
-				v25 += 48;
 			} while (v23 < nox_script_count_xxx_1599640);
 		}
 		nox_xxx_setGameFlags_40A4D0(0x8000000);

@@ -2600,20 +2600,18 @@ void  nox_xxx_script_forcedialog_548CD0(int a1, int a2) {
 }
 
 //----- (00548D30) --------------------------------------------------------
-char  nox_xxx_scriptDialog_548D30(int a1, char a2) {
+void  nox_xxx_scriptDialog_548D30(int a1, char a2) {
 	int v2;      // ebx
 	int v3;      // edi
-	char result; // al
 	int v5;      // ebp
 	int v6;      // esi
 
 	v2 = a1;
 	v3 = *(_DWORD*)(a1 + 748);
-	result = nox_xxx_unitUnFreeze_4E7A60(a1, 0);
+	nox_xxx_unitUnFreeze_4E7A60(a1, 0);
 	v5 = *(_DWORD*)(v3 + 284);
 	if (v5) {
 		v6 = *(_DWORD*)(v5 + 748);
-		result = -1;
 		if (*(int*)(v6 + 2096) != -1 && *(int*)(v6 + 2100) != -1) {
 			LOWORD(a1) = 1232;
 			nox_xxx_netSendPacket0_4E5420(*(unsigned __int8*)(*(_DWORD*)(v3 + 276) + 2064), &a1, 2, 0, 1);
@@ -2622,10 +2620,9 @@ char  nox_xxx_scriptDialog_548D30(int a1, char a2) {
 				*(_BYTE*)(v6 + 2105) = a2;
 			else
 				*(_BYTE*)(v6 + 2105) = 0;
-			result = nox_server_doMapScript_507310(*(_DWORD*)(v6 + 2100), v2, v5);
+			nox_server_doMapScript_507310(*(_DWORD*)(v6 + 2100), v2, v5);
 		}
 	}
-	return result;
 }
 
 //----- (00548DE0) --------------------------------------------------------
