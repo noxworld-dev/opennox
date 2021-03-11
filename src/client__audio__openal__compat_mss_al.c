@@ -217,7 +217,7 @@ static void checkError() {
 	error = alGetError();
 	if (error != AL_NO_ERROR) {
 		dprintf("AL error: 0x%x\n", error);
-		DebugBreak();
+		abort();
 	}
 }
 
@@ -289,13 +289,13 @@ DXDEC void AILCALL AIL_digital_configuration(HDIGDRIVER dig, S32 FAR* rate, S32 
 
 DXDEC S32 AILCALL AIL_digital_handle_release(HDIGDRIVER drvr) {
 	// fprintf(stderr, "%s\n", __FUNCTION__);
-	// DebugBreak();
+	// abort();
 	return 0;
 }
 
 DXDEC S32 AILCALL AIL_digital_handle_reacquire(HDIGDRIVER drvr) {
 	// fprintf(stderr, "%s\n", __FUNCTION__);
-	// DebugBreak();
+	// abort();
 	return 0;
 }
 
@@ -334,7 +334,7 @@ DXDEC void AILCALL AIL_init_sample(HSAMPLE S) {
 
 DXDEC char FAR* AILCALL AIL_last_error(void) {
 	// fprintf(stderr, "%s\n", __FUNCTION__);
-	// DebugBreak();
+	// abort();
 	return 0;
 }
 
@@ -599,7 +599,7 @@ DXDEC HSTREAM AILCALL AIL_open_stream(HDIGDRIVER dig, char const FAR* filename, 
 		stream->seek = stream_mp3_seek;
 		stream->tell = stream_mp3_tell;
 	} else {
-		DebugBreak();
+		abort();
 	}
 
 	alGenSources(1, &stream->source);
@@ -623,7 +623,7 @@ error:
 
 DXDEC void AILCALL AIL_pause_stream(HSTREAM stream, S32 onoff) {
 	// fprintf(stderr, "%s\n", __FUNCTION__);
-	// DebugBreak();
+	// abort();
 	stream->playing = onoff == 1 ? 0 : 1;
 }
 
@@ -650,17 +650,17 @@ DXDEC HTIMER AILCALL AIL_register_timer(AILTIMERCB fn) {
 
 DXDEC void AILCALL AIL_release_sample_handle(HSAMPLE S) {
 	// fprintf(stderr, "%s\n", __FUNCTION__);
-	// DebugBreak();
+	// abort();
 }
 
 DXDEC void AILCALL AIL_release_timer_handle(HTIMER timer) {
 	// fprintf(stderr, "%s\n", __FUNCTION__);
-	// DebugBreak();
+	// abort();
 }
 
 DXDEC void AILCALL AIL_resume_sample(HSAMPLE S) {
 	// fprintf(stderr, "%s\n", __FUNCTION__);
-	DebugBreak();
+	abort();
 }
 
 DXDEC S32 AILCALL AIL_sample_buffer_ready(HSAMPLE S) {
@@ -707,7 +707,7 @@ DXDEC void AILCALL AIL_set_sample_playback_rate(HSAMPLE S, S32 playback_rate) {
 DXDEC void AILCALL AIL_set_sample_type(HSAMPLE S, S32 format, U32 flags) {
 	// fprintf(stderr, "%s: %08X %d %d\n", __FUNCTION__, (int)S, format, flags);
 	if (flags)
-		DebugBreak();
+		abort();
 	S->stereo = format & 2;
 	S->adpcm = format & 4;
 }
@@ -744,7 +744,7 @@ DXDEC void AILCALL AIL_set_timer_frequency(HTIMER timer, U32 hertz) {
 
 DXDEC void AILCALL AIL_shutdown(void) {
 	// fprintf(stderr, "%s\n", __FUNCTION__);
-	// DebugBreak();
+	// abort();
 }
 
 DXDEC void AILCALL AIL_start_stream(HSTREAM stream) { stream->playing = 1; }
@@ -768,12 +768,12 @@ DXDEC S32 AILCALL AIL_startup(void) {
 
 DXDEC void AILCALL AIL_stop_sample(HSAMPLE S) {
 	// fprintf(stderr, "%s\n", __FUNCTION__);
-	// DebugBreak();
+	// abort();
 }
 
 DXDEC void AILCALL AIL_stop_timer(HTIMER timer) {
 	// fprintf(stderr, "%s\n", __FUNCTION__);
-	// DebugBreak();
+	// abort();
 }
 
 DXDEC S32 AILCALL AIL_stream_position(HSTREAM stream) {
@@ -891,7 +891,7 @@ static void sample_play_adpcm(HSAMPLE S, const BYTE* data, unsigned int size) {
 	unsigned int decoded_samples = 0;
 
 	if (!S->adpcm)
-		DebugBreak();
+		abort();
 
 	if (S->stereo)
 		decoded_samples = decode_adpcm_stereo(decoded, data, size);

@@ -69,7 +69,7 @@ char* dos_to_unix_recurse_paths(char* currentPath, char* unparsedPath) {
 	DIR* d = opendir(currentPath[0] == 0 ? "/" : currentPath);
 	if (!d) {
 		printf("Opendir errno: %d\n", errno);
-		//DebugBreak();
+		//abort();
 		// If we couldn't open the directory, just assume it's correct - this might be access errors in root paths
 		char temp[NOX_FILEPATH_MAX];
 		sprintf(temp, "%s/%s", currentPath, dirOrig);

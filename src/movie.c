@@ -2301,7 +2301,7 @@ int  sub_558A20(int a1, int a2, void* a3, unsigned int a4) {
 
 char  sub_558AA0(_DWORD* a1, _DWORD* a2, unsigned int a3, unsigned int a4, signed int a5, signed int a6, int a7,
 						int a8, char a9) {
-	DebugBreak();
+	abort();
 	return 0;
 }
 
@@ -2538,7 +2538,7 @@ char  sub_558AA0(_DWORD * a1, _DWORD * a2, unsigned int a3, unsigned int a4, sig
 
 void  sub_559030(int a1, int a2, unsigned int a3, unsigned int a4, int a5, int a6, int a7, int a8, int a9,
 						int a10, int a11, int a12) {
-	DebugBreak();
+	abort();
 }
 
 #if 0
@@ -10368,7 +10368,7 @@ int  sub_562C9B(unsigned __int8* a1, char* a2, int a3) {
 }
 
 int  sub_562E30(_WORD* a1, char* a2, int a3) {
-	DebugBreak();
+	abort();
 	return 0;
 }
 #if 0

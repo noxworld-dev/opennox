@@ -7015,7 +7015,7 @@ void  sub_49D370(int a1, int a2, int a3, int a4) {
 }
 
 int  sub_49D540(int a1, int a2, int a3, int a4) {
-	DebugBreak();
+	abort();
 	return 0;
 }
 
@@ -7105,7 +7105,7 @@ __int16  sub_49D6F0(int a1, int a2, unsigned int a3, int a4) {
 }
 
 void  sub_49D770(int a1, int a2, unsigned int a3, int a4) {
-	DebugBreak();
+	abort();
 	return;
 }
 
@@ -7178,7 +7178,7 @@ int  sub_49D8E0(int a1, int a2, int a3, int a4) {
 }
 
 int  sub_49D9A0(int a1, int a2, int a3, int a4) {
-	DebugBreak();
+	abort();
 	return 0;
 }
 
@@ -7314,7 +7314,7 @@ int  sub_49DBB0(int a1, int a2, int a3, int a4) {
 }
 
 int  sub_49DC70(int a1, int a2, int a3, int a4) {
-	DebugBreak();
+	abort();
 	return 0;
 }
 
@@ -8532,7 +8532,7 @@ void  sub_49F180(int a1, int a2, int a3) {
 }
 
 __int16  sub_49F210(int a1, int a2, int a3) {
-	DebugBreak();
+	abort();
 	return 0;
 }
 
