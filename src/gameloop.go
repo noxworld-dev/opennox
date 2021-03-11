@@ -214,7 +214,7 @@ mainloop:
 					continue mainloop
 				}
 				if getGameFlag(1) && getGameFlag(0x400000) && getEngineFlag(NOX_ENGINE_FLAG_1) {
-					v23 := nox_common_get_data_path_409E10()
+					v23 := nox_fs_root()
 					C.sub_4D39F0(v23)
 					if C.nox_xxx_mapGenStart_4D4320() == 0 {
 						C.nox_xxx_mapSwitchLevel_4D12E0(0)

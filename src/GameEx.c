@@ -3,6 +3,7 @@
 #include "GameEx.h"
 #include "client__gui__guimsg.h"
 #include "client__gui__window.h"
+#include "nox_fs.h"
 
 #include "client__shell__noxworld.h"
 #ifndef NOX_CGO
@@ -224,7 +225,7 @@ int  GameExCfgSaver() {
 	// char v26; // [esp+134h] [ebp+4h]
 	// char v27; // [esp+138h] [ebp+8h]
 
-	result = (int)fopen("game_ex.cfg", "w");
+	result = nox_fs_create_text("game_ex.cfg");
 	v1 = (void*)result;
 	if (result == 0) {
 		return 0;
@@ -388,7 +389,7 @@ char GameExCfgLoader() {
 	char v6[32]; // [esp+8h] [ebp-6h]
 	memset(v6, 0, sizeof(v6));
 
-	v0 = fopen("game_ex.cfg", "rb");
+	v0 = nox_fs_open("game_ex.cfg");
 	v1 = v0;
 	if (!v0)
 		return 0;
@@ -723,7 +724,7 @@ HANDLE __usercall GameIpParser(int a1, int a2, int a3) {
 	void* fileBuffer;              // [esp+8h] [ebp-24h]
 	char cp[20];                   // [esp+14h] [ebp-18h]
 
-	result = fopen("game_ip.txt", "r");
+	result = nox_fs_open_text("game_ip.txt");
 	if (result) {
 		fseek(result, 0, SEEK_END);
 		fileSize = ftell(result);

@@ -1,6 +1,7 @@
 #include "client__gui__guisave.h"
 #include "client__gui__window.h"
 
+#include "nox_fs.h"
 #include "proto.h"
 
 extern _DWORD dword_5d4594_1082868;
@@ -181,8 +182,8 @@ int nox_savegame_sub_46CE40(int a1, int a2, int a3, nox_savegame_xxx* sarr) {
 	CHAR PathName[1024]; // [esp+A24h] [ebp-800h]
 	CHAR Buffer[1024];   // [esp+E24h] [ebp-400h]
 
-	GetCurrentDirectoryA(0x400u, &Buffer);
-	v5 = nox_common_get_data_path_409E10();
+	nox_fs_workdir(&Buffer, 1024);
+	v5 = nox_fs_root();
 	nox_sprintf(&PathName, "%s\\Save\\", v5);
 	CreateDirectoryA(&PathName, 0);
 	nox_window_call_field_94(a1, 16399, 0, 0);

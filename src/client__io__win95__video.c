@@ -1,5 +1,6 @@
 #include "client__io__win95__video.h"
 
+#include "nox_fs.h"
 #include "proto.h"
 #include "client__io__console.h"
 
@@ -18,7 +19,7 @@ int sub_430F00_screenshot() {
 	char path[100];
 	nox_sprintf(path, "sshot%03d.ppm", screenshot_num);
 	++screenshot_num;
-	FILE* file = fopen(path, "w");
+	FILE* file = nox_fs_create_text(path);
 	if (!file) {
 		v2 = nox_strman_loadString_40F1D0("BadOpen", 0, "C:\\NoxPost\\src\\Client\\Io\\Win95\\Video.c", 375);
 		return sub_4517A0(v2, path);

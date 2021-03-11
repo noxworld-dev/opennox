@@ -1,4 +1,5 @@
 #include "proto.h"
+#include "nox_fs.h"
 extern _DWORD dword_5d4594_823776;
 
 FILE* nox_file_log = 0;
@@ -25,7 +26,7 @@ unsigned __int8* sub_451630() {
 	wchar_t* v3;             // [esp-Ch] [ebp-Ch]
 	wchar_t* v4;             // [esp-8h] [ebp-8h]
 
-	nox_file_log = fopen("log", "w");
+	nox_file_log = nox_fs_create_text("log");
 	if (!nox_file_log) {
 		v4 = nox_strman_loadString_40F1D0("FatalError", 0, "C:\\NoxPost\\src\\Client\\Io\\Console.c", 272);
 		v3 = nox_strman_loadString_40F1D0("CantOpenLog", 0, "C:\\NoxPost\\src\\Client\\Io\\Console.c", 271);

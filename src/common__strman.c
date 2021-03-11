@@ -9,6 +9,7 @@
 #include "common__random.h"
 #include "common__noxfile.h"
 #include "noxstring.h"
+#include "nox_fs.h"
 
 #ifdef _MSC_VER // not _WIN32, because mingw has it
 #define strncasecmp _strnicmp
@@ -305,7 +306,7 @@ int nox_strman_read_str_header_40F4E0(FILE* file) {
 
 //----- (0040F7A0) --------------------------------------------------------
 int strman_read_csf_header_40F7A0(const char* path) {
-	FILE* file = fopen(path, "rb");
+	FILE* file = nox_fs_open(path);
 	if (!file)
 		return 0;
 	int ok = 0;
@@ -567,7 +568,7 @@ int nox_strman_read_csf_strings_40F830(const char* path) {
 	int v16;              // [esp+10h] [ebp-28h]
 	int v19;              // [esp+1Ch] [ebp-1Ch]
 
-	FILE* file = fopen(path, "rb");
+	FILE* file = nox_fs_open(path);
 	if (!file)
 		return 0;
 
@@ -699,7 +700,7 @@ int nox_strman_readfile(const char* path) {
 	} else {
 		// open legacy ".str" file first
 		FILE* file = 0;
-		if (file = fopen(path, "r"), file) {
+		if (file = nox_fs_open_text(path), file) {
 			if (!nox_strman_read_str_header_40F4E0(file)) {
 				fclose(file);
 				return 0;
@@ -727,7 +728,7 @@ int nox_strman_readfile(const char* path) {
 	if (isCSF) {
 		nox_strman_read_csf_strings_40F830(cpath);
 	} else {
-		FILE* file = fopen(path, "r");
+		FILE* file = nox_fs_open_text(path);
 		if (!file) {
 			return 0;
 		}

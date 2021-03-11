@@ -25,6 +25,7 @@
 #include "client__draw__fx.h"
 #include "client__draw__lvupdraw.h"
 
+#include "nox_fs.h"
 #include "input.h"
 #include "proto.h"
 
@@ -2756,7 +2757,7 @@ int  sub_4A7D70(char* a1) {
 
 	result = (int)a1;
 	if (a1) {
-		v2 = fopen(a1, "r");
+		v2 = nox_fs_open_text(a1);
 		v3 = v2;
 		if (!v2)
 			return 0;
@@ -3660,7 +3661,7 @@ FILE*  nox_xxx_loadPal_4A96C0_video_read_palette(char* a1) {
 	strcpy(v5, "TRANSMAP");
 	strcpy(v3, "PALETTE");
 	if (dword_5d4594_3801780 != 1) {
-		result = fopen(a1, "rb");
+		result = nox_fs_open(a1);
 		v2 = result;
 		if (!result)
 			return result;
@@ -4817,7 +4818,7 @@ int  nox_xxx_mapDownloadStart_4ABAD0(char* a1, unsigned int a2) {
 	dword_5d4594_1309776 = v8;
 	if (v8) {
 		strcpy(v8, v11);
-		nox_file_9 = fopen(*(const char**)&dword_5d4594_1309776, "wb");
+		nox_file_9 = nox_fs_create(*(const char**)&dword_5d4594_1309776);
 		if (nox_file_9) {
 			result = 1;
 			nox_xxx_mapPartN_587000_173336 = 1;

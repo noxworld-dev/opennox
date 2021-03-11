@@ -68,7 +68,6 @@ const (
 )
 
 var (
-	noxDataPath   string
 	isServer      bool
 	isServerQuest bool
 	serverExec    []string
@@ -319,19 +318,6 @@ func runNox(args []string) error {
 	g_argv2 = &CStringArray(args)[0]
 	cmainLoop()
 	return nil
-}
-
-func setDataPath(path string) {
-	noxDataPath = path
-}
-
-func getDataPath() string {
-	return noxDataPath
-}
-
-//export nox_common_get_data_path_409E10
-func nox_common_get_data_path_409E10() *C.char {
-	return internCStr(getDataPath())
 }
 
 //export nox_exit

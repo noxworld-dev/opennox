@@ -53,10 +53,6 @@ void change_windowed_fullscreen();
 void updateGamma(int value);
 #endif
 
-#ifdef __linux__
-char* dos_to_unix(const char* path);
-#endif
-
 int map_download_loop(int);
 
 int nox_get_audio_enabled();
@@ -72,7 +68,6 @@ void  nox_video_setWinTitle_401FE0(char*);
 // int swprintf(wchar_t *, const wchar_t *, ...);
 // unsigned int  _control87(unsigned int, unsigned int);
 // unsigned int  _controlfp(unsigned int, unsigned int);
-// char * _getcwd(char *, int);
 // int  atoi(const char *);
 // char * strtok(char *, const char *);
 // int  nox_xxx_unknown_libname_1_40256C(int, PVOID TargetFrame, int); idb
@@ -148,8 +143,6 @@ char* sub_409B80();
 char* nox_server_get_current_map_path_409B90();
 char* sub_409C70();
 char*  nox_xxx_gameSetMapPath_409D70(char* a1);
-char* nox_common_get_data_path_409E10();
-void nox_common_set_data_path_409E20(char* wd);
 int  sub_409E40(int a1);
 int nox_xxx_getServerSubFlags_409E60();
 int  sub_409E70(int a1);
@@ -530,7 +523,7 @@ void sub_413A60();
 int  sub_413A80(char* a1);
 void  sub_413AD0(FILE* a1);
 char*  sub_413B00();
-int  sub_413B20(FILE** a1, char* a2, char* a3);
+int  sub_413B20(FILE** a1, char* a2);
 void sub_413B70(char* a1, ...);
 void  sub_413BD0(FILE* a1, int a2);
 void sub_413C00();
@@ -6723,7 +6716,6 @@ unsigned int  sub_564FB0(int a1, unsigned __int8* a2, int* a3, unsigned int a4, 
 int*  sub_565360(int a1, _WORD* a2, int* a3, unsigned int a4, int a5, int a6);
 unsigned int  sub_5654A0(int a1, unsigned __int8* a2, int* a3, unsigned int a4, int a5, int a6);
 // int  operator_delete(LPVOID lpMem); idb
-// FILE * fopen(const char *, const char *);
 // int  ftell(FILE *);
 // int  _ftell_lk(_DWORD *a1);
 // size_t  _fwrite_lk(void *a1, size_t a2, size_t a3, FILE *a4);

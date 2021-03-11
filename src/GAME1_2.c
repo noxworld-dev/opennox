@@ -21,6 +21,7 @@
 
 #include "client__draw__partscrn.h"
 
+#include "nox_fs.h"
 #include "input.h"
 #include "proto.h"
 
@@ -4262,7 +4263,7 @@ int  nox_video_read_videobag(int a1) {
 
 	dword_5d4594_787144 = 0;
 	v1 = nox_video_getbagfilename(a1);
-	result = (int)fopen(v1, "rb");
+	result = nox_fs_open(v1);
 	nox_video_bag_fileptr = result;
 	if (result) {
 		v3 = (int*)nox_xxx_fopenVideoBag_42F0B0(a1);
@@ -4374,7 +4375,7 @@ FILE*  nox_xxx_fopenVideoBag_42F0B0(int a1) {
 	v6 = 0;
 	v7 = 0;
 	v1 = sub_430120(a1);
-	result = fopen(v1, "rb");
+	result = nox_fs_open(v1);
 	v3 = result;
 	if (result) {
 		nox_xxx_fileBinRead_40ADD0_fread((char*)&v7, 4u, 1u, result);
@@ -4565,7 +4566,7 @@ int  nox_video_parse_videobag(int is8bit) {
 BOOL  nox_video_reopen_videobag(char* a1) {
 	if (nox_video_bag_fileptr)
 		fclose(nox_video_bag_fileptr);
-	nox_video_bag_fileptr = fopen(a1, "rb");
+	nox_video_bag_fileptr = nox_fs_open(a1);
 	return nox_video_bag_fileptr != 0;
 }
 
@@ -4938,7 +4939,7 @@ static FILE* get_bag(unsigned int offset) {
 		if (bag_files[i].offset <= offset && offset - bag_files[i].offset < bag_files[i].size) {
 			fp = bag_fp[i];
 			if (fp == NULL)
-				fp = bag_fp[i] = fopen(bag_files[i].path, "rb");
+				fp = bag_fp[i] = nox_fs_open(bag_files[i].path);
 			fseek(fp, offset - bag_files[i].offset, SEEK_SET);
 		}
 	}
@@ -5631,7 +5632,7 @@ char*  nox_xxx_copyServerIPAndPort_431790(char* a1) {
 //----- (004317B0) --------------------------------------------------------
 int nox_common_readcfgfile(const char* path, int a2) {
 	sub_42CD90();
-	FILE* file = fopen(path, "r");
+	FILE* file = nox_fs_open_text(path);
 	if (file) {
 		if (a2 || nox_common_parsecfg_all(file)) {
 			if (sub_4331E0(file, a2)) {
@@ -5643,7 +5644,7 @@ int nox_common_readcfgfile(const char* path, int a2) {
 		file = 0;
 	}
 	sub_42CD90();
-	file = fopen("default.cfg", "r");
+	file = nox_fs_open_text("default.cfg");
 	if (!file) {
 		return 0;
 	}
@@ -6881,7 +6882,7 @@ int  sub_4331E0(FILE* a1, int a2) {
 
 //----- (00433290) --------------------------------------------------------
 void  nox_common_writecfgfile(char* a1) {
-	FILE* f = fopen(a1, "w");
+	FILE* f = nox_fs_create_text(a1);
 	if (!f) {
 		return;
 	}

@@ -20,6 +20,7 @@
 #include "common__wolapi__woluser.h"
 #include "common__random.h"
 
+#include "nox_fs.h"
 #include "static.h"
 #include "mutexes.h"
 #include "proto.h"
@@ -273,8 +274,8 @@ int cmain(int argc, const char* argv[]) {
 		}
 	}
 	char cwd[1024]; // [esp+44h] [ebp-400h]
-	_getcwd(cwd, 1023);
-	nox_common_set_data_path_409E20(cwd);
+	nox_fs_workdir(cwd, 1023);
+	nox_fs_set_root(cwd);
 #if 0
 	nox_common_readSKU_fromRegistry_4D78C0();
 #endif
@@ -403,12 +404,12 @@ FILE*  nox_xxx_openFileBin_408CC0(const char* path, int mode) {
 	FILE* f = 0;
 	if (mode) {
 		if (mode == 1) {
-			f = fopen(path, "wb");
+			f = nox_fs_create(path);
 		} else if (mode == 2) {
-			f = fopen(path, "r+b");
+			f = nox_fs_open_rw(path);
 		}
 	} else {
-		f = fopen(path, "rb");
+		f = nox_fs_open(path);
 	}
 	nox_file_10_mode = mode;
 
@@ -1103,7 +1104,7 @@ char* sub_409B80() { return (char*)getMemAt(0x5D4594, 3452); }
 
 //----- (00409B90) --------------------------------------------------------
 char* nox_server_get_current_map_path_409B90() {
-	char* data_path = nox_common_get_data_path_409E10();
+	char* data_path = nox_fs_root();
 	if (!data_path)
 		return 0;
 
@@ -1130,7 +1131,7 @@ char* sub_409C70() {
 	unsigned __int8 v5;  // cl
 	char* result;        // eax
 
-	v0 = nox_common_get_data_path_409E10();
+	v0 = nox_fs_root();
 	if (!v0)
 		return 0;
 	v1 = *getMemU16Ptr(0x587000, 4748);
@@ -1176,19 +1177,6 @@ char*  nox_xxx_gameSetMapPath_409D70(char* a1) {
 	}
 	return result;
 }
-
-#ifndef NOX_CGO
-char nox_workdir[1025] = {0};
-
-//----- (00409E10) --------------------------------------------------------
-char* nox_common_get_data_path_409E10() { return nox_workdir; }
-
-//----- (00409E20) --------------------------------------------------------
-void nox_common_set_data_path_409E20(char* wd) {
-	strncpy(nox_workdir, wd, sizeof(nox_workdir)-1);
-	nox_workdir[sizeof(nox_workdir)-1] = 0;
-}
-#endif // NOX_CGO
 
 //----- (00409E40) --------------------------------------------------------
 int  sub_409E40(int a1) {
@@ -1888,7 +1876,7 @@ void  nox_xxx_soloGameEscMenuCallback_40AF90(int a1, int a2, char a3, int a4, _B
 		}
 		break;
 	case 3:
-		v6 = nox_common_get_data_path_409E10();
+		v6 = nox_fs_root();
 		nox_sprintf(FileName, "%s\\Save\\_temp_.dat", v6);
 		if (nox_xxx_SavePlayerDataFromClient_41CD70(FileName, a5, a6)) {
 			if (sub_4D6F50() && a1 == 31) {
@@ -4255,7 +4243,7 @@ int  nox_common_getInstallPath_40E0D0(int a1, LPCSTR lpSubKey, int a3) {
 		*(_DWORD*)--v5 = *getMemU32Ptr(0x587000, 25808);
 		*((_DWORD*)v5 + 1) = v6;
 		*((_DWORD*)v5 + 2) = v7;
-		result = (int)fopen(Data, "r");
+		result = nox_fs_open_text(Data);
 		v8 = (FILE*)result;
 		v13 = (FILE*)result;
 		if (result) {
@@ -7420,7 +7408,7 @@ int  sub_413A80(char* a1) {
 	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_24)) {
 		sub_413AD0(nox_file_4);
 		nox_file_4 = 0;
-		sub_413B20(&nox_file_4, a1, (char*)getMemAt(0x587000, 32340));
+		sub_413B20(&nox_file_4, a1);
 		result = 1;
 	}
 	return result;
@@ -7449,12 +7437,12 @@ char* sub_413B00() {
 }
 
 //----- (00413B20) --------------------------------------------------------
-int  sub_413B20(FILE** a1, char* a2, char* a3) {
+int  sub_413B20(FILE** a1, char* a2) {
 	char* v4; // eax
 
 	if (!a2)
 		return 0;
-	*a1 = fopen(a2, a3);
+	*a1 = nox_fs_create_rw(a2);
 	if (!a1)
 		return 0;
 	v4 = sub_413B00();
@@ -7495,7 +7483,7 @@ void sub_413C00() {
 
 //----- (00413C30) --------------------------------------------------------
 void sub_413C30() {
-	sub_413B20(&nox_file_5, (char*)getMemAt(0x587000, 32392), (char*)getMemAt(0x587000, 32388));
+	sub_413B20(&nox_file_5, "band.log");
 	sub_413BD0(nox_file_5, (int)getMemAt(0x587000, 32404));
 }
 
@@ -7519,7 +7507,7 @@ void sub_413C80(char* a1, ...) {
 FILE* sub_413CC0() {
 	FILE* result; // eax
 
-	result = fopen("network.log", "a");
+	result = nox_fs_append_text("network.log");
 	nox_file_net_log = result;
 	if (result)
 		result = (FILE*)nox_xxx_networkLog_413D30("StartLog%c%s", 240, "1.0");

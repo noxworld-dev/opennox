@@ -3,7 +3,7 @@ package main
 /*
 #include <stdio.h>
 
-char* dos_to_unix(const char* path);
+char* nox_fs_normalize(const char* path);
 int fscanf_go0(FILE* f, const char* fmt);
 int fscanf_go1(FILE* f, const char* fmt, void* a1);
 */
@@ -35,7 +35,7 @@ func (f cfileReader) ReadByte() (byte, error) {
 func resolveGamePath(path string) string {
 	cpath := C.CString(path)
 	defer StrFree(cpath)
-	if p := C.dos_to_unix(cpath); p != cpath {
+	if p := C.nox_fs_normalize(cpath); p != cpath {
 		defer StrFree(p)
 		return C.GoString(p)
 	}

@@ -281,8 +281,6 @@ enum {
 #define MoveFileA compatMoveFileA
 #define CreateDirectoryA compatCreateDirectoryA
 #define RemoveDirectoryA compatRemoveDirectoryA
-#define GetCurrentDirectoryA compatGetCurrentDirectoryA
-#define SetCurrentDirectoryA compatSetCurrentDirectoryA
 #define GetDateFormatA compatGetDateFormatA
 #define RegOpenKeyExA compatRegOpenKeyExA
 #define RegQueryValueExA compatRegQueryValueExA
@@ -340,14 +338,6 @@ enum {
 #define _stat compat_stat
 #define _mkdir compat_mkdir
 #define _unlink compat_unlink
-#define _getcwd compat_getcwd
-
-#ifdef fopen
-#pragma push_macro("fopen")
-#undef fopen
-#define NOX_COMPAT_FOPEN_PUSHED
-#endif
-#define fopen compat_fopen
 
 #ifdef fgets
 #pragma push_macro("fgets")
@@ -383,8 +373,6 @@ BOOL WINAPI DeleteFileA(LPCSTR lpFileName);
 BOOL WINAPI MoveFileA(LPCSTR lpExistingFileName, LPCSTR lpNewFileName);
 BOOL WINAPI CreateDirectoryA(LPCSTR lpPathName, LPSECURITY_ATTRIBUTES lpSecurityAttributes);
 BOOL WINAPI RemoveDirectoryA(LPCSTR lpPathName);
-DWORD WINAPI GetCurrentDirectoryA(DWORD nBufferLength, LPSTR lpBuffer);
-BOOL WINAPI SetCurrentDirectoryA(LPCSTR lpPathName);
 int WINAPI GetDateFormatA(LCID Locale, DWORD dwFlags, const SYSTEMTIME* lpDate, LPCSTR lpFormat, LPSTR lpDateStr,
 						  int cchDate);
 LSTATUS WINAPI RegOpenKeyExA(HKEY hKey, LPCSTR lpSubKey, DWORD ulOptions, REGSAM samDesired, PHKEY phkResult);
@@ -442,15 +430,12 @@ char* _itoa(int val, char* s, int radix);
 wchar_t* _itow(int val, wchar_t* s, int radix);
 void _makepath(char* path, const char* drive, const char* dir, const char* fname, const char* ext);
 void _splitpath(const char* path, char* drive, char* dir, char* fname, char* ext);
-char* _getcwd(char* buffer, int maxlen);
 int _open(const char* filename, int oflag, ...);
 int _chmod(const char* filename, int mode);
 int _access(const char* filename, int mode);
 int _stat(const char* path, struct _stat* buffer);
 int _mkdir(const char* path);
 int _unlink(const char* filename);
-char* _getcwd(char* buffer, int maxlen);
-FILE* fopen(const char* path, const char* mode);
 char* fgets(char* str, int size, FILE* stream);
 
 static inline unsigned int _rotl(unsigned int value, int shift) {

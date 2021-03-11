@@ -14,6 +14,7 @@
 
 #include "client__video__draw_common.h"
 
+#include "nox_fs.h"
 #include "mutexes.h"
 #include "input.h"
 #include "proto.h"
@@ -2448,17 +2449,17 @@ DWORD  sub_47A310(LPCSTR lpPathName) {
 
 	dword_5d4594_1189600 = 0;
 	v8 = 0;
-	if (SetCurrentDirectoryA(lpPathName) || (result = GetLastError()) == 0) {
-		GetCurrentDirectoryA(0x200u, Buffer);
+	if (nox_fs_set_workdir(lpPathName) || (result = GetLastError()) == 0) {
+		nox_fs_workdir(Buffer, 512);
 		v3 = (char*)getMemAt(0x5D4594, 512 * (dword_5d4594_1189600)++ + 1124048);
 		strcpy(v3, Buffer);
 		if (*(int*)&dword_5d4594_1189600 <= 0) {
 		LABEL_27:
-			SetCurrentDirectoryA(Buffer);
-			result = SetCurrentDirectoryA((LPCSTR)getMemAt(0x587000, 153752));
+			nox_fs_set_workdir(Buffer);
+			result = nox_fs_set_workdir("..");
 		} else {
 			v4 = (const char*)getMemAt(0x5D4594, 1124048);
-			while (SetCurrentDirectoryA(v4) || !GetLastError()) {
+			while (nox_fs_set_workdir(v4) || !GetLastError()) {
 				v5 = FindFirstFileA((LPCSTR)getMemAt(0x587000, 153724), &FindFileData);
 				v9 = v5;
 				if (v5 != (HANDLE)-1) {
@@ -2495,8 +2496,8 @@ DWORD  sub_47A310(LPCSTR lpPathName) {
 				if (++v8 >= *(int*)&dword_5d4594_1189600)
 					goto LABEL_27;
 			}
-			SetCurrentDirectoryA(Buffer);
-			result = SetCurrentDirectoryA((LPCSTR)getMemAt(0x587000, 153720));
+			nox_fs_set_workdir(Buffer);
+			result = nox_fs_set_workdir("..");
 		}
 	}
 	return result;
@@ -2602,11 +2603,11 @@ int  nox_xxx_videoBagSmth_47A960(const char* a1, int a2) {
 	char v21[68];        // [esp+104h] [ebp-244h]
 	CHAR Buffer[512];    // [esp+148h] [ebp-200h]
 
-	GetCurrentDirectoryA(0x200u, Buffer);
+	nox_fs_workdir(Buffer, 512);
 	v3 = 336 * a2;
-	if (!SetCurrentDirectoryA((LPCSTR)(dword_5d4594_1189584 + 336 * a2)) && GetLastError())
+	if (!nox_fs_set_workdir((LPCSTR)(dword_5d4594_1189584 + 336 * a2)) && GetLastError())
 		return 0;
-	v4 = fopen((const char*)(dword_5d4594_1189584 + v3 + 260), "rb");
+	v4 = nox_fs_open((const char*)(dword_5d4594_1189584 + v3 + 260));
 	if (sub_4C57C0(v4, *getMemIntPtr(0x5D4594, 1189588), &v19, &v18)) {
 		fclose(v4);
 		switch ((unsigned __int8)a1 & 0x3F) {
@@ -2626,7 +2627,7 @@ int  nox_xxx_videoBagSmth_47A960(const char* a1, int a2) {
 			if (v5) {
 			LABEL_6:
 				free(*(LPVOID*)(v6 + v3 + 324));
-				SetCurrentDirectoryA(Buffer);
+				nox_fs_set_workdir(Buffer);
 				return 0;
 			}
 			*(_WORD*)(dword_5d4594_1189584 + v3 + 332) = 0;
@@ -2647,7 +2648,7 @@ int  nox_xxx_videoBagSmth_47A960(const char* a1, int a2) {
 				*(_DWORD*)v11 = *getMemU32Ptr(0x587000, 153768);
 				v16 = v20;
 				v11[4] = v10;
-				v4 = fopen(v16, "rb");
+				v4 = nox_fs_open(v16);
 				if (v4) {
 					if (!sub_4C57C0(v4, *(int*)&dword_5d4594_1189596, &v19, &v18))
 						goto LABEL_26;
@@ -2660,12 +2661,12 @@ int  nox_xxx_videoBagSmth_47A960(const char* a1, int a2) {
 				*(_DWORD*)v13 = *getMemU32Ptr(0x587000, 153780);
 				v16 = v20;
 				v13[4] = v12;
-				v4 = fopen(v16, "rb");
+				v4 = nox_fs_open(v16);
 				if (v4) {
 					if (!sub_4C57C0(v4, *(int*)&dword_5d4594_1189592, &v19, &v18)) {
 					LABEL_26:
 						fclose(v4);
-						SetCurrentDirectoryA(Buffer);
+						nox_fs_set_workdir(Buffer);
 						return 0;
 					}
 				}
@@ -2675,7 +2676,7 @@ int  nox_xxx_videoBagSmth_47A960(const char* a1, int a2) {
 			*(_DWORD*)(dword_5d4594_1189584 + v3 + 324) = v14;
 			if (!nox_xxx_videoBag_LoadPXImg_47B7F0(v19, v18, *(_DWORD*)(dword_5d4594_1189584 + v3 + 324), (unsigned __int8)v16)) {
 				free(*(LPVOID*)(dword_5d4594_1189584 + v3 + 324));
-				SetCurrentDirectoryA(Buffer);
+				nox_fs_set_workdir(Buffer);
 				return 0;
 			}
 			*(_WORD*)(dword_5d4594_1189584 + v3 + 332) = 0;
@@ -2686,7 +2687,7 @@ int  nox_xxx_videoBagSmth_47A960(const char* a1, int a2) {
 		}
 	}
 	fclose(v4);
-	SetCurrentDirectoryA(Buffer);
+	nox_fs_set_workdir(Buffer);
 	return 1;
 }
 // 47A960: using guessed type char var_348[160];
@@ -10150,7 +10151,7 @@ char*  sub_4866F0(const char* a1, const char* a2) {
 	v5 = &v20[strlen(v20)];
 	*(_DWORD*)v5 = *getMemU32Ptr(0x587000, 155060);
 	v5[4] = v4;
-	v6 = fopen(v20, "rb");
+	v6 = nox_fs_open(v20);
 	if (!v6)
 		goto LABEL_27;
 	v7 = strrchr(v20, 46);
@@ -10160,7 +10161,7 @@ char*  sub_4866F0(const char* a1, const char* a2) {
 	v9 = getMemByte(0x587000, 155076);
 	*(_DWORD*)--v8 = *getMemU32Ptr(0x587000, 155072);
 	v8[4] = v9;
-	v10 = fopen(v20, "rb");
+	v10 = nox_fs_open(v20);
 	*((_DWORD*)v2 + 67) = v10;
 	if (!v10 || nox_xxx_fileBinRead_40ADD0_fread(v17, 0xCu, 1u, v6) != 1)
 		goto LABEL_27;
@@ -10334,7 +10335,7 @@ int  sub_486B60(int a1, int a2) {
 	strcpy((char*)&v15[3], (const char*)(a1 + 8));
 	strcat((char*)&v15[3], (const char*)v2);
 	strcat((char*)&v15[3], ".wav");
-	v6 = fopen((const char*)&v15[3], "rb");
+	v6 = nox_fs_open((const char*)&v15[3]);
 	v7 = v6;
 	v8 = 0;
 	*(_DWORD*)(a1 + 272) = v6;

@@ -20,6 +20,7 @@
 #include "client__drawable__update__dball.h"
 #include "client__drawable__drawdb.h"
 
+#include "nox_fs.h"
 #include "proto.h"
 
 extern _DWORD dword_5d4594_3835368;
@@ -1253,7 +1254,7 @@ int  sub_4D0670(char* a1) {
 	wchar_t v8[256]; // [esp+10Ch] [ebp-200h]
 
 	v1 = 6128;
-	v2 = fopen(a1, "r");
+	v2 = nox_fs_open_text(a1);
 	v3 = v2;
 	if (!v2)
 		return 0;
@@ -1393,9 +1394,9 @@ FILE* nox_xxx_loadMapCycle_4D0A30() {
 
 	v0 = 1;
 	memset(getMemAt(0x5D4594, 1548428), 0, 0x18u);
-	strcpy((char*)getMemAt(0x5D4594, 1524108), nox_common_get_data_path_409E10());
+	strcpy((char*)getMemAt(0x5D4594, 1524108), nox_fs_root());
 	strcat((char*)getMemAt(0x5D4594, 1524108), "\\mapcycle.txt");
-	result = fopen((const char*)getMemAt(0x5D4594, 1524108), "r");
+	result = nox_fs_open_text((const char*)getMemAt(0x5D4594, 1524108));
 	v7 = result;
 	v15 = result;
 	if (result) {
@@ -2192,7 +2193,7 @@ BOOL nox_xxx_servEndSession_4D3200() {
 	sub_56F3B0();
 	nullsub_23();
 	sub_40EE60();
-	v0 = nox_common_get_data_path_409E10();
+	v0 = nox_fs_root();
 	nox_sprintf(FileName, "%s\\Save\\_temp_.dat", v0);
 	return DeleteFileA(FileName);
 }
@@ -2770,9 +2771,9 @@ void sub_4D4160() {
 	v4 = sub_5029A0("CBD-aTest2-C");
 	nox_xxx_mapgenSaveMap_503830(v4);
 	sub_503B30(&v8);
-	v5 = nox_common_get_data_path_409E10();
+	v5 = nox_fs_root();
 	nox_sprintf(FileName, "%s\\nc.obj", v5);
-	v6 = nox_common_get_data_path_409E10();
+	v6 = nox_fs_root();
 	nox_sprintf(ExistingFileName, "%s\\blend.obj", v6);
 	DeleteFileA(FileName);
 	MoveFileA(ExistingFileName, FileName);
@@ -2832,9 +2833,9 @@ BOOL nox_xxx_mapGenStart_4D4320() {
 		}
 		return 0;
 	}
-	v2 = nox_common_get_data_path_409E10();
+	v2 = nox_fs_root();
 	nox_sprintf(FileName, "%s\\nc.obj", v2);
-	v3 = nox_common_get_data_path_409E10();
+	v3 = nox_fs_root();
 	nox_sprintf(ExistingFileName, "%s\\blend.obj", v3);
 	if (_access(FileName, 0) == -1 || (result = DeleteFileA(FileName))) {
 		if (_access(ExistingFileName, 0) == -1 || (result = MoveFileA(ExistingFileName, FileName))) {
@@ -2842,12 +2843,12 @@ BOOL nox_xxx_mapGenStart_4D4320() {
 				*(_DWORD*)(i + 44) = 0;
 			nox_xxx_mapGenMakeInfo_4D5DB0((int)getMemAt(0x5D4594, 3801836));
 			v9 = nox_xxx_getRandMapName_4D4310();
-			v6 = nox_common_get_data_path_409E10();
+			v6 = nox_fs_root();
 			nox_sprintf(PathName, "%s\\Maps\\$%s", v6, v9);
 			_mkdir(PathName);
 			v10 = nox_xxx_getRandMapName_4D4310();
 			v8 = nox_xxx_getRandMapName_4D4310();
-			v7 = nox_common_get_data_path_409E10();
+			v7 = nox_fs_root();
 			nox_sprintf(PathName, "%s\\Maps\\$%s\\$%s.map", v7, v8, v10);
 			if (!nox_xxx_mapSaveMap_51E010(PathName, 1))
 				return 0;
@@ -3978,9 +3979,9 @@ BOOL nox_xxx_mapGenStartAlt_4D5F30() {
 		}
 		return 0;
 	}
-	v2 = nox_common_get_data_path_409E10();
+	v2 = nox_fs_root();
 	nox_sprintf(FileName, "%s\\nc.obj", v2);
-	v3 = nox_common_get_data_path_409E10();
+	v3 = nox_fs_root();
 	nox_sprintf(ExistingFileName, "%s\\blend.obj", v3);
 	result = DeleteFileA(FileName);
 	if (!result)
@@ -5028,7 +5029,7 @@ BOOL nox_xxx_checkAccessToGLava_4D7790() {
 	char* v0;            // eax
 	CHAR FileName[1024]; // [esp+0h] [ebp-400h]
 
-	v0 = nox_common_get_data_path_409E10();
+	v0 = nox_fs_root();
 	nox_sprintf(FileName, "%s\\Maps\\G_Lava", v0);
 	return _access(FileName, 0) == 0;
 }
@@ -7766,7 +7767,7 @@ unsigned int  nox_xxx_cliCheckMapExists_4DB2A0(const char* a1) {
 		*v1 = 0;
 	strcpy(&v4[4], v5);
 	v4[strlen(v5)] = 0;
-	v2 = nox_common_get_data_path_409E10();
+	v2 = nox_fs_root();
 	nox_sprintf((char*)getMemAt(0x5D4594, 1558936), "%s\\Save\\%s\\%s\\%s", v2, getMemAt(0x587000, 199148), &v4[4], v5);
 	return _access((LPCSTR)getMemAt(0x5D4594, 1558936), 0) != -1 ? (unsigned int)getMemAt(0x5D4594, 1558936) : 0;
 }
@@ -7774,7 +7775,7 @@ unsigned int  nox_xxx_cliCheckMapExists_4DB2A0(const char* a1) {
 //----- (004DB540) --------------------------------------------------------
 BOOL  nox_xxx_saveMakeFolder_4DB540(char* saveName) {
 	char PathName[1024]; // [esp+0h] [ebp-400h]
-	nox_sprintf(PathName, "%s\\Save\\%s", nox_common_get_data_path_409E10(), saveName);
+	nox_sprintf(PathName, "%s\\Save\\%s", nox_fs_root(), saveName);
 	return _mkdir(PathName) != -1 || errno != 2;
 }
 
@@ -7813,13 +7814,13 @@ void nox_savegame_rm_4DBE10(char* saveName, int rmDir) {
 	if (!saveName) {
 		return;
 	}
-	nox_sprintf(saveDir, "%s\\Save\\%s", nox_common_get_data_path_409E10(), saveName);
+	nox_sprintf(saveDir, "%s\\Save\\%s", nox_fs_root(), saveName);
 	if (_access(saveDir, 0) == -1) {
 		return;
 	}
 	nox_sprintf(&FileName, "%s\\Player.plr", saveDir);
 	DeleteFileA(&FileName);
-	SetCurrentDirectoryA(saveDir);
+	nox_fs_set_workdir(saveDir);
 
 	int fileCnt = 0;
 	struct _WIN32_FIND_DATAA find; // [esp+Ch] [ebp-24940h]
@@ -7842,7 +7843,7 @@ void nox_savegame_rm_4DBE10(char* saveName, int rmDir) {
 		v19 = fileCnt;
 		v18 = v24;
 		do {
-			SetCurrentDirectoryA(v8);
+			nox_fs_set_workdir(v8);
 			v9 = 0;
 			v10 = FindFirstFileA("*", &find);
 			if (v10 != -1) {
@@ -7872,7 +7873,7 @@ void nox_savegame_rm_4DBE10(char* saveName, int rmDir) {
 				}
 				v8 = v18;
 			}
-			SetCurrentDirectoryA((LPCSTR)getMemAt(0x587000, 199704));
+			nox_fs_set_workdir("..");
 			RemoveDirectoryA(v8);
 			v8 += NOX_FILEPATH_MAX;
 			v14 = v19 == 1;
@@ -7880,7 +7881,7 @@ void nox_savegame_rm_4DBE10(char* saveName, int rmDir) {
 			--v19;
 		} while (!v14);
 	}
-	SetCurrentDirectoryA(nox_common_get_data_path_409E10());
+	nox_fs_set_workdir(nox_fs_root());
 	if (rmDir)
 		RemoveDirectoryA(saveDir);
 }
@@ -7919,8 +7920,8 @@ int  sub_4DC100(int a1, char* saveName) {
 	char v31[131072];                      // [esp+5164h] [ebp-20000h]
 
 	v24 = 1;
-	nox_sprintf(&PathName, "%s\\Save\\%s", nox_common_get_data_path_409E10(), a1);
-	nox_sprintf(&v29, "%s\\Save\\%s", nox_common_get_data_path_409E10(), saveName);
+	nox_sprintf(&PathName, "%s\\Save\\%s", nox_fs_root(), a1);
+	nox_sprintf(&v29, "%s\\Save\\%s", nox_fs_root(), saveName);
 	if (!nox_xxx_saveMakeFolder_4DB540(saveName))
 		return 0;
 	nox_savegame_rm_4DBE10(saveName, 0);
@@ -7928,7 +7929,7 @@ int  sub_4DC100(int a1, char* saveName) {
 	nox_sprintf(&NewFileName, "%s\\Player.plr", &v29);
 	result = CopyFileA(&ExistingFileName, &NewFileName, 0);
 	if (result) {
-		result = SetCurrentDirectoryA(&PathName);
+		result = nox_fs_set_workdir(&PathName);
 		if (result) {
 			v5 = 0;
 			v21 = 0;
@@ -7959,7 +7960,7 @@ int  sub_4DC100(int a1, char* saveName) {
 			result = FindClose(v6);
 			if (result) {
 			LABEL_48:
-				result = SetCurrentDirectoryA(&v29);
+				result = nox_fs_set_workdir(&v29);
 				if (result) {
 					v9 = 0;
 					if (v5 > 0) {
@@ -7973,13 +7974,13 @@ int  sub_4DC100(int a1, char* saveName) {
 						return 0;
 					}
 				LABEL_24:
-					result = SetCurrentDirectoryA(&PathName);
+					result = nox_fs_set_workdir(&PathName);
 					if (result) {
 						v23 = 0;
 						if (v5 > 0) {
 							v11 = v31;
 							v22 = v31;
-							while (SetCurrentDirectoryA(v11)) {
+							while (nox_fs_set_workdir(v11)) {
 								v12 = 0;
 								v13 = FindFirstFileA((LPCSTR)getMemAt(0x587000, 199784), &FindFileData);
 								hFindFilea = v13;
@@ -8016,7 +8017,7 @@ int  sub_4DC100(int a1, char* saveName) {
 										} while (v12);
 									}
 								}
-								if (!SetCurrentDirectoryA((LPCSTR)getMemAt(0x587000, 199812)))
+								if (!nox_fs_set_workdir(".."))
 									return 0;
 								v11 += 1024;
 								v17 = ++v23 < v21;
@@ -8027,8 +8028,8 @@ int  sub_4DC100(int a1, char* saveName) {
 							return 0;
 						}
 					LABEL_45:
-						v18 = nox_common_get_data_path_409E10();
-						result = SetCurrentDirectoryA(v18) ? v24 : 0;
+						v18 = nox_fs_root();
+						result = nox_fs_set_workdir(v18) ? v24 : 0;
 					}
 				}
 			}
@@ -8052,17 +8053,17 @@ int sub_4DC550() {
 	char PathName[1024]; // [esp+Ch] [ebp-400h]
 
 	v0 = 0;
-	v1 = nox_common_get_data_path_409E10();
+	v1 = nox_fs_root();
 	strcpy(PathName, v1);
 	strcat(PathName, "\\Save\\");
 	CreateDirectoryA(PathName, 0);
-	v5 = nox_common_get_data_path_409E10();
+	v5 = nox_fs_root();
 	nox_sprintf(PathName, "%s\\Save\\AUTOSAVE\\Player.plr", v5);
 	if (_access(PathName, 0) != -1)
 		v0 = 1;
 	v6 = 13;
 	do {
-		v7 = nox_common_get_data_path_409E10();
+		v7 = nox_fs_root();
 		nox_sprintf(PathName, "%s\\Save\\SAVE%04d\\Player.plr", v7, v0);
 		if (_access(PathName, 0) != -1)
 			++v0;
@@ -8084,12 +8085,12 @@ int sub_4DC630() {
 	char v11[1024];                        // [esp+A50h] [ebp-400h]
 
 	v0 = 0;
-	v1 = nox_common_get_data_path_409E10();
+	v1 = nox_fs_root();
 	strcpy(PathName, v1);
 	strcat(PathName, "\\Save\\");
 	strcpy(v11, PathName);
 	CreateDirectoryA(PathName, 0);
-	SetCurrentDirectoryA(PathName);
+	nox_fs_set_workdir(PathName);
 	v5 = FindFirstFileA("*.plr", &FindFileData);
 	if (v5 != (HANDLE)-1) {
 		if (!(FindFileData.dwFileAttributes & 0x10)) {
@@ -8108,8 +8109,8 @@ int sub_4DC630() {
 		}
 		FindClose(v5);
 	}
-	v6 = nox_common_get_data_path_409E10();
-	SetCurrentDirectoryA(v6);
+	v6 = nox_fs_root();
+	nox_fs_set_workdir(v6);
 	return v0;
 }
 // 4DC630: using guessed type CHAR PathName[1024];
@@ -8126,12 +8127,12 @@ int sub_4DC7D0() {
 	char v11[1024];                        // [esp+A50h] [ebp-400h]
 
 	v0 = 0;
-	v1 = nox_common_get_data_path_409E10();
+	v1 = nox_fs_root();
 	strcpy(PathName, v1);
 	strcat(PathName, "\\Save\\");
 	strcpy(v11, PathName);
 	CreateDirectoryA(PathName, 0);
-	SetCurrentDirectoryA(PathName);
+	nox_fs_set_workdir(PathName);
 	v5 = FindFirstFileA((LPCSTR)getMemAt(0x587000, 199920), &FindFileData);
 	if (v5 != (HANDLE)-1) {
 		if (!(FindFileData.dwFileAttributes & 0x10)) {
@@ -8150,8 +8151,8 @@ int sub_4DC7D0() {
 		}
 		FindClose(v5);
 	}
-	v6 = nox_common_get_data_path_409E10();
-	SetCurrentDirectoryA(v6);
+	v6 = nox_fs_root();
+	nox_fs_set_workdir(v6);
 	return v0;
 }
 // 4DC7D0: using guessed type CHAR PathName[1024];
@@ -8196,10 +8197,10 @@ char* nox_xxx_unused_4DCA00() {
 	CHAR Buffer[1024];                     // [esp+948h] [ebp-400h]
 
 	v0 = 2;
-	GetCurrentDirectoryA(0x400u, Buffer);
-	v1 = nox_common_get_data_path_409E10();
+	nox_fs_workdir(Buffer, 1024);
+	v1 = nox_fs_root();
 	nox_sprintf(PathName, "%s\\Save\\", v1);
-	SetCurrentDirectoryA(PathName);
+	nox_fs_set_workdir(PathName);
 	v2 = FindFirstFileA("*", &FindFileData);
 	if (v2 != (HANDLE)-1) {
 		if (FindFileData.dwFileAttributes & 0x10) {
@@ -8230,7 +8231,7 @@ char* nox_xxx_unused_4DCA00() {
 		}
 		FindClose(v2);
 	}
-	SetCurrentDirectoryA(Buffer);
+	nox_fs_set_workdir(Buffer);
 	if (v0 > 0x270F)
 		return 0;
 	nox_sprintf((char*)getMemAt(0x5D4594, 1563032), "SAVE%04d", v0);
@@ -8334,7 +8335,7 @@ int sub_4DCD40() {
 	*getMemU32Ptr(0x5D4594, 1563048) = sub_416A00();
 	sub_4169E0();
 	dword_5d4594_1563044 = 1;
-	v0 = nox_common_get_data_path_409E10();
+	v0 = nox_fs_root();
 	nox_sprintf(FileName, "%s\\Save\\_temp_.dat", v0);
 	result = nox_xxx_getFirstPlayerUnit_4DA7C0();
 	for (i = result; result; i = result) {
@@ -8446,7 +8447,7 @@ char  sub_4DCFB0(int a1) {
 			if (*(_DWORD*)(v4 + 4792) && *(_DWORD*)(v3 + 552) != 1) {
 				if (sub_419EE0(*(_BYTE*)(v4 + 2064)))
 					goto LABEL_13;
-				v5 = nox_common_get_data_path_409E10();
+				v5 = nox_fs_root();
 				nox_sprintf(FileName, "%s\\Save\\_temp_.dat", v5);
 				if (nox_xxx_playerSaveToFile_41A140(FileName, *(unsigned __int8*)(*(_DWORD*)(v3 + 276) + 2064)))
 					v2 = sub_41CFA0(FileName, *(unsigned __int8*)(*(_DWORD*)(v3 + 276) + 2064));

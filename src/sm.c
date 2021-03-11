@@ -7,6 +7,7 @@
 #include "common__system__team.h"
 #include "common__random.h"
 
+#include "nox_fs.h"
 #include "proto.h"
 
 void cmain_loop(int);
@@ -499,7 +500,7 @@ void cmain_loop(int reentrant) {
 	}
 	if (nox_common_gameFlags_check_40A5C0(1) && nox_common_gameFlags_check_40A5C0(0x400000) &&
 		nox_common_getEngineFlag(NOX_ENGINE_FLAG_1)) {
-		v23 = nox_common_get_data_path_409E10();
+		v23 = nox_fs_root();
 		sub_4D39F0(v23);
 		if (!nox_xxx_mapGenStart_4D4320()) {
 			nox_xxx_mapSwitchLevel_4D12E0(0);

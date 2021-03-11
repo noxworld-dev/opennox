@@ -21,6 +21,7 @@
 #include "client__system__gameloop.h"
 
 #include "mutexes.h"
+#include "nox_fs.h"
 #include "proto.h"
 
 extern _DWORD dword_587000_122856;
@@ -2489,7 +2490,7 @@ _DWORD*  nox_xxx_FontLoadFile_43F3B0(char* a1) {
 	v1 = 0;
 	if (*(int*)&dword_5d4594_816444 >= 5)
 		return 0;
-	v3 = fopen(a1, "rb");
+	v3 = nox_fs_open(a1);
 	if (v3) {
 		v1 = malloc(0x20u);
 		if (v1) {
@@ -3729,7 +3730,7 @@ int  nox_xxx_doExecrul_4438A0(int a1) {
 		return 0;
 	v6[0] = 0;
 	nox_sprintf(v6, "%S", a1);
-	v1 = fopen(v6, "r");
+	v1 = nox_fs_open_text(v6);
 	v2 = v1;
 	if (!v1)
 		return 0;
@@ -4295,7 +4296,7 @@ int  nox_motd_4463E0(int a1) {
 
 	dword_5d4594_826036 = 0;
 	*getMemU32Ptr(0x5D4594, 4 * a1 + 826040) = 0;
-	result = fopen("motd.txt", "rb");
+	result = nox_fs_open("motd.txt");
 	v2 = result;
 	if (result) {
 		fseek(result, 0, SEEK_END);

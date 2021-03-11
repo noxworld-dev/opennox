@@ -6,6 +6,7 @@
 #include "common__system__group.h"
 #include "comw32__comlib.h"
 
+#include "nox_fs.h"
 #include "proto.h"
 
 #include <float.h>
@@ -3846,7 +3847,7 @@ int  sub_57A3F0(char* a1, int a2, int a3, int a4) {
 	wchar_t v9[256]; // [esp+104h] [ebp-200h]
 
 	dword_5d4594_2523764 = 6128;
-	v4 = fopen(a1, "r");
+	v4 = nox_fs_open_text(a1);
 	v5 = v4;
 	if (!v4)
 		return 0;
@@ -4082,7 +4083,7 @@ char  sub_57AAA0(const char* a1, char* a2, int* a3) {
 		*(_WORD*)&FileName[strlen(FileName)] = *getMemU16Ptr(0x587000, 312588);
 		strcat(FileName, a1);
 		_chmod(FileName, 128);
-		v3 = fopen(FileName, "w");
+		v3 = nox_fs_create_text(FileName);
 		v4 = v3;
 		if (v3) {
 			if (dword_5d4594_2650652) {
@@ -4783,7 +4784,7 @@ int  nox_xxx_mapNxzDecompress_57BC50(char* a1, char* a2) {
 		return 0;
 	if (!a2)
 		return 0;
-	v2 = fopen(a1, "rb");
+	v2 = nox_fs_open(a1);
 	v3 = v2;
 	if (!v2)
 		return 0;
@@ -4807,7 +4808,7 @@ int  nox_xxx_mapNxzDecompress_57BC50(char* a1, char* a2) {
 			;
 	}
 	sub_578C40(v9);
-	v10 = fopen(a2, "wb");
+	v10 = nox_fs_create(a2);
 	if (!v10)
 		return 0;
 	fwrite(v8, v12, 1u, v10);
@@ -4840,7 +4841,7 @@ int  nox_xxx_mapFile_57BDD0(LPVOID lpMem, int a2) {
 		return 0;
 	if (!a2)
 		return 0;
-	v3 = fopen((const char*)lpMem, "rb");
+	v3 = nox_fs_open(lpMem);
 	v4 = v3;
 	if (!v3)
 		return 0;
@@ -4865,7 +4866,7 @@ int  nox_xxx_mapFile_57BDD0(LPVOID lpMem, int a2) {
 		v9 = v15;
 	}
 	sub_578BD0(v8);
-	v12 = fopen((const char*)a2, "wb");
+	v12 = nox_fs_create(a2);
 	v13 = v12;
 	if (!v12)
 		return 0;
