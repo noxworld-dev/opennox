@@ -5652,17 +5652,17 @@ _WORD*  sub_480250(_BYTE* a1, _WORD* a2) {
 }
 
 unsigned int  sub_480290(void* a1, int a2, int a3, unsigned int* a4, unsigned int* a5) {
-	DebugBreak();
+	abort();
 	return 0;
 }
 
 __int16  sub_4805A0(int a1, void* a2, int a3, unsigned int* a4, unsigned int* a5) {
-	DebugBreak();
+	abort();
 	return 0;
 }
 
 __int16  sub_480700(int a1, void* a2, int a3, unsigned int* a4, unsigned int* a5) {
-	DebugBreak();
+	abort();
 	return 0;
 }
 

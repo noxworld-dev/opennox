@@ -108,23 +108,23 @@ typedef unsigned __int64 _QWORD;
 void nox_exit(int exitCode);
 
 static int __OFSUB__(int x, int y) {
-	DebugBreak();
+	abort();
 	return 0;
 }
 static int __CFSHR__(int x, int y) {
-	DebugBreak();
+	abort();
 	return 0;
 }
 static int __CFSHL__(int x, int y) {
-	DebugBreak();
+	abort();
 	return 0;
 }
 static int __CFADD__(int x, int y) {
-	DebugBreak();
+	abort();
 	return 0;
 }
 static int __OFADD__(int x, int y) {
-	DebugBreak();
+	abort();
 	return 0;
 }
 
@@ -163,9 +163,9 @@ static void std___Lockit___Lockit(struct std___Lockit* l) { return; }
 
 static void std___Lockit__destructor_Lockit(struct std___Lockit* l) { return; }
 
-static void std___Xran() { DebugBreak(); }
+static void std___Xran() { abort(); }
 
-static void std___Xlen() { DebugBreak(); }
+static void std___Xlen() { abort(); }
 
 static void* operator_new(size_t x) { return malloc(x); }
 

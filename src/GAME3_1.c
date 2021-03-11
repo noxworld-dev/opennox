@@ -7782,7 +7782,7 @@ void sub_4C8130() {
 }
 
 __int16 sub_4C82C0() {
-	DebugBreak();
+	abort();
 	return 0;
 }
 
@@ -7833,7 +7833,7 @@ void sub_4C8410() {
 }
 
 __int16 sub_4C8570() {
-	DebugBreak();
+	abort();
 	return 0;
 }
 
@@ -7875,7 +7875,7 @@ void sub_4C86B0() {
 }
 
 __int32 sub_4C8760() {
-	DebugBreak();
+	abort();
 	return 0;
 }
 
@@ -7996,7 +7996,7 @@ void sub_4C8A30() {
 }
 
 __int16 sub_4C8C00() {
-	DebugBreak();
+	abort();
 	return 0;
 }
 

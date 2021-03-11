@@ -143,7 +143,7 @@ int nox_vsnwprintf(wchar_t* buffer, size_t count, const wchar_t* format, va_list
 			break;
 		default:
 			dprintf("Unhandled format character: '%c'", ch);
-			DebugBreak();
+			abort();
 			// EMIT(ch);
 			break;
 		}
@@ -271,7 +271,7 @@ int nox_vsnprintf(char* buffer, size_t count, const char* format, va_list ap) {
 			break;
 		default:
 			dprintf("Unhandled format character: '%c'", ch);
-			DebugBreak();
+			abort();
 			break;
 		}
 	}
@@ -438,7 +438,7 @@ long nox_wcstol(const wchar_t* nptr, wchar_t** endptr, int base) {
 }
 
 int nox_wsprintfA(char* lpBuffer, const char* lpFmt, ...) {
-	DebugBreak();
+	abort();
 	return 0;
 }
 

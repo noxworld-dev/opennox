@@ -58,19 +58,11 @@ static inline void* lookup_handle(unsigned int type, HANDLE h) {
 	return handles[(WORD)h];
 }
 
-// Debug functions
-VOID WINAPI DebugBreak() {
-#ifdef __EMSCRIPTEN__
-#else
-	asm volatile("int3");
-#endif
-}
-
 VOID WINAPI OutputDebugStringA(LPCSTR lpOutputString) { fprintf(stderr, "%s", lpOutputString); }
 
 // Memory functions
 BOOL WINAPI HeapDestroy(HANDLE hHeap) {
-	DebugBreak();
+	abort();
 	return 0;
 }
 
@@ -79,7 +71,7 @@ unsigned int _control87(unsigned int new_, unsigned int mask) {
 	if (new_ == 0x300 && mask == 0x300)
 		fesetround(FE_TOWARDZERO);
 	else
-		DebugBreak();
+		abort();
 	return 0;
 }
 
@@ -87,7 +79,7 @@ unsigned int _controlfp(unsigned int new_, unsigned int mask) {
 	if (new_ == 0x300 && mask == 0x300)
 		fesetround(FE_TOWARDZERO);
 	else
-		DebugBreak();
+		abort();
 	return 0;
 }
 
@@ -239,7 +231,7 @@ BOOL WINAPI CloseHandle(HANDLE hObject) {
 		handles[(WORD)hObject] = NULL;
 		break;
 	default:
-		DebugBreak();
+		abort();
 		return FALSE;
 	}
 
@@ -251,7 +243,7 @@ DWORD WINAPI GetModuleFileNameA(HMODULE hModule, LPSTR lpFileName, DWORD nSize) 
 	DWORD ret;
 
 	if (hModule != NULL)
-		DebugBreak();
+		abort();
 
 	if (size < nSize) {
 		strcpy(lpFileName, progname);
@@ -285,24 +277,24 @@ LONG InterlockedDecrement(volatile LONG* Addend) { return __sync_fetch_and_sub(A
 LONG InterlockedIncrement(volatile LONG* Addend) { return __sync_fetch_and_add(Addend, 1); }
 
 int WINAPI MessageBoxA(HWND hWnd, LPCSTR lpText, LPCSTR lpCaption, UINT uType) {
-	DebugBreak();
+	abort();
 	return 0;
 }
 
 int WINAPI MulDiv(int nNumber, int nNumerator, int nDenominator) {
-	DebugBreak();
+	abort();
 	return 0;
 }
 
 HINSTANCE WINAPI ShellExecuteA(HWND hwnd, LPCSTR lpOperation, LPCSTR lpFile, LPCSTR lpParameters, LPCSTR lpDirectory,
 							   INT nShowCmd) {
-	DebugBreak();
+	abort();
 	return 0;
 }
 
 int WINAPI WideCharToMultiByte(UINT CodePage, DWORD dwFlags, LPCWSTR lpWideCharStr, int cchWideChar,
 							   LPSTR lpMultiByteStr, int cbMultiByte, LPCCH lpDefaultChar, LPBOOL lpUsedDefaultChar) {
-	DebugBreak();
+	abort();
 	return 0;
 }
 
@@ -368,7 +360,7 @@ int WINAPI ioctlsocket(SOCKET s, long cmd, unsigned long* argp) {
 		break;
 #endif
 	default:
-		DebugBreak();
+		abort();
 		ret = -1;
 		break;
 	}
@@ -425,7 +417,7 @@ int WINAPI bind(int sockfd, const struct sockaddr* addr, unsigned int addrlen)
 		last_socket_error = 10048u;
 		break;
 	default:
-		DebugBreak();
+		abort();
 		break;
 	}
 
@@ -499,7 +491,7 @@ int WINAPI WSAGetLastError() { return last_socket_error; }
 int WINAPI GetDateFormatA(LCID Locale, DWORD dwFlags, const SYSTEMTIME* lpDate, LPCSTR lpFormat, LPSTR lpDateStr,
 						  int cchDate) {
 	if (Locale != 0x800 || dwFlags != 1 || lpFormat)
-		DebugBreak();
+		abort();
 
 	// default locale, short date (M/d/yy)
 	return snprintf(lpDateStr, cchDate, "%d/%d/%02d", lpDate->wMonth, lpDate->wDay, lpDate->wYear % 100);
@@ -508,7 +500,7 @@ int WINAPI GetDateFormatA(LCID Locale, DWORD dwFlags, const SYSTEMTIME* lpDate, 
 int WINAPI GetTimeFormatA(LCID Locale, DWORD dwFlags, const SYSTEMTIME* lpTime, LPCSTR lpFormat, LPSTR lpTimeStr,
 						  int cchTime) {
 	if (Locale != 0x800 || dwFlags != 14 || lpFormat)
-		DebugBreak();
+		abort();
 
 	// default locale, 24 hour, no time marker, no seconds
 	return snprintf(lpTimeStr, cchTime, "%02d:%02d", lpTime->wHour, lpTime->wMinute);
@@ -653,7 +645,7 @@ HANDLE WINAPI CreateFileA(LPCSTR lpFileName, DWORD dwDesiredAccess, DWORD dwShar
 		flags = O_RDWR;
 		break;
 	default:
-		DebugBreak();
+		abort();
 	}
 
 	switch (dwCreationDisposition) {
@@ -686,7 +678,7 @@ BOOL WINAPI ReadFile(HANDLE hFile, LPVOID lpBuffer, DWORD nNumberOfBytesToRead, 
 	int ret;
 
 	if (lpOverlapped)
-		DebugBreak();
+		abort();
 
 	ret = read(fd, lpBuffer, nNumberOfBytesToRead);
 	if (ret >= 0) {
@@ -706,7 +698,7 @@ DWORD WINAPI SetFilePointer(HANDLE hFile, LONG lDistanceToMove, PLONG lpDistance
 	off_t offset;
 
 	if (lpDistanceToMoveHigh && *lpDistanceToMoveHigh)
-		DebugBreak();
+		abort();
 
 	switch (dwMoveMethod) {
 	case FILE_BEGIN:
@@ -719,7 +711,7 @@ DWORD WINAPI SetFilePointer(HANDLE hFile, LONG lDistanceToMove, PLONG lpDistance
 		whence = SEEK_END;
 		break;
 	default:
-		DebugBreak();
+		abort();
 	}
 
 	if (lpDistanceToMoveHigh)
@@ -768,7 +760,7 @@ BOOL WINAPI MoveFileA(LPCSTR lpExistingFileName, LPCSTR lpNewFileName) {
 	char* converted = nox_fs_normalize(lpExistingFileName);
 	free(converted);
 	dprintf("%s\n", __FUNCTION__);
-	DebugBreak();
+	abort();
 	return 0;
 }
 
@@ -885,7 +877,7 @@ char* fgets(char* str, int size, FILE* stream)
 LSTATUS WINAPI RegCreateKeyExA(HKEY hKey, LPCSTR lpSubKey, DWORD Reserved, LPSTR lpClass, DWORD dwOptions,
 							   REGSAM samDesired, const LPSECURITY_ATTRIBUTES lpSecurityAttributes, PHKEY phkResult,
 							   LPDWORD lpdwDisposition) {
-	DebugBreak();
+	abort();
 	return 0;
 }
 
@@ -923,7 +915,7 @@ LSTATUS WINAPI RegQueryValueExA(HKEY hKey, LPCSTR lpValueName, LPDWORD lpReserve
 
 LSTATUS WINAPI RegSetValueExA(HKEY hKey, LPCSTR lpValueName, DWORD Reserved, DWORD dwType, const BYTE* lpData,
 							  DWORD cbData) {
-	DebugBreak();
+	abort();
 	return 0;
 }
 
@@ -959,7 +951,7 @@ BOOL WINAPI ReleaseMutex(HANDLE hMutex) {
 }
 
 BOOL WINAPI SetEvent(HANDLE hEvent) {
-	DebugBreak();
+	abort();
 	return 0;
 }
 
@@ -1008,7 +1000,7 @@ DWORD WINAPI WaitForSingleObject(HANDLE hHandle, DWORD dwMilliseconds) {
 #endif
 	} break;
 	default:
-		DebugBreak();
+		abort();
 		break;
 	}
 

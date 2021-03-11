@@ -266,7 +266,6 @@ enum {
 	TIME_FORCE24HOURFORMAT = 0x8,
 };
 
-#define DebugBreak compatDebugBreak
 #define CloseHandle compatCloseHandle
 #define GetLastError compatGetLastError
 #define GetLocalTime compatGetLocalTime
@@ -355,7 +354,6 @@ enum {
 #define _close close
 #define _onexit atexit
 
-VOID WINAPI DebugBreak();
 BOOL WINAPI CloseHandle(HANDLE hObject);
 DWORD WINAPI GetLastError();
 VOID WINAPI GetLocalTime(LPSYSTEMTIME lpSystemTime);

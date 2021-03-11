@@ -3882,7 +3882,7 @@ LABEL_30:
 	nox_profiled_805856 = 1;
 }
 BOOL nox_xxx____crtGetStringTypeA_0_444830() {
-	DebugBreak();
+	abort();
 	return 0;
 }
 

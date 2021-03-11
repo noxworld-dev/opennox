@@ -33,7 +33,7 @@ static void glCheckError() {
 #if 0
     GLenum error = glGetError();
     if (error)
-        DebugBreak();
+        abort();
 #endif
 }
 
