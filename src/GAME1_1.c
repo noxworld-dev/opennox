@@ -17,6 +17,7 @@
 
 #include "client__gui__guibook.h"
 
+#include "nox_fs.h"
 #include "proto.h"
 
 FILE* nox_file_2 = 0;
@@ -1028,7 +1029,7 @@ int  sub_419F10(const char* a1, const char* a2) {
 		*(_DWORD*)v3 = *getMemU32Ptr(0x587000, 56160);
 		v3[4] = v2;
 	}
-	v4 = nox_common_get_data_path_409E10();
+	v4 = nox_fs_root();
 	nox_sprintf((char*)getMemAt(0x5D4594, 2660688), "%s\\Save\\%s", v4, v6);
 	strcpy((char*)getMemAt(0x5D4594, 2661712), a2);
 	GetLocalTime((LPSYSTEMTIME)getMemAt(0x5D4594, 2661872));

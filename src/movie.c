@@ -1,5 +1,6 @@
 #include "input.h"
 #include "proto.h"
+#include "nox_fs.h"
 
 #ifndef NOX_CGO
 #include <SDL2/SDL.h>
@@ -2702,14 +2703,12 @@ char __thiscall sub_559AF0(char* this, LPCSTR lpFileName, int a3) {
 	char* v7;             // edi
 	const CHAR* v8;       // esi
 	char v9;              // cl
-	unsigned __int8* v10; // [esp-4h] [ebp-Ch]
 
 	v3 = this;
 	if (a3)
-		v10 = "wb";
+		v4 = nox_fs_create(lpFileName);
 	else
-		v10 = "rb";
-	v4 = fopen(lpFileName, (const char*)v10);
+		v4 = nox_fs_open(lpFileName);
 	*(_DWORD*)v3 = v4;
 	if (!v4)
 		return 0;

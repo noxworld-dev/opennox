@@ -26,6 +26,7 @@
 #include "client__draw__drawwin.h"
 #include "client__draw__selectdw.h"
 
+#include "nox_fs.h"
 #include "proto.h"
 
 extern _DWORD dword_5d4594_1062552;
@@ -4719,7 +4720,7 @@ FILE*  nox_xxx_saveBMP_46D9D0(int a1, int a2, LPVOID lpMem, int a4) {
 			--v6;
 		} while (v6);
 	}
-	result = fopen((const char*)a1, "wb");
+	result = nox_fs_create((const char*)a1);
 	v14 = result;
 	if (result) {
 		fwrite(v16, 0xEu, 1u, result);

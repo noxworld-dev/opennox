@@ -6,6 +6,7 @@
 #include "proto.h"
 #include "server__system__trade.h"
 #include "server__network__mapsend.h"
+#include "nox_fs.h"
 
 //----- (0051BAD0) --------------------------------------------------------
 int  nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned __int8* a2, signed int a3) {
@@ -466,7 +467,7 @@ int  nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned __int8* a2,
 				nox_xxx_playerCallDisconnect_4DEAB0(*(unsigned __int8*)(v8 + 2064), 2);
 				v4 += 3;
 			} else {
-				v52 = nox_common_get_data_path_409E10();
+				v52 = nox_fs_root();
 				nox_sprintf(FileName, "%s\\Save\\_temp_.dat", v52);
 				if (nox_xxx_playerSaveToFile_41A140(FileName, *(unsigned __int8*)(v8 + 2064)))
 					sub_41CFA0(FileName, *(unsigned __int8*)(v8 + 2064));

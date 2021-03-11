@@ -17,6 +17,7 @@
 #include "client/audio/mp3/minimp3.h"
 
 #include "defs.h"
+#include "nox_fs.h"
 
 struct _DIG_DRIVER {
 	ALCdevice* device;
@@ -517,7 +518,7 @@ DXDEC HSTREAM AILCALL AIL_open_stream(HDIGDRIVER dig, char const FAR* filename, 
 	WAVEFORMAT2* wf = (WAVEFORMAT2*)tmp;
 	MPEGLAYER3WAVEFORMAT2* mp3wf = (MPEGLAYER3WAVEFORMAT2*)tmp;
 
-	f = fopen(filename, "rb");
+	f = nox_fs_open(filename);
 	if (f == NULL)
 		return NULL;
 

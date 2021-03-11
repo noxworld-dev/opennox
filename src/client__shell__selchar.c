@@ -1,5 +1,6 @@
 #include "client__shell__selchar.h"
 
+#include "nox_fs.h"
 #include "proto.h"
 #include "client__gui__guisave.h"
 #include "client__shell__optsback.h"
@@ -122,7 +123,7 @@ int nox_xxx_findAutosaves_4A5150() {
 	v0 = 0;
 	v1 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1307764, 501);
 	nox_xxx_wnd_46ABB0((int)v1, 1);
-	v2 = nox_common_get_data_path_409E10();
+	v2 = nox_fs_root();
 	strcpy(PathName, v2);
 	strcat(PathName, "\\Save\\");
 	CreateDirectoryA(PathName, 0);
@@ -131,7 +132,7 @@ int nox_xxx_findAutosaves_4A5150() {
 		result = nox_savegame_sub_46CE40(*(int*)&dword_5d4594_1307744, *(int*)&dword_5d4594_1307776, *(int*)&dword_5d4594_1307768,
 							*(_BYTE**)&dword_5d4594_1307780);
 	} else {
-		SetCurrentDirectoryA(PathName);
+		nox_fs_set_workdir(PathName);
 		strcpy(v32, PathName);
 		v7 = FindFirstFileA("*.plr", &FindFileData);
 		v8 = v7;
@@ -207,8 +208,8 @@ int nox_xxx_findAutosaves_4A5150() {
 				--v13;
 			} while (v13);
 		}
-		v17 = nox_common_get_data_path_409E10();
-		SetCurrentDirectoryA(v17);
+		v17 = nox_fs_root();
+		nox_fs_set_workdir(v17);
 		if (v9) {
 			v18 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1307764, 503);
 			nox_xxx_wnd_46ABB0((int)v18, 1);
@@ -306,10 +307,10 @@ int  nox_xxx_windowSelCharProc_4A5710(int a1, unsigned int a2, int* a3, int a4) 
 						v19 = dword_5d4594_1307780 + sizeof(nox_savegame_xxx) * v10 + 1156;
 						v18 = dword_5d4594_1307780 + sizeof(nox_savegame_xxx) * v10 + 1156;
 						if (v9) {
-							v12 = nox_common_get_data_path_409E10();
+							v12 = nox_fs_root();
 							nox_sprintf(v22, "%s\\Maps\\%s\\%s.map", v12, v18, v19);
 						} else {
-							v11 = nox_common_get_data_path_409E10();
+							v11 = nox_fs_root();
 							nox_sprintf(v22, "%s\\Save\\%s\\%s\\%s.map", v11, getMemAt(0x587000, 171320), v18, v19);
 						}
 						nox_xxx_gameSetSoloSavePath_4DB270(v22);

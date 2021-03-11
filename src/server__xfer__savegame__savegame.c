@@ -1,4 +1,5 @@
 #include "proto.h"
+#include "nox_fs.h"
 extern _DWORD dword_5d4594_1563084;
 extern _DWORD dword_5d4594_1563088;
 extern _DWORD dword_5d4594_1563092;
@@ -14,7 +15,7 @@ BOOL nox_xxx_saveMakeFolder_0_4DB1D0() {
 	char* v0;            // eax
 	CHAR PathName[1024]; // [esp+0h] [ebp-400h]
 
-	v0 = nox_common_get_data_path_409E10();
+	v0 = nox_fs_root();
 	nox_sprintf(PathName, "%s\\Save", v0);
 	return _mkdir(PathName) != -1 || errno != 2;
 }
@@ -24,7 +25,7 @@ BOOL  sub_4DB5A0(int a1, int a2) {
 	char* v2;            // eax
 	char PathName[1024]; // [esp+0h] [ebp-400h]
 
-	v2 = nox_common_get_data_path_409E10();
+	v2 = nox_fs_root();
 	nox_sprintf(PathName, "%s\\Save\\%s\\%s", v2, a1, a2);
 	return _mkdir(PathName) != -1 || errno != 2;
 }
@@ -184,12 +185,12 @@ int  nox_xxx_saveDoAutosaveMB_4DB370_savegame(const char* a1) {
 		return 0;
 	v13 = nox_xxx_mapGetMapName_409B40();
 	v12 = nox_xxx_mapGetMapName_409B40();
-	v6 = nox_common_get_data_path_409E10();
+	v6 = nox_fs_root();
 	nox_sprintf(v15, "%s\\Save\\%s\\%s\\%s.map", v6, getMemAt(0x587000, 199192), v12, v13);
 	if (!nox_xxx_mapSaveMap_51E010(v15, 0))
 		return 0;
 	nox_xxx_monstersAllBelongToHost_4DB6A0();
-	v7 = nox_common_get_data_path_409E10();
+	v7 = nox_fs_root();
 	nox_sprintf(v14, "%s\\Save\\%s\\Player.plr", v7, getMemAt(0x587000, 199224));
 	v8 = *getMemU32Ptr(0x5D4594, 2660684) & 0xFFFFFFF7;
 	*getMemU32Ptr(0x5D4594, 2660684) &= 0xFFFFFFF7;
@@ -233,7 +234,7 @@ char*  nox_xxx_soloLoadGame_4DB7E0_savegame(const char* a1) {
 	if (!nox_common_gameFlags_check_40A5C0(2) || (result = (char*)sub_4738D0()) != 0) {
 		sub_4DB9C0();
 		if (!strcmp(a1, "WORKING") || (result = (char*)sub_4DC100((int)a1, (int)getMemAt(0x587000, 199416))) != 0) {
-			v3 = nox_common_get_data_path_409E10();
+			v3 = nox_fs_root();
 			nox_sprintf(FileName, "%s\\Save\\%s\\Player.plr", v3, getMemAt(0x587000, 199424));
 			if (_access(FileName, 0) == -1) {
 				v4 = nox_strman_loadString_40F1D0("AutoSaveNotFound", 0,
@@ -252,7 +253,7 @@ char*  nox_xxx_soloLoadGame_4DB7E0_savegame(const char* a1) {
 					nox_xxx_cliPrepareGameplay2_4721D0();
 					nox_sprintf(v8, "%s.map", v1 + 4760);
 					nox_xxx_gameSetMapPath_409D70(v8);
-					v6 = nox_common_get_data_path_409E10();
+					v6 = nox_fs_root();
 					nox_sprintf((char*)getMemAt(0x5D4594, 1559960), "%s\\Save\\%s\\%s\\%s.map", v6, getMemAt(0x587000, 199532),
 								v1 + 4760, v1 + 4760);
 					nox_xxx_mapLoad_4D2450(v8);

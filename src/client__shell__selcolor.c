@@ -1,5 +1,6 @@
 #include "client__shell__selcolor.h"
 
+#include "nox_fs.h"
 #include "proto.h"
 extern _DWORD dword_5d4594_1308136;
 extern _DWORD dword_5d4594_1308104;
@@ -275,7 +276,7 @@ int sub_4A75C0() {
 	v25[1221] = *(_DWORD*)(dword_5d4594_1308124 + 32) >> 16;
 	v25[1222] = *(_DWORD*)(dword_5d4594_1308128 + 32) >> 16;
 	v25[1223] = *(_DWORD*)(dword_5d4594_1308132 + 32) >> 16;
-	v13 = nox_common_get_data_path_409E10();
+	v13 = nox_fs_root();
 	v14 = *getMemU16Ptr(0x587000, 171768);
 	strcpy(&v25[4], v13);
 	v15 = getMemByte(0x587000, 171770);
@@ -291,21 +292,21 @@ int sub_4A75C0() {
 		*(_WORD*)&v25[strlen(&v25[4]) + 4] = *getMemU16Ptr(0x587000, 171780);
 	}
 	CreateDirectoryA(&v25[4], 0);
-	SetCurrentDirectoryA(&v25[4]);
+	nox_fs_set_workdir(&v25[4]);
 	i = 0;
 	if (nox_common_gameFlags_check_40A5C0(2048)) {
 		strcpy(v24, "Player.plr");
 	} else {
 		for (i = 0; i < 100; ++i) {
 			nox_sprintf(v24, "%.6s%2.2d.plr", &v25[1224], i);
-			v20 = fopen(v24, "rb");
+			v20 = nox_fs_open(v24);
 			if (!v20)
 				break;
 			fclose(v20);
 		}
 	}
-	v21 = nox_common_get_data_path_409E10();
-	SetCurrentDirectoryA(v21);
+	v21 = nox_fs_root();
+	nox_fs_set_workdir(v21);
 	if (i > 99)
 		return 0;
 	strcat(&v25[4], v24);

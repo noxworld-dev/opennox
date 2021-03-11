@@ -10,6 +10,7 @@
 
 #include "common__gamemech__pausefx.h"
 
+#include "nox_fs.h"
 #include "proto.h"
 
 unsigned int mix_dword_980858[] = {1966080, 1821179904, 2415929931};
@@ -1507,7 +1508,7 @@ int sub_4E4100() {
 int  sub_4E41B0(char* a1) {
 	FILE* v1; // edi
 
-	v1 = fopen(a1, "r");
+	v1 = nox_fs_open_text(a1);
 	if (v1) {
 		do {
 			while (1) {
@@ -1577,7 +1578,7 @@ FILE*  sub_4E43F0(char* a1) {
 	int* i;       // esi
 	int* j;       // esi
 
-	result = fopen(a1, "w");
+	result = nox_fs_create_text(a1);
 	v2 = result;
 	if (result) {
 		fprintf(result, "%s\n", getMemAt(0x587000, 202212));

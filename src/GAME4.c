@@ -3,6 +3,7 @@
 #include "server__magic__spell__execdur.h"
 #include "common__random.h"
 
+#include "nox_fs.h"
 #include "proto.h"
 
 extern _DWORD dword_5d4594_3835368;
@@ -8573,10 +8574,10 @@ FILE*  sub_502ED0(const char* a1) {
 		*((_DWORD*)v4 + 1) = v2;
 		*((_DWORD*)v4 + 2) = v3;
 		v4[12] = v5;
-		result = fopen(v17, "rb");
+		result = nox_fs_open(v17);
 		v6 = result;
 		if (result) {
-			result = fopen(*(const char**)&dword_5d4594_1599588, "wb");
+			result = nox_fs_create(*(const char**)&dword_5d4594_1599588);
 			v7 = result;
 			if (result) {
 				fread(&v14, 4u, 1u, v6);
@@ -8693,10 +8694,10 @@ FILE*  sub_503230(const char* a1, char* a2) {
 		*((_DWORD*)v5 + 1) = v3;
 		*((_DWORD*)v5 + 2) = v4;
 		v5[12] = v6;
-		result = fopen(v22, "rb");
+		result = nox_fs_open(v22);
 		v7 = result;
 		if (result) {
-			v8 = fopen(*(const char**)&dword_5d4594_1599588, "wb");
+			v8 = nox_fs_create(*(const char**)&dword_5d4594_1599588);
 			if (v8) {
 				fread(&v17, 4u, 1u, v7);
 				fwrite(&v17, 4u, 1u, v8);
@@ -8779,7 +8780,7 @@ int  sub_5034B0(char* a1) {
 	sub_502DA0(v4);
 	v5 = sub_502E50(a1);
 	if (v5) {
-		v7 = fopen(v21, "wb");
+		v7 = nox_fs_create(v21);
 		if (v7) {
 			fread(&v17, 4u, 1u, v5);
 			v8 = v17;
@@ -8865,7 +8866,7 @@ int  sub_5036D0(char* a1, LPCSTR lpFileName) {
 	fread(&v9, 4u, 1u, v5);
 	if (!v9)
 		return 0;
-	v7 = fopen(v2, "wb");
+	v7 = nox_fs_create(v2);
 	if (!v7)
 		return 0;
 	for (; v9; --v9) {
@@ -9774,9 +9775,9 @@ int  sub_504AB0(char* a1) {
 	sub_502A50(v1);
 	sub_502B10();
 	v2 = (const char*)sub_502A90();
-	v3 = fopen(v2, "r+b");
+	v3 = nox_fs_open_rw(v2);
 	if (v3) {
-		v5 = fopen(a1, "rb");
+		v5 = nox_fs_open(a1);
 		if (v5) {
 			fseek(v3, -4, SEEK_END);
 			fread(&v11, 4u, 1u, v5);
@@ -9990,7 +9991,7 @@ int nox_server_mapRWMapIntro_505080() {
 	v17 = 0;
 	v1 = nox_common_gameFlags_check_40A5C0(0x200000);
 	sub_505060();
-	v2 = nox_common_get_data_path_409E10();
+	v2 = nox_fs_root();
 	v3 = *getMemU16Ptr(0x587000, 229832);
 	strcpy(v19, v2);
 	v4 = getMemByte(0x587000, 229834);
@@ -10022,7 +10023,7 @@ int nox_server_mapRWMapIntro_505080() {
 			return 1;
 		}
 		if (v1) {
-			v0 = fopen(v19, "wb");
+			v0 = nox_fs_create(v19);
 			if (!v0) {
 				return 0;
 			}
@@ -10046,7 +10047,7 @@ int nox_server_mapRWMapIntro_505080() {
 			fclose(v0);
 		return 1;
 	}
-	if (v1 && (v10 = fopen(v19, "rb"), (v11 = v10) != 0)) {
+	if (v1 && (v10 = nox_fs_open(v19), (v11 = v10) != 0)) {
 		fseek(v10, 0, SEEK_END);
 		v17 = ftell(v11);
 		fseek(v11, 0, SEEK_SET);
@@ -10101,7 +10102,7 @@ int nox_xxx_parseNoxCObj_505360() {
 	char v38[1024];      // [esp+1Ch] [ebp-400h]
 
 	strcpy(v36, "%");
-	nox_file_7 = fopen("nc.obj", "rb");
+	nox_file_7 = nox_fs_open("nc.obj");
 	if (!nox_file_7)
 		return 0;
 	if (!nox_xxx_ncobjReadAndCheck_505870("SCRIPT03")) {
@@ -10371,14 +10372,14 @@ int nox_server_mapRWScriptObject_505A40() {
 	v10 = 1;
 	v9 = 0;
 	nox_xxx_wallGet_426A30();
-	v1 = nox_common_get_data_path_409E10();
+	v1 = nox_fs_root();
 	nox_sprintf((char*)getMemAt(0x5D4594, 3830188), "%s\\nc.obj", v1);
 	dword_5d4594_1599644 = 0;
 	nox_xxx_fileReadWrite_426AC0_file3_fread(&v10, 2u);
 	if ((__int16)v10 < 1)
 		return 0;
 	if (!*getMemU32Ptr(0x5D4594, 3803300)) {
-		v2 = fopen((const char*)getMemAt(0x5D4594, 3830188), "rb");
+		v2 = nox_fs_open((const char*)getMemAt(0x5D4594, 3830188));
 		v3 = v2;
 		if (!v2) {
 			v9 = 0;
@@ -10401,7 +10402,7 @@ int nox_server_mapRWScriptObject_505A40() {
 	}
 	if (*getMemU32Ptr(0x5D4594, 3803300) != 1)
 		return 0;
-	v5 = fopen((const char*)getMemAt(0x5D4594, 3830188), "wb");
+	v5 = nox_fs_create((const char*)getMemAt(0x5D4594, 3830188));
 	if (!v5)
 		return 0;
 	nox_xxx_fileReadWrite_426AC0_file3_fread(&v9, 4u);

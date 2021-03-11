@@ -15,6 +15,7 @@
 #include "client__draw__fx.h"
 #include "client__gui__guibook.h"
 
+#include "nox_fs.h"
 #include "proto.h"
 
 extern unsigned char byte_5D4594_3804364[160];
@@ -9568,7 +9569,7 @@ nox_window*  nox_new_window_from_file(const char* name, int (*fnc)(int, int, int
 	nox_gui_resetWidgetData_4A0D10();
 	strcat(path, name);
 
-	FILE* f = fopen(path, "r");
+	FILE* f = nox_fs_open_text(path);
 	if (!f)
 		return 0;
 

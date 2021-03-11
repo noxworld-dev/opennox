@@ -6,6 +6,7 @@
 
 #include "common__gamemech__pausefx.h"
 
+#include "nox_fs.h"
 #include "proto.h"
 
 extern _DWORD dword_5d4594_2488620;
@@ -12065,10 +12066,10 @@ int  sub_541670(LPCSTR a1, LPCSTR lpExistingFileName, LPCSTR lpFileName) {
 		return 0;
 	if (!lpFileName)
 		return 0;
-	v3 = fopen(a1, "rb");
+	v3 = nox_fs_open(a1);
 	if (!v3)
 		return 0;
-	v4 = fopen(lpExistingFileName, "rb");
+	v4 = nox_fs_open(lpExistingFileName);
 	if (!v4) {
 		fclose(v3);
 		return 0;
@@ -12081,7 +12082,7 @@ int  sub_541670(LPCSTR a1, LPCSTR lpExistingFileName, LPCSTR lpFileName) {
 		v7 = ftell(v4);
 		fseek(v4, 0, SEEK_SET);
 		if (v7) {
-			v8 = fopen(lpFileName, "w+b");
+			v8 = nox_fs_create_rw(lpFileName);
 			v9 = v8;
 			if (v8) {
 				sub_5417C0(v3, v4, v8);
@@ -12925,11 +12926,11 @@ int  sub_543110(LPCSTR lpExistingFileName, int2* a2) {
 	*((_DWORD*)v4 + 1) = v2;
 	*((_DWORD*)v4 + 2) = v3;
 	CopyFileA(lpExistingFileName, NewFileName, 0);
-	v6 = fopen(NewFileName, "rb");
+	v6 = nox_fs_open(NewFileName);
 	if (!v6) {
 		return 0;
 	}
-	v7 = fopen(lpExistingFileName, "w+b");
+	v7 = nox_fs_create_rw(lpExistingFileName);
 	if (!v7) {
 		return fclose(v6);
 	}

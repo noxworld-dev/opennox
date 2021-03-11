@@ -6,6 +6,7 @@
 #define GL_GLEXT_PROTOTYPES
 #endif
 #include "client__video__draw_common.h"
+#include "nox_fs.h"
 
 #ifdef __APPLE__
 #include <GLUT/glut.h>
@@ -460,7 +461,7 @@ int  nox_client_drawGeneral_4B0340(int a1) // draw general
 #ifdef __linux__
 		;
 		if (nox_enable_audio) { // TODO: disable audio in movies instead
-			char* path = dos_to_unix(getMemAt(0x5D4594, 1311940));
+			char* path = nox_fs_normalize(getMemAt(0x5D4594, 1311940));
 			PlayMovie(path);
 			free(path);
 		}

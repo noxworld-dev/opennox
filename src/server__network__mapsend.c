@@ -1,4 +1,5 @@
 #include "proto.h"
+#include "nox_fs.h"
 extern _DWORD dword_5d4594_2388640;
 extern _DWORD dword_5d4594_2388648;
 
@@ -234,7 +235,7 @@ int nox_xxx_netMapSendPrepair_519EB0_net_mapsend() {
 	v7 = getMemByte(0x587000, 249816);
 	*(_DWORD*)--v6 = *getMemU32Ptr(0x587000, 249812);
 	v6[4] = v7;
-	v8 = fopen(v12, "rb");
+	v8 = nox_fs_open(v12);
 	if (!v8) {
 		v10 = nox_strman_loadString_40F1D0("CompressFail", 0, "C:\\NoxPost\\src\\Server\\Network\\mapsend.c", 518);
 		nox_xxx_consolePrint_450B90(6u, (int)v10);

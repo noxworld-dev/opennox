@@ -211,7 +211,7 @@ int  nox_client_drawGeneral_4B0340(int a1) // draw general
 	#ifdef __linux__
 			;
 			if (nox_enable_audio) { // TODO: disable audio in movies instead
-				char* path = dos_to_unix(&byte_5D4594[1311940]);
+				char* path = nox_fs_normalize(&byte_5D4594[1311940]);
 				PlayMovie(path);
 				free(path);
 			}
