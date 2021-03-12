@@ -353,6 +353,10 @@ set (
     server__system__cscrfunc.c
     server__system__server.c
     server__system__trade.c
+    server__script__script.c
+    server__script__builtin.c
+    server__script__panic.c
+    server__script__file.c
     server__xfer__savegame__savegame.c
 
     client__video__draw_common.c

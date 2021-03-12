@@ -52,7 +52,6 @@ extern _DWORD dword_5d4594_3843628;
 extern _DWORD dword_5d4594_1568024;
 extern _DWORD dword_5d4594_1565512;
 extern _DWORD dword_5d4594_2650652;
-extern nox_script_xxx_t* nox_script_arr_xxx_1599636;
 extern nox_memfile* nox_loaded_thing_bin;
 extern unsigned int nox_gameFPS;
 
@@ -13605,57 +13604,6 @@ int  sub_4F5540(int a1) {
 	}
 	return result;
 }
-
-//----- (004F5580) --------------------------------------------------------
-int  nox_xxx_xferReadScriptHandler_4F5580(int a1, char* a2) {
-	bool v3;       // zf
-	int v4;        // eax
-	size_t v5;     // [esp+Ch] [ebp-408h]
-	int v6;        // [esp+10h] [ebp-404h]
-	char v7[1024]; // [esp+14h] [ebp-400h]
-
-	v6 = 1;
-	nox_xxx_fileReadWrite_426AC0_file3_fread(&v6, 2u);
-	if ((__int16)v6 > 1)
-		return 0;
-	if (*getMemU32Ptr(0x5D4594, 3803300) == 1) {
-		nox_xxx_fileReadWrite_426AC0_file3_fread(&v5, 4u);
-		if (v5 >= 0x400)
-			return 0;
-		nox_xxx_fileReadWrite_426AC0_file3_fread(v7, v5);
-		v3 = v5 == 0;
-		v7[v5] = 0;
-		if (!v3) {
-			if (nox_common_gameFlags_check_40A5C0(6291456))
-				strcpy(a2, v7);
-			else
-				*(_DWORD*)(a1 + 4) = nox_script_indexByName(v7);
-		}
-	} else {
-		if (nox_common_gameFlags_check_40A5C0(6291456)) {
-			if (a2) {
-				v5 = strlen(a2);
-				nox_xxx_fileReadWrite_426AC0_file3_fread(&v5, 4u);
-				nox_xxx_fileReadWrite_426AC0_file3_fread(a2, v5);
-				goto LABEL_16;
-			}
-		} else {
-			v4 = *(_DWORD*)(a1 + 4);
-			if (v4 != -1) {
-				v5 = strlen(nox_script_arr_xxx_1599636[v4].field_0);
-				nox_xxx_fileReadWrite_426AC0_file3_fread(&v5, 4u);
-				nox_xxx_fileReadWrite_426AC0_file3_fread(nox_script_arr_xxx_1599636[*(_DWORD*)(a1 + 4)].field_0, v5);
-				goto LABEL_16;
-			}
-		}
-		v5 = 0;
-		nox_xxx_fileReadWrite_426AC0_file3_fread(&v5, 4u);
-	}
-LABEL_16:
-	nox_xxx_fileReadWrite_426AC0_file3_fread((_BYTE*)a1, 4u);
-	return 1;
-}
-// 4F5580: using guessed type char var_400[1024];
 
 //----- (004F5730) --------------------------------------------------------
 int  nox_xxx_XFerMover_4F5730(int a1) {
