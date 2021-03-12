@@ -12,7 +12,7 @@ extern unsigned int dword_5d4594_1599628;
 
 typedef struct nox_script_xxx_t {
 	char* field_0; // 0, 0
-	unsigned int field_4; // 1, 4
+	unsigned int stack_size; // 1, 4
 	int field_8; // 2, 8
 	unsigned int field_12; // 3, 12; len field_20 and field_24
 	unsigned int field_16; // 4, 16
@@ -189,7 +189,7 @@ unsigned __int8*  nox_xxx_scriptCallByEventBlock_502490(int* a1, int a2, int a3)
 		return getMemAt(0x5D4594, 1599076);
 	}
 	nox_script_callByIndex_507310(v4, a2, a3);
-	if (nox_script_arr_xxx_1599636[a1[1]].field_4) {
+	if (nox_script_arr_xxx_1599636[a1[1]].stack_size) {
 		*getMemU32Ptr(0x5D4594, 1599076) = nox_script_pop();
 	}
 	nox_script_stack_top = 0;
@@ -350,7 +350,7 @@ int nox_script_ncobj_parse_505360() {
 			cur->field_40 = 0;
 			cur->field_44 = 0;
 		}
-		cur->field_4 = nox_script_ncobj_readInt_505800(f);
+		cur->stack_size = nox_script_ncobj_readInt_505800(f);
 		cur->field_8 = nox_script_ncobj_readInt_505800(f);
 		if (!nox_script_ncobj_readStringExpect_505870(f, "SYMB")) {
 			fclose(f);
@@ -470,7 +470,6 @@ void nox_script_callByIndex_507310(int index, int a2, int a3) {
 	int v3;         // ebx
 	int v6;         // esi
 	int v7;         // ecx
-	int v8;         // edx
 	int v9;         // esi
 	int v10;        // eax
 	int v11;        // esi
@@ -481,40 +480,6 @@ void nox_script_callByIndex_507310(int index, int a2, int a3) {
 	int v16;        // ecx
 	int v17;        // esi
 	int v18;        // eax
-	int v19;        // eax
-	int v20;        // esi
-	int v21;        // eax
-	double v22;     // st7
-	int v23;        // esi
-	int v24;        // eax
-	int v25;        // eax
-	int v26;        // esi
-	int v27;        // eax
-	int v28;        // esi
-	int v29;        // eax
-	int v30;        // esi
-	int v31;        // eax
-	int v32;        // esi
-	int v33;        // eax
-	int v34;        // esi
-	int v35;        // eax
-	int v36;        // esi
-	int v37;        // eax
-	int v38;        // esi
-	int v39;        // eax
-	char v40;       // si
-	int v41;        // eax
-	char v42;       // si
-	int v43;        // eax
-	int v44;        // esi
-	int v45;        // esi
-	int v46;        // edi
-	int v47;        // esi
-	float v48;      // edi
-	int v49;        // esi
-	int v50;        // edi
-	int v51;        // esi
-	int v52;        // esi
 	int v53;        // edx
 	double v54;     // st7
 	float* v55;     // eax
@@ -524,128 +489,49 @@ void nox_script_callByIndex_507310(int index, int a2, int a3) {
 	int v59;        // ecx
 	float* v60;     // eax
 	double v61;     // st7
-	int v62;        // ebp
 	int v63;        // edi
-	int v64;        // ebx
 	int v65;        // esi
 	int v66;        // eax
 	int v67;        // eax
-	int v68;        // edi
-	int v69;        // esi
-	int v70;        // esi
 	int v71;        // ecx
 	float* v72;     // eax
 	double v73;     // st7
-	int v74;        // edi
-	int v75;        // esi
 	int v76;        // edx
 	int v77;        // eax
-	int v78;        // edi
-	int v79;        // esi
-	int v80;        // esi
-	int v81;        // esi
-	int v82;        // edi
-	int v83;        // esi
 	int v84;        // esi
-	char v85;       // di
-	int v86;        // esi
-	char v87;       // di
-	int v88;        // esi
-	int v89;        // edi
-	int v90;        // esi
-	int v91;        // edi
-	int v92;        // esi
-	int v93;        // edi
-	int v94;        // esi
-	int v95;        // esi
-	int v96;        // eax
-	int v97;        // esi
-	int v98;        // esi
-	int v99;        // eax
-	int v100;       // esi
-	int v101;       // kr00_4
-	int v102;       // esi
-	int v103;       // eax
-	int v104;       // esi
-	int v105;       // kr04_4
-	int v106;       // esi
-	int v107;       // eax
-	int v108;       // esi
-	int v109;       // kr08_4
-	int v110;       // esi
-	int v111;       // eax
-	int v112;       // esi
-	int v113;       // kr0C_4
-	int v114;       // esi
-	int v115;       // eax
-	int v116;       // esi
-	int v117;       // esi
-	int v118;       // esi
-	int v119;       // edi
-	int v120;       // esi
-	int v121;       // ebx
-	int v122;       // eax
 	int v123;       // esi
-	int v124;       // esi
-	int v126;       // eax
-	int v127;       // edi
-	int v128;       // esi
-	int v129;       // ebx
-	int v130;       // eax
-	int v131;       // esi
-	int v132;       // edi
-	int v133;       // ebx
-	int v134;       // eax
-	int v135;       // eax
-	int v136;       // eax
-	int v137;       // eax
-	int v138;       // eax
-	int v139;       // eax
 	int v140;       // [esp+10h] [ebp-118h]
-	float v141;     // [esp+10h] [ebp-118h]
-	float v142;     // [esp+10h] [ebp-118h]
-	int v143;       // [esp+10h] [ebp-118h]
-	float v144;     // [esp+10h] [ebp-118h]
-	int v145;       // [esp+10h] [ebp-118h]
-	float v146;     // [esp+10h] [ebp-118h]
-	float v147;     // [esp+10h] [ebp-118h]
-	float v148;     // [esp+10h] [ebp-118h]
-	float v149;     // [esp+10h] [ebp-118h]
-	float v150;     // [esp+10h] [ebp-118h]
-	float v151;     // [esp+10h] [ebp-118h]
-	float v152;     // [esp+10h] [ebp-118h]
-	float v153;     // [esp+10h] [ebp-118h]
-	float v154;     // [esp+10h] [ebp-118h]
-	float v155;     // [esp+10h] [ebp-118h]
-	float v156;     // [esp+10h] [ebp-118h]
-	float v157;     // [esp+10h] [ebp-118h]
 	int v158;       // [esp+10h] [ebp-118h]
-	float v159;     // [esp+10h] [ebp-118h]
-	int v160;       // [esp+18h] [ebp-110h]
 	int v161;       // [esp+1Ch] [ebp-10Ch]
-	int v163;       // [esp+24h] [ebp-104h]
-	char v164[256]; // [esp+28h] [ebp-100h]
+	char buf[256]; // [esp+28h] [ebp-100h]
+
+	nox_script_xxx_t* script = &nox_script_arr_xxx_1599636[index];
 
 	v3 = a3;
 	dword_5d4594_3821964 = a2;
 	dword_5d4594_3821968 = a3;
 	v6 = 0;
-	v7 = nox_script_arr_xxx_1599636[index].field_8;
+	v7 = script->field_8;
 	v161 = 0;
 	if (v7 > 0) {
 		do {
-			*(unsigned int*)((unsigned int)(nox_script_arr_xxx_1599636[index].field_28) + 4 * ++v6 - 4) = nox_script_pop();
-		} while (v6 < nox_script_arr_xxx_1599636[index].field_8);
+			*(unsigned int*)((unsigned int)(script->field_28) + 4 * ++v6 - 4) = nox_script_pop();
+		} while (v6 < script->field_8);
 	}
-	v8 = nox_script_arr_xxx_1599636[index].data;
-	v163 = nox_script_stack_top;
-	v160 = v8;
+	int bstack = nox_script_stack_top;
+	void* data = script->data;
 	while (1) {
-		switch (nox_script_nextInt((int**)&v160)) {
+		int sa1 = 0;
+		int sa2 = 0;
+		int sa3 = 0;
+		int sa4 = 0;
+		float sf1 = 0;
+		float sf2 = 0;
+		switch (nox_script_nextInt(&data)) {
 		case 0:
 		case 3:
-			v9 = nox_script_nextInt((int**)&v160);
-			v10 = nox_script_nextInt((int**)&v160);
+			v9 = nox_script_nextInt(&data);
+			v10 = nox_script_nextInt(&data);
 			if (v9) {
 				nox_script_push(*(unsigned int*)((char*)(nox_script_arr_xxx_1599636[1].field_28) +
 									  4 * *(unsigned int*)((unsigned int)(nox_script_arr_xxx_1599636[1].field_24) + 4 * v10)));
@@ -653,28 +539,28 @@ void nox_script_callByIndex_507310(int index, int a2, int a3) {
 				nox_script_push(
 					*(unsigned int*)(*(unsigned int*)(v3 + 760) + 4 * *(unsigned int*)((unsigned int)(nox_script_arr_xxx_1599636[0].field_24) - 4 * v10)));
 			} else {
-				nox_script_push(*(unsigned int*)((unsigned int)(nox_script_arr_xxx_1599636[index].field_28) +
-									  4 * *(unsigned int*)((unsigned int)(nox_script_arr_xxx_1599636[index].field_24) + 4 * v10)));
+				nox_script_push(*(unsigned int*)((unsigned int)(script->field_28) +
+									  4 * *(unsigned int*)((unsigned int)(script->field_24) + 4 * v10)));
 			}
 			continue;
 		case 1:
-			v11 = nox_script_nextInt((int**)&v160);
-			v12 = nox_script_nextInt((int**)&v160);
+			v11 = nox_script_nextInt(&data);
+			v12 = nox_script_nextInt(&data);
 			if (v11) {
 				v13 = *(float*)((char*)(nox_script_arr_xxx_1599636[1].field_28) +
 								4 * *(unsigned int*)((unsigned int)(nox_script_arr_xxx_1599636[1].field_24) + 4 * v12));
 			} else if (v12 < 0) {
 				v13 = *(float*)(*(unsigned int*)(v3 + 760) + 4 * *(unsigned int*)((unsigned int)(nox_script_arr_xxx_1599636[0].field_24) - 4 * v12));
 			} else {
-				v13 = *(float*)((unsigned int)(nox_script_arr_xxx_1599636[index].field_28) +
-								4 * *(unsigned int*)((unsigned int)(nox_script_arr_xxx_1599636[index].field_24) + 4 * v12));
+				v13 = *(float*)((unsigned int)(script->field_28) +
+								4 * *(unsigned int*)((unsigned int)(script->field_24) + 4 * v12));
 			}
 			*(float*)&v140 = v13;
 			nox_script_push(v140);
 			continue;
 		case 2:
-			v14 = nox_script_nextInt((int**)&v160);
-			v15 = nox_script_nextInt((int**)&v160);
+			v14 = nox_script_nextInt(&data);
+			v15 = nox_script_nextInt(&data);
 			if (v14) {
 				v16 = *(unsigned int*)((unsigned int)(nox_script_arr_xxx_1599636[1].field_20) + 4 * v15);
 				v17 = *(unsigned int*)((unsigned int)(nox_script_arr_xxx_1599636[1].field_24) + 4 * v15);
@@ -683,8 +569,8 @@ void nox_script_callByIndex_507310(int index, int a2, int a3) {
 				v16 = *(unsigned int*)((unsigned int)(nox_script_arr_xxx_1599636[0].field_20) - v18);
 				v17 = -*(unsigned int*)((unsigned int)(nox_script_arr_xxx_1599636[0].field_24) - v18);
 			} else {
-				v16 = *(unsigned int*)((unsigned int)(nox_script_arr_xxx_1599636[index].field_20) + 4 * v15);
-				v17 = *(unsigned int*)((unsigned int)(nox_script_arr_xxx_1599636[index].field_24) + 4 * v15);
+				v16 = *(unsigned int*)((unsigned int)(script->field_20) + 4 * v15);
+				v17 = *(unsigned int*)((unsigned int)(script->field_24) + 4 * v15);
 			}
 			if (v16 > 1)
 				nox_script_push(v16);
@@ -692,563 +578,534 @@ void nox_script_callByIndex_507310(int index, int a2, int a3) {
 			nox_script_push(v17);
 			continue;
 		case 4:
-		case 6:
-			v19 = nox_script_nextInt((int**)&v160);
-			nox_script_push(v19);
+		case 6: // static int
+			sa1 = nox_script_nextInt(&data);
+			nox_script_push(sa1);
 			continue;
-		case 5:
-			v141 = nox_script_nextFloat((float**)&v160);
-			nox_script_push(SLODWORD(v141));
+		case 5: // static float
+			sf1 = nox_script_nextFloat(&data);
+			nox_script_push(SLODWORD(sf1));
 			continue;
-		case 7:
-			v20 = nox_script_pop();
-			v21 = nox_script_pop();
-			nox_script_push(v21 + v20);
+		case 7: // add int
+			sa1 = nox_script_pop();
+			sa2 = nox_script_pop();
+			nox_script_push(sa2 + sa1);
 			continue;
-		case 8:
-			v142 = COERCE_FLOAT(nox_script_pop());
-			v22 = COERCE_FLOAT(nox_script_pop()) + v142;
-			*(float*)&v143 = v22;
-			nox_script_push(v143);
+		case 8: // add float
+			sf1 = COERCE_FLOAT(nox_script_pop());
+			sf2 = COERCE_FLOAT(nox_script_pop());
+			sf1 += sf2;
+			nox_script_push(SLODWORD(sf1));
 			continue;
-		case 9:
-			v26 = nox_script_pop();
-			v27 = nox_script_pop();
-			nox_script_push(v27 - v26);
+		case 9: // sub int
+			sa1 = nox_script_pop();
+			sa2 = nox_script_pop();
+			nox_script_push(sa2 - sa1);
 			continue;
-		case 10:
-			v144 = COERCE_FLOAT(nox_script_pop());
-			*(float*)&v145 = COERCE_FLOAT(nox_script_pop()) - v144;
-			nox_script_push(v145);
+		case 10: // sub float
+			sf1 = COERCE_FLOAT(nox_script_pop());
+			sf2 = COERCE_FLOAT(nox_script_pop());
+			sf2 -= sf1;
+			nox_script_push(SLODWORD(sf2));
 			continue;
-		case 11:
-			v28 = nox_script_pop();
-			v29 = nox_script_pop();
-			nox_script_push(v28 * v29);
+		case 11: // mult int
+			sa1 = nox_script_pop();
+			sa2 = nox_script_pop();
+			nox_script_push(sa1 * sa2);
 			continue;
-		case 12:
-			v146 = COERCE_FLOAT(nox_script_pop());
-			v22 = COERCE_FLOAT(nox_script_pop()) * v146;
-			*(float*)&v143 = v22;
-			nox_script_push(v143);
+		case 12: // mult float
+			sf1 = COERCE_FLOAT(nox_script_pop());
+			sf2 = COERCE_FLOAT(nox_script_pop());
+			sf1 *= sf2;
+			nox_script_push(SLODWORD(sf1));
 			continue;
-		case 13:
-			v30 = nox_script_pop();
-			v31 = nox_script_pop();
-			nox_script_push(v31 / v30);
+		case 13: // div int
+			sa1 = nox_script_pop();
+			sa2 = nox_script_pop();
+			nox_script_push(sa2 / sa1);
 			continue;
-		case 14:
-			v147 = COERCE_FLOAT(nox_script_pop());
-			v13 = COERCE_FLOAT(nox_script_pop()) / v147;
-			*(float*)&v140 = v13;
-			nox_script_push(v140);
+		case 14: // div float
+			sf1 = COERCE_FLOAT(nox_script_pop());
+			sf2 = COERCE_FLOAT(nox_script_pop());
+			sf2 /= sf1;
+			nox_script_push(SLODWORD(sf2));
 			continue;
-		case 15:
-			v32 = nox_script_pop();
-			v33 = nox_script_pop();
-			nox_script_push(v33 % v32);
+		case 15: // mod int
+			sa1 = nox_script_pop();
+			sa2 = nox_script_pop();
+			nox_script_push(sa2 % sa1);
 			continue;
-		case 16:
-			v34 = nox_script_pop();
-			v35 = nox_script_pop();
-			nox_script_push(v35 & v34);
+		case 16: // bit mult int
+			sa1 = nox_script_pop();
+			sa2 = nox_script_pop();
+			nox_script_push(sa2 & sa1);
 			continue;
-		case 17:
-			v36 = nox_script_pop();
-			v37 = nox_script_pop();
-			nox_script_push(v37 | v36);
+		case 17: // bit or int
+			sa1 = nox_script_pop();
+			sa2 = nox_script_pop();
+			nox_script_push(sa2 | sa1);
 			continue;
-		case 18:
-			v38 = nox_script_pop();
-			v39 = nox_script_pop();
-			nox_script_push(v39 ^ v38);
+		case 18: // bit xor int
+			sa1 = nox_script_pop();
+			sa2 = nox_script_pop();
+			nox_script_push(sa2 ^ sa1);
 			continue;
-		case 19:
-			v160 = (unsigned int)(nox_script_arr_xxx_1599636[index].data) + 4 * nox_script_nextInt((int**)&v160);
+		case 19: // jump
+			data = (unsigned int)(script->data) + 4 * nox_script_nextInt(&data);
 			continue;
-		case 20:
-			v44 = nox_script_nextInt((int**)&v160);
+		case 20: // jump if
+			sa1 = nox_script_nextInt(&data);
 			if (nox_script_pop())
-				v160 = (unsigned int)(nox_script_arr_xxx_1599636[index].data) + 4 * v44;
+				data = (unsigned int)(script->data) + 4 * sa1;
 			continue;
-		case 21:
-			v45 = nox_script_nextInt((int**)&v160);
+		case 21: // jump if not
+			sa1 = nox_script_nextInt(&data);
 			if (!nox_script_pop())
-				v160 = (unsigned int)(nox_script_arr_xxx_1599636[index].data) + 4 * v45;
+				data = (unsigned int)(script->data) + 4 * sa1;
 			continue;
 		case 22:
-		case 24:
-			v46 = nox_script_pop();
-			v47 = nox_script_pop();
+		case 24: // set xxx int
+			sa1 = nox_script_pop();
+			sa2 = nox_script_pop();
 			if (nox_script_pop()) {
-				*(unsigned int*)((char*)(nox_script_arr_xxx_1599636[1].field_28) + 4 * v47) = v46;
-				nox_script_push(v46);
+				*(unsigned int*)((char*)(nox_script_arr_xxx_1599636[1].field_28) + 4 * sa2) = sa1;
+				nox_script_push(sa1);
 			} else {
-				if (v47 < 0)
-					*(unsigned int*)(*(unsigned int*)(v3 + 760) - 4 * v47) = v46;
+				if (sa2 < 0)
+					*(unsigned int*)(*(unsigned int*)(v3 + 760) - 4 * sa2) = sa1;
 				else
-					*(unsigned int*)((unsigned int)(nox_script_arr_xxx_1599636[index].field_28) + 4 * v47) = v46;
-				nox_script_push(v46);
+					*(unsigned int*)((unsigned int)(script->field_28) + 4 * sa2) = sa1;
+				nox_script_push(sa1);
 			}
 			continue;
-		case 23:
-			v48 = COERCE_FLOAT(nox_script_pop());
-			v49 = nox_script_pop();
+		case 23: // set xxx float
+			sf1 = COERCE_FLOAT(nox_script_pop());
+			sa2 = nox_script_pop();
 			if (nox_script_pop()) {
-				*(float*)((char*)(nox_script_arr_xxx_1599636[1].field_28) + 4 * v49) = v48;
-				nox_script_push(SLODWORD(v48));
+				*(float*)((char*)(nox_script_arr_xxx_1599636[1].field_28) + 4 * sa2) = sf1;
+				nox_script_push(SLODWORD(sf1));
 			} else {
-				if (v49 < 0)
-					*(float*)(*(unsigned int*)(v3 + 760) - 4 * v49) = v48;
+				if (sa2 < 0)
+					*(float*)(*(unsigned int*)(v3 + 760) - 4 * sa2) = sf1;
 				else
-					*(float*)((unsigned int)(nox_script_arr_xxx_1599636[index].field_28) + 4 * v49) = v48;
-				nox_script_push(SLODWORD(v48));
+					*(float*)((unsigned int)(script->field_28) + 4 * sa2) = sf1;
+				nox_script_push(SLODWORD(sf1));
 			}
 			continue;
-		case 25:
-			v74 = nox_script_pop();
-			v75 = nox_script_pop();
+		case 25: // mult xxx int
+			sa1 = nox_script_pop();
+			sa2 = nox_script_pop();
 			if (nox_script_pop()) {
-				*(unsigned int*)((char*)(nox_script_arr_xxx_1599636[1].field_28) + 4 * v75) *= v74;
-				nox_script_push(*(unsigned int*)((char*)(nox_script_arr_xxx_1599636[1].field_28) + 4 * v75));
-			} else if (v75 < 0) {
-				*(unsigned int*)(*(unsigned int*)(v3 + 760) - 4 * v75) *= v74;
-				nox_script_push(*(unsigned int*)(*(unsigned int*)(v3 + 760) - 4 * v75));
+				*(unsigned int*)((char*)(nox_script_arr_xxx_1599636[1].field_28) + 4 * sa2) *= sa1;
+				nox_script_push(*(unsigned int*)((char*)(nox_script_arr_xxx_1599636[1].field_28) + 4 * sa2));
+			} else if (sa2 < 0) {
+				*(unsigned int*)(*(unsigned int*)(v3 + 760) - 4 * sa2) *= sa1;
+				nox_script_push(*(unsigned int*)(*(unsigned int*)(v3 + 760) - 4 * sa2));
 			} else {
-				*(unsigned int*)((unsigned int)(nox_script_arr_xxx_1599636[index].field_28) + 4 * v75) *= v74;
-				nox_script_push(*(unsigned int*)((unsigned int)(nox_script_arr_xxx_1599636[index].field_28) + 4 * v75));
+				*(unsigned int*)((unsigned int)(script->field_28) + 4 * sa2) *= sa1;
+				nox_script_push(*(unsigned int*)((unsigned int)(script->field_28) + 4 * sa2));
 			}
 			continue;
-		case 26:
-			v150 = COERCE_FLOAT(nox_script_pop());
-			v52 = nox_script_pop();
+		case 26: // mult xxx float
+			sf1 = COERCE_FLOAT(nox_script_pop());
+			sa1 = nox_script_pop();
 			if (nox_script_pop()) {
 				v76 = (char*)(nox_script_arr_xxx_1599636[1].field_28);
-				v54 = v150 * *(float*)(v76 + 4 * v52);
-				v55 = (float*)(v76 + 4 * v52);
-				*v55 = v54;
-				nox_script_push(COERCE_INT(*(float*)((char*)(nox_script_arr_xxx_1599636[1].field_28) + 4 * v52)));
-			} else if (v52 >= 0) {
-				v77 = nox_script_arr_xxx_1599636[index].field_28;
-				v57 = v150 * *(float*)(v77 + 4 * v52);
-				v58 = (float*)(v77 + 4 * v52);
-				*v58 = v57;
-				nox_script_push(COERCE_INT(*(float*)((unsigned int)(nox_script_arr_xxx_1599636[index].field_28) + 4 * v52)));
+				sf1 = sf1 * *(float*)(v76 + 4 * sa1);
+				v55 = (float*)(v76 + 4 * sa1);
+				*v55 = sf1;
+				nox_script_push(COERCE_INT(*(float*)((char*)(nox_script_arr_xxx_1599636[1].field_28) + 4 * sa1)));
+			} else if (sa1 >= 0) {
+				v77 = script->field_28;
+				sf1 = sf1 * *(float*)(v77 + 4 * sa1);
+				v58 = (float*)(v77 + 4 * sa1);
+				*v58 = sf1;
+				nox_script_push(COERCE_INT(*(float*)((unsigned int)(script->field_28) + 4 * sa1)));
 			} else {
-				v59 = 4 * v52;
-				v60 = (float *) (*(unsigned int *) (v3 + 760) - 4 * v52);
-				v61 = v150 * *v60;
-				*v55 = v54;
-				nox_script_push(COERCE_INT(*(float*)((unsigned int)(nox_script_arr_xxx_1599636[1].field_28) + 4 * v52)));
+				v59 = 4 * sa1;
+				v60 = (float *) (*(unsigned int *) (v3 + 760) - 4 * sa1);
+				v61 = sf1 * *v60;
+				*v55 = v54; // TODO: should be = v61?
+				nox_script_push(COERCE_INT(*(float*)((unsigned int)(nox_script_arr_xxx_1599636[1].field_28) + 4 * sa1)));
 			}
 			continue;
-		case 27:
-			v78 = nox_script_pop();
-			v79 = nox_script_pop();
+		case 27: // div xxx int
+			sa1 = nox_script_pop();
+			sa2 = nox_script_pop();
 			if (nox_script_pop()) {
-				*(unsigned int*)((char*)(nox_script_arr_xxx_1599636[1].field_28) + 4 * v79) /= v78;
-				nox_script_push(*(unsigned int*)((char*)(nox_script_arr_xxx_1599636[1].field_28) + 4 * v79));
-			} else if (v79 < 0) {
-				v80 = 4 * v79;
-				*(unsigned int*)(*(unsigned int*)(v3 + 760) - v80) /= v78;
-				nox_script_push(*(unsigned int*)(*(unsigned int*)(v3 + 760) - v80));
+				*(unsigned int*)((char*)(nox_script_arr_xxx_1599636[1].field_28) + 4 * sa2) /= sa1;
+				nox_script_push(*(unsigned int*)((char*)(nox_script_arr_xxx_1599636[1].field_28) + 4 * sa2));
+			} else if (sa2 < 0) {
+				*(unsigned int*)(*(unsigned int*)(v3 + 760) - 4 * sa2) /= sa1;
+				nox_script_push(*(unsigned int*)(*(unsigned int*)(v3 + 760) - 4 * sa2));
 			} else {
-				*(unsigned int*)((unsigned int)(nox_script_arr_xxx_1599636[index].field_28) + 4 * v79) /= v78;
-				nox_script_push(*(unsigned int*)((unsigned int)(nox_script_arr_xxx_1599636[index].field_28) + 4 * v79));
+				*(unsigned int*)((unsigned int)(script->field_28) + 4 * sa2) /= sa1;
+				nox_script_push(*(unsigned int*)((unsigned int)(script->field_28) + 4 * sa2));
 			}
 			continue;
-		case 28:
-			v151 = COERCE_FLOAT(nox_script_pop());
-			v81 = nox_script_pop();
+		case 28: // div xxx float
+			sf1 = COERCE_FLOAT(nox_script_pop());
+			sa1 = nox_script_pop();
 			if (nox_script_pop()) {
-				*(float*)((char*)(nox_script_arr_xxx_1599636[1].field_28) + 4 * v81) =
-					*(float*)((char*)(nox_script_arr_xxx_1599636[1].field_28) + 4 * v81) / v151;
-				v13 = *(float*)((char*)(nox_script_arr_xxx_1599636[1].field_28) + 4 * v81);
+				*(float*)((char*)(nox_script_arr_xxx_1599636[1].field_28) + 4 * sa1) =
+					*(float*)((char*)(nox_script_arr_xxx_1599636[1].field_28) + 4 * sa1) / sf1;
+				v13 = *(float*)((char*)(nox_script_arr_xxx_1599636[1].field_28) + 4 * sa1);
 				*(float*)&v140 = v13;
 				nox_script_push(v140);
-			} else if (v81 >= 0) {
-				*(float*)((unsigned int)(nox_script_arr_xxx_1599636[index].field_28) + 4 * v81) =
-					*(float*)((unsigned int)(nox_script_arr_xxx_1599636[index].field_28) + 4 * v81) / v151;
-				v13 = *(float*)((unsigned int)(nox_script_arr_xxx_1599636[index].field_28) + 4 * v81);
+			} else if (sa1 >= 0) {
+				*(float*)((unsigned int)(script->field_28) + 4 * sa1) =
+					*(float*)((unsigned int)(script->field_28) + 4 * sa1) / sf1;
+				v13 = *(float*)((unsigned int)(script->field_28) + 4 * sa1);
 				*(float*)&v140 = v13;
 				nox_script_push(v140);
 			} else {
-				v71 = 4 * v81;
-				v72 = (float*)(*(unsigned int*)(v3 + 760) - 4 * v81);
-				v73 = *v72 / v151;
+				v71 = 4 * sa1;
+				v72 = (float*)(*(unsigned int*)(v3 + 760) - 4 * sa1);
+				v73 = *v72 / sf1;
 				*v72 = v73;
 				nox_script_push(*(unsigned int*)(*(unsigned int*)(v3 + 760) - v71));
 			}
 			continue;
-		case 29:
-			v50 = nox_script_pop();
-			v51 = nox_script_pop();
+		case 29: // add xxx int
+			sa1 = nox_script_pop();
+			sa2 = nox_script_pop();
 			if (nox_script_pop()) {
-				*(unsigned int*)((char*)(nox_script_arr_xxx_1599636[1].field_28) + 4 * v51) += v50;
-				nox_script_push(*(unsigned int*)((char*)(nox_script_arr_xxx_1599636[1].field_28) + 4 * v51));
-			} else if (v51 < 0) {
-				*(unsigned int*)(*(unsigned int*)(v3 + 760) - 4 * v51) += v50;
-				nox_script_push(*(unsigned int*)(*(unsigned int*)(v3 + 760) - 4 * v51));
+				*(unsigned int*)((char*)(nox_script_arr_xxx_1599636[1].field_28) + 4 * sa2) += sa1;
+				nox_script_push(*(unsigned int*)((char*)(nox_script_arr_xxx_1599636[1].field_28) + 4 * sa2));
+			} else if (sa2 < 0) {
+				*(unsigned int*)(*(unsigned int*)(v3 + 760) - 4 * sa2) += sa1;
+				nox_script_push(*(unsigned int*)(*(unsigned int*)(v3 + 760) - 4 * sa2));
 			} else {
-				*(unsigned int*)((unsigned int)(nox_script_arr_xxx_1599636[index].field_28) + 4 * v51) += v50;
-				nox_script_push(*(unsigned int*)((unsigned int)(nox_script_arr_xxx_1599636[index].field_28) + 4 * v51));
+				*(unsigned int*)((unsigned int)(script->field_28) + 4 * sa2) += sa1;
+				nox_script_push(*(unsigned int*)((unsigned int)(script->field_28) + 4 * sa2));
 			}
 			continue;
-		case 30:
-			v148 = COERCE_FLOAT(nox_script_pop());
-			v52 = nox_script_pop();
+		case 30: // add xxx float
+			sf1 = COERCE_FLOAT(nox_script_pop());
+			sa1 = nox_script_pop();
 			if (nox_script_pop()) {
 				v53 = (char*)(nox_script_arr_xxx_1599636[1].field_28);
-				v54 = v148 + *(float*)(v53 + 4 * v52);
-				v55 = (float*)(v53 + 4 * v52);
+				v54 = sf1 + *(float*)(v53 + 4 * sa1);
+				v55 = (float*)(v53 + 4 * sa1);
 				*v55 = v54;
-				nox_script_push(COERCE_INT(*(float*)((char*)(nox_script_arr_xxx_1599636[1].field_28) + 4 * v52)));
-			} else if (v52 < 0) {
-				v59 = 4 * v52;
-				v60 = (float*)(*(unsigned int*)(v3 + 760) - 4 * v52);
-				v61 = v148 + *v60;
+				nox_script_push(COERCE_INT(*(float*)((char*)(nox_script_arr_xxx_1599636[1].field_28) + 4 * sa1)));
+			} else if (sa1 < 0) {
+				v59 = 4 * sa1;
+				v60 = (float*)(*(unsigned int*)(v3 + 760) - 4 * sa1);
+				v61 = sf1 + *v60;
 				*v60 = v61;
 				nox_script_push(*(unsigned int*)(*(unsigned int*)(v3 + 760) - v59));
 			} else {
-				v56 = nox_script_arr_xxx_1599636[index].field_28;
-				v57 = v148 + *(float*)(v56 + 4 * v52);
-				v58 = (float*)(v56 + 4 * v52);
+				v56 = script->field_28;
+				v57 = sf1 + *(float*)(v56 + 4 * sa1);
+				v58 = (float*)(v56 + 4 * sa1);
 				*v58 = v57;
-				nox_script_push(COERCE_INT(*(float*)((unsigned int)(nox_script_arr_xxx_1599636[index].field_28) + 4 * v52)));
+				nox_script_push(COERCE_INT(*(float*)((unsigned int)(script->field_28) + 4 * sa1)));
 			}
 			continue;
-		case 31:
-			v62 = nox_script_pop();
-			v63 = nox_script_pop();
-			v64 = nox_script_pop();
-			if (v64) {
-				v65 = 4 * v63;
-				v66 = *(unsigned int*)((char*)(nox_script_arr_xxx_1599636[1].field_28) + 4 * v63);
+		case 31: // cat xxx string
+			sa1 = nox_script_pop();
+			sa2 = nox_script_pop();
+			sa3 = nox_script_pop();
+			if (sa3) {
+				v65 = 4 * sa2;
+				v66 = *(unsigned int*)((char*)(nox_script_arr_xxx_1599636[1].field_28) + 4 * sa2);
 			} else {
-				v65 = 4 * v63;
-				if (v63 < 0)
-					v66 = *(unsigned int*)(*(unsigned int*)(a3 + 760) - 4 * v63);
+				v65 = 4 * sa2;
+				if (sa2 < 0)
+					v66 = *(unsigned int*)(*(unsigned int*)(a3 + 760) - 4 * sa2);
 				else
-					v66 = *(unsigned int*)((unsigned int)(nox_script_arr_xxx_1599636[index].field_28) + 4 * v63);
+					v66 = *(unsigned int*)((unsigned int)(script->field_28) + 4 * sa2);
 			}
-			nox_sprintf(v164, "%s%s", nox_script_strings[v66],
-						nox_script_strings[v62]);
-			v67 = nox_script_addString_512E40(v164);
-			if (v64) {
+			nox_sprintf(buf, "%s%s", nox_script_getString_512E40(v66), nox_script_getString_512E40(sa1));
+			v67 = nox_script_addString_512E40(buf);
+			if (sa3) {
 				*(unsigned int*)((char*)(nox_script_arr_xxx_1599636[1].field_28) + v65) = v67;
 			} else if (v63 < 0) {
 				*(unsigned int *) (*(unsigned int *) (a3 + 760) - v65) = v67;
 			} else {
-				*(unsigned int *) (*(unsigned int *) (nox_script_arr_xxx_1599636[index].field_28) + v65) = v67;
+				*(unsigned int *) (*(unsigned int *) (script->field_28) + v65) = v67;
 			}
 			nox_script_push(v67);
 			v3 = a3;
 			continue;
-		case 32:
-			v68 = nox_script_pop();
-			v69 = nox_script_pop();
+		case 32: // sub xxx int
+			sa1 = nox_script_pop();
+			sa2 = nox_script_pop();
 			if (nox_script_pop()) {
-				*(unsigned int*)((char*)(nox_script_arr_xxx_1599636[1].field_28) + 4 * v69) -= v68;
-				nox_script_push(*(unsigned int*)((char*)(nox_script_arr_xxx_1599636[1].field_28) + 4 * v69));
-			} else if (v69 < 0) {
-				*(unsigned int*)(*(unsigned int*)(v3 + 760) - 4 * v69) -= v68;
-				nox_script_push(*(unsigned int*)(*(unsigned int*)(v3 + 760) - 4 * v69));
+				*(unsigned int*)((char*)(nox_script_arr_xxx_1599636[1].field_28) + 4 * sa2) -= sa1;
+				nox_script_push(*(unsigned int*)((char*)(nox_script_arr_xxx_1599636[1].field_28) + 4 * sa2));
+			} else if (sa2 < 0) {
+				*(unsigned int*)(*(unsigned int*)(v3 + 760) - 4 * sa2) -= sa1;
+				nox_script_push(*(unsigned int*)(*(unsigned int*)(v3 + 760) - 4 * sa2));
 			} else {
-				*(unsigned int*)((unsigned int)(nox_script_arr_xxx_1599636[index].field_28) + 4 * v69) -= v68;
-				nox_script_push(*(unsigned int*)((unsigned int)(nox_script_arr_xxx_1599636[index].field_28) + 4 * v69));
+				*(unsigned int*)((unsigned int)(script->field_28) + 4 * sa2) -= sa1;
+				nox_script_push(*(unsigned int*)((unsigned int)(script->field_28) + 4 * sa2));
 			}
 			continue;
-		case 33:
-			v149 = COERCE_FLOAT(nox_script_pop());
-			v70 = nox_script_pop();
+		case 33: // sub xxx float
+			sf1 = COERCE_FLOAT(nox_script_pop());
+			sa1 = nox_script_pop();
 			if (nox_script_pop()) {
-				*(float*)((char*)(nox_script_arr_xxx_1599636[1].field_28) + 4 * v70) =
-					*(float*)((char*)(nox_script_arr_xxx_1599636[1].field_28) + 4 * v70) - v149;
-				v13 = *(float*)((char*)(nox_script_arr_xxx_1599636[1].field_28) + 4 * v70);
+				*(float*)((char*)(nox_script_arr_xxx_1599636[1].field_28) + 4 * sa1) =
+					*(float*)((char*)(nox_script_arr_xxx_1599636[1].field_28) + 4 * sa1) - sf1;
+				v13 = *(float*)((char*)(nox_script_arr_xxx_1599636[1].field_28) + 4 * sa1);
 				*(float*)&v140 = v13;
 				nox_script_push(v140);
-			} else if (v70 >= 0) {
-				*(float*)((unsigned int)(nox_script_arr_xxx_1599636[index].field_28) + 4 * v70) =
-					*(float*)((unsigned int)(nox_script_arr_xxx_1599636[index].field_28) + 4 * v70) - v149;
-				v13 = *(float*)((unsigned int)(nox_script_arr_xxx_1599636[index].field_28) + 4 * v70);
+			} else if (sa1 >= 0) {
+				*(float*)((unsigned int)(script->field_28) + 4 * sa1) =
+					*(float*)((unsigned int)(script->field_28) + 4 * sa1) - sf1;
+				v13 = *(float*)((unsigned int)(script->field_28) + 4 * sa1);
 				*(float*)&v140 = v13;
 				nox_script_push(v140);
 			} else {
-				v71 = 4 * v70;
-				v72 = (float*)(*(unsigned int*)(v3 + 760) - 4 * v70);
-				v73 = *v72 - v149;
+				v71 = 4 * sa1;
+				v72 = (float*)(*(unsigned int*)(v3 + 760) - 4 * sa1);
+				v73 = *v72 - sf1;
 				*v72 = v73;
 				nox_script_push(*(unsigned int*)(*(unsigned int*)(v3 + 760) - v71));
 			}
 			continue;
-		case 34:
-			v82 = nox_script_pop();
-			v83 = nox_script_pop();
+		case 34: // mod xxx int
+			sa1 = nox_script_pop();
+			sa2 = nox_script_pop();
 			if (nox_script_pop()) {
-				*(unsigned int*)((char*)(nox_script_arr_xxx_1599636[1].field_28) + 4 * v83) %= v82;
-				nox_script_push(*(unsigned int*)((char*)(nox_script_arr_xxx_1599636[1].field_28) + 4 * v83));
-			} else if (v83 < 0) {
-				v84 = 4 * v83;
-				*(unsigned int*)(*(unsigned int*)(v3 + 760) - v84) %= v82;
+				*(unsigned int*)((char*)(nox_script_arr_xxx_1599636[1].field_28) + 4 * sa2) %= sa1;
+				nox_script_push(*(unsigned int*)((char*)(nox_script_arr_xxx_1599636[1].field_28) + 4 * sa2));
+			} else if (sa2 < 0) {
+				v84 = 4 * sa2;
+				*(unsigned int*)(*(unsigned int*)(v3 + 760) - v84) %= sa1;
 				nox_script_push(*(unsigned int*)(*(unsigned int*)(v3 + 760) - v84));
 			} else {
-				*(unsigned int*)((unsigned int)(nox_script_arr_xxx_1599636[index].field_28) + 4 * v83) %= v82;
-				nox_script_push(*(unsigned int*)((unsigned int)(nox_script_arr_xxx_1599636[index].field_28) + 4 * v83));
+				*(unsigned int*)((unsigned int)(script->field_28) + 4 * sa2) %= sa1;
+				nox_script_push(*(unsigned int*)((unsigned int)(script->field_28) + 4 * sa2));
 			}
 			continue;
-		case 35:
-			v95 = nox_script_pop();
-			v96 = nox_script_pop();
-			nox_script_push(v96 == v95);
+		case 35: // equal int
+			sa1 = nox_script_pop();
+			sa2 = nox_script_pop();
+			nox_script_push(sa2 == sa1);
 			continue;
-		case 36:
-			v152 = COERCE_FLOAT(nox_script_pop());
-			if (COERCE_FLOAT(nox_script_pop()) != v152) {
-				nox_script_push(0);
-			} else {
-				nox_script_push(1);
-			}
+		case 36: // equal float
+			sf1 = COERCE_FLOAT(nox_script_pop());
+			sf2 = COERCE_FLOAT(nox_script_pop());
+			nox_script_push(sf2 == sf1);
 			continue;
-		case 37:
-			v97 = nox_script_pop();
-			if (!strcmp(nox_script_strings[nox_script_pop()],
-						nox_script_strings[v97]))
-				nox_script_push(1);
+		case 37: // equal string
+			sa1 = nox_script_pop();
+			sa2 = nox_script_pop();
+			nox_script_push(strcmp(nox_script_getString_512E40(sa2), nox_script_getString_512E40(sa1)) == 0);
+			continue;
+		case 38: // left shift
+			sa1 = nox_script_pop();
+			sa2 = nox_script_pop();
+			nox_script_push(sa2 << sa1);
+			continue;
+		case 39: // right shift
+			sa1 = nox_script_pop();
+			sa2 = nox_script_pop();
+			nox_script_push(sa2 >> sa1);
+			continue;
+		case 40: // < int
+			sa1 = nox_script_pop();
+			sa2 = nox_script_pop();
+			nox_script_push(sa2 < sa1);
+			continue;
+		case 41: // < float
+			sf1 = COERCE_FLOAT(nox_script_pop());
+			sf2 = COERCE_FLOAT(nox_script_pop());
+			nox_script_push(sf2 < sf1);
+			continue;
+		case 42: // < string ?
+			sa1 = nox_script_pop();
+			sa2 = nox_script_pop();
+			sa3 = strcmp(nox_script_getString_512E40(sa2), nox_script_getString_512E40(sa1));
+			if (sa3)
+				nox_script_push(-(sa3 < 0) - ((sa3 < 0) - 1) < 0);
 			else
 				nox_script_push(0);
 			continue;
-		case 38:
-			v40 = nox_script_pop();
-			v41 = nox_script_pop();
-			nox_script_push(v41 << v40);
+		case 43: // > int
+			sa1 = nox_script_pop();
+			sa2 = nox_script_pop();
+			nox_script_push(sa2 > sa1);
 			continue;
-		case 39:
-			v42 = nox_script_pop();
-			v43 = nox_script_pop();
-			nox_script_push(v43 >> v42);
+		case 44: // > float
+			sf1 = COERCE_FLOAT(nox_script_pop());
+			sf2 = COERCE_FLOAT(nox_script_pop());
+			nox_script_push(sf2 > sf1);
 			continue;
-		case 40:
-			v98 = nox_script_pop();
-			v99 = nox_script_pop();
-			nox_script_push(v99 < v98);
-			continue;
-		case 41:
-			v153 = COERCE_FLOAT(nox_script_pop());
-			if (COERCE_FLOAT(nox_script_pop()) >= (double)v153) {
-				nox_script_push(0);
-			} else {
-				nox_script_push(1);
-			}
-			continue;
-		case 42:
-			v100 = nox_script_pop();
-			v101 = strcmp(nox_script_strings[nox_script_pop()],
-						  nox_script_strings[v100]);
-			if (v101)
-				nox_script_push(-(v101 < 0) - ((v101 < 0) - 1) < 0);
+		case 45: // > string ?
+			sa1 = nox_script_pop();
+			sa2 = nox_script_pop();
+			sa3 = strcmp(nox_script_getString_512E40(sa2), nox_script_getString_512E40(sa1));
+			if (sa3)
+				nox_script_push(-(sa3 < 0) - ((sa3 < 0) - 1) > 0);
 			else
 				nox_script_push(0);
 			continue;
-		case 43:
-			v102 = nox_script_pop();
-			v103 = nox_script_pop();
-			nox_script_push(v103 > v102);
+		case 46: // <= int
+			sa1 = nox_script_pop();
+			sa2 = nox_script_pop();
+			nox_script_push(sa2 <= sa1);
 			continue;
-		case 44:
-			v154 = COERCE_FLOAT(nox_script_pop());
-			if (COERCE_FLOAT(nox_script_pop()) <= (double)v154) {
-				nox_script_push(0);
-			} else {
-				nox_script_push(1);
-			}
+		case 47: // <= float
+			sf1 = COERCE_FLOAT(nox_script_pop());
+			sf2 = COERCE_FLOAT(nox_script_pop());
+			nox_script_push(sf2 <= sf1);
 			continue;
-		case 45:
-			v104 = nox_script_pop();
-			v105 = strcmp(nox_script_strings[nox_script_pop()],
-						  nox_script_strings[v104]);
-			if (v105)
-				nox_script_push(-(v105 < 0) - ((v105 < 0) - 1) > 0);
-			else
-				nox_script_push(0);
-			continue;
-		case 46:
-			v106 = nox_script_pop();
-			v107 = nox_script_pop();
-			nox_script_push(v107 <= v106);
-			continue;
-		case 47:
-			v155 = COERCE_FLOAT(nox_script_pop());
-			if (COERCE_FLOAT(nox_script_pop()) > (double)v155) {
-				nox_script_push(0);
-			} else {
-				nox_script_push(1);
-			}
-			continue;
-		case 48:
-			v108 = nox_script_pop();
-			v109 = strcmp(nox_script_strings[nox_script_pop()],
-						  nox_script_strings[v108]);
-			if (v109)
-				nox_script_push(-(v109 < 0) - ((v109 < 0) - 1) <= 0);
+		case 48: // <= string ?
+			sa1 = nox_script_pop();
+			sa2 = nox_script_pop();
+			sa3 = strcmp(nox_script_getString_512E40(sa2), nox_script_getString_512E40(sa1));
+			if (sa3)
+				nox_script_push(-(sa3 < 0) - ((sa3 < 0) - 1) <= 0);
 			else
 				nox_script_push(1);
 			continue;
-		case 49:
-			v110 = nox_script_pop();
-			v111 = nox_script_pop();
-			nox_script_push(v111 >= v110);
+		case 49: // >= int
+			sa1 = nox_script_pop();
+			sa2 = nox_script_pop();
+			nox_script_push(sa2 >= sa1);
 			continue;
-		case 50:
-			v156 = COERCE_FLOAT(nox_script_pop());
-			if (COERCE_FLOAT(nox_script_pop()) < (double)v156) {
-				nox_script_push(0);
-			} else {
-				nox_script_push(1);
-			}
+		case 50: // >= float
+			sf1 = COERCE_FLOAT(nox_script_pop());
+			sf2 = COERCE_FLOAT(nox_script_pop());
+			nox_script_push(sf2 >= sf1);
 			continue;
-		case 51:
-			v112 = nox_script_pop();
-			v113 = strcmp(nox_script_strings[nox_script_pop()],
-						  nox_script_strings[v112]);
-			if (v113)
-				nox_script_push(-(v113 < 0) - ((v113 < 0) - 1) >= 0);
+		case 51: // >= string ?
+			sa1 = nox_script_pop();
+			sa2 = nox_script_pop();
+			sa3 = strcmp(nox_script_getString_512E40(sa2), nox_script_getString_512E40(sa1));
+			if (sa3)
+				nox_script_push(-(sa3 < 0) - ((sa3 < 0) - 1) >= 0);
 			else
 				nox_script_push(1);
 			continue;
-		case 52:
-			v114 = nox_script_pop();
-			v115 = nox_script_pop();
-			nox_script_push(v115 != v114);
+		case 52: // not equal int
+			sa1 = nox_script_pop();
+			sa2 = nox_script_pop();
+			nox_script_push(sa2 != sa1);
 			continue;
-		case 53:
-			v157 = COERCE_FLOAT(nox_script_pop());
-			if (COERCE_FLOAT(nox_script_pop()) == v157) {
-				nox_script_push(0);
-			} else {
-				nox_script_push(1);
-			}
+		case 53: // not equal float
+			sf1 = COERCE_FLOAT(nox_script_pop());
+			sf2 = COERCE_FLOAT(nox_script_pop());
+			nox_script_push(sf2 != sf1);
 			continue;
-		case 54:
-			v116 = nox_script_pop();
-			if (!strcmp(nox_script_strings[nox_script_pop()],
-						nox_script_strings[v116]))
-				nox_script_push(0);
-			else
-				nox_script_push(1);
+		case 54: // not equal string
+			sa1 = nox_script_pop();
+			sa2 = nox_script_pop();
+			nox_script_push(strcmp(nox_script_getString_512E40(sa2), nox_script_getString_512E40(sa1)) != 0);
 			continue;
-		case 55:
-			v117 = nox_script_pop();
-			if (nox_script_pop() && v117)
-				nox_script_push(1);
-			else
-				nox_script_push(0);
+		case 55: // logical and
+			sa1 = nox_script_pop();
+			sa2 = nox_script_pop();
+			nox_script_push(sa2 && sa1);
 			continue;
-		case 56:
-			v118 = nox_script_pop();
-			if (nox_script_pop() || v118)
-				nox_script_push(1);
-			else
-				nox_script_push(0);
+		case 56: // logical or
+			sa1 = nox_script_pop();
+			sa2 = nox_script_pop();
+			nox_script_push(sa2 || sa1);
 			continue;
-		case 57:
-			v85 = nox_script_pop();
-			v86 = nox_script_pop();
+		case 57: // left shift xxx int
+			sa1 = nox_script_pop();
+			sa2 = nox_script_pop();
 			if (nox_script_pop()) {
-				*(unsigned int*)((char*)(nox_script_arr_xxx_1599636[1].field_28) + 4 * v86) <<= v85;
-				nox_script_push(*(unsigned int*)((char*)(nox_script_arr_xxx_1599636[1].field_28) + 4 * v86));
-			} else if (v86 < 0) {
-				*(unsigned int*)(*(unsigned int*)(v3 + 760) - 4 * v86) <<= v85;
-				nox_script_push(*(unsigned int*)(*(unsigned int*)(v3 + 760) - 4 * v86));
+				*(unsigned int*)((char*)(nox_script_arr_xxx_1599636[1].field_28) + 4 * sa2) <<= sa1;
+				nox_script_push(*(unsigned int*)((char*)(nox_script_arr_xxx_1599636[1].field_28) + 4 * sa2));
+			} else if (sa2 < 0) {
+				*(unsigned int*)(*(unsigned int*)(v3 + 760) - 4 * sa2) <<= sa1;
+				nox_script_push(*(unsigned int*)(*(unsigned int*)(v3 + 760) - 4 * sa2));
 			} else {
-				*(unsigned int*)((unsigned int)(nox_script_arr_xxx_1599636[index].field_28) + 4 * v86) <<= v85;
-				nox_script_push(*(unsigned int*)((unsigned int)(nox_script_arr_xxx_1599636[index].field_28) + 4 * v86));
+				*(unsigned int*)((unsigned int)(script->field_28) + 4 * sa2) <<= sa1;
+				nox_script_push(*(unsigned int*)((unsigned int)(script->field_28) + 4 * sa2));
 			}
 			continue;
-		case 58:
-			v87 = nox_script_pop();
-			v88 = nox_script_pop();
+		case 58: // right shift xxx int
+			sa1 = nox_script_pop();
+			sa2 = nox_script_pop();
 			if (nox_script_pop()) {
-				*(unsigned int*)((char*)(nox_script_arr_xxx_1599636[1].field_28) + 4 * v88) >>= v87;
-				nox_script_push(*(unsigned int*)((char*)(nox_script_arr_xxx_1599636[1].field_28) + 4 * v88));
-			} else if (v88 < 0) {
-				*(unsigned int*)(*(unsigned int*)(v3 + 760) - 4 * v88) >>= v87;
-				nox_script_push(*(unsigned int*)(*(unsigned int*)(v3 + 760) - 4 * v88));
+				*(unsigned int*)((char*)(nox_script_arr_xxx_1599636[1].field_28) + 4 * sa2) >>= sa1;
+				nox_script_push(*(unsigned int*)((char*)(nox_script_arr_xxx_1599636[1].field_28) + 4 * sa2));
+			} else if (sa2 < 0) {
+				*(unsigned int*)(*(unsigned int*)(v3 + 760) - 4 * sa2) >>= sa1;
+				nox_script_push(*(unsigned int*)(*(unsigned int*)(v3 + 760) - 4 * sa2));
 			} else {
-				*(unsigned int*)((unsigned int)(nox_script_arr_xxx_1599636[index].field_28) + 4 * v88) >>= v87;
-				nox_script_push(*(unsigned int*)((unsigned int)(nox_script_arr_xxx_1599636[index].field_28) + 4 * v88));
+				*(unsigned int*)((unsigned int)(script->field_28) + 4 * sa2) >>= sa1;
+				nox_script_push(*(unsigned int*)((unsigned int)(script->field_28) + 4 * sa2));
 			}
 			continue;
-		case 59:
-			v89 = nox_script_pop();
-			v90 = nox_script_pop();
+		case 59: // bit mult xxx int
+			sa1 = nox_script_pop();
+			sa2 = nox_script_pop();
 			if (nox_script_pop()) {
-				*(unsigned int*)((char*)(nox_script_arr_xxx_1599636[1].field_28) + 4 * v90) &= v89;
-				nox_script_push(*(unsigned int*)((char*)(nox_script_arr_xxx_1599636[1].field_28) + 4 * v90));
-			} else if (v90 < 0) {
-				*(unsigned int*)(*(unsigned int*)(v3 + 760) - 4 * v90) &= v89;
-				nox_script_push(*(unsigned int*)(*(unsigned int*)(v3 + 760) - 4 * v90));
+				*(unsigned int*)((char*)(nox_script_arr_xxx_1599636[1].field_28) + 4 * sa2) &= sa1;
+				nox_script_push(*(unsigned int*)((char*)(nox_script_arr_xxx_1599636[1].field_28) + 4 * sa2));
+			} else if (sa2 < 0) {
+				*(unsigned int*)(*(unsigned int*)(v3 + 760) - 4 * sa2) &= sa1;
+				nox_script_push(*(unsigned int*)(*(unsigned int*)(v3 + 760) - 4 * sa2));
 			} else {
-				*(unsigned int*)((unsigned int)(nox_script_arr_xxx_1599636[index].field_28) + 4 * v90) &= v89;
-				nox_script_push(*(unsigned int*)((unsigned int)(nox_script_arr_xxx_1599636[index].field_28) + 4 * v90));
+				*(unsigned int*)((unsigned int)(script->field_28) + 4 * sa2) &= sa1;
+				nox_script_push(*(unsigned int*)((unsigned int)(script->field_28) + 4 * sa2));
 			}
 			continue;
-		case 60:
-			v93 = nox_script_pop();
-			v94 = nox_script_pop();
+		case 60: // bit or xxx int
+			sa1 = nox_script_pop();
+			sa2 = nox_script_pop();
 			if (nox_script_pop()) {
-				*(unsigned int*)((char*)(nox_script_arr_xxx_1599636[1].field_28) + 4 * v94) |= v93;
-				nox_script_push(*(unsigned int*)((char*)(nox_script_arr_xxx_1599636[1].field_28) + 4 * v94));
-			} else if (v94 < 0) {
-				*(unsigned int*)(*(unsigned int*)(v3 + 760) - 4 * v94) |= v93;
-				nox_script_push(*(unsigned int*)(*(unsigned int*)(v3 + 760) - 4 * v94));
+				*(unsigned int*)((char*)(nox_script_arr_xxx_1599636[1].field_28) + 4 * sa2) |= sa1;
+				nox_script_push(*(unsigned int*)((char*)(nox_script_arr_xxx_1599636[1].field_28) + 4 * sa2));
+			} else if (sa2 < 0) {
+				*(unsigned int*)(*(unsigned int*)(v3 + 760) - 4 * sa2) |= sa1;
+				nox_script_push(*(unsigned int*)(*(unsigned int*)(v3 + 760) - 4 * sa2));
 			} else {
-				*(unsigned int*)((unsigned int)(nox_script_arr_xxx_1599636[index].field_28) + 4 * v94) |= v93;
-				nox_script_push(*(unsigned int*)((unsigned int)(nox_script_arr_xxx_1599636[index].field_28) + 4 * v94));
+				*(unsigned int*)((unsigned int)(script->field_28) + 4 * sa2) |= sa1;
+				nox_script_push(*(unsigned int*)((unsigned int)(script->field_28) + 4 * sa2));
 			}
 			continue;
-		case 61:
-			v91 = nox_script_pop();
-			v92 = nox_script_pop();
+		case 61: // bit xor xxx int
+			sa1 = nox_script_pop();
+			sa2 = nox_script_pop();
 			if (nox_script_pop()) {
-				*(unsigned int*)((char*)(nox_script_arr_xxx_1599636[1].field_28) + 4 * v92) ^= v91;
-				nox_script_push(*(unsigned int*)((char*)(nox_script_arr_xxx_1599636[1].field_28) + 4 * v92));
-			} else if (v92 < 0) {
-				*(unsigned int*)(*(unsigned int*)(v3 + 760) - 4 * v92) ^= v91;
-				nox_script_push(*(unsigned int*)(*(unsigned int*)(v3 + 760) - 4 * v92));
+				*(unsigned int*)((char*)(nox_script_arr_xxx_1599636[1].field_28) + 4 * sa2) ^= sa1;
+				nox_script_push(*(unsigned int*)((char*)(nox_script_arr_xxx_1599636[1].field_28) + 4 * sa2));
+			} else if (sa2 < 0) {
+				*(unsigned int*)(*(unsigned int*)(v3 + 760) - 4 * sa2) ^= sa1;
+				nox_script_push(*(unsigned int*)(*(unsigned int*)(v3 + 760) - 4 * sa2));
 			} else {
-				*(unsigned int*)((unsigned int)(nox_script_arr_xxx_1599636[index].field_28) + 4 * v92) ^= v91;
-				nox_script_push(*(unsigned int*)((unsigned int)(nox_script_arr_xxx_1599636[index].field_28) + 4 * v92));
+				*(unsigned int*)((unsigned int)(script->field_28) + 4 * sa2) ^= sa1;
+				nox_script_push(*(unsigned int*)((unsigned int)(script->field_28) + 4 * sa2));
 			}
 			continue;
-		case 62:
-			v135 = nox_script_pop();
-			nox_script_push(v135 == 0);
+		case 62: // not int
+			sa1 = nox_script_pop();
+			nox_script_push(sa1 == 0);
 			continue;
-		case 63:
-			v136 = nox_script_pop();
-			nox_script_push(~v136);
+		case 63: // invert int
+			sa1 = nox_script_pop();
+			nox_script_push(~sa1);
 			continue;
-		case 64:
-			v137 = nox_script_pop();
-			nox_script_push(-v137);
+		case 64: // negate int
+			sa1 = nox_script_pop();
+			nox_script_push(-sa1);
 			continue;
-		case 65:
-			v159 = -COERCE_FLOAT(nox_script_pop());
-			nox_script_push(SLODWORD(v159));
+		case 65: // negate float
+			sf1 = -COERCE_FLOAT(nox_script_pop());
+			nox_script_push(SLODWORD(sf1));
 			continue;
 		case 66:
-			v119 = nox_script_pop();
-			v120 = nox_script_pop();
-			v121 = nox_script_pop();
-			v122 = nox_script_pop();
-			if (v119 < 0 || v119 >= v122)
+			sa1 = nox_script_pop();
+			sa2 = nox_script_pop();
+			sa3 = nox_script_pop();
+			sa4 = nox_script_pop();
+			if (sa1 < 0 || sa1 >= sa4)
 				v161 = 1;
-			if (v121) {
-				v123 = *(unsigned int*)((char*)(nox_script_arr_xxx_1599636[1].field_28) + 4 * (v119 + v120));
-			} else if (v120 < 0) {
-				v123 = *(unsigned int*)(*(unsigned int*)(a3 + 760) + 4 * (v120 - v119));
+			if (sa3) {
+				v123 = *(unsigned int*)((char*)(nox_script_arr_xxx_1599636[1].field_28) + 4 * (sa1 + sa2));
+			} else if (sa2 < 0) {
+				v123 = *(unsigned int*)(*(unsigned int*)(a3 + 760) + 4 * (sa2 - sa1));
 			} else {
-				v123 = *(unsigned int*)((unsigned int)(nox_script_arr_xxx_1599636[index].field_28) + 4 * (v119 + v120));
+				v123 = *(unsigned int*)((unsigned int)(script->field_28) + 4 * (sa1 + sa2));
 			}
 			nox_script_push(v123);
 			if (v161) {
@@ -1257,19 +1114,19 @@ void nox_script_callByIndex_507310(int index, int a2, int a3) {
 			v3 = a3;
 			continue;
 		case 67:
-			v127 = nox_script_pop();
-			v128 = nox_script_pop();
-			v129 = nox_script_pop();
-			v130 = nox_script_pop();
-			if (v127 < 0 || v127 > v130)
+			sa1 = nox_script_pop();
+			sa2 = nox_script_pop();
+			sa3 = nox_script_pop();
+			sa4 = nox_script_pop();
+			if (sa1 < 0 || sa1 > sa4)
 				v161 = 1;
-			if (v129) {
-				nox_script_push(COERCE_INT(*(float*)((char*)(nox_script_arr_xxx_1599636[1].field_28) + 4 * (v127 + v128))));
+			if (sa3) {
+				nox_script_push(COERCE_INT(*(float*)((char*)(nox_script_arr_xxx_1599636[1].field_28) + 4 * (sa1 + sa2))));
 			} else {
-				if (v128 < 0)
-					v158 = *(int*)(*(unsigned int*)(a3 + 760) + 4 * (v128 - v127));
+				if (sa2 < 0)
+					v158 = *(int*)(*(unsigned int*)(a3 + 760) + 4 * (sa2 - sa1));
 				else
-					v158 = *(int*)((unsigned int)(nox_script_arr_xxx_1599636[index].field_28) + 4 * (v127 + v128));
+					v158 = *(int*)((unsigned int)(script->field_28) + 4 * (sa1 + sa2));
 				nox_script_push(v158);
 			}
 			if (v161) {
@@ -1278,56 +1135,54 @@ void nox_script_callByIndex_507310(int index, int a2, int a3) {
 			v3 = a3;
 			continue;
 		case 68:
-			v131 = nox_script_pop();
-			v132 = nox_script_pop();
-			v133 = nox_script_pop();
-			v134 = nox_script_pop();
-			if (v131 < 0 || v131 > v134)
+			sa1 = nox_script_pop();
+			sa2 = nox_script_pop();
+			sa3 = nox_script_pop();
+			sa4 = nox_script_pop();
+			if (sa1 < 0 || sa1 > sa4)
 				v161 = 1;
-			nox_script_push(v133);
-			if (v132 < 0)
-				nox_script_push(v132 - v131);
+			nox_script_push(sa3);
+			if (sa2 < 0)
+				nox_script_push(sa2 - sa1);
 			else
-				nox_script_push(v132 + v131);
+				nox_script_push(sa2 + sa1);
 			if (v161) {
 				break;
 			}
 			v3 = a3;
 			continue;
-		case 69:
-			v138 = nox_script_nextInt((int**)&v160);
-			if (nox_script_callBuiltin_508B70(index, v138) == 1) {
+		case 69: // call builtin
+			sa1 = nox_script_nextInt(&data);
+			if (nox_script_callBuiltin_508B70(index, sa1) == 1) {
 				break;
 			}
 			continue;
-		case 70:
-			v139 = nox_script_nextInt((int**)&v160);
-			nox_script_callByIndex_507310(v139, a2, v3);
+		case 70: // call script
+			sa1 = nox_script_nextInt(&data);
+			nox_script_callByIndex_507310(sa1, a2, v3);
 			continue;
-		case 73:
-			v23 = nox_script_pop();
-			v24 = nox_script_pop();
-			nox_sprintf(v164, "%s%s", nox_script_strings[v24],
-						nox_script_strings[v23]);
-			v25 = nox_script_addString_512E40(v164);
-			nox_script_push(v25);
+		case 73: // string cat
+			sa1 = nox_script_pop();
+			sa2 = nox_script_pop();
+			nox_sprintf(buf, "%s%s", nox_script_getString_512E40(sa2), nox_script_getString_512E40(sa1));
+			sa3 = nox_script_addString_512E40(buf);
+			nox_script_push(sa3);
 			continue;
 		default:
 			break;
 		}
-		v124 = v163;
-		if (nox_script_stack_top != (int)(nox_script_arr_xxx_1599636[index].field_4) + v163) {
-			if (nox_script_arr_xxx_1599636[index].field_4) {
+		if (nox_script_stack_top != script->stack_size + bstack) {
+			if (script->stack_size) {
 				if (nox_script_stack_top) {
-					v126 = nox_script_pop();
-					nox_script_stack_top = v124;
-					nox_script_push(v126);
+					int v = nox_script_pop();
+					nox_script_stack_top = bstack;
+					nox_script_push(v);
 				} else {
-					nox_script_stack_top = v163;
+					nox_script_stack_top = bstack;
 					nox_script_push(0);
 				}
 			} else {
-				nox_script_stack_top = v163;
+				nox_script_stack_top = bstack;
 			}
 		}
 		return;
