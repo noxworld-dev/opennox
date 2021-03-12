@@ -14,12 +14,12 @@ typedef struct nox_script_xxx_t {
 	char* field_0; // 0, 0
 	unsigned int field_4; // 1, 4
 	int field_8; // 2, 8
-	unsigned int field_12; // 3, 12
+	unsigned int field_12; // 3, 12; len field_20 and field_24
 	unsigned int field_16; // 4, 16
-	void* field_20; // 5, 20; int[]
-	void* field_24; // 6, 24; int[]
+	unsigned int* field_20; // 5, 20
+	unsigned int* field_24; // 6, 24
 	void* field_28; // 7, 28; float[]?
-	void* field_32; // 8, 32
+	void* data; // 8, 32
 	char* field_36; // 9, 36
 	unsigned int field_40; // 10, 40
 	unsigned int field_44; // 11, 44
@@ -29,12 +29,12 @@ _Static_assert(sizeof(nox_script_xxx_t) == 48, "wrong size of nox_script_xxx_t s
 nox_script_xxx_t* nox_script_arr_xxx_1599636 = 0;
 int nox_script_count_xxx_1599640 = 0;
 
-unsigned int dword_5d4594_1599624 = 0;
-unsigned int dword_5d4594_1599632 = 0;
 unsigned int dword_5d4594_3821964 = 0;
 unsigned int dword_5d4594_3821968 = 0;
 
-FILE* nox_script_ncobj = 0;
+char* nox_script_strings[1024] = {0};
+unsigned int nox_script_strings_xxx = 0;
+unsigned int nox_script_strings_cnt = 0;
 
 int nox_script_stack[1024] = {0};
 int nox_script_stack_top = 0;
@@ -90,17 +90,20 @@ int  nox_script_indexByEvent(const char* a1) {
 }
 
 //----- (00512E40) --------------------------------------------------------
-int  nox_xxx_addScriptString_512E40(char* a1) {
-	char* v1; // eax
-	int v2;   // ecx
+int nox_script_addString_512E40(char* s) {
+	if (nox_script_strings_cnt >= 1024)
+		return nox_script_strings_cnt - 1;
+	char* cstr = _strdup(s);
+	int i = nox_script_strings_cnt;
+	nox_script_strings[i] = cstr;
+	nox_script_strings_cnt++;
+	return i;
+}
 
-	if (dword_5d4594_1599632 >= 1024)
-		return dword_5d4594_1599632 - 1;
-	v1 = _strdup(a1);
-	v2 = dword_5d4594_1599632;
-	*getMemU32Ptr(0x5D4594, 4 * dword_5d4594_1599632 + 3831212) = v1;
-	dword_5d4594_1599632 = v2 + 1;
-	return v2;
+const char* nox_script_getString_512E40(int i) {
+	if (i < 0 || i >= nox_script_strings_cnt)
+		return 0;
+	return nox_script_strings[i];
 }
 
 const char* nox_script_getField36(int i) {
@@ -168,51 +171,41 @@ LABEL_16:
 
 //----- (00502490) --------------------------------------------------------
 unsigned __int8*  nox_xxx_scriptCallByEventBlock_502490(int* a1, int a2, int a3) {
-	int v3;                  // eax
-	int v4;                  // ecx
-	unsigned __int8* result; // eax
-	int v6;                  // edi
-	LPVOID* v7;              // esi
-	int v8;                  // eax
-
 	*getMemU32Ptr(0x5D4594, 1599076) = 0;
-	v3 = *a1;
+	int v3 = a1[0];
 	if (*a1 & 1)
 		return 0;
-	v4 = a1[1];
+
+	int v4 = a1[1];
 	if (v4 == -1)
 		return 0;
+
 	if (v3 & 2) {
 		LOBYTE(v3) = v3 | 1;
-		*a1 = v3;
+		a1[0] = v3;
 	}
 	if (nox_script_stack_top) {
 		sub_5025A0((int)a1, a2, a3);
-		result = getMemAt(0x5D4594, 1599076);
-	} else {
-		nox_script_callByIndex_507310(v4, a2, a3);
-		if (nox_script_arr_xxx_1599636[a1[1]].field_4)
-			*getMemU32Ptr(0x5D4594, 1599076) = nox_script_pop();
-		v6 = dword_5d4594_1599624;
-		nox_script_stack_top = 0;
-		if (dword_5d4594_1599624 < *(int*)&dword_5d4594_1599632) {
-			v7 = (LPVOID*)getMemAt(0x5D4594, 4 * dword_5d4594_1599624 + 3831212);
-			do {
-				free(*v7);
-				v8 = dword_5d4594_1599632;
-				*v7 = 0;
-				++v6;
-				++v7;
-			} while (v6 < v8);
-			v6 = dword_5d4594_1599624;
-		}
-		dword_5d4594_1599632 = v6;
-		sub_5025E0((int)a1, a2, a3);
-		if (*getMemU32Ptr(0x5D4594, 1599468) > 0)
-			nox_xxx_scriptCallByEventBlock_502490(*(int**)getMemAt(0x5D4594, 1599084), *getMemIntPtr(0x5D4594, 1599088), *getMemIntPtr(0x5D4594, 1599092));
-		result = getMemAt(0x5D4594, 1599076);
+		return getMemAt(0x5D4594, 1599076);
 	}
-	return result;
+	nox_script_callByIndex_507310(v4, a2, a3);
+	if (nox_script_arr_xxx_1599636[a1[1]].field_4) {
+		*getMemU32Ptr(0x5D4594, 1599076) = nox_script_pop();
+	}
+	nox_script_stack_top = 0;
+
+	if (nox_script_strings_xxx < nox_script_strings_cnt) {
+		for (int i = nox_script_strings_xxx; i < nox_script_strings_cnt; i++) {
+			free(nox_script_strings[i]);
+			nox_script_strings[i] = 0;
+		}
+	}
+	nox_script_strings_cnt = nox_script_strings_xxx;
+
+	sub_5025E0(a1, a2, a3);
+	if (*getMemU32Ptr(0x5D4594, 1599468) > 0)
+		nox_xxx_scriptCallByEventBlock_502490(*(int**)getMemAt(0x5D4594, 1599084), *getMemIntPtr(0x5D4594, 1599088), *getMemIntPtr(0x5D4594, 1599092));
+	return getMemAt(0x5D4594, 1599076);
 }
 
 //----- (00504F90) --------------------------------------------------------
@@ -245,255 +238,192 @@ int nox_server_mapRWScriptData_504F90() {
 }
 
 //----- (00505800) --------------------------------------------------------
-int nox_xxx_ncobjReadInt_505800() {
-	size_t v1; // eax
-	int v3;    // [esp+0h] [ebp-4h]
-
-	v1 = fread(&v3, 4u, 1u, nox_script_ncobj);
-	return v1 == 1 ? v3 : 0;
+int nox_script_ncobj_readInt_505800(FILE* f) {
+	int val;
+	int n = fread(&val, 4, 1, f);
+	return n == 1 ? val : 0;
 }
 
 //----- (00505830) --------------------------------------------------------
-BOOL  sub_505830(size_t a1, void* a2) {
-	size_t v2; // eax
+bool nox_script_ncobj_readString_505830(FILE* f, int sz, char* dst) {
+	int n = fread(dst, 1, sz, f);
+	dst[sz] = 0;
+	return n == sz;
+}
 
-	v2 = fread(a2, 1u, a1, nox_script_ncobj);
-	*((_BYTE*)a2 + a1) = 0;
-	return v2 == a1;
+//----- (00505870) --------------------------------------------------------
+bool nox_script_ncobj_readStringExpect_505870(FILE* f, const char* exp) {
+	char buf[256];
+	nox_script_ncobj_readString_505830(f, strlen(exp), buf);
+	return strcmp(buf, exp) == 0;
 }
 
 //----- (00505360) --------------------------------------------------------
-int nox_xxx_parseNoxCObj_505360() {
-	int v1;              // ebp
-	unsigned __int8* v3; // edi
-	int v4;              // eax
-	size_t v5;           // esi
-	void* v6;            // eax
-	int v9;              // eax
-	int v10;             // ebp
-	int v12;             // esi
-	char* v14;           // eax
-	int v15;             // ecx
-	_BYTE* v16;          // esi
-	bool v17;            // cf
-	unsigned __int8 v18; // dl
-	int v19;             // eax
-	char* v20;           // eax
-	char* v21;           // eax
-	char* v22;           // eax
-	int v23;             // eax
-	int v24;             // eax
-	int v27;             // eax
-	int v29;             // edi
-	int v30;             // ebx
-	int v32;             // esi
-	int i;               // edi
-	int v35;             // esi
-	char v36[2];         // [esp+12h] [ebp-40Ah]
-	int v37;             // [esp+14h] [ebp-408h]
-	char v38[1024];      // [esp+1Ch] [ebp-400h]
-
-	strcpy(v36, "%");
-	nox_script_ncobj = nox_fs_open("nc.obj");
-	if (!nox_script_ncobj)
+int nox_script_ncobj_parse_505360() {
+	FILE* f = nox_fs_open("nc.obj");
+	if (!f)
 		return 0;
-	if (!nox_xxx_ncobjReadAndCheck_505870("SCRIPT03")) {
-		fclose(nox_script_ncobj);
+	if (!nox_script_ncobj_readStringExpect_505870(f, "SCRIPT03")) {
+		fclose(f);
 		return 0;
 	}
-	if (!nox_xxx_ncobjReadAndCheck_505870("STRG")) {
-		fclose(nox_script_ncobj);
+	if (!nox_script_ncobj_readStringExpect_505870(f, "STRG")) {
+		fclose(f);
 		return 0;
 	}
-	v1 = 0;
-	dword_5d4594_1599624 = nox_xxx_ncobjReadInt_505800();
-	dword_5d4594_1599632 = dword_5d4594_1599624;
-	if (dword_5d4594_1599624 > 0) {
-		v3 = getMemAt(0x5D4594, 3831212);
-		do {
-			v4 = nox_xxx_ncobjReadInt_505800();
-			v5 = v4;
-			v6 = calloc(1u, v4 + 1);
-			*(unsigned int*)v3 = v6;
-			if (!sub_505830(v5, v6)) {
-				fclose(nox_script_ncobj);
+	nox_script_strings_xxx = nox_script_ncobj_readInt_505800(f);
+	nox_script_strings_cnt = nox_script_strings_xxx;
+	if (nox_script_strings_xxx > 0) {
+		for (int i = 0; i < nox_script_strings_xxx; i++) {
+			int n = nox_script_ncobj_readInt_505800(f);
+			char* str = calloc(1, n + 1);
+			nox_script_strings[i] = str;
+			if (!nox_script_ncobj_readString_505830(f, n, str)) {
+				fclose(f);
 				return 0;
 			}
-			++v1;
-			v3 += 4;
-		} while (v1 < *(int*)&dword_5d4594_1599624);
-	}
-	if (!nox_xxx_ncobjReadAndCheck_505870("CODE")) {
-		fclose(nox_script_ncobj);
-		return 0;
-	}
-	v9 = nox_xxx_ncobjReadInt_505800();
-	nox_script_count_xxx_1599640 = v9;
-	if (v9) {
-		nox_script_arr_xxx_1599636 = calloc(1, sizeof(nox_script_xxx_t) * v9);
-	}
-	v10 = 0;
-	v37 = 0;
-	if (v9 > 0) {
-		while (nox_xxx_ncobjReadAndCheck_505870("FUNC")) {
-			v12 = nox_xxx_ncobjReadInt_505800();
-			nox_script_arr_xxx_1599636[v10].field_0 = calloc(1u, v12 + 1);
-			if (!sub_505830(v12, nox_script_arr_xxx_1599636[v10].field_0)) {
-				fclose(nox_script_ncobj);
-				return 0;
-			}
-			if (strlen(nox_script_arr_xxx_1599636[v10].field_0) >= 0x400)
-				return 0;
-			strcpy(v38, nox_script_arr_xxx_1599636[v10].field_0);
-			v14 = strtok(v38, v36);
-			v16 = nox_script_arr_xxx_1599636[v10].field_0;
-			while (1) {
-				LOBYTE(v15) = *v14;
-				v17 = (unsigned __int8)*v14 < *v16;
-				if (*v14 != *v16)
-					break;
-				if (!(_BYTE)v15)
-					goto LABEL_23;
-				v18 = v14[1];
-				LOBYTE(v15) = v18;
-				v17 = v18 < v16[1];
-				if (v18 != v16[1])
-					break;
-				v14 += 2;
-				v16 += 2;
-				if (!v18) {
-				LABEL_23:
-					v19 = 0;
-					goto LABEL_25;
-				}
-			}
-			v19 = -(int)v17 - ((int)v17 - 1);
-		LABEL_25:
-			if (v19) {
-				v20 = strtok(0, v36);
-				nox_sprintf(v38, "%%%s", v20);
-				nox_script_arr_xxx_1599636[v10].field_36 = calloc(1u, strlen(v38) + 1);
-				strcpy(nox_script_arr_xxx_1599636[v10].field_36, v38);
-				v21 = strtok(0, v36);
-				nox_script_arr_xxx_1599636[v10].field_40 = atoi(v21);
-				v22 = strtok(0, v36);
-				v23 = atoi(v22);
-				nox_script_arr_xxx_1599636[v10].field_44 = v23;
-			} else {
-				nox_script_arr_xxx_1599636[v10].field_36 = 0;
-				nox_script_arr_xxx_1599636[v10].field_40 = 0;
-				nox_script_arr_xxx_1599636[v10].field_44 = 0;
-			}
-			v24 = nox_xxx_ncobjReadInt_505800();
-			nox_script_arr_xxx_1599636[v10].field_4 = v24;
-			nox_script_arr_xxx_1599636[v10].field_8 = nox_xxx_ncobjReadInt_505800();
-			if (!nox_xxx_ncobjReadAndCheck_505870("SYMB")) {
-				fclose(nox_script_ncobj);
-				return 0;
-			}
-			v27 = nox_xxx_ncobjReadInt_505800();
-			v29 = v37;
-			v30 = v27;
-			if (!v37)
-				v30 = v27 + 1;
-			nox_script_arr_xxx_1599636[v10].field_12 = v30;
-			nox_xxx_ncobjReadInt_505800();
-			if (v30) {
-				nox_script_arr_xxx_1599636[v10].field_20 = calloc(1u, 4 * v30);
-				nox_script_arr_xxx_1599636[v10].field_24 = calloc(1u, 4 * v30);
-			} else {
-				nox_script_arr_xxx_1599636[v10].field_20 = 0;
-				nox_script_arr_xxx_1599636[v10].field_24 = 0;
-			}
-			v32 = 0;
-			if (!v29) {
-				v32 = 1;
-				*(unsigned int*)(nox_script_arr_xxx_1599636[0].field_20) = 0;
-				*(unsigned int*)(nox_script_arr_xxx_1599636[0].field_24) = 0;
-			}
-			for (i = 0; v32 < v30; ++v32) {
-				int v = nox_xxx_ncobjReadInt_505800();
-				*(unsigned int*)((unsigned int)(nox_script_arr_xxx_1599636[v10].field_20) + 4 * v32) = v;
-				*(unsigned int*)((unsigned int)(nox_script_arr_xxx_1599636[v10].field_24) + 4 * v32) = i;
-				i += v;
-			}
-			nox_script_arr_xxx_1599636[v10].field_16 = i;
-			if (i)
-				nox_script_arr_xxx_1599636[v10].field_28 = calloc(1u, 4 * i);
-			else
-				nox_script_arr_xxx_1599636[v10].field_28 = 0;
-			if (!nox_xxx_ncobjReadAndCheck_505870("DATA")) {
-				fclose(nox_script_ncobj);
-				return 0;
-			}
-			v35 = nox_xxx_ncobjReadInt_505800();
-			nox_script_arr_xxx_1599636[v10].field_32 = calloc(1u, v35);
-			if (fread(nox_script_arr_xxx_1599636[v10].field_32, 1u, v35, nox_script_ncobj) != v35) {
-				fclose(nox_script_ncobj);
-				return 0;
-			}
-			if (++v37 >= nox_script_count_xxx_1599640)
-				goto LABEL_44;
-			v10 = v37;
 		}
-		fclose(nox_script_ncobj);
+	}
+	if (!nox_script_ncobj_readStringExpect_505870(f, "CODE")) {
+		fclose(f);
 		return 0;
 	}
-LABEL_44:
-	if (!nox_xxx_ncobjReadAndCheck_505870("DONE")) {
-		fclose(nox_script_ncobj);
+	nox_script_count_xxx_1599640 = nox_script_ncobj_readInt_505800(f);
+	if (nox_script_count_xxx_1599640 < 0)
+		nox_script_count_xxx_1599640 = 0;
+	if (nox_script_count_xxx_1599640) {
+		nox_script_arr_xxx_1599636 = calloc(1, sizeof(nox_script_xxx_t) * nox_script_count_xxx_1599640);
+	}
+	char buf[1024];
+	for (int ind = 0; ind < nox_script_count_xxx_1599640; ind++) {
+		if (!nox_script_ncobj_readStringExpect_505870(f, "FUNC")) {
+			fclose(f);
+			return 0;
+		}
+		nox_script_xxx_t* cur = &nox_script_arr_xxx_1599636[ind];
+
+		int n = nox_script_ncobj_readInt_505800(f);
+		cur->field_0 = calloc(1, n + 1);
+		if (!nox_script_ncobj_readString_505830(f, n, cur->field_0)) {
+			fclose(f);
+			return 0;
+		} else if (strlen(cur->field_0) >= 1024) {
+			return 0;
+		}
+		strcpy(buf, cur->field_0);
+		unsigned char* v14 = strtok(buf, "%");
+		unsigned char* v16 = cur->field_0;
+		int v19 = 0;
+		while (1) {
+			unsigned char v15 = v14[0];
+			bool v17 = v15 < v16[0];
+			if (v15 != v16[0]) {
+				v19 = -(int)v17 - ((int)v17 - 1);
+				break;
+			}
+			if (!v15) {
+				v19 = 0;
+				break;
+			}
+			unsigned char v18 = v14[1];
+			v17 = v18 < v16[1];
+			if (v18 != v16[1]) {
+				v19 = -(int)v17 - ((int)v17 - 1);
+				break;
+			}
+			if (!v18) {
+				v19 = 0;
+				break;
+			}
+			v14 += 2;
+			v16 += 2;
+		}
+		if (v19) {
+			nox_sprintf(buf, "%%%s", strtok(0, "%"));
+			cur->field_36 = calloc(1, strlen(buf) + 1);
+			strcpy(cur->field_36, buf);
+
+			cur->field_40 = atoi(strtok(0, "%"));
+			cur->field_44 = atoi(strtok(0, "%"));
+		} else {
+			cur->field_36 = 0;
+			cur->field_40 = 0;
+			cur->field_44 = 0;
+		}
+		cur->field_4 = nox_script_ncobj_readInt_505800(f);
+		cur->field_8 = nox_script_ncobj_readInt_505800(f);
+		if (!nox_script_ncobj_readStringExpect_505870(f, "SYMB")) {
+			fclose(f);
+			return 0;
+		}
+		int cntY = nox_script_ncobj_readInt_505800(f);
+		if (ind == 0)
+			cntY++;
+		cur->field_12 = cntY;
+		nox_script_ncobj_readInt_505800(f);
+		if (cntY) {
+			cur->field_20 = calloc(1, sizeof(unsigned int) * cntY);
+			cur->field_24 = calloc(1, sizeof(unsigned int) * cntY);
+		} else {
+			cur->field_20 = 0;
+			cur->field_24 = 0;
+		}
+		int j1 = 0;
+		if (ind == 0) {
+			j1 = 1;
+			nox_script_arr_xxx_1599636[0].field_20[0] = 0;
+			nox_script_arr_xxx_1599636[0].field_24[0] = 0;
+		}
+		int sum = 0;
+		for (int j = j1; j < cntY; ++j) {
+			int v = nox_script_ncobj_readInt_505800(f);
+			cur->field_20[j] = v;
+			cur->field_24[j] = sum;
+			sum += v;
+		}
+		cur->field_16 = sum;
+		if (sum) {
+			cur->field_28 = calloc(1, 4 * sum);
+		} else {
+			cur->field_28 = 0;
+		}
+		if (!nox_script_ncobj_readStringExpect_505870(f, "DATA")) {
+			fclose(f);
+			return 0;
+		}
+		n = nox_script_ncobj_readInt_505800(f);
+		cur->data = calloc(1, n);
+		if (fread(cur->data, 1, n, f) != n) {
+			fclose(f);
+			return 0;
+		}
+	}
+	if (!nox_script_ncobj_readStringExpect_505870(f, "DONE")) {
+		fclose(f);
 		return 0;
 	}
-	fclose(nox_script_ncobj);
+	fclose(f);
 	return 1;
 }
-// 5053BC: variable 'v0' is possibly undefined
-// 5053D6: variable 'v2' is possibly undefined
-// 505436: variable 'v7' is possibly undefined
-// 505486: variable 'v11' is possibly undefined
-// 505607: variable 'v15' is possibly undefined
-// 50563A: variable 'v26' is possibly undefined
-// 505655: variable 'v28' is possibly undefined
-// 5056C8: variable 'v31' is possibly undefined
-// 505749: variable 'v34' is possibly undefined
 
 //----- (005058F0) --------------------------------------------------------
-void nox_xxx_scriptFreeAnything_5058F0() {
-	int v0;       // edi
-	LPVOID* v1;   // esi
-	int v2;       // eax
-	int v3;       // ebx
-	LPVOID* v4;   // esi
-	int v5;       // eax
-
-	v0 = dword_5d4594_1599624;
-	if (dword_5d4594_1599624 < *(int*)&dword_5d4594_1599632) {
-		v1 = (LPVOID*)getMemAt(0x5D4594, 4 * dword_5d4594_1599624 + 3831212);
-		do {
-			free(*v1);
-			v2 = dword_5d4594_1599632;
-			*v1 = 0;
-			++v0;
-			++v1;
-		} while (v0 < v2);
-		v0 = dword_5d4594_1599624;
-	}
-	if (v0) {
-		v3 = 0;
-		if (v0 > 0) {
-			v4 = (LPVOID*)getMemAt(0x5D4594, 3831212);
-			do {
-				free(*v4);
-				v5 = dword_5d4594_1599624;
-				*v4 = 0;
-				++v3;
-				++v4;
-			} while (v3 < v5);
+void nox_script_freeEverything_5058F0() {
+	if (nox_script_strings_xxx < nox_script_strings_cnt) {
+		for (int i = nox_script_strings_xxx; i < nox_script_strings_cnt; i++) {
+			free(nox_script_strings[i]);
+			nox_script_strings[i] = 0;
 		}
 	}
-	dword_5d4594_1599624 = 0;
+	if (nox_script_strings_xxx > 0) {
+		for (int i = 0; i < nox_script_strings_xxx; i++) {
+			free(nox_script_strings[i]);
+			nox_script_strings[i] = 0;
+		}
+	}
+	nox_script_strings_xxx = 0;
 	dword_5d4594_1599628 = 0;
-	dword_5d4594_1599632 = 0;
+	nox_script_strings_cnt = 0;
+
 	if (nox_script_arr_xxx_1599636) {
 		for (int i = 0; i < nox_script_count_xxx_1599640; i++) {
 			if (nox_script_arr_xxx_1599636[i].field_0) {
@@ -511,8 +441,8 @@ void nox_xxx_scriptFreeAnything_5058F0() {
 			if (nox_script_arr_xxx_1599636[i].field_28) {
 				free(nox_script_arr_xxx_1599636[i].field_28);
 			}
-			if (nox_script_arr_xxx_1599636[i].field_32) {
-				free(nox_script_arr_xxx_1599636[i].field_32);
+			if (nox_script_arr_xxx_1599636[i].data) {
+				free(nox_script_arr_xxx_1599636[i].data);
 			}
 		}
 		free(nox_script_arr_xxx_1599636);
@@ -707,7 +637,7 @@ void nox_script_callByIndex_507310(int index, int a2, int a3) {
 			*(unsigned int*)((unsigned int)(nox_script_arr_xxx_1599636[index].field_28) + 4 * ++v6 - 4) = nox_script_pop();
 		} while (v6 < nox_script_arr_xxx_1599636[index].field_8);
 	}
-	v8 = nox_script_arr_xxx_1599636[index].field_32;
+	v8 = nox_script_arr_xxx_1599636[index].data;
 	v163 = nox_script_stack_top;
 	v160 = v8;
 	while (1) {
@@ -834,17 +764,17 @@ void nox_script_callByIndex_507310(int index, int a2, int a3) {
 			nox_script_push(v39 ^ v38);
 			continue;
 		case 19:
-			v160 = (unsigned int)(nox_script_arr_xxx_1599636[index].field_32) + 4 * nox_script_nextInt((int**)&v160);
+			v160 = (unsigned int)(nox_script_arr_xxx_1599636[index].data) + 4 * nox_script_nextInt((int**)&v160);
 			continue;
 		case 20:
 			v44 = nox_script_nextInt((int**)&v160);
 			if (nox_script_pop())
-				v160 = (unsigned int)(nox_script_arr_xxx_1599636[index].field_32) + 4 * v44;
+				v160 = (unsigned int)(nox_script_arr_xxx_1599636[index].data) + 4 * v44;
 			continue;
 		case 21:
 			v45 = nox_script_nextInt((int**)&v160);
 			if (!nox_script_pop())
-				v160 = (unsigned int)(nox_script_arr_xxx_1599636[index].field_32) + 4 * v45;
+				v160 = (unsigned int)(nox_script_arr_xxx_1599636[index].data) + 4 * v45;
 			continue;
 		case 22:
 		case 24:
@@ -1001,9 +931,9 @@ void nox_script_callByIndex_507310(int index, int a2, int a3) {
 				else
 					v66 = *(unsigned int*)((unsigned int)(nox_script_arr_xxx_1599636[index].field_28) + 4 * v63);
 			}
-			nox_sprintf(v164, "%s%s", *getMemU32Ptr(0x5D4594, 4 * v66 + 3831212),
-						*getMemU32Ptr(0x5D4594, 4 * v62 + 3831212));
-			v67 = nox_xxx_addScriptString_512E40(v164);
+			nox_sprintf(v164, "%s%s", nox_script_strings[v66],
+						nox_script_strings[v62]);
+			v67 = nox_script_addString_512E40(v164);
 			if (v64) {
 				*(unsigned int*)((char*)(nox_script_arr_xxx_1599636[1].field_28) + v65) = v67;
 			} else if (v63 < 0) {
@@ -1081,8 +1011,8 @@ void nox_script_callByIndex_507310(int index, int a2, int a3) {
 			continue;
 		case 37:
 			v97 = nox_script_pop();
-			if (!strcmp(*(const char**)getMemAt(0x5D4594, 4 * nox_script_pop() + 3831212),
-						*(const char**)getMemAt(0x5D4594, 4 * v97 + 3831212)))
+			if (!strcmp(nox_script_strings[nox_script_pop()],
+						nox_script_strings[v97]))
 				nox_script_push(1);
 			else
 				nox_script_push(0);
@@ -1112,8 +1042,8 @@ void nox_script_callByIndex_507310(int index, int a2, int a3) {
 			continue;
 		case 42:
 			v100 = nox_script_pop();
-			v101 = strcmp(*(const char**)getMemAt(0x5D4594, 4 * nox_script_pop() + 3831212),
-						  *(const char**)getMemAt(0x5D4594, 4 * v100 + 3831212));
+			v101 = strcmp(nox_script_strings[nox_script_pop()],
+						  nox_script_strings[v100]);
 			if (v101)
 				nox_script_push(-(v101 < 0) - ((v101 < 0) - 1) < 0);
 			else
@@ -1134,8 +1064,8 @@ void nox_script_callByIndex_507310(int index, int a2, int a3) {
 			continue;
 		case 45:
 			v104 = nox_script_pop();
-			v105 = strcmp(*(const char**)getMemAt(0x5D4594, 4 * nox_script_pop() + 3831212),
-						  *(const char**)getMemAt(0x5D4594, 4 * v104 + 3831212));
+			v105 = strcmp(nox_script_strings[nox_script_pop()],
+						  nox_script_strings[v104]);
 			if (v105)
 				nox_script_push(-(v105 < 0) - ((v105 < 0) - 1) > 0);
 			else
@@ -1156,8 +1086,8 @@ void nox_script_callByIndex_507310(int index, int a2, int a3) {
 			continue;
 		case 48:
 			v108 = nox_script_pop();
-			v109 = strcmp(*(const char**)getMemAt(0x5D4594, 4 * nox_script_pop() + 3831212),
-						  *(const char**)getMemAt(0x5D4594, 4 * v108 + 3831212));
+			v109 = strcmp(nox_script_strings[nox_script_pop()],
+						  nox_script_strings[v108]);
 			if (v109)
 				nox_script_push(-(v109 < 0) - ((v109 < 0) - 1) <= 0);
 			else
@@ -1178,8 +1108,8 @@ void nox_script_callByIndex_507310(int index, int a2, int a3) {
 			continue;
 		case 51:
 			v112 = nox_script_pop();
-			v113 = strcmp(*(const char**)getMemAt(0x5D4594, 4 * nox_script_pop() + 3831212),
-						  *(const char**)getMemAt(0x5D4594, 4 * v112 + 3831212));
+			v113 = strcmp(nox_script_strings[nox_script_pop()],
+						  nox_script_strings[v112]);
 			if (v113)
 				nox_script_push(-(v113 < 0) - ((v113 < 0) - 1) >= 0);
 			else
@@ -1200,8 +1130,8 @@ void nox_script_callByIndex_507310(int index, int a2, int a3) {
 			continue;
 		case 54:
 			v116 = nox_script_pop();
-			if (!strcmp(*(const char**)getMemAt(0x5D4594, 4 * nox_script_pop() + 3831212),
-						*(const char**)getMemAt(0x5D4594, 4 * v116 + 3831212)))
+			if (!strcmp(nox_script_strings[nox_script_pop()],
+						nox_script_strings[v116]))
 				nox_script_push(0);
 			else
 				nox_script_push(1);
@@ -1377,9 +1307,9 @@ void nox_script_callByIndex_507310(int index, int a2, int a3) {
 		case 73:
 			v23 = nox_script_pop();
 			v24 = nox_script_pop();
-			nox_sprintf(v164, "%s%s", *getMemU32Ptr(0x5D4594, 4 * v24 + 3831212),
-						*getMemU32Ptr(0x5D4594, 4 * v23 + 3831212));
-			v25 = nox_xxx_addScriptString_512E40(v164);
+			nox_sprintf(v164, "%s%s", nox_script_strings[v24],
+						nox_script_strings[v23]);
+			v25 = nox_script_addString_512E40(v164);
 			nox_script_push(v25);
 			continue;
 		default:
