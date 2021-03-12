@@ -9974,14 +9974,6 @@ int nox_server_mapRWMapIntro_505080() {
 }
 // 505080: using guessed type char var_400[1024];
 
-//----- (00505870) --------------------------------------------------------
-BOOL  nox_xxx_ncobjReadAndCheck_505870(const char* a1) {
-	char v2[256]; // [esp+Ch] [ebp-100h]
-
-	sub_505830(strlen(a1), v2);
-	return strcmp(v2, a1) == 0;
-}
-
 //----- (00505A40) --------------------------------------------------------
 int nox_server_mapRWScriptObject_505A40() {
 	int v0;   // edi
@@ -10048,7 +10040,7 @@ int nox_server_mapRWScriptObject_505A40() {
 	fclose(v5);
 	if (v9 <= 0 || nox_common_gameFlags_check_40A5C0(6291456))
 		return 1;
-	return nox_xxx_parseNoxCObj_505360();
+	return nox_script_ncobj_parse_505360();
 }
 
 //----- (00505C30) --------------------------------------------------------
