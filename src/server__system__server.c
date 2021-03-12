@@ -1,4 +1,5 @@
 #include "server__system__server.h"
+#include "server__script__script.h"
 
 #include "common__random.h"
 #include "client__gui__guiquit.h"
@@ -49,9 +50,6 @@ extern _DWORD dword_5d4594_1548476;
 extern _DWORD dword_5d4594_2487236;
 extern _DWORD dword_5d4594_1599656;
 extern _DWORD dword_5d4594_2650652;
-
-nox_script_xxx_t* nox_script_arr_xxx_1599636 = 0;
-int nox_script_count_xxx_1599640 = 0;
 
 extern unsigned int nox_gameFPS;
 extern nox_net_struct_t* nox_net_struct_arr[NOX_NET_STRUCT_MAX];
@@ -1266,20 +1264,12 @@ void nox_xxx_abilUpdateMB_4FBEE0() {
 //----- (004FC590) --------------------------------------------------------
 int nox_xxx_mapInitialize_4FC590() {
 	int result; // eax
-	int v1;     // esi
 
 	result = dword_5d4594_1569652;
 	if (dword_5d4594_1569652) {
 		result = nox_xxx_getFirstPlayerUnit_4DA7C0();
 		if (result) {
-			v1 = 0;
-			if (nox_script_count_xxx_1599640 > 0) {
-				do {
-					if (!strncmp("MapInitialize", nox_script_arr_xxx_1599636[v1].field_0, 13))
-						nox_server_doMapScript_507310(v1, 0, 0);
-					++v1;
-				} while (v1 < nox_script_count_xxx_1599640);
-			}
+			nox_script_callOnEvent("MapInitialize", 0, 0);
 			result = nox_xxx_resetMapInit_4FC570(0);
 		}
 	}
@@ -1289,20 +1279,12 @@ int nox_xxx_mapInitialize_4FC590() {
 //----- (004FC600) --------------------------------------------------------
 int nox_xxx_mapEntry_4FC600() {
 	int result; // eax
-	int v1;     // esi
 
 	result = dword_5d4594_1569656;
 	if (dword_5d4594_1569656) {
 		result = nox_xxx_getFirstPlayerUnit_4DA7C0();
 		if (result) {
-			v1 = 0;
-			if (nox_script_count_xxx_1599640 > 0) {
-				do {
-					if (!strncmp("MapEntry", nox_script_arr_xxx_1599636[v1].field_0, 8))
-						nox_server_doMapScript_507310(v1, 0, 0);
-					++v1;
-				} while (v1 < nox_script_count_xxx_1599640);
-			}
+			nox_script_callOnEvent("MapEntry", 0, 0);
 			result = sub_4FC580(0);
 		}
 	}
@@ -1866,31 +1848,6 @@ int  sub_51A920(int a1) {
 	return result;
 }
 
-//----- (0051ADF0) --------------------------------------------------------
-void nox_xxx_scriptLeverReact_51ADF0() {
-	_DWORD* v0; // esi
-	int v1;     // edi
-	int v2;     // ebx
-	int v3;     // ebp
-
-	v0 = *(_DWORD**)&dword_5d4594_2487236;
-	if (dword_5d4594_2487236) {
-		do {
-			if (*v0 > *getMemIntPtr(0x5D4594, 2598000)) {
-				v0 = (_DWORD*)v0[6];
-			} else {
-				v1 = v0[1];
-				v2 = v0[5];
-				v3 = v0[4];
-				if (nox_script_arr_xxx_1599636[v1].field_8)
-					nox_script_push(v0[2]);
-				v0 = (_DWORD*)nox_xxx_scriptAct_51AD90((int)v0);
-				nox_server_doMapScript_507310(v1, v2, v3);
-			}
-		} while (v0);
-	}
-}
-
 //----- (0051B100) --------------------------------------------------------
 char nox_xxx_updateUnits_51B100() {
 	int i;                    // esi
@@ -2227,7 +2184,6 @@ BOOL sub_57B140() {
 
 //----- (004D1860) --------------------------------------------------------
 int nox_xxx_mapExitAndCheckNext_4D1860_server() {
-	int v0;           // esi
 	char* v2;         // eax
 	int i;            // eax
 	int j;            // eax
@@ -2293,14 +2249,7 @@ int nox_xxx_mapExitAndCheckNext_4D1860_server() {
 		nox_client_setCursorType_477610(10);
 	sub_4D22B0();
 	nox_xxx_netMsgFadeBegin_4D9800(0, 1);
-	v0 = 0;
-	if (nox_script_count_xxx_1599640 > 0) {
-		do {
-			if (!strncmp("MapExit", nox_script_arr_xxx_1599636[v0].field_0, 7))
-				nox_server_doMapScript_507310(v0, 0, 0);
-			++v0;
-		} while (v0 < nox_script_count_xxx_1599640);
-	}
+	nox_script_callOnEvent("MapExit", 0, 0);
 	v2 = nox_xxx_mapGetMapName_409B40();
 	sub_500510(v2);
 	nox_xxx_mapSwitchLevel_4D12E0(1);
@@ -2723,13 +2672,7 @@ void nox_xxx_gameTick_4D2580_server_D() {
 	int v23 = 0;
 	int v24 = (*(_DWORD*)(v22 + 16) >> 15) & 1;
 	if (!v24) {
-		if (nox_script_count_xxx_1599640 > 0) {
-			do {
-				if (!strncmp("MapShutdown", nox_script_arr_xxx_1599636[v23].field_0, 11))
-					nox_server_doMapScript_507310(v23, 0, 0);
-				++v23;
-			} while (v23 < nox_script_count_xxx_1599640);
-		}
+		nox_script_callOnEvent("MapShutdown", 0, 0);
 		nox_xxx_setGameFlags_40A4D0(0x8000000);
 		unsigned __int8* v26 = sub_4DB160();
 		v23 = nox_xxx_saveDoAutosaveMB_4DB370_savegame((const char*)v26);

@@ -5,6 +5,7 @@
 #include "client__gui__guimsg.h"
 #include "client__gui__servopts__general.h"
 #include "client__gui__servopts__guiserv.h"
+#include "server__script__script.h"
 
 #include "static.h"
 #include "proto.h"
@@ -1881,12 +1882,12 @@ int nox_xxx_serverHandleClientConsole_443E90(nox_playerInfo* pl, char a2, wchar_
 		nox_wcstok((wchar_t*)getMemAt(0x5D4594, 818228), L" ");
 		v10 = nox_wcstok(0, L" ");
 		nox_sprintf(v22, "%S", v10);
-		v11 = nox_script_indexByName(v22);
+		v11 = nox_script_indexByEvent(v22);
 		if (v11 != -1 && dword_5d4594_823692) {
 			v12 = nox_strman_loadString_40F1D0("ExecutingFunction", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c",
 										4332);
 			nox_xxx_consoleVPrint_450C00(6, v12, v10);
-			nox_server_doMapScript_507310(v11, *(_DWORD*)(dword_5d4594_823692 + 2056),
+			nox_script_callByIndex_507310(v11, *(_DWORD*)(dword_5d4594_823692 + 2056),
 										  *(_DWORD*)(dword_5d4594_823692 + 2056));
 			dword_5d4594_823692 = 0;
 		} else {
