@@ -13,7 +13,7 @@ extern unsigned int dword_5d4594_1599628;
 typedef struct nox_script_xxx_t {
 	char* field_0; // 0, 0
 	unsigned int stack_size; // 1, 4
-	int field_8; // 2, 8
+	unsigned int size_28; // 2, 8
 	unsigned int field_12; // 3, 12; len field_20 and field_24
 	unsigned int field_16; // 4, 16
 	unsigned int* field_20; // 5, 20
@@ -358,7 +358,7 @@ int nox_script_ncobj_parse_505360() {
 			cur->field_44 = 0;
 		}
 		cur->stack_size = nox_script_ncobj_readInt_505800(f);
-		cur->field_8 = nox_script_ncobj_readInt_505800(f);
+		cur->size_28 = nox_script_ncobj_readInt_505800(f);
 		if (!nox_script_ncobj_readStringExpect_505870(f, "SYMB")) {
 			fclose(f);
 			return 0;
@@ -473,23 +473,16 @@ void nox_xxx_scriptRunFirst_507290() {
 }
 
 //----- (00507310) --------------------------------------------------------
-void nox_script_callByIndex_507310(int index, int a2, int a3) {
-	int v6;         // esi
-	int v7;         // ecx
-	int v161;       // [esp+1Ch] [ebp-10Ch]
+void nox_script_callByIndex_507310(int index, int a2, void* a3) {
 	char buf[256]; // [esp+28h] [ebp-100h]
 
 	nox_script_xxx_t* script = &nox_script_arr_xxx_1599636[index];
 
 	dword_5d4594_3821964 = a2;
 	dword_5d4594_3821968 = a3;
-	v6 = 0;
-	v7 = script->field_8;
-	v161 = 0;
-	if (v7 > 0) {
-		do {
-			*(unsigned int*)((unsigned int)(script->field_28) + 4 * ++v6 - 4) = nox_script_pop();
-		} while (v6 < script->field_8);
+	for (int i = 0; i < script->size_28; i++) {
+		int v = nox_script_pop();
+		script->field_28[i] = v;
 	}
 	int bstack = nox_script_stack_top;
 	void* data = script->data;
@@ -1291,8 +1284,9 @@ void nox_xxx_scriptLeverReact_51ADF0() {
 				v1 = v0[1];
 				v2 = v0[5];
 				v3 = v0[4];
-				if (nox_script_arr_xxx_1599636[v1].field_8)
+				if (nox_script_arr_xxx_1599636[v1].size_28) {
 					nox_script_push(v0[2]);
+				}
 				v0 = (_DWORD*)nox_xxx_scriptAct_51AD90((int)v0);
 				nox_script_callByIndex_507310(v1, v2, v3);
 			}
