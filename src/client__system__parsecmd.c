@@ -18,9 +18,10 @@ extern _DWORD nox_xxx_useAudio_587000_80832;
 extern _DWORD dword_5d4594_823700;
 extern _DWORD nox_server_connectionType_3596;
 extern _DWORD dword_5d4594_805836;
-extern _DWORD dword_5d4594_823692;
 extern _DWORD nox_client_renderGUI_80828;
 extern _DWORD dword_5d4594_2650652;
+
+nox_playerInfo* nox_console_playerWhoSent_823692 = 0;
 
 int nox_xxx_consoleTokenPairs_823708 = 0;
 unsigned int dword_5d4594_823684 = 0;
@@ -1839,22 +1840,21 @@ int nox_xxx_serverHandleClientConsole_443E90(nox_playerInfo* pl, char a2, wchar_
 	else
 		*getMemU16Ptr(0x5D4594, 818228) = 0;
 	v3 = pl;
-	dword_5d4594_823692 = pl;
+	nox_console_playerWhoSent_823692 = pl;
 	if (a2 != 4 && a2 != 5 && a2) {
 		if (nox_common_gameFlags_check_40A5C0(49152))
 			return 1;
-		v3 = dword_5d4594_823692;
 	}
 	switch (a2) {
 	case 0:
 		if (nox_common_gameFlags_check_40A5C0(8) || nox_common_gameFlags_check_40A5C0(4096) || *(_BYTE*)((int)pl + 3680) & 1) {
-			dword_5d4594_823692 = 0;
+			nox_console_playerWhoSent_823692 = 0;
 			return 1;
 		}
 		v5 = *getMemI16Ptr(0x5D4594, 818228) == -4083 && *getMemI16Ptr(0x5D4594, 818230) == -3923 &&
 			 !*getMemU16Ptr(0x5D4594, 818232);
 		if (nox_xxx_playerGoObserver_4E6860(pl, v5, 0) != 1) {
-			dword_5d4594_823692 = 0;
+			nox_console_playerWhoSent_823692 = 0;
 			return 1;
 		}
 		v6 = nox_strman_loadString_40F1D0("set", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 4287);
@@ -1871,49 +1871,48 @@ int nox_xxx_serverHandleClientConsole_443E90(nox_playerInfo* pl, char a2, wchar_
 		v21 = v6;
 		v9 = nox_strman_loadString_40F1D0("observermode", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 4308);
 		nox_xxx_consoleVPrint_450C00(6, v9, v21);
-		dword_5d4594_823692 = 0;
+		nox_console_playerWhoSent_823692 = 0;
 		return 1;
 	case 1:
 		if (!sub_4D12A0(pl->playerInd) && pl->playerInd != *getMemU32Ptr(0x5D4594, 2616328) &&
 			!nox_common_gameFlags_check_40A5C0(2048)) {
-			dword_5d4594_823692 = 0;
+			nox_console_playerWhoSent_823692 = 0;
 			return 1;
 		}
 		nox_wcstok((wchar_t*)getMemAt(0x5D4594, 818228), L" ");
 		v10 = nox_wcstok(0, L" ");
 		nox_sprintf(v22, "%S", v10);
 		v11 = nox_script_indexByEvent(v22);
-		if (v11 != -1 && dword_5d4594_823692) {
+		if (v11 != -1 && nox_console_playerWhoSent_823692) {
 			v12 = nox_strman_loadString_40F1D0("ExecutingFunction", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c",
 										4332);
 			nox_xxx_consoleVPrint_450C00(6, v12, v10);
-			nox_script_callByIndex_507310(v11, *(_DWORD*)(dword_5d4594_823692 + 2056),
-										  *(_DWORD*)(dword_5d4594_823692 + 2056));
-			dword_5d4594_823692 = 0;
+			nox_script_callByIndex_507310(v11, nox_console_playerWhoSent_823692->playerUnit, nox_console_playerWhoSent_823692->playerUnit);
+			nox_console_playerWhoSent_823692 = 0;
 		} else {
 			v21 = v10;
 			v9 = nox_strman_loadString_40F1D0("InvalidFunction", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c",
 									   4329);
 			nox_xxx_consoleVPrint_450C00(6, v9, v21);
-			dword_5d4594_823692 = 0;
+			nox_console_playerWhoSent_823692 = 0;
 		}
 		return 1;
 	case 2:
 		if (!sub_4D12A0(pl->playerInd) && pl->playerInd != *getMemU32Ptr(0x5D4594, 2616328) &&
 			!nox_common_gameFlags_check_40A5C0(2048)) {
-			dword_5d4594_823692 = 0;
+			nox_console_playerWhoSent_823692 = 0;
 			return 1;
 		}
-		v19 = dword_5d4594_823692 + 4704;
+		v19 = (char*)nox_console_playerWhoSent_823692 + 4704;
 		v13 =
 			nox_strman_loadString_40F1D0("RemoteSysop", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 4345);
 		nox_xxx_consoleVPrint_450C00(6, v13, v19, a3);
 		nox_server_parseCmdText_443C80(a3, 0);
-		dword_5d4594_823692 = 0;
+		nox_console_playerWhoSent_823692 = 0;
 		return 1;
 	case 3:
 		nox_xxx_printToAll_4D9FD0(0, a3);
-		dword_5d4594_823692 = 0;
+		nox_console_playerWhoSent_823692 = 0;
 		return 1;
 	case 4:
 		if (!(*(_BYTE*)(v3 + 3680) & 1) && !(nox_common_getEngineFlag(NOX_ENGINE_FLAG_23))) {
@@ -1921,34 +1920,34 @@ int nox_xxx_serverHandleClientConsole_443E90(nox_playerInfo* pl, char a2, wchar_
 				v16 = nox_strman_loadString_40F1D0("notinobserver", 0,
 											"C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 4392);
 				nox_xxx_consoleVPrint_450C00(6, v16);
-				dword_5d4594_823692 = 0;
+				nox_console_playerWhoSent_823692 = 0;
 				return 1;
 			}
-			dword_5d4594_823692 = 0;
+			nox_console_playerWhoSent_823692 = 0;
 			return 1;
 		}
 		if (!*a3) {
 			nox_xxx_playerCameraUnlock_4E6040(*(_DWORD*)(v3 + 2056));
-			dword_5d4594_823692 = 0;
+			nox_console_playerWhoSent_823692 = 0;
 			return 1;
 		}
 		v17 = nox_common_playerInfoGetFirst_416EA0();
 		if (!v17) {
-			dword_5d4594_823692 = 0;
+			nox_console_playerWhoSent_823692 = 0;
 			return 1;
 		}
 		do {
 			if (!_nox_wcsicmp(a3, (const wchar_t*)v17 + 2352))
-				nox_xxx_playerCameraFollow_4E6060(*(_DWORD*)(dword_5d4594_823692 + 2056), *((_DWORD*)v17 + 514));
+				nox_xxx_playerCameraFollow_4E6060(nox_console_playerWhoSent_823692->playerUnit, *((_DWORD*)v17 + 514));
 			v17 = nox_common_playerInfoGetNext_416EE0((int)v17);
 		} while (v17);
-		dword_5d4594_823692 = 0;
+		nox_console_playerWhoSent_823692 = 0;
 		return 1;
 	case 5:
 		nox_xxx_printToAll_4D9FD0(16, a3);
 		v14 = nox_common_playerInfoGetFirst_416EA0();
 		if (!v14){
-			dword_5d4594_823692 = 0;
+			nox_console_playerWhoSent_823692 = 0;
 			return 1;
 		}
 		do {
@@ -1957,14 +1956,14 @@ int nox_xxx_serverHandleClientConsole_443E90(nox_playerInfo* pl, char a2, wchar_
 				nox_xxx_aud_501960(902, v15, 0, 0);
 			v14 = nox_common_playerInfoGetNext_416EE0((int)v14);
 		} while (v14);
-		dword_5d4594_823692 = 0;
+		nox_console_playerWhoSent_823692 = 0;
 		return 1;
 	default:
 		v20 = v3 + 4704;
 		v18 =
 			nox_strman_loadString_40F1D0("invalidattempt", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 4400);
 		nox_xxx_consoleVPrint_450C00(6, v18, v20, a3);
-		dword_5d4594_823692 = 0;
+		nox_console_playerWhoSent_823692 = 0;
 		return 1;
 	}
 	return result;
