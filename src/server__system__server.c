@@ -47,7 +47,6 @@ extern _DWORD dword_5d4594_2495920;
 extern _DWORD dword_5d4594_1568024;
 extern _DWORD dword_5d4594_2388648;
 extern _DWORD dword_5d4594_1548476;
-extern _DWORD dword_5d4594_2487236;
 extern _DWORD dword_5d4594_1599656;
 extern _DWORD dword_5d4594_2650652;
 
