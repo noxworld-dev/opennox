@@ -868,7 +868,7 @@ int nox_script_floatToString_512ED0() {
 	float v0; // eax
 	int v1;   // eax
 
-	v0 = COERCE_FLOAT(nox_script_pop());
+	v0 = nox_script_popf();
 	nox_sprintf((char*)getMemAt(0x5D4594, 3821708), "%f", v0, v0);
 	v1 = nox_script_addString_512E40((char*)getMemAt(0x5D4594, 3821708));
 	nox_script_push(v1);
@@ -951,7 +951,7 @@ int nox_script_builtin_513070() {
 	float v4;  // [esp+8h] [ebp-10h]
 	int v5[3]; // [esp+Ch] [ebp-Ch]
 
-	v4 = COERCE_FLOAT(nox_script_pop());
+	v4 = nox_script_popf();
 	v0 = nox_script_pop();
 	v1 = nox_script_pop();
 	v2 = nox_server_scriptValToObjectPtr_511B60(v1);
@@ -974,7 +974,7 @@ int nox_script_builtin_513160() {
 	float v4;            // [esp+8h] [ebp-10h]
 	int v5[3];           // [esp+Ch] [ebp-Ch]
 
-	v4 = COERCE_FLOAT(nox_script_pop());
+	v4 = nox_script_popf();
 	v0 = nox_script_pop();
 	v1 = nox_script_pop();
 	v5[1] = v0;
@@ -1039,7 +1039,7 @@ int nox_script_enchant_5132E0() {
 	int v6[2];   // [esp+18h] [ebp-48h]
 	char v8[64]; // [esp+20h] [ebp-40h]
 
-	v5 = COERCE_FLOAT(nox_script_pop());
+	v5 = nox_script_popf();
 	v0 = nox_script_pop();
 	v1 = nox_script_pop();
 	strcpy(v8, nox_script_getString_512E40(v0));
@@ -1065,7 +1065,7 @@ int nox_script_groupEnchant_5133B0() {
 	int v6[2];           // [esp+18h] [ebp-48h]
 	char v7[64];         // [esp+20h] [ebp-40h]
 
-	v5 = COERCE_FLOAT(nox_script_pop());
+	v5 = nox_script_popf();
 	v0 = nox_script_pop();
 	v1 = nox_script_pop();
 	strcpy(v7, nox_script_getString_512E40(v0));
@@ -1197,7 +1197,7 @@ int nox_script_moveObject_5136A0() {
 	float2 v3; // [esp+0h] [ebp-Ch]
 	float v4;  // [esp+8h] [ebp-4h]
 
-	v4 = COERCE_FLOAT(nox_script_pop());
+	v4 = nox_script_popf();
 	LODWORD(v3.field_0) = nox_script_pop();
 	v0 = nox_script_pop();
 	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
@@ -1216,8 +1216,8 @@ int nox_script_moveWaypoint_513700() {
 	float v3;  // [esp+0h] [ebp-8h]
 	float v4;  // [esp+4h] [ebp-4h]
 
-	v4 = COERCE_FLOAT(nox_script_pop());
-	v3 = COERCE_FLOAT(nox_script_pop());
+	v4 = nox_script_popf();
+	v3 = nox_script_popf();
 	v0 = nox_script_pop();
 	v1 = (float*)nox_server_getWaypointById_579C40(v0);
 	if (v1) {
@@ -1270,8 +1270,8 @@ int nox_script_pushObject_5137D0() {
 	float v3; // [esp+0h] [ebp-8h]
 	float v4; // [esp+4h] [ebp-4h]
 
-	v4 = COERCE_FLOAT(nox_script_pop());
-	v3 = COERCE_FLOAT(nox_script_pop());
+	v4 = nox_script_popf();
+	v3 = nox_script_popf();
 	v0 = nox_script_pop();
 	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v1) {
@@ -1293,9 +1293,9 @@ int nox_script_pushObjectTo_513820() {
 	float v8;  // [esp+8h] [ebp-4h]
 	float v9;  // [esp+8h] [ebp-4h]
 
-	v5 = COERCE_FLOAT(nox_script_pop());
-	v8 = COERCE_FLOAT(nox_script_pop());
-	v7 = COERCE_FLOAT(nox_script_pop());
+	v5 = nox_script_popf();
+	v8 = nox_script_popf();
+	v7 = nox_script_popf();
 	v0 = nox_script_pop();
 	v1 = (float*)nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v1) {
@@ -1564,10 +1564,10 @@ int nox_script_getDistance_513E20() {
 	float v4; // [esp+Ch] [ebp-4h]
 	int v5;   // [esp+Ch] [ebp-4h]
 
-	v4 = COERCE_FLOAT(nox_script_pop());
-	v2 = COERCE_FLOAT(nox_script_pop());
-	v3 = COERCE_FLOAT(nox_script_pop());
-	v0 = COERCE_FLOAT(nox_script_pop());
+	v4 = nox_script_popf();
+	v2 = nox_script_popf();
+	v3 = nox_script_popf();
+	v0 = nox_script_popf();
 	*(float*)&v5 = sqrt((v3 - v4) * (v3 - v4) + (v0 - v2) * (v0 - v2));
 	nox_script_push(v5);
 	return 0;
@@ -1719,8 +1719,8 @@ int nox_script_Walk_5140B0() {
 	float v5; // [esp+8h] [ebp-8h]
 	float v6; // [esp+Ch] [ebp-4h]
 
-	v5 = COERCE_FLOAT(nox_script_pop());
-	v6 = COERCE_FLOAT(nox_script_pop());
+	v5 = nox_script_popf();
+	v6 = nox_script_popf();
 	v0 = nox_script_pop();
 	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v1) {
@@ -1742,8 +1742,8 @@ int nox_script_GroupWalk_514170() {
 	float v6;   // [esp+Ch] [ebp-8h]
 	float v7;   // [esp+10h] [ebp-4h]
 
-	v6 = COERCE_FLOAT(nox_script_pop());
-	v7 = COERCE_FLOAT(nox_script_pop());
+	v6 = nox_script_popf();
+	v7 = nox_script_popf();
 	v0 = nox_script_pop();
 	result = nox_server_scriptGetGroup_57C0A0(v0);
 	if (result) {
@@ -1796,8 +1796,8 @@ int nox_script_Effect_514210() {
 
 	v16 = nox_script_pop();
 	v0 = nox_script_pop();
-	v15 = COERCE_FLOAT(nox_script_pop());
-	v14 = COERCE_FLOAT(nox_script_pop());
+	v15 = nox_script_popf();
+	v14 = nox_script_popf();
 	v1 = nox_script_getString_512E40(nox_script_pop());
 	strcpy(v20, "MSG_FX_");
 	v17.field_0 = (double)*(int*)&dword_5d4594_3821636 + v14;
@@ -2458,8 +2458,8 @@ int nox_script_builtin_514FC0() {
 	float2 v8;   // [esp+10h] [ebp-14h]
 	float v9[3]; // [esp+18h] [ebp-Ch]
 
-	v7 = COERCE_FLOAT(nox_script_pop());
-	v6 = COERCE_FLOAT(nox_script_pop());
+	v7 = nox_script_popf();
+	v6 = nox_script_popf();
 	v0 = nox_script_pop();
 	v1 = nox_script_pop();
 	v2 = nox_xxx_spellNameToN_4243F0(nox_script_getString_512E40(v1));
@@ -2521,8 +2521,8 @@ int nox_script_cast_515130() {
 	float2 v6;   // [esp+14h] [ebp-14h]
 	float v7[3]; // [esp+1Ch] [ebp-Ch]
 
-	v5 = COERCE_FLOAT(nox_script_pop());
-	v4 = COERCE_FLOAT(nox_script_pop());
+	v5 = nox_script_popf();
+	v4 = nox_script_popf();
 	LODWORD(v3.field_4) = nox_script_pop();
 	LODWORD(v3.field_0) = nox_script_pop();
 	v0 = nox_script_pop();
@@ -2901,8 +2901,8 @@ int nox_script_HitLocation_5159E0() {
 	float v4; // [esp+4h] [ebp-Ch]
 	float2 v5;
 
-	v4 = COERCE_FLOAT(nox_script_pop());
-	v3 = COERCE_FLOAT(nox_script_pop());
+	v4 = nox_script_popf();
+	v3 = nox_script_popf();
 	v0 = nox_script_pop();
 	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v1) {
