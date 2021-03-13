@@ -6,7 +6,7 @@
 #include "nox_fs.h"
 #include "proto.h"
 
-extern unsigned int dword_5d4594_2487236;
+extern void* nox_script_activatedList_2487236;
 extern unsigned int dword_5d4594_1599628;
 
 
@@ -1275,8 +1275,8 @@ void nox_xxx_scriptLeverReact_51ADF0() {
 	int v2;     // ebx
 	int v3;     // ebp
 
-	v0 = *(_DWORD**)&dword_5d4594_2487236;
-	if (dword_5d4594_2487236) {
+	v0 = *(_DWORD**)&nox_script_activatedList_2487236;
+	if (nox_script_activatedList_2487236) {
 		do {
 			if (*v0 > *getMemIntPtr(0x5D4594, 2598000)) {
 				v0 = (_DWORD*)v0[6];
@@ -1355,8 +1355,8 @@ int  nox_server_scriptValToObjectPtr_511B60(int a1) {
 void sub_51B0C0() {
 	int* v0; // esi
 
-	v0 = *(int**)&dword_5d4594_2487236;
-	if (dword_5d4594_2487236) {
+	v0 = *(int**)&nox_script_activatedList_2487236;
+	if (nox_script_activatedList_2487236) {
 		do {
 			if (v0[4])
 				v0[4] = nox_server_scriptValToObjectPtr_511B60(v0[4]);

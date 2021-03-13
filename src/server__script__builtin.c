@@ -10,7 +10,7 @@
 // TODO: move somewhere else
 int  nox_xxx_netSendChat_528AC0(int a1, wchar_t* a2, wchar_t a3);
 
-extern unsigned int dword_5d4594_2487236;
+extern void* nox_script_activatedList_2487236;
 extern unsigned int dword_5d4594_2386836;
 extern unsigned int dword_5d4594_3821964;
 extern unsigned int dword_5d4594_3821968;
@@ -56,14 +56,14 @@ void  nox_xxx_script_51ACA0(int a1, int a2, int a3) {
 	v3[5] = 0;
 	v3[6] = 0;
 	nox_script_push(v5);
-	result = dword_5d4594_2487236;
-	if (dword_5d4594_2487236) {
-		for (i = *(_DWORD*)(dword_5d4594_2487236 + 24); i; i = *(_DWORD*)(i + 24))
+	result = nox_script_activatedList_2487236;
+	if (nox_script_activatedList_2487236) {
+		for (i = *(_DWORD*)((char*)nox_script_activatedList_2487236 + 24); i; i = *(_DWORD*)(i + 24))
 			result = i;
 		*(_DWORD*)(result + 24) = v3;
 		v3[7] = result;
 	} else {
-		dword_5d4594_2487236 = v3;
+		nox_script_activatedList_2487236 = v3;
 		v3[7] = 0;
 	}
 }
