@@ -251,7 +251,7 @@ func runNox(args []string) error {
 	C.nox_win_width = 0
 	C.nox_xxx_servSetPlrLimit_409F80(32)
 	*memmap.PtrUint32(0x5D4594, 2614260) = uint32(C.nox_gameFPS) >> 1
-	C.sub_4093A0()
+	C.nox_binfile_reset_4093A0()
 	C.nox_ensure_thing_bin()
 	// should be .csf but it works anyway
 	if err := strmanReadFile("nox.str"); err != nil {
@@ -402,7 +402,7 @@ func cleanup() {
 	C.sub_40C0D0()
 	C.sub_40B740()
 	C.sub_4D0970()
-	C.sub_4093D0()
+	C.nox_binfile_xxx_409560()
 	C.sub_40AF30()
 	//C.sub_48B1B0() // does nothing on SDL
 	C.nox_free_thing_bin()

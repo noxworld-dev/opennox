@@ -4378,7 +4378,7 @@ FILE*  nox_xxx_fopenVideoBag_42F0B0(int a1) {
 	result = nox_fs_open(v1);
 	v3 = result;
 	if (result) {
-		nox_xxx_fileBinRead_40ADD0_fread((char*)&v7, 4u, 1u, result);
+		nox_binfile_fread2_40ADD0((char*)&v7, 4u, 1u, result);
 		dword_5d4594_754144 = 0;
 		if (v7 == -85082901) {
 			dword_5d4594_754144 = 1;
@@ -4386,11 +4386,11 @@ FILE*  nox_xxx_fopenVideoBag_42F0B0(int a1) {
 			fclose(v3);
 			return 0;
 		}
-		nox_xxx_fileBinRead_40ADD0_fread((char*)&v6, 4u, 1u, v3);
+		nox_binfile_fread2_40ADD0((char*)&v6, 4u, 1u, v3);
 		v4 = (char*)malloc(v6);
 		if (v4) {
 			fseek(v3, 0, SEEK_SET);
-			v5 = nox_xxx_fileBinRead_40ADD0_fread(v4, 1u, v6, v3);
+			v5 = nox_binfile_fread2_40ADD0(v4, 1u, v6, v3);
 			if (v5 == v6) {
 				fclose(v3);
 				result = (FILE*)v4;
@@ -5029,16 +5029,16 @@ int  sub_42FE30(int a1) {
 	fp = get_bag(*(_DWORD*)(a1 + 8));
 	v2 = *(_DWORD*)(v1 + 16);
 	if (*(_DWORD*)(v1 + 12) == v2) {
-		v10 = nox_xxx_fileBinRead_40ADD0_fread(*(char**)v1, 1u, v2, fp);
+		v10 = nox_binfile_fread2_40ADD0(*(char**)v1, 1u, v2, fp);
 	} else {
 		v3 = 0;
 		v4 = *(char**)v1;
 		if (v2 > *(int*)&dword_5d4594_787184) {
 			v3 = (char*)malloc(v2);
-			v10 = nox_xxx_fileBinRead_40ADD0_fread(v3, 1u, *(_DWORD*)(v1 + 16), fp);
+			v10 = nox_binfile_fread2_40ADD0(v3, 1u, *(_DWORD*)(v1 + 16), fp);
 			v6 = v3;
 		} else {
-			v5 = nox_xxx_fileBinRead_40ADD0_fread(*(char**)&dword_5d4594_787208, 1u, v2, fp);
+			v5 = nox_binfile_fread2_40ADD0(*(char**)&dword_5d4594_787208, 1u, v2, fp);
 			v6 = *(char**)&dword_5d4594_787208;
 			v10 = v5;
 		}
@@ -5101,12 +5101,12 @@ BOOL  sub_42FFF0(FILE* a1) {
 	char v4[32];   // [esp+14h] [ebp-20h]
 
 	strcpy(v3, "LOOKUPTABLE");
-	v1 = nox_xxx_fileBinRead_40ADD0_fread(v4, 1u, strlen(v3), a1);
+	v1 = nox_binfile_fread2_40ADD0(v4, 1u, strlen(v3), a1);
 	result = 0;
 	if (v1 == strlen(v3)) {
 		v4[strlen(v3)] = 0;
 		if (!strcmp(v4, v3))
-			result = nox_xxx_fileBinRead_40ADD0_fread((char*)getMemAt(0x5D4594, 754340), 1u, 0x8000u, a1) == 0x8000;
+			result = nox_binfile_fread2_40ADD0((char*)getMemAt(0x5D4594, 754340), 1u, 0x8000u, a1) == 0x8000;
 		else
 			result = 0;
 	}

@@ -23,19 +23,19 @@ int  nox_xxx_savePlayerMB_41C8F0(char* a1, unsigned int a2) {
 		v5 = nox_fs_root();
 		nox_sprintf(PathName, "%s\\Save\\", v5);
 		CreateDirectoryA(PathName, 0);
-		v6 = nox_xxx_openFileBin_408CC0((char*)getMemAt(0x5D4594, 2660688), 1);
+		v6 = nox_binfile_open_408CC0((char*)getMemAt(0x5D4594, 2660688), 1);
 		nox_file_2 = v6;
 		if (v6) {
-			if (nox_xxx_cryptOpen_408D40((int)v6, 27)) {
+			if (nox_binfile_cryptSet_408D40((int)v6, 27)) {
 				v7 = a1;
 				if ((_WORD)a2) {
 					v8 = (unsigned __int16)a2;
 					do {
-						sub_409200(v7++, 1, 1, nox_file_2);
+						nox_binfile_zzz_409200(v7++, 1, 1, nox_file_2);
 						--v8;
 					} while (v8);
 				}
-				nox_xxx_fileBinClose_408D90(nox_file_2);
+				nox_binfile_close_408D90(nox_file_2);
 				if (nox_common_gameFlags_check_40A5C0(4096))
 					*getMemU8Ptr(0x5D4594, 2661961) = sub_465DF0();
 				else

@@ -5,6 +5,7 @@
 #include "proto.h"
 #include "client__gui__guimsg.h"
 #include "client__io__console.h"
+#include "common__binfile.h"
 
 extern _DWORD dword_5d4594_1556112;
 extern _DWORD nox_game_loop_xxx_805872;
@@ -204,7 +205,7 @@ void cleanup() {
 	sub_40C0D0();
 	sub_40B740();
 	sub_4D0970();
-	sub_4093D0();
+	nox_binfile_xxx_409560();
 	sub_40AF30();
 #ifdef USE_SDL
 	sub_48B1B0();

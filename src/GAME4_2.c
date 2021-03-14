@@ -1,6 +1,7 @@
 #include "client__drawable__drawdb.h"
 #include "client__gui__guigen.h"
 #include "common__random.h"
+#include "common__binfile.h"
 
 #include "proto.h"
 
@@ -314,7 +315,7 @@ int  nox_xxx_xfer_saveObj_51DF90(int a1) {
 // 51DFDA: variable 'v5' is possibly undefined
 
 //----- (004268F0) --------------------------------------------------------
-void sub_4268F0(int a1) { nox_xxx_file_409190(nox_file_3, *(int*)&dword_5d4594_739996, a1); }
+void sub_4268F0(int a1) { nox_binfile_kkk_409190(nox_file_3, *(int*)&dword_5d4594_739996, a1); }
 
 //----- (0051E010) --------------------------------------------------------
 int  nox_xxx_mapSaveMap_51E010(char* a1, int a2) {
@@ -422,9 +423,9 @@ int  nox_xxx_mapGenReadTheme_51E260(int* a1, int a2) {
 	a1[38] = 0;
 	a1[46] = 0;
 	*getMemU32Ptr(0x5D4594, 2487520) = 0;
-	v2 = nox_xxx_openFileBin_408CC0(v7, 0);
+	v2 = nox_binfile_open_408CC0(v7, 0);
 	v3 = v2;
-	if (!v2 || !nox_xxx_cryptOpen_408D40((int)v2, 1))
+	if (!v2 || !nox_binfile_cryptSet_408D40((int)v2, 1))
 		return 0;
 	while (nox_xxx_mapGenReadLine_51E540(v3, getMemAt(0x5D4594, 2487264))) {
 		if (!_strcmpi("ALGORITHM_DATA", (const char*)getMemAt(0x5D4594, 2487264))) {
@@ -472,7 +473,7 @@ int  nox_xxx_mapGenReadTheme_51E260(int* a1, int a2) {
 	}
 	v5 = 1;
 LABEL_27:
-	nox_xxx_fileBinClose_408D90(v3);
+	nox_binfile_close_408D90(v3);
 	if (v5 != 1 || nox_xxx_mapgenCheckSettings_520AD0(a1 + 22) && nox_xxx_mapgenCheckSettings_520AD0(a1 + 30) && (!a1[46] || nox_xxx_mapgenCheckSettings_520AD0(a1 + 46)))
 		return v5;
 	return 0;
@@ -504,8 +505,8 @@ int  sub_51E570(FILE* a1, _BYTE* a2) {
 	do {
 		while (1) {
 			v5 = v3;
-			nox_xxx_fread_408E40_fread((char*)CharType, 1, 1, a1);
-			if (sub_409370() == -1)
+			nox_binfile_fread_408E40((char*)CharType, 1, 1, a1);
+			if (nox_binfile_lastErr_409370() == -1)
 				return 0;
 			v3 = *(_DWORD*)CharType;
 			if (*(_DWORD*)CharType == 10)
@@ -541,8 +542,8 @@ int  sub_51E630(FILE* a1) {
 	v1 = a1;
 	while (1) {
 		LOBYTE(a1) = 0;
-		nox_xxx_fread_408E40_fread((char*)&a1, 1, 1, v1);
-		result = sub_409370();
+		nox_binfile_fread_408E40((char*)&a1, 1, 1, v1);
+		result = nox_binfile_lastErr_409370();
 		if (result == -1)
 			break;
 		if ((_BYTE)a1 == 10) {

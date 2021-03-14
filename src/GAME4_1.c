@@ -4,6 +4,7 @@
 #include "server__system__trade.h"
 #include "common__random.h"
 #include "client__system__ctrlevnt.h"
+#include "common__binfile.h"
 
 #include "proto.h"
 
@@ -5976,14 +5977,14 @@ int nox_xxx_loadMonsterBin_517010() {
 	char v2[256]; // [esp+4h] [ebp-100h]
 
 	dword_5d4594_2386924 = 0;
-	result = nox_xxx_openFileBin_408CC0("monster.bin", 0);
+	result = nox_binfile_open_408CC0("monster.bin", 0);
 	v1 = (FILE*)result;
 	if (result) {
-		result = nox_xxx_cryptOpen_408D40(result, 23);
+		result = nox_binfile_cryptSet_408D40(result, 23);
 		if (result) {
 			while (nox_xxx_readStr_517090(v1, v2) && nox_xxx_servParseMonsterDef_517170(v1, v2))
 				;
-			nox_xxx_fileBinClose_408D90(v1);
+			nox_binfile_close_408D90(v1);
 			result = 1;
 		}
 	}
@@ -6006,8 +6007,8 @@ int  nox_xxx_readStr_517090(FILE* a1, _BYTE* a2) {
 	do {
 		while (1) {
 			v5 = v3;
-			nox_xxx_fread_408E40_fread((char*)CharType, 1, 1, a1);
-			if (sub_409370() == -1)
+			nox_binfile_fread_408E40((char*)CharType, 1, 1, a1);
+			if (nox_binfile_lastErr_409370() == -1)
 				return 0;
 			if (*getMemU32Ptr(0x587000, 1668) <= 1) {
 				v3 = *(_DWORD*)CharType;
@@ -6041,8 +6042,8 @@ int  sub_517140(FILE* a1) {
 	v1 = a1;
 	do {
 		LOBYTE(a1) = 0;
-		nox_xxx_fread_408E40_fread((char*)&a1, 1, 1, v1);
-		result = sub_409370();
+		nox_binfile_fread_408E40((char*)&a1, 1, 1, v1);
+		result = nox_binfile_lastErr_409370();
 	} while (result != -1 && (_BYTE)a1 != 10);
 	return result;
 }
