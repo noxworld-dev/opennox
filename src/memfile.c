@@ -1,5 +1,6 @@
 #include "memfile.h"
-#include "proto.h"
+#include "common__binfile.h"
+#include <stdlib.h>
 #include <string.h>
 
 //----- (0040ABF0) --------------------------------------------------------
@@ -8,35 +9,35 @@ nox_memfile* nox_memfile_load(const char* path, int a2) {
 	if (!nf) {
 		return 0;
 	}
-	FILE* f = nox_xxx_openFileBin_408CC0(path, 0);
+	FILE* f = nox_binfile_open_408CC0(path, 0);
 	if (!f) {
 		nox_memfile_free(nf);
 		return 0;
 	}
-	if (!nox_xxx_cryptOpen_408D40(f, a2)) {
+	if (!nox_binfile_cryptSet_408D40(f, a2)) {
 		nox_memfile_free(nf);
-		nox_xxx_fileBinClose_408D90(f);
+		nox_binfile_close_408D90(f);
 		return 0;
 	}
-	nox_xxx_fseek_409050(f, 0, SEEK_END);
-	nf->size = nox_xxx_fileBinGetInPtr_409390();
-	nox_xxx_fseek_409050(f, 0, SEEK_SET);
+	nox_binfile_fseek_409050(f, 0, SEEK_END);
+	nf->size = nox_binfile_ftell_426A50();
+	nox_binfile_fseek_409050(f, 0, SEEK_SET);
 	nf->data = (char*)malloc(nf->size);
 	if (nf->data == 0) {
 		nox_memfile_free(nf);
-		nox_xxx_fileBinClose_408D90(f);
+		nox_binfile_close_408D90(f);
 		return 0;
 	}
 	int csize = nf->size;
-	int x1 = nox_xxx_fread_408E40_fread(nf->data, 1, nf->size, f);
+	int x1 = nox_binfile_fread_408E40(nf->data, 1, nf->size, f);
 	if (x1 != csize) {
 		nox_memfile_free(nf);
-		nox_xxx_fileBinClose_408D90(f);
+		nox_binfile_close_408D90(f);
 		return 0;
 	}
 	nf->cur = nf->data;
 	nf->end = nf->data + csize;
-	nox_xxx_fileBinClose_408D90(f);
+	nox_binfile_close_408D90(f);
 	return nf;
 }
 

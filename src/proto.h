@@ -105,29 +105,8 @@ void  nox_video_setWinTitle_401FE0(char*);
 // int  realloc(LPVOID lpMem, int); idb
 // char * _strdup(const char *);
 // char * strchr(const char *, int);
-FILE*  nox_xxx_openFileBin_408CC0(const char* path, int mode);
-int  nox_xxx_cryptOpen_408D40(FILE* a1, int a2);
-int  nox_xxx_fileBinClose_408D90(FILE* a1);
-signed int  nox_xxx_fread_408E40_fread(char* a1, int a2, signed int a3, FILE* a4);
-signed int  nox_xxx_skip2nextboundary_408FE0(char* a1, int a2, int a3, FILE* a4);
-int  nox_xxx_fseek_409050(FILE* a1, int a2, int a3);
-int  sub_409110(FILE* a1);
-void nox_xxx_file_409190(FILE* file, int data, int file_offset);
-size_t  sub_409200(char* a1, int a2, int a3, FILE* a4);
-int sub_409370();
-int nox_xxx_fileBinGetInPtr_409390();
-void sub_4093A0();
-void sub_4093D0(void); // weak
 void  nox_xxx_parseRead_4093E0(FILE* a1, char* a2, int a3);
 int  nox_xxx_parseString_409470(FILE* a1, _BYTE* a2);
-int  sub_409520(FILE* a1);
-void sub_409560();
-void  sub_409580(int* a1, int a2);
-int  nox_xxx_crypt_4096E0(int* a1, int* a2);
-void sub_4097C0(uint8_t* src, size_t sz, uint8_t* dest);
-_BYTE*  nox_xxx_parseThingsRule_409860(_BYTE* a1, _BYTE* a2, _DWORD* a3);
-int  sub_4099C0(_BYTE* a1, signed int a2, _BYTE* a3);
-int nox_xxx_crypt_409A60();
 int  sub_409A70(__int16 a1);
 unsigned short nox_client_getVersionBuild_409AC0();
 unsigned char nox_client_getVersionMajor_409AA0();
@@ -205,7 +184,6 @@ int sub_40AA50();
 int  sub_40AA60(int a1);
 int  sub_40AA70(int a1);
 BOOL nox_xxx_checkHasSoloMaps_40ABD0();
-signed int  nox_xxx_fileBinRead_40ADD0_fread(char* a1, size_t a2, size_t a3, FILE* a4);
 int  nox_xxx_PtFuncCompare_40AE90(const void*, const void*); // idb
 int  sub_40AEB0(const void*, const void*); // idb
 void sub_40AED0();

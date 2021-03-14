@@ -10163,7 +10163,7 @@ char*  sub_4866F0(const char* a1, const char* a2) {
 	v8[4] = v9;
 	v10 = nox_fs_open(v20);
 	*((_DWORD*)v2 + 67) = v10;
-	if (!v10 || nox_xxx_fileBinRead_40ADD0_fread(v17, 0xCu, 1u, v6) != 1)
+	if (!v10 || nox_binfile_fread2_40ADD0(v17, 0xCu, 1u, v6) != 1)
 		goto LABEL_27;
 	*((_DWORD*)v2 + 1) = *(_DWORD*)&v17[8];
 	if (*(int*)&v17[8] <= 0)
@@ -10173,7 +10173,7 @@ char*  sub_4866F0(const char* a1, const char* a2) {
 	*(_DWORD*)v2 = v11;
 	memset(v11, 0, 4 * ((unsigned int)(36 * v12) >> 2));
 	if (*(_DWORD*)&v17[4] != 1) {
-		if (nox_xxx_fileBinRead_40ADD0_fread(*(char**)v2, 36 * *((_DWORD*)v2 + 1), 1u, v6) == 1)
+		if (nox_binfile_fread2_40ADD0(*(char**)v2, 36 * *((_DWORD*)v2 + 1), 1u, v6) == 1)
 			goto LABEL_14;
 	LABEL_27:
 		if (v2)
@@ -10185,7 +10185,7 @@ char*  sub_4866F0(const char* a1, const char* a2) {
 	v13 = 0;
 	if (*((_DWORD*)v2 + 1) > 0) {
 		v14 = 0;
-		while (nox_xxx_fileBinRead_40ADD0_fread((char*)(v14 + *(_DWORD*)v2), 0x20u, 1u, v6) == 1) {
+		while (nox_binfile_fread2_40ADD0((char*)(v14 + *(_DWORD*)v2), 0x20u, 1u, v6) == 1) {
 			++v13;
 			*(_DWORD*)(*(_DWORD*)v2 + v14 + 32) = 0;
 			v14 += 36;
@@ -10341,7 +10341,7 @@ int  sub_486B60(int a1, int a2) {
 	*(_DWORD*)(a1 + 272) = v6;
 	if (!v6)
 		return v12;
-	if (nox_xxx_fileBinRead_40ADD0_fread((char*)v15, 0xCu, 1u, v6) != 1 || v15[0] != 1179011410 || v15[2] != 1163280727) {
+	if (nox_binfile_fread2_40ADD0((char*)v15, 0xCu, 1u, v6) != 1 || v15[0] != 1179011410 || v15[2] != 1163280727) {
 		printf("error: '%s' is bad - cannot read\n", &v15[3]);
 		if (*(_DWORD*)(a1 + 272)) {
 			fclose(*(FILE**)(a1 + 272));
@@ -10349,11 +10349,11 @@ int  sub_486B60(int a1, int a2) {
 		}
 		return v12;
 	}
-	if (nox_xxx_fileBinRead_40ADD0_fread(v13, 8u, 1u, v7) != 1)
+	if (nox_binfile_fread2_40ADD0(v13, 8u, 1u, v7) != 1)
 		goto LABEL_18;
 	while (1) {
 		if (*(_DWORD*)v13 == 544501094) {
-			nox_xxx_fileBinRead_40ADD0_fread(v14, 0x10u, 1u, v7);
+			nox_binfile_fread2_40ADD0(v14, 0x10u, 1u, v7);
 			fseek(v7, *(_DWORD*)&v13[4] - 16, SEEK_CUR);
 			goto LABEL_15;
 		}
@@ -10361,7 +10361,7 @@ int  sub_486B60(int a1, int a2) {
 			break;
 		fseek(v7, *(int*)&v13[4], SEEK_CUR);
 	LABEL_15:
-		if (nox_xxx_fileBinRead_40ADD0_fread(v13, 8u, 1u, v7) != 1)
+		if (nox_binfile_fread2_40ADD0(v13, 8u, 1u, v7) != 1)
 			goto LABEL_18;
 	}
 	v8 = *(_DWORD*)&v13[4];
@@ -10391,7 +10391,7 @@ signed int  sub_486DB0(int a1, char* a2, signed int a3) {
 	v4 = a3;
 	if (a3 > *(int*)(a1 + 284))
 		v4 = *(_DWORD*)(a1 + 284);
-	if (v4 <= 0 || (result = nox_xxx_fileBinRead_40ADD0_fread(a2, 1u, v4, *(FILE**)(a1 + 280)), result < 0))
+	if (v4 <= 0 || (result = nox_binfile_fread2_40ADD0(a2, 1u, v4, *(FILE**)(a1 + 280)), result < 0))
 		result = 0;
 	*(_DWORD*)(a1 + 284) -= result;
 	return result;

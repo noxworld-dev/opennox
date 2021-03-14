@@ -4,6 +4,7 @@
 #include "server__script__script.h"
 #include "server__script__file.h"
 #include "common__random.h"
+#include "common__binfile.h"
 
 #include "nox_fs.h"
 #include "proto.h"
@@ -8191,14 +8192,14 @@ int  nox_xxx_mapgenMakeScript_502790(FILE* a1, char* a2) {
 	int v9;         // [esp+14h] [ebp-404h]
 	char v10[1024]; // [esp+18h] [ebp-400h]
 
-	nox_xxx_fread_408E40_fread((char*)&v8, 4, 1, a1);
-	nox_xxx_fread_408E40_fread(v10, 1, v8, a1);
-	nox_xxx_fread_408E40_fread(a2, 4, 1, a1);
-	nox_xxx_fread_408E40_fread((char*)&v7, 4, 1, a1);
+	nox_binfile_fread_408E40((char*)&v8, 4, 1, a1);
+	nox_binfile_fread_408E40(v10, 1, v8, a1);
+	nox_binfile_fread_408E40(a2, 4, 1, a1);
+	nox_binfile_fread_408E40((char*)&v7, 4, 1, a1);
 	result = v7;
 	for (i = 0; i < v7; ++i) {
-		nox_xxx_fread_408E40_fread((char*)&v6, 1, 1, a1);
-		nox_xxx_fseek_409050(a1, 1, SEEK_CUR);
+		nox_binfile_fread_408E40((char*)&v6, 1, 1, a1);
+		nox_binfile_fseek_409050(a1, 1, SEEK_CUR);
 		v4 = 0;
 		v5 = 268 * (unsigned __int8)v6;
 		if (getMemByte(0x587000, v5 + 218640)) {
@@ -8209,15 +8210,15 @@ int  nox_xxx_mapgenMakeScript_502790(FILE* a1, char* a2) {
 				case 4:
 				case 5:
 				case 6:
-					nox_xxx_fseek_409050(a1, 4, SEEK_CUR);
+					nox_binfile_fseek_409050(a1, 4, SEEK_CUR);
 					break;
 				case 1:
-					nox_xxx_fseek_409050(a1, 8, SEEK_CUR);
+					nox_binfile_fseek_409050(a1, 8, SEEK_CUR);
 					break;
 				case 2:
 				case 7:
-					nox_xxx_fread_408E40_fread((char*)&v9, 1, 1, a1);
-					nox_xxx_fseek_409050(a1, (unsigned __int8)v9, SEEK_CUR);
+					nox_binfile_fread_408E40((char*)&v9, 1, 1, a1);
+					nox_binfile_fseek_409050(a1, (unsigned __int8)v9, SEEK_CUR);
 					break;
 				default:
 					break;

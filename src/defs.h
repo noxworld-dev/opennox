@@ -56,7 +56,7 @@ typedef long LSTATUS;
 #endif // _WIN32
 
 #include "compat_mss.h"
-#include "common__noxfile.h"
+#include "common__binfile.h"
 #include "common__strman.h"
 #include "noxstring.h"
 #include <stdbool.h>
