@@ -313,7 +313,7 @@ set (
     client__system__npcinfo.c
     client__system__parsecmd.c
     common/alloc/classes/alloc_class.c
-    nox_fs.c
+    common/fs/nox_fs.c
     common__random.c
     common__strman.c
     common__binfile.c

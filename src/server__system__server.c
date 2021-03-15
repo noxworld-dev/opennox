@@ -10,7 +10,7 @@
 #include "server__network__playback.h"
 #include "server__network__sdecode.h"
 #include "server__xfer__savegame__savegame.h"
-#include "nox_fs.h"
+#include "common/fs/nox_fs.h"
 
 extern _DWORD nox_xxx_respawnAllow_587000_205200;
 extern _DWORD dword_5d4594_1569656;

@@ -3,7 +3,7 @@
 
 #include "server__script__script.h"
 #include "server__script__builtin.h"
-#include "nox_fs.h"
+#include "common/fs/nox_fs.h"
 #include "proto.h"
 
 extern void* nox_script_activatedList_2487236;

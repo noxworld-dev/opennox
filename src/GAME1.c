@@ -21,7 +21,7 @@
 #include "common__random.h"
 #include "common__binfile.h"
 
-#include "nox_fs.h"
+#include "common/fs/nox_fs.h"
 #include "static.h"
 #include "mutexes.h"
 #include "proto.h"

@@ -21,7 +21,7 @@
 
 #include "client__draw__partscrn.h"
 
-#include "nox_fs.h"
+#include "common/fs/nox_fs.h"
 #include "input.h"
 #include "proto.h"
 

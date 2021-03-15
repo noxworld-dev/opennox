@@ -20,7 +20,7 @@
 #include "client__drawable__update__dball.h"
 #include "client__drawable__drawdb.h"
 
-#include "nox_fs.h"
+#include "common/fs/nox_fs.h"
 #include "proto.h"
 
 extern _DWORD dword_5d4594_3835368;

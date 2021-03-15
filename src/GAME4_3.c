@@ -6,7 +6,7 @@
 
 #include "common__gamemech__pausefx.h"
 
-#include "nox_fs.h"
+#include "common/fs/nox_fs.h"
 #include "proto.h"
 
 extern _DWORD dword_5d4594_2488620;

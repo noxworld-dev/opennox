@@ -3,7 +3,7 @@
 #include <string.h>
 
 #include "common__binfile.h"
-#include "nox_fs.h"
+#include "common/fs/nox_fs.h"
 
 FILE* nox_binfile = 0;
 int nox_binfile_mode = 0;

@@ -1,6 +1,6 @@
 #include "input.h"
 #include "proto.h"
-#include "nox_fs.h"
+#include "common/fs/nox_fs.h"
 
 #ifndef NOX_CGO
 #include <SDL2/SDL.h>

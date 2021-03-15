@@ -26,7 +26,7 @@
 #include "client__draw__drawwin.h"
 #include "client__draw__selectdw.h"
 
-#include "nox_fs.h"
+#include "common/fs/nox_fs.h"
 #include "proto.h"
 
 extern _DWORD dword_5d4594_1062552;

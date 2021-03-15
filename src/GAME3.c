@@ -25,7 +25,7 @@
 #include "client__draw__fx.h"
 #include "client__draw__lvupdraw.h"
 
-#include "nox_fs.h"
+#include "common/fs/nox_fs.h"
 #include "input.h"
 #include "proto.h"
 

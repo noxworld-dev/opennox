@@ -13,13 +13,14 @@ import (
 	"fmt"
 	"io"
 	"log"
-	"os"
+	"path/filepath"
 	"strconv"
 	"strings"
 	"unsafe"
 
 	"nox/client/gui"
 	"nox/common/alloc"
+	"nox/common/fs"
 	"nox/common/memmap"
 	"nox/common/strman"
 )
@@ -102,10 +103,9 @@ func nox_new_window_from_file(name *C.char, fnc unsafe.Pointer) *C.nox_window {
 }
 
 func newWindowFromFile(name string, fnc unsafe.Pointer) *Window {
-	path := strings.Join([]string{"window", name}, "\\")
-	path = resolveGamePath(path)
+	path := filepath.Join("window", name)
 
-	f, err := os.Open(path)
+	f, err := fs.Open(path)
 	if err != nil {
 		log.Printf("cannot load gui file %q: %v", path, err)
 		return nil

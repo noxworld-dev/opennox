@@ -1,6 +1,6 @@
 #include "client__io__win95__video.h"
 
-#include "nox_fs.h"
+#include "common/fs/nox_fs.h"
 #include "proto.h"
 #include "client__io__console.h"
 

@@ -21,7 +21,7 @@
 #include "client__system__gameloop.h"
 
 #include "mutexes.h"
-#include "nox_fs.h"
+#include "common/fs/nox_fs.h"
 #include "proto.h"
 
 extern _DWORD dword_587000_122856;

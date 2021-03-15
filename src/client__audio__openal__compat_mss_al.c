@@ -17,7 +17,7 @@
 #include "client/audio/mp3/minimp3.h"
 
 #include "defs.h"
-#include "nox_fs.h"
+#include "common/fs/nox_fs.h"
 
 struct _DIG_DRIVER {
 	ALCdevice* device;
