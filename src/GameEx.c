@@ -3,7 +3,7 @@
 #include "GameEx.h"
 #include "client__gui__guimsg.h"
 #include "client__gui__window.h"
-#include "nox_fs.h"
+#include "common/fs/nox_fs.h"
 
 #include "client__shell__noxworld.h"
 #ifndef NOX_CGO

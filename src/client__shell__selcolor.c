@@ -1,6 +1,6 @@
 #include "client__shell__selcolor.h"
 
-#include "nox_fs.h"
+#include "common/fs/nox_fs.h"
 #include "proto.h"
 extern _DWORD dword_5d4594_1308136;
 extern _DWORD dword_5d4594_1308104;

@@ -18,7 +18,7 @@
 
 #include "client__gui__guibook.h"
 
-#include "nox_fs.h"
+#include "common/fs/nox_fs.h"
 #include "proto.h"
 
 FILE* nox_file_2 = 0;

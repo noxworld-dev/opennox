@@ -6,7 +6,7 @@
 #include "proto.h"
 #include "server__system__trade.h"
 #include "server__network__mapsend.h"
-#include "nox_fs.h"
+#include "common/fs/nox_fs.h"
 
 //----- (0051BAD0) --------------------------------------------------------
 int  nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned __int8* a2, signed int a3) {

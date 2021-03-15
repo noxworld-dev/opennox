@@ -6,7 +6,7 @@
 #define GL_GLEXT_PROTOTYPES
 #endif
 #include "client__video__draw_common.h"
-#include "nox_fs.h"
+#include "common/fs/nox_fs.h"
 
 #ifdef __APPLE__
 #include <GLUT/glut.h>

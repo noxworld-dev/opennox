@@ -6,7 +6,7 @@
 #include "common__system__group.h"
 #include "comw32__comlib.h"
 
-#include "nox_fs.h"
+#include "common/fs/nox_fs.h"
 #include "proto.h"
 
 #include <float.h>

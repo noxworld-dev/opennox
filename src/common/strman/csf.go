@@ -4,13 +4,14 @@ import (
 	"encoding/binary"
 	"fmt"
 	"io"
-	"os"
 	"strings"
 	"unicode/utf16"
+
+	"nox/common/fs"
 )
 
 func (sm *StringManager) ReadCSF(path string) error {
-	f, err := os.Open(path)
+	f, err := fs.Open(path)
 	if err != nil {
 		return err
 	}

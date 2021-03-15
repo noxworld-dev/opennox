@@ -2,7 +2,8 @@ package strman
 
 import (
 	"encoding/json"
-	"os"
+
+	"nox/common/fs"
 )
 
 type jsonFile struct {
@@ -14,7 +15,7 @@ func (sm *StringManager) ReadJSON(path string) error {
 	sm.lang = 0
 	sm.entries = nil
 	var file jsonFile
-	f, err := os.Open(path)
+	f, err := fs.Open(path)
 	if err != nil {
 		return err
 	}
@@ -29,7 +30,7 @@ func (sm *StringManager) ReadJSON(path string) error {
 }
 
 func (sm *StringManager) WriteJSON(path string) error {
-	f, err := os.Create(path)
+	f, err := fs.Create(path)
 	if err != nil {
 		return err
 	}

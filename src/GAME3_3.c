@@ -10,7 +10,7 @@
 
 #include "common__gamemech__pausefx.h"
 
-#include "nox_fs.h"
+#include "common/fs/nox_fs.h"
 #include "proto.h"
 
 unsigned int mix_dword_980858[] = {1966080, 1821179904, 2415929931};

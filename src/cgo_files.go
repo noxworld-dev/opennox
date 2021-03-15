@@ -11,8 +11,9 @@ import "C"
 import (
 	"fmt"
 	"io"
-	"nox/common/alloc"
 	"unsafe"
+
+	"nox/common/alloc"
 )
 
 func newCFile(f *C.FILE) io.ByteReader {
@@ -30,27 +31,6 @@ func (f cfileReader) ReadByte() (byte, error) {
 		return 0, io.EOF
 	}
 	return byte(c), nil
-}
-
-func resolveGamePath(path string) string {
-	cpath := C.CString(path)
-	defer StrFree(cpath)
-	if p := C.nox_fs_normalize(cpath); p != cpath {
-		defer StrFree(p)
-		return C.GoString(p)
-	}
-	return path
-}
-
-func fopen(path, mode string) *C.FILE {
-	path = resolveGamePath(path)
-	cpath := C.CString(path)
-	cmode := C.CString(mode)
-	defer func() {
-		StrFree(cpath)
-		StrFree(cmode)
-	}()
-	return C.fopen(cpath, cmode)
 }
 
 func fscanf(f *C.FILE, format string, args ...interface{}) int {

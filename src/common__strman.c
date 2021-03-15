@@ -9,7 +9,7 @@
 #include "common__random.h"
 #include "common__binfile.h"
 #include "noxstring.h"
-#include "nox_fs.h"
+#include "common/fs/nox_fs.h"
 
 #ifdef _MSC_VER // not _WIN32, because mingw has it
 #define strncasecmp _strnicmp

@@ -7,7 +7,7 @@
 #include "common__system__team.h"
 #include "common__random.h"
 
-#include "nox_fs.h"
+#include "common/fs/nox_fs.h"
 #include "proto.h"
 
 void cmain_loop(int);

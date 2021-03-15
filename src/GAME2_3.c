@@ -15,7 +15,7 @@
 #include "client__draw__fx.h"
 #include "client__gui__guibook.h"
 
-#include "nox_fs.h"
+#include "common/fs/nox_fs.h"
 #include "proto.h"
 
 extern unsigned char byte_5D4594_3804364[160];

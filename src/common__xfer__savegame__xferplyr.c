@@ -1,7 +1,7 @@
 // FIXME
 #include "client__gui__guimsg.h"
 
-#include "nox_fs.h"
+#include "common/fs/nox_fs.h"
 #include "proto.h"
 
 extern FILE* nox_file_2;

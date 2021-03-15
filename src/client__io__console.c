@@ -1,5 +1,5 @@
 #include "proto.h"
-#include "nox_fs.h"
+#include "common/fs/nox_fs.h"
 extern _DWORD dword_5d4594_823776;
 
 FILE* nox_file_log = 0;

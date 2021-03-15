@@ -1,6 +1,6 @@
 #include "client__shell__selchar.h"
 
-#include "nox_fs.h"
+#include "common/fs/nox_fs.h"
 #include "proto.h"
 #include "client__gui__guisave.h"
 #include "client__shell__optsback.h"

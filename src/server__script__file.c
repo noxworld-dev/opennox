@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "nox_fs.h"
+#include "common/fs/nox_fs.h"
 #include "server__script__builtin.h"
 #include "proto.h"
 
