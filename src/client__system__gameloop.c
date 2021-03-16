@@ -193,7 +193,7 @@ void cleanup() {
 	nox_xxx_freeKeyboard_430210();
 	nox_xxx_tileFree_410FC0_free();
 	sub_4106C0();
-	sub_42F4D0();
+	nox_video_bagFree_42F4D0();
 	sub_42EDC0();
 	sub_42CD90();
 	nox_strman_free_410020();

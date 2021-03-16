@@ -4,7 +4,7 @@
 #include "proto.h"
 
 extern _DWORD dword_5d4594_805860;
-extern _DWORD dword_5d4594_3804680;
+extern int nox_video_16bit;
 extern int nox_backbuffer_pitch_3801808;
 extern _DWORD dword_5d4594_3801780;
 extern int nox_enable_threads;
@@ -42,7 +42,7 @@ int nox_video_recreateRenderTarget_47FD70() {
 	v1 = nox_client_getCursorType_477620();
 	nox_client_setCursorType_477610(0);
 	v2 = sub_48B3E0(0);
-	int depth = dword_5d4594_3804680 != 0 ? 16 : 8;
+	int depth = nox_video_16bit != 0 ? 16 : 8;
 	if (!nox_xxx_GfxInit_444930(nox_win_width, nox_win_height, depth, flags)) {
 		wchar_t* v9 = nox_strman_loadString_40F1D0("result:ERROR", 0, "C:\\NoxPost\\src\\Client\\Io\\Win95\\dxvideo.c", 213);
 		wchar_t* v4 =
@@ -58,7 +58,7 @@ int nox_video_recreateRenderTarget_47FD70() {
 	nox_xxx_setupSomeVideo_47FEF0();
 	sub_49F6D0(1);
 	sub_437290();
-	dword_5d4594_3804680 = dword_5d4594_3801780;
+	nox_video_16bit = dword_5d4594_3801780;
 	*getMemU32Ptr(0x5D4594, 3805488) = nox_backbuffer_pitch_3801808 * nox_backbuffer_height;
 	*getMemU32Ptr(0x5D4594, 3807124) = dword_5d4594_3801780 == 1;
 	sub_430B50(0, 0, NOX_DEFAULT_WIDTH - 1, NOX_DEFAULT_HEIGHT - 1);
