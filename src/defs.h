@@ -348,6 +348,19 @@ typedef struct struc_36 {
 	_DWORD field_6;
 } struc_36;
 
+typedef struct {
+	void* field_0;
+	_DWORD field_1;
+	_DWORD field_2;
+	int field_3; // sizeof field_0
+	_DWORD field_4;
+	_DWORD field_5;
+	int field_6;
+	void* field_7;
+	void* field_8;
+} nox_video_bag_entry1_t;
+_Static_assert(sizeof(nox_video_bag_entry1_t) == 36, "wrong size of nox_video_bag_entry1_t structure!");
+
 typedef struct nox_thing nox_thing;
 typedef struct nox_drawable nox_drawable;
 

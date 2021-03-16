@@ -5,6 +5,7 @@
 #include "common/alloc/classes/alloc_class.h"
 
 #include "memmap.h"
+#include "defs.h" // nox_video_bag_entry1_t
 
 // TODO: part of the GUI toolkit
 short  nox_client_drawImageAt_47D2C0(int a1, int a2, int a3);
@@ -16,7 +17,7 @@ char*  nox_xxx_gLoadImg_42F970(const char* a1);
 // TODO: reference to input
 void sub_4309B0(unsigned char i, unsigned char v);
 
-extern void* nox_video_bag_arr1_787148;
+extern nox_video_bag_entry1_t* nox_video_bag_arr1_787148;
 extern unsigned int dword_5d4594_1064912;
 extern unsigned int dword_5d4594_1064900;
 extern unsigned int dword_5d4594_3799468;
@@ -153,19 +154,14 @@ int  nox_xxx_wndShowModalMB_46A8C0(int a1) {
 }
 
 //----- (0042FAE0) --------------------------------------------------------
-unsigned int*  sub_42FAE0(int a1) {
-	unsigned int* result; // eax
-
-	result = (unsigned int*)((char*)nox_video_bag_arr1_787148 + 36 * *(unsigned short*)(a1 + 8));
-	if (result[6] == -1) {
-		result = (unsigned int*)*result;
-		if (result) {
-			free(result);
-			result = *(unsigned int**)&nox_video_bag_arr1_787148;
-			*(unsigned int*)((char*)nox_video_bag_arr1_787148 + 36 * *(unsigned short*)(a1 + 8)) = 0;
+void sub_42FAE0(void* a1) {
+	nox_video_bag_entry1_t* ent = &nox_video_bag_arr1_787148[*(unsigned short*)((char*)a1 + 8)];
+	if (ent->field_6 == -1) {
+		if (ent->field_0) {
+			free(ent->field_0);
+			ent->field_0 = 0;
 		}
 	}
-	return result;
 }
 
 //----- (0046AC60) --------------------------------------------------------
