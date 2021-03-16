@@ -5,8 +5,8 @@
 #include <windows.h>
 #else
 #include "../windows_compat.h"
-extern const char* progname;
 #endif
+#include "../common/fs/nox_fs.h"
 
 #ifdef __EMSCRIPTEN__
 #include <emscripten/emscripten.h>
@@ -44,7 +44,7 @@ extern int main(int argc, char* argv[])
 
 	EM_ASM(FS.syncfs(false, function(err){}););
 
-	progname = "nox.js";
+	nox_fs_set_progname("nox.js");
 	strcpy(cmdline, "nox.js -noskip -nolimit -nothread -sleep");
 
 	if (chdir("assets")) {
@@ -52,9 +52,7 @@ extern int main(int argc, char* argv[])
 		return 1;
 	}
 #else // !__EMSCRIPTEN__
-#ifndef _WIN32
-	progname = argv[0];
-#endif // _WIN32
+	nox_fs_set_progname(argv[0]);
 	strcpy(cmdline, argv[0]);
 
 	for (int i = 1; i < argc; i++)

@@ -24,6 +24,10 @@ func Normalize(path string) string {
 	return normalizeRecursive("/", abs)
 }
 
+func Denormalize(path string) string {
+	return strings.ReplaceAll(path, string(filepath.Separator), "\\")
+}
+
 func findCaseInsensitive(dir string, name string) string {
 	list, err := ioutil.ReadDir(dir)
 	if err != nil {

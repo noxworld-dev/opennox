@@ -1331,7 +1331,7 @@ void  nox_xxx_soloGameEscMenuCallback_40AF90(int a1, int a2, char a3, int a4, _B
 						nox_xxx_playerCallDisconnect_4DEAB0(a1, 4);
 					}
 				}
-				DeleteFileA(FileName);
+				nox_fs_remove(FileName);
 			}
 		} else if (nox_common_gameFlags_check_40A5C0(4096) && a1 != 31) {
 			nox_xxx_playerCallDisconnect_4DEAB0(a1, 4);
@@ -3697,7 +3697,7 @@ int  nox_common_getInstallPath_40E0D0(int a1, LPCSTR lpSubKey, int a3) {
 				} while (v11 != -1);
 				v8 = v13;
 			}
-			fclose(v8);
+			nox_fs_close(v8);
 			result = 1;
 		}
 	}
@@ -6858,7 +6858,7 @@ void  sub_413AD0(FILE* a1) {
 		v2 = sub_413B00();
 		fprintf(a1, "Log closed: %s", v2);
 		fflush(a1);
-		fclose(a1);
+		nox_fs_close(a1);
 	}
 }
 
@@ -6953,7 +6953,7 @@ FILE* sub_413CC0() {
 //----- (00413D00) --------------------------------------------------------
 void nox_xxx_closeNetworkLog_413D00() {
 	nox_xxx_networkLog_413D30("EndLog");
-	fclose(nox_file_net_log);
+	nox_fs_close(nox_file_net_log);
 	nox_file_net_log = 0;
 }
 
@@ -7099,23 +7099,22 @@ void  sub_4145E0(LPVOID lpMem) { free(lpMem); }
 //----- (004145F0) --------------------------------------------------------
 int  sub_4145F0(_DWORD* a1) {
 	int v1;                  // edi
-	HANDLE v2;               // eax
+	FILE* v2;               // eax
 	void* v3;                // esi
 	char Buffer[8];          // [esp+8h] [ebp-110h]
-	DWORD NumberOfBytesRead; // [esp+10h] [ebp-108h]
 	CHAR Filename[260];      // [esp+14h] [ebp-104h]
 
 	v1 = 0;
-	GetModuleFileNameA(0, Filename, 0x104u);
-	v2 = CreateFileA(Filename, 0x80000000, 1u, 0, 3u, 0x80u, 0);
+	nox_fs_progname(Filename, 260);
+	v2 = nox_fs_open(Filename);
 	v3 = v2;
-	if (v2 != (HANDLE)-1) {
-		SetFilePointer(v2, 28, 0, 0);
-		if (!GetLastError() && ReadFile(v3, Buffer, 8u, &NumberOfBytesRead, 0)) {
+	if (v2 != -1) {
+		int off = nox_fs_fseek_start(v2, 28);
+		if (off > 0 && nox_fs_fread(v3, Buffer, 8) == 8) {
 			nox_common_readHiddenExeMsg_414B30((uint8_t*)Buffer, (uint8_t*)a1);
 			v1 = 1;
 		}
-		CloseHandle(v3);
+		nox_fs_close(v3);
 	}
 	return v1;
 }
@@ -7137,7 +7136,7 @@ char  sub_414690(unsigned int* a1, void(__stdcall* a2)(char*)) {
 	//CHAR SubKey[128];   // [esp+84h] [ebp-184h]
 	CHAR Filename[260]; // [esp+104h] [ebp-104h]
 
-	GetModuleFileNameA(0, Filename, 0x104u);
+	nox_fs_progname(Filename, 260);
 	a2(v12);
 	v2 = *(unsigned __int16*)&v12[6] | (32 * (*(unsigned __int16*)&v12[2] | (16 * *(unsigned __int16*)v12)));
 	if (sub_4149A0(Filename, &Buffer, &v10, &v11)) {
@@ -7190,28 +7189,28 @@ int sub_414800() {
 //----- (004148D0) --------------------------------------------------------
 unsigned int  sub_4148D0(LPCSTR lpFileName) {
 	unsigned int v1;    // esi
-	HANDLE v2;          // ebx
+	FILE* v2;          // ebx
 	_DWORD* v3;         // ebp
 	const CHAR* i;      // edi
 	unsigned __int8* j; // ecx
 	int v6;             // edx
 
 	v1 = -1;
-	v2 = CreateFileA(lpFileName, 0x80000000, 1u, 0, 3u, 0x80u, 0);
-	if (v2 == (HANDLE)-1)
+	v2 = nox_fs_open(lpFileName);
+	if (v2 == -1)
 		return -1;
 	v3 = malloc(0x2000u);
-	ReadFile(v2, v3, 0x2000u, (LPDWORD)&lpFileName, 0);
+	int n = nox_fs_fread(v2, v3, 0x2000);
 	v3[10] = 0;
-	for (i = lpFileName; lpFileName; i = lpFileName) {
-		for (j = (unsigned __int8*)v3; i; lpFileName = i) {
+	for (i = n; n; i = n) {
+		for (j = (unsigned __int8*)v3; i; n = i) {
 			v6 = *j++;
 			v1 = *getMemU32Ptr(0x581450, 4 * (v6 ^ (unsigned __int8)v1) + 6160) ^ (v1 >> 8);
 			--i;
 		}
-		ReadFile(v2, v3, 0x2000u, (LPDWORD)&lpFileName, 0);
+		nox_fs_fread(v2, v3, 0x2000);
 	}
-	CloseHandle(v2);
+	nox_fs_close(v2);
 	free(v3);
 	return ~v1;
 }
@@ -7219,21 +7218,21 @@ unsigned int  sub_4148D0(LPCSTR lpFileName) {
 //----- (004149A0) --------------------------------------------------------
 int  sub_4149A0(LPCSTR lpFileName, LPVOID lpBuffer, LPVOID a3, LPVOID a4) {
 	int v4;    // ebx
-	HANDLE v5; // eax
+	FILE* v5; // eax
 	void* v6;  // esi
 
 	v4 = 0;
-	v5 = CreateFileA(lpFileName, 0x80000000, 1u, 0, 3u, 0x80u, 0);
+	v5 = nox_fs_open(lpFileName);
 	v6 = v5;
-	if (v5 == (HANDLE)-1)
+	if (v5 == -1)
 		return 0;
-	SetFilePointer(v5, 40, 0, 0);
-	if (!GetLastError() && ReadFile(v6, lpBuffer, 4u, (LPDWORD)&lpFileName, 0) &&
-		ReadFile(v6, a3, 4u, (LPDWORD)&lpFileName, 0)) {
-		if (ReadFile(v6, a4, 4u, (LPDWORD)&lpFileName, 0))
+	int off = nox_fs_fseek_start(v5, 40);
+	if (off > 0 && nox_fs_fread(v6, lpBuffer, 4) == 4 &&
+		nox_fs_fread(v6, a3, 4) == 4) {
+		if (nox_fs_fread(v6, a4, 4) == 4)
 			v4 = 1;
 	}
-	CloseHandle(v6);
+	nox_fs_close(v6);
 	return v4;
 }
 

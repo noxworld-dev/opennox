@@ -2732,7 +2732,7 @@ bool __thiscall sub_559B60(int this) {
 	v1 = this;
 	if (!*(_DWORD*)this || !*(_BYTE*)(this + 300))
 		return 0;
-	v2 = fclose(*(FILE**)this);
+	v2 = nox_fs_close(*(FILE**)this);
 	*(_DWORD*)v1 = 0;
 	*(_BYTE*)(v1 + 300) = 0;
 	return v2 == 0;

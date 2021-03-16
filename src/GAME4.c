@@ -8543,13 +8543,13 @@ FILE*  sub_502ED0(const char* a1) {
 					}
 					v15 = 0;
 					fwrite(&v15, 4u, 1u, v7);
-					fclose(v6);
-					fclose(v7);
+					nox_fs_close(v6);
+					nox_fs_close(v7);
 					sub_502B10();
 					result = (FILE*)(v13 != 0);
 				} else {
-					fclose(v6);
-					fclose(v7);
+					nox_fs_close(v6);
+					nox_fs_close(v7);
 					result = 0;
 				}
 			}
@@ -8664,12 +8664,12 @@ FILE*  sub_503230(const char* a1, char* a2) {
 				}
 				v18 = 0;
 				fwrite(&v18, 4u, 1u, v8);
-				fclose(v7);
-				fclose(v8);
+				nox_fs_close(v7);
+				nox_fs_close(v8);
 				sub_502B10();
 				result = (FILE*)1;
 			} else {
-				fclose(v7);
+				nox_fs_close(v7);
 				result = 0;
 			}
 		}
@@ -8742,11 +8742,11 @@ int  sub_5034B0(char* a1) {
 					fwrite(&v13, 1u, 1u, v7);
 				}
 				sub_502DF0();
-				fclose(v7);
+				nox_fs_close(v7);
 				result = 1;
 			} else {
 				sub_502DF0();
-				fclose(v7);
+				nox_fs_close(v7);
 				result = 0;
 			}
 		} else {
@@ -8778,7 +8778,7 @@ int  sub_5036D0(char* a1, LPCSTR lpFileName) {
 	char v14[64];   // [esp+20h] [ebp-40h]
 
 	v2 = lpFileName;
-	DeleteFileA(lpFileName);
+	nox_fs_remove(lpFileName);
 	v3 = (char*)sub_502A90();
 	sub_502DA0(v3);
 	v4 = sub_502E50(a1);
@@ -8808,7 +8808,7 @@ int  sub_5036D0(char* a1, LPCSTR lpFileName) {
 		fwrite(&a1, 1u, 1u, v7);
 	}
 	sub_502DF0();
-	fclose(v7);
+	nox_fs_close(v7);
 	return 1;
 }
 // 5036D0: using guessed type char var_40[64];
@@ -9738,20 +9738,20 @@ int  sub_504AB0(char* a1) {
 					}
 				}
 				fwrite(&v12, 4u, 1u, v3);
-				fclose(v3);
-				fclose(v5);
+				nox_fs_close(v3);
+				nox_fs_close(v5);
 				sub_502A50(v14);
 				sub_502B10();
 				result = 1;
 			} else {
-				fclose(v3);
-				fclose(v5);
+				nox_fs_close(v3);
+				nox_fs_close(v5);
 				sub_502A50(v14);
 				sub_502B10();
 				result = 0;
 			}
 		} else {
-			fclose(v3);
+			nox_fs_close(v3);
 			sub_502A50(v14);
 			sub_502B10();
 			result = 0;
@@ -9949,7 +9949,7 @@ int nox_server_mapRWMapIntro_505080() {
 				*v14++ = v16;
 		}
 		if (v0)
-			fclose(v0);
+			nox_fs_close(v0);
 		return 1;
 	}
 	if (v1 && (v10 = nox_fs_open(v19), (v11 = v10) != 0)) {
@@ -9964,7 +9964,7 @@ int nox_server_mapRWMapIntro_505080() {
 				++v9;
 			} while (v9 < (int)v17);
 		}
-		fclose(v11);
+		nox_fs_close(v11);
 		result = 1;
 	} else {
 		v17 = 0;
@@ -10017,7 +10017,7 @@ int nox_server_mapRWScriptObject_505A40() {
 				++v0;
 			} while (v0 < v9);
 		}
-		fclose(v3);
+		nox_fs_close(v3);
 		return 1;
 	}
 	if (*getMemU32Ptr(0x5D4594, 3803300) != 1)
@@ -10038,7 +10038,7 @@ int nox_server_mapRWScriptObject_505A40() {
 			fwrite(&v8, 1u, 1u, v5);
 		}
 	}
-	fclose(v5);
+	nox_fs_close(v5);
 	if (v9 <= 0 || nox_common_gameFlags_check_40A5C0(6291456))
 		return 1;
 	return nox_script_ncobj_parse_505360();

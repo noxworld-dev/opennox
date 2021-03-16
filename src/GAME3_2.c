@@ -1278,7 +1278,7 @@ int  sub_4D0670(char* a1) {
 			}
 		} while (!feof(v3));
 	}
-	fclose(v3);
+	nox_fs_close(v3);
 	return 1;
 }
 
@@ -1435,7 +1435,8 @@ FILE* nox_xxx_loadMapCycle_4D0A30() {
 				}
 			}
 		}
-		result = (FILE*)fclose(v7);
+		nox_fs_close(v7);
+		result = 0;
 	} else {
 		*getMemU32Ptr(0x5D4594, 1548484) = 0;
 	}
@@ -2195,7 +2196,7 @@ BOOL nox_xxx_servEndSession_4D3200() {
 	sub_40EE60();
 	v0 = nox_fs_root();
 	nox_sprintf(FileName, "%s\\Save\\_temp_.dat", v0);
-	return DeleteFileA(FileName);
+	return nox_fs_remove(FileName);
 }
 // 4E3440: using guessed type void nullsub_23(void);
 
@@ -2417,8 +2418,8 @@ int  sub_4D39F0(const char* a3) {
 		*((_DWORD*)v11 + 1) = v12;
 		*((_WORD*)v11 + 4) = v5;
 		v11[10] = v6;
-		DeleteFileA((LPCSTR)getMemAt(0x5D4594, 3835436));
-		DeleteFileA((LPCSTR)getMemAt(0x5D4594, 3837484));
+		nox_fs_remove((LPCSTR)getMemAt(0x5D4594, 3835436));
+		nox_fs_remove((LPCSTR)getMemAt(0x5D4594, 3837484));
 	} else {
 		*getMemU8Ptr(0x5D4594, 3841580) = getMemByte(0x5D4594, 1549780);
 		*getMemU8Ptr(0x5D4594, 3839532) = getMemByte(0x5D4594, 1549784);
@@ -2775,8 +2776,8 @@ void sub_4D4160() {
 	nox_sprintf(FileName, "%s\\nc.obj", v5);
 	v6 = nox_fs_root();
 	nox_sprintf(ExistingFileName, "%s\\blend.obj", v6);
-	DeleteFileA(FileName);
-	MoveFileA(ExistingFileName, FileName);
+	nox_fs_remove(FileName);
+	nox_fs_move(ExistingFileName, FileName);
 	nox_common_gameFlags_unset_40A540(0x400000);
 }
 
@@ -2837,8 +2838,8 @@ BOOL nox_xxx_mapGenStart_4D4320() {
 	nox_sprintf(FileName, "%s\\nc.obj", v2);
 	v3 = nox_fs_root();
 	nox_sprintf(ExistingFileName, "%s\\blend.obj", v3);
-	if (_access(FileName, 0) == -1 || (result = DeleteFileA(FileName))) {
-		if (_access(ExistingFileName, 0) == -1 || (result = MoveFileA(ExistingFileName, FileName))) {
+	if (_access(FileName, 0) == -1 || (result = nox_fs_remove(FileName))) {
+		if (_access(ExistingFileName, 0) == -1 || (result = nox_fs_move(ExistingFileName, FileName))) {
 			for (i = nox_server_getFirstObject_4DA790(); i; i = nox_server_getNextObject_4DA7A0(i))
 				*(_DWORD*)(i + 44) = 0;
 			nox_xxx_mapGenMakeInfo_4D5DB0((int)getMemAt(0x5D4594, 3801836));
@@ -3983,10 +3984,10 @@ BOOL nox_xxx_mapGenStartAlt_4D5F30() {
 	nox_sprintf(FileName, "%s\\nc.obj", v2);
 	v3 = nox_fs_root();
 	nox_sprintf(ExistingFileName, "%s\\blend.obj", v3);
-	result = DeleteFileA(FileName);
+	result = nox_fs_remove(FileName);
 	if (!result)
 		return result;
-	if (!MoveFileA(ExistingFileName, FileName))
+	if (!nox_fs_move(ExistingFileName, FileName))
 		return 0;
 	nox_xxx_mapGenMakeInfo_4D5DB0((int)getMemAt(0x5D4594, 3801836));
 	nox_common_gameFlags_unset_40A540(0x400000);
@@ -7819,7 +7820,7 @@ void nox_savegame_rm_4DBE10(char* saveName, int rmDir) {
 		return;
 	}
 	nox_sprintf(&FileName, "%s\\Player.plr", saveDir);
-	DeleteFileA(&FileName);
+	nox_fs_remove(&FileName);
 	nox_fs_set_workdir(saveDir);
 
 	int fileCnt = 0;
@@ -7866,7 +7867,7 @@ void nox_savegame_rm_4DBE10(char* saveName, int rmDir) {
 				if (v9 > 0) {
 					v13 = v23;
 					do {
-						DeleteFileA(v13);
+						nox_fs_remove(v13);
 						v13 += NOX_FILEPATH_MAX;
 						--v9;
 					} while (v9);
@@ -7874,7 +7875,7 @@ void nox_savegame_rm_4DBE10(char* saveName, int rmDir) {
 				v8 = v18;
 			}
 			nox_fs_set_workdir("..");
-			RemoveDirectoryA(v8);
+			nox_fs_remove_dir(v8);
 			v8 += NOX_FILEPATH_MAX;
 			v14 = v19 == 1;
 			v18 = v8;
@@ -7883,7 +7884,7 @@ void nox_savegame_rm_4DBE10(char* saveName, int rmDir) {
 	}
 	nox_fs_set_workdir(nox_fs_root());
 	if (rmDir)
-		RemoveDirectoryA(saveDir);
+		nox_fs_remove_dir(saveDir);
 }
 // 4DBE10: using guessed type CHAR var_20000[131072];
 // 4DBE10: using guessed type CHAR var_24000[16384];
@@ -7927,7 +7928,7 @@ int  sub_4DC100(int a1, char* saveName) {
 	nox_savegame_rm_4DBE10(saveName, 0);
 	nox_sprintf(&ExistingFileName, "%s\\Player.plr", &PathName);
 	nox_sprintf(&NewFileName, "%s\\Player.plr", &v29);
-	result = CopyFileA(&ExistingFileName, &NewFileName, 0);
+	result = nox_fs_copy(&ExistingFileName, &NewFileName);
 	if (result) {
 		result = nox_fs_set_workdir(&PathName);
 		if (result) {
@@ -8010,7 +8011,7 @@ int  sub_4DC100(int a1, char* saveName) {
 										do {
 											nox_sprintf(&ExistingFileName, "%s\\%s\\%s", &PathName, v11, v16);
 											nox_sprintf(&NewFileName, "%s\\%s\\%s", &v29, v11, v16);
-											if (!CopyFileA(&ExistingFileName, &NewFileName, 0))
+											if (!nox_fs_copy(&ExistingFileName, &NewFileName))
 												v24 = 0;
 											v16 += 1024;
 											--v12;
@@ -8344,7 +8345,7 @@ int sub_4DCD40() {
 		if (*(_DWORD*)(v4 + 4792) && *(_DWORD*)(v3 + 552) != 1) {
 			if (nox_xxx_playerSaveToFile_41A140(FileName, *(unsigned __int8*)(v4 + 2064)))
 				sub_41CFA0(FileName, *(unsigned __int8*)(v4 + 2064));
-			DeleteFileA(FileName);
+			nox_fs_remove(FileName);
 		}
 		result = nox_xxx_getNextPlayerUnit_4DA7F0(i);
 	}
@@ -8451,7 +8452,7 @@ char  sub_4DCFB0(int a1) {
 				nox_sprintf(FileName, "%s\\Save\\_temp_.dat", v5);
 				if (nox_xxx_playerSaveToFile_41A140(FileName, *(unsigned __int8*)(*(_DWORD*)(v3 + 276) + 2064)))
 					v2 = sub_41CFA0(FileName, *(unsigned __int8*)(*(_DWORD*)(v3 + 276) + 2064));
-				result = DeleteFileA(FileName);
+				result = nox_fs_remove(FileName);
 				if (v2)
 				LABEL_13:
 					result = nox_xxx_player_4D7960(*(_BYTE*)(*(_DWORD*)(v3 + 276) + 2064));

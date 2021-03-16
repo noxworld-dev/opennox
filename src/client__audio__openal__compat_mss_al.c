@@ -616,7 +616,7 @@ DXDEC HSTREAM AILCALL AIL_open_stream(HDIGDRIVER dig, char const FAR* filename, 
 	return stream;
 
 error:
-	fclose(f);
+	nox_fs_close(f);
 	free(stream);
 	return NULL;
 }

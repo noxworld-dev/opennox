@@ -302,7 +302,7 @@ int sub_4A75C0() {
 			v20 = nox_fs_open(v24);
 			if (!v20)
 				break;
-			fclose(v20);
+			nox_fs_close(v20);
 		}
 	}
 	v21 = nox_fs_root();

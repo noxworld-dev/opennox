@@ -2609,7 +2609,7 @@ int  nox_xxx_videoBagSmth_47A960(const char* a1, int a2) {
 		return 0;
 	v4 = nox_fs_open((const char*)(dword_5d4594_1189584 + v3 + 260));
 	if (sub_4C57C0(v4, *getMemIntPtr(0x5D4594, 1189588), &v19, &v18)) {
-		fclose(v4);
+		nox_fs_close(v4);
 		switch ((unsigned __int8)a1 & 0x3F) {
 		case 0:
 			*(_DWORD*)(dword_5d4594_1189584 + v3 + 324) = malloc(3 * v18 * v19);
@@ -2665,7 +2665,7 @@ int  nox_xxx_videoBagSmth_47A960(const char* a1, int a2) {
 				if (v4) {
 					if (!sub_4C57C0(v4, *(int*)&dword_5d4594_1189592, &v19, &v18)) {
 					LABEL_26:
-						fclose(v4);
+						nox_fs_close(v4);
 						nox_fs_set_workdir(Buffer);
 						return 0;
 					}
@@ -2686,7 +2686,7 @@ int  nox_xxx_videoBagSmth_47A960(const char* a1, int a2) {
 			break;
 		}
 	}
-	fclose(v4);
+	nox_fs_close(v4);
 	nox_fs_set_workdir(Buffer);
 	return 1;
 }
@@ -10179,7 +10179,7 @@ char*  sub_4866F0(const char* a1, const char* a2) {
 		if (v2)
 			sub_4869C0(v2);
 		if (v6)
-			fclose(v6);
+			nox_fs_close(v6);
 		return 0;
 	}
 	v13 = 0;
@@ -10195,7 +10195,7 @@ char*  sub_4866F0(const char* a1, const char* a2) {
 		goto LABEL_27;
 	}
 LABEL_14:
-	fclose(v6);
+	nox_fs_close(v6);
 	qsort(*(void**)v2, *((_DWORD*)v2 + 1), 0x24u, (int(*)(const void*, const void*))_strcmpi);
 	*((_DWORD*)v2 + 69) = 0;
 	if (a2) {
@@ -10225,9 +10225,9 @@ LABEL_14:
 //----- (004869C0) --------------------------------------------------------
 void  sub_4869C0(LPVOID lpMem) {
 	if (*((_DWORD*)lpMem + 67))
-		fclose(*((FILE**)lpMem + 67));
+		nox_fs_close(*((FILE**)lpMem + 67));
 	if (*((_DWORD*)lpMem + 68))
-		fclose(*((FILE**)lpMem + 68));
+		nox_fs_close(*((FILE**)lpMem + 68));
 	if (*(_DWORD*)lpMem)
 		free(*(LPVOID*)lpMem);
 	free(lpMem);
@@ -10344,7 +10344,7 @@ int  sub_486B60(int a1, int a2) {
 	if (nox_binfile_fread2_40ADD0((char*)v15, 0xCu, 1u, v6) != 1 || v15[0] != 1179011410 || v15[2] != 1163280727) {
 		printf("error: '%s' is bad - cannot read\n", &v15[3]);
 		if (*(_DWORD*)(a1 + 272)) {
-			fclose(*(FILE**)(a1 + 272));
+			nox_fs_close(*(FILE**)(a1 + 272));
 			*(_DWORD*)(a1 + 272) = 0;
 		}
 		return v12;
@@ -10404,7 +10404,8 @@ FILE*  sub_486E00(int a1) {
 	result = *(FILE**)(a1 + 272);
 	*(_DWORD*)(a1 + 280) = 0;
 	if (result) {
-		result = (FILE*)fclose(result);
+		nox_fs_close(result);
+		result = 0;
 		*(_DWORD*)(a1 + 272) = 0;
 	}
 	return result;

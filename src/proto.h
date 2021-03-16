@@ -61,50 +61,7 @@ BOOL sub_401040();
 int sub_401060();
 int  cmain(int argc, const char* argv[]);
 void  sub_401B20(char*);
-// int __stdcall WinMain(HINSTANCE hInstance, int, int, int); // idb
 void  nox_video_setWinTitle_401FE0(char*);
-// void  srand(unsigned int);
-// int  rand();
-// int swprintf(wchar_t *, const wchar_t *, ...);
-// unsigned int  _control87(unsigned int, unsigned int);
-// unsigned int  _controlfp(unsigned int, unsigned int);
-// int  atoi(const char *);
-// char * strtok(char *, const char *);
-// int  nox_xxx_unknown_libname_1_40256C(int, PVOID TargetFrame, int); idb
-// int  _getptd(_DWORD, _DWORD); weak
-// int  _flsbuf(int, FILE *);
-// int _setdefaultprecision(void); weak
-// void * malloc(size_t);
-// _DWORD  _dosmaperr(_DWORD); weak
-// int * _errno();
-// unsigned int * __doserrno();
-// int  _isctype(WORD CharType, int); idb
-// void  __noreturn exit(int);
-// void * calloc(size_t, size_t);
-// int  free(LPVOID lpMem); idb
-// int  _lseek(int, int, int);
-// int  _lseek_lk(int, LONG lDistanceToMove, DWORD dwMoveMethod); idb
-// int  _write(int, const void *, unsigned int);
-// _DWORD  _lock_file(_DWORD); weak
-// _DWORD  _unlock_file(_DWORD); weak
-// _DWORD  _output(_DWORD, _DWORD, _DWORD); weak
-// size_t  strlen(const char *);
-// int  mbtowc(wchar_t *, const char *, size_t);
-// unsigned int  memcpy(unsigned int a1, _BYTE *a2, unsigned int a3);
-// char * strncpy(char *, const char *, size_t);
-// void * memset(void *, int, size_t);
-// int  fflush(FILE *);
-// unsigned int  memmove(unsigned int a1, _BYTE *a2, unsigned int a3);
-// int  fclose(FILE *);
-// size_t  strcspn(const char *, const char *);
-// int  strncmp(const char *, const char *, size_t);
-// int  _close(int);
-// char * _itoa(int, char *, int);
-// int  _strcmpi(const char *, const char *);
-// int  _strnicmp(const char *, const char *, size_t);
-// int  realloc(LPVOID lpMem, int); idb
-// char * _strdup(const char *);
-// char * strchr(const char *, int);
 void  nox_xxx_parseRead_4093E0(FILE* a1, char* a2, int a3);
 int  nox_xxx_parseString_409470(FILE* a1, _BYTE* a2);
 int  sub_409A70(__int16 a1);
@@ -6522,7 +6479,6 @@ unsigned int  sub_5654A0(int a1, unsigned __int8* a2, int* a3, unsigned int a4, 
 // int _open(const char *, int, ...);
 // int  rename(LPCSTR lpExistingFileName, LPCSTR lpNewFileName); idb
 // int  remove(LPCSTR lpFileName); idb
-// int  _unlink(LPCSTR lpFileName); idb
 // char * _strrev(char *);
 // int  _wcsicmp(const wchar_t *, const wchar_t *);
 // int  _mkdir(LPCSTR lpPathName); idb

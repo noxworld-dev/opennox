@@ -317,7 +317,7 @@ int strman_read_csf_header_40F7A0(const char* path) {
 		nox_strman_lang_cur.code = (int)buf[1] < 2 ? 0 : buf[5];
 		ok = 1;
 	}
-	fclose(file);
+	nox_fs_close(file);
 	return ok;
 }
 
@@ -574,7 +574,7 @@ int nox_strman_read_csf_strings_40F830(const char* path) {
 
 	char hbuf[20];
 	if (nox_binfile_fread2_40ADD0(hbuf, 20, 1, file) != 1) {
-		fclose(file);
+		nox_fs_close(file);
 		return 0;
 	}
 	if (*(int*)&hbuf[4] < 2) {
@@ -588,7 +588,7 @@ int nox_strman_read_csf_strings_40F830(const char* path) {
 	int v18 = 0;
 	while (nox_binfile_fread2_40ADD0((char*)&v16, 4, 1, file) == 1) {
 		if (v16 != 0x4C424C20) { // "LBL "
-			fclose(file);
+			nox_fs_close(file);
 			return 0;
 		}
 		int v17 = 0;
@@ -614,7 +614,7 @@ int nox_strman_read_csf_strings_40F830(const char* path) {
 				if (v16 != 0x53545220 && v16 != 0x53545257 && v16 != 0x53747220 &&
 					v16 != 0x53747257) // "STR ", "STRW", "Str ", "StrW"
 				{
-					fclose(file);
+					nox_fs_close(file);
 					return 0;
 				}
 				int sz = 0;
@@ -665,7 +665,7 @@ int nox_strman_read_csf_strings_40F830(const char* path) {
 		previ = i;
 		v18 += v8;
 	}
-	fclose(file);
+	nox_fs_close(file);
 	return 1;
 }
 
@@ -702,10 +702,10 @@ int nox_strman_readfile(const char* path) {
 		FILE* file = 0;
 		if (file = nox_fs_open_text(path), file) {
 			if (!nox_strman_read_str_header_40F4E0(file)) {
-				fclose(file);
+				nox_fs_close(file);
 				return 0;
 			}
-			fclose(file);
+			nox_fs_close(file);
 			isCSF = false;
 		} else {
 			// try reading CSF
@@ -733,7 +733,7 @@ int nox_strman_readfile(const char* path) {
 			return 0;
 		}
 		bool ok = nox_strman_read_str_strings_40FBE0(file);
-		fclose(file);
+		nox_fs_close(file);
 		if (!ok) {
 			return 0;
 		}

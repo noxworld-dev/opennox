@@ -617,7 +617,7 @@ int  nox_binfile_close_408D90(FILE* f) {
 		}
 		ftell(f);
 	}
-	fclose(f);
+	nox_fs_close(f);
 	nox_binfile_buf1 = 0;
 	nox_binfile = 0;
 	nox_binfile_offs = 0;

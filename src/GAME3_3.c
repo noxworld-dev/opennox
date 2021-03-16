@@ -1513,7 +1513,7 @@ int  sub_4E41B0(char* a1) {
 			while (1) {
 				do {
 					if (!fgets((char*)getMemAt(0x5D4594, 1563936), 1024, v1)) {
-						fclose(v1);
+						nox_fs_close(v1);
 						return 1;
 					}
 				} while (!strtok((char*)getMemAt(0x5D4594, 1563936), "\r\t\n"));
@@ -1524,7 +1524,7 @@ int  sub_4E41B0(char* a1) {
 			}
 		} while (strcmp((const char*)getMemAt(0x5D4594, 1563936), "[Allowed Users]") || sub_4E4390(v1));
 	LABEL_11:
-		fclose(v1);
+		nox_fs_close(v1);
 	}
 	return 0;
 }
@@ -1593,7 +1593,7 @@ FILE*  sub_4E43F0(char* a1) {
 		fprintf(v2, "\n%s\n", getMemAt(0x587000, 202228));
 		for (j = sub_4168E0(); j; j = sub_4168F0(j))
 			fprintf(v2, "%S\n", j + 3);
-		fclose(v2);
+		nox_fs_close(v2);
 		result = (FILE*)1;
 	}
 	return result;

@@ -289,6 +289,18 @@ char* nox_fs_normalize(const char* path) {
 }
 #endif // _WIN32
 
+char* progname = "nox";
+void nox_fs_set_progname(const char* name) {
+	progname = name;
+}
+void nox_fs_progname(char* dst, int max) {
+	strcpy(dst, progname);
+
+	for (int i = 0; dst[i]; i++)
+		if (dst[i] == '/')
+			dst[i] = '\\';
+}
+
 bool nox_fs_workdir(char* dst, int max) {
 #ifndef _WIN32
 	if (!getcwd(dst, max)) {
@@ -314,6 +326,28 @@ bool nox_fs_set_workdir(const char* path) {
 	return res == 0;
 #else // _WIN32
 	return SetCurrentDirectoryA(path);
+#endif // _WIN32
+}
+
+bool nox_fs_remove(const char* path) {
+#ifndef _WIN32
+	char* converted = nox_fs_normalize(path);
+	int res = unlink(converted);
+	free(converted);
+	return res == 0;
+#else // _WIN32
+	return _unlink(path);
+#endif // _WIN32
+}
+
+bool nox_fs_remove_dir(const char* path) {
+#ifndef _WIN32
+	char* converted = nox_fs_normalize(path);
+	int res = rmdir(converted);
+	free(converted);
+	return res == 0;
+#else // _WIN32
+	return RemoveDirectoryA(path);
 #endif // _WIN32
 }
 
@@ -355,4 +389,52 @@ FILE* nox_fs_create_rw(const char* path) {
 
 FILE* nox_fs_append_text(const char* path) {
 	return __nox_fs_fopen(path, "w");
+}
+
+bool nox_fs_copy(const char* src, const char* dst) {
+#ifndef _WIN32
+	char buf[1024];
+	FILE* rfd = nox_fs_open(src);
+	if (rfd < 0)
+		return 0;
+
+	FILE* wfd = nox_fs_create(dst);
+	if (wfd < 0) {
+		fclose(rfd);
+		return 0;
+	}
+
+	while (1) {
+		int ret = fread(rfd, 1, buf, sizeof(buf));
+		if (ret <= 0)
+			break;
+		if (fwrite(wfd, 1, buf, ret) != ret) {
+			fclose(rfd);
+			return 0;
+		}
+	}
+
+	fclose(rfd);
+	fclose(wfd);
+	return 1;
+#else // _WIN32
+	return CopyFileA(src, dst, 0);
+#endif // _WIN32
+}
+
+int nox_fs_fread(FILE* f, void* dst, int sz) {
+	return fread(dst, 1, sz, f);
+}
+
+int nox_fs_fseek_start(FILE* f, unsigned int off) {
+	return fseek(f, off, SEEK_SET);
+}
+
+void nox_fs_close(FILE* f) {
+	fclose(f);
+}
+
+bool nox_fs_move(const char* src, const char* dst) {
+	printf("%s\n", __FUNCTION__);
+	abort();
 }

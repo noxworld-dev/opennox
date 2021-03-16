@@ -62,7 +62,7 @@ void sub_4516C0(wchar_t* a1, ...) {
 	v3 = nox_strman_loadString_40F1D0("FatalError", 0, (int)"C:\\NoxPost\\src\\Client\\Io\\Console.c", 324);
 	// nullsub_4(nox_video_getWindow_401FD0(), getMemAt(0x5D4594, 833752), v3, 0);
 	fprintf(nox_file_log, "exiting..\n");
-	fclose(nox_file_log);
+	nox_fs_close(nox_file_log);
 	if (*(unsigned int*)&dword_5d4594_823776)
 		nox_xxx_freeFloorBuffer_430EF0();
 	nox_input_pollEvents_4453A0();
