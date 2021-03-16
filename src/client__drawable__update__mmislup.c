@@ -4,6 +4,7 @@
 #include "proto.h"
 
 extern unsigned int nox_gameFPS;
+extern unsigned int nox_frame_xxx_2598000;
 //----- (004CD9E0) --------------------------------------------------------
 int  nox_xxx_updDrawMagicMissile_4CD9E0(int a1, _DWORD* a2) {
 	_DWORD* v2;  // ebp
@@ -43,9 +44,9 @@ int  nox_xxx_updDrawMagicMissile_4CD9E0(int a1, _DWORD* a2) {
 				*(_DWORD*)(v9 + 436) = v8 << 12;
 				*(_BYTE*)(v9 + 299) = nox_common_randomIntMinMax_415FF0(0, 255, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\mmislup.c", 52);
 				*(_DWORD*)(v10 + 440) = 0;
-				*(_DWORD*)(v10 + 448) = *getMemU32Ptr(0x5D4594, 2598000) +
+				*(_DWORD*)(v10 + 448) = nox_frame_xxx_2598000 +
 										nox_common_randomIntMinMax_415FF0(3, 10, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\mmislup.c", 59);
-				*(_DWORD*)(v10 + 444) = *getMemU32Ptr(0x5D4594, 2598000);
+				*(_DWORD*)(v10 + 444) = nox_frame_xxx_2598000;
 				*(_WORD*)(v10 + 104) = 20;
 				*(_BYTE*)(v10 + 296) = nox_common_randomIntMinMax_415FF0(0, 6, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\mmislup.c", 65);
 				nox_xxx_sprite_45A110_drawable((_DWORD*)v10);

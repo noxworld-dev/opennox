@@ -5,6 +5,7 @@
 #include "client__draw__fx.h"
 extern _DWORD dword_5d4594_1316412;
 extern _DWORD dword_5d4594_1316408;
+extern unsigned int nox_frame_xxx_2598000;
 
 //----- (004BA230) --------------------------------------------------------
 int  sub_4BA230(int a1, int a2, int a3, int a4, int a5) {
@@ -196,9 +197,9 @@ char  sub_4BA8B0(int* a1, int* a2, int* a3) {
 	*getMemU32Ptr(0x5D4594, v6 + 1313888) = a1[1];
 	*getMemU32Ptr(0x5D4594, v6 + 1313912) = *a2;
 	*getMemU32Ptr(0x5D4594, v6 + 1313916) = a2[1];
-	LOBYTE(v6) = getMemByte(0x5D4594, 2598000);
+	LOBYTE(v6) = (unsigned char)nox_frame_xxx_2598000;
 	dword_5d4594_1316412 = v5;
-	if (getMemByte(0x5D4594, 2598000) & 4) {
+	if ((unsigned char)nox_frame_xxx_2598000 & 4) {
 		v6 = nox_common_randomIntMinMax_415FF0(0, 10, "C:\\NoxPost\\src\\client\\Draw\\Plasma.c", 135);
 		if (v6 > 5)
 			LOBYTE(v6) = nox_xxx_drawEnergyBolt_499710(*a2 + *((_DWORD*)v4 + 4) - *(_DWORD*)v4,

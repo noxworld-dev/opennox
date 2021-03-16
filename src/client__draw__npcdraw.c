@@ -6,6 +6,7 @@
 
 extern _DWORD dword_5d4594_1313796;
 extern _DWORD dword_5d4594_1313800;
+extern unsigned int nox_frame_xxx_2598000;
 
 //----- (004B9050) --------------------------------------------------------
 int  nox_thing_npc_draw(int* a1, nox_drawable* dr) {
@@ -61,7 +62,7 @@ int  nox_thing_npc_draw(int* a1, nox_drawable* dr) {
 		v33 = v5;
 		if (v5) {
 			if (nox_xxx_spriteTestBuf_4356C0(v4, 23)) {
-				if (getMemByte(0x5D4594, 2598000) & 1) {
+				if ((unsigned char)nox_frame_xxx_2598000 & 1) {
 					v6 = 0;
 					do {
 						v7 = v6 + 1;

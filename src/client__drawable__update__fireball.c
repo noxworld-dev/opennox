@@ -3,6 +3,7 @@
 #include "common__random.h"
 #include "proto.h"
 
+extern unsigned int nox_frame_xxx_2598000;
 //----- (004CCEA0) --------------------------------------------------------
 void  sub_4CCEA0(_DWORD* a1, int a2) {
 	_DWORD* v2; // ebp
@@ -50,9 +51,9 @@ void  sub_4CCEA0(_DWORD* a1, int a2) {
 				*(_DWORD*)(v12 + 440) =
 					a2 * nox_common_randomIntMinMax_415FF0(100, 300, "C:\\NoxPost\\src\\client\\Drawable\\Update\\Fireball.c", 74);
 				*(_DWORD*)(v12 + 448) =
-					*getMemU32Ptr(0x5D4594, 2598000) +
+					nox_frame_xxx_2598000 +
 					nox_common_randomIntMinMax_415FF0(30, 45, "C:\\NoxPost\\src\\client\\Drawable\\Update\\Fireball.c", 77);
-				*(_DWORD*)(v12 + 444) = *getMemU32Ptr(0x5D4594, 2598000);
+				*(_DWORD*)(v12 + 444) = nox_frame_xxx_2598000;
 				*(_WORD*)(v12 + 104) = 28;
 				*(_WORD*)(v12 + 106) = 0;
 				*(_BYTE*)(v12 + 296) = nox_common_randomIntMinMax_415FF0(-2, 4, "C:\\NoxPost\\src\\client\\Drawable\\Update\\Fireball.c", 84);

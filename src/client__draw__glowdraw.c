@@ -8,6 +8,7 @@ extern _DWORD dword_5d4594_1313692;
 extern _DWORD dword_5d4594_1313532;
 extern _DWORD dword_5d4594_1313536;
 extern _DWORD dword_5d4594_1313540;
+extern unsigned int nox_frame_xxx_2598000;
 
 //----- (004B6770) --------------------------------------------------------
 int  sub_4B6770(int* a1, nox_drawable* dr, int a3, int a4) {
@@ -32,7 +33,7 @@ int  sub_4B6770(int* a1, nox_drawable* dr, int a3, int a4) {
 	v4 = a2;
 	v5 = *(_DWORD*)(a2 + 444);
 	v6 = *(_DWORD*)(a2 + 448) - v5;
-	v7 = *(_DWORD*)(a2 + 448) - *getMemU32Ptr(0x5D4594, 2598000);
+	v7 = *(_DWORD*)(a2 + 448) - nox_frame_xxx_2598000;
 	v16 = *(_DWORD*)(a2 + 448) - v5;
 	v18 = v7;
 	if (v7 == v6)
@@ -165,9 +166,9 @@ int  nox_thing_blue_rain_spark_draw(_DWORD* a1, nox_drawable* dr) {
 				*(_DWORD*)(v4 + 436) = *(_DWORD*)(a2 + 16) << 12;
 				*(_BYTE*)(v4 + 299) = nox_common_randomIntMinMax_415FF0(0, 255, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 605);
 				*(_DWORD*)(v5 + 440) = nox_common_randomIntMinMax_415FF0(1, 1611, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 608);
-				*(_DWORD*)(v5 + 448) = *getMemU32Ptr(0x5D4594, 2598000) +
+				*(_DWORD*)(v5 + 448) = nox_frame_xxx_2598000 +
 									   nox_common_randomIntMinMax_415FF0(10, 96, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 611);
-				*(_DWORD*)(v5 + 444) = *getMemU32Ptr(0x5D4594, 2598000);
+				*(_DWORD*)(v5 + 444) = nox_frame_xxx_2598000;
 			}
 			*(_WORD*)(v5 + 104) = nox_common_randomIntMinMax_415FF0(5, 15, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 618);
 			*(_WORD*)(v5 + 106) = 0;

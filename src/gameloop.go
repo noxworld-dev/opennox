@@ -19,6 +19,7 @@ extern unsigned int nox_xxx_netStructID_815700;
 extern unsigned int dword_5d4594_2618912;
 extern unsigned int dword_5d4594_815132;
 extern unsigned int nox_gameFPS;
+extern unsigned int nox_frame_xxx_2598000;
 extern unsigned int nox_xxx_gameDownloadInProgress_587000_173328;
 extern nox_net_struct_t* nox_net_struct_arr[NOX_NET_STRUCT_MAX];
 
@@ -194,7 +195,7 @@ mainloop:
 				g_v20 = true
 				C.sub_43F140(800)
 				nox_common_initRandom_415F70()
-				*memmap.PtrUint32(0x5D4594, 2598000) = uint32(bool2int(getGameFlag(1)))
+				C.nox_frame_xxx_2598000 = C.uint(bool2int(getGameFlag(1)))
 				C.nox_ensure_thing_bin()
 				*memmap.PtrUint32(0x5D4594, 2650664) = 0
 				*memmap.PtrUint32(0x5D4594, 2649708) = 0
@@ -725,9 +726,9 @@ func mainloopMaybeSwitchMapXXX() {
 		}
 		C.sub_459D50(0)
 	}
-	if memmap.Int32(0x5D4594, 2598000) >= memmap.Int32(0x5D4594, 816400) {
+	if int32(C.nox_frame_xxx_2598000) >= memmap.Int32(0x5D4594, 816400) {
 		C.sub_4161E0()
 		C.sub_416690()
-		*memmap.PtrUint32(0x5D4594, 816400) = memmap.Uint32(0x5D4594, 2598000) + 60*uint32(C.nox_gameFPS)
+		*memmap.PtrUint32(0x5D4594, 816400) = uint32(C.nox_frame_xxx_2598000) + 60*uint32(C.nox_gameFPS)
 	}
 }

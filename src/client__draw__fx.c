@@ -3,6 +3,7 @@
 
 #include "proto.h"
 
+extern unsigned int nox_frame_xxx_2598000;
 //----- (00499490) --------------------------------------------------------
 _DWORD*  sub_499490(int a1, _WORD* a2, int a3, int a4, char a5, char a6) {
 	_DWORD* result; // eax
@@ -68,8 +69,8 @@ int  nox_xxx_makePointFxCli_499610(int a1, int a2, int a3, int a4, int a5, int a
 				*(_BYTE*)(v7 + 299) = nox_common_randomIntMinMax_415FF0(0, 255, "C:\\NoxPost\\src\\client\\Draw\\Fx.c", 227);
 				*(_DWORD*)(v8 + 440) = nox_common_randomIntMinMax_415FF0(1, a3, "C:\\NoxPost\\src\\client\\Draw\\Fx.c", 230);
 				*(_DWORD*)(v8 + 448) =
-					*getMemU32Ptr(0x5D4594, 2598000) + nox_common_randomIntMinMax_415FF0(a4, 64, "C:\\NoxPost\\src\\client\\Draw\\Fx.c", 233);
-				*(_DWORD*)(v8 + 444) = *getMemU32Ptr(0x5D4594, 2598000);
+					nox_frame_xxx_2598000 + nox_common_randomIntMinMax_415FF0(a4, 64, "C:\\NoxPost\\src\\client\\Draw\\Fx.c", 233);
+				*(_DWORD*)(v8 + 444) = nox_frame_xxx_2598000;
 				*(_WORD*)(v8 + 104) = 0;
 				*(_BYTE*)(v8 + 296) = nox_common_randomIntMinMax_415FF0(2, 10, "C:\\NoxPost\\src\\client\\Draw\\Fx.c", 239);
 				nox_xxx_sprite_45A110_drawable((_DWORD*)v8);
@@ -97,8 +98,8 @@ int  nox_xxx_drawEnergyBolt_499710(int a1, int a2, __int16 a3, int a4) {
 			*(_BYTE*)(v4 + 299) = nox_common_randomIntMinMax_415FF0(0, 255, "C:\\NoxPost\\src\\client\\Draw\\Fx.c", 268);
 			*(_DWORD*)(v5 + 440) = nox_common_randomIntMinMax_415FF0(1, 3000, "C:\\NoxPost\\src\\client\\Draw\\Fx.c", 271);
 			*(_DWORD*)(v5 + 448) =
-				*getMemU32Ptr(0x5D4594, 2598000) + nox_common_randomIntMinMax_415FF0(5, 20, "C:\\NoxPost\\src\\client\\Draw\\Fx.c", 274);
-			*(_DWORD*)(v5 + 444) = *getMemU32Ptr(0x5D4594, 2598000);
+				nox_frame_xxx_2598000 + nox_common_randomIntMinMax_415FF0(5, 20, "C:\\NoxPost\\src\\client\\Draw\\Fx.c", 274);
+			*(_DWORD*)(v5 + 444) = nox_frame_xxx_2598000;
 			*(_WORD*)(v5 + 104) = a3 + nox_common_randomIntMinMax_415FF0(0, 20, "C:\\NoxPost\\src\\client\\Draw\\Fx.c", 279);
 			*(_BYTE*)(v5 + 296) = nox_common_randomIntMinMax_415FF0(0, 4, "C:\\NoxPost\\src\\client\\Draw\\Fx.c", 280);
 			nox_xxx_sprite_45A110_drawable((_DWORD*)v5);
@@ -167,9 +168,9 @@ int  nox_xxx_makeLightningParticles_4999D0(int a1, int2* a2, int2* a3) {
 						*(_DWORD*)(v11 + 436) = v10 << 12;
 						*(_BYTE*)(v11 + 299) = nox_common_randomIntMinMax_415FF0(0, 255, "C:\\NoxPost\\src\\client\\Draw\\Fx.c", 458);
 						*(_DWORD*)(v12 + 440) = nox_common_randomIntMinMax_415FF0(1, 3000, "C:\\NoxPost\\src\\client\\Draw\\Fx.c", 461);
-						*(_DWORD*)(v12 + 448) = *getMemU32Ptr(0x5D4594, 2598000) +
+						*(_DWORD*)(v12 + 448) = nox_frame_xxx_2598000 +
 												nox_common_randomIntMinMax_415FF0(5, 20, "C:\\NoxPost\\src\\client\\Draw\\Fx.c", 464);
-						*(_DWORD*)(v12 + 444) = *getMemU32Ptr(0x5D4594, 2598000);
+						*(_DWORD*)(v12 + 444) = nox_frame_xxx_2598000;
 					}
 					*(_WORD*)(v12 + 104) = nox_common_randomIntMinMax_415FF0(15, 30, "C:\\NoxPost\\src\\client\\Draw\\Fx.c", 471);
 					*(_BYTE*)(v12 + 296) = nox_common_randomIntMinMax_415FF0(-4, 4, "C:\\NoxPost\\src\\client\\Draw\\Fx.c", 472);
@@ -244,9 +245,9 @@ int  sub_49A150(int2* a1, int a2, unsigned __int8 a3) {
 					*(_DWORD*)(v6 + 436) = *(_DWORD*)(v6 + 16) << 12;
 					*(_BYTE*)(v6 + 299) = nox_common_randomIntMinMax_415FF0(0, 255, "C:\\NoxPost\\src\\client\\Draw\\Fx.c", 822);
 					*(_DWORD*)(v7 + 440) = nox_common_randomIntMinMax_415FF0(1, v3, "C:\\NoxPost\\src\\client\\Draw\\Fx.c", 825);
-					*(_DWORD*)(v7 + 448) = *getMemU32Ptr(0x5D4594, 2598000) +
+					*(_DWORD*)(v7 + 448) = nox_frame_xxx_2598000 +
 										   nox_common_randomIntMinMax_415FF0(v5, 96, "C:\\NoxPost\\src\\client\\Draw\\Fx.c", 828);
-					*(_DWORD*)(v7 + 444) = *getMemU32Ptr(0x5D4594, 2598000);
+					*(_DWORD*)(v7 + 444) = nox_frame_xxx_2598000;
 				}
 				*(_WORD*)(v7 + 104) = nox_common_randomIntMinMax_415FF0(5, 15, "C:\\NoxPost\\src\\client\\Draw\\Fx.c", 834);
 				*(_WORD*)(v7 + 106) = 0;

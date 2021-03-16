@@ -75,6 +75,7 @@ extern _DWORD dword_5d4594_529316;
 extern obj_5D4594_2650668_t** ptr_5D4594_2650668;
 extern int ptr_5D4594_2650668_cap;
 extern unsigned int nox_gameFPS;
+extern unsigned int nox_frame_xxx_2598000;
 
 //----- (004187A0) --------------------------------------------------------
 char sub_4187A0() {
@@ -3619,8 +3620,7 @@ int sub_41E370() {
 int nox_xxx_reconAttempt_41E390() {
 	int result; // eax
 
-	if (*getMemU32Ptr(0x5D4594, 2598000) - dword_5d4594_528264 <=
-		(unsigned int)(3600 * nox_gameFPS)) {
+	if (nox_frame_xxx_2598000 - dword_5d4594_528264 <= (unsigned int)(3600 * nox_gameFPS)) {
 		result = dword_5d4594_528252;
 		if (dword_5d4594_528252) {
 			result = dword_5d4594_528256;
@@ -3646,11 +3646,11 @@ void nox_xxx_reconStart_41E400() {
 	if (dword_5d4594_528252 != 1 && dword_5d4594_528256 != 1) {
 		if (!dword_5d4594_528260) {
 			if (!dword_5d4594_528264) {
-				nox_xxx_networkLog_413D30("RECON: Starting reconnection process frame (%d)", *getMemU32Ptr(0x5D4594, 2598000));
+				nox_xxx_networkLog_413D30("RECON: Starting reconnection process frame (%d)", nox_frame_xxx_2598000);
 				dword_5d4594_528252 = 1;
 				dword_5d4594_528256 = 0;
-				dword_5d4594_528264 = *getMemU32Ptr(0x5D4594, 2598000);
-				dword_5d4594_528260 = *getMemU32Ptr(0x5D4594, 2598000) + 120 * nox_gameFPS;
+				dword_5d4594_528264 = nox_frame_xxx_2598000;
+				dword_5d4594_528260 = nox_frame_xxx_2598000 + 120 * nox_gameFPS;
 			}
 		}
 	}
@@ -3660,10 +3660,10 @@ void nox_xxx_reconStart_41E400() {
 int sub_41E470() {
 	int result; // eax
 
-	nox_xxx_networkLog_413D30("RECON: TryReconnectAgain called on frame (%d)", *getMemU32Ptr(0x5D4594, 2598000));
+	nox_xxx_networkLog_413D30("RECON: TryReconnectAgain called on frame (%d)", nox_frame_xxx_2598000);
 	dword_5d4594_528256 = 0;
-	result = *getMemU32Ptr(0x5D4594, 2598000) + 120 * nox_gameFPS;
-	dword_5d4594_528260 = *getMemU32Ptr(0x5D4594, 2598000) + 120 * nox_gameFPS;
+	result = nox_frame_xxx_2598000 + 120 * nox_gameFPS;
+	dword_5d4594_528260 = nox_frame_xxx_2598000 + 120 * nox_gameFPS;
 	return result;
 }
 

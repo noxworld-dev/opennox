@@ -12,6 +12,7 @@ extern _DWORD dword_5d4594_815132;
 extern int nox_win_width;
 extern int nox_win_height;
 extern obj_5D4594_811068_t obj_5D4594_811068;
+extern unsigned int nox_frame_xxx_2598000;
 
 //----- (00436100) --------------------------------------------------------
 void nox_xxx_clientDrawAll_436100_draw() {
@@ -56,7 +57,7 @@ void nox_xxx_clientDrawAll_436100_draw() {
 	*getMemU32Ptr(0x5D4594, 814532) = v2;
 	nox_common_resetEngineFlag(NOX_ENGINE_FLAG_32);
 	*getMemU32Ptr(0x5D4594, 814536) = v1;
-	*getMemU32Ptr(0x5D4594, 811916) = *getMemU32Ptr(0x5D4594, 2598000);
+	*getMemU32Ptr(0x5D4594, 811916) = nox_frame_xxx_2598000;
 	if (*getMemU32Ptr(0x587000, 85744)) {
 		obj_5D4594_811068.field_9 = obj_5D4594_811068.field_8 * nox_win_height / nox_win_width;
 		v6 = (nox_win_width - obj_5D4594_811068.field_8) / 2;
@@ -200,7 +201,7 @@ int sub_4365C0() {
 	}
 	nox_xxx_drawString_43F6E0(0, v4, v18, v23);
 	v5 = v1 + 10;
-	v24 = *getMemU32Ptr(0x5D4594, 2598000);
+	v24 = nox_frame_xxx_2598000;
 	v6 = nox_strman_loadString_40F1D0("Frame", 0, "C:\\NoxPost\\src\\client\\System\\client.c", 1159);
 	nox_swprintf((wchar_t*)getMemAt(0x5D4594, 810900), v6, v24);
 	nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 2523948));

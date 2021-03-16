@@ -7,6 +7,7 @@ extern _DWORD dword_5d4594_1303452;
 extern int nox_win_width;
 extern int nox_win_height;
 extern unsigned int nox_gameFPS;
+extern unsigned int nox_frame_xxx_2598000;
 
 //----- (0049B4B0) --------------------------------------------------------
 int  sub_49B4B0(unsigned __int16* a1) {
@@ -53,8 +54,8 @@ int  sub_49B4B0(unsigned __int16* a1) {
 	sub_46AEE0((int)v8, (int)getMemAt(0x5D4594, 1302428));
 	v9 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1303452, 10711);
 	sub_46AEE0((int)v9, (int)getMemAt(0x5D4594, 1303196));
-	result = *getMemU32Ptr(0x5D4594, 2598000);
-	*getMemU32Ptr(0x5D4594, 1303456) = *getMemU32Ptr(0x5D4594, 2598000);
+	result = nox_frame_xxx_2598000;
+	*getMemU32Ptr(0x5D4594, 1303456) = nox_frame_xxx_2598000;
 	return result;
 }
 
@@ -71,7 +72,7 @@ int sub_49B6E0() {
 		result = wndIsShown_nox_xxx_wndIsShown_46ACC0(*(int*)&dword_5d4594_1303452);
 		if (!result) {
 			v1 = *getMemU32Ptr(0x5D4594, 1303456) + 30 * nox_gameFPS -
-				 *getMemU32Ptr(0x5D4594, 2598000);
+				 nox_frame_xxx_2598000;
 			if (v1 < 0)
 				v1 = 0;
 			if (*getMemU32Ptr(0x5D4594, 2618908) && *(_BYTE*)(*getMemU32Ptr(0x5D4594, 2618908) + 2064) == 31) {

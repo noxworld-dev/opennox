@@ -37,6 +37,7 @@ extern unsigned int dword_5d4594_816340;
 extern unsigned int dword_5d4594_816348;
 extern unsigned int dword_5d4594_805988;
 extern int nox_video_bag_var_2650640;
+extern unsigned int nox_frame_xxx_2598000;
 
 void init_data();
 */
@@ -165,7 +166,7 @@ func runNox(args []string) error {
 	C.dword_5d4594_2650652 = 0
 	v2 := getGameFlag(1)
 	C.nox_gameFPS = 30
-	*memmap.PtrUint32(0x5D4594, 2598000) = uint32(bool2int(v2))
+	C.nox_frame_xxx_2598000 = C.uint(bool2int(v2))
 	nox_ticks_xxx_416D40()
 	C.nox_xxx_setGameState_43DDF0(nil)
 	C.nox_game_SetCliDrawFunc(nil)

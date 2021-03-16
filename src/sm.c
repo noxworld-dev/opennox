@@ -26,6 +26,7 @@ extern BOOL mainloop_exit_path;
 extern int g_v20, g_v21;
 extern int g_argc2;
 extern char** g_argv2;
+extern unsigned int nox_frame_xxx_2598000;
 extern nox_net_struct_t* nox_net_struct_arr[NOX_NET_STRUCT_MAX];
 
 typedef union {
@@ -483,7 +484,7 @@ void cmain_loop(int reentrant) {
 	g_v20 = 1;
 	sub_43F140(800);
 	nox_common_initRandom_415F70();
-	*getMemU32Ptr(0x5D4594, 2598000) = nox_common_gameFlags_check_40A5C0(1);
+	nox_frame_xxx_2598000 = nox_common_gameFlags_check_40A5C0(1);
 	nox_ensure_thing_bin();
 	*getMemU32Ptr(0x5D4594, 2650664) = 0;
 	*getMemU32Ptr(0x5D4594, 2649708) = 0;

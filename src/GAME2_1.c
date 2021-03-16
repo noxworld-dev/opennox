@@ -138,6 +138,7 @@ extern _DWORD dword_5d4594_1063116;
 extern _DWORD dword_5d4594_3801780;
 extern _DWORD nox_client_renderGUI_80828;
 extern _DWORD dword_5d4594_1062480;
+extern unsigned int nox_frame_xxx_2598000;
 extern void* nox_xxx_aClosewoodengat_587000_133480;
 extern BYTE** nox_pixbuffer_rows_3798784;
 extern int nox_win_width;
@@ -304,7 +305,7 @@ char*  sub_461090(int a1, int a2) {
 	int v2;       // edx
 	char* result; // eax
 
-	v2 = *getMemU32Ptr(0x5D4594, 2598000);
+	v2 = nox_frame_xxx_2598000;
 	result = (char*)getMemAt(0x5D4594, 1047808);
 	do {
 		if (*((_DWORD*)result - 5) == a1) {
@@ -1335,7 +1336,7 @@ int  nox_xxx_inventoryDrawAllMB_463430(int a1) {
 		v3 += 6;
 		nox_client_drawImageAt_47D2C0(
 			*(_DWORD*)(*(_DWORD*)(*(_DWORD*)(dword_5d4594_1050008 + 96) + 4) +
-					   4 * (*getMemU32Ptr(0x5D4594, 2598000) %
+					   4 * (nox_frame_xxx_2598000 %
 							(unsigned int)*(unsigned __int8*)(*(_DWORD*)(dword_5d4594_1050008 + 96) + 8))),
 			v3 - 58, v4 - 53);
 		nox_swprintf(v17, L"X %d", *getMemU32Ptr(0x5D4594, 1050012));
@@ -7880,7 +7881,7 @@ int  sub_4745F0(_DWORD* a1) {
 			v5 = *(_DWORD*)(v4 + 480);
 			*(_DWORD*)(v4 + 132) = 0;
 			if (!v5 && !*(_DWORD*)(v4 + 488))
-				*(_DWORD*)(v4 + 340) = *getMemU32Ptr(0x5D4594, 2598000);
+				*(_DWORD*)(v4 + 340) = nox_frame_xxx_2598000;
 		}
 		result = nox_drawable_list_2_size - 1;
 	}
@@ -7955,7 +7956,7 @@ int  sub_474BE0(_DWORD* a1, int* a2, int a3, int a4, int a5, int a6, int a7, int
 			if (v9 < 256)
 				goto LABEL_7;
 		} else {
-			v9 = a4 + (unsigned __int8)(10 * (getMemByte(0x5D4594, 2598000) + *(_BYTE*)(a3 + 128)));
+			v9 = a4 + (unsigned __int8)(10 * ((unsigned char)nox_frame_xxx_2598000 + *(_BYTE*)(a3 + 128)));
 			if (v9 < 256)
 				goto LABEL_7;
 		}
@@ -8092,7 +8093,7 @@ void  nox_xxx_spriteAddQueue_475560_draw(nox_drawable* dr, int a2) {
 			}
 		}
 		if ((dr->field_120 || dr->field_122) &&
-			(unsigned int)(*getMemU32Ptr(0x5D4594, 2598000) - dr->field_85) > (int)nox_gameFPS) {
+			(unsigned int)(nox_frame_xxx_2598000 - dr->field_85) > (int)nox_gameFPS) {
 			dr->field_120 = 0;
 		} else if (nox_drawable_list_1_size < nox_drawable_list_1_cap) {
 			nox_drawable_list_1[nox_drawable_list_1_size++] = dr;
@@ -8365,7 +8366,7 @@ int4*  nox_xxx_drawAllMB_475810_draw(int* a1) {
 			if (dr->field_27 != *getMemU32Ptr(0x5D4594, 1096448) || nox_xxx_TeamGet_418B10() || (v25 = nox_xxx_cliGetSpritePlayer_45A000()) == 0) {
 			LABEL_64:
 				v26 = dr->field_28;
-				if (!(v26 & 6) || (unsigned int)(*getMemU32Ptr(0x5D4594, 2598000) - dr->field_72) <= 5)
+				if (!(v26 & 6) || (unsigned int)(nox_frame_xxx_2598000 - dr->field_72) <= 5)
 					goto LABEL_71;
 				if (v26 & 2) {
 					v27 = dr->field_69;
@@ -8384,7 +8385,7 @@ int4*  nox_xxx_drawAllMB_475810_draw(int* a1) {
 						nox_xxx_drawEffectsMB_474E60(v1, dr);
 						sub_495BB0(dr, v1);
 						if (!dr->field_120 && !dr->field_122)
-							dr->field_85 = *getMemU32Ptr(0x5D4594, 2598000);
+							dr->field_85 = nox_frame_xxx_2598000;
 						if (sub_459DB0(dr))
 							sub_459DD0(dr, 1);
 						if (dr->field_28 & 0x20006)

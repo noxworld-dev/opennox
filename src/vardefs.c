@@ -33,6 +33,7 @@ void nullsub_68();
 void nullsub_69();
 void nullsub_70();
 BYTE** nox_pixbuffer_rows_3798784 = 0;
+unsigned int nox_frame_xxx_2598000 = 0;
 _DWORD dword_5d4594_3799540 = 0;
 _DWORD dword_5d4594_4668 = 0;
 _DWORD dword_5d4594_1046492 = 0;

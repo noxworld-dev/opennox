@@ -48,6 +48,7 @@ extern _DWORD nox_gameDisableMapDraw_5d4594_2650672;
 extern _DWORD nox_client_renderGUI_80828;
 extern _DWORD dword_5d4594_2650652;
 extern unsigned int nox_gameFPS;
+extern unsigned int nox_frame_xxx_2598000;
 
 //----- (0048EA70) --------------------------------------------------------
 int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned int a2, int a3) {
@@ -475,10 +476,10 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned int a2, int a3) {
 		case 0x2Au:
 			v9 = 1;
 			if (v7 == 40) {
-				*getMemU32Ptr(0x5D4594, 2598000) = *(_DWORD*)(v3 + 1);
-				*getMemU32Ptr(0x5D4594, 1200800) = *getMemU32Ptr(0x5D4594, 2598000);
-				v364 = *getMemU32Ptr(0x5D4594, 2598000);
-				*getMemU32Ptr(0x5D4594, 1200808) = *getMemU16Ptr(0x5D4594, 2598000) >> 14;
+				nox_frame_xxx_2598000 = *(_DWORD*)(v3 + 1);
+				*getMemU32Ptr(0x5D4594, 1200800) = nox_frame_xxx_2598000;
+				v364 = nox_frame_xxx_2598000;
+				*getMemU32Ptr(0x5D4594, 1200808) = (unsigned short)nox_frame_xxx_2598000 >> 14;
 				if (*getMemU32Ptr(0x5D4594, 2618908))
 					nox_xxx_playerUnsetStatus_417530(*getMemIntPtr(0x5D4594, 2618908), 64);
 				sub_43C650();
@@ -487,16 +488,16 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned int a2, int a3) {
 			} else if (v7 != 39) {
 				v14 = *(unsigned __int16*)(v373 + 1);
 				if ((unsigned __int16)v14 < (unsigned int)(*getMemU32Ptr(0x5D4594, 1200800) + sub_43C790()))
-					*getMemU32Ptr(0x5D4594, 2598000) = v14;
+					nox_frame_xxx_2598000 = v14;
 				v3 += 5;
 				break;
 			}
 			v373 = v3;
 			if (*getMemU32Ptr(0x5D4594, 2618908) && *(_BYTE*)(*getMemU32Ptr(0x5D4594, 2618908) + 3680) & 0x40)
 				return 1;
-			v10 = *getMemU32Ptr(0x5D4594, 2598000);
+			v10 = nox_frame_xxx_2598000;
 			v11 = *(_WORD*)(v3 + 1);
-			v12 = v11 + (*getMemU32Ptr(0x5D4594, 2598000) & 0xFFFF0000);
+			v12 = v11 + (nox_frame_xxx_2598000 & 0xFFFF0000);
 			v13 = v11 >> 14;
 			if (v13 != *getMemU32Ptr(0x5D4594, 1200808)) {
 				if (v13 == ((getMemByte(0x5D4594, 1200808) + 1) & 3)) {
@@ -507,10 +508,10 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned int a2, int a3) {
 					v9 = 0;
 				}
 			}
-			if (v12 < *getMemIntPtr(0x5D4594, 2598000))
+			if (v12 < nox_frame_xxx_2598000)
 				v9 = 0;
 			if (!nox_common_gameFlags_check_40A5C0(1) && v9 == 1) {
-				*getMemU32Ptr(0x5D4594, 2598000) = v12;
+				nox_frame_xxx_2598000 = v12;
 				*getMemU32Ptr(0x5D4594, 1200800) = v12;
 			}
 			v364 = v12;
@@ -519,8 +520,8 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned int a2, int a3) {
 				++*getMemU32Ptr(0x5D4594, 2649824);
 				return 1;
 			}
-			if (*getMemU32Ptr(0x5D4594, 2598000) > (unsigned int)(v10 + 1))
-				dword_5d4594_2618900 += *getMemU32Ptr(0x5D4594, 2598000) - v10;
+			if (nox_frame_xxx_2598000 > (unsigned int)(v10 + 1))
+				dword_5d4594_2618900 += nox_frame_xxx_2598000 - v10;
 			sub_43C650();
 			v3 += 3;
 			break;
@@ -537,7 +538,7 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned int a2, int a3) {
 						sub_41D6C0();
 				}
 				nox_xxx_setGameFlags_40A4D0(0x800000);
-				dword_5d4594_1200804 = *getMemU32Ptr(0x5D4594, 2598000);
+				dword_5d4594_1200804 = nox_frame_xxx_2598000;
 				nox_xxx_gameSetCliConnected_43C720(0);
 				sub_49C7A0();
 				nox_xxx_guiServerOptionsHide_4597E0(0);
@@ -638,8 +639,8 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned int a2, int a3) {
 				LODWORD(v5) = nox_xxx_spriteCreate_48E970(*(unsigned __int16*)(v3 + 3), *(unsigned __int16*)(v3 + 1),
 										 *(unsigned __int16*)(v3 + 5), *(unsigned __int16*)(v3 + 7));
 				if ((_DWORD)v5) {
-					k = *getMemU32Ptr(0x5D4594, 2598000);
-					*(_DWORD*)(v5 + 288) = *getMemU32Ptr(0x5D4594, 2598000);
+					k = nox_frame_xxx_2598000;
+					*(_DWORD*)(v5 + 288) = nox_frame_xxx_2598000;
 				}
 			}
 			v3 += 9;
@@ -657,7 +658,7 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned int a2, int a3) {
 										 *(unsigned __int16*)(v3 + 5), *(unsigned __int16*)(v3 + 7));
 				v29 = v5;
 				if ((_DWORD)v5) {
-					*(_DWORD*)(v5 + 288) = *getMemU32Ptr(0x5D4594, 2598000);
+					*(_DWORD*)(v5 + 288) = nox_frame_xxx_2598000;
 					nox_xxx_spriteSetFrameMB_45AB80(v5, *(unsigned __int8*)(v3 + 10));
 					LOBYTE(v5) = (*(_BYTE*)(v3 + 9) >> 4) & 7;
 					*(_BYTE*)(v29 + 297) = v5;
@@ -666,7 +667,7 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned int a2, int a3) {
 					v30 = *(_BYTE*)(v3 + 9) & 0xF;
 					*(_BYTE*)(v3 + 9) = v30;
 					if (*(_DWORD*)(v29 + 276) != v30) {
-						*(_DWORD*)(v29 + 316) = *getMemU32Ptr(0x5D4594, 2598000);
+						*(_DWORD*)(v29 + 316) = nox_frame_xxx_2598000;
 						HIDWORD(v5) = *(unsigned __int8*)(v3 + 9);
 						*(_DWORD*)(v29 + 276) = HIDWORD(v5);
 					}
@@ -1048,7 +1049,7 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned int a2, int a3) {
 					if (!nox_common_gameFlags_check_40A5C0(1)) {
 						*((_DWORD*)v127 + 534) = *(_DWORD*)(v3 + 3);
 						*((_DWORD*)v127 + 535) = *(_DWORD*)(v3 + 7);
-						*((_DWORD*)v127 + 536) = *getMemU32Ptr(0x5D4594, 2598000);
+						*((_DWORD*)v127 + 536) = nox_frame_xxx_2598000;
 					}
 					if (nox_common_gameFlags_check_40A5C0(1024)) {
 						k = *(_DWORD*)(v3 + 7);
@@ -1117,12 +1118,12 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned int a2, int a3) {
 				v142 = nox_common_playerInfoGetByID_417040(v141);
 				if (v142) {
 					if (!nox_common_gameFlags_check_40A5C0(1) &&
-						*getMemU32Ptr(0x5D4594, 2598000) > *((_DWORD*)v142 + 540)) {
+						nox_frame_xxx_2598000 > *((_DWORD*)v142 + 540)) {
 						HIWORD(v5) = 0;
 						*((_DWORD*)v142 + 538) = *(unsigned __int16*)(v3 + 3);
 						WORD2(v5) = *(_WORD*)(v3 + 5);
 						*((_DWORD*)v142 + 539) = WORD2(v5);
-						*((_DWORD*)v142 + 540) = *getMemU32Ptr(0x5D4594, 2598000);
+						*((_DWORD*)v142 + 540) = nox_frame_xxx_2598000;
 					}
 					k = *((_DWORD*)v142 + 539) - 1;
 					if (*((_DWORD*)v142 + 538) == k) {
@@ -1937,9 +1938,9 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned int a2, int a3) {
 							*(_BYTE*)(v5 + 299) = 0;
 							*(_DWORD*)(v5 + 440) = 0;
 							*(_DWORD*)(v5 + 448) =
-								*getMemU32Ptr(0x5D4594, 2598000) +
+								nox_frame_xxx_2598000 +
 								nox_common_randomIntMinMax_415FF0(30, 40, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 5562);
-							*(_DWORD*)(v256 + 444) = *getMemU32Ptr(0x5D4594, 2598000);
+							*(_DWORD*)(v256 + 444) = nox_frame_xxx_2598000;
 							*(_WORD*)(v256 + 104) = 0;
 							*(_BYTE*)(v256 + 296) =
 								nox_common_randomIntMinMax_415FF0(4, 10, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 5568);
@@ -2007,9 +2008,9 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned int a2, int a3) {
 								v247 = nox_common_randomIntMinMax_415FF0(0, 255, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 5393);
 								*(_BYTE*)(v362 + 299) = v247;
 								v246[2] = nox_common_randomIntMinMax_415FF0(1, 200, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 5396);
-								v246[4] = *getMemU32Ptr(0x5D4594, 2598000) +
+								v246[4] = nox_frame_xxx_2598000 +
 										  nox_common_randomIntMinMax_415FF0(20, 40, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 5399);
-								v246[3] = *getMemU32Ptr(0x5D4594, 2598000);
+								v246[3] = nox_frame_xxx_2598000;
 							}
 							v248 = nox_common_randomIntMinMax_415FF0(15, 30, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 5405);
 							v249 = v362;
@@ -2062,9 +2063,9 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned int a2, int a3) {
 							v233 = nox_common_randomIntMinMax_415FF0(0, 255, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 5024);
 							*(_BYTE*)(v362 + 299) = v233;
 							v232[2] = nox_common_randomIntMinMax_415FF0(1, 1500, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 5027);
-							v232[4] = *getMemU32Ptr(0x5D4594, 2598000) +
+							v232[4] = nox_frame_xxx_2598000 +
 									  nox_common_randomIntMinMax_415FF0(5, 20, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 5030);
-							v232[3] = *getMemU32Ptr(0x5D4594, 2598000);
+							v232[3] = nox_frame_xxx_2598000;
 						}
 						v234 = v362;
 						*(_WORD*)(v362 + 104) = 22;
@@ -2093,9 +2094,9 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned int a2, int a3) {
 							*(_DWORD*)(v240 + 440) =
 								nox_common_randomIntMinMax_415FF0(1333, 4000, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 5341);
 							*(_DWORD*)(v240 + 448) =
-								*getMemU32Ptr(0x5D4594, 2598000) +
+								nox_frame_xxx_2598000 +
 								nox_common_randomIntMinMax_415FF0(5, 20, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 5344);
-							*(_DWORD*)(v240 + 444) = *getMemU32Ptr(0x5D4594, 2598000);
+							*(_DWORD*)(v240 + 444) = nox_frame_xxx_2598000;
 						}
 						*(_WORD*)(v240 + 104) = 20;
 						*(_BYTE*)(v240 + 296) = nox_common_randomIntMinMax_415FF0(-5, 5, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 5351);
@@ -2179,7 +2180,7 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned int a2, int a3) {
 				LODWORD(v5) = nox_xxx_netTestHighBit_578B70(*(unsigned __int16*)(v3 + 1)) ? nox_xxx_netSpriteByCodeStatic_45A720(v298) : nox_xxx_netSpriteByCodeDynamic_45A6F0(v298);
 				if ((_DWORD)v5) {
 					LODWORD(v5) = v5 + 432;
-					*(_DWORD*)v5 = *getMemU32Ptr(0x5D4594, 2598000);
+					*(_DWORD*)v5 = nox_frame_xxx_2598000;
 					i = *(char*)(v3 + 4);
 					*(float*)(v5 + 8) = (double)i;
 					k = *(unsigned __int8*)(v3 + 3);
@@ -2532,7 +2533,7 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned int a2, int a3) {
 						nox_xxx_spriteChangeIntensity_484D70_light_intensity(v5 + 136, 0.0);
 					}
 					nox_xxx_spriteSetFrameMB_45AB80(v26, *(unsigned __int8*)(v3 + 3));
-					*(_DWORD*)(v26 + 288) = *getMemU32Ptr(0x5D4594, 2598000);
+					*(_DWORD*)(v26 + 288) = nox_frame_xxx_2598000;
 				}
 			}
 			v3 += 4;
@@ -2546,7 +2547,7 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned int a2, int a3) {
 				*(float*)(v5 + 468) = (double)*(char*)(v3 + 12) * 0.0625;
 				*(float*)(v5 + 472) = (double)*(char*)(v3 + 13) * 0.0625;
 				*(float*)(v5 + 476) = (double)*(char*)(v3 + 11) * 0.0625;
-				*(_DWORD*)(v5 + 316) = *getMemU32Ptr(0x5D4594, 2598000);
+				*(_DWORD*)(v5 + 316) = nox_frame_xxx_2598000;
 				*(_DWORD*)(v5 + 324) = *(unsigned __int16*)(v3 + 5);
 				v32 = *(unsigned __int16*)(v3 + 7);
 				*(_DWORD*)(v5 + 460) = nox_xxx_sprite_4CA540;
@@ -2658,14 +2659,14 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned int a2, int a3) {
 				v27 = nox_xxx_spriteCreate_48E970(*(unsigned __int16*)(v3 + 3), *(unsigned __int16*)(v3 + 1),
 								 *(unsigned __int16*)(v3 + 5), *(unsigned __int16*)(v3 + 7));
 				if (v27) {
-					v27[72] = *getMemU32Ptr(0x5D4594, 2598000);
+					v27[72] = nox_frame_xxx_2598000;
 					nox_xxx_spriteSetFrameMB_45AB80((int)v27, *(unsigned __int8*)(v3 + 10));
 					v28 = (*(_BYTE*)(v3 + 9) >> 4) & 7;
 					*((_BYTE*)v27 + 297) = v28;
 					if (v28 > 3u)
 						*((_BYTE*)v27 + 297) = v28 + 1;
 					if (v27[69] != *(unsigned __int8*)(v3 + 11)) {
-						v27[79] = *getMemU32Ptr(0x5D4594, 2598000);
+						v27[79] = nox_frame_xxx_2598000;
 						k = *(unsigned __int8*)(v3 + 11);
 						v27[69] = k;
 					}
@@ -3009,7 +3010,7 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned int a2, int a3) {
 		case 0xD3u:
 			if (!nox_client_isConnected_43C700())
 				goto LABEL_112;
-			if ((unsigned int)(*getMemU32Ptr(0x5D4594, 2598000) - *(_DWORD*)(v3 + 9)) >= 0x1E) {
+			if ((unsigned int)(nox_frame_xxx_2598000 - *(_DWORD*)(v3 + 9)) >= 0x1E) {
 				v359 = -44;
 				nox_xxx_netClientSend2_4E53C0(31, &v359, 1, 0, 1);
 			LABEL_112:

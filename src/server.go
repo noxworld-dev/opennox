@@ -3,6 +3,7 @@ package main
 /*
 #include "proto.h"
 extern unsigned int nox_gameFPS;
+extern unsigned int nox_frame_xxx_2598000;
 
 void nox_xxx_abilUpdateMB_4FBEE0();
 char* nox_xxx_netUpdateRemotePlayers_4DEC80();
@@ -29,7 +30,7 @@ func nox_xxx_gameTick_4D2580_server_B(ticks int64) C.int {
 	if nox_server_mainloop_exiting_43DEA0() {
 		return 0
 	}
-	if memmap.Uint8(0x5D4594, 2598000)&1 == 0 {
+	if C.nox_frame_xxx_2598000&1 == 0 {
 		C.nox_xxx_serverLoopSendMap_519990()
 	}
 	C.sub_40B970()

@@ -1,6 +1,7 @@
 #include "common__telnet__telnetd.h"
 #include "client__system__parsecmd.h" // for nox_server_parseCmdText_443C80
 #include "proto.h"
+extern unsigned int nox_frame_xxx_2598000;
 
 #define NOX_TELNET_SOCK_MAX 4
 #define NOX_TELNET_SOCK_BUF 1024
@@ -368,7 +369,7 @@ void nox_telnet_tick_578FC0() {
 	if (nox_telnet_listening) {
 		nox_telnet_accept_578FF0();
 		if (nox_telnet_conns > 0) {
-			if (getMemByte(0x5D4594, 2598000) & 1) {
+			if ((unsigned char)nox_frame_xxx_2598000 & 1) {
 				nox_telnet_handle_579190();
 			}
 		}

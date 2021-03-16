@@ -4,6 +4,7 @@
 #include "proto.h"
 #include "client__draw__fx.h"
 extern _DWORD dword_5d4594_1522956;
+extern unsigned int nox_frame_xxx_2598000;
 
 //----- (004CCAC0) --------------------------------------------------------
 int  nox_xxx_updDrawManabombCharge_4CCAC0(int a1, _DWORD* a2) {
@@ -48,9 +49,9 @@ int  nox_xxx_updDrawManabombCharge_4CCAC0(int a1, _DWORD* a2) {
 			*(_DWORD*)(v7 + 436) = *(_DWORD*)(v7 + 16) << 12;
 			*(_BYTE*)(v7 + 299) = 0;
 			*(_DWORD*)(v7 + 440) = 0;
-			*(_DWORD*)(v7 + 448) = *getMemU32Ptr(0x5D4594, 2598000) +
+			*(_DWORD*)(v7 + 448) = nox_frame_xxx_2598000 +
 								   nox_common_randomIntMinMax_415FF0(10, 30, "C:\\NoxPost\\src\\client\\Drawable\\Update\\ManaBomb.c", 88);
-			*(_DWORD*)(v8 + 444) = *getMemU32Ptr(0x5D4594, 2598000);
+			*(_DWORD*)(v8 + 444) = nox_frame_xxx_2598000;
 			*(_WORD*)(v8 + 104) = 0;
 			*(_BYTE*)(v8 + 296) = nox_common_randomIntMinMax_415FF0(2, 8, "C:\\NoxPost\\src\\client\\Drawable\\Update\\ManaBomb.c", 94);
 			nox_xxx_sprite_45A110_drawable((_DWORD*)v8);
@@ -58,13 +59,13 @@ int  nox_xxx_updDrawManabombCharge_4CCAC0(int a1, _DWORD* a2) {
 		if (!--v19)
 			break;
 	}
-	if (getMemByte(0x5D4594, 2598000) & 1) {
-		if ((unsigned int)(*getMemU32Ptr(0x5D4594, 2598000) - v3[80]) < 0xA) {
+	if ((unsigned char)nox_frame_xxx_2598000 & 1) {
+		if ((unsigned int)(nox_frame_xxx_2598000 - v3[80]) < 0xA) {
 			v9 = *((_WORD*)v3 + 8);
 			LOWORD(i) = *((_WORD*)v3 + 6);
 			HIWORD(i) = v9;
-			v10 = *getMemU32Ptr(0x5D4594, 2598000) % 0x33u;
-			if ((int)(*getMemU32Ptr(0x5D4594, 2598000) % 0x33u) < 256) {
+			v10 = nox_frame_xxx_2598000 % 0x33u;
+			if ((int)(nox_frame_xxx_2598000 % 0x33u) < 256) {
 				v11 = getMemAt(0x587000, 8 * v10 + 192092);
 				do {
 					v12 = v18 * *(_WORD*)v11;

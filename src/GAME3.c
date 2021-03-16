@@ -150,6 +150,7 @@ extern int nox_win_height;
 extern int nox_backbuffer_height;
 extern int nox_win_depth_1;
 extern int nox_win_depth_2;
+extern unsigned int nox_frame_xxx_2598000;
 extern char nox_savegame_name_1307752[9];
 
 extern obj_5D4594_3799572_t* ptr_5D4594_3799572;
@@ -4602,7 +4603,7 @@ int nox_xxx_gameDownloadMap_4AB5E0() {
 			nox_xxx_netRequestMap_43CA50();
 			v0 = 1;
 		}
-		if (*getMemU32Ptr(0x5D4594, 2598000) % 0x1Eu)
+		if (nox_frame_xxx_2598000 % 0x1Eu)
 			nox_xxx_netKeepAliveSocket_43CA20();
 		nox_gui_draw();
 		nox_client_drawCursorAndTooltips_477830();
@@ -10783,7 +10784,7 @@ int  sub_4B6880(_DWORD* a1, int a2, int a3, int a4) {
 
 	v4 = a2;
 	v5 = *(_DWORD*)(a2 + 448) - *(_DWORD*)(a2 + 444);
-	v15 = *(_DWORD*)(a2 + 448) - *getMemU32Ptr(0x5D4594, 2598000);
+	v15 = *(_DWORD*)(a2 + 448) - nox_frame_xxx_2598000;
 	v6 = v15;
 	if (v15 == v5)
 		v6 = --v15;
@@ -10835,7 +10836,7 @@ __int16  sub_4B69F0(int a1) {
 	*(_WORD*)(a1 + 104) += v1;
 	result = *(_WORD*)(a1 + 104);
 	if (result >= 0) {
-		if (getMemByte(0x5D4594, 2598000) & 1)
+		if ((unsigned char)nox_frame_xxx_2598000 & 1)
 			*(_BYTE*)(a1 + 296) = v1 - 1;
 	} else {
 		*(_WORD*)(a1 + 104) = -result;
@@ -10980,7 +10981,7 @@ int  sub_4B71A0(_DWORD* a1, int a2) {
 	*(_DWORD*)(a2 + 436) = v4;
 	nox_xxx_updateSpritePosition_49AA90((_DWORD*)a2, *(_DWORD*)(a2 + 432) >> 12, v4 >> 12);
 	v5 = *(_DWORD*)(a2 + 444) - *(_DWORD*)(a2 + 448);
-	v6 = *(_DWORD*)(a2 + 444) - *getMemU32Ptr(0x5D4594, 2598000);
+	v6 = *(_DWORD*)(a2 + 444) - nox_frame_xxx_2598000;
 	if (v6 == v5)
 		--v6;
 	if (v6 > 0) {
@@ -11032,8 +11033,8 @@ _DWORD*  nox_xxx_netHandleSummonPacket_4B7C40(__int16 a1, unsigned __int16* a2, 
 			v8[69] = 8;
 			v7[108] = v8;
 			v7[109] = v11;
-			result = *(_DWORD**)getMemAt(0x5D4594, 2598000);
-			v7[79] = *getMemU32Ptr(0x5D4594, 2598000);
+			result = nox_frame_xxx_2598000;
+			v7[79] = nox_frame_xxx_2598000;
 		}
 	}
 	return result;
@@ -11210,7 +11211,7 @@ __int16  sub_4B8960(int* a1, nox_drawable* dr, int a3, _DWORD* a4, int a5, int a
 	v7 = 0;
 	v30 = 0;
 	v31 = 0;
-	if (getMemByte(0x5D4594, 2598000) & 1)
+	if ((unsigned char)nox_frame_xxx_2598000 & 1)
 		v27 = *getMemU32Ptr(0x5D4594, 2523948);
 	else
 		v27 = *getMemU32Ptr(0x5D4594, 2650684);
@@ -11388,7 +11389,7 @@ __int16  sub_4B8D40(int* a1, nox_drawable* dr, int a3, _DWORD* a4, int a5, int a
 
 	v6 = (unsigned __int8*)dr;
 	v14 = nox_xxx_spriteTestBuf_4356C0(dr, 25);
-	if (getMemByte(0x5D4594, 2598000) & 1)
+	if ((unsigned char)nox_frame_xxx_2598000 & 1)
 		v13 = *getMemU32Ptr(0x5D4594, 2523948);
 	else
 		v13 = *getMemU32Ptr(0x5D4594, 2650684);

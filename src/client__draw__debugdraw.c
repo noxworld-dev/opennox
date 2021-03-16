@@ -1,6 +1,7 @@
 #include "client__draw__debugdraw.h"
 #include "proto.h"
 
+extern unsigned int nox_frame_xxx_2598000;
 //----- (004BCC90) --------------------------------------------------------
 int  nox_thing_debug_draw(_DWORD* a1, nox_drawable* dr) {
 	int v2;    // edi
@@ -20,7 +21,7 @@ int  nox_thing_debug_draw(_DWORD* a1, nox_drawable* dr) {
 	int v20;   // [esp+28h] [ebp-8h]
 
 	v2 = *getMemU32Ptr(0x5D4594, 2618904);
-	if (dr->field_72 >= *getMemIntPtr(0x5D4594, 2598000))
+	if (dr->field_72 >= nox_frame_xxx_2598000)
 		v2 = *getMemU32Ptr(0x5D4594, 2589772);
 	nox_client_drawSetColor_434460(v2);
 	nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 2523948));

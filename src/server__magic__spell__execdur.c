@@ -1,5 +1,6 @@
 #include "proto.h"
 
+extern unsigned int nox_frame_xxx_2598000;
 //----- (00530A30) --------------------------------------------------------
 int  sub_530A30_spell_execdur(int a1) {
 	int v1;      // esi
@@ -40,11 +41,11 @@ int  sub_530A30_spell_execdur(int a1) {
 		if (!v9 || (unsigned __int8)nox_xxx_traceRay_5374B0((float4*)&v12)) {
 			if (nox_common_gameFlags_check_40A5C0(2048)) {
 				v11 = nox_xxx_loadFloatVar_419D70(getMemAt(0x587000, 260976), *(_DWORD*)(v1 + 8) - 1);
-				*(_DWORD*)(v1 + 68) = *getMemU32Ptr(0x5D4594, 2598000) + nox_float2int(v11);
+				*(_DWORD*)(v1 + 68) = nox_frame_xxx_2598000 + nox_float2int(v11);
 				result = 0;
 			} else {
 				result = 0;
-				*(_DWORD*)(v1 + 68) = *getMemU32Ptr(0x5D4594, 2598000) + 1;
+				*(_DWORD*)(v1 + 68) = nox_frame_xxx_2598000 + 1;
 			}
 		} else {
 			if (v2) {

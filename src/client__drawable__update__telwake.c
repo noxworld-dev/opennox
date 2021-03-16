@@ -3,6 +3,7 @@
 #include "common__random.h"
 #include "proto.h"
 
+extern unsigned int nox_frame_xxx_2598000;
 //----- (004CD8D0) --------------------------------------------------------
 int  nox_xxx_updDrawTeleportWake_4CD8D0(int a1, int a2) {
 	int v2; // esi
@@ -21,9 +22,9 @@ int  nox_xxx_updDrawTeleportWake_4CD8D0(int a1, int a2) {
 		*(_DWORD*)(v4 + 436) = *(_DWORD*)(v4 + 16) << 12;
 		*(_BYTE*)(v4 + 299) = nox_common_randomIntMinMax_415FF0(0, 255, "C:\\NoxPost\\src\\client\\Drawable\\Update\\telwake.c", 43);
 		*(_DWORD*)(v5 + 440) = nox_common_randomIntMinMax_415FF0(1, 100, "C:\\NoxPost\\src\\client\\Drawable\\Update\\telwake.c", 46);
-		*(_DWORD*)(v5 + 448) = *getMemU32Ptr(0x5D4594, 2598000) +
+		*(_DWORD*)(v5 + 448) = nox_frame_xxx_2598000 +
 							   nox_common_randomIntMinMax_415FF0(10, 32, "C:\\NoxPost\\src\\client\\Drawable\\Update\\telwake.c", 49);
-		*(_DWORD*)(v5 + 444) = *getMemU32Ptr(0x5D4594, 2598000);
+		*(_DWORD*)(v5 + 444) = nox_frame_xxx_2598000;
 		*(_WORD*)(v5 + 104) = 0;
 		*(_BYTE*)(v5 + 296) = nox_common_randomIntMinMax_415FF0(3, 8, "C:\\NoxPost\\src\\client\\Drawable\\Update\\telwake.c", 55);
 		nox_xxx_sprite_45A110_drawable((_DWORD*)v5);

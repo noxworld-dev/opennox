@@ -8,6 +8,7 @@
 #include "server__network__mapsend.h"
 #include "common/fs/nox_fs.h"
 
+extern unsigned int nox_frame_xxx_2598000;
 //----- (0051BAD0) --------------------------------------------------------
 int  nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned __int8* a2, signed int a3) {
 	unsigned __int8* v4;                   // esi
@@ -106,7 +107,7 @@ int  nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned __int8* a2,
 	}
 
 	if (a3 <= 0) {
-		*((_DWORD*)nox_common_playerInfoFromNum_417090(a1) + 899) = *getMemU32Ptr(0x5D4594, 2598000);
+		*((_DWORD*)nox_common_playerInfoFromNum_417090(a1) + 899) = nox_frame_xxx_2598000;
 		return 1;
 	}
 	v4 = a2;
@@ -123,7 +124,7 @@ int  nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned __int8* a2,
 		nox_xxx_playerForceDisconnect_4DE7C0(a1);
 		return 1;
 	case 0x25u:
-		*((_DWORD*)nox_common_playerInfoFromNum_417090(a1) + 899) = *getMemU32Ptr(0x5D4594, 2598000);
+		*((_DWORD*)nox_common_playerInfoFromNum_417090(a1) + 899) = nox_frame_xxx_2598000;
 		return 1;
 	}
 	v91 = &a2[a3];
@@ -139,7 +140,7 @@ int  nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned __int8* a2,
 	v10 = *(int**)(v93 + 748);
 	v85 = *(_DWORD*)(v93 + 748);
 	if (a2 >= v91) {
-		*(_DWORD*)(v8 + 3596) = *getMemU32Ptr(0x5D4594, 2598000);
+		*(_DWORD*)(v8 + 3596) = nox_frame_xxx_2598000;
 		return 1;
 	}
 	while (v4 < v91) {
@@ -795,7 +796,7 @@ int  nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned __int8* a2,
 			return 0;
 		}
 	}
-	*(_DWORD*)(v8 + 3596) = *getMemU32Ptr(0x5D4594, 2598000);
+	*(_DWORD*)(v8 + 3596) = nox_frame_xxx_2598000;
 	return 1;
 }
 // 51C788: variable 'v7' is possibly undefined

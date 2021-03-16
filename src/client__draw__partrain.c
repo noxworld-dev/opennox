@@ -4,6 +4,7 @@
 
 #include "proto.h"
 
+extern unsigned int nox_frame_xxx_2598000;
 //----- (004B7810) --------------------------------------------------------
 int  nox_thing_blue_rain_draw(int a1, nox_drawable* dr) {
 	int v3; // ebx
@@ -34,8 +35,8 @@ int  nox_thing_blue_rain_draw(int a1, nox_drawable* dr) {
 			*(_BYTE*)(v7 + 299) = 0;
 			*(_DWORD*)(v7 + 440) = 0;
 			*(_DWORD*)(v7 + 448) =
-				*getMemU32Ptr(0x5D4594, 2598000) + nox_common_randomIntMinMax_415FF0(90, 120, "C:\\NoxPost\\src\\client\\Draw\\PartRain.c", 63);
-			*(_DWORD*)(v8 + 444) = *getMemU32Ptr(0x5D4594, 2598000);
+				nox_frame_xxx_2598000 + nox_common_randomIntMinMax_415FF0(90, 120, "C:\\NoxPost\\src\\client\\Draw\\PartRain.c", 63);
+			*(_DWORD*)(v8 + 444) = nox_frame_xxx_2598000;
 			*(_WORD*)(v8 + 106) = 0;
 			*(_BYTE*)(v8 + 296) = -5;
 			*(_WORD*)(v8 + 104) = v6 - *(_WORD*)(a1 + 20);

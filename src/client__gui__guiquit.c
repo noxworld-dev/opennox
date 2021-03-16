@@ -14,6 +14,7 @@ extern _DWORD dword_5d4594_825760;
 extern _DWORD dword_5d4594_2650652;
 extern int nox_win_width;
 extern int nox_win_height;
+extern unsigned int nox_frame_xxx_2598000;
 
 //----- (00445790) --------------------------------------------------------
 int nox_xxx_wndLoadQuiteMenu_445790() {
@@ -331,7 +332,7 @@ void sub_446190() {
 	}
 	if (!dword_5d4594_825768) {
 		dword_5d4594_825752 = 0;
-		dword_5d4594_825768 = *getMemU32Ptr(0x5D4594, 2598000);
+		dword_5d4594_825768 = nox_frame_xxx_2598000;
 		if (nox_common_gameFlags_check_40A5C0(1)) {
 			if (sub_43AF70() == 1 && nox_common_gameFlags_check_40A5C0(49152))
 				sub_416150(15, 0);

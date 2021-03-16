@@ -21,6 +21,7 @@ extern void* nox_xxx_aClosewoodengat_587000_133480;
 extern int nox_win_width;
 extern int nox_win_height;
 extern unsigned int nox_gameFPS;
+extern unsigned int nox_frame_xxx_2598000;
 
 //----- (0045DEB0) --------------------------------------------------------
 int  nox_xxx_spellPutInBox_45DEB0(int* a1, int a2, int a3, int a4) {
@@ -589,8 +590,8 @@ int  nox_xxx_quickBarDrawFn_45FBD0(int yTop) {
 	v7 = (int*)(v6 + 8 * v2);
 	v8 = *(_DWORD*)(v6 + 8 * v2);
 	if (v8) {
-		if (*getMemU32Ptr(0x5D4594, 2598000) <= 0xAu || v2 != *getMemU32Ptr(0x587000, 133484) ||
-			(unsigned int)(*getMemU32Ptr(0x5D4594, 2598000) - *getMemU32Ptr(0x5D4594, 1049540)) >= 0xA) {
+		if (nox_frame_xxx_2598000 <= 0xAu || v2 != *getMemU32Ptr(0x587000, 133484) ||
+			(unsigned int)(nox_frame_xxx_2598000 - *getMemU32Ptr(0x5D4594, 1049540)) >= 0xA) {
 			v9 = nox_xxx_spellGetAbilityIcon_425310(v8, 0);
 			v19 = 0;
 		} else {
@@ -612,7 +613,7 @@ int  nox_xxx_quickBarDrawFn_45FBD0(int yTop) {
 						if (!v19)
 							nox_client_drawRectFilledAlpha_49CF10(
 								xLeft, yTop, 34,
-								34 - (*getMemU32Ptr(0x5D4594, 2598000) - *getMemU32Ptr(0x5D4594, 24 * *v7 + 1047784)) /
+								34 - (nox_frame_xxx_2598000 - *getMemU32Ptr(0x5D4594, 24 * *v7 + 1047784)) /
 										 (v14 / nox_gameFPS));
 					}
 				}
@@ -678,8 +679,8 @@ int  nox_xxx_quickBarWarriorDraw_45FDE0(int yTop) {
 		return 0;
 	nox_client_wndGetPosition_46AA60((_DWORD*)yTop, &xLeft, &yTop);
 	if (v4[2 * v2]) {
-		if (*getMemU32Ptr(0x5D4594, 2598000) <= 0xAu || v2 != *getMemU32Ptr(0x587000, 133484) ||
-			(unsigned int)(*getMemU32Ptr(0x5D4594, 2598000) - *getMemU32Ptr(0x5D4594, 1049540)) >= 0xA) {
+		if (nox_frame_xxx_2598000 <= 0xAu || v2 != *getMemU32Ptr(0x587000, 133484) ||
+			(unsigned int)(nox_frame_xxx_2598000 - *getMemU32Ptr(0x5D4594, 1049540)) >= 0xA) {
 			v7 = nox_xxx_spellGetIcon_424A90(v4[2 * v2]);
 		} else {
 			v7 = nox_xxx_spellGetIconHighlight_424AB0(v4[2 * v2]);

@@ -2,6 +2,7 @@
 #include "proto.h"
 
 extern unsigned int nox_gameFPS;
+extern unsigned int nox_frame_xxx_2598000;
 //----- (004B7540) --------------------------------------------------------
 int  nox_thing_bubble_draw(_DWORD* a1, nox_drawable* dr) {
 	unsigned int v2;    // eax
@@ -25,7 +26,7 @@ int  nox_thing_bubble_draw(_DWORD* a1, nox_drawable* dr) {
 	if (*(_BYTE*)(a2 + 441) == 3)
 		goto LABEL_29;
 	v2 = *(_DWORD*)(a2 + 356);
-	if (v2 && v2 <= *getMemIntPtr(0x5D4594, 2598000)) {
+	if (v2 && v2 <= nox_frame_xxx_2598000) {
 		*(_BYTE*)(a2 + 441) = 3;
 		*(_BYTE*)(a2 + 442) = 4;
 		*(_BYTE*)(a2 + 443) = 4;
@@ -45,7 +46,7 @@ int  nox_thing_bubble_draw(_DWORD* a1, nox_drawable* dr) {
 	sub_4B6720(&xLeft, *(_DWORD*)(a2 + 432), v5, v5 + 3);
 	nox_client_drawSetColor_434460(*(_DWORD*)(a2 + 436));
 	nox_xxx_drawPointMB_499B70(xLeft.field_0, xLeft.field_4, *(unsigned __int8*)(a2 + 440) >> 1);
-	if (getMemByte(0x5D4594, 2598000) & 3)
+	if ((unsigned char)nox_frame_xxx_2598000 & 3)
 		*(_WORD*)(a2 + 104) += *(char*)(a2 + 446);
 	v6 = *(_BYTE*)(a2 + 442);
 	if (v6) {
