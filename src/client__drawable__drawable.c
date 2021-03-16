@@ -49,6 +49,7 @@ extern nox_drawable* nox_drawable_head_unk2;
 extern nox_drawable* nox_drawable_head_unk3;
 extern nox_drawable* nox_drawable_head_unk4;
 extern int nox_drawable_count;
+extern unsigned int nox_frame_xxx_2598000;
 
 nox_parse_thing_draw_funcs_t nox_parse_thing_draw_funcs[] = {
 	{"NoDraw", 0, 0, 0},
@@ -163,8 +164,8 @@ nox_drawable*  nox_new_drawable_for_thing(int i) {
 	} else {
 		nox_xxx_spriteSetFrameMB_45AB80(v1, 0);
 	}
-	v1->field_79 = *getMemUintPtr(0x5D4594, 2598000);
-	v1->field_85 = *getMemUintPtr(0x5D4594, 2598000);
+	v1->field_79 = nox_frame_xxx_2598000;
+	v1->field_85 = nox_frame_xxx_2598000;
 	nox_drawable_count++;
 	v1->field_120 = 0;
 	v1->field_121 = 0;

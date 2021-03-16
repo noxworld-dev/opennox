@@ -62,6 +62,7 @@ extern _DWORD dword_5d4594_2516328;
 extern _DWORD dword_5d4594_2516348;
 extern _DWORD dword_5d4594_2650652;
 extern nox_alloc_class* nox_alloc_gQueue_3844300;
+extern unsigned int nox_frame_xxx_2598000;
 
 int (*nox_client_onLobbyServer_2513928)(const char*, uint16_t, const char*, const char*) = 0;
 
@@ -580,7 +581,7 @@ int  nox_xxx_netBigSwitch_553210(unsigned int id, unsigned char* packet, int pac
 			ns10->xor_key = key;
 			ns10->field_38 = 1;
 			ns10->data_39[0] = v67;
-			ns10->field_40 = *getMemU32Ptr(0x5D4594, 2598000);
+			ns10->field_40 = nox_frame_xxx_2598000;
 			return 0;
 			}
 		case 1:
@@ -2283,7 +2284,7 @@ int sub_56F1C0() {
 	v0 = time(0);
 	sub_56FF00(v0);
 	dword_5d4594_2516352 = 0;
-	dword_5d4594_2516348 = *getMemU32Ptr(0x5D4594, 2598000);
+	dword_5d4594_2516348 = nox_frame_xxx_2598000;
 	dword_5d4594_2516344 = 0;
 	*getMemU16Ptr(0x587000, 311204) = 0;
 	dword_5d4594_2516356 = 657757279;
@@ -2514,7 +2515,7 @@ int nox_xxx_protectData_56F5C0() {
 
 	if (!dword_5d4594_2516348)
 		nullsub_31(1);
-	v0 = *getMemU32Ptr(0x5D4594, 2598000);
+	v0 = nox_frame_xxx_2598000;
 	v1 = dword_5d4594_2516348;
 	v2 = nox_xxx_protect_56F240() ^ v0;
 	v3 = v2 ^ v1;

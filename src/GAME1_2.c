@@ -148,6 +148,7 @@ extern _DWORD dword_5d4594_3798844;
 extern _DWORD dword_5d4594_814980;
 extern int nox_enable_audio;
 extern int nox_video_dxUnlockSurface;
+extern unsigned int nox_frame_xxx_2598000;
 
 extern int nox_backbuffer_width;
 extern int nox_backbuffer_height;
@@ -4802,11 +4803,11 @@ void* nox_xxx_tileEdgeCrashHere_42FB30(int a1) {
 	nox_video_bag_entry1_t* ent = &nox_video_bag_arr1_787148[ind];
 	if (ent->field_6 != -1) {
 		if (ent->field_0) {
-			if (ent->field_1 == *getMemU32Ptr(0x5D4594, 2598000)) {
+			if (ent->field_1 == nox_frame_xxx_2598000) {
 				dword_5d4594_787224 = 0;
 				return *(_DWORD*)a1 + (char*)ent->field_0;
 			}
-			ent->field_1 = *getMemU32Ptr(0x5D4594, 2598000);
+			ent->field_1 = nox_frame_xxx_2598000;
 			*(_DWORD*)((char*)ent->field_7 + 32) = ent->field_8;
 			*(_DWORD*)((char*)ent->field_8 + 28) = ent->field_7;
 		} else {
@@ -4825,14 +4826,14 @@ void* nox_xxx_tileEdgeCrashHere_42FB30(int a1) {
 				ent->field_0 = *v5;
 				*v5 = 0;
 				sub_42FE30(ent);
-				ent->field_1 = *getMemU32Ptr(0x5D4594, 2598000);
+				ent->field_1 = nox_frame_xxx_2598000;
 				dword_5d4594_787224 = 0;
 				return *(_DWORD*)a1 + (char*)ent->field_0;
 			}
 			--dword_5d4594_787188;
 			ent->field_0 = (char*)nox_video_bag_ptr_787200 + dword_5d4594_787188 * nox_video_bag_var_787176; // TODO: should be an array access
 			sub_42FE30(ent);
-			ent->field_1 = *getMemU32Ptr(0x5D4594, 2598000);
+			ent->field_1 = nox_frame_xxx_2598000;
 		}
 		*(_DWORD*)(*getMemU32Ptr(0x5D4594, 787140) + 28) = ent;
 		ent->field_7 = getMemAt(0x5D4594, 787108);
@@ -4844,7 +4845,7 @@ void* nox_xxx_tileEdgeCrashHere_42FB30(int a1) {
 	if (!ent->field_0) {
 		ent->field_0 = malloc(ent->field_3);
 		sub_42FE30(ent);
-		ent->field_1 = *getMemU32Ptr(0x5D4594, 2598000);
+		ent->field_1 = nox_frame_xxx_2598000;
 	}
 	dword_5d4594_787224 = 0;
 	return ent->field_0;
@@ -8008,11 +8009,11 @@ BOOL sub_436550() {
 	int v0; // eax
 
 	if (sub_459DA0() || sub_446360() || sub_49CB40() || sub_49C810() || sub_446950() || sub_4706A0() || sub_451410()) {
-		v0 = *getMemU32Ptr(0x5D4594, 2598000);
+		v0 = nox_frame_xxx_2598000;
 	} else {
-		v0 = *getMemU32Ptr(0x5D4594, 2598000);
-		if (*getMemU32Ptr(0x5D4594, 2598000) != 2)
-			return *getMemU32Ptr(0x5D4594, 2598000) - *getMemU32Ptr(0x5D4594, 811920) == 1;
+		v0 = nox_frame_xxx_2598000;
+		if (nox_frame_xxx_2598000 != 2)
+			return nox_frame_xxx_2598000 - *getMemU32Ptr(0x5D4594, 811920) == 1;
 	}
 	*getMemU32Ptr(0x5D4594, 811920) = v0;
 	return 1;

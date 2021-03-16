@@ -5,6 +5,7 @@ extern _DWORD dword_5d4594_2386552;
 extern _DWORD dword_5d4594_2386548;
 extern _DWORD dword_5d4594_2386560;
 extern void* nox_alloc_tradeItems_2386496;
+extern unsigned int nox_frame_xxx_2598000;
 
 //----- (0050E7A0) --------------------------------------------------------
 int  sub_50E7A0(_DWORD* a1, int a2) {
@@ -365,7 +366,7 @@ LABEL_17:
 LABEL_18:
 	if (!v9)
 		return 0;
-	v9[1] = *getMemU32Ptr(0x5D4594, 2598000);
+	v9[1] = nox_frame_xxx_2598000;
 	nox_xxx_tradeSetPlayer_50F370(v9, a1);
 	nox_xxx_tradeSetPlayer_50F370(v9, a2);
 	v10 = *(_BYTE*)(a1 + 8);

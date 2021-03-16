@@ -3,6 +3,7 @@
 extern _DWORD dword_5d4594_825736;
 
 extern unsigned int nox_gameFPS;
+extern unsigned int nox_frame_xxx_2598000;
 //----- (00445490) --------------------------------------------------------
 void  nox_xxx_printCentered_445490(wchar_t* a1) {
 	int v1;             // eax
@@ -17,7 +18,7 @@ void  nox_xxx_printCentered_445490(wchar_t* a1) {
 		}
 		nox_wcscpy(getMemU16Ptr(0x5D4594, 644 * v1 + 823804), a1);
 		v2 = 644 * *(unsigned int*)&dword_5d4594_825736;
-		*getMemUintPtr(0x5D4594, v2 + 824440) = *getMemUintPtr(0x5D4594, 2598000) +
+		*getMemUintPtr(0x5D4594, v2 + 824440) = nox_frame_xxx_2598000 +
 													4 * nox_gameFPS +
 													nox_gameFPS;
 		*getMemU8Ptr( 0x5D4594, v2 + 824444) = 0;

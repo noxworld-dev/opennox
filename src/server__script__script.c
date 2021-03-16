@@ -8,6 +8,7 @@
 
 extern void* nox_script_activatedList_2487236;
 extern unsigned int dword_5d4594_1599628;
+extern unsigned int nox_frame_xxx_2598000;
 
 
 typedef struct nox_script_xxx_t {
@@ -1278,7 +1279,7 @@ void nox_xxx_scriptLeverReact_51ADF0() {
 	v0 = *(_DWORD**)&nox_script_activatedList_2487236;
 	if (nox_script_activatedList_2487236) {
 		do {
-			if (*v0 > *getMemIntPtr(0x5D4594, 2598000)) {
+			if (*v0 > nox_frame_xxx_2598000) {
 				v0 = (_DWORD*)v0[6];
 			} else {
 				v1 = v0[1];

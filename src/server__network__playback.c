@@ -5,6 +5,7 @@
 extern _DWORD dword_5d4594_1548736;
 extern _DWORD dword_5d4594_1548732;
 extern _DWORD nox_xxx_replayFile_587000_197428;
+extern unsigned int nox_frame_xxx_2598000;
 
 //----- (004D3580) --------------------------------------------------------
 int  nox_xxx_replayTickMB_4D3580_net_playback(int a1) {
@@ -44,7 +45,7 @@ int  nox_xxx_replayTickMB_4D3580_net_playback(int a1) {
 		nox_game_exit_xxx_43DE60();
 		return v1;
 	}
-	if (*getMemU32Ptr(0x5D4594, 2598000) == *getMemU32Ptr(0x5D4594, 1548728))
+	if (nox_frame_xxx_2598000 == *getMemU32Ptr(0x5D4594, 1548728))
 		return v1;
 	while (1) {
 		switch (getMemByte(0x5D4594, 1548724)) {
@@ -100,7 +101,7 @@ int  nox_xxx_replayTickMB_4D3580_net_playback(int a1) {
 		}
 		if (v1)
 			break;
-		if (*getMemU32Ptr(0x5D4594, 2598000) == *getMemU32Ptr(0x5D4594, 1548728))
+		if (nox_frame_xxx_2598000 == *getMemU32Ptr(0x5D4594, 1548728))
 			return v1;
 	}
 	nox_xxx_replayStopReadMB_4D3530();

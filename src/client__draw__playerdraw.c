@@ -14,6 +14,7 @@ extern _DWORD dword_5d4594_3798676;
 extern _DWORD dword_5d4594_3798680;
 extern _DWORD dword_5d4594_3798684;
 extern _DWORD dword_5d4594_3798688;
+extern unsigned int nox_frame_xxx_2598000;
 
 //----- (004B8270) --------------------------------------------------------
 int  nox_thing_player_draw(_DWORD* a1, nox_drawable* dr) {
@@ -149,7 +150,7 @@ int  nox_thing_player_draw(_DWORD* a1, nox_drawable* dr) {
 		}
 		goto LABEL_29;
 	}
-	if (!(getMemByte(0x5D4594, 2598000) & 1)) {
+	if (!((unsigned char)nox_frame_xxx_2598000 & 1)) {
 		LABEL_29:
 		*getMemU32Ptr(0x5D4594, 3798668) = *getMemU32Ptr(0x5D4594, 2650684);
 		dword_5d4594_3798672 = *getMemU32Ptr(0x5D4594, 2650684);
@@ -284,7 +285,7 @@ int  nox_thing_player_waypoint_draw(int a1, nox_drawable* dr) {
 	           *getMemIntPtr(0x5D4594, 2650644));
 	v3 = *(_DWORD*)(a2 + 16) - *(_DWORD*)(a1 + 20);
 	v4 = *(_DWORD*)(a2 + 12) - *(_DWORD*)(a1 + 16);
-	v5 = (unsigned __int8)(2 * getMemByte(0x5D4594, 2598000));
+	v5 = (unsigned __int8)(2 * (unsigned char)nox_frame_xxx_2598000);
 	nox_client_drawEnableAlpha_434560(1);
 	nox_client_drawSetColor_434460(v2);
 	v7 = 5;

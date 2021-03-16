@@ -7,6 +7,7 @@
 extern _DWORD dword_5d4594_754056;
 extern _DWORD dword_5d4594_1193132;
 extern int obj_5D4594_754104_switch;
+extern unsigned int nox_frame_xxx_2598000;
 
 extern int nox_win_width;
 extern int nox_win_height;
@@ -556,7 +557,7 @@ void nox_xxx_input_42D220() {
 		if (*(_BYTE*)(i + 88)) {
 			*(_DWORD*)(i + 84) = v16;
 			v16 = i;
-			*(_DWORD*)(i + 92) = *getMemU32Ptr(0x5D4594, 2598000);
+			*(_DWORD*)(i + 92) = nox_frame_xxx_2598000;
 		}
 	}
 	nox_xxx_clientControl_42D6B0(mouse, v16);

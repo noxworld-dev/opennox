@@ -4,6 +4,7 @@
 #include "proto.h"
 extern _DWORD dword_5d4594_1313804;
 extern unsigned int nox_gameFPS;
+extern unsigned int nox_frame_xxx_2598000;
 
 //----- (004B98A0) --------------------------------------------------------
 int  nox_thing_magic_draw(int* a1, nox_drawable* dr) {
@@ -100,7 +101,7 @@ int  nox_thing_magic_missle_tail_link_draw(_DWORD* a1, nox_drawable* dr) {
 	v3 = *(_DWORD*)(a2 + 12) + *a1 - a1[4];
 	v4 = *(_DWORD*)(a2 + 16) + a1[1] - *(__int16*)(a2 + 106) - *(__int16*)(a2 + 104) - a1[5];
 	v12 = a1[1] - *(__int16*)(a2 + 106) - *(__int16*)(a2 + 104) - a1[5] + *(_DWORD*)(a2 + 436);
-	v5 = *(_DWORD*)(a2 + 356) - *getMemU32Ptr(0x5D4594, 2598000);
+	v5 = *(_DWORD*)(a2 + 356) - nox_frame_xxx_2598000;
 	v11 = *a1 - a1[4] + *(_DWORD*)(a2 + 432);
 	v14 = v5;
 	if (v5 > 0) {
@@ -146,8 +147,8 @@ int  nox_thing_magic_tail_link_draw(_DWORD* a1, nox_drawable* dr) {
 	v3 = *(_DWORD*)(a2 + 12) + *a1 - a1[4];
 	v4 = *(_DWORD*)(a2 + 16) + a1[1] - *(__int16*)(a2 + 106) - *(__int16*)(a2 + 104) - a1[5];
 	v13 = *a1 - a1[4] + *(_DWORD*)(a2 + 432);
-	v5 = *(_DWORD*)(a2 + 356) - *getMemU32Ptr(0x5D4594, 2598000);
-	v6 = *(_DWORD*)(a2 + 356) == *getMemU32Ptr(0x5D4594, 2598000);
+	v5 = *(_DWORD*)(a2 + 356) - nox_frame_xxx_2598000;
+	v6 = *(_DWORD*)(a2 + 356) == nox_frame_xxx_2598000;
 	v14 = a1[1] - *(__int16*)(a2 + 106) - *(__int16*)(a2 + 104) - a1[5] + *(_DWORD*)(a2 + 436);
 	v15 = v5;
 	if (v5 >= 0 && !v6) {

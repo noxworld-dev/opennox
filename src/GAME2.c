@@ -173,6 +173,7 @@ extern int nox_win_height;
 extern int nox_backbuffer_width;
 extern int nox_backbuffer_height;
 extern unsigned int nox_gameFPS;
+extern unsigned int nox_frame_xxx_2598000;
 
 extern nox_thing* nox_things_head;
 extern nox_thing** nox_things_array;
@@ -5685,7 +5686,7 @@ nox_drawable*  nox_xxx_spriteLoadAdd_45A360_drawable(int thingInd, int a2, int a
 	dr->field_8 = a2;
 	dr->field_4 = a3;
 	dr->field_9 = a3;
-	dr->field_80 = *getMemU32Ptr(0x5D4594, 2598000);
+	dr->field_80 = nox_frame_xxx_2598000;
 	dr->field_92 = nox_drawable_head_unk1;
 	dr->field_93 = 0;
 	if (nox_drawable_head_unk1)
@@ -5899,7 +5900,7 @@ int nox_xxx_unused_45A750() {
 						if (v8 < 0)
 							result = -v8;
 						if (result <= 10) {
-							v1[72] = *getMemU32Ptr(0x5D4594, 2598000);
+							v1[72] = nox_frame_xxx_2598000;
 							nox_xxx_updateSpritePosition_49AA90(v1, v4, v5);
 							result = v10;
 							if (v1 == (_DWORD*)v10) {
@@ -7284,7 +7285,7 @@ void  nox_xxx_clientUseQWEButton_45DA50(int a1) {
 //----- (0045DAD0) --------------------------------------------------------
 void  nox_xxx_clientStoreLastButton_45DAD0(int a1) {
 	*getMemU32Ptr(0x587000, 133484) = a1;
-	*getMemU32Ptr(0x5D4594, 1049540) = *getMemU32Ptr(0x5D4594, 2598000);
+	*getMemU32Ptr(0x5D4594, 1049540) = nox_frame_xxx_2598000;
 }
 
 //----- (0045DAF0) --------------------------------------------------------

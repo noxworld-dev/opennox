@@ -141,6 +141,7 @@ extern int nox_video_allowCursorDrawThread;
 extern int nox_video_windowsPlatformVersion;
 extern int nox_video_cursorDrawIsThreaded;
 extern int nox_client_mouseCursorType;
+extern unsigned int nox_frame_xxx_2598000;
 extern HANDLE* nox_video_cursorDrawThreadHandle;
 
 extern nox_drawable** nox_drawable_list_3;
@@ -187,7 +188,7 @@ int  sub_475F10(_DWORD* a1) {
 			v5 = *(_DWORD*)(v4 + 480);
 			*(_DWORD*)(v4 + 132) = 0;
 			if (!v5 && !*(_DWORD*)(v4 + 488))
-				*(_DWORD*)(v4 + 340) = *getMemU32Ptr(0x5D4594, 2598000);
+				*(_DWORD*)(v4 + 340) = nox_frame_xxx_2598000;
 		}
 		result = nox_drawable_list_3_size - 1;
 		i = nox_drawable_list_3_size == 0;
@@ -216,7 +217,7 @@ int  sub_475FE0(_DWORD* a1) {
 			v5 = *(_DWORD*)(v4 + 480);
 			*(_DWORD*)(v4 + 132) = 0;
 			if (!v5 && !*(_DWORD*)(v4 + 488))
-				*(_DWORD*)(v4 + 340) = *getMemU32Ptr(0x5D4594, 2598000);
+				*(_DWORD*)(v4 + 340) = nox_frame_xxx_2598000;
 		}
 		result = nox_drawable_list_4_size - 1;
 		i = nox_drawable_list_4_size == 0;
@@ -894,7 +895,7 @@ int  sub_476E00(int a1) {
 	int result; // eax
 
 	result = a1;
-	*getMemU32Ptr(0x5D4594, 4 * a1 + 1096596) = *getMemU32Ptr(0x5D4594, 2598000);
+	*getMemU32Ptr(0x5D4594, 4 * a1 + 1096596) = nox_frame_xxx_2598000;
 	return result;
 }
 
@@ -931,7 +932,7 @@ int sub_476E90() {
 		if (*getMemU32Ptr(0x5D4594, v1 + 1096596)) {
 			nox_client_drawImageAt_47D2C0(*getMemU32Ptr(0x5D4594, v1 + 1096564), nox_win_width / 2 + *(_DWORD*)v0 - 16,
 										  *((_DWORD*)v0 + 1) + nox_win_height / 2 - 41);
-			if ((unsigned int)(*getMemU32Ptr(0x5D4594, 2598000) - *getMemU32Ptr(0x5D4594, v1 + 1096596)) > 3)
+			if ((unsigned int)(nox_frame_xxx_2598000 - *getMemU32Ptr(0x5D4594, v1 + 1096596)) > 3)
 				*getMemU32Ptr(0x5D4594, v1 + 1096596) = 0;
 		}
 		v0 += 8;
@@ -1401,7 +1402,7 @@ int sub_477EA0() {
 //----- (00477EF0) --------------------------------------------------------
 int  sub_477EF0(int a1, int a2, int a3) {
 	if (nox_client_mouseCursorType == 2)
-		return nox_xxx_spriteDrawCircleMB_4C32A0(a2, a3, 5 - *getMemU32Ptr(0x5D4594, 2598000) % 5u, a1);
+		return nox_xxx_spriteDrawCircleMB_4C32A0(a2, a3, 5 - nox_frame_xxx_2598000 % 5u, a1);
 	nox_client_drawSetColor_434460(a1);
 	nox_client_drawEnableAlpha_434560(1);
 	nox_client_drawAddPoint_49F500(a2 - 4, a3 - 4);
@@ -6614,7 +6615,7 @@ int  nox_xxx_tileDrawMB_481C20(int* a1) {
 		nox_client_texturedFloors_154956 = 1;
 		nox_xxx_tileSetDrawFn_481420();
 	}
-	if (dword_5d4594_1193156 == 1 && !dword_587000_154960 && !(*getMemU32Ptr(0x5D4594, 2598000) % 0x1Eu) &&
+	if (dword_5d4594_1193156 == 1 && !dword_587000_154960 && !(nox_frame_xxx_2598000 % 0x1Eu) &&
 		!nox_xxx_tileCheckRedrawMB_482570(a1)) {
 		dword_5d4594_1193156 = 0;
 		nox_client_texturedFloors_154956 = dword_587000_154960;

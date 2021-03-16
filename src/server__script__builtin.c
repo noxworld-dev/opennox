@@ -17,6 +17,7 @@ extern unsigned int dword_5d4594_3821968;
 extern unsigned int dword_5d4594_2386840;
 extern unsigned int nox_gameDisableMapDraw_5d4594_2650672;
 extern unsigned int nox_gameFPS;
+extern unsigned int nox_frame_xxx_2598000;
 
 unsigned int dword_5d4594_3821636 = 0;
 unsigned int dword_5d4594_3821640 = 0;
@@ -47,7 +48,7 @@ void  nox_xxx_script_51ACA0(int a1, int a2, int a3) {
 		nox_script_push(0);
 		return;
 	}
-	*v3 = a1 + *getMemU32Ptr(0x5D4594, 2598000);
+	*v3 = a1 + nox_frame_xxx_2598000;
 	v3[1] = a2;
 	v3[2] = a3;
 	v5 = nox_xxx_getTimerHandle_51AD20();
@@ -1402,8 +1403,8 @@ int nox_script_pickup_5139A0() {
 	v4 = v3;
 	if (v2 && v3) {
 		if (nox_common_gameFlags_check_40A5C0(2048) && (*(_BYTE*)(v2 + 8) & 4) == 4 &&
-			*getMemU32Ptr(0x5D4594, 2386844) != *getMemU32Ptr(0x5D4594, 2598000)) {
-			*getMemU32Ptr(0x5D4594, 2386844) = *getMemU32Ptr(0x5D4594, 2598000);
+			*getMemU32Ptr(0x5D4594, 2386844) != nox_frame_xxx_2598000) {
+			*getMemU32Ptr(0x5D4594, 2386844) = nox_frame_xxx_2598000;
 			dword_5d4594_2386848 = 0;
 			dword_5d4594_2386852 = 0;
 		}

@@ -23,6 +23,7 @@ extern _DWORD dword_5d4594_832476;
 extern _DWORD dword_5d4594_832484;
 extern int nox_win_width;
 extern int nox_win_height;
+extern unsigned int nox_frame_xxx_2598000;
 
 //----- (0044E410) --------------------------------------------------------
 wchar_t* sub_44E410() {
@@ -273,14 +274,14 @@ int  sub_44E8E0(int a1, int a2) {
 	v31 = v50 + 2 * (225 - v38);
 	nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 2614256));
 	nox_xxx_drawString_43F6E0(*(_DWORD*)(a2 + 200), (__int16*)v57, v30, v31);
-	result = *getMemU32Ptr(0x5D4594, 2598000) / 0x1Eu;
-	if (*getMemU32Ptr(0x5D4594, 2598000) % 0x1Eu) {
+	result = nox_frame_xxx_2598000 / 0x1Eu;
+	if (nox_frame_xxx_2598000 % 0x1Eu) {
 		if (dword_587000_122956 != 1)
 			return result;
 	} else {
 		result = 1;
 		if (dword_587000_122956 == 1) {
-			dword_587000_122956 = *getMemU32Ptr(0x5D4594, 2598000) % 0x1Eu;
+			dword_587000_122956 = nox_frame_xxx_2598000 % 0x1Eu;
 			return result;
 		}
 		dword_587000_122956 = 1;
@@ -323,14 +324,14 @@ int  sub_44F0F0(int a1, int a2) {
 		nox_xxx_drawString_43F6E0(*(_DWORD*)(a2 + 200), *(__int16**)getMemAt(0x5D4594, 832464), v2 - v10 / 2,
 				   v3 + 2 * (80 - v11) + 80 - v11);
 	}
-	result = *getMemU32Ptr(0x5D4594, 2598000) / 0x1Eu;
-	if (*getMemU32Ptr(0x5D4594, 2598000) % 0x1Eu) {
+	result = nox_frame_xxx_2598000 / 0x1Eu;
+	if (nox_frame_xxx_2598000 % 0x1Eu) {
 		if (nox_xxx_aSpellphoneme_3_587000_123008 != 1)
 			return result;
 	} else {
 		result = 1;
 		if (nox_xxx_aSpellphoneme_3_587000_123008 == 1) {
-			nox_xxx_aSpellphoneme_3_587000_123008 = *getMemU32Ptr(0x5D4594, 2598000) % 0x1Eu;
+			nox_xxx_aSpellphoneme_3_587000_123008 = nox_frame_xxx_2598000 % 0x1Eu;
 			return result;
 		}
 		nox_xxx_aSpellphoneme_3_587000_123008 = 1;
@@ -596,14 +597,14 @@ int  sub_44F300(int a1, int a2) {
 	v34.field_0 += v27 + 4;
 	nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 2523948));
 	nox_xxx_drawString_43F6E0(*(int*)&dword_5d4594_832484, (__int16*)v22, v34.field_0, v34.field_4);
-	result = *getMemU32Ptr(0x5D4594, 2598000) / 0x1Eu;
-	if (*getMemU32Ptr(0x5D4594, 2598000) % 0x1Eu) {
+	result = nox_frame_xxx_2598000 / 0x1Eu;
+	if (nox_frame_xxx_2598000 % 0x1Eu) {
 		if (*getMemU32Ptr(0x587000, 123012) != 1)
 			return result;
 	} else {
 		result = 1;
 		if (*getMemU32Ptr(0x587000, 123012) == 1) {
-			*getMemU32Ptr(0x587000, 123012) = *getMemU32Ptr(0x5D4594, 2598000) % 0x1Eu;
+			*getMemU32Ptr(0x587000, 123012) = nox_frame_xxx_2598000 % 0x1Eu;
 			return result;
 		}
 		*getMemU32Ptr(0x587000, 123012) = 1;

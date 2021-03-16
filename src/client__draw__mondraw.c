@@ -5,6 +5,7 @@
 
 extern int nox_backbuffer_depth;
 extern unsigned int nox_gameFPS;
+extern unsigned int nox_frame_xxx_2598000;
 
 //----- (004BC490) --------------------------------------------------------
 char  sub_4BC490(int a1) {
@@ -17,8 +18,8 @@ char  sub_4BC490(int a1) {
 	int v7;          // eax
 	int v8;          // eax
 
-	LOBYTE(v1) = getMemByte(0x5D4594, 2598000);
-	if (!(getMemByte(0x5D4594, 2598000) & 3) && *(_DWORD*)(a1 + 276) == 8 && *(_DWORD*)(a1 + 116) & 0x40000) {
+	LOBYTE(v1) = (unsigned char)nox_frame_xxx_2598000;
+	if (!((unsigned char)nox_frame_xxx_2598000 & 3) && *(_DWORD*)(a1 + 276) == 8 && *(_DWORD*)(a1 + 116) & 0x40000) {
 		v2 = *(_DWORD*)(a1 + 308);
 		v3 = *(_DWORD*)(a1 + 308);
 		if (v3) {
@@ -117,9 +118,9 @@ int  nox_thing_monster_draw(int* a1, nox_drawable* dr) {
 		if (*(_BYTE*)(v2 + 297) != v4) {
 			v5 = *(_DWORD*)(v2 + 276);
 			if (v5 != 1 && v5 != 3 && v5 != 5) {
-				if ((unsigned int)(*getMemU32Ptr(0x5D4594, 2598000) - *(_DWORD*)(v2 + 436)) >=
+				if ((unsigned int)(nox_frame_xxx_2598000 - *(_DWORD*)(v2 + 436)) >=
 				    (int)nox_gameFPS >> 2) {
-					*(_DWORD*)(v2 + 436) = *getMemU32Ptr(0x5D4594, 2598000);
+					*(_DWORD*)(v2 + 436) = nox_frame_xxx_2598000;
 					*(_BYTE*)(v2 + 432) = *(_BYTE*)(v2 + 297);
 				} else {
 					*(_BYTE*)(v2 + 297) = v4;

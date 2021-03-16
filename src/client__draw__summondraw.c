@@ -4,6 +4,7 @@
 #include "proto.h"
 
 extern _DWORD dword_5d4594_1313740;
+extern unsigned int nox_frame_xxx_2598000;
 
 //----- (004B7D00) --------------------------------------------------------
 int  nox_thing_summon_effect_draw(int* a1, nox_drawable* dr) {
@@ -39,7 +40,7 @@ int  nox_thing_summon_effect_draw(int* a1, nox_drawable* dr) {
 		v6 = nox_xxx_getTTByNameSpriteMB_44CFC0("BlueSpark");
 		dword_5d4594_1313740 = v6;
 	}
-	v7 = *getMemU32Ptr(0x5D4594, 2598000) - v2[79];
+	v7 = nox_frame_xxx_2598000 - v2[79];
 	v8 = *((unsigned __int16*)v2 + 218);
 	if (v7 < (unsigned int)(unsigned __int16)v8) {
 		if (v7 >= v8 - 1)
@@ -50,7 +51,7 @@ int  nox_thing_summon_effect_draw(int* a1, nox_drawable* dr) {
 		do {
 			if (v10 >= *(unsigned __int8*)(v5 + 8))
 			v10 = 0;
-			v12 = (v10 + *getMemU32Ptr(0x5D4594, 2598000) + v2[32]) / ((unsigned int)*(unsigned __int8*)(v5 + 9) + 1);
+			v12 = (v10 + nox_frame_xxx_2598000 + v2[32]) / ((unsigned int)*(unsigned __int8*)(v5 + 9) + 1);
 			v2[77] = v12;
 			if (v12 >= *(unsigned __int8*)(v5 + 8))
 			v2[77] = v12 % *(unsigned __int8*)(v5 + 8);
@@ -69,9 +70,9 @@ int  nox_thing_summon_effect_draw(int* a1, nox_drawable* dr) {
 		v2[77] = v18;
 		*(_DWORD*)(v5 + 12) = 2;
 		nox_client_drawEnableAlpha_434560(1);
-		v16 = *getMemUintPtr(0x5D4594, 2598000);
+		v16 = nox_frame_xxx_2598000;
 		LODWORD(v16) = v2[79];
-		nox_client_drawSetAlpha_434580((__int64)(((double)*getMemUintPtr(0x5D4594, 2598000) - (double)v16) /
+		nox_client_drawSetAlpha_434580((__int64)(((double)nox_frame_xxx_2598000 - (double)v16) /
 		                                         (double)*((unsigned __int16*)v2 + 218) * 255.0));
 		(*(void(**)(int*, _DWORD))(v2[108] + 300))(a1, v2[108]);
 		nox_client_drawEnableAlpha_434560(0);

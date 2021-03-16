@@ -4,6 +4,7 @@
 #include "proto.h"
 #include "client__draw__glowdraw.h"
 
+extern unsigned int nox_frame_xxx_2598000;
 //----- (004CDBF0) --------------------------------------------------------
 int  nox_xxx_updDrawSparkleTrail_4CDBF0(int a1, _DWORD* a2) {
 	_DWORD* v2; // ebx
@@ -36,9 +37,9 @@ int  nox_xxx_updDrawSparkleTrail_4CDBF0(int a1, _DWORD* a2) {
 			*(_DWORD*)(v5 + 436) = v4 << 12;
 			*(_BYTE*)(v5 + 299) = 0;
 			*(_DWORD*)(v5 + 440) = 0;
-			*(_DWORD*)(v5 + 448) = *getMemU32Ptr(0x5D4594, 2598000) +
+			*(_DWORD*)(v5 + 448) = nox_frame_xxx_2598000 +
 								   nox_common_randomIntMinMax_415FF0(2, 10, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\sparklup.c", 51);
-			*(_DWORD*)(v5 + 444) = *getMemU32Ptr(0x5D4594, 2598000);
+			*(_DWORD*)(v5 + 444) = nox_frame_xxx_2598000;
 			*(_WORD*)(v5 + 104) = *((_WORD*)v2 + 52);
 			*(_WORD*)(v5 + 106) = *((_WORD*)v2 + 53);
 			*(_BYTE*)(v5 + 296) = 0;

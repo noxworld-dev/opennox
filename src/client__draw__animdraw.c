@@ -3,6 +3,8 @@
 #include "common__random.h"
 #include "proto.h"
 
+extern unsigned int nox_frame_xxx_2598000;
+
 //----- (004BBD60) --------------------------------------------------------
 int  nox_thing_animate_draw(unsigned int* a1, struct nox_drawable* dr) {
 	int v2;     // edi
@@ -15,13 +17,13 @@ int  nox_thing_animate_draw(unsigned int* a1, struct nox_drawable* dr) {
 	v2 = dr->field_76;
 	switch (*(unsigned int*)(v2 + 12)) {
 	case 0:
-		v3 = (*getMemUintPtr(0x5D4594, 2598000) - dr->field_79) / ((unsigned int)*(unsigned __int8*)(v2 + 9) + 1);
+		v3 = (nox_frame_xxx_2598000 - dr->field_79) / ((unsigned int)*(unsigned __int8*)(v2 + 9) + 1);
 		v7 = *(unsigned __int8*)(v2 + 8);
 		if (v3 >= v7)
 			v3 = v7 - 1;
 		goto LABEL_12;
 	case 1:
-		v3 = (*getMemUintPtr(0x5D4594, 2598000) - dr->field_79) / ((unsigned int)*(unsigned __int8*)(v2 + 9) + 1);
+		v3 = (nox_frame_xxx_2598000 - dr->field_79) / ((unsigned int)*(unsigned __int8*)(v2 + 9) + 1);
 		if (v3 < *(unsigned __int8*)(v2 + 8))
 			goto LABEL_12;
 		nox_xxx_spriteDeleteStatic_45A4E0_drawable(dr);
@@ -33,7 +35,7 @@ int  nox_thing_animate_draw(unsigned int* a1, struct nox_drawable* dr) {
 			goto LABEL_8;
 		if (nox_common_gameFlags_check_40A5C0(32)) {
 		LABEL_9:
-			v3 = (*getMemUintPtr(0x5D4594, 2598000) + dr->field_32) /
+			v3 = (nox_frame_xxx_2598000 + dr->field_32) /
 				 ((unsigned int)*(unsigned __int8*)(v2 + 9) + 1);
 			goto LABEL_10;
 		}
@@ -45,7 +47,7 @@ int  nox_thing_animate_draw(unsigned int* a1, struct nox_drawable* dr) {
 	case 3:
 		v6 = 2 * *(unsigned __int8*)(v2 + 8);
 		nox_client_drawEnableAlpha_434560(1);
-		v3 = (*getMemUintPtr(0x5D4594, 2598000) - dr->field_79) / ((unsigned int)*(unsigned __int8*)(v2 + 9) + 1);
+		v3 = (nox_frame_xxx_2598000 - dr->field_79) / ((unsigned int)*(unsigned __int8*)(v2 + 9) + 1);
 		if (v3 < v6) {
 			nox_client_drawSetAlpha_434580(-56 - 200 * v3 / v6);
 		LABEL_10:
@@ -85,7 +87,7 @@ int  nox_thing_animate_state_draw(_DWORD* a1, nox_drawable* dr) {
 	v2 = dr->field_70;
 	v3 = dr->field_76;
 	if (v2 & 2) {
-		dr->field_79 = *getMemU32Ptr(0x5D4594, 2598000);
+		dr->field_79 = nox_frame_xxx_2598000;
 		v4 = 0;
 	} else if (v2 & 4) {
 		v4 = 1;
@@ -94,7 +96,7 @@ int  nox_thing_animate_state_draw(_DWORD* a1, nox_drawable* dr) {
 	}
 	v5 = 48 * v4 + v3 + 4;
 	if (*(_DWORD*)(v5 + 44) == 2)
-		dr->field_79 = *getMemU32Ptr(0x5D4594, 2598000);
+		dr->field_79 = nox_frame_xxx_2598000;
 	if (*(_WORD*)(v5 + 40))
 		result = sub_4BC6B0(a1, dr, v5);
 	else

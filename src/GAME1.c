@@ -71,6 +71,7 @@ extern _DWORD dword_5d4594_2660652;
 extern _DWORD dword_5d4594_2650652;
 extern _DWORD dword_5d4594_4668;
 extern int nox_video_bag_var_2650640;
+extern unsigned int nox_frame_xxx_2598000;
 
 extern unsigned int nox_rnd_table_37892[4096];
 
@@ -166,7 +167,7 @@ BOOL sub_401040() {
 	BOOL result; // eax
 
 	result = nox_common_gameFlags_check_40A5C0(1);
-	*getMemU32Ptr(0x5D4594, 2598000) = result;
+	nox_frame_xxx_2598000 = result;
 	return result;
 }
 
@@ -198,7 +199,7 @@ int cmain(int argc, const char* argv[]) {
 	dword_5d4594_2650652 = 0;
 	BOOL v2 = nox_common_gameFlags_check_40A5C0(1);
 	nox_gameFPS = 30; // gameFPS
-	*getMemU32Ptr(0x5D4594, 2598000) = v2;
+	nox_frame_xxx_2598000 = v2;
 	nox_ticks_xxx_416D40();
 	nox_xxx_setGameState_43DDF0(0);
 	nox_game_SetCliDrawFunc(0);
@@ -1132,7 +1133,7 @@ void sub_40A970() {
 	float v3; // [esp+0h] [ebp-8h]
 	float v4; // [esp+0h] [ebp-8h]
 
-	*getMemU32Ptr(0x5D4594, 3520) = *getMemU32Ptr(0x5D4594, 2598000);
+	*getMemU32Ptr(0x5D4594, 3520) = nox_frame_xxx_2598000;
 	*getMemU32Ptr(0x5D4594, 3536) = 0;
 	v3 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 5112));
 	*getMemU32Ptr(0x5D4594, 3476) = nox_float2int(v3);
@@ -1149,7 +1150,7 @@ void sub_40A970() {
 //----- (0040AA00) --------------------------------------------------------
 BOOL sub_40AA00() {
 	return 20 * nox_gameFPS <
-		   (unsigned int)(*getMemU32Ptr(0x5D4594, 2598000) - *getMemU32Ptr(0x5D4594, 3520));
+		   (unsigned int)(nox_frame_xxx_2598000 - *getMemU32Ptr(0x5D4594, 3520));
 }
 
 //----- (0040AA20) --------------------------------------------------------
@@ -1420,7 +1421,7 @@ void  sub_40B250(int a1, unsigned __int8 a2, unsigned __int16 a3, const void* a4
 	if (!*(_DWORD*)(v5 + 16)) {
 		return;
 	}
-	*(_DWORD*)(v5 + 156) = *getMemU32Ptr(0x5D4594, 2598000);
+	*(_DWORD*)(v5 + 156) = nox_frame_xxx_2598000;
 	if (a3 == *(_DWORD*)(v5 + 8)) {
 		memcpy((void*)(*(_DWORD*)(v5 + 12) + *(_DWORD*)(v5 + 20)), a4, a5);
 		v6 = *(_DWORD*)(v5 + 8) + 1;
@@ -1569,7 +1570,7 @@ int  sub_40B5D0(unsigned int a1, char a2, const char* a3, size_t a4, char a5) {
 	*((_DWORD*)v6 + 4) = v5;
 	v6[5] = v9;
 	*((_DWORD*)v6 + 5) = calloc(v5, 1u);
-	*((_DWORD*)v7 + 39) = *getMemU32Ptr(0x5D4594, 2598000);
+	*((_DWORD*)v7 + 39) = nox_frame_xxx_2598000;
 	++*getMemU8Ptr( 0x5D4594, 3628);
 	sub_40B690(a1, v9, a5);
 	return 1;
@@ -1649,7 +1650,7 @@ int sub_40B790() {
 		do {
 			v3 = dword_5d4594_3620 + 168 * v2;
 			if (*(_DWORD*)(v3 + 16)) {
-				if (*getMemU32Ptr(0x5D4594, 2598000) > (unsigned int)(*(_DWORD*)(v3 + 156) + 900))
+				if (nox_frame_xxx_2598000 > (unsigned int)(*(_DWORD*)(v3 + 156) + 900))
 					sub_40B530(v1, 3);
 			}
 			result = dword_5d4594_3624;
@@ -1752,8 +1753,8 @@ void sub_40B970() {
 						while (v3 < 2) {
 							v4 = *(_DWORD*)(v2 + 12);
 							if (v4) {
-								v5 = *getMemU32Ptr(0x5D4594, 2598000);
-								if ((unsigned int)(v4 + 90) < *getMemIntPtr(0x5D4594, 2598000)) {
+								v5 = nox_frame_xxx_2598000;
+								if ((unsigned int)(v4 + 90) < nox_frame_xxx_2598000) {
 									if (*(_WORD*)(v2 + 16) >= 20) {
 										if (*(_WORD*)(v1 + 6) == 2) {
 											LOBYTE(v5) = *(_BYTE*)(v1 + 4);
@@ -1763,7 +1764,7 @@ void sub_40B970() {
 									} else {
 										sub_40BA90(*(_DWORD*)v1, *(_BYTE*)(v1 + 4), *(_WORD*)v2, *(_WORD*)(v2 + 8),
 												   *(const void**)(v2 + 4));
-										v6 = *getMemU32Ptr(0x5D4594, 2598000);
+										v6 = nox_frame_xxx_2598000;
 										++*(_WORD*)(v2 + 16);
 										*(_DWORD*)(v2 + 12) = v6;
 									}
@@ -1771,7 +1772,7 @@ void sub_40B970() {
 							} else {
 								sub_40BA90(*(_DWORD*)v1, *(_BYTE*)(v1 + 4), *(_WORD*)v2, *(_WORD*)(v2 + 8),
 										   *(const void**)(v2 + 4));
-								*(_DWORD*)(v2 + 12) = *getMemU32Ptr(0x5D4594, 2598000);
+								*(_DWORD*)(v2 + 12) = nox_frame_xxx_2598000;
 								++*(_DWORD*)(v1 + 12);
 							}
 							v2 = *(_DWORD*)(v2 + 20);
@@ -8366,19 +8367,19 @@ int  nox_xxx_setKeybTimeout_4160D0(int a1) {
 	result = a1;
 	if ((unsigned __int8)a1 < 0x18u) {
 		result = (unsigned __int8)a1;
-		*getMemU32Ptr(0x5D4594, 371268 + 4 * (unsigned __int8)a1) = *getMemU32Ptr(0x5D4594, 2598000);
+		*getMemU32Ptr(0x5D4594, 371268 + 4 * (unsigned __int8)a1) = nox_frame_xxx_2598000;
 	}
 	return result;
 }
 
 //----- (004160F0) --------------------------------------------------------
 BOOL  nox_xxx_checkKeybTimeout_4160F0(unsigned __int8 a1, unsigned int a2) {
-	return a1 < 0x18u && *getMemU32Ptr(0x5D4594, 2598000) - *getMemU32Ptr(0x5D4594, 371268 + 4 * a1) > a2;
+	return a1 < 0x18u && nox_frame_xxx_2598000 - *getMemU32Ptr(0x5D4594, 371268 + 4 * a1) > a2;
 }
 
 //----- (00416120) --------------------------------------------------------
 BOOL  sub_416120(unsigned __int8 a1) {
-	return a1 < 0x18u && *getMemU32Ptr(0x5D4594, 2598000) != *getMemU32Ptr(0x5D4594, 371268 + 4 * a1);
+	return a1 < 0x18u && nox_frame_xxx_2598000 != *getMemU32Ptr(0x5D4594, 371268 + 4 * a1);
 }
 
 //----- (00416150) --------------------------------------------------------
@@ -8840,7 +8841,7 @@ __int64 nox_ticks_until_next_416D00() {
 //----- (00416D40) --------------------------------------------------------
 void nox_ticks_xxx_416D40() {
 	*getMemU64Ptr(0x5D4594, 371764) = nox_platform_get_ticks();
-	*getMemU32Ptr(0x5D4594, 371772) = *getMemU32Ptr(0x5D4594, 2598000);
+	*getMemU32Ptr(0x5D4594, 371772) = nox_frame_xxx_2598000;
 
 	nox_common_resetEngineFlag(NOX_ENGINE_FLAG_32);
 }
@@ -8849,14 +8850,14 @@ void nox_ticks_xxx_416D40() {
 bool sub_416D70() {
 	float v2; // [esp+4h] [ebp-8h]
 
-	v2 = (double)(unsigned int)(*getMemU32Ptr(0x5D4594, 2598000) - *getMemU32Ptr(0x5D4594, 371772)) *
+	v2 = (double)(unsigned int)(nox_frame_xxx_2598000 - *getMemU32Ptr(0x5D4594, 371772)) *
 		 *getMemFloatPtr(0x587000, 54424);
 	return (double)(int)((unsigned __int64)nox_platform_get_ticks() - *getMemU32Ptr(0x5D4594, 371764)) * 0.001 <= v2;
 }
 
 //----- (00416DD0) --------------------------------------------------------
 void nox_ticks_maybe_sleep_416DD0() {
-	int v1 = (__int64)((double)(unsigned int)(*getMemU32Ptr(0x5D4594, 2598000) - *getMemU32Ptr(0x5D4594, 371772)) *
+	int v1 = (__int64)((double)(unsigned int)(nox_frame_xxx_2598000 - *getMemU32Ptr(0x5D4594, 371772)) *
 					   *getMemFloatPtr(0x587000, 54428));
 	int ms = v1 + *getMemU32Ptr(0x5D4594, 371764) - (unsigned __int64)nox_platform_get_ticks();
 	if (ms > 0)

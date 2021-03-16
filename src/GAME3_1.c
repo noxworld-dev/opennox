@@ -136,6 +136,7 @@ extern BYTE** nox_pixbuffer_rows_3798784;
 extern int nox_win_width;
 extern int nox_win_height;
 extern unsigned int nox_gameFPS;
+extern unsigned int nox_frame_xxx_2598000;
 
 extern int nox_backbuffer_depth;
 extern int nox_video_dxUnlockSurface;
@@ -4972,7 +4973,7 @@ LABEL_33:
 		sub_433CD0(v35, v33, v34);
 	}
 	if (*((_DWORD*)a2 + 120)) {
-		v60 = (unsigned int)(*getMemU32Ptr(0x5D4594, 2598000) - *((_DWORD*)a2 + 85));
+		v60 = (unsigned int)(nox_frame_xxx_2598000 - *((_DWORD*)a2 + 85));
 		v36 = (double)v60;
 		v60 = nox_gameFPS;
 		v37 = 1.0 - v36 / (double)(int)nox_gameFPS;
@@ -5085,7 +5086,7 @@ LABEL_104:
 LABEL_105:
 	if (!(v3[112] & 4) && nox_xxx_spriteTestBuf_4356C0((int)v3, 23) && !nox_common_gameFlags_check_40A5C0(2048)) {
 		nox_xxx_draw_434600(1);
-		if (getMemByte(0x5D4594, 2598000) & 1)
+		if ((unsigned char)nox_frame_xxx_2598000 & 1)
 			sub_433E40(*getMemIntPtr(0x5D4594, 2523948));
 		else
 			sub_433E40(*getMemIntPtr(0x5D4594, 2650684));
@@ -5150,8 +5151,8 @@ __int16  nox_xxx_drawShinySpot_4C4F40(_DWORD* a1, int a2) {
 	}
 	v3 = *((_DWORD*)v2 + 24);
 	v4 = *(unsigned __int8*)(v3 + 8);
-	v5 = (*getMemU32Ptr(0x5D4594, 2598000) + *(_DWORD*)(a2 + 128)) / (unsigned int)(8 * v4);
-	v6 = ((*getMemU32Ptr(0x5D4594, 2598000) + *(_DWORD*)(a2 + 128)) % (unsigned int)(8 * v4)) >> 1;
+	v5 = (nox_frame_xxx_2598000 + *(_DWORD*)(a2 + 128)) / (unsigned int)(8 * v4);
+	v6 = ((nox_frame_xxx_2598000 + *(_DWORD*)(a2 + 128)) % (unsigned int)(8 * v4)) >> 1;
 	if (v6 < v4)
 		LOWORD(v5) = nox_client_drawImageAt_47D2C0(
 			*(_DWORD*)(*(_DWORD*)(v3 + 4) + 4 * v6), *(_DWORD*)(a2 + 12) - a1[4] + *a1 - 64,
@@ -8559,7 +8560,7 @@ int  nox_xxx_sprite_4CA540(_DWORD* a1, int a2) {
 	v4 = *(float*)(a2 + 468);
 	v5 = *(float*)(a2 + 472);
 	v6 = 0.0;
-	v7 = *getMemU32Ptr(0x5D4594, 2598000) - *(_DWORD*)(a2 + 316) + 1;
+	v7 = nox_frame_xxx_2598000 - *(_DWORD*)(a2 + 316) + 1;
 	do {
 		--v7;
 		v13 = -(v5 * *(float*)(a2 + 476));
@@ -8640,7 +8641,7 @@ int  sub_4CA720(int a1, int a2) {
 	int v8;     // ebx
 	int result; // eax
 
-	v2 = *getMemU32Ptr(0x5D4594, 2598000) - *(_DWORD*)(a2 + 316);
+	v2 = nox_frame_xxx_2598000 - *(_DWORD*)(a2 + 316);
 	if (v2 >= 60 || (v3 = *(unsigned __int16*)(a2 + 432), abs32(*(_DWORD*)(a2 + 12) - (unsigned __int16)v3) < 10) &&
 						abs32(*(_DWORD*)(a2 + 16) - *(unsigned __int16*)(a2 + 434)) < 10) {
 		nox_xxx_spriteDeleteStatic_45A4E0_drawable(a2);
@@ -9876,7 +9877,7 @@ int nox_xxx_updDrawUndeadKiller_4CCCF0() { return 1; }
 int  sub_4CCD00(int a1, int a2) {
 	unsigned int i; // ecx
 
-	for (i = *(_DWORD*)(a2 + 432); i < *getMemIntPtr(0x5D4594, 2598000); ++i) {
+	for (i = *(_DWORD*)(a2 + 432); i < nox_frame_xxx_2598000; ++i) {
 		if (*(float*)(a2 + 436) > 0.0) {
 			*(float*)(a2 + 436) = *(float*)(a2 + 440) + *(float*)(a2 + 436);
 			*(float*)(a2 + 440) = *(float*)(a2 + 440) - 1.0;
@@ -9888,7 +9889,7 @@ int  sub_4CCD00(int a1, int a2) {
 	}
 	*(_WORD*)(a2 + 104) = (__int64)*(float*)(a2 + 436);
 	*(_BYTE*)(a2 + 296) = (__int64)*(float*)(a2 + 440);
-	*(_DWORD*)(a2 + 432) = *getMemU32Ptr(0x5D4594, 2598000);
+	*(_DWORD*)(a2 + 432) = nox_frame_xxx_2598000;
 	return 1;
 }
 
@@ -9899,7 +9900,7 @@ int  nox_xxx_updDrawFist_4CCDB0(int a1, int a2) {
 	double v4;      // st7
 	double v5;      // st7
 
-	for (i = *(_DWORD*)(a2 + 432); i < *getMemIntPtr(0x5D4594, 2598000); ++i) {
+	for (i = *(_DWORD*)(a2 + 432); i < nox_frame_xxx_2598000; ++i) {
 		v3 = *(float*)(a2 + 436) + *(float*)(a2 + 440);
 		*(float*)(a2 + 436) = v3;
 		if (v3 >= 0.0) {
@@ -9917,7 +9918,7 @@ int  nox_xxx_updDrawFist_4CCDB0(int a1, int a2) {
 	}
 	*(_WORD*)(a2 + 104) = (__int64)*(float*)(a2 + 436);
 	*(_BYTE*)(a2 + 296) = (__int64)*(float*)(a2 + 440);
-	*(_DWORD*)(a2 + 432) = *getMemU32Ptr(0x5D4594, 2598000);
+	*(_DWORD*)(a2 + 432) = nox_frame_xxx_2598000;
 	return 1;
 }
 
