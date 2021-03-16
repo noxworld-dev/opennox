@@ -8947,6 +8947,9 @@ int  nox_xxx_netPlayerIncomingServ_4DDF60(int a1) {
 	sub_416640();
 	v1 = a1;
 	v2 = nox_common_playerInfoFromNum_417090(a1);
+	if (!v2) {
+		abort();
+	}
 	if (nox_common_gameFlags_check_40A5C0(4096)) {
 		if (a1 != 31) {
 			if (v2) {
