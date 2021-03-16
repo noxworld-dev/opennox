@@ -271,11 +271,11 @@ int nox_script_ncobj_parse_505360() {
 	if (!f)
 		return 0;
 	if (!nox_script_ncobj_readStringExpect_505870(f, "SCRIPT03")) {
-		fclose(f);
+		nox_fs_close(f);
 		return 0;
 	}
 	if (!nox_script_ncobj_readStringExpect_505870(f, "STRG")) {
-		fclose(f);
+		nox_fs_close(f);
 		return 0;
 	}
 	nox_script_strings_xxx = nox_script_ncobj_readInt_505800(f);
@@ -286,13 +286,13 @@ int nox_script_ncobj_parse_505360() {
 			char* str = calloc(1, n + 1);
 			nox_script_strings[i] = str;
 			if (!nox_script_ncobj_readString_505830(f, n, str)) {
-				fclose(f);
+				nox_fs_close(f);
 				return 0;
 			}
 		}
 	}
 	if (!nox_script_ncobj_readStringExpect_505870(f, "CODE")) {
-		fclose(f);
+		nox_fs_close(f);
 		return 0;
 	}
 	nox_script_count_xxx_1599640 = nox_script_ncobj_readInt_505800(f);
@@ -304,7 +304,7 @@ int nox_script_ncobj_parse_505360() {
 	char buf[1024];
 	for (int ind = 0; ind < nox_script_count_xxx_1599640; ind++) {
 		if (!nox_script_ncobj_readStringExpect_505870(f, "FUNC")) {
-			fclose(f);
+			nox_fs_close(f);
 			return 0;
 		}
 		nox_script_xxx_t* cur = &nox_script_arr_xxx_1599636[ind];
@@ -312,7 +312,7 @@ int nox_script_ncobj_parse_505360() {
 		int n = nox_script_ncobj_readInt_505800(f);
 		cur->field_0 = calloc(1, n + 1);
 		if (!nox_script_ncobj_readString_505830(f, n, cur->field_0)) {
-			fclose(f);
+			nox_fs_close(f);
 			return 0;
 		} else if (strlen(cur->field_0) >= 1024) {
 			return 0;
@@ -360,7 +360,7 @@ int nox_script_ncobj_parse_505360() {
 		cur->stack_size = nox_script_ncobj_readInt_505800(f);
 		cur->size_28 = nox_script_ncobj_readInt_505800(f);
 		if (!nox_script_ncobj_readStringExpect_505870(f, "SYMB")) {
-			fclose(f);
+			nox_fs_close(f);
 			return 0;
 		}
 		int cntY = nox_script_ncobj_readInt_505800(f);
@@ -395,21 +395,21 @@ int nox_script_ncobj_parse_505360() {
 			cur->field_28 = 0;
 		}
 		if (!nox_script_ncobj_readStringExpect_505870(f, "DATA")) {
-			fclose(f);
+			nox_fs_close(f);
 			return 0;
 		}
 		n = nox_script_ncobj_readInt_505800(f);
 		cur->data = calloc(1, n);
 		if (fread(cur->data, 1, n, f) != n) {
-			fclose(f);
+			nox_fs_close(f);
 			return 0;
 		}
 	}
 	if (!nox_script_ncobj_readStringExpect_505870(f, "DONE")) {
-		fclose(f);
+		nox_fs_close(f);
 		return 0;
 	}
-	fclose(f);
+	nox_fs_close(f);
 	return 1;
 }
 

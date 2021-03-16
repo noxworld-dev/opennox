@@ -4733,7 +4733,7 @@ FILE*  nox_xxx_saveBMP_46D9D0(int a1, int a2, LPVOID lpMem, int a4) {
 				--v4;
 			} while (v4);
 		}
-		fclose(v14);
+		nox_fs_close(v14);
 		free(lpMema);
 	}
 	return result;

@@ -797,7 +797,7 @@ int sub_4DCF20() {
 				if (v0[3680] & 0x10) {
 					nox_xxx_cliPlrInfoLoadFromFile_41A2E0((char*)getMemAt(0x5D4594, 1560984), 31);
 					dword_5d4594_1563052 = 0;
-					result = DeleteFileA((LPCSTR)getMemAt(0x5D4594, 1560984));
+					result = nox_fs_remove((LPCSTR)getMemAt(0x5D4594, 1560984));
 				}
 			}
 		}
@@ -1343,7 +1343,7 @@ int sub_4FC6D0() {
 								nox_xxx_sendGauntlet_4DCF80(*(unsigned __int8*)(*(_DWORD*)(v3 + 276) + 2064), 1);
 								if (!sub_41CFA0(FileName, *(unsigned __int8*)(*(_DWORD*)(v3 + 276) + 2064)) && !v5)
 									nox_xxx_sendGauntlet_4DCF80(*(unsigned __int8*)(*(_DWORD*)(v3 + 276) + 2064), 0);
-								DeleteFileA(FileName);
+								nox_fs_remove(FileName);
 							}
 							sub_4D6770(*(unsigned __int8*)(*(_DWORD*)(v3 + 276) + 2064));
 						}

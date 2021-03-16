@@ -38,5 +38,6 @@ int sub_430F00_screenshot() {
 	}
 	v8 = nox_strman_loadString_40F1D0("SnapshotWritten", 0, "C:\\NoxPost\\src\\Client\\Io\\Win95\\Video.c", 399);
 	sub_4517A0(v8, path);
-	return fclose(file);
+	nox_fs_close(file);
+	return 0;
 }

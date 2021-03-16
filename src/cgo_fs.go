@@ -6,9 +6,6 @@ package main
 */
 import "C"
 import (
-	"os"
-	"path/filepath"
-	"strings"
 	"unsafe"
 
 	"nox/common/fs"
@@ -37,23 +34,57 @@ func nox_fs_normalize(path *C.char) *C.char {
 
 //export nox_fs_workdir
 func nox_fs_workdir(dst *C.char, max C.int) C.bool {
-	dir, err := os.Getwd()
+	dir, err := fs.Workdir()
 	if err != nil {
 		return false
 	}
-	dir = strings.ReplaceAll(dir, string(filepath.Separator), "\\")
-	out := asByteSlice(unsafe.Pointer(dst), int(max))
-	n := copy(out[:len(out)-1], dir)
-	out[n] = 0
+	n := StrCopy(dst, int(max), dir)
 	return len(dir) <= n
+}
+
+//export nox_fs_progname
+func nox_fs_progname(dst *C.char, max C.int) {
+	StrCopy(dst, int(max), fs.ProgName())
+}
+
+//export nox_fs_remove
+func nox_fs_remove(path *C.char) C.bool {
+	return fs.Remove(C.GoString(path)) == nil
+}
+
+//export nox_fs_remove_dir
+func nox_fs_remove_dir(path *C.char) C.bool {
+	return fs.Remove(C.GoString(path)) == nil
 }
 
 //export nox_fs_set_workdir
 func nox_fs_set_workdir(path *C.char) C.bool {
-	spath := C.GoString(path)
-	spath = fs.Normalize(spath)
-	err := os.Chdir(spath)
-	return err == nil
+	return fs.Chdir(C.GoString(path)) == nil
+}
+
+//export nox_fs_copy
+func nox_fs_copy(src, dst *C.char) C.bool {
+	return fs.Copy(C.GoString(src), C.GoString(dst)) == nil
+}
+
+//export nox_fs_move
+func nox_fs_move(src, dst *C.char) C.bool {
+	return fs.Rename(C.GoString(src), C.GoString(dst)) == nil
+}
+
+//export nox_fs_fseek_start
+func nox_fs_fseek_start(f *C.FILE, off C.uint) C.int {
+	return C.fseek(f, C.long(off), C.SEEK_SET)
+}
+
+//export nox_fs_fread
+func nox_fs_fread(f *C.FILE, dst unsafe.Pointer, sz C.int) C.int {
+	return C.int(C.fread(dst, 1, C.uint(sz), f))
+}
+
+//export nox_fs_close
+func nox_fs_close(f *C.FILE) {
+	C.fclose(f)
 }
 
 func noxFSOpen(path *C.char, mode string) *C.FILE {

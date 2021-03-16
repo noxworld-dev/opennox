@@ -345,7 +345,7 @@ LABEL_33:
 LABEL_37:
 	fwrite(v24, strlen(v24), 1, v1);
 	fwrite("\r\n----------", 0xCu, 1, v1);
-	fclose(v1);
+	nox_fs_close(v1);
 	return 1;
 }
 // 10001290: could not find valid save-restore pair for ebx
@@ -449,10 +449,10 @@ char GameExCfgLoader() {
 			functionalKeyCodes[5] = KeyCodeMatcher((char*)&v6);
 		}
 		free(v4);
-		fclose(v0);
+		nox_fs_close(v0);
 		result = 1;
 	} else {
-		fclose(v1);
+		nox_fs_close(v1);
 		result = 0;
 	}
 	return result;
@@ -768,7 +768,8 @@ HANDLE __usercall GameIpParser(int a1, int a2, int a3) {
 			}
 			free(fileBuffer);
 		}
-		result = fclose(result);
+		result = 0;
+		nox_fs_close(result);
 	}
 	return result;
 }

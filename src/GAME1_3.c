@@ -2532,7 +2532,7 @@ _DWORD*  nox_xxx_FontLoadFile_43F3B0(char* a1) {
 			if (!v10 || nox_binfile_fread2_40ADD0(v10, v9, 1u, v3) != 1) {
 			LABEL_15:
 				nox_xxx_Font_440840(v1);
-				fclose(v3);
+				nox_fs_close(v3);
 				return 0;
 			}
 			v11 = 0;
@@ -2558,7 +2558,7 @@ _DWORD*  nox_xxx_FontLoadFile_43F3B0(char* a1) {
 					if (v16) {
 						if (v15) {
 							*v16 = 2 * *v15;
-							fclose(v3);
+							nox_fs_close(v3);
 							return v1;
 						}
 						*v16 = *(_BYTE*)v1;
@@ -2566,7 +2566,7 @@ _DWORD*  nox_xxx_FontLoadFile_43F3B0(char* a1) {
 				}
 			}
 		}
-		fclose(v3);
+		nox_fs_close(v3);
 	}
 	return v1;
 }
@@ -3750,7 +3750,7 @@ int  nox_xxx_doExecrul_4438A0(int a1) {
 			}
 		} while (!feof(v2));
 	}
-	fclose(v2);
+	nox_fs_close(v2);
 	return 1;
 }
 
@@ -4292,7 +4292,6 @@ int  nox_motd_4463E0(int a1) {
 	FILE* result; // eax
 	FILE* v2;     // edi
 	char* v3;     // eax
-	int result2 = 0;
 
 	dword_5d4594_826036 = 0;
 	*getMemU32Ptr(0x5D4594, 4 * a1 + 826040) = 0;
@@ -4309,9 +4308,9 @@ int  nox_motd_4463E0(int a1) {
 			v3 = *(char**)&dword_5d4594_826036;
 		}
 		v3[(*getMemU32Ptr(0x5D4594, 4 * a1 + 826040))++] = 0;
-		result2 = fclose(v2);
+		nox_fs_close(v2);
 	}
-	return result2;
+	return 0;
 }
 
 //----- (00446490) --------------------------------------------------------

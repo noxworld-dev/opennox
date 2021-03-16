@@ -23,6 +23,7 @@
 #include "client__drawable__update__fireball.h"
 #include "client__system__npcinfo.h"
 
+#include "common/fs/nox_fs.h"
 #include "proto.h"
 
 extern unsigned char byte_5D4594_3804364[160];
@@ -5649,7 +5650,7 @@ int  sub_4C57C0(FILE* a1, int a2, _DWORD* a3, _DWORD* a4) {
 		} else if (!sub_4C5CB0(a1) || !sub_4C5D20(a1, a2)) {
 			return 0;
 		}
-		fclose(a1);
+		nox_fs_close(a1);
 		*a3 = dword_5d4594_3679312;
 		*a4 = *getMemU32Ptr(0x5D4594, 3679316);
 		result = 1;

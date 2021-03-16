@@ -87,6 +87,13 @@ func StrLen(s *C.char) int {
 	return n
 }
 
+func StrCopy(dst *C.char, max int, src string) int {
+	d := asByteSlice(unsafe.Pointer(dst), max)
+	n := copy(d[:max-1], src)
+	d[n] = 0
+	return n
+}
+
 func WStrLen(s *C.wchar_t) int {
 	if s == nil {
 		return 0

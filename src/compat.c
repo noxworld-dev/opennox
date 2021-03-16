@@ -34,7 +34,6 @@ struct _REGKEY {
 	char* path;
 };
 
-const char* progname = "nox";
 DWORD last_error;
 DWORD last_socket_error;
 void* handles[1024];
@@ -104,6 +103,7 @@ uintptr_t _beginthread(void(* start_address)(void*), unsigned int stack_size, vo
 	while (1) {
 	}
 #endif
+	printf("thread start\n");
     thread_arg_wrapper* arg = (thread_arg_wrapper*)malloc(sizeof(thread_arg_wrapper));
 	arg->start_address = start_address;
 	arg->arglist = arglist;
@@ -236,29 +236,6 @@ BOOL WINAPI CloseHandle(HANDLE hObject) {
 	}
 
 	return TRUE;
-}
-
-DWORD WINAPI GetModuleFileNameA(HMODULE hModule, LPSTR lpFileName, DWORD nSize) {
-	unsigned int i, size = strlen(progname);
-	DWORD ret;
-
-	if (hModule != NULL)
-		abort();
-
-	if (size < nSize) {
-		strcpy(lpFileName, progname);
-		ret = size;
-	} else if (nSize) {
-		memcpy(lpFileName, progname, nSize);
-		lpFileName[nSize - 1] = 0;
-		ret = nSize;
-	}
-
-	for (i = 0; lpFileName[i]; i++)
-		if (lpFileName[i] == '/')
-			lpFileName[i] = '\\';
-
-	return ret;
 }
 
 DWORD WINAPI GetLastError() { return last_error; }
@@ -628,152 +605,8 @@ BOOL WINAPI FindClose(HANDLE hFindFile) {
 	return TRUE;
 }
 
-HANDLE WINAPI CreateFileA(LPCSTR lpFileName, DWORD dwDesiredAccess, DWORD dwShareMode,
-						  LPSECURITY_ATTRIBUTES lpSecurityAttributes, DWORD dwCreationDisposition,
-						  DWORD dwFlagsAndAttributes, HANDLE hTemplateFile) {
-	char* converted = nox_fs_normalize(lpFileName);
-	int fd, flags;
-
-	switch (dwDesiredAccess) {
-	case GENERIC_READ:
-		flags = O_RDONLY;
-		break;
-	case GENERIC_WRITE:
-		flags = O_WRONLY;
-		break;
-	case GENERIC_READ | GENERIC_WRITE:
-		flags = O_RDWR;
-		break;
-	default:
-		abort();
-	}
-
-	switch (dwCreationDisposition) {
-	case CREATE_NEW:
-		flags |= O_CREAT | O_EXCL;
-		break;
-	case CREATE_ALWAYS:
-		flags |= O_CREAT | O_TRUNC;
-		break;
-	default:
-	case OPEN_EXISTING:
-		break;
-	case OPEN_ALWAYS:
-		flags |= O_CREAT;
-		break;
-	case TRUNCATE_EXISTING:
-		flags |= O_TRUNC;
-		break;
-	}
-
-	fd = open(converted, flags, 0666);
-	// printf("%s: %s = %08x\n", __FUNCTION__, converted, fd);
-	free(converted);
-	return (HANDLE)fd;
-}
-
-BOOL WINAPI ReadFile(HANDLE hFile, LPVOID lpBuffer, DWORD nNumberOfBytesToRead, LPDWORD lpNumberOfBytesRead,
-					 LPOVERLAPPED lpOverlapped) {
-	int fd = (int)hFile;
-	int ret;
-
-	if (lpOverlapped)
-		abort();
-
-	ret = read(fd, lpBuffer, nNumberOfBytesToRead);
-	if (ret >= 0) {
-		*lpNumberOfBytesRead = ret;
-		last_error = 0;
-		return TRUE;
-	} else {
-		*lpNumberOfBytesRead = 0;
-		last_error = 2; // FIXME
-		return FALSE;
-	}
-}
-
-DWORD WINAPI SetFilePointer(HANDLE hFile, LONG lDistanceToMove, PLONG lpDistanceToMoveHigh, DWORD dwMoveMethod) {
-	int fd = (int)hFile;
-	int whence;
-	off_t offset;
-
-	if (lpDistanceToMoveHigh && *lpDistanceToMoveHigh)
-		abort();
-
-	switch (dwMoveMethod) {
-	case FILE_BEGIN:
-		whence = SEEK_SET;
-		break;
-	case FILE_CURRENT:
-		whence = SEEK_CUR;
-		break;
-	case FILE_END:
-		whence = SEEK_END;
-		break;
-	default:
-		abort();
-	}
-
-	if (lpDistanceToMoveHigh)
-		*lpDistanceToMoveHigh = 0;
-
-	offset = lseek(fd, lDistanceToMove, whence);
-	if (offset != (off_t)-1)
-		last_error = 0;
-	else
-		last_error = 2; // FIXME
-	return offset;
-}
-
-BOOL WINAPI CopyFileA(LPCSTR lpExistingFileName, LPCSTR lpNewFileName, BOOL bFailIfExists) {
-	char buf[1024];
-	int rfd = _open(lpExistingFileName, O_RDONLY);
-	int wfd;
-
-	if (rfd < 0)
-		return FALSE;
-
-	wfd = _open(lpNewFileName, bFailIfExists ? O_WRONLY | O_CREAT | O_EXCL : O_WRONLY | O_CREAT | O_TRUNC, 0666);
-	if (wfd < 0) {
-		close(rfd);
-		return FALSE;
-	}
-
-	while (1) {
-		int ret = read(rfd, buf, sizeof(buf));
-		if (ret <= 0)
-			break;
-		if (write(wfd, buf, ret) != ret) {
-			close(rfd);
-			return FALSE;
-		}
-	}
-
-	close(rfd);
-	close(wfd);
-	return TRUE;
-}
-
-BOOL WINAPI DeleteFileA(LPCSTR lpFileName) { return _unlink(lpFileName) == 0; }
-
-BOOL WINAPI MoveFileA(LPCSTR lpExistingFileName, LPCSTR lpNewFileName) {
-	char* converted = nox_fs_normalize(lpExistingFileName);
-	free(converted);
-	dprintf("%s\n", __FUNCTION__);
-	abort();
-	return 0;
-}
-
 BOOL WINAPI CreateDirectoryA(LPCSTR lpPathName, LPSECURITY_ATTRIBUTES lpSecurityAttributes) {
 	return _mkdir(lpPathName) == 0;
-}
-
-BOOL WINAPI RemoveDirectoryA(LPCSTR lpPathName) {
-	int result;
-	char* converted = nox_fs_normalize(lpPathName);
-	result = rmdir(converted);
-	free(converted);
-	return result == 0;
 }
 
 int _open(const char* filename, int oflag, ...) {
@@ -840,14 +673,6 @@ int _mkdir(const char* path) {
 	int result;
 	char* converted = nox_fs_normalize(path);
 	result = mkdir(converted, 0777);
-	free(converted);
-	return result;
-}
-
-int _unlink(const char* filename) {
-	int result;
-	char* converted = nox_fs_normalize(filename);
-	result = unlink(converted);
 	free(converted);
 	return result;
 }

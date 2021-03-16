@@ -248,6 +248,6 @@ int nox_xxx_netMapSendPrepair_519EB0_net_mapsend() {
 	fseek(v8, 0, SEEK_SET);
 	dword_5d4594_2388640 = malloc(*(size_t*)getMemAt(0x5D4594, 2388644));
 	nox_binfile_fread2_40ADD0(*(char**)&dword_5d4594_2388640, 1u, *(size_t*)getMemAt(0x5D4594, 2388644), v8);
-	fclose(v8);
+	nox_fs_close(v8);
 	return 1;
 }

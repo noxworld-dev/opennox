@@ -471,7 +471,7 @@ int  nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned __int8* a2,
 				nox_sprintf(FileName, "%s\\Save\\_temp_.dat", v52);
 				if (nox_xxx_playerSaveToFile_41A140(FileName, *(unsigned __int8*)(v8 + 2064)))
 					sub_41CFA0(FileName, *(unsigned __int8*)(v8 + 2064));
-				DeleteFileA(FileName);
+				nox_fs_remove(FileName);
 				v4 += 3;
 			}
 			break;

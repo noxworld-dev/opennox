@@ -20,6 +20,14 @@ bool nox_fs_workdir(char* dst, int max);
 // nox_fs_set_workdir sets current work directory.
 bool nox_fs_set_workdir(const char* path);
 
+void nox_fs_set_progname(const char* name);
+void nox_fs_progname(char* dst, int max);
+
+bool nox_fs_remove(const char* path);
+bool nox_fs_remove_dir(const char* path);
+bool nox_fs_copy(const char* src, const char* dst);
+bool nox_fs_move(const char* src, const char* dst);
+
 // nox_fs_open opens the file for reading (in binary mode).
 FILE* nox_fs_open(const char* path);
 // nox_fs_open_text opens the file for reading (in text mode).
@@ -35,6 +43,11 @@ FILE* nox_fs_create_rw(const char* path);
 // nox_fs_append_text opens the file for appending (in text mode).
 FILE* nox_fs_append_text(const char* path);
 
+int nox_fs_fseek_start(FILE* f, unsigned int off);
+int nox_fs_fread(FILE* f, void* dst, int sz);
+
+void nox_fs_close(FILE* f);
+
 #else // NOX_CGO
 
 #ifdef __linux__
@@ -47,6 +60,13 @@ char* nox_fs_root();
 bool nox_fs_workdir(char* dst, int max);
 // nox_fs_set_workdir sets current work directory.
 bool nox_fs_set_workdir(char* path);
+
+void nox_fs_progname(char* dst, int max);
+
+bool nox_fs_remove(char* path);
+bool nox_fs_remove_dir(char* path);
+bool nox_fs_copy(char* src, char* dst);
+bool nox_fs_move(char* src, char* dst);
 
 // nox_fs_open opens the file for reading (in binary mode).
 FILE* nox_fs_open(char* path);
@@ -62,6 +82,11 @@ FILE* nox_fs_open_rw(char* path);
 FILE* nox_fs_create_rw(char* path);
 // nox_fs_append_text opens the file for appending (in text mode).
 FILE* nox_fs_append_text(char* path);
+
+int nox_fs_fseek_start(FILE* f, unsigned int off);
+int nox_fs_fread(FILE* f, void* dst, int sz);
+
+void nox_fs_close(FILE* f);
 
 #endif // NOX_CGO
 

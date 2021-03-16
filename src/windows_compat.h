@@ -229,24 +229,9 @@ struct compat_stat {
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd);
 
 enum {
-	CREATE_NEW = 1,
-	CREATE_ALWAYS,
-	OPEN_EXISTING,
-	OPEN_ALWAYS,
-	TRUNCATE_EXISTING,
-};
-
-enum {
-	GENERIC_READ = 0x80000000,
-	GENERIC_WRITE = 0x40000000,
-};
-
-enum {
 	FILE_ATTRIBUTE_DIRECTORY = 0x10,
 	FILE_ATTRIBUTE_NORMAL = 0x80,
 };
-
-enum { FILE_BEGIN = 0, FILE_CURRENT, FILE_END };
 
 enum {
 	ERROR_NO_MORE_FILES = 18,
@@ -272,14 +257,7 @@ enum {
 #define FindFirstFileA compatFindFirstFileA
 #define FindNextFileA compatFindNextFileA
 #define FindClose compatFindClose
-#define CreateFileA compatCreateFileA
-#define ReadFile compatReadFile
-#define SetFilePointer compatSetFilePointer
-#define CopyFileA compatCopyFileA
-#define DeleteFileA compatDeleteFileA
-#define MoveFileA compatMoveFileA
 #define CreateDirectoryA compatCreateDirectoryA
-#define RemoveDirectoryA compatRemoveDirectoryA
 #define GetDateFormatA compatGetDateFormatA
 #define RegOpenKeyExA compatRegOpenKeyExA
 #define RegQueryValueExA compatRegQueryValueExA
@@ -288,7 +266,6 @@ enum {
 #define MulDiv compatMulDiv
 #define RegCreateKeyExA compatRegCreateKeyExA
 #define GlobalMemoryStatus compatGlobalMemoryStatus
-#define GetModuleFileNameA compatGetModuleFileNameA
 #define QueryPerformanceCounter compatQueryPerformanceCounter
 #define QueryPerformanceFrequency compatQueryPerformanceFrequency
 #define HeapDestroy compatHeapDestroy
@@ -336,7 +313,6 @@ enum {
 #define _access compat_access
 #define _stat compat_stat
 #define _mkdir compat_mkdir
-#define _unlink compat_unlink
 
 #ifdef fgets
 #pragma push_macro("fgets")
@@ -360,17 +336,7 @@ VOID WINAPI GetLocalTime(LPSYSTEMTIME lpSystemTime);
 HANDLE WINAPI FindFirstFileA(LPCSTR lpFileName, LPWIN32_FIND_DATAA lpFindFileData);
 BOOL WINAPI FindNextFileA(HANDLE hFindFile, LPWIN32_FIND_DATAA lpFindFileData);
 BOOL WINAPI FindClose(HANDLE hFindFile);
-HANDLE WINAPI CreateFileA(LPCSTR lpFileName, DWORD dwDesiredAccess, DWORD dwShareMode,
-						  LPSECURITY_ATTRIBUTES lpSecurityAttributes, DWORD dwCreationDisposition,
-						  DWORD dwFlagsAndAttributes, HANDLE hTemplateFile);
-BOOL WINAPI ReadFile(HANDLE hFile, LPVOID lpBuffer, DWORD nNumberOfBytesToRead, LPDWORD lpNumberOfBytesRead,
-					 LPOVERLAPPED lpOverlapped);
-DWORD WINAPI SetFilePointer(HANDLE hFile, LONG lDistanceToMove, PLONG lpDistanceToMoveHigh, DWORD dwMoveMethod);
-BOOL WINAPI CopyFileA(LPCSTR lpExistingFileName, LPCSTR lpNewFileName, BOOL bFailIfExists);
-BOOL WINAPI DeleteFileA(LPCSTR lpFileName);
-BOOL WINAPI MoveFileA(LPCSTR lpExistingFileName, LPCSTR lpNewFileName);
 BOOL WINAPI CreateDirectoryA(LPCSTR lpPathName, LPSECURITY_ATTRIBUTES lpSecurityAttributes);
-BOOL WINAPI RemoveDirectoryA(LPCSTR lpPathName);
 int WINAPI GetDateFormatA(LCID Locale, DWORD dwFlags, const SYSTEMTIME* lpDate, LPCSTR lpFormat, LPSTR lpDateStr,
 						  int cchDate);
 LSTATUS WINAPI RegOpenKeyExA(HKEY hKey, LPCSTR lpSubKey, DWORD ulOptions, REGSAM samDesired, PHKEY phkResult);
@@ -383,7 +349,6 @@ LSTATUS WINAPI RegCreateKeyExA(HKEY hKey, LPCSTR lpSubKey, DWORD Reserved, LPSTR
 							   REGSAM samDesired, const LPSECURITY_ATTRIBUTES lpSecurityAttributes, PHKEY phkResult,
 							   LPDWORD lpdwDisposition);
 VOID WINAPI GlobalMemoryStatus(LPMEMORYSTATUS lpBuffer);
-DWORD WINAPI GetModuleFileNameA(HMODULE hModule, LPSTR lpFileName, DWORD nSize);
 BOOL WINAPI QueryPerformanceCounter(LARGE_INTEGER* lpPerformanceCount);
 BOOL WINAPI QueryPerformanceFrequency(LARGE_INTEGER* lpFrequency);
 BOOL WINAPI HeapDestroy(HANDLE hHeap);
@@ -433,7 +398,6 @@ int _chmod(const char* filename, int mode);
 int _access(const char* filename, int mode);
 int _stat(const char* path, struct _stat* buffer);
 int _mkdir(const char* path);
-int _unlink(const char* filename);
 char* fgets(char* str, int size, FILE* stream);
 
 static inline unsigned int _rotl(unsigned int value, int shift) {

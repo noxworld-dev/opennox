@@ -624,39 +624,39 @@ int nox_script_readWriteZzz_541670(const char* path, const char* path2, const ch
 		return 0;
 	FILE* f2 = nox_fs_open(path2);
 	if (!f2) {
-		fclose(f1);
+		nox_fs_close(f1);
 		return 0;
 	}
 	fseek(f1, 0, SEEK_END);
 	int v6 = ftell(f1);
 	fseek(f1, 0, SEEK_SET);
 	if (!v6) {
-		fclose(f1);
-		fclose(f2);
-		DeleteFileA(dst);
-		MoveFileA(path2, dst);
+		nox_fs_close(f1);
+		nox_fs_close(f2);
+		nox_fs_remove(dst);
+		nox_fs_move(path2, dst);
 		return 1;
 	}
 	fseek(f2, 0, SEEK_END);
 	int v7 = ftell(f2);
 	fseek(f2, 0, SEEK_SET);
 	if (!v7) {
-		fclose(f1);
-		fclose(f2);
-		DeleteFileA(dst);
-		MoveFileA(path, dst);
+		nox_fs_close(f1);
+		nox_fs_close(f2);
+		nox_fs_remove(dst);
+		nox_fs_move(path, dst);
 		return 1;
 	}
 	FILE* df = nox_fs_open_rw(dst);
 	if (!df) {
-		fclose(f1);
-		fclose(f2);
+		nox_fs_close(f1);
+		nox_fs_close(f2);
 		return 0;
 	}
 	nox_script_readWriteWww_5417C0(f1, f2, df);
-	fclose(f1);
-	fclose(f2);
-	fclose(df);
+	nox_fs_close(f1);
+	nox_fs_close(f2);
+	nox_fs_close(df);
 	return 1;
 }
 
@@ -689,14 +689,15 @@ int  sub_543110(const char* lpExistingFileName, int* a2) {
 	*(_DWORD*)v4 = *getMemU32Ptr(0x587000, 282608);
 	*((_DWORD*)v4 + 1) = v2;
 	*((_DWORD*)v4 + 2) = v3;
-	CopyFileA(lpExistingFileName, NewFileName, 0);
+	nox_fs_copy(lpExistingFileName, NewFileName);
 	v6 = nox_fs_open(NewFileName);
 	if (!v6) {
 		return 0;
 	}
 	v7 = nox_fs_open_rw(lpExistingFileName);
 	if (!v7) {
-		return fclose(v6);
+		nox_fs_close(v6);
+		return 0;
 	}
 	strcpy((char*)v19, "SCRIPT03");
 	v8 = strlen((const char*)v19) + 1;
@@ -759,7 +760,7 @@ int  sub_543110(const char* lpExistingFileName, int* a2) {
 	v12 = strlen((const char*)&v19);
 	fread(v19, v12, 1u, v6);
 	fwrite(v19, v12, 1u, v7);
-	fclose(v6);
-	fclose(v7);
-	return DeleteFileA(NewFileName);
+	nox_fs_close(v6);
+	nox_fs_close(v7);
+	return nox_fs_remove(NewFileName);
 }

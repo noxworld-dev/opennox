@@ -9598,11 +9598,11 @@ nox_window*  nox_new_window_from_file(const char* name, int (*fnc)(int, int, int
 				break;
 		} else if (!strcmp(sbuf, "WINDOW")) {
 			nox_window* win = nox_gui_parseWindowRoot_4A0D80(f, sbuf, fnc);
-			fclose(f);
+			nox_fs_close(f);
 			return win;
 		}
 	}
-	fclose(f);
+	nox_fs_close(f);
 	return 0;
 }
 

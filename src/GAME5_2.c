@@ -3864,7 +3864,7 @@ int  sub_57A3F0(char* a1, int a2, int a3, int a4) {
 			}
 		} while (!feof(v5));
 	}
-	fclose(v5);
+	nox_fs_close(v5);
 	return 1;
 }
 
@@ -4150,7 +4150,8 @@ char  sub_57AAA0(const char* a1, char* a2, int* a3) {
 				v14 *= 2;
 				--v18;
 			} while (v18);
-			LOBYTE(v3) = fclose(v4);
+			LOBYTE(v3) = 0;
+			nox_fs_close(v4);
 		}
 	}
 	return (char)v3;
@@ -4799,7 +4800,7 @@ int  nox_xxx_mapNxzDecompress_57BC50(char* a1, char* a2) {
 	if (!v6 || !v7)
 		return 0;
 	nox_binfile_fread2_40ADD0(v6, 1u, (size_t)v5, v3);
-	fclose(v3);
+	nox_fs_close(v3);
 	a1 = v5;
 	v13 = v12;
 	v9 = sub_578BF0();
@@ -4812,7 +4813,7 @@ int  nox_xxx_mapNxzDecompress_57BC50(char* a1, char* a2) {
 	if (!v10)
 		return 0;
 	fwrite(v8, v12, 1u, v10);
-	fclose(v10);
+	nox_fs_close(v10);
 	free(v6);
 	free(v8);
 	return 1;
@@ -4855,7 +4856,7 @@ int  nox_xxx_mapFile_57BDD0(LPVOID lpMem, int a2) {
 	if (!v5 || !v7)
 		return 0;
 	nox_binfile_fread2_40ADD0(v5, 1u, v15, v4);
-	fclose(v4);
+	nox_fs_close(v4);
 	v8 = (void**)sub_578B80();
 	v9 = v15;
 	for (i = 0; i < v15; i += 500000) {
@@ -4872,7 +4873,7 @@ int  nox_xxx_mapFile_57BDD0(LPVOID lpMem, int a2) {
 		return 0;
 	fwrite(&v15, 4u, 1u, v12);
 	fwrite(lpMema, v2, 1u, v13);
-	fclose(v13);
+	nox_fs_close(v13);
 	free(v5);
 	free(lpMema);
 	return 1;

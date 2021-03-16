@@ -4304,11 +4304,11 @@ int  nox_video_read_videobag(int a1) {
 				}
 			} else {
 				free(v4);
-				fclose(nox_video_bag_fileptr);
+				nox_fs_close(nox_video_bag_fileptr);
 				result = 0;
 			}
 		} else {
-			fclose(nox_video_bag_fileptr);
+			nox_fs_close(nox_video_bag_fileptr);
 			result = 0;
 		}
 	}
@@ -4383,7 +4383,7 @@ FILE*  nox_xxx_fopenVideoBag_42F0B0(int a1) {
 		if (v7 == -85082901) {
 			dword_5d4594_754144 = 1;
 		} else if (v7 != -85082902) {
-			fclose(v3);
+			nox_fs_close(v3);
 			return 0;
 		}
 		nox_binfile_fread2_40ADD0((char*)&v6, 4u, 1u, v3);
@@ -4392,14 +4392,14 @@ FILE*  nox_xxx_fopenVideoBag_42F0B0(int a1) {
 			fseek(v3, 0, SEEK_SET);
 			v5 = nox_binfile_fread2_40ADD0(v4, 1u, v6, v3);
 			if (v5 == v6) {
-				fclose(v3);
+				nox_fs_close(v3);
 				result = (FILE*)v4;
 			} else {
-				fclose(v3);
+				nox_fs_close(v3);
 				result = 0;
 			}
 		} else {
-			fclose(v3);
+			nox_fs_close(v3);
 			result = 0;
 		}
 	}
@@ -4552,11 +4552,11 @@ int  nox_video_parse_videobag(int is8bit) {
 			dword_5d4594_787144 = 1;
 		} else {
 			free(v4);
-			fclose(nox_video_bag_fileptr);
+			nox_fs_close(nox_video_bag_fileptr);
 			result = 0;
 		}
 	} else {
-		fclose(nox_video_bag_fileptr);
+		nox_fs_close(nox_video_bag_fileptr);
 		result = 0;
 	}
 	return result;
@@ -4565,7 +4565,7 @@ int  nox_video_parse_videobag(int is8bit) {
 //----- (0042F490) --------------------------------------------------------
 BOOL  nox_video_reopen_videobag(char* a1) {
 	if (nox_video_bag_fileptr)
-		fclose(nox_video_bag_fileptr);
+		nox_fs_close(nox_video_bag_fileptr);
 	nox_video_bag_fileptr = nox_fs_open(a1);
 	return nox_video_bag_fileptr != 0;
 }
@@ -4617,7 +4617,7 @@ void sub_42F4D0() {
 	*getMemU32Ptr(0x5D4594, 754136) = getMemAt(0x5D4594, 787108);
 	*getMemU32Ptr(0x5D4594, 754140) = 0;
 	sub_47D150();
-	fclose(nox_video_bag_fileptr);
+	nox_fs_close(nox_video_bag_fileptr);
 	nox_video_bag_fileptr = 0;
 	if (dword_5d4594_787212) {
 		sub_578C40(*(LPVOID*)&dword_5d4594_787212);
@@ -5636,11 +5636,11 @@ int nox_common_readcfgfile(const char* path, int a2) {
 	if (file) {
 		if (a2 || nox_common_parsecfg_all(file)) {
 			if (sub_4331E0(file, a2)) {
-				fclose(file);
+				nox_fs_close(file);
 				return 1;
 			}
 		}
-		fclose(file);
+		nox_fs_close(file);
 		file = 0;
 	}
 	sub_42CD90();
@@ -5649,14 +5649,14 @@ int nox_common_readcfgfile(const char* path, int a2) {
 		return 0;
 	}
 	if (!(a2 || nox_common_parsecfg_all(file))) {
-		fclose(file);
+		nox_fs_close(file);
 		return 0;
 	}
 	if (!sub_4331E0(file, a2)) {
-		fclose(file);
+		nox_fs_close(file);
 		return 0;
 	}
-	fclose(file);
+	nox_fs_close(file);
 	nox_common_writecfgfile("nox.cfg");
 	return 1;
 }
@@ -6889,7 +6889,7 @@ void  nox_common_writecfgfile(char* a1) {
 	sub_4332E0(f);
 	sub_42CDF0(f);
 	fprintf(f, "---\n");
-	fclose(f);
+	nox_fs_close(f);
 #ifdef __EMSCRIPTEN__
 	EM_ASM(FS.syncfs(false, function(err){}));
 #endif

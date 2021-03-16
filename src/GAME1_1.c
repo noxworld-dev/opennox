@@ -907,7 +907,7 @@ int nox_xxx_parseGamedataBin_419B30() {
 								*(_DWORD*)(*v6 + 4 * i) = v10[i];
 							if (!sub_4267B0(*(int*)&dword_5d4594_527684, v8, (int)v6)) {
 							LABEL_28:
-								fclose(v1);
+								nox_fs_close(v1);
 								return 0;
 							}
 						}
