@@ -16,7 +16,7 @@ char*  nox_xxx_gLoadImg_42F970(const char* a1);
 // TODO: reference to input
 void sub_4309B0(unsigned char i, unsigned char v);
 
-extern unsigned int dword_5d4594_787148;
+extern void* nox_video_bag_arr1_787148;
 extern unsigned int dword_5d4594_1064912;
 extern unsigned int dword_5d4594_1064900;
 extern unsigned int dword_5d4594_3799468;
@@ -156,13 +156,13 @@ int  nox_xxx_wndShowModalMB_46A8C0(int a1) {
 unsigned int*  sub_42FAE0(int a1) {
 	unsigned int* result; // eax
 
-	result = (unsigned int*)(dword_5d4594_787148 + 36 * *(unsigned short*)(a1 + 8));
+	result = (unsigned int*)((char*)nox_video_bag_arr1_787148 + 36 * *(unsigned short*)(a1 + 8));
 	if (result[6] == -1) {
 		result = (unsigned int*)*result;
 		if (result) {
 			free(result);
-			result = *(unsigned int**)&dword_5d4594_787148;
-			*(unsigned int*)(dword_5d4594_787148 + 36 * *(unsigned short*)(a1 + 8)) = 0;
+			result = *(unsigned int**)&nox_video_bag_arr1_787148;
+			*(unsigned int*)((char*)nox_video_bag_arr1_787148 + 36 * *(unsigned short*)(a1 + 8)) = 0;
 		}
 	}
 	return result;

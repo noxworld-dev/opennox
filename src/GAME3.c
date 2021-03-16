@@ -4095,12 +4095,12 @@ _DWORD* sub_4AAA70() {
 #if 0
     _DWORD* v2; // eax
     _DWORD* v3; // eax
-    if (!sub_4300D0(0))
+    if (!nox_video_bagexists_4300D0(0))
     {
         v2 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD * *)& dword_5d4594_1309720, 331);
         nox_xxx_wndClearFlag_46AD80((int)v2, 8);
     }
-    if (!sub_4300D0(1))
+    if (!nox_video_bagexists_4300D0(1))
     {
         v3 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD * *)& dword_5d4594_1309720, 332);
         nox_xxx_wndClearFlag_46AD80((int)v3, 8);

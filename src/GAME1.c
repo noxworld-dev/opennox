@@ -44,7 +44,7 @@ extern _DWORD dword_5d4594_10984;
 extern _DWORD dword_5d4594_2660032;
 extern _DWORD dword_5d4594_3616;
 extern _DWORD dword_5d4594_251720;
-extern _DWORD dword_5d4594_3804680;
+extern int nox_video_16bit;
 extern _DWORD dword_5d4594_3620;
 extern _DWORD dword_5d4594_251744;
 extern _DWORD dword_5d4594_251556;
@@ -70,6 +70,7 @@ extern _DWORD dword_5d4594_10956;
 extern _DWORD dword_5d4594_2660652;
 extern _DWORD dword_5d4594_2650652;
 extern _DWORD dword_5d4594_4668;
+extern int nox_video_bag_var_2650640;
 
 extern unsigned int nox_rnd_table_37892[4096];
 
@@ -187,7 +188,7 @@ int cmain(int argc, const char* argv[]) {
 
 	// v24 = 0;
 	// v27 = 0;
-	*getMemU32Ptr(0x5D4594, 2650640) = 0;
+	nox_video_bag_var_2650640 = 0;
 	*getMemU32Ptr(0x5D4594, 2618916) = 0;
 	nox_gameDisableMapDraw_5d4594_2650672 = 0;
 	nox_game_addStateCode_43BDD0(10);
@@ -232,7 +233,7 @@ int cmain(int argc, const char* argv[]) {
 			*getMemU32Ptr(0x5D4594, 805840) = 1;
 			nox_enable_threads = 0;
 			int v12 = 16;
-			if (!sub_4300D0(1))
+			if (!nox_video_bagexists_4300D0(1))
 				v12 = 8;
 			nox_win_width_1 = NOX_DEFAULT_WIDTH;
 			nox_win_height_1 = NOX_DEFAULT_HEIGHT;
@@ -305,7 +306,7 @@ int cmain(int argc, const char* argv[]) {
 	}
 	nox_xxx_drawSelectColor_434350(*getMemIntPtr(0x5D4594, 2650656));
 	sub_440900();
-	result = nox_video_read_videobag(*(int*)&dword_5d4594_3804680);
+	result = nox_video_read_videobag(nox_video_16bit);
 	if (!result) {
 		return 0;
 	}

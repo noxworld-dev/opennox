@@ -28,7 +28,7 @@ extern unsigned int nox_profiled_805856;
 extern unsigned int nox_xxx_useMMX_587000_80800;
 
 extern unsigned int dword_5d4594_2650652;
-extern unsigned int dword_5d4594_3804680;
+extern unsigned int nox_video_16bit;
 extern void* dword_587000_81128;
 extern unsigned int dword_5d4594_1193336;
 extern unsigned int dword_5d4594_805980;
@@ -36,6 +36,7 @@ extern unsigned int dword_587000_93156;
 extern unsigned int dword_5d4594_816340;
 extern unsigned int dword_5d4594_816348;
 extern unsigned int dword_5d4594_805988;
+extern int nox_video_bag_var_2650640;
 
 void init_data();
 */
@@ -154,7 +155,7 @@ func runNox(args []string) error {
 		*memmap.PtrUint32(0x5D4594, 805864) = 1
 	}
 
-	*memmap.PtrUint32(0x5D4594, 2650640) = 0
+	C.nox_video_bag_var_2650640 = 0
 	*memmap.PtrUint32(0x5D4594, 2618916) = 0
 	C.nox_gameDisableMapDraw_5d4594_2650672 = 0
 	C.nox_game_addStateCode_43BDD0(10)
@@ -203,7 +204,7 @@ func runNox(args []string) error {
 		*memmap.PtrUint32(0x5D4594, 805840) = 1
 		C.nox_enable_threads = 0
 		depth := 16
-		if C.sub_4300D0(1) == 0 {
+		if !C.nox_video_bagexists_4300D0(1) {
 			depth = 8
 		}
 		C.nox_win_width_1 = noxDefaultWidth
@@ -279,8 +280,8 @@ func runNox(args []string) error {
 	}
 	C.nox_xxx_drawSelectColor_434350(C.int(memmap.Int32(0x5D4594, 2650656)))
 	C.sub_440900()
-	if C.nox_video_read_videobag(C.int(C.dword_5d4594_3804680)) == 0 {
-		return fmt.Errorf("failed to read videos")
+	if C.nox_video_read_videobag(C.int(C.nox_video_16bit)) == 0 {
+		return fmt.Errorf("failed to read graphics")
 	}
 	if C.sub_431370() == 0 {
 		return fmt.Errorf("sub_431370 failed")
@@ -390,7 +391,7 @@ func cleanup() {
 	C.nox_xxx_freeKeyboard_430210()
 	C.nox_xxx_tileFree_410FC0_free()
 	C.sub_4106C0()
-	C.sub_42F4D0()
+	C.nox_video_bagFree_42F4D0()
 	C.sub_42EDC0()
 	C.sub_42CD90()
 	nox_strman_free_410020()

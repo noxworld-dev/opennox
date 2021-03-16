@@ -70,7 +70,7 @@ extern _DWORD dword_5d4594_826032;
 extern _DWORD nox_xxx_gameDownloadInProgress_587000_173328;
 extern _DWORD nox_client_renderBubbles_80844;
 extern _DWORD dword_5d4594_830276;
-extern _DWORD dword_5d4594_3804680;
+extern int nox_video_16bit;
 extern _DWORD dword_5d4594_830264;
 extern _DWORD dword_5d4594_829504;
 extern _DWORD dword_5d4594_825744;
@@ -369,7 +369,7 @@ int  nox_xxx_video_43BF10_upd_video_mode(int defaults) {
 		return 1;
 	}
 	nox_video_mouseThreadXxx_48BE50(1);
-	if (v3 == nox_backbuffer_depth || (result = nox_video_parse_videobag(*(int*)&dword_5d4594_3804680)) != 0) {
+	if (v3 == nox_backbuffer_depth || (result = nox_video_bagMaybeReload(nox_video_16bit)) != 0) {
 		result = nox_video_recreateBuffersAndTarget_430BA0();
 		if (result) {
 			nox_xxx_loadPal_4A96C0_video_read_palette("default.pal");

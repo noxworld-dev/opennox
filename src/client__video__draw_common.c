@@ -1277,7 +1277,7 @@ int  sub_4B0640(int (*a1)(void)) {
 int  nox_video_waitVBlankAndDrawCursorFromThread_48B5D0(int a1, int a2) {
 	if (!*getMemU32Ptr(0x5D4594, 1193708) && nox_video_drawCursorThreadOk && dword_5d4594_823776 &&
 		nox_video_cursorDrawIsThreaded && dword_5d4594_1193672 && *getMemU32Ptr(0x5D4594, 1193108) &&
-		dword_5d4594_787144) {
+		nox_video_bag_ready) {
 		*getMemU32Ptr(0x5D4594, 1193708) = 1;
 		nox_mutex_lock(getMemAt(0x5D4594, 3799596));
 		// FIXME SDL will always wait for vblank?
