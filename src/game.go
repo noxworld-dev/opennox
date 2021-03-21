@@ -16,7 +16,11 @@ extern obj_5D4594_811068_t obj_5D4594_811068;
 */
 import "C"
 import (
+	"context"
+	"log"
 	"unsafe"
+
+	"github.com/noxworld-dev/xwis"
 
 	"nox/common/alloc"
 	"nox/common/memmap"
@@ -113,7 +117,32 @@ func startServer() int {
 		return 0
 	}
 	nox_xxx_serverHost_43B4D0()
+	ctx := context.Background()
+	go xwisRegister(ctx)
 	return 1
+}
+
+func xwisRegister(ctx context.Context) {
+	cli, err := xwis.NewClient(ctx, "", "")
+	if err != nil {
+		log.Printf("failed to init xwis: %v", err)
+		return
+	}
+	defer cli.Close()
+
+	// TODO: actually update those values according to what server is doing
+	err = cli.HostGame(ctx, xwis.GameInfo{
+		Name:       "GNox Dedicated Server",
+		Map:        "estate",
+		MapType:    xwis.MapTypeChat,
+		Resolution: xwis.Res1024x768,
+		Players:    1,
+		MaxPlayers: 32,
+	})
+	if err != nil {
+		log.Printf("failed to host on xwis: %v", err)
+		return
+	}
 }
 
 //export nox_xxx_serverHost_43B4D0
