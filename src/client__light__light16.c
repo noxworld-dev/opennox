@@ -438,7 +438,7 @@ __int16  sub_484B70(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int 
 
 	v8 = sub_47D380(a7, a8);
 	if (v8)
-		LOWORD(v8) = nox_client_drawImageAt_47D2C0(a1, a2, a3);
+		nox_client_drawImageAt_47D2C0(a1, a2, a3);
 	return v8;
 }
 

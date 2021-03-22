@@ -113,7 +113,7 @@ wchar_t*  sub_478B10(int2* a1) {
 	v1 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1098576, 3806);
 	nox_client_wndGetPosition_46AA60(v1, &v5, &v6);
 	nox_window_get_size((int)v1, &v4, &v3);
-	nox_client_drawImageAt_47D2C0(*(int*)&dword_5d4594_1098456, a1->field_0, a1->field_4);
+	nox_client_drawImageAt_47D2C0(dword_5d4594_1098456, a1->field_0, a1->field_4);
 	result = *(wchar_t**)&dword_5d4594_1098596;
 	if (dword_5d4594_1098596 ||
 		(result = nox_strman_loadString_40F1D0("SellInstructions", *(_DWORD**)&dword_5d4594_1098596,
@@ -137,7 +137,7 @@ wchar_t*  sub_478BC0(int* a1) {
 	nox_client_wndGetPosition_46AA60(v1, &v5, &v6);
 	nox_window_get_size((int)v1, &v4, &v3);
 	nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 2523948));
-	nox_client_drawImageAt_47D2C0(*(int*)&dword_5d4594_1098456, *a1, a1[1]);
+	nox_client_drawImageAt_47D2C0(dword_5d4594_1098456, *a1, a1[1]);
 	result = *(wchar_t**)&dword_5d4594_1098600;
 	if (dword_5d4594_1098600 ||
 		(result = nox_strman_loadString_40F1D0("RepairInstructions", *(_DWORD**)&dword_5d4594_1098600,
