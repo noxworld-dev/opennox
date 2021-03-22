@@ -115,7 +115,7 @@ extern _DWORD dword_5d4594_1312484;
 extern void* dword_587000_127004;
 extern _DWORD dword_5d4594_1308088;
 extern _DWORD dword_5d4594_1312480;
-extern _DWORD dword_5d4594_3799492;
+extern int(*func_5d4594_3799492)(_DWORD);
 extern _DWORD dword_5d4594_2618912;
 extern _DWORD dword_5d4594_3798640;
 extern _DWORD dword_5d4594_1307776;
@@ -6983,7 +6983,7 @@ _DWORD*  nox_xxx_partfxSwitch_4AF690(_DWORD* a1, void(* a2)(_DWORD*, _DWORD*, in
 	int v31;                                    // [esp+2Ch] [ebp-4h]
 	_BYTE* v32;                                 // [esp+38h] [ebp+8h]
 
-	result = (_DWORD*)(*(int(**)(_DWORD)) & dword_5d4594_3799492)(a1[1]);
+	result = func_5d4594_3799492(a1[1]);
 	if (result) {
 		v3 = *result;
 		v4 = result[1];
