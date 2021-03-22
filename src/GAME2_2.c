@@ -28,7 +28,6 @@ extern _DWORD dword_5d4594_1097212;
 extern _DWORD dword_5d4594_1193352;
 extern _DWORD dword_5d4594_1096636;
 extern _DWORD dword_5d4594_1097216;
-extern _DWORD dword_5d4594_3799500;
 extern _DWORD dword_5d4594_3807116;
 extern _DWORD dword_5d4594_1098620;
 extern _DWORD nox_xxx_cursorTypePrev_587000_151528;
@@ -159,6 +158,8 @@ BYTE* nox_pixbuffer_3798788 = 0;
 
 void( *func_587000_154940)(int2*, _DWORD, _DWORD) = nox_xxx_tileDraw_4815E0;
 int ( *func_587000_154944)(int, int) = nox_xxx_drawTexEdgesProbably_481900;
+
+void(*func_5d4594_3799500)(_DWORD, _DWORD, _DWORD) = 0;
 
 void* dword_5d4594_1189584 = 0;
 
@@ -4198,12 +4199,12 @@ int sub_47D200() {
 	if (dword_5d4594_3801780) {
 		if (dword_5d4594_3801780 == 1) {
 			if (cpuid_5d4594_3801804)
-				dword_5d4594_3799500 = nox_xxx_smthPlayerAnim_4C7670;
+				func_5d4594_3799500 = nox_xxx_smthPlayerAnim_4C7670;
 			else
-				dword_5d4594_3799500 = sub_4C7440;
+				func_5d4594_3799500 = sub_4C7440;
 		}
 	} else {
-		dword_5d4594_3799500 = sub_4C5EB0;
+		func_5d4594_3799500 = sub_4C5EB0;
 	}
 	dword_5d4594_3799484 = 0;
 	*getMemU32Ptr(0x5D4594, 3799480) = 0;
@@ -4236,7 +4237,7 @@ __int16  nox_client_drawImageAt_47D2C0(int a1, int a2, int a3) {
 		sub_49F780(*getMemIntPtr(0x5D4594, 3799480), *getMemIntPtr(0x5D4594, 3799440));
 		sub_49F6D0(1);
 	}
-	(*(void(**)(_DWORD, _DWORD, _DWORD)) & dword_5d4594_3799500)(a1, a2, a3);
+	func_5d4594_3799500(a1, a2, a3);
 	if (dword_5d4594_3799452) {
 		sub_49F860();
 		dword_5d4594_3799452 = 0;
