@@ -3606,7 +3606,7 @@ void sub_4C7060();
 unsigned int sub_4C7110();
 unsigned int sub_4C7240();
 unsigned __int8 sub_4C73A0();
-void  sub_4C7440(int a1, int a2, int a3);
+void  nox_client_xxxDraw16_4C7440(void* a1, int a2, int a3);
 void  nox_xxx_smthPlayerAnim_4C7670(int a1, int a2, int a3);
 void  sub_4C7860(int a1, int a2, int a3);
 int  sub_4C79F0(int a1, int a2, int a3);
