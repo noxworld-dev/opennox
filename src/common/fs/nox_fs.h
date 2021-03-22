@@ -43,10 +43,12 @@ FILE* nox_fs_create_rw(const char* path);
 // nox_fs_append_text opens the file for appending (in text mode).
 FILE* nox_fs_append_text(const char* path);
 
-int nox_fs_fseek_start(FILE* f, unsigned int off);
-int nox_fs_fread(FILE* f, void* dst, int sz);
-
-void nox_fs_close(FILE* f);
+int nox_fs_fputs(FILE* f, const char* str);
+#define nox_fs_fprintf fprintf
+#define nox_fs_fscan_str(f, p) fscanf(f, "%s", p)
+#define nox_fs_fscan_char(f, p) fscanf(f, "%c", p)
+#define nox_fs_fscan_char2(f, p) fscanf(f, "%2c", p)
+#define nox_fs_fscan_skip(f) fscanf(f, "%*s")
 
 #else // NOX_CGO
 
@@ -83,11 +85,29 @@ FILE* nox_fs_create_rw(char* path);
 // nox_fs_append_text opens the file for appending (in text mode).
 FILE* nox_fs_append_text(char* path);
 
-int nox_fs_fseek_start(FILE* f, unsigned int off);
-int nox_fs_fread(FILE* f, void* dst, int sz);
-
-void nox_fs_close(FILE* f);
+int nox_fs_fputs(FILE* f, char* str);
+int nox_fs_fprintf(FILE* f, const char* format, ...);
+int nox_fs_fscan_str(FILE* f, char* dst);
+int nox_fs_fscan_skip(FILE* f);
+int nox_fs_fscan_char(FILE* f, char* dst);
+int nox_fs_fscan_char2(FILE* f, char* dst);
 
 #endif // NOX_CGO
+
+int nox_fs_fseek(FILE* f, long off, int mode);
+long nox_fs_ftell(FILE* f);
+long nox_fs_fsize(FILE* f);
+int nox_fs_fread(FILE* f, void* dst, int sz);
+int nox_fs_fwrite(FILE* f, void* dst, int sz);
+bool nox_fs_fgets(FILE* f, char* dst, int max);
+int nox_fs_fgetc(FILE* f);
+bool nox_fs_feof(FILE* f);
+
+void nox_fs_close(FILE* f);
+void nox_fs_flush(FILE* f);
+
+#define nox_fs_fseek_start(f, off) nox_fs_fseek(f, off, SEEK_SET)
+#define nox_fs_fseek_cur(f, off) nox_fs_fseek(f, off, SEEK_CUR)
+#define nox_fs_fseek_end(f, off) nox_fs_fseek(f, off, SEEK_END)
 
 #endif // NOX_COMMON_FS_H

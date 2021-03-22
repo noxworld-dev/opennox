@@ -4724,12 +4724,12 @@ FILE*  nox_xxx_saveBMP_46D9D0(int a1, int a2, LPVOID lpMem, int a4) {
 	result = nox_fs_create((const char*)a1);
 	v14 = result;
 	if (result) {
-		fwrite(v16, 0xEu, 1u, result);
-		fwrite(v17, 0x28u, 1u, v14);
+		nox_fs_fwrite(result, v16, 0xEu);
+		nox_fs_fwrite(v14, v17, 0x28u);
 		v15 = &lpMema[2 * v5 * (a4 - 1) + v5 * (a4 - 1)];
 		if (a4 > 0) {
 			do {
-				fwrite(v15, v5, 3u, v14);
+				nox_fs_fwrite(v14, v15, 3*v5);
 				v15 -= 3 * v5;
 				--v4;
 			} while (v4);

@@ -314,13 +314,6 @@ enum {
 #define _stat compat_stat
 #define _mkdir compat_mkdir
 
-#ifdef fgets
-#pragma push_macro("fgets")
-#undef fgets
-#define NOX_COMPAT_FGETS_PUSHED
-#endif
-#define fgets compat_fgets
-
 #define _strdup strdup
 #define _strcmpi strcasecmp
 #define _strnicmp strncasecmp
@@ -398,7 +391,6 @@ int _chmod(const char* filename, int mode);
 int _access(const char* filename, int mode);
 int _stat(const char* path, struct _stat* buffer);
 int _mkdir(const char* path);
-char* fgets(char* str, int size, FILE* stream);
 
 static inline unsigned int _rotl(unsigned int value, int shift) {
 	unsigned int c = shift & 31;

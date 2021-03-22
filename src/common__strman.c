@@ -285,7 +285,7 @@ char sub_40F640(FILE* a1, char* a2, char* a3, unsigned char* a4, int cnt) {
 int nox_strman_read_str_header_40F4E0(FILE* file) {
 	string_entries_cnt = 0;
 	nox_string_str_cnt = 0;
-	while (fgets(file_buffer, sizeof(file_buffer) - 1, file)) {
+	while (nox_fs_fgets(file, file_buffer, sizeof(file_buffer) - 1)) {
 		sub_40F5C0(file_buffer);
 		if (file_buffer[0] == '"') {
 			unsigned int n = strlen((const char*)file_buffer);
@@ -514,7 +514,7 @@ int nox_strman_read_str_strings_40FBE0(FILE* file) {
 	int v11 = 0;
 	do {
 		LABEL_2:
-		if (!fgets(file_buffer, sizeof(file_buffer), file))
+		if (!nox_fs_fgets(file, file_buffer, sizeof(file_buffer)))
 			return 1;
 		sub_40F5C0(file_buffer);
 	} while (*(unsigned short*)file_buffer == 0x2F2F || !file_buffer[0]);
@@ -526,7 +526,7 @@ int nox_strman_read_str_strings_40FBE0(FILE* file) {
 	v3 = 0;
 	int v4 = v0;
 
-	while (fgets(file_buffer, sizeof(file_buffer) - 1, file)) {
+	while (nox_fs_fgets(file, file_buffer, sizeof(file_buffer) - 1)) {
 		sub_40F5C0(file_buffer);
 		if (file_buffer[0] == '"') {
 			int v5 = strlen((const char*)file_buffer);
@@ -578,9 +578,9 @@ int nox_strman_read_csf_strings_40F830(const char* path) {
 		return 0;
 	}
 	if (*(int*)&hbuf[4] < 2) {
-		fseek(file, 20, SEEK_SET);
+		nox_fs_fseek_start(file, 20);
 	} else {
-		fseek(file, 24, SEEK_SET);
+		nox_fs_fseek_start(file, 24);
 	}
 
 	int i = 0;

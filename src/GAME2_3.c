@@ -9444,7 +9444,7 @@ int  nox_gui_parseColor_4A0570(unsigned int* out, char* buf) {
 
 //----- (004A05E0) --------------------------------------------------------
 int nox_gui_parseColorTo_4A05E0(unsigned int* out, FILE* f, char* buf) {
-	fscanf(f, "%*s"); // skip '='
+	nox_fs_fscan_skip(f); // skip '='
 	nox_xxx_getToken_57BBC0(f, buf, 256);
 	if (strcmp(buf, "TRANSPARENT"))
 		return nox_gui_parseColor_4A0570(out, buf);
@@ -9575,7 +9575,7 @@ nox_window*  nox_new_window_from_file(const char* name, int (*fnc)(int, int, int
 		return 0;
 
 	char* sbuf = nox_window_parse_buf;
-	while (fscanf(f, "%s", sbuf) != -1) {
+	while (nox_fs_fscan_str(f, sbuf) != -1) {
 		if (!strcmp(sbuf, "ENABLEDCOLOR")) {
 			if (!nox_gui_parseColorTo_4A05E0(getMemIntPtr(0x5D4594, 1307264), f, sbuf))
 				break;
@@ -9621,7 +9621,7 @@ void nox_gui_resetWidgetData_4A0D10() {
 
 //----- (004A0D40) --------------------------------------------------------
 BOOL  nox_gui_parseFont_4A0D40(int* out, FILE* f, char* buf) {
-	fscanf(f, "%*s");
+	nox_fs_fscan_skip(f);
 	nox_xxx_getToken_57BBC0(f, buf, 256);
 	int fnt = nox_xxx_guiFontPtrByName_43F360(buf);
 	*out = fnt;
@@ -9683,13 +9683,13 @@ nox_window*  nox_gui_parseWindowRoot_4A0D80(FILE* f, char* buf, int (*fnc)(int, 
 	nox_window* win = 0;
 	void* data = 0;
 	while (1) {
-		fscanf(f, "%s", buf);
+		nox_fs_fscan_str(f, buf);
 		// hooks for different custom fields
 		bool found = false;
 		for (int i = 0; nox_parseWindowFuncs[i].fnc; i++) {
 			nox_parseWindowFunc* pfnc = &nox_parseWindowFuncs[i];
 			if (!strcmp(buf, pfnc->name)) {
-				fscanf(f, "%*s");
+				nox_fs_fscan_skip(f);
 				nox_xxx_getToken_57BBC0(f, buf, 256);
 				if (!pfnc->fnc(drawData, buf)) {
 					return 0;
@@ -9703,7 +9703,7 @@ nox_window*  nox_gui_parseWindowRoot_4A0D80(FILE* f, char* buf, int (*fnc)(int, 
 		}
 		// check the builtin fields
 		if (!strcmp(buf, "DATA")) {
-			fscanf(f, "%*s");
+			nox_fs_fscan_skip(f);
 			nox_xxx_getToken_57BBC0(f, buf, 256);
 			if (!nox_xxx_wndParseDataField_4A10A0(&data, typ, buf)) {
 				return 0;
@@ -9785,7 +9785,7 @@ nox_window*  nox_gui_parseWidget_4A1510(const char* typ, nox_window* parent, int
 //----- (004A1780) --------------------------------------------------------
 BOOL  nox_xxx_guiParse_4A1780(int a1, FILE* a2, char* a3) {
 	nox_gui_winParentsPush_4A18C0(a1);
-	while (fscanf(a2, "%s", a3) != -1 && strcmp(a3, "END")) {
+	while (nox_fs_fscan_str(a2, a3) != -1 && strcmp(a3, "END")) {
 		if (!strcmp(a3, "ENABLEDCOLOR")) {
 			if (!nox_gui_parseColorTo_4A05E0(getMemIntPtr(0x5D4594, 1307264), a2, a3))
 				return 0;

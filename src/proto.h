@@ -6413,10 +6413,8 @@ unsigned int  sub_564FB0(int a1, unsigned __int8* a2, int* a3, unsigned int a4, 
 int*  sub_565360(int a1, _WORD* a2, int* a3, unsigned int a4, int a5, int a6);
 unsigned int  sub_5654A0(int a1, unsigned __int8* a2, int* a3, unsigned int a4, int a5, int a6);
 // int  operator_delete(LPVOID lpMem); idb
-// int  ftell(FILE *);
 // int  _ftell_lk(_DWORD *a1);
 // size_t  _fwrite_lk(void *a1, size_t a2, size_t a3, FILE *a4);
-// size_t  fwrite(const void *, size_t, size_t, FILE *);
 // int  fseek(FILE *, int, int);
 // char * strrchr(const char *, int);
 // int sprintf(char *, const char *, ...);
@@ -6429,7 +6427,6 @@ unsigned int  sub_5654A0(int a1, unsigned __int8* a2, int* a3, unsigned int a4, 
 // int  _stat(LPCSTR lpFileName, int); idb
 // _DWORD  IsRootUNCName(char *); weak
 // size_t  _fread_lk(void *a1, size_t a2, size_t a3, FILE *a4);
-// size_t  fread(void *, size_t, size_t, FILE *);
 // void  qsort(void *, size_t, size_t, int ( *)(const void *, const void *));
 // _DWORD  shortsort(_DWORD, _DWORD, _DWORD, _DWORD); weak
 // _DWORD  swap(_DWORD, _DWORD, _DWORD); weak
@@ -6438,10 +6435,10 @@ unsigned int  sub_5654A0(int a1, unsigned __int8* a2, int* a3, unsigned int a4, 
 // int  _CallCatchBlock2(struct EHRegistrationNode *a1, const struct _s_FuncInfo *a2, void *a3, int a4, unsigned
 // int a5); int  _CallSETranslator(struct EHExceptionRecord *a1, struct EHRegistrationNode *a2, int a3, void *a4,
 // const struct _s_FuncInfo *a5, int a6, struct EHRegistrationNode *a7); int
-// TranslatorGuardHandler(PEXCEPTION_RECORD ExceptionRecord, PVOID TargetFrame, int); idb int  fgetc(FILE *); int
-//  getc(FILE *); void * operator_new(unsigned int); weak char * fgets(char *, int, FILE *); int
+// TranslatorGuardHandler(PEXCEPTION_RECORD ExceptionRecord, PVOID TargetFrame, int); idb
+//  getc(FILE *); void * operator_new(unsigned int); weak
 //  iswctype(WCHAR SrcStr, __int16); idb size_t  wcslen(const wchar_t *); size_t  strspn(const char
-// *, const char *); double  atof(const char *); int fprintf(FILE *, const char *, ...); char *
+// *, const char *); double  atof(const char *); ; char *
 // asctime(const struct tm *); struct tm * localtime(const time_t *); time_t  time(time_t *); int
 // vsprintf(char *, const char *, va_list); double __usercall _CIacos@<st0>(double x@<st0>); idb double
 // sub_566D1D(_DWORD, _DWORD); weak int  _read(int, void *, unsigned int); unsigned int  _read_lk(int a1,
@@ -6466,7 +6463,6 @@ unsigned int  sub_5654A0(int a1, unsigned __int8* a2, int* a3, unsigned int a4, 
 // int  iswdigit(WCHAR SrcStr); idb
 // int  iswalnum(WCHAR SrcStr); idb
 // int  _beginthread(int, SIZE_T dwStackSize, int); idb
-// int fscanf(FILE *, const char *, ...);
 // void  _makepath(char *, const char *, const char *, const char *, const char *);
 // void  _splitpath(const char *, char *, char *, char *, char *);
 // void * memchr(const void *, int, size_t);
@@ -6722,7 +6718,6 @@ bool nox_ensure_thing_bin(void);
 // HIMC __stdcall ImmGetContext(HWND);
 // BOOL __stdcall ImmReleaseContext(HWND, HIMC);
 // int  floor(double); idb
-// int  fputs(const char *, FILE *);
 // void __stdcall __noreturn _CxxThrowException(_DWORD, _DWORD); weak
 // int __usercall sub_57FA20@<eax>(int a1@<ebp>);
 // int __usercall sub_57FA28@<eax>(int a1@<ebp>);

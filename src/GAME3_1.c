@@ -5665,34 +5665,34 @@ BOOL  sub_4C5850(FILE* a1) {
 	int v3;   // [esp+4h] [ebp-4h]
 
 	v1 = a1;
-	if (fscanf(a1, "%c", &a1) != 1)
+	if (nox_fs_fscan_char(a1, &a1) != 1)
 		return 0;
 	if ((_BYTE)a1 != 10)
 		return 0;
-	if (fscanf(v1, "%c", &a1) != 1)
+	if (nox_fs_fscan_char(v1, &a1) != 1)
 		return 0;
 	if ((_BYTE)a1 != 5)
 		return 0;
-	if (fscanf(v1, "%c", &a1) != 1)
+	if (nox_fs_fscan_char(v1, &a1) != 1)
 		return 0;
 	if ((_BYTE)a1 != 1)
 		return 0;
-	if (fscanf(v1, "%c", &a1) != 1)
+	if (nox_fs_fscan_char(v1, &a1) != 1)
 		return 0;
 	if ((_BYTE)a1 != 8)
 		return 0;
-	if (fscanf(v1, "%2c", &v3) != 1)
+	if (nox_fs_fscan_char2(v1, &v3) != 1)
 		return 0;
 	if ((_WORD)v3)
 		return 0;
-	if (fscanf(v1, "%2c", &v3) != 1)
+	if (nox_fs_fscan_char2(v1, &v3) != 1)
 		return 0;
 	if ((_WORD)v3)
 		return 0;
-	if (fscanf(v1, "%2c", &v3) != 1)
+	if (nox_fs_fscan_char2(v1, &v3) != 1)
 		return 0;
 	dword_5d4594_3679312 = (unsigned __int16)v3;
-	if (fscanf(v1, "%2c", &v3) != 1)
+	if (nox_fs_fscan_char2(v1, &v3) != 1)
 		return 0;
 	*getMemU32Ptr(0x5D4594, 3679316) = (unsigned __int16)v3;
 	if (dword_5d4594_3679312 > 639)
@@ -5701,8 +5701,8 @@ BOOL  sub_4C5850(FILE* a1) {
 		return 0;
 	++dword_5d4594_3679312;
 	*getMemU32Ptr(0x5D4594, 3679316) = (unsigned __int16)v3 + 1;
-	fseek(v1, 65, SEEK_SET);
-	if (fscanf(v1, "%c", &a1) != 1)
+	nox_fs_fseek_start(v1, 65);
+	if (nox_fs_fscan_char(v1, &a1) != 1)
 		return 0;
 	if ((_BYTE)a1 == 1) {
 		*getMemU32Ptr(0x5D4594, 1322572) = 0;
@@ -5711,9 +5711,9 @@ BOOL  sub_4C5850(FILE* a1) {
 			return 0;
 		*getMemU32Ptr(0x5D4594, 1322572) = 1;
 	}
-	if (fscanf(v1, "%2c", &v3) == 1) {
+	if (nox_fs_fscan_char2(v1, &v3) == 1) {
 		*getMemU32Ptr(0x5D4594, 3679308) = (unsigned __int16)v3;
-		return fscanf(v1, "%2c", &v3) == 1;
+		return nox_fs_fscan_char2(v1, &v3) == 1;
 	}
 	return 0;
 }
@@ -5737,7 +5737,7 @@ int  sub_4C5A60(FILE* a1, int a2) {
 	HIWORD(v2) = 0;
 	LOBYTE(v12) = 0;
 	LOBYTE(v11) = 0;
-	fseek(a1, 128, SEEK_SET);
+	nox_fs_fseek_start(a1, 128);
 	v13 = 0;
 	if (*getMemU32Ptr(0x5D4594, 3679316) > 0) {
 		v3 = a2;
@@ -5808,11 +5808,11 @@ int  sub_4C5B80(FILE* a1, int a2, _BYTE* a3, _BYTE* a4) {
 		}
 	} else {
 		v8 = a1;
-		if (fscanf(a1, "%c", &a1) == 1) {
+		if (nox_fs_fscan_char(a1, &a1) == 1) {
 			v9 = (char)a1;
 			if (((unsigned __int8)a1 & 0xC0) == 0xC0) {
 				v10 = (unsigned __int8)a1 & 0x3F;
-				if (fscanf(v8, "%c", &a1) == 1) {
+				if (nox_fs_fscan_char(v8, &a1) == 1) {
 					if (v10 + a2 <= *getMemIntPtr(0x5D4594, 3679308)) {
 						v12 = a4;
 						v13 = (char)a1;
@@ -5847,12 +5847,12 @@ BOOL  sub_4C5CB0(FILE* a1) {
 	FILE* v1; // esi
 
 	v1 = a1;
-	if (fseek(a1, -769, SEEK_END))
+	if (nox_fs_fseek_end(a1,  -769))
 		return 0;
-	if (fread(&a1, 1u, 1u, v1) != 1)
+	if (nox_fs_fread(v1, &a1, 1) != 1)
 		return 0;
 	if ((_BYTE)a1 == 12)
-		return fread(getMemAt(0x5D4594, 1321804), 1u, 0x300u, v1) == 768;
+		return nox_fs_fread(v1, getMemAt(0x5D4594, 1321804), 0x300) == 768;
 	return 0;
 }
 
@@ -5881,7 +5881,7 @@ int  sub_4C5D20(FILE* a1, int a2) {
 	HIWORD(v2) = 0;
 	LOBYTE(v19) = 0;
 	LOBYTE(v18) = 0;
-	fseek(a1, 128, SEEK_SET);
+	nox_fs_fseek_start(a1, 128);
 	v20 = 0;
 	if (*getMemIntPtr(0x5D4594, 3679316) <= 0) {
 	LABEL_7:

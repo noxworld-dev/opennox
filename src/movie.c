@@ -2743,7 +2743,7 @@ size_t __thiscall sub_559BA0(int this, void* a2, size_t a3) {
 	size_t result; // eax
 
 	if (*(_DWORD*)this && *(_BYTE*)(this + 300))
-		result = a3 * fread(a2, a3, 1u, *(FILE**)this);
+		result = nox_fs_fread(*(FILE**)this, a2, a3);
 	else
 		result = 0;
 	return result;

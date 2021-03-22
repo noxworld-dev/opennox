@@ -24,13 +24,13 @@ int sub_430F00_screenshot() {
 		v2 = nox_strman_loadString_40F1D0("BadOpen", 0, "C:\\NoxPost\\src\\Client\\Io\\Win95\\Video.c", 375);
 		return sub_4517A0(v2, path);
 	}
-	fprintf(file, "P3\n#Nox Bitmap data\n640 480 256\n");
+	nox_fs_fprintf(file, "P3\n#Nox Bitmap data\n640 480 256\n");
 	v4 = nox_pixbuffer_3798780;
 	for (int v5 = nox_backbuffer_height; v5 > 0; v5--) {
 		for (int v7 = 0; v7 < nox_backbuffer_width; v7++) {
 			if (v7 != 0 && (v7 % 60) == 0)
-				fprintf(file, "\n");
-			fprintf(file, "%d %d %d ", getMemByte(0x5D4594, 3 * *(unsigned __int8*)(v7 + v4) + 3804716),
+				nox_fs_fprintf(file, "\n");
+			nox_fs_fprintf(file, "%d %d %d ", getMemByte(0x5D4594, 3 * *(unsigned __int8*)(v7 + v4) + 3804716),
 					getMemByte(0x5D4594, 3 * *(unsigned __int8*)(v7 + v4) + 3804717),
 					getMemByte(0x5D4594, 3 * *(unsigned __int8*)(v7 + v4) + 3804718));
 		}

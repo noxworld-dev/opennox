@@ -9583,7 +9583,7 @@ size_t  nox_xxx_fileReadWrite_426AC0_file3_fread(_BYTE* a1, size_t a2) {
 
 	if (*getMemU32Ptr(0x5D4594, 3803300)) {
 		if (dword_5d4594_740004) {
-			v5 = fread(a1, a2, 1, nox_file_3);
+			v5 = nox_fs_fread(nox_file_3, a1, a2)/a2;
 			nox_xxx_cryptXor_56FDD0(126, a1, a2);
 		} else {
 			v5 = nox_binfile_fread_408E40(a1, a2, 1, nox_file_3);
@@ -9598,7 +9598,7 @@ size_t  nox_xxx_fileReadWrite_426AC0_file3_fread(_BYTE* a1, size_t a2) {
 			if (v2) {
 				memcpy(v2, a1, a2);
 				nox_xxx_cryptXor_56FDD0(126, v2, a2);
-				v3 = fwrite(v2, a2, 1, nox_file_3);
+				v3 = nox_fs_fwrite(nox_file_3, v2, a2)/a2;
 				free(v2);
 				result = v3;
 			} else {
@@ -9638,7 +9638,7 @@ int  sub_426BD0(unsigned __int8* a1, int a2) {
 void  nox_xxx_fileCryptReadCrcMB_426C20(_BYTE* a1, size_t a2) {
 	if (*getMemU32Ptr(0x5D4594, 3803300) == 1) {
 		if (dword_5d4594_740004) {
-			fread(a1, a2, 1u, nox_file_3);
+			nox_fs_fread(nox_file_3, a1, a2);
 			nox_xxx_cryptXor_56FDD0(126, a1, a2);
 		} else if (nox_xxx_cryptGet_426A40()) {
 			nox_binfile_fread_408E40(a1, a2, 1, nox_file_3);
@@ -9657,11 +9657,11 @@ void  nox_xxx_crypt_426C90() {
 
 	if (!*getMemU32Ptr(0x5D4594, 3803300)) {
 		if (dword_5d4594_740004) {
-			v2 = (void*)ftell(nox_file_3);
+			v2 = (void*)nox_fs_ftell(nox_file_3);
 			*getMemU32Ptr(0x5D4594, 740008 + 4 * dword_5d4594_740072) = v2;
 			v5 = v2;
 			nox_xxx_cryptXor_56FDD0(126, &v5, 4);
-			fwrite(&v5, 4u, 1u, nox_file_3);
+			nox_fs_fwrite(nox_file_3, &v5, 4);
 			++dword_5d4594_740072;
 		} else {
 			*getMemU32Ptr(0x5D4594, 740040 + 4 * dword_5d4594_740072) = nox_binfile_yyy_409110(nox_file_3);
@@ -9685,14 +9685,14 @@ void  nox_xxx_crypt_426D40() {
 	if (*getMemU32Ptr(0x5D4594, 3803300))
 		return;
 	if (dword_5d4594_740004) {
-		v1 = ftell(nox_file_3);
+		v1 = nox_fs_ftell(nox_file_3);
 		v2 = *getMemU32Ptr(0x5D4594, 740008 + 4 * dword_5d4594_740072);
 		v3 = (void*)(v1 - v2 - 4);
-		fseek(nox_file_3, v2, SEEK_SET);
+		nox_fs_fseek_start(nox_file_3, v2);
 		v6 = v3;
 		nox_xxx_cryptXor_56FDD0(126, &v6, 4);
-		fwrite(&v6, 4u, 1u, nox_file_3);
-		fseek(nox_file_3, v1, SEEK_SET);
+		nox_fs_fwrite(nox_file_3, &v6, 4);
+		nox_fs_fseek_start(nox_file_3, v1);
 	} else {
 		v5 = nox_binfile_ftell_426A50();
 		v3 = (void*)(v5 - *getMemU32Ptr(0x5D4594, 740008 + 4 * dword_5d4594_740072));

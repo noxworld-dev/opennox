@@ -10328,7 +10328,7 @@ int  sub_486B60(int a1, int a2) {
 	v3 = *(FILE**)(a1 + 268);
 	*(_DWORD*)(a1 + 280) = v3;
 	*(_DWORD*)(a1 + 284) = *(_DWORD*)(v2 + 20);
-	if (fseek(v3, *(_DWORD*)(v2 + 16), SEEK_SET))
+	if (nox_fs_fseek_start(v3, *(_DWORD*)(v2 + 16)))
 		v12 = 0;
 	if (!*(_DWORD*)(v2 + 20))
 		v12 = 0;
@@ -10356,12 +10356,12 @@ int  sub_486B60(int a1, int a2) {
 	while (1) {
 		if (*(_DWORD*)v13 == 544501094) {
 			nox_binfile_fread2_40ADD0(v14, 0x10u, 1u, v7);
-			fseek(v7, *(_DWORD*)&v13[4] - 16, SEEK_CUR);
+			nox_fs_fseek_cur(v7,  *(_DWORD*)&v13[4] - 16);
 			goto LABEL_15;
 		}
 		if (*(_DWORD*)v13 == 1635017060)
 			break;
-		fseek(v7, *(int*)&v13[4], SEEK_CUR);
+		nox_fs_fseek_cur(v7,  *(int*)&v13[4]);
 	LABEL_15:
 		if (nox_binfile_fread2_40ADD0(v13, 8u, 1u, v7) != 1)
 			goto LABEL_18;

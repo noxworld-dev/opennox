@@ -1513,7 +1513,7 @@ int  sub_4E41B0(char* a1) {
 		do {
 			while (1) {
 				do {
-					if (!fgets((char*)getMemAt(0x5D4594, 1563936), 1024, v1)) {
+					if (!nox_fs_fgets(v1, (char*)getMemAt(0x5D4594, 1563936), 1024)) {
 						nox_fs_close(v1);
 						return 1;
 					}
@@ -1537,13 +1537,13 @@ int  sub_4E42C0(FILE* a1) {
 	wchar_t v4[26]; // [esp+Ch] [ebp-34h]
 
 	while (1) {
-		if (!fgets((char*)getMemAt(0x5D4594, 1563936), 1024, a1))
+		if (!nox_fs_fgets(a1, (char*)getMemAt(0x5D4594, 1563936), 1024))
 			return 1;
 		v1 = strtok((char*)getMemAt(0x5D4594, 1563936), "\r\t\n");
 		if (!v1)
 			return 1;
 		nox_swprintf(v4, L"%S", v1);
-		if (!fgets((char*)getMemAt(0x5D4594, 1563936), 1024, a1))
+		if (!nox_fs_fgets(a1, (char*)getMemAt(0x5D4594, 1563936), 1024))
 			return 1;
 		v2 = strtok((char*)getMemAt(0x5D4594, 1563936), "\r\t\n");
 		if (!v2)
@@ -1561,7 +1561,7 @@ int  sub_4E4390(FILE* a1) {
 	char* v1;       // eax
 	wchar_t v3[26]; // [esp+4h] [ebp-34h]
 
-	while (fgets((char*)getMemAt(0x5D4594, 1563936), 1024, a1)) {
+	while (nox_fs_fgets(a1, (char*)getMemAt(0x5D4594, 1563936), 1024)) {
 		v1 = strtok((char*)getMemAt(0x5D4594, 1563936), "\r\t\n");
 		if (!v1)
 			break;
@@ -1581,19 +1581,19 @@ FILE*  sub_4E43F0(char* a1) {
 	result = nox_fs_create_text(a1);
 	v2 = result;
 	if (result) {
-		fprintf(result, "%s\n", getMemAt(0x587000, 202212));
+		nox_fs_fprintf(result, "%s\n", getMemAt(0x587000, 202212));
 		for (i = sub_416900(); i; i = sub_416910(i)) {
 			if (!*((_QWORD*)i + 8)) {
-				fprintf(v2, "%S\n", i + 3);
+				nox_fs_fprintf(v2, "%S\n", i + 3);
 				if (*((_BYTE*)i + 72))
-					fprintf(v2, "%s\n", i + 18);
+					nox_fs_fprintf(v2, "%s\n", i + 18);
 				else
-					fprintf(v2, "0\n");
+					nox_fs_fprintf(v2, "0\n");
 			}
 		}
-		fprintf(v2, "\n%s\n", getMemAt(0x587000, 202228));
+		nox_fs_fprintf(v2, "\n%s\n", getMemAt(0x587000, 202228));
 		for (j = sub_4168E0(); j; j = sub_4168F0(j))
-			fprintf(v2, "%S\n", j + 3);
+			nox_fs_fprintf(v2, "%S\n", j + 3);
 		nox_fs_close(v2);
 		result = (FILE*)1;
 	}

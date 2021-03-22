@@ -3680,7 +3680,7 @@ _DWORD*  sub_42CDF0(FILE* a1) {
 
 	v1 = nox_xxx_cursor_430AF0();
 	v2 = a1;
-	fprintf(a1, "MousePickup = %s\n", *getMemU32Ptr(0x587000, 4 * v1 + 73652));
+	nox_fs_fprintf(a1, "MousePickup = %s\n", *getMemU32Ptr(0x587000, 4 * v1 + 73652));
 	result = *(_DWORD**)&dword_5d4594_754056;
 	v4 = *(_DWORD**)&dword_5d4594_754056;
 	if (dword_5d4594_754056) {
@@ -3695,18 +3695,18 @@ _DWORD*  sub_42CDF0(FILE* a1) {
 						v6 = getMemAt(0x587000, 73672);
 						do {
 							if (*v11 == (char*)*((_DWORD*)v6 + 1))
-								fprintf(v2, "%s ", *(_DWORD*)v6);
+								nox_fs_fprintf(v2, "%s ", *(_DWORD*)v6);
 							v7 = *((_DWORD*)v6 + 4);
 							v6 += 16;
 						} while (v7);
 					}
 					if (v5 != v4[8] - 1)
-						fprintf(v2, "+ ");
+						nox_fs_fprintf(v2, "+ ");
 					++v5;
 					v11++;
 				} while (v5 < v4[8]);
 			}
-			fprintf(v2, "= ");
+			nox_fs_fprintf(v2, "= ");
 			v8 = 0;
 			if (v4[17] > 0) {
 				v12 = v4 + 9;
@@ -3715,18 +3715,18 @@ _DWORD*  sub_42CDF0(FILE* a1) {
 						v9 = getMemAt(0x587000, 75880);
 						do {
 							if (*v12 == (char*)*((_DWORD*)v9 + 1))
-								fprintf(v2, "%s ", *(_DWORD*)v9);
+								nox_fs_fprintf(v2, "%s ", *(_DWORD*)v9);
 							v10 = *((_DWORD*)v9 + 3);
 							v9 += 12;
 						} while (v10);
 					}
 					if (v8 != v4[17] - 1)
-						fprintf(v2, "+ ");
+						nox_fs_fprintf(v2, "+ ");
 					++v8;
 					v12++;
 				} while (v8 < v4[17]);
 			}
-			result = (_DWORD*)fprintf(v2, "\n");
+			result = (_DWORD*)nox_fs_fprintf(v2, "\n");
 		}
 	}
 	return result;
@@ -4457,7 +4457,7 @@ void* nox_video_readBagBytes_42F0B0(int is16bit) {
 		nox_fs_close(f);
 		return 0;
 	}
-	fseek(f, 0, SEEK_SET);
+	nox_fs_fseek_start(f, 0);
 	int n = nox_binfile_fread2_40ADD0(data, 1, sz, f);
 	if (n != sz) {
 		nox_fs_close(f);
@@ -4874,12 +4874,12 @@ static FILE* get_bag(unsigned int offset) {
 			fp = bag_fp[i];
 			if (fp == NULL)
 				fp = bag_fp[i] = nox_fs_open(bag_files[i].path);
-			fseek(fp, offset - bag_files[i].offset, SEEK_SET);
+			nox_fs_fseek_start(fp, offset - bag_files[i].offset);
 		}
 	}
 #else
 	fp = nox_video_bag_fileptr;
-	fseek(fp, offset, SEEK_SET);
+	nox_fs_fseek_start(fp, offset);
 #endif
 	return fp;
 }
@@ -5607,7 +5607,7 @@ int nox_common_parsecfg_all(FILE* a1) {
 	sub_486670(0x4000, 1);
 	sub_486670(0x4000, 2);
 LABEL_2:
-	while (fgets((char*)getMemAt(0x5D4594, 806084), 1024, a1)) {
+	while (nox_fs_fgets(a1, (char*)getMemAt(0x5D4594, 806084), 1024)) {
 		if (getMemByte(0x5D4594, 806084) == '#') {
 			continue;
 		}
@@ -6794,7 +6794,7 @@ int  sub_4331E0(FILE* a1, int a2) {
 
 	v2 = 0;
 	if (a2) {
-		while (fgets((char*)getMemAt(0x5D4594, 806084), 1024, a1)) {
+		while (nox_fs_fgets(a1, (char*)getMemAt(0x5D4594, 806084), 1024)) {
 			if (!strncmp("---", (const char*)getMemAt(0x5D4594, 806084), 3u))
 				goto LABEL_6;
 		}
@@ -6803,7 +6803,7 @@ int  sub_4331E0(FILE* a1, int a2) {
 	LABEL_6:
 		do {
 			do {
-				if (!fgets((char*)getMemAt(0x5D4594, 806084), 1024, a1))
+				if (!nox_fs_fgets(a1, (char*)getMemAt(0x5D4594, 806084), 1024))
 					return v2;
 			} while (getMemByte(0x5D4594, 806084) == 35);
 			if (!strncmp("---", (const char*)getMemAt(0x5D4594, 806084), 3u))
@@ -6822,7 +6822,7 @@ void  nox_common_writecfgfile(char* a1) {
 	}
 	sub_4332E0(f);
 	sub_42CDF0(f);
-	fprintf(f, "---\n");
+	nox_fs_fprintf(f, "---\n");
 	nox_fs_close(f);
 #ifdef __EMSCRIPTEN__
 	EM_ASM(FS.syncfs(false, function(err){}));
@@ -6855,102 +6855,102 @@ int  sub_4332E0(FILE* a1) {
 	_DWORD* v23;          // [esp+8h] [ebp-4h]
 
 	v1 = sub_416640();
-	fprintf(a1, "Version = %d\n", 65540);
-	fprintf(a1, "VideoMode = %d %d %d\n", nox_win_width_1, nox_win_height_1, nox_win_depth_1);
-	fprintf(a1, "Stretched = %d\n", g_scaled_cfg);
-	fprintf(a1, "Fullscreen = %d\n", g_fullscreen_cfg);
+	nox_fs_fprintf(a1, "Version = %d\n", 65540);
+	nox_fs_fprintf(a1, "VideoMode = %d %d %d\n", nox_win_width_1, nox_win_height_1, nox_win_depth_1);
+	nox_fs_fprintf(a1, "Stretched = %d\n", g_scaled_cfg);
+	nox_fs_fprintf(a1, "Fullscreen = %d\n", g_fullscreen_cfg);
 	v2 = sub_4766D0();
-	fprintf(a1, "VideoSize = %d\n", v2);
-	// fprintf(a1, "Gamma = %d\n", *(_DWORD *)getMemAt(0x587000, 80852));
-	fprintf(a1, "Gamma2 = %f\n", draw_gamma);
-	fprintf(a1, "InputSensitivity = %f\n", nox_input_getSensitivity());
+	nox_fs_fprintf(a1, "VideoSize = %d\n", v2);
+	// nox_fs_fprintf(a1, "Gamma = %d\n", *(_DWORD *)getMemAt(0x587000, 80852));
+	nox_fs_fprintf(a1, "Gamma2 = %f\n", draw_gamma);
+	nox_fs_fprintf(a1, "InputSensitivity = %f\n", nox_input_getSensitivity());
 	if (sub_453070() == 1)
 		v3 = *(_DWORD*)((_DWORD)dword_587000_127004 + 4) >> 16;
 	else
 		v3 = 0;
-	fprintf(a1, "FXVolume = %d\n", v3);
+	nox_fs_fprintf(a1, "FXVolume = %d\n", v3);
 	if (sub_44D990() == 1)
 		v4 = *(_DWORD*)((_DWORD)dword_587000_122852 + 4) >> 16;
 	else
 		v4 = 0;
-	fprintf(a1, "DialogVolume = %d\n", v4);
+	nox_fs_fprintf(a1, "DialogVolume = %d\n", v4);
 	if (sub_43DC30() == 1)
 		v5 = *(_DWORD*)((_DWORD)dword_587000_93164 + 4) >> 16;
 	else
 		v5 = 0;
-	fprintf(a1, "MusicVolume = %d\n", v5);
-	fprintf(a1, "LastServer = %s\n", getMemAt(0x5D4594, 806060));
+	nox_fs_fprintf(a1, "MusicVolume = %d\n", v5);
+	nox_fs_fprintf(a1, "LastServer = %s\n", getMemAt(0x5D4594, 806060));
 	v6 = sub_433890();
-	fprintf(a1, "ServerName = %s\n", v6);
-	fprintf(a1, "UnlockSurface = %d\n", nox_video_dxUnlockSurface);
-	fprintf(a1, "SoftShadowEdge = %d\n", nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_SOFT_SHADOW_EDGE) ? 1 : 0);
-	fprintf(a1, "DrawFrontWalls = %d\n", nox_client_drawFrontWalls_80812);
-	fprintf(a1, "TranslucentFrontWalls = %d\n", nox_client_translucentFrontWalls_805844);
-	fprintf(a1, "HighResFrontWalls = %d\n", nox_client_highResFrontWalls_80820);
-	fprintf(a1, "HighResFloors = %d\n", nox_client_highResFloors_154952);
-	fprintf(a1, "LockHighResFloors = %d\n", nox_client_lockHighResFloors_1193152);
-	fprintf(a1, "TexturedFloors = %d\n", nox_client_texturedFloors_154956);
-	fprintf(a1, "TranslucentConsole = %d\n", nox_client_translucentConsole_80824);
-	fprintf(a1, "RenderGlow = %d\n", nox_client_renderGlow_805852);
-	fprintf(a1, "RenderGUI = %d\n", nox_client_renderGUI_80828);
-	fprintf(a1, "FadeObjects = %d\n", nox_client_fadeObjects_80836);
-	fprintf(a1, "RenderBubbles = %d\n", nox_client_renderBubbles_80844);
+	nox_fs_fprintf(a1, "ServerName = %s\n", v6);
+	nox_fs_fprintf(a1, "UnlockSurface = %d\n", nox_video_dxUnlockSurface);
+	nox_fs_fprintf(a1, "SoftShadowEdge = %d\n", nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_SOFT_SHADOW_EDGE) ? 1 : 0);
+	nox_fs_fprintf(a1, "DrawFrontWalls = %d\n", nox_client_drawFrontWalls_80812);
+	nox_fs_fprintf(a1, "TranslucentFrontWalls = %d\n", nox_client_translucentFrontWalls_805844);
+	nox_fs_fprintf(a1, "HighResFrontWalls = %d\n", nox_client_highResFrontWalls_80820);
+	nox_fs_fprintf(a1, "HighResFloors = %d\n", nox_client_highResFloors_154952);
+	nox_fs_fprintf(a1, "LockHighResFloors = %d\n", nox_client_lockHighResFloors_1193152);
+	nox_fs_fprintf(a1, "TexturedFloors = %d\n", nox_client_texturedFloors_154956);
+	nox_fs_fprintf(a1, "TranslucentConsole = %d\n", nox_client_translucentConsole_80824);
+	nox_fs_fprintf(a1, "RenderGlow = %d\n", nox_client_renderGlow_805852);
+	nox_fs_fprintf(a1, "RenderGUI = %d\n", nox_client_renderGUI_80828);
+	nox_fs_fprintf(a1, "FadeObjects = %d\n", nox_client_fadeObjects_80836);
+	nox_fs_fprintf(a1, "RenderBubbles = %d\n", nox_client_renderBubbles_80844);
 	v7 = sub_578DF0();
-	fprintf(a1, "TrackData = %d\n", v7);
+	nox_fs_fprintf(a1, "TrackData = %d\n", v7);
 	v8 = nox_xxx_sysopGetPass_40A630();
-	fprintf(a1, "SysopPassword = %S\n", v8);
-	fprintf(a1, "ServerPassword = %S\n", v1 + 78);
-	fprintf(a1, "Profiled = %d\n", nox_profiled_805856 != 0);
-	fprintf(a1, "SanctuaryHelp = %d\n", nox_server_sanctuaryHelp_54276);
-	fprintf(a1, "MaxPacketLossPct = %d\n", *getMemU32Ptr(0x587000, 81280));
-	fprintf(a1, "SendMessageOfTheDay = %d\n", nox_server_sendMotd_108752);
+	nox_fs_fprintf(a1, "SysopPassword = %S\n", v8);
+	nox_fs_fprintf(a1, "ServerPassword = %S\n", v1 + 78);
+	nox_fs_fprintf(a1, "Profiled = %d\n", nox_profiled_805856 != 0);
+	nox_fs_fprintf(a1, "SanctuaryHelp = %d\n", nox_server_sanctuaryHelp_54276);
+	nox_fs_fprintf(a1, "MaxPacketLossPct = %d\n", *getMemU32Ptr(0x587000, 81280));
+	nox_fs_fprintf(a1, "SendMessageOfTheDay = %d\n", nox_server_sendMotd_108752);
 	v9 = sub_4D0D70();
-	fprintf(a1, "MapCycle = %d\n", v9);
-	fprintf(a1, "ConnectionType = %d\n", nox_server_connectionType_3596);
+	nox_fs_fprintf(a1, "MapCycle = %d\n", v9);
+	nox_fs_fprintf(a1, "ConnectionType = %d\n", nox_server_connectionType_3596);
 	v10 = nox_xxx_rateGet_40A6C0();
-	fprintf(a1, "InternetUpdateRate = %d\n", v10);
-	fprintf(a1, "LessonLimit =");
+	nox_fs_fprintf(a1, "InternetUpdateRate = %d\n", v10);
+	nox_fs_fprintf(a1, "LessonLimit =");
 	sub_4337B0(a1);
-	fprintf(a1, "TimeLimit =");
+	nox_fs_fprintf(a1, "TimeLimit =");
 	sub_433820(a1);
-	fprintf(a1, "PlayerSkeletons = %d\n", *(_DWORD*)(v1 + 58));
-	fprintf(a1, "BroadcastGestures = %d\n", *(_DWORD*)(v1 + 62));
-	v11 = fprintf(a1, "LatencyCompensation = %d %d\n", *(_DWORD*)(v1 + 66), *(_DWORD*)(v1 + 70));
+	nox_fs_fprintf(a1, "PlayerSkeletons = %d\n", *(_DWORD*)(v1 + 58));
+	nox_fs_fprintf(a1, "BroadcastGestures = %d\n", *(_DWORD*)(v1 + 62));
+	v11 = nox_fs_fprintf(a1, "LatencyCompensation = %d %d\n", *(_DWORD*)(v1 + 66), *(_DWORD*)(v1 + 70));
 	LOBYTE(v11) = v1[100];
-	fprintf(a1, "Closed = %d\n", (v11 >> 4) & 1);
+	nox_fs_fprintf(a1, "Closed = %d\n", (v11 >> 4) & 1);
 	LOBYTE(v12) = v1[100];
-	fprintf(a1, "Private = %d\n", (v12 >> 5) & 1);
-	fprintf(a1, "AudioThreshold = %d\n", *(_DWORD*)(v1 + 74));
+	nox_fs_fprintf(a1, "Private = %d\n", (v12 >> 5) & 1);
+	nox_fs_fprintf(a1, "AudioThreshold = %d\n", *(_DWORD*)(v1 + 74));
 	v13 = nox_xxx_servGetPlrLimit_409FA0();
-	fprintf(a1, "MaxPlayers = %d\n", v13);
-	fprintf(a1, "RestrictedClasses = %d\n", v1[100] & 7);
-	fprintf(a1, "RestrictedPing = %d %d\n", *(unsigned __int16*)(v1 + 105), *(unsigned __int16*)(v1 + 107));
-	fprintf(a1, "LimitMaxRes = %d\n", (unsigned __int8)v1[102] >> 7);
+	nox_fs_fprintf(a1, "MaxPlayers = %d\n", v13);
+	nox_fs_fprintf(a1, "RestrictedClasses = %d\n", v1[100] & 7);
+	nox_fs_fprintf(a1, "RestrictedPing = %d %d\n", *(unsigned __int16*)(v1 + 105), *(unsigned __int16*)(v1 + 107));
+	nox_fs_fprintf(a1, "LimitMaxRes = %d\n", (unsigned __int8)v1[102] >> 7);
 	v14 = nox_xxx_getServerSubFlags_409E60();
-	fprintf(a1, "CamperAlarm = %d\n", (v14 >> 13) & 1);
+	nox_fs_fprintf(a1, "CamperAlarm = %d\n", (v14 >> 13) & 1);
 	v15 = sub_409F40(2);
-	fprintf(a1, "ItemRespawn = %d\n", v15);
-	fprintf(a1, "MinKickVotes = %d\n", *getMemU32Ptr(0x587000, 229980));
-	fprintf(a1, "ResetQuestMinVotes = %d\n", nox_server_resetQuestMinVotes_229988);
-	fprintf(a1, "KickQuestPlayerMinVotes = %d\n", nox_server_kickQuestPlayerMinVotes_229992);
+	nox_fs_fprintf(a1, "ItemRespawn = %d\n", v15);
+	nox_fs_fprintf(a1, "MinKickVotes = %d\n", *getMemU32Ptr(0x587000, 229980));
+	nox_fs_fprintf(a1, "ResetQuestMinVotes = %d\n", nox_server_resetQuestMinVotes_229988);
+	nox_fs_fprintf(a1, "KickQuestPlayerMinVotes = %d\n", nox_server_kickQuestPlayerMinVotes_229992);
 	v16 = sub_48A020(0, &v23);
-	fprintf(a1, "LANFilters = %d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d\n", v16, *v23, v23[1], v23[2], v23[3], v23[4], v23[5],
+	nox_fs_fprintf(a1, "LANFilters = %d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d\n", v16, *v23, v23[1], v23[2], v23[3], v23[4], v23[5],
 			v23[6], v23[7], v23[8], v23[9], v23[10]);
 	v17 = sub_48A020(1, &v23);
-	fprintf(a1, "INETFilters = %d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d\n", v17, *v23, v23[1], v23[2], v23[3], v23[4],
+	nox_fs_fprintf(a1, "INETFilters = %d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d\n", v17, *v23, v23[1], v23[2], v23[3], v23[4],
 			v23[5], v23[6], v23[7], v23[8], v23[9], v23[10]);
 	if (*getMemU32Ptr(0x587000, 81168)) {
 		v18 = getMemAt(0x587000, 81168);
 		v19 = getMemAt(0x587000, 81168);
 		do {
 			v20 = sub_4D0DE0(*((_DWORD*)v19 + 1));
-			fprintf(a1, "%s = %d\n", *(_DWORD*)v18, v20);
+			nox_fs_fprintf(a1, "%s = %d\n", *(_DWORD*)v18, v20);
 			v21 = *((_DWORD*)v19 + 2);
 			v19 += 8;
 			v18 = v19;
 		} while (v21);
 	}
-	return fprintf(a1, "---\n");
+	return nox_fs_fprintf(a1, "---\n");
 }
 // 4335F8: variable 'v12' is possibly undefined
 
@@ -6962,18 +6962,18 @@ int  sub_4337B0(FILE* a1) {
 	unsigned __int16 v4; // ax
 
 	v1 = nox_xxx_servGamedataGet_40A020(*getMemI16Ptr(0x587000, 81224));
-	fprintf(a1, " %d", v1);
+	nox_fs_fprintf(a1, " %d", v1);
 	LOWORD(v2) = *getMemU16Ptr(0x587000, 81228);
 	if (*getMemU32Ptr(0x587000, 81228)) {
 		v3 = getMemAt(0x587000, 81228);
 		do {
 			v4 = nox_xxx_servGamedataGet_40A020(v2);
-			fprintf(a1, ",%d", v4);
+			nox_fs_fprintf(a1, ",%d", v4);
 			v2 = *((_DWORD*)v3 + 1);
 			v3 += 4;
 		} while (v2);
 	}
-	return fprintf(a1, "\n");
+	return nox_fs_fprintf(a1, "\n");
 }
 
 //----- (00433820) --------------------------------------------------------
@@ -6984,18 +6984,18 @@ int  sub_433820(FILE* a1) {
 	unsigned __int8 v4;  // al
 
 	v1 = sub_40A180(*getMemI16Ptr(0x587000, 81224));
-	fprintf(a1, " %d", v1);
+	nox_fs_fprintf(a1, " %d", v1);
 	LOWORD(v2) = *getMemU16Ptr(0x587000, 81228);
 	if (*getMemU32Ptr(0x587000, 81228)) {
 		v3 = getMemAt(0x587000, 81228);
 		do {
 			v4 = sub_40A180(v2);
-			fprintf(a1, ",%d", v4);
+			nox_fs_fprintf(a1, ",%d", v4);
 			v2 = *((_DWORD*)v3 + 1);
 			v3 += 4;
 		} while (v2);
 	}
-	return fprintf(a1, "\n");
+	return nox_fs_fprintf(a1, "\n");
 }
 
 //----- (00433890) --------------------------------------------------------
