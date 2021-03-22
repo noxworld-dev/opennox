@@ -1205,7 +1205,7 @@ int  nox_video_bagMaybeReload(int a1);
 void nox_video_bagFree_42F4D0();
 int  nox_xxx_imgLoadAlloc_42F610(int a1);
 int  nox_xxx_imgLoad_42F660(int a1, void* a2);
-char*  nox_xxx_gLoadImg_42F970(const char* a1);
+void*  nox_xxx_gLoadImg_42F970(const char* name);
 char*  nox_xxx_gLoadAnim_42FA20(const char* a1);
 char*  nox_xxx_readImgMB_42FAA0(int known_idx, const char* a2, char* a3);
 int sub_42FAD0();

@@ -4730,30 +4730,27 @@ int  nox_xxx_imgLoad_42F660(int a1, void* a2) {
 // 42F660: using guessed type char var_10[16];
 
 //----- (0042F970) --------------------------------------------------------
-char*  nox_xxx_gLoadImg_42F970(const char* a1) {
-	int v1;         // edi
-	const char* i;  // ebp
-	int v4;         // eax
-	const char* v5; // ecx
-
-	if (!a1)
+void* nox_xxx_gLoadImg_42F970(const char* name) {
+	if (!name)
 		return 0;
-	v1 = 0;
-	if (*(int*)&dword_5d4594_787164 <= 0)
+	if (dword_5d4594_787164 <= 0)
 		return 0;
-	for (i = *(const char**)&dword_5d4594_787156; strcmp(a1, i); i += 104) {
-		if (++v1 >= *(int*)&dword_5d4594_787164)
-			return 0;
+	for (int v1 = 0; v1 < dword_5d4594_787164; v1++) {
+		const char* p = (char*)dword_5d4594_787156 + 104 * v1;
+		if (strcmp(name, p) == 0) {
+			int v4 = p;
+			const char* v5 = *(const char**)(v4 + 96);
+			if ((int)v5 == -1) {
+				LOBYTE(v5) = *(_BYTE*)(v4 + 100);
+				if ((_BYTE)v5 == (_BYTE)-1) {
+					return 0;
+				}
+				return nox_xxx_loadImage_47A8C0(v5, (char*)(v4 + 32));
+			}
+			return (char*)((char*)nox_video_bag_arr2_787152 + 12 * (_DWORD)v5);
+		}
 	}
-	v4 = (char*)dword_5d4594_787156 + 104 * v1;
-	v5 = *(const char**)(v4 + 96);
-	if ((int)v5 == -1) {
-		LOBYTE(v5) = *(_BYTE*)(v4 + 100);
-		if ((_BYTE)v5 != (_BYTE)-1)
-			return nox_xxx_loadImage_47A8C0(v5, (char*)(v4 + 32));
-		return 0;
-	}
-	return (char*)((char*)nox_video_bag_arr2_787152 + 12 * (_DWORD)v5);
+	return 0;
 }
 
 //----- (0042FA20) --------------------------------------------------------
