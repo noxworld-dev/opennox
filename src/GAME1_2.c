@@ -204,7 +204,7 @@ int nox_video_bag_cnt2_787168 = 0;
 
 void* nox_video_bag_ptr_787200 = 0;
 nox_video_bag_entry1_t* nox_video_bag_arr1_787148 = 0;
-void* nox_video_bag_arr2_787152 = 0;
+nox_image_xxx12_t* nox_video_bag_arr2_787152 = 0;
 void* nox_video_bag_ptr_787208 = 0;
 
 //----- (00427F30) --------------------------------------------------------
@@ -4271,85 +4271,62 @@ int  nox_video_bagReadHeader_42F1B0(int* data, int* hdr) {
 
 //----- (0042F200) --------------------------------------------------------
 void nox_video_bagRead_42F200(unsigned __int8* a1, int is16bit) {
-	unsigned __int8* v2;  // ecx
-	int v5;               // ebx
-	_DWORD* v6;           // ecx
-	int v7;               // edx
-	int v8;               // edi
-	int v9;               // ebp
-	int v10;              // ebx
-	int v11;              // edx
-	unsigned __int8* v12; // ecx
-	unsigned __int8 v13;  // al
-	_DWORD* v14;          // ecx
-	int v15;              // edi
-	int v16;              // [esp+0h] [ebp-Ch]
-	int v17;              // [esp+4h] [ebp-8h]
-	int v18;              // [esp+8h] [ebp-4h]
-	int v19;              // [esp+10h] [ebp+4h]
-
-	v2 = a1;
-	v17 = 0;
-	v16 = 0;
 	dword_5d4594_787180 = 0;
-	v19 = 0;
 	if (nox_video_bag_cnt1_787172 > 0) {
-		int v4 = 0;
-		do {
-			v5 = *((_DWORD*)v2 + 1);
-			v6 = v2 + 8;
+		int v16 = 0;
+		int v17 = 0;
+		for (int i = 0; i < nox_video_bag_cnt1_787172; i++) {
+			int v5 = *((_DWORD*)a1 + 1);
+			_DWORD* v6 = a1 + 8;
+			int v7 = 0;
 			if (dword_5d4594_754144) {
 				v7 = *v6;
 				++v6;
 			} else {
 				v7 = v5;
 			}
-			v8 = *v6;
-			v2 = (unsigned __int8*)(v6 + 1);
-			nox_video_bag_arr1_787148[v4].field_0 = 0;
-			nox_video_bag_arr1_787148[v4].field_1 = 0;
-			nox_video_bag_arr1_787148[v4].field_2 = v16;
-			nox_video_bag_arr1_787148[v4].field_3 = v5;
-			nox_video_bag_arr1_787148[v4].field_4 = v7;
-			nox_video_bag_arr1_787148[v4].field_5 = v17;
-			nox_video_bag_arr1_787148[v4].field_6 = v8;
+			int v8 = *v6;
+			a1 = (unsigned __int8*)(v6 + 1);
+			nox_video_bag_arr1_787148[i].field_0 = 0;
+			nox_video_bag_arr1_787148[i].field_1 = 0;
+			nox_video_bag_arr1_787148[i].field_2 = v16;
+			nox_video_bag_arr1_787148[i].field_3 = v5;
+			nox_video_bag_arr1_787148[i].field_4 = v7;
+			nox_video_bag_arr1_787148[i].field_5 = v17;
+			nox_video_bag_arr1_787148[i].field_6 = v8;
 			v16 += v7;
 			if (v8 == -1) {
 				v8 = 1;
 			} else if (v5 > dword_5d4594_787180) {
 				dword_5d4594_787180 = v5;
 			}
-			v9 = 0;
-			if (v8 <= 0) {
-				v10 = v19;
-			} else {
-				v10 = v19;
-				v11 = 12 * v17;
-				v18 = v8;
+			if (v8 > 0) {
+				int v9 = 0;
+				int v11 = v17;
 				v17 += v8;
-				do {
-					*(_WORD*)(v11 + (char*)nox_video_bag_arr2_787152 + 8) = v19;
-					v12 = &v2[*v2 + 1];
-					v13 = *v12;
-					v14 = v12 + 1;
-					*(_BYTE*)(v11 + (char*)nox_video_bag_arr2_787152 + 10) = v13;
-					if (is16bit == 1)
+				for (int j = v8; j > 0; j--) {
+					nox_video_bag_arr2_787152[v11].field_2_1 = i;
+					unsigned __int8* v12 = &a1[*a1 + 1];
+					unsigned __int8 v13 = *v12;
+					_DWORD* v14 = v12 + 1;
+					nox_video_bag_arr2_787152[v11].field_2_2 = v13;
+					int v15 = 0;
+					if (is16bit == 1) {
 						v15 = v14[0];
-					else
+					} else {
 						v15 = v14[1];
-					v2 = (unsigned __int8*)(v14 + 2);
-					v11 += 12;
-					*(_DWORD*)(v11 + (char*)nox_video_bag_arr2_787152 - 12) = v9;
+					}
+					a1 = (unsigned __int8*)(v14 + 2);
+					nox_video_bag_arr2_787152[v11].field_0 = v9;
+					v11++;
 					v9 += v15;
-					--v18;
-				} while (v18);
+				}
 			}
-			v4++;
-			v19 = v10 + 1;
-		} while (v10 + 1 < nox_video_bag_cnt1_787172);
+		}
 	}
-	if (dword_5d4594_787180 > *(int*)&dword_5d4594_787184)
+	if (dword_5d4594_787180 > (int)dword_5d4594_787184) {
 		dword_5d4594_787180 = dword_5d4594_787184;
+	}
 }
 
 //----- (0042F030) --------------------------------------------------------
@@ -4416,7 +4393,7 @@ int  nox_video_read_videobag(int is16bit) {
 		nox_video_bagAlloc_47A270();
 	}
 	nox_video_bag_arr1_787148 = malloc(sizeof(nox_video_bag_entry1_t) * nox_video_bag_cnt1_787172);
-	nox_video_bag_arr2_787152 = malloc(12 * nox_video_bag_cnt2_787168);
+	nox_video_bag_arr2_787152 = malloc(sizeof(nox_image_xxx12_t) * nox_video_bag_cnt2_787168);
 	nox_video_bagRead_42F200((unsigned char*)bagData + offs, is16bit);
 	free(bagData);
 	int v7 = 0x800000;
@@ -4532,7 +4509,7 @@ void nox_video_bagFree_42F4D0() {
 		nox_video_bag_arr1_787148 = 0;
 	}
 	if (nox_video_bag_arr2_787152) {
-		free(*(LPVOID*)&nox_video_bag_arr2_787152);
+		free(nox_video_bag_arr2_787152);
 		nox_video_bag_arr2_787152 = 0;
 	}
 	v0 = *(_BYTE**)&dword_5d4594_787156;
@@ -4708,7 +4685,7 @@ int  nox_xxx_imgLoad_42F660(int a1, void* a2) {
 									v28[v32] = 0;
 									*(_DWORD*)(v13[1] + v19) = nox_xxx_loadImage_47A8C0((const char*)a2, v28);
 								} else {
-									*(_DWORD*)(v13[1] + v19) = (char*)nox_video_bag_arr2_787152 + 12 * v21;
+									*(_DWORD*)(v13[1] + v19) = &nox_video_bag_arr2_787152[v21];
 								}
 								v19 += 4;
 								--v27;
@@ -4730,7 +4707,7 @@ int  nox_xxx_imgLoad_42F660(int a1, void* a2) {
 // 42F660: using guessed type char var_10[16];
 
 //----- (0042F970) --------------------------------------------------------
-void* nox_xxx_gLoadImg_42F970(const char* name) {
+nox_image_xxx12_t* nox_xxx_gLoadImg_42F970(const char* name) {
 	if (!name)
 		return 0;
 	if (dword_5d4594_787164 <= 0)
@@ -4739,7 +4716,7 @@ void* nox_xxx_gLoadImg_42F970(const char* name) {
 		const char* p = (char*)dword_5d4594_787156 + 104 * v1;
 		if (strcmp(name, p) == 0) {
 			int v4 = p;
-			const char* v5 = *(const char**)(v4 + 96);
+			int v5 = *(const char**)(v4 + 96);
 			if ((int)v5 == -1) {
 				LOBYTE(v5) = *(_BYTE*)(v4 + 100);
 				if ((_BYTE)v5 == (_BYTE)-1) {
@@ -4747,7 +4724,7 @@ void* nox_xxx_gLoadImg_42F970(const char* name) {
 				}
 				return nox_xxx_loadImage_47A8C0(v5, (char*)(v4 + 32));
 			}
-			return (char*)((char*)nox_video_bag_arr2_787152 + 12 * (_DWORD)v5);
+			return &nox_video_bag_arr2_787152[v5];
 		}
 	}
 	return 0;
@@ -4771,11 +4748,10 @@ char*  nox_xxx_gLoadAnim_42FA20(const char* a1) {
 }
 
 //----- (0042FAA0) --------------------------------------------------------
-char*  nox_xxx_readImgMB_42FAA0(int known_idx, const char* a2, char* a3) {
+nox_image_xxx12_t* nox_xxx_readImgMB_42FAA0(int known_idx, const char* a2, char* a3) {
 	if (known_idx != -1) {
-		return (char*)((char*)nox_video_bag_arr2_787152 + 12 * known_idx);
+		return &nox_video_bag_arr2_787152[known_idx];
 	}
-
 	return nox_xxx_loadImage_47A8C0(a2, a3);
 }
 
@@ -4942,7 +4918,7 @@ void check_preload(unsigned int x) {
 	printf("bag: %d\n", x);
 }
 
-int  sub_42FE30(int a1) {
+void  sub_42FE30(int a1) {
 	int v1;        // esi
 	signed int v2; // eax
 	char* v3;      // ebx
@@ -4950,7 +4926,6 @@ int  sub_42FE30(int a1) {
 	signed int v5; // eax
 	char* v6;      // edi
 	int v7;        // eax
-	int result;    // eax
 	int v9;        // [esp+8h] [ebp-8h]
 	int v10;       // [esp+Ch] [ebp-4h]
 	FILE* fp;
@@ -4986,42 +4961,35 @@ int  sub_42FE30(int a1) {
 		if (v3)
 			free(v3);
 	}
-	result = v10;
 	if (v10 == *(_DWORD*)(v1 + 16) && dword_5d4594_3799624 == 2)
-		result = sub_42FF90((_DWORD*)v1);
-	return result;
+		sub_42FF90((_DWORD*)v1);
 }
 
 //----- (0042FF90) --------------------------------------------------------
-int  sub_42FF90(_DWORD* a1) {
+void  sub_42FF90(_DWORD* a1) {
 	int v1;     // edx
-	int result; // eax
 	int v3;     // ecx
-	int v4;     // esi
 	int v5;     // ebx
 	char v6;    // cl
 
 	v1 = a1[6];
-	result = a1[5];
+	int result = a1[5];
 	if (v1 >= 0)
 		v3 = result + v1;
 	else
 		v3 = result - v1;
 	if (result < v3) {
-		v4 = 12 * result;
+		int v4 = result;
 		v5 = v3 - result;
 		do {
-			result = v4 + (char*)nox_video_bag_arr2_787152;
-			v6 = *(_BYTE*)(v4 + (char*)nox_video_bag_arr2_787152 + 10);
-			if (v6) {
-				if (v6 != 1)
-					result = nox_xxx_someVideoSwitch_47D480((int*)(*a1 + *(_DWORD*)result), v4 + (char*)nox_video_bag_arr2_787152);
+			v6 = nox_video_bag_arr2_787152[v4].field_2_2;
+			if (v6 && v6 != 1) {
+				nox_xxx_someVideoSwitch_47D480((int*)(*a1 + (_DWORD)nox_video_bag_arr2_787152[v4].field_0), &nox_video_bag_arr2_787152[v4]);
 			}
-			v4 += 12;
+			v4++;
 			--v5;
 		} while (v5);
 	}
-	return result;
 }
 
 //----- (0042FFF0) --------------------------------------------------------

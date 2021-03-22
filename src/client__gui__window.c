@@ -5,14 +5,14 @@
 #include "common/alloc/classes/alloc_class.h"
 
 #include "memmap.h"
-#include "defs.h" // nox_video_bag_entry1_t
+#include "defs.h" // nox_video_bag_entry1_t, nox_image_xxx12_t
 
 // TODO: part of the GUI toolkit
 void  nox_client_drawImageAt_47D2C0(void* a1, int x, int y);
 int  nox_xxx_drawGetStringSize_43F840(int a1, unsigned short* a2, int* a3, unsigned int* a4, int a5);
 int  nox_client_drawSetColor_434460(int a1);
 void  nox_client_drawRectFilledOpaque_49CE30(int xLeft, int yTop, int a3, int a4);
-void*  nox_xxx_gLoadImg_42F970(const char* a1);
+nox_image_xxx12_t*  nox_xxx_gLoadImg_42F970(const char* a1);
 
 // TODO: reference to input
 void sub_4309B0(unsigned char i, unsigned char v);

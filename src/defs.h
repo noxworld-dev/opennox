@@ -492,6 +492,14 @@ typedef struct nox_net_struct2_t {
 } nox_net_struct2_t;
 _Static_assert(sizeof(nox_net_struct2_t) == 68, "wrong size of nox_net_struct2_t structure!");
 
+typedef struct nox_image_xxx12_t {
+	_DWORD field_0; // 0, 0
+	_DWORD field_1; // 1, 4
+	_WORD field_2_1; // 2, 8
+	_WORD field_2_2; // 2, 10
+} nox_image_xxx12_t;
+_Static_assert(sizeof(nox_image_xxx12_t) == 12, "wrong size of nox_image_xxx12_t structure!");
+
 typedef struct {
 	_DWORD field_0;
 } nox_radioButton_data;
