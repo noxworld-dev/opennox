@@ -8,7 +8,7 @@
 #include "defs.h" // nox_video_bag_entry1_t
 
 // TODO: part of the GUI toolkit
-short  nox_client_drawImageAt_47D2C0(int a1, int a2, int a3);
+void  nox_client_drawImageAt_47D2C0(void* a1, int x, int y);
 int  nox_xxx_drawGetStringSize_43F840(int a1, unsigned short* a2, int* a3, unsigned int* a4, int a5);
 int  nox_client_drawSetColor_434460(int a1);
 void  nox_client_drawRectFilledOpaque_49CE30(int xLeft, int yTop, int a3, int a4);
@@ -484,14 +484,14 @@ void  sub_4A9E90(int a1, int a2, int a3, int a4) {
 	}
 	v9 = v4 - 10;
 	if (v4 - 10 - v5 >= 10) {
-		nox_client_drawImageAt_47D2C0(*(int*)&dword_5d4594_1309696, v5, v6);
-		nox_client_drawImageAt_47D2C0(*(int*)&dword_5d4594_1309696, v5, v8);
+		nox_client_drawImageAt_47D2C0(dword_5d4594_1309696, v5, v6);
+		nox_client_drawImageAt_47D2C0(dword_5d4594_1309696, v5, v8);
 		v5 += 10;
 	}
 	if (v5 < v9) {
 		v10 = v5 + ((v9 - v5 + 1) & 0xFFFFFFFE) - 10;
-		nox_client_drawImageAt_47D2C0(*(int*)&dword_5d4594_1309696, v10, v6);
-		nox_client_drawImageAt_47D2C0(*(int*)&dword_5d4594_1309696, v10, v8);
+		nox_client_drawImageAt_47D2C0(dword_5d4594_1309696, v10, v6);
+		nox_client_drawImageAt_47D2C0(dword_5d4594_1309696, v10, v8);
 	}
 	v11 = a2 + a4 - 30;
 	v12 = a2 + 10;
@@ -506,14 +506,14 @@ void  sub_4A9E90(int a1, int a2, int a3, int a4) {
 		v12 += 20;
 	}
 	if (v8 - v12 >= 10) {
-		nox_client_drawImageAt_47D2C0(*(int*)&dword_5d4594_1309704, v15, v12);
-		nox_client_drawImageAt_47D2C0(*(int*)&dword_5d4594_1309704, v9, v12);
+		nox_client_drawImageAt_47D2C0(dword_5d4594_1309704, v15, v12);
+		nox_client_drawImageAt_47D2C0(dword_5d4594_1309704, v9, v12);
 		v12 += 10;
 	}
 	if (v12 < v8) {
 		v16 = v12 + ((v8 - v12 + 1) & 0xFFFFFFFE) - 10;
-		nox_client_drawImageAt_47D2C0(*(int*)&dword_5d4594_1309704, v15, v16);
-		nox_client_drawImageAt_47D2C0(*(int*)&dword_5d4594_1309704, v9, v16);
+		nox_client_drawImageAt_47D2C0(dword_5d4594_1309704, v15, v16);
+		nox_client_drawImageAt_47D2C0(dword_5d4594_1309704, v9, v16);
 	}
 	nox_client_drawImageAt_47D2C0(*getMemIntPtr(0x5D4594, 1309676), v15, v21);
 	nox_client_drawImageAt_47D2C0(*getMemIntPtr(0x5D4594, 1309680), v9, v21);

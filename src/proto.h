@@ -2552,7 +2552,7 @@ int  sub_47D090(int a1, int a2);
 LPVOID sub_47D150();
 int sub_47D200();
 void nullsub_6(void); // weak
-__int16  nox_client_drawImageAt_47D2C0(int a1, int a2, int a3);
+void  nox_client_drawImageAt_47D2C0(void* a1, int x, int y);
 int  sub_47D370(int a1);
 int  sub_47D380(int a1, int a2);
 int  sub_47D3F0(int a1);
