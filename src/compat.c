@@ -677,27 +677,6 @@ int _mkdir(const char* path) {
 	return result;
 }
 
-char* fgets(char* str, int size, FILE* stream)
-#undef fgets
-#ifdef NOX_COMPAT_FGETS_PUSHED
-#pragma pop_macro("fgets")
-#endif
-{
-	char* result;
-
-	result = fgets(str, size, stream);
-	if (result) {
-		// XXX hack for text-mode line conversion
-		size = strlen(result);
-		if (size >= 2 && result[size - 1] == '\n' && result[size - 2] == '\r') {
-			result[size - 2] = '\n';
-			result[size - 1] = '\0';
-		}
-	}
-
-	return result;
-}
-
 // Registry functions
 LSTATUS WINAPI RegCreateKeyExA(HKEY hKey, LPCSTR lpSubKey, DWORD Reserved, LPSTR lpClass, DWORD dwOptions,
 							   REGSAM samDesired, const LPSECURITY_ATTRIBUTES lpSecurityAttributes, PHKEY phkResult,

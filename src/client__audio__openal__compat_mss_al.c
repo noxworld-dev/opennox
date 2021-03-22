@@ -355,16 +355,16 @@ static void stream_find_data(HSTREAM stream) {
 	stream->chunk_size = 0;
 	stream->chunk_pos = 0;
 
-	while (ftell(stream->file) < stream->file_size) {
+	while (nox_fs_ftell(stream->file) < stream->file_size) {
 		unsigned int size;
-		if (fread(tmp, 8, 1, stream->file) != 1)
+		if (nox_fs_fread(stream->file, tmp, 8) != 8)
 			break;
 		size = *(DWORD*)(tmp + 4);
 		if (memcmp(tmp, "data", 4) == 0) {
 			stream->chunk_size = size;
 			break;
 		}
-		fseek(stream->file, size, SEEK_CUR);
+		nox_fs_fseek_cur(stream->file,  size);
 	}
 }
 
@@ -384,7 +384,7 @@ static unsigned int stream_pcm_decode(HSTREAM stream, int16_t* out, unsigned int
 	if (remaining / 2 >= max_samples)
 		remaining = max_samples * 2;
 
-	fread(out, 2, remaining / 2, stream->file);
+	nox_fs_fread(stream->file, out, remaining);
 	stream->pcm.position += remaining / 2 / channels;
 	return remaining / 2;
 }
@@ -420,7 +420,7 @@ static unsigned int stream_adpcm_decode(HSTREAM stream, int16_t* out, unsigned i
 
 		if (remaining > block_size - stream->buffered)
 			remaining = block_size - stream->buffered;
-		fread(stream->buffer + stream->buffered, 1, remaining, stream->file);
+		nox_fs_fread(stream->file, stream->buffer + stream->buffered, remaining);
 		stream->buffered += remaining;
 	}
 
@@ -452,11 +452,11 @@ static void stream_adpcm_seek(HSTREAM stream, unsigned int position) {
 			break;
 		chunk_blocks = stream->chunk_size / block_size;
 		if (blocks < chunk_blocks) {
-			fseek(stream->file, blocks * block_size, SEEK_CUR);
+			nox_fs_fseek_cur(stream->file,  blocks * block_size);
 			stream->adpcm.position += blocks * samples_per_block;
 			break;
 		} else {
-			fseek(stream->file, stream->chunk_size, SEEK_CUR);
+			nox_fs_fseek_cur(stream->file,  stream->chunk_size);
 			stream->adpcm.position += chunk_blocks * samples_per_block;
 		}
 	}
@@ -486,7 +486,7 @@ static unsigned int stream_mp3_decode(HSTREAM stream, int16_t* out, unsigned int
 		if (remaining) {
 			if (remaining > sizeof(stream->buffer) - stream->buffered)
 				remaining = sizeof(stream->buffer) - stream->buffered;
-			fread(stream->buffer + stream->buffered, 1, remaining, stream->file);
+			nox_fs_fread(stream->file, stream->buffer + stream->buffered, remaining);
 			stream->buffered += remaining;
 		}
 	}
@@ -522,7 +522,7 @@ DXDEC HSTREAM AILCALL AIL_open_stream(HDIGDRIVER dig, char const FAR* filename, 
 	if (f == NULL)
 		return NULL;
 
-	if (fread(tmp, 12, 1, f) != 1)
+	if (nox_fs_fread(f, tmp, 12) != 12)
 		goto error;
 
 	if (memcmp(tmp, "RIFF", 4) != 0)
@@ -534,7 +534,7 @@ DXDEC HSTREAM AILCALL AIL_open_stream(HDIGDRIVER dig, char const FAR* filename, 
 	if (memcmp(tmp + 8, "WAVE", 4) != 0)
 		goto error;
 
-	if (fread(tmp, 8, 1, f) != 1)
+	if (nox_fs_fread(f, tmp, 8) != 8)
 		goto error;
 	size = *(DWORD*)(tmp + 4);
 
@@ -544,7 +544,7 @@ DXDEC HSTREAM AILCALL AIL_open_stream(HDIGDRIVER dig, char const FAR* filename, 
 	if (size < sizeof(WAVEFORMAT2) || size > sizeof(tmp))
 		goto error;
 
-	if (fread(tmp, size, 1, f) != 1)
+	if (nox_fs_fread(f, tmp, size) != size)
 		goto error;
 
 	stream = calloc(1, sizeof(*stream));
@@ -570,14 +570,14 @@ DXDEC HSTREAM AILCALL AIL_open_stream(HDIGDRIVER dig, char const FAR* filename, 
 		stream->seek = stream_adpcm_seek;
 		stream->tell = stream_adpcm_tell;
 
-		if (fread(tmp, 8, 1, f) != 1)
+		if (nox_fs_fread(f, tmp, 8) != 8)
 			goto error;
 		if (memcmp(tmp, "fact", 4) != 0)
 			goto error;
 		size = *(DWORD*)(tmp + 4);
 		if (size != 4)
 			goto error;
-		if (fread(tmp, 4, 1, f) != 1)
+		if (nox_fs_fread(f, tmp, 4) != 4)
 			goto error;
 
 		stream->adpcm.samples = *(DWORD*)tmp;
@@ -727,7 +727,7 @@ DXDEC void AILCALL AIL_set_stream_position(HSTREAM stream, S32 offset) {
 	stream->chunk_size = 0;
 	stream->chunk_pos = 0;
 	stream->buffered = 0;
-	fseek(stream->file, 12, SEEK_SET);
+	nox_fs_fseek_start(stream->file, 12);
 	stream->seek(stream, offset);
 	SDL_UnlockMutex(stream->dig->mutex);
 }

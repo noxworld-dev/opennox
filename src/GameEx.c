@@ -230,32 +230,32 @@ int  GameExCfgSaver() {
 	if (result == 0) {
 		return 0;
 	}
-	fwrite("AUTO_SHIELD = ", 0xEu, 1, v1);
+	nox_fs_fwrite(v1, "AUTO_SHIELD = ",  0xE);
 	v2 = "1\r\n";
 	if (!((*getMemU32Ptr(0x980858, 2) >> 1) & 1))
 		v2 = "0\r\n";
-	fwrite(v2, 3u, 1, v1);
-	fwrite("GREAT_SWORD_BLOKING_WALK = ", 0x1Bu, 1, v1);
+	nox_fs_fwrite(v1, v2, 3);
+	nox_fs_fwrite(v1, "GREAT_SWORD_BLOKING_WALK = ",  0x1B);
 	v3 = "1\r\n";
 	if (!((*getMemU32Ptr(0x980858, 2) >> 2) & 1))
 		v3 = "0\r\n";
-	fwrite(v3, 3u, 1, v1);
-	fwrite("MOUSE_KEYBOARD_ROLL = ", 0x16u, 1, v1);
+	nox_fs_fwrite(v1, v3, 3);
+	nox_fs_fwrite(v1, "MOUSE_KEYBOARD_ROLL = ", 0x16);
 	v4 = "1\r\n";
 	if (!((*getMemU32Ptr(0x980858, 2) >> 3) & 1))
 		v4 = "0\r\n";
-	fwrite(v4, 3u, 1, v1);
-	fwrite("BERSERKER_SHIED_BLOCK = ", 0x18u, 1, v1);
+	nox_fs_fwrite(v1, v4, 3);
+	nox_fs_fwrite(v1, "BERSERKER_SHIED_BLOCK = ", 0x18);
 	v5 = "1\r\n";
 	if (!((*getMemU32Ptr(0x980858, 2) >> 4) & 1))
 		v5 = "0\r\n";
-	fwrite(v5, 3u, 1, v1);
-	fwrite("EXTENSION_MESSAGES = ", 0x15u, 1, v1);
+	nox_fs_fwrite(v1, v5, 3);
+	nox_fs_fwrite(v1, "EXTENSION_MESSAGES = ", 0x15);
 	v6 = "1\r\n";
 	if (!((*getMemU32Ptr(0x980858, 2) >> 5) & 1))
 		v6 = "0\r\n";
-	fwrite(v6, 3u, 1, v1);
-	fwrite("PANEL1 = ", 9u, 1, v1);
+	nox_fs_fwrite(v1, v6, 3);
+	nox_fs_fwrite(v1, "PANEL1 = ", 9);
 	v7 = 0;
 	v8 = keycodeArray;
 	while (functionalKeyCodes[0] != v8->keyCode) {
@@ -268,9 +268,9 @@ int  GameExCfgSaver() {
 	}
 	v9 = keycodeArray[v7].keyName;
 LABEL_17:
-	fwrite(v9, strlen(v9), 1, v1);
-	fwrite("\r\n", 2u, 1, v1);
-	fwrite("PANEL2 = ", 9u, 1, v1);
+	nox_fs_fwrite(v1, v9, strlen(v9));
+	nox_fs_fwrite(v1, "\r\n", 2);
+	nox_fs_fwrite(v1, "PANEL2 = ", 9);
 	v10 = 0;
 	v11 = keycodeArray;
 	while (functionalKeyCodes[1] != v11->keyCode) {
@@ -283,9 +283,9 @@ LABEL_17:
 	}
 	v12 = keycodeArray[v10].keyName;
 LABEL_21:
-	fwrite(v12, strlen(v12), 1, v1);
-	fwrite("\r\n", 2u, 1, v1);
-	fwrite("PANEL3 = ", 9u, 1, v1);
+	nox_fs_fwrite(v1, v12, strlen(v12));
+	nox_fs_fwrite(v1, "\r\n", 2);
+	nox_fs_fwrite(v1, "PANEL3 = ", 9);
 	v13 = 0;
 	v14 = keycodeArray;
 	while (functionalKeyCodes[2] != v14->keyCode) {
@@ -298,9 +298,9 @@ LABEL_21:
 	}
 	v15 = keycodeArray[v13].keyName;
 LABEL_25:
-	fwrite(v15, strlen(v15), 1, v1);
-	fwrite("\r\n", 2u, 1, v1);
-	fwrite("PANEL4 = ", 9u, 1, v1);
+	nox_fs_fwrite(v1, v15, strlen(v15));
+	nox_fs_fwrite(v1, "\r\n", 2);
+	nox_fs_fwrite(v1, "PANEL4 = ", 9);
 	v16 = 0;
 	v17 = keycodeArray;
 	while (functionalKeyCodes[3] != v17->keyCode) {
@@ -313,9 +313,9 @@ LABEL_25:
 	}
 	v18 = keycodeArray[v16].keyName;
 LABEL_29:
-	fwrite(v18, strlen(v18), 1, v1);
-	fwrite("\r\n", 2u, 1, v1);
-	fwrite("PANEL5 = ", 9u, 1, v1);
+	nox_fs_fwrite(v1, v18, strlen(v18));
+	nox_fs_fwrite(v1, "\r\n", 2);
+	nox_fs_fwrite(v1, "PANEL5 = ", 9);
 	v19 = 0;
 	v20 = keycodeArray;
 	while (functionalKeyCodes[4] != v20->keyCode) {
@@ -328,9 +328,9 @@ LABEL_29:
 	}
 	v21 = keycodeArray[v19].keyName;
 LABEL_33:
-	fwrite(v21, strlen(v21), 1, v1);
-	fwrite("\r\n", 2u, 1, v1);
-	fwrite("TRAPKEY = ", 0xAu, 1, v1);
+	nox_fs_fwrite(v1, v21, strlen(v21));
+	nox_fs_fwrite(v1, "\r\n", 2);
+	nox_fs_fwrite(v1, "TRAPKEY = ", 0xA);
 	v22 = 0;
 	v23 = keycodeArray;
 	while (functionalKeyCodes[5] != v23->keyCode) {
@@ -343,8 +343,8 @@ LABEL_33:
 	}
 	v24 = keycodeArray[v22].keyName;
 LABEL_37:
-	fwrite(v24, strlen(v24), 1, v1);
-	fwrite("\r\n----------", 0xCu, 1, v1);
+	nox_fs_fwrite(v1, v24, strlen(v24));
+	nox_fs_fwrite(v1, "\r\n----------", 0xC);
 	nox_fs_close(v1);
 	return 1;
 }
@@ -393,12 +393,10 @@ char GameExCfgLoader() {
 	v1 = v0;
 	if (!v0)
 		return 0;
-	fseek(v0, 0, SEEK_END);
-	v3 = ftell(v0);
-	fseek(v0, 0, SEEK_SET);
+	v3 = nox_fs_fsize(v0);
 	if (v3) {
 		v4 = (char*)malloc(v3 + 1);
-		if (fread(v4, 1, v3, v1) == v3) {
+		if (nox_fs_fread(v1, v4,  v3) == v3) {
 			SomeStringSearcher(v4, "AUTO_SHIELD", (char*)&v6);
 			if ((_BYTE)*v6 == 48)
 				*getMemU32Ptr(0x980858, 2) &= 0xFFFFFFFD;
@@ -726,9 +724,7 @@ HANDLE __usercall GameIpParser(int a1, int a2, int a3) {
 
 	result = nox_fs_open_text("game_ip.txt");
 	if (result) {
-		fseek(result, 0, SEEK_END);
-		fileSize = ftell(result);
-		fseek(result, 0, SEEK_SET);
+		fileSize = nox_fs_fsize(result);
 		if (fileSize) {
 			fileBufferSize = fileSize + 1;
 			NumberOfBytesRead = 0;
@@ -738,7 +734,7 @@ HANDLE __usercall GameIpParser(int a1, int a2, int a3) {
 			*(_DWORD*)&cp[12] = 0;
 			*(_DWORD*)&cp[16] = 0;
 			fileBuffer = malloc(fileBufferSize);
-			if (fread(fileBuffer, 1, fileSize, result) == fileSize) {
+			if (nox_fs_fread(result, fileBuffer, fileSize) == fileSize) {
 				fileBufferOffset = 0;
 				v9 = 0;
 				if (fileBufferSize) {
@@ -768,8 +764,8 @@ HANDLE __usercall GameIpParser(int a1, int a2, int a3) {
 			}
 			free(fileBuffer);
 		}
-		result = 0;
 		nox_fs_close(result);
+		result = 0;
 	}
 	return result;
 }

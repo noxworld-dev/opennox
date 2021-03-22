@@ -2509,7 +2509,7 @@ _DWORD*  nox_xxx_FontLoadFile_43F3B0(char* a1) {
 				if (!v4 || nox_binfile_fread2_40ADD0(v4, 8 * v1[3], 1u, v3) != 1)
 					goto LABEL_15;
 			} else {
-				fseek(v3, 0, SEEK_SET);
+				nox_fs_fseek_start(v3, 0);
 				if (nox_binfile_fread2_40ADD0((char*)v18, 0x4Cu, 1u, v3) != 1)
 					goto LABEL_15;
 				v5 = *(_WORD*)&v18[2];
@@ -3735,12 +3735,12 @@ int  nox_xxx_doExecrul_4438A0(int a1) {
 	v2 = v1;
 	if (!v1)
 		return 0;
-	if (!feof(v1)) {
+	if (!nox_fs_feof(v1)) {
 		do {
 			memset(v5, 0, 0xFCu);
 			*(_WORD*)&v5[252] = 0;
 			v5[254] = 0;
-			fgets(v5, 255, v2);
+			nox_fs_fgets(v2, v5, 255);
 			v3 = strchr(v5, 10);
 			if (v3)
 				*v3 = 0;
@@ -3749,7 +3749,7 @@ int  nox_xxx_doExecrul_4438A0(int a1) {
 				nox_xxx_consoleVPrint_450C00(4u, (wchar_t*)getMemAt(0x587000, 106956), v7);
 				nox_server_parseCmdText_443C80(v7, 1);
 			}
-		} while (!feof(v2));
+		} while (!nox_fs_feof(v2));
 	}
 	nox_fs_close(v2);
 	return 1;
@@ -4299,9 +4299,7 @@ int  nox_motd_4463E0(int a1) {
 	result = nox_fs_open("motd.txt");
 	v2 = result;
 	if (result) {
-		fseek(result, 0, SEEK_END);
-		*getMemU32Ptr(0x5D4594, 4 * a1 + 826040) = ftell(v2);
-		fseek(v2, 0, SEEK_SET);
+		*getMemU32Ptr(0x5D4594, 4 * a1 + 826040) = nox_fs_fsize(v2);
 		v3 = (char*)calloc(*getMemU32Ptr(0x5D4594, 4 * a1 + 826040) + 1, 1u);
 		dword_5d4594_826036 = v3;
 		if (v3) {

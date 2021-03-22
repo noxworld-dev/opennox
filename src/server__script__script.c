@@ -248,13 +248,13 @@ int nox_server_mapRWScriptData_504F90() {
 //----- (00505800) --------------------------------------------------------
 int nox_script_ncobj_readInt_505800(FILE* f) {
 	int val;
-	int n = fread(&val, 4, 1, f);
-	return n == 1 ? val : 0;
+	int n = nox_fs_fread(f, &val, 4);
+	return n == 4 ? val : 0;
 }
 
 //----- (00505830) --------------------------------------------------------
 bool nox_script_ncobj_readString_505830(FILE* f, int sz, char* dst) {
-	int n = fread(dst, 1, sz, f);
+	int n = nox_fs_fread(f, dst, sz);
 	dst[sz] = 0;
 	return n == sz;
 }
@@ -401,7 +401,7 @@ int nox_script_ncobj_parse_505360() {
 		}
 		n = nox_script_ncobj_readInt_505800(f);
 		cur->data = calloc(1, n);
-		if (fread(cur->data, 1, n, f) != n) {
+		if (nox_fs_fread(f, cur->data, n) != n) {
 			nox_fs_close(f);
 			return 0;
 		}

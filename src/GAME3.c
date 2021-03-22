@@ -2762,11 +2762,11 @@ int  sub_4A7D70(char* a1) {
 		v3 = v2;
 		if (!v2)
 			return 0;
-		fgets((char*)getMemAt(0x5D4594, 1308388), 256, v2);
-		if (!feof(v3)) {
+		nox_fs_fgets(v2, (char*)getMemAt(0x5D4594, 1308388), 256);
+		if (!nox_fs_feof(v3)) {
 			while (sub_4A7DF0((char*)getMemAt(0x5D4594, 1308388))) {
-				fgets((char*)getMemAt(0x5D4594, 1308388), 256, v3);
-				if (feof(v3))
+				nox_fs_fgets(v3, (char*)getMemAt(0x5D4594, 1308388), 256);
+				if (nox_fs_feof(v3))
 					break;
 			}
 			return 0;
@@ -4666,7 +4666,7 @@ void  nox_xxx_netMapDownloadPart_4AB7C0(unsigned __int16 a1, void* a2, size_t a3
 
 	if (a2 && a3) {
 		if (a1 == nox_xxx_mapPartN_587000_173336) {
-			fwrite(a2, a3, 1u, nox_file_9);
+			nox_fs_fwrite(nox_file_9, a2, a3);
 			dword_5d4594_1309768 += a3;
 			++nox_xxx_mapPartN_587000_173336;
 		} else {
@@ -4692,7 +4692,7 @@ void  nox_xxx_netMapDownloadPart_4AB7C0(unsigned __int16 a1, void* a2, size_t a3
 		if (dword_5d4594_1309780) {
 			do {
 				if (nox_xxx_mapPartN_587000_173336 == *v5) {
-					fwrite(*((void**)v5 + 1), *((_DWORD*)v5 + 2), 1u, nox_file_9);
+					nox_fs_fwrite(nox_file_9, *((void**)v5 + 1), *((_DWORD*)v5 + 2));
 					dword_5d4594_1309768 += *((_DWORD*)v5 + 2);
 					++nox_xxx_mapPartN_587000_173336;
 					v6 = *((_DWORD*)v5 + 4);

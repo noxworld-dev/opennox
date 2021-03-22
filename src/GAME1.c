@@ -3689,13 +3689,13 @@ int  nox_common_getInstallPath_40E0D0(int a1, LPCSTR lpSubKey, int a3) {
 			v10 = 1;
 			if (!a3)
 				v10 = -1;
-			v11 = fgetc((FILE*)result);
+			v11 = nox_fs_fgetc((FILE*)result);
 			if (v11 != -1) {
 				do {
 					*(_BYTE*)(v9 + a1) = ((*(char*)(v9 + a1) - 48) % 10 + v10 * v11 + 1000) % 10 + 48;
 					if (++v9 == strlen((const char*)a1))
 						v9 = 0;
-					v11 = fgetc(v13);
+					v11 = nox_fs_fgetc(v13);
 				} while (v11 != -1);
 				v8 = v13;
 			}
@@ -6858,8 +6858,8 @@ void  sub_413AD0(FILE* a1) {
 
 	if (a1) {
 		v2 = sub_413B00();
-		fprintf(a1, "Log closed: %s", v2);
-		fflush(a1);
+		nox_fs_fprintf(a1, "Log closed: %s", v2);
+		nox_fs_flush(a1);
 		nox_fs_close(a1);
 	}
 }
@@ -6884,8 +6884,8 @@ int  sub_413B20(FILE** a1, char* a2) {
 	if (!a1)
 		return 0;
 	v4 = sub_413B00();
-	fprintf(*a1, "Log opened: %s", v4);
-	fflush(*a1);
+	nox_fs_fprintf(*a1, "Log opened: %s", v4);
+	nox_fs_flush(*a1);
 	return 1;
 }
 // 413B44: variable 'v3' is possibly undefined
@@ -6905,8 +6905,8 @@ void sub_413B70(char* a1, ...) {
 //----- (00413BD0) --------------------------------------------------------
 void  sub_413BD0(FILE* a1, int a2) {
 	if (a1) {
-		fprintf(a1, "%s", a2);
-		fflush(a1);
+		nox_fs_fprintf(a1, "%s", a2);
+		nox_fs_flush(a1);
 	}
 }
 

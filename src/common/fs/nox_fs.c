@@ -426,15 +426,60 @@ int nox_fs_fread(FILE* f, void* dst, int sz) {
 	return fread(dst, 1, sz, f);
 }
 
-int nox_fs_fseek_start(FILE* f, unsigned int off) {
-	return fseek(f, off, SEEK_SET);
+int nox_fs_fwrite(FILE* f, void* dst, int sz) {
+	return fwrite(dst, 1, sz, f);
+}
+
+int nox_fs_fseek(FILE* f, long off, int mode) {
+	return fseek(f, off, mode);
+}
+
+long nox_fs_ftell(FILE* f) {
+	return ftell(f);
+}
+
+long nox_fs_fsize(FILE* f) {
+	long cur = ftell(f);
+	fseek(f, 0, SEEK_END);
+	long size = ftell(f);
+	fseek(f, cur, SEEK_SET);
+	return size;
 }
 
 void nox_fs_close(FILE* f) {
 	fclose(f);
 }
 
+void nox_fs_flush(FILE* f) {
+	nox_fs_flush(f);
+}
+
 bool nox_fs_move(const char* src, const char* dst) {
 	printf("%s\n", __FUNCTION__);
 	abort();
+}
+
+bool nox_fs_fgets(FILE* stream, char* str, int size) {
+	char* out = fgets(str, size, stream);
+	if (out) {
+		// XXX hack for text-mode line conversion
+		size = strlen(out);
+		if (size >= 2 && out[size - 1] == '\n' && out[size - 2] == '\r') {
+			out[size - 2] = '\n';
+			out[size - 1] = '\0';
+		}
+	}
+	return out;
+}
+
+int nox_fs_fgetc(FILE* f) {
+	return fgetc(f);
+}
+
+int nox_fs_fputs(FILE* f, const char* str) {
+	return fputs(str, f);
+}
+
+bool nox_fs_feof(FILE* f) {
+	return feof(f) != 0;
 }

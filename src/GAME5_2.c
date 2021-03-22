@@ -3852,10 +3852,10 @@ int  sub_57A3F0(char* a1, int a2, int a3, int a4) {
 	v5 = v4;
 	if (!v4)
 		return 0;
-	if (!feof(v4)) {
+	if (!nox_fs_feof(v4)) {
 		do {
 			memset(v8, 0, sizeof(v8));
-			fgets(v8, 256, v5);
+			nox_fs_fgets(v5, v8, 256);
 			v6 = strchr(v8, 10);
 			if (v6)
 				*v6 = 0;
@@ -3863,7 +3863,7 @@ int  sub_57A3F0(char* a1, int a2, int a3, int a4) {
 				nox_swprintf(v9, L"%S", v8);
 				sub_57A4D0(v9, a2, a3, a4);
 			}
-		} while (!feof(v5));
+		} while (!nox_fs_feof(v5));
 	}
 	nox_fs_close(v5);
 	return 1;
@@ -4096,12 +4096,12 @@ char  sub_57AAA0(const char* a1, char* a2, int* a3) {
 			if (a3) {
 				for (i = nox_xxx_gameMapsValidateListMB_425890(a3); i; i = sub_4258A0(i)) {
 					nox_sprintf(v23, "%S\n", i + 3);
-					fputs(v23, v4);
+					nox_fs_fputs(v4, v23);
 				}
 			}
 			v6 = sub_57A1B0(*((_WORD*)a2 + 26));
-			fputs(v6, v4);
-			fputs("\n", v4);
+			nox_fs_fputs(v4, v6);
+			nox_fs_fputs(v4, "\n");
 			v7 = 1;
 			v8 = 136;
 			do {
@@ -4110,7 +4110,7 @@ char  sub_57AAA0(const char* a1, char* a2, int* a3) {
 					v9 = nox_xxx_spellNameByN_424870(v7);
 					nox_sprintf(v23, "%s %s \"%s\" %s\n", getMemAt(0x587000, 312616), getMemAt(0x587000, 312608), v9,
 								getMemAt(0x587000, 312604));
-					fputs(v23, v4);
+					nox_fs_fputs(v4, v23);
 				}
 				++v7;
 				--v8;
@@ -4123,7 +4123,7 @@ char  sub_57AAA0(const char* a1, char* a2, int* a3) {
 					if (v12) {
 						nox_sprintf(v23, "%s %s \"%s\" %s\n", getMemAt(0x587000, 312648), getMemAt(0x587000, 312640), v12,
 									getMemAt(0x587000, 312636));
-						fputs(v23, v4);
+						nox_fs_fputs(v4, v23);
 					}
 				}
 				v10 *= 2;
@@ -4139,7 +4139,7 @@ char  sub_57AAA0(const char* a1, char* a2, int* a3) {
 					if (v16) {
 						nox_sprintf(v23, "%s %s \"%s\" %s\n", getMemAt(0x587000, 312680), getMemAt(0x587000, 312672), v16,
 									getMemAt(0x587000, 312668));
-						fputs(v23, v4);
+						nox_fs_fputs(v4, v23);
 					}
 				}
 				if (v13 == 128) {
@@ -4746,7 +4746,7 @@ LABEL_30:
 int  nox_xxx_getToken_57BBC0(FILE* f, char* buf, int bufSz) {
 	bool tab = true;
 	for (int i = 0; i < bufSz; i++) {
-		char c = fgetc(f);
+		char c = nox_fs_fgetc(f);
 		if (!isspace(c)) {
 			if (c == ';') {
 				buf[i] = 0;
@@ -4790,9 +4790,7 @@ int  nox_xxx_mapNxzDecompress_57BC50(char* a1, char* a2) {
 	v3 = v2;
 	if (!v2)
 		return 0;
-	fseek(v2, 0, SEEK_END);
-	v4 = ftell(v3);
-	fseek(v3, 0, SEEK_SET);
+	v4 = nox_fs_fsize(v3);
 	v5 = (char*)(v4 - 4);
 	nox_binfile_fread2_40ADD0((char*)&v12, 1u, 4u, v3);
 	v6 = (char*)malloc((size_t)v5);
@@ -4813,7 +4811,7 @@ int  nox_xxx_mapNxzDecompress_57BC50(char* a1, char* a2) {
 	v10 = nox_fs_create(a2);
 	if (!v10)
 		return 0;
-	fwrite(v8, v12, 1u, v10);
+	nox_fs_fwrite(v10, v8, v12);
 	nox_fs_close(v10);
 	free(v6);
 	free(v8);
@@ -4847,9 +4845,7 @@ int  nox_xxx_mapFile_57BDD0(LPVOID lpMem, int a2) {
 	v4 = v3;
 	if (!v3)
 		return 0;
-	fseek(v3, 0, SEEK_END);
-	v15 = ftell(v4);
-	fseek(v4, 0, SEEK_SET);
+	v15 = nox_fs_fsize(v4);
 	v5 = (char*)malloc(v15);
 	v6 = sub_578BA0(v15);
 	v7 = malloc(v6);
@@ -4872,8 +4868,8 @@ int  nox_xxx_mapFile_57BDD0(LPVOID lpMem, int a2) {
 	v13 = v12;
 	if (!v12)
 		return 0;
-	fwrite(&v15, 4u, 1u, v12);
-	fwrite(lpMema, v2, 1u, v13);
+	nox_fs_fwrite(v12, &v15, 4);
+	nox_fs_fwrite(v13, lpMema, v2);
 	nox_fs_close(v13);
 	free(v5);
 	free(lpMema);

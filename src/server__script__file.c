@@ -15,25 +15,25 @@ unsigned int dword_5d4594_2489428 = 0;
 //----- (00542B70) --------------------------------------------------------
 int nox_script_readInt_542B70(FILE* f) {
 	int v = 0;
-	fread(&v, 4, 1, f);
+	nox_fs_fread(f, &v, 4);
 	return v;
 }
 
 //----- (00542B90) --------------------------------------------------------
 double nox_script_readFloat_542B90(FILE* f) {
 	float v = 0;
-	fread(&v, 4, 1, f);
+	nox_fs_fread(f, &v, 4);
 	return v;
 }
 
 //----- (00542BD0) --------------------------------------------------------
 int nox_script_writeFloat_542BD0(float v, FILE* f) {
-	return fwrite(&v, 4, 1, f);
+	return nox_fs_fwrite(f, &v, 4)/4;
 }
 
 //----- (00542BB0) --------------------------------------------------------
 int nox_script_writeInt_542BB0(int v, FILE* f) {
-	return fwrite(&v, 4, 1, f);
+	return nox_fs_fwrite(f, &v, 4)/4;
 }
 
 //----- (00542380) --------------------------------------------------------
@@ -301,18 +301,18 @@ int  nox_script_readWriteYyy_542380(FILE* f1, FILE* f2, int a3) {
 			if (a3) {
 				if (nox_script_shouldReadMoreXxx(v13)) {
 					int a2 = 0;
-					fseek(f2, -4, SEEK_CUR);
-					fread(&a2, 4u, 1u, f2);
-					fseek(f2, -4, SEEK_CUR);
+					nox_fs_fseek_cur(f2,  -4);
+					nox_fs_fread(f2, &a2, 4);
+					nox_fs_fseek_cur(f2,  -4);
 					a2 = ((char*)a2 + dword_5d4594_2489428 - 2);
-					fwrite(&a2, 4u, 1u, f2);
+					nox_fs_fwrite(f2, &a2, 4);
 					if (nox_script_shouldReadEvenMoreXxx(v13)) {
-						fseek(f2, -12, SEEK_CUR);
-						fread(&a2, 4u, 1u, f2);
-						fseek(f2, -4, SEEK_CUR);
+						nox_fs_fseek_cur(f2,  -12);
+						nox_fs_fread(f2, &a2, 4);
+						nox_fs_fseek_cur(f2,  -4);
 						a2 = ((char*)a2 + dword_5d4594_2489428 - 2);
-						fwrite(&a2, 4u, 1u, f2);
-						fseek(f2, 8, SEEK_CUR);
+						nox_fs_fwrite(f2, &a2, 4);
+						nox_fs_fseek_cur(f2,  8);
 					}
 				}
 			}
@@ -353,28 +353,28 @@ int  nox_script_readWriteJjj_5418C0(FILE* a1, FILE* a2, FILE* a3) {
 
 	strcpy((char*)v10, "STRG");
 	v6 = strlen((const char*)v10);
-	fread(v10, v6, 1u, a1);
-	fread(v10, v6, 1u, a2);
-	fwrite(v10, v6, 1u, a3);
-	fread(&v8, 4u, 1u, a1);
-	fread(&v7, 4u, 1u, a2);
+	nox_fs_fread(a1, v10, v6);
+	nox_fs_fread(a2, v10, v6);
+	nox_fs_fwrite(a3, v10, v6);
+	nox_fs_fread(a1, &v8, 4);
+	nox_fs_fread(a2, &v7, 4);
 	dword_5d4594_2489424 = v8;
 	v9 = v8 + v7;
-	fwrite(&v9, 4u, 1u, a3);
+	nox_fs_fwrite(a3, &v9, 4);
 	for (i = 0; i < v8; ++i) {
-		fread(&v6, 4u, 1u, a1);
-		fread(v10, v6, 1u, a1);
+		nox_fs_fread(a1, &v6, 4);
+		nox_fs_fread(a1, v10, v6);
 		v10[v6] = 0;
-		fwrite(&v6, 4u, 1u, a3);
-		fwrite(v10, v6, 1u, a3);
+		nox_fs_fwrite(a3, &v6, 4);
+		nox_fs_fwrite(a3, v10, v6);
 	}
 	result = v7;
 	for (j = 0; j < v7; ++j) {
-		fread(&v6, 4u, 1u, a2);
-		fread(v10, v6, 1u, a2);
+		nox_fs_fread(a2, &v6, 4);
+		nox_fs_fread(a2, v10, v6);
 		v10[v6] = 0;
-		fwrite(&v6, 4u, 1u, a3);
-		fwrite(v10, v6, 1u, a3);
+		nox_fs_fwrite(a3, &v6, 4);
+		nox_fs_fwrite(a3, v10, v6);
 		result = v7;
 	}
 	return result;
@@ -398,92 +398,92 @@ int  nox_script_readWriteVvv_541E40(FILE* a1, FILE* a2, FILE* a3) {
 	int v17;  // [esp+44h] [ebp-1000h]
 
 	v4 = 4;
-	fread(&v17, 4u, 1u, a1);
-	fread(&v17, 4u, 1u, a2);
-	fwrite(&v17, 4u, 1u, a3);
-	fread(&v4, 4u, 1u, a1);
-	fread(&v17, v4, 1u, a1);
-	fread(&v4, 4u, 1u, a2);
-	fread(&v17, v4, 1u, a2);
-	fwrite(&v4, 4u, 1u, a3);
-	fwrite(&v17, v4, 1u, a3);
-	fread(&v9, 4u, 1u, a1);
-	fread(&v9, 4u, 1u, a2);
-	fwrite(&v9, 4u, 1u, a3);
-	fread(&v8, 4u, 1u, a1);
-	fread(&v8, 4u, 1u, a2);
-	fwrite(&v8, 4u, 1u, a3);
+	nox_fs_fread(a1, &v17, 4u);
+	nox_fs_fread(a2, &v17, 4u);
+	nox_fs_fwrite(a3, &v17, 4);
+	nox_fs_fread(a1, &v4, 4u);
+	nox_fs_fread(a1, &v17, v4);
+	nox_fs_fread(a2, &v4, 4u);
+	nox_fs_fread(a2, &v17, v4);
+	nox_fs_fwrite(a3, &v4, 4);
+	nox_fs_fwrite(a3, &v17, v4);
+	nox_fs_fread(a1, &v9, 4u);
+	nox_fs_fread(a2, &v9, 4u);
+	nox_fs_fwrite(a3, &v9, 4);
+	nox_fs_fread(a1, &v8, 4u);
+	nox_fs_fread(a2, &v8, 4u);
+	nox_fs_fwrite(a3, &v8, 4);
 	v4 = 4;
-	fread(&v17, 4u, 1u, a1);
-	fread(&v17, v4, 1u, a2);
-	fwrite(&v17, v4, 1u, a3);
-	fread(&v7, 4u, 1u, a1);
-	fread(&v11, 4u, 1u, a2);
+	nox_fs_fread(a1, &v17, 4u);
+	nox_fs_fread(a2, &v17, v4);
+	nox_fs_fwrite(a3, &v17, v4);
+	nox_fs_fread(a1, &v7, 4u);
+	nox_fs_fread(a2, &v11, 4u);
 	v12 = v7 + v11;
-	fwrite(&v12, 4u, 1u, a3);
-	fread(&v10, 4u, 1u, a1);
-	fread(&v10, 4u, 1u, a2);
-	fwrite(&v10, 4u, 1u, a3);
+	nox_fs_fwrite(a3, &v12, 4);
+	nox_fs_fread(a1, &v10, 4u);
+	nox_fs_fread(a2, &v10, 4u);
+	nox_fs_fwrite(a3, &v10, 4);
 	v4 = 4;
-	fread(&v17, 4u, 1u, a1);
-	fread(&v17, v4, 1u, a2);
-	fwrite(&v17, v4, 1u, a3);
-	fread(&v13, 4u, 1u, a1);
-	fread(&v14, 4u, 1u, a2);
-	fwrite(&v13, 4u, 1u, a3);
-	fread(&v15, 4u, 1u, a1);
-	fread(&v15, 4u, 1u, a2);
-	fwrite(&v15, 4u, 1u, a3);
+	nox_fs_fread(a1, &v17, 4u);
+	nox_fs_fread(a2, &v17, v4);
+	nox_fs_fwrite(a3, &v17, v4);
+	nox_fs_fread(a1, &v13, 4u);
+	nox_fs_fread(a2, &v14, 4u);
+	nox_fs_fwrite(a3, &v13, 4);
+	nox_fs_fread(a1, &v15, 4u);
+	nox_fs_fread(a2, &v15, 4u);
+	nox_fs_fwrite(a3, &v15, 4);
 	v4 = 4;
-	fread(&v17, 4u, 1u, a1);
-	fread(&v17, v4, 1u, a2);
-	fwrite(&v17, v4, 1u, a3);
-	fread(&v4, 4u, 1u, a1);
-	fread(&v17, v4, 1u, a1);
-	fread(&v4, 4u, 1u, a2);
-	fread(&v17, v4, 1u, a2);
-	fwrite(&v4, 4u, 1u, a3);
-	fwrite(&v17, v4, 1u, a3);
-	fread(&v9, 4u, 1u, a1);
-	fread(&v9, 4u, 1u, a2);
-	fwrite(&v9, 4u, 1u, a3);
-	fread(&v8, 4u, 1u, a1);
-	fread(&v8, 4u, 1u, a2);
-	fwrite(&v8, 4u, 1u, a3);
+	nox_fs_fread(a1, &v17, 4u);
+	nox_fs_fread(a2, &v17, v4);
+	nox_fs_fwrite(a3, &v17, v4);
+	nox_fs_fread(a1, &v4, 4u);
+	nox_fs_fread(a1, &v17, v4);
+	nox_fs_fread(a2, &v4, 4u);
+	nox_fs_fread(a2, &v17, v4);
+	nox_fs_fwrite(a3, &v4, 4);
+	nox_fs_fwrite(a3, &v17, v4);
+	nox_fs_fread(a1, &v9, 4u);
+	nox_fs_fread(a2, &v9, 4u);
+	nox_fs_fwrite(a3, &v9, 4);
+	nox_fs_fread(a1, &v8, 4u);
+	nox_fs_fread(a2, &v8, 4u);
+	nox_fs_fwrite(a3, &v8, 4);
 	v4 = 4;
-	fread(&v17, 4u, 1u, a1);
-	fread(&v17, v4, 1u, a2);
-	fwrite(&v17, v4, 1u, a3);
-	fread(&v7, 4u, 1u, a1);
-	fread(&v11, 4u, 1u, a2);
+	nox_fs_fread(a1, &v17, 4u);
+	nox_fs_fread(a2, &v17, v4);
+	nox_fs_fwrite(a3, &v17, v4);
+	nox_fs_fread(a1, &v7, 4u);
+	nox_fs_fread(a2, &v11, 4u);
 	dword_5d4594_2489420 = v7;
 	v12 = v11 + v7 - 4;
-	fwrite(&v12, 4u, 1u, a3);
-	fread(&v10, 4u, 1u, a1);
-	fread(&v10, 4u, 1u, a2);
-	fwrite(&v10, 4u, 1u, a3);
+	nox_fs_fwrite(a3, &v12, 4);
+	nox_fs_fread(a1, &v10, 4u);
+	nox_fs_fread(a2, &v10, 4u);
+	nox_fs_fwrite(a3, &v10, 4);
 	for (i = 0; i < v7; ++i) {
-		fread(&v5, 4u, 1u, a1);
-		fwrite(&v5, 4u, 1u, a3);
+		nox_fs_fread(a1, &v5, 4u);
+		nox_fs_fwrite(a3, &v5, 4);
 	}
-	fread(&v5, 4u, 1u, a2);
-	fread(&v5, 4u, 1u, a2);
-	fread(&v5, 4u, 1u, a2);
-	fread(&v5, 4u, 1u, a2);
+	nox_fs_fread(a2, &v5, 4u);
+	nox_fs_fread(a2, &v5, 4u);
+	nox_fs_fread(a2, &v5, 4u);
+	nox_fs_fread(a2, &v5, 4u);
 	for (i = 4; i < v11; ++i) {
-		fread(&v5, 4u, 1u, a2);
-		fwrite(&v5, 4u, 1u, a3);
+		nox_fs_fread(a2, &v5, 4u);
+		nox_fs_fwrite(a3, &v5, 4);
 	}
 	v4 = 4;
-	fread(&v17, 4u, 1u, a1);
-	fread(&v17, v4, 1u, a2);
-	fwrite(&v17, v4, 1u, a3);
-	fread(&v13, 4u, 1u, a1);
-	fread(&v14, 4u, 1u, a2);
+	nox_fs_fread(a1, &v17, 4u);
+	nox_fs_fread(a2, &v17, v4);
+	nox_fs_fwrite(a3, &v17, v4);
+	nox_fs_fread(a1, &v13, 4u);
+	nox_fs_fread(a2, &v14, 4u);
 	v16 = v14 + v13 - 4;
-	fwrite(&v16, 4u, 1u, a3);
+	nox_fs_fwrite(a3, &v16, 4);
 	nox_script_readWriteYyy_542380(a1, a3, 0);
-	fseek(a3, -4, SEEK_CUR);
+	nox_fs_fseek_cur(a3,  -4);
 	return nox_script_readWriteYyy_542380(a2, a3, 1);
 }
 
@@ -496,18 +496,18 @@ int  nox_script_readWriteIii_541D80(FILE* a1, FILE* a2) {
 	int v6;    // [esp+14h] [ebp-1004h]
 	int v7;    // [esp+18h] [ebp-1000h]
 
-	fread(&v7, 4u, 1u, a1);
+	nox_fs_fread(a1, &v7, 4u);
 	v2 = 0;
-	fwrite(&v7, 4u, 1u, a2);
-	fread(&v4, 4u, 1u, a1);
-	fwrite(&v4, 4u, 1u, a2);
-	fread(&v5, 4u, 1u, a1);
-	fwrite(&v5, 4u, 1u, a2);
+	nox_fs_fwrite(a2, &v7, 4);
+	nox_fs_fread(a1, &v4, 4u);
+	nox_fs_fwrite(a2, &v4, 4);
+	nox_fs_fread(a1, &v5, 4u);
+	nox_fs_fwrite(a2, &v5, 4);
 	result = v4;
 	if (v4 && v4 > 0) {
 		do {
-			fread(&v6, 4u, 1u, a1);
-			fwrite(&v6, 4u, 1u, a2);
+			nox_fs_fread(a1, &v6, 4u);
+			nox_fs_fwrite(a2, &v6, 4);
 			result = v4;
 			++v2;
 		} while (v2 < v4);
@@ -532,56 +532,56 @@ int nox_script_readWriteXxx_541A50(FILE* f1, FILE* f2, FILE* f3) {
 
 	strcpy((char*)v14, "CODE");
 	v3 = strlen((const char*)v14) + 1;
-	fread(v14, v3 - 1, 1u, f1);
-	fread(v14, v3 - 1, 1u, f2);
-	fwrite(v14, v3 - 1, 1u, f3);
-	fread(&v11, 4u, 1u, f1);
-	fread(&v10, 4u, 1u, f2);
+	nox_fs_fread(f1, v14, v3 - 1);
+	nox_fs_fread(f2, v14, v3 - 1);
+	nox_fs_fwrite(f3, v14, v3 - 1);
+	nox_fs_fread(f1, &v11, 4u);
+	nox_fs_fread(f2, &v10, 4u);
 	dword_5d4594_2489428 = v11;
 	v13 = v10 + v11 - 2;
-	fwrite(&v13, 4u, 1u, f3);
+	nox_fs_fwrite(f3, &v13, 4);
 	result = nox_script_readWriteVvv_541E40(f1, f2, f3);
 	for (i = 0; i < v11 - 2; result = v11 - 2) {
 		v7 = 4;
-		fread(&v14, 4u, 1u, f1);
-		fwrite(v14, v7, 1u, f3);
-		fread(&v7, 4u, 1u, f1);
-		fread(v14, v7, 1u, f1);
+		nox_fs_fread(f1, &v14, 4u);
+		nox_fs_fwrite(f3, v14, v7);
+		nox_fs_fread(f1, &v7, 4u);
+		nox_fs_fread(f1, v14, v7);
 		v14[v7] = 0;
-		fwrite(&v7, 4u, 1u, f3);
-		fwrite(v14, v7, 1u, f3);
-		fread(&v12, 4u, 1u, f1);
-		fwrite(&v12, 4u, 1u, f3);
-		fread(&v8, 4u, 1u, f1);
-		fwrite(&v8, 4u, 1u, f3);
+		nox_fs_fwrite(f3, &v7, 4);
+		nox_fs_fwrite(f3, v14, v7);
+		nox_fs_fread(f1, &v12, 4u);
+		nox_fs_fwrite(f3, &v12, 4);
+		nox_fs_fread(f1, &v8, 4u);
+		nox_fs_fwrite(f3, &v8, 4);
 		nox_script_readWriteIii_541D80(f1, f3);
 		v7 = 4;
-		fread(v14, 4u, 1u, f1);
-		fwrite(v14, v7, 1u, f3);
-		fread(&v9, 4u, 1u, f1);
-		fwrite(&v9, 4u, 1u, f3);
+		nox_fs_fread(f1, v14, 4u);
+		nox_fs_fwrite(f3, v14, v7);
+		nox_fs_fread(f1, &v9, 4u);
+		nox_fs_fwrite(f3, &v9, 4);
 		nox_script_readWriteYyy_542380(f1, f3, 0);
 		++i;
 	}
 	for (j = 0; j < v10 - 2; result = v10 - 2) {
 		v7 = 4;
-		fread(v14, 4u, 1u, f2);
-		fwrite(v14, v7, 1u, f3);
-		fread(&v7, 4u, 1u, f2);
-		fread(v14, v7, 1u, f2);
+		nox_fs_fread(f2, v14, 4u);
+		nox_fs_fwrite(f3, v14, v7);
+		nox_fs_fread(f2, &v7, 4u);
+		nox_fs_fread(f2, v14, v7);
 		v14[v7] = 0;
-		fwrite(&v7, 4u, 1u, f3);
-		fwrite(v14, v7, 1u, f3);
-		fread(&v12, 4u, 1u, f2);
-		fwrite(&v12, 4u, 1u, f3);
-		fread(&v8, 4u, 1u, f2);
-		fwrite(&v8, 4u, 1u, f3);
+		nox_fs_fwrite(f3, &v7, 4);
+		nox_fs_fwrite(f3, v14, v7);
+		nox_fs_fread(f2, &v12, 4u);
+		nox_fs_fwrite(f3, &v12, 4);
+		nox_fs_fread(f2, &v8, 4u);
+		nox_fs_fwrite(f3, &v8, 4);
 		nox_script_readWriteIii_541D80(f2, f3);
 		v7 = 4;
-		fread(v14, 4u, 1u, f2);
-		fwrite(v14, v7, 1u, f3);
-		fread(&v9, 4u, 1u, f2);
-		fwrite(&v9, 4u, 1u, f3);
+		nox_fs_fread(f2, v14, 4u);
+		nox_fs_fwrite(f3, v14, v7);
+		nox_fs_fread(f2, &v9, 4u);
+		nox_fs_fwrite(f3, &v9, 4);
 		nox_script_readWriteYyy_542380(f2, f3, 1);
 		++j;
 	}
@@ -599,16 +599,16 @@ size_t  nox_script_readWriteWww_5417C0(FILE* a1, FILE* a2, FILE* a3) {
 	dword_5d4594_2489428 = 0;
 	strcpy(v6, "SCRIPT03");
 	v3 = strlen(v6) + 1;
-	fread(v6, v3 - 1, 1u, a1);
-	fread(v6, v3 - 1, 1u, a2);
-	fwrite(v6, v3 - 1, 1u, a3);
+	nox_fs_fread(a1, v6, v3 - 1);
+	nox_fs_fread(a2, v6, v3 - 1);
+	nox_fs_fwrite(a3, v6, v3 - 1);
 	nox_script_readWriteJjj_5418C0(a1, a2, a3);
 	nox_script_readWriteXxx_541A50(a1, a2, a3);
 	strcpy(v6, "DONE");
 	v4 = strlen(v6) + 1;
-	fread(v6, v4 - 1, 1u, a1);
-	fread(v6, v4 - 1, 1u, a2);
-	return fwrite(v6, v4 - 1, 1u, a3);
+	nox_fs_fread(a1, v6, v4 - 1);
+	nox_fs_fread(a2, v6, v4 - 1);
+	return nox_fs_fwrite(a3, v6, v4 - 1);
 }
 
 //----- (00541670) --------------------------------------------------------
@@ -627,9 +627,7 @@ int nox_script_readWriteZzz_541670(const char* path, const char* path2, const ch
 		nox_fs_close(f1);
 		return 0;
 	}
-	fseek(f1, 0, SEEK_END);
-	int v6 = ftell(f1);
-	fseek(f1, 0, SEEK_SET);
+	int v6 = nox_fs_fsize(f1);
 	if (!v6) {
 		nox_fs_close(f1);
 		nox_fs_close(f2);
@@ -637,9 +635,7 @@ int nox_script_readWriteZzz_541670(const char* path, const char* path2, const ch
 		nox_fs_move(path2, dst);
 		return 1;
 	}
-	fseek(f2, 0, SEEK_END);
-	int v7 = ftell(f2);
-	fseek(f2, 0, SEEK_SET);
+	int v7 = nox_fs_fsize(f2);
 	if (!v7) {
 		nox_fs_close(f1);
 		nox_fs_close(f2);
@@ -701,34 +697,34 @@ int  sub_543110(const char* lpExistingFileName, int* a2) {
 	}
 	strcpy((char*)v19, "SCRIPT03");
 	v8 = strlen((const char*)v19) + 1;
-	fread(v19, v8 - 1, 1u, v6);
-	fwrite(v19, v8 - 1, 1u, v7);
+	nox_fs_fread(v6, v19, v8 - 1);
+	nox_fs_fwrite(v7, v19, v8 - 1);
 	strcpy((char*)v19, "STRG");
 	v12 = strlen((const char*)v19);
-	fread(v19, v12, 1u, v6);
-	fwrite(v19, v12, 1u, v7);
-	fread(&v14, 4u, 1u, v6);
-	fwrite(&v14, 4u, 1u, v7);
+	nox_fs_fread(v6, v19, v12);
+	nox_fs_fwrite(v7, v19, v12);
+	nox_fs_fread(v6, &v14, 4u);
+	nox_fs_fwrite(v7, &v14, 4);
 	for (i = 0; i < v14; ++i) {
-		fread(&v12, 4u, 1u, v6);
-		fread(v19, v12, 1u, v6);
+		nox_fs_fread(v6, &v12, 4u);
+		nox_fs_fread(v6, v19, v12);
 		v19[v12] = 0;
-		fwrite(&v12, 4u, 1u, v7);
-		fwrite(v19, v12, 1u, v7);
+		nox_fs_fwrite(v7, &v12, 4);
+		nox_fs_fwrite(v7, v19, v12);
 	}
 	strcpy((char*)v19, "CODE");
 	v12 = strlen((const char*)v19);
-	fread(v19, v12, 1u, v6);
-	fwrite(v19, v12, 1u, v7);
-	fread(&v15, 4u, 1u, v6);
-	fwrite(&v15, 4u, 1u, v7);
+	nox_fs_fread(v6, v19, v12);
+	nox_fs_fwrite(v7, v19, v12);
+	nox_fs_fread(v6, &v15, 4u);
+	nox_fs_fwrite(v7, &v15, 4);
 	v10 = 0;
 	for (j = 0; v10 < v15; j = v10) {
 		v12 = 4;
-		fread(v19, 4u, 1u, v6);
-		fwrite(v19, v12, 1u, v7);
-		fread(&v12, 4u, 1u, v6);
-		fread(v19, v12, 1u, v6);
+		nox_fs_fread(v6, v19, 4u);
+		nox_fs_fwrite(v7, v19, v12);
+		nox_fs_fread(v6, &v12, 4u);
+		nox_fs_fread(v6, v19, v12);
 		v19[v12] = 0;
 		if (v10 > 1) {
 			sub_5435C0((int)&v19, *(int*)&dword_5d4594_3835312, a2[0], a2[1]);
@@ -736,30 +732,30 @@ int  sub_543110(const char* lpExistingFileName, int* a2) {
 			v10 = j;
 			v12 = strlen((const char*)&v19);
 		}
-		fwrite(&v12, 4u, 1u, v7);
-		fwrite(v19, v12, 1u, v7);
-		fread(&v18, 4u, 1u, v6);
-		fwrite(&v18, 4u, 1u, v7);
-		fread(&v17, 4u, 1u, v6);
-		fwrite(&v17, 4u, 1u, v7);
+		nox_fs_fwrite(v7, &v12, 4);
+		nox_fs_fwrite(v7, v19, v12);
+		nox_fs_fread(v6, &v18, 4u);
+		nox_fs_fwrite(v7, &v18, 4);
+		nox_fs_fread(v6, &v17, 4u);
+		nox_fs_fwrite(v7, &v17, 4);
 		nox_script_readWriteIii_541D80(v6, v7);
 		v12 = 4;
-		fread(v19, 4u, 1u, v6);
-		fwrite(v19, v12, 1u, v7);
-		v11 = ftell(v7);
-		fread(&v13, 4u, 1u, v6);
-		fwrite(&v13, 4u, 1u, v7);
+		nox_fs_fread(v6, v19, 4u);
+		nox_fs_fwrite(v7, v19, v12);
+		v11 = nox_fs_ftell(v7);
+		nox_fs_fread(v6, &v13, 4u);
+		nox_fs_fwrite(v7, &v13, 4);
 		nox_script_readWriteYyy_542380(v6, v7, 0);
-		v13 = -4 - v11 + ftell(v7);
-		fseek(v7, v11, SEEK_SET);
-		fwrite(&v13, 4u, 1u, v7);
-		fseek(v7, v13, SEEK_CUR);
+		v13 = -4 - v11 + nox_fs_ftell(v7);
+		nox_fs_fseek_start(v7, v11);
+		nox_fs_fwrite(v7, &v13, 4);
+		nox_fs_fseek_cur(v7,  v13);
 		++v10;
 	}
 	strcpy((char*)&v19, "DONE");
 	v12 = strlen((const char*)&v19);
-	fread(v19, v12, 1u, v6);
-	fwrite(v19, v12, 1u, v7);
+	nox_fs_fread(v6, v19, v12);
+	nox_fs_fwrite(v7, v19, v12);
 	nox_fs_close(v6);
 	nox_fs_close(v7);
 	return nox_fs_remove(NewFileName);

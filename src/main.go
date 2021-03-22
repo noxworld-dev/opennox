@@ -52,11 +52,13 @@ import (
 	"strings"
 	"unsafe"
 
+	"nox/common/alloc/handles"
 	"nox/common/memmap"
 	"nox/common/types"
 )
 
 func init() {
+	handles.Init()
 	go func() {
 		if err := http.ListenAndServe(":6060", nil); err != nil {
 			log.Printf("failed to start pprof: %v", err)
@@ -79,6 +81,7 @@ var (
 var _ = [1]struct{}{}[unsafe.Sizeof(int(0))-4]
 
 func main() {
+	defer handles.Release()
 	C.init_data()
 	if err := runNox(os.Args); err != nil && err != flag.ErrHelp {
 		fmt.Fprintln(os.Stderr, err)

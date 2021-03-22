@@ -1122,19 +1122,19 @@ int  sub_4D0250(char* a1, char* a2, int a3, int a4) {
 	result = nox_xxx_cryptOpen_426910(a1, 1, -1);
 	if (result) {
 		v5 = nox_xxx_mapgenGetSomeFile_426A60();
-		fread(&v16, 4u, 1u, v5);
+		nox_fs_fread(v5, &v16, 4);
 		if (v16 == a4) {
-			fread(&v17[0], 4u, 1u, v5);
-			fread(&v17[1], 4u, 1u, v5);
+			nox_fs_fread(v5, &v17[0], 4);
+			nox_fs_fread(v5, &v17[1], 4);
 			nox_xxx_mapWall_426A80(v17);
-			fread(&v19, 4u, 1u, v5);
-			fread(&v20, 4u, 1u, v5);
-			fread(&v25, 4u, 1u, v5);
-			fread(&v26, 4u, 1u, v5);
-			fread(&v21, 4u, 1u, v5);
-			fread(&v22, 4u, 1u, v5);
-			fread(&v23, 4u, 1u, v5);
-			fread(&v24, 4u, 1u, v5);
+			nox_fs_fread(v5, &v19, 4);
+			nox_fs_fread(v5, &v20, 4);
+			nox_fs_fread(v5, &v25, 4);
+			nox_fs_fread(v5, &v26, 4);
+			nox_fs_fread(v5, &v21, 4);
+			nox_fs_fread(v5, &v22, 4);
+			nox_fs_fread(v5, &v23, 4);
+			nox_fs_fread(v5, &v24, 4);
 			v6 = a2;
 			if (!a2)
 				v6 = &v19;
@@ -1259,12 +1259,12 @@ int  sub_4D0670(char* a1) {
 	v3 = v2;
 	if (!v2)
 		return 0;
-	if (!feof(v3)) {
+	if (!nox_fs_feof(v3)) {
 		do {
 			memset(v7, 0, 0xFCu);
 			*(_WORD*)&v7[252] = 0;
 			v7[254] = 0;
-			fgets(v7, 255, v3);
+			nox_fs_fgets(v3, v7, 255);
 			v4 = strchr(v7, 10);
 			if (v4)
 				*v4 = 0;
@@ -1277,7 +1277,7 @@ int  sub_4D0670(char* a1) {
 					nox_server_parseCmdText_443C80(v8, 1);
 				}
 			}
-		} while (!feof(v3));
+		} while (!nox_fs_feof(v3));
 	}
 	nox_fs_close(v3);
 	return 1;
@@ -1401,7 +1401,7 @@ FILE* nox_xxx_loadMapCycle_4D0A30() {
 	v7 = result;
 	v15 = result;
 	if (result) {
-		if (fgets(v16, 127, result)) {
+		if (nox_fs_fgets(result, v16, 127)) {
 			sub_4D0CC0(v16);
 			v8 = sub_4D0C80(v16);
 			if (v8 < 0) {
@@ -1412,8 +1412,8 @@ FILE* nox_xxx_loadMapCycle_4D0A30() {
 				v0 = v8;
 			}
 		}
-		while (!feof(v7)) {
-			if (fgets(v16, 127, v7)) {
+		while (!nox_fs_feof(v7)) {
+			if (nox_fs_fgets(v7, v16, 127)) {
 				sub_4D0CC0(v16);
 				v10 = sub_4D0C80(v16);
 				if (v10 < 0) {
