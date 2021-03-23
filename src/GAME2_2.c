@@ -2562,7 +2562,7 @@ int sub_47A650() {
 // 47A650: using guessed type CHAR FileName[260];
 
 //----- (0047A8C0) --------------------------------------------------------
-char*  nox_xxx_loadImage_47A8C0(const char* a1, char* a2) {
+char*  nox_xxx_loadImage_47A8C0(char a1, char* a2) {
 	int v2;       // edi
 	int i;        // esi
 	char* result; // eax
@@ -2586,7 +2586,7 @@ char*  nox_xxx_loadImage_47A8C0(const char* a1, char* a2) {
 }
 
 //----- (0047A960) --------------------------------------------------------
-int  nox_xxx_videoBagSmth_47A960(const char* a1, int a2) {
+int  nox_xxx_videoBagSmth_47A960(char a1, int a2) {
 	int v3;              // ebp
 	FILE* v4;            // edi
 	bool v5;             // zf

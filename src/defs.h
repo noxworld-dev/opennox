@@ -500,6 +500,16 @@ typedef struct nox_image_xxx12_t {
 } nox_image_xxx12_t;
 _Static_assert(sizeof(nox_image_xxx12_t) == 12, "wrong size of nox_image_xxx12_t structure!");
 
+typedef struct nox_image_xxx104_t {
+	char name[32]; // 0, 0
+	char name2[64]; // 8, 32
+	int field_24; // 24, 96; void* when field_25_1 == 2
+	char field_25_0; // 25, 100
+	char field_25_1; // 25, 101
+	short field_25_2; // 25, 102
+} nox_image_xxx104_t;
+_Static_assert(sizeof(nox_image_xxx104_t) == 104, "wrong size of nox_image_xxx104_t structure!");
+
 typedef struct {
 	_DWORD field_0;
 } nox_radioButton_data;
