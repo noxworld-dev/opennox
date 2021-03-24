@@ -219,7 +219,7 @@ bool  nox_things_monster_draw_parse(nox_thing* obj, nox_memfile* f, char* attr_v
 	*v2 = 772;
 	while (1) {
 		v4 = nox_memfile_read_u32(f);
-		if (v4 == 1162757152)
+		if (v4 == 0x454E4420) // 'END '
 			break;
 		v6 = nox_memfile_read_u8(f);
 		if (v6 < 0x10u) {

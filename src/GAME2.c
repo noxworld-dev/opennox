@@ -2663,35 +2663,30 @@ BOOL  nox_thing_read_AVNT_452890(int a1, void* a2) {
 			break;
 		}
 	} else {
-		sub_452B30(v2);
+		nox_thing_skip_AVNT_inner_452B30(v2);
 		result = 1;
 	}
 	return result;
 }
 
 //----- (00452B00) --------------------------------------------------------
-BOOL  nox_thing_read_AVNT_452B00(int a1) {
-	*(_DWORD*)(a1 + 8) += **(unsigned __int8**)(a1 + 8) + 1;
-	return sub_452B30(a1);
+BOOL  nox_thing_skip_AVNT_452B00(nox_memfile* f) {
+	int sz = nox_memfile_read_u8(f);
+	nox_memfile_skip(f, sz);
+	return nox_thing_skip_AVNT_inner_452B30(f);
 }
 
 //----- (00452B30) --------------------------------------------------------
-BOOL  sub_452B30(int a1) {
-	int v1;              // eax
-	char* v2;            // ecx
+BOOL  nox_thing_skip_AVNT_inner_452B30(nox_memfile* f) {
 	char v3;             // bl
-	unsigned __int8* v4; // ecx
 	unsigned __int8 v5;  // dl
 	int v6;              // ecx
 	BOOL result;         // eax
 	char v8;             // [esp+Ch] [ebp+4h]
 
-	v1 = a1;
 	while (1) {
-		v2 = *(char**)(v1 + 8);
-		v3 = *v2;
-		v8 = *v2;
-		*(_DWORD*)(v1 + 8) = v2 + 1;
+		v3 = nox_memfile_read_i8(f);
+		v8 = v3;
 		switch (v8) {
 		case 0:
 			result = v3 == 0;
@@ -2701,26 +2696,23 @@ BOOL  sub_452B30(int a1) {
 		case 3:
 		case 4:
 		case 5:
-			*(_DWORD*)(v1 + 8) = v2 + 2;
+			nox_memfile_skip(f, 1);
 			continue;
 		case 6:
 		case 9:
 		case 0xA:
-			*(_DWORD*)(v1 + 8) = v2 + 3;
+			nox_memfile_skip(f, 2);
 			continue;
 		case 7:
 			while (1) {
-				v4 = *(unsigned __int8**)(v1 + 8);
-				v5 = *v4;
-				v6 = (int)(v4 + 1);
-				*(_DWORD*)(v1 + 8) = v6;
+				v5 = nox_memfile_read_u8(f);
 				if (!v5)
 					break;
-				*(_DWORD*)(v1 + 8) = v6 + v5;
+				nox_memfile_skip(f, v5);
 			}
 			continue;
 		case 8:
-			*(_DWORD*)(v1 + 8) = v2 + 9;
+			nox_memfile_skip(f, 8);
 			continue;
 		default:
 			result = 0;

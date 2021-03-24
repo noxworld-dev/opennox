@@ -3559,7 +3559,7 @@ BOOL  nox_thing_read_wall_46A010(_DWORD* a1, char* a2) {
 	v38 = 12332 * v5;
 	memset(getMemAt(0x5D4594, 12332 * v5 + 2701180), 0, 0xF00u);
 	v2[2] += 14;
-	nox_xxx_freadMB_40AD60((char*)&v31, 1, 1, v2);
+	nox_memfile_read64align_40AD60((char*)&v31, 1, 1, v2);
 	v8 = 0;
 	if ((_BYTE)v31) {
 		if (v8 >= 8)
@@ -3599,7 +3599,7 @@ BOOL  nox_thing_read_wall_46A010(_DWORD* a1, char* a2) {
 		v36 = v13;
 		if (v13 < 0)
 			break;
-		nox_xxx_freadMB_40AD60((char*)&v35, 1, 1, v2);
+		nox_memfile_read64align_40AD60((char*)&v35, 1, 1, v2);
 		if ((unsigned __int8)v35 >= 0x10u)
 			break;
 		v14 = 0;

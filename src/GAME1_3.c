@@ -6207,16 +6207,13 @@ int  sub_44B0F0(int a1, int a2, int* a3, int a4) {
 // 44B8B0: using guessed type char var_100[256];
 
 //----- (0044B940) --------------------------------------------------------
-int  sub_44B940(_DWORD* a1, int a2, int a3) {
+int  sub_44B940(_DWORD* a1, int a2, nox_memfile* f) {
 	int v3;               // esi
 	int v4;               // ebx
 	void* v5;             // eax
 	int v6;               // ebp
-	int* v7;              // eax
 	int v8;               // ebx
-	char* v9;             // eax
 	char v10;             // cl
-	unsigned __int8* v11; // eax
 	int v13;              // [esp+10h] [ebp-90h]
 	int v14;              // [esp+14h] [ebp-8Ch]
 	unsigned __int8 v15;  // [esp+18h] [ebp-88h]
@@ -6236,19 +6233,13 @@ int  sub_44B940(_DWORD* a1, int a2, int a3) {
 		v6 = 0;
 		if (v3 > 0) {
 			do {
-				v7 = *(int**)(a3 + 8);
-				v8 = *v7;
-				v9 = (char*)(v7 + 1);
-				*(_DWORD*)(a3 + 8) = v9;
+				v8 = nox_memfile_read_i32(f);
 				v17[0] = getMemByte(0x5D4594, 830840);
 				if (v8 == -1) {
-					v10 = *v9;
-					v11 = (unsigned __int8*)(v9 + 1);
-					*(_DWORD*)(a3 + 8) = v11;
-					v15 = *v11;
-					*(_DWORD*)(a3 + 8) = v11 + 1;
+					v10 = nox_memfile_read_i8(f);
+					v15 = nox_memfile_read_u8(f);
 					LOBYTE(v16) = v10;
-					nox_memfile_read(v17, 1u, v15, a3);
+					nox_memfile_read(v17, 1, v15, f);
 					v17[v15] = 0;
 					v3 = a2;
 				}

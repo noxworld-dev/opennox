@@ -69,6 +69,22 @@ uint8_t nox_memfile_read_u8(nox_memfile* f) {
 	return v;
 }
 
+int16_t nox_memfile_read_i16(nox_memfile* f) {
+	if (!f->data)
+		return 0;
+	int16_t v = *(int16_t*)f->cur;
+	f->cur += 2;
+	return v;
+}
+
+uint16_t nox_memfile_read_u16(nox_memfile* f) {
+	if (!f->data)
+		return 0;
+	uint16_t v = *(uint16_t*)f->cur;
+	f->cur += 2;
+	return v;
+}
+
 int32_t nox_memfile_read_i32(nox_memfile* f) {
 	if (!f->data)
 		return 0;
@@ -122,13 +138,13 @@ unsigned int  nox_memfile_seek_40AD10(nox_memfile* memfile, const int offset, co
 }
 
 //----- (0040AD60) --------------------------------------------------------
-unsigned int nox_xxx_freadMB_40AD60(char* dest, int sz, int cnt, nox_memfile* f) {
+unsigned int nox_memfile_read64align_40AD60(char* dest, int sz, int cnt, nox_memfile* f) {
     const size_t cur_offset = f->cur - f->data;
-    const uint8_t read_past_8 = cur_offset & 0x7;
+    const uint8_t over = cur_offset % 8;
 
     char buf[8];
-    if (read_past_8) {
-        nox_memfile_read(&buf, 8 - read_past_8, 1, f);
+    if (over) {
+        nox_memfile_read(&buf, 8 - over, 1, f);
     }
 
     unsigned int result = nox_memfile_read(&buf, 8, 1, f);
