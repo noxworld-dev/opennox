@@ -55,7 +55,7 @@ func (sm *StringManager) ReadCSF(path string) error {
 			}
 		}
 		i := len(sm.entries)
-		sm.entries = append(sm.entries, Entry{ID: string(name)})
+		sm.entries = append(sm.entries, Entry{ID: ID(name)})
 		ent := &sm.entries[i]
 		vi := len(variants)
 		for j := 0; j < varN; j++ {

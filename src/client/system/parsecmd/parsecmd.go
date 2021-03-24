@@ -1,5 +1,7 @@
 package parsecmd
 
+import "nox/common/strman"
+
 var secretChars = `0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz`
 
 func EncodeSecret(s string) string {
@@ -39,7 +41,7 @@ type CommandFunc func(tokInd int, tokens []string) bool
 type Command struct {
 	Token  string
 	Token2 string
-	HelpID string
+	HelpID strman.ID
 	Flags  Flags
 	Sub    []Command
 	Func   CommandFunc
