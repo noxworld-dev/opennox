@@ -10,8 +10,8 @@ func Point2f(p image.Point) Pointf {
 }
 
 type Pointf struct {
-	X float32
-	Y float32
+	X float32 `json:"x"`
+	Y float32 `json:"y"`
 }
 
 func (p Pointf) Point() image.Point {
@@ -22,13 +22,13 @@ func (p Pointf) Point() image.Point {
 }
 
 type Size struct {
-	W int
-	H int
+	W int `json:"w"`
+	H int `json:"h"`
 }
 
 type Sizef struct {
-	W float32
-	H float32
+	W float32 `json:"w"`
+	H float32 `json:"h"`
 }
 
 type Rect struct {
