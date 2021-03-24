@@ -327,7 +327,7 @@ bool  nox_things_player_draw_parse(nox_thing* obj, nox_memfile* f, char* attr_va
 	v21 = v3;
 	*v3 = 14524;
 	v7 = nox_memfile_read_u32(f);
-	if (v7 == 1162757152)
+	if (v7 == 0x454E4420) // 'END '
 		return 0;
 	LABEL_3:
 	v22 = nox_memfile_read_u8(f);
@@ -341,9 +341,9 @@ bool  nox_things_player_draw_parse(nox_thing* obj, nox_memfile* f, char* attr_va
 		return 0;
 	while (1) {
 		v13 = nox_memfile_read_u32(f);
-		if (v13 == 1162757152)
+		if (v13 == 0x454E4420) // 'END '
 			break;
-		if (v13 == 1398030676) {
+		if (v13 == 0x53544154) { // STAT
 			v5 = v21;
 			goto LABEL_3;
 		}

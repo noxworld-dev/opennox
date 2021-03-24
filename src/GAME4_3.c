@@ -4315,7 +4315,7 @@ int  nox_xxx_parseDraw_535CD0(int a1, _DWORD* a2, void* a3) {
 	v44[2] = v5 + 1;
 	nox_memfile_read(a3, 1u, v49, (int)v44);
 	*((_BYTE*)a3 + v49) = 0;
-	nox_xxx_freadMB_40AD60((char*)&v45, 4, 1, v3);
+	nox_memfile_read64align_40AD60((char*)&v45, 4, 1, v3);
 	result = 0;
 	if (!strcmp((const char*)a3, "MonsterDraw")) {
 		v7 = *(_DWORD*)(a1 + 192);

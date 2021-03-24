@@ -116,7 +116,7 @@ bool  nox_parse_thing_draw(nox_thing* obj, nox_memfile* f, char* attr_value) {
 	// TODO: After cleanup: Figure out if this value has any significance to the data in the file, or if the file was
 	// simply 16byte-aligned
 	uint32_t tmp;
-	nox_xxx_freadMB_40AD60((char*)&tmp, sizeof(tmp), 1, f);
+	nox_memfile_read64align_40AD60((char*)&tmp, sizeof(tmp), 1, f);
 
 	if (!*(_DWORD*)nox_parse_thing_draw_funcs) {
 		return 1;
@@ -596,10 +596,10 @@ void*  nox_xxx_parseThingBinClient_44C840_read_things(void) {
 			nox_thing_read_ability_415320(things);
 			break;
 		case 0x41554420: // "AUD "
-			nox_thing_read_audio_414D40(things);
+			nox_thing_skip_AUD_414D40(things);
 			break;
 		case 0x41564E54: // "AVNT"
-			nox_thing_read_AVNT_452B00(things);
+			nox_thing_skip_AVNT_452B00(things);
 			break;
 		case 0x57414C4C: // "WALL"
 			if (!nox_thing_read_wall_46A010(things, scratch_buffer)) {
