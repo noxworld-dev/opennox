@@ -10,8 +10,10 @@ import (
 	"strings"
 )
 
+type ID string
+
 type Entry struct {
-	ID   string    `json:"id"`
+	ID   ID        `json:"id"`
 	Vals []Variant `json:"vals"`
 }
 
@@ -27,15 +29,15 @@ func New() *StringManager {
 type StringManager struct {
 	lang    int
 	entries []Entry
-	byID    map[string]*Entry
+	byID    map[ID]*Entry
 }
 
 func (sm *StringManager) Lang() int {
 	return sm.lang
 }
 
-func (sm *StringManager) Get(id string) (Entry, bool) {
-	id = strings.ToLower(id)
+func (sm *StringManager) Get(id ID) (Entry, bool) {
+	id = ID(strings.ToLower(string(id)))
 	ent := sm.byID[id]
 	if ent == nil {
 		return Entry{}, false
@@ -43,21 +45,21 @@ func (sm *StringManager) Get(id string) (Entry, bool) {
 	return *ent, true
 }
 
-func fileID(file, id string) string {
-	if strings.IndexByte(id, ':') < 0 {
+func fileID(file string, id ID) ID {
+	if strings.IndexByte(string(id), ':') < 0 {
 		if i := strings.LastIndexAny(file, `\/`); i >= 0 {
 			file = file[i+1:]
 		}
-		id = strings.Join([]string{file, id}, ":")
+		id = ID(strings.Join([]string{file, string(id)}, ":"))
 	}
 	return id
 }
 
-func (sm *StringManager) GetInFile(id, file string) (Entry, bool) {
+func (sm *StringManager) GetInFile(id ID, file string) (Entry, bool) {
 	return sm.Get(fileID(file, id))
 }
 
-func (sm *StringManager) GetString2(id string) (string, string) {
+func (sm *StringManager) GetString2(id ID) (string, string) {
 	e, ok := sm.Get(id)
 	if !ok || len(e.Vals) == 0 {
 		return fmt.Sprintf("MISSING:'%s'", id), ""
@@ -69,24 +71,24 @@ func (sm *StringManager) GetString2(id string) (string, string) {
 	return e.Vals[i].Str, e.Vals[i].Str2
 }
 
-func (sm *StringManager) GetString(id string) string {
+func (sm *StringManager) GetString(id ID) string {
 	s, _ := sm.GetString2(id)
 	return s
 }
 
-func (sm *StringManager) GetString2InFile(id, file string) (string, string) {
+func (sm *StringManager) GetString2InFile(id ID, file string) (string, string) {
 	return sm.GetString2(fileID(file, id))
 }
 
-func (sm *StringManager) GetStringInFile(id, file string) string {
+func (sm *StringManager) GetStringInFile(id ID, file string) string {
 	s, _ := sm.GetString2(fileID(file, id))
 	return s
 }
 
 func (sm *StringManager) indexEntries() error {
-	sm.byID = make(map[string]*Entry, len(sm.entries))
+	sm.byID = make(map[ID]*Entry, len(sm.entries))
 	for i, e := range sm.entries {
-		id := strings.ToLower(e.ID)
+		id := ID(strings.ToLower(string(e.ID)))
 		if e2, ok := sm.byID[id]; ok {
 			log.Printf("duplicate strings entry %q:\n%q\nvs\n%q", e.ID, e.Vals, e2.Vals)
 			continue

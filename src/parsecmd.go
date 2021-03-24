@@ -104,6 +104,7 @@ import (
 	"log"
 
 	"nox/client/system/parsecmd"
+	"nox/common/strman"
 )
 
 type consolePrinter struct{}
@@ -202,7 +203,7 @@ func nox_xxx_consoleLoadTokens_444440() {
 func consoleLoadTokens(cmds []parsecmd.Command) {
 	for i := range cmds {
 		cmd := &cmds[i]
-		cmd.Token2 = strMan.GetString("cmd_token:" + cmd.Token)
+		cmd.Token2 = strMan.GetString(strman.ID("cmd_token:" + cmd.Token))
 		C.nox_xxx_consoleTokenAddPair_4444C0(internWStr(cmd.Token), internWStr(cmd.Token2))
 		if len(cmd.Token2) < 32 && len(cmd.Sub) != 0 {
 			consoleLoadTokens(cmd.Sub)

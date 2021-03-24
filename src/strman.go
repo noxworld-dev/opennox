@@ -7,6 +7,7 @@ package main
 import "C"
 import (
 	"log"
+
 	"nox/common/strman"
 )
 
@@ -63,11 +64,11 @@ func strmanReadFile(path string) error {
 func nox_strman_loadString_40F1D0(name *C.char, strOut **C.char, srcFile *C.char, srcLine C.int) *C.wchar_t {
 	if strOut != nil {
 		*strOut = nil
-		s1, s2 := strMan.GetString2InFile(C.GoString(name), C.GoString(srcFile))
+		s1, s2 := strMan.GetString2InFile(strman.ID(C.GoString(name)), C.GoString(srcFile))
 		*strOut = internCStr(s2)
 		return internWStr(s1)
 	}
-	s := strMan.GetStringInFile(C.GoString(name), C.GoString(srcFile))
+	s := strMan.GetStringInFile(strman.ID(C.GoString(name)), C.GoString(srcFile))
 	return internWStr(s)
 }
 

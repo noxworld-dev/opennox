@@ -350,7 +350,7 @@ var parseWindowFuncs = []struct {
 		case "Options.wnd:16BitColor":
 			str = "\tFullscreen"
 		default:
-			str = p.sm.GetStringInFile(buf, "C:\\NoxPost\\src\\Client\\Gui\\GameWin\\psscript.c")
+			str = p.sm.GetStringInFile(strman.ID(buf), "C:\\NoxPost\\src\\Client\\Gui\\GameWin\\psscript.c")
 		}
 		draw.SetText(str)
 		return true
@@ -364,7 +364,7 @@ var parseWindowFuncs = []struct {
 		return true
 	}},
 	{"TOOLTIP", func(p *guiParser, draw *WindowData, buf string) bool {
-		s := p.sm.GetStringInFile(buf, "C:\\NoxPost\\src\\Client\\Gui\\GameWin\\psscript.c")
+		s := p.sm.GetStringInFile(strman.ID(buf), "C:\\NoxPost\\src\\Client\\Gui\\GameWin\\psscript.c")
 		draw.SetTooltip(p.sm, s)
 		return true
 	}},
@@ -635,7 +635,7 @@ func (p *guiParser) parseDataField(typ string, buf string) (guiWidgetData, bool)
 		v, buf = gui.ParseNextUintField(buf)
 		d.field_2 = C.uint(bool2int(v != 0))
 		s, buf = gui.ParseNextField(buf)
-		text := p.sm.GetStringInFile(s, "C:\\NoxPost\\src\\Client\\Gui\\GameWin\\psscript.c")
+		text := p.sm.GetStringInFile(strman.ID(s), "C:\\NoxPost\\src\\Client\\Gui\\GameWin\\psscript.c")
 		d.text = internWStr(text)
 		return d, true
 	case "RADIOBUTTON":
