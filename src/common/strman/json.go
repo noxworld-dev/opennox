@@ -29,13 +29,17 @@ func (sm *StringManager) ReadJSON(path string) error {
 	return sm.indexEntries()
 }
 
-func (sm *StringManager) WriteJSON(path string) error {
+func (sm *StringManager) WriteJSON(path string, pretty bool) error {
 	f, err := fs.Create(path)
 	if err != nil {
 		return err
 	}
 	defer f.Close()
-	if err = json.NewEncoder(f).Encode(jsonFile{
+	enc := json.NewEncoder(f)
+	if pretty {
+		enc.SetIndent("", "\t")
+	}
+	if err = enc.Encode(jsonFile{
 		Lang:    sm.lang,
 		Entries: sm.entries,
 	}); err != nil {
