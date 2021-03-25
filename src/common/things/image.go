@@ -1,6 +1,7 @@
 package things
 
 import (
+	"encoding"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -12,10 +13,68 @@ type Image struct {
 	Ani  *Animation `json:"ani,omitempty"`
 }
 
+var (
+	_ encoding.TextMarshaler   = AnimationKind(0)
+	_ encoding.TextUnmarshaler = (*AnimationKind)(nil)
+)
+
+type AnimationKind int
+
+func (k AnimationKind) String() string {
+	switch k {
+	case AnimationOneShot:
+		return "OneShot"
+	case AnimationOneShotRemove:
+		return "OneShotRemove"
+	case AnimationLoop:
+		return "Loop"
+	case AnimationLoopAndFade:
+		return "LoopAndFade"
+	case AnimationRandom:
+		return "Random"
+	case AnimationSlave:
+		return "Slave"
+	}
+	return fmt.Sprintf("AnimationKind(%d)", int(k))
+}
+
+func (k AnimationKind) MarshalText() ([]byte, error) {
+	return []byte(k.String()), nil
+}
+
+func (k *AnimationKind) UnmarshalText(text []byte) error {
+	switch s := string(text); s {
+	default:
+		return fmt.Errorf("unsupported anim type: %q", s)
+	case "OneShot":
+		*k = AnimationOneShot
+	case "OneShotRemove":
+		*k = AnimationOneShotRemove
+	case "Loop":
+		*k = AnimationLoop
+	case "LoopAndFade":
+		*k = AnimationLoopAndFade
+	case "Random":
+		*k = AnimationRandom
+	case "Slave":
+		*k = AnimationSlave
+	}
+	return nil
+}
+
+const (
+	AnimationOneShot       = AnimationKind(0)
+	AnimationOneShotRemove = AnimationKind(1)
+	AnimationLoop          = AnimationKind(2)
+	AnimationLoopAndFade   = AnimationKind(3)
+	AnimationRandom        = AnimationKind(4)
+	AnimationSlave         = AnimationKind(5)
+)
+
 type Animation struct {
-	Field  byte       `json:"field"`
-	Loop   bool       `json:"loop"`
-	Frames []ImageRef `json:"frames"`
+	Field  byte          `json:"field"`
+	Kind   AnimationKind `json:"kind"`
+	Frames []ImageRef    `json:"frames"`
 }
 
 var (
@@ -135,17 +194,12 @@ func (f *File) readImage() (*Image, error) {
 			return nil, err
 		}
 		ani.Field = v2
-		loop, err := f.readString8()
+		loop, err := f.readBytes8()
 		if err != nil {
 			return nil, err
 		}
-		switch loop {
-		default:
-			return nil, fmt.Errorf("unsupported anim type: %q", loop)
-		case "Loop":
-			ani.Loop = true
-		case "OneShot":
-			ani.Loop = false
+		if err := ani.Kind.UnmarshalText(loop); err != nil {
+			return nil, err
 		}
 		for i := 0; i < int(frames); i++ {
 			fr, err := f.readImageRef()
