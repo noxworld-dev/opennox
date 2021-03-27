@@ -5,19 +5,19 @@
 #include "common/alloc/classes/alloc_class.h"
 
 #include "memmap.h"
-#include "defs.h" // nox_video_bag_entry1_t, nox_image_xxx12_t
+#include "defs.h" // nox_video_bag_section_t, nox_video_bag_image_t
 
 // TODO: part of the GUI toolkit
 void  nox_client_drawImageAt_47D2C0(void* a1, int x, int y);
 int  nox_xxx_drawGetStringSize_43F840(int a1, unsigned short* a2, int* a3, unsigned int* a4, int a5);
 int  nox_client_drawSetColor_434460(int a1);
 void  nox_client_drawRectFilledOpaque_49CE30(int xLeft, int yTop, int a3, int a4);
-nox_image_xxx12_t*  nox_xxx_gLoadImg_42F970(const char* a1);
+nox_video_bag_image_t*  nox_xxx_gLoadImg_42F970(const char* a1);
 
 // TODO: reference to input
 void sub_4309B0(unsigned char i, unsigned char v);
 
-extern nox_video_bag_entry1_t* nox_video_bag_arr1_787148;
+extern nox_video_bag_section_t* nox_video_bag_sections_arr;
 extern unsigned int dword_5d4594_1064912;
 extern unsigned int dword_5d4594_1064900;
 extern unsigned int dword_5d4594_3799468;
@@ -155,11 +155,11 @@ int  nox_xxx_wndShowModalMB_46A8C0(int a1) {
 
 //----- (0042FAE0) --------------------------------------------------------
 void sub_42FAE0(void* a1) {
-	nox_video_bag_entry1_t* ent = &nox_video_bag_arr1_787148[*(unsigned short*)((char*)a1 + 8)];
+	nox_video_bag_section_t* ent = &nox_video_bag_sections_arr[*(unsigned short*)((char*)a1 + 8)];
 	if (ent->field_6 == -1) {
-		if (ent->field_0) {
-			free(ent->field_0);
-			ent->field_0 = 0;
+		if (ent->data) {
+			free(ent->data);
+			ent->data = 0;
 		}
 	}
 }
@@ -342,8 +342,9 @@ int  nox_window_set_hidden(nox_window* win, int hidden) {
 		return 0;
 	}
 
-	if ((win->flags & 0x8000) == 0)
+	if ((win->flags & 0x8000) == 0) {
 		sub_46AC60(win);
+	}
 
 	if (dword_5d4594_3799468) {
 		if (!(win->flags & NOX_WIN_HIDDEN))
