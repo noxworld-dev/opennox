@@ -199,7 +199,7 @@ int nox_video_bag_var_787176 = 0;
 int nox_video_bag_sections_cnt = 0;
 int nox_video_bag_images_cnt = 0;
 
-nox_image_xxx104_t* nox_images_arr1_787156 = 0;
+nox_things_imageRef_t* nox_images_arr1_787156 = 0;
 int nox_images_cnt1_787160 = 0;
 int nox_images_ind1_787164 = 0;
 
@@ -4546,7 +4546,7 @@ void nox_video_bagFree_42F4D0() {
 int nox_xxx_imgLoadAlloc_42F610(int cnt) {
 	if (cnt < 0)
 		return 0;
-	nox_images_arr1_787156 = malloc(sizeof(nox_image_xxx104_t) * cnt);
+	nox_images_arr1_787156 = malloc(sizeof(nox_things_imageRef_t) * cnt);
 	if (!nox_images_arr1_787156) {
 		return 0;
 	}
@@ -4645,7 +4645,7 @@ nox_video_bag_image_t* nox_xxx_gLoadImg_42F970(const char* name) {
 	if (nox_images_ind1_787164 <= 0)
 		return 0;
 	for (int i = 0; i < nox_images_ind1_787164; i++) {
-		nox_image_xxx104_t* p = &nox_images_arr1_787156[i];
+		nox_things_imageRef_t* p = &nox_images_arr1_787156[i];
 		if (strcmp(name, p->name) == 0) {
 			if (p->field_24 == -1) {
 				if (p->field_25_0 == -1) {
@@ -4660,7 +4660,7 @@ nox_video_bag_image_t* nox_xxx_gLoadImg_42F970(const char* name) {
 }
 
 //----- (0042FA20) --------------------------------------------------------
-nox_image_xxx104_t* nox_xxx_gLoadAnim_42FA20(const char* name) {
+nox_things_imageRef_t* nox_xxx_gLoadAnim_42FA20(const char* name) {
 	if (!name)
 		return 0;
 	if (nox_images_ind1_787164 <= 0)
@@ -4685,69 +4685,68 @@ nox_video_bag_image_t* nox_xxx_readImgMB_42FAA0(int known_idx, const char* a2, c
 int sub_42FAD0() { return 0; }
 
 //----- (0042FB30) --------------------------------------------------------
-void* nox_xxx_tileEdgeCrashHere_42FB30(int a1) {
+void* nox_video_getImagePixdata_42FB30(nox_video_bag_image_t* img) {
 	_DWORD* v5; // ecx
 	_DWORD* v6; // eax
 
 	if (dword_5d4594_787224)
 		return 0;
-	if (!a1)
+	if (!img)
 		return 0;
-	if ((*(_BYTE*)(a1 + 10) & 0x3F) == 7)
+	if ((img->typ & 0x3F) == 7)
 		return sub_42FAD0();
-	if (*(_BYTE*)(a1 + 10) & 0x80)
-		return *(_DWORD*)a1;
+	if (img->typ & 0x80)
+		return img->offset; // TODO: reuses field for something else?
 	dword_5d4594_787224 = 1;
-	int ind = *(unsigned __int16*)(a1 + 8);
-	nox_video_bag_section_t* ent = &nox_video_bag_sections_arr[ind];
-	if (ent->field_6 != -1) {
-		if (ent->data) {
-			if (ent->field_1 == nox_frame_xxx_2598000) {
-				dword_5d4594_787224 = 0;
-				return *(_DWORD*)a1 + (char*)ent->data;
-			}
-			ent->field_1 = nox_frame_xxx_2598000;
-			*(_DWORD*)((char*)ent->field_7 + 32) = ent->field_8;
-			*(_DWORD*)((char*)ent->field_8 + 28) = ent->field_7;
-		} else {
-			if (!dword_5d4594_787188) {
-				v5 = *(_DWORD**)getMemAt(0x5D4594, 754136);
-				++*getMemU32Ptr(0x5D4594, 787220);
-				v6 = (_DWORD*)(*getMemU32Ptr(0x5D4594, 754136) + 28);
-				*(_DWORD*)(*(_DWORD*)(*getMemU32Ptr(0x5D4594, 754136) + 28) + 32) = getMemAt(0x5D4594, 754108);
-				*getMemU32Ptr(0x5D4594, 754136) = *v6;
-				*v6 = 0;
-				v5[8] = 0;
-				*(_DWORD*)(*getMemU32Ptr(0x5D4594, 787140) + 28) = ent;
-				ent->field_7 = getMemAt(0x5D4594, 787108);
-				ent->field_8 = *getMemU32Ptr(0x5D4594, 787140);
-				*getMemU32Ptr(0x5D4594, 787140) = ent;
-				ent->data = *v5;
-				*v5 = 0;
-				nox_video_bagReadImage_42FE30(ent);
-				ent->field_1 = nox_frame_xxx_2598000;
-				dword_5d4594_787224 = 0;
-				return *(_DWORD*)a1 + (char*)ent->data;
-			}
-			--dword_5d4594_787188;
-			ent->data = (char*)nox_video_bag_ptr_787200 + dword_5d4594_787188 * nox_video_bag_var_787176; // TODO: should be an array access
+	nox_video_bag_section_t* ent = &nox_video_bag_sections_arr[img->sect_ind];
+	if (ent->field_6 == -1) {
+		if (!ent->data) {
+			ent->data = malloc(ent->size);
 			nox_video_bagReadImage_42FE30(ent);
 			ent->field_1 = nox_frame_xxx_2598000;
 		}
-		*(_DWORD*)(*getMemU32Ptr(0x5D4594, 787140) + 28) = ent;
-		ent->field_7 = getMemAt(0x5D4594, 787108);
-		ent->field_8 = *getMemU32Ptr(0x5D4594, 787140);
-		*getMemU32Ptr(0x5D4594, 787140) = ent;
 		dword_5d4594_787224 = 0;
-		return *(_DWORD*)a1 + (char*)ent->data;
+		return ent->data;
 	}
-	if (!ent->data) {
-		ent->data = malloc(ent->size);
+	if (ent->data) {
+		if (ent->field_1 == nox_frame_xxx_2598000) {
+			dword_5d4594_787224 = 0;
+			return &ent->data[img->offset];
+		}
+		ent->field_1 = nox_frame_xxx_2598000;
+		*(_DWORD*)((char*)ent->field_7 + 32) = ent->field_8;
+		*(_DWORD*)((char*)ent->field_8 + 28) = ent->field_7;
+	} else {
+		if (dword_5d4594_787188 == 0) {
+			v5 = *(_DWORD**)getMemAt(0x5D4594, 754136);
+			++*getMemU32Ptr(0x5D4594, 787220);
+			v6 = (_DWORD*)(*getMemU32Ptr(0x5D4594, 754136) + 28);
+			*(_DWORD*)(*(_DWORD*)(*getMemU32Ptr(0x5D4594, 754136) + 28) + 32) = getMemAt(0x5D4594, 754108);
+			*getMemU32Ptr(0x5D4594, 754136) = *v6;
+			*v6 = 0;
+			v5[8] = 0;
+			*(_DWORD*)(*getMemU32Ptr(0x5D4594, 787140) + 28) = ent;
+			ent->field_7 = getMemAt(0x5D4594, 787108);
+			ent->field_8 = *getMemU32Ptr(0x5D4594, 787140);
+			*getMemU32Ptr(0x5D4594, 787140) = ent;
+			ent->data = *v5;
+			*v5 = 0;
+			nox_video_bagReadImage_42FE30(ent);
+			ent->field_1 = nox_frame_xxx_2598000;
+			dword_5d4594_787224 = 0;
+			return &ent->data[img->offset];
+		}
+		--dword_5d4594_787188;
+		ent->data = &((char*)nox_video_bag_ptr_787200)[dword_5d4594_787188 * nox_video_bag_var_787176];
 		nox_video_bagReadImage_42FE30(ent);
 		ent->field_1 = nox_frame_xxx_2598000;
 	}
+	*(_DWORD*)(*getMemU32Ptr(0x5D4594, 787140) + 28) = ent;
+	ent->field_7 = getMemAt(0x5D4594, 787108);
+	ent->field_8 = *getMemU32Ptr(0x5D4594, 787140);
+	*getMemU32Ptr(0x5D4594, 787140) = ent;
 	dword_5d4594_787224 = 0;
-	return ent->data;
+	return &ent->data[img->offset];
 }
 
 //----- (0042FE30) --------------------------------------------------------

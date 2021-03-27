@@ -101,7 +101,7 @@ extern _DWORD dword_5d4594_3798156;
 extern _DWORD dword_5d4594_1522612;
 extern _DWORD dword_5d4594_1522604;
 extern _DWORD nox_client_highResFloors_154952;
-extern int(*func_5d4594_3799492)(_DWORD);
+extern void* (*nox_video_getImagePixdata_func)(nox_video_bag_image_t*);
 extern _DWORD dword_5d4594_1319256;
 extern _DWORD dword_5d4594_3807156;
 extern _DWORD dword_5d4594_1522600;
@@ -143,10 +143,10 @@ extern int nox_video_dxUnlockSurface;
 extern obj_5D4594_3799572_t* ptr_5D4594_3799572;
 extern obj_5D4594_3799572_t obj_5D4594_3800716;
 
-void (*func_5d4594_3799536)(void) = 0;
-void (*func_5d4594_3799432)(void) = 0;
-void (*func_5d4594_3799544)(void) = 0;
-void (*func_5d4594_3799488)(void) = 0;
+void (*func_type27_3799536)(void) = 0;
+void (*func_type4_3799432)(void) = 0;
+void (*func_type5_3799544)(void) = 0;
+void (*func_type6_3799488)(void) = 0;
 
 nox_wnd_xxx* nox_wnd_xxx_1522608 = 0;
 _DWORD dword_5d4594_3799540 = 0;
@@ -5937,7 +5937,10 @@ int  sub_4C5D20(FILE* a1, int a2) {
 }
 
 //----- (004C5EB0) --------------------------------------------------------
-void  sub_4C5EB0(int a1, int a2, int a3) {
+void  sub_4C5EB0(nox_video_bag_image_t* img, int x, int y) {
+	int a1 = img;
+	int a2 = x;
+	int a3 = y;
 	int v3; // ecx
 	int v4; // eax
 
@@ -5945,65 +5948,65 @@ void  sub_4C5EB0(int a1, int a2, int a3) {
 		switch (*(_BYTE*)(a1 + 10) & 0x3F) {
 		case 2:
 		case 7:
-			func_5d4594_3799536 = sub_4C69A0;
+			func_type27_3799536 = sub_4C69A0;
 			sub_4C60D0(a1, a2, a3);
 			return;
 		case 3:
 		case 4:
 		case 5:
 		case 6:
-			func_5d4594_3799544 = sub_4C7110;
-			func_5d4594_3799488 = sub_4C6E40;
+			func_type5_3799544 = sub_4C7110;
+			func_type6_3799488 = sub_4C6E40;
 			if (!ptr_5D4594_3799572->data[13]) {
 				if (ptr_5D4594_3799572->data[14]) {
-					func_5d4594_3799536 = sub_4C6BA0;
-					func_5d4594_3799432 = sub_4C7060;
+					func_type27_3799536 = sub_4C6BA0;
+					func_type4_3799432 = sub_4C7060;
 					sub_4C6260(a1, a2, a3);
 					return;
 				}
 				goto LABEL_21;
 			}
-			func_5d4594_3799544 = sub_4C7240;
+			func_type5_3799544 = sub_4C7240;
 			if (ptr_5D4594_3799572->data[14]) {
 				v3 = ptr_5D4594_3799572->data[259];
 				if (v3 == 255) {
 					if (!ptr_5D4594_3799572->data[16]) {
-						func_5d4594_3799536 = sub_4C6BA0;
-						func_5d4594_3799432 = sub_4C7060;
+						func_type27_3799536 = sub_4C6BA0;
+						func_type4_3799432 = sub_4C7060;
 						sub_4C6260(a1, a2, a3);
 						return;
 					}
 					goto LABEL_21;
 				}
 				if (v3 == 128) {
-					func_5d4594_3799536 = sub_4C6BF0;
-					func_5d4594_3799432 = sub_4C6FD0;
+					func_type27_3799536 = sub_4C6BF0;
+					func_type4_3799432 = sub_4C6FD0;
 				} else {
-					func_5d4594_3799432 = sub_4C6E40;
-					func_5d4594_3799536 = sub_4C6C60;
+					func_type4_3799432 = sub_4C6E40;
+					func_type27_3799536 = sub_4C6C60;
 				}
 				sub_4C6260(a1, a2, a3);
 			} else {
 				v4 = ptr_5D4594_3799572->data[259];
 				if (v4 == 255) {
 				LABEL_21:
-					func_5d4594_3799536 = sub_4C69A0;
-					func_5d4594_3799432 = sub_4C6DE0;
+					func_type27_3799536 = sub_4C69A0;
+					func_type4_3799432 = sub_4C6DE0;
 					sub_4C6260(a1, a2, a3);
 					return;
 				}
 				if (v4 == 128) {
-					func_5d4594_3799536 = sub_4C6B50;
-					func_5d4594_3799432 = sub_4C6FD0;
+					func_type27_3799536 = sub_4C6B50;
+					func_type4_3799432 = sub_4C6FD0;
 				} else {
-					func_5d4594_3799432 = sub_4C6E40;
-					func_5d4594_3799536 = sub_4C6A00;
+					func_type4_3799432 = sub_4C6E40;
+					func_type27_3799536 = sub_4C6A00;
 				}
 				sub_4C6260(a1, a2, a3);
 			}
 			break;
 		case 8:
-			func_5d4594_3799536 = sub_4C73A0;
+			func_type27_3799536 = sub_4C73A0;
 			sub_4C6260(a1, a2, a3);
 			return;
 		default:
@@ -6032,7 +6035,7 @@ void  sub_4C60D0(int a1, int a2, int a3) {
 	RECT rc;      // [esp+20h] [ebp-10h]
 	int v19;      // [esp+3Ch] [ebp+Ch]
 
-	result = func_5d4594_3799492(a1);
+	result = nox_video_getImagePixdata_func(a1);
 	*getMemU32Ptr(0x5D4594, 3799444) = result;
 	if (result) {
 		v4 = result->field_0;
@@ -6091,7 +6094,7 @@ void  sub_4C60D0(int a1, int a2, int a3) {
 			do {
 				v15 += 4;
 				dword_5d4594_3799540 = v9 + *(_DWORD*)(v15 + (_DWORD)nox_pixbuffer_rows_3798784 - 4);
-				func_5d4594_3799536();
+				func_type27_3799536();
 				--v16;
 				*getMemU32Ptr(0x5D4594, 3799444) += v13;
 			} while (v16);
@@ -6122,7 +6125,7 @@ int  sub_4C6260(int a1, int a2, int a3) {
 	int v21;        // [esp+38h] [ebp+8h]
 	int4* v22;      // [esp+3Ch] [ebp+Ch]
 
-	result = func_5d4594_3799492(a1);
+	result = nox_video_getImagePixdata_func(a1);
 	*getMemU32Ptr(0x5D4594, 3799444) = result;
 	if (result) {
 		v4 = *(_DWORD*)result;
@@ -6195,16 +6198,16 @@ int  sub_4C6260(int a1, int a2, int a3) {
 								goto LABEL_26;
 							case 2:
 							case 7:
-								func_5d4594_3799536();
+								func_type27_3799536();
 								goto LABEL_26;
 							case 4:
-								func_5d4594_3799432();
+								func_type4_3799432();
 								goto LABEL_26;
 							case 5:
-								func_5d4594_3799544();
+								func_type5_3799544();
 								goto LABEL_26;
 							case 6:
-								func_5d4594_3799488();
+								func_type6_3799488();
 							LABEL_26:
 								v15 -= *getMemU32Ptr(0x5D4594, 3799456);
 								if (v15 <= 0)
@@ -6346,7 +6349,7 @@ unsigned __int8*  sub_4C64E0(int a1, int a2, int a3, int* a4) {
 						if (v13 < v5 && v25 > v5) {
 							*getMemU32Ptr(0x5D4594, 3799456) = v5 - v13;
 						LABEL_28:
-							func_5d4594_3799536();
+							func_type27_3799536();
 						}
 						v27 = v43;
 						result = &v37[v43];
@@ -6384,7 +6387,7 @@ unsigned __int8*  sub_4C64E0(int a1, int a2, int a3, int* a4) {
 						if (v13 < v5 && v30 > v5) {
 							*getMemU32Ptr(0x5D4594, 3799456) = v5 - v13;
 						LABEL_52:
-							func_5d4594_3799432();
+							func_type4_3799432();
 						}
 						v27 = v43;
 						result = &v37[v43];
@@ -6411,7 +6414,7 @@ unsigned __int8*  sub_4C64E0(int a1, int a2, int a3, int* a4) {
 						if (v13 < v5 && v32 > v5) {
 							*getMemU32Ptr(0x5D4594, 3799456) = v5 - v13;
 						LABEL_65:
-							func_5d4594_3799544();
+							func_type5_3799544();
 						}
 						result = &v37[2 * v43];
 						v21 = v38 + v43;
@@ -6440,7 +6443,7 @@ unsigned __int8*  sub_4C64E0(int a1, int a2, int a3, int* a4) {
 						if (v13 < v5 && v34 > v5) {
 							*getMemU32Ptr(0x5D4594, 3799456) = v5 - v13;
 						LABEL_78:
-							func_5d4594_3799488();
+							func_type6_3799488();
 						}
 					LABEL_79:
 						v27 = v43;
@@ -6458,19 +6461,19 @@ unsigned __int8*  sub_4C64E0(int a1, int a2, int a3, int* a4) {
 								*getMemU32Ptr(0x5D4594, 3799456) = v29;
 								dword_5d4594_3799540 = v4 - v13 + v21;
 								*getMemU32Ptr(0x5D4594, 3799444) = &result[2 * (v4 - v13)];
-								func_5d4594_3799536();
+								func_type27_3799536();
 								goto LABEL_79;
 							}
 						} else {
 							v5 = v44;
 							if (v28 <= v44) {
-								func_5d4594_3799536();
+								func_type27_3799536();
 								goto LABEL_79;
 							}
 						}
 						if (v13 < v5 && v28 > v5) {
 							*getMemU32Ptr(0x5D4594, 3799456) = v5 - v13;
-							func_5d4594_3799536();
+							func_type27_3799536();
 						}
 						goto LABEL_79;
 					default:
@@ -7021,89 +7024,92 @@ unsigned __int8 sub_4C73A0() {
 }
 
 //----- (004C7440) --------------------------------------------------------
-void  nox_client_xxxDraw16_4C7440(void* a1, int a2, int a3) {
+void  nox_client_xxxDraw16_4C7440(nox_video_bag_image_t* img, int x, int y) {
 	int v3; // ecx
 	int v4; // eax
 	int v5; // ecx
 #if 0
-    if (*(_BYTE*)((char*)a1 + 10) != 8)
+    if (img->typ & 0xff != 8)
     {
-        dprintf("%x %x %x", a1, a2, a3);
-        dprintf("\t%d", *(_BYTE*)((char*)a1 + 10));
+        dprintf("%x %x %x", img, x, y);
+        dprintf("\t%d", img->typ & 0xff);
     }
 #endif
-	if (!a1) {
+	if (!img) {
 		return;
 	}
-	switch (*(_BYTE*)((char*)a1 + 10) & 0x3F) {
+	switch (img->typ & 0x3F) {
 	case 2:
 	case 7:
-		func_5d4594_3799536 = sub_4C80E0;
-		sub_4C7860(a1, a2, a3);
+		func_type27_3799536 = sub_4C80E0;
+		sub_4C7860(img, x, y);
 		return;
 	case 3:
 	case 4:
 	case 5:
 	case 6:
-		func_5d4594_3799544 = sub_4C96A0;
-		func_5d4594_3799488 = nullsub_7;
+		func_type5_3799544 = sub_4C96A0;
+		func_type6_3799488 = nullsub_7;
 		if (!ptr_5D4594_3799572->data[13]) {
 			if (ptr_5D4594_3799572->data[14]) {
-				func_5d4594_3799544 = sub_4C9970;
-				func_5d4594_3799536 = sub_4C86B0;
-				func_5d4594_3799432 = sub_4C91C0;
-				sub_4C79F0(a1, a2, a3);
+				func_type5_3799544 = sub_4C9970;
+				func_type27_3799536 = sub_4C86B0;
+				func_type4_3799432 = sub_4C91C0;
+				nox_client_drawImg_aaa_4C79F0(img, x, y);
 				return;
 			}
 			v5 = ptr_5D4594_3799572->data[17];
-			func_5d4594_3799536 = sub_4C8D60;
-			if (v5)
-				goto LABEL_23;
-			goto LABEL_22;
+			func_type27_3799536 = sub_4C8D60;
+			if (!v5) {
+				func_type27_3799536 = sub_4C80E0;
+			}
+			func_type4_3799432 = sub_4C8DF0;
+			nox_client_drawImg_aaa_4C79F0(img, x, y);
+			return;
 		}
-		func_5d4594_3799544 = sub_4C97F0;
+		func_type5_3799544 = sub_4C97F0;
 		if (ptr_5D4594_3799572->data[14]) {
 			v3 = ptr_5D4594_3799572->data[259];
 			if (v3 == 255) {
 				if (!ptr_5D4594_3799572->data[16]) {
-					func_5d4594_3799536 = sub_4C86B0;
-					func_5d4594_3799432 = sub_4C91C0;
-					sub_4C79F0(a1, a2, a3);
-					return;
+					func_type27_3799536 = sub_4C86B0;
+					func_type4_3799432 = sub_4C91C0;
+				} else {
+					func_type27_3799536 = sub_4C80E0;
+					func_type4_3799432 = sub_4C8DF0;
 				}
-				goto LABEL_22;
+				nox_client_drawImg_aaa_4C79F0(img, x, y);
+				return;
 			}
 			if (v3 == 128) {
-				func_5d4594_3799536 = sub_4C8A30;
-				func_5d4594_3799432 = sub_4C94D0;
+				func_type27_3799536 = sub_4C8A30;
+				func_type4_3799432 = sub_4C94D0;
 			} else {
-				func_5d4594_3799536 = sub_4C8850;
-				func_5d4594_3799432 = sub_4C92F0;
+				func_type27_3799536 = sub_4C8850;
+				func_type4_3799432 = sub_4C92F0;
 			}
-			sub_4C79F0(a1, a2, a3);
+			nox_client_drawImg_aaa_4C79F0(img, x, y);
 		} else {
 			v4 = ptr_5D4594_3799572->data[259];
 			if (v4 == 255) {
-			LABEL_22:
-				func_5d4594_3799536 = sub_4C80E0;
-			LABEL_23:
-				func_5d4594_3799432 = sub_4C8DF0;
-				sub_4C79F0(a1, a2, a3);
+				func_type27_3799536 = sub_4C80E0;
+				func_type4_3799432 = sub_4C8DF0;
+				nox_client_drawImg_aaa_4C79F0(img, x, y);
 				return;
 			}
 			if (v4 == 128) {
-				func_5d4594_3799536 = sub_4C8410;
-				func_5d4594_3799432 = sub_4C9050;
+				func_type27_3799536 = sub_4C8410;
+				func_type4_3799432 = sub_4C9050;
 			} else {
-				func_5d4594_3799536 = sub_4C8130;
-				func_5d4594_3799432 = sub_4C8EC0;
+				func_type27_3799536 = sub_4C8130;
+				func_type4_3799432 = sub_4C8EC0;
 			}
-			sub_4C79F0(a1, a2, a3);
+			nox_client_drawImg_aaa_4C79F0(img, x, y);
 		}
 		break;
 	case 8:
-		func_5d4594_3799536 = sub_4C9B20;
-		sub_4C79F0(a1, a2, a3);
+		func_type27_3799536 = sub_4C9B20;
+		nox_client_drawImg_aaa_4C79F0(img, x, y);
 		return;
 	default:
 		return;
@@ -7112,7 +7118,10 @@ void  nox_client_xxxDraw16_4C7440(void* a1, int a2, int a3) {
 // 47D640: using guessed type void nullsub_7();
 #if 1
 //----- (004C7670) --------------------------------------------------------
-void  nox_xxx_smthPlayerAnim_4C7670(int a1, int a2, int a3) {
+void  nox_xxx_smthPlayerAnim_4C7670(nox_video_bag_image_t* img, int x, int y) {
+	int a1 = img;
+	int a2 = x;
+	int a3 = y;
 	int v3; // esi
 	int v4; // ecx
 	int v5; // eax
@@ -7123,77 +7132,77 @@ void  nox_xxx_smthPlayerAnim_4C7670(int a1, int a2, int a3) {
 		switch (*(_BYTE*)(a1 + 10) & 0x3F) {
 		case 2:
 		case 7:
-			func_5d4594_3799536 = sub_4C80E0;
+			func_type27_3799536 = sub_4C80E0;
 			sub_4C7860(a1, a2, a3);
 			return;
 		case 3:
 		case 4:
 		case 5:
 		case 6:
-			func_5d4594_3799544 = sub_4C96A0;
-			func_5d4594_3799488 = nullsub_7;
+			func_type5_3799544 = sub_4C96A0;
+			func_type6_3799488 = nullsub_7;
 			if (!ptr_5D4594_3799572->data[13]) {
 				if (ptr_5D4594_3799572->data[14]) {
-					func_5d4594_3799544 = sub_4C9970;
-					func_5d4594_3799536 = sub_4C8760;
-					func_5d4594_3799432 = sub_4C91C0;
+					func_type5_3799544 = sub_4C9970;
+					func_type27_3799536 = sub_4C8760;
+					func_type4_3799432 = sub_4C91C0;
 					v3 = 1;
 					goto LABEL_23;
 				}
 				v6 = ptr_5D4594_3799572->data[17];
-				func_5d4594_3799536 = sub_4C8D60;
+				func_type27_3799536 = sub_4C8D60;
 				if (v6)
 					goto LABEL_22;
 				goto LABEL_21;
 			}
-			func_5d4594_3799544 = sub_4C97F0;
+			func_type5_3799544 = sub_4C97F0;
 			if (ptr_5D4594_3799572->data[14]) {
 				v4 = ptr_5D4594_3799572->data[259];
 				if (v4 == 255) {
 					if (!ptr_5D4594_3799572->data[16]) {
-						func_5d4594_3799536 = sub_4C8760;
-						func_5d4594_3799432 = sub_4C91C0;
+						func_type27_3799536 = sub_4C8760;
+						func_type4_3799432 = sub_4C91C0;
 						v3 = 1;
 						goto LABEL_23;
 					}
 					goto LABEL_21;
 				}
 				if (v4 == 128) {
-					func_5d4594_3799536 = sub_4C8C00;
-					func_5d4594_3799432 = sub_4C94D0;
+					func_type27_3799536 = sub_4C8C00;
+					func_type4_3799432 = sub_4C94D0;
 					v3 = 1;
 				} else {
-					func_5d4594_3799536 = sub_4C8850;
-					func_5d4594_3799432 = sub_4C92F0;
+					func_type27_3799536 = sub_4C8850;
+					func_type4_3799432 = sub_4C92F0;
 				}
 			} else {
 				v5 = ptr_5D4594_3799572->data[259];
 				if (v5 == 255) {
 				LABEL_21:
-					func_5d4594_3799536 = sub_4C80E0;
+					func_type27_3799536 = sub_4C80E0;
 				LABEL_22:
-					func_5d4594_3799432 = sub_4C8DF0;
+					func_type4_3799432 = sub_4C8DF0;
 					goto LABEL_23;
 				}
 				if (v5 == 128) {
-					func_5d4594_3799536 = sub_4C8570;
-					func_5d4594_3799432 = sub_4C9050;
+					func_type27_3799536 = sub_4C8570;
+					func_type4_3799432 = sub_4C9050;
 				} else {
-					func_5d4594_3799536 = sub_4C82C0;
-					func_5d4594_3799432 = sub_4C8EC0;
+					func_type27_3799536 = sub_4C82C0;
+					func_type4_3799432 = sub_4C8EC0;
 				}
 				v3 = 1;
 			}
 		LABEL_23:
-			sub_4C79F0(a1, a2, a3);
+			nox_client_drawImg_aaa_4C79F0(a1, a2, a3);
 #if 0
                 if (v3)
                 _m_femms();
 #endif
 			break;
 		case 8:
-			func_5d4594_3799536 = sub_4C9B20;
-			sub_4C79F0(a1, a2, a3);
+			func_type27_3799536 = sub_4C9B20;
+			nox_client_drawImg_aaa_4C79F0(a1, a2, a3);
 			return;
 		default:
 			return;
@@ -7223,7 +7232,7 @@ void  sub_4C7860(int a1, int a2, int a3) {
 	RECT rc;      // [esp+20h] [ebp-10h]
 	int v20;      // [esp+3Ch] [ebp+Ch]
 
-	result = func_5d4594_3799492(a1);
+	result = nox_video_getImagePixdata_func(a1);
 	*getMemU32Ptr(0x5D4594, 3799444) = result;
 	if (!result) {
 		return;
@@ -7284,7 +7293,7 @@ void  sub_4C7860(int a1, int a2, int a3) {
 		do {
 			v16 += 4;
 			dword_5d4594_3799540 = v13 + *(_DWORD*)((_DWORD)nox_pixbuffer_rows_3798784 + v16 - 4);
-			func_5d4594_3799536();
+			func_type27_3799536();
 			--v17;
 			*getMemU32Ptr(0x5D4594, 3799444) += v14;
 		} while (v17);
@@ -7292,7 +7301,7 @@ void  sub_4C7860(int a1, int a2, int a3) {
 }
 
 //----- (004C79F0) --------------------------------------------------------
-int  sub_4C79F0(int a1, int a2, int a3) {
+void nox_client_drawImg_aaa_4C79F0(nox_video_bag_image_t* img, int x, int y) {
 	int result; // eax
 	int v4;     // ebp
 	int v5;     // esi
@@ -7316,110 +7325,112 @@ int  sub_4C79F0(int a1, int a2, int a3) {
 	int v23;    // [esp+38h] [ebp+8h]
 	int v24;    // [esp+3Ch] [ebp+Ch]
 
-	result = func_5d4594_3799492(a1);
+	result = nox_video_getImagePixdata_func(img);
 	*getMemU32Ptr(0x5D4594, 3799444) = result;
-	if (result) {
-		v4 = *(_DWORD*)result;
-		*getMemU32Ptr(0x5D4594, 3799444) = result + 4;
-		v5 = *(_DWORD*)(result + 4);
-		v6 = (int*)(result + 8);
-		*getMemU32Ptr(0x5D4594, 3799444) = v6;
-		v7 = *(_DWORD*)(result + 8);
-		++v6;
-		dword_5d4594_3799560 = v7;
-		v8 = v7 + a2;
-		*getMemU32Ptr(0x5D4594, 3799444) = v6;
-		v9 = *v6;
-		dword_5d4594_3799556 = v9;
-		v10 = v9 + a3;
-		result = dword_5d4594_3799484;
-		v11 = (int)(v6 + 1);
-		*getMemU32Ptr(0x5D4594, 3799444) = v11;
-		if (dword_5d4594_3799484) {
-			v5 -= dword_5d4594_3799484;
-			if (v5 <= 0)
-				return result;
-			dword_5d4594_3799476 = v5 + v10;
+	if (!result) {
+		return;
+	}
+	v4 = *(_DWORD*)result;
+	*getMemU32Ptr(0x5D4594, 3799444) = result + 4;
+	v5 = *(_DWORD*)(result + 4);
+	v6 = (int*)(result + 8);
+	*getMemU32Ptr(0x5D4594, 3799444) = v6;
+	v7 = *(_DWORD*)(result + 8);
+	++v6;
+	dword_5d4594_3799560 = v7;
+	v8 = v7 + x;
+	*getMemU32Ptr(0x5D4594, 3799444) = v6;
+	v9 = *v6;
+	dword_5d4594_3799556 = v9;
+	v10 = v9 + y;
+	result = dword_5d4594_3799484;
+	v11 = (int)(v6 + 1);
+	*getMemU32Ptr(0x5D4594, 3799444) = v11;
+	if (dword_5d4594_3799484) {
+		v5 -= dword_5d4594_3799484;
+		if (v5 <= 0) {
+			return;
 		}
-		*getMemU32Ptr(0x5D4594, 3799444) = v11 + 1;
-		*getMemU32Ptr(0x5D4594, 3799520) = v8;
-		*getMemU32Ptr(0x5D4594, 3799512) = v10;
-		*getMemU32Ptr(0x5D4594, 3799516) = v4;
-		*getMemU32Ptr(0x5D4594, 3799504) = v5;
-		if (!ptr_5D4594_3799572->data[0])
-			goto LABEL_33;
+		dword_5d4594_3799476 = v5 + v10;
+	}
+	*getMemU32Ptr(0x5D4594, 3799444) = v11 + 1;
+	*getMemU32Ptr(0x5D4594, 3799520) = v8;
+	*getMemU32Ptr(0x5D4594, 3799512) = v10;
+	*getMemU32Ptr(0x5D4594, 3799516) = v4;
+	*getMemU32Ptr(0x5D4594, 3799504) = v5;
+	if (ptr_5D4594_3799572->data[0]) {
 		SetRect(&rc, v8, v10, v8 + v4, v5 + v10);
 		result = nox_xxx_utilRect_49F930(&a1a, (int4*)&rc, (int4*)(&ptr_5D4594_3799572->data[1]));
-		if (!result)
-			return result;
+		if (!result) {
+			return;
+		}
 		if (rc.left != a1a.field_0 || rc.right != a1a.field_8 || rc.top != a1a.field_4 || rc.bottom != a1a.field_C) {
-			result = sub_4C7C80(v8, v10, v4, &a1a.field_0);
-		} else {
-		LABEL_33:
-			result = v10 & 1;
-			v22 = 0;
-			dword_5d4594_3799508 ^= result;
-			v12 = v5;
-			v13 = v5 - 1;
-			if (v12) {
-				v14 = 2 * v8;
-				v24 = 2 * v8;
-				v15 = 4 * v10;
-				v23 = v13 + 1;
-				while (1) {
-					v16 = v4;
-					v17 = (char*)(v14 + (_DWORD)nox_pixbuffer_rows_3798784[v15/4]);
-					dword_5d4594_3799540 = v14 + (_DWORD)nox_pixbuffer_rows_3798784[v15/4];
-					if (dword_5d4594_3799552 && (dword_5d4594_3799508 ^= 1u) != 0) {
-						if (v22)
-							memcpy(v17, (const void*)(v14 + *(_DWORD*)(v15 + (_DWORD)nox_pixbuffer_rows_3798784 - 4)), 2 * v4);
-						sub_4C8040(v4, 1);
-					} else if (v4 > 0) {
-						while (1) {
-							*getMemU32Ptr(0x5D4594, 3799428) = (unsigned __int8)**(_BYTE**)getMemAt(0x5D4594, 3799444);
-							++*getMemU32Ptr(0x5D4594, 3799444);
-							v18 = (unsigned __int8)**(_BYTE**)getMemAt(0x5D4594, 3799444);
-							*getMemU32Ptr(0x5D4594, 3799456) = (unsigned __int8)**(_BYTE**)getMemAt(0x5D4594, 3799444);
-							++*getMemU32Ptr(0x5D4594, 3799444);
-							switch (getMemByte(0x5D4594, 3799428) & 0xF) {
-							case 1:
-								dword_5d4594_3799540 = &v17[2 * v18];
-								break;
-							case 2:
-							case 7:
-								func_5d4594_3799536();
-								break;
-							case 4:
-								func_5d4594_3799432();
-								break;
-							case 5:
-								func_5d4594_3799544();
-								break;
-							case 6:
-								func_5d4594_3799488();
-								break;
-							default:
-								break;
-							}
-							v16 -= *getMemU32Ptr(0x5D4594, 3799456);
-							if (v16 <= 0)
-								break;
-							v17 = *(char**)&dword_5d4594_3799540;
-						}
-					}
-					v15 += 4;
-					result = v23 - 1;
-					v19 = v23 == 1;
-					++v22;
-					--v23;
-					if (v19)
-						break;
-					v14 = v24;
-				}
-			}
+			sub_4C7C80(v8, v10, v4, &a1a.field_0);
+			return;
 		}
 	}
-	return result;
+	result = v10 & 1;
+	v22 = 0;
+	dword_5d4594_3799508 ^= result;
+	v12 = v5;
+	v13 = v5 - 1;
+	if (!v12) {
+		return;
+	}
+	v14 = 2 * v8;
+	v24 = 2 * v8;
+	v15 = 4 * v10;
+	v23 = v13 + 1;
+	while (1) {
+		v16 = v4;
+		v17 = (char*)(v14 + (_DWORD)nox_pixbuffer_rows_3798784[v15/4]);
+		dword_5d4594_3799540 = v14 + (_DWORD)nox_pixbuffer_rows_3798784[v15/4];
+		if (dword_5d4594_3799552 && (dword_5d4594_3799508 ^= 1u) != 0) {
+			if (v22)
+				memcpy(v17, (const void*)(v14 + *(_DWORD*)(v15 + (_DWORD)nox_pixbuffer_rows_3798784 - 4)), 2 * v4);
+			sub_4C8040(v4, 1);
+		} else if (v4 > 0) {
+			while (1) {
+				*getMemU32Ptr(0x5D4594, 3799428) = (unsigned __int8)**(_BYTE**)getMemAt(0x5D4594, 3799444);
+				++*getMemU32Ptr(0x5D4594, 3799444);
+				v18 = (unsigned __int8)**(_BYTE**)getMemAt(0x5D4594, 3799444);
+				*getMemU32Ptr(0x5D4594, 3799456) = (unsigned __int8)**(_BYTE**)getMemAt(0x5D4594, 3799444);
+				++*getMemU32Ptr(0x5D4594, 3799444);
+				switch (getMemByte(0x5D4594, 3799428) & 0xF) {
+				case 1:
+					dword_5d4594_3799540 = &v17[2 * v18];
+					break;
+				case 2:
+				case 7:
+					func_type27_3799536();
+					break;
+				case 4:
+					func_type4_3799432();
+					break;
+				case 5:
+					func_type5_3799544();
+					break;
+				case 6:
+					func_type6_3799488();
+					break;
+				default:
+					break;
+				}
+				v16 -= *getMemU32Ptr(0x5D4594, 3799456);
+				if (v16 <= 0)
+					break;
+				v17 = *(char**)&dword_5d4594_3799540;
+			}
+		}
+		v15 += 4;
+		result = v23 - 1;
+		v19 = v23 == 1;
+		++v22;
+		--v23;
+		if (v19)
+			break;
+		v14 = v24;
+	}
 }
 
 //----- (004C7C80) --------------------------------------------------------
@@ -7533,19 +7544,19 @@ unsigned __int8*  sub_4C7C80(int a1, int a2, int a3, int* a4) {
 								v27 = 2 * (v4 - v13);
 								*getMemU32Ptr(0x5D4594, 3799444) = &result[v27];
 								dword_5d4594_3799540 = v27 + v21;
-								func_5d4594_3799536();
+								func_type27_3799536();
 								goto LABEL_66;
 							}
 						} else {
 							v5 = v45;
 							if (v25 <= v45) {
-								func_5d4594_3799536();
+								func_type27_3799536();
 								goto LABEL_66;
 							}
 						}
 						if (v13 < v5 && v25 > v5) {
 							*getMemU32Ptr(0x5D4594, 3799456) = v5 - v13;
-							func_5d4594_3799536();
+							func_type27_3799536();
 						}
 						goto LABEL_66;
 					case 4:
@@ -7570,7 +7581,7 @@ unsigned __int8*  sub_4C7C80(int a1, int a2, int a3, int* a4) {
 						if (v13 < v5 && v28 > v5) {
 							*getMemU32Ptr(0x5D4594, 3799456) = v5 - v13;
 						LABEL_39:
-							func_5d4594_3799432();
+							func_type4_3799432();
 						}
 						v30 = v44;
 						result = &v38[v44];
@@ -7609,7 +7620,7 @@ unsigned __int8*  sub_4C7C80(int a1, int a2, int a3, int* a4) {
 						if (v13 < v5 && v31 > v5) {
 							*getMemU32Ptr(0x5D4594, 3799456) = v5 - v13;
 						LABEL_52:
-							func_5d4594_3799544();
+							func_type5_3799544();
 						}
 						result = &v38[2 * v44];
 						v21 = v39 + 2 * v44;
@@ -7639,7 +7650,7 @@ unsigned __int8*  sub_4C7C80(int a1, int a2, int a3, int* a4) {
 						if (v13 < v5 && v34 > v5) {
 							*getMemU32Ptr(0x5D4594, 3799456) = v5 - v13;
 						LABEL_65:
-							func_5d4594_3799488();
+							func_type6_3799488();
 						}
 					LABEL_66:
 						v30 = v44;

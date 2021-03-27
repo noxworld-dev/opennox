@@ -45,7 +45,7 @@ extern _DWORD dword_5d4594_3804668;
 extern _DWORD dword_5d4594_1193584;
 extern int nox_backbuffer_pitch_3801808;
 extern _DWORD cpuid_5d4594_3801804;
-extern int(*func_5d4594_3799492)(_DWORD);
+extern void* (*nox_video_getImagePixdata_func)(nox_video_bag_image_t*);
 extern _DWORD dword_5d4594_810640;
 extern _DWORD dword_5d4594_1193516;
 extern _DWORD dword_5d4594_3799624;

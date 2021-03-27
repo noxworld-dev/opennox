@@ -8295,7 +8295,7 @@ int  sub_49ED80(unsigned __int8 a1, int a2) {
 				v26 = 2 * v3;
 				v12 = 2 * (v3 - v4);
 				v13 = v26 - v4;
-				sub_4B0820((int)v5, v19, v18);
+				nox_video_drawImageAt2_4B0820((int)v5, v19, v18);
 				v14 = v4;
 				v15 = v4 - 1;
 				if (v14) {
@@ -8310,7 +8310,7 @@ int  sub_49ED80(unsigned __int8 a1, int a2) {
 							v13 += v26;
 						}
 						if (++v27 >= v24) {
-							sub_4B0820((int)v5, v19, v17);
+							nox_video_drawImageAt2_4B0820((int)v5, v19, v17);
 							v27 = 0;
 						}
 						--v16;
@@ -8320,7 +8320,7 @@ int  sub_49ED80(unsigned __int8 a1, int a2) {
 				v25 = 2 * v4;
 				v6 = 2 * (v4 - v3);
 				v7 = v25 - v3;
-				sub_4B0820((int)v5, v19, v18);
+				nox_video_drawImageAt2_4B0820((int)v5, v19, v18);
 				v8 = v3;
 				v9 = v3 - 1;
 				if (v8) {
@@ -8335,7 +8335,7 @@ int  sub_49ED80(unsigned __int8 a1, int a2) {
 							v7 += v25;
 						}
 						if (++v27 >= v24) {
-							sub_4B0820((int)v5, v11, v18);
+							nox_video_drawImageAt2_4B0820((int)v5, v11, v18);
 							v27 = 0;
 						}
 						--v10;
