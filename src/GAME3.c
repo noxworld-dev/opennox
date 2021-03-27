@@ -115,7 +115,7 @@ extern _DWORD dword_5d4594_1312484;
 extern void* dword_587000_127004;
 extern _DWORD dword_5d4594_1308088;
 extern _DWORD dword_5d4594_1312480;
-extern int(*func_5d4594_3799492)(_DWORD);
+extern void* (*nox_video_getImagePixdata_func)(nox_video_bag_image_t*);
 extern _DWORD dword_5d4594_2618912;
 extern _DWORD dword_5d4594_3798640;
 extern _DWORD dword_5d4594_1307776;
@@ -6983,7 +6983,7 @@ _DWORD*  nox_xxx_partfxSwitch_4AF690(_DWORD* a1, void(* a2)(_DWORD*, _DWORD*, in
 	int v31;                                    // [esp+2Ch] [ebp-4h]
 	_BYTE* v32;                                 // [esp+38h] [ebp+8h]
 
-	result = func_5d4594_3799492(a1[1]);
+	result = nox_video_getImagePixdata_func(a1[1]);
 	if (result) {
 		v3 = *result;
 		v4 = result[1];
@@ -7599,7 +7599,7 @@ int  nox_xxx_drawParticlefx_4AFEB0(int* a1) {
 		nox_client_drawImageAt_47D2C0(*a1, a2.field_0, a2.field_4);
 	v6 = a1[1];
 	if (v6)
-		sub_4B0820(v6, v4, v5);
+		nox_video_drawImageAt2_4B0820(v6, v4, v5);
 	v7 = a1[3];
 	if (v7 && a1[4]) {
 		v8 = *(_DWORD*)(v7 + 12);
@@ -7888,15 +7888,17 @@ int  sub_4B07D0(LPVOID lpMem) {
 }
 
 //----- (004B0820) --------------------------------------------------------
-int(*  sub_4B0820(int a1, int a2, int a3))(_DWORD) {
-	int( * v3)(_DWORD); // esi
-	char v5[12];               // [esp+4h] [ebp-Ch]
+void nox_video_drawImageAt2_4B0820(void* a1, int x, int y) {
+	nox_video_bag_image_t img;
+	img.typ = 8;
+	img.offset = *(_DWORD*)((char*)a1 + 64); // uses offset field to pass image data pointer
 
-	v5[10] = 8;
-	*(_DWORD*)v5 = *(_DWORD*)(a1 + 64);
-	v3 = sub_47D5B0(sub_4B0B20);
-	nox_client_drawImageAt_47D2C0((int)v5, a2, a3);
-	return sub_47D5B0((int)v3);
+	void* old = nox_video_getImagePixdata_func;
+	nox_video_getImagePixdata_func = nox_video_getImagePixdataInline_4B0B20;
+
+	nox_client_drawImageAt_47D2C0(&img, x, y);
+
+	nox_video_getImagePixdata_func = old;
 }
 
 //----- (004B0870) --------------------------------------------------------
@@ -8035,7 +8037,9 @@ int  sub_4B0870(int* a1) {
 }
 
 //----- (004B0B20) --------------------------------------------------------
-int  sub_4B0B20(int a1) { return *(_DWORD*)a1; }
+void*  nox_video_getImagePixdataInline_4B0B20(nox_video_bag_image_t* img) {
+	return img->offset;
+}
 
 //----- (004B0B30) --------------------------------------------------------
 int nox_video_assignCircleDrawFuncs_4B0B30() {
@@ -10763,7 +10767,7 @@ void  sub_4B6720(int2* a1, int a2, int a3, char a4) {
 		sub_434040(a2);
 		sub_434080(a3 + 4);
 		v4 = sub_4B0680(0, 32 * a4);
-		sub_4B0820((int)v4, a1->field_0, a1->field_4);
+		nox_video_drawImageAt2_4B0820((int)v4, a1->field_0, a1->field_4);
 	}
 }
 

@@ -158,8 +158,8 @@ BYTE* nox_pixbuffer_3798788 = 0;
 void( *func_587000_154940)(int2*, _DWORD, _DWORD) = nox_xxx_tileDraw_4815E0;
 int ( *func_587000_154944)(int, int) = nox_xxx_drawTexEdgesProbably_481900;
 
-void(*nox_client_drawAtFunc_3799500)(_DWORD, _DWORD, _DWORD) = 0;
-int(*func_5d4594_3799492)(_DWORD) = 0;
+void(*nox_client_drawAtFunc_3799500)(nox_video_bag_image_t*, int, int) = 0;
+void* (*nox_video_getImagePixdata_func)(nox_video_bag_image_t*) = 0;
 
 void* dword_5d4594_1189584 = 0;
 
@@ -616,7 +616,7 @@ void  sub_476850(int a1, unsigned __int8* a2) {
 	} else {
 		v2 = *(_DWORD*)(*(_DWORD*)(*((_DWORD*)a2 + 76) + 4) + 4 * *((_DWORD*)a2 + 77));
 	}
-	v3 = func_5d4594_3799492(v2);
+	v3 = nox_video_getImagePixdata_func(v2);
 	if (v3) {
 		v4 = *v3;
 		v5 = v3[1];
@@ -750,7 +750,7 @@ int(*  sub_476AE0(int a1, unsigned __int8* a2))(int* a1, int a2) {
 	} else {
 		v4 = *(_DWORD*)(*(_DWORD*)(*((_DWORD*)a2 + 76) + 4) + 4 * *((_DWORD*)a2 + 77));
 	}
-	result = func_5d4594_3799492(v4);
+	result = nox_video_getImagePixdata_func(v4);
 	if (result) {
 		if (dword_5d4594_3799624 == 1 || (v33 = sub_476DA0, !nox_client_texturedFloors_154956)) {
 			v33 = sub_476D70;
@@ -4218,31 +4218,30 @@ int sub_47D200() {
 	dword_5d4594_3799468 = 0;
 	dword_5d4594_3799552 = 0;
 	dword_5d4594_3799508 = 0;
-	func_5d4594_3799492 = nox_xxx_tileEdgeCrashHere_42FB30;
+	nox_video_getImagePixdata_func = nox_video_getImagePixdata_42FB30;
 	return 1;
 }
 
 //----- (0047D2C0) --------------------------------------------------------
-void nox_client_drawImageAt_47D2C0(void* a1, int x, int y) {
+void nox_client_drawImageAt_47D2C0(nox_video_bag_image_t* img, int x, int y) {
 	if (dword_5d4594_3799452) {
 		nox_xxx_wndDraw_49F7F0();
 		sub_49F780(*getMemIntPtr(0x5D4594, 3799480), *getMemIntPtr(0x5D4594, 3799440));
 		sub_49F6D0(1);
 	}
-	nox_client_drawAtFunc_3799500(a1, x, y);
+	nox_client_drawAtFunc_3799500(img, x, y);
 	if (dword_5d4594_3799452) {
 		sub_49F860();
 		dword_5d4594_3799452 = 0;
 	}
 	dword_5d4594_3799484 = 0;
 	*getMemU32Ptr(0x5D4594, 3799548) = 0;
-	if (*getMemU32Ptr(0x5D4594, 3799496) && a1) {
-		if (*getMemU32Ptr(0x5D4594, 3799520) != *(__int16*)((char*)a1 + 4) ||
-			*getMemU32Ptr(0x5D4594, 3799512) != *(__int16*)((char*)a1 + 6)) {
+	if (*getMemU32Ptr(0x5D4594, 3799496) && img) {
+		if (*getMemU32Ptr(0x5D4594, 3799520) != img->field_1_0 || *getMemU32Ptr(0x5D4594, 3799512) != img->field_1_1) {
 			dword_5d4594_3799524 = 1;
 		}
-		*(_WORD*)((char*)a1 + 4) = *getMemU16Ptr(0x5D4594, 3799520);
-		*(_WORD*)((char*)a1 + 6) = *getMemU16Ptr(0x5D4594, 3799512);
+		img->field_1_0 = *getMemU16Ptr(0x5D4594, 3799520);
+		img->field_1_1 = *getMemU16Ptr(0x5D4594, 3799512);
 	}
 }
 
@@ -4422,15 +4421,6 @@ LABEL_2:
 	}
 }
 
-//----- (0047D5B0) --------------------------------------------------------
-int(*  sub_47D5B0(int a1))(_DWORD) {
-	int( * result)(_DWORD); // eax
-
-	result = *(int(**)(_DWORD)) & func_5d4594_3799492;
-	func_5d4594_3799492 = a1;
-	return result;
-}
-
 //----- (0047D5C0) --------------------------------------------------------
 int  sub_47D5C0(int a1, _DWORD* a2, _DWORD* a3, _DWORD* a4, _DWORD* a5) {
 	_DWORD* v5; // eax
@@ -4443,7 +4433,7 @@ int  sub_47D5C0(int a1, _DWORD* a2, _DWORD* a3, _DWORD* a4, _DWORD* a5) {
 		*a5 = 0;
 	if (!a1)
 		return 0;
-	v5 = func_5d4594_3799492(a1);
+	v5 = nox_video_getImagePixdata_func(a1);
 	if (!v5)
 		return 0;
 	if (a4)
@@ -5973,7 +5963,7 @@ int*  nox_xxx_someEdgeProcessing_480EF0(int a1, int a2, int a3, int* a4, int* a5
 	v42 = sub_480700;
 	if (!cpuid_5d4594_3801804)
 		v42 = sub_480860;
-	result = (int*)nox_xxx_tileEdgeCrashHere_42FB30(a1);
+	result = (int*)nox_video_getImagePixdata_42FB30(a1);
 	if (!result) {
 		return result;
 	}
@@ -6243,7 +6233,7 @@ char  nox_xxx_tileDraw_4815E0(_DWORD* a1, int a2) {
 		 ((dword_5d4594_3798836 + *a1 - dword_5d4594_3798820) << getMemByte(0x5D4594, 3807124));
 	if (v2 >= *(int*)&dword_5d4594_3798844)
 		v2 += dword_5d4594_3798796 - dword_5d4594_3798844;
-	v3 = nox_xxx_tileEdgeCrashHere_42FB30(a2);
+	v3 = nox_video_getImagePixdata_42FB30(a2);
 	v4 = (char*)v3;
 	v14 = (char*)v3;
 	if (v3) {
@@ -6403,12 +6393,12 @@ char  nox_xxx_drawTexEdgesProbably_481900(_DWORD* a1, _DWORD* a2) {
 	*getMemU32Ptr(0x5D4594, 2523980 + 4 * v4) = 1;
 	v8 = dword_5d4594_3798804 * (v7 + a1[1] - v2) + dword_5d4594_3798796 +
 		 ((v5 + *a1 - dword_5d4594_3798820) << getMemByte(0x5D4594, 3807124));
-	v9 = nox_xxx_tileEdgeCrashHere_42FB30(v6);
+	v9 = nox_video_getImagePixdata_42FB30(v6);
 	if (v9) {
 		v32 = *(_BYTE*)v9;
 		v25 = *(_BYTE*)(v9 + 1);
 		v10 = (_BYTE*)(v9 + 2);
-		v9 = nox_xxx_tileEdgeCrashHere_42FB30(v3);
+		v9 = nox_video_getImagePixdata_42FB30(v3);
 		v11 = v9;
 		if (v9) {
 			v12 = dword_5d4594_3798844;
@@ -12568,7 +12558,7 @@ int  sub_48C0C0(int a1, _DWORD* a2, _DWORD* a3) {
 	_DWORD* v4; // eax
 	_DWORD* v5; // eax
 
-	result = func_5d4594_3799492(a1);
+	result = nox_video_getImagePixdata_func(a1);
 	dword_5d4594_1193516 = result;
 	if (result) {
 		v4 = (_DWORD*)(result + 8);
