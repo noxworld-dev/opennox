@@ -349,17 +349,25 @@ typedef struct struc_36 {
 } struc_36;
 
 typedef struct {
-	void* field_0;
-	_DWORD field_1;
-	_DWORD field_2;
-	int field_3; // sizeof field_0
-	_DWORD field_4;
-	_DWORD field_5;
+	char* data; // 0, 0
+	_DWORD field_1; // 1, 4
+	unsigned int bag_offs; // 2, 8
+	int size;      // 3, 12; sizeof decompressed data
+	int size_comp; // 4, 16; sizeof compressed data
+	_DWORD field_5; // 5, 20
 	int field_6;
 	void* field_7;
 	void* field_8;
-} nox_video_bag_entry1_t;
-_Static_assert(sizeof(nox_video_bag_entry1_t) == 36, "wrong size of nox_video_bag_entry1_t structure!");
+} nox_video_bag_section_t;
+_Static_assert(sizeof(nox_video_bag_section_t) == 36, "wrong size of nox_video_bag_section_t structure!");
+
+typedef struct nox_video_bag_image_t {
+	int offset; // 0, 0
+	_DWORD field_1; // 1, 4
+	_WORD sect_ind; // 2, 8
+	_WORD typ; // 2, 10
+} nox_video_bag_image_t;
+_Static_assert(sizeof(nox_video_bag_image_t) == 12, "wrong size of nox_video_bag_image_t structure!");
 
 typedef struct nox_thing nox_thing;
 typedef struct nox_drawable nox_drawable;
@@ -491,14 +499,6 @@ typedef struct nox_net_struct2_t {
 	_DWORD ticks; // 16, 64
 } nox_net_struct2_t;
 _Static_assert(sizeof(nox_net_struct2_t) == 68, "wrong size of nox_net_struct2_t structure!");
-
-typedef struct nox_image_xxx12_t {
-	_DWORD field_0; // 0, 0
-	_DWORD field_1; // 1, 4
-	_WORD field_2_1; // 2, 8
-	_WORD field_2_2; // 2, 10
-} nox_image_xxx12_t;
-_Static_assert(sizeof(nox_image_xxx12_t) == 12, "wrong size of nox_image_xxx12_t structure!");
 
 typedef struct nox_image_xxx104_t {
 	char name[32]; // 0, 0

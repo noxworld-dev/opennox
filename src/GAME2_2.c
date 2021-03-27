@@ -2578,7 +2578,7 @@ char*  nox_xxx_loadImage_47A8C0(char a1, char* a2) {
 	}
 	result = (char*)(336 * v2 + (char*)dword_5d4594_1189584 + 324);
 	if (!*(_DWORD*)result) {
-		if (nox_xxx_videoBagSmth_47A960(a1, v2))
+		if (nox_video_bag_readImageData_47A960(a1, v2))
 			return (char*)(336 * v2 + (char*)dword_5d4594_1189584 + 324);
 		return 0;
 	}
@@ -2586,8 +2586,7 @@ char*  nox_xxx_loadImage_47A8C0(char a1, char* a2) {
 }
 
 //----- (0047A960) --------------------------------------------------------
-int  nox_xxx_videoBagSmth_47A960(char a1, int a2) {
-	int v3;              // ebp
+int  nox_video_bag_readImageData_47A960(unsigned char typ, int ind) {
 	FILE* v4;            // edi
 	bool v5;             // zf
 	int v6;              // eax
@@ -2604,67 +2603,64 @@ int  nox_xxx_videoBagSmth_47A960(char a1, int a2) {
 	int v19;             // [esp+BCh] [ebp-28Ch]
 	char v20[68];        // [esp+C0h] [ebp-288h]
 	char v21[68];        // [esp+104h] [ebp-244h]
-	CHAR Buffer[512];    // [esp+148h] [ebp-200h]
+	char Buffer[512];    // [esp+148h] [ebp-200h]
 
 	nox_fs_workdir(Buffer, 512);
-	v3 = 336 * a2;
-	if (!nox_fs_set_workdir((LPCSTR)((char*)dword_5d4594_1189584 + 336 * a2)) && GetLastError())
+	if (!nox_fs_set_workdir((LPCSTR)((char*)dword_5d4594_1189584 + 336 * ind)) && GetLastError())
 		return 0;
-	v4 = nox_fs_open((const char*)((char*)dword_5d4594_1189584 + v3 + 260));
+	v4 = nox_fs_open((const char*)((char*)dword_5d4594_1189584 + 336 * ind + 260));
 	if (sub_4C57C0(v4, *getMemIntPtr(0x5D4594, 1189588), &v19, &v18)) {
 		nox_fs_close(v4);
-		switch ((unsigned __int8)a1 & 0x3F) {
+		switch (typ & 0x3F) {
 		case 0:
-			*(_DWORD*)((char*)dword_5d4594_1189584 + v3 + 324) = malloc(3 * v18 * v19);
-			v5 = nox_xxx_videoBag_LoadTile_47AD60(v19, v18, *(_WORD**)((char*)dword_5d4594_1189584 + v3 + 324)) == 0;
+			*(_DWORD*)((char*)dword_5d4594_1189584 + 336 * ind + 324) = malloc(3 * v18 * v19);
+			v5 = nox_xxx_videoBag_LoadTile_47AD60(v19, v18, *(_WORD**)((char*)dword_5d4594_1189584 + 336 * ind + 324)) == 0;
 			v6 = dword_5d4594_1189584;
 			if (v5)
 				goto LABEL_6;
-			*(_WORD*)((char*)dword_5d4594_1189584 + v3 + 332) = 0;
-			*(_BYTE*)((char*)dword_5d4594_1189584 + v3 + 334) = -128;
+			*(_WORD*)((char*)dword_5d4594_1189584 + 336 * ind + 332) = 0;
+			*(_BYTE*)((char*)dword_5d4594_1189584 + 336 * ind + 334) = -128;
 			break;
 		case 1:
-			*(_DWORD*)((char*)dword_5d4594_1189584 + v3 + 324) = malloc(3 * v18 * v19);
-			v5 = nox_xxx_videoBag_LoadEdge_47AF30(v19, v18, *(unsigned __int8**)((char*)dword_5d4594_1189584 + v3 + 324)) == 0;
+			*(_DWORD*)((char*)dword_5d4594_1189584 + 336 * ind + 324) = malloc(3 * v18 * v19);
+			v5 = nox_xxx_videoBag_LoadEdge_47AF30(v19, v18, *(unsigned __int8**)((char*)dword_5d4594_1189584 + 336 * ind + 324)) == 0;
 			v6 = dword_5d4594_1189584;
 			if (v5) {
 			LABEL_6:
-				free(*(LPVOID*)(v6 + v3 + 324));
+				free(*(LPVOID*)(v6 + 336 * ind + 324));
 				nox_fs_set_workdir(Buffer);
 				return 0;
 			}
-			*(_WORD*)((char*)dword_5d4594_1189584 + v3 + 332) = 0;
-			*(_BYTE*)((char*)dword_5d4594_1189584 + v3 + 334) = -127;
+			*(_WORD*)((char*)dword_5d4594_1189584 + 336 * ind + 332) = 0;
+			*(_BYTE*)((char*)dword_5d4594_1189584 + 336 * ind + 334) = -127;
 			break;
 		case 3:
 		case 4:
 		case 5:
 		case 6:
-			v8 = strrchr((const char*)((char*)dword_5d4594_1189584 + v3 + 260), 46);
-			v9 = (int)&v8[-v3];
-			strncpy(v21, (const char*)((char*)dword_5d4594_1189584 + v3 + 260), (size_t)&v8[-v3 - (int)dword_5d4594_1189584 - 260]);
+			v8 = strrchr((const char*)((char*)dword_5d4594_1189584 + 336 * ind + 260), '.');
+			v9 = (int)&v8[-336 * ind];
+			strncpy(v21, (const char*)((char*)dword_5d4594_1189584 + 336 * ind + 260), (size_t)&v8[-336 * ind - (int)dword_5d4594_1189584 - 260]);
 			v15[v9 - (int)dword_5d4594_1189584] = 0;
-			if ((_BYTE)a1 == 5 || (_BYTE)a1 == 6) {
+			if (typ == 5 || typ == 6) {
 				v10 = getMemByte(0x587000, 153772);
 				strcpy(v20, v21);
 				v11 = &v20[strlen(v20)];
 				*(_DWORD*)v11 = *getMemU32Ptr(0x587000, 153768);
-				v16 = v20;
 				v11[4] = v10;
-				v4 = nox_fs_open(v16);
+				v4 = nox_fs_open(v20);
 				if (v4) {
 					if (!sub_4C57C0(v4, *(int*)&dword_5d4594_1189596, &v19, &v18))
 						goto LABEL_26;
 				}
 			}
-			if ((_BYTE)a1 == 4 || (_BYTE)a1 == 6) {
+			if (typ == 4 || typ == 6) {
 				v12 = getMemByte(0x587000, 153784);
 				strcpy(v20, v21);
 				v13 = &v20[strlen(v20)];
 				*(_DWORD*)v13 = *getMemU32Ptr(0x587000, 153780);
-				v16 = v20;
 				v13[4] = v12;
-				v4 = nox_fs_open(v16);
+				v4 = nox_fs_open(v20);
 				if (v4) {
 					if (!sub_4C57C0(v4, *(int*)&dword_5d4594_1189592, &v19, &v18)) {
 					LABEL_26:
@@ -2675,15 +2671,14 @@ int  nox_xxx_videoBagSmth_47A960(char a1, int a2) {
 				}
 			}
 			v14 = malloc(3 * v18 * v19);
-			v16 = a1;
-			*(_DWORD*)((char*)dword_5d4594_1189584 + v3 + 324) = v14;
-			if (!nox_xxx_videoBag_LoadPXImg_47B7F0(v19, v18, *(_DWORD*)((char*)dword_5d4594_1189584 + v3 + 324), (unsigned __int8)v16)) {
-				free(*(LPVOID*)((char*)dword_5d4594_1189584 + v3 + 324));
+			*(_DWORD*)((char*)dword_5d4594_1189584 + 336 * ind + 324) = v14;
+			if (!nox_xxx_videoBag_LoadPXImg_47B7F0(v19, v18, *(_DWORD*)((char*)dword_5d4594_1189584 + 336 * ind + 324), typ)) {
+				free(*(LPVOID*)((char*)dword_5d4594_1189584 + 336 * ind + 324));
 				nox_fs_set_workdir(Buffer);
 				return 0;
 			}
-			*(_WORD*)((char*)dword_5d4594_1189584 + v3 + 332) = 0;
-			*(_BYTE*)((char*)dword_5d4594_1189584 + v3 + 334) = (unsigned __int8)a1 | 0x80;
+			*(_WORD*)((char*)dword_5d4594_1189584 + 336 * ind + 332) = 0;
+			*(_BYTE*)((char*)dword_5d4594_1189584 + 336 * ind + 334) = typ | 0x80;
 			break;
 		default:
 			break;
@@ -4334,27 +4329,22 @@ int  nox_xxx_unused_47D420(int a1, int a2, int a3, int a4, int a5, int a6) {
 }
 
 //----- (0047D480) --------------------------------------------------------
-int  nox_xxx_someVideoSwitch_47D480(int* a1, int a2) {
-	int result; // eax
-
-	switch (*(_BYTE*)(a2 + 10) & 0x3F) {
+int  nox_video_bag_decodeImageSwitch_47D480(void* data, nox_video_bag_image_t* img) {
+	switch (img->typ & 0x3F) {
 	case 2:
 	case 7:
-		nox_xxx_video_ReadTile_Real_47D4E0(a1);
-		result = 1;
+		nox_xxx_video_ReadTile_Real_47D4E0(data);
 		break;
 	case 3:
 	case 4:
 	case 5:
 	case 6:
-		nox_xxx_video_ReadSprite_Real_47D530(a1);
-		goto LABEL_4;
+		nox_xxx_video_ReadSprite_Real_47D530(data);
+		break;
 	default:
-	LABEL_4:
-		result = 1;
 		break;
 	}
-	return result;
+	return 1;
 }
 
 //----- (0047D4E0) --------------------------------------------------------
@@ -4374,60 +4364,61 @@ __int16  nox_xxx_video_ReadTile_Real_47D4E0(_DWORD* a1) {
 }
 
 //----- (0047D530) --------------------------------------------------------
-char  nox_xxx_video_ReadSprite_Real_47D530(int* a1) {
-	__int16* v1; // esi
+void nox_xxx_video_ReadSprite_Real_47D530(void* data) {
 	int v2;      // ecx
 	__int16 v3;  // ax
 	int v4;      // edx
 	int v5;      // edi
 	bool v6;     // cc
-	int v8;      // [esp+Ch] [ebp-8h]
-	int v9;      // [esp+10h] [ebp-4h]
 
-	v8 = *a1;
-	v9 = a1[1];
-	v1 = (__int16*)((char*)a1 + 17);
-LABEL_2:
+	int width = *((int*)data + 0);
+	int height = *((int*)data + 1);
+	__int16* pix = (__int16*)((char*)data + 17);
+	int h = height;
 	while (1) {
-		v2 = v8;
-		do {
-			while (1) {
-				v3 = *v1;
-				++v1;
-				LOBYTE(v3) = v3 & 0xF;
-				v4 = HIBYTE(v3);
-				if ((_BYTE)v3 != 2)
-					break;
-				v5 = HIBYTE(v3);
-				do {
-					v3 = *v1 & 0x1F | (2 * (*v1 & 0x7FE0));
-					*v1 = v3;
-					++v1;
-					v6 = v5-- <= 1;
-				} while (!v6);
-				v6 = v2 <= v4;
-				v2 -= v4;
-				if (v6) {
-					v6 = v9-- <= 1;
-					if (!v6)
-						goto LABEL_2;
-					return v3;
+LABEL_2:
+		v2 = width;
+		while (1) {
+			v3 = *pix;
+			++pix;
+			LOBYTE(v3) = v3 & 0xF;
+			v4 = HIBYTE(v3);
+			if ((_BYTE)v3 != 2) {
+				if ((_BYTE)v3 == 4) {
+					pix = (__int16*)((char*)pix + HIBYTE(v3));
+				} else if ((_BYTE)v3 == 5 || (_BYTE)v3 == 6) {
+					pix = (__int16*)((char*)pix + HIBYTE(v3));
+					pix = (__int16*)((char*)pix + HIBYTE(v3));
 				}
+				v6 = v2 <= HIBYTE(v3);
+				v2 -= HIBYTE(v3);
+				if (!v6) {
+					continue;
+				}
+				break;
 			}
-			if ((_BYTE)v3 == 4)
-				goto LABEL_13;
-			if ((_BYTE)v3 == 5 || (_BYTE)v3 == 6) {
-				v1 = (__int16*)((char*)v1 + HIBYTE(v3));
-			LABEL_13:
-				v1 = (__int16*)((char*)v1 + HIBYTE(v3));
+			v5 = HIBYTE(v3);
+			do {
+				v3 = *pix & 0x1F | (2 * (*pix & 0x7FE0));
+				*pix = v3;
+				++pix;
+				v6 = v5-- <= 1;
+			} while (!v6);
+			v6 = v2 <= v4;
+			v2 -= v4;
+			if (v6) {
+				v6 = h-- <= 1;
+				if (!v6) {
+					goto LABEL_2;
+				}
+				return;
 			}
-			v6 = v2 <= HIBYTE(v3);
-			v2 -= HIBYTE(v3);
-		} while (!v6);
-		v6 = v9-- <= 1;
-		if (!v6)
+		}
+		v6 = h-- <= 1;
+		if (!v6) {
 			continue;
-		return v3;
+		}
+		return;
 	}
 }
 
