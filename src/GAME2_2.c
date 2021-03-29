@@ -4365,9 +4365,6 @@ __int16  nox_xxx_video_ReadTile_Real_47D4E0(_DWORD* a1) {
 //----- (0047D530) --------------------------------------------------------
 void nox_xxx_video_ReadSprite_Real_47D530(void* data) {
 	int v2;      // ecx
-	__int16 v3;  // ax
-	int v4;      // edx
-	int v5;      // edi
 	bool v6;     // cc
 
 	int width = *((int*)data + 0);
@@ -4375,49 +4372,50 @@ void nox_xxx_video_ReadSprite_Real_47D530(void* data) {
 	__int16* pix = (__int16*)((char*)data + 17);
 	int h = height;
 	while (1) {
-LABEL_2:
-		v2 = width;
-		while (1) {
-			v3 = *pix;
-			++pix;
-			LOBYTE(v3) = v3 & 0xF;
-			v4 = HIBYTE(v3);
-			if ((_BYTE)v3 != 2) {
-				if ((_BYTE)v3 == 4) {
-					pix = (__int16*)((char*)pix + HIBYTE(v3));
-				} else if ((_BYTE)v3 == 5 || (_BYTE)v3 == 6) {
-					pix = (__int16*)((char*)pix + HIBYTE(v3));
-					pix = (__int16*)((char*)pix + HIBYTE(v3));
-				}
-				v6 = v2 <= HIBYTE(v3);
-				v2 -= HIBYTE(v3);
-				if (!v6) {
-					continue;
-				}
-				break;
-			}
-			v5 = HIBYTE(v3);
+		unsigned char op = *((unsigned char*)pix + 0);
+		unsigned char b = *((unsigned char*)pix + 1);
+		++pix;
+		op &= 0xF;
+		if (op == 2) {
+			int n = b;
 			do {
-				v3 = *pix & 0x1F | (2 * (*pix & 0x7FE0));
-				*pix = v3;
+				*pix = *pix & 0x1F | (2 * (*pix & 0x7FE0));
 				++pix;
-				v6 = v5-- <= 1;
+				v6 = n-- <= 1;
 			} while (!v6);
-			v6 = v2 <= v4;
-			v2 -= v4;
+			v6 = v2 <= b;
+			v2 -= b;
 			if (v6) {
 				v6 = h-- <= 1;
-				if (!v6) {
-					goto LABEL_2;
+				if (v6) {
+					return;
 				}
-				return;
+				v2 = width;
+			}
+		} else if (op == 4) {
+			pix = (__int16*)((char*)pix + b);
+			v6 = v2 <= b;
+			v2 -= b;
+			if (v6) {
+				v6 = h-- <= 1;
+				if (v6) {
+					return;
+				}
+				v2 = width;
+			}
+		} else if (op == 5 || op == 6) {
+			pix = (__int16*)((char*)pix + b);
+			pix = (__int16*)((char*)pix + b);
+			v6 = v2 <= b;
+			v2 -= b;
+			if (v6) {
+				v6 = h-- <= 1;
+				if (v6) {
+					return;
+				}
+				v2 = width;
 			}
 		}
-		v6 = h-- <= 1;
-		if (!v6) {
-			continue;
-		}
-		return;
 	}
 }
 
