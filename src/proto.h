@@ -3588,7 +3588,7 @@ int  sub_4C5B80(FILE* a1, int a2, _BYTE* a3, _BYTE* a4);
 BOOL  sub_4C5CB0(FILE* a1);
 int  sub_4C5D20(FILE* a1, int a2);
 void  sub_4C5EB0(nox_video_bag_image_t* img, int x, int y);
-void  sub_4C60D0(int a1, int a2, int a3);
+void  sub_4C60D0(nox_video_bag_image_t* img, int a2, int a3);
 int  sub_4C6260(int a1, int a2, int a3);
 unsigned __int8*  sub_4C64E0(int a1, int a2, int a3, int* a4);
 char*  sub_4C6900(int a1, int a2);
