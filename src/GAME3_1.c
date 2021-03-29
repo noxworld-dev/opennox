@@ -5951,7 +5951,7 @@ void  sub_4C5EB0(nox_video_bag_image_t* img, int x, int y) {
 		case 2:
 		case 7:
 			func_type27_3799536 = sub_4C69A0;
-			sub_4C60D0(a1, a2, a3);
+			sub_4C60D0(img, a2, a3);
 			return;
 		case 3:
 		case 4:
@@ -6018,12 +6018,7 @@ void  sub_4C5EB0(nox_video_bag_image_t* img, int x, int y) {
 }
 
 //----- (004C60D0) --------------------------------------------------------
-void  sub_4C60D0(int a1, int a2, int a3) {
-	int4* result; // eax
-	int v4;       // esi
-	int* v5;      // eax
-	int4* v6;     // ecx
-	int v7;       // ebx
+void  sub_4C60D0(nox_video_bag_image_t* img, int x, int y) {
 	int v8;       // edx
 	int v9;       // edi
 	int v10;      // ebp
@@ -6037,70 +6032,71 @@ void  sub_4C60D0(int a1, int a2, int a3) {
 	RECT rc;      // [esp+20h] [ebp-10h]
 	int v19;      // [esp+3Ch] [ebp+Ch]
 
-	result = nox_video_getImagePixdata_func(a1);
+	nox_video_cur_pixdata_3799444 = nox_video_getImagePixdata_func(img);
+	if (!nox_video_cur_pixdata_3799444) {
+		return;
+	}
+	int4* result = nox_video_cur_pixdata_3799444;
+	int width = result->field_0;
+	int* v5 = &result->field_4;
+	int4* v6 = (int4*)*v5;
+	nox_video_cur_pixdata_3799444 = v5;
+	++v5;
+	nox_video_cur_pixdata_3799444 = v5;
+	v8 = *v5;
+	++v5;
+	dword_5d4594_3799560 = v8;
+	v9 = v8 + x;
+	nox_video_cur_pixdata_3799444 = v5;
+	dword_5d4594_3799556 = *v5;
+	v10 = dword_5d4594_3799556 + y;
+	result = (int4*)(v5 + 1);
+	v19 = dword_5d4594_3799556 + y;
 	nox_video_cur_pixdata_3799444 = result;
-	if (nox_video_cur_pixdata_3799444) {
-		v4 = result->field_0;
-		v5 = &result->field_4;
-		nox_video_cur_pixdata_3799444 = v5;
-		v6 = (int4*)*v5;
-		++v5;
-		v7 = v4;
-		nox_video_cur_pixdata_3799444 = v5;
-		v8 = *v5;
-		++v5;
-		dword_5d4594_3799560 = v8;
-		v9 = v8 + a2;
-		nox_video_cur_pixdata_3799444 = v5;
-		dword_5d4594_3799556 = *v5;
-		v10 = dword_5d4594_3799556 + a3;
-		result = (int4*)(v5 + 1);
-		v19 = dword_5d4594_3799556 + a3;
-		nox_video_cur_pixdata_3799444 = result;
-		if (dword_5d4594_3799484) {
-			v6 = (int4*)((char*)v6 - dword_5d4594_3799484);
-			if ((int)v6 <= 0)
-				return;
-			dword_5d4594_3799476 = (char*)v6 + v10;
-		}
-		*getMemU32Ptr(0x5D4594, 3799520) = v8 + a2;
-		nox_video_cur_pixdata_3799444 = (char*)result + 1;
-		*getMemU32Ptr(0x5D4594, 3799512) = v10;
-		*getMemU32Ptr(0x5D4594, 3799516) = v4;
-		*getMemU32Ptr(0x5D4594, 3799504) = v6;
-		if (ptr_5D4594_3799572->data[0]) {
-			SetRect(&rc, v9, v10, v4 + v9, (int)v6 + v10);
-			result = nox_xxx_utilRect_49F930(&a1a, (int4*)&rc, (int4*)(&ptr_5D4594_3799572->data[1]));
-			if (!result)
-				return;
-			v11 = a1a.field_0 - rc.left;
-			v12 = a1a.field_4 - rc.top;
+	if (dword_5d4594_3799484) {
+		v6 = (int4*)((char*)v6 - dword_5d4594_3799484);
+		if ((int)v6 <= 0)
+			return;
+		dword_5d4594_3799476 = (char*)v6 + v10;
+	}
+	*getMemU32Ptr(0x5D4594, 3799520) = v8 + x;
+	nox_video_cur_pixdata_3799444 = (char*)result + 1;
+	*getMemU32Ptr(0x5D4594, 3799512) = v10;
+	*getMemU32Ptr(0x5D4594, 3799516) = width;
+	*getMemU32Ptr(0x5D4594, 3799504) = v6;
+	int v7 = width;
+	if (ptr_5D4594_3799572->data[0]) {
+		SetRect(&rc, v9, v10, width + v9, (int)v6 + v10);
+		result = nox_xxx_utilRect_49F930(&a1a, (int4*)&rc, (int4*)(&ptr_5D4594_3799572->data[1]));
+		if (!result)
+			return;
+		v11 = a1a.field_0 - rc.left;
+		v12 = a1a.field_4 - rc.top;
+		v7 = a1a.field_8 - a1a.field_0;
+		v6 = (int4*)(a1a.field_C - a1a.field_4);
+		if (a1a.field_0 != rc.left || v12) {
+			v9 += v11;
 			v7 = a1a.field_8 - a1a.field_0;
-			v6 = (int4*)(a1a.field_C - a1a.field_4);
-			if (a1a.field_0 != rc.left || v12) {
-				v9 += v11;
-				v7 = a1a.field_8 - a1a.field_0;
-				nox_video_cur_pixdata_3799444 += v11 + v4 * v12;
-				v10 = v12 + v19;
-			} else {
-				v10 = v19;
-			}
+			nox_video_cur_pixdata_3799444 += v11 + width * v12;
+			v10 = v12 + v19;
+		} else {
+			v10 = v19;
 		}
-		v13 = v4 - v7;
-		result = v6;
-		v14 = (int)&v6[-1].field_C + 3;
-		*getMemU32Ptr(0x5D4594, 3799456) = v7;
-		if (result) {
-			v15 = 4 * v10;
-			v16 = v14 + 1;
-			do {
-				v15 += 4;
-				dword_5d4594_3799540 = v9 + *(_DWORD*)(v15 + (_DWORD)nox_pixbuffer_rows_3798784 - 4);
-				func_type27_3799536();
-				--v16;
-				nox_video_cur_pixdata_3799444 += v13;
-			} while (v16);
-		}
+	}
+	v13 = width - v7;
+	result = v6;
+	v14 = (int)&v6[-1].field_C + 3;
+	*getMemU32Ptr(0x5D4594, 3799456) = v7;
+	if (result) {
+		v15 = 4 * v10;
+		v16 = v14 + 1;
+		do {
+			v15 += 4;
+			dword_5d4594_3799540 = v9 + *(_DWORD*)(v15 + (_DWORD)nox_pixbuffer_rows_3798784 - 4);
+			func_type27_3799536();
+			--v16;
+			nox_video_cur_pixdata_3799444 += v13;
+		} while (v16);
 	}
 }
 
@@ -7304,103 +7300,73 @@ void  sub_4C7860(int a1, int a2, int a3) {
 
 //----- (004C79F0) --------------------------------------------------------
 void nox_client_drawImg_aaa_4C79F0(nox_video_bag_image_t* img, int x, int y) {
-	int result; // eax
-	int v4;     // ebp
-	int v5;     // esi
-	int* v6;    // ecx
-	int v7;     // eax
-	int v8;     // ebx
-	int v9;     // eax
-	int v10;    // edi
-	int v11;    // ecx
-	int v12;    // ecx
-	int v13;    // esi
-	int v14;    // eax
-	int v15;    // ebx
-	int v16;    // esi
-	char* v17;  // edx
-	int v18;    // ecx
-	bool v19;   // zf
-	RECT rc;    // [esp+10h] [ebp-20h]
-	int4 a1a;   // [esp+20h] [ebp-10h]
-	int v22;    // [esp+34h] [ebp+4h]
-	int v23;    // [esp+38h] [ebp+8h]
-	int v24;    // [esp+3Ch] [ebp+Ch]
-
-	result = nox_video_getImagePixdata_func(img);
-	nox_video_cur_pixdata_3799444 = result;
-	if (!result) {
+	nox_video_cur_pixdata_3799444 = nox_video_getImagePixdata_func(img);
+	if (!nox_video_cur_pixdata_3799444) {
 		return;
 	}
-	v4 = *(_DWORD*)result;
-	nox_video_cur_pixdata_3799444 = result + 4;
-	v5 = *(_DWORD*)(result + 4);
-	v6 = (int*)(result + 8);
-	nox_video_cur_pixdata_3799444 = v6;
-	v7 = *(_DWORD*)(result + 8);
-	++v6;
-	dword_5d4594_3799560 = v7;
-	v8 = v7 + x;
-	nox_video_cur_pixdata_3799444 = v6;
-	v9 = *v6;
-	dword_5d4594_3799556 = v9;
-	v10 = v9 + y;
-	result = dword_5d4594_3799484;
-	v11 = (int)(v6 + 1);
-	nox_video_cur_pixdata_3799444 = v11;
+	int width = *(_DWORD*)nox_video_cur_pixdata_3799444;
+	nox_video_cur_pixdata_3799444 += 4;
+
+	int height = *(_DWORD*)nox_video_cur_pixdata_3799444;
+	nox_video_cur_pixdata_3799444 += 4;
+
+	int offX = *(int*)nox_video_cur_pixdata_3799444;
+	nox_video_cur_pixdata_3799444 += 4;
+	dword_5d4594_3799560 = offX;
+	x += offX;
+
+	int offY = *(int*)nox_video_cur_pixdata_3799444;
+	nox_video_cur_pixdata_3799444 += 4;
+	dword_5d4594_3799556 = offY;
+	y += offY;
+
+	nox_video_cur_pixdata_3799444++; // unused
+
 	if (dword_5d4594_3799484) {
-		v5 -= dword_5d4594_3799484;
-		if (v5 <= 0) {
+		height -= dword_5d4594_3799484;
+		if (height <= 0) {
 			return;
 		}
-		dword_5d4594_3799476 = v5 + v10;
+		dword_5d4594_3799476 = height + y;
 	}
-	nox_video_cur_pixdata_3799444 = v11 + 1;
-	*getMemU32Ptr(0x5D4594, 3799520) = v8;
-	*getMemU32Ptr(0x5D4594, 3799512) = v10;
-	*getMemU32Ptr(0x5D4594, 3799516) = v4;
-	*getMemU32Ptr(0x5D4594, 3799504) = v5;
+	*getMemU32Ptr(0x5D4594, 3799520) = x;
+	*getMemU32Ptr(0x5D4594, 3799512) = y;
+	*getMemU32Ptr(0x5D4594, 3799516) = width;
+	*getMemU32Ptr(0x5D4594, 3799504) = height;
 	if (ptr_5D4594_3799572->data[0]) {
-		SetRect(&rc, v8, v10, v8 + v4, v5 + v10);
-		result = nox_xxx_utilRect_49F930(&a1a, (int4*)&rc, (int4*)(&ptr_5D4594_3799572->data[1]));
-		if (!result) {
+		RECT rc;
+		int4 a1a;
+		SetRect(&rc, x, y, x + width, y + height);
+		if (!nox_xxx_utilRect_49F930(&a1a, (int4*)&rc, (int4*)(&ptr_5D4594_3799572->data[1]))) {
 			return;
 		}
 		if (rc.left != a1a.field_0 || rc.right != a1a.field_8 || rc.top != a1a.field_4 || rc.bottom != a1a.field_C) {
-			sub_4C7C80(v8, v10, v4, &a1a.field_0);
+			sub_4C7C80(x, y, width, &a1a.field_0);
 			return;
 		}
 	}
-	result = v10 & 1;
-	v22 = 0;
-	dword_5d4594_3799508 ^= result;
-	v12 = v5;
-	v13 = v5 - 1;
-	if (!v12) {
-		return;
-	}
-	v14 = 2 * v8;
-	v24 = 2 * v8;
-	v15 = 4 * v10;
-	v23 = v13 + 1;
-	while (1) {
-		v16 = v4;
-		v17 = (char*)(v14 + (_DWORD)nox_pixbuffer_rows_3798784[v15/4]);
-		dword_5d4594_3799540 = v14 + (_DWORD)nox_pixbuffer_rows_3798784[v15/4];
+	dword_5d4594_3799508 ^= y & 1;
+	for (int i = 0; i < height; i++) {
+		unsigned char* row = &nox_pixbuffer_rows_3798784[y + i][2 * x];
+		dword_5d4594_3799540 = row;
 		if (dword_5d4594_3799552 && (dword_5d4594_3799508 ^= 1u) != 0) {
-			if (v22)
-				memcpy(v17, (const void*)(v14 + *(_DWORD*)(v15 + (_DWORD)nox_pixbuffer_rows_3798784 - 4)), 2 * v4);
-			sub_4C8040(v4, 1);
-		} else if (v4 > 0) {
-			while (1) {
-				*getMemU32Ptr(0x5D4594, 3799428) = nox_video_cur_pixdata_3799444[0];
-				++nox_video_cur_pixdata_3799444;
-				v18 = nox_video_cur_pixdata_3799444[0];
-				*getMemU32Ptr(0x5D4594, 3799456) = nox_video_cur_pixdata_3799444[0];
-				++nox_video_cur_pixdata_3799444;
-				switch (getMemByte(0x5D4594, 3799428) & 0xF) {
+			if (i != 0) {
+				memcpy(row, &nox_pixbuffer_rows_3798784[y + i - 1][2 * x], 2 * width);
+			}
+			sub_4C8040(width, 1);
+		} else {
+			for (int j = width; j > 0; j -= *getMemU32Ptr(0x5D4594, 3799456)) {
+				int a = nox_video_cur_pixdata_3799444[0];
+				nox_video_cur_pixdata_3799444++;
+				*getMemU32Ptr(0x5D4594, 3799428) = a;
+
+				int b = nox_video_cur_pixdata_3799444[0];
+				nox_video_cur_pixdata_3799444++;
+				*getMemU32Ptr(0x5D4594, 3799456) = b;
+
+				switch (a & 0xF) {
 				case 1:
-					dword_5d4594_3799540 = &v17[2 * v18];
+					dword_5d4594_3799540 = &row[2 * b];
 					break;
 				case 2:
 				case 7:
@@ -7418,20 +7384,9 @@ void nox_client_drawImg_aaa_4C79F0(nox_video_bag_image_t* img, int x, int y) {
 				default:
 					break;
 				}
-				v16 -= *getMemU32Ptr(0x5D4594, 3799456);
-				if (v16 <= 0)
-					break;
-				v17 = *(char**)&dword_5d4594_3799540;
+				row = dword_5d4594_3799540;
 			}
 		}
-		v15 += 4;
-		result = v23 - 1;
-		v19 = v23 == 1;
-		++v22;
-		--v23;
-		if (v19)
-			break;
-		v14 = v24;
 	}
 }
 
