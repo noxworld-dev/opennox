@@ -299,7 +299,7 @@ func (f *File) skipUntil(exp string) (bool, error) {
 			if err := f.skipTHNG(); err != nil {
 				return false, err
 			}
-		case "\000\000\000\000":
+		case "\x00\x00\x00\x00":
 			// padding
 			err := f.checkZeros()
 			return false, err
@@ -370,7 +370,7 @@ func (f *File) ReadAll() (*Data, error) {
 				return &data, err
 			}
 			data.Things = append(data.Things, *th)
-		case "\000\000\000\000":
+		case "\x00\x00\x00\x00":
 			// padding
 			err := f.checkZeros()
 			if err != nil {
