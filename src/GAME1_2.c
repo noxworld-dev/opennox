@@ -4685,6 +4685,9 @@ nox_video_bag_image_t* nox_xxx_readImgMB_42FAA0(int known_idx, const char* a2, c
 int sub_42FAD0() { return 0; }
 
 //----- (0042FB30) --------------------------------------------------------
+#ifdef NOX_CGO
+void* nox_video_getImagePixdata_new(nox_video_bag_image_t* img);
+#endif // NOX_CGO
 void* nox_video_getImagePixdata_42FB30(nox_video_bag_image_t* img) {
 	_DWORD* v5; // ecx
 	_DWORD* v6; // eax
@@ -4693,6 +4696,12 @@ void* nox_video_getImagePixdata_42FB30(nox_video_bag_image_t* img) {
 		return 0;
 	if (!img)
 		return 0;
+#ifdef NOX_CGO
+	// hook for overriding images
+	void* nimg = nox_video_getImagePixdata_new(img);
+	if (nimg)
+		return nimg;
+#endif // NOX_CGO
 	if ((img->typ & 0x3F) == 7)
 		return sub_42FAD0();
 	if (img->typ & 0x80)
