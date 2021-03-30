@@ -82,7 +82,12 @@ func (cn *Console) helpOne(ind int, tokens []string, cmds []Command) bool {
 		return false
 	}
 	if len(cmd.Sub) == 0 {
-		help := cn.sm.GetStringInFile(cmd.HelpID, "parsecmd.c")
+		var help string
+		if cmd.HelpID != "" {
+			help = cn.sm.GetStringInFile(cmd.HelpID, "parsecmd.c")
+		} else {
+			help = cmd.Help
+		}
 		cn.p.Printf(ColorRed, help)
 		return true
 	}
@@ -99,7 +104,12 @@ func (cn *Console) helpOne(ind int, tokens []string, cmds []Command) bool {
 func (cn *Console) helpList(cmds []Command) {
 	for _, cmd := range cmds {
 		if !cmd.Flags.Has(NoHelp) && (cn.Cheats() || !cmd.Flags.Has(Cheat)) {
-			help := cn.sm.GetStringInFile(cmd.HelpID, "parsecmd.c")
+			var help string
+			if cmd.HelpID != "" {
+				help = cn.sm.GetStringInFile(cmd.HelpID, "parsecmd.c")
+			} else {
+				help = cmd.Help
+			}
 			cn.p.Printf(ColorRed, "\t%s -\t%s", cmd.Token2, help)
 		}
 	}

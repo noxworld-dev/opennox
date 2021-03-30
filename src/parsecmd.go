@@ -176,7 +176,12 @@ func consoleParseToken(tokInd int, tokens []string, cmds []parsecmd.Command, a5 
 	if len(cmd.Sub) != 0 { // have sub-commands
 		if tokInd+1 >= len(tokens) {
 			// not enough tokens - print help
-			help := strMan.GetStringInFile(cmd.HelpID, "parsecmd.c")
+			var help string
+			if cmd.HelpID != "" {
+				help = strMan.GetStringInFile(cmd.HelpID, "parsecmd.c")
+			} else {
+				help = cmd.Help
+			}
 			consolePrintf(parsecmd.ColorRed, help)
 			return true
 		}
@@ -188,7 +193,12 @@ func consoleParseToken(tokInd int, tokens []string, cmds []parsecmd.Command, a5 
 	}
 	if !res {
 		// command failed - print help
-		help := strMan.GetStringInFile(cmd.HelpID, "parsecmd.c")
+		var help string
+		if cmd.HelpID != "" {
+			help = strMan.GetStringInFile(cmd.HelpID, "parsecmd.c")
+		} else {
+			help = cmd.Help
+		}
 		consolePrintf(parsecmd.ColorRed, help)
 		return true
 	}

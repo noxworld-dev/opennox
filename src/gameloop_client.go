@@ -14,9 +14,12 @@ extern unsigned int dword_5d4594_1556112;
 extern unsigned int dword_5d4594_815132;
 extern int nox_win_width;
 extern int nox_win_height;
+extern BYTE** nox_pixbuffer_rows_3798784;
 */
 import "C"
 import (
+	"image"
+	"image/color"
 	"math"
 	"unsafe"
 
@@ -34,6 +37,7 @@ func mainloopDrawAndPresent() {
 		C.nox_client_drawCursorAndTooltips_477830() // Draw cursor
 	}
 	C.sub_44D9F0(1)
+	maybeScreenshot()
 	if C.sub_409F40(4096) == 0 { // CheckRuleFlags and smth
 		C.nox_xxx_screenshot_46D830()
 	}
@@ -42,6 +46,37 @@ func mainloopDrawAndPresent() {
 		nox_video_callCopyBackBuffer_4AD170()
 		callPresent()
 	}
+}
+
+func getGamePixBufferC() []unsafe.Pointer {
+	return asPtrSlice(unsafe.Pointer(C.nox_pixbuffer_rows_3798784), int(C.nox_win_height))
+}
+
+func colorRGB15(cl uint16) color.RGBA {
+	r := byte((cl & 0xfc00) >> 10)
+	g := byte((cl & 0x03e0) >> 5)
+	b := byte((cl & 0x001f) >> 0)
+	r = byte((float64(r) / 31) * 0xff)
+	g = byte((float64(g) / 31) * 0xff)
+	b = byte((float64(b) / 31) * 0xff)
+	return color.RGBA{
+		R: r, G: g, B: b, A: 0xff,
+	}
+}
+
+func copyGamePixBuffer() image.Image {
+	width := int(C.nox_win_width)
+	height := int(C.nox_win_height)
+	img := image.NewRGBA(image.Rect(0, 0, width, height))
+
+	pixbuf := getGamePixBufferC()
+	for y := 0; y < height; y++ {
+		row := asU16Slice(pixbuf[y], width)
+		for x := 0; x < width; x++ {
+			img.SetRGBA(x, y, colorRGB15(row[x]))
+		}
+	}
+	return img
 }
 
 func mainloopDrawSparks() {

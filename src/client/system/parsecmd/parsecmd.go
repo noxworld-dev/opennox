@@ -42,6 +42,7 @@ type Command struct {
 	Token  string
 	Token2 string
 	HelpID strman.ID
+	Help   string
 	Flags  Flags
 	Sub    []Command
 	Func   CommandFunc
