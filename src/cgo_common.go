@@ -11,7 +11,7 @@ package main
 #cgo CFLAGS: -Werror=address
 //#cgo CFLAGS: -Werror=unused-variable
 #cgo CFLAGS: -Werror=cast-function-type
-#cgo CFLAGS: -Werror=attribute-warning
+#cgo linux CFLAGS: -Werror=attribute-warning
 
 #cgo CFLAGS: -Wno-pointer-to-int-cast
 #cgo CFLAGS: -Wno-int-to-pointer-cast
