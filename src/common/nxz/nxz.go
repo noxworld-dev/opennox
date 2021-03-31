@@ -2,6 +2,7 @@ package nxz
 
 import (
 	"bytes"
+	"fmt"
 	"io"
 	"sort"
 
@@ -134,6 +135,10 @@ func (r *Reader) decodeMore() {
 			return
 		}
 		ind += uint64(offs)
+		if int(ind) >= len(r.sym) {
+			r.err = fmt.Errorf("nxz: invalid index: %d vs %d", int(ind), len(r.sym))
+			return
+		}
 		sym := r.sym[ind]
 		r.cnt[sym]++
 		if sym < 0x100 {
