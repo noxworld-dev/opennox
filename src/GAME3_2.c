@@ -68,7 +68,7 @@ extern _DWORD dword_5d4594_3835388;
 extern _DWORD nox_xxx_conjurerStrength_587000_312808;
 extern _DWORD dword_5d4594_1563092;
 extern _DWORD dword_5d4594_3835348;
-extern _DWORD dword_5d4594_1556112;
+extern _DWORD nox_client_gui_flag_1556112;
 extern _DWORD dword_5d4594_3835352;
 extern _DWORD dword_5d4594_1550912;
 extern _DWORD dword_5d4594_1523036;
@@ -4645,7 +4645,7 @@ int sub_4D6FC0() { return dword_5d4594_1556148; }
 
 //----- (004D7080) --------------------------------------------------------
 int nox_server_conCmdHandler_startSoloQuest_4D7080() {
-	dword_5d4594_1556112 = 1;
+	nox_client_gui_flag_1556112 = 1;
 	nox_xxx_cliPlayMapIntro_44E0B0(1);
 	*getMemU32Ptr(0x5D4594, 1556152) = sub_416A00();
 	sub_4169E0();

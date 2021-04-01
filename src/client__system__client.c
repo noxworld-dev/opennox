@@ -8,7 +8,7 @@ extern _DWORD dword_5d4594_811896;
 extern _DWORD dword_5d4594_2618900;
 extern _DWORD dword_5d4594_2614264;
 extern _DWORD dword_5d4594_805836;
-extern _DWORD dword_5d4594_815132;
+extern _DWORD nox_client_gui_flag_815132;
 extern int nox_win_width;
 extern int nox_win_height;
 extern obj_5D4594_811068_t obj_5D4594_811068;
@@ -50,7 +50,7 @@ void nox_xxx_clientDrawAll_436100_draw() {
 		nox_ticks_xxx_416D40();
 	}
 	if (!(!*getMemU32Ptr(0x587000, 85724) || v3 || !nox_common_gameFlags_check_40A5C0(1) || sub_416D70() ||
-		  dword_5d4594_815132 || nox_xxx_checkGFlagNoParticles_413A50() || nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING))) {
+		  nox_client_gui_flag_815132 || nox_xxx_checkGFlagNoParticles_413A50() || nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING))) {
 		nox_common_setEngineFlag(NOX_ENGINE_FLAG_32);
 		return;
 	}

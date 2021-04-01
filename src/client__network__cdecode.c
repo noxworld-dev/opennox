@@ -33,7 +33,7 @@ extern _DWORD nox_xxx_wizardSpeed_587000_312828;
 extern _DWORD nox_xxx_wizardStrength_587000_312824;
 extern _DWORD nox_xxx_warriorMaxStrength_587000_312792;
 extern _DWORD nox_xxx_conjurerStrength_587000_312808;
-extern _DWORD dword_5d4594_1556112;
+extern _DWORD nox_client_gui_flag_1556112;
 extern _DWORD dword_5d4594_2614264;
 extern _DWORD nox_xxx_useAudio_587000_80832;
 extern _DWORD nox_xxx_warriorMaxMana_587000_312788;
@@ -3409,7 +3409,7 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned int a2, int a3) {
 			case 0xCu:
 				if (nox_client_isConnected_43C700())
 					nox_xxx_clientQuestWinScreen_450770(v3);
-				dword_5d4594_1556112 = 0;
+				nox_client_gui_flag_1556112 = 0;
 				v3 += 90;
 				break;
 			case 0xDu:
@@ -3420,7 +3420,7 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned int a2, int a3) {
 				if (nox_client_isConnected_43C700())
 					nox_client_showQuestBriefing_450A30(v3, 1);
 			LABEL_1119:
-				dword_5d4594_1556112 = 0;
+				nox_client_gui_flag_1556112 = 0;
 				v3 += 69;
 				break;
 			case 0xFu:

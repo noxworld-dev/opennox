@@ -64,7 +64,7 @@ extern _DWORD dword_5d4594_1090176;
 extern _DWORD dword_587000_145540;
 extern _DWORD dword_5d4594_1096260;
 extern _DWORD dword_5d4594_1096504;
-extern _DWORD dword_5d4594_1556112;
+extern _DWORD nox_client_gui_flag_1556112;
 extern _DWORD dword_5d4594_1096284;
 extern _DWORD dword_5d4594_1082864;
 extern _DWORD dword_587000_145664;
@@ -120,7 +120,7 @@ extern _DWORD nox_xxx_minimap_587000_149232;
 extern _DWORD nox_gameDisableMapDraw_5d4594_2650672;
 extern _DWORD dword_5d4594_1062456;
 extern _DWORD dword_5d4594_1063636;
-extern _DWORD dword_5d4594_815132;
+extern _DWORD nox_client_gui_flag_815132;
 extern _DWORD dword_5d4594_1049796;
 extern _DWORD dword_5d4594_1049508;
 extern _DWORD dword_5d4594_1090048;
@@ -3062,7 +3062,7 @@ int  sub_467F70(int a1, int a2, int a3, int a4) {
 		return 0;
 	if (a4 == 2) {
 		nox_xxx_clientPlaySoundSpecial_452D80(231, 100);
-		if (dword_5d4594_815132)
+		if (nox_client_gui_flag_815132)
 			sub_4207F0(1);
 	}
 	return 1;
@@ -3091,7 +3091,7 @@ int  sub_467FC0(int a1, int a2, int* a3, int a4) {
 //----- (00468020) --------------------------------------------------------
 void sub_468020() {
 	nox_xxx_wndGetChildByID_46B0C0(0, 1700);
-	if (dword_5d4594_815132) {
+	if (nox_client_gui_flag_815132) {
 		sub_468060();
 		sub_4207F0(1);
 		nox_game_showWolLogin_44A560();
@@ -4072,7 +4072,7 @@ void nox_xxx_cursorUpdate_46B740() {
 	_DWORD spos2 = spos;
 
 	nox_xxx_cursorSetTooltip_4776B0(0);
-	if (dword_5d4594_815132 || nox_xxx_guiCursor_477600()) {
+	if (nox_client_gui_flag_815132 || nox_xxx_guiCursor_477600()) {
 		nox_client_setCursorType_477610(0);
 	} else {
 		nox_client_setCursorType_477610(14);
@@ -7261,7 +7261,7 @@ int nox_xxx_drawMinimapAndLines_4738E0() {
 	_DWORD* v1; // eax
 
 	result = 1;
-	if (dword_5d4594_1556112 != 1) {
+	if (nox_client_gui_flag_1556112 != 1) {
 		if (getMemByte(0x5D4594, 1096424) & 1) {
 			v1 = nox_xxx_netSpriteByCodeDynamic_45A6F0(*getMemIntPtr(0x5D4594, 2616328));
 			nox_xxx_drawMinimap4Sprite_4725C0((int)v1);
@@ -8265,7 +8265,7 @@ int4*  nox_xxx_drawAllMB_475810_draw(int* a1) {
 		nox_gameDisableMapDraw_5d4594_2650672) {
 		v8 = 1;
 	}
-	if (dword_5d4594_1556112 || v8) {
+	if (nox_client_gui_flag_1556112 || v8) {
 		nox_xxx_drawSelectColor_434350(*getMemIntPtr(0x5D4594, 2650656));
 		sub_440900();
 		result = sub_437290();

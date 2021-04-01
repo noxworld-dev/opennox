@@ -7,13 +7,13 @@
 #include "client__io__console.h"
 #include "common__binfile.h"
 
-extern _DWORD dword_5d4594_1556112;
+extern _DWORD nox_client_gui_flag_1556112;
 extern _DWORD nox_game_loop_xxx_805872;
 extern _DWORD nox_xxx_gameDownloadInProgress_587000_173328;
 extern _DWORD nox_xxx_mapDownloadOK_587000_173332;
 extern _DWORD dword_5d4594_2618912;
 extern _DWORD nox_gameDisableMapDraw_5d4594_2650672;
-extern _DWORD dword_5d4594_815132;
+extern _DWORD nox_client_gui_flag_815132;
 extern int nox_win_width;
 extern int nox_win_height;
 extern unsigned int nox_gameFPS;
@@ -302,7 +302,7 @@ void mainloop() {
 	sub_4312C0();
 	sub_495430();
 	if (nox_common_gameFlags_check_40A5C0(1) && nox_game_continueMenuOrHost_93200 == 1) {
-		if (!dword_5d4594_815132) {
+		if (!nox_client_gui_flag_815132) {
 			if (nox_common_gameFlags_check_40A5C0(0x2000)) {
 				if (nox_server_gameDoSwitchMap_40A680()) {
 					nox_xxx_netGameSettings_4DEF00();
@@ -321,7 +321,7 @@ void mainloop() {
 			}
 		}
 	}
-	if (dword_5d4594_815132) {
+	if (nox_client_gui_flag_815132) {
 		sub_43C380();
 		nox_common_resetEngineFlag(NOX_ENGINE_FLAG_32);
 		if (!*getMemU32Ptr(0x5D4594, 816408)) {
@@ -375,9 +375,9 @@ void mainloop() {
 	}
 	if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_32)) {
 		sub_437180();
-		if (!dword_5d4594_1556112)
+		if (!nox_client_gui_flag_1556112)
 			nox_gui_draw(); // Draw game windows
-		if (dword_5d4594_815132) {
+		if (nox_client_gui_flag_815132) {
 			v28[0] = 0;
 			v28[1] = 0;
 			v28[2] = nox_win_width;
@@ -389,14 +389,14 @@ void mainloop() {
 			v25 = (int*)sub_437250();
 			nox_client_screenParticlesDraw_431720(v25);
 		}
-		if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) || nox_common_getEngineFlag(NOX_ENGINE_FLAG_9) || dword_5d4594_815132) {
+		if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) || nox_common_getEngineFlag(NOX_ENGINE_FLAG_9) || nox_client_gui_flag_815132) {
 			nox_client_drawCursorAndTooltips_477830(); // Draw cursor
 		}
 		sub_44D9F0(1);
 		if (!sub_409F40(4096)) { // CheckRuleFlags and smth
 			nox_xxx_screenshot_46D830();
 		}
-		if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) || nox_common_getEngineFlag(NOX_ENGINE_FLAG_9) || dword_5d4594_815132) {
+		if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) || nox_common_getEngineFlag(NOX_ENGINE_FLAG_9) || nox_client_gui_flag_815132) {
 			nox_xxx_directDrawBlitMB_48A220();
 			nox_video_callCopyBackBuffer_4AD170();
 			sub_48A290_call_present();

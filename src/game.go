@@ -7,8 +7,8 @@ package main
 #include "common__magic__comguide.h"
 #include "client__drawable__drawdb.h"
 extern unsigned int nox_game_createOrJoin_815048;
-extern unsigned int dword_5d4594_815132;
-extern unsigned int dword_5d4594_1556112;
+extern unsigned int nox_client_gui_flag_815132;
+extern unsigned int nox_client_gui_flag_1556112;
 extern unsigned int dword_5d4594_811372;
 extern int nox_win_width;
 extern int nox_win_height;
@@ -72,7 +72,7 @@ func nox_game_rollNoxLogoAndStart_4AB0F0() C.int {
 	if getGameFlag(0x2000000) || !nox_game_setMovieFile_4CB230("NoxLogo.vqa", path) {
 		if C.nox_game_showLegal_4CC4E0() == 0 {
 			nox_xxx_setContinueMenuOrHost_43DDD0(0)
-			C.dword_5d4594_815132 = 0
+			C.nox_client_gui_flag_815132 = 0
 		}
 		return 1
 	}
@@ -113,7 +113,7 @@ func startServer() int {
 	C.sub_43AF50(0)
 	if C.nox_xxx_parseGamedataBinPre_4D1630() == 0 {
 		nox_xxx_setContinueMenuOrHost_43DDD0(0)
-		C.dword_5d4594_815132 = 0
+		C.nox_client_gui_flag_815132 = 0
 		return 0
 	}
 	nox_xxx_serverHost_43B4D0()
@@ -165,7 +165,7 @@ func nox_xxx_initGameSession_435CC0() C.int {
 	C.sub_45DB90()
 	C.sub_41D1A0(0)
 	C.nox_xxx_initTime_435570()
-	C.dword_5d4594_1556112 = 0
+	C.nox_client_gui_flag_1556112 = 0
 
 	if C.nox_alloc_drawable_init(5000) == 0 {
 		return 0

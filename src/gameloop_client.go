@@ -10,8 +10,8 @@ package main
 #include "common__system__gamedisk.h"
 #include "client__system__gameloop.h"
 
-extern unsigned int dword_5d4594_1556112;
-extern unsigned int dword_5d4594_815132;
+extern unsigned int nox_client_gui_flag_1556112;
+extern unsigned int nox_client_gui_flag_815132;
 extern int nox_win_width;
 extern int nox_win_height;
 extern BYTE** nox_pixbuffer_rows_3798784;
@@ -29,11 +29,11 @@ import (
 
 func mainloopDrawAndPresent() {
 	C.sub_437180()
-	if C.dword_5d4594_1556112 == 0 {
-		C.nox_gui_draw() // Draw game windows
+	if C.nox_client_gui_flag_1556112 == 0 {
+		DrawGUI() // Draw game windows
 	}
-	mainloopDrawSparks()
-	if !getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) || getEngineFlag(NOX_ENGINE_FLAG_9) || C.dword_5d4594_815132 != 0 {
+	DrawSparks()
+	if !getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) || getEngineFlag(NOX_ENGINE_FLAG_9) || C.nox_client_gui_flag_815132 != 0 {
 		C.nox_client_drawCursorAndTooltips_477830() // Draw cursor
 	}
 	C.sub_44D9F0(1)
@@ -41,7 +41,7 @@ func mainloopDrawAndPresent() {
 	if C.sub_409F40(4096) == 0 { // CheckRuleFlags and smth
 		C.nox_xxx_screenshot_46D830()
 	}
-	if !getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) || getEngineFlag(NOX_ENGINE_FLAG_9) || C.dword_5d4594_815132 != 0 {
+	if !getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) || getEngineFlag(NOX_ENGINE_FLAG_9) || C.nox_client_gui_flag_815132 != 0 {
 		// C.nox_xxx_directDrawBlitMB_48A220() // does nothing
 		nox_video_callCopyBackBuffer_4AD170()
 		callPresent()
@@ -79,8 +79,8 @@ func copyGamePixBuffer() image.Image {
 	return img
 }
 
-func mainloopDrawSparks() {
-	if C.dword_5d4594_815132 != 0 {
+func DrawSparks() {
+	if C.nox_client_gui_flag_815132 != 0 {
 		v28 := alloc.Calloc(10, 4)
 		v28s := asU32Slice(v28, 10)
 		v28s[0] = 0

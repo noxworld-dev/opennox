@@ -113,7 +113,7 @@ extern _DWORD dword_5d4594_830108;
 extern _DWORD dword_5d4594_816348;
 extern _DWORD dword_5d4594_829488;
 extern _DWORD nox_game_createOrJoin_815048;
-extern _DWORD dword_5d4594_815132;
+extern _DWORD nox_client_gui_flag_815132;
 extern _DWORD dword_587000_87404;
 extern _DWORD dword_587000_87412;
 extern _DWORD dword_5d4594_829492;
@@ -194,7 +194,7 @@ char* sub_43B510() {
 	int v6;             // [esp+0h] [ebp-54h]
 	char v7[80];        // [esp+4h] [ebp-50h]
 
-	dword_5d4594_815132 = 0;
+	nox_client_gui_flag_815132 = 0;
 	nox_xxx_setGameFlags_40A4D0(5);
 	nox_xxx_setMouseBounds_430A70(0, nox_win_width - 1, 0, nox_win_height - 1);
 	v6 = *getMemU32Ptr(0x5D4594, 814916);
@@ -391,21 +391,21 @@ int nox_xxx_cliWaitForJoinData_43BFE0() {
 	nox_game_SetCliDrawFunc(0);
 	if (*getMemU32Ptr(0x587000, 91840)) {
 		*getMemU32Ptr(0x587000, 91840) = 0;
-		dword_5d4594_815132 = 1;
+		nox_client_gui_flag_815132 = 1;
 		return 1;
 	}
 	result = nox_game_switchStates_43C0A0();
 	if (!result)
 		return 0;
 
-	dword_5d4594_815132 = 1;
+	nox_client_gui_flag_815132 = 1;
 	return 1;
 }
 
 //----- (0043C020) --------------------------------------------------------
 int nox_xxx_gameStateWait_43C020() {
 	++nox_frame_xxx_2598000;
-	if (dword_5d4594_815132)
+	if (nox_client_gui_flag_815132)
 		return 1;
 	nox_xxx_drawSelectColor_434350(*getMemIntPtr(0x5D4594, 2650656));
 	sub_440900();

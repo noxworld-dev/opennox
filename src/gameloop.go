@@ -17,7 +17,7 @@ extern unsigned int dword_5d4594_3844304;
 extern unsigned int dword_5d4594_2649712;
 extern unsigned int nox_xxx_netStructID_815700;
 extern unsigned int dword_5d4594_2618912;
-extern unsigned int dword_5d4594_815132;
+extern unsigned int nox_client_gui_flag_815132;
 extern unsigned int nox_gameFPS;
 extern unsigned int nox_frame_xxx_2598000;
 extern unsigned int nox_xxx_gameDownloadInProgress_587000_173328;
@@ -147,7 +147,7 @@ mainloop:
 		if getGameFlag(1) && continueMenuOrHost {
 			mainloopMaybeSwitchMapXXX()
 		}
-		if C.dword_5d4594_815132 != 0 {
+		if C.nox_client_gui_flag_815132 != 0 {
 			C.sub_43C380()
 			resetEngineFlag(NOX_ENGINE_FLAG_32)
 			generateMouseSparks()
@@ -711,7 +711,7 @@ func mainloopKeysUpdate() {
 }
 
 func mainloopMaybeSwitchMapXXX() {
-	if C.dword_5d4594_815132 != 0 {
+	if C.nox_client_gui_flag_815132 != 0 {
 		return
 	}
 	if !getGameFlag(0x2000) {

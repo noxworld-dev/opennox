@@ -85,7 +85,7 @@ extern _DWORD dword_5d4594_1301848;
 extern _DWORD dword_5d4594_1197312;
 extern _DWORD dword_5d4594_1303452;
 extern _DWORD dword_5d4594_3798696;
-extern _DWORD dword_5d4594_815132;
+extern _DWORD nox_client_gui_flag_815132;
 extern _DWORD dword_5d4594_1305684;
 extern _DWORD dword_5d4594_1193516;
 extern _DWORD dword_5d4594_1217464;
@@ -912,7 +912,7 @@ wchar_t*  nox_xxx_createTextBubble_48D880(int a1, wchar_t* a2) {
 }
 
 //----- (0048D990) --------------------------------------------------------
-int4*  sub_48D990(_DWORD* a1) {
+void sub_48D990(_DWORD* a1) {
 	int v1;     // ebx
 	_DWORD* v2; // esi
 	int v3;     // eax
@@ -949,107 +949,109 @@ int4*  sub_48D990(_DWORD* a1) {
 	sub_48DCF0(a1);
 	v2 = *(_DWORD**)getMemAt(0x5D4594, 1197368);
 	v30 = *getMemU32Ptr(0x5D4594, 1197368);
-	if (*getMemU32Ptr(0x5D4594, 1197368)) {
-		while (1) {
-			if (v2[165]) {
-				v3 = v2[167];
-				v21 = *getMemU32Ptr(0x5D4594, 2523948);
-				v20 = 0;
-				if (v3 && *(_BYTE*)(v3 + 112) & 4) {
-					v4 = nox_xxx_objGetTeamByNetCode_418C80(*(_DWORD*)(v3 + 128));
-					v5 = nox_common_playerInfoGetByID_417040(v2[164]);
-					if (v5)
-						v20 = v5 + 4704;
-					if (v4) {
-						v6 = nox_xxx_clientGetTeamColor_418AB0(*((unsigned __int8*)v4 + 4));
-						if (v6) {
-							v7 = (int*)nox_xxx_materialGetTeamColor_418D50((int)v6);
-							if (v7)
-								v21 = *v7;
-						}
-					}
-				}
-				v8 = v2[162];
-				v18 = v2[163];
-				for (i = 0; i < 2; ++i) {
-					if (i) {
-						v9 = *getMemU32Ptr(0x5D4594, 2650660);
-						--v8;
-						--v18;
-					} else {
-						v9 = *getMemU32Ptr(0x5D4594, 2614248);
-					}
-					nox_client_drawSetColor_434460(v9);
-					v23 = v8 - v1;
-					nox_client_drawAddPoint_49F500(v8, v18 - v1);
-					nox_client_drawAddPoint_49F500(v8 - v1, v18);
-					nox_client_drawLineFromPoints_49E4B0();
-					v10 = *(_DWORD*)(v30 + 672);
-					v11 = v10 + v8;
-					v24 = v10 + v8;
-					nox_client_drawAddPoint_49F500(v8, v18 - v1);
-					nox_client_drawAddPoint_49F500(v11, v18 - v1);
-					nox_client_drawLineFromPoints_49E4B0();
-					v12 = v1 + v11;
-					nox_client_drawAddPoint_49F500(v12, v18);
-					nox_client_drawAddPoint_49F500(v24, v18 - v1);
-					nox_client_drawLineFromPoints_49E4B0();
-					v25 = v12;
-					v27 = v18 + *(_DWORD*)(v30 + 676);
-					nox_client_drawAddPoint_49F500(v12, v18);
-					nox_client_drawAddPoint_49F500(v12, v27);
-					nox_client_drawLineFromPoints_49E4B0();
-					v13 = v1 + v27;
-					v14 = v12 - v1;
-					nox_client_drawAddPoint_49F500(v14, v1 + v27);
-					nox_client_drawAddPoint_49F500(v25, v27);
-					nox_client_drawLineFromPoints_49E4B0();
-					if (*(_DWORD*)(v30 + 664)) {
-						v28 = v1 + v27;
-						v26 = v1 + v8 + *(int*)(v30 + 672) / 2;
-						nox_client_drawAddPoint_49F500(v14, v13);
-						nox_client_drawAddPoint_49F500(v26, v13);
-						nox_client_drawLineFromPoints_49E4B0();
-						v15 = v22 + v13;
-						v29 = v8 + *(int*)(v30 + 672) / 2;
-						nox_client_drawAddPoint_49F500(v29, v15);
-						nox_client_drawAddPoint_49F500(v26, v28);
-						nox_client_drawLineFromPoints_49E4B0();
-						v16 = v8 + *(int*)(v30 + 672) / 2 - v1;
-						nox_client_drawAddPoint_49F500(v29, v15);
-						v13 = v28;
-						nox_client_drawAddPoint_49F500(v16, v28);
-						nox_client_drawLineFromPoints_49E4B0();
-						nox_client_drawAddPoint_49F500(v8, v28);
-						nox_client_drawAddPoint_49F500(v16, v28);
-					} else {
-						nox_client_drawAddPoint_49F500(v8, v13);
-						nox_client_drawAddPoint_49F500(v14, v13);
-					}
-					nox_client_drawLineFromPoints_49E4B0();
-					nox_client_drawAddPoint_49F500(v8, v13);
-					nox_client_drawAddPoint_49F500(v23, v13 - v1);
-					nox_client_drawLineFromPoints_49E4B0();
-					nox_client_drawAddPoint_49F500(v23, v13 - v1 - *(_DWORD*)(v30 + 676));
-					nox_client_drawAddPoint_49F500(v23, v13 - v1);
-					nox_client_drawLineFromPoints_49E4B0();
-				}
-				nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 2523948));
-				nox_xxx_drawSetColor_4343E0(*getMemIntPtr(0x5D4594, 2614248));
-				sub_43FD00(0, (_WORD*)v30, v8, v18, 128, 0);
-				if (v20) {
-					nox_xxx_drawSetTextColor_434390(v21);
-					sub_43FD00(0, v20, v8, v18 - v22 - 1, 128, 0);
-				}
-				v2 = (_DWORD*)v30;
-			}
-			v30 = v2[171];
-			if (!v30)
-				break;
-			v2 = (_DWORD*)v2[171];
-		}
+	if (!*getMemU32Ptr(0x5D4594, 1197368)) {
+		sub_437290();
+		return;
 	}
-	return sub_437290();
+	while (1) {
+		if (v2[165]) {
+			v3 = v2[167];
+			v21 = *getMemU32Ptr(0x5D4594, 2523948);
+			v20 = 0;
+			if (v3 && *(_BYTE*)(v3 + 112) & 4) {
+				v4 = nox_xxx_objGetTeamByNetCode_418C80(*(_DWORD*)(v3 + 128));
+				v5 = nox_common_playerInfoGetByID_417040(v2[164]);
+				if (v5)
+					v20 = v5 + 4704;
+				if (v4) {
+					v6 = nox_xxx_clientGetTeamColor_418AB0(*((unsigned __int8*)v4 + 4));
+					if (v6) {
+						v7 = (int*)nox_xxx_materialGetTeamColor_418D50((int)v6);
+						if (v7)
+							v21 = *v7;
+					}
+				}
+			}
+			v8 = v2[162];
+			v18 = v2[163];
+			for (i = 0; i < 2; ++i) {
+				if (i) {
+					v9 = *getMemU32Ptr(0x5D4594, 2650660);
+					--v8;
+					--v18;
+				} else {
+					v9 = *getMemU32Ptr(0x5D4594, 2614248);
+				}
+				nox_client_drawSetColor_434460(v9);
+				v23 = v8 - v1;
+				nox_client_drawAddPoint_49F500(v8, v18 - v1);
+				nox_client_drawAddPoint_49F500(v8 - v1, v18);
+				nox_client_drawLineFromPoints_49E4B0();
+				v10 = *(_DWORD*)(v30 + 672);
+				v11 = v10 + v8;
+				v24 = v10 + v8;
+				nox_client_drawAddPoint_49F500(v8, v18 - v1);
+				nox_client_drawAddPoint_49F500(v11, v18 - v1);
+				nox_client_drawLineFromPoints_49E4B0();
+				v12 = v1 + v11;
+				nox_client_drawAddPoint_49F500(v12, v18);
+				nox_client_drawAddPoint_49F500(v24, v18 - v1);
+				nox_client_drawLineFromPoints_49E4B0();
+				v25 = v12;
+				v27 = v18 + *(_DWORD*)(v30 + 676);
+				nox_client_drawAddPoint_49F500(v12, v18);
+				nox_client_drawAddPoint_49F500(v12, v27);
+				nox_client_drawLineFromPoints_49E4B0();
+				v13 = v1 + v27;
+				v14 = v12 - v1;
+				nox_client_drawAddPoint_49F500(v14, v1 + v27);
+				nox_client_drawAddPoint_49F500(v25, v27);
+				nox_client_drawLineFromPoints_49E4B0();
+				if (*(_DWORD*)(v30 + 664)) {
+					v28 = v1 + v27;
+					v26 = v1 + v8 + *(int*)(v30 + 672) / 2;
+					nox_client_drawAddPoint_49F500(v14, v13);
+					nox_client_drawAddPoint_49F500(v26, v13);
+					nox_client_drawLineFromPoints_49E4B0();
+					v15 = v22 + v13;
+					v29 = v8 + *(int*)(v30 + 672) / 2;
+					nox_client_drawAddPoint_49F500(v29, v15);
+					nox_client_drawAddPoint_49F500(v26, v28);
+					nox_client_drawLineFromPoints_49E4B0();
+					v16 = v8 + *(int*)(v30 + 672) / 2 - v1;
+					nox_client_drawAddPoint_49F500(v29, v15);
+					v13 = v28;
+					nox_client_drawAddPoint_49F500(v16, v28);
+					nox_client_drawLineFromPoints_49E4B0();
+					nox_client_drawAddPoint_49F500(v8, v28);
+					nox_client_drawAddPoint_49F500(v16, v28);
+				} else {
+					nox_client_drawAddPoint_49F500(v8, v13);
+					nox_client_drawAddPoint_49F500(v14, v13);
+				}
+				nox_client_drawLineFromPoints_49E4B0();
+				nox_client_drawAddPoint_49F500(v8, v13);
+				nox_client_drawAddPoint_49F500(v23, v13 - v1);
+				nox_client_drawLineFromPoints_49E4B0();
+				nox_client_drawAddPoint_49F500(v23, v13 - v1 - *(_DWORD*)(v30 + 676));
+				nox_client_drawAddPoint_49F500(v23, v13 - v1);
+				nox_client_drawLineFromPoints_49E4B0();
+			}
+			nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 2523948));
+			nox_xxx_drawSetColor_4343E0(*getMemIntPtr(0x5D4594, 2614248));
+			sub_43FD00(0, (_WORD*)v30, v8, v18, 128, 0);
+			if (v20) {
+				nox_xxx_drawSetTextColor_434390(v21);
+				sub_43FD00(0, v20, v8, v18 - v22 - 1, 128, 0);
+			}
+			v2 = (_DWORD*)v30;
+		}
+		v30 = v2[171];
+		if (!v30)
+			break;
+		v2 = (_DWORD*)v2[171];
+	}
+	sub_437290();
 }
 
 //----- (0048DCF0) --------------------------------------------------------
@@ -9664,7 +9666,7 @@ nox_window*  nox_gui_parseWindowRoot_4A0D80(FILE* f, char* buf, int (*fnc)(int, 
 	*(_DWORD*)&drawData[52] = *getMemU32Ptr(0x5D4594, 1307280);
 	*(_DWORD*)&drawData[68] = *getMemU32Ptr(0x5D4594, 1307284);
 	if (!font) {
-		if (dword_5d4594_815132)
+		if (nox_client_gui_flag_815132)
 			font = nox_xxx_guiFontPtrByName_43F360("large");
 		else
 			font = nox_xxx_guiFontPtrByName_43F360("default");

@@ -129,7 +129,7 @@ extern _DWORD dword_5d4594_1311144;
 extern _DWORD dword_5d4594_3798636;
 extern _DWORD dword_5d4594_1307764;
 extern _DWORD dword_5d4594_3798696;
-extern _DWORD dword_5d4594_815132;
+extern _DWORD nox_client_gui_flag_815132;
 extern _DWORD dword_5d4594_1307780;
 extern _DWORD dword_5d4594_1308084;
 extern _DWORD dword_5d4594_1309812;
@@ -164,7 +164,7 @@ nox_wnd_xxx* nox_wnd_xxx_1309740 = 0;
 //----- (004A19D0) --------------------------------------------------------
 void sub_4A19D0() {
 	nox_xxx_setContinueMenuOrHost_43DDD0(0);
-	dword_5d4594_815132 = 0;
+	nox_client_gui_flag_815132 = 0;
 }
 
 //----- (004A1A40) --------------------------------------------------------
@@ -206,7 +206,7 @@ BOOL  sub_4A2490(int a1, int a2, int a3, int a4) { return a2 == 23; }
 int sub_4A24A0() {
 	sub_4A1BD0();
 	sub_46C5D0();
-	dword_5d4594_815132 = 0;
+	nox_client_gui_flag_815132 = 0;
 	return 1;
 }
 
@@ -4378,7 +4378,7 @@ int nox_game_rollNoxLogoAndStart_4AB0F0() { // playmovielogo
 	if (nox_common_gameFlags_check_40A5C0(0x2000000) || !nox_game_setMovieFile_4CB230("NoxLogo.vqa", path)) {
 		if (!nox_game_showLegal_4CC4E0()) {
 			nox_xxx_setContinueMenuOrHost_43DDD0(0);
-			dword_5d4594_815132 = 0;
+			nox_client_gui_flag_815132 = 0;
 		}
 		return 1;
 	}

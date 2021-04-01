@@ -5,7 +5,11 @@ package main
 #include "client__gui__gadgets__listbox.h"
 #include "client__gui__gamewin__psscript.h"
 
-extern unsigned int dword_5d4594_815132;
+extern nox_window* nox_win_xxx1_first;
+extern unsigned int nox_client_gui_flag_815132;
+
+void  sub_4AA030(nox_window* win, nox_window_data* data);
+void nox_window_call_draw_func(nox_window* win, nox_window_data* data);
 */
 import "C"
 import (
@@ -54,6 +58,21 @@ func asWindow(win *C.nox_window) *Window {
 	return (*Window)(unsafe.Pointer(win))
 }
 
+type WindowFlag int
+
+func (f WindowFlag) Has(f2 WindowFlag) bool {
+	return f&f2 != 0
+}
+func (f WindowFlag) HasNone(f2 WindowFlag) bool {
+	return f&f2 == 0
+}
+
+const (
+	NOX_WIN_HIDDEN      = WindowFlag(0x10)
+	NOX_WIN_LAYER_FRONT = WindowFlag(0x20)
+	NOX_WIN_LAYER_BACK  = WindowFlag(0x40)
+)
+
 type Window C.nox_window
 
 func (win *Window) C() *C.nox_window {
@@ -66,6 +85,13 @@ func (win *Window) SetID(id uint) int {
 	}
 	win.id = C.int(id)
 	return 0
+}
+
+func (win *Window) Flags() WindowFlag {
+	if win == nil {
+		return 0
+	}
+	return WindowFlag(win.flags)
 }
 
 func (win *Window) DrawData() *WindowData {
@@ -95,6 +121,70 @@ func (win *Window) Func94(ev int, a1, a2 int) int {
 		return 0
 	}
 	return int(C.nox_window_call_field_94(win.C(), C.int(ev), C.int(a1), C.int(a2)))
+}
+
+func (win *Window) Next() *Window {
+	if win == nil {
+		return nil
+	}
+	return asWindow(win.next)
+}
+
+func (win *Window) Prev() *Window {
+	if win == nil {
+		return nil
+	}
+	return asWindow(win.prev)
+}
+
+func (win *Window) drawRecursive() bool {
+	if win == nil {
+		return false
+	}
+	if win.Flags().Has(NOX_WIN_HIDDEN) {
+		return true
+	}
+	win.Draw()
+	if (win.flags & 0x1000) != 0 {
+		C.sub_4AA030(win.C(), win.DrawData().C())
+	}
+
+	for sub := asWindow(win.field_100); sub != nil; sub = sub.Prev() {
+		sub.drawRecursive()
+	}
+	return true
+}
+
+func (win *Window) Draw() {
+	if win.draw_func != nil {
+		C.nox_window_call_draw_func(win.C(), win.DrawData().C())
+	}
+}
+
+func DrawGUI() {
+	// back layer (background and some UI parts)
+	for win := asWindow(C.nox_win_xxx1_first); win != nil; win = win.Next() {
+		if win.Flags().Has(NOX_WIN_LAYER_BACK) {
+			win.drawRecursive()
+		}
+	}
+	// middle layer
+	for win := asWindow(C.nox_win_xxx1_first); win != nil; win = win.Next() {
+		if win.Flags().HasNone(NOX_WIN_LAYER_BACK | NOX_WIN_LAYER_FRONT) {
+			win.drawRecursive()
+		}
+	}
+	// front layer
+	for win := asWindow(C.nox_win_xxx1_first); win != nil; win = win.Next() {
+		if win.Flags().Has(NOX_WIN_LAYER_FRONT) {
+			win.drawRecursive()
+		}
+	}
+}
+
+//export nox_gui_draw
+func nox_gui_draw() {
+	DrawGUI()
 }
 
 //export nox_new_window_from_file
@@ -444,7 +534,7 @@ func (p *guiParser) parseWindowRoot(fnc unsafe.Pointer) *Window {
 	draw.text_color = C.uint(p.defaults.textColor)
 	font := p.defaults.font
 	if font == 0 {
-		if C.dword_5d4594_815132 != 0 {
+		if C.nox_client_gui_flag_815132 != 0 {
 			font = nox_xxx_guiFontPtrByName_43F360("large")
 		} else {
 			font = nox_xxx_guiFontPtrByName_43F360("default")
