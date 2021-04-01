@@ -2598,7 +2598,6 @@ int  nox_video_bag_readImageData_47A960(unsigned char typ, int ind) {
 	char* v13;           // edi
 	void* v14;           // eax
 	char v15[160];       // [esp+0h] [ebp-348h]
-	const char* v16;     // [esp+A0h] [ebp-2A8h]
 	int v18;             // [esp+B8h] [ebp-290h]
 	int v19;             // [esp+BCh] [ebp-28Ch]
 	char v20[68];        // [esp+C0h] [ebp-288h]
