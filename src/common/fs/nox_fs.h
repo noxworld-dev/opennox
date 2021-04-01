@@ -44,6 +44,7 @@ FILE* nox_fs_create_rw(const char* path);
 FILE* nox_fs_append_text(const char* path);
 
 int nox_fs_fputs(FILE* f, const char* str);
+int nox_fs_fputs_sync(FILE* f, const char* str);
 #define nox_fs_fprintf fprintf
 #define nox_fs_fscan_str(f, p) fscanf(f, "%s", p)
 #define nox_fs_fscan_char(f, p) fscanf(f, "%c", p)
@@ -86,6 +87,7 @@ FILE* nox_fs_create_rw(char* path);
 FILE* nox_fs_append_text(char* path);
 
 int nox_fs_fputs(FILE* f, char* str);
+int nox_fs_fputs_sync(FILE* f, char* str);
 int nox_fs_fprintf(FILE* f, const char* format, ...);
 int nox_fs_fscan_str(FILE* f, char* dst);
 int nox_fs_fscan_skip(FILE* f);
@@ -98,7 +100,7 @@ int nox_fs_fseek(FILE* f, long off, int mode);
 long nox_fs_ftell(FILE* f);
 long nox_fs_fsize(FILE* f);
 int nox_fs_fread(FILE* f, void* dst, int sz);
-int nox_fs_fwrite(FILE* f, void* dst, int sz);
+int nox_fs_fwrite(FILE* f, void* src, int sz);
 bool nox_fs_fgets(FILE* f, char* dst, int max);
 int nox_fs_fgetc(FILE* f);
 bool nox_fs_feof(FILE* f);

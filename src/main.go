@@ -7,6 +7,7 @@ package main
 #include "common__object__weaplook.h"
 #include "client__system__ctrlevnt.h"
 #include "client__system__parsecmd.h"
+#include "common__log.h"
 
 extern unsigned int dword_5d4594_805860;
 extern int g_scaled;
@@ -194,7 +195,7 @@ func runNox(args []string) error {
 		setEngineFlag(NOX_ENGINE_FLAG_DISABLE_TEXT_RENDERING)
 	}
 	if *fNoLog {
-		C.sub_413C00()
+		C.nox_xxx_log_4_close_413C00()
 	}
 	if *fLock {
 		setEngineFlag(NOX_ENGINE_FLAG_26)
@@ -382,7 +383,7 @@ func change_windowed_fullscreen() {
 func cleanup() {
 	fmt.Println("cleanup")
 	if getGameFlag(0x2000000) {
-		C.nox_xxx_closeNetworkLog_413D00()
+		C.nox_xxx_networkLog_close_413D00()
 	}
 	C.nox_common_writecfgfile(internCStr("nox.cfg"))
 	C.nox_xxx_freeScreenParticles_4314D0()

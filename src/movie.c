@@ -66,28 +66,28 @@ void  sub_555430(HWND* a1) {
 	HWND v2; // edi
 
 	if (!a1) {
-		sub_413B70("No VQ pointer!\n");
+		nox_xxx_log_4_printf_413B70("No VQ pointer!\n");
 		return;
 	}
 	*getMemU32Ptr(0x5D4594, 2514000) = *a1;
 	*getMemU32Ptr(0x5D4594, 2513996) = a1[1];
 	v2 = a1[10];
-	sub_413B70("Before Audio_Init\n");
+	nox_xxx_log_4_printf_413B70("Before Audio_Init\n");
 	if (!sub_555520(*(HWND*)getMemAt(0x5D4594, 2514000))) {
-		sub_413B70("Failure to initialize audio\n");
+		nox_xxx_log_4_printf_413B70("Failure to initialize audio\n");
 		return;
 	}
-	sub_413B70("Before ShowCursor\n");
+	nox_xxx_log_4_printf_413B70("Before ShowCursor\n");
 	ShowCursor(0);
-	sub_413B70("Before Set_Option\n");
+	nox_xxx_log_4_printf_413B70("Before Set_Option\n");
 	sub_556280(15);
-	sub_413B70("Before VQA_Test\n");
+	nox_xxx_log_4_printf_413B70("Before VQA_Test\n");
 	if (v2)
 		nox_xxx_VQA_Test_555C40(a1);
-	sub_413B70("Before Reset_Video_System\n");
+	nox_xxx_log_4_printf_413B70("Before Reset_Video_System\n");
 	sub_555A40();
 	ShowCursor(1);
-	sub_413B70("Before Audio_Uninit\n");
+	nox_xxx_log_4_printf_413B70("Before Audio_Uninit\n");
 	sub_5555D0();
 }
 
@@ -109,17 +109,17 @@ signed int  sub_555520(HWND a1) {
 	signed int result; // eax
 
 	AIL_lock();
-	sub_413B70("Before DirectSoundCreate\n");
+	nox_xxx_log_4_printf_413B70("Before DirectSoundCreate\n");
 	v1 = DirectSoundCreate(0, &g_dsound, 0);
 	AIL_unlock();
 	if (v1) {
-		sub_413B70("!! Failure to create a Direct Sound object !!\r\n");
+		nox_xxx_log_4_printf_413B70("!! Failure to create a Direct Sound object !!\r\n");
 		result = 0;
 	} else {
-		sub_413B70("Before SetCooperativeLevel\n");
+		nox_xxx_log_4_printf_413B70("Before SetCooperativeLevel\n");
 		AIL_lock();
 		if (g_dsound->lpVtbl->SetCooperativeLevel(g_dsound, a1, 1)) {
-			sub_413B70("!! Failure to obtain exclusive use of sound card !!\r\n");
+			nox_xxx_log_4_printf_413B70("!! Failure to obtain exclusive use of sound card !!\r\n");
 			AIL_lock();
 			g_dsound->lpVtbl->Release(g_dsound);
 			AIL_unlock();
@@ -452,7 +452,7 @@ int  nox_xxx_VQA_Test_555C40(_DWORD* a1) {
 	int v25;          // [esp+28h] [ebp-4h]
 
 	v1 = (const char*)a1[10];
-	sub_413B70("VQA_Test begin.\r\n");
+	nox_xxx_log_4_printf_413B70("VQA_Test begin.\r\n");
 	v2 = sub_5562A0(0);
 	if (*getMemU32Ptr(0x5D4594, 2513988) == 1) {
 		v2 |= 2u;
@@ -489,9 +489,9 @@ int  nox_xxx_VQA_Test_555C40(_DWORD* a1) {
 			*getMemU32Ptr(0x5D4594, 2513964) = 0;
 			return 0;
 		}
-		sub_413B70("Movie cached.\r\n");
+		nox_xxx_log_4_printf_413B70("Movie cached.\r\n");
 	}
-	sub_413B70("About to open VQA\n");
+	nox_xxx_log_4_printf_413B70("About to open VQA\n");
 	if (!sub_5581C0(*(_DWORD**)getMemAt(0x5D4594, 2513964)))
 		goto LABEL_16;
 	v20 = sub_558720(*(_DWORD**)getMemAt(0x5D4594, 2513964));
@@ -500,9 +500,9 @@ int  nox_xxx_VQA_Test_555C40(_DWORD* a1) {
 	sub_555AE0(v10, v19, v20, &v22, &v23, &v21);
 	if (v21 == 4)
 		v21 = 1;
-	sub_413B70("About to set up video\n");
+	nox_xxx_log_4_printf_413B70("About to set up video\n");
 	sub_555620(a1);
-	sub_413B70("Finished setting up video\n");
+	nox_xxx_log_4_printf_413B70("Finished setting up video\n");
 	if (v21 == 1 || v21 == 4) {
 		v11 = nox_xxx_unknown_libname_14_556A10();
 		sub_558790(*(_DWORD**)getMemAt(0x5D4594, 2513964), v11);
@@ -518,13 +518,13 @@ int  nox_xxx_VQA_Test_555C40(_DWORD* a1) {
 	v12 = v23 * v22;
 	if (v21 == 1 || v21 == 4)
 		v12 *= 2;
-	sub_413B70("About to Lock\n");
+	nox_xxx_log_4_printf_413B70("About to Lock\n");
 	sub_556710(*(_DWORD**)getMemAt(0x5D4594, 2513968));
-	sub_413B70("Locked\n");
+	nox_xxx_log_4_printf_413B70("Locked\n");
 	memset(**(void***)getMemAt(0x5D4594, 2513968), 0, v12);
-	sub_413B70("About to Unlock\n");
+	nox_xxx_log_4_printf_413B70("About to Unlock\n");
 	sub_556820(*(_DWORD**)getMemAt(0x5D4594, 2513968));
-	sub_413B70("Unlocked\n");
+	nox_xxx_log_4_printf_413B70("Unlocked\n");
 	v13 = 0;
 	v14 = -1;
 	v15 = 0;
@@ -544,9 +544,9 @@ int  nox_xxx_VQA_Test_555C40(_DWORD* a1) {
 	do {
 		if (*getMemU32Ptr(0x5D4594, 2513988) == 2 || v13)
 			sub_5582C0(*(int**)getMemAt(0x5D4594, 2513964), v13);
-		sub_413B70("About to play VQA\n");
+		nox_xxx_log_4_printf_413B70("About to play VQA\n");
 		v16 = sub_558370(*(int**)getMemAt(0x5D4594, 2513964), v14);
-		sub_413B70("Finished playing VQA\n");
+		nox_xxx_log_4_printf_413B70("Finished playing VQA\n");
 		if (*getMemU32Ptr(0x5D4594, 2513988) == 1)
 			v15 = 0;
 		sub_558710(*(int**)getMemAt(0x5D4594, 2513964));
@@ -563,7 +563,7 @@ int  nox_xxx_VQA_Test_555C40(_DWORD* a1) {
 		operator_delete(v18);
 	}
 	*getMemU32Ptr(0x5D4594, 2513964) = 0;
-	sub_413B70("VQA_Test end.\r\n");
+	nox_xxx_log_4_printf_413B70("VQA_Test end.\r\n");
 	return 1;
 }
 // 5667CB: using guessed type void * operator_new(unsigned int);

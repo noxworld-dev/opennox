@@ -317,6 +317,7 @@ set (
     common__random.c
     common__strman.c
     common__binfile.c
+    common__log.c
     common__ability__comablty.c
     common__gamemech__pausefx.c
     common__magic__comguide.c

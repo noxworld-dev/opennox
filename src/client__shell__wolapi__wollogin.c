@@ -1,4 +1,5 @@
 #include "proto.h"
+#include "common__log.h"
 extern _DWORD dword_5d4594_830272;
 extern _DWORD dword_5d4594_830268;
 extern _DWORD dword_5d4594_830252;
@@ -112,9 +113,9 @@ int nox_game_showWolLogin_44A560() {
 			if (dword_5d4594_830272 == 1) {
 				v10 = nox_strman_loadString_40F1D0("woldisc.c:LostConnection", 0,
 											"C:\\NoxPost\\src\\client\\shell\\WolApi\\wollogin.c", 485);
-				nox_xxx_networkLog_413D30("%S", v10);
+				nox_xxx_networkLog_printf_413D30("%S", v10);
 			} else {
-				nox_xxx_networkLog_413D30("InitWolApiMenu: Quitting due to all players left");
+				nox_xxx_networkLog_printf_413D30("InitWolApiMenu: Quitting due to all players left");
 			}
 			nox_xxx_setContinueMenuOrHost_43DDD0(0);
 			nox_game_exit_xxx_43DE60();

@@ -1,6 +1,7 @@
 #include "common__telnet__telnetd.h"
 #include "client__system__parsecmd.h" // for nox_server_parseCmdText_443C80
 #include "proto.h"
+#include "common__log.h"
 extern unsigned int nox_frame_xxx_2598000;
 
 #define NOX_TELNET_SOCK_MAX 4
@@ -84,7 +85,7 @@ void nox_telnet_accept_578FF0() {
 	wchar_t* stel = nox_strman_loadString_40F1D0("Telnet", 0, "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c", 142);
 	wchar_t* sstart = nox_strman_loadString_40F1D0("ConnectionStarted", 0, "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c", 142);
 	char* saddr = inet_ntoa(cur->addr);
-	nox_xxx_networkLog_413D30("%S: %S %s", stel, sstart, saddr);
+	nox_xxx_networkLog_printf_413D30("%S: %S %s", stel, sstart, saddr);
 
 	// password prompt
 	char buf[128];
@@ -221,7 +222,7 @@ char* nox_telnet_recv_5793B0(nox_telnet_sock_t* cur, int ind) {
 			char* saddr = inet_ntoa(cur->addr);
 			wchar_t* sterm = nox_strman_loadString_40F1D0("ConnectionTerminated", 0, "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c", 211);
 			wchar_t* stel = nox_strman_loadString_40F1D0("Telnet", 0, "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c", 211);
-			nox_xxx_networkLog_413D30("%S: %S %s", stel, sterm, saddr);
+			nox_xxx_networkLog_printf_413D30("%S: %S %s", stel, sterm, saddr);
 			return 0;
 		}
 		if (cur->field_1040 & 1) {
@@ -262,7 +263,7 @@ char* nox_telnet_recv_5793B0(nox_telnet_sock_t* cur, int ind) {
 		char* saddr = inet_ntoa(cur->addr);
 		wchar_t* sterm = nox_strman_loadString_40F1D0("ConnectionTerminated", 0, "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c", 273);
 		wchar_t* stel = nox_strman_loadString_40F1D0("Telnet", 0, "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c", 273);
-		nox_xxx_networkLog_413D30("%S: %S %s", stel, sterm, saddr);
+		nox_xxx_networkLog_printf_413D30("%S: %S %s", stel, sterm, saddr);
 		return 0;
 	}
 	if (!nox_telnet_checkLine_579700(cur)) {
@@ -348,7 +349,7 @@ void nox_telnet_handle_579190() {
 				char* saddr = inet_ntoa(cur->addr);
 				wchar_t* bpass = nox_strman_loadString_40F1D0("BadPassword", 0, "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c", 371);
 				wchar_t* stel = nox_strman_loadString_40F1D0("Telnet", 0, "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c", 371);
-				nox_xxx_networkLog_413D30("%S: %S %s", stel, bpass, saddr);
+				nox_xxx_networkLog_printf_413D30("%S: %S %s", stel, bpass, saddr);
 				nox_telnet_closeInd_579350(i);
 				continue;
 			}
@@ -356,7 +357,7 @@ void nox_telnet_handle_579190() {
 			char* saddr = inet_ntoa(cur->addr);
 			wchar_t* succ = nox_strman_loadString_40F1D0("LoginSuccessful", 0, "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c", 381);
 			wchar_t* stel = nox_strman_loadString_40F1D0("Telnet", 0, "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c", 381);
-			nox_xxx_networkLog_413D30("%S: %S %s", stel, succ, saddr);
+			nox_xxx_networkLog_printf_413D30("%S: %S %s", stel, succ, saddr);
 		} else {
 			nox_server_parseCmdText_443C80(buf, 0);
 		}

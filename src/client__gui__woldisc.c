@@ -2,6 +2,7 @@
 
 #include "proto.h"
 #include "client__gui__guimsg.h"
+#include "common__log.h"
 
 extern _DWORD dword_5d4594_830292;
 extern int nox_win_width;
@@ -17,7 +18,7 @@ void sub_44B010() {
 	sub_44E040();
 	if (nox_common_gameFlags_check_40A5C0(0x2000000)) {
 		v0 = nox_strman_loadString_40F1D0("LostConnection", 0, "C:\\NoxPost\\src\\client\\Gui\\woldisc.c", 75);
-		nox_xxx_networkLog_413D30("%S", v0);
+		nox_xxx_networkLog_printf_413D30("%S", v0);
 		if (sub_43C710())
 			nox_xxx_reconStart_41E400();
 		else

@@ -6,6 +6,7 @@
 #include "client__gui__guimsg.h"
 #include "client__io__console.h"
 #include "common__binfile.h"
+#include "common__log.h"
 
 extern _DWORD nox_client_gui_flag_1556112;
 extern _DWORD nox_game_loop_xxx_805872;
@@ -182,7 +183,7 @@ void sub_48B1B0();
 void cleanup() {
 	printf("%s\n", __FUNCTION__);
 	if (nox_common_gameFlags_check_40A5C0(0x2000000))
-		nox_xxx_closeNetworkLog_413D00();
+		nox_xxx_networkLog_close_413D00();
 	nox_common_writecfgfile("nox.cfg");
 	nox_xxx_freeScreenParticles_4314D0();
 	sub_413960();

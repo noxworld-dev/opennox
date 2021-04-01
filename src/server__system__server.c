@@ -1,6 +1,7 @@
 #include "server__system__server.h"
 #include "server__script__script.h"
 
+#include "common__log.h"
 #include "common__random.h"
 #include "client__gui__guiquit.h"
 #include "common__system__settings.h"
@@ -533,7 +534,7 @@ char* sub_4D3130() {
 	int v9;       // [esp+8h] [ebp-8h]
 	int v10;      // [esp+Ch] [ebp-4h]
 
-	sub_413C80("\n");
+	nox_xxx_bandLog_printf_413C80("\n");
 	result = nox_common_playerInfoGetFirst_416EA0();
 	for (i = (int)result; result; i = (int)result) {
 		sub_4E5630(*(_BYTE*)(i + 2064), &v10, &v9, &v8);
@@ -543,10 +544,10 @@ char* sub_4D3130() {
 		v4 = nox_frame_xxx_2598000;
 		if (*(_BYTE*)(i + 2064) == 31) {
 			v2 = sub_553ED0(0);
-			sub_413C80("%S, %d, %d, %d, %d, %d\n", i + 4704, v2, v4, v5, v6, v7);
+			nox_xxx_bandLog_printf_413C80("%S, %d, %d, %d, %d, %d\n", i + 4704, v2, v4, v5, v6, v7);
 		} else {
 			v3 = sub_553ED0(*(unsigned __int8*)(i + 2064) + 1);
-			sub_413C80("%S, %d, %d, %d, %d, %d\n", i + 4704, v3, v4, v5, v6, v7);
+			nox_xxx_bandLog_printf_413C80("%S, %d, %d, %d, %d, %d\n", i + 4704, v3, v4, v5, v6, v7);
 		}
 		result = nox_common_playerInfoGetNext_416EE0(i);
 	}
@@ -2520,7 +2521,7 @@ void nox_xxx_gameTick_4D2580_server_A(int v2, char* v38) {
 			if (!sub_4165B0()[57])
 				sub_41D650();
 		}
-		nox_xxx_networkLog_413D30("EndGame");
+		nox_xxx_networkLog_printf_413D30("EndGame");
 		sub_46DCB0();
 	}
 	nox_server_netMaybeSendInitialPackets_4DEB30();
@@ -2724,7 +2725,7 @@ int nox_xxx_gameTick_4D2580_server() {
 	nox_xxx_netMaybeSendAll_552460();
 	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_23))
 		nox_xxx_replayTickMB_4D3580_net_playback(1);
-	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_30)) {
+	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_LOG_BAND)) {
 		*(_DWORD*)&v38[4] = (__PAIR64__(v3, v1) - *getMemU64Ptr(0x5D4594, 1548684)) >> 32;
 		if (__PAIR64__(v3, v1) - *getMemU64Ptr(0x5D4594, 1548684) > 0x3E8) {
 			sub_4D3130();

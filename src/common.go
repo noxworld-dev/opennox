@@ -58,7 +58,7 @@ const (
 	NOX_ENGINE_FLAG_27                         = EngineFlags(1 << 26)
 	NOX_ENGINE_FLAG_28                         = EngineFlags(1 << 27)
 	NOX_ENGINE_FLAG_29                         = EngineFlags(1 << 28)
-	NOX_ENGINE_FLAG_30                         = EngineFlags(1 << 29)
+	NOX_ENGINE_FLAG_LOG_BAND                   = EngineFlags(1 << 29)
 	NOX_ENGINE_FLAG_31                         = EngineFlags(1 << 30)
 	NOX_ENGINE_FLAG_32                         = EngineFlags(1 << 31)
 )

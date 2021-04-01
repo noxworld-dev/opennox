@@ -15,6 +15,7 @@
 #include "common__wolapi__woluser.h"
 #include "common__random.h"
 #include "common__binfile.h"
+#include "common__log.h"
 
 #include "client__gui__guibook.h"
 
@@ -1142,7 +1143,7 @@ int  nox_xxx_playerSaveToFile_41A140(char* a1, int a2) {
 						if (!v9)
 							goto LABEL_10;
 					}
-					nox_xxx_networkLog_413D30("SavePlayerData: Error saving player data '%s'\n", *getMemU32Ptr(0x587000, 12 * v10 + 55816));
+					nox_xxx_networkLog_printf_413D30("SavePlayerData: Error saving player data '%s'\n", *getMemU32Ptr(0x587000, 12 * v10 + 55816));
 					nox_xxx_cryptClose_4269F0();
 					result = 0;
 				} else {
@@ -1151,11 +1152,11 @@ int  nox_xxx_playerSaveToFile_41A140(char* a1, int a2) {
 					result = 1;
 				}
 			} else {
-				nox_xxx_networkLog_413D30("SavePlayerData: Can't open file '%s'\n", a1);
+				nox_xxx_networkLog_printf_413D30("SavePlayerData: Can't open file '%s'\n", a1);
 				result = 0;
 			}
 		} else {
-			nox_xxx_networkLog_413D30("SaveServerPlayerData: NULL player object\n");
+			nox_xxx_networkLog_printf_413D30("SaveServerPlayerData: NULL player object\n");
 			result = 0;
 		}
 	}
@@ -2710,11 +2711,11 @@ int  nox_xxx_computeServerPlayerDataBufferSize_41CC50(char* a1) {
 			nox_binfile_close_408D90(nox_file_2);
 			result = v4;
 		} else {
-			nox_xxx_networkLog_413D30("computeServerPlayerDataBufferSize: Can't key file '%s'\n", v1);
+			nox_xxx_networkLog_printf_413D30("computeServerPlayerDataBufferSize: Can't key file '%s'\n", v1);
 			result = 0;
 		}
 	} else {
-		nox_xxx_networkLog_413D30("computeServerPlayerDataBufferSize: Can't open file '%s'\n", v1);
+		nox_xxx_networkLog_printf_413D30("computeServerPlayerDataBufferSize: Can't open file '%s'\n", v1);
 		result = 0;
 	}
 	return result;
@@ -2745,11 +2746,11 @@ int  nox_xxx_SavePlayerDataFromClient_41CD70(char* a1, _BYTE* a2, int a3) {
 			nox_binfile_close_408D90(nox_file_2);
 			result = 1;
 		} else {
-			nox_xxx_networkLog_413D30("SavePlayerDataFromClient: Can't key file '%s'\n", v3);
+			nox_xxx_networkLog_printf_413D30("SavePlayerDataFromClient: Can't key file '%s'\n", v3);
 			result = 0;
 		}
 	} else {
-		nox_xxx_networkLog_413D30("SavePlayerDataFromClient: Can't open file '%s'\n");
+		nox_xxx_networkLog_printf_413D30("SavePlayerDataFromClient: Can't open file '%s'\n");
 		result = 0;
 	}
 	return result;
@@ -2863,7 +2864,7 @@ int  sub_41CFA0(char* a1, int a2) {
 	v3 = nox_binfile_open_408CC0(a1, 0);
 	nox_file_2 = v3;
 	if (!v3) {
-		nox_xxx_networkLog_413D30("SendPlayerSaveDataToClient: Can't open file '%s'\n", a1);
+		nox_xxx_networkLog_printf_413D30("SendPlayerSaveDataToClient: Can't open file '%s'\n", a1);
 		return 0;
 	}
 	if (nox_binfile_cryptSet_408D40((int)v3, 27)) {
@@ -2879,7 +2880,7 @@ int  sub_41CFA0(char* a1, int a2) {
 		}
 		result = 1;
 	} else {
-		nox_xxx_networkLog_413D30("SavePlayerOnClient: Unable to key file '%s'\n", getMemAt(0x5D4594, 2660688));
+		nox_xxx_networkLog_printf_413D30("SavePlayerOnClient: Unable to key file '%s'\n", getMemAt(0x5D4594, 2660688));
 		result = 0;
 	}
 	return result;
@@ -3625,7 +3626,7 @@ int nox_xxx_reconAttempt_41E390() {
 		if (dword_5d4594_528252) {
 			result = dword_5d4594_528256;
 			if (!dword_5d4594_528256) {
-				nox_xxx_networkLog_413D30("RECON: Attempting to re-login");
+				nox_xxx_networkLog_printf_413D30("RECON: Attempting to re-login");
 				sub_40E090();
 				result = nox_xxx_officialStringCmp_41FDE0();
 				if (result == 1)
@@ -3646,7 +3647,7 @@ void nox_xxx_reconStart_41E400() {
 	if (dword_5d4594_528252 != 1 && dword_5d4594_528256 != 1) {
 		if (!dword_5d4594_528260) {
 			if (!dword_5d4594_528264) {
-				nox_xxx_networkLog_413D30("RECON: Starting reconnection process frame (%d)", nox_frame_xxx_2598000);
+				nox_xxx_networkLog_printf_413D30("RECON: Starting reconnection process frame (%d)", nox_frame_xxx_2598000);
 				dword_5d4594_528252 = 1;
 				dword_5d4594_528256 = 0;
 				dword_5d4594_528264 = nox_frame_xxx_2598000;
@@ -3660,7 +3661,7 @@ void nox_xxx_reconStart_41E400() {
 int sub_41E470() {
 	int result; // eax
 
-	nox_xxx_networkLog_413D30("RECON: TryReconnectAgain called on frame (%d)", nox_frame_xxx_2598000);
+	nox_xxx_networkLog_printf_413D30("RECON: TryReconnectAgain called on frame (%d)", nox_frame_xxx_2598000);
 	dword_5d4594_528256 = 0;
 	result = nox_frame_xxx_2598000 + 120 * nox_gameFPS;
 	dword_5d4594_528260 = nox_frame_xxx_2598000 + 120 * nox_gameFPS;

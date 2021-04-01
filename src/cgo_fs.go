@@ -287,6 +287,20 @@ func nox_fs_fputs(f *C.FILE, str *C.char) C.int {
 	return C.int(n)
 }
 
+//export nox_fs_fputs_sync
+func nox_fs_fputs_sync(f *C.FILE, str *C.char) C.int {
+	fp := fileByHandle(f)
+	n, err := fp.WriteString(C.GoString(str))
+	if err != nil {
+		return -1
+	}
+	err = fp.Sync()
+	if err != nil {
+		return -1
+	}
+	return C.int(n)
+}
+
 //export nox_fs_fscan_str
 func nox_fs_fscan_str(f *C.FILE, str *C.char) C.int {
 	fp := fileByHandle(f)
