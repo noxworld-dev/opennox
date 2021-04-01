@@ -4983,9 +4983,6 @@ int  nox_thing_read_WALL_410900(nox_memfile* f, char* a2) {
 	int v29;              // edx
 	int v31;              // edx
 	int v33;              // edx
-	int v34;              // eax
-	unsigned __int8* v35; // eax
-	int v37;              // ecx
 	int v39;              // [esp+10h] [ebp-10h]
 	int v40;              // [esp+14h] [ebp-Ch]
 	int v41;              // [esp+18h] [ebp-8h]
@@ -5084,7 +5081,7 @@ int  nox_thing_read_WALL_410900(nox_memfile* f, char* a2) {
 		++v24;
 		v49 += 16;
 	} while ((int)v49 < 240);
-	v37 = nox_memfile_read_i32(f);
+	unsigned int v37 = nox_memfile_read_i32(f);
 	if (v37 != 0x454E4420) // 'END '
 		return 0;
 	++dword_5d4594_251540;
@@ -5458,7 +5455,6 @@ int  nox_thing_read_FLOR_411540(nox_memfile* f, _BYTE* a2) {
 	int v23;              // edx
 	int v24;              // ecx
 	int v26;              // ecx
-	unsigned __int8* v27; // edi
 	_BYTE v29[6];         // [esp+0h] [ebp-28h]
 	int v30;              // [esp+0h] [ebp-28h]
 	char v31[32];         // [esp+8h] [ebp-20h]
@@ -5548,7 +5544,6 @@ int  nox_xxx_checkFacade_4117E0(const char* a1) {
 
 //----- (00411850) --------------------------------------------------------
 int  nox_thing_read_EDGE_411850(nox_memfile* f, _BYTE* a2) {
-	unsigned __int8* v4;  // eax
 	int v5;               // eax
 	int v7;               // ecx
 	int v9;               // ecx
@@ -7261,7 +7256,6 @@ int  nox_thing_skip_AUD_414D40(nox_memfile* f) {
 	int v2;              // edx
 	int v3;              // esi
 	unsigned __int8 v5;  // dl
-	int v6;              // ecx
 
 	v2 = nox_memfile_read_i32(f);
 	if (v2 <= 0)

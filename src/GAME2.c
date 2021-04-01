@@ -2680,7 +2680,6 @@ BOOL  nox_thing_skip_AVNT_452B00(nox_memfile* f) {
 BOOL  nox_thing_skip_AVNT_inner_452B30(nox_memfile* f) {
 	char v3;             // bl
 	unsigned __int8 v5;  // dl
-	int v6;              // ecx
 	BOOL result;         // eax
 	char v8;             // [esp+Ch] [ebp+4h]
 
