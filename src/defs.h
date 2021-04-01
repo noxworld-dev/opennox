@@ -1110,7 +1110,7 @@ typedef enum {
 	NOX_ENGINE_FLAG_27 = 1u << 26u,
 	NOX_ENGINE_FLAG_28 = 1u << 27u,
 	NOX_ENGINE_FLAG_29 = 1u << 28u,
-	NOX_ENGINE_FLAG_30 = 1u << 29u,
+	NOX_ENGINE_FLAG_LOG_BAND = 1u << 29u,
 	NOX_ENGINE_FLAG_31 = 1u << 30u,
 	NOX_ENGINE_FLAG_32 = 1u << 31u,
 } nox_engine_flag;

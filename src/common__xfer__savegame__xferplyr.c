@@ -2,6 +2,7 @@
 #include "client__gui__guimsg.h"
 
 #include "common/fs/nox_fs.h"
+#include "common__log.h"
 #include "proto.h"
 
 extern FILE* nox_file_2;
@@ -49,15 +50,15 @@ int  nox_xxx_savePlayerMB_41C8F0(char* a1, unsigned int a2) {
 					nox_xxx_printCentered_445490(v10);
 					result = 1;
 				} else {
-					nox_xxx_networkLog_413D30("SavePlayerOnClient: Unable to save client data to file\n");
+					nox_xxx_networkLog_printf_413D30("SavePlayerOnClient: Unable to save client data to file\n");
 					result = 0;
 				}
 			} else {
-				nox_xxx_networkLog_413D30("SavePlayerOnClient: Unable to key file '%s'\n", getMemAt(0x5D4594, 2660688));
+				nox_xxx_networkLog_printf_413D30("SavePlayerOnClient: Unable to key file '%s'\n", getMemAt(0x5D4594, 2660688));
 				result = 0;
 			}
 		} else {
-			nox_xxx_networkLog_413D30("SavePlayerOnClient: Unable to open file '%s'\n", getMemAt(0x5D4594, 2660688));
+			nox_xxx_networkLog_printf_413D30("SavePlayerOnClient: Unable to open file '%s'\n", getMemAt(0x5D4594, 2660688));
 			result = 0;
 		}
 	} else {
@@ -67,7 +68,7 @@ int  nox_xxx_savePlayerMB_41C8F0(char* a1, unsigned int a2) {
 		v3 = nox_strman_loadString_40F1D0("Wol.c:Wolapierror", 0,
 								   "C:\\NoxPost\\src\\common\\Xfer\\SaveGame\\XferPlyr.c", 3342);
 		nox_xxx_printCentered_445490(v3);
-		nox_xxx_networkLog_413D30("SavePlayerOnClient: Error - character file too small '%s'\n", getMemAt(0x5D4594, 2660688));
+		nox_xxx_networkLog_printf_413D30("SavePlayerOnClient: Error - character file too small '%s'\n", getMemAt(0x5D4594, 2660688));
 		result = 0;
 	}
 	return result;

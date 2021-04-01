@@ -2,6 +2,7 @@
 #include <emscripten/emscripten.h>
 #endif
 
+#include "common__log.h"
 #include "client__shell__wolapi__wolchat.h"
 #include "client__shell__wolapi__woldlgs.h"
 #include "client__system__parsecmd.h"
@@ -93,10 +94,6 @@ int g_argc2;
 char** g_argv2;
 
 int map_download_finish();
-
-FILE* nox_file_4 = 0;
-FILE* nox_file_5 = 0;
-FILE* nox_file_net_log = 0;
 
 _DWORD* dword_5D4594_251544 = 0;
 
@@ -222,7 +219,7 @@ int cmain(int argc, const char* argv[]) {
 		} else if (!_strcmpi(flag, "-notext")) {
 			nox_common_setEngineFlag(NOX_ENGINE_FLAG_DISABLE_TEXT_RENDERING);
 		} else if (!_strcmpi(flag, "-nolog")) {
-			sub_413C00();
+			nox_xxx_log_4_close_413C00();
 		} else if (!_strcmpi(flag, "-lock")) {
 			nox_common_setEngineFlag(NOX_ENGINE_FLAG_26);
 		} else if (!_strcmpi(flag, "-safe")) {
@@ -6691,164 +6688,6 @@ void sub_413A00(int a1) {
 
 //----- (00413A50) --------------------------------------------------------
 BOOL nox_xxx_checkGFlagNoParticles_413A50() { return nox_common_gameFlags_check_40A5C0(0x40000); }
-
-//----- (00413A60) --------------------------------------------------------
-void sub_413A60() {
-	nox_file_4 = 0;
-
-	nox_common_resetEngineFlag(NOX_ENGINE_FLAG_24 | NOX_ENGINE_FLAG_25);
-}
-
-//----- (00413A80) --------------------------------------------------------
-int  sub_413A80(char* a1) {
-	int result; // eax
-
-	result = 0;
-	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_24)) {
-		sub_413AD0(nox_file_4);
-		nox_file_4 = 0;
-		sub_413B20(&nox_file_4, a1);
-		result = 1;
-	}
-	return result;
-}
-
-//----- (00413AD0) --------------------------------------------------------
-void  sub_413AD0(FILE* a1) {
-	char* v2; // eax
-
-	if (a1) {
-		v2 = sub_413B00();
-		nox_fs_fprintf(a1, "Log closed: %s", v2);
-		nox_fs_flush(a1);
-		nox_fs_close(a1);
-	}
-}
-
-//----- (00413B00) --------------------------------------------------------
-char* sub_413B00() {
-	struct tm* v1; // eax
-	time_t v3;     // [esp+0h] [ebp-4h]
-
-	time(&v3);
-	v1 = localtime(&v3);
-	return asctime(v1);
-}
-
-//----- (00413B20) --------------------------------------------------------
-int  sub_413B20(FILE** a1, char* a2) {
-	char* v4; // eax
-
-	if (!a2)
-		return 0;
-	*a1 = nox_fs_create_rw(a2);
-	if (!a1)
-		return 0;
-	v4 = sub_413B00();
-	nox_fs_fprintf(*a1, "Log opened: %s", v4);
-	nox_fs_flush(*a1);
-	return 1;
-}
-// 413B44: variable 'v3' is possibly undefined
-
-//----- (00413B70) --------------------------------------------------------
-void sub_413B70(char* a1, ...) {
-	va_list va; // [esp+8h] [ebp+8h]
-
-	va_start(va, a1);
-	nox_vsprintf((char*)getMemAt(0x5D4594, 251752), a1, va);
-	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_24))
-		sub_413BD0(nox_file_4, (int)getMemAt(0x5D4594, 251752));
-	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_25))
-		nox_xxx_consoleVPrint_450C00(9u, (wchar_t*)getMemAt(0x587000, 32376), getMemAt(0x5D4594, 251752));
-}
-
-//----- (00413BD0) --------------------------------------------------------
-void  sub_413BD0(FILE* a1, int a2) {
-	if (a1) {
-		nox_fs_fprintf(a1, "%s", a2);
-		nox_fs_flush(a1);
-	}
-}
-
-//----- (00413C00) --------------------------------------------------------
-void sub_413C00() {
-	nox_common_resetEngineFlag(NOX_ENGINE_FLAG_24 | NOX_ENGINE_FLAG_25);
-	if (nox_file_4) {
-		sub_413AD0(nox_file_4);
-		nox_file_4 = 0;
-	}
-}
-
-//----- (00413C30) --------------------------------------------------------
-void sub_413C30() {
-	sub_413B20(&nox_file_5, "band.log");
-	sub_413BD0(nox_file_5, (int)getMemAt(0x587000, 32404));
-}
-
-//----- (00413C60) --------------------------------------------------------
-void sub_413C60() {
-	sub_413AD0(nox_file_5);
-	nox_file_5 = 0;
-}
-
-//----- (00413C80) --------------------------------------------------------
-void sub_413C80(char* a1, ...) {
-	va_list va; // [esp+8h] [ebp+8h]
-
-	va_start(va, a1);
-	nox_vsprintf((char*)getMemAt(0x5D4594, 251752), a1, va);
-	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_30))
-		sub_413BD0(nox_file_5, (int)getMemAt(0x5D4594, 251752));
-}
-
-//----- (00413CC0) --------------------------------------------------------
-FILE* sub_413CC0() {
-	FILE* result; // eax
-
-	result = nox_fs_append_text("network.log");
-	nox_file_net_log = result;
-	if (result)
-		result = (FILE*)nox_xxx_networkLog_413D30("StartLog%c%s", 240, "1.0");
-	return result;
-}
-
-//----- (00413D00) --------------------------------------------------------
-void nox_xxx_closeNetworkLog_413D00() {
-	nox_xxx_networkLog_413D30("EndLog");
-	nox_fs_close(nox_file_net_log);
-	nox_file_net_log = 0;
-}
-
-//----- (00413D30) --------------------------------------------------------
-int nox_xxx_networkLog_413D30(char* a1, ...) {
-	struct tm* v1;       // esi
-	int result;          // eax
-	unsigned __int8* v3; // edi
-	unsigned __int8 v4;  // cl
-	FILE* v5;            // [esp-2Ch] [ebp-34h]
-	time_t v6;           // [esp+4h] [ebp-4h]
-	va_list va;          // [esp+10h] [ebp+8h]
-
-	va_start(va, a1);
-	time(&v6);
-	v1 = localtime(&v6);
-	result = nox_common_gameFlags_check_40A5C0(4);
-	if (result) {
-		nox_vsprintf((char*)getMemAt(0x5D4594, 251752), a1, va);
-		nox_sprintf((char*)getMemAt(0x5D4594, 251752), "%s%c(", getMemAt(0x5D4594, 251752), 240);
-		strcat((char*)getMemAt(0x5D4594, 251752), asctime(v1));
-		v5 = nox_file_net_log;
-		*getMemU8Ptr( 0x5D4594, strlen((const char*)getMemAt(0x5D4594, 251752)) + 251751) = 0;
-		v3 = getMemAt(0x5D4594, strlen((const char*)getMemAt(0x5D4594, 251752)) + 251753);
-		v4 = getMemByte(0x587000, 32546);
-		*(_WORD*)--v3 = *getMemU16Ptr(0x587000, 32544);
-		v3[2] = v4;
-		sub_413BD0(v5, (int)getMemAt(0x5D4594, 251752));
-		result = nox_xxx_consoleVPrint_450C00(9u, (wchar_t*)getMemAt(0x587000, 32548), getMemAt(0x5D4594, 251752));
-	}
-	return result;
-}
 
 //----- (00413E10) --------------------------------------------------------
 int sub_413E10() {

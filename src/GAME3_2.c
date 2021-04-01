@@ -2,6 +2,7 @@
 #include <emscripten/emscripten.h>
 #endif
 
+#include "common__log.h"
 #include "client__system__parsecmd.h"
 #include "common__system__team.h"
 #include "server__mapgen__generate__populate.h"
@@ -2016,7 +2017,7 @@ int nox_xxx_servNewSession_4D1660() {
 		int v1 = nox_xxx_servGetPort_40A430();
 		*getMemU32Ptr(0x5D4594, 1548516) = nox_xxx_netAddPlayerHandler_4DEBC0(v1);
 		if (!nox_common_gameFlags_check_40A5C0(0x2000000))
-			sub_413CC0();
+			nox_xxx_networkLog_init_413CC0();
 	}
 	nox_xxx_allocArrayExecAbilities_4FB990();
 	if (!nox_xxx_allocPendingOwnsArray_516EE0()) {
@@ -2190,7 +2191,7 @@ BOOL nox_xxx_servEndSession_4D3200() {
 	if (!nox_common_gameFlags_check_40A5C0(2048)) {
 		nox_xxx_netCloseHandler_4DEC60(*getMemUintPtr(0x5D4594, 1548516));
 		if (!nox_common_gameFlags_check_40A5C0(0x2000000))
-			nox_xxx_closeNetworkLog_413D00();
+			nox_xxx_networkLog_close_413D00();
 	}
 	sub_56F3B0();
 	nullsub_23();
@@ -2216,7 +2217,7 @@ int sub_4D3320() { return *getMemU32Ptr(0x5D4594, 1548716); }
 //----- (004D3330) --------------------------------------------------------
 void nox_xxx_unused_4D3330() {
 	if (nox_common_gameFlags_check_40A5C0(0x2000000)) {
-		nox_xxx_networkLog_413D30("Failed to create channel, exiting game.");
+		nox_xxx_networkLog_printf_413D30("Failed to create channel, exiting game.");
 		nox_xxx_setContinueMenuOrHost_43DDD0(0);
 		nox_game_exit_xxx_43DE60();
 	}

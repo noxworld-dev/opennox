@@ -22,6 +22,7 @@
 #include "client__draw__partscrn.h"
 
 #include "common/fs/nox_fs.h"
+#include "common__log.h"
 #include "input.h"
 #include "proto.h"
 
@@ -8584,7 +8585,7 @@ char* sub_43AA70() {
 	char v10[268]; // [esp+20h] [ebp-10Ch]
 
 	if (dword_5d4594_528252 && dword_5d4594_528256)
-		nox_xxx_networkLog_413D30("RECON: Posting server to WOL");
+		nox_xxx_networkLog_printf_413D30("RECON: Posting server to WOL");
 	nox_game_createOrJoin_815048 = 0;
 	dword_5d4594_815052 = 1;
 	v0 = nox_xxx_cliGamedataGet_416590(0);

@@ -1,5 +1,6 @@
 #include "client__system__parsecmd.h"
 
+#include "common__log.h"
 #include "common__system__settings.h"
 #include "common__telnet__telnetd.h"
 #include "client__gui__guimsg.h"
@@ -2294,7 +2295,7 @@ int nox_cmd_log_file(int tokInd, int tokCnt, wchar_t** tokens) {
 			nox_common_setEngineFlag(NOX_ENGINE_FLAG_24);
 			char v4[256];
 			nox_sprintf(v4, "%S", tokens[2]);
-			return sub_413A80(v4);
+			return nox_xxx_log_4_reopen_413A80(v4);
 		}
 	}
 	return 0;
@@ -2312,7 +2313,7 @@ int nox_cmd_log_console(int tokInd, int tokCnt, wchar_t** tokens) {
 int nox_cmd_log_stop(int tokInd, int tokCnt, wchar_t** tokens) {
 	if (tokCnt != 2)
 		return 0;
-	sub_413C00();
+	nox_xxx_log_4_close_413C00();
 	return 1;
 }
 

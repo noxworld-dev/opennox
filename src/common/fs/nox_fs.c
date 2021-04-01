@@ -483,3 +483,13 @@ int nox_fs_fputs(FILE* f, const char* str) {
 bool nox_fs_feof(FILE* f) {
 	return feof(f) != 0;
 }
+
+//----- (00413BD0) --------------------------------------------------------
+int nox_fs_fputs_sync(FILE* f, const char* str) {
+	int res = 0;
+	if (f) {
+		res = nox_fs_fprintf(f, "%s", str);
+		nox_fs_flush(f);
+	}
+	return 0;
+}
