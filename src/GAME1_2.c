@@ -66,7 +66,7 @@ extern _DWORD dword_5d4594_815056;
 extern _DWORD dword_5d4594_808568;
 extern _DWORD nox_video_bag_tmpBufSize_787184;
 extern _DWORD dword_5d4594_2660032;
-extern _DWORD dword_5d4594_1556112;
+extern _DWORD nox_client_gui_flag_1556112;
 extern _DWORD dword_5d4594_754044;
 extern _DWORD dword_5d4594_811372;
 extern _DWORD dword_5d4594_787180;
@@ -7713,7 +7713,7 @@ int nox_xxx_initGameSession_435CC0() {
 	sub_45DB90();
 	sub_41D1A0(0);
 	nox_xxx_initTime_435570();
-	dword_5d4594_1556112 = 0;
+	nox_client_gui_flag_1556112 = 0;
 
 	if (!nox_alloc_drawable_init(5000))
 		return 0;
@@ -7968,7 +7968,9 @@ int sub_437100() {
 }
 
 //----- (00437180) --------------------------------------------------------
-int4* sub_437180() { return sub_48D990(&obj_5D4594_811068); }
+void sub_437180() {
+	sub_48D990(&obj_5D4594_811068);
+}
 
 //----- (00437190) --------------------------------------------------------
 int nox_xxx_cliSetupSession_437190() {

@@ -523,7 +523,9 @@ void  sub_4A9E90(int a1, int a2, int a3, int a4) {
 }
 
 //----- (004AA030) --------------------------------------------------------
-void  sub_4AA030(unsigned int* a1, int a2) {
+void  sub_4AA030(nox_window* win, nox_window_data* data) {
+	unsigned int* a1 = win;
+	int a2 = data;
 	unsigned int* v2;       // esi
 	int v3;           // edi
 	int v4;           // eax
@@ -621,6 +623,7 @@ void  sub_4AA030(unsigned int* a1, int a2) {
 }
 
 //----- (0046C370) --------------------------------------------------------
+#ifndef NOX_CGO
 int  nox_window_draw_recursive(nox_window* win) {
 	if (!win)
 		return -2;
@@ -640,40 +643,24 @@ int  nox_window_draw_recursive(nox_window* win) {
 
 //----- (0046C2E0) --------------------------------------------------------
 void nox_gui_draw() {
-	if (nox_win_xxx1_first) {
-		// background and some UI parts
-		nox_window* v1 = nox_win_xxx1_first;
-		nox_window* v2 = 0;
-		do {
-			v2 = v1->next;
-			if (v1->flags & NOX_WIN_LAYER_BACK) {
-				nox_window_draw_recursive(v1);
-			}
-			v1 = v2;
-		} while (v2);
+	// background and some UI parts
+	for (nox_window* win = nox_win_xxx1_first; win; win = win->next) {
+		if (win->flags & NOX_WIN_LAYER_BACK) {
+			nox_window_draw_recursive(win);
+		}
 	}
-	if (nox_win_xxx1_first) {
-		nox_window* v3 = nox_win_xxx1_first;
-		nox_window* v4 = 0;
-		do {
-			v4 = v3->next;
-			if ((v3->flags & (NOX_WIN_LAYER_BACK | NOX_WIN_LAYER_FRONT)) == 0) {
-				nox_window_draw_recursive(v3);
-			}
-			v3 = v4;
-		} while (v4);
+	for (nox_window* win = nox_win_xxx1_first; win; win = win->next) {
+		if ((win->flags & (NOX_WIN_LAYER_BACK | NOX_WIN_LAYER_FRONT)) == 0) {
+			nox_window_draw_recursive(win);
+		}
 	}
-	if (nox_win_xxx1_first) {
-		nox_window* v5 = nox_win_xxx1_first;
-		nox_window* v6 = 0;
-		do {
-			v6 = v5->next;
-			if (v5->flags & NOX_WIN_LAYER_FRONT)
-				nox_window_draw_recursive(v5);
-			v5 = v6;
-		} while (v6);
+	for (nox_window* win = nox_win_xxx1_first; win; win = win->next) {
+		if (win->flags & NOX_WIN_LAYER_FRONT) {
+			nox_window_draw_recursive(win);
+		}
 	}
 }
+#endif // NOX_CGO
 
 //----- (0046B370) --------------------------------------------------------
 int  nox_xxx_wndDrawFnDefault_46B370(int a1, int* a2) {

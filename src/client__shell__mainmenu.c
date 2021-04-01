@@ -7,7 +7,7 @@
 #include "client__shell__optsback.h"
 #include "proto.h"
 
-extern _DWORD dword_5d4594_815132;
+extern _DWORD nox_client_gui_flag_815132;
 
 nox_wnd_xxx* nox_wnd_xxx_1307308 = 0;
 nox_window* nox_win_main_bg = 0;
@@ -70,7 +70,7 @@ int nox_xxx_wndLoadMainBG_4A2210() {
 	const char* v2;      // eax
 	unsigned __int8* v3; // esi
 
-	dword_5d4594_815132 = 1;
+	nox_client_gui_flag_815132 = 1;
 	nox_win_main_bg = nox_new_window_from_file("MainBG.wnd", sub_4A2490);
 	if (!sub_4A1A60()) {
 		return 0;
@@ -167,7 +167,7 @@ int  nox_xxx_windowMainMenuProc_4A1DC0(int a1, int a2, int* a3, int a4) {
 					nox_xxx_cliSetMinimapZoom_472520(1110);
 					if (!nox_xxx_parseGamedataBinPre_4D1630()) {
 						nox_xxx_setContinueMenuOrHost_43DDD0(0);
-						dword_5d4594_815132 = 0;
+						nox_client_gui_flag_815132 = 0;
 						return 0;
 					}
 					if (sub_4DC550()) {
@@ -208,7 +208,7 @@ int  nox_xxx_windowMainMenuProc_4A1DC0(int a1, int a2, int* a3, int a4) {
 				nox_xxx_cliSetMinimapZoom_472520(2300);
 				if (!nox_xxx_parseGamedataBinPre_4D1630()) {
 					nox_xxx_setContinueMenuOrHost_43DDD0(0);
-					dword_5d4594_815132 = 0;
+					nox_client_gui_flag_815132 = 0;
 					return 0;
 				}
 				goto LABEL_26;
@@ -257,7 +257,7 @@ int  nox_xxx_windowMainMenuProc_4A1DC0(int a1, int a2, int* a3, int a4) {
 				sub_461440(0);
 				if (!nox_xxx_parseGamedataBinPre_4D1630()) {
 					nox_xxx_setContinueMenuOrHost_43DDD0(0);
-					dword_5d4594_815132 = 0;
+					nox_client_gui_flag_815132 = 0;
 					return 0;
 				}
 			LABEL_26:

@@ -154,7 +154,7 @@ extern _DWORD dword_5d4594_1046496;
 extern _DWORD dword_5d4594_1046872;
 extern _DWORD nox_gameDisableMapDraw_5d4594_2650672;
 extern _DWORD dword_5d4594_833716;
-extern _DWORD dword_5d4594_815132;
+extern _DWORD nox_client_gui_flag_815132;
 extern _DWORD dword_5d4594_1045636;
 extern _DWORD dword_5d4594_1049508;
 extern _DWORD dword_5d4594_1047516;
@@ -1136,7 +1136,7 @@ void sub_44E320() {
 	sub_43DDA0();
 	nox_gameDisableMapDraw_5d4594_2650672 = 0;
 	if (dword_5d4594_831220 == 255) {
-		if (dword_5d4594_815132 == 1) {
+		if (nox_client_gui_flag_815132 == 1) {
 			sub_4505E0();
 			sub_4A2500();
 			sub_578E00();

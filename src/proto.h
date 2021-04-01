@@ -1429,7 +1429,7 @@ int nox_xxx_client_435F80_draw();
 BOOL sub_436550();
 int sub_437060();
 int sub_437100();
-int4* sub_437180();
+void sub_437180();
 int nox_xxx_cliSetupSession_437190();
 obj_5D4594_811068_t* sub_437250();
 int4* sub_437260();
@@ -2823,7 +2823,7 @@ int sub_48D800();
 BOOL  sub_48D830(nox_drawable* dr);
 int  nox_xxx_netCode2ChatBubble_48D850(int a1);
 wchar_t*  nox_xxx_createTextBubble_48D880(int a1, wchar_t* a2);
-int4*  sub_48D990(_DWORD* a1);
+void sub_48D990(_DWORD* a1);
 void  sub_48DCF0(_DWORD* a1);
 bool  sub_48E000(int4* a1, _DWORD* a2); // idb
 char  sub_48E240(int a1, _DWORD* a2);
