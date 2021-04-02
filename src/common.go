@@ -10,6 +10,7 @@ import "C"
 import (
 	"encoding/binary"
 	"math"
+
 	"nox/common/platform"
 	"nox/common/prand"
 )
@@ -50,8 +51,8 @@ const (
 	NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING = EngineFlags(1 << 18)
 	NOX_ENGINE_FLAG_20                         = EngineFlags(1 << 19)
 	NOX_ENGINE_FLAG_DISABLE_FLOOR_RENDERING    = EngineFlags(1 << 20)
-	NOX_ENGINE_FLAG_22                         = EngineFlags(1 << 21)
-	NOX_ENGINE_FLAG_23                         = EngineFlags(1 << 22)
+	NOX_ENGINE_FLAG_REPLAY_WRITE               = EngineFlags(1 << 21)
+	NOX_ENGINE_FLAG_REPLAY_READ                = EngineFlags(1 << 22)
 	NOX_ENGINE_FLAG_24                         = EngineFlags(1 << 23)
 	NOX_ENGINE_FLAG_25                         = EngineFlags(1 << 24)
 	NOX_ENGINE_FLAG_26                         = EngineFlags(1 << 25)

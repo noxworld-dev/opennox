@@ -812,7 +812,7 @@ int sub_4DCF20() {
 void nox_server_netMaybeSendInitialPackets_4DEB30();
 #else // NOX_CGO
 void nox_server_netMaybeSendInitialPackets_4DEB30() {
-	if (!(nox_common_getEngineFlag(NOX_ENGINE_FLAG_23))) {
+	if (!(nox_common_getEngineFlag(NOX_ENGINE_FLAG_REPLAY_READ))) {
 		nox_xxx_servNetInitialPackets_552A80(*getMemUintPtr(0x5D4594, 1563148), 1);
 	}
 }
@@ -824,7 +824,7 @@ void nox_xxx_netlist_4DEB50() {
 	void* v3;            // [esp+0h] [ebp-4h]
 
 	if (nox_common_gameFlags_check_40A5C0(2)) {
-		if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_23)) {
+		if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_REPLAY_READ)) {
 			nox_xxx_replayTickMB_4D3580_net_playback(0);
 			nox_xxx_netBufs_40ED10(31, 0);
 		} else {
@@ -2723,7 +2723,7 @@ int nox_xxx_gameTick_4D2580_server() {
 	sub_502100();
 	sub_5524C0();
 	nox_xxx_netMaybeSendAll_552460();
-	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_23))
+	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_REPLAY_READ))
 		nox_xxx_replayTickMB_4D3580_net_playback(1);
 	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_LOG_BAND)) {
 		*(_DWORD*)&v38[4] = (__PAIR64__(v3, v1) - *getMemU64Ptr(0x5D4594, 1548684)) >> 32;
@@ -2747,7 +2747,7 @@ int nox_xxx_gameTick_4D2580_server() {
 			return 0;
 		}
 	}
-	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_22 | NOX_ENGINE_FLAG_23))
+	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_REPLAY_WRITE | NOX_ENGINE_FLAG_REPLAY_READ))
 		sub_4E76C0();
 	if (nox_xxx_gameGet_4DB1B0()) {
 		nox_xxx_gameTick_4D2580_server_D();

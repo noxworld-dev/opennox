@@ -74,7 +74,7 @@ extern _DWORD dword_5d4594_1321044;
 extern _DWORD nox_client_renderGlow_805852;
 extern _DWORD dword_5d4594_1319232;
 extern _DWORD dword_5d4594_1321216;
-extern _DWORD nox_client_translucentConsole_80824;
+extern int nox_gui_console_translucent;
 extern _DWORD nox_client_fadeObjects_80836;
 extern _DWORD dword_5d4594_1522616;
 extern _DWORD nox_client_lockHighResFloors_1193152;
@@ -105,7 +105,7 @@ extern void* (*nox_video_getImagePixdata_func)(nox_video_bag_image_t*);
 extern _DWORD dword_5d4594_1319256;
 extern _DWORD dword_5d4594_3807156;
 extern _DWORD dword_5d4594_1522600;
-extern _DWORD dword_5d4594_3799524;
+extern int dword_5d4594_3799524;
 extern _DWORD dword_5d4594_3679320;
 extern _DWORD dword_5d4594_1522628;
 extern _DWORD dword_5d4594_810640;
@@ -9170,7 +9170,7 @@ _DWORD* sub_4CB330() {
 	v18[9] = v20;
 	v21 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1522600, 2014);
 	v22 = v21[9];
-	if (nox_client_translucentConsole_80824)
+	if (nox_gui_console_translucent)
 		v23 = v22 | 4;
 	else
 		v23 = v22 & 0xFFFFFFFB;
@@ -9259,7 +9259,7 @@ int  sub_4CB5D0(int a1, int a2, int* a3, int a4) {
 			result = 0;
 			break;
 		case 2014:
-			nox_client_translucentConsole_80824 = 1 - nox_client_translucentConsole_80824;
+			nox_gui_console_translucent = 1 - nox_gui_console_translucent;
 			result = 0;
 			break;
 		case 2015:

@@ -191,7 +191,7 @@ func nox_xxx_initGameSession_435CC0() C.int {
 		return 0
 	}
 
-	if C.nox_xxx_wnd_473680() == 0 {
+	if C.nox_game_guiInit_473680() == 0 {
 		return 0
 	}
 

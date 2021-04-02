@@ -1,6 +1,7 @@
 #include "common__system__team.h"
 // FIXME
 #include "client__gui__guimsg.h"
+#include "client__gui__guicon.h"
 #include "client__gui__servopts__guiserv.h"
 #include "proto.h"
 extern _DWORD dword_5d4594_527660;
@@ -85,12 +86,12 @@ char*  nox_xxx_teamCreate_4186D0(char a1) {
 		sub_459CD0();
 		if (!nox_common_gameFlags_check_40A5C0(512)) {
 			v8 = nox_strman_loadString_40F1D0("teamcreate", 0, "C:\\NoxPost\\src\\common\\System\\team.c", 1009);
-			nox_xxx_consoleVPrint_450C00(6u, v8);
+			nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v8);
 		}
 		result = (char*)v7;
 	} else {
 		v1 = nox_strman_loadString_40F1D0("teamexceed", 0, "C:\\NoxPost\\src\\common\\System\\team.c", 982);
-		nox_xxx_consoleVPrint_450C00(6u, v1);
+		nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v1);
 		result = 0;
 	}
 	return result;

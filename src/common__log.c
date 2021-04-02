@@ -1,6 +1,7 @@
 #include <time.h>
 #include <string.h>
 #include "proto.h"
+#include "client__gui__guicon.h"
 #include "common/fs/nox_fs.h"
 
 char nox_log_buf[512] = {0};
@@ -56,7 +57,7 @@ void nox_xxx_log_4_printf_413B70(char* fmt, ...) {
 	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_24))
 		nox_fs_fputs_sync(nox_file_log_4, nox_log_buf);
 	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_25))
-		nox_xxx_consoleVPrint_450C00(9u, L"%S", nox_log_buf);
+		nox_gui_console_Printf_450C00(NOX_CONSOLE_GREEN, L"%S", nox_log_buf);
 }
 
 //----- (00413C00) --------------------------------------------------------
@@ -108,7 +109,7 @@ void nox_xxx_networkLog_printf_413D30(char* fmt, ...) {
 	nox_log_buf[strlen(nox_log_buf)-1] = 0;
 	strcat(nox_log_buf, ")\n");
 	nox_fs_fputs_sync(nox_file_net_log, nox_log_buf);
-	nox_xxx_consoleVPrint_450C00(9u, L"%S", nox_log_buf);
+	nox_gui_console_Printf_450C00(NOX_CONSOLE_GREEN, L"%S", nox_log_buf);
 }
 
 //----- (00413CC0) --------------------------------------------------------

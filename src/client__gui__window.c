@@ -21,10 +21,11 @@ extern nox_video_bag_section_t* nox_video_bag_sections_arr;
 extern unsigned int dword_5d4594_1064912;
 extern unsigned int dword_5d4594_1064900;
 extern unsigned int dword_5d4594_3799468;
-extern unsigned int dword_5d4594_3799524;
 extern nox_window* nox_win_1064916;
 
 nox_alloc_class* nox_alloc_window = 0;
+
+int dword_5d4594_3799524 = 0;
 
 unsigned int dword_5d4594_1309696 = 0;
 unsigned int dword_5d4594_1309704 = 0;

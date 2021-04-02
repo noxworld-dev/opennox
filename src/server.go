@@ -63,7 +63,7 @@ func nox_xxx_gameTick_4D2580_server_B(ticks int64) C.int {
 
 //export nox_server_netMaybeSendInitialPackets_4DEB30
 func nox_server_netMaybeSendInitialPackets_4DEB30() {
-	if !getEngineFlag(NOX_ENGINE_FLAG_23) {
+	if !getEngineFlag(NOX_ENGINE_FLAG_REPLAY_READ) {
 		C.nox_xxx_servNetInitialPackets_552A80(C.uint(memmap.Uint32(0x5D4594, 1563148)), 1)
 	}
 }

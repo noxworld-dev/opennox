@@ -12,7 +12,7 @@ extern _DWORD dword_5d4594_1090040;
 extern _DWORD dword_587000_145664;
 extern _DWORD dword_5d4594_1090044;
 extern _DWORD dword_5d4594_1090100;
-extern _DWORD dword_5d4594_3799524;
+extern int dword_5d4594_3799524;
 extern _DWORD dword_5d4594_1090048;
 extern _DWORD dword_5d4594_1090120;
 extern int nox_win_width;

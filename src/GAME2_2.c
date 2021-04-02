@@ -9,6 +9,7 @@
 #include "client__gui__servopts__guiserv.h"
 #include "client__gui__tooltip.h"
 #include "client__gui__window.h"
+#include "client__gui__guicon.h"
 
 #include "client__draw__drawwin.h"
 
@@ -99,7 +100,7 @@ extern _DWORD dword_5d4594_3798832;
 extern _DWORD dword_5d4594_1193384;
 extern _DWORD dword_5d4594_1123532;
 extern _DWORD dword_5d4594_1193348;
-extern _DWORD dword_5d4594_3799524;
+extern int dword_5d4594_3799524;
 extern _DWORD dword_5d4594_3679320;
 extern _DWORD dword_5d4594_1193360;
 extern _DWORD nox_client_texturedFloors_154956;
@@ -1192,7 +1193,7 @@ unsigned __int8  sub_477530(int a1) {
 		*getMemU32Ptr(0x5D4594, 1096656) = sub_473670();
 		if (*getMemU32Ptr(0x5D4594, 1096656) == 1)
 			sub_473610();
-		sub_4512B0();
+		nox_gui_console_Hide_4512B0();
 		sub_446780();
 		sub_4AD9B0(1);
 		sub_4C35B0(1);

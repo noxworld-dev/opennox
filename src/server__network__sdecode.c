@@ -3,6 +3,7 @@
 #include "client__network__cdecode.h"
 #include "client__system__parsecmd.h"
 #include "common__system__team.h"
+#include "client__gui__guicon.h"
 #include "proto.h"
 #include "server__system__trade.h"
 #include "server__network__mapsend.h"
@@ -111,7 +112,7 @@ int  nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned __int8* a2,
 		return 1;
 	}
 	v4 = a2;
-	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_22)) {
+	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_REPLAY_WRITE)) {
 		v5 = nox_common_playerInfoFromNum_417090(a1);
 		nox_xxx_replayWriteMSgMB_4D3450((int)v5, a2, a3);
 	}
@@ -444,7 +445,7 @@ int  nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned __int8* a2,
 					sub_4D1210(*(unsigned __int8*)(v8 + 2064));
 					v43 = nox_strman_loadString_40F1D0("sysopAccessGranted", 0,
 												"C:\\NoxPost\\src\\Server\\Network\\sdecode.c", 735);
-					nox_xxx_consoleVPrint_450C00(6u, v43, v8 + 4704);
+					nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v43, v8 + 4704);
 				}
 			}
 			nox_xxx_netSendPacket0_4E5420(*(unsigned __int8*)(v8 + 2064), v87, 2, 0, 1);

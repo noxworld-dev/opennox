@@ -16,6 +16,7 @@
 #include "client__gui__guiinv.h"
 #include "client__gui__guijourn.h"
 #include "client__gui__guimsg.h"
+#include "client__gui__guicon.h"
 #include "client__gui__guishop.h"
 #include "client__gui__guitrade.h"
 #include "client__gui__servopts__playrlst.h"
@@ -2331,7 +2332,7 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned int a2, int a3) {
 					v207 = v206;
 					if (v206) {
 						if (!nox_xxx_playerCanTalkMB_57A160((int)v206)) {
-							nox_xxx_consoleVPrint_450C00(0xFu, (wchar_t*)getMemAt(0x587000, 158984), v207 + 4704, getMemAt(0x5D4594, 1197384));
+							nox_gui_console_Printf_450C00(NOX_CONSOLE_YELLOW, (wchar_t*)getMemAt(0x587000, 158984), v207 + 4704, getMemAt(0x5D4594, 1197384));
 							nox_xxx_createTextBubble_48D880(v3, (wchar_t*)getMemAt(0x5D4594, 1197384));
 							k = v202 * *(unsigned __int8*)(v3 + 8);
 							v3 += k + 11;
@@ -2346,7 +2347,7 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned int a2, int a3) {
 						if ((_DWORD)v5) {
 							v322 = *(unsigned __int16*)(v3 + 1);
 							v208 = nox_get_thing_pretty_name(*(_DWORD*)(v5 + 108));
-							nox_xxx_consoleVPrint_450C00(6u, (wchar_t*)getMemAt(0x587000, 159000), v208, v322, getMemAt(0x5D4594, 1197384));
+							nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, (wchar_t*)getMemAt(0x587000, 159000), v208, v322, getMemAt(0x5D4594, 1197384));
 						}
 					}
 				}
@@ -2583,7 +2584,7 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned int a2, int a3) {
 				else
 					v290 = nox_strman_loadString_40F1D0("invalidPass", 0,
 												 "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 6356);
-				nox_xxx_consoleVPrint_450C00(6u, v290);
+				nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v290);
 			}
 			v3 += 2;
 			break;

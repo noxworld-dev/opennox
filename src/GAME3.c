@@ -11,6 +11,7 @@
 
 #include "client__gui__guiquit.h"
 #include "client__gui__window.h"
+#include "client__gui__guicon.h"
 #include "client__shell__arnamain.h"
 #include "client__shell__mainmenu.h"
 #include "client__shell__noxworld.h"
@@ -5112,7 +5113,7 @@ char*  nox_xxx_mapCliReadAll_4AC2B0(char* a1) {
 		sub_4B64C0();
 		nox_xxx_bookSetColor_45AC40();
 		nox_xxx_colorInit_4C4FD0();
-		sub_451100();
+		nox_gui_console_reloadColors_451100();
 		sub_445FF0();
 		sub_470680();
 		sub_461520();

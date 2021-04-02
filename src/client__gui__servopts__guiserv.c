@@ -66,7 +66,7 @@ int nox_xxx_guiServerOptsLoad_457500() {
 	char* v14;    // [esp+0h] [ebp-8h]
 	_DWORD* v15;  // [esp+4h] [ebp-4h]
 
-	if (!sub_446360()) {
+	if (!nox_gui_xxx_check_446360()) {
 		if (dword_5d4594_1046492) {
 			nox_xxx_clientPlaySoundSpecial_452D80(231, 100);
 			nox_xxx_guiServerOptionsTryHide_4574D0();

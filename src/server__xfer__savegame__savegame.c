@@ -1,5 +1,6 @@
 #include "proto.h"
 #include "common/fs/nox_fs.h"
+#include "client__gui__guicon.h"
 extern _DWORD dword_5d4594_1563084;
 extern _DWORD dword_5d4594_1563088;
 extern _DWORD dword_5d4594_1563092;
@@ -260,7 +261,7 @@ char*  nox_xxx_soloLoadGame_4DB7E0_savegame(const char* a1) {
 					nox_xxx_cliPlayMapIntro_44E0B0(0);
 					result = (char*)nox_xxx_plrLoad_41A480(FileName);
 					if (result) {
-						nox_xxx_conClear_450B70();
+						nox_gui_console_Clear_450B70();
 						sub_445450();
 						nox_xxx_destroyEveryChatMB_528D60();
 						v7 = nox_strman_loadString_40F1D0("GameLoaded", 0,

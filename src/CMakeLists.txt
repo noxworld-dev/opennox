@@ -262,6 +262,7 @@ set (
     client__gui__guijourn.c
     client__gui__guimeter.c
     client__gui__guimsg.c
+    client__gui__guicon.c
     client__gui__guiobs.c
     client__gui__guiquit.c
     client__gui__guirank.c

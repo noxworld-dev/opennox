@@ -1,4 +1,5 @@
 #include "client__gui__guimsg.h"
+#include "client__gui__guicon.h"
 #include "proto.h"
 extern _DWORD dword_5d4594_825736;
 
@@ -23,6 +24,6 @@ void  nox_xxx_printCentered_445490(wchar_t* a1) {
 													nox_gameFPS;
 		*getMemU8Ptr( 0x5D4594, v2 + 824444) = 0;
 		v3 = nox_strman_loadString_40F1D0("systemmsg", 0, "C:\\NoxPost\\src\\Client\\Gui\\guimsg.c", 69);
-		nox_xxx_consoleVPrint_450C00(6u, v3, a1);
+		nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v3, a1);
 	}
 }

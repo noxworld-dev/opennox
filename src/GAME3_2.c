@@ -2228,7 +2228,7 @@ int  nox_xxx_replayStartSave_4D3370(char* a1) {
 	nox_xxx_replayWriteFile_587000_197424 = _open(a1, 33537, 384);
 	if (*(int*)&nox_xxx_replayWriteFile_587000_197424 == -1)
 		return 0;
-	nox_common_setEngineFlag(NOX_ENGINE_FLAG_22);
+	nox_common_setEngineFlag(NOX_ENGINE_FLAG_REPLAY_WRITE);
 	return 1;
 }
 
@@ -2237,7 +2237,7 @@ void nox_xxx_replayStopSave_4D33B0() {
 	if (*(int*)&nox_xxx_replayWriteFile_587000_197424 != -1)
 		_close(*(int*)&nox_xxx_replayWriteFile_587000_197424);
 	nox_xxx_replayWriteFile_587000_197424 = -1;
-	nox_common_resetEngineFlag(NOX_ENGINE_FLAG_22);
+	nox_common_resetEngineFlag(NOX_ENGINE_FLAG_REPLAY_WRITE);
 }
 
 //----- (004D33E0) --------------------------------------------------------
@@ -2280,7 +2280,7 @@ int  nox_xxx_replayFileOpen_4D34C0(char* a1) {
 	dword_5d4594_1548736 = 0;
 	*getMemU32Ptr(0x5D4594, 1548728) = 0;
 	*getMemU8Ptr(0x5D4594, 1548724) = 0;
-	nox_common_setEngineFlag(NOX_ENGINE_FLAG_23);
+	nox_common_setEngineFlag(NOX_ENGINE_FLAG_REPLAY_READ);
 	v2 = nox_common_playerInfoGetByID_417040(255);
 	nox_xxx_playerGoObserver_4E6860((int)v2, 0, 1);
 	return 1;
@@ -2295,17 +2295,17 @@ void nox_xxx_replayStopReadMB_4D3530() {
 	nox_xxx_replayFile_587000_197428 = -1;
 	dword_5d4594_1548732 = 0;
 	dword_5d4594_1548736 = 0;
-	nox_common_resetEngineFlag(NOX_ENGINE_FLAG_23);
+	nox_common_resetEngineFlag(NOX_ENGINE_FLAG_REPLAY_READ);
 	v0 = nox_common_playerInfoGetByID_417040(255);
 	nox_xxx_playerLeaveObserver_0_4E6AA0((int)v0);
 }
 
 //----- (004D3860) --------------------------------------------------------
 void  nox_xxx_replay_4D3860(void* a1) {
-	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_22) && (*(int*)&nox_xxx_replayWriteFile_587000_197424 != -1)) {
+	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_REPLAY_WRITE) && (*(int*)&nox_xxx_replayWriteFile_587000_197424 != -1)) {
 		nox_xxx_replayWriteRndCounter_415F30(*(int*)&nox_xxx_replayWriteFile_587000_197424);
 		_write(*(int*)&nox_xxx_replayWriteFile_587000_197424, a1, 0x99u);
-	} else if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_23)) {
+	} else if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_REPLAY_READ)) {
 		if (*(int*)&nox_xxx_replayFile_587000_197428 != -1) {
 			nox_xxx_replayReadeRndCounter_415F50(*(int*)&nox_xxx_replayFile_587000_197428);
 			_read(*(int*)&nox_xxx_replayFile_587000_197428, a1, 0x99u);
@@ -2318,7 +2318,7 @@ int nox_xxx_replayStartReadingOrSaving_4D38D0() {
 	int result; // eax
 	int v2;     // [esp+0h] [ebp-4h]
 
-	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_22) && *(int*)&nox_xxx_replayWriteFile_587000_197424 != -1) {
+	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_REPLAY_WRITE) && *(int*)&nox_xxx_replayWriteFile_587000_197424 != -1) {
 		_write(*(int*)&nox_xxx_replayWriteFile_587000_197424, &nox_frame_xxx_2598000, 4u);
 		_write(*(int*)&nox_xxx_replayWriteFile_587000_197424, getMemAt(0x587000, 197434), 1u);
 		*getMemU32Ptr(0x5D4594, 1549764) = nox_server_currentMapGetFilename_409B30();
@@ -2328,7 +2328,7 @@ int nox_xxx_replayStartReadingOrSaving_4D38D0() {
 		v2 = 66458;
 		_write(*(int*)&nox_xxx_replayWriteFile_587000_197424, &v2, 4u);
 		result = 0;
-	} else if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_23) && *(int*)&nox_xxx_replayFile_587000_197428 != -1) {
+	} else if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_REPLAY_READ) && *(int*)&nox_xxx_replayFile_587000_197428 != -1) {
 		result = nox_xxx_replayTickMB_4D3580_net_playback(0);
 	} else {
 		result = 0;
@@ -2338,7 +2338,7 @@ int nox_xxx_replayStartReadingOrSaving_4D38D0() {
 
 //----- (004D39B0) --------------------------------------------------------
 void nox_xxx_replayWriteSomeInt_4D39B0() {
-	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_22)) {
+	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_REPLAY_WRITE)) {
 		if (*(int*)&nox_xxx_replayWriteFile_587000_197424 != -1) {
 			_write(*(int*)&nox_xxx_replayWriteFile_587000_197424, &nox_frame_xxx_2598000, 4u);
 			_write(*(int*)&nox_xxx_replayWriteFile_587000_197424, getMemAt(0x587000, 197435), 1u);

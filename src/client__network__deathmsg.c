@@ -1,4 +1,5 @@
 #include "client__network__deathmsg.h"
+#include "client__gui__guicon.h"
 
 #include "proto.h"
 
@@ -42,5 +43,5 @@ int  sub_4952E0(_WORD* a1) {
 			nox_swprintf(v11, v6, v10);
 		}
 	}
-	return nox_xxx_consoleVPrint_450C00(4u, (wchar_t*)getMemAt(0x587000, 161668), v11, v13);
+	return nox_gui_console_Printf_450C00(NOX_CONSOLE_WHITE, (wchar_t*)getMemAt(0x587000, 161668), v11, v13);
 }

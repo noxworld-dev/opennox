@@ -13,6 +13,7 @@
 
 #include "client__gui__guiquit.h"
 #include "client__gui__window.h"
+#include "client__gui__guicon.h"
 #include "client__network__cdecode.h"
 #include "client__shell__noxworld.h"
 #include "client__shell__selchar.h"
@@ -76,7 +77,7 @@ extern _DWORD dword_5d4594_829504;
 extern _DWORD dword_5d4594_825744;
 extern _DWORD dword_5d4594_816372;
 extern _DWORD nox_client_renderGlow_805852;
-extern _DWORD nox_client_translucentConsole_80824;
+extern int nox_gui_console_translucent;
 extern _DWORD nox_client_fadeObjects_80836;
 extern _DWORD nox_client_lockHighResFloors_1193152;
 extern _DWORD dword_5d4594_815708;
@@ -210,7 +211,7 @@ char* sub_43B510() {
 		v2 = &v7[strlen(v7) + 1];
 		v3 = getMemByte(0x587000, 90860);
 		*(_DWORD*)--v2 = *getMemU32Ptr(0x587000, 90856);
-		v4 = !nox_common_getEngineFlag(NOX_ENGINE_FLAG_22 | NOX_ENGINE_FLAG_23);
+		v4 = !nox_common_getEngineFlag(NOX_ENGINE_FLAG_REPLAY_WRITE | NOX_ENGINE_FLAG_REPLAY_READ);
 		v2[4] = v3;
 		if (v4)
 			nox_xxx_gameSetMapPath_409D70(v7);
@@ -3746,7 +3747,7 @@ int  nox_xxx_doExecrul_4438A0(int a1) {
 				*v3 = 0;
 			if (v5[0]) {
 				nox_swprintf(v7, L"%S", v5);
-				nox_xxx_consoleVPrint_450C00(4u, (wchar_t*)getMemAt(0x587000, 106956), v7);
+				nox_gui_console_Printf_450C00(NOX_CONSOLE_WHITE, (wchar_t*)getMemAt(0x587000, 106956), v7);
 				nox_server_parseCmdText_443C80(v7, 1);
 			}
 		} while (!nox_fs_feof(v2));
@@ -3766,7 +3767,7 @@ void  sub_4443B0(unsigned __int8 a1) {
 			v2 = (wchar_t*)v1;
 			if (v1) {
 				if (*(_WORD*)v1) {
-					nox_xxx_consoleVPrint_450C00(4u, (wchar_t*)getMemAt(0x587000, 107640), v1);
+					nox_gui_console_Printf_450C00(NOX_CONSOLE_WHITE, (wchar_t*)getMemAt(0x587000, 107640), v1);
 					nox_server_parseCmdText_443C80(v2, 0);
 					sub_4309B0(a1, 1);
 				}
@@ -3826,7 +3827,7 @@ void sub_4445C0() {
 				nox_client_highResFloors_154952 = 0;
 				nox_client_lockHighResFloors_1193152 = 0;
 				nox_client_texturedFloors_154956 = 1;
-				nox_client_translucentConsole_80824 = 0;
+				nox_gui_console_translucent = 0;
 				nox_client_renderGlow_805852 = 0;
 				nox_client_fadeObjects_80836 = 0;
 				nox_common_resetEngineFlag(NOX_ENGINE_FLAG_ENABLE_SOFT_SHADOW_EDGE);
@@ -3848,7 +3849,7 @@ void sub_4445C0() {
 		nox_client_highResFloors_154952 = 1;
 		nox_client_lockHighResFloors_1193152 = 0;
 		nox_client_texturedFloors_154956 = 1;
-		nox_client_translucentConsole_80824 = 0;
+		nox_gui_console_translucent = 0;
 		goto LABEL_28;
 	}
 	if (v0 == 450) {
@@ -3860,7 +3861,7 @@ void sub_4445C0() {
 		nox_client_highResFloors_154952 = 1;
 		nox_client_lockHighResFloors_1193152 = 1;
 		nox_client_texturedFloors_154956 = 1;
-		nox_client_translucentConsole_80824 = 1;
+		nox_gui_console_translucent = 1;
 	LABEL_28:
 		nox_client_renderGlow_805852 = 1;
 		nox_client_fadeObjects_80836 = 1;
@@ -4267,7 +4268,7 @@ int sub_446140() {
 int nox_xxx_serverIsClosing_446180() { return dword_5d4594_825764; }
 
 //----- (00446360) --------------------------------------------------------
-unsigned int sub_446360() {
+unsigned int nox_gui_xxx_check_446360() {
 	unsigned int result; // eax
 
 	if (dword_5d4594_825760)
@@ -4478,7 +4479,7 @@ void nox_xxx_motd_4467F0() {
 	_DWORD* v3;          // eax
 	char v4[256];        // [esp+0h] [ebp-100h]
 
-	result = sub_446360();
+	result = nox_gui_xxx_check_446360();
 	if (!result) {
 		result = sub_4D6F50();
 		if (!result || (result = nox_common_gameFlags_check_40A5C0(128)) == 0) {

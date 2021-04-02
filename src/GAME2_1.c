@@ -21,6 +21,7 @@
 #include "client__gui__guisumn.h"
 #include "client__gui__guitrade.h"
 #include "client__gui__tooltip.h"
+#include "client__gui__guicon.h"
 #include "common__wolapi__wolpatch.h"
 
 #include "client__draw__drawwin.h"
@@ -109,7 +110,7 @@ extern _DWORD dword_5d4594_1062524;
 extern _DWORD dword_5d4594_251540;
 extern _DWORD dword_5d4594_1064912;
 extern _DWORD dword_5d4594_3807156;
-extern _DWORD dword_5d4594_3799524;
+extern int dword_5d4594_3799524;
 extern _DWORD dword_5d4594_1064856;
 extern _DWORD dword_5d4594_1049856;
 extern _DWORD dword_5d4594_1049520;
@@ -2879,7 +2880,7 @@ int  sub_467B00(int a1, int a2) {
 int sub_467BB0() {
 	int result; // eax
 
-	result = sub_446360();
+	result = nox_gui_xxx_check_446360();
 	if (!result) {
 		result = sub_4AE3D0();
 		if (!result) {
@@ -7109,7 +7110,7 @@ char sub_473610() {
 int sub_473670() { return getMemByte(0x5D4594, 1096424) & 1; }
 
 //----- (00473680) --------------------------------------------------------
-int nox_xxx_wnd_473680() {
+int nox_game_guiInit_473680() {
 	*getMemU32Ptr(0x5D4594, 1096420) = nox_xxx_gLoadImg_42F970("CursorBitmap");
 	if(!sub_455C30()) {
 		return 0;
@@ -7170,9 +7171,8 @@ int nox_xxx_wnd_473680() {
 	if (!nox_xxx_cliPrepareGameplay1_460E60()) {
 		return 0;
 	}
-	tmp = nox_xxx_consoleCreate_450C70();
-	*getMemU32Ptr(0x5D4594, 1096352) = tmp;
-	if (!tmp) {
+	*getMemU32Ptr(0x5D4594, 1096352) = nox_gui_console_Create_450C70(nox_win_width, nox_win_height);
+	if (!*getMemU32Ptr(0x5D4594, 1096352)) {
 		return 0;
 	}
 	if (!sub_46A730()) {
@@ -7212,7 +7212,7 @@ int nox_xxx_wnd_473680() {
 	if (!sub_48C980()) {
 		return 0;
 	}
-	nox_xxx____setargv_7_450BE0();
+	nox_gui_console_Enable_450BE0();
 	sub_4AB4A0(0);
 	sub_4AB4D0(0);
 	if (!nox_client_renderGUI_80828 || nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
@@ -7228,7 +7228,7 @@ int nox_xxx_wnd_473680() {
 
 //----- (00473840) --------------------------------------------------------
 int sub_473840() {
-	sub_450BF0();
+	nox_gui_console_Disable_450BF0();
 	sub_4C03E0();
 	sub_46CCB0();
 	sub_4AE3B0();

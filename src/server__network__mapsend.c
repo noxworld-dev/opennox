@@ -1,4 +1,5 @@
 #include "proto.h"
+#include "client__gui__guicon.h"
 #include "common/fs/nox_fs.h"
 extern _DWORD dword_5d4594_2388640;
 extern _DWORD dword_5d4594_2388648;
@@ -34,7 +35,7 @@ void  nox_xxx_netSendMap_5199F0_net_mapsend(unsigned __int8* a1) {
 				v2 = nox_strman_loadString_40F1D0("Downloadingmap", 0,
 										   "C:\\NoxPost\\src\\Server\\Network\\mapsend.c", 231);
 				nox_swprintf(v20, v2, getMemAt(0x5D4594, 2387068), v15);
-				nox_xxx_consolePrint_450B90(6u, (int)v20);
+				nox_gui_console_Print_450B90(NOX_CONSOLE_RED, (int)v20);
 			}
 			*(_DWORD*)&v19[4] = *((_DWORD*)a1 + 3);
 			v19[0] = -72;
@@ -81,7 +82,7 @@ void  nox_xxx_netSendMap_5199F0_net_mapsend(unsigned __int8* a1) {
 					v12 = nox_strman_loadString_40F1D0("downloaddone", 0,
 												"C:\\NoxPost\\src\\Server\\Network\\mapsend.c", 299);
 					nox_swprintf(v20, v12, *((_DWORD*)a1 + 6), *((_DWORD*)a1 + 4) - 1, v10, v9, v11 + 4704);
-					nox_xxx_consolePrint_450B90(6u, (int)v20);
+					nox_gui_console_Print_450B90(NOX_CONSOLE_RED, (int)v20);
 				}
 				if (*((_WORD*)a1 + 2) == 1 && *((_DWORD*)a1 + 2))
 					free(*((LPVOID*)a1 + 2));
@@ -92,7 +93,7 @@ void  nox_xxx_netSendMap_5199F0_net_mapsend(unsigned __int8* a1) {
 				v14 = nox_strman_loadString_40F1D0("InProgress", 0,
 											"C:\\NoxPost\\src\\Server\\Network\\mapsend.c", 315);
 				nox_swprintf(v20, v14, v16);
-				nox_xxx_consolePrint_450B90(6u, (int)v20);
+				nox_gui_console_Print_450B90(NOX_CONSOLE_RED, (int)v20);
 				nox_xxx_netMapSendClear_519830((int)a1, *a1);
 			}
 		}
@@ -118,7 +119,7 @@ void  nox_xxx_netSendMapAbort_519C80_net_mapsend(unsigned __int8* a1, unsigned _
 		v4 = *a1;
 		v3 = nox_strman_loadString_40F1D0("downloadaborted", 0, "C:\\NoxPost\\src\\Server\\Network\\mapsend.c", 350);
 		nox_swprintf(v6, v3, v4, a2);
-		nox_xxx_consolePrint_450B90(6u, (int)v6);
+		nox_gui_console_Print_450B90(NOX_CONSOLE_RED, (int)v6);
 	}
 }
 
@@ -137,7 +138,7 @@ char*  nox_xxx_netMapSend_519D20(int a1) {
 		else
 			v2 = nox_strman_loadString_40F1D0("BadState", 0, "C:\\NoxPost\\src\\Server\\Network\\mapsend.c",
 									   397);
-		result = (char*)nox_xxx_consolePrint_450B90(6u, (int)v2);
+		result = (char*)nox_gui_console_Print_450B90(NOX_CONSOLE_RED, (int)v2);
 	} else {
 		++*getMemU16Ptr(0x5D4594, 2388636);
 		*((_WORD*)v1 + 1) = 1;
@@ -171,7 +172,7 @@ int  nox_xxx_netMapSendCancelMap_519DE0_net_mapsend(int a1) {
 		result = --dword_5d4594_2388648;
 	if (v2) {
 		v4 = nox_strman_loadString_40F1D0("downloadcancelled", 0, "C:\\NoxPost\\src\\Server\\Network\\mapsend.c", 428);
-		result = nox_xxx_consoleVPrint_450C00(6u, v4, v2 + 4704);
+		result = nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v4, v2 + 4704);
 	}
 	return result;
 }
@@ -208,7 +209,7 @@ int nox_xxx_netMapSendPrepair_519EB0_net_mapsend() {
 					*((_DWORD*)v1 + 1) = *getMemU32Ptr(0x5D4594, 2388644);
 					v5 = nox_strman_loadString_40F1D0("ForceCopy", 0,
 											   "C:\\NoxPost\\src\\Server\\Network\\mapsend.c", 478);
-					nox_xxx_consolePrint_450B90(6u, (int)v5);
+					nox_gui_console_Print_450B90(NOX_CONSOLE_RED, (int)v5);
 				} else {
 					nox_xxx_netSendMapAbort_519C80_net_mapsend(v1 - 8, 1u);
 				}
@@ -219,12 +220,12 @@ int nox_xxx_netMapSendPrepair_519EB0_net_mapsend() {
 	}
 	if (!v0) {
 		v10 = nox_strman_loadString_40F1D0("CompressFail", 0, "C:\\NoxPost\\src\\Server\\Network\\mapsend.c", 518);
-		nox_xxx_consolePrint_450B90(6u, (int)v10);
+		nox_gui_console_Print_450B90(NOX_CONSOLE_RED, (int)v10);
 		return 0;
 	}
 	if (!memcmp(v0, getMemAt(0x5D4594, 2388652), 1u)) {
 		v10 = nox_strman_loadString_40F1D0("CompressFail", 0, "C:\\NoxPost\\src\\Server\\Network\\mapsend.c", 518);
-		nox_xxx_consolePrint_450B90(6u, (int)v10);
+		nox_gui_console_Print_450B90(NOX_CONSOLE_RED, (int)v10);
 		return 0;
 	}
 	strcpy(v12, "maps\\");
@@ -238,7 +239,7 @@ int nox_xxx_netMapSendPrepair_519EB0_net_mapsend() {
 	v8 = nox_fs_open(v12);
 	if (!v8) {
 		v10 = nox_strman_loadString_40F1D0("CompressFail", 0, "C:\\NoxPost\\src\\Server\\Network\\mapsend.c", 518);
-		nox_xxx_consolePrint_450B90(6u, (int)v10);
+		nox_gui_console_Print_450B90(NOX_CONSOLE_RED, (int)v10);
 		return 0;
 	}
 	strcpy((char*)getMemAt(0x5D4594, 2386988), v12);

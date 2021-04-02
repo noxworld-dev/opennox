@@ -4,6 +4,7 @@
 #include "common__system__settings.h"
 #include "common__telnet__telnetd.h"
 #include "client__gui__guimsg.h"
+#include "client__gui__guicon.h"
 #include "client__gui__servopts__general.h"
 #include "client__gui__servopts__guiserv.h"
 #include "server__script__script.h"
@@ -12,8 +13,6 @@
 #include "proto.h"
 
 extern _DWORD dword_5d4594_823696;
-extern _DWORD dword_5d4594_833728;
-extern _DWORD dword_5d4594_833732;
 extern _DWORD dword_5d4594_1563664;
 extern _DWORD nox_xxx_useAudio_587000_80832;
 extern _DWORD dword_5d4594_823700;
@@ -303,45 +302,24 @@ int nox_cmd_racoiaws(int tokInd, int tokCnt, wchar_t** tokens) {
 }
 #endif // NOX_CGO
 
-//----- (00450B20) --------------------------------------------------------
-wchar_t*  sub_450B20(wchar_t* a1) {
-	wchar_t* result; // eax
-
-	result = a1;
-	if (a1) {
-		if (*a1) {
-			result = nox_wcscpy((wchar_t*)getMemAt(0x5D4594, 832552), a1);
-			dword_5d4594_833728 = 1;
-		}
-	}
-	return result;
-}
-
 //----- (00440D80) --------------------------------------------------------
 int nox_cmd_lock(int tokInd, int tokCnt, wchar_t** tokens) {
 	if (tokCnt != 2)
 		return 0;
-	sub_450B20(tokens[1]);
-	nox_xxx_conClear_450B70();
+	nox_gui_console_Lock_450B20(tokens[1]);
+	nox_gui_console_Clear_450B70();
 	wchar_t* s = nox_strman_loadString_40F1D0("consolelocked", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1329);
-	nox_xxx_consoleVPrint_450C00(4, s);
+	nox_gui_console_Printf_450C00(NOX_CONSOLE_WHITE, s);
 	return 1;
-}
-
-//----- (00450B50) --------------------------------------------------------
-void sub_450B50() {
-	*getMemU16Ptr(0x5D4594, 832552) = 0;
-	dword_5d4594_833728 = 0;
-	dword_5d4594_833732 = 0;
 }
 
 //----- (00440DD0) --------------------------------------------------------
 int nox_cmd_unlock(int tokInd, int tokCnt, wchar_t** tokens) {
 	if (tokCnt != 1)
 		return 0;
-	sub_450B50();
+	nox_gui_console_Unlock_450B50();
 	wchar_t* s = nox_strman_loadString_40F1D0("consoleunlocked", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1340);
-	nox_xxx_consoleVPrint_450C00(4, s);
+	nox_gui_console_Printf_450C00(NOX_CONSOLE_WHITE, s);
 	return 1;
 }
 
@@ -351,7 +329,7 @@ int nox_cmd_set_sysop(int tokInd, int tokCnt, wchar_t** tokens) {
 		return 0;
 	nox_xxx_sysopSetPass_40A610(tokens[tokInd]);
 	wchar_t* s = nox_strman_loadString_40F1D0("sysoppasswordset", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1352);
-	nox_xxx_consoleVPrint_450C00(6, s);
+	nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, s);
 	return 1;
 }
 
@@ -364,7 +342,7 @@ int nox_cmd_telnet_off(int tokInd, int tokCnt, wchar_t** tokens) {
 		nox_telnet_stop_579830();
 		wchar_t* s =
 			nox_strman_loadString_40F1D0("telnetoff", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1368);
-		nox_xxx_consoleVPrint_450C00(6, s);
+		nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, s);
 	}
 	return 1;
 }
@@ -383,7 +361,7 @@ int nox_cmd_telnet_on(int tokInd, int tokCnt, wchar_t** tokens) {
 	}
 	int port = nox_telnet_getPort_579850();
 	wchar_t* s = nox_strman_loadString_40F1D0("telneton", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1388);
-	nox_xxx_consoleVPrint_450C00(6, s, port);
+	nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, s, port);
 	return 1;
 }
 #endif // NOX_CGO
@@ -394,7 +372,7 @@ int nox_cmd_macros_on(int tokInd, int tokCnt, wchar_t** tokens) {
 		return 0;
 	*getMemU32Ptr(0x587000, 95416) = 1;
 	wchar_t* s = nox_strman_loadString_40F1D0("macroson", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1400);
-	nox_xxx_consoleVPrint_450C00(6, s);
+	nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, s);
 	return 1;
 }
 
@@ -404,7 +382,7 @@ int nox_cmd_macros_off(int tokInd, int tokCnt, wchar_t** tokens) {
 		return 0;
 	*getMemU32Ptr(0x587000, 95416) = 0;
 	wchar_t* s = nox_strman_loadString_40F1D0("macrosoff", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1411);
-	nox_xxx_consoleVPrint_450C00(6, s);
+	nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, s);
 	return 1;
 }
 
@@ -438,7 +416,7 @@ int nox_cmd_list_weapons(int tokInd, int tokCnt, wchar_t** tokens) {
 					v5 = nox_strman_loadString_40F1D0("itemdisplay", 0,
 											   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1477);
 				}
-				nox_xxx_consoleVPrint_450C00(6, v5, v7, v8);
+				nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v5, v7, v8);
 			}
 		}
 		v2 = (char**)sub_4E3B40((int)v2);
@@ -476,7 +454,7 @@ int nox_cmd_list_armor(int tokInd, int tokCnt, wchar_t** tokens) {
 					v5 = nox_strman_loadString_40F1D0("itemdisplay", 0,
 											   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1510);
 				}
-				nox_xxx_consoleVPrint_450C00(6, v5, v7, v8);
+				nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v5, v7, v8);
 			}
 		}
 		v2 = (char**)sub_4E3B40((int)v2);
@@ -512,7 +490,7 @@ int nox_cmd_list_spells(int tokInd, int tokCnt, wchar_t** tokens) {
 				v3 = nox_strman_loadString_40F1D0("SpellFmt", 0,
 										   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1533);
 			}
-			nox_xxx_consoleVPrint_450C00(6, v3, v5, v6, v7);
+			nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v3, v5, v6, v7);
 		}
 		++v2;
 	} while (v2 < 137);
@@ -551,7 +529,7 @@ int nox_cmd_list_staffs(int tokInd, int tokCnt, wchar_t** tokens) {
 					v6 = nox_strman_loadString_40F1D0("itemdisplay", 0,
 											   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1606);
 				}
-				nox_xxx_consoleVPrint_450C00(6, v6, v8, v9);
+				nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v6, v8, v9);
 			}
 		}
 		v2 = (unsigned __int16*)sub_4E3B40((int)v2);
@@ -569,7 +547,7 @@ int nox_cmd_show_bindings(int tokInd, int tokCnt, wchar_t** tokens) {
 	v3 = getMemAt(0x587000, 94516);
 	do {
 		if (*(_WORD*)v3)
-			nox_xxx_consoleVPrint_450C00(4u, (wchar_t*)getMemAt(0x587000, 102824), *((_DWORD*)v3 - 2), v3);
+			nox_gui_console_Printf_450C00(NOX_CONSOLE_WHITE, (wchar_t*)getMemAt(0x587000, 102824), *((_DWORD*)v3 - 2), v3);
 		v3 += 76;
 	} while ((int)v3 - (int)getMemAt(0x587000, 94516) < 912);
 	if (*getMemU32Ptr(0x587000, 95416))
@@ -578,7 +556,7 @@ int nox_cmd_show_bindings(int tokInd, int tokCnt, wchar_t** tokens) {
 	else
 		v4 =
 			nox_strman_loadString_40F1D0("macrosOff", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1632);
-	nox_xxx_consoleVPrint_450C00(4u, v4);
+	nox_gui_console_Printf_450C00(NOX_CONSOLE_WHITE, v4);
 	return 1;
 }
 
@@ -608,28 +586,28 @@ int nox_cmd_show_game(int tokInd, int tokCnt, wchar_t** tokens) {
 	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING))
 		--v4;
 	v5 = nox_client_getVersionBuild_409AC0();
-	nox_xxx_consoleVPrint_450C00(6, (wchar_t*)getMemAt(0x587000, 102952), nox_version_string_102944, v5);
+	nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, (wchar_t*)getMemAt(0x587000, 102952), nox_version_string_102944, v5);
 	if (nox_common_gameFlags_check_40A5C0(0x2000)) {
 		v15 = nox_xxx_serverOptionsGetServername_40A4C0();
 		v6 =
 			nox_strman_loadString_40F1D0("Name", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1801);
-		nox_xxx_consoleVPrint_450C00(6, (wchar_t*)getMemAt(0x587000, 103028), v6, v15);
+		nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, (wchar_t*)getMemAt(0x587000, 103028), v6, v15);
 		v7 = nox_common_gameFlags_getVal_40A5B0();
 		v16 = nox_xxx_guiServerOptionsGetGametypeName_4573C0(v7);
 		v8 =
 			nox_strman_loadString_40F1D0("Type", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1802);
-		nox_xxx_consoleVPrint_450C00(6, (wchar_t*)getMemAt(0x587000, 103088), v8, v16);
+		nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, (wchar_t*)getMemAt(0x587000, 103088), v8, v16);
 		v17 = sub_40A180(*((_WORD*)v2 + 26));
 		v14 = (unsigned __int16)nox_xxx_servGamedataGet_40A020(*((_WORD*)v2 + 26));
 		v13 = nox_xxx_servGetPlrLimit_409FA0();
 		v12 = nox_server_currentMapGetFilename_409B30();
 		v9 =
 			nox_strman_loadString_40F1D0("GameInfo", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1803);
-		nox_xxx_consoleVPrint_450C00(6, v9, v12, v4, v13, v14, v17);
+		nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v9, v12, v4, v13, v14, v17);
 		v10.S_un.S_addr = nox_xxx_net_getIP_554200(0);
 		v11 = inet_ntoa(v10);
 		nox_swprintf(v18, L"%S", v11);
-		nox_xxx_consoleVPrint_450C00(6, (wchar_t*)getMemAt(0x587000, 103160), v18);
+		nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, (wchar_t*)getMemAt(0x587000, 103160), v18);
 	}
 	return 1;
 }
@@ -644,7 +622,7 @@ int nox_cmd_show_mmx(int tokInd, int tokCnt, wchar_t** tokens) {
 	else
 		s =
 			nox_strman_loadString_40F1D0("MMXNotEnabled", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1871);
-	nox_xxx_consoleVPrint_450C00(6, s);
+	nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, s);
 	return 1;
 }
 
@@ -732,7 +710,7 @@ void nox_cmd_help_2_441B90(nox_cmd_t cmds[]) {
 	for (nox_cmd_t* cmd = &cmds[0]; cmd->token; cmd++) {
 		if (!(cmd->flags & 4) && (!nox_cheats_disabled || !(cmd->flags & 0x10))) {
 			wchar_t* help = nox_strman_loadString_40F1D0(cmd->help_id, 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2097);
-			nox_xxx_consoleVPrint_450C00(6, L"\t%s -\t%s", cmd->token2, help);
+			nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, L"\t%s -\t%s", cmd->token2, help);
 		}
 	}
 }
@@ -772,7 +750,7 @@ int nox_cmd_help_1_441BF0(int tokInd, int tokCnt, wchar_t** tokens, nox_cmd_t* c
 		return res;
 	} else {
 		wchar_t* help = nox_strman_loadString_40F1D0(cmd->help_id, 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2135);
-		nox_xxx_consoleVPrint_450C00(6, help);
+		nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, help);
 		return 1;
 	}
 	return 0;
@@ -790,7 +768,7 @@ int nox_cmd_help(int tokInd, int tokCnt, wchar_t** tokens) {
 //----- (004421A0) --------------------------------------------------------
 int nox_cmd_set_obs(int tokInd, int tokCnt, wchar_t** tokens) {
 	wchar_t* s = nox_strman_loadString_40F1D0("processingobs", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2440);
-	nox_xxx_consoleVPrint_450C00(6, s);
+	nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, s);
 	if (nox_common_gameFlags_check_40A5C0(1)) {
 		char* v2 = nox_common_playerInfoGetByID_417040(*getMemIntPtr(0x5D4594, 2616328));
 		nox_xxx_serverHandleClientConsole_443E90((int)v2, 0, *(wchar_t**)&dword_5d4594_823700);
@@ -804,7 +782,7 @@ int nox_cmd_set_obs(int tokInd, int tokCnt, wchar_t** tokens) {
 int nox_cmd_set_save_debug(int tokInd, int tokCnt, wchar_t** tokens) {
 	nox_common_setEngineFlag(NOX_ENGINE_FLAG_28);
 	wchar_t* s = nox_strman_loadString_40F1D0("savedebugset", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2541);
-	nox_xxx_consoleVPrint_450C00(6, s);
+	nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, s);
 	return 1;
 }
 
@@ -814,7 +792,7 @@ int nox_cmd_set_god(int tokInd, int tokCnt, wchar_t** tokens) {
 		nox_xxx_set_god_4EF500(1);
 		wchar_t* s =
 			nox_strman_loadString_40F1D0("godset", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2557);
-		nox_xxx_consoleVPrint_450C00(6, s);
+		nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, s);
 	}
 	return 1;
 }
@@ -823,7 +801,7 @@ int nox_cmd_set_god(int tokInd, int tokCnt, wchar_t** tokens) {
 int nox_cmd_unset_god(int tokInd, int tokCnt, wchar_t** tokens) {
 	nox_xxx_set_god_4EF500(0);
 	wchar_t* s = nox_strman_loadString_40F1D0("godunset", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2568);
-	nox_xxx_consoleVPrint_450C00(6, s);
+	nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, s);
 	return 1;
 }
 //----- (00442480) --------------------------------------------------------
@@ -832,7 +810,7 @@ int nox_cmd_set_sage(int tokInd, int tokCnt, wchar_t** tokens) {
 		nox_xxx_set_sage(1);
 		wchar_t* s =
 			nox_strman_loadString_40F1D0("sageset", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2585);
-		nox_xxx_consoleVPrint_450C00(6, s);
+		nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, s);
 	}
 	return 1;
 }
@@ -841,7 +819,7 @@ int nox_cmd_set_sage(int tokInd, int tokCnt, wchar_t** tokens) {
 int nox_cmd_unset_sage(int tokInd, int tokCnt, wchar_t** tokens) {
 	nox_xxx_set_sage(0);
 	wchar_t* s = nox_strman_loadString_40F1D0("sageunset", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2597);
-	nox_xxx_consoleVPrint_450C00(6, s);
+	nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, s);
 	return 1;
 }
 
@@ -853,7 +831,7 @@ int nox_cmd_set_cycle(int tokInd, int tokCnt, wchar_t** tokens) {
 			sub_4D0D90(1);
 			v3 = nox_strman_loadString_40F1D0("MapCycleOn", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c",
 									   2614);
-			nox_xxx_consoleVPrint_450C00(6, v3);
+			nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v3);
 			sub_4AD840();
 			return 1;
 		}
@@ -861,7 +839,7 @@ int nox_cmd_set_cycle(int tokInd, int tokCnt, wchar_t** tokens) {
 			sub_4D0D90(0);
 			v3 = nox_strman_loadString_40F1D0("MapCycleOff", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c",
 									   2621);
-			nox_xxx_consoleVPrint_450C00(6, v3);
+			nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v3);
 			sub_4AD840();
 			return 1;
 		}
@@ -881,7 +859,7 @@ int nox_cmd_set_weapons(int tokInd, int tokCnt, wchar_t** tokens) {
 									   2644);
 			v3 = nox_strman_loadString_40F1D0("weapons", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c",
 									   2645);
-			nox_xxx_consoleVPrint_450C00(6, v3, v5);
+			nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v3, v5);
 			return 1;
 		}
 		if (!_nox_wcsicmp(tokens[tokInd], L"off")) {
@@ -891,7 +869,7 @@ int nox_cmd_set_weapons(int tokInd, int tokCnt, wchar_t** tokens) {
 									   2652);
 			v3 = nox_strman_loadString_40F1D0("weapons", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c",
 									   2653);
-			nox_xxx_consoleVPrint_450C00(6, v3, v5);
+			nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v3, v5);
 			return 1;
 		}
 	}
@@ -910,7 +888,7 @@ int nox_cmd_set_staffs(int tokInd, int tokCnt, wchar_t** tokens) {
 									   2674);
 			v3 = nox_strman_loadString_40F1D0("staffs", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c",
 									   2675);
-			nox_xxx_consoleVPrint_450C00(6, v3, v5);
+			nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v3, v5);
 			return 1;
 		}
 		if (!_nox_wcsicmp(tokens[tokInd], L"off")) {
@@ -920,7 +898,7 @@ int nox_cmd_set_staffs(int tokInd, int tokCnt, wchar_t** tokens) {
 									   2682);
 			v3 = nox_strman_loadString_40F1D0("staffs", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c",
 									   2683);
-			nox_xxx_consoleVPrint_450C00(6, v3, v5);
+			nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v3, v5);
 			return 1;
 		}
 	}
@@ -965,7 +943,7 @@ int nox_cmd_set_name(int tokInd, int tokCnt, wchar_t** tokens) {
 			nox_xxx_gameSetServername_40A440(v13);
 			v11 = nox_strman_loadString_40F1D0("setgamename", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c",
 										2766);
-			nox_xxx_consoleVPrint_450C00(6, v11, v13);
+			nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v11, v13);
 		}
 	}
 	return 1;
@@ -987,7 +965,7 @@ int nox_cmd_set_mnstrs(int tokInd, int tokCnt, wchar_t** tokens) {
 										   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2810);
 				v3 = nox_strman_loadString_40F1D0("monsters", 0,
 										   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2811);
-				nox_xxx_consoleVPrint_450C00(6, v3, v5);
+				nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v3, v5);
 				return 1;
 			}
 			if (!_nox_wcsicmp(tokens[tokInd], L"off")) {
@@ -997,7 +975,7 @@ int nox_cmd_set_mnstrs(int tokInd, int tokCnt, wchar_t** tokens) {
 										   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2818);
 				v3 = nox_strman_loadString_40F1D0("monsters", 0,
 										   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2819);
-				nox_xxx_consoleVPrint_450C00(6, v3, v5);
+				nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v3, v5);
 				return 1;
 			}
 		} else if (tokCnt != 3) {
@@ -1008,7 +986,7 @@ int nox_cmd_set_mnstrs(int tokInd, int tokCnt, wchar_t** tokens) {
 										   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2788);
 				v3 = nox_strman_loadString_40F1D0("monsterrespawn", 0,
 										   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2789);
-				nox_xxx_consoleVPrint_450C00(6, v3, v5);
+				nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v3, v5);
 				return 1;
 			}
 			if (!_nox_wcsicmp(tokens[3], L"off")) {
@@ -1018,7 +996,7 @@ int nox_cmd_set_mnstrs(int tokInd, int tokCnt, wchar_t** tokens) {
 										   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2796);
 				v3 = nox_strman_loadString_40F1D0("monsterrespawn", 0,
 										   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2797);
-				nox_xxx_consoleVPrint_450C00(6, v3, v5);
+				nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v3, v5);
 				return 1;
 			}
 		}
@@ -1041,7 +1019,7 @@ int nox_cmd_set_spell(int tokInd, int tokCnt, wchar_t** tokens) {
 			v8 = tokens[2];
 			v3 = nox_strman_loadString_40F1D0("NotInChat", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c",
 									   3293);
-			nox_xxx_consoleVPrint_450C00(6, v3, v8);
+			nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v3, v8);
 			return 1;
 		}
 		v4 = sub_424960(tokens[2]);
@@ -1057,7 +1035,7 @@ int nox_cmd_set_spell(int tokInd, int tokCnt, wchar_t** tokens) {
 				v8 = tokens[2];
 				v3 = nox_strman_loadString_40F1D0("spellenabled", 0,
 										   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3324);
-				nox_xxx_consoleVPrint_450C00(6, v3, v8);
+				nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v3, v8);
 				return 1;
 			}
 			if (!_nox_wcsicmp(tokens[3], L"off")) {
@@ -1068,14 +1046,14 @@ int nox_cmd_set_spell(int tokInd, int tokCnt, wchar_t** tokens) {
 				v8 = tokens[2];
 				v3 = nox_strman_loadString_40F1D0("spelldisabled", 0,
 										   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3333);
-				nox_xxx_consoleVPrint_450C00(6, v3, v8);
+				nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v3, v8);
 				return 1;
 			}
 		} else {
 			v9 = tokens[2];
 			v7 = nox_strman_loadString_40F1D0("invalidspell", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c",
 									   3342);
-			nox_xxx_consoleVPrint_450C00(6, v7, v9);
+			nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v7, v9);
 		}
 	}
 	return 0;
@@ -1141,7 +1119,7 @@ int nox_cmd_set_weapon(int tokInd, int tokCnt, wchar_t** tokens) {
 			v8 = tokens[2];
 			v3 = nox_strman_loadString_40F1D0("NotInChat", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c",
 									   3361);
-			nox_xxx_consoleVPrint_450C00(6, v3, v8);
+			nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v3, v8);
 			return 1;
 		}
 		if (_nox_wcsicmp(tokens[2], *(const wchar_t**)getMemAt(0x587000, 94492))) {
@@ -1155,7 +1133,7 @@ int nox_cmd_set_weapon(int tokInd, int tokCnt, wchar_t** tokens) {
 					v8 = tokens[2];
 					v3 = nox_strman_loadString_40F1D0("weaponEnabled", 0,
 											   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3401);
-					nox_xxx_consoleVPrint_450C00(6, v3, v8);
+					nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v3, v8);
 					return 1;
 				}
 				if (!_nox_wcsicmp(tokens[3], L"off")) {
@@ -1167,14 +1145,14 @@ int nox_cmd_set_weapon(int tokInd, int tokCnt, wchar_t** tokens) {
 					v8 = tokens[2];
 					v3 = nox_strman_loadString_40F1D0("weaponDisabled", 0,
 											   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3414);
-					nox_xxx_consoleVPrint_450C00(6, v3, v8);
+					nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v3, v8);
 					return 1;
 				}
 			} else {
 				v10 = tokens[2];
 				v7 = nox_strman_loadString_40F1D0("invalidweapon", 0,
 										   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3423);
-				nox_xxx_consoleVPrint_450C00(6, v7, v10);
+				nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v7, v10);
 			}
 		} else {
 			if (!_nox_wcsicmp(tokens[3], L"on")) {
@@ -1182,7 +1160,7 @@ int nox_cmd_set_weapon(int tokInd, int tokCnt, wchar_t** tokens) {
 				v9 = tokens[3];
 				v4 = nox_strman_loadString_40F1D0("weaponsrespawn", 0,
 										   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3370);
-				nox_xxx_consoleVPrint_450C00(6, v4, v9);
+				nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v4, v9);
 				sub_4AD840();
 				return 1;
 			}
@@ -1191,7 +1169,7 @@ int nox_cmd_set_weapon(int tokInd, int tokCnt, wchar_t** tokens) {
 				v9 = tokens[3];
 				v4 = nox_strman_loadString_40F1D0("weaponsrespawn", 0,
 										   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3377);
-				nox_xxx_consoleVPrint_450C00(6, v4, v9);
+				nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v4, v9);
 				sub_4AD840();
 				return 1;
 			}
@@ -1225,7 +1203,7 @@ int nox_cmd_set_armor(int tokInd, int tokCnt, wchar_t** tokens) {
 			v7 = tokens[2];
 			v3 = nox_strman_loadString_40F1D0("NotInChat", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c",
 									   3442);
-			nox_xxx_consoleVPrint_450C00(6, v3, v7);
+			nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v3, v7);
 			return 1;
 		}
 		v4 = (unsigned __int16*)sub_415EF0(tokens[2]);
@@ -1237,7 +1215,7 @@ int nox_cmd_set_armor(int tokInd, int tokCnt, wchar_t** tokens) {
 					v7 = tokens[2];
 					v3 = nox_strman_loadString_40F1D0("armorEnabled", 0,
 											   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3462);
-					nox_xxx_consoleVPrint_450C00(6, v3, v7);
+					nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v3, v7);
 					return 1;
 				}
 				return 1;
@@ -1250,7 +1228,7 @@ int nox_cmd_set_armor(int tokInd, int tokCnt, wchar_t** tokens) {
 					v7 = tokens[2];
 					v3 = nox_strman_loadString_40F1D0("armorDisabled", 0,
 											   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3473);
-					nox_xxx_consoleVPrint_450C00(6, v3, v7);
+					nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v3, v7);
 					return 1;
 				}
 				return 1;
@@ -1259,7 +1237,7 @@ int nox_cmd_set_armor(int tokInd, int tokCnt, wchar_t** tokens) {
 			v8 = tokens[2];
 			v6 = nox_strman_loadString_40F1D0("invalidarmor", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c",
 									   3481);
-			nox_xxx_consoleVPrint_450C00(6, v6, v8);
+			nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v6, v8);
 		}
 	}
 	return 0;
@@ -1283,7 +1261,7 @@ int nox_cmd_set_staff(int tokInd, int tokCnt, wchar_t** tokens) {
 				v7 = tokens[2];
 				v4 = nox_strman_loadString_40F1D0("staffEnabled", 0,
 										   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3535);
-				nox_xxx_consoleVPrint_450C00(6, v4, v7);
+				nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v4, v7);
 				return 1;
 			}
 			if (!_nox_wcsicmp(tokens[3], L"off")) {
@@ -1291,14 +1269,14 @@ int nox_cmd_set_staff(int tokInd, int tokCnt, wchar_t** tokens) {
 				v7 = tokens[2];
 				v4 = nox_strman_loadString_40F1D0("staffDisabled", 0,
 										   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3541);
-				nox_xxx_consoleVPrint_450C00(6, v4, v7);
+				nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v4, v7);
 				return 1;
 			}
 		} else {
 			v8 = tokens[2];
 			v6 = nox_strman_loadString_40F1D0("invalidstaff", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c",
 									   3548);
-			nox_xxx_consoleVPrint_450C00(6, v6, v8);
+			nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v6, v8);
 		}
 	}
 	return 0;
@@ -1346,14 +1324,14 @@ int nox_cmd_ban(int tokInd, int tokCnt, wchar_t** tokens) {
 //----- (00443250) --------------------------------------------------------
 int nox_cmd_allow_user(int tokInd, int tokCnt, wchar_t** tokens) {
 	wchar_t* s = nox_strman_loadString_40F1D0("notyetimplemented", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3698);
-	nox_xxx_consoleVPrint_450C00(6, s);
+	nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, s);
 	return 1;
 }
 
 //----- (00443280) --------------------------------------------------------
 int nox_cmd_allow_ip(int tokInd, int tokCnt, wchar_t** tokens) {
 	wchar_t* s = nox_strman_loadString_40F1D0("notyetimplemented", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3704);
-	nox_xxx_consoleVPrint_450C00(6, s);
+	nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, s);
 	return 1;
 }
 
@@ -1420,7 +1398,7 @@ int nox_cmd_set_players(int tokInd, int tokCnt, wchar_t** tokens) {
 //----- (00443480) --------------------------------------------------------
 int nox_cmd_set_spellpts(int tokInd, int tokCnt, wchar_t** tokens) {
 	wchar_t* s = nox_strman_loadString_40F1D0("notyetimplemented", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3830);
-	nox_xxx_consoleVPrint_450C00(6, s);
+	nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, s);
 	return 1;
 }
 
@@ -1433,7 +1411,7 @@ int nox_cmd_list_users(int tokInd, int tokCnt, wchar_t** tokens) {
 	wchar_t v5[128]; // [esp+4h] [ebp-100h]
 
 	v0 = nox_strman_loadString_40F1D0("userslist", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3839);
-	nox_xxx_consoleVPrint_450C00(6, v0);
+	nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v0);
 	for (i = nox_common_playerInfoGetFirst_416EA0(); i; i = nox_common_playerInfoGetNext_416EE0((int)i)) {
 		v5[0] = 0;
 		nox_wcscat(v5, (const wchar_t*)i + 2352);
@@ -1449,7 +1427,7 @@ int nox_cmd_list_users(int tokInd, int tokCnt, wchar_t** tokens) {
 									   3857);
 			nox_wcscat(v5, v3);
 		}
-		nox_xxx_consoleVPrint_450C00(6, (wchar_t*)getMemAt(0x587000, 106604), v5);
+		nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, (wchar_t*)getMemAt(0x587000, 106604), v5);
 	}
 	return 1;
 }
@@ -1509,7 +1487,7 @@ int nox_cmd_unmute(int tokInd, int tokCnt, wchar_t** tokens) {
 	else
 		v6 =
 			nox_strman_loadString_40F1D0("UserNotFound", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3921);
-	nox_xxx_consoleVPrint_450C00(6, v6, v8);
+	nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v6, v8);
 	return 1;
 }
 
@@ -1568,7 +1546,7 @@ int nox_cmd_mute(int tokInd, int tokCnt, wchar_t** tokens) {
 	else
 		v6 =
 			nox_strman_loadString_40F1D0("UserNotFound", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3959);
-	nox_xxx_consoleVPrint_450C00(6, v6, v8);
+	nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v6, v8);
 	return 1;
 }
 
@@ -1580,7 +1558,7 @@ int nox_cmd_exec(int tokInd, int tokCnt, wchar_t** tokens) {
 		int v4 = dword_5d4594_823700;
 		wchar_t* s =
 			nox_strman_loadString_40F1D0("RemoteExec", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3979);
-		nox_xxx_consoleVPrint_450C00(6, s, v4);
+		nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, s, v4);
 	}
 	nox_xxx_netServerCmd_440950(1, *(wchar_t**)&dword_5d4594_823700);
 	return 1;
@@ -1595,7 +1573,7 @@ int nox_cmd_exec_rul(int tokInd, int tokCnt, wchar_t** tokens) {
 	if (!nox_wcschr(buf, 0x2Eu))
 		nox_wcscat(buf, L".rul");
 	wchar_t* s = nox_strman_loadString_40F1D0("ExecutingRul", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 4002);
-	nox_xxx_consoleVPrint_450C00(6, s, buf);
+	nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, s, buf);
 	nox_xxx_doExecrul_4438A0(buf);
 	return 1;
 }
@@ -1608,7 +1586,7 @@ int nox_cmd_sysop(int tokInd, int tokCnt, wchar_t** tokens) {
 		dword_5d4594_823696 = 1;
 		v2 =
 			nox_strman_loadString_40F1D0("enterSysopPW", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 4014);
-		nox_xxx_consoleVPrint_450C00(6, v2);
+		nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v2);
 	} else {
 		if (tokCnt > 1 && *getMemU32Ptr(0x5D4594, 823688)) {
 			v4 = nox_wcsstr(*(const wchar_t**)&dword_5d4594_823700, L" ");
@@ -1674,14 +1652,14 @@ int nox_xxx_consoleParseToken_443A20(int tokInd, int tokCnt, wchar_t** tokens, n
 		if (!(cmd->flags & 0x1)) {
 			wchar_t* s = nox_strman_loadString_40F1D0("clientonly", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c",
 										4091);
-			nox_xxx_consoleVPrint_450C00(6, s);
+			nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, s);
 			return 1;
 		}
 	} else {
 		if (!(cmd->flags & 0x2)) {
 			wchar_t* s = nox_strman_loadString_40F1D0("serveronly", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c",
 										4097);
-			nox_xxx_consoleVPrint_450C00(6, s);
+			nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, s);
 			return 1;
 		}
 	}
@@ -1693,7 +1671,7 @@ int nox_xxx_consoleParseToken_443A20(int tokInd, int tokCnt, wchar_t** tokens, n
 		if (tokInd + 1 >= tokCnt) {
 			// not enough tokens - print help
 			wchar_t* help = nox_strman_loadString_40F1D0(cmd->help_id, 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 4125);
-			nox_xxx_consoleVPrint_450C00(6, help);
+			nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, help);
 			return 1;
 		}
 		// continue parsing the sub command
@@ -1705,7 +1683,7 @@ int nox_xxx_consoleParseToken_443A20(int tokInd, int tokCnt, wchar_t** tokens, n
 	if (!res) {
 		// command failed - print help
 		wchar_t* help = nox_strman_loadString_40F1D0(cmd->help_id, 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 4125);
-		nox_xxx_consoleVPrint_450C00(6, help);
+		nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, help);
 		return 1;
 	}
 	return res;
@@ -1804,7 +1782,7 @@ int nox_server_parseCmdText_443C80(wchar_t* cmdText, int a2) {
 	#endif // NOX_CGO
 		if (!res) {
 			wchar_t* help = nox_strman_loadString_40F1D0("typehelp", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 4226);
-			nox_xxx_consoleVPrint_450C00(6, help);
+			nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, help);
 		}
 	}
 	dword_5d4594_823700 = 0;
@@ -1871,7 +1849,7 @@ int nox_xxx_serverHandleClientConsole_443E90(nox_playerInfo* pl, char a2, wchar_
 			nox_xxx_netChangeTeamMb_419570(v8 + 48, pl->netCode);
 		v21 = v6;
 		v9 = nox_strman_loadString_40F1D0("observermode", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 4308);
-		nox_xxx_consoleVPrint_450C00(6, v9, v21);
+		nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v9, v21);
 		nox_console_playerWhoSent_823692 = 0;
 		return 1;
 	case 1:
@@ -1887,14 +1865,14 @@ int nox_xxx_serverHandleClientConsole_443E90(nox_playerInfo* pl, char a2, wchar_
 		if (v11 != -1 && nox_console_playerWhoSent_823692) {
 			v12 = nox_strman_loadString_40F1D0("ExecutingFunction", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c",
 										4332);
-			nox_xxx_consoleVPrint_450C00(6, v12, v10);
+			nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v12, v10);
 			nox_script_callByIndex_507310(v11, nox_console_playerWhoSent_823692->playerUnit, nox_console_playerWhoSent_823692->playerUnit);
 			nox_console_playerWhoSent_823692 = 0;
 		} else {
 			v21 = v10;
 			v9 = nox_strman_loadString_40F1D0("InvalidFunction", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c",
 									   4329);
-			nox_xxx_consoleVPrint_450C00(6, v9, v21);
+			nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v9, v21);
 			nox_console_playerWhoSent_823692 = 0;
 		}
 		return 1;
@@ -1907,7 +1885,7 @@ int nox_xxx_serverHandleClientConsole_443E90(nox_playerInfo* pl, char a2, wchar_
 		v19 = (char*)nox_console_playerWhoSent_823692 + 4704;
 		v13 =
 			nox_strman_loadString_40F1D0("RemoteSysop", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 4345);
-		nox_xxx_consoleVPrint_450C00(6, v13, v19, a3);
+		nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v13, v19, a3);
 		nox_server_parseCmdText_443C80(a3, 0);
 		nox_console_playerWhoSent_823692 = 0;
 		return 1;
@@ -1916,11 +1894,11 @@ int nox_xxx_serverHandleClientConsole_443E90(nox_playerInfo* pl, char a2, wchar_
 		nox_console_playerWhoSent_823692 = 0;
 		return 1;
 	case 4:
-		if (!(*(_BYTE*)(v3 + 3680) & 1) && !(nox_common_getEngineFlag(NOX_ENGINE_FLAG_23))) {
+		if (!(*(_BYTE*)(v3 + 3680) & 1) && !(nox_common_getEngineFlag(NOX_ENGINE_FLAG_REPLAY_READ))) {
 			if (nox_common_gameFlags_check_40A5C0(1)) {
 				v16 = nox_strman_loadString_40F1D0("notinobserver", 0,
 											"C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 4392);
-				nox_xxx_consoleVPrint_450C00(6, v16);
+				nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v16);
 				nox_console_playerWhoSent_823692 = 0;
 				return 1;
 			}
@@ -1963,7 +1941,7 @@ int nox_xxx_serverHandleClientConsole_443E90(nox_playerInfo* pl, char a2, wchar_
 		v20 = v3 + 4704;
 		v18 =
 			nox_strman_loadString_40F1D0("invalidattempt", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 4400);
-		nox_xxx_consoleVPrint_450C00(6, v18, v20, a3);
+		nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v18, v20, a3);
 		nox_console_playerWhoSent_823692 = 0;
 		return 1;
 	}
@@ -2274,7 +2252,7 @@ int nox_cmd_list_maps(int tokInd, int tokCnt, wchar_t** tokens) {
 	for (i = 1; v0; ++i) {
 		sub_4417E0((wchar_t*)getMemAt(0x5D4594, 822404), (const char*)v0 + 12);
 		if (!(i % 4)) {
-			nox_xxx_consoleVPrint_450C00(6, (wchar_t*)getMemAt(0x587000, 103276), getMemAt(0x5D4594, 822404));
+			nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, (wchar_t*)getMemAt(0x587000, 103276), getMemAt(0x5D4594, 822404));
 			*getMemU16Ptr(0x5D4594, 822404) = 0;
 		}
 		v0 = sub_4D09C0(v0);
@@ -2284,7 +2262,7 @@ int nox_cmd_list_maps(int tokInd, int tokCnt, wchar_t** tokens) {
 	if (v3 < 0)
 		v2 = (((_BYTE)v3 - 1) | 0xFFFFFFFC) == (unsigned int)-1;
 	if (!v2)
-		nox_xxx_consoleVPrint_450C00(6, (wchar_t*)getMemAt(0x587000, 103284), getMemAt(0x5D4594, 822404));
+		nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, (wchar_t*)getMemAt(0x587000, 103284), getMemAt(0x5D4594, 822404));
 	return 1;
 }
 
@@ -2660,7 +2638,7 @@ int nox_cmd_set_lessons(int tokInd, int tokCnt, wchar_t** tokens) {
 
 //----- (004435C0) --------------------------------------------------------
 int nox_cmd_clear(int tokInd, int tokCnt, wchar_t** tokens) {
-	nox_xxx_conClear_450B70();
+	nox_gui_console_Clear_450B70();
 	return 1;
 }
 

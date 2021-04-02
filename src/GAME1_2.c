@@ -20,6 +20,7 @@
 #include "common__magic__comguide.h"
 
 #include "client__draw__partscrn.h"
+#include "client__gui__guicon.h"
 
 #include "common/fs/nox_fs.h"
 #include "common__log.h"
@@ -80,7 +81,7 @@ extern _DWORD dword_5d4594_787212;
 extern _DWORD nox_client_renderBubbles_80844;
 extern int nox_video_16bit;
 extern _DWORD nox_client_renderGlow_805852;
-extern _DWORD nox_client_translucentConsole_80824;
+extern int nox_gui_console_translucent;
 extern _DWORD nox_client_fadeObjects_80836;
 extern _DWORD nox_server_connectionType_3596;
 extern nox_wnd_xxx* nox_wnd_xxx_815040;
@@ -114,7 +115,7 @@ extern _DWORD dword_5d4594_3798808;
 extern _DWORD dword_5d4594_3798832;
 extern _DWORD dword_5d4594_2618912;
 extern _DWORD dword_5d4594_754056;
-extern _DWORD dword_5d4594_3799524;
+extern int dword_5d4594_3799524;
 extern _DWORD dword_5d4594_815032;
 extern _DWORD dword_5d4594_810640;
 extern _DWORD dword_5d4594_815020;
@@ -4003,7 +4004,7 @@ void  nox_xxx_clientTalk_42E7B0(int a1) {
 
 	v1 = a1;
 	if (a1 && (!*getMemU32Ptr(0x5D4594, 2618908) || !(*(_BYTE*)(*getMemU32Ptr(0x5D4594, 2618908) + 3680) & 3)) &&
-		sub_478030() != 1 && sub_446360() != 1) {
+		sub_478030() != 1 && nox_gui_xxx_check_446360() != 1) {
 		v2 = *(_WORD*)(v1 + 128);
 		LOWORD(a1) = 464;
 		HIWORD(a1) = v2;
@@ -4029,7 +4030,7 @@ void  nox_xxx_clientTrade_42E850(int a1) {
 
 	v1 = a1;
 	if (a1 && (!*getMemU32Ptr(0x5D4594, 2618908) || !(*(_BYTE*)(*getMemU32Ptr(0x5D4594, 2618908) + 3680) & 3)) &&
-		sub_47A260() != 1 && sub_446360() != 1) {
+		sub_47A260() != 1 && nox_gui_xxx_check_446360() != 1) {
 		LOWORD(a1) = 5577;
 		HIWORD(a1) = nox_xxx_netGetUnitCodeCli_578B00(v1);
 		nox_xxx_netAddToMsgListCli_40EBC0(31, 0, &a1, 4);
@@ -5957,11 +5958,11 @@ int sub_432340() {
 	if (!v0)
 		return 1;
 	v1 = atoi(v0);
-	nox_client_translucentConsole_80824 = v1;
+	nox_gui_console_translucent = v1;
 	v2 = v1 == 0;
 	result = 1;
 	if (!v2)
-		nox_client_translucentConsole_80824 = 1;
+		nox_gui_console_translucent = 1;
 	return result;
 }
 
@@ -6776,7 +6777,7 @@ int  sub_4332E0(FILE* a1) {
 	nox_fs_fprintf(a1, "HighResFloors = %d\n", nox_client_highResFloors_154952);
 	nox_fs_fprintf(a1, "LockHighResFloors = %d\n", nox_client_lockHighResFloors_1193152);
 	nox_fs_fprintf(a1, "TexturedFloors = %d\n", nox_client_texturedFloors_154956);
-	nox_fs_fprintf(a1, "TranslucentConsole = %d\n", nox_client_translucentConsole_80824);
+	nox_fs_fprintf(a1, "TranslucentConsole = %d\n", nox_gui_console_translucent);
 	nox_fs_fprintf(a1, "RenderGlow = %d\n", nox_client_renderGlow_805852);
 	nox_fs_fprintf(a1, "RenderGUI = %d\n", nox_client_renderGUI_80828);
 	nox_fs_fprintf(a1, "FadeObjects = %d\n", nox_client_fadeObjects_80836);
@@ -7734,7 +7735,7 @@ int nox_xxx_initGameSession_435CC0() {
 	if (!sub_494F00())
 		return 0;
 
-	if (!nox_xxx_wnd_473680())
+	if (!nox_game_guiInit_473680())
 		return 0;
 
 	nox_alloc_npcs();
@@ -7894,7 +7895,7 @@ int nox_xxx_client_435F80_draw() {
 BOOL sub_436550() {
 	int v0; // eax
 
-	if (sub_459DA0() || sub_446360() || sub_49CB40() || sub_49C810() || sub_446950() || sub_4706A0() || sub_451410()) {
+	if (sub_459DA0() || nox_gui_xxx_check_446360() || sub_49CB40() || sub_49C810() || sub_446950() || sub_4706A0() || nox_gui_console_flagXxx_451410()) {
 		v0 = nox_frame_xxx_2598000;
 	} else {
 		v0 = nox_frame_xxx_2598000;

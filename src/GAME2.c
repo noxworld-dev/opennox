@@ -54,9 +54,7 @@ extern _DWORD dword_5d4594_831244;
 extern _DWORD dword_5d4594_831076;
 extern _DWORD dword_5d4594_1045552;
 extern _DWORD dword_5d4594_1049524;
-extern _DWORD dword_5d4594_833728;
 extern _DWORD dword_5d4594_1047524;
-extern _DWORD dword_5d4594_833732;
 extern _DWORD dword_5d4594_1046356;
 extern _DWORD dword_5d4594_1046864;
 extern _DWORD dword_5d4594_831256;
@@ -114,7 +112,6 @@ extern _DWORD dword_5d4594_832492;
 extern _DWORD dword_5d4594_1047512;
 extern _DWORD dword_5d4594_832532;
 extern _DWORD dword_5d4594_1046656;
-extern _DWORD nox_client_translucentConsole_80824;
 extern _DWORD dword_5d4594_1049484;
 extern _DWORD dword_5d4594_830872;
 extern _DWORD dword_5d4594_1046516;
@@ -133,15 +130,13 @@ extern _DWORD dword_5d4594_1045432;
 extern _DWORD dword_5d4594_1046924;
 extern void* dword_587000_127004;
 extern _DWORD dword_5d4594_1045468;
-extern _DWORD dword_5d4594_833720;
 extern _DWORD dword_5d4594_1045532;
 extern _DWORD dword_5d4594_1045536;
 extern _DWORD dword_5d4594_1046508;
-extern _DWORD dword_5d4594_833712;
 extern _DWORD dword_5d4594_1045480;
 extern _DWORD dword_5d4594_1047520;
 extern _DWORD nox_xxx_aNox_cfg_0_587000_132132;
-extern _DWORD dword_5d4594_3799524;
+extern int dword_5d4594_3799524;
 extern _DWORD dword_5d4594_1045484;
 extern _DWORD dword_5d4594_1045464;
 extern _DWORD dword_5d4594_1049520;
@@ -153,7 +148,6 @@ extern _DWORD dword_5d4594_831236;
 extern _DWORD dword_5d4594_1046496;
 extern _DWORD dword_5d4594_1046872;
 extern _DWORD nox_gameDisableMapDraw_5d4594_2650672;
-extern _DWORD dword_5d4594_833716;
 extern _DWORD nox_client_gui_flag_815132;
 extern _DWORD dword_5d4594_1045636;
 extern _DWORD dword_5d4594_1049508;
@@ -1548,238 +1542,6 @@ int  sub_450B00(int a1) {
 
 //----- (00450B10) --------------------------------------------------------
 int sub_450B10() { return *getMemU32Ptr(0x5D4594, 832468); }
-
-//----- (00450B70) --------------------------------------------------------
-int nox_xxx_conClear_450B70() { return nox_window_call_field_94(*(int*)&dword_5d4594_833720, 16399, 0, 0); }
-
-//----- (00450B90) --------------------------------------------------------
-int nox_xxx_consolePrint_450B90(unsigned char typ, wchar_t* str) {
-	if (*getMemU32Ptr(0x5D4594, 833724))
-		nox_window_call_field_94(*(int*)&dword_5d4594_833720, 16397, str, typ);
-	if (nox_telnet_isActive_579740())
-		nox_telnet_broadcast_579750(str);
-	return 1;
-}
-
-//----- (00450BE0) --------------------------------------------------------
-void nox_xxx____setargv_7_450BE0() { *getMemU32Ptr(0x5D4594, 833724) = 1; }
-
-//----- (00450BF0) --------------------------------------------------------
-void sub_450BF0() { *getMemU32Ptr(0x5D4594, 833724) = 0; }
-
-//----- (00450C00) --------------------------------------------------------
-int nox_xxx_consoleVPrint_450C00(unsigned __int8 a1, wchar_t* a2, ...) {
-	va_list va; // [esp+Ch] [ebp+Ch]
-
-	va_start(va, a2);
-	nox_vswprintf((wchar_t*)getMemAt(0x5D4594, 832680), a2, va);
-	return nox_xxx_consolePrint_450B90(a1, (int)getMemAt(0x5D4594, 832680));
-}
-
-//----- (00450C70) --------------------------------------------------------
-int nox_xxx_consoleCreate_450C70() {
-	int v0;                   // esi
-	wchar_t* v1;              // eax
-	int result;               // eax
-	char v3[56];              // [esp+Ch] [ebp-5A4h]
-	char v4[332];             // [esp+44h] [ebp-56Ch]
-	unsigned __int8 v5[1056]; // [esp+190h] [ebp-420h]
-
-	v0 = *getMemU32Ptr(0x5D4594, 2650660);
-	*getMemU32Ptr(0x5D4594, 833704) = nox_win_width - 1;
-	*getMemU32Ptr(0x5D4594, 833708) = nox_win_height / 2;
-	dword_5d4594_833712 = nox_window_new(0, 56, 0, 0, nox_win_width - 1, nox_win_height / 2, 0);
-	nox_window_set_all_funcs(*(_DWORD**)&dword_5d4594_833712, nox_xxx_consoleWndFn_450E80, nox_xxx_consoleWndFn_450E90, 0);
-	*(_DWORD*)(dword_5d4594_833712 + 56) = *getMemU32Ptr(0x5D4594, 2650656);
-	memset(v4, 0, sizeof(v4));
-	*(_DWORD*)&v4[36] = 0x80000000;
-	*(_DWORD*)&v4[52] = 0x80000000;
-	*(_DWORD*)&v4[24] = 0;
-	memset(v3, 0, sizeof(v3));
-	*(_DWORD*)&v4[48] = 0;
-	*(_DWORD*)&v4[28] = v0;
-	*(_DWORD*)&v4[68] = v0;
-	*(_WORD*)&v3[2] = 0x0a;
-	*(_WORD*)&v3[0] = 0x80;
-	*(_DWORD*)&v3[4] = 1;
-	*(_DWORD*)&v3[8] = 1;
-	*(_DWORD*)&v3[12] = 1;
-	*(_DWORD*)&v3[16] = 0;
-	v1 = nox_xxx_getNoxVer_401020();
-	nox_wcsncpy((wchar_t*)&v4[72], v1, 0x40u);
-	*(_WORD*)&v4[198] = 0;
-	*(_DWORD*)&v4[8] = 32;
-	dword_5d4594_833720 = nox_gui_newScrollListBox_4A4310(*(int*)&dword_5d4594_833712, 1152, 0, 0, *getMemIntPtr(0x5D4594, 833704),
-									 *getMemU32Ptr(0x5D4594, 833708) - 20, (int)v4, (__int16*)v3);
-	*(_DWORD*)&v4[44] = v0;
-	*(_DWORD*)&v4[28] = v0;
-	*(_DWORD*)&v4[36] = v0;
-	*(_DWORD*)&v4[52] = v0;
-	*(_DWORD*)&v4[68] = v0;
-	*(_WORD*)&v5[1042] = *getMemU16Ptr(0x5D4594, 833704);
-	nox_wcscpy((wchar_t*)v5, (const wchar_t*)getMemAt(0x5D4594, 833736));
-	*(_WORD*)&v5[1040] = 128;
-	*(_DWORD*)&v5[1024] = 0;
-	*(_DWORD*)&v5[1028] = 0;
-	*(_DWORD*)&v5[1032] = 0;
-	*(_DWORD*)&v5[1036] = 0;
-	nox_wcscpy((wchar_t*)&v4[72], (const wchar_t*)getMemAt(0x5D4594, 833740));
-	*(_DWORD*)&v4[8] = 128;
-	dword_5d4594_833716 = nox_gui_newEntryField_488500(*(int*)&dword_5d4594_833712, 16393, 0, *getMemU32Ptr(0x5D4594, 833708) - 20,
-									 *getMemIntPtr(0x5D4594, 833704), 20, (int)v4, (wchar_t*)v5);
-	nox_xxx_wndSetWindowProc_46B300(*(int*)&dword_5d4594_833716, nox_xxx_consoleEditProc_450F40);
-	result = dword_5d4594_833712;
-	dword_5d4594_833728 = 0;
-	dword_5d4594_833732 = 0;
-	*getMemU16Ptr(0x5D4594, 832552) = 0;
-	return result;
-}
-
-//----- (00450E80) --------------------------------------------------------
-int nox_xxx_consoleWndFn_450E80() { return 0; }
-
-//----- (00450E90) --------------------------------------------------------
-int  nox_xxx_consoleWndFn_450E90(int a1, int a2) {
-	int xLeft; // [esp+4h] [ebp-8h]
-	int yTop;  // [esp+8h] [ebp-4h]
-
-	nox_client_wndGetPosition_46AA60((_DWORD*)a1, &xLeft, &yTop);
-	if (*(_BYTE*)(a1 + 4) & 0x80) {
-		nox_client_drawImageAt_47D2C0(*(_DWORD*)(a2 + 24), xLeft, yTop);
-		return 1;
-	}
-	if (*(_DWORD*)(a2 + 20) != 0x80000000) {
-		if (nox_client_translucentConsole_80824) {
-			nox_client_drawRectFilledAlpha_49CF10(xLeft, yTop, *(_DWORD*)(a1 + 8), *(_DWORD*)(a1 + 12));
-			return 1;
-		}
-		nox_client_drawSetColor_434460(*(_DWORD*)(a2 + 20));
-		nox_client_drawRectFilledOpaque_49CE30(xLeft, yTop, *(_DWORD*)(a1 + 8), *(_DWORD*)(a1 + 12));
-	}
-	return 1;
-}
-
-//----- (00450F40) --------------------------------------------------------
-int  nox_xxx_consoleEditProc_450F40(_DWORD* a1, int a2, int a3, int a4) {
-	_DWORD* v4; // eax
-
-	if (a2 != 21)
-		return nox_xxx_wndEditProc_487D70(a1, a2, a3, a4);
-	v4 = nox_xxx_getBindKeysBuf_42CD70();
-	if (v4) {
-		while (v4[9] != 11 || a3 != *v4) {
-			v4 = (_DWORD*)v4[19];
-			if (!v4)
-				goto LABEL_6;
-		}
-		if (a4 == 2) {
-			nox_xxx_consoleF1_451350();
-			return 1;
-		}
-		return 1;
-	}
-LABEL_6:
-	if (a3 == 1) {
-		if (a4 == 2)
-			nox_xxx_consoleEsc_49B7A0();
-	} else {
-		if (a3 != 28)
-			return nox_xxx_wndEditProc_487D70(a1, a2, a3, a4);
-		if (a4 == 2) {
-			nox_xxx_consoleEnter_450FD0();
-			return 1;
-		}
-	}
-	return 1;
-}
-
-//----- (00451100) --------------------------------------------------------
-int sub_451100() {
-	int v0;     // ecx
-	_DWORD* v1; // eax
-	int v2;     // edx
-	int v3;     // edx
-	int v4;     // edx
-	int v5;     // edx
-	int result; // eax
-
-	v0 = *getMemU32Ptr(0x5D4594, 2650660);
-	if (dword_5d4594_833712)
-		*(_DWORD*)(dword_5d4594_833712 + 56) = *getMemU32Ptr(0x5D4594, 2650656);
-	if (dword_5d4594_833720) {
-		v1 = *(_DWORD**)(dword_5d4594_833720 + 32);
-		*(_DWORD*)(dword_5d4594_833720 + 56) = 0x80000000;
-		*(_DWORD*)(dword_5d4594_833720 + 80) = 0x80000000;
-		*(_DWORD*)(dword_5d4594_833720 + 64) = v0;
-		*(_DWORD*)(dword_5d4594_833720 + 72) = v0;
-		*(_DWORD*)(dword_5d4594_833720 + 88) = 0x80000000;
-		*(_DWORD*)(dword_5d4594_833720 + 104) = v0;
-		v2 = v1[9];
-		if (v2) {
-			*(_DWORD*)(v2 + 56) = *getMemU32Ptr(0x5D4594, 2650656);
-			*(_DWORD*)(v1[9] + 80) = *getMemU32Ptr(0x5D4594, 2650656);
-			*(_DWORD*)(v1[9] + 64) = v0;
-			*(_DWORD*)(v1[9] + 72) = *getMemU32Ptr(0x5D4594, 2650656);
-			*(_DWORD*)(v1[9] + 88) = v0;
-			v3 = *(_DWORD*)(v1[9] + 400);
-			if (v3) {
-				*(_DWORD*)(v3 + 56) = *getMemU32Ptr(0x5D4594, 2650656);
-				*(_DWORD*)(*(_DWORD*)(v1[9] + 400) + 80) = *getMemU32Ptr(0x5D4594, 2650656);
-				*(_DWORD*)(*(_DWORD*)(v1[9] + 400) + 64) = v0;
-				*(_DWORD*)(*(_DWORD*)(v1[9] + 400) + 72) = *getMemU32Ptr(0x5D4594, 2650656);
-				*(_DWORD*)(*(_DWORD*)(v1[9] + 400) + 88) = *getMemU32Ptr(0x5D4594, 2650656);
-			}
-		}
-		v4 = v1[7];
-		if (v4) {
-			*(_DWORD*)(v4 + 56) = *getMemU32Ptr(0x5D4594, 2650656);
-			*(_DWORD*)(v1[7] + 80) = *getMemU32Ptr(0x5D4594, 2650656);
-			*(_DWORD*)(v1[7] + 64) = v0;
-			*(_DWORD*)(v1[7] + 72) = *getMemU32Ptr(0x5D4594, 2523948);
-			*(_DWORD*)(v1[7] + 88) = v0;
-			*(_DWORD*)(v1[7] + 104) = v0;
-		}
-		v5 = v1[8];
-		if (v5) {
-			*(_DWORD*)(v5 + 56) = *getMemU32Ptr(0x5D4594, 2650656);
-			*(_DWORD*)(v1[8] + 80) = *getMemU32Ptr(0x5D4594, 2650656);
-			*(_DWORD*)(v1[8] + 64) = v0;
-			*(_DWORD*)(v1[8] + 72) = *getMemU32Ptr(0x5D4594, 2523948);
-			*(_DWORD*)(v1[8] + 88) = v0;
-			*(_DWORD*)(v1[8] + 104) = v0;
-		}
-	}
-	result = dword_5d4594_833716;
-	if (dword_5d4594_833716) {
-		*(_DWORD*)(dword_5d4594_833716 + 56) = *getMemU32Ptr(0x5D4594, 2650656);
-		*(_DWORD*)(dword_5d4594_833716 + 80) = v0;
-		*(_DWORD*)(dword_5d4594_833716 + 64) = v0;
-		*(_DWORD*)(dword_5d4594_833716 + 72) = v0;
-		*(_DWORD*)(dword_5d4594_833716 + 88) = v0;
-		result = dword_5d4594_833716;
-		*(_DWORD*)(dword_5d4594_833716 + 104) = v0;
-	}
-	return result;
-}
-
-//----- (004512B0) --------------------------------------------------------
-int sub_4512B0() {
-	if (wndIsShown_nox_xxx_wndIsShown_46ACC0(*(int*)&dword_5d4594_833712))
-		return 0;
-	if (nox_xxx_wndGetFocus_46B4F0() == dword_5d4594_833716)
-		nox_xxx_windowDestroyChildsMB_46B500(0);
-	nox_window_set_hidden(*(int*)&dword_5d4594_833712, 1);
-	*(_DWORD*)(dword_5d4594_833712 + 4) &= 0xFFFFFFF7;
-	*(_DWORD*)(dword_5d4594_833716 + 4) &= 0xFFFFFFF7;
-	*(_DWORD*)(dword_5d4594_833720 + 4) &= 0xFFFFFFF7;
-	*(_DWORD*)(dword_5d4594_833716 + 36) &= 0xFFFFFFFB;
-	*(_DWORD*)(dword_5d4594_833716 + 36) &= 0xFFFFFFFD;
-	dword_5d4594_3799524 = 1;
-	return 1;
-}
-
-//----- (00451410) --------------------------------------------------------
-int sub_451410() { return ((unsigned __int8)~nox_xxx_wndGetFlags_46ADA0(*(int*)&dword_5d4594_833712) >> 4) & 1; }
 
 //----- (00451430) --------------------------------------------------------
 void nox_xxx_unused_451430() {
@@ -6214,7 +5976,7 @@ int  nox_xxx_guiSpellSortList_45ADF0(int a1) {
 void nox_xxx_book_45B010(int a1) {
 	unsigned int result; // eax
 
-	result = sub_446360();
+	result = nox_gui_xxx_check_446360();
 	if (result) {
 		return;
 	}
@@ -7184,7 +6946,7 @@ void nox_xxx_bookFillAll_45D570(int a1, int a2) {
 					if (nox_common_gameFlags_check_40A5C0(2048))
 						sub_57AF30(0, a1);
 					dword_5d4594_1046648 = nox_xxx_bookGet_430B40_get_mouse_prev_seq();
-					if (!nox_common_gameFlags_check_40A5C0(2048) || sub_446360() == 1 ||
+					if (!nox_common_gameFlags_check_40A5C0(2048) || nox_gui_xxx_check_446360() == 1 ||
 						(result = nox_xxx_gameGet_4DB1B0(), result == 1))
 						sub_45D870();
 				}
