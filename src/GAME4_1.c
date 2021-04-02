@@ -7530,11 +7530,11 @@ int  nox_xxx_netUpdate_518EE0(_DWORD* a3) {
 	}
 	if (!dword_5d4594_2650652 || a3 == *(_DWORD**)&dword_5d4594_3843628 || nox_common_gameFlags_check_40A5C0(8) ||
 		!(nox_frame_xxx_2598000 % (unsigned int)nox_xxx_rateGet_40A6C0())) {
-		if (*(_BYTE*)(*(_DWORD*)(v2 + 276) + 3680) & 3 || nox_common_getEngineFlag(NOX_ENGINE_FLAG_23)) {
+		if (*(_BYTE*)(*(_DWORD*)(v2 + 276) + 3680) & 3 || nox_common_getEngineFlag(NOX_ENGINE_FLAG_REPLAY_READ)) {
 			result = nox_xxx_netPlayerObjSendCamera_519330((int)a3);
 			if (!result)
 				return result;
-			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_23))
+			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_REPLAY_READ))
 				nox_xxx_netPlayerObjSend_518C30((int)a3, a3, 1, 1);
 		} else {
 			result = nox_xxx_netPlayerObjSend_518C30((int)a3, a3, 1, 1);

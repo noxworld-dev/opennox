@@ -2678,7 +2678,7 @@ void  nox_xxx_netImportant_4E5770(unsigned __int8 a1, int a2) {
 					*(_BYTE*)(a1 + v4 + 132) =
 						nox_gameFPS * (unsigned int)getMemByte(0x5D4594, 1565124 + 1 + 12 * a1) / nox_xxx_rateGet_40A6C0();
 					*(_DWORD*)(v4 + 4 * a1 + 4) = nox_frame_xxx_2598000;
-					if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_23))
+					if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_REPLAY_READ))
 						sub_4E54D0(v2, v4, a1);
 				}
 				goto LABEL_39;
@@ -3103,7 +3103,7 @@ unsigned __int8*  nox_xxx_updatePlayerObserver_4E62F0(int a1) {
 		--v2;
 	} while (v2);
 	nox_xxx_unitNeedSync_4E44F0(a1);
-	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_23)) {
+	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_REPLAY_READ)) {
 		v6 = *(_DWORD*)(v4 + 3628);
 		if (v6) {
 			*(_DWORD*)(v4 + 3632) = *(_DWORD*)(v6 + 56);

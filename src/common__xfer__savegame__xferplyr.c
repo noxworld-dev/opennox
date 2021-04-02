@@ -1,5 +1,6 @@
 // FIXME
 #include "client__gui__guimsg.h"
+#include "client__gui__guicon.h"
 
 #include "common/fs/nox_fs.h"
 #include "common__log.h"
@@ -44,7 +45,7 @@ int  nox_xxx_savePlayerMB_41C8F0(char* a1, unsigned int a2) {
 				if (nox_xxx_mapSavePlayerDataMB_41A230((char*)getMemAt(0x5D4594, 2660688))) {
 					v9 = nox_strman_loadString_40F1D0("CharacterSaved", 0,
 											   "C:\\NoxPost\\src\\common\\Xfer\\SaveGame\\XferPlyr.c", 3420);
-					nox_xxx_consoleVPrint_450C00(0xCu, v9);
+					nox_gui_console_Printf_450C00(NOX_CONSOLE_BLUE, v9);
 					v10 = nox_strman_loadString_40F1D0("CharacterSaved", 0,
 												"C:\\NoxPost\\src\\common\\Xfer\\SaveGame\\XferPlyr.c", 3421);
 					nox_xxx_printCentered_445490(v10);
@@ -64,7 +65,7 @@ int  nox_xxx_savePlayerMB_41C8F0(char* a1, unsigned int a2) {
 	} else {
 		v2 = nox_strman_loadString_40F1D0("Wol.c:WolApierror", 0,
 								   "C:\\NoxPost\\src\\common\\Xfer\\SaveGame\\XferPlyr.c", 3341);
-		nox_xxx_consoleVPrint_450C00(0xCu, v2);
+		nox_gui_console_Printf_450C00(NOX_CONSOLE_BLUE, v2);
 		v3 = nox_strman_loadString_40F1D0("Wol.c:Wolapierror", 0,
 								   "C:\\NoxPost\\src\\common\\Xfer\\SaveGame\\XferPlyr.c", 3342);
 		nox_xxx_printCentered_445490(v3);

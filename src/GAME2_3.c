@@ -8,6 +8,7 @@
 #include "client__gui__guiinv.h"
 #include "client__gui__guiquit.h"
 #include "client__gui__guivote.h"
+#include "client__gui__guicon.h"
 #include "client__network__cdecode.h"
 #include "client__network__deathmsg.h"
 #include "client__shell__noxworld.h"
@@ -6129,7 +6130,7 @@ void nox_xxx_consoleEsc_49B7A0() {
 							v0 = 1;
 						if (nox_xxx_bookHideMB_45ACA0(0))
 							v0 = 1;
-						if (sub_4512B0())
+						if (nox_gui_console_Hide_4512B0())
 							v0 = 1;
 						if (sub_446780())
 							v0 = 1;

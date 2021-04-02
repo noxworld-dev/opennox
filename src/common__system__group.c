@@ -16,7 +16,7 @@ int  nox_server_scriptGetGroupId_57C2D0(int** a1) {
 			if (v2 != 3 || !v1) {
 				v4 = nox_strman_loadString_40F1D0("Undefined", 0, "C:\\NoxPost\\src\\Common\\System\\Group.c",
 										   358);
-				sub_450C30(6u, (int)v4);
+				nox_gui_console_PrintOrError_450C30(NOX_CONSOLE_RED, (int)v4);
 				return 0;
 			}
 			v1 = (int**)nox_server_scriptGetGroup_57C0A0(*v1[21]);

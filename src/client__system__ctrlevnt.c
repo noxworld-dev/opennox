@@ -526,7 +526,7 @@ void nox_xxx_clientControl_42D6B0_B() {
 				nox_ctrlevent_buf_747884[li].active = 0;
 				break;
 			case 11:
-				nox_xxx_consoleF1_451350();
+				nox_gui_console_F1_451350();
 				nox_ctrlevent_buf_747884[li].active = 0;
 				break;
 			case 12:

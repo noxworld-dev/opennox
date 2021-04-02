@@ -5,7 +5,7 @@ package main
 extern unsigned int dword_5d4594_823684;
 
 void nox_xxx_consoleTokenAddPair_4444C0(wchar_t* tok, wchar_t* tok2);
-int nox_xxx_consolePrint_450B90(unsigned char typ, wchar_t* str);
+int nox_gui_console_Print_450B90(unsigned char typ, wchar_t* str);
 
 int nox_cmd_lock(int, int, wchar_t**);
 int nox_cmd_unlock(int, int, wchar_t**);
@@ -129,7 +129,7 @@ func consolePrintf(typ parsecmd.Color, format string, args ...interface{}) int {
 	str := fmt.Sprintf(format, args...)
 	log.Print(str)
 	cstr := CWString(str)
-	res := C.nox_xxx_consolePrint_450B90(C.uchar(typ), cstr)
+	res := C.nox_gui_console_Print_450B90(C.uchar(typ), cstr)
 	WStrFree(cstr)
 	return int(res)
 }
