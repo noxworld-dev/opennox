@@ -683,7 +683,7 @@ func CONNECT_RESULT(result int) {
 				return
 			}
 		}
-		if C.nox_xxx_initGameSession_435CC0() == 0 {
+		if initGameSession435CC0() == 0 {
 			cmainLoop()
 			return
 		}

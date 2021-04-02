@@ -159,8 +159,7 @@ func nox_xxx_serverHost_43B4D0() {
 	C.sub_49FF20()
 }
 
-//export nox_xxx_initGameSession_435CC0
-func nox_xxx_initGameSession_435CC0() C.int {
+func initGameSession435CC0() int {
 	C.sub_445450()
 	C.sub_45DB90()
 	C.sub_41D1A0(0)
