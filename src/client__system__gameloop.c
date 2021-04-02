@@ -45,88 +45,74 @@ void map_download_start() {
 
 //----- (0043DEB0) --------------------------------------------------------
 int nox_xxx_gameChangeMap_43DEB0() {
-	char* v0;         // eax
-	char* v1;         // esi
-	int v2;           // eax
-	char v3;          // al
-	char v4;          // bl
-	char* v5;         // esi
-	wchar_t* v6;      // eax
-	wchar_t* v7;      // eax
-	wchar_t* v8;      // eax
-	wchar_t* v10;     // eax
-	wchar_t* v12;     // [esp-10h] [ebp-118h]
-	char* v13;        // [esp-4h] [ebp-10Ch]
-	char* v14;        // [esp-4h] [ebp-10Ch]
-	wchar_t v15[128]; // [esp+8h] [ebp-100h]
+	if (nox_common_gameFlags_check_40A5C0(0x800000)) {
+		nox_client_setCursorType_477610(10);
 
-	if (!nox_common_gameFlags_check_40A5C0(0x800000))
-		goto LABEL_16;
-	nox_client_setCursorType_477610(10);
-	if (nox_xxx_gameIsNotMultiplayer_4DB250())
-		v0 = nox_xxx_mapFilenameGetSolo_4DB260();
-	else
-		v0 = nox_server_currentMapGetFilename_409B30();
-	v1 = v0;
-	v2 = nox_xxx_mapCrcGetMB_409B00();
-	v3 = nox_xxx_mapValidateMB_4CF470(v1, v2);
-	v4 = v3;
-	if (v3 & 2 && v3 & 4) {
-		sub_43F140(500);
-		v5 = nox_xxx_mapCliReadAll_4AC2B0(v1);
-		sub_43F1A0();
-		if (!v5) {
-			v13 = nox_server_currentMapGetFilename_409B30();
-			v6 = nox_strman_loadString_40F1D0("MapLoadError", 0, "C:\\NoxPost\\src\\Client\\System\\gameloop.c",
-									   318);
-			sub_4516C0(v6, v13);
-			nox_xxx_spriteLoadError_4356E0();
-			return 0;
+		char* mapName = 0;
+		if (nox_xxx_gameIsNotMultiplayer_4DB250()) {
+			mapName = nox_xxx_mapFilenameGetSolo_4DB260();
+		} else {
+			mapName = nox_server_currentMapGetFilename_409B30();
 		}
-		if (nox_common_gameFlags_check_40A5C0(1))
-			nox_xxx_gameServerReadyMB_4DD180(31);
-		else
-			nox_xxx_netSendClientReady_43C9F0();
-		nox_xxx_gameSetCliConnected_43C720(1);
-		if ((int)*getMemU32Ptr(0x5D4594, 3801836 + 1392) < 0) {
-			v7 = nox_strman_loadString_40F1D0("cdecode.c:EnterChat", 0, "C:\\NoxPost\\src\\Client\\System\\gameloop.c",
-									   338);
-			nox_xxx_printCentered_445490(v7);
-			v14 = sub_42E8E0(8, 1);
-			v8 = nox_strman_loadString_40F1D0("cdecode.c:KeyToChat", 0, "C:\\NoxPost\\src\\Client\\System\\gameloop.c",
-									   339);
-			nox_swprintf(v15, v8, v14);
-			nox_xxx_printCentered_445490(v15);
-		}
-	} else {
-		if (!nox_common_gameFlags_check_40A5C0(1)) {
-			if (!(v4 & 1) || v4 & 4) {
-				nox_xxx_setGameFlags_40A4D0(0x100000);
-			} else {
-				nox_common_gameFlags_unset_40A540(9437184);
-				sub_477530(1);
-				nox_xxx_gui_43E1A0(1);
-				v12 = nox_strman_loadString_40F1D0("OverwriteReadOnly", 0,
-											"C:\\NoxPost\\src\\Client\\System\\gameloop.c", 298);
-				v10 = nox_strman_loadString_40F1D0("Warning", 0,
-											"C:\\NoxPost\\src\\Client\\System\\gameloop.c", 297);
-				nox_xxx_dialogMsgBoxCreate_449A10(0, (int)v10, (int)v12, 24, sub_43E230, sub_43E200);
+		int crc = nox_xxx_mapCrcGetMB_409B00();
+		char v3 = nox_xxx_mapValidateMB_4CF470(mapName, crc);
+		if (v3 & 2 && v3 & 4) {
+			sub_43F140(500);
+			char* v5 = nox_xxx_mapCliReadAll_4AC2B0(mapName);
+			sub_43F1A0();
+			if (!v5) {
+				char* v13 = nox_server_currentMapGetFilename_409B30();
+				wchar_t* v6 = nox_strman_loadString_40F1D0("MapLoadError", 0, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 318);
+				sub_4516C0(v6, v13);
+				nox_xxx_spriteLoadError_4356E0();
+				return 0;
 			}
-			goto LABEL_16;
+			if (nox_common_gameFlags_check_40A5C0(1))
+				nox_xxx_gameServerReadyMB_4DD180(31);
+			else
+				nox_xxx_netSendClientReady_43C9F0();
+			nox_xxx_gameSetCliConnected_43C720(1);
+			if ((int)*getMemU32Ptr(0x5D4594, 3801836 + 1392) < 0) {
+				wchar_t* v7 = nox_strman_loadString_40F1D0("cdecode.c:EnterChat", 0, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 338);
+				nox_xxx_printCentered_445490(v7);
+				char* v14 = sub_42E8E0(8, 1);
+				wchar_t* v8 = nox_strman_loadString_40F1D0("cdecode.c:KeyToChat", 0, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 339);
+				wchar_t buf[128];
+				nox_swprintf(buf, v8, v14);
+				nox_xxx_printCentered_445490(buf);
+			}
+			if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
+				nox_gameDisableMapDraw_5d4594_2650672 = 1;
+				sub_44DA60(1);
+			}
+		} else {
+			if (!nox_common_gameFlags_check_40A5C0(1)) {
+				if (!(v3 & 1) || v3 & 4) {
+					nox_xxx_setGameFlags_40A4D0(0x100000);
+				} else {
+					nox_common_gameFlags_unset_40A540(9437184);
+					sub_477530(1);
+					nox_xxx_gui_43E1A0(1);
+					wchar_t* v12 = nox_strman_loadString_40F1D0("OverwriteReadOnly", 0, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 298);
+					wchar_t* v10 = nox_strman_loadString_40F1D0("Warning", 0, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 297);
+					nox_xxx_dialogMsgBoxCreate_449A10(0, v10, (int)v12, 24, sub_43E230, sub_43E200);
+				}
+			} else {
+				nox_xxx_gameServerReadyMB_4DD180(31);
+				if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
+					nox_gameDisableMapDraw_5d4594_2650672 = 1;
+					sub_44DA60(1);
+				}
+			}
 		}
-		nox_xxx_gameServerReadyMB_4DD180(31);
 	}
-	if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
-		nox_gameDisableMapDraw_5d4594_2650672 = 1;
-		sub_44DA60(1);
-	}
-LABEL_16:
 	if (nox_common_gameFlags_check_40A5C0(0x100000)) {
 		map_download_start();
 		return 0;
 	}
-	if (nox_common_gameFlags_check_40A5C0(9437184))
-		nox_common_gameFlags_unset_40A540(9437184);
+	if (nox_common_gameFlags_check_40A5C0(0x900000)) {
+		nox_common_gameFlags_unset_40A540(0x900000);
+	}
 	return 1;
 }
 
