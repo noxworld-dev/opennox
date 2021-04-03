@@ -145,7 +145,7 @@ mainloop:
 		C.sub_4519C0()
 		C.sub_4312C0()
 		C.sub_495430()
-		if noxflags.HasGame(noxflags.GameServer) && continueMenuOrHost {
+		if noxflags.HasGame(noxflags.GameHost) && continueMenuOrHost {
 			mainloopMaybeSwitchMapXXX()
 		}
 		if C.nox_client_gui_flag_815132 != 0 {
@@ -158,7 +158,7 @@ mainloop:
 		}
 		C.sub_435750()
 		if memmap.Uint32(0x587000, 93192) != 0 {
-			if noxflags.HasGame(noxflags.GameServer) && noxflags.HasGame(noxflags.GameFlag2) && !getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) && noxflags.HasGame(noxflags.GameFlag29) {
+			if noxflags.HasGame(noxflags.GameHost) && noxflags.HasGame(noxflags.GameFlag2) && !getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) && noxflags.HasGame(noxflags.GameFlag29) {
 				if !getEngineFlag(NOX_ENGINE_FLAG_32) {
 					nox_ticks_maybe_sleep_416DD0()
 				}
@@ -196,7 +196,7 @@ mainloop:
 				g_v20 = true
 				C.sub_43F140(800)
 				nox_common_initRandom_415F70()
-				C.nox_frame_xxx_2598000 = C.uint(bool2int(noxflags.HasGame(noxflags.GameServer)))
+				C.nox_frame_xxx_2598000 = C.uint(bool2int(noxflags.HasGame(noxflags.GameHost)))
 				C.nox_ensure_thing_bin()
 				*memmap.PtrUint32(0x5D4594, 2650664) = 0
 				*memmap.PtrUint32(0x5D4594, 2649708) = 0
@@ -207,7 +207,7 @@ mainloop:
 					}
 					continue mainloop
 				}
-				if noxflags.HasGame(noxflags.GameServer) {
+				if noxflags.HasGame(noxflags.GameHost) {
 					if C.nox_xxx_servNewSession_4D1660() == 0 {
 						continue mainloop
 					}
@@ -215,7 +215,7 @@ mainloop:
 				if C.nox_xxx_clientResetSpriteAndGui_4357D0(C.int(g_argc2), g_argv2) == 0 {
 					continue mainloop
 				}
-				if noxflags.HasGame(noxflags.GameServer) && noxflags.HasGame(noxflags.GameFlag23) && getEngineFlag(NOX_ENGINE_FLAG_1) {
+				if noxflags.HasGame(noxflags.GameHost) && noxflags.HasGame(noxflags.GameFlag23) && getEngineFlag(NOX_ENGINE_FLAG_1) {
 					v23 := nox_fs_root()
 					C.sub_4D39F0(v23)
 					if C.nox_xxx_mapGenStart_4D4320() == 0 {
@@ -241,7 +241,7 @@ mainloop:
 		C.sub_43F140(300)
 		C.sub_43D990()
 		C.nox_xxx_replayWriteSomeInt_4D39B0()
-		if noxflags.HasGame(noxflags.GameServer) {
+		if noxflags.HasGame(noxflags.GameHost) {
 			C.nox_xxx_servResetPlayers_4D23C0()
 		}
 		if noxflags.HasGame(noxflags.GameFlag2) {
@@ -254,7 +254,7 @@ mainloop:
 		C.nox_video_setGammaSetting_434B30(1)
 		C.sub_434B60()
 		g_v21 = false
-		if noxflags.HasGame(noxflags.GameServer) {
+		if noxflags.HasGame(noxflags.GameHost) {
 			C.nox_xxx_servEndSession_4D3200()
 		}
 		if noxflags.HasGame(noxflags.GameFlag2) {
@@ -355,7 +355,7 @@ func CONNECT_PREPARE() {
 	*(*uint32)(unsafe.Pointer(&Datas[138])) = uint32(C.dword_5d4594_2660032)
 	copy(Datas, infos[:97])
 
-	if noxflags.HasGame(noxflags.GameServer) {
+	if noxflags.HasGame(noxflags.GameHost) {
 		C.nox_xxx_replay_4D3860(Data)
 		*memmap.PtrPtr(0x5D4594, 2616328) = unsafe.Pointer(C.nox_xxx_playerNew_4DD320(31, (C.int)(uintptr(Data))))
 		C.nox_client_setVersion_409AE0(NOX_CLIENT_VERS_CODE)
@@ -580,7 +580,7 @@ func NET_CONNECT_THEN(v5 int) {
 		return
 	}
 
-	if !noxflags.HasGame(noxflags.GameServer) {
+	if !noxflags.HasGame(noxflags.GameHost) {
 		C.dword_5d4594_2649712 |= 0x80000000
 	}
 	C.nox_xxx_netBufs_40ED10(31, 0)
@@ -633,7 +633,7 @@ func CONNECT_WAIT_THEN(result int) {
 		return
 	}
 	C.dword_5d4594_811372 = 2
-	if !noxflags.HasGame(noxflags.GameServer) {
+	if !noxflags.HasGame(noxflags.GameHost) {
 		C.sub_417C60()
 	}
 	fmt.Println("goto CONNECT_RESULT")
@@ -647,7 +647,7 @@ func CONNECT_RESULT(result int) {
 	if result != 0 {
 		noxflags.UnsetGame(noxflags.GameFlag21)
 		g_v21 = false
-		if noxflags.HasGame(noxflags.GameServer) {
+		if noxflags.HasGame(noxflags.GameHost) {
 			C.nox_xxx_servEndSession_4D3200()
 		}
 		if noxflags.HasGame(noxflags.GameFlag2) {
@@ -666,7 +666,7 @@ func CONNECT_RESULT(result int) {
 		cmainLoop()
 		return
 	}
-	if !noxflags.HasGame(noxflags.GameServer) {
+	if !noxflags.HasGame(noxflags.GameHost) {
 		C.nox_xxx_setGameState_43DDF0(nil)
 	} else if C.nox_xxx_servInitialMapLoad_4D17F0() == 0 {
 		cmainLoop()
@@ -692,7 +692,7 @@ func CONNECT_RESULT(result int) {
 	if getEngineFlag(NOX_ENGINE_FLAG_13) {
 		C.sub_413E30()
 	}
-	if noxflags.HasGame(noxflags.GameFlag14) && noxflags.HasGame(noxflags.GameServer) && C.sub_43AF40() != 0 {
+	if noxflags.HasGame(noxflags.GameServerXxx) && noxflags.HasGame(noxflags.GameHost) && C.sub_43AF40() != 0 {
 		C.sub_43AA70()
 	}
 	C.sub_43F1A0()
@@ -715,7 +715,7 @@ func mainloopMaybeSwitchMapXXX() {
 	if C.nox_client_gui_flag_815132 != 0 {
 		return
 	}
-	if !noxflags.HasGame(noxflags.GameFlag14) {
+	if !noxflags.HasGame(noxflags.GameServerXxx) {
 		return
 	}
 	if C.nox_server_gameDoSwitchMap_40A680() != 0 {

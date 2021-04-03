@@ -87,11 +87,11 @@ func startServer() int {
 	C.nox_game_createOrJoin_815048 = 1
 	setEngineFlag(NOX_ENGINE_FLAG_5)
 	resetEngineFlag(NOX_ENGINE_FLAG_6)
-	noxflags.SetGame(noxflags.GameFlag14)
+	noxflags.SetGame(noxflags.GameServerXxx)
 	if !isServerQuest {
-		noxflags.SetGame(noxflags.GameFlag17)
+		noxflags.SetGame(noxflags.GameNotQuest)
 	} else {
-		noxflags.UnsetGame(noxflags.GameFlag17)
+		noxflags.UnsetGame(noxflags.GameNotQuest)
 	}
 	noxflags.UnsetGame(noxflags.GameSolo)
 	C.sub_461440(0)
@@ -220,7 +220,7 @@ func initGameSession435CC0() int {
 	C.sub_4958F0()
 	C.nox_xxx_gameSetCliConnected_43C720(0)
 	noxflags.SetGame(noxflags.GameFlag24)
-	if noxflags.HasGame(noxflags.GameServer) {
+	if noxflags.HasGame(noxflags.GameHost) {
 		C.nox_xxx_netPlayerIncomingServ_4DDF60(31)
 	} else {
 		C.nox_xxx_netSendIncomingClient_43CB00()
@@ -247,7 +247,7 @@ func initGameSession435CC0() int {
 			C.nox_xxx_cliPrepareGameplay1_460E60()
 			C.nox_xxx_cliPrepareGameplay2_4721D0()
 		}
-		if !noxflags.HasGame(noxflags.GameServer) {
+		if !noxflags.HasGame(noxflags.GameHost) {
 			C.sub_41CC00((*C.char)(memmap.PtrOff(0x5D4594, 2660688)))
 		}
 	}
