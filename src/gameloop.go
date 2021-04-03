@@ -19,11 +19,9 @@ extern unsigned int nox_xxx_netStructID_815700;
 extern unsigned int dword_5d4594_2618912;
 extern unsigned int nox_client_gui_flag_815132;
 extern unsigned int nox_gameFPS;
-extern unsigned int nox_frame_xxx_2598000;
 extern unsigned int nox_xxx_gameDownloadInProgress_587000_173328;
 extern nox_net_struct_t* nox_net_struct_arr[NOX_NET_STRUCT_MAX];
 
-int call_func_5D4594_816388();
 int call_func_5D4594_816392();
 int call_nox_draw_unk1();
 */
@@ -81,7 +79,7 @@ func mainloop_43E290() {
 	fmt.Printf("mainloop_43E290 (%s)\n", caller(1))
 	mainloopContinue = true
 	continueMenuOrHost = true
-	*memmap.PtrUint32(0x5D4594, 816400) = 60 * uint32(C.nox_gameFPS)
+	*memmap.PtrUint32(0x5D4594, 816400) = 60 * gameFPS()
 
 	// XXX
 	C.nox_xxx_gameStopDownload_4AB560(0)
@@ -124,7 +122,7 @@ mainloop:
 		inpHandler.Tick()
 		C.sub_413520_gamedisk()
 		C.nox_xxx_time_startProfile_435770()
-		if C.call_func_5D4594_816388() == 0 {
+		if !gameStateFunc() {
 			goto MAINLOOP_EXIT
 		}
 		C.nox_xxx_time_endProfile_435780()
@@ -196,7 +194,7 @@ mainloop:
 				g_v20 = true
 				C.sub_43F140(800)
 				nox_common_initRandom_415F70()
-				C.nox_frame_xxx_2598000 = C.uint(bool2int(noxflags.HasGame(noxflags.GameHost)))
+				gameFrameSetFromFlags()
 				C.nox_ensure_thing_bin()
 				*memmap.PtrUint32(0x5D4594, 2650664) = 0
 				*memmap.PtrUint32(0x5D4594, 2649708) = 0
@@ -290,7 +288,7 @@ func cmainLoop() {
 	if C.sub_43C060() == 0 {
 		return
 	}
-	if C.nox_xxx_cliWaitForJoinData_43BFE0() == 0 {
+	if !nox_xxx_cliWaitForJoinData_43BFE0() {
 		return
 	}
 	if g_v20 {
@@ -667,8 +665,8 @@ func CONNECT_RESULT(result int) {
 		return
 	}
 	if !noxflags.HasGame(noxflags.GameHost) {
-		C.nox_xxx_setGameState_43DDF0(nil)
-	} else if C.nox_xxx_servInitialMapLoad_4D17F0() == 0 {
+		nox_xxx_setGameState_43DDF0(nil)
+	} else if !nox_xxx_servInitialMapLoad_4D17F0() {
 		cmainLoop()
 		return
 	}
@@ -727,9 +725,47 @@ func mainloopMaybeSwitchMapXXX() {
 		}
 		C.sub_459D50(0)
 	}
-	if int32(C.nox_frame_xxx_2598000) >= memmap.Int32(0x5D4594, 816400) {
+	if gameFrame() >= memmap.Uint32(0x5D4594, 816400) {
 		C.sub_4161E0()
 		C.sub_416690()
-		*memmap.PtrUint32(0x5D4594, 816400) = uint32(C.nox_frame_xxx_2598000) + 60*uint32(C.nox_gameFPS)
+		*memmap.PtrUint32(0x5D4594, 816400) = gameFrame() + 60*gameFPS()
 	}
+}
+
+var gameStateFunc func() bool
+
+func nox_xxx_setGameState_43DDF0(fnc func() bool) bool {
+	if fnc != nil {
+		gameStateFunc = fnc
+	} else {
+		fnc = func() bool {
+			return true
+		}
+	}
+	return true
+}
+
+func nox_xxx_cliWaitForJoinData_43BFE0() bool {
+	nox_xxx_setGameState_43DDF0(nox_xxx_gameStateWait_43C020)
+	C.nox_game_SetCliDrawFunc(nil)
+	if memmap.Uint32(0x587000, 91840) != 0 {
+		*memmap.PtrUint32(0x587000, 91840) = 0
+		C.nox_client_gui_flag_815132 = 1
+		return true
+	}
+	if C.nox_game_switchStates_43C0A0() == 0 {
+		return false
+	}
+	C.nox_client_gui_flag_815132 = 1
+	return true
+}
+
+func nox_xxx_gameStateWait_43C020() bool {
+	gameFrameInc()
+	if C.nox_client_gui_flag_815132 != 0 {
+		return true
+	}
+	C.nox_xxx_drawSelectColor_434350(C.int(memmap.Uint32(0x5D4594, 2650656)))
+	C.sub_440900()
+	return false
 }

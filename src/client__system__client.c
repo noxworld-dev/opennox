@@ -50,7 +50,7 @@ void nox_xxx_clientDrawAll_436100_draw() {
 		nox_ticks_xxx_416D40();
 	}
 	if (!(!*getMemU32Ptr(0x587000, 85724) || v3 || !nox_common_gameFlags_check_40A5C0(1) || sub_416D70() ||
-		  nox_client_gui_flag_815132 || nox_xxx_checkGFlagNoParticles_413A50() || nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING))) {
+		  nox_client_gui_flag_815132 || nox_xxx_checkGameFlagPause_413A50() || nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING))) {
 		nox_common_setEngineFlag(NOX_ENGINE_FLAG_32);
 		return;
 	}

@@ -13,6 +13,9 @@ extern unsigned int dword_5d4594_811372;
 extern int nox_win_width;
 extern int nox_win_height;
 extern obj_5D4594_811068_t obj_5D4594_811068;
+
+int nox_xxx_gameTick_4D2580_server();
+int nox_xxx_mapExitAndCheckNext_4D1860_server();
 */
 import "C"
 import (
@@ -275,4 +278,29 @@ func initGameSession435CC0() int {
 
 func nox_server_parseCmdText_443C80(cmd string, flag int) int {
 	return int(C.nox_server_parseCmdText_443C80(internWStr(cmd), C.int(flag)))
+}
+
+func nox_server_currentMapGetFilename_409B30() string {
+	return C.GoString((*C.char)(memmap.PtrOff(0x5D4594, 2598188)))
+}
+
+func nox_xxx_servInitialMapLoad_4D17F0() bool {
+	C.sub_4E79B0(0)
+	if nox_server_currentMapGetFilename_409B30()[0] == memmap.Uint8(0x5D4594, 1548720) {
+		C.nox_xxx_gameSetMapPath_409D70(internCStr("tutorial.map"))
+	}
+	C.nox_xxx_netMapSendStop_519870()
+	if C.nox_xxx_mapExitAndCheckNext_4D1860_server() == 0 {
+		return false
+	}
+	nox_xxx_setGameState_43DDF0(nox_xxx_gameTick_4D2580_server)
+	C.nox_xxx_netBuf_40EE90(1)
+	noxflags.SetGame(noxflags.GameFlag18)
+	C.nox_xxx_netGameSettings_4DEF00()
+	C.nox_server_gameUnsetMapLoad_40A690()
+	return true
+}
+
+func nox_xxx_gameTick_4D2580_server() bool {
+	return C.nox_xxx_gameTick_4D2580_server() != 0
 }

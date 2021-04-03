@@ -233,7 +233,7 @@ void sub_445C40() {
 		if (!*getMemU32Ptr(0x5D4594, 2614252) || !nox_common_gameFlags_check_40A5C0(2048) ||
 			(result = *(_DWORD*)(*getMemU32Ptr(0x5D4594, 2614252) + 276), result != 2) && result != 1 && result != 51) {
 			if (sub_45D9B0() != 1) {
-				if (nox_xxx_checkGFlagNoParticles_413A50() != 1) {
+				if (nox_xxx_checkGameFlagPause_413A50() != 1) {
 					nox_xxx_clientPlaySoundSpecial_452D80(921, 100);
 					nox_xxx_wndShowModalMB_46A8C0(*(int*)&dword_5d4594_825760);
 					*(_DWORD*)(dword_5d4594_825760 + 4) |= 8u;

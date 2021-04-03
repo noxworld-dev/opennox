@@ -5080,7 +5080,7 @@ char*  nox_xxx_collideExit_4E9090(int a1, int a2, int a3) {
 				if (result != (char*)1) {
 					result = (char*)sub_4DCC10(v4);
 					if (result) {
-						result = (char*)nox_xxx_checkGFlagNoParticles_413A50();
+						result = (char*)nox_xxx_checkGameFlagPause_413A50();
 						if (result != (char*)1) {
 							if (*v6 || (result = (char*)nox_common_gameFlags_check_40A5C0(4096)) != 0) {
 								if (*(_BYTE*)(*(_DWORD*)(v5 + 276) + 2251) == 1) {
@@ -5101,7 +5101,7 @@ char*  nox_xxx_collideExit_4E9090(int a1, int a2, int a3) {
 								}
 								v9 = 1;
 								if (nox_common_gameFlags_check_40A5C0(4096)) {
-									v10 = sub_4D0F60();
+									v10 = nox_xxx_getQuestMapFile_4D0F60();
 									v19 = v10;
 								} else {
 									v10 = (char*)v19;
@@ -5389,7 +5389,7 @@ void  nox_xxx_collideBomb_4E96F0(int a1, int a2) {
 	int v3; // eax
 
 	v2 = *(_DWORD*)(a1 + 748);
-	if (!nox_common_gameFlags_check_40A5C0(2048) || (*(_BYTE*)(nox_xxx_getFirstPlayerUnit_4DA7C0() + 16) & 2) != 2) {
+	if (!nox_common_gameFlags_check_40A5C0(2048) || (*(_BYTE*)((int)nox_xxx_getFirstPlayerUnit_4DA7C0() + 16) & 2) != 2) {
 		nox_xxx_scriptCallByEventBlock_502490((int*)(v2 + 1272), a2, a1);
 		if (a2 && *(_BYTE*)(a2 + 8) & 6 && !nox_xxx_unitsHaveSameTeam_4EC520(a1, a2)) {
 			v3 = *(_DWORD*)(a2 + 16);
@@ -5502,7 +5502,7 @@ BOOL  sub_4E9A30(int a1, int a2) {
 	int v4;  // eax
 	BOOL v5; // esi
 
-	if (nox_common_gameFlags_check_40A5C0(2048) && (*(_BYTE*)(nox_xxx_getFirstPlayerUnit_4DA7C0() + 16) & 2) == 2)
+	if (nox_common_gameFlags_check_40A5C0(2048) && (*(_BYTE*)((int)nox_xxx_getFirstPlayerUnit_4DA7C0() + 16) & 2) == 2)
 		return 0;
 	v5 = 1;
 	if (a2) {

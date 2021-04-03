@@ -6392,7 +6392,7 @@ void sub_49BD70(int a1) {
 	void( * result2)(int, int); // eax
 	int ( * v4)(int, _DWORD);   // eax
 
-	if (nox_xxx_checkGFlagNoParticles_413A50() == 1) {
+	if (nox_xxx_checkGameFlagPause_413A50() == 1) {
 		return;
 	}
 	int v2 = nox_xxx_getSomeSprite_49BD40();

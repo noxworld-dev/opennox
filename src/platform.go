@@ -2,7 +2,6 @@ package main
 
 /*
 #include <stdbool.h>
-extern unsigned int nox_frame_xxx_2598000;
 */
 import "C"
 import (
@@ -86,19 +85,19 @@ func nox_ticks_until_next_416D00() int64 {
 //export nox_ticks_xxx_416D40
 func nox_ticks_xxx_416D40() {
 	*memmap.PtrUint64(0x5D4594, 371764) = platformTicks()
-	*memmap.PtrUint32(0x5D4594, 371772) = uint32(C.nox_frame_xxx_2598000)
+	*memmap.PtrUint32(0x5D4594, 371772) = gameFrame()
 	resetEngineFlag(NOX_ENGINE_FLAG_32)
 }
 
 //export sub_416D70
 func sub_416D70() C.bool {
-	v2 := float64(int(C.nox_frame_xxx_2598000)-int(memmap.Uint32(0x5D4594, 371772))) * float64(memmap.Float32(0x587000, 54424))
+	v2 := float64(int(gameFrame())-int(memmap.Uint32(0x5D4594, 371772))) * float64(memmap.Float32(0x587000, 54424))
 	return float64(int64(platformTicks())-int64(memmap.Uint32(0x5D4594, 371764)))*0.001 <= v2
 }
 
 //export nox_ticks_maybe_sleep_416DD0
 func nox_ticks_maybe_sleep_416DD0() {
-	v1 := float64(int(C.nox_frame_xxx_2598000)-int(memmap.Uint32(0x5D4594, 371772))) * float64(memmap.Float32(0x587000, 54428))
+	v1 := float64(int(gameFrame())-int(memmap.Uint32(0x5D4594, 371772))) * float64(memmap.Float32(0x587000, 54428))
 	ms := int64(v1) + int64(memmap.Uint32(0x5D4594, 371764)) - int64(platformTicks())
 	if ms > 0 {
 		platform.Sleep(time.Duration(ms) * time.Millisecond)

@@ -157,6 +157,7 @@ extern int nox_parse_thing_draw_funcs_cnt;
 #ifndef NOX_CGO
 extern _DWORD nox_game_continueMenuOrHost_93200;
 extern _DWORD nox_continue_mainloop_93196;
+int (*func_5D4594_816388)(void) = 0;
 #endif // NOX_CGO
 
 int (*nox_draw_unk1)(void) = 0;
@@ -175,7 +176,6 @@ extern obj_5D4594_3799572_t* ptr_5D4594_3799572;
 obj_5D4594_3799572_t obj_5D4594_3799660 = {0};
 obj_5D4594_3799572_t obj_5D4594_3800716 = {0};
 
-int (*func_5D4594_816388)(void) = 0;
 int (*func_5D4594_816392)(void) = 0;
 void (*func_5D4594_830220)(void) = 0;
 void (*func_5d4594_830216)(void) = 0;
@@ -385,6 +385,7 @@ int  nox_xxx_video_43BF10_upd_video_mode(int defaults) {
 }
 
 //----- (0043BFE0) --------------------------------------------------------
+#ifndef NOX_CGO
 int nox_xxx_cliWaitForJoinData_43BFE0() {
 	int result; // eax
 
@@ -412,6 +413,7 @@ int nox_xxx_gameStateWait_43C020() {
 	sub_440900();
 	return 0;
 }
+#endif // NOX_CGO
 
 //----- (0043C060) --------------------------------------------------------
 BOOL sub_43C060() {
@@ -1681,12 +1683,14 @@ int  nox_xxx_setFrameLimit_43DDE0(int a1) {
 }
 
 //----- (0043DDF0) --------------------------------------------------------
+#ifndef NOX_CGO
 int  nox_xxx_setGameState_43DDF0(int (*a1)(void)) {
 	func_5D4594_816388 = a1;
 	if (!a1)
 		func_5D4594_816388 = nox_return_1_43DE10;
 	return 1;
 }
+#endif // NOX_CGO
 
 //----- (0043DE10) --------------------------------------------------------
 int nox_return_1_43DE10() { return 1; }

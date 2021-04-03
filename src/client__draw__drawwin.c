@@ -38,7 +38,7 @@ int  nox_xxx_drawHasteAndRunParticles_4746C0(_DWORD* a1, int a2) {
 		sub_4739E0(a1, (int2*)(a2 + 12), &v26);
 		sub_4B6720(&v26, *getMemIntPtr(0x5D4594, 2650684), 30, 31);
 	}
-	if (nox_xxx_spriteTestBuf_4356C0(a2, 9) && !nox_xxx_checkGFlagNoParticles_413A50()) {
+	if (nox_xxx_spriteTestBuf_4356C0(a2, 9) && !nox_xxx_checkGameFlagPause_413A50()) {
 		if (!*getMemU32Ptr(0x5D4594, 1096524)) {
 			*getMemU32Ptr(0x5D4594, 1096524) = nox_xxx_getTTByNameSpriteMB_44CFC0("WhiteBubbleParticle");
 			*getMemU32Ptr(0x5D4594, 1096528) = nox_xxx_getTTByNameSpriteMB_44CFC0("LightBlueBubbleParticle");
@@ -67,7 +67,7 @@ int  nox_xxx_drawHasteAndRunParticles_4746C0(_DWORD* a1, int a2) {
 			} while (v2);
 		}
 	}
-	if (nox_xxx_spriteTestBuf_4356C0(a2, 8) && !nox_xxx_checkGFlagNoParticles_413A50()) {
+	if (nox_xxx_spriteTestBuf_4356C0(a2, 8) && !nox_xxx_checkGameFlagPause_413A50()) {
 		if (!*getMemU32Ptr(0x5D4594, 1096532)) {
 			*getMemU32Ptr(0x5D4594, 1096532) = nox_xxx_getTTByNameSpriteMB_44CFC0("RedBubbleParticle");
 			*getMemU32Ptr(0x5D4594, 1096536) = nox_xxx_getTTByNameSpriteMB_44CFC0("OrangeBubbleParticle");
@@ -187,7 +187,7 @@ int  nox_xxx_drawEffectsMB_474E60(_DWORD* a1, int a2) {
 	} else {
 		v4 = a1;
 	}
-	if (nox_xxx_spriteTestBuf_4356C0(a2, 4) && !nox_xxx_checkGFlagNoParticles_413A50()) {
+	if (nox_xxx_spriteTestBuf_4356C0(a2, 4) && !nox_xxx_checkGameFlagPause_413A50()) {
 		v11 = nox_float2int(*(float*)(a2 + 48));
 		v39 = *(float*)(a2 + 100) * 0.5;
 		v44 = nox_float2int(v39);
@@ -206,7 +206,7 @@ int  nox_xxx_drawEffectsMB_474E60(_DWORD* a1, int a2) {
 		} while (v12);
 		v4 = a1;
 	}
-	if (nox_xxx_spriteTestBuf_4356C0(v2, 21) && !nox_xxx_checkGFlagNoParticles_413A50()) {
+	if (nox_xxx_spriteTestBuf_4356C0(v2, 21) && !nox_xxx_checkGameFlagPause_413A50()) {
 		if (!*getMemU32Ptr(0x5D4594, 1096548))
 			*getMemU32Ptr(0x5D4594, 1096548) = nox_xxx_getTTByNameSpriteMB_44CFC0("GreenBubbleParticle");
 		v41 = nox_common_randomIntMinMax_415FF0(2, 3, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1335);
@@ -219,7 +219,7 @@ int  nox_xxx_drawEffectsMB_474E60(_DWORD* a1, int a2) {
 		v15 = nox_common_randomIntMinMax_415FF0(-6, 6, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1326);
 		sub_499F60(*getMemIntPtr(0x5D4594, 1096548), *(_DWORD*)(v2 + 12) + v15, v31, v33, v35, v37, 1, 0, 0, v41);
 	}
-	if (nox_xxx_spriteTestBuf_4356C0(v2, 13) && !nox_xxx_checkGFlagNoParticles_413A50()) {
+	if (nox_xxx_spriteTestBuf_4356C0(v2, 13) && !nox_xxx_checkGameFlagPause_413A50()) {
 		if (!*getMemU32Ptr(0x5D4594, 1096552)) {
 			*getMemU32Ptr(0x5D4594, 1096452) = nox_color_rgb_4344A0(255, 0, 255);
 			*getMemU32Ptr(0x5D4594, 1096436) = nox_color_rgb_4344A0(255, 180, 255);

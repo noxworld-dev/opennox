@@ -255,12 +255,12 @@ void nox_xxx_clientControl_42D6B0_A(int a4) {
 					nox_ctrlevent_action_42E670(CC_ToggleConsole, 0);
 					break;
 				case 0xC:
-					if (!nox_xxx_checkGFlagNoParticles_413A50()) {
+					if (!nox_xxx_checkGameFlagPause_413A50()) {
 						nox_ctrlevent_action_42E670(CC_IncreaseWindowSize, 0);
 					}
 					break;
 				case 0xD:
-					if (!nox_xxx_checkGFlagNoParticles_413A50()) {
+					if (!nox_xxx_checkGameFlagPause_413A50()) {
 						nox_ctrlevent_action_42E670(CC_DecreaseWindowSize, 0);
 					}
 					break;
@@ -414,7 +414,7 @@ void nox_xxx_clientControl_42D6B0_A(int a4) {
 					}
 					break;
 				case 0x33:
-					if (!nox_xxx_checkGFlagNoParticles_413A50()) {
+					if (!nox_xxx_checkGameFlagPause_413A50()) {
 						nox_ctrlevent_action_42E670(CC_AutoSave, 0);
 					}
 					break;
@@ -817,7 +817,7 @@ void nox_ctrlevent_action_42E670(nox_ctrlevent_code code, _DWORD data) {
 //----- (0042E780) --------------------------------------------------------
 void nox_ctrlevent_action_42E780(nox_ctrlevent_code code, _DWORD data) {
 	if (*getMemU32Ptr(0x5D4594, 2614252) && !(*(_BYTE*)(*getMemU32Ptr(0x5D4594, 2614252) + 120) & 2)) {
-		if (!nox_xxx_checkGFlagNoParticles_413A50()) {
+		if (!nox_xxx_checkGameFlagPause_413A50()) {
 			nox_ctrlevent_action_42E670(code, data);
 		}
 	}

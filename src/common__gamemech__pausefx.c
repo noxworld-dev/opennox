@@ -12,7 +12,7 @@ void  sub_57AF30(int a1, int a2) {
 	wchar_t* v4; // eax
 	int v5;      // esi
 
-	if (!(dword_5d4594_2523804 != 1 && !nox_xxx_checkGFlagNoParticles_413A50())) {
+	if (!(dword_5d4594_2523804 != 1 && !nox_xxx_checkGameFlagPause_413A50())) {
 		return;
 	}
 	v2 = a1;
