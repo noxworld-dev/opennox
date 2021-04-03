@@ -17,6 +17,8 @@ import (
 	"nox/common/bag"
 )
 
+var debugBagImages = os.Getenv("NOX_DEBUG_BAG_IMAGES") == "true"
+
 var videoBag struct {
 	once   sync.Once
 	err    error
@@ -76,9 +78,11 @@ func imageByBagSection(sect, offs int) (image.Image, image.Point, error) {
 	if !ok {
 		return nil, image.Point{}, fmt.Errorf("image not found: %d, %d", sect, offs)
 	}
-	if _, ok := videoBag.seen[img]; !ok {
-		videoBag.seen[img] = struct{}{}
-		log.Printf("image access: %q", img.Name)
+	if debugBagImages {
+		if _, ok := videoBag.seen[img]; !ok {
+			videoBag.seen[img] = struct{}{}
+			log.Printf("image access: %q", img.Name)
+		}
 	}
 	ext := path.Ext(img.Name)
 	base := strings.TrimSuffix(img.Name, ext)

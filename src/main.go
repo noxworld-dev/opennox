@@ -63,7 +63,7 @@ import (
 func init() {
 	handles.Init()
 	go func() {
-		if err := http.ListenAndServe(":6060", nil); err != nil {
+		if err := http.ListenAndServe("127.0.0.1:6060", nil); err != nil {
 			log.Printf("failed to start pprof: %v", err)
 		}
 	}()
@@ -173,23 +173,23 @@ func runNox(args []string) error {
 		}
 	})
 	noxflags.OnGameSet(func(f noxflags.GameFlag) {
-		log.Printf("game flag set: 0x%x", f)
+		log.Printf("game flag set: %v", f)
 		C.nox_xxx_guiChatShowHide_445730(C.int(bool2int((noxflags.GetGame() & 0x17F0) != noxflags.GameFlag8)))
-		if f.Has(noxflags.GameSuddenDeath) && noxflags.HasGame(noxflags.GameServer) {
+		if f.Has(noxflags.GameSuddenDeath) && noxflags.HasGame(noxflags.GameHost) {
 			C.nox_xxx_netPrintLineToAll_4DA390(C.CString("Settings.c:SuddenDeathStart"))
 		}
 	})
 	noxflags.OnGameUnset(func(f noxflags.GameFlag) {
-		log.Printf("game flag unset: 0x%x", f)
+		log.Printf("game flag unset: %v", f)
 		if f.Has(noxflags.GameSuddenDeath) {
 			C.dword_5d4594_3592 = 0
 		}
 	})
-	noxflags.SetGame(noxflags.GameServer | noxflags.GameFlag2)
+	noxflags.SetGame(noxflags.GameHost | noxflags.GameFlag2)
 	setEngineFlag(NOX_ENGINE_FLAG_ENABLE_SOFT_SHADOW_EDGE)
 	C.dword_5d4594_2650652 = 0
 	C.nox_gameFPS = 30
-	C.nox_frame_xxx_2598000 = C.uint(bool2int(noxflags.HasGame(noxflags.GameServer)))
+	C.nox_frame_xxx_2598000 = C.uint(bool2int(noxflags.HasGame(noxflags.GameHost)))
 	nox_ticks_xxx_416D40()
 	C.nox_xxx_setGameState_43DDF0(nil)
 	C.nox_game_SetCliDrawFunc(nil)
