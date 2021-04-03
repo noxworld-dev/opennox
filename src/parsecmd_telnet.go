@@ -8,6 +8,7 @@ import (
 	"strconv"
 
 	"nox/client/system/parsecmd"
+	noxflags "nox/common/flags"
 )
 
 func init() {
@@ -21,7 +22,7 @@ func cmdTelnetOff(_ int, tokens []string) bool {
 	if len(tokens) != 2 {
 		return false
 	}
-	if getGameFlag(2048) {
+	if noxflags.HasGame(noxflags.GameSolo) {
 		return true
 	}
 	C.nox_telnet_stop_579830()
@@ -35,7 +36,7 @@ func cmdTelnetOn(_ int, tokens []string) bool {
 	if n < 2 || n > 3 {
 		return false
 	}
-	if getGameFlag(2048) {
+	if noxflags.HasGame(noxflags.GameSolo) {
 		return true
 	}
 	if n == 2 {

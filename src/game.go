@@ -23,6 +23,7 @@ import (
 	"github.com/noxworld-dev/xwis"
 
 	"nox/common/alloc"
+	noxflags "nox/common/flags"
 	"nox/common/memmap"
 )
 
@@ -40,7 +41,7 @@ func nox_game_rollLogoAndStart_4AB1F0() C.int {
 	path := (*C.char)(alloc.Calloc(128, 1))
 	defer alloc.Free(unsafe.Pointer(path))
 	C.nox_game_decStateInd_43BDC0()
-	if getGameFlag(0x2000000) || !nox_game_setMovieFile_4CB230("WWLogo.vqa", path) {
+	if noxflags.HasGame(noxflags.GameFlag26) || !nox_game_setMovieFile_4CB230("WWLogo.vqa", path) {
 		nox_game_rollIntroAndStart_4AB170()
 		return 1
 	}
@@ -54,7 +55,7 @@ func nox_game_rollLogoAndStart_4AB1F0() C.int {
 func nox_game_rollIntroAndStart_4AB170() C.int {
 	path := (*C.char)(alloc.Calloc(128, 1))
 	defer alloc.Free(unsafe.Pointer(path))
-	if C.sub_578DF0()&0x80 != 0 || getGameFlag(0x2000000) || !nox_game_setMovieFile_4CB230("Intro.vqa", path) {
+	if C.sub_578DF0()&0x80 != 0 || noxflags.HasGame(noxflags.GameFlag26) || !nox_game_setMovieFile_4CB230("Intro.vqa", path) {
 		nox_game_rollNoxLogoAndStart_4AB0F0()
 		return 1
 	}
@@ -69,7 +70,7 @@ func nox_game_rollIntroAndStart_4AB170() C.int {
 func nox_game_rollNoxLogoAndStart_4AB0F0() C.int {
 	path := (*C.char)(alloc.Calloc(128, 1))
 	defer alloc.Free(unsafe.Pointer(path))
-	if getGameFlag(0x2000000) || !nox_game_setMovieFile_4CB230("NoxLogo.vqa", path) {
+	if noxflags.HasGame(noxflags.GameFlag26) || !nox_game_setMovieFile_4CB230("NoxLogo.vqa", path) {
 		if C.nox_game_showLegal_4CC4E0() == 0 {
 			nox_xxx_setContinueMenuOrHost_43DDD0(0)
 			C.nox_client_gui_flag_815132 = 0
@@ -86,13 +87,13 @@ func startServer() int {
 	C.nox_game_createOrJoin_815048 = 1
 	setEngineFlag(NOX_ENGINE_FLAG_5)
 	resetEngineFlag(NOX_ENGINE_FLAG_6)
-	setGameFlag(0x2000)
+	noxflags.SetGame(noxflags.GameFlag14)
 	if !isServerQuest {
-		setGameFlag(0x10000)
+		noxflags.SetGame(noxflags.GameFlag17)
 	} else {
-		unsetGameFlag(0x10000)
+		noxflags.UnsetGame(noxflags.GameFlag17)
 	}
-	unsetGameFlag(2048)
+	noxflags.UnsetGame(noxflags.GameSolo)
 	C.sub_461440(0)
 	C.sub_4D6F40(0)
 	C.sub_4D6F90(0)
@@ -218,8 +219,8 @@ func initGameSession435CC0() int {
 
 	C.sub_4958F0()
 	C.nox_xxx_gameSetCliConnected_43C720(0)
-	setGameFlag(0x800000)
-	if getGameFlag(1) {
+	noxflags.SetGame(noxflags.GameFlag24)
+	if noxflags.HasGame(noxflags.GameServer) {
 		C.nox_xxx_netPlayerIncomingServ_4DDF60(31)
 	} else {
 		C.nox_xxx_netSendIncomingClient_43CB00()
@@ -238,7 +239,7 @@ func initGameSession435CC0() int {
 	C.obj_5D4594_811068.field_12 = 0
 	v1 := C.sub_4766D0()
 	C.sub_476700(v1, 0)
-	if getGameFlag(2048) {
+	if noxflags.HasGame(noxflags.GameSolo) {
 		C.sub_41CC00((*C.char)(memmap.PtrOff(0x5D4594, 2660688)))
 	} else if C.sub_4D6F50() != 0 || C.sub_4D6F70() != 0 {
 		if C.sub_4D6F50() != 0 || C.sub_4D6F70() != 0 {
@@ -246,7 +247,7 @@ func initGameSession435CC0() int {
 			C.nox_xxx_cliPrepareGameplay1_460E60()
 			C.nox_xxx_cliPrepareGameplay2_4721D0()
 		}
-		if !getGameFlag(1) {
+		if !noxflags.HasGame(noxflags.GameServer) {
 			C.sub_41CC00((*C.char)(memmap.PtrOff(0x5D4594, 2660688)))
 		}
 	}

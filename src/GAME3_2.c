@@ -736,11 +736,11 @@ char nox_xxx_mapReadSetFlags_4CF990() {
 		if (getMemByte(0x5D4594, 3801836 + 1392) & 1) {
 			nox_common_gameFlags_unset_40A540(6128);
 			nox_xxx_createCoopTeam_417E10();
-			LOBYTE(v3) = nox_xxx_setGameFlags_40A4D0(2048);
+			nox_xxx_setGameFlags_40A4D0(2048);
 		} else if (getMemByte(0x5D4594, 3801836 + 1392) & 2) {
 			v4 = nox_common_gameFlags_check_40A5C0(128);
 			nox_common_gameFlags_unset_40A540(6128);
-			LOBYTE(v3) = nox_xxx_setGameFlags_40A4D0(4096);
+			nox_xxx_setGameFlags_40A4D0(4096);
 			if (v4)
 				LOBYTE(v3) = nox_server_setupQuestGame_4D6C70();
 		} else if ((int)*getMemU32Ptr(0x5D4594, 3801836 + 1392) >= 0) {
@@ -753,7 +753,7 @@ char nox_xxx_mapReadSetFlags_4CF990() {
 				v3 = nox_xxx_mapInfoSetCapflag_417EA0();
 				if (v3) {
 					nox_common_gameFlags_unset_40A540(6128);
-					LOBYTE(v3) = nox_xxx_setGameFlags_40A4D0(32);
+					nox_xxx_setGameFlags_40A4D0(32);
 				}
 			} else if (v5 & 0x40) {
 				LOBYTE(v3) = nox_xxx_mapInfoSetFlagball_417F30();
@@ -766,16 +766,16 @@ char nox_xxx_mapReadSetFlags_4CF990() {
 				v3 = nox_xxx_mapInfoSetKotr_4180D0();
 				if (v3) {
 					nox_common_gameFlags_unset_40A540(6128);
-					LOBYTE(v3) = nox_xxx_setGameFlags_40A4D0(16);
+					nox_xxx_setGameFlags_40A4D0(16);
 				}
 			} else if (v5 & 0x400) {
 				if (!nox_common_gameFlags_check_40A5C0(1024))
 					nox_xxx_ruleSetNoRespawn_40A5E0(1);
 				nox_common_gameFlags_unset_40A540(6128);
-				LOBYTE(v3) = nox_xxx_setGameFlags_40A4D0(1024);
+				nox_xxx_setGameFlags_40A4D0(1024);
 			} else {
 				nox_common_gameFlags_unset_40A540(6128);
-				LOBYTE(v3) = nox_xxx_setGameFlags_40A4D0(256);
+				nox_xxx_setGameFlags_40A4D0(256);
 			}
 		} else {
 			sub_40A1F0(0);

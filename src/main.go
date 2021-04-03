@@ -28,6 +28,7 @@ extern unsigned int nox_gameFPS;
 extern unsigned int nox_profiled_805856;
 extern unsigned int nox_xxx_useMMX_587000_80800;
 
+extern unsigned int dword_5d4594_3592;
 extern unsigned int dword_5d4594_2650652;
 extern unsigned int nox_video_16bit;
 extern void* dword_587000_81128;
@@ -54,6 +55,7 @@ import (
 	"unsafe"
 
 	"nox/common/alloc/handles"
+	noxflags "nox/common/flags"
 	"nox/common/memmap"
 	"nox/common/types"
 )
@@ -164,18 +166,35 @@ func runNox(args []string) error {
 	*memmap.PtrUint32(0x5D4594, 2618916) = 0
 	C.nox_gameDisableMapDraw_5d4594_2650672 = 0
 	C.nox_game_addStateCode_43BDD0(10)
-	unsetGameFlag(GameFlag_ALL)
-	setGameFlag(3)
+	noxflags.ResetGame()
+	noxflags.OnGameChange(func(f noxflags.GameFlag) {
+		if f.Has(noxflags.GameServerSettings) {
+			C.nox_server_gameSettingsUpdated = 1
+		}
+	})
+	noxflags.OnGameSet(func(f noxflags.GameFlag) {
+		log.Printf("game flag set: 0x%x", f)
+		C.nox_xxx_guiChatShowHide_445730(C.int(bool2int((noxflags.GetGame() & 0x17F0) != noxflags.GameFlag8)))
+		if f.Has(noxflags.GameSuddenDeath) && noxflags.HasGame(noxflags.GameServer) {
+			C.nox_xxx_netPrintLineToAll_4DA390(C.CString("Settings.c:SuddenDeathStart"))
+		}
+	})
+	noxflags.OnGameUnset(func(f noxflags.GameFlag) {
+		log.Printf("game flag unset: 0x%x", f)
+		if f.Has(noxflags.GameSuddenDeath) {
+			C.dword_5d4594_3592 = 0
+		}
+	})
+	noxflags.SetGame(noxflags.GameServer | noxflags.GameFlag2)
 	setEngineFlag(NOX_ENGINE_FLAG_ENABLE_SOFT_SHADOW_EDGE)
 	C.dword_5d4594_2650652 = 0
-	v2 := getGameFlag(1)
 	C.nox_gameFPS = 30
-	C.nox_frame_xxx_2598000 = C.uint(bool2int(v2))
+	C.nox_frame_xxx_2598000 = C.uint(bool2int(noxflags.HasGame(noxflags.GameServer)))
 	nox_ticks_xxx_416D40()
 	C.nox_xxx_setGameState_43DDF0(nil)
 	C.nox_game_SetCliDrawFunc(nil)
 	C.sub_43DE40(nil)
-	setGameFlag(256)
+	noxflags.SetGame(noxflags.GameFlag9)
 	if *fNoLimit {
 		C.nox_xxx_setFrameLimit_43DDE0(0)
 		*memmap.PtrUint32(0x587000, 84) = 0
@@ -382,7 +401,7 @@ func change_windowed_fullscreen() {
 
 func cleanup() {
 	fmt.Println("cleanup")
-	if getGameFlag(0x2000000) {
+	if noxflags.HasGame(noxflags.GameFlag26) {
 		C.nox_xxx_networkLog_close_413D00()
 	}
 	C.nox_common_writecfgfile(internCStr("nox.cfg"))

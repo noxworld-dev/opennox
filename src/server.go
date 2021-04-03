@@ -20,7 +20,10 @@ void sub_4EC720();
 unsigned int sub_50D890();
 */
 import "C"
-import "nox/common/memmap"
+import (
+	noxflags "nox/common/flags"
+	"nox/common/memmap"
+)
 
 //export nox_xxx_gameTick_4D2580_server_B
 func nox_xxx_gameTick_4D2580_server_B(ticks int64) C.int {
@@ -38,7 +41,7 @@ func nox_xxx_gameTick_4D2580_server_B(ticks int64) C.int {
 	if C.nox_xxx_checkGFlagNoParticles_413A50() == 0 {
 		C.nox_xxx_updateUnits_51B100()
 		C.sub_4EC720()
-		if getGameFlag(4096) {
+		if noxflags.HasGame(noxflags.GameFlag13) {
 			C.sub_50D890()
 			C.sub_4E4170()
 		}
@@ -54,7 +57,7 @@ func nox_xxx_gameTick_4D2580_server_B(ticks int64) C.int {
 		C.nox_xxx_protectUnitDefUpdateMB_4E3C20()
 		C.nox_xxx_setKeybTimeout_4160D0(16)
 	}
-	if getGameFlag(0x2000) && C.sub_43AF70() == 1 && !getGameFlag(128) && C.nox_xxx_checkKeybTimeout_4160F0(0xF, 60*C.nox_gameFPS) != 0 {
+	if noxflags.HasGame(noxflags.GameFlag14) && C.sub_43AF70() == 1 && !noxflags.HasGame(noxflags.GameFlag8) && C.nox_xxx_checkKeybTimeout_4160F0(0xF, 60*C.nox_gameFPS) != 0 {
 		C.nox_xxx_net_4263C0()
 		C.nox_xxx_setKeybTimeout_4160D0(15)
 	}

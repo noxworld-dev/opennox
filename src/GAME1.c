@@ -83,7 +83,9 @@ int nox_video_dxUnlockSurface = 0;
 HANDLE* nox_video_cursorDrawThreadHandle;
 
 nox_engine_flag nox_common_engineFlags = 0u;
+#ifndef NOX_CGO
 _DWORD nox_common_gameFlags;        // & 1 = host server; & 0x800 = solo game
+#endif // NOX_CGO
 int nox_server_gameSettingsUpdated; // If you define it as 1-byte bool, the game will crash
 
 extern unsigned int nox_gameFPS;
@@ -869,53 +871,43 @@ char*  nox_xxx_gameSetServername_40A440(char* a1) {
 char* nox_xxx_serverOptionsGetServername_40A4C0() { return (char*)getMemAt(0x5D4594, 1324); }
 
 //----- (0040A4D0) --------------------------------------------------------
-int  nox_xxx_setGameFlags_40A4D0(int a1) {
-	int result; // eax
-
-	result = *(_DWORD*)&nox_common_gameFlags;
-	if ((a1 & *(_DWORD*)&nox_common_gameFlags) != a1) {
-		if (a1 & 0x7FFF0)
-			nox_server_gameSettingsUpdated = 1;
-		*(_DWORD*)&nox_common_gameFlags |= a1;
-		result = nox_xxx_guiChatShowHide_445730((*(_WORD*)&nox_common_gameFlags & 0x17F0) != 128);
-		if (a1 & 0x4000000) {
-			if (nox_common_gameFlags & 1)
-				result = nox_xxx_netPrintLineToAll_4DA390("Settings.c:SuddenDeathStart");
+#ifndef NOX_CGO
+void nox_xxx_setGameFlags_40A4D0(unsigned int f) {
+	if ((f & nox_common_gameFlags) == f) {
+		return;
+	}
+	nox_common_gameFlags |= f;
+	if (f & 0x7FFF0)
+		nox_server_gameSettingsUpdated = 1;
+	nox_xxx_guiChatShowHide_445730((nox_common_gameFlags & 0x17F0) != 128);
+	if (f & 0x4000000) {
+		if (nox_common_gameFlags & 1) {
+			nox_xxx_netPrintLineToAll_4DA390("Settings.c:SuddenDeathStart");
 		}
 	}
-	return result;
 }
 
 //----- (0040A540) --------------------------------------------------------
-void  nox_common_gameFlags_unset_40A540(int a1) {
-	if (nox_common_gameFlags & a1) {
-		nox_common_gameFlags &= ~a1;
-		if (a1 & 0x7FFF0)
+void  nox_common_gameFlags_unset_40A540(unsigned int f) {
+	if (nox_common_gameFlags & f) {
+		nox_common_gameFlags &= ~f;
+		if (f & 0x7FFF0)
 			nox_server_gameSettingsUpdated = 1;
 	}
-	if (a1 & 0x4000000)        // sudden death
+	if (f & 0x4000000)        // sudden death
 		dword_5d4594_3592 = 0; // countdown is ticking/set
 }
 
-//----- (0040A590) --------------------------------------------------------
-int  sub_40A590(int a1) {
-	int result; // eax
-
-	result = a1;
-	nox_server_gameSettingsUpdated = 1;
-	*(_DWORD*)&nox_common_gameFlags ^= a1;
-	return result;
-}
-
 //----- (0040A5B0) --------------------------------------------------------
-int nox_common_gameFlags_getVal_40A5B0() { return nox_common_gameFlags; }
+unsigned int nox_common_gameFlags_getVal_40A5B0() { return nox_common_gameFlags; }
 
 // Tests bitfield against gameFlags variable
 // I once called this variable mapFlags, but it is actually used for storing the current game mode (chat/DM/elim/ctf...)
 // as well whenether sudden death started and much more for ex. if this game client instance is hosting a server the
 // 1'st bit of this value is set
 //----- (0040A5C0) --------------------------------------------------------
-BOOL  nox_common_gameFlags_check_40A5C0(int a1) { return (a1 & nox_common_gameFlags) != 0; }
+bool nox_common_gameFlags_check_40A5C0(unsigned int f) { return (f & nox_common_gameFlags) != 0; }
+#endif // NOX_CGO
 
 //----- (0040A5E0) --------------------------------------------------------
 int  nox_xxx_ruleSetNoRespawn_40A5E0(int a1) {
