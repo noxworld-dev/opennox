@@ -2046,7 +2046,7 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned int a2, int a3) {
 							nox_xxx_clientPlaySoundSpecial_452D80(297, 100 * (600 - v226) / 600);
 					}
 				}
-				if (!nox_xxx_checkGFlagNoParticles_413A50()) {
+				if (!nox_xxx_checkGameFlagPause_413A50()) {
 					v227 = *(unsigned __int16*)(v3 + 5) - *(unsigned __int16*)(v3 + 1);
 					v228 = *(unsigned __int16*)(v3 + 7) - *(unsigned __int16*)(v3 + 3);
 					v229 = nox_double2int(sqrt((double)(v227 * v227 + v228 * v228)));

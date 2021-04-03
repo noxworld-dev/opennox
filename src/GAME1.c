@@ -6543,7 +6543,7 @@ void sub_413780() {
 BOOL sub_4137A0() {
 	BOOL result; // eax
 
-	result = nox_xxx_checkGFlagNoParticles_413A50();
+	result = nox_xxx_checkGameFlagPause_413A50();
 	if (!result)
 		dword_5d4594_251716 = 1;
 	return result;
@@ -6635,7 +6635,7 @@ char* sub_413890() {
 
 //----- (004138E0) --------------------------------------------------------
 void sub_4138E0(int a1) {
-	*getMemU32Ptr(0x5D4594, 251740) = nox_xxx_checkGFlagNoParticles_413A50();
+	*getMemU32Ptr(0x5D4594, 251740) = nox_xxx_checkGameFlagPause_413A50();
 	sub_413A00(1);
 }
 
@@ -6679,7 +6679,7 @@ void sub_413A00(int a1) {
 }
 
 //----- (00413A50) --------------------------------------------------------
-BOOL nox_xxx_checkGFlagNoParticles_413A50() { return nox_common_gameFlags_check_40A5C0(0x40000); }
+BOOL nox_xxx_checkGameFlagPause_413A50() { return nox_common_gameFlags_check_40A5C0(0x40000); }
 
 //----- (00413E10) --------------------------------------------------------
 int sub_413E10() {

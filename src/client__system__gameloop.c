@@ -25,6 +25,7 @@ void cmain_loop(int);
 extern int g_v21;
 _DWORD nox_game_continueMenuOrHost_93200 = 0x1;
 _DWORD nox_continue_mainloop_93196 = 0x1;
+extern int (*func_5D4594_816388)(void);
 #endif // NOX_CGO
 
 extern void (*mainloop_enter)(void*);
@@ -32,7 +33,6 @@ extern void* mainloop_enter_args;
 extern BOOL mainloop_exit_path;
 
 extern int (*nox_draw_unk1)(void);
-extern int (*func_5D4594_816388)(void);
 extern int (*func_5D4594_816392)(void);
 
 void map_download_start() {

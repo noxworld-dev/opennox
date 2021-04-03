@@ -64,7 +64,7 @@ extern _DWORD nox_xxx_wizardSpeed_587000_312828;
 extern _DWORD dword_5d4594_1556852;
 extern _DWORD nox_xxx_wizardStrength_587000_312824;
 extern _DWORD nox_xxx_warriorMaxStrength_587000_312792;
-extern _DWORD dword_5d4594_1556148;
+extern _DWORD nox_xxx_questFlag_1556148;
 extern _DWORD dword_5d4594_3835388;
 extern _DWORD nox_xxx_conjurerStrength_587000_312808;
 extern _DWORD dword_5d4594_1563092;
@@ -1609,7 +1609,7 @@ void sub_4D0F30() {
 }
 
 //----- (004D0F60) --------------------------------------------------------
-char* sub_4D0F60() // quest setup 2
+char* nox_xxx_getQuestMapFile_4D0F60() // quest setup 2
 {
 	int v1;               // esi
 	unsigned __int8* v2;  // ecx
@@ -2030,6 +2030,7 @@ int nox_xxx_servNewSession_4D1660() {
 }
 
 //----- (004D17F0) --------------------------------------------------------
+#ifndef NOX_CGO
 int nox_xxx_servInitialMapLoad_4D17F0() {
 	sub_4E79B0(0);
 	if (!memcmp(nox_server_currentMapGetFilename_409B30(), getMemAt(0x5D4594, 1548720), 1u)) {
@@ -2046,6 +2047,7 @@ int nox_xxx_servInitialMapLoad_4D17F0() {
 	nox_server_gameUnsetMapLoad_40A690();
 	return 1;
 }
+#endif // NOX_CGO
 
 //----- (004D23C0) --------------------------------------------------------
 int nox_xxx_servResetPlayers_4D23C0() {
@@ -4633,16 +4635,13 @@ int  sub_4D6F90(int a1) {
 int sub_4D6FA0() { return *getMemU32Ptr(0x5D4594, 1556104); }
 
 //----- (004D6FB0) --------------------------------------------------------
-int  sub_4D6FB0(int a1) {
-	int result; // eax
-
-	result = a1;
-	dword_5d4594_1556148 = a1;
-	return result;
+int nox_xxx_setQuestFlag_4D6FB0(int f) {
+	nox_xxx_questFlag_1556148 = f;
+	return f;
 }
 
 //----- (004D6FC0) --------------------------------------------------------
-int sub_4D6FC0() { return dword_5d4594_1556148; }
+int nox_xxx_getQuestFlag_4D6FC0() { return nox_xxx_questFlag_1556148; }
 
 //----- (004D7080) --------------------------------------------------------
 int nox_server_conCmdHandler_startSoloQuest_4D7080() {
@@ -4650,7 +4649,7 @@ int nox_server_conCmdHandler_startSoloQuest_4D7080() {
 	nox_xxx_cliPlayMapIntro_44E0B0(1);
 	*getMemU32Ptr(0x5D4594, 1556152) = sub_416A00();
 	sub_4169E0();
-	return sub_4D6FB0(30);
+	return nox_xxx_setQuestFlag_4D6FB0(30);
 }
 
 //----- (004D70B0) --------------------------------------------------------
@@ -7177,18 +7176,12 @@ int  nox_server_getNextObject_4DA7A0(int a1) {
 }
 
 //----- (004DA7C0) --------------------------------------------------------
-int nox_xxx_getFirstPlayerUnit_4DA7C0() {
-	char* v0; // eax
-
-	v0 = nox_common_playerInfoGetFirst_416EA0();
-	if (!v0)
-		return 0;
-	while (!*((_DWORD*)v0 + 514)) {
-		v0 = nox_common_playerInfoGetNext_416EE0((int)v0);
-		if (!v0)
-			return 0;
+void* nox_xxx_getFirstPlayerUnit_4DA7C0() {
+	for (nox_playerInfo* p = nox_common_playerInfoGetFirst_416EA0(); p; p = nox_common_playerInfoGetNext_416EE0(p)) {
+		if (p->playerUnit)
+			return p->playerUnit;
 	}
-	return *((_DWORD*)v0 + 514);
+	return 0;
 }
 
 //----- (004DA7F0) --------------------------------------------------------
@@ -8406,7 +8399,7 @@ int  sub_4DCE80(const char* a1) {
 }
 
 //----- (004DCED0) --------------------------------------------------------
-unsigned __int8* sub_4DCED0() { return getMemAt(0x5D4594, 1563104); }
+char* nox_xxx_getQuestMapName_4DCED0() { return getMemAt(0x5D4594, 1563104); }
 
 //----- (004DCEE0) --------------------------------------------------------
 void  sub_4DCEE0(const char* a1) {
@@ -9171,7 +9164,7 @@ char  nox_xxx_playerDisconnFinish_4DE530(int a1, char a2) {
 			nox_xxx_aud_501960(1011, *(_DWORD*)(v4 + 2056), 0, 0);
 			*(_DWORD*)(v4 + 4792) = 0;
 			if (!nox_xxx_player_4E3CE0()) {
-				v5 = sub_4D0F60();
+				v5 = nox_xxx_getQuestMapFile_4D0F60();
 				sub_4E3CD0(0);
 				nox_xxx_mapLoad_4D2450(v5);
 			}

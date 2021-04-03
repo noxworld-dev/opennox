@@ -9892,35 +9892,35 @@ int  nox_xxx_updDrawFist_4CCDB0(int a1, int a2) {
 
 //----- (004CCE70) --------------------------------------------------------
 int  sub_4CCE70(int a1, _DWORD* a2) {
-	if (!a2[120] && !nox_xxx_checkGFlagNoParticles_413A50())
+	if (!a2[120] && !nox_xxx_checkGameFlagPause_413A50())
 		sub_4CCEA0(a2, 5);
 	return 1;
 }
 
 //----- (004CD090) --------------------------------------------------------
 int  sub_4CD090(int a1, _DWORD* a2) {
-	if (!a2[120] && !nox_xxx_checkGFlagNoParticles_413A50())
+	if (!a2[120] && !nox_xxx_checkGameFlagPause_413A50())
 		sub_4CCEA0(a2, 4);
 	return 1;
 }
 
 //----- (004CD0C0) --------------------------------------------------------
 int  sub_4CD0C0(int a1, _DWORD* a2) {
-	if (!a2[120] && !nox_xxx_checkGFlagNoParticles_413A50())
+	if (!a2[120] && !nox_xxx_checkGameFlagPause_413A50())
 		sub_4CCEA0(a2, 3);
 	return 1;
 }
 
 //----- (004CD0F0) --------------------------------------------------------
 int  sub_4CD0F0(int a1, _DWORD* a2) {
-	if (!a2[120] && !nox_xxx_checkGFlagNoParticles_413A50())
+	if (!a2[120] && !nox_xxx_checkGameFlagPause_413A50())
 		sub_4CCEA0(a2, 2);
 	return 1;
 }
 
 //----- (004CD120) --------------------------------------------------------
 int  sub_4CD120(int a1, _DWORD* a2) {
-	if (!a2[120] && !nox_xxx_checkGFlagNoParticles_413A50())
+	if (!a2[120] && !nox_xxx_checkGameFlagPause_413A50())
 		sub_4CCEA0(a2, 1);
 	return 1;
 }

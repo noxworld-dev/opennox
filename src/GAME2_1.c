@@ -2555,7 +2555,7 @@ void  nox_window_set_visible_unk5(int visible) {
 //----- (004674E0) --------------------------------------------------------
 void  nox_xxx_cliUseCurePoison_4674E0(int a1) {
 	if (nox_xxx_guiCursor_477600() != 1) {
-		if (!nox_xxx_checkGFlagNoParticles_413A50()) {
+		if (!nox_xxx_checkGameFlagPause_413A50()) {
 			int result = nox_xxx_cliInventoryFirstItemByTT_467520(a1);
 			if (result) {
 				*(_DWORD*)(*(_DWORD*)result + 128) = *((_DWORD*)result + 1);
@@ -4330,7 +4330,7 @@ void nox_xxx_cursorUpdate_46B740() {
 		}
 		dword_5d4594_1064900 = v1;
 	}
-	if (nox_xxx_gameGetPlayState_4356B0() == 3 && !*getMemU32Ptr(0x5D4594, 1064940) && !nox_xxx_playerAnimCheck_4372B0() && !nox_xxx_checkGFlagNoParticles_413A50() && !nox_xxx_guiCursor_477600() &&
+	if (nox_xxx_gameGetPlayState_4356B0() == 3 && !*getMemU32Ptr(0x5D4594, 1064940) && !nox_xxx_playerAnimCheck_4372B0() && !nox_xxx_checkGameFlagPause_413A50() && !nox_xxx_guiCursor_477600() &&
 		!nox_xxx_clientIsObserver_4372E0()) {
 		v42 = sub_4675B0();
 		if (v42 == 5) {

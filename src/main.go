@@ -39,7 +39,6 @@ extern unsigned int dword_5d4594_816340;
 extern unsigned int dword_5d4594_816348;
 extern unsigned int dword_5d4594_805988;
 extern int nox_video_bag_var_2650640;
-extern unsigned int nox_frame_xxx_2598000;
 
 void init_data();
 */
@@ -188,10 +187,10 @@ func runNox(args []string) error {
 	noxflags.SetGame(noxflags.GameHost | noxflags.GameFlag2)
 	setEngineFlag(NOX_ENGINE_FLAG_ENABLE_SOFT_SHADOW_EDGE)
 	C.dword_5d4594_2650652 = 0
-	C.nox_gameFPS = 30
-	C.nox_frame_xxx_2598000 = C.uint(bool2int(noxflags.HasGame(noxflags.GameHost)))
+	gameFPSSet(30)
+	gameFrameSetFromFlags()
 	nox_ticks_xxx_416D40()
-	C.nox_xxx_setGameState_43DDF0(nil)
+	nox_xxx_setGameState_43DDF0(nil)
 	C.nox_game_SetCliDrawFunc(nil)
 	C.sub_43DE40(nil)
 	noxflags.SetGame(noxflags.GameFlag9)
@@ -275,7 +274,7 @@ func runNox(args []string) error {
 	C.fesetround(C.FE_TOWARDZERO)
 	C.nox_win_width = 0
 	C.nox_xxx_servSetPlrLimit_409F80(32)
-	*memmap.PtrUint32(0x5D4594, 2614260) = uint32(C.nox_gameFPS) >> 1
+	*memmap.PtrUint32(0x5D4594, 2614260) = gameFPS() / 2
 	C.nox_binfile_reset_4093A0()
 	C.nox_ensure_thing_bin()
 	// should be .csf but it works anyway

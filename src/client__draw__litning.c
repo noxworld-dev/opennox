@@ -331,7 +331,7 @@ int  nox_thing_lightning_draw(int* a1, nox_drawable* dr) {
 	dword_5d4594_1316484 = *getMemU32Ptr(0x5D4594, 1316488);
 	*getMemU8Ptr(0x5D4594, 1316420) = 1;
 	nox_xxx_lightningProc2_4BAE60(&a1a, &a2a, 2, 0, 1, 1, 1);
-	if (!nox_xxx_checkGFlagNoParticles_413A50())
+	if (!nox_xxx_checkGameFlagPause_413A50())
 		nox_xxx_makeLightningParticles_4999D0(*getMemIntPtr(0x5D4594, 1316520), &v18, &a3);
 	return 1;
 }
@@ -405,7 +405,7 @@ int  nox_thing_chain_lightning_bolt_draw(int* a1, nox_drawable* dr) {
 	dword_5d4594_1316484 = *getMemU32Ptr(0x5D4594, 1316488);
 	*getMemU8Ptr(0x5D4594, 1316420) = 1;
 	nox_xxx_lightningProc2_4BAE60(&a1a, &a2a, 2, 0, 1, 1, 1);
-	if (!nox_xxx_checkGFlagNoParticles_413A50())
+	if (!nox_xxx_checkGameFlagPause_413A50())
 		nox_xxx_makeLightningParticles_4999D0(*getMemIntPtr(0x5D4594, 1316520), &v19, &a3);
 	return 1;
 }
@@ -481,7 +481,7 @@ int  nox_thing_energy_bolt_draw(int* a1, nox_drawable* dr) {
 	dword_5d4594_1316436 = *getMemU32Ptr(0x5D4594, 1316496);
 	dword_5d4594_1316484 = *getMemU32Ptr(0x5D4594, 1316468);
 	nox_xxx_lightningProc2_4BAE60(&a1a, &a2a, 2, 0, 0, 0, 1);
-	if (!nox_xxx_checkGFlagNoParticles_413A50())
+	if (!nox_xxx_checkGameFlagPause_413A50())
 		nox_xxx_makeLightningParticles_4999D0(*getMemIntPtr(0x5D4594, 1316524), &v20, &a3);
 	return 1;
 }
@@ -563,7 +563,7 @@ int  nox_thing_green_bolt_draw(int* a1, nox_drawable* dr) {
 	dword_5d4594_1316484 = *getMemU32Ptr(0x5D4594, 1316480);
 	*getMemU8Ptr(0x5D4594, 1316420) = 1;
 	nox_xxx_lightningProc2_4BAE60(&a1a, &a2a, 2, 0, 1, 1, 1);
-	if (!nox_xxx_checkGFlagNoParticles_413A50())
+	if (!nox_xxx_checkGameFlagPause_413A50())
 		nox_xxx_makeLightningParticles_4999D0(*getMemIntPtr(0x5D4594, 1316528), &v20, &a3);
 	return 1;
 }
