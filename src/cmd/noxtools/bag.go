@@ -33,6 +33,42 @@ func init() {
 	fBag := cmd.PersistentFlags().StringP("bag", "b", "video.bag", "path to video.bag file")
 	fIdx := cmd.PersistentFlags().StringP("idx", "i", "", "path to video.idx file (empty means auto)")
 
+	cmdJSON := &cobra.Command{
+		Use:     "idx2json [--bag video.bag] [--idx video.idx] [--out ./out.json]",
+		Short:   "Reads Nox video.idx and dumps metadata stored there as JSON",
+		Aliases: []string{"i2j"},
+	}
+	cmd.AddCommand(cmdJSON)
+	{
+		fOut := cmdJSON.Flags().StringP("out", "o", "video.idx.json", "output path for images or archive")
+		cmdJSON.RunE = func(cmd *cobra.Command, args []string) error {
+			cmd.SilenceUsage = true
+			f, err := bag.OpenWithIndex(*fBag, *fIdx)
+			if err != nil {
+				return err
+			}
+			defer f.Close()
+
+			list, err := f.Segments()
+			if err != nil {
+				return err
+			}
+
+			w, err := os.Create(*fOut)
+			if err != nil {
+				return err
+			}
+			defer w.Close()
+
+			enc := json.NewEncoder(w)
+			enc.SetIndent("", "\t")
+			if err = enc.Encode(list); err != nil {
+				return err
+			}
+			return w.Close()
+		}
+	}
+
 	cmdExtract := &cobra.Command{
 		Use:     "extract [--bag video.bag] [--idx video.idx] [--out ./out] [file ...]",
 		Short:   "Extracts images from Nox video.bag file",
@@ -77,14 +113,14 @@ func init() {
 					return err
 				}
 			}
-			process := func(img *bag.Image) error {
-				im, pt, err := img.Decode()
+			process := func(img *bag.ImageRec) error {
+				im, err := img.Decode()
 				if err != nil {
 					return err
 				}
 				base := strings.TrimSuffix(img.Name, path.Ext(img.Name))
 				if *fJSON {
-					data, err := json.MarshalIndent(pt, "", "\t")
+					data, err := json.MarshalIndent(im.ImageMeta, "", "\t")
 					if err != nil {
 						return err
 					}
@@ -93,12 +129,22 @@ func init() {
 					}
 				}
 				buf := bytes.NewBuffer(nil)
-				err = png.Encode(buf, im)
+				err = png.Encode(buf, &im.RGBA)
 				if err != nil {
 					return err
 				}
 				if err := writeFile(base+".png", buf.Bytes()); err != nil {
 					return err
+				}
+				if im.Mask != nil {
+					buf.Reset()
+					err = png.Encode(buf, im.Mask)
+					if err != nil {
+						return err
+					}
+					if err := writeFile(base+"_mask.png", buf.Bytes()); err != nil {
+						return err
+					}
 				}
 				return nil
 			}

@@ -5,7 +5,6 @@ package main
 */
 import "C"
 import (
-	"image"
 	"log"
 	"unsafe"
 
@@ -20,8 +19,8 @@ func init() {
 	noxImages.bySect = make(map[[2]int]unsafe.Pointer)
 }
 
-func internImagePCX(img image.Image, pt image.Point) unsafe.Pointer {
-	data := bag.EncodePCX(img, pt)
+func internImagePCX(img *bag.Image) unsafe.Pointer {
+	data := bag.EncodePCX(img)
 	return C.CBytes(data)
 }
 
@@ -43,7 +42,7 @@ func nox_video_getImagePixdata_new(img *C.nox_video_bag_image_t) unsafe.Pointer 
 		return ptr
 	}
 
-	im, pt, err := imageByBagSection(sect, offs)
+	im, err := imageByBagSection(sect, offs)
 	if err != nil {
 		log.Println(err)
 		return nil
@@ -51,7 +50,7 @@ func nox_video_getImagePixdata_new(img *C.nox_video_bag_image_t) unsafe.Pointer 
 		noxImages.bySect[key] = nil
 		return nil
 	}
-	ptr := internImagePCX(im, pt)
+	ptr := internImagePCX(im)
 	noxImages.bySect[key] = ptr
 	return ptr
 }

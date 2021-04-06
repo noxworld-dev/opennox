@@ -5,7 +5,6 @@ import (
 	"bytes"
 	"encoding/binary"
 	"fmt"
-	"image"
 	"io"
 	"path"
 	"strings"
@@ -31,7 +30,7 @@ type File struct {
 	cnt2    uint32
 
 	segm []*Segment
-	imgs []*Image
+	imgs []*ImageRec
 }
 
 func OpenWithIndex(path, ipath string) (*File, error) {
@@ -70,19 +69,19 @@ func (f *File) Close() error {
 	return nil
 }
 
-type Segment struct { // nox_video_bag_section_t
+type Segment struct {
 	f         *File
 	data      []byte
-	Index     int      `json:"ind"`
-	BagOffset int      `json:"bag_offset"`
-	Size      int      `json:"size"`
-	SizeComp  int      `json:"size_compressed"`
-	ImagesInd int      `json:"images_ind"`
-	ImagesCnt int      `json:"images_cnt"`
-	Images    []*Image `json:"images,omitempty"`
+	Index     int         `json:"ind"`
+	BagOffset int         `json:"bag_offset"`
+	Size      int         `json:"size"`
+	SizeComp  int         `json:"size_compressed"`
+	ImagesInd int         `json:"images_ind"`
+	ImagesCnt int         `json:"images_cnt"`
+	Images    []*ImageRec `json:"images,omitempty"`
 }
 
-type Image struct { // nox_video_bag_image_t
+type ImageRec struct {
 	s       *Segment
 	SegmInd uint16 `json:"segment_ind"`
 	Offset  uint32 `json:"segment_offset"`
@@ -180,7 +179,7 @@ func (f *File) ensureImages() error {
 	return f.readAll()
 }
 
-func (f *File) Images() ([]*Image, error) {
+func (f *File) Images() ([]*ImageRec, error) {
 	if err := f.ensureImages(); err != nil {
 		return nil, err
 	}
@@ -195,7 +194,7 @@ func normalizeImageName(name string) string {
 	return name
 }
 
-func (f *File) ImageByName(name string) (*Image, error) {
+func (f *File) ImageByName(name string) (*ImageRec, error) {
 	if err := f.ensureImages(); err != nil {
 		return nil, err
 	}
@@ -247,7 +246,7 @@ func (f *File) readAll() error {
 		if cnt > 0 {
 			soff := uint32(0)
 			for j := 0; j < int(cnt); j++ {
-				img := &Image{
+				img := &ImageRec{
 					s:       seg,
 					SegmInd: uint16(i),
 				}
@@ -310,7 +309,7 @@ func (seg *Segment) open() (io.Reader, error) {
 	return bytes.NewReader(data), nil
 }
 
-func (img *Image) open() (io.Reader, error) {
+func (img *ImageRec) open() (io.Reader, error) {
 	r, err := img.s.open()
 	if err != nil {
 		return nil, err
@@ -324,10 +323,20 @@ func (img *Image) open() (io.Reader, error) {
 	return io.LimitReader(r, int64(img.Size)), nil
 }
 
-func (img *Image) Decode() (image.Image, image.Point, error) {
+func (img *ImageRec) Raw() ([]byte, error) {
 	r, err := img.open()
 	if err != nil {
-		return nil, image.Point{}, err
+		return nil, err
 	}
-	return readPCX(r, int(img.Type))
+	buf := make([]byte, img.Size)
+	_, err = io.ReadFull(r, buf)
+	return buf, err
+}
+
+func (img *ImageRec) Decode() (*Image, error) {
+	r, err := img.open()
+	if err != nil {
+		return nil, err
+	}
+	return DecodePCX(r, byte(img.Type))
 }

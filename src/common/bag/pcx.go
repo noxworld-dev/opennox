@@ -6,57 +6,52 @@ import (
 	"fmt"
 	"image"
 	"image/color"
-	"image/draw"
 	"io"
+
+	noxcolor "nox/common/color"
 )
 
-func readPCX(r io.Reader, typ int) (image.Image, image.Point, error) {
+var _ image.Image = (*Image)(nil)
+
+type ImageMeta struct {
+	Type  byte        `json:"type,omitempty"`
+	Point image.Point `json:"point"`
+}
+
+type Image struct {
+	image.RGBA
+	ImageMeta
+	Mask *image.RGBA
+}
+
+func DecodePCX(r io.Reader, typ byte) (*Image, error) {
 	switch typ {
 	case 3, 4, 5, 6:
-		return readPCXSprite(r)
+		return readPCXSprite(r, typ)
 	default:
-		return nil, image.Point{}, fmt.Errorf("unsupported type: %d", typ)
+		return nil, fmt.Errorf("unsupported type: %d", typ)
 	}
 }
 
-func colorRGB15(cl uint16) color.RGBA {
-	r := byte((cl & 0xfc00) >> 10)
-	g := byte((cl & 0x03e0) >> 5)
-	b := byte((cl & 0x001f) >> 0)
-	r = byte((float64(r) / 31) * 0xff)
-	g = byte((float64(g) / 31) * 0xff)
-	b = byte((float64(b) / 31) * 0xff)
+func colorDynamicColor(op byte, cl byte) color.RGBA {
+	// TODO: make a separate color type
 	return color.RGBA{
-		R: r, G: g, B: b, A: 0xff,
+		R: cl, G: cl, B: cl, A: 0xff,
 	}
 }
 
-func colorRGBA16(cl uint16) color.RGBA {
-	r := byte((cl >> 12) & 0xf)
-	g := byte((cl >> 8) & 0xf)
-	b := byte((cl >> 4) & 0xf)
-	a := byte((cl >> 0) & 0xf)
-	r = byte((float64(r) / 15) * 0xff)
-	g = byte((float64(g) / 15) * 0xff)
-	b = byte((float64(b) / 15) * 0xff)
-	a = byte((float64(a) / 15) * 0xff)
+func colorDynamicMask(op byte, cl byte) color.RGBA {
+	// TODO: make a separate color type
 	return color.RGBA{
-		R: r, G: g, B: b, A: a,
+		R: op, G: cl, B: 0, A: 0xff,
 	}
 }
 
-func colorDynamic(op byte, cl byte) color.RGBA {
-	// TODO: store into a separate mask instead?
-	return color.RGBA{
-		R: cl, G: cl, B: cl, A: 0x80 | op,
-	}
-}
-
-func readPCXSprite(r io.Reader) (image.Image, image.Point, error) {
+func readPCXSprite(r io.Reader, typ byte) (*Image, error) {
 	var b [17]byte
 	_, err := io.ReadFull(r, b[:])
 	if err != nil {
-		return nil, image.Point{}, err
+		return nil, err
 	}
 	width := int(endiness.Uint32(b[0:]))
 	height := int(endiness.Uint32(b[4:]))
@@ -66,10 +61,16 @@ func readPCXSprite(r io.Reader) (image.Image, image.Point, error) {
 	// one byte ignored
 
 	if width <= 0 || width > 1024 || height <= 0 || height > 1024 {
-		return nil, offs, errors.New("invalid image size")
+		return nil, errors.New("invalid image size")
 	}
 
-	img := image.NewRGBA(image.Rect(0, 0, width, height))
+	img := &Image{
+		RGBA: *image.NewRGBA(image.Rect(0, 0, width, height)),
+		ImageMeta: ImageMeta{
+			Type:  typ,
+			Point: offs,
+		},
+	}
 	br := bufio.NewReader(r)
 
 	var buf []byte
@@ -86,21 +87,21 @@ func readPCXSprite(r io.Reader) (image.Image, image.Point, error) {
 	for {
 		op, err := br.ReadByte()
 		if err == io.EOF {
-			return img, offs, nil
+			return img, nil
 		} else if err != nil {
-			return img, offs, err
+			return img, err
 		}
 		switch op {
 		case 0: // end
-			return img, offs, nil
+			return img, nil
 		case 3: // begin
 			// nop
 		case 1: // skip N pixels
 			n, err := br.ReadByte()
 			if err == io.EOF {
-				return img, offs, io.ErrUnexpectedEOF
+				return img, io.ErrUnexpectedEOF
 			} else if err != nil {
-				return img, offs, err
+				return img, err
 			}
 			for i := 0; i < int(n); i++ {
 				step()
@@ -108,9 +109,9 @@ func readPCXSprite(r io.Reader) (image.Image, image.Point, error) {
 		case 2, 5: // read N pixels
 			bn, err := br.ReadByte()
 			if err == io.EOF {
-				return img, offs, io.ErrUnexpectedEOF
+				return img, io.ErrUnexpectedEOF
 			} else if err != nil {
-				return img, offs, err
+				return img, err
 			}
 			n := int(bn)
 			if cap(buf) < n*2 {
@@ -120,18 +121,18 @@ func readPCXSprite(r io.Reader) (image.Image, image.Point, error) {
 			}
 			_, err = io.ReadFull(br, buf)
 			if err != nil {
-				return img, offs, err
+				return img, err
 			}
 			if op == 2 { // RGB15
 				for i := 0; i < n; i++ {
-					cl := endiness.Uint16(buf[2*i:])
-					img.SetRGBA(px, py, colorRGB15(cl))
+					cl := noxcolor.RGB15(endiness.Uint16(buf[2*i:]))
+					img.SetRGBA(px, py, cl.RGBA32())
 					step()
 				}
 			} else { // RGBA16
 				for i := 0; i < n; i++ {
-					cl := endiness.Uint16(buf[2*i:])
-					img.SetRGBA(px, py, colorRGBA16(cl))
+					cl := noxcolor.RGB16(endiness.Uint16(buf[2*i:]))
+					img.SetRGBA(px, py, cl.RGBA32())
 					step()
 				}
 			}
@@ -141,9 +142,9 @@ func readPCXSprite(r io.Reader) (image.Image, image.Point, error) {
 			}
 			n, err := br.ReadByte()
 			if err == io.EOF {
-				return img, offs, io.ErrUnexpectedEOF
+				return img, io.ErrUnexpectedEOF
 			} else if err != nil {
-				return img, offs, err
+				return img, err
 			}
 			if cap(buf) < int(n) {
 				buf = make([]byte, n)
@@ -152,41 +153,47 @@ func readPCXSprite(r io.Reader) (image.Image, image.Point, error) {
 			}
 			_, err = io.ReadFull(br, buf)
 			if err != nil {
-				return img, offs, err
+				return img, err
+			}
+			if img.Mask == nil {
+				img.Mask = image.NewRGBA(img.Rect)
 			}
 			for i := 0; i < int(n); i++ {
 				cl := buf[i]
-				img.SetRGBA(px, py, colorDynamic(op, cl))
+				img.SetRGBA(px, py, colorDynamicColor(op, cl))
+				img.Mask.SetRGBA(px, py, colorDynamicMask(op, cl))
 				step()
 			}
 		}
 	}
 }
 
-func EncodePCX(img image.Image, pt image.Point) []byte {
+func EncodePCX(img *Image) []byte {
 	rect := img.Bounds()
 	width := rect.Dx()
 	height := rect.Dy()
 	data := make([]byte, 17+width*height*4+2)
 	endiness.PutUint32(data[0:], uint32(width))
 	endiness.PutUint32(data[4:], uint32(height))
-	endiness.PutUint32(data[8:], uint32(int32(pt.X)))
-	endiness.PutUint32(data[12:], uint32(int32(pt.Y)))
+	endiness.PutUint32(data[8:], uint32(int32(img.Point.X)))
+	endiness.PutUint32(data[12:], uint32(int32(img.Point.Y)))
+	if img.Type == 0 {
+		data[16] = 0x3
+	} else {
+		data[16] = img.Type
+	}
 	pixdata := data[17:]
 	pixdata = pixdata[:0] // will append to it
-	rgba, ok := img.(*image.RGBA)
-	if !ok {
-		rgba = image.NewRGBA(rect)
-		draw.Draw(rgba, rect, img, rect.Min, draw.Src)
-	}
+	rgba := &img.RGBA
+	mask := img.Mask
 	const (
 		modeZero = iota + 1
 		modeRGB15
 		modeRGBA16
+		modeMask
 	)
 	const (
-		pixMax   = 0xff
-		compress = false // TODO: figure out why this doesn't work
+		pixMax = 0xfd
 	)
 	var (
 		pbuf  [2]byte
@@ -194,7 +201,7 @@ func EncodePCX(img image.Image, pt image.Point) []byte {
 		ni    = -1
 	)
 	addZero := func() {
-		if compress && pmode == modeZero {
+		if pmode == modeZero {
 			if n := pixdata[ni]; n < pixMax {
 				pixdata[ni]++
 				return
@@ -204,9 +211,9 @@ func EncodePCX(img image.Image, pt image.Point) []byte {
 		pixdata = append(pixdata, 1, 1)
 		ni = len(pixdata) - 1
 	}
-	addRGB15 := func(p uint16) {
-		endiness.PutUint16(pbuf[:], p)
-		if compress && pmode == modeRGB15 {
+	addRGB15 := func(p noxcolor.RGB15) {
+		endiness.PutUint16(pbuf[:], uint16(p))
+		if pmode == modeRGB15 {
 			if n := pixdata[ni]; n < pixMax {
 				pixdata[ni]++
 				pixdata = append(pixdata, pbuf[0], pbuf[1])
@@ -217,9 +224,9 @@ func EncodePCX(img image.Image, pt image.Point) []byte {
 		pixdata = append(pixdata, 2, 1, pbuf[0], pbuf[1])
 		ni = len(pixdata) - 3
 	}
-	addRGBA16 := func(p uint16) {
-		endiness.PutUint16(pbuf[:], p)
-		if compress && pmode == modeRGBA16 {
+	addRGBA16 := func(p noxcolor.RGB16) {
+		endiness.PutUint16(pbuf[:], uint16(p))
+		if pmode == modeRGBA16 {
 			if n := pixdata[ni]; n < pixMax {
 				pixdata[ni]++
 				pixdata = append(pixdata, pbuf[0], pbuf[1])
@@ -230,8 +237,33 @@ func EncodePCX(img image.Image, pt image.Point) []byte {
 		pixdata = append(pixdata, 5, 1, pbuf[0], pbuf[1])
 		ni = len(pixdata) - 3
 	}
+	addMask := func(op, cl byte) {
+		md := modeMask + int(op)
+		if pmode == md {
+			if n := pixdata[ni]; n < pixMax {
+				pixdata[ni]++
+				pixdata = append(pixdata, cl)
+				return
+			}
+		}
+		pmode = md
+		pixdata = append(pixdata, op, 1, cl)
+		ni = len(pixdata) - 2
+	}
 	for y := 0; y < height; y++ {
+		pmode = 0 // compression resets on each row
 		for x := 0; x < width; x++ {
+			if mask != nil {
+				i := y*mask.Stride + x*4
+				op := mask.Pix[i+0]
+				cl := mask.Pix[i+1]
+				// b is unused
+				a := mask.Pix[i+3]
+				if a != 0 {
+					addMask(op, cl)
+					continue
+				}
+			}
 			i := y*rgba.Stride + x*4
 			r := rgba.Pix[i+0]
 			g := rgba.Pix[i+1]
@@ -241,19 +273,10 @@ func EncodePCX(img image.Image, pt image.Point) []byte {
 				addZero()
 			} else if a == 0xff {
 				// RGB15
-				rb := uint16(float32(r)/0xff*31) & 0x1f
-				gb := uint16(float32(g)/0xff*31) & 0x1f
-				bb := uint16(float32(b)/0xff*31) & 0x1f
-				cl := (bb << 0) | (gb << 5) | (rb << 10)
-				addRGB15(cl)
+				addRGB15(noxcolor.ToRGB15(r, g, b))
 			} else {
 				// RGBA16
-				rb := uint16(float32(r)/0xff*15) & 0xf
-				gb := uint16(float32(g)/0xff*15) & 0xf
-				bb := uint16(float32(b)/0xff*15) & 0xf
-				ab := uint16(float32(a)/0xff*15) & 0xf
-				cl := (ab << 0) | (bb << 4) | (gb << 8) | (rb << 12)
-				addRGBA16(cl)
+				addRGBA16(noxcolor.ToRGB16(r, g, b, a))
 			}
 		}
 	}
