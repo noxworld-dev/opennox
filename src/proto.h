@@ -3582,7 +3582,7 @@ void  nox_client_xxxDraw16_4C7440(nox_video_bag_image_t* img, int x, int y);
 void  nox_xxx_smthPlayerAnim_4C7670(nox_video_bag_image_t* img, int x, int y);
 void  sub_4C7860(int a1, int a2, int a3);
 void  nox_client_drawImg_aaa_4C79F0(nox_video_bag_image_t* img, int x, int y);
-unsigned __int8*  sub_4C7C80(int a1, int a2, int a3, int* a4);
+void nox_client_drawXxx_4C7C80(int x, int y, int width, int4* a4);
 char*  sub_4C8040(int a1, int a2);
 void sub_4C80E0();
 void sub_4C8130();
