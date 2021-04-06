@@ -5,6 +5,7 @@ import (
 	"bytes"
 	"fmt"
 	"image"
+	"image/draw"
 	"io"
 	"os"
 	"path/filepath"
@@ -30,6 +31,15 @@ type Replacement struct {
 	ImageInd int
 	Image    image.Image
 	Point    *image.Point
+}
+
+func asRGBA(img image.Image) *image.RGBA {
+	if rgba, ok := img.(*image.RGBA); ok {
+		return rgba
+	}
+	rgba := image.NewRGBA(img.Bounds())
+	draw.Draw(rgba, rgba.Rect, img, img.Bounds().Min, draw.Src)
+	return rgba
 }
 
 // ReplaceSprites changes one or more sprites in the video.bag and video.idx.
@@ -306,10 +316,15 @@ func (rb *replacer) ReplaceSprites(list []Replacement) error {
 					return fmt.Errorf("unsupported type for %d,%d: %d", i, j, ityp)
 				case 3, 4, 5, 6:
 				}
+				out := &Image{
+					ImageMeta: ImageMeta{
+						Type: ityp,
+					},
+					RGBA: *asRGBA(rp.Image),
+				}
 				skip := isize
-				var pt image.Point
 				if rp.Point != nil {
-					pt = *rp.Point
+					out.Point = *rp.Point
 				} else {
 					var phdr [17]byte
 					_, err := io.ReadFull(rbag, phdr[:])
@@ -318,7 +333,7 @@ func (rb *replacer) ReplaceSprites(list []Replacement) error {
 					}
 					offsX := int(endiness.Uint32(phdr[8:]))
 					offsY := int(endiness.Uint32(phdr[12:]))
-					pt = image.Pt(offsX, offsY)
+					out.Point = image.Pt(offsX, offsY)
 					skip -= int64(len(phdr))
 				}
 				// skip image data from the source
@@ -327,7 +342,7 @@ func (rb *replacer) ReplaceSprites(list []Replacement) error {
 					return fmt.Errorf("cannot copy section data %d: %w", i, err)
 				}
 				// encode new image
-				idata := EncodePCX(rp.Image, pt)
+				idata := EncodePCX(out)
 				isize = int64(len(idata))
 				// write new image to the bag file
 				_, err = rb.nbag.Write(idata)

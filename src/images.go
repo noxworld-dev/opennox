@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"image"
+	"image/draw"
 	"image/jpeg"
 	"image/png"
 	"io/ioutil"
@@ -22,8 +23,8 @@ var debugBagImages = os.Getenv("NOX_DEBUG_BAG_IMAGES") == "true"
 var videoBag struct {
 	once   sync.Once
 	err    error
-	bySect map[int]map[int]*bag.Image
-	seen   map[*bag.Image]struct{}
+	bySect map[int]map[int]*bag.ImageRec
+	seen   map[*bag.ImageRec]struct{}
 }
 
 func loadAndIndexVideoBag() error {
@@ -31,14 +32,15 @@ func loadAndIndexVideoBag() error {
 	if err != nil {
 		return fmt.Errorf("error reading video bag: %w", err)
 	}
+	defer f.Close()
 	sects, err := f.Segments()
 	if err != nil {
 		return fmt.Errorf("error reading video bag sections: %w", err)
 	}
-	videoBag.seen = make(map[*bag.Image]struct{})
-	videoBag.bySect = make(map[int]map[int]*bag.Image)
+	videoBag.seen = make(map[*bag.ImageRec]struct{})
+	videoBag.bySect = make(map[int]map[int]*bag.ImageRec)
 	for _, s := range sects {
-		byOff := make(map[int]*bag.Image)
+		byOff := make(map[int]*bag.ImageRec)
 		videoBag.bySect[s.Index] = byOff
 		for _, img := range s.Images {
 			byOff[int(img.Offset)] = img
@@ -64,7 +66,16 @@ func openImage(base string) (image.Image, error) {
 	return jpeg.Decode(f)
 }
 
-func imageByBagSection(sect, offs int) (image.Image, image.Point, error) {
+func asRGBA(img image.Image) *image.RGBA {
+	if rgba, ok := img.(*image.RGBA); ok {
+		return rgba
+	}
+	rgba := image.NewRGBA(img.Bounds())
+	draw.Draw(rgba, rgba.Rect, img, img.Bounds().Min, draw.Src)
+	return rgba
+}
+
+func imageByBagSection(sect, offs int) (*bag.Image, error) {
 	videoBag.once.Do(func() {
 		if err := loadAndIndexVideoBag(); err != nil {
 			videoBag.err = err
@@ -72,32 +83,47 @@ func imageByBagSection(sect, offs int) (image.Image, image.Point, error) {
 		}
 	})
 	if videoBag.err != nil {
-		return nil, image.Point{}, videoBag.err
+		return nil, videoBag.err
 	}
 	img, ok := videoBag.bySect[sect][offs]
 	if !ok {
-		return nil, image.Point{}, fmt.Errorf("image not found: %d, %d", sect, offs)
+		return nil, fmt.Errorf("image not found: %d, %d", sect, offs)
 	}
-	if debugBagImages {
-		if _, ok := videoBag.seen[img]; !ok {
-			videoBag.seen[img] = struct{}{}
-			log.Printf("image access: %q", img.Name)
-		}
+	debug := debugBagImages
+	if _, ok := videoBag.seen[img]; !ok {
+		videoBag.seen[img] = struct{}{}
+	} else {
+		debug = false
 	}
 	ext := path.Ext(img.Name)
 	base := strings.TrimSuffix(img.Name, ext)
 	base = filepath.Join(getDataPath(), "images", base)
 	im, err := openImage(base)
 	if os.IsNotExist(err) {
-		return nil, image.Point{}, nil
+		if debug {
+			log.Printf("image access miss: %q", base)
+		}
+		return nil, nil
 	} else if err != nil {
-		return nil, image.Point{}, err
+		if debug {
+			log.Printf("image access error: %q: %v", base, err)
+		}
+		return nil, err
 	}
-	var pt image.Point
+	out := &bag.Image{
+		RGBA: *asRGBA(im),
+	}
+	if mask, err := openImage(base + "_mask"); err == nil {
+		out.Mask = asRGBA(mask)
+	}
 	if jdata, err := ioutil.ReadFile(base + ".json"); err == nil {
-		if err := json.Unmarshal(jdata, &pt); err != nil {
-			return nil, image.Point{}, err
+		if err := json.Unmarshal(jdata, &out.ImageMeta); err != nil {
+			log.Printf("image meta error: %q: %v", base, err)
 		}
 	}
-	return im, pt, nil
+	if debug {
+		log.Printf("image access: %q: type=%d, %dx%d, (%d, %d)",
+			base, out.Type, out.Rect.Dx(), out.Rect.Dy(), out.Point.X, out.Point.Y)
+	}
+	return out, nil
 }
