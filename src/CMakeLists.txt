@@ -187,6 +187,7 @@ set (
 
     client__audio__auddiag.c
     client__audio__audevent.c
+    client__draw__image.c
     client__draw__parse__parse.c
     client__draw__animdraw.c
     client__draw__armordraw.c

@@ -1,5 +1,6 @@
 #include "client__draw__debugdraw.h"
 #include "client__draw__staticdraw.h"
+#include "client__draw__image.h"
 #include "client__drawable__drawable.h"
 
 #include "client__gui__gadgets__listbox.h"
