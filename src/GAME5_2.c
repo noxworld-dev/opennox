@@ -8284,7 +8284,6 @@ void nullsub_24(_DWORD a1) {}
 void nullsub_31(_DWORD a1) {}
 void nullsub_22(void) {}
 void nullsub_23(void) {}
-void nullsub_7(void) {}
 void nullsub_9(_DWORD a1) {}
 void nullsub_33(_DWORD a1, _DWORD a2, _DWORD a3) {}
 int __thiscall sub_558800(int (**this)(void)) { return this[385](); }
