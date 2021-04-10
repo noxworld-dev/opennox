@@ -1298,8 +1298,9 @@ var noxMemmap = []struct {
 	{0x5D4594, 2655724, 4096, "byte_5D4594_2655724"},                // 0x85CB80
 	{0x5D4594, 2659820, 4, "byte_5D4594_2659820"},
 	{0x5D4594, 2659916, 4, "byte_5D4594_2659916"},
-	{0x5D4594, 2660032, 4, "dword_5d4594_2660032"},           // 0x85DC54
-	{0x5D4594, 2660652, 4, "dword_5d4594_2660652"},           // 0x85DEC0
+	{0x5D4594, 2660032, 4, "dword_5d4594_2660032"}, // 0x85DC54
+	{0x5D4594, 2660652, 4, "dword_5d4594_2660652"}, // 0x85DEC0
+	// {0x5D4594, 2660688, 1024, "nox_save_player_path_xxx"}, // FIXME: extracting this leads to a freeze on character color screen (English GoG data folder)
 	{0x5D4594, 3679312, 4, "dword_5d4594_3679312"},           // 0x9569E4
 	{0x5D4594, 3679320, 4, "dword_5d4594_3679320"},           // 0x9569EC
 	{0x5D4594, 3798156, 4, "dword_5d4594_3798156"},           // 0x973A20
