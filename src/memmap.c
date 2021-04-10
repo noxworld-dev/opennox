@@ -47,6 +47,8 @@ void* mem_getPtrSize(uintptr_t base, uintptr_t off, uintptr_t size) {
 	abort();
 	return 0;
 }
+#else // NOX_CGO
+void* mem_getPtrSize(uintptr_t base, uintptr_t off, uintptr_t size);
 #endif // NOX_CGO
 
 // defined in the header, emits the signature; we need an implementation now
