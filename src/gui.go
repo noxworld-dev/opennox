@@ -193,6 +193,7 @@ func nox_new_window_from_file(name *C.char, fnc unsafe.Pointer) *C.nox_window {
 }
 
 func newWindowFromFile(name string, fnc unsafe.Pointer) *Window {
+	log.Printf("gui load: %q", name)
 	path := filepath.Join("window", name)
 
 	f, err := fs.Open(path)
@@ -587,7 +588,7 @@ func (p *guiParser) parseWindowRoot(fnc unsafe.Pointer) *Window {
 				return nil
 			}
 			data = d
-		} else if field == "END" {
+		} else if field == "END" || field == "" {
 			if win != nil {
 				return win
 			}

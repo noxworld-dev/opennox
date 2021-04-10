@@ -13,6 +13,9 @@ func ReadNextToken(r io.ByteReader) (string, error) {
 	for {
 		b, err := r.ReadByte()
 		if err == io.EOF {
+			if len(out) == 0 {
+				return "", io.EOF
+			}
 			return string(out), nil
 		} else if err != nil {
 			return string(out), err
