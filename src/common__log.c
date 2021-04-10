@@ -108,7 +108,9 @@ void nox_xxx_networkLog_printf_413D30(char* fmt, ...) {
 	strcat(nox_log_buf, asctime(v1));
 	nox_log_buf[strlen(nox_log_buf)-1] = 0;
 	strcat(nox_log_buf, ")\n");
-	nox_fs_fputs_sync(nox_file_net_log, nox_log_buf);
+	if (nox_file_net_log) {
+		nox_fs_fputs_sync(nox_file_net_log, nox_log_buf);
+	}
 	nox_gui_console_Printf_450C00(NOX_CONSOLE_GREEN, L"%S", nox_log_buf);
 }
 
