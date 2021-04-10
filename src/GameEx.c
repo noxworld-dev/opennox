@@ -149,7 +149,7 @@ BOOL __stdcall GameEx_DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvRes
 		// MEMACCESS(0x581354) = MixRecvFromReplacer; // It is replaced elsewhere
 		EndOfKeyCodeArray = &keycodeArray[keycodeArraySize - 1];
 		if (!GameExCfgLoader())
-			fprintf(stderr, "Failed to read game_ex.cfg !");
+			fprintf(stderr, "Failed to read game_ex.cfg !\n");
 	}
 	return 1;
 }
