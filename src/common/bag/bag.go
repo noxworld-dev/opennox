@@ -340,3 +340,11 @@ func (img *ImageRec) Decode() (*Image, error) {
 	}
 	return DecodePCX(r, byte(img.Type))
 }
+
+func (img *ImageRec) DecodeHeader() (*ImageMeta, error) {
+	r, err := img.open()
+	if err != nil {
+		return nil, err
+	}
+	return DecodePCXHeader(r, byte(img.Type))
+}

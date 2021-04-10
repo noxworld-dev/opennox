@@ -2,13 +2,13 @@ package bag
 
 import (
 	"bufio"
-	"errors"
 	"fmt"
 	"image"
 	"image/color"
 	"io"
 
 	noxcolor "nox/common/color"
+	"nox/common/types"
 )
 
 var _ image.Image = (*Image)(nil)
@@ -33,6 +33,16 @@ func DecodePCX(r io.Reader, typ byte) (*Image, error) {
 	}
 }
 
+func DecodePCXHeader(r io.Reader, typ byte) (*ImageMeta, error) {
+	switch typ {
+	case 3, 4, 5, 6:
+		meta, _, err := readPCXSpriteHeader(r, typ)
+		return meta, err
+	default:
+		return nil, fmt.Errorf("unsupported type: %d", typ)
+	}
+}
+
 func colorDynamicColor(op byte, cl byte) color.RGBA {
 	// TODO: make a separate color type
 	return color.RGBA{
@@ -47,11 +57,11 @@ func colorDynamicMask(op byte, cl byte) color.RGBA {
 	}
 }
 
-func readPCXSprite(r io.Reader, typ byte) (*Image, error) {
+func readPCXSpriteHeader(r io.Reader, typ byte) (*ImageMeta, types.Size, error) {
 	var b [17]byte
 	_, err := io.ReadFull(r, b[:])
 	if err != nil {
-		return nil, err
+		return nil, types.Size{}, err
 	}
 	width := int(endiness.Uint32(b[0:]))
 	height := int(endiness.Uint32(b[4:]))
@@ -59,17 +69,29 @@ func readPCXSprite(r io.Reader, typ byte) (*Image, error) {
 	offsY := int(endiness.Uint32(b[12:]))
 	offs := image.Pt(offsX, offsY)
 	// one byte ignored
-
 	if width <= 0 || width > 1024 || height <= 0 || height > 1024 {
-		return nil, errors.New("invalid image size")
+		return nil, types.Size{}, fmt.Errorf("invalid image size: %dx%d", width, height)
 	}
-
-	img := &Image{
-		RGBA: *image.NewRGBA(image.Rect(0, 0, width, height)),
-		ImageMeta: ImageMeta{
+	return &ImageMeta{
 			Type:  typ,
 			Point: offs,
-		},
+		}, types.Size{
+			W: width,
+			H: height,
+		}, nil
+}
+
+func readPCXSprite(r io.Reader, typ byte) (*Image, error) {
+	meta, sz, err := readPCXSpriteHeader(r, typ)
+	if err != nil {
+		return nil, err
+	}
+	width := sz.W
+	height := sz.H
+
+	img := &Image{
+		RGBA:      *image.NewRGBA(image.Rect(0, 0, width, height)),
+		ImageMeta: *meta,
 	}
 	br := bufio.NewReader(r)
 

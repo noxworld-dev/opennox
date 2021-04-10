@@ -1,6 +1,7 @@
 package main
 
 import (
+	"archive/zip"
 	"encoding/json"
 	"fmt"
 	"image"
@@ -20,11 +21,17 @@ import (
 
 var debugBagImages = os.Getenv("NOX_DEBUG_BAG_IMAGES") == "true"
 
+type bagImage struct {
+	*bag.ImageRec
+	Meta *bag.ImageMeta
+}
+
 var videoBag struct {
 	once   sync.Once
 	err    error
-	bySect map[int]map[int]*bag.ImageRec
-	seen   map[*bag.ImageRec]struct{}
+	bySect map[int]map[int]*bagImage
+	seen   map[*bagImage]struct{}
+	zip    *zip.ReadCloser
 }
 
 func loadAndIndexVideoBag() error {
@@ -37,15 +44,30 @@ func loadAndIndexVideoBag() error {
 	if err != nil {
 		return fmt.Errorf("error reading video bag sections: %w", err)
 	}
-	videoBag.seen = make(map[*bag.ImageRec]struct{})
-	videoBag.bySect = make(map[int]map[int]*bag.ImageRec)
+	videoBag.seen = make(map[*bagImage]struct{})
+	videoBag.bySect = make(map[int]map[int]*bagImage)
 	for _, s := range sects {
-		byOff := make(map[int]*bag.ImageRec)
+		byOff := make(map[int]*bagImage)
 		videoBag.bySect[s.Index] = byOff
 		for _, img := range s.Images {
-			byOff[int(img.Offset)] = img
+			bi := &bagImage{ImageRec: img}
+			byOff[int(img.Offset)] = bi
 		}
 	}
+	if err := openVideoZip(); err != nil {
+		return err
+	}
+	return nil
+}
+
+func openVideoZip() error {
+	zf, err := zip.OpenReader(filepath.Join(getDataPath(), "video.bag.zip"))
+	if os.IsNotExist(err) {
+		return nil
+	} else if err != nil {
+		return err
+	}
+	videoBag.zip = zf
 	return nil
 }
 
@@ -54,6 +76,58 @@ func openImage(base string) (image.Image, error) {
 	f, err := os.Open(base + ".png")
 	if os.IsNotExist(err) {
 		f, err = os.Open(base + ".jpg")
+		isJPG = true
+	}
+	if os.IsNotExist(err) && videoBag.zip != nil {
+		if img, err := openImageZip(filepath.Base(base)); err == nil {
+			return img, nil
+		} else if !os.IsNotExist(err) {
+			return nil, err
+		}
+	}
+	if err != nil {
+		return nil, err
+	}
+	defer f.Close()
+	if !isJPG {
+		return png.Decode(f)
+	}
+	return jpeg.Decode(f)
+}
+
+func openImageMeta(base string) (*bag.ImageMeta, error) {
+	if jdata, err := ioutil.ReadFile(base + ".json"); err == nil {
+		var meta bag.ImageMeta
+		if err := json.Unmarshal(jdata, &meta); err != nil {
+			return nil, err
+		}
+		return &meta, nil
+	} else if !os.IsNotExist(err) {
+		return nil, err
+	}
+	if videoBag.zip == nil {
+		return nil, nil
+	}
+	zf, err := videoBag.zip.Open(filepath.Base(base) + ".json")
+	if os.IsNotExist(err) {
+		return nil, nil
+	} else if err != nil {
+		return nil, err
+	}
+	defer zf.Close()
+	var meta bag.ImageMeta
+	err = json.NewDecoder(zf).Decode(&meta)
+	if err != nil {
+		return nil, err
+	}
+	return &meta, nil
+}
+
+func openImageZip(base string) (image.Image, error) {
+	isJPG := false
+	f, err := videoBag.zip.Open(base + ".png")
+	if os.IsNotExist(err) {
+		f, err = videoBag.zip.Open(base + ".jpg")
 		isJPG = true
 	}
 	if err != nil {
@@ -116,10 +190,19 @@ func imageByBagSection(sect, offs int) (*bag.Image, error) {
 	if mask, err := openImage(base + "_mask"); err == nil {
 		out.Mask = asRGBA(mask)
 	}
-	if jdata, err := ioutil.ReadFile(base + ".json"); err == nil {
-		if err := json.Unmarshal(jdata, &out.ImageMeta); err != nil {
-			log.Printf("image meta error: %q: %v", base, err)
+	if meta, err := openImageMeta(base); err != nil {
+		log.Printf("image meta error: %q: %v", base, err)
+	} else if meta != nil {
+		out.ImageMeta = *meta
+	} else {
+		if img.Meta == nil {
+			if meta, err := img.DecodeHeader(); err == nil {
+				img.Meta = meta
+			} else {
+				img.Meta = &bag.ImageMeta{}
+			}
 		}
+		out.ImageMeta = *img.Meta
 	}
 	if debug {
 		log.Printf("image access: %q: type=%d, %dx%d, (%d, %d)",
