@@ -737,7 +737,11 @@ func (p *guiParser) parseDataField(typ string, buf string) (guiWidgetData, bool)
 		v, buf = gui.ParseNextUintField(buf)
 		d.field_0 = C.uint(v)
 		// TODO: is this correct?
-		p.widgets.staticText.field_1 = C.uint(bool2int(p.widgets.staticText.field_1 != 0))
+		if p.widgets.staticText == nil {
+			p.widgets.staticText = (*staticTextData)(alloc.Calloc(1, unsafe.Sizeof(staticTextData{})))
+		}
+		d2 := p.widgets.staticText
+		d2.field_1 = C.uint(bool2int(p.widgets.staticText.field_1 != 0))
 		return d, true
 	}
 	return nil, true
