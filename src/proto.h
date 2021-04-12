@@ -2591,7 +2591,7 @@ int  sub_4855D0(int, int, int, float);                           // idb
 unsigned int  sub_485AE0(int a1, int a2);
 int  nox_thing_read_floor_485B30(int a1, char* a2);
 int  nox_thing_read_edge_485D40(int a1, char* a2);
-unsigned int sub_485F80();
+void sub_485F80();
 int nox_xxx_tile_486060();
 int sub_486090();
 void nox_free_pixbuffers_486110();
@@ -6484,11 +6484,11 @@ unsigned int  nox_xxx_netTestHighBit_578B70(unsigned int a1);
 _DWORD* sub_578B80();
 unsigned int  sub_578BA0(unsigned int a1);
 int  sub_578BB0(void** a1, int a2, unsigned __int8* a3, int a4);
-int  sub_578BD0(LPVOID lpMem); // idb
+void  sub_578BD0(LPVOID lpMem); // idb
 _DWORD* sub_578BF0();
 int  nox_xxx_nxzDecompress_578C10(_DWORD* a1, _BYTE* a2, _DWORD* a3, unsigned int a4, _DWORD* a5);
 int  sub_578C30(int a1);
-int  sub_578C40(LPVOID lpMem); // idb
+void  sub_578C40(LPVOID lpMem); // idb
 int sub_578C60();
 int  sub_578C90(int a1);
 int sub_578CD0();

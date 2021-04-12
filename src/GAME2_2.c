@@ -9716,7 +9716,7 @@ int  nox_thing_read_edge_485D40(int a1, char* a2) {
 // 485D40: using guessed type char var_20[32];
 
 //----- (00485F80) --------------------------------------------------------
-unsigned int sub_485F80() {
+void sub_485F80() {
 	int v0;               // esi
 	int v1;               // eax
 	int v2;               // edx
@@ -9729,7 +9729,6 @@ unsigned int sub_485F80() {
 	int j;                // ecx
 	unsigned __int8* v12; // esi
 	int k;                // ecx
-	unsigned int result;  // eax
 
 	v0 = 0;
 	v1 = 0;
@@ -9769,7 +9768,6 @@ unsigned int sub_485F80() {
 		v12 += 4;
 		*((_DWORD*)v12 - 1) = k / 22;
 	}
-	return result;
 }
 
 //----- (00486060) --------------------------------------------------------
@@ -12526,7 +12524,6 @@ int nox_video_createCursorDrawThread_48BE70() {
 
 //----- (0048BEB0) --------------------------------------------------------
 int nox_video_cursorThreadWorker_48BEB0() {
-	int result; // eax
 	int v2;     // [esp-14h] [ebp-14h]
 	int v3;     // [esp-10h] [ebp-10h]
 	int v4;     // [esp-Ch] [ebp-Ch]
@@ -12548,7 +12545,7 @@ int nox_video_cursorThreadWorker_48BEB0() {
 			nox_video_waitVBlankAndDrawCursorFromThread_48B5D0(1, 1);
 		}
 	}
-	return result;
+	return 0;
 }
 
 //----- (0048C0C0) --------------------------------------------------------

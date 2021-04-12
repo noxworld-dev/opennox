@@ -5781,7 +5781,7 @@ void  nox_xxx_playerHandleKotrDeath_54DC40(int a1, int a2) {
 
 //----- (0054DF00) --------------------------------------------------------
 void  nox_xxx_netNotifyPlayerDied_54DF00(int a1) {
-	int v1;     // ecx
+	int v1 = 0;     // ecx
 	__int16 v2; // cx
 	int v4;     // [esp+0h] [ebp-4h]
 
@@ -7518,7 +7518,7 @@ int  sub_550A10(int a1, float2* a2, float2* a3, float4* a4, float2* a5, float a6
 //----- (00550CB0) --------------------------------------------------------
 char  sub_550CB0(float2* a1, float2* a2) {
 	double v2;   // st7
-	char v3;     // fps^1
+	char v3 = 0;     // fps^1
 	bool v4;     // c0
 	char v5;     // c2
 	bool v6;     // c3

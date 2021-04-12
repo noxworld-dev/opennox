@@ -4975,7 +4975,7 @@ int  nox_xxx_gen_524680(int a1, int a2, int a3) {
 	_DWORD* v19; // esi
 	_DWORD* i;   // esi
 	int v21;     // [esp+10h] [ebp-10h]
-	int v22;     // [esp+14h] [ebp-Ch]
+	int v22 = 0;     // [esp+14h] [ebp-Ch]
 	float v23;   // [esp+18h] [ebp-8h]
 	float v24;   // [esp+1Ch] [ebp-4h]
 
