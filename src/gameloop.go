@@ -301,13 +301,6 @@ func cmainLoop() {
 }
 
 func CONNECT_PREPARE() {
-	//char* v1;            // ebx
-	//unsigned __int16 v3; // ax
-	//int v4;              // [esp+Ch] [ebp-A8h]
-	//int v5;              // [esp+10h] [ebp-A4h]
-	//int v6;              // [esp+14h] [ebp-A0h]
-	//BYTE Data[1024];     // [esp+18h] [ebp-9Ch]
-
 	v5, v4, _ := nox_xxx_gameGetScreenBoundaries_getVideoMode()
 	var info *C.char = C.nox_xxx_getHostInfoPtr_431770()
 	infos := asByteSlice(unsafe.Pointer(info), 97)
@@ -347,9 +340,9 @@ func CONNECT_PREPARE() {
 		Datas[152] |= 0x80
 	}
 	s1 := C.GoString((*C.char)(memmap.PtrOff(0x5D4594, 2660012+87)))
-	copy(Datas[142:], s1)
+	StrCopyBytes(Datas[142:], s1)
 	s2 := C.GoString(C.sub_41FA40())
-	copy(Datas[128:], s2)
+	StrCopyBytes(Datas[128:], s2)
 	*(*uint32)(unsafe.Pointer(&Datas[138])) = uint32(C.dword_5d4594_2660032)
 	copy(Datas, infos[:97])
 
