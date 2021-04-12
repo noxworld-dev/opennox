@@ -1056,7 +1056,6 @@ unsigned int  sub_553E90(int a1) {
 int  sub_553ED0(int a3) {
 	unsigned __int64 v1; // rax
 	__int64 v2;          // rdi
-	int result;          // eax
 	int v4;              // edi
 
 	v1 = nox_platform_get_ticks();
@@ -1070,7 +1069,7 @@ int  sub_553ED0(int a3) {
 	*getMemU32Ptr(0x5D4594, 4 * a3 + 2498536) = v4;
 	*getMemU32Ptr(0x5D4594, 4 * a3 + 2498024) = 0;
 	*getMemU32Ptr(0x5D4594, 8 * a3 + 2499056) = HIDWORD(v1);
-	return result;
+	return 0;
 }
 
 //----- (00553F40) --------------------------------------------------------
@@ -3105,14 +3104,11 @@ unsigned int  sub_578BA0(unsigned int a1) { return (a1 >> 1) + a1 + 32; }
 int  sub_578BB0(void** a1, int a2, unsigned __int8* a3, int a4) { return sub_57D1C0(a1, a2, a3, a4); }
 
 //----- (00578BD0) --------------------------------------------------------
-int  sub_578BD0(LPVOID lpMem) {
-	int result; // eax
-
+void  sub_578BD0(LPVOID lpMem) {
 	if (lpMem) {
 		sub_57D150((LPVOID*)lpMem);
 		operator_delete(lpMem);
 	}
-	return result;
 }
 
 //----- (00578BF0) --------------------------------------------------------
@@ -3138,14 +3134,11 @@ int  nox_xxx_nxzDecompress_578C10(_DWORD* a1, _BYTE* a2, _DWORD* a3, unsigned in
 int  sub_578C30(int a1) { return sub_57EA60(a1); }
 
 //----- (00578C40) --------------------------------------------------------
-int  sub_578C40(LPVOID lpMem) {
-	int result; // eax
-
+void  sub_578C40(LPVOID lpMem) {
 	if (lpMem) {
 		sub_57EA00((LPVOID*)lpMem);
 		operator_delete(lpMem);
 	}
-	return result;
 }
 
 //----- (00578C60) --------------------------------------------------------

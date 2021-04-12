@@ -2990,7 +2990,7 @@ float* nox_xxx_mapgen_Doors_4D4790() {
 	int v30;       // [esp+Ch] [ebp-3Ch]
 	int v31;       // [esp+Ch] [ebp-3Ch]
 	int v32;       // [esp+10h] [ebp-38h]
-	int v33;       // [esp+14h] [ebp-34h]
+	int v33 = 0;       // [esp+14h] [ebp-34h]
 	float2 v34;    // [esp+18h] [ebp-30h]
 	float2 a2;     // [esp+20h] [ebp-28h]
 	float v36;     // [esp+28h] [ebp-20h]

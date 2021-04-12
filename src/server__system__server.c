@@ -1895,7 +1895,7 @@ char nox_xxx_updateUnits_51B100() {
 	double v56;               // st7
 	float v58;                // [esp+0h] [ebp-48h]
 	float v59;                // [esp+0h] [ebp-48h]
-	char v60;                 // [esp+17h] [ebp-31h]
+	char v60 = 0;                 // [esp+17h] [ebp-31h]
 	float v61;                // [esp+18h] [ebp-30h]
 	float v62;                // [esp+1Ch] [ebp-2Ch]
 	float2 v63;               // [esp+20h] [ebp-28h]

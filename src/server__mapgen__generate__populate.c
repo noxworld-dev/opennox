@@ -19,7 +19,7 @@ float*  nox_xxx_mapgen_522AD0(float* a1, int a2) {
 	int2 a2a;   // [esp+14h] [ebp-20h]
 	float2 a1a; // [esp+1Ch] [ebp-18h]
 	float v13;  // [esp+24h] [ebp-10h]
-	float v14;  // [esp+28h] [ebp-Ch]
+	float v14 = 0;  // [esp+28h] [ebp-Ch]
 	float2 v15; // [esp+2Ch] [ebp-8h]
 
 	v2 = *(_DWORD*)(a2 + 60);

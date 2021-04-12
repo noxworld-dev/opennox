@@ -4936,7 +4936,7 @@ int  sub_447CC0(int a1, unsigned int a2, int* a3, int a4) {
 	int v18;           // eax
 	int v19;           // eax
 	wchar_t* v20;      // eax
-	int* v21;          // [esp+8h] [ebp-104h]
+	int* v21 = 0;          // [esp+8h] [ebp-104h]
 	CHAR File[256];    // [esp+Ch] [ebp-100h]
 
 	if (a2 > 0x4006) {

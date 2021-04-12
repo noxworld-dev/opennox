@@ -1501,7 +1501,7 @@ int*  sub_48E6A0(char a1, _DWORD* a2, _DWORD* a3, int* a4, int* a5) {
 	int v10;     // edx
 
 	result = (int*)(2 * nox_xxx_guiFontHeightMB_43F320(0));
-	switch (a1) {
+	switch ((unsigned char)a1) {
 	case 1:
 		*a4 = a3[162] - a2[168] - (_DWORD)result;
 		*a5 = a3[163] - a2[169] - (_DWORD)result;
@@ -3823,8 +3823,8 @@ int  nox_xxx_drawBlackofWall_497C40(int a1, int a2, char a3) {
 	int v19; // eax
 	int v21; // [esp+10h] [ebp-10h]
 	int v22; // [esp+14h] [ebp-Ch]
-	int v23; // [esp+18h] [ebp-8h]
-	int v24; // [esp+1Ch] [ebp-4h]
+	int v23 = 0; // [esp+18h] [ebp-8h]
+	int v24 = 0; // [esp+1Ch] [ebp-4h]
 
 	v21 = 23 * a1;
 	v22 = 23 * a2;
