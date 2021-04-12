@@ -8,17 +8,17 @@ extern unsigned int nox_frame_xxx_2598000;
 #define NOX_TELNET_SOCK_BUF 1024
 
 typedef struct {
-	SOCKET sock;
+	nox_socket_t sock;
 	unsigned char data[NOX_TELNET_SOCK_BUF];
 	unsigned short field_1028; // 1028
 	unsigned short field_1030; // 1030
 	unsigned short field_1032; // 1032
 	unsigned short field_1034; // 1034
-	struct in_addr addr; // 1036
+	nox_net_in_addr addr; // 1036
 	unsigned int field_1040;
 } nox_telnet_sock_t;
 
-SOCKET nox_telnet_listener = -1;
+nox_socket_t nox_telnet_listener = -1;
 nox_telnet_sock_t nox_telnet_socks_2516484[NOX_TELNET_SOCK_MAX] = {0};
 unsigned char nox_telnet_send_buf[NOX_TELNET_SOCK_BUF] = {0}; // size is a guess
 unsigned char nox_telnet_recv_buf[NOX_TELNET_SOCK_BUF] = {0};
@@ -46,10 +46,10 @@ unsigned short nox_telnet_getPort_579850() { return nox_telnet_port; }
 
 //----- (00578FF0) --------------------------------------------------------
 void nox_telnet_accept_578FF0() {
-	struct sockaddr_in addr;
-	addr.sin_family = AF_INET;
+	struct nox_net_sockaddr_in addr;
+	addr.sin_family = NOX_AF_INET;
 	addr.sin_port = 0;
-	addr.sin_addr.s_addr = 0;
+	addr.sin_addr = 0;
 	memset(addr.sin_zero, 0, 8);
 
 	// find a free socket struct in the buffer
@@ -66,17 +66,15 @@ void nox_telnet_accept_578FF0() {
 	nox_telnet_sock_t* cur = &nox_telnet_socks_2516484[ind];
 
 	// accept the connection
-	int addrlen = 16;
-	cur->sock = accept(nox_telnet_listener, &addr, &addrlen);
+	cur->sock = nox_net_accept(nox_telnet_listener, &addr);
 	if (cur->sock == -1) {
-		if (WSAGetLastError() != 10035) {
+		if (nox_net_error(nox_telnet_listener) != NOX_NET_EWOULDBLOCK) {
 			nox_telnet_setErr_578F20(-4);
 		}
 		return;
 	}
-	cur->addr.S_un.S_addr = addr.sin_addr.s_addr;
-	u_long argp = 1;
-	if (ioctlsocket(cur->sock, 0x8004667e, &argp) == -1) {
+	cur->addr = addr.sin_addr;
+	if (nox_net_non_blocking(cur->sock, 1) == -1) {
 		nox_telnet_setErr_578F20(-5);
 	}
 	++nox_telnet_conns;
@@ -84,14 +82,14 @@ void nox_telnet_accept_578FF0() {
 	// log the connection
 	wchar_t* stel = nox_strman_loadString_40F1D0("Telnet", 0, "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c", 142);
 	wchar_t* sstart = nox_strman_loadString_40F1D0("ConnectionStarted", 0, "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c", 142);
-	char* saddr = inet_ntoa(cur->addr);
+	char* saddr = nox_net_ip2str(cur->addr);
 	nox_xxx_networkLog_printf_413D30("%S: %S %s", stel, sstart, saddr);
 
 	// password prompt
 	char buf[128];
 	wchar_t* spwd = nox_strman_loadString_40F1D0("Password", 0, "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c", 146);
 	nox_sprintf(buf, "%S", spwd);
-	send(cur->sock, buf, strlen(buf), 0);
+	nox_net_send(cur->sock, buf, strlen(buf));
 
 	cur->field_1040 |= 1;
 }
@@ -99,16 +97,16 @@ void nox_telnet_accept_578FF0() {
 //----- (00578F30) --------------------------------------------------------
 void nox_telnet_shutdown_578F30() {
 	if (nox_telnet_listener != -1) {
-		shutdown(nox_telnet_listener, 2);
-		closesocket(nox_telnet_listener);
+		nox_net_shutdown(nox_telnet_listener);
+		nox_net_close(nox_telnet_listener);
 		nox_telnet_listener = -1;
 	}
 	nox_telnet_conns = 0;
 	for (int i = 0; i < NOX_TELNET_SOCK_MAX; i++) {
 		nox_telnet_sock_t* cur = &nox_telnet_socks_2516484[i];
 		if (cur->sock != -1) {
-			shutdown(nox_telnet_listener, 2); // TODO: shouldn't it be cur->sock?
-			closesocket(cur->sock);
+			nox_net_shutdown(nox_telnet_listener); // TODO: shouldn't it be cur->sock?
+			nox_net_close(cur->sock);
 		}
 		cur->sock = -1;
 		cur->data[0] = 0;
@@ -123,7 +121,7 @@ void nox_telnet_shutdown_578F30() {
 void nox_telnet_closeInd_579350(int i) {
 	nox_telnet_sock_t* cur = &nox_telnet_socks_2516484[i];
 	if (cur->sock != -1) {
-		closesocket(cur->sock);
+		nox_net_close(cur->sock);
 		--nox_telnet_conns;
 	}
 	cur->sock = -1;
@@ -150,32 +148,31 @@ void nox_telnet_broadcast_579750(wchar_t* str) {
 		v2[0] = '\r';
 		v2[1] = '\n';
 		v2[2] = 0;
-		send(cur->sock, buf, strlen(buf), 0);
+		nox_net_send(cur->sock, buf, strlen(buf));
 	}
 }
 
 //----- (00578E10) --------------------------------------------------------
 int nox_telnet_listen_578E10() {
-	struct sockaddr_in addr;
-	addr.sin_family = AF_INET;
+	struct nox_net_sockaddr_in addr;
+	addr.sin_family = NOX_AF_INET;
 	addr.sin_port = htons(nox_telnet_port);
-	addr.sin_addr.s_addr = 0;
+	addr.sin_addr = 0;
 	memset(addr.sin_zero, 0, 8);
 
-	nox_telnet_listener = socket(AF_INET, SOCK_STREAM, 0);
+	nox_telnet_listener = nox_net_socket_tcp();
 	if (nox_telnet_listener == -1) {
 		return -1;
 	}
-	if (bind(nox_telnet_listener, &addr, 16) == -1) {
+	if (nox_net_bind(nox_telnet_listener, &addr) == -1) {
 		return -2;
 	}
-	u_long argp = 1;
-	if (ioctlsocket(nox_telnet_listener, 0x8004667e, &argp) == -1) {
+	if (nox_net_non_blocking(nox_telnet_listener, 1) == -1) {
 		nox_telnet_setErr_578F20(-5);
 		return -5;
 	}
 	if (listen(nox_telnet_listener, 1) == -1) {
-		WSAGetLastError();
+		nox_net_error(nox_telnet_listener);
 		nox_telnet_setErr_578F20(-3);
 	}
 	nox_telnet_conns = 0;
@@ -211,15 +208,15 @@ int nox_telnet_checkLine_579700(nox_telnet_sock_t* cur) {
 
 //----- (005793B0) --------------------------------------------------------
 char* nox_telnet_recv_5793B0(nox_telnet_sock_t* cur, int ind) {
-	u_long argp = 0;
-	if (ioctlsocket(cur->sock, 0x4004667f, &argp) == -1 || (int)(argp + cur->field_1032) > 1024)
+	unsigned int argp = 0;
+	if (nox_net_recv_available(cur->sock, &argp) == -1 || (int)(argp + cur->field_1032) > 1024)
 		return 0;
-	int res = recv(cur->sock, nox_telnet_recv_buf, sizeof(nox_telnet_recv_buf), 0);
+	int res = nox_net_recv(cur->sock, nox_telnet_recv_buf, sizeof(nox_telnet_recv_buf));
 	if (res != -1) {
 		int n = res;
 		if (!n) {
 			nox_telnet_closeInd_579350(ind);
-			char* saddr = inet_ntoa(cur->addr);
+			char* saddr = nox_net_ip2str(cur->addr);
 			wchar_t* sterm = nox_strman_loadString_40F1D0("ConnectionTerminated", 0, "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c", 211);
 			wchar_t* stel = nox_strman_loadString_40F1D0("Telnet", 0, "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c", 211);
 			nox_xxx_networkLog_printf_413D30("%S: %S %s", stel, sterm, saddr);
@@ -237,9 +234,9 @@ char* nox_telnet_recv_5793B0(nox_telnet_sock_t* cur, int ind) {
 			}
 			memset(nox_telnet_line_buf, '*', end);
 			nox_telnet_line_buf[end] = 0;
-			send(cur->sock, nox_telnet_line_buf, end, 0);
+			nox_net_send(cur->sock, nox_telnet_line_buf, end);
 		} else {
-			send(cur->sock, nox_telnet_recv_buf, n, 0);
+			nox_net_send(cur->sock, nox_telnet_recv_buf, n);
 		}
 		int v11 = cur->field_1030;
 		unsigned char* b = &cur->data[v11];
@@ -258,9 +255,9 @@ char* nox_telnet_recv_5793B0(nox_telnet_sock_t* cur, int ind) {
 			cur->field_1030 = n - v13;
 		}
 		cur->field_1032 += n;
-	} else if (WSAGetLastError() != 10035) {
+	} else if (nox_net_error(cur->sock) != NOX_NET_EWOULDBLOCK) {
 		nox_telnet_closeInd_579350(ind);
-		char* saddr = inet_ntoa(cur->addr);
+		char* saddr = nox_net_ip2str(cur->addr);
 		wchar_t* sterm = nox_strman_loadString_40F1D0("ConnectionTerminated", 0, "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c", 273);
 		wchar_t* stel = nox_strman_loadString_40F1D0("Telnet", 0, "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c", 273);
 		nox_xxx_networkLog_printf_413D30("%S: %S %s", stel, sterm, saddr);
@@ -335,7 +332,7 @@ void nox_telnet_handle_579190() {
 			continue;
 		}
 		if (!*b) {
-			send(cur->sock, nox_telnet_prompt, strlen(nox_telnet_prompt), 0);
+			nox_net_send(cur->sock, nox_telnet_prompt, strlen(nox_telnet_prompt));
 			continue;
 		}
 		if (strlen(b) >= 127) {
@@ -346,22 +343,22 @@ void nox_telnet_handle_579190() {
 			wchar_t* pass = nox_xxx_sysopGetPass_40A630();
 			cur->field_1040 &= 0xFFFFFFFE;
 			if (nox_wcscmp(pass, (const wchar_t*)getMemAt(0x5D4594, 2523748)) && _nox_wcsicmp(buf, pass)) {
-				char* saddr = inet_ntoa(cur->addr);
+				char* saddr = nox_net_ip2str(cur->addr);
 				wchar_t* bpass = nox_strman_loadString_40F1D0("BadPassword", 0, "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c", 371);
 				wchar_t* stel = nox_strman_loadString_40F1D0("Telnet", 0, "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c", 371);
 				nox_xxx_networkLog_printf_413D30("%S: %S %s", stel, bpass, saddr);
 				nox_telnet_closeInd_579350(i);
 				continue;
 			}
-			send(cur->sock, "\r\n", 2, 0);
-			char* saddr = inet_ntoa(cur->addr);
+			nox_net_send(cur->sock, "\r\n", 2);
+			char* saddr = nox_net_ip2str(cur->addr);
 			wchar_t* succ = nox_strman_loadString_40F1D0("LoginSuccessful", 0, "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c", 381);
 			wchar_t* stel = nox_strman_loadString_40F1D0("Telnet", 0, "C:\\NoxPost\\src\\common\\Telnet\\telnetd.c", 381);
 			nox_xxx_networkLog_printf_413D30("%S: %S %s", stel, succ, saddr);
 		} else {
 			nox_server_parseCmdText_443C80(buf, 0);
 		}
-		send(cur->sock, nox_telnet_prompt, strlen(nox_telnet_prompt), 0);
+		nox_net_send(cur->sock, nox_telnet_prompt, strlen(nox_telnet_prompt));
 	}
 }
 

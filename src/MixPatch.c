@@ -65,6 +65,6 @@ _DWORD*  sub_9805EB(_DWORD* a1) {
 	return (int)v1;
 }
 
-int __stdcall mix_recvfrom(SOCKET s, char* buf, int len, int flags, struct sockaddr* from, int* fromlen) {
-	return MixRecvFromReplacer(s, buf, len, flags, from, fromlen);
+int __stdcall mix_recvfrom(nox_socket_t s, char* buf, int len, struct nox_net_sockaddr* from) {
+	return MixRecvFromReplacer(s, buf, len, from);
 }

@@ -3,6 +3,7 @@
 
 #define DIRECTINPUT_VERSION 0x0700
 #include "memfile.h"
+#include "nox_net.h"
 #include <ctype.h>
 #include <errno.h>
 #include <math.h>
@@ -440,8 +441,8 @@ _Static_assert(sizeof(nox_net_struct_arg_t) == 40, "wrong size of nox_net_struct
 
 #define NOX_NET_STRUCT_MAX 128
 typedef struct nox_net_struct_t {
-	SOCKET sock; // 0, 0
-	struct sockaddr_in addr; // 1, 4
+	nox_socket_t sock; // 0, 0
+	struct nox_net_sockaddr_in addr; // 1, 4
 	int id; // 5, 20
 	_DWORD field_6;
 	_DWORD field_7;
@@ -486,7 +487,8 @@ typedef struct nox_net_struct_t {
 	_BYTE data_39[4]; // 156
 	_DWORD field_40;  // 160
 } nox_net_struct_t;
-_Static_assert(sizeof(struct sockaddr_in) == 16, "wrong size of sockaddr_in structure!");
+_Static_assert(sizeof(struct nox_net_sockaddr) == 16, "wrong size of nox_net_sockaddr structure!");
+_Static_assert(sizeof(struct nox_net_sockaddr_in) == 16, "wrong size of nox_net_sockaddr_in structure!");
 _Static_assert(sizeof(nox_net_struct_t) == 164, "wrong size of nox_net_struct_t structure!");
 
 typedef struct nox_net_struct2_t {
@@ -495,7 +497,7 @@ typedef struct nox_net_struct2_t {
 	_BYTE field_1_1; // 1, 5
 	_WORD field_1_2; // 1, 6
 	// TODO: check usages, looks like it reuses sin_zero for something else
-	struct sockaddr_in addr; // 2, 8
+	struct nox_net_sockaddr_in addr; // 2, 8
 	_DWORD field_6[10]; // 6, 24
 	_DWORD ticks; // 16, 64
 } nox_net_struct2_t;

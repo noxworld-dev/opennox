@@ -35,7 +35,6 @@ struct _REGKEY {
 };
 
 DWORD last_error;
-DWORD last_socket_error;
 void* handles[1024];
 
 static inline HANDLE new_handle(unsigned int type, void* data) {
@@ -275,76 +274,6 @@ int WINAPI WideCharToMultiByte(UINT CodePage, DWORD dwFlags, LPCWSTR lpWideCharS
 	return 0;
 }
 
-// Socket functions
-int WINAPI WSAStartup(WORD wVersionRequested, struct WSAData* lpWSAData) { return 0; }
-
-int WINAPI WSACleanup() { return 0; }
-
-SOCKET WINAPI socket(int domain, int type, int protocol)
-#undef socket
-{
-#ifdef __EMSCRIPTEN__
-	static int fd = 1024;
-	return fd++;
-#else
-	return socket(domain, type, protocol);
-#endif
-}
-
-int WINAPI closesocket(SOCKET s) {
-	close(s);
-	return 0;
-}
-
-char* WINAPI inet_ntoa(struct in_addr compat_addr)
-#undef in_addr
-#undef inet_ntoa
-{
-	struct in_addr addr;
-
-	addr.s_addr = compat_addr.S_un.S_addr;
-	return inet_ntoa(addr);
-}
-
-int WINAPI setsockopt(SOCKET s, int level, int opt, const void* value, unsigned int len)
-#undef setsockopt
-{
-#ifdef __EMSCRIPTEN__
-	return 0;
-#else
-	return setsockopt(s, level, opt, value, len);
-#endif
-}
-
-int WINAPI ioctlsocket(SOCKET s, long cmd, unsigned long* argp) {
-	int ret;
-
-	switch (cmd) {
-	case FIONREAD:
-		ret = ioctl(s, FIONREAD, argp);
-		break;
-	case 0x4004667f: // FIONREAD
-#ifdef __EMSCRIPTEN__
-		*argp = EM_ASM_INT({ return network.available($0); }, s);
-		ret = 0;
-#else
-		ret = ioctl(s, FIONREAD, argp);
-#endif
-		break;
-#ifndef __EMSCRIPTEN__
-	case 0x8004667e: // FIONBIO
-		ret = ioctl(s, FIONBIO, argp);
-		break;
-#endif
-	default:
-		abort();
-		ret = -1;
-		break;
-	}
-
-	return ret;
-}
-
 #ifdef __EMSCRIPTEN__
 void build_server_info(void* arg) {
 	static char oldbuf[256];
@@ -369,98 +298,6 @@ void build_server_info(void* arg) {
 	}
 }
 #endif
-
-int WINAPI bind(int sockfd, const struct sockaddr* addr, unsigned int addrlen)
-#undef bind
-{
-	int ret;
-#ifdef __EMSCRIPTEN__
-	static long updater = -1;
-
-	EM_ASM_({ network.bind($0); }, sockfd);
-
-	if (updater == -1)
-		updater = emscripten_set_interval(build_server_info, 1000, NULL);
-
-	ret = 0;
-#else
-	ret = bind(sockfd, addr, addrlen);
-#endif
-	if (ret >= 0)
-		return ret;
-
-	switch (errno) {
-	case EADDRINUSE:
-		last_socket_error = 10048u;
-		break;
-	default:
-		abort();
-		break;
-	}
-
-	return -1;
-}
-
-int WINAPI recvfrom(int sockfd, void* buffer, unsigned int length, int flags, struct sockaddr* addr,
-					unsigned int* addrlen)
-#undef recvfrom
-{
-#ifdef __EMSCRIPTEN__
-	int ret;
-	struct sockaddr_in* addr_in = addr;
-	ret = EM_ASM_INT(({
-						 const[remote, port, data] = network.recvfrom($4);
-						 if (remote === null)
-							 return -1;
-						 const length = Math.min(data.length, $1);
-						 Module.HEAPU8.set(new Uint8Array(data, 0, length), $0);
-						 if ($2) {
-							 Module.HEAPU32[$2 >> 2] = remote;
-						 }
-						 if ($3) {
-							 Module.HEAPU8[$3] = port >> 8;
-							 Module.HEAPU8[$3 + 1] = port >> 0;
-						 }
-						 return length;
-					 }),
-					 buffer, length, addr_in ? &addr_in->sin_addr : NULL, addr_in ? &addr_in->sin_port : NULL, sockfd);
-	if (addr_in)
-		addr_in->sin_family = AF_INET;
-	return ret;
-#else
-	return recvfrom(sockfd, buffer, length, flags, addr, addrlen);
-#endif
-}
-
-int WINAPI sendto(int sockfd, void* buffer, unsigned int length, int flags, const struct sockaddr* addr,
-				  unsigned int addrlen)
-#undef sendto
-{
-#ifdef __EMSCRIPTEN__
-	struct sockaddr_in* addr_in = addr;
-	unsigned int dest = addr_in->sin_addr.s_addr;
-	unsigned char* p = buffer;
-
-	// broadcast packet
-	if (dest == 0xffffffff) {
-		if (p[2] == 12) {
-			EM_ASM_({network.isready() && network.listServers($0, $1)}, *(DWORD*)(p + 8), sockfd);
-		}
-		return length;
-	}
-
-	return EM_ASM_INT(
-		{
-			network.sendto($3, $2, $4, Module.HEAPU8.slice($0, $0 + $1));
-			return $1;
-		},
-		buffer, length, dest, sockfd, ntohs(addr_in->sin_port));
-#else
-	return sendto(sockfd, buffer, length, flags, addr, addrlen);
-#endif
-}
-
-int WINAPI WSAGetLastError() { return last_socket_error; }
 
 // Time functions
 // compatGetDateFormatA(Locale=2048, dwFlags=1, lpDate=0x1708c6a4, lpFormat=0x00000000, lpDateStr="nox.str:Warrior",
