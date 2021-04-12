@@ -77,7 +77,6 @@ typedef int HRESULT;
 typedef int HWND;
 typedef int LCID;
 typedef int REGSAM;
-typedef int SOCKET;
 typedef INT_PTR LRESULT;
 typedef INT_PTR LSTATUS;
 typedef INT_PTR LPARAM;
@@ -279,8 +278,6 @@ enum {
 #define ReleaseMutex compatReleaseMutex
 #define SetEvent compatSetEvent
 #define WaitForSingleObject compatWaitForSingleObject
-#define in_addr compatin_addr
-#define inet_ntoa compatinet_ntoa
 #define CopyRect compatCopyRect
 #define SetRect compatSetRect
 #define IsRectEmpty compatIsRectEmpty
@@ -290,16 +287,6 @@ enum {
 #define _itow compat_itow
 #define _makepath compat_makepath
 #define _splitpath compat_splitpath
-#define WSAStartup compatWSAStartup
-#define WSACleanup compatWSACleanup
-#define socket compatsocket
-#define setsockopt compatsetsockopt
-#define bind compatbind
-#define closesocket compatclosesocket
-#define ioctlsocket compatioctlsocket
-#define WSAGetLastError compatWSAGetLastError
-#define recvfrom compatrecvfrom
-#define sendto compatsendto
 #define InterlockedExchange compatInterlockedExchange
 #define InterlockedDecrement compatInterlockedDecrement
 #define InterlockedIncrement compatInterlockedIncrement
@@ -357,7 +344,6 @@ HANDLE WINAPI CreateMutexA(LPSECURITY_ATTRIBUTES lpSecurityAttributes, BOOL bIni
 BOOL WINAPI ReleaseMutex(HANDLE hMutex);
 BOOL WINAPI SetEvent(HANDLE hEvent);
 DWORD WINAPI WaitForSingleObject(HANDLE hHandle, DWORD dwMilliseconds);
-char* WINAPI inet_ntoa(struct in_addr in);
 int WINAPI WideCharToMultiByte(UINT CodePage, DWORD dwFlags, LPCWSTR lpWideCharStr, int cchWideChar,
 							   LPSTR lpMultiByteStr, int cbMultiByte, LPCCH lpDefaultChar, LPBOOL lpUsedDefaultChar);
 
@@ -365,18 +351,6 @@ LONG InterlockedExchange(volatile LONG* Target, LONG Value);
 LONG InterlockedDecrement(volatile LONG* Addend);
 LONG InterlockedIncrement(volatile LONG* Addend);
 int WINAPI MessageBoxA(HWND hWnd, LPCSTR lpText, LPCSTR lpCaption, UINT uType);
-int WINAPI WSAStartup(WORD wVersionRequested, struct WSAData* lpWSAData);
-int WINAPI WSACleanup();
-int WINAPI closesocket(SOCKET s);
-int WINAPI ioctlsocket(SOCKET s, long cmd, unsigned long* argp);
-int WINAPI WSAGetLastError();
-SOCKET WINAPI socket(int domain, int type, int protocol);
-int WINAPI setsockopt(SOCKET s, int level, int opt, const void* value, unsigned int len);
-int WINAPI bind(int sockfd, const struct sockaddr* addr, unsigned int addrlen);
-int WINAPI recvfrom(int sockfd, void* buffer, unsigned int length, int flags, struct sockaddr* addr,
-					unsigned int* addrlen);
-int WINAPI sendto(int sockfd, void* buffer, unsigned int length, int flags, const struct sockaddr* addr,
-				  unsigned int addrlen);
 
 unsigned int _control87(unsigned int new_, unsigned int mask);
 unsigned int _controlfp(unsigned int new_, unsigned int mask);

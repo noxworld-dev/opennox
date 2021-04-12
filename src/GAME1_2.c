@@ -8654,7 +8654,6 @@ void sub_43ACC0() {
 	char* v0;          // eax
 	int i;             // ebp
 	int v2;            // eax
-	struct in_addr v3; // eax
 	char* v4;          // eax
 	int v5;            // eax
 	int v6;            // esi
@@ -8681,8 +8680,7 @@ void sub_43ACC0() {
 				if (*(int*)&dword_587000_87412 == -1 ||
 					sub_437860((__int16)v2, *(__int16*)&v9[46]) == *(int*)&dword_587000_87412) {
 					if (nox_xxx_checkSomeFlagsOnJoin_4899C0((int)v9)) {
-						v3.S_un.S_addr = htonl(*(_DWORD*)(i + 36));
-						v4 = inet_ntoa(v3);
+						v4 = nox_net_ip2str(htonl(*(_DWORD*)(i + 36)));
 						*(_DWORD*)&v9[12] = *(_DWORD*)v4;
 						*(_DWORD*)&v9[16] = *((_DWORD*)v4 + 1);
 						*(_DWORD*)&v9[20] = *((_DWORD*)v4 + 2);

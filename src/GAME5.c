@@ -8149,7 +8149,7 @@ bool sub_551E00(unsigned __int8 a1, int a2) {
 		if (!ns) {
 			continue;
 		}
-		if (*(_WORD*)(a2 + 2) == ns->addr.sin_port && *(_DWORD*)(a2 + 4) == ns->addr.sin_addr.s_addr && a1 == i) {
+		if (*(_WORD*)(a2 + 2) == ns->addr.sin_port && *(_DWORD*)(a2 + 4) == ns->addr.sin_addr && a1 == i) {
 			return 1;
 		}
 	}
@@ -8157,13 +8157,13 @@ bool sub_551E00(unsigned __int8 a1, int a2) {
 }
 
 //----- (00551E60) --------------------------------------------------------
-nox_net_struct_t* nox_xxx_netStructByAddr_551E60(struct sockaddr_in* addr) {
+nox_net_struct_t* nox_xxx_netStructByAddr_551E60(struct nox_net_sockaddr_in* addr) {
 	for (int i = 0; i < NOX_NET_STRUCT_MAX; i++) {
 		nox_net_struct_t* ns = nox_net_struct_arr[i];
 		if (!ns) {
 			continue;
 		}
-		if (addr->sin_port == ns->addr.sin_port && addr->sin_addr.s_addr == ns->addr.sin_addr.s_addr) {
+		if (addr->sin_port == ns->addr.sin_port && addr->sin_addr == ns->addr.sin_addr) {
 			return ns;
 		}
 	}
@@ -8192,14 +8192,14 @@ int nox_xxx_netRead2Xxx_551EB0(unsigned int id1, unsigned int id2, unsigned __in
 }
 
 //----- (00551F90) --------------------------------------------------------
-int  nox_xxx_sendto_551F90(SOCKET s, char* buf, int len, int flags, struct sockaddr_in* to, int tolen) {
+int  nox_xxx_sendto_551F90(nox_socket_t s, char* buf, int len, struct nox_net_sockaddr_in* to) {
 	nox_net_struct_t* ns = nox_xxx_netStructByAddr_551E60(to);
 	if (!ns)
-		return sendto(s, buf, len, flags, to, tolen);
+		return nox_net_sendto(s, buf, len, to);
 	if (!ns->xor_key)
-		return sendto(s, buf, len, flags, to, tolen);
+		return nox_net_sendto(s, buf, len, to);
 	nox_xxx_cryptXorDst_56FE00(ns->xor_key, buf, len, getMemAt(0x5D4594, 2491812));
-	return sendto(s, (const char*)getMemAt(0x5D4594, 2491812), len, flags, to, tolen);
+	return nox_net_sendto(s, (const char*)getMemAt(0x5D4594, 2491812), len, to);
 }
 
 //----- (00552010) --------------------------------------------------------
@@ -8303,7 +8303,7 @@ void sub_5522E0(int id) {
 	nox_net_struct_t* ns = nox_net_struct_arr[i];
 	char buf[8];
 	int v2 = nox_xxx_makePacketTime_552340(id, buf);
-	int v3 = nox_xxx_sendto_551F90(ns->sock, buf, v2, 0, &nox_net_struct2_arr[id].addr, 16);
+	int v3 = nox_xxx_sendto_551F90(ns->sock, buf, v2, &nox_net_struct2_arr[id].addr);
 	sub_553F40(v3, 1);
 }
 
@@ -8325,7 +8325,7 @@ void  sub_552380(int a1) {
 	buf[0] = 0;
 	buf[1] = 0;
 	buf[2] = 20;
-	int v3 = nox_xxx_sendto_551F90(ns->sock, (char*)&buf, 3, 0, &nox_net_struct2_arr[a1].addr, 16);
+	int v3 = nox_xxx_sendto_551F90(ns->sock, (char*)&buf, 3, &nox_net_struct2_arr[a1].addr);
 	sub_553F40(v3, 1);
 	nox_net_struct2_arr[a1].field_0 = 0;
 }
@@ -8339,7 +8339,7 @@ void  sub_5523E0(char a1, int a2) {
 	buf[1] = 0;
 	buf[2] = 19;
 	buf[3] = a1;
-	int v4 = nox_xxx_sendto_551F90(ns->sock, (char*)&buf, 4, 0, &nox_net_struct2_arr[a2].addr, 16);
+	int v4 = nox_xxx_sendto_551F90(ns->sock, (char*)&buf, 4, &nox_net_struct2_arr[a2].addr);
 	sub_553F40(v4, 1);
 	nox_net_struct2_arr[a2].field_0 = 0;
 }
@@ -8480,7 +8480,7 @@ int  nox_xxx_netSendSock_552640(unsigned int id, const char* buf, signed int sz,
 			ns2->data_2_xxx[0] = ns2->data_2_base[0];
 			ns2->data_2_xxx[1] = ns2->data_2_base[1];
 			memcpy(&ns2->data_2_xxx[2], buf, v10);
-			v16 = nox_xxx_sendto_551F90(ns2->sock, ns2->data_2_xxx, v10 + 2, 0, &ns2->addr, 16);
+			v16 = nox_xxx_sendto_551F90(ns2->sock, ns2->data_2_xxx, v10 + 2, &ns2->addr);
 			if (v16 == -1)
 				return -1;
 			sub_553F40(v10 + 2, 1);

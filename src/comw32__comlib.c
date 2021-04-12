@@ -2,8 +2,8 @@
 #include "proto.h"
 
 //----- (00552020) --------------------------------------------------------
-int  nox_xxx_netRecv_552020(SOCKET s, char* buf, int len, int flags, struct sockaddr_in* from, int* fromlen) {
-	int n = mix_recvfrom(s, buf, len, flags, from, fromlen);
+int  nox_xxx_netRecv_552020(nox_socket_t s, char* buf, int len, struct nox_net_sockaddr_in* from) {
+	int n = mix_recvfrom(s, buf, len, from);
 	if (n != -1) {
 		nox_net_struct_t* ns = nox_xxx_netStructByAddr_551E60(from);
 		if (ns) {

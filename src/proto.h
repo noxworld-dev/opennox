@@ -3,6 +3,7 @@
 
 #include "defs.h"
 #include "memfile.h"
+#include "nox_net.h"
 
 // '...' differs in levels of indirection from '... *'
 #pragma warning(disable : 4047)
@@ -6028,9 +6029,9 @@ void  sub_551AE0(int a1, int a2, int a3);
 void sub_551BF0();
 void  sub_551C40(int a1, int a2);
 bool sub_551E00(unsigned __int8 a1, int a2);
-nox_net_struct_t* nox_xxx_netStructByAddr_551E60(struct sockaddr_in* addr);
+nox_net_struct_t* nox_xxx_netStructByAddr_551E60(struct nox_net_sockaddr_in* addr);
 int  nox_xxx_netRead2Xxx_551EB0(unsigned int id1, unsigned int id2, unsigned __int8 a3, int a4, int a5);
-int  nox_xxx_sendto_551F90(SOCKET s, char* buf, int len, int flags, struct sockaddr_in* to, int tolen); // idb
+int  nox_xxx_sendto_551F90(nox_socket_t s, char* buf, int len, struct nox_net_sockaddr_in* to); // idb
 int  sub_552010(int a1);
 int  nox_xxx_allocNetGQueue_5520B0(int a1, int a2);
 int sub_5521A0();
@@ -6053,7 +6054,7 @@ int  nox_xxx_netSendReadPacket_5528B0(unsigned int a1, char a2);
 int  nox_xxx_servNetInitialPackets_552A80(unsigned int id, char flags);
 int  sub_552E70(unsigned int a1);
 int  sub_552F20(unsigned int a1);
-u_long  sub_552FD0(int a1);
+unsigned int  sub_552FD0(int a1);
 int  nox_xxx_netBigSwitch_553210(unsigned int id, unsigned char* packet, int packetSz, int a4);
 int sub_553D10();
 int  sub_553D30(int a1);
@@ -6433,12 +6434,6 @@ unsigned int  sub_5654A0(int a1, unsigned __int8* a2, int* a3, unsigned int a4, 
 // HRESULT __stdcall DirectDrawEnumerateA(LPDDENUMCALLBACKA lpCallback, LPVOID lpContext);
 // HRESULT __stdcall DirectSoundCreate(LPGUID, LPDIRECTSOUND *, LPUNKNOWN);
 // HRESULT __stdcall DirectInputCreateA(HINSTANCE hinst, DWORD dwVersion, LPDIRECTINPUTA *ppDI, LPUNKNOWN punkOuter);
-// u_long __stdcall htonl(u_long hostlong);
-// uint16_t __stdcall ntohs(uint16_t netshort);
-// uint16_t __stdcall htons(uint16_t hostshort);
-// u_long __stdcall ntohl(u_long netlong);
-// char *__stdcall inet_ntoa(struct in_addr in);
-// unsigned int __stdcall inet_addr(const char *cp);
 int sub_56F1C0();
 int nox_xxx_protect_56F240();
 int sub_56F250();

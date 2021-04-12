@@ -467,7 +467,7 @@ int  sendtoWrapper(char* buf, int len, int smth) {
 		// A call here is lost? - nope, as somehow the checks in ASM denies it completely
 		return 0;
 	}
-	return sendto(ns->sock, buf, len, 0, &ns->addr, 16);
+	return nox_net_sendto(ns->sock, buf, len, &ns->addr);
 }
 
 //----- (10001AD0) --------------------------------------------------------
@@ -907,7 +907,7 @@ int  modifyWndInputHandler(int a1, int a2, int a3, int a4) {
 }
 
 //----- (10002680) --------------------------------------------------------
-int __stdcall MixRecvFromReplacer(SOCKET s, char* buf, int len, int flags, struct sockaddr* from, int* fromlen) {
+int __stdcall MixRecvFromReplacer(nox_socket_t s, char* buf, int len, struct nox_net_sockaddr* from) {
 	char* v6;   // ebx
 	int result; // eax
 	_DWORD* v8; // esi
@@ -940,7 +940,7 @@ int __stdcall MixRecvFromReplacer(SOCKET s, char* buf, int len, int flags, struc
 	_DWORD* v35;          // eax
 	char v36;             // [esp+17h] [ebp-CDh]
 	// int a1[2]; // [esp+1Ch] [ebp-C8h]
-	struct sockaddr* to; // [esp+24h] [ebp-C0h]
+	struct nox_net_sockaddr* to; // [esp+24h] [ebp-C0h]
 	int v39;             // [esp+28h] [ebp-BCh]
 	int* v40;            // [esp+2Ch] [ebp-B8h]
 	int v41;             // [esp+30h] [ebp-B4h]
@@ -950,9 +950,9 @@ int __stdcall MixRecvFromReplacer(SOCKET s, char* buf, int len, int flags, struc
 	// int v45; // [esp+E0h] [ebp-4h]
 
 	v6 = buf;
-	v40 = fromlen;
+	v40 = 16;
 	to = from;
-	result = recvfrom(s, buf, len, flags, from, fromlen);
+	result = nox_net_recvfrom(s, buf, len, from);
 	v41 = result;
 	if (*(_WORD*)buf == -3782) {
 		switch (*((unsigned __int16*)buf + 1)) // packet id
@@ -968,7 +968,7 @@ int __stdcall MixRecvFromReplacer(SOCKET s, char* buf, int len, int flags, struc
 				if (!getPlayerClassFromObjPtr(v10) || v36) {
 					if (mix_MouseKeyboardWeaponRoll(v10, buf[8])) {
 						*((_WORD*)buf + 1) = 2;
-						sendto(s, buf, 4, 0, from, 16);
+						nox_net_sendto(s, buf, 4, from);
 					}
 				}
 			}
@@ -1004,7 +1004,7 @@ int __stdcall MixRecvFromReplacer(SOCKET s, char* buf, int len, int flags, struc
 							v13 += 18;
 						}
 					}
-					sendto(s, buf, v39, 0, to, 16);
+					nox_net_sendto(s, buf, v39, to);
 				}
 				da_free(vector);
 			}
@@ -1035,7 +1035,7 @@ int __stdcall MixRecvFromReplacer(SOCKET s, char* buf, int len, int flags, struc
 						*((_DWORD*)buf + 3) = v24;
 						*((_DWORD*)buf + 4) = v25;
 						*((_WORD*)buf + 10) = v23;
-						sendto(s, buf, 22, 0, from, 16);
+						nox_net_sendto(s, buf, 22, from);
 					}
 				}
 			}

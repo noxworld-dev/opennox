@@ -569,7 +569,6 @@ int nox_cmd_show_game(int tokInd, int tokCnt, wchar_t** tokens) {
 	__int16 v7;         // ax
 	wchar_t* v8;        // eax
 	wchar_t* v9;        // eax
-	struct in_addr v10; // eax
 	char* v11;          // eax
 	char* v12;          // [esp-18h] [ebp-5Ch]
 	int v13;            // [esp-10h] [ebp-54h]
@@ -604,8 +603,7 @@ int nox_cmd_show_game(int tokInd, int tokCnt, wchar_t** tokens) {
 		v9 =
 			nox_strman_loadString_40F1D0("GameInfo", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1803);
 		nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v9, v12, v4, v13, v14, v17);
-		v10.S_un.S_addr = nox_xxx_net_getIP_554200(0);
-		v11 = inet_ntoa(v10);
+		v11 = nox_net_ip2str(nox_xxx_net_getIP_554200(0));
 		nox_swprintf(v18, L"%S", v11);
 		nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, (wchar_t*)getMemAt(0x587000, 103160), v18);
 	}

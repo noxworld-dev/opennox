@@ -68,7 +68,7 @@ int (*nox_client_onLobbyServer_2513928)(const char*, uint16_t, const char*, cons
 
 nox_net_struct_t* nox_net_struct_arr[NOX_NET_STRUCT_MAX] = {0};
 nox_net_struct2_t nox_net_struct2_arr[NOX_NET_STRUCT_MAX] = {0};
-SOCKET nox_xxx_sockLocalBroadcast_2513920 = 0;
+nox_socket_t nox_xxx_sockLocalBroadcast_2513920 = 0;
 
 //----- (005528B0) --------------------------------------------------------
 int  nox_xxx_netSendReadPacket_5528B0(unsigned int a1, char a2) {
@@ -128,7 +128,7 @@ int  nox_xxx_netSendReadPacket_5528B0(unsigned int a1, char a2) {
 		v13 = ns2->data_2_base;
 		v14 = (_DWORD)(ns2->data_2_xxx) - (_DWORD)v13;
 		if (v14 > 2) {
-			v7 = nox_xxx_sendto_551F90(ns->sock, v13, v14, 0, &ns2->addr, 16);
+			v7 = nox_xxx_sendto_551F90(ns->sock, v13, v14, &ns2->addr);
 			if (v7 == -1)
 				return -1;
 			sub_553F40(v14, 1);
@@ -143,8 +143,7 @@ int  nox_xxx_netSendReadPacket_5528B0(unsigned int a1, char a2) {
 
 //----- (00552A80) --------------------------------------------------------
 int  nox_xxx_servNetInitialPackets_552A80(unsigned int id, char flags) {
-	u_long argp;
-	struct sockaddr_in to;
+	struct nox_net_sockaddr_in to;
 	char buf[256];
 
 	if (id >= NOX_NET_STRUCT_MAX) {
@@ -155,8 +154,9 @@ int  nox_xxx_servNetInitialPackets_552A80(unsigned int id, char flags) {
 		return -3;
 	}
 	nox_net_struct_t* ns2 = ns;
+	unsigned int argp = 0;
 	if (flags & 1) {
-		if (ioctlsocket(ns->sock, FIONREAD, &argp) == -1) {
+		if (nox_net_recv_available(ns->sock, &argp) == -1) {
 			return -1;
 		}
 		if (!argp) {
@@ -168,7 +168,7 @@ int  nox_xxx_servNetInitialPackets_552A80(unsigned int id, char flags) {
 	char v26 = 1;
 	while (1) {
 		int tolen = sizeof(to);
-		int v6 = nox_xxx_netRecv_552020(ns->sock, ns->data_1_xxx, (int)(ns->data_1_end) - (int)(ns->data_1_xxx), 0, &to, &tolen);
+		int v6 = nox_xxx_netRecv_552020(ns->sock, ns->data_1_xxx, (int)(ns->data_1_end) - (int)(ns->data_1_xxx), &to);
 		if (v6 == -1) {
 			return -1;
 		} else if (sizeof(to) < tolen) {
@@ -182,7 +182,7 @@ int  nox_xxx_servNetInitialPackets_552A80(unsigned int id, char flags) {
 				return v6;
 			}
 			argp = 0;
-			if (ioctlsocket(ns->sock, FIONREAD, &argp) == -1) {
+			if (nox_net_recv_available(ns->sock, &argp) == -1) {
 				return -1;
 			} else if (!argp) {
 				return v6;
@@ -200,7 +200,7 @@ int  nox_xxx_servNetInitialPackets_552A80(unsigned int id, char flags) {
 				// send server info packet
 				v6 = nox_server_makeServerInfoPacket_554040(ns->data_1_yyy, (int)(ns->data_1_xxx) - (int)(ns->data_1_yyy), buf);
 				if (v6 > 0) {
-					v6 = sendto(ns->sock, buf, v6, 0, &to, tolen);
+					v6 = nox_net_sendto(ns->sock, buf, v6, &to);
 					sub_553F40(v6, 1);
 				}
 			}
@@ -210,7 +210,7 @@ int  nox_xxx_servNetInitialPackets_552A80(unsigned int id, char flags) {
 				return v6;
 			}
 			argp = 0;
-			if (ioctlsocket(ns->sock, FIONREAD, &argp) == -1) {
+			if (nox_net_recv_available(ns->sock, &argp) == -1) {
 				return -1;
 			} else if (!argp) {
 				return v6;
@@ -261,7 +261,7 @@ int  nox_xxx_servNetInitialPackets_552A80(unsigned int id, char flags) {
 						memcpy(buf, &to, tolen);
 						v6 = nox_xxx_netBigSwitch_553210(id, ns->data_1_yyy, (int)(ns->data_1_xxx) - (int)(ns->data_1_yyy), (int)buf);
 						if (v6 > 0) {
-							v6 = nox_xxx_sendto_551F90(ns->sock, buf, v6, 0, &to, tolen);
+							v6 = nox_xxx_sendto_551F90(ns->sock, buf, v6, &to);
 							sub_553F40(v6, 1);
 						}
 						goto LABEL_48;
@@ -288,7 +288,7 @@ int  nox_xxx_servNetInitialPackets_552A80(unsigned int id, char flags) {
 			memcpy(buf, &to, tolen);
 			v6 = nox_xxx_netBigSwitch_553210(id, ns->data_1_yyy, (int)(ns->data_1_xxx) - (int)(ns->data_1_yyy), (int)buf);
 			if (v6 > 0) {
-				v6 = nox_xxx_sendto_551F90(ns->sock, buf, v6, 0, &to, tolen);
+				v6 = nox_xxx_sendto_551F90(ns->sock, buf, v6, &to);
 				sub_553F40(v6, 1);
 			}
 		} else {
@@ -303,7 +303,7 @@ int  nox_xxx_servNetInitialPackets_552A80(unsigned int id, char flags) {
 			return v6;
 		}
 		argp = 0;
-		if (ioctlsocket(ns->sock, FIONREAD, &argp) == -1) {
+		if (nox_net_recv_available(ns->sock, &argp) == -1) {
 			return -1;
 		} else if (!argp) {
 			return v6;
@@ -383,9 +383,9 @@ int  sub_552F20(unsigned int a1) {
 }
 
 //----- (00552FD0) --------------------------------------------------------
-u_long sub_552FD0(int a1) {
-	u_long argp;
-	if (ioctlsocket(nox_net_struct_arr[a1]->sock, FIONREAD, &argp)) {
+unsigned int sub_552FD0(int a1) {
+	unsigned int argp = 0;
+	if (nox_net_recv_available(nox_net_struct_arr[a1]->sock, &argp)) {
 		return -1;
 	}
 	return argp; // or a1?
@@ -533,7 +533,7 @@ int  nox_xxx_netBigSwitch_553210(unsigned int id, unsigned char* packet, int pac
 					pid = i;
 					break;
 				}
-				if (*(_WORD*)&v74[2] == ns4->addr.sin_port && *(_DWORD*)&v74[4] == ns4->addr.sin_addr.s_addr) {
+				if (*(_WORD*)&v74[2] == ns4->addr.sin_port && *(_DWORD*)&v74[4] == ns4->addr.sin_addr) {
 					printf("%d %d\n", *(_WORD*)&v74[2], *(_DWORD*)&v74[4]);
 					*(_BYTE*)(out + 2) = 4; // already joined?
 					return 3;
@@ -966,7 +966,7 @@ int sub_553D10() {
 int  sub_553D30(int a1) {
 	for (int i = 0; i < NOX_NET_STRUCT_MAX; i++) {
 		nox_net_struct2_t* nx = &nox_net_struct2_arr[i];
-		if (nx->addr.sin_addr.s_addr == *(_DWORD*)(a1 + 4) && nx->addr.sin_port == *(_WORD*)(a1 + 2))
+		if (nx->addr.sin_addr == *(_DWORD*)(a1 + 4) && nx->addr.sin_port == *(_WORD*)(a1 + 2))
 			return i;
 	}
 	return -1;
@@ -1169,7 +1169,7 @@ int  nox_xxx_net_getIP_554200(unsigned int a1) {
 	nox_net_struct_t* ns = nox_net_struct_arr[a1];
 	if (!ns)
 		return 0;
-	return ns->addr.sin_addr.s_addr;
+	return ns->addr.sin_addr;
 }
 
 //----- (00554230) --------------------------------------------------------
@@ -1262,7 +1262,6 @@ int nox_xxx_netInit_554380(nox_net_struct_arg_t* narg) {
 	struct hostent* v10;    // eax
 	uint16_t v11;            // [esp-4h] [ebp-1B8h]
 	uint16_t v12;            // [esp-4h] [ebp-1B8h]
-	struct WSAData WSAData; // [esp+24h] [ebp-190h]
 
 	if (!narg)
 		return -2;
@@ -1288,13 +1287,13 @@ int nox_xxx_netInit_554380(nox_net_struct_arg_t* narg) {
 	nox_net_struct_arr[v2] = ns;
 	ns->data_2_base[0] = v2;
 	ns->id = -1;
-	if (WSAStartup(0x101u, &WSAData) == -1) {
+	if (nox_net_init() == -1) {
 		return -1;
 	}
-	SOCKET sock = socket(AF_INET, SOCK_DGRAM, 0);
+	nox_socket_t sock = nox_net_socket_udp();
 	ns->sock = sock;
 	if (sock == -1) {
-		WSACleanup();
+		nox_net_stop();
 		return -1;
 	}
 	int port = narg->port;
@@ -1302,19 +1301,19 @@ int nox_xxx_netInit_554380(nox_net_struct_arg_t* narg) {
 		narg->port = 18590;
 	v11 = (_WORD)(narg->port);
 
-	struct sockaddr_in name;
-	name.sin_family = AF_INET;
+	struct nox_net_sockaddr_in name;
+	name.sin_family = NOX_AF_INET;
 	name.sin_port = 0;
-	name.sin_addr.s_addr = 0;
+	name.sin_addr = 0;
 	memset(name.sin_zero, 0, 8);
 
 	v9 = (_WORD)(narg->port);
 	name.sin_port = htons(v11);
-	name.sin_addr.s_addr = 0;
+	name.sin_addr = 0;
 	*getMemU16Ptr(0x5D4594, 3843636) = v9;
-	while (bind(ns->sock, &name, 16) == -1) {
-		if (WSAGetLastError() != 10048) {
-			WSACleanup();
+	while (nox_net_bind(ns->sock, &name) == -1) {
+		if (nox_net_error(ns->sock) != NOX_NET_EADDRINUSE) {
+			nox_net_stop();
 			return -1;
 		}
 		v12 = (_WORD)(narg->port) + 1;
@@ -1325,7 +1324,7 @@ int nox_xxx_netInit_554380(nox_net_struct_arg_t* narg) {
 		v10 = gethostbyname((const char*)getMemAt(0x5D4594, 3843660));
 		if (v10) {
 			dword_5d4594_3843632 = **(_DWORD**)v10->h_addr_list;
-			strcpy((char*)getMemAt(0x5D4594, 3843644), inet_ntoa(*(struct in_addr*)&dword_5d4594_3843632));
+			strcpy((char*)getMemAt(0x5D4594, 3843644), nox_net_ip2str(*(nox_net_in_addr*)&dword_5d4594_3843632));
 		}
 	}
 	return v2;
@@ -1385,10 +1384,10 @@ int  sub_5546A0(unsigned int a1) {
 		return -3;
 	nox_net_struct_t* ns = nox_net_struct_arr[a1];
 	if (ns) {
-		closesocket(ns->sock);
+		nox_net_close(ns->sock);
 		nox_xxx_netStructFree_5531C0(ns);
 		nox_net_struct_arr[a1] = 0;
-		WSACleanup();
+		nox_net_stop();
 	}
 	return 0;
 }
@@ -1423,9 +1422,8 @@ int  sub_554760(int a1, char* cp, int hostshort, int a4, int a5) {
 	int v10;                // esi
 	char v11;               // al
 	char v12;               // [esp+12h] [ebp-1B2h]
-	struct sockaddr_in name;   // [esp+14h] [ebp-1B0h]
+	struct nox_net_sockaddr_in name;   // [esp+14h] [ebp-1B0h]
 	int v15;                // [esp+28h] [ebp-19Ch]
-	struct WSAData WSAData; // [esp+34h] [ebp-190h]
 
 	if ((unsigned int)a1 >= NOX_NET_STRUCT_MAX)
 		return -3;
@@ -1436,18 +1434,18 @@ int  sub_554760(int a1, char* cp, int hostshort, int a4, int a5) {
 		return -4;
 	if (hostshort < 1024 || hostshort > 0x10000)
 		return -15;
-	if (WSAStartup(0x101u, &WSAData) == -1)
+	if (nox_net_init() == -1)
 		return -21;
-	v7 = socket(AF_INET, SOCK_DGRAM, 0);
+	v7 = nox_net_socket_udp();
 	ns->sock = v7;
 	if (v7 == -1) {
-		WSACleanup();
+		nox_net_stop();
 		return -22;
 	}
 	if ((unsigned __int8)*cp < 0x30u || (unsigned __int8)*cp > 0x39u) {
 		v9 = gethostbyname(cp);
 		if (!v9) {
-			WSACleanup();
+			nox_net_stop();
 			return -4;
 		}
 		v8 = **(_DWORD**)v9->h_addr_list;
@@ -1456,19 +1454,19 @@ int  sub_554760(int a1, char* cp, int hostshort, int a4, int a5) {
 	}
 	v15 = 0;
 
-	ns->addr.sin_family = AF_INET;
+	ns->addr.sin_family = NOX_AF_INET;
 	ns->addr.sin_port = htons(hostshort);
-	ns->addr.sin_addr.s_addr = v8;
+	ns->addr.sin_addr = v8;
 	memset(ns->addr.sin_zero, 0, 8);
 
 	v10 = sub_40A420();
-	name.sin_family = AF_INET;
+	name.sin_family = NOX_AF_INET;
 	name.sin_port = htons(v10);
-	name.sin_addr.s_addr = 0;
+	name.sin_addr = 0;
 	memset(name.sin_zero, 0, 8);
-	while (bind(ns->sock, &name, 16) == -1) {
-		if (WSAGetLastError() != 10048) {
-			WSACleanup();
+	while (nox_net_bind(ns->sock, &name) == -1) {
+		if (nox_net_error(ns->sock) != NOX_NET_EADDRINUSE) {
+			nox_net_stop();
 			return -1;
 		}
 		name.sin_port = htons(++v10);
@@ -1513,11 +1511,11 @@ int  sub_554A50(unsigned int a1) {
 		return -3;
 	nox_net_struct_t* ns = nox_net_struct_arr[a1];
 	if (ns) {
-		closesocket(ns->sock);
+		nox_net_close(ns->sock);
 		OnLibraryNotice_259(ns);
 		nox_xxx_netStructFree_5531C0(ns);
 		nox_net_struct_arr[a1] = 0;
-		WSACleanup();
+		nox_net_stop();
 	}
 	return 0;
 }
@@ -1547,37 +1545,28 @@ void  nox_xxx_lobbyMakePacket_554AA0(uint16_t hostshort, const char* payload, in
 
 //----- (00554B40) --------------------------------------------------------
 int  nox_xxx_createSocketLocal_554B40(uint16_t hostshort) {
-	int result;             // eax
-	struct WSAData WSAData; // [esp+18h] [ebp-190h]
-
 	if (dword_5d4594_2513916 == 1)
 		return -14;
-	result = WSAStartup(0x101u, &WSAData);
-	if (result == -1) {
+	if (nox_net_init() == -1) {
 		return -1;
 	}
-	nox_xxx_sockLocalBroadcast_2513920 = socket(AF_INET, SOCK_DGRAM, 0);
+	nox_xxx_sockLocalBroadcast_2513920 = nox_net_socket_udp_broadcast();
 	if (nox_xxx_sockLocalBroadcast_2513920 == -1) {
-		WSACleanup();
+		nox_net_stop();
 		return -1;
 	}
-	dword_5d4594_2513924 = socket(AF_INET, SOCK_DGRAM, 0);
+	dword_5d4594_2513924 = nox_net_socket_udp();
 	if (*(int*)&dword_5d4594_2513924 == -1) {
-		WSACleanup();
+		nox_net_stop();
 		return -1;
 	}
-	struct sockaddr_in name;
-	name.sin_family = AF_INET;
+	struct nox_net_sockaddr_in name;
+	name.sin_family = NOX_AF_INET;
 	name.sin_port = htons(hostshort);
-	name.sin_addr.s_addr = 0;
+	name.sin_addr = 0;
 	memset(name.sin_zero, 0, 8);
-	if (bind(nox_xxx_sockLocalBroadcast_2513920, &name, 16) == -1) {
-		WSACleanup();
-		return -1;
-	}
-	int32_t optval = 1;
-	result = setsockopt(nox_xxx_sockLocalBroadcast_2513920, SOL_SOCKET, SO_BROADCAST, &optval, 4);
-	if (result == -1) {
+	if (nox_net_bind(nox_xxx_sockLocalBroadcast_2513920, &name) == -1) {
+		nox_net_stop();
 		return -1;
 	}
 	nox_game_SetCliDrawFunc((int)sub_554FF0);
@@ -1592,15 +1581,15 @@ int  nox_xxx_sendLobbyPacket_554C80(uint16_t hostshort, char* buf, int a3) {
 		return -17;
 	}
 
-	struct sockaddr_in to;
-	to.sin_family = AF_INET;
+	struct nox_net_sockaddr_in to;
+	to.sin_family = NOX_AF_INET;
 	to.sin_port = htons(hostshort);
-	to.sin_addr.s_addr = -1;
+	to.sin_addr = -1;
 	memset(to.sin_zero, 0, 8);
 
 	int result = 0;
 	if (!buf || (unsigned __int16)a3 < 2u ||
-		(result = sendto(nox_xxx_sockLocalBroadcast_2513920, buf, (unsigned __int16)a3, 0, &to, 16), v3 = result,
+		(result = nox_net_sendto(nox_xxx_sockLocalBroadcast_2513920, buf, (unsigned __int16)a3, &to), v3 = result,
 		 result != -1)) {
 		result = v3;
 	}
@@ -1610,14 +1599,14 @@ int  nox_xxx_sendLobbyPacket_554C80(uint16_t hostshort, char* buf, int a3) {
 //----- (00554D10) --------------------------------------------------------
 int sub_554D10() {
 	if (dword_5d4594_2513916) {
-		closesocket(nox_xxx_sockLocalBroadcast_2513920);
-		closesocket(*(SOCKET*)&dword_5d4594_2513924);
+		nox_net_close(nox_xxx_sockLocalBroadcast_2513920);
+		nox_net_close(dword_5d4594_2513924);
 		nox_xxx_sockLocalBroadcast_2513920 = 0;
 		dword_5d4594_2513924 = 0;
 		dword_5d4594_2513916 = 0;
 		nox_game_SetCliDrawFunc(0);
 		nox_client_setOnLobbyServer_555000(0);
-		WSACleanup();
+		nox_net_stop();
 	}
 	return 0;
 }
@@ -1628,19 +1617,17 @@ int  sub_554D70(char a1) {
 	int v2;               // ebp
 	uint16_t v7;           // ax
 	int v8;               // [esp+0h] [ebp-230h]
-	u_long argp;          // [esp+10h] [ebp-220h]
-	int fromlen;          // [esp+14h] [ebp-21Ch]
 	int v11;              // [esp+18h] [ebp-218h]
-	struct sockaddr from; // [esp+20h] [ebp-210h]
+	struct nox_net_sockaddr from; // [esp+20h] [ebp-210h]
 	char buf[256];        // [esp+30h] [ebp-200h]
 	char in[256];         // [esp+130h] [ebp-100h]
 
-	fromlen = 16;
 	if (!dword_5d4594_2513916)
 		return -17;
 	v11 = a1 & 1;
+	unsigned int argp = 0;
 	if (a1 & 1) {
-		result = ioctlsocket(nox_xxx_sockLocalBroadcast_2513920, FIONREAD, &argp);
+		result = nox_net_recv_available(nox_xxx_sockLocalBroadcast_2513920, &argp);
 		if (result == -1)
 			return result;
 		if (!argp) {
@@ -1650,16 +1637,16 @@ int  sub_554D70(char a1) {
 		argp = 1;
 	}
 	while (1) {
-		v2 = mix_recvfrom(nox_xxx_sockLocalBroadcast_2513920, buf, 256, 0, &from, &fromlen);
+		v2 = mix_recvfrom(nox_xxx_sockLocalBroadcast_2513920, buf, 256, &from);
 		if (v2 == -1)
 			break;
 		unsigned __int8 op = buf[2];
 		if (op < 32) {
-			memcpy(in, &from, fromlen);
+			memcpy(in, &from, sizeof(struct nox_net_sockaddr));
 			if (op == 13 || nox_client_getServerAddr_43B300() == *(_DWORD*)&from.sa_data[2]) {
 				switch (op) {
 				case 13:;
-					char* saddr = inet_ntoa(*(struct in_addr*)&in[4]);
+					char* saddr = nox_net_ip2str(*(nox_net_in_addr*)&in[4]);
 					if (&v8 != (int*)-120) {
 						if (saddr) {
 							if (nox_client_onLobbyServer_2513928) {
@@ -1704,7 +1691,8 @@ int  sub_554D70(char a1) {
 		if (!v11 || (a1 & 4)) {
 			return v2;
 		}
-		if (ioctlsocket(nox_xxx_sockLocalBroadcast_2513920, FIONREAD, &argp) == -1)
+		argp = 0;
+		if (nox_net_recv_available(nox_xxx_sockLocalBroadcast_2513920, &argp) == -1)
 			return -1;
 		if (!argp) {
 			return v2;
@@ -1729,17 +1717,17 @@ void nox_client_setOnLobbyServer_555000(int (*fnc)(const char*, uint16_t, const 
 int  nox_client_sendToServer_555010(unsigned int addr, uint16_t port, char* buf, int sz) {
 	int v4;             // esi
 	int result;         // eax
-	struct sockaddr_in to; // [esp+4h] [ebp-10h]
+	struct nox_net_sockaddr_in to; // [esp+4h] [ebp-10h]
 
 	v4 = 0;
 	if (!dword_5d4594_2513916)
 		return -17;
-	to.sin_family = AF_INET;
+	to.sin_family = NOX_AF_INET;
 	to.sin_port = htons(port);
-	to.sin_addr.s_addr = addr;
+	to.sin_addr = addr;
 	memset(to.sin_zero, 0, 8);
 	if (!buf || sz < 2 ||
-		(result = sendto(nox_xxx_sockLocalBroadcast_2513920, buf, sz, 0, &to, 16), v4 = result,
+		(result = nox_net_sendto(nox_xxx_sockLocalBroadcast_2513920, buf, sz, &to), v4 = result,
 		 result != -1)) {
 		result = v4;
 	}
@@ -1866,7 +1854,7 @@ int  nox_xxx_netSend_5552D0(unsigned int a1, char a2, int a3) {
 			v6 = i[4];
 			i[3] = 0;
 			i[1] = dword_5d4594_2495920 + 2000;
-			if (nox_xxx_sendto_551F90(ns->sock, (char*)i + 20, v6, 0, &ns->addr, 16) == -1)
+			if (nox_xxx_sendto_551F90(ns->sock, (char*)i + 20, v6, &ns->addr) == -1)
 				return 0;
 			continue;
 		}

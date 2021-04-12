@@ -417,18 +417,17 @@ func NET_CONNECT(a1 uint32, cp *C.char, hostshort uint32, data []byte) {
 		}
 		return
 	}
-	var WSAData C.struct_WSAData
-	if C.WSAStartup(0x101, &WSAData) == -1 {
+	if nox_net_init() == -1 {
 		fmt.Println("goto NET_CONNECT_THEN")
 		mainloopEnter = func() {
 			NET_CONNECT_THEN(-21)
 		}
 		return
 	}
-	v7 := C.socket(C.AF_INET, C.SOCK_DGRAM, 0)
+	v7 := nox_net_socket_udp()
 	ns.sock = v7
 	if v7 == -1 {
-		C.WSACleanup()
+		nox_net_stop()
 
 		fmt.Println("goto NET_CONNECT_THEN")
 		mainloopEnter = func() {
@@ -440,7 +439,7 @@ func NET_CONNECT(a1 uint32, cp *C.char, hostshort uint32, data []byte) {
 	if byte(*cp) < '0' || byte(*cp) > '9' {
 		v9 := C.gethostbyname(cp)
 		if v9 == nil {
-			C.WSACleanup()
+			nox_net_stop()
 
 			fmt.Println("goto NET_CONNECT_THEN")
 			mainloopEnter = func() {
@@ -453,19 +452,15 @@ func NET_CONNECT(a1 uint32, cp *C.char, hostshort uint32, data []byte) {
 		v8 = uint32(C.inet_addr(cp))
 	}
 
-	ns.addr.sin_family = C.AF_INET
-	ns.addr.sin_port = C.htons(C.ushort(hostshort))
-	ns.addr.sin_addr.s_addr = C.uint(v8)
-	alloc.Memset(unsafe.Pointer(&ns.addr.sin_zero[0]), 0, 8)
+	v8ip := int2ip(uint32(v8))
+	setIPPort(&ns.addr, v8ip, int(hostshort))
 
 	port := C.sub_40A420()
-	var name C.struct_sockaddr_in
-	name.sin_family = C.AF_INET
-	name.sin_port = C.htons(C.ushort(port))
-	name.sin_addr.s_addr = 0
-	for C.bind(ns.sock, (*C.struct_sockaddr)(unsafe.Pointer(&name)), 16) == -1 {
-		if C.WSAGetLastError() != 10048 {
-			C.WSACleanup()
+	var name C.struct_nox_net_sockaddr_in
+	setIPPort(&name, nil, int(port))
+	for nox_net_bind(ns.sock, &name) == -1 {
+		if nox_net_error(ns.sock) != NOX_NET_EADDRINUSE {
+			nox_net_stop()
 
 			fmt.Println("goto NET_CONNECT_THEN")
 			mainloopEnter = func() {
