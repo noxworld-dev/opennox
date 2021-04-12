@@ -89,8 +89,12 @@ func StrLen(s *C.char) int {
 
 func StrCopy(dst *C.char, max int, src string) int {
 	d := asByteSlice(unsafe.Pointer(dst), max)
-	n := copy(d[:max-1], src)
-	d[n] = 0
+	return StrCopyBytes(d, src)
+}
+
+func StrCopyBytes(dst []byte, src string) int {
+	n := copy(dst[:len(dst)-1], src)
+	dst[n] = 0
 	return n
 }
 
