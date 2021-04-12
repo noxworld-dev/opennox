@@ -48,7 +48,7 @@ extern _QWORD qword_581450_10176;
 extern _QWORD qword_581450_10256;
 extern _QWORD qword_5d4594_1567940;
 extern _QWORD qword_581450_9544;
-extern _DWORD dword_5d4594_3843628;
+extern _DWORD nox_xxx_host_player_unit_3843628;
 extern _DWORD dword_5d4594_1568024;
 extern _DWORD dword_5d4594_1565512;
 extern _DWORD dword_5d4594_2650652;
@@ -3207,7 +3207,7 @@ unsigned __int8*  nox_xxx_updatePlayerObserver_4E62F0(int a1) {
 						goto LABEL_72;
 					}
 				}
-				if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) && v1 == dword_5d4594_3843628)
+				if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) && v1 == nox_xxx_host_player_unit_3843628)
 					goto LABEL_52;
 				if (!nox_xxx_playerGetPossess_4DDF30(v1)) {
 					sub_4DF3C0(v4);

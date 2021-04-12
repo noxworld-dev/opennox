@@ -22,7 +22,7 @@ func (p *Player) C() *C.nox_playerInfo {
 }
 
 func (p *Player) IsActive() bool {
-	return p != nil && p.field_2092 != 0
+	return p != nil && p.active != 0
 }
 
 func (p *Player) Unit() Unit {

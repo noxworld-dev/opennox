@@ -3960,7 +3960,7 @@ char*  sub_4DD0B0(int a1);
 LPVOID  nox_xxx_playerSendMOTD_4DD140(int a1);
 char*  nox_xxx_gameServerReadyMB_4DD180(int a1);
 void nox_xxx____setargv_15_4DD310();
-_DWORD*  nox_xxx_playerNew_4DD320(int a1, int a2);
+_DWORD*  nox_xxx_playerNew_4DD320(int ind, void* data);
 int  nox_xxx_netGuiGameSettings_4DD9B0(char a1, const void* a2, int a3);
 char*  nox_xxx_playerCheckName_4DDA00(int a1);
 unsigned int  nox_xxx_netNewPlayerMakePacket_4DDA90(int a1, int a2);

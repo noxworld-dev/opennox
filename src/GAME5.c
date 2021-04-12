@@ -20,7 +20,7 @@ extern _DWORD dword_5d4594_2491544;
 extern _DWORD dword_5d4594_2491552;
 extern _DWORD dword_5d4594_2491616;
 extern _DWORD dword_587000_292492;
-extern _DWORD dword_5d4594_3843628;
+extern _DWORD nox_xxx_host_player_unit_3843628;
 extern _DWORD dword_5d4594_2495920;
 extern _DWORD dword_5d4594_2650652;
 extern unsigned int nox_gameFPS;
@@ -1392,9 +1392,9 @@ char  nox_xxx_mobActionDependency_546A70(int a1) {
 						goto LABEL_89;
 					goto LABEL_90;
 				case 0x43:
-					if (!dword_5d4594_3843628)
+					if (!nox_xxx_host_player_unit_3843628)
 						goto LABEL_89;
-					v18 = nox_xxx_findObjectAtCursor_54AF40(*(int*)&dword_5d4594_3843628) == v1;
+					v18 = nox_xxx_findObjectAtCursor_54AF40(*(int*)&nox_xxx_host_player_unit_3843628) == v1;
 				LABEL_41:
 					if (!v18)
 					LABEL_89:
@@ -1581,13 +1581,13 @@ char  nox_xxx_monsterMainAIFn_547210(int a1) {
 		if (nox_common_gameFlags_check_40A5C0(2048)) {
 			if (!nox_xxx_guiCursor_477600()) {
 				if (*(_BYTE*)(v1 + 20) & 0x10) {
-					if (dword_5d4594_3843628) {
-						if (!(*(_BYTE*)(dword_5d4594_3843628 + 16) & 2) && !nox_xxx_checkMobAction_50A0D0(v1, 2)) {
-							v7 = *(_DWORD**)(dword_5d4594_3843628 + 748);
+					if (nox_xxx_host_player_unit_3843628) {
+						if (!(*(_BYTE*)(nox_xxx_host_player_unit_3843628 + 16) & 2) && !nox_xxx_checkMobAction_50A0D0(v1, 2)) {
+							v7 = *(_DWORD**)(nox_xxx_host_player_unit_3843628 + 748);
 							v8 = v7[69];
 							v9 = (double)*(int*)(v8 + 2284) - *(float*)(v1 + 56);
 							v10 = (double)*(int*)(v8 + 2288) - *(float*)(v1 + 60);
-							if (v10 * v10 + v9 * v9 < 100.0 && nox_xxx_findObjectAtCursor_54AF40(*(int*)&dword_5d4594_3843628) == v1) {
+							if (v10 * v10 + v9 * v9 < 100.0 && nox_xxx_findObjectAtCursor_54AF40(*(int*)&nox_xxx_host_player_unit_3843628) == v1) {
 								v11 = *(_DWORD*)(v1 + 60);
 								*(_DWORD*)(v1 + 72) = *(_DWORD*)(v1 + 56);
 								*(_DWORD*)(v1 + 92) = 0;
@@ -1607,7 +1607,7 @@ char  nox_xxx_monsterMainAIFn_547210(int a1) {
 									v13[1] = 999999;
 								v3 = nox_xxx_monsterPushAction_50A260(v1, 26);
 								if (v3)
-									v3[1] = dword_5d4594_3843628;
+									v3[1] = nox_xxx_host_player_unit_3843628;
 								if (!v7[71] && !v7[70]) {
 									LOBYTE(v3) = (_BYTE)v44;
 									if (v44)
