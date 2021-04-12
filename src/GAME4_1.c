@@ -44,7 +44,7 @@ extern _DWORD dword_5d4594_2386572;
 extern _DWORD dword_5d4594_2386500;
 extern _DWORD dword_5d4594_2386576;
 extern _DWORD dword_5d4594_2386212;
-extern _DWORD dword_5d4594_3843628;
+extern _DWORD nox_xxx_host_player_unit_3843628;
 extern _DWORD dword_5d4594_2386180;
 extern void* nox_alloc_tradeItems_2386496;
 extern void* nox_alloc_visitNode_2386184;
@@ -7528,7 +7528,7 @@ int  nox_xxx_netUpdate_518EE0(_DWORD* a3) {
 			nox_xxx_netAddToMsgListServ_40EF40(v3, v17, 3);
 		}
 	}
-	if (!dword_5d4594_2650652 || a3 == *(_DWORD**)&dword_5d4594_3843628 || nox_common_gameFlags_check_40A5C0(8) ||
+	if (!dword_5d4594_2650652 || a3 == *(_DWORD**)&nox_xxx_host_player_unit_3843628 || nox_common_gameFlags_check_40A5C0(8) ||
 		!(nox_frame_xxx_2598000 % (unsigned int)nox_xxx_rateGet_40A6C0())) {
 		if (*(_BYTE*)(*(_DWORD*)(v2 + 276) + 3680) & 3 || nox_common_getEngineFlag(NOX_ENGINE_FLAG_REPLAY_READ)) {
 			result = nox_xxx_netPlayerObjSendCamera_519330((int)a3);

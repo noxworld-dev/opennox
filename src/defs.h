@@ -1056,12 +1056,12 @@ typedef struct nox_playerInfo {
 	unsigned char playerInd; // 516, 2064
 	_BYTE field_2064_1; // 516, 2065
 	_WORD field_2064_2; // 516, 2066
-	_DWORD data_2068[4];
-	_DWORD data_2084[2];
-	_DWORD field_2092;
-	_DWORD field_2096;
-	_DWORD data_2100[25];
-	_DWORD data_2200[50];
+	_DWORD field_2068; // 517
+	wchar_t field_2072[10]; // 518, 2072
+	unsigned int active; // 523, 2092
+	char field_2096[16]; // 524, 2096
+	_DWORD data_2112[22]; // 2112 is a string buf, 2185 is wchar_t buf
+	_DWORD data_2200[50]; // 2352 is wchar_t buf
 	_DWORD data_2400[100];
 	_DWORD data_2800[100];
 	_DWORD data_3200[100];
@@ -1075,7 +1075,7 @@ typedef struct nox_playerInfo {
 	_DWORD data_4500[20];
 	_DWORD field_4580;
 	_DWORD data_4584[4];
-	_DWORD data_4600[50];
+	_DWORD data_4600[50]; // 4704 is wchar_t buf
 	_DWORD data_4800[7];
 } nox_playerInfo;
 _Static_assert(sizeof(nox_playerInfo) == 4828, "wrong size of nox_playerInfo structure!");

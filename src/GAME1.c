@@ -8562,7 +8562,7 @@ char*  nox_xxx_playerForceSendLessons_416E50(int a1) {
 //----- (00416EA0) --------------------------------------------------------
 nox_playerInfo* nox_common_playerInfoGetFirst_416EA0() {
 	for (int i = 0; i < NOX_PLAYERINFO_MAX; i++) {
-		if (nox_playerinfo_arr[i].field_2092)
+		if (nox_playerinfo_arr[i].active)
 			return &nox_playerinfo_arr[i];
 	}
 	return 0;
@@ -8573,7 +8573,7 @@ nox_playerInfo* nox_common_playerInfoGetNext_416EE0(nox_playerInfo* p) {
 	if (!p)
 		return 0;
 	for (int i = p->playerInd + 1; i < NOX_PLAYERINFO_MAX; i++) {
-		if (nox_playerinfo_arr[i].field_2092)
+		if (nox_playerinfo_arr[i].active)
 			return &nox_playerinfo_arr[i];
 	}
 	return 0;
@@ -8583,7 +8583,7 @@ nox_playerInfo* nox_common_playerInfoGetNext_416EE0(nox_playerInfo* p) {
 int nox_common_playerInfoCount_416F40() {
 	int cnt = 0;
 	for (int i = 0; i < NOX_PLAYERINFO_MAX; i++) {
-		if (nox_playerinfo_arr[i].field_2092)
+		if (nox_playerinfo_arr[i].active)
 			cnt++;
 	}
 	return cnt;
@@ -8597,7 +8597,7 @@ nox_playerInfo* nox_common_playerInfoNew_416F60(int a1) {
 	}
 	for (int i = 0; i < NOX_PLAYERINFO_MAX; i++) {
 		p = &nox_playerinfo_arr[i];
-		if (!p->field_2092) {
+		if (!p->active) {
 			nox_common_playerInfoReset_416FD0(p);
 			p->playerInd = i;
 			p->netCode = a1;
@@ -8610,7 +8610,7 @@ nox_playerInfo* nox_common_playerInfoNew_416F60(int a1) {
 //----- (00416FD0) --------------------------------------------------------
 void nox_common_playerInfoReset_416FD0(nox_playerInfo* p) {
 	memset(p, 0, sizeof(nox_playerInfo));
-	p->field_2092 = 1;
+	p->active = 1;
 	p->field_3648 = 4;
 }
 
@@ -8626,7 +8626,7 @@ nox_playerInfo* nox_common_playerInfoResetInd_417000(int i) {
 nox_playerInfo* nox_common_playerInfoGetByID_417040(int a1) {
 	for (int i = 0; i < NOX_PLAYERINFO_MAX; i++) {
 		nox_playerInfo* p = &nox_playerinfo_arr[i];
-		if (!(!p->field_2092 || p->netCode != a1)) {
+		if (!(!p->active || p->netCode != a1)) {
 			p->playerInd = i;
 			return p;
 		}
@@ -8637,7 +8637,7 @@ nox_playerInfo* nox_common_playerInfoGetByID_417040(int a1) {
 //----- (00417090) --------------------------------------------------------
 nox_playerInfo* nox_common_playerInfoFromNum_417090(int i) {
 	nox_playerInfo* p = &nox_playerinfo_arr[i];
-	if (!p->field_2092)
+	if (!p->active)
 		return 0;
 	p->playerInd = i;
 	return p;

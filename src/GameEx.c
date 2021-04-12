@@ -13,7 +13,7 @@
 extern int nox_win_width_1;
 extern int nox_win_height_1;
 extern int dword_5d4594_3484;
-extern unsigned int dword_5d4594_3843628;
+extern unsigned int nox_xxx_host_player_unit_3843628;
 extern unsigned int dword_5d4594_1064896;
 extern unsigned int dword_5d4594_1064900;
 extern unsigned int nox_xxx_netStructID_815700;
@@ -1106,7 +1106,7 @@ void OnLibraryNotice_256() {
 
 }
 void OnLibraryNotice_257() {
-	dword_5d4594_3843628 = 0;
+	nox_xxx_host_player_unit_3843628 = 0;
 }
 void OnLibraryNotice_258() {
 	// is called from exe from here: 0x980650
@@ -1157,9 +1157,9 @@ void OnLibraryNotice_265(DWORD arg1, DWORD arg2, DWORD arg3) {
 		if ((*getMemU32Ptr(0x980858, 2) >> 3) & 1) {
 			if (nox_common_gameFlags_check_40A5C0(516)) {
 				if (nox_common_gameFlags_check_40A5C0(1)) {
-					if (dword_5d4594_3843628) { // playerObjServerHost
-						if (!getPlayerClassFromObjPtr(dword_5d4594_3843628)) {
-							if (mix_MouseKeyboardWeaponRoll(dword_5d4594_3843628, a2a))
+					if (nox_xxx_host_player_unit_3843628) { // playerObjServerHost
+						if (!getPlayerClassFromObjPtr(nox_xxx_host_player_unit_3843628)) {
+							if (mix_MouseKeyboardWeaponRoll(nox_xxx_host_player_unit_3843628, a2a))
 								nox_xxx_clientPlaySoundSpecial_452D80(895, 100); // clientPlaySound
 						}
 					}
@@ -1194,7 +1194,7 @@ void OnLibraryNotice_417(DWORD arg1) {
 				return;
 			if (nox_common_gameFlags_check_40A5C0(1)) // isServer
 			{
-				if (dword_5d4594_3843628 && mix_MouseKeyboardWeaponRoll(dword_5d4594_3843628, vaArg1_1[1]))
+				if (nox_xxx_host_player_unit_3843628 && mix_MouseKeyboardWeaponRoll(nox_xxx_host_player_unit_3843628, vaArg1_1[1]))
 					nox_xxx_clientPlaySoundSpecial_452D80(895, 100);
 			} else {
 				char buf[10];

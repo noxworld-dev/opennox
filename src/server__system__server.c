@@ -43,7 +43,7 @@ extern _DWORD dword_5d4594_528252;
 extern _QWORD qword_581450_10392;
 extern _QWORD qword_581450_10256;
 extern _DWORD dword_5d4594_1569756;
-extern _DWORD dword_5d4594_3843628;
+extern _DWORD nox_xxx_host_player_unit_3843628;
 extern _DWORD dword_5d4594_2495920;
 extern _DWORD dword_5d4594_1568024;
 extern _DWORD dword_5d4594_2388648;
@@ -864,7 +864,7 @@ char* nox_xxx_netUpdateRemotePlayers_4DEC80() {
 			} else {
 				nox_xxx_netUpdate_518EE0(*(_DWORD**)(i + 2056));
 			}
-			if (*(_DWORD*)(i + 2056) == dword_5d4594_3843628) {
+			if (*(_DWORD*)(i + 2056) == nox_xxx_host_player_unit_3843628) {
 				nox_xxx_netImportant_4E5770(*(_BYTE*)(i + 2064), 1);
 			} else if (!dword_5d4594_2650652 || !(nox_frame_xxx_2598000 % (unsigned int)nox_xxx_rateGet_40A6C0()) ||
 					   nox_common_gameFlags_check_40A5C0(8)) {

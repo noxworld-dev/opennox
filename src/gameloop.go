@@ -348,7 +348,7 @@ func CONNECT_PREPARE() {
 
 	if noxflags.HasGame(noxflags.GameHost) {
 		C.nox_xxx_replay_4D3860(Data)
-		*memmap.PtrPtr(0x5D4594, 2616328) = unsafe.Pointer(C.nox_xxx_playerNew_4DD320(31, (C.int)(uintptr(Data))))
+		*memmap.PtrPtr(0x5D4594, 2616328) = unsafe.Pointer(C.nox_xxx_playerNew_4DD320(31, Data))
 		C.nox_client_setVersion_409AE0(NOX_CLIENT_VERS_CODE)
 		C.nox_xxx_netlist_494E90(31)
 		C.dword_5d4594_811372 = 2
