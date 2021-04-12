@@ -19,7 +19,7 @@ func Malloc(size uintptr) unsafe.Pointer {
 	if size == 0 {
 		panic("zero alloc")
 	}
-	ptr := C.malloc(C.uint(size))
+	ptr := C.calloc(1, C.uint(size))
 	allocMu.Lock()
 	allocs[ptr] = size
 	allocMu.Unlock()
