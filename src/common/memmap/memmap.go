@@ -28,11 +28,17 @@ func (v *Variable) Contains(addr uintptr) bool {
 	return off < v.Size
 }
 
+// Blob returns a blob associated with this variable, if any.
+func (v *Variable) Blob() *Blob {
+	return BlobByAddr(v.Addr)
+}
+
 type Blob struct {
-	Addr uintptr
-	Size uintptr // if Data is not set
-	Data []byte
-	Name string
+	Addr    uintptr
+	Size    uintptr // if Data is not set
+	Data    []byte
+	Initial []byte
+	Name    string
 }
 
 // Contains checks if a blob contains an address.
@@ -99,11 +105,13 @@ func RegisterBlob(addr uintptr, name string, size uintptr) {
 // RegisterBlobData registers a raw blob with a given address in original Nox binary and specified name and data.
 func RegisterBlobData(addr uintptr, name string, data []byte) {
 	b := Blob{
-		Addr: addr,
-		Name: name,
-		Size: uintptr(len(data)),
-		Data: data,
+		Addr:    addr,
+		Name:    name,
+		Size:    uintptr(len(data)),
+		Data:    data,
+		Initial: make([]byte, len(data)),
 	}
+	copy(b.Initial, data)
 	for i, b2 := range blobs {
 		if b.Addr == b2.Addr {
 			blobs[i] = b
