@@ -1,6 +1,7 @@
 /build
 /cmake-*
-/tmp
+tmp/
+logs/
 *.dat
 *.gz
 *.log

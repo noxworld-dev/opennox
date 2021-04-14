@@ -348,6 +348,7 @@ typedef struct struc_36 {
 	void (*field_5)(void);
 	_DWORD field_6;
 } struc_36;
+_Static_assert(sizeof(struc_36) == 28, "wrong size of struc_36 structure!");
 
 typedef struct {
 	char* data; // 0, 0

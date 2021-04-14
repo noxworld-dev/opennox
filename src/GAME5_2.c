@@ -167,63 +167,61 @@ int  nox_xxx_servNetInitialPackets_552A80(unsigned int id, char flags) {
 	}
 	char v26 = 1;
 	while (1) {
-		int tolen = sizeof(to);
-		int v6 = nox_xxx_netRecv_552020(ns->sock, ns->data_1_xxx, (int)(ns->data_1_end) - (int)(ns->data_1_xxx), &to);
-		if (v6 == -1) {
+		int n = nox_xxx_netRecv_552020(ns->sock, ns->data_1_xxx, (int)(ns->data_1_end) - (int)(ns->data_1_xxx), &to);
+		if (n == -1) {
 			return -1;
-		} else if (sizeof(to) < tolen) {
-			abort();
 		}
-		sub_553FC0(v6, 1);
-		if (v6 < 3) {
+		sub_553FC0(n, 1);
+		if (n < 3) {
 			ns->data_1_yyy = ns->data_1_base;
 			ns->data_1_xxx = ns->data_1_base;
 			if (!(flags & 1) || (flags & 4)) {
-				return v6;
+				return n;
 			}
 			argp = 0;
 			if (nox_net_recv_available(ns->sock, &argp) == -1) {
 				return -1;
 			} else if (!argp) {
-				return v6;
+				return n;
 			}
 			continue;
 		}
-		unsigned __int8* v7 = ns->data_1_yyy;
-		ns->data_1_xxx = &ns->data_1_xxx[v6];
-		unsigned int    id2 = v7[0];
-		unsigned __int8 v9  = v7[1];
-		unsigned __int8 op = v7[2];
+		unsigned char* v7 = ns->data_1_yyy;
+		ns->data_1_xxx = &ns->data_1_xxx[n];
+		unsigned int  id2 = v7[0];
+		unsigned char v9  = v7[1];
+		unsigned char op = v7[2];
+		if (debugNet)
+			printf("servNetInitialPackets: op=%d\n", op);
 		if (op == 12) {
 			// received a lobby info request from the client
-			if (!sub_43AF70()) {
+			if (!nox_xxx_check_flag_aaa_43AF70()) {
 				// send server info packet
-				v6 = nox_server_makeServerInfoPacket_554040(ns->data_1_yyy, (int)(ns->data_1_xxx) - (int)(ns->data_1_yyy), buf);
-				if (v6 > 0) {
-					v6 = nox_net_sendto(ns->sock, buf, v6, &to);
-					sub_553F40(v6, 1);
+				n = nox_server_makeServerInfoPacket_554040(ns->data_1_yyy, (int)(ns->data_1_xxx) - (int)(ns->data_1_yyy), buf);
+				if (n > 0) {
+					n = nox_net_sendto(ns->sock, buf, n, &to);
+					sub_553F40(n, 1);
 				}
 			}
 			ns->data_1_yyy = ns->data_1_base;
 			ns->data_1_xxx = ns->data_1_base;
 			if (!(flags & 1) || (flags & 4)) {
-				return v6;
+				return n;
 			}
 			argp = 0;
 			if (nox_net_recv_available(ns->sock, &argp) == -1) {
 				return -1;
 			} else if (!argp) {
-				return v6;
+				return n;
 			}
 			continue;
 		}
-		if (op < 14 || op > 20) {
+		if (op >= 14 && op <= 20) {
+			v26 = 1;
+		} else {
 			if (id2 == 255) {
 				if (v26 != 1) {
 					goto LABEL_48;
-				}
-				if (ns->id == -1) {
-					ns2 = nox_net_struct_arr[id2 & 127];
 				}
 			} else {
 				v26 = 0;
@@ -231,9 +229,9 @@ int  nox_xxx_servNetInitialPackets_552A80(unsigned int id, char flags) {
 					goto LABEL_48;
 				}
 				v26 = 1;
-				if (ns->id == -1) {
-					ns2 = nox_net_struct_arr[id2 & 127];
-				}
+			}
+			if (ns->id == -1) {
+				ns2 = nox_net_struct_arr[id2 & 127];
 			}
 			if ((id2 & NOX_NET_STRUCT_MAX) == 0) {
 				if (!ns2) {
@@ -255,58 +253,54 @@ int  nox_xxx_servNetInitialPackets_552A80(unsigned int id, char flags) {
 						goto LABEL_48;
 					}
 				}
+			} else if (id2 == 255) {
+				if (op == 0) {
+					memcpy(buf, &to, sizeof(to));
+					n = nox_xxx_netBigSwitch_553210(id, ns->data_1_yyy, (int)(ns->data_1_xxx) - (int)(ns->data_1_yyy), (int)buf);
+					if (n > 0) {
+						n = nox_xxx_sendto_551F90(ns->sock, buf, n, &to);
+						sub_553F40(n, 1);
+					}
+					goto LABEL_48;
+				}
 			} else {
-				if (id2 == 255) {
-					if (!op) {
-						memcpy(buf, &to, tolen);
-						v6 = nox_xxx_netBigSwitch_553210(id, ns->data_1_yyy, (int)(ns->data_1_xxx) - (int)(ns->data_1_yyy), (int)buf);
-						if (v6 > 0) {
-							v6 = nox_xxx_sendto_551F90(ns->sock, buf, v6, &to);
-							sub_553F40(v6, 1);
-						}
-						goto LABEL_48;
-					}
-				} else {
-					ns->data_1_yyy[0] &= 0x7Fu;
-					id2 = ns->data_1_yyy[0];
-					if (!ns2) {
-						goto LABEL_48;
-					}
-					if (ns2->data_2_base[1] != v9) {
-						goto LABEL_48;
-					}
-					ns2->data_2_base[1]++;
-					if (nox_xxx_netRead2Xxx_551EB0(id, id2, v9, ns->data_1_yyy, (int)(ns->data_1_xxx) - (int)(ns->data_1_yyy)) == 1) {
-						goto LABEL_48;
-					}
+				ns->data_1_yyy[0] &= 127;
+				id2 = ns->data_1_yyy[0];
+				if (!ns2) {
+					goto LABEL_48;
+				}
+				if (ns2->data_2_base[1] != v9) {
+					goto LABEL_48;
+				}
+				ns2->data_2_base[1]++;
+				if (nox_xxx_netRead2Xxx_551EB0(id, id2, v9, ns->data_1_yyy, (int)(ns->data_1_xxx) - (int)(ns->data_1_yyy)) == 1) {
+					goto LABEL_48;
 				}
 			}
-		} else {
-			v26 = 1;
 		}
 		if (op < 32) {
-			memcpy(buf, &to, tolen);
-			v6 = nox_xxx_netBigSwitch_553210(id, ns->data_1_yyy, (int)(ns->data_1_xxx) - (int)(ns->data_1_yyy), (int)buf);
-			if (v6 > 0) {
-				v6 = nox_xxx_sendto_551F90(ns->sock, buf, v6, &to);
-				sub_553F40(v6, 1);
+			memcpy(buf, &to, sizeof(to));
+			n = nox_xxx_netBigSwitch_553210(id, ns->data_1_yyy, (int)(ns->data_1_xxx) - (int)(ns->data_1_yyy), (int)buf);
+			if (n > 0) {
+				n = nox_xxx_sendto_551F90(ns->sock, buf, n, &to);
+				sub_553F40(n, 1);
 			}
 		} else {
 			if (ns2 && !(flags & 2)) {
-				ns->func_yyy(id2, &ns->data_1_yyy[2], v6 - 2, ns2->data_3);
+				ns->func_yyy(id2, &ns->data_1_yyy[2], n - 2, ns2->data_3);
 			}
 		}
 	LABEL_48:
 		ns->data_1_yyy = ns->data_1_base;
 		ns->data_1_xxx = ns->data_1_base;
 		if (!(flags & 1) || (flags & 4)) {
-			return v6;
+			return n;
 		}
 		argp = 0;
 		if (nox_net_recv_available(ns->sock, &argp) == -1) {
 			return -1;
 		} else if (!argp) {
-			return v6;
+			return n;
 		}
 	}
 	// unreachable
@@ -511,6 +505,8 @@ int  nox_xxx_netBigSwitch_553210(unsigned int id, unsigned char* packet, int pac
 	while (2) {
 		int op = packetCur[0];
 		packetCur = &packetCur[1];
+		if (debugNet)
+			printf("nox_xxx_netBigSwitch_553210: op=%d [%d]\n", op, packetSz);
 		switch (op) {
 		case 0:
 			{
@@ -609,7 +605,7 @@ int  nox_xxx_netBigSwitch_553210(unsigned int id, unsigned char* packet, int pac
 				return 0;
 			}
 			break;
-		case 3:
+		case 3: // ack?
 			ns1->id = -12;
 			dword_5d4594_3844304 = 1;
 			if ((unsigned int)packetCur >= packetEnd) {
@@ -756,7 +752,7 @@ int  nox_xxx_netBigSwitch_553210(unsigned int id, unsigned char* packet, int pac
 			bool a4a = 0;
 			*(_BYTE*)(out + 0) = 0;
 			*(_BYTE*)(out + 1) = p1;
-			if (!sub_43AF70()) {
+			if (!nox_xxx_check_flag_aaa_43AF70()) {
 				char* v45 = nox_common_playerInfoGetFirst_416EA0();
 				while (v45) {
 					if (v45[2135] == packet[98]) {
@@ -1459,7 +1455,7 @@ int  sub_554760(int a1, char* cp, int hostshort, int a4, int a5) {
 	ns->addr.sin_addr = v8;
 	memset(ns->addr.sin_zero, 0, 8);
 
-	v10 = sub_40A420();
+	v10 = nox_client_getClientPort_40A420();
 	name.sin_family = NOX_AF_INET;
 	name.sin_port = htons(v10);
 	name.sin_addr = 0;
@@ -1618,7 +1614,6 @@ int  sub_554D70(char a1) {
 	uint16_t v7;           // ax
 	int v8;               // [esp+0h] [ebp-230h]
 	int v11;              // [esp+18h] [ebp-218h]
-	struct nox_net_sockaddr from; // [esp+20h] [ebp-210h]
 	char buf[256];        // [esp+30h] [ebp-200h]
 	char in[256];         // [esp+130h] [ebp-100h]
 
@@ -1637,6 +1632,7 @@ int  sub_554D70(char a1) {
 		argp = 1;
 	}
 	while (1) {
+		struct nox_net_sockaddr from;
 		v2 = mix_recvfrom(nox_xxx_sockLocalBroadcast_2513920, buf, 256, &from);
 		if (v2 == -1)
 			break;
@@ -2930,6 +2926,7 @@ int  sub_56FD50(int a1, int a2, int a3) {
 // 560840: using guessed type void  nullsub_31(_DWORD);
 
 //----- (0056FDD0) --------------------------------------------------------
+#ifndef NOX_CGO
 void nox_xxx_cryptXor_56FDD0(char key, unsigned char* p, int n) {
 	if (!p)
 		return;
@@ -2946,6 +2943,7 @@ void nox_xxx_cryptXorDst_56FE00(char key, unsigned char* src, int n, unsigned ch
 		dst[i] = key ^ src[i];
 	}
 }
+#endif // NOX_CGO
 
 //----- (0056FE30) --------------------------------------------------------
 double nox_xxx_unkDoubleSmth_56FE30() {

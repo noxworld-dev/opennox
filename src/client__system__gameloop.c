@@ -257,7 +257,7 @@ void mainloop() {
 			goto MAINLOOP_EXIT;
 		}
 	}
-	if (sub_43AF70() == 1) {
+	if (nox_xxx_check_flag_aaa_43AF70() == 1) {
 		sub_40D250();
 		sub_40DF90();
 	}

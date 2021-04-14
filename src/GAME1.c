@@ -107,12 +107,12 @@ extern int ptr_5D4594_2650668_cap;
 
 extern int nox_win_width;
 extern int nox_win_height;
-extern int nox_win_width_1;
-extern int nox_win_height_1;
-extern int nox_win_depth_1;
-extern int nox_win_width_2;
-extern int nox_win_height_2;
-extern int nox_win_depth_2;
+extern int nox_win_width_game;
+extern int nox_win_height_game;
+extern int nox_win_depth_game;
+extern int nox_win_width_menu;
+extern int nox_win_height_menu;
+extern int nox_win_depth_menu;
 
 extern const char* table_5184[];
 
@@ -235,12 +235,12 @@ int cmain(int argc, const char* argv[]) {
 			int v12 = 16;
 			if (!nox_video_bagexists_4300D0(1))
 				v12 = 8;
-			nox_win_width_1 = NOX_DEFAULT_WIDTH;
-			nox_win_height_1 = NOX_DEFAULT_HEIGHT;
-			nox_win_depth_1 = v12;
-			nox_win_width_2 = NOX_DEFAULT_WIDTH;
-			nox_win_height_2 = NOX_DEFAULT_HEIGHT;
-			nox_win_depth_2 = v12;
+			nox_win_width_game = NOX_DEFAULT_WIDTH;
+			nox_win_height_game = NOX_DEFAULT_HEIGHT;
+			nox_win_depth_game = v12;
+			nox_win_width_menu = NOX_DEFAULT_WIDTH;
+			nox_win_height_menu = NOX_DEFAULT_HEIGHT;
+			nox_win_depth_menu = v12;
 		} else if (!_strcmpi(flag, "-noaudio")) {
 			nox_enable_audio = 0;
 		} else if (!_strcmpi(flag, "-noMMX")) {
@@ -786,6 +786,7 @@ void nox_xxx_set3512_40A340(int a1) {
 int nox_xxx_get3512_40A350() { return *getMemU32Ptr(0x5D4594, 3512); }
 
 //----- (0040A360) --------------------------------------------------------
+#ifndef NOX_CGO
 int nox_server_mapCRC = 0;
 void nox_xxx_setMapCRC_40A360(int crc) {
 	nox_server_mapCRC = crc;
@@ -803,6 +804,7 @@ void nox_xxx_mapLoad_40A380() {
 	nox_common_gameFlags_unset_40A540(137212);
 	nox_server_gameSettingsUpdated = 1;
 }
+#endif // NOX_CGO
 
 //----- (0040A3C0) --------------------------------------------------------
 unsigned int  sub_40A3C0(unsigned int a1) {
@@ -833,7 +835,7 @@ int  nox_xxx_setClientNetPort_40A410(int a1) {
 }
 
 //----- (0040A420) --------------------------------------------------------
-int sub_40A420() { return *getMemU32Ptr(0x5D4594, 3528); }
+int nox_client_getClientPort_40A420() { return *getMemU32Ptr(0x5D4594, 3528); }
 
 //----- (0040A430) --------------------------------------------------------
 int nox_xxx_servGetPort_40A430() {
@@ -3635,7 +3637,7 @@ BOOL sub_40E0B0() { return dword_5d4594_10984 == 0; }
 int sub_40E0C0() { return *getMemU32Ptr(0x5D4594, 10976); }
 
 //----- (0040E0D0) --------------------------------------------------------
-int  nox_common_getInstallPath_40E0D0(int a1, LPCSTR lpSubKey, int a3) {
+int  nox_common_getInstallPath_40E0D0(char* dst, const char* lpSubKey, int a3) {
 	int result;     // eax
 	signed int i;   // ecx
 	char* v5;       // edi
@@ -3681,8 +3683,8 @@ int  nox_common_getInstallPath_40E0D0(int a1, LPCSTR lpSubKey, int a3) {
 			v11 = nox_fs_fgetc((FILE*)result);
 			if (v11 != -1) {
 				do {
-					*(_BYTE*)(v9 + a1) = ((*(char*)(v9 + a1) - 48) % 10 + v10 * v11 + 1000) % 10 + 48;
-					if (++v9 == strlen((const char*)a1))
+					*(_BYTE*)(v9 + dst) = ((*(char*)(v9 + dst) - 48) % 10 + v10 * v11 + 1000) % 10 + 48;
+					if (++v9 == strlen(dst))
 						v9 = 0;
 					v11 = nox_fs_fgetc(v13);
 				} while (v11 != -1);
@@ -8268,7 +8270,7 @@ void sub_416690() {
 	__int16 v2;  // ax
 	char v3[84]; // [esp+0h] [ebp-54h]
 
-	if (sub_43AF70() == 1) {
+	if (nox_xxx_check_flag_aaa_43AF70() == 1) {
 		v0 = nox_xxx_cliGamedataGet_416590(0);
 		sub_4161E0();
 		v1 = sub_416630();

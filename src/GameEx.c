@@ -10,8 +10,8 @@
 #include <SDL2/SDL.h>
 #endif // NOX_CGO
 
-extern int nox_win_width_1;
-extern int nox_win_height_1;
+extern int nox_win_width_game;
+extern int nox_win_height_game;
 extern int dword_5d4594_3484;
 extern unsigned int nox_xxx_host_player_unit_3843628;
 extern unsigned int dword_5d4594_1064896;
@@ -525,8 +525,8 @@ int __usercall copyServerMatchData(char* a1) {
 	// a1[38] = MEMACCESS(0x5D5331); // serverRuleFlags + 1
 	a1[38] = *(int*)((char*)&dword_5d4594_3484 + 1);
 	*((_DWORD*)a1 + 12) = 65540;
-	*((_WORD*)a1 + 26) = nox_win_height_1;
-	*((_WORD*)a1 + 27) = nox_win_width_1;
+	*((_WORD*)a1 + 26) = nox_win_height_game;
+	*((_WORD*)a1 + 27) = nox_win_width_game;
 	*((_WORD*)a1 + 28) = *getMemU32Ptr(0x5D4594, 371582);
 	*((_WORD*)a1 + 29) = *getMemU32Ptr(0x5D4594, 371586);
 	a1[60] = *getMemU32Ptr(0x5D4594, 371494);

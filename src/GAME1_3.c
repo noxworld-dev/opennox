@@ -133,13 +133,13 @@ extern unsigned int nox_frame_xxx_2598000;
 extern int nox_win_width;
 extern int nox_win_height;
 
-extern int nox_win_width_1;
-extern int nox_win_height_1;
-extern int nox_win_depth_1;
+extern int nox_win_width_game;
+extern int nox_win_height_game;
+extern int nox_win_depth_game;
 
-extern int nox_win_width_2;
-extern int nox_win_height_2;
-extern int nox_win_depth_2;
+extern int nox_win_width_menu;
+extern int nox_win_height_menu;
+extern int nox_win_depth_menu;
 
 extern int nox_backbuffer_width;
 extern int nox_backbuffer_height;
@@ -310,7 +310,7 @@ int  sub_43BE40(int a1) {
 int sub_43BE50_get_video_mode_id() {
 	for (int i = 0; i < nox_video_modes_cnt; i++) {
 		nox_video_mode* m = &nox_video_modes[i];
-		if (m->width == nox_win_width_1)
+		if (m->width == nox_win_width_game)
 			return m->id;
 	}
 	return nox_video_modes_cnt;
@@ -330,23 +330,22 @@ nox_video_mode*  sub_43BE80_video_mode_by_id(int a1) {
 #ifndef NOX_CGO
 void  nox_xxx_gameGetScreenBoundaries_43BEB0_get_video_mode(int* w, int* h, int* d) {
 	if (w)
-		*w = nox_win_width_1;
+		*w = nox_win_width_game;
 	if (h)
-		*h = nox_win_height_1;
+		*h = nox_win_height_game;
 	if (d)
-		*d = nox_win_depth_1;
+		*d = nox_win_depth_game;
 }
 
 //----- (0043BEF0) --------------------------------------------------------
 void nox_xxx_gameResizeScreen_43BEF0_set_video_mode(int w, int h, int d) {
 	d = 16; // 8 bit not supported
-	nox_win_width_1 = w;
-	nox_win_height_1 = h;
-	nox_win_depth_1 = d;
+	nox_win_width_game = w;
+	nox_win_height_game = h;
+	nox_win_depth_game = d;
 
 	change_windowed_fullscreen();
 }
-#endif // NOX_CGO
 
 //----- (0043BF10) --------------------------------------------------------
 int  nox_xxx_video_43BF10_upd_video_mode(int defaults) {
@@ -357,13 +356,13 @@ int  nox_xxx_video_43BF10_upd_video_mode(int defaults) {
 
 	// If true, set to 640x480
 	if (defaults == 1) {
-		v1 = nox_win_width_2;
-		v2 = nox_win_height_2;
-		v3 = nox_win_depth_2;
+		v1 = nox_win_width_menu;
+		v2 = nox_win_height_menu;
+		v3 = nox_win_depth_menu;
 	} else {
-		v1 = nox_win_width_1;
-		v2 = nox_win_height_1;
-		v3 = nox_win_depth_1;
+		v1 = nox_win_width_game;
+		v2 = nox_win_height_game;
+		v3 = nox_win_depth_game;
 	}
 	nox_video_resizewnd(v1, v2, v3);
 	nox_game_loop_xxx_805872 = 0;
@@ -385,7 +384,6 @@ int  nox_xxx_video_43BF10_upd_video_mode(int defaults) {
 }
 
 //----- (0043BFE0) --------------------------------------------------------
-#ifndef NOX_CGO
 int nox_xxx_cliWaitForJoinData_43BFE0() {
 	int result; // eax
 
@@ -477,7 +475,7 @@ int nox_game_switchStates_43C0A0() { // switch game states
 			return 0;
 		return 1;
 	case 10000:
-		if (sub_43AF70() == 1 && !sub_40E0B0()) {
+		if (nox_xxx_check_flag_aaa_43AF70() == 1 && !sub_40E0B0()) {
 			sub_41E300(9);
 			sub_41F4B0();
 			sub_41EC30();
@@ -1716,7 +1714,7 @@ int  sub_43DE40(int (*a1)(void)) {
 void nox_game_exit_xxx_43DE60() {
 	nox_continue_mainloop_93196 = 0;
 	nox_xxx_gameSetCliConnected_43C720(0);
-	if (sub_43AF70() != 1) {
+	if (nox_xxx_check_flag_aaa_43AF70() != 1) {
 		return;
 	}
 	if (!nox_common_gameFlags_check_40A5C0(0x2000000))
@@ -1731,7 +1729,7 @@ int map_download_loop(int first) {
 	nox_input_pollEvents_4453A0();
 	nox_client_processMouseInput_4308A0(1);
 	nox_xxx_cursorUpdate_46B740();
-	if (sub_43AF70() == 1) {
+	if (nox_xxx_check_flag_aaa_43AF70() == 1) {
 		sub_40D250();
 		sub_40DF90();
 	}
@@ -3893,6 +3891,7 @@ BOOL nox_xxx____crtGetStringTypeA_0_444830() {
 }
 
 //----- (004449D0) --------------------------------------------------------
+#ifndef NOX_CGO
 int  nox_client_drawInitAll_4449D0(int w, int h, int depth, int flags) {
 	int result; // eax
 
@@ -3998,6 +3997,7 @@ int  nox_client_drawInitAll_4449D0(int w, int h, int depth, int flags) {
 	printf("%s: %d\n", __FUNCTION__, result);
 	return result;
 }
+#endif // NOX_CGO
 
 // 4408F0: using guessed type void nullsub_3(void);
 // 47D2B0: using guessed type void nullsub_6(void);
@@ -4318,7 +4318,7 @@ int  nox_motd_4463E0(int a1) {
 }
 
 //----- (00446490) --------------------------------------------------------
-LPVOID  sub_446490(void* a1) {
+LPVOID  sub_446490(int a1) {
 	LPVOID result; // eax
 
 	result = *(LPVOID*)&dword_5d4594_826036;

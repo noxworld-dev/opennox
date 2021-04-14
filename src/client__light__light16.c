@@ -966,11 +966,12 @@ int nox_video_initFloorBuffer_430BA0() {
 }
 
 //----- (00431040) --------------------------------------------------------
+#ifndef NOX_CGO
 int  nox_xxx_unused_431040(int a1, int a2, int a3) {
 	nox_win_width = a2;
 	nox_win_height = a3;
 	*(_DWORD*)&nox_video_dxFullScreen = 0;
-	int result = sub_4800F0();
+	int result = nox_xxx_unused_4800F0();
 	if (!result) {
 		return 0;
 	}
@@ -986,3 +987,4 @@ int nox_video_recreateBuffersAndTarget_430BA0() {
 	}
 	return nox_video_initFloorBuffer_430BA0();
 }
+#endif // NOX_CGO

@@ -191,8 +191,8 @@ void CONNECT_PREPARE(sm_args_t* args) {
 	*(_DWORD*)&Data[97] = v5;
 	*(_DWORD*)&Data[101] = v4;
 	nox_xxx_regGetSerial_420120(&Data[105]);
-	if (!sub_43AF70()) {
-		nox_common_getInstallPath_40E0D0((int) &Data[105], (LPCSTR) getMemAt(0x587000, 86344), 0);
+	if (!nox_xxx_check_flag_aaa_43AF70()) {
+		nox_common_getInstallPath_40E0D0((int) &Data[105], "SOFTWARE\\Westwood\\Nox", 0);
 	}
 	Data[152] = !nox_xxx_checkHasSoloMaps_40ABD0();
 	if (getMemByte(0x5D4594, 2660684) & 4) {
@@ -212,7 +212,7 @@ void CONNECT_PREPARE(sm_args_t* args) {
 		GOTO_CONNECT_RESULT(0);
 	} else {
 		v3 = nox_client_getServerPort_43B320();
-		GOTO_CONNECT_SERVER((char*)getMemAt(0x587000, 85680), v3, Data);
+		GOTO_CONNECT_SERVER(nox_client_getServerConnectAddr(), v3, Data);
 	}
 }
 
@@ -288,7 +288,7 @@ void NET_CONNECT(sm_args_t* args) {
 	ns->addr.sin_addr = v8;
 	memset(ns->addr.sin_zero, 0, 8);
 
-	v10 = sub_40A420();
+	v10 = nox_client_getClientPort_40A420();
 	name.sin_family = NOX_AF_INET;
 	name.sin_port = htons(v10);
 	name.sin_addr = 0;

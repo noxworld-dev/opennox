@@ -149,8 +149,8 @@ extern float input_sensitivity;
 extern int nox_win_width;
 extern int nox_win_height;
 extern int nox_backbuffer_height;
-extern int nox_win_depth_1;
-extern int nox_win_depth_2;
+extern int nox_win_depth_game;
+extern int nox_win_depth_menu;
 extern unsigned int nox_frame_xxx_2598000;
 extern char nox_savegame_name_1307752[9];
 
@@ -1603,11 +1603,11 @@ int sub_4A50D0() {
 	sub_431510();
 	nox_gui_draw();
 	if (nox_common_gameFlags_check_40A5C0(0x2000)) {
-		if (!sub_43AF70()) {
+		if (!nox_xxx_check_flag_aaa_43AF70()) {
 			nox_xxx_serverHost_43B4D0();
 			return 1;
 		}
-		if (sub_43AF70() == 1) {
+		if (nox_xxx_check_flag_aaa_43AF70() == 1) {
 			sub_43B670();
 			return 1;
 		}
@@ -2091,11 +2091,11 @@ int sub_4A6C90() {
 			sub_4A24A0();
 			return 1;
 		}
-		if (!sub_43AF70()) {
+		if (!nox_xxx_check_flag_aaa_43AF70()) {
 			nox_xxx_serverHost_43B4D0();
 			return 1;
 		}
-		if (sub_43AF70() == 1) {
+		if (nox_xxx_check_flag_aaa_43AF70() == 1) {
 			sub_43B670();
 			return 1;
 		}
@@ -3861,7 +3861,7 @@ int nox_game_showOnlineOrLAN_413800() {
 	sub_44A400();
 	nox_game_addStateCode_43BDD0(400);
 	sub_4A1A40(1);
-	if (sub_40E0C0() && sub_43AF70() == 1)
+	if (sub_40E0C0() && nox_xxx_check_flag_aaa_43AF70() == 1)
 		sub_41D4C0();
 	sub_43AF50(2);
 	result = nox_new_window_from_file("ArnaMain.wnd", nox_xxx_windowArenaSub_4AA4D0);
@@ -4042,6 +4042,17 @@ int sub_4AA9C0() {
 }
 
 //----- (004AAA10) --------------------------------------------------------
+#ifndef NOX_CGO
+bool nox_video_sync_depths() {
+	if (nox_win_depth_game == nox_win_depth_menu) {
+		return true;
+	}
+	nox_win_depth_menu = nox_win_depth_game;
+	return false;
+}
+#else // NOX_CGO
+bool nox_video_sync_depths();
+#endif // NOX_CGO
 int sub_4AAA10() {
 	int (*v0)(void); // esi
 
@@ -4049,10 +4060,9 @@ int sub_4AAA10() {
 	sub_43C570(nox_wnd_xxx_1309740);
 	nox_xxx_windowDestroyMB_46C4E0(*(_DWORD**)&dword_5d4594_1309720);
 	sub_4A1A40(1);
-	if (nox_win_depth_1 == nox_win_depth_2) {
+	if (nox_video_sync_depths()) {
 		v0();
 	} else {
-		nox_win_depth_2 = nox_win_depth_1;
 		nox_game_loop_xxx_805872 = 1;
 	}
 	return 1;
@@ -4590,7 +4600,7 @@ int nox_xxx_gameDownloadMap_4AB5E0() {
 		nox_input_pollEvents_4453A0();
 		nox_client_processMouseInput_4308A0(1);
 		nox_xxx_cursorUpdate_46B740();
-		if (sub_43AF70() == 1) {
+		if (nox_xxx_check_flag_aaa_43AF70() == 1) {
 			sub_40D250();
 			sub_40DF90();
 		}
@@ -5519,7 +5529,7 @@ int sub_4AD570() {
 	_DWORD* v1; // esi
 
 	nox_point mpos = nox_client_getMousePos_4309F0();
-	if (sub_43AF70() == 1) {
+	if (nox_xxx_check_flag_aaa_43AF70() == 1) {
 		v1 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1309812, 10317);
 		if (!wndIsShown_nox_xxx_wndIsShown_46ACC0((int)v1) && !nox_xxx_wndPointInWnd_46AAB0(v1, mpos.x, mpos.y)) {
 			nox_xxx_wndClearCaptureMain_46ADE0((int)v1);

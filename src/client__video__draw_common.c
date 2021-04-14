@@ -178,11 +178,11 @@ void sdl_set_window_rect(int2 size, int2 position) {
 	SDL_SetWindowPosition(nox_video_getWindow_401FD0(), position.field_0, position.field_4);
 }
 
-extern int nox_win_width_1;
-extern int nox_win_height_1;
+extern int nox_win_width_game;
+extern int nox_win_height_game;
 void change_windowed_fullscreen() {
-	int windowSizeW = nox_win_width_1;
-	int windowSizeH = nox_win_height_1;
+	int windowSizeW = nox_win_width_game;
+	int windowSizeH = nox_win_height_game;
 	int2 windowedSize;
 	int2 fullscreenSize;
 	int4 displaySize = sdl_get_display_dim();

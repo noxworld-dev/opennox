@@ -3,7 +3,6 @@
 package input
 
 import (
-	"fmt"
 	"image"
 	"log"
 	"math"
@@ -119,7 +118,7 @@ func (g *Gamepad) StickAbs() *Stick {
 }
 
 func (g *Gamepad) Close() {
-	fmt.Printf("Closed controller %d\n", g.ind)
+	log.Printf("Closed controller %d\n", g.ind)
 	g.g.Close()
 	g.g = nil
 	g.ind = -1
@@ -147,7 +146,7 @@ func (h *Handler) processGamepadDeviceEvent(ev *sdl.ControllerDeviceEvent) {
 		return
 	}
 	name := sdl.GameControllerNameForIndex(i)
-	fmt.Printf("Game controller connected %d: %s\n", i, name)
+	log.Printf("Game controller connected %d: %s\n", i, name)
 	if h.gpad != nil {
 		return // already have one
 	}
@@ -157,7 +156,7 @@ func (h *Handler) processGamepadDeviceEvent(ev *sdl.ControllerDeviceEvent) {
 		return
 	}
 	h.gpad = h.newGamepad(i, g)
-	fmt.Printf("Opened controller %d\n", i)
+	log.Printf("Opened controller %d\n", i)
 }
 
 func (h *Handler) processGamepadAxisEvent(ev *sdl.ControllerAxisEvent) {

@@ -5552,19 +5552,20 @@ int nox_xxx_setupSomeVideo_47FEF0() {
 }
 
 //----- (004800F0) --------------------------------------------------------
-int sub_4800F0() {
+#ifndef NOX_CGO
+int nox_xxx_unused_4800F0() {
 	int v2;     // [esp-10h] [ebp-10h]
 	int v3;     // [esp-Ch] [ebp-Ch]
 	int v4;     // [esp-8h] [ebp-8h]
 	int v5;     // [esp-4h] [ebp-4h]
 
-	sub_48A210(sub_47FCE0);
+	nox_xxx_setSomeFunc_48A210(sub_47FCE0);
 	v5 = (nox_video_16bit != 0) + 20;
 	v4 = nox_video_16bit != 0 ? 16 : 8;
 	v3 = nox_win_height;
 	v2 = nox_win_width;
 	if (!nox_xxx_GfxInit_444930(v2, v3, v4, v5)) {
-		MessageBoxA(0, (LPCSTR)getMemAt(0x587000, 154896), (LPCSTR)getMemAt(0x587000, 154880), 0);
+		MessageBoxA(0, "GfxInit() failed", "StartupError", 0);
 		return 0;
 	}
 	sub_440900();
@@ -5578,6 +5579,7 @@ int sub_4800F0() {
 	nox_input_pollEvents_4453A0();
 	return 1;
 }
+#endif // NOX_CGO
 
 //----- (004801B0) --------------------------------------------------------
 char  sub_4801B0(_BYTE* a2, _BYTE* a3) {
@@ -12102,7 +12104,7 @@ int sub_489870() {
 	char v6;             // cl
 	int v7;              // eax
 
-	v0 = sub_43AF70();
+	v0 = nox_xxx_check_flag_aaa_43AF70();
 	v1 = getMemAt(0x5D4594, 44 * v0 + 1193388);
 	if (*getMemU32Ptr(0x5D4594, 4 * v0 + 1193372) == 2) {
 		*(_DWORD*)v1 = (nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1193380, 10028)->draw_data.field_0 >> 2) & 1;
@@ -12148,7 +12150,7 @@ BOOL  nox_xxx_checkSomeFlagsOnJoin_4899C0(int a1) {
 	unsigned __int8 v14; // [esp+4Ch] [ebp+4h]
 	unsigned __int8 v15; // [esp+4Ch] [ebp+4h]
 
-	v1 = sub_43AF70();
+	v1 = nox_xxx_check_flag_aaa_43AF70();
 	v2 = 11 * v1;
 	v3 = *getMemU32Ptr(0x5D4594, 4 * v1 + 1193372);
 	v4 = getMemAt(0x5D4594, 4 * v2 + 1193388);
@@ -12227,7 +12229,7 @@ _DWORD*  sub_489B80(int a1) {
 	dword_5d4594_1193380 = result;
 	if (result) {
 		dword_5d4594_1193384 = nox_xxx_wndGetChildByID_46B0C0(result, 10012);
-		v2 = sub_43AF70();
+		v2 = nox_xxx_check_flag_aaa_43AF70();
 		v3 = getMemAt(0x5D4594, 44 * v2 + 1193388);
 		sub_46B120(*(_DWORD**)&dword_5d4594_1193380, a1);
 		sub_46B120(*(_DWORD**)&dword_5d4594_1193384, *(int*)&dword_5d4594_1193380);
@@ -12315,7 +12317,7 @@ int  nox_xxx_windowMplayFilterProc_489E70(int a1, int a2, int* a3, int a4) {
 	int v7;     // [esp-Ch] [ebp-10h]
 	int v8;     // [esp-Ch] [ebp-10h]
 
-	v3 = sub_43AF70();
+	v3 = nox_xxx_check_flag_aaa_43AF70();
 	if (a2 == 23)
 		return 1;
 	if (a2 != 16391)
@@ -12402,7 +12404,7 @@ int  nox_video_checkIsWinNT_48A1D0(int a1) {
 }
 
 //----- (0048A210) --------------------------------------------------------
-int  sub_48A210(int a1) {
+int  nox_xxx_setSomeFunc_48A210(int a1) {
 	int result; // eax
 
 	result = a1;

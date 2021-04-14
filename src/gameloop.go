@@ -4,9 +4,11 @@ package main
 #include <fenv.h>
 
 #include "proto.h"
+#include "common__log.h"
 #include "common__system__team.h"
 #include "common__system__gamedisk.h"
 #include "client__system__gameloop.h"
+#include "client__drawable__drawdb.h"
 
 extern unsigned int nox_game_loop_xxx_805872;
 extern unsigned int dword_5d4594_2660032;
@@ -20,14 +22,18 @@ extern unsigned int dword_5d4594_2618912;
 extern unsigned int nox_client_gui_flag_815132;
 extern unsigned int nox_gameFPS;
 extern unsigned int nox_xxx_gameDownloadInProgress_587000_173328;
-extern nox_net_struct_t* nox_net_struct_arr[NOX_NET_STRUCT_MAX];
+extern char nox_clientServerAddr[32];
 
 int call_func_5D4594_816392();
 int call_nox_draw_unk1();
 */
 import "C"
 import (
+	"errors"
 	"fmt"
+	"log"
+	"net"
+	"os"
 	"path/filepath"
 	"runtime"
 	"strings"
@@ -36,6 +42,7 @@ import (
 
 	"nox/common/alloc"
 	noxflags "nox/common/flags"
+	"nox/common/fs"
 	"nox/common/memmap"
 	"nox/common/platform"
 )
@@ -43,18 +50,22 @@ import (
 const NOX_CLIENT_VERS_CODE = C.NOX_CLIENT_VERS_CODE
 
 var (
-	g_v20              bool
-	g_v21              bool
-	mainloopExitPath   bool
-	mainloopEnter      func()
-	mainloopContinue   = true // nox_continue_mainloop_93196
-	continueMenuOrHost = true // nox_game_continueMenuOrHost_93200
-	g_argc2            int
-	g_argv2            **C.char
+	debugMainloop           = os.Getenv("NOX_DEBUG_MAINLOOP") == "true"
+	g_v20                   bool
+	mainloopConnectResultOK bool
+	mainloopExitPath        bool
+	mainloopEnter           func()
+	mainloopContinue        = true // nox_continue_mainloop_93196
+	continueMenuOrHost      = true // nox_game_continueMenuOrHost_93200
+	g_argc2                 int
+	g_argv2                 **C.char
 )
 
 //export nox_xxx_setContinueMenuOrHost_43DDD0
 func nox_xxx_setContinueMenuOrHost_43DDD0(v C.int) {
+	if debugMainloop {
+		log.Println("nox_xxx_setContinueMenuOrHost_43DDD0 =", int(v))
+	}
 	continueMenuOrHost = v != 0
 }
 
@@ -65,9 +76,12 @@ func nox_server_mainloop_exiting_43DEA0() C.bool {
 
 //export nox_game_exit_xxx_43DE60
 func nox_game_exit_xxx_43DE60() {
+	if debugMainloop {
+		log.Println("nox_game_exit_xxx_43DE60")
+	}
 	mainloopContinue = false
 	C.nox_xxx_gameSetCliConnected_43C720(0)
-	if C.sub_43AF70() != 1 {
+	if C.nox_xxx_check_flag_aaa_43AF70() != 1 {
 		return
 	}
 	if !noxflags.HasGame(noxflags.GameFlag26) {
@@ -76,7 +90,12 @@ func nox_game_exit_xxx_43DE60() {
 }
 
 func mainloop_43E290() {
-	fmt.Printf("mainloop_43E290 (%s)\n", caller(1))
+	if debugMainloop {
+		log.Printf("mainloop_43E290 (%s)\n", caller(1))
+		defer func() {
+			log.Printf("mainloop_43E290 exit (%s -> %s)\n", caller(1), caller(2))
+		}()
+	}
 	mainloopContinue = true
 	continueMenuOrHost = true
 	*memmap.PtrUint32(0x5D4594, 816400) = 60 * gameFPS()
@@ -88,7 +107,9 @@ func mainloop_43E290() {
 mainloop:
 	for mainloopContinue {
 		if mainloopEnter != nil {
-			fmt.Printf("mainloop continues (%s)\n", caller(1))
+			if debugMainloop {
+				log.Printf("mainloop continues (%s)\n", caller(1))
+			}
 			mainloopEnter()
 			continue mainloop
 		}
@@ -100,6 +121,9 @@ mainloop:
 				// map error
 				mainloopContinue = false
 				continueMenuOrHost = false
+				if debugMainloop {
+					log.Println("map_download_loop exit")
+				}
 				goto MAINLOOP_EXIT
 			}
 		} else {
@@ -111,10 +135,13 @@ mainloop:
 				}
 				mainloopContinue = false
 				continueMenuOrHost = false
+				if debugMainloop {
+					log.Println("nox_xxx_gameChangeMap_43DEB0 exit")
+				}
 				goto MAINLOOP_EXIT
 			}
 		}
-		if C.sub_43AF70() == 1 {
+		if C.nox_xxx_check_flag_aaa_43AF70() == 1 {
 			C.sub_40D250()
 			C.sub_40DF90()
 		}
@@ -122,7 +149,10 @@ mainloop:
 		inpHandler.Tick()
 		C.sub_413520_gamedisk()
 		C.nox_xxx_time_startProfile_435770()
-		if !gameStateFunc() {
+		if fnc := gameStateFunc; !gameStateFunc() {
+			if debugMainloop {
+				log.Println("gameStateFunc exit", fnc)
+			}
 			goto MAINLOOP_EXIT
 		}
 		C.nox_xxx_time_endProfile_435780()
@@ -133,11 +163,17 @@ mainloop:
 			C.nox_xxx_cursorUpdate_46B740()
 			mainloopKeysUpdate()
 			if C.call_nox_draw_unk1() == 0 {
+				if debugMainloop {
+					log.Println("call_nox_draw_unk1 exit")
+				}
 				goto MAINLOOP_EXIT
 			}
 			C.sub_430880(0)
 		}
 		if C.call_func_5D4594_816392() == 0 {
+			if debugMainloop {
+				log.Println("call_func_5D4594_816392 exit")
+			}
 			goto MAINLOOP_EXIT
 		}
 		C.sub_4519C0()
@@ -198,11 +234,11 @@ mainloop:
 				C.nox_ensure_thing_bin()
 				*memmap.PtrUint32(0x5D4594, 2650664) = 0
 				*memmap.PtrUint32(0x5D4594, 2649708) = 0
-				if g_v21 {
-					fmt.Println("goto CONNECT_RESULT")
-					mainloopEnter = func() {
-						CONNECT_RESULT(0)
+				if mainloopConnectResultOK {
+					if debugMainloop {
+						log.Println("CONNECT_RESULT_OK retry")
 					}
+					CONNECT_RESULT_OK()
 					continue mainloop
 				}
 				if noxflags.HasGame(noxflags.GameHost) {
@@ -223,15 +259,17 @@ mainloop:
 					C.sub_4D3C30()
 					noxflags.UnsetGame(noxflags.GameFlag23)
 				}
-				fmt.Println("goto CONNECT_PREPARE")
-				mainloopEnter = CONNECT_PREPARE
+				CONNECT_OR_HOST()
 				continue mainloop
 			}
-			C.nox_xxx_cliSetupSession_437190()
-			C.nox_xxx_video_43BF10_upd_video_mode(1)
+			nox_xxx_cliSetupSession_437190()
+			gameUpdateVideoMode(true)
 			C.nox_client_initScreenParticles_431390()
 			cmainLoop()
 			continue mainloop
+		}
+		if debugMainloop {
+			log.Println("MAINLOOP_EXIT")
 		}
 		noxflags.UnsetGame(noxflags.GameFlag29)
 		noxflags.UnsetGame(0xD7F0)
@@ -245,18 +283,21 @@ mainloop:
 		if noxflags.HasGame(noxflags.GameFlag2) {
 			C.sub_435EB0()
 		}
-		if C.nox_xxx_video_43BF10_upd_video_mode(1) == 0 {
+		if err := gameUpdateVideoMode(true); err != nil {
+			if debugMainloop {
+				log.Printf("gameUpdateVideoMode: %v (%s)", err, caller(0))
+			}
 			continue mainloop
 		}
 		*memmap.PtrUint32(0x587000, 80852) = uint32(C.nox_video_getGammaSetting_434B00())
 		C.nox_video_setGammaSetting_434B30(1)
 		C.sub_434B60()
-		g_v21 = false
+		mainloopConnectResultOK = false
 		if noxflags.HasGame(noxflags.GameHost) {
-			C.nox_xxx_servEndSession_4D3200()
+			nox_xxx_servEndSession_4D3200()
 		}
 		if noxflags.HasGame(noxflags.GameFlag2) {
-			C.nox_xxx_cliSetupSession_437190()
+			nox_xxx_cliSetupSession_437190()
 		}
 		C.nox_xxx_clear18hDD_416190()
 		if getEngineFlag(NOX_ENGINE_FLAG_13) {
@@ -283,7 +324,12 @@ func caller(skip int) string {
 }
 
 func cmainLoop() {
-	fmt.Printf("cmainLoop (%s)\n", caller(1))
+	if debugMainloop {
+		log.Printf("cmainLoop (%s)\n", caller(1))
+		defer func() {
+			log.Printf("cmainLoop exit (%s -> %s)\n", caller(1), caller(2))
+		}()
+	}
 	C.sub_43F140(300)
 	if C.sub_43C060() == 0 {
 		return
@@ -300,7 +346,13 @@ func cmainLoop() {
 	mainloop_43E290()
 }
 
-func CONNECT_PREPARE() {
+func CONNECT_OR_HOST() {
+	if debugMainloop {
+		log.Println("CONNECT_OR_HOST")
+		defer func() {
+			log.Printf("CONNECT_OR_HOST exit (%s -> %s)\n", caller(1), caller(2))
+		}()
+	}
 	v5, v4, _ := nox_xxx_gameGetScreenBoundaries_getVideoMode()
 	var info *C.char = C.nox_xxx_getHostInfoPtr_431770()
 	infos := asByteSlice(unsafe.Pointer(info), 97)
@@ -324,16 +376,15 @@ func CONNECT_PREPARE() {
 	infos[86] = memmap.Uint8(0x5D4594, 2661906)
 	infos[87] = memmap.Uint8(0x5D4594, 2661907)
 
-	Data := alloc.Malloc(1024)
-	defer alloc.Free(Data)
-	Datas := asByteSlice(Data, 1024)
+	Datas := alloc.Bytes(1024)
+	defer alloc.FreeBytes(Datas)
 
 	C.sub_48D740()
 	*(*uint32)(unsafe.Pointer(&Datas[97])) = uint32(v5)
 	*(*uint32)(unsafe.Pointer(&Datas[101])) = uint32(v4)
 	C.nox_xxx_regGetSerial_420120((*C.uchar)(unsafe.Pointer(&Datas[105])))
-	if C.sub_43AF70() == 0 {
-		C.nox_common_getInstallPath_40E0D0(C.int(uintptr(unsafe.Pointer(&Datas[105]))), (*C.char)(memmap.PtrOff(0x587000, 86344)), 0)
+	if C.nox_xxx_check_flag_aaa_43AF70() == 0 {
+		C.nox_common_getInstallPath_40E0D0((*C.char)(unsafe.Pointer(&Datas[105])), internCStr("SOFTWARE\\Westwood\\Nox"), 0)
 	}
 	Datas[152] = byte(bool2int(C.nox_xxx_checkHasSoloMaps_40ABD0() == 0))
 	if memmap.Uint8(0x5D4594, 2660684)&4 != 0 {
@@ -347,223 +398,215 @@ func CONNECT_PREPARE() {
 	copy(Datas, infos[:97])
 
 	if noxflags.HasGame(noxflags.GameHost) {
-		C.nox_xxx_replay_4D3860(Data)
-		*memmap.PtrPtr(0x5D4594, 2616328) = unsafe.Pointer(C.nox_xxx_playerNew_4DD320(31, Data))
+		C.nox_xxx_replay_4D3860(unsafe.Pointer(&Datas[0]))
+		*memmap.PtrPtr(0x5D4594, 2616328) = newPlayer(31, unsafe.Pointer(&Datas[0]))
 		C.nox_client_setVersion_409AE0(NOX_CLIENT_VERS_CODE)
 		C.nox_xxx_netlist_494E90(31)
 		C.dword_5d4594_811372 = 2
-
-		fmt.Println("goto CONNECT_RESULT")
-		mainloopEnter = func() {
-			CONNECT_RESULT(0)
-		}
-		return
 	} else {
-		port := uint32(C.nox_client_getServerPort_43B320())
-		fmt.Println("goto CONNECT_SERVER")
-		mainloopEnter = func() {
-			CONNECT_SERVER((*C.char)(memmap.PtrOff(0x587000, 85680)), port, Datas[:153])
+		host := clientGetServerHost()
+		port := clientGetServerPort()
+		if err := CONNECT_SERVER(host, port, Datas[:153]); err != nil {
+			log.Println(err)
+			if debugMainloop {
+				log.Println("goto CONNECT_RESULT")
+			}
+			mainloopEnter = func() {
+				CONNECT_RESULT_FAIL(err.Code)
+			}
+			return
 		}
-		return
+	}
+	CONNECT_RESULT_OK()
+	return
+}
+
+func newConnectFailErr(code int, err error) *connectFailErr {
+	if code == 0 {
+		code = -1
+	}
+	return &connectFailErr{
+		Err:    err,
+		Code:   code,
+		Caller: caller(1),
 	}
 }
 
-func CONNECT_SERVER(cp *C.char, hostshort uint32, data []byte) {
+type connectFailErr struct {
+	Err    error
+	Code   int
+	Caller string
+}
+
+func (e *connectFailErr) Error() string {
+	return fmt.Sprintf("CONNECT_SERVER failed: %s (code=%d, %s)", e.Err, e.Code, e.Caller)
+}
+
+func (e *connectFailErr) Unwrap() error {
+	return e.Err
+}
+
+func CONNECT_SERVER(host string, port int, data []byte) *connectFailErr {
+	if debugMainloop {
+		log.Println("CONNECT_SERVER", host, port, len(data))
+		defer func() {
+			log.Printf("CONNECT_SERVER exit (%s -> %s)\n", caller(1), caller(2))
+		}()
+	}
 	narg := (*C.nox_net_struct_arg_t)(alloc.Calloc(1, unsafe.Sizeof(C.nox_net_struct_arg_t{})))
 	defer alloc.Free(unsafe.Pointer(narg))
 	C.dword_5d4594_815704 = 0
 	C.dword_5d4594_815708 = 0
 	narg.data_size = 2048
-	narg.port = C.int(hostshort)
+	narg.port = C.int(port)
 	C.nox_xxx_allocNetGQueue_5520B0(200, 1024)
 	narg.func_yyy = (*[0]byte)(unsafe.Pointer(C.nox_xxx_netHandleCliPacket_43C860)) // TODO
-	v4 := C.nox_xxx_netPreStructToFull_5546F0(narg)
-	C.nox_xxx_netStructID_815700 = C.uint(v4)
+	ind := int(C.nox_xxx_netPreStructToFull_5546F0(narg))
+	C.nox_xxx_netStructID_815700 = C.uint(ind)
 
-	fmt.Println("goto NET_CONNECT")
-	mainloopEnter = func() {
-		NET_CONNECT(uint32(v4), cp, hostshort, data)
+	if debugMainloop {
+		log.Println("NET_CONNECT", ind, host, port, len(data))
 	}
-	return
-}
-
-func NET_CONNECT(a1 uint32, cp *C.char, hostshort uint32, data []byte) {
-	if uint(a1) >= C.NOX_NET_STRUCT_MAX {
-		fmt.Println("goto NET_CONNECT_THEN")
-		mainloopEnter = func() {
-			NET_CONNECT_THEN(-3)
-		}
-		return
-	}
-	ns := C.nox_net_struct_arr[a1]
+	ns := getNetStructByInd(ind)
 	if ns == nil {
-		fmt.Println("goto NET_CONNECT_THEN")
-		mainloopEnter = func() {
-			NET_CONNECT_THEN(-3)
+		if debugMainloop {
+			log.Println("NET_CONNECT_THEN_FAIL", -3)
 		}
-		return
+		return newConnectFailErr(-3, errors.New("no net struct"))
 	}
-	if cp == nil {
-		fmt.Println("goto NET_CONNECT_THEN")
-		mainloopEnter = func() {
-			NET_CONNECT_THEN(-4)
+	if len(host) == 0 {
+		if debugMainloop {
+			log.Println("NET_CONNECT_THEN_FAIL", -4)
 		}
-		return
+		return newConnectFailErr(-4, errors.New("empty hostname"))
 	}
-	if hostshort < 1024 || hostshort > 0x10000 {
-		fmt.Println("goto NET_CONNECT_THEN")
-		mainloopEnter = func() {
-			NET_CONNECT_THEN(-15)
+	if port < 1024 || port > 0x10000 {
+		if debugMainloop {
+			log.Println("NET_CONNECT_THEN_FAIL", -15)
 		}
-		return
+		return newConnectFailErr(-15, errors.New("invalid port"))
 	}
 	if nox_net_init() == -1 {
-		fmt.Println("goto NET_CONNECT_THEN")
-		mainloopEnter = func() {
-			NET_CONNECT_THEN(-21)
+		if debugMainloop {
+			log.Println("NET_CONNECT_THEN_FAIL", -21)
 		}
-		return
+		return newConnectFailErr(-21, errors.New("net init failed"))
 	}
-	v7 := nox_net_socket_udp()
-	ns.sock = v7
-	if v7 == -1 {
+	sock := newSocketUDP()
+	if sock == nil {
 		nox_net_stop()
-
-		fmt.Println("goto NET_CONNECT_THEN")
-		mainloopEnter = func() {
-			NET_CONNECT_THEN(-22)
+		if debugMainloop {
+			log.Println("NET_CONNECT_THEN_FAIL", -22)
 		}
-		return
+		return newConnectFailErr(-22, errors.New("cannot create socket"))
 	}
-	var v8 uint32
-	if byte(*cp) < '0' || byte(*cp) > '9' {
-		v9 := C.gethostbyname(cp)
-		if v9 == nil {
+	ns.SetSocket(sock)
+	var ip net.IP
+	if host[0] < '0' || host[0] > '9' {
+		list, err := net.LookupIP(host)
+		if err != nil || len(list) == 0 {
+			log.Printf("error: cannot find ip for a host %q: %v", host, err)
 			nox_net_stop()
 
-			fmt.Println("goto NET_CONNECT_THEN")
-			mainloopEnter = func() {
-				NET_CONNECT_THEN(-4)
+			if debugMainloop {
+				log.Println("NET_CONNECT_THEN_FAIL", -4)
 			}
-			return
+			return newConnectFailErr(-4, err)
 		}
-		v8 = *(*uint32)(unsafe.Pointer(*v9.h_addr_list))
+		ip = list[0]
 	} else {
-		v8 = uint32(C.inet_addr(cp))
+		ip = net.ParseIP(host)
 	}
+	ns.SetAddr(ip, port)
 
-	v8ip := int2ip(uint32(v8))
-	setIPPort(&ns.addr, v8ip, int(hostshort))
-
-	port := C.sub_40A420()
-	var name C.struct_nox_net_sockaddr_in
-	setIPPort(&name, nil, int(port))
-	for nox_net_bind(ns.sock, &name) == -1 {
-		if nox_net_error(ns.sock) != NOX_NET_EADDRINUSE {
+	cport := clientGetClientPort()
+	for {
+		err := sock.Bind(nil, cport)
+		if err == nil {
+			break
+		} else if !ErrIsInUse(err) {
 			nox_net_stop()
 
-			fmt.Println("goto NET_CONNECT_THEN")
-			mainloopEnter = func() {
-				NET_CONNECT_THEN(-1)
+			if debugMainloop {
+				log.Println("NET_CONNECT_THEN_FAIL", -1)
 			}
-			return
+			return newConnectFailErr(-1, err)
 		}
-		port++
-		name.sin_port = C.htons(C.ushort(port))
+		cport++
 	}
 	C.dword_5d4594_3844304 = 0
 	v12 := 0
 	// TODO: passing Go pointer
-	v11 := C.nox_xxx_netSendSock_552640(C.uint(a1), (*C.char)(unsafe.Pointer(&v12)), 1, C.NOX_NET_SEND_NO_LOCK|C.NOX_NET_SEND_FLAG2)
+	v11 := int8(C.nox_xxx_netSendSock_552640(C.uint(ind), (*C.char)(unsafe.Pointer(&v12)), 1, C.NOX_NET_SEND_NO_LOCK|C.NOX_NET_SEND_FLAG2))
 
-	fmt.Println("goto NET_CONNECT_WAIT_LOOP")
-	mainloopEnter = func() {
-		NET_CONNECT_WAIT_LOOP(a1, int8(v11), 60, 6, 0, data)
+	if debugMainloop {
+		log.Println("start NET_CONNECT_WAIT_LOOP")
 	}
-	return
-}
-
-func NET_CONNECT_WAIT_LOOP(id uint32, val int8, retries, flags, counter uint32, data []byte) {
-	if id >= C.NOX_NET_STRUCT_MAX {
-		fmt.Println("goto NET_CONNECT_WAIT_THEN")
-		mainloopEnter = func() {
-			NET_CONNECT_WAIT_THEN(id, -3, data)
+	id, retries, flags, counter := ind, 60, 6, 0
+	for {
+		if debugMainloop {
+			log.Println("NET_CONNECT_WAIT_LOOP", id, v11, retries, flags, counter, len(data))
 		}
-		return
-	}
-	ns := C.nox_net_struct_arr[id]
-	if ns == nil {
-		fmt.Println("goto NET_CONNECT_WAIT_THEN")
-		mainloopEnter = func() {
-			NET_CONNECT_WAIT_THEN(id, -3, data)
+		ns := getNetStructByInd(id)
+		if ns == nil {
+			if debugMainloop {
+				log.Println("NET_CONNECT_WAIT_THEN_FAIL", -3)
+				log.Println("NET_CONNECT_THEN_FAIL", -23)
+			}
+			return newConnectFailErr(-23, errors.New("no net struct"))
 		}
-		return
-	}
-	counter = 0 // TODO: is this correct?
-	counter++
-	if 20*retries < counter {
-		fmt.Println("goto NET_CONNECT_WAIT_THEN")
-		mainloopEnter = func() {
-			NET_CONNECT_WAIT_THEN(id, -23, data)
+		//counter = 0 // TODO: is this correct?
+		counter++
+		if counter > 20*retries {
+			if debugMainloop {
+				log.Println("NET_CONNECT_WAIT_THEN_FAIL", -23)
+				log.Println("NET_CONNECT_THEN_FAIL", -23)
+			}
+			return newConnectFailErr(-23, errors.New("timeout"))
 		}
-		return
-	}
-	C.nox_xxx_servNetInitialPackets_552A80(C.uint(id), C.char(flags|1))
-	C.nox_xxx_netMaybeSendAll_552460()
-	if int8(ns.field_28_1) >= val {
-		fmt.Println("goto NET_CONNECT_WAIT_THEN")
-		mainloopEnter = func() {
-			NET_CONNECT_WAIT_THEN(id, 0, data)
+		C.nox_xxx_servNetInitialPackets_552A80(C.uint(id), C.char(flags|1))
+		C.nox_xxx_netMaybeSendAll_552460()
+		f28 := int8(ns.field_28_1)
+		if debugMainloop {
+			log.Printf("NET_CONNECT_WAIT_LOOP: state %d\n", f28)
 		}
-		return
+		if f28 >= v11 {
+			break
+		}
+		platform.Sleep(30 * time.Millisecond)
+		if debugMainloop {
+			log.Println("continue NET_CONNECT_WAIT_LOOP")
+		}
 	}
 
-	fmt.Println("goto NET_CONNECT_WAIT_LOOP")
-	mainloopEnter = func() {
-		NET_CONNECT_WAIT_LOOP(id, val, retries, flags, counter, data)
+	if debugMainloop {
+		log.Println("NET_CONNECT_WAIT_THEN_OK", id, len(data))
 	}
-	return
-}
-
-func NET_CONNECT_WAIT_THEN(id uint32, result int, data []byte) {
 	data = data[:153]
-	a5 := len(data)
-	if result != 0 {
-		fmt.Println("goto NET_CONNECT_THEN")
-		mainloopEnter = func() {
-			NET_CONNECT_THEN(-23)
-		}
-		return
-	}
 
-	ns := C.nox_net_struct_arr[id]
-	if C.dword_5d4594_3844304 != 0 && ns.id >= 0 {
+	ns = getNetStructByInd(id)
+	if C.dword_5d4594_3844304 != 0 && ns.ID() >= 0 {
 		vs := asByteSlice(memmap.PtrOff(0x5D4594, 2512892), 1024)
 		copy(vs, make([]byte, 1024))
+		vs = vs[:3+len(data)]
+
 		vs[0] = 31
-		vs[1] = *(*byte)(unsafe.Pointer(uintptr(unsafe.Pointer(ns.data_2_base)) + 1))
+		vs[1] = ns.Data2()[1]
 		vs[2] = 32
 		if len(data) > 0 {
-			copy(vs[3:], data[:a5])
+			copy(vs[3:], data[:153])
 		}
-		C.nox_xxx_netSendSock_552640(C.uint(id), (*C.char)(memmap.PtrOff(0x5D4594, 2512892)), C.int(a5+3), C.NOX_NET_SEND_NO_LOCK|C.NOX_NET_SEND_FLAG2)
+		C.nox_xxx_netSendSock_552640(C.uint(id), (*C.char)(unsafe.Pointer(&vs[0])), C.int(len(vs)), C.NOX_NET_SEND_NO_LOCK|C.NOX_NET_SEND_FLAG2)
 	}
 
-	result = int(ns.id)
-	fmt.Println("goto NET_CONNECT_THEN")
-	mainloopEnter = func() {
-		NET_CONNECT_THEN(result)
-	}
-	return
-}
-
-func NET_CONNECT_THEN(v5 int) {
-	if v5 < 0 {
-		fmt.Println("goto CONNECT_RESULT")
-		mainloopEnter = func() {
-			CONNECT_RESULT(v5)
+	if ns.ID() < 0 {
+		if debugMainloop {
+			log.Println("NET_CONNECT_THEN_FAIL", -1)
 		}
-		return
+		return newConnectFailErr(-1, errors.New("invalid net struct id"))
+	}
+	if debugMainloop {
+		log.Println("NET_CONNECT_THEN_OK")
 	}
 
 	if !noxflags.HasGame(noxflags.GameHost) {
@@ -571,90 +614,95 @@ func NET_CONNECT_THEN(v5 int) {
 	}
 	C.nox_xxx_netBufs_40ED10(31, 0)
 	C.nox_xxx_set3512_40A340(0)
-	C.nox_xxx_setMapCRC_40A360(0)
+	nox_xxx_setMapCRC_40A360(0)
 
-	deadline := platformTicks() + 10000
-	fmt.Println("goto CONNECT_WAIT_LOOP")
-	mainloopEnter = func() {
-		CONNECT_WAIT_LOOP(deadline)
+	deadline := platform.Ticks() + 10*time.Second
+	if debugMainloop {
+		log.Println("CONNECT_WAIT_LOOP_START", deadline)
 	}
-	return
-}
-
-func CONNECT_WAIT_LOOP(deadline uint64) {
-	if platformTicks() >= deadline {
-		fmt.Println("goto CONNECT_WAIT_THEN")
-		mainloopEnter = func() {
-			CONNECT_WAIT_THEN(0)
+	for {
+		now := platform.Ticks()
+		if debugMainloop {
+			log.Println("CONNECT_WAIT_LOOP", now, deadline, deadline-now)
 		}
-		return
+		if now >= deadline {
+			if debugMainloop {
+				log.Println("CONNECT_WAIT_THEN_DEADLINE")
+			}
+			return newConnectFailErr(-19, errors.New("timeout 2"))
+		}
+		C.nox_xxx_servNetInitialPackets_552A80(C.nox_xxx_netStructID_815700, 1)
+		C.nox_xxx_netSendBySock_40EE10(C.nox_xxx_netStructID_815700, 31, 0)
+		C.nox_xxx_netBufs_40ED10(31, 0)
+		C.nox_xxx_netMaybeSendAll_552460()
+		if nox_xxx_getMapCRC_40A370() != 0 {
+			break
+		}
+		platform.Sleep(5 * time.Millisecond)
+		if debugMainloop {
+			log.Println("continue CONNECT_WAIT_LOOP")
+		}
 	}
-
-	C.nox_xxx_servNetInitialPackets_552A80(C.nox_xxx_netStructID_815700, 1)
-	C.nox_xxx_netSendBySock_40EE10(C.nox_xxx_netStructID_815700, 31, 0)
-	C.nox_xxx_netBufs_40ED10(31, 0)
-	C.nox_xxx_netMaybeSendAll_552460()
-	if C.nox_xxx_getMapCRC_40A370() != 0 {
-		fmt.Println("goto CONNECT_WAIT_THEN")
-		mainloopEnter = func() {
-			CONNECT_WAIT_THEN(1)
-		}
-		return
+	if debugMainloop {
+		log.Println("CONNECT_WAIT_THEN_SUCCESS")
 	}
-}
-
-func CONNECT_WAIT_THEN(result int) {
-	if result == 0 {
-		fmt.Println("goto CONNECT_RESULT")
-		mainloopEnter = func() {
-			CONNECT_RESULT(-19)
-		}
-		return
-	}
-	if C.nox_client_getVersionCode_409AD0() != NOX_CLIENT_VERS_CODE {
-		fmt.Println("goto CONNECT_RESULT")
-		mainloopEnter = func() {
-			CONNECT_RESULT(-20)
-		}
-		return
+	if vers := C.nox_client_getVersionCode_409AD0(); vers != NOX_CLIENT_VERS_CODE {
+		err := fmt.Errorf("invalid client version: %x", int(vers))
+		log.Println(err)
+		return newConnectFailErr(-20, err)
 	}
 	C.dword_5d4594_811372 = 2
 	if !noxflags.HasGame(noxflags.GameHost) {
 		C.sub_417C60()
 	}
-	fmt.Println("goto CONNECT_RESULT")
-	mainloopEnter = func() {
-		CONNECT_RESULT(0)
+	return nil
+}
+
+func CONNECT_RESULT_FAIL(result int) {
+	if debugMainloop {
+		log.Printf("CONNECT_RESULT_FAIL %d (%s)\n", result, caller(1))
+		defer func() {
+			log.Printf("CONNECT_RESULT_FAIL exit (%s -> %s)\n", caller(1), caller(2))
+		}()
 	}
+	noxflags.UnsetGame(noxflags.GameFlag21)
+	mainloopConnectResultOK = false
+	if noxflags.HasGame(noxflags.GameHost) {
+		nox_xxx_servEndSession_4D3200()
+	}
+	if noxflags.HasGame(noxflags.GameFlag2) {
+		nox_xxx_cliSetupSession_437190()
+	}
+	C.nox_xxx_clear18hDD_416190()
+	if getEngineFlag(NOX_ENGINE_FLAG_13) {
+		C.sub_413E30()
+	}
+	C.sub_43D0A0(C.int(result))
+	cmainLoop()
 	return
 }
 
-func CONNECT_RESULT(result int) {
-	if result != 0 {
-		noxflags.UnsetGame(noxflags.GameFlag21)
-		g_v21 = false
-		if noxflags.HasGame(noxflags.GameHost) {
-			C.nox_xxx_servEndSession_4D3200()
-		}
-		if noxflags.HasGame(noxflags.GameFlag2) {
-			C.nox_xxx_cliSetupSession_437190()
-		}
-		C.nox_xxx_clear18hDD_416190()
-		if getEngineFlag(NOX_ENGINE_FLAG_13) {
-			C.sub_413E30()
-		}
-		C.sub_43D0A0(C.int(result))
-		cmainLoop()
-		return
+func CONNECT_RESULT_OK() {
+	if debugMainloop {
+		log.Printf("CONNECT_RESULT_OK (%s)\n", caller(1))
+		defer func() {
+			log.Printf("CONNECT_RESULT_OK exit (%s -> %s)\n", caller(1), caller(2))
+		}()
 	}
-	g_v21 = true
+	mainloopConnectResultOK = true
 	if C.nox_xxx_replayStartReadingOrSaving_4D38D0() == 1 {
+		if debugMainloop {
+			log.Println("nox_xxx_replayStartReadingOrSaving_4D38D0 exit")
+		}
 		cmainLoop()
 		return
 	}
 	if !noxflags.HasGame(noxflags.GameHost) {
 		nox_xxx_setGameState_43DDF0(nil)
 	} else if !nox_xxx_servInitialMapLoad_4D17F0() {
+		if debugMainloop {
+			log.Println("nox_xxx_servInitialMapLoad_4D17F0 exit")
+		}
 		cmainLoop()
 		return
 	}
@@ -666,11 +714,17 @@ func CONNECT_RESULT(result int) {
 			if w == 0 || h == 0 {
 				nox_xxx_gameResizeScreen_setVideoMode(noxDefaultWidth, noxDefaultHeight, d)
 			}
-			if C.nox_xxx_video_43BF10_upd_video_mode(0) == 0 {
+			if err := gameUpdateVideoMode(false); err != nil {
+				if debugMainloop {
+					log.Printf("gameUpdateVideoMode: %v (%s)", err, caller(0))
+				}
 				return
 			}
 		}
 		if initGameSession435CC0() == 0 {
+			if debugMainloop {
+				log.Println("initGameSession435CC0 exit")
+			}
 			cmainLoop()
 			return
 		}
@@ -722,18 +776,23 @@ func mainloopMaybeSwitchMapXXX() {
 
 var gameStateFunc func() bool
 
-func nox_xxx_setGameState_43DDF0(fnc func() bool) bool {
+func nox_xxx_setGameState_43DDF0(fnc func() bool) {
 	if fnc != nil {
 		gameStateFunc = fnc
 	} else {
-		fnc = func() bool {
+		if debugMainloop {
+			log.Println("gameStateFunc = nil")
+		}
+		gameStateFunc = func() bool {
 			return true
 		}
 	}
-	return true
 }
 
 func nox_xxx_cliWaitForJoinData_43BFE0() bool {
+	if debugMainloop {
+		log.Println("gameStateFunc = nox_xxx_gameStateWait_43C020", nox_xxx_gameStateWait_43C020)
+	}
 	nox_xxx_setGameState_43DDF0(nox_xxx_gameStateWait_43C020)
 	C.nox_game_SetCliDrawFunc(nil)
 	if memmap.Uint32(0x587000, 91840) != 0 {
@@ -756,4 +815,90 @@ func nox_xxx_gameStateWait_43C020() bool {
 	C.nox_xxx_drawSelectColor_434350(C.int(memmap.Uint32(0x5D4594, 2650656)))
 	C.sub_440900()
 	return false
+}
+
+func nox_xxx_cliSetupSession_437190() {
+	if C.nox_xxx_check_flag_aaa_43AF70() == 1 {
+		C.sub_40D380()
+	}
+	C.sub_473960()
+	C.nox_xxx_cliResetAllPlayers_416E30()
+	C.sub_455EE0()
+	C.sub_456240()
+	C.sub_48D800()
+	C.sub_49A8C0()
+	C.sub_470550()
+	C.sub_46C5D0()
+	C.sub_44DF70()
+	if !noxflags.HasGame(noxflags.GameHost) {
+		C.sub_43CC80()
+	}
+	C.dword_5d4594_811372 = 0
+	if !noxflags.HasGame(noxflags.GameHost) {
+		C.sub_4E4DE0()
+	}
+	nox_xxx_mapLoad_40A380()
+	clientSetServerHost("")
+	C.sub_446580(1)
+	C.sub_48D760()
+	if !noxflags.HasGame(noxflags.GameHost) {
+		C.sub_40EE60()
+	}
+	C.sub_417CF0()
+	*memmap.PtrUint32(0x5D4594, 2616328) = 0
+	*memmap.PtrUint32(0x5D4594, 2614252) = 0
+	*memmap.PtrUint32(0x5D4594, 2618908) = 0
+}
+
+func nox_xxx_mapLoad_40A380() {
+	C.nox_xxx_set3512_40A340(0)
+	nox_xxx_setMapCRC_40A360(0)
+	nox_xxx_gameSetMapPath_409D70(C.GoString((*C.char)(memmap.PtrOff(0x5D4594, 3608))))
+	noxflags.SetGame(noxflags.GameHost | noxflags.GameFlag2)
+	noxflags.UnsetGame(137212) // TODO
+	C.nox_server_gameSettingsUpdated = 1
+}
+
+func nox_xxx_gameSetMapPath_409D70(path string) {
+	log.Println("set map path:", path)
+	C.nox_xxx_gameSetMapPath_409D70(internCStr(path))
+}
+
+func nox_xxx_servEndSession_4D3200() {
+	C.sub_50D1E0()
+	C.sub_4DB100()
+	C.sub_421B10()
+	C.sub_516F10()
+	C.sub_4FF770()
+	C.nox_xxx_replayStopSave_4D33B0()
+	C.nox_xxx_replayStopReadMB_4D3530()
+	C.nox_xxx_cliResetAllPlayers_416E30()
+	C.sub_446490(1)
+	C.sub_4259F0()
+	C.nox_xxx_mapSwitchLevel_4D12E0(0)
+	nox_xxx_mapLoad_40A380()
+	C.sub_4E4DE0()
+	C.sub_57C460()
+	C.sub_57C030()
+	C.sub_511310()
+	C.nox_xxx_freeSpellRelated_4FCA80()
+	C.sub_50ABF0()
+	C.sub_517B30()
+	C.sub_5018D0()
+	C.sub_4ECA90()
+	C.sub_506720()
+	C.sub_50D820()
+	C.nox_xxx_deleteShopInventories_50E300()
+	C.sub_416950()
+	C.sub_4E3420()
+	C.nox_xxx_free_4E2A20()
+	if !noxflags.HasGame(noxflags.GameSolo) {
+		C.nox_xxx_netCloseHandler_4DEC60(C.uint(*memmap.PtrUint32(0x5D4594, 1548516)))
+		if !noxflags.HasGame(noxflags.GameFlag26) {
+			C.nox_xxx_networkLog_close_413D00()
+		}
+	}
+	C.sub_56F3B0()
+	C.sub_40EE60()
+	_ = fs.Remove(fmt.Sprintf("%s\\Save\\_temp_.dat", getDataPath()))
 }

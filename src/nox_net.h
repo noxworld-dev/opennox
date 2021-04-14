@@ -2,6 +2,7 @@
 #define NOX_NET_H
 
 #include <stdint.h>
+#include <stdbool.h>
 
 typedef int32_t nox_socket_t;
 
@@ -9,6 +10,10 @@ typedef int32_t nox_socket_t;
 #define NOX_NET_EWOULDBLOCK 10035
 
 #define NOX_AF_INET 2
+
+#ifndef _NOX_IN_NET_C
+extern bool debugNet;
+#endif // _NOX_IN_NET_C
 
 typedef uint32_t nox_net_in_addr;
 

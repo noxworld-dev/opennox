@@ -287,11 +287,14 @@ func nox_server_currentMapGetFilename_409B30() string {
 func nox_xxx_servInitialMapLoad_4D17F0() bool {
 	C.sub_4E79B0(0)
 	if nox_server_currentMapGetFilename_409B30()[0] == memmap.Uint8(0x5D4594, 1548720) {
-		C.nox_xxx_gameSetMapPath_409D70(internCStr("tutorial.map"))
+		nox_xxx_gameSetMapPath_409D70("tutorial.map")
 	}
 	C.nox_xxx_netMapSendStop_519870()
 	if C.nox_xxx_mapExitAndCheckNext_4D1860_server() == 0 {
 		return false
+	}
+	if debugMainloop {
+		log.Println("gameStateFunc = nox_xxx_gameTick_4D2580_server", nox_xxx_gameTick_4D2580_server)
 	}
 	nox_xxx_setGameState_43DDF0(nox_xxx_gameTick_4D2580_server)
 	C.nox_xxx_netBuf_40EE90(1)

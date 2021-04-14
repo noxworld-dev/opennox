@@ -648,7 +648,7 @@ void  nox_xxx_netChangeTeamMb_419570(int a1, int a2) {
 			if (nox_xxx_teamCompare2_419180(a1, *(_BYTE*)(a1 + 4))) {
 				if (nox_common_gameFlags_check_40A5C0(1) && nox_common_gameFlags_check_40A5C0(0x2000)) {
 					v3 = nox_common_playerInfoGetByID_417040(a2);
-					if (v3 && sub_43AF70() == 1 && !nox_common_gameFlags_check_40A5C0(128))
+					if (v3 && nox_xxx_check_flag_aaa_43AF70() == 1 && !nox_common_gameFlags_check_40A5C0(128))
 						sub_425ED0((int)v3, 0);
 					sub_4571A0(a2, 0);
 					v4[0] = -60;
