@@ -6,6 +6,7 @@ package alloc
 */
 import "C"
 import (
+	"reflect"
 	"sync"
 	"unsafe"
 )
@@ -24,6 +25,15 @@ func Malloc(size uintptr) unsafe.Pointer {
 	allocs[ptr] = size
 	allocMu.Unlock()
 	return ptr
+}
+
+func Bytes(size uintptr) (out []byte) {
+	ptr := Malloc(size)
+	h := (*reflect.SliceHeader)(unsafe.Pointer(&out))
+	h.Data = uintptr(ptr)
+	h.Len = int(size)
+	h.Cap = int(size)
+	return
 }
 
 func Realloc(ptr unsafe.Pointer, size uintptr) unsafe.Pointer {
@@ -61,6 +71,11 @@ func Free(ptr unsafe.Pointer) {
 		panic("incorrect free")
 	}
 	C.free(ptr)
+}
+
+func FreeBytes(b []byte) {
+	b = b[:1]
+	Free(unsafe.Pointer(&b[0]))
 }
 
 func Memset(ptr unsafe.Pointer, v byte, size uintptr) unsafe.Pointer {

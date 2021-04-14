@@ -1,6 +1,8 @@
 build/
 CMakeFiles/
 .tmp/
+tmp/
+logs/
 *.user
 *.o
 *.exe

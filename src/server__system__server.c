@@ -250,7 +250,7 @@ int  nox_server_loadMapFile_4CF5F0(char* a1, int a2) {
 	if (!nox_common_gameFlags_check_40A5C0(0x200000)) {
 		nox_xxx_mapReadSetFlags_4CF990();
 		nullsub_21();
-		if (sub_43AF70() == 1)
+		if (nox_xxx_check_flag_aaa_43AF70() == 1)
 			sub_416690();
 		nox_common_gameFlags_unset_40A540(0x4000000);
 		sub_470680();
@@ -2497,7 +2497,7 @@ void nox_xxx_gameTick_4D2580_server_A(int v2, char* v38) {
 	if (!*getMemU64Ptr(0x5D4594, 1548676)) {
 		*getMemU64Ptr(0x5D4594, 1548676) = nox_platform_get_ticks() + 10000;
 		nox_xxx_guiServerOptionsHide_4597E0(0);
-		if (sub_43AF70() == 1) {
+		if (nox_xxx_check_flag_aaa_43AF70() == 1) {
 			if (!nox_common_gameFlags_check_40A5C0(128)) {
 				nox_xxx_net_4263C0();
 				sub_40DF90();
@@ -2588,7 +2588,7 @@ int nox_xxx_gameTick_4D2580_server_B(__int64 ticks) {
 		nox_xxx_protectUnitDefUpdateMB_4E3C20();
 		nox_xxx_setKeybTimeout_4160D0(16);
 	}
-	if (nox_common_gameFlags_check_40A5C0(0x2000) && sub_43AF70() == 1 && !nox_common_gameFlags_check_40A5C0(128) &&
+	if (nox_common_gameFlags_check_40A5C0(0x2000) && nox_xxx_check_flag_aaa_43AF70() == 1 && !nox_common_gameFlags_check_40A5C0(128) &&
 		nox_xxx_checkKeybTimeout_4160F0(0xFu, 60 * nox_gameFPS)) {
 		nox_xxx_net_4263C0();
 		nox_xxx_setKeybTimeout_4160D0(15);
@@ -2605,7 +2605,7 @@ int nox_xxx_gameTick_4D2580_server_C() {
 		nox_xxx_CheckGameplayFlags_417DA0(4) && !nox_common_gameFlags_check_40A5C0(128)) {
 		sub_4181F0(1);
 	}
-	if (nox_common_gameFlags_check_40A5C0(4096) && sub_43AF70() == 1 && !nox_common_gameFlags_check_40A5C0(128)) {
+	if (nox_common_gameFlags_check_40A5C0(4096) && nox_xxx_check_flag_aaa_43AF70() == 1 && !nox_common_gameFlags_check_40A5C0(128)) {
 		sub_4264D0();
 	}
 	nox_xxx_setGameFlags_40A4D0(0x8000000);
@@ -2628,7 +2628,7 @@ int nox_xxx_gameTick_4D2580_server_C() {
 	nox_sprintf(v39, "%s.map", v17);
 	int v18 = nox_xxx_mapCrcGetMB_409B00();
 	nox_xxx_netUseMap_4DEE00(v39, v18);
-	if (sub_43AF70() == 1) {
+	if (nox_xxx_check_flag_aaa_43AF70() == 1) {
 		sub_416690();
 		if (nox_common_gameFlags_check_40A5C0(128)) {
 			if (nox_common_gameFlags_check_40A5C0(0x8000)) {
@@ -2765,7 +2765,7 @@ int nox_xxx_gameTick_4D2580_server() {
 		if (!nox_xxx_gameTick_4D2580_server_B(v0)) {
 			return 1;
 		}
-	} else if (!sub_43AF70() || !v2) {
+	} else if (!nox_xxx_check_flag_aaa_43AF70() || !v2) {
 		if (!nox_xxx_gameTick_4D2580_server_C()) {
 			return 0;
 		}

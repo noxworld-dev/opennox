@@ -13,12 +13,12 @@ extern unsigned int dword_5d4594_805860;
 extern int g_scaled;
 extern int nox_win_width;
 extern int nox_win_height;
-extern int nox_win_width_1;
-extern int nox_win_height_1;
-extern int nox_win_depth_1;
-extern int nox_win_width_2;
-extern int nox_win_height_2;
-extern int nox_win_depth_2;
+extern int nox_win_width_game;
+extern int nox_win_height_game;
+extern int nox_win_depth_game;
+extern int nox_win_width_menu;
+extern int nox_win_height_menu;
+extern int nox_win_depth_menu;
 extern int nox_video_dxFullScreen;
 extern int nox_enable_audio;
 extern int nox_video_dxUnlockSurface;
@@ -67,11 +67,6 @@ func init() {
 		}
 	}()
 }
-
-const (
-	noxDefaultWidth  = C.NOX_DEFAULT_WIDTH
-	noxDefaultHeight = C.NOX_DEFAULT_HEIGHT
-)
 
 var (
 	isServer      bool
@@ -230,12 +225,14 @@ func runNox(args []string) error {
 		if !C.nox_video_bagexists_4300D0(1) {
 			depth = 8
 		}
-		C.nox_win_width_1 = noxDefaultWidth
-		C.nox_win_height_1 = noxDefaultHeight
-		C.nox_win_depth_1 = C.int(depth)
-		C.nox_win_width_2 = noxDefaultWidth
-		C.nox_win_height_2 = noxDefaultHeight
-		C.nox_win_depth_2 = C.int(depth)
+		C.nox_win_width_game = noxDefaultWidth
+		C.nox_win_height_game = noxDefaultHeight
+		C.nox_win_depth_game = C.int(depth)
+		noxVideoModeMenu = renderMode{
+			Width:  noxDefaultWidth,
+			Height: noxDefaultHeight,
+			Depth:  depth,
+		}
 	}
 	if *fNoAudio {
 		C.nox_enable_audio = 0
@@ -298,8 +295,8 @@ func runNox(args []string) error {
 	C.nox_xxx_cmdTokensLoad_4444F0()
 	C.sub_4D11A0()
 	C.nox_video_resizewnd(0, 0, 16)
-	if C.nox_xxx_video_43BF10_upd_video_mode(1) == 0 {
-		return fmt.Errorf("failed to update video mode")
+	if err := gameUpdateVideoMode(true); err != nil {
+		return fmt.Errorf("failed to update video mode: %w", err)
 	}
 	C.nox_xxx_drawSelectColor_434350(C.int(memmap.Int32(0x5D4594, 2650656)))
 	C.sub_440900()
@@ -374,23 +371,23 @@ func nox_xxx_gameGetScreenBoundaries_43BEB0_get_video_mode(w, h, d *C.int) {
 }
 
 func nox_xxx_gameGetScreenBoundaries_getVideoMode() (w, h, d int) {
-	w = int(C.nox_win_width_1)
-	h = int(C.nox_win_height_1)
-	d = int(C.nox_win_depth_1)
+	w = int(C.nox_win_width_game)
+	h = int(C.nox_win_height_game)
+	d = int(C.nox_win_depth_game)
 	return
 }
 
 func nox_xxx_gameResizeScreen_setVideoMode(w, h, d int) {
 	d = 16 // 8 bit not supported
-	C.nox_win_width_1 = C.int(w)
-	C.nox_win_height_1 = C.int(h)
-	C.nox_win_depth_1 = C.int(d)
+	C.nox_win_width_game = C.int(w)
+	C.nox_win_height_game = C.int(h)
+	C.nox_win_depth_game = C.int(d)
 
 	changeWindowedOrFullscreen()
 }
 
 func noxGetWinSize1() types.Size {
-	return types.Size{W: int(C.nox_win_width_1), H: int(C.nox_win_height_1)}
+	return types.Size{W: int(C.nox_win_width_game), H: int(C.nox_win_height_game)}
 }
 
 //export change_windowed_fullscreen

@@ -683,7 +683,7 @@ int  sub_44D9F0(int a1) {
 
 //----- (0044DA60) --------------------------------------------------------
 int  sub_44DA60(int a1) {
-	if (sub_44DFD0(sub_44DD70)) {
+	if (sub_44DFD0(nox_client_drawFadingScreen_44DD70)) {
 		return 1;
 	}
 	struc_36* obj = sub_44DF50();
@@ -708,7 +708,7 @@ int  nox_client_screenFadeTimeout_44DAB0(int a1, int a2, void (*a3)(void)) {
 			a3();
 		return 1;
 	}
-	sub_44DF90(nox_xxx_screenFadeEffect_44DD20);
+	nox_client_setScreenFade_44DF90(nox_xxx_screenFadeEffect_44DD20);
 	struc_36* obj = sub_44DF50();
 	if (!obj)
 		return 0;
@@ -726,8 +726,8 @@ int  nox_client_screenFadeTimeout_44DAB0(int a1, int a2, void (*a3)(void)) {
 }
 
 //----- (0044DB30) --------------------------------------------------------
-int  sub_44DB30(int a1, int a2, void (*a3)(void)) {
-	sub_44DF90(sub_44DD70);
+int  nox_client_screenFadeXxx_44DB30(int a1, int a2, void (*a3)(void)) {
+	nox_client_setScreenFade_44DF90(nox_client_drawFadingScreen_44DD70);
 	struc_36* obj = sub_44DF50();
 	if (!obj) {
 		return 0;
@@ -740,8 +740,8 @@ int  sub_44DB30(int a1, int a2, void (*a3)(void)) {
 	obj->fields[2] = 0;
 	obj->fields[3] = 16711680 / a1;
 	obj->field_5 = a3;
-	obj->field_6 = sub_44DD70;
-	sub_44DF90(nox_xxx_cliClearScreen_44DDC0);
+	obj->field_6 = nox_client_drawFadingScreen_44DD70;
+	nox_client_setScreenFade_44DF90(nox_xxx_cliClearScreen_44DDC0);
 	return 1;
 }
 
@@ -830,7 +830,7 @@ int  nox_xxx_screenFadeEffect_44DD20(int a1) {
 }
 
 //----- (0044DD70) --------------------------------------------------------
-int  sub_44DD70(int a1) {
+int  nox_client_drawFadingScreen_44DD70(int a1) {
 	int v1;             // esi
 	int result;         // eax
 	unsigned __int8 v3; // [esp+8h] [ebp+4h]
@@ -888,7 +888,7 @@ void  sub_44DEE0(_DWORD* a1) {
 	int v2; // esi
 
 	if (!a1[4]) {
-		sub_44DF90(sub_44DE80);
+		nox_client_setScreenFade_44DF90(sub_44DE80);
 		a1[4] = 1;
 	}
 	v1 = a1[2] - a1[3];
@@ -912,18 +912,17 @@ struc_36* sub_44DF50() {
 }
 
 //----- (0044DF70) --------------------------------------------------------
-char* sub_44DF70() {
+void sub_44DF70() {
 	struc_36* arr = (struc_36*)getMemAt(0x5D4594, 831108);
 	for (int i = 0; i < 4; i++) {
 		int v2 = arr->fields[0];
 		arr++;
 		*((_DWORD*)arr - 7) = v2 & 0xFFFFFFFE;
 	}
-	return arr;
 }
 
 //----- (0044DF90) --------------------------------------------------------
-int  sub_44DF90(int a1) {
+int  nox_client_setScreenFade_44DF90(int a1) {
 	void (*v4)(void); // eax
 
 	int result = 0;
@@ -955,7 +954,7 @@ int  sub_44DFD0(int a1) {
 
 //----- (0044E000) --------------------------------------------------------
 void sub_44E000() {
-	if (!sub_44DFD0(sub_44DD70))
+	if (!sub_44DFD0(nox_client_drawFadingScreen_44DD70))
 		nox_gameDisableMapDraw_5d4594_2650672 = 1;
 }
 
@@ -969,21 +968,21 @@ void sub_44E020() {
 void sub_44E040() {
 	sub_44E070();
 	sub_44E090();
-	sub_44DF90(nox_xxx_cliClearScreen_44DDC0);
+	nox_client_setScreenFade_44DF90(nox_xxx_cliClearScreen_44DDC0);
 	nox_gameDisableMapDraw_5d4594_2650672 = 0;
 	sub_413A00(0);
 }
 
 //----- (0044E070) --------------------------------------------------------
 int sub_44E070() {
-	sub_44DF90(sub_44DD70);
-	return sub_44DF90(sub_44DE30);
+	nox_client_setScreenFade_44DF90(nox_client_drawFadingScreen_44DD70);
+	return nox_client_setScreenFade_44DF90(sub_44DE30);
 }
 
 //----- (0044E090) --------------------------------------------------------
 int sub_44E090() {
-	sub_44DF90(nox_xxx_screenFadeEffect_44DD20);
-	return sub_44DF90(sub_44DDF0);
+	nox_client_setScreenFade_44DF90(nox_xxx_screenFadeEffect_44DD20);
+	return nox_client_setScreenFade_44DF90(sub_44DDF0);
 }
 
 //----- (0044E0B0) --------------------------------------------------------
@@ -996,7 +995,7 @@ int  nox_xxx_cliPlayMapIntro_44E0B0(int a1) {
 
 //----- (0044E0D0) --------------------------------------------------------
 BOOL sub_44E0D0() {
-	if (sub_44DFD0(sub_44DD70))
+	if (sub_44DFD0(nox_client_drawFadingScreen_44DD70))
 		return 1;
 	if (sub_44DFD0(nox_xxx_screenFadeEffect_44DD20))
 		return 1;
@@ -1140,7 +1139,7 @@ void sub_44E320() {
 		return;
 	}
 	v0 = nox_client_getIntroScreenDuration_44E3B0();
-	sub_44DB30(v0, 1, sub_44E3C0);
+	nox_client_screenFadeXxx_44DB30(v0, 1, sub_44E3C0);
 }
 
 //----- (0044E3B0) --------------------------------------------------------
@@ -1394,7 +1393,7 @@ int  nox_client_lockScreenBriefing_450160(int a1, int a2, char a3) {
 	*getMemU64Ptr(0x5D4594, 831292) = nox_platform_get_ticks();
 	*getMemU32Ptr(0x5D4594, 831248) = 0;
 	v12 = nox_client_getIntroScreenDuration_44E3B0();
-	sub_44DB30(v12, 1, nox_xxx_playGMCAPsmth_44E3E0);
+	nox_client_screenFadeXxx_44DB30(v12, 1, nox_xxx_playGMCAPsmth_44E3E0);
 	result = dword_5d4594_831224;
 	if (dword_5d4594_831224)
 		dword_5d4594_831244 = 0;
@@ -4655,7 +4654,7 @@ int  sub_457B60(int a1) {
 		nox_window_call_field_94(*(int*)&dword_5d4594_1046516, 16414, (int)WideCharStr, 0);
 		_itow(*(unsigned __int8*)(a1 + 56), WideCharStr, 10);
 		nox_window_call_field_94(*(int*)&dword_5d4594_1046520, 16414, (int)WideCharStr, 0);
-		if (sub_43AF70() == 1) {
+		if (nox_xxx_check_flag_aaa_43AF70() == 1) {
 			v10 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1046492, 10210);
 			nox_window_set_hidden((int)v10, 0);
 			sub_457FE0();
@@ -4795,7 +4794,7 @@ char sub_459150() {
 			sub_409FB0_settings(*((_WORD*)v9 + 26), *((_WORD*)v9 + 27));
 			sub_40A040_settings(*((_WORD*)v9 + 26), v9[56]);
 		}
-		if (v8 && sub_43AF70() == 1) {
+		if (v8 && nox_xxx_check_flag_aaa_43AF70() == 1) {
 			if (!nox_common_gameFlags_check_40A5C0(128)) {
 				nox_xxx_net_4263C0();
 				sub_40DF90();
@@ -5115,7 +5114,7 @@ int sub_459C30() {
 		sub_4BDF70((int*)v0);
 		sub_458230(*((unsigned __int16*)v0 + 26), v0, 0);
 		sub_457460((int)v0);
-		if (sub_43AF70() == 1)
+		if (nox_xxx_check_flag_aaa_43AF70() == 1)
 			sub_457FE0();
 		v2 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1046492, 10119);
 		v3 = nox_xxx_guiServerOptionsGetGametypeName_4573C0(*((_WORD*)v0 + 26));

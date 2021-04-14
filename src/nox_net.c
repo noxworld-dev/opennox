@@ -1,5 +1,6 @@
 //+build none
 
+#define _NOX_IN_NET_C
 #include "nox_net.h"
 
 #include <stdlib.h>
@@ -20,6 +21,8 @@
 #include <winsock2.h>
 #endif // _WIN32
 
+bool debugNet = 0;
+
 char* nox_net_ip2str(nox_net_in_addr compat_addr) {
 	struct in_addr addr;
 	addr.s_addr = compat_addr;
@@ -27,6 +30,7 @@ char* nox_net_ip2str(nox_net_in_addr compat_addr) {
 }
 
 int nox_net_init() {
+	debugNet = getenv("NOX_DEBUG_NET") != 0;
 #ifdef _WIN32
 	struct WSAData WSAData;
 	return WSAStartup(0x101u, &WSAData);

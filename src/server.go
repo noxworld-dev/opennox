@@ -99,7 +99,7 @@ func nox_xxx_gameTick_4D2580_server_B(ticks int64) C.int {
 		C.nox_xxx_protectUnitDefUpdateMB_4E3C20()
 		C.nox_xxx_setKeybTimeout_4160D0(16)
 	}
-	if noxflags.HasGame(noxflags.GameServerXxx) && C.sub_43AF70() == 1 && !noxflags.HasGame(noxflags.GameFlag8) && C.nox_xxx_checkKeybTimeout_4160F0(0xF, C.uint(60*gameFPS())) != 0 {
+	if noxflags.HasGame(noxflags.GameServerXxx) && C.nox_xxx_check_flag_aaa_43AF70() == 1 && !noxflags.HasGame(noxflags.GameFlag8) && C.nox_xxx_checkKeybTimeout_4160F0(0xF, C.uint(60*gameFPS())) != 0 {
 		C.nox_xxx_net_4263C0()
 		C.nox_xxx_setKeybTimeout_4160D0(15)
 	}

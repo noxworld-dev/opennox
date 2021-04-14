@@ -23,7 +23,7 @@ int  nox_xxx_gui_4AD320(int a1) {
 		v1 = 2;
 	if (dword_5d4594_1309812)
 		return 0;
-	if (sub_43AF70() == 1)
+	if (nox_xxx_check_flag_aaa_43AF70() == 1)
 		v3 = nox_new_window_from_file(*(const char**)getMemAt(0x587000, 4 * v1 + 173596), nox_xxx_windowServerOptionsGeneralProc_4AD5D0);
 	else
 		v3 = nox_new_window_from_file(*(const char**)getMemAt(0x587000, 4 * v1 + 173556), nox_xxx_windowServerOptionsGeneralProc_4AD5D0);
@@ -35,7 +35,7 @@ int  nox_xxx_gui_4AD320(int a1) {
 		nox_xxx_wnd_46ABB0((int)v4, 0);
 	nox_xxx_wndRetNULL_46A8A0();
 	sub_4AD840();
-	if (sub_43AF70() == 1) {
+	if (nox_xxx_check_flag_aaa_43AF70() == 1) {
 		sub_4AD4B0();
 		v5 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1309812, 10310);
 		nox_xxx_wnd_46B280((int)v5, *(int*)&dword_5d4594_1309812);
@@ -132,7 +132,7 @@ int sub_4AD840() {
 			v5 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1309812, 10306);
 			v5[9] |= 4u;
 		}
-		result = sub_43AF70();
+		result = nox_xxx_check_flag_aaa_43AF70();
 		if (result == 1) {
 			v6 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1309812, 10316);
 			v7 = nox_strman_loadString_40F1D0(*(char**)getMemAt(0x587000, 4 * nox_server_connectionType_3596 + 173536), 0,

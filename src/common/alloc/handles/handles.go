@@ -1,6 +1,7 @@
 package handles
 
 import (
+	"fmt"
 	"sync/atomic"
 	"unsafe"
 
@@ -54,7 +55,7 @@ func AssertValid(h uintptr) {
 		panic("zero handle")
 	}
 	if h < base || h >= end {
-		panic("invalid handle")
+		panic(fmt.Errorf("invalid handle: %v", h))
 	}
 }
 

@@ -19,6 +19,7 @@ extern int nox_video_dxFullScreen;
 extern int nox_video_dxUnlockSurface;
 
 //----- (0047FD70) --------------------------------------------------------
+#ifndef NOX_CGO
 int nox_video_recreateRenderTarget_47FD70() {
 	int v1; // edi
 	int v2; // ebx
@@ -38,7 +39,7 @@ int nox_video_recreateRenderTarget_47FD70() {
 		flags |= 0x100u;
 	if (*getMemU32Ptr(0x5D4594, 805864))
 		flags |= 0x200u;
-	sub_48A210(sub_47FCE0);
+	nox_xxx_setSomeFunc_48A210(sub_47FCE0);
 	v1 = nox_client_getCursorType_477620();
 	nox_client_setCursorType_477610(0);
 	v2 = sub_48B3E0(0);
@@ -65,3 +66,4 @@ int nox_video_recreateRenderTarget_47FD70() {
 	nox_input_pollEvents_4453A0();
 	return 1;
 }
+#endif // NOX_CGO

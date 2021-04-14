@@ -32,48 +32,49 @@ var noxMemmap = []struct {
 	{0x587000, 80, 4, "nox_enable_audio"},        // 0x587050
 	{0x587000, 180, 7, "nox_version_string_180"}, // 0x5870B4
 	{0x587000, 3744, 896, "dword_587000_3744"},
-	{0x587000, 5184, 4092, "table_5184"},                             // 0x588440
-	{0x587000, 26792, 204, "table_26792"},                            // 0x58D8A8
-	{0x587000, 27008, 84, "table_27008"},                             // 0x58D980
-	{0x587000, 27104, 48, "table_27104"},                             // 0x58D9E0
-	{0x587000, 27168, 144, "table_27168"},                            // 0x58DA20
-	{0x587000, 28760, 136, "table_28760"},                            // 0x58E058
-	{0x587000, 37892, 16384, "nox_rnd_table_37892"},                  // 0x590404
-	{0x587000, 54276, 4, "nox_server_sanctuaryHelp_54276"},           // 0x594404
-	{0x587000, 60044, 4, "dword_587000_60044"},                       // 0x595A8C
-	{0x587000, 60064, 4, "dword_587000_60064"},                       // 0x595AA0
-	{0x587000, 60068, 4, "dword_587000_60068"},                       // 0x595AA4
-	{0x587000, 60352, 4, "nox_xxx_polygonNextIdx_587000_60352"},      // 0x595BC0
-	{0x587000, 60356, 4, "nox_xxx_polygonNextAngle_587000_60356"},    // 0x595BC4
-	{0x587000, 66116, 4, "dword_587000_66116"},                       // 0x597244
-	{0x587000, 66120, 4, "dword_587000_66120"},                       // 0x597248
-	{0x587000, 72016, 660, "nox_ctrlevent_code_infos"},               // 0x598950
-	{0x587000, 80764, 8, "nox_mouse_max"},                            // 0x59AB7C
-	{0x587000, 80772, 4, "nox_xxx_useAudio_587000_80772"},            // 0x59AB84
-	{0x587000, 80800, 4, "nox_xxx_useMMX_587000_80800"},              // 0x59ABA0
-	{0x587000, 80804, 4, "nox_enable_threads"},                       // 0x59ABA4
-	{0x587000, 80812, 4, "nox_client_drawFrontWalls_80812"},          // 0x59ABAC
-	{0x587000, 80820, 4, "nox_client_highResFrontWalls_80820"},       // 0x59ABB4
-	{0x587000, 80824, 4, "nox_gui_console_translucent"},              // 0x59ABB8
-	{0x587000, 80828, 4, "nox_client_renderGUI_80828"},               // 0x59ABBC
-	{0x587000, 80832, 4, "nox_xxx_useAudio_587000_80832"},            // 0x59ABC0
-	{0x587000, 80836, 4, "nox_client_fadeObjects_80836"},             // 0x59ABC4
-	{0x587000, 80840, 4, "nox_xxx_useAudio_587000_80840"},            // 0x59ABC8
-	{0x587000, 80844, 4, "nox_client_renderBubbles_80844"},           // 0x59ABCC
-	{0x587000, 80848, 4, "nox_video_dxFullScreen"},                   // 0x59ABD0
-	{0x587000, 80856, 4, "nox_max_width"},                            // 0x59ABD8
-	{0x587000, 80860, 4, "nox_max_height"},                           // 0x59ABDC
-	{0x587000, 81128, 4, "dword_587000_81128"},                       // 0x59ACE8
-	{0x587000, 84400, 4, "nox_video_gammaValue"},                     // 0x59B9B0
+	{0x587000, 5184, 4092, "table_5184"},                          // 0x588440
+	{0x587000, 26792, 204, "table_26792"},                         // 0x58D8A8
+	{0x587000, 27008, 84, "table_27008"},                          // 0x58D980
+	{0x587000, 27104, 48, "table_27104"},                          // 0x58D9E0
+	{0x587000, 27168, 144, "table_27168"},                         // 0x58DA20
+	{0x587000, 28760, 136, "table_28760"},                         // 0x58E058
+	{0x587000, 37892, 16384, "nox_rnd_table_37892"},               // 0x590404
+	{0x587000, 54276, 4, "nox_server_sanctuaryHelp_54276"},        // 0x594404
+	{0x587000, 60044, 4, "dword_587000_60044"},                    // 0x595A8C
+	{0x587000, 60064, 4, "dword_587000_60064"},                    // 0x595AA0
+	{0x587000, 60068, 4, "dword_587000_60068"},                    // 0x595AA4
+	{0x587000, 60352, 4, "nox_xxx_polygonNextIdx_587000_60352"},   // 0x595BC0
+	{0x587000, 60356, 4, "nox_xxx_polygonNextAngle_587000_60356"}, // 0x595BC4
+	{0x587000, 66116, 4, "dword_587000_66116"},                    // 0x597244
+	{0x587000, 66120, 4, "dword_587000_66120"},                    // 0x597248
+	{0x587000, 72016, 660, "nox_ctrlevent_code_infos"},            // 0x598950
+	{0x587000, 80764, 8, "nox_mouse_max"},                         // 0x59AB7C
+	{0x587000, 80772, 4, "nox_xxx_useAudio_587000_80772"},         // 0x59AB84
+	{0x587000, 80800, 4, "nox_xxx_useMMX_587000_80800"},           // 0x59ABA0
+	{0x587000, 80804, 4, "nox_enable_threads"},                    // 0x59ABA4
+	{0x587000, 80812, 4, "nox_client_drawFrontWalls_80812"},       // 0x59ABAC
+	{0x587000, 80820, 4, "nox_client_highResFrontWalls_80820"},    // 0x59ABB4
+	{0x587000, 80824, 4, "nox_gui_console_translucent"},           // 0x59ABB8
+	{0x587000, 80828, 4, "nox_client_renderGUI_80828"},            // 0x59ABBC
+	{0x587000, 80832, 4, "nox_xxx_useAudio_587000_80832"},         // 0x59ABC0
+	{0x587000, 80836, 4, "nox_client_fadeObjects_80836"},          // 0x59ABC4
+	{0x587000, 80840, 4, "nox_xxx_useAudio_587000_80840"},         // 0x59ABC8
+	{0x587000, 80844, 4, "nox_client_renderBubbles_80844"},        // 0x59ABCC
+	{0x587000, 80848, 4, "nox_video_dxFullScreen"},                // 0x59ABD0
+	{0x587000, 80856, 4, "nox_max_width"},                         // 0x59ABD8
+	{0x587000, 80860, 4, "nox_max_height"},                        // 0x59ABDC
+	{0x587000, 81128, 4, "dword_587000_81128"},                    // 0x59ACE8
+	{0x587000, 84400, 4, "nox_video_gammaValue"},                  // 0x59B9B0
+	{0x587000, 85680, 32, "nox_clientServerAddr"},
 	{0x587000, 87404, 4, "dword_587000_87404"},                       // 0x59C56C
 	{0x587000, 87408, 4, "dword_587000_87408"},                       // 0x59C570
 	{0x587000, 87412, 4, "dword_587000_87412"},                       // 0x59C574
-	{0x587000, 91780, 4, "nox_win_width_1"},                          // 0x59D684
-	{0x587000, 91784, 4, "nox_win_height_1"},                         // 0x59D688
-	{0x587000, 91788, 4, "nox_win_depth_1"},                          // 0x59D68C
-	{0x587000, 91792, 4, "nox_win_width_2"},                          // 0x59D690
-	{0x587000, 91796, 4, "nox_win_height_2"},                         // 0x59D694
-	{0x587000, 91800, 4, "nox_win_depth_2"},                          // 0x59D698
+	{0x587000, 91780, 4, "nox_win_width_game"},                       // 0x59D684
+	{0x587000, 91784, 4, "nox_win_height_game"},                      // 0x59D688
+	{0x587000, 91788, 4, "nox_win_depth_game"},                       // 0x59D68C
+	{0x587000, 91792, 4, "nox_win_width_menu"},                       // 0x59D690
+	{0x587000, 91796, 4, "nox_win_height_menu"},                      // 0x59D694
+	{0x587000, 91800, 4, "nox_win_depth_menu"},                       // 0x59D698
 	{0x587000, 91804, 36, "nox_video_modes"},                         // 0x59D69C
 	{0x587000, 93156, 4, "dword_587000_93156"},                       // 0x59DBE4
 	{0x587000, 93164, 4, "dword_587000_93164"},                       // 0x59DBEC

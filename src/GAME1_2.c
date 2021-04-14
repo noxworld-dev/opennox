@@ -159,13 +159,15 @@ extern float input_sensitivity;
 int nox_win_width = 0;
 int nox_win_height = 0;
 
-int nox_win_width_1 = NOX_DEFAULT_WIDTH;
-int nox_win_height_1 = NOX_DEFAULT_HEIGHT;
-int nox_win_depth_1 = NOX_DEFAULT_DEPTH;
+int nox_win_width_game = NOX_DEFAULT_WIDTH;
+int nox_win_height_game = NOX_DEFAULT_HEIGHT;
+int nox_win_depth_game = NOX_DEFAULT_DEPTH;
 
-int nox_win_width_2 = NOX_DEFAULT_WIDTH;
-int nox_win_height_2 = NOX_DEFAULT_HEIGHT;
-int nox_win_depth_2 = NOX_DEFAULT_DEPTH;
+#ifndef NOX_CGO
+int nox_win_width_menu = NOX_DEFAULT_WIDTH;
+int nox_win_height_menu = NOX_DEFAULT_HEIGHT;
+int nox_win_depth_menu = NOX_DEFAULT_DEPTH;
+#endif // NOX_CGO
 
 int nox_max_width = NOX_MAX_WIDTH;
 int nox_max_height = NOX_MAX_HEIGHT;
@@ -209,6 +211,10 @@ void* nox_video_bag_ptr_787200 = 0;
 nox_video_bag_section_t* nox_video_bag_sections_arr = 0;
 nox_video_bag_image_t* nox_video_bag_images_arr = 0;
 void* nox_video_bag_tmpBuf_787208 = 0;
+
+#ifndef NOX_CGO
+char nox_clientServerAddr[32] = "localhost";
+#endif // NOX_CGO
 
 //----- (00427F30) --------------------------------------------------------
 int  nox_xxx_wallMath_427F30(int2* a1, int* a2) {
@@ -6347,6 +6353,23 @@ int  sub_432AD0(int* a1) {
 }
 
 //----- (00432B00) --------------------------------------------------------
+#ifndef NOX_CGO
+void nox_common_parsecfg_videomode_apply(int w, int h, int d) {
+	d = 16; // 8 bit not supported
+	if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_WINDOWED_MODE)) {
+		nox_win_width_game = w;
+		nox_win_height_game = h;
+		nox_win_depth_game = d;
+		nox_win_depth_menu = d;
+
+		// FIXME: this will cause the game to change its window size to whatever set in nox.cfg right at the
+		// start! this is different from original game where window is only resized after joining the game
+		change_windowed_fullscreen();
+	}
+}
+#else // NOX_CGO
+void nox_common_parsecfg_videomode_apply(int w, int h, int d);
+#endif // NOX_CGO
 int nox_common_parsecfg_videomode() {
 	char* v0; // eax
 	char* v2; // eax
@@ -6375,17 +6398,7 @@ int nox_common_parsecfg_videomode() {
 	w = EM_ASM_INT(return Module['ingameWidth']());
 	h = EM_ASM_INT(return Module['ingameHeight']());
 #endif
-	v6 = 16; // 8 bit not supported
-	if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_WINDOWED_MODE)) {
-		nox_win_width_1 = w;
-		nox_win_height_1 = h;
-		nox_win_depth_1 = v6;
-		nox_win_depth_2 = v6;
-
-		// FIXME: this will cause the game to change its window size to whatever set in nox.cfg right at the
-		// start! this is different from original game where window is only resized after joining the game
-		change_windowed_fullscreen();
-	}
+	nox_common_parsecfg_videomode_apply(w, h, v6);
 	return 1;
 }
 
@@ -6743,7 +6756,7 @@ int  sub_4332E0(FILE* a1) {
 
 	v1 = sub_416640();
 	nox_fs_fprintf(a1, "Version = %d\n", 65540);
-	nox_fs_fprintf(a1, "VideoMode = %d %d %d\n", nox_win_width_1, nox_win_height_1, nox_win_depth_1);
+	nox_fs_fprintf(a1, "VideoMode = %d %d %d\n", nox_win_width_game, nox_win_height_game, nox_win_depth_game);
 	nox_fs_fprintf(a1, "Stretched = %d\n", g_scaled_cfg);
 	nox_fs_fprintf(a1, "Fullscreen = %d\n", g_fullscreen_cfg);
 	v2 = sub_4766D0();
@@ -7550,7 +7563,14 @@ wchar_t*  sub_435700(wchar_t* a1, int a2) {
 }
 
 //----- (00435720) --------------------------------------------------------
-char*  sub_435720(char* a1) { return strncpy((char*)getMemAt(0x587000, 85680), a1, 0x20u); }
+#ifndef NOX_CGO
+void nox_client_setServerConnectAddr_435720(char* addr) {
+	strncpy(nox_clientServerAddr, addr, 32);
+}
+char* nox_client_getServerConnectAddr() {
+	return nox_clientServerAddr;
+}
+#endif // NOX_CGO
 
 //----- (00435740) --------------------------------------------------------
 DWORD sub_435740() {
@@ -7669,8 +7689,8 @@ int  nox_xxx_whenServerHostServer_435A10(signed int* a1) {
 	*(_DWORD*)&Data[97] = v5;
 	*(_DWORD*)&Data[101] = v4;
 	nox_xxx_regGetSerial_420120(&Data[105]);
-	if (!sub_43AF70())
-		nox_common_getInstallPath_40E0D0((int)&Data[105], (LPCSTR)getMemAt(0x587000, 86344), 0);
+	if (!nox_xxx_check_flag_aaa_43AF70())
+		nox_common_getInstallPath_40E0D0((int)&Data[105], "SOFTWARE\\Westwood\\Nox", 0);
 	Data[152] = !nox_xxx_checkHasSoloMaps_40ABD0();
 	if (getMemByte(0x5D4594, 2660684) & 4)
 		Data[152] |= 0x80u;
@@ -7685,7 +7705,7 @@ int  nox_xxx_whenServerHostServer_435A10(signed int* a1) {
 		nox_xxx_netlist_494E90(31);
 	} else {
 		v3 = nox_client_getServerPort_43B320();
-		result = nox_xxx_netAddNetStruct4Host_43C7B0((char*)getMemAt(0x587000, 85680), v3, (int)Data, a1);
+		result = nox_xxx_netAddNetStruct4Host_43C7B0(nox_client_getServerConnectAddr(), v3, (int)Data, a1);
 		if (!result)
 			return result;
 		nox_xxx_netBufs_40ED10(31, 0);
@@ -7975,10 +7995,11 @@ void sub_437180() {
 }
 
 //----- (00437190) --------------------------------------------------------
+#ifndef NOX_CGO
 int nox_xxx_cliSetupSession_437190() {
 	int result; // eax
 
-	if (sub_43AF70() == 1)
+	if (nox_xxx_check_flag_aaa_43AF70() == 1)
 		sub_40D380();
 	sub_473960();
 	nox_xxx_cliResetAllPlayers_416E30();
@@ -7995,7 +8016,7 @@ int nox_xxx_cliSetupSession_437190() {
 	if (!nox_common_gameFlags_check_40A5C0(1))
 		sub_4E4DE0();
 	nox_xxx_mapLoad_40A380();
-	sub_435720((char*)getMemAt(0x5D4594, 814544));
+	nox_client_setServerConnectAddr_435720("");
 	sub_446580(1);
 	sub_48D760();
 	if (!nox_common_gameFlags_check_40A5C0(1))
@@ -8006,6 +8027,7 @@ int nox_xxx_cliSetupSession_437190() {
 	*getMemU32Ptr(0x5D4594, 2618908) = 0;
 	return result;
 }
+#endif // NOX_CGO
 
 //----- (00437250) --------------------------------------------------------
 obj_5D4594_811068_t* sub_437250() { return &obj_5D4594_811068; }
@@ -8622,7 +8644,7 @@ char* sub_43AA70() {
 	v1[102] = v5 & 0x80 | v4;
 	*((_DWORD*)v1 + 11) = *getMemU32Ptr(0x5D4594, 814916);
 	*(_WORD*)(v1 + 109) = nox_xxx_servGetPort_40A430();
-	sub_435720((char*)getMemAt(0x587000, 90740));
+	nox_client_setServerConnectAddr_435720("localhost");
 	if (dword_587000_87404 == 1) {
 		memset(v10, 0, sizeof(v10));
 		v6 = sub_41FA40();
@@ -8734,7 +8756,7 @@ int  sub_43AF50(int a1) {
 }
 
 //----- (0043AF70) --------------------------------------------------------
-int sub_43AF70() { return dword_587000_87404; }
+int nox_xxx_check_flag_aaa_43AF70() { return dword_587000_87404; }
 
 //----- (0043AF80) --------------------------------------------------------
 int sub_43AF80() { return dword_5d4594_814548; }
@@ -8893,8 +8915,7 @@ int sub_43B340() {
 }
 
 //----- (0043B360) --------------------------------------------------------
-int nox_xxx_cliDrawConnectedLoop_43B360() // client connecting draw handler
-{
+int nox_xxx_cliDrawConnectedLoop_43B360() { // client connecting draw handler
 	char* v0;            // ebx
 	unsigned __int16 v1; // ax
 	char v2;             // al
@@ -8904,12 +8925,12 @@ int nox_xxx_cliDrawConnectedLoop_43B360() // client connecting draw handler
 	nox_common_gameFlags_unset_40A540(1);
 	v0 = (char*)(dword_5d4594_814624 + 12);
 	if (!memcmp((const void*)(dword_5d4594_814624 + 12), getMemAt(0x5D4594, 815116), 1u)) {
-		sub_435720((char*)getMemAt(0x587000, 90828));
+		nox_client_setServerConnectAddr_435720("localhost");
 	} else {
 		v1 = nox_client_getServerPort_43B320();
 		nox_sprintf(v5, "%s:%d", v0, v1);
 		nox_xxx_copyServerIPAndPort_431790(v5);
-		sub_435720(v0);
+		nox_client_setServerConnectAddr_435720(v0);
 	}
 	nox_common_writecfgfile("nox.cfg");
 	v2 = *(_BYTE*)(dword_5d4594_814624 + 102);

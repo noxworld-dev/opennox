@@ -335,7 +335,7 @@ void sub_446190() {
 		dword_5d4594_825752 = 0;
 		dword_5d4594_825768 = nox_frame_xxx_2598000;
 		if (nox_common_gameFlags_check_40A5C0(1)) {
-			if (sub_43AF70() == 1 && nox_common_gameFlags_check_40A5C0(49152))
+			if (nox_xxx_check_flag_aaa_43AF70() == 1 && nox_common_gameFlags_check_40A5C0(49152))
 				sub_416150(15, 0);
 			sub_509CB0();
 		}

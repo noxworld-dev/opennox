@@ -5469,7 +5469,7 @@ int sub_4703F0() {
 	int v1;     // edx
 
 	dword_5d4594_1090120 = (dword_5d4594_1090120 + 1) % 6;
-	result = sub_43AF70();
+	result = nox_xxx_check_flag_aaa_43AF70();
 	v1 = dword_5d4594_1090120;
 	if (result || dword_5d4594_1090120 != 5) {
 		if (dword_5d4594_1090120 == 1) {

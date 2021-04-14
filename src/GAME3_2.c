@@ -1238,7 +1238,7 @@ int  sub_4D0550(char* a1) {
 			v7[4] = v8;
 			sub_4D0670(v10);
 		}
-		if (sub_43AF70() == 1)
+		if (nox_xxx_check_flag_aaa_43AF70() == 1)
 			sub_4D0670((char*)getMemAt(0x587000, 191768));
 		result = 1;
 	}
@@ -2159,6 +2159,7 @@ char* nox_xxx_netReportAllLatency_4D3050() {
 }
 
 //----- (004D3200) --------------------------------------------------------
+#ifndef NOX_CGO
 BOOL nox_xxx_servEndSession_4D3200() {
 	char* v0;            // eax
 	CHAR FileName[1024]; // [esp+0h] [ebp-400h]
@@ -2171,7 +2172,7 @@ BOOL nox_xxx_servEndSession_4D3200() {
 	nox_xxx_replayStopSave_4D33B0();
 	nox_xxx_replayStopReadMB_4D3530();
 	nox_xxx_cliResetAllPlayers_416E30();
-	sub_446490((void*)1);
+	sub_446490(1);
 	sub_4259F0();
 	nox_xxx_mapSwitchLevel_4D12E0(0);
 	nox_xxx_mapLoad_40A380();
@@ -2202,6 +2203,7 @@ BOOL nox_xxx_servEndSession_4D3200() {
 	nox_sprintf(FileName, "%s\\Save\\_temp_.dat", v0);
 	return nox_fs_remove(FileName);
 }
+#endif // NOX_CGO
 // 4E3440: using guessed type void nullsub_23(void);
 
 //----- (004D3310) --------------------------------------------------------
@@ -6642,7 +6644,7 @@ void  nox_xxx_playerReportAnything_4D9900(int a1) {
 			nox_xxx_servSendStats_4D8990(*(unsigned __int8*)(*(_DWORD*)(v2 + 276) + 2064), v1, *(_BYTE*)(*(_DWORD*)(v2 + 276) + 3684));
 			*(_BYTE*)(*(_DWORD*)(v2 + 276) + 2184) = 0;
 		}
-		if (sub_43AF70() == 1) {
+		if (nox_xxx_check_flag_aaa_43AF70() == 1) {
 			sub_528030(v1);
 		} else {
 			if (v3 && *v3 != *(_WORD*)(v2 + 10)) {
@@ -8522,7 +8524,7 @@ char*  nox_xxx_gameServerReadyMB_4DD180(int a1) {
 		if (nox_common_gameFlags_check_40A5C0(4096) && sub_40A300() == 1)
 			nox_xxx_netGauntlet_4D9E70(a1);
 		if (a1 == 31 && nox_common_gameFlags_check_40A5C0(128)) {
-			if (!nox_server_connectionType_3596 && sub_43AF70() == 1) {
+			if (!nox_server_connectionType_3596 && nox_xxx_check_flag_aaa_43AF70() == 1) {
 				sub_49C820();
 				return (char*)nox_xxx_netStatsMultiplier_4D9C20(*((_DWORD*)v2 + 514));
 			}
@@ -8663,7 +8665,7 @@ _DWORD*  nox_xxx_playerNew_4DD320(int ind, void* data) {
 	nox_xxx_netNewPlayerMakePacket_4DDA90(v30, pinfo);
 	nox_xxx_netSendPacket0_4E5420(ind | 0x80, v30, 129, 0, 0);
 	v8[3676] = 2;
-	if (sub_43AF70() == 1 && !nox_common_gameFlags_check_40A5C0(128))
+	if (nox_xxx_check_flag_aaa_43AF70() == 1 && !nox_common_gameFlags_check_40A5C0(128))
 		sub_425F10(pinfo);
 	nox_xxx_createAt_4DAA50(punit, 0, 2944.0, 2944.0);
 	nox_xxx_unitsNewAddToList_4DAC00();
@@ -8951,7 +8953,7 @@ int  nox_xxx_netPlayerIncomingServ_4DDF60(int a1) {
 	sub_4DF2E0(v1);
 	if (nox_common_gameFlags_check_40A5C0(1024) && !sub_40AA70((int)v2))
 		nox_xxx_netNeedTimestampStatus_4174F0((int)v2, 256);
-	if (sub_43AF70() == 1) {
+	if (nox_xxx_check_flag_aaa_43AF70() == 1) {
 		sub_4161E0();
 		sub_416690();
 	}
@@ -9135,7 +9137,7 @@ char  nox_xxx_playerDisconnFinish_4DE530(int a1, char a2) {
 			sub_4DE790(*(_DWORD*)(v4 + 2056));
 		}
 	}
-	if (sub_43AF70() == 1 && !nox_common_gameFlags_check_40A5C0(128))
+	if (nox_xxx_check_flag_aaa_43AF70() == 1 && !nox_common_gameFlags_check_40A5C0(128))
 		sub_425E90(v4, a2);
 	for (i = nox_common_playerInfoGetFirst_416EA0(); i; i = nox_common_playerInfoGetNext_416EE0((int)i)) {
 		v7 = *((_DWORD*)i + 514);
@@ -9271,7 +9273,7 @@ char*  nox_xxx_playerForceDisconnect_4DE7C0(int a1) {
 	sub_4E55F0(v1);
 	nox_xxx_playerResetImportantCtr_4E4F40(v1);
 	sub_4E4F30(v1);
-	if (sub_43AF70() == 1) {
+	if (nox_xxx_check_flag_aaa_43AF70() == 1) {
 		sub_4161E0();
 		sub_416690();
 	}

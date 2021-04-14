@@ -480,14 +480,14 @@ func nox_video_minimizeOrMaximize_48A9C0(a1 int) {
 
 	if C.nox_video_renderTargetFlags&0x10 != 0 {
 		C.dword_974854 = 1
-		fmt.Println("Ungrab")
+		log.Println("Ungrab")
 		noxWindow.SetGrab(false)
 		return
 	}
 	if a1 != 0 {
 		C.dword_974854 = 1
 		C.dword_973C70 = 1
-		fmt.Println("Minimize")
+		log.Println("Minimize")
 		windowMinimize()
 	}
 }

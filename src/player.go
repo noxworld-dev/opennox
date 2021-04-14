@@ -9,6 +9,10 @@ import "unsafe"
 
 const NOX_PLAYERINFO_MAX = C.NOX_PLAYERINFO_MAX
 
+func newPlayer(ind int, data unsafe.Pointer) unsafe.Pointer {
+	return unsafe.Pointer(C.nox_xxx_playerNew_4DD320(C.int(ind), data))
+}
+
 func asPlayer(p *C.nox_playerInfo) *Player {
 	return (*Player)(p)
 }

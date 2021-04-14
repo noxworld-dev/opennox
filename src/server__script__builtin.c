@@ -2545,7 +2545,7 @@ int nox_script_cast_515130() {
 //----- (00515200) --------------------------------------------------------
 int nox_script_builtin_515200() {
 	nox_gameDisableMapDraw_5d4594_2650672 = 0;
-	sub_44DB30(25, 0, 0);
+	nox_client_screenFadeXxx_44DB30(25, 0, 0);
 	return 0;
 }
 

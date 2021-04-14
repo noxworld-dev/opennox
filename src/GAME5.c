@@ -8395,7 +8395,8 @@ int  sub_552570(unsigned int a1, int a2) {
 
 //----- (005525B0) --------------------------------------------------------
 int  nox_xxx_cliWaitServerResponse_5525B0(unsigned int a1, char a2, int a3, char a4) {
-	printf("%s: %d, %d, %d, %d\n", __FUNCTION__, a1, a2, a3, a4);
+	if (debugNet)
+		printf("%s: %d, %d, %d, %d\n", __FUNCTION__, a1, a2, a3, a4);
 	if (a1 >= NOX_NET_STRUCT_MAX)
 		return -3;
 	nox_net_struct_t* ns = nox_net_struct_arr[a1];

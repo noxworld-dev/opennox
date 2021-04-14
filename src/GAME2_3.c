@@ -2000,10 +2000,11 @@ int  nox_xxx_netlist_494E90(int a1) {
 
 	v1 = a1;
 	v2 = nox_xxx_netlist_40F120(a1, &a1);
-	if (v2)
+	if (v2) {
 		v3 = nox_xxx_netOnPacketRecvCli_48EA70(v1, (unsigned int)v2, a1);
-	else
+	} else {
 		v3 = a1;
+	}
 	v4 = nox_xxx_netCopyCheckPacketList_40ED60(v1, 1u, &a1);
 	if (!v4)
 		return v3;
@@ -9079,7 +9080,7 @@ void  sub_49FDB0(int a1) {
 	char v8[140];        // [esp+4h] [ebp-8Ch]
 
 	if (!dword_5d4594_1305788) {
-		if (sub_43AF70()) {
+		if (nox_xxx_check_flag_aaa_43AF70()) {
 			v7 = 0;
 			if (*getMemU32Ptr(0x587000, 4 * a1 + 166016) > 0) {
 				v4 = getMemAt(0x587000, 80 * a1 + 166032);
