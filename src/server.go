@@ -6,10 +6,11 @@ extern unsigned int nox_gameFPS;
 extern unsigned int nox_frame_xxx_2598000;
 extern unsigned int dword_5d4594_1569652;
 extern unsigned int dword_5d4594_1569656;
+extern unsigned int dword_5d4594_2650652;
 extern unsigned int nox_xxx_questFlag_1556148;
 
 void nox_xxx_abilUpdateMB_4FBEE0();
-char* nox_xxx_netUpdateRemotePlayers_4DEC80();
+char* nox_server_updateRemotePlayers_4DEC80();
 void nox_xxx_netlist_4DEB50();
 void nox_xxx_scriptLeverReact_51ADF0();
 void nox_xxx_serverLoopSendMap_519990();
@@ -35,6 +36,9 @@ bool sub_57B140();
 */
 import "C"
 import (
+	"encoding/binary"
+	"unsafe"
+
 	noxflags "nox/common/flags"
 	"nox/common/memmap"
 )
@@ -93,7 +97,7 @@ func nox_xxx_gameTick_4D2580_server_B(ticks int64) C.int {
 		C.nox_xxx_voteUptate_506F30()
 		C.nox_xxx_unitsUpdateDeletedList_4E5E20()
 	}
-	C.nox_xxx_netUpdateRemotePlayers_4DEC80()
+	updateRemotePlayers()
 	C.nox_xxx_unitsNewAddToList_4DAC00()
 	if C.nox_xxx_checkKeybTimeout_4160F0(0x10, C.uint(10*gameFPS())) != 0 {
 		C.nox_xxx_protectUnitDefUpdateMB_4E3C20()
@@ -186,4 +190,42 @@ func switchQuestIfRequested4D6FD0() {
 
 func mapLoad4D2450(file string) {
 	C.nox_xxx_mapLoad_4D2450(internCStr(file))
+}
+
+func updateRemotePlayers() {
+	for _, pl := range getPlayers() {
+		if pl.Unit() == nil {
+			continue
+		}
+		fr := 30
+		if pl.field_3680&0x10 != 0 {
+			fr = 90
+		}
+		if gameFrame()-uint32(pl.frame_3596) > uint32(fr)*gameFPS() {
+			m := uint32(pl.netCode)
+			// TODO: passing Go pointer
+			C.nox_xxx_netInformTextMsg2_4DA180(3, (*C.uchar)(unsafe.Pointer(&m)))
+			var buf [1]byte
+			buf[0] = 198
+			C.nox_xxx_netSendSock_552640(C.uint(pl.Index()+1), (*C.char)(unsafe.Pointer(&buf[0])), C.int(len(buf)), C.NOX_NET_SEND_NO_LOCK|C.NOX_NET_SEND_FLAG2)
+			pl.Disconnect(3)
+		}
+		if pl.field_3680&0x80 != 0 {
+			pl.Disconnect(4)
+		}
+		if (pl.field_3676 != 3) || (pl.field_3680&0x10 == 0) {
+			var buf [3]byte
+			buf[0] = 39
+			binary.LittleEndian.PutUint16(buf[1:], uint16(gameFrame()))
+			// TODO: passing Go pointer
+			C.nox_xxx_netAddToMsgListCli_40EBC0(C.int(pl.Index()), 1, unsafe.Pointer(&buf[0]), C.int(len(buf)))
+		} else {
+			C.nox_xxx_netUpdate_518EE0((*C.uint)(pl.Unit()))
+		}
+		if pl.Unit() == HostPlayerUnit() {
+			C.nox_xxx_netImportant_4E5770(C.uchar(pl.Index()), 1)
+		} else if C.dword_5d4594_2650652 == 0 || (gameFrame()%uint32(C.nox_xxx_rateGet_40A6C0()) == 0) || noxflags.HasGame(noxflags.GameFlag4) {
+			C.nox_xxx_netSendReadPacket_5528B0(C.uint(pl.Index()+1), 0)
+		}
+	}
 }

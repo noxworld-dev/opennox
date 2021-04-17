@@ -11,6 +11,7 @@ import (
 	"log"
 	"net"
 	"os"
+	"strconv"
 	"unsafe"
 )
 
@@ -176,6 +177,19 @@ func nox_xxx_setMapCRC_40A360(crc C.int) {
 func noxOnCliPacketDebug(op C.int, data *C.uchar, sz C.int) {
 	buf := asByteSlice(unsafe.Pointer(data), int(sz))
 	if debugNet {
-		netLog.Printf("noxOnCliPacketDebug: op=%d (%x) [%d]\n%x", int(op), int(op), int(sz), buf)
+		netLog.Printf("noxOnCliPacketDebug: op=%d (%s) [%d]\n%x", int(op), clientNetOp(op).String(), int(sz), buf)
 	}
+}
+
+type clientNetOp byte
+
+func (op clientNetOp) String() string {
+	const pref = "NET_OP_"
+	switch op {
+	case 39:
+		return pref + "FRAME_39"
+	case 228: // 0xE4
+		return pref + "FADE"
+	}
+	return strconv.FormatUint(uint64(op), 16)
 }

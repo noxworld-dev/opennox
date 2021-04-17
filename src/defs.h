@@ -1055,7 +1055,7 @@ typedef struct nox_playerInfo {
 	_DWORD data_2032[4];
 	_DWORD data_2048[2];
 	void* playerUnit; // 514, 2056
-	_DWORD netCode; // 515, 2060
+	unsigned int netCode; // 515, 2060
 	unsigned char playerInd; // 516, 2064
 	_BYTE field_2064_1; // 516, 2065
 	_WORD field_2064_2; // 516, 2066
@@ -1067,10 +1067,27 @@ typedef struct nox_playerInfo {
 	_DWORD data_2200[50]; // 2352 is wchar_t buf
 	_DWORD data_2400[100];
 	_DWORD data_2800[100];
-	_DWORD data_3200[100];
+	_DWORD data_3200[50];
+	_DWORD data_3400[25];
+	_DWORD data_3500[20];
+	_DWORD field_3580;
+	_DWORD field_3584;
+	_DWORD field_3588;
+	_DWORD field_3592;
+	unsigned int frame_3596;
 	_DWORD data_3600[12];
 	_DWORD field_3648;
-	_DWORD data_3652[12];
+	_DWORD field_3652;
+	_DWORD field_3656;
+	_DWORD field_3660;
+	_DWORD field_3664;
+	_DWORD field_3668;
+	_DWORD field_3672;
+	_BYTE field_3676;
+	_BYTE field_3676_1;
+	_WORD field_3676_2;
+	_DWORD field_3680;
+	_DWORD data_3684[4];
 	_DWORD data_3700[25];
 	_DWORD data_3800[50];
 	_DWORD data_4000[100];
@@ -1082,6 +1099,8 @@ typedef struct nox_playerInfo {
 	_DWORD data_4800[7];
 } nox_playerInfo;
 _Static_assert(sizeof(nox_playerInfo) == 4828, "wrong size of nox_playerInfo structure!");
+_Static_assert(offsetof(nox_playerInfo, frame_3596) == 3596, "wrong offset of nox_playerInfo.frame_3596 field!");
+_Static_assert(offsetof(nox_playerInfo, field_4580) == 4580, "wrong offset of nox_playerInfo.field_4580 field!");
 
 typedef enum {
 	NOX_ENGINE_FLAG_1 = 1u << 0u,

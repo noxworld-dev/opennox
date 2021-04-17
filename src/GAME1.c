@@ -4118,19 +4118,16 @@ BOOL  nox_xxx_net_40EB60(int a1, int a2, int a3) {
 }
 
 //----- (0040EBC0) --------------------------------------------------------
-int  nox_xxx_netAddToMsgListCli_40EBC0(int a1, int a2, const void* a3, int a4) {
-	int v4;   // ebp
-	char* v6; // eax
-
-	v4 = *getMemU32Ptr(0x5D4594, 4 * (a1 + 32 * a2) + 210036);
-	if (a4 <= 0)
+int  nox_xxx_netAddToMsgListCli_40EBC0(int ind, int ind2, const void* buf, int sz) {
+	int p = *getMemU32Ptr(0x5D4594, 4 * (ind + 32 * ind2) + 210036);
+	if (sz <= 0)
 		return 1;
-	if (!nox_xxx_netSend_40EAC0(a1, a2, a4))
+	if (!nox_xxx_netSend_40EAC0(ind, ind2, sz))
 		return 0;
-	v6 = nox_xxx_netSend_40EC30(a1, a2, a3, a4);
+	char* v6 = nox_xxx_netSend_40EC30(ind, ind2, buf, sz);
 	if (!v6)
 		return 0;
-	nox_xxx_net_420940(v4, (int)v6, a4, 1);
+	nox_xxx_net_420940(p, v6, sz, 1);
 	return 1;
 }
 
