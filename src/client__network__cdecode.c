@@ -3182,7 +3182,7 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 			}
 			data += 4;
 			break;
-		case 0xE4u:
+		case 0xE4u: // fade
 			if (nox_client_isConnected_43C700()) {
 				if (*(_BYTE*)(data + 1) == 1) {
 					if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {

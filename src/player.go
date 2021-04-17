@@ -3,11 +3,18 @@ package main
 /*
 #include "proto.h"
 extern nox_playerInfo nox_playerinfo_arr[NOX_PLAYERINFO_MAX];
+extern unsigned int nox_xxx_host_player_unit_3843628;
 */
 import "C"
 import "unsafe"
 
 const NOX_PLAYERINFO_MAX = C.NOX_PLAYERINFO_MAX
+
+//export nox_xxx_playerCallDisconnect_4DEAB0
+func nox_xxx_playerCallDisconnect_4DEAB0(ind C.int, v C.char) *C.char {
+	getPlayerByInd(int(ind)).Disconnect(int(v))
+	return nil
+}
 
 func newPlayer(ind int, data unsafe.Pointer) unsafe.Pointer {
 	return unsafe.Pointer(C.nox_xxx_playerNew_4DD320(C.int(ind), data))
@@ -21,8 +28,19 @@ type Player C.nox_playerInfo
 
 type Unit = unsafe.Pointer
 
+func HostPlayerUnit() Unit {
+	return Unit(uintptr(C.nox_xxx_host_player_unit_3843628))
+}
+
 func (p *Player) C() *C.nox_playerInfo {
 	return (*C.nox_playerInfo)(p)
+}
+
+func (p *Player) Index() int {
+	if p == nil {
+		return -1
+	}
+	return int(p.playerInd)
 }
 
 func (p *Player) IsActive() bool {
@@ -34,6 +52,15 @@ func (p *Player) Unit() Unit {
 		return nil
 	}
 	return p.playerUnit
+}
+
+func (p *Player) Disconnect(v int) {
+	if !p.IsActive() {
+		return
+	}
+	C.nox_xxx_playerDisconnFinish_4DE530(C.int(p.Index()), C.char(v))
+	C.nox_xxx_playerForceDisconnect_4DE7C0(C.int(p.Index()))
+	C.sub_4DEC50(C.int(p.Index()))
 }
 
 func (p *Player) GoObserver(notify, keepPlayer bool) bool {

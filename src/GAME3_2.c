@@ -9308,6 +9308,7 @@ char*  nox_xxx_playerForceDisconnect_4DE7C0(int a1) {
 // 4DE9E1: variable 'v9' is possibly undefined
 
 //----- (004DEAB0) --------------------------------------------------------
+#ifndef NOX_CGO
 char*  nox_xxx_playerCallDisconnect_4DEAB0(int a1, char a2) {
 	char* result; // eax
 	char* v3;     // esi
@@ -9321,6 +9322,7 @@ char*  nox_xxx_playerCallDisconnect_4DEAB0(int a1, char a2) {
 	}
 	return result;
 }
+#endif // NOX_CGO
 
 //----- (004DEB00) --------------------------------------------------------
 char*  nox_xxx_playerDisconnByPlrID_4DEB00(int a1) {
