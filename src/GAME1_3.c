@@ -816,7 +816,7 @@ int sub_43C760() {
 
 	if (!nox_common_gameFlags_check_40A5C0(1))
 		return *getMemU32Ptr(0x5D4594, 815712);
-	v0 = nox_netlist_xxx_40E9F0(31, 1);
+	v0 = nox_netlist_sizeByInd_40E9F0(31, 1);
 	return v0 + nox_netlist_xxx_40F0D0(31);
 }
 

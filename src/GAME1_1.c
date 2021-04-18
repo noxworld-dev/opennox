@@ -5363,7 +5363,7 @@ int*******  nox_xxx_unused_420B00(_DWORD* a1, _DWORD* a2) {
 		else
 			*a1 = result[3];
 		v6 = *result;
-		nox_xxx_net_4209C0((int)a1, result);
+		nox_netlist_free_item_4209C0((int)a1, result);
 		result = (int*******)v6;
 	}
 	return result;

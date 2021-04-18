@@ -186,7 +186,7 @@ void cleanup() {
 	sub_42EDC0();
 	sub_42CD90();
 	nox_strman_free_410020();
-	nox_netlist_freeMsgBufs_40EA70();
+	nox_netlist_free_40EA70();
 	sub_40D0F0();
 	sub_40E070();
 	sub_4D11D0();
