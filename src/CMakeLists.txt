@@ -321,6 +321,7 @@ set (
     common__strman.c
     common__binfile.c
     common__log.c
+    common__net_list.c
     common__ability__comablty.c
     common__gamemech__pausefx.c
     common__magic__comguide.c

@@ -8,6 +8,7 @@
 #include "client__gui__servopts__advserv.h"
 #include "client__gui__guisumn.h"
 #include "common__system__team.h"
+#include "common__net_list.h"
 
 #include "client__gui__guiinput.h"
 #include "client__gui__servopts__objlst.h"
@@ -2552,7 +2553,7 @@ int nox_xxx_func_4C0610() {
 
 	v1[0] = -55;
 	v1[1] = 14;
-	return nox_xxx_netAddToMsgListCli_40EBC0(31, 0, v1, 2);
+	return nox_netlist_addToMsgListCli_40EBC0(31, 0, v1, 2);
 }
 
 //----- (004C0630) --------------------------------------------------------
@@ -2646,7 +2647,7 @@ int  nox_xxx_clientTrade_0_4C08E0(int a1) {
 	v2[0] = -55;
 	v2[1] = 16;
 	*(_WORD*)&v2[2] = nox_xxx_netGetUnitCodeCli_578B00(a1);
-	return nox_xxx_netAddToMsgListCli_40EBC0(31, 0, v2, 4);
+	return nox_netlist_addToMsgListCli_40EBC0(31, 0, v2, 4);
 }
 
 //----- (004C0910) --------------------------------------------------------
@@ -2710,7 +2711,7 @@ int nox_xxx_clientTrade_4C0CE0() {
 
 	v1[0] = -55;
 	v1[1] = 17;
-	return nox_xxx_netAddToMsgListCli_40EBC0(31, 0, v1, 2);
+	return nox_netlist_addToMsgListCli_40EBC0(31, 0, v1, 2);
 }
 
 //----- (004C0D00) --------------------------------------------------------
@@ -3299,7 +3300,7 @@ char*  sub_4C1A70(int a1, int* a2) {
 	v8[0] = -55;
 	v8[1] = 15;
 	*(_WORD*)&v8[2] = nox_xxx_netGetUnitCodeCli_578B00(a1);
-	return (char*)nox_xxx_netAddToMsgListCli_40EBC0(31, 0, v8, 4);
+	return (char*)nox_netlist_addToMsgListCli_40EBC0(31, 0, v8, 4);
 }
 // 4C1ACF: variable 'v4' is possibly undefined
 
@@ -3678,7 +3679,7 @@ int  nox_xxx_clientOrderCreature_4C2A60(int a1, unsigned int a2) {
 				*(_WORD*)((char*)&a2 + 1) = 0;
 			}
 			HIBYTE(a2) = *(_BYTE*)(a1 + 32);
-			nox_xxx_netAddToMsgListCli_40EBC0(31, 0, &a2, 4);
+			nox_netlist_addToMsgListCli_40EBC0(31, 0, &a2, 4);
 			sub_4C2470();
 			if (!*(_DWORD*)(a1 + 32)) {
 				nox_xxx_clientPlaySoundSpecial_452D80(777, 100);

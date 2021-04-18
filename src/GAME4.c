@@ -5,6 +5,7 @@
 #include "server__script__file.h"
 #include "common__random.h"
 #include "common__binfile.h"
+#include "common__net_list.h"
 
 #include "common/fs/nox_fs.h"
 #include "proto.h"
@@ -3932,7 +3933,7 @@ void nox_xxx_spellCastByBook_4FCB80() {
 				v23[0] = 112;
 				v5 = *(_DWORD*)(v4 + 276);
 				v23[1] = *(_BYTE*)(v0 + 4 * *(unsigned __int8*)(v0 + 28) + 8);
-				nox_xxx_netAddToMsgListCli_40EBC0(*(unsigned __int8*)(v5 + 2064), 1, v23, 2);
+				nox_netlist_addToMsgListCli_40EBC0(*(unsigned __int8*)(v5 + 2064), 1, v23, 2);
 			}
 			v6 = *(unsigned __int8*)(v0 + 28);
 			v7 = **(_DWORD**)(v0 + 32);
@@ -7829,7 +7830,7 @@ int  sub_501FD0(int a1, int a2, __int16 a3) {
 	HIWORD(a1) = v5;
 	v7 = v4 - *(float*)(*(_DWORD*)(v3 + 276) + 3632);
 	BYTE1(a1) = 50 * nox_float2int(v7) / (nox_win_width / 2);
-	return nox_xxx_netAddToMsgListCli_40EBC0(*(unsigned __int8*)(*(_DWORD*)(v3 + 276) + 2064), 1, &a1, 4);
+	return nox_netlist_addToMsgListCli_40EBC0(*(unsigned __int8*)(*(_DWORD*)(v3 + 276) + 2064), 1, &a1, 4);
 }
 
 //----- (00502060) --------------------------------------------------------
@@ -11292,7 +11293,7 @@ int sub_5096F0() {
 		if (v5) {
 			*(_WORD*)&v6[1] = (__int64)*(float*)(*(_DWORD*)(v5 + 276) + 3632);
 			*(_WORD*)&v6[3] = (__int64)*(float*)(*(_DWORD*)(v5 + 276) + 3636);
-			nox_xxx_netAddToMsgListCli_40EBC0(*(unsigned __int8*)(*(_DWORD*)(v5 + 276) + 2064), 1, v6, 5);
+			nox_netlist_addToMsgListCli_40EBC0(*(unsigned __int8*)(*(_DWORD*)(v5 + 276) + 2064), 1, v6, 5);
 		}
 		nox_xxx_aud_501960(582, v4, 2, *(_DWORD*)(v4 + 36));
 		v4 = nox_xxx_getNextPlayerUnit_4DA7F0(v4);

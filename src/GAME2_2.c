@@ -17,6 +17,7 @@
 #include "client__video__draw_common.h"
 
 #include "common/fs/nox_fs.h"
+#include "common__net_list.h"
 #include "mutexes.h"
 #include "input.h"
 #include "proto.h"
@@ -1462,7 +1463,7 @@ int sub_478040() {
 	if (!dword_5d4594_1098624)
 		return 0;
 	v2 = 4809;
-	nox_xxx_netAddToMsgListCli_40EBC0(31, 0, &v2, 2);
+	nox_netlist_addToMsgListCli_40EBC0(31, 0, &v2, 2);
 	sub_467680();
 	return 1;
 }
@@ -2161,7 +2162,7 @@ int  sub_4796D0(__int16 a1) {
 	v2[0] = -55;
 	v2[1] = 24;
 	*(_WORD*)&v2[2] = a1;
-	return nox_xxx_netAddToMsgListCli_40EBC0(31, 0, v2, 4);
+	return nox_netlist_addToMsgListCli_40EBC0(31, 0, v2, 4);
 }
 
 //----- (00479700) --------------------------------------------------------
@@ -2172,7 +2173,7 @@ int  sub_479700(__int16 a1, char a2) {
 	v3[1] = 25;
 	*(_WORD*)&v3[2] = a1;
 	v3[4] = a2;
-	return nox_xxx_netAddToMsgListCli_40EBC0(31, 0, v3, 5);
+	return nox_netlist_addToMsgListCli_40EBC0(31, 0, v3, 5);
 }
 
 //----- (00479810) --------------------------------------------------------
@@ -2194,7 +2195,7 @@ int  sub_479840(__int16 a1) {
 	v2[0] = -55;
 	v2[1] = 26;
 	*(_WORD*)&v2[2] = a1;
-	return nox_xxx_netAddToMsgListCli_40EBC0(31, 0, v2, 4);
+	return nox_netlist_addToMsgListCli_40EBC0(31, 0, v2, 4);
 }
 
 //----- (00479870) --------------------------------------------------------
@@ -2238,7 +2239,7 @@ int sub_479950() {
 	*getMemU8Ptr(0x5D4594, 1123516) = 0;
 	LOWORD(v2) = 720;
 	BYTE2(v2) = 0;
-	nox_xxx_netAddToMsgListCli_40EBC0(31, 0, &v2, 3);
+	nox_netlist_addToMsgListCli_40EBC0(31, 0, &v2, 3);
 	return 1;
 }
 
@@ -2313,14 +2314,14 @@ int  nox_xxx_guiDialog_479B00(int a1, int a2, int* a3, int a4) {
 		*getMemU8Ptr(0x5D4594, 1123516) = 1;
 		LOWORD(a2) = 720;
 		BYTE2(a2) = 1;
-		nox_xxx_netAddToMsgListCli_40EBC0(31, 0, &a2, 3);
+		nox_netlist_addToMsgListCli_40EBC0(31, 0, &a2, 3);
 		result = 0;
 		break;
 	case 3909:
 		*getMemU8Ptr(0x5D4594, 1123516) = 2;
 		BYTE2(a2) = 2;
 		LOWORD(a2) = 720;
-		nox_xxx_netAddToMsgListCli_40EBC0(31, 0, &a2, 3);
+		nox_netlist_addToMsgListCli_40EBC0(31, 0, &a2, 3);
 		return 0;
 	default:
 		return 0;

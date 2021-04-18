@@ -1,6 +1,7 @@
 #include "client__gui__gamewin__gamewin.h"
 
 #include "client__gui__guimsg.h"
+#include "common__net_list.h"
 
 #include "proto.h"
 
@@ -35,7 +36,7 @@ void  nox_xxx_clientPickup_46C140(int a1) {
 			v2 == *getMemU32Ptr(0x5D4594, 1064936) || sub_467B00(v2, 1)) {
 			LOBYTE(v4) = 115;
 			*(_WORD*)((char*)&v4 + 1) = nox_xxx_netGetUnitCodeCli_578B00(a1);
-			nox_xxx_netAddToMsgListCli_40EBC0(31, 0, &v4, 3);
+			nox_netlist_addToMsgListCli_40EBC0(31, 0, &v4, 3);
 		} else {
 			nox_xxx_clientPlaySoundSpecial_452D80(925, 100);
 			v3 = nox_strman_loadString_40F1D0("pickup.c:CarryingTooMuch", 0,

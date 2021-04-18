@@ -5,6 +5,7 @@
 #include "common__random.h"
 #include "client__system__ctrlevnt.h"
 #include "common__binfile.h"
+#include "common__net_list.h"
 
 #include "proto.h"
 
@@ -4723,7 +4724,7 @@ int  sub_511250(int a1, float* a2) {
 	*(_WORD*)&v7[3] = v4;
 	*(_WORD*)&v7[5] = sub_419A30(v5);
 	*(_WORD*)&v7[7] = sub_419A30(a2[40]);
-	return nox_xxx_netAddToMsgListCli_40EBC0(a1, 1, v7, 9);
+	return nox_netlist_addToMsgListCli_40EBC0(a1, 1, v7, 9);
 }
 
 //----- (005112C0) --------------------------------------------------------
@@ -7216,7 +7217,7 @@ int  nox_xxx_netSendPhantomPlrMb_5187E0(int a1, int a2) {
 	else
 		v7 = LOBYTE(a2a.field_0) + 3 * LOBYTE(a2a.field_4) + 3;
 	v10[9] = 16 * v7;
-	return nox_xxx_netAddToMsgListServ_40EF40(a1, v10, 11);
+	return nox_netlist_addToMsgListSrv_40EF40(a1, v10, 11);
 }
 
 //----- (005188A0) --------------------------------------------------------
@@ -7252,7 +7253,7 @@ int  nox_xxx_netSendSimpleObj_5188A0(int a1, int a2) {
 	v8 = *(float*)(a2 + 60);
 	*(_WORD*)&v10[5] = v7;
 	*(_WORD*)&v10[7] = nox_float2int(v8);
-	return nox_xxx_netAddToMsgListServ_40EF40(a1, v10, 9);
+	return nox_netlist_addToMsgListSrv_40EF40(a1, v10, 9);
 }
 
 //----- (00518960) --------------------------------------------------------
@@ -7314,7 +7315,7 @@ int  nox_xxx_netSendComplexObject_518960(int a1, _DWORD* a2, int a3) {
 	else
 		v15 = a3 - 1;
 	v18[9] |= 16 * v15;
-	return nox_xxx_netAddToMsgListServ_40EF40(v3, v18, 11);
+	return nox_netlist_addToMsgListSrv_40EF40(v3, v18, 11);
 }
 
 //----- (00518AE0) --------------------------------------------------------
@@ -7346,25 +7347,25 @@ int  nox_xxx_netSpriteUpdate_518AE0(int a1, int a2, _DWORD* a3) {
 		v8 = *(_BYTE*)(v3[187] + 20);
 		LOBYTE(a3) = 57;
 		HIBYTE(a3) = v8;
-		return nox_xxx_netAddToMsgListCli_40EBC0(a2, 1, &a3, 4);
+		return nox_netlist_addToMsgListCli_40EBC0(a2, 1, &a3, 4);
 	}
 	if (v7 == *getMemU32Ptr(0x5D4594, 2386980)) {
 		v9 = v3[4];
 		LOBYTE(a3) = 57;
 		HIBYTE(a3) = ~HIBYTE(v9) & 1;
-		return nox_xxx_netAddToMsgListCli_40EBC0(a2, 1, &a3, 4);
+		return nox_netlist_addToMsgListCli_40EBC0(a2, 1, &a3, 4);
 	}
 	if (v7 == *getMemU32Ptr(0x5D4594, 2386976)) {
 		v10 = *(_BYTE*)v3[187];
 		LOBYTE(a3) = -76;
 		HIBYTE(a3) = v10 & 1;
-		return nox_xxx_netAddToMsgListCli_40EBC0(a2, 1, &a3, 4);
+		return nox_netlist_addToMsgListCli_40EBC0(a2, 1, &a3, 4);
 	}
 	if (v5 & 0x4000) {
 		v11 = *(_BYTE*)(v3[187] + 16);
 		LOBYTE(a3) = 57;
 		HIBYTE(a3) = v11 >> 2;
-		return nox_xxx_netAddToMsgListCli_40EBC0(a2, 1, &a3, 4);
+		return nox_netlist_addToMsgListCli_40EBC0(a2, 1, &a3, 4);
 	}
 	if ((v5 & 0x8000) != 0) {
 		v12 = v3[187];
@@ -7376,13 +7377,13 @@ int  nox_xxx_netSpriteUpdate_518AE0(int a1, int a2, _DWORD* a3) {
 			HIBYTE(a3) = 0;
 			LOBYTE(a3) = 57;
 		}
-		return nox_xxx_netAddToMsgListCli_40EBC0(a2, 1, &a3, 4);
+		return nox_netlist_addToMsgListCli_40EBC0(a2, 1, &a3, 4);
 	}
 	if ((v5 & 0x80u) != 0) {
 		v15 = *(_BYTE*)(v3[187] + 12);
 		LOBYTE(a3) = -78;
 		HIBYTE(a3) = v15;
-		return nox_xxx_netAddToMsgListCli_40EBC0(a2, 1, &a3, 4);
+		return nox_netlist_addToMsgListCli_40EBC0(a2, 1, &a3, 4);
 	}
 	nox_xxx_netUpdateObjectSpecial_527E50(a1, v3);
 	return 0;
@@ -7480,9 +7481,9 @@ int  nox_xxx_netPlayerObjSend_518C30(int a1, _DWORD* a2, int a3, signed int a4) 
 		v19 = (_BYTE)a2 - 1;
 	v22[9] |= 16 * v19;
 	if (a3)
-		result = nox_xxx_netAddToMsgListServ_40EF40(*(unsigned __int8*)(*(_DWORD*)(v23 + 276) + 2064), v22, 12);
+		result = nox_netlist_addToMsgListSrv_40EF40(*(unsigned __int8*)(*(_DWORD*)(v23 + 276) + 2064), v22, 12);
 	else
-		result = nox_xxx_netAddToMsgListCli_40EBC0(*(unsigned __int8*)(*(_DWORD*)(v23 + 276) + 2064), 1, v22, 12);
+		result = nox_netlist_addToMsgListCli_40EBC0(*(unsigned __int8*)(*(_DWORD*)(v23 + 276) + 2064), 1, v22, 12);
 	return result;
 }
 
@@ -7512,7 +7513,7 @@ int  nox_xxx_netUpdate_518EE0(_DWORD* a3) {
 	v1 = a3;
 	v2 = a3[187];
 	v3 = *(unsigned __int8*)(*(_DWORD*)(v2 + 276) + 2064);
-	nox_xxx_servBuildMsgPool4Plr_40F020(v3);
+	nox_netlist_initPlayerBufs_40F020(v3);
 	if (v3 != 31 && !((nox_frame_xxx_2598000 + v3) % (unsigned int)(15 * nox_gameFPS)))
 		nox_xxx_netReportUnitHeight_4D9020(v3, (int)a3);
 	if (!dword_5d4594_2650652 || !(nox_frame_xxx_2598000 % (unsigned int)nox_xxx_rateGet_40A6C0()) ||
@@ -7520,12 +7521,12 @@ int  nox_xxx_netUpdate_518EE0(_DWORD* a3) {
 		if (*(_BYTE*)(*(_DWORD*)(v2 + 276) + 3680) & 0x40) {
 			v19[0] = 40;
 			*(_DWORD*)&v19[1] = nox_frame_xxx_2598000;
-			nox_xxx_netAddToMsgListServ_40EF40(v3, v19, 5);
+			nox_netlist_addToMsgListSrv_40EF40(v3, v19, 5);
 			nox_xxx_playerUnsetStatus_417530(*(_DWORD*)(v2 + 276), 64);
 		} else {
 			v17[0] = 39;
 			*(_WORD*)&v17[1] = (unsigned short)nox_frame_xxx_2598000;
-			nox_xxx_netAddToMsgListServ_40EF40(v3, v17, 3);
+			nox_netlist_addToMsgListSrv_40EF40(v3, v17, 3);
 		}
 	}
 	if (!dword_5d4594_2650652 || a3 == *(_DWORD**)&nox_xxx_host_player_unit_3843628 || nox_common_gameFlags_check_40A5C0(8) ||
@@ -7623,7 +7624,7 @@ int  nox_xxx_netPlayerObjSendCamera_519330(int a1) {
 	v3[9] = 0;
 	v3[10] = -1;
 	v3[11] = 0;
-	return nox_xxx_netAddToMsgListServ_40EF40(*(unsigned __int8*)(*(_DWORD*)(v1 + 276) + 2064), v3, 12);
+	return nox_netlist_addToMsgListSrv_40EF40(*(unsigned __int8*)(*(_DWORD*)(v1 + 276) + 2064), v3, 12);
 }
 
 //----- (005193B0) --------------------------------------------------------

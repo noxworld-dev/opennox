@@ -17,6 +17,7 @@
 #include "client__gui__guibook.h"
 
 #include "common/fs/nox_fs.h"
+#include "common__net_list.h"
 #include "proto.h"
 
 extern unsigned char byte_5D4594_3804364[160];
@@ -564,7 +565,7 @@ char*  nox_xxx_voteSend_48D260(wchar_t* a1) {
 		}
 		*(_WORD*)v3 = 750;
 		nox_wcscpy((wchar_t*)&v3[2], a1);
-		result = (char*)nox_xxx_netAddToMsgListCli_40EBC0(31, 0, v3, 52);
+		result = (char*)nox_netlist_addToMsgListCli_40EBC0(31, 0, v3, 52);
 	}
 	return result;
 }
@@ -586,7 +587,7 @@ char*  nox_xxx_netSendRenameMb_48D2D0(wchar_t* a1) {
 		}
 		*(_WORD*)v3 = 238;
 		nox_wcscpy((wchar_t*)&v3[2], a1);
-		result = (char*)nox_xxx_netAddToMsgListCli_40EBC0(31, 0, v3, 52);
+		result = (char*)nox_netlist_addToMsgListCli_40EBC0(31, 0, v3, 52);
 	}
 	return result;
 }
@@ -1824,7 +1825,7 @@ int  nox_xxx_netCliProcUpdateStream_494A60(unsigned __int8* a1, int a2, _DWORD* 
 			*(_WORD*)&v23[4] = v4;
 			v23[1] = v24;
 			*(_DWORD*)&v23[6] = -1;
-			nox_xxx_netAddToMsgListCli_40EBC0(a2, 0, v23, 10);
+			nox_netlist_addToMsgListCli_40EBC0(a2, 0, v23, 10);
 		}
 	} else {
 		v7 = 8 * *a1;
@@ -1922,7 +1923,7 @@ unsigned __int8*  nox_xxx_netCliUpdateStream2_494C30(unsigned __int8* a1, int a2
 			*(_WORD*)&v26[2] = v6;
 			*(_WORD*)&v26[4] = v8;
 			*(_DWORD*)&v26[6] = nox_frame_xxx_2598000 + 60;
-			nox_xxx_netAddToMsgListCli_40EBC0(a2, 0, v26, 10);
+			nox_netlist_addToMsgListCli_40EBC0(a2, 0, v26, 10);
 		}
 	} else {
 		v11 = 8 * v4;
@@ -1999,13 +2000,13 @@ int  nox_xxx_netlist_494E90(int a1) {
 	int v5;              // esi
 
 	v1 = a1;
-	v2 = nox_xxx_netlist_40F120(a1, &a1);
+	v2 = nox_netlist_copyPacketList2_40F120(a1, &a1);
 	if (v2) {
 		v3 = nox_xxx_netOnPacketRecvCli_48EA70(v1, (unsigned int)v2, a1);
 	} else {
 		v3 = a1;
 	}
-	v4 = nox_xxx_netCopyCheckPacketList_40ED60(v1, 1u, &a1);
+	v4 = nox_netlist_copyPacketList_40ED60(v1, 1u, &a1);
 	if (!v4)
 		return v3;
 	v5 = nox_xxx_netOnPacketRecvCli_48EA70(v1, (unsigned int)v4, a1);

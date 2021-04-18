@@ -3,6 +3,7 @@
 #include "client__network__cdecode.h"
 #include "client__system__parsecmd.h"
 #include "common__system__team.h"
+#include "common__net_list.h"
 #include "client__gui__guicon.h"
 #include "proto.h"
 #include "server__system__trade.h"
@@ -397,7 +398,7 @@ int  nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned __int8* a2,
 			v13 = v10[69];
 			*(_DWORD*)&v92[1] = *(_DWORD*)(v4 + 1);
 			v92[0] = -85;
-			nox_xxx_netAddToMsgListCli_40EBC0(*(unsigned __int8*)(v13 + 2064), 1, v92, 5);
+			nox_netlist_addToMsgListCli_40EBC0(*(unsigned __int8*)(v13 + 2064), 1, v92, 5);
 			v4 += 5;
 			break;
 		case 0xABu:

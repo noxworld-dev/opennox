@@ -18,6 +18,7 @@
 #include "client__gui__window.h"
 #include "client__shell__mainmenu.h"
 #include "common__gamemech__pausefx.h"
+#include "common__net_list.h"
 
 #include "client__audio__audevent.h"
 
@@ -7051,7 +7052,7 @@ int  nox_xxx_clientSendAbil_45DAF0(int a1) {
 		if (a1) {
 			HIBYTE(v3) = a1;
 			LOBYTE(v3) = 122;
-			result = nox_xxx_netAddToMsgListCli_40EBC0(31, 0, &v3, 2);
+			result = nox_netlist_addToMsgListCli_40EBC0(31, 0, &v3, 2);
 		}
 	}
 	return result;
@@ -7078,7 +7079,7 @@ int  nox_xxx_clientSendSpell_45DB20(char* a1, int a2, char a3) {
 			v5 += 4;
 		} while (v4 < 5);
 		v6[21] = a3;
-		result = nox_xxx_netAddToMsgListCli_40EBC0(31, 0, v6, 22);
+		result = nox_netlist_addToMsgListCli_40EBC0(31, 0, v6, 22);
 	}
 	return result;
 }
