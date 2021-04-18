@@ -7,6 +7,7 @@ package main
 #include "common__log.h"
 #include "common__system__team.h"
 #include "common__system__gamedisk.h"
+#include "common__net_list.h"
 #include "client__system__gameloop.h"
 #include "client__drawable__drawdb.h"
 
@@ -612,7 +613,7 @@ func CONNECT_SERVER(host string, port int, data []byte) *connectFailErr {
 	if !noxflags.HasGame(noxflags.GameHost) {
 		C.dword_5d4594_2649712 |= 0x80000000
 	}
-	C.nox_xxx_netBufs_40ED10(31, 0)
+	C.nox_netlist_xxx_40ED10(31, 0)
 	C.nox_xxx_set3512_40A340(0)
 	nox_xxx_setMapCRC_40A360(0)
 
@@ -633,7 +634,7 @@ func CONNECT_SERVER(host string, port int, data []byte) *connectFailErr {
 		}
 		C.nox_xxx_servNetInitialPackets_552A80(C.nox_xxx_netStructID_815700, 1)
 		C.nox_xxx_netSendBySock_40EE10(C.nox_xxx_netStructID_815700, 31, 0)
-		C.nox_xxx_netBufs_40ED10(31, 0)
+		C.nox_netlist_xxx_40ED10(31, 0)
 		C.nox_xxx_netMaybeSendAll_552460()
 		if nox_xxx_getMapCRC_40A370() != 0 {
 			break
@@ -842,7 +843,7 @@ func nox_xxx_cliSetupSession_437190() {
 	C.sub_446580(1)
 	C.sub_48D760()
 	if !noxflags.HasGame(noxflags.GameHost) {
-		C.sub_40EE60()
+		C.nox_netlist_xxx_40EE60()
 	}
 	C.sub_417CF0()
 	*memmap.PtrUint32(0x5D4594, 2616328) = 0
@@ -899,6 +900,6 @@ func nox_xxx_servEndSession_4D3200() {
 		}
 	}
 	C.sub_56F3B0()
-	C.sub_40EE60()
+	C.nox_netlist_xxx_40EE60()
 	_ = fs.Remove(fmt.Sprintf("%s\\Save\\_temp_.dat", getDataPath()))
 }

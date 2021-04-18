@@ -7,6 +7,7 @@
 #include "client__io__console.h"
 #include "common__binfile.h"
 #include "common__log.h"
+#include "common__net_list.h"
 
 extern _DWORD nox_client_gui_flag_1556112;
 extern _DWORD nox_game_loop_xxx_805872;
@@ -185,7 +186,7 @@ void cleanup() {
 	sub_42EDC0();
 	sub_42CD90();
 	nox_strman_free_410020();
-	nox_xxx_net_40EA70();
+	nox_netlist_freeMsgBufs_40EA70();
 	sub_40D0F0();
 	sub_40E070();
 	sub_4D11D0();

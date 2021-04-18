@@ -2,6 +2,7 @@
 #include "client__gui__guigen.h"
 #include "common__random.h"
 #include "common__binfile.h"
+#include "common__net_list.h"
 
 #include "proto.h"
 
@@ -3793,7 +3794,7 @@ int  nox_xxx_netSendFxAllCli_523030(float2* a1, const void* a2, int a3) {
 			if (a1->field_4 > (double)v14) {
 				v15 = v11 + v8 + 50.0;
 				if (a1->field_4 < (double)v15)
-					nox_xxx_netAddToMsgListCli_40EBC0(*(unsigned __int8*)(v5 + 2064), 1, a2, a3);
+					nox_netlist_addToMsgListCli_40EBC0(*(unsigned __int8*)(v5 + 2064), 1, a2, a3);
 			}
 		}
 		result = nox_xxx_getNextPlayerUnit_4DA7F0(i);
@@ -3971,7 +3972,7 @@ int  nox_xxx_servCode_523340(int* a1, const void* a2, int a3) {
 		}
 		if (!((unsigned __int8)v16 & (unsigned __int8)v10) && (double)v19 <= v11 && (double)v21 >= v23 &&
 			(double)v20 <= v25 && (double)v22 >= v24) {
-			nox_xxx_netAddToMsgListCli_40EBC0(*(unsigned __int8*)(v5 + 2064), 1, a2, a3);
+			nox_netlist_addToMsgListCli_40EBC0(*(unsigned __int8*)(v5 + 2064), 1, a2, a3);
 		}
 		result = nox_xxx_getNextPlayerUnit_4DA7F0(i);
 	}
@@ -4017,7 +4018,7 @@ int  nox_xxx_netClientPredictLinear_523530(int a1) {
 	v14[13] = (__int64)v11;
 	result = nox_xxx_getFirstPlayerUnit_4DA7C0();
 	for (i = result; result; i = result) {
-		nox_xxx_netAddToMsgListCli_40EBC0(*(unsigned __int8*)(*(_DWORD*)(*(_DWORD*)(i + 748) + 276) + 2064), 1, v14, 14);
+		nox_netlist_addToMsgListCli_40EBC0(*(unsigned __int8*)(*(_DWORD*)(*(_DWORD*)(i + 748) + 276) + 2064), 1, v14, 14);
 		result = nox_xxx_getNextPlayerUnit_4DA7F0(i);
 	}
 	return result;
@@ -8282,12 +8283,12 @@ int  nox_xxx_monsterCmdSend_528BD0(int a1, int a2, const char* a3, __int16 a4) {
 	strcpy(&v10[11], a3);
 	if (a2) {
 		if (*(_BYTE*)(a2 + 8) & 4)
-			result = nox_xxx_netAddToMsgListCli_40EBC0(*(unsigned __int8*)(*(_DWORD*)(*(_DWORD*)(a2 + 748) + 276) + 2064), 1, v10,
+			result = nox_netlist_addToMsgListCli_40EBC0(*(unsigned __int8*)(*(_DWORD*)(*(_DWORD*)(a2 + 748) + 276) + 2064), 1, v10,
 								(unsigned __int8)v10[8] + 11);
 	} else {
 		result = nox_xxx_getFirstPlayerUnit_4DA7C0();
 		for (i = result; result; i = result) {
-			nox_xxx_netAddToMsgListCli_40EBC0(*(unsigned __int8*)(*(_DWORD*)(*(_DWORD*)(i + 748) + 276) + 2064), 1, v10,
+			nox_netlist_addToMsgListCli_40EBC0(*(unsigned __int8*)(*(_DWORD*)(*(_DWORD*)(i + 748) + 276) + 2064), 1, v10,
 					   (unsigned __int8)v10[8] + 11);
 			result = nox_xxx_getNextPlayerUnit_4DA7F0(i);
 		}
@@ -8305,7 +8306,7 @@ int  nox_xxx_netKillChat_528D00(_DWORD* a1) {
 	*(_WORD*)&v3[1] = nox_xxx_netGetUnitCodeServ_578AC0(a1);
 	result = nox_xxx_getFirstPlayerUnit_4DA7C0();
 	for (i = result; result; i = result) {
-		nox_xxx_netAddToMsgListCli_40EBC0(*(unsigned __int8*)(*(_DWORD*)(*(_DWORD*)(i + 748) + 276) + 2064), 1, v3, 3);
+		nox_netlist_addToMsgListCli_40EBC0(*(unsigned __int8*)(*(_DWORD*)(*(_DWORD*)(i + 748) + 276) + 2064), 1, v3, 3);
 		result = nox_xxx_getNextPlayerUnit_4DA7F0(i);
 	}
 	return result;
@@ -8321,7 +8322,7 @@ int nox_xxx_destroyEveryChatMB_528D60() {
 	*(_WORD*)&v2[1] = -8531;
 	result = nox_xxx_getFirstPlayerUnit_4DA7C0();
 	for (i = result; result; i = result) {
-		nox_xxx_netAddToMsgListCli_40EBC0(*(unsigned __int8*)(*(_DWORD*)(*(_DWORD*)(i + 748) + 276) + 2064), 1, v2, 3);
+		nox_netlist_addToMsgListCli_40EBC0(*(unsigned __int8*)(*(_DWORD*)(*(_DWORD*)(i + 748) + 276) + 2064), 1, v2, 3);
 		result = nox_xxx_getNextPlayerUnit_4DA7F0(i);
 	}
 	return result;

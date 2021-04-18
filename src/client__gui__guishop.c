@@ -1,5 +1,6 @@
 #include "client__gui__guishop.h"
 #include "client__gui__window.h"
+#include "common__net_list.h"
 
 #include "proto.h"
 #include "client__gui__guimsg.h"
@@ -75,7 +76,7 @@ void  sub_478880(int a1, __int16 a2) {
 	if (sub_467B00(a1, 1)) {
 		LOWORD(a1) = 5833;
 		HIWORD(a1) = a2;
-		nox_xxx_netAddToMsgListCli_40EBC0(31, 0, &a1, 4);
+		nox_netlist_addToMsgListCli_40EBC0(31, 0, &a1, 4);
 	} else {
 		nox_xxx_clientPlaySoundSpecial_452D80(925, 100);
 		v2 = nox_strman_loadString_40F1D0("pickup.c:CarryingTooMuch", 0, "C:\\NoxPost\\src\\client\\Gui\\GUIShop.c", 207);
@@ -93,7 +94,7 @@ void  sub_4788F0(int a1, int a2) {
 		v3[1] = 23;
 		*(_WORD*)&v3[2] = a1;
 		v3[4] = a2;
-		nox_xxx_netAddToMsgListCli_40EBC0(31, 0, v3, 5);
+		nox_netlist_addToMsgListCli_40EBC0(31, 0, v3, 5);
 	} else {
 		nox_xxx_clientPlaySoundSpecial_452D80(925, 100);
 		v2 = nox_strman_loadString_40F1D0("pickup.c:CarryingTooMuch", 0, "C:\\NoxPost\\src\\client\\Gui\\GUIShop.c", 233);

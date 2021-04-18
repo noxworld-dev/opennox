@@ -7,6 +7,7 @@
 #include "client__shell__wolapi__wollogin.h"
 #include "client__shell__wolapi__wolreg.h"
 #include "common__object__modifier.h"
+#include "common__net_list.h"
 
 #include "client__gui__gamewin__gamewin.h"
 #include "client__gui__gui_ctf.h"
@@ -1073,7 +1074,7 @@ int  nox_xxx_clientEquip_4623B0(int a1) {
 	v4 = HIBYTE(v1);
 	v3[0] = 117;
 	*(_WORD*)&v3[1] = nox_xxx_netGetUnitCodeCli_578B00(a1);
-	return nox_xxx_netAddToMsgListCli_40EBC0(31, 0, v3, 3);
+	return nox_netlist_addToMsgListCli_40EBC0(31, 0, v3, 3);
 }
 
 //----- (004623E0) --------------------------------------------------------
@@ -1675,7 +1676,7 @@ int  nox_xxx_clientDequip_464B70(int a1) {
 	v4 = HIBYTE(v1);
 	v3[0] = 118;
 	*(_WORD*)&v3[1] = nox_xxx_netGetUnitCodeCli_578B00(a1);
-	return nox_xxx_netAddToMsgListCli_40EBC0(31, 0, v3, 3);
+	return nox_netlist_addToMsgListCli_40EBC0(31, 0, v3, 3);
 }
 
 //----- (00464BA0) --------------------------------------------------------
@@ -1710,7 +1711,7 @@ int  nox_xxx_trade_4657B0(__int16 a1) {
 	v2[0] = -55;
 	v2[1] = 30;
 	*(_WORD*)&v2[2] = a1;
-	return nox_xxx_netAddToMsgListCli_40EBC0(31, 0, v2, 4);
+	return nox_netlist_addToMsgListCli_40EBC0(31, 0, v2, 4);
 }
 
 //----- (004657E0) --------------------------------------------------------
@@ -1737,7 +1738,7 @@ int  nox_xxx_clientTrade_465870(__int16 a1) {
 	v2[0] = -55;
 	v2[1] = 28;
 	*(_WORD*)&v2[2] = a1;
-	return nox_xxx_netAddToMsgListCli_40EBC0(31, 0, v2, 4);
+	return nox_netlist_addToMsgListCli_40EBC0(31, 0, v2, 4);
 }
 
 //----- (004658A0) --------------------------------------------------------
@@ -1815,7 +1816,7 @@ int  nox_xxx_clientDrop_465BE0(int2* a1) {
 		v2 = a1->field_4;
 		*(_WORD*)&v3[3] = a1->field_0;
 		*(_WORD*)&v3[5] = v2;
-		result = nox_xxx_netAddToMsgListCli_40EBC0(31, 0, v3, 7);
+		result = nox_netlist_addToMsgListCli_40EBC0(31, 0, v3, 7);
 	}
 	return result;
 }
@@ -1837,7 +1838,7 @@ void  nox_xxx_clientUse_465C70(int a1) {
 		v2 = a1;
 		LOBYTE(a1) = 116;
 		*(_WORD*)((char*)&a1 + 1) = nox_xxx_netGetUnitCodeCli_578B00(v2);
-		nox_xxx_netAddToMsgListCli_40EBC0(31, 0, &a1, 3);
+		nox_netlist_addToMsgListCli_40EBC0(31, 0, &a1, 3);
 	}
 }
 
@@ -3732,7 +3733,7 @@ size_t  nox_xxx_cmdSayDo_46A4B0(wchar_t* a1, int a2) {
 			*(_WORD*)&v8[6] = -1;
 			*(_WORD*)&v8[4] = -1;
 		}
-		result = nox_xxx_netAddToMsgListCli_40EBC0(31, 0, v8, v7 * (unsigned __int8)v8[8] + 11);
+		result = nox_netlist_addToMsgListCli_40EBC0(31, 0, v8, v7 * (unsigned __int8)v8[8] + 11);
 	}
 	return result;
 }

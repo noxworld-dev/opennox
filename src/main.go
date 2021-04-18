@@ -5,6 +5,7 @@ package main
 #include "proto.h"
 #include "common__object__armrlook.h"
 #include "common__object__weaplook.h"
+#include "common__net_list.h"
 #include "client__system__ctrlevnt.h"
 #include "client__system__parsecmd.h"
 #include "common__log.h"
@@ -324,7 +325,7 @@ func runNox(args []string) error {
 	C.nox_xxx_initSinCosTables_414C90()
 	C.nox_xxx_loadMapCycle_4D0A30()
 	C.nox_xxx_mapSelectFirst_4D0E00()
-	C.nox_xxx_netInitMsgBufs_40EA10()
+	C.nox_netlist_initMsgBufs_40EA10()
 	C.sub_40B890(32)
 	C.sub_40B170(32)
 	C.sub_4134D0()
@@ -415,7 +416,7 @@ func cleanup() {
 	C.sub_42EDC0()
 	C.sub_42CD90()
 	nox_strman_free_410020()
-	C.nox_xxx_net_40EA70()
+	C.nox_netlist_freeMsgBufs_40EA70()
 	C.sub_40D0F0()
 	C.sub_40E070()
 	C.sub_4D11D0()

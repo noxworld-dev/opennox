@@ -6,6 +6,7 @@
 #include "client__system__parsecmd.h"
 #include "common__system__settings.h"
 #include "common__system__team.h"
+#include "common__net_list.h"
 
 #include "client__drawable__drawdb.h"
 #include "client__gui__gamewin__gamewin.h"
@@ -4014,7 +4015,7 @@ void  nox_xxx_clientTalk_42E7B0(int a1) {
 		v2 = *(_WORD*)(v1 + 128);
 		LOWORD(a1) = 464;
 		HIWORD(a1) = v2;
-		nox_xxx_netAddToMsgListCli_40EBC0(31, 0, &a1, 4);
+		nox_netlist_addToMsgListCli_40EBC0(31, 0, &a1, 4);
 	}
 }
 
@@ -4026,7 +4027,7 @@ void  nox_xxx_clientCollideOrUse_42E810(int a1) {
 		v1 = a1;
 		LOBYTE(a1) = 123;
 		*(_WORD*)((char*)&a1 + 1) = nox_xxx_netGetUnitCodeCli_578B00(v1);
-		nox_xxx_netAddToMsgListCli_40EBC0(31, 0, &a1, 3);
+		nox_netlist_addToMsgListCli_40EBC0(31, 0, &a1, 3);
 	}
 }
 
@@ -4039,7 +4040,7 @@ void  nox_xxx_clientTrade_42E850(int a1) {
 		sub_47A260() != 1 && nox_gui_xxx_check_446360() != 1) {
 		LOWORD(a1) = 5577;
 		HIWORD(a1) = nox_xxx_netGetUnitCodeCli_578B00(v1);
-		nox_xxx_netAddToMsgListCli_40EBC0(31, 0, &a1, 4);
+		nox_netlist_addToMsgListCli_40EBC0(31, 0, &a1, 4);
 	}
 }
 
@@ -7639,7 +7640,7 @@ BOOL  nox_xxx_clientResetSpriteAndGui_4357D0(int argc, const char** argv) {
 	*getMemU32Ptr(0x587000, 85724) = 0;
 #endif
 	*getMemU32Ptr(0x5D4594, 811064) = nox_client_renderGUI_80828;
-	sub_40EE60();
+	nox_netlist_xxx_40EE60();
 	if (!nox_common_gameFlags_check_40A5C0(1))
 		nox_xxx_cliResetAllPlayers_416E30();
 	BOOL result = nox_xxx_chatInit_48D7D0();
@@ -7708,7 +7709,7 @@ int  nox_xxx_whenServerHostServer_435A10(signed int* a1) {
 		result = nox_xxx_netAddNetStruct4Host_43C7B0(nox_client_getServerConnectAddr(), v3, (int)Data, a1);
 		if (!result)
 			return result;
-		nox_xxx_netBufs_40ED10(31, 0);
+		nox_netlist_xxx_40ED10(31, 0);
 		nox_xxx_set3512_40A340(0);
 		nox_xxx_setMapCRC_40A360(0);
 		result = nox_xxx_servNetInitialPacketsUntilCRC_43CFF0();
@@ -8020,7 +8021,7 @@ int nox_xxx_cliSetupSession_437190() {
 	sub_446580(1);
 	sub_48D760();
 	if (!nox_common_gameFlags_check_40A5C0(1))
-		sub_40EE60();
+		nox_netlist_xxx_40EE60();
 	result = sub_417CF0();
 	*getMemU32Ptr(0x5D4594, 2616328) = 0;
 	*getMemU32Ptr(0x5D4594, 2614252) = 0;

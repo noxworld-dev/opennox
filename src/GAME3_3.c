@@ -7,6 +7,7 @@
 #include "server__magic__plyrspel.h"
 #include "server__object__health.h"
 #include "common__random.h"
+#include "common__net_list.h"
 
 #include "common__gamemech__pausefx.h"
 
@@ -2390,7 +2391,7 @@ int  nox_xxx_netClientSend2_4E53C0(int a1, const void* a2, int a3, int a4, int a
 	int result; // eax
 
 	if (nox_common_gameFlags_check_40A5C0(1)) {
-		nox_xxx_netAddToMsgListCli_40EBC0(a1, 0, a2, a3);
+		nox_netlist_addToMsgListCli_40EBC0(a1, 0, a2, a3);
 		result = 1;
 	} else if (a1 == 255 || (a1 & 0x80u) != 0) {
 		result = 0;
@@ -2601,9 +2602,9 @@ void  nox_xxx_netImportant_4E5770(unsigned __int8 a1, int a2) {
 	v14 = 0;
 	v16 = 1 << a1;
 	v3 = nox_common_playerInfoFromNum_417090(a1);
-	v13 = nox_xxx_netAddToMsgListCli_40EBC0;
+	v13 = nox_netlist_addToMsgListCli_40EBC0;
 	if (a1 != 31)
-		v13 = nox_xxx_netClientSend_0_40ECA0;
+		v13 = nox_netlist_clientSend_0_40ECA0;
 	if (!v3 || !nox_common_gameFlags_check_40A5C0(1) || v3[3680] & 0x10) {
 		v4 = dword_5d4594_1565516;
 		if (dword_5d4594_1565516) {

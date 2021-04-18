@@ -2,6 +2,7 @@
 
 #include "common__random.h"
 #include "common__system__team.h"
+#include "common__net_list.h"
 #include "proto.h"
 #include "client__draw__animdraw.h"
 #include "client__draw__drawrays.h"
@@ -2360,7 +2361,7 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 					*(_DWORD*)&v366[1] = *(_DWORD*)(data + 1);
 				else
 					*(_DWORD*)&v366[1] = v364;
-				nox_xxx_netAddToMsgListCli_40EBC0(a1, 0, v366, 5);
+				nox_netlist_addToMsgListCli_40EBC0(a1, 0, v366, 5);
 			}
 			data += n;
 			break;

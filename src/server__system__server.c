@@ -6,6 +6,7 @@
 #include "client__gui__guiquit.h"
 #include "common__system__settings.h"
 #include "common__telnet__telnetd.h"
+#include "common__net_list.h"
 #include "proto.h"
 #include "server__network__mapsend.h"
 #include "server__network__playback.h"
@@ -819,12 +820,12 @@ void nox_xxx_netlist_4DEB50() {
 	if (nox_common_gameFlags_check_40A5C0(2)) {
 		if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_REPLAY_READ)) {
 			nox_xxx_replayTickMB_4D3580_net_playback(0);
-			nox_xxx_netBufs_40ED10(31, 0);
+			nox_netlist_xxx_40ED10(31, 0);
 		} else {
-			v2 = nox_xxx_netCopyCheckPacketList_40ED60(31, 0, &v3);
+			v2 = nox_netlist_copyPacketList_40ED60(31, 0, &v3);
 			if (v2)
 				nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(31, v2, (signed int)v3);
-			nox_xxx_netBufs_40ED10(31, 0);
+			nox_netlist_xxx_40ED10(31, 0);
 		}
 	}
 }
@@ -852,7 +853,7 @@ void nox_server_updateRemotePlayers_4DEC80() {
 			char buf[3];
 			buf[0] = 39;
 			*(_WORD*)&buf[1] = nox_frame_xxx_2598000;
-			nox_xxx_netAddToMsgListCli_40EBC0(pl->playerInd, 1, buf, sizeof(buf));
+			nox_netlist_addToMsgListCli_40EBC0(pl->playerInd, 1, buf, sizeof(buf));
 		} else {
 			nox_xxx_netUpdate_518EE0(pl->playerUnit);
 		}
@@ -882,10 +883,10 @@ _DWORD*  nox_xxx_netUseMap_4DEE00(const char* a1, int a2) {
 	result = (_DWORD*)nox_xxx_getFirstPlayerUnit_4DA7C0();
 	for (i = result; result; i = result) {
 		v5 = i[187];
-		nox_xxx_netAddToMsgListCli_40EBC0(*(unsigned __int8*)(*(_DWORD*)(v5 + 276) + 2064), 1, v7, 41);
+		nox_netlist_addToMsgListCli_40EBC0(*(unsigned __int8*)(*(_DWORD*)(v5 + 276) + 2064), 1, v7, 41);
 		nox_xxx_netPlayerObjSend_518C30((int)i, i, 0, 0);
 		if (!nox_common_gameFlags_check_40A5C0(2) || *(_BYTE*)(*(_DWORD*)(v5 + 276) + 2064) != 31) {
-			v6 = nox_xxx_netCopyCheckPacketList_40ED60(*(unsigned __int8*)(*(_DWORD*)(v5 + 276) + 2064), 1u, &a1);
+			v6 = nox_netlist_copyPacketList_40ED60(*(unsigned __int8*)(*(_DWORD*)(v5 + 276) + 2064), 1u, &a1);
 			if (v6)
 				nox_xxx_netSendSock_552640(*(unsigned __int8*)(*(_DWORD*)(v5 + 276) + 2064) + 1, v6, (signed int)a1, NOX_NET_SEND_NO_LOCK | NOX_NET_SEND_FLAG2);
 		}
@@ -2723,13 +2724,13 @@ int nox_xxx_gameTick_4D2580_server() {
 	int v2 = 0;
 	unsigned int v3 = HIDWORD(v0);
 	if (!dword_5d4594_2650652) {
-		nox_xxx_netBuf_40EE90(1);
+		nox_netlist_xxx_40EE90(1);
 	} else {
 		unsigned int v4 = nox_xxx_rateGet_40A6C0();
 		if (sub_416650() && sub_41E2F0() == 8)
 			v2 = 1;
 		if (v4 == 1 || nox_common_gameFlags_check_40A5C0(8) || nox_frame_xxx_2598000 % v4 == 1) {
-			nox_xxx_netBuf_40EE90(1);
+			nox_netlist_xxx_40EE90(1);
 		}
 	}
 	sub_502100();
