@@ -338,7 +338,7 @@ int cmain(int argc, const char* argv[]) {
 	nox_xxx_initSinCosTables_414C90();
 	nox_xxx_loadMapCycle_4D0A30();
 	nox_xxx_mapSelectFirst_4D0E00();
-	nox_netlist_initMsgBufs_40EA10();
+	nox_netlist_init_40EA10();
 	sub_40B890(32);
 	sub_40B170(32);
 	sub_4134D0();

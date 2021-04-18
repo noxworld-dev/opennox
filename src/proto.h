@@ -795,7 +795,7 @@ int  sub_4207A0(int a1);
 int  sub_4207D0(int a1);
 int sub_4207E0();
 void  sub_4207F0(int a1);
-void  nox_xxx_net_4209C0(int a1, _QWORD* a2);
+void  nox_netlist_free_item_4209C0(int a1, _QWORD* a2);
 void  sub_4209E0(int* a1, int a2);
 int*******  nox_xxx_unused_420B00(_DWORD* a1, _DWORD* a2);
 int  sub_420B70(_DWORD* a1, _DWORD* a2, int(* a3)(_DWORD, int), int a4);
