@@ -219,7 +219,7 @@ func updateRemotePlayers() {
 			buf[0] = 39
 			binary.LittleEndian.PutUint16(buf[1:], uint16(gameFrame()))
 			// TODO: passing Go pointer
-			C.nox_netlist_addToMsgListCli_40EBC0(C.int(pl.Index()), 1, unsafe.Pointer(&buf[0]), C.int(len(buf)))
+			C.nox_netlist_addToMsgListCli_40EBC0(C.int(pl.Index()), 1, (*C.uchar)(unsafe.Pointer(&buf[0])), C.int(len(buf)))
 		} else {
 			C.nox_xxx_netUpdate_518EE0((*C.uint)(pl.Unit()))
 		}

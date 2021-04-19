@@ -208,7 +208,7 @@ void CONNECT_PREPARE(sm_args_t* args) {
 		nox_xxx_replay_4D3860(Data);
 		*getMemU32Ptr(0x5D4594, 2616328) = nox_xxx_playerNew_4DD320(31, Data);
 		nox_client_setVersion_409AE0(NOX_CLIENT_VERS_CODE);
-		nox_xxx_netlist_494E90(31);
+		nox_netlist_receiveCli_494E90(31);
 		dword_5d4594_811372 = 2;
 		GOTO_CONNECT_RESULT(0);
 	} else {
@@ -366,7 +366,7 @@ void NET_CONNECT_THEN(sm_args_t* args) {
 	if (!nox_common_gameFlags_check_40A5C0(1)) {
 		dword_5d4594_2649712 |= 0x80000000;
 	}
-	nox_netlist_xxx_40ED10(31, 0);
+	nox_netlist_resetByInd_40ED10(31, 0);
 	nox_xxx_set3512_40A340(0);
 	nox_xxx_setMapCRC_40A360(0);
 	GOTO_CONNECT_WAIT_LOOP(nox_platform_get_ticks() + 10000);
@@ -379,7 +379,7 @@ void CONNECT_WAIT_LOOP(sm_args_t* args) {
 
 	nox_xxx_servNetInitialPackets_552A80(nox_xxx_netStructID_815700, 1);
 	nox_xxx_netSendBySock_40EE10(nox_xxx_netStructID_815700, 31, 0);
-	nox_netlist_xxx_40ED10(31, 0);
+	nox_netlist_resetByInd_40ED10(31, 0);
 	nox_xxx_netMaybeSendAll_552460();
 	if (nox_xxx_getMapCRC_40A370()) {
 		GOTO_CONNECT_WAIT_THEN(1);

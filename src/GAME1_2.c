@@ -7640,7 +7640,7 @@ BOOL  nox_xxx_clientResetSpriteAndGui_4357D0(int argc, const char** argv) {
 	*getMemU32Ptr(0x587000, 85724) = 0;
 #endif
 	*getMemU32Ptr(0x5D4594, 811064) = nox_client_renderGUI_80828;
-	nox_netlist_xxx_40EE60();
+	nox_netlist_resetAll_40EE60();
 	if (!nox_common_gameFlags_check_40A5C0(1))
 		nox_xxx_cliResetAllPlayers_416E30();
 	BOOL result = nox_xxx_chatInit_48D7D0();
@@ -7703,13 +7703,13 @@ int  nox_xxx_whenServerHostServer_435A10(signed int* a1) {
 		nox_xxx_replay_4D3860(Data);
 		*getMemU32Ptr(0x5D4594, 2616328) = nox_xxx_playerNew_4DD320(31, (int)Data);
 		nox_client_setVersion_409AE0(NOX_CLIENT_VERS_CODE);
-		nox_xxx_netlist_494E90(31);
+		nox_netlist_receiveCli_494E90(31);
 	} else {
 		v3 = nox_client_getServerPort_43B320();
 		result = nox_xxx_netAddNetStruct4Host_43C7B0(nox_client_getServerConnectAddr(), v3, (int)Data, a1);
 		if (!result)
 			return result;
-		nox_netlist_xxx_40ED10(31, 0);
+		nox_netlist_resetByInd_40ED10(31, 0);
 		nox_xxx_set3512_40A340(0);
 		nox_xxx_setMapCRC_40A360(0);
 		result = nox_xxx_servNetInitialPacketsUntilCRC_43CFF0();
@@ -7886,7 +7886,7 @@ int nox_xxx_client_435F80_draw() {
 	}
 	if (nox_common_gameFlags_check_40A5C0(1)) {
 		nox_xxx_spriteDeleteSomeList_49C4B0();
-		if (!nox_xxx_netlist_494E90(31))
+		if (!nox_netlist_receiveCli_494E90(31))
 			return 1;
 	} else {
 		sub_43CCA0();
@@ -8021,7 +8021,7 @@ int nox_xxx_cliSetupSession_437190() {
 	sub_446580(1);
 	sub_48D760();
 	if (!nox_common_gameFlags_check_40A5C0(1))
-		nox_netlist_xxx_40EE60();
+		nox_netlist_resetAll_40EE60();
 	result = sub_417CF0();
 	*getMemU32Ptr(0x5D4594, 2616328) = 0;
 	*getMemU32Ptr(0x5D4594, 2614252) = 0;

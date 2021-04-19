@@ -5338,37 +5338,6 @@ void  sub_4207F0(int a1) {
 	}
 }
 
-//----- (00420B00) --------------------------------------------------------
-int*******  nox_xxx_unused_420B00(_DWORD* a1, _DWORD* a2) {
-	int******* result; // eax
-	int v3;            // esi
-	int***** v4;       // edx
-	int***** v5;       // edx
-	int****** v6;      // esi
-
-	result = (int*******)a1[1];
-	if (result) {
-		*a2 = result[1];
-		v3 = a1[5];
-		--a1[4];
-		a1[5] = v3 - (_DWORD)result[1];
-		v4 = (int*****)result[3];
-		if (v4)
-			v4[2] = (int****)result[2];
-		else
-			a1[1] = result[2];
-		v5 = (int*****)result[2];
-		if (v5)
-			v5[3] = (int****)result[3];
-		else
-			*a1 = result[3];
-		v6 = *result;
-		nox_netlist_free_item_4209C0((int)a1, result);
-		result = (int*******)v6;
-	}
-	return result;
-}
-
 //----- (00420B70) --------------------------------------------------------
 int  sub_420B70(_DWORD* a1, _DWORD* a2, int(* a3)(_DWORD, int), int a4) {
 	_DWORD* v4; // esi

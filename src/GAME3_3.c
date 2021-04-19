@@ -2577,6 +2577,13 @@ unsigned int  nox_xxx_importantCheckRate2_4E5670(unsigned __int8 a1) {
 	return result;
 }
 
+//----- (004DFB20) --------------------------------------------------------
+int sub_4DFB20() { return *getMemU32Ptr(0x5D4594, 1563312); }
+
+int nox_netlist_clientSendWrap_40ECA0(int ind1, int ind2, unsigned char* buf, int sz) {
+	return nox_netlist_clientSend_0_40ECA0(ind1, ind2, buf, sz, sub_4DFB20());
+}
+
 //----- (004E5770) --------------------------------------------------------
 void  nox_xxx_netImportant_4E5770(unsigned __int8 a1, int a2) {
 	int v2;                                         // edi
@@ -2590,7 +2597,7 @@ void  nox_xxx_netImportant_4E5770(unsigned __int8 a1, int a2) {
 	int v10;                                        // eax
 	int v11;                                        // eax
 	char v12[1];                                    // [esp+13h] [ebp-1Dh]
-	int( * v13)(int, int, const void*, int); // [esp+14h] [ebp-1Ch]
+	int (*v13)(int, int, unsigned char*, int); // [esp+14h] [ebp-1Ch]
 	int v14;                                        // [esp+18h] [ebp-18h]
 	int v15;                                        // [esp+1Ch] [ebp-14h]
 	int v16;                                        // [esp+20h] [ebp-10h]
@@ -2604,7 +2611,7 @@ void  nox_xxx_netImportant_4E5770(unsigned __int8 a1, int a2) {
 	v3 = nox_common_playerInfoFromNum_417090(a1);
 	v13 = nox_netlist_addToMsgListCli_40EBC0;
 	if (a1 != 31)
-		v13 = nox_netlist_clientSend_0_40ECA0;
+		v13 = nox_netlist_clientSendWrap_40ECA0;
 	if (!v3 || !nox_common_gameFlags_check_40A5C0(1) || v3[3680] & 0x10) {
 		v4 = dword_5d4594_1565516;
 		if (dword_5d4594_1565516) {

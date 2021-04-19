@@ -298,7 +298,7 @@ func nox_xxx_servInitialMapLoad_4D17F0() bool {
 		log.Println("gameStateFunc = nox_xxx_gameTick_4D2580_server", nox_xxx_gameTick_4D2580_server)
 	}
 	nox_xxx_setGameState_43DDF0(nox_xxx_gameTick_4D2580_server)
-	C.nox_netlist_xxx_40EE90(1)
+	C.nox_netlist_resetAllInList_40EE90(1)
 	noxflags.SetGame(noxflags.GameFlag18)
 	C.nox_xxx_netGameSettings_4DEF00()
 	C.nox_server_gameUnsetMapLoad_40A690()

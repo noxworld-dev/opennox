@@ -817,7 +817,7 @@ int sub_43C760() {
 	if (!nox_common_gameFlags_check_40A5C0(1))
 		return *getMemU32Ptr(0x5D4594, 815712);
 	v0 = nox_netlist_sizeByInd_40E9F0(31, 1);
-	return v0 + nox_netlist_xxx_40F0D0(31);
+	return v0 + nox_netlist_sizeByInd2_40F0D0(31);
 }
 
 //----- (0043C790) --------------------------------------------------------
@@ -966,7 +966,7 @@ int nox_xxx_cliSendCancelMap_43CAB0() {
 	v0 = nox_xxx_netSendSock_552640(nox_xxx_netStructID_815700, &v2, 1, NOX_NET_SEND_NO_LOCK | NOX_NET_SEND_FLAG2);
 	if (nox_xxx_cliWaitServerResponse_5525B0(nox_xxx_netStructID_815700, v0, 20, 6))
 		return 0;
-	nox_netlist_xxx_40ED10(31, 0);
+	nox_netlist_resetByInd_40ED10(31, 0);
 	return 1;
 }
 
@@ -979,7 +979,7 @@ int nox_xxx_netSendIncomingClient_43CB00() {
 	v0 = nox_xxx_netSendSock_552640(nox_xxx_netStructID_815700, &v2, 1, NOX_NET_SEND_NO_LOCK | NOX_NET_SEND_FLAG2);
 	if (nox_xxx_cliWaitServerResponse_5525B0(nox_xxx_netStructID_815700, v0, 20, 6))
 		return 0;
-	nox_netlist_xxx_40ED10(31, 0);
+	nox_netlist_resetByInd_40ED10(31, 0);
 	return 1;
 }
 
@@ -993,7 +993,7 @@ int nox_xxx_cliSendOutgoingClient_43CB50() {
 	if (nox_xxx_cliWaitServerResponse_5525B0(nox_xxx_netStructID_815700, v0, 20, 6))
 		return 0;
 	nox_xxx_servNetInitialPackets_552A80(nox_xxx_netStructID_815700, 3);
-	nox_netlist_xxx_40ED10(31, 0);
+	nox_netlist_resetByInd_40ED10(31, 0);
 	return 1;
 }
 
@@ -1064,7 +1064,7 @@ void sub_43CCA0() {
 	if (!nox_common_gameFlags_check_40A5C0(1))
 		nox_xxx_netImportant_4E5770(0x1Fu, 0);
 	nox_xxx_netSendBySock_40EE10(nox_xxx_netStructID_815700, 31, 0);
-	nox_netlist_xxx_40ED10(31, 0);
+	nox_netlist_resetByInd_40ED10(31, 0);
 	nox_xxx_netMaybeSendAll_552460();
 	if (!(*getMemU32Ptr(0x5D4594, 815720) || (*getMemU32Ptr(0x5D4594, 815716) != 0))) {
 		return;
@@ -1167,7 +1167,7 @@ int nox_xxx_servNetInitialPacketsUntilCRC_43CFF0() {
 	while ((unsigned __int64)(nox_platform_get_ticks() - start) < 10000) {
 		nox_xxx_servNetInitialPackets_552A80(nox_xxx_netStructID_815700, 1);
 		nox_xxx_netSendBySock_40EE10(nox_xxx_netStructID_815700, 31, 0);
-		nox_netlist_xxx_40ED10(31, 0);
+		nox_netlist_resetByInd_40ED10(31, 0);
 		nox_xxx_netMaybeSendAll_552460();
 		if (nox_xxx_getMapCRC_40A370())
 			return 1;

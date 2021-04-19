@@ -11,8 +11,7 @@
 // TODO: link to those properly
 nox_playerInfo* nox_common_playerInfoFromNum_417090(int i);
 int  nox_xxx_netSendReadPacket_5528B0(unsigned int a1, char a2);
-int  nox_xxx_netlist_494E90(int a1);
-int sub_4DFB20();
+int  nox_netlist_receiveCli_494E90(int a1);
 
 typedef struct {
 	unsigned char buf[2048];
@@ -67,6 +66,16 @@ int  nox_netlist_sizeByInd_40E9F0(int ind1, int ind2) {
 	return nox_netlist_size_420BD0(nox_net_lists[ind2][ind1]);
 }
 
+//----- (0040F0B0) --------------------------------------------------------
+int  nox_netlist_countByInd2_40F0B0(int ind) {
+	return nox_netlist_countByInd_40E9D0(ind, 2);
+}
+
+//----- (0040F0D0) --------------------------------------------------------
+int  nox_netlist_sizeByInd2_40F0D0(int ind) {
+	return nox_netlist_sizeByInd_40E9F0(ind, 2);
+}
+
 //----- (00420890) --------------------------------------------------------
 nox_net_list_t*  nox_netlist_newMsgList_420890(int cnt) {
 	nox_net_list_t* p = malloc(sizeof(nox_net_list_t));
@@ -118,37 +127,33 @@ void nox_netlist_free_40EA70() {
 }
 
 //----- (0040EAC0) --------------------------------------------------------
-bool  nox_xxx_netSend_40EAC0(int a1, int a2, int a3) {
-	int v3; // edi
-
-	if (a2 == 1) {
-		v3 = a1;
-		int psz = nox_netlist_sizeByInd_40E9F0(a1, 1);
-		if ((unsigned int)(psz + a3 + nox_netlist_sizeByInd_40E9F0(a1, 2)) > NOX_NETBUF_MAX_SIZE)
+bool  nox_netlist_checkSizes_40EAC0(int ind1, int ind2, int sz) {
+	if (ind2 == 1) {
+		int psz = nox_netlist_sizeByInd_40E9F0(ind1, 1);
+		if (psz + sz + nox_netlist_sizeByInd_40E9F0(ind1, 2) > NOX_NETBUF_MAX_SIZE)
 			return 0;
 	} else {
-		v3 = a1;
-		if ((unsigned int)(a3 + nox_netlist_sizeByInd_40E9F0(a1, a2)) > NOX_NETBUF_MAX_SIZE)
+		if (sz + nox_netlist_sizeByInd_40E9F0(ind1, ind2) > NOX_NETBUF_MAX_SIZE)
 			return 0;
 	}
-	return nox_netlist_count_420BC0(nox_net_lists[a2][v3]) < NOX_NETBUF_MAX_PACKETS;
+	return nox_netlist_count_420BC0(nox_net_lists[ind2][ind1]) < NOX_NETBUF_MAX_PACKETS;
 }
 
 //----- (0040EB60) --------------------------------------------------------
-bool  nox_xxx_net_40EB60(int ind1, int ind2, int a3) {
+bool  nox_netlist_checkSizesExt_40EB60(int ind1, int ind2, int sz, int sz2) {
 	nox_net_list_t* p = nox_net_lists[ind2][ind1];
 	int psz = nox_netlist_size_420BD0(p);
-	if ((unsigned int)(a3 + psz + sub_4DFB20()) > NOX_NETBUF_MAX_SIZE)
+	if (sz + psz + sz2 > NOX_NETBUF_MAX_SIZE)
 		return 0;
 	return nox_netlist_count_420BC0(p) < NOX_NETBUF_MAX_PACKETS;
 }
 
 //----- (0040EC30) --------------------------------------------------------
-unsigned char* nox_xxx_netSend_40EC30(int a1, int a2, unsigned char* buf, int sz) {
+unsigned char* nox_netlist_sendByInd_40EC30(int ind1, int ind2, unsigned char* buf, int sz) {
 	if (!buf || sz <= 0) {
 		return 0;
 	}
-	nox_net_lists_buf_t* p = &nox_net_lists_buf_arr[a2+1][a1];
+	nox_net_lists_buf_t* p = &nox_net_lists_buf_arr[ind2+1][ind1];
 	int i = p->cur;
 	if (i + sz > 2048) {
 		return 0;
@@ -190,30 +195,30 @@ int  nox_netlist_add_420940(nox_net_list_t* list, int buf, int sz, bool append) 
 }
 
 //----- (0040EBC0) --------------------------------------------------------
-int  nox_netlist_addToMsgListCli_40EBC0(int ind, int ind2, const void* buf, int sz) {
-	nox_net_list_t* p = nox_net_lists[ind2][ind];
+int  nox_netlist_addToMsgListCli_40EBC0(int ind1, int ind2, unsigned char* buf, int sz) {
+	nox_net_list_t* p = nox_net_lists[ind2][ind1];
 	if (sz <= 0)
 		return 1;
-	if (!nox_xxx_netSend_40EAC0(ind, ind2, sz))
+	if (!nox_netlist_checkSizes_40EAC0(ind1, ind2, sz))
 		return 0;
-	void* v6 = nox_xxx_netSend_40EC30(ind, ind2, buf, sz);
-	if (!v6)
+	unsigned char* out = nox_netlist_sendByInd_40EC30(ind1, ind2, buf, sz);
+	if (!out)
 		return 0;
-	nox_netlist_add_420940(p, v6, sz, 1);
+	nox_netlist_add_420940(p, out, sz, 1);
 	return 1;
 }
 
 //----- (0040ECA0) --------------------------------------------------------
-int  nox_netlist_clientSend_0_40ECA0(int ind1, int ind2, const void* a3, int a4) {
+int  nox_netlist_clientSend_0_40ECA0(int ind1, int ind2, unsigned char* buf, int sz, int sz2) {
 	nox_net_list_t* p = nox_net_lists[ind2][ind1];
-	if (a4 <= 0)
+	if (sz <= 0)
 		return 1;
-	if (!nox_xxx_net_40EB60(ind1, ind2, a4))
+	if (!nox_netlist_checkSizesExt_40EB60(ind1, ind2, sz, sz2))
 		return 0;
-	void* v6 = nox_xxx_netSend_40EC30(ind1, ind2, a3, a4);
-	if (!v6)
+	unsigned char* out = nox_netlist_sendByInd_40EC30(ind1, ind2, buf, sz);
+	if (!out)
 		return 0;
-	nox_netlist_add_420940(p, v6, a4, 1);
+	nox_netlist_add_420940(p, out, sz, 1);
 	return 1;
 }
 
@@ -238,7 +243,7 @@ void  nox_netlist_resetList_420830(nox_net_list_t* p) {
 }
 
 //----- (0040ED10) --------------------------------------------------------
-void nox_netlist_xxx_40ED10(int ind1, int ind2) {
+void nox_netlist_resetByInd_40ED10(int ind1, int ind2) {
 	nox_net_list_t* p = nox_net_lists[ind2][ind1];
 	if (p) {
 		nox_netlist_resetList_420830(p);
@@ -253,17 +258,17 @@ void nox_netlist_initPlayerBufs_40F020(int ind) {
 }
 
 //----- (0040EE90) --------------------------------------------------------
-void nox_netlist_xxx_40EE90(int ind) {
+void nox_netlist_resetAllInList_40EE90(int ind) {
 	for (int i = 0; i < NOX_PLAYERINFO_MAX; ++i) {
-		nox_netlist_xxx_40ED10(i, ind);
+		nox_netlist_resetByInd_40ED10(i, ind);
 	}
 }
 
 //----- (0040EE60) --------------------------------------------------------
-void nox_netlist_xxx_40EE60() {
+void nox_netlist_resetAll_40EE60() {
 	for (int i = 0; i < NOX_PLAYERINFO_MAX; ++i) {
-		nox_netlist_xxx_40ED10(i, 1);
-		nox_netlist_xxx_40ED10(i, 0);
+		nox_netlist_resetByInd_40ED10(i, 1);
+		nox_netlist_resetByInd_40ED10(i, 0);
 		nox_netlist_initPlayerBufs_40F020(i);
 	}
 }
@@ -325,13 +330,8 @@ unsigned char* nox_netlist_copyPacketList_40ED60(int ind1, int ind2, unsigned in
 }
 
 //----- (0040EEB0) --------------------------------------------------------
-unsigned char*  nox_netlist_xxx_40EEB0(int ind1, int ind2, unsigned int* a3) {
-	int n = 0;
-	unsigned char* p = nox_netlist_get_420A90(nox_net_lists[ind2][ind1], &n);
-	if (!p)
-		return 0;
-	*a3 = n;
-	return p;
+unsigned char*  nox_netlist_getInd_40EEB0(int ind1, int ind2, unsigned int* outSz) {
+	return nox_netlist_get_420A90(nox_net_lists[ind2][ind1], outSz);
 }
 
 //----- (0040EEF0) --------------------------------------------------------
@@ -342,51 +342,46 @@ bool sub_40EEF0(int ind, int a2) {
 }
 
 //----- (0040F080) --------------------------------------------------------
-unsigned char*  nox_netlist_getData_40F080(int ind, unsigned int* a2) {
-	int n = 0;
-	unsigned char* p = nox_netlist_get_420A90(nox_net_lists[2][ind], &n);
-	if (!p)
-		return 0;
-	*a2 = n;
-	return p;
+unsigned char*  nox_netlist_getByInd2_40F080(int ind, unsigned int* outSz) {
+	return nox_netlist_get_420A90(nox_net_lists[2][ind], outSz);
 }
 
 //----- (004209E0) --------------------------------------------------------
-void  sub_4209E0(int* a1, int a2) {
-	int v2; // eax
-	int v3; // esi
-	int v4; // edx
-	int v5; // edx
+void nox_netlist_findAndFreeBuf_4209E0(nox_net_list_t* list, unsigned char* buf) {
+	if (!list->first)
+		return;
 
-	v2 = *a1;
-	if (*a1) {
-		while (*(unsigned int*)v2 != a2) {
-			v2 = *(unsigned int*)(v2 + 12);
-			if (!v2)
-				return;
-		}
-		if (v2) {
-			v3 = a1[5];
-			--a1[4];
-			a1[5] = v3 - *(unsigned int*)(v2 + 4);
-			v4 = *(unsigned int*)(v2 + 12);
-			if (v4)
-				*(unsigned int*)(v4 + 8) = *(unsigned int*)(v2 + 8);
-			else
-				a1[1] = *(unsigned int*)(v2 + 8);
-			v5 = *(unsigned int*)(v2 + 8);
-			if (v5)
-				*(unsigned int*)(v5 + 12) = *(unsigned int*)(v2 + 12);
-			else
-				*a1 = *(unsigned int*)(v2 + 12);
-			nox_netlist_free_item_4209C0((int)a1, (_QWORD*)v2);
+	nox_net_list_item_t* item = 0;
+	for (nox_net_list_item_t* p = list->first; p; p = p->next) {
+		if (p->buf == buf) {
+			item = p;
+			break;
 		}
 	}
+	if (!item) {
+		return;
+	}
+	list->count--;
+	list->size -= item->size;
+
+	nox_net_list_item_t* next = item->next;
+	if (next)
+		next->prev = item->prev;
+	else
+		list->last = item->prev;
+
+	nox_net_list_item_t* prev = item->prev;
+	if (prev)
+		prev->next = item->next;
+	else
+		list->first = item->next;
+
+	nox_netlist_free_item_4209C0(list, item);
 }
 
 //----- (0040F000) --------------------------------------------------------
-void  nox_netlist_xxx_40F000(int ind, int a2) {
-	sub_4209E0(nox_net_lists[2][ind], a2);
+void  nox_netlist_findAndFreeBuf_40F000(int ind, unsigned char* buf) {
+	nox_netlist_findAndFreeBuf_4209E0(nox_net_lists[2][ind], buf);
 }
 
 //----- (0040EFA0) --------------------------------------------------------
@@ -411,40 +406,21 @@ void sub_40F060() {
 	}
 }
 
-//----- (0040F0B0) --------------------------------------------------------
-int  nox_netlist_xxx_40F0B0(int ind) {
-	return nox_netlist_countByInd_40E9D0(ind, 2);
-}
-
-//----- (0040F0D0) --------------------------------------------------------
-int  nox_netlist_xxx_40F0D0(int ind) {
-	return nox_netlist_sizeByInd_40E9F0(ind, 2);
-}
-
 //----- (00420A60) --------------------------------------------------------
-unsigned int*  sub_420A60(unsigned int* a1, int(* a2)(unsigned int, int), int a3) {
-	unsigned int* result; // eax
-	unsigned int* v4;     // esi
-
-	result = (unsigned int*)*a1;
-	if (*a1) {
-		do {
-			v4 = (unsigned int*)result[3];
-			result = (unsigned int*)a2(*result, a3);
-			if (result)
-				break;
-			result = v4;
-		} while (v4);
+void sub_420A60(nox_net_list_t* list, int(* fnc)(unsigned int, int), int a3) {
+	if (!list->first) {
+		return;
 	}
-	return result;
+	for (nox_net_list_item_t* p = list->first; p; p = p->next) {
+		if (fnc(p->buf, a3))
+			break;
+	}
 }
 
 //----- (0040F0F0) --------------------------------------------------------
-void  nox_netlist_xxx_40F0F0(int ind, int(* a2)(unsigned int, int), int a3) {
-	if (a2) {
-		if (a3) {
-			sub_420A60(nox_net_lists[2][ind], a2, a3);
-		}
+void  nox_netlist_forEach2_40F0F0(int ind, int(* fnc)(unsigned int, int), int a3) {
+	if (fnc && a3) {
+		sub_420A60(nox_net_lists[2][ind], fnc, a3);
 	}
 }
 
@@ -468,7 +444,7 @@ bool nox_netlist_addToMsgListSrv_40EF40(int ind, unsigned char* buf, int sz) {
 
 		// Flush old data to network.
 		if (ind == 31)
-			nox_xxx_netlist_494E90(ind);
+			nox_netlist_receiveCli_494E90(ind);
 		else
 			nox_xxx_netSendReadPacket_5528B0(*((DWORD*)nox_common_playerInfoFromNum_417090(ind) + 516) + 1, 0);
 

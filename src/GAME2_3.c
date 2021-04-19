@@ -1992,27 +1992,26 @@ unsigned __int8*  nox_xxx_netCliUpdateStream2_494C30(unsigned __int8* a1, int a2
 }
 
 //----- (00494E90) --------------------------------------------------------
-int  nox_xxx_netlist_494E90(int a1) {
-	int v1;              // esi
-	unsigned __int8* v2; // eax
-	int v3;              // edi
-	unsigned __int8* v4; // eax
-	int v5;              // esi
+int  nox_netlist_receiveCli_494E90(int ind) {
+	int res = 0;
 
-	v1 = a1;
-	v2 = nox_netlist_copyPacketList2_40F120(a1, &a1);
-	if (v2) {
-		v3 = nox_xxx_netOnPacketRecvCli_48EA70(v1, (unsigned int)v2, a1);
+	int n1 = 0;
+	unsigned char* buf1 = nox_netlist_copyPacketList2_40F120(ind, &n1);
+	if (buf1) {
+		res = nox_xxx_netOnPacketRecvCli_48EA70(ind, buf1, n1);
 	} else {
-		v3 = a1;
+		res = n1;
 	}
-	v4 = nox_netlist_copyPacketList_40ED60(v1, 1u, &a1);
-	if (!v4)
-		return v3;
-	v5 = nox_xxx_netOnPacketRecvCli_48EA70(v1, (unsigned int)v4, a1);
-	if (v5)
-		sub_48D660();
-	return v5;
+
+	int n2 = 0;
+	unsigned char* buf2 = nox_netlist_copyPacketList_40ED60(ind, 1, &n2);
+	if (buf2) {
+		res = nox_xxx_netOnPacketRecvCli_48EA70(ind, buf2, n2);
+		if (res) {
+			sub_48D660();
+		}
+	}
+	return res;
 }
 
 //----- (00494F00) --------------------------------------------------------
