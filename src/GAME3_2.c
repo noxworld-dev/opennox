@@ -1956,7 +1956,7 @@ int nox_xxx_servNewSession_4D1660() {
 	nox_xxx_servResetObjectGIDs_4E3C70();
 	sub_56F1C0();
 	nox_xxx_cliResetAllPlayers_416E30();
-	nox_netlist_xxx_40EE60();
+	nox_netlist_resetAll_40EE60();
 	sub_4E4EF0();
 	sub_4E4ED0();
 	if (!nox_xxx_allocAudEventArray_501860()) {
@@ -2042,7 +2042,7 @@ int nox_xxx_servInitialMapLoad_4D17F0() {
 		return 0;
 	}
 	nox_xxx_setGameState_43DDF0(nox_xxx_gameTick_4D2580_server);
-	nox_netlist_xxx_40EE90(1);
+	nox_netlist_resetAllInList_40EE90(1);
 	nox_xxx_setGameFlags_40A4D0(0x20000);
 	nox_xxx_netGameSettings_4DEF00();
 	nox_server_gameUnsetMapLoad_40A690();
@@ -2199,7 +2199,7 @@ BOOL nox_xxx_servEndSession_4D3200() {
 	}
 	sub_56F3B0();
 	nullsub_23();
-	nox_netlist_xxx_40EE60();
+	nox_netlist_resetAll_40EE60();
 	v0 = nox_fs_root();
 	nox_sprintf(FileName, "%s\\Save\\_temp_.dat", v0);
 	return nox_fs_remove(FileName);
@@ -8555,7 +8555,7 @@ _DWORD*  nox_xxx_playerNew_4DD320(int ind, void* data) {
 			return 0;
 	}
 	char* v5 = sub_416640();
-	nox_netlist_xxx_40ED10(ind, 1);
+	nox_netlist_resetByInd_40ED10(ind, 1);
 	nox_xxx_playerResetImportantCtr_4E4F40(ind);
 	sub_4E4F30(ind);
 
@@ -8817,7 +8817,7 @@ void nox_xxx_netSendBySock_4DDDC0(int a1) {
 		v3 = nox_netlist_copyPacketList_40ED60(a1, 1u, &a1);
 		if (v3)
 			nox_xxx_netSendSock_552640(v2 + 1, v3, a1, NOX_NET_SEND_NO_LOCK | NOX_NET_SEND_FLAG2);
-		nox_netlist_xxx_40ED10(v2, 1);
+		nox_netlist_resetByInd_40ED10(v2, 1);
 	}
 }
 
@@ -9670,7 +9670,7 @@ int  sub_4DF5E0(int a1, int a2) {
 	v3[1] = *getMemU32Ptr(0x5D4594, 1563296);
 	v3[2] = a2;
 	*getMemU32Ptr(0x5D4594, 1563300) = 0;
-	nox_netlist_xxx_40F0F0(a1, sub_4DF580, (int)v3);
+	nox_netlist_forEach2_40F0F0(a1, sub_4DF580, (int)v3);
 	return *getMemU32Ptr(0x5D4594, 1563300);
 }
 
@@ -9699,12 +9699,12 @@ int  nox_xxx_netFn_UpdateStream_4DF630(int a1, char* a2, unsigned int a3, void* 
 	*getMemU32Ptr(0x5D4594, 1563308) = 0;
 	*getMemU32Ptr(0x5D4594, 1563312) = 0;
 	*getMemU32Ptr(0x5D4594, 1563304) = v6 + 16;
-	v7 = nox_netlist_getData_40F080(a1 - 1, &a3);
+	v7 = nox_netlist_getByInd2_40F080(a1 - 1, &a3);
 	if (nox_xxx_chkIsMsgTimestamp_4DF7F0(v7)) {
 		v8 = a3;
 		memcpy(a2, v7, a3);
 		v3 = &a2[v8];
-		v9 = nox_netlist_getData_40F080(v4, &a3);
+		v9 = nox_netlist_getByInd2_40F080(v4, &a3);
 		if (v9) {
 			*v3 = -92;
 			v10 = v3 + 1;
@@ -9719,7 +9719,7 @@ int  nox_xxx_netFn_UpdateStream_4DF630(int a1, char* a2, unsigned int a3, void* 
 			v3 = &v13[sub_4DF8C0(v13, (int)v5)];
 		}
 	}
-	for (i = nox_netlist_xxx_40EEB0(v4, 1, &a3); i; i = nox_netlist_xxx_40EEB0(v4, 1, &a3)) {
+	for (i = nox_netlist_getInd_40EEB0(v4, 1, &a3); i; i = nox_netlist_getInd_40EEB0(v4, 1, &a3)) {
 		if (*(char*)i != -107 || *(int*)&dword_5d4594_2650652 != 1 ||
 			!(nox_frame_xxx_2598000 % (unsigned int)nox_xxx_rateGet_40A6C0())) {
 			v16 = sub_4DFAF0(v3, (int)v5, i, a3);
@@ -9732,7 +9732,7 @@ int  nox_xxx_netFn_UpdateStream_4DF630(int a1, char* a2, unsigned int a3, void* 
 	if (!dword_5d4594_2650652 || !(nox_frame_xxx_2598000 % (unsigned int)nox_xxx_rateGet_40A6C0()) ||
 		nox_common_gameFlags_check_40A5C0(8)) {
 		nox_xxx_netImportant_4E5770(v4, 1);
-		for (j = nox_netlist_xxx_40EEB0(v4, 1, &a3); j; j = nox_netlist_xxx_40EEB0(v4, 1, &a3)) {
+		for (j = nox_netlist_getInd_40EEB0(v4, 1, &a3); j; j = nox_netlist_getInd_40EEB0(v4, 1, &a3)) {
 			v18 = sub_4DFAF0(v3, (int)v5, j, a3);
 			if (!v18)
 				break;
@@ -9804,7 +9804,7 @@ _BYTE*  sub_4DF8F0(int a1, _BYTE* a2, int a3) {
 
 	v3 = a2;
 	v4 = 127;
-	if (!nox_netlist_xxx_40F0B0(a1))
+	if (!nox_netlist_countByInd2_40F0B0(a1))
 		return 0;
 	v6 = sub_4DF5E0(a1, 127);
 	if (!v6) {
@@ -9828,7 +9828,7 @@ LABEL_9:
 	v8 = sub_4DF9B0((int)v3, a3, v6, v7);
 	if (v8 == -1)
 		return (_BYTE*)(v3 - a2);
-	nox_netlist_xxx_40F000(a1, v6);
+	nox_netlist_findAndFreeBuf_40F000(a1, v6);
 	return &v3[v8 - (_DWORD)a2];
 }
 
@@ -9897,9 +9897,6 @@ signed int  sub_4DFAF0(void* a1, int a2, const void* a3, signed int a4) {
 	memcpy(a1, a3, a4);
 	return result;
 }
-
-//----- (004DFB20) --------------------------------------------------------
-int sub_4DFB20() { return *getMemU32Ptr(0x5D4594, 1563312); }
 
 //----- (004DFB50) --------------------------------------------------------
 _DWORD*  sub_4DFB50(int a1, int a2) {

@@ -401,7 +401,7 @@ func CONNECT_OR_HOST() {
 		C.nox_xxx_replay_4D3860(unsafe.Pointer(&Datas[0]))
 		*memmap.PtrPtr(0x5D4594, 2616328) = newPlayer(31, unsafe.Pointer(&Datas[0]))
 		C.nox_client_setVersion_409AE0(NOX_CLIENT_VERS_CODE)
-		C.nox_xxx_netlist_494E90(31)
+		C.nox_netlist_receiveCli_494E90(31)
 		C.dword_5d4594_811372 = 2
 	} else {
 		host := clientGetServerHost()
@@ -612,7 +612,7 @@ func CONNECT_SERVER(host string, port int, data []byte) *connectFailErr {
 	if !noxflags.HasGame(noxflags.GameHost) {
 		C.dword_5d4594_2649712 |= 0x80000000
 	}
-	C.nox_netlist_xxx_40ED10(31, 0)
+	C.nox_netlist_resetByInd_40ED10(31, 0)
 	C.nox_xxx_set3512_40A340(0)
 	nox_xxx_setMapCRC_40A360(0)
 
@@ -633,7 +633,7 @@ func CONNECT_SERVER(host string, port int, data []byte) *connectFailErr {
 		}
 		C.nox_xxx_servNetInitialPackets_552A80(C.uint(memmap.Uint32(0x5D4594, 815700)), 1)
 		C.nox_xxx_netSendBySock_40EE10(C.uint(memmap.Uint32(0x5D4594, 815700)), 31, 0)
-		C.nox_netlist_xxx_40ED10(31, 0)
+		C.nox_netlist_resetByInd_40ED10(31, 0)
 		C.nox_xxx_netMaybeSendAll_552460()
 		if nox_xxx_getMapCRC_40A370() != 0 {
 			break
@@ -842,7 +842,7 @@ func nox_xxx_cliSetupSession_437190() {
 	C.sub_446580(1)
 	C.sub_48D760()
 	if !noxflags.HasGame(noxflags.GameHost) {
-		C.nox_netlist_xxx_40EE60()
+		C.nox_netlist_resetAll_40EE60()
 	}
 	C.sub_417CF0()
 	*memmap.PtrUint32(0x5D4594, 2616328) = 0
@@ -899,6 +899,6 @@ func nox_xxx_servEndSession_4D3200() {
 		}
 	}
 	C.sub_56F3B0()
-	C.nox_netlist_xxx_40EE60()
+	C.nox_netlist_resetAll_40EE60()
 	_ = fs.Remove(fmt.Sprintf("%s\\Save\\_temp_.dat", getDataPath()))
 }

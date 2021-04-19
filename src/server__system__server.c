@@ -820,12 +820,12 @@ void nox_xxx_netlist_4DEB50() {
 	if (nox_common_gameFlags_check_40A5C0(2)) {
 		if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_REPLAY_READ)) {
 			nox_xxx_replayTickMB_4D3580_net_playback(0);
-			nox_netlist_xxx_40ED10(31, 0);
+			nox_netlist_resetByInd_40ED10(31, 0);
 		} else {
 			v2 = nox_netlist_copyPacketList_40ED60(31, 0, &v3);
 			if (v2)
 				nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(31, v2, (signed int)v3);
-			nox_netlist_xxx_40ED10(31, 0);
+			nox_netlist_resetByInd_40ED10(31, 0);
 		}
 	}
 }
@@ -2724,13 +2724,13 @@ int nox_xxx_gameTick_4D2580_server() {
 	int v2 = 0;
 	unsigned int v3 = HIDWORD(v0);
 	if (!dword_5d4594_2650652) {
-		nox_netlist_xxx_40EE90(1);
+		nox_netlist_resetAllInList_40EE90(1);
 	} else {
 		unsigned int v4 = nox_xxx_rateGet_40A6C0();
 		if (sub_416650() && sub_41E2F0() == 8)
 			v2 = 1;
 		if (v4 == 1 || nox_common_gameFlags_check_40A5C0(8) || nox_frame_xxx_2598000 % v4 == 1) {
-			nox_netlist_xxx_40EE90(1);
+			nox_netlist_resetAllInList_40EE90(1);
 		}
 	}
 	sub_502100();
