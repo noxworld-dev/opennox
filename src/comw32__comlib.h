@@ -1,11 +1,7 @@
 #ifndef NOX_PORT_COMW32_COMLIB
 #define NOX_PORT_COMW32_COMLIB
 
-#ifndef _WIN32
-#include <sys/socket.h>
-#else
-#include <winsock.h>
-#endif
+#include "nox_net.h"
 
 #include "defs.h"
 
