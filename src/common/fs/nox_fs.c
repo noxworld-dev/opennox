@@ -451,7 +451,7 @@ void nox_fs_close(FILE* f) {
 }
 
 void nox_fs_flush(FILE* f) {
-	nox_fs_flush(f);
+	fflush(f);
 }
 
 bool nox_fs_move(const char* src, const char* dst) {
