@@ -5,6 +5,7 @@ on:
       - master
       - dev
       - ci_tests
+      - dennwc
   pull_request:
     branches:
       - master
