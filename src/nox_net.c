@@ -231,14 +231,22 @@ int nox_net_recv_available(nox_socket_t s, unsigned int* out) {
 		*out = EM_ASM_INT({ return network.available($0); }, s);
 		return 0;
     #else // !__EMSCRIPTEN__
+    #ifdef _WIN32
+		return ioctlsocket(s, FIONREAD, out);
+    #else // !_WIN32
 		return ioctl(s, FIONREAD, out);
+    #endif // _WIN32
     #endif // __EMSCRIPTEN__
 }
 
 int nox_net_non_blocking(nox_socket_t s, int enabled) {
 	int ret = 0;
 	#ifndef __EMSCRIPTEN__
+    #ifdef _WIN32
+		ret = ioctlsocket(s, FIONBIO, &enabled);
+    #else // !_WIN32
 		ret = ioctl(s, FIONBIO, &enabled);
-    #endif
+    #endif // _WIN32
+    #endif // __EMSCRIPTEN__
     return ret;
 }
