@@ -3254,7 +3254,7 @@ LABEL_32:
 			a1a.field_4 = a1[1] - a1[5] + nox_float2int(a4.field_4);
 			a2.field_0 = *a1 - a1[4] + nox_float2int(v78.field_0);
 			a2.field_4 = a1[1] - a1[5] + nox_float2int(v78.field_4);
-			// dprintf("%d\t%d\t%d %d %d %d", v72, *(unsigned __int8 *)(v19 + 56), a1a.field_0, a1a.field_4,
+			// _dprintf("%d\t%d\t%d %d %d %d", v72, *(unsigned __int8 *)(v19 + 56), a1a.field_0, a1a.field_4,
 			// a2.field_0, a2.field_4);
 			if (sub_57BA30(&a1a, &a2, (int4*)a1)) {
 				v47 = dword_5d4594_1217464;

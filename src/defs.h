@@ -32,9 +32,8 @@
 #include "memmap.h"
 #include "common/platform/platform.h"
 
-#ifdef __EMSCRIPTEN__
-#define wchar_t int16_t
-#endif
+#include "static_assert.h"
+#include "nox_wchar.h"
 
 #ifdef _WIN32
 // added for TDM-GCC/MinGW headers compatibility
@@ -45,8 +44,6 @@ typedef long LSTATUS;
 #include <windows.h>
 //#include <mmreg.h>
 
-#include "static_assert.h"
-
 #else // _WIN32
 #include "windows_compat.h"
 #endif // _WIN32
@@ -56,10 +53,6 @@ typedef long LSTATUS;
 #include "common__strman.h"
 #include "noxstring.h"
 #include <stdbool.h>
-
-#ifndef _WIN32
-#include "common__poison.h"
-#endif // _WIN32
 
 #include "common/alloc/classes/alloc_class.h"
 #include "client__gui__window.h"

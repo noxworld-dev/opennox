@@ -1,8 +1,7 @@
 #ifndef NOX_STRING_H
 #define NOX_STRING_H
 #include <stdarg.h>
-#include <wchar.h>
-#include "common__poison.h"
+#include "nox_wchar.h"
 
 int _nox_wcsicmp(const wchar_t* string1, const wchar_t* string2);
 int nox_wsprintfA(char* lpBuffer, const char* lpFmt, ...);
@@ -24,7 +23,6 @@ int nox_sprintf(char* str, const char* format, ...);
 int nox_swprintf(wchar_t* str, const wchar_t* fmt, ...);
 int nox_vswprintf(wchar_t* str, const wchar_t* fmt, va_list ap);
 
-#define dprintf _dprintf
 void _dprintf(const char* fmt, ...);
 
 void dhexdump(const char* data, unsigned int len);

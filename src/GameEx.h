@@ -8,7 +8,6 @@ typedef intptr_t INT_PTR;
 #include <mmreg.h>
 #include <windows.h>
 #else
-#include "common__poison.h"
 #include "windows_compat.h"
 #endif
 

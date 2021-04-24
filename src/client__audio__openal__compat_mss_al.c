@@ -216,7 +216,7 @@ static void checkError() {
 	ALCenum error;
 	error = alGetError();
 	if (error != AL_NO_ERROR) {
-		dprintf("AL error: 0x%x\n", error);
+		_dprintf("AL error: 0x%x\n", error);
 		abort();
 	}
 }
@@ -1016,11 +1016,11 @@ DXDEC S32 AILCALL AIL_waveOutOpen(HDIGDRIVER FAR* pdrvr, LPHWAVEOUT FAR* lphWave
 	HDIGDRIVER dig = calloc(1, sizeof(*dig));
 	// fprintf(stderr, "%s\n", __FUNCTION__);
 	dig->device = alcOpenDevice(NULL);
-	dprintf("AL device: %08x", (int)dig->device);
+	_dprintf("AL device: %08x", (int)dig->device);
 	if (!dig->device)
 		checkError();
 	dig->context = alcCreateContext(dig->device, NULL);
-	dprintf("AL context: %08x", (int)dig->context);
+	_dprintf("AL context: %08x", (int)dig->context);
 	if (!dig->context)
 		checkError();
 	alcMakeContextCurrent(dig->context);

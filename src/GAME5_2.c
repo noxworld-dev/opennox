@@ -7213,7 +7213,7 @@ int __thiscall nox_xxx_nxzDecompressImpl_57EA80(_DWORD* this, _BYTE* a2, _DWORD*
 		v13 = *(__int16*)(v6[35] + 2 * v17);
 	LABEL_18:
 		++*(_WORD*)(v6[2] + 2 * v13);
-		// dprintf("decompress: %d", v13);
+		// _dprintf("decompress: %d", v13);
 		if (v13 < 256) {
 			if (a2 < v72) {
 				*a2++ = v13;
@@ -7360,7 +7360,7 @@ int __thiscall nox_xxx_nxzDecompressImpl_57EA80(_DWORD* this, _BYTE* a2, _DWORD*
 		v46 = (*getMemU32Ptr(0x587000, 8 * v71 + 316596) << 9) + (v65 | v43);
 		v47 = v67 + 4;
 		v68 = &a2[v67 + 4];
-		// dprintf("length: %d, distance: %d", v47, v46);
+		// _dprintf("length: %d, distance: %d", v47, v46);
 		if (v68 > v72)
 			return 0;
 		v48 = v6[1] - v46;

@@ -299,7 +299,7 @@ int nox_video_init_renderer_48B000() {
     GLenum err = glewInit();
 	if (GLEW_OK != err) {
 		/* Problem: glewInit failed, something is seriously wrong. */
-		dprintf("Error: %s\n", glewGetErrorString(err));
+		_dprintf("Error: %s\n", glewGetErrorString(err));
 	}
 #endif
 

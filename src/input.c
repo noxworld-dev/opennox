@@ -1019,7 +1019,7 @@ void process_textinput_keyboard_event(const SDL_KeyboardEvent* event) {
 						tmp = &g_ime_raw[i];
 				}
 				if (tmp) {
-					dprintf("BACKSPACE %d", tmp - g_ime_raw);
+					_dprintf("BACKSPACE %d", tmp - g_ime_raw);
 					*tmp = 0;
 					update_ime(0);
 				}
