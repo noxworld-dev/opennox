@@ -4653,9 +4653,9 @@ int  sub_498C20(int2* a1, int2* a2, int a3) {
 	float v26;            // [esp+0h] [ebp-44h]
 	float v27;            // [esp+4h] [ebp-40h]
 	float v28;            // [esp+14h] [ebp-30h]
-	float v29;            // [esp+18h] [ebp-2Ch]
+	float v29 = 0;            // [esp+18h] [ebp-2Ch]
 	float v30;            // [esp+1Ch] [ebp-28h]
-	int v31;              // [esp+20h] [ebp-24h]
+	int v31 = 0;              // [esp+20h] [ebp-24h]
 	int v32;              // [esp+24h] [ebp-20h]
 	unsigned __int8* v33; // [esp+28h] [ebp-1Ch]
 	int2 a1a;             // [esp+2Ch] [ebp-18h]
@@ -7054,7 +7054,7 @@ int  sub_49D680(int a1, int a2, int a3, int a4) {
 
 //----- (0049D6F0) --------------------------------------------------------
 __int16  sub_49D6F0(int a1, int a2, unsigned int a3, int a4) {
-	unsigned int v4; // eax
+	unsigned int v4 = 0; // eax
 	_DWORD* v5;      // esi
 	int v6;          // edx
 	int v7;          // ebx

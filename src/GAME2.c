@@ -2138,7 +2138,7 @@ _DWORD*  nox_xxx_draw_452300(_DWORD* a1) {
 
 //----- (004523D0) --------------------------------------------------------
 int  sub_4523D0(_DWORD* a1) {
-	int result; // eax
+	int result = 0; // eax
 
 	if (!(a1[6] & 1)) {
 		sub_452410((int)a1);
@@ -5265,7 +5265,7 @@ int  sub_459F40_drawable(int a1) {
 //----- (00459F70) --------------------------------------------------------
 _DWORD*  sub_459F70(nox_drawable* dr) {
 	_DWORD* a1 = dr;
-	_DWORD* result; // eax
+	_DWORD* result = 0; // eax
 	int v2;         // ecx
 	int v3;         // ecx
 
@@ -5745,7 +5745,7 @@ int*  sub_45A9B0(int a1, int a2) {
 	int v3;      // ebp
 	char* v4;    // eax
 	char* v5;    // edi
-	int* result; // eax
+	int* result = 0; // eax
 	int v7;      // edi
 	int v8;      // ebx
 	int v9;      // eax
@@ -7871,7 +7871,7 @@ void sub_4603F0() {
 
 //----- (00460440) --------------------------------------------------------
 void sub_460440() {
-	_DWORD* result; // eax
+	_DWORD* result = 0; // eax
 
 	if (nox_xxx_checkKeybTimeout_4160F0(6u, nox_gameFPS >> 1)) {
 		LOBYTE(result) = 0;

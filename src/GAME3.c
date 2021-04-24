@@ -4144,7 +4144,7 @@ LABEL_22:
 int  sub_4AABE0(int a1, int a2, int* a3, int a4) {
 	int v4;                                     // eax
 	int v5;                                     // eax
-	int result;                                 // eax
+	int result = 0;                                 // eax
 	int v7;                                     // edi
 	int v8;                                     // esi
 	void( * v9)(_DWORD, int, int, int);  // eax
@@ -5832,7 +5832,7 @@ int  sub_4ADEF0(_DWORD* a1, int a2) {
 
 //----- (004ADF30) --------------------------------------------------------
 int  nox_xxx_windowOptionsProc_4ADF30(int a1, int a2, int* a3, int a4) {
-	int result;                                 // eax
+	int result = 0;                                 // eax
 	int v5;                                     // edi
 	int v6;                                     // esi
 	void( * v7)(_DWORD, int, int, int);  // eax

@@ -80,7 +80,7 @@ DWORD dword_973C64;
 int  nox_client_drawXxx_444AC0(int w, int h, int depth, int flags) {
 	int v5;             // eax
 	bool v6;            // zf
-	unsigned __int8 v7; // al
+	unsigned __int8 v7 = 0; // al
 	int v8;             // esi
 	int v9;             // eax
 	int v10;            // eax
@@ -1202,7 +1202,7 @@ LABEL_6:
 
 //----- (00434CC0) --------------------------------------------------------
 int sub_434CC0() {
-	int v0;       // edi
+	int v0 = 0;       // edi
 	void* result; // eax
 	int i;        // esi
 

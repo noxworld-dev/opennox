@@ -1181,7 +1181,7 @@ int  nox_server_mapRWSecretWalls_4297C0(_DWORD* a1) {
 	int v7;    // eax
 	char v8;   // dl
 	int v9;    // [esp+4h] [ebp-1Ch]
-	int v10;   // [esp+8h] [ebp-18h]
+	int v10 = 0;   // [esp+8h] [ebp-18h]
 	int v11;   // [esp+Ch] [ebp-14h]
 	int4 v12;  // [esp+10h] [ebp-10h]
 

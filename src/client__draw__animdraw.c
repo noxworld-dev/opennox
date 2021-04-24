@@ -224,7 +224,7 @@ bool  nox_things_animate_state_draw_parse(nox_thing* obj, nox_memfile* f, char* 
 		n = nox_memfile_read_u8(f);
 		nox_memfile_skip(f, n);
 
-		unsigned __int8 offset_idx;
+		unsigned __int8 offset_idx = 0;
 		if (params & 2) {
 			offset_idx = 0;
 		} else if (params & 4) {

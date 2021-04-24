@@ -133,7 +133,7 @@ Cvqa_decode::Cvqa_decode()
 	cbf = new int[0x1fff * 16];
 	cbf_new = new int[0x1fff * 16];
 	m_in_decoded = new byte[256 << 10];
-}	
+}
 
 Cvqa_decode::~Cvqa_decode()
 {
@@ -342,22 +342,22 @@ void Cvqa_decode::decode_vqfl_chunk(const byte* s, int cb_s)
 		decode_cbf_chunk(m_in_decoded, cb_in);
 	}
 	else
-		decode_cbf_chunk(s + 8, cb_s - 8);	
+		decode_cbf_chunk(s + 8, cb_s - 8);
 }
 
 void Cvqa_decode::decode_vqfr_chunk(const byte* in_raw, byte* out, t_palet palet)
 {
 	if (!in_raw)
 		return;
-	bool cbf_compressed;
-	const byte* in;
+	bool cbf_compressed = 0;
+	const byte* in = 0;
 	byte* in_decoded = m_in_decoded;
 	while (1)
 	{
 		int id = *(int*)in_raw & vqa_t_mask;
 		int size = reverse(*(int*)(in_raw + 4));
 		bool compressed = in_raw[3] == 'Z';
-		int cb_in;
+		int cb_in = 0;
 		if (id == vqa_cbp_id)
 		{
 			memcpy(cbf_write, in_raw + 8, size);

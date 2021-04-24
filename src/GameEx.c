@@ -830,7 +830,7 @@ unsigned int invalidIpChecker(unsigned int interval, void* param) {
 //----- (10002470) --------------------------------------------------------
 #ifndef NOX_CGO
 int startInvalidIpChecker() {
-	int result; // eax
+	int result = 0; // eax
 
 	if (!dword_587000_87404)
 		result = SDL_AddTimer(300, invalidIpChecker, NULL);

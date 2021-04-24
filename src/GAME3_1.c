@@ -1545,7 +1545,7 @@ __int16  nox_video_drawAnimatedImageOrCursorAt_4BE6D0(int a1, int a2, int a3) {
 
 //----- (004BE710) --------------------------------------------------------
 __int16  sub_4BE710(int a1, int a2, int a3, int a4) {
-	__int16 result; // ax
+	__int16 result = 0; // ax
 	int v5;         // [esp-Ch] [ebp-Ch]
 
 	v5 = *(_DWORD*)(*(_DWORD*)(*(_DWORD*)(a1 + 96) + 4) + 4 * a4);
@@ -3419,8 +3419,8 @@ int  nox_xxx_guiDrawSummonBox_4C1FE0(_DWORD* a1) {
 	char v19;            // [esp+7h] [ebp-2Dh]
 	int v20;             // [esp+8h] [ebp-2Ch]
 	int v21;             // [esp+Ch] [ebp-28h]
-	int v22;             // [esp+10h] [ebp-24h]
-	int v23;             // [esp+14h] [ebp-20h]
+	int v22 = 0;             // [esp+10h] [ebp-24h]
+	int v23 = 0;             // [esp+14h] [ebp-20h]
 	int2 a1a;            // [esp+1Ch] [ebp-18h]
 	int v26;             // [esp+24h] [ebp-10h]
 	int v27;             // [esp+28h] [ebp-Ch]

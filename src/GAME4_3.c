@@ -6379,8 +6379,8 @@ BOOL  nox_xxx_playerAttack_538960(int a1) {
 	unsigned __int8 v72; // al
 	int v73;             // ecx
 	float v75;           // [esp+0h] [ebp-C0h]
-	__int16 v76;         // [esp+17h] [ebp-A9h]
-	int v77;             // [esp+1Ch] [ebp-A4h]
+	__int16 v76 = 0;         // [esp+17h] [ebp-A9h]
+	int v77 = 0;             // [esp+1Ch] [ebp-A4h]
 	int v78;             // [esp+20h] [ebp-A0h]
 	int v79;             // [esp+24h] [ebp-9Ch]
 	int v80;             // [esp+28h] [ebp-98h]

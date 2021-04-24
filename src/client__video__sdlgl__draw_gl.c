@@ -426,8 +426,8 @@ int  nox_client_drawGeneral_4B0340(int a1) // draw general
 	int v3;              // edi
 	int v4;              // ebx
 	int result;          // eax
-	int v7;              // [esp+10h] [ebp-44h]
-	int v8;              // [esp+14h] [ebp-40h]
+	int v7 = 0;              // [esp+10h] [ebp-44h]
+	int v8 = 0;              // [esp+14h] [ebp-40h]
 	int v9;              // [esp+18h] [ebp-3Ch]
 	int v10;             // [esp+1Ch] [ebp-38h]
 	int v11;             // [esp+20h] [ebp-34h]

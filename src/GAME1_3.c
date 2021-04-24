@@ -1096,7 +1096,7 @@ void sub_43CEB0() {
 	unsigned int v1;     // esi
 	unsigned int v2;     // edi
 	unsigned int v3;     // ebx
-	unsigned __int64 v4; // rax
+	unsigned __int64 v4 = 0; // rax
 	unsigned int v5;     // ecx
 	int v6;              // kr00_4
 	unsigned int v7;     // kr08_4
@@ -3802,7 +3802,7 @@ void sub_4445C0() {
 	int v0;     // ebx
 	int v4;     // ebx
 	int v5;     // ebp
-	int v9;     // [esp+10h] [ebp-Ch]
+	int v9 = 0;     // [esp+10h] [ebp-Ch]
 	int v10;    // [esp+14h] [ebp-8h]
 	int v11;    // [esp+18h] [ebp-4h]
 

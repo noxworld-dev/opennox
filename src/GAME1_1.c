@@ -3207,7 +3207,7 @@ void* sub_41D9F0() {
 //----- (0041DA10) --------------------------------------------------------
 int  sub_41DA10(int a1) {
 	_WORD* v1;  // edi
-	int result; // eax
+	int result = 0; // eax
 
 	v1 = *(_WORD**)getMemAt(0x587000, 16 * a1 + 58132);
 	if (v1) {
@@ -4165,7 +4165,7 @@ void  sub_41ECB0(int a1) {
 	int v11;     // eax
 	int v12;     // [esp-4h] [ebp-1Ch]
 	int v13;     // [esp+10h] [ebp-8h]
-	size_t v14;  // [esp+14h] [ebp-4h]
+	size_t v14 = 0;  // [esp+14h] [ebp-4h]
 
 	v1 = a1;
 	v13 = 0;
@@ -5948,7 +5948,7 @@ int  nox_xxx_polygon_421660(int* a1, int a2) {
 	unsigned __int16 v9;  // cx
 	unsigned __int16 v10; // bx
 	unsigned __int8* v11; // esi
-	int4 v12;             // [esp+8h] [ebp-20h]
+	int4 v12 = {0};             // [esp+8h] [ebp-20h]
 	int4 v16;             // [esp+18h] [ebp-10h]
 
 	v2 = 0;
@@ -6042,7 +6042,7 @@ int  sub_421880(int a1, int a2, float a3) {
 	int v5;              // ebx
 	int v6;              // ecx
 	unsigned __int8* v7; // esi
-	int4 v9;             // [esp+10h] [ebp-10h]
+	int4 v9 = {0};             // [esp+10h] [ebp-10h]
 
 	v3 = getMemAt(0x5D4594, 16 * **(_DWORD**)(a2 + 108) + 535844);
 	v9.field_0 = nox_float2int(*((float*)v3 + 1));
@@ -6540,7 +6540,7 @@ int  nox_server_mapRWFloorMap_422230(int a1) {
 	int v60;              // [esp+14h] [ebp-3Ch]
 	int v61;              // [esp+18h] [ebp-38h]
 	int v62;              // [esp+1Ch] [ebp-34h]
-	int v63;              // [esp+20h] [ebp-30h]
+	int v63 = 0;              // [esp+20h] [ebp-30h]
 	int v64 = 0;              // [esp+24h] [ebp-2Ch]
 	int v65 = 0;              // [esp+28h] [ebp-28h]
 	int v66;              // [esp+2Ch] [ebp-24h]
@@ -6974,7 +6974,7 @@ int  nox_xxx_tile_422C10(int a1, int a2) {
 	int v78;     // [esp+1Ch] [ebp-28h]
 	int v79;     // [esp+20h] [ebp-24h]
 	int v80 = 0;     // [esp+24h] [ebp-20h]
-	int v81;     // [esp+28h] [ebp-1Ch]
+	int v81 = 0;     // [esp+28h] [ebp-1Ch]
 	int2 v82;    // [esp+2Ch] [ebp-18h]
 	int4 v83;    // [esp+34h] [ebp-10h]
 

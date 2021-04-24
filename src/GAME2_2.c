@@ -4366,7 +4366,7 @@ __int16  nox_xxx_video_ReadTile_Real_47D4E0(_DWORD* a1) {
 
 //----- (0047D530) --------------------------------------------------------
 void nox_xxx_video_ReadSprite_Real_47D530(void* data) {
-	int v2;      // ecx
+	int v2 = 0;      // ecx
 	bool v6;     // cc
 
 	int width = *((int*)data + 0);
