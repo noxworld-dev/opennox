@@ -12,10 +12,6 @@
 #include <windows.h>
 #endif // _WIN32
 
-#ifndef _WIN32
-#include <dirent.h>
-#include <unistd.h>
-
 char __nox_fs_root[NOX_FILEPATH_MAX+1] = {0};
 
 //----- (00409E10) --------------------------------------------------------
@@ -28,6 +24,10 @@ void nox_fs_set_root(const char* wd) {
 	strncpy(__nox_fs_root, wd, NOX_FILEPATH_MAX);
 	__nox_fs_root[NOX_FILEPATH_MAX] = 0;
 }
+
+#ifndef _WIN32
+#include <dirent.h>
+#include <unistd.h>
 
 //#define DOS2UNIX_LOGGING
 char* dos_to_unix_recurse_paths(char* currentPath, char* unparsedPath) {
