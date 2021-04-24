@@ -103,15 +103,20 @@ int nox_net_recv(nox_socket_t sockfd, void* buffer, unsigned int length) {
 	return recv(sockfd, buffer, length, 0);
 }
 
+// TODO: some better way to hook it for WASM
+#ifdef __EMSCRIPTEN__
+void build_server_info(void* arg);
+#endif // __EMSCRIPTEN__
+
 int nox_net_sendto(nox_socket_t sockfd, void* buffer, unsigned int length, struct nox_net_sockaddr_in* addr) {
 #ifdef __EMSCRIPTEN__
-	unsigned int dest = addr->sin_addr.s_addr;
+	unsigned int dest = addr->sin_addr;
 	unsigned char* p = buffer;
 
 	// broadcast packet
 	if (dest == 0xffffffff) {
 		if (p[2] == 12) {
-			EM_ASM_({network.isready() && network.listServers($0, $1)}, *(DWORD*)(p + 8), sockfd);
+			EM_ASM_({network.isready() && network.listServers($0, $1)}, *(unsigned int*)(p + 8), sockfd);
 		}
 		return length;
 	}
