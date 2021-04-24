@@ -111,7 +111,7 @@ int  nox_video_cursorDrawImpl_477A30(int a1, int a2, int a3) {
 			nox_point mpos = nox_client_getMousePos_4309F0();
 			v19.field_0 = (double)(mpos.x - nox_win_width / 2);
 			v19.field_4 = (double)(mpos.y - nox_win_height / 2);
-			// dprintf("cur %f %f %d", v19.field_0, v19.field_4, nox_xxx_math_509ED0(&v19));
+			// _dprintf("cur %f %f %d", v19.field_0, v19.field_4, nox_xxx_math_509ED0(&v19));
 			v15 = nox_xxx_math_509ED0(&v19) / 8;
 			if (v19.field_4 * v19.field_4 + v19.field_0 * v19.field_0 > 10000.0 ||
 				*getMemU32Ptr(0x5D4594, 2614252) && *(_DWORD*)(*getMemU32Ptr(0x5D4594, 2614252) + 276) == 6) {

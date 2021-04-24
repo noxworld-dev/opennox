@@ -165,7 +165,7 @@ unsigned char* nox_netlist_sendByInd_40EC30(int ind1, int ind2, unsigned char* b
 
 //----- (00420940) --------------------------------------------------------
 int  nox_netlist_add_420940(nox_net_list_t* list, int buf, int sz, bool append) {
-	// dprintf("len %d: %08X %08X", sz, ((unsigned int*)buf)[0], ((unsigned int*)buf)[1]);
+	// _dprintf("len %d: %08X %08X", sz, ((unsigned int*)buf)[0], ((unsigned int*)buf)[1]);
 
 	nox_net_list_item_t* item = nox_alloc_class_new_obj_zero(list->alloc);
 	if (!item)

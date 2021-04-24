@@ -1,5 +1,12 @@
-#ifndef NOX_COMMON_POISON_H
-#define NOX_COMMON_POISON_H
+#ifndef NOX_WCHAR_H
+#define NOX_WCHAR_H
+
+#include <wchar.h>
+#include <wctype.h>
+
+#ifdef __EMSCRIPTEN__
+#define wchar_t int16_t
+#endif
 
 #ifndef _WIN32
 // GCC wchar_t size is different than the one on Windows, so we must poison all the functions that expect invalid size.
@@ -10,4 +17,6 @@
 				wmemcmp wmemcpy wmemmove wmemset wprintf wscanf
 #endif // !_WIN32
 
-#endif // NOX_COMMON_POISON_H
+#include "noxstring.h"
+
+#endif // NOX_WCHAR_H

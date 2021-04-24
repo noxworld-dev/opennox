@@ -167,7 +167,7 @@ void _makepath(char* path, const char* drive, const char* dir, const char* fname
 	sprintf(path, "%s%s%s%s%s%s%s", drive, drive && drive[0] && (!dir || dir[0] != '\\') ? "\\" : "", dir,
 			dir && dir[0] && dir[strlen(dir) - 1] != '\\' ? "\\" : "", fname, ext && ext[0] && ext[0] != '.' ? "." : "",
 			ext);
-	// dprintf("%s: (\"%s\", \"%s\", \"%s\", \"%s\") = \"%s\"", __FUNCTION__, drive, dir, fname, ext, path);
+	// _dprintf("%s: (\"%s\", \"%s\", \"%s\", \"%s\") = \"%s\"", __FUNCTION__, drive, dir, fname, ext, path);
 }
 
 void _splitpath(const char* path, char* drive, char* dir, char* fname, char* ext) {
@@ -210,7 +210,7 @@ void _splitpath(const char* path, char* drive, char* dir, char* fname, char* ext
 		strcpy(ext, path);
 	}
 
-	// dprintf("%s: \"%s\" = (\"%s\", \"%s\", \"%s\", \"%s\")", __FUNCTION__, path, drive, dir, fname, ext);
+	// _dprintf("%s: \"%s\" = (\"%s\", \"%s\", \"%s\", \"%s\")", __FUNCTION__, path, drive, dir, fname, ext);
 }
 
 // Misc functions
@@ -397,7 +397,7 @@ static void fill_find_data(const char* path, LPWIN32_FIND_DATAA lpFindFileData) 
 	lpFindFileData->nFileSizeLow = st.st_size;
 	strcpy(lpFindFileData->cFileName, filename);
 
-	// dprintf("%s: attr=0x%X, filename=%s", __FUNCTION__, lpFindFileData->dwFileAttributes,
+	// _dprintf("%s: attr=0x%X, filename=%s", __FUNCTION__, lpFindFileData->dwFileAttributes,
 	// lpFindFileData->cFileName);
 }
 
@@ -406,7 +406,7 @@ HANDLE WINAPI FindFirstFileA(LPCSTR lpFileName, LPWIN32_FIND_DATAA lpFindFileDat
 	int len = strlen(converted);
 	struct _FIND_FILE* ff = calloc(sizeof(*ff), 1);
 
-	// dprintf("%s: converted=%s", __FUNCTION__, converted);
+	// _dprintf("%s: converted=%s", __FUNCTION__, converted);
 
 	// glob is close enough to the semantics
 	if (len >= 2 && converted[len - 2] == '.' && converted[len - 1] == '*')
@@ -540,7 +540,7 @@ LSTATUS WINAPI RegOpenKeyExA(HKEY hKey, LPCSTR lpSubKey, DWORD ulOptions, REGSAM
 
 LSTATUS WINAPI RegQueryValueExA(HKEY hKey, LPCSTR lpValueName, LPDWORD lpReserved, LPDWORD lpType, LPBYTE lpData,
 								LPDWORD lpcbData) {
-	dprintf("%s: key=\"%s\", value=\"%s\"", __FUNCTION__, hKey->path, lpValueName);
+	_dprintf("%s: key=\"%s\", value=\"%s\"", __FUNCTION__, hKey->path, lpValueName);
 
 	if (strcmp(hKey->path, "HKEY_LOCAL_MACHINE\\SOFTWARE\\Westwood\\Nox") == 0 && strcmp(lpValueName, "Serial") == 0) {
 		int i;

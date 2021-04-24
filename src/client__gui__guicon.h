@@ -1,6 +1,7 @@
 #ifndef NOX_PORT_CLIENT_GUI_GUICON
 #define NOX_PORT_CLIENT_GUI_GUICON
 
+#include "nox_wchar.h"
 #include "client__gui__window.h"
 
 enum {

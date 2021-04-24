@@ -1,7 +1,6 @@
 #ifndef NOX_COMMON_STRMAN_H
 #define NOX_COMMON_STRMAN_H
-#include <wchar.h>
-#include "common__poison.h"
+#include "nox_wchar.h"
 
 enum {
 	NOX_LANG_US = 1,
