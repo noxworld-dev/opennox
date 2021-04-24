@@ -7,15 +7,10 @@
 #include "comw32__comlib.h"
 
 #include "common/fs/nox_fs.h"
+#include "nox_net.h"
 #include "proto.h"
 
 #include <float.h>
-
-#ifndef _WIN32
-#include <sys/ioctl.h>
-#else // _WIN32
-#include <winsock2.h>
-#endif // _WIN32
 
 extern _DWORD dword_5d4594_2496988;
 extern _DWORD dword_5d4594_2516352;
