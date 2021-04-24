@@ -13,7 +13,7 @@ package main
 #cgo CFLAGS: -Werror=cast-function-type
 #cgo linux CFLAGS: -Werror=attribute-warning
 #cgo linux CFLAGS: -Werror=uninitialized
-#cgo linux CFLAGS: -Werror=switch-outside-range
+//#cgo linux CFLAGS: -Werror=switch-outside-range
 
 #cgo CFLAGS: -Wno-pointer-to-int-cast
 #cgo CFLAGS: -Wno-int-to-pointer-cast
