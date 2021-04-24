@@ -1,6 +1,7 @@
 #ifndef NOX_WCHAR_H
 #define NOX_WCHAR_H
 
+#include <stdint.h>
 #include <wchar.h>
 #include <wctype.h>
 
