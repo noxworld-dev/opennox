@@ -4746,7 +4746,7 @@ int  sub_4AB9B0(char* a1) {
 		strcpy(FileName, a1);
 	} else {
 		strcpy(FileName, "maps\\");
-		strncat(FileName, a1, strlen(a1) - 4);
+		strncat(FileName, a1, (strlen(a1) - 4 < 256 ? strlen(a1) - 4 : 256));
 		*(_WORD*)&FileName[strlen(FileName)] = *getMemU16Ptr(0x587000, 173348);
 		strcat(FileName, a1);
 	}

@@ -690,7 +690,7 @@ int  nox_xxx_mapValidateMB_4CF470(char* a1, int a2) {
 			strcpy(FileName, a1);
 		} else {
 			strcpy(FileName, "maps\\");
-			strncat(FileName, a1, strlen(a1) - 4);
+			strncat(FileName, a1, (strlen(a1) - 4 < 1024 ? strlen(a1) - 4 : 1024));
 			*(_WORD*)&FileName[strlen(FileName)] = *getMemU16Ptr(0x587000, 191672);
 			strcat(FileName, a1);
 		}
@@ -1211,7 +1211,7 @@ int  sub_4D0550(char* a1) {
 	result = 0;
 	if (a1) {
 		v10[0] = 0;
-		strncat(v10, a1, strlen(a1));
+		strncat(v10, a1, (strlen(a1) - 4 < 256 ? strlen(a1) - 4 : 256));
 		v2 = strlen(v10) + 1;
 		v3 = v2 - 1;
 		v9 = v2 - 1;
@@ -1232,7 +1232,7 @@ int  sub_4D0550(char* a1) {
 		v6[8] = v5;
 		if (!sub_4D0670(v10)) {
 			v10[0] = 0;
-			strncat(v10, a1, strlen(a1) - 4);
+			strncat(v10, a1, (strlen(a1) - 4 < 256 ? strlen(a1) - 4 : 256));
 			v7 = &v10[strlen(v10) + 1];
 			v8 = getMemByte(0x587000, 191764);
 			*(_DWORD*)--v7 = *getMemU32Ptr(0x587000, 191760);
@@ -2080,7 +2080,7 @@ char*  nox_xxx_mapLoad_4D2450(char* a1) {
 	char v5[1464]; // [esp+804h] [ebp-5B8h]
 
 	memcpy(v5, getMemAt(0x5D4594, 3801836), sizeof(v5));
-	strncpy(v4, a1, strlen(a1) - 4);
+	strncpy(v4, a1, (strlen(a1) - 4 < 1024 ? strlen(a1) - 4 : 1024));
 	v4[strlen(a1) - 4] = 0;
 	sub_4CFE10(v4);
 	sub_4CFDF0(*getMemIntPtr(0x5D4594, 3801836 + 1392));
