@@ -33,7 +33,7 @@ nox_keyboard_btn_t nox_input_arr_787228[256];
 
 //----- (00430140) --------------------------------------------------------
 void sub_430140(int a1) {
-	for (int i; i < 256; i++) {
+	for (int i = 0; i < 256; i++) {
 		nox_keyboard_btn_t* cur = &nox_input_arr_789276[i];
 		cur->state = 1;
 		cur->field_2 = 0;

@@ -884,7 +884,7 @@ int process_movie_event(const SDL_Event* event) {
 }
 
 int nox_input_pollEventsMovie() {
-	int result;
+	int result = 0;
 	SDL_Event event;
 	while (SDL_PollEvent(&event)) {
 		int processed = process_movie_event(&event);

@@ -37,7 +37,7 @@ bool Cvqa_file::is_valid()
 	{
 		return false;
 	}
-	
+
 	int size = get_size(); // Filesize
 	/*
 	if (get_data())
@@ -311,7 +311,7 @@ int Cvqa_file::extract_both()
 		}
 		else if (is_audio_chunk())
 		{
-			t_list_entry e;
+			t_list_entry e = {0};
 			int size = get_chunk_size();
 			if (get_chunk_id() >> 24 == '0')
 			{
@@ -498,10 +498,10 @@ int Cvqa_file::extract_both()
             unsigned int howMuchFrames = caches[readCache].frames_buffer_position / (cx * cy * 2);
             unsigned int howMuchMilliseconds = (caches[readCache].audio_buffer_position * 1000) / (get_samplerate() * (16 / 8) * get_c_channels());
 
-            
+
             ALenum state;
             alGetSourcei(source, AL_SOURCE_STATE, &state);
-                
+
             unsigned int audioSamplesInOneFrame = (caches[readCache].audio_buffer_position / ((16 / 8) * get_c_channels())) / howMuchFrames;
 
             if (state == AL_PLAYING)
@@ -565,7 +565,7 @@ int Cvqa_file::extract_both()
                     }
                     previousAudioFrame = whichFrameIsTheSound;
                 }
-                
+
             }
             else if (state == AL_PLAYING)
             {
@@ -586,7 +586,7 @@ int Cvqa_file::extract_both()
                 delayInNextFrame = 0;
                 printf("Synchronizer: adjusted audio to frame %d\n", currentReadFrame);
             }
-            
+
             // Process video frame here
             memcpy(frameDraw, &(caches[readCache].frames_buffer[cachedFramesReadPosition]), cx * cy * 2);
             cachedFramesReadPosition += cx * cy * 2;
@@ -612,7 +612,7 @@ int Cvqa_file::extract_both()
             int command = 0;
             if (decodeCallback != NULL)
             {
-                command = decodeCallback(frameDraw, cx, cy);                
+                command = decodeCallback(frameDraw, cx, cy);
             }
             switch (command)
             {
@@ -808,7 +808,7 @@ int Cvqa_file::extract_as_wav(const string& name)
 	int error = 0;
 	typedef vector<t_list_entry> t_list;
 	t_list list;
-	int cs_remaining = 0;	
+	int cs_remaining = 0;
 	Cvqa_decode vqa_d;
 	vqa_d.start_decode(header());
 	for (int i = 0; i < get_c_frames(); i++)
@@ -835,10 +835,10 @@ int Cvqa_file::extract_as_wav(const string& name)
 					vqa_d.decode_snd2_chunk(data, size, e.audio);
 				}
 				cs_remaining += e.c_samples;
-				list.push_back(e);				
+				list.push_back(e);
 			}
 			else if (is_video_chunk())
-				break;				
+				break;
 			else
 				skip_chunk();
 		}
@@ -935,5 +935,5 @@ void Cvqa_file::set_empty_chunk()
 int Cvqa_file::skip_chunk()
 {
 	skip(get_chunk_size()); // Skip seek
-	return read_chunk_header();	
+	return read_chunk_header();
 }

@@ -278,8 +278,8 @@ int  nox_client_wndGetPosition_46AA60(nox_window* win, unsigned int* a2, unsigne
 bool  nox_xxx_wndPointInWnd_46AAB0(unsigned int* a1, int a2, int a3) {
 	unsigned int* v3; // esi
 	int v5;     // [esp+4h] [ebp-Ch]
-	int v6;     // [esp+8h] [ebp-8h]
-	int v7;     // [esp+Ch] [ebp-4h]
+	int v6 = 0;     // [esp+8h] [ebp-8h]
+	int v7 = 0;     // [esp+Ch] [ebp-4h]
 
 	v3 = a1;
 	nox_client_wndGetPosition_46AA60(a1, &a1, &v6);
@@ -540,7 +540,7 @@ void  sub_4AA030(nox_window* win, nox_window_data* data) {
 	int v12;          // ebx
 	unsigned int* v13;      // edi
 	short v14;      // cx
-	int v16;          // [esp+10h] [ebp-10h]
+	int v16 = 0;          // [esp+10h] [ebp-10h]
 	unsigned int v17; // [esp+14h] [ebp-Ch]
 	int v18;          // [esp+18h] [ebp-8h]
 	int v19;          // [esp+1Ch] [ebp-4h]
@@ -668,8 +668,8 @@ int  nox_xxx_wndDrawFnDefault_46B370(int a1, int* a2) {
 	int v2;     // edx
 	int v3;     // ecx
 	int result; // eax
-	int xLeft;  // [esp+4h] [ebp-8h]
-	int yTop;   // [esp+8h] [ebp-4h]
+	int xLeft = 0;  // [esp+4h] [ebp-8h]
+	int yTop = 0;   // [esp+8h] [ebp-4h]
 
 	nox_client_wndGetPosition_46AA60((unsigned int*)a1, &xLeft, &yTop);
 	if ((signed char)*(unsigned char*)(a1 + 4) >= 0) {

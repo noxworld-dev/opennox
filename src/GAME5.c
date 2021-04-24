@@ -1211,7 +1211,7 @@ char  nox_xxx_mobActionDependency_546A70(int a1) {
 	int v41;               // [esp-8h] [ebp-48h]
 	int v42;               // [esp+10h] [ebp-30h]
 	int v43;               // [esp+14h] [ebp-2Ch]
-	int v44;               // [esp+18h] [ebp-28h]
+	int v44 = 0;               // [esp+18h] [ebp-28h]
 	float4 a3;             // [esp+20h] [ebp-20h]
 	float4 v46;            // [esp+30h] [ebp-10h]
 	int a1a;               // [esp+44h] [ebp+4h]

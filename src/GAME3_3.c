@@ -10957,7 +10957,7 @@ int  nox_xxx_rewardMakeWeapon_4F14E0(int a1, unsigned int a2) {
 	int v68;                 // esi
 	unsigned __int8* v69;    // ecx
 	int v70;                 // edx
-	__int16 v71;             // [esp+10h] [ebp-28h]
+	__int16 v71 = 0;             // [esp+10h] [ebp-28h]
 	int v72;                 // [esp+14h] [ebp-24h]
 	int v73;                 // [esp+18h] [ebp-20h]
 	int v74;                 // [esp+1Ch] [ebp-1Ch]
@@ -11526,7 +11526,7 @@ int sub_4F2210() {
 	int v25;          // ecx
 	unsigned int v26; // esi
 	int* v27;         // edi
-	float v28;        // [esp+10h] [ebp-14h]
+	float v28 = 0;        // [esp+10h] [ebp-14h]
 	_DWORD* lpMem;    // [esp+14h] [ebp-10h]
 	unsigned int v30; // [esp+18h] [ebp-Ch]
 	unsigned int v31; // [esp+18h] [ebp-Ch]

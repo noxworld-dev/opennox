@@ -718,7 +718,7 @@ char nox_xxx_mapReadSetFlags_4CF990() {
 	char* v0;            // esi
 	char* v1;            // eax
 	unsigned __int16 v2; // ax
-	int v3;              // eax
+	int v3 = 0;              // eax
 	BOOL v4;             // esi
 	__int16 v5;          // ax
 
@@ -2989,7 +2989,7 @@ float* nox_xxx_mapgen_Doors_4D4790() {
 	double v26;    // st7
 	double v27;    // st7
 	int v28;       // eax
-	int v29;       // [esp+8h] [ebp-40h]
+	int v29 = 0;       // [esp+8h] [ebp-40h]
 	int v30;       // [esp+Ch] [ebp-3Ch]
 	int v31;       // [esp+Ch] [ebp-3Ch]
 	int v32;       // [esp+10h] [ebp-38h]

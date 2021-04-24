@@ -49,7 +49,7 @@ void  sub_980523(_DWORD* a1) {
 }
 
 _DWORD*  sub_9805EB(_DWORD* a1) {
-	_DWORD* v1; // esi
+	_DWORD* v1 = 0; // esi
 
 	if (!a1)
 		goto LABEL_6;

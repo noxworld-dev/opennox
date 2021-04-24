@@ -32,6 +32,7 @@ else ()
     add_compile_options (-Werror=pointer-arith)
     add_compile_options (-Werror=implicit-int)
     add_compile_options (-Werror=unused-label)
+    add_compile_options (-Werror=uninitialized)
     add_compile_options (-Werror=address)
     add_compile_options (-Werror=unused-variable)
 

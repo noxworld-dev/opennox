@@ -18,7 +18,7 @@ float*  nox_xxx_mapgen_522AD0(float* a1, int a2) {
 	float a4;   // [esp+4h] [ebp-30h]
 	int2 a2a;   // [esp+14h] [ebp-20h]
 	float2 a1a; // [esp+1Ch] [ebp-18h]
-	float v13;  // [esp+24h] [ebp-10h]
+	float v13 = 0;  // [esp+24h] [ebp-10h]
 	float v14 = 0;  // [esp+28h] [ebp-Ch]
 	float2 v15; // [esp+2Ch] [ebp-8h]
 
