@@ -3,6 +3,8 @@
 
 #include <stdint.h>
 
+#include "../../../static_assert.h"
+
 #define ALLOC_CLASS_NAME_MAX 88
 
 typedef struct nox_alloc_hdr nox_alloc_hdr;

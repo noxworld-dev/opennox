@@ -5,6 +5,8 @@
 #include <stddef.h>
 #include <stdbool.h>
 
+#include "static_assert.h"
+
 typedef enum { NOX_WIN_HIDDEN = 0x10, NOX_WIN_LAYER_FRONT = 0x20, NOX_WIN_LAYER_BACK = 0x40 } nox_window_flags;
 
 typedef struct nox_window nox_window;
