@@ -849,7 +849,7 @@ void nox_server_updateRemotePlayers_4DEC80() {
 		if (pl->field_3680 & 0x80) {
 			nox_xxx_playerCallDisconnect_4DEAB0(pl->playerInd, 4);
 		}
-		if ((pl->field_3676 != 3) || (pl->field_3680 & 0x10 == 0)) {
+		if ((pl->field_3676 != 3) || ((pl->field_3680 & 0x10) == 0)) {
 			char buf[3];
 			buf[0] = 39;
 			*(_WORD*)&buf[1] = nox_frame_xxx_2598000;
