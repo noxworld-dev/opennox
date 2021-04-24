@@ -75,7 +75,11 @@ void nox_net_close(nox_socket_t s) {
 }
 
 void nox_net_shutdown(nox_socket_t s) {
+#ifdef _WIN32
+	shutdown(s, SD_BOTH);
+#else // !_WIN32
 	shutdown(s, SHUT_RDWR);
+#endif // _WIN32
 }
 
 nox_socket_t nox_net_accept(nox_socket_t sockfd, struct nox_net_sockaddr_in* addr) {
