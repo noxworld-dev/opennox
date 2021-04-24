@@ -5686,12 +5686,12 @@ int  sub_480950(int* a1, int* a2, int a3, int a4, int a5) {
 	int v15;         // edx
 	int v16;         // ebp
 	int v17;         // edi
-	__m64* v18;      // ebx
+	void* v18;      // ebx
 	int v19;         // eax
 	int v20;         // eax
 	int v21[3];      // [esp+10h] [ebp-18h]
 	int v22[3];      // [esp+1Ch] [ebp-Ch]
-	__m64* v23;      // [esp+2Ch] [ebp+4h]
+	void* v23;      // [esp+2Ch] [ebp+4h]
 
 	v5 = *a1;
 	result = a1[1] - dword_5d4594_3798824;
@@ -5711,7 +5711,7 @@ int  sub_480950(int* a1, int* a2, int a3, int a4, int a5) {
 						  dword_5d4594_3807160)(a5 + v9, dword_5d4594_3798796, 2 * a4 - v9);
 			}
 		} else {
-			v23 = (__m64*)v8;
+			v23 = (void*)v8;
 			v10 = v5 - 23 * *a2 - dword_5d4594_2650676;
 			v11 = 12 * a3 + 280 * *a2;
 			v12 = getMemIntPtr(0x5D4594, v11 + 2598288);
@@ -5744,11 +5744,11 @@ int  sub_480950(int* a1, int* a2, int a3, int a4, int a5) {
 			v18 = v23;
 			while (1) {
 				sub_480290(v18, a5, v17, (unsigned int*)v21, (unsigned int*)v22);
-				v18 = (__m64*)((char*)v18 + 2 * v17);
+				v18 = (void*)((char*)v18 + 2 * v17);
 				a5 += 2 * v17;
 				if ((unsigned int)v18 >= *(int*)&dword_5d4594_3798844)
 					v18 =
-						(__m64*)((char*)v18 - 2 * ((*(int*)&dword_5d4594_3798844 - *(int*)&dword_5d4594_3798796) >> 1));
+						(void*)((char*)v18 - 2 * ((*(int*)&dword_5d4594_3798844 - *(int*)&dword_5d4594_3798796) >> 1));
 				result = a4 - v17;
 				a4 -= v17;
 				if (a4 <= 0)
