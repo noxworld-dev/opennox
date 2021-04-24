@@ -140,7 +140,7 @@ void nox_telnet_broadcast_579750(wchar_t* str) {
 	char* buf = nox_telnet_send_buf;
 	for (int i = 0; i < NOX_TELNET_SOCK_MAX; i++) {
 		nox_telnet_sock_t* cur = &nox_telnet_socks_2516484[i];
-		if (cur->sock == -1 || cur->field_1040 & 1 != 0) {
+		if (cur->sock == -1 || (cur->field_1040 & 1) != 0) {
 			continue;
 		}
 		nox_sprintf(buf, "%S", str);
