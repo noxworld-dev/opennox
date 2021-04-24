@@ -563,7 +563,10 @@ int  nox_xxx_netBigSwitch_553210(unsigned int id, unsigned char* packet, int pac
 			memset(getMemAt(0x5D4594, 32 * id + 2508788), 0, 32);
 			*getMemU32Ptr(0x5D4594, 32 * id + 2508816) = 1;
 			char key = nox_common_randomInt_415FA0(1, 255);
-			ns2->xor_key = 0; // probably to send without xor encoding
+			if (nox_net_no_xor) {
+				key = 0;
+			}
+			ns2->xor_key = 0; // send this packet without xor encoding
 
 			int v66 = &ns2->addr;
 			*(_QWORD*)v66 = *(_QWORD*)v74;

@@ -13,6 +13,7 @@ typedef int32_t nox_socket_t;
 
 #ifndef _NOX_IN_NET_C
 extern bool debugNet;
+extern bool nox_net_no_xor;
 #endif // _NOX_IN_NET_C
 
 typedef uint32_t nox_net_in_addr;

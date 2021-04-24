@@ -31,6 +31,7 @@ const (
 //export nox_net_init
 func nox_net_init() C.int {
 	C.debugNet = C.bool(debugNet)
+	C.nox_net_no_xor = C.bool(noxNetNoXor)
 	return 0
 }
 

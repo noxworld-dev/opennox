@@ -22,6 +22,7 @@
 #endif // _WIN32
 
 bool debugNet = 0;
+bool nox_net_no_xor = 0;
 
 char* nox_net_ip2str(nox_net_in_addr compat_addr) {
 	struct in_addr addr;
@@ -31,6 +32,7 @@ char* nox_net_ip2str(nox_net_in_addr compat_addr) {
 
 int nox_net_init() {
 	debugNet = getenv("NOX_DEBUG_NET") != 0;
+	nox_net_no_xor = getenv("NOX_NET_NO_XOR") != 0;
 #ifdef _WIN32
 	struct WSAData WSAData;
 	return WSAStartup(0x101u, &WSAData);
