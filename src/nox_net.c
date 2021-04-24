@@ -226,35 +226,6 @@ nox_socket_t nox_net_socket_udp_broadcast() {
 	return sock;
 }
 
-int nox_net_ioctlsocket(nox_socket_t s, long cmd, unsigned long* argp) {
-	int ret;
-
-	switch (cmd) {
-	case FIONREAD:
-		ret = ioctl(s, FIONREAD, argp);
-		break;
-	case 0x4004667f: // FIONREAD
-#ifdef __EMSCRIPTEN__
-		*argp = EM_ASM_INT({ return network.available($0); }, s);
-		ret = 0;
-#else
-		ret = ioctl(s, FIONREAD, argp);
-#endif
-		break;
-#ifndef __EMSCRIPTEN__
-	case 0x8004667e: // FIONBIO
-		ret = ioctl(s, FIONBIO, argp);
-		break;
-#endif
-	default:
-		abort();
-		ret = -1;
-		break;
-	}
-
-	return ret;
-}
-
 int nox_net_recv_available(nox_socket_t s, unsigned int* out) {
 	#ifdef __EMSCRIPTEN__
 		*out = EM_ASM_INT({ return network.available($0); }, s);
