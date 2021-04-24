@@ -11,6 +11,7 @@ package main
 #cgo CFLAGS: -Werror=address
 //#cgo CFLAGS: -Werror=unused-variable
 #cgo CFLAGS: -Werror=cast-function-type
+#cgo CFLAGS: -Werror=stringop-overflow
 #cgo linux CFLAGS: -Werror=attribute-warning
 #cgo linux CFLAGS: -Werror=uninitialized
 //#cgo linux CFLAGS: -Werror=switch-outside-range

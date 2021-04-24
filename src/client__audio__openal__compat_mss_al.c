@@ -551,7 +551,7 @@ DXDEC HSTREAM AILCALL AIL_open_stream(HDIGDRIVER dig, char const FAR* filename, 
 	stream->dig = dig;
 	stream->file = f;
 	stream->file_size = file_size;
-	strncpy(stream->filename, filename, strlen(filename) > 2047 ? 2047 : strlen(filename));
+	strncpy(stream->filename, filename, (strlen(filename) < 2047 ? strlen(filename) : 2047));
 
 	if (wf->wFormatTag == 0x01) // PCM
 	{

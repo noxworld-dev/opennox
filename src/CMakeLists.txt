@@ -35,6 +35,7 @@ else ()
     add_compile_options (-Werror=uninitialized)
     add_compile_options (-Werror=address)
     add_compile_options (-Werror=unused-variable)
+    add_compile_options (-Werror=stringop-overflow)
 
     if (${CMAKE_SYSTEM_NAME} STREQUAL "Emscripten")
         add_compile_options (-Werror=bad-function-cast)

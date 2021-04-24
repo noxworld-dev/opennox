@@ -208,7 +208,7 @@ int  nox_server_loadMapFile_4CF5F0(char* a1, int a2) {
 		strcpy(FileName, v2);
 	} else {
 		strcpy(FileName, "maps\\");
-		strncat(FileName, v2, strlen(v2) - 4);
+		strncat(FileName, v2, (strlen(v2) - 4 < 1024 ? strlen(v2) - 4 : 1024));
 		*(_WORD*)&FileName[strlen(FileName)] = *getMemU16Ptr(0x587000, 191700);
 		strcat(FileName, v2);
 	}

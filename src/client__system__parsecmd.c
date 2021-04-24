@@ -679,7 +679,7 @@ int nox_cmd_load(int tokInd, int tokCnt, wchar_t** tokens) {
 	} else {
 		v8 = &v11[4];
 	}
-	if (!v8 || *v8 != 35 && (strcpy(FileName, "maps\\"), strncat(FileName, v8, strlen(v8) - 4),
+	if (!v8 || *v8 != 35 && (strcpy(FileName, "maps\\"), strncat(FileName, v8, (strlen(v8) - 4 < 256 ? strlen(v8) - 4 : 256)),
 			*(_WORD*)&FileName[strlen(FileName)] = *getMemU16Ptr(0x587000, 103416),
 			strcat(FileName, v8), _stat(FileName, (int)&v12))) {
 		v10 = v8;

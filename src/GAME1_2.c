@@ -3462,7 +3462,8 @@ char* __thiscall sub_42CA00(LPVOID* this, char* a2, char a3) {
 	result = (char*)operator_new(2u);
 	v5 = *((unsigned __int16*)v3 + 3);
 	v3[2] = result;
-	memcpy(result, &a3, v5);
+	int a3i = a3;
+	memcpy(result, &a3i, v5);
 	v3[3] = 0;
 	return result;
 }
@@ -3482,7 +3483,8 @@ char* __thiscall sub_42CA60(LPVOID* this, char* a2, char a3) {
 	result = (char*)operator_new(2u);
 	v5 = *((unsigned __int16*)v3 + 3);
 	v3[2] = result;
-	memcpy(result, &a3, v5);
+	int a3i = a3;
+	memcpy(result, &a3i, v5);
 	v3[3] = 0;
 	return result;
 }
@@ -3502,7 +3504,8 @@ char* __thiscall sub_42CAC0(LPVOID* this, char* a2, char a3) {
 	result = (char*)operator_new(4u);
 	v5 = *((unsigned __int16*)v3 + 3);
 	v3[2] = result;
-	memcpy(result, &a3, v5);
+	int a3i = a3;
+	memcpy(result, &a3i, v5);
 	v3[3] = 0;
 	return result;
 }
@@ -3522,7 +3525,8 @@ char* __thiscall sub_42CB20(LPVOID* this, char* a2, char a3) {
 	result = (char*)operator_new(4u);
 	v5 = *((unsigned __int16*)v3 + 3);
 	v3[2] = result;
-	memcpy(result, &a3, v5);
+	int a3i = a3;
+	memcpy(result, &a3i, v5);
 	v3[3] = 0;
 	return result;
 }
