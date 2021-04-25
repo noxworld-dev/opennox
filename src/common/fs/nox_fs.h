@@ -8,7 +8,7 @@
 
 #ifndef NOX_CGO
 
-#ifdef __linux__
+#ifndef _WIN32
 char* nox_fs_normalize(const char* path);
 #endif
 
@@ -53,7 +53,7 @@ int nox_fs_fputs_sync(FILE* f, const char* str);
 
 #else // NOX_CGO
 
-#ifdef __linux__
+#ifndef _WIN32
 char* nox_fs_normalize(char* path);
 #endif
 
