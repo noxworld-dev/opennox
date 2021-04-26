@@ -356,12 +356,14 @@ int nox_video_initCursorDrawVars_48B1F0() {
 	if (!result) {
 		return 0;
 	}
+#ifndef NOX_CGO
 	result = nox_video_createCursorDrawThread_48BE70();
 	printf("%s: %d\n", __FUNCTION__, result);
 	if (!result) {
 		return 0;
 	}
 	nox_video_drawCursorThreadOk = 1;
+#endif // NOX_CGO
 	return 1;
 }
 
