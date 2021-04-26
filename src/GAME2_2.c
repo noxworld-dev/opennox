@@ -12516,6 +12516,7 @@ int  nox_video_mouseThreadXxx_48BE50(int a1) {
 }
 
 //----- (0048BE70) --------------------------------------------------------
+#ifndef NOX_CGO
 int nox_video_createCursorDrawThread_48BE70() {
 	nox_video_allowCursorDrawThread = 1;
 	nox_video_cursorDrawThreadHandle = _beginthread(nox_video_cursorThreadWorker_48BEB0, 0, 0);
@@ -12550,6 +12551,7 @@ int nox_video_cursorThreadWorker_48BEB0() {
 	}
 	return 0;
 }
+#endif // NOX_CGO
 
 //----- (0048C0C0) --------------------------------------------------------
 int  sub_48C0C0(int a1, _DWORD* a2, _DWORD* a3) {

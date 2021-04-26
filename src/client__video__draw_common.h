@@ -81,9 +81,6 @@ extern int nox_backbuffer_height;
 extern int nox_backbuffer_depth;
 
 extern int nox_video_renderTargetFlags;
-extern int nox_video_pauseThreadedDrawCursor;
-extern int nox_video_drawCursorThreadOk;
-extern int nox_video_allowCursorDrawThread;
 extern int nox_video_windowsPlatformVersion;
 extern int nox_video_cursorDrawIsThreaded;
 extern int nox_video_gammaValue;
