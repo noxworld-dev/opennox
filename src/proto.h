@@ -6362,7 +6362,6 @@ unsigned int  sub_5654A0(int a1, unsigned __int8* a2, int* a3, unsigned int a4, 
 // int  remove(LPCSTR lpFileName); idb
 // char * _strrev(char *);
 // int  _wcsicmp(const wchar_t *, const wchar_t *);
-// int  _mkdir(LPCSTR lpPathName); idb
 // int  _filelength(int);
 // int _ms_p5_mp_test_fdiv(void); weak
 // _DWORD  __loctotime_t(_DWORD, _DWORD, _DWORD, _DWORD, _DWORD, _DWORD, _DWORD); weak

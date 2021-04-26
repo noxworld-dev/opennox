@@ -329,6 +329,20 @@ bool nox_fs_set_workdir(const char* path) {
 #endif // _WIN32
 }
 
+bool nox_fs_mkdir(const char* path) {
+#ifndef _WIN32
+	char* converted = nox_fs_normalize(path);
+	int res = mkdir(converted, 0777);
+	free(converted);
+#else // _WIN32
+	int res = _mkdir(path);
+#endif // _WIN32
+	if (res != 0 && errno == EEXIST) {
+		res = 0;
+	}
+	return res == 0;
+}
+
 bool nox_fs_remove(const char* path) {
 #ifndef _WIN32
 	char* converted = nox_fs_normalize(path);

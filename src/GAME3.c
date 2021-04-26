@@ -4823,9 +4823,9 @@ int  nox_xxx_mapDownloadStart_4ABAD0(char* a1, unsigned int a2) {
 	}
 	sub_4AB9B0(a1);
 	if (_access((LPCSTR)getMemAt(0x587000, 173392), 0) == -1)
-		CreateDirectoryA((LPCSTR)getMemAt(0x587000, 173400), 0);
+		nox_fs_mkdir((LPCSTR)getMemAt(0x587000, 173400));
 	if (_access(PathName, 0) == -1)
-		CreateDirectoryA(PathName, 0);
+		nox_fs_mkdir(PathName);
 	v8 = (char*)malloc(strlen(v11) + 1);
 	dword_5d4594_1309776 = v8;
 	if (v8) {

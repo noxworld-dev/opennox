@@ -291,7 +291,7 @@ int sub_4A75C0() {
 		*((_DWORD*)v18 + 1) = v17;
 		*(_WORD*)&v25[strlen(&v25[4]) + 4] = *getMemU16Ptr(0x587000, 171780);
 	}
-	CreateDirectoryA(&v25[4], 0);
+	nox_fs_mkdir(&v25[4]);
 	nox_fs_set_workdir(&v25[4]);
 	i = 0;
 	if (nox_common_gameFlags_check_40A5C0(2048)) {

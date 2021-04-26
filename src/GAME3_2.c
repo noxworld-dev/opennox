@@ -2853,7 +2853,7 @@ BOOL nox_xxx_mapGenStart_4D4320() {
 			v9 = nox_xxx_getRandMapName_4D4310();
 			v6 = nox_fs_root();
 			nox_sprintf(PathName, "%s\\Maps\\$%s", v6, v9);
-			_mkdir(PathName);
+			nox_fs_mkdir(PathName);
 			v10 = nox_xxx_getRandMapName_4D4310();
 			v8 = nox_xxx_getRandMapName_4D4310();
 			v7 = nox_fs_root();
@@ -7775,7 +7775,7 @@ unsigned int  nox_xxx_cliCheckMapExists_4DB2A0(const char* a1) {
 BOOL  nox_xxx_saveMakeFolder_4DB540(char* saveName) {
 	char PathName[1024]; // [esp+0h] [ebp-400h]
 	nox_sprintf(PathName, "%s\\Save\\%s", nox_fs_root(), saveName);
-	return _mkdir(PathName) != -1 || errno != 2;
+	return nox_fs_mkdir(PathName);
 }
 
 //----- (004DB790) --------------------------------------------------------
@@ -7964,7 +7964,7 @@ int  sub_4DC100(int a1, char* saveName) {
 					v9 = 0;
 					if (v5 > 0) {
 						v10 = v31;
-						while (CreateDirectoryA(v10, 0)) {
+						while (nox_fs_mkdir(v10)) {
 							++v9;
 							v10 += 1024;
 							if (v9 >= v5)
@@ -8055,7 +8055,7 @@ int sub_4DC550() {
 	v1 = nox_fs_root();
 	strcpy(PathName, v1);
 	strcat(PathName, "\\Save\\");
-	CreateDirectoryA(PathName, 0);
+	nox_fs_mkdir(PathName);
 	v5 = nox_fs_root();
 	nox_sprintf(PathName, "%s\\Save\\AUTOSAVE\\Player.plr", v5);
 	if (_access(PathName, 0) != -1)
@@ -8088,7 +8088,7 @@ int sub_4DC630() {
 	strcpy(PathName, v1);
 	strcat(PathName, "\\Save\\");
 	strcpy(v11, PathName);
-	CreateDirectoryA(PathName, 0);
+	nox_fs_mkdir(PathName);
 	nox_fs_set_workdir(PathName);
 	v5 = FindFirstFileA("*.plr", &FindFileData);
 	if (v5 != (HANDLE)-1) {
@@ -8130,7 +8130,7 @@ int sub_4DC7D0() {
 	strcpy(PathName, v1);
 	strcat(PathName, "\\Save\\");
 	strcpy(v11, PathName);
-	CreateDirectoryA(PathName, 0);
+	nox_fs_mkdir(PathName);
 	nox_fs_set_workdir(PathName);
 	v5 = FindFirstFileA((LPCSTR)getMemAt(0x587000, 199920), &FindFileData);
 	if (v5 != (HANDLE)-1) {

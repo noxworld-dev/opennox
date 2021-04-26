@@ -148,6 +148,11 @@ func nox_fs_remove(path *C.char) C.bool {
 	return fs.Remove(C.GoString(path)) == nil
 }
 
+//export nox_fs_mkdir
+func nox_fs_mkdir(path *C.char) C.bool {
+	return fs.Mkdir(C.GoString(path)) == nil
+}
+
 //export nox_fs_remove_dir
 func nox_fs_remove_dir(path *C.char) C.bool {
 	return fs.Remove(C.GoString(path)) == nil

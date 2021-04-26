@@ -18,7 +18,7 @@ BOOL nox_xxx_saveMakeFolder_0_4DB1D0() {
 
 	v0 = nox_fs_root();
 	nox_sprintf(PathName, "%s\\Save", v0);
-	return _mkdir(PathName) != -1 || errno != 2;
+	return nox_fs_mkdir(PathName);
 }
 
 //----- (004DB5A0) --------------------------------------------------------
@@ -28,7 +28,7 @@ BOOL  sub_4DB5A0(int a1, int a2) {
 
 	v2 = nox_fs_root();
 	nox_sprintf(PathName, "%s\\Save\\%s\\%s", v2, a1, a2);
-	return _mkdir(PathName) != -1 || errno != 2;
+	return nox_fs_mkdir(PathName);
 }
 
 //----- (004DB600) --------------------------------------------------------

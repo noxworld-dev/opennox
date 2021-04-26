@@ -256,7 +256,6 @@ enum {
 #define FindFirstFileA compatFindFirstFileA
 #define FindNextFileA compatFindNextFileA
 #define FindClose compatFindClose
-#define CreateDirectoryA compatCreateDirectoryA
 #define GetDateFormatA compatGetDateFormatA
 #define RegOpenKeyExA compatRegOpenKeyExA
 #define RegQueryValueExA compatRegQueryValueExA
@@ -299,7 +298,6 @@ enum {
 #define _chmod compat_chmod
 #define _access compat_access
 #define _stat compat_stat
-#define _mkdir compat_mkdir
 
 #define _strdup strdup
 #define _strcmpi strcasecmp
@@ -316,7 +314,6 @@ VOID WINAPI GetLocalTime(LPSYSTEMTIME lpSystemTime);
 HANDLE WINAPI FindFirstFileA(LPCSTR lpFileName, LPWIN32_FIND_DATAA lpFindFileData);
 BOOL WINAPI FindNextFileA(HANDLE hFindFile, LPWIN32_FIND_DATAA lpFindFileData);
 BOOL WINAPI FindClose(HANDLE hFindFile);
-BOOL WINAPI CreateDirectoryA(LPCSTR lpPathName, LPSECURITY_ATTRIBUTES lpSecurityAttributes);
 int WINAPI GetDateFormatA(LCID Locale, DWORD dwFlags, const SYSTEMTIME* lpDate, LPCSTR lpFormat, LPSTR lpDateStr,
 						  int cchDate);
 LSTATUS WINAPI RegOpenKeyExA(HKEY hKey, LPCSTR lpSubKey, DWORD ulOptions, REGSAM samDesired, PHKEY phkResult);
@@ -364,7 +361,6 @@ int _open(const char* filename, int oflag, ...);
 int _chmod(const char* filename, int mode);
 int _access(const char* filename, int mode);
 int _stat(const char* path, struct _stat* buffer);
-int _mkdir(const char* path);
 
 static inline unsigned int _rotl(unsigned int value, int shift) {
 	unsigned int c = shift & 31;

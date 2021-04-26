@@ -23,6 +23,7 @@ bool nox_fs_set_workdir(const char* path);
 void nox_fs_set_progname(const char* name);
 void nox_fs_progname(char* dst, int max);
 
+bool nox_fs_mkdir(const char* path);
 bool nox_fs_remove(const char* path);
 bool nox_fs_remove_dir(const char* path);
 bool nox_fs_copy(const char* src, const char* dst);
@@ -66,6 +67,7 @@ bool nox_fs_set_workdir(char* path);
 
 void nox_fs_progname(char* dst, int max);
 
+bool nox_fs_mkdir(char* path);
 bool nox_fs_remove(char* path);
 bool nox_fs_remove_dir(char* path);
 bool nox_fs_copy(char* src, char* dst);

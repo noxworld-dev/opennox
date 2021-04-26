@@ -21,6 +21,14 @@ func OpenFile(path string, flag int) (*os.File, error) {
 	return os.OpenFile(Normalize(path), flag, 0644)
 }
 
+func Mkdir(path string) error {
+	err := os.Mkdir(Normalize(path), 0777)
+	if os.IsExist(err) {
+		err = nil
+	}
+	return err
+}
+
 func Remove(path string) error {
 	return os.Remove(Normalize(path))
 }

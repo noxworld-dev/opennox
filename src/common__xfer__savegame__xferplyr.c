@@ -24,7 +24,7 @@ int  nox_xxx_savePlayerMB_41C8F0(char* a1, unsigned int a2) {
 	if (nox_common_gameFlags_check_40A5C0(1) || a2 >= *getMemIntPtr(0x587000, 55984)) {
 		v5 = nox_fs_root();
 		nox_sprintf(PathName, "%s\\Save\\", v5);
-		CreateDirectoryA(PathName, 0);
+		nox_fs_mkdir(PathName);
 		v6 = nox_binfile_open_408CC0((char*)getMemAt(0x5D4594, 2660688), 1);
 		nox_file_2 = v6;
 		if (v6) {
