@@ -10,6 +10,8 @@
 
 #ifdef _WIN32
 #include <windows.h>
+#else // !_WIN32
+#include <sys/stat.h>
 #endif // _WIN32
 
 char __nox_fs_root[NOX_FILEPATH_MAX+1] = {0};
