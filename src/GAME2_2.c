@@ -5435,7 +5435,7 @@ void nox_xxx_keyboard_47DBD0() {
 }
 
 //----- (0047FCE0) --------------------------------------------------------
-int __stdcall sub_47FCE0(_DWORD* a1, int a2) {
+int sub_47FCE0(_DWORD* a1, int a2) {
 	int v2;              // edx
 	unsigned __int8* v3; // eax
 	int v4;              // eax

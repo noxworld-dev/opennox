@@ -1145,7 +1145,7 @@ void OnLibraryNotice_263(DWORD arg1) {
 void OnLibraryNotice_264(DWORD arg1) {
 	nox_common_gameFlags_check_40A5C0(1);
 }
-void OnLibraryNotice_265(DWORD arg1, DWORD arg2, DWORD arg3) {
+void OnLibraryNotice_265(unsigned int arg1, unsigned int arg2, unsigned int arg3) {
 	// toggles weapons by mouse wheel
 	// autoshield is actually implemented in appendix of nox_xxx_playerDequipWeapon_53A140
 	//a2a = (*(_DWORD*)(vaArg3 + 4) >> 7) & 1;
