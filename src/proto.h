@@ -2513,7 +2513,7 @@ void nox_xxx_getKeyFromKeyboardImpl_47FA80(nox_keyboard_btn_t* ev);
 void nox_xxx_initKeyboard_47FB10();
 void nox_xxx_clientControl_42D6B0_em_not_mouse_down();
 int nox_xxx_freeKeyboard_47FCC0();
-int __stdcall sub_47FCE0(_DWORD* a1, int a2);
+int sub_47FCE0(_DWORD* a1, int a2);
 int nox_xxx_setupSomeVideo_47FEF0();
 int nox_xxx_unused_4800F0();
 char  sub_4801B0(_BYTE* a2, _BYTE* a3);
