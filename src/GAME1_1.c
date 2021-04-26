@@ -22,6 +22,8 @@
 #include "common/fs/nox_fs.h"
 #include "proto.h"
 
+#include <time.h>
+
 FILE* nox_file_2 = 0;
 FILE* nox_file_3 = 0;
 

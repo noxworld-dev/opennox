@@ -11,6 +11,7 @@
 #include <unistd.h>
 #include <wctype.h>
 #include <errno.h>
+#include <time.h>
 
 #include "common/fs/nox_fs.h"
 

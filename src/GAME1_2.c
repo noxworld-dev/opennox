@@ -28,6 +28,8 @@
 #include "input.h"
 #include "proto.h"
 
+#include <time.h>
+
 extern unsigned char byte_5D4594_3804364[160];
 
 extern _DWORD dword_5d4594_787188;

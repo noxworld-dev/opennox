@@ -14,6 +14,8 @@
 #include "server__xfer__savegame__savegame.h"
 #include "common/fs/nox_fs.h"
 
+#include <time.h>
+
 extern _DWORD nox_xxx_respawnAllow_587000_205200;
 extern _DWORD dword_5d4594_1569656;
 extern _DWORD dword_5d4594_1563064;

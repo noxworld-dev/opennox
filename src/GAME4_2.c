@@ -6,6 +6,8 @@
 
 #include "proto.h"
 
+#include <time.h>
+
 extern FILE* nox_file_3;
 extern _DWORD dword_5d4594_739996;
 extern _DWORD dword_5d4594_2487656;
