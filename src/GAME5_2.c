@@ -11,6 +11,7 @@
 #include "proto.h"
 
 #include <float.h>
+#include <time.h>
 
 extern _DWORD dword_5d4594_2496988;
 extern _DWORD dword_5d4594_2516352;

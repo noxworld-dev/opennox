@@ -24,6 +24,8 @@
 
 #include "proto.h"
 
+#include <time.h>
+
 extern _DWORD dword_5d4594_1046852;
 extern _DWORD dword_5d4594_1045576;
 extern _DWORD dword_5d4594_1047532;
