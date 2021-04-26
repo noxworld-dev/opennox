@@ -185,7 +185,7 @@ int nox_savegame_sub_46CE40(int a1, int a2, int a3, nox_savegame_xxx* sarr) {
 	nox_fs_workdir(&Buffer, 1024);
 	v5 = nox_fs_root();
 	nox_sprintf(&PathName, "%s\\Save\\", v5);
-	CreateDirectoryA(&PathName, 0);
+	nox_fs_mkdir(&PathName);
 	nox_window_call_field_94(a1, 16399, 0, 0);
 	nox_window_call_field_94(a2, 16399, 0, 0);
 	nox_window_call_field_94(a3, 16399, 0, 0);

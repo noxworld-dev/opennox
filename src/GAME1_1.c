@@ -3282,7 +3282,7 @@ int sub_41DB90() {
 					sub_468110_wol_prog();
 					nox_sprintf((char*)getMemAt(0x5D4594, 527996), "%s/%s", v3 + 81, v3 + 337);
 					nox_sprintf((char*)getMemAt(0x5D4594, 527732), "%s\\%s", v3 + 468, v3 + 337);
-					CreateDirectoryA((LPCSTR)(v3 + 468), 0);
+					nox_fs_mkdir((LPCSTR)(v3 + 468));
 					v0 = sub_40DC90(v3 + 16, v3 + 370, v3 + 403, (int)getMemAt(0x5D4594, 527996), (int)getMemAt(0x5D4594, 527732),
 									(int)getMemAt(0x587000, 58684));
 					sub_41E300(4);

@@ -126,7 +126,7 @@ int nox_xxx_findAutosaves_4A5150() {
 	v2 = nox_fs_root();
 	strcpy(PathName, v2);
 	strcat(PathName, "\\Save\\");
-	CreateDirectoryA(PathName, 0);
+	nox_fs_mkdir(PathName);
 	if (nox_common_gameFlags_check_40A5C0(2048)) {
 		dword_5d4594_1307780 = calloc(NOX_SAVEGAME_XXX_MAX, sizeof(nox_savegame_xxx));
 		result = nox_savegame_sub_46CE40(*(int*)&dword_5d4594_1307744, *(int*)&dword_5d4594_1307776, *(int*)&dword_5d4594_1307768,

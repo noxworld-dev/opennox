@@ -442,10 +442,6 @@ BOOL WINAPI FindClose(HANDLE hFindFile) {
 	return TRUE;
 }
 
-BOOL WINAPI CreateDirectoryA(LPCSTR lpPathName, LPSECURITY_ATTRIBUTES lpSecurityAttributes) {
-	return _mkdir(lpPathName) == 0;
-}
-
 int _open(const char* filename, int oflag, ...) {
 	va_list ap;
 	int fd;
@@ -503,14 +499,6 @@ int _stat(const char* path, struct _stat* buffer) {
 	buffer->st_atime = st.st_atim.tv_sec;
 	buffer->st_ctime = st.st_ctim.tv_sec;
 #endif
-	return result;
-}
-
-int _mkdir(const char* path) {
-	int result;
-	char* converted = nox_fs_normalize(path);
-	result = mkdir(converted, 0777);
-	free(converted);
 	return result;
 }
 
