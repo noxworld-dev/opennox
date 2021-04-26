@@ -1,10 +1,16 @@
 /build
 /cmake-*
+legacy/
 tmp/
+.tmp/
 logs/
 *.dat
+*.bin
 *.gz
+*.zip
 *.log
 *.user
 *.json
 *.png
+*.exe
+*.so

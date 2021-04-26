@@ -26,13 +26,16 @@ jobs:
 
       - uses: actions/setup-go@v2
         with:
-          go-version: '^1.15.8'
+          go-version: '^1.16.3'
 
       - name: Check Go version
         run: go version
 
       - name: Install C dependencies
-        run: sudo dpkg --add-architecture i386 && sudo apt-get update -m && sudo apt-get install -y build-essential ccache cmake gcc gcc-multilib libsdl2-dev libsdl2-dev:i386 libopenal-dev:i386 libsdl2-2.0-0:i386 libopenal1:i386
+        run: |
+          sudo dpkg --add-architecture i386
+          sudo apt-get update -m
+          sudo apt-get install -y build-essential ccache cmake gcc gcc-multilib libsdl2-dev libsdl2-dev:i386 libopenal-dev:i386 libsdl2-2.0-0:i386 libopenal1:i386
 
       - name: Install Go dependencies
         run: cd ./src && go mod download
@@ -42,13 +45,62 @@ jobs:
 
       - name: Prepare the binary
         run: |
-          cp ./src/nox_go /tmp/nox-go-linux
+          cp ./src/noxg /tmp/noxg-linux
 
       - name: Upload the binary
         uses: actions/upload-artifact@v2
         with:
-          name: nox-go-linux
-          path: /tmp/nox-go-linux
+          name: noxg-linux
+          path: /tmp/noxg-linux
+
+  hybrid_linux_mingw_go:
+    name: Go Win build on Linux Host
+    runs-on: ubuntu-20.04
+    strategy:
+      fail-fast: true
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          submodules: true
+
+      - uses: actions/setup-go@v2
+        with:
+          go-version: '^1.16.3'
+
+      - name: Check Go version
+        run: go version
+
+      - name: Install C dependencies
+        run: |
+          sudo dpkg --add-architecture i386
+          sudo apt-get update -m
+          sudo apt-get install -y build-essential curl rsync ccache cmake gcc gcc-multilib gcc-mingw-w64 libsdl2-dev libsdl2-dev:i386 libopenal-dev:i386 libsdl2-2.0-0:i386 libopenal1:i386
+
+      - name: Install SDL MinGW package
+        run: |
+          cd /tmp
+          curl -so /tmp/sdl2.tar.gz https://www.libsdl.org/release/SDL2-devel-2.0.14-mingw.tar.gz
+          tar -xzf /tmp/sdl2.tar.gz
+          sudo rsync -r /tmp/SDL2-2.0.14/i686-w64-mingw32/include/ /usr/i686-w64-mingw32/include/
+          sudo rsync -r /tmp/SDL2-2.0.14/i686-w64-mingw32/lib/ /usr/i686-w64-mingw32/lib/
+
+      - name: Install Go dependencies
+        run: cd ./src && go mod download
+
+      - name: Go build
+        run: cd ./src && ./build_go_win.sh
+
+      - name: Prepare the binary
+        run: |
+          cp ./src/noxg.exe /tmp/noxg.exe
+
+      - name: Upload the binary
+        uses: actions/upload-artifact@v2
+        with:
+          name: noxg-win
+          path: /tmp/noxg.exe
 
   hybrid_linux_gcc:
     name: alpine-386-gcc-github on Linux Host
