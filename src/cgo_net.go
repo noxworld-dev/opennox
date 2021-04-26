@@ -1,12 +1,6 @@
 package main
 
 /*
-#ifndef _WIN32
-#include <sys/ioctl.h>
-#else // _WIN32
-#include <winsock2.h>
-#endif // _WIN32
-
 #include "nox_net.h"
 */
 import "C"
@@ -87,7 +81,7 @@ func (s *Socket) CanRead() (int, error) {
 		cnt  uint32
 	)
 	err = rc.Control(func(fd uintptr) {
-		_, _, ierr = syscall.Syscall(syscall.SYS_IOCTL, fd, uintptr(C.FIONREAD), uintptr(unsafe.Pointer(&cnt)))
+		cnt, ierr = netCanRead(fd)
 	})
 	if err != nil {
 		log.Println(err)
