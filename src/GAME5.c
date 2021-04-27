@@ -10676,7 +10676,6 @@ int __cdecl sub_553210(unsigned int a1, unsigned __int8* a2, int a3, int a4)
     int* v69; // eax
     int* v70; // edi
     int v71; // eax
-    int v72; // [esp+10h] [ebp-40h]
     unsigned int v73; // [esp+14h] [ebp-3Ch]
     unsigned __int8 v74[8]; // [esp+18h] [ebp-38h]
     int v75; // [esp+20h] [ebp-30h]
@@ -10691,15 +10690,14 @@ int __cdecl sub_553210(unsigned int a1, unsigned __int8* a2, int a3, int a4)
     LOBYTE(a3) = a2[1];
     v7 = *(_DWORD*)& byte_5D4594[4 * a1 + 3843788];
     v73 = (unsigned int)v5;
-    v8 = *(_DWORD*)& byte_5D4594[4 * v6 + 3843788];
     *(_DWORD*)v74 = *(_DWORD*)a4;
     v9 = a2 + 2;
-    v72 = v8;
     *(_DWORD*)& v74[4] = *(_DWORD*)(a4 + 4);
     v75 = *(_DWORD*)(a4 + 8);
     v76 = *(_DWORD*)(a4 + 12);
     if ((unsigned int)(a2 + 2) < v73)
     {
+        unsigned int v6b = v6;
         while (2)
         {
             v10 = *v9++;
@@ -10819,6 +10817,7 @@ int __cdecl sub_553210(unsigned int a1, unsigned __int8* a2, int a3, int a4)
                 *(_DWORD*)(v4 + 3) = *(_DWORD*)v9;
                 return result;
             case 6:
+                v8 = *(_DWORD*)& byte_5D4594[4 * v6b + 3843788];
                 v17 = *(_DWORD*)& byte_5D4594[4 * v6 + 3843788];
                 LOBYTE(a2) = 37;
                 (*(void(__cdecl * *)(unsigned int, unsigned __int8**, int, _DWORD))(v7 + 144))(
@@ -10828,8 +10827,8 @@ int __cdecl sub_553210(unsigned int a1, unsigned __int8* a2, int a3, int a4)
                     *(_DWORD*)(v17 + 120));
                 if (*(int*)(v7 + 20) == -1)
                 {
-                    *(_BYTE*)v4 = *(_BYTE*)(v72 + 20);
-                    v18 = *(_DWORD*)(v72 + 48);
+                    *(_BYTE*)v4 = *(_BYTE*)(v8 + 20);
+                    v18 = *(_DWORD*)(v8 + 48);
                 }
                 else
                 {
@@ -10843,6 +10842,7 @@ int __cdecl sub_553210(unsigned int a1, unsigned __int8* a2, int a3, int a4)
                 *(_DWORD*)(v4 + 3) = *(_DWORD*)v9;
                 return result;
             case 7:
+                v8 = *(_DWORD*)& byte_5D4594[4 * v6b + 3843788];
                 if (!*(_DWORD*)(v8 + 100))
                     return 0;
                 v31 = *(_DWORD*)& byte_5D4594[2495920] - *(_DWORD*)(v8 + 104) - *(_DWORD*)(v8 + 96);
@@ -10858,6 +10858,7 @@ int __cdecl sub_553210(unsigned int a1, unsigned __int8* a2, int a3, int a4)
                     (*(void(__cdecl * *)(unsigned int, int, int, _DWORD))(v7 + 144))(v6, v4, 5, *(_DWORD*)(v7 + 120));
                 return 0;
             case 8:
+                v8 = *(_DWORD*)& byte_5D4594[4 * v6b + 3843788];
                 if (*(_DWORD*)v9 != *(_DWORD*)(v8 + 88))
                     return 0;
                 *(_DWORD*)(v8 + 96) = *(_DWORD*)& byte_5D4594[2495920] - *(_DWORD*)(v8 + 92);
@@ -10869,7 +10870,7 @@ int __cdecl sub_553210(unsigned int a1, unsigned __int8* a2, int a3, int a4)
                     v19 = *(_DWORD*)(v7 + 120);
                 (*(void(__cdecl * *)(unsigned int, int, int, int))(v7 + 144))(v6, v4, 5, v19);
                 *(_BYTE*)v4 = **(_BYTE * *)(v7 + 48);
-                v20 = *(_BYTE*)(*(_DWORD*)(v72 + 48) + 1);
+                v20 = *(_BYTE*)(*(_DWORD*)(v8 + 48) + 1);
                 *(_BYTE*)(v4 + 2) = 9;
                 *(_BYTE*)(v4 + 1) = v20;
                 *(_DWORD*)(v4 + 3) = *(_DWORD*)& byte_5D4594[2495920];
@@ -10980,6 +10981,7 @@ int __cdecl sub_553210(unsigned int a1, unsigned __int8* a2, int a3, int a4)
                 return sub_552340(v40, v4);
             case 31:
                 v14 = *v9;
+                v8 = *(_DWORD*)& byte_5D4594[4 * v6b + 3843788];
                 v15 = *(_BYTE*)(v8 + 113);
                 ++v9;
                 LOBYTE(a4) = v14;
@@ -10988,11 +10990,10 @@ int __cdecl sub_553210(unsigned int a1, unsigned __int8* a2, int a3, int a4)
                 {
                     sub_5551F0(v6, a4, 1);
                     sub_555360(v6, a4, 1);
-                    *(_BYTE*)(v72 + 113) = a4;
+                    *(_BYTE*)(v8 + 113) = a4;
                     *(_BYTE*)v4 = 38;
-                    *(_BYTE*)(v4 + 1) = *(_BYTE*)(v72 + 113);
-                    (*(void(__cdecl * *)(unsigned int, int, int, _DWORD))(v7 + 144))(v6, v4, 2, *(_DWORD*)(v72 + 120));
-                    v8 = v72;
+                    *(_BYTE*)(v4 + 1) = *(_BYTE*)(v8 + 113);
+                    (*(void(__cdecl * *)(unsigned int, int, int, _DWORD))(v7 + 144))(v6, v4, 2, *(_DWORD*)(v8 + 120));
                 }
             LABEL_9:
                 if ((unsigned int)v9 < v73)
