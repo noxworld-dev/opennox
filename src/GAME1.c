@@ -13690,7 +13690,7 @@ char __cdecl sub_40F640(FILE* a1, char* a2, char* a3, _BYTE* a4, int a5)
             }
             switch (v9)
             {
-            case -1:
+            case 0xff:
                 return v5;
             case 10:
                 v7 = 0;
