@@ -11628,7 +11628,7 @@ int __cdecl sub_554380(size_t* a1)
     result = WSAStartup(0x101u, &WSAData);
     if (result != -1)
     {
-        v6 = socket(2, 2, 0);
+        v6 = socket(AF_INET, SOCK_DGRAM, 0);
         *v5 = v6;
         if (v6 == -1)
         {
@@ -11819,7 +11819,7 @@ int __cdecl sub_554760(int a1, char* cp, int hostshort, int a4, int a5)
         return -15;
     if (WSAStartup(0x101u, &WSAData) == -1)
         return -21;
-    v7 = socket(2, 2, 0);
+    v7 = socket(AF_INET, SOCK_DGRAM, 0);
     *v5 = v7;
     if (v7 == -1)
     {
@@ -11959,7 +11959,6 @@ int __cdecl sub_554B40(u_short hostshort)
 {
     int result; // eax
     struct sockaddr name; // [esp+4h] [ebp-1A4h]
-    char optval[4]; // [esp+14h] [ebp-194h]
     struct WSAData WSAData; // [esp+18h] [ebp-190h]
 
     if (*(_DWORD*)& byte_5D4594[2513916] == 1)
@@ -11967,7 +11966,7 @@ int __cdecl sub_554B40(u_short hostshort)
     result = WSAStartup(0x101u, &WSAData);
     if (result != -1)
     {
-        *(_DWORD*)& byte_5D4594[2513920] = socket(2, 2, 0);
+        *(_DWORD*)& byte_5D4594[2513920] = socket(AF_INET, SOCK_DGRAM, 0);
         if (*(int*)& byte_5D4594[2513920] == -1)
         {
             WSACleanup();
@@ -11975,7 +11974,7 @@ int __cdecl sub_554B40(u_short hostshort)
         }
         else
         {
-            *(_DWORD*)& byte_5D4594[2513924] = socket(2, 2, 0);
+            *(_DWORD*)& byte_5D4594[2513924] = socket(AF_INET, SOCK_DGRAM, 0);
             if (*(int*)& byte_5D4594[2513924] == -1)
             {
                 WSACleanup();
@@ -11995,8 +11994,8 @@ int __cdecl sub_554B40(u_short hostshort)
                 }
                 else
                 {
-                    *(_DWORD*)optval = 1;
-                    result = setsockopt(*(SOCKET*)& byte_5D4594[2513920], 0xFFFF, 32, optval, 4);
+					int32_t optval = 1;
+                    result = setsockopt(*(SOCKET*)& byte_5D4594[2513920], SOL_SOCKET, SO_BROADCAST, &optval, 4);
                     if (result != -1)
                     {
                         sub_43DE20((int)sub_554FF0);
@@ -14003,7 +14002,7 @@ SOCKET sub_578E10()
     *(_WORD*)& name.sa_data[12] = 0;
     *(_WORD*)name.sa_data = htons(*(u_short*)& byte_5D4594[2523736]);
     *(_DWORD*)& name.sa_data[2] = 0;
-    result = socket(2, 1, 0);
+    result = socket(AF_INET, SOCK_STREAM, 0);
     *(_DWORD*)& byte_587000[311480] = result;
     if (result != -1)
     {
