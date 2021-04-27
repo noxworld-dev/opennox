@@ -187,7 +187,7 @@ int __cdecl nox_vsnprintf(char *buffer, size_t count, const char *format, va_lis
         {
         case 'c':
             {
-                char c = va_arg(ap, char);
+                char c = (char)va_arg(ap, int);
                 EMIT(c);
             }
             break;
