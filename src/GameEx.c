@@ -512,7 +512,7 @@ int __usercall copyServerMatchData(char* a1) {
 	a1[45] = MEMACCESS(0x62F134);
 	a1[37] = sub_409F40(2);
 	//a1[38] = MEMACCESS(0x5D5331); // serverRuleFlags + 1
-	a1[38] = *(int*)((char*)&dword_5d4594_3484 + 1);
+	a1[38] = dword_5d4594_3484 >> 8;
 	*((_DWORD*)a1 + 12) = 65540;
 	*((_WORD*)a1 + 26) = nox_win_height_1;
 	*((_WORD*)a1 + 27) = nox_win_width_1;
