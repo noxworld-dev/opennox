@@ -20,6 +20,8 @@
 
 #include "proto.h"
 
+extern unsigned __int8 byte_5D4594[3844309];
+
 void sub_57F634();
 void nullsub_45();
 void nullsub_46();
