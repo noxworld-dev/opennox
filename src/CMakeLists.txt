@@ -12,7 +12,6 @@ if (NOT CMAKE_BUILD_TYPE)
         FORCE)
 endif ()
 
-option (LOG_MEM "Log memory accesses" OFF)
 option (USE_ASAN "Enable address sanitizer" OFF)
 option (STRICT_MODE "Fail on compilation warnings" OFF)
 option (PREDICTABLE "Run in predicatble mode" OFF)
@@ -21,10 +20,6 @@ option (E2E_TEST "Run in end-to-end test mode" OFF)
 option (USE_OPENAL "Use OpenAL in Nox, disabling results in no sound" ON)
 option (USE_OPENGL "Use OpenGL in Nox, disabling results in running in SDL Rendering" ON)
 option (PLAY_MOVIES "Disable movies playback" ON)
-
-if (LOG_MEM)
-    add_definitions (-DNOX_LOG_MEM)
-endif ()
 
 if (MSVC)
     add_compile_options ("$<$<CONFIG:DEBUG>:/RTCs>")
@@ -191,7 +186,7 @@ set (
     sm.c
     noxstring.c
     win.c
-    blobs/memmap.c
+    memmap.c
     static.c
     MixPatch.c
     GameEx.c

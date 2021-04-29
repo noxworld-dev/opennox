@@ -12,6 +12,7 @@
 
 #include "proto.h"
 
+unsigned int mix_dword_980858[] = {1966080, 1821179904, 2415929931};
 extern _DWORD nox_xxx_respawnAllow_587000_205200;
 extern _DWORD dword_5d4594_1567960;
 extern _DWORD dword_5d4594_1567956;

@@ -7203,8 +7203,8 @@ int __cdecl nox_xxx_playerDequipWeapon_53A140(_DWORD* a1, int a2, int a3, int a4
 	nox_xxx_itemApplyDisengageEffect_4F3030((int)v4, (int)v6);
 	// Following code is not present in the original exe(!) and it's responsible for automatically equipping shields
 	// whenever possible.
-	if (MEMACCESS(0x98085A) & 2) {
-		sub_980523(v6); 
+	if (*getMemU32Ptr(0x980858, 2) & 2) {
+		sub_980523(v6);
 		v16 = v6[187];
 		if (!*(_DWORD*)(v16 + 108) || !(nox_xxx_unitWeaponInventoryEquipFlags_415820(*(_DWORD*)(v16 + 108)) & 0x7FFE40C)) {
 			v17 = *(_DWORD*)(*(_DWORD*)(v16 + 276) + 2500);

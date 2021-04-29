@@ -46,15 +46,7 @@ extern void* dword_587000_122852;
 extern void* dword_587000_81128;
 extern void* dword_587000_66120;
 
-#ifdef NOX_LOG_MEM
-void dumpMemMap(void);
-#endif // NOX_LOG_MEM
-
 void init_data() {
-#ifdef NOX_LOG_MEM
-	dumpMemMap();
-#endif // NOX_LOG_MEM
-
 	*(void**)getMemAt(0x587000, 28620) = &nox_xxx_parseWeapColor_411C40;
 	*(void**)getMemAt(0x587000, 28628) = &nox_xxx_parseWeapColor_411C40;
 	*(void**)getMemAt(0x587000, 28636) = &nox_xxx_parseWeapColor_411C40;
