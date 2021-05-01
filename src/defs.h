@@ -482,4 +482,11 @@ typedef struct table_122104_t
     void* field_4;
 } table_122104_t;
 
+typedef struct nox_video_mode
+{
+    int width;
+    int height;
+    int id;
+} nox_video_mode;
+
 #endif

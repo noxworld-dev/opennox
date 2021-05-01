@@ -1176,6 +1176,13 @@ table_28760_t table_28760[] = {
 };
 int table_28760_cnt = sizeof(table_28760)/sizeof(table_28760_t);
 
+nox_video_mode nox_video_modes[] = {
+    {640, 480, 0},
+    {800, 600, 1},
+    {1024, 768, 2},
+};
+int nox_video_modes_cnt = sizeof(nox_video_modes)/sizeof(nox_video_mode);
+
 extern table_122104_t table_122104[];
 
 typedef struct mem_mapping
@@ -1204,6 +1211,7 @@ mem_mapping mappings[] = {
     {0x5D4594+1309760, (void*)&nox_file_9, sizeof(nox_file_9),1},
     {0x5D4594+1599584, (void*)&nox_file_8, sizeof(nox_file_8),1},
     {0x5D4594+1599620, (void*)&nox_file_7, sizeof(nox_file_7),1},
+    {0x587000+91804, (void*)nox_video_modes, sizeof(nox_video_modes),1},
     {0x5D4594+251544, (void*)&dword_5D4594_251544, sizeof(dword_5D4594_251544),1},
     {0x5D4594+251584, (void*)byte_5D4594_251584, sizeof(byte_5D4594_251584),1},
     {0x5D4594+251596, (void*)&byte_5D4594_251596, sizeof(byte_5D4594_251596),1},
@@ -42667,7 +42675,6 @@ int sub_43B360()
     char* v0; // ebx
     unsigned __int16 v1; // ax
     char v2; // al
-    int* v3; // eax
     char v5[32]; // [esp+0h] [ebp-20h]
 
     sub_40A4D0(4);
@@ -42686,8 +42693,9 @@ int sub_43B360()
     }
     sub_433290((char*)& byte_587000[90848]);
     v2 = *(_BYTE*)(*(_DWORD*)& byte_5D4594[814624] + 102);
-    if (v2 < 0 && (v3 = (int*)sub_43BE80_video_mode_by_id(v2 & 0x7F)) != 0)
-        sub_430C30_set_video_max(*v3, v3[1]);
+    nox_video_mode* v3;
+    if (v2 < 0 && (v3 = sub_43BE80_video_mode_by_id(v2 & 0x7F)) != 0)
+        sub_430C30_set_video_max(v3->width, v3->height);
     else
         sub_430C30_set_video_max(1024, 768);
     sub_44A400();
@@ -43113,37 +43121,25 @@ int __cdecl sub_43BE40(int a1)
 //----- (0043BE50) --------------------------------------------------------
 int sub_43BE50_get_video_mode_id()
 {
-    int v0; // ecx
-    unsigned __int8* v1; // eax
-
-    v0 = 0;
-    v1 = &byte_587000[91804];
-    while (*(_DWORD*)v1 != *(_DWORD*)& byte_587000[91780])
+    for (int i = 0; i < nox_video_modes_cnt; i++)
     {
-        v1 += 12;
-        ++v0;
-        if ((int)v1 >= (int)& byte_587000[91840])
-            return 3;
+        nox_video_mode* m = &nox_video_modes[i];
+        if (m->width == *(_DWORD*)& byte_587000[91780])
+            return m->id;
     }
-    return *(_DWORD*)& byte_587000[12 * v0 + 91812];
+    return nox_video_modes_cnt;
 }
 
 //----- (0043BE80) --------------------------------------------------------
-char* __cdecl sub_43BE80_video_mode_by_id(int a1)
+nox_video_mode* __cdecl sub_43BE80_video_mode_by_id(int a1)
 {
-    int v1; // ecx
-    unsigned __int8* v2; // eax
-
-    v1 = 0;
-    v2 = &byte_587000[91812];
-    while (*(_DWORD*)v2 != a1)
+    for (int i = 0; i < nox_video_modes_cnt; i++)
     {
-        v2 += 12;
-        ++v1;
-        if ((int)v2 >= (int)& byte_587000[91848])
-            return 0;
+        nox_video_mode* m = &nox_video_modes[i];
+        if (m->id == a1)
+            return m;
     }
-    return (char*)& byte_587000[12 * v1 + 91804];
+    return 0;
 }
 
 //----- (0043BEB0) --------------------------------------------------------

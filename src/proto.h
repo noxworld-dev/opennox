@@ -1699,7 +1699,7 @@ int sub_43BE10();
 int sub_43BE30();
 int __cdecl sub_43BE40(int a1);
 int sub_43BE50_get_video_mode_id();
-char* __cdecl sub_43BE80_video_mode_by_id(int a1);
+nox_video_mode* __cdecl sub_43BE80_video_mode_by_id(int a1);
 void __cdecl sub_43BEB0_get_video_mode(int* w, int* h, int* d);
 void __cdecl sub_43BEF0_set_video_mode(int w, int h, int d);
 int __cdecl sub_43BF10(int a1);
