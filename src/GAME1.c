@@ -1634,7 +1634,7 @@ void __cdecl sub_401B20(char* a1)
     strcpy((char*)& byte_5D4594[272], "\xecqX");
     *(_DWORD*)& byte_5D4594[404] = 1;
     v1 = strtok(a1, " \t");
-    sub_43BEF0(0, 0, 0);
+    sub_43BEF0_set_video_mode(0, 0, 0);
     if (v1)
     {
         do
@@ -14024,9 +14024,9 @@ int sub_4161E0()
         byte_5D4594[371620] = v1;
         *(_DWORD*)& byte_5D4594[371692] = 1;
     }
-    if ((byte_5D4594[371618] & 0xEF) != sub_43BE50())
+    if ((byte_5D4594[371618] & 0xEF) != sub_43BE50_get_video_mode_id())
     {
-        v2 = sub_43BE50();
+        v2 = sub_43BE50_get_video_mode_id();
         *(_DWORD*)& byte_5D4594[371692] = 1;
         byte_5D4594[371618] = byte_5D4594[371618] & 0x80 | v2;
     }
@@ -36069,25 +36069,17 @@ BOOL __cdecl sub_430BE0(int a1, int a2, int a3)
 }
 
 //----- (00430C30) --------------------------------------------------------
-int __cdecl sub_430C30(int a1, int a2)
+void __cdecl sub_430C30_set_video_max(int w, int h)
 {
-    int result; // eax
-
-    result = a1;
-    *(_DWORD*)& byte_587000[80856] = a1;
-    *(_DWORD*)& byte_587000[80860] = a2;
-    return result;
+    *(_DWORD*)& byte_587000[80856] = w;
+    *(_DWORD*)& byte_587000[80860] = h;
 }
 
 //----- (00430C50) --------------------------------------------------------
-int __cdecl sub_430C50(_DWORD* a1, _DWORD* a2)
+void __cdecl sub_430C50_get_video_max(int* w, int* h)
 {
-    int result; // eax
-
-    *a1 = *(_DWORD*)& byte_587000[80856];
-    result = *(_DWORD*)& byte_587000[80860];
-    *a2 = *(_DWORD*)& byte_587000[80860];
-    return result;
+    *w = *(_DWORD*)& byte_587000[80856];
+    *h = *(_DWORD*)& byte_587000[80860];
 }
 
 //----- (00430CC0) --------------------------------------------------------
@@ -39403,7 +39395,7 @@ int __cdecl sub_435A10(signed int* a1)
     int v6; // [esp+14h] [ebp-A0h]
     BYTE Data[153]; // [esp+18h] [ebp-9Ch]
 
-    sub_43BEB0(&v5, &v4, &v6);
+    sub_43BEB0_get_video_mode(&v5, &v4, &v6);
     v1 = sub_431770();
     nox_wcscpy((wchar_t*)v1, (const wchar_t*)& byte_5D4594[2661908]);
     v1[66] = byte_5D4594[2661958];
@@ -40904,7 +40896,7 @@ int sub_4379F0()
                 *(_DWORD*)& byte_5D4594[815088] = 0;
                 sub_4158C0();
                 sub_415D50();
-                sub_430C30(1024, 768);
+                sub_430C30_set_video_max(1024, 768);
                 sub_477610(0);
                 if (*(_DWORD*)& byte_5D4594[815096])
                 {
@@ -42335,7 +42327,7 @@ char* sub_43AA70()
         v1[103] = v3 - 1;
         --v1[104];
     }
-    v4 = sub_43BE50();
+    v4 = sub_43BE50_get_video_mode_id();
     v5 = v1[102];
     *((_DWORD*)v1 + 12) = 66458;
     v1[102] = v5 & 0x80 | v4;
@@ -42694,10 +42686,10 @@ int sub_43B360()
     }
     sub_433290((char*)& byte_587000[90848]);
     v2 = *(_BYTE*)(*(_DWORD*)& byte_5D4594[814624] + 102);
-    if (v2 < 0 && (v3 = (int*)sub_43BE80(v2 & 0x7F)) != 0)
-        sub_430C30(*v3, v3[1]);
+    if (v2 < 0 && (v3 = (int*)sub_43BE80_video_mode_by_id(v2 & 0x7F)) != 0)
+        sub_430C30_set_video_max(*v3, v3[1]);
     else
-        sub_430C30(1024, 768);
+        sub_430C30_set_video_max(1024, 768);
     sub_44A400();
     sub_43A9D0();
     sub_4A24A0();
@@ -43119,7 +43111,7 @@ int __cdecl sub_43BE40(int a1)
 }
 
 //----- (0043BE50) --------------------------------------------------------
-int sub_43BE50()
+int sub_43BE50_get_video_mode_id()
 {
     int v0; // ecx
     unsigned __int8* v1; // eax
@@ -43137,7 +43129,7 @@ int sub_43BE50()
 }
 
 //----- (0043BE80) --------------------------------------------------------
-char* __cdecl sub_43BE80(int a1)
+char* __cdecl sub_43BE80_video_mode_by_id(int a1)
 {
     int v1; // ecx
     unsigned __int8* v2; // eax
@@ -43155,33 +43147,25 @@ char* __cdecl sub_43BE80(int a1)
 }
 
 //----- (0043BEB0) --------------------------------------------------------
-_DWORD* __cdecl sub_43BEB0(_DWORD* a1, _DWORD* a2, _DWORD* a3)
+void __cdecl sub_43BEB0_get_video_mode(int* w, int* h, int* d)
 {
-    _DWORD* result; // eax
-
-    if (a1)
-        * a1 = *(_DWORD*)& byte_587000[91780];
-    if (a2)
-        * a2 = *(_DWORD*)& byte_587000[91784];
-    result = a3;
-    if (a3)
-        * a3 = *(_DWORD*)& byte_587000[91788];
-    return result;
+    if (w)
+        * w = *(_DWORD*)& byte_587000[91780];
+    if (h)
+        * h = *(_DWORD*)& byte_587000[91784];
+    if (d)
+        * d = *(_DWORD*)& byte_587000[91788];
 }
 
 //----- (0043BEF0) --------------------------------------------------------
-int __cdecl sub_43BEF0(int a1, int a2, int a3)
+void __cdecl sub_43BEF0_set_video_mode(int w, int h, int d)
 {
-    int result; // eax
-
-    a3 = 16; // 8 bit not supported
-    result = a1;
-    *(_DWORD*)& byte_587000[91780] = a1;
-    *(_DWORD*)& byte_587000[91784] = a2;
-    *(_DWORD*)& byte_587000[91788] = a3;
+    d = 16; // 8 bit not supported
+    *(_DWORD*)& byte_587000[91780] = w;
+    *(_DWORD*)& byte_587000[91784] = h;
+    *(_DWORD*)& byte_587000[91788] = d;
 
     change_windowed_fullscreen();
-    return result;
 }
 
 //----- (0043BF10) --------------------------------------------------------
@@ -45075,9 +45059,9 @@ int map_download_finish()
     result = *(_DWORD*)& byte_587000[173332];
     if (*(_DWORD*)& byte_587000[173332])
     {
-        sub_43BEB0(&v3, &v5, &v4);
+        sub_43BEB0_get_video_mode(&v3, &v5, &v4);
         if (!v3)
-            sub_43BEF0(640, 480, v4);
+            sub_43BEF0_set_video_mode(640, 480, v4);
         result = *(_DWORD*)& byte_587000[173332];
     }
 
@@ -50600,11 +50584,11 @@ LABEL_29:
     v4 = v9;
     v5 = v9;
 LABEL_30:
-    sub_43BEB0(&v11, &v10, &v9);
+    sub_43BEB0_get_video_mode(&v11, &v10, &v9);
     v4 = 16; // 8 bit not supported
     sub_481420();
     if (!(byte_5D4594[2650637] & 2))
-        sub_43BEF0(640, 480, v4);
+        sub_43BEF0_set_video_mode(640, 480, v4);
     sub_4766A0(v5);
     result = sub_40A5C0(0x10000000);
     if (result)

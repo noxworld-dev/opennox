@@ -6337,7 +6337,7 @@ int sub_4AA6B0()
 int sub_4AA9C0()
 {
     sub_44D8F0();
-    sub_43BEF0(*(int*)& byte_587000[172876], *(int*)& byte_587000[172872], *(int*)& byte_587000[172880]);
+    sub_43BEF0_set_video_mode(*(int*)& byte_587000[172876], *(int*)& byte_587000[172872], *(int*)& byte_587000[172880]);
     sub_433290((char*)& byte_587000[173256]);
     *(_BYTE*)(*(_DWORD*)& byte_5D4594[1309740] + 64) = 2;
     sub_43BE40(2);
@@ -6379,7 +6379,7 @@ _DWORD* sub_4AAA70()
     int v9; // [esp+4h] [ebp-8h]
     int v10; // [esp+8h] [ebp-4h]
 
-    sub_43BEB0(&v8, &v10, &v9);
+    sub_43BEB0_get_video_mode(&v8, &v10, &v9);
     v9 = *(_DWORD*)& byte_587000[172880];
     if (v10 == 480)
         v6 = 321;
@@ -7031,9 +7031,9 @@ int sub_4AB5E0()
     result = *(_DWORD*)& byte_587000[173332];
     if (*(_DWORD*)& byte_587000[173332])
     {
-        sub_43BEB0(&v3, &v5, &v4);
+        sub_43BEB0_get_video_mode(&v3, &v5, &v4);
         if (!v3)
-            sub_43BEF0(640, 480, v4);
+            sub_43BEF0_set_video_mode(640, 480, v4);
         result = *(_DWORD*)& byte_587000[173332];
     }
     return result;
@@ -8474,7 +8474,7 @@ int sub_4ADAD0()
             else
                 v15 = v14 & 0xFFFFFFFB;
             *(_DWORD*)(*(_DWORD*)& byte_5D4594[1309832] + 36) = v15;
-            sub_43BEB0(&v32, &v34, &v33);
+            sub_43BEB0_get_video_mode(&v32, &v34, &v33);
             if (v34 == 480)
                 v31 = 321;
             else if (v34 == 576)
@@ -30832,8 +30832,8 @@ int sub_4CC770()
 
     *(_DWORD*)& byte_5D4594[1522932] = sub_4A0AD0("mapdnld.wnd", sub_4CC890);
     wndSetAllFn_sub_46B430(*(_DWORD * *)& byte_5D4594[1522932], sub_4CC830, 0, 0);
-    sub_43BEB0(&v3, &v4, &v7);
-    sub_430C50(&v5, &v6);
+    sub_43BEB0_get_video_mode(&v3, &v4, &v7);
+    sub_430C50_get_video_max(&v5, &v6);
     v0 = v3;
     if (v3 > v5)
     {

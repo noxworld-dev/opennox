@@ -11427,7 +11427,7 @@ unsigned int __cdecl sub_554040(int a1, int a2, char* a3)
     v17[6] = v8 >> 4;
     *(_WORD*)& v17[38] = *(_WORD*)(v3 + 107);
     *(_DWORD*)& v17[40] = v10;
-    v11 = sub_43BE50();
+    v11 = sub_43BE50_get_video_mode_id();
     v12 = *((_DWORD*)v4 + 12);
     v17[19] = v3[102] | v11;
     v17[20] = v3[100];

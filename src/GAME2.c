@@ -6466,8 +6466,8 @@ char __cdecl sub_455A50(char a1)
     sub_418C80(*(int*)& byte_5D4594[2616328]);
     if (*(_DWORD*)& byte_5D4594[1045604] || (v2 = sub_455C30()) != 0)
     {
-        sub_43BEB0(&v7, &v6, &v10);
-        sub_430C50(&v8, &v9);
+        sub_43BEB0_get_video_mode(&v7, &v6, &v10);
+        sub_430C50_get_video_max(&v8, &v9);
         if (v7 > v8)
             v7 = v8;
         if (v6 > v9)
@@ -6714,8 +6714,8 @@ int sub_455F60()
     sub_418C80(*(int*)& byte_5D4594[2616328]);
     if (*(_DWORD*)& byte_5D4594[1045636] || (result = sub_456070()) != 0)
     {
-        sub_43BEB0(&v3, &v2, &v6);
-        sub_430C50(&v4, &v5);
+        sub_43BEB0_get_video_mode(&v3, &v2, &v6);
+        sub_430C50_get_video_max(&v4, &v5);
         v1 = v3;
         if (v3 > v4)
         {
