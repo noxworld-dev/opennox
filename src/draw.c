@@ -91,7 +91,6 @@ int __cdecl sub_444AC0(HWND a1, int a2, int a3, int a4, int a5)
     int v8; // esi
     int v9; // eax
     int v10; // eax
-    int result; // eax
 
     InitializeCriticalSection((LPCRITICAL_SECTION)& byte_5D4594[3799596]);
     *(_DWORD*)& byte_5D4594[823780] = 1;
@@ -114,58 +113,44 @@ int __cdecl sub_444AC0(HWND a1, int a2, int a3, int a4, int a5)
         *(_DWORD*)& byte_5D4594[3801772] |= 0x120u;
     }
     v8 = a2 & 0xFFFFFFE0;
-    if (v7 & 4)
+    if (!(v7 & 4))
     {
-        v9 = (v7 & 0x17) - 20;
-        *(_DWORD*)& byte_5D4594[3801796] = 0;
-        *(_DWORD*)& byte_5D4594[3801784] = a2 & 0xFFFFFFE0;
-        *(_DWORD*)& byte_5D4594[3801788] = a3;
-        dword_974868 = 0;
-        dword_973C64 = 0;
-        if (v9)
-        {
-            v10 = v9 - 1;
-            if (v10)
-            {
-                if (v10 != 1)
-                    return 0;
-                *(_DWORD*)& byte_5D4594[3801780] = 1;
-                *(_DWORD*)& byte_5D4594[3801808] = 2 * v8;
-                *(_DWORD*)& byte_5D4594[3801776] = v8 >> 1;
-                *(_DWORD*)& byte_5D4594[3801800] = v8 >> 4;
-                *(_DWORD*)& byte_5D4594[3799624] = 2;
-                *(_DWORD*)& byte_5D4594[3801804] = sub_444D90();
-                return 1;
-            }
-            *(_DWORD*)& byte_5D4594[3801808] = 2 * v8;
-            *(_DWORD*)& byte_5D4594[3801780] = 1;
-            *(_DWORD*)& byte_5D4594[3801776] = v8 >> 1;
-            *(_DWORD*)& byte_5D4594[3801800] = v8 >> 4;
-            *(_DWORD*)& byte_5D4594[3799624] = 1;
-            *(_DWORD*)& byte_5D4594[3801804] = sub_444D90();
-            result = 1;
-        }
-        else
-        {
-            *(_DWORD*)& byte_5D4594[3801808] = a2 & 0xFFFFFFE0;
-            *(_DWORD*)& byte_5D4594[3801780] = 0;
-            *(_DWORD*)& byte_5D4594[3801776] = v8 >> 2;
-            *(_DWORD*)& byte_5D4594[3801800] = v8 >> 5;
-            *(_DWORD*)& byte_5D4594[3799624] = 0;
-            *(_DWORD*)& byte_5D4594[3801804] = sub_444D90();
-            result = 1;
-        }
+        if (!sub_48A040(a1, v8, a3, a4))
+            return 0;
+        *(_DWORD*)& byte_5D4594[3801804] = sub_444D90();
+        return 1;
     }
-    else
+    v9 = (v7 & 0x17) - 20;
+    *(_DWORD*)& byte_5D4594[3801796] = 0;
+    *(_DWORD*)& byte_5D4594[3801784] = a2 & 0xFFFFFFE0;
+    *(_DWORD*)& byte_5D4594[3801788] = a3;
+    dword_974868 = 0;
+    dword_973C64 = 0;
+    if (!v9)
     {
-        result = sub_48A040(a1, v8, a3, a4);
-        if (result)
-        {
-            *(_DWORD*)& byte_5D4594[3801804] = sub_444D90();
-            return 1;
-        }
+        *(_DWORD*)& byte_5D4594[3799624] = 0;
+        *(_DWORD*)& byte_5D4594[3801808] = a2 & 0xFFFFFFE0;
+        *(_DWORD*)& byte_5D4594[3801780] = 0;
+        *(_DWORD*)& byte_5D4594[3801776] = v8 >> 2;
+        *(_DWORD*)& byte_5D4594[3801800] = v8 >> 5;
+        *(_DWORD*)& byte_5D4594[3801804] = sub_444D90();
+        return 1;
     }
-    return result;
+    v10 = v9 - 1;
+    if (v10)
+    {
+        if (v10 != 1)
+            return 0;
+        *(_DWORD*)& byte_5D4594[3799624] = 2;
+    } else {
+        *(_DWORD*)& byte_5D4594[3799624] = 1;
+    }
+    *(_DWORD*)& byte_5D4594[3801780] = 1;
+    *(_DWORD*)& byte_5D4594[3801808] = 2 * v8;
+    *(_DWORD*)& byte_5D4594[3801776] = v8 >> 1;
+    *(_DWORD*)& byte_5D4594[3801800] = v8 >> 4;
+    *(_DWORD*)& byte_5D4594[3801804] = sub_444D90();
+    return 1;
 }
 
 #if 0
