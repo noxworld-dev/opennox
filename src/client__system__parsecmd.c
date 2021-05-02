@@ -626,7 +626,7 @@ int nox_cmd_show_game(int tokInd, int tokCnt, wchar_t** tokens) {
 		v9 =
 			nox_strman_loadString_40F1D0("GameInfo", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1803);
 		nox_xxx_consoleVPrint_450C00(6, v9, v12, v4, v13, v14, v17);
-		v10.S_un.S_addr = sub_554200(0);
+		v10.S_un.S_addr = nox_xxx_net_getIP_554200(0);
 		v11 = inet_ntoa(v10);
 		nox_swprintf(v18, L"%S", v11);
 		nox_xxx_consoleVPrint_450C00(6, (wchar_t*)getMemAt(0x587000, 103160), v18);

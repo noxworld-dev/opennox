@@ -1308,7 +1308,7 @@ int*  nox_xxx_findPlayerID_5541D0(int a1) {
 }
 
 //----- (00554200) --------------------------------------------------------
-int  sub_554200(unsigned int a1) {
+int  nox_xxx_net_getIP_554200(unsigned int a1) {
 	int result; // eax
 	int v2;     // eax
 

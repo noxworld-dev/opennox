@@ -556,7 +556,7 @@ char*  sub_4285C0(__int16* a1) {
 			do {
 				if (*((_DWORD*)v12 + 1198)) {
 					strcpy(*(char**)(*((_DWORD*)v2 + 134) + 4 * v20), v12 + 2096);
-					v13 = sub_554200((unsigned __int8)v12[2064] + 1);
+					v13 = nox_xxx_net_getIP_554200((unsigned __int8)v12[2064] + 1);
 					*(_DWORD*)(*((_DWORD*)v2 + 135) + 4 * v20) = htonl(v13);
 					*(_BYTE*)(v20 + *((_DWORD*)v2 + 144)) = v12[2251];
 					*(_DWORD*)(*((_DWORD*)v2 + 136) + 4 * v20) = *((_DWORD*)v12 + 1172);

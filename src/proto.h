@@ -6550,7 +6550,7 @@ void sub_553FC0(int a1, int a2);
 void nox_xxx_netCountData_554030(int a1, int a2);
 unsigned int  sub_554040(int a1, int a2, char* a3);
 int*  nox_xxx_findPlayerID_5541D0(int a1);
-int  sub_554200(unsigned int a1);
+int  nox_xxx_net_getIP_554200(unsigned int a1);
 char* sub_554230();
 int  sub_554240(int a1);
 unsigned int sub_554290();
