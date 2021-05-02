@@ -6663,13 +6663,12 @@ wchar_t* __cdecl sub_455D80(unsigned __int8 a1, char a2)
 //----- (00455E70) --------------------------------------------------------
 int __cdecl sub_455E70(unsigned __int8 a1)
 {
-    int i; // esi
     _DWORD* v2; // eax
     _DWORD* v3; // eax
 
-    for (i = 8811; i < byte_5D4594[1045628] + 8811; ++i)
+    for (int i = 0; i < byte_5D4594[1045628]; i++)
     {
-        v2 = sub_46B0C0(*(_DWORD * *)& byte_5D4594[1045604], i);
+        v2 = sub_46B0C0(*(_DWORD * *)& byte_5D4594[1045604], i + 8811);
         sub_46AD80((int)v2, 32);
     }
     v3 = sub_46B0C0(*(_DWORD * *)& byte_5D4594[1045604], a1 + 8810);
