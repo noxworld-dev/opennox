@@ -9652,8 +9652,8 @@ int __cdecl sub_5520B0(int a1, int a2)
     if (*(_DWORD*)& byte_5D4594[2495924])
         return -14;
     *(_DWORD*)& byte_5D4594[3844300] = 0;
-    memset(&byte_5D4594[3843788], 0, 0x200u);
-    memset(&byte_5D4594[2500084], 0, 0x2200u);
+    memset(&byte_5D4594[3843788], 0, 512);
+    memset(&byte_5D4594[2500084], 0, 8704);
     *(_DWORD*)& byte_5D4594[2512884] = a2;
     *(_DWORD*)& byte_5D4594[3844300] = sub_413FE0("GQueue", a2, a1);
     if (!*(_DWORD*)& byte_5D4594[3844300])
