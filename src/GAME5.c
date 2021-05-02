@@ -9857,18 +9857,17 @@ int sub_552460()
 }
 
 //----- (005524C0) --------------------------------------------------------
-unsigned int sub_5524C0()
+void sub_5524C0()
 {
     unsigned int v0; // edi
     unsigned int* v1; // esi
-    unsigned int result; // eax
 
     *(_DWORD*)& byte_5D4594[2495920] = timeGetTime();
     v0 = 0;
     v1 = (unsigned int*)& byte_5D4594[3843788];
     do
     {
-        result = *v1;
+        unsigned int result = *v1;
         if (*v1 && *(_DWORD*)(result + 152) == 1)
         {
             result = *(_DWORD*)(result + 160) + 300;
@@ -9878,7 +9877,6 @@ unsigned int sub_5524C0()
         ++v1;
         ++v0;
     } while ((int)v1 < (int)& byte_5D4594[3844300]);
-    return result;
 }
 
 //----- (00552510) --------------------------------------------------------

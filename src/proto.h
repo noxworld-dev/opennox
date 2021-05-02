@@ -7281,7 +7281,7 @@ int __cdecl sub_552380(int a1);
 int __cdecl sub_5523E0(char a1, int a2);
 int sub_552450();
 int sub_552460();
-unsigned int sub_5524C0();
+void sub_5524C0();
 int __cdecl sub_552510(unsigned int a1);
 int __cdecl sub_552540(unsigned int a1);
 int __cdecl sub_552570(unsigned int a1, int a2);
