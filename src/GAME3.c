@@ -7,6 +7,10 @@
 extern int g_fullscreen;
 extern float draw_gamma;
 extern float input_sensitivity;
+extern int default_win_width;
+extern int default_win_height;
+extern int nox_win_depth_1;
+extern int nox_win_depth_2;
 
 FILE* nox_file_9 = 0;
 
@@ -6354,13 +6358,13 @@ int sub_4AAA10()
     sub_43C570(*(LPVOID*)& byte_5D4594[1309740]);
     sub_46C4E0(*(_DWORD * *)& byte_5D4594[1309720]);
     sub_4A1A40(1);
-    if (*(_DWORD*)& byte_587000[91788] == *(_DWORD*)& byte_587000[91800])
+    if (nox_win_depth_1 == nox_win_depth_2)
     {
         v0();
     }
     else
     {
-        *(_DWORD*)& byte_587000[91800] = *(_DWORD*)& byte_587000[91788];
+        nox_win_depth_2 = nox_win_depth_1;
         *(_DWORD*)& byte_5D4594[805872] = 1;
     }
     return 1;
@@ -7033,7 +7037,7 @@ int sub_4AB5E0()
     {
         sub_43BEB0_get_video_mode(&v3, &v5, &v4);
         if (!v3)
-            sub_43BEF0_set_video_mode(640, 480, v4);
+            sub_43BEF0_set_video_mode(default_win_width, default_win_height, v4);
         result = *(_DWORD*)& byte_587000[173332];
     }
     return result;

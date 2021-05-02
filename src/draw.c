@@ -25,6 +25,10 @@
 
 #include "proto.h"
 
+extern int default_win_width;
+extern int default_win_height;
+extern int default_win_depth;
+
 #ifdef USE_SDL
 enum {
     DDSD_CAPS = 1,
@@ -420,10 +424,12 @@ void sdl_set_window_rect(int2 size, int2 position)
 
 extern int g_fullscreen;
 extern int g_scaled;
+extern int nox_win_width_1;
+extern int nox_win_height_1;
 void change_windowed_fullscreen()
 {
-    int windowSizeW = *(_DWORD*)& byte_587000[91780];
-    int windowSizeH = *(_DWORD*)& byte_587000[91784];
+    int windowSizeW = nox_win_width_1;
+    int windowSizeH = nox_win_height_1;
     int2 windowedSize;
     int2 fullscreenSize;
     int4 displaySize = sdl_get_display_dim();
@@ -3585,7 +3591,7 @@ int __cdecl sub_4B0340(int a1)
     sub_486110();
     sub_48A120();
     *(_DWORD*)& byte_5D4594[3801772] = v4;
-    result = sub_48A040(v3, 640, 480, 16);
+    result = sub_48A040(v3, default_win_width, default_win_height, default_win_depth);
     if (result)
     {
         result = sub_486090();

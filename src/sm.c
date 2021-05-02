@@ -15,6 +15,9 @@ extern int g_v20, g_v21;
 extern int g_argc2;
 extern char** g_argv2;
 
+extern int default_win_width;
+extern int default_win_height;
+
 typedef union
 {
     struct {
@@ -433,7 +436,7 @@ void CONNECT_RESULT(sm_args_t* args)
             int v28;
             sub_43BEB0_get_video_mode(&v26, &v28, &v25);
             if (!v26)
-                sub_43BEF0_set_video_mode(640, 480, v25);
+                sub_43BEF0_set_video_mode(default_win_width, default_win_height, v25);
             if (!sub_43BF10(0))
                 return;
         }
