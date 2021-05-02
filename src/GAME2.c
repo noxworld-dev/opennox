@@ -21754,12 +21754,9 @@ int __cdecl wndIsShown_sub_46ACC0(int a1)
 //----- (0046ACE0) --------------------------------------------------------
 void __cdecl sub_46ACE0(_DWORD* a1, int a2, int a3, int a4)
 {
-    int i; // esi
-    _DWORD* v5; // eax
-
-    for (i = a2; i <= a3; ++i)
+    for (int i = a2; i <= a3; i++)
     {
-        v5 = sub_46B0C0(a1, i);
+        _DWORD* v5 = sub_46B0C0(a1, i);
         wndShowHide_sub_46AC00((int)v5, a4);
     }
 }
