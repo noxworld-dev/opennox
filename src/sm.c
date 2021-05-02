@@ -24,6 +24,7 @@ extern BOOL mainloop_exit_path;
 extern int g_v20, g_v21;
 extern int g_argc2;
 extern char** g_argv2;
+extern nox_net_struct_t* nox_net_struct_arr[NOX_NET_STRUCT_MAX];
 
 typedef union {
 	struct {
@@ -233,7 +234,6 @@ void CONNECT_SERVER(sm_args_t* args) {
 }
 
 void NET_CONNECT(sm_args_t* args) {
-	int* v5;                // ebp
 	int v7;                 // eax
 	unsigned int v8;        // ebx
 	struct hostent* v9;     // eax
@@ -249,10 +249,10 @@ void NET_CONNECT(sm_args_t* args) {
 	const char* cp = args->net_connect.hostname;
 	int hostshort = args->net_connect.port;
 
-	v5 = *(int**)getMemAt(0x5D4594, 3843788 + 4*a1);
-	if ((unsigned int)a1 >= 0x80) {
+	if ((unsigned int)a1 >= NOX_NET_STRUCT_MAX) {
 		GOTO_NET_CONNECT_THEN(-3);
 	}
+	int* v5 = nox_net_struct_arr[a1];
 	if (!v5) {
 		GOTO_NET_CONNECT_THEN(-3);
 	}
@@ -307,18 +307,16 @@ void NET_CONNECT(sm_args_t* args) {
 }
 
 void NET_CONNECT_WAIT_LOOP(sm_args_t* args) {
-	int v4; // edi
-
 	unsigned int a1 = args->net_connect_wait_loop.id;
 	char a2 = args->net_connect_wait_loop.val;
 	int a3 = args->net_connect_wait_loop.retries;
 	char a4 = args->net_connect_wait_loop.flags;
 	int v6 = args->net_connect_wait_loop.counter;
 
-	v4 = *getMemU32Ptr(0x5D4594, 3843788 + 4*a1);
 	if (a1 >= 0x80) {
 		GOTO_NET_CONNECT_WAIT_THEN(args->net_connect_wait_loop.data, a1, -3);
 	}
+	int v4 = nox_net_struct_arr[a1];
 	if (!v4) {
 		GOTO_NET_CONNECT_WAIT_THEN(args->net_connect_wait_loop.data, a1, -3);
 	}
@@ -336,8 +334,6 @@ void NET_CONNECT_WAIT_LOOP(sm_args_t* args) {
 }
 
 void NET_CONNECT_WAIT_THEN(sm_args_t* args) {
-	int* v5;
-
 	unsigned int a1 = args->net_connect_wait_then.id;
 	void* a4 = args->net_connect_wait_then.data;
 	unsigned int a5 = sizeof(args->net_connect_wait_then.data);
@@ -346,7 +342,7 @@ void NET_CONNECT_WAIT_THEN(sm_args_t* args) {
 		GOTO_NET_CONNECT_THEN(-23);
 	}
 
-	v5 = *(int**)getMemAt(0x5D4594, 3843788 + 4*a1);
+	int* v5 = nox_net_struct_arr[a1];
 	if (dword_5d4594_3844304 && (int)v5[5] >= 0) {
 		memset(getMemAt(0x5D4594, 2512892), 0, 0x400u);
 		*getMemU8Ptr(0x5D4594, 2512892) = 31;

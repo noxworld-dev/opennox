@@ -22,6 +22,7 @@ extern unsigned int nox_gameFPS;
 extern unsigned int nox_xxx_gameDownloadInProgress_587000_173328;
 extern int nox_win_width;
 extern int nox_win_height;
+extern nox_net_struct_t* nox_net_struct_arr[NOX_NET_STRUCT_MAX];
 
 int call_func_5D4594_816388();
 int call_func_5D4594_816392();
@@ -394,9 +395,9 @@ func CONNECT_SERVER(cp *C.char, hostshort uint32, data []byte) {
 }
 
 func NET_CONNECT(a1 uint32, cp *C.char, hostshort uint32, data []byte) {
-	v5 := *(**int)(memmap.PtrOff(0x5D4594, 4*uintptr(a1)+3843788))
+	v5 := (*int)(unsafe.Pointer(C.nox_net_struct_arr[a1]))
 	v5s := asU32Slice(unsafe.Pointer(v5), 5)
-	if uint(a1) >= 0x80 {
+	if uint(a1) >= C.NOX_NET_STRUCT_MAX {
 		fmt.Println("goto NET_CONNECT_THEN")
 		mainloopEnter = func() {
 			NET_CONNECT_THEN(-3)
@@ -499,15 +500,15 @@ func NET_CONNECT(a1 uint32, cp *C.char, hostshort uint32, data []byte) {
 }
 
 func NET_CONNECT_WAIT_LOOP(id uint32, val int8, retries, flags, counter uint32, data []byte) {
-	v4 := memmap.Uint32(0x5D4594, 4*uintptr(id)+3843788)
-	if id >= 0x80 {
+	if id >= C.NOX_NET_STRUCT_MAX {
 		fmt.Println("goto NET_CONNECT_WAIT_THEN")
 		mainloopEnter = func() {
 			NET_CONNECT_WAIT_THEN(id, -3, data)
 		}
 		return
 	}
-	if v4 == 0 {
+	v4 := unsafe.Pointer(C.nox_net_struct_arr[id])
+	if v4 == nil {
 		fmt.Println("goto NET_CONNECT_WAIT_THEN")
 		mainloopEnter = func() {
 			NET_CONNECT_WAIT_THEN(id, -3, data)
@@ -551,7 +552,7 @@ func NET_CONNECT_WAIT_THEN(id uint32, result int, data []byte) {
 		return
 	}
 
-	v5 := *(**int)(memmap.PtrOff(0x5D4594, 4*uintptr(id)+3843788))
+	v5 := (*int)(unsafe.Pointer(C.nox_net_struct_arr[id]))
 	v5s := asU32Slice(unsafe.Pointer(v5), 13)
 	if C.dword_5d4594_3844304 != 0 && int(v5s[5]) >= 0 {
 		vs := asByteSlice(memmap.PtrOff(0x5D4594, 2512892), 1024)
