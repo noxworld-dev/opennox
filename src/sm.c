@@ -241,7 +241,6 @@ void NET_CONNECT(sm_args_t* args) {
 	char v11;               // al
 	char v12;               // [esp+12h] [ebp-1B2h]
 	struct sockaddr_in name;   // [esp+14h] [ebp-1B0h]
-	WORD v14[2];            // [esp+24h] [ebp-1A0h]
 	int v15;                // [esp+28h] [ebp-19Ch]
 	struct WSAData WSAData; // [esp+34h] [ebp-190h]
 
@@ -252,8 +251,8 @@ void NET_CONNECT(sm_args_t* args) {
 	if ((unsigned int)a1 >= NOX_NET_STRUCT_MAX) {
 		GOTO_NET_CONNECT_THEN(-3);
 	}
-	int* v5 = nox_net_struct_arr[a1];
-	if (!v5) {
+	nox_net_struct_t* ns = nox_net_struct_arr[a1];
+	if (!ns) {
 		GOTO_NET_CONNECT_THEN(-3);
 	}
 	if (!cp) {
@@ -266,7 +265,7 @@ void NET_CONNECT(sm_args_t* args) {
 		GOTO_NET_CONNECT_THEN(-21);
 	}
 	v7 = socket(AF_INET, SOCK_DGRAM, 0);
-	*v5 = v7;
+	ns->sock = v7;
 	if (v7 == -1) {
 		WSACleanup();
 		GOTO_NET_CONNECT_THEN(-22);
@@ -282,18 +281,17 @@ void NET_CONNECT(sm_args_t* args) {
 		v8 = inet_addr(cp);
 	}
 	v15 = 0;
-	v14[0] = 2;
-	v14[1] = htons(hostshort);
-	v5[1] = *(_DWORD*)v14;
-	v5[2] = v8;
-	v5[3] = 0;
-	v5[4] = 0;
+	ns->addr.sin_family = AF_INET;
+	ns->addr.sin_port = htons(hostshort);
+	ns->addr.sin_addr.s_addr = v8;
+	memset(ns->addr.sin_zero, 0, 8);
+
 	v10 = sub_40A420();
 	name.sin_family = AF_INET;
 	name.sin_port = htons(v10);
 	name.sin_addr.s_addr = 0;
 	memset(name.sin_zero, 0, 8);
-	while (bind(*v5, &name, 16) == -1) {
+	while (bind(ns->sock, &name, 16) == -1) {
 		if (WSAGetLastError() != 10048) {
 			WSACleanup();
 			GOTO_NET_CONNECT_THEN(-1);

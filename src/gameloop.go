@@ -30,7 +30,6 @@ int call_nox_draw_unk1();
 */
 import "C"
 import (
-	"encoding/binary"
 	"fmt"
 	"math"
 	"path/filepath"
@@ -395,8 +394,6 @@ func CONNECT_SERVER(cp *C.char, hostshort uint32, data []byte) {
 }
 
 func NET_CONNECT(a1 uint32, cp *C.char, hostshort uint32, data []byte) {
-	v5 := (*int)(unsafe.Pointer(C.nox_net_struct_arr[a1]))
-	v5s := asU32Slice(unsafe.Pointer(v5), 5)
 	if uint(a1) >= C.NOX_NET_STRUCT_MAX {
 		fmt.Println("goto NET_CONNECT_THEN")
 		mainloopEnter = func() {
@@ -404,7 +401,8 @@ func NET_CONNECT(a1 uint32, cp *C.char, hostshort uint32, data []byte) {
 		}
 		return
 	}
-	if v5 == nil {
+	ns := C.nox_net_struct_arr[a1]
+	if ns == nil {
 		fmt.Println("goto NET_CONNECT_THEN")
 		mainloopEnter = func() {
 			NET_CONNECT_THEN(-3)
@@ -434,7 +432,7 @@ func NET_CONNECT(a1 uint32, cp *C.char, hostshort uint32, data []byte) {
 		return
 	}
 	v7 := C.socket(C.AF_INET, C.SOCK_DGRAM, 0)
-	*v5 = int(v7)
+	ns.sock = v7
 	if v7 == -1 {
 		C.WSACleanup()
 
@@ -461,21 +459,17 @@ func NET_CONNECT(a1 uint32, cp *C.char, hostshort uint32, data []byte) {
 		v8 = uint32(C.inet_addr(cp))
 	}
 
-	var v14 [4]byte
-	binary.LittleEndian.PutUint16(v14[0:], 2)
-	binary.LittleEndian.PutUint16(v14[2:], uint16(C.htons(C.ushort(hostshort))))
-
-	v5s[1] = binary.LittleEndian.Uint32(v14[:])
-	v5s[2] = v8
-	v5s[3] = 0
-	v5s[4] = 0
+	ns.addr.sin_family = C.AF_INET
+	ns.addr.sin_port = C.htons(C.ushort(hostshort))
+	ns.addr.sin_addr.s_addr = C.uint(v8)
+	alloc.Memset(unsafe.Pointer(&ns.addr.sin_zero[0]), 0, 8)
 
 	port := C.sub_40A420()
 	var name C.struct_sockaddr_in
 	name.sin_family = C.AF_INET
 	name.sin_port = C.htons(C.ushort(port))
 	name.sin_addr.s_addr = 0
-	for C.bind(C.int(v5s[0]), (*C.struct_sockaddr)(unsafe.Pointer(&name)), 16) == -1 {
+	for C.bind(ns.sock, (*C.struct_sockaddr)(unsafe.Pointer(&name)), 16) == -1 {
 		if C.WSAGetLastError() != 10048 {
 			C.WSACleanup()
 
