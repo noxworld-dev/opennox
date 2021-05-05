@@ -132,7 +132,7 @@ void nox_xxx_createAtImpl_4191D0(unsigned __int8 a1, int a2, int a3, int a4, int
 	char* v18;        // esi
 	int v19;          // edi
 	int i;            // esi
-	float2 v21;       // [esp+0h] [ebp-110h]
+	int v21[3];       // [esp+0h] [ebp-110h] // FIXME: 10 bytes
 	__int16 v22;      // [esp+8h] [ebp-108h]
 	char* v23;        // [esp+Ch] [ebp-104h]
 	wchar_t v24[128]; // [esp+10h] [ebp-100h]
@@ -190,9 +190,9 @@ void nox_xxx_createAtImpl_4191D0(unsigned __int8 a1, int a2, int a3, int a4, int
 			if (a3 && v7 && (v8 || *(unsigned __int16*)(v7 + 4) == dword_5d4594_527660)) {
 				v12 = *(_WORD*)(v7 + 4);
 				v13 = (unsigned __int8)v6[57];
-				LOWORD(v21.field_0) = 452;
-				HIWORD(v21.field_4) = a4;
-				*(_DWORD*)((char*)&v21.field_0 + 2) = v13;
+				LOWORD(v21[0]) = 452;
+				HIWORD(v21[1]) = a4;
+				*(_DWORD*)((char*)&v21[0] + 2) = v13;
 				v22 = v12;
 				sub_4571A0(a4, v13);
 				nox_xxx_netSendPacket1_4E5390(159, (int)&v21, 10, 0, 1);
