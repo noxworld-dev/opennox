@@ -2203,13 +2203,10 @@ char nox_xxx_updateUnits_51B100() {
 void sub_5524C0() {
 	dword_5d4594_2495920 = nox_platform_get_ticks();
 	for (int i = 0; i < NOX_NET_STRUCT_MAX; i++) {
-		unsigned int* v1 = &nox_net_struct_arr[i];
-        unsigned int result = *v1;
-        if (*v1 && *(_DWORD*)(result + 152) == 1)
-        {
-            result = *(_DWORD*)(result + 160) + 300;
-			if (result < *getMemIntPtr(0x5D4594, 2598000))
-				result = nox_xxx_netStructReadPackets_5545B0(i);
+		nox_net_struct_t* ns = nox_net_struct_arr[i];
+		if (ns && ns->field_38 == 1) {
+			if (ns->field_40 + 300 < *getMemIntPtr(0x5D4594, 2598000))
+				nox_xxx_netStructReadPackets_5545B0(i);
 		}
 	}
 }
