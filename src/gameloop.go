@@ -501,8 +501,8 @@ func NET_CONNECT_WAIT_LOOP(id uint32, val int8, retries, flags, counter uint32, 
 		}
 		return
 	}
-	v4 := unsafe.Pointer(C.nox_net_struct_arr[id])
-	if v4 == nil {
+	ns := C.nox_net_struct_arr[id]
+	if ns == nil {
 		fmt.Println("goto NET_CONNECT_WAIT_THEN")
 		mainloopEnter = func() {
 			NET_CONNECT_WAIT_THEN(id, -3, data)
@@ -520,7 +520,7 @@ func NET_CONNECT_WAIT_LOOP(id uint32, val int8, retries, flags, counter uint32, 
 	}
 	C.nox_xxx_servNetInitialPackets_552A80(C.uint(id), C.char(flags|1))
 	C.sub_552460()
-	if *(*int8)(unsafe.Pointer(uintptr(v4) + 113)) >= val {
+	if int8(ns.field_28_1) >= val {
 		fmt.Println("goto NET_CONNECT_WAIT_THEN")
 		mainloopEnter = func() {
 			NET_CONNECT_WAIT_THEN(id, 0, data)

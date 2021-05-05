@@ -314,8 +314,8 @@ void NET_CONNECT_WAIT_LOOP(sm_args_t* args) {
 	if (a1 >= 0x80) {
 		GOTO_NET_CONNECT_WAIT_THEN(args->net_connect_wait_loop.data, a1, -3);
 	}
-	int v4 = nox_net_struct_arr[a1];
-	if (!v4) {
+	nox_net_struct_t* ns = nox_net_struct_arr[a1];
+	if (!ns) {
 		GOTO_NET_CONNECT_WAIT_THEN(args->net_connect_wait_loop.data, a1, -3);
 	}
 	v6 = 0;
@@ -324,7 +324,7 @@ void NET_CONNECT_WAIT_LOOP(sm_args_t* args) {
 	}
 	nox_xxx_servNetInitialPackets_552A80(a1, a4 | 1);
 	sub_552460();
-	if (*(char*)(v4 + 113) >= a2) {
+	if (ns->field_28_1 >= a2) {
 		GOTO_NET_CONNECT_WAIT_THEN(args->net_connect_wait_loop.data, a1, 0);
 	}
 
