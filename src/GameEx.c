@@ -452,19 +452,16 @@ char GameExCfgLoader() {
 
 //----- (10001A20) --------------------------------------------------------
 int  sendtoWrapper(char* buf, int len, int smth) {
-	SOCKET* v3; // edx
-	int v4;     // eax
-
-	if (buf && len && (v3 = nox_net_struct_arr[*getMemU32Ptr(0x5D4594, 815700)]) != 0 // 0x97EC60 = netstructList
-																						// 0x69B7E8 = netSocketData
-		&& 4 * (*getMemU32Ptr(0x5D4594, 815700)) != 0xFF6813A0                                        // Seems to be bug
-												 // lea     eax, ds:97EC60h[eax*4]
-												 // test    eax, eax
-		&& (v4 = nox_net_struct_arr[*getMemU32Ptr(0x5D4594, 815700)]) != 0) {
-		return sendto(*v3, buf, len, 0, (const struct sockaddr*)(v4 + 4), 16);
-	} else {
-		return 0; // A call here is lost? - nope, as somehow the checks in ASM denies it completely
+	if (!buf || !len || *getMemU32Ptr(0x5D4594, 815700) >= NOX_NET_STRUCT_MAX) {
+		return 0;
 	}
+	// 0x69B7E8 = netSocketData
+	nox_net_struct_t* ns = nox_net_struct_arr[*getMemU32Ptr(0x5D4594, 815700)];
+	if (!ns) {
+		// A call here is lost? - nope, as somehow the checks in ASM denies it completely
+		return 0;
+	}
+	return sendto(ns->sock, buf, len, 0, &ns->addr, 16);
 }
 
 //----- (10001AD0) --------------------------------------------------------
