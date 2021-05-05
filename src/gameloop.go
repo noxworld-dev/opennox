@@ -546,13 +546,12 @@ func NET_CONNECT_WAIT_THEN(id uint32, result int, data []byte) {
 		return
 	}
 
-	v5 := (*int)(unsafe.Pointer(C.nox_net_struct_arr[id]))
-	v5s := asU32Slice(unsafe.Pointer(v5), 13)
-	if C.dword_5d4594_3844304 != 0 && int(v5s[5]) >= 0 {
+	ns := C.nox_net_struct_arr[id]
+	if C.dword_5d4594_3844304 != 0 && ns.field_5 >= 0 {
 		vs := asByteSlice(memmap.PtrOff(0x5D4594, 2512892), 1024)
 		copy(vs, make([]byte, 1024))
 		vs[0] = 31
-		vs[1] = *(*byte)(unsafe.Pointer(uintptr(v5s[12]) + 1))
+		vs[1] = *(*byte)(unsafe.Pointer(uintptr(unsafe.Pointer(ns.field_12)) + 1))
 		vs[2] = 32
 		if len(data) > 0 {
 			copy(vs[3:], data[:a5])
@@ -560,7 +559,7 @@ func NET_CONNECT_WAIT_THEN(id uint32, result int, data []byte) {
 		C.nox_xxx_netSendSock_552640(C.uint(id), memmap.PtrOff(0x5D4594, 2512892), C.int(a5+3), 3)
 	}
 
-	result = int(v5s[5])
+	result = int(ns.field_5)
 	fmt.Println("goto NET_CONNECT_THEN")
 	mainloopEnter = func() {
 		NET_CONNECT_THEN(result)

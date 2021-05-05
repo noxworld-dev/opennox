@@ -340,18 +340,18 @@ void NET_CONNECT_WAIT_THEN(sm_args_t* args) {
 		GOTO_NET_CONNECT_THEN(-23);
 	}
 
-	int* v5 = nox_net_struct_arr[a1];
-	if (dword_5d4594_3844304 && (int)v5[5] >= 0) {
+	nox_net_struct_t* ns = nox_net_struct_arr[a1];
+	if (dword_5d4594_3844304 && ns->field_5 >= 0) {
 		memset(getMemAt(0x5D4594, 2512892), 0, 0x400u);
 		*getMemU8Ptr(0x5D4594, 2512892) = 31;
-		*getMemU8Ptr(0x5D4594, 2512892 + 1) = *(_BYTE*)(v5[12] + 1);
+		*getMemU8Ptr(0x5D4594, 2512892 + 1) = ns->field_12[1];
 		*getMemU8Ptr(0x5D4594, 2512892 + 2) = 32;
 		if (a4) {
 			memcpy(getMemAt(0x5D4594, 2512892 + 3), (const void *) a4, a5);
 		}
 		nox_xxx_netSendSock_552640(a1, getMemAt(0x5D4594, 2512892), a5 + 3, 3);
 	}
-	GOTO_NET_CONNECT_THEN(v5[5]);
+	GOTO_NET_CONNECT_THEN(ns->field_5);
 }
 
 void NET_CONNECT_THEN(sm_args_t* args) {
