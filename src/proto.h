@@ -6530,7 +6530,6 @@ int  nox_xxx_servNetInitialPackets_552A80(unsigned int a1, char a2);
 int  sub_552E70(unsigned int a1);
 int  sub_552F20(unsigned int a1);
 u_long  sub_552FD0(int a1);
-void sub_5531C0(LPVOID lpMem); // idb
 int  nox_xxx_netBigSwitch_553210(unsigned int a1, unsigned __int8* a2, int a3, int a4);
 int sub_553D10();
 int  sub_553D30(int a1);

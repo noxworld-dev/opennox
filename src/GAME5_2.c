@@ -537,14 +537,14 @@ nox_net_struct_t* nox_xxx_makeNewNetStruct_553000(nox_net_struct_arg_t* arg) {
 }
 
 //----- (005531C0) --------------------------------------------------------
-void  sub_5531C0(LPVOID lpMem) {
-	if (*((_DWORD*)lpMem + 30))
-		free(*((LPVOID*)lpMem + 30));
-	free(*((LPVOID*)lpMem + 8));
-	free(*((LPVOID*)lpMem + 12));
-	CloseHandle(*((HANDLE*)lpMem + 32));
-	CloseHandle(*((HANDLE*)lpMem + 31));
-	free(lpMem);
+void  nox_xxx_netStructFree_5531C0(nox_net_struct_t* ns) {
+	if (ns->field_30)
+		free(ns->field_30);
+	free(ns->field_8);
+	free(ns->field_12);
+	CloseHandle(ns->field_32);
+	CloseHandle(ns->field_31);
+	free(ns);
 }
 
 //----- (00553210) --------------------------------------------------------
@@ -1503,7 +1503,7 @@ int  nox_xxx_netStructReadPackets_5545B0(unsigned int a1) {
 		v9 = a1 + 1;
 		int v6 = nox_net_struct_arr[v4];
 		if (!v6 || *(int*)(v6 + 20) != -1) {
-			sub_5531C0(v3);
+			nox_xxx_netStructFree_5531C0(v3);
 			nox_net_struct_arr[v1] = 0;
 			return 0;
 		}
@@ -1517,7 +1517,7 @@ int  nox_xxx_netStructReadPackets_5545B0(unsigned int a1) {
 				nox_xxx_netSendReadPacket_5528B0(i, 1);
 				--*(_DWORD*)((unsigned int)(nox_net_struct_arr[v4]) + 84);
 				sub_555360(v1, 0, 2);
-				sub_5531C0(*v7);
+				nox_xxx_netStructFree_5531C0(*v7);
 				*v7 = 0;
 			}
 		}
@@ -1532,7 +1532,7 @@ int  sub_5546A0(unsigned int a1) {
 	SOCKET* v2 = nox_net_struct_arr[a1];
 	if (v2) {
 		closesocket(*v2);
-		sub_5531C0(nox_net_struct_arr[a1]);
+		nox_xxx_netStructFree_5531C0(nox_net_struct_arr[a1]);
 		nox_net_struct_arr[a1] = 0;
 		WSACleanup();
 	}
@@ -1662,7 +1662,7 @@ int  sub_554A50(unsigned int a1) {
 	if (v2) {
 		closesocket(*v2);
 		OnLibraryNotice(259, nox_net_struct_arr[a1]);
-		sub_5531C0(nox_net_struct_arr[a1]);
+		nox_xxx_netStructFree_5531C0(nox_net_struct_arr[a1]);
 		nox_net_struct_arr[a1] = 0;
 		WSACleanup();
 	}
