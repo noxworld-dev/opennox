@@ -21,12 +21,14 @@ _DWORD nox_mouse_prev_seq = 0;
 _DWORD nox_mouse_prev_seq_2 = 0;
 nox_point nox_mouse_prev_btn[3] = {0};
 
+#ifndef NOX_CGO
 nox_point nox_mouse_min = {0, 0};
 #ifdef __GNUC__
 nox_point nox_mouse_max = {NOX_DEFAULT_WIDTH - 1, NOX_DEFAULT_HEIGHT - 1};
 #else
 nox_point nox_mouse_max = {639, 478}; // ugly hack for MSVC
 #endif
+#endif // NOX_CGO
 
 nox_keyboard_btn_t nox_input_arr_789276[256];
 nox_keyboard_btn_t nox_input_arr_787228[256];
@@ -384,6 +386,7 @@ nox_mouse_state_t* nox_client_getMouseState_4309F0() { return &nox_mouse; }
 int nox_xxx_bookGet_430B40_get_mouse_prev_seq() { return nox_mouse_prev_seq; }
 
 //----- (00430A00) --------------------------------------------------------
+#ifndef NOX_CGO
 void nox_client_changeMousePos_430A00(int x, int y, bool isAbs) {
 	nox_point p;
 	p.x = x;
@@ -410,13 +413,13 @@ void nox_client_changeMousePos_430A00(int x, int y, bool isAbs) {
 }
 
 //----- (00430A70) --------------------------------------------------------
-int  nox_xxx_setMouseBounds_430A70(int x_min, int x_max, int y_min, int y_max) {
+void nox_xxx_setMouseBounds_430A70(int x_min, int x_max, int y_min, int y_max) {
 	nox_mouse_min.x = x_min;
 	nox_mouse_min.y = y_min;
 	nox_mouse_max.x = x_max;
 	nox_mouse_max.y = y_max;
-	return y_max;
 }
+#endif // NOX_CGO
 
 //----- (0042D220) --------------------------------------------------------
 void nox_xxx_input_42D220() {

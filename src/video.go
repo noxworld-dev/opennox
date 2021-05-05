@@ -2,6 +2,8 @@ package main
 
 import (
 	"image"
+	"log"
+	"os"
 
 	"nox/common/types"
 )
@@ -9,6 +11,7 @@ import (
 var (
 	noxFullScreen   int = -4 // unset
 	noxPresentTicks uint
+	videoLog        = log.New(os.Stderr, "[video]: ", log.LstdFlags|log.Lmsgprefix)
 )
 
 func callPresent() {

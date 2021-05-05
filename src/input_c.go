@@ -5,11 +5,14 @@ package main
 
 #include "defs.h"
 
+extern nox_mouse_state_t nox_mouse;
+
 void nox_xxx_onChar_488BD0(unsigned short c);
 void OnLibraryNotice_265(unsigned int arg1, unsigned int arg2, unsigned int arg3);
 */
 import "C"
 import (
+	"image"
 	"unsafe"
 
 	"nox/client/input"
@@ -30,6 +33,28 @@ var imeBuffer string
 
 func setIMEBuffer(buf string) {
 	imeBuffer = buf
+}
+
+func getMousePos() image.Point {
+	return image.Point{
+		X: int(C.nox_mouse.pos.x),
+		Y: int(C.nox_mouse.pos.y),
+	}
+}
+
+func setMousePos(p image.Point) {
+	C.nox_mouse.pos.x = C.int(p.X)
+	C.nox_mouse.pos.y = C.int(p.Y)
+}
+
+//export nox_client_changeMousePos_430A00
+func nox_client_changeMousePos_430A00(x, y C.int, isAbs C.bool) {
+	changeMousePos(image.Pt(int(x), int(y)), bool(isAbs))
+}
+
+//export nox_xxx_setMouseBounds_430A70
+func nox_xxx_setMouseBounds_430A70(xmin, xmax, ymin, ymax C.int) {
+	setMouseBounds(image.Rect(int(xmin), int(ymin), int(xmax), int(ymax)))
 }
 
 //export nox_input_pollEvents_4453A0

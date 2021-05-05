@@ -18,6 +18,7 @@ int nox_video_initFloorBuffer_430BA0();
 import "C"
 import (
 	"errors"
+	"image"
 	"log"
 
 	"nox/common/memmap"
@@ -251,6 +252,7 @@ func gameUpdateVideoMode(inMenu bool) error {
 			Depth:  int(C.nox_win_depth_game),
 		}
 	}
+	videoLog.Printf("mode switch: %+v (menu: %v)", mode, inMenu)
 	C.nox_video_resizewnd(C.int(mode.Width), C.int(mode.Height), C.int(mode.Depth))
 	C.nox_game_loop_xxx_805872 = 0
 	cur := getBackBufferMode()
@@ -268,7 +270,7 @@ func gameUpdateVideoMode(inMenu bool) error {
 	}
 	C.nox_xxx_loadPal_4A96C0_video_read_palette(internCStr("default.pal"))
 	C.sub_461520()
-	C.nox_xxx_setMouseBounds_430A70(0, C.int(mode.Width-1), 0, C.int(mode.Height-1))
+	setMouseBounds(image.Rect(0, 0, mode.Width-1, mode.Height-1))
 	C.nox_video_mouseThreadXxx_48BE50(0)
 	return nil
 }

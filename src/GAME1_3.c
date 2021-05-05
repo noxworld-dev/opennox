@@ -5915,7 +5915,7 @@ int sub_44A400() {
 		dword_5d4594_830224 = 0;
 		dword_5d4594_830228 = 0;
 		nox_client_setCursorType_477610(0);
-		result = nox_xxx_setMouseBounds_430A70(0, nox_win_width - 1, 0, nox_win_height - 1);
+		nox_xxx_setMouseBounds_430A70(0, nox_win_width - 1, 0, nox_win_height - 1);
 	}
 	return result;
 }

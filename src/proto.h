@@ -1183,7 +1183,7 @@ void nox_input_keyboardGetKeyState_4309D0(unsigned char i, unsigned char v);
 nox_point nox_client_getMousePos_4309F0();
 nox_mouse_state_t* nox_client_getMouseState_4309F0();
 void nox_client_changeMousePos_430A00(int x, int y, bool isAbs);
-int  nox_xxx_setMouseBounds_430A70(int x_min, int x_max, int y_min, int y_max);
+void nox_xxx_setMouseBounds_430A70(int x_min, int x_max, int y_min, int y_max);
 int  sub_430AA0(int a1);
 int nox_xxx_cursor_430AF0();
 int nox_xxx_cursor_430B00();

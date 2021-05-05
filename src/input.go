@@ -1,19 +1,48 @@
 package main
 
 import (
+	"image"
 	"log"
+	"os"
 
 	"nox/common/memmap"
 )
 
 var (
-	inputSeq uint
+	inputSeq    uint
+	mouseBounds = image.Rect(0, 0, noxDefaultWidth, noxDefaultHeight)
+	inputLog    = log.New(os.Stderr, "[input]: ", log.LstdFlags|log.Lmsgprefix)
 )
 
 func nextInputSeq() uint {
 	v := inputSeq
 	inputSeq++
 	return v
+}
+
+func setMouseBounds(r image.Rectangle) {
+	inputLog.Printf("mouse bounds: %v", r)
+	mouseBounds = r
+}
+
+func changeMousePos(p image.Point, isAbs bool) {
+	if !isAbs {
+		p = p.Add(getMousePos())
+	}
+	if p.X > mouseBounds.Max.X {
+		p.X = mouseBounds.Max.X
+	}
+	if p.X < mouseBounds.Min.X {
+		p.X = mouseBounds.Min.X
+	}
+
+	if p.Y > mouseBounds.Max.Y {
+		p.Y = mouseBounds.Max.Y
+	}
+	if p.Y < mouseBounds.Min.Y {
+		p.Y = mouseBounds.Min.Y
+	}
+	setMousePos(p)
 }
 
 const keyboardEventBuf = 256
