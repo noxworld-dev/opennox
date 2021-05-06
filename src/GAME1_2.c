@@ -8632,7 +8632,7 @@ char* sub_43AA70() {
 	strcpy(v1 + 111, nox_xxx_mapGetMapName_409B40());
 	if (sub_4D6F50()) {
 		if (dword_5d4594_528256)
-			*(_WORD*)(v1 + 165) = nox_xxx_GetQuestStage_4E3CC0();
+			*(_WORD*)(v1 + 165) = nox_game_getQuestStage_4E3CC0();
 		else
 			*(_WORD*)(v1 + 165) = 1;
 	}

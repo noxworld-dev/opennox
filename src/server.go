@@ -185,7 +185,7 @@ func switchQuestIfRequested4D6FD0() {
 	}
 	mapLoad4D2450(mapFile)
 	C.sub_4DCE80(nil)
-	C.sub_4E3CD0(0)
+	C.nox_game_setQuestStage_4E3CD0(0)
 	C.sub_4169F0()
 }
 

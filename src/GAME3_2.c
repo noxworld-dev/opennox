@@ -4018,7 +4018,7 @@ int  sub_4D6000(int a1) {
 		*(_DWORD*)(*(_DWORD*)(v2 + 276) + 4676) = 0;
 		*(_DWORD*)(*(_DWORD*)(v2 + 276) + 4680) = 0;
 		*(_DWORD*)(*(_DWORD*)(v2 + 276) + 4684) = 0;
-		*(_DWORD*)(*(_DWORD*)(v2 + 276) + 4688) = nox_xxx_GetQuestStage_4E3CC0();
+		*(_DWORD*)(*(_DWORD*)(v2 + 276) + 4688) = nox_game_getQuestStage_4E3CC0();
 		result = *(_DWORD*)(v2 + 276);
 		*(_DWORD*)(result + 4692) = 63;
 	}
@@ -4362,7 +4362,7 @@ int  sub_4D6880(int a1, int a2) {
 		v3[4] |= 1u;
 	if (sub_51A950())
 		v3[4] |= 2u;
-	*(_WORD*)&v3[2] = nox_xxx_GetQuestStage_4E3CC0();
+	*(_WORD*)&v3[2] = nox_game_getQuestStage_4E3CC0();
 	nox_server_currentMapGetFilename_409B30();
 	strcpy(&v3[5], sub_4D6940());
 	nox_server_currentMapGetFilename_409B30();
@@ -4377,17 +4377,14 @@ char* sub_4D6940() { return (char*)getMemAt(0x5D4594, 3801836 + 1430); }
 char* sub_4D6950() { return (char*)getMemAt(0x5D4594, 3801836 + 1398); }
 
 //----- (004D6960) --------------------------------------------------------
-int  sub_4D6960(int a1) {
-	char v2[69]; // [esp+8h] [ebp-48h]
-
-	memset(v2, 0, 0x44u);
-	v2[68] = 0;
+int  nox_game_sendQuestStage_4D6960(int a1) {
+	char v2[69] = {0};
 	v2[0] = -16;
 	v2[1] = 14;
 	v2[4] = 0;
 	if (sub_51A950())
 		v2[4] |= 2u;
-	*(_WORD*)&v2[2] = nox_xxx_GetQuestStage_4E3CC0();
+	*(_WORD*)&v2[2] = nox_game_getQuestStage_4E3CC0();
 	nox_server_currentMapGetFilename_409B30();
 	strcpy(&v2[5], sub_4D6940());
 	nox_server_currentMapGetFilename_409B30();
@@ -4504,7 +4501,7 @@ int nox_server_setupQuestGame_4D6C70() {
 	nox_xxx_setGameFlags_40A4D0(4096);
 	v0 = 0;
 	if (!sub_4D6F30())
-		sub_4E3CD0(0);
+		nox_game_setQuestStage_4E3CD0(0);
 	sub_4D0F30();
 	nox_common_resetEngineFlag(NOX_ENGINE_FLAG_5);
 	nox_common_gameFlags_unset_40A540(0x10000);
@@ -8696,7 +8693,7 @@ _DWORD*  nox_xxx_playerNew_4DD320(int ind, void* data) {
 	}
 	if (!nox_common_gameFlags_check_40A5C0(2048)) {
 		if (nox_common_gameFlags_check_40A5C0(4096)) {
-			sub_4D6960(ind);
+			nox_game_sendQuestStage_4D6960(ind);
 			return *(_DWORD**)((int)punit + 36);
 		}
 		char v27b[3];
@@ -9131,7 +9128,7 @@ char  nox_xxx_playerDisconnFinish_4DE530(int a1, char a2) {
 			*(_DWORD*)(v4 + 4792) = 0;
 			if (!nox_xxx_player_4E3CE0()) {
 				v5 = nox_xxx_getQuestMapFile_4D0F60();
-				sub_4E3CD0(0);
+				nox_game_setQuestStage_4E3CD0(0);
 				nox_xxx_mapLoad_4D2450(v5);
 			}
 			sub_4D7390(*(_DWORD*)(v4 + 2056));
@@ -9286,9 +9283,9 @@ char*  nox_xxx_playerForceDisconnect_4DE7C0(int a1) {
 		} else if (sub_4E8F60()) {
 			sub_4D60B0();
 			sub_4D76E0(1);
-			v12 = nox_xxx_GetQuestStage_4E3CC0();
+			v12 = nox_game_getQuestStage_4E3CC0();
 			v13 = sub_4D74F0(v12);
-			sub_4E3CD0(v13 - 1);
+			nox_game_setQuestStage_4E3CD0(v13 - 1);
 			v14 = sub_4E8E50();
 			result = nox_xxx_mapLoad_4D2450((char*)v14);
 		} else {

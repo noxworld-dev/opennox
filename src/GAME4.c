@@ -10945,7 +10945,7 @@ void  sub_507090(int a1) {
 			if (*(_DWORD*)(v3 + 4792) == 1)
 				nox_xxx_playerRespawn_4F7EF0(*(_DWORD*)(v3 + 2056));
 		}
-		sub_4E3CD0(0);
+		nox_game_setQuestStage_4E3CD0(0);
 		v4 = nox_xxx_getQuestMapFile_4D0F60();
 		nox_xxx_mapLoad_4D2450(v4);
 		sub_5067B0(a1);

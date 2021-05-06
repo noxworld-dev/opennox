@@ -185,6 +185,7 @@ int nox_xxx_findAutosaves_4A5150() {
 											"C:\\NoxPost\\src\\client\\shell\\selchar.c", 283);
 				nox_swprintf(v30, v14, v24, v26);
 				if (*(_BYTE*)(v12 + dword_5d4594_1307780) & 4) {
+					// save game text
 					v15 = *(unsigned __int8*)(v12 + dword_5d4594_1307780 + 1277);
 					if (v15 < 1)
 						v15 = 1;

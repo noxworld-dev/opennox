@@ -1290,15 +1290,11 @@ int  sub_4E3CB0(float a1) {
 }
 
 //----- (004E3CC0) --------------------------------------------------------
-int nox_xxx_GetQuestStage_4E3CC0() { return *getMemU32Ptr(0x587000, 202028); }
+int nox_game_getQuestStage_4E3CC0() { return *getMemU32Ptr(0x587000, 202028); }
 
 //----- (004E3CD0) --------------------------------------------------------
-int  sub_4E3CD0(int a1) {
-	int result; // eax
-
-	result = a1;
+void nox_game_setQuestStage_4E3CD0(int a1) {
 	*getMemU32Ptr(0x587000, 202028) = a1;
-	return result;
 }
 
 //----- (004E3CE0) --------------------------------------------------------
@@ -1333,7 +1329,7 @@ int sub_4E3D50() {
 		*getMemU32Ptr(0x5D4594, 1563928) = 1;
 	}
 	v0 = nox_xxx_player_4E3CE0();
-	v2 = (double)(unsigned int)nox_xxx_GetQuestStage_4E3CC0() * ((double)(v0 - 1) * *getMemFloatPtr(0x5D4594, 1563912) + 1.0);
+	v2 = (double)(unsigned int)nox_game_getQuestStage_4E3CC0() * ((double)(v0 - 1) * *getMemFloatPtr(0x5D4594, 1563912) + 1.0);
 	return sub_4E3CB0(v2);
 }
 
@@ -4988,7 +4984,7 @@ BOOL sub_4E8F60() {
 	unsigned int v7; // [esp+10h] [ebp-4h]
 
 	v0 = 0;
-	v1 = nox_xxx_GetQuestStage_4E3CC0();
+	v1 = nox_game_getQuestStage_4E3CC0();
 	v7 = sub_4D74F0(v1);
 	v2 = 1;
 	v3 = nox_xxx_getFirstPlayerUnit_4DA7C0();
@@ -5126,7 +5122,7 @@ char*  nox_xxx_collideExit_4E9090(int a1, int a2, int a3) {
 								v12 = a1;
 								v13 = *(_DWORD*)(a1 + 12);
 								if (v13 & 1) {
-									v14 = nox_xxx_GetQuestStage_4E3CC0() + 1;
+									v14 = nox_game_getQuestStage_4E3CC0() + 1;
 									sub_4D60E0(v4);
 									v15 = *(_DWORD*)(v5 + 276);
 									if (*(_DWORD*)(v15 + 4696) < v14) {
@@ -5166,9 +5162,9 @@ char*  nox_xxx_collideExit_4E9090(int a1, int a2, int a3) {
 								LABEL_47:
 									if (v10 && *v10) {
 										if (*(_BYTE*)(a1 + 12) & 2) {
-											v17 = nox_xxx_GetQuestStage_4E3CC0();
+											v17 = nox_game_getQuestStage_4E3CC0();
 											v18 = sub_4D74F0(v17);
-											sub_4E3CD0(v18 - 1);
+											nox_game_setQuestStage_4E3CD0(v18 - 1);
 											sub_4D76E0(1);
 											sub_4D60B0();
 										}
@@ -11533,7 +11529,7 @@ int sub_4F2210() {
 
 	v0 = 0;
 	lpMem = 0;
-	v1 = nox_xxx_GetQuestStage_4E3CC0();
+	v1 = nox_game_getQuestStage_4E3CC0();
 	v2 = nox_xxx_player_4E3CE0();
 	if (!dword_5d4594_1568288) {
 		dword_5d4594_1568288 = nox_xxx_getNameId_4E3AA0("RewardMarker");

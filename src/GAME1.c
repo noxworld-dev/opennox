@@ -7904,7 +7904,7 @@ void sub_416690() {
 			v2 = *(_WORD*)(v1 + 63) & 0xFF7F;
 			HIBYTE(v2) |= 0x10u;
 			*(_WORD*)(v1 + 63) = v2;
-			*(_WORD*)(v1 + 65) = nox_xxx_GetQuestStage_4E3CC0();
+			*(_WORD*)(v1 + 65) = nox_game_getQuestStage_4E3CC0();
 		}
 		v3[sub_425550(v1, v3, 552)] = 0;
 		sub_40D560((int)v3);

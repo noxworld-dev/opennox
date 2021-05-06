@@ -485,7 +485,8 @@ int  sub_46F080(int a1, int a2) {
 			}
 			if (!nox_common_gameFlags_check_40A5C0(1) || !nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
 				if (dword_5d4594_1090120 == 1) {
-					v28 = sub_450B10();
+					// quest on-screen stats
+					v28 = nox_gui_getQuestStage_450B10();
 					v23 = nox_strman_loadString_40F1D0("Noxworld.c:Stage", 0,
 												"C:\\NoxPost\\src\\client\\Gui\\guirank.c", 1499);
 					nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1086692), L"%s %d", v23, v28);

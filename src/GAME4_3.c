@@ -10818,7 +10818,7 @@ int  sub_53F830(int a1, int a2) {
 		if ((nox_frame_xxx_2598000 - v5 > (unsigned int)(3 * nox_gameFPS) || !v5) &&
 			nox_xxx_mapCheck_537110(a1, a2) == 1) {
 			if (sub_4D75E0()) {
-				v6 = nox_xxx_GetQuestStage_4E3CC0();
+				v6 = nox_game_getQuestStage_4E3CC0();
 				v7 = sub_4D74F0(v6);
 				v8 = *(_DWORD*)(v3 + 276);
 				a1 = v7;

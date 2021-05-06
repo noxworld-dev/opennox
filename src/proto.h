@@ -1810,8 +1810,8 @@ char  sub_450760(char a1);
 int  sub_450960(const void*, const void*); // idb
 char*  sub_450AD0(char* a1);
 int  sub_450AF0(int a1);
-int  sub_450B00(int a1);
-int sub_450B10();
+void nox_gui_setQuestStage_450B00(int a1);
+int nox_gui_getQuestStage_450B10();
 void nox_xxx_unused_451430();
 void  nullsub_4(_DWORD, _DWORD, _DWORD, _DWORD); // weak
 int nox_xxx_unused_4514F0();
@@ -3707,7 +3707,7 @@ int  sub_4D6770(int a1);
 int  sub_4D6880(int a1, int a2);
 char* sub_4D6940();
 char* sub_4D6950();
-int  sub_4D6960(int a1);
+int  nox_game_sendQuestStage_4D6960(int a1);
 int  sub_4D6A20(int a1, int a2);
 int sub_4D6A60();
 int  sub_4D6B10(int a1);
@@ -4070,8 +4070,8 @@ int  nox_xxx_cliSetPlrGuid_4E3C60(int a1);
 int nox_xxx_servResetObjectGIDs_4E3C70();
 double sub_4E3CA0();
 int  sub_4E3CB0(float a1); // idb
-int nox_xxx_GetQuestStage_4E3CC0();
-int  sub_4E3CD0(int a1);
+int nox_game_getQuestStage_4E3CC0();
+void nox_game_setQuestStage_4E3CD0(int a1);
 int nox_xxx_player_4E3CE0();
 int sub_4E3D50();
 __int16 sub_4E3DD0();

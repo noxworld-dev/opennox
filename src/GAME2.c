@@ -1534,16 +1534,12 @@ int  sub_450AF0(int a1) {
 }
 
 //----- (00450B00) --------------------------------------------------------
-int  sub_450B00(int a1) {
-	int result; // eax
-
-	result = a1;
+void nox_gui_setQuestStage_450B00(int a1) {
 	*getMemU32Ptr(0x5D4594, 832468) = a1;
-	return result;
 }
 
 //----- (00450B10) --------------------------------------------------------
-int sub_450B10() { return *getMemU32Ptr(0x5D4594, 832468); }
+int nox_gui_getQuestStage_450B10() { return *getMemU32Ptr(0x5D4594, 832468); }
 
 //----- (00451430) --------------------------------------------------------
 void nox_xxx_unused_451430() {

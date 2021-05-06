@@ -580,7 +580,7 @@ void nox_server_switchQuestIfRequested_4D6FD0() {
 	}
 	nox_xxx_mapLoad_4D2450(mapFile);
 	sub_4DCE80(0);
-	sub_4E3CD0(0);
+	nox_game_setQuestStage_4E3CD0(0);
 	sub_4169F0();
 }
 #endif // NOX_CGO
@@ -1145,7 +1145,7 @@ void sub_4F1F20() {
 	int v10;    // [esp+4h] [ebp-Ch]
 	float2 a3;  // [esp+8h] [ebp-8h]
 
-	v9 = nox_xxx_GetQuestStage_4E3CC0();
+	v9 = nox_game_getQuestStage_4E3CC0();
 	if (!dword_5d4594_1568300) {
 		dword_5d4594_1568300 = nox_xxx_getNameId_4E3AA0("RewardMarker");
 		*getMemU32Ptr(0x5D4594, 1568304) = nox_xxx_getNameId_4E3AA0("RewardMarkerPlus");
@@ -1300,8 +1300,8 @@ int sub_4FC6D0() {
 		result = nox_xxx_getFirstPlayerUnit_4DA7C0();
 		if (result) {
 			if (nox_common_gameFlags_check_40A5C0(4096)) {
-				if (nox_xxx_GetQuestStage_4E3CC0() == 1) {
-					sub_4D6960(255);
+				if (nox_game_getQuestStage_4E3CC0() == 1) {
+					nox_game_sendQuestStage_4D6960(255);
 					sub_4D7440(1);
 					sub_4D60B0();
 				} else if (!sub_4D6F30() || sub_4D7430()) {
@@ -1331,7 +1331,7 @@ int sub_4FC6D0() {
 						sub_4D60B0();
 					}
 				} else {
-					sub_4D6960(255);
+					nox_game_sendQuestStage_4D6960(255);
 					sub_4D7440(1);
 					sub_4D60B0();
 				}
@@ -1713,7 +1713,7 @@ void  sub_51A1F0(int a1) {
 
 	v21 = 0;
 	v23 = 0;
-	v1 = nox_xxx_GetQuestStage_4E3CC0();
+	v1 = nox_game_getQuestStage_4E3CC0();
 	v22 = v1;
 	v19 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 252424));
 	v24 = nox_float2int(v19);
@@ -1756,7 +1756,7 @@ void  sub_51A1F0(int a1) {
 					default:
 						break;
 					}
-					if (nox_xxx_GetQuestStage_4E3CC0() >= v24 && *(_BYTE*)(v6 + v3 + 83) != 3)
+					if (nox_game_getQuestStage_4E3CC0() >= v24 && *(_BYTE*)(v6 + v3 + 83) != 3)
 						*(_BYTE*)(v6 + 87) *= 2;
 					v8 = sub_51A500(*(_DWORD*)(16 * v3 + v6));
 					if (v8)
@@ -2442,8 +2442,8 @@ int nox_xxx_mapExitAndCheckNext_4D1860_server() {
 		nox_xxx_getQuestStage_51A930();
 		v52 = nox_common_randomInt_415FA0(0, 2);
 		sub_51A920(v52);
-		v53 = nox_xxx_GetQuestStage_4E3CC0();
-		sub_4E3CD0(v53 + 1);
+		v53 = nox_game_getQuestStage_4E3CC0();
+		nox_game_setQuestStage_4E3CD0(v53 + 1);
 		v54 = nox_xxx_getQuestStage_51A930();
 		sub_51A1F0(v54);
 		sub_4E3D50();
@@ -2453,7 +2453,7 @@ int nox_xxx_mapExitAndCheckNext_4D1860_server() {
 		sub_4D10F0(v55);
 		sub_4D7520(1);
 		v56 = (__int64)nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 196800));
-		if (nox_xxx_GetQuestStage_4E3CC0() >= v56)
+		if (nox_game_getQuestStage_4E3CC0() >= v56)
 			sub_4D7520(0);
 	}
 	if (nox_common_gameFlags_check_40A5C0(2048) && !nox_xxx_mapLoadRequired_4DCC80()) {

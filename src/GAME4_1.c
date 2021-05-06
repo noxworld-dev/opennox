@@ -3591,7 +3591,7 @@ void  nox_xxx_loadShopItems_50E970(int a1) {
 		if (nox_common_gameFlags_check_40A5C0(4096)) {
 			v40 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 235792));
 			v4 = nox_float2int(v40);
-			if (nox_xxx_GetQuestStage_4E3CC0() < v4) {
+			if (nox_game_getQuestStage_4E3CC0() < v4) {
 				v5 = nox_xxx_objectCreateByName_4E3810("AnkhTradable");
 				if (v5)
 					nox_xxx_addItemToShopSession_50EE00(a1, *(float*)&v5);
@@ -3612,7 +3612,7 @@ void  nox_xxx_loadShopItems_50E970(int a1) {
 			v11 = (int)v10;
 			if (v10) {
 				v12 = (_DWORD*)v10[173];
-				v13 = nox_xxx_GetQuestStage_4E3CC0();
+				v13 = nox_game_getQuestStage_4E3CC0();
 				*v12 = 8;
 				v14 = v13 + 2;
 				v15 = nox_server_rewardgen_activateMarker_4F0720(v11, v13 + 2);
@@ -8046,19 +8046,19 @@ void  nox_xxx_spawnHecubahQuest_51A5A0(int* a1) {
 		nox_xxx_createAt_4DAA50((int)v1, 0, *(float*)a1, *((float*)a1 + 1));
 		v7 = nox_xxx_objectCreateByName_4E3810("RewardMarker");
 		if (v7) {
-			v8 = nox_xxx_GetQuestStage_4E3CC0();
+			v8 = nox_game_getQuestStage_4E3CC0();
 			v9 = nox_server_rewardgen_activateMarker_4F0720((int)v7, v8 + 2);
 			if (v9)
 				nox_xxx_inventoryPutImpl_4F3070((int)v1, (int)v9, 0);
-			v10 = nox_xxx_GetQuestStage_4E3CC0();
+			v10 = nox_game_getQuestStage_4E3CC0();
 			v11 = nox_server_rewardgen_activateMarker_4F0720((int)v7, v10 + 2);
 			if (v11)
 				nox_xxx_inventoryPutImpl_4F3070((int)v1, (int)v11, 0);
-			v12 = nox_xxx_GetQuestStage_4E3CC0();
+			v12 = nox_game_getQuestStage_4E3CC0();
 			v13 = nox_server_rewardgen_activateMarker_4F0720((int)v7, v12 + 2);
 			if (v13)
 				nox_xxx_inventoryPutImpl_4F3070((int)v1, (int)v13, 0);
-			v14 = nox_xxx_GetQuestStage_4E3CC0();
+			v14 = nox_game_getQuestStage_4E3CC0();
 			v15 = nox_server_rewardgen_activateMarker_4F0720((int)v7, v14 + 2);
 			if (v15)
 				nox_xxx_inventoryPutImpl_4F3070((int)v1, (int)v15, 0);
@@ -8112,7 +8112,7 @@ void  nox_xxx_spawnNecroQuest_51A7A0(int* a1) {
 		nox_xxx_createAt_4DAA50((int)v1, 0, *(float*)a1, *((float*)a1 + 1));
 		v7 = nox_xxx_objectCreateByName_4E3810("RewardMarker");
 		if (v7) {
-			v8 = nox_xxx_GetQuestStage_4E3CC0();
+			v8 = nox_game_getQuestStage_4E3CC0();
 			v9 = nox_server_rewardgen_activateMarker_4F0720((int)v7, v8 + 2);
 			if (v9)
 				nox_xxx_inventoryPutImpl_4F3070((int)v1, (int)v9, 0);

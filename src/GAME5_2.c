@@ -1124,7 +1124,7 @@ unsigned int  nox_server_makeServerInfoPacket_554040(const char* inBuf, int inSz
 	unsigned int gameFlags = nox_common_gameFlags_getVal_40A5B0();
 	if (sub_4D6F50()) {
 		gameFlags = (gameFlags & 0xFFFFFF7Fu) | 0x1000u;
-		*(_WORD*)&buf[68] = nox_xxx_GetQuestStage_4E3CC0();
+		*(_WORD*)&buf[68] = nox_game_getQuestStage_4E3CC0();
 	}
 	*(_DWORD*)&buf[28] = gameFlags;
 	*(_DWORD*)&buf[32] = *((_DWORD*)game + 12);

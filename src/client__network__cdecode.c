@@ -3404,12 +3404,13 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 				break;
 			case 0xDu:
 				if (nox_client_isConnected_43C700())
-					sub_450980(data, *(_BYTE*)(data + 4) & 1);
-				goto LABEL_1119;
-			case 0xEu:
+					nox_client_showQuestBriefing2_450980(data, *(_BYTE*)(data + 4) & 1);
+				nox_client_gui_flag_1556112 = 0;
+				data += 69;
+				break;
+			case 0xEu: // quest start briefing
 				if (nox_client_isConnected_43C700())
 					nox_client_showQuestBriefing_450A30(data, 1);
-			LABEL_1119:
 				nox_client_gui_flag_1556112 = 0;
 				data += 69;
 				break;

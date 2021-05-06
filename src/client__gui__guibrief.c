@@ -152,7 +152,7 @@ int  sub_44E8E0(int a1, int a2) {
 	nox_wcscpy(&v55[1], v4);
 	v5 = nox_strman_loadString_40F1D0("Noxworld.c:Stage", 0, "C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c", 451);
 	nox_wcscpy(v56, v5);
-	nox_wcscat(v56, L" ");
+	nox_wcscat(v56, L" XX1 ");
 	_itow(*getMemIntPtr(0x5D4594, 831228), WideCharStr, 10);
 	nox_wcscat(v56, WideCharStr);
 	nox_swprintf(v57, L"%s - %s", &v55[1], v56);
@@ -310,13 +310,14 @@ int  sub_44F0F0(int a1, int a2) {
 	wchar_t v13[256];     // [esp+1Ch] [ebp-400h]
 	wchar_t v14[256];     // [esp+21Ch] [ebp-200h]
 
+	// quest title screen text
 	v2 = nox_win_width / 2;
 	v3 = nox_win_height / 2;
 	nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 2523948));
 	v4 = nox_strman_loadString_40F1D0("Noxworld.c:Stage", 0, "C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c", 668);
 	nox_wcscpy(v13, v4);
 	nox_wcscat(v13, L" %d");
-	nox_swprintf(v14, v13, *getMemU32Ptr(0x5D4594, 832468));
+	nox_swprintf(v14, v13, nox_gui_getQuestStage_450B10());
 	nox_xxx_drawGetStringSize_43F840(*(_DWORD*)(a2 + 200), v14, &v10, &v11, 0);
 	nox_xxx_drawString_43F6E0(*(_DWORD*)(a2 + 200), (__int16*)v14, v2 - v10 / 2, v3 + 2 * (v11 - 80) + v11 - 80);
 	if (*getMemU32Ptr(0x5D4594, 832464)) {
@@ -679,7 +680,7 @@ int  nox_xxx_clientQuestWinScreen_450770(int a1) {
 }
 
 //----- (00450980) --------------------------------------------------------
-int  sub_450980(int a1, int a2) {
+int  nox_client_showQuestBriefing2_450980(int a1, int a2) {
 	char* v2;    // eax
 	wchar_t* v3; // eax
 	int result;  // eax
@@ -696,7 +697,7 @@ int  sub_450980(int a1, int a2) {
 	} else {
 		sub_450AF0((int)getMemAt(0x5D4594, 832544));
 	}
-	sub_450B00(*(unsigned __int16*)(a1 + 2));
+	nox_gui_setQuestStage_450B00(*(unsigned __int16*)(a1 + 2));
 	if (*(_BYTE*)(a1 + 4) & 2)
 		dword_5d4594_832480 = 1;
 	result = a2;
@@ -723,7 +724,7 @@ int  nox_client_showQuestBriefing_450A30(int a1, int a2) {
 	} else {
 		sub_450AF0((int)getMemAt(0x5D4594, 832548));
 	}
-	sub_450B00(*(unsigned __int16*)(a1 + 2));
+	nox_gui_setQuestStage_450B00(*(unsigned __int16*)(a1 + 2));
 	result = a2;
 	if (a2)
 		result = nox_client_lockScreenBriefing_450160(254, 1, 4);

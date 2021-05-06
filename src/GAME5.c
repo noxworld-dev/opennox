@@ -6108,7 +6108,7 @@ char  nox_xxx_updateMonsterGenerator_54E930(_DWORD* a1) {
 	__int64 v22;     // [esp+14h] [ebp-10h]
 	float2 a2;       // [esp+1Ch] [ebp-8h]
 
-	v1 = nox_xxx_GetQuestStage_4E3CC0();
+	v1 = nox_game_getQuestStage_4E3CC0();
 	v2 = a1[187];
 	v3 = nox_xxx_getQuestStage_51A930();
 	if (!dword_5d4594_2491716) {
