@@ -3746,7 +3746,7 @@ int  sub_4D74F0(int a1);
 char  sub_4D7520(int a1);
 int sub_4D75E0();
 int  sub_4D75F0(int a1);
-int sub_4D7600();
+void nox_server_checkWarpGate_4D7600();
 int  sub_4D76E0(int a1);
 int sub_4D76F0();
 bool nox_client_checkQuestExp_SKU2_4D7700();

@@ -4955,42 +4955,39 @@ int  sub_4D75F0(int a1) {
 }
 
 //----- (004D7600) --------------------------------------------------------
-int sub_4D7600() {
-	int v0;     // edi
-	int v1;     // esi
-	int result; // eax
-	int v3;     // ecx
-	int i;      // esi
-	int v5;     // eax
-
-	v0 = nox_xxx_player_4E3CE0();
-	v1 = 0;
-	result = nox_frame_xxx_2598000 - *getMemU32Ptr(0x5D4594, 1556108);
-	if ((unsigned int)(nox_frame_xxx_2598000 - *getMemU32Ptr(0x5D4594, 1556108)) >= 0x1E && v0) {
-		for (result = nox_xxx_getFirstPlayerUnit_4DA7C0(); result; result = nox_xxx_getNextPlayerUnit_4DA7F0(result)) {
-			v3 = *(_DWORD*)(result + 748);
-			if (*(_DWORD*)(*(_DWORD*)(v3 + 276) + 4792) && *(_DWORD*)(v3 + 316))
-				++v1;
+void nox_server_checkWarpGate_4D7600() {
+	int exp = nox_xxx_player_4E3CE0();
+	if (!exp) {
+		return;
+	}
+	if ((unsigned int)(nox_frame_xxx_2598000 - *getMemU32Ptr(0x5D4594, 1556108)) < 30) {
+		return;
+	}
+	int inGate = 0;
+	for (void* unit = nox_xxx_getFirstPlayerUnit_4DA7C0(); unit; unit = nox_xxx_getNextPlayerUnit_4DA7F0(unit)) {
+		int v3 = *(_DWORD*)((int)unit + 748);
+		if (*(_DWORD*)(*(_DWORD*)(v3 + 276) + 4792) && *(_DWORD*)(v3 + 316)) {
+			++inGate;
 		}
-		if (v0 == v1) {
-			result = sub_4E8F60();
-			if (!result) {
-				result = nox_xxx_getFirstPlayerUnit_4DA7C0();
-				for (i = result; result; i = result) {
-					v5 = *(_DWORD*)(i + 748);
-					if (*(_DWORD*)(*(_DWORD*)(v5 + 276) + 4792) && *(_DWORD*)(v5 + 316)) {
-						sub_4D7480(i);
-						if (v0 <= 1)
-							nox_xxx_netPriMsgToPlayer_4DA2C0(i, "Gauntlet.c:WarpRestrictedSolo", 0);
-						else
-							nox_xxx_netPriMsgToPlayer_4DA2C0(i, "Gauntlet.c:WarpRestrictedMulti", 0);
-					}
-					result = nox_xxx_getNextPlayerUnit_4DA7F0(i);
+	}
+	if (exp != inGate) {
+		// not all players are in the gate
+		return;
+	}
+	if (!sub_4E8F60()) {
+		// warp failed
+		for (void* unit = nox_xxx_getFirstPlayerUnit_4DA7C0(); unit; unit = nox_xxx_getNextPlayerUnit_4DA7F0(unit)) {
+			int v5 = *(_DWORD*)((int)unit + 748);
+			if (*(_DWORD*)(*(_DWORD*)(v5 + 276) + 4792) && *(_DWORD*)(v5 + 316)) {
+				sub_4D7480(unit);
+				if (exp <= 1) {
+					nox_xxx_netPriMsgToPlayer_4DA2C0(unit, "Gauntlet.c:WarpRestrictedSolo", 0);
+				} else {
+					nox_xxx_netPriMsgToPlayer_4DA2C0(unit, "Gauntlet.c:WarpRestrictedMulti", 0);
 				}
 			}
 		}
 	}
-	return result;
 }
 
 //----- (004D76E0) --------------------------------------------------------

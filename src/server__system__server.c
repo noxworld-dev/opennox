@@ -516,7 +516,7 @@ int  nox_xxx_updateServer_4D2DA0(__int64 a1) {
 	if (result) {
 		sub_4D7150();
 		sub_4D71F0();
-		sub_4D7600();
+		nox_server_checkWarpGate_4D7600();
 		sub_4DCE00();
 		result = sub_4D7A80();
 	}
