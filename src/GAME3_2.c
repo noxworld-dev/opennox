@@ -4889,7 +4889,7 @@ void  sub_4D7480(int a1) {
 }
 
 //----- (004D74F0) --------------------------------------------------------
-int  sub_4D74F0(int a1) {
+int  nox_server_questNextStageThreshold_4D74F0(int a1) {
 	int result; // eax
 
 	result = a1;
@@ -4974,7 +4974,7 @@ void nox_server_checkWarpGate_4D7600() {
 		// not all players are in the gate
 		return;
 	}
-	if (!sub_4E8F60()) {
+	if (!nox_server_questMaybeWarp_4E8F60()) {
 		// warp failed
 		for (void* unit = nox_xxx_getFirstPlayerUnit_4DA7C0(); unit; unit = nox_xxx_getNextPlayerUnit_4DA7F0(unit)) {
 			int v5 = *(_DWORD*)((int)unit + 748);
@@ -9277,11 +9277,11 @@ char*  nox_xxx_playerForceDisconnect_4DE7C0(int a1) {
 		if (sub_4E9010() == 1) {
 			v11 = sub_4E8E50();
 			result = nox_xxx_mapLoad_4D2450((char*)v11);
-		} else if (sub_4E8F60()) {
+		} else if (nox_server_questMaybeWarp_4E8F60()) {
 			sub_4D60B0();
 			sub_4D76E0(1);
 			v12 = nox_game_getQuestStage_4E3CC0();
-			v13 = sub_4D74F0(v12);
+			v13 = nox_server_questNextStageThreshold_4D74F0(v12);
 			nox_game_setQuestStage_4E3CD0(v13 - 1);
 			v14 = sub_4E8E50();
 			result = nox_xxx_mapLoad_4D2450((char*)v14);

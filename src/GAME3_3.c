@@ -4973,44 +4973,31 @@ int sub_4E8E60() {
 }
 
 //----- (004E8F60) --------------------------------------------------------
-BOOL sub_4E8F60() {
-	int v0;          // ebp
-	int v1;          // eax
-	int v2;          // ebx
-	int v3;          // edi
-	int v4;          // esi
-	int v5;          // eax
-	BOOL result;     // eax
-	unsigned int v7; // [esp+10h] [ebp-4h]
-
-	v0 = 0;
-	v1 = nox_game_getQuestStage_4E3CC0();
-	v7 = sub_4D74F0(v1);
-	v2 = 1;
-	v3 = nox_xxx_getFirstPlayerUnit_4DA7C0();
-	if (!v3)
-		goto LABEL_11;
-	do {
-		v4 = *(_DWORD*)(v3 + 748);
+bool nox_server_questMaybeWarp_4E8F60() {
+	unsigned int curLvl = nox_game_getQuestStage_4E3CC0();
+	unsigned int toLvl = nox_server_questNextStageThreshold_4D74F0(curLvl);
+	int cnt = 0;
+	bool allow = 0;
+	for (void* unit = nox_xxx_getFirstPlayerUnit_4DA7C0(); unit; unit = nox_xxx_getNextPlayerUnit_4DA7F0(unit)) {
+		int v4 = *(_DWORD*)((int)unit + 748);
 		if (!nox_common_gameFlags_check_40A5C0(1) || !nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) ||
 			*(_BYTE*)(*(_DWORD*)(v4 + 276) + 2064) != 31) {
-			v5 = *(_DWORD*)(v4 + 276);
+			int v5 = *(_DWORD*)(v4 + 276);
 			if (*(_DWORD*)(v5 + 4792)) {
-				++v0;
-				if (!*(_DWORD*)(v4 + 316))
-					goto LABEL_11;
-				if (*(_DWORD*)(v5 + 4696) >= v7)
-					v2 = 0;
+				++cnt;
+				if (!*(_DWORD*)(v4 + 316)) {
+					return 0;
+				}
+				if (*(_DWORD*)(v5 + 4696) >= toLvl) {
+					allow = 1;
+				}
 			}
 		}
-		v3 = nox_xxx_getNextPlayerUnit_4DA7F0(v3);
-	} while (v3);
-	if (v0)
-		result = v2 != 1;
-	else
-	LABEL_11:
-		result = 0;
-	return result;
+	}
+	if (!cnt) {
+		return 0;
+	}
+	return allow;
 }
 
 //----- (004E9010) --------------------------------------------------------
@@ -5150,7 +5137,7 @@ char*  nox_xxx_collideExit_4E9090(int a1, int a2, int a3) {
 												(int*)(v4 + 36));
 									}
 									nox_xxx_netPriMsgToPlayer_4DA2C0(v4, "objcoll.c:PlayerEntersWarp", 0);
-									v9 = sub_4E8F60();
+									v9 = nox_server_questMaybeWarp_4E8F60();
 								}
 								nox_xxx_aud_501960(1003, v12, 0, 0);
 								if (!(*(_BYTE*)(v12 + 12) & 2) && !v9)
@@ -5163,7 +5150,7 @@ char*  nox_xxx_collideExit_4E9090(int a1, int a2, int a3) {
 									if (v10 && *v10) {
 										if (*(_BYTE*)(a1 + 12) & 2) {
 											v17 = nox_game_getQuestStage_4E3CC0();
-											v18 = sub_4D74F0(v17);
+											v18 = nox_server_questNextStageThreshold_4D74F0(v17);
 											nox_game_setQuestStage_4E3CD0(v18 - 1);
 											sub_4D76E0(1);
 											sub_4D60B0();
