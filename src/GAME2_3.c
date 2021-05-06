@@ -9191,31 +9191,42 @@ int  sub_4A0030(const void* a1) {
 		if (*(unsigned __int8**)getMemAt(0x5D4594, 1305800) == getMemAt(0x5D4594, 1305796))
 			return sub_425790(getMemIntPtr(0x5D4594, 1305796), v1);
 		v3 = nox_xxx_gameMapsValidateListMB_425890(getMemIntPtr(0x5D4594, 1305796));
-		if (!v3)
-			goto LABEL_6;
+		if (!v3) {
+			sub_4258E0((int)getMemAt(0x5D4594, 1305796), v1);
+			return v2;
+		}
 		do {
-			if (_strcmpi((const char*)v1 + 120, (const char*)v3 + 120) <= 0)
-				goto LABEL_24;
+			if (_strcmpi((const char*)v1 + 120, (const char*)v3 + 120) <= 0) {
+				sub_4258E0((int)v3, v1);
+				return v2;
+			}
 			++v2;
 			v3 = sub_4258A0(v3);
 		} while (v3);
-		goto LABEL_6;
+		sub_4258E0((int)getMemAt(0x5D4594, 1305796), v1);
+		return v2;
 	case 1:
 		if (*(unsigned __int8**)getMemAt(0x5D4594, 1305800) == getMemAt(0x5D4594, 1305796))
 			return sub_425790(getMemIntPtr(0x5D4594, 1305796), v1);
 		v3 = nox_xxx_gameMapsValidateListMB_425890(getMemIntPtr(0x5D4594, 1305796));
-		if (!v3)
-			goto LABEL_6;
+		if (!v3) {
+			sub_4258E0((int)getMemAt(0x5D4594, 1305796), v1);
+			return v2;
+		}
 		while (_strcmpi((const char*)v1 + 120, (const char*)v3 + 120) < 0) {
 			++v2;
 			v3 = sub_4258A0(v3);
-			if (!v3)
-				goto LABEL_6;
+			if (!v3) {
+				sub_4258E0((int)getMemAt(0x5D4594, 1305796), v1);
+				return v2;
+			}
 		}
-		goto LABEL_24;
+		sub_4258E0((int)v3, v1);
+		return v2;
 	case 2:
 		v5 = *((unsigned __int8*)v1 + 103);
-		goto LABEL_29;
+		v1[2] = v5;
+		return sub_425790(getMemIntPtr(0x5D4594, 1305796), v1);
 	case 3:
 		v1[2] = 32 - *((unsigned __int8*)v1 + 103);
 		return sub_425790(getMemIntPtr(0x5D4594, 1305796), v1);
@@ -9224,34 +9235,55 @@ int  sub_4A0030(const void* a1) {
 			return sub_425790(getMemIntPtr(0x5D4594, 1305796), v1);
 		v6 = sub_43BCB0(*(_WORD*)((char*)v1 + 163));
 		v3 = nox_xxx_gameMapsValidateListMB_425890(getMemIntPtr(0x5D4594, 1305796));
-		if (!v3)
-			goto LABEL_6;
+		if (!v3) {
+			sub_4258E0((int)getMemAt(0x5D4594, 1305796), v1);
+			return v2;
+		}
 		while (1) {
 			v7 = sub_43BCB0(*(_WORD*)((char*)v3 + 163));
-			if (nox_wcscmp(v6, v7) <= 0)
-				goto LABEL_24;
+			if (nox_wcscmp(v6, v7) <= 0) {
+				sub_4258E0((int)v3, v1);
+				return v2;
+			}
 			++v2;
 			v3 = sub_4258A0(v3);
-			if (!v3)
-				goto LABEL_6;
+			if (!v3) {
+				sub_4258E0((int)getMemAt(0x5D4594, 1305796), v1);
+				return v2;
+			}
 		}
 	case 5:
 		if (*(unsigned __int8**)getMemAt(0x5D4594, 1305800) == getMemAt(0x5D4594, 1305796))
 			return sub_425790(getMemIntPtr(0x5D4594, 1305796), v1);
 		v8 = sub_43BCB0(*(_WORD*)((char*)v1 + 163));
 		v3 = nox_xxx_gameMapsValidateListMB_425890(getMemIntPtr(0x5D4594, 1305796));
-		if (!v3)
-			goto LABEL_6;
-		break;
+		if (!v3) {
+			sub_4258E0((int)getMemAt(0x5D4594, 1305796), v1);
+			return v2;
+		}
+		while (1) {
+			v9 = sub_43BCB0(*(_WORD*)((char*)v3 + 163));
+			if (nox_wcscmp(v8, v9) >= 0) {
+				break;
+			}
+			++v2;
+			v3 = sub_4258A0(v3);
+			if (!v3) {
+				sub_4258E0((int)getMemAt(0x5D4594, 1305796), v1);
+				return v2;
+			}
+		}
+		sub_4258E0((int)v3, v1);
+		return v2;
 	case 6:
 		v5 = v1[24];
-		goto LABEL_29;
+		v1[2] = v5;
+		return sub_425790(getMemIntPtr(0x5D4594, 1305796), v1);
 	case 7:
 		v1[2] = 1000 - v1[24];
 		return sub_425790(getMemIntPtr(0x5D4594, 1305796), v1);
 	case 8:
 		v5 = v1[25] & 0x30;
-	LABEL_29:
 		v1[2] = v5;
 		return sub_425790(getMemIntPtr(0x5D4594, 1305796), v1);
 	case 9:
@@ -9260,21 +9292,6 @@ int  sub_4A0030(const void* a1) {
 	default:
 		return 0;
 	}
-	while (1) {
-		v9 = sub_43BCB0(*(_WORD*)((char*)v3 + 163));
-		if (nox_wcscmp(v8, v9) >= 0)
-			break;
-		++v2;
-		v3 = sub_4258A0(v3);
-		if (!v3) {
-		LABEL_6:
-			sub_4258E0((int)getMemAt(0x5D4594, 1305796), v1);
-			return v2;
-		}
-	}
-LABEL_24:
-	sub_4258E0((int)v3, v1);
-	return v2;
 }
 
 //----- (004A0290) --------------------------------------------------------
