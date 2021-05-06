@@ -107,7 +107,7 @@ extern _DWORD nox_client_translucentFrontWalls_805844;
 extern _QWORD qword_5d4594_814956;
 extern void* dword_587000_93164;
 extern _DWORD dword_5d4594_815044;
-extern _DWORD dword_5d4594_815088;
+extern _DWORD nox_wol_server_result_cnt_815088;
 extern void* dword_587000_127004;
 extern _DWORD dword_5d4594_814624;
 extern _DWORD cpuid_5d4594_3801804;
@@ -8106,8 +8106,8 @@ int  sub_437320(int a1) {
 
 //----- (004375C0) --------------------------------------------------------
 void  sub_4375C0(int a1) {
-	if (dword_5d4594_815088)
-		sub_46AD20(*(_DWORD**)&dword_5d4594_814980, 10070, dword_5d4594_815088 + 10069, a1);
+	if (nox_wol_server_result_cnt_815088)
+		sub_46AD20(*(_DWORD**)&dword_5d4594_814980, 10070, nox_wol_server_result_cnt_815088 + 10069, a1);
 }
 
 //----- (004375F0) --------------------------------------------------------
@@ -8115,7 +8115,7 @@ int  nox_client_OnLobbyServer_4375F0(const char* addr, uint16_t port, const char
 	char v13[172]; // [esp+14h] [ebp-CCh]
 	char v14[32];  // [esp+C0h] [ebp-20h]
 
-	if (dword_5d4594_815088 >= 2500 || dword_5d4594_815044 || dword_5d4594_815060) {
+	if (nox_wol_server_result_cnt_815088 >= 2500 || dword_5d4594_815044 || dword_5d4594_815060) {
 		return 0;
 	}
 	if (!memcmp(addr, getMemAt(0x5D4594, 815108), 1u)) {
@@ -8150,7 +8150,7 @@ int  nox_client_OnLobbyServer_4375F0(const char* addr, uint16_t port, const char
 	if (*(int*)&dword_587000_87412 == -1 || sub_437860(*(__int16*)&v13[44], *(__int16*)&v13[46]) == dword_587000_87412) {
 		if (nox_xxx_checkSomeFlagsOnJoin_4899C0(v13)) {
 			strcpy(&v13[12], addr);
-			*(_DWORD*)&v13[36] = dword_5d4594_815088;
+			*(_DWORD*)&v13[36] = nox_wol_server_result_cnt_815088;
 			*(_DWORD*)&v13[28] = 0;
 			*(_WORD*)&v13[109] = port;
 			strncpy(&v13[120], name, 15);
@@ -8162,7 +8162,7 @@ int  nox_client_OnLobbyServer_4375F0(const char* addr, uint16_t port, const char
 			else
 				nox_sprintAddrPort_43BC80(addr, port, v14);
 			// TODO: v14 unused after the copy?
-			++dword_5d4594_815088;
+			++nox_wol_server_result_cnt_815088;
 		}
 	}
 	return 0;
@@ -8414,7 +8414,7 @@ int  sub_439050(int a1, unsigned int a2, int* a3, unsigned int a4) {
 				nox_window_call_field_94(*(int*)&dword_5d4594_815024, 16403, a4, 0);
 				nox_window_call_field_94(*(int*)&dword_5d4594_815028, 16403, a4, 0);
 				nox_window_call_field_94(*(int*)&dword_5d4594_815032, 16403, a4, 0);
-				if (a4 < *(int*)&dword_5d4594_815088) {
+				if (a4 < *(int*)&nox_wol_server_result_cnt_815088) {
 					nox_point pos = nox_client_getMousePos_4309F0();
 					dword_5d4594_814624 = sub_4A04C0(a4);
 					sub_439370(&pos, *(int*)&dword_5d4594_814624);
@@ -8591,7 +8591,7 @@ int sub_43A9D0() {
 	}
 	sub_43A920();
 	nox_xxx_windowDestroyChildsMB_46B500(0);
-	dword_5d4594_815088 = 0;
+	nox_wol_server_result_cnt_815088 = 0;
 	sub_49FFA0(0);
 	sub_554D10();
 	nox_client_setCursorType_477610(0);
@@ -8690,7 +8690,7 @@ void sub_43ACC0() {
 	char v10[32];      // [esp+ACh] [ebp-40h]
 	char v11[32];      // [esp+CCh] [ebp-20h]
 
-	if (!dword_5d4594_815088 && !dword_5d4594_815044) {
+	if (!nox_wol_server_result_cnt_815088 && !dword_5d4594_815044) {
 		v0 = sub_41FA40();
 		nox_sprintf(v11, "%s%s", v0, getMemAt(0x587000, 90768));
 		for (i = sub_41F0E0(); i; i = sub_41F0C0()) {
@@ -8714,7 +8714,7 @@ void sub_43ACC0() {
 						v5 = *((_DWORD*)v4 + 3);
 						*(_DWORD*)&v9[32] = i;
 						*(_DWORD*)&v9[24] = v5;
-						*(_DWORD*)&v9[36] = dword_5d4594_815088;
+						*(_DWORD*)&v9[36] = nox_wol_server_result_cnt_815088;
 						*(_DWORD*)&v9[44] = *(_DWORD*)(i + 32);
 						sub_4A0030(v9);
 						if (v9[120]) {
@@ -8723,13 +8723,13 @@ void sub_43ACC0() {
 						} else {
 							nox_sprintAddrPort_43BC80((int)&v9[12], *(unsigned __int16*)&v9[109], v10);
 						}
-						if (++dword_5d4594_815088 >= 0x9C4u)
+						if (++nox_wol_server_result_cnt_815088 >= 0x9C4u)
 							break;
 					}
 				}
 			}
 		}
-		if (dword_5d4594_815088)
+		if (nox_wol_server_result_cnt_815088)
 			sub_4A0360();
 		sub_44A400();
 		if (nox_common_gameFlags_check_40A5C0(0x2000000) && *(int*)&dword_587000_87412 == -1) {

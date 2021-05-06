@@ -22,7 +22,7 @@ extern _DWORD dword_587000_87408;
 extern _QWORD qword_5d4594_814956;
 extern _QWORD qword_5d4594_815068;
 extern _DWORD dword_5d4594_815044;
-extern _DWORD dword_5d4594_815088;
+extern _DWORD nox_wol_server_result_cnt_815088;
 extern _DWORD dword_5d4594_814624;
 extern _DWORD dword_5d4594_815032;
 extern _DWORD dword_5d4594_815020;
@@ -112,7 +112,7 @@ void nox_client_refreshServerList_4378B0() {
 	sub_4379C0();
 	nox_window_call_field_94(*(int*)&dword_5d4594_815004, 16399, 0, 0);
 	sub_49FFA0(1);
-	dword_5d4594_815088 = 0;
+	nox_wol_server_result_cnt_815088 = 0;
 	if (dword_587000_87404) {
 		sub_41F370(1);
 		int v3 = sub_41E2F0();
@@ -302,7 +302,7 @@ int nox_game_showGameSel_4379F0() {
 					sub_4383A0();
 				if (!dword_587000_87404)
 					nox_xxx_createSocketLocal_554B40(0);
-				dword_5d4594_815088 = 0;
+				nox_wol_server_result_cnt_815088 = 0;
 				nox_xxx_loadModifyers_4158C0();
 				nox_xxx_loadLook_415D50();
 				sub_430C30_set_video_max(NOX_MAX_WIDTH, NOX_MAX_HEIGHT);
