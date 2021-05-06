@@ -2161,6 +2161,27 @@ bool sub_57B140() {
 }
 
 //----- (004D1860) --------------------------------------------------------
+#ifdef NOX_CGO
+void nox_server_questMapNextLevel();
+#else // !NOX_CGO
+void nox_server_questMapNextLevel() {
+	// server loading next quest level
+	sub_51A920(nox_common_randomInt_415FA0(0, 2));
+	int lvl = nox_game_getQuestStage_4E3CC0();
+	nox_game_setQuestStage_4E3CD0(lvl + 1);
+	lvl = nox_xxx_getQuestStage_51A930();
+	sub_51A1F0(lvl);
+	sub_4E3D50();
+	sub_4E3DD0();
+	sub_4F1F20();
+	sub_4D10F0(nox_server_currentMapGetFilename_409B30());
+	sub_4D7520(1);
+	unsigned int cutoff = nox_xxx_gamedataGetFloat_419D40("WarpGateCutoffStage");
+	if (nox_game_getQuestStage_4E3CC0() >= cutoff) {
+		sub_4D7520(0);
+	}
+}
+#endif // NOX_CGO
 int nox_xxx_mapExitAndCheckNext_4D1860_server() {
 	char* v2;         // eax
 	int i;            // eax
@@ -2210,8 +2231,6 @@ int nox_xxx_mapExitAndCheckNext_4D1860_server() {
 	int* v49;         // eax
 	int ii;           // eax
 	int jj;           // eax
-	int v52;          // eax
-	char* v55;        // eax
 	char v57;         // al
 	int* v58;         // [esp-1Ch] [ebp-68h]
 	__int16 v59;      // [esp-14h] [ebp-60h]
@@ -2436,24 +2455,7 @@ int nox_xxx_mapExitAndCheckNext_4D1860_server() {
 	if (nox_common_gameFlags_check_40A5C0(16) && nox_xxx_CheckGameplayFlags_417DA0(4))
 		sub_4D2160();
 	if (nox_common_gameFlags_check_40A5C0(4096)) {
-		// server loading next quest level
-		nox_xxx_getQuestStage_51A930();
-		v52 = nox_common_randomInt_415FA0(0, 2);
-		sub_51A920(v52);
-		int lvl = nox_game_getQuestStage_4E3CC0();
-		nox_game_setQuestStage_4E3CD0(lvl + 1);
-		lvl = nox_xxx_getQuestStage_51A930();
-		sub_51A1F0(lvl);
-		sub_4E3D50();
-		sub_4E3DD0();
-		sub_4F1F20();
-		v55 = nox_server_currentMapGetFilename_409B30();
-		sub_4D10F0(v55);
-		sub_4D7520(1);
-		unsigned int cutoff = nox_xxx_gamedataGetFloat_419D40("WarpGateCutoffStage");
-		if (nox_game_getQuestStage_4E3CC0() >= cutoff) {
-			sub_4D7520(0);
-		}
+		nox_server_questMapNextLevel();
 	}
 	if (nox_common_gameFlags_check_40A5C0(2048) && !nox_xxx_mapLoadRequired_4DCC80()) {
 		sub_4DB130("AUTOSAVE");
