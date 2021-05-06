@@ -170,10 +170,10 @@ int nox_win_depth_game = NOX_DEFAULT_DEPTH;
 int nox_win_width_menu = NOX_DEFAULT_WIDTH;
 int nox_win_height_menu = NOX_DEFAULT_HEIGHT;
 int nox_win_depth_menu = NOX_DEFAULT_DEPTH;
-#endif // NOX_CGO
 
 int nox_max_width = NOX_MAX_WIDTH;
 int nox_max_height = NOX_MAX_HEIGHT;
+#endif // NOX_CGO
 
 int g_scaled = 0;
 int g_fullscreen_cfg = 0;
@@ -5049,23 +5049,20 @@ void  sub_430BB0(_DWORD* a1, _DWORD* a2, _DWORD* a3) {
 }
 
 //----- (00430BE0) --------------------------------------------------------
+#ifndef NOX_CGO
 void input_set_draw_win_size(int w, int h);
-BOOL  nox_video_resizewnd(int a1, int a2, int a3) {
-	BOOL result; // eax
+void nox_video_resizewnd(int w, int h, int d) {
+	printf("New size: %d, %d\n", w, h);
 
-	printf("New size: %d, %d\n", a1, a2);
-
-	nox_win_width = a1;
-	if (a1 > nox_max_width)
+	nox_win_width = w;
+	if (w > nox_max_width)
 		nox_win_width = nox_max_width;
-	nox_win_height = a2;
-	if (a2 > nox_max_height)
+	nox_win_height = h;
+	if (h > nox_max_height)
 		nox_win_height = nox_max_height;
-	a3 = 16;
-	result = a3 != 8;
-	nox_video_16bit = a3 != 8;
+	d = 16;
+	nox_video_16bit = d != 8;
 	input_set_draw_win_size(nox_win_width, nox_win_height);
-	return result;
 }
 
 //----- (00430C30) --------------------------------------------------------
@@ -5079,6 +5076,7 @@ void  nox_xxx_screenGetSize_430C50_get_video_max(int* w, int* h) {
 	*w = nox_max_width;
 	*h = nox_max_height;
 }
+#endif // NOX_CGO
 
 //----- (00430D40) --------------------------------------------------------
 BOOL nox_xxx_testMMXSupport_430D40() {

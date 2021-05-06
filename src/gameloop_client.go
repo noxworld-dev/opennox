@@ -65,14 +65,13 @@ func colorRGB15(cl uint16) color.RGBA {
 }
 
 func copyGamePixBuffer() image.Image {
-	width := int(C.nox_win_width)
-	height := int(C.nox_win_height)
-	img := image.NewRGBA(image.Rect(0, 0, width, height))
+	sz := videoGetWindowSize()
+	img := image.NewRGBA(image.Rect(0, 0, sz.W, sz.H))
 
 	pixbuf := getGamePixBufferC()
-	for y := 0; y < height; y++ {
-		row := asU16Slice(pixbuf[y], width)
-		for x := 0; x < width; x++ {
+	for y := 0; y < sz.H; y++ {
+		row := asU16Slice(pixbuf[y], sz.W)
+		for x := 0; x < sz.W; x++ {
 			img.SetRGBA(x, y, colorRGB15(row[x]))
 		}
 	}
@@ -81,14 +80,15 @@ func copyGamePixBuffer() image.Image {
 
 func DrawSparks() {
 	if C.nox_client_gui_flag_815132 != 0 {
+		sz := videoGetWindowSize()
 		v28 := alloc.Calloc(10, 4)
 		v28s := asU32Slice(v28, 10)
 		v28s[0] = 0
 		v28s[1] = 0
-		v28s[2] = uint32(C.nox_win_width)
-		v28s[3] = uint32(C.nox_win_height)
-		v28s[8] = uint32(C.nox_win_width)
-		v28s[9] = uint32(C.nox_win_height)
+		v28s[2] = uint32(sz.W)
+		v28s[3] = uint32(sz.H)
+		v28s[8] = uint32(sz.W)
+		v28s[9] = uint32(sz.H)
 		C.nox_client_screenParticlesDraw_431720((*C.int)(v28))
 		alloc.Free(v28)
 	} else {

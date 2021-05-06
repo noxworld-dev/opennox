@@ -127,11 +127,6 @@ func input_set_win_size(w, h C.int) {
 	inpHandler.SetWinSize(types.Size{W: int(w), H: int(h)})
 }
 
-//export input_set_draw_win_size
-func input_set_draw_win_size(w, h C.int) {
-	inpHandler.SetDrawWinSize(types.Size{W: int(w), H: int(h)})
-}
-
 //export nox_input_getStringBuffer_57011C
 func nox_input_getStringBuffer_57011C() *C.wchar_t {
 	return CWString(imeBuffer)

@@ -353,7 +353,8 @@ func CONNECT_OR_HOST() {
 			log.Printf("CONNECT_OR_HOST exit (%s -> %s)\n", caller(1), caller(2))
 		}()
 	}
-	v5, v4, _ := nox_xxx_gameGetScreenBoundaries_getVideoMode()
+	mode := videoGetGameMode()
+	v5, v4 := mode.Width, mode.Height
 	var info *C.char = C.nox_xxx_getHostInfoPtr_431770()
 	infos := asByteSlice(unsafe.Pointer(info), 97)
 
@@ -710,9 +711,10 @@ func CONNECT_RESULT_OK() {
 		C.nox_game_SetCliDrawFunc(nil)
 	} else {
 		if !noxflags.HasGame(noxflags.GameFlag21) {
-			w, h, d := nox_xxx_gameGetScreenBoundaries_getVideoMode()
-			if w == 0 || h == 0 {
-				nox_xxx_gameResizeScreen_setVideoMode(noxDefaultWidth, noxDefaultHeight, d)
+			if mode := videoGetGameMode(); mode.Width == 0 || mode.Height == 0 {
+				mode.Width = noxDefaultWidth
+				mode.Height = noxDefaultHeight
+				videoUpdateGameMode(mode)
 			}
 			if err := gameUpdateVideoMode(false); err != nil {
 				if debugMainloop {

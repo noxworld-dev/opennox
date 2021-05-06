@@ -137,8 +137,9 @@ func windowInit() (func(), error) {
 	}
 	sdl.SetHint(sdl.HINT_RENDER_SCALE_QUALITY, "1")
 
+	sz := videoGetWindowSize()
 	win, err := sdl.CreateWindow("Noxg Game Window", sdl.WINDOWPOS_UNDEFINED, sdl.WINDOWPOS_UNDEFINED,
-		int32(C.nox_win_width), int32(C.nox_win_height), sdl.WINDOW_RESIZABLE)
+		int32(sz.W), int32(sz.H), sdl.WINDOW_RESIZABLE)
 	if err != nil {
 		sdl.Quit()
 		return nil, fmt.Errorf("SDL Window creation failed: %w", err)
@@ -395,7 +396,6 @@ func sdl_drawCursorThreaded(a1 C.int) C.int {
 	r1 := (*types.Rect)(memmap.PtrOff(0x5D4594, 1193532))
 	r2 := (*types.Rect)(memmap.PtrOff(0x5D4594, 1193548))
 	r3 := (*types.Rect)(memmap.PtrOff(0x5D4594, 1193604))
-	var v4 types.Rect
 	var src, dst sdl.Rect
 
 	if a1 != 0 && (C.dword_5d4594_1193668 != 0 || C.dword_5d4594_1193664 != 0) && !r1.IsEmpty() {
@@ -410,21 +410,23 @@ func sdl_drawCursorThreaded(a1 C.int) C.int {
 	r1.Top = int(C.dword_5d4594_1193524) - int(memmap.Uint32(0x5D4594, 1193636))
 	r1.Bottom = r1.Top + int(memmap.Uint32(0x5D4594, 1193620))
 
-	objRect := (*types.Rect)(unsafe.Pointer(&C.obj_5D4594_3800716.data[9]))
-	if (a1 == 0 || C.dword_5d4594_1193668 != 0 || C.dword_5d4594_1193664 != 0) && nox_xxx_utilRect_49F930(&v4, r1, objRect) {
-		r2.Left = 0
-		r2.Top = 0
-		r2.Right = v4.Right - v4.Left
-		r2.Bottom = v4.Bottom - v4.Top
+	objRect := *(*types.Rect)(unsafe.Pointer(&C.obj_5D4594_3800716.data[9]))
+	if a1 == 0 || C.dword_5d4594_1193668 != 0 || C.dword_5d4594_1193664 != 0 {
+		if v4, ok := nox_xxx_utilRect_49F930(*r1, objRect); ok {
+			r2.Left = 0
+			r2.Top = 0
+			r2.Right = v4.Right - v4.Left
+			r2.Bottom = v4.Bottom - v4.Top
 
-		// FIXME frontbuffer?
-		src = rect2sdl(&v4)
-		dst = rect2sdl(r2)
-		// if (SDL_BlitScaled(g_backbuffer1, &src, g_cursor_surf_6F7C48, &dst))
-		//    return 0;
+			// FIXME frontbuffer?
+			src = rect2sdl(&v4)
+			dst = rect2sdl(r2)
+			// if (SDL_BlitScaled(g_backbuffer1, &src, g_cursor_surf_6F7C48, &dst))
+			//    return 0;
+		}
 	}
 
-	if nox_xxx_utilRect_49F930(&v4, r1, objRect) {
+	if v4, ok := nox_xxx_utilRect_49F930(*r1, objRect); ok {
 		r3.Left = v4.Left - r1.Left
 		r3.Top = v4.Top - r1.Top
 		r3.Right = v4.Right - r1.Left

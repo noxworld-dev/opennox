@@ -31,7 +31,6 @@ extern unsigned int nox_xxx_useMMX_587000_80800;
 
 extern unsigned int dword_5d4594_3592;
 extern unsigned int dword_5d4594_2650652;
-extern unsigned int nox_video_16bit;
 extern void* dword_587000_81128;
 extern unsigned int dword_5d4594_1193336;
 extern unsigned int dword_5d4594_805980;
@@ -57,7 +56,6 @@ import (
 	"nox/common/alloc/handles"
 	noxflags "nox/common/flags"
 	"nox/common/memmap"
-	"nox/common/types"
 )
 
 func init() {
@@ -226,14 +224,13 @@ func runNox(args []string) error {
 		if !C.nox_video_bagexists_4300D0(1) {
 			depth = 8
 		}
-		C.nox_win_width_game = noxDefaultWidth
-		C.nox_win_height_game = noxDefaultHeight
-		C.nox_win_depth_game = C.int(depth)
-		noxVideoModeMenu = renderMode{
+		mode := renderMode{
 			Width:  noxDefaultWidth,
 			Height: noxDefaultHeight,
 			Depth:  depth,
 		}
+		videoSetGameMode(mode)
+		videoSetMenuMode(mode)
 	}
 	if *fNoAudio {
 		C.nox_enable_audio = 0
@@ -270,7 +267,6 @@ func runNox(args []string) error {
 	setDataPath(wd)
 	// C.nox_common_readSKU_fromRegistry_4D78C0()
 	C.fesetround(C.FE_TOWARDZERO)
-	C.nox_win_width = 0
 	C.nox_xxx_servSetPlrLimit_409F80(32)
 	*memmap.PtrUint32(0x5D4594, 2614260) = gameFPS() / 2
 	C.nox_binfile_reset_4093A0()
@@ -295,13 +291,13 @@ func runNox(args []string) error {
 	C.nox_xxx_loadModifyers_4158C0()
 	C.nox_xxx_cmdTokensLoad_4444F0()
 	C.sub_4D11A0()
-	C.nox_video_resizewnd(0, 0, 16)
+	videoResizeView(renderMode{Depth: 16})
 	if err := gameUpdateVideoMode(true); err != nil {
 		return fmt.Errorf("failed to update video mode: %w", err)
 	}
 	C.nox_xxx_drawSelectColor_434350(C.int(memmap.Int32(0x5D4594, 2650656)))
 	C.sub_440900()
-	if C.nox_video_read_videobag(C.int(C.nox_video_16bit)) == 0 {
+	if C.nox_video_read_videobag(C.int(bool2int(videoIs16Bit()))) == 0 {
 		return fmt.Errorf("failed to read graphics")
 	}
 	if C.sub_431370() == 0 {
@@ -354,41 +350,31 @@ func nox_xxx_getNoxVer_401020() *C.wchar_t {
 
 //export nox_xxx_gameResizeScreen_43BEF0_set_video_mode
 func nox_xxx_gameResizeScreen_43BEF0_set_video_mode(w, h, d C.int) {
-	nox_xxx_gameResizeScreen_setVideoMode(int(w), int(h), int(d))
+	videoUpdateGameMode(renderMode{
+		Width:  int(w),
+		Height: int(h),
+		Depth:  int(d),
+	})
 }
 
 //export nox_xxx_gameGetScreenBoundaries_43BEB0_get_video_mode
 func nox_xxx_gameGetScreenBoundaries_43BEB0_get_video_mode(w, h, d *C.int) {
-	cw, ch, cd := nox_xxx_gameGetScreenBoundaries_getVideoMode()
+	mode := videoGetGameMode()
 	if w != nil {
-		*w = C.int(cw)
+		*w = C.int(mode.Width)
 	}
 	if h != nil {
-		*h = C.int(ch)
+		*h = C.int(mode.Height)
 	}
 	if d != nil {
-		*d = C.int(cd)
+		*d = C.int(mode.Depth)
 	}
 }
 
-func nox_xxx_gameGetScreenBoundaries_getVideoMode() (w, h, d int) {
-	w = int(C.nox_win_width_game)
-	h = int(C.nox_win_height_game)
-	d = int(C.nox_win_depth_game)
-	return
-}
-
-func nox_xxx_gameResizeScreen_setVideoMode(w, h, d int) {
-	d = 16 // 8 bit not supported
-	C.nox_win_width_game = C.int(w)
-	C.nox_win_height_game = C.int(h)
-	C.nox_win_depth_game = C.int(d)
-
+func videoUpdateGameMode(mode renderMode) {
+	mode.Depth = 16 // 8 bit not supported
+	videoSetGameMode(mode)
 	changeWindowedOrFullscreen()
-}
-
-func noxGetWinSize1() types.Size {
-	return types.Size{W: int(C.nox_win_width_game), H: int(C.nox_win_height_game)}
 }
 
 //export change_windowed_fullscreen

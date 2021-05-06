@@ -19,30 +19,33 @@ import "C"
 import (
 	"errors"
 	"image"
-	"log"
 
 	"nox/common/memmap"
 	"nox/common/types"
 )
 
-const (
-	noxDefaultWidth  = C.NOX_DEFAULT_WIDTH
-	noxDefaultHeight = C.NOX_DEFAULT_HEIGHT
-)
-
 var (
 	noxBackBufCopyFunc func()
-	noxVideoModeMenu   = renderMode{
-		Width:  noxDefaultWidth,
-		Height: noxDefaultHeight,
-		Depth:  16,
-	}
 )
 
-type renderMode struct {
-	Width  int
-	Height int
-	Depth  int
+func videoGetWindowSize() types.Size {
+	return types.Size{
+		W: int(C.nox_win_width),
+		H: int(C.nox_win_height),
+	}
+}
+
+func videoSetWindowSize(sz types.Size) {
+	C.nox_win_width = C.int(sz.W)
+	C.nox_win_height = C.int(sz.H)
+}
+
+func getBackBufferMode() renderMode {
+	return renderMode{
+		Width:  int(C.nox_backbuffer_width),
+		Height: int(C.nox_backbuffer_height),
+		Depth:  int(C.nox_backbuffer_depth),
+	}
 }
 
 //export sub_48A290_call_present
@@ -62,26 +65,59 @@ func nox_video_setFullScreen(v C.int) {
 
 //export nox_video_sync_depths
 func nox_video_sync_depths() C.bool {
-	if int(C.nox_win_depth_game) == noxVideoModeMenu.Depth {
-		return true
+	return C.bool(videoSyncMenuDepth())
+}
+
+//export sub_430C30_set_video_max
+func sub_430C30_set_video_max(w, h C.int) {
+	videoSetMaxSize(types.Size{W: int(w), H: int(h)})
+}
+
+//export nox_xxx_screenGetSize_430C50_get_video_max
+func nox_xxx_screenGetSize_430C50_get_video_max(pw, ph *C.int) {
+	sz := videoGetMaxSize()
+	*pw = C.int(sz.W)
+	*ph = C.int(sz.H)
+}
+
+func videoIs16Bit() bool {
+	return C.nox_video_16bit != 0
+}
+
+func videoSet16Bit(v bool) {
+	C.nox_video_16bit = C.uint(bool2int(v))
+}
+
+//export nox_video_resizewnd
+func nox_video_resizewnd(w, h, d C.int) {
+	videoResizeView(renderMode{
+		Width:  int(w),
+		Height: int(h),
+		Depth:  int(d),
+	})
+}
+
+func videoGetGameMode() renderMode {
+	return renderMode{
+		Width:  int(C.nox_win_width_game),
+		Height: int(C.nox_win_height_game),
+		Depth:  int(C.nox_win_depth_game),
 	}
-	noxVideoModeMenu.Depth = int(C.nox_win_depth_game)
-	return false
+}
+
+func videoSetGameMode(mode renderMode) {
+	C.nox_win_width_game = C.int(mode.Width)
+	C.nox_win_height_game = C.int(mode.Height)
+	C.nox_win_depth_game = C.int(mode.Depth)
 }
 
 //export nox_common_parsecfg_videomode_apply
 func nox_common_parsecfg_videomode_apply(w, h, d C.int) {
-	d = 16 // 8 bit not supported
-	if !getEngineFlag(NOX_ENGINE_FLAG_ENABLE_WINDOWED_MODE) {
-		C.nox_win_width_game = w
-		C.nox_win_height_game = h
-		C.nox_win_depth_game = d
-		noxVideoModeMenu.Depth = int(d)
-
-		// FIXME: this will cause the game to change its window size to whatever set in nox.cfg right at the
-		// start! this is different from original game where window is only resized after joining the game
-		changeWindowedOrFullscreen()
-	}
+	videoApplyConfigVideoMode(renderMode{
+		Width:  int(w),
+		Height: int(h),
+		Depth:  int(d),
+	})
 }
 
 func nox_video_setBackBufferCopyFunc_4AD100() error {
@@ -109,41 +145,11 @@ func nox_video_callCopyBackBuffer_4AD170() {
 	noxBackBufCopyFunc()
 }
 
-func nox_xxx_utilRect_49F930(out, a2, a3 *types.Rect) bool {
-	left := a3.Left
-	if a2.Left >= a3.Left {
-		left = a2.Left
-	}
-	right := a3.Right
-	if a2.Right <= right {
-		right = a2.Right
-	}
-	if left >= right {
-		return false
-	}
-	top := a3.Top
-	if a2.Top >= top {
-		top = a2.Top
-	}
-	bottom := a3.Bottom
-	if a2.Bottom <= bottom {
-		bottom = a2.Bottom
-	}
-	if top >= bottom {
-		return false
-	}
-	out.Left = left
-	out.Top = top
-	out.Right = right
-	out.Bottom = bottom
-	return true
-}
-
-func videoInit(w, h, depth, flags int) error {
+func videoInit(sz types.Size, depth, flags int) error {
 	C.dword_5d4594_823776 = 0
 	C.ptr_5D4594_3799572 = &C.obj_5D4594_3799660
-	if err := drawInitAll(w, h, depth, flags); err != nil {
-		log.Println("videoInit:", err)
+	if err := drawInitAll(sz, depth, flags); err != nil {
+		videoLog.Println("init:", err)
 		return err
 	}
 	C.ptr_5D4594_3799572 = &C.obj_5D4594_3800716
@@ -156,8 +162,8 @@ func videoInit(w, h, depth, flags int) error {
 	return nil
 }
 
-func drawInitAll(w, h, depth, flags int) error {
-	if res := C.nox_client_drawXxx_444AC0(C.int(w), C.int(h), C.int(depth), C.int(flags)); res == 0 {
+func drawInitAll(sz types.Size, depth, flags int) error {
+	if res := C.nox_client_drawXxx_444AC0(C.int(sz.W), C.int(sz.H), C.int(depth), C.int(flags)); res == 0 {
 		return errors.New("nox_client_drawXxx_444AC0 failed")
 	}
 	if res := C.sub_47D200(); res == 0 {
@@ -227,33 +233,21 @@ func nox_video_copyBackBuffer2_4AD180() {
 	panic("not implemented")
 }
 
-func getBackBufferMode() renderMode {
-	return renderMode{
-		Width:  int(C.nox_backbuffer_width),
-		Height: int(C.nox_backbuffer_height),
-		Depth:  int(C.nox_backbuffer_depth),
-	}
-}
-
 func gameUpdateVideoMode(inMenu bool) error {
 	var mode renderMode
 	if inMenu {
 		if debugMainloop {
-			log.Printf("gameUpdateVideoMode: menu (%s)", caller(1))
+			videoLog.Printf("gameUpdateVideoMode: menu (%s)", caller(1))
 		}
-		mode = noxVideoModeMenu
+		mode = videoGetMenuMode()
 	} else {
 		if debugMainloop {
-			log.Printf("gameUpdateVideoMode: game (%s)", caller(1))
+			videoLog.Printf("gameUpdateVideoMode: game (%s)", caller(1))
 		}
-		mode = renderMode{
-			Width:  int(C.nox_win_width_game),
-			Height: int(C.nox_win_height_game),
-			Depth:  int(C.nox_win_depth_game),
-		}
+		mode = videoGetGameMode()
 	}
 	videoLog.Printf("mode switch: %+v (menu: %v)", mode, inMenu)
-	C.nox_video_resizewnd(C.int(mode.Width), C.int(mode.Height), C.int(mode.Depth))
+	videoResizeView(mode)
 	C.nox_game_loop_xxx_805872 = 0
 	cur := getBackBufferMode()
 	if mode == cur {
@@ -261,7 +255,7 @@ func gameUpdateVideoMode(inMenu bool) error {
 	}
 	C.nox_video_mouseThreadXxx_48BE50(1)
 	if mode.Depth != cur.Depth {
-		if C.nox_video_bagMaybeReload(C.int(C.nox_video_16bit)) == 0 {
+		if C.nox_video_bagMaybeReload(C.int(bool2int(videoIs16Bit()))) == 0 {
 			return errors.New("nox_video_bagMaybeReload failed")
 		}
 	}
@@ -278,10 +272,10 @@ func gameUpdateVideoMode(inMenu bool) error {
 func recreateBuffersAndTarget() error {
 	C.nox_video_freeFloorBuffer_430EC0()
 	if err := recreateRenderTarget(); err != nil {
-		log.Println("recreateRenderTarget:", err)
+		videoLog.Println("recreate render target:", err)
 		return err
 	}
-	log.Println("recreateRenderTarget: ok")
+	videoLog.Println("recreate render target: ok")
 	if C.nox_video_initFloorBuffer_430BA0() == 0 {
 		return errors.New("nox_video_initFloorBuffer_430BA0 failed")
 	}
@@ -314,10 +308,10 @@ func recreateRenderTarget() error {
 	C.nox_client_setCursorType_477610(0)
 	v2 := C.sub_48B3E0(0)
 	depth := 16
-	if C.nox_video_16bit == 0 {
+	if !videoIs16Bit() {
 		depth = 8
 	}
-	if err := videoInit(int(C.nox_win_width), int(C.nox_win_height), depth, int(flags)); err != nil {
+	if err := videoInit(videoGetWindowSize(), depth, int(flags)); err != nil {
 		v9 := strMan.GetStringInFile("result:ERROR", "C:\\NoxPost\\src\\Client\\Io\\Win95\\dxvideo.c")
 		v4 := strMan.GetStringInFile("gfxDdraw.c:DXWarning", "C:\\NoxPost\\src\\Client\\Io\\Win95\\dxvideo.c")
 		// TODO: show OS modal message
@@ -331,7 +325,7 @@ func recreateRenderTarget() error {
 	C.nox_xxx_setupSomeVideo_47FEF0()
 	C.sub_49F6D0(1)
 	C.sub_437290()
-	C.nox_video_16bit = C.dword_5d4594_3801780
+	videoSet16Bit(C.dword_5d4594_3801780 != 0)
 	*memmap.PtrUint32(0x5D4594, 3805488) = uint32(C.nox_backbuffer_pitch_3801808 * C.nox_backbuffer_height)
 	*memmap.PtrUint32(0x5D4594, 3807124) = uint32(bool2int(C.dword_5d4594_3801780 == 1))
 	C.sub_430B50(0, 0, noxDefaultWidth-1, noxDefaultHeight-1)

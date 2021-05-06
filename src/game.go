@@ -232,12 +232,13 @@ func initGameSession435CC0() int {
 	C.nox_game_SetCliDrawFunc((*[0]byte)(C.nox_xxx_client_435F80_draw))
 	C.dword_5d4594_811372 = 3
 	*memmap.PtrUint32(0x587000, 85720) = 1
+	sz := videoGetWindowSize()
 	C.obj_5D4594_811068.field_0 = 0
 	C.obj_5D4594_811068.field_1 = 0
-	C.obj_5D4594_811068.field_2 = C.uint(C.nox_win_width - 1)
-	C.obj_5D4594_811068.field_3 = C.uint(C.nox_win_height - 1)
-	C.obj_5D4594_811068.field_8 = C.int(C.nox_win_width)
-	C.obj_5D4594_811068.field_9 = C.int(C.nox_win_height)
+	C.obj_5D4594_811068.field_2 = C.uint(sz.W - 1)
+	C.obj_5D4594_811068.field_3 = C.uint(sz.H - 1)
+	C.obj_5D4594_811068.field_8 = C.int(sz.W)
+	C.obj_5D4594_811068.field_9 = C.int(sz.H)
 	C.obj_5D4594_811068.field_10 = 0
 	C.obj_5D4594_811068.field_11 = 0
 	C.obj_5D4594_811068.field_12 = 0

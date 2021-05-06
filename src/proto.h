@@ -1193,7 +1193,7 @@ int nox_xxx_bookGet_430B40_get_mouse_prev_seq();
 int  sub_430B50(int a1, int a2, int a3, int a4);
 char*  sub_430B80(_DWORD* a1);
 void  sub_430BB0(_DWORD* a1, _DWORD* a2, _DWORD* a3);
-BOOL  nox_video_resizewnd(int a1, int a2, int a3);
+void nox_video_resizewnd(int a1, int a2, int a3);
 void  sub_430C30_set_video_max(int w, int h);
 void  nox_xxx_screenGetSize_430C50_get_video_max(int* w, int* h);
 BOOL nox_xxx_testMMXSupport_430D40();
