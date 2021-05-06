@@ -76,7 +76,7 @@ extern _DWORD dword_5d4594_1217460;
 extern _DWORD cpuid_5d4594_3801804;
 extern void* nox_alloc_pixelSpan_1301844;
 extern _DWORD dword_5d4594_1197320;
-extern _DWORD nox_xxx_connresult_587000_166704;
+extern _DWORD nox_wol_servers_sorting_166704;
 extern _DWORD dword_5d4594_1197324;
 extern _DWORD dword_5d4594_1217456;
 extern _DWORD dword_5d4594_1301800;
@@ -9186,7 +9186,7 @@ int  sub_4A0030(const void* a1) {
 	v1 = calloc(1, 169);
 	memcpy(v1, a1, 169);
 	v2 = 0;
-	switch (nox_xxx_connresult_587000_166704) {
+	switch (nox_wol_servers_sorting_166704) {
 	case 0:
 		if (*(unsigned __int8**)getMemAt(0x5D4594, 1305800) == getMemAt(0x5D4594, 1305796))
 			return sub_425790(getMemIntPtr(0x5D4594, 1305796), v1);
@@ -9298,19 +9298,19 @@ int  sub_4A0030(const void* a1) {
 void nox_wol_servers_sortBtnHandler_4A0290(int id) {
 	switch (id - 10047) {
 	case 0:
-		nox_xxx_connresult_587000_166704 = (nox_xxx_connresult_587000_166704 == 0) + 0;
+		nox_wol_servers_sorting_166704 = (nox_wol_servers_sorting_166704 == 0) + 0;
 		break;
 	case 1:
-		nox_xxx_connresult_587000_166704 = (nox_xxx_connresult_587000_166704 == 2) + 2;
+		nox_wol_servers_sorting_166704 = (nox_wol_servers_sorting_166704 == 2) + 2;
 		break;
 	case 2:
-		nox_xxx_connresult_587000_166704 = (nox_xxx_connresult_587000_166704 == 4) + 4;
+		nox_wol_servers_sorting_166704 = (nox_wol_servers_sorting_166704 == 4) + 4;
 		break;
 	case 3:
-		nox_xxx_connresult_587000_166704 = (nox_xxx_connresult_587000_166704 == 6) + 6;
+		nox_wol_servers_sorting_166704 = (nox_wol_servers_sorting_166704 == 6) + 6;
 		break;
 	case 4:
-		nox_xxx_connresult_587000_166704 = (nox_xxx_connresult_587000_166704 == 8) + 8;
+		nox_wol_servers_sorting_166704 = (nox_wol_servers_sorting_166704 == 8) + 8;
 		break;
 	}
 }
@@ -9443,7 +9443,7 @@ void  sub_4A0540(LPVOID lpMem) {
 }
 
 //----- (004A0560) --------------------------------------------------------
-int nox_xxx_getConnResult_4A0560() { return nox_xxx_connresult_587000_166704; }
+int nox_xxx_getConnResult_4A0560() { return nox_wol_servers_sorting_166704; }
 
 //----- (004A0570) --------------------------------------------------------
 #ifndef NOX_CGO
