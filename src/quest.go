@@ -11,12 +11,26 @@ import "C"
 import (
 	"log"
 	"os"
+	"strconv"
 	"unsafe"
 )
 
 var (
-	questLog = log.New(os.Stderr, "[quest]: ", log.LstdFlags|log.Lmsgprefix)
+	questLevelInc = 1
+	questLog      = log.New(os.Stderr, "[quest]: ", log.LstdFlags|log.Lmsgprefix)
 )
+
+func init() {
+	if str := os.Getenv("NOX_QUEST_LVL_INC"); str != "" {
+		v, err := strconv.ParseUint(str, 10, 32)
+		if err != nil {
+			questLog.Printf("cannot parse level increment: %v", err)
+		} else {
+			questLog.Printf("setting level increment to %d", v)
+			questLevelInc = int(v)
+		}
+	}
+}
 
 func nox_game_getQuestStage_4E3CC0() int {
 	return int(C.nox_game_getQuestStage_4E3CC0())
@@ -35,7 +49,7 @@ func nox_server_questMapNextLevel() {
 	// server loading next quest level
 	C.sub_51A920(C.int(nox_common_randomInt_415FA0(0, 2)))
 	lvl := nox_game_getQuestStage_4E3CC0()
-	lvl++
+	lvl += questLevelInc
 	questLog.Printf("switching level to %d", lvl)
 	nox_game_setQuestStage_4E3CD0(lvl)
 	lvl = nox_xxx_getQuestStage_51A930()
