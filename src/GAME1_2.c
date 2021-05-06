@@ -8155,7 +8155,7 @@ int  nox_client_OnLobbyServer_4375F0(const char* addr, uint16_t port, const char
 			*(_WORD*)&v13[109] = port;
 			strncpy(&v13[120], name, 15);
 			*(_WORD*)&v13[163] = *(_WORD*)(packet + 28);
-			sub_4A0030(v13);
+			nox_wol_servers_addResult_4A0030(v13);
 			v14[0] = 0;
 			if (name)
 				strcpy(v14, name);
@@ -8716,7 +8716,7 @@ void sub_43ACC0() {
 						*(_DWORD*)&v9[24] = v5;
 						*(_DWORD*)&v9[36] = nox_wol_server_result_cnt_815088;
 						*(_DWORD*)&v9[44] = *(_DWORD*)(i + 32);
-						sub_4A0030(v9);
+						nox_wol_servers_addResult_4A0030(v9);
 						if (v9[120]) {
 							strncpy(v10, &v9[120], 0xFu);
 							v10[15] = 0;
@@ -8848,7 +8848,7 @@ void  nox_xxx_failconn_43B0E0(int a1) {
 							nox_window_call_field_94(*(int*)&dword_5d4594_815028, 16407, (int)getMemAt(0x5D4594, 814756), v5);
 							if (nox_xxx_getConnResult_4A0560() == 6 || nox_xxx_getConnResult_4A0560() == 7) {
 								sub_425920((_DWORD**)v3);
-								v6 = sub_4A0030((const void*)v3);
+								v6 = nox_wol_servers_addResult_4A0030((const void*)v3);
 								nox_window_call_field_94(*(int*)&dword_5d4594_815012, 16398, v5, 0);
 								sub_43B2A0(v6);
 								nox_xxx_openfuckupwindow_43B7C0(v3);

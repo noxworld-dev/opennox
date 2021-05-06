@@ -9173,7 +9173,7 @@ int*  sub_49FFA0(int a1) {
 char* sub_4A0020() { return (char*)getMemAt(0x5D4594, 1305796); }
 
 //----- (004A0030) --------------------------------------------------------
-int  sub_4A0030(const void* a1) {
+int  nox_wol_servers_addResult_4A0030(const void* a1) {
 	_DWORD* v1;  // ebx
 	int v2;      // esi
 	int* v3;     // edi
@@ -9365,7 +9365,7 @@ int* sub_4A0390() {
 	if (v1) {
 		do {
 			v2 = sub_4258A0(v1);
-			sub_4A0030(v1);
+			nox_wol_servers_addResult_4A0030(v1);
 			v1 = v2;
 		} while (v2);
 	}
