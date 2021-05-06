@@ -9295,32 +9295,24 @@ int  sub_4A0030(const void* a1) {
 }
 
 //----- (004A0290) --------------------------------------------------------
-int  sub_4A0290(int a1) {
-	int result; // eax
-
-	result = a1 - 10047;
-	switch (a1) {
-	case 10047:
-		result = nox_xxx_connresult_587000_166704;
-		nox_xxx_connresult_587000_166704 = nox_xxx_connresult_587000_166704 == 0;
+void nox_wol_servers_sortBtnHandler_4A0290(int id) {
+	switch (id - 10047) {
+	case 0:
+		nox_xxx_connresult_587000_166704 = (nox_xxx_connresult_587000_166704 == 0) + 0;
 		break;
-	case 10048:
+	case 1:
 		nox_xxx_connresult_587000_166704 = (nox_xxx_connresult_587000_166704 == 2) + 2;
 		break;
-	case 10049:
-		result = (nox_xxx_connresult_587000_166704 == 4) + 4;
+	case 2:
 		nox_xxx_connresult_587000_166704 = (nox_xxx_connresult_587000_166704 == 4) + 4;
 		break;
-	case 10050:
+	case 3:
 		nox_xxx_connresult_587000_166704 = (nox_xxx_connresult_587000_166704 == 6) + 6;
 		break;
-	case 10051:
+	case 4:
 		nox_xxx_connresult_587000_166704 = (nox_xxx_connresult_587000_166704 == 8) + 8;
 		break;
-	default:
-		return result;
 	}
-	return result;
 }
 
 //----- (004A0330) --------------------------------------------------------

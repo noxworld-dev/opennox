@@ -2987,7 +2987,7 @@ char*  sub_49FF40(__int16* a1);
 int*  sub_49FFA0(int a1);
 char* sub_4A0020();
 int  sub_4A0030(const void* a1);
-int  sub_4A0290(int a1);
+void nox_wol_servers_sortBtnHandler_4A0290(int a1);
 int  sub_4A0330(int* a1);
 int* sub_4A0360();
 int* sub_4A0390();

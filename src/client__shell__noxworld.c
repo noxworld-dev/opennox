@@ -833,7 +833,7 @@ int  nox_xxx_windowMultiplayerSub_439E70(int a1, unsigned int a2, int* a3, int a
 		case 10050:
 		case 10051:
 			sub_4379C0();
-			sub_4A0290(v5);
+			nox_wol_servers_sortBtnHandler_4A0290(v5);
 			sub_4A0390();
 			return 0;
 		case 10054:
