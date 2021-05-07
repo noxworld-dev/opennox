@@ -53,6 +53,9 @@ void nox_script_push(int val) {
 		nox_script_stack_top++;
 	}
 }
+void nox_script_pushf(float val) {
+	nox_script_push(*((int*)&val));
+}
 
 //----- (00507250) --------------------------------------------------------
 int nox_script_pop() {
@@ -61,6 +64,10 @@ int nox_script_pop() {
 		i = --nox_script_stack_top;
 	}
 	return nox_script_stack[i];
+}
+float nox_script_popf() {
+	int v = nox_script_pop();
+	return *((float*)&v);
 }
 
 //----- (00507270) --------------------------------------------------------
@@ -584,7 +591,7 @@ void nox_script_callByIndex_507310(int index, int a2, int a3) {
 			continue;
 		case 5: // static float
 			sf1 = nox_script_nextFloat(&data);
-			nox_script_push(SLODWORD(sf1));
+			nox_script_pushf(sf1);
 			continue;
 		case 7: // add int
 			sa1 = nox_script_pop();
@@ -592,10 +599,10 @@ void nox_script_callByIndex_507310(int index, int a2, int a3) {
 			nox_script_push(sa2 + sa1);
 			continue;
 		case 8: // add float
-			sf1 = COERCE_FLOAT(nox_script_pop());
-			sf2 = COERCE_FLOAT(nox_script_pop());
+			sf1 = nox_script_popf();
+			sf2 = nox_script_popf();
 			sf1 += sf2;
-			nox_script_push(SLODWORD(sf1));
+			nox_script_pushf(sf1);
 			continue;
 		case 9: // sub int
 			sa1 = nox_script_pop();
@@ -603,10 +610,10 @@ void nox_script_callByIndex_507310(int index, int a2, int a3) {
 			nox_script_push(sa2 - sa1);
 			continue;
 		case 10: // sub float
-			sf1 = COERCE_FLOAT(nox_script_pop());
-			sf2 = COERCE_FLOAT(nox_script_pop());
+			sf1 = nox_script_popf();
+			sf2 = nox_script_popf();
 			sf2 -= sf1;
-			nox_script_push(SLODWORD(sf2));
+			nox_script_pushf(sf2);
 			continue;
 		case 11: // mult int
 			sa1 = nox_script_pop();
@@ -614,10 +621,10 @@ void nox_script_callByIndex_507310(int index, int a2, int a3) {
 			nox_script_push(sa1 * sa2);
 			continue;
 		case 12: // mult float
-			sf1 = COERCE_FLOAT(nox_script_pop());
-			sf2 = COERCE_FLOAT(nox_script_pop());
+			sf1 = nox_script_popf();
+			sf2 = nox_script_popf();
 			sf1 *= sf2;
-			nox_script_push(SLODWORD(sf1));
+			nox_script_pushf(sf1);
 			continue;
 		case 13: // div int
 			sa1 = nox_script_pop();
@@ -625,10 +632,10 @@ void nox_script_callByIndex_507310(int index, int a2, int a3) {
 			nox_script_push(sa2 / sa1);
 			continue;
 		case 14: // div float
-			sf1 = COERCE_FLOAT(nox_script_pop());
-			sf2 = COERCE_FLOAT(nox_script_pop());
+			sf1 = nox_script_popf();
+			sf2 = nox_script_popf();
 			sf2 /= sf1;
-			nox_script_push(SLODWORD(sf2));
+			nox_script_pushf(sf2);
 			continue;
 		case 15: // mod int
 			sa1 = nox_script_pop();
@@ -679,7 +686,7 @@ void nox_script_callByIndex_507310(int index, int a2, int a3) {
 			}
 			continue;
 		case 23: // set xxx float
-			sf1 = COERCE_FLOAT(nox_script_pop());
+			sf1 = nox_script_popf();
 			sa2 = nox_script_pop();
 			if (nox_script_pop()) {
 				*(float*)((char*)(nox_script_arr_xxx_1599636[1].field_28) + 4 * sa2) = sf1;
@@ -707,7 +714,7 @@ void nox_script_callByIndex_507310(int index, int a2, int a3) {
 			}
 			continue;
 		case 26: // mult xxx float
-			sf1 = COERCE_FLOAT(nox_script_pop());
+			sf1 = nox_script_popf();
 			sa1 = nox_script_pop();
 			if (nox_script_pop()) {
 				v76 = (char*)(nox_script_arr_xxx_1599636[1].field_28);
@@ -744,7 +751,7 @@ void nox_script_callByIndex_507310(int index, int a2, int a3) {
 			}
 			continue;
 		case 28: // div xxx float
-			sf1 = COERCE_FLOAT(nox_script_pop());
+			sf1 = nox_script_popf();
 			sa1 = nox_script_pop();
 			if (nox_script_pop()) {
 				*(float*)((char*)(nox_script_arr_xxx_1599636[1].field_28) + 4 * sa1) =
@@ -781,7 +788,7 @@ void nox_script_callByIndex_507310(int index, int a2, int a3) {
 			}
 			continue;
 		case 30: // add xxx float
-			sf1 = COERCE_FLOAT(nox_script_pop());
+			sf1 = nox_script_popf();
 			sa1 = nox_script_pop();
 			if (nox_script_pop()) {
 				v53 = (char*)(nox_script_arr_xxx_1599636[1].field_28);
@@ -844,7 +851,7 @@ void nox_script_callByIndex_507310(int index, int a2, int a3) {
 			}
 			continue;
 		case 33: // sub xxx float
-			sf1 = COERCE_FLOAT(nox_script_pop());
+			sf1 = nox_script_popf();
 			sa1 = nox_script_pop();
 			if (nox_script_pop()) {
 				*(float*)((char*)(nox_script_arr_xxx_1599636[1].field_28) + 4 * sa1) =
@@ -887,8 +894,8 @@ void nox_script_callByIndex_507310(int index, int a2, int a3) {
 			nox_script_push(sa2 == sa1);
 			continue;
 		case 36: // equal float
-			sf1 = COERCE_FLOAT(nox_script_pop());
-			sf2 = COERCE_FLOAT(nox_script_pop());
+			sf1 = nox_script_popf();
+			sf2 = nox_script_popf();
 			nox_script_push(sf2 == sf1);
 			continue;
 		case 37: // equal string
@@ -912,8 +919,8 @@ void nox_script_callByIndex_507310(int index, int a2, int a3) {
 			nox_script_push(sa2 < sa1);
 			continue;
 		case 41: // < float
-			sf1 = COERCE_FLOAT(nox_script_pop());
-			sf2 = COERCE_FLOAT(nox_script_pop());
+			sf1 = nox_script_popf();
+			sf2 = nox_script_popf();
 			nox_script_push(sf2 < sf1);
 			continue;
 		case 42: // < string ?
@@ -931,8 +938,8 @@ void nox_script_callByIndex_507310(int index, int a2, int a3) {
 			nox_script_push(sa2 > sa1);
 			continue;
 		case 44: // > float
-			sf1 = COERCE_FLOAT(nox_script_pop());
-			sf2 = COERCE_FLOAT(nox_script_pop());
+			sf1 = nox_script_popf();
+			sf2 = nox_script_popf();
 			nox_script_push(sf2 > sf1);
 			continue;
 		case 45: // > string ?
@@ -950,8 +957,8 @@ void nox_script_callByIndex_507310(int index, int a2, int a3) {
 			nox_script_push(sa2 <= sa1);
 			continue;
 		case 47: // <= float
-			sf1 = COERCE_FLOAT(nox_script_pop());
-			sf2 = COERCE_FLOAT(nox_script_pop());
+			sf1 = nox_script_popf();
+			sf2 = nox_script_popf();
 			nox_script_push(sf2 <= sf1);
 			continue;
 		case 48: // <= string ?
@@ -969,8 +976,8 @@ void nox_script_callByIndex_507310(int index, int a2, int a3) {
 			nox_script_push(sa2 >= sa1);
 			continue;
 		case 50: // >= float
-			sf1 = COERCE_FLOAT(nox_script_pop());
-			sf2 = COERCE_FLOAT(nox_script_pop());
+			sf1 = nox_script_popf();
+			sf2 = nox_script_popf();
 			nox_script_push(sf2 >= sf1);
 			continue;
 		case 51: // >= string ?
@@ -988,8 +995,8 @@ void nox_script_callByIndex_507310(int index, int a2, int a3) {
 			nox_script_push(sa2 != sa1);
 			continue;
 		case 53: // not equal float
-			sf1 = COERCE_FLOAT(nox_script_pop());
-			sf2 = COERCE_FLOAT(nox_script_pop());
+			sf1 = nox_script_popf();
+			sf2 = nox_script_popf();
 			nox_script_push(sf2 != sf1);
 			continue;
 		case 54: // not equal string
@@ -1090,8 +1097,8 @@ void nox_script_callByIndex_507310(int index, int a2, int a3) {
 			nox_script_push(-sa1);
 			continue;
 		case 65: // negate float
-			sf1 = -COERCE_FLOAT(nox_script_pop());
-			nox_script_push(SLODWORD(sf1));
+			sf1 = -nox_script_popf();
+			nox_script_pushf(sf1);
 			continue;
 		case 66:
 			sa1 = nox_script_pop();
