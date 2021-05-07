@@ -683,15 +683,13 @@ void nox_script_callByIndex_507310(int index, int a2, int a3) {
 			sf1 = nox_script_popf();
 			sa2 = nox_script_pop();
 			if (nox_script_pop()) {
-				*(float*)((char*)(nox_script_arr_xxx_1599636[1].field_28) + 4 * sa2) = sf1;
-				nox_script_push(SLODWORD(sf1));
+				*(float*)(&nox_script_arr_xxx_1599636[1].field_28[sa2]) = sf1;
+			} else if (sa2 < 0) {
+				*(float*)(*(unsigned int*)((int)a3 + 760) - 4 * sa2) = sf1;
 			} else {
-				if (sa2 < 0)
-					*(float*)(*(unsigned int*)(v3 + 760) - 4 * sa2) = sf1;
-				else
-					*(float*)((unsigned int)(script->field_28) + 4 * sa2) = sf1;
-				nox_script_push(SLODWORD(sf1));
+				*(float*)(&script->field_28[sa2]) = sf1;
 			}
+			nox_script_pushf(sf1);
 			continue;
 		case 25: // mult xxx int
 			sa1 = nox_script_pop();
