@@ -4889,19 +4889,16 @@ void  sub_4D7480(int a1) {
 }
 
 //----- (004D74F0) --------------------------------------------------------
-int  nox_server_questNextStageThreshold_4D74F0(int a1) {
-	int result; // eax
-
-	result = a1;
-	if (a1 <= 4)
+int  nox_server_questNextStageThreshold_4D74F0(int lvl) {
+	if (lvl <= 4)
 		return 5;
-	if (a1 <= 9)
+	if (lvl <= 9)
 		return 10;
-	if (a1 <= 14)
+	if (lvl <= 14)
 		return 15;
-	if (a1 <= 19)
-		result = 20;
-	return result;
+	if (lvl <= 19)
+		return 20;
+	return lvl;
 }
 
 //----- (004D7520) --------------------------------------------------------
