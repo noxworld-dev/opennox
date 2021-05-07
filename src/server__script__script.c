@@ -18,7 +18,7 @@ typedef struct nox_script_xxx_t {
 	unsigned int field_16; // 4, 16
 	unsigned int* field_20; // 5, 20
 	unsigned int* field_24; // 6, 24
-	void* field_28; // 7, 28; float[]?
+	unsigned int* field_28; // 7, 28
 	void* data; // 8, 32
 	char* field_36; // 9, 36
 	unsigned int field_40; // 10, 40
