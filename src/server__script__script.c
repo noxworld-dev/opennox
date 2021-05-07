@@ -477,8 +477,6 @@ void nox_script_callByIndex_507310(int index, int a2, int a3) {
 	int v3;         // ebx
 	int v6;         // esi
 	int v7;         // ecx
-	int v11;        // esi
-	int v12;        // eax
 	double v13;     // st7
 	int v14;        // edi
 	int v15;        // eax
@@ -552,20 +550,21 @@ void nox_script_callByIndex_507310(int index, int a2, int a3) {
 				nox_script_push(sa2);
 			}
 			continue;
-		case 1:
-			v11 = nox_script_nextInt(&data);
-			v12 = nox_script_nextInt(&data);
-			if (v11) {
-				v13 = *(float*)((char*)(nox_script_arr_xxx_1599636[1].field_28) +
-								4 * *(unsigned int*)((unsigned int)(nox_script_arr_xxx_1599636[1].field_24) + 4 * v12));
-			} else if (v12 < 0) {
-				v13 = *(float*)(*(unsigned int*)(v3 + 760) + 4 * *(unsigned int*)((unsigned int)(nox_script_arr_xxx_1599636[0].field_24) - 4 * v12));
+		case 1: // get xxx float
+			sa1 = nox_script_nextInt(&data);
+			sa2 = nox_script_nextInt(&data);
+			if (sa1) {
+				sa2 = nox_script_arr_xxx_1599636[1].field_24[sa2];
+				sf1 = *(float*)(&nox_script_arr_xxx_1599636[1].field_28[sa2]);
+			} else if (sa2 < 0) {
+				sa2 = -sa2;
+				sa2 = nox_script_arr_xxx_1599636[0].field_24[sa2];
+				sf1 = *(float*)(*(unsigned int*)((int)a3 + 760) + 4 * sa2);
 			} else {
-				v13 = *(float*)((unsigned int)(script->field_28) +
-								4 * *(unsigned int*)((unsigned int)(script->field_24) + 4 * v12));
+				sa2 = script->field_24[sa2];
+				sf1 = *(float*)((unsigned int)(script->field_28) + 4 * sa2);
 			}
-			*(float*)&v140 = v13;
-			nox_script_push(v140);
+			nox_script_pushf(sf1);
 			continue;
 		case 2:
 			v14 = nox_script_nextInt(&data);
