@@ -23,6 +23,7 @@ const (
 var (
 	questLevelInc          = 1
 	questLevelWarpInc      = questLevelWrapIncDef
+	questAllowDefault      = os.Getenv("NOX_QUEST_WARP_ALWAYS_ALLOW") == "true"
 	questLevelWarpInfinite = os.Getenv("NOX_QUEST_WARP_INF") == "true"
 	questLog               = log.New(os.Stderr, "[quest]: ", log.LstdFlags|log.Lmsgprefix)
 )
@@ -66,6 +67,11 @@ func questNextStageThreshold(lvl int) int {
 	}
 	next := (lvl / questLevelWarpInc) + 1
 	return next * questLevelWarpInc
+}
+
+//export nox_server_questAllowDefault
+func nox_server_questAllowDefault() C.bool {
+	return C.bool(questAllowDefault)
 }
 
 //export nox_server_questNextStageThreshold_4D74F0

@@ -4973,11 +4973,16 @@ int sub_4E8E60() {
 }
 
 //----- (004E8F60) --------------------------------------------------------
+#ifdef NOX_CGO
+bool nox_server_questAllowDefault();
+#else // !NOX_CGO
+bool nox_server_questAllowDefault() { return getenv("NOX_QUEST_WARP_ALWAYS_ALLOW") != 0; }
+#endif // NOX_CGO
 bool nox_server_questMaybeWarp_4E8F60() {
 	unsigned int curLvl = nox_game_getQuestStage_4E3CC0();
 	unsigned int toLvl = nox_server_questNextStageThreshold_4D74F0(curLvl);
 	int cnt = 0;
-	bool allow = 0;
+	bool allow = nox_server_questAllowDefault();
 	for (void* unit = nox_xxx_getFirstPlayerUnit_4DA7C0(); unit; unit = nox_xxx_getNextPlayerUnit_4DA7F0(unit)) {
 		int v4 = *(_DWORD*)((int)unit + 748);
 		if (!nox_common_gameFlags_check_40A5C0(1) || !nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) ||
