@@ -1004,14 +1004,14 @@ void nox_script_callByIndex_507310(int index, int a2, int a3) {
 			sa1 = nox_script_pop();
 			sa2 = nox_script_pop();
 			if (nox_script_pop()) {
-				*(unsigned int*)((char*)(nox_script_arr_xxx_1599636[1].field_28) + 4 * sa2) ^= sa1;
-				nox_script_push(*(unsigned int*)((char*)(nox_script_arr_xxx_1599636[1].field_28) + 4 * sa2));
+				nox_script_arr_xxx_1599636[1].field_28[sa2] ^= sa1;
+				nox_script_push(nox_script_arr_xxx_1599636[1].field_28[sa2]);
 			} else if (sa2 < 0) {
-				*(unsigned int*)(*(unsigned int*)(v3 + 760) - 4 * sa2) ^= sa1;
-				nox_script_push(*(unsigned int*)(*(unsigned int*)(v3 + 760) - 4 * sa2));
+				*(unsigned int*)(*(unsigned int*)((int)a3 + 760) - 4 * sa2) ^= sa1;
+				nox_script_push(*(unsigned int*)(*(unsigned int*)((int)a3 + 760) - 4 * sa2));
 			} else {
-				*(unsigned int*)((unsigned int)(script->field_28) + 4 * sa2) ^= sa1;
-				nox_script_push(*(unsigned int*)((unsigned int)(script->field_28) + 4 * sa2));
+				script->field_28[sa2] ^= sa1;
+				nox_script_push(script->field_28[sa2]);
 			}
 			continue;
 		case 62: // not int
