@@ -16,9 +16,10 @@ extern obj_5D4594_811068_t obj_5D4594_811068;
 */
 import "C"
 import (
+	"unsafe"
+
 	"nox/common/alloc"
 	"nox/common/memmap"
-	"unsafe"
 )
 
 func nox_game_setMovieFile_4CB230(name string, out *C.char) bool {
@@ -221,7 +222,9 @@ func nox_xxx_initGameSession_435CC0() C.int {
 			C.sub_41CC00((*C.char)(memmap.PtrOff(0x5D4594, 2660688)))
 		}
 	}
-	C.nox_xxx_plrLoad_41A480((*C.char)(memmap.PtrOff(0x5D4594, 2660688)))
+	if !isServer {
+		C.nox_xxx_plrLoad_41A480((*C.char)(memmap.PtrOff(0x5D4594, 2660688)))
+	}
 	nox_server_parseCmdText_443C80("execrul autoexec.rul", 1)
 	if isServer && serverExec != "" {
 		old := parseCmd.Cheats()
