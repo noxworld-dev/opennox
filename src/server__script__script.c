@@ -477,7 +477,6 @@ void nox_script_callByIndex_507310(int index, int a2, int a3) {
 	int v3;         // ebx
 	int v6;         // esi
 	int v7;         // ecx
-	int v158;       // [esp+10h] [ebp-118h]
 	int v161;       // [esp+1Ch] [ebp-10Ch]
 	char buf[256]; // [esp+28h] [ebp-100h]
 
@@ -1055,21 +1054,20 @@ void nox_script_callByIndex_507310(int index, int a2, int a3) {
 			sa2 = nox_script_pop();
 			sa3 = nox_script_pop();
 			sa4 = nox_script_pop();
+			sa5 = 0;
 			if (sa1 < 0 || sa1 > sa4)
-				v161 = 1;
+				sa5 = 1;
 			if (sa3) {
-				nox_script_push(COERCE_INT(*(float*)((char*)(nox_script_arr_xxx_1599636[1].field_28) + 4 * (sa1 + sa2))));
+				sf1 = *(float*)(&nox_script_arr_xxx_1599636[1].field_28[sa1 + sa2]);
+			} else if (sa2 < 0) {
+				sf1 = *(float *) (*(unsigned int *) ((int) a3 + 760) + 4 * (sa2 - sa1));
 			} else {
-				if (sa2 < 0)
-					v158 = *(int*)(*(unsigned int*)(a3 + 760) + 4 * (sa2 - sa1));
-				else
-					v158 = *(int*)((unsigned int)(script->field_28) + 4 * (sa1 + sa2));
-				nox_script_push(v158);
+				sf1 = *(float *) (&script->field_28[sa1 + sa2]);
 			}
-			if (v161) {
+			nox_script_pushf(sf1);
+			if (sa5) {
 				break;
 			}
-			v3 = a3;
 			continue;
 		case 68:
 			sa1 = nox_script_pop();
