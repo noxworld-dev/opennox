@@ -1074,17 +1074,17 @@ void nox_script_callByIndex_507310(int index, int a2, int a3) {
 			sa2 = nox_script_pop();
 			sa3 = nox_script_pop();
 			sa4 = nox_script_pop();
+			sa5 = 0;
 			if (sa1 < 0 || sa1 > sa4)
-				v161 = 1;
+				sa5 = 1;
 			nox_script_push(sa3);
 			if (sa2 < 0)
 				nox_script_push(sa2 - sa1);
 			else
 				nox_script_push(sa2 + sa1);
-			if (v161) {
+			if (sa5) {
 				break;
 			}
-			v3 = a3;
 			continue;
 		case 69: // call builtin
 			sa1 = nox_script_nextInt(&data);
