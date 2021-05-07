@@ -494,8 +494,6 @@ void nox_script_callByIndex_507310(int index, int a2, int a3) {
 	int v71;        // ecx
 	float* v72;     // eax
 	double v73;     // st7
-	int v76;        // edx
-	int v77;        // eax
 	int v84;        // esi
 	int v123;       // esi
 	int v140;       // [esp+10h] [ebp-118h]
@@ -709,23 +707,14 @@ void nox_script_callByIndex_507310(int index, int a2, int a3) {
 			sf1 = nox_script_popf();
 			sa1 = nox_script_pop();
 			if (nox_script_pop()) {
-				v76 = (char*)(nox_script_arr_xxx_1599636[1].field_28);
-				sf1 = sf1 * *(float*)(v76 + 4 * sa1);
-				v55 = (float*)(v76 + 4 * sa1);
-				*v55 = sf1;
-				nox_script_push(COERCE_INT(*(float*)((char*)(nox_script_arr_xxx_1599636[1].field_28) + 4 * sa1)));
-			} else if (sa1 >= 0) {
-				v77 = script->field_28;
-				sf1 = sf1 * *(float*)(v77 + 4 * sa1);
-				v58 = (float*)(v77 + 4 * sa1);
-				*v58 = sf1;
-				nox_script_push(COERCE_INT(*(float*)((unsigned int)(script->field_28) + 4 * sa1)));
+				*(float*)(&nox_script_arr_xxx_1599636[1].field_28[sa1]) *= sf1;
+				nox_script_pushf(*(float*)(&nox_script_arr_xxx_1599636[1].field_28[sa1]));
+			} else if (sa1 < 0) {
+				*(float*)(*(unsigned int *) ((int)a3 + 760) - 4 * sa1) *= sf1;
+				nox_script_pushf(*(float*)(*(unsigned int *) ((int)a3 + 760) - 4 * sa1));
 			} else {
-				v59 = 4 * sa1;
-				v60 = (float *) (*(unsigned int *) (v3 + 760) - 4 * sa1);
-				v61 = sf1 * *v60;
-				*v55 = v54; // TODO: should be = v61?
-				nox_script_push(COERCE_INT(*(float*)((unsigned int)(nox_script_arr_xxx_1599636[1].field_28) + 4 * sa1)));
+				*(float*)(&script->field_28[sa1]) *= sf1;
+				nox_script_pushf(*(float*)(&script->field_28[sa1]));
 			}
 			continue;
 		case 27: // div xxx int
