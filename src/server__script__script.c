@@ -474,7 +474,6 @@ void nox_xxx_scriptRunFirst_507290() {
 
 //----- (00507310) --------------------------------------------------------
 void nox_script_callByIndex_507310(int index, int a2, int a3) {
-	int v3;         // ebx
 	int v6;         // esi
 	int v7;         // ecx
 	int v161;       // [esp+1Ch] [ebp-10Ch]
@@ -482,7 +481,6 @@ void nox_script_callByIndex_507310(int index, int a2, int a3) {
 
 	nox_script_xxx_t* script = &nox_script_arr_xxx_1599636[index];
 
-	v3 = a3;
 	dword_5d4594_3821964 = a2;
 	dword_5d4594_3821968 = a3;
 	v6 = 0;
@@ -1094,7 +1092,7 @@ void nox_script_callByIndex_507310(int index, int a2, int a3) {
 			continue;
 		case 70: // call script
 			sa1 = nox_script_nextInt(&data);
-			nox_script_callByIndex_507310(sa1, a2, v3);
+			nox_script_callByIndex_507310(sa1, a2, a3);
 			continue;
 		case 73: // string cat
 			sa1 = nox_script_pop();
