@@ -4889,6 +4889,7 @@ void  sub_4D7480(int a1) {
 }
 
 //----- (004D74F0) --------------------------------------------------------
+#ifndef NOX_CGO
 int  nox_server_questNextStageThreshold_4D74F0(int lvl) {
 	if (lvl <= 4)
 		return 5;
@@ -4900,6 +4901,7 @@ int  nox_server_questNextStageThreshold_4D74F0(int lvl) {
 		return 20;
 	return lvl;
 }
+#endif // NOX_CGO
 
 //----- (004D7520) --------------------------------------------------------
 char  sub_4D7520(int a1) {

@@ -15,9 +15,16 @@ import (
 	"unsafe"
 )
 
+const (
+	questLevelWrapIncDef    = 5
+	questLevelWrapCutoffDef = 20
+)
+
 var (
-	questLevelInc = 1
-	questLog      = log.New(os.Stderr, "[quest]: ", log.LstdFlags|log.Lmsgprefix)
+	questLevelInc          = 1
+	questLevelWarpInc      = questLevelWrapIncDef
+	questLevelWarpInfinite = os.Getenv("NOX_QUEST_WARP_INF") == "true"
+	questLog               = log.New(os.Stderr, "[quest]: ", log.LstdFlags|log.Lmsgprefix)
 )
 
 func init() {
@@ -28,6 +35,15 @@ func init() {
 		} else {
 			questLog.Printf("setting level increment to %d", v)
 			questLevelInc = int(v)
+		}
+	}
+	if str := os.Getenv("NOX_QUEST_WARP_INC"); str != "" {
+		v, err := strconv.ParseUint(str, 10, 32)
+		if err != nil {
+			questLog.Printf("cannot parse warp increment: %v", err)
+		} else {
+			questLog.Printf("setting warp increment to %d", v)
+			questLevelWarpInc = int(v)
 		}
 	}
 }
@@ -42,6 +58,19 @@ func nox_xxx_getQuestStage_51A930() int {
 
 func nox_game_setQuestStage_4E3CD0(lvl int) {
 	C.nox_game_setQuestStage_4E3CD0(C.int(lvl))
+}
+
+func questNextStageThreshold(lvl int) int {
+	if !questLevelWarpInfinite && lvl >= questLevelWrapCutoffDef {
+		return lvl
+	}
+	next := (lvl / questLevelWarpInc) + 1
+	return next * questLevelWarpInc
+}
+
+//export nox_server_questNextStageThreshold_4D74F0
+func nox_server_questNextStageThreshold_4D74F0(lvl C.int) C.int {
+	return C.int(questNextStageThreshold(int(lvl)))
 }
 
 //export nox_server_questMapNextLevel
@@ -61,8 +90,10 @@ func nox_server_questMapNextLevel() {
 	questLog.Printf("loading map: %q", name)
 	C.sub_4D10F0(internCStr(name))
 	C.sub_4D7520(1)
-	cutoff := uint(C.nox_xxx_gamedataGetFloat_419D40(unsafe.Pointer(internCStr("WarpGateCutoffStage"))))
-	if uint(nox_game_getQuestStage_4E3CC0()) >= cutoff {
-		C.sub_4D7520(0)
+	if !questLevelWarpInfinite {
+		cutoff := uint(C.nox_xxx_gamedataGetFloat_419D40(unsafe.Pointer(internCStr("WarpGateCutoffStage"))))
+		if uint(nox_game_getQuestStage_4E3CC0()) >= cutoff {
+			C.sub_4D7520(0)
+		}
 	}
 }
