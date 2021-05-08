@@ -1892,10 +1892,10 @@ int  sub_43E9C0() {
 }
 
 //----- (0043E9D0) --------------------------------------------------------
-_DWORD* __stdcall sub_43E9D0(int a1) {
+void sub_43E9D0(unsigned int a1) {
 	sub_486EF0();
 	sub_43D2D0();
-	return sub_486620(*(_DWORD**)&dword_587000_127004);
+	sub_486620(*(_DWORD**)&dword_587000_127004);
 }
 
 //----- (0043E9F0) --------------------------------------------------------
@@ -2081,7 +2081,7 @@ int  sub_43ED00(_DWORD* a1) {
 // 5813F0: using guessed type int __stdcall AIL_init_sample(_DWORD);
 
 //----- (0043EDB0) --------------------------------------------------------
-int __stdcall sub_43EDB0(int a1) {
+void sub_43EDB0(HSAMPLE a1) {
 	int v1;     // eax
 	int v2;     // esi
 	int result; // eax
@@ -2093,16 +2093,15 @@ int __stdcall sub_43EDB0(int a1) {
 		result = (*(int(**)(_DWORD))(*(_DWORD*)(v2 + 4) + 284))(*(_DWORD*)(v2 + 4));
 		*(_DWORD*)(v2 + 28) = 1;
 	}
-	return result;
 }
 // 5813A8: using guessed type int __stdcall AIL_sample_user_data(_DWORD, _DWORD);
 
 //----- (0043EDE0) --------------------------------------------------------
-int __stdcall sub_43EDE0(int a1) {
+void sub_43EDE0(HSAMPLE a1) {
 	int v1; // eax
 
 	v1 = AIL_sample_user_data(a1, 0);
-	return sub_43EE00(v1);
+	sub_43EE00(v1);
 }
 // 5813A8: using guessed type int __stdcall AIL_sample_user_data(_DWORD, _DWORD);
 

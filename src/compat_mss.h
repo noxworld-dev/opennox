@@ -1,10 +1,8 @@
+#ifndef COMPAT_MSS_H
+#define COMPAT_MSS_H
+
 #include <stdint.h>
 #include "defs.h"
-
-#define AILCALL
-#define AILCALLBACK WINAPI
-#define DXDEC
-#define FAR
 
 #ifdef _MSC_VER
 #pragma pack(push, 1)
@@ -53,60 +51,54 @@ MPEGLAYER3WAVEFORMAT2;
 #pragma pack(pop)
 #endif
 
-typedef int8_t S8;
-typedef uint8_t U8;
-typedef int16_t S16;
-typedef uint16_t U16;
-typedef int32_t S32;
-typedef uint32_t U32;
-
 typedef struct _DIG_DRIVER* HDIGDRIVER;
 typedef struct _SAMPLE* HSAMPLE;
 typedef struct _STREAM* HSTREAM;
 typedef struct _TIMER* HTIMER;
 
-typedef void(AILCALLBACK FAR* AILTIMERCB)(U32 user);
-typedef void(AILCALLBACK FAR* AILSAMPLECB)(HSAMPLE sample);
+typedef void(*AILTIMERCB)(uint32_t user);
+typedef void(*AILSAMPLECB)(HSAMPLE sample);
 
-DXDEC HSAMPLE AILCALL AIL_allocate_sample_handle(HDIGDRIVER dig);
-DXDEC void AILCALL AIL_close_stream(HSTREAM stream);
-DXDEC void AILCALL AIL_digital_configuration(HDIGDRIVER dig, S32 FAR* rate, S32 FAR* format, char FAR* string);
-DXDEC S32 AILCALL AIL_digital_handle_release(HDIGDRIVER drvr);
-DXDEC S32 AILCALL AIL_digital_handle_reacquire(HDIGDRIVER drvr);
-DXDEC void AILCALL AIL_end_sample(HSAMPLE S);
-DXDEC S32 AILCALL AIL_get_preference(U32 number);
-DXDEC void AILCALL AIL_init_sample(HSAMPLE S);
-DXDEC char FAR* AILCALL AIL_last_error(void);
-DXDEC void AILCALL AIL_load_sample_buffer(HSAMPLE S, U32 buff_num, void const FAR* buffer, U32 len);
-DXDEC HSTREAM AILCALL AIL_open_stream(HDIGDRIVER dig, char const FAR* filename, S32 stream_mem);
-DXDEC void AILCALL AIL_pause_stream(HSTREAM stream, S32 onoff);
-DXDEC AILSAMPLECB AILCALL AIL_register_EOB_callback(HSAMPLE S, AILSAMPLECB EOB);
-DXDEC AILSAMPLECB AILCALL AIL_register_EOS_callback(HSAMPLE S, AILSAMPLECB EOS);
-DXDEC HTIMER AILCALL AIL_register_timer(AILTIMERCB fn);
-DXDEC void AILCALL AIL_release_sample_handle(HSAMPLE S);
-DXDEC void AILCALL AIL_release_timer_handle(HTIMER timer);
-DXDEC void AILCALL AIL_resume_sample(HSAMPLE S);
-DXDEC S32 AILCALL AIL_sample_buffer_ready(HSAMPLE S);
-DXDEC S32 AILCALL AIL_sample_user_data(HSAMPLE S, U32 index);
-DXDEC void AILCALL AIL_serve(void);
-DXDEC S32 AILCALL AIL_set_preference(U32 number, S32 value);
-DXDEC void AILCALL AIL_set_sample_adpcm_block_size(HSAMPLE S, U32 blocksize);
-DXDEC void AILCALL AIL_set_sample_pan(HSAMPLE S, S32 pan);
-DXDEC void AILCALL AIL_set_sample_playback_rate(HSAMPLE S, S32 playback_rate);
-DXDEC void AILCALL AIL_set_sample_type(HSAMPLE S, S32 format, U32 flags);
-DXDEC void AILCALL AIL_set_sample_user_data(HSAMPLE S, U32 index, S32 value);
-DXDEC void AILCALL AIL_set_sample_volume(HSAMPLE S, S32 volume);
-DXDEC void AILCALL AIL_set_stream_position(HSTREAM stream, S32 offset);
-DXDEC void AILCALL AIL_set_stream_volume(HSTREAM stream, S32 volume);
-DXDEC void AILCALL AIL_set_timer_frequency(HTIMER timer, U32 hertz);
-DXDEC void AILCALL AIL_shutdown(void);
-DXDEC void AILCALL AIL_start_stream(HSTREAM stream);
-DXDEC void AILCALL AIL_start_timer(HTIMER timer);
-DXDEC S32 AILCALL AIL_startup(void);
-DXDEC void AILCALL AIL_stop_sample(HSAMPLE S);
-DXDEC void AILCALL AIL_stop_timer(HTIMER timer);
-DXDEC S32 AILCALL AIL_stream_position(HSTREAM stream);
-DXDEC S32 AILCALL AIL_stream_status(HSTREAM stream);
-DXDEC void AILCALL AIL_waveOutClose(HDIGDRIVER drvr);
-DXDEC S32 AILCALL AIL_waveOutOpen(HDIGDRIVER FAR* drvr, LPHWAVEOUT FAR* lphWaveOut, S32 wDeviceID,
-								  LPWAVEFORMAT lpFormat);
+HSAMPLE AIL_allocate_sample_handle(HDIGDRIVER dig);
+void AIL_close_stream(HSTREAM stream);
+void AIL_digital_configuration(HDIGDRIVER dig, int32_t* rate, int32_t* format, char* string);
+int32_t AIL_digital_handle_release(HDIGDRIVER drvr);
+int32_t AIL_digital_handle_reacquire(HDIGDRIVER drvr);
+void AIL_end_sample(HSAMPLE S);
+int32_t AIL_get_preference(uint32_t number);
+void AIL_init_sample(HSAMPLE S);
+char* AIL_last_error(void);
+void AIL_load_sample_buffer(HSAMPLE S, uint32_t buff_num, void* buffer, uint32_t len);
+HSTREAM AIL_open_stream(HDIGDRIVER dig, char* filename, int32_t stream_mem);
+void AIL_pause_stream(HSTREAM stream, int32_t onoff);
+void AIL_register_EOB_callback(HSAMPLE S, AILSAMPLECB EOB);
+void AIL_register_EOS_callback(HSAMPLE S, AILSAMPLECB EOS);
+HTIMER AIL_register_timer(AILTIMERCB fn);
+void AIL_release_sample_handle(HSAMPLE S);
+void AIL_release_timer_handle(HTIMER timer);
+void AIL_resume_sample(HSAMPLE S);
+int32_t AIL_sample_buffer_ready(HSAMPLE S);
+int32_t AIL_sample_user_data(HSAMPLE S, uint32_t index);
+void AIL_serve(void);
+int32_t AIL_set_preference(uint32_t number, int32_t value);
+void AIL_set_sample_adpcm_block_size(HSAMPLE S, uint32_t blocksize);
+void AIL_set_sample_pan(HSAMPLE S, int32_t pan);
+void AIL_set_sample_playback_rate(HSAMPLE S, int32_t playback_rate);
+void AIL_set_sample_type(HSAMPLE S, int32_t format, uint32_t flags);
+void AIL_set_sample_user_data(HSAMPLE S, uint32_t index, int32_t value);
+void AIL_set_sample_volume(HSAMPLE S, int32_t volume);
+void AIL_set_stream_position(HSTREAM stream, int32_t offset);
+void AIL_set_stream_volume(HSTREAM stream, int32_t volume);
+void AIL_set_timer_frequency(HTIMER timer, uint32_t hertz);
+void AIL_shutdown(void);
+void AIL_start_stream(HSTREAM stream);
+void AIL_start_timer(HTIMER timer);
+int32_t AIL_startup(void);
+void AIL_stop_sample(HSAMPLE S);
+void AIL_stop_timer(HTIMER timer);
+int32_t AIL_stream_position(HSTREAM stream);
+int32_t AIL_stream_status(HSTREAM stream);
+void AIL_waveOutClose(HDIGDRIVER drvr);
+int32_t AIL_waveOutOpen(HDIGDRIVER* drvr, LPHWAVEOUT* lphWaveOut, int32_t wDeviceID, LPWAVEFORMAT lpFormat);
+
+#endif // COMPAT_MSS_H
