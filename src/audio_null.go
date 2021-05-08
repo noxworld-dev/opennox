@@ -1,3 +1,5 @@
+//+build server
+
 package main
 
 /*
@@ -45,7 +47,11 @@ func AIL_release_timer_handle(h C.HTIMER) {
 }
 
 //export AIL_digital_configuration
-func AIL_digital_configuration(dig C.HDIGDRIVER, rate *C.int32_t, fmt *C.int32_t, str *C.char) {}
+func AIL_digital_configuration(dig C.HDIGDRIVER, rate *C.int32_t, fmt *C.int32_t, str *C.char) {
+	if str != nil {
+		*str = 0
+	}
+}
 
 //export AIL_digital_handle_release
 func AIL_digital_handle_release(h C.HDIGDRIVER) C.int32_t { return 0 }
