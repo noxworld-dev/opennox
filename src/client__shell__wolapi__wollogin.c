@@ -54,7 +54,7 @@ int nox_game_showWolLogin_44A560() {
 			return result;
 		nox_wnd_xxx_830244->field_0 = 1700;
 		nox_wnd_xxx_830244->field_12 = sub_44AA40;
-		nox_wnd_xxx_830244->field_14 = sub_44AA70;
+		nox_wnd_xxx_830244->fnc_done_out = sub_44AA70;
 		nox_window_set_all_funcs(*(_DWORD**)&dword_5d4594_830248, sub_44AAC0, 0, 0);
 	}
 	sub_41FCF0();

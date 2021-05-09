@@ -993,6 +993,13 @@ typedef struct nox_screenParticle {
 } nox_screenParticle;
 _Static_assert(sizeof(nox_screenParticle) == 52, "wrong size of nox_screenParticle structure!");
 
+typedef enum {
+	NOX_GUI_ANIM_IN_DONE = 0,
+	NOX_GUI_ANIM_OUT_DONE = 1,
+	NOX_GUI_ANIM_OUT = 2,
+	NOX_GUI_ANIM_IN = 3,
+} nox_gui_anim_state;
+
 typedef struct nox_gui_animation nox_gui_animation;
 typedef struct nox_gui_animation {
 	_DWORD field_0; // 0, 0
@@ -1009,11 +1016,9 @@ typedef struct nox_gui_animation {
 	nox_gui_animation* prev; // 11, 44
 	int (*field_12)(void); // 12, 48
 	int (*field_13)(void); // 13, 52
-	int (*field_14)(void); // 14, 56
-	void (*field_15)(void); // 15, 60
-	_BYTE field_16_0; // 16, 64
-	_BYTE field_16_1; // 16, 65
-	_WORD field_16_2; // 16, 66
+	int (*fnc_done_out)(void); // 14, 56
+	void (*fnc_done_in)(void); // 15, 60
+	nox_gui_anim_state state; // 16, 64
 } nox_gui_animation;
 _Static_assert(sizeof(nox_gui_animation) == 68, "wrong size of nox_gui_animation structure!");
 

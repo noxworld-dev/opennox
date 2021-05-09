@@ -41,7 +41,7 @@ int nox_game_showSelChar_4A4DB0() {
 		if (result) {
 			nox_wnd_xxx_1307748->field_0 = 500;
 			nox_wnd_xxx_1307748->field_12 = sub_4A50A0;
-			nox_wnd_xxx_1307748->field_14 = sub_4A50D0;
+			nox_wnd_xxx_1307748->fnc_done_out = sub_4A50D0;
 			dword_5d4594_1307744 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1307764, 510);
 			dword_5d4594_1307776 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1307764, 511);
 			dword_5d4594_1307768 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1307764, 512);

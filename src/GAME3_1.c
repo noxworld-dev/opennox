@@ -6761,7 +6761,7 @@ int sub_4CB880() {
 		if (result) {
 			nox_wnd_xxx_1522608->field_0 = 900;
 			nox_wnd_xxx_1522608->field_12 = sub_4CBB70;
-			nox_wnd_xxx_1522608->field_14 = sub_4CBBB0;
+			nox_wnd_xxx_1522608->fnc_done_out = sub_4CBBB0;
 			dword_5d4594_1522616 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1522604, 910);
 			dword_5d4594_1522620 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1522604, 911);
 			dword_5d4594_1522624 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1522604, 912);
@@ -6818,7 +6818,7 @@ int sub_4CB880() {
 int sub_4CBB70() {
 	sub_4CBD30();
 	nox_common_writecfgfile("nox.cfg");
-	nox_wnd_xxx_1522608->field_16_0 = 2;
+	nox_wnd_xxx_1522608->state = NOX_GUI_ANIM_OUT;
 	sub_43BE40(2);
 	nox_xxx_clientPlaySoundSpecial_452D80(923, 100);
 	return 1;

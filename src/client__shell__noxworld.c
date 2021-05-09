@@ -175,8 +175,8 @@ int nox_game_showGameSel_4379F0() {
 		sub_49FDB0(0);
 	if (nox_wol_wnd_world_814980) {
 		dword_5d4594_815044 = 0;
-		nox_wnd_xxx_815040->field_16_0 = 3;
-		nox_wnd_xxx_815040->field_14 = sub_438330;
+		nox_wnd_xxx_815040->state = NOX_GUI_ANIM_IN;
+		nox_wnd_xxx_815040->fnc_done_out = sub_438330;
 		sub_43BE40(3);
 		nox_xxx_clientPlaySoundSpecial_452D80(922, 100);
 		nox_window_set_hidden(*(int*)&nox_wol_wnd_world_814980, 0);
@@ -206,7 +206,7 @@ int nox_game_showGameSel_4379F0() {
 	}
 	nox_wnd_xxx_815040->field_0 = 10000;
 	nox_wnd_xxx_815040->field_12 = sub_438370;
-	nox_wnd_xxx_815040->field_14 = sub_438330;
+	nox_wnd_xxx_815040->fnc_done_out = sub_438330;
 	dword_5d4594_814984 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&nox_wol_wnd_world_814980, 10020);
 	dword_5d4594_814988 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&nox_wol_wnd_world_814980, 10021);
 	nox_xxx_wndSetWindowProc_46B300(*(int*)&dword_5d4594_814984, sub_439D00);

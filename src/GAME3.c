@@ -1511,7 +1511,7 @@ int nox_game_showSelClass_4A4840() {
 		if (result) {
 			nox_wnd_xxx_1307732->field_0 = 600;
 			nox_wnd_xxx_1307732->field_12 = sub_4A4970;
-			nox_wnd_xxx_1307732->field_14 = sub_4A49A0;
+			nox_wnd_xxx_1307732->fnc_done_out = sub_4A49A0;
 			v1 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1307736, 601);
 			nox_xxx_wndSetDrawFn_46B340((int)v1, sub_4A49D0);
 			v2 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1307736, 603);
@@ -1532,7 +1532,7 @@ int nox_game_showSelClass_4A4840() {
 
 //----- (004A4970) --------------------------------------------------------
 int sub_4A4970() {
-	nox_wnd_xxx_1307732->field_16_0 = 2;
+	nox_wnd_xxx_1307732->state = NOX_GUI_ANIM_OUT;
 	sub_43BE40(2);
 	nox_xxx_clientPlaySoundSpecial_452D80(923, 100);
 	return 1;
@@ -1585,7 +1585,7 @@ int  sub_4A4CB0(const void* a1, const void* a2) {
 
 //----- (004A50A0) --------------------------------------------------------
 int sub_4A50A0() {
-	nox_wnd_xxx_1307748->field_16_0 = 2;
+	nox_wnd_xxx_1307748->state = NOX_GUI_ANIM_OUT;
 	sub_43BE40(2);
 	nox_xxx_clientPlaySoundSpecial_452D80(923, 100);
 	return 1;
@@ -2006,7 +2006,7 @@ void sub_4A62B0() {
 
 //----- (004A6890) --------------------------------------------------------
 int sub_4A6890() {
-	nox_wnd_xxx_1308092->field_16_0 = 2;
+	nox_wnd_xxx_1308092->state = NOX_GUI_ANIM_OUT;
 	sub_43BE40(2);
 	nox_xxx_clientPlaySoundSpecial_452D80(923, 100);
 	sub_4A68C0();
@@ -3963,7 +3963,7 @@ int nox_game_showOptions_4AA6B0() {
 			if (result) {
 				nox_wnd_xxx_1309740->field_0 = 300;
 				nox_wnd_xxx_1309740->field_12 = sub_4AA9C0;
-				nox_wnd_xxx_1309740->field_14 = sub_4AAA10;
+				nox_wnd_xxx_1309740->fnc_done_out = sub_4AAA10;
 				v1 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1309720, 351);
 				*(_DWORD*)(v1[100] + 8) = 24;
 				*(_DWORD*)(v1[100] + 12) = 20;
@@ -4032,7 +4032,7 @@ int sub_4AA9C0() {
 	sub_44D8F0();
 	nox_xxx_gameResizeScreen_43BEF0_set_video_mode(*(int*)&nox_xxx_normalWndHeight_587000_172876, *(int*)&nox_xxx_normalWndWidth_587000_172872, *(int*)&nox_xxx_normalWndBits_587000_172880);
 	nox_common_writecfgfile("nox.cfg");
-	nox_wnd_xxx_1309740->field_16_0 = 2;
+	nox_wnd_xxx_1309740->state = NOX_GUI_ANIM_OUT;
 	sub_43BE40(2);
 	nox_xxx_clientPlaySoundSpecial_452D80(923, 100);
 	return 1;
@@ -4191,7 +4191,7 @@ int  sub_4AABE0(int a1, int a2, int* a3, int a4) {
 			}
 		} else if (v4 == 341) {
 			sub_4AA9C0();
-			nox_wnd_xxx_1309740->field_14 = sub_4AB0C0;
+			nox_wnd_xxx_1309740->fnc_done_out = sub_4AB0C0;
 			nox_wnd_xxx_1309740->field_13 = sub_4CB880;
 		} else {
 			switch (v4) {

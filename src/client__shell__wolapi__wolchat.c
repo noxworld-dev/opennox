@@ -259,7 +259,7 @@ int nox_game_showWolChat_447620() {
 		if (nox_wnd_xxx_829520) {
 			nox_wnd_xxx_829520->field_0 = 1900;
 			nox_wnd_xxx_829520->field_12 = sub_446A90;
-			nox_wnd_xxx_829520->field_14 = sub_447BD0;
+			nox_wnd_xxx_829520->fnc_done_out = sub_447BD0;
 			dword_5d4594_829484 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_829480, 1908);
 			dword_5d4594_829488 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_829480, 1909);
 			dword_5d4594_829492 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_829480, 1907);

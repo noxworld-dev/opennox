@@ -577,18 +577,18 @@ void nox_gui_doAnimation_out(nox_gui_animation* a) {
 	x += a->out_dx;
 	y += a->out_dy;
 
-	char changed = 0;
+	char maxed = 0;
 
 	int mx = a->x2;
 	if (a->out_dx >= 0) {
 		if (x >= mx) {
 			x = a->x2;
-			++changed;
+			++maxed;
 		}
 	} else {
 		if (x <= mx) {
 			x = a->x2;
-			++changed;
+			++maxed;
 		}
 	}
 
@@ -596,21 +596,21 @@ void nox_gui_doAnimation_out(nox_gui_animation* a) {
 	if (a->out_dy >= 0) {
 		if (y >= my) {
 			y = a->y2;
-			++changed;
+			++maxed;
 		}
 	} else {
 		if (y <= my) {
 			y = a->y2;
-			++changed;
+			++maxed;
 		}
 	}
 
 	nox_wnd_nox_xxx_wndDraw_46A9B0(a->win, x, y);
-	if (changed == 2) {
-		a->field_16_0 = 1;
+	if (maxed == 2) {
+		a->state = NOX_GUI_ANIM_OUT_DONE;
 		sub_43BE40(1);
-		if (a->field_14) {
-			a->field_14();
+		if (a->fnc_done_out) {
+			a->fnc_done_out();
 		}
 	}
 }
@@ -621,18 +621,18 @@ void nox_gui_doAnimation_in(nox_gui_animation* a) {
 	x += a->in_dx;
 	y += a->in_dy;
 
-	char changed = 0;
+	char maxed = 0;
 
 	int mx = a->x1;
 	if (a->in_dx >= 0) {
 		if (x >= mx) {
 			x = a->x1;
-			++changed;
+			++maxed;
 		}
 	} else {
 		if (x <= mx) {
 			x = a->x1;
-			++changed;
+			++maxed;
 		}
 	}
 
@@ -640,21 +640,21 @@ void nox_gui_doAnimation_in(nox_gui_animation* a) {
 	if (a->in_dy >= 0) {
 		if (y >= my) {
 			y = a->y1;
-			++changed;
+			++maxed;
 		}
 	} else {
 		if (y <= my) {
 			y = a->y1;
-			++changed;
+			++maxed;
 		}
 	}
 
 	nox_wnd_nox_xxx_wndDraw_46A9B0(a->win, x, y);
-	if (changed == 2) {
-		a->field_16_0 = 0;
+	if (maxed == 2) {
+		a->state = NOX_GUI_ANIM_IN_DONE;
 		sub_43BE40(0);
-		if (a->field_15) {
-			a->field_15();
+		if (a->fnc_done_in) {
+			a->fnc_done_in();
 		}
 		sub_4A24F0();
 	}
@@ -666,9 +666,9 @@ void nox_gui_doAnimation_43C380() {
 	nox_gui_animation* next = 0;
 	for (nox_gui_animation* a = nox_gui_animationHead_815212; a; a = next) {
 		next = a->next;
-		if (a->field_16_0 == 2) {
+		if (a->state == NOX_GUI_ANIM_OUT) {
 			nox_gui_doAnimation_out(a);
-		} else if (a->field_16_0 == 3) {
+		} else if (a->state == NOX_GUI_ANIM_IN) {
 			nox_gui_doAnimation_in(a);
 		}
 	}
@@ -743,12 +743,12 @@ nox_gui_animation* nox_gui_makeAnimation_43C5B0(nox_window* win, int x1, int y1,
 	p->in_dy = in_dy;
 	p->out_dx = out_dx;
 	p->out_dy = out_dy;
-	p->field_16_0 = 3;
+	p->state = NOX_GUI_ANIM_IN;
 	sub_43BE40(3);
 	nox_xxx_clientPlaySoundSpecial_452D80(922, 100);
 	p->field_12 = 0;
-	p->field_14 = 0;
-	p->field_15 = 0;
+	p->fnc_done_out = 0;
+	p->fnc_done_in = 0;
 	return p;
 }
 
@@ -4540,7 +4540,7 @@ wchar_t*  sub_4469D0(int a1) {
 int sub_446A90() {
 	int result; // eax
 
-	nox_wnd_xxx_829520->field_16_0 = 2;
+	nox_wnd_xxx_829520->state = NOX_GUI_ANIM_OUT;
 	sub_43BE40(2);
 	nox_xxx_clientPlaySoundSpecial_452D80(923, 100);
 	result = 1;
@@ -5970,7 +5970,7 @@ char*  sub_44A520(int a1) {
 
 //----- (0044AA40) --------------------------------------------------------
 int sub_44AA40() {
-	nox_wnd_xxx_830244->field_16_0 = 2;
+	nox_wnd_xxx_830244->state = NOX_GUI_ANIM_OUT;
 	sub_43BE40(2);
 	nox_xxx_clientPlaySoundSpecial_452D80(923, 100);
 	sub_4207F0(1);
@@ -6149,7 +6149,7 @@ int  sub_44AB30(int a1, unsigned int a2, int* a3, int a4) {
 int sub_44AF70() {
 	int result; // eax
 
-	nox_wnd_xxx_830244->field_16_0 = 2;
+	nox_wnd_xxx_830244->state = NOX_GUI_ANIM_OUT;
 	sub_43BE40(2);
 	nox_xxx_clientPlaySoundSpecial_452D80(923, 100);
 	result = 1;

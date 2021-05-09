@@ -47,7 +47,7 @@ int nox_game_showSelColor_4A5D00() {
 		if (result) {
 			nox_wnd_xxx_1308092->field_0 = 700;
 			nox_wnd_xxx_1308092->field_12 = sub_4A6890;
-			nox_wnd_xxx_1308092->field_14 = sub_4A6C90;
+			nox_wnd_xxx_1308092->fnc_done_out = sub_4A6C90;
 			sub_4A5E90();
 			for (i = 720; i <= 729; ++i) {
 				v3 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1308084, i);

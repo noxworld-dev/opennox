@@ -8205,9 +8205,9 @@ int sub_438330() {
 
 //----- (00438370) --------------------------------------------------------
 int sub_438370() {
-	if (nox_wnd_xxx_815040->field_16_0 == 1)
+	if (nox_wnd_xxx_815040->state == NOX_GUI_ANIM_OUT_DONE)
 		return sub_438330();
-	nox_wnd_xxx_815040->field_16_0 = 2;
+	nox_wnd_xxx_815040->state = NOX_GUI_ANIM_OUT;
 	sub_43BE40(2);
 	nox_xxx_clientPlaySoundSpecial_452D80(923, 100);
 	return 1;
@@ -8961,7 +8961,7 @@ int sub_43B440() {
 //----- (0043B460) --------------------------------------------------------
 int sub_43B460() {
 	sub_438370();
-	nox_wnd_xxx_815040->field_14 = sub_43B490;
+	nox_wnd_xxx_815040->fnc_done_out = sub_43B490;
 	nox_xxx_wnd_46C6E0(*(int*)&dword_5d4594_815000);
 	return nox_xxx_wnd_46ABB0(*(int*)&dword_5d4594_814984, 0);
 }

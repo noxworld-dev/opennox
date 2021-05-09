@@ -18,7 +18,7 @@ int sub_4A24F0() { return nox_xxx_windowDestroyChildsMB_46B500(nox_win_main_bg);
 
 //----- (004A1D40) --------------------------------------------------------
 int sub_4A1D40() {
-	nox_wnd_xxx_1307308->field_16_0 = 2;
+	nox_wnd_xxx_1307308->state = NOX_GUI_ANIM_OUT;
 	*(_BYTE*)(*getMemU32Ptr(0x5D4594, 1307304) + 64) = 2;
 	sub_43BE40(2);
 	nox_xxx_clientPlaySoundSpecial_452D80(923, 100);
@@ -113,7 +113,7 @@ int nox_game_showMainMenu_4A1C00() {
 	}
 	nox_wnd_xxx_1307308->field_0 = 100;
 	nox_wnd_xxx_1307308->field_12 = sub_4A1D40;
-	nox_wnd_xxx_1307308->field_14 = sub_4A1D80;
+	nox_wnd_xxx_1307308->fnc_done_out = sub_4A1D80;
 	v2 = nox_xxx_wndGetChildByID_46B0C0(nox_win_main_menu, 120);
 	nox_xxx_wndSetProc_46B2C0((int)v2, nox_xxx_windowMainMenuProc_4A1DC0);
 	*getMemU32Ptr(0x5D4594, 1307304) = nox_gui_makeAnimation_43C5B0(v2, 0, 270, 0, 510, 0, -20, 0, 40);
@@ -145,7 +145,7 @@ int  nox_xxx_windowMainMenuProc_4A1DC0(int a1, int a2, int* a3, int a4) {
 	} else {
 		if (a2 != 16391)
 			return 0;
-		if (nox_wnd_xxx_1307308->field_16_0 && !nox_common_gameFlags_check_40A5C0(0x2000000)) {
+		if (nox_wnd_xxx_1307308->state != NOX_GUI_ANIM_IN_DONE && !nox_common_gameFlags_check_40A5C0(0x2000000)) {
 		LABEL_32:
 			nox_xxx_clientPlaySoundSpecial_452D80(921, 100);
 		} else {
