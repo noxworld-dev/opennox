@@ -118,7 +118,7 @@ var parseCmd = parsecmd.NewConsole(consolePrinter{}, strMan)
 //export nox_xxx_consoleParseToken_443A20
 func nox_xxx_consoleParseToken_443A20(tokInd C.int, tokCnt C.int, tokens **C.wchar_t, a5 C.int) C.int {
 	toks := GoWStrSliceN(tokens, int(tokCnt))
-	ok := consoleParseToken(int(tokInd), toks, parseCmd.Commands(), int(a5))
+	ok := consoleParseToken(parseCmd, int(tokInd), toks, parseCmd.Commands(), int(a5))
 	if ok {
 		return 1
 	}
@@ -134,7 +134,7 @@ func consolePrintf(typ parsecmd.Color, format string, args ...interface{}) int {
 	return int(res)
 }
 
-func consoleParseToken(tokInd int, tokens []string, cmds []*parsecmd.Command, a5 int) bool {
+func consoleParseToken(c *parsecmd.Console, tokInd int, tokens []string, cmds []*parsecmd.Command, a5 int) bool {
 	if tokInd >= len(tokens) || len(cmds) == 0 {
 		return false
 	}
@@ -158,14 +158,14 @@ func consoleParseToken(tokInd int, tokens []string, cmds []*parsecmd.Command, a5
 	}
 	if C.dword_5d4594_823684 != 0 {
 		if !cmd.Flags.Has(parsecmd.Server) {
-			s := strMan.GetString("parsecmd.c:clientonly")
-			consolePrintf(parsecmd.ColorRed, s)
+			s := c.Strings().GetString("parsecmd.c:clientonly")
+			c.Printf(parsecmd.ColorRed, s)
 			return true
 		}
 	} else {
 		if !cmd.Flags.Has(parsecmd.Client) {
-			s := strMan.GetString("parsecmd.c:serveronly")
-			consolePrintf(parsecmd.ColorRed, s)
+			s := c.Strings().GetString("parsecmd.c:serveronly")
+			c.Printf(parsecmd.ColorRed, s)
 			return true
 		}
 	}
@@ -178,32 +178,32 @@ func consoleParseToken(tokInd int, tokens []string, cmds []*parsecmd.Command, a5
 			// not enough tokens - print help
 			var help string
 			if cmd.HelpID != "" {
-				help = strMan.GetStringInFile(cmd.HelpID, "parsecmd.c")
+				help = c.Strings().GetStringInFile(cmd.HelpID, "parsecmd.c")
 			} else {
 				help = cmd.Help
 			}
-			consolePrintf(parsecmd.ColorRed, help)
+			c.Printf(parsecmd.ColorRed, help)
 			return true
 		}
 		// continue parsing the sub command
-		res = consoleParseToken(tokInd+1, tokens, cmd.Sub, a5)
+		res = consoleParseToken(c, tokInd+1, tokens, cmd.Sub, a5)
 	} else {
 		// call console command handler, let it parse the rest
 		if cmd.Func != nil {
-			res = cmd.Func(tokens[tokInd+1:])
+			res = cmd.Func(c, tokens[tokInd+1:])
 		} else {
-			res = cmd.LegacyFunc(tokInd+1, tokens)
+			res = cmd.LegacyFunc(c, tokInd+1, tokens)
 		}
 	}
 	if !res {
 		// command failed - print help
 		var help string
 		if cmd.HelpID != "" {
-			help = strMan.GetStringInFile(cmd.HelpID, "parsecmd.c")
+			help = c.Strings().GetStringInFile(cmd.HelpID, "parsecmd.c")
 		} else {
 			help = cmd.Help
 		}
-		consolePrintf(parsecmd.ColorRed, help)
+		c.Printf(parsecmd.ColorRed, help)
 		return true
 	}
 	return res
@@ -211,22 +211,22 @@ func consoleParseToken(tokInd int, tokens []string, cmds []*parsecmd.Command, a5
 
 //export nox_xxx_consoleLoadTokens_444440
 func nox_xxx_consoleLoadTokens_444440() {
-	consoleLoadTokens(parseCmd.Commands())
+	consoleLoadTokens(parseCmd, parseCmd.Commands())
 }
 
-func consoleLoadTokens(cmds []*parsecmd.Command) {
+func consoleLoadTokens(c *parsecmd.Console, cmds []*parsecmd.Command) {
 	for i := range cmds {
 		cmd := cmds[i]
-		cmd.Token2 = strMan.GetString(strman.ID("cmd_token:" + cmd.Token))
+		cmd.Token2 = c.Strings().GetString(strman.ID("cmd_token:" + cmd.Token))
 		C.nox_xxx_consoleTokenAddPair_4444C0(internWStr(cmd.Token), internWStr(cmd.Token2))
 		if len(cmd.Token2) < 32 && len(cmd.Sub) != 0 {
-			consoleLoadTokens(cmd.Sub)
+			consoleLoadTokens(c, cmd.Sub)
 		}
 	}
 }
 
 func wrapCommandC(cfnc func(C.int, C.int, **C.wchar_t) C.int) parsecmd.CommandLegacyFunc {
-	return func(tokInd int, tokens []string) bool {
+	return func(c *parsecmd.Console, tokInd int, tokens []string) bool {
 		ctokens := CWStrSlice(tokens)
 		defer WStrSliceFree(ctokens)
 		var ptr **C.wchar_t

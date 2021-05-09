@@ -47,18 +47,30 @@ type Console struct {
 	cheats bool
 }
 
+// Printf exposes underlying Printer.
+func (cn *Console) Printf(cl Color, format string, args ...interface{}) {
+	if cn.p != nil {
+		cn.p.Printf(cl, format, args...)
+	}
+}
+
+// Strings exposes the underlying string manager.
+func (cn *Console) Strings() *strman.StringManager {
+	return cn.sm
+}
+
 func (cn *Console) registerBuiltin() {
 	cn.Register(&Command{
 		Token:  "racoiaws",
 		HelpID: "noHelp",
 		Flags:  Secret | ClientServer | NoHelp,
-		Func: func(_ []string) bool {
-			cn.SetCheats(true)
+		Func: func(c *Console, _ []string) bool {
+			c.SetCheats(true)
 			return true
 		},
 	})
-	cn.Register(&Command{Token: "help", HelpID: "helphelp", Flags: ClientServer, LegacyFunc: cn.help})
-	cn.Register(&Command{Token: "ques", HelpID: "helphelp", Flags: ClientServer, LegacyFunc: cn.help})
+	cn.Register(&Command{Token: "help", HelpID: "helphelp", Flags: ClientServer, LegacyFunc: (*Console).help})
+	cn.Register(&Command{Token: "ques", HelpID: "helphelp", Flags: ClientServer, LegacyFunc: (*Console).help})
 }
 
 func (cn *Console) help(_ int, tokens []string) bool {

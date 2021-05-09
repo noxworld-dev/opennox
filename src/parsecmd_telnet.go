@@ -18,7 +18,7 @@ func init() {
 	}})
 }
 
-func cmdTelnetOff(tokens []string) bool {
+func cmdTelnetOff(c *parsecmd.Console, tokens []string) bool {
 	if len(tokens) != 0 {
 		return false
 	}
@@ -26,12 +26,12 @@ func cmdTelnetOff(tokens []string) bool {
 		return true
 	}
 	C.nox_telnet_stop_579830()
-	s := strMan.GetString("parsecmd.c:telnetoff")
-	consolePrintf(parsecmd.ColorRed, s)
+	s := c.Strings().GetString("parsecmd.c:telnetoff")
+	c.Printf(parsecmd.ColorRed, s)
 	return true
 }
 
-func cmdTelnetOn(tokens []string) bool {
+func cmdTelnetOn(c *parsecmd.Console, tokens []string) bool {
 	n := len(tokens)
 	if n > 1 {
 		return false
@@ -46,7 +46,7 @@ func cmdTelnetOn(tokens []string) bool {
 		C.nox_telnet_start_5797F0(C.ushort(v))
 	}
 	port := int(C.nox_telnet_getPort_579850())
-	s := strMan.GetString("parsecmd.c:telneton")
-	consolePrintf(parsecmd.ColorRed, s, port)
+	s := c.Strings().GetString("parsecmd.c:telneton")
+	c.Printf(parsecmd.ColorRed, s, port)
 	return true
 }

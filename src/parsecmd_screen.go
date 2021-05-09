@@ -24,7 +24,7 @@ func init() {
 
 var screenshotSeq uint32
 
-func cmdScreenshot(tokens []string) bool {
+func cmdScreenshot(c *parsecmd.Console, tokens []string) bool {
 	// Screenshot will wait for the next clean frame, so must run in a goroutine
 	go func() {
 		img, err := Screenshot(context.Background())
