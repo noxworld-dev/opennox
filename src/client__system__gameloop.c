@@ -310,7 +310,7 @@ void mainloop() {
 		}
 	}
 	if (nox_client_gui_flag_815132) {
-		sub_43C380();
+		nox_gui_doAnimation_43C380();
 		nox_common_resetEngineFlag(NOX_ENGINE_FLAG_32);
 		if (!*getMemU32Ptr(0x5D4594, 816408)) {
 			nox_mouse_state_t* mouse = nox_client_getMouseState_4309F0();

@@ -1450,7 +1450,7 @@ void nox_game_checkStateSwitch_43C1E0();
 _DWORD* nox_game_checkStateOptions_43C220();
 int nox_game_checkStateWol_43C260();
 int nox_game_checkStateMenu_43C2F0();
-void sub_43C380();
+void nox_gui_doAnimation_43C380();
 nox_gui_animation* nox_gui_getAnimationHead_43C500();
 int  sub_43C510(int a1);
 nox_gui_animation* nox_gui_findAnimationForDest_43C520(int a1);

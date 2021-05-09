@@ -183,7 +183,7 @@ mainloop:
 			mainloopMaybeSwitchMapXXX()
 		}
 		if C.nox_client_gui_flag_815132 != 0 {
-			C.sub_43C380()
+			C.nox_gui_doAnimation_43C380()
 			resetEngineFlag(NOX_ENGINE_FLAG_32)
 			generateMouseSparks()
 		}
