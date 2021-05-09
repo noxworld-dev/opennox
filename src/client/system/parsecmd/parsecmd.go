@@ -44,6 +44,6 @@ type Command struct {
 	HelpID strman.ID
 	Help   string
 	Flags  Flags
-	Sub    []Command
+	Sub    []*Command
 	Func   CommandFunc
 }

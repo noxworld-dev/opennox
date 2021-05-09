@@ -39,12 +39,12 @@ func NewConsole(p Printer, sm *strman.StringManager) *Console {
 type Console struct {
 	p      Printer
 	sm     *strman.StringManager
-	cmds   []Command
+	cmds   []*Command
 	cheats bool
 }
 
 func (cn *Console) registerBuiltin() {
-	cn.Register(Command{
+	cn.Register(&Command{
 		Token:  "racoiaws",
 		HelpID: "noHelp",
 		Flags:  Secret | ClientServer | NoHelp,
@@ -53,8 +53,8 @@ func (cn *Console) registerBuiltin() {
 			return true
 		},
 	})
-	cn.Register(Command{Token: "help", HelpID: "helphelp", Flags: ClientServer, Func: cn.help})
-	cn.Register(Command{Token: "ques", HelpID: "helphelp", Flags: ClientServer, Func: cn.help})
+	cn.Register(&Command{Token: "help", HelpID: "helphelp", Flags: ClientServer, Func: cn.help})
+	cn.Register(&Command{Token: "ques", HelpID: "helphelp", Flags: ClientServer, Func: cn.help})
 }
 
 func (cn *Console) help(_ int, tokens []string) bool {
@@ -65,7 +65,7 @@ func (cn *Console) help(_ int, tokens []string) bool {
 	return true
 }
 
-func (cn *Console) helpOne(ind int, tokens []string, cmds []Command) bool {
+func (cn *Console) helpOne(ind int, tokens []string, cmds []*Command) bool {
 	if ind >= len(tokens) || len(cmds) == 0 {
 		return false
 	}
@@ -73,7 +73,7 @@ func (cn *Console) helpOne(ind int, tokens []string, cmds []Command) bool {
 	for i, cur := range cmds {
 		if tokens[ind] == cur.Token {
 			if !cur.Flags.Has(NoHelp) && (cn.Cheats() || !cur.Flags.Has(Cheat)) {
-				cmd = &cmds[i]
+				cmd = cmds[i]
 				break
 			}
 		}
@@ -101,7 +101,7 @@ func (cn *Console) helpOne(ind int, tokens []string, cmds []Command) bool {
 	return true
 }
 
-func (cn *Console) helpList(cmds []Command) {
+func (cn *Console) helpList(cmds []*Command) {
 	for _, cmd := range cmds {
 		if !cmd.Flags.Has(NoHelp) && (cn.Cheats() || !cmd.Flags.Has(Cheat)) {
 			var help string
@@ -123,13 +123,13 @@ func (cn *Console) Cheats() bool {
 	return cn.cheats
 }
 
-func (cn *Console) Register(c Command) {
+func (cn *Console) Register(c *Command) {
 	if c.Flags.Has(Secret) {
 		c.Token = EncodeSecret(c.Token)
 	}
 	cn.cmds = append(cn.cmds, c)
 }
 
-func (cn *Console) Commands() []Command {
+func (cn *Console) Commands() []*Command {
 	return cn.cmds
 }

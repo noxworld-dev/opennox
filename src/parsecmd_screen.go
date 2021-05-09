@@ -14,7 +14,7 @@ import (
 )
 
 func init() {
-	parseCmd.Register(parsecmd.Command{
+	parseCmd.Register(&parsecmd.Command{
 		Token: "screen",
 		Help:  "screen: Save a PNG screenshot to disk.",
 		Flags: parsecmd.ClientServer,

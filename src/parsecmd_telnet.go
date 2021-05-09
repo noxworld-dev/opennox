@@ -12,7 +12,7 @@ import (
 )
 
 func init() {
-	parseCmd.Register(parsecmd.Command{Token: "telnet", HelpID: "telnethelp", Flags: parsecmd.Server, Sub: []parsecmd.Command{
+	parseCmd.Register(&parsecmd.Command{Token: "telnet", HelpID: "telnethelp", Flags: parsecmd.Server, Sub: []*parsecmd.Command{
 		{Token: "on", HelpID: "telnetonhelp", Flags: parsecmd.Server, Func: cmdTelnetOn},
 		{Token: "off", HelpID: "telnetoffhelp", Flags: parsecmd.Server, Func: cmdTelnetOff},
 	}})
