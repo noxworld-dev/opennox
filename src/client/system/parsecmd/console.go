@@ -2,6 +2,7 @@ package parsecmd
 
 import "nox/common/strman"
 
+// Color of console text messages.
 type Color int
 
 const (
@@ -23,10 +24,12 @@ const (
 	ColorLightYellow = Color(16)
 )
 
+// Printer is an interface used for command output.
 type Printer interface {
 	Printf(cl Color, format string, args ...interface{})
 }
 
+// NewConsole creates a new console handler.
 func NewConsole(p Printer, sm *strman.StringManager) *Console {
 	cn := &Console{
 		p:  p,
@@ -36,6 +39,7 @@ func NewConsole(p Printer, sm *strman.StringManager) *Console {
 	return cn
 }
 
+// Console handles console commands.
 type Console struct {
 	p      Printer
 	sm     *strman.StringManager
@@ -48,13 +52,13 @@ func (cn *Console) registerBuiltin() {
 		Token:  "racoiaws",
 		HelpID: "noHelp",
 		Flags:  Secret | ClientServer | NoHelp,
-		Func: func(_ int, _ []string) bool {
+		Func: func(_ []string) bool {
 			cn.SetCheats(true)
 			return true
 		},
 	})
-	cn.Register(&Command{Token: "help", HelpID: "helphelp", Flags: ClientServer, Func: cn.help})
-	cn.Register(&Command{Token: "ques", HelpID: "helphelp", Flags: ClientServer, Func: cn.help})
+	cn.Register(&Command{Token: "help", HelpID: "helphelp", Flags: ClientServer, LegacyFunc: cn.help})
+	cn.Register(&Command{Token: "ques", HelpID: "helphelp", Flags: ClientServer, LegacyFunc: cn.help})
 }
 
 func (cn *Console) help(_ int, tokens []string) bool {
@@ -115,14 +119,17 @@ func (cn *Console) helpList(cmds []*Command) {
 	}
 }
 
+// SetCheats enables or disables cheats on this console.
 func (cn *Console) SetCheats(enabled bool) {
 	cn.cheats = enabled
 }
 
+// Cheats indicates if cheats are enabled on this console.
 func (cn *Console) Cheats() bool {
 	return cn.cheats
 }
 
+// Register a command handler for this console.
 func (cn *Console) Register(c *Command) {
 	if c.Flags.Has(Secret) {
 		c.Token = EncodeSecret(c.Token)
@@ -130,6 +137,7 @@ func (cn *Console) Register(c *Command) {
 	cn.cmds = append(cn.cmds, c)
 }
 
+// Commands lists already registered console commands.
 func (cn *Console) Commands() []*Command {
 	return cn.cmds
 }

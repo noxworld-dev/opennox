@@ -1,9 +1,11 @@
+// Package parsecmd implements console command parsing for Nox.
 package parsecmd
 
 import "nox/common/strman"
 
 var secretChars = `0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz`
 
+// EncodeSecret encodes a command token so it's kept secret. See Secret.
 func EncodeSecret(s string) string {
 	if s == "" {
 		return ""
@@ -16,6 +18,7 @@ func EncodeSecret(s string) string {
 	return string(out)
 }
 
+// Flags represents console command flags.
 type Flags uint
 
 func (f Flags) Has(v Flags) bool {
@@ -23,27 +26,53 @@ func (f Flags) Has(v Flags) bool {
 }
 
 const (
-	Server   = Flags(1 << 0)
-	Client   = Flags(1 << 2)
-	NoHelp   = Flags(1 << 3)
-	Flag0x8  = Flags(1 << 4)
+	// Server flag allows using this command on the server.
+	Server = Flags(1 << 0)
+	// Client flag allows using this command on the client.
+	Client = Flags(1 << 2)
+	// NoHelp hides the command from the commands list printed by help.
+	NoHelp  = Flags(1 << 3)
+	Flag0x8 = Flags(1 << 4)
+	// Cheat marks a command as a cheat, thus requiring enabling cheats first.
 	Cheat    = Flags(1 << 5)
 	Flag0x20 = Flags(1 << 6)
-	Secret   = Flags(1 << 7)
+	// Secret flag is used when the command token should be encrypted.
+	Secret = Flags(1 << 7)
 )
 
 const (
+	// ClientServer flag allows using this command on both the server and the client.
 	ClientServer = Server | Client
 )
 
-type CommandFunc func(tokInd int, tokens []string) bool
+// CommandFunc accepts a set of string arguments (tokens) and executes some action.
+// The function should return true if the parsing was successful and false otherwise.
+type CommandFunc func(tokens []string) bool
 
+// CommandLegacyFunc is the same as CommandFunc, but accepts the full array of tokens
+// and a index of the first token that is the first argument for the command.
+// This functions is a Nox legacy and isn't designed well, e.g. changing parent of the sub-command
+// requires changes to the code, since the number of tokens may change.
+// The function should return true if the parsing was successful and false otherwise.
+type CommandLegacyFunc func(tokInd int, tokens []string) bool
+
+// Command describes a console command.
 type Command struct {
+	// Token is the first token (keyword) of the command.
 	Token  string
 	Token2 string
+	// HelpID is a string ID used to fetch the help text.
 	HelpID strman.ID
-	Help   string
-	Flags  Flags
-	Sub    []*Command
-	Func   CommandFunc
+	// Help is a text string used when a help text cannot be found by HelpID.
+	Help string
+	// Flags for this command.
+	Flags Flags
+	// Sub is a list of sub-commands.
+	Sub []*Command
+	// Func is a function that will be executed.
+	Func CommandFunc
+	// LegacyFunc is a legacy function that will be executed.
+	//
+	// Deprecated: use Func instead.
+	LegacyFunc CommandLegacyFunc
 }

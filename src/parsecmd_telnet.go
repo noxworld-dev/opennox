@@ -18,8 +18,8 @@ func init() {
 	}})
 }
 
-func cmdTelnetOff(_ int, tokens []string) bool {
-	if len(tokens) != 2 {
+func cmdTelnetOff(tokens []string) bool {
+	if len(tokens) != 0 {
 		return false
 	}
 	if noxflags.HasGame(noxflags.GameSolo) {
@@ -31,18 +31,18 @@ func cmdTelnetOff(_ int, tokens []string) bool {
 	return true
 }
 
-func cmdTelnetOn(_ int, tokens []string) bool {
+func cmdTelnetOn(tokens []string) bool {
 	n := len(tokens)
-	if n < 2 || n > 3 {
+	if n > 1 {
 		return false
 	}
 	if noxflags.HasGame(noxflags.GameSolo) {
 		return true
 	}
-	if n == 2 {
+	if n == 0 {
 		C.nox_telnet_start_5797F0(0)
 	} else {
-		v, _ := strconv.ParseUint(tokens[n-1], 10, 16)
+		v, _ := strconv.ParseUint(tokens[0], 10, 16)
 		C.nox_telnet_start_5797F0(C.ushort(v))
 	}
 	port := int(C.nox_telnet_getPort_579850())
