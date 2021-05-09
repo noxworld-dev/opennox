@@ -254,7 +254,7 @@ int nox_game_showWolChat_447620() {
 		sub_44A4B0();
 		nox_window_set_all_funcs(*(_DWORD**)&dword_5d4594_829480, sub_447C70, 0, 0);
 		nox_xxx_wndSetDrawFn_46B340(*(int*)&dword_5d4594_829480, sub_4483A0);
-		result = nox_wnd_sub_43C5B0(*(_DWORD**)&dword_5d4594_829480, 0, 0, 0, -480, 0, 20, 0, -40);
+		result = nox_wnd_animate_43C5B0(*(_DWORD**)&dword_5d4594_829480, 0, 0, 0, -480, 0, 20, 0, -40);
 		nox_wnd_xxx_829520 = result;
 		if (nox_wnd_xxx_829520) {
 			nox_wnd_xxx_829520->field_0 = 1900;

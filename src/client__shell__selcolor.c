@@ -42,7 +42,7 @@ int nox_game_showSelColor_4A5D00() {
 	dword_5d4594_1308084 = result;
 	if (result) {
 		nox_xxx_wndSetWindowProc_46B300(result, sub_4A18E0);
-		result = nox_wnd_sub_43C5B0(*(_DWORD**)&dword_5d4594_1308084, 0, 0, 0, -440, 0, 20, 0, -40);
+		result = nox_wnd_animate_43C5B0(*(_DWORD**)&dword_5d4594_1308084, 0, 0, 0, -440, 0, 20, 0, -40);
 		nox_wnd_xxx_1308092 = result;
 		if (result) {
 			nox_wnd_xxx_1308092->field_0 = 700;

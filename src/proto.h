@@ -1456,7 +1456,7 @@ int  sub_43C510(int a1);
 nox_wnd_xxx* nox_game_findXxxForState_43C520(int a1);
 nox_wnd_xxx* nox_wnd_sub_43C540();
 void sub_43C570(nox_wnd_xxx* p); // idb
-nox_wnd_xxx* nox_wnd_sub_43C5B0(_DWORD* a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, int a9);
+nox_wnd_xxx* nox_wnd_animate_43C5B0(nox_window* win, int x1, int y1, int x2, int y2, int in_dx, int in_dy, int out_dx, int out_dy);
 int sub_43C650();
 BOOL sub_43C6E0();
 int nox_client_isConnected_43C700();

@@ -6756,7 +6756,7 @@ int sub_4CB880() {
 	dword_5d4594_1522604 = result;
 	if (result) {
 		nox_xxx_wndSetWindowProc_46B300(result, sub_4A18E0);
-		result = nox_wnd_sub_43C5B0(*(_DWORD**)&dword_5d4594_1522604, 0, 0, 0, -480, 0, 20, 0, -40);
+		result = nox_wnd_animate_43C5B0(*(_DWORD**)&dword_5d4594_1522604, 0, 0, 0, -480, 0, 20, 0, -40);
 		nox_wnd_xxx_1522608 = result;
 		if (result) {
 			nox_wnd_xxx_1522608->field_0 = 900;

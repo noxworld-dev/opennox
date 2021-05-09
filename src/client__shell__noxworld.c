@@ -200,7 +200,7 @@ int nox_game_showGameSel_4379F0() {
 	sub_49FF20();
 	nox_xxx_wndShowModalMB_46A8C0(*(int*)&nox_wol_wnd_world_814980);
 	nox_window_set_all_funcs(*(_DWORD**)&nox_wol_wnd_world_814980, sub_439D00, 0, 0);
-	nox_wnd_xxx_815040 = nox_wnd_sub_43C5B0(*(_DWORD**)&nox_wol_wnd_world_814980, 0, 0, 0, -480, 0, 20, 0, -40);
+	nox_wnd_xxx_815040 = nox_wnd_animate_43C5B0(*(_DWORD**)&nox_wol_wnd_world_814980, 0, 0, 0, -480, 0, 20, 0, -40);
 	if (!nox_wnd_xxx_815040) {
 		return 0;
 	}
