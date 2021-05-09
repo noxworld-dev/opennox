@@ -1532,7 +1532,7 @@ int nox_game_showSelClass_4A4840() {
 
 //----- (004A4970) --------------------------------------------------------
 int sub_4A4970() {
-	*(_BYTE*)(&nox_wnd_xxx_1307732->field_16) = 2;
+	nox_wnd_xxx_1307732->field_16_0 = 2;
 	sub_43BE40(2);
 	nox_xxx_clientPlaySoundSpecial_452D80(923, 100);
 	return 1;
@@ -1585,7 +1585,7 @@ int  sub_4A4CB0(const void* a1, const void* a2) {
 
 //----- (004A50A0) --------------------------------------------------------
 int sub_4A50A0() {
-	*(_BYTE*)(&nox_wnd_xxx_1307748->field_16) = 2;
+	nox_wnd_xxx_1307748->field_16_0 = 2;
 	sub_43BE40(2);
 	nox_xxx_clientPlaySoundSpecial_452D80(923, 100);
 	return 1;
@@ -2006,7 +2006,7 @@ void sub_4A62B0() {
 
 //----- (004A6890) --------------------------------------------------------
 int sub_4A6890() {
-	*(_BYTE*)(&nox_wnd_xxx_1308092->field_16) = 2;
+	nox_wnd_xxx_1308092->field_16_0 = 2;
 	sub_43BE40(2);
 	nox_xxx_clientPlaySoundSpecial_452D80(923, 100);
 	sub_4A68C0();
@@ -4032,7 +4032,7 @@ int sub_4AA9C0() {
 	sub_44D8F0();
 	nox_xxx_gameResizeScreen_43BEF0_set_video_mode(*(int*)&nox_xxx_normalWndHeight_587000_172876, *(int*)&nox_xxx_normalWndWidth_587000_172872, *(int*)&nox_xxx_normalWndBits_587000_172880);
 	nox_common_writecfgfile("nox.cfg");
-	*(_BYTE*)(&nox_wnd_xxx_1309740->field_16) = 2;
+	nox_wnd_xxx_1309740->field_16_0 = 2;
 	sub_43BE40(2);
 	nox_xxx_clientPlaySoundSpecial_452D80(923, 100);
 	return 1;

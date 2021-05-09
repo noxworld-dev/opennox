@@ -6818,7 +6818,7 @@ int sub_4CB880() {
 int sub_4CBB70() {
 	sub_4CBD30();
 	nox_common_writecfgfile("nox.cfg");
-	*(_BYTE*)(&nox_wnd_xxx_1522608->field_16) = 2;
+	nox_wnd_xxx_1522608->field_16_0 = 2;
 	sub_43BE40(2);
 	nox_xxx_clientPlaySoundSpecial_452D80(923, 100);
 	return 1;

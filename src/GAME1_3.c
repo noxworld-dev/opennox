@@ -739,7 +739,7 @@ nox_gui_animation* nox_gui_makeAnimation_43C5B0(nox_window* win, int x1, int y1,
 	p->in_dy = in_dy;
 	p->out_dx = out_dx;
 	p->out_dy = out_dy;
-	*((_BYTE*)&p->field_16) = 3;
+	p->field_16_0 = 3;
 	sub_43BE40(3);
 	nox_xxx_clientPlaySoundSpecial_452D80(922, 100);
 	p->field_12 = 0;
@@ -4536,7 +4536,7 @@ wchar_t*  sub_4469D0(int a1) {
 int sub_446A90() {
 	int result; // eax
 
-	*(_BYTE*)(&nox_wnd_xxx_829520->field_16) = 2;
+	nox_wnd_xxx_829520->field_16_0 = 2;
 	sub_43BE40(2);
 	nox_xxx_clientPlaySoundSpecial_452D80(923, 100);
 	result = 1;
@@ -5966,7 +5966,7 @@ char*  sub_44A520(int a1) {
 
 //----- (0044AA40) --------------------------------------------------------
 int sub_44AA40() {
-	*(_BYTE*)(&nox_wnd_xxx_830244->field_16) = 2;
+	nox_wnd_xxx_830244->field_16_0 = 2;
 	sub_43BE40(2);
 	nox_xxx_clientPlaySoundSpecial_452D80(923, 100);
 	sub_4207F0(1);
@@ -6145,7 +6145,7 @@ int  sub_44AB30(int a1, unsigned int a2, int* a3, int a4) {
 int sub_44AF70() {
 	int result; // eax
 
-	*(_BYTE*)(&nox_wnd_xxx_830244->field_16) = 2;
+	nox_wnd_xxx_830244->field_16_0 = 2;
 	sub_43BE40(2);
 	nox_xxx_clientPlaySoundSpecial_452D80(923, 100);
 	result = 1;

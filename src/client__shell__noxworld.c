@@ -175,7 +175,7 @@ int nox_game_showGameSel_4379F0() {
 		sub_49FDB0(0);
 	if (nox_wol_wnd_world_814980) {
 		dword_5d4594_815044 = 0;
-		*(_BYTE*)(&nox_wnd_xxx_815040->field_16) = 3;
+		nox_wnd_xxx_815040->field_16_0 = 3;
 		nox_wnd_xxx_815040->field_14 = sub_438330;
 		sub_43BE40(3);
 		nox_xxx_clientPlaySoundSpecial_452D80(922, 100);

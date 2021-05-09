@@ -8205,9 +8205,9 @@ int sub_438330() {
 
 //----- (00438370) --------------------------------------------------------
 int sub_438370() {
-	if (*(_BYTE*)(&nox_wnd_xxx_815040->field_16) == 1)
+	if (nox_wnd_xxx_815040->field_16_0 == 1)
 		return sub_438330();
-	*(_BYTE*)(&nox_wnd_xxx_815040->field_16) = 2;
+	nox_wnd_xxx_815040->field_16_0 = 2;
 	sub_43BE40(2);
 	nox_xxx_clientPlaySoundSpecial_452D80(923, 100);
 	return 1;

@@ -18,7 +18,7 @@ int sub_4A24F0() { return nox_xxx_windowDestroyChildsMB_46B500(nox_win_main_bg);
 
 //----- (004A1D40) --------------------------------------------------------
 int sub_4A1D40() {
-	*(_BYTE*)&nox_wnd_xxx_1307308->field_16 = 2;
+	nox_wnd_xxx_1307308->field_16_0 = 2;
 	*(_BYTE*)(*getMemU32Ptr(0x5D4594, 1307304) + 64) = 2;
 	sub_43BE40(2);
 	nox_xxx_clientPlaySoundSpecial_452D80(923, 100);
@@ -145,7 +145,7 @@ int  nox_xxx_windowMainMenuProc_4A1DC0(int a1, int a2, int* a3, int a4) {
 	} else {
 		if (a2 != 16391)
 			return 0;
-		if (*(_BYTE*)(&nox_wnd_xxx_1307308->field_16) && !nox_common_gameFlags_check_40A5C0(0x2000000)) {
+		if (nox_wnd_xxx_1307308->field_16_0 && !nox_common_gameFlags_check_40A5C0(0x2000000)) {
 		LABEL_32:
 			nox_xxx_clientPlaySoundSpecial_452D80(921, 100);
 		} else {
