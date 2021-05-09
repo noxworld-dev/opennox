@@ -41,7 +41,7 @@ extern int nox_win_width;
 extern int nox_win_height;
 
 int dword_5d4594_815104 = 0;
-nox_wnd_xxx* nox_wnd_xxx_815040 = 0;
+nox_gui_animation* nox_wnd_xxx_815040 = 0;
 
 //----- (004373A0) --------------------------------------------------------
 void sub_4373A0() {
@@ -200,7 +200,7 @@ int nox_game_showGameSel_4379F0() {
 	sub_49FF20();
 	nox_xxx_wndShowModalMB_46A8C0(*(int*)&nox_wol_wnd_world_814980);
 	nox_window_set_all_funcs(*(_DWORD**)&nox_wol_wnd_world_814980, sub_439D00, 0, 0);
-	nox_wnd_xxx_815040 = nox_wnd_animate_43C5B0(*(_DWORD**)&nox_wol_wnd_world_814980, 0, 0, 0, -480, 0, 20, 0, -40);
+	nox_wnd_xxx_815040 = nox_gui_makeAnimation_43C5B0(*(_DWORD**)&nox_wol_wnd_world_814980, 0, 0, 0, -480, 0, 20, 0, -40);
 	if (!nox_wnd_xxx_815040) {
 		return 0;
 	}

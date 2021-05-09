@@ -5,7 +5,7 @@ extern _DWORD dword_5d4594_830268;
 extern _DWORD dword_5d4594_830252;
 extern _DWORD dword_5d4594_830260;
 extern _DWORD dword_5d4594_830256;
-extern nox_wnd_xxx* nox_wnd_xxx_830244;
+extern nox_gui_animation* nox_wnd_xxx_830244;
 extern _DWORD dword_5d4594_830276;
 extern _DWORD dword_5d4594_830264;
 extern _DWORD dword_5d4594_830248;
@@ -48,7 +48,7 @@ int nox_game_showWolLogin_44A560() {
 		dword_5d4594_830248 = result;
 		if (!result)
 			return result;
-		result = nox_wnd_animate_43C5B0((_DWORD*)result, 0, 0, 0, -480, 0, 20, 0, -40);
+		result = nox_gui_makeAnimation_43C5B0((_DWORD*)result, 0, 0, 0, -480, 0, 20, 0, -40);
 		nox_wnd_xxx_830244 = result;
 		if (!result)
 			return result;

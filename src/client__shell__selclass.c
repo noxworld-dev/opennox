@@ -4,7 +4,7 @@
 #include "proto.h"
 #include "client__shell__selcolor.h"
 extern _DWORD dword_5d4594_1307724;
-extern nox_wnd_xxx* nox_wnd_xxx_1307732;
+extern nox_gui_animation* nox_wnd_xxx_1307732;
 extern _DWORD dword_5d4594_1307736;
 
 //----- (004A4A20) --------------------------------------------------------

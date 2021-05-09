@@ -18,7 +18,7 @@ extern _DWORD dword_5d4594_1308108;
 extern _DWORD dword_5d4594_1308120;
 extern _DWORD dword_5d4594_1308128;
 extern _DWORD dword_5d4594_1308124;
-extern nox_wnd_xxx* nox_wnd_xxx_1308092;
+extern nox_gui_animation* nox_wnd_xxx_1308092;
 extern _DWORD dword_5d4594_1308088;
 extern _DWORD dword_5d4594_1308084;
 extern _DWORD dword_5d4594_1307784;
@@ -42,7 +42,7 @@ int nox_game_showSelColor_4A5D00() {
 	dword_5d4594_1308084 = result;
 	if (result) {
 		nox_xxx_wndSetWindowProc_46B300(result, sub_4A18E0);
-		result = nox_wnd_animate_43C5B0(*(_DWORD**)&dword_5d4594_1308084, 0, 0, 0, -440, 0, 20, 0, -40);
+		result = nox_gui_makeAnimation_43C5B0(*(_DWORD**)&dword_5d4594_1308084, 0, 0, 0, -440, 0, 20, 0, -40);
 		nox_wnd_xxx_1308092 = result;
 		if (result) {
 			nox_wnd_xxx_1308092->field_0 = 700;

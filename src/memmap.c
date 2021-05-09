@@ -807,7 +807,7 @@ mem_mapping mappings[] = {
 	{0x5D4594 + 1096508, 4, "dword_5d4594_1096508"}, // 0x6E00D0
 	{0x5D4594 + 830872, 4, "dword_5d4594_830872"}, // 0x69F32C
 	{0x5D4594 + 2386924, 4, "dword_5d4594_2386924"}, // 0x81B180
-	{0x5D4594 + 815212, 4, "nox_wnd_xxx_815212"}, // 0x69B600
+	{0x5D4594 + 815212, 4, "nox_gui_animationHead_815212"}, // 0x69B600
 	{0x587000 + 80836, 4, "nox_client_fadeObjects_80836"}, // 0x59ABC4
 	{0x5D4594 + 1522616, 4, "dword_5d4594_1522616"}, // 0x74814C
 	{0x5D4594 + 3596, 4, "nox_server_connectionType_3596"}, // 0x5D53A0

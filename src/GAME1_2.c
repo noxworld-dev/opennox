@@ -87,7 +87,7 @@ extern _DWORD nox_client_renderGlow_805852;
 extern int nox_gui_console_translucent;
 extern _DWORD nox_client_fadeObjects_80836;
 extern _DWORD nox_server_connectionType_3596;
-extern nox_wnd_xxx* nox_wnd_xxx_815040;
+extern nox_gui_animation* nox_wnd_xxx_815040;
 extern _DWORD dword_5d4594_805984;
 extern _DWORD nox_client_lockHighResFloors_1193152;
 extern _DWORD dword_5d4594_3804668;
@@ -8195,7 +8195,7 @@ int sub_438330() {
 	int (*v0)(void); // esi
 
 	v0 = nox_wnd_xxx_815040->field_13;
-	sub_43C570(nox_wnd_xxx_815040);
+	nox_gui_freeAnimation_43C570(nox_wnd_xxx_815040);
 	if (!nox_common_gameFlags_check_40A5C0(0x10000000))
 		sub_43A9D0();
 	if (v0)

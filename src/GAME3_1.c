@@ -129,7 +129,7 @@ extern int nox_video_dxUnlockSurface;
 extern obj_5D4594_3799572_t* ptr_5D4594_3799572;
 extern obj_5D4594_3799572_t obj_5D4594_3800716;
 
-nox_wnd_xxx* nox_wnd_xxx_1522608 = 0;
+nox_gui_animation* nox_wnd_xxx_1522608 = 0;
 
 //----- (004B9470) --------------------------------------------------------
 int  sub_4B9470(const char** a1) {
@@ -6756,7 +6756,7 @@ int sub_4CB880() {
 	dword_5d4594_1522604 = result;
 	if (result) {
 		nox_xxx_wndSetWindowProc_46B300(result, sub_4A18E0);
-		result = nox_wnd_animate_43C5B0(*(_DWORD**)&dword_5d4594_1522604, 0, 0, 0, -480, 0, 20, 0, -40);
+		result = nox_gui_makeAnimation_43C5B0(*(_DWORD**)&dword_5d4594_1522604, 0, 0, 0, -480, 0, 20, 0, -40);
 		nox_wnd_xxx_1522608 = result;
 		if (result) {
 			nox_wnd_xxx_1522608->field_0 = 900;
@@ -6829,7 +6829,7 @@ int sub_4CBBB0() {
 	int (*v0)(void); // esi
 
 	v0 = nox_wnd_xxx_1522608->field_13;
-	sub_43C570(nox_wnd_xxx_1522608);
+	nox_gui_freeAnimation_43C570(nox_wnd_xxx_1522608);
 	nox_xxx_windowDestroyMB_46C4E0(*(_DWORD**)&dword_5d4594_1522604);
 	nox_xxx_windowDestroyMB_46C4E0(*(_DWORD**)&dword_5d4594_1522612);
 	v0();

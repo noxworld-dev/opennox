@@ -1451,12 +1451,12 @@ _DWORD* nox_game_checkStateOptions_43C220();
 int nox_game_checkStateWol_43C260();
 int nox_game_checkStateMenu_43C2F0();
 void sub_43C380();
-nox_wnd_xxx* sub_43C500();
+nox_gui_animation* nox_gui_getAnimationHead_43C500();
 int  sub_43C510(int a1);
-nox_wnd_xxx* nox_game_findXxxForState_43C520(int a1);
-nox_wnd_xxx* nox_wnd_sub_43C540();
-void sub_43C570(nox_wnd_xxx* p); // idb
-nox_wnd_xxx* nox_wnd_animate_43C5B0(nox_window* win, int x1, int y1, int x2, int y2, int in_dx, int in_dy, int out_dx, int out_dy);
+nox_gui_animation* nox_gui_findAnimationForDest_43C520(int a1);
+nox_gui_animation* nox_gui_newAnimation_43C540();
+void nox_gui_freeAnimation_43C570(nox_gui_animation* p); // idb
+nox_gui_animation* nox_gui_makeAnimation_43C5B0(nox_window* win, int x1, int y1, int x2, int y2, int in_dx, int in_dy, int out_dx, int out_dy);
 int sub_43C650();
 BOOL sub_43C6E0();
 int nox_client_isConnected_43C700();

@@ -179,9 +179,9 @@ int (*func_5D4594_816392)(void) = 0;
 void (*func_5D4594_830220)(void) = 0;
 void (*func_5d4594_830216)(void) = 0;
 
-nox_wnd_xxx* nox_wnd_xxx_815212 = 0;
-nox_wnd_xxx* nox_wnd_xxx_829520 = 0;
-nox_wnd_xxx* nox_wnd_xxx_830244 = 0;
+nox_gui_animation* nox_gui_animationHead_815212 = 0;
+nox_gui_animation* nox_wnd_xxx_829520 = 0;
+nox_gui_animation* nox_wnd_xxx_830244 = 0;
 
 //----- (0043B510) --------------------------------------------------------
 char* sub_43B510() {
@@ -496,7 +496,7 @@ void nox_game_checkStateSwitch_43C1E0() {
 	_DWORD* v1; // esi
 
 	if (getMemByte(0x5D4594, 815208)) {
-		v0 = nox_game_findXxxForState_43C520(*getMemU32Ptr(0x5D4594, 4 * getMemByte(0x5D4594, 815208) + 815140));
+		v0 = nox_gui_findAnimationForDest_43C520(*getMemU32Ptr(0x5D4594, 4 * getMemByte(0x5D4594, 815208) + 815140));
 		v1 = v0;
 		if (v0) {
 			((int (*)(void))v0[12])();
@@ -513,7 +513,7 @@ _DWORD* nox_game_checkStateOptions_43C220() {
 
 	result = *(_DWORD**)getMemAt(0x5D4594, 815208);
 	if (getMemByte(0x5D4594, 815208)) {
-		result = nox_game_findXxxForState_43C520(*getMemU32Ptr(0x5D4594, 4 * getMemByte(0x5D4594, 815208) + 815140));
+		result = nox_gui_findAnimationForDest_43C520(*getMemU32Ptr(0x5D4594, 4 * getMemByte(0x5D4594, 815208) + 815140));
 		v1 = result;
 		if (result) {
 			result = (_DWORD*)((int (*)(void))result[12])();
@@ -530,7 +530,7 @@ int nox_game_checkStateWol_43C260() {
 
 	result = *getMemU32Ptr(0x5D4594, 815208);
 	if (getMemByte(0x5D4594, 815208)) {
-		result = nox_game_findXxxForState_43C520(*getMemU32Ptr(0x5D4594, 4 * getMemByte(0x5D4594, 815208) + 815140));
+		result = nox_gui_findAnimationForDest_43C520(*getMemU32Ptr(0x5D4594, 4 * getMemByte(0x5D4594, 815208) + 815140));
 		v1 = result;
 		if (result) {
 			if (*getMemU32Ptr(0x5D4594, 4 * getMemByte(0x5D4594, 815208) + 815140) == 1700) {
@@ -553,7 +553,7 @@ int nox_game_checkStateMenu_43C2F0() {
 
 	result = *getMemU32Ptr(0x5D4594, 815208);
 	if (getMemByte(0x5D4594, 815208)) {
-		result = nox_game_findXxxForState_43C520(*getMemU32Ptr(0x5D4594, 4 * getMemByte(0x5D4594, 815208) + 815140));
+		result = nox_gui_findAnimationForDest_43C520(*getMemU32Ptr(0x5D4594, 4 * getMemByte(0x5D4594, 815208) + 815140));
 		v1 = result;
 		if (result) {
 			if (*getMemU32Ptr(0x5D4594, 4 * getMemByte(0x5D4594, 815208) + 815140) == 100) {
@@ -587,8 +587,8 @@ void sub_43C380() {
 	int v13;          // [esp+4h] [ebp-8h]
 	int v14;          // [esp+8h] [ebp-4h]
 
-	v0 = nox_wnd_xxx_815212;
-	if (nox_wnd_xxx_815212) {
+	v0 = nox_gui_animationHead_815212;
+	if (nox_gui_animationHead_815212) {
 		while (1) {
 			v1 = *(_DWORD*)(v0 + 40);
 			v2 = 0;
@@ -680,7 +680,7 @@ void sub_43C380() {
 }
 
 //----- (0043C500) --------------------------------------------------------
-nox_wnd_xxx* sub_43C500() { return nox_wnd_xxx_815212; }
+nox_gui_animation* nox_gui_getAnimationHead_43C500() { return nox_gui_animationHead_815212; }
 
 //----- (0043C510) --------------------------------------------------------
 int  sub_43C510(int a1) {
@@ -694,12 +694,12 @@ int  sub_43C510(int a1) {
 }
 
 //----- (0043C520) --------------------------------------------------------
-nox_wnd_xxx* nox_game_findXxxForState_43C520(int a1) {
-	nox_wnd_xxx* p = nox_wnd_xxx_815212;
+nox_gui_animation* nox_gui_findAnimationForDest_43C520(int a1) {
+	nox_gui_animation* p = nox_gui_animationHead_815212;
 	if (!p)
 		return 0;
 	while (p->field_0 != a1) {
-		p = p->field_10;
+		p = p->next;
 		if (!p)
 			return 0;
 	}
@@ -707,47 +707,47 @@ nox_wnd_xxx* nox_game_findXxxForState_43C520(int a1) {
 }
 
 //----- (0043C540) --------------------------------------------------------
-nox_wnd_xxx* nox_wnd_sub_43C540() {
-	nox_wnd_xxx* p = calloc(1, sizeof(nox_wnd_xxx));
+nox_gui_animation* nox_gui_newAnimation_43C540() {
+	nox_gui_animation* p = calloc(1, sizeof(nox_gui_animation));
 	if (!p) {
 		return 0;
 	}
-	p->field_10 = nox_wnd_xxx_815212;
-	if (nox_wnd_xxx_815212)
-		nox_wnd_xxx_815212->field_11 = p;
-	nox_wnd_xxx_815212 = p;
+	p->next = nox_gui_animationHead_815212;
+	if (nox_gui_animationHead_815212)
+		nox_gui_animationHead_815212->prev = p;
+	nox_gui_animationHead_815212 = p;
 	return p;
 }
 
 //----- (0043C570) --------------------------------------------------------
-void sub_43C570(nox_wnd_xxx* p) {
-	nox_wnd_xxx* v1 = p->field_10;
-	if (v1)
-		v1->field_11 = p->field_11;
+void nox_gui_freeAnimation_43C570(nox_gui_animation* p) {
+	nox_gui_animation* next = p->next;
+	if (next)
+		next->prev = p->prev;
 
-	nox_wnd_xxx* v2 = p->field_11;
-	if (v2)
-		v2->field_10 = p->field_10;
+	nox_gui_animation* prev = p->prev;
+	if (prev)
+		prev->next = p->next;
 	else
-		nox_wnd_xxx_815212 = p->field_10;
+		nox_gui_animationHead_815212 = p->next;
 	free(p);
 }
 
 //----- (0043C5B0) --------------------------------------------------------
-nox_wnd_xxx* nox_wnd_animate_43C5B0(nox_window* win, int x1, int y1, int x2, int y2, int in_dx, int in_dy, int out_dx, int out_dy) {
-	nox_wnd_xxx* p = nox_wnd_sub_43C540();
+nox_gui_animation* nox_gui_makeAnimation_43C5B0(nox_window* win, int x1, int y1, int x2, int y2, int in_dx, int in_dy, int out_dx, int out_dy) {
+	nox_gui_animation* p = nox_gui_newAnimation_43C540();
 	if (!p)
 		return 0;
 	nox_wnd_nox_xxx_wndDraw_46A9B0(win, x2, y2);
-	p->field_1 = win;
-	p->field_4 = x1;
-	p->field_5 = y1;
-	p->field_2 = x2;
-	p->field_3 = y2;
-	p->field_8 = in_dx;
-	p->field_9 = in_dy;
-	p->field_6 = out_dx;
-	p->field_7 = out_dy;
+	p->win = win;
+	p->x1 = x1;
+	p->y1 = y1;
+	p->x2 = x2;
+	p->y2 = y2;
+	p->in_dx = in_dx;
+	p->in_dy = in_dy;
+	p->out_dx = out_dx;
+	p->out_dy = out_dy;
 	*((_BYTE*)&p->field_16) = 3;
 	sub_43BE40(3);
 	nox_xxx_clientPlaySoundSpecial_452D80(922, 100);
@@ -4874,7 +4874,7 @@ int sub_447BD0() {
 	int (*v0)(void); // esi
 
 	v0 = nox_wnd_xxx_829520->field_13;
-	sub_43C570(nox_wnd_xxx_829520);
+	nox_gui_freeAnimation_43C570(nox_wnd_xxx_829520);
 	sub_448490();
 	v0();
 	return 1;
@@ -5987,7 +5987,7 @@ int sub_44AA70() {
 	int (*v0)(void); // esi
 
 	v0 = nox_wnd_xxx_830244->field_13;
-	sub_43C570(nox_wnd_xxx_830244);
+	nox_gui_freeAnimation_43C570(nox_wnd_xxx_830244);
 	if (dword_5d4594_830248) {
 		nox_xxx_windowDestroyMB_46C4E0(*(_DWORD**)&dword_5d4594_830248);
 		dword_5d4594_830248 = 0;

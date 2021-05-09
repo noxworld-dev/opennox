@@ -993,27 +993,27 @@ typedef struct nox_screenParticle {
 } nox_screenParticle;
 _Static_assert(sizeof(nox_screenParticle) == 52, "wrong size of nox_screenParticle structure!");
 
-typedef struct nox_wnd_xxx nox_wnd_xxx;
-typedef struct nox_wnd_xxx {
+typedef struct nox_gui_animation nox_gui_animation;
+typedef struct nox_gui_animation {
 	_DWORD field_0; // 0, 0
-	_DWORD field_1; // 1, 4
-	_DWORD field_2; // 2, 8
-	_DWORD field_3; // 3, 12
-	_DWORD field_4; // 4, 16
-	_DWORD field_5; // 5, 20
-	_DWORD field_6; // 6, 24
-	_DWORD field_7; // 7, 28
-	_DWORD field_8; // 8, 32
-	_DWORD field_9; // 9, 36
-	nox_wnd_xxx* field_10; // 10, 40
-	nox_wnd_xxx* field_11; // 11, 44
+	nox_window* win; // 1, 4
+	int x2; // 2, 8
+	int y2; // 3, 12
+	int x1; // 4, 16
+	int y1; // 5, 20
+	int out_dx; // 6, 24
+	int out_dy; // 7, 28
+	int in_dx; // 8, 32
+	int in_dy; // 9, 36
+	nox_gui_animation* next; // 10, 40
+	nox_gui_animation* prev; // 11, 44
 	int (*field_12)(void); // 12, 48
 	int (*field_13)(void); // 13, 52
 	int (*field_14)(void); // 14, 56
 	_DWORD field_15; // 15, 60
 	_DWORD field_16; // 16, 64
-} nox_wnd_xxx;
-_Static_assert(sizeof(nox_wnd_xxx) == 68, "wrong size of nox_wnd_xxx structure!");
+} nox_gui_animation;
+_Static_assert(sizeof(nox_gui_animation) == 68, "wrong size of nox_gui_animation structure!");
 
 typedef struct obj_5D4594_811068_t {
 	int field_0; // 0, 0

@@ -12,7 +12,7 @@ extern _DWORD dword_5d4594_1307764;
 extern _DWORD dword_5d4594_1307780;
 
 char nox_savegame_name_1307752[9] = {0};
-nox_wnd_xxx* nox_wnd_xxx_1307748 = 0;
+nox_gui_animation* nox_wnd_xxx_1307748 = 0;
 
 //----- (004A4DB0) --------------------------------------------------------
 int nox_game_showSelChar_4A4DB0() {
@@ -36,7 +36,7 @@ int nox_game_showSelChar_4A4DB0() {
 	dword_5d4594_1307764 = result;
 	if (result) {
 		nox_xxx_wndSetWindowProc_46B300(result, sub_4A18E0);
-		result = nox_wnd_animate_43C5B0(*(_DWORD**)&dword_5d4594_1307764, 0, 0, 0, -440, 0, 20, 0, -40);
+		result = nox_gui_makeAnimation_43C5B0(*(_DWORD**)&dword_5d4594_1307764, 0, 0, 0, -440, 0, 20, 0, -40);
 		nox_wnd_xxx_1307748 = result;
 		if (result) {
 			nox_wnd_xxx_1307748->field_0 = 500;

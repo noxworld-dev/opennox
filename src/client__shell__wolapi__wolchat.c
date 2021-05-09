@@ -6,7 +6,7 @@ extern _DWORD dword_5d4594_829532;
 extern _DWORD dword_587000_109280;
 extern _DWORD dword_5d4594_829544;
 extern _DWORD dword_5d4594_829500;
-extern nox_wnd_xxx* nox_wnd_xxx_829520;
+extern nox_gui_animation* nox_wnd_xxx_829520;
 extern _DWORD dword_5d4594_829516;
 extern _DWORD dword_5d4594_829512;
 extern _DWORD dword_5d4594_829484;
@@ -254,7 +254,7 @@ int nox_game_showWolChat_447620() {
 		sub_44A4B0();
 		nox_window_set_all_funcs(*(_DWORD**)&dword_5d4594_829480, sub_447C70, 0, 0);
 		nox_xxx_wndSetDrawFn_46B340(*(int*)&dword_5d4594_829480, sub_4483A0);
-		result = nox_wnd_animate_43C5B0(*(_DWORD**)&dword_5d4594_829480, 0, 0, 0, -480, 0, 20, 0, -40);
+		result = nox_gui_makeAnimation_43C5B0(*(_DWORD**)&dword_5d4594_829480, 0, 0, 0, -480, 0, 20, 0, -40);
 		nox_wnd_xxx_829520 = result;
 		if (nox_wnd_xxx_829520) {
 			nox_wnd_xxx_829520->field_0 = 1900;
