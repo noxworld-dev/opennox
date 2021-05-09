@@ -3851,9 +3851,6 @@ int nox_xxx_compassGenStrings_4A9C80() {
 
 //----- (004AA270) --------------------------------------------------------
 int nox_game_showOnlineOrLAN_413800() {
-	int result; // eax
-	_DWORD* v1; // esi
-	_DWORD* v2; // esi
 	_DWORD* v3; // eax
 	_DWORD* v4; // eax
 	_DWORD* v5; // eax
@@ -3866,46 +3863,44 @@ int nox_game_showOnlineOrLAN_413800() {
 	if (sub_40E0C0() && nox_xxx_check_flag_aaa_43AF70() == 1)
 		sub_41D4C0();
 	sub_43AF50(2);
-	result = nox_new_window_from_file("ArnaMain.wnd", nox_xxx_windowArenaSub_4AA4D0);
-	nox_win_onlineOrLAN_1309716 = result;
-	if (result) {
-		nox_xxx_wndSetWindowProc_46B300(result, sub_4A18E0);
-		v1 = nox_xxx_wndGetChildByID_46B0C0(nox_win_onlineOrLAN_1309716, 410);
-		nox_xxx_wndSetProc_46B2C0((int)v1, nox_xxx_windowArenaSub_4AA4D0);
-		result = nox_wnd_sub_43C5B0(v1, 0, 0, 0, -240, 0, 20, 0, -40);
-		dword_5d4594_1309708 = result;
-		if (result) {
-			*(_DWORD*)result = 400;
-			*(_DWORD*)(dword_5d4594_1309708 + 48) = sub_4AA450;
-			*(_DWORD*)(dword_5d4594_1309708 + 56) = sub_4AA490;
-			v2 = nox_xxx_wndGetChildByID_46B0C0(nox_win_onlineOrLAN_1309716, 420);
-			nox_xxx_wndSetProc_46B2C0((int)v2, nox_xxx_windowArenaSub_4AA4D0);
-			result = nox_wnd_sub_43C5B0(v2, 0, 240, 0, 480, 0, -20, 0, 40);
-			*getMemU32Ptr(0x5D4594, 1309712) = result;
-			if (result) {
-				sub_4A19F0("OptsBack.wnd:Back");
-				nox_xxx_wndRetNULL_46A8A0();
-				if (nox_common_gameFlags_check_40A5C0(0x2000000)) {
-					v3 = nox_xxx_wndGetChildByID_46B0C0(nox_win_onlineOrLAN_1309716, 411);
-					nox_window_call_field_94(*(int*)&nox_win_onlineOrLAN_1309716, 16391, (int)v3, 0);
-					result = 1;
-				} else if (sub_4D6FA0() == 1) {
-					v4 = nox_xxx_wndGetChildByID_46B0C0(nox_win_onlineOrLAN_1309716, 421);
-					nox_window_call_field_94(*(int*)&nox_win_onlineOrLAN_1309716, 16391, (int)v4, 0);
-					result = 1;
-				} else {
-					if (sub_4D6FA0() == 2) {
-						v5 = nox_xxx_wndGetChildByID_46B0C0(0, 150);
-						v6 = (int)v5;
-						v7 = nox_xxx_wndGetChildByID_46B0C0(v5, 152);
-						nox_window_call_field_94(v6, 16391, (int)v7, 0);
-					}
-					result = 1;
-				}
-			}
-		}
+	nox_win_onlineOrLAN_1309716 = nox_new_window_from_file("ArnaMain.wnd", nox_xxx_windowArenaSub_4AA4D0);
+	if (!nox_win_onlineOrLAN_1309716) {
+		return 0;
 	}
-	return result;
+	nox_xxx_wndSetWindowProc_46B300(nox_win_onlineOrLAN_1309716, sub_4A18E0);
+
+	void* wtop = nox_xxx_wndGetChildByID_46B0C0(nox_win_onlineOrLAN_1309716, 410);
+	nox_xxx_wndSetProc_46B2C0(wtop, nox_xxx_windowArenaSub_4AA4D0);
+	dword_5d4594_1309708 = nox_wnd_sub_43C5B0(wtop, 0, 0, 0, -240, 0, 20, 0, -40);
+	if (!dword_5d4594_1309708) {
+		return 0;
+	}
+	*(_DWORD*)(dword_5d4594_1309708 + 0) = 400;
+	*(_DWORD*)(dword_5d4594_1309708 + 48) = sub_4AA450;
+	*(_DWORD*)(dword_5d4594_1309708 + 56) = sub_4AA490;
+
+	void* wbtn = nox_xxx_wndGetChildByID_46B0C0(nox_win_onlineOrLAN_1309716, 420);
+	nox_xxx_wndSetProc_46B2C0(wbtn, nox_xxx_windowArenaSub_4AA4D0);
+	*getMemU32Ptr(0x5D4594, 1309712) = nox_wnd_sub_43C5B0(wbtn, 0, 240, 0, 480, 0, -20, 0, 40);
+	if (!*getMemU32Ptr(0x5D4594, 1309712)) {
+		return 0;
+	}
+
+	sub_4A19F0("OptsBack.wnd:Back");
+	nox_xxx_wndRetNULL_46A8A0();
+	if (nox_common_gameFlags_check_40A5C0(0x2000000)) {
+		v3 = nox_xxx_wndGetChildByID_46B0C0(nox_win_onlineOrLAN_1309716, 411);
+		nox_window_call_field_94(*(int*)&nox_win_onlineOrLAN_1309716, 16391, (int)v3, 0);
+	} else if (sub_4D6FA0() == 1) {
+		v4 = nox_xxx_wndGetChildByID_46B0C0(nox_win_onlineOrLAN_1309716, 421);
+		nox_window_call_field_94(*(int*)&nox_win_onlineOrLAN_1309716, 16391, (int)v4, 0);
+	} else if (sub_4D6FA0() == 2) {
+		v5 = nox_xxx_wndGetChildByID_46B0C0(0, 150);
+		v6 = (int)v5;
+		v7 = nox_xxx_wndGetChildByID_46B0C0(v5, 152);
+		nox_window_call_field_94(v6, 16391, (int)v7, 0);
+	}
+	return 1;
 }
 // 4A18E0: using guessed type int  sub_4A18E0(int, int, int, int);
 
