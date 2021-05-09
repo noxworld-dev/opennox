@@ -64,9 +64,9 @@ func strmanReadFile(path string) error {
 func nox_strman_loadString_40F1D0(name *C.char, strOut **C.char, srcFile *C.char, srcLine C.int) *C.wchar_t {
 	if strOut != nil {
 		*strOut = nil
-		s1, s2 := strMan.GetString2InFile(strman.ID(C.GoString(name)), C.GoString(srcFile))
-		*strOut = internCStr(s2)
-		return internWStr(s1)
+		v, _ := strMan.GetVariantInFile(strman.ID(C.GoString(name)), C.GoString(srcFile))
+		*strOut = internCStr(v.Str2)
+		return internWStr(v.Str)
 	}
 	s := strMan.GetStringInFile(strman.ID(C.GoString(name)), C.GoString(srcFile))
 	return internWStr(s)

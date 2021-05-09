@@ -217,7 +217,11 @@ func nox_xxx_consoleLoadTokens_444440() {
 func consoleLoadTokens(c *parsecmd.Console, cmds []*parsecmd.Command) {
 	for i := range cmds {
 		cmd := cmds[i]
-		cmd.Token2 = c.Strings().GetString(strman.ID("cmd_token:" + cmd.Token))
+		if v, ok := c.Strings().GetVariant(strman.ID("cmd_token:" + cmd.Token)); ok {
+			cmd.Token2 = v.Str
+		} else {
+			cmd.Token2 = cmd.Token
+		}
 		C.nox_xxx_consoleTokenAddPair_4444C0(internWStr(cmd.Token), internWStr(cmd.Token2))
 		if len(cmd.Token2) < 32 && len(cmd.Sub) != 0 {
 			consoleLoadTokens(c, cmd.Sub)

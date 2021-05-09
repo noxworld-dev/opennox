@@ -17,6 +17,14 @@ type Entry struct {
 	Vals []Variant `json:"vals"`
 }
 
+func (e Entry) Value() Variant {
+	if len(e.Vals) == 1 {
+		return e.Vals[0]
+	}
+	i := rand.Intn(len(e.Vals))
+	return e.Vals[i]
+}
+
 type Variant struct {
 	Str  string `json:"str"`
 	Str2 string `json:"str2,omitempty"`
@@ -59,30 +67,26 @@ func (sm *StringManager) GetInFile(id ID, file string) (Entry, bool) {
 	return sm.Get(fileID(file, id))
 }
 
-func (sm *StringManager) GetString2(id ID) (string, string) {
+func (sm *StringManager) GetVariant(id ID) (Variant, bool) {
 	e, ok := sm.Get(id)
 	if !ok || len(e.Vals) == 0 {
-		return fmt.Sprintf("MISSING:'%s'", id), ""
+		return Variant{Str: fmt.Sprintf("MISSING:'%s'", id)}, false
 	}
-	if len(e.Vals) == 1 {
-		return e.Vals[0].Str, e.Vals[0].Str2
-	}
-	i := rand.Intn(len(e.Vals))
-	return e.Vals[i].Str, e.Vals[i].Str2
+	return e.Value(), true
 }
 
 func (sm *StringManager) GetString(id ID) string {
-	s, _ := sm.GetString2(id)
-	return s
+	s, _ := sm.GetVariant(id)
+	return s.Str
 }
 
-func (sm *StringManager) GetString2InFile(id ID, file string) (string, string) {
-	return sm.GetString2(fileID(file, id))
+func (sm *StringManager) GetVariantInFile(id ID, file string) (Variant, bool) {
+	return sm.GetVariant(fileID(file, id))
 }
 
 func (sm *StringManager) GetStringInFile(id ID, file string) string {
-	s, _ := sm.GetString2(fileID(file, id))
-	return s
+	s, _ := sm.GetVariant(fileID(file, id))
+	return s.Str
 }
 
 func (sm *StringManager) indexEntries() error {
