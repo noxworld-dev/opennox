@@ -251,21 +251,21 @@ int nox_gui_getWindowOffs_46AA20(nox_window* win, unsigned int* px, unsigned int
 		*py = 0;
 		return -2;
 	}
-	*px = win->field_4;
-	*py = win->field_5;
+	*px = win->off_x;
+	*py = win->off_y;
 	return 0;
 }
 
 //----- (0046AA60) --------------------------------------------------------
-int  nox_client_wndGetPosition_46AA60(nox_window* win, unsigned int* a2, unsigned int* a3) {
+int  nox_client_wndGetPosition_46AA60(nox_window* win, unsigned int* px, unsigned int* py) {
 	if (!win)
 		return -2;
 
-	*a2 = win->field_4;
-	*a3 = win->field_5;
+	*px = win->off_x;
+	*py = win->off_y;
 	for (nox_window* i = win->parent; i; i = i->parent) {
-		*a2 += i->field_4;
-		*a3 += i->field_5;
+		*px += i->off_x;
+		*py += i->off_y;
 	}
 	return 0;
 }
@@ -695,7 +695,7 @@ int nox_xxx_wndDefaultProc_0_46B330(int a1, int a2, int a3, int a4) { return 0; 
 int nox_xxx_wndDefaultProc_46B2F0(int a1, int a2, int a3, int a4) { return 0; }
 
 //----- (0046C3E0) --------------------------------------------------------
-nox_window*  nox_window_new(nox_window* a1, int flags, int a3, int a4, int w, int h, int (*fnc)(int, int, int, int)) {
+nox_window*  nox_window_new(nox_window* a1, int flags, int x, int y, int w, int h, int (*fnc)(int, int, int, int)) {
 	nox_alloc_class* al = nox_alloc_window;
 	if (!al) {
 		al = nox_new_alloc_class("Window", sizeof(nox_window), 576);
@@ -717,11 +717,11 @@ nox_window*  nox_window_new(nox_window* a1, int flags, int a3, int a4, int w, in
 	win->flags = flags;
 	win->width = w;
 	win->height = h;
-	win->field_4 = a3;
-	win->field_5 = a4;
+	win->off_x = x;
+	win->off_y = y;
+	win->end_x = w + x;
+	win->end_y = h + y;
 	win->draw_data.tooltip[0] = 0;
-	win->field_6 = w + a3;
-	win->field_7 = h + a4;
 	nox_xxx_wndFixCoords_46A9F0(win);
 	win->draw_func = nox_xxx_wndDrawFnDefault_46B370;
 	win->field_93 = nox_xxx_wndDefaultProc_0_46B330;
@@ -1063,11 +1063,11 @@ nox_window* nox_client_inWindowByPos_46B5B0(nox_window* root, int x, int y) {
 	nox_window* cur = root;
 	LOOP:
 	for (nox_window* win = cur->field_100; win; win = win->prev) {
-		int px = win->field_4;
-		int py = win->field_5;
+		int px = win->off_x;
+		int py = win->off_y;
 		for (nox_window* win2 = win->parent; win2; win2 = win2->parent) {
-			px += win2->field_4;
-			py += win2->field_5;
+			px += win2->off_x;
+			py += win2->off_y;
 		}
 		if (x >= px && x <= px + win->width && y >= py && y <= py + win->height) {
 			if (win->flags & 8 && !(win->flags & 0x10)) {

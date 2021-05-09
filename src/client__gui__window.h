@@ -40,10 +40,10 @@ typedef struct nox_window {
 	nox_window_flags flags; // 1, 4
 	int width;              // 2, 8
 	int height;             // 3, 12
-	int field_4; // 4, 16
-	int field_5; // 5, 20
-	unsigned int field_6; // 6, 24
-	unsigned int field_7; // 7, 28
+	int off_x; // 4, 16
+	int off_y; // 5, 20
+	int end_x; // 6, 24
+	int end_y; // 7, 28
 	unsigned int field_8; // 8, 32; index in nox_windows_arr_1093036? nox_window*?
 	nox_window_data draw_data; // 9, 36
 	unsigned int field_92;                      // 92, 368

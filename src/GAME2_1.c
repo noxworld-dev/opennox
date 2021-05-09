@@ -4123,9 +4123,9 @@ void nox_xxx_cursorUpdate_46B740() {
 					v12 = m->dpos.y;
 					v13 = nox_win_1064916->parent;
 					if (v13) {
-						v14 = nox_win_1064916->field_4;
+						v14 = nox_win_1064916->off_x;
 						if (v14 + v11 >= 0) {
-							v15 = nox_win_1064916->field_6;
+							v15 = nox_win_1064916->end_x;
 							v16 = *(_DWORD *) (v13 + 8);
 							if (v11 + v15 > v16) {
 								v11 = v16 - v15;
@@ -4134,9 +4134,9 @@ void nox_xxx_cursorUpdate_46B740() {
 						} else {
 							v11 = -v14;
 						}
-						v17 = nox_win_1064916->field_5;
+						v17 = nox_win_1064916->off_y;
 						if (v17 + v12 >= 0) {
-							v19 = nox_win_1064916->field_7;
+							v19 = nox_win_1064916->end_y;
 							v20 = *(_DWORD *) (v13 + 12);
 							if (v12 + v19 > v20) {
 								v18 = v20 - v19;
@@ -4147,24 +4147,24 @@ void nox_xxx_cursorUpdate_46B740() {
 							v12 = v18;
 						}
 					}
-					nox_win_1064916->field_4 += v11;
-					nox_win_1064916->field_5 += v12;
-					if (nox_win_1064916->field_4 < 0) {
-						nox_win_1064916->field_4 = 0;
+					nox_win_1064916->off_x += v11;
+					nox_win_1064916->off_y += v12;
+					if (nox_win_1064916->off_x < 0) {
+						nox_win_1064916->off_x = 0;
 					}
-					if (nox_win_1064916->field_5 < 0) {
-						nox_win_1064916->field_5 = 0;
+					if (nox_win_1064916->off_y < 0) {
+						nox_win_1064916->off_y = 0;
 					}
-					nox_win_1064916->field_6 = nox_win_1064916->width + nox_win_1064916->field_4;
-					nox_win_1064916->field_7 = nox_win_1064916->height + nox_win_1064916->field_5;
-					if (nox_win_1064916->field_6 > nox_win_width) {
-						nox_win_1064916->field_6 = nox_win_width;
+					nox_win_1064916->end_x = nox_win_1064916->width + nox_win_1064916->off_x;
+					nox_win_1064916->end_y = nox_win_1064916->height + nox_win_1064916->off_y;
+					if (nox_win_1064916->end_x > nox_win_width) {
+						nox_win_1064916->end_x = nox_win_width;
 					}
-					if (nox_win_1064916->field_7 > nox_win_height) {
-						nox_win_1064916->field_7 = nox_win_height;
+					if (nox_win_1064916->end_y > nox_win_height) {
+						nox_win_1064916->end_y = nox_win_height;
 					}
-					nox_win_1064916->field_4 = nox_win_1064916->field_6 - nox_win_1064916->width;
-					nox_win_1064916->field_5 = nox_win_1064916->field_7 - nox_win_1064916->height;
+					nox_win_1064916->off_x = nox_win_1064916->end_x - nox_win_1064916->width;
+					nox_win_1064916->off_y = nox_win_1064916->end_y - nox_win_1064916->height;
 					spos = spos2;
 				}
 				nox_window_call_field_93(nox_win_1064916, 8, spos, 0);
