@@ -1010,7 +1010,7 @@ typedef struct nox_gui_animation {
 	int (*field_12)(void); // 12, 48
 	int (*field_13)(void); // 13, 52
 	int (*field_14)(void); // 14, 56
-	_DWORD field_15; // 15, 60
+	void (*field_15)(void); // 15, 60
 	_BYTE field_16_0; // 16, 64
 	_BYTE field_16_1; // 16, 65
 	_WORD field_16_2; // 16, 66

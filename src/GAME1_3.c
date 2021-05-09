@@ -574,95 +574,93 @@ void nox_gui_doAnimation_43C380() {
 	if (!nox_gui_animationHead_815212) {
 		return;
 	}
-	void (*v7)(void); // eax
-	int (*v12)(void); // eax
-	int v13;          // [esp+4h] [ebp-8h]
-	int v14;          // [esp+8h] [ebp-4h]
+	nox_gui_animation* next = 0;
+	for (nox_gui_animation* a = nox_gui_animationHead_815212; a; a = next) {
+		next = a->next;
+		if (a->field_16_0 == 2) {
+			int v13 = 0;
+			int v14 = 0;
+			nox_xxx_wnd_46AA20(a->win, &v13, &v14);
+			int v8 = a->out_dx + v13;
+			int v9 = a->out_dy + v14;
 
-	int v1 = 0;
-	for (int v0 = nox_gui_animationHead_815212; v0; v0 = v1) {
-		v1 = *(_DWORD*)(v0 + 40);
-		char v2 = 0;
-		if (*(_BYTE*)(v0 + 64) == 2) {
-			nox_xxx_wnd_46AA20(*(_DWORD*)(v0 + 4), &v13, &v14);
-			int v8 = *(_DWORD*)(v0 + 24) + v13;
-			v13 += *(_DWORD*)(v0 + 24);
-			int v9 = *(_DWORD*)(v0 + 28) + v14;
-			v14 += *(_DWORD*)(v0 + 28);
-			int v10 = *(_DWORD*)(v0 + 8);
-			if ((int)*(_DWORD*)(v0 + 24) >= 0) {
+			char v2 = 0;
+
+			int v10 = a->x2;
+			if (a->out_dx >= 0) {
 				if (v8 >= v10) {
-					v8 = *(_DWORD*)(v0 + 8);
-					v2 = 1;
-					v13 = *(_DWORD*)(v0 + 8);
-				}
-			} else if (v8 <= v10) {
-				v8 = *(_DWORD*)(v0 + 8);
-				v2 = 1;
-				v13 = *(_DWORD*)(v0 + 8);
-			}
-			int v11 = *(_DWORD*)(v0 + 12);
-			if ((int)*(_DWORD*)(v0 + 28) >= 0) {
-				if (v9 >= v11) {
-					v9 = *(_DWORD*)(v0 + 12);
+					v8 = a->x2;
 					++v2;
-					v14 = *(_DWORD*)(v0 + 12);
 				}
-			} else if (v9 <= v11) {
-				v9 = *(_DWORD*)(v0 + 12);
-				++v2;
-				v14 = *(_DWORD*)(v0 + 12);
+			} else {
+				if (v8 <= v10) {
+					v8 = a->x2;
+					++v2;
+				}
 			}
-			nox_wnd_nox_xxx_wndDraw_46A9B0(*(_DWORD**)(v0 + 4), v8, v9);
+
+			int v11 = a->y2;
+			if (a->out_dy >= 0) {
+				if (v9 >= v11) {
+					v9 = a->y2;
+					++v2;
+				}
+			} else {
+				if (v9 <= v11) {
+					v9 = a->y2;
+					++v2;
+				}
+			}
+
+			nox_wnd_nox_xxx_wndDraw_46A9B0(a->win, v8, v9);
 			if (v2 == 2) {
-				*(_BYTE*)(v0 + 64) = 1;
+				a->field_16_0 = 1;
 				sub_43BE40(1);
-				v12 = *(int (**)(void))(v0 + 56);
-				if (v12) {
-					v12();
+				if (a->field_14) {
+					a->field_14();
 				}
 			}
-		} else if (*(_BYTE*)(v0 + 64) == 3) {
-			nox_xxx_wnd_46AA20(*(_DWORD*)(v0 + 4), &v13, &v14);
-			int v3 = *(_DWORD*)(v0 + 32) + v13;
-			v13 += *(_DWORD*)(v0 + 32);
-			int v4 = *(_DWORD*)(v0 + 36) + v14;
-			v14 += *(_DWORD*)(v0 + 36);
-			int v5 = *(_DWORD*)(v0 + 16);
-			if ((int)*(_DWORD*)(v0 + 32) >= 0) {
+		} else if (a->field_16_0 == 3) {
+			int v13 = 0;
+			int v14 = 0;
+			nox_xxx_wnd_46AA20(a->win, &v13, &v14);
+			int v3 = a->in_dx + v13;
+			int v4 = a->in_dy + v14;
+
+			char v2 = 0;
+
+			int v5 = a->x1;
+			if (a->in_dx >= 0) {
 				if (v3 >= v5) {
-					v3 = *(_DWORD*)(v0 + 16);
-					v2 = 1;
-					v13 = *(_DWORD*)(v0 + 16);
+					v3 = a->x1;
+					++v2;
 				}
 			} else {
 				if (v3 <= v5) {
-					v3 = *(_DWORD*)(v0 + 16);
-					v2 = 1;
-					v13 = *(_DWORD*)(v0 + 16);
+					v3 = a->x1;
+					++v2;
 				}
 			}
-			int v6 = *(_DWORD*)(v0 + 20);
-			if ((int)*(_DWORD*)(v0 + 36) >= 0) {
+
+			int v6 = a->y1;
+			if (a->in_dy >= 0) {
 				if (v4 >= v6) {
-					v4 = *(_DWORD*)(v0 + 20);
+					v4 = a->y1;
 					++v2;
-					v14 = *(_DWORD*)(v0 + 20);
 				}
 			} else {
 				if (v4 <= v6) {
-					v4 = *(_DWORD*)(v0 + 20);
+					v4 = a->y1;
 					++v2;
-					v14 = *(_DWORD*)(v0 + 20);
 				}
 			}
-			nox_wnd_nox_xxx_wndDraw_46A9B0(*(_DWORD**)(v0 + 4), v3, v4);
+
+			nox_wnd_nox_xxx_wndDraw_46A9B0(a->win, v3, v4);
 			if (v2 == 2) {
-				*(_BYTE*)(v0 + 64) = 0;
+				a->field_16_0 = 0;
 				sub_43BE40(0);
-				v7 = *(void (**)(void))(v0 + 60);
-				if (v7) {
-					v7();
+				if (a->field_15) {
+					a->field_15();
 				}
 				sub_4A24F0();
 			}
