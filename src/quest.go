@@ -13,6 +13,8 @@ import (
 	"os"
 	"strconv"
 	"unsafe"
+
+	"nox/client/system/parsecmd"
 )
 
 const (
@@ -26,6 +28,29 @@ var (
 	questAllowDefault      = os.Getenv("NOX_QUEST_WARP_ALWAYS_ALLOW") == "true"
 	questLevelWarpInfinite = os.Getenv("NOX_QUEST_WARP_INF") == "true"
 	questLog               = log.New(os.Stderr, "[quest]: ", log.LstdFlags|log.Lmsgprefix)
+	noxCmdSetQuest         = &parsecmd.Command{
+		Token: "quest",
+		Help:  "set Quest-related variables",
+		Flags: parsecmd.Server | parsecmd.Cheat,
+		Sub: []*parsecmd.Command{
+			{
+				Token: "level.inc", Flags: parsecmd.Server | parsecmd.Cheat, Func: cmdSetQuestLevelInc,
+				Help: "set level increment for finishing the stage",
+			},
+			{
+				Token: "warp.allow", Flags: parsecmd.Server | parsecmd.Cheat, Func: cmdSetQuestWarpAllow,
+				Help: "allow warp gate even if player has lower level",
+			},
+			{
+				Token: "warp.inc", Flags: parsecmd.Server | parsecmd.Cheat, Func: cmdSetQuestWarpInc,
+				Help: "set level increment for the warp gate",
+			},
+			{
+				Token: "warp.inf", Flags: parsecmd.Server | parsecmd.Cheat, Func: cmdSetQuestWarpInf,
+				Help: "keep the warp gate working indefinitely",
+			},
+		},
+	}
 )
 
 func init() {
@@ -47,6 +72,79 @@ func init() {
 			questLevelWarpInc = int(v)
 		}
 	}
+	noxCmdSet.Sub = append(noxCmdSet.Sub, noxCmdSetQuest)
+}
+
+func cmdSetQuestLevelInc(c *parsecmd.Console, tokens []string) bool {
+	if len(tokens) != 1 {
+		return false
+	}
+	v, err := strconv.Atoi(tokens[0])
+	if err != nil {
+		c.Printf(parsecmd.ColorRed, "cannot parse value")
+		return false
+	}
+	questLevelInc = v
+	c.Printf(parsecmd.ColorLightYellow, "Quest completion will skip %d levels", v)
+	return true
+}
+
+func cmdSetQuestWarpAllow(c *parsecmd.Console, tokens []string) bool {
+	if len(tokens) > 1 {
+		return false
+	}
+	v := true
+	if len(tokens) > 0 {
+		b, err := strconv.ParseBool(tokens[0])
+		if err != nil {
+			c.Printf(parsecmd.ColorRed, "cannot parse value")
+			return false
+		}
+		v = b
+	}
+	questAllowDefault = v
+	if v {
+		c.Printf(parsecmd.ColorLightYellow, "Quest warp gate will work for everyone")
+	} else {
+		c.Printf(parsecmd.ColorLightYellow, "Quest warp gate will only work if you've passed the level already")
+	}
+	return true
+}
+
+func cmdSetQuestWarpInc(c *parsecmd.Console, tokens []string) bool {
+	if len(tokens) != 1 {
+		return false
+	}
+	v, err := strconv.Atoi(tokens[0])
+	if err != nil {
+		c.Printf(parsecmd.ColorRed, "cannot parse value")
+		return false
+	}
+	questLevelWarpInc = v
+	c.Printf(parsecmd.ColorLightYellow, "Quest warp gate will skip %d levels", v)
+	return true
+}
+
+func cmdSetQuestWarpInf(c *parsecmd.Console, tokens []string) bool {
+	if len(tokens) > 1 {
+		return false
+	}
+	v := true
+	if len(tokens) > 0 {
+		b, err := strconv.ParseBool(tokens[0])
+		if err != nil {
+			c.Printf(parsecmd.ColorRed, "cannot parse value")
+			return false
+		}
+		v = b
+	}
+	questLevelWarpInfinite = v
+	if v {
+		c.Printf(parsecmd.ColorLightYellow, "Quest warp gate will work indefinitely")
+	} else {
+		c.Printf(parsecmd.ColorLightYellow, "Quest warp gate will cutoff at some point")
+	}
+	return true
 }
 
 func nox_game_getQuestStage_4E3CC0() int {
