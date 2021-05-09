@@ -6213,7 +6213,7 @@ int  nox_xxx_bookListWndProc_45B5F0(int a1, unsigned int a2, unsigned int a3) {
 	}
 	dword_5d4594_1046656 = nox_xxx_guiFontHeightMB_43F320(0) + 2;
 	v5 = 141 / dword_5d4594_1046656 - 1;
-	nox_xxx_wnd_46AA20(a1, &v14, &a3);
+	nox_gui_getWindowOffs_46AA20(a1, &v14, &a3);
 	switch (a2) {
 	case 5u:
 		if (*getMemU32Ptr(0x5D4594, 2614252) && (*(_BYTE*)(*getMemU32Ptr(0x5D4594, 2614252) + 120) & 2) == 2)

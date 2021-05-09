@@ -124,7 +124,7 @@ int  nox_xxx_bookDrawList_45BD40(int a1) {
 	int v70;               // [esp+28h] [ebp-204h]
 	wchar_t v71[256];      // [esp+2Ch] [ebp-200h]
 
-	nox_xxx_wnd_46AA20(a1, &v66, &v67);
+	nox_gui_getWindowOffs_46AA20(a1, &v66, &v67);
 	v1 = v66 - 24;
 	v2 = v67 - 76;
 	v3 = nox_xxx_guiFontHeightMB_43F320(0);

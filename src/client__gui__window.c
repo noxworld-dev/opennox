@@ -245,19 +245,15 @@ int  nox_xxx_windowDestroyMB_46C4E0(unsigned int* a1) {
 }
 
 //----- (0046AA20) --------------------------------------------------------
-int  nox_xxx_wnd_46AA20(int a1, unsigned int* a2, unsigned int* a3) {
-	int result; // eax
-
-	if (a1) {
-		*a2 = *(unsigned int*)(a1 + 16);
-		*a3 = *(unsigned int*)(a1 + 20);
-		result = 0;
-	} else {
-		*a3 = 0;
-		*a2 = 0;
-		result = -2;
+int nox_gui_getWindowOffs_46AA20(nox_window* win, unsigned int* px, unsigned int* py) {
+	if (!win) {
+		*px = 0;
+		*py = 0;
+		return -2;
 	}
-	return result;
+	*px = win->field_4;
+	*py = win->field_5;
+	return 0;
 }
 
 //----- (0046AA60) --------------------------------------------------------

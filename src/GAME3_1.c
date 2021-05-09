@@ -1275,7 +1275,7 @@ int sub_4BDFD0() {
 	nox_xxx_windowDestroyChildsMB_46B500(*(int*)&dword_5d4594_1316972);
 	nox_xxx_wndSetWindowProc_46B300(*(int*)&dword_5d4594_1316972, sub_4BE320);
 	v4 = nox_xxx_wndGetChildByID_46B0C0(0, 10100);
-	nox_xxx_wnd_46AA20((int)v4, &v10, &v9);
+	nox_gui_getWindowOffs_46AA20((int)v4, &v10, &v9);
 	if (nox_xxx_check_flag_aaa_43AF70() == 1)
 		v5 = v9 + 55;
 	else
@@ -2319,7 +2319,7 @@ int sub_4BFE40() {
 	v1 = nox_wcstol(v0, 0, 10);
 	if (v1 > *(int*)&dword_5d4594_1319248)
 		v1 = dword_5d4594_1319248;
-	nox_xxx_wnd_46AA20(*(int*)&dword_5d4594_1319228, &v3, &v4);
+	nox_gui_getWindowOffs_46AA20(*(int*)&dword_5d4594_1319228, &v3, &v4);
 	v5.field_0 = v3 + dword_587000_183456;
 	v5.field_4 = v4 + dword_587000_183460;
 	if (*getMemU32Ptr(0x5D4594, 1319100))
@@ -2371,7 +2371,7 @@ int  sub_4C0030(int a1) {
 	int v6; // [esp+4h] [ebp-4h]
 
 	nox_client_drawRectFilledAlpha_49CF10(0, 0, nox_win_width, nox_win_height);
-	nox_xxx_wnd_46AA20(a1, &v5, &v6);
+	nox_gui_getWindowOffs_46AA20(a1, &v5, &v6);
 	v1 = *getMemU32Ptr(0x5D4594, 1319196);
 	if (!dword_5d4594_1319264)
 		v1 = *getMemU32Ptr(0x5D4594, 1319216);
@@ -2451,7 +2451,7 @@ int  sub_4C01C0(int a1, int a2, int* a3, int a4) {
 		v6 = nox_wcstol(v5, 0, 10);
 		if (v6 > *(int*)&dword_5d4594_1319248)
 			v6 = dword_5d4594_1319248;
-		nox_xxx_wnd_46AA20(*(int*)&dword_5d4594_1319228, &v12, &v13);
+		nox_gui_getWindowOffs_46AA20(*(int*)&dword_5d4594_1319228, &v12, &v13);
 		v14.field_0 = v12 + dword_587000_183456;
 		v14.field_4 = v13 + dword_587000_183460;
 		if (*getMemU32Ptr(0x5D4594, 1319160))
@@ -2740,7 +2740,7 @@ int sub_4C0D00() {
 	int v22;              // [esp+24h] [ebp-44h]
 	wchar_t v23[32];      // [esp+28h] [ebp-40h]
 
-	nox_xxx_wnd_46AA20(*(int*)&dword_5d4594_1320940, &v21, &v22);
+	nox_gui_getWindowOffs_46AA20(*(int*)&dword_5d4594_1320940, &v21, &v22);
 	nox_window_get_size(*(int*)&dword_5d4594_1320940, &v20, &v19);
 	nox_client_drawImageAt_47D2C0(*getMemIntPtr(0x5D4594, 1320164), v21, v22);
 	v0 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1320940, 3711);

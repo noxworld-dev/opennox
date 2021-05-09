@@ -570,6 +570,95 @@ int nox_game_checkStateMenu_43C2F0() {
 }
 
 //----- (0043C380) --------------------------------------------------------
+void nox_gui_doAnimation_out(nox_gui_animation* a) {
+	int x = 0;
+	int y = 0;
+	nox_gui_getWindowOffs_46AA20(a->win, &x, &y);
+	x += a->out_dx;
+	y += a->out_dy;
+
+	char changed = 0;
+
+	int mx = a->x2;
+	if (a->out_dx >= 0) {
+		if (x >= mx) {
+			x = a->x2;
+			++changed;
+		}
+	} else {
+		if (x <= mx) {
+			x = a->x2;
+			++changed;
+		}
+	}
+
+	int my = a->y2;
+	if (a->out_dy >= 0) {
+		if (y >= my) {
+			y = a->y2;
+			++changed;
+		}
+	} else {
+		if (y <= my) {
+			y = a->y2;
+			++changed;
+		}
+	}
+
+	nox_wnd_nox_xxx_wndDraw_46A9B0(a->win, x, y);
+	if (changed == 2) {
+		a->field_16_0 = 1;
+		sub_43BE40(1);
+		if (a->field_14) {
+			a->field_14();
+		}
+	}
+}
+void nox_gui_doAnimation_in(nox_gui_animation* a) {
+	int x = 0;
+	int y = 0;
+	nox_gui_getWindowOffs_46AA20(a->win, &x, &y);
+	x += a->in_dx;
+	y += a->in_dy;
+
+	char changed = 0;
+
+	int mx = a->x1;
+	if (a->in_dx >= 0) {
+		if (x >= mx) {
+			x = a->x1;
+			++changed;
+		}
+	} else {
+		if (x <= mx) {
+			x = a->x1;
+			++changed;
+		}
+	}
+
+	int my = a->y1;
+	if (a->in_dy >= 0) {
+		if (y >= my) {
+			y = a->y1;
+			++changed;
+		}
+	} else {
+		if (y <= my) {
+			y = a->y1;
+			++changed;
+		}
+	}
+
+	nox_wnd_nox_xxx_wndDraw_46A9B0(a->win, x, y);
+	if (changed == 2) {
+		a->field_16_0 = 0;
+		sub_43BE40(0);
+		if (a->field_15) {
+			a->field_15();
+		}
+		sub_4A24F0();
+	}
+}
 void nox_gui_doAnimation_43C380() {
 	if (!nox_gui_animationHead_815212) {
 		return;
@@ -578,92 +667,9 @@ void nox_gui_doAnimation_43C380() {
 	for (nox_gui_animation* a = nox_gui_animationHead_815212; a; a = next) {
 		next = a->next;
 		if (a->field_16_0 == 2) {
-			int v13 = 0;
-			int v14 = 0;
-			nox_xxx_wnd_46AA20(a->win, &v13, &v14);
-			int v8 = a->out_dx + v13;
-			int v9 = a->out_dy + v14;
-
-			char v2 = 0;
-
-			int v10 = a->x2;
-			if (a->out_dx >= 0) {
-				if (v8 >= v10) {
-					v8 = a->x2;
-					++v2;
-				}
-			} else {
-				if (v8 <= v10) {
-					v8 = a->x2;
-					++v2;
-				}
-			}
-
-			int v11 = a->y2;
-			if (a->out_dy >= 0) {
-				if (v9 >= v11) {
-					v9 = a->y2;
-					++v2;
-				}
-			} else {
-				if (v9 <= v11) {
-					v9 = a->y2;
-					++v2;
-				}
-			}
-
-			nox_wnd_nox_xxx_wndDraw_46A9B0(a->win, v8, v9);
-			if (v2 == 2) {
-				a->field_16_0 = 1;
-				sub_43BE40(1);
-				if (a->field_14) {
-					a->field_14();
-				}
-			}
+			nox_gui_doAnimation_out(a);
 		} else if (a->field_16_0 == 3) {
-			int v13 = 0;
-			int v14 = 0;
-			nox_xxx_wnd_46AA20(a->win, &v13, &v14);
-			int v3 = a->in_dx + v13;
-			int v4 = a->in_dy + v14;
-
-			char v2 = 0;
-
-			int v5 = a->x1;
-			if (a->in_dx >= 0) {
-				if (v3 >= v5) {
-					v3 = a->x1;
-					++v2;
-				}
-			} else {
-				if (v3 <= v5) {
-					v3 = a->x1;
-					++v2;
-				}
-			}
-
-			int v6 = a->y1;
-			if (a->in_dy >= 0) {
-				if (v4 >= v6) {
-					v4 = a->y1;
-					++v2;
-				}
-			} else {
-				if (v4 <= v6) {
-					v4 = a->y1;
-					++v2;
-				}
-			}
-
-			nox_wnd_nox_xxx_wndDraw_46A9B0(a->win, v3, v4);
-			if (v2 == 2) {
-				a->field_16_0 = 0;
-				sub_43BE40(0);
-				if (a->field_15) {
-					a->field_15();
-				}
-				sub_4A24F0();
-			}
+			nox_gui_doAnimation_in(a);
 		}
 	}
 }
