@@ -45,13 +45,15 @@ jobs:
 
       - name: Prepare the binary
         run: |
+          rm -f /tmp/nox*-linux
           cp ./src/noxg /tmp/noxg-linux
+          cp ./src/nox-server /tmp/nox-server-linux
 
       - name: Upload the binary
         uses: actions/upload-artifact@v2
         with:
           name: noxg-linux
-          path: /tmp/noxg-linux
+          path: /tmp/nox*-linux
 
   hybrid_linux_mingw_go:
     name: Go Win build on Linux Host
@@ -102,13 +104,15 @@ jobs:
 
       - name: Prepare the binary
         run: |
+          rm -f /tmp/nox*.exe
           cp ./src/noxg.exe /tmp/noxg.exe
+          cp ./src/nox-server.exe /tmp/nox-server.exe
 
       - name: Upload the binary
         uses: actions/upload-artifact@v2
         with:
           name: noxg-win
-          path: /tmp/noxg.exe
+          path: /tmp/nox*.exe
 
   hybrid_linux_gcc:
     name: alpine-386-gcc-github on Linux Host

@@ -1,3 +1,7 @@
 #!/bin/bash
 set -e
-CGO_CFLAGS_ALLOW="(-fshort-wchar)|(-fno-strict-aliasing)|(-fno-strict-overflow)" CGO_ENABLED=1 GOARCH=386 go build -v -o noxg
+export GOARCH=386
+export CGO_ENABLED=1
+export CGO_CFLAGS_ALLOW="(-fshort-wchar)|(-fno-strict-aliasing)|(-fno-strict-overflow)"
+go build -v -o noxg
+go build -v -tags server -o nox-server
