@@ -15,4 +15,5 @@ set CGO_CFLAGS=-D_TDM -g -O2
 set PATH=%PATH%;C:\TDM-GCC-32\bin;C:\TDM-GCC-32\mingw32\bin
 go build -v -ldflags "-H windowsgui" -o noxg.exe
 go build -v -tags server -o nox-server.exe
+go build -v -o noxtools.exe ./cmd/noxtools
 pause

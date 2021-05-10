@@ -9,3 +9,4 @@ export CC_FOR_TARGET=i686-w64-mingw32-gcc
 export CC=i686-w64-mingw32-gcc
 go build -v -ldflags "-H windowsgui" -o noxg.exe
 go build -v -tags server -o nox-server.exe
+go build -v -o noxtools.exe ./cmd/noxtools
