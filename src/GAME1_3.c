@@ -179,7 +179,6 @@ int (*func_5D4594_816392)(void) = 0;
 void (*func_5D4594_830220)(void) = 0;
 void (*func_5d4594_830216)(void) = 0;
 
-nox_gui_animation* nox_gui_animationHead_815212 = 0;
 nox_gui_animation* nox_wnd_xxx_829520 = 0;
 nox_gui_animation* nox_wnd_xxx_830244 = 0;
 
@@ -570,6 +569,8 @@ int nox_game_checkStateMenu_43C2F0() {
 }
 
 //----- (0043C380) --------------------------------------------------------
+#ifndef NOX_CGO
+nox_gui_animation* nox_gui_animationHead_815212 = 0;
 void nox_gui_doAnimation_out(nox_gui_animation* a) {
 	int x = 0;
 	int y = 0;
@@ -751,6 +752,7 @@ nox_gui_animation* nox_gui_makeAnimation_43C5B0(nox_window* win, int x1, int y1,
 	p->fnc_done_in = 0;
 	return p;
 }
+#endif // NOX_CGO
 
 //----- (0043C650) --------------------------------------------------------
 int sub_43C650() {

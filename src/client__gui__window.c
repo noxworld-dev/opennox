@@ -109,7 +109,8 @@ unsigned int*  nox_xxx_wndFixCoords_46A9F0(unsigned int* a1) {
 }
 
 //----- (0046A9B0) --------------------------------------------------------
-int  nox_wnd_nox_xxx_wndDraw_46A9B0(unsigned int* a1, int a2, int a3) {
+int  nox_wnd_nox_xxx_wndDraw_46A9B0(nox_window* win, int a2, int a3) {
+	unsigned int* a1 = win;
 	int v4; // esi
 	int v5; // ecx
 

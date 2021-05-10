@@ -134,7 +134,7 @@ func generateMouseSparks() {
 		randomIntMinMax(0, 2)
 		if memmap.Uint32(0x5D4594, 816416) == 0 {
 			*memmap.PtrUint32(0x5D4594, 816416) = 1
-			C.nox_xxx_clientPlaySoundSpecial_452D80(924, 100)
+			clientPlaySoundSpecial(924, 100)
 			for i := explosionSparks; i > 0; i-- {
 				v12 := randomIntMinMax(0, 255)
 				v13 := randomIntMinMax(6, 12)

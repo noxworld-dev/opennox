@@ -15,6 +15,7 @@ import "C"
 import (
 	"bufio"
 	"fmt"
+	"image"
 	"io"
 	"log"
 	"os"
@@ -97,6 +98,16 @@ func (win *Window) Flags() WindowFlag {
 		return 0
 	}
 	return WindowFlag(win.flags)
+}
+
+func (win *Window) Offs() image.Point {
+	if win == nil {
+		return image.Point{}
+	}
+	return image.Point{
+		X: int(win.off_x),
+		Y: int(win.off_y),
+	}
 }
 
 func (win *Window) DrawData() *WindowData {
