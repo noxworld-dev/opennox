@@ -22,6 +22,7 @@ import "C"
 import (
 	"context"
 	"log"
+	"os"
 	"unsafe"
 
 	"github.com/noxworld-dev/xwis"
@@ -30,6 +31,8 @@ import (
 	noxflags "nox/common/flags"
 	"nox/common/memmap"
 )
+
+var useXwis = os.Getenv("NOX_XWIS") == "true"
 
 func nox_game_setMovieFile_4CB230(name string, out *C.char) bool {
 	cname := C.CString(name)
@@ -122,8 +125,10 @@ func startServer() int {
 		return 0
 	}
 	nox_xxx_serverHost_43B4D0()
-	ctx := context.Background()
-	go xwisRegister(ctx)
+	if useXwis {
+		ctx := context.Background()
+		go xwisRegister(ctx)
+	}
 	return 1
 }
 
@@ -137,7 +142,7 @@ func xwisRegister(ctx context.Context) {
 
 	// TODO: actually update those values according to what server is doing
 	err = cli.HostGame(ctx, xwis.GameInfo{
-		Name:       "GNox Dedicated Server",
+		Name:       "Noxg Dedicated Server",
 		Map:        "estate",
 		MapType:    xwis.MapTypeChat,
 		Resolution: xwis.Res1024x768,
