@@ -710,6 +710,7 @@ char  playerDropATrap(int playerObj) {
 }
 
 //----- (100020F0) --------------------------------------------------------
+#ifndef NOX_CGO
 HANDLE __usercall GameIpParser(int a1, int a2, int a3) {
 	HANDLE result;                 // eax MAPDST
 	DWORD fileSize;                // esi MAPDST
@@ -806,6 +807,7 @@ signed int __usercall inputNewIp_(int a1, int ebx0, int a2, int a3, int a4) {
 	isInvalidIp = 1;
 	return 0;
 }
+#endif // NOX_CGO
 // 100129C1: using guessed type char isInvalidIp;
 // 10002300: using guessed type CHAR pDst[28];
 
@@ -1114,12 +1116,14 @@ void OnLibraryNotice_258() {
 void OnLibraryNotice_259(DWORD arg1) {
 
 }
+#ifndef NOX_CGO
 void OnLibraryNotice_260(DWORD arg1, DWORD arg2, DWORD arg3) {
 	// pings all servers from game_ip.txt
 	int v1 = 0;
 	GameIpParser(arg2, arg1, arg3);
 	pingAllServersInGameIp(arg2, v1, arg1, arg2, arg3);
 }
+#endif // NOX_CGO
 void OnLibraryNotice_261() {
 	unsigned __int8 v24[64]; // [esp+1Ch] [ebp-50h]
 	// is called when game parameters change via UI
@@ -1274,6 +1278,7 @@ LABEL_37:
 		nox_xxx_clientUpdateButtonRow_45E110((int)result);
 	}
 }
+#ifndef NOX_CGO
 void OnLibraryNotice_418() {
 	if (!sub_44A4A0()) {
 		memset(inputNewIpMsgBox, 0, 0x200u);
@@ -1282,6 +1287,7 @@ void OnLibraryNotice_418() {
 							(int (*)(void))startInvalidIpChecker, 0);
 	}
 }
+#endif // NOX_CGO
 void OnLibraryNotice_420(DWORD arg1, DWORD arg2, DWORD arg3, DWORD arg4) {
 	int v23 = arg1;
 	int v19 = arg2;

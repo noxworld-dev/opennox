@@ -816,8 +816,10 @@ int  nox_xxx_windowMultiplayerSub_439E70(int a1, unsigned int a2, int* a3, int a
 				sub_4373A0();
 			if (dword_587000_87404)
 				sub_43A980();
+#ifndef NOX_CGO
 			else
 				OnLibraryNotice_418();
+#endif // NOX_CGO
 			return 0;
 		case 10010:
 			sub_4373A0();

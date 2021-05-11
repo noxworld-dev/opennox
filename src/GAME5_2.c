@@ -1514,6 +1514,9 @@ int  sub_554A50(unsigned int a1) {
 }
 
 //----- (00554AA0) --------------------------------------------------------
+#ifdef NOX_CGO
+void nox_client_OnServerSearch(int hostshort, void* data, int size);
+#endif // NOX_CGO
 void  nox_xxx_lobbyMakePacket_554AA0(uint16_t hostshort, const char* payload, int payloadSz, unsigned int ticks) {
 	int dataSz = 12;
 	char* data = (char*)malloc(12 + payloadSz);
@@ -1532,7 +1535,11 @@ void  nox_xxx_lobbyMakePacket_554AA0(uint16_t hostshort, const char* payload, in
 	}
 	dword_5d4594_3844304 = 0;
 	nox_xxx_sendLobbyPacket_554C80(hostshort, data, dataSz);
+#ifndef NOX_CGO
 	OnLibraryNotice_260(hostshort, data, dataSz);
+#else // NOX_CGO
+	nox_client_OnServerSearch(hostshort, data, dataSz);
+#endif // NOX_CGO
 	free(data);
 }
 
