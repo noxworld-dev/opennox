@@ -2,6 +2,7 @@ package discover
 
 import (
 	"bufio"
+	"context"
 	"fmt"
 	"net"
 	"os"
@@ -11,6 +12,23 @@ import (
 const (
 	StaticFile = "game_ip.txt"
 )
+
+func init() {
+	RegisterBackend(StaticFile, func(ctx context.Context, out chan<- Server) error {
+		list, err := staticIPs(StaticFile)
+		if len(list) == 0 {
+			return err
+		}
+		for _, s := range list {
+			select {
+			case <-ctx.Done():
+				return ctx.Err()
+			case out <- s:
+			}
+		}
+		return nil
+	})
+}
 
 func staticIPs(path string) ([]Server, error) {
 	name := filepath.Base(path)
