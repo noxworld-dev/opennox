@@ -6,6 +6,7 @@ package main
 import "C"
 import (
 	"encoding/binary"
+	"errors"
 	"fmt"
 	"log"
 	"net"
@@ -120,6 +121,41 @@ func (s *Socket) Bind(ip net.IP, port int) error {
 	}
 	s.l = l
 	return nil
+}
+
+func (s *Socket) Write(buf []byte) (int, error) {
+	if s.udp || s.c == nil {
+		err := errors.New("send on UDP connection")
+		netLog.Printf("warning: %v", err)
+		s.setErrno(123456) // TODO
+		return 0, err
+	}
+	n, err := s.c.Write(buf)
+	if err != nil {
+		netLog.Println(err)
+		s.setErrno(123456) // TODO
+		return 0, err
+	}
+	return n, nil
+}
+
+func (s *Socket) WriteTo(buf []byte, addr *net.UDPAddr) (int, error) {
+	if !s.udp || s.pc == nil {
+		err := errors.New("send on UDP connection")
+		netLog.Printf("warning: %v", err)
+		s.setErrno(123456) // TODO
+		return 0, err
+	}
+	if debugNet {
+		netLog.Printf("send %s -> %s [%d]\n%x", s.pc.LocalAddr(), addr, len(buf), buf)
+	}
+	n, err := s.pc.WriteTo(buf, addr)
+	if err != nil {
+		netLog.Println(err)
+		s.setErrno(123456) // TODO
+		return 0, err
+	}
+	return n, nil
 }
 
 func (s *Socket) Close() error {
@@ -328,16 +364,9 @@ func nox_net_send(fd C.nox_socket_t, buffer unsafe.Pointer, length C.uint) C.int
 		s.setErrno(123456) // TODO
 		return -1
 	}
-	if s.udp || s.c == nil {
-		netLog.Printf("warning: send on UDP connection")
-		s.setErrno(123456) // TODO
-		return -1
-	}
 	buf := asByteSlice(buffer, int(length))
-	n, err := s.c.Write(buf)
+	n, err := s.Write(buf)
 	if err != nil {
-		netLog.Println(err)
-		s.setErrno(123456) // TODO
 		return -1
 	}
 	return C.int(n)
@@ -367,28 +396,23 @@ func nox_net_recv(fd C.nox_socket_t, buffer unsafe.Pointer, length C.uint) C.int
 
 //export nox_net_sendto
 func nox_net_sendto(fd C.nox_socket_t, buffer unsafe.Pointer, length C.uint, addr *C.struct_nox_net_sockaddr_in) C.int {
-	if addr == nil {
-		return nox_net_send(fd, buffer, length)
-	}
 	s := getSocket(fd)
 	if s == nil {
 		s.setErrno(123456) // TODO
 		return -1
 	}
-	if !s.udp || s.pc == nil {
-		netLog.Printf("warning: send on UDP connection")
-		s.setErrno(123456) // TODO
-		return -1
-	}
 	buf := asByteSlice(buffer, int(length))
-	ip, port := toIPPort(addr)
-	if debugNet {
-		netLog.Printf("send %s -> %s:%d [%d]\n%x", s.pc.LocalAddr(), ip, port, len(buf), buf)
+	var (
+		n   int
+		err error
+	)
+	if addr == nil {
+		n, err = s.Write(buf)
+	} else {
+		ip, port := toIPPort(addr)
+		n, err = s.WriteTo(buf, &net.UDPAddr{IP: ip, Port: port})
 	}
-	n, err := s.pc.WriteTo(buf, &net.UDPAddr{IP: ip, Port: port})
 	if err != nil {
-		netLog.Println(err)
-		s.setErrno(123456) // TODO
 		return -1
 	}
 	return C.int(n)
