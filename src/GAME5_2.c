@@ -1715,23 +1715,17 @@ void nox_client_setOnLobbyServer_555000(int (*fnc)(const char*, uint16_t, const 
 
 //----- (00555010) --------------------------------------------------------
 int  nox_client_sendToServer_555010(unsigned int addr, uint16_t port, char* buf, int sz) {
-	int v4;             // esi
-	int result;         // eax
-	struct nox_net_sockaddr_in to; // [esp+4h] [ebp-10h]
-
-	v4 = 0;
 	if (!dword_5d4594_2513916)
 		return -17;
+	if (!buf || sz < 2)
+		return 0;
+
+	struct nox_net_sockaddr_in to;
 	to.sin_family = NOX_AF_INET;
 	to.sin_port = htons(port);
 	to.sin_addr = addr;
 	memset(to.sin_zero, 0, 8);
-	if (!buf || sz < 2 ||
-		(result = nox_net_sendto(nox_xxx_sockLocalBroadcast_2513920, buf, sz, &to), v4 = result,
-		 result != -1)) {
-		result = v4;
-	}
-	return result;
+	return nox_net_sendto(nox_xxx_sockLocalBroadcast_2513920, buf, sz, &to);
 }
 
 //----- (005550A0) --------------------------------------------------------
