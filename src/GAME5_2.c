@@ -1714,6 +1714,7 @@ void nox_client_setOnLobbyServer_555000(int (*fnc)(const char*, uint16_t, const 
 }
 
 //----- (00555010) --------------------------------------------------------
+#ifndef NOX_CGO
 int  nox_client_sendToServer_555010(unsigned int addr, uint16_t port, char* buf, int sz) {
 	if (!dword_5d4594_2513916)
 		return -17;
@@ -1738,11 +1739,12 @@ int  nox_client_sendJoinGame_5550A0(unsigned int addr, uint16_t port, char* data
 
 //----- (005550D0) --------------------------------------------------------
 int  sub_5550D0(int a1, uint16_t hostshort, char* buf) {
-	*buf = 0;
+	buf[0] = 0;
 	buf[1] = 0;
 	buf[2] = 17;
 	return nox_client_sendToServer_555010(a1, hostshort, buf, 22);
 }
+#endif // NOX_CGO
 
 //----- (00555100) --------------------------------------------------------
 int sub_555100() { return dword_5d4594_2513916; }
