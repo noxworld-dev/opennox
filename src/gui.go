@@ -16,6 +16,7 @@ import (
 	"bufio"
 	"fmt"
 	"image"
+	"image/color"
 	"io"
 	"log"
 	"os"
@@ -26,6 +27,7 @@ import (
 
 	"nox/v1/client/gui"
 	"nox/v1/common/alloc"
+	noxcolor "nox/v1/common/color"
 	"nox/v1/common/fs"
 	"nox/v1/common/memmap"
 	"nox/v1/common/strman"
@@ -49,6 +51,16 @@ func (d *WindowData) SetText(s string) {
 	n := len(d.text)
 	CWStringCopyTo(&d.text[0], n, s)
 	d.text[n-1] = 0
+}
+
+func (d *WindowData) TextColor() color.Color {
+	// TODO: we must check what color mode is used
+	return noxcolor.RGB15(d.text_color)
+}
+
+func (d *WindowData) SetTextColor(cl color.Color) {
+	// TODO: we must check what color mode is used
+	d.text_color = C.uint32_t(noxcolor.ColorToRGB15(cl))
 }
 
 func (d *WindowData) SetTooltip(sm *strman.StringManager, s string) {
@@ -85,6 +97,10 @@ func (win *Window) C() *C.nox_window {
 	return (*C.nox_window)(unsafe.Pointer(win))
 }
 
+func (win *Window) ID() uint {
+	return uint(win.id)
+}
+
 func (win *Window) SetID(id uint) int {
 	if win == nil {
 		return -2
@@ -108,6 +124,20 @@ func (win *Window) Offs() image.Point {
 		X: int(win.off_x),
 		Y: int(win.off_y),
 	}
+}
+
+func (win *Window) ChildByID(id uint) *Window {
+	for cur := win; cur != nil; cur = cur.Prev() {
+		if cur.ID() == id {
+			return cur
+		}
+		if sub := asWindow(cur.field_100); sub != nil {
+			if res := sub.ChildByID(id); res != nil {
+				return res
+			}
+		}
+	}
+	return nil
 }
 
 func (win *Window) DrawData() *WindowData {

@@ -11960,7 +11960,7 @@ nox_window*  nox_gui_newStaticText_489300(int a1, int a2, int a3, int a4, int a5
 			a7[4] = v9;
 		nox_gui_windowCopyDrawData_46AF80((int)v9, a7);
 		v10 = malloc(0xCu);
-		*v10 = *a8;
+		v10[0] = a8[0];
 		v10[1] = a8[1];
 		v10[2] = a8[2];
 		v9[8] = v10;

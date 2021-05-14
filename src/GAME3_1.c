@@ -7076,6 +7076,9 @@ int  sub_4CC3C0(char* a1) {
 }
 
 //----- (004CC4E0) --------------------------------------------------------
+#ifdef NOX_CGO
+void nox_client_onShowLegal(nox_window* win);
+#endif // NOX_CGO
 int nox_game_showLegal_4CC4E0() // display legal window
 {
 	_DWORD* v0;           // esi
@@ -7114,6 +7117,9 @@ int nox_game_showLegal_4CC4E0() // display legal window
 		nox_window_call_field_94(nox_win_legalBg_1522892, 16391, (int)v6, 0);
 	}
 	sub_43D9B0(14, 100);
+#ifdef NOX_CGO
+	nox_client_onShowLegal(nox_win_legalBg_1522892);
+#endif // NOX_CGO
 	return 1;
 }
 

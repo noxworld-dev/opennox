@@ -1,10 +1,23 @@
 package main
 
+import "strings"
+
+const (
+	devCommit = "<dev>"
+)
+
 var (
 	Version = "v1.4.x"
-	Commit  = "<dev>"
+	Commit  = devCommit
 )
 
 func ClientVersionString() string {
-	return Version + " (" + Commit + ")"
+	if IsDevVersion() {
+		return Version + " (" + Commit + ")"
+	}
+	return Version
+}
+
+func IsDevVersion() bool {
+	return Commit == devCommit || strings.HasSuffix(Version, ".x")
 }
