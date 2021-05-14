@@ -15,9 +15,3 @@ type Color16 interface {
 	// Color16 returns color value as uint16.
 	Color16() uint16
 }
-
-// ExtendColor16 extends Color16 to 32 bits int.
-func ExtendColor16(c Color16) uint32 {
-	val := uint32(c.Color16())
-	return val | (val << 16)
-}

@@ -35,7 +35,13 @@ __int16 (*dword_6F7C40)();
 __int16 (*dword_6F7C34)();
 void (*dword_975240)(_DWORD, _DWORD*, _DWORD*, _DWORD*);
 int (*dword_975380)(_DWORD, _DWORD, _DWORD);
+#ifndef NOX_CGO
 void (*nox_color_rgb_func)(uint8_t, uint8_t, uint8_t, uint32_t*);
+#else // NOX_CGO
+void nox_color_rgb_func(uint8_t r, uint8_t g, uint8_t b, uint32_t* p);
+int nox_color_rgb_func_get();
+void nox_color_rgb_func_set(int mode);
+#endif // NOX_CGO
 
 #ifndef NOX_CGO
 DWORD g_present_ticks;
@@ -851,19 +857,31 @@ int sub_4338D0() {
 
 	switch (dword_5d4594_3799624) {
 	case 0:
+#ifndef NOX_CGO
 		nox_color_rgb_func = nox_color_func_435180;
+#else // NOX_CGO
+		nox_color_rgb_func_set(0);
+#endif // NOX_CGO
 		dword_975240 = sub_435240;
 		dword_975380 = sub_434E80;
 		memcpy(byte_5D4594_3804364, byte_581450_9176, sizeof(byte_581450_9176));
 		break;
 	case 1:
+#ifndef NOX_CGO
 		nox_color_rgb_func = nox_color_rgba5551ext_4351C0;
+#else // NOX_CGO
+		nox_color_rgb_func_set(1);
+#endif // NOX_CGO
 		dword_975240 = sub_435280;
 		dword_975380 = sub_434E80;
 		memcpy(byte_5D4594_3804364, byte_581450_9176, sizeof(byte_581450_9176));
 		break;
 	case 2:
+#ifndef NOX_CGO
 		nox_color_rgb_func = nox_color_rgb565ext_435200;
+#else // NOX_CGO
+		nox_color_rgb_func_set(2);
+#endif // NOX_CGO
 		dword_975240 = sub_435280;
 		dword_975380 = sub_434EC0;
 		memcpy(byte_5D4594_3804364, byte_581450_9336, sizeof(byte_581450_9336));
@@ -1039,44 +1057,29 @@ int  nox_xxx_drawPlayer_4341D0(int a1, int a2) {
 
 //----- (00434320) --------------------------------------------------------
 void nox_set_color_rgb_434320(int r, int g, int b) {
-	r = r & 0xFF;
-	g = g & 0xFF;
-	b = b & 0xFF;
-	if (nox_color_rgb_func)
-		nox_color_rgb_func(r, g, b, &ptr_5D4594_3799572->data[58]);
+	*(int*)(&ptr_5D4594_3799572->data[58]) = nox_color_rgb_4344A0(r, g, b);
 }
 
 //----- (004343B0) --------------------------------------------------------
 void nox_set_color_rgb_4343B0(int r, int g, int b) {
-	r = r & 0xFF;
-	g = g & 0xFF;
-	b = b & 0xFF;
-	if (nox_color_rgb_func)
-		nox_color_rgb_func(r, g, b, &ptr_5D4594_3799572->data[59]);
+	*(int*)(&ptr_5D4594_3799572->data[59]) = nox_color_rgb_4344A0(r, g, b);
 }
 
 //----- (00434400) --------------------------------------------------------
 void nox_set_color_rgb_434400(int r, int g, int b) {
-	r = r & 0xFF;
-	g = g & 0xFF;
-	b = b & 0xFF;
-	if (nox_color_rgb_func)
-		nox_color_rgb_func(r, g, b, &ptr_5D4594_3799572->data[60]);
+	*(int*)(&ptr_5D4594_3799572->data[60]) = nox_color_rgb_4344A0(r, g, b);
 }
 
 //----- (00434430) --------------------------------------------------------
 void nox_set_color_rgb_434430(int r, int g, int b) {
-	r = r & 0xFF;
-	g = g & 0xFF;
-	b = b & 0xFF;
-	if (nox_color_rgb_func)
-		nox_color_rgb_func(r, g, b, &ptr_5D4594_3799572->data[61]);
+	*(int*)(&ptr_5D4594_3799572->data[61]) = nox_color_rgb_4344A0(r, g, b);
 }
 
 //----- (00434480) --------------------------------------------------------
 void  sub_434480(int a1, int a2, int a3, int a4) { dword_975240(a1, a2, a3, a4); }
 
 //----- (004344A0) --------------------------------------------------------
+#ifndef NOX_CGO
 uint32_t nox_color_rgb_4344A0(int r, int g, int b) {
 	r = r & 0xFF;
 	g = g & 0xFF;
@@ -1087,6 +1090,7 @@ uint32_t nox_color_rgb_4344A0(int r, int g, int b) {
 	}
 	return color;
 }
+#endif // NOX_CGO
 
 //----- (00434AA0) --------------------------------------------------------
 int  sub_434AA0(int a1, int a2, int a3) { return dword_975380(a1, a2, a3); }
@@ -1209,8 +1213,13 @@ int sub_434CC0() {
 	int i;        // esi
 
 	if (!dword_5d4594_3801780) {
+#ifndef NOX_CGO
 		v0 = nox_color_rgb_func;
 		nox_color_rgb_func = nox_color_rgba5551ext_4351C0;
+#else // NOX_CGO
+		v0 = nox_color_rgb_func_get();
+		nox_color_rgb_func_set(1);
+#endif // NOX_CGO
 	}
 	result = calloc(257, 2);
 	dword_5d4594_3804672 = result;
@@ -1232,8 +1241,13 @@ int sub_434CC0() {
 		*(_WORD*)(dword_5d4594_3804656 + 2 * i) = nox_color_rgb_4344A0(0, i, 0);
 		*(_WORD*)(dword_5d4594_3804664 + 2 * i) = nox_color_rgb_4344A0(0, 0, i);
 	}
-	if (!dword_5d4594_3801780)
+	if (!dword_5d4594_3801780) {
+#ifndef NOX_CGO
 		nox_color_rgb_func = v0;
+#else // NOX_CGO
+		nox_color_rgb_func_set(v0);
+#endif // NOX_CGO
+	}
 	return 1;
 }
 // 434CDD: variable 'v3' is possibly undefined

@@ -7436,6 +7436,7 @@ void  sub_435150(_BYTE* a1, char* a2) {
 	} while (v4);
 }
 
+#ifndef NOX_CGO
 //----- (00435180) --------------------------------------------------------
 void nox_color_func_435180(uint8_t r, uint8_t g, uint8_t b, uint32_t* color) {
 	uint8_t c = sub_434630(r, g, b);
@@ -7454,6 +7455,7 @@ void nox_color_rgb565ext_435200(uint8_t r, uint8_t g, uint8_t b, uint32_t* color
 	uint32_t val = (b >> 3) | (8 * (g & 0xFC | (32 * (r & 0xF8))));
 	*color = val | (val << 16);
 }
+#endif // NOX_CGO
 
 //----- (00435240) --------------------------------------------------------
 void  sub_435240(unsigned __int8 a1, _BYTE* a2, _BYTE* a3, char* a4) {

@@ -99,7 +99,9 @@ extern __int16 (*dword_6F7C40)();
 extern __int16 (*dword_6F7C34)();
 extern void (*dword_975240)(_DWORD, _DWORD*, _DWORD*, _DWORD*);
 extern int (*dword_975380)(_DWORD, _DWORD, _DWORD);
+#ifndef NOX_CGO
 extern void (*nox_color_rgb_func)(uint8_t, uint8_t, uint8_t, uint32_t*);
+#endif // NOX_CGO
 
 #ifndef NOX_CGO
 extern SDL_Surface* g_backbuffer1;

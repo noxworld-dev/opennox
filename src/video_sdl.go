@@ -12,6 +12,7 @@ import (
 	"log"
 	"unsafe"
 
+	noxcolor "nox/v1/common/color"
 	"nox/v1/common/memmap"
 	"nox/v1/common/types"
 
@@ -455,7 +456,7 @@ func sdl_drawCursorThreaded(a1 C.int) C.int {
 
 //export nox_xxx_makeFillerColor_48BDE0
 func nox_xxx_makeFillerColor_48BDE0() C.bool {
-	v0 := nox_color_rgb_4344A0(255, 0, 255)
+	v0 := noxcolor.ColorToInt(255, 0, 255)
 	*memmap.PtrUint32(0x5D4594, 1193592) = uint32(v0)
 	csurf := (*sdl.Surface)(unsafe.Pointer(C.g_cursor_surf))
 	if csurf != nil {

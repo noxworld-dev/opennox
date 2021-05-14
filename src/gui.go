@@ -268,12 +268,12 @@ type guiParser struct {
 	parents  []*Window
 	defaults struct {
 		font      uintptr
-		enColor   uint
-		disColor  uint
-		bgColor   uint
-		hlColor   uint
-		selColor  uint
-		textColor uint
+		enColor   uint32
+		disColor  uint32
+		bgColor   uint32
+		hlColor   uint32
+		selColor  uint32
+		textColor uint32
 	}
 	widgets struct {
 		radioButton *radioButtonData
@@ -307,7 +307,7 @@ func (p *guiParser) parentsPush(win *Window) {
 }
 
 func (p *guiParser) resetDefaults() {
-	val := uint(memmap.Uint32(0x5D4594, 2650656))
+	val := memmap.Uint32(0x5D4594, 2650656)
 	p.defaults.font = 0
 	p.defaults.enColor = val
 	p.defaults.disColor = val
@@ -365,7 +365,7 @@ func nox_xxx_guiFontPtrByName_43F360(name string) uintptr {
 //export nox_gui_parseColor_4A0570
 func nox_gui_parseColor_4A0570(out *C.uint, buf *C.char) C.int {
 	r, g, b := gui.ParseColor(C.GoString(buf))
-	*out = C.uint(nox_color_rgb_4344A0(r, g, b))
+	*out = C.uint(noxcolor.ColorToInt(byte(r), byte(g), byte(b)))
 	return 1
 }
 
@@ -384,7 +384,7 @@ func (p *guiParser) nextToken() (string, error) {
 	return gui.ReadNextToken(p.br)
 }
 
-func (p *guiParser) parseColorField() (uint, bool) {
+func (p *guiParser) parseColorField() (uint32, bool) {
 	p.skipToken() // skip '='
 	tok, err := p.nextToken()
 	if err != nil {
@@ -393,17 +393,33 @@ func (p *guiParser) parseColorField() (uint, bool) {
 	return guiParseColorTransp(tok)
 }
 
-func guiParseColorTransp(str string) (uint, bool) {
+func guiParseColorTransp(str string) (uint32, bool) {
 	if str == "TRANSPARENT" {
 		return 0x80000000, true
 	}
 	r, g, b := gui.ParseColor(str)
-	cl := nox_color_rgb_4344A0(r, g, b)
+	cl := noxcolor.ColorToInt(byte(r), byte(g), byte(b))
 	return cl, true
 }
 
-func nox_color_rgb_4344A0(r, g, b int) uint {
-	return uint(C.nox_color_rgb_4344A0(C.int(r), C.int(g), C.int(b)))
+//export nox_color_rgb_4344A0
+func nox_color_rgb_4344A0(r, g, b C.int) C.uint32_t {
+	return C.uint32_t(noxcolor.ColorToInt(byte(r), byte(g), byte(b)))
+}
+
+//export nox_color_rgb_func
+func nox_color_rgb_func(r, g, b C.uint8_t, p *C.uint32_t) {
+	*p = C.uint32_t(noxcolor.ColorToInt(byte(r), byte(g), byte(b)))
+}
+
+//export nox_color_rgb_func_get
+func nox_color_rgb_func_get() C.int {
+	return C.int(noxcolor.GetMode())
+}
+
+//export nox_color_rgb_func_set
+func nox_color_rgb_func_set(mode C.int) {
+	noxcolor.SetMode(noxcolor.Mode(mode))
 }
 
 var guiWinStatuses = []string{
