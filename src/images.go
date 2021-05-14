@@ -16,7 +16,7 @@ import (
 	"strings"
 	"sync"
 
-	"nox/common/bag"
+	"nox/v1/common/bag"
 )
 
 var debugBagImages = os.Getenv("NOX_DEBUG_BAG_IMAGES") == "true"

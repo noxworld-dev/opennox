@@ -3,7 +3,7 @@ package strman
 import (
 	"encoding/json"
 
-	"nox/common/fs"
+	"nox/v1/common/fs"
 )
 
 type jsonFile struct {

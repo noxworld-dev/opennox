@@ -5,7 +5,7 @@ package main
 */
 import "C"
 import (
-	"nox/common/alloc/classes"
+	"nox/v1/common/alloc/classes"
 	"unsafe"
 )
 

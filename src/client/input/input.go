@@ -3,7 +3,7 @@ package input
 import (
 	"image"
 
-	"nox/common/types"
+	"nox/v1/common/types"
 )
 
 type Scancode uint32

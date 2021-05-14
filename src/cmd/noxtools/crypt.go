@@ -8,7 +8,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"nox/common/crypt"
+	"nox/v1/common/crypt"
 )
 
 func cmdCryptEncode(cmd *cobra.Command, args []string, enc bool, fkey *int) error {

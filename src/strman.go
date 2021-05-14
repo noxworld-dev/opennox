@@ -8,7 +8,7 @@ import "C"
 import (
 	"log"
 
-	"nox/common/strman"
+	"nox/v1/common/strman"
 )
 
 var (

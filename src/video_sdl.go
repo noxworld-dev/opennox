@@ -12,8 +12,8 @@ import (
 	"log"
 	"unsafe"
 
-	"nox/common/memmap"
-	"nox/common/types"
+	"nox/v1/common/memmap"
+	"nox/v1/common/types"
 
 	"github.com/veandco/go-sdl2/sdl"
 )

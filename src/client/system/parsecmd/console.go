@@ -1,6 +1,6 @@
 package parsecmd
 
-import "nox/common/strman"
+import "nox/v1/common/strman"
 
 // Color of console text messages.
 type Color int

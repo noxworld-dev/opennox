@@ -25,7 +25,7 @@ import (
 	"strconv"
 	"unsafe"
 
-	"nox/common/alloc"
+	"nox/v1/common/alloc"
 )
 
 const (

@@ -14,7 +14,7 @@ import (
 	"strconv"
 	"unsafe"
 
-	"nox/client/system/parsecmd"
+	"nox/v1/client/system/parsecmd"
 )
 
 const (

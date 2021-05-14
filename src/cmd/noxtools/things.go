@@ -7,7 +7,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"nox/common/things"
+	"nox/v1/common/things"
 )
 
 func init() {

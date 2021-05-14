@@ -8,8 +8,8 @@ extern unsigned int mix_dword_980858[3];
 */
 import "C"
 import (
-	"nox/common/memmap"
-	_ "nox/common/memmap/nox"
+	"nox/v1/common/memmap"
+	_ "nox/v1/common/memmap/nox"
 	"unsafe"
 )
 

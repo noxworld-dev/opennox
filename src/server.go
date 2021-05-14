@@ -40,8 +40,8 @@ import (
 	"encoding/binary"
 	"unsafe"
 
-	noxflags "nox/common/flags"
-	"nox/common/memmap"
+	noxflags "nox/v1/common/flags"
+	"nox/v1/common/memmap"
 )
 
 func gameFPS() uint32 {

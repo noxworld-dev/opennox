@@ -6,7 +6,7 @@ import (
 	"image/color"
 	"image/draw"
 	"image/png"
-	"nox/common/memmap"
+	"nox/v1/common/memmap"
 	"os"
 	"testing"
 )

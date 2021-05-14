@@ -14,7 +14,7 @@ import (
 	"os"
 	"unsafe"
 
-	"nox/common/alloc"
+	"nox/v1/common/alloc"
 )
 
 var guiAnimSpeed = 1

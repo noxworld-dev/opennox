@@ -19,8 +19,8 @@ typedef unsigned int uintptr_t;
 */
 import "C"
 import (
-	"nox/common/alloc"
-	"nox/common/memmap"
+	"nox/v1/common/alloc"
+	"nox/v1/common/memmap"
 	"unsafe"
 )
 

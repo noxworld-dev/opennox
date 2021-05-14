@@ -13,8 +13,8 @@ import (
 	"unicode"
 	"unsafe"
 
-	"nox/common/alloc/handles"
-	"nox/common/fs"
+	"nox/v1/common/alloc/handles"
+	"nox/v1/common/fs"
 )
 
 var noxDataPath string

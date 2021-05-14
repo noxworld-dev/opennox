@@ -3,8 +3,8 @@
 package main
 
 import (
-	"nox/client/input"
-	"nox/common/types"
+	"nox/v1/client/input"
+	"nox/v1/common/types"
 )
 
 func inputInit() (func(), error) {

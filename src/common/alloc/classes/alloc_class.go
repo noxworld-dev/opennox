@@ -17,8 +17,8 @@ import (
 	"time"
 	"unsafe"
 
-	"nox/common/alloc"
-	"nox/common/platform"
+	"nox/v1/common/alloc"
+	"nox/v1/common/platform"
 )
 
 //export alloc_nox_platform_get_ticks

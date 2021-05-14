@@ -7,8 +7,8 @@ import (
 	"image/color"
 	"io"
 
-	noxcolor "nox/common/color"
-	"nox/common/types"
+	noxcolor "nox/v1/common/color"
+	"nox/v1/common/types"
 )
 
 var _ image.Image = (*Image)(nil)

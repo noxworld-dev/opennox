@@ -40,11 +40,11 @@ import (
 	"time"
 	"unsafe"
 
-	"nox/common/alloc"
-	noxflags "nox/common/flags"
-	"nox/common/fs"
-	"nox/common/memmap"
-	"nox/common/platform"
+	"nox/v1/common/alloc"
+	noxflags "nox/v1/common/flags"
+	"nox/v1/common/fs"
+	"nox/v1/common/memmap"
+	"nox/v1/common/platform"
 )
 
 const NOX_CLIENT_VERS_CODE = C.NOX_CLIENT_VERS_CODE

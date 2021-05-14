@@ -9,8 +9,8 @@ import (
 	"path"
 	"strings"
 
-	"nox/common/fs"
-	"nox/common/nxz"
+	"nox/v1/common/fs"
+	"nox/v1/common/nxz"
 )
 
 var endiness = binary.LittleEndian

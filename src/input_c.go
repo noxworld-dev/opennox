@@ -15,8 +15,8 @@ import (
 	"image"
 	"unsafe"
 
-	"nox/client/input"
-	"nox/common/types"
+	"nox/v1/client/input"
+	"nox/v1/common/types"
 )
 
 type noxMouseEventType uint

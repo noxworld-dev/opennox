@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 
-	"nox/common/memmap"
+	"nox/v1/common/memmap"
 )
 
 var (

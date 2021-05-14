@@ -3,6 +3,15 @@ set -e
 export GOARCH=386
 export CGO_ENABLED=1
 export CGO_CFLAGS_ALLOW="(-fshort-wchar)|(-fno-strict-aliasing)|(-fno-strict-overflow)"
-go build -v -o noxg
-go build -v -tags server -o nox-server
-go build -v -o noxtools ./cmd/noxtools
+
+GIT_SHA="$(git rev-parse --short HEAD)"
+VERSION="$(git name-rev --tags --name-only $(git rev-parse HEAD))"
+if [ "$VERSION" = "undefined" ]; then
+  VERSION="v1.4.x"
+fi
+NOX_LDFLAGS="-X 'main.Commit=$GIT_SHA' -X 'main.Version=$VERSION'"
+
+go build -v -ldflags="$NOX_LDFLAGS" -o noxg
+go build -v -ldflags="$NOX_LDFLAGS" -tags server -o nox-server
+go build -v -ldflags="$NOX_LDFLAGS" -o noxtools ./cmd/noxtools
+echo "Build complete: $VERSION ($GIT_SHA)"

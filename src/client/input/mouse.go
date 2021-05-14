@@ -7,7 +7,7 @@ import (
 
 	"github.com/veandco/go-sdl2/sdl"
 
-	"nox/common/types"
+	"nox/v1/common/types"
 )
 
 type mouse struct {

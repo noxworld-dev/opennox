@@ -2,7 +2,7 @@ package main
 
 import "C"
 import (
-	"nox/common/serial"
+	"nox/v1/common/serial"
 	"unsafe"
 )
 

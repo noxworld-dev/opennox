@@ -27,9 +27,9 @@ import (
 
 	"github.com/noxworld-dev/xwis"
 
-	"nox/common/alloc"
-	noxflags "nox/common/flags"
-	"nox/common/memmap"
+	"nox/v1/common/alloc"
+	noxflags "nox/v1/common/flags"
+	"nox/v1/common/memmap"
 )
 
 var useXwis = os.Getenv("NOX_XWIS") == "true"

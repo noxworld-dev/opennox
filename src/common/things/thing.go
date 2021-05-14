@@ -8,8 +8,8 @@ import (
 	"strconv"
 	"strings"
 
-	"nox/common/strman"
-	"nox/common/types"
+	"nox/v1/common/strman"
+	"nox/v1/common/types"
 )
 
 var (

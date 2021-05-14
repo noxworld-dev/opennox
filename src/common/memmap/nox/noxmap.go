@@ -1,6 +1,6 @@
 package nox
 
-import "nox/common/memmap"
+import "nox/v1/common/memmap"
 
 func init() {
 	memmap.RegisterBlob(0x581450, "byte_581450", 23472)

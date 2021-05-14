@@ -103,8 +103,8 @@ import (
 	"fmt"
 	"log"
 
-	"nox/client/system/parsecmd"
-	"nox/common/strman"
+	"nox/v1/client/system/parsecmd"
+	"nox/v1/common/strman"
 )
 
 type consolePrinter struct{}

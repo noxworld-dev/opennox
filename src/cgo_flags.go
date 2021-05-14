@@ -5,7 +5,7 @@ package main
 */
 import "C"
 
-import noxflags "nox/common/flags"
+import noxflags "nox/v1/common/flags"
 
 //export nox_xxx_setGameFlags_40A4D0
 func nox_xxx_setGameFlags_40A4D0(f C.uint) {

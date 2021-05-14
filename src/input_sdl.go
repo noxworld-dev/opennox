@@ -7,8 +7,8 @@ import (
 	"image"
 	"unicode/utf16"
 
-	"nox/client/input"
-	"nox/common/types"
+	"nox/v1/client/input"
+	"nox/v1/common/types"
 
 	"github.com/veandco/go-sdl2/sdl"
 )

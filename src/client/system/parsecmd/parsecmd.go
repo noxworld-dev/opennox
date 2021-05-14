@@ -1,7 +1,7 @@
 // Package parsecmd implements console command parsing for Nox.
 package parsecmd
 
-import "nox/common/strman"
+import "nox/v1/common/strman"
 
 var secretChars = `0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz`
 

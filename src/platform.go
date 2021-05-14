@@ -7,8 +7,8 @@ import "C"
 import (
 	"time"
 
-	"nox/common/memmap"
-	"nox/common/platform"
+	"nox/v1/common/memmap"
+	"nox/v1/common/platform"
 )
 
 var (

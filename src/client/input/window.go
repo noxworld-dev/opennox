@@ -5,7 +5,7 @@ package input
 import (
 	"image"
 
-	"nox/common/types"
+	"nox/v1/common/types"
 
 	"github.com/veandco/go-sdl2/sdl"
 )

@@ -7,7 +7,7 @@ import (
 	"strings"
 	"unicode/utf16"
 
-	"nox/common/fs"
+	"nox/v1/common/fs"
 )
 
 func (sm *StringManager) ReadCSF(path string) error {

@@ -17,7 +17,7 @@ import (
 	"encoding/binary"
 	"unsafe"
 
-	"nox/common/discover"
+	"nox/v1/common/discover"
 )
 
 //export nox_client_OnServerSearch

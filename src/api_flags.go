@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 
-	noxflags "nox/common/flags"
+	noxflags "nox/v1/common/flags"
 )
 
 func init() {

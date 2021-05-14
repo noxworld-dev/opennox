@@ -10,8 +10,8 @@ import (
 	"image"
 	"unsafe"
 
-	"nox/common/alloc"
-	"nox/common/types"
+	"nox/v1/common/alloc"
+	"nox/v1/common/types"
 )
 
 func windowInit() (func(), error) {

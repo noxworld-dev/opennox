@@ -10,7 +10,7 @@ import "C"
 import (
 	"unsafe"
 
-	"nox/common/alloc/handles"
+	"nox/v1/common/alloc/handles"
 )
 
 //export AIL_allocate_sample_handle

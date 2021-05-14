@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 
-	"nox/common/types"
+	"nox/v1/common/types"
 )
 
 const (

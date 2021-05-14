@@ -7,8 +7,8 @@ import "C"
 import (
 	"strconv"
 
-	"nox/client/system/parsecmd"
-	noxflags "nox/common/flags"
+	"nox/v1/client/system/parsecmd"
+	noxflags "nox/v1/common/flags"
 )
 
 func init() {

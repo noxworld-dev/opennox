@@ -7,8 +7,8 @@ import "C"
 import (
 	"encoding/binary"
 
-	"nox/common/platform"
-	"nox/common/prand"
+	"nox/v1/common/platform"
+	"nox/v1/common/prand"
 )
 
 func bool2int(v bool) int {

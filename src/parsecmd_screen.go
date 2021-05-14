@@ -10,7 +10,7 @@ import (
 	"path/filepath"
 	"sync/atomic"
 
-	"nox/client/system/parsecmd"
+	"nox/v1/client/system/parsecmd"
 )
 
 func init() {

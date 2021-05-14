@@ -1,4 +1,4 @@
-module nox
+module nox/v1
 
 go 1.16
 

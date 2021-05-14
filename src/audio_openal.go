@@ -28,8 +28,8 @@ import (
 
 	"github.com/timshannon/go-openal/openal"
 
-	"nox/common/alloc/handles"
-	"nox/common/fs"
+	"nox/v1/common/alloc/handles"
+	"nox/v1/common/fs"
 )
 
 var (

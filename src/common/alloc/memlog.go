@@ -2,7 +2,7 @@ package alloc
 
 import (
 	"encoding/json"
-	"nox/common/memmap"
+	"nox/v1/common/memmap"
 	"os"
 	"sync"
 	"sync/atomic"

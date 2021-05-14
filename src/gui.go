@@ -24,11 +24,11 @@ import (
 	"strings"
 	"unsafe"
 
-	"nox/client/gui"
-	"nox/common/alloc"
-	"nox/common/fs"
-	"nox/common/memmap"
-	"nox/common/strman"
+	"nox/v1/client/gui"
+	"nox/v1/common/alloc"
+	"nox/v1/common/fs"
+	"nox/v1/common/memmap"
+	"nox/v1/common/strman"
 )
 
 var (

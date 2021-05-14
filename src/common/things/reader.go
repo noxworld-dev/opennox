@@ -7,8 +7,8 @@ import (
 	"fmt"
 	"io"
 
-	"nox/common/crypt"
-	"nox/common/fs"
+	"nox/v1/common/crypt"
+	"nox/v1/common/fs"
 )
 
 var endiness = binary.LittleEndian

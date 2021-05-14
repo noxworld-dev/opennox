@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"nox/common/memmap"
+	"nox/v1/common/memmap"
 )
 
 func init() {

@@ -7,7 +7,7 @@ import (
 	"log"
 	"math"
 
-	"nox/common/types"
+	"nox/v1/common/types"
 
 	"github.com/veandco/go-sdl2/sdl"
 )

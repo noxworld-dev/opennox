@@ -23,8 +23,8 @@ import (
 	"math"
 	"unsafe"
 
-	"nox/common/alloc"
-	"nox/common/memmap"
+	"nox/v1/common/alloc"
+	"nox/v1/common/memmap"
 )
 
 func mainloopDrawAndPresent() {

@@ -53,9 +53,9 @@ import (
 	"strings"
 	"unsafe"
 
-	"nox/common/alloc/handles"
-	noxflags "nox/common/flags"
-	"nox/common/memmap"
+	"nox/v1/common/alloc/handles"
+	noxflags "nox/v1/common/flags"
+	"nox/v1/common/memmap"
 )
 
 func init() {
@@ -77,6 +77,7 @@ var (
 var _ = [1]struct{}{}[unsafe.Sizeof(int(0))-4]
 
 func main() {
+	log.Printf("[nox] version: %s (%s)", Version, Commit)
 	defer handles.Release()
 	C.init_data()
 	if err := runNox(os.Args); err != nil && err != flag.ErrHelp {
@@ -345,7 +346,7 @@ func nox_exit(exitCode C.int) {
 
 //export nox_xxx_getNoxVer_401020
 func nox_xxx_getNoxVer_401020() *C.wchar_t {
-	return internWStr("V:" + noxVersionStr)
+	return internWStr(ClientVersionString())
 }
 
 //export nox_xxx_gameResizeScreen_43BEF0_set_video_mode

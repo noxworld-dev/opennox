@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 	"os"
 
 	"github.com/spf13/cobra"
@@ -13,7 +14,13 @@ var Root = &cobra.Command{
 	Short: "A collection of Nox tools",
 }
 
+var (
+	Version = "v1.4.x"
+	Commit  = "<dev>"
+)
+
 func main() {
+	log.Printf("version: %s (%s)", Version, Commit)
 	if err := Root.Execute(); err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)

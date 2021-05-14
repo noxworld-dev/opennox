@@ -20,7 +20,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"nox/common/bag"
+	"nox/v1/common/bag"
 )
 
 func init() {

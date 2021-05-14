@@ -14,8 +14,8 @@ import (
 	"syscall"
 	"unsafe"
 
-	"nox/common/alloc"
-	"nox/common/alloc/handles"
+	"nox/v1/common/alloc"
+	"nox/v1/common/alloc/handles"
 )
 
 const (

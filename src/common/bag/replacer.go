@@ -11,7 +11,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"nox/common/nxz"
+	"nox/v1/common/nxz"
 )
 
 // Decompress video.bag file and update video.idx.

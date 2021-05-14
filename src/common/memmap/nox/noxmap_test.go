@@ -11,7 +11,7 @@ import (
 	"strings"
 	"testing"
 
-	"nox/common/memmap"
+	"nox/v1/common/memmap"
 )
 
 func TestIntersection(t *testing.T) {
