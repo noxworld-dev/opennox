@@ -27,6 +27,6 @@ void OnLibraryNotice_stub(int a1, ...);
 void  sub_980523(_DWORD* a1);
 _DWORD*  sub_9805EB(_DWORD* a1);
 
-int __stdcall mix_recvfrom(nox_socket_t s, char* buf, int len, struct nox_net_sockaddr* from);
+int mix_recvfrom(nox_socket_t s, char* buf, int len, struct nox_net_sockaddr* from);
 
 #endif // NOX_MIXPATCH_H

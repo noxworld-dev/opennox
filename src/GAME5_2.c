@@ -1612,6 +1612,7 @@ int sub_554D10() {
 }
 
 //----- (00554D70) --------------------------------------------------------
+#ifndef NOX_CGO
 int  sub_554D70(char a1) {
 	int result;           // eax
 	int v2;               // ebp
@@ -1700,6 +1701,7 @@ int  sub_554D70(char a1) {
 	}
 	return -1;
 }
+#endif // NOX_CGO
 // 554EC5: variable 'v6' is possibly undefined
 
 //----- (00554FF0) --------------------------------------------------------
