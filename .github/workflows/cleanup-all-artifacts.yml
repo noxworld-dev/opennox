@@ -1,0 +1,17 @@
+name: Remove ALL artifacts
+
+on:
+  workflow_dispatch: # only manually
+
+jobs:
+  remove-all-artifacts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Remove ALL artifacts
+        uses: c-hive/gha-remove-artifacts@v1
+        with:
+          age: '0 days'
+          skip-tags: true
+          skip-recent: 0
