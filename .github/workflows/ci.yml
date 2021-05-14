@@ -43,18 +43,18 @@ jobs:
       - name: Go build
         run: cd ./src && ./build_go.sh
 
-      - name: Prepare the binary
+      - name: Prepare the binaries
         run: |
-          rm -f /tmp/nox*-linux
-          cp ./src/noxg /tmp/noxg-linux
-          cp ./src/nox-server /tmp/nox-server-linux
-          cp ./src/noxtools /tmp/noxtools-linux
+          cp ./src/noxg /tmp/noxg
+          cp ./src/nox-server /tmp/nox-server
+          cp ./src/noxtools /tmp/noxtools
+          tar -czf /tmp/nox-linux.tar.gz /tmp/noxg /tmp/nox-server /tmp/noxtools
 
       - name: Upload the binary
         uses: actions/upload-artifact@v2
         with:
           name: noxg-linux
-          path: /tmp/nox*-linux
+          path: /tmp/nox-linux.tar.gz
 
   hybrid_linux_mingw_go:
     name: Go Win build on Linux Host
@@ -79,7 +79,7 @@ jobs:
         run: |
           sudo dpkg --add-architecture i386
           sudo apt-get update -m
-          sudo apt-get install -y build-essential curl rsync unzip ccache cmake gcc gcc-multilib gcc-mingw-w64 libsdl2-dev libsdl2-dev:i386 libopenal-dev:i386 libsdl2-2.0-0:i386 libopenal1:i386
+          sudo apt-get install -y build-essential curl rsync zip unzip ccache cmake gcc gcc-multilib gcc-mingw-w64 libsdl2-dev libsdl2-dev:i386 libopenal-dev:i386 libsdl2-2.0-0:i386 libopenal1:i386
 
       - name: Install SDL MinGW package
         run: |
@@ -105,16 +105,16 @@ jobs:
 
       - name: Prepare the binary
         run: |
-          rm -f /tmp/nox*.exe
           cp ./src/noxg.exe /tmp/noxg.exe
           cp ./src/nox-server.exe /tmp/nox-server.exe
           cp ./src/noxtools.exe /tmp/noxtools.exe
+          zip /tmp/nox-win.zip /tmp/noxg.exe /tmp/nox-server.exe /tmp/noxtools.exe
 
       - name: Upload the binary
         uses: actions/upload-artifact@v2
         with:
           name: noxg-win
-          path: /tmp/nox*.exe
+          path: /tmp/nox-win.zip
 
   hybrid_linux_gcc:
     name: alpine-386-gcc-github on Linux Host
@@ -142,13 +142,14 @@ jobs:
 
       - name: Prepare the binary
         run: |
-          cp ./build/out /tmp/nox-linux
+          cp ./build/out /tmp/nox
+          tar -czf /tmp/nox-linux.tar.gz /tmp/nox
 
       - name: Upload the binary
         uses: actions/upload-artifact@v2
         with:
           name: nox-linux
-          path: /tmp/nox-linux
+          path: /tmp/nox-linux.tar.gz
 
   hybrid_linux_wasm:
     name: alpine-wasm-github on Linux Host
