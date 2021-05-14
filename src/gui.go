@@ -55,12 +55,12 @@ func (d *WindowData) SetText(s string) {
 
 func (d *WindowData) TextColor() color.Color {
 	// TODO: we must check what color mode is used
-	return noxcolor.RGB15(d.text_color)
+	return noxcolor.RGB555(d.text_color)
 }
 
 func (d *WindowData) SetTextColor(cl color.Color) {
 	// TODO: we must check what color mode is used
-	d.text_color = C.uint32_t(noxcolor.ColorToRGB15(cl))
+	d.text_color = C.uint32_t(noxcolor.ColorToRGB555(cl))
 }
 
 func (d *WindowData) SetTooltip(sm *strman.StringManager, s string) {

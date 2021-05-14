@@ -7444,13 +7444,13 @@ void nox_color_func_435180(uint8_t r, uint8_t g, uint8_t b, uint32_t* color) {
 }
 
 //----- (004351C0) --------------------------------------------------------
-void nox_color_func_4351C0(uint8_t r, uint8_t g, uint8_t b, uint32_t* color) {
+void nox_color_rgba5551ext_4351C0(uint8_t r, uint8_t g, uint8_t b, uint32_t* color) {
 	uint32_t val = (b >> 3) | (4 * (g & 0xF8 | (32 * (r & 0xF8))));
 	*color = val | (val << 16);
 }
 
 //----- (00435200) --------------------------------------------------------
-void nox_color_func_435200(uint8_t r, uint8_t g, uint8_t b, uint32_t* color) {
+void nox_color_rgb565ext_435200(uint8_t r, uint8_t g, uint8_t b, uint32_t* color) {
 	uint32_t val = (b >> 3) | (8 * (g & 0xFC | (32 * (r & 0xF8))));
 	*color = val | (val << 16);
 }

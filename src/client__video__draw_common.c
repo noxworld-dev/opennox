@@ -857,13 +857,13 @@ int sub_4338D0() {
 		memcpy(byte_5D4594_3804364, byte_581450_9176, sizeof(byte_581450_9176));
 		break;
 	case 1:
-		nox_color_rgb_func = nox_color_func_4351C0;
+		nox_color_rgb_func = nox_color_rgba5551ext_4351C0;
 		dword_975240 = sub_435280;
 		dword_975380 = sub_434E80;
 		memcpy(byte_5D4594_3804364, byte_581450_9176, sizeof(byte_581450_9176));
 		break;
 	case 2:
-		nox_color_rgb_func = nox_color_func_435200;
+		nox_color_rgb_func = nox_color_rgb565ext_435200;
 		dword_975240 = sub_435280;
 		dword_975380 = sub_434EC0;
 		memcpy(byte_5D4594_3804364, byte_581450_9336, sizeof(byte_581450_9336));
@@ -1210,7 +1210,7 @@ int sub_434CC0() {
 
 	if (!dword_5d4594_3801780) {
 		v0 = nox_color_rgb_func;
-		nox_color_rgb_func = nox_color_func_4351C0;
+		nox_color_rgb_func = nox_color_rgba5551ext_4351C0;
 	}
 	result = calloc(257, 2);
 	dword_5d4594_3804672 = result;

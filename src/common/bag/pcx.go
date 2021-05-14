@@ -145,15 +145,15 @@ func readPCXSprite(r io.Reader, typ byte) (*Image, error) {
 			if err != nil {
 				return img, err
 			}
-			if op == 2 { // RGB15
+			if op == 2 { // RGB555
 				for i := 0; i < n; i++ {
-					cl := noxcolor.RGB15(endiness.Uint16(buf[2*i:]))
+					cl := noxcolor.RGB555(endiness.Uint16(buf[2*i:]))
 					img.SetRGBA(px, py, cl.RGBA32())
 					step()
 				}
-			} else { // RGBA16
+			} else { // RGBA4444
 				for i := 0; i < n; i++ {
-					cl := noxcolor.RGB16(endiness.Uint16(buf[2*i:]))
+					cl := noxcolor.RGBA4444(endiness.Uint16(buf[2*i:]))
 					img.SetRGBA(px, py, cl.RGBA32())
 					step()
 				}
@@ -233,7 +233,7 @@ func EncodePCX(img *Image) []byte {
 		pixdata = append(pixdata, 1, 1)
 		ni = len(pixdata) - 1
 	}
-	addRGB15 := func(p noxcolor.RGB15) {
+	addRGB15 := func(p noxcolor.RGB555) {
 		endiness.PutUint16(pbuf[:], uint16(p))
 		if pmode == modeRGB15 {
 			if n := pixdata[ni]; n < pixMax {
@@ -246,7 +246,7 @@ func EncodePCX(img *Image) []byte {
 		pixdata = append(pixdata, 2, 1, pbuf[0], pbuf[1])
 		ni = len(pixdata) - 3
 	}
-	addRGBA16 := func(p noxcolor.RGB16) {
+	addRGBA16 := func(p noxcolor.RGBA4444) {
 		endiness.PutUint16(pbuf[:], uint16(p))
 		if pmode == modeRGBA16 {
 			if n := pixdata[ni]; n < pixMax {
@@ -294,11 +294,11 @@ func EncodePCX(img *Image) []byte {
 			if a == 0x00 {
 				addZero()
 			} else if a == 0xff {
-				// RGB15
-				addRGB15(noxcolor.ToRGB15(r, g, b))
+				// RGB555
+				addRGB15(noxcolor.ToRGB555(r, g, b))
 			} else {
-				// RGBA16
-				addRGBA16(noxcolor.ToRGB16(r, g, b, a))
+				// RGBA4444
+				addRGBA16(noxcolor.ToRGBA4444(r, g, b, a))
 			}
 		}
 	}
