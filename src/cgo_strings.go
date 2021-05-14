@@ -6,6 +6,7 @@ package main
 */
 import "C"
 import (
+	"bytes"
 	"reflect"
 	"unicode/utf16"
 	"unsafe"
@@ -13,6 +14,10 @@ import (
 
 func StrFree(s *C.char) {
 	C.free(unsafe.Pointer(s))
+}
+
+func BytesFree(s unsafe.Pointer) {
+	C.free(s)
 }
 
 func WStrFree(s *C.wchar_t) {
@@ -87,6 +92,14 @@ func StrLen(s *C.char) int {
 	return n
 }
 
+func StrLenBytes(s []byte) int {
+	i := bytes.IndexByte(s, 0)
+	if i < 0 {
+		return len(s)
+	}
+	return i
+}
+
 func StrCopy(dst *C.char, max int, src string) int {
 	d := asByteSlice(unsafe.Pointer(dst), max)
 	return StrCopyBytes(d, src)
@@ -116,6 +129,10 @@ func GoString(s *C.char) string {
 
 func CString(s string) *C.char {
 	return C.CString(s)
+}
+
+func CBytes(s []byte) unsafe.Pointer {
+	return C.CBytes(s)
 }
 
 func GoWString(s *C.wchar_t) string {
