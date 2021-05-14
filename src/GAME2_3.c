@@ -9187,7 +9187,7 @@ int  nox_wol_servers_addResult_4A0030(const void* a1) {
 	memcpy(v1, a1, 169);
 	v2 = 0;
 	switch (nox_wol_servers_sorting_166704) {
-	case 0:
+	case 0: // by name (asc)
 		if (*(unsigned __int8**)getMemAt(0x5D4594, 1305800) == getMemAt(0x5D4594, 1305796))
 			return sub_425790(getMemIntPtr(0x5D4594, 1305796), v1);
 		v3 = nox_xxx_gameMapsValidateListMB_425890(getMemIntPtr(0x5D4594, 1305796));
@@ -9205,7 +9205,7 @@ int  nox_wol_servers_addResult_4A0030(const void* a1) {
 		} while (v3);
 		sub_4258E0((int)getMemAt(0x5D4594, 1305796), v1);
 		return v2;
-	case 1:
+	case 1: // by name (desc)
 		if (*(unsigned __int8**)getMemAt(0x5D4594, 1305800) == getMemAt(0x5D4594, 1305796))
 			return sub_425790(getMemIntPtr(0x5D4594, 1305796), v1);
 		v3 = nox_xxx_gameMapsValidateListMB_425890(getMemIntPtr(0x5D4594, 1305796));
@@ -9223,14 +9223,14 @@ int  nox_wol_servers_addResult_4A0030(const void* a1) {
 		}
 		sub_4258E0((int)v3, v1);
 		return v2;
-	case 2:
+	case 2: // by players (asc)
 		v5 = *((unsigned __int8*)v1 + 103);
 		v1[2] = v5;
 		return sub_425790(getMemIntPtr(0x5D4594, 1305796), v1);
-	case 3:
+	case 3: // by players (desc)
 		v1[2] = 32 - *((unsigned __int8*)v1 + 103);
 		return sub_425790(getMemIntPtr(0x5D4594, 1305796), v1);
-	case 4:
+	case 4: // by mode (asc)
 		if (*(unsigned __int8**)getMemAt(0x5D4594, 1305800) == getMemAt(0x5D4594, 1305796))
 			return sub_425790(getMemIntPtr(0x5D4594, 1305796), v1);
 		v6 = sub_43BCB0(*(_WORD*)((char*)v1 + 163));
@@ -9252,7 +9252,7 @@ int  nox_wol_servers_addResult_4A0030(const void* a1) {
 				return v2;
 			}
 		}
-	case 5:
+	case 5: // by mode (desc)
 		if (*(unsigned __int8**)getMemAt(0x5D4594, 1305800) == getMemAt(0x5D4594, 1305796))
 			return sub_425790(getMemIntPtr(0x5D4594, 1305796), v1);
 		v8 = sub_43BCB0(*(_WORD*)((char*)v1 + 163));
@@ -9275,18 +9275,18 @@ int  nox_wol_servers_addResult_4A0030(const void* a1) {
 		}
 		sub_4258E0((int)v3, v1);
 		return v2;
-	case 6:
+	case 6: // by ping (asc)
 		v5 = v1[24];
 		v1[2] = v5;
 		return sub_425790(getMemIntPtr(0x5D4594, 1305796), v1);
-	case 7:
+	case 7: // by ping (desc)
 		v1[2] = 1000 - v1[24];
 		return sub_425790(getMemIntPtr(0x5D4594, 1305796), v1);
-	case 8:
+	case 8: // by status (asc)
 		v5 = v1[25] & 0x30;
 		v1[2] = v5;
 		return sub_425790(getMemIntPtr(0x5D4594, 1305796), v1);
-	case 9:
+	case 9: // by status (desc)
 		v1[2] = 48 - (v1[25] & 0x30);
 		return sub_425790(getMemIntPtr(0x5D4594, 1305796), v1);
 	default:
