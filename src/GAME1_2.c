@@ -8116,15 +8116,19 @@ int  nox_client_OnLobbyServer_4375F0(const char* addr, uint16_t port, const char
 	char v14[32];  // [esp+C0h] [ebp-20h]
 
 	if (nox_wol_server_result_cnt_815088 >= 2500 || dword_5d4594_815044 || dword_5d4594_815060) {
+		printf("OnLobbyServer_4375F0: ignoring server '%s': don't need more results\n", addr);
 		return 0;
 	}
 	if (!memcmp(addr, getMemAt(0x5D4594, 815108), 1u)) {
+		printf("OnLobbyServer_4375F0: ignoring server '%s': invalid address\n", addr);
 		return 0;
 	}
 	if (*(_DWORD*)(packet + 44) != *getMemU32Ptr(0x5D4594, 814964)) {
+		printf("OnLobbyServer_4375F0: ignoring server '%s': invalid ts: 0x%x vs 0x%x\n", addr, *(_DWORD*)(packet + 44), *getMemU32Ptr(0x5D4594, 814964));
 		return 0;
 	}
 	if (!sub_4A0410(addr, port)) {
+		printf("OnLobbyServer_4375F0: ignoring server '%s': duplicate?\n", addr);
 		return 0;
 	}
 	memset(v13, 0, 168);
@@ -8132,7 +8136,7 @@ int  nox_client_OnLobbyServer_4375F0(const char* addr, uint16_t port, const char
 	unsigned int ticks = *(_DWORD*)(packet + 44);
 	*(_DWORD*)&v13[44] = *(_DWORD*)(packet + 40);
 	*(_DWORD*)&v13[48] = *(_DWORD*)(packet + 24);
-	*(_DWORD*)&v13[96] = curTicks - ticks;
+	*(_DWORD*)&v13[96] = curTicks - ticks; // ping
 	v13[100] = *(_BYTE*)(packet + 20) | *(_BYTE*)(packet + 21);
 	v13[101] = *(_BYTE*)(packet + 5) | (16 * *(_BYTE*)(packet + 6));
 	v13[102] = *(_BYTE*)(packet + 19);
