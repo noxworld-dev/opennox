@@ -5,7 +5,7 @@ package main
 */
 import "C"
 import (
-	"image/color"
+	noxcolor "nox/v1/common/color"
 )
 
 //export nox_client_onShowLegal
@@ -16,8 +16,8 @@ func nox_client_onShowLegal(p *C.nox_window) {
 	// original version text color is grey, we change it to yellow
 	// if it's a dev build, make it red
 	if IsDevVersion() {
-		draw.SetTextColor(color.RGBA{R: 255, A: 255})
+		draw.SetTextColor(noxcolor.RGBColor(255, 0, 0))
 	} else {
-		draw.SetTextColor(color.RGBA{R: 242, G: 218, A: 255})
+		draw.SetTextColor(noxcolor.RGBColor(242, 218, 0))
 	}
 }

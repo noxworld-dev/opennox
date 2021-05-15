@@ -16,7 +16,6 @@ import (
 	"bufio"
 	"fmt"
 	"image"
-	"image/color"
 	"io"
 	"log"
 	"os"
@@ -47,20 +46,109 @@ func (d *WindowData) C() *C.nox_window_data {
 	return (*C.nox_window_data)(unsafe.Pointer(d))
 }
 
+func (d *WindowData) Group() int {
+	return int(d.group)
+}
+
+func (d *WindowData) StyleFlags() gui.StyleFlags {
+	return gui.StyleFlags(d.style)
+}
+
+func (d *WindowData) Status() int {
+	return int(d.status)
+}
+
+func (d *WindowData) Window() *Window {
+	return asWindow(d.win)
+}
+
+func (d *WindowData) Text() string {
+	return GoWString(&d.text[0])
+}
+
 func (d *WindowData) SetText(s string) {
 	n := len(d.text)
 	CWStringCopyTo(&d.text[0], n, s)
 	d.text[n-1] = 0
 }
 
-func (d *WindowData) TextColor() color.Color {
-	// TODO: we must check what color mode is used
-	return noxcolor.RGB555(d.text_color)
+func (d *WindowData) BackgroundImage() unsafe.Pointer {
+	return d.bg_image
 }
 
-func (d *WindowData) SetTextColor(cl color.Color) {
-	// TODO: we must check what color mode is used
-	d.text_color = C.uint32_t(noxcolor.ColorToRGB555(cl))
+func (d *WindowData) BackgroundColor() noxcolor.Color16 {
+	return noxcolor.IntToColor(uint32(d.bg_color))
+}
+
+func (d *WindowData) SetBackgroundColor(cl noxcolor.Color16) {
+	d.bg_color = C.uint32_t(noxcolor.ExtendColor16(cl))
+}
+
+func (d *WindowData) EnabledImage() unsafe.Pointer {
+	return d.en_image
+}
+
+func (d *WindowData) EnabledColor() noxcolor.Color16 {
+	return noxcolor.IntToColor(uint32(d.en_color))
+}
+
+func (d *WindowData) SetEnabledColor(cl noxcolor.Color16) {
+	d.en_color = C.uint32_t(noxcolor.ExtendColor16(cl))
+}
+
+func (d *WindowData) DisabledImage() unsafe.Pointer {
+	return d.dis_image
+}
+
+func (d *WindowData) DisabledColor() noxcolor.Color16 {
+	return noxcolor.IntToColor(uint32(d.dis_color))
+}
+
+func (d *WindowData) SetDisabledColor(cl noxcolor.Color16) {
+	d.dis_color = C.uint32_t(noxcolor.ExtendColor16(cl))
+}
+
+func (d *WindowData) HighlightImage() unsafe.Pointer {
+	return d.hl_image
+}
+
+func (d *WindowData) HighlightColor() noxcolor.Color16 {
+	return noxcolor.IntToColor(uint32(d.hl_color))
+}
+
+func (d *WindowData) SetHighlightColor(cl noxcolor.Color16) {
+	d.hl_color = C.uint32_t(noxcolor.ExtendColor16(cl))
+}
+
+func (d *WindowData) SelectedImage() unsafe.Pointer {
+	return d.sel_image
+}
+
+func (d *WindowData) SelectedColor() noxcolor.Color16 {
+	return noxcolor.IntToColor(uint32(d.sel_color))
+}
+
+func (d *WindowData) SetSelectedColor(cl noxcolor.Color16) {
+	d.sel_color = C.uint32_t(noxcolor.ExtendColor16(cl))
+}
+
+func (d *WindowData) TextColor() noxcolor.Color16 {
+	return noxcolor.IntToColor(uint32(d.text_color))
+}
+
+func (d *WindowData) SetTextColor(cl noxcolor.Color16) {
+	d.text_color = C.uint32_t(noxcolor.ExtendColor16(cl))
+}
+
+func (d *WindowData) ImagePoint() image.Point {
+	return image.Point{
+		X: int(d.img_px),
+		Y: int(d.img_py),
+	}
+}
+
+func (d *WindowData) Tooltip() string {
+	return GoWString(&d.tooltip[0])
 }
 
 func (d *WindowData) SetTooltip(sm *strman.StringManager, s string) {
@@ -70,6 +158,15 @@ func (d *WindowData) SetTooltip(sm *strman.StringManager, s string) {
 	}
 	CWStringCopyTo(&d.tooltip[0], n, s)
 	d.tooltip[n-1] = 0
+}
+
+func (d *WindowData) SetDefaults(def gui.StyleDefaults) {
+	d.SetEnabledColor(def.EnabledColor)
+	d.SetHighlightColor(def.HighlightColor)
+	d.SetDisabledColor(def.DisabledColor)
+	d.SetBackgroundColor(def.BackgroundColor)
+	d.SetSelectedColor(def.SelectedColor)
+	d.SetTextColor(def.TextColor)
 }
 
 func asWindow(win *C.nox_window) *Window {
@@ -267,13 +364,8 @@ type guiParser struct {
 	br       *bufio.Reader
 	parents  []*Window
 	defaults struct {
-		font      uintptr
-		enColor   noxcolor.Color16
-		disColor  noxcolor.Color16
-		bgColor   noxcolor.Color16
-		hlColor   noxcolor.Color16
-		selColor  noxcolor.Color16
-		textColor noxcolor.Color16
+		font uintptr
+		gui.StyleDefaults
 	}
 	widgets struct {
 		radioButton *radioButtonData
@@ -309,12 +401,7 @@ func (p *guiParser) parentsPush(win *Window) {
 func (p *guiParser) resetDefaults() {
 	val := noxcolor.IntToColor(memmap.Uint32(0x5D4594, 2650656))
 	p.defaults.font = 0
-	p.defaults.enColor = val
-	p.defaults.disColor = val
-	p.defaults.bgColor = val
-	p.defaults.hlColor = val
-	p.defaults.selColor = val
-	p.defaults.textColor = val
+	p.defaults.SetColors(val)
 }
 
 func (p *guiParser) ParseRoot(fnc unsafe.Pointer) *Window {
@@ -326,17 +413,17 @@ func (p *guiParser) ParseRoot(fnc unsafe.Pointer) *Window {
 		ok := true
 		switch tok {
 		case "ENABLEDCOLOR":
-			p.defaults.enColor, ok = p.parseColorField()
+			p.defaults.EnabledColor, ok = p.parseColorField()
 		case "DISABLEDCOLOR":
-			p.defaults.disColor, ok = p.parseColorField()
+			p.defaults.DisabledColor, ok = p.parseColorField()
 		case "BACKGROUNDCOLOR":
-			p.defaults.bgColor, ok = p.parseColorField()
+			p.defaults.BackgroundColor, ok = p.parseColorField()
 		case "HILITECOLOR":
-			p.defaults.hlColor, ok = p.parseColorField()
+			p.defaults.HighlightColor, ok = p.parseColorField()
 		case "SELECTEDCOLOR":
-			p.defaults.selColor, ok = p.parseColorField()
+			p.defaults.SelectedColor, ok = p.parseColorField()
 		case "TEXTCOLOR":
-			p.defaults.textColor, ok = p.parseColorField()
+			p.defaults.TextColor, ok = p.parseColorField()
 		case "FONT":
 			p.defaults.font, ok = p.parseFontField()
 		case "WINDOW":
@@ -391,16 +478,7 @@ func (p *guiParser) parseColorField() (noxcolor.Color16, bool) {
 	if err != nil {
 		return noxcolor.RGBA5551(0), false
 	}
-	return guiParseColorTransp(tok)
-}
-
-func guiParseColorTransp(str string) (noxcolor.Color16, bool) {
-	if str == "TRANSPARENT" {
-		return noxcolor.RGBA5551(0x8000), true
-	}
-	r, g, b := gui.ParseColor(str)
-	cl := noxcolor.RGBColor(byte(r), byte(g), byte(b))
-	return cl, true
+	return gui.ParseColorTransp(tok)
 }
 
 //export nox_color_rgb_4344A0
@@ -554,7 +632,7 @@ func guiFlagsFromNames(str string, values []string) int {
 
 func makeColorParseFunc(field func(*WindowData) *C.uint) guiWindowParseFunc {
 	return func(_ *guiParser, draw *WindowData, buf string) bool {
-		cl, _ := guiParseColorTransp(buf)
+		cl, _ := gui.ParseColorTransp(buf)
 		out := field(draw)
 		*out = C.uint(noxcolor.ExtendColor16(cl))
 		return true
@@ -592,12 +670,7 @@ func (p *guiParser) parseWindowRoot(fnc unsafe.Pointer) *Window {
 	draw := (*WindowData)(drawDataP)
 
 	draw.field_0 = 0
-	draw.en_color = C.uint(noxcolor.ExtendColor16(p.defaults.enColor))
-	draw.hl_color = C.uint(noxcolor.ExtendColor16(p.defaults.hlColor))
-	draw.dis_color = C.uint(noxcolor.ExtendColor16(p.defaults.disColor))
-	draw.bg_color = C.uint(noxcolor.ExtendColor16(p.defaults.bgColor))
-	draw.sel_color = C.uint(noxcolor.ExtendColor16(p.defaults.selColor))
-	draw.text_color = C.uint(noxcolor.ExtendColor16(p.defaults.textColor))
+	draw.SetDefaults(p.defaults.StyleDefaults)
 	font := p.defaults.font
 	if font == 0 {
 		if C.nox_client_gui_flag_815132 != 0 {
@@ -685,15 +758,15 @@ func (p *guiParser) parseWinFields(win *Window) bool {
 		ok := true
 		switch tok {
 		case "ENABLEDCOLOR":
-			p.defaults.enColor, ok = p.parseColorField()
+			p.defaults.EnabledColor, ok = p.parseColorField()
 		case "DISABLEDCOLOR":
-			p.defaults.disColor, ok = p.parseColorField()
+			p.defaults.DisabledColor, ok = p.parseColorField()
 		case "HILITECOLOR":
-			p.defaults.hlColor, ok = p.parseColorField()
+			p.defaults.HighlightColor, ok = p.parseColorField()
 		case "SELECTEDCOLOR":
-			p.defaults.selColor, ok = p.parseColorField()
+			p.defaults.SelectedColor, ok = p.parseColorField()
 		case "TEXTCOLOR":
-			p.defaults.textColor, ok = p.parseColorField()
+			p.defaults.TextColor, ok = p.parseColorField()
 		case "WINDOW":
 			if p.parseWindowRoot(nil) == nil {
 				return false
@@ -818,7 +891,7 @@ func (p *guiParser) parseWindowOrWidget(typ string, id uint, status int, px, py,
 	var win *Window
 	if typ == "USER" {
 		win = newWindow(parent, status, px, py, w, h, fnc)
-		drawData.style |= styleUserWindow
+		drawData.style |= C.int(gui.StyleUserWindow)
 		win.CopyDrawData(drawData)
 	} else {
 		win = guiNewWidget(typ, parent, status, px, py, w, h, drawData, data)
@@ -878,37 +951,37 @@ func guiNewWidget(typ string, parent *Window, status int, px, py, w, h int, draw
 	udraw := unsafe.Pointer(draw.C())
 	switch typ {
 	case "PUSHBUTTON":
-		draw.style |= stylePushButton
+		draw.style |= C.int(gui.StylePushButton)
 		return newButtonOrCheckbox(parent, status, px, py, w, h, draw)
 	case "RADIOBUTTON":
 		tdata, _ := data.(*radioButtonData)
-		draw.style |= styleRadioButton
+		draw.style |= C.int(gui.StyleRadioButton)
 		return newRadioButton(parent, status, px, py, w, h, draw, tdata)
 	case "CHECKBOX":
-		draw.style |= styleCheckBox
+		draw.style |= C.int(gui.StyleCheckBox)
 		return newButtonOrCheckbox(parent, status, px, py, w, h, draw)
 	case "VERTSLIDER":
 		tdata, _ := data.(*sliderData)
-		draw.style |= styleVertSlider
+		draw.style |= C.int(gui.StyleVertSlider)
 		return asWindow(C.nox_gui_newSlider_4B4EE0(iparent, C.int(status), C.int(px), C.int(py), C.int(w), C.int(h), (*C.uint)(udraw), (*C.float)(unsafe.Pointer(tdata))))
 	case "HORZSLIDER":
 		tdata, _ := data.(*sliderData)
-		draw.style |= styleHorizSlider
+		draw.style |= C.int(gui.StyleHorizSlider)
 		return asWindow(C.nox_gui_newSlider_4B4EE0(iparent, C.int(status), C.int(px), C.int(py), C.int(w), C.int(h), (*C.uint)(udraw), (*C.float)(unsafe.Pointer(tdata))))
 	case "SCROLLLISTBOX":
 		tdata, _ := data.(*scrollListBoxData)
-		draw.style |= styleScrollListBox
+		draw.style |= C.int(gui.StyleScrollListBox)
 		return asWindow(C.nox_gui_newScrollListBox_4A4310(iparent, C.int(status), C.int(px), C.int(py), C.int(w), C.int(h), dataPtrToInt(draw), (*C.short)(unsafe.Pointer(tdata))))
 	case "ENTRYFIELD":
 		tdata, _ := data.(*entryFieldData)
-		draw.style |= styleEntryField
+		draw.style |= C.int(gui.StyleEntryField)
 		return asWindow(C.nox_gui_newEntryField_488500(iparent, C.int(status), C.int(px), C.int(py), C.int(w), C.int(h), dataPtrToInt(draw), (*C.ushort)(unsafe.Pointer(tdata))))
 	case "STATICTEXT":
 		tdata, _ := data.(*staticTextData)
-		draw.style |= styleStaticText
+		draw.style |= C.int(gui.StyleStaticText)
 		return asWindow(C.nox_gui_newStaticText_489300(iparent, C.int(status), C.int(px), C.int(py), C.int(w), C.int(h), (*C.uint)(udraw), (*C.uint)(unsafe.Pointer(tdata))))
 	case "PROGRESSBAR":
-		draw.style |= styleProgressBar
+		draw.style |= C.int(gui.StyleProgressBar)
 		return asWindow(C.nox_gui_newProgressBar_4CAF10(iparent, C.int(status), C.int(px), C.int(py), C.int(w), C.int(h), (*C.uint)(udraw)))
 	}
 	return nil
@@ -918,21 +991,9 @@ func newWindow(parent *Window, status int, px, py, w, h int, fnc94 unsafe.Pointe
 	return asWindow(C.nox_window_new(parent.C(), C.int(status), C.int(px), C.int(py), C.int(w), C.int(h), (*[0]byte)(fnc94)))
 }
 
-const (
-	stylePushButton    = 0x1
-	styleRadioButton   = 0x2
-	styleCheckBox      = 0x4
-	styleVertSlider    = 0x8
-	styleHorizSlider   = 0x10
-	styleScrollListBox = 0x20
-	styleEntryField    = 0x80
-	styleStaticText    = 0x800
-	styleProgressBar   = 0x1000
-	styleUserWindow    = 0x2000
-)
-
 func newButtonOrCheckbox(parent *Window, status int, px, py, w, h int, draw *WindowData) *Window {
-	if draw.style&stylePushButton != 0 {
+	st := draw.StyleFlags()
+	if st.IsPushButton() {
 		btn := newWindow(parent, status, px, py, w, h, C.nox_xxx_wndButtonProcPre_4A9250)
 		if btn == nil {
 			return nil
@@ -943,8 +1004,7 @@ func newButtonOrCheckbox(parent *Window, status int, px, py, w, h int, draw *Win
 		}
 		btn.CopyDrawData(draw)
 		return btn
-	}
-	if draw.style&styleCheckBox != 0 {
+	} else if st.IsCheckBox() {
 		btn := newWindow(parent, status, px, py, w, h, C.nox_xxx_wndCheckboxProcMB_4A92C0)
 		if btn == nil {
 			return nil
@@ -960,7 +1020,7 @@ func newButtonOrCheckbox(parent *Window, status int, px, py, w, h int, draw *Win
 }
 
 func newRadioButton(parent *Window, status int, px, py, w, h int, draw *WindowData, data *radioButtonData) *Window {
-	if draw.style&styleRadioButton == 0 {
+	if !draw.StyleFlags().IsRadioButton() {
 		return nil
 	}
 	win := newWindow(parent, status, px, py, w, h, C.nox_xxx_wndRadioButtonProcPre_4A93C0)

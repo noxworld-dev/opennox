@@ -5,6 +5,8 @@ import (
 	"strconv"
 	"strings"
 	"unicode"
+
+	noxcolor "nox/v1/common/color"
 )
 
 func ReadNextToken(r io.ByteReader) (string, error) {
@@ -67,4 +69,13 @@ func ParseColor(str string) (r, g, b int) {
 	v, str = ParseNextUintField(str)
 	b = int(v)
 	return
+}
+
+func ParseColorTransp(str string) (noxcolor.Color16, bool) {
+	if str == "TRANSPARENT" {
+		return noxcolor.RGBA5551(0x8000), true
+	}
+	r, g, b := ParseColor(str)
+	cl := noxcolor.RGBColor(byte(r), byte(g), byte(b))
+	return cl, true
 }
