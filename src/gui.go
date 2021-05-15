@@ -268,12 +268,12 @@ type guiParser struct {
 	parents  []*Window
 	defaults struct {
 		font      uintptr
-		enColor   uint32
-		disColor  uint32
-		bgColor   uint32
-		hlColor   uint32
-		selColor  uint32
-		textColor uint32
+		enColor   noxcolor.Color16
+		disColor  noxcolor.Color16
+		bgColor   noxcolor.Color16
+		hlColor   noxcolor.Color16
+		selColor  noxcolor.Color16
+		textColor noxcolor.Color16
 	}
 	widgets struct {
 		radioButton *radioButtonData
@@ -307,7 +307,7 @@ func (p *guiParser) parentsPush(win *Window) {
 }
 
 func (p *guiParser) resetDefaults() {
-	val := memmap.Uint32(0x5D4594, 2650656)
+	val := noxcolor.IntToColor(memmap.Uint32(0x5D4594, 2650656))
 	p.defaults.font = 0
 	p.defaults.enColor = val
 	p.defaults.disColor = val
@@ -365,7 +365,8 @@ func nox_xxx_guiFontPtrByName_43F360(name string) uintptr {
 //export nox_gui_parseColor_4A0570
 func nox_gui_parseColor_4A0570(out *C.uint, buf *C.char) C.int {
 	r, g, b := gui.ParseColor(C.GoString(buf))
-	*out = C.uint(noxcolor.ColorToInt(byte(r), byte(g), byte(b)))
+	cl := noxcolor.RGBColor(byte(r), byte(g), byte(b))
+	*out = C.uint(noxcolor.ExtendColor16(cl))
 	return 1
 }
 
@@ -384,32 +385,34 @@ func (p *guiParser) nextToken() (string, error) {
 	return gui.ReadNextToken(p.br)
 }
 
-func (p *guiParser) parseColorField() (uint32, bool) {
+func (p *guiParser) parseColorField() (noxcolor.Color16, bool) {
 	p.skipToken() // skip '='
 	tok, err := p.nextToken()
 	if err != nil {
-		return 0, false
+		return noxcolor.RGBA5551(0), false
 	}
 	return guiParseColorTransp(tok)
 }
 
-func guiParseColorTransp(str string) (uint32, bool) {
+func guiParseColorTransp(str string) (noxcolor.Color16, bool) {
 	if str == "TRANSPARENT" {
-		return 0x80000000, true
+		return noxcolor.RGBA5551(0x8000), true
 	}
 	r, g, b := gui.ParseColor(str)
-	cl := noxcolor.ColorToInt(byte(r), byte(g), byte(b))
+	cl := noxcolor.RGBColor(byte(r), byte(g), byte(b))
 	return cl, true
 }
 
 //export nox_color_rgb_4344A0
 func nox_color_rgb_4344A0(r, g, b C.int) C.uint32_t {
-	return C.uint32_t(noxcolor.ColorToInt(byte(r), byte(g), byte(b)))
+	cl := noxcolor.RGBColor(byte(r), byte(g), byte(b))
+	return C.uint32_t(noxcolor.ExtendColor16(cl))
 }
 
 //export nox_color_rgb_func
 func nox_color_rgb_func(r, g, b C.uint8_t, p *C.uint32_t) {
-	*p = C.uint32_t(noxcolor.ColorToInt(byte(r), byte(g), byte(b)))
+	cl := noxcolor.RGBColor(byte(r), byte(g), byte(b))
+	*p = C.uint32_t(noxcolor.ExtendColor16(cl))
 }
 
 //export nox_color_rgb_func_get
@@ -553,7 +556,7 @@ func makeColorParseFunc(field func(*WindowData) *C.uint) guiWindowParseFunc {
 	return func(_ *guiParser, draw *WindowData, buf string) bool {
 		cl, _ := guiParseColorTransp(buf)
 		out := field(draw)
-		*out = C.uint(cl)
+		*out = C.uint(noxcolor.ExtendColor16(cl))
 		return true
 	}
 }
@@ -589,12 +592,12 @@ func (p *guiParser) parseWindowRoot(fnc unsafe.Pointer) *Window {
 	draw := (*WindowData)(drawDataP)
 
 	draw.field_0 = 0
-	draw.en_color = C.uint(p.defaults.enColor)
-	draw.hl_color = C.uint(p.defaults.hlColor)
-	draw.dis_color = C.uint(p.defaults.disColor)
-	draw.bg_color = C.uint(p.defaults.bgColor)
-	draw.sel_color = C.uint(p.defaults.selColor)
-	draw.text_color = C.uint(p.defaults.textColor)
+	draw.en_color = C.uint(noxcolor.ExtendColor16(p.defaults.enColor))
+	draw.hl_color = C.uint(noxcolor.ExtendColor16(p.defaults.hlColor))
+	draw.dis_color = C.uint(noxcolor.ExtendColor16(p.defaults.disColor))
+	draw.bg_color = C.uint(noxcolor.ExtendColor16(p.defaults.bgColor))
+	draw.sel_color = C.uint(noxcolor.ExtendColor16(p.defaults.selColor))
+	draw.text_color = C.uint(noxcolor.ExtendColor16(p.defaults.textColor))
 	font := p.defaults.font
 	if font == 0 {
 		if C.nox_client_gui_flag_815132 != 0 {
