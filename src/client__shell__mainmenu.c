@@ -265,9 +265,15 @@ int  nox_xxx_windowMainMenuProc_4A1DC0(int a1, int a2, int* a3, int a4) {
 				sub_4AA450();
 				nox_wnd_xxx_1307308->field_13 = nox_game_showGameSel_4379F0;
 				sub_43AF50(0);
-#else
+#else // !__EMSCRIPTEN__
+#ifndef NO_WOLAPI
 				nox_wnd_xxx_1307308->field_13 = nox_game_showOnlineOrLAN_413800;
-#endif
+#else // NO_WOLAPI
+				//sub_4AA450();
+				nox_wnd_xxx_1307308->field_13 = nox_game_showGameSel_4379F0;
+				sub_43AF50(0);
+#endif // NO_WOLAPI
+#endif // __EMSCRIPTEN__
 				nox_xxx_clientPlaySoundSpecial_452D80(921, 100);
 				break;
 			default:
