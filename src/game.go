@@ -28,11 +28,12 @@ import (
 	"github.com/noxworld-dev/xwis"
 
 	"nox/v1/common/alloc"
+	"nox/v1/common/discover"
 	noxflags "nox/v1/common/flags"
 	"nox/v1/common/memmap"
 )
 
-var useXwis = os.Getenv("NOX_XWIS") == "true"
+var noXwis = os.Getenv("NOX_XWIS") == "false"
 
 func nox_game_setMovieFile_4CB230(name string, out *C.char) bool {
 	cname := C.CString(name)
@@ -125,48 +126,57 @@ func startServer() int {
 		return 0
 	}
 	nox_xxx_serverHost_43B4D0()
-	if useXwis {
-		ctx := context.Background()
-		go xwisRegister(ctx)
-	}
 	return 1
 }
 
-func xwisRegister(ctx context.Context) {
-	cli, err := xwis.NewClient(ctx, "", "")
-	if err != nil {
-		log.Printf("failed to init xwis: %v", err)
-		return
-	}
-	defer cli.Close()
+func getServerName() string {
+	return C.GoString(C.nox_xxx_serverOptionsGetServername_40A4C0())
+}
 
-	// TODO: actually update those values according to what server is doing
-	err = cli.HostGame(ctx, xwis.GameInfo{
-		Name:       "Noxg Dedicated Server",
-		Map:        "estate",
-		MapType:    xwis.MapTypeChat,
-		Resolution: xwis.Res1024x768,
-		Players:    1,
-		MaxPlayers: 32,
-	})
-	if err != nil {
-		log.Printf("failed to host on xwis: %v", err)
-		return
-	}
+func getServerMap() string {
+	return C.GoString(C.nox_xxx_mapGetMapName_409B40())
+}
+
+var srvReg struct {
+	ctx    context.Context
+	cancel func()
 }
 
 //export nox_xxx_serverHost_43B4D0
 func nox_xxx_serverHost_43B4D0() {
-	if C.nox_game_createOrJoin_815048 != 0 {
+	isHost := C.nox_game_createOrJoin_815048 != 0
+	if isHost {
+		// host
 		C.sub_43B510()
 		C.sub_43A9D0()
 		C.sub_4A24A0()
 		C.nox_xxx_gameSetAudioFadeoutMb_501AC0(0)
 	} else {
+		// join
 		C.sub_43B630()
 		C.sub_43B440()
 	}
 	C.sub_49FF20()
+	if isHost {
+		if srvReg.ctx != nil {
+			srvReg.cancel()
+			srvReg.ctx = nil
+			srvReg.cancel = nil
+		}
+		if !noXwis {
+			info := xwis.GameInfo{
+				Name:       getServerName(),
+				Map:        getServerMap(),
+				Resolution: xwis.Res1024x768,
+				// TODO: set those values to the real ones
+				MapType:    xwis.MapTypeChat,
+				Players:    1,
+				MaxPlayers: 32,
+			}
+			srvReg.ctx, srvReg.cancel = context.WithCancel(context.Background())
+			go discover.RegisterGame(srvReg.ctx, info)
+		}
+	}
 }
 
 func initGameSession435CC0() int {
