@@ -6,6 +6,8 @@ on:
       - dev
       - ci_tests
       - dennwc
+    tags:
+      - v*
   pull_request:
     branches:
       - master
