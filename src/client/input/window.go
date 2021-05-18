@@ -71,6 +71,13 @@ func (h *Handler) initWindow() {
 	}
 }
 
+func (h *Handler) processQuitEvent(ev *sdl.QuitEvent) {
+	if h.iface == nil {
+		return
+	}
+	h.iface.WindowEvent(WindowQuit)
+}
+
 func (h *Handler) processWindowEvent(ev *sdl.WindowEvent) {
 	if h.iface == nil {
 		return

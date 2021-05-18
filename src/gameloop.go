@@ -89,6 +89,11 @@ func nox_game_exit_xxx_43DE60() {
 	}
 }
 
+func mainloopStop() {
+	mainloopContinue = false
+	continueMenuOrHost = false
+}
+
 func mainloop_43E290() {
 	if debugMainloop {
 		log.Printf("mainloop_43E290 (%s)\n", caller(1))
@@ -119,8 +124,7 @@ mainloop:
 				continue mainloop
 			} else if ret == 0 {
 				// map error
-				mainloopContinue = false
-				continueMenuOrHost = false
+				mainloopStop()
 				if debugMainloop {
 					log.Println("map_download_loop exit")
 				}
@@ -133,8 +137,7 @@ mainloop:
 				if C.nox_xxx_gameDownloadInProgress_587000_173328 != 0 {
 					continue mainloop
 				}
-				mainloopContinue = false
-				continueMenuOrHost = false
+				mainloopStop()
 				if debugMainloop {
 					log.Println("nox_xxx_gameChangeMap_43DEB0 exit")
 				}

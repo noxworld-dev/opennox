@@ -99,6 +99,8 @@ func (h *Handler) Tick() {
 			}
 		case *sdl.WindowEvent:
 			h.processWindowEvent(ev)
+		case *sdl.QuitEvent:
+			h.processQuitEvent(ev)
 		}
 		// TODO: touch events for WASM
 	}

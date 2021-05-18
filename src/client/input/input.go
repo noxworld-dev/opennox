@@ -17,6 +17,7 @@ const (
 	WindowUnfocus
 	WindowAcquireMouse
 	WindowUnacquireMouse
+	WindowQuit
 )
 
 type MouseButton int
