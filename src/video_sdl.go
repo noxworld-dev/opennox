@@ -161,6 +161,7 @@ func setFullScreenMode(size types.Size, pos image.Point) {
 	noxWindow.SetBordered(false)
 	setWindowRect(size, pos)
 	noxWindow.SetFullscreen(sdl.WINDOW_FULLSCREEN_DESKTOP)
+	sdl.ShowCursor(sdl.DISABLE)
 }
 
 func setFullScreenBorderlessMode(size types.Size, pos image.Point) {
@@ -168,6 +169,7 @@ func setFullScreenBorderlessMode(size types.Size, pos image.Point) {
 	noxWindow.SetResizable(false)
 	noxWindow.SetBordered(true)
 	setWindowRect(size, pos)
+	sdl.ShowCursor(sdl.DISABLE)
 }
 
 func setWindowedMode(size types.Size, pos image.Point) {
@@ -175,6 +177,7 @@ func setWindowedMode(size types.Size, pos image.Point) {
 	noxWindow.SetResizable(true)
 	noxWindow.SetBordered(true)
 	setWindowRect(size, pos)
+	sdl.ShowCursor(sdl.ENABLE)
 }
 
 func getDisplayDim() (r [4]int) {
