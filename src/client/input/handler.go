@@ -9,7 +9,10 @@ import (
 	"github.com/veandco/go-sdl2/sdl"
 )
 
-var debugGpad = os.Getenv("NOX_DEBUG_GPAD") == "true"
+var (
+	Log       = log.New(os.Stderr, "[input]: ", log.LstdFlags|log.Lmsgprefix)
+	debugGpad = os.Getenv("NOX_DEBUG_GPAD") == "true"
+)
 
 type Handler struct {
 	iface Interface
@@ -67,13 +70,13 @@ func (h *Handler) Tick() {
 			h.processWheelEvent(ev)
 		case *sdl.ControllerAxisEvent:
 			if debugGpad {
-				log.Printf("SDL event: SDL_CONTROLLERAXISMOTION (%x): joy=%d, axis=%d, val=%d\n",
+				Log.Printf("SDL event: SDL_CONTROLLERAXISMOTION (%x): joy=%d, axis=%d, val=%d\n",
 					ev.GetType(), ev.Which, ev.Axis, ev.Value)
 			}
 			h.processGamepadAxisEvent(ev)
 		case *sdl.ControllerButtonEvent:
 			if debugGpad {
-				log.Printf("SDL event: SDL_CONTROLLERBUTTON (%x): joy=%d, btn=%d, state=%d\n",
+				Log.Printf("SDL event: SDL_CONTROLLERBUTTON (%x): joy=%d, btn=%d, state=%d\n",
 					ev.GetType(), ev.Which, ev.Button, ev.State)
 			}
 			h.processGamepadButtonEvent(ev)
@@ -81,17 +84,17 @@ func (h *Handler) Tick() {
 			switch ev.GetType() {
 			case sdl.CONTROLLERDEVICEADDED:
 				if debugGpad {
-					log.Printf("SDL event: SDL_CONTROLLERDEVICEADDED (%x): joy=%d\n", ev.GetType(), ev.Which)
+					Log.Printf("SDL event: SDL_CONTROLLERDEVICEADDED (%x): joy=%d\n", ev.GetType(), ev.Which)
 				}
 				h.processGamepadDeviceEvent(ev)
 			case sdl.CONTROLLERDEVICEREMOVED:
 				if debugGpad {
-					log.Printf("SDL event: SDL_CONTROLLERDEVICEREMOVED (%x): joy=%d\n", ev.GetType(), ev.Which)
+					Log.Printf("SDL event: SDL_CONTROLLERDEVICEREMOVED (%x): joy=%d\n", ev.GetType(), ev.Which)
 				}
 				h.processGamepadDeviceEvent(ev)
 			case sdl.CONTROLLERDEVICEREMAPPED:
 				if debugGpad {
-					log.Printf("SDL event: SDL_CONTROLLERDEVICEREMAPPED (%x)\n", ev.GetType())
+					Log.Printf("SDL event: SDL_CONTROLLERDEVICEREMAPPED (%x)\n", ev.GetType())
 				}
 			}
 		case *sdl.WindowEvent:

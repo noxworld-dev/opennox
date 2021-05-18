@@ -4,7 +4,6 @@ package input
 
 import (
 	"image"
-	"log"
 	"math"
 
 	"nox/v1/common/types"
@@ -118,7 +117,7 @@ func (g *Gamepad) StickAbs() *Stick {
 }
 
 func (g *Gamepad) Close() {
-	log.Printf("Closed controller %d\n", g.ind)
+	Log.Printf("Closed controller %d\n", g.ind)
 	g.g.Close()
 	g.g = nil
 	g.ind = -1
@@ -146,17 +145,17 @@ func (h *Handler) processGamepadDeviceEvent(ev *sdl.ControllerDeviceEvent) {
 		return
 	}
 	name := sdl.GameControllerNameForIndex(i)
-	log.Printf("Game controller connected %d: %s\n", i, name)
+	Log.Printf("Game controller connected %d: %s\n", i, name)
 	if h.gpad != nil {
 		return // already have one
 	}
 	g := sdl.GameControllerOpen(i)
 	if g == nil {
-		log.Printf("ERROR: Could not open gamecontroller %i: %s\n", i, sdl.GetError())
+		Log.Printf("ERROR: Could not open gamecontroller %i: %s\n", i, sdl.GetError())
 		return
 	}
 	h.gpad = h.newGamepad(i, g)
-	log.Printf("Opened controller %d\n", i)
+	Log.Printf("Opened controller %d\n", i)
 }
 
 func (h *Handler) processGamepadAxisEvent(ev *sdl.ControllerAxisEvent) {
