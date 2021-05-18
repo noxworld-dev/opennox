@@ -5,6 +5,7 @@
 ### For players
 
 - Native SDL and OpenAL support (no workarounds required for Win10, streaming, etc).
+- Builtin XWIS integration. Also, no need for account in order to host or join games.
 - Native Linux build (no Wine).
 - More [Nox Quest](./docs/game-quest.md) controls.
 - Gamepad support.
