@@ -229,7 +229,7 @@ int  sub_4A25C0(_DWORD* a1, int* a2) {
 	int* v3; // esi
 
 	v2 = 0;
-	v3 = nox_xxx_gameMapsValidateListMB_425890(a2);
+	v3 = nox_common_listGetXxxSafe_425890(a2);
 	if (!v3)
 		return 0;
 	do {
@@ -258,7 +258,7 @@ int  sub_4A2610(int a1, _DWORD* a2, int* a3) {
 	wchar_t v17[128];     // [esp+5Ch] [ebp-100h]
 
 	dword_5d4594_1307720 = 0;
-	for (i = nox_xxx_gameMapsValidateListMB_425890(a3); i; i = nox_common_listGetXxxSafe_4258A0(i)) {
+	for (i = nox_common_listGetXxxSafe_425890(a3); i; i = nox_common_listGetXxxSafe_4258A0(i)) {
 		if (sub_4A2560(a2, (int)i)) {
 			v4 = dword_5d4594_1307720;
 			*getMemU32Ptr(0x5D4594, 4 * dword_5d4594_1307720 + 1307316) = i;

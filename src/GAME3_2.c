@@ -1287,7 +1287,7 @@ int  sub_4D0670(char* a1) {
 
 //----- (004D0760) --------------------------------------------------------
 void nox_common_addMapToList_4D0760(nox_map_list_item* map) {
-	int* v1 = nox_xxx_gameMapsValidateListMB_425890(getMemIntPtr(0x5D4594, 1523060));
+	int* v1 = nox_common_listGetXxxSafe_425890(getMemIntPtr(0x5D4594, 1523060));
 	if (!v1) {
 		nox_common_listAddTo_4258E0((int)getMemAt(0x5D4594, 1523060), map);
 		return;
@@ -1345,7 +1345,7 @@ void sub_4D0970() {
 	int* v1;     // esi
 	int* v2;     // edi
 
-	result = nox_xxx_gameMapsValidateListMB_425890(getMemIntPtr(0x5D4594, 1523060));
+	result = nox_common_listGetXxxSafe_425890(getMemIntPtr(0x5D4594, 1523060));
 	v1 = result;
 	if (result) {
 		do {
@@ -1358,7 +1358,7 @@ void sub_4D0970() {
 }
 
 //----- (004D09B0) --------------------------------------------------------
-int* nox_xxx_validateMapList_4D09B0() { return nox_xxx_gameMapsValidateListMB_425890(getMemIntPtr(0x5D4594, 1523060)); }
+int* nox_xxx_validateMapList_4D09B0() { return nox_common_listGetXxxSafe_425890(getMemIntPtr(0x5D4594, 1523060)); }
 
 //----- (004D09C0) --------------------------------------------------------
 int*  sub_4D09C0(int* a1) { return nox_common_listGetXxxSafe_4258A0(a1); }
@@ -1718,7 +1718,7 @@ void sub_4D11D0() {
 	int* v1;     // esi
 	int* v2;     // edi
 
-	result = nox_xxx_gameMapsValidateListMB_425890(getMemIntPtr(0x5D4594, 1548492));
+	result = nox_common_listGetXxxSafe_425890(getMemIntPtr(0x5D4594, 1548492));
 	v1 = result;
 	if (result) {
 		do {
@@ -1753,7 +1753,7 @@ int*  sub_4D1250(int a1) {
 	int* result; // eax
 	int* v2;     // esi
 
-	result = nox_xxx_gameMapsValidateListMB_425890(getMemIntPtr(0x5D4594, 1548492));
+	result = nox_common_listGetXxxSafe_425890(getMemIntPtr(0x5D4594, 1548492));
 	v2 = result;
 	if (result) {
 		while (*(unsigned __int8*)(v2[3] + 2064) != a1) {
@@ -1772,7 +1772,7 @@ int*  sub_4D1250(int a1) {
 int  sub_4D12A0(int a1) {
 	int* v1; // eax
 
-	v1 = nox_xxx_gameMapsValidateListMB_425890(getMemIntPtr(0x5D4594, 1548492));
+	v1 = nox_common_listGetXxxSafe_425890(getMemIntPtr(0x5D4594, 1548492));
 	if (!v1)
 		return 0;
 	while (*(unsigned __int8*)(v1[3] + 2064) != a1) {

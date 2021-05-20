@@ -276,7 +276,7 @@ int* sub_509CB0() {
 
 	result = *(int**)&dword_5d4594_1599688;
 	if (dword_5d4594_1599688) {
-		result = nox_xxx_gameMapsValidateListMB_425890(getMemIntPtr(0x5D4594, 1599676));
+		result = nox_common_listGetXxxSafe_425890(getMemIntPtr(0x5D4594, 1599676));
 		v1 = result;
 		if (result) {
 			do {
@@ -294,7 +294,7 @@ int* sub_509CB0() {
 int  sub_509CF0(const char* a1, char a2, int a3) {
 	int* v3; // edi
 
-	v3 = nox_xxx_gameMapsValidateListMB_425890(getMemIntPtr(0x5D4594, 1599676));
+	v3 = nox_common_listGetXxxSafe_425890(getMemIntPtr(0x5D4594, 1599676));
 	if (!v3)
 		return 1;
 	while (strcmp((const char*)v3 + 12, a1) || a2 == *((_BYTE*)v3 + 28) && a3 == v3[6]) {
@@ -309,7 +309,7 @@ int  sub_509CF0(const char* a1, char a2, int a3) {
 int  sub_509D80(int a1) {
 	int* v1; // edi
 
-	v1 = nox_xxx_gameMapsValidateListMB_425890(getMemIntPtr(0x5D4594, 1599676));
+	v1 = nox_common_listGetXxxSafe_425890(getMemIntPtr(0x5D4594, 1599676));
 	if (!v1)
 		return 0;
 	while (strcmp((const char*)v1 + 12, (const char*)(a1 + 2096))) {

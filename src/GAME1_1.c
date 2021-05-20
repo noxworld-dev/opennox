@@ -8419,7 +8419,9 @@ int  sub_425870(_DWORD** a1) {
 }
 
 //----- (00425890) --------------------------------------------------------
-int*  nox_xxx_gameMapsValidateListMB_425890(int* a1) { return nox_common_listGetXxxSafe_4258A0(a1); }
+nox_list_item_t* nox_common_listGetXxxSafe_425890(nox_list_item_t* list) {
+	return nox_common_listGetXxxSafe_4258A0(list);
+}
 
 //----- (004258A0) --------------------------------------------------------
 nox_list_item_t* nox_common_listGetXxxSafe_4258A0(nox_list_item_t* list) {
@@ -8567,7 +8569,7 @@ int* sub_4259F0() {
 }
 
 //----- (00425A50) --------------------------------------------------------
-int* sub_425A50() { return nox_xxx_gameMapsValidateListMB_425890(getMemIntPtr(0x5D4594, 599460)); }
+int* sub_425A50() { return nox_common_listGetXxxSafe_425890(getMemIntPtr(0x5D4594, 599460)); }
 
 //----- (00425A60) --------------------------------------------------------
 int*  sub_425A60(int* a1) { return nox_common_listGetXxxSafe_4258A0(a1); }
@@ -8656,7 +8658,7 @@ LABEL_6:
 }
 
 //----- (00425BC0) --------------------------------------------------------
-int*  sub_425BC0(int a1) { return nox_xxx_gameMapsValidateListMB_425890((int*)(a1 + 40)); }
+int*  sub_425BC0(int a1) { return nox_common_listGetXxxSafe_425890((int*)(a1 + 40)); }
 
 //----- (00425BE0) --------------------------------------------------------
 int*  sub_425BE0(int* a1) { return nox_common_listGetXxxSafe_4258A0(a1); }

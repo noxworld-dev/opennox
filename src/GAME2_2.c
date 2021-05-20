@@ -10528,7 +10528,7 @@ void sub_4870A0() {
 int*  sub_4870E0(int* a1) {
 	int* result; // eax
 
-	result = nox_xxx_gameMapsValidateListMB_425890(*(int**)&dword_587000_155144);
+	result = nox_common_listGetXxxSafe_425890(*(int**)&dword_587000_155144);
 	*a1 = (int)result;
 	return result;
 }
@@ -10758,7 +10758,7 @@ int  sub_487590(int a1, const void* a2) {
 int*  sub_4875B0(int* a1) {
 	int* result; // eax
 
-	result = nox_xxx_gameMapsValidateListMB_425890((int*)((_DWORD)dword_587000_155144 + 12));
+	result = nox_common_listGetXxxSafe_425890((int*)((_DWORD)dword_587000_155144 + 12));
 	*a1 = (int)result;
 	return result;
 }
@@ -10875,7 +10875,7 @@ int  sub_487790(int a1, int a2) {
 int*  sub_4877D0(int a1, int* a2) {
 	int* result; // eax
 
-	result = nox_xxx_gameMapsValidateListMB_425890((int*)(a1 + 200));
+	result = nox_common_listGetXxxSafe_425890((int*)(a1 + 200));
 	*a2 = (int)result;
 	return result;
 }

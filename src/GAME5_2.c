@@ -1142,7 +1142,7 @@ unsigned int  nox_server_makeServerInfoPacket_554040(const char* inBuf, int inSz
 int*  nox_xxx_findPlayerID_5541D0(int a1) {
 	int* result; // eax
 
-	result = nox_xxx_gameMapsValidateListMB_425890(getMemIntPtr(0x5D4594, 2495908));
+	result = nox_common_listGetXxxSafe_425890(getMemIntPtr(0x5D4594, 2495908));
 	if (!result)
 		return 0;
 	while (result[3] != a1) {
@@ -4074,7 +4074,7 @@ char  sub_57AAA0(const char* a1, char* a2, int* a3) {
 				sub_57A1E0((int*)v19, 0, 0, 3, *((_WORD*)a2 + 26));
 			}
 			if (a3) {
-				for (i = nox_xxx_gameMapsValidateListMB_425890(a3); i; i = nox_common_listGetXxxSafe_4258A0(i)) {
+				for (i = nox_common_listGetXxxSafe_425890(a3); i; i = nox_common_listGetXxxSafe_4258A0(i)) {
 					nox_sprintf(v23, "%S\n", i + 3);
 					nox_fs_fputs(v4, v23);
 				}
@@ -4144,7 +4144,7 @@ int*  sub_57ADF0(int* a1) {
 	int* v2;     // esi
 	int* v3;     // edi
 
-	result = nox_xxx_gameMapsValidateListMB_425890(a1);
+	result = nox_common_listGetXxxSafe_425890(a1);
 	v2 = result;
 	if (result) {
 		do {

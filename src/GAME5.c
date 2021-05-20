@@ -8227,7 +8227,7 @@ int  nox_xxx_allocNetGQueue_5520B0(int a1, int a2) {
 	if (!nox_alloc_gQueue_3844300)
 		return -1;
 	if (*getMemU32Ptr(0x5D4594, 2495924)) {
-		v3 = nox_xxx_gameMapsValidateListMB_425890(getMemIntPtr(0x5D4594, 2495908));
+		v3 = nox_common_listGetXxxSafe_425890(getMemIntPtr(0x5D4594, 2495908));
 		if (v3) {
 			do {
 				v4 = nox_common_listGetXxxSafe_4258A0(v3);

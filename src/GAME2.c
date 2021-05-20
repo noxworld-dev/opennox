@@ -2001,7 +2001,7 @@ int*  sub_4521A0(int a1) {
 			v3 = 0;
 			v4 = (int*)v2;
 			do {
-				v5 = nox_xxx_gameMapsValidateListMB_425890(v4);
+				v5 = nox_common_listGetXxxSafe_425890(v4);
 				if (v5)
 					return v5 - 28;
 				++v3;
@@ -4289,7 +4289,7 @@ int*  sub_456D60(int a1) {
 
 	if (a1 && dword_5d4594_1045684)
 		nox_xxx_windowDestroyMB_46C4E0(*(_DWORD**)&dword_5d4594_1045684);
-	v1 = nox_xxx_gameMapsValidateListMB_425890(getMemIntPtr(0x5D4594, 1045652));
+	v1 = nox_common_listGetXxxSafe_425890(getMemIntPtr(0x5D4594, 1045652));
 	if (v1) {
 		do {
 			v2 = nox_common_listGetXxxSafe_4258A0(v1);
@@ -4298,7 +4298,7 @@ int*  sub_456D60(int a1) {
 			v1 = v2;
 		} while (v2);
 	}
-	result = nox_xxx_gameMapsValidateListMB_425890(getMemIntPtr(0x5D4594, 1045668));
+	result = nox_common_listGetXxxSafe_425890(getMemIntPtr(0x5D4594, 1045668));
 	v4 = result;
 	if (result) {
 		do {
@@ -4335,7 +4335,7 @@ int  sub_456E40(int a1, int a2) {
 	int* v2; // esi
 	int v3;  // edi
 
-	v2 = nox_xxx_gameMapsValidateListMB_425890(getMemIntPtr(0x5D4594, 1045652));
+	v2 = nox_common_listGetXxxSafe_425890(getMemIntPtr(0x5D4594, 1045652));
 	v3 = 0;
 	if (!v2)
 		return -1;
@@ -4381,7 +4381,7 @@ int  sub_456F10(wchar_t* a1, int a2) {
 	wchar_t* v4;    // eax
 	wchar_t v6[56]; // [esp+Ch] [ebp-70h]
 
-	v2 = nox_xxx_gameMapsValidateListMB_425890(getMemIntPtr(0x5D4594, 1045668));
+	v2 = nox_common_listGetXxxSafe_425890(getMemIntPtr(0x5D4594, 1045668));
 	v3 = 0;
 	if (!v2)
 		return -1;
@@ -4410,7 +4410,7 @@ int sub_456FA0() {
 
 	result = dword_5d4594_1045684;
 	if (dword_5d4594_1045684) {
-		v1 = nox_xxx_gameMapsValidateListMB_425890(getMemIntPtr(0x5D4594, 1045668));
+		v1 = nox_common_listGetXxxSafe_425890(getMemIntPtr(0x5D4594, 1045668));
 		if (v1) {
 			do {
 				v2 = nox_common_listGetXxxSafe_4258A0(v1);
@@ -4464,7 +4464,7 @@ int  sub_4571A0(int a1, int a2) {
 		if (result != -1) {
 			v5 = 3;
 			if (a2) {
-				for (i = nox_xxx_gameMapsValidateListMB_425890(getMemIntPtr(0x5D4594, 1045668)); i; i = nox_common_listGetXxxSafe_4258A0(i)) {
+				for (i = nox_common_listGetXxxSafe_425890(getMemIntPtr(0x5D4594, 1045668)); i; i = nox_common_listGetXxxSafe_4258A0(i)) {
 					if (i[15] == a2)
 						v5 = *((unsigned __int8*)i + 64);
 				}
@@ -4480,7 +4480,7 @@ int  sub_4571A0(int a1, int a2) {
 int*  sub_457350(unsigned __int8 a1, unsigned __int8 a2) {
 	int* result; // eax
 
-	for (result = nox_xxx_gameMapsValidateListMB_425890(getMemIntPtr(0x5D4594, 1045668)); result; result = nox_common_listGetXxxSafe_4258A0(result)) {
+	for (result = nox_common_listGetXxxSafe_425890(getMemIntPtr(0x5D4594, 1045668)); result; result = nox_common_listGetXxxSafe_4258A0(result)) {
 		if (result[15] == a1)
 			result[15] = a2;
 	}

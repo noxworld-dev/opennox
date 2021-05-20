@@ -8012,13 +8012,13 @@ int*  sub_4168A0(wchar_t* a1) {
 }
 
 //----- (004168E0) --------------------------------------------------------
-int* sub_4168E0() { return nox_xxx_gameMapsValidateListMB_425890(getMemIntPtr(0x5D4594, 371364)); }
+int* sub_4168E0() { return nox_common_listGetXxxSafe_425890(getMemIntPtr(0x5D4594, 371364)); }
 
 //----- (004168F0) --------------------------------------------------------
 int*  sub_4168F0(int* a1) { return nox_common_listGetXxxSafe_4258A0(a1); }
 
 //----- (00416900) --------------------------------------------------------
-int* sub_416900() { return nox_xxx_gameMapsValidateListMB_425890(getMemIntPtr(0x5D4594, 371500)); }
+int* sub_416900() { return nox_common_listGetXxxSafe_425890(getMemIntPtr(0x5D4594, 371500)); }
 
 //----- (00416910) --------------------------------------------------------
 int*  sub_416910(int* a1) { return nox_common_listGetXxxSafe_4258A0(a1); }
