@@ -3607,7 +3607,6 @@ int  nox_xxx_interesting_xfer_4D0010(_DWORD* a1, int a2);
 int  sub_4D0250(char* a1, char* a2, int a3, int a4);
 int  sub_4D0550(char* a1);
 int  sub_4D0670(char* a1);
-void  nox_common_addMapToList_4D0760(void* a1);
 int nox_common_scanAllMaps_4D07F0();
 void sub_4D0970();
 int* nox_xxx_validateMapList_4D09B0();

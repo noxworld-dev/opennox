@@ -1286,13 +1286,13 @@ int  sub_4D0670(char* a1) {
 }
 
 //----- (004D0760) --------------------------------------------------------
-void nox_common_addMapToList_4D0760(void* map) {
+void nox_common_addMapToList_4D0760(nox_map_list_item* map) {
 	int* v1 = nox_xxx_gameMapsValidateListMB_425890(getMemIntPtr(0x5D4594, 1523060));
 	if (!v1) {
 		sub_4258E0((int)getMemAt(0x5D4594, 1523060), map);
 		return;
 	}
-	while (strcmp((const char*)((char*)map + 12), (const char*)v1 + 12) > 0) {
+	while (strcmp(map->name, (const char*)v1 + 12) > 0) {
 		v1 = sub_4258A0(v1);
 		if (!v1) {
 			sub_4258E0((int)getMemAt(0x5D4594, 1523060), map);
