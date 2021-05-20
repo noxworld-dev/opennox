@@ -104,6 +104,8 @@ extern int ptr_5D4594_2650668_cap;
 void* nox_server_objects_uninited_1556860 = 0;
 void* nox_server_objects_1556844 = 0;
 
+nox_list_item_t nox_common_mapList = {0};
+
 // 4CD756: variable 'v5' is possibly undefined
 // 4CD767: variable 'v7' is possibly undefined
 // 4CD78B: variable 'v9' is possibly undefined
@@ -1287,15 +1289,15 @@ int  sub_4D0670(char* a1) {
 
 //----- (004D0760) --------------------------------------------------------
 void nox_common_addMapToList_4D0760(nox_map_list_item* map) {
-	int* v1 = nox_common_listGetXxxSafe_425890(getMemIntPtr(0x5D4594, 1523060));
+	int* v1 = nox_common_listGetXxxSafe_425890(&nox_common_mapList);
 	if (!v1) {
-		nox_common_listAddTo_4258E0((int)getMemAt(0x5D4594, 1523060), map);
+		nox_common_listAddTo_4258E0(&nox_common_mapList, map);
 		return;
 	}
 	while (strcmp(map->name, (const char*)v1 + 12) > 0) {
 		v1 = nox_common_listGetXxxSafe_4258A0(v1);
 		if (!v1) {
-			nox_common_listAddTo_4258E0((int)getMemAt(0x5D4594, 1523060), map);
+			nox_common_listAddTo_4258E0(&nox_common_mapList, map);
 			return;
 		}
 	}
@@ -1304,7 +1306,7 @@ void nox_common_addMapToList_4D0760(nox_map_list_item* map) {
 
 //----- (004D07F0) --------------------------------------------------------
 int nox_common_scanAllMaps_4D07F0() {
-	sub_425760(getMemAt(0x5D4594, 1523060));
+	sub_425760(&nox_common_mapList);
 
 	struct _WIN32_FIND_DATAA FindFileData;
 	HANDLE v1 = FindFirstFileA((LPCSTR)"maps\\*.*", &FindFileData);
@@ -1345,7 +1347,7 @@ void sub_4D0970() {
 	int* v1;     // esi
 	int* v2;     // edi
 
-	result = nox_common_listGetXxxSafe_425890(getMemIntPtr(0x5D4594, 1523060));
+	result = nox_common_listGetXxxSafe_425890(&nox_common_mapList);
 	v1 = result;
 	if (result) {
 		do {
@@ -1358,7 +1360,7 @@ void sub_4D0970() {
 }
 
 //----- (004D09B0) --------------------------------------------------------
-int* nox_xxx_validateMapList_4D09B0() { return nox_common_listGetXxxSafe_425890(getMemIntPtr(0x5D4594, 1523060)); }
+int* nox_xxx_validateMapList_4D09B0() { return nox_common_listGetXxxSafe_425890(&nox_common_mapList); }
 
 //----- (004D09C0) --------------------------------------------------------
 int*  sub_4D09C0(int* a1) { return nox_common_listGetXxxSafe_4258A0(a1); }
