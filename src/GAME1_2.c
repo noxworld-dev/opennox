@@ -1737,49 +1737,44 @@ unsigned __int8  nox_xxx_wall_42A6C0(unsigned __int8 a1, unsigned __int8 a2) { r
 
 //----- (0042A6E0) --------------------------------------------------------
 int nox_server_mapRWMapInfo_42A6E0() {
-	__int16 v0; // ax
-	int v2;     // [esp+0h] [ebp-8h]
-	int v3;     // [esp+4h] [ebp-4h]
-
-	v3 = 3;
-	nox_xxx_fileReadWrite_426AC0_file3_fread(&v3, 2u);
-	v0 = v3;
-	if ((__int16)v3 > 3)
+	int vers = 3;
+	nox_xxx_fileReadWrite_426AC0_file3_fread(&vers, 2);
+	if (vers > 3) {
 		return 0;
-	if ((__int16)v3 >= 1) {
-		nox_xxx_fileReadWrite_426AC0_file3_fread(getMemAt(0x5D4594, 3801836), 0x40u);
-		nox_xxx_fileReadWrite_426AC0_file3_fread(getMemAt(0x5D4594, 3801836 + 64), 0x200u);
-		nox_xxx_fileReadWrite_426AC0_file3_fread(getMemAt(0x5D4594, 3801836 + 576), 0x10u);
-		nox_xxx_fileReadWrite_426AC0_file3_fread(getMemAt(0x5D4594, 3801836 + 592), 0x40u);
-		nox_xxx_fileReadWrite_426AC0_file3_fread(getMemAt(0x5D4594, 3801836 + 656), 0x40u);
-		nox_xxx_fileReadWrite_426AC0_file3_fread(getMemAt(0x5D4594, 3801836 + 720), 0x80u);
-		nox_xxx_fileReadWrite_426AC0_file3_fread(getMemAt(0x5D4594, 3801836 + 848), 0x80u);
-		nox_xxx_fileReadWrite_426AC0_file3_fread(getMemAt(0x5D4594, 3801836 + 976), 0x100u);
-		nox_xxx_fileReadWrite_426AC0_file3_fread(getMemAt(0x5D4594, 3801836 + 1232), 0x80u);
-		nox_xxx_fileReadWrite_426AC0_file3_fread(getMemAt(0x5D4594, 3801836 + 1360), 0x20u);
-		nox_xxx_fileReadWrite_426AC0_file3_fread(getMemAt(0x5D4594, 3801836 + 1392), 4u);
-		v0 = v3;
-		if ((_WORD)v3 == 2) {
+	}
+	if (vers >= 1) {
+		nox_xxx_fileReadWrite_426AC0_file3_fread(getMemAt(0x5D4594, 3801836 + 0), 64);
+		nox_xxx_fileReadWrite_426AC0_file3_fread(getMemAt(0x5D4594, 3801836 + 64), 512);
+		nox_xxx_fileReadWrite_426AC0_file3_fread(getMemAt(0x5D4594, 3801836 + 576), 16);
+		nox_xxx_fileReadWrite_426AC0_file3_fread(getMemAt(0x5D4594, 3801836 + 592), 64);
+		nox_xxx_fileReadWrite_426AC0_file3_fread(getMemAt(0x5D4594, 3801836 + 656), 64);
+		nox_xxx_fileReadWrite_426AC0_file3_fread(getMemAt(0x5D4594, 3801836 + 720), 128);
+		nox_xxx_fileReadWrite_426AC0_file3_fread(getMemAt(0x5D4594, 3801836 + 848), 128);
+		nox_xxx_fileReadWrite_426AC0_file3_fread(getMemAt(0x5D4594, 3801836 + 976), 256);
+		nox_xxx_fileReadWrite_426AC0_file3_fread(getMemAt(0x5D4594, 3801836 + 1232), 128);
+		nox_xxx_fileReadWrite_426AC0_file3_fread(getMemAt(0x5D4594, 3801836 + 1360), 32);
+		nox_xxx_fileReadWrite_426AC0_file3_fread(getMemAt(0x5D4594, 3801836 + 1392), 4);
+		if (vers == 2) {
 			nox_xxx_fileReadWrite_426AC0_file3_fread(getMemAt(0x5D4594, 3801836 + 1396), 1u);
 			nox_xxx_fileReadWrite_426AC0_file3_fread(getMemAt(0x5D4594, 3801836 + 1397), 1u);
-			v0 = v3;
 		} else if (*getMemU32Ptr(0x5D4594, 3803300) == 1) {
 			*getMemU8Ptr(0x5D4594, 3801836 + 1396) = 2;
 			*getMemU8Ptr(0x5D4594, 3801836 + 1397) = 16;
 		}
 	}
-	if (v0 < 3) {
+	if (vers < 3) {
 		*getMemU8Ptr(0x5D4594, 3801836 + 1398) = getMemByte(0x5D4594, 741376);
 		*getMemU8Ptr(0x5D4594, 3801836 + 1430) = getMemByte(0x5D4594, 741380);
 	} else {
-		LOBYTE(v2) = strlen((const char*)getMemAt(0x5D4594, 3801836 + 1398));
-		nox_xxx_fileReadWrite_426AC0_file3_fread(&v2, 1u);
-		nox_xxx_fileReadWrite_426AC0_file3_fread(getMemAt(0x5D4594, 3801836 + 1398), (unsigned __int8)v2);
-		*getMemU8Ptr(0x5D4594, 3801836 + 1398 + (unsigned __int8)v2) = 0;
-		LOBYTE(v2) = strlen((const char*)getMemAt(0x5D4594, 3801836 + 1430));
-		nox_xxx_fileReadWrite_426AC0_file3_fread(&v2, 1u);
-		nox_xxx_fileReadWrite_426AC0_file3_fread(getMemAt(0x5D4594, 3801836 + 1430), (unsigned __int8)v2);
-		*getMemU8Ptr(0x5D4594, 3801836 + 1430 + (unsigned __int8)v2) = 0;
+		int v2 = strlen(getMemAt(0x5D4594, 3801836 + 1398));
+		nox_xxx_fileReadWrite_426AC0_file3_fread(&v2, 1);
+		nox_xxx_fileReadWrite_426AC0_file3_fread(getMemAt(0x5D4594, 3801836 + 1398), v2);
+		*getMemU8Ptr(0x5D4594, 3801836 + 1398 + v2) = 0;
+
+		v2 = strlen(getMemAt(0x5D4594, 3801836 + 1430));
+		nox_xxx_fileReadWrite_426AC0_file3_fread(&v2, 1);
+		nox_xxx_fileReadWrite_426AC0_file3_fread(getMemAt(0x5D4594, 3801836 + 1430), v2);
+		*getMemU8Ptr(0x5D4594, 3801836 + 1430 + v2) = 0;
 	}
 	return 1;
 }
