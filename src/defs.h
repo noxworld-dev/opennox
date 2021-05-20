@@ -1036,8 +1036,8 @@ typedef struct nox_map_list_item {
 	char name[12]; // 3, 12
 	int field_6; // 6, 24
 	_DWORD field_7; // 7, 28
-	char field_8_0; // 8, 32
-	char field_8_1; // 8, 33
+	unsigned char field_8_0; // 8, 32
+	unsigned char field_8_1; // 8, 33
 	_WORD field_8_2; // 8, 34
 } nox_map_list_item;
 _Static_assert(sizeof(nox_map_list_item) == 36, "wrong size of nox_map_list_item structure!");

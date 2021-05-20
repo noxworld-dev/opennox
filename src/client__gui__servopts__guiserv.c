@@ -264,50 +264,50 @@ int  sub_4580E0(int a1) {
 }
 
 //----- (00458230) --------------------------------------------------------
-void nox_client_guiserv_updateMapList_458230(int a1, char* a2, int a3) {
-	int v13;          // eax
-	char* v14;        // eax
-	char v19[58];     // [esp+18h] [ebp-140h]
-	char v20[58];     // [esp+54h] [ebp-104h]
-	wchar_t v21[100]; // [esp+90h] [ebp-C8h]
+void nox_client_guiserv_updateMapList_458230(int a1, char* name, bool a3) {
+	char v19[58];
+	char v20[58];
+	wchar_t v21[100];
 
 	nox_window_call_field_94(*(int*)&dword_5d4594_1046496, 16399, 0, 0);
 	int v3 = a1;
 	int v18 = -1;
 	*getMemU32Ptr(0x5D4594, 1046552) = a1;
 	int v17 = 0;
-	for (int* it = nox_common_maplist_first_4D09B0(); it; it = nox_common_maplist_next_4D09C0(it)) {
-		if (!it[6]) {
+	for (nox_map_list_item* it = nox_common_maplist_first_4D09B0(); it; it = nox_common_maplist_next_4D09C0(it)) {
+		if (!it->field_6) {
 			continue;
 		}
 		if (sub_4CFFC0(it) & v3 == 0) {
 			continue;
 		}
-		strcpy(v19, (const char*)it + 12);
+		strcpy(v19, it->name);
 		memcpy(v20, v19, 0x38u);
 		*(_WORD*)&v20[56] = *(_WORD*)&v19[56];
 		sub_57A1E0((int*)v19, 0, 0, 1, a1);
 		sub_57A1E0((int*)v20, "user.rul", 0, 3, a1);
 		int v6 = -1;
 		for (int i = 0; i < 20; i += 4) {
-			if (*(_DWORD*)&v19[i + 24] != *(_DWORD*)&v20[i + 24])
+			if (*(_DWORD*)&v19[i + 24] != *(_DWORD*)&v20[i + 24]) {
 				v6 = 6;
+			}
 		}
 		if (v6 == -1) {
 			for (int j = 0; j < 4; ++j) {
-				if (v19[j + 44] != v20[j + 44])
+				if (v19[j + 44] != v20[j + 44]) {
 					v6 = 6;
+				}
 			}
-			if (v6 == -1 && *(_DWORD*)&v19[48] != *(_DWORD*)&v20[48])
+			if (v6 == -1 && *(_DWORD*)&v19[48] != *(_DWORD*)&v20[48]) {
 				v6 = 6;
+			}
 		}
-		int v16 = *((unsigned __int8*)it + 33);
-		int v15 = *((unsigned __int8*)it + 32);
-		wchar_t* v9 = nox_strman_loadString_40F1D0("RecPlayers", 0,
-								   "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c", 823);
-		nox_swprintf(v21, v9, it + 3, v15, v16);
-		nox_window_call_field_94(*(int*)&dword_5d4594_1046496, 16397, (int)v21, v6);
-		if (!_strcmpi(a2, (const char*)it + 12)) {
+		int v16 = it->field_8_1;
+		int v15 = it->field_8_0;
+		wchar_t* v9 = nox_strman_loadString_40F1D0("RecPlayers", 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c", 823);
+		nox_swprintf(v21, v9, it->name, v15, v16);
+		nox_window_call_field_94(*(int*)&dword_5d4594_1046496, 16397, v21, v6);
+		if (!_strcmpi(name, it->name)) {
 			v18 = v17;
 			nox_window_call_field_94(*(int*)&dword_5d4594_1046496, 16403, v17, 0);
 			nox_window_call_field_94(*(int*)&dword_5d4594_1046496, 16412, v17, 0);
@@ -324,11 +324,17 @@ void nox_client_guiserv_updateMapList_458230(int a1, char* a2, int a3) {
 	}
 	char* v11 = sub_4165B0();
 	int v12 = nox_window_call_field_94(*(int*)&dword_5d4594_1046496, 16404, 0, 0);
-	if (v12 >= 0 && (v13 = nox_window_call_field_94(*(int*)&dword_5d4594_1046496, 16406, v12, 0),
-					 nox_sprintf((char*)v21, "%S", v13), (v14 = strtok((char*)v21, "\t")) != 0)) {
-		strcpy(v11, v14);
-	} else {
+	if (v12 < 0) {
 		*v11 = 0;
+	} else {
+		int v13 = nox_window_call_field_94(*(int*)&dword_5d4594_1046496, 16406, v12, 0);
+		nox_sprintf((char*)v21, "%S", v13);
+		char* v14 = strtok((char*)v21, "\t");
+		if (!v14) {
+			*v11 = 0;
+		} else {
+			strcpy(v11, v14);
+		}
 	}
 	sub_57A1E0((int*)v11, "user.rul", 0, 7, v3);
 	sub_459880((int)v11);
