@@ -6288,8 +6288,9 @@ int  nox_xxx_guiHealthManaTubeProc_472100(int a1, int a2) {
 		v3 = dword_5d4594_1096252 == 1;
 		dword_5d4594_1096252 = 1 - dword_5d4594_1096252;
 		nox_window_set_hidden(nox_windows_arr_1093036[2].win, v3);
-		if (getMemByte(0x5D4594, 2661958))
+		if (getMemByte(0x5D4594, 2661958) != 0) {
 			nox_window_set_hidden(nox_windows_arr_1093036[3].win, dword_5d4594_1096252 == 0);
+		}
 		nox_xxx_clientPlaySoundSpecial_452D80(901, 100);
 		goto LABEL_6;
 	case 8:

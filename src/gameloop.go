@@ -362,7 +362,7 @@ func CONNECT_OR_HOST() {
 	infos := asByteSlice(unsafe.Pointer(info), 97)
 
 	C.nox_wcscpy((*C.wchar_t)(unsafe.Pointer(&infos[0])), (*C.wchar_t)(memmap.PtrOff(0x5D4594, 2661908)))
-	infos[66] = memmap.Uint8(0x5D4594, 2661958)
+	infos[66] = byte(getPlayerClass())
 	infos[67] = memmap.Uint8(0x5D4594, 2661959)
 	*(*uint16)(unsafe.Pointer(&infos[68])) = memmap.Uint16(0x5D4594, 2661891)
 	infos[70] = memmap.Uint8(0x5D4594, 2661893)

@@ -3313,29 +3313,21 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 			}
 			return 0;
 		case 0xEFu:
-			if (getMemByte(0x5D4594, 2661958)) {
-				if (getMemByte(0x5D4594, 2661958) == 1) {
-					nox_xxx_wizardMaxHealth_587000_312816 = *(_DWORD*)(data + 1);
-					nox_xxx_wizardMaximumMana_587000_312820 = *(_DWORD*)(data + 5);
-					nox_xxx_wizardStrength_587000_312824 = *(_DWORD*)(data + 9);
-					nox_xxx_wizardSpeed_587000_312828 = *(_DWORD*)(data + 13);
-					nox_xxx_loadBaseValues_57B200();
-					data += 17;
-					break;
-				} else if (getMemByte(0x5D4594, 2661958) == 2) {
-					nox_xxx_conjurerMaxHealth_587000_312800 = *(_DWORD*)(data + 1);
-					nox_xxx_conjurerMaxMana_587000_312804 = *(_DWORD*)(data + 5);
-					nox_xxx_conjurerStrength_587000_312808 = *(_DWORD*)(data + 9);
-					nox_xxx_conjurerSpeed_587000_312812 = *(_DWORD*)(data + 13);
-					nox_xxx_loadBaseValues_57B200();
-					data += 17;
-					break;
-				}
-			} else {
+			if (getMemByte(0x5D4594, 2661958) == 0) {
 				nox_xxx_warriorMaxHealth_587000_312784 = *(_DWORD*)(data + 1);
 				nox_xxx_warriorMaxMana_587000_312788 = *(_DWORD*)(data + 5);
 				nox_xxx_warriorMaxStrength_587000_312792 = *(_DWORD*)(data + 9);
 				nox_xxx_warriorMaxSpeed_587000_312796 = *(_DWORD*)(data + 13);
+			} else if (getMemByte(0x5D4594, 2661958) == 1) {
+				nox_xxx_wizardMaxHealth_587000_312816 = *(_DWORD*)(data + 1);
+				nox_xxx_wizardMaximumMana_587000_312820 = *(_DWORD*)(data + 5);
+				nox_xxx_wizardStrength_587000_312824 = *(_DWORD*)(data + 9);
+				nox_xxx_wizardSpeed_587000_312828 = *(_DWORD*)(data + 13);
+			} else if (getMemByte(0x5D4594, 2661958) == 2) {
+				nox_xxx_conjurerMaxHealth_587000_312800 = *(_DWORD*)(data + 1);
+				nox_xxx_conjurerMaxMana_587000_312804 = *(_DWORD*)(data + 5);
+				nox_xxx_conjurerStrength_587000_312808 = *(_DWORD*)(data + 9);
+				nox_xxx_conjurerSpeed_587000_312812 = *(_DWORD*)(data + 13);
 			}
 			nox_xxx_loadBaseValues_57B200();
 			data += 17;

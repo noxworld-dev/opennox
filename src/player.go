@@ -6,7 +6,12 @@ extern nox_playerInfo nox_playerinfo_arr[NOX_PLAYERINFO_MAX];
 extern unsigned int nox_xxx_host_player_unit_3843628;
 */
 import "C"
-import "unsafe"
+import (
+	"unsafe"
+
+	"nox/v1/common/memmap"
+	"nox/v1/common/player"
+)
 
 const NOX_PLAYERINFO_MAX = C.NOX_PLAYERINFO_MAX
 
@@ -14,6 +19,10 @@ const NOX_PLAYERINFO_MAX = C.NOX_PLAYERINFO_MAX
 func nox_xxx_playerCallDisconnect_4DEAB0(ind C.int, v C.char) *C.char {
 	getPlayerByInd(int(ind)).Disconnect(int(v))
 	return nil
+}
+
+func getPlayerClass() player.Class {
+	return player.Class(memmap.Uint8(0x5D4594, 2661958))
 }
 
 func newPlayer(ind int, data unsafe.Pointer) unsafe.Pointer {
