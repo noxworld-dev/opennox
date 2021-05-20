@@ -36,8 +36,8 @@ int  nox_xxx_guiServerPlayersLoad_456270(int a1) {
 	sub_46B120(*(_DWORD**)&dword_5d4594_1045684, a1);
 	nox_xxx_wndSetDrawFn_46B340(*(int*)&dword_5d4594_1045684, sub_456640);
 	nox_xxx_wndRetNULL_46A8A0();
-	nox_common_listClear_425760(getMemAt(0x5D4594, 1045652));
-	nox_common_listClear_425760(getMemAt(0x5D4594, 1045668));
+	nox_common_list_clear_425760(getMemAt(0x5D4594, 1045652));
+	nox_common_list_clear_425760(getMemAt(0x5D4594, 1045668));
 	v3 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1045684, 10501);
 	v4 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1045684, 10502);
 	v14 = (_DWORD*)v3[8];
@@ -267,7 +267,7 @@ char*  sub_457230(wchar_t* a1) {
 			v3[17] = (unsigned __int8)result[56];
 			*((_BYTE*)v3 + 64) = sub_457120((int)result);
 			sub_425770(v3);
-			nox_common_listAddTo_4258E0((int)getMemAt(0x5D4594, 1045668), v3);
+			nox_common_list_append_4258E0((int)getMemAt(0x5D4594, 1045668), v3);
 			nox_wcscpy((wchar_t*)v3 + 6, a1);
 			nox_wcscpy(v8, a1);
 			if (nox_common_gameFlags_check_40A5C0(96) || v1[52] & 0x60) {

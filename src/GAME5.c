@@ -8227,10 +8227,10 @@ int  nox_xxx_allocNetGQueue_5520B0(int a1, int a2) {
 	if (!nox_alloc_gQueue_3844300)
 		return -1;
 	if (*getMemU32Ptr(0x5D4594, 2495924)) {
-		v3 = nox_common_listGetXxxSafe_425890(getMemIntPtr(0x5D4594, 2495908));
+		v3 = nox_common_list_getFirstSafe_425890(getMemIntPtr(0x5D4594, 2495908));
 		if (v3) {
 			do {
-				v4 = nox_common_listGetXxxSafe_4258A0(v3);
+				v4 = nox_common_list_getNextSafe_4258A0(v3);
 				sub_425920((_DWORD**)v3);
 				free(v3);
 				--*getMemU8Ptr( 0x5D4594, 2500076);
@@ -8238,7 +8238,7 @@ int  nox_xxx_allocNetGQueue_5520B0(int a1, int a2) {
 			} while (v4);
 		}
 	} else {
-		nox_common_listClear_425760(getMemAt(0x5D4594, 2495908));
+		nox_common_list_clear_425760(getMemAt(0x5D4594, 2495908));
 	}
 	*getMemU32Ptr(0x5D4594, 2495944) = 0;
 	*getMemU32Ptr(0x5D4594, 2495948) = 0;

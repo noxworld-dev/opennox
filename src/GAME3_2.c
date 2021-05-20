@@ -1289,24 +1289,24 @@ int  sub_4D0670(char* a1) {
 
 //----- (004D0760) --------------------------------------------------------
 void nox_common_addMapToList_4D0760(nox_map_list_item* map) {
-	int* v1 = nox_common_listGetXxxSafe_425890(&nox_common_mapList);
-	if (!v1) {
-		nox_common_listAddTo_4258E0(&nox_common_mapList, map);
+	nox_map_list_item* it = nox_common_list_getFirstSafe_425890(&nox_common_mapList);
+	if (!it) {
+		nox_common_list_append_4258E0(&nox_common_mapList, map);
 		return;
 	}
-	while (strcmp(map->name, (const char*)v1 + 12) > 0) {
-		v1 = nox_common_listGetXxxSafe_4258A0(v1);
-		if (!v1) {
-			nox_common_listAddTo_4258E0(&nox_common_mapList, map);
+	while (strcmp(map->name, it->name) > 0) {
+		it = nox_common_list_getNextSafe_4258A0(it);
+		if (!it) {
+			nox_common_list_append_4258E0(&nox_common_mapList, map);
 			return;
 		}
 	}
-	nox_common_listAddTo_4258E0((int)v1, map);
+	nox_common_list_append_4258E0(it, map);
 }
 
 //----- (004D07F0) --------------------------------------------------------
 int nox_common_scanAllMaps_4D07F0() {
-	nox_common_listClear_425760(&nox_common_mapList);
+	nox_common_list_clear_425760(&nox_common_mapList);
 
 	struct _WIN32_FIND_DATAA FindFileData;
 	HANDLE v1 = FindFirstFileA((LPCSTR)"maps\\*.*", &FindFileData);
@@ -1347,11 +1347,11 @@ void sub_4D0970() {
 	int* v1;     // esi
 	int* v2;     // edi
 
-	result = nox_common_listGetXxxSafe_425890(&nox_common_mapList);
+	result = nox_common_list_getFirstSafe_425890(&nox_common_mapList);
 	v1 = result;
 	if (result) {
 		do {
-			v2 = nox_common_listGetXxxSafe_4258A0(v1);
+			v2 = nox_common_list_getNextSafe_4258A0(v1);
 			sub_425920((_DWORD**)v1);
 			free(v1);
 			v1 = v2;
@@ -1360,10 +1360,10 @@ void sub_4D0970() {
 }
 
 //----- (004D09B0) --------------------------------------------------------
-int* nox_xxx_validateMapList_4D09B0() { return nox_common_listGetXxxSafe_425890(&nox_common_mapList); }
+int* nox_xxx_validateMapList_4D09B0() { return nox_common_list_getFirstSafe_425890(&nox_common_mapList); }
 
 //----- (004D09C0) --------------------------------------------------------
-int*  sub_4D09C0(int* a1) { return nox_common_listGetXxxSafe_4258A0(a1); }
+int*  sub_4D09C0(int* a1) { return nox_common_list_getNextSafe_4258A0(a1); }
 
 //----- (004D09D0) --------------------------------------------------------
 int*  sub_4D09D0(char* a1) {
@@ -1705,7 +1705,7 @@ char* nox_xxx_getQuestMapFile_4D0F60() // quest setup 2
 //----- (004D11A0) --------------------------------------------------------
 void sub_4D11A0() {
 	if (!*getMemU32Ptr(0x5D4594, 1548504)) {
-		nox_common_listClear_425760(getMemAt(0x5D4594, 1548492));
+		nox_common_list_clear_425760(getMemAt(0x5D4594, 1548492));
 		*getMemU32Ptr(0x5D4594, 1548504) = 1;
 	}
 }
@@ -1716,11 +1716,11 @@ void sub_4D11D0() {
 	int* v1;     // esi
 	int* v2;     // edi
 
-	result = nox_common_listGetXxxSafe_425890(getMemIntPtr(0x5D4594, 1548492));
+	result = nox_common_list_getFirstSafe_425890(getMemIntPtr(0x5D4594, 1548492));
 	v1 = result;
 	if (result) {
 		do {
-			v2 = nox_common_listGetXxxSafe_4258A0(v1);
+			v2 = nox_common_list_getNextSafe_4258A0(v1);
 			sub_425920((_DWORD**)v1);
 			free(v1);
 			v1 = v2;
@@ -1741,7 +1741,7 @@ void sub_4D1210(int a1) {
 		if (result) {
 			v3 = malloc(0x10u);
 			v3[3] = v2;
-			nox_common_listAddTo_4258E0((int)getMemAt(0x5D4594, 1548492), v3);
+			nox_common_list_append_4258E0((int)getMemAt(0x5D4594, 1548492), v3);
 		}
 	}
 }
@@ -1751,11 +1751,11 @@ int*  sub_4D1250(int a1) {
 	int* result; // eax
 	int* v2;     // esi
 
-	result = nox_common_listGetXxxSafe_425890(getMemIntPtr(0x5D4594, 1548492));
+	result = nox_common_list_getFirstSafe_425890(getMemIntPtr(0x5D4594, 1548492));
 	v2 = result;
 	if (result) {
 		while (*(unsigned __int8*)(v2[3] + 2064) != a1) {
-			result = nox_common_listGetXxxSafe_4258A0(v2);
+			result = nox_common_list_getNextSafe_4258A0(v2);
 			v2 = result;
 			if (!result)
 				return result;
@@ -1770,11 +1770,11 @@ int*  sub_4D1250(int a1) {
 int  sub_4D12A0(int a1) {
 	int* v1; // eax
 
-	v1 = nox_common_listGetXxxSafe_425890(getMemIntPtr(0x5D4594, 1548492));
+	v1 = nox_common_list_getFirstSafe_425890(getMemIntPtr(0x5D4594, 1548492));
 	if (!v1)
 		return 0;
 	while (*(unsigned __int8*)(v1[3] + 2064) != a1) {
-		v1 = nox_common_listGetXxxSafe_4258A0(v1);
+		v1 = nox_common_list_getNextSafe_4258A0(v1);
 		if (!v1)
 			return 0;
 	}

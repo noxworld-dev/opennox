@@ -7940,7 +7940,7 @@ int*  sub_416770(int a1, wchar_t* a2, const char* a3) {
 		strcpy((char*)v3 + 72, a3);
 	else
 		*((_BYTE*)v3 + 72) = 0;
-	nox_common_listAddTo_4258E0((int)getMemAt(0x5D4594, 371500), v3);
+	nox_common_list_append_4258E0((int)getMemAt(0x5D4594, 371500), v3);
 	if (a1) {
 		*((_QWORD*)v3 + 8) = 60000 * a1 + nox_platform_get_ticks();
 	} else {
@@ -8007,26 +8007,26 @@ int*  sub_4168A0(wchar_t* a1) {
 	v1 = (wchar_t*)malloc(0x40u);
 	sub_425770(v1);
 	nox_wcscpy(v1 + 6, a1);
-	nox_common_listAddTo_4258E0((int)getMemAt(0x5D4594, 371364), v1);
+	nox_common_list_append_4258E0((int)getMemAt(0x5D4594, 371364), v1);
 	return sub_455800();
 }
 
 //----- (004168E0) --------------------------------------------------------
-int* sub_4168E0() { return nox_common_listGetXxxSafe_425890(getMemIntPtr(0x5D4594, 371364)); }
+int* sub_4168E0() { return nox_common_list_getFirstSafe_425890(getMemIntPtr(0x5D4594, 371364)); }
 
 //----- (004168F0) --------------------------------------------------------
-int*  sub_4168F0(int* a1) { return nox_common_listGetXxxSafe_4258A0(a1); }
+int*  sub_4168F0(int* a1) { return nox_common_list_getNextSafe_4258A0(a1); }
 
 //----- (00416900) --------------------------------------------------------
-int* sub_416900() { return nox_common_listGetXxxSafe_425890(getMemIntPtr(0x5D4594, 371500)); }
+int* sub_416900() { return nox_common_list_getFirstSafe_425890(getMemIntPtr(0x5D4594, 371500)); }
 
 //----- (00416910) --------------------------------------------------------
-int*  sub_416910(int* a1) { return nox_common_listGetXxxSafe_4258A0(a1); }
+int*  sub_416910(int* a1) { return nox_common_list_getNextSafe_4258A0(a1); }
 
 //----- (00416920) --------------------------------------------------------
 int sub_416920() {
-	nox_common_listClear_425760(getMemAt(0x5D4594, 371364));
-	nox_common_listClear_425760(getMemAt(0x5D4594, 371500));
+	nox_common_list_clear_425760(getMemAt(0x5D4594, 371364));
+	nox_common_list_clear_425760(getMemAt(0x5D4594, 371500));
 	return sub_4E41B0((char*)getMemAt(0x587000, 54280));
 }
 

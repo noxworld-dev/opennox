@@ -805,7 +805,7 @@ int  nox_xxx_netBigSwitch_553210(unsigned int id, unsigned char* packet, int pac
 						nox_xxx_playerCallDisconnect_4DEAB0((unsigned __int8)i[2064], 4);
 						_DWORD* v50 = malloc(0x10u);
 						v50[3] = (unsigned __int8)i[2064] + 1;
-						nox_common_listAddTo_4258E0((int)getMemAt(0x5D4594, 2495908), v50);
+						nox_common_list_append_4258E0((int)getMemAt(0x5D4594, 2495908), v50);
 						++*getMemU8Ptr( 0x5D4594, 2500076);
 						*(_BYTE*)(out + 2) = 21;
 						return 3;
@@ -1142,11 +1142,11 @@ unsigned int  nox_server_makeServerInfoPacket_554040(const char* inBuf, int inSz
 int*  nox_xxx_findPlayerID_5541D0(int a1) {
 	int* result; // eax
 
-	result = nox_common_listGetXxxSafe_425890(getMemIntPtr(0x5D4594, 2495908));
+	result = nox_common_list_getFirstSafe_425890(getMemIntPtr(0x5D4594, 2495908));
 	if (!result)
 		return 0;
 	while (result[3] != a1) {
-		result = nox_common_listGetXxxSafe_4258A0(result);
+		result = nox_common_list_getNextSafe_4258A0(result);
 		if (!result)
 			return 0;
 	}
@@ -3901,7 +3901,7 @@ void sub_57A4D0(wchar_t* a1, int a2, int a3, int a4) {
 					if (a3) {
 						v10 = (wchar_t*)malloc(0x20Cu);
 						nox_wcscpy(v10 + 6, a1);
-						nox_common_listAddTo_4258E0(a3, v10);
+						nox_common_list_append_4258E0(a3, v10);
 					}
 				}
 			}
@@ -4074,7 +4074,7 @@ char  sub_57AAA0(const char* a1, char* a2, int* a3) {
 				sub_57A1E0((int*)v19, 0, 0, 3, *((_WORD*)a2 + 26));
 			}
 			if (a3) {
-				for (i = nox_common_listGetXxxSafe_425890(a3); i; i = nox_common_listGetXxxSafe_4258A0(i)) {
+				for (i = nox_common_list_getFirstSafe_425890(a3); i; i = nox_common_list_getNextSafe_4258A0(i)) {
 					nox_sprintf(v23, "%S\n", i + 3);
 					nox_fs_fputs(v4, v23);
 				}
@@ -4144,11 +4144,11 @@ int*  sub_57ADF0(int* a1) {
 	int* v2;     // esi
 	int* v3;     // edi
 
-	result = nox_common_listGetXxxSafe_425890(a1);
+	result = nox_common_list_getFirstSafe_425890(a1);
 	v2 = result;
 	if (result) {
 		do {
-			v3 = nox_common_listGetXxxSafe_4258A0(v2);
+			v3 = nox_common_list_getNextSafe_4258A0(v2);
 			sub_425920((_DWORD**)v2);
 			free(v2);
 			v2 = v3;

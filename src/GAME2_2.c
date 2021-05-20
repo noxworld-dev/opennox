@@ -10396,7 +10396,7 @@ int  sub_486E30(int a1, _DWORD* a2) {
 	a2[33] = a1;
 	++*(_DWORD*)(a1 + 192);
 	++*(_DWORD*)(a1 + 212);
-	nox_common_listAddTo_4258E0(a1 + 200, a2);
+	nox_common_list_append_4258E0(a1 + 200, a2);
 	result = *(_DWORD*)(a1 + 212) - 1;
 	*(_DWORD*)(a1 + 212) = result;
 	if (result < 0)
@@ -10443,8 +10443,8 @@ void* sub_486EF0() {
 
 //----- (00486F30) --------------------------------------------------------
 int sub_486F30() {
-	nox_common_listClear_425760(*(_DWORD**)&dword_587000_155144);
-	nox_common_listClear_425760((_DWORD*)((_DWORD)dword_587000_155144 + 12));
+	nox_common_list_clear_425760(*(_DWORD**)&dword_587000_155144);
+	nox_common_list_clear_425760((_DWORD*)((_DWORD)dword_587000_155144 + 12));
 	*(_DWORD*)((_DWORD)dword_587000_155144 + 24) = 0;
 	*getMemU32Ptr(0x5D4594, 1193340) = (_DWORD)dword_587000_155144 + 32;
 	sub_4864A0((_DWORD*)((_DWORD)dword_587000_155144 + 32));
@@ -10496,7 +10496,7 @@ void  sub_487030(LPVOID lpMem) {
 }
 
 //----- (00487050) --------------------------------------------------------
-void sub_487050(_DWORD* a1) { nox_common_listAddTo_4258E0(*(int*)&dword_587000_155144, a1); }
+void sub_487050(_DWORD* a1) { nox_common_list_append_4258E0(*(int*)&dword_587000_155144, a1); }
 
 //----- (00487070) --------------------------------------------------------
 void  sub_487070(LPVOID lpMem) {
@@ -10528,7 +10528,7 @@ void sub_4870A0() {
 int*  sub_4870E0(int* a1) {
 	int* result; // eax
 
-	result = nox_common_listGetXxxSafe_425890(*(int**)&dword_587000_155144);
+	result = nox_common_list_getFirstSafe_425890(*(int**)&dword_587000_155144);
 	*a1 = (int)result;
 	return result;
 }
@@ -10536,7 +10536,7 @@ int*  sub_4870E0(int* a1) {
 //----- (00487100) --------------------------------------------------------
 int*  sub_487100(int** a1) {
 	if (*a1)
-		*a1 = nox_common_listGetXxxSafe_4258A0(*a1);
+		*a1 = nox_common_list_getNextSafe_4258A0(*a1);
 	return *a1;
 }
 
@@ -10593,7 +10593,7 @@ _DWORD*  sub_4871C0(int a1, int a2, const void* a3) {
 	++*(_DWORD*)(a1 + 16);
 	*(_DWORD*)(a1 + 4 * a2 + 24) = v4;
 	v4[64] = *(_DWORD*)(v3 + 36);
-	nox_common_listClear_425760(v4 + 50);
+	nox_common_list_clear_425760(v4 + 50);
 	sub_4864A0(v4 + 22);
 	v4[53] = 0;
 	v4[56] = 33;
@@ -10638,7 +10638,7 @@ int  sub_487310(_DWORD* a1) {
 	int result; // eax
 
 	++*(_DWORD*)((_DWORD)dword_587000_155144 + 24);
-	nox_common_listAddTo_4258E0((_DWORD)dword_587000_155144 + 12, a1);
+	nox_common_list_append_4258E0((_DWORD)dword_587000_155144 + 12, a1);
 	result = *(_DWORD*)((_DWORD)dword_587000_155144 + 24) - 1;
 	*(_DWORD*)((_DWORD)dword_587000_155144 + 24) = result;
 	if (result < 0)
@@ -10758,7 +10758,7 @@ int  sub_487590(int a1, const void* a2) {
 int*  sub_4875B0(int* a1) {
 	int* result; // eax
 
-	result = nox_common_listGetXxxSafe_425890((int*)((_DWORD)dword_587000_155144 + 12));
+	result = nox_common_list_getFirstSafe_425890((int*)((_DWORD)dword_587000_155144 + 12));
 	*a1 = (int)result;
 	return result;
 }
@@ -10766,7 +10766,7 @@ int*  sub_4875B0(int* a1) {
 //----- (004875D0) --------------------------------------------------------
 int*  sub_4875D0(int** a1) {
 	if (*a1)
-		*a1 = nox_common_listGetXxxSafe_4258A0(*a1);
+		*a1 = nox_common_list_getNextSafe_4258A0(*a1);
 	return *a1;
 }
 
@@ -10875,7 +10875,7 @@ int  sub_487790(int a1, int a2) {
 int*  sub_4877D0(int a1, int* a2) {
 	int* result; // eax
 
-	result = nox_common_listGetXxxSafe_425890((int*)(a1 + 200));
+	result = nox_common_list_getFirstSafe_425890((int*)(a1 + 200));
 	*a2 = (int)result;
 	return result;
 }
@@ -10883,7 +10883,7 @@ int*  sub_4877D0(int a1, int* a2) {
 //----- (004877F0) --------------------------------------------------------
 int*  sub_4877F0(int** a1) {
 	if (*a1)
-		*a1 = nox_common_listGetXxxSafe_4258A0(*a1);
+		*a1 = nox_common_list_getNextSafe_4258A0(*a1);
 	return *a1;
 }
 
@@ -11100,14 +11100,14 @@ void sub_487C30(_DWORD* a1) {
 	a1[1] = 0;
 	a1[5] = 0;
 	a1[6] = 0;
-	nox_common_listClear_425760(a1 + 2);
+	nox_common_list_clear_425760(a1 + 2);
 }
 
 //----- (00487C50) --------------------------------------------------------
 int  sub_487C50(int a1, _DWORD* a2) {
 	int result; // eax
 
-	nox_common_listAddTo_4258E0(a1 + 8, a2);
+	nox_common_list_append_4258E0(a1 + 8, a2);
 	result = a2[4] + *(_DWORD*)(a1 + 4);
 	*(_DWORD*)(a1 + 4) = result;
 	a2[5] = a1;
@@ -11115,7 +11115,7 @@ int  sub_487C50(int a1, _DWORD* a2) {
 }
 
 //----- (00487C80) --------------------------------------------------------
-int  sub_487C80(int a1) { return nox_common_listGetXxx_425940((int*)(a1 + 8)); }
+int  sub_487C80(int a1) { return nox_common_list_getNext_425940((int*)(a1 + 8)); }
 
 //----- (00487CB0) --------------------------------------------------------
 int  sub_487CB0(int a1, int a2) { return a2 * *(_DWORD*)(a1 + 20) / 1000; }

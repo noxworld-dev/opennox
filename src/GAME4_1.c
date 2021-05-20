@@ -258,7 +258,7 @@ void sub_509C30(int a1) {
 	char* v1; // edx
 
 	if (!dword_5d4594_1599688) {
-		nox_common_listClear_425760(getMemAt(0x5D4594, 1599676));
+		nox_common_list_clear_425760(getMemAt(0x5D4594, 1599676));
 		dword_5d4594_1599688 = 1;
 	}
 	v1 = (char*)malloc(0x20u);
@@ -276,11 +276,11 @@ int* sub_509CB0() {
 
 	result = *(int**)&dword_5d4594_1599688;
 	if (dword_5d4594_1599688) {
-		result = nox_common_listGetXxxSafe_425890(getMemIntPtr(0x5D4594, 1599676));
+		result = nox_common_list_getFirstSafe_425890(getMemIntPtr(0x5D4594, 1599676));
 		v1 = result;
 		if (result) {
 			do {
-				v2 = nox_common_listGetXxxSafe_4258A0(v1);
+				v2 = nox_common_list_getNextSafe_4258A0(v1);
 				sub_425920((_DWORD**)v1);
 				free(v1);
 				v1 = v2;
@@ -294,11 +294,11 @@ int* sub_509CB0() {
 int  sub_509CF0(const char* a1, char a2, int a3) {
 	int* v3; // edi
 
-	v3 = nox_common_listGetXxxSafe_425890(getMemIntPtr(0x5D4594, 1599676));
+	v3 = nox_common_list_getFirstSafe_425890(getMemIntPtr(0x5D4594, 1599676));
 	if (!v3)
 		return 1;
 	while (strcmp((const char*)v3 + 12, a1) || a2 == *((_BYTE*)v3 + 28) && a3 == v3[6]) {
-		v3 = nox_common_listGetXxxSafe_4258A0(v3);
+		v3 = nox_common_list_getNextSafe_4258A0(v3);
 		if (!v3)
 			return 1;
 	}
@@ -309,11 +309,11 @@ int  sub_509CF0(const char* a1, char a2, int a3) {
 int  sub_509D80(int a1) {
 	int* v1; // edi
 
-	v1 = nox_common_listGetXxxSafe_425890(getMemIntPtr(0x5D4594, 1599676));
+	v1 = nox_common_list_getFirstSafe_425890(getMemIntPtr(0x5D4594, 1599676));
 	if (!v1)
 		return 0;
 	while (strcmp((const char*)v1 + 12, (const char*)(a1 + 2096))) {
-		v1 = nox_common_listGetXxxSafe_4258A0(v1);
+		v1 = nox_common_list_getNextSafe_4258A0(v1);
 		if (!v1)
 			return 0;
 	}

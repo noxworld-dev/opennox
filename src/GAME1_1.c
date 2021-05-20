@@ -8314,7 +8314,7 @@ int  sub_425710(int a1, int a2) {
 }
 
 //----- (00425760) --------------------------------------------------------
-void nox_common_listClear_425760(nox_list_item_t* list) {
+void nox_common_list_clear_425760(nox_list_item_t* list) {
 	list->field_0 = list;
 	list->field_1 = list;
 	list->field_2 = list;
@@ -8340,19 +8340,19 @@ int  sub_425790(int* a1, _DWORD* a2) {
 
 	v2 = 0;
 	v3 = a2[2];
-	v4 = (int*)nox_common_listGetXxx_425940(a1);
+	v4 = (int*)nox_common_list_getNext_425940(a1);
 	if (v4) {
 		while (v3 > v4[2]) {
 			++v2;
-			v4 = (int*)nox_common_listGetXxx_425940(v4);
+			v4 = (int*)nox_common_list_getNext_425940(v4);
 			if (!v4)
 				goto LABEL_4;
 		}
-		nox_common_listAddTo_4258E0((int)v4, a2);
+		nox_common_list_append_4258E0((int)v4, a2);
 		result = v2;
 	} else {
 	LABEL_4:
-		nox_common_listAddTo_4258E0((int)a1, a2);
+		nox_common_list_append_4258E0((int)a1, a2);
 		result = v2;
 	}
 	return result;
@@ -8364,19 +8364,19 @@ void sub_4257F0(int* a1, _DWORD* a2) {
 	int* v3; // eax
 
 	v2 = a2[2];
-	v3 = (int*)nox_common_listGetXxx_425940(a1);
+	v3 = (int*)nox_common_list_getNext_425940(a1);
 	if (!v3) {
-		nox_common_listAddTo_4258E0((int)a1, a2);
+		nox_common_list_append_4258E0((int)a1, a2);
 		return;
 	}
 	while (v3[2] > v2) {
-		v3 = (int*)nox_common_listGetXxx_425940(v3);
+		v3 = (int*)nox_common_list_getNext_425940(v3);
 		if (!v3) {
-			nox_common_listAddTo_4258E0((int)a1, a2);
+			nox_common_list_append_4258E0((int)a1, a2);
 			return;
 		}
 	}
-	nox_common_listAddTo_4258E0((int)v3, a2);
+	nox_common_list_append_4258E0((int)v3, a2);
 }
 
 //----- (00425840) --------------------------------------------------------
@@ -8393,7 +8393,7 @@ void sub_425840(_DWORD* a1, int a2) {
 		result[1] = v4;
 		*v3 = a2;
 		*(_DWORD*)(a2 + 4) = v3;
-		nox_common_listClear_425760(a1);
+		nox_common_list_clear_425760(a1);
 	}
 }
 
@@ -8414,15 +8414,15 @@ int  sub_425870(_DWORD** a1) {
 }
 
 //----- (00425890) --------------------------------------------------------
-nox_list_item_t* nox_common_listGetXxxSafe_425890(nox_list_item_t* list) {
-	return nox_common_listGetXxxSafe_4258A0(list);
+nox_list_item_t* nox_common_list_getFirstSafe_425890(nox_list_item_t* list) {
+	return nox_common_list_getNextSafe_4258A0(list);
 }
 
 //----- (004258A0) --------------------------------------------------------
-nox_list_item_t* nox_common_listGetXxxSafe_4258A0(nox_list_item_t* list) {
+nox_list_item_t* nox_common_list_getNextSafe_4258A0(nox_list_item_t* list) {
 	if (!list)
 		return 0;
-	return nox_common_listGetXxx_425940(list);
+	return nox_common_list_getNext_425940(list);
 }
 
 //----- (004258C0) --------------------------------------------------------
@@ -8447,13 +8447,13 @@ _DWORD*  sub_4258C0(_DWORD** a1, int a2) {
 }
 
 //----- (004258E0) --------------------------------------------------------
-void nox_common_listAddTo_4258E0(nox_list_item_t* head, nox_list_item_t* cur) {
-	nox_list_item_t* m = head->field_1;
+void nox_common_list_append_4258E0(nox_list_item_t* list, nox_list_item_t* cur) {
+	nox_list_item_t* it = list->field_1;
 
-	cur->field_0 = head;
-	cur->field_1 = m;
+	cur->field_0 = list;
+	cur->field_1 = it;
 
-	head->field_1 = cur;
+	list->field_1 = cur;
 	cur->field_1->field_0 = cur;
 }
 
@@ -8482,7 +8482,7 @@ _DWORD**  sub_425920(_DWORD** a1) {
 }
 
 //----- (00425940) --------------------------------------------------------
-nox_list_item_t* nox_common_listGetXxx_425940(nox_list_item_t* list) {
+nox_list_item_t* nox_common_list_getNext_425940(nox_list_item_t* list) {
 	nox_list_item_t* it = list->field_0;
 	if (it && it == it->field_2) {
 		return 0;
@@ -8524,7 +8524,7 @@ int  sub_4259A0(int a1) {
 //----- (004259C0) --------------------------------------------------------
 void sub_4259C0() {
 	if (!*getMemU32Ptr(0x5D4594, 599472)) {
-		nox_common_listClear_425760(getMemAt(0x5D4594, 599460));
+		nox_common_list_clear_425760(getMemAt(0x5D4594, 599460));
 		*getMemU32Ptr(0x5D4594, 599472) = 1;
 	}
 }
@@ -8560,10 +8560,10 @@ int* sub_4259F0() {
 }
 
 //----- (00425A50) --------------------------------------------------------
-int* sub_425A50() { return nox_common_listGetXxxSafe_425890(getMemIntPtr(0x5D4594, 599460)); }
+int* sub_425A50() { return nox_common_list_getFirstSafe_425890(getMemIntPtr(0x5D4594, 599460)); }
 
 //----- (00425A60) --------------------------------------------------------
-int*  sub_425A60(int* a1) { return nox_common_listGetXxxSafe_4258A0(a1); }
+int*  sub_425A60(int* a1) { return nox_common_list_getNextSafe_4258A0(a1); }
 
 //----- (00425A70) --------------------------------------------------------
 int*  sub_425A70(int a1) {
@@ -8606,8 +8606,8 @@ wchar_t*  sub_425AD0(int a1, wchar_t* a2) {
 		nox_wcscpy(v2 + 6, a2);
 		*((_DWORD*)v2 + 9) = 0;
 		sub_425770(v2);
-		nox_common_listClear_425760((_DWORD*)v2 + 10);
-		nox_common_listAddTo_4258E0((int)getMemAt(0x5D4594, 599460), v2);
+		nox_common_list_clear_425760((_DWORD*)v2 + 10);
+		nox_common_list_append_4258E0((int)getMemAt(0x5D4594, 599460), v2);
 	}
 	return v2;
 }
@@ -8621,7 +8621,7 @@ void sub_425B30(int a1, int a2) {
 	v3 = v2;
 	v2[3] = a2;
 	sub_425770(v2);
-	nox_common_listAddTo_4258E0(a1 + 40, v3);
+	nox_common_list_append_4258E0(a1 + 40, v3);
 }
 
 //----- (00425B60) --------------------------------------------------------
@@ -8649,10 +8649,10 @@ LABEL_6:
 }
 
 //----- (00425BC0) --------------------------------------------------------
-int*  sub_425BC0(int a1) { return nox_common_listGetXxxSafe_425890((int*)(a1 + 40)); }
+int*  sub_425BC0(int a1) { return nox_common_list_getFirstSafe_425890((int*)(a1 + 40)); }
 
 //----- (00425BE0) --------------------------------------------------------
-int*  sub_425BE0(int* a1) { return nox_common_listGetXxxSafe_4258A0(a1); }
+int*  sub_425BE0(int* a1) { return nox_common_list_getNextSafe_4258A0(a1); }
 
 //----- (00425BF0) --------------------------------------------------------
 int nox_xxx_countObserverPlayers_425BF0() {
