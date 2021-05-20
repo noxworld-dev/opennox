@@ -1022,6 +1022,20 @@ typedef struct nox_gui_animation {
 } nox_gui_animation;
 _Static_assert(sizeof(nox_gui_animation) == 68, "wrong size of nox_gui_animation structure!");
 
+typedef struct nox_map_list_item nox_map_list_item;
+typedef struct nox_map_list_item {
+	_DWORD field_0; // 0, 0
+	_DWORD field_1; // 1, 4
+	_DWORD field_2; // 2, 8
+	char name[12]; // 3, 12
+	int field_6; // 6, 24
+	_DWORD field_7; // 7, 28
+	char field_8_0; // 8, 32
+	char field_8_1; // 8, 33
+	_WORD field_8_2; // 8, 34
+} nox_map_list_item;
+_Static_assert(sizeof(nox_map_list_item) == 36, "wrong size of nox_map_list_item structure!");
+
 typedef struct obj_5D4594_811068_t {
 	int field_0; // 0, 0
 	int field_1; // 1, 4
