@@ -1289,17 +1289,17 @@ int  sub_4D0670(char* a1) {
 void nox_common_addMapToList_4D0760(nox_map_list_item* map) {
 	int* v1 = nox_xxx_gameMapsValidateListMB_425890(getMemIntPtr(0x5D4594, 1523060));
 	if (!v1) {
-		sub_4258E0((int)getMemAt(0x5D4594, 1523060), map);
+		nox_common_listAddTo_4258E0((int)getMemAt(0x5D4594, 1523060), map);
 		return;
 	}
 	while (strcmp(map->name, (const char*)v1 + 12) > 0) {
 		v1 = sub_4258A0(v1);
 		if (!v1) {
-			sub_4258E0((int)getMemAt(0x5D4594, 1523060), map);
+			nox_common_listAddTo_4258E0((int)getMemAt(0x5D4594, 1523060), map);
 			return;
 		}
 	}
-	sub_4258E0((int)v1, map);
+	nox_common_listAddTo_4258E0((int)v1, map);
 }
 
 //----- (004D07F0) --------------------------------------------------------
@@ -1731,7 +1731,7 @@ void sub_4D11D0() {
 }
 
 //----- (004D1210) --------------------------------------------------------
-void*  sub_4D1210(int a1) {
+void sub_4D1210(int a1) {
 	void* result; // eax
 	void* v2;     // esi
 	_DWORD* v3;   // eax
@@ -1743,10 +1743,9 @@ void*  sub_4D1210(int a1) {
 		if (result) {
 			v3 = malloc(0x10u);
 			v3[3] = v2;
-			result = sub_4258E0((int)getMemAt(0x5D4594, 1548492), v3);
+			nox_common_listAddTo_4258E0((int)getMemAt(0x5D4594, 1548492), v3);
 		}
 	}
-	return result;
 }
 
 //----- (004D1250) --------------------------------------------------------

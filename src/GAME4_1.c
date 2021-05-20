@@ -254,7 +254,7 @@ char sub_509A60() {
 // 509BEA: variable 'v0' is possibly undefined
 
 //----- (00509C30) --------------------------------------------------------
-_DWORD*  sub_509C30(int a1) {
+void sub_509C30(int a1) {
 	char* v1; // edx
 
 	if (!dword_5d4594_1599688) {
@@ -265,7 +265,7 @@ _DWORD*  sub_509C30(int a1) {
 	*((_DWORD*)v1 + 6) = *(_DWORD*)(a1 + 2068);
 	strcpy(v1 + 12, (const char*)(a1 + 2096));
 	v1[28] = *(_BYTE*)(a1 + 2251);
-	return sub_4257F0(getMemIntPtr(0x5D4594, 1599676), v1);
+	sub_4257F0(getMemIntPtr(0x5D4594, 1599676), v1);
 }
 
 //----- (00509CB0) --------------------------------------------------------

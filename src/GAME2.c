@@ -1806,7 +1806,7 @@ int  sub_451BE0(int a1) {
 	}
 	v7 = (_DWORD*)(v1 + 12);
 	sub_425770((_DWORD*)(v1 + 12));
-	sub_4258E0((int)v4, v7);
+	nox_common_listAddTo_4258E0((int)v4, v7);
 	result = *(_DWORD*)(v2 + 56);
 	v9 = *(_DWORD*)(v2 + 52) + 1;
 	*(_DWORD*)(v2 + 52) = v9;
@@ -1913,7 +1913,7 @@ int sub_452010() {
 }
 
 //----- (00452050) --------------------------------------------------------
-_DWORD*  sub_452050(_DWORD* a1) {
+void sub_452050(_DWORD* a1) {
 	_DWORD* v1;          // esi
 	int v2;              // edi
 	unsigned int v3;     // ebx
@@ -1934,14 +1934,14 @@ _DWORD*  sub_452050(_DWORD* a1) {
 				v1[31] = v3;
 				v7 = (_DWORD**)(v1 + 28);
 				sub_425920(v7);
-				result = sub_4258E0((int)&v4[12 * v3], v7);
+				nox_common_listAddTo_4258E0((int)&v4[12 * v3], v7);
 			}
 		} else {
 			v1[27] = v2;
 			v1[31] = v3;
 			v6 = (_DWORD**)(v1 + 28);
 			sub_425920(v6);
-			result = sub_4258E0((int)&v4[12 * v3], v6);
+			nox_common_listAddTo_4258E0((int)&v4[12 * v3], v6);
 		}
 	} else {
 		v1[26] = *getMemU32Ptr(0x5D4594, 1045444);
@@ -1949,9 +1949,8 @@ _DWORD*  sub_452050(_DWORD* a1) {
 		v1[31] = v3;
 		v8 = v1 + 28;
 		sub_425770(v8);
-		result = sub_4258E0((int)&v4[12 * v3], v8);
+		nox_common_listAddTo_4258E0((int)&v4[12 * v3], v8);
 	}
-	return result;
 }
 
 //----- (00452120) --------------------------------------------------------
@@ -2129,7 +2128,7 @@ _DWORD*  nox_xxx_draw_452300(_DWORD* a1) {
 	v1[108] = 0;
 	v1[42] = 0;
 	sub_4864A0(v1 + 46);
-	sub_4258E0((int)getMemAt(0x5D4594, 840612), v1);
+	nox_common_listAddTo_4258E0((int)getMemAt(0x5D4594, 840612), v1);
 	v1[70] = (*getMemU32Ptr(0x587000, 127000))++;
 	return v1;
 }
@@ -4440,7 +4439,7 @@ int  sub_457140(int a1, wchar_t* a2) {
 	if (dword_5d4594_1045684) {
 		v3 = (wchar_t*)malloc(0x48u);
 		sub_425770(v3);
-		sub_4258E0((int)getMemAt(0x5D4594, 1045652), v3);
+		nox_common_listAddTo_4258E0((int)getMemAt(0x5D4594, 1045652), v3);
 		nox_wcscpy(v3 + 6, a2);
 		*((_DWORD*)v3 + 15) = a1;
 		v4 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1045684, 10501);

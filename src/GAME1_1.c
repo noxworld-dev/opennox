@@ -3047,7 +3047,7 @@ int sub_41D530() {
 int sub_41D5D0() { return 1; }
 
 //----- (0041D5E0) --------------------------------------------------------
-unsigned __int8* sub_41D5E0() {
+void sub_41D5E0() {
 	unsigned __int8* result; // eax
 	unsigned __int8* v1;     // esi
 	void* v2;                // eax
@@ -3062,10 +3062,9 @@ unsigned __int8* sub_41D5E0() {
 			v2 = sub_425A70(*((_DWORD*)v1 + 517));
 			if (!v2)
 				v2 = sub_425AD0(*((_DWORD*)v1 + 517), (wchar_t*)v1 + 1036);
-			result = (unsigned __int8*)sub_425B30((int)v2, v1[2064]);
+			sub_425B30((int)v2, v1[2064]);
 		}
 	}
-	return result;
 }
 
 //----- (0041D650) --------------------------------------------------------
@@ -8353,31 +8352,35 @@ int  sub_425790(int* a1, _DWORD* a2) {
 			if (!v4)
 				goto LABEL_4;
 		}
-		sub_4258E0((int)v4, a2);
+		nox_common_listAddTo_4258E0((int)v4, a2);
 		result = v2;
 	} else {
 	LABEL_4:
-		sub_4258E0((int)a1, a2);
+		nox_common_listAddTo_4258E0((int)a1, a2);
 		result = v2;
 	}
 	return result;
 }
 
 //----- (004257F0) --------------------------------------------------------
-_DWORD*  sub_4257F0(int* a1, _DWORD* a2) {
+void sub_4257F0(int* a1, _DWORD* a2) {
 	int v2;  // esi
 	int* v3; // eax
 
 	v2 = a2[2];
 	v3 = (int*)sub_425940(a1);
-	if (!v3)
-		return sub_4258E0((int)a1, a2);
+	if (!v3) {
+		nox_common_listAddTo_4258E0((int)a1, a2);
+		return;
+	}
 	while (v3[2] > v2) {
 		v3 = (int*)sub_425940(v3);
-		if (!v3)
-			return sub_4258E0((int)a1, a2);
+		if (!v3) {
+			nox_common_listAddTo_4258E0((int)a1, a2);
+			return;
+		}
 	}
-	return sub_4258E0((int)v3, a2);
+	nox_common_listAddTo_4258E0((int)v3, a2);
 }
 
 //----- (00425840) --------------------------------------------------------
@@ -8450,17 +8453,14 @@ _DWORD*  sub_4258C0(_DWORD** a1, int a2) {
 }
 
 //----- (004258E0) --------------------------------------------------------
-_DWORD*  sub_4258E0(int a1, _DWORD* a2) {
-	_DWORD* result; // eax
-	int v3;         // edx
+void nox_common_listAddTo_4258E0(nox_list_item_t* head, nox_list_item_t* cur) {
+	nox_list_item_t* m = head->field_1;
 
-	result = a2;
-	v3 = *(_DWORD*)(a1 + 4);
-	*a2 = a1;
-	a2[1] = v3;
-	*(_DWORD*)(a1 + 4) = a2;
-	*(_DWORD*)a2[1] = a2;
-	return result;
+	cur->field_0 = head;
+	cur->field_1 = m;
+
+	head->field_1 = cur;
+	cur->field_1->field_0 = cur;
 }
 
 //----- (00425900) --------------------------------------------------------
@@ -8620,13 +8620,13 @@ wchar_t*  sub_425AD0(int a1, wchar_t* a2) {
 		*((_DWORD*)v2 + 9) = 0;
 		sub_425770(v2);
 		sub_425760((_DWORD*)v2 + 10);
-		sub_4258E0((int)getMemAt(0x5D4594, 599460), v2);
+		nox_common_listAddTo_4258E0((int)getMemAt(0x5D4594, 599460), v2);
 	}
 	return v2;
 }
 
 //----- (00425B30) --------------------------------------------------------
-_DWORD*  sub_425B30(int a1, int a2) {
+void sub_425B30(int a1, int a2) {
 	_DWORD* v2; // eax
 	_DWORD* v3; // esi
 
@@ -8634,7 +8634,7 @@ _DWORD*  sub_425B30(int a1, int a2) {
 	v3 = v2;
 	v2[3] = a2;
 	sub_425770(v2);
-	return sub_4258E0(a1 + 40, v3);
+	nox_common_listAddTo_4258E0(a1 + 40, v3);
 }
 
 //----- (00425B60) --------------------------------------------------------

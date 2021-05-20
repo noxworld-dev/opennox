@@ -267,7 +267,7 @@ char*  sub_457230(wchar_t* a1) {
 			v3[17] = (unsigned __int8)result[56];
 			*((_BYTE*)v3 + 64) = sub_457120((int)result);
 			sub_425770(v3);
-			sub_4258E0((int)getMemAt(0x5D4594, 1045668), v3);
+			nox_common_listAddTo_4258E0((int)getMemAt(0x5D4594, 1045668), v3);
 			nox_wcscpy((wchar_t*)v3 + 6, a1);
 			nox_wcscpy(v8, a1);
 			if (nox_common_gameFlags_check_40A5C0(96) || v1[52] & 0x60) {

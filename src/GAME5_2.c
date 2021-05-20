@@ -805,7 +805,7 @@ int  nox_xxx_netBigSwitch_553210(unsigned int id, unsigned char* packet, int pac
 						nox_xxx_playerCallDisconnect_4DEAB0((unsigned __int8)i[2064], 4);
 						_DWORD* v50 = malloc(0x10u);
 						v50[3] = (unsigned __int8)i[2064] + 1;
-						sub_4258E0((int)getMemAt(0x5D4594, 2495908), v50);
+						nox_common_listAddTo_4258E0((int)getMemAt(0x5D4594, 2495908), v50);
 						++*getMemU8Ptr( 0x5D4594, 2500076);
 						*(_BYTE*)(out + 2) = 21;
 						return 3;
@@ -3851,7 +3851,7 @@ int  sub_57A3F0(char* a1, int a2, int a3, int a4) {
 }
 
 //----- (0057A4D0) --------------------------------------------------------
-const wchar_t*  sub_57A4D0(wchar_t* a1, int a2, int a3, int a4) {
+void sub_57A4D0(wchar_t* a1, int a2, int a3, int a4) {
 	unsigned __int8 v4;    // bl
 	int v5;                // edi
 	const wchar_t* result; // eax
@@ -3901,13 +3901,12 @@ const wchar_t*  sub_57A4D0(wchar_t* a1, int a2, int a3, int a4) {
 					if (a3) {
 						v10 = (wchar_t*)malloc(0x20Cu);
 						nox_wcscpy(v10 + 6, a1);
-						result = (const wchar_t*)sub_4258E0(a3, v10);
+						nox_common_listAddTo_4258E0(a3, v10);
 					}
 				}
 			}
 		}
 	}
-	return result;
 }
 // 57A4D0: using guessed type int var_280[32];
 

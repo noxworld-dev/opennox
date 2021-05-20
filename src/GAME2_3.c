@@ -9192,36 +9192,36 @@ int  nox_wol_servers_addResult_4A0030(const void* a1) {
 			return sub_425790(getMemIntPtr(0x5D4594, 1305796), v1);
 		v3 = nox_xxx_gameMapsValidateListMB_425890(getMemIntPtr(0x5D4594, 1305796));
 		if (!v3) {
-			sub_4258E0((int)getMemAt(0x5D4594, 1305796), v1);
+			nox_common_listAddTo_4258E0((int)getMemAt(0x5D4594, 1305796), v1);
 			return v2;
 		}
 		do {
 			if (_strcmpi((const char*)v1 + 120, (const char*)v3 + 120) <= 0) {
-				sub_4258E0((int)v3, v1);
+				nox_common_listAddTo_4258E0((int)v3, v1);
 				return v2;
 			}
 			++v2;
 			v3 = sub_4258A0(v3);
 		} while (v3);
-		sub_4258E0((int)getMemAt(0x5D4594, 1305796), v1);
+		nox_common_listAddTo_4258E0((int)getMemAt(0x5D4594, 1305796), v1);
 		return v2;
 	case 1: // by name (desc)
 		if (*(unsigned __int8**)getMemAt(0x5D4594, 1305800) == getMemAt(0x5D4594, 1305796))
 			return sub_425790(getMemIntPtr(0x5D4594, 1305796), v1);
 		v3 = nox_xxx_gameMapsValidateListMB_425890(getMemIntPtr(0x5D4594, 1305796));
 		if (!v3) {
-			sub_4258E0((int)getMemAt(0x5D4594, 1305796), v1);
+			nox_common_listAddTo_4258E0((int)getMemAt(0x5D4594, 1305796), v1);
 			return v2;
 		}
 		while (_strcmpi((const char*)v1 + 120, (const char*)v3 + 120) < 0) {
 			++v2;
 			v3 = sub_4258A0(v3);
 			if (!v3) {
-				sub_4258E0((int)getMemAt(0x5D4594, 1305796), v1);
+				nox_common_listAddTo_4258E0((int)getMemAt(0x5D4594, 1305796), v1);
 				return v2;
 			}
 		}
-		sub_4258E0((int)v3, v1);
+		nox_common_listAddTo_4258E0((int)v3, v1);
 		return v2;
 	case 2: // by players (asc)
 		v5 = *((unsigned __int8*)v1 + 103);
@@ -9236,19 +9236,19 @@ int  nox_wol_servers_addResult_4A0030(const void* a1) {
 		v6 = sub_43BCB0(*(_WORD*)((char*)v1 + 163));
 		v3 = nox_xxx_gameMapsValidateListMB_425890(getMemIntPtr(0x5D4594, 1305796));
 		if (!v3) {
-			sub_4258E0((int)getMemAt(0x5D4594, 1305796), v1);
+			nox_common_listAddTo_4258E0((int)getMemAt(0x5D4594, 1305796), v1);
 			return v2;
 		}
 		while (1) {
 			v7 = sub_43BCB0(*(_WORD*)((char*)v3 + 163));
 			if (nox_wcscmp(v6, v7) <= 0) {
-				sub_4258E0((int)v3, v1);
+				nox_common_listAddTo_4258E0((int)v3, v1);
 				return v2;
 			}
 			++v2;
 			v3 = sub_4258A0(v3);
 			if (!v3) {
-				sub_4258E0((int)getMemAt(0x5D4594, 1305796), v1);
+				nox_common_listAddTo_4258E0((int)getMemAt(0x5D4594, 1305796), v1);
 				return v2;
 			}
 		}
@@ -9258,7 +9258,7 @@ int  nox_wol_servers_addResult_4A0030(const void* a1) {
 		v8 = sub_43BCB0(*(_WORD*)((char*)v1 + 163));
 		v3 = nox_xxx_gameMapsValidateListMB_425890(getMemIntPtr(0x5D4594, 1305796));
 		if (!v3) {
-			sub_4258E0((int)getMemAt(0x5D4594, 1305796), v1);
+			nox_common_listAddTo_4258E0((int)getMemAt(0x5D4594, 1305796), v1);
 			return v2;
 		}
 		while (1) {
@@ -9269,11 +9269,11 @@ int  nox_wol_servers_addResult_4A0030(const void* a1) {
 			++v2;
 			v3 = sub_4258A0(v3);
 			if (!v3) {
-				sub_4258E0((int)getMemAt(0x5D4594, 1305796), v1);
+				nox_common_listAddTo_4258E0((int)getMemAt(0x5D4594, 1305796), v1);
 				return v2;
 			}
 		}
-		sub_4258E0((int)v3, v1);
+		nox_common_listAddTo_4258E0((int)v3, v1);
 		return v2;
 	case 6: // by ping (asc)
 		v5 = v1[24];

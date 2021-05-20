@@ -7940,7 +7940,7 @@ int*  sub_416770(int a1, wchar_t* a2, const char* a3) {
 		strcpy((char*)v3 + 72, a3);
 	else
 		*((_BYTE*)v3 + 72) = 0;
-	sub_4258E0((int)getMemAt(0x5D4594, 371500), v3);
+	nox_common_listAddTo_4258E0((int)getMemAt(0x5D4594, 371500), v3);
 	if (a1) {
 		*((_QWORD*)v3 + 8) = 60000 * a1 + nox_platform_get_ticks();
 	} else {
@@ -8007,7 +8007,7 @@ int*  sub_4168A0(wchar_t* a1) {
 	v1 = (wchar_t*)malloc(0x40u);
 	sub_425770(v1);
 	nox_wcscpy(v1 + 6, a1);
-	sub_4258E0((int)getMemAt(0x5D4594, 371364), v1);
+	nox_common_listAddTo_4258E0((int)getMemAt(0x5D4594, 371364), v1);
 	return sub_455800();
 }
 
