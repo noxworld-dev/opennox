@@ -1360,17 +1360,17 @@ void nox_common_maplist_free_4D0970() {
 }
 
 //----- (004D09B0) --------------------------------------------------------
-int* nox_common_maplist_first_4D09B0() {
+nox_map_list_item* nox_common_maplist_first_4D09B0() {
 	return nox_common_list_getFirstSafe_425890(&nox_common_maplist);
 }
 
 //----- (004D09C0) --------------------------------------------------------
-int* nox_common_maplist_next_4D09C0(int* a1) {
-	return nox_common_list_getNextSafe_4258A0(a1);
+nox_map_list_item* nox_common_maplist_next_4D09C0(nox_map_list_item* list) {
+	return nox_common_list_getNextSafe_4258A0(list);
 }
 
 //----- (004D09D0) --------------------------------------------------------
-int*  nox_common_maplist_mapByName_4D09D0(char* a1) {
+nox_map_list_item* nox_common_maplist_mapByName_4D09D0(char* a1) {
 	int* v1; // esi
 
 	v1 = nox_common_maplist_first_4D09B0();
