@@ -14,10 +14,10 @@ cd "$TMP_DIR"
 # ==== [ Windows ] ====
 
 mkdir tmp-win
-unzip ~/Downloads/nox-win.zip -d ./tmp-win/
+unzip "$NOX_WIN" -d ./tmp-win/
 
 mkdir tmp-win-2
-unzip ~/Downloads/noxg-win.zip -d ./tmp-win-2/
+unzip "$NOXG_WIN" -d ./tmp-win-2/
 
 mkdir tmp-win-3
 unzip ./tmp-win-2/nox-win.zip -d ./tmp-win-3/
@@ -45,7 +45,7 @@ cp ./noxg-win.zip "$NOX_SRC/"
 # ==== [ Linux ] ====
 
 mkdir tmp-linux
-unzip ~/Downloads/noxg-linux.zip -d ./tmp-linux/
+unzip "$NOXG_LINUX" -d ./tmp-linux/
 
 mkdir tmp-linux-2
 tar -xvzf ./tmp-linux/nox-linux.tar.gz -C ./tmp-linux-2/
