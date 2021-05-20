@@ -1326,13 +1326,13 @@ int nox_common_scanAllMaps_4D07F0() {
 			if (!nox_common_checkMapFile_4CFE10(name)) {
 				continue;
 			}
-			void* map = malloc(36);
+			nox_map_list_item* map = malloc(sizeof(nox_map_list_item));
 			sub_425770(map);
-			strcpy((char*)map + 12, name);
-			*((_DWORD*)map + 6) = 1;
-			*((_DWORD*)map + 7) = *getMemU32Ptr(0x5D4594, 3801836 + 1392);
-			*((char*)map + 33) = getMemByte(0x5D4594, 3801836 + 1397);
-			*((char*)map + 32) = getMemByte(0x5D4594, 3801836 + 1396);
+			strcpy(map->name, name);
+			map->field_6 = 1;
+			map->field_7 = *getMemU32Ptr(0x5D4594, 3801836 + 1392);
+			map->field_8_0 = getMemByte(0x5D4594, 3801836 + 1396);
+			map->field_8_1 = getMemByte(0x5D4594, 3801836 + 1397);
 			nox_common_addMapToList_4D0760(map);
 		}
 	} while (FindNextFileA(v1, &FindFileData));
