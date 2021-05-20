@@ -193,7 +193,7 @@ void cleanup() {
 	sub_4D0DA0();
 	sub_40C0D0();
 	sub_40B740();
-	sub_4D0970();
+	nox_common_maplist_free_4D0970();
 	nox_binfile_xxx_409560();
 	sub_40AF30();
 #ifdef USE_SDL

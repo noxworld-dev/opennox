@@ -410,7 +410,7 @@ func cleanup() {
 	C.sub_4D0DA0()
 	C.sub_40C0D0()
 	C.sub_40B740()
-	C.sub_4D0970()
+	C.nox_common_maplist_free_4D0970()
 	C.nox_binfile_xxx_409560()
 	C.sub_40AF30()
 	//C.sub_48B1B0() // does nothing on SDL

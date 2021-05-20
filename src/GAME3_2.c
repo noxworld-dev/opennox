@@ -104,7 +104,7 @@ extern int ptr_5D4594_2650668_cap;
 void* nox_server_objects_uninited_1556860 = 0;
 void* nox_server_objects_1556844 = 0;
 
-nox_list_item_t nox_common_mapList = {0};
+nox_list_item_t nox_common_maplist = {0};
 
 // 4CD756: variable 'v5' is possibly undefined
 // 4CD767: variable 'v7' is possibly undefined
@@ -1288,16 +1288,16 @@ int  sub_4D0670(char* a1) {
 }
 
 //----- (004D0760) --------------------------------------------------------
-void nox_common_addMapToList_4D0760(nox_map_list_item* map) {
-	nox_map_list_item* it = nox_common_list_getFirstSafe_425890(&nox_common_mapList);
+void nox_common_maplist_add_4D0760(nox_map_list_item* map) {
+	nox_map_list_item* it = nox_common_list_getFirstSafe_425890(&nox_common_maplist);
 	if (!it) {
-		nox_common_list_append_4258E0(&nox_common_mapList, map);
+		nox_common_list_append_4258E0(&nox_common_maplist, map);
 		return;
 	}
 	while (strcmp(map->name, it->name) > 0) {
 		it = nox_common_list_getNextSafe_4258A0(it);
 		if (!it) {
-			nox_common_list_append_4258E0(&nox_common_mapList, map);
+			nox_common_list_append_4258E0(&nox_common_maplist, map);
 			return;
 		}
 	}
@@ -1306,7 +1306,7 @@ void nox_common_addMapToList_4D0760(nox_map_list_item* map) {
 
 //----- (004D07F0) --------------------------------------------------------
 int nox_common_scanAllMaps_4D07F0() {
-	nox_common_list_clear_425760(&nox_common_mapList);
+	nox_common_list_clear_425760(&nox_common_maplist);
 
 	struct _WIN32_FIND_DATAA FindFileData;
 	HANDLE v1 = FindFirstFileA((LPCSTR)"maps\\*.*", &FindFileData);
@@ -1335,19 +1335,19 @@ int nox_common_scanAllMaps_4D07F0() {
 			map->field_7 = *getMemU32Ptr(0x5D4594, 3801836 + 1392);
 			map->field_8_0 = getMemByte(0x5D4594, 3801836 + 1396);
 			map->field_8_1 = getMemByte(0x5D4594, 3801836 + 1397);
-			nox_common_addMapToList_4D0760(map);
+			nox_common_maplist_add_4D0760(map);
 		}
 	} while (FindNextFileA(v1, &FindFileData));
 	return FindClose(v1);
 }
 
 //----- (004D0970) --------------------------------------------------------
-void sub_4D0970() {
+void nox_common_maplist_free_4D0970() {
 	int* result; // eax
 	int* v1;     // esi
 	int* v2;     // edi
 
-	result = nox_common_list_getFirstSafe_425890(&nox_common_mapList);
+	result = nox_common_list_getFirstSafe_425890(&nox_common_maplist);
 	v1 = result;
 	if (result) {
 		do {
@@ -1360,20 +1360,24 @@ void sub_4D0970() {
 }
 
 //----- (004D09B0) --------------------------------------------------------
-int* nox_xxx_validateMapList_4D09B0() { return nox_common_list_getFirstSafe_425890(&nox_common_mapList); }
+int* nox_common_maplist_first_4D09B0() {
+	return nox_common_list_getFirstSafe_425890(&nox_common_maplist);
+}
 
 //----- (004D09C0) --------------------------------------------------------
-int*  sub_4D09C0(int* a1) { return nox_common_list_getNextSafe_4258A0(a1); }
+int* nox_common_maplist_next_4D09C0(int* a1) {
+	return nox_common_list_getNextSafe_4258A0(a1);
+}
 
 //----- (004D09D0) --------------------------------------------------------
-int*  sub_4D09D0(char* a1) {
+int*  nox_common_maplist_mapByName_4D09D0(char* a1) {
 	int* v1; // esi
 
-	v1 = nox_xxx_validateMapList_4D09B0();
+	v1 = nox_common_maplist_first_4D09B0();
 	if (!v1)
 		return 0;
 	while (_strcmpi(a1, (const char*)v1 + 12) || !v1[6]) {
-		v1 = sub_4D09C0(v1);
+		v1 = nox_common_maplist_next_4D09C0(v1);
 		if (!v1)
 			return 0;
 	}
@@ -1545,7 +1549,7 @@ int nox_xxx_mapSelectFirst_4D0E00() {
 
 	nox_platform_srand_time();
 	dword_5d4594_1548476 = 0;
-	for (i = nox_xxx_validateMapList_4D09B0(); i; i = sub_4D09C0(i)) {
+	for (i = nox_common_maplist_first_4D09B0(); i; i = nox_common_maplist_next_4D09C0(i)) {
 		if (i[6]) {
 			if (sub_4CFFC0((int)i) & 0x1000) {
 				if (*(int*)&dword_5d4594_1548476 < 128) {

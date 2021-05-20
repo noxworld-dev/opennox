@@ -2246,14 +2246,14 @@ int nox_cmd_list_maps(int tokInd, int tokCnt, wchar_t** tokens) {
 	signed int v3; // edi
 
 	memset(getMemAt(0x5D4594, 822404), 0, 0x100u);
-	v0 = nox_xxx_validateMapList_4D09B0();
+	v0 = nox_common_maplist_first_4D09B0();
 	for (i = 1; v0; ++i) {
 		sub_4417E0((wchar_t*)getMemAt(0x5D4594, 822404), (const char*)v0 + 12);
 		if (!(i % 4)) {
 			nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, (wchar_t*)getMemAt(0x587000, 103276), getMemAt(0x5D4594, 822404));
 			*getMemU16Ptr(0x5D4594, 822404) = 0;
 		}
-		v0 = sub_4D09C0(v0);
+		v0 = nox_common_maplist_next_4D09C0(v0);
 	}
 	v3 = (i - 1) & 0x80000003;
 	v2 = v3 == 0;
