@@ -631,7 +631,7 @@ _DWORD*  sub_4BD340(int a1, int a2, int a3, int a4) {
 void  sub_4BD3C0(LPVOID lpMem) {
 	int i; // eax
 
-	for (i = sub_425940((int*)lpMem + 3); i; i = sub_425940((int*)lpMem + 3))
+	for (i = nox_common_listGetXxx_425940((int*)lpMem + 3); i; i = nox_common_listGetXxx_425940((int*)lpMem + 3))
 		sub_4BD690(i);
 	if (*((_DWORD*)lpMem + 1))
 		sub_4BD2D0(*((LPVOID*)lpMem + 1));
@@ -784,7 +784,7 @@ int  sub_4BD690(int a1) {
 
 	if (*(_DWORD*)(a1 + 4) != a1)
 		sub_425920((_DWORD**)a1);
-	for (i = (_DWORD**)sub_425940((int*)(a1 + 32)); i; i = (_DWORD**)sub_425940((int*)(a1 + 32))) {
+	for (i = (_DWORD**)nox_common_listGetXxx_425940((int*)(a1 + 32)); i; i = (_DWORD**)nox_common_listGetXxx_425940((int*)(a1 + 32))) {
 		sub_425920(i);
 		sub_487D60((int)i);
 		sub_4BD300(*(_DWORD**)(*(_DWORD*)(a1 + 52) + 4), (int)i);
@@ -890,7 +890,7 @@ int  sub_4BD8C0(int a1) {
 		}
 	} else {
 		if (*(_DWORD*)(a1 + 292)) {
-			v3 = sub_425940(*(int**)(a1 + 292));
+			v3 = nox_common_listGetXxx_425940(*(int**)(a1 + 292));
 			*(_DWORD*)(a1 + 292) = v3;
 			if (v3) {
 				*(_DWORD*)(a1 + 296) = *(_DWORD*)(v3 + 12);

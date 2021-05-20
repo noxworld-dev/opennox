@@ -8344,11 +8344,11 @@ int  sub_425790(int* a1, _DWORD* a2) {
 
 	v2 = 0;
 	v3 = a2[2];
-	v4 = (int*)sub_425940(a1);
+	v4 = (int*)nox_common_listGetXxx_425940(a1);
 	if (v4) {
 		while (v3 > v4[2]) {
 			++v2;
-			v4 = (int*)sub_425940(v4);
+			v4 = (int*)nox_common_listGetXxx_425940(v4);
 			if (!v4)
 				goto LABEL_4;
 		}
@@ -8368,13 +8368,13 @@ void sub_4257F0(int* a1, _DWORD* a2) {
 	int* v3; // eax
 
 	v2 = a2[2];
-	v3 = (int*)sub_425940(a1);
+	v3 = (int*)nox_common_listGetXxx_425940(a1);
 	if (!v3) {
 		nox_common_listAddTo_4258E0((int)a1, a2);
 		return;
 	}
 	while (v3[2] > v2) {
-		v3 = (int*)sub_425940(v3);
+		v3 = (int*)nox_common_listGetXxx_425940(v3);
 		if (!v3) {
 			nox_common_listAddTo_4258E0((int)a1, a2);
 			return;
@@ -8427,7 +8427,7 @@ int*  sub_4258A0(int* a1) {
 
 	result = a1;
 	if (a1)
-		result = (int*)sub_425940(a1);
+		result = (int*)nox_common_listGetXxx_425940(a1);
 	return result;
 }
 
@@ -8488,15 +8488,12 @@ _DWORD**  sub_425920(_DWORD** a1) {
 }
 
 //----- (00425940) --------------------------------------------------------
-int  sub_425940(int* a1) {
-	int result; // eax
-
-	result = *a1;
-	if (*a1) {
-		if (result == *(_DWORD*)(result + 8))
-			result = 0;
+nox_list_item_t* nox_common_listGetXxx_425940(nox_list_item_t* list) {
+	nox_list_item_t* it = list->field_0;
+	if (it && it == it->field_2) {
+		return 0;
 	}
-	return result;
+	return it;
 }
 
 //----- (00425960) --------------------------------------------------------

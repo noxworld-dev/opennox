@@ -937,7 +937,7 @@ _DWORD*  sub_4258C0(_DWORD** a1, int a2);
 void nox_common_listAddTo_4258E0(nox_list_item_t* head, nox_list_item_t* cur);
 _DWORD*  sub_425900(_DWORD* a1, _DWORD* a2);
 _DWORD**  sub_425920(_DWORD** a1);
-int  sub_425940(int* a1);
+nox_list_item_t* nox_common_listGetXxx_425940(nox_list_item_t* list);
 int  sub_425960(int a1);
 _DWORD*  sub_425980(_DWORD* a1);
 int  sub_4259A0(int a1);
