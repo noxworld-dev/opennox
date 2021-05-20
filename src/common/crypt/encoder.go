@@ -60,14 +60,21 @@ func (r *Reader) Buffered() int {
 	return Block - r.i
 }
 
+func (r *Reader) readNext() error {
+	_, err := io.ReadFull(r.r, r.buf[:])
+	if err != nil {
+		return err
+	}
+	r.i = 0
+	r.e.EncodeBlock(r.buf[:])
+	return nil
+}
+
 func (r *Reader) read(p []byte) (int, error) {
 	if r.i < 0 || r.i >= Block {
-		_, err := io.ReadFull(r.r, r.buf[:])
-		if err != nil {
+		if err := r.readNext(); err != nil {
 			return 0, err
 		}
-		r.i = 0
-		r.e.EncodeBlock(r.buf[:])
 	}
 	n := copy(p, r.buf[r.i:])
 	r.i += n
@@ -85,4 +92,21 @@ func (r *Reader) Read(p []byte) (int, error) {
 		p = p[n:]
 	}
 	return total, nil
+}
+
+func (r *Reader) ReadAligned(p []byte) (int, error) {
+	if n := r.Buffered(); n%Block != 0 {
+		if err := r.readNext(); err != nil {
+			return 0, err
+		}
+	}
+	var b [8]byte
+	n, err := r.Read(b[:])
+	if err != nil {
+		return 0, err
+	} else if n != 8 {
+		return 0, io.ErrUnexpectedEOF
+	}
+	n = copy(p, b[:])
+	return n, nil
 }
