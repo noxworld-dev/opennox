@@ -280,7 +280,7 @@ int* sub_509CB0() {
 		v1 = result;
 		if (result) {
 			do {
-				v2 = sub_4258A0(v1);
+				v2 = nox_common_listGetXxxSafe_4258A0(v1);
 				sub_425920((_DWORD**)v1);
 				free(v1);
 				v1 = v2;
@@ -298,7 +298,7 @@ int  sub_509CF0(const char* a1, char a2, int a3) {
 	if (!v3)
 		return 1;
 	while (strcmp((const char*)v3 + 12, a1) || a2 == *((_BYTE*)v3 + 28) && a3 == v3[6]) {
-		v3 = sub_4258A0(v3);
+		v3 = nox_common_listGetXxxSafe_4258A0(v3);
 		if (!v3)
 			return 1;
 	}
@@ -313,7 +313,7 @@ int  sub_509D80(int a1) {
 	if (!v1)
 		return 0;
 	while (strcmp((const char*)v1 + 12, (const char*)(a1 + 2096))) {
-		v1 = sub_4258A0(v1);
+		v1 = nox_common_listGetXxxSafe_4258A0(v1);
 		if (!v1)
 			return 0;
 	}

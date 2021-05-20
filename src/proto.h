@@ -932,7 +932,7 @@ void sub_4257F0(int* a1, _DWORD* a2);
 _DWORD*  sub_425840(_DWORD* a1, int a2);
 int  sub_425870(_DWORD** a1);
 int*  nox_xxx_gameMapsValidateListMB_425890(int* a1);
-int*  sub_4258A0(int* a1);
+nox_list_item_t* nox_common_listGetXxxSafe_4258A0(nox_list_item_t* a1);
 _DWORD*  sub_4258C0(_DWORD** a1, int a2);
 void nox_common_listAddTo_4258E0(nox_list_item_t* head, nox_list_item_t* cur);
 _DWORD*  sub_425900(_DWORD* a1, _DWORD* a2);

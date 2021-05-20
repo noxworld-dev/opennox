@@ -4292,7 +4292,7 @@ int*  sub_456D60(int a1) {
 	v1 = nox_xxx_gameMapsValidateListMB_425890(getMemIntPtr(0x5D4594, 1045652));
 	if (v1) {
 		do {
-			v2 = sub_4258A0(v1);
+			v2 = nox_common_listGetXxxSafe_4258A0(v1);
 			sub_425920((_DWORD**)v1);
 			free(v1);
 			v1 = v2;
@@ -4302,7 +4302,7 @@ int*  sub_456D60(int a1) {
 	v4 = result;
 	if (result) {
 		do {
-			v5 = sub_4258A0(v4);
+			v5 = nox_common_listGetXxxSafe_4258A0(v4);
 			sub_425920((_DWORD**)v4);
 			free(v4);
 			v4 = v5;
@@ -4340,7 +4340,7 @@ int  sub_456E40(int a1, int a2) {
 	if (!v2)
 		return -1;
 	while (v2[15] != a1) {
-		v2 = sub_4258A0(v2);
+		v2 = nox_common_listGetXxxSafe_4258A0(v2);
 		++v3;
 		if (!v2)
 			return -1;
@@ -4390,7 +4390,7 @@ int  sub_456F10(wchar_t* a1, int a2) {
 		v4 = nox_wcstok(v6, L" \t\n\r");
 		if (!_nox_wcsicmp(v4, a1))
 			break;
-		v2 = sub_4258A0(v2);
+		v2 = nox_common_listGetXxxSafe_4258A0(v2);
 		++v3;
 		if (!v2)
 			return -1;
@@ -4413,7 +4413,7 @@ int sub_456FA0() {
 		v1 = nox_xxx_gameMapsValidateListMB_425890(getMemIntPtr(0x5D4594, 1045668));
 		if (v1) {
 			do {
-				v2 = sub_4258A0(v1);
+				v2 = nox_common_listGetXxxSafe_4258A0(v1);
 				sub_425920((_DWORD**)v1);
 				free(v1);
 				v1 = v2;
@@ -4464,7 +4464,7 @@ int  sub_4571A0(int a1, int a2) {
 		if (result != -1) {
 			v5 = 3;
 			if (a2) {
-				for (i = nox_xxx_gameMapsValidateListMB_425890(getMemIntPtr(0x5D4594, 1045668)); i; i = sub_4258A0(i)) {
+				for (i = nox_xxx_gameMapsValidateListMB_425890(getMemIntPtr(0x5D4594, 1045668)); i; i = nox_common_listGetXxxSafe_4258A0(i)) {
 					if (i[15] == a2)
 						v5 = *((unsigned __int8*)i + 64);
 				}
@@ -4480,7 +4480,7 @@ int  sub_4571A0(int a1, int a2) {
 int*  sub_457350(unsigned __int8 a1, unsigned __int8 a2) {
 	int* result; // eax
 
-	for (result = nox_xxx_gameMapsValidateListMB_425890(getMemIntPtr(0x5D4594, 1045668)); result; result = sub_4258A0(result)) {
+	for (result = nox_xxx_gameMapsValidateListMB_425890(getMemIntPtr(0x5D4594, 1045668)); result; result = nox_common_listGetXxxSafe_4258A0(result)) {
 		if (result[15] == a1)
 			result[15] = a2;
 	}

@@ -1293,7 +1293,7 @@ void nox_common_addMapToList_4D0760(nox_map_list_item* map) {
 		return;
 	}
 	while (strcmp(map->name, (const char*)v1 + 12) > 0) {
-		v1 = sub_4258A0(v1);
+		v1 = nox_common_listGetXxxSafe_4258A0(v1);
 		if (!v1) {
 			nox_common_listAddTo_4258E0((int)getMemAt(0x5D4594, 1523060), map);
 			return;
@@ -1349,7 +1349,7 @@ void sub_4D0970() {
 	v1 = result;
 	if (result) {
 		do {
-			v2 = sub_4258A0(v1);
+			v2 = nox_common_listGetXxxSafe_4258A0(v1);
 			sub_425920((_DWORD**)v1);
 			free(v1);
 			v1 = v2;
@@ -1361,7 +1361,7 @@ void sub_4D0970() {
 int* nox_xxx_validateMapList_4D09B0() { return nox_xxx_gameMapsValidateListMB_425890(getMemIntPtr(0x5D4594, 1523060)); }
 
 //----- (004D09C0) --------------------------------------------------------
-int*  sub_4D09C0(int* a1) { return sub_4258A0(a1); }
+int*  sub_4D09C0(int* a1) { return nox_common_listGetXxxSafe_4258A0(a1); }
 
 //----- (004D09D0) --------------------------------------------------------
 int*  sub_4D09D0(char* a1) {
@@ -1722,7 +1722,7 @@ void sub_4D11D0() {
 	v1 = result;
 	if (result) {
 		do {
-			v2 = sub_4258A0(v1);
+			v2 = nox_common_listGetXxxSafe_4258A0(v1);
 			sub_425920((_DWORD**)v1);
 			free(v1);
 			v1 = v2;
@@ -1757,7 +1757,7 @@ int*  sub_4D1250(int a1) {
 	v2 = result;
 	if (result) {
 		while (*(unsigned __int8*)(v2[3] + 2064) != a1) {
-			result = sub_4258A0(v2);
+			result = nox_common_listGetXxxSafe_4258A0(v2);
 			v2 = result;
 			if (!result)
 				return result;
@@ -1776,7 +1776,7 @@ int  sub_4D12A0(int a1) {
 	if (!v1)
 		return 0;
 	while (*(unsigned __int8*)(v1[3] + 2064) != a1) {
-		v1 = sub_4258A0(v1);
+		v1 = nox_common_listGetXxxSafe_4258A0(v1);
 		if (!v1)
 			return 0;
 	}

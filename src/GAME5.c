@@ -8230,7 +8230,7 @@ int  nox_xxx_allocNetGQueue_5520B0(int a1, int a2) {
 		v3 = nox_xxx_gameMapsValidateListMB_425890(getMemIntPtr(0x5D4594, 2495908));
 		if (v3) {
 			do {
-				v4 = sub_4258A0(v3);
+				v4 = nox_common_listGetXxxSafe_4258A0(v3);
 				sub_425920((_DWORD**)v3);
 				free(v3);
 				--*getMemU8Ptr( 0x5D4594, 2500076);
