@@ -8238,7 +8238,7 @@ int  nox_xxx_allocNetGQueue_5520B0(int a1, int a2) {
 			} while (v4);
 		}
 	} else {
-		sub_425760(getMemAt(0x5D4594, 2495908));
+		nox_common_listClear_425760(getMemAt(0x5D4594, 2495908));
 	}
 	*getMemU32Ptr(0x5D4594, 2495944) = 0;
 	*getMemU32Ptr(0x5D4594, 2495948) = 0;

@@ -8025,8 +8025,8 @@ int*  sub_416910(int* a1) { return nox_common_listGetXxxSafe_4258A0(a1); }
 
 //----- (00416920) --------------------------------------------------------
 int sub_416920() {
-	sub_425760(getMemAt(0x5D4594, 371364));
-	sub_425760(getMemAt(0x5D4594, 371500));
+	nox_common_listClear_425760(getMemAt(0x5D4594, 371364));
+	nox_common_listClear_425760(getMemAt(0x5D4594, 371500));
 	return sub_4E41B0((char*)getMemAt(0x587000, 54280));
 }
 

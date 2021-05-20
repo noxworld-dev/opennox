@@ -75,7 +75,7 @@ int nox_xxx_guiServerOptsLoad_457500() {
 		if (nox_common_gameFlags_check_40A5C0(1)) {
 			sub_459D50(1);
 			if (dword_587000_129656)
-				sub_425760(getMemAt(0x5D4594, 1045956));
+				nox_common_listClear_425760(getMemAt(0x5D4594, 1045956));
 		}
 		v1 = nox_strman_get_lang_code();
 		if (nox_xxx_guiFontHeightMB_43F320(0) > 10)

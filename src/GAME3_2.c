@@ -1306,7 +1306,7 @@ void nox_common_addMapToList_4D0760(nox_map_list_item* map) {
 
 //----- (004D07F0) --------------------------------------------------------
 int nox_common_scanAllMaps_4D07F0() {
-	sub_425760(&nox_common_mapList);
+	nox_common_listClear_425760(&nox_common_mapList);
 
 	struct _WIN32_FIND_DATAA FindFileData;
 	HANDLE v1 = FindFirstFileA((LPCSTR)"maps\\*.*", &FindFileData);
@@ -1703,15 +1703,11 @@ char* nox_xxx_getQuestMapFile_4D0F60() // quest setup 2
 }
 
 //----- (004D11A0) --------------------------------------------------------
-_DWORD* sub_4D11A0() {
-	_DWORD* result; // eax
-
-	result = *(_DWORD**)getMemAt(0x5D4594, 1548504);
+void sub_4D11A0() {
 	if (!*getMemU32Ptr(0x5D4594, 1548504)) {
-		result = sub_425760(getMemAt(0x5D4594, 1548492));
+		nox_common_listClear_425760(getMemAt(0x5D4594, 1548492));
 		*getMemU32Ptr(0x5D4594, 1548504) = 1;
 	}
-	return result;
 }
 
 //----- (004D11D0) --------------------------------------------------------

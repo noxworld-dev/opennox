@@ -258,7 +258,7 @@ void sub_509C30(int a1) {
 	char* v1; // edx
 
 	if (!dword_5d4594_1599688) {
-		sub_425760(getMemAt(0x5D4594, 1599676));
+		nox_common_listClear_425760(getMemAt(0x5D4594, 1599676));
 		dword_5d4594_1599688 = 1;
 	}
 	v1 = (char*)malloc(0x20u);

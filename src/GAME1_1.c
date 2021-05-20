@@ -8314,14 +8314,10 @@ int  sub_425710(int a1, int a2) {
 }
 
 //----- (00425760) --------------------------------------------------------
-_DWORD*  sub_425760(_DWORD* a1) {
-	_DWORD* result; // eax
-
-	result = a1;
-	*a1 = a1;
-	a1[1] = a1;
-	a1[2] = a1;
-	return result;
+void nox_common_listClear_425760(nox_list_item_t* list) {
+	list->field_0 = list;
+	list->field_1 = list;
+	list->field_2 = list;
 }
 
 //----- (00425770) --------------------------------------------------------
@@ -8384,7 +8380,7 @@ void sub_4257F0(int* a1, _DWORD* a2) {
 }
 
 //----- (00425840) --------------------------------------------------------
-_DWORD*  sub_425840(_DWORD* a1, int a2) {
+void sub_425840(_DWORD* a1, int a2) {
 	_DWORD* result; // eax
 	int* v3;        // edi
 	_DWORD* v4;     // edx
@@ -8397,9 +8393,8 @@ _DWORD*  sub_425840(_DWORD* a1, int a2) {
 		result[1] = v4;
 		*v3 = a2;
 		*(_DWORD*)(a2 + 4) = v3;
-		result = sub_425760(a1);
+		nox_common_listClear_425760(a1);
 	}
-	return result;
 }
 
 //----- (00425870) --------------------------------------------------------
@@ -8527,15 +8522,11 @@ int  sub_4259A0(int a1) {
 }
 
 //----- (004259C0) --------------------------------------------------------
-_DWORD* sub_4259C0() {
-	_DWORD* result; // eax
-
-	result = *(_DWORD**)getMemAt(0x5D4594, 599472);
+void sub_4259C0() {
 	if (!*getMemU32Ptr(0x5D4594, 599472)) {
-		result = sub_425760(getMemAt(0x5D4594, 599460));
+		nox_common_listClear_425760(getMemAt(0x5D4594, 599460));
 		*getMemU32Ptr(0x5D4594, 599472) = 1;
 	}
-	return result;
 }
 
 //----- (004259F0) --------------------------------------------------------
@@ -8615,7 +8606,7 @@ wchar_t*  sub_425AD0(int a1, wchar_t* a2) {
 		nox_wcscpy(v2 + 6, a2);
 		*((_DWORD*)v2 + 9) = 0;
 		sub_425770(v2);
-		sub_425760((_DWORD*)v2 + 10);
+		nox_common_listClear_425760((_DWORD*)v2 + 10);
 		nox_common_listAddTo_4258E0((int)getMemAt(0x5D4594, 599460), v2);
 	}
 	return v2;

@@ -620,7 +620,7 @@ _DWORD*  sub_4BD340(int a1, int a2, int a3, int a4) {
 	v4[6] = a4;
 	v4[1] = sub_4BD280(a2 / (a4 + 24), a4 + 24);
 	v4[2] = sub_4BD280(a3, 84);
-	sub_425760(v4 + 3);
+	nox_common_listClear_425760(v4 + 3);
 	if (v4[1] && v4[2])
 		return v4;
 	sub_4BD3C0(v4);
