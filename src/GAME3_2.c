@@ -732,7 +732,7 @@ char nox_xxx_mapReadSetFlags_4CF990() {
 		sub_419030(1);
 	}
 	v1 = nox_xxx_mapGetMapName_409B40();
-	if (sub_4CFE10(v1)) {
+	if (nox_common_checkMapFile_4CFE10(v1)) {
 		v2 = nox_xxx_mapGetTypeMB_4CFFA0((int)getMemAt(0x5D4594, 3801836));
 		if (getMemByte(0x5D4594, 3801836 + 1392) & 1) {
 			nox_common_gameFlags_unset_40A540(6128);
@@ -901,7 +901,7 @@ int  sub_4CFDF0(int a1) {
 int sub_4CFE00() { return *getMemU32Ptr(0x5D4594, 1523072); }
 
 //----- (004CFE10) --------------------------------------------------------
-int  sub_4CFE10(const char* a1) {
+int  nox_common_checkMapFile_4CFE10(const char* a1) {
 	char* v1;           // edi
 	unsigned __int8 v2; // cl
 	int result;         // eax
@@ -1286,58 +1286,57 @@ int  sub_4D0670(char* a1) {
 }
 
 //----- (004D0760) --------------------------------------------------------
-_DWORD*  sub_4D0760(int a1) {
-	int* v1; // edi
-
-	v1 = nox_xxx_gameMapsValidateListMB_425890(getMemIntPtr(0x5D4594, 1523060));
-	if (!v1)
-		return sub_4258E0((int)getMemAt(0x5D4594, 1523060), (_DWORD*)a1);
-	while (strcmp((const char*)(a1 + 12), (const char*)v1 + 12) > 0) {
-		v1 = sub_4258A0(v1);
-		if (!v1)
-			return sub_4258E0((int)getMemAt(0x5D4594, 1523060), (_DWORD*)a1);
+void nox_common_addMapToList_4D0760(void* map) {
+	int* v1 = nox_xxx_gameMapsValidateListMB_425890(getMemIntPtr(0x5D4594, 1523060));
+	if (!v1) {
+		sub_4258E0((int)getMemAt(0x5D4594, 1523060), map);
+		return;
 	}
-	return sub_4258E0((int)v1, (_DWORD*)a1);
+	while (strcmp((const char*)((char*)map + 12), (const char*)v1 + 12) > 0) {
+		v1 = sub_4258A0(v1);
+		if (!v1) {
+			sub_4258E0((int)getMemAt(0x5D4594, 1523060), map);
+			return;
+		}
+	}
+	sub_4258E0((int)v1, map);
 }
 
 //----- (004D07F0) --------------------------------------------------------
-HANDLE nox_common_scanAllMaps_4D07F0() {
-	HANDLE result;                         // eax
-	HANDLE v1;                             // ebp
-	char* v2;                              // ebp
-	HANDLE v3;                             // [esp+4h] [ebp-150h]
-	char v4[12];                           // [esp+8h] [ebp-14Ch]
-	struct _WIN32_FIND_DATAA FindFileData; // [esp+14h] [ebp-140h]
-
+int nox_common_scanAllMaps_4D07F0() {
 	sub_425760(getMemAt(0x5D4594, 1523060));
-	result = FindFirstFileA((LPCSTR)"maps\\*.*", &FindFileData);
-	v1 = result;
-	v3 = result;
-	if (result != (HANDLE)-1) {
-		do {
-			if (FindFileData.dwFileAttributes & 0x10 &&
-				(_strnicmp(FindFileData.cFileName, "wiz", 3u) && _strnicmp(FindFileData.cFileName, "war", 3u) &&
-					 _strnicmp(FindFileData.cFileName, "con", 3u) ||
-				 FindFileData.cFileName[3] < 48 || FindFileData.cFileName[3] > 57) &&
-				strcmp(FindFileData.cFileName, ".") && strcmp(FindFileData.cFileName, "..")) {
-				strncpy(v4, FindFileData.cFileName, 8u);
-				v4[8] = 0;
-				if (sub_4CFE10(v4)) {
-					v2 = (char*)malloc(0x24u);
-					sub_425770(v2);
-					strcpy(v2 + 12, v4);
-					*((_DWORD*)v2 + 6) = 1;
-					*((_DWORD*)v2 + 7) = *getMemU32Ptr(0x5D4594, 3801836 + 1392);
-					v2[33] = getMemByte(0x5D4594, 3801836 + 1397);
-					v2[32] = getMemByte(0x5D4594, 3801836 + 1396);
-					sub_4D0760((int)v2);
-					v1 = v3;
-				}
+
+	struct _WIN32_FIND_DATAA FindFileData;
+	HANDLE v1 = FindFirstFileA((LPCSTR)"maps\\*.*", &FindFileData);
+	if (v1 == -1)
+		return -1;
+	do {
+		if (FindFileData.dwFileAttributes & 0x10 &&
+			((_strnicmp(FindFileData.cFileName, "wiz", 3u) != 0 &&
+			_strnicmp(FindFileData.cFileName, "war", 3u) != 0 &&
+			 _strnicmp(FindFileData.cFileName, "con", 3u) != 0) ||
+			 FindFileData.cFileName[3] < 48 ||
+			 FindFileData.cFileName[3] > 57) &&
+			strcmp(FindFileData.cFileName, ".") != 0 &&
+			strcmp(FindFileData.cFileName, "..") != 0) {
+
+			char name[12];
+			strncpy(name, FindFileData.cFileName, 8);
+			name[8] = 0;
+			if (!nox_common_checkMapFile_4CFE10(name)) {
+				continue;
 			}
-		} while (FindNextFileA(v1, &FindFileData));
-		result = (HANDLE)FindClose(v1);
-	}
-	return result;
+			void* map = malloc(36);
+			sub_425770(map);
+			strcpy((char*)map + 12, name);
+			*((_DWORD*)map + 6) = 1;
+			*((_DWORD*)map + 7) = *getMemU32Ptr(0x5D4594, 3801836 + 1392);
+			*((char*)map + 33) = getMemByte(0x5D4594, 3801836 + 1397);
+			*((char*)map + 32) = getMemByte(0x5D4594, 3801836 + 1396);
+			nox_common_addMapToList_4D0760(map);
+		}
+	} while (FindNextFileA(v1, &FindFileData));
+	return FindClose(v1);
 }
 
 //----- (004D0970) --------------------------------------------------------
@@ -1423,7 +1422,7 @@ FILE* nox_xxx_loadMapCycle_4D0A30() {
 						v11 = sub_4D0C70(v0);
 						strcpy(v17, v16);
 						v12 = strtok(v17, ".\n");
-						if (sub_4CFE10(v12)) {
+						if (nox_common_checkMapFile_4CFE10(v12)) {
 							v13 = nox_xxx_mapGetTypeMB_4CFFA0((int)getMemAt(0x5D4594, 3801836));
 							if (v13 & v11) {
 								v14 = *getMemU32Ptr(0x5D4594, 1548428 + 4 * v0);
@@ -2082,7 +2081,7 @@ char*  nox_xxx_mapLoad_4D2450(char* a1) {
 	memcpy(v5, getMemAt(0x5D4594, 3801836), sizeof(v5));
 	strncpy(v4, a1, (strlen(a1) - 4 < 1024 ? strlen(a1) - 4 : 1024));
 	v4[strlen(a1) - 4] = 0;
-	sub_4CFE10(v4);
+	nox_common_checkMapFile_4CFE10(v4);
 	sub_4CFDF0(*getMemIntPtr(0x5D4594, 3801836 + 1392));
 	memcpy(getMemAt(0x5D4594, 3801836), v5, 0x5B8u);
 	dword_5d4594_1548524 = 1;

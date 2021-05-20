@@ -228,7 +228,7 @@ int  nox_server_loadMapFile_4CF5F0(char* a1, int a2) {
 		}
 	}
 	v8 = nox_xxx_mapGetMapName_409B40();
-	sub_4CFE10(v8);
+	nox_common_checkMapFile_4CFE10(v8);
 	if (a2)
 		v9 = nox_xxx_cryptOpen_426910(FileName, 1, -1);
 	else

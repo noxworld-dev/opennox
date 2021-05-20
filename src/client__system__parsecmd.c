@@ -651,7 +651,7 @@ int nox_cmd_load(int tokInd, int tokCnt, wchar_t** tokens) {
 	if (tokCnt != 2)
 		return 0;
 	nox_sprintf(&v11[4], "%S", tokens[1]);
-	if (v11[4] != 35 && !sub_4CFE10(&v11[4]))
+	if (v11[4] != 35 && !nox_common_checkMapFile_4CFE10(&v11[4]))
 		return 1;
 	v4 = nox_xxx_mapGetTypeMB_4CFFA0((int)getMemAt(0x5D4594, 3801836));
 	v5 = v4;
