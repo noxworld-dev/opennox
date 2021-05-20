@@ -264,93 +264,74 @@ int  sub_4580E0(int a1) {
 }
 
 //----- (00458230) --------------------------------------------------------
-int  sub_458230(int a1, char* a2, int a3) {
-	int v3;           // ebp
-	int* v4;          // ebx
-	int v5;           // eax
-	int v6;           // esi
-	int i;            // eax
-	int j;            // eax
-	wchar_t* v9;      // eax
-	int result;       // eax
-	char* v11;        // ebx
-	int v12;          // eax
+void nox_client_guiserv_updateMapList_458230(int a1, char* a2, int a3) {
 	int v13;          // eax
 	char* v14;        // eax
-	int v15;          // [esp-8h] [ebp-160h]
-	int v16;          // [esp-4h] [ebp-15Ch]
-	int v17;          // [esp+10h] [ebp-148h]
-	int v18;          // [esp+14h] [ebp-144h]
 	char v19[58];     // [esp+18h] [ebp-140h]
 	char v20[58];     // [esp+54h] [ebp-104h]
 	wchar_t v21[100]; // [esp+90h] [ebp-C8h]
 
 	nox_window_call_field_94(*(int*)&dword_5d4594_1046496, 16399, 0, 0);
-	v3 = a1;
-	v18 = -1;
+	int v3 = a1;
+	int v18 = -1;
 	*getMemU32Ptr(0x5D4594, 1046552) = a1;
-	v4 = nox_common_maplist_first_4D09B0();
-	v17 = 0;
-	if (!v4)
-		goto LABEL_30;
-	do {
-		if (v4[6]) {
-			v5 = sub_4CFFC0((int)v4);
-			if (v5 & v3) {
-				strcpy(v19, (const char*)v4 + 12);
-				memcpy(v20, v19, 0x38u);
-				*(_WORD*)&v20[56] = *(_WORD*)&v19[56];
-				sub_57A1E0((int*)v19, 0, 0, 1, a1);
-				sub_57A1E0((int*)v20, "user.rul", 0, 3, a1);
-				v6 = -1;
-				for (i = 0; i < 20; i += 4) {
-					if (*(_DWORD*)&v19[i + 24] != *(_DWORD*)&v20[i + 24])
-						v6 = 6;
-				}
-				if (v6 == -1) {
-					for (j = 0; j < 4; ++j) {
-						if (v19[j + 44] != v20[j + 44])
-							v6 = 6;
-					}
-					if (v6 == -1 && *(_DWORD*)&v19[48] != *(_DWORD*)&v20[48])
-						v6 = 6;
-				}
-				v16 = *((unsigned __int8*)v4 + 33);
-				v15 = *((unsigned __int8*)v4 + 32);
-				v9 = nox_strman_loadString_40F1D0("RecPlayers", 0,
-										   "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c", 823);
-				nox_swprintf(v21, v9, v4 + 3, v15, v16);
-				nox_window_call_field_94(*(int*)&dword_5d4594_1046496, 16397, (int)v21, v6);
-				if (!_strcmpi(a2, (const char*)v4 + 12)) {
-					v18 = v17;
-					nox_window_call_field_94(*(int*)&dword_5d4594_1046496, 16403, v17, 0);
-					nox_window_call_field_94(*(int*)&dword_5d4594_1046496, 16412, v17, 0);
-				}
-				v3 = a1;
-				++v17;
-			}
+	int v17 = 0;
+	for (int* it = nox_common_maplist_first_4D09B0(); it; it = nox_common_maplist_next_4D09C0(it)) {
+		if (!it[6]) {
+			continue;
 		}
-		v4 = nox_common_maplist_next_4D09C0(v4);
-	} while (v4);
+		if (sub_4CFFC0(it) & v3 == 0) {
+			continue;
+		}
+		strcpy(v19, (const char*)it + 12);
+		memcpy(v20, v19, 0x38u);
+		*(_WORD*)&v20[56] = *(_WORD*)&v19[56];
+		sub_57A1E0((int*)v19, 0, 0, 1, a1);
+		sub_57A1E0((int*)v20, "user.rul", 0, 3, a1);
+		int v6 = -1;
+		for (int i = 0; i < 20; i += 4) {
+			if (*(_DWORD*)&v19[i + 24] != *(_DWORD*)&v20[i + 24])
+				v6 = 6;
+		}
+		if (v6 == -1) {
+			for (int j = 0; j < 4; ++j) {
+				if (v19[j + 44] != v20[j + 44])
+					v6 = 6;
+			}
+			if (v6 == -1 && *(_DWORD*)&v19[48] != *(_DWORD*)&v20[48])
+				v6 = 6;
+		}
+		int v16 = *((unsigned __int8*)it + 33);
+		int v15 = *((unsigned __int8*)it + 32);
+		wchar_t* v9 = nox_strman_loadString_40F1D0("RecPlayers", 0,
+								   "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c", 823);
+		nox_swprintf(v21, v9, it + 3, v15, v16);
+		nox_window_call_field_94(*(int*)&dword_5d4594_1046496, 16397, (int)v21, v6);
+		if (!_strcmpi(a2, (const char*)it + 12)) {
+			v18 = v17;
+			nox_window_call_field_94(*(int*)&dword_5d4594_1046496, 16403, v17, 0);
+			nox_window_call_field_94(*(int*)&dword_5d4594_1046496, 16412, v17, 0);
+		}
+		v3 = a1;
+		++v17;
+	}
 	if (v18 < 0) {
-	LABEL_30:
 		nox_window_call_field_94(*(int*)&dword_5d4594_1046496, 16403, 0, 0);
 		nox_window_call_field_94(*(int*)&dword_5d4594_1046496, 16412, 0, 0);
 	}
-	result = a3;
-	if (a3) {
-		v11 = sub_4165B0();
-		v12 = nox_window_call_field_94(*(int*)&dword_5d4594_1046496, 16404, 0, 0);
-		if (v12 >= 0 && (v13 = nox_window_call_field_94(*(int*)&dword_5d4594_1046496, 16406, v12, 0),
-						 nox_sprintf((char*)v21, "%S", v13), (v14 = strtok((char*)v21, "\t")) != 0)) {
-			strcpy(v11, v14);
-		} else {
-			*v11 = 0;
-		}
-		sub_57A1E0((int*)v11, "user.rul", 0, 7, v3);
-		result = sub_459880((int)v11);
+	if (!a3) {
+		return;
 	}
-	return result;
+	char* v11 = sub_4165B0();
+	int v12 = nox_window_call_field_94(*(int*)&dword_5d4594_1046496, 16404, 0, 0);
+	if (v12 >= 0 && (v13 = nox_window_call_field_94(*(int*)&dword_5d4594_1046496, 16406, v12, 0),
+					 nox_sprintf((char*)v21, "%S", v13), (v14 = strtok((char*)v21, "\t")) != 0)) {
+		strcpy(v11, v14);
+	} else {
+		*v11 = 0;
+	}
+	sub_57A1E0((int*)v11, "user.rul", 0, 7, v3);
+	sub_459880((int)v11);
 }
 //----- (004585D0) --------------------------------------------------------
 int  nox_xxx_guiServerOptionsProcPre_4585D0(int a1, unsigned int a2, int a3, int a4) {
@@ -409,7 +390,7 @@ int  nox_xxx_guiServerOptionsProcPre_4585D0(int a1, unsigned int a2, int a3, int
 						*((_WORD*)v29 + 26) &= 0xE80Fu;
 						*((_WORD*)v29 + 26) |= sub_459650(v32);
 						if (v33 != (*((_WORD*)v29 + 26) & 0x17F0))
-							sub_458230(*((unsigned __int16*)v29 + 26), (char*)getMemAt(0x5D4594, 1046556), 1);
+							nox_client_guiserv_updateMapList_458230(*((unsigned __int16*)v29 + 26), (char*)getMemAt(0x5D4594, 1046556), 1);
 						nox_window_set_hidden(a3, 1);
 						nox_xxx_wndClearCaptureMain_46ADE0(a3);
 						*((_WORD*)v29 + 27) = nox_xxx_servGamedataGet_40A020(*((_WORD*)v29 + 26));

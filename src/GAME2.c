@@ -4612,7 +4612,7 @@ int  sub_457B60(int a1) {
 		if (nox_common_gameFlags_check_40A5C0(128)) {
 			v3 = nox_xxx_cliGamedataGet_416590(1);
 			v4 = *((_WORD*)v3 + 26) & 0x17F0;
-			sub_458230(v4, v3, 1);
+			nox_client_guiserv_updateMapList_458230(v4, v3, 1);
 			v5 = sub_4165B0();
 			*((_WORD*)v5 + 26) = v4 | *((_WORD*)v5 + 26) & 0xE80F;
 			if (sub_40A740()) {
@@ -4629,7 +4629,7 @@ int  sub_457B60(int a1) {
 			else
 				sub_46AD20(*(_DWORD**)&dword_5d4594_1046508, 10330, 10333, 0);
 			v5 = (char*)a1;
-			sub_458230(*(unsigned __int16*)(a1 + 52), (char*)a1, 0);
+			nox_client_guiserv_updateMapList_458230(*(unsigned __int16*)(a1 + 52), (char*)a1, 0);
 		}
 		v7 = nox_xxx_servGamedataGet_40A020(*((_WORD*)v5 + 26));
 		_itow(v7, WideCharStr, 10);
@@ -4647,7 +4647,7 @@ int  sub_457B60(int a1) {
 		sub_46AD20(*(_DWORD**)&dword_5d4594_1046504, 10134, 10135, 0);
 		sub_46ACE0(*(_DWORD**)&dword_5d4594_1046492, 10141, 10141, 1);
 		v5 = (char*)a1;
-		sub_458230(*(unsigned __int16*)(a1 + 52), (char*)a1, 0);
+		nox_client_guiserv_updateMapList_458230(*(unsigned __int16*)(a1 + 52), (char*)a1, 0);
 		_itow(*(unsigned __int16*)(a1 + 54), WideCharStr, 10);
 		nox_window_call_field_94(*(int*)&dword_5d4594_1046516, 16414, (int)WideCharStr, 0);
 		_itow(*(unsigned __int8*)(a1 + 56), WideCharStr, 10);
@@ -5110,7 +5110,7 @@ int sub_459C30() {
 	if (dword_5d4594_1046492) {
 		sub_459880((int)v0);
 		sub_4BDF70((int*)v0);
-		sub_458230(*((unsigned __int16*)v0 + 26), v0, 0);
+		nox_client_guiserv_updateMapList_458230(*((unsigned __int16*)v0 + 26), v0, 0);
 		sub_457460((int)v0);
 		if (nox_xxx_check_flag_aaa_43AF70() == 1)
 			sub_457FE0();
