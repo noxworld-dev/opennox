@@ -5159,24 +5159,28 @@ BOOL sub_459DA0() { return dword_5d4594_1046492 != 0; }
 BOOL  sub_459DB0(int a1) { return *(_DWORD*)(a1 + 112) & 0x400000 && *(_BYTE*)(a1 + 116) & 8; }
 
 //----- (00459DD0) --------------------------------------------------------
-int  sub_459DD0(int a1, char a2) {
-	int result; // eax
-	int v3;     // ecx
-	int v4;     // ecx
-
-	result = a1;
-	v3 = *(_DWORD*)(a1 + 120);
-	*(_BYTE*)(a1 + 284) |= a2;
-	if (v3 >= 0) {
-		v4 = dword_5d4594_1046596;
-		*(_DWORD*)(a1 + 412) = 0;
-		*(_DWORD*)(a1 + 408) = v4;
-		if (dword_5d4594_1046596)
-			*(_DWORD*)(dword_5d4594_1046596 + 412) = a1;
-		dword_5d4594_1046596 = a1;
-		*(_DWORD*)(a1 + 120) |= 0x80000000;
+void sub_459DD0(int a1, char a2) {
+	if (!a1) {
+		return;
 	}
-	return result;
+	int v3 = *(_DWORD*)(a1 + 120);
+	*(_BYTE*)(a1 + 284) |= a2;
+	if (v3 < 0) {
+		return;
+	}
+	for (int it = nox_xxx_cliFirstMinimapObj_459EB0(); it; it = nox_xxx_cliNextMinimapObj_459EC0(it)) {
+		// TODO: this happens when hosting a Solo map in Arena game mode and leads to an infinite loop, so we prevent it
+		if (a1 == it) {
+			return;
+		}
+	}
+	int v4 = dword_5d4594_1046596;
+	*(_DWORD*)(a1 + 412) = 0;
+	*(_DWORD*)(a1 + 408) = v4;
+	if (dword_5d4594_1046596)
+		*(_DWORD*)(dword_5d4594_1046596 + 412) = a1;
+	dword_5d4594_1046596 = a1;
+	*(_DWORD*)(a1 + 120) |= 0x80000000;
 }
 
 //----- (00459E30) --------------------------------------------------------
@@ -5210,7 +5214,15 @@ int  nox_xxx_cliRemoveHealthbar_459E30(nox_drawable* dr, char a2) {
 int nox_xxx_cliFirstMinimapObj_459EB0() { return dword_5d4594_1046596; }
 
 //----- (00459EC0) --------------------------------------------------------
-int  nox_xxx_cliNextMinimapObj_459EC0(int a1) { return *(_DWORD*)(a1 + 408); }
+int  nox_xxx_cliNextMinimapObj_459EC0(int a1) {
+	int next = *(_DWORD*)(a1 + 408);
+	if (a1 && a1 == next) {
+		printf("nox_xxx_cliNextMinimapObj_459EC0: infinite loop!\n");
+		abort();
+		return 0;
+	}
+	return next;
+}
 
 //----- (00459ED0) --------------------------------------------------------
 int  sub_459ED0_drawable(int a1) {

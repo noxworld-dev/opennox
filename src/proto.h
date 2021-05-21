@@ -1953,7 +1953,7 @@ int sub_459D70();
 int  sub_459D80(int a1);
 BOOL sub_459DA0();
 BOOL  sub_459DB0(int a1);
-int  sub_459DD0(int a1, char a2);
+void sub_459DD0(int a1, char a2);
 int  nox_xxx_cliRemoveHealthbar_459E30(nox_drawable* dr, char a2);
 int nox_xxx_cliFirstMinimapObj_459EB0();
 int  nox_xxx_cliNextMinimapObj_459EC0(int a1);
