@@ -4,6 +4,7 @@ import (
 	"context"
 	"image"
 	"image/jpeg"
+	"image/png"
 	"net/http"
 	"strconv"
 	"time"
@@ -54,11 +55,19 @@ func screenshotHandler(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusNotImplemented)
 		return
 	}
-	var opt *jpeg.Options
-	if q, err := strconv.Atoi(r.URL.Query().Get("q")); err == nil {
-		if q >= 1 && q <= 100 {
-			opt = &jpeg.Options{Quality: q}
+	qu := r.URL.Query()
+	switch qu.Get("f") {
+	case "png":
+		_ = png.Encode(w, img)
+	case "jpg", "jpeg":
+		fallthrough
+	default:
+		var opt *jpeg.Options
+		if q, err := strconv.Atoi(qu.Get("q")); err == nil {
+			if q >= 1 && q <= 100 {
+				opt = &jpeg.Options{Quality: q}
+			}
 		}
+		_ = jpeg.Encode(w, img, opt)
 	}
-	_ = jpeg.Encode(w, img, opt)
 }
