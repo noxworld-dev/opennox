@@ -7,7 +7,7 @@ const (
 )
 
 var (
-	Version = "v1.4.x"
+	Version = "v1.5.x"
 	Commit  = devCommit
 )
 
