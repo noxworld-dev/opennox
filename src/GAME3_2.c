@@ -1297,6 +1297,24 @@ void nox_common_maplist_add_4D0760(nox_map_list_item* map) {
 }
 
 //----- (004D07F0) --------------------------------------------------------
+void nox_common_scanAddMap(char* filename) {
+	char name[12];
+	strncpy(name, filename, 8);
+	name[8] = 0;
+	if (!nox_common_checkMapFile_4CFE10(name)) {
+		return;
+	}
+	nox_map_list_item* map = malloc(sizeof(nox_map_list_item));
+	sub_425770(map);
+	strcpy(map->name, name);
+	map->field_6 = 1;
+	map->field_7 = *getMemU32Ptr(0x5D4594, 3801836 + 1392);
+	map->field_8_0 = getMemByte(0x5D4594, 3801836 + 1396);
+	map->field_8_1 = getMemByte(0x5D4594, 3801836 + 1397);
+	nox_common_maplist_add_4D0760(map);
+}
+
+#ifndef NOX_CGO
 int nox_common_scanAllMaps_4D07F0() {
 	nox_common_list_clear_425760(&nox_common_maplist);
 
@@ -1314,24 +1332,12 @@ int nox_common_scanAllMaps_4D07F0() {
 			strcmp(FindFileData.cFileName, ".") != 0 &&
 			strcmp(FindFileData.cFileName, "..") != 0) {
 
-			char name[12];
-			strncpy(name, FindFileData.cFileName, 8);
-			name[8] = 0;
-			if (!nox_common_checkMapFile_4CFE10(name)) {
-				continue;
-			}
-			nox_map_list_item* map = malloc(sizeof(nox_map_list_item));
-			sub_425770(map);
-			strcpy(map->name, name);
-			map->field_6 = 1;
-			map->field_7 = *getMemU32Ptr(0x5D4594, 3801836 + 1392);
-			map->field_8_0 = getMemByte(0x5D4594, 3801836 + 1396);
-			map->field_8_1 = getMemByte(0x5D4594, 3801836 + 1397);
-			nox_common_maplist_add_4D0760(map);
+			nox_common_scanAddMap(FindFileData.cFileName);
 		}
 	} while (FindNextFileA(v1, &FindFileData));
 	return FindClose(v1);
 }
+#endif // NOX_CGO
 
 //----- (004D0970) --------------------------------------------------------
 void nox_common_maplist_free_4D0970() {

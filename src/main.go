@@ -276,7 +276,9 @@ func runNox(args []string) error {
 	if err := strmanReadFile("nox.str"); err != nil {
 		return fmt.Errorf("failed to load strings file: %w", err)
 	}
-	C.nox_common_scanAllMaps_4D07F0()
+	if err := nox_common_scanAllMaps_4D07F0(); err != nil {
+		return fmt.Errorf("cannot find maps: %w", err)
+	}
 	C.sub_40AED0()
 	C.nox_xxx_mapSetDataDefault_416500()
 	if C.nox_common_readcfgfile(C.CString("nox.cfg"), 0) == 0 {
