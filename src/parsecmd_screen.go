@@ -7,7 +7,6 @@ import (
 	"io"
 	"log"
 	"os"
-	"path/filepath"
 	"sync/atomic"
 
 	"nox/v1/client/system/parsecmd"
@@ -32,7 +31,7 @@ func cmdScreenshot(c *parsecmd.Console, tokens []string) bool {
 			log.Println("cannot take screenshot:", err)
 			return
 		}
-		base := filepath.Join(getDataPath(), "nox")
+		base := getDataPath("nox")
 		var w io.WriteCloser
 		for {
 			i := atomic.AddUint32(&screenshotSeq, 1)

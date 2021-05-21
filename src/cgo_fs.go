@@ -9,6 +9,7 @@ import (
 	"bufio"
 	"io"
 	"os"
+	"path/filepath"
 	"sync"
 	"unicode"
 	"unsafe"
@@ -113,8 +114,14 @@ func setDataPath(path string) {
 	noxDataPath = path
 }
 
-func getDataPath() string {
-	return noxDataPath
+func getDataPath(parts ...string) string {
+	if len(parts) == 0 {
+		return noxDataPath
+	}
+	args := make([]string, 0, 1+len(parts))
+	args = append(args, noxDataPath)
+	args = append(args, parts...)
+	return filepath.Join(args...)
 }
 
 //export nox_fs_root
