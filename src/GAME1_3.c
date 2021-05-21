@@ -1716,7 +1716,6 @@ void nox_game_exit_xxx_43DE60() {
 	if (!nox_common_gameFlags_check_40A5C0(0x2000000))
 		sub_40D380();
 }
-#endif // NOX_CGO
 
 int map_download_loop(int first) {
 	unsigned __int8* v1; // eax
@@ -1729,10 +1728,10 @@ int map_download_loop(int first) {
 		sub_40D250();
 		sub_40DF90();
 	}
-	v1 = (unsigned __int8*)nox_xxx_wndKeyGet_430940();
+	v1 = nox_xxx_wndKeyGet_430940();
 	for (dword_5d4594_2618912 = v1; *v1; dword_5d4594_2618912 = v1) {
 		nox_xxx_windowUpdateKeysMB_46B6B0(v1);
-		v1 = (unsigned __int8*)(dword_5d4594_2618912 + 8);
+		v1 = (dword_5d4594_2618912 + 8);
 	}
 	sub_43CCA0();
 	if (first)
@@ -1749,10 +1748,12 @@ int map_download_loop(int first) {
 	nox_video_callCopyBackBuffer_4AD170();
 	sub_48A290_call_present();
 
-	if (!nox_xxx_gameDownloadInProgress_587000_173328)
+	if (!nox_xxx_gameDownloadInProgress_587000_173328) {
 		return map_download_finish();
+	}
 	return -1;
 }
+#endif // NOX_CGO
 
 //----- (0043E1A0) --------------------------------------------------------
 _DWORD*  nox_xxx_gui_43E1A0(int a1) {
@@ -1805,7 +1806,7 @@ void mainloop_43E290() {
 	*getMemU32Ptr(0x5D4594, 816400) = 60 * nox_gameFPS;
 
 	// XXX
-	nox_xxx_gameStopDownload_4AB560(0);
+	nox_xxx_mapSetDownloadInProgress_4AB560(0);
 
 	mainloop_enter = NULL;
 #ifdef __EMSCRIPTEN__

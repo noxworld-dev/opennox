@@ -1372,7 +1372,7 @@ int  nox_xxx_netStructReadPackets_5545B0(unsigned int a1) {
 }
 
 //----- (005546A0) --------------------------------------------------------
-int  sub_5546A0(unsigned int a1) {
+int  nox_server_netClose_5546A0(unsigned int a1) {
 	if (a1 >= NOX_NET_STRUCT_MAX)
 		return -3;
 	nox_net_struct_t* ns = nox_net_struct_arr[a1];
@@ -4884,17 +4884,15 @@ unsigned int sub_57BF80() {
 }
 
 //----- (0057BFB0) --------------------------------------------------------
-char* nox_xxx_allocGroupRelatedArrays_57BFB0() {
-	char* result; // eax
-
+int nox_xxx_allocGroupRelatedArrays_57BFB0() {
 	dword_5d4594_2523904 = 0;
-	result = nox_new_alloc_class("ItemGroupInfo", 96, 512);
+	char* result = nox_new_alloc_class("ItemGroupInfo", 96, 512);
 	nox_alloc_groupInfo_2523892 = result;
-	if (result) {
-		nox_alloc_itemGroupElem_2523896 = nox_new_alloc_class("ItemGroupElement", 16, 5000);
-		result = (char*)(nox_alloc_itemGroupElem_2523896 != 0);
+	if (!result) {
+		return 0;
 	}
-	return result;
+	nox_alloc_itemGroupElem_2523896 = nox_new_alloc_class("ItemGroupElement", 16, 5000);
+	return nox_alloc_itemGroupElem_2523896 != 0;
 }
 
 //----- (0057C000) --------------------------------------------------------

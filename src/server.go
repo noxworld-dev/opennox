@@ -3,12 +3,16 @@ package main
 /*
 #include "proto.h"
 #include "common__net_list.h"
+#include "common__log.h"
+
 extern unsigned int nox_gameFPS;
 extern unsigned int nox_frame_xxx_2598000;
 extern unsigned int dword_5d4594_1569652;
 extern unsigned int dword_5d4594_1569656;
 extern unsigned int dword_5d4594_2650652;
 extern unsigned int nox_xxx_questFlag_1556148;
+extern unsigned int dword_5d4594_2649712;
+extern unsigned int nox_xxx_host_player_unit_3843628;
 
 void nox_xxx_abilUpdateMB_4FBEE0();
 char* nox_server_updateRemotePlayers_4DEC80();
@@ -34,13 +38,18 @@ int sub_4E76C0();
 void sub_4FC680();
 int sub_4FC6D0();
 bool sub_57B140();
+int sub_417C60();
+int nox_xxx_free_4E2A20();
 */
 import "C"
 import (
 	"encoding/binary"
+	"errors"
+	"fmt"
 	"unsafe"
 
 	noxflags "nox/v1/common/flags"
+	"nox/v1/common/fs"
 	"nox/v1/common/memmap"
 )
 
@@ -229,4 +238,138 @@ func updateRemotePlayers() {
 			C.nox_xxx_netSendReadPacket_5528B0(C.uint(pl.Index()+1), 0)
 		}
 	}
+}
+
+func nox_xxx_servNewSession_4D1660() error {
+	C.sub_4D15C0()
+	C.dword_5d4594_2649712 = 0x80000000
+	C.nox_xxx_host_player_unit_3843628 = 0
+	C.sub_4D7B40()
+	C.sub_41E4B0(0)
+	C.nox_xxx_servResetObjectGIDs_4E3C70()
+	C.sub_56F1C0()
+	C.nox_xxx_cliResetAllPlayers_416E30()
+	C.nox_netlist_resetAll_40EE60()
+	C.sub_4E4EF0()
+	C.sub_4E4ED0()
+	if C.nox_xxx_allocAudEventArray_501860() == 0 {
+		return errors.New("nox_xxx_allocAudEventArray_501860 failed")
+	}
+	if C.nox_read_things_alternative_4E2B60() == 0 {
+		return errors.New("nox_read_things_alternative_4E2B60 failed")
+	}
+	C.nox_motd_4463E0(1)
+	C.sub_417C60()
+	C.sub_4259C0()
+	C.sub_4D7C60()
+	C.nox_xxx_unitDefFindMaxDataSize_4E3320()
+	if C.sub_518770() == 0 {
+		return errors.New("sub_518770 failed")
+	}
+	noxflags.HasGame(noxflags.GameFlag22)
+	if C.nox_xxx_allocClassArrayObjects_4E3360(0x1388) == 0 {
+		return errors.New("nox_xxx_allocClassArrayObjects_4E3360 failed")
+	}
+	if C.sub_517AE0() == 0 {
+		return errors.New("sub_517AE0 failed")
+	}
+	if C.nox_xxx_allocVisitNodesArray_50AB90() == 0 {
+		return errors.New("nox_xxx_allocVisitNodesArray_50AB90 failed")
+	}
+	if C.nox_xxx_allocSpellRelatedArrays_4FC9B0() == 0 {
+		return errors.New("nox_xxx_allocSpellRelatedArrays_4FC9B0 failed")
+	}
+	if C.nox_xxx_allocSpringsArray_5112C0() == 0 {
+		return errors.New("nox_xxx_allocSpringsArray_5112C0 failed")
+	}
+	if C.nox_xxx_allocDebugDataArray_57C410() == 0 {
+		return errors.New("nox_xxx_allocDebugDataArray_57C410 failed")
+	}
+	if C.nox_xxx_allocGroupRelatedArrays_57BFB0() == 0 {
+		return errors.New("nox_xxx_allocGroupRelatedArrays_57BFB0 failed")
+	}
+	if C.nox_xxx_allocItemRespawnArray_4ECA60() == 0 {
+		return errors.New("nox_xxx_allocItemRespawnArray_4ECA60 failed")
+	}
+	if C.nox_xxx_registerShopClasses_50E2A0() == 0 {
+		return errors.New("nox_xxx_registerShopClasses_50E2A0 failed")
+	}
+	if C.nox_xxx_allocMonsterRelatedArrays_50D780() == 0 {
+		return errors.New("nox_xxx_allocMonsterRelatedArrays_50D780 failed")
+	}
+	if C.nox_xxx_allocVoteArray_5066D0() == 0 {
+		return errors.New("nox_xxx_allocVoteArray_5066D0 failed")
+	}
+	if C.nox_xxx_allocMagicWallArray_4FF730() == 0 {
+		return errors.New("nox_xxx_allocMagicWallArray_4FF730 failed")
+	}
+	if C.nox_xxx_monsterList_517520() == 0 {
+		return errors.New("nox_xxx_monsterList_517520 failed")
+	}
+	C.sub_416920()
+	if !noxflags.HasGame(noxflags.GameSolo) {
+		v1 := C.nox_xxx_servGetPort_40A430()
+		*memmap.PtrInt32(0x5D4594, 1548516) = int32(C.nox_xxx_netAddPlayerHandler_4DEBC0(v1))
+		if !noxflags.HasGame(noxflags.GameFlag26) {
+			C.nox_xxx_networkLog_init_413CC0()
+		}
+	}
+	C.nox_xxx_allocArrayExecAbilities_4FB990()
+	if C.nox_xxx_allocPendingOwnsArray_516EE0() == 0 {
+		return errors.New("nox_xxx_allocPendingOwnsArray_516EE0 failed")
+	}
+	C.sub_421B10()
+	C.sub_4DB0A0()
+	C.sub_4D0F30()
+	if err := gameStartHTTP(); err != nil {
+		return err
+	}
+	return nil
+}
+
+func nox_server_netCloseHandler_4DEC60(a1 uint32) {
+	C.nox_xxx_netStructReadPackets_5545B0(C.uint(a1))
+	C.nox_server_netClose_5546A0(C.uint(a1))
+	C.nox_xxx_host_player_unit_3843628 = 0
+	C.sub_552450()
+	gameStopHTTP()
+}
+
+func nox_xxx_servEndSession_4D3200() {
+	C.sub_50D1E0()
+	C.sub_4DB100()
+	C.sub_421B10()
+	C.sub_516F10()
+	C.sub_4FF770()
+	C.nox_xxx_replayStopSave_4D33B0()
+	C.nox_xxx_replayStopReadMB_4D3530()
+	C.nox_xxx_cliResetAllPlayers_416E30()
+	C.sub_446490(1)
+	C.sub_4259F0()
+	C.nox_xxx_mapSwitchLevel_4D12E0(0)
+	nox_xxx_mapLoad_40A380()
+	C.sub_4E4DE0()
+	C.sub_57C460()
+	C.sub_57C030()
+	C.sub_511310()
+	C.nox_xxx_freeSpellRelated_4FCA80()
+	C.sub_50ABF0()
+	C.sub_517B30()
+	C.sub_5018D0()
+	C.sub_4ECA90()
+	C.sub_506720()
+	C.sub_50D820()
+	C.nox_xxx_deleteShopInventories_50E300()
+	C.sub_416950()
+	C.sub_4E3420()
+	C.nox_xxx_free_4E2A20()
+	if !noxflags.HasGame(noxflags.GameSolo) {
+		nox_server_netCloseHandler_4DEC60(*memmap.PtrUint32(0x5D4594, 1548516))
+		if !noxflags.HasGame(noxflags.GameFlag26) {
+			C.nox_xxx_networkLog_close_413D00()
+		}
+	}
+	C.sub_56F3B0()
+	C.nox_netlist_resetAll_40EE60()
+	_ = fs.Remove(fmt.Sprintf("%s\\Save\\_temp_.dat", getDataPath()))
 }

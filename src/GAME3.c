@@ -4540,21 +4540,13 @@ int  sub_4AB4D0(int a1) {
 }
 
 //----- (004AB560) --------------------------------------------------------
-int  nox_xxx_gameStopDownload_4AB560(int a1) {
-	int result; // eax
-
-	result = a1;
+void nox_xxx_mapSetDownloadInProgress_4AB560(int a1) {
 	nox_xxx_gameDownloadInProgress_587000_173328 = a1;
-	return result;
 }
 
 //----- (004AB570) --------------------------------------------------------
-int  nox_xxx_mapSetDownloadOK_4AB570(int a1) {
-	int result; // eax
-
-	result = a1;
+void nox_xxx_mapSetDownloadOK_4AB570(int a1) {
 	nox_xxx_mapDownloadOK_587000_173332 = a1;
-	return result;
 }
 
 //----- (004AB580) --------------------------------------------------------
@@ -4577,10 +4569,9 @@ LPCSTR sub_4AB580() {
 }
 
 //----- (004AB5E0) --------------------------------------------------------
-int nox_xxx_gameDownloadMap_4AB5E0() {
+void nox_xxx_gameDownloadMap_4AB5E0() {
 	int v0;              // esi
 	unsigned __int8* v1; // eax
-	int result;          // eax
 	int v3;              // [esp+4h] [ebp-Ch]
 	int v4;              // [esp+8h] [ebp-8h]
 	int v5;              // [esp+Ch] [ebp-4h]
@@ -4620,19 +4611,16 @@ int nox_xxx_gameDownloadMap_4AB5E0() {
 			;
 	} while (nox_xxx_gameDownloadInProgress_587000_173328);
 	nox_xxx_guiDownloadClose_4CC930();
-	result = nox_xxx_mapDownloadOK_587000_173332;
 	if (nox_xxx_mapDownloadOK_587000_173332) {
 		nox_xxx_gameGetScreenBoundaries_43BEB0_get_video_mode(&v3, &v5, &v4);
 		if (!v3)
 			nox_xxx_gameResizeScreen_43BEF0_set_video_mode(NOX_DEFAULT_WIDTH, NOX_DEFAULT_HEIGHT, v4);
-		result = nox_xxx_mapDownloadOK_587000_173332;
 	}
-	return result;
 }
 // 4AD170: using guessed type int nox_video_callCopyBackBuffer_4AD170(void);
 
 //----- (004AB720) --------------------------------------------------------
-int nox_xxx_mapDeleteFile_4AB720() {
+void nox_xxx_mapDeleteFile_4AB720() {
 	int v0; // esi
 	int v1; // edi
 
@@ -4656,8 +4644,8 @@ int nox_xxx_mapDeleteFile_4AB720() {
 		free(*(LPVOID*)&dword_5d4594_1309776);
 	dword_5d4594_1309784 = 0;
 	dword_5d4594_1309780 = 0;
-	nox_xxx_gameStopDownload_4AB560(0);
-	return nox_xxx_mapSetDownloadOK_4AB570(1);
+	nox_xxx_mapSetDownloadInProgress_4AB560(0);
+	nox_xxx_mapSetDownloadOK_4AB570(1);
 }
 
 //----- (004AB7C0) --------------------------------------------------------
@@ -4721,9 +4709,9 @@ void  nox_xxx_netMapDownloadPart_4AB7C0(unsigned __int16 a1, void* a2, size_t a3
 		// *(_DWORD *)&dword_5d4594_1309772);
 		if (dword_5d4594_1309764 && *(unsigned int*)&dword_5d4594_1309768 >= *(unsigned int*)&dword_5d4594_1309772) {
 			sub_4AB580();
-			nox_xxx_gameStopDownload_4AB560(0);
+			nox_xxx_mapSetDownloadInProgress_4AB560(0);
 			nox_xxx_mapSetDownloadOK_4AB570(1);
-			nox_xxx_guiDownloadSetPercent_4CC900(0x64u);
+			nox_xxx_guiDownloadSetPercent_4CC900(100);
 			nox_xxx_netMapReceived_43CA80();
 		} else {
 			nox_xxx_guiDownloadSetPercent_4CC900((__int64)((double)*(unsigned int*)&dword_5d4594_1309768 / (double)*(int*)&dword_5d4594_1309772 *
@@ -4752,22 +4740,26 @@ int  sub_4AB9B0(char* a1) {
 }
 
 //----- (004ABA90) --------------------------------------------------------
-LPCSTR nox_xxx_cliCancelMapDownload_4ABA90() {
-	LPCSTR result; // eax
-
-	result = *(LPCSTR*)&dword_5d4594_1309764;
+#ifdef NOX_CGO
+void nox_xxx_cliCancelMapDownload_native_4ABA90() {
+#else // NOX_CGO
+void nox_xxx_cliCancelMapDownload_4ABA90() {
+#endif // NOX_CGO
 	if (dword_5d4594_1309764) {
 		nox_xxx_cliSendCancelMap_43CAB0();
 		if (nox_file_9)
 			nox_fs_close(nox_file_9);
 		sub_4AB9B0(*(char**)&dword_5d4594_1309776);
-		result = sub_4AB580();
+		sub_4AB580();
 	}
-	return result;
 }
 
 //----- (004ABAD0) --------------------------------------------------------
+#ifdef NOX_CGO
+int  nox_xxx_mapDownloadStart_native_4ABAD0(char* a1, unsigned int a2) {
+#else // NOX_CGO
 int  nox_xxx_mapDownloadStart_4ABAD0(char* a1, unsigned int a2) {
+#endif // NOX_CGO
 	CHAR* v2;           // edi
 	unsigned __int8 v3; // cl
 	char* v4;           // ebx

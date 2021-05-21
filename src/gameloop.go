@@ -42,7 +42,6 @@ import (
 
 	"nox/v1/common/alloc"
 	noxflags "nox/v1/common/flags"
-	"nox/v1/common/fs"
 	"nox/v1/common/memmap"
 	"nox/v1/common/platform"
 )
@@ -89,6 +88,10 @@ func nox_game_exit_xxx_43DE60() {
 	}
 }
 
+func nox_xxx_gameIsNotMultiplayer_4DB250() bool {
+	return C.nox_xxx_gameIsNotMultiplayer_4DB250() != 0
+}
+
 func mainloopStop() {
 	mainloopContinue = false
 	continueMenuOrHost = false
@@ -106,7 +109,7 @@ func mainloop_43E290() {
 	*memmap.PtrUint32(0x5D4594, 816400) = 60 * gameFPS()
 
 	// XXX
-	C.nox_xxx_gameStopDownload_4AB560(0)
+	nox_xxx_mapSetDownloadInProgress_4AB560(false)
 
 	mainloopEnter = nil
 mainloop:
@@ -118,15 +121,15 @@ mainloop:
 			mainloopEnter()
 			continue mainloop
 		}
-		if C.nox_xxx_gameDownloadInProgress_587000_173328 != 0 {
-			ret := C.map_download_loop(0)
-			if ret == -1 {
+		if mapDownloading() {
+			if done, err := mapDownloadLoop(false); !done {
 				continue mainloop
-			} else if ret == 0 {
+			} else if err != nil {
+				log.Println(err)
 				// map error
 				mainloopStop()
 				if debugMainloop {
-					log.Println("map_download_loop exit")
+					log.Println("mapDownloadLoop exit")
 				}
 				goto MAINLOOP_EXIT
 			}
@@ -134,7 +137,7 @@ mainloop:
 			C.fesetround(C.FE_TOWARDZERO)
 			if C.nox_xxx_gameChangeMap_43DEB0() == 0 {
 				// XXX
-				if C.nox_xxx_gameDownloadInProgress_587000_173328 != 0 {
+				if mapDownloading() {
 					continue mainloop
 				}
 				mainloopStop()
@@ -245,7 +248,8 @@ mainloop:
 					continue mainloop
 				}
 				if noxflags.HasGame(noxflags.GameHost) {
-					if C.nox_xxx_servNewSession_4D1660() == 0 {
+					if err := nox_xxx_servNewSession_4D1660(); err != nil {
+						log.Println(err)
 						continue mainloop
 					}
 				}
@@ -867,43 +871,4 @@ func nox_xxx_mapLoad_40A380() {
 func nox_xxx_gameSetMapPath_409D70(path string) {
 	log.Println("set map path:", path)
 	C.nox_xxx_gameSetMapPath_409D70(internCStr(path))
-}
-
-func nox_xxx_servEndSession_4D3200() {
-	C.sub_50D1E0()
-	C.sub_4DB100()
-	C.sub_421B10()
-	C.sub_516F10()
-	C.sub_4FF770()
-	C.nox_xxx_replayStopSave_4D33B0()
-	C.nox_xxx_replayStopReadMB_4D3530()
-	C.nox_xxx_cliResetAllPlayers_416E30()
-	C.sub_446490(1)
-	C.sub_4259F0()
-	C.nox_xxx_mapSwitchLevel_4D12E0(0)
-	nox_xxx_mapLoad_40A380()
-	C.sub_4E4DE0()
-	C.sub_57C460()
-	C.sub_57C030()
-	C.sub_511310()
-	C.nox_xxx_freeSpellRelated_4FCA80()
-	C.sub_50ABF0()
-	C.sub_517B30()
-	C.sub_5018D0()
-	C.sub_4ECA90()
-	C.sub_506720()
-	C.sub_50D820()
-	C.nox_xxx_deleteShopInventories_50E300()
-	C.sub_416950()
-	C.sub_4E3420()
-	C.nox_xxx_free_4E2A20()
-	if !noxflags.HasGame(noxflags.GameSolo) {
-		C.nox_xxx_netCloseHandler_4DEC60(C.uint(*memmap.PtrUint32(0x5D4594, 1548516)))
-		if !noxflags.HasGame(noxflags.GameFlag26) {
-			C.nox_xxx_networkLog_close_413D00()
-		}
-	}
-	C.sub_56F3B0()
-	C.nox_netlist_resetAll_40EE60()
-	_ = fs.Remove(fmt.Sprintf("%s\\Save\\_temp_.dat", getDataPath()))
 }

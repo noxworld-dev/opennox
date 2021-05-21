@@ -1939,6 +1939,7 @@ _DWORD* nox_xxx_unknown_libname_11_4D1650() {
 }
 
 //----- (004D1660) --------------------------------------------------------
+#ifndef NOX_CGO
 int nox_xxx_servNewSession_4D1660() {
 	sub_4D15C0();
 	dword_5d4594_2649712 = 2147483648;
@@ -2023,7 +2024,6 @@ int nox_xxx_servNewSession_4D1660() {
 }
 
 //----- (004D17F0) --------------------------------------------------------
-#ifndef NOX_CGO
 int nox_xxx_servInitialMapLoad_4D17F0() {
 	sub_4E79B0(0);
 	if (!memcmp(nox_server_currentMapGetFilename_409B30(), getMemAt(0x5D4594, 1548720), 1u)) {
@@ -2185,7 +2185,7 @@ BOOL nox_xxx_servEndSession_4D3200() {
 	sub_4E3420();
 	nox_xxx_free_4E2A20();
 	if (!nox_common_gameFlags_check_40A5C0(2048)) {
-		nox_xxx_netCloseHandler_4DEC60(*getMemUintPtr(0x5D4594, 1548516));
+		nox_server_netCloseHandler_4DEC60(*getMemUintPtr(0x5D4594, 1548516));
 		if (!nox_common_gameFlags_check_40A5C0(0x2000000))
 			nox_xxx_networkLog_close_413D00();
 	}
@@ -9349,12 +9349,14 @@ int  nox_xxx_netlist_ServRecv_4DEC30(int a1, unsigned __int8* a2, signed int a3,
 int  sub_4DEC50(int a1) { return nox_xxx_netStructReadPackets_5545B0(a1 + 1); }
 
 //----- (004DEC60) --------------------------------------------------------
-int  nox_xxx_netCloseHandler_4DEC60(unsigned int a1) {
+#ifndef NOX_CGO
+void nox_server_netCloseHandler_4DEC60(unsigned int a1) {
 	nox_xxx_netStructReadPackets_5545B0(a1);
-	sub_5546A0(a1);
+	nox_server_netClose_5546A0(a1);
 	OnLibraryNotice_257();
-	return sub_552450();
+	sub_552450();
 }
+#endif // NOX_CGO
 
 //----- (004DEF00) --------------------------------------------------------
 int nox_xxx_netGameSettings_4DEF00() {

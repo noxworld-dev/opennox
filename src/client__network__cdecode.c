@@ -2549,7 +2549,7 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 		case 0xB8u:
 			if (!nox_xxx_mapDownloadStart_4ABAD0((char*)(data + 8), *(_DWORD*)(data + 4))) {
 				nox_xxx_cliSendCancelMap_43CAB0();
-				nox_xxx_gameStopDownload_4AB560(0);
+				nox_xxx_mapSetDownloadInProgress_4AB560(0);
 				nox_xxx_mapSetDownloadOK_4AB570(0);
 			}
 			data += 88;
@@ -2561,7 +2561,7 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 			break;
 		case 0xBAu:
 			nox_xxx_mapDeleteFile_4AB720();
-			nox_xxx_gameStopDownload_4AB560(0);
+			nox_xxx_mapSetDownloadInProgress_4AB560(0);
 			nox_xxx_mapSetDownloadOK_4AB570(0);
 			data += 2;
 			break;

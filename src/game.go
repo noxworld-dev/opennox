@@ -303,6 +303,10 @@ func nox_server_currentMapGetFilename_409B30() string {
 	return C.GoString((*C.char)(memmap.PtrOff(0x5D4594, 2598188)))
 }
 
+func nox_xxx_mapFilenameGetSolo_4DB260() string {
+	return C.GoString((*C.char)(memmap.PtrOff(0x5D4594, 1559960)))
+}
+
 func nox_xxx_servInitialMapLoad_4D17F0() bool {
 	C.sub_4E79B0(0)
 	if nox_server_currentMapGetFilename_409B30() == "" {

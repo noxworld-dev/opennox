@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.5.0
+
+- Blazing-fast map downloads. Both client and the server should use this version. 
+
 ## v1.4.0
 
 - First public release!

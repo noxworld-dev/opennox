@@ -1106,9 +1106,6 @@ int __stdcall MixRecvFromReplacer(nox_socket_t s, char* buf, int len, struct nox
 void OnLibraryNotice_256() {
 
 }
-void OnLibraryNotice_257() {
-	nox_xxx_host_player_unit_3843628 = 0;
-}
 void OnLibraryNotice_258() {
 	// is called from exe from here: 0x980650
 	someSwitch = 1;
@@ -1116,7 +1113,12 @@ void OnLibraryNotice_258() {
 void OnLibraryNotice_259(DWORD arg1) {
 
 }
+
 #ifndef NOX_CGO
+void OnLibraryNotice_257() {
+	nox_xxx_host_player_unit_3843628 = 0;
+}
+
 void OnLibraryNotice_260(DWORD arg1, DWORD arg2, DWORD arg3) {
 	// pings all servers from game_ip.txt
 	int v1 = 0;
@@ -1124,6 +1126,7 @@ void OnLibraryNotice_260(DWORD arg1, DWORD arg2, DWORD arg3) {
 	pingAllServersInGameIp(arg2, v1, arg1, arg2, arg3);
 }
 #endif // NOX_CGO
+
 void OnLibraryNotice_261() {
 	unsigned __int8 v24[64]; // [esp+1Ch] [ebp-50h]
 	// is called when game parameters change via UI

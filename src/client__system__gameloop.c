@@ -36,6 +36,9 @@ extern BOOL mainloop_exit_path;
 extern int (*nox_draw_unk1)(void);
 extern int (*func_5D4594_816392)(void);
 
+#ifdef NOX_CGO
+void map_download_start();
+#else // NOX_CGO
 void map_download_start() {
 	nox_xxx_gameClearAll_467DF0(1);
 	nox_xxx_gameDownloadShowDialog_4CC770();
@@ -43,6 +46,7 @@ void map_download_start() {
 	nox_xxx_mapDownloadOK_587000_173332 = 1;
 	map_download_loop(1);
 }
+#endif // NOX_CGO
 
 //----- (0043DEB0) --------------------------------------------------------
 int nox_xxx_gameChangeMap_43DEB0() {

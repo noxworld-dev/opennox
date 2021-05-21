@@ -7207,7 +7207,7 @@ int  nox_xxx_guiDownloadAbort_4CC830(int a1, int a2, int a3, int a4) {
 		nox_xxx_guiDownloadClose_4CC930();
 		nox_xxx_gameSetMapPath_409D70((char*)getMemAt(0x5D4594, 1522936));
 		nox_xxx_cliCancelMapDownload_4ABA90();
-		nox_xxx_gameStopDownload_4AB560(0);
+		nox_xxx_mapSetDownloadInProgress_4AB560(0);
 		nox_xxx_mapSetDownloadOK_4AB570(0);
 		nox_common_gameFlags_unset_40A540(9437184);
 	}
@@ -7227,7 +7227,7 @@ int  nox_xxx_guiDownloadProc_4CC890(int a1, int a2, int* a3, int a4) {
 	nox_xxx_guiDownloadClose_4CC930();
 	nox_xxx_cliCancelMapDownload_4ABA90();
 	nox_xxx_gameSetMapPath_409D70((char*)getMemAt(0x5D4594, 1522940));
-	nox_xxx_gameStopDownload_4AB560(0);
+	nox_xxx_mapSetDownloadInProgress_4AB560(0);
 	nox_xxx_mapSetDownloadOK_4AB570(0);
 	nox_common_gameFlags_unset_40A540(9437184);
 	return 1;
