@@ -3,11 +3,11 @@ package discover
 
 import (
 	"context"
-	"log"
 	"net"
-	"os"
 	"sync"
 	"time"
+
+	"nox/v1/common/log"
 )
 
 const (
@@ -15,7 +15,7 @@ const (
 )
 
 var (
-	Log = log.New(os.Stderr, "[discover]: ", log.LstdFlags|log.Lmsgprefix)
+	Log = log.New("discover")
 )
 
 type Server struct {

@@ -2,16 +2,15 @@ package main
 
 import (
 	"image"
-	"log"
-	"os"
 
+	"nox/v1/common/log"
 	"nox/v1/common/memmap"
 )
 
 var (
 	inputSeq    uint
 	mouseBounds = image.Rect(0, 0, noxDefaultWidth, noxDefaultHeight)
-	inputLog    = log.New(os.Stderr, "[input]: ", log.LstdFlags|log.Lmsgprefix)
+	inputLog    = log.New("input")
 )
 
 func nextInputSeq() uint {

@@ -19,13 +19,13 @@ int sub_43AF90(int a1);
 import "C"
 import (
 	"errors"
-	"log"
 	"net"
 	"os"
 	"strconv"
 	"unsafe"
 
 	"nox/v1/common/alloc"
+	"nox/v1/common/log"
 )
 
 const (
@@ -35,7 +35,7 @@ const (
 var (
 	noxNetNoXor = os.Getenv("NOX_NET_NO_XOR") == "true"
 	debugNet    = os.Getenv("NOX_DEBUG_NET") == "true"
-	netLog      = log.New(os.Stderr, "[network]: ", log.LstdFlags|log.Lmsgprefix)
+	netLog      = log.New("network")
 )
 
 var (

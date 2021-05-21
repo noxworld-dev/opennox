@@ -3,14 +3,15 @@
 package input
 
 import (
-	"log"
 	"os"
 
 	"github.com/veandco/go-sdl2/sdl"
+
+	"nox/v1/common/log"
 )
 
 var (
-	Log       = log.New(os.Stderr, "[input]: ", log.LstdFlags|log.Lmsgprefix)
+	Log       = log.New("input")
 	debugGpad = os.Getenv("NOX_DEBUG_GPAD") == "true"
 )
 

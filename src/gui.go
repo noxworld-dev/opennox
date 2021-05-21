@@ -17,8 +17,6 @@ import (
 	"fmt"
 	"image"
 	"io"
-	"log"
-	"os"
 	"path/filepath"
 	"strconv"
 	"strings"
@@ -28,12 +26,13 @@ import (
 	"nox/v1/common/alloc"
 	noxcolor "nox/v1/common/color"
 	"nox/v1/common/fs"
+	"nox/v1/common/log"
 	"nox/v1/common/memmap"
 	"nox/v1/common/strman"
 )
 
 var (
-	guiLog = log.New(os.Stderr, "[gui]: ", log.LstdFlags|log.Lmsgprefix)
+	guiLog = log.New("gui")
 )
 
 func asWindowData(data *C.nox_window_data) *WindowData {

@@ -18,7 +18,6 @@ import (
 	"encoding/binary"
 	"fmt"
 	"io"
-	"log"
 	"math"
 	"os"
 	"sync"
@@ -30,10 +29,11 @@ import (
 
 	"nox/v1/common/alloc/handles"
 	"nox/v1/common/fs"
+	"nox/v1/common/log"
 )
 
 var (
-	audioLog     = log.New(os.Stderr, "[audio]: ", log.LstdFlags|log.Lmsgprefix)
+	audioLog     = log.New("audio")
 	audioDebug   = os.Getenv("NOX_DEBUG_AUDIO") == "true"
 	audioSamples struct {
 		sync.RWMutex

@@ -9,12 +9,12 @@ void sub_51A1F0(int a1);
 */
 import "C"
 import (
-	"log"
 	"os"
 	"strconv"
 	"unsafe"
 
 	"nox/v1/client/system/parsecmd"
+	"nox/v1/common/log"
 )
 
 const (
@@ -27,7 +27,7 @@ var (
 	questLevelWarpInc      = questLevelWrapIncDef
 	questAllowDefault      = os.Getenv("NOX_QUEST_WARP_ALWAYS_ALLOW") == "true"
 	questLevelWarpInfinite = os.Getenv("NOX_QUEST_WARP_INF") == "true"
-	questLog               = log.New(os.Stderr, "[quest]: ", log.LstdFlags|log.Lmsgprefix)
+	questLog               = log.New("quest")
 	noxCmdSetQuest         = &parsecmd.Command{
 		Token: "quest",
 		Help:  "set Quest-related variables",

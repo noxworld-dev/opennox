@@ -2,13 +2,13 @@ package discover
 
 import (
 	"context"
-	"log"
-	"os"
 
 	"github.com/noxworld-dev/xwis"
+
+	"nox/v1/common/log"
 )
 
-var xwisLog = log.New(os.Stderr, "[xwis]: ", log.LstdFlags|log.Lmsgprefix)
+var xwisLog = log.New("xwis")
 
 // RegisterGame will keep the game registered until context is cancelled.
 func RegisterGame(ctx context.Context, info xwis.GameInfo) error {

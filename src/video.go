@@ -2,9 +2,8 @@ package main
 
 import (
 	"image"
-	"log"
-	"os"
 
+	"nox/v1/common/log"
 	"nox/v1/common/types"
 )
 
@@ -19,7 +18,7 @@ const (
 var (
 	noxFullScreen    int = -4 // unset
 	noxPresentTicks  uint
-	videoLog         = log.New(os.Stderr, "[video]: ", log.LstdFlags|log.Lmsgprefix)
+	videoLog         = log.New("video")
 	noxVideoModeMenu = renderMode{
 		Width:  noxDefaultWidth,
 		Height: noxDefaultHeight,
