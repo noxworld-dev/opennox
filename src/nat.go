@@ -4,6 +4,7 @@ import (
 	"context"
 	"os"
 
+	"nox/v1/common"
 	"nox/v1/common/nat"
 )
 
@@ -19,8 +20,8 @@ func gameStartNAT() error {
 	ctx, cancel := context.WithCancel(context.Background())
 	go func() {
 		stop, _ := nat.Map(ctx, []nat.Port{
-			{Port: 18590, Proto: "udp", Desc: "Nox game port"},
-			{Port: gameHTTPPort, Proto: "tcp", Desc: "Nox HTTP port"},
+			{Port: common.GamePort, Proto: "udp", Desc: "Nox game port"},
+			{Port: common.GameHTTPPort, Proto: "tcp", Desc: "Nox HTTP port"},
 		})
 		if stop != nil {
 			<-ctx.Done()

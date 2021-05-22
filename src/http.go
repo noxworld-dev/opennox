@@ -5,18 +5,15 @@ import (
 	"net"
 	"net/http"
 
+	"nox/v1/common"
 	"nox/v1/common/log"
 )
 
 var (
 	gameMux     = http.NewServeMux()
-	gameHTTP    = &http.Server{Addr: fmt.Sprintf(":%d", gameHTTPPort), Handler: gameMux}
+	gameHTTP    = &http.Server{Addr: fmt.Sprintf(":%d", common.GameHTTPPort), Handler: gameMux}
 	gameHTTPLis net.Listener
 	httpLog     = log.New("http")
-)
-
-const (
-	gameHTTPPort = 18580
 )
 
 func gameStartHTTP() error {

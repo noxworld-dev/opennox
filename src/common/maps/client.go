@@ -10,11 +10,12 @@ import (
 	"strings"
 	"time"
 
+	"nox/v1/common"
 	"nox/v1/common/fs"
 )
 
 const (
-	DefaultPort = 18580
+	DefaultPort = common.GameHTTPPort
 )
 
 var (
