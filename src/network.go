@@ -199,8 +199,58 @@ type clientNetOp byte
 func (op clientNetOp) String() string {
 	const pref = "NET_OP_"
 	switch op {
+	case 33:
+		return pref + "STOP"
 	case 39:
 		return pref + "FRAME_39"
+	case 43:
+		return pref + "MAP_43"
+	case 44:
+		return pref + "PLAYER_NEW_44"
+	case 45:
+		return pref + "PLAYER_JOIN_45"
+	case 46:
+		return pref + "PLAYER_LEFT_46"
+	case 47:
+		return pref + "SPRITE_CREATE_47"
+	case 48:
+		return pref + "SPRITE_XXX_48"
+	case 49:
+		return pref + "SPRITE_XXX_49"
+	case 50:
+		return pref + "SPRITE_XXX_50"
+	case 51:
+		return pref + "SPRITE_XXX_51"
+	case 52:
+		return pref + "ADD_OBJ_FRIEND_52"
+	case 56:
+		return pref + "SPRITE_XXX_56"
+	case 57:
+		return pref + "SPRITE_SET_FRAME_57"
+	case 58:
+		return pref + "WALL_DESTROY_ID_58"
+	case 61:
+		return pref + "WALL_CREATE_AT_61"
+	case 62:
+		return pref + "WALL_DESTROY_AT_62"
+	case 66:
+		return pref + "HEALTH_CHANGE_66"
+	case 69:
+		return pref + "MANA_SET_69"
+	case 72:
+		return pref + "INV_XXX_72"
+	case 75:
+		return pref + "INV_XXX_75"
+	case 76:
+		return pref + "INV_XXX_76"
+	case 79:
+		return pref + "EQUIP_XXX_79"
+	case 80:
+		return pref + "EQUIP_XXX_80"
+	case 81:
+		return pref + "EQUIP_XXX_81"
+	case 82:
+		return pref + "EQUIP_XXX_82"
 	case 228: // 0xE4
 		return pref + "FADE"
 	}
