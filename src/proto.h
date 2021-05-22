@@ -2087,7 +2087,7 @@ int sub_460D50();
 int nox_xxx_cliPrepareGameplay1_460E60();
 int sub_460E90();
 int  sub_460EA0(int a1);
-char  sub_460EB0(int a1, char a2);
+void sub_460EB0(int a1, char a2);
 void sub_461010();
 void sub_461060();
 int sub_461080();

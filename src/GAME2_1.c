@@ -263,12 +263,11 @@ int sub_460E90() {
 int  sub_460EA0(int a1) { return sub_460B90(a1); }
 
 //----- (00460EB0) --------------------------------------------------------
-char  sub_460EB0(int a1, char a2) {
-	char result; // al
-
-	result = a2;
+void sub_460EB0(int a1, char a2) {
+	if (a1 < 0 || a1 >= 140) {
+		return;
+	}
 	*getMemU8Ptr(0x5D4594, 1049544 + a1) = a2;
-	return result;
 }
 
 //----- (00461010) --------------------------------------------------------
