@@ -134,13 +134,15 @@ extern unsigned int nox_frame_xxx_2598000;
 extern int nox_win_width;
 extern int nox_win_height;
 
-extern int nox_win_width_game;
-extern int nox_win_height_game;
-extern int nox_win_depth_game;
+int nox_win_width_game = NOX_DEFAULT_WIDTH;
+int nox_win_height_game = NOX_DEFAULT_HEIGHT;
+int nox_win_depth_game = NOX_DEFAULT_DEPTH;
 
-extern int nox_win_width_menu;
-extern int nox_win_height_menu;
-extern int nox_win_depth_menu;
+#ifndef NOX_CGO
+int nox_win_width_menu = NOX_DEFAULT_WIDTH;
+int nox_win_height_menu = NOX_DEFAULT_HEIGHT;
+int nox_win_depth_menu = NOX_DEFAULT_DEPTH;
+#endif // NOX_CGO
 
 extern int nox_backbuffer_width;
 extern int nox_backbuffer_height;
