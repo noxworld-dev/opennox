@@ -1133,11 +1133,15 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 			break;
 		case 86:
 			v144 = nox_xxx_clientGetTeamColor_418AB0(*(unsigned __int16*)(data + 1));
-			if (!nox_client_isConnected_43C700())
-				goto LABEL_602;
+			if (!nox_client_isConnected_43C700()) {
+				data += 8;
+				break;
+			}
 			HIDWORD(v5) = *(_DWORD*)(data + 4);
-			if (HIDWORD(v5) <= *(int*)&dword_5d4594_1200804)
-				goto LABEL_602;
+			if (HIDWORD(v5) <= *(int*)&dword_5d4594_1200804) {
+				data += 8;
+				break;
+			}
 			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG))
 				nox_xxx_netTestHighBit_578B70(*(unsigned __int16*)(data + 1));
 			nox_xxx_clientPlaySoundSpecial_452D80(309, 100);
@@ -1167,11 +1171,15 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 			break;
 		case 87:
 			v172 = nox_xxx_clientGetTeamColor_418AB0(*(unsigned __int16*)(data + 1));
-			if (!nox_client_isConnected_43C700())
-				goto LABEL_602;
+			if (!nox_client_isConnected_43C700()) {
+				data += 8;
+				break;
+			}
 			k = dword_5d4594_1200804;
-			if (*(_DWORD*)(data + 4) <= *(int*)&dword_5d4594_1200804)
-				goto LABEL_602;
+			if (*(_DWORD*)(data + 4) <= *(int*)&dword_5d4594_1200804) {
+				data += 8;
+				break;
+			}
 			v393[0] = 0;
 			if (*(_BYTE*)(data + 3) == 1) {
 				v173 = nox_strman_loadString_40F1D0("TimeLimitReached", 0,
@@ -1202,17 +1210,23 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 		LABEL_600:
 			nox_wcscat(v393, v398);
 			sub_435700(v393, v176);
-			goto LABEL_601;
+			nox_xxx_guiServerOptionsHide_4597E0(0);
+			data += 8;
+			break;
 		case 88:
 			v150 = 1;
 			v389[0] = 0;
 			v392[0] = 0;
 			v391[0] = 0;
-			if (!nox_client_isConnected_43C700())
-				goto LABEL_602;
+			if (!nox_client_isConnected_43C700()) {
+				data += 8;
+				break;
+			}
 			HIDWORD(v5) = *(_DWORD*)(data + 4);
-			if (HIDWORD(v5) <= *(int*)&dword_5d4594_1200804)
-				goto LABEL_602;
+			if (HIDWORD(v5) <= *(int*)&dword_5d4594_1200804) {
+				data += 8;
+				break;
+			}
 			v391[0] = 0;
 			if (*(_BYTE*)(data + 3) == 1) {
 				v151 = nox_strman_loadString_40F1D0("TimeLimitReached", 0,
@@ -1277,32 +1291,34 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 				nox_wcscat(v389, v392);
 			LABEL_558:
 				v150 = 0;
-				goto LABEL_559;
+			} else {
+				if (v154) {
+					v158 = nox_strman_loadString_40F1D0("HL_Victory", 0,
+												 "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 3863);
+					nox_swprintf(v392, v158, v154 + 4704);
+					if (!*(_BYTE*)(data + 3))
+						sub_4947E0((int)v154);
+				}
+				nox_wcscat(v389, v392);
+				v150 = 1;
 			}
-			if (v154) {
-				v158 = nox_strman_loadString_40F1D0("HL_Victory", 0,
-											 "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 3863);
-				nox_swprintf(v392, v158, v154 + 4704);
-				if (!*(_BYTE*)(data + 3))
-					sub_4947E0((int)v154);
-			}
-			nox_wcscat(v389, v392);
-			v150 = 1;
 		LABEL_559:
 			nox_wcscat(v391, v389);
 			sub_435700(v391, v150);
-		LABEL_601:
 			nox_xxx_guiServerOptionsHide_4597E0(0);
-		LABEL_602:
 			data += 8;
 			break;
 		case 89:
 			v160 = nox_xxx_clientGetTeamColor_418AB0(*(unsigned __int16*)(data + 1));
-			if (!nox_client_isConnected_43C700())
-				goto LABEL_602;
+			if (!nox_client_isConnected_43C700()) {
+				data += 8;
+				break;
+			}
 			k = dword_5d4594_1200804;
-			if (*(_DWORD*)(data + 4) <= *(int*)&dword_5d4594_1200804)
-				goto LABEL_602;
+			if (*(_DWORD*)(data + 4) <= *(int*)&dword_5d4594_1200804) {
+				data += 8;
+				break;
+			}
 			v394[0] = 0;
 			if (*(_BYTE*)(data + 3) == 1) {
 				v161 = nox_strman_loadString_40F1D0("TimeLimitReached", 0,
@@ -1378,7 +1394,9 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 		LABEL_585:
 			nox_wcscat(v394, v390);
 			sub_435700(v394, v164);
-			goto LABEL_601;
+			nox_xxx_guiServerOptionsHide_4597E0(0);
+			data += 8;
+			break;
 		case 90:
 			v132 = nox_xxx_netClearHighBit_578B30(*(_WORD*)(data + 1));
 			v133 = v132;
