@@ -324,6 +324,9 @@ func nox_xxx_servNewSession_4D1660() error {
 	if err := gameStartHTTP(); err != nil {
 		return err
 	}
+	if err := gameStartNAT(); err != nil {
+		return err
+	}
 	return nil
 }
 
@@ -332,6 +335,7 @@ func nox_server_netCloseHandler_4DEC60(a1 uint32) {
 	C.nox_server_netClose_5546A0(C.uint(a1))
 	C.nox_xxx_host_player_unit_3843628 = 0
 	C.sub_552450()
+	gameStopNAT()
 	gameStopHTTP()
 }
 
