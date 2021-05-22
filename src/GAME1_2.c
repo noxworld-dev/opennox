@@ -5462,7 +5462,7 @@ int nox_common_readcfgfile(const char* path, int a2) {
 	FILE* file = nox_fs_open_text(path);
 	if (file) {
 		if (a2 || nox_common_parsecfg_all(file)) {
-			if (sub_4331E0(file, a2)) {
+			if (nox_common_skipcfgfile_4331E0(file, a2)) {
 				nox_fs_close(file);
 				return 1;
 			}
@@ -5479,7 +5479,7 @@ int nox_common_readcfgfile(const char* path, int a2) {
 		nox_fs_close(file);
 		return 0;
 	}
-	if (!sub_4331E0(file, a2)) {
+	if (!nox_common_skipcfgfile_4331E0(file, a2)) {
 		nox_fs_close(file);
 		return 0;
 	}
@@ -6688,7 +6688,7 @@ int sub_433190() {
 }
 
 //----- (004331E0) --------------------------------------------------------
-int  sub_4331E0(FILE* a1, int a2) {
+int  nox_common_skipcfgfile_4331E0(FILE* a1, int a2) {
 	int v2;     // edi
 	int result; // eax
 

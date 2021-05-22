@@ -1275,7 +1275,7 @@ int sub_433050();
 int sub_4330C0();
 int sub_433130();
 int sub_433190();
-int  sub_4331E0(FILE* a1, int a2);
+int  nox_common_skipcfgfile_4331E0(FILE* a1, int a2);
 void nox_common_writecfgfile(char* a1);
 int  sub_4332E0(FILE* a1);
 int  sub_4337B0(FILE* a1);
