@@ -54,6 +54,7 @@ jobs:
 
       - name: Upload the binary
         uses: actions/upload-artifact@v2
+        if: startsWith(github.ref, 'refs/tags/v')
         with:
           name: noxg-linux
           path: /tmp/nox-linux.tar.gz
@@ -114,6 +115,7 @@ jobs:
 
       - name: Upload the binary
         uses: actions/upload-artifact@v2
+        if: startsWith(github.ref, 'refs/tags/v')
         with:
           name: noxg-win
           path: /tmp/nox-win.zip
@@ -149,6 +151,7 @@ jobs:
 
       - name: Upload the binary
         uses: actions/upload-artifact@v2
+        if: startsWith(github.ref, 'refs/tags/v')
         with:
           name: nox-linux
           path: /tmp/nox-linux.tar.gz
@@ -229,6 +232,7 @@ jobs:
 
       - name: Upload the binary
         uses: actions/upload-artifact@v2
+        if: startsWith(github.ref, 'refs/tags/v')
         with:
            name: nox-win
            path: |
