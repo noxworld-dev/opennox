@@ -2541,11 +2541,11 @@ int nox_cmd_window(int tokInd, int tokCnt, wchar_t** tokens) {
 		v3 = tokens[tokInd];
 		if (*v3 != 43 && *v3 != 45) {
 			v4 = nox_wcstol(v3, 0, 10);
-			sub_476700(v4, 0);
+			nox_draw_setCutSize_476700(v4, 0);
 			return 1;
 		}
 		v6 = nox_wcstol(v3, 0, 10);
-		sub_476700(0, v6);
+		nox_draw_setCutSize_476700(0, v6);
 	}
 	return 1;
 }

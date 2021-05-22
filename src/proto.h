@@ -2399,7 +2399,7 @@ void nox_video_setCutSize_4766A0(int a1);
 int nox_video_getCutSize_4766D0();
 void sub_4766E0();
 void sub_4766F0();
-void sub_476700(int a1, int a2);
+void nox_draw_setCutSize_476700(int a1, int a2);
 void  sub_476850(int a1, unsigned __int8* a2);
 int(*  sub_476AE0(int a1, unsigned __int8* a2))(int* a1, int a2);
 __int16  sub_476D70(_DWORD* a1, int* a2, unsigned int a3);

@@ -504,33 +504,22 @@ void nox_video_setCutSize_4766A0(int a1) {
 int nox_video_getCutSize_4766D0() { return nox_video_cutSize; }
 
 //----- (004766E0) --------------------------------------------------------
-void sub_4766E0() { sub_476700(0, 2); }
+void sub_4766E0() { nox_draw_setCutSize_476700(0, 2); }
 
 //----- (004766F0) --------------------------------------------------------
-void sub_4766F0() { sub_476700(0, -2); }
+void sub_4766F0() { nox_draw_setCutSize_476700(0, -2); }
 
 //----- (00476700) --------------------------------------------------------
-void  sub_476700(int a1, int a2) {
-	int v2;        // ebx
-	char* v3;      // edi
-	int v4;        // ebp
-	int v5;        // ecx
-	int v6;        // edx
-	int v7;        // eax
-	int v8;        // ebx
-	signed int v9; // eax
-	int v10;       // eax
-	int v11;       // eax
-	int v12;       // eax
-	int v13;       // ecx
-
-	v2 = a2;
-	v3 = sub_437250();
-	v4 = *((_DWORD*)v3 + 8);
+void nox_draw_setCutSize_476700(int cutPerc, int a2) {
+	int v2 = a2;
+	char* v3 = sub_437250();
+	int v4 = *((_DWORD*)v3 + 8);
+	int v5 = 0;
 	if (a2) {
+		int v7 = 0;
 		do {
 			v5 = v2 + 100 * (nox_backbuffer_width - 2 * *(_DWORD*)v3) / nox_backbuffer_width;
-			v6 = v5 * nox_backbuffer_width / 100;
+			int v6 = v5 * nox_backbuffer_width / 100;
 			if (v2 >= 0)
 				++v2;
 			else
@@ -540,7 +529,7 @@ void  sub_476700(int a1, int a2) {
 				v7 = v4 - v6;
 		} while (v7 < 4);
 	} else {
-		v5 = a1;
+		v5 = cutPerc;
 	}
 	if (v5 >= 40) {
 		if (v5 > 100)
@@ -549,25 +538,25 @@ void  sub_476700(int a1, int a2) {
 		v5 = 40;
 	}
 	nox_video_cutSize = v5;
-	v8 = v5 * nox_backbuffer_height / 100;
-	v9 = ((nox_backbuffer_width - v5 * nox_backbuffer_width / 100) / 2) & 0xFFFFFFFC;
+	int v8 = v5 * nox_backbuffer_height / 100;
+	int v9 = ((nox_backbuffer_width - v5 * nox_backbuffer_width / 100) / 2) & 0xFFFFFFFC;
 	*(_DWORD*)v3 = v9;
 	if (v9 < 0)
 		*((_DWORD*)v3 + 2) = 0;
-	v10 = (nox_backbuffer_height - v8) / 2;
+	int v10 = (nox_backbuffer_height - v8) / 2;
 	*((_DWORD*)v3 + 1) = v10;
 	if (v10 < 0)
 		*((_DWORD*)v3 + 3) = 0;
-	v11 = nox_backbuffer_width - *(_DWORD*)v3 + 2;
+	int v11 = nox_backbuffer_width - *(_DWORD*)v3 + 2;
 	LOBYTE(v11) = v11 & 0xFC;
 	*((_DWORD*)v3 + 2) = v11;
 	if (v11 >= nox_backbuffer_width)
 		*((_DWORD*)v3 + 2) = nox_backbuffer_width - 1;
-	v12 = nox_backbuffer_height - *((_DWORD*)v3 + 1) - 1;
+	int v12 = nox_backbuffer_height - *((_DWORD*)v3 + 1) - 1;
 	*((_DWORD*)v3 + 3) = v12;
 	if (v12 >= nox_backbuffer_height)
 		*((_DWORD*)v3 + 3) = nox_backbuffer_height - 1;
-	v13 = *((_DWORD*)v3 + 3) - *((_DWORD*)v3 + 1) + 1;
+	int v13 = *((_DWORD*)v3 + 3) - *((_DWORD*)v3 + 1) + 1;
 	*((_DWORD*)v3 + 8) = *((_DWORD*)v3 + 2) - *(_DWORD*)v3 + 1;
 	*((_DWORD*)v3 + 9) = v13;
 	dword_5d4594_1193188 = 1;

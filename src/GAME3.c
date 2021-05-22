@@ -5842,16 +5842,16 @@ int  nox_xxx_windowOptionsProc_4ADF30(int a1, int a2, int* a3, int a4) {
 	case 16391:
 		switch (nox_xxx_wndGetID_46B0A0(a3)) {
 		case 311:
-			sub_476700(65, 0);
+			nox_draw_setCutSize_476700(65, 0);
 			break;
 		case 312:
-			sub_476700(75, 0);
+			nox_draw_setCutSize_476700(75, 0);
 			break;
 		case 313:
-			sub_476700(85, 0);
+			nox_draw_setCutSize_476700(85, 0);
 			break;
 		case 314:
-			sub_476700(100, 0);
+			nox_draw_setCutSize_476700(100, 0);
 			break;
 		case 341:
 			sub_4AD9B0(0);
