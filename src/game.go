@@ -257,7 +257,7 @@ func initGameSession435CC0() int {
 	C.obj_5D4594_811068.field_10 = 0
 	C.obj_5D4594_811068.field_11 = 0
 	C.obj_5D4594_811068.field_12 = 0
-	v1 := C.sub_4766D0()
+	v1 := C.nox_video_getCutSize_4766D0()
 	C.sub_476700(v1, 0)
 	if noxflags.HasGame(noxflags.GameSolo) {
 		C.sub_41CC00((*C.char)(memmap.PtrOff(0x5D4594, 2660688)))

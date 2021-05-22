@@ -991,7 +991,7 @@ int nox_common_parsecfg_videosize() {
 	strtok(0, " \r\t\n");
 	v0 = strtok(0, " \r\t\n");
 	v1 = atoi(v0);
-	sub_4766A0(v1);
+	nox_video_setCutSize_4766A0(v1);
 	return 1;
 }
 
@@ -1340,7 +1340,7 @@ int  sub_4332E0(FILE* a1) {
 	nox_fs_fprintf(a1, "VideoMode = %d %d %d\n", nox_win_width_game, nox_win_height_game, nox_win_depth_game);
 	nox_fs_fprintf(a1, "Stretched = %d\n", g_scaled_cfg);
 	nox_fs_fprintf(a1, "Fullscreen = %d\n", g_fullscreen_cfg);
-	v2 = sub_4766D0();
+	v2 = nox_video_getCutSize_4766D0();
 	nox_fs_fprintf(a1, "VideoSize = %d\n", v2);
 	// nox_fs_fprintf(a1, "Gamma = %d\n", *(_DWORD *)getMemAt(0x587000, 80852));
 	nox_fs_fprintf(a1, "Gamma2 = %f\n", draw_gamma);

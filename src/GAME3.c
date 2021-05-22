@@ -4113,7 +4113,7 @@ _DWORD* sub_4AAA70() {
         nox_xxx_wndClearFlag_46AD80((int)v3, 8);
     }
 #endif
-	v4 = sub_4766D0();
+	v4 = nox_video_getCutSize_4766D0();
 	*getMemU32Ptr(0x587000, 172884) = v4;
 	if (v4 > 69) {
 		if (v4 <= 79) {
@@ -4194,16 +4194,16 @@ int  sub_4AABE0(int a1, int a2, int* a3, int a4) {
 		} else {
 			switch (v4) {
 			case 311:
-				sub_4766A0(65);
+				nox_video_setCutSize_4766A0(65);
 				break;
 			case 312:
-				sub_4766A0(75);
+				nox_video_setCutSize_4766A0(75);
 				break;
 			case 313:
-				sub_4766A0(85);
+				nox_video_setCutSize_4766A0(85);
 				break;
 			case 314:
-				sub_4766A0(100);
+				nox_video_setCutSize_4766A0(100);
 				break;
 			case 321:
 				nox_xxx_normalWndHeight_587000_172876 = 848;
@@ -5645,7 +5645,7 @@ int sub_4ADA40() {
 	nox_xxx_wndShowModalMB_46A8C0(*(int*)&dword_5d4594_1309820);
 	nox_xxx_wndShowModalMB_46A8C0(*(int*)&dword_5d4594_1309824);
 	sub_4CB330();
-	v0 = sub_4766D0();
+	v0 = nox_video_getCutSize_4766D0();
 	if (v0 > 69) {
 		if (v0 <= 79) {
 			v1 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1309820, 312);

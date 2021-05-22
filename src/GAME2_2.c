@@ -24,7 +24,6 @@
 
 extern unsigned char byte_5D4594_3804364[160];
 
-extern _DWORD dword_587000_149360;
 extern _DWORD dword_5d4594_1098456;
 extern _DWORD dword_5d4594_1193180;
 extern _DWORD dword_5d4594_1097212;
@@ -164,6 +163,7 @@ int ( *func_587000_154944)(int, int) = nox_xxx_drawTexEdgesProbably_481900;
 void(*nox_client_drawAtFunc_3799500)(nox_video_bag_image_t*, int, int) = 0;
 void* (*nox_video_getImagePixdata_func)(nox_video_bag_image_t*) = 0;
 
+int nox_video_cutSize = 100;
 void* dword_5d4594_1189584 = 0;
 
 //----- (00475F10) --------------------------------------------------------
@@ -490,23 +490,18 @@ int sub_476680() {
 }
 
 //----- (004766A0) --------------------------------------------------------
-int  sub_4766A0(int a1) {
-	int result; // eax
-
-	result = a1;
+void nox_video_setCutSize_4766A0(int a1) {
 	if (a1 >= 65) {
 		if (a1 > 100)
-			result = 100;
-		dword_587000_149360 = result;
+			a1 = 100;
+		nox_video_cutSize = a1;
 	} else {
-		result = 65;
-		dword_587000_149360 = 65;
+		nox_video_cutSize = 65;
 	}
-	return result;
 }
 
 //----- (004766D0) --------------------------------------------------------
-int sub_4766D0() { return dword_587000_149360; }
+int nox_video_getCutSize_4766D0() { return nox_video_cutSize; }
 
 //----- (004766E0) --------------------------------------------------------
 void sub_4766E0() { sub_476700(0, 2); }
@@ -553,7 +548,7 @@ void  sub_476700(int a1, int a2) {
 	} else {
 		v5 = 40;
 	}
-	dword_587000_149360 = v5;
+	nox_video_cutSize = v5;
 	v8 = v5 * nox_backbuffer_height / 100;
 	v9 = ((nox_backbuffer_width - v5 * nox_backbuffer_width / 100) / 2) & 0xFFFFFFFC;
 	*(_DWORD*)v3 = v9;

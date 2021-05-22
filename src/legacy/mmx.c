@@ -123,7 +123,7 @@ LABEL_30:
 	nox_xxx_tileSetDrawFn_481420();
 	if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_WINDOWED_MODE))
 		nox_xxx_gameResizeScreen_43BEF0_set_video_mode(NOX_DEFAULT_WIDTH, NOX_DEFAULT_HEIGHT, v4);
-	sub_4766A0(v5);
+	nox_video_setCutSize_4766A0(v5);
 	if (nox_common_gameFlags_check_40A5C0(0x10000000))
 		sub_476700(v5, 0);
 	nox_profiled_805856 = 1;

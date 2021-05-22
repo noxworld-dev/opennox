@@ -2395,8 +2395,8 @@ int  sub_476240(const void*, const void*); // idb
 void sub_476270(_DWORD* a1);
 int  sub_4765F0(int a1);
 int sub_476680();
-int  sub_4766A0(int a1);
-int sub_4766D0();
+void nox_video_setCutSize_4766A0(int a1);
+int nox_video_getCutSize_4766D0();
 void sub_4766E0();
 void sub_4766F0();
 void sub_476700(int a1, int a2);

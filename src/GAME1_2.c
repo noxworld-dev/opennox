@@ -6306,7 +6306,7 @@ int nox_xxx_initGameSession_435CC0() {
 	obj_5D4594_811068.field_10 = 0;
 	obj_5D4594_811068.field_11 = 0;
 	obj_5D4594_811068.field_12 = 0;
-	int v1 = sub_4766D0();
+	int v1 = nox_video_getCutSize_4766D0();
 	sub_476700(v1, 0);
 	if (nox_common_gameFlags_check_40A5C0(2048)) {
 		sub_41CC00((char*)getMemAt(0x5D4594, 2660688));
