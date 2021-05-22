@@ -502,7 +502,6 @@ int  nox_xxx_drawPing_436DF0(int a1) {
 //----- (00436F50) --------------------------------------------------------
 int sub_436F50() {
 	int v0;      // ebx
-	char* v1;    // eax
 	int v2;      // edi
 	int v3;      // esi
 	char* v4;    // eax
@@ -513,9 +512,9 @@ int sub_436F50() {
 	wchar_t* v9; // [esp-4h] [ebp-10h]
 
 	v0 = nox_xxx_guiFontHeightMB_43F320(0);
-	v1 = nox_draw_getViewport_437250();
-	v2 = *(_DWORD*)v1 + 10;
-	v3 = *((_DWORD*)v1 + 1) + 90;
+	nox_draw_viewport_t* rdr = nox_draw_getViewport_437250();
+	v2 = rdr->x1 + 10;
+	v3 = rdr->y1 + 90;
 	nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 2523948));
 	v4 = nox_server_currentMapGetFilename_409B30();
 	nox_swprintf((wchar_t*)getMemAt(0x5D4594, 811120), L"%S", v4);

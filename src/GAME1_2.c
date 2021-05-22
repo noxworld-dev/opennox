@@ -5394,17 +5394,16 @@ void  sub_431700(_QWORD* a1) {
 }
 
 //----- (00431720) --------------------------------------------------------
-void  nox_client_screenParticlesDraw_431720(int* a1) {
-	if (!a1) {
+void  nox_client_screenParticlesDraw_431720(nox_draw_viewport_t* rdr) {
+	if (!rdr) {
 		return;
 	}
-
-	sub_430B50(a1[0], a1[1], a1[2], a1[3]);
+	sub_430B50(rdr->x1, rdr->y1, rdr->x2, rdr->y2);
 	nox_screenParticle* p2 = 0;
 	for (nox_screenParticle* p = nox_screenParticles_head; p; p = p2) {
 		dword_5d4594_3799524 = 1;
 		p2 = p->field_44; // getting it after the callback may fail
-		p->draw_fnc(a1, p);
+		p->draw_fnc(rdr, p);
 	}
 }
 

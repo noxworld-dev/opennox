@@ -2,8 +2,8 @@
 
 #include "proto.h"
 
-extern _DWORD dword_5d4594_1097212;
-extern _DWORD dword_5d4594_1097216;
+extern int dword_5d4594_1097212;
+extern int dword_5d4594_1097216;
 extern _DWORD nox_xxx_cursorTypePrev_587000_151528;
 extern _DWORD dword_5d4594_1097208;
 extern _DWORD dword_5d4594_3798728;

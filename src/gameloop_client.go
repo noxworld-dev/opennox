@@ -81,19 +81,18 @@ func copyGamePixBuffer() image.Image {
 func DrawSparks() {
 	if C.nox_client_gui_flag_815132 != 0 {
 		sz := videoGetWindowSize()
-		v28 := alloc.Calloc(10, 4)
-		v28s := asU32Slice(v28, 10)
-		v28s[0] = 0
-		v28s[1] = 0
-		v28s[2] = uint32(sz.W)
-		v28s[3] = uint32(sz.H)
-		v28s[8] = uint32(sz.W)
-		v28s[9] = uint32(sz.H)
-		C.nox_client_screenParticlesDraw_431720((*C.int)(v28))
-		alloc.Free(v28)
+		rdr := (*C.nox_draw_viewport_t)(alloc.Malloc(unsafe.Sizeof(C.nox_draw_viewport_t{})))
+		rdr.x1 = 0
+		rdr.y1 = 0
+		rdr.x2 = C.int(sz.W)
+		rdr.y2 = C.int(sz.H)
+		rdr.width = C.int(sz.W)
+		rdr.height = C.int(sz.H)
+		C.nox_client_screenParticlesDraw_431720(rdr)
+		alloc.Free(unsafe.Pointer(rdr))
 	} else {
-		v25 := C.nox_draw_getViewport_437250()
-		C.nox_client_screenParticlesDraw_431720((*C.int)(unsafe.Pointer(v25)))
+		rdr := C.nox_draw_getViewport_437250()
+		C.nox_client_screenParticlesDraw_431720(rdr)
 	}
 }
 

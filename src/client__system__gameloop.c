@@ -378,7 +378,7 @@ void mainloop() {
 			v28[9] = nox_win_height;
 			nox_client_screenParticlesDraw_431720(v28);
 		} else {
-			v25 = (int*)nox_draw_getViewport_437250();
+			v25 = nox_draw_getViewport_437250();
 			nox_client_screenParticlesDraw_431720(v25);
 		}
 		if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) || nox_common_getEngineFlag(NOX_ENGINE_FLAG_9) || nox_client_gui_flag_815132) {

@@ -1220,7 +1220,7 @@ nox_screenParticle* nox_client_newScreenParticle_431540(int a1, int a2, int a3, 
 void nox_client_addScreenParticle_431680(nox_screenParticle* p);
 void sub_4316C0(nox_screenParticle* p);
 void  sub_431700(_QWORD* a1);
-void  nox_client_screenParticlesDraw_431720(int* a1);
+void  nox_client_screenParticlesDraw_431720(nox_draw_viewport_t* rdr);
 char* nox_xxx_getHostInfoPtr_431770();
 char* nox_xxx_unused_431780();
 char*  nox_xxx_copyServerIPAndPort_431790(char* a1);
@@ -2428,7 +2428,7 @@ int  nox_xxx_cursorSetDraggedItem_477690(int a1);
 void nox_xxx_cursorResetDraggedItem_4776A0();
 void  nox_xxx_cursorSetTooltip_4776B0(wchar_t* a1);
 char* nox_xxx_cursorLoadAll_477710();
-char* nox_client_drawCursorAndTooltips_477830();
+void nox_client_drawCursorAndTooltips_477830();
 int sub_477EA0();
 int  sub_477EF0(int a1, int a2, int a3);
 void sub_477F80();
