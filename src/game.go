@@ -13,7 +13,7 @@ extern unsigned int nox_client_gui_flag_1556112;
 extern unsigned int dword_5d4594_811372;
 extern int nox_win_width;
 extern int nox_win_height;
-extern obj_5D4594_811068_t obj_5D4594_811068;
+extern nox_draw_viewport_t nox_draw_viewport;
 
 int nox_xxx_gameTick_4D2580_server();
 int nox_xxx_mapExitAndCheckNext_4D1860_server();
@@ -248,15 +248,15 @@ func initGameSession435CC0() int {
 	C.dword_5d4594_811372 = 3
 	*memmap.PtrUint32(0x587000, 85720) = 1
 	sz := videoGetWindowSize()
-	C.obj_5D4594_811068.field_0 = 0
-	C.obj_5D4594_811068.field_1 = 0
-	C.obj_5D4594_811068.field_2 = C.uint(sz.W - 1)
-	C.obj_5D4594_811068.field_3 = C.uint(sz.H - 1)
-	C.obj_5D4594_811068.field_8 = C.int(sz.W)
-	C.obj_5D4594_811068.field_9 = C.int(sz.H)
-	C.obj_5D4594_811068.field_10 = 0
-	C.obj_5D4594_811068.field_11 = 0
-	C.obj_5D4594_811068.field_12 = 0
+	C.nox_draw_viewport.x1 = 0
+	C.nox_draw_viewport.y1 = 0
+	C.nox_draw_viewport.x2 = C.int(sz.W - 1)
+	C.nox_draw_viewport.y2 = C.int(sz.H - 1)
+	C.nox_draw_viewport.width = C.int(sz.W)
+	C.nox_draw_viewport.height = C.int(sz.H)
+	C.nox_draw_viewport.field_10 = 0
+	C.nox_draw_viewport.field_11 = 0
+	C.nox_draw_viewport.field_12 = 0
 	v1 := C.nox_video_getCutSize_4766D0()
 	C.nox_draw_setCutSize_476700(v1, 0)
 	if noxflags.HasGame(noxflags.GameSolo) {

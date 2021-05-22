@@ -166,7 +166,7 @@ obj_5D4594_3799572_t* ptr_5D4594_3799572 = 0;
 nox_screenParticle* nox_screenParticles_head = 0;
 nox_screenParticle* dword_5d4594_806052 = 0;
 
-obj_5D4594_811068_t obj_5D4594_811068 = {0};
+nox_draw_viewport_t nox_draw_viewport = {0};
 
 int nox_video_bag_var_2650640 = 0;
 int nox_video_bag_var_787176 = 0;
@@ -6000,7 +6000,7 @@ int  sub_4355B0(int a1) {
 	int result; // eax
 
 	result = a1;
-	obj_5D4594_811068.field_12 = a1;
+	nox_draw_viewport.field_12 = a1;
 	return result;
 }
 
@@ -6009,30 +6009,25 @@ BOOL sub_4355C0() {
 	int v0;    // eax
 	float2 v2; // [esp+0h] [ebp-8h]
 
-	v2.field_0 = (double)obj_5D4594_811068.field_6;
-	v2.field_4 = (double)obj_5D4594_811068.field_7;
+	v2.field_0 = (double)nox_draw_viewport.field_6;
+	v2.field_4 = (double)nox_draw_viewport.field_7;
 	v0 = nox_xxx_tileNFromPoint_411160(&v2);
 	return v0 == 255 || v0 == -1;
 }
 
 //----- (00435600) --------------------------------------------------------
-int  nox_xxx_cliUpdateCameraPos_435600(int a1, int a2) {
-	int v2;     // ecx
-	int result; // eax
-
-	v2 = a2 + obj_5D4594_811068.field_12 - obj_5D4594_811068.field_9 / 2;
-	*getMemU32Ptr(0x5D4594, 811364) = obj_5D4594_811068.field_6;
-	*getMemU32Ptr(0x5D4594, 811368) = obj_5D4594_811068.field_7;
-	result = v2 + obj_5D4594_811068.field_9 / 2;
-	obj_5D4594_811068.field_6 = a1;
-	obj_5D4594_811068.field_7 = v2 + obj_5D4594_811068.field_9 / 2;
-	obj_5D4594_811068.field_4 = a1 - obj_5D4594_811068.field_8 / 2;
-	obj_5D4594_811068.field_5 = a2 + obj_5D4594_811068.field_12 - obj_5D4594_811068.field_9 / 2;
-	return result;
+void nox_xxx_cliUpdateCameraPos_435600(int a1, int a2) {
+	int v2 = a2 + nox_draw_viewport.field_12 - nox_draw_viewport.height / 2;
+	*getMemU32Ptr(0x5D4594, 811364) = nox_draw_viewport.field_6;
+	*getMemU32Ptr(0x5D4594, 811368) = nox_draw_viewport.field_7;
+	nox_draw_viewport.field_6 = a1;
+	nox_draw_viewport.field_7 = v2 + nox_draw_viewport.height / 2;
+	nox_draw_viewport.field_4 = a1 - nox_draw_viewport.width / 2;
+	nox_draw_viewport.field_5 = a2 + nox_draw_viewport.field_12 - nox_draw_viewport.height / 2;
 }
 
 //----- (00435670) --------------------------------------------------------
-void  nox_xxx_getSomeCoods_435670(int2* a1) { *a1 = *(int2*)(&obj_5D4594_811068.field_6); }
+void  nox_xxx_getSomeCoods_435670(int2* a1) { *a1 = *(int2*)(&nox_draw_viewport.field_6); }
 
 //----- (00435690) --------------------------------------------------------
 _DWORD*  sub_435690(_DWORD* a1) {
@@ -6297,15 +6292,15 @@ int nox_xxx_initGameSession_435CC0() {
 	nox_game_SetCliDrawFunc(nox_xxx_client_435F80_draw);
 	dword_5d4594_811372 = 3;
 	*getMemU32Ptr(0x587000, 85720) = 1;
-	obj_5D4594_811068.field_0 = 0;
-	obj_5D4594_811068.field_1 = 0;
-	obj_5D4594_811068.field_2 = nox_win_width - 1;
-	obj_5D4594_811068.field_3 = nox_win_height - 1;
-	obj_5D4594_811068.field_8 = nox_win_width;
-	obj_5D4594_811068.field_9 = nox_win_height;
-	obj_5D4594_811068.field_10 = 0;
-	obj_5D4594_811068.field_11 = 0;
-	obj_5D4594_811068.field_12 = 0;
+	nox_draw_viewport.x1 = 0;
+	nox_draw_viewport.y1 = 0;
+	nox_draw_viewport.x2 = nox_win_width - 1;
+	nox_draw_viewport.y2 = nox_win_height - 1;
+	nox_draw_viewport.width = nox_win_width;
+	nox_draw_viewport.height = nox_win_height;
+	nox_draw_viewport.field_10 = 0;
+	nox_draw_viewport.field_11 = 0;
+	nox_draw_viewport.field_12 = 0;
 	int v1 = nox_video_getCutSize_4766D0();
 	nox_draw_setCutSize_476700(v1, 0);
 	if (nox_common_gameFlags_check_40A5C0(2048)) {
@@ -6387,8 +6382,8 @@ int nox_xxx_client_435F80_draw() {
 	if (nox_xxx_get_430890() == 1)
 		sub_430880(0);
 	nox_xxx_clientEnumHover_476FA0();
-	if (!nox_xxx_clientSendInput_43C8F0(31, obj_5D4594_811068.field_4 + mpos.x - obj_5D4594_811068.field_0,
-					obj_5D4594_811068.field_5 + mpos.y - obj_5D4594_811068.field_1))
+	if (!nox_xxx_clientSendInput_43C8F0(31, nox_draw_viewport.field_4 + mpos.x - nox_draw_viewport.x1,
+					nox_draw_viewport.field_5 + mpos.y - nox_draw_viewport.y1))
 		return 1;
 	if (!nox_common_gameFlags_check_40A5C0(1)) {
 		sub_40B970();
@@ -6401,7 +6396,7 @@ int nox_xxx_client_435F80_draw() {
 	} else {
 		sub_43CCA0();
 	}
-	sub_49BD70(&obj_5D4594_811068);
+	sub_49BD70(&nox_draw_viewport);
 	sub_49BBC0();
 	nox_xxx_polygonDrawColor_421B80();
 	if (nox_client_isConnected_43C700())
@@ -6502,7 +6497,7 @@ int sub_437100() {
 
 //----- (00437180) --------------------------------------------------------
 void sub_437180() {
-	sub_48D990(&obj_5D4594_811068);
+	sub_48D990(&nox_draw_viewport);
 }
 
 //----- (00437190) --------------------------------------------------------
@@ -6541,12 +6536,11 @@ int nox_xxx_cliSetupSession_437190() {
 #endif // NOX_CGO
 
 //----- (00437250) --------------------------------------------------------
-obj_5D4594_811068_t* sub_437250() { return &obj_5D4594_811068; }
+nox_draw_viewport_t* nox_draw_getViewport_437250() { return &nox_draw_viewport; }
 
 //----- (00437260) --------------------------------------------------------
-int4* sub_437260() {
-	return nox_client_copyRect_49F6F0(obj_5D4594_811068.field_0, obj_5D4594_811068.field_1,
-									  obj_5D4594_811068.field_8, obj_5D4594_811068.field_9);
+void sub_437260() {
+	nox_client_copyRect_49F6F0(nox_draw_viewport.x1, nox_draw_viewport.y1, nox_draw_viewport.width, nox_draw_viewport.height);
 }
 
 //----- (00437290) --------------------------------------------------------

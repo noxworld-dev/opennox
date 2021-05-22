@@ -1341,7 +1341,7 @@ mem_mapping mappings[] = {
 	{0x5D4594 + 371748, 8, "nox_framerate_next_ticks"}, // 0x62F1B8
 	{0x5D4594 + 371740, 8, "nox_framerate_step_ticks"}, // 0x62F1B0
 	{0x5D4594 + 2649704, 4, "nox_gameFPS"}, // 0x85B3FC
-	{0x5D4594 + 811068, 52, "obj_5D4594_811068"}, // 0x69A5D0
+	{0x5D4594 + 811068, 52, "nox_draw_viewport"}, // 0x69A5D0
 	{0x5D4594 + 747884, 3072, "nox_ctrlevent_buf_747884"}, // 0x68AF00
 	{0x5D4594 + 750964, 3072, "nox_ctrlevent_buf_750964"}, // 0x68BB08
 	{0x5D4594 + 747876, 8, "nox_ctrlevent_ticks"}, // 0x68AEF8

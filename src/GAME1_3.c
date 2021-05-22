@@ -4064,7 +4064,7 @@ int nox_xxx_drawMessageLines_445530() {
 	int v14;              // [esp+18h] [ebp-4h]
 
 	v13 = 0;
-	v0 = sub_437250();
+	v0 = nox_draw_getViewport_437250();
 	v1 = 3 * *((_DWORD*)v0 + 9) / 4 + *((_DWORD*)v0 + 1) - 15;
 	v2 = dword_5d4594_825736;
 	for (i = dword_5d4594_825736;; v2 = i) {

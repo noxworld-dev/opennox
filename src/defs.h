@@ -1042,22 +1042,22 @@ typedef struct nox_map_list_item {
 } nox_map_list_item;
 _Static_assert(sizeof(nox_map_list_item) == 36, "wrong size of nox_map_list_item structure!");
 
-typedef struct obj_5D4594_811068_t {
-	int field_0; // 0, 0
-	int field_1; // 1, 4
-	_DWORD field_2; // 2, 8
-	_DWORD field_3; // 3, 12
+typedef struct nox_draw_viewport_t {
+	int x1; // 0, 0
+	int y1; // 1, 4
+	int x2; // 2, 8
+	int y2; // 3, 12
 	_DWORD field_4; // 4, 16
 	_DWORD field_5; // 5, 20
 	int field_6; // 6, 24
 	int field_7; // 7, 28
-	int field_8; // 8, 32
-	int field_9; // 9, 36
+	int width;  // 8, 32
+	int height; // 9, 36
 	_DWORD field_10; // 10, 40
 	_DWORD field_11; // 11, 44
 	_DWORD field_12; // 12, 48
-} obj_5D4594_811068_t;
-_Static_assert(sizeof(obj_5D4594_811068_t) == 52, "wrong size of obj_5D4594_811068_t structure!");
+} nox_draw_viewport_t;
+_Static_assert(sizeof(nox_draw_viewport_t) == 52, "wrong size of nox_draw_viewport_t structure!");
 
 #define NOX_PLAYERINFO_MAX 32
 typedef struct nox_playerInfo {

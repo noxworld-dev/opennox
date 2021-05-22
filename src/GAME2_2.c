@@ -511,54 +511,58 @@ void sub_4766F0() { nox_draw_setCutSize_476700(0, -2); }
 
 //----- (00476700) --------------------------------------------------------
 void nox_draw_setCutSize_476700(int cutPerc, int a2) {
+	nox_draw_viewport_t* rdr = nox_draw_getViewport_437250();
 	int v2 = a2;
-	char* v3 = sub_437250();
-	int v4 = *((_DWORD*)v3 + 8);
-	int v5 = 0;
+	int v4 = rdr->width;
+	int perc = cutPerc;
 	if (a2) {
 		int v7 = 0;
-		do {
-			v5 = v2 + 100 * (nox_backbuffer_width - 2 * *(_DWORD*)v3) / nox_backbuffer_width;
-			int v6 = v5 * nox_backbuffer_width / 100;
-			if (v2 >= 0)
+		while (v7 < 4) {
+			perc = v2 + 100 * (nox_backbuffer_width - 2 * rdr->x1) / nox_backbuffer_width;
+			int v6 = perc * nox_backbuffer_width / 100;
+			if (v2 >= 0) {
 				++v2;
-			else
+			} else {
 				--v2;
-			v7 = v6 - v4;
-			if (v6 - v4 < 0)
+			}
+			if (v6 - v4 < 0) {
 				v7 = v4 - v6;
-		} while (v7 < 4);
-	} else {
-		v5 = cutPerc;
+			} else {
+				v7 = v6 - v4;
+			}
+		}
 	}
-	if (v5 >= 40) {
-		if (v5 > 100)
-			v5 = 100;
+	if (perc >= 40) {
+		if (perc > 100) {
+			perc = 100;
+		}
 	} else {
-		v5 = 40;
+		perc = 40;
 	}
-	nox_video_cutSize = v5;
-	int v8 = v5 * nox_backbuffer_height / 100;
-	int v9 = ((nox_backbuffer_width - v5 * nox_backbuffer_width / 100) / 2) & 0xFFFFFFFC;
-	*(_DWORD*)v3 = v9;
-	if (v9 < 0)
-		*((_DWORD*)v3 + 2) = 0;
-	int v10 = (nox_backbuffer_height - v8) / 2;
-	*((_DWORD*)v3 + 1) = v10;
-	if (v10 < 0)
-		*((_DWORD*)v3 + 3) = 0;
-	int v11 = nox_backbuffer_width - *(_DWORD*)v3 + 2;
-	LOBYTE(v11) = v11 & 0xFC;
-	*((_DWORD*)v3 + 2) = v11;
-	if (v11 >= nox_backbuffer_width)
-		*((_DWORD*)v3 + 2) = nox_backbuffer_width - 1;
-	int v12 = nox_backbuffer_height - *((_DWORD*)v3 + 1) - 1;
-	*((_DWORD*)v3 + 3) = v12;
-	if (v12 >= nox_backbuffer_height)
-		*((_DWORD*)v3 + 3) = nox_backbuffer_height - 1;
-	int v13 = *((_DWORD*)v3 + 3) - *((_DWORD*)v3 + 1) + 1;
-	*((_DWORD*)v3 + 8) = *((_DWORD*)v3 + 2) - *(_DWORD*)v3 + 1;
-	*((_DWORD*)v3 + 9) = v13;
+	nox_video_cutSize = perc;
+
+	rdr->x1 = ((nox_backbuffer_width - perc * nox_backbuffer_width / 100) / 2) & 0xFFFFFFFC;
+	if (rdr->x1 < 0) {
+		rdr->x1 = 0;
+	}
+
+	rdr->y1 = ((nox_backbuffer_height - perc * nox_backbuffer_height / 100) / 2);
+	if (rdr->y1 < 0) {
+		rdr->y1 = 0;
+	}
+
+	rdr->x2 = (nox_backbuffer_width - rdr->x1 + 2) & 0xFFFFFFFC;
+	if (rdr->x2 >= nox_backbuffer_width) {
+		rdr->x2 = nox_backbuffer_width - 1;
+	}
+
+	rdr->y2 = (nox_backbuffer_height - rdr->y1 - 1);
+	if (rdr->y2 >= nox_backbuffer_height) {
+		rdr->y2 = nox_backbuffer_height - 1;
+	}
+
+	rdr->width = rdr->x2 - rdr->x1 + 1;
+	rdr->height = rdr->y2 - rdr->y1 + 1;
 	dword_5d4594_1193188 = 1;
 	dword_5d4594_3799524 = 1;
 }
@@ -977,7 +981,7 @@ void nox_xxx_clientEnumHover_476FA0() {
 	if (!*getMemU32Ptr(0x5D4594, 1096632))
 		*getMemU32Ptr(0x5D4594, 1096632) = nox_xxx_getNameId_4E3AA0("Glyph");
 	nox_point mpos = nox_client_getMousePos_4309F0();
-	sub_437250();
+	nox_draw_getViewport_437250();
 	sub_473970(&mpos, &mpos);
 	dword_5d4594_1096640 = 0;
 	dword_5d4594_1096644 = 0;
@@ -1367,7 +1371,7 @@ char* nox_client_drawCursorAndTooltips_477830() {
 		nox_xxx_drawString_43FAF0(0, getMemAt(0x5D4594, 1096676), v4 + 2, v5 + 2, 0, 0);
 		result = *(char**)&dword_5d4594_3799468;
 		if (dword_5d4594_3799468) {
-			result = sub_437250();
+			result = nox_draw_getViewport_437250();
 			if (v4 < *(int*)result || v4 + v8 + 4 > *((_DWORD*)result + 2) || v5 < *((_DWORD*)result + 1) ||
 				v7 + v5 > *((_DWORD*)result + 3)) {
 				dword_5d4594_3799524 = 1;
@@ -1408,7 +1412,7 @@ void sub_477F80() {
 
 	if (!nox_video_cursorDrawIsThreaded) {
 		if (dword_5d4594_3799468) {
-			v0 = sub_437250();
+			v0 = nox_draw_getViewport_437250();
 			if (*(int*)&dword_5d4594_1097212 < *(int*)v0 || *(int*)&dword_5d4594_1097212 + 64 >= *((int*)v0 + 2) ||
 				*(int*)&dword_5d4594_1097216 < *((int*)v0 + 1) ||
 				*(int*)&dword_5d4594_1097216 + 64 >= *((int*)v0 + 3)) {

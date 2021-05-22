@@ -92,7 +92,7 @@ func DrawSparks() {
 		C.nox_client_screenParticlesDraw_431720((*C.int)(v28))
 		alloc.Free(v28)
 	} else {
-		v25 := C.sub_437250()
+		v25 := C.nox_draw_getViewport_437250()
 		C.nox_client_screenParticlesDraw_431720((*C.int)(unsafe.Pointer(v25)))
 	}
 }

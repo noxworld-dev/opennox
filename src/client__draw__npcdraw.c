@@ -136,7 +136,7 @@ int  nox_thing_npc_draw(int* a1, nox_drawable* dr) {
 					*(_DWORD*)(dword_5d4594_1313796 + 16) = v21[1] - v21[5] + *(_DWORD*)(v4 + 16) - 50;
 					v31 = dword_5d4594_1313796;
 					v24 = (void(**)(char*, int))(dword_5d4594_1313796 + 300);
-					v25 = sub_437250();
+					v25 = nox_draw_getViewport_437250();
 					(*v24)(v25, v31);
 				}
 				if (nox_xxx_spriteTestBuf_4356C0(v4, 30)) {
@@ -149,7 +149,7 @@ int  nox_thing_npc_draw(int* a1, nox_drawable* dr) {
 					*(_DWORD*)(dword_5d4594_1313800 + 16) = v21[1] - v21[5] + *(_DWORD*)(v4 + 16) - 50;
 					v32 = dword_5d4594_1313800;
 					v27 = (void(**)(char*, int))(dword_5d4594_1313800 + 300);
-					v28 = sub_437250();
+					v28 = nox_draw_getViewport_437250();
 					(*v27)(v28, v32);
 				}
 				if (nox_xxx_unitSpriteCheckAlly_4951F0(*(_DWORD*)(v4 + 128))) {

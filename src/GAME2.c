@@ -5674,7 +5674,7 @@ int nox_xxx_unused_45A750() {
 									v8 = -v8;
 								if (v8 > 1)
 								LABEL_30:
-									result = nox_xxx_cliUpdateCameraPos_435600(v1[3], v1[4]);
+									nox_xxx_cliUpdateCameraPos_435600(v1[3], v1[4]);
 							}
 						}
 					}
@@ -5774,7 +5774,7 @@ int*  sub_45A9B0(int a1, int a2) {
 	v4 = nox_xxx_draw_452270(*(_DWORD*)(a1 + 492));
 	v5 = v4;
 	v17 = v4;
-	result = (int*)sub_437250();
+	result = (int*)nox_draw_getViewport_437250();
 	v18 = result;
 	if (v5 && result) {
 		if (*(_DWORD*)(a1 + 120) & 0x1000000 && !(*(_BYTE*)(a1 + 280) & 0xC)) {

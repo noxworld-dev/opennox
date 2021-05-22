@@ -4313,7 +4313,7 @@ int  nox_xxx_client_4984B0_drawable(int a1) {
 	if (*(_DWORD*)(a1 + 120) & 0x10000)
 		return *(_DWORD*)(a1 + 132);
 	v31 = 0;
-	v33 = sub_437250();
+	v33 = nox_draw_getViewport_437250();
 	v7 = *((_DWORD*)v33 + 4) - *(_DWORD*)v33;
 	v44 = v7;
 	v8 = *((_DWORD*)v33 + 5) - *((_DWORD*)v33 + 1);
@@ -5146,7 +5146,7 @@ void nox_xxx_bookRewardCli_499CF0(int* a1, int a2, int a3) {
 	int v4;              // esi
 	int2 a3a;            // [esp+8h] [ebp-8h]
 
-	sub_437250();
+	nox_draw_getViewport_437250();
 	if (!nox_common_gameFlags_check_40A5C0(2048) ||
 		(result = nox_xxx_bookGet_430B40_get_mouse_prev_seq() - *getMemU32Ptr(0x5D4594, 1217504), result >= 2)) {
 		*getMemU32Ptr(0x5D4594, 1217504) = nox_xxx_bookGet_430B40_get_mouse_prev_seq();

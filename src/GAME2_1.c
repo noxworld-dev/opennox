@@ -6601,7 +6601,7 @@ int  nox_xxx_cliDrawMinimap_472600(int a1, int a2) {
 	int2 v84;             // [esp+50h] [ebp-10h]
 	int v85;              // [esp+5Ch] [ebp-4h]
 
-	v2 = sub_437250();
+	v2 = nox_draw_getViewport_437250();
 	if (!getMemByte(0x5D4594, 1096300)) {
 		*getMemU8Ptr(0x5D4594, 1096300) = nox_xxx_wallTileByName_410D60("InvisibleWallSet");
 		*getMemU8Ptr(0x5D4594, 1096301) = nox_xxx_wallTileByName_410D60("InvisibleBlockingWallSet");

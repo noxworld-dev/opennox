@@ -188,7 +188,7 @@ char  sub_4BA8B0(int* a1, int* a2, int* a3) {
 	int v6;   // eax
 
 	v3 = *a3;
-	v4 = sub_437250();
+	v4 = nox_draw_getViewport_437250();
 	if (!*getMemU32Ptr(0x5D4594, 1316416))
 		*getMemU32Ptr(0x5D4594, 1316416) = nox_xxx_getTTByNameSpriteMB_44CFC0("CyanSpark");
 	v6 = 28 * (dword_5d4594_1316412 + 30 * v3);

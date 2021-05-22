@@ -383,7 +383,7 @@ int  sub_44F300(int a1, int a2) {
 	unsigned __int16* v33; // [esp+28h] [ebp-Ch]
 	int2 v34;              // [esp+2Ch] [ebp-8h]
 
-	v2 = sub_437250();
+	v2 = nox_draw_getViewport_437250();
 	sub_44E110();
 	sub_431510();
 	nox_xxx_bookHideMB_45ACA0(1);

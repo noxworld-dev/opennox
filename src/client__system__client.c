@@ -11,7 +11,7 @@ extern _DWORD dword_5d4594_805836;
 extern _DWORD nox_client_gui_flag_815132;
 extern int nox_win_width;
 extern int nox_win_height;
-extern obj_5D4594_811068_t obj_5D4594_811068;
+extern nox_draw_viewport_t nox_draw_viewport;
 extern unsigned int nox_frame_xxx_2598000;
 
 //----- (00436100) --------------------------------------------------------
@@ -59,18 +59,18 @@ void nox_xxx_clientDrawAll_436100_draw() {
 	*getMemU32Ptr(0x5D4594, 814536) = v1;
 	*getMemU32Ptr(0x5D4594, 811916) = nox_frame_xxx_2598000;
 	if (*getMemU32Ptr(0x587000, 85744)) {
-		obj_5D4594_811068.field_9 = obj_5D4594_811068.field_8 * nox_win_height / nox_win_width;
-		v6 = (nox_win_width - obj_5D4594_811068.field_8) / 2;
-		obj_5D4594_811068.field_0 = v6;
-		v7 = (nox_win_height - obj_5D4594_811068.field_9) / 2;
-		obj_5D4594_811068.field_1 = v7;
-		obj_5D4594_811068.field_2 = v6 + obj_5D4594_811068.field_8 - 1;
-		obj_5D4594_811068.field_3 = v7 + obj_5D4594_811068.field_9 - 1;
+		nox_draw_viewport.height = nox_draw_viewport.width * nox_win_height / nox_win_width;
+		v6 = (nox_win_width - nox_draw_viewport.width) / 2;
+		v7 = (nox_win_height - nox_draw_viewport.height) / 2;
+		nox_draw_viewport.x1 = v6;
+		nox_draw_viewport.y1 = v7;
+		nox_draw_viewport.x2 = v6 + nox_draw_viewport.width - 1;
+		nox_draw_viewport.y2 = v7 + nox_draw_viewport.height - 1;
 	} else {
-		v7 = obj_5D4594_811068.field_1;
-		v6 = obj_5D4594_811068.field_0;
+		v6 = nox_draw_viewport.x1;
+		v7 = nox_draw_viewport.y1;
 	}
-	sub_430B50(v6, v7, obj_5D4594_811068.field_2, obj_5D4594_811068.field_3);
+	sub_430B50(v6, v7, nox_draw_viewport.x2, nox_draw_viewport.y2);
 	if (*getMemU32Ptr(0x5D4594, 2616328))
 		*getMemU32Ptr(0x5D4594, 2614252) = nox_xxx_netSpriteByCodeDynamic_45A6F0(*getMemIntPtr(0x5D4594, 2616328));
 	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
@@ -95,7 +95,7 @@ void nox_xxx_clientDrawAll_436100_draw() {
 			nox_xxx_drawString_43F6E0(v10, v12, v20, v21);
 		}
 	} else if (*getMemU32Ptr(0x5D4594, 2614252) && nox_client_isConnected_43C700()) {
-		nox_xxx_drawAllMB_475810_draw(&obj_5D4594_811068);
+		nox_xxx_drawAllMB_475810_draw(&nox_draw_viewport);
 		nox_xxx_drawMinimapAndLines_4738E0();
 	} else {
 		nox_xxx_drawSelectColor_434350(*getMemIntPtr(0x5D4594, 2650656));
@@ -513,7 +513,7 @@ int sub_436F50() {
 	wchar_t* v9; // [esp-4h] [ebp-10h]
 
 	v0 = nox_xxx_guiFontHeightMB_43F320(0);
-	v1 = sub_437250();
+	v1 = nox_draw_getViewport_437250();
 	v2 = *(_DWORD*)v1 + 10;
 	v3 = *((_DWORD*)v1 + 1) + 90;
 	nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 2523948));
