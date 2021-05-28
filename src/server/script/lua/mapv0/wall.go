@@ -92,24 +92,7 @@ func (vm *api) initWall() {
 		return 1
 	}))
 	// Wall[key]
-	vm.meta.Wall.RawSetString("__index", vm.s.NewFunction(func(s *lua.LState) int {
-		val := s.CheckUserData(1).Value
-		key := s.CheckString(2)
-		if v, ok := vm.indexInterfaceV0(val, key); ok {
-			s.Push(v)
-			return 1
-		}
-		obj, ok := val.(script.Wall)
-		if !ok {
-			return 0
-		}
-		_ = obj
-		switch key {
-		default:
-			s.Push(s.RawGet(vm.meta.Wall, lua.LString(key)))
-			return 1
-		}
-	}))
+	vm.setIndexFunction(vm.meta.Wall, nil)
 	// Wall[key] = v
 	vm.meta.Wall.RawSetString("__newindex", vm.s.NewFunction(func(s *lua.LState) int {
 		val := s.CheckUserData(1).Value

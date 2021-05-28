@@ -90,39 +90,24 @@ func (vm *api) initPlayer() {
 		return 1
 	}))
 	// Player[key]
-	vm.meta.Player.RawSetString("__index", vm.s.NewFunction(func(s *lua.LState) int {
-		val := s.CheckUserData(1).Value
-		key := s.CheckString(2)
-		if v, ok := vm.indexInterfaceV0(val, key); ok {
-			s.Push(v)
-			return 1
-		}
+	vm.setIndexFunction(vm.meta.Player, func(val interface{}, key string) (lua.LValue, bool) {
 		p, ok := val.(script.Player)
 		if !ok {
-			return 0
+			return nil, false
 		}
 		switch key {
 		case "name":
 			id := p.Name()
-			s.Push(lua.LString(id))
-			return 1
+			return lua.LString(id), true
 		case "host":
 			host := p.IsHost()
-			s.Push(lua.LBool(host))
-			return 1
+			return lua.LBool(host), true
 		case "unit":
 			u := p.Unit()
-			if u == nil {
-				s.Push(lua.LNil)
-				return 1
-			}
-			s.Push(vm.newUnit(u))
-			return 1
-		default:
-			s.Push(s.RawGet(vm.meta.Player, lua.LString(key)))
-			return 1
+			return vm.newUnit(u), true
 		}
-	}))
+		return nil, false
+	})
 	// Player[key] = v
 	vm.meta.Player.RawSetString("__newindex", vm.s.NewFunction(func(s *lua.LState) int {
 		val := s.CheckUserData(1).Value

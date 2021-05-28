@@ -35,27 +35,18 @@ func (vm *api) initUnit() {
 		return 1
 	}))
 	// Unit[key]
-	vm.meta.Unit.RawSetString("__index", vm.s.NewFunction(func(s *lua.LState) int {
-		val := s.CheckUserData(1).Value
-		key := s.CheckString(2)
-		if v, ok := vm.indexInterfaceV0(val, key); ok {
-			s.Push(v)
-			return 1
-		}
+	vm.setIndexFunction(vm.meta.Unit, func(val interface{}, key string) (lua.LValue, bool) {
 		u, ok := val.(script.Unit)
 		if !ok {
-			return 0
+			return nil, false
 		}
 		switch key {
 		case "type":
 			typ := u.ObjectType()
-			s.Push(vm.newObjectType(typ))
-			return 1
-		default:
-			s.Push(s.RawGet(vm.meta.Unit, lua.LString(key)))
-			return 1
+			return vm.newObjectType(typ), true
 		}
-	}))
+		return nil, false
+	})
 	// Unit[key] = v
 	vm.meta.Unit.RawSetString("__newindex", vm.s.NewFunction(func(s *lua.LState) int {
 		val := s.CheckUserData(1).Value

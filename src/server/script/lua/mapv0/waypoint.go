@@ -42,24 +42,7 @@ func (vm *api) initWaypoint() {
 		return 1
 	}))
 	// Waypoint[key]
-	vm.meta.Waypoint.RawSetString("__index", vm.s.NewFunction(func(s *lua.LState) int {
-		val := s.CheckUserData(1).Value
-		key := s.CheckString(2)
-		if v, ok := vm.indexInterfaceV0(val, key); ok {
-			s.Push(v)
-			return 1
-		}
-		obj, ok := val.(script.Waypoint)
-		if !ok {
-			return 0
-		}
-		_ = obj
-		switch key {
-		default:
-			s.Push(s.RawGet(vm.meta.Waypoint, lua.LString(key)))
-			return 1
-		}
-	}))
+	vm.setIndexFunction(vm.meta.Waypoint, nil)
 	// Waypoint[key] = v
 	vm.meta.Waypoint.RawSetString("__newindex", vm.s.NewFunction(func(s *lua.LState) int {
 		val := s.CheckUserData(1).Value

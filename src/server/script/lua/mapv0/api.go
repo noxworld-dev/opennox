@@ -60,3 +60,30 @@ func (vm *api) init() {
 	vm.initPlayer()
 	vm.initTimer()
 }
+
+func (vm *api) setIndexFunction(meta *lua.LTable, fnc func(val interface{}, key string) (lua.LValue, bool)) {
+	// Node[key]
+	meta.RawSetString("__index", vm.s.NewFunction(func(s *lua.LState) int {
+		val := s.CheckUserData(1).Value
+		key := s.CheckString(2)
+		// automatically handle accesses for well-known interfaces
+		if v, ok := vm.indexInterfaceV0(val, key); ok {
+			s.Push(v)
+			return 1
+		}
+		if fnc != nil {
+			// custom fields for specific types
+			if v, ok := fnc(val, key); ok {
+				if v == nil {
+					s.Push(lua.LNil)
+				} else {
+					s.Push(v)
+				}
+				return 1
+			}
+		}
+		// fallback to the metatable (e.g. class methods)
+		s.Push(s.RawGet(meta, lua.LString(key)))
+		return 1
+	}))
+}

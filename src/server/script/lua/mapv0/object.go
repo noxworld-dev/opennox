@@ -58,14 +58,7 @@ func (vm *api) initObjectType() {
 		return 1
 	}))
 	// ObjectType[key] expects only Object this time
-	vm.meta.ObjectType.RawSetString("__index", vm.s.NewFunction(func(s *lua.LState) int {
-		key := s.CheckString(2)
-		switch key {
-		default:
-			s.Push(s.RawGet(vm.meta.ObjectType, lua.LString(key)))
-			return 1
-		}
-	}))
+	vm.setIndexFunction(vm.meta.ObjectType, nil)
 	// ObjectType:Create(p Waypoint)
 	// ObjectType:Create(x, y number)
 	vm.meta.ObjectType.RawSetString("Create", vm.s.NewFunction(func(s *lua.LState) int {
@@ -124,27 +117,18 @@ func (vm *api) initObject() {
 		return 1
 	}))
 	// Object[key] expects only Object this time
-	vm.meta.Object.RawSetString("__index", vm.s.NewFunction(func(s *lua.LState) int {
-		val := s.CheckUserData(1).Value
-		key := s.CheckString(2)
-		if v, ok := vm.indexInterfaceV0(val, key); ok {
-			s.Push(v)
-			return 1
-		}
+	vm.setIndexFunction(vm.meta.Object, func(val interface{}, key string) (lua.LValue, bool) {
 		obj, ok := val.(script.Object)
 		if !ok {
-			return 0
+			return nil, false
 		}
 		switch key {
 		case "type":
 			typ := obj.ObjectType()
-			s.Push(vm.newObjectType(typ))
-			return 1
-		default:
-			s.Push(s.RawGet(vm.meta.Object, lua.LString(key)))
-			return 1
+			return vm.newObjectType(typ), true
 		}
-	}))
+		return nil, false
+	})
 	// Object[key] = v
 	vm.meta.Object.RawSetString("__newindex", vm.s.NewFunction(func(s *lua.LState) int {
 		val := s.CheckUserData(1).Value
@@ -193,24 +177,7 @@ func (vm *api) initObjectGroup() {
 		return 1
 	}))
 	// ObjectGroup[key]
-	vm.meta.ObjectGroup.RawSetString("__index", vm.s.NewFunction(func(s *lua.LState) int {
-		val := s.CheckUserData(1).Value
-		key := s.CheckString(2)
-		if v, ok := vm.indexInterfaceV0(val, key); ok {
-			s.Push(v)
-			return 1
-		}
-		obj, ok := val.(*script.ObjectGroup)
-		if !ok {
-			return 0
-		}
-		_ = obj
-		switch key {
-		default:
-			s.Push(s.RawGet(vm.meta.Object, lua.LString(key)))
-			return 1
-		}
-	}))
+	vm.setIndexFunction(vm.meta.ObjectGroup, nil)
 	// ObjectGroup[key] = v
 	vm.meta.ObjectGroup.RawSetString("__newindex", vm.s.NewFunction(func(s *lua.LState) int {
 		val := s.CheckUserData(1).Value
