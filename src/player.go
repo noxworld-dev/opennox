@@ -2,8 +2,12 @@ package main
 
 /*
 #include "proto.h"
+extern unsigned int nox_gameDisableMapDraw_5d4594_2650672;
 extern nox_playerInfo nox_playerinfo_arr[NOX_PLAYERINFO_MAX];
 extern unsigned int nox_xxx_host_player_unit_3843628;
+static void nox_xxx_netSendLineMessage_go(void* a1, wchar_t* str) {
+	nox_xxx_netSendLineMessage_4D9EB0(a1, str);
+}
 */
 import "C"
 import (
@@ -11,6 +15,8 @@ import (
 
 	"nox/v1/common/memmap"
 	"nox/v1/common/player"
+	"nox/v1/common/types"
+	"nox/v1/server/script"
 )
 
 const NOX_PLAYERINFO_MAX = C.NOX_PLAYERINFO_MAX
@@ -33,12 +39,64 @@ func asPlayer(p *C.nox_playerInfo) *Player {
 	return (*Player)(p)
 }
 
+func BlindPlayers(blind bool) {
+	C.nox_xxx_netMsgFadeBegin_4D9800(C.int(bool2int(!blind)), 0)
+}
+
 type Player C.nox_playerInfo
 
-type Unit = unsafe.Pointer
+func (p *Player) Pos() types.Pointf {
+	if p == nil {
+		return types.Pointf{}
+	}
+	u := p.Unit()
+	if u == nil {
+		return types.Pointf{}
+	}
+	return u.Pos()
+}
 
-func HostPlayerUnit() Unit {
-	return Unit(uintptr(C.nox_xxx_host_player_unit_3843628))
+func (p *Player) MoveTo(pos types.Pointf) {
+	if p == nil {
+		return
+	}
+	u := p.Unit()
+	if u == nil {
+		return
+	}
+	u.MoveTo(pos)
+}
+
+func (p *Player) Name() string {
+	// TODO: may be wrong field; candidates: 2185, 4704
+	return GoWString((*C.wchar_t)(unsafe.Pointer(uintptr(unsafe.Pointer(p)) + 2185)))
+}
+
+func (p *Player) IsHost() bool {
+	// TODO: better way
+	return p.UnitC() == HostPlayerUnit()
+}
+
+func (p *Player) Print(text string) {
+	cstr := CWString(text)
+	defer WStrFree(cstr)
+	C.nox_xxx_netSendLineMessage_go(p.UnitC().C(), cstr)
+}
+
+func (p *Player) Blind(blind bool) {
+	C.nox_xxx_netMsgFadeBeginPlayer(C.int(p.Index()), C.int(bool2int(!blind)), 0)
+}
+
+func (p *Player) Cinema(v int) {
+	panic("implement me")
+}
+
+func (p *Player) Unit() script.Unit {
+	return p.UnitC()
+}
+
+func HostPlayerUnit() *Unit {
+	return asUnit(unsafe.Pointer(uintptr(C.nox_xxx_host_player_unit_3843628)))
 }
 
 func (p *Player) C() *C.nox_playerInfo {
@@ -52,15 +110,22 @@ func (p *Player) Index() int {
 	return int(p.playerInd)
 }
 
+func (p *Player) NetCode() int {
+	if p == nil {
+		return -1
+	}
+	return int(p.netCode)
+}
+
 func (p *Player) IsActive() bool {
 	return p != nil && p.active != 0
 }
 
-func (p *Player) Unit() Unit {
+func (p *Player) UnitC() *Unit {
 	if p == nil {
 		return nil
 	}
-	return p.playerUnit
+	return asUnit(p.playerUnit)
 }
 
 func (p *Player) Disconnect(v int) {
@@ -104,7 +169,7 @@ func getPlayerByInd(i int) *Player {
 func hasPlayerUnits() bool {
 	for i := 0; i < NOX_PLAYERINFO_MAX; i++ {
 		p := asPlayer(&C.nox_playerinfo_arr[i])
-		if p.Unit() != nil {
+		if p.UnitC() != nil {
 			return true
 		}
 	}

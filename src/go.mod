@@ -3,6 +3,7 @@ module nox/v1
 go 1.16
 
 require (
+	github.com/Shopify/go-lua v0.0.0-20210302141115-d8ac5566562d // indirect
 	github.com/huin/goupnp v1.0.0
 	github.com/icza/bitio v1.0.0
 	github.com/jpillora/backoff v1.0.0
@@ -12,6 +13,7 @@ require (
 	github.com/stretchr/testify v1.7.0
 	github.com/timshannon/go-openal v0.0.0-20170220204755-e0ed4c67cffe
 	github.com/veandco/go-sdl2 v0.4.5
+	github.com/yuin/gopher-lua v0.0.0-20200816102855-ee81675732da // indirect
 	golang.org/x/sync v0.0.0-20200317015054-43a5402ce75a
 	golang.org/x/sys v0.0.0-20190624142023-c5567b49c5d0
 )

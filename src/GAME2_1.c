@@ -6670,16 +6670,16 @@ int  nox_xxx_cliDrawMinimap_472600(int a1, int a2) {
 				v69 = 0;
 				v16 = getMemAt(0x587000, 149244);
 				while (1) {
-					v17 = nox_server_getWallAtPoint_410580(*((_DWORD*)v16 - 1) + *(unsigned __int8*)(v11 + 5),
+					v17 = nox_server_getWallAtGrid_410580(*((_DWORD*)v16 - 1) + *(unsigned __int8*)(v11 + 5),
 														   *(_DWORD*)v16 + *(unsigned __int8*)(v11 + 6));
 					if (v17) {
 						if (*(_DWORD*)(v17 + 12))
 							goto LABEL_28;
 					} else {
-						v18 = nox_server_getWallAtPoint_410580(*((_DWORD*)v16 - 1) + *(unsigned __int8*)(v11 + 5),
+						v18 = nox_server_getWallAtGrid_410580(*((_DWORD*)v16 - 1) + *(unsigned __int8*)(v11 + 5),
 															   *(unsigned __int8*)(v11 + 6));
 						if (v18 && *(_DWORD*)(v18 + 12) ||
-							(v19 = nox_server_getWallAtPoint_410580(
+							(v19 = nox_server_getWallAtGrid_410580(
 								 *(unsigned __int8*)(v11 + 5), *(_DWORD*)v16 + *(unsigned __int8*)(v11 + 6))) != 0 &&
 								*(_DWORD*)(v19 + 12)) {
 						LABEL_28:
@@ -8304,7 +8304,7 @@ int4*  nox_xxx_drawAllMB_475810_draw(int* a1) {
 		v40 = v36 + v1[8] / 23 + 2;
 		while (1) {
 			for (i = v15; i <= v40; ++i) {
-				v17 = nox_server_getWallAtPoint_410580(i, v7);
+				v17 = nox_server_getWallAtGrid_410580(i, v7);
 				if (v17 && !(getMemByte(0x5D4594, 12332 * *(unsigned __int8*)(v17 + 1) + 2692780) & 4)) {
 					if (*(_BYTE*)(v17 + 4) & 2) {
 						if (*(int*)&dword_5d4594_1096508 < 256)

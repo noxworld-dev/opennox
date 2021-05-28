@@ -2065,7 +2065,7 @@ void  sub_548100(int2* a1, int a2) {
 	float2 v9; // [esp+0h] [ebp-8h]
 	int v10;   // [esp+Ch] [ebp+4h]
 
-	v2 = nox_server_getWallAtPoint_410580(a1->field_0, a1->field_4);
+	v2 = nox_server_getWallAtGrid_410580(a1->field_0, a1->field_4);
 	if (v2) {
 		if (*(_BYTE*)(v2 + 4) & 4) {
 			if (*(_BYTE*)(a2 + 8) & 6) {
@@ -7083,7 +7083,7 @@ int  sub_54FFC0(int2* a1, int a2) {
 			if (*(_BYTE*)(a2 + 8) & 4) {
 				v10 = *(_DWORD*)(a2 + 748);
 				if (v10)
-					*(_DWORD*)(v10 + 296) = nox_server_getWallAtPoint_410580(a1->field_0, a1->field_4);
+					*(_DWORD*)(v10 + 296) = nox_server_getWallAtGrid_410580(a1->field_0, a1->field_4);
 				v2 = a2;
 			}
 			if (sub_550380(v4, v2, &a7))
@@ -7109,7 +7109,7 @@ int  sub_54FFC0(int2* a1, int a2) {
 			if (*(_BYTE*)(v2 + 8) & 4) {
 				v12 = *(_DWORD*)(v2 + 748);
 				if (v12)
-					*(_DWORD*)(v12 + 296) = nox_server_getWallAtPoint_410580(a1->field_0, a1->field_4);
+					*(_DWORD*)(v12 + 296) = nox_server_getWallAtGrid_410580(a1->field_0, a1->field_4);
 			}
 			if (sub_550380(v4, v2, &a7))
 				v16 = 1;

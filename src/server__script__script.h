@@ -3,7 +3,11 @@
 
 int nox_script_ncobj_parse_505360();
 void nox_script_callByIndex_507310(int index, int a1, void* a2);
+#ifdef NOX_CGO
+void nox_script_callOnEvent(char* event, int a1, int a2);
+#else // NOX_CGO
 void nox_script_callOnEvent(const char* event, int a1, int a2);
+#endif // NOX_CGO
 int  nox_script_indexByEvent(const char* a1);
 void nox_xxx_scriptLeverReact_51ADF0();
 void sub_51B0C0();

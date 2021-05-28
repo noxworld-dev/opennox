@@ -1,4 +1,4 @@
-package script
+package noxscript
 
 import (
 	"math"

@@ -51,7 +51,7 @@ extern _DWORD dword_5d4594_2523912;
 extern _DWORD dword_5d4594_2523780;
 extern _DWORD dword_5d4594_2495920;
 extern _DWORD dword_5d4594_2516344;
-extern _DWORD dword_5d4594_2523900;
+extern _DWORD nox_server_mapGroupsHead_2523900;
 extern _DWORD dword_5d4594_2523756;
 extern _DWORD dword_5d4594_2523752;
 extern _DWORD dword_5d4594_2516328;
@@ -4900,7 +4900,7 @@ void sub_57C000() {
 	dword_5d4594_2523904 = 0;
 	nox_alloc_class_yyy_4144D0(*(_DWORD**)&nox_alloc_itemGroupElem_2523896);
 	nox_alloc_class_yyy_4144D0(*(_DWORD**)&nox_alloc_groupInfo_2523892);
-	dword_5d4594_2523900 = 0;
+	nox_server_mapGroupsHead_2523900 = 0;
 }
 
 //----- (0057C030) --------------------------------------------------------
@@ -4914,12 +4914,12 @@ int sub_57C030() {
 		nox_free_alloc_class(*(LPVOID*)&nox_alloc_itemGroupElem_2523896);
 		nox_alloc_itemGroupElem_2523896 = 0;
 	}
-	dword_5d4594_2523900 = 0;
+	nox_server_mapGroupsHead_2523900 = 0;
 	return 1;
 }
 
 //----- (0057C080) --------------------------------------------------------
-int nox_server_getFirstMapGroup_57C080() { return dword_5d4594_2523900; }
+int nox_server_getFirstMapGroup_57C080() { return nox_server_mapGroupsHead_2523900; }
 
 //----- (0057C090) --------------------------------------------------------
 int  nox_server_getNextMapGroup_57C090(int a1) {
@@ -4936,8 +4936,8 @@ int  nox_server_getNextMapGroup_57C090(int a1) {
 int  nox_server_scriptGetGroup_57C0A0(int a1) {
 	int result; // eax
 
-	result = dword_5d4594_2523900;
-	if (!dword_5d4594_2523900)
+	result = nox_server_mapGroupsHead_2523900;
+	if (!nox_server_mapGroupsHead_2523900)
 		return 0;
 	while (*(_DWORD*)(result + 4) != a1) {
 		result = *(_DWORD*)(result + 88);
@@ -4961,12 +4961,12 @@ int  nox_server_mapLoadAddGroup_57C0C0(char* a1, int a2, char a3) {
 		strncpy((char*)(result + 8), a1, 0x4Cu);
 		*(_BYTE*)(v4 + 83) = 0;
 		*(_DWORD*)(v4 + 84) = 0;
-		v5 = dword_5d4594_2523900;
+		v5 = nox_server_mapGroupsHead_2523900;
 		*(_DWORD*)(v4 + 92) = 0;
 		*(_DWORD*)(v4 + 88) = v5;
-		if (dword_5d4594_2523900)
-			*(_DWORD*)(dword_5d4594_2523900 + 92) = v4;
-		dword_5d4594_2523900 = v4;
+		if (nox_server_mapGroupsHead_2523900)
+			*(_DWORD*)(nox_server_mapGroupsHead_2523900 + 92) = v4;
+		nox_server_mapGroupsHead_2523900 = v4;
 		result = 1;
 	}
 	return result;
@@ -4982,8 +4982,8 @@ int  sub_57C130(_DWORD* a1, int a2) {
 
 	if (!a1)
 		return 0;
-	v3 = *(char**)&dword_5d4594_2523900;
-	if (!dword_5d4594_2523900)
+	v3 = *(char**)&nox_server_mapGroupsHead_2523900;
+	if (!nox_server_mapGroupsHead_2523900)
 		return 0;
 	while (*((_DWORD*)v3 + 1) != a2) {
 		v3 = (char*)*((_DWORD*)v3 + 22);
@@ -5026,12 +5026,12 @@ int  sub_57C1E0(_DWORD* a1, int a2) {
 	int v7;   // eax
 
 	v2 = 0;
-	v3 = *(char**)&dword_5d4594_2523900;
-	if (!dword_5d4594_2523900)
+	v3 = *(char**)&nox_server_mapGroupsHead_2523900;
+	if (!nox_server_mapGroupsHead_2523900)
 		return 0;
-	while (*(_DWORD*)(dword_5d4594_2523900 + 4) != a2)
+	while (*(_DWORD*)(nox_server_mapGroupsHead_2523900 + 4) != a2)
 		;
-	for (i = *(_DWORD*)(dword_5d4594_2523900 + 84); i; i = *(_DWORD*)(i + 8)) {
+	for (i = *(_DWORD*)(nox_server_mapGroupsHead_2523900 + 84); i; i = *(_DWORD*)(i + 8)) {
 		v5 = *v3;
 		if (*v3 && v5 != 1 && v5 != 3) {
 			if (v5 == 2 && *(_DWORD*)i == *a1 && *(_DWORD*)(i + 4) == a1[1]) {
@@ -5056,7 +5056,7 @@ int  sub_57C1E0(_DWORD* a1, int a2) {
 }
 
 //----- (0057C280) --------------------------------------------------------
-int  nox_server_scriptGetMapGroupByName_57C280(const char* a1, int a2) {
+void* nox_server_scriptGetMapGroupByName_57C280(const char* a1, int a2) {
 	int i; // esi
 
 	for (i = nox_server_getFirstMapGroup_57C080(); i; i = nox_server_getNextMapGroup_57C090(i)) {
@@ -5094,10 +5094,10 @@ int  nox_server_addNewMapGroup_57C3B0(int a1) {
 
 	result = a1;
 	*(_DWORD*)(a1 + 92) = 0;
-	*(_DWORD*)(a1 + 88) = dword_5d4594_2523900;
-	if (dword_5d4594_2523900)
-		*(_DWORD*)(dword_5d4594_2523900 + 92) = a1;
-	dword_5d4594_2523900 = a1;
+	*(_DWORD*)(a1 + 88) = nox_server_mapGroupsHead_2523900;
+	if (nox_server_mapGroupsHead_2523900)
+		*(_DWORD*)(nox_server_mapGroupsHead_2523900 + 92) = a1;
+	nox_server_mapGroupsHead_2523900 = a1;
 	return result;
 }
 
@@ -5394,7 +5394,7 @@ char  nox_xxx_mapTraceRayImpl_57C9A0(int a1, int a2, float* a3, float* a4, char 
 	v31 = (unsigned char)sub_57B500(v5, a2, v30);
 	if (v31 == 255)
 		return 0;
-	v9 = v6 & 1 ? nox_xxx_wall_4105E0(v5, a2) : nox_server_getWallAtPoint_410580(v5, a2);
+	v9 = v6 & 1 ? nox_xxx_wall_4105E0(v5, a2) : nox_server_getWallAtGrid_410580(v5, a2);
 	if (!v9 || v6 < 0 && *(_BYTE*)(v9 + 4) & 4 && *(_BYTE*)(*(_DWORD*)(v9 + 28) + 20) & 2)
 		return 0;
 	v10 = *getMemU32Ptr(0x5D4594, 12332 * *(unsigned __int8*)(v9 + 1) + 2692780);

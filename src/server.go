@@ -28,7 +28,6 @@ void sub_4E4170();
 void sub_4EC720();
 unsigned int sub_50D890();
 void nox_xxx_gameTick_4D2580_server_D();
-void nox_script_callOnEvent(const char* event, int a1, int a2);
 int  nox_xxx_playerSomeWallsUpdate_5003B0(int a1);
 void sub_4139C0();
 int sub_446040();
@@ -51,6 +50,7 @@ import (
 	noxflags "nox/v1/common/flags"
 	"nox/v1/common/fs"
 	"nox/v1/common/memmap"
+	"nox/v1/server/script"
 )
 
 func gameFPS() uint32 {
@@ -104,6 +104,7 @@ func nox_xxx_gameTick_4D2580_server_B(ticks int64) C.int {
 		C.nox_xxx_spellBookReact_4FCB70()
 		C.nox_xxx_abilUpdateMB_4FBEE0()
 		C.nox_xxx_scriptLeverReact_51ADF0()
+		scriptTick()
 		C.nox_xxx_voteUptate_506F30()
 		C.nox_xxx_unitsUpdateDeletedList_4E5E20()
 	}
@@ -143,8 +144,8 @@ func nox_xxx_gameTick_4D2580_server_E() {
 	nox_xxx_mapInitialize_4FC590()
 	nox_xxx_mapEntry_4FC600()
 	C.sub_4FC680()
-	if unit := getPlayerByInd(31).Unit(); unit != nil {
-		C.nox_xxx_playerSomeWallsUpdate_5003B0(C.int(uintptr(unit)))
+	if unit := getPlayerByInd(31).UnitC(); unit != nil {
+		C.nox_xxx_playerSomeWallsUpdate_5003B0(C.int(uintptr(unit.C())))
 	}
 	if C.nox_xxx_get_57AF20() != 0 && C.sub_57B140() {
 		C.sub_57B0A0()
@@ -164,14 +165,14 @@ func nox_server_netMaybeSendInitialPackets_4DEB30() {
 
 func nox_xxx_mapInitialize_4FC590() {
 	if C.dword_5d4594_1569652 != 0 && hasPlayerUnits() {
-		C.nox_script_callOnEvent(internCStr("MapInitialize"), 0, 0)
+		scriptOnEvent(script.EventMapInitialize)
 		C.nox_xxx_resetMapInit_4FC570(0)
 	}
 }
 
 func nox_xxx_mapEntry_4FC600() {
 	if C.dword_5d4594_1569656 != 0 && hasPlayerUnits() {
-		C.nox_script_callOnEvent(internCStr("MapEntry"), 0, 0)
+		scriptOnEvent(script.EventMapEntry)
 		C.sub_4FC580(0)
 	}
 }
@@ -204,7 +205,7 @@ func mapLoad4D2450(file string) {
 
 func updateRemotePlayers() {
 	for _, pl := range getPlayers() {
-		if pl.Unit() == nil {
+		if pl.UnitC() == nil {
 			continue
 		}
 		fr := 30
@@ -230,9 +231,9 @@ func updateRemotePlayers() {
 			// TODO: passing Go pointer
 			C.nox_netlist_addToMsgListCli_40EBC0(C.int(pl.Index()), 1, (*C.uchar)(unsafe.Pointer(&buf[0])), C.int(len(buf)))
 		} else {
-			C.nox_xxx_netUpdate_518EE0((*C.uint)(pl.Unit()))
+			C.nox_xxx_netUpdate_518EE0((*C.uint)(pl.UnitC().C()))
 		}
-		if pl.Unit() == HostPlayerUnit() {
+		if pl.UnitC() == HostPlayerUnit() {
 			C.nox_xxx_netImportant_4E5770(C.uchar(pl.Index()), 1)
 		} else if C.dword_5d4594_2650652 == 0 || (gameFrame()%uint32(C.nox_xxx_rateGet_40A6C0()) == 0) || noxflags.HasGame(noxflags.GameFlag4) {
 			C.nox_xxx_netSendReadPacket_5528B0(C.uint(pl.Index()+1), 0)

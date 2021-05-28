@@ -6221,7 +6221,7 @@ BOOL  sub_4FFD00(int a1, int a2, int a3, unsigned __int8 a4) {
 		*getMemU8Ptr(0x5D4594, 1570005) = nox_xxx_wallTileByName_410D60("InvisibleWallSet");
 		*getMemU8Ptr(0x5D4594, 1570006) = nox_xxx_wallTileByName_410D60("InvisibleBlockingWallSet");
 	}
-	v5 = nox_server_getWallAtPoint_410580(a2, a3);
+	v5 = nox_server_getWallAtGrid_410580(a2, a3);
 	v6 = (unsigned __int8*)v5;
 	if (v5) {
 		v7 = *(_BYTE*)(v5 + 1);
@@ -8165,7 +8165,7 @@ void  nox_server_scriptExecuteFnForEachGroupObj_502670(unsigned __int8* groupPtr
 				break;
 			}
 			for (k = (int*)*((_DWORD*)groupPtr + 21); k; k = (int*)k[2]) {
-				v9 = nox_server_getWallAtPoint_410580(*k, k[1]);
+				v9 = nox_server_getWallAtGrid_410580(*k, k[1]);
 				if (v9)
 					a3(v9, a4);
 			}
@@ -9278,7 +9278,7 @@ int  sub_504330(int a1, int a2) {
 		v3 = (a1 + 23 * (*v2)[5]) / 23;
 		v4 = a2 + 23 * (*v2)[6];
 		v6 = v4 / 23;
-		v7 = (unsigned __int8*)nox_server_getWallAtPoint_410580(v3, v6);
+		v7 = (unsigned __int8*)nox_server_getWallAtGrid_410580(v3, v6);
 		if (v7) {
 			v8 = **v2;
 			if (dword_5d4594_3835368)

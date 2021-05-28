@@ -1,6 +1,9 @@
 package types
 
-import "image"
+import (
+	"image"
+	"math"
+)
 
 func Point2f(p image.Point) Pointf {
 	return Pointf{
@@ -8,6 +11,8 @@ func Point2f(p image.Point) Pointf {
 		Y: float32(p.Y),
 	}
 }
+
+type Point = image.Point
 
 type Pointf struct {
 	X float32 `json:"x"`
@@ -19,6 +24,22 @@ func (p Pointf) Point() image.Point {
 		X: int(p.X),
 		Y: int(p.Y),
 	}
+}
+
+func (p Pointf) Add(p2 Pointf) Pointf {
+	p.X += p2.X
+	p.Y += p2.Y
+	return p
+}
+
+func (p Pointf) Sub(p2 Pointf) Pointf {
+	p.X -= p2.X
+	p.Y -= p2.Y
+	return p
+}
+
+func (p Pointf) Len() float64 {
+	return math.Sqrt(float64(p.X*p.X + p.Y*p.Y))
 }
 
 type Size struct {

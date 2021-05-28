@@ -950,7 +950,7 @@ _DWORD*  nox_new_objMem_2_4E3450(int a1) {
 }
 
 //----- (004E3470) --------------------------------------------------------
-_DWORD*  nox_new_objMem_4E3470(int a1) {
+void*  nox_new_objMem_4E3470(int a1) {
 	char v3;                     // al
 	int v4;                      // edx
 	void* v5;                    // eax
@@ -1070,21 +1070,27 @@ _DWORD*  nox_xxx_objectCreateByName_4E3810(CHAR* a1) {
 }
 
 //----- (004E3830) --------------------------------------------------------
-int  nox_xxx_unitDefByName_4E3830(CHAR* a1) {
-	int v1;         // eax
-	signed int v2;  // ecx
-	const void* v3; // eax
-	int* v4;        // eax
-	int result;     // eax
+int  nox_xxx_unitDefByName_4E3830(char* a1) {
+	if (!a1)
+		return 0;
 
-	if (a1 && (v1 = nox_xxx_keyFirstLetterNumber_4E30A0(a1), v1 >= 0) && (v2 = *getMemU32Ptr(0x5D4594, 1563668 + 4 * v1), v2 >= 0) &&
-		(v3 = *(const void**)getMemAt(0x5D4594, 1563348 + 4 * v1)) != 0 &&
-		(v4 = (int*)bsearch(a1, v3, v2, 4u, nox_xxx_objBsearchFn_4E3880)) != 0) {
-		result = *v4;
-	} else {
-		result = 0;
-	}
-	return result;
+	int v1 = nox_xxx_keyFirstLetterNumber_4E30A0(a1);
+	if (v1 < 0)
+		return 0;
+
+	int v2 = *getMemU32Ptr(0x5D4594, 1563668 + 4 * v1);
+	if (v2 < 0)
+		return 0;
+
+	const void* v3 = *(const void**)getMemAt(0x5D4594, 1563348 + 4 * v1);
+	if (!v3)
+		return 0;
+
+	int* v4 = bsearch(a1, v3, v2, 4, nox_xxx_objBsearchFn_4E3880);
+	if (!v4)
+		return 0;
+
+	return *v4;
 }
 
 //----- (004E3880) --------------------------------------------------------

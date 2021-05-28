@@ -33,7 +33,7 @@ var (
 
 func init() {
 	wd, _ := os.Getwd()
-	mapsend.srv = maps.NewServer(filepath.Join(wd, "maps"))
+	mapsend.srv = maps.NewServer(filepath.Join(wd, maps.Dir))
 	mapsend.srv.RegisterOnMux(gameMux)
 }
 
@@ -139,7 +139,7 @@ func mapDownloadLoop(first bool) (bool, error) {
 				defer cli.Close()
 				defer close(errc)
 
-				err := cli.DownloadMap(ctx, getDataPath("maps"), name)
+				err := cli.DownloadMap(ctx, getDataPath(maps.Dir), name)
 				if err != nil {
 					mapsendLog.Println("download failed:", err)
 					errc <- err

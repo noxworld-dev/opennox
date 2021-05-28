@@ -6890,7 +6890,7 @@ int  sub_526DD0(float2* a1, int* a2) {
 		return 0;
 	if ((int)v3 >= 256)
 		return 0;
-	v4 = nox_server_getWallAtPoint_410580(v2, v3);
+	v4 = nox_server_getWallAtGrid_410580(v2, v3);
 	if (!v4)
 		return 0;
 	*a2 = v4;
@@ -6922,7 +6922,7 @@ int  sub_526E60(float* a1) {
 		v3 = (__int64)(v16.field_4 * 0.043478262);
 		v4 = v3;
 		if (!(((_BYTE)v2 + (_BYTE)v3) & 1) && v2 >= 0 && v2 < 256 && (int)v3 >= 0 && (int)v3 < 256) {
-			v5 = (unsigned __int8*)nox_server_getWallAtPoint_410580(v2, v3);
+			v5 = (unsigned __int8*)nox_server_getWallAtGrid_410580(v2, v3);
 			v6 = v5;
 			if (v5) {
 				v5[1] = getMemByte(0x5D4594, 3835340 + 36);
@@ -6991,7 +6991,7 @@ int  sub_527030(float2* a1) {
 		return 0;
 	if ((int)v2 >= 256)
 		return 0;
-	v4 = nox_server_getWallAtPoint_410580(v1, v2);
+	v4 = nox_server_getWallAtGrid_410580(v1, v2);
 	v5 = v4;
 	if (!v4)
 		return 0;
@@ -7012,7 +7012,7 @@ int  sub_5270E0(int* a1) {
 		return 0;
 	result = *a1;
 	if (*a1) {
-		result = nox_server_getWallAtPoint_410580(*(unsigned __int8*)(result + 5), *(unsigned __int8*)(result + 6));
+		result = nox_server_getWallAtGrid_410580(*(unsigned __int8*)(result + 5), *(unsigned __int8*)(result + 6));
 		v2 = result;
 		if (result) {
 			if (*(_DWORD*)(result + 28)) {
@@ -7037,7 +7037,7 @@ int  sub_527150(int* a1, char a2) {
 	if (a1) {
 		result = *a1;
 		if (*a1) {
-			result = nox_server_getWallAtPoint_410580(*(unsigned __int8*)(result + 5), *(unsigned __int8*)(result + 6));
+			result = nox_server_getWallAtGrid_410580(*(unsigned __int8*)(result + 5), *(unsigned __int8*)(result + 6));
 			v3 = result;
 			if (result) {
 				v4 = *(_DWORD*)(result + 28);
@@ -7067,7 +7067,7 @@ int*  sub_5271D0(int* a1) {
 	if (a1) {
 		result = (int*)*a1;
 		if (*a1) {
-			result = (int*)nox_server_getWallAtPoint_410580(*((unsigned __int8*)result + 5),
+			result = (int*)nox_server_getWallAtGrid_410580(*((unsigned __int8*)result + 5),
 															*((unsigned __int8*)result + 6));
 			if (result) {
 				*((_BYTE*)result + 4) |= 8u;
@@ -7090,7 +7090,7 @@ int*  sub_527210(int* a1) {
 	if (a1) {
 		result = (int*)*a1;
 		if (*a1) {
-			result = (int*)nox_server_getWallAtPoint_410580(*((unsigned __int8*)result + 5),
+			result = (int*)nox_server_getWallAtGrid_410580(*((unsigned __int8*)result + 5),
 															*((unsigned __int8*)result + 6));
 			v2 = result;
 			if (result) {
@@ -7123,7 +7123,7 @@ int  sub_5272B0(int a1) {
 	if (!*(_DWORD*)a1)
 		return -1;
 	result =
-		nox_server_getWallAtPoint_410580(*(unsigned __int8*)(*(_DWORD*)a1 + 5), *(unsigned __int8*)(*(_DWORD*)a1 + 6));
+		nox_server_getWallAtGrid_410580(*(unsigned __int8*)(*(_DWORD*)a1 + 5), *(unsigned __int8*)(*(_DWORD*)a1 + 6));
 	if (result)
 		result = *(unsigned __int8*)(result + 1);
 	return result;
@@ -7138,7 +7138,7 @@ int  sub_5272F0(int a1) {
 	if (!*(_DWORD*)a1)
 		return -1;
 	result =
-		nox_server_getWallAtPoint_410580(*(unsigned __int8*)(*(_DWORD*)a1 + 5), *(unsigned __int8*)(*(_DWORD*)a1 + 6));
+		nox_server_getWallAtGrid_410580(*(unsigned __int8*)(*(_DWORD*)a1 + 5), *(unsigned __int8*)(*(_DWORD*)a1 + 6));
 	if (result)
 		result = *(unsigned __int8*)result;
 	return result;
@@ -7265,7 +7265,7 @@ int  sub_527450(_DWORD* a1) {
 	while (v6 <= v5) {
 		v7 = v2;
 		while (v7 <= v2 + 4) {
-			v8 = nox_server_getWallAtPoint_410580(v7, v6);
+			v8 = nox_server_getWallAtGrid_410580(v7, v6);
 			v9 = v8;
 			if (v8 && !(*(_BYTE*)(v8 + 4) & 0x8C)) {
 				if (*(_DWORD*)(v8 + 28)) {
@@ -7309,7 +7309,7 @@ int  sub_527450(_DWORD* a1) {
 				if (v16 > 0 && *(_DWORD*)((_DWORD)(ptr_5D4594_2650668[v16 - 1]) + 44 * v14 + 4) != 255)
 					v15 |= 1u;
 				if (*getMemU32Ptr(0x587000, 4 * v15 + 255052) != 255) {
-					v18 = (unsigned __int8*)nox_server_getWallAtPoint_410580(v34, v35);
+					v18 = (unsigned __int8*)nox_server_getWallAtGrid_410580(v34, v35);
 					v19 = v18;
 					if (v18) {
 						if (v18[4] & 0x8C)
@@ -7366,7 +7366,7 @@ int  sub_527450(_DWORD* a1) {
 					}
 				}
 				if (*getMemU32Ptr(0x587000, 4 * v39 + 255052) != 255) {
-					v28 = (unsigned __int8*)nox_server_getWallAtPoint_410580(v34 - 1, v35 - 1);
+					v28 = (unsigned __int8*)nox_server_getWallAtGrid_410580(v34 - 1, v35 - 1);
 					v29 = v28;
 					if (v28) {
 						if (!(v28[4] & 0x8C) && *v28 != *getMemU32Ptr(0x587000, 4 * v39 + 255052)) {
@@ -7422,7 +7422,7 @@ int*  sub_5277D0(int* a1, int a2) {
 	if (a1) {
 		result = (int*)*a1;
 		if (*a1) {
-			result = (int*)nox_server_getWallAtPoint_410580(*((unsigned __int8*)result + 5),
+			result = (int*)nox_server_getWallAtGrid_410580(*((unsigned __int8*)result + 5),
 															*((unsigned __int8*)result + 6));
 			v3 = result;
 			if (result) {
@@ -7449,7 +7449,7 @@ int*  sub_527840(int* a1, int a2) {
 	if (a1) {
 		result = (int*)*a1;
 		if (*a1) {
-			result = (int*)nox_server_getWallAtPoint_410580(*((unsigned __int8*)result + 5),
+			result = (int*)nox_server_getWallAtGrid_410580(*((unsigned __int8*)result + 5),
 															*((unsigned __int8*)result + 6));
 			v3 = result;
 			if (result) {
@@ -7476,7 +7476,7 @@ int*  sub_5278B0(int* a1, int a2) {
 	if (a1) {
 		result = (int*)*a1;
 		if (*a1) {
-			result = (int*)nox_server_getWallAtPoint_410580(*((unsigned __int8*)result + 5),
+			result = (int*)nox_server_getWallAtGrid_410580(*((unsigned __int8*)result + 5),
 															*((unsigned __int8*)result + 6));
 			v3 = result;
 			if (result) {

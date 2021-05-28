@@ -14,7 +14,7 @@ extern void* nox_script_activatedList_2487236;
 extern unsigned int dword_5d4594_2386836;
 extern unsigned int dword_5d4594_3821964;
 extern unsigned int dword_5d4594_3821968;
-extern unsigned int dword_5d4594_2386840;
+extern unsigned int nox_xxx_wallSounds_2386840;
 extern unsigned int nox_gameDisableMapDraw_5d4594_2650672;
 extern unsigned int nox_gameFPS;
 extern unsigned int nox_frame_xxx_2598000;
@@ -37,7 +37,7 @@ void nox_script_resetBuiltin() {
 }
 
 //----- (0051ACA0) --------------------------------------------------------
-void  nox_xxx_script_51ACA0(int a1, int a2, int a3) {
+void  nox_xxx_frameTimer_51ACA0(int a1, int a2, int a3) {
 	_DWORD* v3; // esi
 	int result; // eax
 	int v5;     // eax
@@ -152,7 +152,7 @@ int nox_script_getWall_511EB0() {
 		v1 = (*(int*)&dword_5d4594_3821636 + 23 * v1) / 23;
 		v0 = (*(int*)&dword_5d4594_3821640 + 23 * v0) / 23;
 	}
-	if (nox_server_getWallAtPoint_410580(v1, v0))
+	if (nox_server_getWallAtGrid_410580(v1, v0))
 		nox_script_push(v0 | (v1 << 16));
 	else
 		nox_script_push(0);
@@ -165,9 +165,9 @@ int nox_script_openSecretWall_511F50() {
 	int v1; // eax
 
 	v0 = nox_script_pop();
-	v1 = nox_server_getWallAtPoint_410580(v0 >> 16, (unsigned __int16)v0);
+	v1 = nox_server_getWallAtGrid_410580(v0 >> 16, (unsigned __int16)v0);
 	if (v1)
-		sub_511F80(v1);
+		nox_xxx_wallOpen_511F80(v1);
 	return 0;
 }
 
@@ -178,7 +178,7 @@ int nox_script_openWallGroup_512010() {
 
 	v0 = nox_script_pop();
 	v1 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v0);
-	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 2, sub_511F80, 0);
+	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 2, nox_xxx_wallOpen_511F80, 0);
 	return 0;
 }
 
@@ -188,9 +188,9 @@ int nox_script_closeWall_512040() {
 	int v1; // eax
 
 	v0 = nox_script_pop();
-	v1 = nox_server_getWallAtPoint_410580(v0 >> 16, (unsigned __int16)v0);
+	v1 = nox_server_getWallAtGrid_410580(v0 >> 16, (unsigned __int16)v0);
 	if (v1)
-		sub_512070(v1);
+		nox_xxx_wallClose_512070(v1);
 	return 0;
 }
 
@@ -201,7 +201,7 @@ int nox_script_closeWallGroup_512100() {
 
 	v0 = nox_script_pop();
 	v1 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v0);
-	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 2, sub_512070, 0);
+	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 2, nox_xxx_wallClose_512070, 0);
 	return 0;
 }
 
@@ -211,9 +211,9 @@ int nox_script_toggleWall_512130() {
 	int v1; // eax
 
 	v0 = nox_script_pop();
-	v1 = nox_server_getWallAtPoint_410580(v0 >> 16, (unsigned __int16)v0);
+	v1 = nox_server_getWallAtGrid_410580(v0 >> 16, (unsigned __int16)v0);
 	if (v1)
-		sub_512160(v1);
+		nox_xxx_wallToggle_512160(v1);
 	return 0;
 }
 
@@ -224,7 +224,7 @@ int nox_script_toggleWallGroup_512260() {
 
 	v0 = nox_script_pop();
 	v1 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v0);
-	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 2, sub_512160, 0);
+	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 2, nox_xxx_wallToggle_512160, 0);
 	return 0;
 }
 
@@ -234,7 +234,7 @@ int nox_script_wallBreak_512290() {
 	int v1; // eax
 
 	v0 = nox_script_pop();
-	v1 = nox_server_getWallAtPoint_410580(v0 >> 16, (unsigned __int16)v0);
+	v1 = nox_server_getWallAtGrid_410580(v0 >> 16, (unsigned __int16)v0);
 	if (v1)
 		nox_xxx_wallPreDestroyByPtr_5122C0(v1);
 	return 0;
@@ -258,7 +258,7 @@ int nox_script_secondTimer_512320() {
 
 	v0 = nox_script_pop();
 	v1 = nox_script_pop();
-	nox_xxx_script_51ACA0(v1 * nox_gameFPS, v0, 0);
+	nox_xxx_frameTimer_51ACA0(v1 * nox_gameFPS, v0, 0);
 	return 0;
 }
 
@@ -269,7 +269,7 @@ int nox_script_frameTimer_512350() {
 
 	v0 = nox_script_pop();
 	v1 = nox_script_pop();
-	nox_xxx_script_51ACA0(v1, v0, 0);
+	nox_xxx_frameTimer_51ACA0(v1, v0, 0);
 	return 0;
 }
 
@@ -652,46 +652,45 @@ int nox_script_getObject3_5129E0() {
 }
 
 //----- (00512A00) --------------------------------------------------------
-int nox_script_gotoHome_512A00() {
-	int v0;     // eax
-	int result; // eax
-	int v2;     // esi
+void nox_server_gotoHome(int v2) {
 	int v3;     // eax
 	_DWORD* v4; // edi
 	int* v5;    // eax
 	int* v6;    // eax
 	int* v7;    // eax
+	if (*(_BYTE*)(v2 + 8) & 2) {
+		v3 = *(_DWORD*)(v2 + 16);
+		if ((v3 & 0x8000) == 0) {
+			v4 = *(_DWORD**)(v2 + 748);
+			nox_xxx_monsterClearActionStack_50A3A0(v2);
+			v5 = nox_xxx_monsterPushAction_50A260(v2, 32);
+			if (v5)
+				v5[1] = 37;
+			v6 = nox_xxx_monsterPushAction_50A260(v2, 25);
+			if (v6) {
+				*((float*)v6 + 1) = *getMemFloatPtr(0x587000, 8 * v4[94] + 194136) * 10.0 + *(float*)(v2 + 56);
+				*((float*)v6 + 2) = *getMemFloatPtr(0x587000, 8 * v4[94] + 194140) * 10.0 + *(float*)(v2 + 60);
+			}
+			v7 = nox_xxx_monsterPushAction_50A260(v2, 37);
+			if (v7) {
+				v7[1] = v4[95];
+				v7[2] = v4[96];
+				v7[3] = 0;
+			}
+		}
+	}
+}
+int nox_script_gotoHome_512A00() {
+	int v0;     // eax
+	int result; // eax
+	int v2;     // esi
 
 	v0 = nox_script_pop();
 	result = nox_server_scriptValToObjectPtr_511B60(v0);
 	v2 = result;
-	if (result) {
-		if (*(_BYTE*)(result + 8) & 2) {
-			v3 = *(_DWORD*)(result + 16);
-			if ((v3 & 0x8000) == 0) {
-				v4 = *(_DWORD**)(v2 + 748);
-				nox_xxx_monsterClearActionStack_50A3A0(v2);
-				v5 = nox_xxx_monsterPushAction_50A260(v2, 32);
-				if (v5)
-					v5[1] = 37;
-				v6 = nox_xxx_monsterPushAction_50A260(v2, 25);
-				if (v6) {
-					*((float*)v6 + 1) = *getMemFloatPtr(0x587000, 8 * v4[94] + 194136) * 10.0 + *(float*)(v2 + 56);
-					*((float*)v6 + 2) = *getMemFloatPtr(0x587000, 8 * v4[94] + 194140) * 10.0 + *(float*)(v2 + 60);
-				}
-				v7 = nox_xxx_monsterPushAction_50A260(v2, 37);
-				if (v7) {
-					v7[1] = v4[95];
-					v7[2] = v4[96];
-					v7[3] = 0;
-				}
-				result = 0;
-			} else {
-				result = 0;
-			}
-		} else {
-			result = 0;
-		}
+	if (v2) {
+		nox_server_gotoHome(v2);
+		result = 0;
 	}
 	return result;
 }
@@ -835,7 +834,7 @@ int nox_script_timerSecSpecial_512DE0() {
 	v0 = nox_script_pop();
 	v1 = nox_script_pop();
 	v2 = nox_script_pop();
-	nox_xxx_script_51ACA0(v2 * nox_gameFPS, v0, v1);
+	nox_xxx_frameTimer_51ACA0(v2 * nox_gameFPS, v0, v1);
 	return 0;
 }
 
@@ -848,7 +847,7 @@ int nox_script_specialTimer_512E10() {
 	v0 = nox_script_pop();
 	v1 = nox_script_pop();
 	v2 = nox_script_pop();
-	nox_xxx_script_51ACA0(v2, v0, v1);
+	nox_xxx_frameTimer_51ACA0(v2, v0, v1);
 	return 0;
 }
 
@@ -2543,14 +2542,14 @@ int nox_script_cast_515130() {
 }
 
 //----- (00515200) --------------------------------------------------------
-int nox_script_builtin_515200() {
+int nox_script_UnBlind_515200() {
 	nox_gameDisableMapDraw_5d4594_2650672 = 0;
 	nox_client_screenFadeXxx_44DB30(25, 0, 0);
 	return 0;
 }
 
 //----- (00515220) --------------------------------------------------------
-int nox_script_builtin_515220() {
+int nox_script_Blind_515220() {
 	nox_client_screenFadeTimeout_44DAB0(25, 0, sub_44E000);
 	return 0;
 }
@@ -3603,7 +3602,7 @@ int nox_script_Frozen_516920() {
 
 //----- (00516960) --------------------------------------------------------
 int nox_script_builtin_516960() {
-	dword_5d4594_2386840 = nox_script_pop();
+	nox_xxx_wallSounds_2386840 = nox_script_pop();
 	return 0;
 }
 
@@ -4157,8 +4156,8 @@ void* nox_script_builtin[] = {
 	&nox_script_builtin_514FC0, // 132
 	&nox_script_builtin_515060, // 133
 	&nox_script_cast_515130, // 134
-	&nox_script_builtin_515200, // 135
-	&nox_script_builtin_515220, // 136
+	&nox_script_UnBlind_515200, // 135
+	&nox_script_Blind_515220, // 136
 	&nox_script_WideScreen_515240, // 137
 	&nox_script_GetElevatorStat_5154A0, // 138
 	&nox_script_SetGuardPoint_515600, // 139

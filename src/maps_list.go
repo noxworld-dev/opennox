@@ -13,7 +13,7 @@ import (
 
 func nox_common_scanAllMaps_4D07F0() error {
 	C.nox_common_list_clear_425760(&C.nox_common_maplist)
-	list, err := maps.Scan(getDataPath("maps"), nil)
+	list, err := maps.Scan(getDataPath(maps.Dir), nil)
 	if err != nil && len(list) == 0 {
 		return err
 	}

@@ -3,6 +3,7 @@
 
 #include "server__script__script.h"
 #include "server__script__builtin.h"
+#include "server__script__internal.h"
 #include "common/fs/nox_fs.h"
 #include "proto.h"
 
@@ -10,21 +11,6 @@ extern void* nox_script_activatedList_2487236;
 extern unsigned int dword_5d4594_1599628;
 extern unsigned int nox_frame_xxx_2598000;
 
-
-typedef struct nox_script_xxx_t {
-	char* field_0; // 0, 0
-	unsigned int stack_size; // 1, 4
-	unsigned int size_28; // 2, 8
-	unsigned int field_12; // 3, 12; len field_20 and field_24
-	unsigned int field_16; // 4, 16
-	unsigned int* field_20; // 5, 20
-	unsigned int* field_24; // 6, 24
-	unsigned int* field_28; // 7, 28
-	void* data; // 8, 32
-	char* field_36; // 9, 36
-	unsigned int field_40; // 10, 40
-	unsigned int field_44; // 11, 44
-} nox_script_xxx_t;
 _Static_assert(sizeof(nox_script_xxx_t) == 48, "wrong size of nox_script_xxx_t structure!");
 
 nox_script_xxx_t* nox_script_arr_xxx_1599636 = 0;
@@ -1368,6 +1354,7 @@ void sub_51B0C0() {
 	}
 }
 
+#ifndef NOX_CGO
 void nox_script_callOnEvent(const char* event, int a1, int a2) {
 	int n = strlen(event);
 	for (int i = 0; i < nox_script_count_xxx_1599640; i++) {
@@ -1375,3 +1362,4 @@ void nox_script_callOnEvent(const char* event, int a1, int a2) {
 			nox_script_callByIndex_507310(i, a1, a2);
 	}
 }
+#endif // NOX_CGO

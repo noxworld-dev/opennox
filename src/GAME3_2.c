@@ -6504,10 +6504,23 @@ int  nox_xxx_netMsgFadeBegin_4D9800(int a1, int a2) {
 	char v5;    // [esp+3h] [ebp-1h]
 
 	v5 = HIBYTE(v2);
-	v4[0] = -28;
+	v4[0] = 0xE4;
 	v4[1] = a1 != 0;
 	v4[2] = a2 != 0;
 	return nox_xxx_netSendPacket1_4E5390(255, (int)v4, 3, 0, 1);
+}
+
+//----- (004D9800) --------------------------------------------------------
+int  nox_xxx_netMsgFadeBeginPlayer(int pl, int a1, int a2) {
+	int v2;     // ecx
+	char v4[3]; // [esp+0h] [ebp-4h]
+	char v5;    // [esp+3h] [ebp-1h]
+
+	v5 = HIBYTE(v2);
+	v4[0] = 0xE4;
+	v4[1] = a1 != 0;
+	v4[2] = a2 != 0;
+	return nox_xxx_netSendPacket1_4E5390(pl, (int)v4, 3, 0, 1);
 }
 
 //----- (004D9840) --------------------------------------------------------
@@ -7011,7 +7024,7 @@ int  nox_xxx_getObjectByScrName_4DA4F0(char* a1) {
 	int v4;     // esi
 	int v5;     // esi
 
-	if (strchr(a1, 58)) {
+	if (strchr(a1, ':')) {
 		for (i = nox_server_getFirstObject_4DA790(); i; i = nox_server_getNextObject_4DA7A0(i)) {
 			result = sub_4DA5C0(i, a1);
 			if (result)

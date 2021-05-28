@@ -101,7 +101,6 @@ int nox_cmd_startSoloQuest(int, int, wchar_t**);
 import "C"
 import (
 	"fmt"
-	"log"
 
 	"nox/v1/client/system/parsecmd"
 	"nox/v1/common/strman"
@@ -127,7 +126,6 @@ func nox_xxx_consoleParseToken_443A20(tokInd C.int, tokCnt C.int, tokens **C.wch
 
 func consolePrintf(typ parsecmd.Color, format string, args ...interface{}) int {
 	str := fmt.Sprintf(format, args...)
-	log.Print(str)
 	cstr := CWString(str)
 	res := C.nox_gui_console_Print_450B90(C.uchar(typ), cstr)
 	WStrFree(cstr)

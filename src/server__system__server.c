@@ -1394,7 +1394,7 @@ int  nox_xxx_playerSomeWallsUpdate_5003B0(int a1) {
 	if (dword_5d4594_1569756 > 0) {
 		v4 = getMemAt(0x5D4594, 1569764);
 		do {
-			v5 = (_BYTE*)nox_server_getWallAtPoint_410580(*v4, v4[1]);
+			v5 = (_BYTE*)nox_server_getWallAtGrid_410580(*v4, v4[1]);
 			if (v5) {
 				*v5 = v4[13];
 			} else {

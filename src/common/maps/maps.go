@@ -21,6 +21,7 @@ var (
 )
 
 const (
+	Dir           = "maps"
 	Ext           = ".map"
 	SoloPrefixWar = "war"
 	SoloPrefixWiz = "wiz"

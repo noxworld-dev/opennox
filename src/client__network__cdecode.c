@@ -879,7 +879,7 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 		case 61:
 			if (!nox_client_isConnected_43C700())
 				goto LABEL_916;
-			LODWORD(v5) = nox_server_getWallAtPoint_410580(*(unsigned __int8*)(data + 4), *(unsigned __int8*)(data + 5));
+			LODWORD(v5) = nox_server_getWallAtGrid_410580(*(unsigned __int8*)(data + 4), *(unsigned __int8*)(data + 5));
 			if (!(_DWORD)v5) {
 				LODWORD(v5) = nox_xxx_wallCreateAt_410250(*(unsigned __int8*)(data + 4), *(unsigned __int8*)(data + 5));
 				if (!(_DWORD)v5)
@@ -894,7 +894,7 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 		case 62:
 			if (nox_client_isConnected_43C700()) {
 				LODWORD(v5) =
-					nox_server_getWallAtPoint_410580(*(unsigned __int8*)(data + 1), *(unsigned __int8*)(data + 2));
+					nox_server_getWallAtGrid_410580(*(unsigned __int8*)(data + 1), *(unsigned __int8*)(data + 2));
 				if ((_DWORD)v5)
 					nox_xxx_mapDelWallAtPt_410430(*(unsigned __int8*)(v5 + 5), *(unsigned __int8*)(v5 + 6));
 			}
@@ -3201,7 +3201,7 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 			}
 			data += 4;
 			break;
-		case 0xE4u: // fade
+		case 0xE4: // fade
 			if (nox_client_isConnected_43C700()) {
 				if (*(_BYTE*)(data + 1) == 1) {
 					if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {

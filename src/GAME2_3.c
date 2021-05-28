@@ -3002,7 +3002,7 @@ int  nox_xxx_drawBlack_496150(int* a1) {
 		v69 = 23 * (v7 + v79);
 		v73 = (unsigned int)(v6 - v7 + 2) >> 1;
 		do {
-			v9 = (unsigned __int8*)nox_server_getWallAtPoint_410580(v8, v5);
+			v9 = (unsigned __int8*)nox_server_getWallAtGrid_410580(v8, v5);
 			if (v9) {
 				v10 = (unsigned char)sub_57B500(v8, v5, 64);
 				if (v10 != 255) {
@@ -3086,7 +3086,7 @@ LABEL_32:
 				a3.field_8 = (double)(int)(*getMemU32Ptr(0x5D4594, 1217444) + sub_414BD0(6434 - v21));
 				a3.field_C = (double)(int)(dword_5d4594_1217448 + sub_414BD0(v21));
 				sub_4CA960((_DWORD*)(v19 + 24), *(_BYTE*)(v19 + 36), &a3, &v78);
-				v22 = nox_server_getWallAtPoint_410580(*(_DWORD*)(v19 + 24), *(_DWORD*)(v19 + 28));
+				v22 = nox_server_getWallAtGrid_410580(*(_DWORD*)(v19 + 24), *(_DWORD*)(v19 + 28));
 				v23 = v22;
 				LOBYTE(v22) = *(_BYTE*)(v22 + 4);
 				*(_DWORD*)(v23 + 12) = 1;

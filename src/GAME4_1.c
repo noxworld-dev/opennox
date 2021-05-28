@@ -64,7 +64,7 @@ extern unsigned int nox_frame_xxx_2598000;
 
 void* nox_script_activatedList_2487236 = 0;
 void* nox_script_activatorsFreeList_2487240 = 0;
-_DWORD dword_5d4594_2386840 = 0;
+_DWORD nox_xxx_wallSounds_2386840 = 0;
 
 //----- (005098A0) --------------------------------------------------------
 int sub_5098A0() {
@@ -5275,7 +5275,7 @@ int sub_511E20() {
 }
 
 //----- (00511F80) --------------------------------------------------------
-void  sub_511F80(int a1) {
+void  nox_xxx_wallOpen_511F80(int a1) {
 	int v1;    // edx
 	int v2;    // ecx
 	char v3;   // al
@@ -5295,7 +5295,7 @@ void  sub_511F80(int a1) {
 			v8 = 23 * *(_DWORD*)(v2 + 8);
 			v7.field_0 = (double)(23 * v4) + 11.5;
 			v7.field_4 = (double)v8 + 11.5;
-			if (!dword_5d4594_2386840) {
+			if (!nox_xxx_wallSounds_2386840) {
 				v5 = nox_xxx_wallFindOpenSound_410EE0(*(unsigned __int8*)(v1 + 1));
 				v6 = nox_xxx_utilFindSound_40AF50(v5);
 				nox_xxx_audCreate_501A30(v6, &v7, 0, 0);
@@ -5305,7 +5305,7 @@ void  sub_511F80(int a1) {
 }
 
 //----- (00512070) --------------------------------------------------------
-void  sub_512070(int a1) {
+void  nox_xxx_wallClose_512070(int a1) {
 	int v1;    // edx
 	int v2;    // ecx
 	char v3;   // al
@@ -5325,7 +5325,7 @@ void  sub_512070(int a1) {
 			v8 = 23 * *(_DWORD*)(v2 + 8);
 			v7.field_0 = (double)(23 * v4) + 11.5;
 			v7.field_4 = (double)v8 + 11.5;
-			if (!dword_5d4594_2386840) {
+			if (!nox_xxx_wallSounds_2386840) {
 				v5 = nox_xxx_wallFindCloseSound_410F20(*(unsigned __int8*)(v1 + 1));
 				v6 = nox_xxx_utilFindSound_40AF50(v5);
 				nox_xxx_audCreate_501A30(v6, &v7, 0, 0);
@@ -5335,7 +5335,7 @@ void  sub_512070(int a1) {
 }
 
 //----- (00512160) --------------------------------------------------------
-void  sub_512160(int a1) {
+void  nox_xxx_wallToggle_512160(int a1) {
 	int v1;    // eax
 	char v2;   // cl
 	int v3;    // ecx
@@ -5352,7 +5352,7 @@ void  sub_512160(int a1) {
 			*(_BYTE*)(v1 + 21) = 4;
 			v7.field_0 = (double)(23 * v5) + 11.5;
 			v7.field_4 = (double)(int)(23 * *(_DWORD*)(v1 + 8)) + 11.5;
-			if (dword_5d4594_2386840)
+			if (nox_xxx_wallSounds_2386840)
 				return;
 			v4 = nox_xxx_wallFindOpenSound_410EE0(*(unsigned __int8*)(a1 + 1));
 		} else {
@@ -5360,7 +5360,7 @@ void  sub_512160(int a1) {
 			*(_BYTE*)(v1 + 21) = 2;
 			v7.field_0 = (double)(23 * v3) + 11.5;
 			v7.field_4 = (double)(int)(23 * *(_DWORD*)(v1 + 8)) + 11.5;
-			if (dword_5d4594_2386840)
+			if (nox_xxx_wallSounds_2386840)
 				return;
 			v4 = nox_xxx_wallFindCloseSound_410F20(*(unsigned __int8*)(a1 + 1));
 		}
@@ -7748,7 +7748,7 @@ int  sub_519660(int a1, int a2) {
 		break;
 	}
 	if (result != v4) {
-		v5 = nox_server_getWallAtPoint_410580(*(_DWORD*)(a1 + 4), *(_DWORD*)(a1 + 8));
+		v5 = nox_server_getWallAtGrid_410580(*(_DWORD*)(a1 + 4), *(_DWORD*)(a1 + 8));
 		if (v4) {
 			sub_4DF120(v5);
 			result = v2 | *(_DWORD*)(a1 + 28);

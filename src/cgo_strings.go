@@ -117,8 +117,23 @@ func WStrLen(s *C.wchar_t) int {
 	}
 	n := 0
 	for *s != 0 {
-		n++
 		s = (*C.wchar_t)(unsafe.Pointer(uintptr(unsafe.Pointer(s)) + 2))
+		n++
+	}
+	return n
+}
+
+func WStrLenN(s *C.wchar_t, max int) int {
+	if s == nil {
+		return 0
+	}
+	n := 0
+	for *s != 0 {
+		s = (*C.wchar_t)(unsafe.Pointer(uintptr(unsafe.Pointer(s)) + 2))
+		if n == max {
+			return n
+		}
+		n++
 	}
 	return n
 }
@@ -141,6 +156,19 @@ func GoWString(s *C.wchar_t) string {
 		return ""
 	}
 	arr := asU16Slice(unsafe.Pointer(s), n)
+	return GoWStringSlice(arr)
+}
+
+func GoWStringN(s *C.wchar_t, max int) string {
+	n := WStrLenN(s, max)
+	if n == 0 {
+		return ""
+	}
+	arr := asU16Slice(unsafe.Pointer(s), n)
+	return GoWStringSlice(arr)
+}
+
+func GoWStringSlice(arr []uint16) string {
 	return string(utf16.Decode(arr))
 }
 

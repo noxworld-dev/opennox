@@ -4153,7 +4153,7 @@ LPVOID  nox_xxx_wallCreateAt_410250(int a1, int a2) {
 
 	if (a1 < 0 || a1 >= 256 || a2 < 0 || a2 >= 256)
 		return 0;
-	result = (LPVOID)nox_server_getWallAtPoint_410580(a1, a2);
+	result = (LPVOID)nox_server_getWallAtGrid_410580(a1, a2);
 	if (result)
 		return result;
 	v3 = dword_5d4594_251548;
@@ -4334,7 +4334,7 @@ int  sub_410550(__int16 a1) {
 }
 
 //----- (00410580) --------------------------------------------------------
-int  nox_server_getWallAtPoint_410580(int a1, int a2) {
+void* nox_server_getWallAtGrid_410580(int a1, int a2) {
 	int result; // eax
 	int v3;     // eax
 
