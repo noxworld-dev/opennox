@@ -1,8 +1,6 @@
 package mapv0
 
 import (
-	"fmt"
-
 	lua "github.com/yuin/gopher-lua"
 
 	"nox/v1/server/script"
@@ -48,23 +46,7 @@ func (vm *api) initUnit() {
 		return nil, false
 	})
 	// Unit[key] = v
-	vm.meta.Unit.RawSetString("__newindex", vm.s.NewFunction(func(s *lua.LState) int {
-		val := s.CheckUserData(1).Value
-		key := s.CheckString(2)
-		if vm.setindexInterfaceV0(s, val, key) {
-			return 0
-		}
-		u, ok := val.(script.Unit)
-		if !ok {
-			return 0
-		}
-		_ = u
-		switch key {
-		default:
-			s.ArgError(2, fmt.Sprintf("no such key: %q", key))
-			return 0
-		}
-	}))
+	vm.setSetIndexFunction(vm.meta.Unit, nil)
 	vm.registerDeleterV0(vm.meta.Unit)
 	vm.registerPositionerV0(vm.meta.Unit)
 	vm.registerMoverV0(vm.meta.Unit)

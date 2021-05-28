@@ -109,23 +109,7 @@ func (vm *api) initPlayer() {
 		return nil, false
 	})
 	// Player[key] = v
-	vm.meta.Player.RawSetString("__newindex", vm.s.NewFunction(func(s *lua.LState) int {
-		val := s.CheckUserData(1).Value
-		key := s.CheckString(2)
-		if vm.setindexInterfaceV0(s, val, key) {
-			return 0
-		}
-		p, ok := val.(script.Player)
-		if !ok {
-			return 0
-		}
-		_ = p
-		switch key {
-		default:
-			s.ArgError(2, fmt.Sprintf("no such key: %q", key))
-			return 0
-		}
-	}))
+	vm.setSetIndexFunction(vm.meta.Player, nil)
 	// Player:Print("text")
 	vm.meta.Player.RawSetString("Print", vm.s.NewFunction(func(s *lua.LState) int {
 		p, ok := s.CheckUserData(1).Value.(script.Player)

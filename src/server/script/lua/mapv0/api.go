@@ -1,6 +1,8 @@
 package mapv0
 
 import (
+	"fmt"
+
 	lua "github.com/yuin/gopher-lua"
 
 	"nox/v1/server/script"
@@ -85,5 +87,22 @@ func (vm *api) setIndexFunction(meta *lua.LTable, fnc func(val interface{}, key 
 		// fallback to the metatable (e.g. class methods)
 		s.Push(s.RawGet(meta, lua.LString(key)))
 		return 1
+	}))
+}
+
+func (vm *api) setSetIndexFunction(meta *lua.LTable, fnc func(obj interface{}, key string, val lua.LValue) bool) {
+	meta.RawSetString("__newindex", vm.s.NewFunction(func(s *lua.LState) int {
+		obj := s.CheckUserData(1).Value
+		key := s.CheckString(2)
+		if vm.setindexInterfaceV0(s, obj, key) {
+			return 0
+		}
+		if fnc != nil {
+			if fnc(obj, key, s.Get(3)) {
+				return 0
+			}
+		}
+		s.ArgError(2, fmt.Sprintf("no such key: %q", key))
+		return 0
 	}))
 }

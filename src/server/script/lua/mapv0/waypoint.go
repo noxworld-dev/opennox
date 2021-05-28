@@ -1,8 +1,6 @@
 package mapv0
 
 import (
-	"fmt"
-
 	lua "github.com/yuin/gopher-lua"
 
 	"nox/v1/server/script"
@@ -44,23 +42,7 @@ func (vm *api) initWaypoint() {
 	// Waypoint[key]
 	vm.setIndexFunction(vm.meta.Waypoint, nil)
 	// Waypoint[key] = v
-	vm.meta.Waypoint.RawSetString("__newindex", vm.s.NewFunction(func(s *lua.LState) int {
-		val := s.CheckUserData(1).Value
-		key := s.CheckString(2)
-		if vm.setindexInterfaceV0(s, val, key) {
-			return 0
-		}
-		obj, ok := val.(script.Waypoint)
-		if !ok {
-			return 0
-		}
-		_ = obj
-		switch key {
-		default:
-			s.ArgError(2, fmt.Sprintf("no such key: %q", key))
-			return 0
-		}
-	}))
+	vm.setSetIndexFunction(vm.meta.Waypoint, nil)
 	vm.registerPositionerV0(vm.meta.Waypoint)
 	vm.registerMoverV0(vm.meta.Waypoint)
 	vm.registerTogglerV0(vm.meta.Waypoint)

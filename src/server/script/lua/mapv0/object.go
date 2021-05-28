@@ -130,23 +130,7 @@ func (vm *api) initObject() {
 		return nil, false
 	})
 	// Object[key] = v
-	vm.meta.Object.RawSetString("__newindex", vm.s.NewFunction(func(s *lua.LState) int {
-		val := s.CheckUserData(1).Value
-		key := s.CheckString(2)
-		if vm.setindexInterfaceV0(s, val, key) {
-			return 0
-		}
-		obj, ok := val.(script.Object)
-		if !ok {
-			return 0
-		}
-		_ = obj
-		switch key {
-		default:
-			s.ArgError(2, fmt.Sprintf("no such key: %q", key))
-			return 0
-		}
-	}))
+	vm.setSetIndexFunction(vm.meta.Object, nil)
 	vm.registerDeleterV0(vm.meta.Object)
 	vm.registerPositionerV0(vm.meta.Object)
 	vm.registerMoverV0(vm.meta.Object)
@@ -179,23 +163,7 @@ func (vm *api) initObjectGroup() {
 	// ObjectGroup[key]
 	vm.setIndexFunction(vm.meta.ObjectGroup, nil)
 	// ObjectGroup[key] = v
-	vm.meta.ObjectGroup.RawSetString("__newindex", vm.s.NewFunction(func(s *lua.LState) int {
-		val := s.CheckUserData(1).Value
-		key := s.CheckString(2)
-		if vm.setindexInterfaceV0(s, val, key) {
-			return 0
-		}
-		obj, ok := val.(*script.ObjectGroup)
-		if !ok {
-			return 0
-		}
-		_ = obj
-		switch key {
-		default:
-			s.ArgError(2, fmt.Sprintf("no such key: %q", key))
-			return 0
-		}
-	}))
+	vm.setSetIndexFunction(vm.meta.ObjectGroup, nil)
 	vm.registerDeleterV0(vm.meta.ObjectGroup)
 	vm.registerMoverV0(vm.meta.ObjectGroup)
 	vm.registerTogglerV0(vm.meta.ObjectGroup)

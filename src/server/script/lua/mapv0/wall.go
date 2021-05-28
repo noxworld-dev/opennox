@@ -94,23 +94,7 @@ func (vm *api) initWall() {
 	// Wall[key]
 	vm.setIndexFunction(vm.meta.Wall, nil)
 	// Wall[key] = v
-	vm.meta.Wall.RawSetString("__newindex", vm.s.NewFunction(func(s *lua.LState) int {
-		val := s.CheckUserData(1).Value
-		key := s.CheckString(2)
-		if vm.setindexInterfaceV0(s, val, key) {
-			return 0
-		}
-		obj, ok := val.(script.Wall)
-		if !ok {
-			return 0
-		}
-		_ = obj
-		switch key {
-		default:
-			s.ArgError(2, fmt.Sprintf("no such key: %q", key))
-			return 0
-		}
-	}))
+	vm.setSetIndexFunction(vm.meta.Wall, nil)
 	// Wall:Break()
 	vm.meta.Wall.RawSetString("Break", vm.s.NewFunction(func(s *lua.LState) int {
 		wl, ok := s.CheckUserData(1).Value.(script.Wall)
@@ -188,23 +172,7 @@ func (vm *api) initWallGroup() {
 		}
 	}))
 	// WallGroup[key] = v
-	vm.meta.WallGroup.RawSetString("__newindex", vm.s.NewFunction(func(s *lua.LState) int {
-		val := s.CheckUserData(1).Value
-		key := s.CheckString(2)
-		if vm.setindexInterfaceV0(s, val, key) {
-			return 0
-		}
-		obj, ok := val.(*script.WallGroup)
-		if !ok {
-			return 0
-		}
-		_ = obj
-		switch key {
-		default:
-			s.ArgError(2, fmt.Sprintf("no such key: %q", key))
-			return 0
-		}
-	}))
+	vm.setSetIndexFunction(vm.meta.WallGroup, nil)
 	// WallGroup:Break()
 	vm.meta.WallGroup.RawSetString("Break", vm.s.NewFunction(func(s *lua.LState) int {
 		wl, ok := s.CheckUserData(1).Value.(*script.WallGroup)
