@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"unsafe"
 
+	"nox/v1/common/object"
 	"nox/v1/common/types"
 	"nox/v1/server/script"
 )
@@ -37,11 +38,19 @@ func (t *ObjectType) ID() string {
 	return fmt.Sprintf("%T(%p)", t, t)
 }
 
+func (t *ObjectType) String() string {
+	return fmt.Sprintf("ObjectType(%s)", t.ID())
+}
+
 func (t *ObjectType) CreateObject(p types.Pointf) script.Object {
-	obj := C.nox_new_objMem_4E3470(C.int(uintptr(t.C())))
-	if obj == nil {
+	cobj := C.nox_new_objMem_4E3470(C.int(uintptr(t.C())))
+	if cobj == nil {
 		return nil
 	}
-	C.nox_xxx_createAt_4DAA50(C.int(uintptr(obj)), 0, C.float(p.X), C.float(p.Y))
-	return asObject(obj)
+	C.nox_xxx_createAt_4DAA50(C.int(uintptr(cobj)), 0, C.float(p.X), C.float(p.Y))
+	obj := asObject(cobj)
+	if obj.Class().Has(object.MaskUnits) {
+		return obj.AsUnit()
+	}
+	return obj
 }

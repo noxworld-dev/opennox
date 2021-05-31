@@ -1,8 +1,6 @@
 package mapv0
 
 import (
-	"fmt"
-
 	lua "github.com/yuin/gopher-lua"
 
 	"nox/v1/common/types"
@@ -34,6 +32,18 @@ func (vm *api) newObjectType(typ script.ObjectType) lua.LValue {
 }
 
 func (vm *api) newObjectGroup(v *script.ObjectGroup) lua.LValue {
+	if list := v.Objects(); script.IsAllUnits(list) {
+		units := make([]script.Unit, 0, len(list))
+		for _, obj := range list {
+			units = append(units, obj.(script.Unit))
+		}
+		v := script.NewUnitGroup(v.ID(), units...)
+		return vm.newUnitGroup(v)
+	}
+	return vm.newObjectGroupRaw(v)
+}
+
+func (vm *api) newObjectGroupRaw(v *script.ObjectGroup) lua.LValue {
 	if v == nil {
 		return lua.LNil
 	}
@@ -41,23 +51,64 @@ func (vm *api) newObjectGroup(v *script.ObjectGroup) lua.LValue {
 }
 
 func (vm *api) initMetaObject() {
+	vm.meta.ObjectType = vm.newMeta("ObjectType")
 	vm.meta.Object = vm.newMeta("Object")
 	vm.meta.ObjectGroup = vm.newMeta("ObjectGroup")
-	vm.meta.ObjectType = vm.newMeta("")
+
+	vm.registerObjMethod("Pos", func(obj script.Positioner) (x, y float32) {
+		pos := obj.Pos()
+		return pos.X, pos.Y
+	})
+	vm.registerObjMethod("SetPos", func(obj script.PositionSetter, to types.Pointf) (_ receiverValue) {
+		obj.SetPos(to)
+		return
+	})
+	vm.registerObjMethod("SetOwner", func(obj script.OwnerSetter, owner script.ObjectWrapper) (_ receiverValue) {
+		obj.SetOwner(owner)
+		return
+	})
+	vm.registerObjMethod("PushTo", func(obj script.Pushable, to types.Pointf) (_ receiverValue) {
+		obj.PushTo(to)
+		return
+	})
+	vm.registerObjMethod("Push", func(obj script.Pushable, vec types.Pointf, force float32) (_ receiverValue) {
+		obj.Push(vec, force)
+		return
+	})
+	vm.registerObjMethod("Delete", func(obj script.Deleter) {
+		obj.Delete()
+	})
+	vm.registerObjMethod("Destroy", func(obj script.Destroyable) {
+		obj.Destroy()
+	})
+	vm.registerObjMethod("Break", func(obj script.Destroyable) {
+		obj.Destroy()
+	})
+	vm.registerObjMethod("Kill", func(obj script.Destroyable) {
+		obj.Destroy()
+	})
+	vm.registerObjMethod("Toggle", func(val interface{}) {
+		switch val := val.(type) {
+		case script.Toggler:
+			val.Toggle()
+		case script.Enabler:
+			script.Toggle(val)
+		default:
+			// TODO: allow registering methods with the same name on different types?
+			panic("cannot toggle")
+		}
+	})
 }
 
 func (vm *api) initObjectType() {
-	// print(ObjectType)
-	vm.meta.ObjectType.RawSetString("__tostring", vm.s.NewFunction(func(s *lua.LState) int {
-		obj, ok := s.CheckUserData(1).Value.(script.ObjectType)
-		if !ok {
-			return 0
-		}
-		str := "ObjectType(" + obj.ID() + ")"
-		s.Push(lua.LString(str))
+	// ObjectType(id string)
+	vm.meta.ObjectType.RawSetString("__call", vm.s.NewFunction(func(s *lua.LState) int {
+		id := s.CheckString(2)
+		typ := vm.g.ObjectTypeByID(id)
+		s.Push(vm.newObjectType(typ))
 		return 1
 	}))
-	// ObjectType[key] expects only Object this time
+	// ObjectType[key]
 	vm.setIndexFunction(vm.meta.ObjectType, nil)
 	// ObjectType:Create(p Waypoint)
 	// ObjectType:Create(x, y number)
@@ -86,34 +137,11 @@ func (vm *api) initObjectType() {
 }
 
 func (vm *api) initObject() {
-	// print(Object)
-	vm.meta.Object.RawSetString("__tostring", vm.s.NewFunction(func(s *lua.LState) int {
-		self := s.Get(1)
-		var str string
-		if self == vm.meta.Object {
-			str = "Object"
-		} else {
-			obj, ok := s.CheckUserData(1).Value.(script.Object)
-			if !ok {
-				return 0
-			}
-			str = "Object(" + obj.ID() + ")"
-		}
-		s.Push(lua.LString(str))
-		return 1
-	}))
-	// Object(id string) acts as a constructor for both Object and ObjectType
+	// Object(id string)
 	vm.meta.Object.RawSetString("__call", vm.s.NewFunction(func(s *lua.LState) int {
 		id := s.CheckString(2)
-		var lv lua.LValue
-		if typ := vm.g.ObjectTypeByID(id); typ != nil {
-			lv = vm.newObjectType(typ)
-		} else if obj := vm.g.ObjectByID(id); obj != nil {
-			lv = vm.newObject(obj)
-		} else {
-			lv = lua.LNil
-		}
-		s.Push(lv)
+		obj := vm.g.ObjectByID(id)
+		s.Push(vm.newObject(obj))
 		return 1
 	}))
 	// Object[key] expects only Object this time
@@ -131,40 +159,47 @@ func (vm *api) initObject() {
 	})
 	// Object[key] = v
 	vm.setSetIndexFunction(vm.meta.Object, nil)
-	vm.registerDeleterV0(vm.meta.Object)
-	vm.registerPositionerV0(vm.meta.Object)
-	vm.registerMoverV0(vm.meta.Object)
-	vm.registerTogglerV0(vm.meta.Object)
 }
 
 func (vm *api) initObjectGroup() {
-	// print(ObjectGroup)
-	vm.meta.ObjectGroup.RawSetString("__tostring", vm.s.NewFunction(func(s *lua.LState) int {
-		g, ok := s.CheckUserData(1).Value.(*script.ObjectGroup)
-		if !ok {
-			return 0
-		}
-		var str string
-		if id := g.ID(); id != "" {
-			str = fmt.Sprintf("ObjectGroup(%s)", id)
-		} else {
-			str = fmt.Sprintf("ObjectGroup(%d)", len(g.Objects()))
-		}
-		s.Push(lua.LString(str))
-		return 1
-	}))
 	// ObjectGroup(id string)
 	vm.meta.ObjectGroup.RawSetString("__call", vm.s.NewFunction(func(s *lua.LState) int {
-		id := s.CheckString(2)
-		g := vm.g.ObjectGroupByID(id)
-		s.Push(vm.newObjectGroup(g))
+		switch s.Get(2).(type) {
+		case lua.LString:
+			// get by ID
+			id := s.CheckString(2)
+			g := vm.g.ObjectGroupByID(id)
+			s.Push(vm.newObjectGroup(g))
+			return 1
+		}
+		// create a new group
+		var (
+			objs  []script.Object
+			units []script.Unit
+		)
+		for i := 2; i <= s.GetTop(); i++ {
+			obj, ok := s.CheckUserData(i).Value.(script.Object)
+			if !ok {
+				return 0
+			}
+			if u, ok := obj.(script.Unit); ok {
+				units = append(units, u)
+			}
+			objs = append(objs, obj)
+		}
+		var lv lua.LValue
+		if len(units) == len(objs) {
+			g := script.NewUnitGroup("", units...)
+			lv = vm.newUnitGroup(g)
+		} else {
+			g := script.NewObjectGroup("", objs...)
+			lv = vm.newObjectGroupRaw(g)
+		}
+		s.Push(lv)
 		return 1
 	}))
 	// ObjectGroup[key]
 	vm.setIndexFunction(vm.meta.ObjectGroup, nil)
 	// ObjectGroup[key] = v
 	vm.setSetIndexFunction(vm.meta.ObjectGroup, nil)
-	vm.registerDeleterV0(vm.meta.ObjectGroup)
-	vm.registerMoverV0(vm.meta.ObjectGroup)
-	vm.registerTogglerV0(vm.meta.ObjectGroup)
 }

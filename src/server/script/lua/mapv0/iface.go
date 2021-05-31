@@ -51,6 +51,13 @@ func (vm *api) indexInterfaceV0(val interface{}, key string) (lua.LValue, bool) 
 		}
 		v := obj.GridPos().Y
 		return lua.LNumber(v), true
+	case "owner":
+		obj, ok := val.(script.Owned)
+		if !ok {
+			return nil, false
+		}
+		v := obj.Owner()
+		return vm.newObject(v), true
 	case "enabled":
 		obj, ok := val.(script.Enabler)
 		if !ok {
@@ -115,24 +122,24 @@ func (vm *api) indexInterfaceV0(val interface{}, key string) (lua.LValue, bool) 
 func (vm *api) setindexInterfaceV0(s *lua.LState, val interface{}, key string) bool {
 	switch key {
 	case "x":
-		obj, ok := val.(script.Movable)
+		obj, ok := val.(script.Positionable)
 		if !ok {
 			return false
 		}
 		v := float32(s.CheckNumber(3))
 		p := obj.Pos()
 		p.X = v
-		obj.MoveTo(p)
+		obj.SetPos(p)
 		return true
 	case "y":
-		obj, ok := val.(script.Movable)
+		obj, ok := val.(script.Positionable)
 		if !ok {
 			return false
 		}
 		v := float32(s.CheckNumber(3))
 		p := obj.Pos()
 		p.Y = v
-		obj.MoveTo(p)
+		obj.SetPos(p)
 		return true
 	case "z":
 		obj, ok := val.(script.Raisable)
@@ -141,6 +148,17 @@ func (vm *api) setindexInterfaceV0(s *lua.LState, val interface{}, key string) b
 		}
 		v := float32(s.CheckNumber(3))
 		obj.SetZ(v)
+		return true
+	case "owner":
+		obj, ok := val.(script.OwnerSetter)
+		if !ok {
+			return false
+		}
+		var v script.ObjectWrapper
+		if s.Get(3) != lua.LNil {
+			v = s.CheckUserData(3).Value.(script.ObjectWrapper)
+		}
+		obj.SetOwner(v)
 		return true
 	case "enabled":
 		obj, ok := val.(script.EnableSetter)
@@ -211,88 +229,6 @@ func (vm *api) setindexInterfaceV0(s *lua.LState, val interface{}, key string) b
 	}
 }
 
-func (vm *api) registerPositionerV0(meta *lua.LTable) {
-	// Object:Pos() (x, y number)
-	meta.RawSetString("Pos", vm.s.NewFunction(func(s *lua.LState) int {
-		obj, ok := s.CheckUserData(1).Value.(script.Positioner)
-		if !ok {
-			return 0
-		}
-		p := obj.Pos()
-		s.Push(lua.LNumber(p.X))
-		s.Push(lua.LNumber(p.Y))
-		return 2
-	}))
-}
-
-func (vm *api) registerGridPositionerV0(meta *lua.LTable) {
-	// Object:GridPos() (x, y number)
-	meta.RawSetString("GridPos", vm.s.NewFunction(func(s *lua.LState) int {
-		obj, ok := s.CheckUserData(1).Value.(script.GridPositioner)
-		if !ok {
-			return 0
-		}
-		p := obj.GridPos()
-		s.Push(lua.LNumber(p.X))
-		s.Push(lua.LNumber(p.Y))
-		return 2
-	}))
-}
-
-func (vm *api) registerDeleterV0(meta *lua.LTable) {
-	// Object:Delete()
-	meta.RawSetString("Delete", vm.s.NewFunction(func(s *lua.LState) int {
-		obj, ok := s.CheckUserData(1).Value.(script.Deleter)
-		if !ok {
-			return 0
-		}
-		obj.Delete()
-		return 0
-	}))
-}
-
-func (vm *api) registerTogglerV0(meta *lua.LTable) {
-	// Object:Toggle()
-	meta.RawSetString("Toggle", vm.s.NewFunction(func(s *lua.LState) int {
-		val := s.CheckUserData(1).Value
-		switch val := val.(type) {
-		case script.Toggler:
-			val.Toggle()
-		case script.Enabler:
-			script.Toggle(val)
-		}
-		return 0
-	}))
-}
-
-func (vm *api) registerMoverV0(meta *lua.LTable) {
-	// Object:MoveTo(p Object) Object
-	// Object:MoveTo(p Waypoint) Object
-	// Object:MoveTo(x, y number) Object
-	meta.RawSetString("MoveTo", vm.s.NewFunction(func(s *lua.LState) int {
-		obj, ok := s.CheckUserData(1).Value.(script.Mover)
-		if !ok {
-			return 0
-		}
-		switch s.Get(2).(type) {
-		case lua.LNumber:
-			x := s.CheckNumber(2)
-			y := s.CheckNumber(3)
-			obj.MoveTo(types.Pointf{X: float32(x), Y: float32(y)})
-			s.Push(s.Get(1))
-			return 1
-		default:
-			pos, ok := s.CheckUserData(2).Value.(script.Positioner)
-			if !ok {
-				return 0
-			}
-			script.MoveToPos(obj, pos)
-			s.Push(s.Get(1))
-			return 1
-		}
-	}))
-}
-
 func (vm *api) registerMobileV0(meta *lua.LTable) {
 	// Object:Freeze()
 	meta.RawSetString("Freeze", vm.s.NewFunction(func(s *lua.LState) int {
@@ -322,6 +258,16 @@ func (vm *api) registerMobileV0(meta *lua.LTable) {
 			return 0
 		}
 		obj.Return()
+		s.Push(s.Get(1))
+		return 1
+	}))
+	// Object:Idle()
+	meta.RawSetString("Idle", vm.s.NewFunction(func(s *lua.LState) int {
+		obj, ok := s.CheckUserData(1).Value.(script.Mobile)
+		if !ok {
+			return 0
+		}
+		obj.Idle()
 		s.Push(s.Get(1))
 		return 1
 	}))
@@ -432,10 +378,10 @@ func (vm *api) registerMobileV0(meta *lua.LTable) {
 	}))
 }
 
-func (vm *api) registerOffensiveV0(meta *lua.LTable) {
+func (vm *api) registerOffensiveGroupV0(meta *lua.LTable) {
 	// Object:Attack(obj Object)
 	meta.RawSetString("Attack", vm.s.NewFunction(func(s *lua.LState) int {
-		obj, ok := s.CheckUserData(1).Value.(script.Offensive)
+		obj, ok := s.CheckUserData(1).Value.(script.OffensiveGroup)
 		if !ok {
 			return 0
 		}
@@ -450,7 +396,7 @@ func (vm *api) registerOffensiveV0(meta *lua.LTable) {
 	// Object:HitMelee(obj Object)
 	// Object:HitMelee(x, y number)
 	meta.RawSetString("HitMelee", vm.s.NewFunction(func(s *lua.LState) int {
-		obj, ok := s.CheckUserData(1).Value.(script.Offensive)
+		obj, ok := s.CheckUserData(1).Value.(script.OffensiveGroup)
 		if !ok {
 			return 0
 		}
@@ -472,7 +418,7 @@ func (vm *api) registerOffensiveV0(meta *lua.LTable) {
 	// Object:HitRanged(obj Object)
 	// Object:HitRanged(x, y number)
 	meta.RawSetString("HitRanged", vm.s.NewFunction(func(s *lua.LState) int {
-		obj, ok := s.CheckUserData(1).Value.(script.Offensive)
+		obj, ok := s.CheckUserData(1).Value.(script.OffensiveGroup)
 		if !ok {
 			return 0
 		}
@@ -488,6 +434,26 @@ func (vm *api) registerOffensiveV0(meta *lua.LTable) {
 			}
 			script.HitRangedPos(obj, obj2)
 		}
+		s.Push(s.Get(1))
+		return 1
+	}))
+	// Object:Guard()
+	meta.RawSetString("Guard", vm.s.NewFunction(func(s *lua.LState) int {
+		obj, ok := s.CheckUserData(1).Value.(script.OffensiveGroup)
+		if !ok {
+			return 0
+		}
+		obj.Guard()
+		s.Push(s.Get(1))
+		return 1
+	}))
+	// Object:Hunt()
+	meta.RawSetString("Hunt", vm.s.NewFunction(func(s *lua.LState) int {
+		obj, ok := s.CheckUserData(1).Value.(script.OffensiveGroup)
+		if !ok {
+			return 0
+		}
+		obj.Hunt()
 		s.Push(s.Get(1))
 		return 1
 	}))

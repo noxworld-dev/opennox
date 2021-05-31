@@ -5505,7 +5505,7 @@ int  sub_513280(int a1, int* a2) {
 __int16  nox_xxx_enchantUnit_513390(int a1, int* a2) { return nox_xxx_buffApplyTo_4FF380(a1, *a2, a2[1], 5); }
 
 //----- (00514110) --------------------------------------------------------
-int*  nox_xxx_monsterWalkTo_514110(int a1, int a2, int a3) {
+void nox_xxx_monsterWalkTo_514110(int a1, float x, float y) {
 	int* result; // eax
 	int* v4;     // eax
 
@@ -5517,12 +5517,11 @@ int*  nox_xxx_monsterWalkTo_514110(int a1, int a2, int a3) {
 			v4[1] = 8;
 		result = nox_xxx_monsterPushAction_50A260(a1, 8);
 		if (result) {
-			result[1] = a2;
-			result[2] = a3;
+			((float*)result)[1] = x;
+			((float*)result)[2] = y;
 			result[3] = 0;
 		}
 	}
-	return result;
 }
 
 //----- (00515680) --------------------------------------------------------
@@ -5553,7 +5552,7 @@ void  nox_xxx_monsterGoPatrol_515680(int a1, int a2) {
 }
 
 //----- (005157A0) --------------------------------------------------------
-void  sub_5157A0(int a1) {
+void  nox_xxx_unitHunt_5157A0(int a1) {
 	int result; // eax
 
 	if (a1 && *(_BYTE*)(a1 + 8) & 2) {
@@ -5566,7 +5565,7 @@ void  sub_5157A0(int a1) {
 }
 
 //----- (00515820) --------------------------------------------------------
-void  sub_515820(int a1) {
+void  nox_xxx_unitIdle_515820(int a1) {
 	int result; // eax
 
 	if (a1 && *(_BYTE*)(a1 + 8) & 2) {

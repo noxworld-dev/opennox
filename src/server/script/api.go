@@ -1,15 +1,9 @@
 package script
 
-type Waypoint interface {
-	Identifiable
-	Enabler
-	Movable
-}
-
 type Player interface {
-	Movable // proxies to Unit
-	// Name of the player.
-	Name() string
+	ObjectWrapper // proxies to Unit
+	Positionable  // proxies to Unit
+	Named
 	// IsHost checks if this player hosts the game.
 	IsHost() bool
 	Printer

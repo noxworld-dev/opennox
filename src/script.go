@@ -88,6 +88,10 @@ func (noxScript) WaypointByID(id string) script.Waypoint {
 	panic("implement me")
 }
 
+func (noxScript) WaypointGroupByID(id string) *script.WaypointGroup {
+	panic("implement me")
+}
+
 func (noxScript) WallAt(pos types.Pointf) script.Wall {
 	w := getWallAt(pos)
 	if w == nil {
@@ -116,14 +120,17 @@ func (noxScript) WallGroupByID(id string) *script.WallGroup {
 	return getWallGroupByID(id)
 }
 
-type scriptConsole struct{}
+type scriptConsole parsecmd.Color
 
-func (scriptConsole) Print(text string) {
-	consolePrintf(parsecmd.ColorYellow, "%s", text)
+func (c scriptConsole) Print(text string) {
+	consolePrintf(parsecmd.Color(c), "%s", text)
 }
 
-func (noxScript) Console() script.Printer {
-	return scriptConsole{}
+func (noxScript) Console(error bool) script.Printer {
+	if error {
+		return scriptConsole(parsecmd.ColorLightRed)
+	}
+	return scriptConsole(parsecmd.ColorYellow)
 }
 
 type scriptGlobalPrint struct{}

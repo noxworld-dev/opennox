@@ -14,26 +14,26 @@ type GridPositioner interface {
 	GridPos() types.Point
 }
 
-// Mover is an interface for objects that can be moved.
-type Mover interface {
-	// MoveTo instantly moves object to a given position.
-	MoveTo(p types.Pointf)
+// PositionSetter is an interface for objects that can be moved.
+type PositionSetter interface {
+	// SetPos instantly moves object to a given position.
+	SetPos(p types.Pointf)
 }
 
-// Movable is a combined interface for objects for which you can get and set the position.
-type Movable interface {
+// Positionable is a combined interface for objects for which you can get and set the position.
+type Positionable interface {
 	Positioner
-	Mover
+	PositionSetter
 }
 
-// MoveToPos is a helper to move objects to another object's location.
-func MoveToPos(obj Mover, to Positioner) {
-	obj.MoveTo(to.Pos())
+// SetPos is a helper to instantly move objects to another object's location.
+func SetPos(obj PositionSetter, to Positioner) {
+	obj.SetPos(to.Pos())
 }
 
-// Raisable is an interface for movable objects that can also be raised or lowered by Z axis.
+// Raisable is an interface for positionable objects that can also be raised or lowered by Z axis.
 type Raisable interface {
-	Movable
+	Positionable
 	// Z returns current Z offset for the object.
 	Z() float32
 	// SetZ sets Z offset for the object.

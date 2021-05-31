@@ -1,8 +1,6 @@
 package mapv0
 
 import (
-	"fmt"
-
 	lua "github.com/yuin/gopher-lua"
 
 	"nox/v1/common/types"
@@ -31,20 +29,14 @@ func (vm *api) newWallGroup(v *script.WallGroup) lua.LValue {
 func (vm *api) initMetaWall() {
 	vm.meta.Wall = vm.newMeta("Wall")
 	vm.meta.WallGroup = vm.newMeta("WallGroup")
+
+	vm.registerObjMethod("GridPos", func(obj script.GridPositioner) (x, y int) {
+		pos := obj.GridPos()
+		return pos.X, pos.Y
+	})
 }
 
 func (vm *api) initWall() {
-	// print(Wall)
-	vm.meta.Wall.RawSetString("__tostring", vm.s.NewFunction(func(s *lua.LState) int {
-		obj, ok := s.CheckUserData(1).Value.(script.Wall)
-		if !ok {
-			return 0
-		}
-		pos := obj.GridPos()
-		str := fmt.Sprintf("Wall(%d, %d)", pos.X, pos.Y)
-		s.Push(lua.LString(str))
-		return 1
-	}))
 	// Wall(x, y number)
 	vm.meta.Wall.RawSetString("__call", vm.s.NewFunction(func(s *lua.LState) int {
 		x := int(s.CheckNumber(2))
@@ -95,36 +87,9 @@ func (vm *api) initWall() {
 	vm.setIndexFunction(vm.meta.Wall, nil)
 	// Wall[key] = v
 	vm.setSetIndexFunction(vm.meta.Wall, nil)
-	// Wall:Break()
-	vm.meta.Wall.RawSetString("Break", vm.s.NewFunction(func(s *lua.LState) int {
-		wl, ok := s.CheckUserData(1).Value.(script.Wall)
-		if !ok {
-			return 0
-		}
-		wl.Break()
-		return 0
-	}))
-	vm.registerPositionerV0(vm.meta.Wall)
-	vm.registerGridPositionerV0(vm.meta.Wall)
-	vm.registerTogglerV0(vm.meta.Wall)
 }
 
 func (vm *api) initWallGroup() {
-	// print(WallGroup)
-	vm.meta.WallGroup.RawSetString("__tostring", vm.s.NewFunction(func(s *lua.LState) int {
-		g, ok := s.CheckUserData(1).Value.(*script.WallGroup)
-		if !ok {
-			return 0
-		}
-		var str string
-		if id := g.ID(); id != "" {
-			str = fmt.Sprintf("WallGroup(%s)", id)
-		} else {
-			str = fmt.Sprintf("WallGroup(%d)", len(g.Walls()))
-		}
-		s.Push(lua.LString(str))
-		return 1
-	}))
 	// WallGroup(id string)
 	vm.meta.WallGroup.RawSetString("__call", vm.s.NewFunction(func(s *lua.LState) int {
 		id := s.CheckString(2)
@@ -173,14 +138,4 @@ func (vm *api) initWallGroup() {
 	}))
 	// WallGroup[key] = v
 	vm.setSetIndexFunction(vm.meta.WallGroup, nil)
-	// WallGroup:Break()
-	vm.meta.WallGroup.RawSetString("Break", vm.s.NewFunction(func(s *lua.LState) int {
-		wl, ok := s.CheckUserData(1).Value.(*script.WallGroup)
-		if !ok {
-			return 0
-		}
-		wl.Break()
-		return 0
-	}))
-	vm.registerTogglerV0(vm.meta.WallGroup)
 }

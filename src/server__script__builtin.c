@@ -1714,8 +1714,8 @@ int nox_script_FaceObject_514050() {
 int nox_script_Walk_5140B0() {
 	int v0;   // eax
 	int v1;   // eax
-	int v3;   // [esp+0h] [ebp-10h]
-	int v4;   // [esp+4h] [ebp-Ch]
+	float v3;   // [esp+0h] [ebp-10h]
+	float v4;   // [esp+4h] [ebp-Ch]
 	float v5; // [esp+8h] [ebp-8h]
 	float v6; // [esp+Ch] [ebp-4h]
 
@@ -1724,8 +1724,8 @@ int nox_script_Walk_5140B0() {
 	v0 = nox_script_pop();
 	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v1) {
-		*(float*)&v4 = (double)*(int*)&dword_5d4594_3821640 + v5;
-		*(float*)&v3 = (double)*(int*)&dword_5d4594_3821636 + v6;
+		v4 = (double)*(int*)&dword_5d4594_3821640 + v5;
+		v3 = (double)*(int*)&dword_5d4594_3821636 + v6;
 		nox_xxx_monsterWalkTo_514110(v1, v3, v4);
 	}
 	return 0;
@@ -1737,8 +1737,8 @@ int nox_script_GroupWalk_514170() {
 	int result; // eax
 	int* i;     // esi
 	int v3;     // eax
-	int v4;     // [esp+0h] [ebp-14h]
-	int v5;     // [esp+4h] [ebp-10h]
+	float v4;     // [esp+0h] [ebp-14h]
+	float v5;     // [esp+4h] [ebp-10h]
 	float v6;   // [esp+Ch] [ebp-8h]
 	float v7;   // [esp+10h] [ebp-4h]
 
@@ -1750,8 +1750,8 @@ int nox_script_GroupWalk_514170() {
 		for (i = *(int**)(result + 84); i; i = (int*)i[2]) {
 			v3 = nox_xxx_netGetUnitByExtent_4ED020(*i);
 			if (v3) {
-				*(float*)&v5 = (double)*(int*)&dword_5d4594_3821640 + v6;
-				*(float*)&v4 = (double)*(int*)&dword_5d4594_3821636 + v7;
+				v5 = (double)*(int*)&dword_5d4594_3821640 + v6;
+				v4 = (double)*(int*)&dword_5d4594_3821636 + v7;
 				nox_xxx_monsterWalkTo_514110(v3, v4, v5);
 			}
 		}
@@ -2791,7 +2791,7 @@ int nox_script_MonsterHunt_515780() {
 	v0 = nox_script_pop();
 	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v1)
-		sub_5157A0(v1);
+		nox_xxx_unitHunt_5157A0(v1);
 	return 0;
 }
 
@@ -2802,30 +2802,30 @@ int nox_script_builtin_5157D0() {
 
 	v0 = nox_script_pop();
 	v1 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v0);
-	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 0, sub_5157A0, 0);
+	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 0, nox_xxx_unitHunt_5157A0, 0);
 	return 0;
 }
 
 //----- (00515800) --------------------------------------------------------
-int nox_script_builtin_515800() {
+int nox_script_Idle_515800() {
 	int v0; // eax
 	int v1; // eax
 
 	v0 = nox_script_pop();
 	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v1)
-		sub_515820(v1);
+		nox_xxx_unitIdle_515820(v1);
 	return 0;
 }
 
 //----- (00515850) --------------------------------------------------------
-int nox_script_builtin_515850() {
+int nox_script_GroupIdle_515850() {
 	int v0;              // eax
 	unsigned __int8* v1; // eax
 
 	v0 = nox_script_pop();
 	v1 = (unsigned __int8*)nox_server_scriptGetGroup_57C0A0(v0);
-	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 0, sub_515820, 0);
+	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 0, nox_xxx_unitIdle_515820, 0);
 	return 0;
 }
 
@@ -3623,43 +3623,43 @@ int nox_script_SetProperty_516970() {
 		return 0;
 	v4 = *(_DWORD**)(v3 + 748);
 	switch (v1) {
-	case 3:
+	case 3: // Enemy sighted
 		v4[309] = v0;
 		result = 0;
 		break;
-	case 4:
+	case 4: // Looking for enemy
 		v4[307] = v0;
 		result = 0;
 		break;
-	case 5:
+	case 5: // Death
 		v4[317] = v0;
 		result = 0;
 		break;
-	case 6:
+	case 6: // Change focus
 		v4[311] = v0;
 		result = 0;
 		break;
-	case 7:
+	case 7: // Is hit
 		v4[313] = v0;
 		result = 0;
 		break;
-	case 8:
+	case 8: // Retreat
 		v4[315] = v0;
 		result = 0;
 		break;
-	case 9:
+	case 9: // Collision
 		v4[319] = v0;
 		result = 0;
 		break;
-	case 10:
+	case 10: // Enemy heard
 		v4[321] = v0;
 		result = 0;
 		break;
-	case 11:
+	case 11: // End of waypoint
 		v4[323] = v0;
 		result = 0;
 		break;
-	case 13:
+	case 13: // Lost sight of enemy
 		v4[325] = v0;
 		return 0;
 	default:
@@ -4164,8 +4164,8 @@ void* nox_script_builtin[] = {
 	&nox_script_builtin_515700, // 140
 	&nox_script_MonsterHunt_515780, // 141
 	&nox_script_builtin_5157D0, // 142
-	&nox_script_builtin_515800, // 143
-	&nox_script_builtin_515850, // 144
+	&nox_script_Idle_515800, // 143
+	&nox_script_GroupIdle_515850, // 144
 	&nox_script_Follow_515880, // 145
 	&nox_script_builtin_515910, // 146
 	&nox_script_AgresssionLevel_515950, // 147

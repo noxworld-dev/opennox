@@ -145,7 +145,7 @@ func nox_xxx_gameTick_4D2580_server_E() {
 	nox_xxx_mapEntry_4FC600()
 	C.sub_4FC680()
 	if unit := getPlayerByInd(31).UnitC(); unit != nil {
-		C.nox_xxx_playerSomeWallsUpdate_5003B0(C.int(uintptr(unit.C())))
+		C.nox_xxx_playerSomeWallsUpdate_5003B0(C.int(uintptr(unit.CObj())))
 	}
 	if C.nox_xxx_get_57AF20() != 0 && C.sub_57B140() {
 		C.sub_57B0A0()
@@ -231,7 +231,7 @@ func updateRemotePlayers() {
 			// TODO: passing Go pointer
 			C.nox_netlist_addToMsgListCli_40EBC0(C.int(pl.Index()), 1, (*C.uchar)(unsafe.Pointer(&buf[0])), C.int(len(buf)))
 		} else {
-			C.nox_xxx_netUpdate_518EE0((*C.uint)(pl.UnitC().C()))
+			C.nox_xxx_netUpdate_518EE0((*C.uint)(pl.UnitC().CObj()))
 		}
 		if pl.UnitC() == HostPlayerUnit() {
 			C.nox_xxx_netImportant_4E5770(C.uchar(pl.Index()), 1)

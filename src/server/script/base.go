@@ -1,13 +1,17 @@
 package script
 
+import "fmt"
+
 // Identifiable is an interface for objects with unique string ID.
 type Identifiable interface {
+	fmt.Stringer
 	// ID of the object.
 	ID() string
 }
 
 // Named is an interface for objects with a human-readable name.
 type Named interface {
+	fmt.Stringer
 	// Name returns a name of the item.
 	Name() string
 }
@@ -69,14 +73,35 @@ func ToggleLock(obj Lockable) bool {
 	return obj.IsLocked()
 }
 
+// Destroyable is an interface for objects can be broken, destroyed or killed.
+type Destroyable interface {
+	// Destroy this object. Implies reducing health to zero and playing break/death effects.
+	Destroy()
+}
+
 // Breakable is an interface for objects that has health and can be broken.
 type Breakable interface {
+	Destroyable
 	// Health returns current and max health of the object.
 	Health() (cur, max int)
 	// SetHealth sets the amount of health of the object. It will be limited by max health.
 	SetHealth(v int)
 	// SetMaxHealth sets the maximal amount of health of the object. It will be adjust health accordingly.
 	SetMaxHealth(v int)
-	// Destroy this object. Implies reducing health to zero and playing break/death effects.
-	Destroy()
+}
+
+// Owned is an interface for objects with an owner.
+type Owned interface {
+	Owner() Object
+}
+
+// OwnerSetter is an interface for objects that can be assigned an owner.
+type OwnerSetter interface {
+	SetOwner(owner ObjectWrapper)
+}
+
+// Ownable is an interface for objects that has and can be assigned an owner.
+type Ownable interface {
+	Owned
+	OwnerSetter
 }

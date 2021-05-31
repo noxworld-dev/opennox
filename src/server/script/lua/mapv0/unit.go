@@ -7,7 +7,8 @@ import (
 )
 
 type metaUnit struct {
-	Unit *lua.LTable
+	Unit      *lua.LTable
+	UnitGroup *lua.LTable
 }
 
 func (vm *api) newUnit(u script.Unit) lua.LValue {
@@ -17,21 +18,19 @@ func (vm *api) newUnit(u script.Unit) lua.LValue {
 	return &lua.LUserData{Value: u, Metatable: vm.meta.Unit}
 }
 
+func (vm *api) newUnitGroup(v *script.UnitGroup) lua.LValue {
+	if v == nil {
+		return lua.LNil
+	}
+	return &lua.LUserData{Value: v, Metatable: vm.meta.UnitGroup}
+}
+
 func (vm *api) initMetaUnit() {
 	vm.meta.Unit = vm.newMeta("")
+	vm.meta.UnitGroup = vm.newMeta("")
 }
 
 func (vm *api) initUnit() {
-	// print(Unit)
-	vm.meta.Unit.RawSetString("__tostring", vm.s.NewFunction(func(s *lua.LState) int {
-		u, ok := s.CheckUserData(1).Value.(script.Unit)
-		if !ok {
-			return 0
-		}
-		str := "Unit(" + u.ID() + ")"
-		s.Push(lua.LString(str))
-		return 1
-	}))
 	// Unit[key]
 	vm.setIndexFunction(vm.meta.Unit, func(val interface{}, key string) (lua.LValue, bool) {
 		u, ok := val.(script.Unit)
@@ -47,10 +46,16 @@ func (vm *api) initUnit() {
 	})
 	// Unit[key] = v
 	vm.setSetIndexFunction(vm.meta.Unit, nil)
-	vm.registerDeleterV0(vm.meta.Unit)
-	vm.registerPositionerV0(vm.meta.Unit)
-	vm.registerMoverV0(vm.meta.Unit)
 	vm.registerMobileV0(vm.meta.Unit)
-	vm.registerOffensiveV0(vm.meta.Unit)
+	vm.registerOffensiveGroupV0(vm.meta.Unit)
 	vm.registerChattyV0(vm.meta.Unit)
+}
+
+func (vm *api) initUnitGroup() {
+	// UnitGroup[key]
+	vm.setIndexFunction(vm.meta.UnitGroup, nil)
+	// UnitGroup[key] = v
+	vm.setSetIndexFunction(vm.meta.UnitGroup, nil)
+	vm.registerMobileV0(vm.meta.UnitGroup)
+	vm.registerOffensiveGroupV0(vm.meta.UnitGroup)
 }

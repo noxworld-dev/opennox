@@ -1,8 +1,6 @@
 package mapv0
 
 import (
-	"fmt"
-
 	lua "github.com/yuin/gopher-lua"
 
 	"nox/v1/server/script"
@@ -53,6 +51,12 @@ func (vm *api) initPlayer() {
 			s.Push(vm.newPlayer(list[i]))
 			return 1
 		case lua.LString:
+			switch key {
+			case "host":
+				p := vm.g.HostPlayer()
+				s.Push(vm.newPlayer(p))
+				return 1
+			}
 			s.Push(s.RawGet(vm.meta.Players, key))
 			return 1
 		default:
@@ -79,16 +83,6 @@ func (vm *api) initPlayer() {
 		return 1
 	}))
 
-	// print(Player)
-	vm.meta.Player.RawSetString("__tostring", vm.s.NewFunction(func(s *lua.LState) int {
-		p, ok := s.CheckUserData(1).Value.(script.Player)
-		if !ok {
-			return 0
-		}
-		str := fmt.Sprintf("Player(%q)", p.Name())
-		s.Push(lua.LString(str))
-		return 1
-	}))
 	// Player[key]
 	vm.setIndexFunction(vm.meta.Player, func(val interface{}, key string) (lua.LValue, bool) {
 		p, ok := val.(script.Player)
@@ -140,6 +134,4 @@ func (vm *api) initPlayer() {
 		p.Cinema(v)
 		return 1
 	}))
-	vm.registerPositionerV0(vm.meta.Player)
-	vm.registerMoverV0(vm.meta.Player)
 }

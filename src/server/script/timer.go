@@ -15,12 +15,12 @@ type Duration struct {
 	time   time.Duration
 }
 
-func (d Duration) Less(d2 Duration) bool {
+func (d Duration) LessOrEq(d2 Duration) bool {
 	if d.IsFrames() && d2.IsFrames() {
-		return d.frames < d2.frames
+		return d.frames <= d2.frames
 	}
 	if d.IsTime() && d2.IsTime() {
-		return d.time < d2.time
+		return d.time <= d2.time
 	}
 	return false
 }
@@ -91,7 +91,7 @@ func (t *Timers) Tick() {
 		time:   t.src.Time(),
 	}
 	for _, tm := range t.active {
-		if tm.at.Less(t.cur) {
+		if tm.at.LessOrEq(t.cur) {
 			tm.fnc()
 			tm.fnc = nil
 			t.stopTimer(tm.id)

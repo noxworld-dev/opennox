@@ -25,8 +25,28 @@ func (vm *api) newDuration(d script.Duration) lua.LValue {
 }
 
 func (vm *api) initMetaTimer() {
-	vm.meta.Timer = vm.newMeta("")
+	vm.meta.Timer = vm.newMeta("Timer")
 	vm.meta.Dur = vm.newMeta("")
+}
+
+func (vm *api) luaNewTimer(dur script.Duration, s *lua.LState, off int) int {
+	fnc := s.CheckFunction(off)
+	var args []lua.LValue
+	for i := off + 1; i <= s.GetTop(); i++ {
+		args = append(args, s.Get(i))
+	}
+	t := vm.tm.SetTimer(dur, func() {
+		vm.s.Push(fnc)
+		for _, a := range args {
+			vm.s.Push(a)
+		}
+		err := vm.s.PCall(len(args), 0, nil)
+		if err != nil {
+			vm.s.Error(lua.LString(err.Error()), 0)
+		}
+	})
+	s.Push(vm.newTimer(t))
+	return 1
 }
 
 func (vm *api) initTimer() {
@@ -43,40 +63,32 @@ func (vm *api) initTimer() {
 		s.Push(vm.newDuration(script.Frames(v)))
 		return 1
 	}))
+	// Nox.FrameTimer(frames, fnc, ...)
+	vm.root.RawSetString("FrameTimer", vm.s.NewFunction(func(s *lua.LState) int {
+		v := int(s.CheckNumber(1))
+		return vm.luaNewTimer(script.Frames(v), s, 2)
+	}))
+	// Nox.SecondTimer(sec, fnc, ...)
+	vm.root.RawSetString("SecondTimer", vm.s.NewFunction(func(s *lua.LState) int {
+		dt := time.Duration(float64(s.CheckNumber(1)) * float64(time.Second))
+		return vm.luaNewTimer(script.Time(dt), s, 2)
+	}))
 	// Nox.Timer(dur, fnc)
-	vm.root.RawSetString("Timer", vm.s.NewFunction(func(s *lua.LState) int {
-		dur, ok := s.CheckUserData(1).Value.(script.Duration)
+	vm.meta.Timer.RawSetString("__call", vm.s.NewFunction(func(s *lua.LState) int {
+		dur, ok := s.CheckUserData(2).Value.(script.Duration)
 		if !ok {
 			return 0
 		}
-		fnc := s.CheckFunction(2)
-		t := vm.tm.SetTimer(dur, func() {
-			vm.s.Push(fnc)
-			_ = vm.s.PCall(0, 0, nil)
-		})
-		s.Push(vm.newTimer(t))
-		return 1
+		return vm.luaNewTimer(dur, s, 3)
 	}))
-	// Nox.FrameTimer(frames, fnc)
-	vm.root.RawSetString("FrameTimer", vm.s.NewFunction(func(s *lua.LState) int {
-		v := int(s.CheckNumber(1))
-		fnc := s.CheckFunction(2)
-		t := vm.tm.SetTimer(script.Frames(v), func() {
-			vm.s.Push(fnc)
-			_ = vm.s.PCall(0, 0, nil)
-		})
-		s.Push(vm.newTimer(t))
-		return 1
+	// Timer:Stop()
+	vm.meta.Timer.RawSetString("Stop", vm.s.NewFunction(func(s *lua.LState) int {
+		t, ok := s.CheckUserData(1).Value.(*script.Timer)
+		if !ok {
+			return 0
+		}
+		t.Stop()
+		return 0
 	}))
-	// Nox.SecondTimer(sec, fnc)
-	vm.root.RawSetString("SecondTimer", vm.s.NewFunction(func(s *lua.LState) int {
-		dt := time.Duration(float64(s.CheckNumber(1)) * float64(time.Second))
-		fnc := s.CheckFunction(2)
-		t := vm.tm.SetTimer(script.Time(dt), func() {
-			vm.s.Push(fnc)
-			_ = vm.s.PCall(0, 0, nil)
-		})
-		s.Push(vm.newTimer(t))
-		return 1
-	}))
+	vm.setIndexFunction(vm.meta.Timer, nil)
 }

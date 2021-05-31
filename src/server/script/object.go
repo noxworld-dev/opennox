@@ -1,6 +1,8 @@
 package script
 
 import (
+	"fmt"
+
 	"nox/v1/common/object"
 	"nox/v1/common/types"
 )
@@ -10,13 +12,22 @@ type ObjectType interface {
 	CreateObject(p types.Pointf) Object
 }
 
+// ObjectWrapper is an interface for types that wrap Object.
+type ObjectWrapper interface {
+	// GetObject returns an underlying object.
+	GetObject() Object
+}
+
 type Object interface {
 	Identifiable
+	ObjectWrapper
 	Class() object.Class
 	ObjectType() ObjectType
+	Ownable
 	Physical
 	Enabler
 	Deleter
+	Destroyable
 }
 
 type LockableObject interface {
@@ -28,13 +39,19 @@ func NewObjectGroup(id string, list ...Object) *ObjectGroup {
 	return &ObjectGroup{id: id, list: list}
 }
 
+type objectGroup interface {
+	Identifiable
+	OwnerSetter
+	EnableSetter
+	Toggler
+	Deleter
+	PositionSetter
+	Pushable
+	Destroyable
+}
+
 var (
-	_ Identifiable = &ObjectGroup{}
-	_ EnableSetter = &ObjectGroup{}
-	_ Toggler      = &ObjectGroup{}
-	_ Deleter      = &ObjectGroup{}
-	_ Mover        = &ObjectGroup{}
-	_ Pushable     = &ObjectGroup{}
+	_ objectGroup = &ObjectGroup{}
 )
 
 type ObjectGroup struct {
@@ -47,6 +64,13 @@ func (g *ObjectGroup) ID() string {
 		return ""
 	}
 	return g.id
+}
+
+func (g *ObjectGroup) String() string {
+	if id := g.ID(); id != "" {
+		return fmt.Sprintf("ObjectGroup(%s)", id)
+	}
+	return fmt.Sprintf("ObjectGroup(%d)", len(g.list))
 }
 
 func (g *ObjectGroup) Objects() []Object {
@@ -65,12 +89,30 @@ func (g *ObjectGroup) Enable(enable bool) {
 	}
 }
 
+func (g *ObjectGroup) SetOwner(owner ObjectWrapper) {
+	if g == nil {
+		return
+	}
+	for _, v := range g.list {
+		v.SetOwner(owner)
+	}
+}
+
 func (g *ObjectGroup) Delete() {
 	if g == nil {
 		return
 	}
 	for _, v := range g.list {
 		v.Delete()
+	}
+}
+
+func (g *ObjectGroup) Destroy() {
+	if g == nil {
+		return
+	}
+	for _, v := range g.list {
+		v.Destroy()
 	}
 }
 
@@ -88,12 +130,12 @@ func (g *ObjectGroup) Toggle() bool {
 	return st
 }
 
-func (g *ObjectGroup) MoveTo(pos types.Pointf) {
+func (g *ObjectGroup) SetPos(pos types.Pointf) {
 	if g == nil {
 		return
 	}
 	for _, v := range g.list {
-		v.MoveTo(pos)
+		v.SetPos(pos)
 	}
 }
 
@@ -113,4 +155,72 @@ func (g *ObjectGroup) PushTo(pos types.Pointf) {
 	for _, v := range g.list {
 		v.PushTo(pos)
 	}
+}
+
+// BaseObject implements Object, but panics on all the methods.
+// Useful when you only want to define a part of the implementation.
+type BaseObject struct{}
+
+func (BaseObject) ID() string {
+	panic("implement me")
+}
+
+func (BaseObject) String() string {
+	panic("implement me")
+}
+
+func (BaseObject) Class() object.Class {
+	panic("implement me")
+}
+
+func (BaseObject) ObjectType() ObjectType {
+	panic("implement me")
+}
+
+func (BaseObject) Owner() Object {
+	panic("implement me")
+}
+
+func (BaseObject) SetOwner(owner ObjectWrapper) {
+	panic("implement me")
+}
+
+func (BaseObject) Pos() types.Pointf {
+	panic("implement me")
+}
+
+func (BaseObject) SetPos(p types.Pointf) {
+	panic("implement me")
+}
+
+func (BaseObject) Z() float32 {
+	panic("implement me")
+}
+
+func (BaseObject) SetZ(z float32) {
+	panic("implement me")
+}
+
+func (BaseObject) Push(vec types.Pointf, force float32) {
+	panic("implement me")
+}
+
+func (BaseObject) PushTo(p types.Pointf) {
+	panic("implement me")
+}
+
+func (BaseObject) IsEnabled() bool {
+	panic("implement me")
+}
+
+func (BaseObject) Enable(enable bool) {
+	panic("implement me")
+}
+
+func (BaseObject) Delete() {
+	panic("implement me")
+}
+
+func (BaseObject) Destroy() {
+	panic("implement me")
 }

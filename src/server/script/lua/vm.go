@@ -2,6 +2,7 @@ package lua
 
 import (
 	"bytes"
+	"fmt"
 	"os"
 	"path/filepath"
 	"strings"
@@ -13,6 +14,8 @@ import (
 	"nox/v1/server/script"
 	"nox/v1/server/script/lua/mapv0"
 )
+
+type vmStop struct{}
 
 var (
 	Log = log.New("lua")
@@ -29,17 +32,33 @@ type VM struct {
 	pkg    map[string]*lua.LTable
 }
 
-func NewVM(g script.Game, dir string) *VM {
+func NewVM(g script.Game, dir string, opts ...lua.Options) *VM {
+	opts = append(opts, lua.Options{
+		SkipOpenLibs: true,
+	})
 	vm := &VM{
 		g: g, dir: dir,
-		s: lua.NewState(lua.Options{
-			SkipOpenLibs: true,
-		}),
+		s:      lua.NewState(opts...),
 		timers: script.NewTimers(g),
 		pkg:    make(map[string]*lua.LTable),
 	}
+	vm.s.Panic = func(s *lua.LState) {
+		text := s.OptString(1, "")
+		vm.printErr(s, text)
+		panic(vmStop{})
+	}
 	vm.initLibs()
 	return vm
+}
+
+type APIFunc func(vm *lua.LState, tm *script.Timers, g script.Game) *lua.LTable
+
+func (vm *VM) InitAPI(global string, fnc APIFunc) *lua.LTable {
+	t := fnc(vm.s, vm.timers, vm.g)
+	if global != "" {
+		vm.s.SetGlobal(global, t)
+	}
+	return t
 }
 
 func (vm *VM) InitDefault() {
@@ -63,18 +82,48 @@ func (vm *VM) ExecFile(path string) error {
 	return err
 }
 
-func (vm *VM) OnEvent(typ script.EventType) {
-	if fnc, ok := vm.s.GetGlobal("On" + string(typ)).(*lua.LFunction); ok {
-		vm.s.Push(fnc)
-		vm.s.Call(0, 0)
+func (vm *VM) do(fnc func(s *lua.LState) error) {
+	if err := fnc(vm.s); err != nil {
+		vm.printErr(vm.s, err.Error())
 	}
 }
 
-func (vm *VM) OnFrame() {
+func (vm *VM) printErr(s *lua.LState, text string) {
+	con := vm.g.Console(true)
+	con.Print(text)
+	if d, ok := s.GetStack(0); ok {
+		con.Print(d.What)
+	}
+}
+
+func (vm *VM) OnEvent(typ script.EventType) {
+	if fnc, ok := vm.s.GetGlobal("On" + string(typ)).(*lua.LFunction); ok {
+		vm.do(func(s *lua.LState) error {
+			s.Push(fnc)
+			return s.PCall(0, 0, nil)
+		})
+	}
+}
+
+func (vm *VM) callTimers() {
+	defer func() {
+		switch r := recover().(type) {
+		default:
+			vm.printErr(vm.s, fmt.Sprint(r))
+		case nil:
+		case vmStop:
+		}
+	}()
 	vm.timers.Tick()
+}
+
+func (vm *VM) OnFrame() {
+	vm.callTimers()
 	if fnc, ok := vm.s.GetGlobal("OnFrame").(*lua.LFunction); ok {
-		vm.s.Push(fnc)
-		vm.s.Call(0, 0)
+		vm.do(func(s *lua.LState) error {
+			s.Push(fnc)
+			return s.PCall(0, 0, nil)
+		})
 	}
 }
 
@@ -109,7 +158,7 @@ func (vm *VM) initLibs() {
 }
 
 func (vm *VM) luaPrint(L *lua.LState) int {
-	p := vm.g.Console()
+	p := vm.g.Console(false)
 	vm.buf.Reset()
 	top := L.GetTop()
 	for i := 1; i <= top; i++ {
@@ -150,7 +199,7 @@ func (vm *VM) luaRequire(L *lua.LState) int {
 	switch name {
 	// builtin modules
 	case "Nox.Map.Script.v0":
-		t = mapv0.New(vm.s, vm.timers, vm.g)
+		t = vm.InitAPI("", mapv0.New)
 	default:
 		// check if there are modules with this name in local dir
 		// make sure to clean paths, so the script cannot escape the sandbox

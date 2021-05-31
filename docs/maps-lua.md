@@ -43,7 +43,7 @@ First, you should enable cheats (`racoiaws`), and the prefix all you commands wi
 For example:
 
 ```lua
-lua p = Nox.Players[1]
+lua p = Nox.Players.host
 lua print(p)
 ```
 
@@ -109,7 +109,7 @@ This object represents a group of one or more walls on the map.
 
 Open secret wall near the player (must be really close):
 ```lua
-local p = Nox.Players[1]
+local p = Nox.Players.host
 Nox.WallNear(p).enabled = false
 ```
 
@@ -143,8 +143,8 @@ Player object includes information about human-controlled player, as well as a u
 - `p.x` - gets or sets player's [unit](#unit-object) X coordinate.
 - `p.y` - gets or sets player's [unit](#unit-object) Y coordinate.
 - `p:Pos()` - returns player's [unit](#unit-object) position as a pair of X,Y coordinates.
-- `p:MoveTo(x,y)` - instantly moves player's [unit](#unit-object) to given coordinates.
-- `p:MoveTo(obj)` - instantly moves player's [unit](#unit-object) to a given object or waypoint.
+- `p:SetPos(x,y)` - instantly moves player's [unit](#unit-object) to given coordinates.
+- `p:SetPos(obj)` - instantly moves player's [unit](#unit-object) to a given object or waypoint.
 - `p:Print(text)` - prints a text message to the player.
 - `p:Blind()` - blinds player (fades the screen to black).
 - `p:Blind(false)` - unblinds player (fade back to normal).
@@ -165,9 +165,15 @@ local p = Nox.Players[1]
 print(p)
 ```
 
+Getting the host player:
+```lua
+local p = Nox.Players.host
+print(p)
+```
+
 Getting player's name:
 ```lua
-local p = Nox.Players[1]
+local p = Nox.Players.host
 print(p.name)
 ```
 
@@ -198,45 +204,28 @@ end
 
 This section describes different object present in game.
 
-### `Object` and `ObjectType`
-
-For simplicity, the script API allows to get both [`Object`](#object-instance) (objects seen in-game)
-and [`ObjectType`](#objecttype) (prototypes of objects) via a single `Objects(id)` call.
-
-In other words, if you want to get objects with a certain ID that exists on the map already:
-```lua
-local v = Nox.Object("MyObjectOnTheMap")
-print(v:Pos())
-```
-In this case, the returned value is an [object instance](#object-instance), or a more specific one like [unit](#unit-object).
-
-And if you want to create a new one based on some object type:
-```lua
-local t = Nox.Object("RedApple")
-local v1 = t:Create(x1, y1)
-local v2 = t:Create(x2, y2)
-```
-In this case the returned value describes the type of the object.
-The actual object instance be created to be seen in game (can be done multiple times).
-
 ### `ObjectType`
 
 Object type describes a "prototype" of an object that can be spawned in-game.
 
+- `Nox.ObjectType(id)` - find an object type by ID.
 - `t.id` - returns object type ID.
 - `t:Create(x,y)` - creates a new [object instance](#object-instance) at given coordinates.
 - `t:Create(obj)` - creates a new [object instance](#object-instance) at the position of another object or waypoint.
 
 ### `Object` instance
 
+- `Nox.Object(id)` - find an object by ID.
 - `v.id` - returns object's ID, if any.
+- `v.owner` - returns or sets object's owner.
 - `v.x` - gets or sets object's X coordinate.
 - `v.y` - gets or sets object's Y coordinate.
 - `v.z` - gets or sets object's Z coordinate.
 - `v.enabled` - checks if object is enabled or sets the enabled state.
 - `v:Pos()` - returns object's position as a pair of X,Y coordinates.
-- `v:MoveTo(x,y)` - instantly moves object to given coordinates.
-- `v:MoveTo(obj)` - instantly moves object to another object or waypoint.
+- `v:SetPos(x,y)` - instantly moves object to given coordinates.
+- `v:SetPos(obj)` - instantly moves object to another object or waypoint.
+- `v:SetOwner(obj)` - sets object owner; same as `v.owner`, but allow chaining.
 - `v:Delete()` - permanently delete object from the map.
 - `v:Toggle()` - toggles object's enabled state.
 
@@ -244,13 +233,22 @@ Object type describes a "prototype" of an object that can be spawned in-game.
 
 Unit extends the [generic object](#object-instance), so everything that can be done with object can be done with a unit.
 
+- `v.health` - current health of the unit.
+- `v.max_health` - max health of the unit.
+- `v.mana` - current mana of the unit.
+- `v.max_mana` - max mana of the unit.
 - `v:Freeze()` - freezes the unit in place.
 - `v:Wander()` - make the unit wander around.
 - `v:Return()` - make the unit return to its starting position.
+- `v:Idle()` - make the unit idle.
+- `v:Guard()` - make the unit guard position.
+- `v:Hunt()` - make the unit hunt for enemies.
 - `v:LookAt(x,y)` - make the unit look at certain position.
 - `v:LookAt(obj)` - make the unit look at another object or waypoint.
 - `v:LookAtDir(dir)` - make the unit look in a given direction.
 - `v:LookAngle(dir)` - make the unit look at a given angle.
+- `v:MoveTo(x,y)` - make the unit move to certain position.
+- `v:MoveTo(obj)` - make the unit move to another object or waypoint.
 - `v:WalkTo(x,y)` - make the unit walk to certain position.
 - `v:WalkTo(obj)` - make the unit walk to another object or waypoint.
 - `v:Follow(obj)` - make the unit follow another object.
@@ -262,26 +260,73 @@ Unit extends the [generic object](#object-instance), so everything that can be d
 
 ### Examples
 
-Teleport player 10 units right:
+Teleport player 10 pixels right:
 ```lua
-local p = Nox.Players[1]
+p = Nox.Players.host
 x, y = p:Pos()
 x = x + 10
-p:MoveTo(x,y)
+p:SetPos(x,y)
 ```
 
 Teleport player 1 to player 2:
 ```lua
-local p1 = Nox.Players[1]
-local p2 = Nox.Players[2]
-p1:MoveTo(p2)
+p1 = Nox.Players[1]
+p2 = Nox.Players[2]
+p1:SetPos(p2)
 ```
 
 Spawn 10 apples near the player:
 ```lua
-local apple = Nox.Object("RedApple")
-local p = Nox.Players[1]
+apple = Nox.ObjectType("RedApple")
+p = Nox.Players.host
 for i = 1,10 do
     apple:Create(p)
 end
+```
+
+Spawn Mimic near the player and make him friendly:
+```lua
+mimic = Nox.ObjectType("Mimic")
+p = Nox.Players.host
+mimic:Create(p):SetOwner(p)
+```
+
+Spawn 2 Beholders and make them follow the player:
+```
+beholder = Nox.ObjectType("Beholder")
+p = Nox.Players.host
+arr = {}
+for i = 1,2 do
+    arr[i] = beholder:Create(p)
+end
+squad = Nox.ObjectGroup(unpack(arr))
+squad:SetOwner(p)
+squad:Follow(p)
+```
+
+Make a train of 5 Bombers that follow each other and the player:
+```
+function trainFollow()
+    p:Print("Bomber train!")
+    prev = p
+    for i, b in ipairs(bombers) do
+        b:Follow(prev)
+        prev = b
+    end
+end
+
+function makeTrain()
+    bomber = Nox.ObjectType("Bomber")
+    p = Nox.Players.host
+    bombers = {}
+    for i = 1,5 do
+        bombers[i] = bomber:Create(p)
+    end
+    train = Nox.ObjectGroup(unpack(bombers))
+    train:SetOwner(p)
+    -- give them a frame or two to appear
+    Nox.FrameTimer(2, trainFollow)
+end
+
+makeTrain()
 ```

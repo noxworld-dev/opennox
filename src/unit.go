@@ -6,10 +6,10 @@ void nox_server_gotoHome(int v2);
 */
 import "C"
 import (
+	"fmt"
 	"unsafe"
 
 	"nox/v1/common/alloc"
-	"nox/v1/common/object"
 	"nox/v1/common/types"
 	"nox/v1/server/script"
 )
@@ -21,54 +21,24 @@ func asUnit(p unsafe.Pointer) *Unit {
 	return (*Unit)(p)
 }
 
-type Unit [0]byte
-
-func (u *Unit) C() unsafe.Pointer {
-	return unsafe.Pointer(u)
+type Unit struct {
+	Object
 }
 
 func (u *Unit) AsObject() *Object {
-	return asObject(u.C())
+	return asObject(u.CObj())
 }
 
-func (u *Unit) field(dp uintptr) unsafe.Pointer {
-	return unsafe.Pointer(uintptr(u.C()) + dp)
+func (u *Unit) String() string {
+	return fmt.Sprintf("Unit(%s)", u.ID())
 }
 
-func (u *Unit) ID() string {
-	p := *(**C.char)(u.field(0))
-	return GoString(p)
-}
-
-func (u *Unit) Class() object.Class {
-	v := *(*uint32)(u.field(8))
-	return object.Class(v)
-}
-
-func (u *Unit) ObjectType() script.ObjectType {
-	panic("implement me")
-}
-
-func (u *Unit) Pos() types.Pointf {
-	if u == nil {
-		return types.Pointf{}
-	}
-	return types.Pointf{
-		X: float32(*(*C.float)(u.field(56))),
-		Y: float32(*(*C.float)(u.field(60))),
-	}
-}
-
-func (u *Unit) MoveTo(p types.Pointf) {
+func (u *Unit) SetPos(p types.Pointf) {
 	cp := (*C.float2)(alloc.Malloc(unsafe.Sizeof(C.float2{})))
 	defer alloc.Free(unsafe.Pointer(cp))
 	cp.field_0 = C.float(p.X)
 	cp.field_4 = C.float(p.Y)
-	C.nox_xxx_unitMove_4E7010(C.int(uintptr(u.C())), cp)
-}
-
-func (u *Unit) Z() float32 {
-	return float32(*(*C.int)(u.field(104)))
+	C.nox_xxx_unitMove_4E7010(C.int(uintptr(u.CObj())), cp)
 }
 
 func (u *Unit) SetZ(z float32) {
@@ -83,26 +53,8 @@ func (u *Unit) PushTo(p types.Pointf) {
 	panic("implement me")
 }
 
-func (u *Unit) IsEnabled() bool {
-	if u == nil {
-		return false
-	}
-	return *(*uint32)(u.field(16))&0x1000000 != 0
-}
-
-func (u *Unit) Enable(enable bool) {
-	if u == nil {
-		return
-	}
-	if enable {
-		C.nox_xxx_objectSetOn_4E75B0(C.int(uintptr(u.C())))
-	} else {
-		C.nox_xxx_objectSetOff_4E7600(C.int(uintptr(u.C())))
-	}
-}
-
-func (u *Unit) Delete() {
-	C.nox_xxx_delayedDeleteObject_4E5CC0(C.int(uintptr(u.C())))
+func (u *Unit) Destroy() {
+	panic("implement me")
 }
 
 func (u *Unit) CanSee(obj script.Object) bool {
@@ -121,10 +73,6 @@ func (u *Unit) SetMaxHealth(v int) {
 	panic("implement me")
 }
 
-func (u *Unit) Destroy() {
-	panic("implement me")
-}
-
 func (u *Unit) Mana() (cur, max int) {
 	panic("implement me")
 }
@@ -137,8 +85,12 @@ func (u *Unit) SetMaxMana(v int) {
 	panic("implement me")
 }
 
+func (u *Unit) MoveTo(p types.Pointf) {
+	panic("implement me")
+}
+
 func (u *Unit) WalkTo(p types.Pointf) {
-	C.nox_xxx_monsterWalkTo_514110(C.int(uintptr(u.C())), C.int(p.X), C.int(p.Y))
+	C.nox_xxx_monsterWalkTo_514110(C.int(uintptr(u.CObj())), C.float(p.X), C.float(p.Y))
 }
 
 func (u *Unit) LookAt(p types.Pointf) {
@@ -160,22 +112,30 @@ func (u *Unit) LookAngle(ang int) {
 
 func (u *Unit) Freeze(freeze bool) {
 	if freeze {
-		C.nox_xxx_unitFreeze_4E79C0(C.int(uintptr(u.C())), 1)
+		C.nox_xxx_unitFreeze_4E79C0(C.int(uintptr(u.CObj())), 1)
 	} else {
-		C.nox_xxx_unitUnFreeze_4E7A60(C.int(uintptr(u.C())), 1)
+		C.nox_xxx_unitUnFreeze_4E7A60(C.int(uintptr(u.CObj())), 1)
 	}
 }
 
 func (u *Unit) Wander() {
-	C.nox_xxx_scriptMonsterRoam_512930(C.int(uintptr(u.C())))
+	C.nox_xxx_scriptMonsterRoam_512930(C.int(uintptr(u.CObj())))
 }
 
 func (u *Unit) Return() {
-	C.nox_server_gotoHome(C.int(uintptr(u.C())))
+	C.nox_server_gotoHome(C.int(uintptr(u.CObj())))
+}
+
+func (u *Unit) Idle() {
+	C.nox_xxx_unitIdle_515820(C.int(uintptr(u.CObj())))
 }
 
 func (u *Unit) Follow(obj script.Positioner) {
-	panic("implement me")
+	if v, ok := obj.(script.ObjectWrapper); ok {
+		obj = v.GetObject()
+	}
+	cobj := obj.(noxObject)
+	C.nox_xxx_unitSetFollow_5158C0(C.int(uintptr(u.CObj())), C.int(uintptr(cobj.CObj())))
 }
 
 func (u *Unit) Flee(obj script.Positioner, dur script.Duration) {
@@ -216,6 +176,14 @@ func (u *Unit) HitMelee(p types.Pointf) {
 
 func (u *Unit) HitRanged(p types.Pointf) {
 	panic("implement me")
+}
+
+func (u *Unit) Guard() {
+	panic("implement me")
+}
+
+func (u *Unit) Hunt() {
+	C.nox_xxx_unitHunt_5157A0(C.int(uintptr(u.CObj())))
 }
 
 func (u *Unit) Say(text string, dur script.Duration) {

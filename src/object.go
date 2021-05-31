@@ -7,6 +7,7 @@ extern void* nox_server_objects_uninited_1556860;
 */
 import "C"
 import (
+	"fmt"
 	"strings"
 	"unsafe"
 
@@ -58,9 +59,13 @@ func getObjectByID(id string) *Object {
 	return nil
 }
 
+type noxObject interface {
+	CObj() unsafe.Pointer
+}
+
 type Object [0]byte
 
-func (obj *Object) C() unsafe.Pointer {
+func (obj *Object) CObj() unsafe.Pointer {
 	return unsafe.Pointer(obj)
 }
 
@@ -71,6 +76,17 @@ func (obj *Object) field(dp uintptr) unsafe.Pointer {
 func (obj *Object) ID() string {
 	p := *(**C.char)(obj.field(0))
 	return GoString(p)
+}
+
+func (obj *Object) String() string {
+	return fmt.Sprintf("Object(%s)", obj.ID())
+}
+
+func (obj *Object) GetObject() script.Object {
+	if obj == nil {
+		return nil
+	}
+	return obj
 }
 
 func (obj *Object) Class() object.Class {
@@ -130,23 +146,44 @@ func (obj *Object) ObjectType() script.ObjectType {
 	panic("implement me")
 }
 
+func (obj *Object) OwnerC() *Object {
+	p := *(*unsafe.Pointer)(obj.field(508))
+	return asObject(p)
+}
+
+func (obj *Object) Owner() script.Object {
+	p := obj.OwnerC()
+	if p == nil {
+		return nil
+	}
+	return p
+}
+
+func (obj *Object) SetOwner(owner script.ObjectWrapper) {
+	if owner == nil {
+		C.nox_xxx_unitClearOwner_4EC300(C.int(uintptr(obj.CObj())))
+		return
+	}
+	own := owner.GetObject().(noxObject)
+	C.nox_xxx_unitSetOwner_4EC290(C.int(uintptr(own.CObj())), C.int(uintptr(obj.CObj())))
+}
+
 func (obj *Object) Pos() types.Pointf {
 	if obj == nil {
 		return types.Pointf{}
 	}
-	// TODO: verify
 	return types.Pointf{
 		X: float32(*(*C.float)(obj.field(56))),
 		Y: float32(*(*C.float)(obj.field(60))),
 	}
 }
 
-func (obj *Object) MoveTo(p types.Pointf) {
+func (obj *Object) SetPos(p types.Pointf) {
 	cp := (*C.float2)(alloc.Malloc(unsafe.Sizeof(C.float2{})))
 	defer alloc.Free(unsafe.Pointer(cp))
 	cp.field_0 = C.float(p.X)
 	cp.field_4 = C.float(p.Y)
-	C.nox_xxx_unitMove_4E7010(C.int(uintptr(obj.C())), cp)
+	C.nox_xxx_unitMove_4E7010(C.int(uintptr(obj.CObj())), cp)
 }
 
 func (obj *Object) Z() float32 {
@@ -177,12 +214,16 @@ func (obj *Object) Enable(enable bool) {
 		return
 	}
 	if enable {
-		C.nox_xxx_objectSetOn_4E75B0(C.int(uintptr(obj.C())))
+		C.nox_xxx_objectSetOn_4E75B0(C.int(uintptr(obj.CObj())))
 	} else {
-		C.nox_xxx_objectSetOff_4E7600(C.int(uintptr(obj.C())))
+		C.nox_xxx_objectSetOff_4E7600(C.int(uintptr(obj.CObj())))
 	}
 }
 
 func (obj *Object) Delete() {
-	C.nox_xxx_delayedDeleteObject_4E5CC0(C.int(uintptr(obj.C())))
+	C.nox_xxx_delayedDeleteObject_4E5CC0(C.int(uintptr(obj.CObj())))
+}
+
+func (obj *Object) Destroy() {
+	panic("implement me")
 }

@@ -11,6 +11,7 @@ static void nox_xxx_netSendLineMessage_go(void* a1, wchar_t* str) {
 */
 import "C"
 import (
+	"fmt"
 	"unsafe"
 
 	"nox/v1/common/memmap"
@@ -43,6 +44,8 @@ func BlindPlayers(blind bool) {
 	C.nox_xxx_netMsgFadeBegin_4D9800(C.int(bool2int(!blind)), 0)
 }
 
+var _ noxObject = (*Player)(nil) // proxies Unit
+
 type Player C.nox_playerInfo
 
 func (p *Player) Pos() types.Pointf {
@@ -56,7 +59,7 @@ func (p *Player) Pos() types.Pointf {
 	return u.Pos()
 }
 
-func (p *Player) MoveTo(pos types.Pointf) {
+func (p *Player) SetPos(pos types.Pointf) {
 	if p == nil {
 		return
 	}
@@ -64,12 +67,16 @@ func (p *Player) MoveTo(pos types.Pointf) {
 	if u == nil {
 		return
 	}
-	u.MoveTo(pos)
+	u.SetPos(pos)
 }
 
 func (p *Player) Name() string {
 	// TODO: may be wrong field; candidates: 2185, 4704
 	return GoWString((*C.wchar_t)(unsafe.Pointer(uintptr(unsafe.Pointer(p)) + 2185)))
+}
+
+func (p *Player) String() string {
+	return fmt.Sprintf("Player(%q)", p.Name())
 }
 
 func (p *Player) IsHost() bool {
@@ -80,7 +87,7 @@ func (p *Player) IsHost() bool {
 func (p *Player) Print(text string) {
 	cstr := CWString(text)
 	defer WStrFree(cstr)
-	C.nox_xxx_netSendLineMessage_go(p.UnitC().C(), cstr)
+	C.nox_xxx_netSendLineMessage_go(p.UnitC().CObj(), cstr)
 }
 
 func (p *Player) Blind(blind bool) {
@@ -91,7 +98,26 @@ func (p *Player) Cinema(v int) {
 	panic("implement me")
 }
 
+func (p *Player) CObj() unsafe.Pointer {
+	u := p.UnitC()
+	if u == nil {
+		return nil
+	}
+	return u.CObj()
+}
+
+func (p *Player) GetObject() script.Object {
+	u := p.Unit()
+	if u == nil {
+		return nil
+	}
+	return u
+}
+
 func (p *Player) Unit() script.Unit {
+	if p == nil {
+		return nil
+	}
 	return p.UnitC()
 }
 

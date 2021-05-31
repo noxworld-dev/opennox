@@ -5,6 +5,7 @@ package main
 */
 import "C"
 import (
+	"fmt"
 	"sort"
 	"unsafe"
 
@@ -86,6 +87,11 @@ func (w *Wall) field(dp uintptr) unsafe.Pointer {
 	return unsafe.Pointer(uintptr(w.C()) + dp)
 }
 
+func (w *Wall) String() string {
+	pos := w.GridPos()
+	return fmt.Sprintf("Wall(%d, %d)", pos.X, pos.Y)
+}
+
 func (w *Wall) GridPos() types.Point {
 	x := int(*(*byte)(w.field(5)))
 	y := int(*(*byte)(w.field(6)))
@@ -116,7 +122,7 @@ func (w *Wall) Enable(close bool) {
 	}
 }
 
-// Break the wall.
-func (w *Wall) Break() {
+// Destroy (break) the wall.
+func (w *Wall) Destroy() {
 	C.nox_xxx_wallPreDestroyByPtr_5122C0(C.int(uintptr(w.C())))
 }
