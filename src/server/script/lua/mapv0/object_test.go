@@ -1,6 +1,7 @@
 package mapv0_test
 
 import (
+	"fmt"
 	"testing"
 
 	"github.com/stretchr/testify/require"
@@ -10,21 +11,39 @@ import (
 )
 
 func (g *testGame) ObjectTypeByID(id string) script.ObjectType {
-	return nil
+	return g.objectTypes[id]
 }
 
 func (g *testGame) ObjectByID(id string) script.Object {
-	obj := g.objects[id]
+	return g.objects[id]
+}
+
+func (g *testGame) newObjectType(id string, unit bool) *testObjectType {
+	obj := &testObjectType{
+		g:    g,
+		id:   id,
+		unit: unit,
+	}
+	if id != "" {
+		if g.objectTypes == nil {
+			g.objectTypes = make(map[string]script.ObjectType)
+		}
+		g.objectTypes[id] = obj
+	}
 	return obj
 }
 
-func (g *testGame) newObject(id string, x, y float32) *testObject {
-	obj := &testObject{
+func (g *testGame) newObjectRaw(id string, x, y float32) *testObject {
+	return &testObject{
 		g:       g,
 		id:      id,
 		pos:     types.Pointf{X: x, Y: y},
 		enabled: true,
 	}
+}
+
+func (g *testGame) newObject(id string, x, y float32) *testObject {
+	obj := g.newObjectRaw(id, x, y)
 	if id != "" {
 		if g.objects == nil {
 			g.objects = make(map[string]script.Object)
@@ -32,6 +51,30 @@ func (g *testGame) newObject(id string, x, y float32) *testObject {
 		g.objects[id] = obj
 	}
 	return obj
+}
+
+type testObjectType struct {
+	g    *testGame
+	id   string
+	last int
+	unit bool
+}
+
+func (t *testObjectType) String() string {
+	return "ObjectType(" + t.ID() + ")"
+}
+
+func (t *testObjectType) ID() string {
+	return t.id
+}
+
+func (t *testObjectType) CreateObject(p types.Pointf) script.Object {
+	t.last++
+	id := fmt.Sprintf("%s_%d", t.id, t.last)
+	if t.unit {
+		return t.g.newUnit(id, p.X, p.Y)
+	}
+	return t.g.newObject(id, p.X, p.Y)
 }
 
 type testObject struct {
@@ -110,6 +153,89 @@ func (v *testObject) Destroy() {
 		return
 	}
 	v.dead = true
+}
+
+func TestObjectTypeID(t *testing.T) {
+	g := newGame(t)
+	g.newObjectType("Test", false)
+
+	g.Exec(`
+	local v = Nox.ObjectType("Test")
+
+	if v.id ~= "Test" then
+		error("invalid ID field")
+	end
+
+	if v:__tostring() ~= "ObjectType(Test)" then
+		error("invalid string conversion")
+	end
+`)
+}
+
+func TestObjectTypeCreate(t *testing.T) {
+	g := newGame(t)
+	g.newObjectType("Test", false)
+
+	g.Exec(`
+	local t = Nox.ObjectType("Test")
+
+	local v1 = t:Create(1, 2)
+	local v2 = t:Create(v1)
+	local v3 = t:Create(3, 4)
+
+	if v1:__tostring() ~= "Object(Test_1)" then
+		error("invalid string conversion")
+	end
+	if v2:__tostring() ~= "Object(Test_2)" then
+		error("invalid string conversion")
+	end
+	if v3:__tostring() ~= "Object(Test_3)" then
+		error("invalid string conversion")
+	end
+
+	if v1.x ~= 1 or v1.y ~= 2 then
+		error("invalid coords for v1")
+	end
+	if v2.x ~= 1 or v2.y ~= 2 then
+		error("invalid coords for v2")
+	end
+	if v3.x ~= 3 or v3.y ~= 4 then
+		error("invalid coords for v3")
+	end
+`)
+}
+
+func TestObjectTypeCreateUnit(t *testing.T) {
+	g := newGame(t)
+	g.newObjectType("Test", true)
+
+	g.Exec(`
+	local t = Nox.ObjectType("Test")
+
+	local v1 = t:Create(1, 2)
+	local v2 = t:Create(v1)
+	local v3 = t:Create(3, 4)
+
+	if v1:__tostring() ~= "Unit(Test_1)" then
+		error("invalid string conversion")
+	end
+	if v2:__tostring() ~= "Unit(Test_2)" then
+		error("invalid string conversion")
+	end
+	if v3:__tostring() ~= "Unit(Test_3)" then
+		error("invalid string conversion")
+	end
+
+	if v1.x ~= 1 or v1.y ~= 2 then
+		error("invalid coords for v1")
+	end
+	if v2.x ~= 1 or v2.y ~= 2 then
+		error("invalid coords for v2")
+	end
+	if v3.x ~= 3 or v3.y ~= 4 then
+		error("invalid coords for v3")
+	end
+`)
 }
 
 func TestObjectID(t *testing.T) {
@@ -294,5 +420,4 @@ func TestObjectOwner(t *testing.T) {
 	require.Equal(t, obj1, obj1.owner)
 }
 
-// TODO: test object types
 // TODO: test object groups

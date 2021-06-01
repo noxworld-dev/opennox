@@ -43,6 +43,11 @@ type Mobile interface {
 	Flee(obj Positioner, dur Duration)
 }
 
+// MoveToPos is a helper to make an objects walk to another object's location. More generic than WalkToPos.
+func MoveToPos(obj Mobile, to Positioner) {
+	obj.MoveTo(to.Pos())
+}
+
 // WalkToPos is a helper to make an objects walk to another object's location.
 func WalkToPos(obj Mobile, to Positioner) {
 	obj.WalkTo(to.Pos())

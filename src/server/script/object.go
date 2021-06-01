@@ -157,6 +157,8 @@ func (g *ObjectGroup) PushTo(pos types.Pointf) {
 	}
 }
 
+var _ Object = BaseObject{}
+
 // BaseObject implements Object, but panics on all the methods.
 // Useful when you only want to define a part of the implementation.
 type BaseObject struct{}
@@ -166,6 +168,10 @@ func (BaseObject) ID() string {
 }
 
 func (BaseObject) String() string {
+	panic("implement me")
+}
+
+func (BaseObject) GetObject() Object {
 	panic("implement me")
 }
 

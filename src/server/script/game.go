@@ -45,6 +45,8 @@ type Game interface {
 	// TODO: audio
 }
 
+var _ Game = BaseGame{}
+
 // BaseGame implements Game, but panics on all the methods.
 // Useful when you only want to define a part of the implementation.
 type BaseGame struct{}

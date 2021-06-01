@@ -83,6 +83,8 @@ func (g *WallGroup) Destroy() {
 	}
 }
 
+var _ Wall = BaseWall{}
+
 // BaseWall implements Wall, but panics on all the methods.
 // Useful when you only want to define a part of the implementation.
 type BaseWall struct{}

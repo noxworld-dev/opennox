@@ -85,34 +85,36 @@ func (g *WaypointGroup) SetPos(pos types.Pointf) {
 	}
 }
 
-// WaypointBase implements Waypoint, but panics on all the methods.
+var _ Waypoint = BaseWaypoint{}
+
+// BaseWaypoint implements Waypoint, but panics on all the methods.
 // Useful when you only want to define a part of the implementation.
-type WaypointBase struct{}
+type BaseWaypoint struct{}
 
-func (WaypointBase) String() string {
+func (BaseWaypoint) String() string {
 	panic("implement me")
 }
 
-func (WaypointBase) ID() string {
+func (BaseWaypoint) ID() string {
 	panic("implement me")
 }
 
-func (WaypointBase) IsEnabled() bool {
+func (BaseWaypoint) IsEnabled() bool {
 	panic("implement me")
 }
 
-func (WaypointBase) Enable(enable bool) {
+func (BaseWaypoint) Enable(enable bool) {
 	panic("implement me")
 }
 
-func (WaypointBase) Toggle() bool {
+func (BaseWaypoint) Toggle() bool {
 	panic("implement me")
 }
 
-func (WaypointBase) Pos() types.Pointf {
+func (BaseWaypoint) Pos() types.Pointf {
 	panic("implement me")
 }
 
-func (WaypointBase) SetPos(p types.Pointf) {
+func (BaseWaypoint) SetPos(p types.Pointf) {
 	panic("implement me")
 }

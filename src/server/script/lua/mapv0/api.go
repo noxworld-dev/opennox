@@ -90,6 +90,77 @@ type method struct {
 	lua  *lua.LFunction
 }
 
+func luaValueTo(s *lua.LState, li int, rt reflect.Type) (out reflect.Value, di int) {
+	di = 1
+	// try to match the argument type exactly
+	// mostly used for custom handling of some well-known types
+	switch rt {
+	case rtPointf:
+		// two cases: a pair of coordinates or a Positioner
+		switch s.Get(li).(type) {
+		case lua.LNumber:
+			x := s.CheckNumber(li + 0)
+			y := s.CheckNumber(li + 1)
+			di++
+			out = reflect.ValueOf(types.Pointf{X: float32(x), Y: float32(y)})
+		default:
+			pos, ok := s.CheckUserData(li).Value.(script.Positioner)
+			if !ok {
+				s.ArgError(li, "argument doesn't doesn't have a position")
+				return
+			}
+			out = reflect.ValueOf(pos.Pos())
+		}
+	default:
+		// match by argument kind
+		switch rt.Kind() {
+		case reflect.Ptr:
+			if s.Get(li) == lua.LNil {
+				out = reflect.Zero(rt)
+			} else {
+				out, di = luaValueTo(s, li, rt.Elem())
+				val := out
+				out = reflect.New(rt.Elem())
+				out.Elem().Set(val)
+			}
+		case reflect.Interface:
+			if s.Get(li) == lua.LNil {
+				out = reflect.Zero(rt)
+			} else {
+				lv := s.CheckUserData(li)
+				if lv == nil {
+					s.ArgError(li, fmt.Sprintf("argument is nil"))
+					return
+				}
+				arg := lv.Value
+				if arg == nil {
+					s.ArgError(li, fmt.Sprintf("argument is nil"))
+					return
+				}
+				out = reflect.ValueOf(arg)
+				if !out.Type().Implements(rt) {
+					s.ArgError(li, fmt.Sprintf("argument doesn't implement interface %s", rt.Name()))
+					return
+				}
+				out = out.Convert(rt)
+			}
+		case reflect.String:
+			lv := s.CheckString(li)
+			out = reflect.ValueOf(lv).Convert(rt)
+		case reflect.Int, reflect.Uint, reflect.Float32, reflect.Float64:
+			lv := s.CheckNumber(li)
+			out = reflect.ValueOf(lv).Convert(rt)
+		case reflect.Bool:
+			lv := s.CheckBool(li)
+			out = reflect.ValueOf(lv).Convert(rt)
+		default:
+			// that's a programming error, not script error
+			panic(fmt.Errorf("unsupported argument type %v", rt))
+		}
+	}
+	return
+}
+
 func (m *method) Call(vm *api, s *lua.LState) int {
 	// check the receiver first, it must implement an interface
 	lthis := s.CheckUserData(1)
@@ -118,67 +189,9 @@ func (m *method) Call(vm *api, s *lua.LState) int {
 			li++
 			continue
 		}
-		argt := ft.In(i)
-		var argv reflect.Value
-		// try to match the argument type exactly
-		// mostly used for custom handling of some well-known types
-		switch argt {
-		case rtPointf:
-			// two cases: a pair of coordinates or a Positioner
-			switch s.Get(li).(type) {
-			case lua.LNumber:
-				x := s.CheckNumber(li + 0)
-				y := s.CheckNumber(li + 1)
-				li++
-				argv = reflect.ValueOf(types.Pointf{X: float32(x), Y: float32(y)})
-			default:
-				pos, ok := s.CheckUserData(li).Value.(script.Positioner)
-				if !ok {
-					s.ArgError(li, "argument doesn't doesn't have a position")
-					return 0
-				}
-				argv = reflect.ValueOf(pos.Pos())
-			}
-		default:
-			// match by argument kind
-			switch argt.Kind() {
-			case reflect.Interface:
-				if s.Get(li) == lua.LNil {
-					argv = reflect.Zero(argt)
-				} else {
-					lv := s.CheckUserData(li)
-					if lv == nil {
-						s.ArgError(li, fmt.Sprintf("argument is nil"))
-						return 0
-					}
-					arg := lv.Value
-					if arg == nil {
-						s.ArgError(li, fmt.Sprintf("argument is nil"))
-						return 0
-					}
-					argv = reflect.ValueOf(arg)
-					if !argv.Type().Implements(argt) {
-						s.ArgError(li, fmt.Sprintf("argument doesn't implement interface %s", argt.Name()))
-						return 0
-					}
-					argv = argv.Convert(argt)
-				}
-			case reflect.String:
-				lv := s.CheckString(li)
-				argv = reflect.ValueOf(lv).Convert(argt)
-			case reflect.Int, reflect.Uint, reflect.Float32, reflect.Float64:
-				lv := s.CheckNumber(li)
-				argv = reflect.ValueOf(lv).Convert(argt)
-			case reflect.Bool:
-				lv := s.CheckBool(li)
-				argv = reflect.ValueOf(lv).Convert(argt)
-			default:
-				// that's a programming error, not script error
-				panic(fmt.Errorf("unsupported argument type %v", argt))
-			}
-		}
+		argv, di := luaValueTo(s, li, ft.In(i))
 		in[i] = argv
-		li++
+		li += di
 	}
 
 	// call the method

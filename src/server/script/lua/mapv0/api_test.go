@@ -25,13 +25,16 @@ func newGame(t testing.TB) *testGame {
 
 type testGame struct {
 	script.BaseGame
-	vm        *lua.VM
-	t         testing.TB
-	frame     int
-	time      time.Duration
-	walls     map[types.Point]script.Wall
-	waypoints map[string]script.Waypoint
-	objects   map[string]script.Object
+	vm          *lua.VM
+	t           testing.TB
+	frame       int
+	time        time.Duration
+	walls       map[types.Point]script.Wall
+	waypoints   map[string]script.Waypoint
+	objectTypes map[string]script.ObjectType
+	objects     map[string]script.Object
+	players     []script.Player
+	host        script.Player
 }
 
 func (g *testGame) Tick() {
