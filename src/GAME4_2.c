@@ -8001,7 +8001,7 @@ int  nox_xxx_aiLostSight_528560(int a1, int a2) {
 	v10 = *(_DWORD*)(v3 + 36);
 	v5 = nox_xxx_getUnitName_4E39D0(v3);
 	nox_xxx_debugPrintf_5341A0("%d: Lost sight of %s(#%d)\n", nox_frame_xxx_2598000, v5, v10);
-	nox_xxx_scriptCallByEventBlock_502490((int*)(v2 + 1296), *v4, a1);
+	nox_xxx_scriptCallByEventBlock_502490((int*)(v2 + 1296), *v4, a1, 15);
 	v6 = *(_DWORD*)(v2 + 1196);
 	if (*v4 == v6) {
 		v7 = *(_DWORD*)(v6 + 36);
@@ -8134,7 +8134,7 @@ void  nox_xxx_monsterVisionSeeEnemy_5287B0(int a1, int a2) {
 				}
 			}
 		}
-		nox_xxx_scriptCallByEventBlock_502490((int*)(v4 + 1232), v11, v2);
+		nox_xxx_scriptCallByEventBlock_502490((int*)(v4 + 1232), v11, v2, 14);
 		return;
 	}
 	v7 = v4 + 1132;

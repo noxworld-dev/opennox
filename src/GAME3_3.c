@@ -763,7 +763,7 @@ int  nox_xxx_damageMonsterGen_4E27D0(int a1, int a2, int a3, int a4, int a5) {
 	v7 = (unsigned __int16)nox_xxx_unitGetHP_4EE780(a1);
 	v17 = nox_xxx_damageDefaultProc_4E0B30(a1, a2, a3, a4, a5);
 	if ((unsigned __int16)nox_xxx_unitGetHP_4EE780(a1) < v7)
-		nox_xxx_scriptCallByEventBlock_502490((int*)(v5 + 48), a2, a1);
+		nox_xxx_scriptCallByEventBlock_502490((int*)(v5 + 48), a2, a1, 23);
 	v8 = *(_DWORD*)(a1 + 16);
 	if ((v8 & 0x8000) == 0 && !(v8 & 0x20)) {
 		v9 = *(unsigned __int16**)(a1 + 556);
@@ -1070,23 +1070,23 @@ _DWORD*  nox_xxx_objectCreateByName_4E3810(CHAR* a1) {
 }
 
 //----- (004E3830) --------------------------------------------------------
-int  nox_xxx_unitDefByName_4E3830(char* a1) {
-	if (!a1)
+int  nox_xxx_unitDefByName_4E3830(char* id) {
+	if (!id)
 		return 0;
 
-	int v1 = nox_xxx_keyFirstLetterNumber_4E30A0(a1);
+	int v1 = nox_xxx_keyFirstLetterNumber_4E30A0(id);
 	if (v1 < 0)
 		return 0;
 
-	int v2 = *getMemU32Ptr(0x5D4594, 1563668 + 4 * v1);
-	if (v2 < 0)
+	int bucketSz = *getMemU32Ptr(0x5D4594, 1563668 + 4 * v1);
+	if (bucketSz < 0)
 		return 0;
 
-	const void* v3 = *(const void**)getMemAt(0x5D4594, 1563348 + 4 * v1);
-	if (!v3)
+	void* bucket = *(void**)getMemAt(0x5D4594, 1563348 + 4 * v1);
+	if (!bucket)
 		return 0;
 
-	int* v4 = bsearch(a1, v3, v2, 4, nox_xxx_objBsearchFn_4E3880);
+	int* v4 = bsearch(id, bucket, bucketSz, 4, nox_xxx_objBsearchFn_4E3880);
 	if (!v4)
 		return 0;
 
@@ -4467,7 +4467,7 @@ int  sub_4E8390(int a1) {
 }
 
 //----- (004E83B0) --------------------------------------------------------
-unsigned __int8*  nox_xxx_collideMonsterEventProc_4E83B0(int a1, int a2) { return nox_xxx_scriptCallByEventBlock_502490((int*)(*(_DWORD*)(a1 + 748) + 1272), a2, a1); }
+unsigned __int8*  nox_xxx_collideMonsterEventProc_4E83B0(int a1, int a2) { return nox_xxx_scriptCallByEventBlock_502490((int*)(*(_DWORD*)(a1 + 748) + 1272), a2, a1, 22); }
 
 //----- (004E83D0) --------------------------------------------------------
 unsigned __int8*  nox_xxx_collideMimic_4E83D0(int a1, int a2) {
@@ -5392,7 +5392,7 @@ void  nox_xxx_collideBomb_4E96F0(int a1, int a2) {
 
 	v2 = *(_DWORD*)(a1 + 748);
 	if (!nox_common_gameFlags_check_40A5C0(2048) || (*(_BYTE*)((int)nox_xxx_getFirstPlayerUnit_4DA7C0() + 16) & 2) != 2) {
-		nox_xxx_scriptCallByEventBlock_502490((int*)(v2 + 1272), a2, a1);
+		nox_xxx_scriptCallByEventBlock_502490((int*)(v2 + 1272), a2, a1, 21);
 		if (a2 && *(_BYTE*)(a2 + 8) & 6 && !nox_xxx_unitsHaveSameTeam_4EC520(a1, a2)) {
 			v3 = *(_DWORD*)(a2 + 16);
 			if ((v3 & 0x8000) == 0) {
@@ -6263,7 +6263,7 @@ void  nox_xxx_collideTrapDoor_4EAB60(int a1, int a2) {
 			} else if (!*(_DWORD*)(v2 + 24) && (!(v3 & 4) || !nox_common_playerIsAbilityActive_4FC250(a2, 4))) {
 				if (*(_WORD*)(v2 + 20))
 					*(_DWORD*)(v2 + 16) = nox_frame_xxx_2598000 + *(unsigned __int16*)(v2 + 20);
-				nox_xxx_scriptCallByEventBlock_502490((int*)v2, a2, a1);
+				nox_xxx_scriptCallByEventBlock_502490((int*)v2, a2, a1, 20);
 				*(_DWORD*)(v2 + 24) = 1;
 			}
 		}
@@ -7012,7 +7012,7 @@ void  nox_xxx_collideUndeadKiller_4EBD40(int a1, int a2, int a3) {
 void  nox_xxx_collideMonsterGen_4EBE10(int a1, int a2) {
 	if (a2) {
 		if (*(_BYTE*)(a2 + 8) & 4)
-			nox_xxx_scriptCallByEventBlock_502490((int*)(*(_DWORD*)(a1 + 748) + 72), a2, a1);
+			nox_xxx_scriptCallByEventBlock_502490((int*)(*(_DWORD*)(a1 + 748) + 72), a2, a1, 19);
 	}
 }
 
@@ -12500,7 +12500,7 @@ int  nox_xxx_inventoryServPlace_4F36F0(int a1, int a2, int a3, int a4) {
 				sub_5117F0(a2);
 		}
 		if (*(int*)(a2 + 768) != -1) {
-			nox_xxx_scriptCallByEventBlock_502490((int*)(a2 + 764), a1, a2);
+			nox_xxx_scriptCallByEventBlock_502490((int*)(a2 + 764), a1, a2, 18);
 			*(_DWORD*)(a2 + 768) = -1;
 		}
 	}

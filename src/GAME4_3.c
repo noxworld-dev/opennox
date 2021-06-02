@@ -1665,7 +1665,7 @@ int  nox_xxx_mobActionFightStart_531E20(float a1) {
 	v2 = nox_xxx_monsterGetSoundSet_424300(SLODWORD(a1));
 	if (v2)
 		nox_xxx_aud_501960(*(_DWORD*)(v2 + 20), SLODWORD(a1), 0, 0);
-	nox_xxx_scriptCallByEventBlock_502490(v1 + 310, v1[299], SLODWORD(a1));
+	nox_xxx_scriptCallByEventBlock_502490(v1 + 310, v1[299], SLODWORD(a1), 13);
 	v3 = v1[360];
 	BYTE1(v3) |= 1u;
 	v1[360] = v3;
@@ -2379,7 +2379,7 @@ unsigned __int8*  nox_xxx_unused_533030(int a1, int a2) {
 	v3 = nox_xxx_monsterGetSoundSet_424300(a1);
 	if (v3)
 		nox_xxx_aud_501960(*(_DWORD*)(v3 + 68), a1, 0, 0);
-	return nox_xxx_scriptCallByEventBlock_502490((int*)(v2 + 1232), a2, a1);
+	return nox_xxx_scriptCallByEventBlock_502490((int*)(v2 + 1232), a2, a1, 12);
 }
 
 //----- (00533080) --------------------------------------------------------
@@ -7803,7 +7803,7 @@ char  nox_xxx_updateToggle_53B060(_DWORD* a1) {
 		if (nox_frame_xxx_2598000 > a1[34] && *(_BYTE*)v1 & 1) {
 			nox_xxx_aud_501960(v1[10], (int)a1, 0, 0);
 			nox_xxx_servMarkObjAnimFrame_4E4880((int)a1, 0);
-			nox_xxx_scriptCallByEventBlock_502490((int*)v1 + 7, 0, (int)a1);
+			nox_xxx_scriptCallByEventBlock_502490((int*)v1 + 7, 0, (int)a1, 11);
 			*((_BYTE*)v1 + 8) = (*v1 & 2) != 0 ? 5 : 0;
 		LABEL_17:
 			a1[34] = nox_frame_xxx_2598000 + nox_gameFPS;
@@ -7812,7 +7812,7 @@ char  nox_xxx_updateToggle_53B060(_DWORD* a1) {
 	} else if (nox_frame_xxx_2598000 > a1[34] && *(_BYTE*)v1 & 1) {
 		nox_xxx_aud_501960(v1[9], (int)a1, 0, 0);
 		nox_xxx_servMarkObjAnimFrame_4E4880((int)a1, 1);
-		nox_xxx_scriptCallByEventBlock_502490((int*)v1 + 5, v1[1], (int)a1);
+		nox_xxx_scriptCallByEventBlock_502490((int*)v1 + 5, v1[1], (int)a1, 10);
 		*((_BYTE*)v1 + 8) = 3;
 		goto LABEL_17;
 	}
@@ -7854,13 +7854,13 @@ char  nox_xxx_updateTrigger_53B1B0(int a1) {
 			if (*((_BYTE*)v1 + 8) == 1 && nox_frame_xxx_2598000 > *(int*)(a1 + 136) && !(*(_BYTE*)v1 & 1)) {
 				nox_xxx_aud_501960(v1[10], a1, 0, 0);
 				nox_xxx_servMarkObjAnimFrame_4E4880(a1, 0);
-				nox_xxx_scriptCallByEventBlock_502490(v1 + 7, 0, a1);
+				nox_xxx_scriptCallByEventBlock_502490(v1 + 7, 0, a1, 9);
 				*((_BYTE*)v1 + 8) = (*v1 & 2) != 0 ? 5 : 0;
 			}
 		} else if (*(_BYTE*)v1 & 1) {
 			nox_xxx_aud_501960(v1[9], a1, 0, 0);
 			nox_xxx_servMarkObjAnimFrame_4E4880(a1, 1);
-			nox_xxx_scriptCallByEventBlock_502490(v1 + 5, v1[1], a1);
+			nox_xxx_scriptCallByEventBlock_502490(v1 + 5, v1[1], a1, 8);
 			*((_BYTE*)v1 + 8) = 1;
 			*(_DWORD*)(a1 + 136) = v3 + nox_frame_xxx_2598000;
 		}
@@ -13130,7 +13130,7 @@ int  sub_544C40(int a1) {
 	v2 = nox_xxx_monsterGetSoundSet_424300(a1);
 	if (v2)
 		nox_xxx_aud_501960(*(_DWORD*)(v2 + 60), a1, 0, 0);
-	nox_xxx_scriptCallByEventBlock_502490((int*)(v1 + 1264), 0, a1);
+	nox_xxx_scriptCallByEventBlock_502490((int*)(v1 + 1264), 0, a1, 7);
 	result2 = *(int(**)(int))(*(_DWORD*)(v1 + 484) + 228);
 	if (result2)
 		result = result2(a1);
@@ -13313,5 +13313,5 @@ unsigned __int8*  nox_xxx_mobActionReportComplete_544FF0(int a1) {
 
 	v1 = *(_DWORD*)(a1 + 748);
 	nox_xxx_monsterPopAction_50A160(a1);
-	return nox_xxx_scriptCallByEventBlock_502490((int*)(v1 + 1288), 0, a1);
+	return nox_xxx_scriptCallByEventBlock_502490((int*)(v1 + 1288), 0, a1, 6);
 }

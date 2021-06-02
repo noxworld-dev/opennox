@@ -165,6 +165,7 @@ func nox_server_netMaybeSendInitialPackets_4DEB30() {
 
 func nox_xxx_mapInitialize_4FC590() {
 	if C.dword_5d4594_1569652 != 0 && hasPlayerUnits() {
+		clearScriptTriggers()
 		scriptOnEvent(script.EventMapInitialize)
 		C.nox_xxx_resetMapInit_4FC570(0)
 	}

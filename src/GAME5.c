@@ -1102,7 +1102,7 @@ int*  nox_xxx_monsterUpdateIdleLogic_546850(int a1) {
 
 	v1 = *(_DWORD*)(a1 + 748);
 	if (nox_frame_xxx_2598000 - *(_DWORD*)(v1 + 24 * *(char*)(v1 + 544) + 556) == *(__int16*)(v1 + 1220))
-		nox_xxx_scriptCallByEventBlock_502490((int*)(v1 + 1224), 0, a1);
+		nox_xxx_scriptCallByEventBlock_502490((int*)(v1 + 1224), 0, a1, 5);
 	if (!(*(_DWORD*)(a1 + 16) & 0x1000000))
 		goto LABEL_23;
 	if (sub_5343C0(a1) || nox_xxx_monsterCanAttackAtWill_534390(a1)) {
@@ -1732,7 +1732,7 @@ char  nox_xxx_monsterMainAIFn_547210(int a1) {
 						nox_xxx_monsterPushAction_50A260(v1, 6);
 					if (v44)
 						nox_xxx_aud_501960(v44[13], v1, 0, 0);
-					LOBYTE(v3) = (unsigned int)nox_xxx_scriptCallByEventBlock_502490((int*)(v2 + 1256), 0, v1);
+					LOBYTE(v3) = (unsigned int)nox_xxx_scriptCallByEventBlock_502490((int*)(v2 + 1256), 0, v1, 4);
 					return (char)v3;
 				}
 			}
@@ -5977,7 +5977,7 @@ void  nox_xxx_dieMonsterGen_54E630(int a1) {
 	v1 = *(_DWORD*)(a1 + 748);
 	sub_4D71E0(nox_frame_xxx_2598000);
 	sub_4D7520(0);
-	nox_xxx_scriptCallByEventBlock_502490((int*)(v1 + 56), *(_DWORD*)(a1 + 520), a1);
+	nox_xxx_scriptCallByEventBlock_502490((int*)(v1 + 56), *(_DWORD*)(a1 + 520), a1, 3);
 	nox_xxx_aud_501960(1000, a1, 0, 0);
 	nox_xxx_sendGeneratorBreakFX_523200((float*)(a1 + 56), 200);
 	if (nox_common_gameFlags_check_40A5C0(4096)) {
@@ -6440,7 +6440,7 @@ _DWORD*  nox_xxx_mobGeneratorSpawn_54F070(int a1, int a2, int a3) {
 				*(_DWORD*)(v23 + 1504) = 0;
 			if (sub_50E030(v3, v5)) {
 				nox_xxx_createAt_4DAA50((int)v5, 0, *(float*)a2, *(float*)(a2 + 4));
-				nox_xxx_scriptCallByEventBlock_502490((int*)(v20 + 64), (int)v5, v3);
+				nox_xxx_scriptCallByEventBlock_502490((int*)(v20 + 64), (int)v5, v3, 2);
 				v11 = nox_float2int(*(float*)(v3 + 56));
 				v12 = *(float*)(v3 + 60);
 				v22.field_0 = v11;
@@ -6898,7 +6898,7 @@ void  nox_xxx_collideTrigger_54FCD0(int a1, int a2) {
 							if (!v6 || *(_BYTE*)(a2 + 52) == v6) {
 								v7 = *((_BYTE*)v2 + 53);
 								if ((!v7 || *(char*)(a2 + 52) != v7) &&
-									(v2[4] == -1 || *(_DWORD*)nox_xxx_scriptCallByEventBlock_502490(v2 + 3, a2, a1))) {
+									(v2[4] == -1 || *(_DWORD*)nox_xxx_scriptCallByEventBlock_502490(v2 + 3, a2, a1, 1))) {
 									v8 = *v2;
 									v2[1] = a2;
 									LOBYTE(v8) = v8 | 1;

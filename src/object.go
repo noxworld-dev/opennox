@@ -108,8 +108,36 @@ func (obj *Object) Ind() int {
 	return int(*(*int32)(obj.field(40)))
 }
 
+func (obj *Object) objTypeInd() int {
+	return int(*(*uint16)(obj.field(4)))
+}
+
+func (obj *Object) stringAs(typ string) string {
+	if obj == nil {
+		return fmt.Sprintf("%s(<nil>)", typ)
+	}
+	var oid string
+	if id := obj.ID(); id != "" {
+		oid = fmt.Sprintf("%q", id)
+	} else if ind := obj.Ind(); ind != 0 {
+		oid = fmt.Sprintf("#%d", ind)
+	}
+	if obj.Class().Has(object.ClassPlayer) {
+		// TODO: better way
+		for _, p := range getPlayers() {
+			if u := p.UnitC(); u != nil && u.CObj() == obj.CObj() {
+				oid += fmt.Sprintf(",P:%q", p.Name())
+			}
+		}
+	}
+	if t := obj.ObjectTypeC(); t != nil {
+		return fmt.Sprintf("%s(%s,T:%q)", typ, oid, t.ID())
+	}
+	return fmt.Sprintf("%s(%s)", typ, oid)
+}
+
 func (obj *Object) String() string {
-	return fmt.Sprintf("Object(%s)", obj.ID())
+	return obj.stringAs("Object")
 }
 
 func (obj *Object) GetObject() script.Object {
@@ -176,8 +204,20 @@ func (obj *Object) AsUnit() *Unit {
 	return asUnit(unsafe.Pointer(obj))
 }
 
+func (obj *Object) ObjectTypeC() *ObjectType {
+	if obj == nil {
+		return nil
+	}
+	ind := obj.objTypeInd()
+	return getObjectTypeByInd(ind)
+}
+
 func (obj *Object) ObjectType() script.ObjectType {
-	panic("implement me")
+	t := obj.ObjectTypeC()
+	if t == nil {
+		return nil
+	}
+	return t
 }
 
 func (obj *Object) OwnerC() *Object {

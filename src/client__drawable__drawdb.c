@@ -867,25 +867,20 @@ int sub_4E3110() {
 }
 
 //----- (004E3040) --------------------------------------------------------
-size_t nox_xxx_unitDefByAlphabetInit_4E3040() {
-	int i;         // esi
-	size_t result; // eax
-
-	for (i = 0; i < 108; i += 4) {
-		result = *getMemU32Ptr(0x5D4594, 1563668 + i);
-		if (result) {
-			result = (size_t)calloc(1u, 4 * result);
-			*getMemU32Ptr(0x5D4594, 1563348 + i) = result;
+void nox_xxx_unitDefByAlphabetInit_4E3040() {
+	for (int i = 0; i < 27; i++) {
+		int cnt = *getMemU32Ptr(0x5D4594, 1563668 + 4*i);
+		if (cnt) {
+			*getMemU32Ptr(0x5D4594, 1563348 + 4*i) = calloc(1u, 4 * cnt);
 		} else {
-			*getMemU32Ptr(0x5D4594, 1563348 + i) = 0;
+			*getMemU32Ptr(0x5D4594, 1563348 + 4*i) = 0;
 		}
-		*getMemU32Ptr(0x5D4594, 1563776 + i) = 0;
+		*getMemU32Ptr(0x5D4594, 1563776 + 4*i) = 0;
 	}
-	return result;
 }
 
 //----- (004E30D0) --------------------------------------------------------
-void  sub_4E30D0(int a1) {
+void  nox_xxx_objectTypeAddToNameInd_4E30D0(int a1) {
 	int v1; // eax
 	int v2; // ecx
 
@@ -1170,7 +1165,7 @@ int  nox_read_things_alternative_4E2B60(void) {
 	v19 = 1;
 	for (i = 1; i < *getMemIntPtr(0x587000, 201384); ++i) {
 		*(_DWORD*)(*getMemU32Ptr(0x5D4594, 1563456) + 4 * (v17 - v19)) = v18;
-		sub_4E30D0(v18);
+		nox_xxx_objectTypeAddToNameInd_4E30D0(v18);
 		v17 = *getMemU32Ptr(0x587000, 201384);
 		v18 = *(_DWORD*)(v18 + 220);
 		v19 = i + 1;

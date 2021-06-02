@@ -766,7 +766,7 @@ int  nox_xxx_unitUpdateMonster_50A5C0(float a1) {
 					v7 = nox_xxx_monsterGetSoundSet_424300(SLODWORD(a1));
 					if (v7)
 						nox_xxx_aud_501960(*(_DWORD*)(v7 + 64), SLODWORD(a1), 0, 0);
-					nox_xxx_scriptCallByEventBlock_502490((int*)(v2 + 1248), *(_DWORD*)(LODWORD(a1) + 520), SLODWORD(a1));
+					nox_xxx_scriptCallByEventBlock_502490((int*)(v2 + 1248), *(_DWORD*)(LODWORD(a1) + 520), SLODWORD(a1), 17);
 					nox_xxx_debugPrintf_5341A0("%d: HP = %d/%d\n", nox_frame_xxx_2598000,
 							   **(unsigned __int16**)(LODWORD(a1) + 556),
 							   *(unsigned __int16*)(*(_DWORD*)(LODWORD(a1) + 556) + 4));
@@ -2485,7 +2485,7 @@ unsigned __int8*  sub_50D110(int a1, _DWORD* a2, int a3) {
 		v3[98] = 0;
 	sub_50D190(a1, a2 + 2, v3 + 99);
 	v5 = nox_xxx_findParentChainPlayer_4EC580(a2[1]);
-	return nox_xxx_scriptCallByEventBlock_502490(v3 + 320, v5, a1);
+	return nox_xxx_scriptCallByEventBlock_502490(v3 + 320, v5, a1, 16);
 }
 
 //----- (0050D190) --------------------------------------------------------

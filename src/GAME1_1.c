@@ -6287,7 +6287,7 @@ void  nox_xxx_questCheckSecretArea_421C70(int a1) {
 					if (v6) {
 						v7 = 35 * v6;
 						if (*getMemIntPtr(0x5D4594, 4 * v7 + 552352) != -1)
-							nox_xxx_scriptCallByEventBlock_502490(getMemIntPtr(0x5D4594, 4 * v7 + 552348), a1, 0);
+							nox_xxx_scriptCallByEventBlock_502490(getMemIntPtr(0x5D4594, 4 * v7 + 552348), a1, 0, 29);
 					}
 					if (!((1 << *(_BYTE*)(v1 + 2064)) & *((_DWORD*)v4 + 34)) && v4[132] & 1 &&
 						nox_common_gameFlags_check_40A5C0(4096)) {
@@ -6306,7 +6306,7 @@ void  nox_xxx_questCheckSecretArea_421C70(int a1) {
 					v10 = *((_DWORD*)v4 + 29);
 					*((_DWORD*)v4 + 34) |= 1 << *(_BYTE*)(v1 + 2064);
 					if (v10 != -1)
-						nox_xxx_scriptCallByEventBlock_502490((int*)v4 + 28, a1, 0);
+						nox_xxx_scriptCallByEventBlock_502490((int*)v4 + 28, a1, 0, 28);
 				}
 				*(_DWORD*)(v1 + 3664) = *((_DWORD*)v4 + 20);
 				*(_BYTE*)(v1 + 3668) = v4[130];
@@ -6318,7 +6318,7 @@ LABEL_33:
 	v12 = *(_DWORD*)(v1 + 3664);
 	if (v12 && v12 != -559023410) {
 		if (*getMemIntPtr(0x5D4594, 140 * v12 + 552352) != -1)
-			nox_xxx_scriptCallByEventBlock_502490(getMemIntPtr(0x5D4594, 140 * v12 + 552348), a1, 0);
+			nox_xxx_scriptCallByEventBlock_502490(getMemIntPtr(0x5D4594, 140 * v12 + 552348), a1, 0, 27);
 		*(_DWORD*)(v1 + 3664) = 0;
 		*(_BYTE*)(v1 + 3668) = 1;
 	}
@@ -6397,10 +6397,10 @@ void  nox_xxx_monsterPolygonEnter_421FF0(int a1) {
 					if (v5) {
 						v7 = 35 * v5;
 						if (*getMemIntPtr(0x5D4594, 4 * v7 + 552352) != -1)
-							nox_xxx_scriptCallByEventBlock_502490(getMemIntPtr(0x5D4594, 4 * v7 + 552348), a1, 0);
+							nox_xxx_scriptCallByEventBlock_502490(getMemIntPtr(0x5D4594, 4 * v7 + 552348), a1, 0, 26);
 					}
 					if (v6[29] != -1)
-						nox_xxx_scriptCallByEventBlock_502490(v6 + 28, a1, 0);
+						nox_xxx_scriptCallByEventBlock_502490(v6 + 28, a1, 0, 25);
 				}
 				*v1 = v6[20];
 			}
@@ -6408,7 +6408,7 @@ void  nox_xxx_monsterPolygonEnter_421FF0(int a1) {
 			v8 = 35 * v5;
 			v9 = getMemAt(0x5D4594, 4 * v8 + 552228);
 			if (*getMemU32Ptr(0x5D4594, 4 * v8 + 552312) && *((int*)v9 + 31) != -1)
-				nox_xxx_scriptCallByEventBlock_502490((int*)v9 + 30, a1, 0);
+				nox_xxx_scriptCallByEventBlock_502490((int*)v9 + 30, a1, 0, 24);
 			*v1 = 0;
 		}
 	}

@@ -164,7 +164,13 @@ LABEL_16:
 // 4F5580: using guessed type char var_400[1024];
 
 //----- (00502490) --------------------------------------------------------
-unsigned __int8*  nox_xxx_scriptCallByEventBlock_502490(int* a1, int a2, int a3) {
+#ifdef NOX_CGO
+void nox_script_callByEvent_cgo(int eventCode, int a1, int a2);
+#endif // NOX_CGO
+unsigned __int8*  nox_xxx_scriptCallByEventBlock_502490(int* a1, int a2, int a3, int eventCode) {
+#ifdef NOX_CGO
+	nox_script_callByEvent_cgo(eventCode, a2, a3);
+#endif // NOX_CGO
 	*getMemU32Ptr(0x5D4594, 1599076) = 0;
 	int v3 = a1[0];
 	if (*a1 & 1)
@@ -198,7 +204,7 @@ unsigned __int8*  nox_xxx_scriptCallByEventBlock_502490(int* a1, int a2, int a3)
 
 	sub_5025E0(a1, a2, a3);
 	if (*getMemU32Ptr(0x5D4594, 1599468) > 0)
-		nox_xxx_scriptCallByEventBlock_502490(*(int**)getMemAt(0x5D4594, 1599084), *getMemIntPtr(0x5D4594, 1599088), *getMemIntPtr(0x5D4594, 1599092));
+		nox_xxx_scriptCallByEventBlock_502490(*(int**)getMemAt(0x5D4594, 1599084), *getMemIntPtr(0x5D4594, 1599088), *getMemIntPtr(0x5D4594, 1599092), 0);
 	return getMemAt(0x5D4594, 1599076);
 }
 

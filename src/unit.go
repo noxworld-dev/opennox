@@ -6,7 +6,6 @@ void nox_server_gotoHome(int v2);
 */
 import "C"
 import (
-	"fmt"
 	"unsafe"
 
 	"nox/v1/common/alloc"
@@ -32,7 +31,7 @@ func (u *Unit) AsObject() *Object {
 }
 
 func (u *Unit) String() string {
-	return fmt.Sprintf("Unit(%s)", u.ID())
+	return u.stringAs("Unit")
 }
 
 func (u *Unit) SetPos(p types.Pointf) {

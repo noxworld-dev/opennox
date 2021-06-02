@@ -11,7 +11,10 @@ import (
 )
 
 var (
-	rtPointf = reflect.TypeOf(types.Pointf{})
+	rtPointf    = reflect.TypeOf(types.Pointf{})
+	rtVoidFunc  = reflect.TypeOf((func())(nil))
+	rtUnitFunc  = reflect.TypeOf((func(script.Unit))(nil))
+	rtUnit2Func = reflect.TypeOf((func(a, b script.Unit))(nil))
 )
 
 func New(vm *lua.LState, tm *script.Timers, g script.Game) *lua.LTable {
@@ -84,13 +87,14 @@ func (vm *api) init() {
 type receiverValue struct{}
 
 type method struct {
+	vm   *api
 	name string
 	this reflect.Type
 	fnc  reflect.Value
 	lua  *lua.LFunction
 }
 
-func luaValueTo(s *lua.LState, li int, rt reflect.Type) (out reflect.Value, di int) {
+func (m *method) luaValueTo(s *lua.LState, li int, rt reflect.Type) (out reflect.Value, di int) {
 	di = 1
 	// try to match the argument type exactly
 	// mostly used for custom handling of some well-known types
@@ -111,6 +115,33 @@ func luaValueTo(s *lua.LState, li int, rt reflect.Type) (out reflect.Value, di i
 			}
 			out = reflect.ValueOf(pos.Pos())
 		}
+	case rtVoidFunc: // func()
+		fnc := s.CheckFunction(li)
+		out = reflect.ValueOf(func() {
+			m.vm.s.Push(fnc)
+			if err := m.vm.s.PCall(0, 0, nil); err != nil {
+				m.vm.s.Error(lua.LString(err.Error()), 0)
+			}
+		})
+	case rtUnitFunc: // func(Unit)
+		fnc := s.CheckFunction(li)
+		out = reflect.ValueOf(func(u script.Unit) {
+			m.vm.s.Push(fnc)
+			m.vm.s.Push(m.vm.newUnit(u))
+			if err := m.vm.s.PCall(1, 0, nil); err != nil {
+				m.vm.s.Error(lua.LString(err.Error()), 0)
+			}
+		})
+	case rtUnit2Func: // func(Unit, Unit)
+		fnc := s.CheckFunction(li)
+		out = reflect.ValueOf(func(u1, u2 script.Unit) {
+			m.vm.s.Push(fnc)
+			m.vm.s.Push(m.vm.newUnit(u1))
+			m.vm.s.Push(m.vm.newUnit(u2))
+			if err := m.vm.s.PCall(2, 0, nil); err != nil {
+				m.vm.s.Error(lua.LString(err.Error()), 0)
+			}
+		})
 	default:
 		// match by argument kind
 		switch rt.Kind() {
@@ -118,7 +149,7 @@ func luaValueTo(s *lua.LState, li int, rt reflect.Type) (out reflect.Value, di i
 			if s.Get(li) == lua.LNil {
 				out = reflect.Zero(rt)
 			} else {
-				out, di = luaValueTo(s, li, rt.Elem())
+				out, di = m.luaValueTo(s, li, rt.Elem())
 				val := out
 				out = reflect.New(rt.Elem())
 				out.Elem().Set(val)
@@ -189,7 +220,7 @@ func (m *method) Call(vm *api, s *lua.LState) int {
 			li++
 			continue
 		}
-		argv, di := luaValueTo(s, li, ft.In(i))
+		argv, di := m.luaValueTo(s, li, ft.In(i))
 		in[i] = argv
 		li += di
 	}
@@ -269,6 +300,7 @@ func (vm *api) newObjMethod(name string, fnc interface{}) *method {
 		panic("receiver must be an interface")
 	}
 	m := &method{
+		vm:   vm,
 		name: name,
 		this: this,
 		fnc:  rv,

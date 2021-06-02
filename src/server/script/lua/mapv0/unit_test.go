@@ -211,6 +211,30 @@ func (u *testUnit) Mute() {
 	panic("implement me")
 }
 
+func (u *testUnit) OnUnitDeath(fnc func(u script.Unit)) {
+	panic("implement me")
+}
+
+func (u *testUnit) OnUnitIdle(fnc func(u script.Unit)) {
+	panic("implement me")
+}
+
+func (u *testUnit) OnUnitDone(fnc func(u script.Unit)) {
+	panic("implement me")
+}
+
+func (u *testUnit) OnUnitAttack(fnc func(u script.Unit, targ script.Unit)) {
+	panic("implement me")
+}
+
+func (u *testUnit) OnUnitSeeEnemy(fnc func(u script.Unit, targ script.Unit)) {
+	panic("implement me")
+}
+
+func (u *testUnit) OnUnitLostEnemy(fnc func(u script.Unit, targ script.Unit)) {
+	panic("implement me")
+}
+
 func TestUnitID(t *testing.T) {
 	g := newGame(t)
 	g.newUnit("Test", 1, 2)

@@ -4641,7 +4641,7 @@ int  sub_502060(int a1);
 BOOL  nox_thing_read_AVNT_502120(int a1, void* a2);
 int  nox_thing_read_audio_502320(int a1, void* a2);
 int  sub_502370(int a1, void* a2);
-unsigned __int8*  nox_xxx_scriptCallByEventBlock_502490(int* a1, int a2, int a3);
+unsigned __int8*  nox_xxx_scriptCallByEventBlock_502490(int* a1, int a2, int a3, int eventCode);
 void  sub_5025A0(int a1, int a2, int a3);
 int  sub_5025E0(int a1, int a2, int a3);
 void  nox_server_scriptExecuteFnForEachGroupObj_502670(unsigned __int8* a1, int a2, void(* a3)(int, int),
