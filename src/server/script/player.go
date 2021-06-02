@@ -14,7 +14,7 @@ type Player interface {
 	// Blind or unblind the player.
 	Blind(v bool)
 	// Cinema enables wide-screen "cinema" mode.
-	Cinema(v int)
+	Cinema(v bool)
 	// Unit that the player controls.
 	Unit() Unit
 }
@@ -57,7 +57,7 @@ func (BasePlayer) Blind(v bool) {
 	panic("implement me")
 }
 
-func (BasePlayer) Cinema(v int) {
+func (BasePlayer) Cinema(v bool) {
 	panic("implement me")
 }
 

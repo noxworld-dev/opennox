@@ -1,6 +1,5 @@
 package main
 
-import "C"
 import (
 	"time"
 
@@ -38,8 +37,8 @@ func (noxScript) BlindPlayers(blind bool) {
 	BlindPlayers(blind)
 }
 
-func (noxScript) CinemaPlayers(v int) {
-	panic("implement me")
+func (noxScript) CinemaPlayers(v bool) {
+	CinemaPlayers(v)
 }
 
 func (noxScript) Players() []script.Player {
@@ -81,15 +80,27 @@ func (noxScript) ObjectByID(id string) script.Object {
 }
 
 func (noxScript) ObjectGroupByID(id string) *script.ObjectGroup {
-	panic("implement me")
+	g := getObjectGroupByID(id)
+	if g == nil {
+		return nil
+	}
+	return g
 }
 
 func (noxScript) WaypointByID(id string) script.Waypoint {
-	panic("implement me")
+	w := getWaypointByID(id)
+	if w == nil {
+		return nil
+	}
+	return w
 }
 
 func (noxScript) WaypointGroupByID(id string) *script.WaypointGroup {
-	panic("implement me")
+	g := getWaypointGroupByID(id)
+	if g == nil {
+		return nil
+	}
+	return g
 }
 
 func (noxScript) WallAt(pos types.Pointf) script.Wall {
@@ -136,10 +147,7 @@ func (noxScript) Console(error bool) script.Printer {
 type scriptGlobalPrint struct{}
 
 func (scriptGlobalPrint) Print(text string) {
-	// TODO: better way
-	for _, p := range getPlayers() {
-		p.Print(text)
-	}
+	PrintToPlayers(text)
 }
 
 func (noxScript) Global() script.Printer {

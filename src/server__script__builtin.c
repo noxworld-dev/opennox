@@ -2555,7 +2555,7 @@ int nox_script_Blind_515220() {
 }
 
 //----- (00515240) --------------------------------------------------------
-int nox_script_WideScreen_515240() {
+void nox_xxx_WideScreenDo_515240(bool enable) {
 	BOOL v0; // esi
 	int v1;  // esi
 	int v2;  // edi
@@ -2568,7 +2568,7 @@ int nox_script_WideScreen_515240() {
 
 	if (!nox_script_objTelekinesisHand)
 		nox_script_objTelekinesisHand = nox_xxx_getNameId_4E3AA0("TelekinesisHand");
-	if (nox_script_pop() != 1) {
+	if (!enable) {
 		if (sub_44DCA0(16, 30))
 			sub_477530(0);
 		for (i = nox_server_getFirstObject_4DA790(); i; i = nox_server_getNextObject_4DA7A0(i)) {
@@ -2578,13 +2578,13 @@ int nox_script_WideScreen_515240() {
 					*(_DWORD*)(i + 16) = v9 & 0xFFFFFFBF;
 			}
 		}
-		return 0;
+		return;
 	}
 	v0 = sub_44DD00();
 	if (sub_44DC40(16, 10))
 		sub_477530(1);
 	if (v0)
-		return 0;
+		return;
 	if (!*getMemU32Ptr(0x5D4594, 2386876)) {
 		*getMemU32Ptr(0x5D4594, 2386876) = nox_xxx_getNameId_4E3AA0("ToxicCloud");
 		*getMemU32Ptr(0x5D4594, 2386880) = nox_xxx_getNameId_4E3AA0("SmallToxicCloud");
@@ -2605,7 +2605,7 @@ int nox_script_WideScreen_515240() {
 	}
 	v3 = nox_server_getFirstObject_4DA790();
 	if (!v3)
-		return 0;
+		return;
 	do {
 		v4 = nox_server_getNextObject_4DA7A0(v3);
 		if (*(_DWORD*)(v3 + 508) &&
@@ -2639,6 +2639,10 @@ int nox_script_WideScreen_515240() {
 		}
 		v3 = v4;
 	} while (v4);
+	return;
+}
+int nox_script_WideScreen_515240() {
+	nox_xxx_WideScreenDo_515240(nox_script_pop() == 1);
 	return 0;
 }
 

@@ -78,7 +78,7 @@ func (vm *api) initPlayer() {
 	}))
 	// Nox.Players.Cinema(100)
 	vm.meta.Players.RawSetString("Cinema", vm.s.NewFunction(func(s *lua.LState) int {
-		v := s.OptInt(1, 100) // TODO: check exact magnitude
+		v := s.OptBool(1, true)
 		vm.g.CinemaPlayers(v)
 		return 1
 	}))
@@ -130,7 +130,7 @@ func (vm *api) initPlayer() {
 		if !ok {
 			return 0
 		}
-		v := s.OptInt(2, 100) // TODO: check exact magnitude
+		v := s.OptBool(2, true)
 		p.Cinema(v)
 		return 1
 	}))

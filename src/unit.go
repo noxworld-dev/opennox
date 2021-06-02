@@ -10,6 +10,8 @@ import (
 	"unsafe"
 
 	"nox/v1/common/alloc"
+	noxflags "nox/v1/common/flags"
+	"nox/v1/common/object"
 	"nox/v1/common/types"
 	"nox/v1/server/script"
 )
@@ -41,16 +43,17 @@ func (u *Unit) SetPos(p types.Pointf) {
 	C.nox_xxx_unitMove_4E7010(C.int(uintptr(u.CObj())), cp)
 }
 
-func (u *Unit) SetZ(z float32) {
-	panic("implement me")
-}
-
 func (u *Unit) Push(vec types.Pointf, force float32) {
-	panic("implement me")
+	p := u.Pos().Sub(vec)
+	l := float32(p.Len())
+	p.X = force * p.X / l
+	p.Y = force * p.Y / l
+	u.PushTo(p)
 }
 
 func (u *Unit) PushTo(p types.Pointf) {
-	panic("implement me")
+	*(*C.float)(u.field(88)) += C.float(p.X)
+	*(*C.float)(u.field(92)) += C.float(p.Y)
 }
 
 func (u *Unit) Destroy() {
@@ -61,20 +64,79 @@ func (u *Unit) CanSee(obj script.Object) bool {
 	panic("implement me")
 }
 
+func (u *Unit) ptrXxx() unsafe.Pointer {
+	return *(*unsafe.Pointer)(u.field(556))
+}
+
+func (u *Unit) ptrYyy() unsafe.Pointer {
+	return *(*unsafe.Pointer)(u.field(748))
+}
+
 func (u *Unit) Health() (cur, max int) {
-	panic("implement me")
+	if u == nil {
+		return
+	}
+	p := u.ptrXxx()
+	if p == nil {
+		return
+	}
+	cur = int(*(*uint16)(unsafe.Pointer(uintptr(p) + 0)))
+	max = int(*(*uint16)(unsafe.Pointer(uintptr(p) + 4)))
+	return
 }
 
 func (u *Unit) SetHealth(v int) {
-	panic("implement me")
+	if u == nil {
+		return
+	}
+	if noxflags.HasGame(noxflags.GameSuddenDeath) {
+		return
+	}
+	if v < 0 {
+		v = 0
+	}
+	if _, max := u.Health(); v > max {
+		v = max
+	}
+	// TODO: if 0, trigger death
+	C.nox_xxx_unitSetHP_4E4560(C.int(uintptr(u.CObj())), C.ushort(v))
+	if u.Class().Has(object.ClassMonster) {
+		C.nox_xxx_mobInformOwnerHP_4EE4C0((*C.uint)(u.CObj()))
+	}
 }
 
 func (u *Unit) SetMaxHealth(v int) {
-	panic("implement me")
+	if u == nil {
+		return
+	}
+	if noxflags.HasGame(noxflags.GameSuddenDeath) {
+		return
+	}
+	if v < 0 {
+		v = 0
+	}
+	p := u.ptrXxx()
+	if p == nil {
+		return
+	}
+	// TODO: verify it works in MP
+	// TODO: if it's the player, we need to adjust GUI health bars
+	*(*uint16)(unsafe.Pointer(uintptr(p) + 4)) = uint16(v)
+	u.SetHealth(v)
 }
 
 func (u *Unit) Mana() (cur, max int) {
-	panic("implement me")
+	if u == nil {
+		return
+	}
+	p := u.ptrYyy()
+	if p == nil {
+		return
+	}
+	// TODO: +6 is similar, what's the difference?
+	cur = int(*(*uint16)(unsafe.Pointer(uintptr(p) + 4)))
+	max = int(*(*uint16)(unsafe.Pointer(uintptr(p) + 8)))
+	return
 }
 
 func (u *Unit) SetMana(v int) {
@@ -86,28 +148,34 @@ func (u *Unit) SetMaxMana(v int) {
 }
 
 func (u *Unit) MoveTo(p types.Pointf) {
-	panic("implement me")
+	// TODO: originally, this method required Waypoint as an argument
+	//       but now we actually have WalkTo and friends which accept both position or a waypoint (in LUA)
+	//       so we will call WalkTo here for now, but that Waypoint requirement was probably done for a reason
+	u.WalkTo(p)
 }
 
 func (u *Unit) WalkTo(p types.Pointf) {
 	C.nox_xxx_monsterWalkTo_514110(C.int(uintptr(u.CObj())), C.float(p.X), C.float(p.Y))
 }
 
+func (u *Unit) look(v int16) {
+	*(*int16)(u.field(124)) = v
+	*(*int16)(u.field(126)) = v
+}
+
 func (u *Unit) LookAt(p types.Pointf) {
-	p1, p2 := u.Pos(), p
-	p.X = p2.X - p1.X
-	p.Y = p2.Y - p1.Y
+	p = p.Sub(u.Pos())
 	v := nox_xxx_math_509ED0(p)
-	*(*int16)(u.field(124)) = int16(v)
-	*(*int16)(u.field(126)) = int16(v)
+	u.look(int16(v))
 }
 
 func (u *Unit) LookAtDir(dir int) {
-	panic("implement me")
+	C.nox_xxx_monsterLookAt_5125A0(C.int(uintptr(u.CObj())), C.int(dir))
 }
 
 func (u *Unit) LookAngle(ang int) {
-	panic("implement me")
+	v := nox_xxx_math_roundDir(int32(ang))
+	u.look(int16(v))
 }
 
 func (u *Unit) Freeze(freeze bool) {

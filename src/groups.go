@@ -29,22 +29,36 @@ func getFirstMapGroup() *mapGroup {
 	return (*mapGroup)(unsafe.Pointer(uintptr(C.nox_server_mapGroupsHead_2523900)))
 }
 
-func (s *mapGroup) C() unsafe.Pointer {
-	return unsafe.Pointer(s)
+func (g *mapGroup) C() unsafe.Pointer {
+	return unsafe.Pointer(g)
 }
 
-func (s *mapGroup) Type() int {
-	return int(C.nox_server_scriptGetGroupId_57C2D0((**C.int)(s.C())))
+func (g *mapGroup) Type() int {
+	return int(C.nox_server_scriptGetGroupId_57C2D0((**C.int)(g.C())))
 }
 
-func (s *mapGroup) ID() string {
-	return GoString((*C.char)(unsafe.Pointer(uintptr(s.C()) + 8)))
+func (g *mapGroup) ID() string {
+	return GoString((*C.char)(unsafe.Pointer(uintptr(g.C()) + 8)))
 }
 
-func (s *mapGroup) Next() *mapGroup {
-	if s == nil {
+func (g *mapGroup) Next() *mapGroup {
+	if g == nil {
 		return nil
 	}
-	p := *(*unsafe.Pointer)(unsafe.Pointer(uintptr(unsafe.Pointer(s)) + 88))
+	p := *(*unsafe.Pointer)(unsafe.Pointer(uintptr(unsafe.Pointer(g)) + 88))
 	return (*mapGroup)(p)
+}
+
+func (g *mapGroup) FirstItem() *mapGroupItem {
+	return *(**mapGroupItem)(unsafe.Pointer(uintptr(g.C()) + 21*4))
+}
+
+type mapGroupItem [0]byte
+
+func (it *mapGroupItem) Next() *mapGroupItem {
+	return *(**mapGroupItem)(unsafe.Pointer(uintptr(unsafe.Pointer(it)) + 8))
+}
+
+func (it *mapGroupItem) Payload() unsafe.Pointer {
+	return unsafe.Pointer(it)
 }

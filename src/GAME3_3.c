@@ -8733,26 +8733,23 @@ int  sub_4EE440(int a1) {
 }
 
 //----- (004EE460) --------------------------------------------------------
-void  nox_xxx_unitAdjustHP_4EE460(int a1, int a2) {
-	unsigned __int16* v2; // ecx
-	unsigned __int16 v3;  // dx
-	int v4;               // ecx
-	unsigned __int16 v5;  // ax
-
-	if (!nox_common_gameFlags_check_40A5C0(0x4000000)) {
-		v2 = *(unsigned __int16**)(a1 + 556);
-		if (v2) {
-			v3 = v2[2];
-			if (*v2 < v3) {
-				v4 = *v2 + a2;
-				v5 = v3;
-				if (v4 < v3)
-					v5 = v4;
-				nox_xxx_unitSetHP_4E4560(a1, v5);
-				if (*(_BYTE*)(a1 + 8) & 2)
-					nox_xxx_mobInformOwnerHP_4EE4C0((_DWORD*)a1);
-			}
-		}
+void  nox_xxx_unitAdjustHP_4EE460(int unit, int dv) {
+	if (nox_common_gameFlags_check_40A5C0(0x4000000)) {
+		return;
+	}
+	unsigned __int16* v2 = *(unsigned __int16**)(unit + 556);
+	if (!v2) {
+		return;
+	}
+	unsigned __int16 max = v2[2];
+	if (*v2 < max) {
+		int set = *v2 + dv;
+		unsigned __int16 val = set;
+		if (set > max)
+			val = max;
+		nox_xxx_unitSetHP_4E4560(unit, val);
+		if (*(_BYTE*)(unit + 8) & 2)
+			nox_xxx_mobInformOwnerHP_4EE4C0(unit);
 	}
 }
 

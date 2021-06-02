@@ -63,6 +63,9 @@ func (vm *api) initMetaObject() {
 		obj.SetPos(to)
 		return
 	})
+	vm.registerObjMethod("DistanceTo", func(obj script.Positioner, to types.Pointf) float32 {
+		return float32(obj.Pos().Sub(to).Len())
+	})
 	vm.registerObjMethod("SetOwner", func(obj script.OwnerSetter, owner script.ObjectWrapper) (_ receiverValue) {
 		obj.SetOwner(owner)
 		return

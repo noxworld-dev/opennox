@@ -59,6 +59,32 @@ func getObjectByID(id string) *Object {
 	return nil
 }
 
+func getObjectByInd(ind int) *Object {
+	for p := firstServerObject(); p != nil; p = p.Next() {
+		if p.flags16()&0x20 == 0 && p.Ind() == ind {
+			return p
+		}
+	}
+	return nil
+}
+
+func getObjectGroupByID(id string) *script.ObjectGroup {
+	g := getMapGroupByID(id, 0)
+	if g == nil {
+		return nil
+	}
+	// may contain map name, so we load it again
+	id = g.ID()
+	var list []script.Object
+	for wp := g.FirstItem(); wp != nil; wp = wp.Next() {
+		ind := int(*(*int32)(wp.Payload()))
+		if wl := getObjectByInd(ind); wl != nil {
+			list = append(list, wl)
+		}
+	}
+	return script.NewObjectGroup(id, list...)
+}
+
 type noxObject interface {
 	CObj() unsafe.Pointer
 }
@@ -78,6 +104,10 @@ func (obj *Object) ID() string {
 	return GoString(p)
 }
 
+func (obj *Object) Ind() int {
+	return int(*(*int32)(obj.field(40)))
+}
+
 func (obj *Object) String() string {
 	return fmt.Sprintf("Object(%s)", obj.ID())
 }
@@ -92,6 +122,10 @@ func (obj *Object) GetObject() script.Object {
 func (obj *Object) Class() object.Class {
 	v := *(*uint32)(obj.field(8))
 	return object.Class(v)
+}
+
+func (obj *Object) flags16() byte {
+	return *(*byte)(obj.field(16))
 }
 
 func (obj *Object) findByID(id string) *Object {
@@ -191,7 +225,7 @@ func (obj *Object) Z() float32 {
 }
 
 func (obj *Object) SetZ(z float32) {
-	panic("implement me")
+	C.nox_xxx_unitRaise_4E46F0(C.int(uintptr(obj.CObj())), C.float(z))
 }
 
 func (obj *Object) Push(vec types.Pointf, force float32) {

@@ -1272,7 +1272,7 @@ var noxMemmap = []struct {
 	{0x5D4594, 2523738, 2, "nox_telnet_conns"},                 // 0x83C7EE
 	{0x5D4594, 2523740, 2, "nox_telnet_conns"},                 // 0x83C7F0
 	{0x5D4594, 2523744, 4, "nox_telnet_listening"},             // 0x83C7F4
-	{0x5D4594, 2523752, 4, "dword_5d4594_2523752"},             // 0x83C7FC
+	{0x5D4594, 2523752, 4, "nox_xxx_waypointsHead_2523752"},    // 0x83C7FC
 	{0x5D4594, 2523756, 4, "dword_5d4594_2523756"},             // 0x83C800
 	{0x5D4594, 2523760, 4, "dword_5d4594_2523760"},             // 0x83C804
 	{0x5D4594, 2523764, 4, "dword_5d4594_2523764"},             // 0x83C808

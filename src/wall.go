@@ -58,18 +58,18 @@ func getWallNear(pos types.Pointf) *Wall {
 }
 
 func getWallGroupByID(id string) *script.WallGroup {
-	p := getMapGroupByID(id, 2)
-	if p == nil {
+	g := getMapGroupByID(id, 2)
+	if g == nil {
 		return nil
 	}
 	// may contain map name, so we load it again
-	id = p.ID()
+	id = g.ID()
 	var list []script.Wall
-	w1 := *(*unsafe.Pointer)(unsafe.Pointer(uintptr(p.C()) + 21*4))
-	for wp := w1; wp != nil; wp = *(*unsafe.Pointer)(unsafe.Pointer(uintptr(wp) + 8)) {
+	for wp := g.FirstItem(); wp != nil; wp = wp.Next() {
+		p := wp.Payload()
 		if wl := getWallAtGrid(types.Point{
-			X: int(*(*C.int)(unsafe.Pointer(uintptr(wp) + 0))),
-			Y: int(*(*C.int)(unsafe.Pointer(uintptr(wp) + 4))),
+			X: int(*(*C.int)(unsafe.Pointer(uintptr(p) + 0))),
+			Y: int(*(*C.int)(unsafe.Pointer(uintptr(p) + 4))),
 		}); wl != nil {
 			list = append(list, wl)
 		}

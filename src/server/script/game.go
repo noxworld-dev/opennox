@@ -12,7 +12,7 @@ type Game interface {
 	// BlindPlayers blinds or unblinds all players.
 	BlindPlayers(blind bool)
 	// CinemaPlayers enables a wide-screen "cinema" mode for all players.
-	CinemaPlayers(v int)
+	CinemaPlayers(v bool)
 	// Players returns a list of all players.
 	Players() []Player
 	// HostPlayer returns the host player.
@@ -63,7 +63,7 @@ func (BaseGame) BlindPlayers(blind bool) {
 	panic("implement me")
 }
 
-func (BaseGame) CinemaPlayers(v int) {
+func (BaseGame) CinemaPlayers(v bool) {
 	panic("implement me")
 }
 

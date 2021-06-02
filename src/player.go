@@ -5,8 +5,12 @@ package main
 extern unsigned int nox_gameDisableMapDraw_5d4594_2650672;
 extern nox_playerInfo nox_playerinfo_arr[NOX_PLAYERINFO_MAX];
 extern unsigned int nox_xxx_host_player_unit_3843628;
+void nox_xxx_WideScreenDo_515240(bool enable);
 static void nox_xxx_netSendLineMessage_go(void* a1, wchar_t* str) {
 	nox_xxx_netSendLineMessage_4D9EB0(a1, str);
+}
+static void nox_xxx_printToAll_4D9FD0_go(int a1, wchar_t* str) {
+	nox_xxx_printToAll_4D9FD0(a1, str);
 }
 */
 import "C"
@@ -42,6 +46,16 @@ func asPlayer(p *C.nox_playerInfo) *Player {
 
 func BlindPlayers(blind bool) {
 	C.nox_xxx_netMsgFadeBegin_4D9800(C.int(bool2int(!blind)), 0)
+}
+
+func CinemaPlayers(cinema bool) {
+	C.nox_xxx_WideScreenDo_515240(C.bool(cinema))
+}
+
+func PrintToPlayers(text string) {
+	cstr := CWString(text)
+	defer WStrFree(cstr)
+	C.nox_xxx_printToAll_4D9FD0_go(0, cstr)
 }
 
 var _ noxObject = (*Player)(nil) // proxies Unit
@@ -94,8 +108,9 @@ func (p *Player) Blind(blind bool) {
 	C.nox_xxx_netMsgFadeBeginPlayer(C.int(p.Index()), C.int(bool2int(!blind)), 0)
 }
 
-func (p *Player) Cinema(v int) {
-	panic("implement me")
+func (p *Player) Cinema(v bool) {
+	// TODO: only works for everyone for now
+	CinemaPlayers(v)
 }
 
 func (p *Player) CObj() unsafe.Pointer {
