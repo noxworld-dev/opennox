@@ -38,7 +38,7 @@ void sub_4FC680();
 int sub_4FC6D0();
 bool sub_57B140();
 int sub_417C60();
-int nox_xxx_free_4E2A20();
+int nox_xxx_freeObjectTypes_4E2A20();
 */
 import "C"
 import (
@@ -368,7 +368,7 @@ func nox_xxx_servEndSession_4D3200() {
 	C.nox_xxx_deleteShopInventories_50E300()
 	C.sub_416950()
 	C.sub_4E3420()
-	C.nox_xxx_free_4E2A20()
+	C.nox_xxx_freeObjectTypes_4E2A20()
 	if !noxflags.HasGame(noxflags.GameSolo) {
 		nox_server_netCloseHandler_4DEC60(*memmap.PtrUint32(0x5D4594, 1548516))
 		if !noxflags.HasGame(noxflags.GameFlag26) {

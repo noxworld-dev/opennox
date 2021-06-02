@@ -443,28 +443,28 @@ typedef struct nox_objectType_t {
 	float field_31; // 31, 124
 	float field_32; // 32, 128
 	_DWORD field_33; // 33, 132
-	void* field_34; // 34, 136, TODO: some custom data
+	void* field_34; // 34, 136, TODO: data
 	_DWORD field_35; // 35, 140
-	void* field_36; // 36, 144, TODO: some custom data
-	_DWORD field_37; // 37, 148
+	void* field_36; // 36, 144, TODO: data
+	int field_37; // 37, 148, TODO: size
 	void* func_damage; // 38, 152
 	void* func_damage_sound; // 39, 156
 	_DWORD field_40; // 40, 160
-	_DWORD field_41; // 41, 164
+	void* field_41; // 41, 164, TODO: data
 	_DWORD field_42; // 42, 168
 	_DWORD field_43; // 43, 172
-	_DWORD field_44; // 44, 176
-	_DWORD field_45; // 45, 180
+	void* field_44; // 44, 176, TODO: data
+	int field_45; // 45, 180, TODO: size
 	_DWORD field_46; // 46, 184
 	_DWORD field_47; // 47, 188
-	void* field_48; // 48, 192, TODO: some custom data
-	_DWORD field_49; // 49, 196
+	void* field_48; // 48, 192, TODO: data
+	int field_49; // 49, 196, TODO: size
 	_DWORD field_50; // 50, 200
-	_DWORD field_51; // 51, 204
-	_DWORD field_52; // 52, 208
+	void* field_51; // 51, 204, TODO: data
+	int field_52; // 52, 208, TODO: size
 	void* func_xfer; // 53, 212
 	_DWORD field_54; // 54, 216
-	nox_objectType_t* next; // 55, 220, TODO: next? or prev?
+	nox_objectType_t* next; // 55, 220
 } nox_objectType_t;
 _Static_assert(sizeof(nox_objectType_t) == 224, "wrong size of nox_objectType_t structure!");
 

@@ -14,6 +14,6 @@ extern int nox_parse_thing_funcs_cnt;
 void*  nox_xxx_parseThingBinClient_44C840_read_things(void);
 void nox_things_free_44C580();
 
-int nox_xxx_free_4E2A20();
+int nox_xxx_freeObjectTypes_4E2A20();
 
 #endif // NOX_PORT_CLIENT_DRAWABLE_DRAWDB

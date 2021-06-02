@@ -399,7 +399,7 @@ int nox_cmd_list_weapons(int tokInd, int tokCnt, wchar_t** tokens) {
 
 	v0 = nox_strman_loadString_40F1D0("allowed", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1460);
 	v1 = nox_strman_loadString_40F1D0("disallowed", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1461);
-	v2 = (char**)sub_4E3B30();
+	v2 = (char**)nox_xxx_getFirstObjectType_4E3B30();
 	while (v2) {
 		if ((unsigned int)v2[6] & 0x1000000) {
 			v3 = sub_415910(v2[1]);
@@ -437,7 +437,7 @@ int nox_cmd_list_armor(int tokInd, int tokCnt, wchar_t** tokens) {
 
 	v0 = nox_strman_loadString_40F1D0("allowed", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1492);
 	v1 = nox_strman_loadString_40F1D0("disallowed", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1493);
-	v2 = (char**)sub_4E3B30();
+	v2 = (char**)nox_xxx_getFirstObjectType_4E3B30();
 	while (v2) {
 		if ((unsigned int)v2[6] & 0x2000000) {
 			v3 = sub_415DF0(v2[1]);
@@ -511,7 +511,7 @@ int nox_cmd_list_staffs(int tokInd, int tokCnt, wchar_t** tokens) {
 
 	v0 = nox_strman_loadString_40F1D0("allowed", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1588);
 	v1 = nox_strman_loadString_40F1D0("disallowed", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1589);
-	v2 = (unsigned __int16*)sub_4E3B30();
+	v2 = (unsigned __int16*)nox_xxx_getFirstObjectType_4E3B30();
 	while (v2) {
 		v3 = *((_DWORD*)v2 + 6);
 		if (v3 & 0x1000) {

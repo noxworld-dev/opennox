@@ -38,7 +38,7 @@ extern void* nox_alloc_objMem_1563344;
 extern _DWORD dword_5d4594_1565616;
 extern _DWORD dword_587000_202404;
 extern _DWORD nox_xxx_warriorMaxMana_587000_312788;
-extern _DWORD dword_5d4594_1563660;
+extern nox_objectType_t* nox_xxx_objectTypes_head_1563660;
 extern _DWORD nox_xxx_warriorMaxHealth_587000_312784;
 extern _DWORD nox_xxx_conjurerMaxHealth_587000_312800;
 extern _DWORD nox_xxx_wizardMaxHealth_587000_312816;
@@ -871,20 +871,13 @@ int  nox_thing_read_xxx_4E3220(int a1, char* a2, int a3) {
 
 //----- (004E3320) --------------------------------------------------------
 void nox_xxx_unitDefFindMaxDataSize_4E3320() {
-	_DWORD* v0; // ecx
-	int v1;     // edx
-	int v2;     // esi
-
-	v0 = *(_DWORD**)&dword_5d4594_1563660;
-	v1 = 0;
-	if (dword_5d4594_1563660) {
-		do {
-			v2 = v0[37];
-			if (v1 < v2 + v0[45] + v0[49] + v0[52])
-				v1 = v2 + v0[45] + v0[49] + v0[52];
-			v0 = (_DWORD*)v0[55];
-		} while (v0);
+	int max = 0;
+	for (nox_objectType_t* typ = nox_xxx_objectTypes_head_1563660; typ; typ = typ->next) {
+		if (max < typ->field_37 + typ->field_45 + typ->field_49 + typ->field_52) {
+			max = typ->field_37 + typ->field_45 + typ->field_49 + typ->field_52;
+		}
 	}
+	// TODO: result is unused :/
 }
 
 //----- (004E3360) --------------------------------------------------------
@@ -1211,7 +1204,7 @@ BOOL  sub_4E3AD0(int a1) {
 }
 
 //----- (004E3B30) --------------------------------------------------------
-LPVOID sub_4E3B30() { return *(LPVOID*)&dword_5d4594_1563660; }
+nox_objectType_t* nox_xxx_getFirstObjectType_4E3B30() { return nox_xxx_objectTypes_head_1563660; }
 
 //----- (004E3B40) --------------------------------------------------------
 int  sub_4E3B40(int a1) {
@@ -1254,7 +1247,7 @@ int nox_xxx_protectUnitDefUpdateMB_4E3C20() {
 	int result; // eax
 
 	v0 = 0;
-	for (i = sub_4E3B30(); i; i = (LPVOID)sub_4E3B40((int)i))
+	for (i = nox_xxx_getFirstObjectType_4E3B30(); i; i = (LPVOID)sub_4E3B40((int)i))
 		v0 ^= nox_xxx_unitDefProtectMB_4E31A0((int)i);
 	result = dword_5d4594_1563664;
 	if (v0 != dword_5d4594_1563664)

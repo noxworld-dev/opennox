@@ -17,7 +17,7 @@ extern _DWORD dword_5d4594_251600;
 extern _DWORD dword_5d4594_251608;
 extern _DWORD dword_5d4594_741676;
 extern _DWORD dword_5d4594_741680;
-extern _DWORD dword_5d4594_1563660;
+nox_objectType_t* nox_xxx_objectTypes_head_1563660 = 0;
 extern _DWORD dword_5d4594_1563664;
 
 bool  nox_parse_thing_flags(nox_thing* obj, nox_memfile* f, const char* attr_value);
@@ -734,7 +734,7 @@ void sub_44C620_free() {
 }
 
 //----- (004E2B30) --------------------------------------------------------
-LPVOID nox_xxx_unitDefByAlphabetFree_4E2B30() {
+void nox_xxx_unitDefByAlphabetFree_4E2B30() {
 	LPVOID* v0;    // esi
 	LPVOID result; // eax
 
@@ -746,66 +746,53 @@ LPVOID nox_xxx_unitDefByAlphabetFree_4E2B30() {
 		*v0 = 0;
 		++v0;
 	} while ((int)v0 < (int)getMemAt(0x5D4594, 1563456));
-	return result;
 }
 
 //----- (0042BF80) --------------------------------------------------------
-LPVOID sub_42BF80() {
-	LPVOID result; // eax
-
-	result = *(LPVOID*)&dword_5d4594_741676;
+void nox_xxx_free_42BF80() {
 	if (dword_5d4594_741676) {
 		free(*(LPVOID*)&dword_5d4594_741676);
 		dword_5d4594_741676 = 0;
 	}
 	dword_5d4594_741680 = 0;
-	return result;
 }
 
 //----- (004E2A20) --------------------------------------------------------
-int nox_xxx_free_4E2A20() {
-	int v0;   // esi
-	int v1;   // ebp
-	int v2;   // eax
-	void* v3; // eax
-
-	v0 = dword_5d4594_1563660;
-	if (dword_5d4594_1563660) {
-		do {
-			v1 = *(_DWORD*)(v0 + 220);
-			if (*(_DWORD*)(v0 + 4))
-				free(*(LPVOID*)(v0 + 4));
-			if (*(_DWORD*)(v0 + 136))
-				free(*(LPVOID*)(v0 + 136));
-			if (*(_DWORD*)(v0 + 144))
-				free(*(LPVOID*)(v0 + 144));
-			if (*(_DWORD*)(v0 + 164))
-				free(*(LPVOID*)(v0 + 164));
-			if (*(_DWORD*)(v0 + 176))
-				free(*(LPVOID*)(v0 + 176));
-			v2 = *(_DWORD*)(v0 + 192);
-			if (v2) {
-				if (*(_BYTE*)(v0 + 24) & 2) {
-					v3 = *(void**)(v2 + 476);
-					if (v3)
-						free(v3);
-				}
-				free(*(LPVOID*)(v0 + 192));
+int nox_xxx_freeObjectTypes_4E2A20() {
+	nox_objectType_t* next = 0;
+	for (nox_objectType_t* typ = nox_xxx_objectTypes_head_1563660; typ; typ = next) {
+		next = typ->next;
+		if (typ->id)
+			free(typ->id);
+		if (typ->field_34)
+			free(typ->field_34);
+		if (typ->field_36)
+			free(typ->field_36);
+		if (typ->field_41)
+			free(typ->field_41);
+		if (typ->field_44)
+			free(typ->field_44);
+		void* v2 = typ->field_48;
+		if (v2) {
+			if (typ->field_6 & 0x2) {
+				void* v3 = *(void**)((_DWORD)v2 + 476);
+				if (v3)
+					free(v3);
 			}
-			if (*(_DWORD*)(v0 + 204))
-				free(*(LPVOID*)(v0 + 204));
-			free((LPVOID)v0);
-			v0 = v1;
-		} while (v1);
+			free(typ->field_48);
+		}
+		if (typ->field_51)
+			free(typ->field_51);
+		free(typ);
 	}
-	dword_5d4594_1563660 = 0;
+	nox_xxx_objectTypes_head_1563660 = 0;
 	if (*getMemU32Ptr(0x5D4594, 1563456)) {
 		free(*(LPVOID*)getMemAt(0x5D4594, 1563456));
 		*getMemU32Ptr(0x5D4594, 1563456) = 0;
 	}
 	*getMemU32Ptr(0x587000, 201384) = 1;
 	nox_xxx_unitDefByAlphabetFree_4E2B30();
-	sub_42BF80();
+	nox_xxx_free_42BF80();
 	return 1;
 }
 
@@ -837,7 +824,7 @@ CHAR*  nox_xxx_unitDefByAlphabetAdd_4E3080(CHAR* a1) {
 int sub_4E3110() {
 	int ret = 1;
 
-	for (char* cur = (char*)sub_4E3B30(); cur; cur = (char*)sub_4E3B40((int)cur)) {
+	for (char* cur = (char*)nox_xxx_getFirstObjectType_4E3B30(); cur; cur = (char*)sub_4E3B40((int)cur)) {
 		char char_0x20 = *((char*)cur + 32);
 		if ((char_0x20 & 0x40) != 0) {
 			continue;
@@ -996,8 +983,8 @@ int  nox_read_things_alternative_4E2B60(void) {
 	int i;               // [esp+0h] [ebp-8h]
 	void* v21;           // [esp+4h] [ebp-4h]
 
-	if (dword_5d4594_1563660)
-		nox_xxx_free_4E2A20();
+	if (nox_xxx_objectTypes_head_1563660)
+		nox_xxx_freeObjectTypes_4E2A20();
 	sub_4E3010();
 	dword_5d4594_1563664 = 0;
 	v1 = malloc(0x40000u);
@@ -1118,8 +1105,8 @@ int  nox_read_things_alternative_4E2B60(void) {
 			typ->field_4 = 1;
 			typ->field_14 *= 10.0f;
 			dword_5d4594_1563664 ^= nox_xxx_unitDefProtectMB_4E31A0(typ);
-			typ->next = dword_5d4594_1563660;
-			dword_5d4594_1563660 = typ;
+			typ->next = nox_xxx_objectTypes_head_1563660;
+			nox_xxx_objectTypes_head_1563660 = typ;
 			nox_xxx_unitDefByAlphabetAdd_4E3080(typ->id);
 			v3 = v21;
 			break;
@@ -1146,7 +1133,7 @@ int  nox_read_things_alternative_4E2B60(void) {
 	}
 	nox_xxx_unitDefByAlphabetInit_4E3040();
 	v17 = *getMemU32Ptr(0x587000, 201384);
-	v18 = dword_5d4594_1563660;
+	v18 = nox_xxx_objectTypes_head_1563660;
 	v19 = 1;
 	for (i = 1; i < *getMemIntPtr(0x587000, 201384); ++i) {
 		*(_DWORD*)(*getMemU32Ptr(0x5D4594, 1563456) + 4 * (v17 - v19)) = v18;
@@ -1327,5 +1314,5 @@ void nox_things_free_44C580() {
 	nox_things_count = 0;
 	sub_44C620_free();
 	if (!nox_common_gameFlags_check_40A5C0(1))
-		sub_42BF80();
+		nox_xxx_free_42BF80();
 }

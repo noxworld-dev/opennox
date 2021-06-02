@@ -817,7 +817,7 @@ mem_mapping mappings[] = {
 	{0x5D4594 + 1309716, 4, "dword_5d4594_1309716"}, // 0x7141A8
 	{0x5D4594 + 2487532, 4, "dword_5d4594_2487532"}, // 0x833A80
 	{0x5D4594 + 1599692, 4, "dword_5d4594_1599692"}, // 0x75AE60
-	{0x5D4594 + 1563660, 4, "dword_5d4594_1563660"}, // 0x7521A0
+	{0x5D4594 + 1563660, 4, "nox_xxx_objectTypes_head_1563660"}, // 0x7521A0
 	{0x587000 + 312784, 4, "nox_xxx_warriorMaxHealth_587000_312784"}, // 0x5D35D0
 	{0x5D4594 + 1193152, 4, "nox_client_lockHighResFloors_1193152"}, // 0x6F7A54
 	{0x587000 + 311480, 4, "nox_telnet_listener"}, // 0x5D30B8

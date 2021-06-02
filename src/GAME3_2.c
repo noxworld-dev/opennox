@@ -2189,7 +2189,7 @@ BOOL nox_xxx_servEndSession_4D3200() {
 	nox_xxx_deleteShopInventories_50E300();
 	sub_416950();
 	sub_4E3420();
-	nox_xxx_free_4E2A20();
+	nox_xxx_freeObjectTypes_4E2A20();
 	if (!nox_common_gameFlags_check_40A5C0(2048)) {
 		nox_server_netCloseHandler_4DEC60(*getMemUintPtr(0x5D4594, 1548516));
 		if (!nox_common_gameFlags_check_40A5C0(0x2000000))
