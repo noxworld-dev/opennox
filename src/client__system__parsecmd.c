@@ -388,38 +388,27 @@ int nox_cmd_macros_off(int tokInd, int tokCnt, wchar_t** tokens) {
 
 //----- (00441050) --------------------------------------------------------
 int nox_cmd_list_weapons(int tokInd, int tokCnt, wchar_t** tokens) {
-	wchar_t* v0; // ebx
-	wchar_t* v1; // ebp
-	char** v2;   // edi
-	int v3;      // eax
-	int v4;      // esi
-	wchar_t* v5; // eax
-	int v7;      // [esp-Ch] [ebp-18h]
-	wchar_t* v8; // [esp-8h] [ebp-14h]
-
-	v0 = nox_strman_loadString_40F1D0("allowed", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1460);
-	v1 = nox_strman_loadString_40F1D0("disallowed", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1461);
-	v2 = (char**)nox_xxx_getFirstObjectType_4E3B30();
-	while (v2) {
-		if ((unsigned int)v2[6] & 0x1000000) {
-			v3 = sub_415910(v2[1]);
-			v4 = sub_4159F0(v3);
-			if (v4) {
-				if (nox_xxx_getUnitDefDd10_4E3BA0(*(unsigned __int16*)v2)) {
-					v8 = v0;
-					v7 = v4;
-					v5 = nox_strman_loadString_40F1D0("itemdisplay", 0,
-											   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1475);
-				} else {
-					v8 = v1;
-					v7 = v4;
-					v5 = nox_strman_loadString_40F1D0("itemdisplay", 0,
-											   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1477);
-				}
-				nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v5, v7, v8);
-			}
+	wchar_t* allow = nox_strman_loadString_40F1D0("allowed", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1460);
+	wchar_t* disallow = nox_strman_loadString_40F1D0("disallowed", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1461);
+	for (nox_objectType_t* typ = nox_xxx_getFirstObjectType_4E3B30(); typ; typ = nox_xxx_objectType_next_4E3B40(typ)) {
+		if (typ->field_6 & 0x1000000 == 0) {
+			continue;
 		}
-		v2 = (char**)nox_xxx_objectType_next_4E3B40((int)v2);
+		int v3 = sub_415910(typ->id);
+		int v4 = sub_4159F0(v3);
+		if (!v4) {
+			continue;
+		}
+		wchar_t* v5;
+		wchar_t* v8;
+		if (nox_xxx_getUnitDefDd10_4E3BA0(typ->ind)) {
+			v8 = allow;
+			v5 = nox_strman_loadString_40F1D0("itemdisplay", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1475);
+		} else {
+			v8 = disallow;
+			v5 = nox_strman_loadString_40F1D0("itemdisplay", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1477);
+		}
+		nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v5, v4, v8);
 	}
 	return 1;
 }

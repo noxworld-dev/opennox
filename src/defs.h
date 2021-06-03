@@ -414,7 +414,7 @@ typedef struct nox_objectType_t {
 	_DWORD field_3; // 3, 12
 	unsigned int field_4; // 4, 16
 	_DWORD field_5; // 5, 20
-	unsigned int field_6; // 6, 24, TODO: some flags?
+	unsigned int field_6; // 6, 24, TODO: some flags? class?
 	_DWORD field_7; // 7, 28
 	unsigned int field_8; // 8, 32, TODO: some flags?
 	_DWORD field_9; // 9, 36
