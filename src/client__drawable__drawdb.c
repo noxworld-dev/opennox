@@ -774,7 +774,7 @@ int nox_xxx_freeObjectTypes_4E2A20() {
 			free(typ->field_44);
 		void* v2 = typ->field_48;
 		if (v2) {
-			if (typ->field_6 & 0x2) {
+			if (typ->obj_class & 0x2) {
 				void* v3 = *(void**)((_DWORD)v2 + 476);
 				if (v3)
 					free(v3);
@@ -1053,10 +1053,10 @@ int  nox_read_things_alternative_4E2B60(void) {
 			}
 			*((_WORD*)typ + 10) = typ->ind;
 			typ->field_8 |= 0x1000000;
-			if (typ->field_6 & 0x400000) {
+			if (typ->obj_class & 0x400000) {
 				typ->field_14 = 1e10f;
 			}
-			if (typ->field_6 & 1) {
+			if (typ->obj_class & 0x1) {
 				typ->field_13 = 1.0f;
 				typ->field_31 = typ->field_31 + typ->field_31;
 				typ->field_32 = typ->field_32 + typ->field_32;
@@ -1070,20 +1070,20 @@ int  nox_read_things_alternative_4E2B60(void) {
 			if (!strcmp(typ->id, "Rock7")) {
 				typ->field_14 = 0.25f;
 			}
-			if (typ->field_6 & 2) {
+			if (typ->obj_class & 0x2) {
 				_DWORD* v13 = typ->field_48;
 				v13[309] = -1;
 				v13[307] = -1;
 				v13[317] = -1;
-			} else if (typ->field_6 & 0x200) {
+			} else if (typ->obj_class & 0x200) {
 				_DWORD* v14 = typ->field_48;
 				v14[6] = -1;
 				v14[8] = -1;
 				v14[4] = -1;
-			} else if (typ->field_6 & 0x800) {
+			} else if (typ->obj_class & 0x800) {
 				*(_DWORD*)((_DWORD)(typ->field_36) + 4) = -1;
 			}
-			if (typ->field_6 & 0x3000006) {
+			if (typ->obj_class & 0x3000006) {
 				if (!typ->field_34) {
 					typ->field_34 = calloc(1, 20);
 					if (!typ->field_34) {

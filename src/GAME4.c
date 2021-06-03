@@ -3851,15 +3851,14 @@ int nox_xxx_freeSpellRelated_4FCA80() {
 
 //----- (004FCAC0) --------------------------------------------------------
 int  nox_xxx_Fn_4FCAC0(int a1, int a2) {
-	int i;      // eax
 	int v3;     // ecx
 	_DWORD* v4; // eax
 
 	sub_4FE8A0(a1);
 	nox_alloc_class_yyy_4144D0(*(_DWORD**)&mox_alloc_magicEnt_1569668);
 	dword_5d4594_1569672 = 0;
-	for (i = nox_xxx_getFirstPlayerUnit_4DA7C0(); i; i = nox_xxx_getNextPlayerUnit_4DA7F0(i)) {
-		v3 = *(_DWORD*)(i + 748);
+	for (nox_object_t* u = nox_xxx_getFirstPlayerUnit_4DA7C0(); u; u = nox_xxx_getNextPlayerUnit_4DA7F0(u)) {
+		v3 = u->field_187;
 		*(_BYTE*)(v3 + 188) = 0;
 		*(_DWORD*)(v3 + 216) = 0;
 		*(_DWORD*)(v3 + 192) = 0;

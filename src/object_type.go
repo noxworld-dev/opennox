@@ -56,6 +56,10 @@ func (t *ObjectType) Ind() int {
 	return int(t.ind)
 }
 
+func (t *ObjectType) Class() object.Class {
+	return object.Class(t.obj_class)
+}
+
 func (t *ObjectType) String() string {
 	return fmt.Sprintf("ObjectType(%d,%q)", t.Ind(), t.ID())
 }

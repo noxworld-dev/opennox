@@ -941,7 +941,6 @@ nox_object_t* nox_xxx_newObjectWithTypeInd_4E3450(int ind) {
 //----- (004E3470) --------------------------------------------------------
 nox_object_t* nox_xxx_newObjectWithType_4E3470(nox_objectType_t* typ) {
 	void* v5;                    // eax
-	int v7;                      // eax
 	int v8;                      // eax
 	int v9;                      // [esp+10h] [ebp-4h]
 
@@ -949,10 +948,10 @@ nox_object_t* nox_xxx_newObjectWithType_4E3470(nox_objectType_t* typ) {
 	if (!ob) {
 		return 0;
 	}
-	v9 = ob->field_9;
+	v9 = ob->field_9; // TODO: is it a really weird way to get random data?
 	memset(ob, 0, sizeof(nox_object_t));
 	ob->typ_ind = typ->field_5_0; // TODO: why is it setting it and then overwriting again?
-	ob->field_2 = typ->field_6;
+	ob->obj_class = typ->obj_class;
 	ob->field_3 = typ->field_7;
 	ob->field_4 = typ->field_8;
 	ob->field_5 = typ->field_9;
@@ -1017,7 +1016,7 @@ nox_object_t* nox_xxx_newObjectWithType_4E3470(nox_objectType_t* typ) {
 	ob->field_182 = typ->field_41;
 	ob->field_192 = -1;
 	ob->field_9 = v9;
-	if (nox_common_gameFlags_check_40A5C0(6291456) && (ob->field_2 & 0x20A02 || ob->func_xfer == nox_xxx_XFerInvLight_4F5AA0 || ob->field_122_0 != 0xff) &&
+	if (nox_common_gameFlags_check_40A5C0(6291456) && (ob->obj_class & 0x20A02 || ob->func_xfer == nox_xxx_XFerInvLight_4F5AA0 || ob->field_122_0 != 0xff) &&
 		(v5 = calloc(1u, 0xA0Cu), (ob->field_189 = v5) == 0)) {
 		nox_xxx_objectFreeMem_4E38A0(ob);
 		return 0;
@@ -1026,10 +1025,9 @@ nox_object_t* nox_xxx_newObjectWithType_4E3470(nox_objectType_t* typ) {
 		typ->func_new(ob);
 	if (!nox_common_gameFlags_check_40A5C0(0x200000))
 		ob->field_11 = (*getMemU32Ptr(0x587000, 201376))++;
-	v7 = ob->field_2;
-	if (v7 & 0x100000) {
+	if (ob->obj_class & 0x100000) {
 		++*getMemU32Ptr(0x5D4594, 1563888);
-	} else if (v7 & 0x400000) {
+	} else if (ob->obj_class & 0x400000) {
 		++*getMemU32Ptr(0x5D4594, 1563892);
 	}
 	v8 = *getMemU32Ptr(0x5D4594, 1563900) + 1;

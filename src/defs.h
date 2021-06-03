@@ -415,9 +415,9 @@ typedef struct nox_objectType_t {
 	unsigned int field_4; // 4, 16
 	_WORD field_5_0; // 5, 20
 	_WORD field_5_1; // 5, 22
-	unsigned int field_6; // 6, 24, TODO: some flags? class?
+	unsigned int obj_class; // 6, 24
 	_DWORD field_7; // 7, 28
-	unsigned int field_8; // 8, 32, TODO: some flags?
+	unsigned int field_8; // 8, 32, TODO: some flags? subclass?
 	_DWORD field_9; // 9, 36
 	_WORD field_10; // 10, 40
 	_WORD field_10_1; // 10, 42
@@ -464,7 +464,7 @@ typedef struct nox_object_t {
 	const char* id; // 0, 0
 	unsigned short typ_ind; // 1, 4
 	_WORD field_1_2; // 1, 6
-	_DWORD field_2; // 2, 8
+	unsigned int obj_class; // 2, 8
 	_DWORD field_3; // 3, 12
 	_DWORD field_4; // 4, 16
 	_DWORD field_5; // 5, 20

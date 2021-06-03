@@ -156,8 +156,7 @@ func (obj *Object) GetObject() script.Object {
 }
 
 func (obj *Object) Class() object.Class {
-	v := *(*uint32)(obj.field(8))
-	return object.Class(v)
+	return object.Class(obj.obj_class)
 }
 
 func (obj *Object) flags16() byte {
