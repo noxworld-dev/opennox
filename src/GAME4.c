@@ -828,7 +828,7 @@ int  nox_xxx_XFerMonsterGen_4F7130(int* a1) {
 					nox_xxx_fileReadWrite_426AC0_file3_fread(&v28, 1u);
 					nox_xxx_fileReadWrite_426AC0_file3_fread(v34, (unsigned __int8)v28);
 					v34[(unsigned __int8)v28] = 0;
-					v18 = nox_xxx_objectCreateByName_4E3810(v34);
+					v18 = nox_xxx_newObjectByTypeID_4E3810(v34);
 					if (!v18)
 						return 0;
 					nox_xxx_fileReadWrite_426AC0_file3_fread(&v26, 2u);
@@ -1126,7 +1126,7 @@ void  nox_xxx_playerSetCustomWP_4F79A0(int a1, int a2, int a3) {
 			LODWORD(v5.field_4) = a3;
 			nox_xxx_unitMove_4E7010(v4, &v5);
 		} else {
-			*(_DWORD*)(v3 + 4 * *(unsigned __int8*)(v3 + 180) + 168) = nox_xxx_objectCreateByName_4E3810("PlayerWaypoint");
+			*(_DWORD*)(v3 + 4 * *(unsigned __int8*)(v3 + 180) + 168) = nox_xxx_newObjectByTypeID_4E3810("PlayerWaypoint");
 			nox_xxx_createAt_4DAA50(*(_DWORD*)(v3 + 4 * *(unsigned __int8*)(v3 + 180) + 168), a1, *(float*)&a2, *(float*)&a3);
 		}
 	}
@@ -3821,7 +3821,7 @@ int nox_xxx_allocSpellRelatedArrays_4FC9B0() {
 		result = nox_new_alloc_class("magicEntityClass", 60, 64);
 		mox_alloc_magicEnt_1569668 = result;
 		if (result) {
-			result = nox_xxx_objectCreateByName_4E3810("ImaginaryCaster");
+			result = nox_xxx_newObjectByTypeID_4E3810("ImaginaryCaster");
 			dword_5d4594_1569664 = result;
 			if (result) {
 				nox_xxx_createAt_4DAA50(result, 0, 2944.0, 2944.0);
@@ -3870,7 +3870,7 @@ int  nox_xxx_Fn_4FCAC0(int a1, int a2) {
 		*(_BYTE*)(v3 + 212) = 0;
 	}
 	if (a2) {
-		v4 = nox_xxx_objectCreateByName_4E3810("ImaginaryCaster");
+		v4 = nox_xxx_newObjectByTypeID_4E3810("ImaginaryCaster");
 		dword_5d4594_1569664 = v4;
 		if (!v4)
 			return 0;
@@ -4693,7 +4693,7 @@ _DWORD*  nox_xxx_createSpellFly_4FDDA0(int a1, int a2, int a3) {
 	v22.field_C = v22.field_C + *(float*)(v3 + 84);
 	result = (_DWORD*)nox_xxx_mapTraceRay_535250(&v22, 0, 0, 5);
 	if (result) {
-		result = nox_xxx_objectCreateByName_4E3810("Magic");
+		result = nox_xxx_newObjectByTypeID_4E3810("Magic");
 		v12 = result;
 		if (result) {
 			v13 = (int*)result[187];
@@ -8887,7 +8887,7 @@ int  nox_xxx_mapgenSaveMap_503830(int a1) {
 		if (!nox_xxx_mapReadSection_426EA0((int)&v11, v27, &v6)) {
 			if (v6 == 1)
 				goto LABEL_15;
-			v2 = nox_xxx_objectCreateByName_4E3810(v27);
+			v2 = nox_xxx_newObjectByTypeID_4E3810(v27);
 			v3 = (int)v2;
 			if (!v2)
 				return 0;

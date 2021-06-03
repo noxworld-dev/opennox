@@ -65,8 +65,8 @@ func (t *ObjectType) CreateObject(p types.Pointf) script.Object {
 	if cobj == nil {
 		return nil
 	}
-	C.nox_xxx_createAt_4DAA50(C.int(uintptr(cobj)), 0, C.float(p.X), C.float(p.Y))
-	obj := asObject(cobj)
+	C.nox_xxx_createAt_4DAA50(cobj, 0, C.float(p.X), C.float(p.Y))
+	obj := asObjectC(cobj)
 	if obj.Class().Has(object.MaskUnits) {
 		return obj.AsUnit()
 	}

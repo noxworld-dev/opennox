@@ -1641,7 +1641,7 @@ BOOL  sub_41AC30(_DWORD* a1) {
 				nox_xxx_fileReadWrite_426AC0_file3_fread(&v39, 1u);
 				nox_xxx_fileReadWrite_426AC0_file3_fread(v46, (unsigned __int8)v39);
 				v46[(unsigned __int8)v39] = 0;
-				v24 = nox_xxx_objectCreateByName_4E3810(v46);
+				v24 = nox_xxx_newObjectByTypeID_4E3810(v46);
 				v25 = v24;
 				if (!v24)
 					return 0;

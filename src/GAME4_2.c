@@ -3191,7 +3191,7 @@ void  nox_xxx_mapgen_521FE0(int a1, int a2, _DWORD* a3) {
 				do {
 					switch (*((_DWORD*)v6 - 1)) {
 					case 0:
-						v7 = nox_xxx_objectCreateByName_4E3810(v6);
+						v7 = nox_xxx_newObjectByTypeID_4E3810(v6);
 						goto LABEL_14;
 					case 3:
 						v7 = nox_xxx_mapGenMakeEnchantedItem_5221A0(v6, *(char**)(a1 + 1100), *(_DWORD*)(a1 + 1104));
@@ -3224,7 +3224,7 @@ _DWORD*  nox_xxx_mapGenMakeSpellbook_5220E0(int a1, const char* a2) {
 
 	if (!*(_DWORD*)(a1 + 1096))
 		return 0;
-	v3 = nox_xxx_objectCreateByName_4E3810("SpellBook");
+	v3 = nox_xxx_newObjectByTypeID_4E3810("SpellBook");
 	if (!v3)
 		return v3;
 	if (!strcmp("*", a2)) {
@@ -3276,7 +3276,7 @@ _DWORD*  nox_xxx_mapGenMakeEnchantedItem_5221A0(char* a1, char* a2, int a3) {
 		LABEL_11:
 			v6 = a1;
 	}
-	v7 = nox_xxx_objectCreateByName_4E3810(v6);
+	v7 = nox_xxx_newObjectByTypeID_4E3810(v6);
 	if (v7 && v4) {
 		v8 = v4 + 136;
 		*(_DWORD*)v13 = 0;
@@ -8753,7 +8753,7 @@ LABEL_137:
 									--v36;
 								} while (v36);
 								if (!v32 && v33) {
-									v38 = nox_xxx_objectCreateByName_4E3810("Glyph");
+									v38 = nox_xxx_newObjectByTypeID_4E3810("Glyph");
 									v46 = (int)v38;
 									if (v38) {
 										v39 = v38[173];
@@ -10015,7 +10015,7 @@ int  nox_xxx_deathBallCreateFragments_52BD30(int* a1) {
 
 	v1 = 3;
 	do {
-		result = nox_xxx_objectCreateByName_4E3810("DeathBallFragment");
+		result = nox_xxx_newObjectByTypeID_4E3810("DeathBallFragment");
 		v3 = (float*)result;
 		if (result) {
 			nox_xxx_createAt_4DAA50(result, a1[127], *((float*)a1 + 14), *((float*)a1 + 15));
@@ -10521,7 +10521,7 @@ int  nox_xxx_castFireball_52C790(int a1, int a2, int a3, int a4, int a5, int a6)
 	float v22;   // [esp+30h] [ebp+18h]
 
 	v6 = a6;
-	v7 = (float*)nox_xxx_objectCreateByName_4E3810(*(CHAR**)getMemAt(0x587000, 4 * a6 + 258864));
+	v7 = (float*)nox_xxx_newObjectByTypeID_4E3810(*(CHAR**)getMemAt(0x587000, 4 * a6 + 258864));
 	if (!v7)
 		return 1;
 	v8 = a4;
@@ -10697,7 +10697,7 @@ int  sub_52CA80(int a1, int a2, int a3, int a4) {
 			v17[1] = "TeleportGlyph2";
 			v17[2] = "TeleportGlyph3";
 			v17[3] = "TeleportGlyph4";
-			v14 = nox_xxx_objectCreateByName_4E3810(v17[v8]);
+			v14 = nox_xxx_newObjectByTypeID_4E3810(v17[v8]);
 			*(_DWORD*)(v7 + 4 * v8 + 116) = v14;
 			if (!v14) {
 			LABEL_21:
@@ -10746,7 +10746,7 @@ int  sub_52CBD0(int a1, int a2, int a3, int a4) {
 			v17[1] = "TeleportGlyph2";
 			v17[2] = "TeleportGlyph3";
 			v17[3] = "TeleportGlyph4";
-			v8 = nox_xxx_objectCreateByName_4E3810(v17[a1 - 46]);
+			v8 = nox_xxx_newObjectByTypeID_4E3810(v17[a1 - 46]);
 			*(_DWORD*)(v6 + 4 * a1 - 68) = v8;
 			if (!v8) {
 			LABEL_12:
@@ -11027,7 +11027,7 @@ int  nox_xxx_castTelekinesis_52D330(int a1, int a2, int a3, int a4, int* a5, cha
 	result = *a5;
 	if (*a5) {
 		if (*(_BYTE*)(result + 8) & 4) {
-			v7 = nox_xxx_objectCreateByName_4E3810("TelekinesisHand");
+			v7 = nox_xxx_newObjectByTypeID_4E3810("TelekinesisHand");
 			if (v7) {
 				nox_xxx_createAt_4DAA50((int)v7, *a5, *(float*)(*a5 + 56), *(float*)(*a5 + 60));
 				nox_xxx_buffApplyTo_4FF380(*a5, 24, 20 * (_WORD)nox_gameFPS, a6);
@@ -12257,7 +12257,7 @@ int  sub_52EF30(int a1) {
 		v5 = *(float*)(v6 + 60);
 		*(_WORD*)(a1 + 72) = *(_WORD*)(v6 + 124);
 	}
-	v7 = nox_xxx_objectCreateByName_4E3810("ForceOfNatureCharge");
+	v7 = nox_xxx_newObjectByTypeID_4E3810("ForceOfNatureCharge");
 	v8 = v7;
 	if (v7) {
 		nox_xxx_createAt_4DAA50((int)v7, 0, v4, v5);
@@ -12294,7 +12294,7 @@ int  sub_52EFD0(int a1) {
 		*(_DWORD*)(a1 + 76) = 0;
 	}
 	if (*(_DWORD*)(a1 + 68) - 1 == nox_frame_xxx_2598000) {
-		v4 = (float*)nox_xxx_objectCreateByName_4E3810("DeathBall");
+		v4 = (float*)nox_xxx_newObjectByTypeID_4E3810("DeathBall");
 		if (v4) {
 			if (*(_DWORD*)(a1 + 20)) {
 				v5 = *(float*)(a1 + 28);

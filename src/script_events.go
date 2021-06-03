@@ -1,14 +1,12 @@
 package main
 
 import (
-	"unsafe"
-
 	"nox/v1/server/script"
 )
 
 var (
 	scriptEvents struct {
-		byObject map[unsafe.Pointer]*objectHandlers
+		byObject map[uintptr]*objectHandlers
 	}
 )
 
@@ -17,18 +15,18 @@ func clearScriptTriggers() {
 }
 
 func (obj *Object) getHandlers() *objectHandlers {
-	return scriptEvents.byObject[obj.CObj()]
+	return scriptEvents.byObject[obj.UniqueKey()]
 }
 
 func (obj *Object) getOrNewHandlers() *objectHandlers {
-	if h := scriptEvents.byObject[obj.CObj()]; h != nil {
+	if h := scriptEvents.byObject[obj.UniqueKey()]; h != nil {
 		return h
 	}
 	if scriptEvents.byObject == nil {
-		scriptEvents.byObject = make(map[unsafe.Pointer]*objectHandlers)
+		scriptEvents.byObject = make(map[uintptr]*objectHandlers)
 	}
 	h := &objectHandlers{obj: obj}
-	scriptEvents.byObject[obj.CObj()] = h
+	scriptEvents.byObject[obj.UniqueKey()] = h
 	return h
 }
 

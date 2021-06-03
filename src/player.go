@@ -6,7 +6,7 @@ extern unsigned int nox_gameDisableMapDraw_5d4594_2650672;
 extern nox_playerInfo nox_playerinfo_arr[NOX_PLAYERINFO_MAX];
 extern unsigned int nox_xxx_host_player_unit_3843628;
 void nox_xxx_WideScreenDo_515240(bool enable);
-static void nox_xxx_netSendLineMessage_go(void* a1, wchar_t* str) {
+static void nox_xxx_netSendLineMessage_go(nox_object_t* a1, wchar_t* str) {
 	nox_xxx_netSendLineMessage_4D9EB0(a1, str);
 }
 static void nox_xxx_printToAll_4D9FD0_go(int a1, wchar_t* str) {
@@ -113,7 +113,7 @@ func (p *Player) Cinema(v bool) {
 	CinemaPlayers(v)
 }
 
-func (p *Player) CObj() unsafe.Pointer {
+func (p *Player) CObj() *nox_object_t {
 	u := p.UnitC()
 	if u == nil {
 		return nil

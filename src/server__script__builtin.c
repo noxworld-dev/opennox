@@ -599,7 +599,8 @@ int nox_script_followNearestWaypoint_512910() {
 }
 
 //----- (00512930) --------------------------------------------------------
-void  nox_xxx_scriptMonsterRoam_512930(int a1) {
+void  nox_xxx_scriptMonsterRoam_512930(nox_object_t* obj) {
+	int a1 = obj;
 	int v1;  // eax
 	int v2;  // edi
 	int* v3; // eax
@@ -652,7 +653,8 @@ int nox_script_getObject3_5129E0() {
 }
 
 //----- (00512A00) --------------------------------------------------------
-void nox_server_gotoHome(int v2) {
+void nox_server_gotoHome(nox_object_t* obj) {
+	int v2 = obj;
 	int v3;     // eax
 	_DWORD* v4; // edi
 	int* v5;    // eax
@@ -887,7 +889,7 @@ int nox_script_create_512F10() {
 	v1 = nox_script_pop();
 	v2 = (float*)nox_server_getWaypointById_579C40(v0);
 	if (v2) {
-		v3 = nox_xxx_objectCreateByName_4E3810(nox_script_getString_512E40(v1));
+		v3 = nox_xxx_newObjectByTypeID_4E3810(nox_script_getString_512E40(v1));
 		v4 = v3;
 		if (!v3) {
 			nox_script_push(0);

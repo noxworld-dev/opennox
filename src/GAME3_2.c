@@ -869,7 +869,7 @@ int nox_xxx_serverParseEntireMap_4CFCE0() {
 		if (!nox_xxx_mapReadSection_426EA0(0, v8, &v4)) {
 			if (v4 == 1)
 				return 0;
-			v0 = nox_xxx_objectCreateByName_4E3810(v8);
+			v0 = nox_xxx_newObjectByTypeID_4E3810(v8);
 			v1 = (int)v0;
 			if (!v0 || !((int(*)(_DWORD*, _DWORD))v0[176])(v0, 0))
 				goto LABEL_9;
@@ -1147,7 +1147,7 @@ int  sub_4D0250(char* a1, char* a2, int a3, int a4) {
 				if (!nox_xxx_mapReadSection_426EA0((int)v6, v29, &v14)) {
 					if (v14 == 1)
 						goto LABEL_20;
-					v8 = nox_xxx_objectCreateByName_4E3810(v29);
+					v8 = nox_xxx_newObjectByTypeID_4E3810(v29);
 					if (!v8) {
 						nox_xxx_cryptSetTypeMB_426A50(0);
 						return 0;
@@ -7342,7 +7342,8 @@ _DWORD*  nox_xxx_action_4DA9F0(_DWORD* a1) {
 }
 
 //----- (004DAA50) --------------------------------------------------------
-void nox_xxx_createAt_4DAA50(int a1, int a2, float a3, float a4) {
+void nox_xxx_createAt_4DAA50(nox_object_t* obj, int a2, float a3, float a4) {
+	int a1 = obj;
 	int v4; // eax
 	int v5; // eax
 	int v6; // ecx
@@ -8571,7 +8572,7 @@ _DWORD*  nox_xxx_playerNew_4DD320(int ind, void* data) {
 	} else {
 		ptyp = "NewPlayer";
 	}
-	void* punit = nox_xxx_objectCreateByName_4E3810(ptyp);
+	void* punit = nox_xxx_newObjectByTypeID_4E3810(ptyp);
 	if (!punit) {
 		return 0;
 	}

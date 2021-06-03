@@ -48,7 +48,7 @@ int  nox_xxx_saveMakePlayerLocation_4DB600(int a1) {
 	v2 = (float*)*((_DWORD*)v1 + 514);
 	if (!v2)
 		return 0;
-	v3 = nox_xxx_objectCreateByName_4E3810("SaveGameLocation");
+	v3 = nox_xxx_newObjectByTypeID_4E3810("SaveGameLocation");
 	if (!v3)
 		return 0;
 	v4 = v2[14];

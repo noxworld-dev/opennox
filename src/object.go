@@ -20,6 +20,9 @@ import (
 func asObject(p unsafe.Pointer) *Object {
 	return (*Object)(p)
 }
+func asObjectC(p *C.nox_object_t) *Object {
+	return (*Object)(unsafe.Pointer(p))
+}
 
 func firstServerObject() *Object {
 	return asObject(C.nox_server_objects_1556844)
@@ -85,14 +88,20 @@ func getObjectGroupByID(id string) *script.ObjectGroup {
 	return script.NewObjectGroup(id, list...)
 }
 
+type nox_object_t = C.nox_object_t
+
 type noxObject interface {
-	CObj() unsafe.Pointer
+	CObj() *nox_object_t
 }
 
-type Object [0]byte
+type Object nox_object_t
 
-func (obj *Object) CObj() unsafe.Pointer {
-	return unsafe.Pointer(obj)
+func (obj *Object) UniqueKey() uintptr {
+	return uintptr(unsafe.Pointer(obj))
+}
+
+func (obj *Object) CObj() *nox_object_t {
+	return (*nox_object_t)(unsafe.Pointer(obj))
 }
 
 func (obj *Object) field(dp uintptr) unsafe.Pointer {
@@ -100,8 +109,7 @@ func (obj *Object) field(dp uintptr) unsafe.Pointer {
 }
 
 func (obj *Object) ID() string {
-	p := *(**C.char)(obj.field(0))
-	return GoString(p)
+	return GoString(obj.id)
 }
 
 func (obj *Object) Ind() int {
@@ -109,7 +117,7 @@ func (obj *Object) Ind() int {
 }
 
 func (obj *Object) objTypeInd() int {
-	return int(*(*uint16)(obj.field(4)))
+	return int(obj.typ_ind)
 }
 
 func (obj *Object) stringAs(typ string) string {
@@ -235,11 +243,11 @@ func (obj *Object) Owner() script.Object {
 
 func (obj *Object) SetOwner(owner script.ObjectWrapper) {
 	if owner == nil {
-		C.nox_xxx_unitClearOwner_4EC300(C.int(uintptr(obj.CObj())))
+		C.nox_xxx_unitClearOwner_4EC300(obj.CObj())
 		return
 	}
 	own := owner.GetObject().(noxObject)
-	C.nox_xxx_unitSetOwner_4EC290(C.int(uintptr(own.CObj())), C.int(uintptr(obj.CObj())))
+	C.nox_xxx_unitSetOwner_4EC290(own.CObj(), obj.CObj())
 }
 
 func (obj *Object) Pos() types.Pointf {
@@ -247,8 +255,8 @@ func (obj *Object) Pos() types.Pointf {
 		return types.Pointf{}
 	}
 	return types.Pointf{
-		X: float32(*(*C.float)(obj.field(56))),
-		Y: float32(*(*C.float)(obj.field(60))),
+		X: float32(obj.x),
+		Y: float32(obj.y),
 	}
 }
 
@@ -257,7 +265,7 @@ func (obj *Object) SetPos(p types.Pointf) {
 	defer alloc.Free(unsafe.Pointer(cp))
 	cp.field_0 = C.float(p.X)
 	cp.field_4 = C.float(p.Y)
-	C.nox_xxx_unitMove_4E7010(C.int(uintptr(obj.CObj())), cp)
+	C.nox_xxx_unitMove_4E7010(obj.CObj(), cp)
 }
 
 func (obj *Object) Z() float32 {
@@ -265,7 +273,7 @@ func (obj *Object) Z() float32 {
 }
 
 func (obj *Object) SetZ(z float32) {
-	C.nox_xxx_unitRaise_4E46F0(C.int(uintptr(obj.CObj())), C.float(z))
+	C.nox_xxx_unitRaise_4E46F0(obj.CObj(), C.float(z))
 }
 
 func (obj *Object) Push(vec types.Pointf, force float32) {
@@ -288,14 +296,14 @@ func (obj *Object) Enable(enable bool) {
 		return
 	}
 	if enable {
-		C.nox_xxx_objectSetOn_4E75B0(C.int(uintptr(obj.CObj())))
+		C.nox_xxx_objectSetOn_4E75B0(obj.CObj())
 	} else {
-		C.nox_xxx_objectSetOff_4E7600(C.int(uintptr(obj.CObj())))
+		C.nox_xxx_objectSetOff_4E7600(obj.CObj())
 	}
 }
 
 func (obj *Object) Delete() {
-	C.nox_xxx_delayedDeleteObject_4E5CC0(C.int(uintptr(obj.CObj())))
+	C.nox_xxx_delayedDeleteObject_4E5CC0(obj.CObj())
 }
 
 func (obj *Object) Destroy() {

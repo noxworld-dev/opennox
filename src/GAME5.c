@@ -3314,7 +3314,7 @@ int  sub_549E90(int a1) {
 		v1 = (CHAR**)getMemAt(0x587000, 287976);
 		v2 = getMemAt(0x587000, 287976);
 		do {
-			v3 = (float*)nox_xxx_objectCreateByName_4E3810(*v1);
+			v3 = (float*)nox_xxx_newObjectByTypeID_4E3810(*v1);
 			if (!v3)
 				break;
 			sub_4ED970(30.0, (float2*)(a1 + 56), &a3);
@@ -3360,7 +3360,7 @@ int  sub_549FA0(int a1) {
 	if (v11 > 0) {
 		v3 = dword_5d4594_2491580;
 		do {
-			v4 = (float*)nox_xxx_objectCreateByName_4E3810(*(CHAR**)getMemAt(0x587000, 4 * v3 + 288240));
+			v4 = (float*)nox_xxx_newObjectByTypeID_4E3810(*(CHAR**)getMemAt(0x587000, 4 * v3 + 288240));
 			if (!v4)
 				break;
 			sub_4ED970(30.0, v1, &a3);
@@ -3478,7 +3478,7 @@ void  sub_54A390(int a1, CHAR* a2, const char* a3, const char* a4, const char* a
 	unsigned __int8 v14[20]; // [esp+Ch] [ebp-14h]
 
 	if (nox_common_gameFlags_check_40A5C0(2048)) {
-		result = (int)nox_xxx_objectCreateByName_4E3810(a2);
+		result = (int)nox_xxx_newObjectByTypeID_4E3810(a2);
 		v8 = result;
 		if (result) {
 			sub_4ED970(50.0, (float2*)(a1 + 56), &a3a);
@@ -3531,7 +3531,7 @@ void  sub_54A4C0(int a1) {
 	nox_xxx_aud_501960(356, a1, 0, 0);
 	v1 = (float2*)(a1 + 56);
 	nox_xxx_netSendPointFx_522FF0(138, (float2*)(a1 + 56));
-	v2 = (float*)nox_xxx_objectCreateByName_4E3810("Skull");
+	v2 = (float*)nox_xxx_newObjectByTypeID_4E3810("Skull");
 	if (v2) {
 		sub_4ED970(20.0, v1, &a3);
 		nox_xxx_createAt_4DAA50((int)v2, 0, a3.field_0, a3.field_4);
@@ -3557,7 +3557,7 @@ void  sub_54A4C0(int a1) {
 		if (v6 > 0) {
 			v8 = dword_5d4594_2491588;
 			do {
-				v9 = (float*)nox_xxx_objectCreateByName_4E3810(*(CHAR**)getMemAt(0x587000, 4 * v8 + 288868));
+				v9 = (float*)nox_xxx_newObjectByTypeID_4E3810(*(CHAR**)getMemAt(0x587000, 4 * v8 + 288868));
 				if (!v9)
 					break;
 				sub_4ED970(20.0, v1, &a3);
@@ -5837,7 +5837,7 @@ void  nox_xxx_dieCreateObject_54E010(int a1) {
 	int v3;     // edi
 
 	v1 = *(_DWORD*)(a1 + 728);
-	v2 = nox_xxx_objectCreateByName_4E3810(*(CHAR**)(a1 + 728));
+	v2 = nox_xxx_newObjectByTypeID_4E3810(*(CHAR**)(a1 + 728));
 	if (v2)
 		nox_xxx_createAt_4DAA50((int)v2, 0, *(float*)(a1 + 56), *(float*)(a1 + 60));
 	v3 = *(_DWORD*)(v1 + 128);
@@ -5854,7 +5854,7 @@ __int16  nox_xxx_dieSpawnObject_54E070(int a1) {
 	int v4;     // eax
 
 	v1 = *(_DWORD*)(a1 + 728);
-	v2 = nox_xxx_objectCreateByName_4E3810(*(CHAR**)(a1 + 728));
+	v2 = nox_xxx_newObjectByTypeID_4E3810(*(CHAR**)(a1 + 728));
 	if (v2)
 		nox_xxx_createAt_4DAA50((int)v2, 0, *(float*)(a1 + 56), *(float*)(a1 + 60));
 	v3 = *(_DWORD*)(v1 + 128);
@@ -5939,7 +5939,7 @@ void  nox_xxx_dieBoulder_54E4B0(int a1) {
 	} else {
 		v5 = dword_5d4594_2491704;
 		while (1) {
-			v6 = (float*)nox_xxx_objectCreateByName_4E3810(*(CHAR**)getMemAt(0x587000, 4 * v5 + 291512));
+			v6 = (float*)nox_xxx_newObjectByTypeID_4E3810(*(CHAR**)getMemAt(0x587000, 4 * v5 + 291512));
 			if (!v6)
 				break;
 			sub_4ED970(30.0, v2, &a3);
@@ -5987,7 +5987,7 @@ void  nox_xxx_dieMonsterGen_54E630(int a1) {
 				sub_4D61B0(v2);
 		}
 	}
-	v3 = nox_xxx_objectCreateByName_4E3810("DestroyedGenerator");
+	v3 = nox_xxx_newObjectByTypeID_4E3810("DestroyedGenerator");
 	if (v3)
 		nox_xxx_createAt_4DAA50((int)v3, 0, *(float*)(a1 + 56), *(float*)(a1 + 60));
 	nox_xxx_delayedDeleteObject_4E5CC0(a1);
@@ -6928,7 +6928,7 @@ float*  nox_xxx_createSpark_54FD80(float a1, float a2, int a3, int a4, float a5,
 	unsigned int v13; // ecx
 	float* result;    // eax
 
-	v8 = (float*)nox_xxx_objectCreateByName_4E3810("Spark");
+	v8 = (float*)nox_xxx_newObjectByTypeID_4E3810("Spark");
 	if (!v8)
 		return 0;
 	v9 = (_DWORD*)*((_DWORD*)v8 + 175);

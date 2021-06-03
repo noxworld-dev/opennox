@@ -892,7 +892,7 @@ int  nox_xxx_allocClassArrayObjects_4E3360(unsigned int a1) {
 
 	v1 = 0;
 	v2 = 1;
-	nox_alloc_gameObject_1563344 = nox_new_alloc_class("objectMemClass", 772, a1);
+	nox_alloc_gameObject_1563344 = nox_new_alloc_class("objectMemClass", sizeof(nox_object_t), a1);
 	if (!nox_alloc_gameObject_1563344) {
 		return 0;
 	}
@@ -934,106 +934,99 @@ int nox_xxx_freeGameObjectClass_4E3420() {
 }
 
 //----- (004E3450) --------------------------------------------------------
-void* nox_xxx_newObjectWithTypeInd_4E3450(int ind) {
+nox_object_t* nox_xxx_newObjectWithTypeInd_4E3450(int ind) {
 	return nox_xxx_newObjectWithType_4E3470(*(_DWORD*)(*getMemU32Ptr(0x5D4594, 1563456) + 4 * ind));
 }
 
 //----- (004E3470) --------------------------------------------------------
-void* nox_xxx_newObjectWithType_4E3470(nox_objectType_t* typ) {
-	char v3;                     // al
+nox_object_t* nox_xxx_newObjectWithType_4E3470(nox_objectType_t* typ) {
 	void* v5;                    // eax
 	int v7;                      // eax
 	int v8;                      // eax
 	int v9;                      // [esp+10h] [ebp-4h]
 
-	_DWORD* obj = nox_alloc_class_new_obj(nox_alloc_gameObject_1563344);
-	if (!obj) {
+	nox_object_t* ob = nox_alloc_class_new_obj(nox_alloc_gameObject_1563344);
+	if (!ob) {
 		return 0;
 	}
-	v9 = obj[9];
-	memset(obj, 0, 772);
-	*((_WORD*)obj + 2) = typ->field_5_0;
-	obj[2] = typ->field_6;
-	obj[3] = typ->field_7;
-	obj[4] = typ->field_8;
-	obj[5] = typ->field_9;
-	*((_WORD*)obj + 12) = typ->field_10;
-	obj[7] = typ->field_11;
-	obj[8] = typ->field_12;
-	v3 = *((_BYTE*)obj + 16);
-	obj[28] = *(_DWORD*)(&typ->field_13);
-	obj[30] = *(_DWORD*)(&typ->field_14);
-	memcpy(obj + 43, &typ->shape, 0x3Cu); // TODO: this is larger than nox_shape
-	if (!(v3 & 0x40))
-		nox_xxx_objectUnkUpdateCoords_4E7290(obj);
-	*((_BYTE*)obj + 488) = typ->field_30_0;
-	*((_WORD*)obj + 245) = typ->field_30_2;
-	obj[136] = *(_DWORD*)(&typ->field_31);
-	obj[137] = *(_DWORD*)(&typ->field_32);
-	obj[138] = typ->field_33;
-	obj[139] = typ->field_34;
-	obj[38] = -1;
-	*((_WORD*)obj + 2) = typ->ind;
+	v9 = ob->field_9;
+	memset(ob, 0, sizeof(nox_object_t));
+	ob->typ_ind = typ->field_5_0; // TODO: why is it setting it and then overwriting again?
+	ob->field_2 = typ->field_6;
+	ob->field_3 = typ->field_7;
+	ob->field_4 = typ->field_8;
+	ob->field_5 = typ->field_9;
+	ob->field_6_0 = typ->field_10;
+	ob->field_7 = typ->field_11;
+	ob->field_8 = typ->field_12;
+	ob->field_28 = typ->field_13;
+	ob->field_30 = typ->field_14;
+	memcpy(&ob->shape, &typ->shape, 0x3Cu); // TODO: this is larger than nox_shape
+	if (!(ob->field_4 & 0x40)) {
+		nox_xxx_objectUnkUpdateCoords_4E7290(ob);
+	}
+	ob->field_122_0 = typ->field_30_0;
+	ob->field_122_2 = typ->field_30_2;
+	ob->field_136 = typ->field_31;
+	ob->field_137 = typ->field_32;
+	ob->field_138 = typ->field_33;
+	ob->field_139 = typ->field_34;
+	ob->field_38 = -1;
+	ob->typ_ind = typ->ind;
 	if (typ->field_34) {
-		_DWORD* p = calloc(1, 20);
-		obj[139] = p;
-		if (!p)
+		ob->field_139 = calloc(1, 20);
+		if (!ob->field_139)
 			return 0;
-		memcpy(p, typ->field_34, 20);
+		memcpy(ob->field_139, typ->field_34, 20);
 	}
-	obj[172] = typ->field_43;
+	ob->field_172 = typ->field_43;
 	if (typ->field_44_size) {
-		_DWORD* p = calloc(1, typ->field_44_size);
-		obj[173] = p;
-		if (!p)
+		ob->field_173 = calloc(1, typ->field_44_size);
+		if (!ob->field_173)
 			return 0;
-		memcpy(p, typ->field_44, typ->field_44_size);
+		memcpy(ob->field_173, typ->field_44, typ->field_44_size);
 	}
-	obj[174] = typ->field_35;
+	ob->field_174 = typ->field_35;
 	if (typ->field_36_size) {
-		_DWORD* p = calloc(1, typ->field_36_size);
-		obj[175] = p;
-		if (!p)
+		ob->field_175 = calloc(1, typ->field_36_size);
+		if (!ob->field_175)
 			return 0;
-		memcpy(p, typ->field_36, typ->field_36_size);
+		memcpy(ob->field_175, typ->field_36, typ->field_36_size);
 	}
-	obj[176] = typ->func_xfer;
-	obj[183] = typ->field_50;
+	ob->func_xfer = typ->func_xfer;
+	ob->field_183 = typ->field_50;
 	if (typ->field_51_size) {
-		_DWORD* p = calloc(1, typ->field_51_size);
-		obj[184] = p;
-		if (!p)
+		ob->field_184 = calloc(1, typ->field_51_size);
+		if (!ob->field_184)
 			return 0;
-		memcpy(p, typ->field_51, typ->field_51_size);
+		memcpy(ob->field_184, typ->field_51, typ->field_51_size);
 	}
-	obj[186] = typ->field_47;
+	ob->field_186 = typ->field_47;
 	if (typ->field_48_size) {
-		_DWORD* p = calloc(1, typ->field_48_size);
-		obj[187] = p;
-		if (!p)
+		ob->field_187 = calloc(1, typ->field_48_size);
+		if (!ob->field_187)
 			return 0;
-		memcpy(p, typ->field_48, typ->field_48_size);
+		memcpy(ob->field_187, typ->field_48, typ->field_48_size);
 	}
-	obj[177] = typ->field_46;
-	obj[178] = typ->field_42;
-	obj[179] = typ->func_damage;
-	obj[180] = typ->func_damage_sound;
-	obj[181] = typ->field_40;
-	obj[190] = 0;
-	obj[182] = typ->field_41;
-	obj[192] = -1;
-	obj[9] = v9;
-	if (nox_common_gameFlags_check_40A5C0(6291456) &&
-		(obj[2] & 0x20A02 || (int(*)(int*))obj[176] == nox_xxx_XFerInvLight_4F5AA0 || *((char*)obj + 488) != -1) &&
-		(v5 = calloc(1u, 0xA0Cu), (obj[189] = v5) == 0)) {
-		nox_xxx_objectFreeMem_4E38A0(obj);
+	ob->field_177 = typ->field_46;
+	ob->field_178 = typ->field_42;
+	ob->func_damage = typ->func_damage;
+	ob->func_damage_sound = typ->func_damage_sound;
+	ob->field_181 = typ->field_40;
+	ob->field_190 = 0;
+	ob->field_182 = typ->field_41;
+	ob->field_192 = -1;
+	ob->field_9 = v9;
+	if (nox_common_gameFlags_check_40A5C0(6291456) && (ob->field_2 & 0x20A02 || ob->func_xfer == nox_xxx_XFerInvLight_4F5AA0 || ob->field_122_0 != 0xff) &&
+		(v5 = calloc(1u, 0xA0Cu), (ob->field_189 = v5) == 0)) {
+		nox_xxx_objectFreeMem_4E38A0(ob);
 		return 0;
 	}
 	if (typ->func_new)
-		typ->func_new(obj);
+		typ->func_new(ob);
 	if (!nox_common_gameFlags_check_40A5C0(0x200000))
-		obj[11] = (*getMemU32Ptr(0x587000, 201376))++;
-	v7 = obj[2];
+		ob->field_11 = (*getMemU32Ptr(0x587000, 201376))++;
+	v7 = ob->field_2;
 	if (v7 & 0x100000) {
 		++*getMemU32Ptr(0x5D4594, 1563888);
 	} else if (v7 & 0x400000) {
@@ -1043,11 +1036,11 @@ void* nox_xxx_newObjectWithType_4E3470(nox_objectType_t* typ) {
 	++*getMemU32Ptr(0x5D4594, 1563884);
 	if (++*getMemU32Ptr(0x5D4594, 1563900) > *getMemIntPtr(0x5D4594, 1563896))
 		*getMemU32Ptr(0x5D4594, 1563896) = v8;
-	return obj;
+	return ob;
 }
 
 //----- (004E3810) --------------------------------------------------------
-void*  nox_xxx_objectCreateByName_4E3810(const char* id) {
+nox_object_t* nox_xxx_newObjectByTypeID_4E3810(const char* id) {
 	nox_objectType_t* typ = nox_xxx_objectTypeByID_4E3830(id);
 	if (!typ)
 		return 0;
@@ -1628,7 +1621,8 @@ int*  sub_4E4500(int a1, int a2, int a3, int a4) {
 }
 
 //----- (004E4560) --------------------------------------------------------
-int  nox_xxx_unitSetHP_4E4560(int a1, unsigned __int16 a2) {
+int  nox_xxx_unitSetHP_4E4560(nox_object_t* obj, unsigned __int16 a2) {
+	int a1 = obj;
 	int result; // eax
 	int v3;     // eax
 	int v4;     // eax
@@ -1706,7 +1700,8 @@ int*  nox_xxx_unitSetOnOff_4E4670(int a1, int a2) {
 }
 
 //----- (004E46F0) --------------------------------------------------------
-void  nox_xxx_unitRaise_4E46F0(int a1, float a2) {
+void  nox_xxx_unitRaise_4E46F0(nox_object_t* obj, float a2) {
+	int a1 = obj;
 	int* v2; // eax
 	int v3;  // ecx
 	int v4;  // edx
@@ -2797,7 +2792,8 @@ void  sub_4E5BF0(int a1) {
 }
 
 //----- (004E5CC0) --------------------------------------------------------
-void  nox_xxx_delayedDeleteObject_4E5CC0(int a1) {
+void  nox_xxx_delayedDeleteObject_4E5CC0(nox_object_t* obj) {
+	int a1 = obj;
 	int v1; // eax
 	int v2; // eax
 
@@ -3559,7 +3555,8 @@ void  sub_4E6EF0(int a1, _DWORD* a2) {
 }
 
 //----- (004E7010) --------------------------------------------------------
-void  nox_xxx_unitMove_4E7010(int a1, float2* a2) {
+void  nox_xxx_unitMove_4E7010(nox_object_t* obj, float2* a2) {
+	int a1 = obj;
 	int v2;     // edi
 	int v3;     // ecx
 	int v4;     // eax
@@ -3750,7 +3747,7 @@ void  nox_xxx_spawnSomeBarrel_4E7470(int a1, int a2) {
 	if (result) {
 		result = *(char**)(v10 + 4);
 		for (i = 0; i < (int)result; ++i) {
-			v12 = nox_xxx_objectCreateByName_4E3810(*(CHAR**)v10);
+			v12 = nox_xxx_newObjectByTypeID_4E3810(*(CHAR**)v10);
 			if (v12) {
 				sub_4ED970(35.0, (float2*)a2, &a3);
 				nox_xxx_createAt_4DAA50((int)v12, 0, a3.field_0, a3.field_4);
@@ -3778,7 +3775,8 @@ void  sub_4E7540(int a1, int a2) {
 }
 
 //----- (004E75B0) --------------------------------------------------------
-char  nox_xxx_objectSetOn_4E75B0(int a1) {
+char  nox_xxx_objectSetOn_4E75B0(nox_object_t* obj) {
+	int a1 = obj;
 	int v1; // eax
 	int v2; // eax
 
@@ -3797,7 +3795,8 @@ char  nox_xxx_objectSetOn_4E75B0(int a1) {
 }
 
 //----- (004E7600) --------------------------------------------------------
-int  nox_xxx_objectSetOff_4E7600(int a1) {
+int  nox_xxx_objectSetOff_4E7600(nox_object_t* obj) {
+	int a1 = obj;
 	int v1;     // eax
 	int result; // eax
 
@@ -3881,7 +3880,8 @@ int  sub_4E79B0(int a1) {
 }
 
 //----- (004E79C0) --------------------------------------------------------
-char  nox_xxx_unitFreeze_4E79C0(int a1, int a2) {
+char  nox_xxx_unitFreeze_4E79C0(nox_object_t* obj, int a2) {
+	int a1 = obj;
 	int v2; // eax
 	int i;  // esi
 
@@ -3912,7 +3912,8 @@ char  nox_xxx_unitFreeze_4E79C0(int a1, int a2) {
 }
 
 //----- (004E7A60) --------------------------------------------------------
-char  nox_xxx_unitUnFreeze_4E7A60(int a1, int a2) {
+char  nox_xxx_unitUnFreeze_4E7A60(nox_object_t* obj, int a2) {
+	int a1 = obj;
 	int v2; // eax
 	int i;  // esi
 
@@ -6760,7 +6761,7 @@ void  nox_xxx_collideBearTrap_4EB890(int* a1, int a2) {
 	_DWORD* v2; // eax
 
 	if (a2 && sub_4E9A30((int)a1, a2)) {
-		v2 = nox_xxx_objectCreateByName_4E3810("ClosedBearTrap");
+		v2 = nox_xxx_newObjectByTypeID_4E3810("ClosedBearTrap");
 		if (v2) {
 			nox_xxx_createAt_4DAA50((int)v2, a1[127], *((float*)a1 + 14), *((float*)a1 + 15));
 			nox_xxx_delayedDeleteObject_4E5CC0((int)a1);
@@ -6778,7 +6779,7 @@ void  nox_xxx_collidePoisonGasTrap_4EB910(int* a1, int a2) {
 	float v4;   // [esp+0h] [ebp-14h]
 
 	if (a2 && sub_4E9A30((int)a1, a2)) {
-		v2 = nox_xxx_objectCreateByName_4E3810("ToxicCloud");
+		v2 = nox_xxx_newObjectByTypeID_4E3810("ToxicCloud");
 		if (v2) {
 			nox_xxx_createAt_4DAA50((int)v2, a1[127], *((float*)a1 + 14), *((float*)a1 + 15));
 			v3 = (_DWORD*)v2[187];
@@ -7116,7 +7117,7 @@ void  nox_xxx_collideAnkhQuest_4EBF40(int a1, int a2) {
 			goto LABEL_17;
 		v17 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 205104));
 		if (*(_DWORD*)(v4 + 320) < nox_float2int(v17)) {
-			v12 = nox_xxx_objectCreateByName_4E3810("AnkhTradable");
+			v12 = nox_xxx_newObjectByTypeID_4E3810("AnkhTradable");
 			if (v12)
 				((void(*)(int, _DWORD*, int, _DWORD))v12[177])(v2, v12, 1, 0);
 			*(_DWORD*)(a1 + 136) = nox_frame_xxx_2598000;
@@ -7151,7 +7152,9 @@ void  nox_xxx_collideAnkhQuest_4EBF40(int a1, int a2) {
 }
 
 //----- (004EC290) --------------------------------------------------------
-void nox_xxx_unitSetOwner_4EC290(int a1, int a2) {
+void nox_xxx_unitSetOwner_4EC290(nox_object_t* obj1, nox_object_t* obj2) {
+	int a1 = obj1;
+	int a2 = obj2;
 	if (!a2) {
 		return;
 	}
@@ -7176,7 +7179,8 @@ void nox_xxx_unitSetOwner_4EC290(int a1, int a2) {
 }
 
 //----- (004EC300) --------------------------------------------------------
-void  nox_xxx_unitClearOwner_4EC300(int a1) {
+void  nox_xxx_unitClearOwner_4EC300(nox_object_t* obj) {
+	int a1 = obj;
 	int v1;  // eax
 	int v2;  // edx
 	int v3;  // edi
@@ -8735,7 +8739,8 @@ void  nox_xxx_unitAdjustHP_4EE460(int unit, int dv) {
 }
 
 //----- (004EE4C0) --------------------------------------------------------
-void  nox_xxx_mobInformOwnerHP_4EE4C0(_DWORD* a1) {
+void  nox_xxx_mobInformOwnerHP_4EE4C0(nox_object_t* obj) {
+	_DWORD* a1 = obj;
 	int v1; // eax
 
 	if (a1) {
@@ -9431,7 +9436,7 @@ _DWORD*  nox_xxx_playerRespawnItem_4EF750(int a1, CHAR* a2, int* a3, int a4, int
 	void( * v7)(_DWORD*, _DWORD); // eax
 	int v8;                              // eax
 
-	v5 = nox_xxx_objectCreateByName_4E3810(a2);
+	v5 = nox_xxx_newObjectByTypeID_4E3810(a2);
 	v6 = v5;
 	if (v5) {
 		v7 = (void(*)(_DWORD*, _DWORD))v5[172];
@@ -10255,12 +10260,12 @@ LABEL_27:
 		if (nox_xxx_playerCheckSpellClass_57AEA0(1, v9)) {
 			if (nox_xxx_playerCheckSpellClass_57AEA0(2, v9))
 				return 0;
-			result = nox_xxx_objectCreateByName_4E3810("ConjurerSpellBook");
+			result = nox_xxx_newObjectByTypeID_4E3810("ConjurerSpellBook");
 		} else {
-			result = nox_xxx_objectCreateByName_4E3810("WizardSpellBook");
+			result = nox_xxx_newObjectByTypeID_4E3810("WizardSpellBook");
 		}
 	} else {
-		result = nox_xxx_objectCreateByName_4E3810("CommonSpellBook");
+		result = nox_xxx_newObjectByTypeID_4E3810("CommonSpellBook");
 	}
 	if (!result)
 		return 0;
@@ -10369,7 +10374,7 @@ _DWORD*  nox_xxx_rewardAbilityBook_4F0C70(int a1) {
 LABEL_16:
 	if (!v8)
 		return 0;
-	result = nox_xxx_objectCreateByName_4E3810("AbilityBook");
+	result = nox_xxx_newObjectByTypeID_4E3810("AbilityBook");
 	if (result)
 		*(_BYTE*)result[184] = v8;
 	return result;
@@ -10454,7 +10459,7 @@ _DWORD*  nox_xxx_rewardFieldGuide_4F0D20(int a1, unsigned int a2) {
 			v9 = *getMemU32Ptr(0x587000, 12 * v16 + 207796);
 		LABEL_29:
 			if (v9) {
-				result = nox_xxx_objectCreateByName_4E3810("FieldGuide");
+				result = nox_xxx_newObjectByTypeID_4E3810("FieldGuide");
 				v19 = result;
 				if (result) {
 					v20 = (char*)result[184];
@@ -11379,9 +11384,9 @@ _DWORD*  nox_xxx_createGem_4F1D30(int a1, unsigned int a2) {
 	v2 = nox_server_rewardGen_pickRandomSlots_4F0B60(a2);
 	if (v2 < 4 || nox_common_randomInt_415FA0(1, 100) <= 90) {
 		if (nox_common_randomInt_415FA0(1, 2) == 1)
-			result = nox_xxx_objectCreateByName_4E3810("QuestGoldChest");
+			result = nox_xxx_newObjectByTypeID_4E3810("QuestGoldChest");
 		else
-			result = nox_xxx_objectCreateByName_4E3810("QuestGoldPile");
+			result = nox_xxx_newObjectByTypeID_4E3810("QuestGoldPile");
 		v5 = result;
 		if (result) {
 			v6 = (int*)result[173];
@@ -11412,11 +11417,11 @@ _DWORD*  nox_xxx_createGem_4F1D30(int a1, unsigned int a2) {
 		v3 = nox_common_randomInt_415FA0(1, 100);
 		if (v3 >= 50) {
 			if (v3 >= 90)
-				result = nox_xxx_objectCreateByName_4E3810("DiamondGem");
+				result = nox_xxx_newObjectByTypeID_4E3810("DiamondGem");
 			else
-				result = nox_xxx_objectCreateByName_4E3810("EmeraldGem");
+				result = nox_xxx_newObjectByTypeID_4E3810("EmeraldGem");
 		} else {
-			result = nox_xxx_objectCreateByName_4E3810("RubyGem");
+			result = nox_xxx_newObjectByTypeID_4E3810("RubyGem");
 		}
 	}
 	return result;
@@ -11455,7 +11460,7 @@ void sub_4F2110() {
 		if (((unsigned __int16)v6 == dword_5d4594_1568280 || v6 == *getMemU32Ptr(0x5D4594, 1568284)) &&
 			(**(_BYTE**)(j + 692) & 0x80)) {
 			if (v4 == v3) {
-				v7 = nox_xxx_objectCreateByName_4E3810("Ankh");
+				v7 = nox_xxx_newObjectByTypeID_4E3810("Ankh");
 				if (v7) {
 					nox_xxx_createAt_4DAA50((int)v7, 0, *(float*)(j + 56), *(float*)(j + 60));
 					nox_xxx_delayedDeleteObject_4E5CC0(j);

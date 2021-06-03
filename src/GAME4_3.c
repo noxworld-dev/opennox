@@ -1464,7 +1464,7 @@ int  nox_xxx_spellCreateMoonglow_531A00(_DWORD* a1) {
 		nox_xxx_buffApplyTo_4FF380(v2, 15, v1, a1[2]);
 		return 1;
 	}
-	v3 = nox_xxx_objectCreateByName_4E3810("Moonglow");
+	v3 = nox_xxx_newObjectByTypeID_4E3810("Moonglow");
 	a1[18] = v3;
 	if (!v3)
 		return 1;
@@ -2017,7 +2017,7 @@ char  nox_xxx_mobActionMissileAtt_532610(int a1) {
 		v4 = (int*)(v2 + 24 * (*(char*)(v2 + 544) + 23));
 		v5 = *(_DWORD*)(v2 + 484);
 		if (*(unsigned __int8*)(v2 + 481) == *(_DWORD*)(v5 + 216) && !*(_BYTE*)(v2 + 482)) {
-			v6 = (float*)nox_xxx_objectCreateByName_4E3810((CHAR*)(v5 + 148));
+			v6 = (float*)nox_xxx_newObjectByTypeID_4E3810((CHAR*)(v5 + 148));
 			if (v6) {
 				v7 = v4[3];
 				if (v7) {
@@ -3599,7 +3599,7 @@ int  nox_xxx_damageToMap_534BC0(int a1, int a2, int a3, int a4, int a5) {
 		if (v12) {
 			v13 = nox_common_randomInt_415FA0(0, v12 - 1);
 			v14 = nox_xxx_wallGetBrickObj_410E60(v5[1], v13);
-			v15 = nox_xxx_objectCreateByName_4E3810(v14);
+			v15 = nox_xxx_newObjectByTypeID_4E3810(v14);
 			if (v15) {
 				nox_xxx_createAt_4DAA50((int)v15, 0, *(float*)&v17.field_0, *(float*)&v17.field_4);
 				v16 = nox_common_randomFloat_416030(10.0, 20.0);
@@ -3661,7 +3661,7 @@ int  nox_xxx_wallPreDestroy_534DA0(int* a1) {
 				v9 = v8;
 				do {
 					v10 = nox_xxx_wallGetBrickObj_410E60(*(unsigned __int8*)(v1 + 1), v7);
-					v11 = nox_xxx_objectCreateByName_4E3810(v10);
+					v11 = nox_xxx_newObjectByTypeID_4E3810(v10);
 					if (v11) {
 						v15 = nox_common_randomFloat_416030(-2.0, 2.0) + v17.field_4;
 						v14 = nox_common_randomFloat_416030(-2.0, 2.0) + v17.field_0;
@@ -5921,7 +5921,7 @@ int  nox_xxx_castGlyph_537FA0(int a1, int a2, int a3, int a4, int a5) {
 			a3 = 7;
 			goto LABEL_6;
 		}
-		v8 = nox_xxx_objectCreateByName_4E3810("Glyph");
+		v8 = nox_xxx_newObjectByTypeID_4E3810("Glyph");
 		v9 = (int)v8;
 		v21 = (int)v8;
 		if (v8) {
@@ -6281,7 +6281,7 @@ int  nox_xxx_createHarpoonBolt_538890(int a1) {
 
 	if (!a1)
 		return 0;
-	v1 = nox_xxx_objectCreateByName_4E3810("HarpoonBolt");
+	v1 = nox_xxx_newObjectByTypeID_4E3810("HarpoonBolt");
 	v2 = (int)v1;
 	if (!v1)
 		return 0;
@@ -6759,7 +6759,7 @@ BOOL  nox_xxx_playerAttack_538960(int a1) {
 		v83.field_8 = v41;
 		v83.field_C = v37 * *getMemFloatPtr(0x587000, v38 + 194140) + *(float*)(a1 + 60);
 		if (nox_xxx_mapTraceRay_535250(&v83, 0, 0, 4)) {
-			v42 = nox_xxx_objectCreateByName_4E3810("FanChakramInMotion");
+			v42 = nox_xxx_newObjectByTypeID_4E3810("FanChakramInMotion");
 			v43 = (int)v42;
 			if (v42) {
 				*(_DWORD*)(v42[175] + 4) = a1;
@@ -6809,7 +6809,7 @@ BOOL  nox_xxx_playerAttack_538960(int a1) {
 	v83.field_C = v29 * *getMemFloatPtr(0x587000, v30 + 194140) + *(float*)(a1 + 60);
 	if (!nox_xxx_mapTraceRay_535250(&v83, 0, 0, 5))
 		goto LABEL_94;
-	v33 = nox_xxx_objectCreateByName_4E3810("RoundChakramInMotion");
+	v33 = nox_xxx_newObjectByTypeID_4E3810("RoundChakramInMotion");
 	v34 = (int)v33;
 	if (!v33)
 		return 0;
@@ -6972,11 +6972,11 @@ _DWORD*  nox_xxx_shootBowCrossbow2_539D80(int a1, int a2, int a3, char* a4) {
 	if (result) {
 		if (a2) {
 			if (a4 == (char*)4)
-				v11 = nox_xxx_objectCreateByName_4E3810("ArcherArrow");
+				v11 = nox_xxx_newObjectByTypeID_4E3810("ArcherArrow");
 			else
-				v11 = nox_xxx_objectCreateByName_4E3810("ArcherBolt");
+				v11 = nox_xxx_newObjectByTypeID_4E3810("ArcherBolt");
 		} else {
-			v11 = nox_xxx_objectCreateByName_4E3810("WeakArcherArrow");
+			v11 = nox_xxx_newObjectByTypeID_4E3810("WeakArcherArrow");
 		}
 		v12 = (int)v11;
 		if (v11) {
@@ -9374,7 +9374,7 @@ void  nox_xxx_updateMeteorShower_53D5A0(float* a2) {
 			a4 = v7 + a2[15];
 			a1.field_C = a4;
 			if ((unsigned __int8)nox_xxx_traceRay_5374B0(&a1)) {
-				v8 = nox_xxx_objectCreateByName_4E3810("Meteor");
+				v8 = nox_xxx_newObjectByTypeID_4E3810("Meteor");
 				v9 = (int)v8;
 				if (v8) {
 					*(_DWORD*)v8[187] = *v1;
@@ -9409,7 +9409,7 @@ void  nox_xxx_meteorExplode_53D6E0(int a6) {
 		v2 = (float*)(a6 + 56);
 		nox_xxx_sMakeScorch_537AF0((int*)(a6 + 56), 2);
 		nox_xxx_earthquakeSend_4D9110((float*)(a6 + 56), 10);
-		v3 = nox_xxx_objectCreateByName_4E3810("MeteorExplode");
+		v3 = nox_xxx_newObjectByTypeID_4E3810("MeteorExplode");
 		if (v3)
 			nox_xxx_createAt_4DAA50((int)v3, 0, *v2, *(float*)(a6 + 60));
 		v4 = nox_xxx_findParentChainPlayer_4EC580(a6);
@@ -11235,7 +11235,7 @@ int  nox_xxx_castMissilesOM_540160(int a1, int a2, int a3, int a4, int a5, int a
 				a1a.field_8 = v13 + *(float*)(v6 + 80);
 				a1a.field_C = a1a.field_C + *(float*)(v6 + 84);
 				if (nox_xxx_mapTraceRay_535250(&a1a, 0, 0, 5)) {
-					v16 = (float*)nox_xxx_objectCreateByName_4E3810("MagicMissile");
+					v16 = (float*)nox_xxx_newObjectByTypeID_4E3810("MagicMissile");
 					if (v16) {
 						v17 = (int*)*((_DWORD*)v16 + 187);
 						nox_xxx_createAt_4DAA50((int)v16, a3, a1a.field_8, a1a.field_C);
@@ -11312,7 +11312,7 @@ int  nox_xxx_castPixies_540440(int a1, int a2, int a3, int a4, int a5, int a6) {
 				v17.field_8 = v12;
 				v17.field_C = v18 * *getMemFloatPtr(0x587000, 8 * v10 + 194140) + *(float*)(v6 + 60);
 				if (nox_xxx_mapTraceRay_535250(&v17, 0, 0, 5)) {
-					v13 = nox_xxx_objectCreateByName_4E3810("Pixie");
+					v13 = nox_xxx_newObjectByTypeID_4E3810("Pixie");
 					if (v13) {
 						v14 = (int*)v13[187];
 						nox_xxx_createAt_4DAA50((int)v13, a3, v17.field_8, v17.field_C);
