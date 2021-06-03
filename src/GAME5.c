@@ -3439,7 +3439,7 @@ int  nox_xxx_monsterDeadTroll_54A270(int a1) {
 		v1 = nox_xxx_getNameId_4E3AA0("SmallToxicCloud");
 		*getMemU32Ptr(0x5D4594, 2491584) = v1;
 	}
-	v2 = nox_new_objMem_2_4E3450(v1);
+	v2 = nox_xxx_newObjectWithTypeInd_4E3450(v1);
 	if (v2) {
 		v3 = (_DWORD*)v2[187];
 		nox_xxx_createAt_4DAA50((int)v2, a1, *(float*)(a1 + 56), *(float*)(a1 + 60));
@@ -4882,7 +4882,7 @@ void  nox_xxx_diePolyp_54CB10(int a1) {
 		v1 = nox_xxx_getNameId_4E3AA0("ToxicCloud");
 		*getMemU32Ptr(0x5D4594, 2491672) = v1;
 	}
-	v2 = nox_new_objMem_2_4E3450(v1);
+	v2 = nox_xxx_newObjectWithTypeInd_4E3450(v1);
 	if (v2) {
 		v3 = (_DWORD*)v2[187];
 		nox_xxx_createAt_4DAA50((int)v2, 0, *(float*)(a1 + 56), *(float*)(a1 + 60));
@@ -5805,7 +5805,7 @@ void  nox_xxx_unused_54DF40(int a1) {
 		v1 = nox_xxx_getNameId_4E3AA0("BlackPowderBarrelBreaking");
 		*getMemU32Ptr(0x5D4594, 2491692) = v1;
 	}
-	v2 = nox_new_objMem_2_4E3450(v1);
+	v2 = nox_xxx_newObjectWithTypeInd_4E3450(v1);
 	if (v2)
 		nox_xxx_createAt_4DAA50((int)v2, 0, *(float*)(a1 + 56), *(float*)(a1 + 60));
 	nox_xxx_aud_501960(285, a1, 0, 0);
@@ -5822,7 +5822,7 @@ void  nox_xxx_dieBarrel_54DFA0(int a1) {
 		v1 = nox_xxx_getNameId_4E3AA0("BarrelBreaking");
 		*getMemU32Ptr(0x5D4594, 2491696) = v1;
 	}
-	v2 = nox_new_objMem_2_4E3450(v1);
+	v2 = nox_xxx_newObjectWithTypeInd_4E3450(v1);
 	if (v2)
 		nox_xxx_createAt_4DAA50((int)v2, 0, *(float*)(a1 + 56), *(float*)(a1 + 60));
 	nox_xxx_aud_501960(286, a1, 0, 0);
@@ -5877,7 +5877,7 @@ void  sub_54E0D0(int a1) {
 		v1 = nox_xxx_getNameId_4E3AA0("SmallFlame");
 		*getMemU32Ptr(0x5D4594, 2491700) = v1;
 	}
-	v2 = nox_new_objMem_2_4E3450(v1);
+	v2 = nox_xxx_newObjectWithTypeInd_4E3450(v1);
 	if (v2) {
 		nox_xxx_createAt_4DAA50((int)v2, 0, *(float*)(a1 + 56), *(float*)(a1 + 60));
 		v3 = nox_common_randomInt_415FA0(45, 75);
@@ -6412,7 +6412,7 @@ _DWORD*  nox_xxx_mobGeneratorSpawn_54F070(int a1, int a2, int a3) {
 		*getMemU32Ptr(0x5D4594, 2491712) = nox_xxx_getNameId_4E3AA0("Beholder");
 	result = (_DWORD*)sub_50DE80(a1, (float*)a2);
 	if (result) {
-		result = nox_new_objMem_2_4E3450(*(unsigned __int16*)(a3 + 4));
+		result = nox_xxx_newObjectWithTypeInd_4E3450(*(unsigned __int16*)(a3 + 4));
 		v5 = result;
 		if (result) {
 			v6 = result[187];
@@ -6424,7 +6424,7 @@ _DWORD*  nox_xxx_mobGeneratorSpawn_54F070(int a1, int a2, int a3) {
 				*(_WORD*)v5[139] = nox_float2int(v15);
 				v16 = sub_4E40F0() * (double)*(int*)(v7 + 72);
 			} else {
-				v8 = nox_xxx_unitDefGet_4E3B70(*((unsigned __int16*)v5 + 2));
+				v8 = nox_xxx_objectTypeByInd_4E3B70(*((unsigned __int16*)v5 + 2));
 				v17 = sub_4E40F0() * (double)**(unsigned __int16**)(v8 + 136);
 				*(_WORD*)v5[139] = nox_float2int(v17);
 				v16 = sub_4E40F0() * (double)*(unsigned __int16*)(*(_DWORD*)(v8 + 136) + 4);
@@ -6479,7 +6479,7 @@ void  nox_xxx_unitCreatureCopyUC_54F2B0(int a1, int a2) {
 		v3 = nox_xxx_inventoryGetFirst_4E7980(a1);
 		if (v3) {
 			do {
-				v4 = nox_new_objMem_2_4E3450(*(unsigned __int16*)(v3 + 4));
+				v4 = nox_xxx_newObjectWithTypeInd_4E3450(*(unsigned __int16*)(v3 + 4));
 				v5 = v4;
 				if (v4) {
 					if (v4[2] & 0x13001000)
@@ -6812,7 +6812,7 @@ void  nox_xxx_createArrowTrapProjectile_54FA80(int a1, int a2) {
 	v3 = 8 * *(__int16*)(a1 + 124);
 	v10 = v2 * *getMemFloatPtr(0x587000, v3 + 194136) + *(float*)(a1 + 56);
 	v11 = v2 * *getMemFloatPtr(0x587000, v3 + 194140) + *(float*)(a1 + 60);
-	v4 = (int)nox_new_objMem_2_4E3450(a2);
+	v4 = (int)nox_xxx_newObjectWithTypeInd_4E3450(a2);
 	v5 = v4;
 	if (v4) {
 		nox_xxx_createAt_4DAA50(v4, a1, v10, v11);

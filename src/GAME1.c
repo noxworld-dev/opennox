@@ -7429,7 +7429,7 @@ int  sub_415A30(char* a1) {
 
 	v1 = (char*)sub_415910(a1);
 	if (v1 && (v2 = sub_415840(v1)) != 0)
-		result = nox_xxx_unitDefGet_4E3B70(v2);
+		result = nox_xxx_objectTypeByInd_4E3B70(v2);
 	else
 		result = 0;
 	return result;
@@ -7654,7 +7654,7 @@ int  sub_415EC0(char* a1) {
 
 	v1 = (char*)sub_415DF0(a1);
 	if (v1 && (v2 = sub_415CD0(v1)) != 0)
-		result = nox_xxx_unitDefGet_4E3B70(v2);
+		result = nox_xxx_objectTypeByInd_4E3B70(v2);
 	else
 		result = 0;
 	return result;

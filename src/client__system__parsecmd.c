@@ -1086,7 +1086,7 @@ int sub_415A60(wchar_t* a1) {
 
 	v1 = (char*)sub_415960(a1);
 	if (v1 && (v2 = sub_415840(v1)) != 0)
-		return nox_xxx_unitDefGet_4E3B70(v2);
+		return nox_xxx_objectTypeByInd_4E3B70(v2);
 	return 0;
 }
 
@@ -1172,7 +1172,7 @@ int sub_415EF0(wchar_t* a1) {
 
 	v1 = (char*)sub_415DA0(a1);
 	if (v1 && (v2 = sub_415CD0(v1)) != 0)
-		return nox_xxx_unitDefGet_4E3B70(v2);
+		return nox_xxx_objectTypeByInd_4E3B70(v2);
 	return 0;
 }
 
@@ -1241,7 +1241,7 @@ int nox_cmd_set_staff(int tokInd, int tokCnt, wchar_t** tokens) {
 
 	if (tokCnt == 4) {
 		nox_sprintf(v9, "%S", tokens[2]);
-		v3 = nox_xxx_utilThingDefByName_4E3B60(v9);
+		v3 = nox_xxx_objectTypeByID_4E3B60(v9);
 		if (v3) {
 			if (!_nox_wcsicmp(tokens[3], L"on")) {
 				sub_4E3BF0(v3);

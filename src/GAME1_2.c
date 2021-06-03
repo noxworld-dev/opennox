@@ -742,7 +742,7 @@ int nox_server_mapRWObjectTOC_428B30() {
 		v10 = v4;
 		if ((_WORD)v4) {
 			nox_xxx_fileReadWrite_426AC0_file3_fread(&v10, 2u);
-			v5 = nox_xxx_unitDefGet_4E3B70(v3);
+			v5 = nox_xxx_objectTypeByInd_4E3B70(v3);
 			LOBYTE(v8) = strlen(*(const char**)(v5 + 4));
 			nox_xxx_fileReadWrite_426AC0_file3_fread(&v8, 1u);
 			nox_xxx_fileReadWrite_426AC0_file3_fread(*(_BYTE**)(v5 + 4), (unsigned __int8)v8);

@@ -7336,7 +7336,7 @@ int  nox_xxx_charmCreatureFinish_5013E0(int* a1) {
 	LOBYTE(v11) = v11 | 0x80;
 	*(_DWORD*)(v10 + 1440) = v11;
 	if (nox_common_gameFlags_check_40A5C0(4096)) {
-		v12 = nox_xxx_unitDefGet_4E3B70(*(unsigned __int16*)(a1[12] + 4));
+		v12 = nox_xxx_objectTypeByInd_4E3B70(*(unsigned __int16*)(a1[12] + 4));
 		v13 = nox_xxx_unitGetHP_4EE780(a1[12]);
 		v14 = *(_DWORD*)(v10 + 484);
 		v15 = v14 ? *(_WORD*)(v14 + 72) : *(_WORD*)(*(_DWORD*)(v12 + 136) + 4);
@@ -7394,7 +7394,7 @@ _DWORD*  nox_xxx_unitDoSummonAt_5016C0(int a1, int* a2, int a3, unsigned __int8 
 	int v8;         // ebx
 	int v9;         // eax
 
-	result = nox_new_objMem_2_4E3450(a1);
+	result = nox_xxx_newObjectWithTypeInd_4E3450(a1);
 	v5 = result;
 	if (!result)
 		return result;
@@ -9799,7 +9799,7 @@ int  nox_server_mapRWObjectData_504CF0(_DWORD* a2) {
 			while (1) {
 				nox_xxx_fileCryptReadCrcMB_426C20(&a1, 4u);
 				v8 = nox_xxx_objectTOCgetTT_42C2B0(v12);
-				v9 = nox_new_objMem_2_4E3450(v8);
+				v9 = nox_xxx_newObjectWithTypeInd_4E3450(v8);
 				v10 = v9;
 				if (!v9)
 					break;

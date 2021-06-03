@@ -367,7 +367,7 @@ func nox_xxx_servEndSession_4D3200() {
 	C.sub_50D820()
 	C.nox_xxx_deleteShopInventories_50E300()
 	C.sub_416950()
-	C.sub_4E3420()
+	C.nox_xxx_freeGameObjectClass_4E3420()
 	C.nox_xxx_freeObjectTypes_4E2A20()
 	if !noxflags.HasGame(noxflags.GameSolo) {
 		nox_server_netCloseHandler_4DEC60(*memmap.PtrUint32(0x5D4594, 1548516))

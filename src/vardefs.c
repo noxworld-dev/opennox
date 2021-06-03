@@ -540,7 +540,6 @@ _DWORD dword_587000_154960 = 0x1;
 _DWORD dword_5d4594_1301780 = 0;
 _DWORD dword_5d4594_1064864 = 0;
 _DWORD dword_5d4594_1096252 = 0;
-void* nox_alloc_objMem_1563344 = 0;
 _DWORD dword_5d4594_741356 = 0;
 _DWORD dword_5d4594_1303468 = 0;
 _DWORD dword_5d4594_1064820 = 0;

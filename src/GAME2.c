@@ -3094,7 +3094,7 @@ int sub_4537F0() {
 	do {
 		v2 = sub_415CD0((char*)v0);
 		if (v2) {
-			v3 = nox_xxx_unitDefGet_4E3B70(v2);
+			v3 = nox_xxx_objectTypeByInd_4E3B70(v2);
 			sub_4E3BF0(v3);
 		}
 		v0 *= 2;
@@ -3105,7 +3105,7 @@ int sub_4537F0() {
 	do {
 		result = sub_415840((char*)v4);
 		if (result) {
-			v7 = nox_xxx_unitDefGet_4E3B70(result);
+			v7 = nox_xxx_objectTypeByInd_4E3B70(result);
 			result = sub_4E3BF0(v7);
 		}
 		v4 *= 2;

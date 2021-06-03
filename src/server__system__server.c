@@ -1057,7 +1057,7 @@ void sub_4EC720() {
 		if (!(nox_frame_xxx_2598000 >= *(int*)(v0 + 20) && nox_xxx_getUnitDefDd10_4E3BA0(*(_DWORD*)v0))) {
 			continue;
 		}
-		v5 = nox_new_objMem_2_4E3450(*(_DWORD*)v0);
+		v5 = nox_xxx_newObjectWithTypeInd_4E3450(*(_DWORD*)v0);
 		v6 = (int)v5;
 		if (v5) {
 			nox_xxx_createAt_4DAA50((int)v5, 0, *(float*)(v0 + 8), *(float*)(v0 + 12));

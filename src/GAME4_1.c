@@ -3406,7 +3406,7 @@ int  nox_xxx_shopGetItemCost_50E3D0(int a1, int a2, float a3) {
 			goto LABEL_17;
 		}
 		if (v8 & 2) {
-			v10 = nox_xxx_utilThingDefByName_4E3B60(*(CHAR**)(LODWORD(v3) + 736));
+			v10 = nox_xxx_objectTypeByID_4E3B60(*(CHAR**)(LODWORD(v3) + 736));
 			if (v10)
 				v31 = (double)*(unsigned int*)(v10 + 48);
 			if (nox_common_gameFlags_check_40A5C0(4096)) {
@@ -8019,7 +8019,7 @@ void  nox_xxx_spawnHecubahQuest_51A5A0(int* a1) {
 		if (v3)
 			v4 = *(_DWORD*)(v3 + 72);
 		else
-			v4 = *(unsigned __int16*)(*(_DWORD*)(nox_xxx_unitDefGet_4E3B70(*((unsigned __int16*)v1 + 2)) + 136) + 4);
+			v4 = *(unsigned __int16*)(*(_DWORD*)(nox_xxx_objectTypeByInd_4E3B70(*((unsigned __int16*)v1 + 2)) + 136) + 4);
 		if (v16 < 1.0)
 			v16 = 1.0;
 		v5 = (double)v4 * v16;
@@ -8088,7 +8088,7 @@ void  nox_xxx_spawnNecroQuest_51A7A0(int* a1) {
 		if (v3)
 			v4 = *(_DWORD*)(v3 + 72);
 		else
-			v4 = *(unsigned __int16*)(*(_DWORD*)(nox_xxx_unitDefGet_4E3B70(*((unsigned __int16*)v1 + 2)) + 136) + 4);
+			v4 = *(unsigned __int16*)(*(_DWORD*)(nox_xxx_objectTypeByInd_4E3B70(*((unsigned __int16*)v1 + 2)) + 136) + 4);
 		if (v10 < 1.0)
 			v10 = 1.0;
 		v5 = (double)v4 * v10;

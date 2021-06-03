@@ -642,7 +642,7 @@ _DWORD*  nox_xxx_spellTeleportCreateWake_530560(int a1, int* a2, _DWORD* a3) {
 		v3 = nox_xxx_getNameId_4E3AA0("TeleportWake");
 		*getMemU32Ptr(0x5D4594, 2487916) = v3;
 	}
-	result = nox_new_objMem_2_4E3450(v3);
+	result = nox_xxx_newObjectWithTypeInd_4E3450(v3);
 	v5 = result;
 	if (result) {
 		v6 = (_DWORD*)result[175];
@@ -1035,7 +1035,7 @@ int  nox_xxx_manaBomb_530F90(_DWORD* a1) {
 		*(_DWORD*)(a1[4] + 100) = 0;
 		*(_DWORD*)(a1[4] + 96) = 0;
 	}
-	v2 = nox_new_objMem_2_4E3450(*getMemIntPtr(0x5D4594, 2487920));
+	v2 = nox_xxx_newObjectWithTypeInd_4E3450(*getMemIntPtr(0x5D4594, 2487920));
 	if (v2) {
 		nox_xxx_createAt_4DAA50((int)v2, 0, *((float*)a1 + 7), *((float*)a1 + 8));
 		a1[19] = v2;
@@ -1164,7 +1164,7 @@ int  nox_xxx_spellTurnUndeadCreate_531310(_DWORD* a1) {
 	v2 = 0;
 	v9 = *(float2*)(v1 + 56);
 	do {
-		v3 = nox_new_objMem_2_4E3450(*getMemIntPtr(0x5D4594, 2487924));
+		v3 = nox_xxx_newObjectWithTypeInd_4E3450(*getMemIntPtr(0x5D4594, 2487924));
 		v4 = v3;
 		if (v3) {
 			*(_DWORD*)v3[175] = a1;
@@ -5692,17 +5692,17 @@ _DWORD*  nox_xxx_sMakeScorch_537AF0(int* a1, int a2) {
 	if (a2) {
 		if (a2 == 1) {
 			v6 = *getMemU32Ptr(0x587000, 8 * nox_common_randomInt_415FA0(0, 0) + 276836);
-			result = nox_new_objMem_2_4E3450(v6);
+			result = nox_xxx_newObjectWithTypeInd_4E3450(v6);
 		} else {
 			result = (_DWORD*)(a2 - 2);
 			if (a2 != 2)
 				return result;
 			v5 = *getMemU32Ptr(0x587000, 8 * nox_common_randomInt_415FA0(0, 0) + 276844);
-			result = nox_new_objMem_2_4E3450(v5);
+			result = nox_xxx_newObjectWithTypeInd_4E3450(v5);
 		}
 	} else {
 		v7 = *getMemU32Ptr(0x587000, 8 * nox_common_randomInt_415FA0(0, 0) + 276828);
-		result = nox_new_objMem_2_4E3450(v7);
+		result = nox_xxx_newObjectWithTypeInd_4E3450(v7);
 	}
 	v3 = result;
 	if (result) {
@@ -8921,7 +8921,7 @@ void  nox_xxx_updateBlackPowderBarrel_53C9A0(float* a1) {
 			v12.field_8 = v13 * *getMemFloatPtr(0x587000, 8 * v8 + 194136) + *v4;
 			v12.field_C = v13 * *getMemFloatPtr(0x587000, 8 * v8 + 194140) + v1[15];
 			if (nox_xxx_mapTraceRay_535250(&v12, 0, 0, 1)) {
-				v9 = nox_new_objMem_2_4E3450(*getMemU32Ptr(0x5D4594, 4 * v7 + 2488684));
+				v9 = nox_xxx_newObjectWithTypeInd_4E3450(*getMemU32Ptr(0x5D4594, 4 * v7 + 2488684));
 				v10 = v9;
 				if (v9) {
 					nox_xxx_createAt_4DAA50((int)v9, 0, v12.field_8, v12.field_C);
@@ -9526,7 +9526,7 @@ void  nox_xxx_updateArachnaphobia_53DA60(int* a1) {
 			v2 = nox_xxx_getNameId_4E3AA0("SmallSpider");
 			*getMemU32Ptr(0x5D4594, 2488708) = v2;
 		}
-		v3 = nox_new_objMem_2_4E3450(v2);
+		v3 = nox_xxx_newObjectWithTypeInd_4E3450(v2);
 		if (v3)
 			nox_xxx_createAt_4DAA50((int)v3, a1[127], *((float*)a1 + 14), *((float*)a1 + 15));
 		a1[34] = nox_frame_xxx_2598000 + nox_common_randomInt_415FA0(1, 5);
@@ -10675,7 +10675,7 @@ _DWORD*  nox_xxx_wandShot_53F480(int a1, int a2, int* a3, _DWORD* a4) {
 	_DWORD* result; // eax
 	_DWORD* v5;     // esi
 
-	result = nox_new_objMem_2_4E3450(a2);
+	result = nox_xxx_newObjectWithTypeInd_4E3450(a2);
 	v5 = result;
 	if (result) {
 		nox_xxx_createAt_4DAA50((int)result, a1, *(float*)a3, *((float*)a3 + 1));
@@ -10953,7 +10953,7 @@ _DWORD*  nox_xxx_respawnPlayerImpl_53FBC0(float* a1, int a2) {
 	v4 = getMemFloatPtr(0x587000, 88 * v2 + 280376);
 	v11 = getMemIntPtr(0x5D4594, 44 * v2 + 2488740);
 	do {
-		result = nox_new_objMem_2_4E3450(*v11);
+		result = nox_xxx_newObjectWithTypeInd_4E3450(*v11);
 		v6 = result;
 		if (!result)
 			break;
@@ -12121,7 +12121,7 @@ char*  sub_542BF0(int a1, int a2, int a3) {
 					v8 = a3;
 				}
 				v10 = (CHAR*)nox_xxx_getUnitName_4E39D0((int)v4);
-				v11 = *(int(**)(int*))(nox_xxx_utilThingDefByName_4E3B60(v10) + 212);
+				v11 = *(int(**)(int*))(nox_xxx_objectTypeByID_4E3B60(v10) + 212);
 				if (v11 == nox_xxx_unitTriggerXfer_4F4E50) {
 					v12 = (const char*)sub_508CB0(v4, 1);
 					if (strlen(v12)) {
@@ -13234,7 +13234,7 @@ void nox_xxx_createReleasedSoul_544E60(int a1) {
 		v1 = nox_xxx_getNameId_4E3AA0("ReleasedSoul");
 		*getMemU32Ptr(0x5D4594, 2489456) = v1;
 	}
-	v2 = nox_new_objMem_2_4E3450(v1);
+	v2 = nox_xxx_newObjectWithTypeInd_4E3450(v1);
 	v3 = v2;
 	if (v2) {
 		nox_xxx_createAt_4DAA50((int)v2, 0, *(float*)(a1 + 56), *(float*)(a1 + 60));

@@ -1011,7 +1011,7 @@ int  nox_xxx_interesting_xfer_4D0010(_DWORD* a1, int a2) {
 	if (v3) {
 		while (1) {
 			v4 = (CHAR*)nox_xxx_getUnitName_4E39D0((int)v3);
-			v5 = *(int(**)(int))(nox_xxx_utilThingDefByName_4E3B60(v4) + 212);
+			v5 = *(int(**)(int))(nox_xxx_objectTypeByID_4E3B60(v4) + 212);
 			if (v5 != nox_xxx_XFerElevator_4F53D0)
 				break;
 			v6 = v3[187];
@@ -2188,7 +2188,7 @@ BOOL nox_xxx_servEndSession_4D3200() {
 	sub_50D820();
 	nox_xxx_deleteShopInventories_50E300();
 	sub_416950();
-	sub_4E3420();
+	nox_xxx_freeGameObjectClass_4E3420();
 	nox_xxx_freeObjectTypes_4E2A20();
 	if (!nox_common_gameFlags_check_40A5C0(2048)) {
 		nox_server_netCloseHandler_4DEC60(*getMemUintPtr(0x5D4594, 1548516));

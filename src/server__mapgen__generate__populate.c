@@ -103,7 +103,7 @@ int  sub_527D50(int a1, char* a2) {
 	if (!a2)
 		return 0;
 	v3 = (CHAR*)nox_xxx_getUnitName_4E39D0(a1);
-	if (*(int(**)(int))(nox_xxx_utilThingDefByName_4E3B60(v3) + 212) != nox_xxx_XFerExit_4F4B90)
+	if (*(int(**)(int))(nox_xxx_objectTypeByID_4E3B60(v3) + 212) != nox_xxx_XFerExit_4F4B90)
 		return 0;
 	strncpy(*(char**)(a1 + 700), a2, 0x50u);
 	return 1;

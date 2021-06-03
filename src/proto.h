@@ -4044,12 +4044,12 @@ int  sub_4E31E0(_DWORD* a1);
 int  nox_thing_read_xxx_4E3220(int a1, char* a2, int a3);
 void nox_xxx_unitDefFindMaxDataSize_4E3320();
 int  nox_xxx_allocClassArrayObjects_4E3360(unsigned int a1);
-int sub_4E3420();
+int nox_xxx_freeGameObjectClass_4E3420();
 void nullsub_23(void); // weak
-_DWORD*  nox_new_objMem_2_4E3450(int a1);
-void*  nox_new_objMem_4E3470(int a1);
-_DWORD*  nox_xxx_objectCreateByName_4E3810(CHAR* a1);
-int  nox_xxx_unitDefByName_4E3830(char* a1);
+void* nox_xxx_newObjectWithTypeInd_4E3450(int ind);
+void* nox_xxx_newObjectWithType_4E3470(nox_objectType_t* typ);
+void* nox_xxx_objectCreateByName_4E3810(const char* id);
+nox_objectType_t* nox_xxx_objectTypeByID_4E3830(const char* id);
 int  nox_xxx_objBsearchFn_4E3880(const void*, const void*); // idb
 int  nox_xxx_objectFreeMem_4E38A0(int a1);
 int  nox_xxx_getUnitName_4E39D0(int a1);
@@ -4059,8 +4059,8 @@ int nox_xxx_unitDefGetCount_4E3AC0();
 BOOL  sub_4E3AD0(int a1);
 nox_objectType_t* nox_xxx_getFirstObjectType_4E3B30();
 nox_objectType_t* nox_xxx_objectType_next_4E3B40(nox_objectType_t* typ);
-int  nox_xxx_utilThingDefByName_4E3B60(CHAR* a1);
-int  nox_xxx_unitDefGet_4E3B70(int a1);
+nox_objectType_t*  nox_xxx_objectTypeByID_4E3B60(char* id);
+nox_objectType_t*  nox_xxx_objectTypeByInd_4E3B70(int ind);
 BOOL  sub_4E3B80(int a1);
 int  nox_xxx_getUnitDefDd10_4E3BA0(int a1);
 int  sub_4E3BF0(int a1);

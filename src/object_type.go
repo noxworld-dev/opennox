@@ -17,11 +17,11 @@ import (
 func getObjectTypeByID(id string) *ObjectType {
 	cstr := CString(id)
 	defer StrFree(cstr)
-	p := C.nox_xxx_unitDefByName_4E3830(cstr)
-	if p == 0 {
+	p := C.nox_xxx_objectTypeByID_4E3830(cstr)
+	if p == nil {
 		return nil
 	}
-	return asObjectType(unsafe.Pointer(uintptr(p)))
+	return asObjectType(unsafe.Pointer(p))
 }
 
 func getObjectTypeByInd(ind int) *ObjectType {
@@ -31,21 +31,21 @@ func getObjectTypeByInd(ind int) *ObjectType {
 	if ind < 0 || ind >= int(C.nox_xxx_unitDefGetCount_4E3AC0()) {
 		return nil
 	}
-	p := C.nox_xxx_unitDefGet_4E3B70(C.int(ind))
-	if p == 0 {
+	p := C.nox_xxx_objectTypeByInd_4E3B70(C.int(ind))
+	if p == nil {
 		return nil
 	}
-	return asObjectType(unsafe.Pointer(uintptr(p)))
+	return asObjectType(unsafe.Pointer(p))
 }
 
-type ObjectType [0]byte
+type ObjectType C.nox_objectType_t
 
 func asObjectType(p unsafe.Pointer) *ObjectType {
 	return (*ObjectType)(p)
 }
 
-func (t *ObjectType) C() unsafe.Pointer {
-	return unsafe.Pointer(t)
+func (t *ObjectType) C() *C.nox_objectType_t {
+	return (*C.nox_objectType_t)(unsafe.Pointer(t))
 }
 
 func (t *ObjectType) field(dp uintptr) unsafe.Pointer {
@@ -65,7 +65,7 @@ func (t *ObjectType) String() string {
 }
 
 func (t *ObjectType) CreateObject(p types.Pointf) script.Object {
-	cobj := C.nox_new_objMem_4E3470(C.int(uintptr(t.C())))
+	cobj := C.nox_xxx_newObjectWithType_4E3470(t.C())
 	if cobj == nil {
 		return nil
 	}
