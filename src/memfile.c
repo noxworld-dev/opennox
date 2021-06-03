@@ -5,7 +5,7 @@
 
 //----- (0040ABF0) --------------------------------------------------------
 nox_memfile* nox_memfile_load(const char* path, int a2) {
-	nox_memfile* nf = (nox_memfile*)malloc(sizeof(nox_memfile));
+	nox_memfile* nf = (nox_memfile*)calloc(1, sizeof(nox_memfile));
 	if (!nf) {
 		return 0;
 	}
