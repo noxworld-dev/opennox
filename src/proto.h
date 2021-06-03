@@ -4058,7 +4058,7 @@ int  nox_xxx_getNameId_4E3AA0(CHAR* a1);
 int nox_xxx_unitDefGetCount_4E3AC0();
 BOOL  sub_4E3AD0(int a1);
 nox_objectType_t* nox_xxx_getFirstObjectType_4E3B30();
-int  sub_4E3B40(int a1);
+nox_objectType_t* nox_xxx_objectType_next_4E3B40(nox_objectType_t* typ);
 int  nox_xxx_utilThingDefByName_4E3B60(CHAR* a1);
 int  nox_xxx_unitDefGet_4E3B70(int a1);
 BOOL  sub_4E3B80(int a1);

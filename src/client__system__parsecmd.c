@@ -419,7 +419,7 @@ int nox_cmd_list_weapons(int tokInd, int tokCnt, wchar_t** tokens) {
 				nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v5, v7, v8);
 			}
 		}
-		v2 = (char**)sub_4E3B40((int)v2);
+		v2 = (char**)nox_xxx_objectType_next_4E3B40((int)v2);
 	}
 	return 1;
 }
@@ -457,7 +457,7 @@ int nox_cmd_list_armor(int tokInd, int tokCnt, wchar_t** tokens) {
 				nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v5, v7, v8);
 			}
 		}
-		v2 = (char**)sub_4E3B40((int)v2);
+		v2 = (char**)nox_xxx_objectType_next_4E3B40((int)v2);
 	}
 	return 1;
 }
@@ -532,7 +532,7 @@ int nox_cmd_list_staffs(int tokInd, int tokCnt, wchar_t** tokens) {
 				nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v6, v8, v9);
 			}
 		}
-		v2 = (unsigned __int16*)sub_4E3B40((int)v2);
+		v2 = (unsigned __int16*)nox_xxx_objectType_next_4E3B40((int)v2);
 	}
 	return 1;
 }

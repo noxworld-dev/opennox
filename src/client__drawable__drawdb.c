@@ -821,35 +821,24 @@ CHAR*  nox_xxx_unitDefByAlphabetAdd_4E3080(CHAR* a1) {
 }
 
 //----- (004E3110) --------------------------------------------------------
-int sub_4E3110() {
+int nox_xxx_objectTypes_allFit_4E3110() {
 	int ret = 1;
-
-	for (char* cur = (char*)nox_xxx_getFirstObjectType_4E3B30(); cur; cur = (char*)sub_4E3B40((int)cur)) {
-		char char_0x20 = *((char*)cur + 32);
-		if ((char_0x20 & 0x40) != 0) {
+	for (nox_objectType_t* typ = nox_xxx_getFirstObjectType_4E3B30(); typ; typ = nox_xxx_objectType_next_4E3B40(typ)) {
+		if ((typ->field_8 & 0x40) != 0) {
 			continue;
 		}
-
-		int dword_0x3c = *((_DWORD*)cur + 15);
-		float dword_0x40 = *((float*)cur + 16);
-		float dword_0x54 = *((float*)cur + 21);
-		float dword_0x58 = *((float*)cur + 22);
-		float dword_0x60 = *((float*)cur + 24);
-		float dword_0x6c = *((float*)cur + 27);
-		nox_shape* p_shape_0x3c = (nox_shape*)(cur + 60);
-		if (dword_0x3c == 2) {
-			if (dword_0x40 + dword_0x40 >= 85.0) {
+		nox_shape* shape = &typ->shape;
+		if (shape->kind == NOX_SHAPE_CIRCLE) {
+			if (shape->circle_r + shape->circle_r >= 85.0) {
 				ret = 0;
 			}
-		} else if (dword_0x3c == 3) {
-			nox_shape_box_calc(p_shape_0x3c);
-
-			if (dword_0x60 - dword_0x58 >= 85.0 || dword_0x6c - dword_0x54 >= 85.0) {
+		} else if (shape->kind == NOX_SHAPE_BOX) {
+			nox_shape_box_calc(shape);
+			if (shape->box_right_top - shape->box_left_bottom_2 >= 85.0 || shape->box_right_top_2 - shape->box_left_bottom >= 85.0) {
 				ret = 0;
 			}
 		}
 	}
-
 	return ret;
 }
 
@@ -1121,8 +1110,7 @@ int  nox_read_things_alternative_4E2B60(void) {
 	} else {
 		nox_memfile_free(things);
 	}
-	result = (void*)sub_4E3110();
-	if (!result) {
+	if (!nox_xxx_objectTypes_allFit_4E3110()) {
 		return 0;
 	}
 	nox_xxx_protectUnitDefUpdateMB_4E3C20();

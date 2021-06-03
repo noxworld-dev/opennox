@@ -292,19 +292,19 @@ typedef struct int4 {
 typedef enum { NOX_SHAPE_NONE = 0, NOX_SHAPE_CENTER = 1, NOX_SHAPE_CIRCLE = 2, NOX_SHAPE_BOX = 3 } nox_shape_kind;
 
 typedef struct nox_shape {
-	nox_shape_kind kind;      // 0x0
-	float circle_r;           // 0x4
-	float circle_r2;          // 0x8
-	float box_w;              // 0xC
-	float box_h;              // 0x10
-	float box_left_top;       // 0x14
-	float box_left_bottom;    // 0x18
-	float box_left_bottom_2;  // 0x1C
-	float box_left_top_2;     // 0x20
-	float box_right_top;      // 0x24
-	float box_right_bottom;   // 0x28
-	float box_right_bottom_2; // 0x2C
-	float box_right_top_2;    // 0x30
+	nox_shape_kind kind;      // 0, 0x0
+	float circle_r;           // 1, 0x4
+	float circle_r2;          // 2, 0x8
+	float box_w;              // 3, 0xC
+	float box_h;              // 4, 0x10
+	float box_left_top;       // 5, 0x14
+	float box_left_bottom;    // 6, 0x18
+	float box_left_bottom_2;  // 7, 0x1C
+	float box_left_top_2;     // 8, 0x20
+	float box_right_top;      // 9, 0x24
+	float box_right_bottom;   // 10, 0x28
+	float box_right_bottom_2; // 11, 0x2C
+	float box_right_top_2;    // 12, 0x30
 } nox_shape;
 _Static_assert(sizeof(nox_shape) == 52, "wrong size of nox_shape structure!");
 
@@ -424,19 +424,7 @@ typedef struct nox_objectType_t {
 	_DWORD field_12; // 12, 48
 	float field_13; // 13, 52
 	float field_14; // 14, 56
-	_DWORD field_15; // 15, 60
-	_DWORD field_16; // 16, 64
-	_DWORD field_17; // 17, 68
-	_DWORD field_18; // 18, 72
-	_DWORD field_19; // 19, 76
-	_DWORD field_20; // 20, 80
-	_DWORD field_21; // 21, 84
-	_DWORD field_22; // 22, 88
-	_DWORD field_23; // 23, 92
-	_DWORD field_24; // 24, 96
-	_DWORD field_25; // 25, 100
-	_DWORD field_26; // 26, 104
-	_DWORD field_27; // 27, 108
+	nox_shape shape; // 15, 60
 	_DWORD field_28; // 28, 112
 	float field_29; // 29, 116
 	_DWORD field_30; // 30, 120, TODO: accessed as byte

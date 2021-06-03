@@ -1207,14 +1207,10 @@ BOOL  sub_4E3AD0(int a1) {
 nox_objectType_t* nox_xxx_getFirstObjectType_4E3B30() { return nox_xxx_objectTypes_head_1563660; }
 
 //----- (004E3B40) --------------------------------------------------------
-int  sub_4E3B40(int a1) {
-	int result; // eax
-
-	if (a1)
-		result = *(_DWORD*)(a1 + 220);
-	else
-		result = 0;
-	return result;
+nox_objectType_t* nox_xxx_objectType_next_4E3B40(nox_objectType_t* typ) {
+	if (!typ)
+		return 0;
+	return typ->next;
 }
 
 //----- (004E3B60) --------------------------------------------------------
@@ -1247,7 +1243,7 @@ int nox_xxx_protectUnitDefUpdateMB_4E3C20() {
 	int result; // eax
 
 	v0 = 0;
-	for (i = nox_xxx_getFirstObjectType_4E3B30(); i; i = (LPVOID)sub_4E3B40((int)i))
+	for (i = nox_xxx_getFirstObjectType_4E3B30(); i; i = (LPVOID)nox_xxx_objectType_next_4E3B40((int)i))
 		v0 ^= nox_xxx_unitDefProtectMB_4E31A0((int)i);
 	result = dword_5d4594_1563664;
 	if (v0 != dword_5d4594_1563664)
