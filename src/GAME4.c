@@ -22,7 +22,7 @@ extern _DWORD dword_5d4594_3835392;
 extern _DWORD dword_5d4594_1569652;
 extern _DWORD dword_5d4594_3835312;
 extern _DWORD dword_5d4594_1568868;
-extern _DWORD mox_alloc_magicEnt_1569668;
+extern _DWORD nox_alloc_magicEnt_1569668;
 extern void* nox_alloc_execAbil_1569644;
 extern void* nox_alloc_vote_1599652;
 extern void* nox_alloc_spellDur_1569724;
@@ -3819,7 +3819,7 @@ int nox_xxx_allocSpellRelatedArrays_4FC9B0() {
 	result = nox_xxx_spellCreateDurations_4FE850();
 	if (result) {
 		result = nox_new_alloc_class("magicEntityClass", 60, 64);
-		mox_alloc_magicEnt_1569668 = result;
+		nox_alloc_magicEnt_1569668 = result;
 		if (result) {
 			result = nox_xxx_newObjectByTypeID_4E3810("ImaginaryCaster");
 			dword_5d4594_1569664 = result;
@@ -3842,7 +3842,7 @@ int nox_xxx_allocSpellRelatedArrays_4FC9B0() {
 //----- (004FCA80) --------------------------------------------------------
 int nox_xxx_freeSpellRelated_4FCA80() {
 	sub_4FE880();
-	nox_free_alloc_class(*(LPVOID*)&mox_alloc_magicEnt_1569668);
+	nox_free_alloc_class(*(LPVOID*)&nox_alloc_magicEnt_1569668);
 	dword_5d4594_1569672 = 0;
 	nox_xxx_delayedDeleteObject_4E5CC0(*(int*)&dword_5d4594_1569664);
 	dword_5d4594_1569664 = 0;
@@ -3855,7 +3855,7 @@ int  nox_xxx_Fn_4FCAC0(int a1, int a2) {
 	_DWORD* v4; // eax
 
 	sub_4FE8A0(a1);
-	nox_alloc_class_yyy_4144D0(*(_DWORD**)&mox_alloc_magicEnt_1569668);
+	nox_alloc_class_yyy_4144D0(*(_DWORD**)&nox_alloc_magicEnt_1569668);
 	dword_5d4594_1569672 = 0;
 	for (nox_object_t* u = nox_xxx_getFirstPlayerUnit_4DA7C0(); u; u = nox_xxx_getNextPlayerUnit_4DA7F0(u)) {
 		v3 = u->field_187;
@@ -3988,7 +3988,7 @@ void nox_xxx_spellCastByBook_4FCB80() {
 			*(_DWORD*)(v17 + 52) = *(_DWORD*)(v0 + 52);
 		LABEL_40:
 			v18 = *(_DWORD*)(v0 + 52);
-			nox_alloc_class_free_obj(*(unsigned int**)&mox_alloc_magicEnt_1569668, (_QWORD*)v0);
+			nox_alloc_class_free_obj(*(unsigned int**)&nox_alloc_magicEnt_1569668, (_QWORD*)v0);
 			v0 = v18;
 		LABEL_48:
 			if (!v0)
@@ -5045,7 +5045,7 @@ LABEL_36:
 	v19 = nox_frame_xxx_2598000;
 	*(_BYTE*)(v9 + 188) = 1;
 	*(_DWORD*)(v9 + 216) = v19;
-	v20 = nox_alloc_class_new_obj_zero(*(_DWORD**)&mox_alloc_magicEnt_1569668);
+	v20 = nox_alloc_class_new_obj_zero(*(_DWORD**)&nox_alloc_magicEnt_1569668);
 	if (!v20)
 		return 0;
 	v21 = a5;
@@ -5124,7 +5124,7 @@ void  nox_xxx_spell_4FE680(int a1, float a2) {
 				else
 					dword_5d4594_1569672 = *(_DWORD*)(v2 + 52);
 				v12 = *(_DWORD*)(v2 + 52);
-				nox_alloc_class_free_obj(*(unsigned int**)&mox_alloc_magicEnt_1569668, (_QWORD*)v2);
+				nox_alloc_class_free_obj(*(unsigned int**)&nox_alloc_magicEnt_1569668, (_QWORD*)v2);
 				v2 = v12;
 			} else {
 				v2 = *(_DWORD*)(v2 + 52);
