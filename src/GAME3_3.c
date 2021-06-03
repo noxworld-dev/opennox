@@ -874,8 +874,8 @@ int  nox_thing_read_xxx_4E3220(int a1, char* a2, int a3) {
 void nox_xxx_unitDefFindMaxDataSize_4E3320() {
 	int max = 0;
 	for (nox_objectType_t* typ = nox_xxx_objectTypes_head_1563660; typ; typ = typ->next) {
-		if (max < typ->field_37 + typ->field_45 + typ->field_49 + typ->field_52) {
-			max = typ->field_37 + typ->field_45 + typ->field_49 + typ->field_52;
+		if (max < typ->field_36_size + typ->field_44_size + typ->field_48_size + typ->field_51_size) {
+			max = typ->field_36_size + typ->field_44_size + typ->field_48_size + typ->field_51_size;
 		}
 	}
 	// TODO: result is unused :/
@@ -940,11 +940,8 @@ void* nox_xxx_newObjectWithTypeInd_4E3450(int ind) {
 
 //----- (004E3470) --------------------------------------------------------
 void* nox_xxx_newObjectWithType_4E3470(nox_objectType_t* typ) {
-	int a1 = typ;
 	char v3;                     // al
-	int v4;                      // edx
 	void* v5;                    // eax
-	void( * v6)(_DWORD*); // ebp
 	int v7;                      // eax
 	int v8;                      // eax
 	int v9;                      // [esp+10h] [ebp-4h]
@@ -954,77 +951,76 @@ void* nox_xxx_newObjectWithType_4E3470(nox_objectType_t* typ) {
 		return 0;
 	}
 	v9 = obj[9];
-	memset(obj, 0, 0x304u);
-	*((_WORD*)obj + 2) = *(_WORD*)(a1 + 20);
-	obj[2] = *(_DWORD*)(a1 + 24);
-	obj[3] = *(_DWORD*)(a1 + 28);
-	obj[4] = *(_DWORD*)(a1 + 32);
-	obj[5] = *(_DWORD*)(a1 + 36);
-	*((_WORD*)obj + 12) = *(_WORD*)(a1 + 40);
-	obj[7] = *(_DWORD*)(a1 + 44);
-	obj[8] = *(_DWORD*)(a1 + 48);
+	memset(obj, 0, 772);
+	*((_WORD*)obj + 2) = typ->field_5_0;
+	obj[2] = typ->field_6;
+	obj[3] = typ->field_7;
+	obj[4] = typ->field_8;
+	obj[5] = typ->field_9;
+	*((_WORD*)obj + 12) = typ->field_10;
+	obj[7] = typ->field_11;
+	obj[8] = typ->field_12;
 	v3 = *((_BYTE*)obj + 16);
-	obj[28] = *(_DWORD*)(a1 + 52);
-	obj[30] = *(_DWORD*)(a1 + 56);
-	memcpy(obj + 43, (const void*)(a1 + 60), 0x3Cu);
+	obj[28] = *(_DWORD*)(&typ->field_13);
+	obj[30] = *(_DWORD*)(&typ->field_14);
+	memcpy(obj + 43, &typ->shape, 0x3Cu); // TODO: this is larger than nox_shape
 	if (!(v3 & 0x40))
 		nox_xxx_objectUnkUpdateCoords_4E7290(obj);
-	*((_BYTE*)obj + 488) = *(_BYTE*)(a1 + 120);
-	*((_WORD*)obj + 245) = *(_WORD*)(a1 + 122);
-	obj[136] = *(_DWORD*)(a1 + 124);
-	obj[137] = *(_DWORD*)(a1 + 128);
-	obj[138] = *(_DWORD*)(a1 + 132);
-	obj[139] = *(_DWORD*)(a1 + 136);
+	*((_BYTE*)obj + 488) = typ->field_30_0;
+	*((_WORD*)obj + 245) = typ->field_30_2;
+	obj[136] = *(_DWORD*)(&typ->field_31);
+	obj[137] = *(_DWORD*)(&typ->field_32);
+	obj[138] = typ->field_33;
+	obj[139] = typ->field_34;
 	obj[38] = -1;
-	*((_WORD*)obj + 2) = *(_WORD*)a1;
-	if (*(_DWORD*)(a1 + 136)) {
-		_DWORD* p = calloc(1u, 0x14u);
+	*((_WORD*)obj + 2) = typ->ind;
+	if (typ->field_34) {
+		_DWORD* p = calloc(1, 20);
 		obj[139] = p;
 		if (!p)
 			return 0;
-		memcpy(p, *(const void**)(a1 + 136), 0x14u);
+		memcpy(p, typ->field_34, 20);
 	}
-	obj[172] = *(_DWORD*)(a1 + 172);
-	if (*(_DWORD*)(a1 + 180)) {
-		_DWORD* p = calloc(1u, *(_DWORD*)(a1 + 180));
+	obj[172] = typ->field_43;
+	if (typ->field_44_size) {
+		_DWORD* p = calloc(1, typ->field_44_size);
 		obj[173] = p;
 		if (!p)
 			return 0;
-		memcpy(p, *(const void**)(a1 + 176), *(_DWORD*)(a1 + 180));
+		memcpy(p, typ->field_44, typ->field_44_size);
 	}
-	obj[174] = *(_DWORD*)(a1 + 140);
-	if (*(_DWORD*)(a1 + 148)) {
-		_DWORD* p = calloc(1u, *(_DWORD*)(a1 + 148));
+	obj[174] = typ->field_35;
+	if (typ->field_36_size) {
+		_DWORD* p = calloc(1, typ->field_36_size);
 		obj[175] = p;
 		if (!p)
 			return 0;
-		memcpy(p, *(const void**)(a1 + 144), *(_DWORD*)(a1 + 148));
+		memcpy(p, typ->field_36, typ->field_36_size);
 	}
-	obj[176] = *(_DWORD*)(a1 + 212);
-	obj[183] = *(_DWORD*)(a1 + 200);
-	if (*(_DWORD*)(a1 + 208)) {
-		_DWORD* p = calloc(1u, *(_DWORD*)(a1 + 208));
+	obj[176] = typ->func_xfer;
+	obj[183] = typ->field_50;
+	if (typ->field_51_size) {
+		_DWORD* p = calloc(1, typ->field_51_size);
 		obj[184] = p;
 		if (!p)
 			return 0;
-		memcpy(p, *(const void**)(a1 + 204), *(_DWORD*)(a1 + 208));
+		memcpy(p, typ->field_51, typ->field_51_size);
 	}
-	obj[186] = *(_DWORD*)(a1 + 188);
-	if (*(_DWORD*)(a1 + 196)) {
-		_DWORD* p = calloc(1u, *(_DWORD*)(a1 + 196));
+	obj[186] = typ->field_47;
+	if (typ->field_48_size) {
+		_DWORD* p = calloc(1, typ->field_48_size);
 		obj[187] = p;
 		if (!p)
 			return 0;
-		memcpy(p, *(const void**)(a1 + 192), *(_DWORD*)(a1 + 196));
+		memcpy(p, typ->field_48, typ->field_48_size);
 	}
-	obj[177] = *(_DWORD*)(a1 + 184);
-	obj[178] = *(_DWORD*)(a1 + 168);
-	obj[179] = *(_DWORD*)(a1 + 152);
-	obj[180] = *(_DWORD*)(a1 + 156);
-	obj[181] = *(_DWORD*)(a1 + 160);
-	v4 = *(_DWORD*)(a1 + 164);
+	obj[177] = typ->field_46;
+	obj[178] = typ->field_42;
+	obj[179] = typ->func_damage;
+	obj[180] = typ->func_damage_sound;
+	obj[181] = typ->field_40;
 	obj[190] = 0;
-	obj[182] = v4;
+	obj[182] = typ->field_41;
 	obj[192] = -1;
 	obj[9] = v9;
 	if (nox_common_gameFlags_check_40A5C0(6291456) &&
@@ -1033,9 +1029,8 @@ void* nox_xxx_newObjectWithType_4E3470(nox_objectType_t* typ) {
 		nox_xxx_objectFreeMem_4E38A0(obj);
 		return 0;
 	}
-	v6 = *(void(**)(_DWORD*))(a1 + 216);
-	if (v6)
-		v6(obj);
+	if (typ->func_new)
+		typ->func_new(obj);
 	if (!nox_common_gameFlags_check_40A5C0(0x200000))
 		obj[11] = (*getMemU32Ptr(0x587000, 201376))++;
 	v7 = obj[2];

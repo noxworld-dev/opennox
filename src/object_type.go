@@ -48,16 +48,12 @@ func (t *ObjectType) C() *C.nox_objectType_t {
 	return (*C.nox_objectType_t)(unsafe.Pointer(t))
 }
 
-func (t *ObjectType) field(dp uintptr) unsafe.Pointer {
-	return unsafe.Pointer(uintptr(unsafe.Pointer(t)) + dp)
-}
-
 func (t *ObjectType) ID() string {
-	return GoString(*(**C.char)(t.field(4)))
+	return GoString(t.id)
 }
 
 func (t *ObjectType) Ind() int {
-	return int(*(*uint16)(t.field(0)))
+	return int(t.ind)
 }
 
 func (t *ObjectType) String() string {

@@ -413,7 +413,8 @@ typedef struct nox_objectType_t {
 	_DWORD field_2; // 2, 8
 	_DWORD field_3; // 3, 12
 	unsigned int field_4; // 4, 16
-	_DWORD field_5; // 5, 20
+	_WORD field_5_0; // 5, 20
+	_WORD field_5_1; // 5, 22
 	unsigned int field_6; // 6, 24, TODO: some flags? class?
 	_DWORD field_7; // 7, 28
 	unsigned int field_8; // 8, 32, TODO: some flags?
@@ -427,14 +428,16 @@ typedef struct nox_objectType_t {
 	nox_shape shape; // 15, 60
 	_DWORD field_28; // 28, 112
 	float field_29; // 29, 116
-	_DWORD field_30; // 30, 120, TODO: accessed as byte
+	_BYTE field_30_0; // 30, 120
+	_BYTE field_30_1; // 30, 121
+	_WORD field_30_2; // 30, 122
 	float field_31; // 31, 124
 	float field_32; // 32, 128
 	_DWORD field_33; // 33, 132
-	void* field_34; // 34, 136, TODO: data
+	void* field_34; // 34, 136, TODO: data, *[20]byte
 	_DWORD field_35; // 35, 140
 	void* field_36; // 36, 144, TODO: data
-	int field_37; // 37, 148, TODO: size
+	int   field_36_size; // 37, 148
 	void* func_damage; // 38, 152
 	void* func_damage_sound; // 39, 156
 	_DWORD field_40; // 40, 160
@@ -442,16 +445,16 @@ typedef struct nox_objectType_t {
 	_DWORD field_42; // 42, 168
 	_DWORD field_43; // 43, 172
 	void* field_44; // 44, 176, TODO: data
-	int field_45; // 45, 180, TODO: size
+	int   field_44_size; // 45, 180
 	_DWORD field_46; // 46, 184
 	_DWORD field_47; // 47, 188
 	void* field_48; // 48, 192, TODO: data
-	int field_49; // 49, 196, TODO: size
+	int   field_48_size; // 49, 196
 	_DWORD field_50; // 50, 200
 	void* field_51; // 51, 204, TODO: data
-	int field_52; // 52, 208, TODO: size
+	int   field_51_size; // 52, 208
 	void* func_xfer; // 53, 212
-	_DWORD field_54; // 54, 216
+	void (*func_new)(void*); // 54, 216
 	nox_objectType_t* next; // 55, 220
 } nox_objectType_t;
 _Static_assert(sizeof(nox_objectType_t) == 224, "wrong size of nox_objectType_t structure!");

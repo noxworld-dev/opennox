@@ -1043,7 +1043,7 @@ int  nox_read_things_alternative_4E2B60(void) {
 			typ->func_damage = nox_xxx_damageDefaultProc_4E0B30;
 			typ->func_damage_sound = nox_xxx_soundDefaultDamageSound_532E20;
 			typ->func_xfer = nox_xxx_XFerDefault_4F49A0;
-			*((_BYTE*)&typ->field_30) = -1;
+			typ->field_30_0 = 0xff;
 			if (!nox_thing_read_xxx_4E3220(things, v3, typ)) {
 				nox_memfile_free(things);
 				return 0;
