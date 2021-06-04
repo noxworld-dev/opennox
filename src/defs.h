@@ -1396,4 +1396,50 @@ typedef enum {
 	NOX_ENGINE_FLAG_32 = 1u << 31u,
 } nox_engine_flag;
 
+#pragma pack(push,1)
+typedef struct nox_gui_server_ent_t {
+	_DWORD field_0; // 0, 0
+	_DWORD field_1; // 1, 4
+	_DWORD field_2; // 2, 8
+	char addr[16]; // 3, 12
+	int field_7; // 7, 28
+	_DWORD field_8; // 8, 32
+	_DWORD field_9; // 9, 36, TODO: server index?
+	_DWORD field_10; // 10, 40
+	short field_11_0; // 11, 44
+	short field_11_2; // 11, 46
+	_DWORD field_12; // 12, 48
+	_DWORD field_13; // 13, 52
+	_DWORD field_14; // 14, 56
+	_DWORD field_15; // 15, 60
+	_DWORD field_16; // 16, 64
+	_DWORD field_17; // 17, 68
+	_DWORD field_18; // 18, 72
+	_DWORD field_19; // 19, 76
+	_DWORD field_20; // 20, 80
+	_DWORD field_21; // 21, 84
+	_DWORD field_22; // 22, 88
+	_DWORD field_23; // 23, 92
+	int ping; // 24, 96
+	_BYTE field_25_0; // 25, 100
+	_BYTE field_25_1; // 25, 101
+	_BYTE field_25_2; // 25, 102
+	_BYTE field_25_3; // 25, 103
+	_BYTE field_26_0; // 26, 104
+	_WORD field_26_1; // 26, 105
+	_WORD field_26_3; // 26, 107
+	unsigned short port; // 27, 109
+	char map_name[9]; // 27, 111
+	char server_name[15]; // 30, 120
+	unsigned char field_33_3[20]; // 33, 135, TODO: [20]byte
+	_DWORD field_38_3; // 38, 155
+	_DWORD field_39_3; // 39, 159
+	_WORD field_40_3; // 40, 163
+	_WORD field_41_1; // 41, 165
+	_BYTE field_41_3; // 41, 167
+	_DWORD field_42; // 42, 168
+} nox_gui_server_ent_t;
+#pragma pack(pop)
+_Static_assert(sizeof(nox_gui_server_ent_t) == 172, "wrong size of nox_gui_server_ent_t structure!");
+
 #endif

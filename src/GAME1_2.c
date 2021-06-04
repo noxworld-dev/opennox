@@ -6611,7 +6611,6 @@ void  sub_4375C0(int a1) {
 
 //----- (004375F0) --------------------------------------------------------
 int  nox_client_OnLobbyServer_4375F0(const char* addr, uint16_t port, const char* name, const char* packet) {
-	char v13[172]; // [esp+14h] [ebp-CCh]
 	char v14[32];  // [esp+C0h] [ebp-20h]
 
 	if (nox_wol_server_result_cnt_815088 >= 2500 || dword_5d4594_815044 || dword_5d4594_815060) {
@@ -6630,35 +6629,38 @@ int  nox_client_OnLobbyServer_4375F0(const char* addr, uint16_t port, const char
 		printf("OnLobbyServer_4375F0: ignoring server '%s': duplicate?\n", addr);
 		return 0;
 	}
-	memset(v13, 0, 168);
 	unsigned int curTicks = nox_platform_get_ticks();
 	unsigned int ticks = *(_DWORD*)(packet + 44);
-	*(_DWORD*)&v13[44] = *(_DWORD*)(packet + 40);
-	*(_DWORD*)&v13[48] = *(_DWORD*)(packet + 24);
-	*(_DWORD*)&v13[96] = curTicks - ticks; // ping
-	v13[100] = *(_BYTE*)(packet + 20) | *(_BYTE*)(packet + 21);
-	v13[101] = *(_BYTE*)(packet + 5) | (16 * *(_BYTE*)(packet + 6));
-	v13[102] = *(_BYTE*)(packet + 19);
-	v13[103] = *(_BYTE*)(packet + 3);
-	v13[104] = *(_BYTE*)(packet + 4);
-	*(_WORD*)&v13[105] = *(_WORD*)(packet + 36);
-	*(_WORD*)&v13[107] = *(_WORD*)(packet + 38);
-	strcpy(&v13[111], (const char*)(packet + 10));
-	memcpy(&v13[135], (const void*)(packet + 48), 20);
-	*(_DWORD*)&v13[155] = *(_DWORD*)(packet + 7);
-	*(_DWORD*)&v13[159] = *(_DWORD*)(packet + 32);
-	*(_WORD*)&v13[163] = *(_WORD*)(packet + 28);
-	*(_WORD*)&v13[165] = *(_WORD*)(packet + 68);
-	v13[168] = 0;
-	if (*(int*)&dword_587000_87412 == -1 || sub_437860(*(__int16*)&v13[44], *(__int16*)&v13[46]) == dword_587000_87412) {
-		if (nox_xxx_checkSomeFlagsOnJoin_4899C0(v13)) {
-			strcpy(&v13[12], addr);
-			*(_DWORD*)&v13[36] = nox_wol_server_result_cnt_815088;
-			*(_DWORD*)&v13[28] = 0;
-			*(_WORD*)&v13[109] = port;
-			strncpy(&v13[120], name, 15);
-			*(_WORD*)&v13[163] = *(_WORD*)(packet + 28);
-			nox_wol_servers_addResult_4A0030(v13);
+
+	nox_gui_server_ent_t srv;
+	memset(&srv, 0, sizeof(nox_gui_server_ent_t));
+	srv.field_11_0 = *(short*)(packet + 40);
+	srv.field_11_2 = *(short*)(packet + 42);
+	srv.field_12 = *(_DWORD*)(packet + 24);
+	srv.ping = curTicks - ticks; // ping
+	srv.field_25_0 = *(_BYTE*)(packet + 20) | *(_BYTE*)(packet + 21);
+	srv.field_25_1 = *(_BYTE*)(packet + 5) | (16 * *(_BYTE*)(packet + 6));
+	srv.field_25_2 = *(_BYTE*)(packet + 19);
+	srv.field_25_3 = *(_BYTE*)(packet + 3);
+	srv.field_26_0 = *(_BYTE*)(packet + 4);
+	srv.field_26_1 = *(_WORD*)(packet + 36);
+	srv.field_26_3 = *(_WORD*)(packet + 38);
+	strcpy(srv.map_name, (const char*)(packet + 10));
+	memcpy(srv.field_33_3, (const void*)(packet + 48), 20);
+	srv.field_38_3 = *(_DWORD*)(packet + 7);
+	srv.field_39_3 = *(_DWORD*)(packet + 32);
+	srv.field_40_3 = *(_WORD*)(packet + 28);
+	srv.field_41_1 = *(_WORD*)(packet + 68);
+	*(_BYTE*)(&srv.field_42) = 0;
+	if (*(int*)&dword_587000_87412 == -1 || sub_437860(srv.field_11_0, srv.field_11_2) == dword_587000_87412) {
+		if (nox_xxx_checkSomeFlagsOnJoin_4899C0(&srv)) {
+			strcpy(srv.addr, addr);
+			srv.field_9 = nox_wol_server_result_cnt_815088;
+			srv.field_7 = 0;
+			srv.port = port;
+			strncpy(srv.server_name, name, 15);
+			srv.field_40_3 = *(_WORD*)(packet + 28);
+			nox_wol_servers_addResult_4A0030(&srv);
 			v14[0] = 0;
 			if (name)
 				strcpy(v14, name);
