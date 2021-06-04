@@ -1128,7 +1128,8 @@ void sub_43B750() {
 }
 
 //----- (0043B7C0) --------------------------------------------------------
-_DWORD*  nox_gui_wol_newServerLine_43B7C0(int a1) {
+void nox_gui_wol_newServerLine_43B7C0(nox_gui_server_ent_t* srv) {
+	int a1 = srv;
 	int v1;                // eax
 	__int16 v2;            // cx
 	_DWORD* v3;            // eax
@@ -1191,7 +1192,7 @@ _DWORD*  nox_gui_wol_newServerLine_43B7C0(int a1) {
 											"C:\\NoxPost\\src\\client\\shell\\noxworld.c", 3501);
 			nox_wcscat(WideCharStr, v11);
 		}
-		result = (_DWORD*)nox_window_call_field_94(*(int*)&dword_5d4594_815032, 16397, (int)WideCharStr, 4);
+		nox_window_call_field_94(*(int*)&dword_5d4594_815032, 16397, (int)WideCharStr, 4);
 	} else {
 		memset(v14, 0, sizeof(v14));
 		*(_DWORD*)&v14[8] = 257;
@@ -1229,7 +1230,6 @@ _DWORD*  nox_gui_wol_newServerLine_43B7C0(int a1) {
 		result = *(_DWORD**)(a1 + 28);
 		*result = *(_DWORD*)(a1 + 36) + 10070;
 	}
-	return result;
 }
 
 //----- (0043BCB0) --------------------------------------------------------
