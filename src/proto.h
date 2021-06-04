@@ -2986,7 +2986,7 @@ _DWORD* sub_49FF20();
 char*  sub_49FF40(__int16* a1);
 int*  sub_49FFA0(int a1);
 char* sub_4A0020();
-int  nox_wol_servers_addResult_4A0030(const void* a1);
+int  nox_wol_servers_addResult_4A0030(nox_gui_server_ent_t* srv);
 void nox_wol_servers_sortBtnHandler_4A0290(int a1);
 int  sub_4A0330(int* a1);
 int* sub_4A0360();

@@ -6638,10 +6638,10 @@ int  nox_client_OnLobbyServer_4375F0(const char* addr, uint16_t port, const char
 	srv.field_11_2 = *(short*)(packet + 42);
 	srv.field_12 = *(_DWORD*)(packet + 24);
 	srv.ping = curTicks - ticks; // ping
-	srv.field_25_0 = *(_BYTE*)(packet + 20) | *(_BYTE*)(packet + 21);
+	srv.status = *(_BYTE*)(packet + 20) | *(_BYTE*)(packet + 21);
 	srv.field_25_1 = *(_BYTE*)(packet + 5) | (16 * *(_BYTE*)(packet + 6));
 	srv.field_25_2 = *(_BYTE*)(packet + 19);
-	srv.field_25_3 = *(_BYTE*)(packet + 3);
+	srv.players = *(_BYTE*)(packet + 3);
 	srv.field_26_0 = *(_BYTE*)(packet + 4);
 	srv.field_26_1 = *(_WORD*)(packet + 36);
 	srv.field_26_3 = *(_WORD*)(packet + 38);
@@ -6649,9 +6649,9 @@ int  nox_client_OnLobbyServer_4375F0(const char* addr, uint16_t port, const char
 	memcpy(srv.field_33_3, (const void*)(packet + 48), 20);
 	srv.field_38_3 = *(_DWORD*)(packet + 7);
 	srv.field_39_3 = *(_DWORD*)(packet + 32);
-	srv.field_40_3 = *(_WORD*)(packet + 28);
+	srv.flags = *(_WORD*)(packet + 28);
 	srv.field_41_1 = *(_WORD*)(packet + 68);
-	*(_BYTE*)(&srv.field_42) = 0;
+	srv.field_42 = 0;
 	if (*(int*)&dword_587000_87412 == -1 || sub_437860(srv.field_11_0, srv.field_11_2) == dword_587000_87412) {
 		if (nox_xxx_checkSomeFlagsOnJoin_4899C0(&srv)) {
 			strcpy(srv.addr, addr);
@@ -6659,7 +6659,7 @@ int  nox_client_OnLobbyServer_4375F0(const char* addr, uint16_t port, const char
 			srv.field_7 = 0;
 			srv.port = port;
 			strncpy(srv.server_name, name, 15);
-			srv.field_40_3 = *(_WORD*)(packet + 28);
+			srv.flags = *(_WORD*)(packet + 28);
 			nox_wol_servers_addResult_4A0030(&srv);
 			v14[0] = 0;
 			if (name)

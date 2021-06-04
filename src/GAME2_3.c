@@ -9171,93 +9171,90 @@ int*  sub_49FFA0(int a1) {
 char* sub_4A0020() { return (char*)getMemAt(0x5D4594, 1305796); }
 
 //----- (004A0030) --------------------------------------------------------
-int  nox_wol_servers_addResult_4A0030(const void* a1) {
-	_DWORD* v1;  // ebx
-	int v2;      // esi
+int  nox_wol_servers_addResult_4A0030(nox_gui_server_ent_t* srv) {
 	int* v3;     // edi
-	int v5;      // ecx
 	wchar_t* v6; // ebp
 	wchar_t* v7; // eax
 	wchar_t* v8; // ebp
 	wchar_t* v9; // eax
 
-	v1 = calloc(1, 169);
-	memcpy(v1, a1, 169);
-	v2 = 0;
+	nox_gui_server_ent_t* rec = calloc(1, sizeof(nox_gui_server_ent_t));
+	memcpy(rec, srv, sizeof(nox_gui_server_ent_t));
+
+	int v2 = 0;
 	switch (nox_wol_servers_sorting_166704) {
 	case 0: // by name (asc)
 		if (*(unsigned __int8**)getMemAt(0x5D4594, 1305800) == getMemAt(0x5D4594, 1305796))
-			return sub_425790(getMemIntPtr(0x5D4594, 1305796), v1);
+			return sub_425790(getMemIntPtr(0x5D4594, 1305796), rec);
 		v3 = nox_common_list_getFirstSafe_425890(getMemIntPtr(0x5D4594, 1305796));
 		if (!v3) {
-			nox_common_list_append_4258E0((int)getMemAt(0x5D4594, 1305796), v1);
-			return v2;
+			nox_common_list_append_4258E0((int)getMemAt(0x5D4594, 1305796), rec);
+			return 0;
 		}
 		do {
-			if (_strcmpi((const char*)v1 + 120, (const char*)v3 + 120) <= 0) {
-				nox_common_list_append_4258E0((int)v3, v1);
+			if (_strcmpi(rec->server_name, (const char*)v3 + 120) <= 0) {
+				nox_common_list_append_4258E0((int)v3, rec);
 				return v2;
 			}
 			++v2;
 			v3 = nox_common_list_getNextSafe_4258A0(v3);
 		} while (v3);
-		nox_common_list_append_4258E0((int)getMemAt(0x5D4594, 1305796), v1);
+		nox_common_list_append_4258E0((int)getMemAt(0x5D4594, 1305796), rec);
 		return v2;
 	case 1: // by name (desc)
 		if (*(unsigned __int8**)getMemAt(0x5D4594, 1305800) == getMemAt(0x5D4594, 1305796))
-			return sub_425790(getMemIntPtr(0x5D4594, 1305796), v1);
+			return sub_425790(getMemIntPtr(0x5D4594, 1305796), rec);
 		v3 = nox_common_list_getFirstSafe_425890(getMemIntPtr(0x5D4594, 1305796));
 		if (!v3) {
-			nox_common_list_append_4258E0((int)getMemAt(0x5D4594, 1305796), v1);
-			return v2;
+			nox_common_list_append_4258E0((int)getMemAt(0x5D4594, 1305796), rec);
+			return 0;
 		}
-		while (_strcmpi((const char*)v1 + 120, (const char*)v3 + 120) < 0) {
+		while (_strcmpi(rec->server_name, (const char*)v3 + 120) < 0) {
 			++v2;
 			v3 = nox_common_list_getNextSafe_4258A0(v3);
 			if (!v3) {
-				nox_common_list_append_4258E0((int)getMemAt(0x5D4594, 1305796), v1);
+				nox_common_list_append_4258E0((int)getMemAt(0x5D4594, 1305796), rec);
 				return v2;
 			}
 		}
-		nox_common_list_append_4258E0((int)v3, v1);
+		nox_common_list_append_4258E0((int)v3, rec);
 		return v2;
 	case 2: // by players (asc)
-		v5 = *((unsigned __int8*)v1 + 103);
-		v1[2] = v5;
-		return sub_425790(getMemIntPtr(0x5D4594, 1305796), v1);
+		rec->sort_key = rec->players;
+		return sub_425790(getMemIntPtr(0x5D4594, 1305796), rec);
 	case 3: // by players (desc)
-		v1[2] = 32 - *((unsigned __int8*)v1 + 103);
-		return sub_425790(getMemIntPtr(0x5D4594, 1305796), v1);
+		rec->sort_key = 32 - rec->players;
+		return sub_425790(getMemIntPtr(0x5D4594, 1305796), rec);
 	case 4: // by mode (asc)
 		if (*(unsigned __int8**)getMemAt(0x5D4594, 1305800) == getMemAt(0x5D4594, 1305796))
-			return sub_425790(getMemIntPtr(0x5D4594, 1305796), v1);
-		v6 = sub_43BCB0(*(_WORD*)((char*)v1 + 163));
+			return sub_425790(getMemIntPtr(0x5D4594, 1305796), rec);
+		v6 = sub_43BCB0(rec->flags);
 		v3 = nox_common_list_getFirstSafe_425890(getMemIntPtr(0x5D4594, 1305796));
 		if (!v3) {
-			nox_common_list_append_4258E0((int)getMemAt(0x5D4594, 1305796), v1);
-			return v2;
+			nox_common_list_append_4258E0((int)getMemAt(0x5D4594, 1305796), rec);
+			return 0;
 		}
 		while (1) {
 			v7 = sub_43BCB0(*(_WORD*)((char*)v3 + 163));
 			if (nox_wcscmp(v6, v7) <= 0) {
-				nox_common_list_append_4258E0((int)v3, v1);
+				nox_common_list_append_4258E0((int)v3, rec);
 				return v2;
 			}
 			++v2;
 			v3 = nox_common_list_getNextSafe_4258A0(v3);
 			if (!v3) {
-				nox_common_list_append_4258E0((int)getMemAt(0x5D4594, 1305796), v1);
+				nox_common_list_append_4258E0((int)getMemAt(0x5D4594, 1305796), rec);
 				return v2;
 			}
 		}
 	case 5: // by mode (desc)
 		if (*(unsigned __int8**)getMemAt(0x5D4594, 1305800) == getMemAt(0x5D4594, 1305796))
-			return sub_425790(getMemIntPtr(0x5D4594, 1305796), v1);
-		v8 = sub_43BCB0(*(_WORD*)((char*)v1 + 163));
+			return sub_425790(getMemIntPtr(0x5D4594, 1305796), rec);
+		v8 = sub_43BCB0(rec->flags);
 		v3 = nox_common_list_getFirstSafe_425890(getMemIntPtr(0x5D4594, 1305796));
 		if (!v3) {
-			nox_common_list_append_4258E0((int)getMemAt(0x5D4594, 1305796), v1);
-			return v2;
+			nox_common_list_append_4258E0((int)getMemAt(0x5D4594, 1305796), rec);
+			return 0;
 		}
 		while (1) {
 			v9 = sub_43BCB0(*(_WORD*)((char*)v3 + 163));
@@ -9267,26 +9264,24 @@ int  nox_wol_servers_addResult_4A0030(const void* a1) {
 			++v2;
 			v3 = nox_common_list_getNextSafe_4258A0(v3);
 			if (!v3) {
-				nox_common_list_append_4258E0((int)getMemAt(0x5D4594, 1305796), v1);
+				nox_common_list_append_4258E0((int)getMemAt(0x5D4594, 1305796), rec);
 				return v2;
 			}
 		}
-		nox_common_list_append_4258E0((int)v3, v1);
+		nox_common_list_append_4258E0((int)v3, rec);
 		return v2;
 	case 6: // by ping (asc)
-		v5 = v1[24];
-		v1[2] = v5;
-		return sub_425790(getMemIntPtr(0x5D4594, 1305796), v1);
+		rec->sort_key = rec->ping;
+		return sub_425790(getMemIntPtr(0x5D4594, 1305796), rec);
 	case 7: // by ping (desc)
-		v1[2] = 1000 - v1[24];
-		return sub_425790(getMemIntPtr(0x5D4594, 1305796), v1);
+		rec->sort_key = 1000 - rec->ping;
+		return sub_425790(getMemIntPtr(0x5D4594, 1305796), rec);
 	case 8: // by status (asc)
-		v5 = v1[25] & 0x30;
-		v1[2] = v5;
-		return sub_425790(getMemIntPtr(0x5D4594, 1305796), v1);
+		rec->sort_key = rec->status & 0x30;
+		return sub_425790(getMemIntPtr(0x5D4594, 1305796), rec);
 	case 9: // by status (desc)
-		v1[2] = 48 - (v1[25] & 0x30);
-		return sub_425790(getMemIntPtr(0x5D4594, 1305796), v1);
+		rec->sort_key = 48 - (rec->status & 0x30);
+		return sub_425790(getMemIntPtr(0x5D4594, 1305796), rec);
 	default:
 		return 0;
 	}

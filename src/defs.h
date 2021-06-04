@@ -1400,7 +1400,7 @@ typedef enum {
 typedef struct nox_gui_server_ent_t {
 	_DWORD field_0; // 0, 0
 	_DWORD field_1; // 1, 4
-	_DWORD field_2; // 2, 8
+	int sort_key; // 2, 8
 	char addr[16]; // 3, 12
 	int field_7; // 7, 28
 	_DWORD field_8; // 8, 32
@@ -1421,10 +1421,10 @@ typedef struct nox_gui_server_ent_t {
 	_DWORD field_22; // 22, 88
 	_DWORD field_23; // 23, 92
 	int ping; // 24, 96
-	_BYTE field_25_0; // 25, 100
+	unsigned char status; // 25, 100
 	_BYTE field_25_1; // 25, 101
 	_BYTE field_25_2; // 25, 102
-	_BYTE field_25_3; // 25, 103
+	unsigned char players; // 25, 103
 	_BYTE field_26_0; // 26, 104
 	_WORD field_26_1; // 26, 105
 	_WORD field_26_3; // 26, 107
@@ -1434,12 +1434,12 @@ typedef struct nox_gui_server_ent_t {
 	unsigned char field_33_3[20]; // 33, 135, TODO: [20]byte
 	_DWORD field_38_3; // 38, 155
 	_DWORD field_39_3; // 39, 159
-	_WORD field_40_3; // 40, 163
+	unsigned short flags; // 40, 163
 	_WORD field_41_1; // 41, 165
 	_BYTE field_41_3; // 41, 167
-	_DWORD field_42; // 42, 168
+	_BYTE field_42; // 42, 168
 } nox_gui_server_ent_t;
 #pragma pack(pop)
-_Static_assert(sizeof(nox_gui_server_ent_t) == 172, "wrong size of nox_gui_server_ent_t structure!");
+_Static_assert(sizeof(nox_gui_server_ent_t) == 169, "wrong size of nox_gui_server_ent_t structure!");
 
 #endif
