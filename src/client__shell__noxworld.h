@@ -17,7 +17,7 @@ int sub_43A980();
 _DWORD* sub_43B630();
 void sub_43B6E0();
 void sub_43B750();
-_DWORD*  nox_xxx_openfuckupwindow_43B7C0(int a1);
+_DWORD*  nox_gui_wol_newServerLine_43B7C0(int a1);
 wchar_t*  nox_gui_wol_gameModeString_43BCB0(__int16 a1);
 
 #endif // NOX_PORT_CLIENT_SHELL_NOXWORLD

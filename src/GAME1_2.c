@@ -7356,7 +7356,7 @@ void  nox_xxx_failconn_43B0E0(int a1) {
 								v6 = nox_wol_servers_addResult_4A0030((const void*)v3);
 								nox_window_call_field_94(*(int*)&nox_wol_wnd_gameList_815012, 16398, v5, 0);
 								sub_43B2A0(v6);
-								nox_xxx_openfuckupwindow_43B7C0(v3);
+								nox_gui_wol_newServerLine_43B7C0(v3);
 							}
 						} else {
 							nox_window_call_field_94(*(int*)&nox_wol_wnd_gameList_815012, 16398, v5, 0);

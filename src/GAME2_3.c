@@ -9331,7 +9331,7 @@ int* sub_4A0360() {
 
 	result = nox_common_list_getFirstSafe_425890(&nox_gui_wol_servers_list);
 	for (i = result; result; i = result) {
-		nox_xxx_openfuckupwindow_43B7C0((int)i);
+		nox_gui_wol_newServerLine_43B7C0((int)i);
 		result = nox_common_list_getNextSafe_4258A0(i);
 	}
 	return result;

@@ -1128,7 +1128,7 @@ void sub_43B750() {
 }
 
 //----- (0043B7C0) --------------------------------------------------------
-_DWORD*  nox_xxx_openfuckupwindow_43B7C0(int a1) {
+_DWORD*  nox_gui_wol_newServerLine_43B7C0(int a1) {
 	int v1;                // eax
 	__int16 v2;            // cx
 	_DWORD* v3;            // eax
