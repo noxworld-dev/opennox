@@ -866,6 +866,7 @@ var noxMemmap = []struct {
 	{0x5D4594, 1305724, 4, "dword_5d4594_1305724"},                 // 0x713210
 	{0x5D4594, 1305748, 4, "dword_5d4594_1305748"},                 // 0x713228
 	{0x5D4594, 1305788, 4, "dword_5d4594_1305788"},                 // 0x713250
+	{0x5D4594, 1305796, 12, "nox_gui_wol_servers_list"},
 	{0x5D4594, 1306948, 256, "nox_window_parse_buf"},
 	{0x5D4594, 1307204, 4, "nox_win_parents_top"}, // 0x7137D8
 	{0x5D4594, 1307208, 40, "nox_win_parents"},

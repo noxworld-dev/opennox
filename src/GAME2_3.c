@@ -119,6 +119,8 @@ const int nox_drawable_2d_index_cap = 47;
 int4*(* func_5D4594_1305696)(int, int, int, int, int);
 void(* func_5D4594_1305708)(_DWORD*, int, unsigned int);
 
+nox_list_item_t nox_gui_wol_servers_list = {0};
+
 #ifndef NOX_CGO
 //----- (004A0CF0) --------------------------------------------------------
 nox_window* nox_win_parents[10] = {0}; // stack
@@ -9148,8 +9150,8 @@ int*  sub_49FFA0(int a1) {
 	int* v3;     // edi
 
 	if (!*getMemU32Ptr(0x5D4594, 1305808))
-		nox_common_list_clear_425760(getMemAt(0x5D4594, 1305796));
-	result = nox_common_list_getFirstSafe_425890(getMemIntPtr(0x5D4594, 1305796));
+		nox_common_list_clear_425760(&nox_gui_wol_servers_list);
+	result = nox_common_list_getFirstSafe_425890(&nox_gui_wol_servers_list);
 	v2 = result;
 	if (result) {
 		do {
@@ -9168,7 +9170,7 @@ int*  sub_49FFA0(int a1) {
 }
 
 //----- (004A0020) --------------------------------------------------------
-char* sub_4A0020() { return (char*)getMemAt(0x5D4594, 1305796); }
+char* sub_4A0020() { return &nox_gui_wol_servers_list; }
 
 //----- (004A0030) --------------------------------------------------------
 int  nox_wol_servers_addResult_4A0030(nox_gui_server_ent_t* srv) {
@@ -9184,11 +9186,11 @@ int  nox_wol_servers_addResult_4A0030(nox_gui_server_ent_t* srv) {
 	int v2 = 0;
 	switch (nox_wol_servers_sorting_166704) {
 	case 0: // by name (asc)
-		if (*(unsigned __int8**)getMemAt(0x5D4594, 1305796 + 4) == getMemAt(0x5D4594, 1305796))
-			return sub_425790(getMemIntPtr(0x5D4594, 1305796), rec);
-		v3 = nox_common_list_getFirstSafe_425890(getMemIntPtr(0x5D4594, 1305796));
+		if (nox_gui_wol_servers_list.field_1 == &nox_gui_wol_servers_list)
+			return sub_425790(&nox_gui_wol_servers_list, rec);
+		v3 = nox_common_list_getFirstSafe_425890(&nox_gui_wol_servers_list);
 		if (!v3) {
-			nox_common_list_append_4258E0((int)getMemAt(0x5D4594, 1305796), rec);
+			nox_common_list_append_4258E0(&nox_gui_wol_servers_list, rec);
 			return 0;
 		}
 		do {
@@ -9199,21 +9201,21 @@ int  nox_wol_servers_addResult_4A0030(nox_gui_server_ent_t* srv) {
 			++v2;
 			v3 = nox_common_list_getNextSafe_4258A0(v3);
 		} while (v3);
-		nox_common_list_append_4258E0((int)getMemAt(0x5D4594, 1305796), rec);
+		nox_common_list_append_4258E0(&nox_gui_wol_servers_list, rec);
 		return v2;
 	case 1: // by name (desc)
-		if (*(unsigned __int8**)getMemAt(0x5D4594, 1305796 + 4) == getMemAt(0x5D4594, 1305796))
-			return sub_425790(getMemIntPtr(0x5D4594, 1305796), rec);
-		v3 = nox_common_list_getFirstSafe_425890(getMemIntPtr(0x5D4594, 1305796));
+		if (nox_gui_wol_servers_list.field_1 == &nox_gui_wol_servers_list)
+			return sub_425790(&nox_gui_wol_servers_list, rec);
+		v3 = nox_common_list_getFirstSafe_425890(&nox_gui_wol_servers_list);
 		if (!v3) {
-			nox_common_list_append_4258E0((int)getMemAt(0x5D4594, 1305796), rec);
+			nox_common_list_append_4258E0(&nox_gui_wol_servers_list, rec);
 			return 0;
 		}
 		while (_strcmpi(rec->server_name, (const char*)v3 + 120) < 0) {
 			++v2;
 			v3 = nox_common_list_getNextSafe_4258A0(v3);
 			if (!v3) {
-				nox_common_list_append_4258E0((int)getMemAt(0x5D4594, 1305796), rec);
+				nox_common_list_append_4258E0(&nox_gui_wol_servers_list, rec);
 				return v2;
 			}
 		}
@@ -9221,17 +9223,17 @@ int  nox_wol_servers_addResult_4A0030(nox_gui_server_ent_t* srv) {
 		return v2;
 	case 2: // by players (asc)
 		rec->sort_key = rec->players;
-		return sub_425790(getMemIntPtr(0x5D4594, 1305796), rec);
+		return sub_425790(&nox_gui_wol_servers_list, rec);
 	case 3: // by players (desc)
 		rec->sort_key = 32 - rec->players;
-		return sub_425790(getMemIntPtr(0x5D4594, 1305796), rec);
+		return sub_425790(&nox_gui_wol_servers_list, rec);
 	case 4: // by mode (asc)
-		if (*(unsigned __int8**)getMemAt(0x5D4594, 1305796 + 4) == getMemAt(0x5D4594, 1305796))
-			return sub_425790(getMemIntPtr(0x5D4594, 1305796), rec);
+		if (nox_gui_wol_servers_list.field_1 == &nox_gui_wol_servers_list)
+			return sub_425790(&nox_gui_wol_servers_list, rec);
 		v6 = sub_43BCB0(rec->flags);
-		v3 = nox_common_list_getFirstSafe_425890(getMemIntPtr(0x5D4594, 1305796));
+		v3 = nox_common_list_getFirstSafe_425890(&nox_gui_wol_servers_list);
 		if (!v3) {
-			nox_common_list_append_4258E0((int)getMemAt(0x5D4594, 1305796), rec);
+			nox_common_list_append_4258E0(&nox_gui_wol_servers_list, rec);
 			return 0;
 		}
 		while (1) {
@@ -9243,17 +9245,17 @@ int  nox_wol_servers_addResult_4A0030(nox_gui_server_ent_t* srv) {
 			++v2;
 			v3 = nox_common_list_getNextSafe_4258A0(v3);
 			if (!v3) {
-				nox_common_list_append_4258E0((int)getMemAt(0x5D4594, 1305796), rec);
+				nox_common_list_append_4258E0(&nox_gui_wol_servers_list, rec);
 				return v2;
 			}
 		}
 	case 5: // by mode (desc)
-		if (*(unsigned __int8**)getMemAt(0x5D4594, 1305796 + 4) == getMemAt(0x5D4594, 1305796))
-			return sub_425790(getMemIntPtr(0x5D4594, 1305796), rec);
+		if (nox_gui_wol_servers_list.field_1 == &nox_gui_wol_servers_list)
+			return sub_425790(&nox_gui_wol_servers_list, rec);
 		v8 = sub_43BCB0(rec->flags);
-		v3 = nox_common_list_getFirstSafe_425890(getMemIntPtr(0x5D4594, 1305796));
+		v3 = nox_common_list_getFirstSafe_425890(&nox_gui_wol_servers_list);
 		if (!v3) {
-			nox_common_list_append_4258E0((int)getMemAt(0x5D4594, 1305796), rec);
+			nox_common_list_append_4258E0(&nox_gui_wol_servers_list, rec);
 			return 0;
 		}
 		while (1) {
@@ -9264,7 +9266,7 @@ int  nox_wol_servers_addResult_4A0030(nox_gui_server_ent_t* srv) {
 			++v2;
 			v3 = nox_common_list_getNextSafe_4258A0(v3);
 			if (!v3) {
-				nox_common_list_append_4258E0((int)getMemAt(0x5D4594, 1305796), rec);
+				nox_common_list_append_4258E0(&nox_gui_wol_servers_list, rec);
 				return v2;
 			}
 		}
@@ -9272,16 +9274,16 @@ int  nox_wol_servers_addResult_4A0030(nox_gui_server_ent_t* srv) {
 		return v2;
 	case 6: // by ping (asc)
 		rec->sort_key = rec->ping;
-		return sub_425790(getMemIntPtr(0x5D4594, 1305796), rec);
+		return sub_425790(&nox_gui_wol_servers_list, rec);
 	case 7: // by ping (desc)
 		rec->sort_key = 1000 - rec->ping;
-		return sub_425790(getMemIntPtr(0x5D4594, 1305796), rec);
+		return sub_425790(&nox_gui_wol_servers_list, rec);
 	case 8: // by status (asc)
 		rec->sort_key = rec->status & 0x30;
-		return sub_425790(getMemIntPtr(0x5D4594, 1305796), rec);
+		return sub_425790(&nox_gui_wol_servers_list, rec);
 	case 9: // by status (desc)
 		rec->sort_key = 48 - (rec->status & 0x30);
-		return sub_425790(getMemIntPtr(0x5D4594, 1305796), rec);
+		return sub_425790(&nox_gui_wol_servers_list, rec);
 	default:
 		return 0;
 	}
@@ -9314,7 +9316,7 @@ int  sub_4A0330(int* a1) {
 	int* i; // eax
 
 	v1 = 0;
-	for (i = nox_common_list_getFirstSafe_425890(getMemIntPtr(0x5D4594, 1305796)); i; i = nox_common_list_getNextSafe_4258A0(i)) {
+	for (i = nox_common_list_getFirstSafe_425890(&nox_gui_wol_servers_list); i; i = nox_common_list_getNextSafe_4258A0(i)) {
 		if (i == a1)
 			break;
 		++v1;
@@ -9327,7 +9329,7 @@ int* sub_4A0360() {
 	int* result; // eax
 	int* i;      // esi
 
-	result = nox_common_list_getFirstSafe_425890(getMemIntPtr(0x5D4594, 1305796));
+	result = nox_common_list_getFirstSafe_425890(&nox_gui_wol_servers_list);
 	for (i = result; result; i = result) {
 		nox_xxx_openfuckupwindow_43B7C0((int)i);
 		result = nox_common_list_getNextSafe_4258A0(i);
@@ -9344,16 +9346,16 @@ int* sub_4A0390() {
 	_DWORD* v5; // [esp+4h] [ebp-8h]
 
 	nox_common_list_clear_425760(&v4);
-	v0 = *(_DWORD**)getMemAt(0x5D4594, 1305796 + 4);
-	v4[0] = *getMemU32Ptr(0x5D4594, 1305796);
-	v5 = *(_DWORD**)getMemAt(0x5D4594, 1305796 + 4);
-	if (*getMemU32Ptr(0x5D4594, 1305796)) {
-		*(_DWORD*)(*getMemU32Ptr(0x5D4594, 1305796) + 4) = &v4;
+	v0 = nox_gui_wol_servers_list.field_1;
+	v4[0] = nox_gui_wol_servers_list.field_0;
+	v5 = nox_gui_wol_servers_list.field_1;
+	if (nox_gui_wol_servers_list.field_0) {
+		*(_DWORD*)((_DWORD)nox_gui_wol_servers_list.field_0 + 4) = &v4;
 		v0 = v5;
 	}
 	if (v0)
 		*v0 = &v4;
-	nox_common_list_clear_425760(getMemAt(0x5D4594, 1305796));
+	nox_common_list_clear_425760(&nox_gui_wol_servers_list);
 	v1 = nox_common_list_getFirstSafe_425890(&v4);
 	if (v1) {
 		do {
@@ -9369,7 +9371,7 @@ int* sub_4A0390() {
 int  sub_4A0410(const char* a1, __int16 a2) {
 	int* v2; // edi
 
-	v2 = nox_common_list_getFirstSafe_425890(getMemIntPtr(0x5D4594, 1305796));
+	v2 = nox_common_list_getFirstSafe_425890(&nox_gui_wol_servers_list);
 	if (!v2)
 		return 1;
 	while (strcmp(a1, (const char*)v2 + 12) || a2 != *(_WORD*)((char*)v2 + 109)) {
@@ -9384,7 +9386,7 @@ int  sub_4A0410(const char* a1, __int16 a2) {
 int*  sub_4A0490(int a1) {
 	int* result; // eax
 
-	result = nox_common_list_getFirstSafe_425890(getMemIntPtr(0x5D4594, 1305796));
+	result = nox_common_list_getFirstSafe_425890(&nox_gui_wol_servers_list);
 	if (!result)
 		return 0;
 	while (result[9] != a1) {
@@ -9401,7 +9403,7 @@ int*  sub_4A04C0(int a1) {
 	int* result; // eax
 
 	v1 = 0;
-	result = nox_common_list_getFirstSafe_425890(getMemIntPtr(0x5D4594, 1305796));
+	result = nox_common_list_getFirstSafe_425890(&nox_gui_wol_servers_list);
 	if (!result)
 		return 0;
 	while (a1 != v1) {
@@ -9417,7 +9419,7 @@ int*  sub_4A04C0(int a1) {
 int*  sub_4A04F0(char* a1) {
 	int* v1; // esi
 
-	v1 = nox_common_list_getFirstSafe_425890(getMemIntPtr(0x5D4594, 1305796));
+	v1 = nox_common_list_getFirstSafe_425890(&nox_gui_wol_servers_list);
 	if (!v1)
 		return 0;
 	while (_strcmpi((const char*)(v1[8] + 52), a1)) {
