@@ -12178,7 +12178,7 @@ BOOL  nox_xxx_checkSomeFlagsOnJoin_4899C0(int a1) {
 				return 0;
 			}
 		LABEL_26:
-			if (*((_DWORD*)v4 + 10) && *(_DWORD*)(v6 + 48) != 66458)
+			if (*((_DWORD*)v4 + 10) && *(_DWORD*)(v6 + 48) != NOX_CLIENT_VERS_CODE)
 				return 0;
 		}
 		return 1;
@@ -12188,7 +12188,7 @@ BOOL  nox_xxx_checkSomeFlagsOnJoin_4899C0(int a1) {
 		return 0;
 	if (v12 & 0x20)
 		return 0;
-	return *(_DWORD*)(a1 + 48) == 66458;
+	return *(_DWORD*)(a1 + 48) == NOX_CLIENT_VERS_CODE;
 }
 
 //----- (00489B80) --------------------------------------------------------

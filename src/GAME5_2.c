@@ -763,7 +763,7 @@ int  nox_xxx_netBigSwitch_553210(unsigned int id, unsigned char* packet, int pac
 					v45 = nox_common_playerInfoGetNext_416EE0((int)v45);
 				}
 			}
-			if (*((_DWORD*)packet + 20) != 66458) {
+			if (*((_DWORD*)packet + 20) != NOX_CLIENT_VERS_CODE) {
 				*(_BYTE*)(out + 2) = 19;
 				*(_BYTE*)(out + 3) = 13;
 				return 4;

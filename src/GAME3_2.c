@@ -2329,7 +2329,7 @@ int nox_xxx_replayStartReadingOrSaving_4D38D0() {
 		*getMemU8Ptr(0x5D4594, 1548725) = strlen(*(const char**)getMemAt(0x5D4594, 1549764)) + 1;
 		_write(*(int*)&nox_xxx_replayWriteFile_587000_197424, getMemAt(0x5D4594, 1548725), 1u);
 		_write(*(int*)&nox_xxx_replayWriteFile_587000_197424, *(const void**)getMemAt(0x5D4594, 1549764), getMemByte(0x5D4594, 1548725));
-		v2 = 66458;
+		v2 = NOX_CLIENT_VERS_CODE;
 		_write(*(int*)&nox_xxx_replayWriteFile_587000_197424, &v2, 4u);
 		result = 0;
 	} else if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_REPLAY_READ) && *(int*)&nox_xxx_replayFile_587000_197428 != -1) {
@@ -8792,7 +8792,7 @@ _DWORD*  nox_xxx_servSendSettings_4DDB40(_DWORD* a1) {
 	*(_DWORD*)&v5[9] = nox_frame_xxx_2598000;
 	*(_DWORD*)&v5[17] = nox_common_gameFlags_getVal_40A5B0() & 0x7FFF0;
 	*(_DWORD*)&v5[21] = nox_xxx_getServerSubFlags_409E60();
-	*(_DWORD*)&v5[13] = 66458;
+	*(_DWORD*)&v5[13] = NOX_CLIENT_VERS_CODE;
 	v5[25] = nox_xxx_servGetPlrLimit_409FA0();
 	v5[26] = nox_xxx_servGamedataGet_40A020(*((_WORD*)v3 + 26));
 	v5[27] = sub_40A180(*((_WORD*)v3 + 26));
@@ -9393,7 +9393,7 @@ int nox_xxx_netGameSettings_4DEF00() {
 	*(_DWORD*)&v2[1] = nox_frame_xxx_2598000;
 	*(_DWORD*)&v2[9] = nox_common_gameFlags_getVal_40A5B0() & 0x7FFF0;
 	*(_DWORD*)&v2[13] = nox_xxx_getServerSubFlags_409E60();
-	*(_DWORD*)&v2[5] = 66458;
+	*(_DWORD*)&v2[5] = NOX_CLIENT_VERS_CODE;
 	v2[17] = nox_xxx_servGetPlrLimit_409FA0();
 	v2[18] = nox_xxx_servGamedataGet_40A020(*((_WORD*)v0 + 26));
 	v2[19] = sub_40A180(*((_WORD*)v0 + 26));

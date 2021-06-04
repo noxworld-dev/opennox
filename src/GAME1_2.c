@@ -7148,7 +7148,7 @@ char* sub_43AA70() {
 	}
 	v4 = sub_43BE50_get_video_mode_id();
 	v5 = v1[102];
-	*((_DWORD*)v1 + 12) = 66458;
+	*((_DWORD*)v1 + 12) = NOX_CLIENT_VERS_CODE;
 	v1[102] = v5 & 0x80 | v4;
 	*((_DWORD*)v1 + 11) = *getMemU32Ptr(0x5D4594, 814916);
 	*(_WORD*)(v1 + 109) = nox_xxx_servGetPort_40A430();
@@ -7167,7 +7167,7 @@ char* sub_43AA70() {
 		*(_DWORD*)&v10[24] = 1;
 		*(_DWORD*)&v10[44] = 0;
 		*(_DWORD*)&v10[28] = 0;
-		*(_DWORD*)&v10[224] = 66458;
+		*(_DWORD*)&v10[224] = NOX_CLIENT_VERS_CODE;
 		*(_DWORD*)&v10[32] = *getMemU32Ptr(0x5D4594, 814916);
 		v10[sub_425550(v1 + 100, &v10[69], 552) + 69] = 0;
 		sub_40D320((int)v10);
