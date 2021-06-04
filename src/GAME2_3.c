@@ -9184,7 +9184,7 @@ int  nox_wol_servers_addResult_4A0030(nox_gui_server_ent_t* srv) {
 	int v2 = 0;
 	switch (nox_wol_servers_sorting_166704) {
 	case 0: // by name (asc)
-		if (*(unsigned __int8**)getMemAt(0x5D4594, 1305800) == getMemAt(0x5D4594, 1305796))
+		if (*(unsigned __int8**)getMemAt(0x5D4594, 1305796 + 4) == getMemAt(0x5D4594, 1305796))
 			return sub_425790(getMemIntPtr(0x5D4594, 1305796), rec);
 		v3 = nox_common_list_getFirstSafe_425890(getMemIntPtr(0x5D4594, 1305796));
 		if (!v3) {
@@ -9202,7 +9202,7 @@ int  nox_wol_servers_addResult_4A0030(nox_gui_server_ent_t* srv) {
 		nox_common_list_append_4258E0((int)getMemAt(0x5D4594, 1305796), rec);
 		return v2;
 	case 1: // by name (desc)
-		if (*(unsigned __int8**)getMemAt(0x5D4594, 1305800) == getMemAt(0x5D4594, 1305796))
+		if (*(unsigned __int8**)getMemAt(0x5D4594, 1305796 + 4) == getMemAt(0x5D4594, 1305796))
 			return sub_425790(getMemIntPtr(0x5D4594, 1305796), rec);
 		v3 = nox_common_list_getFirstSafe_425890(getMemIntPtr(0x5D4594, 1305796));
 		if (!v3) {
@@ -9226,7 +9226,7 @@ int  nox_wol_servers_addResult_4A0030(nox_gui_server_ent_t* srv) {
 		rec->sort_key = 32 - rec->players;
 		return sub_425790(getMemIntPtr(0x5D4594, 1305796), rec);
 	case 4: // by mode (asc)
-		if (*(unsigned __int8**)getMemAt(0x5D4594, 1305800) == getMemAt(0x5D4594, 1305796))
+		if (*(unsigned __int8**)getMemAt(0x5D4594, 1305796 + 4) == getMemAt(0x5D4594, 1305796))
 			return sub_425790(getMemIntPtr(0x5D4594, 1305796), rec);
 		v6 = sub_43BCB0(rec->flags);
 		v3 = nox_common_list_getFirstSafe_425890(getMemIntPtr(0x5D4594, 1305796));
@@ -9248,7 +9248,7 @@ int  nox_wol_servers_addResult_4A0030(nox_gui_server_ent_t* srv) {
 			}
 		}
 	case 5: // by mode (desc)
-		if (*(unsigned __int8**)getMemAt(0x5D4594, 1305800) == getMemAt(0x5D4594, 1305796))
+		if (*(unsigned __int8**)getMemAt(0x5D4594, 1305796 + 4) == getMemAt(0x5D4594, 1305796))
 			return sub_425790(getMemIntPtr(0x5D4594, 1305796), rec);
 		v8 = sub_43BCB0(rec->flags);
 		v3 = nox_common_list_getFirstSafe_425890(getMemIntPtr(0x5D4594, 1305796));
@@ -9344,9 +9344,9 @@ int* sub_4A0390() {
 	_DWORD* v5; // [esp+4h] [ebp-8h]
 
 	nox_common_list_clear_425760(&v4);
-	v0 = *(_DWORD**)getMemAt(0x5D4594, 1305800);
+	v0 = *(_DWORD**)getMemAt(0x5D4594, 1305796 + 4);
 	v4[0] = *getMemU32Ptr(0x5D4594, 1305796);
-	v5 = *(_DWORD**)getMemAt(0x5D4594, 1305800);
+	v5 = *(_DWORD**)getMemAt(0x5D4594, 1305796 + 4);
 	if (*getMemU32Ptr(0x5D4594, 1305796)) {
 		*(_DWORD*)(*getMemU32Ptr(0x5D4594, 1305796) + 4) = &v4;
 		v0 = v5;
