@@ -117,6 +117,7 @@ func (d *upnpDevice) AddPortMapping(port uint16, proto string, desc string) erro
 	proto = strings.ToUpper(proto)
 	extIP := d.extIP.String()
 	intIP := d.ip.String()
+	attempt := 0
 	for {
 		LogUPNP.Printf("map: %s:%d/%s -> %s:%d (%v)", intIP, port, proto, extIP, port, dur)
 		err := d.cli.AddPortMapping("", port, proto, port, intIP, true, desc, uint32(dur/time.Second))
@@ -126,6 +127,12 @@ func (d *upnpDevice) AddPortMapping(port uint16, proto string, desc string) erro
 		}
 		code, ok := upnpErrorCode(err)
 		if !ok || code == "" {
+			attempt++
+			if attempt < 3 {
+				LogUPNP.Println("map failed, retrying:", err)
+				time.Sleep(time.Second / 2)
+				continue
+			}
 			LogUPNP.Println("map failed:", err)
 			return err
 		}
