@@ -9230,14 +9230,14 @@ int  nox_wol_servers_addResult_4A0030(nox_gui_server_ent_t* srv) {
 	case 4: // by mode (asc)
 		if (nox_gui_wol_servers_list.field_1 == &nox_gui_wol_servers_list)
 			return sub_425790(&nox_gui_wol_servers_list, rec);
-		v6 = sub_43BCB0(rec->flags);
+		v6 = nox_gui_wol_gameModeString_43BCB0(rec->flags);
 		v3 = nox_common_list_getFirstSafe_425890(&nox_gui_wol_servers_list);
 		if (!v3) {
 			nox_common_list_append_4258E0(&nox_gui_wol_servers_list, rec);
 			return 0;
 		}
 		while (1) {
-			v7 = sub_43BCB0(*(_WORD*)((char*)v3 + 163));
+			v7 = nox_gui_wol_gameModeString_43BCB0(*(_WORD*)((char*)v3 + 163));
 			if (nox_wcscmp(v6, v7) <= 0) {
 				nox_common_list_append_4258E0((int)v3, rec);
 				return v2;
@@ -9252,14 +9252,14 @@ int  nox_wol_servers_addResult_4A0030(nox_gui_server_ent_t* srv) {
 	case 5: // by mode (desc)
 		if (nox_gui_wol_servers_list.field_1 == &nox_gui_wol_servers_list)
 			return sub_425790(&nox_gui_wol_servers_list, rec);
-		v8 = sub_43BCB0(rec->flags);
+		v8 = nox_gui_wol_gameModeString_43BCB0(rec->flags);
 		v3 = nox_common_list_getFirstSafe_425890(&nox_gui_wol_servers_list);
 		if (!v3) {
 			nox_common_list_append_4258E0(&nox_gui_wol_servers_list, rec);
 			return 0;
 		}
 		while (1) {
-			v9 = sub_43BCB0(*(_WORD*)((char*)v3 + 163));
+			v9 = nox_gui_wol_gameModeString_43BCB0(*(_WORD*)((char*)v3 + 163));
 			if (nox_wcscmp(v8, v9) >= 0) {
 				break;
 			}

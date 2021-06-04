@@ -600,7 +600,7 @@ int  sub_4394D0(int a1) {
 	nox_window_call_field_94(*(int*)&dword_5d4594_815004, 16397, (int)getMemAt(0x587000, 89464), -1);
 	v5 = nox_strman_loadString_40F1D0("GameType", 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 787);
 	nox_window_call_field_94(*(int*)&dword_5d4594_815004, 16397, (int)v5, 14);
-	v6 = sub_43BCB0(*(_WORD*)(a1 + 163));
+	v6 = nox_gui_wol_gameModeString_43BCB0(*(_WORD*)(a1 + 163));
 	nox_window_call_field_94(*(int*)&dword_5d4594_815004, 16397, (int)v6, -1);
 	if (*(_BYTE*)(a1 + 164) & 0x10) {
 		nox_window_call_field_94(*(int*)&dword_5d4594_815004, 16397, (int)getMemAt(0x587000, 89520), -1);
@@ -1155,7 +1155,7 @@ _DWORD*  nox_xxx_openfuckupwindow_43B7C0(int a1) {
 		nox_window_call_field_94(*(int*)&dword_5d4594_815016, 16397, (int)WideCharStr, 4);
 		nox_swprintf(WideCharStr, L"%d/%d", *(unsigned __int8*)(a1 + 103), *(unsigned __int8*)(a1 + 104));
 		nox_window_call_field_94(*(int*)&dword_5d4594_815020, 16397, (int)WideCharStr, 4);
-		v6 = sub_43BCB0(*(_WORD*)(a1 + 163));
+		v6 = nox_gui_wol_gameModeString_43BCB0(*(_WORD*)(a1 + 163));
 		if (*(_BYTE*)(a1 + 164) & 0x10) {
 			nox_swprintf((wchar_t*)getMemAt(0x5D4594, 814772), L"%s %d", v6, *(unsigned __int16*)(a1 + 165));
 			nox_window_call_field_94(*(int*)&dword_5d4594_815024, 16397, (int)getMemAt(0x5D4594, 814772), 4);
@@ -1233,7 +1233,7 @@ _DWORD*  nox_xxx_openfuckupwindow_43B7C0(int a1) {
 }
 
 //----- (0043BCB0) --------------------------------------------------------
-wchar_t*  sub_43BCB0(__int16 a1) {
+wchar_t*  nox_gui_wol_gameModeString_43BCB0(__int16 a1) {
 	if (a1 & 0x1000)
 		return nox_strman_loadString_40F1D0("Quest", 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c",
 									 3534);
