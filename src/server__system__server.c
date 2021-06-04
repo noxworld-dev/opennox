@@ -46,7 +46,7 @@ extern _DWORD dword_5d4594_528252;
 extern _QWORD qword_581450_10392;
 extern _QWORD qword_581450_10256;
 extern _DWORD dword_5d4594_1569756;
-extern _DWORD nox_xxx_host_player_unit_3843628;
+extern nox_object_t* nox_xxx_host_player_unit_3843628;
 extern _DWORD dword_5d4594_2495920;
 extern _DWORD dword_5d4594_1568024;
 extern _DWORD dword_5d4594_2388648;
@@ -1919,7 +1919,7 @@ char nox_xxx_updateUnits_51B100() {
 					if (*(_BYTE*)(v2 + 8) & 4) {
 						v7 = *(_DWORD*)(v2 + 748);
 						if (!(*(_BYTE*)(v2 + 16) & 2))
-							v6(v2);
+							v6(v2); // update function for the player
 						nox_xxx_playerCmd_51AC30(*(unsigned __int8*)(*(_DWORD*)(v7 + 276) + 2064));
 					} else if (!(*(_BYTE*)(v2 + 16) & 2)) {
 						v6(v2);
@@ -2000,7 +2000,7 @@ char nox_xxx_updateUnits_51B100() {
 		v21 = *(_DWORD*)(k + 60);
 		*(_DWORD*)(k + 72) = *(_DWORD*)(k + 56);
 		v22 = *(_DWORD*)(k + 68);
-		*(_DWORD*)(k + 56) = v20;
+		*(_DWORD*)(k + 56) = v20; // updates unit coords
 		LOBYTE(v20) = *(_BYTE*)(k + 541);
 		*(_DWORD*)(k + 76) = v21;
 		LOWORD(v21) = *(_WORD*)(k + 126);
@@ -2013,7 +2013,7 @@ char nox_xxx_updateUnits_51B100() {
 		*(float*)(k + 544) =
 			(*(float*)(k + 552) + *(float*)(k + 548)) * (5.0 - (double)*(unsigned __int8*)(k + 541)) * 0.2;
 		if (nox_xxx_testUnitBuffs_4FF350(k, 4))
-			*(float*)(k + 544) = *(float*)(k + 544) * 0.5;
+			*(float*)(k + 544) = *(float*)(k + 544) * 0.5; // switch back from running
 		if (*(_BYTE*)(k + 541) || *(_BYTE*)(k + 540)) {
 			v23 = *(_WORD*)(k + 542);
 			if (v23 > 0) {

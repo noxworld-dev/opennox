@@ -1666,6 +1666,7 @@ void  nox_xxx_unitUpdatePlayerImpl_4F8460(int a1) {
 			a1 = 0;
 			goto LABEL_93;
 		}
+		// switch from walking to running
 		v24 = *(float*)(v1 + 544) + *(float*)(v1 + 544);
 		a1 = 1;
 		*(float*)(v1 + 544) = v24;
@@ -1720,8 +1721,9 @@ void  nox_xxx_unitUpdatePlayerImpl_4F8460(int a1) {
 			if (nox_xxx_testUnitBuffs_4FF350(v1, 3))
 				*(_WORD*)(v1 + 126) = nox_xxx_playerConfusedGetDirection_4F7A40(v1);
 			v30 = 8 * *(__int16*)(v1 + 126);
-			*(float*)(v1 + 88) = *getMemFloatPtr(0x587000, v30 + 194136) * *(float*)(v1 + 544) + *(float*)(v1 + 88);
-			*(float*)(v1 + 92) = *getMemFloatPtr(0x587000, v30 + 194140) * *(float*)(v1 + 544) + *(float*)(v1 + 92);
+			// update force based on direction, speed, etc
+			*(float*)(v1 + 88) += *getMemFloatPtr(0x587000, v30 + 194136) * *(float*)(v1 + 544);
+			*(float*)(v1 + 92) += *getMemFloatPtr(0x587000, v30 + 194140) * *(float*)(v1 + 544);
 		}
 		if (!*(_BYTE*)(v2 + 88)) {
 			nox_xxx_animPlayerGetFrameRange_4F9F90(4, &v67, &v69);

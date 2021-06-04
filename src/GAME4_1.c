@@ -45,7 +45,7 @@ extern _DWORD dword_5d4594_2386572;
 extern _DWORD dword_5d4594_2386500;
 extern _DWORD dword_5d4594_2386576;
 extern _DWORD dword_5d4594_2386212;
-extern _DWORD nox_xxx_host_player_unit_3843628;
+extern nox_object_t* nox_xxx_host_player_unit_3843628;
 extern _DWORD dword_5d4594_2386180;
 extern void* nox_alloc_tradeItems_2386496;
 extern void* nox_alloc_visitNode_2386184;
@@ -5032,7 +5032,7 @@ void nox_xxx_collisions_511850() {
 }
 
 //----- (005118A0) --------------------------------------------------------
-int  nox_xxx_updateObjectsVelocity_5118A0(float a1) {
+int  nox_xxx_updateObjectsVelocity_5118A0(float step) {
 	int i;               // esi
 	int result;          // eax
 	int j;               // esi
@@ -5046,7 +5046,6 @@ int  nox_xxx_updateObjectsVelocity_5118A0(float a1) {
 	double v11;          // st6
 	float v12;           // [esp+8h] [ebp-24h]
 	float v13;           // [esp+10h] [ebp-1Ch]
-	float v14;           // [esp+10h] [ebp-1Ch]
 	float2 v15;          // [esp+14h] [ebp-18h]
 	float4 v16;          // [esp+1Ch] [ebp-10h]
 
@@ -5082,14 +5081,15 @@ int  nox_xxx_updateObjectsVelocity_5118A0(float a1) {
 			}
 			v5 = *(float*)(j + 64);
 			v6 = (float*)(j + 64);
-			v14 = v13 - *(float*)(j + 84) * *(float*)(j + 112);
-			*(float*)(j + 80) = (v4 - *(float*)(j + 112) * *(float*)(j + 80)) * a1 + *(float*)(j + 80);
-			*(float*)(j + 84) = v14 * a1 + *(float*)(j + 84);
+			// update velocity
+			*(float*)(j + 80) += (v4 - *(float*)(j + 80) * *(float*)(j + 112)) * step;
+			*(float*)(j + 84) += (v13 - *(float*)(j + 84) * *(float*)(j + 112)) * step;
 			v16.field_0 = v5;
 			v16.field_4 = *(float*)(j + 68);
 			v7 = getMemAt(0x5D4594, 2386580);
-			v16.field_8 = a1 * *(float*)(j + 80) + *(float*)(j + 64);
-			v16.field_C = a1 * *(float*)(j + 84) + *(float*)(j + 68);
+			// calc new pos
+			v16.field_8 = step * *(float*)(j + 80) + *(float*)(j + 64);
+			v16.field_C = step * *(float*)(j + 84) + *(float*)(j + 68);
 			v8 = (*(_DWORD*)(j + 16) >> 12) & 4 | 1;
 			while (*(unsigned __int16*)(j + 4) != *(_DWORD*)v7) {
 				v7 += 4;
@@ -5099,7 +5099,8 @@ int  nox_xxx_updateObjectsVelocity_5118A0(float a1) {
 			v8 = (*(_DWORD*)(j + 16) >> 12) & 4 | 0x41;
 		LABEL_20:
 			if (nox_xxx_mapTraceRay_535250(&v16, 0, 0, v8)) {
-				*v6 = v16.field_8;
+				// sets new pos
+				*(float*)(j + 64) = v16.field_8;
 				*(float*)(j + 68) = v16.field_C;
 			}
 			v9 = *(_DWORD*)(j + 16);

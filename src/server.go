@@ -12,7 +12,7 @@ extern unsigned int dword_5d4594_1569656;
 extern unsigned int dword_5d4594_2650652;
 extern unsigned int nox_xxx_questFlag_1556148;
 extern unsigned int dword_5d4594_2649712;
-extern unsigned int nox_xxx_host_player_unit_3843628;
+extern nox_object_t* nox_xxx_host_player_unit_3843628;
 
 void nox_xxx_abilUpdateMB_4FBEE0();
 char* nox_server_updateRemotePlayers_4DEC80();
@@ -245,7 +245,7 @@ func updateRemotePlayers() {
 func nox_xxx_servNewSession_4D1660() error {
 	C.sub_4D15C0()
 	C.dword_5d4594_2649712 = 0x80000000
-	C.nox_xxx_host_player_unit_3843628 = 0
+	C.nox_xxx_host_player_unit_3843628 = nil
 	C.sub_4D7B40()
 	C.sub_41E4B0(0)
 	C.nox_xxx_servResetObjectGIDs_4E3C70()
@@ -335,7 +335,7 @@ func nox_xxx_servNewSession_4D1660() error {
 func nox_server_netCloseHandler_4DEC60(a1 uint32) {
 	C.nox_xxx_netStructReadPackets_5545B0(C.uint(a1))
 	C.nox_server_netClose_5546A0(C.uint(a1))
-	C.nox_xxx_host_player_unit_3843628 = 0
+	C.nox_xxx_host_player_unit_3843628 = nil
 	C.sub_552450()
 	gameStopNAT()
 	gameStopHTTP()

@@ -479,22 +479,22 @@ typedef struct nox_object_t {
 	_DWORD field_13; // 13, 52
 	float x; // 14, 56
 	float y; // 15, 60
-	_DWORD field_16; // 16, 64
-	_DWORD field_17; // 17, 68
+	float new_x; // 16, 64
+	float new_y; // 17, 68
 	_DWORD field_18; // 18, 72
 	_DWORD field_19; // 19, 76
-	_DWORD field_20; // 20, 80
-	_DWORD field_21; // 21, 84
-	_DWORD field_22; // 22, 88
-	_DWORD field_23; // 23, 92
-	_DWORD field_24; // 24, 96
-	_DWORD field_25; // 25, 100
+	float vel_x; // 20, 80
+	float vel_y; // 21, 84
+	float force_x; // 22, 88
+	float force_y; // 23, 92
+	float float_24; // 24, 96, // TODO: something related to acceleration/direction
+	float float_25; // 25, 100, // TODO: something related to acceleration/direction
 	_DWORD field_26; // 26, 104
 	_DWORD field_27; // 27, 108
-	float field_28; // 28, 112
+	float float_28; // 28, 112, // TODO: damping/drag?
 	_DWORD field_29; // 29, 116
-	float field_30; // 30, 120
-	_DWORD field_31; // 31, 124
+	float float_30; // 30, 120
+	_DWORD field_31; // 31, 124, // TODO: 126 accessed as word, probably direction
 	_DWORD field_32; // 32, 128
 	_DWORD field_33; // 33, 132
 	_DWORD field_34; // 34, 136
@@ -588,10 +588,10 @@ typedef struct nox_object_t {
 	_DWORD field_132; // 132, 528
 	_DWORD field_133; // 133, 532
 	_DWORD field_134; // 134, 536
-	_DWORD field_135; // 135, 540
-	float field_136; // 136, 544
-	float field_137; // 137, 548
-	_DWORD field_138; // 138, 552
+	_DWORD field_135; // 135, 540, TODO: 541 accessed as byte
+	float float_136; // 136, 544, TODO: current speed?
+	float float_137; // 137, 548
+	float float_138; // 138, 552
 	void* field_139; // 139, 556, TODO: data, *[20]byte
 	_DWORD field_140; // 140, 560
 	_DWORD field_141; // 141, 564

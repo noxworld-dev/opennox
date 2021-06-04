@@ -85,7 +85,6 @@ extern _DWORD nox_xxx_conjurerMaxMana_587000_312804;
 extern _DWORD dword_5d4594_1550916;
 extern _DWORD nox_xxx_wizardMaximumMana_587000_312820;
 extern _DWORD dword_5d4594_2649712;
-extern _DWORD nox_xxx_host_player_unit_3843628;
 extern _DWORD dword_5d4594_3835396;
 extern _DWORD dword_5d4594_1523024;
 extern _DWORD dword_5d4594_1523028;
@@ -103,6 +102,8 @@ extern int ptr_5D4594_2650668_cap;
 
 void* nox_server_objects_uninited_1556860 = 0;
 void* nox_server_objects_1556844 = 0;
+
+nox_object_t* nox_xxx_host_player_unit_3843628 = 0;
 
 nox_list_item_t nox_common_maplist = {0};
 
@@ -8576,6 +8577,7 @@ _DWORD*  nox_xxx_playerNew_4DD320(int ind, void* data) {
 	if (!punit) {
 		return 0;
 	}
+	punit->obj_class |= 0x4; // FIXME
 	if (ind != 31) {
 		if (v5[100]) {
 			if ((unsigned __int8)(1 << *(_BYTE*)((int)data + 66)) & (unsigned __int8)v5[100])
@@ -8630,7 +8632,7 @@ _DWORD*  nox_xxx_playerNew_4DD320(int ind, void* data) {
 	*((_DWORD*)v8 + 1149) = nox_xxx_protectionCreateInt_56F400(*(unsigned __int16*)(v15 + 4));
 	*((_DWORD*)v8 + 1150) = nox_xxx_protectionCreateInt_56F400(*(unsigned __int16*)(v15 + 8));
 	*((_DWORD*)v8 + 1151) = nox_xxx_protectionCreateFloat_56F440(*(_DWORD*)(&punit->field_7));
-	*((_DWORD*)v8 + 1152) = nox_xxx_protectionCreateFloat_56F440(*(_DWORD*)(&punit->field_30));
+	*((_DWORD*)v8 + 1152) = nox_xxx_protectionCreateFloat_56F440(*(_DWORD*)(&punit->float_30));
 	*((_DWORD*)v8 + 1153) = nox_xxx_protectionCreateInt_56F400(*(_DWORD*)(&punit->field_85));
 	*((_DWORD*)v8 + 1154) = nox_xxx_protectionCreateInt_56F400((unsigned __int8)v8[2251]);
 	*((_DWORD*)v8 + 1155) = nox_xxx_protectionCreateInt_56F400(*(_DWORD*)(v8 + 2235));

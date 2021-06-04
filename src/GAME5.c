@@ -20,7 +20,7 @@ extern _DWORD dword_5d4594_2491544;
 extern _DWORD dword_5d4594_2491552;
 extern _DWORD dword_5d4594_2491616;
 extern _DWORD dword_587000_292492;
-extern _DWORD nox_xxx_host_player_unit_3843628;
+extern nox_object_t* nox_xxx_host_player_unit_3843628;
 extern _DWORD dword_5d4594_2495920;
 extern _DWORD dword_5d4594_2650652;
 extern unsigned int nox_gameFPS;
@@ -1582,8 +1582,8 @@ char  nox_xxx_monsterMainAIFn_547210(int a1) {
 			if (!nox_xxx_guiCursor_477600()) {
 				if (*(_BYTE*)(v1 + 20) & 0x10) {
 					if (nox_xxx_host_player_unit_3843628) {
-						if (!(*(_BYTE*)(nox_xxx_host_player_unit_3843628 + 16) & 2) && !nox_xxx_checkMobAction_50A0D0(v1, 2)) {
-							v7 = *(_DWORD**)(nox_xxx_host_player_unit_3843628 + 748);
+						if (!(*(_BYTE*)((_DWORD)nox_xxx_host_player_unit_3843628 + 16) & 2) && !nox_xxx_checkMobAction_50A0D0(v1, 2)) {
+							v7 = *(_DWORD**)((_DWORD)nox_xxx_host_player_unit_3843628 + 748);
 							v8 = v7[69];
 							v9 = (double)*(int*)(v8 + 2284) - *(float*)(v1 + 56);
 							v10 = (double)*(int*)(v8 + 2288) - *(float*)(v1 + 60);

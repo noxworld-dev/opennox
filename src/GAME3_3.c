@@ -48,7 +48,7 @@ extern _QWORD qword_581450_10176;
 extern _QWORD qword_581450_10256;
 extern _QWORD qword_5d4594_1567940;
 extern _QWORD qword_581450_9544;
-extern _DWORD nox_xxx_host_player_unit_3843628;
+extern nox_object_t* nox_xxx_host_player_unit_3843628;
 extern _DWORD dword_5d4594_1568024;
 extern _DWORD dword_5d4594_1565512;
 extern _DWORD dword_5d4594_2650652;
@@ -958,17 +958,17 @@ nox_object_t* nox_xxx_newObjectWithType_4E3470(nox_objectType_t* typ) {
 	ob->field_6_0 = typ->field_10;
 	ob->field_7 = typ->field_11;
 	ob->field_8 = typ->field_12;
-	ob->field_28 = typ->field_13;
-	ob->field_30 = typ->field_14;
+	ob->float_28 = typ->field_13;
+	ob->float_30 = typ->field_14;
 	memcpy(&ob->shape, &typ->shape, 0x3Cu); // TODO: this is larger than nox_shape
 	if (!(ob->field_4 & 0x40)) {
 		nox_xxx_objectUnkUpdateCoords_4E7290(ob);
 	}
 	ob->field_122_0 = typ->field_30_0;
 	ob->field_122_2 = typ->field_30_2;
-	ob->field_136 = typ->field_31;
-	ob->field_137 = typ->field_32;
-	ob->field_138 = typ->field_33;
+	ob->float_136 = typ->field_31;
+	ob->float_137 = typ->field_32;
+	ob->float_138 = typ->field_33;
 	ob->field_139 = typ->field_34;
 	ob->field_38 = -1;
 	ob->typ_ind = typ->ind;

@@ -13,7 +13,7 @@
 extern int nox_win_width_game;
 extern int nox_win_height_game;
 extern int dword_5d4594_3484;
-extern unsigned int nox_xxx_host_player_unit_3843628;
+extern nox_object_t* nox_xxx_host_player_unit_3843628;
 extern unsigned int dword_5d4594_1064896;
 extern unsigned int dword_5d4594_1064900;
 extern unsigned int dword_587000_87404;

@@ -51,8 +51,8 @@ func (u *Unit) Push(vec types.Pointf, force float32) {
 }
 
 func (u *Unit) PushTo(p types.Pointf) {
-	*(*C.float)(u.field(88)) += C.float(p.X)
-	*(*C.float)(u.field(92)) += C.float(p.Y)
+	u.force_x += C.float(p.X)
+	u.force_y += C.float(p.Y)
 }
 
 func (u *Unit) Destroy() {
