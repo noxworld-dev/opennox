@@ -30,6 +30,7 @@ cp $NOX_SRC/CHANGELOG.md ./noxg-win/
 mkdir ./noxg-win/docs
 cp $NOX_SRC/docs/game-*.md ./noxg-win/docs/
 cp $NOX_SRC/docs/mod-*.md ./noxg-win/docs/
+cp $NOX_SRC/docs/maps-*.md ./noxg-win/docs/
 
 rm -rf ./tmp-win/
 rm -rf ./tmp-win-3/
@@ -57,6 +58,7 @@ cp $NOX_SRC/CHANGELOG.md ./noxg-linux/
 mkdir ./noxg-linux/docs
 cp $NOX_SRC/docs/game-*.md ./noxg-linux/docs/
 cp $NOX_SRC/docs/mod-*.md ./noxg-linux/docs/
+cp $NOX_SRC/docs/maps-*.md ./noxg-linux/docs/
 
 rm -rf ./tmp-linux-2/
 

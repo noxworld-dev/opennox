@@ -2,7 +2,9 @@
 
 ## v1.5.0
 
-- Blazing-fast map downloads. Both client and the server should use this version. 
+- Automatically open/forward ports when hosting a game (no need to configure firewall).
+- Blazing-fast map downloads. Both client and the server should use this version.
+- Experimental support for [LUA map scripts](./docs/maps-lua.md).
 
 ## v1.4.0
 
