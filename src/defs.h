@@ -1425,7 +1425,7 @@ typedef struct nox_gui_server_ent_t {
 	_BYTE field_25_1; // 25, 101
 	_BYTE field_25_2; // 25, 102
 	unsigned char players; // 25, 103
-	_BYTE field_26_0; // 26, 104
+	unsigned char max_players; // 26, 104
 	_WORD field_26_1; // 26, 105
 	_WORD field_26_3; // 26, 107
 	unsigned short port; // 27, 109
@@ -1435,7 +1435,7 @@ typedef struct nox_gui_server_ent_t {
 	_DWORD field_38_3; // 38, 155
 	_DWORD field_39_3; // 39, 159
 	unsigned short flags; // 40, 163
-	_WORD field_41_1; // 41, 165
+	unsigned short quest_level; // 41, 165
 	_BYTE field_41_3; // 41, 167
 	_BYTE field_42; // 42, 168
 } nox_gui_server_ent_t;

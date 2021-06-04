@@ -252,11 +252,12 @@ unsigned __int16*  sub_43BC10(wchar_t* a1, unsigned __int8 a2) {
 	const size_t a1_len = nox_wcslen(a1);
 	wchar_t* a1_last_char = &a1[a1_len];
 
+	int a1v = 0;
 	do {
-		nox_xxx_drawGetStringSize_43F840(0, a1, (int*)&a1, 0, 0);
+		nox_xxx_drawGetStringSize_43F840(0, a1, &a1v, 0, 0);
 		*a1_last_char = 0;
 		--a1_last_char;
-	} while ((int)(a1 + 5) > a2);
+	} while (a1v + 5 > a2);
 
 	return a1;
 }

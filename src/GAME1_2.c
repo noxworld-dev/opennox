@@ -6642,7 +6642,7 @@ int  nox_client_OnLobbyServer_4375F0(const char* addr, uint16_t port, const char
 	srv.field_25_1 = *(_BYTE*)(packet + 5) | (16 * *(_BYTE*)(packet + 6));
 	srv.field_25_2 = *(_BYTE*)(packet + 19);
 	srv.players = *(_BYTE*)(packet + 3);
-	srv.field_26_0 = *(_BYTE*)(packet + 4);
+	srv.max_players = *(_BYTE*)(packet + 4);
 	srv.field_26_1 = *(_WORD*)(packet + 36);
 	srv.field_26_3 = *(_WORD*)(packet + 38);
 	strcpy(srv.map_name, (const char*)(packet + 10));
@@ -6650,7 +6650,7 @@ int  nox_client_OnLobbyServer_4375F0(const char* addr, uint16_t port, const char
 	srv.field_38_3 = *(_DWORD*)(packet + 7);
 	srv.field_39_3 = *(_DWORD*)(packet + 32);
 	srv.flags = *(_WORD*)(packet + 28);
-	srv.field_41_1 = *(_WORD*)(packet + 68);
+	srv.quest_level = *(_WORD*)(packet + 68);
 	srv.field_42 = 0;
 	if (*(int*)&dword_587000_87412 == -1 || sub_437860(srv.field_11_0, srv.field_11_2) == dword_587000_87412) {
 		if (nox_xxx_checkSomeFlagsOnJoin_4899C0(&srv)) {
