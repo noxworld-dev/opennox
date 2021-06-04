@@ -1,11 +1,13 @@
 package maps
 
 import (
+	"archive/zip"
 	"context"
 	"errors"
 	"fmt"
 	"io"
 	"net/http"
+	"os"
 	"path/filepath"
 	"strings"
 	"time"
@@ -15,7 +17,8 @@ import (
 )
 
 const (
-	DefaultPort = common.GameHTTPPort
+	DefaultPort      = common.GameHTTPPort
+	mapFileSizeLimit = 30 * 1024 * 1024 // 30 MB
 )
 
 var (
@@ -66,6 +69,29 @@ func (c *Client) checkAPI(ctx context.Context) error {
 	return nil
 }
 
+// limitReader returns a Reader that reads from r but stops with an error after n bytes.
+func limitReader(r io.Reader, n int64) io.Reader { return &limitedReader{r, n} }
+
+// A limitedReader reads from R but limits the amount of data returned to just N bytes.
+// Each call to Read updates N to reflect the new amount remaining.
+// Read returns error when N <= 0. It returns EOF when the underlying R returns EOF.
+type limitedReader struct {
+	R io.Reader // underlying reader
+	N int64     // max bytes remaining
+}
+
+func (l *limitedReader) Read(p []byte) (n int, err error) {
+	if l.N <= 0 {
+		return 0, errors.New("file download limit reached")
+	}
+	if int64(len(p)) > l.N {
+		p = p[0:l.N]
+	}
+	n, err = l.R.Read(p)
+	l.N -= int64(n)
+	return
+}
+
 // DownloadMap with a given name to dest.
 func (c *Client) DownloadMap(ctx context.Context, dest string, name string) error {
 	name = strings.TrimSuffix(strings.ToLower(name), Ext)
@@ -75,6 +101,7 @@ func (c *Client) DownloadMap(ctx context.Context, dest string, name string) erro
 	if err != nil {
 		return err
 	}
+	req.Header.Set("Accept", contentTypeZIP+", */*;q=0.8")
 	resp, err := c.cli.Do(req)
 	if err != nil {
 		return err
@@ -94,18 +121,76 @@ func (c *Client) DownloadMap(ctx context.Context, dest string, name string) erro
 	if err := fs.Mkdir(dest); err != nil {
 		return err
 	}
-	f, err := fs.Create(filepath.Join(dest, name+Ext))
-	if err != nil {
-		return err
+	r := limitReader(resp.Body, mapFileSizeLimit)
+	switch resp.Header.Get("Content-Type") {
+	case contentTypeZIP:
+		// maps compressed with ZIP
+		tmp, err := os.CreateTemp("", "nox_map_*.zip")
+		if err != nil {
+			return err
+		}
+		defer func() {
+			_ = tmp.Close()
+			_ = os.Remove(tmp.Name())
+		}()
+		sz, err := io.Copy(tmp, r)
+		if err != nil {
+			return err
+		}
+		_, err = tmp.Seek(0, io.SeekStart)
+		if err != nil {
+			return err
+		}
+		Log.Println("unpacking map zip archive:", tmp.Name())
+		zf, err := zip.NewReader(tmp, sz)
+		if err != nil {
+			return err
+		}
+		for _, f := range zf.File {
+			path := strings.ToLower(f.Name)
+			if !IsAllowedFile(path) {
+				Log.Println("skipping disallowed file", path)
+				continue
+			}
+			path = filepath.Join(dest, path)
+			if err := fs.Mkdir(filepath.Dir(path)); err != nil {
+				return err
+			}
+			err := func() error {
+				w, err := fs.Create(path)
+				if err != nil {
+					return err
+				}
+				defer w.Close()
+
+				r, err := zf.Open(f.Name)
+				if err != nil {
+					return err
+				}
+				defer r.Close()
+
+				_, err = io.Copy(w, r)
+				if err != nil {
+					return err
+				}
+				return w.Close()
+			}()
+			if err != nil {
+				return err
+			}
+		}
+		return nil
+	default:
+		// regular map files served directly
+		f, err := fs.Create(filepath.Join(dest, name+Ext))
+		if err != nil {
+			return err
+		}
+		defer f.Close()
+		_, err = io.Copy(f, r)
+		if err != nil {
+			return err
+		}
+		return f.Close()
 	}
-	defer f.Close()
-	_, err = io.Copy(f, resp.Body)
-	if err != nil {
-		return err
-	}
-	err = f.Close()
-	if err != nil {
-		return err
-	}
-	return nil
 }

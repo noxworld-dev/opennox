@@ -2,11 +2,23 @@ package fs
 
 import (
 	"io"
+	"io/fs"
 	"os"
+	"path/filepath"
 )
 
 func ProgName() string {
 	return Denormalize(os.Args[0])
+}
+
+func Stat(path string) (os.FileInfo, error) {
+	return os.Stat(Normalize(path))
+}
+
+type DirEntry = fs.DirEntry
+
+func WalkDir(path string, fnc fs.WalkDirFunc) error {
+	return filepath.WalkDir(Normalize(path), fnc)
 }
 
 func Open(path string) (*os.File, error) {

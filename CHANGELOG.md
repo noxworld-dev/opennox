@@ -5,6 +5,7 @@
 - Automatically open/forward ports when hosting a game (no need to configure firewall).
 - Blazing-fast map downloads. Both client and the server should use this version.
 - Experimental support for [LUA map scripts](./docs/maps-lua.md).
+- Maps will now be transferred with other related files when possible (`.txt`, `.rul`, `.lua`, `.png`).
 
 ## v1.4.0
 
