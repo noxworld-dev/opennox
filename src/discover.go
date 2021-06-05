@@ -26,8 +26,8 @@ func discoverAndPingServers(port int, ts uint32, data []byte) {
 			Port:       port, // TODO: this should come from the server
 			Name:       g.Name,
 			Map:        g.Map,
-			Players:    byte(g.Players),
-			MaxPlayers: byte(g.MaxPlayers),
+			Players:    g.Players,
+			MaxPlayers: g.MaxPlayers,
 			Flags:      uint16(g.Flags) | uint16(g.MapType),
 			Ping:       -1, // we have no idea - it comes from a central server
 		})

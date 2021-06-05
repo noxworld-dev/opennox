@@ -41,9 +41,9 @@ type LobbyServerInfo struct {
 	Map        string
 	Status     byte
 	Ping       time.Duration
-	Players    byte
-	MaxPlayers byte
-	Flags      uint16
+	Players    int
+	MaxPlayers int
+	Flags      uint16 // TODO: should be the same as GameFlags
 	Level      uint16
 	Field_11_0 int16
 	Field_11_2 int16
@@ -58,7 +58,12 @@ type LobbyServerInfo struct {
 }
 
 func (s *LobbyServerInfo) String() string {
-	return fmt.Sprintf("{%s:%d, %q, %d/%d, F:%v, M:%q, L:%d}", s.Addr, s.Port, s.Name, s.Players, s.MaxPlayers, s.Flags, s.Map, s.Level)
+	addr := fmt.Sprintf("%s:%d", s.Addr, s.Port)
+	ping := ""
+	if s.Ping > 0 {
+		ping = fmt.Sprintf(" P:%s,", s.Ping)
+	}
+	return fmt.Sprintf("{%q, %q, %d/%d,%s F:%v, M:%q, L:%d}", addr, s.Name, s.Players, s.MaxPlayers, ping, s.Flags, s.Map, s.Level)
 }
 
 type LobbyServerFunc func(info *LobbyServerInfo) int
@@ -92,8 +97,8 @@ func onLobbyServerPacket(addr string, port int, name string, packet []byte) bool
 		Addr:       addr,
 		Port:       port,
 		Name:       name,
-		Players:    packet[3],
-		MaxPlayers: packet[4],
+		Players:    int(packet[3]),
+		MaxPlayers: int(packet[4]),
 		Field_25_1: packet[5] | (packet[6] << 4),
 		Field_38_3: binary.LittleEndian.Uint32(packet[7:]) & 0xffffff,
 		Map:        string(packet[10 : 10+mi]),
@@ -214,8 +219,16 @@ func clientOnLobbyServer(info *LobbyServerInfo) int {
 	srv.status = C.uchar(info.Status)
 	srv.field_25_1 = C.uchar(info.Field_25_1)
 	srv.field_25_2 = C.uchar(info.Field_25_2)
-	srv.players = C.uchar(info.Players)
-	srv.max_players = C.uchar(info.MaxPlayers)
+	if info.Players < 0 || info.Players > 0xff {
+		srv.players = 255
+	} else {
+		srv.players = C.uchar(info.Players)
+	}
+	if info.MaxPlayers < 0 || info.MaxPlayers > 0xff {
+		srv.max_players = 255
+	} else {
+		srv.max_players = C.uchar(info.MaxPlayers)
+	}
 	*(*uint16)(field(105)) = info.Field_26_1 // field_26_1
 	*(*uint16)(field(107)) = info.Field_26_3 // field_26_3
 	StrCopy(&srv.map_name[0], 9, info.Map)
