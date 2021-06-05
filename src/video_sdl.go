@@ -139,7 +139,7 @@ func windowInit() (func(), error) {
 	sdl.SetHint(sdl.HINT_RENDER_SCALE_QUALITY, "1")
 
 	sz := videoGetWindowSize()
-	win, err := sdl.CreateWindow("Noxg Game Window", sdl.WINDOWPOS_UNDEFINED, sdl.WINDOWPOS_UNDEFINED,
+	win, err := sdl.CreateWindow("Noxg "+ClientVersionString(), sdl.WINDOWPOS_UNDEFINED, sdl.WINDOWPOS_UNDEFINED,
 		int32(sz.W), int32(sz.H), sdl.WINDOW_RESIZABLE)
 	if err != nil {
 		sdl.Quit()
