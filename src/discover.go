@@ -29,7 +29,7 @@ func discoverAndPingServers(port int, ts uint32, data []byte) {
 			Players:    byte(g.Players),
 			MaxPlayers: byte(g.MaxPlayers),
 			Flags:      uint16(g.Flags) | uint16(g.MapType),
-			Ticks:      uint64(ts),
+			Ping:       -1, // we have no idea - it comes from a central server
 		})
 	}
 }

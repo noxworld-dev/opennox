@@ -19,6 +19,7 @@ import (
 	"errors"
 	"fmt"
 	"net"
+	"time"
 	"unsafe"
 
 	"nox/v1/common/alloc"
@@ -39,7 +40,7 @@ type LobbyServerInfo struct {
 	Name       string
 	Map        string
 	Status     byte
-	Ticks      uint64 // TODO: replace with actual ping
+	Ping       time.Duration
 	Players    byte
 	MaxPlayers byte
 	Flags      uint16
@@ -81,6 +82,11 @@ func onLobbyServerPacket(addr string, port int, name string, packet []byte) bool
 		discover.Log.Printf("ignoring server response: %s:%d, %q", addr, port, name)
 		return false
 	}
+	ticks := uint64(binary.LittleEndian.Uint32(packet[44:]))
+	if exp := *memmap.PtrUint32(0x5D4594, 814964); uint32(ticks) != exp {
+		discover.Log.Printf("onLobbyServerPacket: ignoring server %q: invalid ts: 0x%x vs 0x%x", addr, ticks, exp)
+		return false
+	}
 	mi := StrLenBytes(packet[10:])
 	info := &LobbyServerInfo{
 		Addr:       addr,
@@ -100,7 +106,7 @@ func onLobbyServerPacket(addr string, port int, name string, packet []byte) bool
 		Field_26_3: binary.LittleEndian.Uint16(packet[38:]),
 		Field_11_0: int16(binary.LittleEndian.Uint16(packet[40:])),
 		Field_11_2: int16(binary.LittleEndian.Uint16(packet[42:])),
-		Ticks:      uint64(binary.LittleEndian.Uint32(packet[44:])),
+		Ping:       time.Duration(platformTicks()-ticks) * time.Millisecond,
 		Level:      binary.LittleEndian.Uint16(packet[68:]),
 	}
 	copy(info.Field_33_3[:], packet[48:48+20])
@@ -187,17 +193,10 @@ func clientOnLobbyServer(info *LobbyServerInfo) int {
 		discover.Log.Printf("OnLobbyServer_4375F0: ignoring server %q: invalid address", info.Addr)
 		return 0
 	}
-	ticks := info.Ticks
-	if exp := *memmap.PtrUint32(0x5D4594, 814964); uint32(ticks) != exp {
-		discover.Log.Printf("OnLobbyServer_4375F0: ignoring server %q: invalid ts: 0x%x vs 0x%x", info.Addr, ticks, exp)
-		return 0
-	}
 	if !sub_4A0410(info.Addr, info.Port) {
 		discover.Log.Printf("OnLobbyServer_4375F0: ignoring server %q: duplicate?", info.Addr)
 		return 0
 	}
-	curTicks := platformTicks()
-
 	srv := (*C.nox_gui_server_ent_t)(alloc.Malloc(unsafe.Sizeof(C.nox_gui_server_ent_t{})))
 	defer alloc.Free(unsafe.Pointer(srv))
 	// see https://github.com/golang/go/issues/7560
@@ -207,7 +206,11 @@ func clientOnLobbyServer(info *LobbyServerInfo) int {
 	srv.field_11_0 = C.short(info.Field_11_0)
 	srv.field_11_2 = C.short(info.Field_11_2)
 	srv.field_12 = C.uint(info.Field_12)
-	srv.ping = C.int(curTicks - ticks)
+	if info.Ping < 0 {
+		srv.ping = 9999 // UI interprets it as N/A
+	} else {
+		srv.ping = C.int(info.Ping / time.Millisecond)
+	}
 	srv.status = C.uchar(info.Status)
 	srv.field_25_1 = C.uchar(info.Field_25_1)
 	srv.field_25_2 = C.uchar(info.Field_25_2)
