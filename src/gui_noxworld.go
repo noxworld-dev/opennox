@@ -17,6 +17,7 @@ import "C"
 import (
 	"encoding/binary"
 	"errors"
+	"fmt"
 	"net"
 	"unsafe"
 
@@ -26,17 +27,84 @@ import (
 )
 
 var (
-	lobbyBroadcastSock *Socket
-	lobbySockFlag      int
-	errLobbySockFlag   = errors.New("lobbySockFlag is false")
+	lobbyBroadcastSock  *Socket
+	lobbyBroadcastSockC nox_socket_t
+	lobbySockFlag       int
+	errLobbySockFlag    = errors.New("lobbySockFlag is false")
 )
 
-type LobbyServerFunc func(addr string, port uint16, name string, packet []byte) int
+type LobbyServerInfo struct {
+	Addr       string
+	Port       int
+	Name       string
+	Map        string
+	Status     byte
+	Ticks      uint64 // TODO: replace with actual ping
+	Players    byte
+	MaxPlayers byte
+	Flags      uint16
+	Level      uint16
+	Field_11_0 int16
+	Field_11_2 int16
+	Field_12   uint32
+	Field_25_1 byte
+	Field_25_2 byte
+	Field_26_1 uint16
+	Field_26_3 uint16
+	Field_33_3 [20]byte
+	Field_38_3 uint32
+	Field_39_3 uint32
+}
+
+func (s *LobbyServerInfo) String() string {
+	return fmt.Sprintf("{%s:%d, %q, %d/%d, F:%v, M:%q, L:%d}", s.Addr, s.Port, s.Name, s.Players, s.MaxPlayers, s.Flags, s.Map, s.Level)
+}
+
+type LobbyServerFunc func(info *LobbyServerInfo) int
 
 var guiOnLobbyServer LobbyServerFunc
 
-func nox_client_setOnLobbyServer_555000(fnc LobbyServerFunc) {
+func clientSetOnLobbyServer(fnc LobbyServerFunc) {
 	guiOnLobbyServer = fnc
+}
+
+func onLobbyServer(info *LobbyServerInfo) bool {
+	if guiOnLobbyServer == nil {
+		discover.Log.Printf("ignoring server response: %s:%d, %q", info.Addr, info.Port, info.Name)
+		return false
+	}
+	return guiOnLobbyServer(info) != 0
+}
+
+func onLobbyServerPacket(addr string, port int, name string, packet []byte) bool {
+	if guiOnLobbyServer == nil {
+		discover.Log.Printf("ignoring server response: %s:%d, %q", addr, port, name)
+		return false
+	}
+	mi := StrLenBytes(packet[10:])
+	info := &LobbyServerInfo{
+		Addr:       addr,
+		Port:       port,
+		Name:       name,
+		Players:    packet[3],
+		MaxPlayers: packet[4],
+		Field_25_1: packet[5] | (packet[6] << 4),
+		Field_38_3: binary.LittleEndian.Uint32(packet[7:]) & 0xffffff,
+		Map:        string(packet[10 : 10+mi]),
+		Field_25_2: packet[19],
+		Status:     packet[20] | packet[21],
+		Field_12:   binary.LittleEndian.Uint32(packet[24:]),
+		Flags:      binary.LittleEndian.Uint16(packet[28:]),
+		Field_39_3: binary.LittleEndian.Uint32(packet[32:]),
+		Field_26_1: binary.LittleEndian.Uint16(packet[36:]),
+		Field_26_3: binary.LittleEndian.Uint16(packet[38:]),
+		Field_11_0: int16(binary.LittleEndian.Uint16(packet[40:])),
+		Field_11_2: int16(binary.LittleEndian.Uint16(packet[42:])),
+		Ticks:      uint64(binary.LittleEndian.Uint32(packet[44:])),
+		Level:      binary.LittleEndian.Uint16(packet[68:]),
+	}
+	copy(info.Field_33_3[:], packet[48:48+20])
+	return onLobbyServer(info)
 }
 
 //export nox_client_refreshServerList_4378B0
@@ -57,7 +125,7 @@ func nox_client_refreshServerList_4378B0() {
 		v3 := C.sub_41E2F0()
 		C.sub_41DA70(v3, 12)
 	} else {
-		nox_client_setOnLobbyServer_555000(nox_client_OnLobbyServer_4375F0)
+		clientSetOnLobbyServer(clientOnLobbyServer)
 		ticks := platformTicks()
 		*memmap.PtrUint32(0x5D4594, 814964) = uint32(ticks)
 		port := nox_xxx_servGetPort_40A430()
@@ -82,6 +150,7 @@ func nox_xxx_createSocketLocal_554B40(port uint16) int {
 		return -1
 	}
 	lobbyBroadcastSock = sock
+	lobbyBroadcastSockC = newSocketHandle(sock)
 	C.nox_game_SetCliDrawFunc((*[0]byte)(C.sub_554FF0))
 	lobbySockFlag = 1
 	return 0
@@ -92,37 +161,39 @@ func sub_554D10() C.int {
 	if lobbySockFlag != 0 {
 		_ = lobbyBroadcastSock.Close()
 		lobbyBroadcastSock = nil
+		lobbyBroadcastSockC = 0
 		lobbySockFlag = 0
 		C.nox_game_SetCliDrawFunc(nil)
-		nox_client_setOnLobbyServer_555000(nil)
+		clientSetOnLobbyServer(nil)
 		nox_net_stop()
 	}
 	return 0
 }
 
-func sub_4A0410(addr string, port uint16) bool {
+func sub_4A0410(addr string, port int) bool {
 	cstr := CString(addr)
 	defer StrFree(cstr)
 	v := C.sub_4A0410(cstr, C.short(port))
 	return v != 0
 }
 
-func nox_client_OnLobbyServer_4375F0(addr string, port uint16, name string, packet []byte) int {
+func clientOnLobbyServer(info *LobbyServerInfo) int {
+	discover.Log.Printf("server response: %s", info)
 	if C.nox_wol_server_result_cnt_815088 >= 2500 || C.dword_5d4594_815044 != 0 || C.dword_5d4594_815060 != 0 {
-		discover.Log.Printf("OnLobbyServer_4375F0: ignoring server %q: don't need more results", addr)
+		discover.Log.Printf("OnLobbyServer_4375F0: ignoring server %q: don't need more results", info.Addr)
 		return 0
 	}
-	if addr == "" {
-		discover.Log.Printf("OnLobbyServer_4375F0: ignoring server %q: invalid address", addr)
+	if info.Addr == "" {
+		discover.Log.Printf("OnLobbyServer_4375F0: ignoring server %q: invalid address", info.Addr)
 		return 0
 	}
-	ticks := binary.LittleEndian.Uint32(packet[44:])
-	if exp := *memmap.PtrUint32(0x5D4594, 814964); ticks != exp {
-		discover.Log.Printf("OnLobbyServer_4375F0: ignoring server %q: invalid ts: 0x%x vs 0x%x\n", addr, ticks, exp)
+	ticks := info.Ticks
+	if exp := *memmap.PtrUint32(0x5D4594, 814964); uint32(ticks) != exp {
+		discover.Log.Printf("OnLobbyServer_4375F0: ignoring server %q: invalid ts: 0x%x vs 0x%x", info.Addr, ticks, exp)
 		return 0
 	}
-	if !sub_4A0410(addr, port) {
-		discover.Log.Printf("OnLobbyServer_4375F0: ignoring server %q: duplicate?", addr)
+	if !sub_4A0410(info.Addr, info.Port) {
+		discover.Log.Printf("OnLobbyServer_4375F0: ignoring server %q: duplicate?", info.Addr)
 		return 0
 	}
 	curTicks := platformTicks()
@@ -133,33 +204,32 @@ func nox_client_OnLobbyServer_4375F0(addr string, port uint16, name string, pack
 	field := func(off uintptr) unsafe.Pointer {
 		return unsafe.Pointer(uintptr(unsafe.Pointer(srv)) + off)
 	}
-	srv.field_11_0 = C.short(int16(binary.LittleEndian.Uint16(packet[40:])))
-	srv.field_11_2 = C.short(int16(binary.LittleEndian.Uint16(packet[42:])))
-	srv.field_12 = C.uint(binary.LittleEndian.Uint32(packet[24:]))
-	srv.ping = C.int(curTicks - uint64(ticks))
-	srv.status = C.uchar(packet[20] | packet[21])
-	srv.field_25_1 = C.uchar(packet[5] | (packet[6] << 4))
-	srv.field_25_2 = C.uchar(packet[19])
-	srv.players = C.uchar(packet[3])
-	srv.max_players = C.uchar(packet[4])
-	*(*uint16)(field(105)) = binary.LittleEndian.Uint16(packet[36:]) // field_26_1
-	*(*uint16)(field(107)) = binary.LittleEndian.Uint16(packet[38:]) // field_26_3
-	i := StrLenBytes(packet[10:])
-	StrCopy(&srv.map_name[0], 9, string(packet[10:10+i]))
-	copy(asByteSlice(unsafe.Pointer(&srv.field_33_3[0]), 20), packet[48:48+20])
-	*(*uint32)(field(155)) = binary.LittleEndian.Uint32(packet[7:])  // field_38_3
-	*(*uint32)(field(159)) = binary.LittleEndian.Uint32(packet[32:]) // field_39_3
-	*(*uint16)(field(163)) = binary.LittleEndian.Uint16(packet[28:]) // flags
-	*(*uint16)(field(165)) = binary.LittleEndian.Uint16(packet[68:]) // quest_level
+	srv.field_11_0 = C.short(info.Field_11_0)
+	srv.field_11_2 = C.short(info.Field_11_2)
+	srv.field_12 = C.uint(info.Field_12)
+	srv.ping = C.int(curTicks - ticks)
+	srv.status = C.uchar(info.Status)
+	srv.field_25_1 = C.uchar(info.Field_25_1)
+	srv.field_25_2 = C.uchar(info.Field_25_2)
+	srv.players = C.uchar(info.Players)
+	srv.max_players = C.uchar(info.MaxPlayers)
+	*(*uint16)(field(105)) = info.Field_26_1 // field_26_1
+	*(*uint16)(field(107)) = info.Field_26_3 // field_26_3
+	StrCopy(&srv.map_name[0], 9, info.Map)
+	copy(asByteSlice(unsafe.Pointer(&srv.field_33_3[0]), 20), info.Field_33_3[:])
+	*(*uint32)(field(155)) = info.Field_38_3 // field_38_3
+	*(*uint32)(field(159)) = info.Field_39_3 // field_39_3
+	*(*uint16)(field(163)) = info.Flags      // flags
+	*(*uint16)(field(165)) = info.Level      // quest_level
 	srv.field_42 = 0
 	if *(*int32)(unsafe.Pointer(&C.dword_587000_87412)) == -1 || C.sub_437860(C.int(srv.field_11_0), C.int(srv.field_11_2)) == C.int(C.dword_587000_87412) {
 		if C.nox_xxx_checkSomeFlagsOnJoin_4899C0(srv) != 0 {
-			StrCopy(&srv.addr[0], 16, addr)
+			StrCopy(&srv.addr[0], 16, info.Addr)
 			srv.field_9 = C.nox_wol_server_result_cnt_815088
 			srv.field_7 = 0
-			*(*uint16)(field(109)) = port // port
-			StrCopy(&srv.server_name[0], 15, name)
-			*(*uint16)(field(163)) = binary.LittleEndian.Uint16(packet[28:]) // flags
+			*(*uint16)(field(109)) = uint16(info.Port) // port
+			StrCopy(&srv.server_name[0], 15, info.Name)
+			*(*uint16)(field(163)) = info.Flags // flags
 			C.nox_wol_servers_addResult_4A0030(srv)
 			C.nox_wol_server_result_cnt_815088++
 		}
@@ -183,7 +253,7 @@ func nox_xxx_lobbyMakePacket_554AA0(port int, payload []byte, ticks uint32) {
 	}
 	C.dword_5d4594_3844304 = 0
 	nox_xxx_sendLobbyPacket_554C80(port, data)
-	discoverAndPingServers(port, data)
+	discoverAndPingServers(port, ticks, data)
 }
 
 func nox_xxx_sendLobbyPacket_554C80(port int, buf []byte) (int, error) {
@@ -199,11 +269,11 @@ func nox_xxx_sendLobbyPacket_554C80(port int, buf []byte) (int, error) {
 
 //export sub_554FF0
 func sub_554FF0() C.int {
-	sub_554D70(lobbyBroadcastSock, 1)
+	sub_554D70(lobbyBroadcastSock, lobbyBroadcastSockC, 1)
 	return 1
 }
 
-func sub_554D70(sock *Socket, a1 byte) (int, error) {
+func sub_554D70(sock *Socket, csock nox_socket_t, a1 byte) (int, error) {
 	if lobbySockFlag == 0 {
 		return 0, errLobbySockFlag
 	}
@@ -225,8 +295,6 @@ func sub_554D70(sock *Socket, a1 byte) (int, error) {
 		argp = 1
 	}
 	buf := alloc.Bytes(256)
-	// TODO: this is bad, because it creates a new handle all the time
-	csock := newSocketHandle(lobbyBroadcastSock)
 	for {
 		buf = buf[:cap(buf)]
 		var cfrom C.struct_nox_net_sockaddr_in
@@ -244,13 +312,11 @@ func sub_554D70(sock *Socket, a1 byte) (int, error) {
 				case 13:
 					if inIP != nil {
 						saddr := inIP.String()
-						if guiOnLobbyServer != nil {
-							port := inPort
-							name := buf[72:]
-							name = name[:StrLenBytes(name)]
-							if onLobbyServer(saddr, port, string(name), buf) {
-								nox_client_setOnLobbyServer_555000(nil)
-							}
+						port := inPort
+						name := buf[72:]
+						name = name[:StrLenBytes(name)]
+						if onLobbyServerPacket(saddr, port, string(name), buf) {
+							clientSetOnLobbyServer(nil)
 						}
 					}
 				case 15:

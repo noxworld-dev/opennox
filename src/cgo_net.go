@@ -194,6 +194,8 @@ func init() {
 	sockets.byHandle = make(map[uintptr]*Socket)
 }
 
+type nox_socket_t = C.nox_socket_t
+
 func newSocketHandle(s *Socket) C.nox_socket_t {
 	h := handles.New()
 	sockets.Lock()
