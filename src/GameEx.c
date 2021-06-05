@@ -614,7 +614,6 @@ char __usercall playerInfoStructParser_1(int a1, int a2, int* a3) {
 //----- (10001EE0) --------------------------------------------------------
 char  mix_MouseKeyboardWeaponRoll(int playerObj, char a2) {
 	int v2;        // esi
-	int v3;        // esi MAPDST
 	signed int v4; // edi
 	int i;         // esi MAPDST
 	int v6;        // eax
@@ -626,28 +625,25 @@ char  mix_MouseKeyboardWeaponRoll(int playerObj, char a2) {
 	v16 = 0;
 	v2 = *(_DWORD*)(playerObj + 748);
 	if (!(*(_BYTE*)(*(_DWORD*)(v2 + 276) + 3680) & 3) && *(_BYTE*)(v2 + 88) != 1) {
-		v3 = *(_DWORD*)(v2 + 104);
+		int cur = *(_DWORD*)(v2 + 104);
 		v4 = 496;
-		if (v3) {
-			if (!a2)
-				v4 = 500;
+		if (!a2)
+			v4 = 500;
+		if (cur) {
+			int next = cur;
 			while (1) {
-				v3 = *(_DWORD*)(v3 + v4);
-				if (!v3)
+				next = *(_DWORD*)(next + v4);
+				if (!next)
 					break;
-				weapFlags = nox_xxx_unitWeaponInventoryEquipFlags_415820(v3); // weaponEquipFlags
-				if (weapFlags) {
-					if (weapFlags != 2) {
-						if (nox_xxx_playerClassCanUseItem_57B3D0(v3, *(_BYTE*)(*(_DWORD*)(*(_DWORD*)(playerObj + 748) + 276) + 2251))) {
-							v11 = nox_xxx_playerCheckStrength_4F3180(playerObj, v3);
-							if (v11) {
-								// It will surely fail to work if left this way (4F2FB0 will return 0 if given weapon is not currently equipped)
-								// but in asm it's almost the same (4F2FB0; >0?: and 4F2F70)
-								if (nox_xxx_playerTryDequip_4F2FB0((_DWORD*)playerObj, v3) && nox_xxx_playerTryEquip_4F2F70((_DWORD*)playerObj, v3)) {
-									v16 = 1;
-								}
-								return v16;
+				weapFlags = nox_xxx_unitWeaponInventoryEquipFlags_415820(next); // weaponEquipFlags
+				if (weapFlags && weapFlags != 2) {
+					if (nox_xxx_playerClassCanUseItem_57B3D0(next, *(_BYTE*)(*(_DWORD*)(*(_DWORD*)(playerObj + 748) + 276) + 2251))) {
+						v11 = nox_xxx_playerCheckStrength_4F3180(playerObj, next);
+						if (v11) {
+							if (nox_xxx_playerTryDequip_4F2FB0((_DWORD*)playerObj, cur) && nox_xxx_playerTryEquip_4F2F70((_DWORD*)playerObj, next)) {
+								v16 = 1;
 							}
+							return v16;
 						}
 					}
 				}
@@ -655,15 +651,14 @@ char  mix_MouseKeyboardWeaponRoll(int playerObj, char a2) {
 		} else {
 			for (i = *(_DWORD*)(playerObj + 504); i; i = *(_DWORD*)(i + 496)) {
 				v6 = nox_xxx_unitWeaponInventoryEquipFlags_415820(i); // weaponEquipFlags
-				if (v6) {
-					if (v6 != 2) {
-						if (nox_xxx_playerClassCanUseItem_57B3D0(i, *(_BYTE*)(*(_DWORD*)(*(_DWORD*)(playerObj + 0x2EC) + 0x114) + 0x8CB))) {
-							v8 = nox_xxx_playerCheckStrength_4F3180(playerObj, i);
-							if (v8) {
-								if (nox_xxx_playerTryEquip_4F2F70((_DWORD*)playerObj, i))
-									v16 = 1;
-								return v16;
+				if (v6 && v6 != 2) {
+					if (nox_xxx_playerClassCanUseItem_57B3D0(i, *(_BYTE*)(*(_DWORD*)(*(_DWORD*)(playerObj + 0x2EC) + 0x114) + 0x8CB))) {
+						v8 = nox_xxx_playerCheckStrength_4F3180(playerObj, i);
+						if (v8) {
+							if (nox_xxx_playerTryEquip_4F2F70((_DWORD*)playerObj, i)) {
+								v16 = 1;
 							}
+							return v16;
 						}
 					}
 				}
@@ -1151,7 +1146,7 @@ void OnLibraryNotice_263(DWORD arg1) {
 void OnLibraryNotice_264(DWORD arg1) {
 	nox_common_gameFlags_check_40A5C0(1);
 }
-void OnLibraryNotice_265(unsigned int arg1, unsigned int arg2, unsigned int arg3) {
+void OnLibraryNotice_265(unsigned int arg1, unsigned int arg2, int arg3) {
 	// toggles weapons by mouse wheel
 	// autoshield is actually implemented in appendix of nox_xxx_playerDequipWeapon_53A140
 	//a2a = (*(_DWORD*)(vaArg3 + 4) >> 7) & 1;

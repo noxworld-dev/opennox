@@ -8,7 +8,7 @@ package main
 extern nox_mouse_state_t nox_mouse;
 
 void nox_xxx_onChar_488BD0(unsigned short c);
-void OnLibraryNotice_265(unsigned int arg1, unsigned int arg2, unsigned int arg3);
+void OnLibraryNotice_265(unsigned int arg1, unsigned int arg2, int arg3);
 */
 import "C"
 import (
@@ -163,7 +163,7 @@ func nox_client_nextMouseEvent_47DB20(e *C.nox_mouse_state_t) C.bool {
 	case noxMouseEventWheel:
 		e.wheel = C.int(me.Wheel)
 		// mix event hanlder is triggered only for wheel events
-		C.OnLibraryNotice_265(C.uint(uintptr(unsafe.Pointer(&e))), 2, C.uint(e.wheel))
+		C.OnLibraryNotice_265(C.uint(uintptr(unsafe.Pointer(&e))), 2, C.int(e.wheel))
 	case noxMouseEventLeft:
 		e.btn[C.NOX_MOUSE_LEFT].pressed = C.int(pressed)
 		e.btn[C.NOX_MOUSE_LEFT].seq = C.uint(me.Seq)
