@@ -310,8 +310,8 @@ func nox_xxx_servNewSession_4D1660() error {
 	}
 	C.sub_416920()
 	if !noxflags.HasGame(noxflags.GameSolo) {
-		v1 := C.nox_xxx_servGetPort_40A430()
-		*memmap.PtrInt32(0x5D4594, 1548516) = int32(C.nox_xxx_netAddPlayerHandler_4DEBC0(v1))
+		v1 := nox_xxx_servGetPort_40A430()
+		*memmap.PtrInt32(0x5D4594, 1548516) = int32(C.nox_xxx_netAddPlayerHandler_4DEBC0(C.int(v1)))
 		if !noxflags.HasGame(noxflags.GameFlag26) {
 			C.nox_xxx_networkLog_init_413CC0()
 		}
@@ -330,6 +330,10 @@ func nox_xxx_servNewSession_4D1660() error {
 		return err
 	}
 	return nil
+}
+
+func nox_xxx_servGetPort_40A430() int {
+	return int(C.nox_xxx_servGetPort_40A430())
 }
 
 func nox_server_netCloseHandler_4DEC60(a1 uint32) {

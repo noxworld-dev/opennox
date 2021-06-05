@@ -16,7 +16,6 @@
 extern _DWORD dword_5d4594_2496988;
 extern _DWORD dword_5d4594_2516352;
 extern _DWORD dword_5d4594_3843632;
-extern _DWORD dword_5d4594_2513924;
 extern _DWORD dword_5d4594_2523888;
 extern _DWORD dword_5d4594_2496472;
 extern _DWORD dword_5d4594_2523904;
@@ -37,7 +36,6 @@ extern void* nox_alloc_groupInfo_2523892;
 extern _DWORD dword_5d4594_2516356;
 extern _DWORD dword_587000_311372;
 extern void* nox_alloc_debugData_2523908;
-extern _DWORD dword_5d4594_2513916;
 extern void* nox_alloc_itemGroupElem_2523896;
 extern _DWORD nox_xxx_warriorMaxMana_587000_312788;
 extern _DWORD nox_xxx_warriorMaxHealth_587000_312784;
@@ -64,7 +62,12 @@ int (*nox_client_onLobbyServer_2513928)(const char*, uint16_t, const char*, cons
 
 nox_net_struct_t* nox_net_struct_arr[NOX_NET_STRUCT_MAX] = {0};
 nox_net_struct2_t nox_net_struct2_arr[NOX_NET_STRUCT_MAX] = {0};
+
+#ifndef NOX_CGO
+_DWORD dword_5d4594_2513916 = 0;
+_DWORD dword_5d4594_2513924 = 0;
 nox_socket_t nox_xxx_sockLocalBroadcast_2513920 = 0;
+#endif // NOX_CGO
 
 //----- (005528B0) --------------------------------------------------------
 int  nox_xxx_netSendReadPacket_5528B0(unsigned int a1, char a2) {
@@ -1514,9 +1517,7 @@ int  sub_554A50(unsigned int a1) {
 }
 
 //----- (00554AA0) --------------------------------------------------------
-#ifdef NOX_CGO
-void nox_client_OnServerSearch(int hostshort, void* data, int size);
-#endif // NOX_CGO
+#ifndef NOX_CGO
 void  nox_xxx_lobbyMakePacket_554AA0(uint16_t hostshort, const char* payload, int payloadSz, unsigned int ticks) {
 	int dataSz = 12;
 	char* data = (char*)malloc(12 + payloadSz);
@@ -1535,11 +1536,7 @@ void  nox_xxx_lobbyMakePacket_554AA0(uint16_t hostshort, const char* payload, in
 	}
 	dword_5d4594_3844304 = 0;
 	nox_xxx_sendLobbyPacket_554C80(hostshort, data, dataSz);
-#ifndef NOX_CGO
 	OnLibraryNotice_260(hostshort, data, dataSz);
-#else // NOX_CGO
-	nox_client_OnServerSearch(hostshort, data, dataSz);
-#endif // NOX_CGO
 	free(data);
 }
 
@@ -1612,7 +1609,6 @@ int sub_554D10() {
 }
 
 //----- (00554D70) --------------------------------------------------------
-#ifndef NOX_CGO
 int  sub_554D70(char a1) {
 	int result;           // eax
 	int v2;               // ebp
@@ -1701,7 +1697,6 @@ int  sub_554D70(char a1) {
 	}
 	return -1;
 }
-#endif // NOX_CGO
 // 554EC5: variable 'v6' is possibly undefined
 
 //----- (00554FF0) --------------------------------------------------------
@@ -1716,7 +1711,6 @@ void nox_client_setOnLobbyServer_555000(int (*fnc)(const char*, uint16_t, const 
 }
 
 //----- (00555010) --------------------------------------------------------
-#ifndef NOX_CGO
 int  nox_client_sendToServer_555010(unsigned int addr, uint16_t port, char* buf, int sz) {
 	if (!dword_5d4594_2513916)
 		return -17;
@@ -1747,9 +1741,6 @@ int  sub_5550D0(int a1, uint16_t hostshort, char* buf) {
 	return nox_client_sendToServer_555010(a1, hostshort, buf, 22);
 }
 #endif // NOX_CGO
-
-//----- (00555100) --------------------------------------------------------
-int sub_555100() { return dword_5d4594_2513916; }
 
 //----- (00555130) --------------------------------------------------------
 int  sub_555130(unsigned int a1, const void* a2, signed int a3) {

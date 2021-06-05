@@ -12116,7 +12116,8 @@ int sub_489870() {
 }
 
 //----- (004899C0) --------------------------------------------------------
-BOOL  nox_xxx_checkSomeFlagsOnJoin_4899C0(int a1) {
+BOOL  nox_xxx_checkSomeFlagsOnJoin_4899C0(nox_gui_server_ent_t* srv) {
+	int a1 = srv;
 	int v1;              // eax
 	int v2;              // edx
 	int v3;              // eax

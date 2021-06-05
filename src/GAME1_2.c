@@ -128,10 +128,10 @@ extern _DWORD dword_5d4594_810632;
 extern _DWORD nox_client_renderGUI_80828;
 extern _DWORD dword_5d4594_3798796;
 extern _DWORD nox_wol_wnd_gameList_815012;
-extern _DWORD dword_5d4594_815004;
+extern nox_window* dword_5d4594_815004;
 extern _DWORD dword_5d4594_2650652;
 extern _DWORD dword_5d4594_3798844;
-extern _DWORD nox_wol_wnd_world_814980;
+extern nox_window* nox_wol_wnd_world_814980;
 extern int nox_enable_audio;
 extern unsigned int nox_frame_xxx_2598000;
 
@@ -6610,6 +6610,7 @@ void  sub_4375C0(int a1) {
 }
 
 //----- (004375F0) --------------------------------------------------------
+#ifndef NOX_CGO
 int  nox_client_OnLobbyServer_4375F0(const char* addr, uint16_t port, const char* name, const char* packet) {
 	char v14[32];  // [esp+C0h] [ebp-20h]
 
@@ -6672,6 +6673,7 @@ int  nox_client_OnLobbyServer_4375F0(const char* addr, uint16_t port, const char
 	}
 	return 0;
 }
+#endif // NOX_CGO
 
 //----- (00437860) --------------------------------------------------------
 int  sub_437860(int a1, int a2) {
@@ -6732,9 +6734,9 @@ int sub_438480() {
 	nox_xxx_wndSetWindowProc_46B300(*(int*)&dword_5d4594_815028, sub_438EF0);
 	sub_46B120(*(_DWORD**)&dword_5d4594_815032, *(int*)&nox_wol_wnd_gameList_815012);
 	nox_xxx_wndSetWindowProc_46B300(*(int*)&dword_5d4594_815032, sub_438EF0);
-	**(_DWORD**)(*(_DWORD*)(dword_5d4594_815004 + 32) + 28) = 10035;
-	**(_DWORD**)(*(_DWORD*)(dword_5d4594_815004 + 32) + 32) = 10036;
-	**(_DWORD**)(*(_DWORD*)(dword_5d4594_815004 + 32) + 36) = 10032;
+	**(_DWORD**)(*(_DWORD*)((_DWORD)dword_5d4594_815004 + 32) + 28) = 10035;
+	**(_DWORD**)(*(_DWORD*)((_DWORD)dword_5d4594_815004 + 32) + 32) = 10036;
+	**(_DWORD**)(*(_DWORD*)((_DWORD)dword_5d4594_815004 + 32) + 36) = 10032;
 	nox_window_call_field_94(*(int*)&dword_5d4594_815016, 16408, *(_DWORD*)(*(_DWORD*)(nox_wol_wnd_gameList_815012 + 32) + 28),
 							 0);
 	nox_window_call_field_94(*(int*)&dword_5d4594_815020, 16408, *(_DWORD*)(*(_DWORD*)(nox_wol_wnd_gameList_815012 + 32) + 28),

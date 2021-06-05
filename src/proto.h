@@ -1697,7 +1697,7 @@ int sub_449280();
 int  sub_4493D0(int a1, int a2, int* a3, int a4);
 void sub_4494A0();
 int nox_xxx_guiServerListLoad_449530();
-_DWORD*  nox_xxx_dialogMsgBoxCreate_449A10(int a1, int a2, int a3, int a4, void (*a5)(void), void (*a6)(void));
+_DWORD*  nox_xxx_dialogMsgBoxCreate_449A10(nox_window* win, int a2, wchar_t* text, int a4, void (*a5)(void), void (*a6)(void));
 int  sub_449BE0(int a1, int a2, int a3, int a4);
 int  sub_449C30(_DWORD* a1, int a2, int a3, int a4);
 int  nox_xxx_windowDlgProc_449CA0(int a1, int a2, int* a3, int a4);
@@ -2664,7 +2664,7 @@ int sub_4896C0();
 int  sub_4896D0(int a1);
 int sub_4896E0();
 int sub_489870();
-BOOL  nox_xxx_checkSomeFlagsOnJoin_4899C0(int a1);
+BOOL  nox_xxx_checkSomeFlagsOnJoin_4899C0(nox_gui_server_ent_t* srv);
 _DWORD*  sub_489B80(int a1);
 void sub_489DC0();
 int  nox_xxx_windowMplayFilterProc_489E70(int a1, int a2, int* a3, int a4);
@@ -6056,7 +6056,6 @@ void nox_client_setOnLobbyServer_555000(int (*fnc)(const char*, uint16_t, const 
 int  nox_client_sendToServer_555010(unsigned int addr, uint16_t port, char* buf, int sz); // idb
 int  nox_client_sendJoinGame_5550A0(unsigned int addr, uint16_t port, char* data);      // idb
 int  sub_5550D0(int, uint16_t hostshort, char* buf);      // idb
-int sub_555100();
 int  sub_555130(unsigned int a1, const void* a2, signed int a3);
 int sub_5551F0(unsigned int a1, char a2, int a3);
 int  sub_555250(unsigned int a1, _DWORD* a2);

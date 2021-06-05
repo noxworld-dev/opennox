@@ -3,11 +3,8 @@ package main
 /*
 #include "defs.h"
 #include "nox_net.h"
-extern unsigned int dword_5d4594_2513916;
 extern nox_socket_t nox_xxx_sockLocalBroadcast_2513920;
 extern nox_net_struct_t* nox_net_struct_arr[NOX_NET_STRUCT_MAX];
-extern int (*nox_client_onLobbyServer_2513928)(const char*, uint16_t, const char*, const char*);
-void nox_client_setOnLobbyServer_555000(int (*fnc)(const char*, uint16_t, const char*, const char*));
 unsigned int nox_client_getServerAddr_43B300();
 int nox_client_getServerPort_43B320();
 int nox_client_getClientPort_40A420();
@@ -18,13 +15,11 @@ int sub_43AF90(int a1);
 */
 import "C"
 import (
-	"errors"
 	"net"
 	"os"
 	"strconv"
 	"unsafe"
 
-	"nox/v1/common/alloc"
 	"nox/v1/common/log"
 )
 
@@ -257,10 +252,8 @@ func (op clientNetOp) String() string {
 	return strconv.FormatUint(uint64(op), 16)
 }
 
-var errDword_5d4594_2513916 = errors.New("dword_5d4594_2513916 is false")
-
 func convSendToServerErr(n int, err error) C.int {
-	if err == errDword_5d4594_2513916 {
+	if err == errLobbySockFlag {
 		return -17
 	} else if err != nil {
 		return -1
@@ -289,20 +282,6 @@ func sub_5550D0(addr C.int, port C.uint16_t, cdata *C.char) C.int {
 	return convSendToServerErr(n, err)
 }
 
-func sendToServer(addr net.IP, port int, data []byte) (int, error) {
-	if C.dword_5d4594_2513916 == 0 {
-		return 0, errDword_5d4594_2513916
-	}
-	if len(data) < 2 {
-		return 0, nil
-	}
-	s := getSocket(C.nox_xxx_sockLocalBroadcast_2513920)
-	if s == nil {
-		return 0, errors.New("no broadcast socket")
-	}
-	return s.WriteTo(data, &net.UDPAddr{IP: addr, Port: port})
-}
-
 func sendJoinGame(addr net.IP, port int, data []byte) (int, error) {
 	data[0] = 0
 	data[1] = 0
@@ -319,92 +298,4 @@ func sendXXX_5550D0(addr net.IP, port int, data []byte) (int, error) {
 
 func nox_client_getServerAddr_43B300() net.IP {
 	return int2ip(uint32(C.nox_client_getServerAddr_43B300()))
-}
-
-//export sub_554D70
-func sub_554D70(a1 C.char) C.int {
-	if C.dword_5d4594_2513916 == 0 {
-		return -17
-	}
-	sock := getSocket(C.nox_xxx_sockLocalBroadcast_2513920)
-	if sock == nil {
-		return -1
-	}
-	v11 := int(a1 & 1)
-	argp := 0
-	if a1&1 != 0 {
-		var err error
-		argp, err = sock.CanRead()
-		if err != nil {
-			return -1
-		} else if argp == 0 {
-			return -1
-		}
-	} else {
-		argp = 1
-	}
-	buf := alloc.Bytes(256)
-	for {
-		buf = buf[:cap(buf)]
-		var cfrom C.struct_nox_net_sockaddr_in
-		n := int(C.mix_recvfrom(C.nox_xxx_sockLocalBroadcast_2513920, (*C.char)(unsafe.Pointer(&buf[0])), C.int(cap(buf)), (*C.struct_nox_net_sockaddr)(unsafe.Pointer(&cfrom))))
-		if n < 0 {
-			break
-		}
-		buf = buf[:n]
-		fromIP, fromPort := toIPPort(&cfrom)
-		op := buf[2]
-		if op < 32 {
-			inIP, inPort := fromIP, fromPort
-			if op == 13 || fromIP.Equal(nox_client_getServerAddr_43B300()) {
-				switch op {
-				case 13:
-					if inIP != nil {
-						saddr := inIP.String()
-						if C.nox_client_onLobbyServer_2513928 != nil {
-							port := inPort
-							name := buf[72:]
-							name = name[:StrLenBytes(name)]
-							if onLobbyServer(saddr, port, string(name), buf) {
-								C.nox_client_setOnLobbyServer_555000(nil)
-							}
-						}
-					}
-				case 15:
-					if C.sub_43B6D0() != 0 {
-						C.sub_43AF90(5)
-					}
-				case 16:
-					if C.sub_43B6D0() != 0 {
-						C.sub_43AF90(4)
-						buf[2] = 18
-						sendToServer(fromIP, fromPort, buf[:8])
-					}
-				//case 19:
-				//  if sub_43B6D0() {
-				//		sub_43AFA0(buf[3])
-				//  }
-				case 19, 20:
-					if C.sub_43B6D0() != 0 && C.sub_43AF80() == 3 {
-						C.sub_43AF90(7)
-					}
-				case 21:
-					if C.sub_43B6D0() != 0 {
-						C.sub_43AF90(8)
-					}
-				}
-			}
-		}
-		if v11 == 0 || (a1&4) != 0 {
-			return C.int(n)
-		}
-		var err error
-		argp, err = sock.CanRead()
-		if err != nil {
-			return -1
-		} else if argp == 0 {
-			return C.int(n)
-		}
-	}
-	return -1
 }

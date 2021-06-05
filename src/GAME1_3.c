@@ -5535,7 +5535,8 @@ int nox_xxx_guiServerListLoad_449530() {
 }
 
 //----- (00449A10) --------------------------------------------------------
-_DWORD*  nox_xxx_dialogMsgBoxCreate_449A10(int a1, int a2, int a3, int a4, void (*a5)(void), void (*a6)(void)) {
+_DWORD*  nox_xxx_dialogMsgBoxCreate_449A10(nox_window* win, int a2, wchar_t* text, int a4, void (*a5)(void), void (*a6)(void)) {
+	int a1 = win;
 	int v6;         // esi
 	_DWORD* result; // eax
 	_DWORD* v8;     // eax
@@ -5554,9 +5555,9 @@ _DWORD*  nox_xxx_dialogMsgBoxCreate_449A10(int a1, int a2, int a3, int a4, void 
 		sub_449EA0(a4);
 		if (a2)
 			sub_449E00(a2);
-		result = (_DWORD*)a3;
-		if (a3)
-			result = (_DWORD*)sub_449E30(a3);
+		result = (_DWORD*)text;
+		if (text)
+			result = (_DWORD*)sub_449E30(text);
 	} else {
 		*getMemU32Ptr(0x5D4594, 830240) = 0;
 		if (nox_xxx_guiFontHeightMB_43F320(0) > 10)
@@ -5573,9 +5574,9 @@ _DWORD*  nox_xxx_dialogMsgBoxCreate_449A10(int a1, int a2, int a3, int a4, void 
 				v10 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_830224, 4005);
 				nox_window_call_field_94((int)v10, 16385, a2, -1);
 			}
-			if (a3) {
+			if (text) {
 				v11 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_830224, 4004);
-				nox_window_call_field_94((int)v11, 16385, a3, -1);
+				nox_window_call_field_94((int)v11, 16385, text, -1);
 			}
 			sub_46B120(*(_DWORD**)&dword_5d4594_830224, 0);
 			nox_xxx_wndShowModalMB_46A8C0(*(int*)&dword_5d4594_830224);
