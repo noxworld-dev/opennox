@@ -23,6 +23,7 @@ var (
 	noxWindow   *sdl.Window
 	noxRenderer *sdl.Renderer
 	noxBackbuf  *sdl.Surface
+	noxViewport sdl.Rect
 )
 
 //export nox_video_setWinTitle_401FE0
@@ -152,7 +153,6 @@ func windowInit() (func(), error) {
 }
 
 func setWindowRect(size types.Size, pos image.Point) {
-	inpHandler.SetWinSize(size)
 	noxWindow.SetSize(int32(size.W), int32(size.H))
 	noxWindow.SetPosition(int32(pos.X), int32(pos.Y))
 }
@@ -201,16 +201,15 @@ func getDisplayDim() (r [4]int) {
 	}
 }
 
-func setViewport(srcw, srch float32) {
+func setViewport(srcw, srch, tw, th int) sdl.Rect {
 	var (
-		ratio              = srcw / srch
+		ratio              = float32(srcw) / float32(srch)
 		offx               = 0
 		offy               = 0
 		vpw, vph, vpx, vpy int
 	)
 
-	tw, th := noxWindow.GLGetDrawableSize()
-	vpw, vph = int(tw), int(th)
+	vpw, vph = tw, th
 
 	// Maintain source aspect ratio
 	if C.g_rotate != 0 && float32(vph)-ratio*float32(vpw) > float32(vpw)-ratio*float32(vph) {
@@ -231,8 +230,12 @@ func setViewport(srcw, srch float32) {
 	}
 	vpx = offx
 	vpy = offy
-	_ = vpx
-	_ = vpy
+	return sdl.Rect{
+		X: int32(vpx),
+		Y: int32(vpy),
+		W: int32(vpw),
+		H: int32(vph),
+	}
 }
 
 func initRenderer() error {
@@ -339,26 +342,28 @@ func presentFrame() {
 		return
 	}
 
-	var srect sdl.Rect
 	dstw, dsth := noxWindow.GetSize()
+	var srect sdl.Rect
 	noxBackbuf.GetClipRect(&srect)
 
 	C.nox_video_mouseThreadXxx_48BE50(1)
 	C.nox_video_waitVBlankAndDrawCursorFromThread_48B5D0(0, 0)
 
-	setViewport(float32(noxBackbuf.W), float32(noxBackbuf.H))
+	drect := setViewport(int(noxBackbuf.W), int(noxBackbuf.H), int(dstw), int(dsth))
+	if drect != noxViewport {
+		noxViewport = drect
+		inpHandler.SetWinSize(types.Size{W: int(noxViewport.W), H: int(noxViewport.H)}, image.Pt(int(noxViewport.X), int(noxViewport.Y)))
+	}
 
 	// maybe find a way to get the buffer
 	tex, err := noxRenderer.CreateTextureFromSurface(noxBackbuf)
 	if err != nil {
 		panic(err)
 	}
-
-	var drect sdl.Rect
-	drect.W = dstw
-	drect.H = dsth
-
-	if err := noxRenderer.Copy(tex, &srect, &drect); err != nil {
+	if err := noxRenderer.Clear(); err != nil {
+		panic(err)
+	}
+	if err := noxRenderer.Copy(tex, &srect, &noxViewport); err != nil {
 		panic(err)
 	}
 	noxRenderer.Present()

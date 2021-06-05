@@ -11,7 +11,8 @@ import (
 )
 
 type window struct {
-	size  types.Size  // size of the actual window
+	size  types.Size  // size of the viewport inside the window
+	pos   image.Point // offset for the viewport
 	draw  types.Size  // size of the image that game draws
 	scale types.Sizef // scale factors calculated from sizes above
 }
@@ -23,6 +24,8 @@ func (win *window) updateScale() {
 
 // toDrawSpace remaps window position to position on the video buffer
 func (win *window) toDrawSpace(p image.Point) image.Point {
+	p.X -= win.pos.X
+	p.Y -= win.pos.Y
 	p.X = int(float32(p.X) * win.scale.W)
 	p.Y = int(float32(p.Y) * win.scale.H)
 	return p
@@ -90,11 +93,12 @@ func (h *Handler) processWindowEvent(ev *sdl.WindowEvent) {
 	}
 }
 
-func (h *Handler) SetWinSize(sz types.Size) {
+func (h *Handler) SetWinSize(sz types.Size, pos image.Point) {
 	if sz.W == 0 || sz.H == 0 {
 		return
 	}
 	h.win.size = sz
+	h.win.pos = pos
 	h.win.updateScale()
 }
 

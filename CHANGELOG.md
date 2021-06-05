@@ -2,6 +2,8 @@
 
 ## v1.6.0
 
+- Keep 4:3 aspect ratio when resizing game window.
+
 ## v1.5.0
 
 - Automatically open/forward ports when hosting a game (no need to configure firewall).

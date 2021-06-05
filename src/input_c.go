@@ -16,7 +16,6 @@ import (
 	"unsafe"
 
 	"nox/v1/client/input"
-	"nox/v1/common/types"
 )
 
 type noxMouseEventType uint
@@ -120,11 +119,6 @@ func nox_input_shiftState() C.bool {
 func nox_input_scrollLockState() C.bool {
 	// TODO: why it uses RALT?
 	return C.bool(inpHandler.KeyModState(input.KeyAltR))
-}
-
-//export input_set_win_size
-func input_set_win_size(w, h C.int) {
-	inpHandler.SetWinSize(types.Size{W: int(w), H: int(h)})
 }
 
 //export nox_input_getStringBuffer_57011C
