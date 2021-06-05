@@ -20,7 +20,6 @@ int nox_xxx_mapExitAndCheckNext_4D1860_server();
 */
 import "C"
 import (
-	"context"
 	"log"
 	"os"
 	"unsafe"
@@ -138,8 +137,8 @@ func getServerMap() string {
 }
 
 var srvReg struct {
-	ctx    context.Context
-	cancel func()
+	cur xwisInfoShort
+	srv *discover.RegServer
 }
 
 //export nox_xxx_serverHost_43B4D0
@@ -158,25 +157,68 @@ func nox_xxx_serverHost_43B4D0() {
 	}
 	C.sub_49FF20()
 	if isHost {
-		if srvReg.ctx != nil {
-			srvReg.cancel()
-			srvReg.ctx = nil
-			srvReg.cancel = nil
-		}
-		if !noXwis {
-			info := xwis.GameInfo{
-				Name:       getServerName(),
-				Map:        getServerMap(),
-				Resolution: xwis.Res1024x768,
-				// TODO: set those values to the real ones
-				MapType:    xwis.MapTypeChat,
-				Players:    1,
-				MaxPlayers: 32,
-			}
-			srvReg.ctx, srvReg.cancel = context.WithCancel(context.Background())
-			go discover.RegisterGame(srvReg.ctx, info)
-		}
+		maybeRegisterGameOnline()
+	} else if srvReg.srv != nil {
+		srvReg.srv.Close()
+		srvReg.srv = nil
 	}
+}
+
+type xwisInfoShort struct {
+	Name       string
+	Map        string
+	Flags      xwis.GameFlags
+	Players    int
+	MaxPlayers int
+	Level      int
+}
+
+func getGameInfoXWIS() xwisInfoShort {
+	return xwisInfoShort{
+		Name:       getServerName(),
+		Map:        getServerMap(),
+		Flags:      xwis.GameFlags(noxflags.GetGame()),
+		Players:    int(C.nox_common_playerInfoCount_416F40()),
+		MaxPlayers: int(C.nox_xxx_servGetPlrLimit_409FA0()),
+		Level:      nox_game_getQuestStage_4E3CC0(),
+	}
+}
+
+func xwisIsQuest(info *xwis.GameInfo) bool {
+	flags := int(info.Flags) | int(info.MapType)
+	return flags&int(xwis.MapTypeQuest) != 0
+}
+
+func (v xwisInfoShort) XWIS() xwis.GameInfo {
+	info := xwis.GameInfo{
+		Name:       v.Name,
+		Map:        v.Map,
+		Resolution: xwis.Res1024x768,
+		Flags:      v.Flags,
+		Players:    v.Players,
+		MaxPlayers: v.MaxPlayers,
+	}
+	if xwisIsQuest(&info) {
+		info.FragLimit = v.Level
+	}
+	return info
+}
+
+func maybeRegisterGameOnline() {
+	if noXwis {
+		return
+	}
+	info := getGameInfoXWIS()
+	if srvReg.srv == nil {
+		srvReg.cur = info
+		srvReg.srv = discover.NewServer(info.XWIS())
+		return
+	}
+	if srvReg.cur == info {
+		return
+	}
+	srvReg.cur = info
+	srvReg.srv.Update(info.XWIS())
 }
 
 func initGameSession435CC0() int {

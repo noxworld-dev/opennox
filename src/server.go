@@ -141,6 +141,7 @@ func nox_xxx_gameTick_4D2580_server_E() {
 	}
 	C.nox_xxx_protectData_56F5C0()
 	C.sub_4FC6D0()
+	maybeRegisterGameOnline() // TODO: not exactly the right place
 	nox_xxx_mapInitialize_4FC590()
 	nox_xxx_mapEntry_4FC600()
 	C.sub_4FC680()

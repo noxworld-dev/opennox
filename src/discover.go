@@ -20,6 +20,10 @@ func discoverAndPingServers(port int, ts uint32, data []byte) {
 			continue
 		}
 		g := l.Game
+		level := 0
+		if xwisIsQuest(l.Game) {
+			level = g.FragLimit
+		}
 		// TODO: more fields
 		onLobbyServer(&LobbyServerInfo{
 			Addr:       g.Addr,
@@ -30,6 +34,7 @@ func discoverAndPingServers(port int, ts uint32, data []byte) {
 			MaxPlayers: g.MaxPlayers,
 			Flags:      uint16(g.Flags) | uint16(g.MapType),
 			Ping:       -1, // we have no idea - it comes from a central server
+			Level:      uint16(level),
 		})
 	}
 }
