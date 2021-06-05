@@ -15,7 +15,7 @@ var Root = &cobra.Command{
 }
 
 var (
-	Version = "v1.5.x"
+	Version = "v1.6.x"
 	Commit  = "<dev>"
 )
 

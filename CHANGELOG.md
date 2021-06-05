@@ -1,5 +1,7 @@
 # Changelog
 
+## v1.6.0
+
 ## v1.5.0
 
 - Automatically open/forward ports when hosting a game (no need to configure firewall).
