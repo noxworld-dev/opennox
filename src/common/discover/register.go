@@ -18,7 +18,7 @@ func RegisterGame(ctx context.Context, info xwis.GameInfo) error {
 	if info.Map == "" {
 		info.Map = "estate"
 	}
-	if info.MapType == 0 {
+	if info.MapType == 0 && info.Flags == 0 {
 		info.MapType = xwis.MapTypeChat
 	}
 	if info.Resolution == 0 {
