@@ -3,6 +3,9 @@ package nox
 import (
 	"bytes"
 	"fmt"
+	"go/ast"
+	"go/parser"
+	"go/token"
 	"io/ioutil"
 	"path/filepath"
 	"regexp"
@@ -57,7 +60,8 @@ func findBlobAccesses(t testing.TB, root string) []blobAccess {
 			list := parseFileC(t, filepath.Join(root, name))
 			out = append(out, list...)
 		case ".go":
-			// TODO: parse Go files as well
+			list := parseFileGo(t, filepath.Join(root, name))
+			out = append(out, list...)
 		}
 	}
 	return out
@@ -95,6 +99,85 @@ func parseFileC(t testing.TB, path string) []blobAccess {
 		out = append(out, parseExprC(t, expr))
 	}
 	return out
+}
+
+func goAstGetStatic(n ast.Node) (uintptr, bool) {
+	switch n := n.(type) {
+	case *ast.BasicLit:
+		if n.Kind != token.INT {
+			return 0, false
+		}
+		v, err := strconv.ParseUint(n.Value, 0, 64)
+		return uintptr(v), err == nil
+	case *ast.BinaryExpr:
+		switch n.Op {
+		case token.SUB:
+			// only first (positive) counts
+			return goAstGetStatic(n.X)
+		case token.ADD:
+			v1, ok1 := goAstGetStatic(n.X)
+			v2, ok2 := goAstGetStatic(n.Y)
+			return v1 + v2, ok1 || ok2
+		}
+	}
+	return 0, false
+}
+
+type blobAccessVisitor struct {
+	t    testing.TB
+	fs   *token.FileSet
+	file []byte
+	list []blobAccess
+}
+
+func (v *blobAccessVisitor) Visit(n ast.Node) ast.Visitor {
+	switch n := n.(type) {
+	case *ast.CallExpr:
+		if len(n.Args) != 2 {
+			return v
+		}
+		sel, ok := n.Fun.(*ast.SelectorExpr)
+		if !ok {
+			return v
+		}
+		if id, ok := sel.X.(*ast.Ident); !ok || id.Name != "memmap" {
+			return v
+		}
+		a1, a2 := n.Args[0], n.Args[1]
+		blob, ok := goAstGetStatic(a1)
+		if !ok {
+			return v
+		}
+		off, _ := goAstGetStatic(a2)
+		start := v.fs.Position(n.Pos())
+		end := v.fs.Position(n.End())
+		v.list = append(v.list, blobAccess{
+			Blob: blob, Off: off,
+			Expr: string(v.file[start.Offset:end.Offset]),
+		})
+	}
+	return v
+}
+
+func parseFileGo(t testing.TB, path string) []blobAccess {
+	data, err := ioutil.ReadFile(path)
+	if err != nil {
+		t.Error(err)
+		return nil
+	}
+	fname := filepath.Base(path)
+	fs := token.NewFileSet()
+	file, err := parser.ParseFile(fs, fname, data, 0)
+	if err != nil {
+		t.Error(err)
+		return nil
+	}
+	v := &blobAccessVisitor{t: t, fs: fs, file: data}
+	ast.Walk(v, file)
+	for i := range v.list {
+		v.list[i].File = fname
+	}
+	return v.list
 }
 
 func removeLine(t testing.TB, path, word string) {
