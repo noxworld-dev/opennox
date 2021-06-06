@@ -135,7 +135,7 @@ func callOnMonsterLostEnemy(obj, targ *Unit) {
 }
 
 func callOnPolygonPlayerEnter(obj *Unit) {
-	scriptLog.Printf("player enter:", obj)
+	scriptLog.Printf("player enter: %s", obj)
 }
 
 func callOnTriggerActivated(trig *Object, obj *Unit) {
