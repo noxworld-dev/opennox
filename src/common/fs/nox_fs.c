@@ -411,20 +411,20 @@ bool nox_fs_copy(const char* src, const char* dst) {
 #ifndef _WIN32
 	char buf[1024];
 	FILE* rfd = nox_fs_open(src);
-	if (rfd < 0)
+	if (rfd <= 0)
 		return 0;
 
 	FILE* wfd = nox_fs_create(dst);
-	if (wfd < 0) {
+	if (wfd <= 0) {
 		fclose(rfd);
 		return 0;
 	}
 
 	while (1) {
-		int ret = fread(rfd, 1, buf, sizeof(buf));
+		int ret = nox_fs_fread(rfd, buf, sizeof(buf));
 		if (ret <= 0)
 			break;
-		if (fwrite(wfd, 1, buf, ret) != ret) {
+		if (nox_fs_fwrite(wfd, buf, ret) != ret) {
 			fclose(rfd);
 			return 0;
 		}
