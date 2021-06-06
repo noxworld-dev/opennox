@@ -4700,7 +4700,7 @@ int  nox_thing_read_WALL_410900(nox_memfile* f, char* a2) {
 	unsigned int v37 = nox_memfile_read_i32(f);
 	if (v37 != 0x454E4420) // 'END '
 		return 0;
-	++dword_5d4594_251540;
+	++dword_5d4594_251540; // max ~80
 	return 1;
 }
 
