@@ -6,9 +6,10 @@ import (
 	"image/color"
 	"image/draw"
 	"image/png"
-	"nox/v1/common/memmap"
 	"os"
 	"testing"
+
+	"nox/v1/common/memmap"
 )
 
 func TestHeatMaps(t *testing.T) {
@@ -34,10 +35,11 @@ func TestHeatMaps(t *testing.T) {
 }
 
 func drawBlobHeatMap(b memmap.Blob, vars []memmap.Variable, accs []blobAccess) error {
-	const memLayers = 2
+	const memLayers = 3
 	var (
-		clMap = image.NewUniform(color.RGBA{G: 128, A: 128})
-		clAcc = image.NewUniform(color.RGBA{R: 128, G: 128, A: 128})
+		clMap   = image.NewUniform(color.RGBA{G: 128, A: 128})
+		clAcc   = image.NewUniform(color.RGBA{R: 128, G: 128, A: 128})
+		clAccGo = image.NewUniform(color.NRGBA{R: 102, G: 207, B: 221, A: 128})
 	)
 
 	img := image.NewRGBA(image.Rect(0, 0, 2048, memLayers*12))
@@ -59,11 +61,16 @@ func drawBlobHeatMap(b memmap.Blob, vars []memmap.Variable, accs []blobAccess) e
 	}
 	for _, a := range accs {
 		off := a.Off
-		const li = 1
+		li := 1
+		cl := clAcc
+		if a.Go {
+			li = 2
+			cl = clAccGo
+		}
 		x1 := int(float32(off) * mass)
 		x2 := x1 + 1
 		y1, y2 := li*(h/memLayers), (li+1)*(h/memLayers)
-		draw.Draw(img, image.Rect(x1, y1, x2, y2), clAcc, image.Point{}, draw.Over)
+		draw.Draw(img, image.Rect(x1, y1, x2, y2), cl, image.Point{}, draw.Over)
 	}
 
 	return writePNG(fmt.Sprintf("blob_0x%x.png", b.Addr), img)

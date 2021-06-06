@@ -72,6 +72,7 @@ type blobAccess struct {
 	Expr string
 	Blob uintptr
 	Off  uintptr
+	Go   bool
 }
 
 func parseFileC(t testing.TB, path string) []blobAccess {
@@ -154,6 +155,7 @@ func (v *blobAccessVisitor) Visit(n ast.Node) ast.Visitor {
 		v.list = append(v.list, blobAccess{
 			Blob: blob, Off: off,
 			Expr: string(v.file[start.Offset:end.Offset]),
+			Go:   true,
 		})
 	}
 	return v
