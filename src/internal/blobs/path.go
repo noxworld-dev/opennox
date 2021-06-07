@@ -28,10 +28,10 @@ func ReadFile(path string) ([]byte, error) {
 }
 
 var excludeFiles = map[string]struct{}{
-	"memmap.go":   {},
-	"memmap.c":    {},
-	"GAME_data.c": {},
-	"vardefs.c":   {},
+	memmapGo1:   {},
+	memmapC:     {},
+	dataC:       {},
+	"vardefs.c": {},
 }
 
 // EachFile runs the callback function for every file in Path.
