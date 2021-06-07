@@ -1610,7 +1610,7 @@ int nox_xxx_inventoryNameSignInit_4671E0() {
 		result = *(char*)(*getMemU32Ptr(0x5D4594, 2618908) + 3684);
 	}
 	if (v1) {
-		nox_sprintf(v5, "experience:%s%d", *getMemU32Ptr(0x587000, 4 * *(unsigned __int8*)(v1 + 2251) + 29456), result);
+		nox_sprintf(v5, "experience:%s%d", *getMemU32Ptr(0x587000, 29456 + 4 * *(unsigned __int8*)(v1 + 2251)), result);
 		v4 = nox_strman_loadString_40F1D0(v5, 0, "C:\\NoxPost\\src\\Client\\Gui\\guiinv.c", 4763);
 		v3 = *getMemU32Ptr(0x5D4594, 2618908) + 4704;
 		v2 = nox_strman_loadString_40F1D0("ElaborateNameFormat", 0, "C:\\NoxPost\\src\\Client\\Gui\\guiinv.c", 4761);

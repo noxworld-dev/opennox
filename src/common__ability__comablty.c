@@ -32,7 +32,7 @@ int  nox_thing_read_ABIL_rec_424F00(nox_memfile* f, void* a2) {
 	v3 = nox_xxx_abilityNameToN_424D80((const char*)a2);
 	if (!v3)
 		return 0;
-	v5 = getMemAt(0x5D4594, 52 * v3 + 599132);
+	v5 = getMemAt(0x5D4594, 599132 + 52 * v3);
 	*((_DWORD*)v5 + 9) = nox_memfile_read_i8(f);
 	v7 = nox_memfile_read_i32(f);
 	*((_DWORD*)v5 + 2) = 0;

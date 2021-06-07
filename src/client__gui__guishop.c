@@ -42,8 +42,8 @@ void sub_478730(int* a1) {
 	if (v2 >= 10)
 		v2 = 9;
 	v3 = v2 + 10 * v1;
-	result = *(_DWORD**)getMemAt(0x5D4594, 140 * v3 + 1098640);
-	v5 = getMemAt(0x5D4594, 140 * v3 + 1098636);
+	result = *(_DWORD**)getMemAt(0x5D4594, 1098640 + 140 * v3);
+	v5 = getMemAt(0x5D4594, 1098636 + 140 * v3);
 	if (!result) {
 		return;
 	}

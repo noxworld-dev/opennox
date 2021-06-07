@@ -105,7 +105,7 @@ _DWORD*  sub_48CB10(int a1) {
 							if (nox_xxx_teamCompare2_419180((int)v18, v16[57])) {
 								nox_window_call_field_94(
 									*(int*)&dword_5d4594_1197316, 16397, (int)(i + 4704),
-									*getMemU32Ptr(0x587000, 8 * ((unsigned __int8)v16[57] % 10) + 156400));
+									*getMemU32Ptr(0x587000, 156400 + 8 * ((unsigned __int8)v16[57] % 10)));
 								v19 = 0;
 								if (dword_5d4594_1197324 > 0) {
 									v20 = (const wchar_t*)getMemAt(0x5D4594, 1193720);

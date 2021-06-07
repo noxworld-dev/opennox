@@ -22,7 +22,7 @@ wchar_t*  sub_415B60(int a1) {
 			return nox_strman_loadString_40F1D0("result:ERROR", 0, "C:\\NoxPost\\src\\common\\Object\\ArmrLook.c",
 										 263);
 	}
-	return nox_strman_loadString_40F1D0(*(char**)getMemAt(0x587000, 24 * v1 + 34852), 0,
+	return nox_strman_loadString_40F1D0(*(char**)getMemAt(0x587000, 34852 + 24 * v1), 0,
 								 "C:\\NoxPost\\src\\common\\Object\\ArmrLook.c", 261);
 }
 

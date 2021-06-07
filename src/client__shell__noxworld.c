@@ -495,7 +495,7 @@ int sub_438BD0() {
 		sub_449E00((int)v1);
 		v0 = dword_5d4594_814552;
 	}
-	v2 = nox_strman_loadString_40F1D0(*(char**)getMemAt(0x587000, 4 * v0 + 87416), 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c",
+	v2 = nox_strman_loadString_40F1D0(*(char**)getMemAt(0x587000, 87416 + 4 * v0), 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c",
 							   1265);
 	sub_449E30((int)v2);
 	dword_5d4594_815044 = 0;
@@ -639,7 +639,7 @@ int  sub_4394D0(int a1) {
 		nox_window_call_field_94(*(int*)&dword_5d4594_815004, 16397, (int)getMemAt(0x587000, 89860), -1);
 		v13 = nox_strman_loadString_40F1D0("Resolution", 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 831);
 		nox_window_call_field_94(*(int*)&dword_5d4594_815004, 16397, (int)v13, 14);
-		nox_window_call_field_94(*(int*)&dword_5d4594_815004, 16397, *getMemU32Ptr(0x587000, 4 * v1 + 87472), -1);
+		nox_window_call_field_94(*(int*)&dword_5d4594_815004, 16397, *getMemU32Ptr(0x587000, 87472 + 4 * v1), -1);
 		nox_window_call_field_94(*(int*)&dword_5d4594_815004, 16397, (int)getMemAt(0x587000, 89916), -1);
 		v14 = nox_strman_loadString_40F1D0("DisabledSpells", 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 836);
 		nox_window_call_field_94(*(int*)&dword_5d4594_815004, 16397, (int)v14, 14);
@@ -1059,7 +1059,7 @@ void sub_43A810() {
 
 	nox_window_set_hidden(*(int*)&dword_5d4594_814984, 0);
 	nox_window_set_hidden(*(int*)&dword_5d4594_814988, 1);
-	nox_xxx_wndSetIcon_46AE60(*(int*)&dword_5d4594_814984, *getMemU32Ptr(0x5D4594, 4 * dword_587000_87412 + 814900));
+	nox_xxx_wndSetIcon_46AE60(*(int*)&dword_5d4594_814984, *getMemU32Ptr(0x5D4594, 814900 + 4 * dword_587000_87412));
 	if (nox_game_createOrJoin_815048 == 1)
 		v2 = nox_strman_loadString_40F1D0("CreateMsg", 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 377);
 	else
@@ -1194,17 +1194,17 @@ void nox_gui_wol_newServerLine_43B7C0(nox_gui_server_ent_t* srv) {
 		int v4;
 		if (*(int*)&dword_587000_87412 == -1) {
 			int v1 = sub_437860(*(__int16*)(a1 + 44), *(__int16*)(a1 + 46));
-			__int16 v2 = *getMemU16Ptr(0x587000, 8 * v1 + 87528);
+			__int16 v2 = *getMemU16Ptr(0x587000, 87528 + 8 * v1);
 			v1 += 10054;
 			*(_WORD*)(a1 + 44) -= v2;
-			*(_WORD*)(a1 + 46) -= *getMemU16Ptr(0x587000, 8 * v1 + 7098);
+			*(_WORD*)(a1 + 46) -= *getMemU16Ptr(0x587000, 7098 + 8 * v1);
 			*(_WORD*)(a1 + 44) >>= 1;
 			*(_WORD*)(a1 + 46) >>= 1;
 			_DWORD* v3 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_814988, v1);
 			v4 = nox_gui_newButtonOrCheckbox_4A91A0((int)v3, 1185, *(__int16*)(a1 + 44) - 5, *(__int16*)(a1 + 46) - 5, 10, 10, buf);
 		} else {
-			*(_WORD*)(a1 + 44) -= *getMemU16Ptr(0x587000, 8 * dword_587000_87412 + 87528);
-			*(_WORD*)(a1 + 46) -= *getMemU16Ptr(0x587000, 8 * dword_587000_87412 + 87530);
+			*(_WORD*)(a1 + 44) -= *getMemU16Ptr(0x587000, 87528 + 8 * dword_587000_87412);
+			*(_WORD*)(a1 + 46) -= *getMemU16Ptr(0x587000, 87530 + 8 * dword_587000_87412);
 			v4 = nox_gui_newButtonOrCheckbox_4A91A0(*(int*)&dword_5d4594_814984, 1192, *(__int16*)(a1 + 44) - 10, *(__int16*)(a1 + 46) - 10, 20,
 							20, buf);
 		}

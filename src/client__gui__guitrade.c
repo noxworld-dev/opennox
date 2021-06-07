@@ -130,7 +130,7 @@ int  sub_4C15D0(int a1) {
 			v5 = (int)v3;
 			do {
 				if (sub_4C1760(v5, *(unsigned __int16*)(a1 + 2))) {
-					v6 = getMemAt(0x5D4594, 140 * (v2 + 2 * v4) + 1319284);
+					v6 = getMemAt(0x5D4594, 1319284 + 140 * (v2 + 2 * v4));
 					goto LABEL_18;
 				}
 				++v4;
@@ -149,7 +149,7 @@ int  sub_4C15D0(int a1) {
 			v10 = (int)v8;
 			do {
 				if (sub_4C1760(v10, *(unsigned __int16*)(a1 + 2))) {
-					v12 = getMemAt(0x5D4594, 140 * (v7 + 2 * v9) + 1320308);
+					v12 = getMemAt(0x5D4594, 1320308 + 140 * (v7 + 2 * v9));
 					goto LABEL_17;
 				}
 				++v9;

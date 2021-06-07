@@ -252,9 +252,9 @@ bool  nox_parse_thing_client_update(nox_thing* obj, nox_memfile* f, char* attr_v
 			++v5;
 		} while (v4);
 	}
-	if (!*getMemU32Ptr(0x587000, 8 * v5 + 175072))
+	if (!*getMemU32Ptr(0x587000, 175072 + 8 * v5))
 		return 0;
-	obj->client_update = *getMemU32Ptr(0x587000, 8 * v5 + 175076);
+	obj->client_update = *getMemU32Ptr(0x587000, 175076 + 8 * v5);
 	return 1;
 }
 
@@ -399,7 +399,7 @@ int sub_46A360() {
 		do {
 			v2 = 15;
 			do {
-				v3 = getMemAt(0x5D4594, i + 2701180 + v1);
+				v3 = getMemAt(0x5D4594, 2701180 + i + v1);
 				v1 += 64;
 				--v2;
 				memset(v3, 0, 0x40u);
@@ -670,14 +670,14 @@ void*  nox_xxx_parseThingBinClient_44C840_read_things(void) {
 					strcpy((char*)getMemAt(0x5D4594, 830404), "thing.db:");
 					CHAR* cur_name = cur->name;
 					unsigned int cur_name_len_plus_one = strlen(cur->name) + 1;
-					unsigned __int8* v11 = getMemAt(0x5D4594, strlen((const char*)getMemAt(0x5D4594, 830404)) + 830404);
+					unsigned __int8* v11 = getMemAt(0x5D4594, 830404 + strlen((const char*)getMemAt(0x5D4594, 830404)));
 					memcpy(v11, cur->name, 4 * (cur_name_len_plus_one >> 2));
 					CHAR* v13 = &cur_name[4 * (cur_name_len_plus_one >> 2)];
 					unsigned __int8* v12 = &v11[4 * (cur_name_len_plus_one >> 2)];
 					char v14 = cur_name_len_plus_one;
 					LOWORD(cur_name_len_plus_one) = *getMemU16Ptr(0x587000, 122728);
 					memcpy(v12, v13, v14 & 3);
-					unsigned __int8* v15 = getMemAt(0x5D4594, strlen((const char*)getMemAt(0x5D4594, 830404)) + 830405);
+					unsigned __int8* v15 = getMemAt(0x5D4594, 830405 + strlen((const char*)getMemAt(0x5D4594, 830404)));
 					int v16 = *getMemU32Ptr(0x587000, 122724);
 					*(_DWORD*)--v15 = *getMemU32Ptr(0x587000, 122720);
 					unsigned __int8 v17 = getMemByte(0x587000, 122730);
@@ -692,14 +692,14 @@ void*  nox_xxx_parseThingBinClient_44C840_read_things(void) {
 					strcpy((char*)getMemAt(0x5D4594, 830404), "thing.db:");
 					CHAR* v18 = cur->name;
 					unsigned int v19 = strlen(cur->name) + 1;
-					unsigned __int8* v20 = getMemAt(0x5D4594, strlen((const char*)getMemAt(0x5D4594, 830404)) + 830404);
+					unsigned __int8* v20 = getMemAt(0x5D4594, 830404 + strlen((const char*)getMemAt(0x5D4594, 830404)));
 					memcpy(v20, cur->name, 4 * (v19 >> 2));
 					CHAR* v22 = &v18[4 * (v19 >> 2)];
 					unsigned __int8* v21 = &v20[4 * (v19 >> 2)];
 					char v23 = v19;
 					int v24 = *getMemU32Ptr(0x587000, 122792);
 					memcpy(v21, v22, v23 & 3);
-					unsigned __int8* v25 = getMemAt(0x5D4594, strlen((const char*)getMemAt(0x5D4594, 830404)) + 830405);
+					unsigned __int8* v25 = getMemAt(0x5D4594, 830405 + strlen((const char*)getMemAt(0x5D4594, 830404)));
 					int v26 = *getMemU32Ptr(0x587000, 122788);
 					*(_DWORD*)--v25 = *getMemU32Ptr(0x587000, 122784);
 					*((_DWORD*)v25 + 1) = v26;

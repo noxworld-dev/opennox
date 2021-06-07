@@ -77,7 +77,7 @@ int nox_xxx_gameChangeMap_43DEB0() {
 			else
 				nox_xxx_netSendClientReady_43C9F0();
 			nox_xxx_gameSetCliConnected_43C720(1);
-			if ((int)*getMemU32Ptr(0x5D4594, 3801836 + 1392) < 0) {
+			if ((int)*getMemU32Ptr(0x5D4594, 3803228) < 0) {
 				wchar_t* v7 = nox_strman_loadString_40F1D0("cdecode.c:EnterChat", 0, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 338);
 				nox_xxx_printCentered_445490(v7);
 				char* v14 = sub_42E8E0(8, 1);
@@ -353,8 +353,8 @@ void mainloop() {
 					for (int i = explosion_sparks; i > 0; i--) {
 						v12 = nox_common_randomIntMinMax_415FF0(0, 255, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 620);
 						v13 = nox_common_randomIntMinMax_415FF0(6, 12, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 621);
-						v14 = v13 * *getMemIntPtr(0x587000, 8 * v12 + 192088);
-						v15 = v13 * *getMemIntPtr(0x587000, 8 * v12 + 192092) / 16 - 6;
+						v14 = v13 * *getMemIntPtr(0x587000, 192088 + 8 * v12);
+						v15 = v13 * *getMemIntPtr(0x587000, 192092 + 8 * v12) / 16 - 6;
 						v24 = nox_common_randomIntMinMax_415FF0(2, 5, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 633);
 						v16 = nox_common_randomIntMinMax_415FF0(2, 5, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 632);
 						nox_client_newScreenParticle_431540(4, v14 / 16 + mouse->pos.x, mouse->pos.y + v15, v14 / 16, v15, 1, v16, v24, 2, 1);

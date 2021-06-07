@@ -130,13 +130,13 @@ unsigned char sub_4C73A0() {
 	v1 = *(unsigned char**)&dword_5d4594_3799540;
 	v7 = *getMemU32Ptr(0x5D4594, 3799456);
 	do {
-		v2 = getMemAt(0x5D4594, 4 * *v1 + 3803308);
+		v2 = getMemAt(0x5D4594, 3803308 + 4 * *v1);
 		v3 = *v0;
 		v4 = (unsigned short)(*v0 & 0x7C00) >> 7;
 		++v0;
 		// result = *(unsigned char *)(*(unsigned int *)&dword_5d4594_810640
 		//                  + (((unsigned char)(__CFADD__(v2[2], 8 * (v3 & 0x1F)) ? -1 : (unsigned
-		//                  char)(getMemByte(0x5D4594, 4 * *v1 + 3803310) + 8 * (v3 & 0x1F))) >> 3) | (4 * (((unsigned
+		//                  char)(getMemByte(0x5D4594, 3803310 + 4 * *v1) + 8 * (v3 & 0x1F))) >> 3) | (4 * (((unsigned
 		//                  char)-__CFADD__(v2[1], (unsigned short)(v3 & 0x3E0) >> 2) | (unsigned
 		//                  char)(v2[1] + ((unsigned short)(v3 & 0x3E0) >> 2))) & 0xF8)) | ((((unsigned
 		//                  char)-__CFADD__(*v2, (unsigned char)v4) | (unsigned char)(*v2 + v4)) & 0xF8) << 7)));
@@ -173,18 +173,18 @@ void sub_4C6A00() {
 			v7 = nox_video_cur_pixdata_3799444[0];
 			++nox_video_cur_pixdata_3799444;
 			v3 = 4 * v7;
-			v4 = getMemByte(0x5D4594, v3 + 3803308);
-			v10 = getMemByte(0x5D4594, v3 + 3803310);
-			v9 = getMemByte(0x5D4594, v3 + 3803309);
+			v4 = getMemByte(0x5D4594, 3803308 + v3);
+			v10 = getMemByte(0x5D4594, 3803310 + v3);
+			v9 = getMemByte(0x5D4594, 3803309 + v3);
 			v5 = 4 * (unsigned char)*v2;
-			*v2 = *(unsigned char*)((((unsigned char)(getMemByte(0x5D4594, v5 + 3803310) +
-												((unsigned short)(v1 * (v10 - getMemByte(0x5D4594, v5 + 3803310))) >> 8)) >>
+			*v2 = *(unsigned char*)((((unsigned char)(getMemByte(0x5D4594, 3803310 + v5) +
+												((unsigned short)(v1 * (v10 - getMemByte(0x5D4594, 3803310 + v5))) >> 8)) >>
 							  3) |
-							 (4 * ((getMemByte(0x5D4594, v5 + 3803309) +
-									((unsigned short)(v1 * (v9 - getMemByte(0x5D4594, v5 + 3803309))) >> 8)) &
+							 (4 * ((getMemByte(0x5D4594, 3803309 + v5) +
+									((unsigned short)(v1 * (v9 - getMemByte(0x5D4594, 3803309 + v5))) >> 8)) &
 									   0xF8 |
-								   (32 * ((getMemByte(0x5D4594, v5 + 3803308) +
-										   ((unsigned short)(v1 * (v4 - getMemByte(0x5D4594, v5 + 3803308))) >> 8)) &
+								   (32 * ((getMemByte(0x5D4594, 3803308 + v5) +
+										   ((unsigned short)(v1 * (v4 - getMemByte(0x5D4594, 3803308 + v5))) >> 8)) &
 										  0xF8))))) +
 							dword_5d4594_810640);
 			v2 = (unsigned char*)(dword_5d4594_3799540 + 1);
@@ -296,18 +296,18 @@ void sub_4C6C60() {
 			v3 = *(unsigned char*)(v1 + 32 * nox_video_cur_pixdata_3799444[0] + dword_5d4594_810636);
 			++nox_video_cur_pixdata_3799444;
 			v4 = 4 * v3;
-			v5 = getMemByte(0x5D4594, v4 + 3803308);
-			v13 = getMemByte(0x5D4594, v4 + 3803310);
-			v12 = getMemByte(0x5D4594, v4 + 3803309);
+			v5 = getMemByte(0x5D4594, 3803308 + v4);
+			v13 = getMemByte(0x5D4594, 3803310 + v4);
+			v12 = getMemByte(0x5D4594, 3803309 + v4);
 			v6 = 4 * (unsigned char)*v2;
-			*v2 = *(unsigned char*)((((unsigned char)(getMemByte(0x5D4594, v6 + 3803310) +
-												((unsigned short)(v8 * (v13 - getMemByte(0x5D4594, v6 + 3803310))) >> 8)) >>
+			*v2 = *(unsigned char*)((((unsigned char)(getMemByte(0x5D4594, 3803310 + v6) +
+												((unsigned short)(v8 * (v13 - getMemByte(0x5D4594, 3803310 + v6))) >> 8)) >>
 							  3) |
-							 (4 * ((getMemByte(0x5D4594, v6 + 3803309) +
-									((unsigned short)(v8 * (v12 - getMemByte(0x5D4594, v6 + 3803309))) >> 8)) &
+							 (4 * ((getMemByte(0x5D4594, 3803309 + v6) +
+									((unsigned short)(v8 * (v12 - getMemByte(0x5D4594, 3803309 + v6))) >> 8)) &
 									   0xF8 |
-								   (32 * ((getMemByte(0x5D4594, v6 + 3803308) +
-										   ((unsigned short)(v8 * (v5 - getMemByte(0x5D4594, v6 + 3803308))) >> 8)) &
+								   (32 * ((getMemByte(0x5D4594, 3803308 + v6) +
+										   ((unsigned short)(v8 * (v5 - getMemByte(0x5D4594, 3803308 + v6))) >> 8)) &
 										  0xF8))))) +
 							dword_5d4594_810640);
 			v2 = (unsigned char*)(dword_5d4594_3799540 + 1);
@@ -373,18 +373,18 @@ void sub_4C6E40() {
 			v3 = *(unsigned char*)(v1 + nox_video_cur_pixdata_3799444[0] + dword_5d4594_810636);
 			++nox_video_cur_pixdata_3799444;
 			v4 = 4 * v3;
-			v5 = getMemByte(0x5D4594, v4 + 3803308);
-			v13 = getMemByte(0x5D4594, v4 + 3803310);
-			v12 = getMemByte(0x5D4594, v4 + 3803309);
+			v5 = getMemByte(0x5D4594, 3803308 + v4);
+			v13 = getMemByte(0x5D4594, 3803310 + v4);
+			v12 = getMemByte(0x5D4594, 3803309 + v4);
 			v6 = 4 * (unsigned char)*v2;
-			*v2 = *(unsigned char*)((((unsigned char)(getMemByte(0x5D4594, v6 + 3803310) +
-												((unsigned short)(v8 * (v13 - getMemByte(0x5D4594, v6 + 3803310))) >> 8)) >>
+			*v2 = *(unsigned char*)((((unsigned char)(getMemByte(0x5D4594, 3803310 + v6) +
+												((unsigned short)(v8 * (v13 - getMemByte(0x5D4594, 3803310 + v6))) >> 8)) >>
 							  3) |
-							 (4 * ((getMemByte(0x5D4594, v6 + 3803309) +
-									((unsigned short)(v8 * (v12 - getMemByte(0x5D4594, v6 + 3803309))) >> 8)) &
+							 (4 * ((getMemByte(0x5D4594, 3803309 + v6) +
+									((unsigned short)(v8 * (v12 - getMemByte(0x5D4594, 3803309 + v6))) >> 8)) &
 									   0xF8 |
-								   (32 * ((getMemByte(0x5D4594, v6 + 3803308) +
-										   ((unsigned short)(v8 * (v5 - getMemByte(0x5D4594, v6 + 3803308))) >> 8)) &
+								   (32 * ((getMemByte(0x5D4594, 3803308 + v6) +
+										   ((unsigned short)(v8 * (v5 - getMemByte(0x5D4594, 3803308 + v6))) >> 8)) &
 										  0xF8))))) +
 							dword_5d4594_810640);
 			v2 = (unsigned char*)(dword_5d4594_3799540 + 1);
@@ -467,9 +467,9 @@ unsigned int sub_4C7110() {
 			LOWORD(result) = *(unsigned short*)(&nox_video_cur_pixdata_3799444[0]);
 			v2 = 4 * (unsigned char)*v1;
 			v6 = 16 * *(unsigned short*)(&nox_video_cur_pixdata_3799444[0]);
-			v3 = getMemByte(0x5D4594, v2 + 3803309);
-			v7 = getMemByte(0x5D4594, v2 + 3803308);
-			v4 = getMemByte(0x5D4594, v2 + 3803310);
+			v3 = getMemByte(0x5D4594, 3803309 + v2);
+			v7 = getMemByte(0x5D4594, 3803308 + v2);
+			v4 = getMemByte(0x5D4594, 3803310 + v2);
 			nox_video_cur_pixdata_3799444 += 2;
 			*v1 = *(
 				unsigned char*)((((unsigned char)(v4 + ((unsigned short)(v6 * ((result & 0xF0) - v4)) >> 8)) >> 3) |
@@ -515,19 +515,19 @@ unsigned int sub_4C7240() {
 			nox_video_cur_pixdata_3799444 += 2;
 			v5 = 4 * v4;
 			*v2 = *(
-				unsigned char*)((((unsigned char)(getMemByte(0x5D4594, v5 + 3803310) +
+				unsigned char*)((((unsigned char)(getMemByte(0x5D4594, 3803310 + v5) +
 											((unsigned short)(BYTE1(v3) *
-																((result & 0xF0) - getMemByte(0x5D4594, v5 + 3803310))) >>
+																((result & 0xF0) - getMemByte(0x5D4594, 3803310 + v5))) >>
 											 8)) >>
 						  3) |
-						 (unsigned short)(4 * ((getMemByte(0x5D4594, v5 + 3803309) +
+						 (unsigned short)(4 * ((getMemByte(0x5D4594, 3803309 + v5) +
 												  ((unsigned short)(BYTE1(v3) * (((result >> 4) & 0xF0) -
-																				   getMemByte(0x5D4594, v5 + 3803309))) >>
+																				   getMemByte(0x5D4594, 3803309 + v5))) >>
 												   8)) &
 													 0xF8 |
-												 (32 * ((getMemByte(0x5D4594, v5 + 3803308) +
+												 (32 * ((getMemByte(0x5D4594, 3803308 + v5) +
 														 ((unsigned short)(BYTE1(v3) * ((BYTE1(result) & 0xF0) -
-																						  getMemByte(0x5D4594, v5 + 3803308))) >>
+																						  getMemByte(0x5D4594, 3803308 + v5))) >>
 														  8)) &
 														0xF8))))) +
 						dword_5d4594_810640);

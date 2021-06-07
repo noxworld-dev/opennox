@@ -205,7 +205,7 @@ int nox_savegame_sub_46CE40(int a1, int a2, int a3, nox_savegame_xxx* sarr) {
 		nox_savegame_xxx* sv = &sarr[v9];
 		if (strlen(&sv->field_4)) {
 			nox_savegame_nameFromPath_4DC970(&sv->field_4, &v41);
-			nox_sprintf(&DateStr, "nox.str:%s", *getMemU32Ptr(0x587000, 4 * sv->field_1274 + 29456));
+			nox_sprintf(&DateStr, "nox.str:%s", *getMemU32Ptr(0x587000, 29456 + 4 * sv->field_1274));
 			wchar_t* v39 = nox_strman_loadString_40F1D0(&DateStr, 0, "C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 667);
 			wchar_t* v13 =
 				nox_strman_loadString_40F1D0("the", 0, "C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 666);

@@ -17,12 +17,12 @@ void  nox_xxx_printCentered_445490(wchar_t* a1) {
 			v1 = 0;
 			*(unsigned int*)&dword_5d4594_825736 = 0;
 		}
-		nox_wcscpy(getMemU16Ptr(0x5D4594, 644 * v1 + 823804), a1);
+		nox_wcscpy(getMemU16Ptr(0x5D4594, 823804 + 644 * v1), a1);
 		v2 = 644 * *(unsigned int*)&dword_5d4594_825736;
-		*getMemUintPtr(0x5D4594, v2 + 824440) = nox_frame_xxx_2598000 +
+		*getMemUintPtr(0x5D4594, 824440 + v2) = nox_frame_xxx_2598000 +
 													4 * nox_gameFPS +
 													nox_gameFPS;
-		*getMemU8Ptr( 0x5D4594, v2 + 824444) = 0;
+		*getMemU8Ptr(0x5D4594, 824444 + v2) = 0;
 		v3 = nox_strman_loadString_40F1D0("systemmsg", 0, "C:\\NoxPost\\src\\Client\\Gui\\guimsg.c", 69);
 		nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v3, a1);
 	}

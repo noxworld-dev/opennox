@@ -23,7 +23,7 @@ _DWORD* nox_xxx_cliShowHelpGui_49C560() {
 	v0 = nox_strman_get_lang_code();
 	if (nox_xxx_guiFontHeightMB_43F320(0) > 10)
 		v0 = 2;
-	result = nox_new_window_from_file(*(const char**)getMemAt(0x587000, 4 * v0 + 164512), nox_xxx_wnd_49C760);
+	result = nox_new_window_from_file(*(const char**)getMemAt(0x587000, 164512 + 4 * v0), nox_xxx_wnd_49C760);
 	dword_5d4594_1305680 = result;
 	if (result) {
 		sub_46B120(result, 0);

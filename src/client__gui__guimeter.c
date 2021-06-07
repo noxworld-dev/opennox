@@ -279,8 +279,8 @@ int  nox_xxx_guiHealthManaTubeDraw_471D10(int xLeft) {
 		nox_client_drawLineFromPoints_49E4B0();
 		if (v2 < 2 && nox_client_renderBubbles_80844 == 1) {
 			v19 = 64;
-			v7 = getMemIntPtr(0x5D4594, 1536 * v2 + 1093188);
-			v21 = getMemAt(0x5D4594, 1536 * v2 + 1093188);
+			v7 = getMemIntPtr(0x5D4594, 1093188 + 1536 * v2);
+			v21 = getMemAt(0x5D4594, 1093188 + 1536 * v2);
 			do {
 				if (v7[2]) {
 					v8 = *(v7 - 1) >> 4;
@@ -346,7 +346,7 @@ int  nox_xxx_guiHealthManaTubeDraw_471D10(int xLeft) {
 					dword_5d4594_1096256 = 0;
 				}
 			}
-			nox_xxx_wndSetIcon_46AE60(*(int*)&dword_5d4594_1090276, *getMemU32Ptr(0x5D4594, 4 * v16 + 1092996));
+			nox_xxx_wndSetIcon_46AE60(*(int*)&dword_5d4594_1090276, *getMemU32Ptr(0x5D4594, 1092996 + 4 * v16));
 		}
 		sub_472080();
 		result = 1;

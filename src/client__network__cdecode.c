@@ -1936,8 +1936,8 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 						v255 = nox_common_randomIntMinMax_415FF0(0, 255, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 5541);
 						LODWORD(v5) = nox_xxx_spriteLoadAdd_45A360_drawable(
 							*getMemIntPtr(0x5D4594, 1200784),
-							*(__int16*)(data + 1) + v254 * *getMemIntPtr(0x587000, 8 * v255 + 192088) / 16,
-							*(__int16*)(data + 3) + v254 * *getMemIntPtr(0x587000, 8 * v255 + 192092) / 16);
+							*(__int16*)(data + 1) + v254 * *getMemIntPtr(0x587000, 192088 + 8 * v255) / 16,
+							*(__int16*)(data + 3) + v254 * *getMemIntPtr(0x587000, 192092 + 8 * v255) / 16);
 						v256 = v5;
 						if ((_DWORD)v5) {
 							*(_DWORD*)(v5 + 432) = *(_DWORD*)(v5 + 12) << 12;

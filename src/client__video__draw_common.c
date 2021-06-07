@@ -769,9 +769,9 @@ int  sub_48B3F0(int a1, int a2, int a3) {
 				*getMemU32Ptr(0x5D4594, 1193620) = dword_5d4594_1193576;
 				*getMemU32Ptr(0x5D4594, 1193636) = a3;
 				*getMemU32Ptr(0x5D4594, 1193604) = 0;
-				*getMemU32Ptr(0x5D4594, 1193604 + 4) = 0;
-				*getMemU32Ptr(0x5D4594, 1193604 + 8) = dword_5d4594_1193568;
-				*getMemU32Ptr(0x5D4594, 1193604 + 12) = dword_5d4594_1193576;
+				*getMemU32Ptr(0x5D4594, 1193608) = 0;
+				*getMemU32Ptr(0x5D4594, 1193612) = dword_5d4594_1193568;
+				*getMemU32Ptr(0x5D4594, 1193616) = dword_5d4594_1193576;
 				dword_5d4594_1193664 = 1;
 			}
 			nox_video_unlockSurface_48A6B0(g_cursor_surf);
@@ -1258,7 +1258,7 @@ int  sub_4B0300(char* a1) {
 
 	result = *getMemU32Ptr(0x5D4594, 1311928);
 	if (*getMemIntPtr(0x5D4594, 1311928) < 2) {
-		strncpy((char*)getMemAt(0x5D4594, 260 * *getMemU32Ptr(0x5D4594, 1311928) + 1311940), a1, 0x104u);
+		strncpy((char*)getMemAt(0x5D4594, 1311940 + 260 * *getMemU32Ptr(0x5D4594, 1311928)), a1, 0x104u);
 		result = ++*getMemU32Ptr(0x5D4594, 1311928);
 	}
 	return result;

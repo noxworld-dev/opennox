@@ -178,7 +178,7 @@ int nox_xxx_findAutosaves_4A5150() {
 			v13 = v9;
 			do {
 				nox_sprintf(v28, "nox.str:%s",
-							*getMemU32Ptr(0x587000, 4 * *(unsigned __int8*)(v12 + dword_5d4594_1307780 + 1274) + 29456));
+							*getMemU32Ptr(0x587000, 29456 + 4 * *(unsigned __int8*)(v12 + dword_5d4594_1307780 + 1274)));
 				v26 = nox_strman_loadString_40F1D0(v28, 0, "C:\\NoxPost\\src\\client\\shell\\selchar.c", 285);
 				v24 = v12 + dword_5d4594_1307780 + 1224;
 				v14 = nox_strman_loadString_40F1D0("GuiInv.c:ElaborateNameFormat", 0,

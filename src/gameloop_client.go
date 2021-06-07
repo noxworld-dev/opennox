@@ -137,8 +137,8 @@ func generateMouseSparks() {
 			for i := explosionSparks; i > 0; i-- {
 				v12 := randomIntMinMax(0, 255)
 				v13 := randomIntMinMax(6, 12)
-				v14 := v13 * int(memmap.Int32(0x587000, 8*uintptr(v12)+192088))
-				v15 := v13*int(memmap.Int32(0x587000, 8*uintptr(v12)+192092))/16 - 6
+				v14 := v13 * int(memmap.Int32(0x587000, 192088+8*uintptr(v12)))
+				v15 := v13*int(memmap.Int32(0x587000, 192092+8*uintptr(v12)))/16 - 6
 				v24 := randomIntMinMax(2, 5)
 				v16 := randomIntMinMax(2, 5)
 				C.nox_client_newScreenParticle_431540(4, C.int(v14/16+int(mouse.pos.x)), C.int(int(mouse.pos.y)+v15), C.int(v14/16), C.int(v15), 1, C.char(v16), C.char(v24), 2, 1)

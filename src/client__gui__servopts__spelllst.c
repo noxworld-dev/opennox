@@ -146,7 +146,7 @@ int  sub_453C00(int a1, int a2, int* a3, int a4) {
 		if (dword_5d4594_2650652) {
 			sub_57A1E0(v19, 0, 0, 4, 6128);
 			for (i = 0; i < 5; ++i)
-				*getMemU32Ptr(0x5D4594, i * 4 + 1045488) &= v19[i + 6];
+				*getMemU32Ptr(0x5D4594, 1045488 + i * 4) &= v19[i + 6];
 		}
 		sub_454120();
 		goto LABEL_19;

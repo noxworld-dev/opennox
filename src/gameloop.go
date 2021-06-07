@@ -398,7 +398,7 @@ func CONNECT_OR_HOST() {
 	if memmap.Uint8(0x5D4594, 2660684)&4 != 0 {
 		Datas[152] |= 0x80
 	}
-	s1 := C.GoString((*C.char)(memmap.PtrOff(0x5D4594, 2660012+87)))
+	s1 := C.GoString((*C.char)(memmap.PtrOff(0x5D4594, 2660099)))
 	StrCopyBytes(Datas[142:], s1)
 	s2 := C.GoString(C.sub_41FA40())
 	StrCopyBytes(Datas[128:], s2)

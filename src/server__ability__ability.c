@@ -24,7 +24,7 @@ int  nox_xxx_netAbilityReport_4D8060(int a1, int a2, int a3) {
 void  nox_xxx_abilGetSuccess_4FB960_ability(int a1) {
 	wchar_t* v1; // eax
 
-	v1 = nox_strman_loadString_40F1D0(*(char**)getMemAt(0x587000, 4 * a1 + 217092), 0,
+	v1 = nox_strman_loadString_40F1D0(*(char**)getMemAt(0x587000, 217092 + 4 * a1), 0,
 							   "C:\\NoxPost\\src\\Server\\Ability\\Ability.c", 75);
 	nox_xxx_printCentered_445490(v1);
 }

@@ -100,7 +100,7 @@ int  nox_xxx_netDrawRays_49BDD0(unsigned __int8* a1) {
 				*(_DWORD*)(result + 437) = *(_DWORD*)v3;
 				*(_DWORD*)(result + 441) = *((_DWORD*)v3 + 1);
 				v11 = *getMemU32Ptr(0x5D4594, 1304308);
-				*getMemU32Ptr(0x5D4594, 4 * *getMemU32Ptr(0x5D4594, 1304308) + 1303540) = result;
+				*getMemU32Ptr(0x5D4594, 1303540 + 4 * *getMemU32Ptr(0x5D4594, 1304308)) = result;
 				*getMemU32Ptr(0x5D4594, 1304308) = v11 + 1;
 			}
 			break;

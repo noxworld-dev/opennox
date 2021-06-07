@@ -41,7 +41,7 @@ void  sub_455D80(unsigned __int8 a1, char a2) {
 	wchar_t* v3;     // esi
 	wchar_t* v4;     // eax
 
-	*getMemU8Ptr( 0x5D4594, a1 + 1045611) = a2;
+	*getMemU8Ptr(0x5D4594, 1045611 + a1) = a2;
 	result = (wchar_t*)nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1045604, a1 + 8810);
 	v3 = result;
 	if (result) {

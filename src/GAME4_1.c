@@ -321,7 +321,7 @@ int  sub_509D80(int a1) {
 }
 
 //----- (00509E00) --------------------------------------------------------
-int  nox_xxx_xferDirectionToAngle_509E00(_DWORD* a1) { return *getMemU32Ptr(0x587000, 4 * (*a1 + 3 * a1[1]) + 230072); }
+int  nox_xxx_xferDirectionToAngle_509E00(_DWORD* a1) { return *getMemU32Ptr(0x587000, 230072 + 4 * (*a1 + 3 * a1[1])); }
 
 //----- (00509E20) --------------------------------------------------------
 int  nox_xxx_xferIndexedDirection_509E20(int a1, int2* a2) {
@@ -329,12 +329,12 @@ int  nox_xxx_xferIndexedDirection_509E20(int a1, int2* a2) {
 	int v3;     // ecx
 	int result; // eax
 
-	v2 = *getMemIntPtr(0x587000, 8 * a1 + 192088);
+	v2 = *getMemIntPtr(0x587000, 192088 + 8 * a1);
 	if (v2 <= *(int*)&dword_587000_230092)
 		a2->field_0 = (v2 >= -*(int*)&dword_587000_230092) - 1;
 	else
 		a2->field_0 = 1;
-	v3 = *getMemIntPtr(0x587000, 8 * a1 + 192092);
+	v3 = *getMemIntPtr(0x587000, 192092 + 8 * a1);
 	result = dword_587000_230092;
 	if (v3 <= *(int*)&dword_587000_230092) {
 		result = -*(int*)&dword_587000_230092;
@@ -349,7 +349,7 @@ int  nox_xxx_xferIndexedDirection_509E20(int a1, int2* a2) {
 }
 
 //----- (00509E90) --------------------------------------------------------
-int  nox_xxx_mathDirection4ToAngle_509E90(int a1) { return *getMemU32Ptr(0x587000, 4 * a1 + 230056); }
+int  nox_xxx_mathDirection4ToAngle_509E90(int a1) { return *getMemU32Ptr(0x587000, 230056 + 4 * a1); }
 
 //----- (00509EA0) --------------------------------------------------------
 int  nox_xxx_math_509EA0(int a1) {
@@ -400,7 +400,7 @@ void  nox_xxx_debugPrintStack_509F60(int a1, int a2) {
 			v5 = v3 + 1;
 			v6 = (_DWORD*)(v2 + 8 * (3 * v3 + 69));
 			do {
-				nox_xxx_debugPrintf_5341A0("  %s\n", *getMemU32Ptr(0x587000, 4 * *v6 + 230096));
+				nox_xxx_debugPrintf_5341A0("  %s\n", *getMemU32Ptr(0x587000, 230096 + 4 * *v6));
 				v6 -= 6;
 				--v5;
 			} while (v5);
@@ -527,7 +527,7 @@ char  nox_xxx_monsterPopAction_50A160(int a1) {
 	v1 = *(_DWORD*)(a1 + 748);
 	v2 = *(char*)(v1 + 544);
 	v15 = v2;
-	v14 = *getMemU32Ptr(0x587000, 4 * *(_DWORD*)(v1 + 8 * (3 * v2 + 69)) + 230096);
+	v14 = *getMemU32Ptr(0x587000, 230096 + 4 * *(_DWORD*)(v1 + 8 * (3 * v2 + 69)));
 	v13 = *(_DWORD*)(a1 + 36);
 	v3 = nox_xxx_getUnitName_4E39D0(a1);
 	nox_xxx_debugPrintf_5341A0("%d: PopActionStack( %s(#%d) ) = %s@%d:\n", nox_frame_xxx_2598000, v3, v13, v14, v15);
@@ -537,7 +537,7 @@ char  nox_xxx_monsterPopAction_50A160(int a1) {
 		v6 = nox_xxx_monsterActionIsCondition_50A010(*(_DWORD*)(v1 + 24 * (v4 + 23)));
 		if (!v6) {
 			if (v5[5]) {
-				v7 = *(void(**)(int)) getMemAt(0x587000, 16 * *v5 + 233168);
+				v7 = *(void(**)(int)) getMemAt(0x587000, 233168 + 16 * *v5);
 				if (v7)
 					v7(a1);
 			}
@@ -597,7 +597,7 @@ int*  nox_xxx_monsterPushAction_50A260(int a1, int a2) {
 	if (*(_DWORD*)(v2 + 24 * (v4 + 23)) || v4) {
 		v6 = nox_xxx_monsterActionIsCondition_50A010(*(_DWORD*)(v2 + 24 * (v4 + 23)));
 		if (!v6 && v5[5]) {
-			v7 = *(void(**)(int)) getMemAt(0x587000, 16 * *v5 + 233172);
+			v7 = *(void(**)(int)) getMemAt(0x587000, 233172 + 16 * *v5);
 			if (v7)
 				v7(a1);
 		}
@@ -611,7 +611,7 @@ int*  nox_xxx_monsterPushAction_50A260(int a1, int a2) {
 	*v9 = a2;
 	v9[5] = 0;
 	nox_xxx_monsterActionReset_50A110(a1);
-	v12 = *getMemU32Ptr(0x587000, 4 * a2 + 230096);
+	v12 = *getMemU32Ptr(0x587000, 230096 + 4 * a2);
 	v11 = *(_DWORD*)(a1 + 36);
 	v10 = nox_xxx_getUnitName_4E39D0(a1);
 	nox_xxx_debugPrintf_5341A0("%d: PushActionStack( %s(#%d), %s ), result:\n", nox_frame_xxx_2598000, v10, v11, v12);
@@ -809,7 +809,7 @@ int  nox_xxx_unitUpdateMonster_50A5C0(float a1) {
 					break;
 				*v17 = 1;
 				dword_5d4594_1599692 = 0;
-				v18 = *(void(**)(int)) getMemAt(0x587000, 16 * v15 + 233160);
+				v18 = *(void(**)(int)) getMemAt(0x587000, 233160 + 16 * v15);
 				if (v18) {
 					v18(v1);
 					v12 = dword_5d4594_1599692;
@@ -823,7 +823,7 @@ int  nox_xxx_unitUpdateMonster_50A5C0(float a1) {
 		LABEL_30:
 			dword_5d4594_1599692 = v21;
 		LABEL_31:
-			(*(void(**)(int)) getMemAt(0x587000, 16 * v15 + 233164))(v1);
+			(*(void(**)(int)) getMemAt(0x587000, 233164 + 16 * v15))(v1);
 			if (dword_5d4594_1599692)
 				nox_xxx_debugPrintStack_509F60(v1, (int)getMemAt(0x587000, 234084));
 			v19 = *(_DWORD*)(v2 + 1440);
@@ -919,14 +919,14 @@ int  nox_xxx_mobAction_50A910(int a1) {
 		v13 = result + 1;
 		while (1) {
 			v5 = 0;
-			if (*getMemU32Ptr(0x587000, 16 * *v4 + 230388) > 0) {
+			if (*getMemU32Ptr(0x587000, 230388 + 16 * *v4) > 0) {
 				v6 = v4 + 1;
 				do {
-					if (*getMemU32Ptr(0x587000, 4 * (v5 + 4 * *v4) + 230392) == 1 && *v6)
+					if (*getMemU32Ptr(0x587000, 230392 + 4 * (v5 + 4 * *v4)) == 1 && *v6)
 						sub_509FF0((int)v6);
 					++v5;
 					v6 += 2;
-				} while (v5 < *getMemIntPtr(0x587000, 16 * *v4 + 230388));
+				} while (v5 < *getMemIntPtr(0x587000, 230388 + 16 * *v4));
 				v1 = v12;
 			}
 			switch (*v4) {
@@ -1686,13 +1686,13 @@ LPVOID  nox_xxx_pathFind_50BA00(int a1, int a2, float* a3, float* a4, int(* a5)(
 			v69 = nox_common_randomInt_415FA0(0, 7);
 			for (i = 0; i < 8; ++i) {
 				v19 = (i + v69) % 8;
-				v20 = *getMemU32Ptr(0x587000, 8 * v19 + 234216);
-				v21 = *getMemU32Ptr(0x587000, 8 * v19 + 234220);
+				v20 = *getMemU32Ptr(0x587000, 234216 + 8 * v19);
+				v21 = *getMemU32Ptr(0x587000, 234220 + 8 * v19);
 				v22 = *v15;
-				v72 = getMemAt(0x587000, 8 * v19 + 234216);
+				v72 = getMemAt(0x587000, 234216 + 8 * v19);
 				v23 = v20 + v22;
 				v24 = v21 + v15[1];
-				v71 = getMemAt(0x587000, 8 * v19 + 234220);
+				v71 = getMemAt(0x587000, 234220 + 8 * v19);
 				if (v23 < 0 || v23 >= 256 || v24 < 0 || v24 >= 256 ||
 					nox_server_xxx_1599716[v24 + (v23 << 8)].field_0 == dword_5d4594_2386160) {
 					continue;
@@ -5393,8 +5393,8 @@ float*  nox_xxx_monsterLookAt_5125A0(nox_object_t* obj, int a2) {
 	if (*(_BYTE*)(a1 + 8) & 2) {
 		v3 = *(_DWORD*)(a1 + 16);
 		if ((v3 & 0x8000) == 0) {
-			v4 = *getMemFloatPtr(0x587000, 8 * (_DWORD)result + 194136) * 10.0 + *(float*)(a1 + 56);
-			v5 = *getMemFloatPtr(0x587000, 8 * (_DWORD)result + 194140) * 10.0 + *(float*)(a1 + 60);
+			v4 = *getMemFloatPtr(0x587000, 194136 + 8 * (_DWORD)result) * 10.0 + *(float*)(a1 + 56);
+			v5 = *getMemFloatPtr(0x587000, 194140 + 8 * (_DWORD)result) * 10.0 + *(float*)(a1 + 60);
 			result = (float*)nox_xxx_monsterPushAction_50A260(a1, 25);
 			if (result) {
 				result[1] = v4;
@@ -6583,9 +6583,9 @@ void  nox_xxx_getUnitsInRect_517C10(float4* a1, void(* a2)(float*, int), int a3)
 		v5 = a2;
 		if (a2) {
 			v6 = v3 + 1;
-			v7 = *getMemU32Ptr(0x5D4594, 4 * v6 + 2386964);
+			v7 = *getMemU32Ptr(0x5D4594, 2386964 + 4 * v6);
 			nox_xxx_triggersCount_587000_249172 = v6;
-			*getMemU32Ptr(0x5D4594, 4 * v6 + 2386964) = v7 + 1;
+			*getMemU32Ptr(0x5D4594, 2386964 + 4 * v6) = v7 + 1;
 			v8 = a1;
 			nox_xxx_roundCoord_5175E0(a1->field_0, (int)&v24);
 			nox_xxx_roundCoord_5175E0(a1->field_4, (int)&v25);
@@ -6624,7 +6624,7 @@ void  nox_xxx_getUnitsInRect_517C10(float4* a1, void(* a2)(float*, int), int a3)
 								do {
 									v17 = nox_xxx_triggersCount_587000_249172;
 									v18 = (_DWORD*)(*(_DWORD*)(v16 + 12) + 4 * v17 + 248);
-									v19 = *getMemU32Ptr(0x5D4594, 4 * v17 + 2386964);
+									v19 = *getMemU32Ptr(0x5D4594, 2386964 + 4 * v17);
 									if (*v18 != v19) {
 										*v18 = v19;
 										v20 = *(float**)(v16 + 12);
@@ -7879,7 +7879,7 @@ int  sub_519930(int a1) {
 
 	v1 = 0;
 	v6 = 0;
-	v2 = getMemAt(0x5D4594, 48 * a1 + 2387148);
+	v2 = getMemAt(0x5D4594, 2387148 + 48 * a1);
 	if (v2) {
 		if (a1 < 32) {
 			for (i = (char*)sub_555250(*v2, &v6); i; i = (char*)sub_555290(*v2, &v6)) {
@@ -7895,7 +7895,7 @@ int  sub_519930(int a1) {
 //----- (00519E80) --------------------------------------------------------
 _DWORD*  sub_519E80(int a1) {
 	nox_common_playerInfoFromNum_417090(a1);
-	return sub_4DE410(getMemByte(0x5D4594, 48 * a1 + 2387148));
+	return sub_4DE410(getMemByte(0x5D4594, 2387148 + 48 * a1));
 }
 
 //----- (0051A100) --------------------------------------------------------
@@ -7918,7 +7918,7 @@ int sub_51A130() { return dword_5d4594_2388648; }
 BOOL  sub_51A140(int a1) {
 	unsigned __int8* v1; // eax
 
-	v1 = getMemAt(0x5D4594, 48 * a1 + 2387148);
+	v1 = getMemAt(0x5D4594, 2387148 + 48 * a1);
 	return v1 && a1 < 32 && *((_WORD*)v1 + 1) == 1;
 }
 
@@ -7947,7 +7947,7 @@ char*  sub_51A1D0(int a1) {
 	if (a1 <= -1 || a1 >= 3)
 		result = 0;
 	else
-		result = *(char**)getMemAt(0x587000, 4 * a1 + 249880);
+		result = *(char**)getMemAt(0x587000, 249880 + 4 * a1);
 	return result;
 }
 
@@ -7975,7 +7975,7 @@ int  sub_51A500(int a1) {
 		if (!v4)
 			return 0;
 	}
-	return *getMemU32Ptr(0x587000, 16 * v1 + 249908);
+	return *getMemU32Ptr(0x587000, 249908 + 16 * v1);
 }
 
 //----- (0051A550) --------------------------------------------------------
@@ -8158,10 +8158,10 @@ int  nox_xxx_playerSaveInput_51A960(int a1, unsigned __int8* a2) {
 	if (v2 && !(v2[3680] & 0x10))
 		return v3 + 1;
 	v5 = sub_51AAA0((int)(a2 + 1), v3, (int)v8);
-	v6 = *getMemU32Ptr(0x5D4594, 4 * a1 + 2388804);
+	v6 = *getMemU32Ptr(0x5D4594, 2388804 + 4 * a1);
 	if (v6 + v5 < 128) {
-		*getMemU32Ptr(0x5D4594, 4 * a1 + 2388804) = v6 + v5;
-		memcpy(getMemAt(0x5D4594, 24 * (v6 + (a1 << 7)) + 2388932), v8, 24 * v5);
+		*getMemU32Ptr(0x5D4594, 2388804 + 4 * a1) = v6 + v5;
+		memcpy(getMemAt(0x5D4594, 2388932 + 24 * (v6 + (a1 << 7))), v8, 24 * v5);
 		v3 = v7;
 	}
 	sub_51AA20(a1);
@@ -8180,10 +8180,10 @@ int  sub_51AA20(int a1) {
 	v1 = 0;
 	v2 = 0;
 	v3 = 0;
-	result = *getMemU32Ptr(0x5D4594, 4 * a1 + 2388804) - 1;
+	result = *getMemU32Ptr(0x5D4594, 2388804 + 4 * a1) - 1;
 	if (result >= 0) {
-		v5 = *getMemU32Ptr(0x5D4594, 4 * a1 + 2388804);
-		v6 = getMemAt(0x5D4594, 24 * (result + (a1 << 7)) + 2388948);
+		v5 = *getMemU32Ptr(0x5D4594, 2388804 + 4 * a1);
+		v6 = getMemAt(0x5D4594, 2388948 + 24 * (result + (a1 << 7)));
 		do {
 			if (*(_DWORD*)v6) {
 				result = *((_DWORD*)v6 - 2) - 2;
@@ -8258,19 +8258,19 @@ unsigned __int8*  nox_xxx_playerControlBufferFirst_51AB50(int a1) {
 	int v1; // esi
 	int v2; // edx
 
-	*getMemU32Ptr(0x5D4594, 4 * a1 + 2388676) = 0;
-	if (*getMemIntPtr(0x5D4594, 4 * a1 + 2388804) <= 0)
+	*getMemU32Ptr(0x5D4594, 2388676 + 4 * a1) = 0;
+	if (*getMemIntPtr(0x5D4594, 2388804 + 4 * a1) <= 0)
 		return 0;
 	v1 = a1 << 7;
 	while (1) {
-		v2 = *getMemU32Ptr(0x5D4594, 4 * a1 + 2388676);
-		if (*getMemU32Ptr(0x5D4594, 24 * (v1 + v2) + 2388948))
+		v2 = *getMemU32Ptr(0x5D4594, 2388676 + 4 * a1);
+		if (*getMemU32Ptr(0x5D4594, 2388948 + 24 * (v1 + v2)))
 			break;
-		*getMemU32Ptr(0x5D4594, 4 * a1 + 2388676) = v2 + 1;
-		if (v2 + 1 >= *getMemIntPtr(0x5D4594, 4 * a1 + 2388804))
+		*getMemU32Ptr(0x5D4594, 2388676 + 4 * a1) = v2 + 1;
+		if (v2 + 1 >= *getMemIntPtr(0x5D4594, 2388804 + 4 * a1))
 			return 0;
 	}
-	return getMemAt(0x5D4594, 24 * (v1 + *getMemU32Ptr(0x5D4594, 4 * a1 + 2388676)) + 2388932);
+	return getMemAt(0x5D4594, 2388932 + 24 * (v1 + *getMemU32Ptr(0x5D4594, 2388676 + 4 * a1)));
 }
 
 //----- (0051ABC0) --------------------------------------------------------
@@ -8279,18 +8279,18 @@ unsigned __int8*  nox_xxx_playerGetControlBufferNext_51ABC0(int a1) {
 	int v2; // eax
 	int v3; // esi
 
-	v1 = *getMemU32Ptr(0x5D4594, 4 * a1 + 2388676) + 1;
-	*getMemU32Ptr(0x5D4594, 4 * a1 + 2388676) = v1;
+	v1 = *getMemU32Ptr(0x5D4594, 2388676 + 4 * a1) + 1;
+	*getMemU32Ptr(0x5D4594, 2388676 + 4 * a1) = v1;
 	v2 = v1;
-	if (v1 >= *getMemIntPtr(0x5D4594, 4 * a1 + 2388804))
+	if (v1 >= *getMemIntPtr(0x5D4594, 2388804 + 4 * a1))
 		return 0;
 	v3 = a1 << 7;
-	while (!*getMemU32Ptr(0x5D4594, 24 * (v3 + v2) + 2388948)) {
-		*getMemU32Ptr(0x5D4594, 4 * a1 + 2388676) = ++v2;
-		if (v2 >= *getMemIntPtr(0x5D4594, 4 * a1 + 2388804))
+	while (!*getMemU32Ptr(0x5D4594, 2388948 + 24 * (v3 + v2))) {
+		*getMemU32Ptr(0x5D4594, 2388676 + 4 * a1) = ++v2;
+		if (v2 >= *getMemIntPtr(0x5D4594, 2388804 + 4 * a1))
 			return 0;
 	}
-	return getMemAt(0x5D4594, 24 * (v3 + *getMemU32Ptr(0x5D4594, 4 * a1 + 2388676)) + 2388932);
+	return getMemAt(0x5D4594, 2388932 + 24 * (v3 + *getMemU32Ptr(0x5D4594, 2388676 + 4 * a1)));
 }
 
 //----- (0051AC30) --------------------------------------------------------
@@ -8298,12 +8298,12 @@ int  nox_xxx_playerCmd_51AC30(int a1) {
 	int result; // eax
 
 	result = a1;
-	*getMemU32Ptr(0x5D4594, 4 * a1 + 2388804) = 0;
+	*getMemU32Ptr(0x5D4594, 2388804 + 4 * a1) = 0;
 	return result;
 }
 
 //----- (0051AC40) --------------------------------------------------------
-BOOL  nox_xxx_playerCmdGet_51AC40(int a1) { return *getMemU32Ptr(0x5D4594, 4 * a1 + 2388804) == 0; }
+BOOL  nox_xxx_playerCmdGet_51AC40(int a1) { return *getMemU32Ptr(0x5D4594, 2388804 + 4 * a1) == 0; }
 
 //----- (0051AC60) --------------------------------------------------------
 void sub_51AC60() {
@@ -8613,7 +8613,7 @@ void sub_51D0E0() { dword_5d4594_2487244 = 0; }
 
 //----- (0051D0F0) --------------------------------------------------------
 int  sub_51D0F0(char a1) {
-	*getMemU8Ptr(0x5D4594, 3835340 + 60) = a1;
+	*getMemU8Ptr(0x5D4594, 3835400) = a1;
 	return 1;
 }
 
@@ -8621,7 +8621,7 @@ int  sub_51D0F0(char a1) {
 int  sub_51D100(int a1) {
 	if (a1 != 1 && a1)
 		return 0;
-	*getMemU32Ptr(0x5D4594, 3835340 + 64) = a1;
+	*getMemU32Ptr(0x5D4594, 3835404) = a1;
 	return 1;
 }
 
@@ -8637,9 +8637,9 @@ _DWORD*  sub_51D120(float* a1) {
 		v2 = result;
 		if (result) {
 			if (dword_5d4594_2487244) {
-				if (*getMemU32Ptr(0x5D4594, 3835340 + 64) == 1) {
-					sub_51D300(*(int*)&dword_5d4594_2487244, (int)result, getMemByte(0x5D4594, 3835340 + 60));
-					sub_51D300((int)v2, *(int*)&dword_5d4594_2487244, getMemByte(0x5D4594, 3835340 + 60));
+				if (*getMemU32Ptr(0x5D4594, 3835404) == 1) {
+					sub_51D300(*(int*)&dword_5d4594_2487244, (int)result, getMemByte(0x5D4594, 3835400));
+					sub_51D300((int)v2, *(int*)&dword_5d4594_2487244, getMemByte(0x5D4594, 3835400));
 				}
 			}
 			dword_5d4594_2487244 = v2;
@@ -8708,10 +8708,10 @@ float*  sub_51D270(float* a1) {
 }
 
 //----- (0051D2C0) --------------------------------------------------------
-int  sub_51D2C0(int a1, int a2) { return sub_51D300(a1, a2, getMemByte(0x5D4594, 3835340 + 60)); }
+int  sub_51D2C0(int a1, int a2) { return sub_51D300(a1, a2, getMemByte(0x5D4594, 3835400)); }
 
 //----- (0051D2E0) --------------------------------------------------------
-int  sub_51D2E0(int a1, int a2) { return sub_51D370(a1, a2, getMemByte(0x5D4594, 3835340 + 60)); }
+int  sub_51D2E0(int a1, int a2) { return sub_51D370(a1, a2, getMemByte(0x5D4594, 3835400)); }
 
 //----- (0051D300) --------------------------------------------------------
 int  sub_51D300(int a1, int a2, char a3) {
@@ -8880,8 +8880,8 @@ int  nox_xxx_tileCheckImage_51D540(int a1) {
 int  nox_xxx_tileCheckImageVari_51D570(int a1) {
 	int result; // eax
 
-	if (a1 <= getMemByte(0x5D4594, 60 * *getMemU32Ptr(0x5D4594, 3835340) + 2682240) *
-					  getMemByte(0x5D4594, 60 * *getMemU32Ptr(0x5D4594, 3835340) + 2682241) -
+	if (a1 <= getMemByte(0x5D4594, 2682240 + 60 * *getMemU32Ptr(0x5D4594, 3835340)) *
+					  getMemByte(0x5D4594, 2682241 + 60 * *getMemU32Ptr(0x5D4594, 3835340)) -
 				  1) {
 		dword_5d4594_3835348 = a1;
 		result = 1;
@@ -8896,7 +8896,7 @@ int  nox_xxx_tileCheckImageVari_51D570(int a1) {
 int  nox_xxx_tile_51D5C0(int a1) {
 	if (a1 != 1 && a1)
 		return 0;
-	*getMemU32Ptr(0x5D4594, 3835340 + 4) = a1;
+	*getMemU32Ptr(0x5D4594, 3835344) = a1;
 	return 1;
 }
 

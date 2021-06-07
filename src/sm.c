@@ -198,7 +198,7 @@ void CONNECT_PREPARE(sm_args_t* args) {
 	if (getMemByte(0x5D4594, 2660684) & 4) {
 		Data[152] |= 0x80u;
 	}
-	strcpy((char*)&Data[142], (const char*)getMemAt(0x5D4594, 2660012 + 87));
+	strcpy((char*)&Data[142], (const char*)getMemAt(0x5D4594, 2660099));
 	strcpy((char*)&Data[128], sub_41FA40());
 	*(_DWORD*)&Data[138] = dword_5d4594_2660032;
 	memcpy(Data, v1, 0x61u);
@@ -346,10 +346,10 @@ void NET_CONNECT_WAIT_THEN(sm_args_t* args) {
 	if (dword_5d4594_3844304 && ns->id >= 0) {
 		memset(getMemAt(0x5D4594, 2512892), 0, 0x400u);
 		*getMemU8Ptr(0x5D4594, 2512892) = 31;
-		*getMemU8Ptr(0x5D4594, 2512892 + 1) = ns->data_2_base[1];
-		*getMemU8Ptr(0x5D4594, 2512892 + 2) = 32;
+		*getMemU8Ptr(0x5D4594, 2512893) = ns->data_2_base[1];
+		*getMemU8Ptr(0x5D4594, 2512894) = 32;
 		if (a4) {
-			memcpy(getMemAt(0x5D4594, 2512892 + 3), (const void *) a4, a5);
+			memcpy(getMemAt(0x5D4594, 2512895), (const void *) a4, a5);
 		}
 		nox_xxx_netSendSock_552640(a1, getMemAt(0x5D4594, 2512892), a5 + 3, NOX_NET_SEND_NO_LOCK | NOX_NET_SEND_FLAG2);
 	}

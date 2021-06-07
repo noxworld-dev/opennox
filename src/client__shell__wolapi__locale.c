@@ -105,7 +105,7 @@ int  sub_4B5B70_wol_locale(wchar_t* a1) {
 			if (v1 >= *(int*)&dword_5d4594_1312472)
 				goto LABEL_5;
 		}
-		result = *getMemU32Ptr(0x587000, 8 * v1 + 174364);
+		result = *getMemU32Ptr(0x587000, 174364 + 8 * v1);
 	}
 	return result;
 }

@@ -172,8 +172,8 @@ int  nox_xxx_drawEffectsMB_474E60(_DWORD* a1, int a2) {
 		xLeft.field_4 += v5;
 		if (v6 & 4 && *(_DWORD*)(a2 + 276) == 6) {
 			v8 = 8 * *(unsigned __int8*)(a2 + 297);
-			v9 = *getMemU32Ptr(0x587000, v8 + 149432);
-			v10 = *getMemU32Ptr(0x587000, v8 + 149436);
+			v9 = *getMemU32Ptr(0x587000, 149432 + v8);
+			v10 = *getMemU32Ptr(0x587000, 149436 + v8);
 			xLeft.field_0 += v9;
 			xLeft.field_4 = v10 + v7;
 		}
@@ -258,8 +258,8 @@ int  nox_xxx_drawEffectsMB_474E60(_DWORD* a1, int a2) {
 		xLeft.field_4 += v24;
 		if (v23 == 6) {
 			v26 = 8 * *(unsigned __int8*)(v2 + 297);
-			xLeft.field_0 = *getMemU32Ptr(0x587000, v26 + 149504) + v25;
-			xLeft.field_4 += *getMemU32Ptr(0x587000, v26 + 149508);
+			xLeft.field_0 = *getMemU32Ptr(0x587000, 149504 + v26) + v25;
+			xLeft.field_4 += *getMemU32Ptr(0x587000, 149508 + v26);
 		}
 		nox_client_drawEnableAlpha_434560(1);
 		nox_client_drawSetAlpha_434580(0x80u);

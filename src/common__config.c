@@ -323,7 +323,7 @@ LABEL_2:
 					if (!v3)
 						goto LABEL_2;
 				}
-				v2 = (char*)sub_432C70(*getMemU32Ptr(0x587000, 8 * v4 + 81172));
+				v2 = (char*)sub_432C70(*getMemU32Ptr(0x587000, 81172 + 8 * v4));
 				if (!v2)
 					return 0;
 			}

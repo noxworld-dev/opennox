@@ -1696,11 +1696,11 @@ wchar_t* nox_xxx_consoleTokenFindByAlias_443E40(wchar_t* s) {
 		return 0;
 	int ind = 0;
 	const wchar_t** i;
-	for (i = (const wchar_t**)getMemAt(0x5D4594, 816500 + 8*0 + 4); _nox_wcsicmp(s, *i); i += 2) {
+	for (i = (const wchar_t**)getMemAt(0x5D4594, 816504 + 8*0); _nox_wcsicmp(s, *i); i += 2) {
 		if (++ind >= nox_xxx_consoleTokenPairs_823708)
 			return 0;
 	}
-	return *getMemU32Ptr(0x5D4594, 816500 + 8*ind + 0);
+	return *getMemU32Ptr(0x5D4594, 816500 + 8*ind);
 }
 
 //----- (00443C80) --------------------------------------------------------
@@ -1730,7 +1730,7 @@ int nox_server_parseCmdText_443C80(wchar_t* cmdText, int a2) {
 	wchar_t* str;
 	int v2;
 	if (*getMemU16Ptr(0x5D4594, 820276) == 34) {
-		str = nox_wcstok((wchar_t*)getMemAt(0x5D4594, 820276 + 2), L"\"\n\r");
+		str = nox_wcstok((wchar_t*)getMemAt(0x5D4594, 820278), L"\"\n\r");
 		v2 = 1;
 	} else {
 		str = nox_wcstok((wchar_t*)getMemAt(0x5D4594, 820276), L" ");
@@ -1939,8 +1939,8 @@ int nox_xxx_serverHandleClientConsole_443E90(nox_playerInfo* pl, char a2, wchar_
 //----- (004444C0) --------------------------------------------------------
 void nox_xxx_consoleTokenAddPair_4444C0(wchar_t* tok, wchar_t* tok2) {
 	int n = nox_xxx_consoleTokenPairs_823708;
-	*getMemU32Ptr(0x5D4594, 816500 + 8*n + 0) = tok;
-	*getMemU32Ptr(0x5D4594, 816500 + 8*n + 4) = tok2;
+	*getMemU32Ptr(0x5D4594, 816500 + 8*n) = tok;
+	*getMemU32Ptr(0x5D4594, 816504 + 8*n) = tok2;
 	nox_xxx_consoleTokenPairs_823708++;
 }
 
@@ -2016,7 +2016,7 @@ int nox_cmd_unbind(int tokInd, int tokCnt, wchar_t** tokens) {
 	int v3 = sub_440AC0(tokens[1]);
 	if (v3 == -1)
 		return 0;
-	*getMemU16Ptr(0x587000, 76 * v3 + 94516) = 0;
+	*getMemU16Ptr(0x587000, 94516 + 76 * v3) = 0;
 	return 1;
 }
 
@@ -2041,7 +2041,7 @@ char* sub_cmd_broadcast_xxx_440BC0(int tokInd, int tokCnt, wchar_t** tokens) {
 		do {
 			nox_sprintf(v12, "%S", *v11);
 			v5 = strlen(v12) + 1;
-			v6 = getMemAt(0x5D4594, strlen((const char*)getMemAt(0x5D4594, 818100)) + 818100);
+			v6 = getMemAt(0x5D4594, 818100 + strlen((const char*)getMemAt(0x5D4594, 818100)));
 			memcpy(v6, v12, 4 * (v5 >> 2));
 			v8 = &v12[4 * (v5 >> 2)];
 			v7 = &v6[4 * (v5 >> 2)];
@@ -2049,7 +2049,7 @@ char* sub_cmd_broadcast_xxx_440BC0(int tokInd, int tokCnt, wchar_t** tokens) {
 			v10 = v3 + 1;
 			memcpy(v7, v8, v9 & 3);
 			if (v3 + 1 < tokCnt)
-				*getMemU16Ptr(0x5D4594, strlen((const char*)getMemAt(0x5D4594, 818100)) + 818100) =
+				*getMemU16Ptr(0x5D4594, 818100 + strlen((const char*)getMemAt(0x5D4594, 818100))) =
 					*getMemU16Ptr(0x587000, 101624);
 			++v3;
 			++v11;
@@ -2117,7 +2117,7 @@ int nox_cmd_offonly2(int tokInd, int tokCnt, wchar_t** tokens) {
 					return 1;
 			}
 			*((_WORD*)v4 + 26) &= 0xE80Fu;
-			*((_WORD*)v4 + 26) |= *getMemU16Ptr(0x587000, 8 * v6 + 94404);
+			*((_WORD*)v4 + 26) |= *getMemU16Ptr(0x587000, 94404 + 8 * v6);
 		}
 		result = 1;
 	}
@@ -2651,7 +2651,7 @@ int nox_cmd_bind(int tokInd, int tokCnt, wchar_t** tokens) {
 	int v3 = sub_440AC0(tokens[1]);
 	if (v3 == -1 || nox_wcslen(tokens[2]) >= 0x80)
 		return 0;
-	nox_wcscpy((wchar_t*)getMemAt(0x587000, 76 * v3 + 94516), tokens[2]);
+	nox_wcscpy((wchar_t*)getMemAt(0x587000, 94516 + 76 * v3), tokens[2]);
 	return 1;
 }
 

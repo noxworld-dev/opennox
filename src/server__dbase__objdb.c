@@ -21,7 +21,7 @@ wchar_t*  sub_4E39F0_obj_db(const char** a1) {
 	v4 = v3;
 	strcpy((char*)getMemAt(0x5D4594, 1563460), "NPC:");
 	v5 = *v3;
-	v6 = getMemAt(0x5D4594, strlen((const char*)getMemAt(0x5D4594, 1563460)) + 1563460);
+	v6 = getMemAt(0x5D4594, 1563460 + strlen((const char*)getMemAt(0x5D4594, 1563460)));
 	for (i = (unsigned __int8*)(v4 + 1); v5; ++i) {
 		if (v5 != 95)
 			*v6++ = v5;

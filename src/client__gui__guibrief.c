@@ -50,19 +50,19 @@ wchar_t* sub_44E410() {
 			} else {
 				v3 = 1;
 			}
-			nox_sprintf(v8, "Briefing:%sChapterBegin%d", *getMemU32Ptr(0x587000, 4 * v1 + 122944), i);
+			nox_sprintf(v8, "Briefing:%sChapterBegin%d", *getMemU32Ptr(0x587000, 122944 + 4 * v1), i);
 			v4 = 32 * (v1 + v0 + 10 * v1);
-			*getMemU32Ptr(0x5D4594, v4 + 831300) = nox_xxx_gLoadImg_42F970(&v8[9]);
-			*getMemU32Ptr(0x5D4594, v4 + 831304) =
-				nox_strman_loadString_40F1D0(v8, getMemAt(0x5D4594, v4 + 831308), "C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c", 1221);
-			v6 = *getMemU32Ptr(0x587000, 4 * v1 + 122944);
-			*getMemU32Ptr(0x5D4594, v4 + 831312) = v3;
+			*getMemU32Ptr(0x5D4594, 831300 + v4) = nox_xxx_gLoadImg_42F970(&v8[9]);
+			*getMemU32Ptr(0x5D4594, 831304 + v4) =
+				nox_strman_loadString_40F1D0(v8, getMemAt(0x5D4594, 831308 + v4), "C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c", 1221);
+			v6 = *getMemU32Ptr(0x587000, 122944 + 4 * v1);
+			*getMemU32Ptr(0x5D4594, 831312 + v4) = v3;
 			nox_sprintf(v8, "Briefing:%sChapterLoss%d", v6, i);
-			*getMemU32Ptr(0x5D4594, v4 + 831316) = nox_xxx_gLoadImg_42F970(&v8[9]);
+			*getMemU32Ptr(0x5D4594, 831316 + v4) = nox_xxx_gLoadImg_42F970(&v8[9]);
 			++v1;
-			*getMemU32Ptr(0x5D4594, v4 + 831320) =
-				nox_strman_loadString_40F1D0(v8, getMemAt(0x5D4594, v4 + 831324), "C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c", 1227);
-			*getMemU32Ptr(0x5D4594, v4 + 831328) = v3;
+			*getMemU32Ptr(0x5D4594, 831320 + v4) =
+				nox_strman_loadString_40F1D0(v8, getMemAt(0x5D4594, 831324 + v4), "C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c", 1227);
+			*getMemU32Ptr(0x5D4594, 831328 + v4) = v3;
 			if (v1 >= 3)
 				break;
 			v0 = v7;
@@ -636,7 +636,7 @@ int  nox_xxx_clientQuestWinScreen_450770(int a1) {
 	v1 = 0;
 	*getMemU32Ptr(0x5D4594, 832356) = *(unsigned __int16*)(a1 + 2);
 	*getMemU32Ptr(0x5D4594, 831228) = *(unsigned __int16*)(a1 + 4);
-	v2 = getMemAt(0x5D4594, 832364 + 4);
+	v2 = getMemAt(0x5D4594, 832368);
 	v3 = (unsigned __int16*)(a1 + 6);
 	do {
 		if (*v3) {

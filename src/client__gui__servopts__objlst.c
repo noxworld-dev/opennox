@@ -67,7 +67,7 @@ int  nox_xxx_guiObjlistLoad_4530C0(int a1, int a2) {
 	nox_window_call_field_94(*(int*)&dword_5d4594_1045464, 16408, (int)v11, 0);
 	v12 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1045468, 1514);
 	nox_window_call_field_94(*(int*)&dword_5d4594_1045464, 16409, (int)v12, 0);
-	*getMemU32Ptr(0x5D4594, 4 * dword_5d4594_1045460 + 1045472) = v2;
+	*getMemU32Ptr(0x5D4594, 1045472 + 4 * dword_5d4594_1045460) = v2;
 	sub_453750();
 	if (!nox_common_gameFlags_check_40A5C0(1) || nox_common_gameFlags_check_40A5C0(49152))
 		sub_46AD20(*(_DWORD**)&dword_5d4594_1045468, 1515, 1533, 0);

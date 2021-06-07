@@ -11,10 +11,10 @@ void  sub_409FB0_settings(__int16 a1, unsigned __int16 a2) {
 
 	v2 = sub_409A70(a1);
 	v3 = a2;
-	if (*getMemU16Ptr(0x5D4594, 2 * v2 + 3488) != a2) {
+	if (*getMemU16Ptr(0x5D4594, 3488 + 2 * v2) != a2) {
 		if (a2 > 0x3E7u)
 			v3 = 999;
-		*getMemU16Ptr(0x5D4594, 2 * v2 + 3488) = v3;
+		*getMemU16Ptr(0x5D4594, 3488 + 2 * v2) = v3;
 		nox_server_gameSettingsUpdated = 1;
 		if (nox_client_isConnected_43C700()) {
 			v4 = nox_strman_loadString_40F1D0("parsecmd.c:lessonsset", 0, "C:\\NoxPost\\src\\Common\\System\\settings.c",
@@ -33,7 +33,7 @@ void  sub_40A040_settings(__int16 a1, unsigned __int8 a2) {
 	wchar_t* v6; // eax
 
 	v2 = sub_409A70(a1);
-	if (getMemByte(0x5D4594, v2 + 3500) == a2) {
+	if (getMemByte(0x5D4594, 3500 + v2) == a2) {
 		return;
 	}
 	if (!(!nox_common_gameFlags_check_40A5C0(0x4000000) && !dword_5d4594_3592)) {
@@ -59,7 +59,7 @@ void  sub_40A040_settings(__int16 a1, unsigned __int8 a2) {
 			}
 		}
 	}
-	*getMemU8Ptr( 0x5D4594, v2 + 3500) = a2;
+	*getMemU8Ptr(0x5D4594, 3500 + v2) = a2;
 	*getMemU64Ptr(0x5D4594, 3468) = 60000 * a2 + nox_platform_get_ticks();
 }
 // 40A0D1: variable 'v4' is possibly undefined

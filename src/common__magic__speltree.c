@@ -43,7 +43,7 @@ int  nox_xxx_spellLoadSpells_424460(nox_memfile* f, void* a2) {
 	v41 = v4;
 	if (!v4)
 		return 0;
-	v6 = getMemAt(0x5D4594, 80 * v4 + 588124);
+	v6 = getMemAt(0x5D4594, 588124 + 80 * v4);
 	v40 = 0;
 	v39 = 0;
 	v6[62] = nox_memfile_read_u8(f);

@@ -80,7 +80,7 @@ int nox_xxx_guiServerOptsLoad_457500() {
 		v1 = nox_strman_get_lang_code();
 		if (nox_xxx_guiFontHeightMB_43F320(0) > 10)
 			v1 = 2;
-		dword_5d4594_1046492 = nox_new_window_from_file(*(const char**)getMemAt(0x587000, 4 * v1 + 129760), nox_xxx_guiServerOptionsProcPre_4585D0);
+		dword_5d4594_1046492 = nox_new_window_from_file(*(const char**)getMemAt(0x587000, 129760 + 4 * v1), nox_xxx_guiServerOptionsProcPre_4585D0);
 		sub_43FE20(100);
 		nox_wnd_nox_xxx_wndDraw_46A9B0(*(_DWORD**)&dword_5d4594_1046492, nox_win_width - *(_DWORD*)(dword_5d4594_1046492 + 8) - 10,
 						   0);
@@ -245,7 +245,7 @@ int  sub_4580E0(int a1) {
 	} else {
 		v3 = nox_common_gameFlags_getVal_40A5B0();
 		v10 = nox_xxx_guiServerOptionsGetGametypeName_4573C0(v3);
-		v4 = nox_strman_loadString_40F1D0("GameTypeIs", 0, (const char*)getMemAt(0x587000, 0x20000), 743);
+		v4 = nox_strman_loadString_40F1D0("GameTypeIs", 0, (const char*)getMemAt(0x587000, 131072), 743);
 		nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1046096), v4, v10);
 	}
 	if (nox_common_gameFlags_check_40A5C0(1))

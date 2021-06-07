@@ -290,10 +290,10 @@ int  nox_thing_player_waypoint_draw(int a1, nox_drawable* dr) {
 	nox_client_drawSetColor_434460(v2);
 	v7 = 5;
 	do {
-		nox_client_drawAddPoint_49F500(v4 + 10 * *getMemIntPtr(0x587000, 8 * v5 + 192088) / 16,
-		                               v3 + 10 * *getMemIntPtr(0x587000, 8 * v5 + 192092) / 16);
-		nox_client_drawAddPoint_49F500(v4 + 10 * *getMemIntPtr(0x587000, 8 * ((v5 + 102) % 256) + 192088) / 16,
-		                               v3 + 10 * *getMemIntPtr(0x587000, 8 * ((v5 + 102) % 256) + 192092) / 16);
+		nox_client_drawAddPoint_49F500(v4 + 10 * *getMemIntPtr(0x587000, 192088 + 8 * v5) / 16,
+		                               v3 + 10 * *getMemIntPtr(0x587000, 192092 + 8 * v5) / 16);
+		nox_client_drawAddPoint_49F500(v4 + 10 * *getMemIntPtr(0x587000, 192088 + 8 * ((v5 + 102) % 256)) / 16,
+		                               v3 + 10 * *getMemIntPtr(0x587000, 192092 + 8 * ((v5 + 102) % 256)) / 16);
 		nox_client_drawLineFromPoints_49E4B0();
 		v5 = (v5 + 102) % 256;
 		--v7;

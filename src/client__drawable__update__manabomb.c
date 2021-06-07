@@ -41,8 +41,8 @@ int  nox_xxx_updDrawManabombCharge_4CCAC0(int a1, _DWORD* a2) {
 		if (v5 > (int)v2)
 			v5 = v2;
 		v6 = nox_common_randomIntMinMax_415FF0(0, 255, "C:\\NoxPost\\src\\client\\Drawable\\Update\\ManaBomb.c", 68);
-		v7 = nox_xxx_spriteLoadAdd_45A360_drawable(*getMemIntPtr(0x5D4594, 1522960), v3[3] + v5 * *getMemIntPtr(0x587000, 8 * v6 + 192088) / 16,
-								 v3[4] + v5 * *getMemIntPtr(0x587000, 8 * v6 + 192092) / 16);
+		v7 = nox_xxx_spriteLoadAdd_45A360_drawable(*getMemIntPtr(0x5D4594, 1522960), v3[3] + v5 * *getMemIntPtr(0x587000, 192088 + 8 * v6) / 16,
+								 v3[4] + v5 * *getMemIntPtr(0x587000, 192092 + 8 * v6) / 16);
 		v8 = v7;
 		if (v7) {
 			*(_DWORD*)(v7 + 432) = *(_DWORD*)(v7 + 12) << 12;
@@ -66,7 +66,7 @@ int  nox_xxx_updDrawManabombCharge_4CCAC0(int a1, _DWORD* a2) {
 			HIWORD(i) = v9;
 			v10 = nox_frame_xxx_2598000 % 0x33u;
 			if ((int)(nox_frame_xxx_2598000 % 0x33u) < 256) {
-				v11 = getMemAt(0x587000, 8 * v10 + 192092);
+				v11 = getMemAt(0x587000, 192092 + 8 * v10);
 				do {
 					v12 = v18 * *(_WORD*)v11;
 					v16 = i + v18 * *((_WORD*)v11 - 2);

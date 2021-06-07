@@ -40,38 +40,38 @@ int  nox_xxx_wndParseDataField_4A10A0(void** out, const char* typ, char* buf) {
 	} else if (!strcmp(typ, "SCROLLLISTBOX")) {
 		memset(getMemAt(0x5D4594, 1306892), 0, 0x38u);
 		*getMemU16Ptr(0x5D4594, 1306892) = atoi(strtok(buf, " \t\n\r"));
-		*getMemU16Ptr(0x5D4594, 1306892 + 2) = atoi(strtok(0, " \t\n\r"));
-		*getMemU32Ptr(0x5D4594, 1306892 + 4) = atoi(strtok(0, " \t\n\r"));
-		*getMemU32Ptr(0x5D4594, 1306892 + 8) = atoi(strtok(0, " \t\n\r"));
-		*getMemU32Ptr(0x5D4594, 1306892 + 12) = atoi(strtok(0, " \t\n\r"));
-		*getMemU32Ptr(0x5D4594, 1306892 + 16) = atoi(strtok(0, " \t\n\r"));
-		*getMemU32Ptr(0x5D4594, 1306892 + 20) = atoi(strtok(0, " \t\n\r"));
+		*getMemU16Ptr(0x5D4594, 1306894) = atoi(strtok(0, " \t\n\r"));
+		*getMemU32Ptr(0x5D4594, 1306896) = atoi(strtok(0, " \t\n\r"));
+		*getMemU32Ptr(0x5D4594, 1306900) = atoi(strtok(0, " \t\n\r"));
+		*getMemU32Ptr(0x5D4594, 1306904) = atoi(strtok(0, " \t\n\r"));
+		*getMemU32Ptr(0x5D4594, 1306908) = atoi(strtok(0, " \t\n\r"));
+		*getMemU32Ptr(0x5D4594, 1306912) = atoi(strtok(0, " \t\n\r"));
 		*out = getMemAt(0x5D4594, 1306892);
 		return 1;
 	} else if (!strcmp(typ, "ENTRYFIELD")) {
 		memset(getMemAt(0x5D4594, 1305836), 0, 0x420u);
-		*getMemU16Ptr(0x5D4594, 1305836 + 1040) = atoi(strtok(buf, " \t\n\r"));
+		*getMemU16Ptr(0x5D4594, 1306876) = atoi(strtok(buf, " \t\n\r"));
 		char* v12 = strtok(0, " \t\n\r");
 		if (v12)
-			*getMemU16Ptr(0x5D4594, 1305836 + 1042) = atoi(v12);
+			*getMemU16Ptr(0x5D4594, 1306878) = atoi(v12);
 		else
-			*getMemU16Ptr(0x5D4594, 1305836 + 1042) = -1;
+			*getMemU16Ptr(0x5D4594, 1306878) = -1;
 		char* v13 = strtok(0, " \t\n\r");
 		if (v13) {
-			*getMemU32Ptr(0x5D4594, 1305836 + 1024) = atoi(v13) != 0;
+			*getMemU32Ptr(0x5D4594, 1306860) = atoi(v13) != 0;
 		} else {
-			*getMemU32Ptr(0x5D4594, 1305836 + 1024) = 0;
+			*getMemU32Ptr(0x5D4594, 1306860) = 0;
 		}
 		char* v14 = strtok(0, " \t\n\r");
 		if (v14) {
 			int v14i = atoi(v14);
-			*getMemU32Ptr(0x5D4594, 1305836 + 1028) = v14i == 1;
-			*getMemU32Ptr(0x5D4594, 1305836 + 1032) = v14i == 2;
-			*getMemU32Ptr(0x5D4594, 1305836 + 1036) = v14i == 3;
+			*getMemU32Ptr(0x5D4594, 1306864) = v14i == 1;
+			*getMemU32Ptr(0x5D4594, 1306868) = v14i == 2;
+			*getMemU32Ptr(0x5D4594, 1306872) = v14i == 3;
 		} else {
-			*getMemU32Ptr(0x5D4594, 1305836 + 1028) = 0;
-			*getMemU32Ptr(0x5D4594, 1305836 + 1032) = 0;
-			*getMemU32Ptr(0x5D4594, 1305836 + 1036) = 0;
+			*getMemU32Ptr(0x5D4594, 1306864) = 0;
+			*getMemU32Ptr(0x5D4594, 1306868) = 0;
+			*getMemU32Ptr(0x5D4594, 1306872) = 0;
 		}
 		*out = getMemAt(0x5D4594, 1305836);
 		return 1;

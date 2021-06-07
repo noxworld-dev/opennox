@@ -287,7 +287,7 @@ char* sub_4D0CF0() {
 		v4 = 0;
 	}
 	*getMemU32Ptr(0x5D4594, 1548452 + 4 * v1) = (*getMemU32Ptr(0x5D4594, 1548452 + 4 * v1) + 1) % v2;
-	return (char*)getMemAt(0x5D4594, 128 * (v4 + 20 * v1 + 5 * v1) + 1529228);
+	return (char*)getMemAt(0x5D4594, 1529228 + 128 * (v4 + 20 * v1 + 5 * v1));
 }
 
 //----- (004D10F0) --------------------------------------------------------
@@ -311,13 +311,13 @@ void  sub_4D10F0(char* a1) {
 			v4 = 32 * v1;
 			v5 = dword_5d4594_1548480;
 			*getMemU32Ptr(0x587000, 191880) = v1;
-			*getMemU32Ptr(0x5D4594, v4 + 1525156) = *getMemU32Ptr(0x5D4594, 32 * v1 + 1525156) + 1;
+			*getMemU32Ptr(0x5D4594, 1525156 + v4) = *getMemU32Ptr(0x5D4594, 1525156 + 32 * v1) + 1;
 			v6 = 0;
-			*getMemU32Ptr(0x5D4594, v4 + 1525160) = v5;
+			*getMemU32Ptr(0x5D4594, 1525160 + v4) = v5;
 			if (v3 > 0) {
 				v7 = getMemAt(0x5D4594, 1525156);
 				do {
-					if (*((_DWORD*)v7 - 6) == *getMemU32Ptr(0x5D4594, 32 * v1 + 1525132) && v1 != v6) {
+					if (*((_DWORD*)v7 - 6) == *getMemU32Ptr(0x5D4594, 1525132 + 32 * v1) && v1 != v6) {
 						++*(_DWORD*)v7;
 						*((_DWORD*)v7 + 1) = v5;
 					}

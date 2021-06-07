@@ -30,7 +30,7 @@ int  nox_xxx_guiServerPlayersLoad_456270(int a1) {
 		v1 = 2;
 	if (dword_5d4594_1045684)
 		return 0;
-	dword_5d4594_1045684 = nox_new_window_from_file(*(const char**)getMemAt(0x587000, 4 * v1 + 129048), sub_4567C0);
+	dword_5d4594_1045684 = nox_new_window_from_file(*(const char**)getMemAt(0x587000, 129048 + 4 * v1), sub_4567C0);
 	dword_5d4594_1045688 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1045684, 10507);
 	dword_5d4594_1045692 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1045684, 10509);
 	sub_46B120(*(_DWORD**)&dword_5d4594_1045684, a1);

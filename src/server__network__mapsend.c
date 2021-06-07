@@ -129,7 +129,7 @@ char*  nox_xxx_netMapSend_519D20(int a1) {
 	wchar_t* v2;         // eax
 	char* result;        // eax
 
-	v1 = getMemAt(0x5D4594, 48 * a1 + 2387148);
+	v1 = getMemAt(0x5D4594, 2387148 + 48 * a1);
 	++dword_5d4594_2388648;
 	if (*((_WORD*)v1 + 1)) {
 		if (*((_WORD*)v1 + 1) == 1)
@@ -159,7 +159,7 @@ int  nox_xxx_netMapSendCancelMap_519DE0_net_mapsend(int a1) {
 	int result;          // eax
 	wchar_t* v4;         // eax
 
-	v1 = getMemAt(0x5D4594, 48 * a1 + 2387148);
+	v1 = getMemAt(0x5D4594, 2387148 + 48 * a1);
 	v2 = nox_common_playerInfoFromNum_417090(a1);
 	*((_WORD*)v1 + 1) = 0;
 	nullsub_27(v1);

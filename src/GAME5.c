@@ -51,8 +51,8 @@ char  nox_xxx_mobActionRandomWalk_545020(int a1) {
 	else
 		v4 = *(float*)(a1 + 544);
 	v5 = 8 * v2;
-	*(float*)(a1 + 88) = v4 * *getMemFloatPtr(0x587000, v5 + 194136);
-	*(float*)(a1 + 92) = v4 * *getMemFloatPtr(0x587000, v5 + 194140);
+	*(float*)(a1 + 88) = v4 * *getMemFloatPtr(0x587000, 194136 + v5);
+	*(float*)(a1 + 92) = v4 * *getMemFloatPtr(0x587000, 194140 + v5);
 	return nox_xxx_monsterMoveAudio_534030(a1);
 }
 
@@ -69,8 +69,8 @@ int  sub_545090(int a1) {
 		v1 += -256 * ((unsigned int)v1 >> 8);
 	v2 = *(_DWORD*)(a1 + 12);
 	if (!(v2 & 0x400)) {
-		v4.field_0 = *getMemFloatPtr(0x587000, 8 * v1 + 194136) * 30.0 + *(float*)(a1 + 56);
-		v4.field_4 = *getMemFloatPtr(0x587000, 8 * v1 + 194140) * 30.0 + *(float*)(a1 + 60);
+		v4.field_0 = *getMemFloatPtr(0x587000, 194136 + 8 * v1) * 30.0 + *(float*)(a1 + 56);
+		v4.field_4 = *getMemFloatPtr(0x587000, 194140 + 8 * v1) * 30.0 + *(float*)(a1 + 60);
 		if (nox_xxx_tileNFromPoint_411160(&v4) == 6)
 			v1 += 64;
 		if (v1 >= 256)
@@ -100,8 +100,8 @@ char  nox_xxx_mobActionConfuse_545140(int a1) {
 	}
 	v1 = nox_xxx_monsterPushAction_50A260(a1, 17);
 	if (v1) {
-		*((float*)v1 + 1) = *getMemFloatPtr(0x587000, 8 * *(__int16*)(a1 + 124) + 194136) * 10.0 + *(float*)(a1 + 56);
-		v2 = *getMemFloatPtr(0x587000, 8 * *(__int16*)(a1 + 124) + 194140) * 10.0 + *(float*)(a1 + 60);
+		*((float*)v1 + 1) = *getMemFloatPtr(0x587000, 194136 + 8 * *(__int16*)(a1 + 124)) * 10.0 + *(float*)(a1 + 56);
+		v2 = *getMemFloatPtr(0x587000, 194140 + 8 * *(__int16*)(a1 + 124)) * 10.0 + *(float*)(a1 + 60);
 		v1[3] = 0;
 		*((float*)v1 + 2) = v2;
 	}
@@ -133,7 +133,7 @@ char  sub_545240(int a1, float* a2) {
 	v9.field_0 = v3 / v11;
 	v6 = v9.field_4 / v11;
 	v9.field_4 = v6;
-	if (v6 * *getMemFloatPtr(0x587000, 8 * v5 + 194136) - v9.field_0 * *getMemFloatPtr(0x587000, 8 * v5 + 194140) >= 0.0)
+	if (v6 * *getMemFloatPtr(0x587000, 194136 + 8 * v5) - v9.field_0 * *getMemFloatPtr(0x587000, 194140 + 8 * v5) >= 0.0)
 		*(_WORD*)(v2 + 126) += 8;
 	else
 		*(_WORD*)(v2 + 126) -= 8;
@@ -167,10 +167,10 @@ char  sub_545340(int a1) {
 	float2* v3; // edx
 	int v4;     // eax
 
-	v1 = getMemFloatPtr(0x587000, 8 * *(__int16*)(a1 + 124) + 194136);
+	v1 = getMemFloatPtr(0x587000, 194136 + 8 * *(__int16*)(a1 + 124));
 	v2 = *(_DWORD*)(*(_DWORD*)(a1 + 748) + 24 * *(char*)(*(_DWORD*)(a1 + 748) + 544) + 556);
-	v3 = (float2*)getMemAt(0x587000, 8 * v2 + 194136);
-	if (*getMemFloatPtr(0x587000, 8 * v2 + 194140) * *v1 - v1[1] * v3->field_0 >= 0.0)
+	v3 = (float2*)getMemAt(0x587000, 194136 + 8 * v2);
+	if (*getMemFloatPtr(0x587000, 194140 + 8 * v2) * *v1 - v1[1] * v3->field_0 >= 0.0)
 		*(_WORD*)(a1 + 126) += 8;
 	else
 		*(_WORD*)(a1 + 126) -= 8;
@@ -830,7 +830,7 @@ int*  nox_xxx_mobActionGuard_546010(int a1) {
 			}
 			if (nox_xxx_unitIsMimic_534840(a1)) {
 				v16 = *(_DWORD*)(v2 + 12);
-				if (!sub_534120(a1, (float2*)getMemAt(0x587000, 8 * v16 + 194136))) {
+				if (!sub_534120(a1, (float2*)getMemAt(0x587000, 194136 + 8 * v16))) {
 					v17 = nox_xxx_monsterPushAction_50A260(a1, 27);
 					if (v17)
 						goto LABEL_48;
@@ -867,7 +867,7 @@ int*  nox_xxx_mobActionGuard_546010(int a1) {
 					goto LABEL_48;
 				}
 				v16 = *(_DWORD*)(v2 + 12);
-				if (!sub_534120(a1, (float2*)getMemAt(0x587000, 8 * v16 + 194136))) {
+				if (!sub_534120(a1, (float2*)getMemAt(0x587000, 194136 + 8 * v16))) {
 					nox_xxx_monsterPushAction_50A260(a1, 56);
 					v17 = nox_xxx_monsterPushAction_50A260(a1, 27);
 					if (v17) {
@@ -1405,7 +1405,7 @@ char  nox_xxx_mobActionDependency_546A70(int a1) {
 						if (v4)
 							break;
 					LABEL_100:
-						v41 = *getMemU32Ptr(0x587000, 4 * *(_DWORD*)v5 + 284520);
+						v41 = *getMemU32Ptr(0x587000, 284520 + 4 * *(_DWORD*)v5);
 						v40 = *(_DWORD*)(v1 + 36);
 						v38 = nox_xxx_getUnitName_4E39D0(v1);
 						nox_xxx_debugPrintf_5341A0("%d: %s(#%d) DEPENDENCY '%s'@%d failed, popping:\n", nox_frame_xxx_2598000, v38, v40, v41, a1a);
@@ -1866,8 +1866,8 @@ int  nox_xxx_monsterCheckDodgeables_547C50(int a1) {
 	v1 = (float*)a1;
 	v2 = 0;
 	v3 = *(__int16*)(a1 + 124);
-	v4 = *getMemFloatPtr(0x587000, 8 * v3 + 194140);
-	v12 = *getMemFloatPtr(0x587000, 8 * v3 + 194136);
+	v4 = *getMemFloatPtr(0x587000, 194140 + 8 * v3);
+	v12 = *getMemFloatPtr(0x587000, 194136 + 8 * v3);
 	v5 = *(float*)(a1 + 60);
 	v13.field_0 = *(float*)(a1 + 56);
 	v11 = -v4;
@@ -2011,7 +2011,7 @@ int  nox_xxx_BuildWaypointPath_547F70(_DWORD* a1, int a2, _DWORD* a3, int a4) {
 					v10 = 0;
 					if (v8 > 0) {
 						v11 = a3;
-						v12 = getMemAt(0x5D4594, 4 * v8 + 2489472);
+						v12 = getMemAt(0x5D4594, 2489472 + 4 * v8);
 						do {
 							*v11 = *(_DWORD*)v12;
 							if (v10 == a4)
@@ -2420,12 +2420,12 @@ void  sub_5488B0(int* a1, float* a2, int a3) {
 	v6 = *(__int16*)(v4 + 40) + 160;
 	if (v6 >= 256)
 		v6 = *(__int16*)(v4 + 40) - 96;
-	v26 = getMemAt(0x587000, 8 * v6 + 192092);
+	v26 = getMemAt(0x587000, 192092 + 8 * v6);
 	v7 = a2;
-	v25 = getMemIntPtr(0x587000, 8 * v6 + 192088);
+	v25 = getMemIntPtr(0x587000, 192088 + 8 * v6);
 	v30 = 2 * *(int*)v26;
 	v8 = a2 + 16;
-	a1a.field_8 = (double)(2 * *getMemIntPtr(0x587000, 8 * v6 + 192088)) + a1a.field_0;
+	a1a.field_8 = (double)(2 * *getMemIntPtr(0x587000, 192088 + 8 * v6)) + a1a.field_0;
 	a1a.field_C = (double)v30 + a1a.field_4;
 	sub_57C790(&a1a, (float2*)a2 + 8, &a3a, 32.0);
 	v9 = a2[16] - a3a.field_0;
@@ -2682,7 +2682,7 @@ char  nox_xxx_scriptGetDialogIdx_548F70(const char* a1) {
 			if (!v1)
 				goto LABEL_5;
 		}
-		v4 = getMemByte(0x587000, 8 * v2 + 287004);
+		v4 = getMemByte(0x587000, 287004 + 8 * v2);
 	} else {
 	LABEL_5:
 		LOBYTE(v4) = 0;
@@ -2715,7 +2715,7 @@ int  nox_xxx_monsterLoadStrikeFn_549040(int a1, char* a2) {
 				if (!v3)
 					goto LABEL_7;
 			}
-			*(_DWORD*)(a1 + 236) = *getMemU32Ptr(0x587000, 8 * v4 + 287100);
+			*(_DWORD*)(a1 + 236) = *getMemU32Ptr(0x587000, 287100 + 8 * v4);
 			result = 1;
 		} else {
 		LABEL_7:
@@ -2747,7 +2747,7 @@ int  nox_xxx_monsterLoadDieFn_5490E0(int a1, char* a2) {
 				if (!v3)
 					goto LABEL_7;
 			}
-			*(_DWORD*)(a1 + 228) = *getMemU32Ptr(0x587000, 8 * v4 + 287284);
+			*(_DWORD*)(a1 + 228) = *getMemU32Ptr(0x587000, 287284 + 8 * v4);
 			result = 1;
 		} else {
 		LABEL_7:
@@ -2779,7 +2779,7 @@ int  nox_xxx_monsterLoadDeadFn_549180(int a1, char* a2) {
 				if (!v3)
 					goto LABEL_7;
 			}
-			*(_DWORD*)(a1 + 232) = *getMemU32Ptr(0x587000, 8 * v4 + 287196);
+			*(_DWORD*)(a1 + 232) = *getMemU32Ptr(0x587000, 287196 + 8 * v4);
 			result = 1;
 		} else {
 		LABEL_7:
@@ -2833,7 +2833,7 @@ void  sub_549270(int a1, int a2) {
 		v12.field_4 = v5;
 		v13 = sqrt(v5 * v12.field_4 + v4 * v4) + 0.0099999998;
 		if (v13 - (*(float*)(a1 + 176) + *(float*)(v2 + 176)) <= *(float*)(v7 + 112)) {
-			v8 = getMemFloatPtr(0x587000, 8 * *(__int16*)(v2 + 124) + 194136);
+			v8 = getMemFloatPtr(0x587000, 194136 + 8 * *(__int16*)(v2 + 124));
 			if (v12.field_4 / v13 * v8[1] + v4 / v13 * *v8 > 0.40000001) {
 				v9 = *v6;
 				v10 = *(float*)(a1 + 56);
@@ -2928,7 +2928,7 @@ void  sub_5494C0(float* a1, int a2) {
 			if (nox_xxx_unitIsEnemyTo_5330C0(a2, (int)a1) || *getMemU32Ptr(0x5D4594, 2491568)) {
 				v4 = a1[14] - *(float*)(a2 + 56);
 				v7 = a1[15] - *(float*)(a2 + 60);
-				v5 = getMemFloatPtr(0x587000, 8 * *(__int16*)(a2 + 124) + 194136);
+				v5 = getMemFloatPtr(0x587000, 194136 + 8 * *(__int16*)(a2 + 124));
 				*(float*)&v8 = sqrt(v7 * v7 + v4 * v4) + 0.001;
 				if (v7 / *(float*)&v8 * v5[1] + v4 / *(float*)&v8 * *v5 > 0.5) {
 					v6 = *(float*)&v8 - (a1[44] + *(float*)(v2 + 176));
@@ -3360,7 +3360,7 @@ int  sub_549FA0(int a1) {
 	if (v11 > 0) {
 		v3 = dword_5d4594_2491580;
 		do {
-			v4 = (float*)nox_xxx_newObjectByTypeID_4E3810(*(CHAR**)getMemAt(0x587000, 4 * v3 + 288240));
+			v4 = (float*)nox_xxx_newObjectByTypeID_4E3810(*(CHAR**)getMemAt(0x587000, 288240 + 4 * v3));
 			if (!v4)
 				break;
 			sub_4ED970(30.0, v1, &a3);
@@ -3368,7 +3368,7 @@ int  sub_549FA0(int a1) {
 			v8 = nox_common_randomFloat_416030(10.0, 70.0);
 			nox_xxx_unitRaise_4E46F0((int)v4, v8);
 			v4[27] = nox_common_randomFloat_416030(-2.0, 0.0);
-			v5 = (double)getMemByte(0x587000, dword_5d4594_2491580 + 287332);
+			v5 = (double)getMemByte(0x587000, 287332 + dword_5d4594_2491580);
 			*((_DWORD*)v4 + 4) |= 0x800000;
 			v4[29] = v5;
 			v9 = nox_common_randomFloat_416030(5.0, 20.0);
@@ -3557,7 +3557,7 @@ void  sub_54A4C0(int a1) {
 		if (v6 > 0) {
 			v8 = dword_5d4594_2491588;
 			do {
-				v9 = (float*)nox_xxx_newObjectByTypeID_4E3810(*(CHAR**)getMemAt(0x587000, 4 * v8 + 288868));
+				v9 = (float*)nox_xxx_newObjectByTypeID_4E3810(*(CHAR**)getMemAt(0x587000, 288868 + 4 * v8));
 				if (!v9)
 					break;
 				sub_4ED970(20.0, v1, &a3);
@@ -3718,8 +3718,8 @@ LABEL_10:
 		v20 = v5->field_4 - *(float*)(v4 + 68);
 		if (v19 == 0.0 && v20 == 0.0) {
 			v8 = nox_common_randomInt_415FA0(0, 3);
-			v19 = *getMemFloatPtr(0x587000, 8 * v8 + 289928);
-			v20 = *getMemFloatPtr(0x587000, 8 * v8 + 289932);
+			v19 = *getMemFloatPtr(0x587000, 289928 + 8 * v8);
+			v20 = *getMemFloatPtr(0x587000, 289932 + 8 * v8);
 		}
 		result = sqrt(v20 * v20 + v19 * v19);
 		if (result == 0.0)
@@ -4226,7 +4226,7 @@ int  sub_54B810(int a1, int a2, int* a3, int2* a4, int a5) {
 		v14 = v13 - 1;
 		v21 = (int2*)(v13 - 1);
 		v15 = sub_523E30(2, a5, v5[1] - (v13 - 1));
-		*getMemU32Ptr(0x5D4594, 4 * *getMemU32Ptr(0x5D4594, 2491608) + 2491612) = v15;
+		*getMemU32Ptr(0x5D4594, 2491612 + 4 * *getMemU32Ptr(0x5D4594, 2491608)) = v15;
 		a2a.field_0 = (double)*v5 * 32.526913;
 		v16 = (double)(int)v21 * 32.526913;
 		a2a.field_4 = v16;
@@ -4235,21 +4235,21 @@ int  sub_54B810(int a1, int a2, int* a3, int2* a4, int a5) {
 		if (v20 <= 0) {
 			v17 = sub_523E30(5, a5, *v5 - v6->field_0);
 			a2a.field_4 = v16;
-			*getMemU32Ptr(0x5D4594, 4 * *getMemU32Ptr(0x5D4594, 2491608) + 2491612) = v17;
+			*getMemU32Ptr(0x5D4594, 2491612 + 4 * *getMemU32Ptr(0x5D4594, 2491608)) = v17;
 			a2a.field_0 = (double)v6->field_0 * 32.526913;
 			sub_521A70(*getMemIntPtr(0x5D4594, 2491612), *(int*)&dword_5d4594_2491616, 3);
 		} else {
-			*getMemU32Ptr(0x5D4594, 4 * *getMemU32Ptr(0x5D4594, 2491608) + 2491612) =
+			*getMemU32Ptr(0x5D4594, 2491612 + 4 * *getMemU32Ptr(0x5D4594, 2491608)) =
 				sub_523E30(4, a5, v6->field_0 - *v5);
 			v22 = (int2*)(a5 + *v5);
 			a2a.field_4 = v16;
 			a2a.field_0 = (double)(int)v22 * 32.526913;
 			sub_521A70(*getMemIntPtr(0x5D4594, 2491612), *(int*)&dword_5d4594_2491616, 2);
 		}
-		nox_xxx_mapGenSetRoomPos_521880(*(_DWORD**)getMemAt(0x5D4594, 4 * *getMemU32Ptr(0x5D4594, 2491608) + 2491612), &a2a);
+		nox_xxx_mapGenSetRoomPos_521880(*(_DWORD**)getMemAt(0x5D4594, 2491612 + 4 * *getMemU32Ptr(0x5D4594, 2491608)), &a2a);
 		++*getMemU32Ptr(0x5D4594, 2491608);
 		v18 = sub_523E30(2, a5, v14 - v6->field_4 - 1);
-		*getMemU32Ptr(0x5D4594, 4 * *getMemU32Ptr(0x5D4594, 2491608) + 2491612) = v18;
+		*getMemU32Ptr(0x5D4594, 2491612 + 4 * *getMemU32Ptr(0x5D4594, 2491608)) = v18;
 		v24 = v6->field_4 + 1;
 		a2a.field_0 = (double)v6->field_0 * 32.526913;
 		a2a.field_4 = (double)v24 * 32.526913;
@@ -4257,7 +4257,7 @@ int  sub_54B810(int a1, int a2, int* a3, int2* a4, int a5) {
 		sub_521A70(*(int*)&dword_5d4594_2491616, *getMemIntPtr(0x5D4594, 2491620), 0);
 	} else {
 		v8 = sub_523E30(2, a5, v5[1] - a4->field_4 - 1);
-		*getMemU32Ptr(0x5D4594, 4 * *getMemU32Ptr(0x5D4594, 2491608) + 2491612) = v8;
+		*getMemU32Ptr(0x5D4594, 2491612 + 4 * *getMemU32Ptr(0x5D4594, 2491608)) = v8;
 		v23 = a4->field_4 + 1;
 		a2a.field_0 = (double)a4->field_0 * 32.526913;
 		a2a.field_4 = (double)v23 * 32.526913;
@@ -4292,7 +4292,7 @@ int  sub_54BA60(int a1, int a2, int a3, int a4) {
 			} while (v7 < *getMemIntPtr(0x5D4594, 2491608));
 		}
 		sub_521A70(a1, *getMemIntPtr(0x5D4594, 2491612), a3);
-		sub_521A70(a2, *getMemU32Ptr(0x5D4594, 4 * *getMemU32Ptr(0x5D4594, 2491608) + 2491608), a4);
+		sub_521A70(a2, *getMemU32Ptr(0x5D4594, 2491608 + 4 * *getMemU32Ptr(0x5D4594, 2491608)), a4);
 		result = 1;
 	} else {
 		v6 = getMemIntPtr(0x5D4594, 2491612);
@@ -4347,34 +4347,34 @@ int  sub_54BB20(int a1, int a2, int* a3, _DWORD* a4, int a5) {
 		v11 = v9 + v10 / 2;
 		v12 = a5;
 		v13 = sub_523E30(4, a5, v11 - *a3 + a5 - 1);
-		*getMemU32Ptr(0x5D4594, 4 * *getMemU32Ptr(0x5D4594, 2491608) + 2491612) = v13;
+		*getMemU32Ptr(0x5D4594, 2491612 + 4 * *getMemU32Ptr(0x5D4594, 2491608)) = v13;
 		a2a.field_0 = (double)(*a3 + 1) * 32.526913;
 		a2a.field_4 = (double)a3[1] * 32.526913;
 		nox_xxx_mapGenSetRoomPos_521880(v13, &a2a);
 		++*getMemU32Ptr(0x5D4594, 2491608);
 		if (v16 <= 0) {
-			*getMemU32Ptr(0x5D4594, 4 * *getMemU32Ptr(0x5D4594, 2491608) + 2491612) = sub_523E30(2, a5, a3[1] - v5[1]);
+			*getMemU32Ptr(0x5D4594, 2491612 + 4 * *getMemU32Ptr(0x5D4594, 2491608)) = sub_523E30(2, a5, a3[1] - v5[1]);
 			a2a.field_0 = (double)v11 * 32.526913;
 			a2a.field_4 = (double)(int)v5[1] * 32.526913;
 			sub_521A70(*getMemIntPtr(0x5D4594, 2491612), *(int*)&dword_5d4594_2491616, 0);
 		} else {
-			*getMemU32Ptr(0x5D4594, 4 * *getMemU32Ptr(0x5D4594, 2491608) + 2491612) = sub_523E30(3, a5, v5[1] - a3[1]);
+			*getMemU32Ptr(0x5D4594, 2491612 + 4 * *getMemU32Ptr(0x5D4594, 2491608)) = sub_523E30(3, a5, v5[1] - a3[1]);
 			v17 = a3[1] + a5;
 			a2a.field_0 = (double)v11 * 32.526913;
 			a2a.field_4 = (double)v17 * 32.526913;
 			sub_521A70(*getMemIntPtr(0x5D4594, 2491612), *(int*)&dword_5d4594_2491616, 1);
 		}
-		nox_xxx_mapGenSetRoomPos_521880(*(_DWORD**)getMemAt(0x5D4594, 4 * *getMemU32Ptr(0x5D4594, 2491608) + 2491612), &a2a);
+		nox_xxx_mapGenSetRoomPos_521880(*(_DWORD**)getMemAt(0x5D4594, 2491612 + 4 * *getMemU32Ptr(0x5D4594, 2491608)), &a2a);
 		++*getMemU32Ptr(0x5D4594, 2491608);
 		v14 = sub_523E30(4, v12, *v5 - v11 - v12);
-		*getMemU32Ptr(0x5D4594, 4 * *getMemU32Ptr(0x5D4594, 2491608) + 2491612) = v14;
+		*getMemU32Ptr(0x5D4594, 2491612 + 4 * *getMemU32Ptr(0x5D4594, 2491608)) = v14;
 		a2a.field_0 = (double)(v12 + v11) * 32.526913;
 		a2a.field_4 = (double)(int)v5[1] * 32.526913;
 		nox_xxx_mapGenSetRoomPos_521880(v14, &a2a);
 		sub_521A70(*(int*)&dword_5d4594_2491616, *getMemIntPtr(0x5D4594, 2491620), 2);
 	} else {
 		v7 = sub_523E30(4, a5, *v5 - *a3 - 1);
-		*getMemU32Ptr(0x5D4594, 4 * *getMemU32Ptr(0x5D4594, 2491608) + 2491612) = v7;
+		*getMemU32Ptr(0x5D4594, 2491612 + 4 * *getMemU32Ptr(0x5D4594, 2491608)) = v7;
 		a2a.field_0 = (double)(*a3 + 1) * 32.526913;
 		a2a.field_4 = (double)a3[1] * 32.526913;
 		nox_xxx_mapGenSetRoomPos_521880(v7, &a2a);
@@ -4399,25 +4399,25 @@ int  sub_54BD90(int a1, int a2, int* a3, int* a4, int a5) {
 	*getMemU32Ptr(0x5D4594, 2491608) = 0;
 	v8 = v7 - v6;
 	v9 = sub_523E30(2, a5, a3[1] - a4[1]);
-	*getMemU32Ptr(0x5D4594, 4 * *getMemU32Ptr(0x5D4594, 2491608) + 2491612) = v9;
+	*getMemU32Ptr(0x5D4594, 2491612 + 4 * *getMemU32Ptr(0x5D4594, 2491608)) = v9;
 	a2a.field_0 = (double)*a3 * 32.526913;
 	a2a.field_4 = (double)a4[1] * 32.526913;
 	nox_xxx_mapGenSetRoomPos_521880(v9, &a2a);
 	++*getMemU32Ptr(0x5D4594, 2491608);
 	if (v8 <= 0) {
-		*getMemU32Ptr(0x5D4594, 4 * *getMemU32Ptr(0x5D4594, 2491608) + 2491612) = sub_523E30(5, a5, *a3 - *a4 - 1);
+		*getMemU32Ptr(0x5D4594, 2491612 + 4 * *getMemU32Ptr(0x5D4594, 2491608)) = sub_523E30(5, a5, *a3 - *a4 - 1);
 		a2a.field_0 = (double)(*a4 + 1) * 32.526913;
 		a2a.field_4 = (double)a4[1] * 32.526913;
 		sub_521A70(*getMemIntPtr(0x5D4594, 2491612), *(int*)&dword_5d4594_2491616, 3);
 		v10 = 2;
 	} else {
-		*getMemU32Ptr(0x5D4594, 4 * *getMemU32Ptr(0x5D4594, 2491608) + 2491612) = sub_523E30(4, a5, *a4 - *a3 - a5);
+		*getMemU32Ptr(0x5D4594, 2491612 + 4 * *getMemU32Ptr(0x5D4594, 2491608)) = sub_523E30(4, a5, *a4 - *a3 - a5);
 		a2a.field_0 = (double)(a5 + *a3) * 32.526913;
 		a2a.field_4 = (double)a4[1] * 32.526913;
 		sub_521A70(*getMemIntPtr(0x5D4594, 2491612), *(int*)&dword_5d4594_2491616, 2);
 		v10 = 3;
 	}
-	nox_xxx_mapGenSetRoomPos_521880(*(_DWORD**)getMemAt(0x5D4594, 4 * *getMemU32Ptr(0x5D4594, 2491608) + 2491612), &a2a);
+	nox_xxx_mapGenSetRoomPos_521880(*(_DWORD**)getMemAt(0x5D4594, 2491612 + 4 * *getMemU32Ptr(0x5D4594, 2491608)), &a2a);
 	++*getMemU32Ptr(0x5D4594, 2491608);
 	return sub_54BA60(a1, a2, 0, v10);
 }
@@ -4439,26 +4439,26 @@ int  sub_54BF20(int a1, int a2, int* a3, int* a4, int a5) {
 	v8 = *a4;
 	*getMemU32Ptr(0x5D4594, 2491608) = 0;
 	v9 = sub_523E30(3, a5, a4[1] - a3[1] + a5 - 1);
-	*getMemU32Ptr(0x5D4594, 4 * *getMemU32Ptr(0x5D4594, 2491608) + 2491612) = v9;
+	*getMemU32Ptr(0x5D4594, 2491612 + 4 * *getMemU32Ptr(0x5D4594, 2491608)) = v9;
 	v12 = a3[1] + 1;
 	a2a.field_0 = (double)*v5 * 32.526913;
 	a2a.field_4 = (double)v12 * 32.526913;
 	nox_xxx_mapGenSetRoomPos_521880(v9, &a2a);
 	++*getMemU32Ptr(0x5D4594, 2491608);
 	if (v8 - v7 <= 0) {
-		*getMemU32Ptr(0x5D4594, 4 * *getMemU32Ptr(0x5D4594, 2491608) + 2491612) = sub_523E30(5, a5, *v5 - *a4 - 1);
+		*getMemU32Ptr(0x5D4594, 2491612 + 4 * *getMemU32Ptr(0x5D4594, 2491608)) = sub_523E30(5, a5, *v5 - *a4 - 1);
 		a2a.field_0 = (double)(*a4 + 1) * 32.526913;
 		a2a.field_4 = (double)a4[1] * 32.526913;
 		sub_521A70(*getMemIntPtr(0x5D4594, 2491612), *(int*)&dword_5d4594_2491616, 3);
 		v10 = 2;
 	} else {
-		*getMemU32Ptr(0x5D4594, 4 * *getMemU32Ptr(0x5D4594, 2491608) + 2491612) = sub_523E30(4, a5, *a4 - *v5 - a5);
+		*getMemU32Ptr(0x5D4594, 2491612 + 4 * *getMemU32Ptr(0x5D4594, 2491608)) = sub_523E30(4, a5, *a4 - *v5 - a5);
 		a2a.field_0 = (double)(a5 + *v5) * 32.526913;
 		a2a.field_4 = (double)a4[1] * 32.526913;
 		sub_521A70(*getMemIntPtr(0x5D4594, 2491612), *(int*)&dword_5d4594_2491616, 2);
 		v10 = 3;
 	}
-	nox_xxx_mapGenSetRoomPos_521880(*(_DWORD**)getMemAt(0x5D4594, 4 * *getMemU32Ptr(0x5D4594, 2491608) + 2491612), &a2a);
+	nox_xxx_mapGenSetRoomPos_521880(*(_DWORD**)getMemAt(0x5D4594, 2491612 + 4 * *getMemU32Ptr(0x5D4594, 2491608)), &a2a);
 	++*getMemU32Ptr(0x5D4594, 2491608);
 	return sub_54BA60(a1, a2, 1, v10);
 }
@@ -5939,7 +5939,7 @@ void  nox_xxx_dieBoulder_54E4B0(int a1) {
 	} else {
 		v5 = dword_5d4594_2491704;
 		while (1) {
-			v6 = (float*)nox_xxx_newObjectByTypeID_4E3810(*(CHAR**)getMemAt(0x587000, 4 * v5 + 291512));
+			v6 = (float*)nox_xxx_newObjectByTypeID_4E3810(*(CHAR**)getMemAt(0x587000, 291512 + 4 * v5));
 			if (!v6)
 				break;
 			sub_4ED970(30.0, v2, &a3);
@@ -5947,7 +5947,7 @@ void  nox_xxx_dieBoulder_54E4B0(int a1) {
 			v9 = nox_common_randomFloat_416030(10.0, 70.0);
 			nox_xxx_unitRaise_4E46F0((int)v6, v9);
 			v6[27] = nox_common_randomFloat_416030(-2.0, 0.0);
-			v7 = (double)getMemByte(0x587000, dword_5d4594_2491704 + 290328);
+			v7 = (double)getMemByte(0x587000, 290328 + dword_5d4594_2491704);
 			*((_DWORD*)v6 + 4) |= 0x800000;
 			v6[29] = v7;
 			v10 = nox_common_randomFloat_416030(5.0, 20.0);
@@ -6070,8 +6070,8 @@ void  sub_54E850(int a1, int a2) {
 			a2a.field_0 = *(float*)(a1 + 56);
 			a1a.field_C = v5;
 			a2a.field_4 = *(float*)(a1 + 60);
-			a2a.field_8 = (double)*getMemIntPtr(0x587000, 8 * *(_DWORD*)(v2 + 12) + 196184) + a2a.field_0;
-			a2a.field_C = (double)*getMemIntPtr(0x587000, 8 * *(_DWORD*)(v2 + 12) + 196188) + a2a.field_4;
+			a2a.field_8 = (double)*getMemIntPtr(0x587000, 196184 + 8 * *(_DWORD*)(v2 + 12)) + a2a.field_0;
+			a2a.field_C = (double)*getMemIntPtr(0x587000, 196188 + 8 * *(_DWORD*)(v2 + 12)) + a2a.field_4;
 			if (sub_427980(&a1a, &a2a)) {
 				v6 = *(_DWORD**)(a2 + 8);
 				v7 = *(_DWORD**)(a2 + 12);
@@ -6810,8 +6810,8 @@ void  nox_xxx_createArrowTrapProjectile_54FA80(int a1, int a2) {
 
 	v2 = *(float*)(a1 + 176) + 4.0;
 	v3 = 8 * *(__int16*)(a1 + 124);
-	v10 = v2 * *getMemFloatPtr(0x587000, v3 + 194136) + *(float*)(a1 + 56);
-	v11 = v2 * *getMemFloatPtr(0x587000, v3 + 194140) + *(float*)(a1 + 60);
+	v10 = v2 * *getMemFloatPtr(0x587000, 194136 + v3) + *(float*)(a1 + 56);
+	v11 = v2 * *getMemFloatPtr(0x587000, 194140 + v3) + *(float*)(a1 + 60);
 	v4 = (int)nox_xxx_newObjectWithTypeInd_4E3450(a2);
 	v5 = v4;
 	if (v4) {
@@ -6819,8 +6819,8 @@ void  nox_xxx_createArrowTrapProjectile_54FA80(int a1, int a2) {
 		v6 = *(_WORD*)(a1 + 124);
 		*(_WORD*)(v5 + 124) = v6;
 		*(_WORD*)(v5 + 126) = v6;
-		*(float*)(v5 + 80) = *getMemFloatPtr(0x587000, 8 * *(__int16*)(a1 + 124) + 194136) * *(float*)(v5 + 544);
-		*(float*)(v5 + 84) = *getMemFloatPtr(0x587000, 8 * *(__int16*)(a1 + 124) + 194140) * *(float*)(v5 + 544);
+		*(float*)(v5 + 80) = *getMemFloatPtr(0x587000, 194136 + 8 * *(__int16*)(a1 + 124)) * *(float*)(v5 + 544);
+		*(float*)(v5 + 84) = *getMemFloatPtr(0x587000, 194140 + 8 * *(__int16*)(a1 + 124)) * *(float*)(v5 + 544);
 		if (!*getMemU32Ptr(0x5D4594, 2491768)) {
 			*getMemU32Ptr(0x5D4594, 2491768) = nox_xxx_getNameId_4E3AA0("MercArcherArrow");
 			*getMemU32Ptr(0x5D4594, 2491772) = nox_xxx_getNameId_4E3AA0("ArrowTrap1");
@@ -7061,22 +7061,22 @@ int  sub_54FFC0(int2* a1, int a2) {
 	v6 = a1->field_0;
 	v7 = a1->field_4;
 	a1a.field_0 = (double)(23 * a1->field_0);
-	v8 = getMemByte(0x587000, 24 * v4 + 313272);
+	v8 = getMemByte(0x587000, 313272 + 24 * v4);
 	a1a.field_4 = (double)(23 * v7);
 	if (v8) {
-		if (getMemByte(0x587000, v4 + 292496) & 2 && sub_57B500(v6 - 1, v7 - 1, v13) == -1)
+		if (getMemByte(0x587000, 292496 + v4) & 2 && sub_57B500(v6 - 1, v7 - 1, v13) == -1)
 			a4 = 1;
-		if (getMemByte(0x587000, v4 + 292496) & 4 && sub_57B500(a1->field_0 + 1, a1->field_4 + 1, v13) == -1)
+		if (getMemByte(0x587000, 292496 + v4) & 4 && sub_57B500(a1->field_0 + 1, a1->field_4 + 1, v13) == -1)
 			a5 = 1;
 		if (v4 == 7 || v4 == 10) {
 			a5 = 1;
 		} else if (v4 == 8 || v4 == 9) {
 			a4 = 1;
-			v9 = sub_550280((int)&a1a, *getMemFloatPtr(0x587000, 24 * v4 + 313276), *getMemFloatPtr(0x587000, 24 * v4 + 313280),
+			v9 = sub_550280((int)&a1a, *getMemFloatPtr(0x587000, 313276 + 24 * v4), *getMemFloatPtr(0x587000, 313280 + 24 * v4),
 							1, a5, a2 + 64, (int)&a7);
 			goto LABEL_21;
 		}
-		v9 = sub_550280((int)&a1a, *getMemFloatPtr(0x587000, 24 * v4 + 313276), *getMemFloatPtr(0x587000, 24 * v4 + 313280), a4,
+		v9 = sub_550280((int)&a1a, *getMemFloatPtr(0x587000, 313276 + 24 * v4), *getMemFloatPtr(0x587000, 313280 + 24 * v4), a4,
 						a5, a2 + 64, (int)&a7);
 	LABEL_21:
 		if (v9) {
@@ -7090,19 +7090,19 @@ int  sub_54FFC0(int2* a1, int a2) {
 				v16 = 1;
 		}
 	}
-	if (getMemByte(0x587000, 24 * v4 + 313284)) {
-		if (getMemByte(0x587000, v4 + 292496) & 8 && sub_57B500(a1->field_0 - 1, a1->field_4 + 1, v13) == -1)
+	if (getMemByte(0x587000, 313284 + 24 * v4)) {
+		if (getMemByte(0x587000, 292496 + v4) & 8 && sub_57B500(a1->field_0 - 1, a1->field_4 + 1, v13) == -1)
 			a4 = 1;
-		if (getMemByte(0x587000, v4 + 292496) & 1 && sub_57B500(a1->field_0 + 1, a1->field_4 - 1, v13) == -1)
+		if (getMemByte(0x587000, 292496 + v4) & 1 && sub_57B500(a1->field_0 + 1, a1->field_4 - 1, v13) == -1)
 			a5 = 1;
 		if (v4 == 7 || v4 == 8) {
 			a4 = 1;
 		} else if (v4 == 9 || v4 == 10) {
-			v11 = sub_5502F0(&a1a, *getMemFloatPtr(0x587000, 24 * v4 + 313288), *getMemFloatPtr(0x587000, 24 * v4 + 313292), a4,
+			v11 = sub_5502F0(&a1a, *getMemFloatPtr(0x587000, 313288 + 24 * v4), *getMemFloatPtr(0x587000, 313292 + 24 * v4), a4,
 							 1, (float2*)(v2 + 64), &a7);
 			goto LABEL_42;
 		}
-		v11 = sub_5502F0(&a1a, *getMemFloatPtr(0x587000, 24 * v4 + 313288), *getMemFloatPtr(0x587000, 24 * v4 + 313292), a4, a5,
+		v11 = sub_5502F0(&a1a, *getMemFloatPtr(0x587000, 313288 + 24 * v4), *getMemFloatPtr(0x587000, 313292 + 24 * v4), a4, a5,
 						 (float2*)(v2 + 64), &a7);
 	LABEL_42:
 		if (v11) {
@@ -7280,7 +7280,7 @@ int  sub_550580(int2* a1, float* a2) {
 		return 0;
 	v5 = (double)(23 * a1->field_0);
 	v6 = (double)(23 * a1->field_4);
-	v7 = getMemAt(0x587000, 24 * v3 + 292520);
+	v7 = getMemAt(0x587000, 292520 + 24 * v3);
 	a1a.field_0 = (a2[17] + a2[16]) * 0.70710677;
 	a1a.field_4 = (a2[17] - a2[16]) * 0.70710677;
 	a3.field_0 = (a2[19] + a2[18]) * 0.70710677;
@@ -7580,8 +7580,8 @@ void  nox_xxx_collisionCheckCircleCircle_550D00(int a1, int a2) {
 	v18.field_4 = *(float*)(a2 + 68) - *(float*)(a1 + 68);
 	if (v18.field_0 == 0.0 && v18.field_4 == 0.0) {
 		v4 = nox_common_randomInt_415FA0(0, 3);
-		v18.field_0 = *getMemFloatPtr(0x587000, 8 * v4 + 292784);
-		v18.field_4 = *getMemFloatPtr(0x587000, 8 * v4 + 292788);
+		v18.field_0 = *getMemFloatPtr(0x587000, 292784 + 8 * v4);
+		v18.field_4 = *getMemFloatPtr(0x587000, 292788 + 8 * v4);
 	}
 	v5 = sqrt(v18.field_4 * v18.field_4 + v18.field_0 * v18.field_0);
 	v22 = v5;
@@ -7800,8 +7800,8 @@ void  sub_551250(unsigned int a1, float* a2, int a3) {
 	v9 = *(__int16*)(v5 + 40) + 128;
 	if (v9 >= 256)
 		v9 = *(__int16*)(v5 + 40) - 128;
-	a1a.field_8 = *getMemFloatPtr(0x587000, 8 * v9 + 194136) * 32.0 + v6;
-	a1a.field_C = *getMemFloatPtr(0x587000, 8 * v9 + 194140) * 32.0 + v29.field_4;
+	a1a.field_8 = *getMemFloatPtr(0x587000, 194136 + 8 * v9) * 32.0 + v6;
+	a1a.field_C = *getMemFloatPtr(0x587000, 194140 + 8 * v9) * 32.0 + v29.field_4;
 	if (v6 >= a1a.field_8) {
 		a2a.field_8 = v6;
 		a2a.field_0 = a1a.field_8;
@@ -7868,9 +7868,9 @@ void  sub_551250(unsigned int a1, float* a2, int a3) {
 										if (v24 >= 256)
 											v24 -= 256;
 										v25 = v40 * v4[30];
-										if ((double)*getMemIntPtr(0x587000, 8 * v24 + 192088) *
+										if ((double)*getMemIntPtr(0x587000, 192088 + 8 * v24) *
 													(v4[17] - *(float*)(v3 + 68)) -
-												(double)*getMemIntPtr(0x587000, 8 * v24 + 192092) *
+												(double)*getMemIntPtr(0x587000, 192092 + 8 * v24) *
 													(v4[16] - *(float*)(v3 + 64)) <=
 											0.0)
 											v26 = v25 + *(float*)(v5 + 32);
@@ -8233,7 +8233,7 @@ int  nox_xxx_allocNetGQueue_5520B0(int a1, int a2) {
 				v4 = nox_common_list_getNextSafe_4258A0(v3);
 				sub_425920((_DWORD**)v3);
 				free(v3);
-				--*getMemU8Ptr( 0x5D4594, 2500076);
+				--*getMemU8Ptr(0x5D4594, 2500076);
 				v3 = v4;
 			} while (v4);
 		}

@@ -63,8 +63,8 @@ int  nox_thing_harpoon_rope_draw(int* a1, nox_drawable* dr) {
 		a1a.field_4 = v14 + v10[4] - v18;
 		a2a.field_0 = v13 + v11[3] - v12;
 		a2a.field_4 = v14 + v11[4] - *((__int16*)v11 + 53) - *((__int16*)v11 + 52) - v18;
-		a1a.field_0 += *getMemU32Ptr(0x587000, 8 * *((unsigned __int8*)v10 + 297) + 175864);
-		a1a.field_4 += *getMemU32Ptr(0x587000, 8 * *((unsigned __int8*)v10 + 297) + 175868);
+		a1a.field_0 += *getMemU32Ptr(0x587000, 175864 + 8 * *((unsigned __int8*)v10 + 297));
+		a1a.field_4 += *getMemU32Ptr(0x587000, 175868 + 8 * *((unsigned __int8*)v10 + 297));
 		a2a.field_4 -= 8;
 		goto LABEL_12;
 	}

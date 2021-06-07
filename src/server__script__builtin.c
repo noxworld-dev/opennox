@@ -82,7 +82,7 @@ int  sub_512E80(int a1) {
 
 	v1 = dword_5d4594_1599628;
 	if (*(int*)&dword_5d4594_1599628 < 1024) {
-		*getMemU32Ptr(0x5D4594, 4 * dword_5d4594_1599628 + 3826092) = a1;
+		*getMemU32Ptr(0x5D4594, 3826092 + 4 * dword_5d4594_1599628) = a1;
 		dword_5d4594_1599628 = ++v1;
 	}
 	return v1 - 1;
@@ -670,8 +670,8 @@ void nox_server_gotoHome(nox_object_t* obj) {
 				v5[1] = 37;
 			v6 = nox_xxx_monsterPushAction_50A260(v2, 25);
 			if (v6) {
-				*((float*)v6 + 1) = *getMemFloatPtr(0x587000, 8 * v4[94] + 194136) * 10.0 + *(float*)(v2 + 56);
-				*((float*)v6 + 2) = *getMemFloatPtr(0x587000, 8 * v4[94] + 194140) * 10.0 + *(float*)(v2 + 60);
+				*((float*)v6 + 1) = *getMemFloatPtr(0x587000, 194136 + 8 * v4[94]) * 10.0 + *(float*)(v2 + 56);
+				*((float*)v6 + 2) = *getMemFloatPtr(0x587000, 194140 + 8 * v4[94]) * 10.0 + *(float*)(v2 + 60);
 			}
 			v7 = nox_xxx_monsterPushAction_50A260(v2, 37);
 			if (v7) {
@@ -1815,7 +1815,7 @@ int nox_script_Effect_514210() {
 	v13 = 87;
 	memcpy(v5, v6, v7 & 3);
 	do {
-		if (!_strcmpi(*(const char**)getMemAt(0x587000, 4 * v13 + 238648), v20))
+		if (!_strcmpi(*(const char**)getMemAt(0x587000, 238648 + 4 * v13), v20))
 			break;
 		v13 = ++v8;
 	} while ((unsigned __int8)v8 <= 0x73u);
@@ -3581,7 +3581,7 @@ int nox_script_OblivionGive_516890() {
 		nox_xxx_delayedDeleteObject_4E5CC0((int)v3);
 	}
 LABEL_7:
-	v4 = nox_xxx_playerRespawnItem_4EF750((int)v0, *(CHAR**)getMemAt(0x587000, 4 * v2 + 247336), 0, 1, 1);
+	v4 = nox_xxx_playerRespawnItem_4EF750((int)v0, *(CHAR**)getMemAt(0x587000, 247336 + 4 * v2), 0, 1, 1);
 	if (v1)
 		nox_xxx_playerTryEquip_4F2F70(v0, (int)v4);
 	return 0;
