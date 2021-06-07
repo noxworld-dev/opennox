@@ -25,6 +25,7 @@ func BlobAccessesC(fs *token.FileSet, name string, data []byte) ([]Access, error
 		}
 		start := loc[0]
 		end := loc[1]
+		endi := end // we must restart from the brace, might be more accesses in args
 		i := indexToken(data[end:], '(', ')')
 		if i < 0 {
 			data = data[end:]
@@ -34,8 +35,8 @@ func BlobAccessesC(fs *token.FileSet, name string, data []byte) ([]Access, error
 		cbase := base
 		end += i + 1
 		expr := data[start:end]
-		data = data[end:]
-		base += end
+		data = data[endi:]
+		base += endi
 
 		a, err := parseExprC(f, cbase+start, expr)
 		if err != nil {

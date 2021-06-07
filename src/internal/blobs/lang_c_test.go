@@ -20,11 +20,12 @@ void foo() {
 	*getMemU32Ptr(0x587000, 8 * dr->field_74_2 + 179884);
 	getMemAt(0x5D4594, i + 2701180 + v1)
 	getMemU8Ptr( 0x5D4594, v47++ + 1212324)
+	*getMemU32Ptr(0x81AE78, 229156 + 4 * (((*getMemIntPtr(0x5D4594, v1 + 2618936) >> 8) - v2) >> 8))
 }
 `
 	list, err := BlobAccessesC(fs, "test.c", []byte(file))
 	require.NoError(t, err)
-	require.Len(t, list, 6)
+	require.Len(t, list, 8)
 
 	resolveString := func(pos []token.Pos) string {
 		require.NotEmpty(t, pos)
@@ -108,4 +109,30 @@ void foo() {
 	require.Equal(t, "+ 1212324", resolveString(a.Off.Pos))
 	require.Equal(t, " v47++", resolveString(a.Index.Pos))
 	require.Equal(t, "getMemU8Ptr(0x5D4594, 1212324 + v47++)", a.String())
+
+	a = list[6]
+	require.Equal(t, "getMemU32Ptr(0x81AE78, 229156 + 4 * (((*getMemIntPtr(0x5D4594, v1 + 2618936) >> 8) - v2) >> 8))", a.Expr.Val)
+	require.Equal(t, "getMemU32Ptr", a.Name.Val)
+	require.Equal(t, uintptr(0x81AE78), a.Blob.Val)
+	require.Equal(t, uintptr(229156), a.Off.Val)
+	require.Equal(t, "+ 4 * (((*getMemIntPtr(0x5D4594, v1 + 2618936) >> 8) - v2) >> 8)", a.Index.Val)
+	require.Equal(t, a.Expr.Val, resolveString(a.Expr.Pos))
+	require.Equal(t, "getMemU32Ptr", resolveString(a.Name.Pos))
+	require.Equal(t, "0x81AE78", resolveString(a.Blob.Pos))
+	require.Equal(t, " 229156", resolveString(a.Off.Pos))
+	require.Equal(t, "+ 4 * (((*getMemIntPtr(0x5D4594, v1 + 2618936) >> 8) - v2) >> 8)", resolveString(a.Index.Pos))
+	require.Equal(t, "getMemU32Ptr(0x81AE78, 229156 + 4 * (((*getMemIntPtr(0x5D4594, v1 + 2618936) >> 8) - v2) >> 8))", a.String())
+
+	a = list[7]
+	require.Equal(t, "getMemIntPtr(0x5D4594, v1 + 2618936)", a.Expr.Val)
+	require.Equal(t, "getMemIntPtr", a.Name.Val)
+	require.Equal(t, uintptr(0x5D4594), a.Blob.Val)
+	require.Equal(t, uintptr(2618936), a.Off.Val)
+	require.Equal(t, "+ v1", a.Index.Val)
+	require.Equal(t, a.Expr.Val, resolveString(a.Expr.Pos))
+	require.Equal(t, "getMemIntPtr", resolveString(a.Name.Pos))
+	require.Equal(t, "0x5D4594", resolveString(a.Blob.Pos))
+	require.Equal(t, "+ 2618936", resolveString(a.Off.Pos))
+	require.Equal(t, " v1", resolveString(a.Index.Pos))
+	require.Equal(t, "getMemIntPtr(0x5D4594, 2618936 + v1)", a.String())
 }
