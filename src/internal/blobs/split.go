@@ -34,6 +34,33 @@ func SplitBlob(blob, off, size uintptr) error {
 	if err = bl.Write(); err != nil {
 		return err
 	}
+
+	m, err := ReadMemmap()
+	if err != nil {
+		return err
+	}
+	for i, v := range m.Vars {
+		if v.Blob != blob || v.Off < off || v.Off+v.Size < base {
+			continue
+		}
+		if size != 0 && v.Off >= off && v.Off < base && v.Off+v.Size > base {
+			return fmt.Errorf("one of the mappings is not aligned with the gap: 0x%x, %d", v.Blob, v.Off)
+		}
+		p := &m.Vars[i]
+		if v.Off < base {
+			// inside the gap
+			p.Blob += off
+			p.Off -= off
+		} else {
+			// after the gap
+			p.Blob += base
+			p.Off -= base
+		}
+	}
+	if err = m.Write(); err != nil {
+		return err
+	}
+
 	return RewriteAccess(func(a *Access) (bool, error) {
 		if a.Blob.Val != blob || a.Off.Val < off {
 			// different blob or the first half of the old one
