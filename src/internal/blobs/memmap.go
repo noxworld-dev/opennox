@@ -6,16 +6,19 @@ import (
 	"fmt"
 	"os"
 	"regexp"
+	"sort"
 	"strconv"
 )
 
-var reMapping = regexp.MustCompile(`[ \t]+\{0x([A-Fa-f\d]+), (\d+), (\d+), ("[^"]+")\},\s*(?://\s*0x[A-Fa-f\d]+)?\n`)
+var reMapping = regexp.MustCompile(`[ \t]+(//[ \t]*)?\{0x([A-Fa-f\d]+), (\d+), (\d+), ("[^"]+")\},\s*(?://\s*(?:(?:0x[A-Fa-f\d]+)|([A-Z]+:[^\n]+)))?\n`)
 
 type Var struct {
-	Blob uintptr
-	Off  uintptr
-	Size uintptr
-	Name string
+	Blob     uintptr
+	Off      uintptr
+	Size     uintptr
+	Name     string
+	Comment  string
+	Disabled bool
 }
 
 type Mapping struct {
@@ -41,30 +44,41 @@ func ReadMemmap() (*Mapping, error) {
 		if len(bytes.TrimSpace(data[:start])) > 0 {
 			m.pre = append(m.pre, data[:start]...)
 		}
-		blob, err := strconv.ParseUint(string(data[loc[2]:loc[3]]), 16, 64)
+		disabled := loc[2] >= 0
+		blob, err := strconv.ParseUint(string(data[loc[4]:loc[5]]), 16, 64)
 		if err != nil {
 			return nil, err
 		}
-		off, err := strconv.ParseUint(string(data[loc[4]:loc[5]]), 0, 64)
+		off, err := strconv.ParseUint(string(data[loc[6]:loc[7]]), 0, 64)
 		if err != nil {
 			return nil, err
 		}
-		size, err := strconv.ParseUint(string(data[loc[6]:loc[7]]), 0, 64)
+		size, err := strconv.ParseUint(string(data[loc[8]:loc[9]]), 0, 64)
 		if err != nil {
 			return nil, err
 		}
-		name, err := strconv.Unquote(string(data[loc[8]:loc[9]]))
+		name, err := strconv.Unquote(string(data[loc[10]:loc[11]]))
 		if err != nil {
 			return nil, err
+		}
+		var cm string
+		if len(loc) >= 14 && loc[12] > 0 {
+			cm = string(data[loc[12]:loc[13]])
 		}
 		m.Vars = append(m.Vars, Var{
-			Blob: uintptr(blob),
-			Off:  uintptr(off),
-			Size: uintptr(size),
-			Name: name,
+			Blob:     uintptr(blob),
+			Off:      uintptr(off),
+			Size:     uintptr(size),
+			Name:     name,
+			Comment:  cm,
+			Disabled: disabled,
 		})
 		data = data[end:]
 	}
+	sort.Slice(m.Vars, func(i, j int) bool {
+		v1, v2 := m.Vars[i], m.Vars[j]
+		return v1.Blob+v1.Off < v2.Blob+v2.Off
+	})
 	m.post = append(m.post, data...)
 	return m, nil
 }
@@ -82,7 +96,15 @@ func (m *Mapping) Write() error {
 	}
 	bw := bufio.NewWriter(f)
 	for _, v := range m.Vars {
-		_, err = fmt.Fprintf(bw, "\t{0x%X, %d, %d, %q},\t// 0x%X\n", v.Blob, v.Off, v.Size, v.Name, v.Blob+v.Off)
+		tab := "\t"
+		if v.Disabled {
+			tab = "\t// "
+		}
+		cm := v.Comment
+		if cm == "" {
+			cm = fmt.Sprintf("0x%X", v.Blob+v.Off)
+		}
+		_, err = fmt.Fprintf(bw, "%s{0x%X, %d, %d, %q},\t// %s\n", tab, v.Blob, v.Off, v.Size, v.Name, cm)
 		if err != nil {
 			return err
 		}
