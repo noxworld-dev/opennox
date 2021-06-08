@@ -40,7 +40,9 @@ func SplitBlob(blob, off, size uintptr) error {
 	bl.Update(*old)
 
 	// add new blob
-	bl.Add(Blob{Blob: rightBlob, Size: rightSize, Data: data})
+	if rightSize > 0 {
+		bl.Add(Blob{Blob: rightBlob, Size: rightSize, Data: data})
+	}
 
 	if err = bl.Write(); err != nil {
 		return err
