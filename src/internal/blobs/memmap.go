@@ -115,5 +115,8 @@ func (m *Mapping) Write() error {
 	if _, err = f.Write(m.post); err != nil {
 		return err
 	}
+	if err := goFormat(memmapGo2); err != nil {
+		return err
+	}
 	return f.Close()
 }

@@ -55,6 +55,11 @@ func RewriteAccess(fnc func(a *Access) (bool, error)) error {
 					if err := ioutil.WriteFile(Path(path), buf.Bytes(), 0644); err != nil {
 						return err
 					}
+					if ext == ".go" {
+						if err := goFormat(path); err != nil {
+							return err
+						}
+					}
 					if dt := time.Since(start); dt > time.Second {
 						log.Println("rewriting", path, ":", dt)
 					}

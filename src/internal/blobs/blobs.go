@@ -346,7 +346,13 @@ func (b *Blobs) writeMemmapGo1() error {
 	if _, err = f.Write(b.mapg1.post); err != nil {
 		return err
 	}
-	return f.Close()
+	if err := f.Close(); err != nil {
+		return err
+	}
+	if err := goFormat(memmapGo1); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (b *Blobs) readMemmapGo2() error {
@@ -412,7 +418,13 @@ func (b *Blobs) writeMemmapGo2() error {
 	if _, err = f.Write(b.mapg2.post); err != nil {
 		return err
 	}
-	return f.Close()
+	if err := f.Close(); err != nil {
+		return err
+	}
+	if err := goFormat(memmapGo2); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (b *Blobs) readData() error {

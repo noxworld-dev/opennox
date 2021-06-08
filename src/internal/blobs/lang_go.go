@@ -4,6 +4,7 @@ import (
 	"go/ast"
 	"go/parser"
 	"go/token"
+	"os/exec"
 	"strconv"
 )
 
@@ -166,4 +167,10 @@ func (vs *blobAccessVisitor) getStatic(n ast.Node) (*AddrPos, *StringPos) {
 		}
 	}
 	return nil, vs.newString(n)
+}
+
+func goFormat(path string) error {
+	cmd := exec.Command("go", "fmt", path)
+	cmd.Dir = Path()
+	return cmd.Run()
 }
