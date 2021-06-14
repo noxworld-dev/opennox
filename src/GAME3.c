@@ -4085,6 +4085,12 @@ _DWORD* sub_4AAA70() {
 		v6 = 323;
 	v0 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1309720, v6);
 	nox_window_call_field_94((int)v0, 16392, 1, 0);
+	// TODO: This is original handling of 8/16bit and windowed/fullscreen.
+	//       However, windowed/fullscreen switch is not present in options.wnd, thus it's not visible in the menu,
+	//       even though the code for it exists here.
+	//       So currently we just pretend that 8/16bit switch actually corresponds to windowed/fullscreen.
+	//       Later we should refactor it to inject those switches.
+#if 0
 	if (v9 == 8) {
 		v1 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1309720, 331);
 	} else {
@@ -4096,6 +4102,14 @@ _DWORD* sub_4AAA70() {
 	else
 		v1 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1309720, 334);
 	nox_window_call_field_94((int)v1, 16392, 1, 0);
+#endif
+	if (!nox_video_getFullScreen()) {
+		v1 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1309720, 331);
+	} else {
+		v1 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1309720, 332);
+	}
+	nox_window_call_field_94((int)v1, 16392, 1, 0);
+
 	nox_window_call_field_94(nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1309820, 316), 16394, (draw_gamma - 0.5f) * 50, 0);
 	nox_window_call_field_94(nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1309820, 318), 16394,
 							 (log10f(nox_input_getSensitivity()) + 1.0f) * 50, 0);
