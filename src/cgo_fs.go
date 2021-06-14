@@ -9,16 +9,14 @@ import (
 	"bufio"
 	"io"
 	"os"
-	"path/filepath"
 	"sync"
 	"unicode"
 	"unsafe"
 
 	"nox/v1/common/alloc/handles"
+	"nox/v1/common/datapath"
 	"nox/v1/common/fs"
 )
-
-var noxDataPath string
 
 var files struct {
 	sync.RWMutex
@@ -110,23 +108,9 @@ func (f *File) Close() error {
 	return f.File.Close()
 }
 
-func setDataPath(path string) {
-	noxDataPath = path
-}
-
-func getDataPath(parts ...string) string {
-	if len(parts) == 0 {
-		return noxDataPath
-	}
-	args := make([]string, 0, 1+len(parts))
-	args = append(args, noxDataPath)
-	args = append(args, parts...)
-	return filepath.Join(args...)
-}
-
 //export nox_fs_root
 func nox_fs_root() *C.char {
-	return internCStr(getDataPath())
+	return internCStr(datapath.Path())
 }
 
 //export nox_fs_normalize

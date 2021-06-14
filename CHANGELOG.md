@@ -3,6 +3,7 @@
 ## v1.6.0
 
 - Rename project to OpenNox to avoid confusion.
+- Automatically set Nox data folder. Supports Origin, GoG and Nox Reloaded.
 - Keep 4:3 aspect ratio when resizing game window.
 - Toggle fullscreen mode with Alt+Enter.
 - Add `set health` and `set mana` cheats.

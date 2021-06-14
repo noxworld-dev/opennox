@@ -54,12 +54,12 @@ import (
 	"unsafe"
 
 	"nox/v1/common/alloc/handles"
+	"nox/v1/common/datapath"
 	noxflags "nox/v1/common/flags"
 	"nox/v1/common/memmap"
 )
 
 func init() {
-	handles.Init()
 	go func() {
 		if err := http.ListenAndServe("127.0.0.1:6060", nil); err != nil {
 			log.Printf("failed to start pprof: %v", err)
@@ -77,9 +77,6 @@ var (
 var _ = [1]struct{}{}[unsafe.Sizeof(int(0))-4]
 
 func main() {
-	log.Printf("[nox] version: %s (%s)", Version, Commit)
-	defer handles.Release()
-	C.init_data()
 	if err := runNox(os.Args); err != nil && err != flag.ErrHelp {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
@@ -87,9 +84,13 @@ func main() {
 }
 
 func runNox(args []string) error {
+	log.Printf("[nox] version: %s (%s)", Version, Commit)
+	handles.Init()
+	defer handles.Release()
 	flags := flag.NewFlagSet("", flag.ContinueOnError)
 	// TODO: add missing flag descriptions
 	var (
+		fData       = flags.String("data", "", "explicitly set Nox data dir")
 		fServer     = flags.Bool("serveronly", false, "run the server only")
 		fWindow     = flags.Bool("window", false, "window")
 		fSWindow    = flags.Bool("swindow", false, "swindow")
@@ -120,6 +121,13 @@ func runNox(args []string) error {
 	if err := flags.Parse(args[1:]); err != nil {
 		return err
 	}
+	if path := *fData; path != "" {
+		datapath.Set(path)
+	}
+	if err := os.Chdir(datapath.Path()); err != nil {
+		return err
+	}
+	C.init_data()
 	isServer = *fAutoServer
 	isServerQuest = *fAutoQuest
 	serverExec = strings.Split(*fAutoExec, ";")
@@ -261,11 +269,6 @@ func runNox(args []string) error {
 	if *fNoSoft {
 		resetEngineFlag(NOX_ENGINE_FLAG_12)
 	}
-	wd, err := os.Getwd()
-	if err != nil {
-		return fmt.Errorf("cannot get workdir: %w", err)
-	}
-	setDataPath(wd)
 	// C.nox_common_readSKU_fromRegistry_4D78C0()
 	C.fesetround(C.FE_TOWARDZERO)
 	C.nox_xxx_servSetPlrLimit_409F80(32)

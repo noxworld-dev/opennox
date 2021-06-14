@@ -6,6 +6,7 @@ import (
 	"strings"
 
 	"nox/v1/client/system/parsecmd"
+	"nox/v1/common/datapath"
 	"nox/v1/common/maps"
 	"nox/v1/server/script"
 	"nox/v1/server/script/lua"
@@ -56,7 +57,7 @@ func luaMaybeInitMap() {
 	lua.Log.Printf("loading script for map %q", mp)
 	scriptLUA.curmap = mp
 	mp = strings.TrimSuffix(mp, maps.Ext)
-	mapDir := getDataPath(maps.Dir, mp)
+	mapDir := datapath.Path(maps.Dir, mp)
 	scriptLUA.vm = lua.NewVM(noxScript{}, mapDir)
 	lname := mp + ".lua"
 	err := scriptLUA.vm.ExecFile(filepath.Join(mapDir, lname))

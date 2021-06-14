@@ -17,6 +17,7 @@ import (
 	"sync"
 
 	"nox/v1/common/bag"
+	"nox/v1/common/datapath"
 )
 
 var debugBagImages = os.Getenv("NOX_DEBUG_BAG_IMAGES") == "true"
@@ -35,7 +36,7 @@ var videoBag struct {
 }
 
 func loadAndIndexVideoBag() error {
-	f, err := bag.Open(getDataPath("video.bag"))
+	f, err := bag.Open(datapath.Path("video.bag"))
 	if err != nil {
 		return fmt.Errorf("error reading video bag: %w", err)
 	}
@@ -62,7 +63,7 @@ func loadAndIndexVideoBag() error {
 }
 
 func openVideoZip() error {
-	zf, err := zip.OpenReader(getDataPath("video.bag.zip"))
+	zf, err := zip.OpenReader(datapath.Path("video.bag.zip"))
 	if os.IsNotExist(err) {
 		return nil
 	} else if err != nil {
@@ -172,7 +173,7 @@ func imageByBagSection(sect, offs int) (*bag.Image, error) {
 	}
 	ext := path.Ext(img.Name)
 	base := strings.TrimSuffix(img.Name, ext)
-	base = getDataPath("images", base)
+	base = datapath.Path("images", base)
 	im, err := openImage(base)
 	if os.IsNotExist(err) {
 		if debug {

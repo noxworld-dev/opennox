@@ -10,6 +10,7 @@ import "C"
 import (
 	"os"
 
+	"nox/v1/common/datapath"
 	"nox/v1/common/maps"
 )
 
@@ -17,7 +18,7 @@ var soloAllowMP = os.Getenv("NOX_SOLO_MP") == "true"
 
 func nox_common_scanAllMaps_4D07F0() error {
 	C.nox_common_list_clear_425760(&C.nox_common_maplist)
-	list, err := maps.Scan(getDataPath(maps.Dir), &maps.ScanOptions{
+	list, err := maps.Scan(datapath.Path(maps.Dir), &maps.ScanOptions{
 		Solo: soloAllowMP,
 	})
 	if err != nil && len(list) == 0 {

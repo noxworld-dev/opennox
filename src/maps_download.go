@@ -17,6 +17,7 @@ import (
 	"path/filepath"
 	"strings"
 
+	"nox/v1/common/datapath"
 	"nox/v1/common/log"
 	"nox/v1/common/maps"
 )
@@ -139,7 +140,7 @@ func mapDownloadLoop(first bool) (bool, error) {
 				defer cli.Close()
 				defer close(errc)
 
-				err := cli.DownloadMap(ctx, getDataPath(maps.Dir), name)
+				err := cli.DownloadMap(ctx, datapath.Path(maps.Dir), name)
 				if err != nil {
 					mapsendLog.Println("download failed:", err)
 					errc <- err

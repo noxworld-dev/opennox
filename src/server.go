@@ -44,9 +44,9 @@ import "C"
 import (
 	"encoding/binary"
 	"errors"
-	"fmt"
 	"unsafe"
 
+	"nox/v1/common/datapath"
 	noxflags "nox/v1/common/flags"
 	"nox/v1/common/fs"
 	"nox/v1/common/memmap"
@@ -382,5 +382,5 @@ func nox_xxx_servEndSession_4D3200() {
 	}
 	C.sub_56F3B0()
 	C.nox_netlist_resetAll_40EE60()
-	_ = fs.Remove(fmt.Sprintf("%s\\Save\\_temp_.dat", getDataPath()))
+	_ = fs.Remove(datapath.Path("save/_temp_.dat"))
 }

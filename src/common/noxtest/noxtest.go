@@ -1,14 +1,15 @@
 package noxtest
 
 import (
-	"os"
 	"testing"
+
+	"nox/v1/common/datapath"
 )
 
 func DataPath(t testing.TB) string {
-	path := os.Getenv("NOX_DATA")
+	path := datapath.Path()
 	if path == "" {
-		t.Skip("NOX_DATA is not set")
+		t.Skip("cannot detect Nox path and NOX_DATA is not set")
 	}
 	return path
 }
