@@ -51,13 +51,7 @@ func (noxScript) Players() []script.Player {
 }
 
 func (noxScript) HostPlayer() script.Player {
-	// TODO: better way
-	for _, p := range getPlayers() {
-		if p.IsHost() {
-			return p
-		}
-	}
-	return nil
+	return HostPlayer()
 }
 
 func (noxScript) ObjectTypeByID(id string) script.ObjectType {

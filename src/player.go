@@ -58,6 +58,16 @@ func PrintToPlayers(text string) {
 	C.nox_xxx_printToAll_4D9FD0_go(0, cstr)
 }
 
+func HostPlayer() *Player {
+	// TODO: better way
+	for _, p := range getPlayers() {
+		if p.IsHost() {
+			return p
+		}
+	}
+	return nil
+}
+
 var _ noxObject = (*Player)(nil) // proxies Unit
 
 type Player C.nox_playerInfo

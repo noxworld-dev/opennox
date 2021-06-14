@@ -3,6 +3,7 @@
 ## v1.6.0
 
 - Keep 4:3 aspect ratio when resizing game window.
+- Add `set health` and `set mana` cheats.
 
 ## v1.5.0
 
