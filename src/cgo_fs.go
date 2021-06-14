@@ -129,11 +129,6 @@ func nox_fs_workdir(dst *C.char, max C.int) C.bool {
 	return len(dir) <= n
 }
 
-//export nox_fs_progname
-func nox_fs_progname(dst *C.char, max C.int) {
-	StrCopy(dst, int(max), fs.ProgName())
-}
-
 //export nox_fs_remove
 func nox_fs_remove(path *C.char) C.bool {
 	return fs.Remove(C.GoString(path)) == nil
@@ -451,4 +446,10 @@ func nox_fs_append_text(path *C.char) *C.FILE {
 		return nil
 	}
 	return newFileHandle(&File{File: f, text: true})
+}
+
+//export nox_readHiddenCode_4145F0
+func nox_readHiddenCode_4145F0(dst *C.char) C.int {
+	// this usually reads some hidden code that is then displayed in the legal screen
+	return 0
 }

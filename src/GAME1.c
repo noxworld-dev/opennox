@@ -6418,7 +6418,8 @@ void*  sub_4145C0(size_t a1, size_t a2) { return calloc(a1, a2); }
 void  sub_4145E0(LPVOID lpMem) { free(lpMem); }
 
 //----- (004145F0) --------------------------------------------------------
-int  sub_4145F0(_DWORD* a1) {
+#ifndef NOX_CGO
+int  nox_readHiddenCode_4145F0(char* a1) {
 	int v1;                  // edi
 	FILE* v2;               // eax
 	void* v3;                // esi
@@ -6486,6 +6487,7 @@ char  sub_414690(unsigned int* a1, void(__stdcall* a2)(char*)) {
 	}
 	return v7;
 }
+#endif // NOX_CGO
 
 //----- (00414800) --------------------------------------------------------
 int sub_414800() {
@@ -6590,6 +6592,7 @@ char*  nox_common_convertWideToMbString_414B00(LPCWSTR lpWideCharStr, LPSTR lpMu
 	return _strrev(lpMultiByteStr);
 }
 
+#ifndef NOX_CGO
 //----- (00414B30) --------------------------------------------------------
 void nox_common_readHiddenExeMsg_414B30(uint8_t* src_8byte, uint8_t* dst_12byte) {
 	// This decodes 8 bytes(a1) into 12 bytes(a2) using 5-bit encoding and an alphabet.
@@ -6639,6 +6642,7 @@ int main(){
 		*decoded_string++ = alphabet[dec_symbol_idx];
 	}
 }
+#endif // NOX_CGO
 
 //----- (00414BA0) --------------------------------------------------------
 int  sub_414BA0(int a1) {

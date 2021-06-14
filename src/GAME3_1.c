@@ -7104,7 +7104,7 @@ int nox_game_showLegal_4CC4E0() // display legal window
 	v3 = nox_xxx_getNoxVer_401020();
 	nox_window_call_field_94((int)v2, 16385, (int)v3, 0);
 	v4 = nox_xxx_wndGetChildByID_46B0C0(nox_win_legalBg_1522892, 9998);
-	if (!sub_4145F0(v10))
+	if (!nox_readHiddenCode_4145F0(v10))
 		v10[0] = 0;
 	nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1522896), L"%S", v10);
 	nox_window_call_field_94((int)v4, 16385, (int)getMemAt(0x5D4594, 1522896), 0);

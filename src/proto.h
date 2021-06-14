@@ -439,7 +439,7 @@ int sub_4145A0();
 int sub_4145B0();
 void*  sub_4145C0(size_t a1, size_t a2);
 void  sub_4145E0(LPVOID lpMem);
-int  sub_4145F0(_DWORD* a1);
+int  nox_readHiddenCode_4145F0(char* a1);
 char  sub_414690(unsigned int* a1, void(__stdcall* a2)(char*));
 BOOL  sub_4147E0(HWND hWnd);
 int sub_414800();

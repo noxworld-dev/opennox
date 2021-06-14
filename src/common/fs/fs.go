@@ -7,10 +7,6 @@ import (
 	"path/filepath"
 )
 
-func ProgName() string {
-	return Denormalize(os.Args[0])
-}
-
 func Stat(path string) (os.FileInfo, error) {
 	return os.Stat(Normalize(path))
 }
