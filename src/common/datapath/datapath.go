@@ -62,8 +62,10 @@ func Find() string {
 	}
 	// search in registry by default
 	consider = append(consider, registryPaths()...)
-	// prefer GoG, since it's patched
+	// prefer GoG, since it's patched and official
 	consider = append(consider, gogPaths()...)
+	// then try Reloaded: patched, though unofficial
+	consider = append(consider, reloadedPaths()...)
 	// lastly, check Origin
 	consider = append(consider, originPaths()...)
 	for _, path := range consider {
