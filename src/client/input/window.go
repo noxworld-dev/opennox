@@ -81,6 +81,13 @@ func (h *Handler) processQuitEvent(ev *sdl.QuitEvent) {
 	h.iface.WindowEvent(WindowQuit)
 }
 
+func (h *Handler) processFullscreenToggle() {
+	if h.iface == nil {
+		return
+	}
+	h.iface.WindowEvent(WindowToggleFullscreen)
+}
+
 func (h *Handler) processWindowEvent(ev *sdl.WindowEvent) {
 	if h.iface == nil {
 		return

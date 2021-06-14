@@ -91,6 +91,8 @@ func (noxInput) WindowEvent(ev input.WindowEvent) {
 		noxWindow.SetGrab(true)
 	case input.WindowUnacquireMouse:
 		noxWindow.SetGrab(false)
+	case input.WindowToggleFullscreen:
+		toggleFullsreen()
 	case input.WindowQuit:
 		mainloopStop()
 	}

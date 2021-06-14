@@ -19,6 +19,11 @@ func (h *Handler) inputKeyboard(code sdl.Scancode, pressed bool) {
 }
 
 func (h *Handler) processKeyboardEvent(ev *sdl.KeyboardEvent) {
+	// toggle fullscreen with Alt+Enter
+	if ev.Keysym.Scancode == sdl.SCANCODE_RETURN && ev.State == sdl.PRESSED && ev.Keysym.Mod&sdl.KMOD_ALT != 0 {
+		h.processFullscreenToggle()
+		return
+	}
 	h.inputKeyboard(ev.Keysym.Scancode, ev.State == sdl.PRESSED)
 }
 

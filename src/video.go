@@ -17,6 +17,7 @@ const (
 
 var (
 	noxFullScreen    int = -4 // unset
+	noxBorderless        = false
 	noxPresentTicks  uint
 	videoLog         = log.New("video")
 	noxVideoModeMenu = renderMode{
@@ -158,4 +159,25 @@ func changeWindowedOrFullscreen() {
 		// Windowed
 		setWindowedMode(windowedSize, windowedPos)
 	}
+}
+
+func toggleFullsreen() {
+	switch noxFullScreen {
+	case -1, 1:
+		// Normal fullscreen -> Windowed
+		noxBorderless = false
+		noxFullScreen = -3
+	case -2, 2:
+		// Borderless fullscreen -> Windowed
+		noxBorderless = true
+		noxFullScreen = -3
+	default:
+		// Windowed -> last fullscreen
+		if noxBorderless {
+			noxFullScreen = -2
+		} else {
+			noxFullScreen = -1
+		}
+	}
+	changeWindowedOrFullscreen()
 }

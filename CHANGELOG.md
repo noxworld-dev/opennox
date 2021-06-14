@@ -4,6 +4,7 @@
 
 - Rename project to OpenNox to avoid confusion.
 - Keep 4:3 aspect ratio when resizing game window.
+- Toggle fullscreen mode with Alt+Enter.
 - Add `set health` and `set mana` cheats.
 
 ## v1.5.0

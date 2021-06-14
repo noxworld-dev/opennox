@@ -158,6 +158,7 @@ func setWindowRect(size types.Size, pos image.Point) {
 }
 
 func setFullScreenMode(size types.Size, pos image.Point) {
+	noxBorderless = false
 	noxWindow.SetResizable(false)
 	noxWindow.SetBordered(false)
 	setWindowRect(size, pos)
@@ -166,6 +167,7 @@ func setFullScreenMode(size types.Size, pos image.Point) {
 }
 
 func setFullScreenBorderlessMode(size types.Size, pos image.Point) {
+	noxBorderless = true
 	noxWindow.SetFullscreen(0)
 	noxWindow.SetResizable(false)
 	noxWindow.SetBordered(true)
