@@ -11,7 +11,7 @@ if [ "$VERSION" = "undefined" ]; then
 fi
 NOX_LDFLAGS="-X 'main.Commit=$GIT_SHA' -X 'main.Version=$VERSION'"
 
-go build -v -ldflags="$NOX_LDFLAGS" -o noxg
-go build -v -ldflags="$NOX_LDFLAGS" -tags server -o nox-server
+go build -v -ldflags="$NOX_LDFLAGS" -o opennox
+go build -v -ldflags="$NOX_LDFLAGS" -tags server -o opennox-server
 go build -v -ldflags="$NOX_LDFLAGS" -o noxtools ./cmd/noxtools
 echo "Build complete: $VERSION ($GIT_SHA)"

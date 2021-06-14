@@ -1,10 +1,10 @@
 #!/bin/bash
 set -e
 
-TMP_DIR=/tmp/noxg-release
-NOXG_LINUX=~/Downloads/noxg-linux.zip
-NOXG_WIN=~/Downloads/noxg-win.zip
-NOX_WIN=~/Downloads/nox-win.zip
+TMP_DIR=/tmp/opennox-release
+NOXG_LINUX=~/Downloads/opennox-linux.zip
+NOXG_WIN=~/Downloads/opennox-win.zip
+NOX_WIN=~/Downloads/opennox-win.zip
 NOX_SRC="$(pwd)"
 
 rm -rf "$TMP_DIR"
@@ -23,25 +23,25 @@ mkdir tmp-win-3
 unzip ./tmp-win-2/nox-win.zip -d ./tmp-win-3/
 rm -rf ./tmp-win-2/
 
-mkdir ./noxg-win
-cp ./tmp-win/*.dll ./noxg-win/
-cp ./tmp-win-3/tmp/*.exe ./noxg-win/
-cp $NOX_SRC/CHANGELOG.md ./noxg-win/
-mkdir ./noxg-win/docs
-cp $NOX_SRC/docs/game-*.md ./noxg-win/docs/
-cp $NOX_SRC/docs/mod-*.md ./noxg-win/docs/
-cp $NOX_SRC/docs/maps-*.md ./noxg-win/docs/
+mkdir ./opennox-win
+cp ./tmp-win/*.dll ./opennox-win/
+cp ./tmp-win-3/tmp/*.exe ./opennox-win/
+cp $NOX_SRC/CHANGELOG.md ./opennox-win/
+mkdir ./opennox-win/docs
+cp $NOX_SRC/docs/game-*.md ./opennox-win/docs/
+cp $NOX_SRC/docs/mod-*.md ./opennox-win/docs/
+cp $NOX_SRC/docs/maps-*.md ./opennox-win/docs/
 
 rm -rf ./tmp-win/
 rm -rf ./tmp-win-3/
 
-cd ./noxg-win
-zip -9 -r ../noxg-win.zip ./*
+cd ./opennox-win
+zip -9 -r ../opennox-win.zip ./*
 cd ..
 
-rm -rf ./noxg-win
+rm -rf ./opennox-win
 
-cp ./noxg-win.zip "$NOX_SRC/"
+cp ./opennox-win.zip "$NOX_SRC/"
 
 # ==== [ Linux ] ====
 
@@ -52,20 +52,20 @@ mkdir tmp-linux-2
 tar -xvzf ./tmp-linux/nox-linux.tar.gz -C ./tmp-linux-2/
 rm -rf ./tmp-linux/
 
-mkdir ./noxg-linux
-cp ./tmp-linux-2/tmp/* ./noxg-linux/
-cp $NOX_SRC/CHANGELOG.md ./noxg-linux/
-mkdir ./noxg-linux/docs
-cp $NOX_SRC/docs/game-*.md ./noxg-linux/docs/
-cp $NOX_SRC/docs/mod-*.md ./noxg-linux/docs/
-cp $NOX_SRC/docs/maps-*.md ./noxg-linux/docs/
+mkdir ./opennox-linux
+cp ./tmp-linux-2/tmp/* ./opennox-linux/
+cp $NOX_SRC/CHANGELOG.md ./opennox-linux/
+mkdir ./opennox-linux/docs
+cp $NOX_SRC/docs/game-*.md ./opennox-linux/docs/
+cp $NOX_SRC/docs/mod-*.md ./opennox-linux/docs/
+cp $NOX_SRC/docs/maps-*.md ./opennox-linux/docs/
 
 rm -rf ./tmp-linux-2/
 
-cd ./noxg-linux
-tar -czf ../noxg-linux.tar.gz ./*
+cd ./opennox-linux
+tar -czf ../opennox-linux.tar.gz ./*
 cd ..
 
-rm -rf ./noxg-linux
+rm -rf ./opennox-linux
 
-cp ./noxg-linux.tar.gz "$NOX_SRC/"
+cp ./opennox-linux.tar.gz "$NOX_SRC/"

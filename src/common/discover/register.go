@@ -120,7 +120,7 @@ func (s *RegServer) register(ctx context.Context, info xwis.GameInfo) {
 
 func infoSetDefaults(info *xwis.GameInfo) {
 	if info.Name == "" {
-		info.Name = "Noxg Server"
+		info.Name = "OpenNox Server"
 	}
 	if info.Map == "" {
 		info.Map = "estate"

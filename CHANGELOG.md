@@ -2,6 +2,7 @@
 
 ## v1.6.0
 
+- Rename project to OpenNox to avoid confusion.
 - Keep 4:3 aspect ratio when resizing game window.
 - Add `set health` and `set mana` cheats.
 

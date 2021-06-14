@@ -47,17 +47,17 @@ jobs:
 
       - name: Prepare the binaries
         run: |
-          cp ./src/noxg /tmp/noxg
-          cp ./src/nox-server /tmp/nox-server
+          cp ./src/opennox /tmp/opennox
+          cp ./src/opennox-server /tmp/opennox-server
           cp ./src/noxtools /tmp/noxtools
-          tar -czf /tmp/nox-linux.tar.gz /tmp/noxg /tmp/nox-server /tmp/noxtools
+          tar -czf /tmp/opennox-linux.tar.gz /tmp/opennox /tmp/opennox-server /tmp/noxtools
 
       - name: Upload the binary
         uses: actions/upload-artifact@v2
         if: startsWith(github.ref, 'refs/tags/v')
         with:
-          name: noxg-linux
-          path: /tmp/nox-linux.tar.gz
+          name: opennox-linux
+          path: /tmp/opennox-linux.tar.gz
 
   hybrid_linux_mingw_go:
     name: Go Win build on Linux Host
@@ -108,17 +108,17 @@ jobs:
 
       - name: Prepare the binary
         run: |
-          cp ./src/noxg.exe /tmp/noxg.exe
-          cp ./src/nox-server.exe /tmp/nox-server.exe
+          cp ./src/opennox.exe /tmp/opennox.exe
+          cp ./src/opennox-server.exe /tmp/opennox-server.exe
           cp ./src/noxtools.exe /tmp/noxtools.exe
-          zip /tmp/nox-win.zip /tmp/noxg.exe /tmp/nox-server.exe /tmp/noxtools.exe
+          zip /tmp/opennox-win.zip /tmp/opennox.exe /tmp/opennox-server.exe /tmp/noxtools.exe
 
       - name: Upload the binary
         uses: actions/upload-artifact@v2
         if: startsWith(github.ref, 'refs/tags/v')
         with:
-          name: noxg-win
-          path: /tmp/nox-win.zip
+          name: opennox-win
+          path: /tmp/opennox-win.zip
 
   hybrid_linux_gcc:
     name: alpine-386-gcc-github on Linux Host
