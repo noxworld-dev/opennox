@@ -159,6 +159,7 @@ func changeWindowedOrFullscreen() {
 		// Windowed
 		setWindowedMode(windowedSize, windowedPos)
 	}
+	cfgUpdateFullScreen()
 }
 
 func toggleFullsreen() {

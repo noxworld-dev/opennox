@@ -3,6 +3,7 @@ package main
 /*
 #include "client__video__draw_common.h"
 #include "proto.h"
+extern int g_fullscreen_cfg;
 extern unsigned int dword_5d4594_805860;
 extern unsigned int nox_game_loop_xxx_805872;
 extern int nox_video_dxFullScreen;
@@ -46,6 +47,10 @@ func getBackBufferMode() renderMode {
 		Height: int(C.nox_backbuffer_height),
 		Depth:  int(C.nox_backbuffer_depth),
 	}
+}
+
+func cfgUpdateFullScreen() {
+	C.g_fullscreen_cfg = C.int(noxFullScreen)
 }
 
 //export sub_48A290_call_present
