@@ -3,11 +3,12 @@ package strman
 import (
 	"errors"
 	"fmt"
-	"log"
 	"math/rand"
 	"os"
 	"path/filepath"
 	"strings"
+
+	"nox/v1/common/log"
 )
 
 type ID string

@@ -31,7 +31,6 @@ import "C"
 import (
 	"errors"
 	"fmt"
-	"log"
 	"net"
 	"os"
 	"path/filepath"
@@ -42,6 +41,7 @@ import (
 
 	"nox/v1/common/alloc"
 	noxflags "nox/v1/common/flags"
+	"nox/v1/common/log"
 	"nox/v1/common/memmap"
 	"nox/v1/common/platform"
 )

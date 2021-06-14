@@ -9,10 +9,10 @@ import "C"
 import (
 	"fmt"
 	"image"
-	"log"
 	"unsafe"
 
 	noxcolor "nox/v1/common/color"
+	"nox/v1/common/log"
 	"nox/v1/common/memmap"
 	"nox/v1/common/types"
 

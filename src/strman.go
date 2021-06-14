@@ -6,8 +6,7 @@ package main
 */
 import "C"
 import (
-	"log"
-
+	"nox/v1/common/log"
 	"nox/v1/common/strman"
 )
 

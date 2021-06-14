@@ -1,6 +1,6 @@
 package noxscript
 
-import "log"
+import "nox/v1/common/log"
 
 // TODO: should also accept a reference to Nox engine
 

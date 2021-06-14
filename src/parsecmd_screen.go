@@ -5,12 +5,12 @@ import (
 	"fmt"
 	"image/png"
 	"io"
-	"log"
 	"os"
 	"sync/atomic"
 
 	"nox/v1/client/system/parsecmd"
 	"nox/v1/common/datapath"
+	"nox/v1/common/log"
 )
 
 func init() {

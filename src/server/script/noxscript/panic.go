@@ -2,7 +2,8 @@ package noxscript
 
 import (
 	"encoding/binary"
-	"log"
+
+	"nox/v1/common/log"
 )
 
 func (r *Runtime) PanicsHackEnabled() bool {

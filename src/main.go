@@ -46,16 +46,17 @@ import "C"
 import (
 	"flag"
 	"fmt"
-	"log"
 	"net/http"
 	_ "net/http/pprof"
 	"os"
+	"path/filepath"
 	"strings"
 	"unsafe"
 
 	"nox/v1/common/alloc/handles"
 	"nox/v1/common/datapath"
 	noxflags "nox/v1/common/flags"
+	"nox/v1/common/log"
 	"nox/v1/common/memmap"
 )
 
@@ -83,7 +84,24 @@ func main() {
 	}
 }
 
+func writeLogsToDir() error {
+	dir := filepath.Dir(os.Args[0])
+	dir = filepath.Join(dir, "logs")
+	if err := os.MkdirAll(dir, 0755); err != nil {
+		return err
+	}
+	name := "opennox.log"
+	if isDedicatedServer {
+		name = "opennox-server.log"
+	}
+	return log.WriteToFile(filepath.Join(dir, name))
+}
+
 func runNox(args []string) error {
+	if err := writeLogsToDir(); err != nil {
+		log.Println("cannot persist logs:", err)
+	}
+	defer log.Close()
 	log.Printf("[nox] version: %s (%s)", Version, Commit)
 	handles.Init()
 	defer handles.Release()

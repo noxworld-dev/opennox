@@ -3,9 +3,11 @@
 package main
 
 import (
-	"log"
+	glog "log"
 	"os"
 	"syscall"
+
+	"nox/v1/common/log"
 )
 
 func init() {
@@ -30,5 +32,6 @@ func init() {
 	}
 	os.Stdout = os.NewFile(uintptr(hout), "/dev/stdout")
 	os.Stderr = os.NewFile(uintptr(herr), "/dev/stderr")
+	glog.SetOutput(os.Stderr)
 	log.SetOutput(os.Stderr)
 }

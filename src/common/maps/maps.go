@@ -6,7 +6,6 @@ import (
 	"encoding/binary"
 	"fmt"
 	"io"
-	"log"
 	"os"
 	"path/filepath"
 	"sort"
@@ -14,10 +13,11 @@ import (
 
 	"nox/v1/common/crypt"
 	"nox/v1/common/fs"
+	"nox/v1/common/log"
 )
 
 var (
-	Log = log.New(os.Stderr, "[map]: ", log.LstdFlags|log.Lmsgprefix)
+	Log = log.New("map")
 )
 
 const (

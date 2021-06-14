@@ -20,7 +20,6 @@ int nox_xxx_mapExitAndCheckNext_4D1860_server();
 */
 import "C"
 import (
-	"log"
 	"os"
 	"unsafe"
 
@@ -29,6 +28,7 @@ import (
 	"nox/v1/common/alloc"
 	"nox/v1/common/discover"
 	noxflags "nox/v1/common/flags"
+	"nox/v1/common/log"
 	"nox/v1/common/memmap"
 )
 

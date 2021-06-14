@@ -9,7 +9,6 @@ import (
 	"image/jpeg"
 	"image/png"
 	"io/ioutil"
-	"log"
 	"os"
 	"path"
 	"path/filepath"
@@ -18,6 +17,7 @@ import (
 
 	"nox/v1/common/bag"
 	"nox/v1/common/datapath"
+	"nox/v1/common/log"
 )
 
 var debugBagImages = os.Getenv("NOX_DEBUG_BAG_IMAGES") == "true"

@@ -8,7 +8,6 @@ import (
 	"encoding/binary"
 	"errors"
 	"fmt"
-	"log"
 	"net"
 	"sync"
 	"syscall"
@@ -16,6 +15,7 @@ import (
 
 	"nox/v1/common/alloc"
 	"nox/v1/common/alloc/handles"
+	"nox/v1/common/log"
 )
 
 const (

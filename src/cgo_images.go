@@ -5,10 +5,10 @@ package main
 */
 import "C"
 import (
-	"log"
 	"unsafe"
 
 	"nox/v1/common/bag"
+	"nox/v1/common/log"
 )
 
 var noxImages struct {
