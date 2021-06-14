@@ -5869,7 +5869,7 @@ void  sub_537F00(float* a1, int a2) {
 		v2 = nox_xxx_getNameId_4E3AA0("Glyph");
 		dword_5d4594_2488640 = v2;
 	}
-	if (*((unsigned __int16*)a1 + 2) == v2 && !((_BYTE)a1[4] & 0x20)) {
+	if (*((unsigned __int16*)a1 + 2) == v2 && !((_BYTE)((_DWORD*)a1)[4] & 0x20)) {
 		v3 = nox_xxx_findParentChainPlayer_4EC580(a2);
 		if (nox_xxx_unitHasThatParent_4EC4F0((int)a1, v3) || !*((_DWORD*)a1 + 127) && !(*(_BYTE*)(v3 + 8) & 4)) {
 			v4 = *(float*)(a2 + 56);
