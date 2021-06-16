@@ -456,25 +456,23 @@ char GameExCfgLoader() {
 }
 
 //----- (10001A20) --------------------------------------------------------
-int  sendtoWrapper(char* buf, int len, int smth) {
+int  gameex_sendPacket(char* buf, int len, int smth) {
 	if (!buf || !len || *getMemU32Ptr(0x5D4594, 815700) >= NOX_NET_STRUCT_MAX) {
 		return 0;
 	}
 	// 0x69B7E8 = netSocketData
 	nox_net_struct_t* ns = nox_net_struct_arr[*getMemU32Ptr(0x5D4594, 815700)];
 	if (!ns) {
-		// A call here is lost? - nope, as somehow the checks in ASM denies it completely
 		return 0;
 	}
 	return nox_net_sendto(ns->sock, buf, len, &ns->addr);
 }
 
 //----- (10001AD0) --------------------------------------------------------
-void  notifyThisIsServeronly(int ptr, __int16 shortval, BOOL boolval) {
-	LOBYTE(boolval) = 1;
-	*(_WORD*)ptr = 0xF13Au;        // packet id
-	*(_WORD*)(ptr + 2) = shortval; // always zero
-	if (boolval)
+void  gameex_makeExtensionPacket(int ptr, __int16 opcode, bool needsPlayer) {
+	*(_WORD*)(ptr + 0) = 0xF13A;  // extension packet code
+	*(_WORD*)(ptr + 2) = opcode;
+	if (needsPlayer)
 		*(_DWORD*)(ptr + 4) = (*getMemU32Ptr(0x5D4594, 2616328)); // playerNetCode
 }
 
@@ -903,9 +901,7 @@ int  modifyWndInputHandler(int a1, int a2, int a3, int a4) {
 }
 
 //----- (10002680) --------------------------------------------------------
-int __stdcall MixRecvFromReplacer(nox_socket_t s, char* buf, int len, struct nox_net_sockaddr* from) {
-	char* v6;   // ebx
-	int result; // eax
+int MixRecvFromReplacer(nox_socket_t s, char* buf, int len, struct nox_net_sockaddr* from) {
 	_DWORD* v8; // esi
 	char v9;    // al
 	int v10;    // esi
@@ -932,168 +928,160 @@ int __stdcall MixRecvFromReplacer(nox_socket_t s, char* buf, int len, struct nox
 	unsigned int v31;     // ecx
 	unsigned __int8* v32; // esi
 	char v33;             // bl
-	int* v34;             // eax
 	_DWORD* v35;          // eax
 	char v36;             // [esp+17h] [ebp-CDh]
 	// int a1[2]; // [esp+1Ch] [ebp-C8h]
 	struct nox_net_sockaddr* to; // [esp+24h] [ebp-C0h]
 	int v39;             // [esp+28h] [ebp-BCh]
-	int* v40;            // [esp+2Ch] [ebp-B8h]
-	int v41;             // [esp+30h] [ebp-B4h]
 	// int a2[2]; // [esp+34h] [ebp-B0h]
 	int v43[6];                // [esp+3Ch] [ebp-A8h]
 	unsigned __int8 v44[0x80]; // [esp+54h] [ebp-90h]
 	// int v45; // [esp+E0h] [ebp-4h]
 
-	v6 = buf;
-	v40 = 16;
 	to = from;
-	result = nox_net_recvfrom(s, buf, len, from);
-	v41 = result;
-	if (*(_WORD*)buf == -3782) {
-		switch (*((unsigned __int16*)buf + 1)) // packet id
-		{
-		case 0u:
-			if ((*getMemU32Ptr(0x980858, 2) >> 3) & 1) {
-				v8 = nox_xxx_objGetTeamByNetCode_418C80(*((_DWORD*)buf + 1));
-				v9 = buf[8];
-				v10 = (int)(v8 - 12);
-				v36 = ((unsigned int)v9 >> 4) & 1;
-				if (v36)
-					buf[8] = v9 & 0xEF;
-				if (!getPlayerClassFromObjPtr(v10) || v36) {
-					if (mix_MouseKeyboardWeaponRoll(v10, buf[8])) {
-						*((_WORD*)buf + 1) = 2;
-						nox_net_sendto(s, buf, 4, from);
-					}
+	int result = nox_net_recvfrom(s, buf, len, from);
+	if (*(_WORD*)buf != 0xF13A) { // extension packet code
+		return result;
+	}
+	int op = *((unsigned __int16*)buf + 1);
+	switch (op) {
+	case 0: // warrior weapon scroll
+		if ((*getMemU32Ptr(0x980858, 2) >> 3) & 1) {
+			v8 = nox_xxx_objGetTeamByNetCode_418C80(*((_DWORD*)buf + 1));
+			v9 = buf[8];
+			v10 = (int)(v8 - 12);
+			v36 = ((unsigned int)v9 >> 4) & 1;
+			if (v36)
+				buf[8] = v9 & 0xEF;
+			if (!getPlayerClassFromObjPtr(v10) || v36) {
+				if (mix_MouseKeyboardWeaponRoll(v10, buf[8])) {
+					*((_WORD*)buf + 1) = 2;
+					nox_net_sendto(s, buf, 4, from);
 				}
 			}
-			break;
-		case 1u:
-		case 6u:
-			break;
-		case 2u: // clientPlaySoundSpecial
-			nox_xxx_clientPlaySoundSpecial_452D80(895, 100);
-			break;
-		case 3u: // Send back playerInfoStructs
-			if (nox_common_gameFlags_check_40A5C0(1) && (*getMemU32Ptr(0x980858, 2) >> 5) & 1) {
-				smallPlayerStructVector vector;
-				smallPlayerStruct* it;
-				smallPlayerStruct* end;
+		}
+		break;
+	case 1u:
+	case 6u:
+		break;
+	case 2u: // clientPlaySoundSpecial
+		nox_xxx_clientPlaySoundSpecial_452D80(895, 100);
+		break;
+	case 3u: // Send back playerInfoStructs
+		if (nox_common_gameFlags_check_40A5C0(1) && (*getMemU32Ptr(0x980858, 2) >> 5) & 1) {
+			smallPlayerStructVector vector;
+			smallPlayerStruct* it;
+			smallPlayerStruct* end;
 
-				da_init(vector);
-				// v45 = 0;
-				if (playerInfoStructsToVector(&vector)) {
-					copyServerMatchData((char*)v44);
-					v11 = *getMemU32Ptr(0x980858, 2);
-					v39 = 18 * da_count(vector) + 68;
-					memcpy(buf + 8, v44, 0x40u);
-					*((_DWORD*)buf + 1) = v11;
-					if (da_count(vector) > 0) {
-						v13 = buf + 72;
-						for (it = da_begin(vector), end = da_end(vector); it != end; ++it) {
-							*(_DWORD*)v13 = *(_DWORD*)(it->string);
-							*((_DWORD*)v13 + 1) = *(_DWORD*)((it->string) + 4);
-							*((_DWORD*)v13 + 2) = *(_DWORD*)((it->string) + 8);
-							*((_DWORD*)v13 + 3) = *(_DWORD*)((it->string) + 12);
-							*((_WORD*)v13 + 8) = *(_WORD*)((it->string) + 16);
-							v13 += 18;
-						}
-					}
-					nox_net_sendto(s, buf, v39, to);
-				}
-				da_free(vector);
-			}
-			break;
-		case 4u:
-			if (nox_common_gameFlags_check_40A5C0(1)) {
-				if ((*getMemU32Ptr(0x980858, 2) >> 5) & 1) {
-					v18 = buf + 4;
-					do {
-						v19 = *v18;
-						v18[(char*)v43 + 2 - (buf + 4)] = *v18;
-						++v18;
-					} while (v19);
-					if (playerInfoStructParser_0((char*)v43)) {
-						buf[2] = 6;
-						v20 = sub_433890();
-						v21 = (char*)v43 + 2;
-						do {
-							v22 = *v20;
-							*v21++ = *v20++;
-						} while (v22);
-						v23 = v43[1];
-						v24 = v43[2];
-						*((_DWORD*)buf + 1) = v43[0];
-						v25 = v43[3];
-						*((_DWORD*)buf + 2) = v23;
-						LOWORD(v23) = v43[4];
-						*((_DWORD*)buf + 3) = v24;
-						*((_DWORD*)buf + 4) = v25;
-						*((_WORD*)buf + 10) = v23;
-						nox_net_sendto(s, buf, 22, from);
+			da_init(vector);
+			// v45 = 0;
+			if (playerInfoStructsToVector(&vector)) {
+				copyServerMatchData((char*)v44);
+				v11 = *getMemU32Ptr(0x980858, 2);
+				v39 = 18 * da_count(vector) + 68;
+				memcpy(buf + 8, v44, 0x40u);
+				*((_DWORD*)buf + 1) = v11;
+				if (da_count(vector) > 0) {
+					v13 = buf + 72;
+					for (it = da_begin(vector), end = da_end(vector); it != end; ++it) {
+						*(_DWORD*)v13 = *(_DWORD*)(it->string);
+						*((_DWORD*)v13 + 1) = *(_DWORD*)((it->string) + 4);
+						*((_DWORD*)v13 + 2) = *(_DWORD*)((it->string) + 8);
+						*((_DWORD*)v13 + 3) = *(_DWORD*)((it->string) + 12);
+						*((_WORD*)v13 + 8) = *(_WORD*)((it->string) + 16);
+						v13 += 18;
 					}
 				}
+				nox_net_sendto(s, buf, v39, to);
 			}
-			break;
-		case 5u:
+			da_free(vector);
+		}
+		break;
+	case 4u:
+		if (nox_common_gameFlags_check_40A5C0(1)) {
 			if ((*getMemU32Ptr(0x980858, 2) >> 5) & 1) {
-				memset(v44, 0, 0x80u);
-				mbstowcs((wchar_t*)v44, buf + 4, strlen(buf + 4));
-				nox_xxx_printCentered_445490((wchar_t*)v44);
-				nox_xxx_clientPlaySoundSpecial_452D80(901, 100);
+				v18 = buf + 4;
+				do {
+					v19 = *v18;
+					v18[(char*)v43 + 2 - (buf + 4)] = *v18;
+					++v18;
+				} while (v19);
+				if (playerInfoStructParser_0((char*)v43)) {
+					buf[2] = 6;
+					v20 = sub_433890();
+					v21 = (char*)v43 + 2;
+					do {
+						v22 = *v20;
+						*v21++ = *v20++;
+					} while (v22);
+					v23 = v43[1];
+					v24 = v43[2];
+					*((_DWORD*)buf + 1) = v43[0];
+					v25 = v43[3];
+					*((_DWORD*)buf + 2) = v23;
+					LOWORD(v23) = v43[4];
+					*((_DWORD*)buf + 3) = v24;
+					*((_DWORD*)buf + 4) = v25;
+					*((_WORD*)buf + 10) = v23;
+					nox_net_sendto(s, buf, 22, from);
+				}
 			}
-			break;
-		case 7u:
+		}
+		break;
+	case 5u:
+		if ((*getMemU32Ptr(0x980858, 2) >> 5) & 1) {
 			memset(v44, 0, 0x80u);
 			mbstowcs((wchar_t*)v44, buf + 4, strlen(buf + 4));
 			nox_xxx_printCentered_445490((wchar_t*)v44);
 			nox_xxx_clientPlaySoundSpecial_452D80(901, 100);
-			break;
-		case 8u:
-			if (nox_common_gameFlags_check_40A5C0(1) && (*getMemU32Ptr(0x980858, 2) >> 5) & 1) {
-				v26 = buf + 4;
-				v27 = buf + 4;
-				do {
-					v28 = *v27;
-					v27[(char*)v43 + 2 - (buf + 4)] = *v27;
-					++v27;
-				} while (v28);
-				if (playerInfoStructParser_1((int)v43, (int)&to, &v39)) {
-					buf[2] = 7;
-					v29 = strlen((const char*)v43 + 2);
-					v30 = &buf[v29 + 4];
-					v31 = strlen(v30);
-					if (v31) {
-						v32 = (unsigned __int8*)(v44 - (unsigned __int8*)v30);
-						do {
-							v33 = *v30;
-							v30[(_DWORD)v32] = *v30;
-							++v30;
-						} while (v33);
-						memset(v26, 0, v29 + v31);
-						strcpy(v26, (const char*)v44);
-					}
-				}
-				v6 = buf;
-			}
-			break;
-		case 9u:
-			if ((*getMemU32Ptr(0x980858, 2) >> 3) & 1) {
-				v35 = nox_xxx_objGetTeamByNetCode_418C80(*((_DWORD*)buf + 1));
-				playerDropATrap((int)(v35 - 12));
-			}
-			break;
 		}
-		*(_DWORD*)v6 = DefaultPacket[0]; // Placeholder Packet inserted instead of Mix one?
-		*((_DWORD*)v6 + 1) = DefaultPacket[1];
-		v34 = v40;
-		*((_DWORD*)v6 + 2) = DefaultPacket[2];
-		*((_DWORD*)v6 + 3) = DefaultPacket[3];
-		*v34 = 16;
-		result = v41;
+		break;
+	case 7u:
+		memset(v44, 0, 0x80u);
+		mbstowcs((wchar_t*)v44, buf + 4, strlen(buf + 4));
+		nox_xxx_printCentered_445490((wchar_t*)v44);
+		nox_xxx_clientPlaySoundSpecial_452D80(901, 100);
+		break;
+	case 8u:
+		if (nox_common_gameFlags_check_40A5C0(1) && (*getMemU32Ptr(0x980858, 2) >> 5) & 1) {
+			v26 = buf + 4;
+			v27 = buf + 4;
+			do {
+				v28 = *v27;
+				v27[(char*)v43 + 2 - (buf + 4)] = *v27;
+				++v27;
+			} while (v28);
+			if (playerInfoStructParser_1((int)v43, (int)&to, &v39)) {
+				buf[2] = 7;
+				v29 = strlen((const char*)v43 + 2);
+				v30 = &buf[v29 + 4];
+				v31 = strlen(v30);
+				if (v31) {
+					v32 = (unsigned __int8*)(v44 - (unsigned __int8*)v30);
+					do {
+						v33 = *v30;
+						v30[(_DWORD)v32] = *v30;
+						++v30;
+					} while (v33);
+					memset(v26, 0, v29 + v31);
+					strcpy(v26, (const char*)v44);
+				}
+			}
+		}
+		break;
+	case 9u:
+		if ((*getMemU32Ptr(0x980858, 2) >> 3) & 1) {
+			v35 = nox_xxx_objGetTeamByNetCode_418C80(*((_DWORD*)buf + 1));
+			playerDropATrap((int)(v35 - 12));
+		}
+		break;
 	}
-	return result;
+	// replace Mix packet with a placeholder
+	*((_DWORD*)buf + 0) = DefaultPacket[0];
+	*((_DWORD*)buf + 1) = DefaultPacket[1];
+	*((_DWORD*)buf + 2) = DefaultPacket[2];
+	*((_DWORD*)buf + 3) = DefaultPacket[3];
+	return 16;
 }
 // 1000EF00: using guessed type int DefaultPacket[4];
 
@@ -1166,9 +1154,9 @@ void OnLibraryNotice_265(unsigned int arg1, unsigned int arg2, int arg3) {
 					}
 				} else {
 					char buf[10];
-					notifyThisIsServeronly((int)&buf, 0, 1);
-					// v27 = a2a;
-					sendtoWrapper(&buf, 9, 0);
+					gameex_makeExtensionPacket((int)&buf, 0, 1);
+					buf[8] = a2a;
+					gameex_sendPacket(&buf, 9, 0);
 				}
 			}
 		}
@@ -1193,15 +1181,14 @@ void OnLibraryNotice_417(DWORD arg1) {
 		if (nox_common_gameFlags_check_40A5C0(0x204)) {
 			if (dword_5d4594_1064868 || nox_win_unk3)
 				return;
-			if (nox_common_gameFlags_check_40A5C0(1)) // isServer
-			{
+			if (nox_common_gameFlags_check_40A5C0(1)) { // isServer
 				if (nox_xxx_host_player_unit_3843628 && mix_MouseKeyboardWeaponRoll(nox_xxx_host_player_unit_3843628, vaArg1_1[1]))
 					nox_xxx_clientPlaySoundSpecial_452D80(895, 100);
 			} else {
 				char buf[10];
-				notifyThisIsServeronly((int)&buf, 0, 1);
-				// v27 = v8 | 0x10;
-				sendtoWrapper(&buf, 9, 0);
+				gameex_makeExtensionPacket((int)&buf, 0, 1);
+				buf[8] = v8 | 0x10; // TODO: should it be just v8?
+				gameex_sendPacket(&buf, 9, 0);
 			}
 		}
 	}
@@ -1211,14 +1198,13 @@ LABEL_37:
 			if (nox_common_gameFlags_check_40A5C0(516)) {
 				if (dword_5d4594_1064868 || nox_win_unk3)
 					return;
-				if (nox_common_gameFlags_check_40A5C0(1)) // checkGameFlags isServer
-				{
+				if (nox_common_gameFlags_check_40A5C0(1)) { // checkGameFlags isServer
 					_DWORD* v9 = nox_xxx_objGetTeamByNetCode_418C80(*getMemU32Ptr(0x5D4594, 2616328));
 					playerDropATrap((int)(v9 - 12));
 				} else {
 					char buf[10];
-					notifyThisIsServeronly((int)&buf, 9, 1);
-					sendtoWrapper(&buf, 8, 0);
+					gameex_makeExtensionPacket((int)&buf, 9, 1);
+					gameex_sendPacket(&buf, 8, 0);
 				}
 			}
 		}

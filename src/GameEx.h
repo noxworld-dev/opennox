@@ -33,8 +33,6 @@ unsigned __int8  KeyCodeMatcher(char* a1);
 int  GameExCfgSaver();
 const char* __usercall SomeStringSearcher(const char* result, const char* a2, char* a3);
 char GameExCfgLoader();
-int  sendtoWrapper(char* buf, int len, int smth);
-void  notifyThisIsServeronly(int ptr, __int16 shortval, BOOL boolval); // idb
 int __usercall DestroyNoxWindow();
 int __usercall copyServerMatchData(char* a1);
 char  getPlayerClassFromObjPtr(int a1);
