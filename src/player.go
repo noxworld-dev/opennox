@@ -94,9 +94,12 @@ func (p *Player) SetPos(pos types.Pointf) {
 	u.SetPos(pos)
 }
 
-func (p *Player) Name() string {
-	// TODO: may be wrong field; candidates: 2185, 4704
+func (p *Player) OrigName() string {
 	return GoWString((*C.wchar_t)(unsafe.Pointer(uintptr(unsafe.Pointer(p)) + 2185)))
+}
+
+func (p *Player) Name() string {
+	return GoWString((*C.wchar_t)(unsafe.Pointer(uintptr(unsafe.Pointer(p)) + 4704)))
 }
 
 func (p *Player) String() string {
