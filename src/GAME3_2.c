@@ -8577,7 +8577,6 @@ _DWORD*  nox_xxx_playerNew_4DD320(int ind, void* data) {
 	if (!punit) {
 		return 0;
 	}
-	punit->obj_class |= 0x4; // FIXME
 	if (ind != 31) {
 		if (v5[100]) {
 			if ((unsigned __int8)(1 << *(_BYTE*)((int)data + 66)) & (unsigned __int8)v5[100])
