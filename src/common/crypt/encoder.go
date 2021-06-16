@@ -94,11 +94,18 @@ func (r *Reader) Read(p []byte) (int, error) {
 	return total, nil
 }
 
-func (r *Reader) ReadAligned(p []byte) (int, error) {
+func (r *Reader) Align() error {
 	if n := r.Buffered(); n%Block != 0 {
 		if err := r.readNext(); err != nil {
-			return 0, err
+			return err
 		}
+	}
+	return nil
+}
+
+func (r *Reader) ReadAligned(p []byte) (int, error) {
+	if err := r.Align(); err != nil {
+		return 0, err
 	}
 	var b [8]byte
 	n, err := r.Read(b[:])
