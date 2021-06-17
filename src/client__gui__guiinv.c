@@ -810,7 +810,7 @@ int*  nox_xxx_makeStatsDlg_463880(int* a1) {
 		nox_xxx_drawString_43FAF0(0, v77, v10, v11, 200, 0);
 		v13 = v11 + v1 + 1;
 		if (nox_common_gameFlags_check_40A5C0(2048)) {
-			v53 = (__int64)nox_xxx_loadFloatVar_419D70(getMemAt(0x587000, 138404), *(char*)(v4 + 3684) + 1);
+			v53 = (__int64)nox_xxx_gamedataGetFloatTable_419D70(getMemAt(0x587000, 138404), *(char*)(v4 + 3684) + 1);
 			v41 = *getMemU32Ptr(0x5D4594, 1062544);
 			v14 =
 				nox_strman_loadString_40F1D0("StatsEXP", 0, "C:\\NoxPost\\src\\Client\\Gui\\guiinv.c", 1886);

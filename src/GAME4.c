@@ -4246,7 +4246,7 @@ int  nox_xxx_checkPlrCantCastSpell_4FD150(int a1, int a2, int a3) {
 		case 50:
 			v7 = nox_xxx_unitIsUnitTT_4E7C80(a1, *getMemIntPtr(0x5D4594, 1569680));
 			v12 = nox_xxx_spellGetPower_4FE7B0(a2, a1) - 1;
-			v8 = nox_xxx_loadFloatVar_419D70(getMemAt(0x587000, 217620), v12);
+			v8 = nox_xxx_gamedataGetFloatTable_419D70(getMemAt(0x587000, 217620), v12);
 			goto LABEL_33;
 		case 52:
 			v10 = *getMemU32Ptr(0x5D4594, 1569700);
@@ -4259,7 +4259,7 @@ int  nox_xxx_checkPlrCantCastSpell_4FD150(int a1, int a2, int a3) {
 		case 58:
 			v7 = nox_xxx_unitIsUnitTT_4E7C80(a1, *getMemIntPtr(0x5D4594, 1569676));
 			v11 = nox_xxx_spellGetPower_4FE7B0(a2, a1) - 1;
-			v8 = nox_xxx_loadFloatVar_419D70(getMemAt(0x587000, 217608), v11);
+			v8 = nox_xxx_gamedataGetFloatTable_419D70(getMemAt(0x587000, 217608), v11);
 		LABEL_33:
 			if (v7 < (int)(__int64)v8)
 				goto LABEL_46;
@@ -4736,7 +4736,7 @@ void  nox_xxx_collide_4FDF90(int a1, int a2) {
 		v2 = *(unsigned __int8*)(a1 + 430) - 1;
 		nox_xxx_aud_501960(135, a1, 0, 0);
 		nox_xxx_spellBuffOff_4FF5B0(a1, 22);
-		v5 = nox_xxx_loadFloatVar_419D70(getMemAt(0x587000, 217688), v2);
+		v5 = nox_xxx_gamedataGetFloatTable_419D70(getMemAt(0x587000, 217688), v2);
 		v3 = nox_float2int(v5);
 		(*(void(**)(int, int, int, int, int))(a2 + 716))(a2, a1, a1, v3, 9);
 	}
@@ -7038,12 +7038,12 @@ int  nox_xxx_summonStart_500DA0(int a1) {
 				v12 = a1;
 				goto LABEL_22;
 			}
-			v11 = nox_xxx_loadFloatVar_419D70(getMemAt(0x587000, 218220), 2);
+			v11 = nox_xxx_gamedataGetFloatTable_419D70(getMemAt(0x587000, 218220), 2);
 		} else {
-			v11 = nox_xxx_loadFloatVar_419D70(getMemAt(0x587000, 218204), 1);
+			v11 = nox_xxx_gamedataGetFloatTable_419D70(getMemAt(0x587000, 218204), 1);
 		}
 	} else {
-		v11 = nox_xxx_loadFloatVar_419D70(getMemAt(0x587000, 218188), 0);
+		v11 = nox_xxx_gamedataGetFloatTable_419D70(getMemAt(0x587000, 218188), 0);
 	}
 	v15 = v11;
 	v12 = nox_float2int(v15);
@@ -7244,12 +7244,12 @@ int  nox_xxx_charmCreature1_5011F0(int* a1) {
 					v10 = a1;
 					goto LABEL_20;
 				}
-				v9 = nox_xxx_loadFloatVar_419D70(getMemAt(0x587000, 218456), a1[2] - 1);
+				v9 = nox_xxx_gamedataGetFloatTable_419D70(getMemAt(0x587000, 218456), a1[2] - 1);
 			} else {
-				v9 = nox_xxx_loadFloatVar_419D70(getMemAt(0x587000, 218436), a1[2] - 1);
+				v9 = nox_xxx_gamedataGetFloatTable_419D70(getMemAt(0x587000, 218436), a1[2] - 1);
 			}
 		} else {
-			v9 = nox_xxx_loadFloatVar_419D70(getMemAt(0x587000, 218416), a1[2] - 1);
+			v9 = nox_xxx_gamedataGetFloatTable_419D70(getMemAt(0x587000, 218416), a1[2] - 1);
 		}
 		v16 = v9;
 		v10 = (int*)nox_float2int(v16);

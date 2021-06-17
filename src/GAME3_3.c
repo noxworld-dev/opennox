@@ -9292,7 +9292,7 @@ int  sub_4EF140(int a1) {
 		result = nox_xxx_plrReadVals_4EEDC0(a1, 0);
 	} else {
 		for (i = 0; i <= 10; ++i) {
-			if (nox_xxx_loadFloatVar_419D70(getMemAt(0x587000, 206152), i) > *(float*)(a1 + 28))
+			if (nox_xxx_gamedataGetFloatTable_419D70(getMemAt(0x587000, 206152), i) > *(float*)(a1 + 28))
 				break;
 		}
 		v5 = *(_DWORD*)(v1 + 4644);
@@ -9332,8 +9332,8 @@ void  sub_4EF410(int a1, unsigned __int8 a2) {
 		v2 = 10;
 		a2 = 10;
 	}
-	*(float*)(a1 + 28) = nox_xxx_loadFloatVar_419D70(getMemAt(0x587000, 206316), v2);
-	v7 = nox_xxx_loadFloatVar_419D70(getMemAt(0x587000, 206324), v2);
+	*(float*)(a1 + 28) = nox_xxx_gamedataGetFloatTable_419D70(getMemAt(0x587000, 206316), v2);
+	v7 = nox_xxx_gamedataGetFloatTable_419D70(getMemAt(0x587000, 206324), v2);
 	sub_56F8C0(*(_DWORD*)(v3 + 4604), v7);
 	sub_4D81A0(a1);
 	v6 = *(_DWORD*)(v3 + 4644);

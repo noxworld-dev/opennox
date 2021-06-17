@@ -621,7 +621,7 @@ float  nox_double2float(double a1);
 int  nox_double2int(double); // idb
 int nox_xxx_parseGamedataBin_419B30();
 double  nox_xxx_gamedataGetFloat_419D40(void* a1);
-double  nox_xxx_loadFloatVar_419D70(void* a1, int a2);
+double  nox_xxx_gamedataGetFloatTable_419D70(void* a1, int a2);
 void sub_419DB0();
 void  sub_419DE0(int a1, LPVOID* lpMem);
 int  sub_419E10(int a1, int a2);

@@ -940,7 +940,7 @@ double  nox_xxx_gamedataGetFloat_419D40(void* a1) {
 }
 
 //----- (00419D70) --------------------------------------------------------
-double  nox_xxx_loadFloatVar_419D70(void* a1, int a2) {
+double  nox_xxx_gamedataGetFloatTable_419D70(void* a1, int a2) {
 	int v2;        // eax
 	double result; // st7
 
