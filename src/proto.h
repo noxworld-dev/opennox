@@ -4545,7 +4545,7 @@ void  sub_4FE8A0(int a1);
 int  sub_4FE900(int a1);
 int nox_xxx_spellCastedFirst_4FE930();
 int  nox_xxx_spellCastedNext_4FE940(int a1);
-_WORD* nox_xxx_spellDurationAdd_4FE950();
+_WORD* nox_xxx_newSpellDuration_4FE950();
 void  sub_4FE980(int a1);
 char  nox_xxx_spellCancelSpellDo_4FE9D0(int a1);
 BOOL  sub_4FEA70(int a1, float2* a2); // idb

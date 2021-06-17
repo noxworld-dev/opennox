@@ -369,7 +369,7 @@ _DWORD*  nox_xxx_lightningSpellDuration_52FFD0(int a1, int a2, int a3) {
 	int v4;         // ecx
 	int v5;         // ecx
 
-	result = nox_xxx_spellDurationAdd_4FE950();
+	result = nox_xxx_newSpellDuration_4FE950();
 	if (result) {
 		result[12] = a3;
 		result[4] = a2;

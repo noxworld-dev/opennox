@@ -5225,7 +5225,7 @@ int nox_xxx_spellCastedFirst_4FE930() { return dword_5d4594_1569728; }
 int  nox_xxx_spellCastedNext_4FE940(int a1) { return *(_DWORD*)(a1 + 116); }
 
 //----- (004FE950) --------------------------------------------------------
-_WORD* nox_xxx_spellDurationAdd_4FE950() {
+_WORD* nox_xxx_newSpellDuration_4FE950() {
 	_WORD* result; // eax
 
 	result = nox_alloc_class_new_obj_zero(*(_DWORD**)&nox_alloc_spellDur_1569724);
@@ -5383,7 +5383,7 @@ int  nox_xxx_spellDurationBased_4FEBA0(int a1, int a2, _DWORD* a3, int a4, _DWOR
 			nox_xxx_spellCancelDurSpell_4FEB10(a1, (int)a3);
 		}
 		sub_4FED70();
-		v12 = nox_xxx_spellDurationAdd_4FE950();
+		v12 = nox_xxx_newSpellDuration_4FE950();
 		if (v12) {
 			*((_DWORD*)v12 + 1) = a1;
 			*((_DWORD*)v12 + 2) = a6;
