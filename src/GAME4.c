@@ -5535,7 +5535,6 @@ char  nox_xxx_cancelAllSpells_4FEE90(int a1) {
 
 //----- (004FEEF0) --------------------------------------------------------
 void nox_xxx_spellCastByPlayer_4FEEF0() {
-	int v0;                 // esi
 	int v1;                 // ebp
 	int v2;                 // eax
 	int v3;                 // eax
@@ -5543,33 +5542,32 @@ void nox_xxx_spellCastByPlayer_4FEEF0() {
 	unsigned int v5;        // eax
 	int( * v6)(int); // eax
 
-	v0 = dword_5d4594_1569728;
-	if (dword_5d4594_1569728) {
-		do {
-			v1 = *(_DWORD*)(v0 + 116);
-			if (*(_BYTE*)(v0 + 88) & 1) {
-				nox_xxx_plrCastSmth_4FEDA0((int*)v0);
-			} else {
-				v2 = *(_DWORD*)(v0 + 16);
-				if (v2 && *(_DWORD*)(v2 + 16) & 0x8020)
-					*(_DWORD*)(v0 + 16) = 0;
-				v3 = *(_DWORD*)(v0 + 12);
-				if (v3 && *(_BYTE*)(v3 + 16) & 0x20)
-					*(_DWORD*)(v0 + 12) = 0;
-				if (!*(_DWORD*)(v0 + 16) && !*(_DWORD*)(v0 + 20))
-					goto LABEL_23;
-				v4 = *(_DWORD*)(v0 + 24);
-				if (v4 && *(_BYTE*)(v4 + 16) & 0x20)
-					*(_DWORD*)(v0 + 24) = 0;
-				v5 = *(_DWORD*)(v0 + 68);
-				if (v5 != *(_DWORD*)(v0 + 60) && v5 <= nox_frame_xxx_2598000 ||
-					(v6 = *(int(**)(int))(v0 + 96)) != 0 && v6(v0)) {
-				LABEL_23:
-					nox_xxx_spellCancelSpellDo_4FE9D0(v0);
-				}
-			}
-			v0 = v1;
-		} while (v1);
+	for (int v0 = dword_5d4594_1569728; v0; v0 = v1) {
+		v1 = *(_DWORD*)(v0 + 116);
+		if (*(_BYTE*)(v0 + 88) & 1) {
+			nox_xxx_plrCastSmth_4FEDA0((int*)v0);
+			continue;
+		}
+		v2 = *(_DWORD*)(v0 + 16);
+		if (v2 && *(_DWORD*)(v2 + 16) & 0x8020) {
+			*(_DWORD*)(v0 + 16) = 0;
+		}
+		v3 = *(_DWORD*)(v0 + 12);
+		if (v3 && *(_BYTE*)(v3 + 16) & 0x20) {
+			*(_DWORD*)(v0 + 12) = 0;
+		}
+		if (!*(_DWORD*)(v0 + 16) && !*(_DWORD*)(v0 + 20)) {
+			nox_xxx_spellCancelSpellDo_4FE9D0(v0);
+			continue;
+		}
+		v4 = *(_DWORD*)(v0 + 24);
+		if (v4 && *(_BYTE*)(v4 + 16) & 0x20) {
+			*(_DWORD*)(v0 + 24) = 0;
+		}
+		v5 = *(_DWORD*)(v0 + 68);
+		if (v5 != *(_DWORD*)(v0 + 60) && v5 <= nox_frame_xxx_2598000 || (v6 = *(int(**)(int))(v0 + 96)) != 0 && v6(v0)) {
+			nox_xxx_spellCancelSpellDo_4FE9D0(v0);
+		}
 	}
 }
 
