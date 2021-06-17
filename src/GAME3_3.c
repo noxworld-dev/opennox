@@ -9232,23 +9232,23 @@ int  nox_xxx_plrReadVals_4EEDC0(int a1, int a2) {
 			nox_xxx_abilGivePlayerAll_4EED40(v2, 10, 0);
 	} else {
 		v7 = *(_BYTE*)(v4 + 3684);
-		if (v7 > 10)
-			v7 = 10;
+		if (v7 > NOX_PLAYER_MAX_LEVEL)
+			v7 = NOX_PLAYER_MAX_LEVEL;
 		v24 = v7;
 		v22 = (double)(v7 - 1);
-		v17 = (*v5 - *v26) * 0.11111111 * v22 + *v26 + 0.5;
+		v17 = (*v5 - *v26) * v22 / ((double)NOX_PLAYER_MAX_LEVEL - 1) + *v26 + 0.5;
 		*(_WORD*)(*(_DWORD*)(v2 + 556) + 4) = nox_float2int(v17);
 		nox_xxx_unitSetHP_4E4560(v2, *(_WORD*)(*(_DWORD*)(v2 + 556) + 4));
-		v8 = (v5[1] - v26[1]) * 0.11111111 * v22 + v26[1];
+		v8 = (v5[1] - v26[1]) * v22 / ((double)NOX_PLAYER_MAX_LEVEL - 1) + v26[1];
 		if (v8 > v5[1])
 			v8 = v5[1];
 		v18 = v8 + 0.5;
 		v9 = nox_float2int(v18);
 		*(_WORD*)(v3 + 8) = v9;
 		*(_WORD*)(v3 + 4) = v9;
-		v19 = (v5[3] - v26[3]) * 0.11111111 * v22 + v26[3] + 0.5;
+		v19 = (v5[3] - v26[3]) * v22 / ((double)NOX_PLAYER_MAX_LEVEL - 1) + v26[3] + 0.5;
 		*(_DWORD*)(v4 + 2239) = nox_float2int(v19);
-		v10 = (v5[2] - v26[2]) * 0.11111111 * v22 + v26[2];
+		v10 = (v5[2] - v26[2]) * v22 / ((double)NOX_PLAYER_MAX_LEVEL - 1) + v26[2];
 		*(float*)(v2 + 548) = v10 * 0.000099999997;
 		v20 = v10 + 0.5;
 		*(_DWORD*)(v4 + 2235) = nox_float2int(v20);
@@ -9287,11 +9287,11 @@ int  sub_4EF140(int a1) {
 	v1 = *(_DWORD*)(*(_DWORD*)(a1 + 748) + 276);
 	if (nox_common_gameFlags_check_40A5C0(0x2000)) {
 		v2 = *(_DWORD*)(v1 + 4644);
-		*(_BYTE*)(v1 + 3684) = 10;
+		*(_BYTE*)(v1 + 3684) = NOX_PLAYER_MAX_LEVEL;
 		sub_56F820(v2, 0xAu);
 		result = nox_xxx_plrReadVals_4EEDC0(a1, 0);
 	} else {
-		for (i = 0; i <= 10; ++i) {
+		for (i = 0; i <= NOX_PLAYER_MAX_LEVEL; ++i) {
 			if (nox_xxx_gamedataGetFloatTable_419D70("XPTable", i) > *(float*)(a1 + 28))
 				break;
 		}
@@ -9328,9 +9328,9 @@ void  sub_4EF410(int a1, unsigned __int8 a2) {
 
 	v2 = a2;
 	v3 = *(_DWORD*)(*(_DWORD*)(a1 + 748) + 276);
-	if ((char)a2 > 10) {
-		v2 = 10;
-		a2 = 10;
+	if ((char)a2 > NOX_PLAYER_MAX_LEVEL) {
+		v2 = NOX_PLAYER_MAX_LEVEL;
+		a2 = NOX_PLAYER_MAX_LEVEL;
 	}
 	*(float*)(a1 + 28) = nox_xxx_gamedataGetFloatTable_419D70("XPTable", v2);
 	v7 = nox_xxx_gamedataGetFloatTable_419D70("XPTable", v2);

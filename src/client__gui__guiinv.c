@@ -1600,8 +1600,8 @@ int nox_xxx_inventoryNameSignInit_4671E0() {
 	nox_wcscpy((wchar_t*)getMemAt(0x5D4594, 1062588), (const wchar_t*)getMemAt(0x5D4594, 1063676));
 	if (nox_common_gameFlags_check_40A5C0(4096) || sub_4D6F50() || (result = sub_4D6F70()) != 0) {
 		result = dword_5d4594_1049844;
-		if (dword_5d4594_1049844 > 0xAu)
-			result = 10;
+		if (dword_5d4594_1049844 > NOX_PLAYER_MAX_LEVEL)
+			result = NOX_PLAYER_MAX_LEVEL;
 		v1 = *getMemU32Ptr(0x5D4594, 2618908);
 	} else {
 		v1 = *getMemU32Ptr(0x5D4594, 2618908);

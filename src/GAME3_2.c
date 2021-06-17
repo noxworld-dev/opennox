@@ -8643,7 +8643,7 @@ _DWORD*  nox_xxx_playerNew_4DD320(int ind, void* data) {
 	*((_DWORD*)v8 + 1159) = nox_xxx_protectionCreateInt_56F400(0);
 	*((_DWORD*)v8 + 1147) = nox_xxx_protectionCreateInt_56F400(*((_DWORD*)v8 + 541));
 	*((_DWORD*)v8 + 1160) = nox_xxx_protectionCreateInt_56F400(0);
-	*((_DWORD*)v8 + 1161) = nox_xxx_protectionCreateInt_56F400(v8[3684]);
+	*((_DWORD*)v8 + 1161) = nox_xxx_protectionCreateInt_56F400(v8[3684]); // level
 	*((_DWORD*)v8 + 1162) = -1;
 	*((_DWORD*)v8 + 1175) = 1;
 	if (dword_5d4594_2650652)

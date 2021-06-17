@@ -27,6 +27,8 @@
 
 #define NOX_CLIENT_VERS_CODE 0x0001039A
 
+#define NOX_PLAYER_MAX_LEVEL 10
+
 #define USE_SDL 1
 
 #include "memmap.h"
