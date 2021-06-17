@@ -26,7 +26,7 @@ int  nox_xxx_updDrawManabombCharge_4CCAC0(int a1, _DWORD* a2) {
 	unsigned int v18;     // [esp+1Ch] [ebp-4h]
 	int v19;              // [esp+28h] [ebp+8h]
 
-	v14 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 188052));
+	v14 = nox_xxx_gamedataGetFloat_419D40("ManaBombOutRadius");
 	v2 = nox_float2int(v14);
 	if (!dword_5d4594_1522956) {
 		dword_5d4594_1522956 = nox_xxx_getTTByNameSpriteMB_44CFC0("ManaBombOrb");

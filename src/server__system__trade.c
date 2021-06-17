@@ -527,7 +527,7 @@ float*  sub_5100C0_trade(int a1, _DWORD* a2, int a3) {
 				}
 			}
 			if (*(unsigned __int16*)(v6 + 4) == dword_5d4594_2386548) {
-				v16 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 236224));
+				v16 = nox_xxx_gamedataGetFloat_419D40("MaxExtraLives");
 				if (*(_DWORD*)(v18 + 320) >= nox_float2int(v16)) {
 					nox_xxx_netPriMsgToPlayer_4DA2C0(v3, "pickup.c:MaxTradableAnkhsReached", 0);
 					return (float*)nox_xxx_aud_501960(925, v3, 0, 0);
@@ -537,7 +537,7 @@ float*  sub_5100C0_trade(int a1, _DWORD* a2, int a3) {
 				v11 = *(_DWORD*)(v6 + 8);
 				if (v11 & 0x1000) {
 					if (*(_DWORD*)(v6 + 12) & 0x200000) {
-						v17 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 236276));
+						v17 = nox_xxx_gamedataGetFloat_419D40("ForceOfNatureStaffLimit");
 						v12 = nox_float2int(v17);
 						if (nox_xxx_inventoryCountObjects_4E7D30(v3, *(unsigned __int16*)(v6 + 4)) >= v12) {
 							nox_xxx_netPriMsgToPlayer_4DA2C0(v3, "pickup.c:MaxSameItem", 0);
@@ -622,7 +622,7 @@ float*  sub_510640_trade(int a1, int a2, int a3, float* a4) {
 				v6 = (_DWORD*)a2;
 			}
 			if (*(unsigned __int16*)(v7 + 4) == dword_5d4594_2386552) {
-				v16 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 236468));
+				v16 = nox_xxx_gamedataGetFloat_419D40("MaxExtraLives");
 				if (*(_DWORD*)(v20 + 320) >= nox_float2int(v16))
 					break;
 			}
@@ -630,7 +630,7 @@ float*  sub_510640_trade(int a1, int a2, int a3, float* a4) {
 				v10 = *(_DWORD*)(v7 + 8);
 				if (v10 & 0x1000) {
 					if (*(_DWORD*)(v7 + 12) & 0x200000) {
-						v17 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 236520));
+						v17 = nox_xxx_gamedataGetFloat_419D40("ForceOfNatureStaffLimit");
 						v11 = nox_float2int(v17);
 						if (nox_xxx_inventoryCountObjects_4E7D30(v4, *(unsigned __int16*)(v7 + 4)) >= v11) {
 							nox_xxx_netPriMsgToPlayer_4DA2C0(v4, "pickup.c:MaxSameItem", 0);

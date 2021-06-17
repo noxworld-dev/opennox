@@ -1442,7 +1442,7 @@ LABEL_20:
 		nox_xxx_fileReadWrite_426AC0_file3_fread(&v13, 4u);
 		if (*getMemU32Ptr(0x5D4594, 3803300) == 1 && v3)
 			*(_DWORD*)(v3 + 320) = v13;
-		v12 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 56312));
+		v12 = nox_xxx_gamedataGetFloat_419D40("MaxExtraLives");
 		v10 = nox_float2int(v12);
 		if (v3 && *(_DWORD*)(v3 + 320) > v10)
 			return 0;
@@ -7776,15 +7776,15 @@ int  nox_xxx_getManaCost_4249A0(int a1, int a2) {
 		return getMemByte(0x5D4594, 588186 + 80 * a1);
 	switch (a1) {
 	case 24:
-		v5 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 69668));
+		v5 = nox_xxx_gamedataGetFloat_419D40("EnergyBoltTrapCost");
 		result = nox_float2int(v5);
 		break;
 	case 43:
-		v4 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 69688));
+		v4 = nox_xxx_gamedataGetFloat_419D40("LightningTrapCost");
 		result = nox_float2int(v4);
 		break;
 	case 56:
-		v3 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 69648));
+		v3 = nox_xxx_gamedataGetFloat_419D40("ManaBombTrapCost");
 		result = nox_float2int(v3);
 		break;
 	default:
@@ -7921,7 +7921,7 @@ __int16  nox_xxx_spellGetWorth_424C40(int a1) {
 		return 0;
 	v2 = (double)*getMemU16Ptr(0x5D4594, 588188 + 80 * a1);
 	if (nox_common_gameFlags_check_40A5C0(4096))
-		v2 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 69708)) * v2;
+		v2 = nox_xxx_gamedataGetFloat_419D40("QuestSpellWorthMultiplier") * v2;
 	return nox_float2int(v2);
 }
 
@@ -8006,25 +8006,25 @@ int nox_xxx_loadWariorParams_424DF0() {
 	float v9;   // [esp+0h] [ebp-4h]
 	float v10;  // [esp+0h] [ebp-4h]
 
-	v1 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 69884));
+	v1 = nox_xxx_gamedataGetFloat_419D40("BerserkerChargeDelay");
 	*getMemU32Ptr(0x5D4594, 599212) = nox_float2int(v1);
-	v2 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 69908));
+	v2 = nox_xxx_gamedataGetFloat_419D40("BerserkerChargeDuration");
 	*getMemU32Ptr(0x5D4594, 599216) = nox_float2int(v2);
-	v3 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 69932));
+	v3 = nox_xxx_gamedataGetFloat_419D40("WarcryDelay");
 	*getMemU32Ptr(0x5D4594, 599264) = nox_float2int(v3);
-	v4 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 69944));
+	v4 = nox_xxx_gamedataGetFloat_419D40("WarCryDuration");
 	*getMemU32Ptr(0x5D4594, 599268) = nox_float2int(v4);
-	v5 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 69960));
+	v5 = nox_xxx_gamedataGetFloat_419D40("HarpoonDelay");
 	*getMemU32Ptr(0x5D4594, 599316) = nox_float2int(v5);
-	v6 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 69976));
+	v6 = nox_xxx_gamedataGetFloat_419D40("HarpoonDuration");
 	*getMemU32Ptr(0x5D4594, 599320) = nox_float2int(v6);
-	v7 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 69992));
+	v7 = nox_xxx_gamedataGetFloat_419D40("TreadLightlyDelay");
 	*getMemU32Ptr(0x5D4594, 599368) = nox_float2int(v7);
-	v8 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 70012));
+	v8 = nox_xxx_gamedataGetFloat_419D40("TreadLightlyDuration");
 	*getMemU32Ptr(0x5D4594, 599372) = nox_float2int(v8);
-	v9 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 70036));
+	v9 = nox_xxx_gamedataGetFloat_419D40("EyeOfTheWolfDelay");
 	*getMemU32Ptr(0x5D4594, 599420) = nox_float2int(v9);
-	v10 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 70056));
+	v10 = nox_xxx_gamedataGetFloat_419D40("EyeOfTheWolfDuration");
 	result = nox_float2int(v10);
 	*getMemU32Ptr(0x5D4594, 599424) = result;
 	return result;

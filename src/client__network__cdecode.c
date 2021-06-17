@@ -1925,7 +1925,7 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 					data += 5;
 					break;
 				case 163:
-					v340 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 159972));
+					v340 = nox_xxx_gamedataGetFloat_419D40("ManaBombOutRadius");
 					v252 = nox_float2int(v340);
 					v357 = 150;
 					v253 = v252 >> 2;

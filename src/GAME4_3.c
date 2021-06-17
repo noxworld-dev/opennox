@@ -113,7 +113,7 @@ int  nox_xxx_onFrameLightning_52F8A0(float a1) {
 	} else if (!*(_DWORD*)(LODWORD(a1) + 20)) {
 		return 1;
 	}
-	v41 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 260712));
+	v41 = nox_xxx_gamedataGetFloat_419D40("LightningRange");
 	if (*(_DWORD*)(v1 + 20)) {
 		*getMemU32Ptr(0x5D4594, 2487820) = *(_DWORD*)(v1 + 28);
 		*getMemU32Ptr(0x5D4594, 2487824) = *(_DWORD*)(v1 + 32);
@@ -255,7 +255,7 @@ LABEL_55:
 	}
 	if (!*getMemU32Ptr(0x5D4594, 2487844))
 		return 0;
-	v42 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 260728)) + *(float*)(v1 + 76);
+	v42 = nox_xxx_gamedataGetFloat_419D40("LightningDamage") + *(float*)(v1 + 76);
 	v20 = nox_float2int(v42);
 	*(float*)(v1 + 76) = v42 - (double)v20;
 	v21 = *(_DWORD**)(v1 + 108);
@@ -313,7 +313,7 @@ LABEL_55:
 		nox_xxx_aud_501960(78, *(_DWORD*)(v1 + 16), 0, 0);
 		nox_xxx_aud_501960(78, *getMemIntPtr(0x5D4594, 2487844), 0, 0);
 	}
-	v39 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 260744));
+	v39 = nox_xxx_gamedataGetFloat_419D40("LightningSearchTime");
 	*(_DWORD*)(v1 + 68) = nox_frame_xxx_2598000 + nox_float2int(v39);
 	return 0;
 }
@@ -411,7 +411,7 @@ void  sub_530020(int a1, int a2) {
 						v9.field_8 = v4;
 						v9.field_C = v5;
 						if (nox_xxx_mapTraceRay_535250(&v9, 0, 0, 9)) {
-							v8 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 260764));
+							v8 = nox_xxx_gamedataGetFloat_419D40("LightningGlyphDamage");
 							v6 = nox_float2int(v8);
 							(*(void(**)(int, _DWORD, _DWORD, int, int))(a1 + 716))(a1, 0, 0, v6, 17);
 							nox_xxx_netSendPointFx_522FF0(129, (float2*)(a1 + 56));
@@ -485,7 +485,7 @@ int  nox_xxx_spellTagCreature_530160(_DWORD* a1) {
 	v3 = a1[12];
 	if (!v3 || *(_DWORD*)(v3 + 16) & 0x8020)
 		return 1;
-	v9 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 260788));
+	v9 = nox_xxx_gamedataGetFloat_419D40("TagDurationPerLevel");
 	a1[17] = nox_frame_xxx_2598000 + a1[2] * nox_float2int(v9);
 	nox_xxx_netMarkMinimapObject_417190(*(unsigned __int8*)(*(_DWORD*)(v2 + 276) + 2064), a1[12], 1);
 	v4 = (_DWORD*)a1[12];
@@ -1020,7 +1020,7 @@ int  nox_xxx_manaBomb_530F90(_DWORD* a1) {
 	a1[21] = 0;
 	v1 = a1[4];
 	if (v1 && !(*(_BYTE*)(v1 + 8) & 4) || a1[5]) {
-		v5 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 261108));
+		v5 = nox_xxx_gamedataGetFloat_419D40("ManaBombGlyphDuration");
 		a1[17] = nox_frame_xxx_2598000 + nox_float2int(v5);
 	} else {
 		nox_xxx_buffApplyTo_4FF380(v1, 5, 10 * (_WORD)nox_gameFPS, 5);
@@ -1095,10 +1095,10 @@ LABEL_18:
 		v15.field_4 = v7;
 		nox_xxx_gameSetWallsDamage_4E25A0(1);
 		v12 = a1[4];
-		v11 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 261132));
-		v10 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 261152));
+		v11 = nox_xxx_gamedataGetFloat_419D40("ManaBombInRadius");
+		v10 = nox_xxx_gamedataGetFloat_419D40("ManaBombOutRadius");
 		nox_xxx_mapDamageUnitsAround_4E25B0(&v15, v10, v11, v6, 15, v12, 0);
-		v13 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 261172));
+		v13 = nox_xxx_gamedataGetFloat_419D40("ManaBombShakeMag");
 		v9 = nox_float2int(v13);
 		nox_xxx_earthquakeSend_4D9110(&v15, v9);
 		nox_xxx_netSendPointFx_522FF0(129, &v15);
@@ -1352,9 +1352,9 @@ int  nox_xxx_plasmaShot_531600(int a1) {
 		}
 		v8 = *(unsigned __int16*)(*(_DWORD*)(a1 + 48) + 4);
 		if ((unsigned __int16)v8 == *getMemU32Ptr(0x5D4594, 2487936) || v8 == *getMemU32Ptr(0x5D4594, 2487940))
-			v9 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 261292));
+			v9 = nox_xxx_gamedataGetFloat_419D40("PlasmaDamageHecubah");
 		else
-			v9 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 261312));
+			v9 = nox_xxx_gamedataGetFloat_419D40("PlasmaDamage");
 		v20 = v9;
 		v10 = nox_float2int(v20);
 		(*(void(**)(_DWORD, _DWORD, _DWORD, int, int))(*(_DWORD*)(a1 + 48) + 716))(
@@ -1370,7 +1370,7 @@ int  nox_xxx_plasmaShot_531600(int a1) {
 			nox_xxx_aud_501960(98, *(_DWORD*)(a1 + 48), 0, 0);
 		}
 		if (!*(_DWORD*)(a1 + 76)) {
-			v21 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 261328));
+			v21 = nox_xxx_gamedataGetFloat_419D40("PlasmaSearchTime");
 			*(_DWORD*)(a1 + 68) = nox_frame_xxx_2598000 + nox_float2int(v21);
 		}
 		v12 = *(_DWORD*)(a1 + 72);
@@ -1455,7 +1455,7 @@ int  nox_xxx_spellCreateMoonglow_531A00(_DWORD* a1) {
 	float v8;   // [esp+Ch] [ebp-8h]
 	float v9;   // [esp+10h] [ebp-4h]
 
-	v7 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 261348));
+	v7 = nox_xxx_gamedataGetFloat_419D40("MoonglowEnchantmentDuration");
 	v1 = nox_float2int(v7);
 	v2 = a1[12];
 	if (!v2 || *(_DWORD*)(v2 + 16) & 0x8020)
@@ -5775,7 +5775,7 @@ char  nox_xxx_trapBAH_537C10(int a1, int a2) {
 			v13[7] = -1;
 			v13[8] = 0x8000;
 			v8 = (int*)(v4 + 24);
-			v10 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 277100));
+			v10 = nox_xxx_gamedataGetFloat_419D40("GlyphRange");
 			*(_DWORD*)(v4 + 24) = sub_4E6EA0(a1, v10, (int)v13);
 		}
 		a3 = 0;
@@ -5910,7 +5910,7 @@ int  nox_xxx_castGlyph_537FA0(int a1, int a2, int a3, int a4, int a5) {
 	v5 = a3;
 	if (*(_BYTE*)(a3 + 8) & 4) {
 		v6 = *(_DWORD*)(a3 + 748);
-		v20 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 277128));
+		v20 = nox_xxx_gamedataGetFloat_419D40("MaxTrapCount");
 		if (*(unsigned __int8*)(v6 + 244) >= nox_float2int(v20)) {
 			a3 = 5;
 		LABEL_6:
@@ -5962,7 +5962,7 @@ int  nox_xxx_castGlyph_537FA0(int a1, int a2, int a3, int a4, int a5) {
 				return 1;
 			}
 			v23 = (double)sub_538250(v5);
-			if (nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 277152)) <= v23) {
+			if (nox_xxx_gamedataGetFloat_419D40("MaxBomberCount") <= v23) {
 				v11 = *(_DWORD*)(v6 + 276);
 				a4 = 5;
 				nox_xxx_netInformTextMsg_4DA0F0(*(unsigned __int8*)(v11 + 2064), 0, &a4);
@@ -6107,7 +6107,7 @@ int  nox_xxx_playerTraceAttack_538330(int a1, int a2) {
 	if (*(_DWORD*)(a2 + 28)) {
 		if (dword_5d4594_2488656) {
 			v20 = *(unsigned __int8*)(a2 + 4);
-			v19 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 277176)) * *(float*)a2;
+			v19 = nox_xxx_gamedataGetFloat_419D40("ItemDamagePercentage") * *(float*)a2;
 			nox_xxx_playerDamageWeapon_4E1560(*(_DWORD*)(a2 + 28), *(_DWORD*)(a2 + 12), *(int*)&dword_5d4594_2488660,
 					   *(int*)&dword_5d4594_2488660, v19, v20);
 		}
@@ -7428,7 +7428,7 @@ int  sub_53A720(int a1, int a2, int a3, int a4) {
 	if (*(_BYTE*)(a1 + 8) & 4) {
 		if (nox_common_gameFlags_check_40A5C0(4096)) {
 			if (*(_DWORD*)(a2 + 12) & 0x200000) {
-				v12 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 277556));
+				v12 = nox_xxx_gamedataGetFloat_419D40("ForceOfNatureStaffLimit");
 				v6 = nox_float2int(v12);
 				if (nox_xxx_inventoryCountObjects_4E7D30(a1, *(unsigned __int16*)(a2 + 4)) >= v6) {
 					nox_xxx_netPriMsgToPlayer_4DA2C0(a1, "pickup.c:MaxSameItem", 0);
@@ -8186,9 +8186,9 @@ void  nox_xxx_spellFlyUpdate_53B940(int a1) {
 	v1 = a1;
 	v2 = *(int**)(a1 + 748);
 	if (v2[1])
-		v3 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 278124));
+		v3 = nox_xxx_gamedataGetFloat_419D40("TargetedSpellLifetime");
 	else
-		v3 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 278148));
+		v3 = nox_xxx_gamedataGetFloat_419D40("UnTargetedSpellLifetime");
 	v15 = v3;
 	if (nox_frame_xxx_2598000 - *(_DWORD*)(a1 + 128) <= (unsigned int)nox_float2int(v15)) {
 		if (*v2 && *(_BYTE*)(*v2 + 16) & 0x20)
@@ -8862,7 +8862,7 @@ int  nox_xxx_getRechargeRate_53C940(_DWORD* a1) {
 		return 0;
 	v1 = a1[2];
 	if (v1 & 0x1000 && a1[3] & 0x4000000) {
-		v6 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 278412));
+		v6 = nox_xxx_gamedataGetFloat_419D40("OblivionStaffRechargeRate");
 		result = nox_float2int(v6);
 	} else {
 		v3 = 2;
@@ -9031,7 +9031,7 @@ void  nox_xxx_updatePixie_53CD20(int a1) {
 	if (*getMemU32Ptr(0x5D4594, 2488696)) {
 		v3 = nox_gameFPS;
 	} else {
-		v21 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 278704));
+		v21 = nox_xxx_gamedataGetFloat_419D40("PixieReturnTimeout");
 		v2 = nox_float2int(v21);
 		v3 = nox_gameFPS;
 		*getMemU32Ptr(0x5D4594, 2488696) = nox_gameFPS * v2;
@@ -9182,7 +9182,7 @@ void  nox_xxx_updateDeathBall_53D080(int a1) {
 	v2 = nox_frame_xxx_2598000 - *(_DWORD*)(a1 + 128);
 	if (nox_frame_xxx_2598000 % (nox_gameFPS / 3u)) {
 		*getMemU32Ptr(0x5D4594, 2488700) = 0;
-		v4 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 278732));
+		v4 = nox_xxx_gamedataGetFloat_419D40("DeathBallCancelRange");
 		sub_518170(a1 + 56, v4, sub_53D170, a1);
 		if (*getMemU32Ptr(0x5D4594, 2488700) == 1) {
 			nox_xxx_sMakeScorch_537AF0((int*)(a1 + 56), 1);
@@ -9190,9 +9190,9 @@ void  nox_xxx_updateDeathBall_53D080(int a1) {
 		}
 	}
 	if (v2 > 10) {
-		v6 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 278756));
-		v7 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 278776));
-		v5 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 278796));
+		v6 = nox_xxx_gamedataGetFloat_419D40("DeathBallOutRadius");
+		v7 = nox_xxx_gamedataGetFloat_419D40("DeathBallInRadius");
+		v5 = nox_xxx_gamedataGetFloat_419D40("DeathBallNearbyDamage");
 		v3 = nox_float2int(v5);
 		nox_xxx_mapDamageUnitsAround_4E25B0(v1 + 56, v6, v7, v3, 2, v1, 0);
 	}
@@ -11486,7 +11486,7 @@ int  nox_xxx_mobCastInversion_5408D0(int a1) {
 	if (sub_5408A0(a1))
 		return 0;
 	*getMemU32Ptr(0x5D4594, 2489156) = 0;
-	v7 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 281816)) * 0.5;
+	v7 = nox_xxx_gamedataGetFloat_419D40("InversionRange") * 0.5;
 	sub_518170(a1 + 56, v7, nox_xxx_unitIsMagicMissile_540B60, a1);
 	if (!*getMemU32Ptr(0x5D4594, 2489156))
 		return 0;

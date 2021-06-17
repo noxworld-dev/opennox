@@ -265,7 +265,7 @@ int  nox_server_handler_PlayerDamage_4E17B0(int a1, int a2, int a3, int a4, int 
 						} else {
 							nox_xxx_monsterAction_50A360(v5, 23);
 						}
-						v30 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 201308));
+						v30 = nox_xxx_gamedataGetFloat_419D40("ItemDamageFromBlockPercentage");
 						v47 = v30 * (double) a4;
 						sub_4E22A0(v5, a2, a3, 1024, v47, v27);
 						return 0;
@@ -298,7 +298,7 @@ int  nox_server_handler_PlayerDamage_4E17B0(int a1, int a2, int a3, int a4, int 
 					nox_xxx_playerSetState_4FA020((_DWORD *) v5, 21);
 				else
 					nox_xxx_monsterAction_50A360(v5, 23);
-				v32 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 201340));
+				v32 = nox_xxx_gamedataGetFloat_419D40("ItemDamageFromBlockPercentage");
 				v48 = v32 * (double) a4;
 				sub_4E22A0(v5, a2, a3, 134184960, v48, v27);
 				return 0;
@@ -314,7 +314,7 @@ int  nox_server_handler_PlayerDamage_4E17B0(int a1, int a2, int a3, int a4, int 
 						nox_xxx_unitSetOwner_4EC290(v5, v9);
 					}
 				}
-				v26 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 201228));
+				v26 = nox_xxx_gamedataGetFloat_419D40("ItemDamageFromBlockPercentage");
 				v46 = v26 * (double) a4;
 				sub_4E2330(v5, a2, a3, 2, v46, v25);
 				return 0;
@@ -1303,7 +1303,7 @@ int sub_4E3D50() {
 	float v2; // [esp+0h] [ebp-8h]
 
 	if (!*getMemU32Ptr(0x5D4594, 1563928)) {
-		*getMemFloatPtr(0x5D4594, 1563912) = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 202040));
+		*getMemFloatPtr(0x5D4594, 1563912) = nox_xxx_gamedataGetFloat_419D40("PlayerDifficultyDelta");
 		*getMemU32Ptr(0x5D4594, 1563928) = 1;
 	}
 	v0 = nox_xxx_player_4E3CE0();
@@ -1337,13 +1337,13 @@ __int16 sub_4E3DD0() {
 	float v22;            // [esp+14h] [ebp-8h]
 	unsigned __int16 v23; // [esp+18h] [ebp-4h]
 
-	v21 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 202064));
+	v21 = nox_xxx_gamedataGetFloat_419D40("GeneratorMaxHealth");
 	v23 = nox_float2int(v21);
 	if (!*getMemU32Ptr(0x5D4594, 1563932)) {
-		*getMemFloatPtr(0x5D4594, 1563908) = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 202084));
-		*getMemFloatPtr(0x5D4594, 1563916) = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 202108));
-		*getMemFloatPtr(0x5D4594, 1563920) = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 202132));
-		*getMemFloatPtr(0x5D4594, 1563924) = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 202156));
+		*getMemFloatPtr(0x5D4594, 1563908) = nox_xxx_gamedataGetFloat_419D40("PlayerDamageDiffInit");
+		*getMemFloatPtr(0x5D4594, 1563916) = nox_xxx_gamedataGetFloat_419D40("SystemHealthDiffInit");
+		*getMemFloatPtr(0x5D4594, 1563920) = nox_xxx_gamedataGetFloat_419D40("PlayerDamageDiffCoeff");
+		*getMemFloatPtr(0x5D4594, 1563924) = nox_xxx_gamedataGetFloat_419D40("SystemHealthDiffCoeff");
 		*getMemU32Ptr(0x5D4594, 1563932) = 1;
 	}
 	v19 = (sub_4E3CA0() - 1.0) * *getMemFloatPtr(0x5D4594, 1563920) + *getMemFloatPtr(0x5D4594, 1563908);
@@ -1429,7 +1429,7 @@ __int16 sub_4E3DD0() {
 void  sub_4E4080(float a1) {
 	double v1; // st7
 
-	v1 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 202180));
+	v1 = nox_xxx_gamedataGetFloat_419D40("PlayerDamageCap");
 	if (a1 <= v1)
 		*getMemFloatPtr(0x587000, 202032) = a1;
 	else
@@ -1443,7 +1443,7 @@ double sub_4E40B0() { return *getMemFloatPtr(0x587000, 202032); }
 void  sub_4E40C0(float a1) {
 	double v1; // st7
 
-	v1 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 202196));
+	v1 = nox_xxx_gamedataGetFloat_419D40("SystemHealthCap");
 	if (a1 <= v1)
 		*getMemFloatPtr(0x587000, 202036) = a1;
 	else
@@ -4509,7 +4509,7 @@ void  nox_xxx_collidePlayer_4E8460(int a1, int a2) {
 				nox_xxx_earthquakeSend_4D9110((float*)(a1 + 56), 10);
 				sub_4FC300((_DWORD*)a1, 1);
 				if (a2) {
-					v16 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 203928));
+					v16 = nox_xxx_gamedataGetFloat_419D40("BerserkerDamage");
 					v4 = nox_float2int(v16);
 					if (!(*(_DWORD*)(a2 + 8) & 0x400000))
 						sub_4E86E0(a1, (float*)a2);
@@ -4517,7 +4517,7 @@ void  nox_xxx_collidePlayer_4E8460(int a1, int a2) {
 					(*(void(**)(int, int, int, int, int))(a2 + 716))(a2, v5, a1, v4, 2);
 					if (*(_DWORD*)(a2 + 8) & 0x20006)
 						goto LABEL_25;
-					v17 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 203944));
+					v17 = nox_xxx_gamedataGetFloat_419D40("BerserkerStunDuration");
 					v6 = nox_float2int(v17);
 					nox_xxx_buffApplyTo_4FF380(a1, 5, v6, 5);
 				} else {
@@ -4528,7 +4528,7 @@ void  nox_xxx_collidePlayer_4E8460(int a1, int a2) {
 						goto LABEL_26;
 					}
 					nox_xxx_aud_501960(171, a1, 0, 0);
-					v18 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 203968));
+					v18 = nox_xxx_gamedataGetFloat_419D40("BerserkerStunDuration");
 					v8 = nox_float2int(v18);
 					nox_xxx_buffApplyTo_4FF380(a1, 5, v8, 5);
 					v14 = *(float*)(a1 + 68) * 0.043478262;
@@ -4537,7 +4537,7 @@ void  nox_xxx_collidePlayer_4E8460(int a1, int a2) {
 					v9 = nox_float2int(v13);
 					nox_xxx_damageToMap_534BC0(v9, v15, 100, 2, a1);
 				}
-				v19 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 203992)) * (double)**(unsigned __int16**)(a1 + 556);
+				v19 = nox_xxx_gamedataGetFloat_419D40("BerserkerPainRatio") * (double)**(unsigned __int16**)(a1 + 556);
 				v10 = nox_float2int(v19);
 				if (v10 < 1)
 					v10 = 1;
@@ -4619,14 +4619,14 @@ void  nox_xxx_collideProjectileGeneric_4E87B0(int a1, int a2) {
 	}
 	v3 = *(unsigned __int16*)(a1 + 4);
 	if ((unsigned __int16)v3 == *getMemU32Ptr(0x5D4594, 1567948)) {
-		v4 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 204036));
+		v4 = nox_xxx_gamedataGetFloat_419D40("UrchinStoneDamage");
 	LABEL_5:
 		v8 = v4;
 		v5 = nox_float2int(v8);
 		goto LABEL_9;
 	}
 	if (v3 == *getMemU32Ptr(0x5D4594, 1567952)) {
-		v4 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 204056));
+		v4 = nox_xxx_gamedataGetFloat_419D40("ImpShotDamage");
 		goto LABEL_5;
 	}
 	v5 = *v2;
@@ -4920,7 +4920,7 @@ int sub_4E8E60() {
 	int v13;         // [esp+10h] [ebp-Ch]
 	int v14;         // [esp+18h] [ebp-4h]
 
-	v11 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 204316));
+	v11 = nox_xxx_gamedataGetFloat_419D40("QuestExitTimerStart");
 	v0 = nox_float2int(v11);
 	v1 = 0;
 	v14 = v0;
@@ -5397,13 +5397,13 @@ void  nox_xxx_collideBoom_4E9770(int a1, int a2, float* a3) {
 	float2 v12; // [esp+4h] [ebp-8h]
 
 	if (!*getMemU32Ptr(0x5D4594, 1567964)) {
-		v10 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 204452));
+		v10 = nox_xxx_gamedataGetFloat_419D40("MagicMissileDamage");
 		*getMemU32Ptr(0x5D4594, 1567968) = nox_float2int(v10);
-		v11 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 204472));
+		v11 = nox_xxx_gamedataGetFloat_419D40("MagicMissileSplashDamage");
 		*getMemU32Ptr(0x5D4594, 1567972) = nox_float2int(v11);
-		*getMemFloatPtr(0x5D4594, 1567976) = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 204500));
-		*getMemFloatPtr(0x5D4594, 1567980) = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 204520));
-		*getMemFloatPtr(0x5D4594, 1567984) = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 204544));
+		*getMemFloatPtr(0x5D4594, 1567976) = nox_xxx_gamedataGetFloat_419D40("MagicMissileRange");
+		*getMemFloatPtr(0x5D4594, 1567980) = nox_xxx_gamedataGetFloat_419D40("MagicMissilePushRange");
+		*getMemFloatPtr(0x5D4594, 1567984) = nox_xxx_gamedataGetFloat_419D40("MagicMissileForce");
 		*getMemU32Ptr(0x5D4594, 1567964) = 1;
 	}
 	if (!nox_common_gameFlags_check_40A5C0(4096) || (v3 = nox_xxx_findParentChainPlayer_4EC580(a1)) == 0 || !a2 || !(*(_BYTE*)(v3 + 8) & 4) ||
@@ -5661,7 +5661,7 @@ int*  nox_xxx_collideDeathBall_4E9E90(int a1, int a2, float* a3) {
 
 	if (a2) {
 		if ((signed char)*(_BYTE*)(a2 + 8) >= 0) {
-			v13 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 204628));
+			v13 = nox_xxx_gamedataGetFloat_419D40("DeathBallCollideDamage");
 			v14 = nox_float2int(v13);
 			v11 = nox_xxx_findParentChainPlayer_4EC580(a1);
 			result = (int*)(*(int(**)(int, int, int, int, int))(a2 + 716))(a2, v11, a1, v14, 2);
@@ -5690,7 +5690,7 @@ int*  nox_xxx_collideDeathBall_4E9E90(int a1, int a2, float* a3) {
 			result = (int*)sub_537760();
 			v4 = result;
 			if (result) {
-				v12 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 204604));
+				v12 = nox_xxx_gamedataGetFloat_419D40("DeathBallCollideDamage");
 				v5 = nox_float2int(v12);
 				result = (int*)nox_xxx_damageToMap_534BC0(*v4, v4[1], v5, 2, a1);
 			}
@@ -6688,7 +6688,7 @@ void  nox_xxx_collideHarpoon_4EB6A0(int a1, int a2) {
 	v3 = *(_DWORD**)(a1 + 508);
 	v4 = (_DWORD*)v3[187];
 	if (!*getMemU32Ptr(0x5D4594, 1568004)) {
-		v13 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 204872));
+		v13 = nox_xxx_gamedataGetFloat_419D40("HarpoonDamage");
 		v2 = nox_float2int(v13);
 		*getMemU32Ptr(0x5D4594, 1568004) = v2;
 	}
@@ -6781,7 +6781,7 @@ void  nox_xxx_collidePoisonGasTrap_4EB910(int* a1, int a2) {
 		if (v2) {
 			nox_xxx_createAt_4DAA50((int)v2, a1[127], *((float*)a1 + 14), *((float*)a1 + 15));
 			v3 = (_DWORD*)v2[187];
-			v4 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 204916)) * (double)(int)nox_gameFPS;
+			v4 = nox_xxx_gamedataGetFloat_419D40("ToxicCloudLifetime") * (double)(int)nox_gameFPS;
 			*v3 = nox_float2int(v4);
 			nox_xxx_aud_501960(847, (int)a1, 0, 0);
 			nox_xxx_delayedDeleteObject_4E5CC0((int)a1);
@@ -7113,7 +7113,7 @@ void  nox_xxx_collideAnkhQuest_4EBF40(int a1, int a2) {
 		} while (v18 < 64);
 		if (v19 == 1)
 			goto LABEL_17;
-		v17 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 205104));
+		v17 = nox_xxx_gamedataGetFloat_419D40("MaxExtraLives");
 		if (*(_DWORD*)(v4 + 320) < nox_float2int(v17)) {
 			v12 = nox_xxx_newObjectByTypeID_4E3810("AnkhTradable");
 			if (v12)
@@ -9313,7 +9313,7 @@ double  nox_xxx_calcBoltDamage_4EF1E0(int a1, int a2) {
 		result =
 			(double)(a1 - *(unsigned __int16*)(a2 + 60)) * *(float*)(a2 + 64) + (double)*(unsigned __int16*)(a2 + 72);
 	else
-		result = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 206172)) + (double)(a1 - *(unsigned __int16*)(a2 + 60)) * *(float*)(a2 + 64);
+		result = nox_xxx_gamedataGetFloat_419D40("BoltSoloDamageMin") + (double)(a1 - *(unsigned __int16*)(a2 + 60)) * *(float*)(a2 + 64);
 	return result;
 }
 
@@ -9712,7 +9712,7 @@ char  nox_xxx_unitInitPlayer_4EFE80(int a1) {
 	nox_xxx_plrReadVals_4EEDC0(a1, 0);
 	nox_xxx_spellAdward_4EFE10(*(_DWORD*)(v1 + 276));
 	if (nox_common_gameFlags_check_40A5C0(4096)) {
-		v4 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 206600));
+		v4 = nox_xxx_gamedataGetFloat_419D40("QuestGameStartingExtraLives");
 		*(_DWORD*)(v1 + 320) = nox_float2int(v4);
 	}
 	return nox_xxx_playerMakeDefItems_4EF7D0(a1, 1, 0);
@@ -10021,16 +10021,16 @@ int  nox_xxx_unitInitGenerator_4F0590(int a1) {
 	v1 = *(_DWORD*)(a1 + 748);
 	switch (*(unsigned __int8*)(nox_xxx_getQuestStage_51A930() + v1 + 83)) {
 	case 0u:
-		v2 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 206868));
+		v2 = nox_xxx_gamedataGetFloat_419D40("GeneratorMaxActiveCreaturesHigh");
 		goto LABEL_6;
 	case 1u:
-		v2 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 206900));
+		v2 = nox_xxx_gamedataGetFloat_419D40("GeneratorMaxActiveCreaturesNormal");
 		goto LABEL_6;
 	case 2u:
-		v2 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 206936));
+		v2 = nox_xxx_gamedataGetFloat_419D40("GeneratorMaxActiveCreaturesLow");
 		goto LABEL_6;
 	case 3u:
-		v2 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 206968));
+		v2 = nox_xxx_gamedataGetFloat_419D40("GeneratorMaxActiveCreaturesSingular");
 	LABEL_6:
 		*(_BYTE*)(v1 + 87) = (__int64)v2;
 		break;
@@ -12070,7 +12070,7 @@ BOOL  sub_4F2C30(int a1) {
 		nox_xxx_inventoryCountObjects_4E7D30(a1, *getMemIntPtr(0x5D4594, 1568396)) > 9 || nox_xxx_inventoryCountObjects_4E7D30(a1, *getMemIntPtr(0x5D4594, 1568400)) > 9) {
 		return 0;
 	}
-	v3 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 215616));
+	v3 = nox_xxx_gamedataGetFloat_419D40("ForceOfNatureStaffLimit");
 	v1 = nox_float2int(v3);
 	return nox_xxx_inventoryCountObjects_4E7D30(a1, *getMemIntPtr(0x5D4594, 1568404)) <= v1;
 }

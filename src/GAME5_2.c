@@ -4243,22 +4243,22 @@ int  sub_57B190(unsigned __int16 a1, unsigned __int16 a2) {
 
 //----- (0057B200) --------------------------------------------------------
 void nox_xxx_loadBaseValues_57B200() {
-	*getMemFloatPtr(0x5D4594, 2523812) = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 312832));
-	*getMemFloatPtr(0x5D4594, 2523816) = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 312844));
-	*getMemFloatPtr(0x5D4594, 2523824) = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 312856));
-	*getMemFloatPtr(0x5D4594, 2523820) = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 312872));
-	*getMemFloatPtr(0x5D4594, 2523828) = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 312884)) * *(float*)&nox_xxx_warriorMaxHealth_587000_312784;
-	*getMemFloatPtr(0x5D4594, 2523832) = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 312904)) * *(float*)&nox_xxx_warriorMaxMana_587000_312788;
-	*getMemFloatPtr(0x5D4594, 2523840) = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 312920)) * *(float*)&nox_xxx_warriorMaxStrength_587000_312792;
-	*getMemFloatPtr(0x5D4594, 2523836) = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 312940)) * *(float*)&nox_xxx_warriorMaxSpeed_587000_312796;
-	*getMemFloatPtr(0x5D4594, 2523860) = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 312956)) * *(float*)&nox_xxx_conjurerMaxHealth_587000_312800;
-	*getMemFloatPtr(0x5D4594, 2523864) = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 312976)) * *(float*)&nox_xxx_conjurerMaxMana_587000_312804;
-	*getMemFloatPtr(0x5D4594, 2523872) = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 312992)) * *(float*)&nox_xxx_conjurerStrength_587000_312808;
-	*getMemFloatPtr(0x5D4594, 2523868) = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 313012)) * *(float*)&nox_xxx_conjurerSpeed_587000_312812;
-	*getMemFloatPtr(0x5D4594, 2523844) = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 313032)) * *(float*)&nox_xxx_wizardMaxHealth_587000_312816;
-	*getMemFloatPtr(0x5D4594, 2523848) = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 313048)) * *(float*)&nox_xxx_wizardMaximumMana_587000_312820;
-	*getMemFloatPtr(0x5D4594, 2523856) = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 313064)) * *(float*)&nox_xxx_wizardStrength_587000_312824;
-	*getMemFloatPtr(0x5D4594, 2523852) = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 313084)) * *(float*)&nox_xxx_wizardSpeed_587000_312828;
+	*getMemFloatPtr(0x5D4594, 2523812) = nox_xxx_gamedataGetFloat_419D40("BaseHealth");
+	*getMemFloatPtr(0x5D4594, 2523816) = nox_xxx_gamedataGetFloat_419D40("BaseMana");
+	*getMemFloatPtr(0x5D4594, 2523824) = nox_xxx_gamedataGetFloat_419D40("BaseStrength");
+	*getMemFloatPtr(0x5D4594, 2523820) = nox_xxx_gamedataGetFloat_419D40("BaseSpeed");
+	*getMemFloatPtr(0x5D4594, 2523828) = nox_xxx_gamedataGetFloat_419D40("WarriorMaxHealth") * *(float*)&nox_xxx_warriorMaxHealth_587000_312784;
+	*getMemFloatPtr(0x5D4594, 2523832) = nox_xxx_gamedataGetFloat_419D40("WarriorMaxMana") * *(float*)&nox_xxx_warriorMaxMana_587000_312788;
+	*getMemFloatPtr(0x5D4594, 2523840) = nox_xxx_gamedataGetFloat_419D40("WarriorMaxStrength") * *(float*)&nox_xxx_warriorMaxStrength_587000_312792;
+	*getMemFloatPtr(0x5D4594, 2523836) = nox_xxx_gamedataGetFloat_419D40("WarriorMaxSpeed") * *(float*)&nox_xxx_warriorMaxSpeed_587000_312796;
+	*getMemFloatPtr(0x5D4594, 2523860) = nox_xxx_gamedataGetFloat_419D40("ConjurerMaxHealth") * *(float*)&nox_xxx_conjurerMaxHealth_587000_312800;
+	*getMemFloatPtr(0x5D4594, 2523864) = nox_xxx_gamedataGetFloat_419D40("ConjurerMaxMana") * *(float*)&nox_xxx_conjurerMaxMana_587000_312804;
+	*getMemFloatPtr(0x5D4594, 2523872) = nox_xxx_gamedataGetFloat_419D40("ConjurerMaxStrength") * *(float*)&nox_xxx_conjurerStrength_587000_312808;
+	*getMemFloatPtr(0x5D4594, 2523868) = nox_xxx_gamedataGetFloat_419D40("ConjurerMaxSpeed") * *(float*)&nox_xxx_conjurerSpeed_587000_312812;
+	*getMemFloatPtr(0x5D4594, 2523844) = nox_xxx_gamedataGetFloat_419D40("WizardMaxHealth") * *(float*)&nox_xxx_wizardMaxHealth_587000_312816;
+	*getMemFloatPtr(0x5D4594, 2523848) = nox_xxx_gamedataGetFloat_419D40("WizardMaxMana") * *(float*)&nox_xxx_wizardMaximumMana_587000_312820;
+	*getMemFloatPtr(0x5D4594, 2523856) = nox_xxx_gamedataGetFloat_419D40("WizardMaxStrength") * *(float*)&nox_xxx_wizardStrength_587000_312824;
+	*getMemFloatPtr(0x5D4594, 2523852) = nox_xxx_gamedataGetFloat_419D40("WizardMaxSpeed") * *(float*)&nox_xxx_wizardSpeed_587000_312828;
 }
 
 //----- (0057B350) --------------------------------------------------------

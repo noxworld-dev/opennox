@@ -1535,7 +1535,7 @@ char  nox_xxx_updatePlayer_4F8100(_DWORD* a1) {
 			nox_xxx_questCheckSecretArea_421C70((int)a1);
 			v6 = *(_DWORD*)(v4 + 132);
 			if (v6) {
-				v17 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 216044));
+				v17 = nox_xxx_gamedataGetFloat_419D40("HarpoonForce");
 				v18 = *(_DWORD*)(v4 + 132);
 				if (*(_BYTE*)(v18 + 16) & 0x20) {
 					LOBYTE(v6) = (unsigned int)nox_xxx_harpoonBreakForPlr_537520(a1);
@@ -3212,7 +3212,7 @@ int  sub_4FB050(int a1, int a2, int* a3) {
 
 	result = sub_4FB000(a1, a2);
 	if (result) {
-		v4 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 216356)) * (double)*a3 + 0.5;
+		v4 = nox_xxx_gamedataGetFloat_419D40("FieldGuideDamageBonus") * (double)*a3 + 0.5;
 		result = nox_float2int(v4);
 		*a3 = result;
 	}
@@ -4449,7 +4449,7 @@ int  nox_xxx_spellAccept_4FD400(int a1, int a2, _DWORD* a3, int a4, int* a5, int
 			v7 = nox_xxx_castPixies_540440;
 			goto LABEL_95;
 		case 59:
-			v8 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 217640));
+			v8 = nox_xxx_gamedataGetFloat_419D40("PlasmaSearchTime");
 			return nox_xxx_spellDurationBased_4FEBA0(a1, a2, a3, a4, a5, a6, nox_xxx_plasmaSmth_531580, nox_xxx_plasmaShot_531600, sub_5319E0, (__int64)v8);
 		case 60:
 			v7 = nox_xxx_castPoison_52C720;
@@ -5004,11 +5004,11 @@ int  nox_xxx_spellByBookInsert_4FE340(int a1, int* a2, int a3, int a4, int a5) {
 					goto LABEL_29;
 				}
 				v16 = nox_xxx_unitCountSlaves_4E7CF0((int)v5, 2, 0x2000);
-				if (v16 >= (int)(__int64)nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 217736))) {
+				if (v16 >= (int)(__int64)nox_xxx_gamedataGetFloat_419D40("MaxBomberCount")) {
 					a1 = 5;
 					goto LABEL_44;
 				}
-			} else if (*(unsigned __int8*)(v9 + 244) >= (int)(__int64)nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 217752))) {
+			} else if (*(unsigned __int8*)(v9 + 244) >= (int)(__int64)nox_xxx_gamedataGetFloat_419D40("MaxTrapCount")) {
 				a1 = 5;
 			LABEL_28:
 				nox_xxx_netInformTextMsg_4DA0F0(*(unsigned __int8*)(*(_DWORD*)(v9 + 276) + 2064), 0, &a1);
@@ -7203,7 +7203,7 @@ int  nox_xxx_charmCreature1_5011F0(int* a1) {
 	float v16;  // [esp+0h] [ebp-8h]
 
 	if (a1[5]) {
-		v14 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 218296));
+		v14 = nox_xxx_gamedataGetFloat_419D40("ConfuseEnchantDuration");
 		v1 = nox_float2int(v14);
 		nox_xxx_buffApplyTo_4FF380(a1[12], 3, v1, a1[2]);
 		sub_4E7540(a1[4], a1[12]);

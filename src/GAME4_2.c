@@ -9964,7 +9964,7 @@ int  nox_xxx_castCounterSpell_52BBB0(int a1, int a2, int a3, int a4) {
 	int v8;     // eax
 	float v10;  // [esp+10h] [ebp-4h]
 
-	v10 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 258408));
+	v10 = nox_xxx_gamedataGetFloat_419D40("CounterspellRange");
 	v4 = (float2*)(a4 + 56);
 	sub_518170(a4 + 56, v10, nox_xxx_cspellRemoveSpell_52BC90, 0);
 	for (i = nox_xxx_spellCastedFirst_4FE930(); i; i = nox_xxx_spellCastedNext_4FE940(i)) {
@@ -10086,7 +10086,7 @@ int  sub_52BEB0(int a1, int a2, int a3, int a4) {
 	int v4;   // eax
 	float v6; // [esp+0h] [ebp-10h]
 
-	v6 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 258516));
+	v6 = nox_xxx_gamedataGetFloat_419D40("InversionRange");
 	sub_518170(a4 + 56, v6, nox_xxx_changeOwner_52BE40, a3);
 	v4 = nox_xxx_spellGetAud44_424800(a1, 0);
 	nox_xxx_aud_501960(v4, a4, 0, 0);
@@ -10132,7 +10132,7 @@ int  nox_xxx_castPull_52BFA0(int a1, int a2, int a3, int a4, int a5, int a6) {
 	int v6;   // eax
 	float v8; // [esp+0h] [ebp-10h]
 
-	v8 = -(nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 258532)) * (double)a6);
+	v8 = -(nox_xxx_gamedataGetFloat_419D40("PullPowerCoeff") * (double)a6);
 	nox_xxx_mapPushUnitsAround_52E040(a4 + 56, 600.0, 1092616192, v8, 0, 0, 0);
 	v6 = nox_xxx_spellGetAud44_424800(a1, 0);
 	nox_xxx_aud_501960(v6, a3, 0, 0);
@@ -10144,7 +10144,7 @@ int  nox_xxx_castPush_52C000(int a1, int a2, int a3, int a4, int a5, int a6) {
 	int v6;   // eax
 	float v8; // [esp+18h] [ebp+18h]
 
-	v8 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 258548)) * (double)a6;
+	v8 = nox_xxx_gamedataGetFloat_419D40("PushPowerCoeff") * (double)a6;
 	nox_xxx_mapPushUnitsAround_52E040(a4 + 56, 600.0, 1092616192, v8, 0, 0, 0);
 	v6 = nox_xxx_spellGetAud44_424800(a1, 0);
 	nox_xxx_aud_501960(v6, a3, 0, 0);
@@ -10217,7 +10217,7 @@ int  nox_xxx_castSlow_52C190(int a1, int a2, int a3, int a4, int* a5, char a6) {
 
 	if (!*a5)
 		return 0;
-	v8 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 258576));
+	v8 = nox_xxx_gamedataGetFloat_419D40("SlowEnchantDuration");
 	v7 = nox_float2int(v8);
 	nox_xxx_buffApplyTo_4FF380(*a5, 4, v7, a6);
 	sub_4E7540(a3, *a5);
@@ -10231,7 +10231,7 @@ int  nox_xxx_castConfuse_52C1E0(int a1, int a2, int a3, int a4, int* a5, char a6
 
 	if (!*a5)
 		return 0;
-	v8 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 258596));
+	v8 = nox_xxx_gamedataGetFloat_419D40("ConfuseEnchantDuration");
 	v7 = nox_float2int(v8);
 	nox_xxx_buffApplyTo_4FF380(*a5, 3, v7, a6);
 	sub_4E7540(a3, *a5);
@@ -10269,7 +10269,7 @@ int  nox_xxx_castStun_52C2C0(int a1, int a2, int a3, int a4, int* a5, char a6) {
 
 	if (!*a5)
 		return 0;
-	v11 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 258620));
+	v11 = nox_xxx_gamedataGetFloat_419D40("StunEnchantDuration");
 	v7 = nox_float2int(v11);
 	v8 = *a5;
 	v9 = v7;
@@ -10310,7 +10310,7 @@ int  nox_xxx_castAnchor_52C390(int a1, int a2, int a3, int a4, int* a5, char a6)
 
 	if (!*a5)
 		return 0;
-	v8 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 258640));
+	v8 = nox_xxx_gamedataGetFloat_419D40("AnchorEnchantDuration");
 	v7 = nox_float2int(v8);
 	nox_xxx_buffApplyTo_4FF380(*a5, 14, v7, a6);
 	sub_4E7540(a3, *a5);
@@ -10370,7 +10370,7 @@ LABEL_12:
 	v14 = (float*)nox_xxx_newObjectWithTypeInd_4E3450(v13);
 	if (v14) {
 		nox_xxx_createAt_4DAA50((int)v14, a4, *v7, v7[1]);
-		v17 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 258684));
+		v17 = nox_xxx_gamedataGetFloat_419D40("BurnDuration");
 		v15 = nox_float2int(v17);
 		nox_xxx_unitSetDecayTime_511660(v14, v15);
 		nox_xxx_netSparkExplosionFx_5231B0(v14 + 14, 64);
@@ -10392,12 +10392,12 @@ int  nox_xxx_castVamp_52C530(int a1, int a2, int a3, int a4, int* a5, char a6) {
 	v6 = a5;
 	if (!*a5)
 		return 0;
-	v10 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 258700));
+	v10 = nox_xxx_gamedataGetFloat_419D40("VampirismEnchantDuration");
 	v8 = nox_float2int(v10);
 	v9 = v8;
 	v12 = v8;
 	if (nox_common_gameFlags_check_40A5C0(4096)) {
-		v11 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 258728)) * (double)v12;
+		v11 = nox_xxx_gamedataGetFloat_419D40("QuestVampDurMultiplier") * (double)v12;
 		v9 = nox_float2int(v11);
 	}
 	nox_xxx_buffApplyTo_4FF380(*v6, 13, v9, a6);
@@ -10426,7 +10426,7 @@ int  nox_xxx_useShock_52C5A0(int a1, int a2, int a3, int a4, int* a5, int a6) {
 		(*(void(**)(int, int, int, int, int))(*a5 + 716))(*a5, a3, a3, v8, 9);
 		result = 1;
 	} else {
-		v11 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 258776));
+		v11 = nox_xxx_gamedataGetFloat_419D40("ShockEnchantDuration");
 		v9 = nox_float2int(v11);
 		nox_xxx_buffApplyTo_4FF380(*a5, 22, v9, a6);
 		result = 1;
@@ -10441,7 +10441,7 @@ int  nox_xxx_castHaste_52C640(int a1, int a2, int a3, int a4, int* a5, char a6) 
 
 	if (!*a5)
 		return 0;
-	v8 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 258800));
+	v8 = nox_xxx_gamedataGetFloat_419D40("HasteEnchantDuration");
 	v7 = nox_float2int(v8);
 	nox_xxx_buffApplyTo_4FF380(*a5, 9, v7, a6);
 	return 1;
@@ -10454,7 +10454,7 @@ int  nox_xxx_castRun_52C680(int a1, int a2, int a3, int a4, int* a5, char a6) {
 
 	if (!*a5)
 		return 0;
-	v8 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 258824));
+	v8 = nox_xxx_gamedataGetFloat_419D40("RunEnchantDuration");
 	v7 = nox_float2int(v8);
 	nox_xxx_buffApplyTo_4FF380(*a5, 8, v7, a6);
 	sub_4E7540(a3, *a5);
@@ -10468,7 +10468,7 @@ int  nox_xxx_castLight_52C6D0(int a1, int a2, int a3, int a4, int* a5, char a6) 
 
 	if (!*a5)
 		return 0;
-	v8 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 258844));
+	v8 = nox_xxx_gamedataGetFloat_419D40("LightEnchantDuration");
 	v7 = nox_float2int(v8);
 	nox_xxx_buffApplyTo_4FF380(*a5, 15, v7, a6);
 	sub_4E7540(a3, *a5);
@@ -10600,7 +10600,7 @@ int  nox_xxx_castInvis_52C980(int a1, int a2, int a3, int a4, int* a5, char a6) 
 
 	if (!*a5)
 		return 0;
-	v8 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 258984));
+	v8 = nox_xxx_gamedataGetFloat_419D40("InvisibilityEnchantDuration");
 	v7 = nox_float2int(v8);
 	sub_4FF310(*a5);
 	nox_xxx_buffApplyTo_4FF380(*a5, 0, v7, a6);
@@ -10615,7 +10615,7 @@ int  nox_xxx_castInvul_52C9E0(int a1, int a2, int a3, int a4, int* a5, char a6) 
 
 	if (!*a5)
 		return 0;
-	v8 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 259012));
+	v8 = nox_xxx_gamedataGetFloat_419D40("InvulnerabilityEnchantDuration");
 	v7 = nox_float2int(v8);
 	sub_4FF310(*a5);
 	nox_xxx_buffApplyTo_4FF380(*a5, 23, v7, a6);
@@ -10629,7 +10629,7 @@ int  nox_xxx_castInfra_52CA30(int a1, int a2, int a3, int a4, int* a5, char a6) 
 
 	if (!*a5)
 		return 0;
-	v8 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 259044));
+	v8 = nox_xxx_gamedataGetFloat_419D40("InfravisionEnchantDuration");
 	v7 = nox_float2int(v8);
 	nox_xxx_buffApplyTo_4FF380(*a5, 21, v7, a6);
 	return 1;
@@ -10929,7 +10929,7 @@ int  nox_xxx_castProtectFire_52D110(int a1, int a2, int a3, int a4, int* a5, cha
 
 	if (!*a5)
 		return 0;
-	v8 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 259432));
+	v8 = nox_xxx_gamedataGetFloat_419D40("ProtectFireEnchantDuration");
 	v7 = nox_float2int(v8);
 	nox_xxx_buffApplyTo_4FF380(*a5, 17, v7, a6);
 	return 1;
@@ -10942,7 +10942,7 @@ int  nox_xxx_castProtectElect_52D150(int a1, int a2, int a3, int a4, int* a5, ch
 
 	if (!*a5)
 		return 0;
-	v8 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 259460));
+	v8 = nox_xxx_gamedataGetFloat_419D40("ProtectElectricityEnchantDuration");
 	v7 = nox_float2int(v8);
 	nox_xxx_buffApplyTo_4FF380(*a5, 20, v7, a6);
 	return 1;
@@ -10958,7 +10958,7 @@ int  nox_xxx_castProtectPosion_52D1A0(int a1, int a2, int a3, int a4, int* a5, c
 
 	if (!*a5)
 		return 0;
-	v8 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 259496));
+	v8 = nox_xxx_gamedataGetFloat_419D40("ProtectPoisonEnchantDuration");
 	v7 = nox_float2int(v8);
 	nox_xxx_buffApplyTo_4FF380(*a5, 18, v7, a6);
 	return 1;
@@ -11001,10 +11001,10 @@ int  nox_xxx_castDeathRay_52D1E0(int a1, int a2, int a3, int a4, int a5) {
 		return 0;
 	}
 	nox_xxx_gameSetWallsDamage_4E25A0(0);
-	v14 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 259528));
+	v14 = nox_xxx_gamedataGetFloat_419D40("DeathRayDamage");
 	v15 = nox_float2int(v14);
-	v13 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 259544));
-	v12 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 259564));
+	v13 = nox_xxx_gamedataGetFloat_419D40("DeathRayInRadius");
+	v12 = nox_xxx_gamedataGetFloat_419D40("DeathRayOutRadius");
 	nox_xxx_mapDamageUnitsAround_4E25B0(&v16.field_8, v12, v13, v15, 16, a3, 0);
 	v20.field_0 = (__int64)v16.field_0;
 	v20.field_4 = (__int64)v16.field_4;
@@ -11105,7 +11105,7 @@ int  nox_xxx_castFist_52D3C0(int a1, int a2, int a3, int a4, int a5, int a6) {
 			nox_xxx_createAt_4DAA50(v15, a4, *(float*)(a5 + 4), *(float*)(a5 + 8));
 			*(_DWORD*)(v15 + 20) |= 0x20u;
 			nox_xxx_unitRaise_4E46F0(v15, 255.0);
-			v17 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 259708));
+			v17 = nox_xxx_gamedataGetFloat_419D40("FistSpeed");
 			v18 = 0x800000 | *(_DWORD*)(v15 + 16);
 			*(float*)(v15 + 108) = -v17;
 			*(_DWORD*)(v15 + 16) = v18;
@@ -11337,7 +11337,7 @@ int  nox_xxx_castMeteor_52D9D0(int a1, int a2, int a3, int a4, int a5, int a6) {
 				nox_xxx_createAt_4DAA50(v18, v21, v12->field_0, *(float*)(v9 + 8));
 				*(_DWORD*)(v18 + 20) |= 0x20u;
 				nox_xxx_unitRaise_4E46F0(v18, 255.0);
-				*(float*)(v18 + 108) = -nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 260188));
+				*(float*)(v18 + 108) = -nox_xxx_gamedataGetFloat_419D40("MeteorSpeed");
 				v22 = nox_xxx_spellGetAud44_424800(a1, 0);
 				nox_xxx_audCreate_501A30(v22, v12, 0, 0);
 			}
@@ -11385,7 +11385,7 @@ int  nox_xxx_castToxicCloud_52DB60(int a1, int a2, int a3, int a4, int a5) {
 		if (v12) {
 			v13 = (_DWORD*)v12[187];
 			nox_xxx_createAt_4DAA50((int)v12, a3, *(float*)(v6 + 4), *(float*)(v6 + 8));
-			v15 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 260212)) * (double)(int)nox_gameFPS;
+			v15 = nox_xxx_gamedataGetFloat_419D40("ToxicCloudLifetime") * (double)(int)nox_gameFPS;
 			*v13 = nox_float2int(v15);
 		}
 		v14 = nox_xxx_spellGetAud44_424800(a1, 0);
@@ -11464,7 +11464,7 @@ int  sub_52DD50(int a1, int a2, int a3, int a4, void* a5) {
 		sub_4FD030(a3, v9);
 		return 1;
 	}
-	v15 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 260252));
+	v15 = nox_xxx_gamedataGetFloat_419D40("LesserHealAmount");
 	if (a3 && *(_BYTE*)(a3 + 8) & 4) {
 		v10 = *(_BYTE*)(*(_DWORD*)(*(_DWORD*)(a3 + 748) + 276) + 2251);
 		switch (v10) {
@@ -11497,7 +11497,7 @@ int  nox_xxx_castEquake_52DE40(int a1, int a2, int a3, int a4, int a5, int a6) {
 	float v10; // [esp+8h] [ebp-10h]
 
 	*getMemU32Ptr(0x5D4594, 2487700) = a6;
-	v9 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 260272));
+	v9 = nox_xxx_gamedataGetFloat_419D40("EarthquakeRange");
 	nox_xxx_unitsGetInCircle_517F90((float2*)(a4 + 56), v9, nox_xxx_equakeDamage_52DEC0, a4);
 	v6 = nox_xxx_spellGetAud44_424800(a1, 0);
 	nox_xxx_aud_501960(v6, a4, 0, 0);
@@ -11525,7 +11525,7 @@ __int16  nox_xxx_equakeDamage_52DEC0(int a1, int a2) {
 			LOWORD(v3) = nox_xxx_unitGetHP_4EE780(a1);
 			if ((_WORD)v3) {
 				v7 = nox_xxx_calcDistance_4E6C00(a1, a2);
-				v8 = 1.0 - v7 / nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 260328));
+				v8 = 1.0 - v7 / nox_xxx_gamedataGetFloat_419D40("EarthquakeRange");
 				v5 = nox_xxx_loadFloatVar_419D70(getMemAt(0x587000, 260308), *getMemU32Ptr(0x5D4594, 2487700) - 1) * v8;
 				LOWORD(v3) = (*(int(**)(int, int, int, _DWORD, int))(a1 + 716))(a1, v4, v2, (__int64)v5, 11);
 			}
@@ -11541,7 +11541,7 @@ int  nox_xxx_castFear_52DF40(int a1, int a2, int a3, int a4, int* a5, char a6) {
 
 	if (!*a5)
 		return 0;
-	v8 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 260344));
+	v8 = nox_xxx_gamedataGetFloat_419D40("FearEnchantDuration");
 	v7 = nox_float2int(v8);
 	nox_xxx_buffApplyTo_4FF380(*a5, 11, v7, a6);
 	return 1;
@@ -11863,7 +11863,7 @@ int  sub_52E610(int* a1, int a2) {
 	*getMemU32Ptr(0x5D4594, 2487876) = 1287568416;
 	*getMemU32Ptr(0x5D4594, 2487836) = *a1;
 	*getMemU32Ptr(0x5D4594, 2487840) = a1[1];
-	v3 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 260424));
+	v3 = nox_xxx_gamedataGetFloat_419D40("ManaDrainRange");
 	nox_xxx_unitsGetInCircle_517F90((float2*)a1, v3, sub_52E660, a2);
 	return *getMemU32Ptr(0x5D4594, 2487828);
 }
@@ -11995,7 +11995,7 @@ int  nox_xxx_spellEnergyBoltTick_52E850(float a1) {
 	} else if (!*(_DWORD*)(LODWORD(a1) + 20)) {
 		return 1;
 	}
-	v31 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 260440));
+	v31 = nox_xxx_gamedataGetFloat_419D40("LightningRange");
 	if (!*(_DWORD*)(v1 + 20)) {
 		v9 = *(_DWORD*)(v1 + 16);
 		if (v9 && *(_BYTE*)(v9 + 8) & 2 && sub_4FEA70(v9, (float2*)(v1 + 28)))
@@ -12073,7 +12073,7 @@ int  nox_xxx_spellEnergyBoltTick_52E850(float a1) {
 			nox_xxx_aud_501960(32, *(_DWORD*)(v1 + 16), 0, 0);
 			nox_xxx_aud_501960(32, *(_DWORD*)(v1 + 48), 0, 0);
 		}
-		v28 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 260500));
+		v28 = nox_xxx_gamedataGetFloat_419D40("LightningSearchTime");
 		*(_DWORD*)(v1 + 68) = nox_frame_xxx_2598000 + nox_float2int(v28);
 		v24 = *(_DWORD*)(v1 + 16);
 		if (*(_BYTE*)(v24 + 8) & 4) {
@@ -12102,7 +12102,7 @@ int  nox_xxx_spellEnergyBoltTick_52E850(float a1) {
 	nox_xxx_unitsGetInCircle_517F90(&v29, v31, sub_52EC60, v5);
 	if (dword_5d4594_2487880) {
 		v6 = (void(**)(_DWORD, _DWORD, _DWORD, int, int))(dword_5d4594_2487880 + 716);
-		v27 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 260456));
+		v27 = nox_xxx_gamedataGetFloat_419D40("EnergyBoltGlyphDamage");
 		v7 = nox_float2int(v27);
 		(*v6)(dword_5d4594_2487880, *(_DWORD*)(v1 + 12), 0, v7, 17);
 		v26 = dword_5d4594_2487880;

@@ -485,7 +485,7 @@ int  nox_xxx_updateServer_4D2DA0(__int64 a1) {
 					goto LABEL_31;
 			}
 			v10 = getMemAt(0x587000, 197200);
-			v5 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 197232));
+			v5 = nox_xxx_gamedataGetFloat_419D40("SuddenDeathCountdown");
 			v9 = v5;
 			v7 = nox_float2int(v9);
 			nox_xxx_servStartCountdown_40A2A0(v7, (const char *) v10);
@@ -494,7 +494,7 @@ int  nox_xxx_updateServer_4D2DA0(__int64 a1) {
 		v6 = sub_40A770();
 		if (v6 < sub_40AA40()) {
 			v10 = getMemAt(0x587000, 197256);
-			v5 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 197288));
+			v5 = nox_xxx_gamedataGetFloat_419D40("SuddenDeathCountdown");
 			v9 = v5;
 			v7 = nox_float2int(v9);
 			nox_xxx_servStartCountdown_40A2A0(v7, (const char *) v10);
@@ -1716,7 +1716,7 @@ void  sub_51A1F0(int a1) {
 	v23 = 0;
 	v1 = nox_game_getQuestStage_4E3CC0();
 	v22 = v1;
-	v19 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 252424));
+	v19 = nox_xxx_gamedataGetFloat_419D40("QuestHardcoreStage");
 	v24 = nox_float2int(v19);
 	if (!*getMemU32Ptr(0x5D4594, 2388668)) {
 		*getMemU32Ptr(0x5D4594, 2388668) = nox_xxx_getNameId_4E3AA0("HecubahMarker");
@@ -1739,19 +1739,19 @@ void  sub_51A1F0(int a1) {
 				if (*(_DWORD*)(16 * v3 + v6)) {
 					switch (*(unsigned __int8*)(v6 + v3 + 83)) {
 					case 0u:
-						v7 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 252480));
+						v7 = nox_xxx_gamedataGetFloat_419D40("GeneratorMaxActiveCreaturesHigh");
 						*(_BYTE*)(v6 + 87) = (__int64)v7;
 						break;
 					case 1u:
-						v7 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 252512));
+						v7 = nox_xxx_gamedataGetFloat_419D40("GeneratorMaxActiveCreaturesNormal");
 						*(_BYTE*)(v6 + 87) = (__int64)v7;
 						break;
 					case 2u:
-						v7 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 252548));
+						v7 = nox_xxx_gamedataGetFloat_419D40("GeneratorMaxActiveCreaturesLow");
 						*(_BYTE*)(v6 + 87) = (__int64)v7;
 						break;
 					case 3u:
-						v7 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 252580));
+						v7 = nox_xxx_gamedataGetFloat_419D40("GeneratorMaxActiveCreaturesSingular");
 						*(_BYTE*)(v6 + 87) = (__int64)v7;
 						break;
 					default:
@@ -1788,7 +1788,7 @@ void  sub_51A1F0(int a1) {
 	}
 	sub_51A940(0);
 	if (v1 >= 5) {
-		v20 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 252656));
+		v20 = nox_xxx_gamedataGetFloat_419D40("MinionsAlwaysStage");
 		v13 = nox_float2int(v20);
 		if (v1 == 5 || v1 >= v13 || v1 & 1 && nox_common_randomInt_415FA0(1, 100) >= 50) {
 			sub_51A940(1);

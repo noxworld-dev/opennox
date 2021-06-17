@@ -5242,10 +5242,10 @@ int sub_4D7C60() {
 	float v2;   // [esp+0h] [ebp-4h]
 
 	dword_5d4594_1556316 = 0;
-	*getMemFloatPtr(0x5D4594, 1556308) = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 198788));
-	v1 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 198804));
+	*getMemFloatPtr(0x5D4594, 1556308) = nox_xxx_gamedataGetFloat_419D40("CamperRadiusSq");
+	v1 = nox_xxx_gamedataGetFloat_419D40("CamperStartTime");
 	*getMemU32Ptr(0x5D4594, 1556312) = nox_float2int(v1);
-	v2 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 198820));
+	v2 = nox_xxx_gamedataGetFloat_419D40("CamperFadeTime");
 	result = nox_float2int(v2);
 	*getMemU32Ptr(0x5D4594, 1556304) = result;
 	return result;
@@ -6028,7 +6028,7 @@ char*  nox_xxx_playerIncrementElimDeath_4D8D40(int a1) {
 							if (v5 >= (int)result)
 								return result;
 							v8 = getMemAt(0x587000, 198928);
-							v4 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 198960));
+							v4 = nox_xxx_gamedataGetFloat_419D40("SuddenDeathCountdown");
 							goto LABEL_22;
 						}
 						v9 = nox_xxx_getTeamCounter_417DD0();
@@ -6044,7 +6044,7 @@ char*  nox_xxx_playerIncrementElimDeath_4D8D40(int a1) {
 										return result;
 								}
 								v8 = getMemAt(0x587000, 198872);
-								v4 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 198904));
+								v4 = nox_xxx_gamedataGetFloat_419D40("SuddenDeathCountdown");
 							LABEL_22:
 								v7 = v4;
 								v6 = nox_float2int(v7);

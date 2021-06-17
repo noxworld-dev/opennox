@@ -2880,7 +2880,7 @@ int sub_50D960() {
 	float4 a2;            // [esp+20h] [ebp-20h]
 	float4 v39;           // [esp+30h] [ebp-10h]
 
-	v34 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 234752));
+	v34 = nox_xxx_gamedataGetFloat_419D40("MaxOnscreenMonsterCount");
 	v35 = nox_float2int(v34);
 	v36 = 0;
 	memset(getMemAt(0x5D4594, 2386232), 0, 0x80u);
@@ -3088,7 +3088,7 @@ int  sub_50DE80(int a1, float* a2) {
 	float v7;   // [esp+0h] [ebp-20h]
 	float4 a2a; // [esp+10h] [ebp-10h]
 
-	v7 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 234776));
+	v7 = nox_xxx_gamedataGetFloat_419D40("MaxOnscreenMonsterCount");
 	v2 = nox_float2int(v7);
 	v3 = nox_xxx_getFirstPlayerUnit_4DA7C0();
 	if (!v3)
@@ -3410,7 +3410,7 @@ int  nox_xxx_shopGetItemCost_50E3D0(int a1, int a2, float a3) {
 			if (v10)
 				v31 = (double)*(unsigned int*)(v10 + 48);
 			if (nox_common_gameFlags_check_40A5C0(4096)) {
-				v9 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 235632)) * v31;
+				v9 = nox_xxx_gamedataGetFloat_419D40("QuestGuideWorthMultiplier") * v31;
 				goto LABEL_16;
 			}
 		}
@@ -3423,7 +3423,7 @@ LABEL_17:
 			if (*(_DWORD*)v11) {
 				*(float*)&v29 = (double)*(int*)(*(_DWORD*)v11 + 20);
 				if (nox_common_gameFlags_check_40A5C0(4096))
-					v13 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 235660)) * *(float*)&v29;
+					v13 = nox_xxx_gamedataGetFloat_419D40("QuestModifierWorthMultiplier") * *(float*)&v29;
 				else
 					v13 = *(float*)&v29;
 				v31 = v13 + v31;
@@ -3439,9 +3439,9 @@ LABEL_17:
 		v15 = *(_BYTE**)(LODWORD(v3) + 736);
 		if (!v15[2] && *v15) {
 			if (nox_common_gameFlags_check_40A5C0(4096))
-				v16 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 235692));
+				v16 = nox_xxx_gamedataGetFloat_419D40("DefaultAmmoAmountQuest");
 			else
-				v16 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 235716));
+				v16 = nox_xxx_gamedataGetFloat_419D40("DefaultAmmoAmount");
 			v26 = v16;
 			v17 = nox_float2int(v26);
 			v18 = (double)v17;
@@ -3470,7 +3470,7 @@ LABEL_17:
 	if (v21 && v21[2])
 		v31 = (double)*v21 / (double)v21[2] * v31;
 	if (v4 && !a1) {
-		v22 = nox_common_gameFlags_check_40A5C0(4096) ? nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 235736)) : *(float*)(v4 + 1720);
+		v22 = nox_common_gameFlags_check_40A5C0(4096) ? nox_xxx_gamedataGetFloat_419D40("QuestSellMultiplier") : *(float*)(v4 + 1720);
 		v23 = *(unsigned __int16*)(LODWORD(v3) + 4);
 		if ((unsigned __int16)v23 != *getMemU32Ptr(0x5D4594, 2386504) && v23 != *getMemU32Ptr(0x5D4594, 2386512) &&
 			v23 != *getMemU32Ptr(0x5D4594, 2386508)) {
@@ -3489,7 +3489,7 @@ LABEL_64:
 	if (v30 < 1.0)
 		v30 = 1.0;
 	if (a1 == 2) {
-		v24 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 235756)) * (v30 - v31);
+		v24 = nox_xxx_gamedataGetFloat_419D40("RepairCoefficient") * (v30 - v31);
 		v31 = v24;
 		if (v24 < 1.0)
 			v31 = 1.0;
@@ -3589,7 +3589,7 @@ void  nox_xxx_loadShopItems_50E970(int a1) {
 		(v2 = *(_DWORD*)(a1 + 12)) != 0 && *(_BYTE*)(v2 + 8) & 2 && *(_BYTE*)(v2 + 12) & 8) {
 		v3 = v2;
 		if (nox_common_gameFlags_check_40A5C0(4096)) {
-			v40 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 235792));
+			v40 = nox_xxx_gamedataGetFloat_419D40("ShopAnkhCutoffStage");
 			v4 = nox_float2int(v40);
 			if (nox_game_getQuestStage_4E3CC0() < v4) {
 				v5 = nox_xxx_newObjectByTypeID_4E3810("AnkhTradable");
@@ -8048,7 +8048,7 @@ void  nox_xxx_spawnHecubahQuest_51A5A0(int* a1) {
 		v2[444] = 0x20000000;
 		v2[388] = 0x40000000;
 		v2[415] = 0x40000000;
-		nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 252804));
+		nox_xxx_gamedataGetFloat_419D40("HecubahQuestSkill");
 		v2[330] = 1062836634;
 		nox_xxx_createAt_4DAA50((int)v1, 0, *(float*)a1, *((float*)a1 + 1));
 		v7 = nox_xxx_newObjectByTypeID_4E3810("RewardMarker");

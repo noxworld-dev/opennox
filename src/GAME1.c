@@ -1127,9 +1127,9 @@ void sub_40A970() {
 
 	*getMemU32Ptr(0x5D4594, 3520) = nox_frame_xxx_2598000;
 	*getMemU32Ptr(0x5D4594, 3536) = 0;
-	v3 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 5112));
+	v3 = nox_xxx_gamedataGetFloat_419D40("SuddenDeathPlayerThreshold");
 	*getMemU32Ptr(0x5D4594, 3476) = nox_float2int(v3);
-	v4 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 5140));
+	v4 = nox_xxx_gamedataGetFloat_419D40("SuddenDeathLifeTime");
 	*getMemU32Ptr(0x5D4594, 1392) = nox_float2int(v4);
 	for (i = nox_common_playerInfoGetFirst_416EA0(); i; i = nox_common_playerInfoGetNext_416EE0((int)i)) {
 		v1 = *((_DWORD*)i + 920);
@@ -8989,9 +8989,9 @@ int  sub_417F50(int a1) {
 		return 0;
 	v8 = v6[187];
 	*(_QWORD*)(v8 + 8) = nox_platform_get_ticks();
-	v10 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 55236));
+	v10 = nox_xxx_gamedataGetFloat_419D40("FlagballPossDuration");
 	*(_DWORD*)(v8 + 20) = nox_float2int(v10);
-	*(float*)(v8 + 24) = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 55260));
+	*(float*)(v8 + 24) = nox_xxx_gamedataGetFloat_419D40("FlagballResetVel");
 	nox_xxx_netMarkMinimapForAll_4174B0((int)v7, 1);
 	nox_xxx_createAt_4DAA50((int)v7, 0, 0.0, 0.0);
 	nox_xxx_unitClearOwner_4EC300((int)v7);

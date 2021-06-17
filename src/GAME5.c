@@ -3444,7 +3444,7 @@ int  nox_xxx_monsterDeadTroll_54A270(int a1) {
 		v3 = (_DWORD*)v2[187];
 		nox_xxx_createAt_4DAA50((int)v2, a1, *(float*)(a1 + 56), *(float*)(a1 + 60));
 		nox_xxx_aud_501960(644, a1, 0, 0);
-		v5 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 288732)) * (double)(int)nox_gameFPS;
+		v5 = nox_xxx_gamedataGetFloat_419D40("SmallToxicCloudLifetime") * (double)(int)nox_gameFPS;
 		*v3 = nox_float2int(v5);
 	}
 	return 1;
@@ -4726,7 +4726,7 @@ int  nox_xxx_createWeapon_54C710(int a1) {
 			*v4 = *((_WORD*)v3 + 26);
 			*(_WORD*)(*(_DWORD*)(a1 + 556) + 4) = *((_WORD*)v3 + 26);
 			if (nox_common_gameFlags_check_40A5C0(4096)) {
-				v20 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 290164));
+				v20 = nox_xxx_gamedataGetFloat_419D40("QuestDurabilityMultiplier");
 				v15 = (double)**(unsigned __int16**)(v1 + 556) * v20;
 				**(_WORD**)(v1 + 556) = nox_float2int(v15);
 				v16 = (double)*(unsigned __int16*)(*(_DWORD*)(v1 + 556) + 4) * v20;
@@ -4749,9 +4749,9 @@ int  nox_xxx_createWeapon_54C710(int a1) {
 		if (v9 & 0x82) {
 			v10 = *(_BYTE**)(v1 + 736);
 			if (nox_common_gameFlags_check_40A5C0(4096))
-				v11 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 290228));
+				v11 = nox_xxx_gamedataGetFloat_419D40("DefaultAmmoAmountQuest");
 			else
-				v11 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 290252));
+				v11 = nox_xxx_gamedataGetFloat_419D40("DefaultAmmoAmount");
 			v17 = v11;
 			v12 = nox_float2int(v17);
 			v10[1] = v12;
@@ -4767,7 +4767,7 @@ int  nox_xxx_createWeapon_54C710(int a1) {
 		if (result & 0x1000) {
 			if (*(_DWORD*)(v1 + 12) & 0x47F0000) {
 				v14 = *(_DWORD*)(v1 + 736);
-				v21 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 290272));
+				v21 = nox_xxx_gamedataGetFloat_419D40("QuestStaffChargeMultiplier");
 				if (*(_DWORD*)(v1 + 12) & 0x40000)
 					v21 = v21 + v21;
 				v18 = (double)*(unsigned __int8*)(v14 + 109) * v21;
@@ -4799,7 +4799,7 @@ _DWORD*  sub_54C950(int a1) {
 			*(_WORD*)(*(_DWORD*)(a1 + 556) + 4) = *((_WORD*)result + 26);
 			result = (_DWORD*)nox_common_gameFlags_check_40A5C0(4096);
 			if (result) {
-				v6 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 290300));
+				v6 = nox_xxx_gamedataGetFloat_419D40("QuestDurabilityMultiplier");
 				v4 = (double)**(unsigned __int16**)(v1 + 556) * v6;
 				**(_WORD**)(v1 + 556) = nox_float2int(v4);
 				v5 = (double)*(unsigned __int16*)(*(_DWORD*)(v1 + 556) + 4) * v6;
@@ -4886,7 +4886,7 @@ void  nox_xxx_diePolyp_54CB10(int a1) {
 	if (v2) {
 		v3 = (_DWORD*)v2[187];
 		nox_xxx_createAt_4DAA50((int)v2, 0, *(float*)(a1 + 56), *(float*)(a1 + 60));
-		v4 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 290356)) * (double)(int)nox_gameFPS;
+		v4 = nox_xxx_gamedataGetFloat_419D40("ToxicCloudLifetime") * (double)(int)nox_gameFPS;
 		*v3 = nox_float2int(v4);
 	}
 	nox_xxx_aud_501960(284, a1, 0, 0);
@@ -5455,7 +5455,7 @@ LABEL_38:
 			nox_xxx_netSendPacket0_4E5420(*(unsigned __int8*)(v20 + 2064), v23, 14, 0, 1);
 			sub_4D6000(v1);
 			sub_54CBD0(v1);
-			v21 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 290576));
+			v21 = nox_xxx_gamedataGetFloat_419D40("QuestGameStartingExtraLives");
 			*(_DWORD*)(v3 + 320) = nox_float2int(v21);
 			result = *(_DWORD*)(v3 + 276);
 			*(_BYTE*)(*(unsigned __int8*)(result + 2064) + v3 + 452) = *(_BYTE*)(v3 + 320);
@@ -5731,9 +5731,9 @@ void  nox_xxx_playerHandleKotrDeath_54DC40(int a1, int a2) {
 				if (!v2 || v2 == v3) {
 					if (nox_xxx_unitIsCrown_4E7BE0(a2) || nox_xxx_unitIsCrown_4E7BE0(a1)) {
 						if (nox_xxx_unitIsCrown_4E7BE0(a2))
-							v10 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 290676));
+							v10 = nox_xxx_gamedataGetFloat_419D40("KotRKingKillsPawnPoints");
 						else
-							v10 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 290700));
+							v10 = nox_xxx_gamedataGetFloat_419D40("KotRPawnKillsKingPoints");
 						v15 = v10;
 						v11 = nox_float2int(v15);
 						nox_xxx_changeScore_4D8E90(a2, v11);
@@ -5747,9 +5747,9 @@ void  nox_xxx_playerHandleKotrDeath_54DC40(int a1, int a2) {
 				}
 				if (nox_xxx_unitIsCrown_4E7BE0(a2)) {
 					if (nox_xxx_unitIsCrown_4E7BE0(a1))
-						v6 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 290604));
+						v6 = nox_xxx_gamedataGetFloat_419D40("KotRKingKillsKingPoints");
 					else
-						v6 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 290628));
+						v6 = nox_xxx_gamedataGetFloat_419D40("KotRKingKillsPawnPoints");
 					v12 = v6;
 					v7 = nox_float2int(v12);
 					nox_xxx_changeScore_4D8E90(a2, v7);
@@ -5762,7 +5762,7 @@ void  nox_xxx_playerHandleKotrDeath_54DC40(int a1, int a2) {
 					goto LABEL_44;
 				}
 				if (!nox_xxx_unitIsCrown_4E7BE0(a1) ||
-					(v13 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 290652)), v8 = nox_float2int(v13), nox_xxx_changeScore_4D8E90(a2, v8),
+					(v13 = nox_xxx_gamedataGetFloat_419D40("KotRPawnKillsKingPoints"), v8 = nox_float2int(v13), nox_xxx_changeScore_4D8E90(a2, v8),
 					 nox_xxx_netChangeTeamID_419090((int)v2, v8 + *((_DWORD*)v2 + 13)), nox_xxx_netReportLesson_4D8EF0(a2), !dword_5d4594_2650652) ||
 					!v5 || !v16) {
 				LABEL_44:
@@ -6112,20 +6112,20 @@ char  nox_xxx_updateMonsterGenerator_54E930(_DWORD* a1) {
 	v2 = a1[187];
 	v3 = nox_xxx_getQuestStage_51A930();
 	if (!dword_5d4594_2491716) {
-		v14 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 291920));
+		v14 = nox_xxx_gamedataGetFloat_419D40("QuestHardcoreStage");
 		dword_5d4594_2491716 = nox_float2int(v14);
-		v15 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 291940));
+		v15 = nox_xxx_gamedataGetFloat_419D40("QuestHardcoreSpawnRateIncrease");
 		*getMemU32Ptr(0x5D4594, 2491720) = nox_float2int(v15);
-		*getMemFloatPtr(0x5D4594, 2491744) = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 291972));
-		v16 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 291996));
+		*getMemFloatPtr(0x5D4594, 2491744) = nox_xxx_gamedataGetFloat_419D40("QuestHardcoreSpawnCap");
+		v16 = nox_xxx_gamedataGetFloat_419D40("SpawnRateHighValue");
 		*getMemU32Ptr(0x5D4594, 2491724) = nox_float2int(v16);
-		v17 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 292016));
+		v17 = nox_xxx_gamedataGetFloat_419D40("SpawnRateNormalValue");
 		*getMemU32Ptr(0x5D4594, 2491728) = nox_float2int(v17);
-		v18 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 292040));
+		v18 = nox_xxx_gamedataGetFloat_419D40("SpawnRateLowValue");
 		*getMemU32Ptr(0x5D4594, 2491732) = nox_float2int(v18);
-		v19 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 292060));
+		v19 = nox_xxx_gamedataGetFloat_419D40("SpawnRateVeryLowValue");
 		*getMemU32Ptr(0x5D4594, 2491736) = nox_float2int(v19);
-		v20 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 292084));
+		v20 = nox_xxx_gamedataGetFloat_419D40("SpawnRateVeryVeryLowValue");
 		*getMemU32Ptr(0x5D4594, 2491740) = nox_float2int(v20);
 	}
 	v4 = a1[5];
@@ -6522,10 +6522,10 @@ void  nox_xxx_updateHarpoon_54F380(int a1) {
 
 	if (a1 && *(_DWORD*)(a1 + 508)) {
 		if (*(float*)&dword_5d4594_2491748 == 0.0) {
-			*(float*)&dword_5d4594_2491748 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 292268));
-			*getMemFloatPtr(0x5D4594, 2491752) = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 292288));
-			*getMemFloatPtr(0x5D4594, 2491756) = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 292308));
-			*getMemFloatPtr(0x5D4594, 2491760) = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 292336));
+			*(float*)&dword_5d4594_2491748 = nox_xxx_gamedataGetFloat_419D40("MaxHarpoonDistance");
+			*getMemFloatPtr(0x5D4594, 2491752) = nox_xxx_gamedataGetFloat_419D40("MinHarpoonDistance");
+			*getMemFloatPtr(0x5D4594, 2491756) = nox_xxx_gamedataGetFloat_419D40("MaxHarpoonFlightDistance");
+			*getMemFloatPtr(0x5D4594, 2491760) = nox_xxx_gamedataGetFloat_419D40("MaxHarpoonExistence");
 		}
 		v1 = *(_DWORD*)(a1 + 508);
 		v2 = *(float2***)(a1 + 748);
@@ -6829,7 +6829,7 @@ void  nox_xxx_createArrowTrapProjectile_54FA80(int a1, int a2) {
 		v4 = *(unsigned __int16*)(a1 + 4);
 		if ((unsigned __int16)v4 == *getMemU32Ptr(0x5D4594, 2491772) || v4 == *getMemU32Ptr(0x5D4594, 2491776)) {
 			v7 = *(int**)(v5 + 700);
-			v9 = nox_xxx_gamedataGetFloat_419D40(getMemAt(0x587000, 292464));
+			v9 = nox_xxx_gamedataGetFloat_419D40("ArrowTrapDamage");
 			v4 = nox_float2int(v9);
 			*v7 = v4;
 			v7[1] = v4;
