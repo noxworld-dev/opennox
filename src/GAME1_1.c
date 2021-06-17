@@ -2154,7 +2154,7 @@ BOOL  nox_xxx_guiEnchantment_41B9C0(_DWORD* a1) {
 	if ((__int16)v18 > 5)
 		return 0;
 	if (*getMemU32Ptr(0x5D4594, 3803300) == 1 && nox_common_gameFlags_check_40A5C0(2048)) {
-		nox_xxx_clientMB_4FEEF0();
+		nox_xxx_spellCastByPlayer_4FEEF0();
 		sub_4FE8A0(0);
 	}
 	if (nox_common_gameFlags_check_40A5C0(0x2000))

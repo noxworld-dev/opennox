@@ -5534,7 +5534,7 @@ char  nox_xxx_cancelAllSpells_4FEE90(int a1) {
 }
 
 //----- (004FEEF0) --------------------------------------------------------
-void nox_xxx_clientMB_4FEEF0() {
+void nox_xxx_spellCastByPlayer_4FEEF0() {
 	int v0;                 // esi
 	int v1;                 // ebp
 	int v2;                 // eax

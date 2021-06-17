@@ -4559,7 +4559,7 @@ int sub_4FED70();
 void  nox_xxx_plrCastSmth_4FEDA0(int* a1);
 int  sub_4FEE50(int a1, int a2);
 char  nox_xxx_cancelAllSpells_4FEE90(int a1);
-void nox_xxx_clientMB_4FEEF0();
+void nox_xxx_spellCastByPlayer_4FEEF0();
 void  nox_xxx_netStopRaySpell_4FEF90(int a1, _DWORD* a2);
 char*  nox_xxx_netStartDurationRaySpell_4FF130(int a1);
 int  sub_4FF2D0(int a1, int a2);

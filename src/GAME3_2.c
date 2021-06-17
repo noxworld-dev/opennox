@@ -1834,7 +1834,7 @@ void  nox_xxx_mapSwitchLevel_4D12E0(int a1) {
 	do {
 		nox_xxx_unitsNewAddToList_4DAC00();
 		sub_4E5BF0(v1);
-		nox_xxx_clientMB_4FEEF0();
+		nox_xxx_spellCastByPlayer_4FEEF0();
 		nox_xxx_finalizeDeletingUnits_4E5EC0();
 	} while (nox_server_getFirstObjectUninited_4DA870());
 	v5 = nox_server_getFirstObject_4DA790();
