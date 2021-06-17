@@ -4443,7 +4443,7 @@ int  nox_xxx_spellAccept_4FD400(int a1, int a2, _DWORD* a3, int a4, int* a5, int
 		case 56:
 			return nox_xxx_spellDurationBased_4FEBA0(a1, a2, a3, a4, a5, a6, nox_xxx_manaBomb_530F90, nox_xxx_manaBombBoom_5310C0, sub_531290, 0);
 		case 57:
-			v7 = sub_52CA70;
+			v7 = nox_xxx_spellPhantom_52CA70;
 			goto LABEL_95;
 		case 58:
 			v7 = nox_xxx_castPixies_540440;

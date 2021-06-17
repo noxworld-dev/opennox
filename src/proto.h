@@ -5338,7 +5338,7 @@ int  nox_xxx_castDeath_52C920(int a1, int a2, int a3, int a4, int* a5, char a6);
 int  nox_xxx_castInvis_52C980(int a1, int a2, int a3, int a4, int* a5, char a6);
 int  nox_xxx_castInvul_52C9E0(int a1, int a2, int a3, int a4, int* a5, char a6);
 int  nox_xxx_castInfra_52CA30(int a1, int a2, int a3, int a4, int* a5, char a6);
-int sub_52CA70();
+int nox_xxx_spellPhantom_52CA70();
 int  sub_52CA80(int a1, int a2, int a3, int a4);
 int  sub_52CBD0(int a1, int a2, int a3, int a4);
 int  sub_52CCD0(int a1, int a2, int a3);

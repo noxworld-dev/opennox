@@ -10636,7 +10636,7 @@ int  nox_xxx_castInfra_52CA30(int a1, int a2, int a3, int a4, int* a5, char a6) 
 }
 
 //----- (0052CA70) --------------------------------------------------------
-int sub_52CA70() { return 1; }
+int nox_xxx_spellPhantom_52CA70() { return 1; }
 
 //----- (0052CA80) --------------------------------------------------------
 int  sub_52CA80(int a1, int a2, int a3, int a4) {
