@@ -8550,6 +8550,9 @@ char*  nox_xxx_gameServerReadyMB_4DD180(int a1) {
 void nox_xxx____setargv_15_4DD310() { *getMemU32Ptr(0x5D4594, 1563280) = 1; }
 
 //----- (004DD320) --------------------------------------------------------
+#ifdef NOX_CGO
+void nox_script_callByEvent_cgo(int eventCode, int a1, int a2);
+#endif // NOX_CGO
 _DWORD*  nox_xxx_playerNew_4DD320(int ind, void* data) {
 	unsigned char v2 = *(_BYTE*)((int)data + 152);
 	*(_BYTE*)((int)data + 152) &= 0x7F;
@@ -8712,6 +8715,9 @@ _DWORD*  nox_xxx_playerNew_4DD320(int ind, void* data) {
 		v27b[2] = 1;
 		nox_xxx_netSendPacket0_4E5420(ind, v27b, 3, 0, 0);
 	}
+#ifdef NOX_CGO
+	nox_script_callByEvent_cgo(30, pinfo, 0); // player join
+#endif // NOX_CGO
 	return punit->field_9;
 }
 
@@ -9224,6 +9230,9 @@ char*  nox_xxx_playerForceDisconnect_4DE7C0(int a1) {
 
 	v1 = a1;
 	v2 = nox_common_playerInfoFromNum_417090(a1);
+#ifdef NOX_CGO
+	nox_script_callByEvent_cgo(31, v2, 0); // player leave
+#endif // NOX_CGO
 	if (sub_4D12A0(v1))
 		sub_4D1250(v1);
 	if (*((_DWORD*)v2 + 517)) {

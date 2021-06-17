@@ -18,8 +18,38 @@ func scriptTick() {
 
 func scriptOnEvent(event script.EventType) {
 	scriptLog.Printf("event: %q", event)
+
+	// The global logic is the following:
+	// - MapEntry: give the script a chance to init the map itself.
+	// - OnPlayerJoin: called for each player so script can create associated object and variables.
+	// - MapExit: called _before_ OnPlayerLeave to give the script a chance to see the map results with all players who made it till the end.
+	// - OnPlayerLeave: called for each player in case the script handles results per-player rather than per-game.
+
+	// TODO: handle OnPlayerAFK
+
 	noxscriptOnEvent(event)
 	luaOnEvent(event)
+
+	switch event {
+	case script.EventMapEntry:
+		// TODO: we "rejoin" existing players here because the engine will actually keep all player objects
+		//       after map change ideally we should find the place where it resets their
+		for _, p := range getPlayers() {
+			callOnPlayerJoin(p)
+		}
+	case script.EventMapExit:
+		// TODO: same as above: we make players "leave" when the map changes, so scripts can run their player logic
+		for _, p := range getPlayers() {
+			callOnPlayerLeave(p)
+		}
+	}
+	switch event {
+	// TODO: change to EventMapShutdown and make sure it triggers
+	//       actually, EventMapShutdown is called when saving game when the map _isn't_ shutting down
+	//       so probably worth adding a new event that triggers at the right time
+	case script.EventMapExit:
+		luaShutdown()
+	}
 }
 
 type noxScript struct{}
@@ -52,6 +82,14 @@ func (noxScript) Players() []script.Player {
 
 func (noxScript) HostPlayer() script.Player {
 	return HostPlayer()
+}
+
+func (noxScript) OnPlayerJoin(fnc func(p script.Player)) {
+	OnPlayerJoin(fnc)
+}
+
+func (noxScript) OnPlayerLeave(fnc func(p script.Player)) {
+	OnPlayerLeave(fnc)
 }
 
 func (noxScript) ObjectTypeByID(id string) script.ObjectType {

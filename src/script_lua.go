@@ -89,11 +89,4 @@ func luaOnEvent(event script.EventType) {
 	if scriptLUA.vm != nil {
 		scriptLUA.vm.OnEvent(event)
 	}
-	switch event {
-	// TODO: change to EventMapShutdown and make sure it triggers
-	//       actually, EventMapShutdown is called when saving game when the map _isn't_ shutting down
-	//       so probably worth adding a new event that triggers at the right time
-	case script.EventMapExit:
-		luaShutdown()
-	}
 }

@@ -11,10 +11,11 @@ import (
 )
 
 var (
-	rtPointf    = reflect.TypeOf(types.Pointf{})
-	rtVoidFunc  = reflect.TypeOf((func())(nil))
-	rtUnitFunc  = reflect.TypeOf((func(script.Unit))(nil))
-	rtUnit2Func = reflect.TypeOf((func(a, b script.Unit))(nil))
+	rtPointf     = reflect.TypeOf(types.Pointf{})
+	rtVoidFunc   = reflect.TypeOf((func())(nil))
+	rtPlayerFunc = reflect.TypeOf((func(player script.Player))(nil))
+	rtUnitFunc   = reflect.TypeOf((func(script.Unit))(nil))
+	rtUnit2Func  = reflect.TypeOf((func(a, b script.Unit))(nil))
 )
 
 func New(vm *lua.LState, tm *script.Timers, g script.Game) *lua.LTable {
@@ -83,18 +84,7 @@ func (vm *api) init() {
 	vm.initTimer()
 }
 
-// receiverValue is a pseudo-value that helps LUA chaining by returning the receiver itself, without affecting its type.
-type receiverValue struct{}
-
-type method struct {
-	vm   *api
-	name string
-	this reflect.Type
-	fnc  reflect.Value
-	lua  *lua.LFunction
-}
-
-func (m *method) luaValueTo(s *lua.LState, li int, rt reflect.Type) (out reflect.Value, di int) {
+func (vm *api) luaValueTo(s *lua.LState, li int, rt reflect.Type) (out reflect.Value, di int) {
 	di = 1
 	// try to match the argument type exactly
 	// mostly used for custom handling of some well-known types
@@ -118,28 +108,37 @@ func (m *method) luaValueTo(s *lua.LState, li int, rt reflect.Type) (out reflect
 	case rtVoidFunc: // func()
 		fnc := s.CheckFunction(li)
 		out = reflect.ValueOf(func() {
-			m.vm.s.Push(fnc)
-			if err := m.vm.s.PCall(0, 0, nil); err != nil {
-				m.vm.s.Error(lua.LString(err.Error()), 0)
+			vm.s.Push(fnc)
+			if err := vm.s.PCall(0, 0, nil); err != nil {
+				vm.s.Error(lua.LString(err.Error()), 0)
+			}
+		})
+	case rtPlayerFunc: // func(Player)
+		fnc := s.CheckFunction(li)
+		out = reflect.ValueOf(func(p script.Player) {
+			vm.s.Push(fnc)
+			vm.s.Push(vm.newPlayer(p))
+			if err := vm.s.PCall(1, 0, nil); err != nil {
+				vm.s.Error(lua.LString(err.Error()), 0)
 			}
 		})
 	case rtUnitFunc: // func(Unit)
 		fnc := s.CheckFunction(li)
 		out = reflect.ValueOf(func(u script.Unit) {
-			m.vm.s.Push(fnc)
-			m.vm.s.Push(m.vm.newUnit(u))
-			if err := m.vm.s.PCall(1, 0, nil); err != nil {
-				m.vm.s.Error(lua.LString(err.Error()), 0)
+			vm.s.Push(fnc)
+			vm.s.Push(vm.newUnit(u))
+			if err := vm.s.PCall(1, 0, nil); err != nil {
+				vm.s.Error(lua.LString(err.Error()), 0)
 			}
 		})
 	case rtUnit2Func: // func(Unit, Unit)
 		fnc := s.CheckFunction(li)
 		out = reflect.ValueOf(func(u1, u2 script.Unit) {
-			m.vm.s.Push(fnc)
-			m.vm.s.Push(m.vm.newUnit(u1))
-			m.vm.s.Push(m.vm.newUnit(u2))
-			if err := m.vm.s.PCall(2, 0, nil); err != nil {
-				m.vm.s.Error(lua.LString(err.Error()), 0)
+			vm.s.Push(fnc)
+			vm.s.Push(vm.newUnit(u1))
+			vm.s.Push(vm.newUnit(u2))
+			if err := vm.s.PCall(2, 0, nil); err != nil {
+				vm.s.Error(lua.LString(err.Error()), 0)
 			}
 		})
 	default:
@@ -149,7 +148,7 @@ func (m *method) luaValueTo(s *lua.LState, li int, rt reflect.Type) (out reflect
 			if s.Get(li) == lua.LNil {
 				out = reflect.Zero(rt)
 			} else {
-				out, di = m.luaValueTo(s, li, rt.Elem())
+				out, di = vm.luaValueTo(s, li, rt.Elem())
 				val := out
 				out = reflect.New(rt.Elem())
 				out.Elem().Set(val)
@@ -192,6 +191,63 @@ func (m *method) luaValueTo(s *lua.LState, li int, rt reflect.Type) (out reflect
 	return
 }
 
+func (vm *api) luaValuePush(s *lua.LState, v interface{}) int {
+	var lv lua.LValue
+	switch v := v.(type) {
+	case nil:
+		lv = lua.LNil
+	case int:
+		lv = lua.LNumber(v)
+	case uint:
+		lv = lua.LNumber(v)
+	case float32:
+		lv = lua.LNumber(v)
+	case float64:
+		lv = lua.LNumber(v)
+	case string:
+		lv = lua.LString(v)
+	case bool:
+		lv = lua.LBool(v)
+	// order is important here! larger interfaces should go first
+	case script.Unit:
+		lv = vm.newUnit(v)
+	case *script.UnitGroup:
+		lv = vm.newUnitGroup(v)
+	case script.Object:
+		lv = vm.newObject(v)
+	case *script.ObjectGroup:
+		lv = vm.newObjectGroup(v)
+	case script.ObjectType:
+		lv = vm.newObjectType(v)
+	case script.Wall:
+		lv = vm.newWall(v)
+	case *script.WallGroup:
+		lv = vm.newWallGroup(v)
+	case script.Waypoint:
+		lv = vm.newWaypoint(v)
+	case *script.Timer:
+		lv = vm.newTimer(v)
+	case script.Duration:
+		lv = vm.newDuration(v)
+	default:
+		// that's a programming error, not script error
+		panic(fmt.Errorf("unsupported argument type %T", v))
+	}
+	s.Push(lv)
+	return 1
+}
+
+// receiverValue is a pseudo-value that helps LUA chaining by returning the receiver itself, without affecting its type.
+type receiverValue struct{}
+
+type method struct {
+	vm   *api
+	name string
+	this reflect.Type
+	fnc  reflect.Value
+	lua  *lua.LFunction
+}
+
 func (m *method) Call(vm *api, s *lua.LState) int {
 	// check the receiver first, it must implement an interface
 	lthis := s.CheckUserData(1)
@@ -220,7 +276,7 @@ func (m *method) Call(vm *api, s *lua.LState) int {
 			li++
 			continue
 		}
-		argv, di := m.luaValueTo(s, li, ft.In(i))
+		argv, di := m.vm.luaValueTo(s, li, ft.In(i))
 		in[i] = argv
 		li += di
 	}
@@ -236,53 +292,52 @@ func (m *method) Call(vm *api, s *lua.LState) int {
 	// TODO: support "v, err := fnc()" pattern
 	var ln int
 	for _, v := range out {
-		var lv lua.LValue
-		switch v := v.Interface().(type) {
-		case nil:
-			lv = lua.LNil
-		case receiverValue:
-			lv = lthis
-		case int:
-			lv = lua.LNumber(v)
-		case uint:
-			lv = lua.LNumber(v)
-		case float32:
-			lv = lua.LNumber(v)
-		case float64:
-			lv = lua.LNumber(v)
-		case string:
-			lv = lua.LString(v)
-		case bool:
-			lv = lua.LBool(v)
-		// order is important here! larger interfaces should go first
-		case script.Unit:
-			lv = vm.newUnit(v)
-		case *script.UnitGroup:
-			lv = vm.newUnitGroup(v)
-		case script.Object:
-			lv = vm.newObject(v)
-		case *script.ObjectGroup:
-			lv = vm.newObjectGroup(v)
-		case script.ObjectType:
-			lv = vm.newObjectType(v)
-		case script.Wall:
-			lv = vm.newWall(v)
-		case *script.WallGroup:
-			lv = vm.newWallGroup(v)
-		case script.Waypoint:
-			lv = vm.newWaypoint(v)
-		case *script.Timer:
-			lv = vm.newTimer(v)
-		case script.Duration:
-			lv = vm.newDuration(v)
-		default:
-			// that's a programming error, not script error
-			panic(fmt.Errorf("unsupported argument type %T", v))
+		vi := v.Interface()
+		if _, ok := vi.(receiverValue); ok {
+			s.Push(lthis)
+			ln++
+			continue
 		}
-		s.Push(lv)
-		ln++
+		ln += m.vm.luaValuePush(s, vi)
 	}
 	return ln
+}
+
+func (vm *api) newFuncOn(t *lua.LTable, name string, fnc interface{}) {
+	t.RawSetString(name, vm.newFunc(fnc))
+}
+
+func (vm *api) newFunc(fnc interface{}) *lua.LFunction {
+	vfnc := reflect.ValueOf(fnc)
+	tfnc := vfnc.Type()
+	if tfnc.Kind() != reflect.Func {
+		panic("must be a function")
+	} else if tfnc.IsVariadic() {
+		panic("variadic functions are not supported yet")
+	}
+	return vm.s.NewFunction(func(s *lua.LState) int {
+		// construct the argument list
+		in := make([]reflect.Value, tfnc.NumIn())
+		li := 1 // LUA arguments may be longer, e.g. for positions
+		for i := range in {
+			argv, di := vm.luaValueTo(s, li, tfnc.In(i))
+			in[i] = argv
+			li += di
+		}
+		// call the function
+		out := vfnc.Call(in)
+		if len(out) == 0 {
+			return 0
+		}
+		// convert returns
+		// TODO: support "v, ok := fnc()" pattern
+		// TODO: support "v, err := fnc()" pattern
+		var ln int
+		for _, v := range out {
+			ln += vm.luaValuePush(s, v.Interface())
+		}
+		return ln
+	})
 }
 
 func (vm *api) newObjMethod(name string, fnc interface{}) *method {

@@ -6,12 +6,38 @@ import (
 
 var (
 	scriptEvents struct {
-		byObject map[uintptr]*objectHandlers
+		byObject      map[uintptr]*objectHandlers
+		onPlayerJoin  []func(p script.Player)
+		onPlayerLeave []func(p script.Player)
 	}
 )
 
 func clearScriptTriggers() {
 	scriptEvents.byObject = nil
+	scriptEvents.onPlayerJoin = nil
+	scriptEvents.onPlayerLeave = nil
+}
+
+func OnPlayerJoin(fnc func(p script.Player)) {
+	scriptEvents.onPlayerJoin = append(scriptEvents.onPlayerJoin, fnc)
+}
+
+func OnPlayerLeave(fnc func(p script.Player)) {
+	scriptEvents.onPlayerLeave = append(scriptEvents.onPlayerLeave, fnc)
+}
+
+func callOnPlayerJoin(p *Player) {
+	scriptLog.Printf("player join: %s", p)
+	for _, fnc := range scriptEvents.onPlayerJoin {
+		fnc(p)
+	}
+}
+
+func callOnPlayerLeave(p *Player) {
+	scriptLog.Printf("player leave: %s", p)
+	for _, fnc := range scriptEvents.onPlayerLeave {
+		fnc(p)
+	}
 }
 
 func (obj *Object) getHandlers() *objectHandlers {

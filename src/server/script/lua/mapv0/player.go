@@ -65,23 +65,31 @@ func (vm *api) initPlayer() {
 		}
 	}))
 	// Nox.Players.Print("text")
-	vm.meta.Players.RawSetString("Print", vm.s.NewFunction(func(s *lua.LState) int {
-		text := s.CheckString(1)
+	vm.newFuncOn(vm.meta.Players, "Print", func(text string) {
 		vm.g.Global().Print(text)
-		return 0
-	}))
+	})
 	// Nox.Players.Blind(true)
 	vm.meta.Players.RawSetString("Blind", vm.s.NewFunction(func(s *lua.LState) int {
 		blind := s.OptBool(1, true)
 		vm.g.BlindPlayers(blind)
 		return 1
 	}))
-	// Nox.Players.Cinema(100)
+	// Nox.Players.Cinema(true)
 	vm.meta.Players.RawSetString("Cinema", vm.s.NewFunction(func(s *lua.LState) int {
 		v := s.OptBool(1, true)
 		vm.g.CinemaPlayers(v)
 		return 1
 	}))
+	// Nox.Players.OnJoin(fnc)
+	vm.newFuncOn(vm.meta.Players, "OnJoin", func(fnc func(p script.Player)) {
+		vm.g.OnPlayerJoin(fnc)
+		return
+	})
+	// Nox.Players.OnLeave(fnc)
+	vm.newFuncOn(vm.meta.Players, "OnLeave", func(fnc func(p script.Player)) {
+		vm.g.OnPlayerLeave(fnc)
+		return
+	})
 
 	// Player[key]
 	vm.setIndexFunction(vm.meta.Player, func(val interface{}, key string) (lua.LValue, bool) {

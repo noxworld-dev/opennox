@@ -17,6 +17,10 @@ type Game interface {
 	Players() []Player
 	// HostPlayer returns the host player.
 	HostPlayer() Player
+	// OnPlayerJoin registers a player join event handler.
+	OnPlayerJoin(fnc func(p Player))
+	// OnPlayerLeave registers a player leave event handler.
+	OnPlayerLeave(fnc func(p Player))
 
 	// ObjectTypeByID finds an object type by ID.
 	ObjectTypeByID(id string) ObjectType
@@ -72,6 +76,14 @@ func (BaseGame) Players() []Player {
 }
 
 func (BaseGame) HostPlayer() Player {
+	panic("implement me")
+}
+
+func (BaseGame) OnPlayerJoin(fnc func(p Player)) {
+	panic("implement me")
+}
+
+func (BaseGame) OnPlayerLeave(fnc func(p Player)) {
 	panic("implement me")
 }
 

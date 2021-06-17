@@ -1,5 +1,8 @@
 package main
 
+/*
+#include "defs.h"
+*/
 import "C"
 import (
 	"fmt"
@@ -38,6 +41,8 @@ const (
 	noxEventPolygonPlayerXXX   = noxEventType(27) // 1
 	noxEventPolygonPlayerEnter = noxEventType(28) // 1
 	noxEventPolygonPlayerZZZ   = noxEventType(29) // 1
+	noxEventPlayerJoin         = noxEventType(30) // 1
+	noxEventPlayerLeave        = noxEventType(31) // 1
 )
 
 func (ev noxEventType) String() string {
@@ -150,6 +155,12 @@ func nox_script_callByEvent_cgo(event C.int, a1, a2 C.int) {
 	case noxEventMonsterDead:
 		obj := asUnit(unsafe.Pointer(uintptr(a2)))
 		callOnMonsterDead(obj)
+	case noxEventPlayerJoin:
+		p := asPlayer((*C.nox_playerInfo)(unsafe.Pointer(uintptr(a1))))
+		callOnPlayerJoin(p)
+	case noxEventPlayerLeave:
+		p := asPlayer((*C.nox_playerInfo)(unsafe.Pointer(uintptr(a1))))
+		callOnPlayerLeave(p)
 	default:
 		scriptLog.Printf("event: %s (%x, %x)", ev, uintptr(a1), uintptr(a2))
 	}
