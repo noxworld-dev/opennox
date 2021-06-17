@@ -19,7 +19,6 @@ char* nox_server_updateRemotePlayers_4DEC80();
 void nox_xxx_netlist_4DEB50();
 void nox_xxx_scriptLeverReact_51ADF0();
 void nox_xxx_serverLoopSendMap_519990();
-void nox_xxx_spellBookReact_4FCB70();
 void nox_xxx_unitsUpdateDeletedList_4E5E20();
 int  nox_xxx_updateServer_4D2DA0(__int64 a1);
 char nox_xxx_updateUnits_51B100();
@@ -101,7 +100,7 @@ func nox_xxx_gameTick_4D2580_server_B(ticks int64) C.int {
 			C.sub_50D890()
 			C.sub_4E4170()
 		}
-		C.nox_xxx_spellBookReact_4FCB70()
+		nox_xxx_spellBookReact_4FCB70()
 		C.nox_xxx_abilUpdateMB_4FBEE0()
 		C.nox_xxx_scriptLeverReact_51ADF0()
 		scriptTick()

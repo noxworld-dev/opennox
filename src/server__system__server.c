@@ -1357,11 +1357,13 @@ int sub_4FC6D0() {
 }
 
 //----- (004FCB70) --------------------------------------------------------
+#ifndef NOX_CGO
 // Microsoft VisualC 2-14/net runtime
 void nox_xxx_spellBookReact_4FCB70() {
 	nox_xxx_spellCastByBook_4FCB80();
 	nox_xxx_spellCastByPlayer_4FEEF0();
 }
+#endif
 
 //----- (005003B0) --------------------------------------------------------
 int  nox_xxx_playerSomeWallsUpdate_5003B0(nox_object_t* obj) {
