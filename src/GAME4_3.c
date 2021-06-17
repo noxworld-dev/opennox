@@ -551,7 +551,7 @@ int  nox_xxx_spellBlink2_530310(_DWORD* a1) {
 
 	if (!nox_common_gameFlags_check_40A5C0(4096) || (result = 1, a1[5] != 1)) {
 		if (nox_common_gameFlags_check_40A5C0(2048)) {
-			v2 = nox_xxx_gamedataGetFloatTable_419D70(getMemAt(0x587000, 260808), a1[2] - 1);
+			v2 = nox_xxx_gamedataGetFloatTable_419D70("TeleportDelay", a1[2] - 1);
 			a1[17] = nox_frame_xxx_2598000 + nox_float2int(v2);
 			result = 0;
 		} else {
@@ -668,7 +668,7 @@ int  sub_5305D0(_DWORD* a1) {
 			return 1;
 	}
 	if (nox_common_gameFlags_check_40A5C0(2048)) {
-		v4 = nox_xxx_gamedataGetFloatTable_419D70(getMemAt(0x587000, 260840), a1[2] - 1);
+		v4 = nox_xxx_gamedataGetFloatTable_419D70("TeleportDelay", a1[2] - 1);
 		a1[17] = nox_frame_xxx_2598000 + nox_float2int(v4);
 	} else {
 		a1[17] = nox_frame_xxx_2598000 + 1;
@@ -763,7 +763,7 @@ int  nox_xxx_castTele_530820(int a1) {
 	float v2;   // [esp+0h] [ebp-8h]
 
 	if (nox_common_gameFlags_check_40A5C0(2048)) {
-		v2 = nox_xxx_gamedataGetFloatTable_419D70(getMemAt(0x587000, 260856), *(_DWORD*)(a1 + 8) - 1);
+		v2 = nox_xxx_gamedataGetFloatTable_419D70("TeleportDelay", *(_DWORD*)(a1 + 8) - 1);
 		*(_DWORD*)(a1 + 68) = nox_frame_xxx_2598000 + nox_float2int(v2);
 		result = 0;
 	} else {
@@ -922,7 +922,7 @@ int  sub_530CA0(int a1) {
 			return 1;
 	}
 	if (nox_common_gameFlags_check_40A5C0(2048)) {
-		v5 = nox_xxx_gamedataGetFloatTable_419D70(getMemAt(0x587000, 260992), *(_DWORD*)(a1 + 8) - 1);
+		v5 = nox_xxx_gamedataGetFloatTable_419D70("TeleportDelay", *(_DWORD*)(a1 + 8) - 1);
 		*(_DWORD*)(a1 + 68) = nox_frame_xxx_2598000 + nox_float2int(v5);
 		result = 0;
 	} else {
@@ -1014,7 +1014,7 @@ int  nox_xxx_manaBomb_530F90(_DWORD* a1) {
 
 	if (!*getMemU32Ptr(0x5D4594, 2487920))
 		*getMemU32Ptr(0x5D4594, 2487920) = nox_xxx_getNameId_4E3AA0("ManaBombCharge");
-	v4 = nox_xxx_gamedataGetFloatTable_419D70(getMemAt(0x587000, 261088), a1[2] - 1);
+	v4 = nox_xxx_gamedataGetFloatTable_419D70("ManaBombInitPower", a1[2] - 1);
 	a1[18] = nox_float2int(v4);
 	a1[19] = 0;
 	a1[21] = 0;
@@ -1107,7 +1107,7 @@ LABEL_18:
 		a1[21] = 1;
 		return 1;
 	}
-	v14 = nox_xxx_gamedataGetFloatTable_419D70(getMemAt(0x587000, 261192), a1[2] - 1);
+	v14 = nox_xxx_gamedataGetFloatTable_419D70("ManaBombDeltaPower", a1[2] - 1);
 	a1[18] = v6 + nox_float2int(v14);
 	if (!a1[5]) {
 		if (sub_4E7BC0(a1[4]))
@@ -1153,7 +1153,7 @@ int  nox_xxx_spellTurnUndeadCreate_531310(_DWORD* a1) {
 	float v8;   // [esp+0h] [ebp-18h]
 	float2 v9;  // [esp+10h] [ebp-8h]
 
-	v8 = nox_xxx_gamedataGetFloatTable_419D70(getMemAt(0x587000, 261212), a1[2] - 1);
+	v8 = nox_xxx_gamedataGetFloatTable_419D70("TurnUndeadKillPoints", a1[2] - 1);
 	a1[18] = nox_float2int(v8);
 	if (!*getMemU32Ptr(0x5D4594, 2487924))
 		*getMemU32Ptr(0x5D4594, 2487924) = nox_xxx_getNameId_4E3AA0("UndeadKiller");
@@ -11189,10 +11189,10 @@ int  nox_xxx_castMissilesOM_540160(int a1, int a2, int a3, int a4, int a5, int a
 	v25 = *(float*)(a4 + 176) + 4.0;
 	if (!*getMemU32Ptr(0x5D4594, 2489136))
 		*getMemU32Ptr(0x5D4594, 2489136) = nox_xxx_getNameId_4E3AA0("MagicMissile");
-	v23 = nox_xxx_gamedataGetFloatTable_419D70(getMemAt(0x587000, 281548), a6 - 1);
+	v23 = nox_xxx_gamedataGetFloatTable_419D70("MagicMissileCount", a6 - 1);
 	v28 = nox_float2int(v23);
 	v7 = nox_xxx_unitIsUnitTT_4E7C80(a3, *getMemIntPtr(0x5D4594, 2489136));
-	v24 = nox_xxx_gamedataGetFloatTable_419D70(getMemAt(0x587000, 281568), a6 - 1);
+	v24 = nox_xxx_gamedataGetFloatTable_419D70("MagicMissileCount", a6 - 1);
 	v8 = nox_float2int(v24);
 	if (v7 + v28 > v8)
 		v28 = v8 - v7;
@@ -11299,8 +11299,8 @@ int  nox_xxx_castPixies_540440(int a1, int a2, int a3, int a4, int a5, int a6) {
 		*getMemU32Ptr(0x5D4594, 2489140) = v7;
 	}
 	v8 = nox_xxx_unitIsUnitTT_4E7C80(a3, v7);
-	if (v8 < (int)(__int64)nox_xxx_gamedataGetFloatTable_419D70(getMemAt(0x587000, 281688), a6 - 1)) {
-		v9 = (unsigned __int64)(__int64)nox_xxx_gamedataGetFloatTable_419D70(getMemAt(0x587000, 281700), a6 - 1) - v8;
+	if (v8 < (int)(__int64)nox_xxx_gamedataGetFloatTable_419D70("PixieCount", a6 - 1)) {
+		v9 = (unsigned __int64)(__int64)nox_xxx_gamedataGetFloatTable_419D70("PixieCount", a6 - 1) - v8;
 		if (v9 > 0) {
 			v19 = v9;
 			do {
@@ -13202,9 +13202,9 @@ char  nox_xxx_mobActionDead1_544D80(_DWORD* a1) {
 	if (v2)
 		v2(a1);
 	if (nox_xxx_unitIsZombie_534A40((int)a1)) {
-		v8 = nox_xxx_gamedataGetFloatTable_419D70(getMemAt(0x587000, 283656), 0);
+		v8 = nox_xxx_gamedataGetFloatTable_419D70("ZombieDeadDuration", 0);
 		v3 = nox_float2int(v8);
-		v9 = nox_xxx_gamedataGetFloatTable_419D70(getMemAt(0x587000, 283676), 1);
+		v9 = nox_xxx_gamedataGetFloatTable_419D70("ZombieDeadDuration", 1);
 		v4 = nox_float2int(v9);
 		*(_DWORD*)(v1 + 492) = nox_common_randomInt_415FA0(v3, v4);
 		v5 = a1[4];

@@ -10421,7 +10421,7 @@ int  nox_xxx_useShock_52C5A0(int a1, int a2, int a3, int a4, int* a5, int a6) {
 		dword_5d4594_2487712 = v7;
 	}
 	if (a4 && *(unsigned __int16*)(a4 + 4) == v7) {
-		v10 = nox_xxx_gamedataGetFloatTable_419D70(getMemAt(0x587000, 258760), a6 - 1);
+		v10 = nox_xxx_gamedataGetFloatTable_419D70("ShockTrapDamage", a6 - 1);
 		v8 = nox_float2int(v10);
 		(*(void(**)(int, int, int, int, int))(*a5 + 716))(*a5, a3, a3, v8, 9);
 		result = 1;
@@ -10542,7 +10542,7 @@ int  nox_xxx_castFireball_52C790(int a1, int a2, int a3, int a4, int a5, int a6)
 		v19.field_C = v19.field_4;
 	}
 	nox_xxx_createAt_4DAA50((int)v7, v8, v19.field_8, v19.field_C);
-	v14 = nox_xxx_gamedataGetFloatTable_419D70(getMemAt(0x587000, 258964), v6 - 1) * v7[136];
+	v14 = nox_xxx_gamedataGetFloatTable_419D70("FireballSpeedCoeff", v6 - 1) * v7[136];
 	v7[136] = v14;
 	v22 = v14 * v21;
 	v7[20] = v22;
@@ -11100,7 +11100,7 @@ int  nox_xxx_castFist_52D3C0(int a1, int a2, int a3, int a4, int a5, int a6) {
 		v15 = (int)v14;
 		if (v14) {
 			v16 = (_DWORD*)v14[187];
-			v20 = nox_xxx_gamedataGetFloatTable_419D70(getMemAt(0x587000, 259684), a6 - 1);
+			v20 = nox_xxx_gamedataGetFloatTable_419D70("FistOfVengeanceDamage", a6 - 1);
 			*v16 = nox_float2int(v20);
 			nox_xxx_createAt_4DAA50(v15, a4, *(float*)(a5 + 4), *(float*)(a5 + 8));
 			*(_DWORD*)(v15 + 20) |= 0x20u;
@@ -11258,7 +11258,7 @@ int  nox_xxx_castMeteorShower_52D8A0(int a1, int a2, int a3, int a4, int a5, int
 		v15 = (int)v14;
 		if (v14) {
 			v16 = (_DWORD*)v14[187];
-			v18 = nox_xxx_gamedataGetFloatTable_419D70(getMemAt(0x587000, 260120), a6 - 1);
+			v18 = nox_xxx_gamedataGetFloatTable_419D70("MeteorDamage", a6 - 1);
 			*v16 = nox_float2int(v18);
 			nox_xxx_createAt_4DAA50(v15, a3, *(float*)(v6 + 4), *(float*)(v6 + 8));
 			v17 = nox_xxx_spellGetAud44_424800(a1, 0);
@@ -11330,7 +11330,7 @@ int  nox_xxx_castMeteor_52D9D0(int a1, int a2, int a3, int a4, int a5, int a6) {
 			v18 = (int)v17;
 			if (v17) {
 				v19 = (int*)v17[187];
-				v23 = nox_xxx_gamedataGetFloatTable_419D70(getMemAt(0x587000, 260172), a6 - 1);
+				v23 = nox_xxx_gamedataGetFloatTable_419D70("MeteorDamage", a6 - 1);
 				v20 = nox_float2int(v23);
 				v21 = a3;
 				*v19 = v20;
@@ -11501,7 +11501,7 @@ int  nox_xxx_castEquake_52DE40(int a1, int a2, int a3, int a4, int a5, int a6) {
 	nox_xxx_unitsGetInCircle_517F90((float2*)(a4 + 56), v9, nox_xxx_equakeDamage_52DEC0, a4);
 	v6 = nox_xxx_spellGetAud44_424800(a1, 0);
 	nox_xxx_aud_501960(v6, a4, 0, 0);
-	v10 = nox_xxx_gamedataGetFloatTable_419D70(getMemAt(0x587000, 260288), a6 - 1);
+	v10 = nox_xxx_gamedataGetFloatTable_419D70("EarthquakeJiggle", a6 - 1);
 	v7 = nox_float2int(v10);
 	nox_xxx_earthquakeSend_4D9110((float*)(a4 + 56), v7);
 	return 1;
@@ -11526,7 +11526,7 @@ __int16  nox_xxx_equakeDamage_52DEC0(int a1, int a2) {
 			if ((_WORD)v3) {
 				v7 = nox_xxx_calcDistance_4E6C00(a1, a2);
 				v8 = 1.0 - v7 / nox_xxx_gamedataGetFloat_419D40("EarthquakeRange");
-				v5 = nox_xxx_gamedataGetFloatTable_419D70(getMemAt(0x587000, 260308), *getMemU32Ptr(0x5D4594, 2487700) - 1) * v8;
+				v5 = nox_xxx_gamedataGetFloatTable_419D70("EarthquakeDamage", *getMemU32Ptr(0x5D4594, 2487700) - 1) * v8;
 				LOWORD(v3) = (*(int(**)(int, int, int, _DWORD, int))(a1 + 716))(a1, v4, v2, (__int64)v5, 11);
 			}
 		}
@@ -11749,7 +11749,7 @@ int  nox_xxx_spellDrainMana_52E210(float a1) {
 		return 1;
 	}
 	v21 = *(float*)(LODWORD(a1) + 72);
-	v22 = nox_xxx_gamedataGetFloatTable_419D70(getMemAt(0x587000, 260408), *(_DWORD*)(v1 + 8) - 1) + v21;
+	v22 = nox_xxx_gamedataGetFloatTable_419D70("ManaDrainCoeff", *(_DWORD*)(v1 + 8) - 1) + v21;
 	*(float*)&v14 = COERCE_FLOAT(nox_float2int(v22));
 	v15 = *(_DWORD**)(v1 + 48);
 	v19.field_0 = *(float*)&v14;
@@ -12045,7 +12045,7 @@ int  nox_xxx_spellEnergyBoltTick_52E850(float a1) {
 		}
 	LABEL_32:
 		v32 = *(float*)(v1 + 72);
-		v33 = nox_xxx_gamedataGetFloatTable_419D70(getMemAt(0x587000, 260480), *(_DWORD*)(v1 + 8) - 1) + v32;
+		v33 = nox_xxx_gamedataGetFloatTable_419D70("EnergyBoltDamage", *(_DWORD*)(v1 + 8) - 1) + v32;
 		v16 = v33;
 		v17 = nox_float2int(v33);
 		v18 = *(_DWORD**)(v1 + 48);
@@ -12523,7 +12523,7 @@ int  sub_52F460(float a1) {
 				} else if ((unsigned __int16)nox_xxx_unitGetHP_4EE780(*(_DWORD*)(LODWORD(a1) + 16)) > 1u) {
 					if (nox_xxx_unitGetHP_4EE780(*(_DWORD*)(LODWORD(a1) + 16))) {
 						v8 = *(float*)(LODWORD(a1) + 72);
-						v9 = nox_xxx_gamedataGetFloatTable_419D70(getMemAt(0x587000, 260660), *(_DWORD*)(LODWORD(v1) + 8) - 1) + v8;
+						v9 = nox_xxx_gamedataGetFloatTable_419D70("ChannelLifeCoeff", *(_DWORD*)(LODWORD(v1) + 8) - 1) + v8;
 						*(float*)(LODWORD(v1) + 72) = v9 - (double)nox_float2int(v9);
 						v7 = nox_float2int(v9);
 						nox_xxx_playerManaAdd_4EEB80(*(_DWORD*)(LODWORD(v1) + 48), v7);
@@ -12556,12 +12556,12 @@ int  nox_xxx_castShield1_52F5A0(_DWORD* a1) {
 		return 1;
 	if (!(*(_DWORD*)(v1 + 8) & 4) && !(*(_DWORD*)(v1 + 8) & 2))
 		return 1;
-	v5 = nox_xxx_gamedataGetFloatTable_419D70(getMemAt(0x587000, 260680), a1[2] - 1);
+	v5 = nox_xxx_gamedataGetFloatTable_419D70("ShieldDuration", a1[2] - 1);
 	v3 = nox_float2int(v5);
 	nox_xxx_buffApplyTo_4FF380(a1[12], 26, v3, a1[2]);
 	v4 = a1[2] - 1;
 	a1[17] = v3 + nox_frame_xxx_2598000;
-	v6 = nox_xxx_gamedataGetFloatTable_419D70(getMemAt(0x587000, 260696), v4);
+	v6 = nox_xxx_gamedataGetFloatTable_419D70("ShieldHealth", v4);
 	a1[18] = nox_float2int(v6);
 	return 0;
 }

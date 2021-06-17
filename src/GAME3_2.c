@@ -10097,7 +10097,7 @@ double  nox_xxx_checkFireProtect_4DFE40(_DWORD* a1) {
 		v12 = 0.5;
 	if (nox_xxx_testUnitBuffs_4FF350((int)a1, 17)) {
 		v11 = nox_xxx_buffGetPower_4FF570((int)a1, 17);
-		result = nox_xxx_gamedataGetFloatTable_419D70(getMemAt(0x587000, 200656), (unsigned int)v11 - 1) + v12;
+		result = nox_xxx_gamedataGetFloatTable_419D70("FireSpellProtection", (unsigned int)v11 - 1) + v12;
 	} else {
 		result = v12;
 	}
@@ -10160,7 +10160,7 @@ double  nox_xxx_checkElectrProtect_4DFF40(_DWORD* a1) {
 		v12 = 0.5;
 	if (nox_xxx_testUnitBuffs_4FF350((int)a1, 20)) {
 		v11 = nox_xxx_buffGetPower_4FF570((int)a1, 20);
-		result = nox_xxx_gamedataGetFloatTable_419D70(getMemAt(0x587000, 200676), (unsigned int)v11 - 1) + v12;
+		result = nox_xxx_gamedataGetFloatTable_419D70("ElectricitySpellProtection", (unsigned int)v11 - 1) + v12;
 	} else {
 		result = v12;
 	}
@@ -10223,7 +10223,7 @@ double  nox_xxx_getPoisonDmg_4E0040(_DWORD* a1) {
 		v12 = 0.69999999;
 	if (nox_xxx_testUnitBuffs_4FF350((int)a1, 18)) {
 		v11 = nox_xxx_buffGetPower_4FF570((int)a1, 18);
-		result = nox_xxx_gamedataGetFloatTable_419D70(getMemAt(0x587000, 200704), (unsigned int)v11 - 1) + v12;
+		result = nox_xxx_gamedataGetFloatTable_419D70("PoisonSpellProtection", (unsigned int)v11 - 1) + v12;
 	} else {
 		result = v12;
 	}
@@ -10758,7 +10758,7 @@ int  nox_xxx_damageDefaultProc_4E0B30(int a1, int a2, int a3, int a4, int a5) {
 						if (sub_4E1400(a2, (_DWORD*)a3)) {
 							nox_xxx_aud_501960(135, a2, 0, 0);
 							nox_xxx_spellBuffOff_4FF5B0(a1, 22);
-							v41 = nox_xxx_gamedataGetFloatTable_419D70(getMemAt(0x587000, 201116), 4);
+							v41 = nox_xxx_gamedataGetFloatTable_419D70("ShockDamage", 4);
 							v13 = nox_float2int(v41);
 							(*(void(**)(int, int, _DWORD, int, int))(a2 + 716))(a2, a1, 0, v13, 9);
 							if (*(_BYTE*)(a2 + 8) & 4)
@@ -10854,7 +10854,7 @@ int  nox_xxx_damageDefaultProc_4E0B30(int a1, int a2, int a3, int a4, int a5) {
 						if (v10 && *(_BYTE*)(a1 + 8) & 6 && nox_xxx_testUnitBuffs_4FF350(v10, 13)) {
 							nox_xxx_aud_501960(163, a3, 0, 0);
 							v30 = nox_xxx_buffGetPower_4FF570(v10, 13);
-							v31 = nox_xxx_gamedataGetFloatTable_419D70(getMemAt(0x587000, 201128), (unsigned int)v30 - 1);
+							v31 = nox_xxx_gamedataGetFloatTable_419D70("VampirismCoeff", (unsigned int)v30 - 1);
 							v44 = v31 * (double)a4;
 							v32 = nox_float2int(v44);
 							if (v32 < 1u)

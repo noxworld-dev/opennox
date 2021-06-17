@@ -31,7 +31,7 @@ void  sub_4EF2E0_exp_level(int a1) {
 
 	v1 = *(_DWORD*)(*(_DWORD*)(a1 + 748) + 276);
 	if ((nox_xxx_gameGet_4DB1B0() != 1 || !sub_4DB1C0()) &&
-		nox_xxx_gamedataGetFloatTable_419D70(getMemAt(0x587000, 206192), *(char*)(v1 + 3684) + 1) <= *(float*)(a1 + 28)) {
+		nox_xxx_gamedataGetFloatTable_419D70("XPTable", *(char*)(v1 + 3684) + 1) <= *(float*)(a1 + 28)) {
 		++*(_BYTE*)(v1 + 3684);
 		sub_56F980(*(_DWORD*)(v1 + 4644), 1u);
 		nox_xxx_plrReadVals_4EEDC0(a1, 1);
