@@ -16,6 +16,7 @@ var endiness = binary.LittleEndian
 type Data struct {
 	Images []Image `json:"images,omitempty"`
 	Things []Thing `json:"things,omitempty"`
+	Spells []Spell `json:"things,omitempty"`
 }
 
 type File struct {
@@ -239,8 +240,26 @@ func (f *File) readBytes8() ([]byte, error) {
 	return buf, err
 }
 
+func (f *File) readBytes16() ([]byte, error) {
+	sz, err := f.readU16()
+	if err != nil {
+		return nil, err
+	}
+	buf := make([]byte, sz)
+	_, err = f.read(buf)
+	return buf, err
+}
+
 func (f *File) readString8() (string, error) {
 	b, err := f.readBytes8()
+	if err != nil {
+		return "", err
+	}
+	return string(b), nil
+}
+
+func (f *File) readString16() (string, error) {
+	b, err := f.readBytes16()
 	if err != nil {
 		return "", err
 	}
@@ -349,10 +368,11 @@ func (f *File) ReadAll() (*Data, error) {
 				return &data, err
 			}
 		case "SPEL":
-			// TODO
-			if err := f.skipSPEL(); err != nil {
+			list, err := f.readSPEL()
+			if err != nil {
 				return &data, err
 			}
+			data.Spells = list
 		case "ABIL":
 			// TODO
 			if err := f.skipABIL(); err != nil {
