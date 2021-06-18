@@ -3230,7 +3230,7 @@ int  sub_4540E0(int a1) {
 	v1 = 1;
 	do {
 		if (sub_454000(a1, v1))
-			result = sub_424B90(v1);
+			result = nox_xxx_spellEnable_424B90(v1);
 		else
 			result = nox_xxx_spellDisable_424BB0(v1);
 		++v1;

@@ -1364,6 +1364,27 @@ _Static_assert(sizeof(nox_playerInfo) == 4828, "wrong size of nox_playerInfo str
 _Static_assert(offsetof(nox_playerInfo, frame_3596) == 3596, "wrong offset of nox_playerInfo.frame_3596 field!");
 _Static_assert(offsetof(nox_playerInfo, field_4580) == 4580, "wrong offset of nox_playerInfo.field_4580 field!");
 
+typedef struct nox_spell_t {
+	wchar_t* title; // 0, 0
+	wchar_t* desc; // 1, 4
+	void* icon; // 2, 8
+	void* icon_spent; // 3, 12
+	unsigned int flags; // 4, 16
+	unsigned int enabled; // 5, 20
+	unsigned int valid; // 6, 24
+	_BYTE data_7[32]; // 7, 28
+	_BYTE field_15_0; // 15, 60
+	_BYTE phonemes_cnt; // 15, 61
+	unsigned char mana_cost; // 15, 62
+	_BYTE field_15_3; // 15, 63
+	unsigned short price; // 16, 64
+	_WORD field_16_1; // 16, 66
+	void* cast_sound; // 17, 68
+	void* on_sound; // 18, 72
+	void* off_sound; // 19, 76
+} nox_spell_t;
+_Static_assert(sizeof(nox_spell_t) == 80, "wrong size of nox_spell_t structure!");
+
 typedef enum {
 	NOX_ENGINE_FLAG_1 = 1u << 0u,
 	NOX_ENGINE_FLAG_ENABLE_SHOW_EXTENTS = 1u << 1u,

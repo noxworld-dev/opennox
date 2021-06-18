@@ -8,7 +8,6 @@ int  nox_xxx_spellLoadSpells_424460(nox_memfile* f, void* a2) {
 	int v3;               // ebx
 	int v4;               // eax
 	int result;           // eax
-	unsigned __int8* v6;  // ebp
 	unsigned __int8 v9;   // dl
 	int* v10;             // edi
 	unsigned __int8 v12;  // cl
@@ -43,13 +42,13 @@ int  nox_xxx_spellLoadSpells_424460(nox_memfile* f, void* a2) {
 	v41 = v4;
 	if (!v4)
 		return 0;
-	v6 = getMemAt(0x5D4594, 588124 + 80 * v4);
+	nox_spell_t* sp = (nox_spell_t*)getMemAt(0x5D4594, 588124 + sizeof(nox_spell_t) * v4);
 	v40 = 0;
 	v39 = 0;
-	v6[62] = nox_memfile_read_u8(f);
-	*((_WORD*)v6 + 32) = nox_memfile_read_u16(f);
+	sp->mana_cost = nox_memfile_read_u8(f);
+	sp->price = nox_memfile_read_u16(f);
 	v9 = nox_memfile_read_u8(f);
-	v6[61] = v9;
+	sp->phonemes_cnt = v9;
 	v10 = *(int**)&dword_587000_66120;
 	v42 = v9;
 	if ((int)v9 > 0) {
@@ -74,7 +73,7 @@ int  nox_xxx_spellLoadSpells_424460(nox_memfile* f, void* a2) {
 	}
 	*v10 = v4;
 	v16 = nox_memfile_read_i32(f);
-	*((_DWORD*)v6 + 2) = 0;
+	sp->icon = 0;
 	v43[0] = getMemByte(0x5D4594, 599124);
 	if (v16 == -1) {
 		v18 = nox_memfile_read_i8(f);
@@ -85,9 +84,9 @@ int  nox_xxx_spellLoadSpells_424460(nox_memfile* f, void* a2) {
 		v16 = -1;
 	}
 	if (nox_common_gameFlags_check_40A5C0(2))
-		*((_DWORD*)v6 + 2) = nox_xxx_readImgMB_42FAA0(v16, v39, v43);
+		sp->icon = nox_xxx_readImgMB_42FAA0(v16, v39, v43);
 	v20 = nox_memfile_read_i32(f);
-	*((_DWORD*)v6 + 3) = 0;
+	sp->icon_spent = 0;
 	v43[0] = getMemByte(0x5D4594, 599128);
 	if (v20 == -1) {
 		v22 = nox_memfile_read_i8(f);
@@ -98,37 +97,37 @@ int  nox_xxx_spellLoadSpells_424460(nox_memfile* f, void* a2) {
 		v20 = -1;
 	}
 	if (nox_common_gameFlags_check_40A5C0(2))
-		*((_DWORD*)v6 + 3) = nox_xxx_readImgMB_42FAA0(v20, v39, v43);
+		sp->icon_spent = nox_xxx_readImgMB_42FAA0(v20, v39, v43);
 	v24 = nox_memfile_read_i32(f);
-	*((_DWORD*)v6 + 4) = v24;
+	sp->flags = v24;
 	v36 = nox_memfile_read_u8(f);
 	nox_memfile_read(v43, 1, v36, f);
 	v43[v36] = 0;
-	*(_DWORD*)v6 = nox_strman_loadString_40F1D0(v43, 0, "C:\\NoxPost\\src\\Common\\Magic\\Speltree.c", 481);
+	sp->title = nox_strman_loadString_40F1D0(v43, 0, "C:\\NoxPost\\src\\Common\\Magic\\Speltree.c", 481);
 	v27 = nox_memfile_read_i16(f);
 	nox_memfile_read(v43, 1, v27, f);
 	v43[v27] = 0;
-	*((_DWORD*)v6 + 1) = nox_strman_loadString_40F1D0(v43, 0, "C:\\NoxPost\\src\\Common\\Magic\\Speltree.c", 488);
+	sp->desc = nox_strman_loadString_40F1D0(v43, 0, "C:\\NoxPost\\src\\Common\\Magic\\Speltree.c", 488);
 	v29 = nox_memfile_read_u8(f);
 	v30 = v29;
 	nox_memfile_read(v43, 1, v29, f);
 	v43[v30] = 0;
-	*((_DWORD*)v6 + 17) = nox_xxx_utilFindSound_40AF50(v43);
+	sp->cast_sound = nox_xxx_utilFindSound_40AF50(v43);
 	v37 = nox_memfile_read_u8(f);
 	nox_memfile_read(v43, 1, v37, f);
 	v43[v37] = 0;
-	*((_DWORD*)v6 + 18) = nox_xxx_utilFindSound_40AF50(v43);
+	sp->on_sound = nox_xxx_utilFindSound_40AF50(v43);
 	v38 = nox_memfile_read_u8(f);
 	nox_memfile_read(v43, 1, v38, f);
 	v43[v38] = 0;
-	*((_DWORD*)v6 + 19) = nox_xxx_utilFindSound_40AF50(v43);
+	sp->off_sound = nox_xxx_utilFindSound_40AF50(v43);
 	if ((int)v40 > 0) {
-		memcpy(v6 + 28, v44, v40);
+		memcpy(sp->data_7, v44, v40);
 		v3 = v40;
 	}
 	result = 1;
-	v6[v3 + 28] = 4;
-	*((_DWORD*)v6 + 5) = 1;
-	*((_DWORD*)v6 + 6) = 1;
+	sp->data_7[v3] = 4;
+	sp->enabled = 1;
+	sp->valid = 1;
 	return result;
 }

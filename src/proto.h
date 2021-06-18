@@ -890,7 +890,7 @@ int  nox_xxx_bookNextEnabledSpell_424AF0(int a1);
 int  sub_424B20(int a1);
 int  nox_xxx_spellGetValidMB_424B50(int a1);
 int  nox_xxx_spellIsEnabled_424B70(int a1);
-int  sub_424B90(int a1);
+int  nox_xxx_spellEnable_424B90(int a1);
 int  nox_xxx_spellDisable_424BB0(int a1);
 int sub_424BD0();
 unsigned int  nox_xxx_spellMayTrap_424BF0(int a1);

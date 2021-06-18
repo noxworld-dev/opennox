@@ -1017,7 +1017,7 @@ int nox_cmd_set_spell(int tokInd, int tokCnt, wchar_t** tokens) {
 					return 1;
 				if (nox_xxx_spellIsEnabled_424B70(v4))
 					return 1;
-				sub_424B90(v4);
+				nox_xxx_spellEnable_424B90(v4);
 				nox_server_gameSettingsUpdated_40A670();
 				v8 = tokens[2];
 				v3 = nox_strman_loadString_40F1D0("spellenabled", 0,
