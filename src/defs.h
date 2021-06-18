@@ -1368,7 +1368,7 @@ typedef struct nox_spell_t {
 	wchar_t* title; // 0, 0
 	wchar_t* desc; // 1, 4
 	void* icon; // 2, 8
-	void* icon_spent; // 3, 12
+	void* icon_enabled; // 3, 12
 	unsigned int flags; // 4, 16
 	unsigned int enabled; // 5, 20
 	unsigned int valid; // 6, 24

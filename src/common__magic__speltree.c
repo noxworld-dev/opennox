@@ -251,7 +251,7 @@ int  nox_xxx_spellLoadSpells_424460(nox_memfile* f, void* a2) {
 	if (nox_common_gameFlags_check_40A5C0(2))
 		sp->icon = nox_xxx_readImgMB_42FAA0(v16, v39, v43);
 	v20 = nox_memfile_read_i32(f);
-	sp->icon_spent = 0;
+	sp->icon_enabled = 0;
 	v43[0] = getMemByte(0x5D4594, 599128);
 	if (v20 == -1) {
 		v22 = nox_memfile_read_i8(f);
@@ -262,7 +262,7 @@ int  nox_xxx_spellLoadSpells_424460(nox_memfile* f, void* a2) {
 		v20 = -1;
 	}
 	if (nox_common_gameFlags_check_40A5C0(2))
-		sp->icon_spent = nox_xxx_readImgMB_42FAA0(v20, v39, v43);
+		sp->icon_enabled = nox_xxx_readImgMB_42FAA0(v20, v39, v43);
 	v24 = nox_memfile_read_i32(f);
 	sp->flags = v24;
 	v36 = nox_memfile_read_u8(f);

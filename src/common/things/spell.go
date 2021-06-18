@@ -97,18 +97,18 @@ const (
 type SpellFlags uint32
 
 type Spell struct {
-	ID        string     `json:"name"`
-	Icon      *ImageRef  `json:"icon,omitempty"`
-	IconSpent *ImageRef  `json:"icon_spent,omitempty"`
-	ManaCost  int        `json:"mana_cost"`
-	Price     int        `json:"price"`
-	Flags     SpellFlags `json:"flags"`
-	Phonemes  []Phoneme  `json:"phonemes,omitempty"`
-	Title     string     `json:"title,omitempty"`
-	Desc      string     `json:"description,omitempty"`
-	CastSound string     `json:"cast_sound,omitempty"`
-	OnSound   string     `json:"on_sound,omitempty"`
-	OffSound  string     `json:"off_sound,omitempty"`
+	ID          string     `json:"name"`
+	Icon        *ImageRef  `json:"icon,omitempty"`
+	IconEnabled *ImageRef  `json:"icon_enabled,omitempty"`
+	ManaCost    int        `json:"mana_cost"`
+	Price       int        `json:"price"`
+	Flags       SpellFlags `json:"flags"`
+	Phonemes    []Phoneme  `json:"phonemes,omitempty"`
+	Title       string     `json:"title,omitempty"`
+	Desc        string     `json:"description,omitempty"`
+	CastSound   string     `json:"cast_sound,omitempty"`
+	OnSound     string     `json:"on_sound,omitempty"`
+	OffSound    string     `json:"off_sound,omitempty"`
 }
 
 func (f *File) ReadSpells() ([]Spell, error) {
@@ -252,18 +252,18 @@ func (f *File) readSPEL() ([]Spell, error) {
 			off = ""
 		}
 		out = append(out, Spell{
-			ID:        id,
-			Icon:      im1,
-			IconSpent: im2,
-			ManaCost:  int(mana),
-			Price:     int(price),
-			Flags:     SpellFlags(fl),
-			Title:     title,
-			Desc:      desc,
-			Phonemes:  phon,
-			CastSound: cast,
-			OnSound:   on,
-			OffSound:  off,
+			ID:          id,
+			Icon:        im1,
+			IconEnabled: im2,
+			ManaCost:    int(mana),
+			Price:       int(price),
+			Flags:       SpellFlags(fl),
+			Title:       title,
+			Desc:        desc,
+			Phonemes:    phon,
+			CastSound:   cast,
+			OnSound:     on,
+			OffSound:    off,
 		})
 	}
 	return out, nil // no END here
