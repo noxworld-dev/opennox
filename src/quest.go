@@ -11,7 +11,6 @@ import "C"
 import (
 	"os"
 	"strconv"
-	"unsafe"
 
 	"nox/v1/client/system/parsecmd"
 	"nox/v1/common/log"
@@ -195,7 +194,7 @@ func nox_server_questMapNextLevel() {
 	C.sub_4D10F0(internCStr(name))
 	C.sub_4D7520(1)
 	if !questLevelWarpInfinite {
-		cutoff := uint(C.nox_xxx_gamedataGetFloat_419D40(unsafe.Pointer(internCStr("WarpGateCutoffStage"))))
+		cutoff := uint(gamedataFloat("WarpGateCutoffStage"))
 		if uint(nox_game_getQuestStage_4E3CC0()) >= cutoff {
 			C.sub_4D7520(0)
 		}

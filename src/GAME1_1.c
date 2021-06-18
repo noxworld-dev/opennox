@@ -54,7 +54,6 @@ extern _DWORD dword_5d4594_741248;
 extern _DWORD dword_5d4594_529336;
 extern _DWORD dword_5d4594_2660032;
 extern _DWORD dword_5d4594_531656;
-extern _DWORD dword_5d4594_527684;
 extern _DWORD dword_5d4594_741292;
 extern _DWORD dword_5d4594_588068;
 extern _DWORD dword_5d4594_608316;
@@ -78,6 +77,10 @@ extern obj_5D4594_2650668_t** ptr_5D4594_2650668;
 extern int ptr_5D4594_2650668_cap;
 extern unsigned int nox_gameFPS;
 extern unsigned int nox_frame_xxx_2598000;
+
+#ifndef NOX_CGO
+_DWORD dword_5d4594_527684 = 0;
+#endif // NOX_CGO
 
 //----- (004187A0) --------------------------------------------------------
 char sub_4187A0() {
@@ -842,6 +845,17 @@ float  nox_double2float(double a1) { return (float)a1; }
 //----- (00419B10) --------------------------------------------------------
 int  nox_double2int(double a1) { return (int)a1; }
 
+#ifndef NOX_CGO
+//----- (004267B0) --------------------------------------------------------
+int  sub_4267B0(int a1, char* a2, int a3) {
+	CHAR* v3; // eax
+
+	v3 = sub_426680(a1, a2);
+	if (!v3)
+		return 0;
+	*((_DWORD*)v3 + 1) = a3;
+	return 1;
+}
 //----- (00419B30) --------------------------------------------------------
 int nox_xxx_parseGamedataBin_419B30() {
 	int result;     // eax
@@ -926,8 +940,87 @@ int nox_xxx_parseGamedataBin_419B30() {
 }
 // 419B30: using guessed type int var_7FC[255];
 
+//----- (00426740) --------------------------------------------------------
+CHAR*  sub_426740(int a1, CHAR* a2) {
+	CHAR* result; // eax
+	int v3;       // eax
+
+	result = a2;
+	if (a2) {
+		v3 = toupper(*a2);
+		if (v3 < 65 || v3 > 90)
+			result = (CHAR*)(a1 + 312);
+		else
+			result = (CHAR*)(a1 + 12 * (v3 - 65));
+	}
+	return result;
+}
+//----- (00426680) --------------------------------------------------------
+CHAR*  sub_426680(int a1, char* a2) {
+	CHAR* result; // eax
+	CHAR* v3;     // esi
+	int i;        // edi
+	int j;        // ecx
+	int v6;       // ebp
+	_DWORD* v7;   // edx
+	int v8;       // eax
+	int v9;       // edi
+
+	result = sub_426740(a1, a2);
+	v3 = result;
+	if (result) {
+		if (!*((_DWORD*)result + 2)) {
+			*(_DWORD*)result = realloc(*(LPVOID*)result, 8 * (*((_DWORD*)result + 1) + 5));
+			*((_DWORD*)v3 + 2) = 5;
+		}
+		for (i = 0; i < *((_DWORD*)v3 + 1); ++i) {
+			if (_strcmpi(a2, *(const char**)(*(_DWORD*)v3 + 8 * i)) < 0)
+				break;
+		}
+		for (j = *((_DWORD*)v3 + 1); j > i; v7[1] = *(v7 - 1)) {
+			v6 = *(_DWORD*)(*(_DWORD*)v3 + 8 * j - 8);
+			v7 = (_DWORD*)(*(_DWORD*)v3 + 8 * j--);
+			*v7 = v6;
+		}
+		v8 = *((_DWORD*)v3 + 2) - 1;
+		++*((_DWORD*)v3 + 1);
+		*((_DWORD*)v3 + 2) = v8;
+		v9 = 8 * i;
+		*(_DWORD*)(*(_DWORD*)v3 + v9) = nox_clone_str(a2);
+		result = (CHAR*)(v9 + *(_DWORD*)v3);
+	}
+	return result;
+}
+//----- (00426840) --------------------------------------------------------
+int  sub_426840(const void* a1, const void* a2) { return _strcmpi((const char*)a1, *(const char**)a2); }
+//----- (00426800) --------------------------------------------------------
+void*  sub_426800(int a1, void* a2) {
+	CHAR* v2;     // eax
+	size_t v3;    // ecx
+	void* result; // eax
+
+	if (a2 && (v2 = sub_426740(a1, (CHAR*)a2)) != 0 && (v3 = *((_DWORD*)v2 + 1)) != 0)
+		result = bsearch(a2, *(const void**)v2, v3, 8u, sub_426840);
+	else
+		result = 0;
+	return result;
+}
+
+//----- (00426890) --------------------------------------------------------
+int  sub_426890(int a1, void* a2) {
+	_DWORD* v2; // eax
+	int result; // eax
+
+	v2 = sub_426800(a1, a2);
+	if (v2)
+		result = v2[1];
+	else
+		result = 0;
+	return result;
+}
+
 //----- (00419D40) --------------------------------------------------------
-double  nox_xxx_gamedataGetFloat_419D40(void* a1) {
+double  nox_xxx_gamedataGetFloat_419D40(char* a1) {
 	float** v1;    // eax
 	double result; // st7
 
@@ -940,7 +1033,7 @@ double  nox_xxx_gamedataGetFloat_419D40(void* a1) {
 }
 
 //----- (00419D70) --------------------------------------------------------
-double  nox_xxx_gamedataGetFloatTable_419D70(void* a1, int a2) {
+double  nox_xxx_gamedataGetFloatTable_419D70(char* a1, int a2) {
 	int v2;        // eax
 	double result; // st7
 
@@ -953,13 +1046,14 @@ double  nox_xxx_gamedataGetFloatTable_419D70(void* a1, int a2) {
 }
 
 //----- (00419DB0) --------------------------------------------------------
-void sub_419DB0() {
+void nox_xxx_gamedataFree_419DB0() {
 	if (dword_5d4594_527684) {
 		sub_426600(*(int*)&dword_5d4594_527684, sub_419DE0);
 		sub_4265A0(*(LPVOID*)&dword_5d4594_527684);
 		dword_5d4594_527684 = 0;
 	}
 }
+#endif // NOX_CGO
 
 //----- (00419DE0) --------------------------------------------------------
 void  sub_419DE0(int a1, LPVOID* lpMem) {
@@ -9051,146 +9145,7 @@ int  sub_426600(int a1, void(* a2)(_DWORD, _DWORD)) {
 	return result;
 }
 
-//----- (00426650) --------------------------------------------------------
-int  sub_426650(int a1, char* a2, int a3) {
-	CHAR* v3; // eax
 
-	v3 = sub_426680(a1, a2);
-	if (!v3)
-		return 0;
-	*((_DWORD*)v3 + 1) = a3;
-	return 1;
-}
-
-//----- (00426680) --------------------------------------------------------
-CHAR*  sub_426680(int a1, char* a2) {
-	CHAR* result; // eax
-	CHAR* v3;     // esi
-	int i;        // edi
-	int j;        // ecx
-	int v6;       // ebp
-	_DWORD* v7;   // edx
-	int v8;       // eax
-	int v9;       // edi
-
-	result = sub_426740(a1, a2);
-	v3 = result;
-	if (result) {
-		if (!*((_DWORD*)result + 2)) {
-			*(_DWORD*)result = realloc(*(LPVOID*)result, 8 * (*((_DWORD*)result + 1) + 5));
-			*((_DWORD*)v3 + 2) = 5;
-		}
-		for (i = 0; i < *((_DWORD*)v3 + 1); ++i) {
-			if (_strcmpi(a2, *(const char**)(*(_DWORD*)v3 + 8 * i)) < 0)
-				break;
-		}
-		for (j = *((_DWORD*)v3 + 1); j > i; v7[1] = *(v7 - 1)) {
-			v6 = *(_DWORD*)(*(_DWORD*)v3 + 8 * j - 8);
-			v7 = (_DWORD*)(*(_DWORD*)v3 + 8 * j--);
-			*v7 = v6;
-		}
-		v8 = *((_DWORD*)v3 + 2) - 1;
-		++*((_DWORD*)v3 + 1);
-		*((_DWORD*)v3 + 2) = v8;
-		v9 = 8 * i;
-		*(_DWORD*)(*(_DWORD*)v3 + v9) = nox_clone_str(a2);
-		result = (CHAR*)(v9 + *(_DWORD*)v3);
-	}
-	return result;
-}
-
-//----- (00426740) --------------------------------------------------------
-CHAR*  sub_426740(int a1, CHAR* a2) {
-	CHAR* result; // eax
-	int v3;       // eax
-
-	result = a2;
-	if (a2) {
-		v3 = toupper(*a2);
-		if (v3 < 65 || v3 > 90)
-			result = (CHAR*)(a1 + 312);
-		else
-			result = (CHAR*)(a1 + 12 * (v3 - 65));
-	}
-	return result;
-}
-
-//----- (00426780) --------------------------------------------------------
-int  sub_426780(int a1, char* a2, int a3) {
-	CHAR* v3; // eax
-
-	v3 = sub_426680(a1, a2);
-	if (!v3)
-		return 0;
-	*((_DWORD*)v3 + 1) = a3;
-	return 1;
-}
-
-//----- (004267B0) --------------------------------------------------------
-int  sub_4267B0(int a1, char* a2, int a3) {
-	CHAR* v3; // eax
-
-	v3 = sub_426680(a1, a2);
-	if (!v3)
-		return 0;
-	*((_DWORD*)v3 + 1) = a3;
-	return 1;
-}
-
-//----- (004267E0) --------------------------------------------------------
-int  sub_4267E0(int a1, void* a2) {
-	_DWORD* v2; // eax
-	int result; // eax
-
-	v2 = sub_426800(a1, a2);
-	if (v2)
-		result = v2[1];
-	else
-		result = 0;
-	return result;
-}
-
-//----- (00426800) --------------------------------------------------------
-void*  sub_426800(int a1, void* a2) {
-	CHAR* v2;     // eax
-	size_t v3;    // ecx
-	void* result; // eax
-
-	if (a2 && (v2 = sub_426740(a1, (CHAR*)a2)) != 0 && (v3 = *((_DWORD*)v2 + 1)) != 0)
-		result = bsearch(a2, *(const void**)v2, v3, 8u, sub_426840);
-	else
-		result = 0;
-	return result;
-}
-
-//----- (00426840) --------------------------------------------------------
-int  sub_426840(const void* a1, const void* a2) { return _strcmpi((const char*)a1, *(const char**)a2); }
-
-//----- (00426860) --------------------------------------------------------
-double  sub_426860(int a1, void* a2) {
-	float* v2;     // eax
-	double result; // st7
-
-	v2 = (float*)sub_426800(a1, a2);
-	if (v2)
-		result = v2[1];
-	else
-		result = 0.0;
-	return result;
-}
-
-//----- (00426890) --------------------------------------------------------
-int  sub_426890(int a1, void* a2) {
-	_DWORD* v2; // eax
-	int result; // eax
-
-	v2 = sub_426800(a1, a2);
-	if (v2)
-		result = v2[1];
-	else
-		result = 0;
-	return result;
-}
 
 //----- (004268B0) --------------------------------------------------------
 int  sub_4268B0(int a1) {

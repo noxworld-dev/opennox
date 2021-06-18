@@ -15,6 +15,7 @@ require (
 	github.com/yuin/gopher-lua v0.0.0-20200816102855-ee81675732da
 	golang.org/x/sync v0.0.0-20200317015054-43a5402ce75a
 	golang.org/x/sys v0.0.0-20190624142023-c5567b49c5d0
+	gopkg.in/yaml.v2 v2.4.0 // indirect
 )
 
 replace github.com/timshannon/go-openal => github.com/dennwc/go-openal v0.0.0-20210509170021-8bfa7ccb20bd

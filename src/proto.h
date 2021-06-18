@@ -620,9 +620,9 @@ char  nox_float2int8(float a1);
 float  nox_double2float(double a1);
 int  nox_double2int(double); // idb
 int nox_xxx_parseGamedataBin_419B30();
-double  nox_xxx_gamedataGetFloat_419D40(void* a1);
-double  nox_xxx_gamedataGetFloatTable_419D70(void* a1, int a2);
-void sub_419DB0();
+double  nox_xxx_gamedataGetFloat_419D40(char* a1);
+double  nox_xxx_gamedataGetFloatTable_419D70(char* a1, int a2);
+void nox_xxx_gamedataFree_419DB0();
 void  sub_419DE0(int a1, LPVOID* lpMem);
 int  sub_419E10(int a1, int a2);
 BOOL  sub_419E60(int a1);
@@ -965,16 +965,10 @@ BOOL sub_4264D0();
 void* sub_426590();
 void  sub_4265A0(LPVOID lpMem); // idb
 int  sub_426600(int a1, void(* a2)(_DWORD, _DWORD));
-int  sub_426650(int a1, char* a2, int a3);
 CHAR*  sub_426680(int a1, char* a2);
 CHAR*  sub_426740(int a1, CHAR* a2);
-int  sub_426780(int a1, char* a2, int a3);
-int  sub_4267B0(int a1, char* a2, int a3);
-int  sub_4267E0(int a1, void* a2);
-void*  sub_426800(int a1, void* a2);
 int  sub_426840(const void*, const void*); // idb
 double  sub_426860(int a1, void* a2);
-int  sub_426890(int a1, void* a2);
 int  sub_4268B0(int a1);
 int nox_xxx_file_4268E0();
 int  nox_xxx_cryptOpen_426910(char* a1, int a2, int a3);
@@ -3637,7 +3631,7 @@ int nox_xxx_scavengerTreasureMax_4D1600();
 void sub_4D1610();
 int sub_4D1620();
 int nox_xxx_parseGamedataBinPre_4D1630();
-_DWORD* nox_xxx_unknown_libname_11_4D1650();
+void nox_xxx_unknown_libname_11_4D1650();
 int nox_xxx_servNewSession_4D1660();
 int nox_xxx_servInitialMapLoad_4D17F0();
 int nox_xxx_servResetPlayers_4D23C0();

@@ -1940,9 +1940,9 @@ int nox_xxx_parseGamedataBinPre_4D1630() {
 
 //----- (004D1650) --------------------------------------------------------
 // Microsoft VisualC 2-14/net runtime
-_DWORD* nox_xxx_unknown_libname_11_4D1650() {
-	sub_419DB0();
-	return nox_xxx_monsterListFree_5174F0();
+void nox_xxx_unknown_libname_11_4D1650() {
+	nox_xxx_gamedataFree_419DB0();
+	nox_xxx_monsterListFree_5174F0();
 }
 
 //----- (004D1660) --------------------------------------------------------

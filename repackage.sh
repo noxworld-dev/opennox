@@ -31,6 +31,7 @@ mkdir ./opennox-win/docs
 cp $NOX_SRC/docs/game-*.md ./opennox-win/docs/
 cp $NOX_SRC/docs/mod-*.md ./opennox-win/docs/
 cp $NOX_SRC/docs/maps-*.md ./opennox-win/docs/
+cp $NOX_SRC/docs/*-sample.yml ./opennox-win/docs/
 
 rm -rf ./tmp-win/
 rm -rf ./tmp-win-3/
@@ -59,6 +60,7 @@ mkdir ./opennox-linux/docs
 cp $NOX_SRC/docs/game-*.md ./opennox-linux/docs/
 cp $NOX_SRC/docs/mod-*.md ./opennox-linux/docs/
 cp $NOX_SRC/docs/maps-*.md ./opennox-linux/docs/
+cp $NOX_SRC/docs/*-sample.yml ./opennox-linux/docs/
 
 rm -rf ./tmp-linux-2/
 

@@ -7,6 +7,7 @@
 - Keep 4:3 aspect ratio when resizing game window.
 - Toggle fullscreen mode with Alt+Enter.
 - Add `set health` and `set mana` cheats.
+- Allow customizing `gamedata.bin` values without encoding it. See [gamedata.yml](./docs/gamedata-sample.yml).
 - Fix: Detonate traps spell will no longer freeze the game.
 
 ## v1.5.0
