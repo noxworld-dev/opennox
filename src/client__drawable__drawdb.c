@@ -590,7 +590,7 @@ void*  nox_xxx_parseThingBinClient_44C840_read_things(void) {
 	while (nox_memfile_read(&entry_type, 4u, 1, things)) {
 		switch (entry_type) {
 		case 0x5350454C: // "SPEL"
-			nox_thing_read_spells_415100(things);
+			nox_thing_skip_spells_415100(things);
 			break;
 		case 0x4142494C: // "ABIL"
 			nox_thing_read_ability_415320(things);
@@ -987,7 +987,7 @@ int  nox_read_things_alternative_4E2B60(void) {
 	while (nox_memfile_read(&i, 4u, 1, things)) {
 		switch (i) {
 		case 0x5350454C: // SPEL
-			nox_thing_read_spells_415100(things);
+			nox_thing_skip_spells_415100(things);
 			break;
 		case 0x4142494C: // ABIL
 			nox_thing_read_ability_415320(things);

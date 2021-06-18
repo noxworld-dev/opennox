@@ -6959,7 +6959,7 @@ BOOL  nox_thing_read_WALL_414F60(_DWORD* a1, void* a2) {
 }
 
 //----- (00415100) --------------------------------------------------------
-int  nox_thing_read_spells_415100(int a1) {
+int  nox_thing_skip_spells_415100(int a1) {
 	int* v1;              // ecx
 	int v2;               // edx
 	int v3;               // esi

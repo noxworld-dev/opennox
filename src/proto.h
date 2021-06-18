@@ -457,7 +457,7 @@ int  nox_thing_skip_AUD_414D40(nox_memfile* f);
 BOOL  nox_thing_read_FLOR_414DB0(nox_memfile* f);
 BOOL  nox_thing_read_EDGE_414E70(int a1, void* a2);
 BOOL  nox_thing_read_WALL_414F60(_DWORD* a1, void* a2);
-int  nox_thing_read_spells_415100(int a1);
+int  nox_thing_skip_spells_415100(int a1);
 int  nox_thing_read_image_415240(int a1);
 int  nox_thing_read_ability_415320(int a1);
 bool  nox_xxx_loadAllBinFiles_415470(void);
