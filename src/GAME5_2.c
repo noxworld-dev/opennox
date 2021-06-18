@@ -4295,7 +4295,10 @@ char  sub_57B370(int a1, unsigned __int8 a2, int a3) {
 }
 
 //----- (0057B3D0) --------------------------------------------------------
+int nox_cheat_allowall = 0;
 BOOL  nox_xxx_playerClassCanUseItem_57B3D0(int a1, char a2) {
+	if (nox_cheat_allowall)
+		return 1;
 	return ((unsigned __int8)(1 << a2) &
 			(unsigned __int8)sub_57B370(*(_DWORD*)(a1 + 8), *(_DWORD*)(a1 + 12), *(unsigned __int16*)(a1 + 4))) != 0;
 }
@@ -4330,6 +4333,8 @@ BOOL  sub_57B450(int* a1) {
 		a1[27] == v1 && *(_BYTE*)(*getMemU32Ptr(0x5D4594, 2618908) + 2251) != 1) {
 		return 0;
 	}
+	if (nox_cheat_allowall)
+		return 1;
 	v2 = 1 << *(_BYTE*)(*getMemU32Ptr(0x5D4594, 2618908) + 2251);
 	return (v2 & (unsigned __int8)sub_57B370(a1[28], a1[29], a1[27])) != 0;
 }

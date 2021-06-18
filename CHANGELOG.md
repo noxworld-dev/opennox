@@ -7,6 +7,7 @@
 - Keep 4:3 aspect ratio when resizing game window.
 - Toggle fullscreen mode with Alt+Enter.
 - Add `set health` and `set mana` cheats.
+- Add `set allow.all` cheat to remove item class restrictions.
 - Allow customizing `gamedata.bin` values without encoding it. See [gamedata.yml](./docs/gamedata-sample.yml).
 - LUA now supports trigger events as well as player join/leave events.
 - Fix: Detonate traps spell will no longer freeze the game.

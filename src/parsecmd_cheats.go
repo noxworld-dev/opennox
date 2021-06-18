@@ -26,6 +26,33 @@ func init() {
 				return noxCmdSetPlayerUnitParam(c, tokens, "mana", (*Unit).SetMaxMana)
 			},
 		},
+		&parsecmd.Command{
+			Token:  "allow.all",
+			HelpID: "setallowall",
+			Help:   "allows to use all items by all classes",
+			Flags:  parsecmd.Server | parsecmd.Cheat,
+			Func: func(c *parsecmd.Console, tokens []string) bool {
+				if len(tokens) > 1 {
+					return false
+				}
+				allow := true
+				if len(tokens) == 1 {
+					v, err := strconv.ParseBool(tokens[0])
+					if err != nil {
+						c.Printf(parsecmd.ColorLightRed, "failed to parse the value")
+						return true
+					}
+					allow = v
+				}
+				cheatAllowAll(allow)
+				if allow {
+					c.Printf(parsecmd.ColorLightYellow, "all players are allowed to use all items")
+				} else {
+					c.Printf(parsecmd.ColorLightYellow, "class restrictions with work as usual")
+				}
+				return true
+			},
+		},
 	)
 }
 
