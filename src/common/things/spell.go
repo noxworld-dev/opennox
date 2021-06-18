@@ -1,17 +1,100 @@
 package things
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
+	"strings"
 )
 
-type Phoneme uint16
+var (
+	_ json.Marshaler   = Phoneme(0)
+	_ json.Unmarshaler = (*Phoneme)(nil)
+)
 
-type SpellFlags uint32
+type Phoneme byte
+
+func (p Phoneme) String() string {
+	switch p {
+	case PhonKA:
+		return "ka"
+	case PhonUN:
+		return "un"
+	case PhonIN:
+		return "in"
+	case PhonET:
+		return "et"
+	case PhonEnd:
+		return "!"
+	case PhonCHA:
+		return "cha"
+	case PhonRO:
+		return "ro"
+	case PhonZO:
+		return "zo"
+	case PhonDO:
+		return "do"
+	default:
+		return fmt.Sprintf("Phoneme(%d)", int(p))
+	}
+}
+
+func (p Phoneme) MarshalJSON() ([]byte, error) {
+	if p >= 0 && p < phonMax {
+		return json.Marshal(p.String())
+	}
+	return json.Marshal(int(p))
+}
+
+func (p *Phoneme) UnmarshalJSON(data []byte) error {
+	var s string
+	if err := json.Unmarshal(data, &s); err != nil {
+		var v int
+		if err2 := json.Unmarshal(data, &v); err2 != nil {
+			return err
+		}
+		*p = Phoneme(v)
+		return nil
+	}
+	switch strings.ToLower(s) {
+	case "ka":
+		*p = PhonKA
+	case "un":
+		*p = PhonUN
+	case "in":
+		*p = PhonIN
+	case "et":
+		*p = PhonET
+	case "!", "":
+		*p = PhonEnd
+	case "cha":
+		*p = PhonCHA
+	case "ro":
+		*p = PhonRO
+	case "zo":
+		*p = PhonZO
+	case "do":
+		*p = PhonDO
+	default:
+		return fmt.Errorf("unknown spell phoneme: %q", s)
+	}
+	return nil
+}
 
 const (
-	phonemeMax = 9
+	PhonKA  = Phoneme(0)
+	PhonUN  = Phoneme(1)
+	PhonIN  = Phoneme(2)
+	PhonET  = Phoneme(3)
+	PhonEnd = Phoneme(4)
+	PhonCHA = Phoneme(5)
+	PhonRO  = Phoneme(6)
+	PhonZO  = Phoneme(7)
+	PhonDO  = Phoneme(8)
+	phonMax = 9
 )
+
+type SpellFlags uint32
 
 type Spell struct {
 	ID        string     `json:"name"`
@@ -122,7 +205,7 @@ func (f *File) readSPEL() ([]Spell, error) {
 			v, err := f.readU8()
 			if err != nil {
 				return out, err
-			} else if v >= phonemeMax {
+			} else if v >= phonMax {
 				return out, fmt.Errorf("invalid phoneme: %d", v)
 			}
 			phon = append(phon, Phoneme(v))
