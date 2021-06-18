@@ -86,18 +86,29 @@ func (u *Unit) OnUnitLostEnemy(fnc func(u, targ script.Unit)) {
 	h.onLostEnemy = append(h.onLostEnemy, fnc)
 }
 
+func (obj *Object) OnTriggerActivate(fnc func(trig script.Object, u script.Object)) {
+	h := obj.getOrNewHandlers()
+	h.onTrigActivate = append(h.onTrigActivate, fnc)
+}
+
+func (obj *Object) OnTriggerDeactivate(fnc func(trig script.Object)) {
+	h := obj.getOrNewHandlers()
+	h.onTrigDeactivate = append(h.onTrigDeactivate, fnc)
+}
+
 type objectHandlers struct {
-	obj         *Object
-	onDeath     []func(u script.Unit)
-	onIdle      []func(u script.Unit)
-	onDone      []func(u script.Unit)
-	onAttack    []func(u, targ script.Unit)
-	onSeeEnemy  []func(u, targ script.Unit)
-	onLostEnemy []func(u, targ script.Unit)
+	obj              *Object
+	onDeath          []func(u script.Unit)
+	onIdle           []func(u script.Unit)
+	onDone           []func(u script.Unit)
+	onAttack         []func(u, targ script.Unit)
+	onSeeEnemy       []func(u, targ script.Unit)
+	onLostEnemy      []func(u, targ script.Unit)
+	onTrigActivate   []func(trig script.Object, u script.Object)
+	onTrigDeactivate []func(trig script.Object)
 }
 
 func callOnMonsterDead(obj *Unit) {
-	scriptLog.Printf("dead: %s", obj)
 	h := obj.getHandlers()
 	if h == nil {
 		return
@@ -108,7 +119,6 @@ func callOnMonsterDead(obj *Unit) {
 }
 
 func callOnMonsterIdle(obj *Unit) {
-	scriptLog.Printf("idle: %s", obj)
 	h := obj.getHandlers()
 	if h == nil {
 		return
@@ -119,7 +129,6 @@ func callOnMonsterIdle(obj *Unit) {
 }
 
 func callOnMonsterDone(obj *Unit) {
-	scriptLog.Printf("done: %s", obj)
 	h := obj.getHandlers()
 	if h == nil {
 		return
@@ -130,7 +139,6 @@ func callOnMonsterDone(obj *Unit) {
 }
 
 func callOnMonsterAttack(obj, targ *Unit) {
-	scriptLog.Printf("attack: %s -> %s", obj, targ)
 	h := obj.getHandlers()
 	if h == nil {
 		return
@@ -164,10 +172,22 @@ func callOnPolygonPlayerEnter(obj *Unit) {
 	scriptLog.Printf("player enter: %s", obj)
 }
 
-func callOnTriggerActivated(trig *Object, obj *Unit) {
-	scriptLog.Printf("trigger enter: %s -> %s", obj, trig)
+func callOnTriggerActivated(trig *Object, obj *Object) {
+	h := trig.getHandlers()
+	if h == nil {
+		return
+	}
+	for _, fnc := range h.onTrigActivate {
+		fnc(trig, obj)
+	}
 }
 
 func callOnTriggerDeactivated(trig *Object) {
-	scriptLog.Printf("trigger leave: %s", trig)
+	h := trig.getHandlers()
+	if h == nil {
+		return
+	}
+	for _, fnc := range h.onTrigDeactivate {
+		fnc(trig)
+	}
 }

@@ -105,3 +105,8 @@ type Ownable interface {
 	Owned
 	OwnerSetter
 }
+
+type Trigger interface {
+	OnTriggerActivate(fnc func(trig Object, u Object))
+	OnTriggerDeactivate(fnc func(trig Object))
+}

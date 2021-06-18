@@ -119,7 +119,7 @@ func nox_script_callByEvent_cgo(event C.int, a1, a2 C.int) {
 	case noxEventCollide, noxEventMonsterCollide:
 		// too frequent, don't log for now
 	case noxEventTriggerActivated:
-		obj := asUnit(unsafe.Pointer(uintptr(a1)))
+		obj := asObject(unsafe.Pointer(uintptr(a1)))
 		trig := asObject(unsafe.Pointer(uintptr(a2)))
 		callOnTriggerActivated(trig, obj)
 	case noxEventTriggerDeactivated:

@@ -101,6 +101,14 @@ func (vm *api) initMetaObject() {
 			panic("cannot toggle")
 		}
 	})
+	vm.registerObjMethod("OnActivate", func(obj script.Trigger, fnc func(trig, obj script.Object)) (_ receiverValue) {
+		obj.OnTriggerActivate(fnc)
+		return
+	})
+	vm.registerObjMethod("OnDeactivate", func(obj script.Trigger, fnc func(trig script.Object)) (_ receiverValue) {
+		obj.OnTriggerDeactivate(fnc)
+		return
+	})
 }
 
 func (vm *api) initObjectType() {
