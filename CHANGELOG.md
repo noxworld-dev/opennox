@@ -8,7 +8,10 @@
 - Toggle fullscreen mode with Alt+Enter.
 - Add `set health` and `set mana` cheats.
 - Allow customizing `gamedata.bin` values without encoding it. See [gamedata.yml](./docs/gamedata-sample.yml).
+- LUA now supports trigger events as well as player join/leave events.
 - Fix: Detonate traps spell will no longer freeze the game.
+- Fix: Fullscreen mode will now be saved correctly.
+- Fix: Warriors should now be able to scroll weapons with mouse wheel in multiplayer as well.
 
 ## v1.5.0
 
