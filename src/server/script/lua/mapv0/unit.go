@@ -122,27 +122,39 @@ func (vm *api) initMetaUnit() {
 
 	// events
 	vm.registerObjMethod("OnDeath", func(obj script.Unit, fnc func(u script.Unit)) (_ receiverValue) {
-		obj.OnUnitDeath(fnc)
+		obj.OnUnitDeath(func() {
+			fnc(obj)
+		})
 		return
 	})
 	vm.registerObjMethod("OnIdle", func(obj script.Unit, fnc func(u script.Unit)) (_ receiverValue) {
-		obj.OnUnitIdle(fnc)
+		obj.OnUnitIdle(func() {
+			fnc(obj)
+		})
 		return
 	})
 	vm.registerObjMethod("OnDone", func(obj script.Unit, fnc func(u script.Unit)) (_ receiverValue) {
-		obj.OnUnitDone(fnc)
+		obj.OnUnitDone(func() {
+			fnc(obj)
+		})
 		return
 	})
 	vm.registerObjMethod("OnAttack", func(obj script.Unit, fnc func(u, targ script.Unit)) (_ receiverValue) {
-		obj.OnUnitAttack(fnc)
+		obj.OnUnitAttack(func(targ script.Unit) {
+			fnc(obj, targ)
+		})
 		return
 	})
 	vm.registerObjMethod("OnSeeEnemy", func(obj script.Unit, fnc func(u, targ script.Unit)) (_ receiverValue) {
-		obj.OnUnitSeeEnemy(fnc)
+		obj.OnUnitSeeEnemy(func(targ script.Unit) {
+			fnc(obj, targ)
+		})
 		return
 	})
 	vm.registerObjMethod("OnLostEnemy", func(obj script.Unit, fnc func(u, targ script.Unit)) (_ receiverValue) {
-		obj.OnUnitLostEnemy(fnc)
+		obj.OnUnitLostEnemy(func(targ script.Unit) {
+			fnc(obj, targ)
+		})
 		return
 	})
 }

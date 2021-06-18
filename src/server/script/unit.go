@@ -117,17 +117,17 @@ type Unit interface {
 	Offensive
 	Chatty // TODO: should be on object?
 	// OnUnitDeath calls the function when the unit dies.
-	OnUnitDeath(fnc func(u Unit))
+	OnUnitDeath(fnc func())
 	// OnUnitIdle calls the function when the unit becomes idle.
-	OnUnitIdle(fnc func(u Unit))
+	OnUnitIdle(fnc func())
 	// OnUnitDone calls the function when the unit completes its task.
-	OnUnitDone(fnc func(u Unit))
+	OnUnitDone(fnc func())
 	// OnUnitAttack calls the function when the unit starts attacking another unit.
-	OnUnitAttack(fnc func(u, targ Unit))
+	OnUnitAttack(fnc func(targ Unit))
 	// OnUnitSeeEnemy calls the function when the unit notices an enemy.
-	OnUnitSeeEnemy(fnc func(u, targ Unit))
+	OnUnitSeeEnemy(fnc func(targ Unit))
 	// OnUnitLostEnemy calls the function when the unit loses sight of an enemy.
-	OnUnitLostEnemy(fnc func(u, targ Unit))
+	OnUnitLostEnemy(fnc func(targ Unit))
 }
 
 // IsAllUnits checks if all objects in the list are of type Unit.

@@ -107,6 +107,6 @@ type Ownable interface {
 }
 
 type Trigger interface {
-	OnTriggerActivate(fnc func(trig Object, u Object))
-	OnTriggerDeactivate(fnc func(trig Object))
+	OnTriggerActivate(fnc func(obj Object))
+	OnTriggerDeactivate(fnc func())
 }

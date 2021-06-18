@@ -28,6 +28,7 @@ type Object interface {
 	Enabler
 	Deleter
 	Destroyable
+	Trigger // TODO: move those to a separate type eventually
 }
 
 type LockableObject interface {
@@ -228,5 +229,13 @@ func (BaseObject) Delete() {
 }
 
 func (BaseObject) Destroy() {
+	panic("implement me")
+}
+
+func (BaseObject) OnTriggerActivate(fnc func(obj Object)) {
+	panic("implement me")
+}
+
+func (BaseObject) OnTriggerDeactivate(fnc func()) {
 	panic("implement me")
 }

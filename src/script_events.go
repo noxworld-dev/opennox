@@ -56,56 +56,56 @@ func (obj *Object) getOrNewHandlers() *objectHandlers {
 	return h
 }
 
-func (u *Unit) OnUnitDeath(fnc func(u script.Unit)) {
+func (u *Unit) OnUnitDeath(fnc func()) {
 	h := u.getOrNewHandlers()
 	h.onDeath = append(h.onDeath, fnc)
 }
 
-func (u *Unit) OnUnitIdle(fnc func(u script.Unit)) {
+func (u *Unit) OnUnitIdle(fnc func()) {
 	h := u.getOrNewHandlers()
 	h.onIdle = append(h.onIdle, fnc)
 }
 
-func (u *Unit) OnUnitDone(fnc func(u script.Unit)) {
+func (u *Unit) OnUnitDone(fnc func()) {
 	h := u.getOrNewHandlers()
 	h.onDone = append(h.onDone, fnc)
 }
 
-func (u *Unit) OnUnitAttack(fnc func(u, targ script.Unit)) {
+func (u *Unit) OnUnitAttack(fnc func(targ script.Unit)) {
 	h := u.getOrNewHandlers()
 	h.onAttack = append(h.onAttack, fnc)
 }
 
-func (u *Unit) OnUnitSeeEnemy(fnc func(u, targ script.Unit)) {
+func (u *Unit) OnUnitSeeEnemy(fnc func(targ script.Unit)) {
 	h := u.getOrNewHandlers()
 	h.onSeeEnemy = append(h.onSeeEnemy, fnc)
 }
 
-func (u *Unit) OnUnitLostEnemy(fnc func(u, targ script.Unit)) {
+func (u *Unit) OnUnitLostEnemy(fnc func(targ script.Unit)) {
 	h := u.getOrNewHandlers()
 	h.onLostEnemy = append(h.onLostEnemy, fnc)
 }
 
-func (obj *Object) OnTriggerActivate(fnc func(trig script.Object, u script.Object)) {
+func (obj *Object) OnTriggerActivate(fnc func(u script.Object)) {
 	h := obj.getOrNewHandlers()
 	h.onTrigActivate = append(h.onTrigActivate, fnc)
 }
 
-func (obj *Object) OnTriggerDeactivate(fnc func(trig script.Object)) {
+func (obj *Object) OnTriggerDeactivate(fnc func()) {
 	h := obj.getOrNewHandlers()
 	h.onTrigDeactivate = append(h.onTrigDeactivate, fnc)
 }
 
 type objectHandlers struct {
 	obj              *Object
-	onDeath          []func(u script.Unit)
-	onIdle           []func(u script.Unit)
-	onDone           []func(u script.Unit)
-	onAttack         []func(u, targ script.Unit)
-	onSeeEnemy       []func(u, targ script.Unit)
-	onLostEnemy      []func(u, targ script.Unit)
-	onTrigActivate   []func(trig script.Object, u script.Object)
-	onTrigDeactivate []func(trig script.Object)
+	onDeath          []func()
+	onIdle           []func()
+	onDone           []func()
+	onAttack         []func(targ script.Unit)
+	onSeeEnemy       []func(targ script.Unit)
+	onLostEnemy      []func(targ script.Unit)
+	onTrigActivate   []func(obj script.Object)
+	onTrigDeactivate []func()
 }
 
 func callOnMonsterDead(obj *Unit) {
@@ -114,7 +114,7 @@ func callOnMonsterDead(obj *Unit) {
 		return
 	}
 	for _, fnc := range h.onDeath {
-		fnc(obj)
+		fnc()
 	}
 }
 
@@ -124,7 +124,7 @@ func callOnMonsterIdle(obj *Unit) {
 		return
 	}
 	for _, fnc := range h.onIdle {
-		fnc(obj)
+		fnc()
 	}
 }
 
@@ -134,7 +134,7 @@ func callOnMonsterDone(obj *Unit) {
 		return
 	}
 	for _, fnc := range h.onDone {
-		fnc(obj)
+		fnc()
 	}
 }
 
@@ -144,7 +144,7 @@ func callOnMonsterAttack(obj, targ *Unit) {
 		return
 	}
 	for _, fnc := range h.onAttack {
-		fnc(obj, targ)
+		fnc(targ)
 	}
 }
 
@@ -154,7 +154,7 @@ func callOnMonsterSeeEnemy(obj, targ *Unit) {
 		return
 	}
 	for _, fnc := range h.onSeeEnemy {
-		fnc(obj, targ)
+		fnc(targ)
 	}
 }
 
@@ -164,7 +164,7 @@ func callOnMonsterLostEnemy(obj, targ *Unit) {
 		return
 	}
 	for _, fnc := range h.onLostEnemy {
-		fnc(obj, targ)
+		fnc(targ)
 	}
 }
 
@@ -178,7 +178,7 @@ func callOnTriggerActivated(trig *Object, obj *Object) {
 		return
 	}
 	for _, fnc := range h.onTrigActivate {
-		fnc(trig, obj)
+		fnc(obj)
 	}
 }
 
@@ -188,6 +188,6 @@ func callOnTriggerDeactivated(trig *Object) {
 		return
 	}
 	for _, fnc := range h.onTrigDeactivate {
-		fnc(trig)
+		fnc()
 	}
 }
