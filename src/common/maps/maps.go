@@ -1,17 +1,12 @@
 package maps
 
 import (
-	"bufio"
-	"bytes"
-	"encoding/binary"
-	"fmt"
 	"io"
 	"os"
 	"path/filepath"
 	"sort"
 	"strings"
 
-	"nox/v1/common/crypt"
 	"nox/v1/common/fs"
 	"nox/v1/common/log"
 )
@@ -117,8 +112,8 @@ type Info struct {
 	Copyright     string `json:"copyright,omitempty"`      // 1232 [128]
 	Date          string `json:"date_str,omitempty"`       // 1360 [32]
 	Flags         uint32 `json:"flags,omitempty"`          // 1392
-	Field11       byte   `json:",omitempty"`               // 1396
-	Field12       byte   `json:",omitempty"`               // 1397
+	MinPlayers    byte   `json:"min_players,omitempty"`    // 1396
+	MaxPlayers    byte   `json:"max_players,omitempty"`    // 1397
 	QuestIntro    string `json:"quest_intro,omitempty"`    // 1398
 	QuestGraphics string `json:"quest_graphics,omitempty"` // 1430
 }
@@ -137,119 +132,15 @@ func ReadMapInfo(dir string) (*Info, error) {
 		return nil, err
 	}
 
-	r, err := crypt.NewReader(rc, crypt.MapKey)
+	r, err := NewReader(rc)
 	if err != nil {
 		return nil, err
 	}
-	var buf [32]byte
-	if _, err := io.ReadFull(r, buf[:4]); err != nil {
-		return nil, fmt.Errorf("cannot read magic: %w", err)
-	}
-	magic := binary.LittleEndian.Uint32(buf[:4])
-	var crc uint32
-	switch magic {
-	case 0xFADEBEEF:
-		// nop
-	case 0xFADEFACE:
-		if n, err := r.ReadAligned(buf[:4]); err != nil {
-			return nil, fmt.Errorf("cannot read crc: %w", err)
-		} else if n != 4 {
-			err = io.ErrUnexpectedEOF
-			return nil, fmt.Errorf("cannot read crc: %w", err)
-		}
-		crc = binary.LittleEndian.Uint32(buf[:4])
-	default:
-		return nil, fmt.Errorf("invalid magic: 0x%x", magic)
-	}
-	_ = crc
-	if _, err := io.ReadFull(r, buf[:32]); err != nil {
-		return nil, fmt.Errorf("cannot read header: %w", err)
-	}
-	info, err := ReadInfo(r)
+
+	info, err := r.ReadInfo()
 	if info != nil {
 		info.Filename = name
 		info.Size = int(fi.Size())
 	}
 	return info, err
-}
-
-func ReadInfo(r io.Reader) (*Info, error) {
-	var buf [512]byte
-	br := bufio.NewReader(r)
-	if _, err := io.ReadFull(br, buf[:2]); err != nil {
-		return nil, fmt.Errorf("cannot read info version: %w", err)
-	}
-	vers := binary.LittleEndian.Uint16(buf[:2])
-	info := &Info{Format: int(vers)}
-	if vers > 3 {
-		return info, fmt.Errorf("unsupported version: %d", vers)
-	}
-	readString := func(p *string, buf []byte) error {
-		if _, err := io.ReadFull(br, buf); err != nil {
-			return fmt.Errorf("cannot read info: %w", err)
-		}
-		i := bytes.IndexByte(buf, 0)
-		if i >= 0 {
-			buf = buf[:i]
-		}
-		*p = string(buf)
-		return nil
-	}
-	readString8 := func(p *string) error {
-		if _, err := io.ReadFull(br, buf[:1]); err != nil {
-			return fmt.Errorf("cannot read info: %w", err)
-		}
-		n := buf[0]
-		str := make([]byte, n)
-		if _, err := io.ReadFull(br, str); err != nil {
-			return fmt.Errorf("cannot read info: %w", err)
-		}
-		*p = string(str)
-		return nil
-	}
-	if vers >= 1 {
-		for _, f := range []struct {
-			p   *string
-			max int
-		}{
-			{&info.Summary, 64},
-			{&info.Description, 512},
-			{&info.Version, 16},
-			{&info.Author, 64},
-			{&info.Email, 64},
-			{&info.Author2, 128},
-			{&info.Email2, 128},
-			{&info.Field7, 256},
-			{&info.Copyright, 128},
-			{&info.Date, 32},
-		} {
-			if err := readString(f.p, buf[:f.max]); err != nil {
-				return info, err
-			}
-		}
-		if _, err := io.ReadFull(br, buf[:4]); err != nil {
-			return nil, fmt.Errorf("cannot read info: %w", err)
-		}
-		info.Flags = binary.LittleEndian.Uint32(buf[:4])
-		if vers == 2 {
-			if _, err := io.ReadFull(br, buf[:2]); err != nil {
-				return nil, fmt.Errorf("cannot read info: %w", err)
-			}
-			info.Field11 = buf[0]
-			info.Field12 = buf[1]
-		} else {
-			info.Field11 = 2
-			info.Field12 = 16
-		}
-	}
-	if vers < 3 {
-		return info, nil
-	}
-	if err := readString8(&info.QuestIntro); err != nil {
-		return nil, err
-	}
-	if err := readString8(&info.QuestGraphics); err != nil {
-		return nil, err
-	}
-	return info, nil
 }

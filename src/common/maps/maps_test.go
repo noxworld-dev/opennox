@@ -1,11 +1,13 @@
 package maps
 
 import (
+	"io"
 	"path/filepath"
 	"testing"
 
 	"github.com/stretchr/testify/require"
 
+	"nox/v1/common/fs"
 	"nox/v1/common/noxtest"
 )
 
@@ -20,8 +22,8 @@ var casesMapInfo = []Info{
 		Email:       "bhansen@westwood.com",
 		Date:        "Friday, January 7 2000",
 		Flags:       0x3,
-		Field11:     2,
-		Field12:     16,
+		MinPlayers:  2,
+		MaxPlayers:  16,
 	},
 	{
 		Filename:    "estate",
@@ -34,19 +36,19 @@ var casesMapInfo = []Info{
 		Copyright:   "Copyright 1999 Westwood Studios.  All rights reserved.",
 		Date:        "Monday, January 3 2000",
 		Flags:       0x34,
-		Field11:     2,
-		Field12:     8,
+		MinPlayers:  2,
+		MaxPlayers:  8,
 	},
 	{
 		Filename:      "g_castle",
 		Size:          475264,
 		Format:        3,
 		Author:        "John Lee/Bryan Hansen",
-		Email2:        "Phil Robb",
+		Author2:       "Phil Robb",
 		Date:          "Monday, July 17 2000",
 		Flags:         0x2,
-		Field11:       2,
-		Field12:       16,
+		MinPlayers:    2,
+		MaxPlayers:    16,
 		QuestIntro:    "QIntro.dat:GauntletCastleText",
 		QuestGraphics: "WizardChapterBegin2",
 	},
@@ -55,11 +57,11 @@ var casesMapInfo = []Info{
 		Size:          652432,
 		Format:        3,
 		Author:        "John Lee",
-		Email2:        "Phil Robb",
+		Author2:       "Phil Robb",
 		Date:          "Tuesday, July 18 2000",
 		Flags:         0x2,
-		Field11:       2,
-		Field12:       16,
+		MinPlayers:    2,
+		MaxPlayers:    16,
 		QuestIntro:    "QIntro.dat:GauntletMinesText",
 		QuestGraphics: "WarriorChapterBegin8",
 	},
@@ -72,8 +74,8 @@ var casesMapInfo = []Info{
 		Author:      "Jeremiah Cohn",
 		Date:        "Monday, January 3 2000",
 		Flags:       0x80000000,
-		Field11:     2,
-		Field12:     16,
+		MinPlayers:  2,
+		MaxPlayers:  16,
 	},
 }
 
@@ -84,6 +86,22 @@ func TestReadFileInfo(t *testing.T) {
 			info, err := ReadMapInfo(filepath.Join(path, m.Filename))
 			require.NoError(t, err)
 			require.Equal(t, m, *info)
+		})
+	}
+}
+
+func TestReadFile(t *testing.T) {
+	path := filepath.Join(noxtest.DataPath(t), Dir)
+	for _, m := range casesMapInfo {
+		t.Run(m.Filename, func(t *testing.T) {
+			f, err := fs.Open(filepath.Join(path, m.Filename, m.Filename+Ext))
+			require.NoError(t, err)
+			defer f.Close()
+			r, err := NewReader(f)
+			require.NoError(t, err)
+			err = r.ReadSections()
+			off, _ := f.Seek(0, io.SeekCurrent)
+			require.NoError(t, err, "off: %d (0x%x)", off, off)
 		})
 	}
 }
