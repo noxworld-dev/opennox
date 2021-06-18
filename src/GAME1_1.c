@@ -38,7 +38,6 @@ extern _DWORD dword_587000_60068;
 extern _DWORD dword_5d4594_528264;
 extern _DWORD dword_5d4594_741296;
 extern _DWORD dword_5d4594_599496;
-extern void* dword_587000_66120;
 extern _DWORD dword_5d4594_739996;
 extern _DWORD dword_5d4594_528260;
 extern _DWORD dword_5d4594_741260;
@@ -5939,35 +5938,6 @@ int  sub_4212C0(int a1) {
 	return result;
 }
 
-//----- (00421430) --------------------------------------------------------
-LPVOID sub_421430() {
-	unsigned __int8* v0; // esi
-	LPVOID result;       // eax
-
-	v0 = getMemAt(0x5D4594, 552476);
-	do {
-		if (*((_DWORD*)v0 - 27)) {
-			if (*getMemU32Ptr(0x5D4594, 588076))
-				free(*((LPVOID*)v0 - 27));
-			*((_DWORD*)v0 - 27) = 0;
-		}
-		result = *(LPVOID*)v0;
-		if (*(_DWORD*)v0) {
-			if (*getMemU32Ptr(0x5D4594, 588076))
-				free(*(LPVOID*)v0);
-			*(_DWORD*)v0 = 0;
-		}
-		*((_WORD*)v0 + 10) = 0;
-		*((_DWORD*)v0 - 7) = 0;
-		*((_DWORD*)v0 + 2) = -1;
-		*((_DWORD*)v0 + 4) = -1;
-		*((_DWORD*)v0 - 6) = 0;
-		v0 += 140;
-	} while ((int)v0 < (int)getMemAt(0x5D4594, 588124 + 52));
-	nox_xxx_polygonNextIdx_587000_60352 = 1;
-	return result;
-}
-
 //----- (004214A0) --------------------------------------------------------
 char*  nox_xxx_polygonGetByIdx_4214A0(int a1) {
 	char* result; // eax
@@ -7745,39 +7715,8 @@ int  sub_4243D0(int a1) {
 	return result;
 }
 
-//----- (004243F0) --------------------------------------------------------
-int  nox_xxx_spellNameToN_4243F0(const char* a1) {
-	const char* v1;      // ecx
-	int v2;              // ebp
-	unsigned __int8* v3; // edi
-
-	v1 = *(const char**)getMemAt(0x587000, 65448);
-	v2 = 0;
-	if (!*getMemU32Ptr(0x587000, 65448))
-		return 0;
-	v3 = getMemAt(0x587000, 65448);
-	while (strcmp(v1, a1)) {
-		v1 = (const char*)*((_DWORD*)v3 + 1);
-		v3 += 4;
-		++v2;
-		if (!v1)
-			return 0;
-	}
-	return v2;
-}
-
 // 424460: using guessed type char var_20[32];
 // 424460: using guessed type char var_120[256];
-
-//----- (00424800) --------------------------------------------------------
-int nox_xxx_spellGetAud44_424800(int a1, int a2) {
-	if (a2 < 0 || a2 >= 3)
-		return 0;
-	return *getMemU32Ptr(0x5D4594, 588124 + sizeof(nox_spell_t)*a1 + 68 + 4*a2);
-}
-
-//----- (00424820) --------------------------------------------------------
-void* nox_xxx_spellGetDefArrayPtr_424820() { return *(void**)&dword_587000_66120; }
 
 //----- (00424830) --------------------------------------------------------
 int  nox_xxx_updateSpellRelated_424830(int a1, int a2) {
@@ -7789,9 +7728,6 @@ int  nox_xxx_updateSpellRelated_424830(int a1, int a2) {
 		result = 0;
 	return result;
 }
-
-//----- (00424870) --------------------------------------------------------
-char*  nox_xxx_spellNameByN_424870(int a1) { return *(char**)getMemAt(0x587000, 65448 + 4 * a1); }
 
 //----- (00424880) --------------------------------------------------------
 int  nox_xxx_enchantByName_424880(const char* a1) {
@@ -7836,155 +7772,6 @@ int  sub_424900(int a1) {
 //----- (00424920) --------------------------------------------------------
 int  nox_xxx_getEnchantSpell_424920(int a1) { return *getMemU32Ptr(0x587000, 65188 + 4 * a1); }
 
-//----- (00424930) --------------------------------------------------------
-int  nox_xxx_spellLoadName_424930(int a1) {
-	int result; // eax
-
-	if (a1 > 0 && a1 < 137 && *getMemU32Ptr(0x5D4594, 588124 + sizeof(nox_spell_t)*a1 + 24))
-		result = *getMemU32Ptr(0x5D4594, 588124 + sizeof(nox_spell_t)*a1);
-	else
-		result = 0;
-	return result;
-}
-
-//----- (00424960) --------------------------------------------------------
-int  sub_424960(wchar_t* a1) {
-	int v1;              // edi
-	unsigned __int8* v2; // esi
-
-	v1 = 1;
-	v2 = getMemAt(0x5D4594, 588124 + sizeof(nox_spell_t)*1);
-	while (!*((_DWORD*)v2 + 6) || nox_wcscmp(*(const wchar_t**)v2, a1)) {
-		v2 += 80;
-		++v1;
-		if ((int)v2 >= (int)getMemAt(0x5D4594, 599084))
-			return 0;
-	}
-	return v1;
-}
-
-//----- (004249A0) --------------------------------------------------------
-int  nox_xxx_getManaCost_4249A0(int a1, int a2) {
-	int result; // eax
-	float v3;   // [esp+0h] [ebp-4h]
-	float v4;   // [esp+0h] [ebp-4h]
-	float v5;   // [esp+0h] [ebp-4h]
-
-	if (a2 != 2)
-		return getMemByte(0x5D4594, 588124 + sizeof(nox_spell_t)*a1 + 62);
-	switch (a1) {
-	case 24:
-		v5 = nox_xxx_gamedataGetFloat_419D40("EnergyBoltTrapCost");
-		result = nox_float2int(v5);
-		break;
-	case 43:
-		v4 = nox_xxx_gamedataGetFloat_419D40("LightningTrapCost");
-		result = nox_float2int(v4);
-		break;
-	case 56:
-		v3 = nox_xxx_gamedataGetFloat_419D40("ManaBombTrapCost");
-		result = nox_float2int(v3);
-		break;
-	default:
-		result = getMemByte(0x5D4594, 588124 + sizeof(nox_spell_t)*a1 + 62);
-		break;
-	}
-	return result;
-}
-
-//----- (00424A20) --------------------------------------------------------
-char*  nox_xxx_spellGetPhonemeMB_424A20(int a1) { return (char*)getMemAt(0x5D4594, 588124 + sizeof(nox_spell_t)*a1 + 28); }
-
-//----- (00424A30) --------------------------------------------------------
-int  nox_xxx_spellGet_424A30(int a1) { return *getMemU32Ptr(0x5D4594, 588124 + sizeof(nox_spell_t)*a1 + 4); }
-
-//----- (00424A50) --------------------------------------------------------
-BOOL  nox_xxx_spellDefHasFlags_424A50(int a1, int a2) { return (a2 & *getMemU32Ptr(0x5D4594, 588124 + sizeof(nox_spell_t)*a1 + 16)) != 0; }
-
-//----- (00424A70) --------------------------------------------------------
-int  nox_xxx_spellGetFlags_424A70(int a1) { return *getMemU32Ptr(0x5D4594, 588124 + sizeof(nox_spell_t)*a1 + 16); }
-
-//----- (00424A90) --------------------------------------------------------
-int  nox_xxx_spellGetIcon_424A90(int a1) { return *getMemU32Ptr(0x5D4594, 588124 + sizeof(nox_spell_t)*a1 + 8); }
-
-//----- (00424AB0) --------------------------------------------------------
-int  nox_xxx_spellGetIconHighlight_424AB0(int a1) { return *getMemU32Ptr(0x5D4594, 588124 + sizeof(nox_spell_t)*a1 + 12); }
-
-//----- (00424AD0) --------------------------------------------------------
-int nox_xxx_bookFirstKnownSpell_424AD0() {
-	int result;          // eax
-	unsigned __int8* v1; // ecx
-
-	result = 1;
-	v1 = getMemAt(0x5D4594, 588124 + sizeof(nox_spell_t)*1 + 24);
-	while (!*(_DWORD*)v1) {
-		v1 += 80;
-		++result;
-		if ((int)v1 >= (int)getMemAt(0x5D4594, 599108))
-			return 0;
-	}
-	return result;
-}
-
-//----- (00424AF0) --------------------------------------------------------
-int  nox_xxx_bookNextEnabledSpell_424AF0(int a1) {
-	int result;          // eax
-	unsigned __int8* v2; // ecx
-
-	result = a1 + 1;
-	if (a1 + 1 >= 137)
-		return 0;
-	v2 = getMemAt(0x5D4594, 588124 + sizeof(nox_spell_t)*result + 24);
-	while (!*(_DWORD*)v2) {
-		v2 += 80;
-		++result;
-		if ((int)v2 >= (int)getMemAt(0x5D4594, 599108))
-			return 0;
-	}
-	return result;
-}
-
-//----- (00424B20) --------------------------------------------------------
-int  sub_424B20(int a1) {
-	int result;         // eax
-	unsigned __int8* i; // ecx
-
-	if (!a1)
-		return 0;
-	result = a1 - 1;
-	if (a1 - 1 <= 0)
-		return 0;
-	for (i = getMemAt(0x5D4594, 588124 + sizeof(nox_spell_t)*result + 24); !*(_DWORD*)i; i -= sizeof(nox_spell_t)) {
-		if (--result <= 0)
-			return 0;
-	}
-	return result;
-}
-
-//----- (00424B50) --------------------------------------------------------
-int  nox_xxx_spellGetValidMB_424B50(int a1) { return *getMemU32Ptr(0x5D4594, 588124 + sizeof(nox_spell_t)*a1 + 24); }
-
-//----- (00424B70) --------------------------------------------------------
-int  nox_xxx_spellIsEnabled_424B70(int a1) { return *getMemU32Ptr(0x5D4594, 588124 + sizeof(nox_spell_t)*a1 + 20); }
-
-//----- (00424B90) --------------------------------------------------------
-int  nox_xxx_spellEnable_424B90(int a1) {
-	int result; // eax
-
-	result = 80 * a1;
-	*getMemU32Ptr(0x5D4594, 588124 + sizeof(nox_spell_t)*a1 + 20) = 1;
-	return result;
-}
-
-//----- (00424BB0) --------------------------------------------------------
-int  nox_xxx_spellDisable_424BB0(int a1) {
-	int result; // eax
-
-	result = 80 * a1;
-	*getMemU32Ptr(0x5D4594, 588124 + sizeof(nox_spell_t)*a1 + 20) = 0;
-	return result;
-}
-
 //----- (00424BD0) --------------------------------------------------------
 int sub_424BD0() {
 	int v0;     // esi
@@ -7998,29 +7785,6 @@ int sub_424BD0() {
 		--v1;
 	} while (v1);
 	return result;
-}
-
-//----- (00424BF0) --------------------------------------------------------
-unsigned int  nox_xxx_spellMayTrap_424BF0(int a1) {
-	unsigned int result; // eax
-
-	if (a1 <= 0 || a1 >= 137 || nox_common_gameFlags_check_40A5C0(4096) && a1 == 4)
-		result = 0;
-	else
-		result = ((unsigned int)~*getMemU32Ptr(0x5D4594, 588124 + sizeof(nox_spell_t)*a1 + 16) >> 22) & 1;
-	return result;
-}
-
-//----- (00424C40) --------------------------------------------------------
-__int16  nox_xxx_spellGetWorth_424C40(int a1) {
-	float v2; // [esp+4h] [ebp+4h]
-
-	if (a1 <= 0 || a1 >= 137)
-		return 0;
-	v2 = (double)*getMemU16Ptr(0x5D4594, 588124 + sizeof(nox_spell_t)*a1 + 64);
-	if (nox_common_gameFlags_check_40A5C0(4096))
-		v2 = nox_xxx_gamedataGetFloat_419D40("QuestSpellWorthMultiplier") * v2;
-	return nox_float2int(v2);
 }
 
 //----- (00424CB0) --------------------------------------------------------

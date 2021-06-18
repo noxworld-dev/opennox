@@ -1,10 +1,6 @@
 #include "client__gui__guimsg.h"
 
 #include "proto.h"
-extern void* dword_587000_66120;
-
-//----- (00424850) --------------------------------------------------------
-BOOL  nox_xxx_isArgB8EqSome_424850(void* a1) { return a1 == *(void**)&dword_587000_66120; }
 
 //----- (004D7F90) --------------------------------------------------------
 int  nox_xxx_netSendSpellAward_4D7F90(int a1, int a2, char a3, int a4) {
@@ -35,6 +31,7 @@ void  nox_xxx_abilGetError_4FB0B0_magic_plyrspel(int a1) {
 }
 
 //----- (004FB2A0) --------------------------------------------------------
+BOOL  nox_xxx_isArgB8EqSome_424850(void* a1);
 int  nox_xxx_playerSpell_4FB2A0_magic_plyrspel(int a1) {
 	_DWORD* v1;   // edi
 	int v2;       // ebp

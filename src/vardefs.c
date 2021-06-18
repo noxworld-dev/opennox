@@ -902,7 +902,6 @@ _DWORD dword_5d4594_832480 = 0;
 _DWORD dword_5d4594_1568308 = 0;
 _DWORD dword_5d4594_830192 = 0;
 _DWORD dword_5d4594_1548664 = 0;
-void* dword_587000_66120 = 0;
 _DWORD dword_5d4594_1193576 = 0;
 _DWORD dword_587000_129656 = 0x1;
 _DWORD nox_xxx_cursorTypePrev_587000_151528 = 0x11;
