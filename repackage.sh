@@ -2,9 +2,9 @@
 set -e
 
 TMP_DIR=/tmp/opennox-release
-NOXG_LINUX=~/Downloads/opennox-linux.zip
-NOXG_WIN=~/Downloads/opennox-win.zip
-NOX_WIN=~/Downloads/opennox-win.zip
+OPENNOX_LINUX=~/Downloads/opennox-linux.zip
+OPENNOX_WIN=~/Downloads/opennox-win.zip
+NOX_WIN=~/Downloads/nox-win.zip
 NOX_SRC="$(pwd)"
 
 rm -rf "$TMP_DIR"
@@ -17,10 +17,10 @@ mkdir tmp-win
 unzip "$NOX_WIN" -d ./tmp-win/
 
 mkdir tmp-win-2
-unzip "$NOXG_WIN" -d ./tmp-win-2/
+unzip "$OPENNOX_WIN" -d ./tmp-win-2/
 
 mkdir tmp-win-3
-unzip ./tmp-win-2/nox-win.zip -d ./tmp-win-3/
+unzip ./tmp-win-2/opennox-win.zip -d ./tmp-win-3/
 rm -rf ./tmp-win-2/
 
 mkdir ./opennox-win
@@ -47,10 +47,10 @@ cp ./opennox-win.zip "$NOX_SRC/"
 # ==== [ Linux ] ====
 
 mkdir tmp-linux
-unzip "$NOXG_LINUX" -d ./tmp-linux/
+unzip "$OPENNOX_LINUX" -d ./tmp-linux/
 
 mkdir tmp-linux-2
-tar -xvzf ./tmp-linux/nox-linux.tar.gz -C ./tmp-linux-2/
+tar -xvzf ./tmp-linux/opennox-linux.tar.gz -C ./tmp-linux-2/
 rm -rf ./tmp-linux/
 
 mkdir ./opennox-linux
