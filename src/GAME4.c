@@ -3943,7 +3943,7 @@ void nox_xxx_spellCastByBook_4FCB80() {
 			if (v7 != v24) {
 				v19 = sub_416640();
 				LOBYTE(v27) =
-					nox_xxx_spellGetPhonemeMB_424A20(*(_DWORD*)(v0 + 4 * *(unsigned __int8*)(v0 + 28) + 8))[*(unsigned __int8*)(v0 + 36)];
+					nox_xxx_spellPhonemes_424A20(*(_DWORD*)(v0 + 4 * *(unsigned __int8*)(v0 + 28) + 8))[*(unsigned __int8*)(v0 + 36)];
 				v20 = v27;
 				if (!dword_5d4594_2650652 || *(_DWORD*)(v19 + 62))
 					sub_4FC960(*(_DWORD*)(v0 + 4), v27);
@@ -4081,7 +4081,7 @@ int  nox_xxx_spellCheckSmth_4FCEF0(int a1, int* a2, int a3) {
 				while (1) {
 					v7 = *v3;
 					if ((int)*v3 < 75 || v7 > 114)
-						v8 = nox_xxx_getManaCost_4249A0(v7, 2);
+						v8 = nox_xxx_spellManaCost_4249A0(v7, 2);
 					else
 						v8 = sub_500CA0(v7, a1);
 					if (v8 > v5)
@@ -4113,7 +4113,7 @@ int  sub_4FCF90(int a1, int a2, int a3) {
 	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_6))
 		return 0;
 	if (a2 < 75 || a2 > 114)
-		v5 = nox_xxx_getManaCost_4249A0(a2, a3);
+		v5 = nox_xxx_spellManaCost_4249A0(a2, a3);
 	else
 		v5 = sub_500CA0(a2, a1);
 	v6 = v5;
@@ -4121,7 +4121,7 @@ int  sub_4FCF90(int a1, int a2, int a3) {
 		nox_xxx_playerManaSub_4EEBF0(a1, v5);
 		result = v6;
 	} else {
-		v3[40] = nox_xxx_getManaCost_4249A0(a2, 1);
+		v3[40] = nox_xxx_spellManaCost_4249A0(a2, 1);
 		result = -1;
 		v3[41] = (_WORD)nox_gameFPS;
 	}
@@ -4168,7 +4168,7 @@ int  sub_4FD0E0(int a1, int a2) {
 	int v2; // ebx
 	int v4; // eax
 
-	nox_xxx_spellGetFlags_424A70(a2);
+	nox_xxx_spellFlags_424A70(a2);
 	v2 = nox_xxx_findParentChainPlayer_4EC580(a1);
 	if (!nox_xxx_spellIsEnabled_424B70(a2))
 		return 10;
@@ -4198,7 +4198,7 @@ int  nox_xxx_checkPlrCantCastSpell_4FD150(int a1, int a2, int a3) {
 	if (nox_common_gameFlags_check_40A5C0(16)) {
 		if (!*getMemU32Ptr(0x5D4594, 1569704))
 			*getMemU32Ptr(0x5D4594, 1569704) = nox_xxx_getNameId_4E3AA0("Crown");
-		if (nox_xxx_spellDefHasFlags_424A50(a2, 0x80000)) {
+		if (nox_xxx_spellHasFlags_424A50(a2, 0x80000)) {
 			v3 = *(_DWORD*)(a1 + 516);
 			if (v3) {
 				while (*(unsigned __int16*)(v3 + 4) != *getMemU32Ptr(0x5D4594, 1569704)) {
@@ -4215,7 +4215,7 @@ int  nox_xxx_checkPlrCantCastSpell_4FD150(int a1, int a2, int a3) {
 	if (nox_common_gameFlags_check_40A5C0(64)) {
 		if (!*getMemU32Ptr(0x5D4594, 1569708))
 			*getMemU32Ptr(0x5D4594, 1569708) = nox_xxx_getNameId_4E3AA0("GameBall");
-		if (nox_xxx_spellDefHasFlags_424A50(a2, 0x80000)) {
+		if (nox_xxx_spellHasFlags_424A50(a2, 0x80000)) {
 			v5 = *(_DWORD*)(a1 + 516);
 			if (v5) {
 				while (*(unsigned __int16*)(v5 + 4) != *getMemU32Ptr(0x5D4594, 1569708)) {
@@ -4274,7 +4274,7 @@ int  nox_xxx_checkPlrCantCastSpell_4FD150(int a1, int a2, int a3) {
 	}
 	if (!nox_common_gameFlags_check_40A5C0(32))
 		goto LABEL_9;
-	if (!nox_xxx_spellDefHasFlags_424A50(a2, 0x80000))
+	if (!nox_xxx_spellHasFlags_424A50(a2, 0x80000))
 		goto LABEL_9;
 	v6 = *(_DWORD*)(a1 + 504);
 	if (!v6)
@@ -4302,7 +4302,7 @@ int  nox_xxx_spellAccept_4FD400(int a1, int a2, _DWORD* a3, int a4, int* a5, int
 		return 0;
 	if (!a5)
 		return 0;
-	if (nox_xxx_spellDefHasFlags_424A50(a1, 128) && *a5 && !(*(_BYTE*)(*a5 + 8) & 6))
+	if (nox_xxx_spellHasFlags_424A50(a1, 128) && *a5 && !(*(_BYTE*)(*a5 + 8) & 6))
 		return 0;
 	if (!*a5 || nox_xxx_gameCaptureMagic_4FDC10(a1, *a5)) {
 		switch (a1) {
@@ -4597,7 +4597,7 @@ int  nox_xxx_gameCaptureMagic_4FDC10(int a1, int a2) {
 	}
 	if (!a2)
 		return 0;
-	if (nox_xxx_spellDefHasFlags_424A50(a1, 0x80000) && *(_BYTE*)(a2 + 8) & 4) {
+	if (nox_xxx_spellHasFlags_424A50(a1, 0x80000) && *(_BYTE*)(a2 + 8) & 4) {
 		v3 = *(_DWORD*)(a2 + 748);
 		if (nox_common_gameFlags_check_40A5C0(32)) {
 			if (*(_BYTE*)(*(_DWORD*)(v3 + 276) + 4) & 1)
@@ -4632,12 +4632,12 @@ int  nox_xxx_castSpellByUser_4FDD20(int a1, _DWORD* a2, int* a3) {
 	int v3; // ebx
 
 	v3 = nox_xxx_spellGetPower_4FE7B0(a1, (int)a2);
-	if (nox_xxx_spellDefHasFlags_424A50(a1, 32)) {
+	if (nox_xxx_spellHasFlags_424A50(a1, 32)) {
 		nox_xxx_spellBuffOff_4FF5B0((int)a2, 0);
 		nox_xxx_spellBuffOff_4FF5B0((int)a2, 23);
 		nox_xxx_spellCancelDurSpell_4FEB10(67, (int)a2);
 	}
-	if (!nox_xxx_spellDefHasFlags_424A50(a1, 4) || a2 == (_DWORD*)*a3)
+	if (!nox_xxx_spellHasFlags_424A50(a1, 4) || a2 == (_DWORD*)*a3)
 		return nox_xxx_spellAccept_4FD400(a1, (int)a2, a2, (int)a2, a3, v3);
 	nox_xxx_createSpellFly_4FDDA0((int)a2, *a3, a1);
 	return 1;
@@ -4674,10 +4674,10 @@ _DWORD*  nox_xxx_createSpellFly_4FDDA0(int a1, int a2, int a3) {
 			v4 = *(_DWORD*)(v3 + 748);
 			*(float*)&v21.field_0 = (double)*(int*)(*(_DWORD*)(v4 + 276) + 2284);
 			*(float*)&v21.field_4 = (double)*(int*)(*(_DWORD*)(v4 + 276) + 2288);
-			v18 = nox_xxx_spellGetFlags_424A70(a3);
+			v18 = nox_xxx_spellFlags_424A70(a3);
 			v5 = nox_xxx_spellFlySearchTarget_540610((float2*)&v21, v3, v18, 600.0, 0, v3);
 		} else {
-			v19 = nox_xxx_spellGetFlags_424A70(a3);
+			v19 = nox_xxx_spellFlags_424A70(a3);
 			v5 = nox_xxx_spellFlySearchTarget_540610(0, v3, v19, 600.0, 0, v3);
 		}
 		a2 = v5;
@@ -4761,13 +4761,13 @@ int  nox_xxx_unused_4FE060(int a1, int a2) {
 	int v7[137]; // [esp+8h] [ebp-224h]
 
 	v2 = 0;
-	v3 = nox_xxx_bookFirstKnownSpell_424AD0();
+	v3 = nox_xxx_spellFirstValid_424AD0();
 	if (!v3)
 		goto LABEL_14;
 	v4 = v7;
 	do {
 		if (!sub_4FE100(v3)) {
-			v5 = nox_xxx_spellGetFlags_424A70(v3);
+			v5 = nox_xxx_spellFlags_424A70(v3);
 			if (v5 & a1 || v5 & 0x1000000) {
 				if (v5 & a2) {
 					*v4 = v3;
@@ -4776,7 +4776,7 @@ int  nox_xxx_unused_4FE060(int a1, int a2) {
 				}
 			}
 		}
-		v3 = nox_xxx_bookNextEnabledSpell_424AF0(v3);
+		v3 = nox_xxx_spellNextValid_424AF0(v3);
 	} while (v3);
 	if (v2)
 		result = v7[nox_common_randomInt_415FA0(0, v2 - 1)];
@@ -5417,7 +5417,7 @@ int  nox_xxx_spellDurationBased_4FEBA0(int a1, int a2, _DWORD* a3, int a4, _DWOR
 			*((_BYTE*)v12 + 88) = 0;
 			*((_DWORD*)v12 + 17) = v15;
 			sub_4FED40((int)v12);
-			v16 = nox_xxx_spellDefHasFlags_424A50(a1, 4);
+			v16 = nox_xxx_spellHasFlags_424A50(a1, 4);
 			v17 = nox_xxx_spellGetAud44_424800(a1, v16);
 			nox_xxx_aud_501960(v17, (int)a3, 0, 0);
 			if (!a7 || !a7(v12))
@@ -5755,7 +5755,7 @@ void  sub_4FF310(int a1) {
 		do {
 			v2 = (int*)v1[29];
 			if (v1[4] == a1) {
-				if (nox_xxx_spellGetFlags_424A70(v1[1]) & 0x20)
+				if (nox_xxx_spellFlags_424A70(v1[1]) & 0x20)
 					nox_xxx_spellCancelSpellDo_4FE9D0((int)v1);
 			}
 			v1 = v2;
@@ -7208,7 +7208,7 @@ int  nox_xxx_charmCreature1_5011F0(int* a1) {
 		return 1;
 	}
 	v15 = a1[4];
-	v3 = nox_xxx_spellGetFlags_424A70(a1[1]);
+	v3 = nox_xxx_spellFlags_424A70(a1[1]);
 	v4 = nox_xxx_spellFlySearchTarget_540610((float2*)(a1 + 13), a1[4], v3, 300.0, 0, v15);
 	a1[12] = v4;
 	if (!v4) {

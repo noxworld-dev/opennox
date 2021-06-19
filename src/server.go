@@ -96,7 +96,7 @@ func nox_xxx_gameTick_4D2580_server_B(ticks int64) C.int {
 	if !noxflags.HasGame(noxflags.GamePause) {
 		C.nox_xxx_updateUnits_51B100()
 		C.sub_4EC720()
-		if noxflags.HasGame(noxflags.GameFlag13) {
+		if noxflags.HasGame(noxflags.GameQuest) {
 			C.sub_50D890()
 			C.sub_4E4170()
 		}

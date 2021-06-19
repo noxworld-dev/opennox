@@ -1317,7 +1317,7 @@ int  nox_xxx_inventoryDrawAllMB_463430(int a1) {
 	do {
 		if ((1 << v2) & *getMemU32Ptr(0x5D4594, 1062540) && v2 != 31 && v2 != 30) {
 			v5 = nox_xxx_getEnchantSpell_424920(v2);
-			v6 = nox_xxx_spellGetIcon_424A90(v5);
+			v6 = nox_xxx_spellIcon_424A90(v5);
 			nox_client_drawImageAt_47D2C0(v6, v3, v4);
 			v3 += 35;
 		}

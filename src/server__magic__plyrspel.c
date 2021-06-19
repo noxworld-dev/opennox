@@ -58,7 +58,7 @@ int  nox_xxx_playerSpell_4FB2A0_magic_plyrspel(int a1) {
 		if (v4 && *v4) {
 			if (!nox_common_gameFlags_check_40A5C0(4096)) {
 				v5 = *(_DWORD*)(v3 + 288);
-				if (nox_xxx_spellDefHasFlags_424A50(**(_DWORD**)(v3 + 184), 32)) {
+				if (nox_xxx_spellHasFlags_424A50(**(_DWORD**)(v3 + 184), 32)) {
 					if (v5) {
 						result = nox_xxx_unitIsEnemyTo_5330C0((int)v1, v5);
 						if (!result)
@@ -82,7 +82,7 @@ int  nox_xxx_playerSpell_4FB2A0_magic_plyrspel(int a1) {
 					} else {
 						v14[0] = *(_DWORD*)(*(_DWORD*)(v3 + 276) + 3640);
 						if (nox_common_gameFlags_check_40A5C0(4096)) {
-							if (nox_xxx_spellDefHasFlags_424A50(**(_DWORD**)(v3 + 184), 32)) {
+							if (nox_xxx_spellHasFlags_424A50(**(_DWORD**)(v3 + 184), 32)) {
 								v9 = *(_DWORD*)(v3 + 276);
 								if (*(_DWORD*)(v9 + 3640)) {
 									if (!nox_xxx_unitIsEnemyTo_5330C0((int)v1, *(_DWORD*)(v9 + 3640)))
@@ -114,7 +114,7 @@ int  nox_xxx_playerSpell_4FB2A0_magic_plyrspel(int a1) {
 	} else if (a1) {
 		result = nox_xxx_netReportSpellStat_4D9630(*(unsigned __int8*)(*(_DWORD*)(v3 + 276) + 2064), **(_DWORD**)(v3 + 184), 0);
 	} else {
-		result = nox_xxx_spellDefHasFlags_424A50(**(_DWORD**)(v3 + 184), 0x100000);
+		result = nox_xxx_spellHasFlags_424A50(**(_DWORD**)(v3 + 184), 0x100000);
 		if (!result)
 			result = nox_xxx_netReportSpellStat_4D9630(*(unsigned __int8*)(*(_DWORD*)(v3 + 276) + 2064), **(_DWORD**)(v3 + 184), 15);
 	}
@@ -175,18 +175,18 @@ int  nox_xxx_spellGrantToPlayer_4FB550_magic_plyrspel(int a1, int a2, int a3, in
 		*(_DWORD*)(*(_DWORD*)(v7 + 276) + 4 * a2 + 3696) = a5;
 	nox_xxx_playerAwardSpellProtection_56FCE0(*(_DWORD*)(*(_DWORD*)(v7 + 276) + 4636), a2, *(_DWORD*)(*(_DWORD*)(v7 + 276) + 4 * a2 + 3696));
 	int v20 = 0;
-	if (nox_xxx_spellDefHasFlags_424A50(a2, 4096)) {
+	if (nox_xxx_spellHasFlags_424A50(a2, 4096)) {
 		v20 = 0x2000;
-	} else if (nox_xxx_spellDefHasFlags_424A50(a2, 0x4000)) {
+	} else if (nox_xxx_spellHasFlags_424A50(a2, 0x4000)) {
 		v20 = 0x8000;
-	} else if (nox_xxx_spellDefHasFlags_424A50(a2, 0x10000)) {
+	} else if (nox_xxx_spellHasFlags_424A50(a2, 0x10000)) {
 		v20 = 0x20000;
 	}
 	if (v20) {
 		v11 = 1;
 		v12 = 3700;
 		while (v12 < 4244) {
-			if (nox_xxx_spellDefHasFlags_424A50(v11, v20) && nox_xxx_spellGetValidMB_424B50(v11)) {
+			if (nox_xxx_spellHasFlags_424A50(v11, v20) && nox_xxx_spellIsValid_424B50(v11)) {
 				if (a5)
 					*(_DWORD*)(v12 + *(_DWORD*)(v7 + 276)) = a5;
 				else
@@ -209,7 +209,7 @@ int  nox_xxx_spellGrantToPlayer_4FB550_magic_plyrspel(int a1, int a2, int a3, in
 	if (a3) {
 		v15 = 1;
 		nox_xxx_aud_501960(226, v5, 0, 0);
-		if (nox_common_gameFlags_check_40A5C0(2048) && (v6 == 34 || nox_xxx_spellDefHasFlags_424A50(v6, 86016)))
+		if (nox_common_gameFlags_check_40A5C0(2048) && (v6 == 34 || nox_xxx_spellHasFlags_424A50(v6, 86016)))
 			v15 = 0;
 		if (!nox_common_gameFlags_check_40A5C0(4096) || *(_DWORD*)(*(_DWORD*)(v7 + 276) + 4792)) {
 			if (v15) {

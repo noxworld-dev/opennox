@@ -299,7 +299,7 @@ int  nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned __int8* a2,
 					++v38;
 					--v39;
 				}
-				if ((v37 != 1 || !nox_xxx_spellDefHasFlags_424A50(*v36, 32) || !*(_DWORD*)(v85 + 288) ||
+				if ((v37 != 1 || !nox_xxx_spellHasFlags_424A50(*v36, 32) || !*(_DWORD*)(v85 + 288) ||
 					 nox_xxx_unitIsEnemyTo_5330C0(v9, *(_DWORD*)(v85 + 288)) || nox_common_gameFlags_check_40A5C0(4096)) &&
 					!nox_xxx_spellByBookInsert_4FE340(v9, (int*)(v4 + 1), v37, 3, v4[21]) && v37 == 1) {
 					v40 = 5;

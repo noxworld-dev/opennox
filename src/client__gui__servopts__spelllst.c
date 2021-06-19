@@ -32,8 +32,8 @@ int  nox_xxx_guiSpelllistLoad_453850(int a1) {
 	nox_window_call_field_94(*(int*)&dword_5d4594_1045508, 16399, 0, 0);
 	v1 = 1;
 	do {
-		if (nox_xxx_spellGetValidMB_424B50(v1)) {
-			v2 = nox_xxx_spellGetFlags_424A70(v1);
+		if (nox_xxx_spellIsValid_424B50(v1)) {
+			v2 = nox_xxx_spellFlags_424A70(v1);
 			v3 = v2;
 			if (!(v2 & 0x15000)) {
 				if (v2 & 0x1000000 || (v4 = v2 & 0x2000000) != 0 && v2 & 0x4000000) {
@@ -56,7 +56,7 @@ int  nox_xxx_guiSpelllistLoad_453850(int a1) {
 					}
 				}
 				nox_window_call_field_94(*(int*)&dword_5d4594_1045508, 16397, (int)v12, -1);
-				v8 = (const wchar_t*)nox_xxx_spellLoadName_424930(v1);
+				v8 = (const wchar_t*)nox_xxx_spellTitle_424930(v1);
 				nox_wcsncpy(v12, v8, 0x3Fu);
 				nox_window_call_field_94(*(int*)&dword_5d4594_1045480, 16397, (int)v12, -1);
 			}
@@ -129,7 +129,7 @@ int  sub_453C00(int a1, int a2, int* a3, int a4) {
 			v7 = 0;
 			do {
 				if (*((_DWORD*)v5 + 6) + v7 != -4) {
-					v8 = sub_424960((wchar_t*)(*((_DWORD*)v5 + 6) + v7 + 4));
+					v8 = nox_xxx_spellByTitle_424960((wchar_t*)(*((_DWORD*)v5 + 6) + v7 + 4));
 					if (v8) {
 						if (v21 == 1115) {
 							if (!nox_common_gameFlags_check_40A5C0(64) && !(v20[52] & 0x40) || v8 != 132)
@@ -169,7 +169,7 @@ int  sub_453C00(int a1, int a2, int* a3, int a4) {
 						 4);
 		if (!v12)
 			goto LABEL_19;
-		v13 = sub_424960(v12);
+		v13 = nox_xxx_spellByTitle_424960(v12);
 		if (!v13)
 			goto LABEL_19;
 		if (!dword_5d4594_2650652 || (sub_57A1E0(v19, 0, 0, 4, 6128), sub_454000((int)&v19[6], v13))) {

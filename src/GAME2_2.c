@@ -1337,7 +1337,7 @@ void nox_client_drawCursorAndTooltips_477830() {
 	{
 		v1 = nox_common_playerInfoGetByID_417040(*getMemIntPtr(0x5D4594, 2616328));
 		if (!v1 || v1[2251]) {
-			v2 = nox_xxx_spellGetIcon_424A90(*(int*)&dword_5d4594_1097192); // Spell icon
+			v2 = nox_xxx_spellIcon_424A90(*(int*)&dword_5d4594_1097192); // Spell icon
 			if (v2) {
 				nox_client_drawImageAt_47D2C0(v2, mpos.x - 15, mpos.y - 15);
 			}

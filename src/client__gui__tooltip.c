@@ -69,11 +69,11 @@ wchar_t*  nox_xxx_clientAskInfoMb_4BF050(wchar_t* a1) {
 					v22 = nox_strman_loadString_40F1D0("BookOf", 0,
 												"C:\\NoxPost\\src\\client\\Gui\\ToolTip.c", 292);
 					nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1317000), L"%s ", v22);
-					v23 = (const wchar_t*)nox_xxx_spellLoadName_424930(v1[108]);
+					v23 = (const wchar_t*)nox_xxx_spellTitle_424930(v1[108]);
 					nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), v23);
 					goto LABEL_93;
 				}
-				v20 = (const wchar_t*)nox_xxx_spellLoadName_424930(v1[108]);
+				v20 = (const wchar_t*)nox_xxx_spellTitle_424930(v1[108]);
 				nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), v20);
 				nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), L" ");
 				v21 = nox_strman_loadString_40F1D0("BookOf", 0, "C:\\NoxPost\\src\\client\\Gui\\ToolTip.c",

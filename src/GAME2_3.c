@@ -2326,26 +2326,26 @@ int*  sub_495500(int* a1) {
 			switch (a1[3]) {
 			case 1:
 			case 12:
-				v8 = nox_xxx_spellGetIcon_424A90(5);
+				v8 = nox_xxx_spellIcon_424A90(5);
 				goto LABEL_26;
 			case 2:
 				v8 = nox_xxx_spellGetAbilityIcon_425310(1, 0);
 				goto LABEL_26;
 			case 4:
-				v8 = nox_xxx_spellGetIcon_424A90(130);
+				v8 = nox_xxx_spellIcon_424A90(130);
 				goto LABEL_26;
 			case 5:
-				v8 = nox_xxx_spellGetIcon_424A90(60);
+				v8 = nox_xxx_spellIcon_424A90(60);
 				goto LABEL_26;
 			case 9:
 			case 17:
-				v8 = nox_xxx_spellGetIcon_424A90(43);
+				v8 = nox_xxx_spellIcon_424A90(43);
 				goto LABEL_26;
 			case 15:
-				v8 = nox_xxx_spellGetIcon_424A90(56);
+				v8 = nox_xxx_spellIcon_424A90(56);
 				goto LABEL_26;
 			case 16:
-				v8 = nox_xxx_spellGetIcon_424A90(16);
+				v8 = nox_xxx_spellIcon_424A90(16);
 				goto LABEL_26;
 			default:
 				break;
@@ -2417,7 +2417,7 @@ int sub_4958F0() {
 		*getMemU32Ptr(0x5D4594, 1203852) = nox_xxx_getTTByNameSpriteMB_44CFC0("Bow");
 	if (!*getMemU32Ptr(0x5D4594, 1203856))
 		*getMemU32Ptr(0x5D4594, 1203856) = nox_xxx_getTTByNameSpriteMB_44CFC0("CrossBow");
-	result = nox_xxx_spellGetIcon_424A90(15);
+	result = nox_xxx_spellIcon_424A90(15);
 	*getMemU32Ptr(0x5D4594, 1203828) = result;
 	return result;
 }
@@ -6314,7 +6314,7 @@ void sub_49BBC0() {
 	unsigned __int8 v1; // [esp+0h] [ebp-4h]
 
 	if (getMemByte(0x5D4594, 1303504)) {
-		v1 = nox_xxx_spellGetPhonemeMB_424A20(getMemByte(0x5D4594, 1303504))[getMemByte(0x5D4594, 1303512)];
+		v1 = nox_xxx_spellPhonemes_424A20(getMemByte(0x5D4594, 1303504))[getMemByte(0x5D4594, 1303512)];
 		if (nox_frame_xxx_2598000 >= *getMemIntPtr(0x5D4594, 1303516)) {
 			v0 = nox_xxx_spellGetPhoneme_4FE1C0(*getMemIntPtr(0x5D4594, 2616328), v1);
 			nox_xxx_clientPlaySoundSpecial_452D80(v0, 100);

@@ -3986,13 +3986,13 @@ BOOL  sub_57A620(unsigned __int8 a1, const wchar_t** a2, int a3, int a4) {
 		nox_sprintf(v16, "%S", v4[2]);
 		v6 = nox_xxx_spellNameToN_4243F0(v16);
 		if (!v6) {
-			v6 = sub_424960((wchar_t*)v4[2]);
+			v6 = nox_xxx_spellByTitle_424960((wchar_t*)v4[2]);
 			if (!v6)
 				return 0;
 		}
-		if (!nox_xxx_spellGetValidMB_424B50(v6))
+		if (!nox_xxx_spellIsValid_424B50(v6))
 			return 0;
-		if (nox_xxx_spellGetFlags_424A70(v6) & 0x7000000) {
+		if (nox_xxx_spellFlags_424A70(v6) & 0x7000000) {
 			if (!_nox_wcsicmp(v4[3], L"off"))
 				sub_453FA0(a3 + 24, v6, 0);
 		}
@@ -4076,7 +4076,7 @@ char  sub_57AAA0(const char* a1, char* a2, int* a3) {
 			v7 = 1;
 			v8 = 136;
 			do {
-				if (nox_xxx_spellGetValidMB_424B50(v7) && !sub_454000((int)(a2 + 24), v7) && nox_xxx_spellGetFlags_424A70(v7) & 0x7000000 &&
+				if (nox_xxx_spellIsValid_424B50(v7) && !sub_454000((int)(a2 + 24), v7) && nox_xxx_spellFlags_424A70(v7) & 0x7000000 &&
 					(!dword_5d4594_2650652 || sub_454000((int)v22, v7) || !sub_454000((int)v20, v7))) {
 					v9 = nox_xxx_spellNameByN_424870(v7);
 					nox_sprintf(v23, "%s %s \"%s\" %s\n", getMemAt(0x587000, 312616), getMemAt(0x587000, 312608), v9,
@@ -4170,7 +4170,7 @@ int  nox_xxx_playerCheckSpellClass_57AEA0(int a1, int a2) {
 	int result; // eax
 	int v4;     // ecx
 
-	v2 = nox_xxx_spellGetFlags_424A70(a2);
+	v2 = nox_xxx_spellFlags_424A70(a2);
 	if (a1 == 1) {
 		v4 = 0x2000000;
 	} else {

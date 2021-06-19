@@ -175,11 +175,11 @@ int  nox_xxx_bookDrawList_45BD40(int a1) {
 				} else if (v9) {
 					if (!nox_xxx_spellIsEnabled_424B70(*getMemU32Ptr(0x5D4594, 1046960 + 4 * v8)))
 						nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 1046884));
-					v13 = (unsigned __int16*)nox_xxx_spellLoadName_424930(*getMemU32Ptr(0x5D4594, 1046960 + 4 * v8));
+					v13 = (unsigned __int16*)nox_xxx_spellTitle_424930(*getMemU32Ptr(0x5D4594, 1046960 + 4 * v8));
 					nox_xxx_drawGetStringSize_43F840(0, v13, &v65, 0, 128);
 					v62 = v7;
 					v60 = v6 - v65 / 2;
-					v11 = (__int16*)nox_xxx_spellLoadName_424930(*getMemU32Ptr(0x5D4594, 1046960 + 4 * v8));
+					v11 = (__int16*)nox_xxx_spellTitle_424930(*getMemU32Ptr(0x5D4594, 1046960 + 4 * v8));
 				} else {
 					v12 = (unsigned __int16*)nox_xxx_abilityGetName_0_425260(*getMemU32Ptr(0x5D4594, 1046960 + 4 * v8));
 					nox_xxx_drawGetStringSize_43F840(0, v12, &v65, 0, 128);
@@ -284,8 +284,8 @@ int  nox_xxx_bookDrawList_45BD40(int a1) {
 				goto LABEL_73;
 			goto LABEL_74;
 		}
-		v38 = nox_xxx_spellGetFlags_424A70(*getMemU32Ptr(0x5D4594, 1046960 + 4 * dword_5d4594_1046932));
-		v39 = (unsigned __int16*)nox_xxx_spellLoadName_424930(*getMemU32Ptr(0x5D4594, 1046960 + 4 * dword_5d4594_1046932));
+		v38 = nox_xxx_spellFlags_424A70(*getMemU32Ptr(0x5D4594, 1046960 + 4 * dword_5d4594_1046932));
+		v39 = (unsigned __int16*)nox_xxx_spellTitle_424930(*getMemU32Ptr(0x5D4594, 1046960 + 4 * dword_5d4594_1046932));
 		nox_xxx_bookGetStringSize_43FA80(0, v39, &v65, &v68, 108);
 		if (v68 <= v3)
 			v40 = (108 - v65) / 2 + v66 + 24;
@@ -294,16 +294,16 @@ int  nox_xxx_bookDrawList_45BD40(int a1) {
 		v41 = v67 + 53;
 		v59 = v67 + 53;
 		v57 = v40;
-		v42 = (_WORD*)nox_xxx_spellLoadName_424930(*getMemU32Ptr(0x5D4594, 1046960 + 4 * dword_5d4594_1046932));
+		v42 = (_WORD*)nox_xxx_spellTitle_424930(*getMemU32Ptr(0x5D4594, 1046960 + 4 * dword_5d4594_1046932));
 		nox_xxx_bookDrawString_43FA80_43FD80(0, v42, v57, v59, 128, 0);
 		v43 = v41 + v68 + 2;
-		v44 = nox_xxx_getManaCost_4249A0(*getMemU32Ptr(0x5D4594, 1046960 + 4 * dword_5d4594_1046932), 1);
+		v44 = nox_xxx_spellManaCost_4249A0(*getMemU32Ptr(0x5D4594, 1046960 + 4 * dword_5d4594_1046932), 1);
 		v45 = nox_strman_loadString_40F1D0("ManaCost", 0, "C:\\NoxPost\\src\\Client\\Gui\\guibook.c", 1115);
 		nox_swprintf(v71, L"%s ", v45);
 		if (v44) {
 			_itow(v44, WideCharStr, 10);
 			nox_wcscat(v71, WideCharStr);
-		} else if (nox_xxx_spellDefHasFlags_424A50(*getMemU32Ptr(0x5D4594, 1046960 + 4 * dword_5d4594_1046932), 0x800000)) {
+		} else if (nox_xxx_spellHasFlags_424A50(*getMemU32Ptr(0x5D4594, 1046960 + 4 * dword_5d4594_1046932), 0x800000)) {
 			nox_wcscat(v71, L"0");
 		} else {
 			nox_wcscat(v71, L"*");
@@ -345,7 +345,7 @@ int  nox_xxx_bookDrawList_45BD40(int a1) {
 		nox_swprintf(v71, v52, v64);
 		nox_xxx_drawGetStringSize_43F840(0, v71, &v65, 0, 0);
 		nox_xxx_drawString_43FAF0(0, v71, (108 - v65) / 2 + v66 + 24, v3 + v47, 128, 0);
-		v53 = (unsigned __int16*)nox_xxx_spellGet_424A30(*getMemU32Ptr(0x5D4594, 1046960 + 4 * dword_5d4594_1046932));
+		v53 = (unsigned __int16*)nox_xxx_spellDescription_424A30(*getMemU32Ptr(0x5D4594, 1046960 + 4 * dword_5d4594_1046932));
 		v29 = v53;
 		v30 = v67 + 52;
 		if (v53) {
@@ -457,7 +457,7 @@ int  nox_xxx_bookDrawFn_45C7D0(_DWORD* a1) {
 	if (dword_5d4594_1046652 == 1)
 		v9 = nox_xxx_spellGetAbilityIcon_425310(*(int*)&dword_5d4594_1047524, 0);
 	else
-		v9 = nox_xxx_spellGetIcon_424A90(*(int*)&dword_5d4594_1047524);
+		v9 = nox_xxx_spellIcon_424A90(*(int*)&dword_5d4594_1047524);
 	nox_client_drawImageAt_47D2C0(v9, v21, v22);
 	*(float*)&dword_5d4594_1046636 = *(float*)&dword_5d4594_1046636 + obj_5d4594_1046620.field_0;
 	*(float*)&dword_5d4594_1046640 = *(float*)&dword_5d4594_1046640 + obj_5d4594_1046620.field_4;

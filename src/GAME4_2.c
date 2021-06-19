@@ -9968,7 +9968,7 @@ int  nox_xxx_castCounterSpell_52BBB0(int a1, int a2, int a3, int a4) {
 	v4 = (float2*)(a4 + 56);
 	sub_518170(a4 + 56, v10, nox_xxx_cspellRemoveSpell_52BC90, 0);
 	for (i = nox_xxx_spellCastedFirst_4FE930(); i; i = nox_xxx_spellCastedNext_4FE940(i)) {
-		if (nox_xxx_spellDefHasFlags_424A50(*(_DWORD*)(i + 4), 0x40000) && (!(*(_BYTE*)(i + 88) & 2) || *(_DWORD*)(i + 4) == 43)) {
+		if (nox_xxx_spellHasFlags_424A50(*(_DWORD*)(i + 4), 0x40000) && (!(*(_BYTE*)(i + 88) & 2) || *(_DWORD*)(i + 4) == 43)) {
 			v6 = *(float*)(i + 28) - v4->field_0;
 			v7 = *(float*)(i + 32) - *(float*)(a4 + 60);
 			if (v10 * v10 >= v7 * v7 + v6 * v6)
@@ -10046,7 +10046,7 @@ int  sub_52BDB0(int a1, int a2) {
 				if (result) {
 					result = nox_xxx_getEnchantSpell_424920(i);
 					if (result) {
-						result = nox_xxx_spellDefHasFlags_424A50(result, 0x40000);
+						result = nox_xxx_spellHasFlags_424A50(result, 0x40000);
 						if (result) {
 							if (!v3) {
 								nox_xxx_netSendPointFx_522FF0(135, (float2*)(a1 + 56));
@@ -10830,7 +10830,7 @@ int  nox_xxx_castCurePoison_52CDB0(int a1, int a2, int a3, int a4, int* a5, int 
 			nox_xxx_aud_501960(v7, v9, 0, 0);
 			return 1;
 		}
-		v8 = nox_xxx_getManaCost_4249A0(a1, 1);
+		v8 = nox_xxx_spellManaCost_4249A0(a1, 1);
 		sub_4FD030(*a5, v8);
 		result = 1;
 	}
@@ -11460,7 +11460,7 @@ int  sub_52DD50(int a1, int a2, int a3, int a4, void* a5) {
 		return 0;
 	v8 = nox_xxx_unitGetHP_4EE780(*(_DWORD*)a5);
 	if (v8 == nox_xxx_unitGetMaxHP_4EE7A0(v6) && a2 == *(_DWORD*)a5) {
-		v9 = nox_xxx_getManaCost_4249A0(a1, 1);
+		v9 = nox_xxx_spellManaCost_4249A0(a1, 1);
 		sub_4FD030(a3, v9);
 		return 1;
 	}
@@ -12404,14 +12404,14 @@ BOOL  sub_52F220(int* a1) {
 	}
 	if (v1) {
 	LABEL_5:
-		v3 = nox_xxx_spellGetFlags_424A70(a1[1]);
+		v3 = nox_xxx_spellFlags_424A70(a1[1]);
 		v4 = nox_xxx_spellFlySearchTarget_540610((float2*)(a1 + 13), 0, v3, 400.0, 1, 0);
 		if (v4)
 			nox_xxx_unitAdjustHP_4EE460(v4, 20);
 		return 1;
 	}
 	v7 = a1[4];
-	v5 = nox_xxx_spellGetFlags_424A70(a1[1]);
+	v5 = nox_xxx_spellFlags_424A70(a1[1]);
 	v6 = nox_xxx_spellFlySearchTarget_540610((float2*)(a1 + 13), a1[4], v5, 400.0, 1, v7);
 	a1[12] = v6;
 	if (v6) {

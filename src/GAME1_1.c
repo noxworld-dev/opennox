@@ -7772,21 +7772,6 @@ int  sub_424900(int a1) {
 //----- (00424920) --------------------------------------------------------
 int  nox_xxx_getEnchantSpell_424920(int a1) { return *getMemU32Ptr(0x587000, 65188 + 4 * a1); }
 
-//----- (00424BD0) --------------------------------------------------------
-int sub_424BD0() {
-	int v0;     // esi
-	int v1;     // edi
-	int result; // eax
-
-	v0 = 1;
-	v1 = 136;
-	do {
-		result = nox_xxx_spellEnable_424B90(v0++);
-		--v1;
-	} while (v1);
-	return result;
-}
-
 //----- (00424CB0) --------------------------------------------------------
 char  sub_424CB0(int a1) {
 	char v1;             // bl

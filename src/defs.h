@@ -1372,7 +1372,7 @@ typedef struct nox_spell_t {
 	unsigned int flags; // 4, 16
 	unsigned int enabled; // 5, 20
 	unsigned int valid; // 6, 24
-	_BYTE data_7[32]; // 7, 28
+	char phonemes[32]; // 7, 28
 	_BYTE field_15_0; // 15, 60
 	_BYTE phonemes_cnt; // 15, 61
 	unsigned char mana_cost; // 15, 62

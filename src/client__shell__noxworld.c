@@ -655,9 +655,9 @@ int  sub_4394D0(int a1) {
 			} else {
 				v16 *= 2;
 			}
-			if (nox_xxx_spellGetValidMB_424B50(v17) && !(v16 & *(_DWORD*)(v36 + 4 * v34 + 24)) && nox_xxx_spellGetFlags_424A70(v17) & 0x7000000) {
+			if (nox_xxx_spellIsValid_424B50(v17) && !(v16 & *(_DWORD*)(v36 + 4 * v34 + 24)) && nox_xxx_spellFlags_424A70(v17) & 0x7000000) {
 				v15 = 1;
-				v19 = nox_xxx_spellLoadName_424930(v17);
+				v19 = nox_xxx_spellTitle_424930(v17);
 				nox_window_call_field_94(*(int*)&dword_5d4594_815004, 16397, v19, 4);
 			}
 			++v17;

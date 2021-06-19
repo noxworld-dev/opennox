@@ -37,7 +37,7 @@ const (
 	GameFlag10      = GameFlag(0x200)
 	GameFlag11      = GameFlag(0x400)
 	GameSolo        = GameFlag(0x800)
-	GameFlag13      = GameFlag(0x1000)
+	GameQuest       = GameFlag(0x1000)
 	GameServerXxx   = GameFlag(0x2000)
 	GameFlag15      = GameFlag(0x4000)
 	GameFlag16      = GameFlag(0x8000)
@@ -159,7 +159,7 @@ func (f GameFlag) String() string {
 		return "Flag11"
 	case GameSolo:
 		return "Solo"
-	case GameFlag13:
+	case GameQuest:
 		return "Flag13"
 	case GameServerXxx:
 		return "ServerXxx"

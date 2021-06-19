@@ -78,7 +78,7 @@ int  nox_client_handlePacketInform_4C9BF0(int a1) {
 		nox_xxx_abilGetError_4FB0B0_magic_plyrspel(*(_DWORD*)(a1 + 2));
 		return 6;
 	case 1u:
-		v50 = nox_xxx_spellLoadName_424930(*(_DWORD*)(a1 + 2));
+		v50 = nox_xxx_spellTitle_424930(*(_DWORD*)(a1 + 2));
 		v10 = nox_strman_loadString_40F1D0("plyrspel.c:SpellCastSuccess", 0, "C:\\NoxPost\\src\\client\\Network\\inform.c", 117);
 		nox_swprintf(v62, v10, v50);
 		nox_xxx_printCentered_445490(v62);

@@ -5781,7 +5781,7 @@ char  nox_xxx_trapBAH_537C10(int a1, int a2) {
 		a3 = 0;
 		if (*(_BYTE*)(v4 + 20)) {
 			do {
-				if ((!nox_xxx_spellDefHasFlags_424A50(*(_DWORD*)v4, 1) || a2) && !sub_4FD0E0(v5, *(_DWORD*)v4)) {
+				if ((!nox_xxx_spellHasFlags_424A50(*(_DWORD*)v4, 1) || a2) && !sub_4FD0E0(v5, *(_DWORD*)v4)) {
 					if (*(_BYTE*)(v5 + 8) & 4) {
 						v9 = nox_xxx_spellGetPower_4FE7B0(*(_DWORD*)v4, v5);
 						nox_xxx_spellAccept_4FD400(*(_DWORD*)v4, v5, (_DWORD*)v5, (int)v2, v8, v9);
@@ -8180,7 +8180,7 @@ void  nox_xxx_spellFlyUpdate_53B940(int a1) {
 			if ((unsigned int)(nox_frame_xxx_2598000 - v7) > (int)nox_gameFPS >> 2 ||
 				v7 == *(_DWORD*)(a1 + 128)) {
 				v16 = *v2;
-				v8 = nox_xxx_spellGetFlags_424A70(v2[3]);
+				v8 = nox_xxx_spellFlags_424A70(v2[3]);
 				v2[1] = nox_xxx_spellFlySearchTarget_540610(0, a1, v8, 600.0, 0, v16);
 				*(_DWORD*)(a1 + 136) = nox_frame_xxx_2598000;
 			}
@@ -11468,7 +11468,7 @@ int  nox_xxx_mobCastInversion_5408D0(int a1) {
 	v4 = (_DWORD*)(v1 + 1492);
 	do {
 		if (*v4 & 0x8000000) {
-			if (nox_xxx_spellDefHasFlags_424A50(v2, 16)) {
+			if (nox_xxx_spellHasFlags_424A50(v2, 16)) {
 				*v3 = v2;
 				++v3;
 				++v8;
@@ -11504,7 +11504,7 @@ int*  nox_xxx_monsterCast_540A30(int a1, int a2, int a3) {
 	v10 = a1;
 	v11 = *(_DWORD*)(a1 + 748);
 	nox_xxx_monsterPushAction_50A260(v10, 61);
-	if (nox_xxx_spellDefHasFlags_424A50(a2, 2)) {
+	if (nox_xxx_spellHasFlags_424A50(a2, 2)) {
 		v4 = nox_xxx_monsterPushAction_50A260(v3, 41);
 		if (v4)
 			v4[1] =
@@ -11526,7 +11526,7 @@ LABEL_8:
 	if (a3 != v3) {
 		result = (int*)nox_xxx_monsterIsActionScheduled_50A090(v3, 24);
 		if (!result) {
-			if (!nox_xxx_spellDefHasFlags_424A50(a2, 4)) {
+			if (!nox_xxx_spellHasFlags_424A50(a2, 4)) {
 				v6 = nox_xxx_monsterPushAction_50A260(v3, 26);
 				if (v6)
 					v6[1] = a3;
@@ -11591,7 +11591,7 @@ int  nox_xxx_monsterBuffSelf_540B90(int a1) {
 	v5 = (_DWORD*)(v2 + 1492);
 	do {
 		if (*v5 & 0x10000000) {
-			if (nox_xxx_spellDefHasFlags_424A50(v3, 16)) {
+			if (nox_xxx_spellHasFlags_424A50(v3, 16)) {
 				*v4 = v3;
 				++v1;
 				++v4;
@@ -11684,7 +11684,7 @@ int  nox_xxx_mobCastRelated2_540D90(int a1, int a2) {
 		v11 = 1;
 		v6 = (_DWORD*)(v3 + 1492);
 		do {
-			if (*v6 & 0x40000000 && nox_xxx_spellDefHasFlags_424A50(v4, 16)) {
+			if (*v6 & 0x40000000 && nox_xxx_spellHasFlags_424A50(v4, 16)) {
 				*v5 = v4;
 				++v2;
 				++v5;
@@ -11749,7 +11749,7 @@ int  nox_xxx_monsterCastOffensive_540F20(int a1, int a2) {
 	v5 = (_DWORD*)(v2 + 1492);
 	do {
 		if (*v5 & 0x20000000) {
-			if (nox_xxx_spellDefHasFlags_424A50(v3, 16)) {
+			if (nox_xxx_spellHasFlags_424A50(v3, 16)) {
 				*v4 = v3;
 				++v4;
 				++v8;
@@ -11795,7 +11795,7 @@ int  nox_xxx_mobCastRelated_541050(int a1) {
 	v5 = (_DWORD*)(v2 + 1492);
 	do {
 		if ((int)*v5 < 0) {
-			if (nox_xxx_spellDefHasFlags_424A50(v3, 16)) {
+			if (nox_xxx_spellHasFlags_424A50(v3, 16)) {
 				*v4 = v3;
 				++v1;
 				++v4;

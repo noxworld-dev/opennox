@@ -2255,7 +2255,7 @@ int nox_xxx_mapExitAndCheckNext_4D1860_server() {
 	for (j = nox_xxx_getFirstUpdatable2Object_4DA840(); j; j = nox_xxx_getNextUpdatable2Object_4DA850(j))
 		*(_DWORD*)(j + 16) |= 0x80000000;
 	if (nox_common_gameFlags_check_40A5C0(2048)) {
-		sub_424BD0();
+		nox_xxx_spellEnableAll_424BD0();
 		sub_4537F0();
 	}
 	if (nox_xxx_gameIsSwitchToSolo_4DB240()) {
@@ -2272,7 +2272,7 @@ int nox_xxx_mapExitAndCheckNext_4D1860_server() {
 				v9 = (int*)sub_459870();
 				sub_57AAA0("user.rul", v7, v9);
 			}
-			sub_424BD0();
+			nox_xxx_spellEnableAll_424BD0();
 			sub_4537F0();
 		}
 		v10 = nox_server_currentMapGetFilename_409B30();

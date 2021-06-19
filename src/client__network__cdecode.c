@@ -3539,12 +3539,12 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 				v303 = nox_common_playerInfoGetByID_417040(*(unsigned __int16*)(data + 3));
 				if (nox_client_isConnected_43C700() && v303) {
 					if (v303 == *(char**)getMemAt(0x5D4594, 2618908)) {
-						v348 = nox_xxx_spellLoadName_424930(*(unsigned __int8*)(data + 2));
+						v348 = nox_xxx_spellTitle_424930(*(unsigned __int8*)(data + 2));
 						v304 = nox_strman_loadString_40F1D0("plyrspel.c:AwardSpell", 0,
 													 "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 8112);
 						nox_swprintf(v405, v304, v348);
 					} else {
-						v349 = nox_xxx_spellLoadName_424930(*(unsigned __int8*)(data + 2));
+						v349 = nox_xxx_spellTitle_424930(*(unsigned __int8*)(data + 2));
 						v305 = nox_strman_loadString_40F1D0("plyrspel.c:AwardSpellToOther", 0,
 													 "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 8115);
 						nox_swprintf(v405, v305, v303 + 4704, v349);

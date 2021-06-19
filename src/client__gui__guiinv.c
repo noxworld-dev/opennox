@@ -1520,7 +1520,7 @@ int  nox_xxx_inventroryOnHovewerSub_4667E0(int a1, int a2, unsigned int a3) {
 	} while (v5 < 32);
 	if (v5 != 32) {
 		v6 = nox_xxx_getEnchantSpell_424920(v5);
-		v7 = (wchar_t*)nox_xxx_spellLoadName_424930(v6);
+		v7 = (wchar_t*)nox_xxx_spellTitle_424930(v6);
 		nox_xxx_cursorSetTooltip_4776B0(v7);
 		return 1;
 	}

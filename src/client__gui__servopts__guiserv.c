@@ -404,7 +404,7 @@ int  nox_xxx_guiServerOptionsProcPre_4585D0(int a1, unsigned int a2, int a3, int
 						sub_457460((int)v29);
 						sub_459D50(1);
 						if (v29[53] & 0x10) {
-							sub_424BD0();
+							nox_xxx_spellEnableAll_424BD0();
 							sub_4537F0();
 							sub_459700();
 						}
