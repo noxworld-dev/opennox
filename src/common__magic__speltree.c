@@ -4,7 +4,7 @@
 void* dword_587000_66120 = 0;
 extern _DWORD nox_xxx_polygonNextIdx_587000_60352;
 
-const char* nox_spell_ids[] = {
+const char* nox_spell_ids[NOX_SPELLS_MAX+1] = {
     "SPELL_INVALID",						// 0
     "SPELL_ANCHOR",							// 1
     "SPELL_ARACHNAPHOBIA",					// 2
@@ -144,11 +144,8 @@ const char* nox_spell_ids[] = {
     "SPELL_TELEPORT_TO_MARKER",				// 137
     0,
 };
-#define NOX_SPELLS_ARR_SIZE (sizeof(nox_spell_ids) / sizeof(char*))
-#define NOX_SPELLS_MAX (sizeof(nox_spell_ids) / sizeof(char*)) - 1
-int nox_spell_ids_cnt = NOX_SPELLS_MAX;
 
-nox_spell_t nox_spells_arr_588124[NOX_SPELLS_ARR_SIZE] = {0};
+nox_spell_t nox_spells_arr_588124[NOX_SPELLS_MAX+1] = {0};
 
 //----- (00424850) --------------------------------------------------------
 BOOL  nox_xxx_isArgB8EqSome_424850(void* a1) { return a1 == *(void**)&dword_587000_66120; }
@@ -158,14 +155,14 @@ void* nox_xxx_spellGetDefArrayPtr_424820() { return *(void**)&dword_587000_66120
 
 //----- (00424870) --------------------------------------------------------
 char* nox_xxx_spellNameByN_424870(int ind) {
-	if (ind < 0 || ind >= nox_spell_ids_cnt)
+	if (ind < 0 || ind >= NOX_SPELLS_MAX)
 		return 0;
 	return nox_spell_ids[ind];
 }
 
 //----- (004243F0) --------------------------------------------------------
 int  nox_xxx_spellNameToN_4243F0(const char* id) {
-	for (int i = 0; i < nox_spell_ids_cnt && nox_spell_ids[i]; i++) {
+	for (int i = 0; i < NOX_SPELLS_MAX && nox_spell_ids[i]; i++) {
 		if (strcmp(nox_spell_ids[i], id) == 0)
 			return i;
 	}

@@ -1364,6 +1364,7 @@ _Static_assert(sizeof(nox_playerInfo) == 4828, "wrong size of nox_playerInfo str
 _Static_assert(offsetof(nox_playerInfo, frame_3596) == 3596, "wrong offset of nox_playerInfo.frame_3596 field!");
 _Static_assert(offsetof(nox_playerInfo, field_4580) == 4580, "wrong offset of nox_playerInfo.field_4580 field!");
 
+#define NOX_SPELLS_MAX 137
 typedef struct nox_spell_t {
 	wchar_t* title; // 0, 0
 	wchar_t* desc; // 1, 4
