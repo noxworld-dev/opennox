@@ -15,7 +15,6 @@ int nox_cmd_macros_on(int, int, wchar_t**);
 int nox_cmd_macros_off(int, int, wchar_t**);
 int nox_cmd_list_weapons(int, int, wchar_t**);
 int nox_cmd_list_armor(int, int, wchar_t**);
-int nox_cmd_list_spells(int, int, wchar_t**);
 int nox_cmd_list_staffs(int, int, wchar_t**);
 int nox_cmd_show_bindings(int, int, wchar_t**);
 int nox_cmd_show_game(int, int, wchar_t**);
@@ -251,6 +250,13 @@ func init() {
 }
 
 var (
+	noxCmdList = &parsecmd.Command{Token: "list", HelpID: "listhelp", Flags: parsecmd.ClientServer, Sub: []*parsecmd.Command{
+		{Token: "armor", HelpID: "listarmorhelp", Flags: parsecmd.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_list_armor)},
+		{Token: "maps", HelpID: "listmapshelp", Flags: parsecmd.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_list_maps)},
+		{Token: "staffs", HelpID: "liststaffshelp", Flags: parsecmd.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_list_staffs)},
+		{Token: "weapons", HelpID: "listweaponshelp", Flags: parsecmd.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_list_weapons)},
+		{Token: "users", HelpID: "listusershelp", Flags: parsecmd.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_list_users)},
+	}}
 	noxCmdSet = &parsecmd.Command{Token: "set", HelpID: "sethelp", Flags: parsecmd.ClientServer, Sub: []*parsecmd.Command{
 		{Token: "armor", HelpID: "setarmorhelp", Flags: parsecmd.Server, LegacyFunc: wrapCommandC(nox_cmd_set_armor)},
 		{Token: "cycle", HelpID: "setcyclehelp", Flags: parsecmd.Server, LegacyFunc: wrapCommandC(nox_cmd_set_cycle)},
@@ -307,6 +313,7 @@ var (
 		{Token: "re-enter", HelpID: "", Flags: parsecmd.Server, LegacyFunc: wrapCommandC(nox_cmd_reenter)},
 	}}
 	noxCommands = []*parsecmd.Command{
+		noxCmdList,
 		noxCmdSet,
 		noxCmdShow,
 		noxCmdCheat,
@@ -325,14 +332,6 @@ var (
 		{Token: "gamma", HelpID: "gammahelp", Flags: parsecmd.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_gamma)},
 		{Token: "image", HelpID: "imagehelp", Flags: parsecmd.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_image)},
 		{Token: "kick", HelpID: "kickhelp", Flags: parsecmd.Server, LegacyFunc: wrapCommandC(nox_cmd_kick)},
-		{Token: "list", HelpID: "listhelp", Flags: parsecmd.ClientServer, Sub: []*parsecmd.Command{
-			{Token: "armor", HelpID: "listarmorhelp", Flags: parsecmd.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_list_armor)},
-			{Token: "maps", HelpID: "listmapshelp", Flags: parsecmd.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_list_maps)},
-			{Token: "spells", HelpID: "listspellshelp", Flags: parsecmd.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_list_spells)},
-			{Token: "staffs", HelpID: "liststaffshelp", Flags: parsecmd.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_list_staffs)},
-			{Token: "weapons", HelpID: "listweaponshelp", Flags: parsecmd.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_list_weapons)},
-			{Token: "users", HelpID: "listusershelp", Flags: parsecmd.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_list_users)},
-		}},
 		{Token: "lock", HelpID: "lockhelp", Flags: parsecmd.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_lock)},
 		{Token: "load", HelpID: "loadhelp", Flags: parsecmd.Server | parsecmd.Cheat, LegacyFunc: wrapCommandC(nox_cmd_load)},
 		{Token: "log", HelpID: "loghelp", Flags: parsecmd.ClientServer | parsecmd.Cheat, Sub: []*parsecmd.Command{
@@ -387,9 +386,6 @@ func nox_cmd_list_weapons(i C.int, n C.int, arr **C.wchar_t) C.int {
 }
 func nox_cmd_list_armor(i C.int, n C.int, arr **C.wchar_t) C.int {
 	return C.nox_cmd_list_armor(i, n, arr)
-}
-func nox_cmd_list_spells(i C.int, n C.int, arr **C.wchar_t) C.int {
-	return C.nox_cmd_list_spells(i, n, arr)
 }
 func nox_cmd_list_staffs(i C.int, n C.int, arr **C.wchar_t) C.int {
 	return C.nox_cmd_list_staffs(i, n, arr)

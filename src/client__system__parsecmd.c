@@ -452,10 +452,10 @@ int nox_cmd_list_armor(int tokInd, int tokCnt, wchar_t** tokens) {
 }
 
 //----- (00441210) --------------------------------------------------------
+#ifndef NOX_CGO
 int nox_cmd_list_spells(int tokInd, int tokCnt, wchar_t** tokens) {
 	wchar_t* v0; // edi
 	wchar_t* v1; // ebx
-	int v2;      // esi
 	wchar_t* v3; // eax
 	int v5;      // [esp-Ch] [ebp-18h]
 	int v6;      // [esp-8h] [ebp-14h]
@@ -463,28 +463,23 @@ int nox_cmd_list_spells(int tokInd, int tokCnt, wchar_t** tokens) {
 
 	v0 = nox_strman_loadString_40F1D0("allowed", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1524);
 	v1 = nox_strman_loadString_40F1D0("disallowed", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1525);
-	v2 = 1;
-	do {
-		if (nox_xxx_spellIsValid_424B50(v2)) {
-			if (nox_xxx_spellIsEnabled_424B70(v2)) {
-				v7 = v0;
-				v6 = nox_xxx_spellManaCost_4249A0(v2, 1);
-				v5 = nox_xxx_spellTitle_424930(v2);
-				v3 = nox_strman_loadString_40F1D0("SpellFmt", 0,
-										   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1531);
-			} else {
-				v7 = v1;
-				v6 = nox_xxx_spellManaCost_4249A0(v2, 1);
-				v5 = nox_xxx_spellTitle_424930(v2);
-				v3 = nox_strman_loadString_40F1D0("SpellFmt", 0,
-										   "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1533);
-			}
-			nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v3, v5, v6, v7);
+	for (int i = 1; i < NOX_SPELLS_MAX; i++) {
+		if (!nox_xxx_spellIsValid_424B50(i)) {
+			continue;
 		}
-		++v2;
-	} while (v2 < 137);
+		if (nox_xxx_spellIsEnabled_424B70(i)) {
+			v7 = v0;
+		} else {
+			v7 = v1;
+		}
+		v6 = nox_xxx_spellManaCost_4249A0(i, 1);
+		v5 = nox_xxx_spellTitle_424930(i);
+		v3 = nox_strman_loadString_40F1D0("SpellFmt", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1531);
+		nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v3, v5, v6, v7);
+	}
 	return 1;
 }
+#endif // NOX_CGO
 
 //----- (004412E0) --------------------------------------------------------
 int nox_cmd_list_staffs(int tokInd, int tokCnt, wchar_t** tokens) {
