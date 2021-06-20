@@ -139,11 +139,39 @@ func (u *Unit) Mana() (cur, max int) {
 }
 
 func (u *Unit) SetMana(v int) {
-	panic("implement me")
+	if u == nil {
+		return
+	}
+	if v < 0 {
+		v = 0
+	}
+	p := u.ptrYyy()
+	if p == nil {
+		return
+	}
+	if _, max := u.Mana(); v > max {
+		v = max
+	}
+	cur := int(*(*uint16)(unsafe.Pointer(uintptr(p) + 4)))
+	*(*uint16)(unsafe.Pointer(uintptr(p) + 6)) = uint16(cur)
+	*(*uint16)(unsafe.Pointer(uintptr(p) + 4)) = uint16(v)
+	pt := *(*unsafe.Pointer)(unsafe.Pointer(uintptr(p) + 276))
+	C.nox_xxx_protectMana_56F9E0(*(*C.int)(unsafe.Pointer(uintptr(pt) + 4596)), C.short(v-cur))
 }
 
 func (u *Unit) SetMaxMana(v int) {
-	panic("implement me")
+	if u == nil {
+		return
+	}
+	if v < 0 {
+		v = 0
+	}
+	p := u.ptrYyy()
+	if p == nil {
+		return
+	}
+	*(*uint16)(unsafe.Pointer(uintptr(p) + 8)) = uint16(v)
+	u.SetMana(v)
 }
 
 func (u *Unit) MoveTo(p types.Pointf) {
