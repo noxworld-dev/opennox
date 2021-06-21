@@ -288,3 +288,11 @@ func (u *Unit) Say(text string, dur script.Duration) {
 func (u *Unit) Mute() {
 	panic("implement me")
 }
+
+func (u *Unit) AddGold(v int) {
+	if v < 0 {
+		C.nox_xxx_playerSubGold_4FA5D0(C.int(uintptr(unsafe.Pointer(u.CObj()))), C.uint(v))
+	} else {
+		C.nox_xxx_playerAddGold_4FA590(C.int(uintptr(unsafe.Pointer(u.CObj()))), C.int(v))
+	}
+}

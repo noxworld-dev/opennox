@@ -54,6 +54,32 @@ func init() {
 			},
 		},
 	)
+	noxCmdCheat.Sub = append(noxCmdCheat.Sub,
+		&parsecmd.Command{
+			Token:  "gold",
+			HelpID: "cheatgoldhelp",
+			Flags:  parsecmd.Server | parsecmd.Cheat,
+			Func:   noxCheatGold,
+		},
+	)
+}
+
+func noxCheatGold(c *parsecmd.Console, tokens []string) bool {
+	if len(tokens) != 1 {
+		return false
+	}
+	v, err := strconv.Atoi(tokens[0])
+	if err != nil {
+		c.Printf(parsecmd.ColorLightRed, "failed to parse the value")
+		return true
+	}
+	for _, p := range getPlayers() {
+		if u := p.UnitC(); u != nil {
+			u.AddGold(v)
+		}
+	}
+	c.Printf(parsecmd.ColorLightYellow, "added %d gold to all players", v)
+	return true
 }
 
 func noxCmdSetPlayerUnitParam(c *parsecmd.Console, tokens []string, param string, fnc func(u *Unit, v int)) bool {

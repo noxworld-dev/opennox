@@ -304,7 +304,6 @@ var (
 		{Token: "mana", HelpID: "cheatmanahelp", Flags: parsecmd.Server, LegacyFunc: wrapCommandC(nox_cmd_cheat_mana)},
 		{Token: "level", HelpID: "cheatlevelhelp", Flags: parsecmd.Server, LegacyFunc: wrapCommandC(nox_cmd_cheat_level)},
 		{Token: "spells", HelpID: "cheatspellshelp", Flags: parsecmd.Server, LegacyFunc: wrapCommandC(nox_cmd_cheat_spells)},
-		{Token: "gold", HelpID: "cheatgoldhelp", Flags: parsecmd.Server, LegacyFunc: wrapCommandC(nox_cmd_cheat_gold)},
 		{Token: "re-enter", HelpID: "", Flags: parsecmd.Server, LegacyFunc: wrapCommandC(nox_cmd_reenter)},
 	}}
 	noxCommands = []*parsecmd.Command{
@@ -577,9 +576,6 @@ func nox_cmd_cheat_level(i C.int, n C.int, arr **C.wchar_t) C.int {
 }
 func nox_cmd_cheat_spells(i C.int, n C.int, arr **C.wchar_t) C.int {
 	return C.nox_cmd_cheat_spells(i, n, arr)
-}
-func nox_cmd_cheat_gold(i C.int, n C.int, arr **C.wchar_t) C.int {
-	return C.nox_cmd_cheat_gold(i, n, arr)
 }
 func nox_cmd_image(i C.int, n C.int, arr **C.wchar_t) C.int {
 	return C.nox_cmd_image(i, n, arr)
