@@ -4395,7 +4395,7 @@ int  sub_4C3FC0(char* a1) {
 	v4 = 16 * v1;
 	if (!*getMemU32Ptr(0x587000, 73672 + v4))
 		return 0;
-	v6 = *(const wchar_t**)getMemAt(0x587000, 73684 + v4);
+	v6 = *(const wchar_t**)getMemAt(0x587000, 73672 + 12 + v4);
 	if (dword_5d4594_1321252) {
 		v7 = 0;
 		v8 = *(_DWORD*)(dword_5d4594_1321244 + 32);
@@ -6992,7 +6992,7 @@ int  sub_4CC280(char* a1) {
 	v4 = 16 * v1;
 	if (!*getMemU32Ptr(0x587000, 73672 + v4))
 		return 0;
-	v6 = *(const wchar_t**)getMemAt(0x587000, 73684 + v4);
+	v6 = *(const wchar_t**)getMemAt(0x587000, 73672 + 12 + v4);
 	if (dword_5d4594_1522632) {
 		v7 = 0;
 		v8 = *(_DWORD*)(dword_5d4594_1522624 + 32);

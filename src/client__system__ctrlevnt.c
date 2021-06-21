@@ -167,7 +167,7 @@ void nox_xxx_bindevent_42EAE0() {
 	char v4[256];        // [esp+4h] [ebp-100h]
 
 	if (*getMemU32Ptr(0x587000, 73672)) {
-		v0 = getMemAt(0x587000, 73684);
+		v0 = getMemAt(0x587000, 73672 + 12);
 		do {
 			*(_DWORD*)v0 =
 				nox_strman_loadString_40F1D0(*((char**)v0 - 1), 0, "C:\\NoxPost\\src\\Client\\System\\Ctrlevnt.c", 2092);
