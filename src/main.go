@@ -310,7 +310,7 @@ func runNox(args []string) error {
 	}
 	C.nox_xxx_clear18hDD_416190()
 	noxCommonInitRandom()
-	C.nox_xxx_bindevent_42EAE0()
+	C.nox_xxx_bindevent_initStrings_42EAE0()
 	C.nox_xxx_loadLook_415D50()
 	C.nox_xxx_loadModifyers_4158C0()
 	C.nox_xxx_cmdTokensLoad_4444F0()

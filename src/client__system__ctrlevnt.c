@@ -24,6 +24,146 @@ extern unsigned int nox_gameFPS;
 
 __int64 nox_ctrlevent_ticks = 0;
 
+nox_keybind_t nox_keybind_arr[NOX_KEYEVENT_MAX] = {
+	{"KP0", 0x52, "keybind:Kp0", 0},
+	{"KP1", 0x4f, "keybind:Kp1", 0},
+	{"KP2", 0x50, "keybind:Kp2", 0},
+	{"KP3", 0x51, "keybind:Kp3", 0},
+	{"KP4", 0x4b, "keybind:Kp4", 0},
+	{"KP5", 0x4c, "keybind:Kp5", 0},
+	{"KP6", 0x4d, "keybind:Kp6", 0},
+	{"KP7", 0x47, "keybind:Kp7", 0},
+	{"KP8", 0x48, "keybind:Kp8", 0},
+	{"KP9", 0x49, "keybind:Kp9", 0},
+	{"KPDEL", 0x53, "keybind:KpPeriod", 0},
+	{"KPSTAR", 0x37, "keybind:KpStar", 0},
+	{"KPMINUS", 0x4a, "keybind:KpMinus", 0},
+	{"KPPLUS", 0x4e, "keybind:KpPlus", 0},
+	{"KPENTER", 0x9c, "keybind:KpEnter", 0},
+	{"KPSLASH", 0xb5, "keybind:KpSlash", 0},
+	{"ESC", 0x1, "keybind:Esc", 0},
+	{"BACKSPACE", 0xe, "keybind:Back", 0},
+	{"ENTER", 0x1c, "keybind:Enter", 0},
+	{"SPACE", 0x39, "keybind:Space", 0},
+	{"TAB", 0xf, "keybind:Tab", 0},
+	{"F1", 0x3b, "keybind:F1", 0},
+	{"F2", 0x3c, "keybind:F2", 0},
+	{"F3", 0x3d, "keybind:F3", 0},
+	{"F4", 0x3e, "keybind:F4", 0},
+	{"F5", 0x3f, "keybind:F5", 0},
+	{"F6", 0x40, "keybind:F6", 0},
+	{"F7", 0x41, "keybind:F7", 0},
+	{"F8", 0x42, "keybind:F8", 0},
+	{"F9", 0x43, "keybind:F9", 0},
+	{"F10", 0x44, "keybind:F10", 0},
+	{"F11", 0x57, "keybind:F11", 0},
+	{"F12", 0x58, "keybind:F12", 0},
+	{"A", 0x1e, "keybind:A", 0},
+	{"B", 0x30, "keybind:B", 0},
+	{"C", 0x2e, "keybind:C", 0},
+	{"D", 0x20, "keybind:D", 0},
+	{"E", 0x12, "keybind:E", 0},
+	{"F", 0x21, "keybind:F", 0},
+	{"G", 0x22, "keybind:G", 0},
+	{"H", 0x23, "keybind:H", 0},
+	{"I", 0x17, "keybind:I", 0},
+	{"J", 0x24, "keybind:J", 0},
+	{"K", 0x25, "keybind:K", 0},
+	{"L", 0x26, "keybind:L", 0},
+	{"M", 0x32, "keybind:M", 0},
+	{"N", 0x31, "keybind:N", 0},
+	{"O", 0x18, "keybind:O", 0},
+	{"P", 0x19, "keybind:P", 0},
+	{"Q", 0x10, "keybind:Q", 0},
+	{"R", 0x13, "keybind:R", 0},
+	{"S", 0x1f, "keybind:S", 0},
+	{"T", 0x14, "keybind:T", 0},
+	{"U", 0x16, "keybind:U", 0},
+	{"V", 0x2f, "keybind:V", 0},
+	{"W", 0x11, "keybind:W", 0},
+	{"X", 0x2d, "keybind:X", 0},
+	{"Y", 0x15, "keybind:Y", 0},
+	{"Z", 0x2c, "keybind:Z", 0},
+	{"1", 0x2, "keybind:1", 0},
+	{"2", 0x3, "keybind:2", 0},
+	{"3", 0x4, "keybind:3", 0},
+	{"4", 0x5, "keybind:4", 0},
+	{"5", 0x6, "keybind:5", 0},
+	{"6", 0x7, "keybind:6", 0},
+	{"7", 0x8, "keybind:7", 0},
+	{"8", 0x9, "keybind:8", 0},
+	{"9", 0xa, "keybind:9", 0},
+	{"0", 0xb, "keybind:0", 0},
+	{"MINUS", 0xc, "keybind:Minus", 0},
+	{"EQUALS", 0xd, "keybind:Equal", 0},
+	{"LEFT_BRACKET", 0x1a, "keybind:[", 0},
+	{"RIGHT_BRACKET", 0x1b, "keybind:]", 0},
+	{"SEMICOLON", 0x27, "keybind:SemiColon", 0},
+	{"APOSTROPHE", 0x28, "keybind:Squote", 0},
+	{"TICK", 0x29, "keybind:Apos", 0},
+	{"BACKSLASH", 0x2b, "keybind:Bslash", 0},
+	{"COMMA", 0x33, "keybind:Comma", 0},
+	{"PERIOD", 0x34, "keybind:Period", 0},
+	{"SLASH", 0x35, "keybind:Slash", 0},
+	{"SYSREQ", 0xb7, "keybind:SysReq", 0},
+	{"CAPS_LOCK", 0x3a, "keybind:Caps", 0},
+	{"NUM", 0x45, "keybind:NumLck", 0},
+	{"SCROLL", 0x46, "keybind:Scroll", 0},
+	{"LEFT_CTRL", 0x1d, "keybind:LCtrl", 0},
+	{"LEFT_ALT", 0x38, "keybind:LAlt", 0},
+	{"LEFT_SHIFT", 0x2a, "keybind:LShift", 0},
+	{"RIGHT_SHIFT", 0x36, "keybind:RShift", 0},
+	{"RIGHT_ALT", 0xb8, "keybind:RAlt", 0},
+	{"RIGHT_CTRL", 0x9d, "keybind:RCtrl", 0},
+	{"UP_ARROW", 0xc8, "keybind:Up", 0},
+	{"DOWN_ARROW", 0xd0, "keybind:Down", 0},
+	{"LEFT_ARROW", 0xcb, "keybind:Left", 0},
+	{"RIGHT_ARROW", 0xcd, "keybind:Right", 0},
+	{"HOME", 0xc7, "keybind:Home", 0},
+	{"END", 0xcf, "keybind:End", 0},
+	{"PAGEUP", 0xc9, "keybind:PgUp", 0},
+	{"PAGEDOWN", 0xd1, "keybind:PgDn", 0},
+	{"INS", 0xd2, "keybind:Ins", 0},
+	{"DEL", 0xd3, "keybind:Del", 0},
+	{"MOUSE_BUTTON_LEFT", 0x10000, "keybind:LeftMouse", 0},
+	{"MOUSE_BUTTON_MID", 0x10001, "keybind:MiddleMouse", 0},
+	{"MOUSE_BUTTON_RIGHT", 0x10002, "keybind:RightMouse", 0},
+	{"MOUSE_WHEEL_UP", 0x10003, "keybind:MouseWheelUp", 0},
+	{"MOUSE_WHEEL_DOWN", 0x10004, "keybind:MouseWheelDown", 0},
+	{"JOYSTICK_BUTTON_1", 0x20000, "keybind:NA", 0},
+	{"JOYSTICK_BUTTON_2", 0x20001, "keybind:NA", 0},
+	{"JOYSTICK_BUTTON_3", 0x20002, "keybind:NA", 0},
+	{"JOYSTICK_BUTTON_4", 0x20003, "keybind:NA", 0},
+	{"JOYSTICK_BUTTON_5", 0x20004, "keybind:NA", 0},
+	{"JOYSTICK_BUTTON_6", 0x20005, "keybind:NA", 0},
+	{"JOYSTICK_BUTTON_7", 0x20006, "keybind:NA", 0},
+	{"JOYSTICK_BUTTON_8", 0x20007, "keybind:NA", 0},
+	{"JOYSTICK_BUTTON_9", 0x20008, "keybind:NA", 0},
+	{"JOYSTICK_BUTTON_10", 0x20009, "keybind:NA", 0},
+	{"JOYSTICK_BUTTON_11", 0x2000a, "keybind:NA", 0},
+	{"JOYSTICK_BUTTON_12", 0x2000b, "keybind:NA", 0},
+	{"JOYSTICK_BUTTON_13", 0x2000c, "keybind:NA", 0},
+	{"JOYSTICK_BUTTON_14", 0x2000d, "keybind:NA", 0},
+	{"JOYSTICK_BUTTON_15", 0x2000e, "keybind:NA", 0},
+	{"JOYSTICK_BUTTON_16", 0x2000f, "keybind:NA", 0},
+	{"JOYSTICK_BUTTON_17", 0x20010, "keybind:NA", 0},
+	{"JOYSTICK_BUTTON_18", 0x20011, "keybind:NA", 0},
+	{"JOYSTICK_BUTTON_19", 0x20012, "keybind:NA", 0},
+	{"JOYSTICK_BUTTON_20", 0x20013, "keybind:NA", 0},
+	{"JOYSTICK_BUTTON_21", 0x20014, "keybind:NA", 0},
+	{"JOYSTICK_BUTTON_22", 0x20015, "keybind:NA", 0},
+	{"JOYSTICK_BUTTON_23", 0x20016, "keybind:NA", 0},
+	{"JOYSTICK_BUTTON_24", 0x20017, "keybind:NA", 0},
+	{"JOYSTICK_BUTTON_25", 0x20018, "keybind:NA", 0},
+	{"JOYSTICK_BUTTON_26", 0x20019, "keybind:NA", 0},
+	{"JOYSTICK_BUTTON_27", 0x2001a, "keybind:NA", 0},
+	{"JOYSTICK_BUTTON_28", 0x2001b, "keybind:NA", 0},
+	{"JOYSTICK_BUTTON_29", 0x2001c, "keybind:NA", 0},
+	{"JOYSTICK_BUTTON_30", 0x2001d, "keybind:NA", 0},
+	{"JOYSTICK_BUTTON_31", 0x2001e, "keybind:NA", 0},
+	{"JOYSTICK_BUTTON_32", 0x2001f, "keybind:NA", 0},
+};
+
 nox_bindevent_t nox_bindevent_arr[NOX_BINDEVENT_MAX] = {
 	{"", 0, 0}, // represents no binding
 	{"MoveForward", 0x2, 0},
@@ -161,25 +301,17 @@ int nox_ctrlevent_add_ticks_42E630() {
 // 42E649: control flows out of bounds to 554300
 
 //----- (0042EAE0) --------------------------------------------------------
-void nox_xxx_bindevent_42EAE0() {
-	unsigned __int8* v0; // esi
-	int v1;              // eax
-	char v4[256];        // [esp+4h] [ebp-100h]
-
-	if (*getMemU32Ptr(0x587000, 73672)) {
-		v0 = getMemAt(0x587000, 73672 + 12);
-		do {
-			*(_DWORD*)v0 =
-				nox_strman_loadString_40F1D0(*((char**)v0 - 1), 0, "C:\\NoxPost\\src\\Client\\System\\Ctrlevnt.c", 2092);
-			v1 = *((_DWORD*)v0 + 1);
-			v0 += 16;
-		} while (v1);
+void nox_xxx_bindevent_initStrings_42EAE0() {
+	for (int i = 0; i < NOX_KEYEVENT_MAX; i++) {
+		nox_keybind_t* ev = &nox_keybind_arr[i];
+		ev->title = nox_strman_loadString_40F1D0(ev->title_id, 0, "C:\\NoxPost\\src\\Client\\System\\Ctrlevnt.c", 2092);
 	}
+	char buf[256];
 	nox_bindevent_arr[0].title = nox_strman_loadString_40F1D0("bindevent:NullEvent", 0, "C:\\NoxPost\\src\\Client\\System\\Ctrlevnt.c", 2095);
 	for (int i = 1; i < NOX_BINDEVENT_MAX; i++) {
 		nox_bindevent_t* ev = &nox_bindevent_arr[i];
-		nox_sprintf(v4, "bindevent:%s", ev->name);
-		ev->title = nox_strman_loadString_40F1D0(v4, 0, "C:\\NoxPost\\src\\Client\\System\\Ctrlevnt.c", 2100);
+		nox_sprintf(buf, "bindevent:%s", ev->name);
+		ev->title = nox_strman_loadString_40F1D0(buf, 0, "C:\\NoxPost\\src\\Client\\System\\Ctrlevnt.c", 2100);
 	}
 }
 

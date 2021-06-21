@@ -3,6 +3,14 @@
 
 #include "defs.h"
 
+#define NOX_KEYEVENT_MAX 137
+typedef struct nox_keybind_t {
+	const char*  name;
+	unsigned int key;
+	const char*    title_id;
+	const wchar_t* title;
+} nox_keybind_t;
+
 #define NOX_BINDEVENT_MAX 41
 typedef struct nox_bindevent_t {
 	const char* name;
@@ -10,7 +18,7 @@ typedef struct nox_bindevent_t {
 	const wchar_t* title;
 } nox_bindevent_t;
 
-void nox_xxx_bindevent_42EAE0();
+void nox_xxx_bindevent_initStrings_42EAE0();
 void nox_xxx_clientControl_42D6B0(nox_mouse_state_t* mouse, int a4);
 void nox_ctrlevent_action_42E670(nox_ctrlevent_code code, _DWORD data);
 void nox_ctrlevent_action_42E780(nox_ctrlevent_code code, _DWORD data);

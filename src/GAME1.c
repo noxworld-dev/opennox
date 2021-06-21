@@ -298,7 +298,7 @@ int cmain(int argc, const char* argv[]) {
 		sub_4445C0();
 	nox_xxx_clear18hDD_416190();
 	nox_common_initRandom_415F70();
-	nox_xxx_bindevent_42EAE0();
+	nox_xxx_bindevent_initStrings_42EAE0();
 	nox_xxx_loadLook_415D50();
 	nox_xxx_loadModifyers_4158C0();
 	nox_xxx_cmdTokensLoad_4444F0();

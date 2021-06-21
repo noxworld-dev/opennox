@@ -150,6 +150,7 @@ int nox_max_height = NOX_MAX_HEIGHT;
 
 FILE* nox_video_bag_fileptr = 0;
 
+extern nox_keybind_t nox_keybind_arr[NOX_KEYEVENT_MAX];
 extern nox_bindevent_t nox_bindevent_arr[NOX_BINDEVENT_MAX];
 extern nox_ctrlevent_xxx_t nox_ctrlevent_buf_747884[NOX_CTRLEVENT_XXX_MAX];
 extern nox_ctrlevent_code_info_t nox_ctrlevent_code_infos[];
@@ -3650,8 +3651,6 @@ _DWORD*  sub_42CDF0(FILE* a1) {
 	_DWORD* result;      // eax
 	_DWORD* v4;          // ebx
 	int v5;              // ebp
-	unsigned __int8* v6; // esi
-	int v7;              // eax
 	int v8;              // ebp
 	_DWORD* v11;         // [esp+Ch] [ebp+4h]
 	_DWORD* v12;         // [esp+Ch] [ebp+4h]
@@ -3669,14 +3668,11 @@ _DWORD*  sub_42CDF0(FILE* a1) {
 			if (v4[8] > 0) {
 				v11 = v4;
 				do {
-					if (*getMemU32Ptr(0x587000, 73672)) {
-						v6 = getMemAt(0x587000, 73672);
-						do {
-							if (*v11 == (char*)*((_DWORD*)v6 + 1))
-								nox_fs_fprintf(v2, "%s ", *(_DWORD*)v6);
-							v7 = *((_DWORD*)v6 + 4);
-							v6 += 16;
-						} while (v7);
+					for (int i = 0; i < NOX_KEYEVENT_MAX; i++) {
+						nox_keybind_t* ev = &nox_keybind_arr[i];
+						if (*v11 == ev->key) {
+							nox_fs_fprintf(v2, "%s ", ev->name);
+						}
 					}
 					if (v5 != v4[8] - 1)
 						nox_fs_fprintf(v2, "+ ");
@@ -3717,9 +3713,6 @@ int  sub_42CF50(const char* a1) {
 	char* v4;             // ebp
 	int v5;               // edi
 	const char** v6;      // esi
-	const char* v7;       // eax
-	int v8;               // ebp
-	unsigned __int8* v9;  // edi
 	int v10;              // eax
 	char* v11;            // eax
 	int v15;              // eax
@@ -3764,28 +3757,19 @@ int  sub_42CF50(const char* a1) {
 	}
 	while (*v2 != 61) {
 		if (*v2 != 43) {
-			v7 = *(const char**)getMemAt(0x587000, 73672);
-			v8 = 0;
-			if (*getMemU32Ptr(0x587000, 73672)) {
-				v9 = getMemAt(0x587000, 73672);
-				while (strcmp(v7, v16)) {
-					v7 = (const char*)*((_DWORD*)v9 + 4);
-					v9 += 16;
-					++v8;
-					if (!v7)
-						goto LABEL_21;
+			for (int i = 0; i < NOX_KEYEVENT_MAX; i++) {
+				nox_keybind_t* ev = &nox_keybind_arr[i];
+				if (strcmp(ev->name, v16) == 0) {
+					v10 = v3[8];
+					if (v10 == 8) {
+						free(v3);
+						return 0;
+					}
+					v3[v10] = ev->key;
+					++v3[8];
+					break;
 				}
-				v10 = v3[8];
-				if (v10 == 8) {
-					free(v3);
-					return 0;
-				}
-				v3[v10] = *getMemU32Ptr(0x587000, 73672 + 16*v8 + 4);
-				++v3[8];
 			}
-		LABEL_21:
-			if (!*getMemU32Ptr(0x587000, 73672 + 16*v8))
-				return 0;
 		}
 		v16 = strtok(0, " \r\t\n");
 		if (!v16)
@@ -4010,107 +3994,48 @@ void  sub_42E8C0(int a1) {
 // 42E8B0: using guessed type void  nullsub_33(_DWORD, _DWORD, _DWORD);
 
 //----- (0042E8E0) --------------------------------------------------------
-char*  sub_42E8E0(int a1, int a2) {
-	_DWORD* v2;          // esi
-	int v3;              // ebp
-	int v4;              // edi
-	_DWORD* v5;          // ebx
-	int v6;              // ecx
-	unsigned __int8* v7; // eax
-
-	v2 = *(_DWORD**)&dword_5d4594_754056;
-	if (!dword_5d4594_754056)
-		return (char*)getMemAt(0x5D4594, 754072);
-	while (1) {
-		v3 = v2[17];
-		v4 = 0;
-		if (v3 > 0)
-			break;
-	LABEL_11:
-		v2 = (_DWORD*)v2[19];
-		if (!v2)
-			return (char*)getMemAt(0x5D4594, 754072);
-	}
-	v5 = v2 + 9;
-	while (1) {
-		if (*v5 == a1 && --a2 <= 0) {
-			v6 = 0;
-			if (*getMemU32Ptr(0x587000, 73672))
-				break;
+wchar_t* sub_42E8E0(int a1, int a2) {
+	for (_DWORD* v2 = *(_DWORD**)&dword_5d4594_754056; v2; v2 = (_DWORD*)v2[19]) {
+		int v3 = v2[17];
+		if (v3 <= 0) {
+			continue;
 		}
-	LABEL_10:
-		++v4;
-		++v5;
-		if (v4 >= v3)
-			goto LABEL_11;
+		_DWORD* v5 = v2 + 9;
+		for (int v4 = 0; v4 < v3; v4++) {
+			if (!(v5[v4] == a1 && --a2 <= 0)) {
+				continue;
+			}
+			for (int i = 0; i < NOX_KEYEVENT_MAX; i++) {
+				nox_keybind_t* ev = &nox_keybind_arr[i];
+				if (*v2 == ev->key) {
+					return ev->title;
+				}
+			}
+		}
 	}
-	v7 = getMemAt(0x587000, 73672);
-	while (*v2 != *((_DWORD*)v7 + 1)) {
-		v7 += 16;
-		++v6;
-		if (!*(_DWORD*)v7)
-			goto LABEL_10;
-	}
-	return *(char**)getMemAt(0x587000, 73672 + 16*v6 + 12);
+	return L"";
 }
 
 //----- (0042E960) --------------------------------------------------------
-char*  sub_42E960(wchar_t* a1) {
-	int v1;             // edi
-	unsigned __int8* i; // esi
-	int v3;             // eax
-
-	v1 = 0;
-	if (!*getMemU32Ptr(0x587000, 73672))
-		return 0;
-	for (i = getMemAt(0x587000, 73672); _nox_wcsicmp(*((const wchar_t**)i + 3), a1); i += 16) {
-		v3 = *((_DWORD*)i + 4);
-		++v1;
-		if (!v3)
-			return 0;
+char*  sub_42E960(wchar_t* title) {
+	for (int i = 0; i < NOX_KEYEVENT_MAX; i++) {
+		nox_keybind_t* ev = &nox_keybind_arr[i];
+		if (_nox_wcsicmp(ev->title, title) == 0) {
+			return ev->name;
+		}
 	}
-	return *(char**)getMemAt(0x587000, 73672 + 16*v1);
-}
-
-//----- (0042E9B0) --------------------------------------------------------
-char*  sub_42E9B0(char* a1) {
-	int v1;              // edi
-	const char** v2;     // eax
-	unsigned __int8* v3; // esi
-	int v4;              // ecx
-
-	v1 = 0;
-	if (!*getMemU32Ptr(0x587000, 73672))
-		return (char*)getMemAt(0x5D4594, 754076);
-	v2 = (const char**)getMemAt(0x587000, 73672);
-	v3 = getMemAt(0x587000, 73672);
-	while (_strcmpi(*v2, a1)) {
-		v4 = *((_DWORD*)v3 + 4);
-		v3 += 16;
-		++v1;
-		v2 = (const char**)v3;
-		if (!v4)
-			return (char*)getMemAt(0x5D4594, 754076);
-	}
-	return *(char**)getMemAt(0x587000, 73672 + 16*v1 + 12);
+	return 0;
 }
 
 //----- (0042EA00) --------------------------------------------------------
-char*  sub_42EA00(char* a1) {
-	int v1;             // ecx
-	unsigned __int8* i; // eax
-	int v3;             // esi
-
-	v1 = 0;
-	if (!*getMemU32Ptr(0x587000, 73672))
-		return (char*)getMemAt(0x5D4594, 754080);
-	for (i = getMemAt(0x587000, 73672); *((char**)i + 1) != a1; i += 16) {
-		v3 = *((_DWORD*)i + 4);
-		++v1;
-		if (!v3)
-			return (char*)getMemAt(0x5D4594, 754080);
+wchar_t* sub_42EA00(unsigned int a1) {
+	for (int i = 0; i < NOX_KEYEVENT_MAX; i++) {
+		nox_keybind_t* ev = &nox_keybind_arr[i];
+		if (ev->key == a1) {
+			return ev->title;
+		}
 	}
-	return *(char**)getMemAt(0x587000, 73672 + 16*v1 + 12);
+	return L"";
 }
 
 //----- (0042EA40) --------------------------------------------------------
