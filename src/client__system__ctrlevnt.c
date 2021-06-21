@@ -353,6 +353,37 @@ wchar_t* nox_xxx_keybind_titleByKeyZero_42EA00(unsigned int a1) {
 	return 0;
 }
 
+char* nox_xxx_bindevent_bindNameByKey(unsigned int key) {
+	for (int i = 0; i < NOX_BINDEVENT_MAX; i++) {
+		nox_bindevent_t* ev = &nox_bindevent_arr[i];
+		if (ev->key == key) {
+			return ev->name;
+		}
+	}
+	return 0;
+}
+
+unsigned int nox_xxx_bindevent_bindKeyByName(const char* name) {
+	for (int i = 0; i < NOX_BINDEVENT_MAX; i++) {
+		nox_bindevent_t* ev = &nox_bindevent_arr[i];
+		if (strcmp(ev->name, name) == 0) {
+			return ev->key;
+		}
+	}
+	return 0;
+}
+
+//----- (0042EA40) --------------------------------------------------------
+char* nox_xxx_bindevent_bindNameByTitle_42EA40(wchar_t* title) {
+	for (int i = 0; i < NOX_BINDEVENT_MAX; i++) {
+		nox_bindevent_t* ev = &nox_bindevent_arr[i];
+		if (_nox_wcsicmp(ev->title, title) == 0) {
+			return ev->name;
+		}
+	}
+	return 0;
+}
+
 //----- (0042EAE0) --------------------------------------------------------
 void nox_xxx_bindevent_initStrings_42EAE0() {
 	for (int i = 0; i < NOX_KEYEVENT_MAX; i++) {

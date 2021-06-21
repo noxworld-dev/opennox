@@ -1128,7 +1128,6 @@ void  nox_xxx_clientTrade_42E850(int a1);
 void  nullsub_33(_DWORD, _DWORD, _DWORD); // weak
 void  sub_42E8C0(int a1);
 wchar_t* sub_42E8E0(int a1, int a2);
-char*  nox_xxx_bindevent_bindNameByTitle_42EA40(wchar_t* title);
 int  sub_42EB90(int a1);
 int sub_42EBA0();
 void sub_42EBB0(unsigned int a1, void (*fnc)(int), int field_4, const char* name);

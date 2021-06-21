@@ -150,7 +150,6 @@ int nox_max_height = NOX_MAX_HEIGHT;
 
 FILE* nox_video_bag_fileptr = 0;
 
-extern nox_bindevent_t nox_bindevent_arr[NOX_BINDEVENT_MAX];
 extern nox_ctrlevent_xxx_t nox_ctrlevent_buf_747884[NOX_CTRLEVENT_XXX_MAX];
 extern nox_ctrlevent_code_info_t nox_ctrlevent_code_infos[];
 
@@ -3682,13 +3681,9 @@ _DWORD*  sub_42CDF0(FILE* a1) {
 			if (v4[17] > 0) {
 				v12 = v4 + 9;
 				do {
-					if (nox_bindevent_arr[0].name) {
-						for (int i = 0; i < NOX_BINDEVENT_MAX; i++) {
-							nox_bindevent_t* ev = &nox_bindevent_arr[i];
-							if (*v12 == ev->key) {
-								nox_fs_fprintf(v2, "%s ", ev->name);
-							}
-						}
+					const char* name = nox_xxx_bindevent_bindNameByKey(*v12);
+					if (name) {
+						nox_fs_fprintf(v2, "%s ", name);
 					}
 					if (v8 != v4[17] - 1)
 						nox_fs_fprintf(v2, "+ ");
@@ -3775,23 +3770,17 @@ int  sub_42CF50(const char* a1) {
 	if (v11) {
 		while (*v11 != 61) {
 			if (*v11 != 43) {
-				bool ok = false;
-				for (int i = 0; i < NOX_BINDEVENT_MAX; i++) {
-					nox_bindevent_t* ev = &nox_bindevent_arr[i];
-					if (strcmp(ev->name, v11) == 0) {
-						v3 = (_DWORD*)v17;
-						v15 = *(_DWORD*)(v17 + 68);
-						if (v15 == 8) {
-							free(v3);
-							return 0;
-						}
-						*(_DWORD*)(v17 + 4 * v15 + 36) = ev->key;
-						++*(_DWORD*)(v17 + 68);
-						ok = true;
-						break;
+				unsigned int k = nox_xxx_bindevent_bindKeyByName(v11);
+				if (k) {
+					v3 = (_DWORD*)v17;
+					v15 = *(_DWORD*)(v17 + 68);
+					if (v15 == 8) {
+						free(v3);
+						return 0;
 					}
-				}
-				if (!ok) {
+					*(_DWORD*)(v17 + 4 * v15 + 36) = k;
+					++*(_DWORD*)(v17 + 68);
+				} else {
 					v3 = (_DWORD*)v17;
 				}
 			}
@@ -4006,17 +3995,6 @@ wchar_t* sub_42E8E0(int a1, int a2) {
 		}
 	}
 	return L"";
-}
-
-//----- (0042EA40) --------------------------------------------------------
-char* nox_xxx_bindevent_bindNameByTitle_42EA40(wchar_t* title) {
-	for (int i = 0; i < NOX_BINDEVENT_MAX; i++) {
-		nox_bindevent_t* ev = &nox_bindevent_arr[i];
-		if (_nox_wcsicmp(ev->title, title) == 0) {
-			return ev->name;
-		}
-	}
-	return 0;
 }
 
 //----- (0042EB90) --------------------------------------------------------
