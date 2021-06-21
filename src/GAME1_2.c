@@ -150,6 +150,7 @@ int nox_max_height = NOX_MAX_HEIGHT;
 
 FILE* nox_video_bag_fileptr = 0;
 
+extern nox_bindevent_t nox_bindevent_arr[NOX_BINDEVENT_MAX];
 extern nox_ctrlevent_xxx_t nox_ctrlevent_buf_747884[NOX_CTRLEVENT_XXX_MAX];
 extern nox_ctrlevent_code_info_t nox_ctrlevent_code_infos[];
 
@@ -3652,8 +3653,6 @@ _DWORD*  sub_42CDF0(FILE* a1) {
 	unsigned __int8* v6; // esi
 	int v7;              // eax
 	int v8;              // ebp
-	unsigned __int8* v9; // esi
-	int v10;             // eax
 	_DWORD* v11;         // [esp+Ch] [ebp+4h]
 	_DWORD* v12;         // [esp+Ch] [ebp+4h]
 
@@ -3690,14 +3689,13 @@ _DWORD*  sub_42CDF0(FILE* a1) {
 			if (v4[17] > 0) {
 				v12 = v4 + 9;
 				do {
-					if (*getMemU32Ptr(0x587000, 75880)) {
-						v9 = getMemAt(0x587000, 75880);
-						do {
-							if (*v12 == (char*)*((_DWORD*)v9 + 1))
-								nox_fs_fprintf(v2, "%s ", *(_DWORD*)v9);
-							v10 = *((_DWORD*)v9 + 3);
-							v9 += 12;
-						} while (v10);
+					if (nox_bindevent_arr[0].name) {
+						for (int i = 0; i < NOX_BINDEVENT_MAX; i++) {
+							nox_bindevent_t* ev = &nox_bindevent_arr[i];
+							if (*v12 == ev->key) {
+								nox_fs_fprintf(v2, "%s ", ev->name);
+							}
+						}
 					}
 					if (v8 != v4[17] - 1)
 						nox_fs_fprintf(v2, "+ ");
@@ -3724,9 +3722,6 @@ int  sub_42CF50(const char* a1) {
 	unsigned __int8* v9;  // edi
 	int v10;              // eax
 	char* v11;            // eax
-	const char* v12;      // ecx
-	int v13;              // ebp
-	unsigned __int8* v14; // edi
 	int v15;              // eax
 	char* v16;            // [esp+10h] [ebp-408h]
 	int v17;              // [esp+14h] [ebp-404h]
@@ -3738,106 +3733,101 @@ int  sub_42CF50(const char* a1) {
 	result = (int)strtok(v18, " \r\t\n");
 	v2 = (const char*)result;
 	v16 = (char*)result;
-	if (result) {
-		result = (int)calloc(1u, 0x60u);
-		v3 = (_DWORD*)result;
-		v17 = result;
-		if (result) {
-			if (!strcmp(v2, "MousePickup")) {
-				strtok(0, " \r\t\n");
-				v4 = strtok(0, " \r\t\n");
-				v5 = 0;
-				v6 = (const char**)getMemAt(0x587000, 73652);
-				while (_strcmpi(v4, *v6)) {
-					++v6;
-					++v5;
-					if ((int)v6 >= (int)getMemAt(0x587000, 73668))
-						goto LABEL_9;
+	if (!result) {
+		return 0;
+	}
+	result = (int)calloc(1u, 0x60u);
+	v3 = (_DWORD*)result;
+	v17 = result;
+	if (!result) {
+		return 0;
+	}
+	if (!strcmp(v2, "MousePickup")) {
+		strtok(0, " \r\t\n");
+		v4 = strtok(0, " \r\t\n");
+		v5 = 0;
+		v6 = (const char**)getMemAt(0x587000, 73652);
+		while (_strcmpi(v4, *v6)) {
+			++v6;
+			++v5;
+			if ((int)v6 >= (int)getMemAt(0x587000, 73668))
+				goto LABEL_9;
+		}
+		if (v5 < 4)
+			goto LABEL_10;
+	LABEL_9:
+		v5 = 0;
+	LABEL_10:
+		sub_430AA0(v5);
+		free(v3);
+		return 1;
+	}
+	while (*v2 != 61) {
+		if (*v2 != 43) {
+			v7 = *(const char**)getMemAt(0x587000, 73672);
+			v8 = 0;
+			if (*getMemU32Ptr(0x587000, 73672)) {
+				v9 = getMemAt(0x587000, 73672);
+				while (strcmp(v7, v16)) {
+					v7 = (const char*)*((_DWORD*)v9 + 4);
+					v9 += 16;
+					++v8;
+					if (!v7)
+						goto LABEL_21;
 				}
-				if (v5 < 4)
-					goto LABEL_10;
-			LABEL_9:
-				v5 = 0;
-			LABEL_10:
-				sub_430AA0(v5);
-				free(v3);
-				result = 1;
-			} else {
-				while (*v2 != 61) {
-					if (*v2 != 43) {
-						v7 = *(const char**)getMemAt(0x587000, 73672);
-						v8 = 0;
-						if (*getMemU32Ptr(0x587000, 73672)) {
-							v9 = getMemAt(0x587000, 73672);
-							while (strcmp(v7, v16)) {
-								v7 = (const char*)*((_DWORD*)v9 + 4);
-								v9 += 16;
-								++v8;
-								if (!v7)
-									goto LABEL_21;
-							}
-							v10 = v3[8];
-							if (v10 == 8) {
-							LABEL_38:
-								free(v3);
-								return 0;
-							}
-							v3[v10] = *getMemU32Ptr(0x587000, 73676 + 16 * v8);
-							++v3[8];
-						}
-					LABEL_21:
-						if (!*getMemU32Ptr(0x587000, 73672 + 16 * v8))
-							return 0;
-					}
-					v16 = strtok(0, " \r\t\n");
-					if (!v16)
-						break;
-					v2 = v16;
+				v10 = v3[8];
+				if (v10 == 8) {
+					free(v3);
+					return 0;
 				}
-				v3[17] = 0;
-				v11 = strtok(0, " \r\t\n");
-				if (v11) {
-					while (*v11 != 61) {
-						if (*v11 != 43) {
-							v12 = *(const char**)getMemAt(0x587000, 75880);
-							v13 = 0;
-							if (*getMemU32Ptr(0x587000, 75880)) {
-								v14 = getMemAt(0x587000, 75880);
-								while (strcmp(v12, v11)) {
-									v12 = (const char*)*((_DWORD*)v14 + 3);
-									v14 += 12;
-									++v13;
-									if (!v12) {
-										v3 = (_DWORD*)v17;
-										goto LABEL_33;
-									}
-								}
-								v3 = (_DWORD*)v17;
-								v15 = *(_DWORD*)(v17 + 68);
-								if (v15 == 8)
-									goto LABEL_38;
-								*(_DWORD*)(v17 + 4 * v15 + 36) = *getMemU32Ptr(0x587000, 75880 + 12*v13 + 4);
-								++*(_DWORD*)(v17 + 68);
-							}
-						LABEL_33:
-							if (!*getMemU32Ptr(0x587000, 75880 + 12*v13))
-								return 0;
-						}
-						v11 = strtok(0, " \r\t\n");
-						if (!v11)
-							break;
-					}
-				}
-				v3[18] = 0;
-				v3[19] = dword_5d4594_754056;
-				if (dword_5d4594_754056)
-					*(_DWORD*)(dword_5d4594_754056 + 72) = v3;
-				dword_5d4594_754056 = v3;
-				result = 1;
+				v3[v10] = *getMemU32Ptr(0x587000, 73676 + 16 * v8);
+				++v3[8];
 			}
+		LABEL_21:
+			if (!*getMemU32Ptr(0x587000, 73672 + 16 * v8))
+				return 0;
+		}
+		v16 = strtok(0, " \r\t\n");
+		if (!v16)
+			break;
+		v2 = v16;
+	}
+	v3[17] = 0;
+	v11 = strtok(0, " \r\t\n");
+	if (v11) {
+		while (*v11 != 61) {
+			if (*v11 != 43) {
+				bool ok = false;
+				for (int i = 0; i < NOX_BINDEVENT_MAX; i++) {
+					nox_bindevent_t* ev = &nox_bindevent_arr[i];
+					if (strcmp(ev->name, v11) == 0) {
+						v3 = (_DWORD*)v17;
+						v15 = *(_DWORD*)(v17 + 68);
+						if (v15 == 8) {
+							free(v3);
+							return 0;
+						}
+						*(_DWORD*)(v17 + 4 * v15 + 36) = ev->key;
+						++*(_DWORD*)(v17 + 68);
+						ok = true;
+						break;
+					}
+				}
+				if (!ok) {
+					v3 = (_DWORD*)v17;
+				}
+			}
+			v11 = strtok(0, " \r\t\n");
+			if (!v11)
+				break;
 		}
 	}
-	return result;
+	v3[18] = 0;
+	v3[19] = dword_5d4594_754056;
+	if (dword_5d4594_754056)
+		*(_DWORD*)(dword_5d4594_754056 + 72) = v3;
+	dword_5d4594_754056 = v3;
+	return 1;
 }
 
 //----- (0042D460) --------------------------------------------------------
@@ -4124,44 +4114,14 @@ char*  sub_42EA00(char* a1) {
 }
 
 //----- (0042EA40) --------------------------------------------------------
-int  sub_42EA40(wchar_t* a1) {
-	int v1;             // edi
-	unsigned __int8* i; // esi
-	int v3;             // eax
-
-	v1 = 0;
-	if (!*getMemU32Ptr(0x587000, 75880))
-		return 0;
-	for (i = getMemAt(0x587000, 75880); _nox_wcsicmp(*((const wchar_t**)i + 2), a1); i += 12) {
-		v3 = *((_DWORD*)i + 3);
-		++v1;
-		if (!v3)
-			return 0;
+char* nox_xxx_bindevent_bindNameByTitle_42EA40(wchar_t* title) {
+	for (int i = 0; i < NOX_BINDEVENT_MAX; i++) {
+		nox_bindevent_t* ev = &nox_bindevent_arr[i];
+		if (_nox_wcsicmp(ev->title, title) == 0) {
+			return ev->name;
+		}
 	}
-	return *getMemU32Ptr(0x587000, 75880 + 12*v1);
-}
-
-//----- (0042EA90) --------------------------------------------------------
-char*  sub_42EA90(char* a1) {
-	int v1;              // edi
-	const char** v2;     // eax
-	unsigned __int8* v3; // esi
-	int v4;              // ecx
-
-	v1 = 0;
-	if (!*getMemU32Ptr(0x587000, 75880))
-		return (char*)getMemAt(0x5D4594, 754084);
-	v2 = (const char**)getMemAt(0x587000, 75880);
-	v3 = getMemAt(0x587000, 75880);
-	while (_strcmpi(*v2, a1)) {
-		v4 = *((_DWORD*)v3 + 3);
-		v3 += 12;
-		++v1;
-		v2 = (const char**)v3;
-		if (!v4)
-			return (char*)getMemAt(0x5D4594, 754084);
-	}
-	return *(char**)getMemAt(0x587000, 75880 + 12*v1 + 8);
+	return 0;
 }
 
 //----- (0042EB90) --------------------------------------------------------

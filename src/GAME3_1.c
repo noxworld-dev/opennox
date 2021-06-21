@@ -23,6 +23,7 @@
 #include "client__drawable__update__charmup.h"
 #include "client__drawable__update__fireball.h"
 #include "client__system__npcinfo.h"
+#include "client__system__ctrlevnt.h"
 
 #include "common/fs/nox_fs.h"
 #include "proto.h"
@@ -130,6 +131,8 @@ extern obj_5D4594_3799572_t* ptr_5D4594_3799572;
 extern obj_5D4594_3799572_t obj_5D4594_3800716;
 
 nox_gui_animation* nox_wnd_xxx_1522608 = 0;
+
+extern nox_bindevent_t nox_bindevent_arr[NOX_BINDEVENT_MAX];
 
 //----- (004B9470) --------------------------------------------------------
 int  sub_4B9470(const char** a1) {
@@ -4280,46 +4283,38 @@ int  sub_4C3A90(int a1, int a2, int* a3, int a4) {
 }
 
 //----- (004C3B70) --------------------------------------------------------
-char* sub_4C3B70() {
-	char* result; // eax
-	int* v1;      // esi
-	char* v2;     // edi
-	char* v3;     // ebx
-
+void sub_4C3B70() {
 	nox_window_call_field_94(*(int*)&dword_5d4594_1321236, 16399, 0, 0);
 	nox_window_call_field_94(*(int*)&dword_5d4594_1321240, 16399, 0, 0);
 	nox_window_call_field_94(*(int*)&dword_5d4594_1321244, 16399, 0, 0);
 	nox_window_call_field_94(*(int*)&dword_5d4594_1321248, 16399, 0, 0);
-	result = *(char**)getMemAt(0x587000, 75880 + 12*1);
-	if (*getMemU32Ptr(0x587000, 75880 + 12*1)) {
-		v1 = getMemIntPtr(0x587000, 75880 + 12*1 + 4);
-		do {
-			if (*v1 != 44) {
-				nox_window_call_field_94(*(int*)&dword_5d4594_1321240, 16397, v1[1], -1);
-				nox_window_call_field_94(*(int*)&dword_5d4594_1321236, 16397, (int)getMemAt(0x587000, 185340), -1);
-				v2 = sub_42E8E0(*v1, 1);
-				v3 = sub_42E8E0(*v1, 2);
-				if (v2 && *(_WORD*)v2)
-					nox_window_call_field_94(*(int*)&dword_5d4594_1321244, 16397, (int)v2, -1);
-				else
-					nox_window_call_field_94(*(int*)&dword_5d4594_1321244, 16397, (int)getMemAt(0x587000, 185344), -1);
-				if (v3 && *(_WORD*)v3 && v2 != v3)
-					nox_window_call_field_94(*(int*)&dword_5d4594_1321248, 16397, (int)v3, -1);
-				else
-					nox_window_call_field_94(*(int*)&dword_5d4594_1321248, 16397, (int)getMemAt(0x587000, 185348), -1);
-			}
-			result = (char*)v1[2];
-			v1 += 3;
-		} while (result);
+	for (int i = 1; i < NOX_BINDEVENT_MAX; i++) {
+		nox_bindevent_t* ev = &nox_bindevent_arr[i];
+		if (ev->key == 44) {
+			continue;
+		}
+		nox_window_call_field_94(*(int*)&dword_5d4594_1321240, 16397, ev->title, -1);
+		nox_window_call_field_94(*(int*)&dword_5d4594_1321236, 16397, (int)getMemAt(0x587000, 185340), -1);
+		char* v2 = sub_42E8E0(ev->key, 1);
+		char* v3 = sub_42E8E0(ev->key, 2);
+		if (v2 && *(_WORD*)v2) {
+			nox_window_call_field_94(*(int*)&dword_5d4594_1321244, 16397, (int)v2, -1);
+		} else {
+			nox_window_call_field_94(*(int*)&dword_5d4594_1321244, 16397, (int)getMemAt(0x587000, 185344), -1);
+		}
+		if (v3 && *(_WORD*)v3 && v2 != v3) {
+			nox_window_call_field_94(*(int*)&dword_5d4594_1321248, 16397, (int)v3, -1);
+		} else {
+			nox_window_call_field_94(*(int*)&dword_5d4594_1321248, 16397, (int)getMemAt(0x587000, 185348), -1);
+		}
 	}
-	return result;
 }
 
 //----- (004C3CB0) --------------------------------------------------------
-char* sub_4C3CB0() {
+void sub_4C3CB0() {
 	sub_42CD90();
 	nox_common_readcfgfile("default.cfg", 1);
-	return sub_4C3B70();
+	sub_4C3B70();
 }
 
 //----- (004C3EB0) --------------------------------------------------------
@@ -6837,39 +6832,31 @@ int sub_4CBBB0() {
 }
 
 //----- (004CBBF0) --------------------------------------------------------
-char* sub_4CBBF0() {
-	char* result; // eax
-	int* v1;      // esi
-	char* v2;     // edi
-	char* v3;     // ebx
-
+void sub_4CBBF0() {
 	nox_window_call_field_94(*(int*)&dword_5d4594_1522616, 16399, 0, 0);
 	nox_window_call_field_94(*(int*)&dword_5d4594_1522620, 16399, 0, 0);
 	nox_window_call_field_94(*(int*)&dword_5d4594_1522624, 16399, 0, 0);
 	nox_window_call_field_94(*(int*)&dword_5d4594_1522628, 16399, 0, 0);
-	result = *(char**)getMemAt(0x587000, 75880 + 12*1);
-	if (*getMemU32Ptr(0x587000, 75880 + 12*1)) {
-		v1 = getMemIntPtr(0x587000, 75880 + 12*1 + 4);
-		do {
-			if (*v1 != 44) {
-				nox_window_call_field_94(*(int*)&dword_5d4594_1522620, 16397, v1[1], -1);
-				nox_window_call_field_94(*(int*)&dword_5d4594_1522616, 16397, (int)getMemAt(0x587000, 187544), -1);
-				v2 = sub_42E8E0(*v1, 1);
-				v3 = sub_42E8E0(*v1, 2);
-				if (v2 && *(_WORD*)v2)
-					nox_window_call_field_94(*(int*)&dword_5d4594_1522624, 16397, (int)v2, -1);
-				else
-					nox_window_call_field_94(*(int*)&dword_5d4594_1522624, 16397, (int)getMemAt(0x587000, 187548), -1);
-				if (v3 && *(_WORD*)v3 && v2 != v3)
-					nox_window_call_field_94(*(int*)&dword_5d4594_1522628, 16397, (int)v3, -1);
-				else
-					nox_window_call_field_94(*(int*)&dword_5d4594_1522628, 16397, (int)getMemAt(0x587000, 187552), -1);
-			}
-			result = (char*)v1[2];
-			v1 += 3;
-		} while (result);
+	for (int i = 1; i < NOX_BINDEVENT_MAX; i++) {
+		nox_bindevent_t* ev = &nox_bindevent_arr[i];
+		if (ev->key == 44) {
+			continue;
+		}
+		nox_window_call_field_94(*(int*)&dword_5d4594_1522620, 16397, ev->title, -1);
+		nox_window_call_field_94(*(int*)&dword_5d4594_1522616, 16397, (int)getMemAt(0x587000, 187544), -1);
+		char* v2 = sub_42E8E0(ev->key, 1);
+		char* v3 = sub_42E8E0(ev->key, 2);
+		if (v2 && *(_WORD*)v2) {
+			nox_window_call_field_94(*(int*)&dword_5d4594_1522624, 16397, (int)v2, -1);
+		} else {
+			nox_window_call_field_94(*(int*)&dword_5d4594_1522624, 16397, (int)getMemAt(0x587000, 187548), -1);
+		}
+		if (v3 && *(_WORD*)v3 && v2 != v3) {
+			nox_window_call_field_94(*(int*)&dword_5d4594_1522628, 16397, (int)v3, -1);
+		} else {
+			nox_window_call_field_94(*(int*)&dword_5d4594_1522628, 16397, (int)getMemAt(0x587000, 187552), -1);
+		}
 	}
-	return result;
 }
 
 //----- (004CBE70) --------------------------------------------------------
@@ -6910,10 +6897,10 @@ int  sub_4CBE70(int a1, int a2, int* a3, int a4) {
 }
 
 //----- (004CBF40) --------------------------------------------------------
-char* sub_4CBF40() {
+void sub_4CBF40() {
 	sub_42CD90();
 	nox_common_readcfgfile("default.cfg", 1);
-	return sub_4CBBF0();
+	sub_4CBBF0();
 }
 
 //----- (004CC140) --------------------------------------------------------

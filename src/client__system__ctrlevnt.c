@@ -24,6 +24,50 @@ extern unsigned int nox_gameFPS;
 
 __int64 nox_ctrlevent_ticks = 0;
 
+nox_bindevent_t nox_bindevent_arr[NOX_BINDEVENT_MAX] = {
+	{"", 0, 0}, // represents no binding
+	{"MoveForward", 0x2, 0},
+	{"Action", 0x1, 0},
+	{"Jump", 0x6, 0},
+	{"ToggleInventory", 0x7, 0},
+	{"ToggleBook", 0xa, 0},
+	{"ToggleMap", 0x10, 0},
+	{"MapZoomOut", 0x22, 0},
+	{"MapZoomIn", 0x21, 0},
+	{"InvokeSlot1", 0x1c, 0},
+	{"InvokeSlot2", 0x1d, 0},
+	{"InvokeSlot3", 0x1e, 0},
+	{"InvokeSlot4", 0x1f, 0},
+	{"InvokeSlot5", 0x20, 0},
+	{"PreviousSpellSet", 0x28, 0},
+	{"NextSpellSet", 0x27, 0},
+	{"SelectSpellSet", 0x29, 0},
+	{"InvertSpellTarget", 0x31, 0},
+	{"PlaceTrapBomber", 0x2a, 0},
+	{"SwapWeapons", 0x23, 0},
+	{"QuickHealth", 0x24, 0},
+	{"QuickMana", 0x25, 0},
+	{"QuickCurePoison", 0x26, 0},
+	{"Chat", 0x8, 0},
+	{"TeamChat", 0x9, 0},
+	{"ToggleConsole", 0xb, 0},
+	{"ToggleQuitMenu", 0x2c, 0},
+	{"ToggleServerMenu", 0x2d, 0},
+	{"ToggleRank", 0x32, 0},
+	{"ToggleNetstat", 0x33, 0},
+	{"ToggleGUI", 0x34, 0},
+	{"AutoSave", 0x35, 0},
+	{"AutoLoad", 0x36, 0},
+	{"Taunt", 0x2e, 0},
+	{"Point", 0x30, 0},
+	{"Laugh", 0x2f, 0},
+	{"IncreaseWindowSize", 0xc, 0},
+	{"DecreaseWindowSize", 0xd, 0},
+	{"IncreaseGamma", 0xe, 0},
+	{"DecreaseGamma", 0xf, 0},
+	{"ScreenShot", 0x37, 0},
+};
+
 nox_ctrlevent_xxx_t nox_ctrlevent_buf_747884[NOX_CTRLEVENT_XXX_MAX] = {0};
 nox_ctrlevent_xxx_t nox_ctrlevent_buf_750964[NOX_CTRLEVENT_XXX_MAX] = {0}; // TODO: size a guess
 
@@ -117,11 +161,9 @@ int nox_ctrlevent_add_ticks_42E630() {
 // 42E649: control flows out of bounds to 554300
 
 //----- (0042EAE0) --------------------------------------------------------
-char* nox_xxx_bindevent_42EAE0() {
+void nox_xxx_bindevent_42EAE0() {
 	unsigned __int8* v0; // esi
 	int v1;              // eax
-	char* result;        // eax
-	unsigned __int8* v3; // esi
 	char v4[256];        // [esp+4h] [ebp-100h]
 
 	if (*getMemU32Ptr(0x587000, 73672)) {
@@ -133,19 +175,12 @@ char* nox_xxx_bindevent_42EAE0() {
 			v0 += 16;
 		} while (v1);
 	}
-	*getMemU32Ptr(0x587000, 75880 + 8) =
-		nox_strman_loadString_40F1D0("bindevent:NullEvent", 0, "C:\\NoxPost\\src\\Client\\System\\Ctrlevnt.c", 2095);
-	result = *(char**)getMemAt(0x587000, 75880 + 12*1);
-	if (*getMemU32Ptr(0x587000, 75880 + 12*1)) {
-		v3 = getMemAt(0x587000, 75880 + 12*1);
-		do {
-			nox_sprintf(v4, "bindevent:%s", result);
-			*((_DWORD*)v3 + 2) = nox_strman_loadString_40F1D0(v4, 0, "C:\\NoxPost\\src\\Client\\System\\Ctrlevnt.c", 2100);
-			result = (char*)*((_DWORD*)v3 + 3);
-			v3 += 12;
-		} while (result);
+	nox_bindevent_arr[0].title = nox_strman_loadString_40F1D0("bindevent:NullEvent", 0, "C:\\NoxPost\\src\\Client\\System\\Ctrlevnt.c", 2095);
+	for (int i = 1; i < NOX_BINDEVENT_MAX; i++) {
+		nox_bindevent_t* ev = &nox_bindevent_arr[i];
+		nox_sprintf(v4, "bindevent:%s", ev->name);
+		ev->title = nox_strman_loadString_40F1D0(v4, 0, "C:\\NoxPost\\src\\Client\\System\\Ctrlevnt.c", 2100);
 	}
-	return result;
 }
 
 //----- (0042D6B0) --------------------------------------------------------

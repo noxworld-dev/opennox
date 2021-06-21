@@ -33,7 +33,7 @@ char* sub_4C3620() {
 	sub_42CD90();
 	for (i = 0; i < *(__int16*)(v0 + 44); ++i) {
 		v2 = (wchar_t*)nox_window_call_field_94(*(int*)&dword_5d4594_1321240, 16406, i, 0);
-		v3 = sub_42EA40(v2);
+		v3 = nox_xxx_bindevent_bindNameByTitle_42EA40(v2);
 		v4 = (wchar_t*)nox_window_call_field_94(*(int*)&dword_5d4594_1321244, 16406, i, 0);
 		v5 = sub_42E960(v4);
 		v6 = (wchar_t*)nox_window_call_field_94(*(int*)&dword_5d4594_1321248, 16406, i, 0);
@@ -48,7 +48,7 @@ char* sub_4C3620() {
 		}
 	}
 	v8 = nox_strman_loadString_40F1D0("bindevent:ToggleQuitMenu", 0, "C:\\NoxPost\\src\\client\\Gui\\GuiInput.c", 191);
-	v9 = sub_42EA40(v8);
+	v9 = nox_xxx_bindevent_bindNameByTitle_42EA40(v8);
 	v10 = nox_strman_loadString_40F1D0("keybind:Esc", 0, "C:\\NoxPost\\src\\client\\Gui\\GuiInput.c", 192);
 	result = sub_42E960(v10);
 	if (result) {

@@ -3,7 +3,14 @@
 
 #include "defs.h"
 
-char* nox_xxx_bindevent_42EAE0();
+#define NOX_BINDEVENT_MAX 41
+typedef struct nox_bindevent_t {
+	const char* name;
+	unsigned int key;
+	const wchar_t* title;
+} nox_bindevent_t;
+
+void nox_xxx_bindevent_42EAE0();
 void nox_xxx_clientControl_42D6B0(nox_mouse_state_t* mouse, int a4);
 void nox_ctrlevent_action_42E670(nox_ctrlevent_code code, _DWORD data);
 void nox_ctrlevent_action_42E780(nox_ctrlevent_code code, _DWORD data);
