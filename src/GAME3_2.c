@@ -5512,7 +5512,7 @@ _DWORD*  sub_4D82F0(int a1, _DWORD* a2) {
 			*(_WORD*)&v19[1] = *(_WORD*)(v8 + 36);
 			if (*(_BYTE*)(v8 + 8) & 4)
 				v19[2] |= 0x80u;
-			*(_DWORD*)&v19[3] = nox_xxx_unitWeaponInventoryEquipFlags_415820((int)a2);
+			*(_DWORD*)&v19[3] = nox_xxx_weaponInventoryEquipFlags_415820((int)a2);
 			v9 = 0;
 			v10 = v5;
 			do {
@@ -5530,7 +5530,7 @@ _DWORD*  sub_4D82F0(int a1, _DWORD* a2) {
 			*(_WORD*)&v19[1] = *(_WORD*)(v11 + 36);
 			if (*(_BYTE*)(v11 + 8) & 4)
 				v19[2] |= 0x80u;
-			*(_DWORD*)&v19[3] = nox_xxx_unitWeaponInventoryEquipFlags_415820((int)a2);
+			*(_DWORD*)&v19[3] = nox_xxx_weaponInventoryEquipFlags_415820((int)a2);
 			result = (_DWORD*)nox_xxx_netSendPacket1_4E5390(a1, (int)v19, 7, 0, 0);
 		}
 	} else if (v3 & 0x2000000) {
@@ -5589,7 +5589,7 @@ int  nox_xxx_netReportDequip_4D84C0(int a1, int a2) {
 		v4 = *(_DWORD*)(a2 + 492);
 		v7[0] = 84;
 		*(_WORD*)&v7[1] = *(_WORD*)(v4 + 36);
-		v5 = nox_xxx_unitWeaponInventoryEquipFlags_415820(a2);
+		v5 = nox_xxx_weaponInventoryEquipFlags_415820(a2);
 	} else {
 		if (!(v3 & 0x2000000))
 			return result;

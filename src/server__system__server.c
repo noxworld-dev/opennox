@@ -1031,7 +1031,7 @@ void sub_4EC720() {
 								v14 = *(_DWORD *) (v13 + 8);
 								if (v14 & 0x1000) {
 									nox_xxx_rechargeItem_53C520(v13, 100);
-								} else if (v14 & 0x1000000 && nox_xxx_unitWeaponInventoryEquipFlags_415820(*(_DWORD *) (v0 + 4)) & 0x82) {
+								} else if (v14 & 0x1000000 && nox_xxx_weaponInventoryEquipFlags_415820(*(_DWORD *) (v0 + 4)) & 0x82) {
 									v15 = *(_BYTE **) (*(_DWORD *) (v0 + 4) + 736);
 									v15[1] = *(_BYTE *) (v0 + 48);
 									*v15 = *(_BYTE *) (v0 + 49);
@@ -1067,7 +1067,7 @@ void sub_4EC720() {
 			*(_WORD*)(v6 + 126) = v7;
 			if (*(_DWORD*)(v6 + 8) & 0x13001000)
 				nox_xxx_modifSetItemAttrs_4E4990(v6, (int*)(v0 + 28));
-			if (*(_DWORD*)(v6 + 8) & 0x1000000 && nox_xxx_unitWeaponInventoryEquipFlags_415820(v6) & 0x82) {
+			if (*(_DWORD*)(v6 + 8) & 0x1000000 && nox_xxx_weaponInventoryEquipFlags_415820(v6) & 0x82) {
 				v8 = *(_BYTE**)(v6 + 736);
 				v8[1] = *(_BYTE*)(v0 + 48);
 				*v8 = *(_BYTE*)(v0 + 49);

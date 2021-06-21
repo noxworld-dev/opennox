@@ -1941,13 +1941,13 @@ int*  nox_xxx_npcSetItemEquipFlags_4E4B20(int a1, int a2, int a3) {
 	v4 = *(_DWORD*)(a2 + 8);
 	if (a3 == 1) {
 		if (v4 & 0x1001000) {
-			*(_DWORD*)(v3 + 2056) |= nox_xxx_unitWeaponInventoryEquipFlags_415820(a2);
+			*(_DWORD*)(v3 + 2056) |= nox_xxx_weaponInventoryEquipFlags_415820(a2);
 			goto LABEL_9;
 		}
 		v5 = nox_xxx_unitArmorInventoryEquipFlags_415C70(a2) | *(_DWORD*)(v3 + 2060);
 	} else {
 		if (v4 & 0x1001000) {
-			*(_DWORD*)(v3 + 2056) &= ~nox_xxx_unitWeaponInventoryEquipFlags_415820(a2);
+			*(_DWORD*)(v3 + 2056) &= ~nox_xxx_weaponInventoryEquipFlags_415820(a2);
 			goto LABEL_9;
 		}
 		v5 = ~nox_xxx_unitArmorInventoryEquipFlags_415C70(a2) & *(_DWORD*)(v3 + 2060);
@@ -7377,7 +7377,7 @@ _DWORD*  nox_xxx_respawnAdd_4EC5E0(int a1) {
 			*((_WORD*)result + 8) = *(_WORD*)(a1 + 124);
 			if (*(_DWORD*)(a1 + 8) & 0x13001000)
 				memcpy(result + 7, *(const void**)(a1 + 692), 0x14u);
-			if (*(_DWORD*)(a1 + 8) & 0x1000000 && nox_xxx_unitWeaponInventoryEquipFlags_415820(a1) & 0x82) {
+			if (*(_DWORD*)(a1 + 8) & 0x1000000 && nox_xxx_weaponInventoryEquipFlags_415820(a1) & 0x82) {
 				v4 = *(_BYTE**)(a1 + 736);
 				*((_BYTE*)v2 + 48) = v4[1];
 				*((_BYTE*)v2 + 49) = *v4;
@@ -7942,12 +7942,12 @@ int  nox_xxx_dropDefault_4ED290(int a1, int a2, float2* a3) {
 		sub_4ED0C0(a1, (int*)a2);
 		nox_xxx_createAt_4DAA50(a2, 0, a3->field_0, a3->field_4);
 		if (*(_DWORD*)(a2 + 8) & 0x1000000) {
-			if (nox_xxx_unitWeaponInventoryEquipFlags_415820(a2) == 4) {
+			if (nox_xxx_weaponInventoryEquipFlags_415820(a2) == 4) {
 				v5 = *(int**)(a1 + 504);
 				if (v5) {
 					while (1) {
 						if (v5[2] & 0x1000000) {
-							if (nox_xxx_unitWeaponInventoryEquipFlags_415820((int)v5) == 2) {
+							if (nox_xxx_weaponInventoryEquipFlags_415820((int)v5) == 2) {
 								v6 = v5[4];
 								if (!(v6 & 0x100)) {
 									if (*(_BYTE*)(v5[184] + 2))
@@ -11814,7 +11814,7 @@ int  sub_4F27E0(int a1) {
 	if (!v1)
 		return 1;
 	if (*(_DWORD*)(a1 + 8) & 0x1000000)
-		v2 = nox_xxx_unitWeaponInventoryEquipFlags_415820(a1);
+		v2 = nox_xxx_weaponInventoryEquipFlags_415820(a1);
 	else
 		v2 = nox_xxx_unitArmorInventoryEquipFlags_415C70(a1);
 	v3 = *(_DWORD*)(a1 + 8) & 0x1000000;
@@ -11866,7 +11866,7 @@ int  sub_4F28C0(int a1) {
 	v1 = *(_DWORD*)(*(_DWORD*)(a1 + 692) + 4);
 	if (v1) {
 		if (*(_DWORD*)(a1 + 8) & 0x1000000)
-			v2 = nox_xxx_unitWeaponInventoryEquipFlags_415820(a1);
+			v2 = nox_xxx_weaponInventoryEquipFlags_415820(a1);
 		else
 			v2 = nox_xxx_unitArmorInventoryEquipFlags_415C70(a1);
 		v3 = 0;
@@ -11921,7 +11921,7 @@ int  sub_4F2960(int a1) {
 		*getMemU32Ptr(0x5D4594, 1568320) = nox_xxx_modifGetDescById_413330(v4);
 	}
 	if (*(_DWORD*)(a1 + 8) & 0x1000000)
-		v5 = nox_xxx_unitWeaponInventoryEquipFlags_415820(a1);
+		v5 = nox_xxx_weaponInventoryEquipFlags_415820(a1);
 	else
 		v5 = nox_xxx_unitArmorInventoryEquipFlags_415C70(a1);
 	v6 = 2;
@@ -12012,7 +12012,7 @@ int  sub_4F2B60(int a1) {
 		v1 = nox_xxx_modifGetIdByName_413290("Replenishment1");
 		*getMemU32Ptr(0x5D4594, 1568324) = nox_xxx_modifGetDescById_413330(v1);
 	}
-	if (*(_DWORD*)(a1 + 8) & 0x1000000 && nox_xxx_unitWeaponInventoryEquipFlags_415820(a1) & 0x10000) {
+	if (*(_DWORD*)(a1 + 8) & 0x1000000 && nox_xxx_weaponInventoryEquipFlags_415820(a1) & 0x10000) {
 		v2 = *(_DWORD**)(a1 + 692);
 		if (*v2)
 			return 0;
@@ -12610,7 +12610,7 @@ int  nox_xxx_pickupAmmo_4F3B00(int a1, int a2, int a3, int a4) {
 	int v21;              // [esp+1Ch] [ebp-4h]
 
 	v4 = a2;
-	v5 = nox_xxx_unitWeaponInventoryEquipFlags_415820(a2);
+	v5 = nox_xxx_weaponInventoryEquipFlags_415820(a2);
 	v6 = a1;
 	v18 = v5;
 	if (!(*(_BYTE*)(a1 + 8) & 4))
@@ -12625,7 +12625,7 @@ int  nox_xxx_pickupAmmo_4F3B00(int a1, int a2, int a3, int a4) {
 	if (!v7)
 		return sub_53A720(v6, v4, a3, a4);
 	while (1) {
-		if (*(_WORD*)(v7 + 4) != *(_WORD*)(v4 + 4) || !(*(_DWORD*)(v7 + 8) & 0x1000000) || !(nox_xxx_unitWeaponInventoryEquipFlags_415820(v7) & v18))
+		if (*(_WORD*)(v7 + 4) != *(_WORD*)(v4 + 4) || !(*(_DWORD*)(v7 + 8) & 0x1000000) || !(nox_xxx_weaponInventoryEquipFlags_415820(v7) & v18))
 			goto LABEL_15;
 		v9 = *(char**)(v7 + 736);
 		v10 = v8;

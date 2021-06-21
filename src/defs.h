@@ -469,7 +469,7 @@ typedef struct nox_object_t {
 	_WORD field_1_2; // 1, 6
 	unsigned int obj_class; // 2, 8
 	_DWORD field_3; // 3, 12
-	_DWORD field_4; // 4, 16
+	unsigned int field_4; // 4, 16, // TODO: some flags?
 	_DWORD field_5; // 5, 20
 	_WORD field_6_0; // 6, 24
 	_WORD field_6_2; // 6, 26

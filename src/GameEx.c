@@ -633,7 +633,7 @@ char  mix_MouseKeyboardWeaponRoll(int playerObj, char a2) {
 				next = *(_DWORD*)(next + v4);
 				if (!next)
 					break;
-				weapFlags = nox_xxx_unitWeaponInventoryEquipFlags_415820(next); // weaponEquipFlags
+				weapFlags = nox_xxx_weaponInventoryEquipFlags_415820(next); // weaponEquipFlags
 				if (weapFlags && weapFlags != 2) {
 					if (nox_xxx_playerClassCanUseItem_57B3D0(next, *(_BYTE*)(*(_DWORD*)(*(_DWORD*)(playerObj + 748) + 276) + 2251))) {
 						v11 = nox_xxx_playerCheckStrength_4F3180(playerObj, next);
@@ -648,7 +648,7 @@ char  mix_MouseKeyboardWeaponRoll(int playerObj, char a2) {
 			}
 		} else {
 			for (i = *(_DWORD*)(playerObj + 504); i; i = *(_DWORD*)(i + 496)) {
-				v6 = nox_xxx_unitWeaponInventoryEquipFlags_415820(i); // weaponEquipFlags
+				v6 = nox_xxx_weaponInventoryEquipFlags_415820(i); // weaponEquipFlags
 				if (v6 && v6 != 2) {
 					if (nox_xxx_playerClassCanUseItem_57B3D0(i, *(_BYTE*)(*(_DWORD*)(*(_DWORD*)(playerObj + 0x2EC) + 0x114) + 0x8CB))) {
 						v8 = nox_xxx_playerCheckStrength_4F3180(playerObj, i);

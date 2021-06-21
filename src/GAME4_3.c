@@ -6873,7 +6873,7 @@ int  nox_xxx_shootBowCrossbow1_539BD0(int a1, int a2) {
 	int v7;     // eax
 	int v8;     // eax
 
-	v2 = nox_xxx_unitWeaponInventoryEquipFlags_415820(a2);
+	v2 = nox_xxx_weaponInventoryEquipFlags_415820(a2);
 	v3 = *(_BYTE**)(a2 + 736);
 	v4 = (char*)v2;
 	if (!*v3) {
@@ -6882,7 +6882,7 @@ int  nox_xxx_shootBowCrossbow1_539BD0(int a1, int a2) {
 			while (1) {
 				v7 = v6[4];
 				if (v7 & 0x100) {
-					if (nox_xxx_unitWeaponInventoryEquipFlags_415820((int)v6) == 2) {
+					if (nox_xxx_weaponInventoryEquipFlags_415820((int)v6) == 2) {
 						v8 = v6[184];
 						if (*(_BYTE*)(v8 + 1) || *(_BYTE*)(v8 + 2) == 1)
 							break;
@@ -7052,7 +7052,7 @@ int  sub_539FB0(_DWORD* a1) {
 	v1 = a1[126];
 	if (!v1)
 		return 0;
-	while (nox_xxx_unitWeaponInventoryEquipFlags_415820(v1) != 128) {
+	while (nox_xxx_weaponInventoryEquipFlags_415820(v1) != 128) {
 		v1 = *(_DWORD*)(v1 + 496);
 		if (!v1)
 			return 0;
@@ -7067,7 +7067,7 @@ int  nox_xxx_playerTryReloadQuiver_539FF0(_DWORD* a1) {
 	v1 = a1[126];
 	if (!v1)
 		return 0;
-	while (nox_xxx_unitWeaponInventoryEquipFlags_415820(v1) != 2) {
+	while (nox_xxx_weaponInventoryEquipFlags_415820(v1) != 2) {
 		v1 = *(_DWORD*)(v1 + 496);
 		if (!v1)
 			return 0;
@@ -7121,7 +7121,7 @@ void  sub_53A0F0(int a1, int a2, int a3) {
 		while (1) {
 			v4 = *(_DWORD*)(v3 + 16);
 			if (v4 & 0x100) {
-				if (nox_xxx_unitWeaponInventoryEquipFlags_415820(v3) == 2)
+				if (nox_xxx_weaponInventoryEquipFlags_415820(v3) == 2)
 					break;
 			}
 			v3 = *(_DWORD*)(v3 + 496);
@@ -7133,81 +7133,54 @@ void  sub_53A0F0(int a1, int a2, int a3) {
 }
 
 //----- (0053A140) --------------------------------------------------------
-int  nox_xxx_playerDequipWeapon_53A140(_DWORD* a1, int a2, int a3, int a4) {
-	_DWORD* v4;  // edi
-	int v5;      // eax
-	_DWORD* v6;  // ebx
-	int v7;      // ecx
-	int v8;      // eax
-	int v10;     // esi
-	_DWORD* v11; // eax
-	int v12;     // edx
-	int v13;     // eax
-	int v14;     // ebx
-	int v15;     // ebx
-	int v16;     // ebp
-	int v17;     // ebp
-	_DWORD* v18; // eax
-	int v19;     // [esp+14h] [ebp+8h]
-
-	v4 = (_DWORD*)a2;
-	v5 = nox_xxx_unitWeaponInventoryEquipFlags_415820(a2);
-	v6 = a1;
-	v7 = v5;
-	v19 = v5;
-	v8 = a1[2];
-	if (v8 & 2)
-		return nox_xxx_equipWeaponNPC_53A030((int)a1, (int)v4);
-	if (!(v8 & 4) || !(v4[2] & 0x1001000))
+int  nox_xxx_playerDequipWeapon_53A140(_DWORD* a1, nox_object_t* item, int a3, int a4) {
+	int eflags = nox_xxx_weaponInventoryEquipFlags_415820(item);
+	if (a1[2] & 2)
+		return nox_xxx_equipWeaponNPC_53A030(a1, item);
+	if (!(a1[2] & 4) || !(item->obj_class & 0x1001000))
 		return 0;
-	v10 = a1[187];
+	int v10 = a1[187];
 	if (*(_BYTE*)(v10 + 88) == 1) {
 		nox_xxx_playerSetState_4FA020(a1, 13);
-		v7 = v19;
 	}
-	v11 = *(_DWORD**)(v10 + 104);
-	if (!v11 || v11 != v4 && v7 != 2)
+	void* v11 = *(_DWORD**)(v10 + 104);
+	if (!v11 || v11 != item && eflags != 2)
 		return 0;
-	if (v7 & 0xC)
-		sub_53A0F0((int)a1, a3, a4);
-	sub_4FEB60((int)a1, (int)v4);
-	if (v19 == 2) {
-		v12 = v4[4];
-		BYTE1(v12) &= 0xFEu;
-		v4[4] = v12;
+	if (eflags & 0xC)
+		sub_53A0F0(a1, a3, a4);
+	sub_4FEB60(a1, item);
+	if (eflags == 2) {
+		item->field_4 &= 0xFFFFFEFF;
 		*(_DWORD*)(*(_DWORD*)(v10 + 276) + 4) &= 0xFFFFFFFD;
 		if (a3)
-			nox_xxx_netReportDequip_4D8590(*(unsigned __int8*)(*(_DWORD*)(v10 + 276) + 2064), v4);
+			nox_xxx_netReportDequip_4D8590(*(unsigned __int8*)(*(_DWORD*)(v10 + 276) + 2064), item);
 		if (a4)
-			nox_xxx_netReportDequip_4D84C0(255, (int)v4);
-	} else {
-		v13 = *(_DWORD*)(v10 + 104);
-		v14 = *(_DWORD*)(v13 + 16);
-		BYTE1(v14) &= 0xFEu;
-		*(_DWORD*)(v13 + 16) = v14;
-		v15 = *(_DWORD*)(v10 + 276);
-		*(_DWORD*)(v15 + 4) &= ~nox_xxx_unitWeaponInventoryEquipFlags_415820(*(_DWORD*)(v10 + 104));
+			nox_xxx_netReportDequip_4D84C0(255, item);
+	} else if (*(_DWORD*)(v10 + 104)) {
+		int v13 = *(_DWORD*)(v10 + 104);
+		*(_DWORD*)(v13 + 16) &= 0xFFFFFEFF;
+		*(_DWORD*)(*(_DWORD*)(v10 + 276) + 4) &= ~nox_xxx_weaponInventoryEquipFlags_415820(v13);
 		if (a3)
-			nox_xxx_netReportDequip_4D8590(*(unsigned __int8*)(*(_DWORD*)(v10 + 276) + 2064), *(_DWORD**)(v10 + 104));
+			nox_xxx_netReportDequip_4D8590(*(unsigned __int8*)(*(_DWORD*)(v10 + 276) + 2064), v13);
 		if (a4)
-			nox_xxx_netReportDequip_4D84C0(255, (int)v4);
-		v6 = a1;
+			nox_xxx_netReportDequip_4D84C0(255, item);
 		*(_DWORD*)(v10 + 104) = 0;
 	}
-	nox_xxx_itemApplyDisengageEffect_4F3030((int)v4, (int)v6);
+	nox_xxx_itemApplyDisengageEffect_4F3030(item, a1);
 	// Following code is not present in the original exe(!) and it's responsible for automatically equipping shields
 	// whenever possible.
 	if (*getMemU32Ptr(0x980858, 2) & 2) {
-		sub_980523(v6);
-		v16 = v6[187];
-		if (!*(_DWORD*)(v16 + 108) || !(nox_xxx_unitWeaponInventoryEquipFlags_415820(*(_DWORD*)(v16 + 108)) & 0x7FFE40C)) {
-			v17 = *(_DWORD*)(*(_DWORD*)(v16 + 276) + 2500);
+		sub_980523(a1);
+		int v16 = a1[187];
+		if (!*(_DWORD*)(v16 + 108) || !(nox_xxx_weaponInventoryEquipFlags_415820(*(_DWORD*)(v16 + 108)) & 0x7FFE40C)) {
+			int v17 = *(_DWORD*)(*(_DWORD*)(v16 + 276) + 2500);
 			if (v17 && (unsigned __int8)*(_DWORD*)(v17 + 16) == 16) {
-				nox_xxx_playerTryEquip_4F2F70((int)v6, v17);
+				nox_xxx_playerTryEquip_4F2F70(a1, v17);
 			} else {
-				v18 = sub_9805EB(v6);
-				if (v18)
-					nox_xxx_playerTryEquip_4F2F70((int)v6, (int)v18);
+				void* v18 = sub_9805EB(a1);
+				if (v18) {
+					nox_xxx_playerTryEquip_4F2F70(a1, v18);
+				}
 			}
 		}
 	}
@@ -7267,7 +7240,7 @@ LABEL_22:
 	if (!(*(_BYTE*)(a2 + 12) & 2))
 		*(_DWORD*)(v2 + 2064) = a2;
 	nox_xxx_itemApplyEngageEffect_4F2FF0(a2, a1);
-	if (nox_xxx_unitWeaponInventoryEquipFlags_415820(a2) & 0x7FFE40C)
+	if (nox_xxx_weaponInventoryEquipFlags_415820(a2) & 0x7FFE40C)
 		sub_53A3D0((_DWORD*)a1);
 	return 1;
 }
@@ -7302,7 +7275,7 @@ int  nox_xxx_playerEquipWeapon_53A420(_DWORD* a1, int a2, int a3, int a4) {
 	int v11;    // edx
 	int v12;    // eax
 
-	v4 = nox_xxx_unitWeaponInventoryEquipFlags_415820(a2);
+	v4 = nox_xxx_weaponInventoryEquipFlags_415820(a2);
 	if (!(*(_DWORD*)(a2 + 8) & 0x1001000))
 		return 0;
 	v5 = *(_DWORD*)(a2 + 16);
@@ -7383,7 +7356,7 @@ int  sub_53A680(int a1) {
 	v1 = *(_DWORD*)(a1 + 504);
 	if (!v1)
 		return 0;
-	while (!(nox_xxx_unitWeaponInventoryEquipFlags_415820(v1) & 0xC)) {
+	while (!(nox_xxx_weaponInventoryEquipFlags_415820(v1) & 0xC)) {
 		v1 = *(_DWORD*)(v1 + 496);
 		if (!v1)
 			return 0;
@@ -7473,9 +7446,9 @@ int  sub_53A720(int a1, int a2, int a3, int a4) {
 	if (*(_BYTE*)(a1 + 8) & 4) {
 		v9 = 0;
 		v13 = *(_DWORD*)(a1 + 748);
-		if (!*(_DWORD*)(v13 + 104) && !sub_419E60((int)v4) && nox_xxx_unitWeaponInventoryEquipFlags_415820(a2) != 2)
+		if (!*(_DWORD*)(v13 + 104) && !sub_419E60((int)v4) && nox_xxx_weaponInventoryEquipFlags_415820(a2) != 2)
 			v9 = nox_xxx_playerEquipWeapon_53A420(v4, a2, a4, 0);
-		if (!sub_419E60((int)v4) && nox_xxx_unitWeaponInventoryEquipFlags_415820(a2) == 2) {
+		if (!sub_419E60((int)v4) && nox_xxx_weaponInventoryEquipFlags_415820(a2) == 2) {
 			v10 = *(_DWORD*)(*(_DWORD*)(v13 + 276) + 4);
 			if (v10 & 0xC) {
 				if (!(v10 & 2))
@@ -10051,7 +10024,7 @@ void  sub_53E600(_DWORD* a1) {
 		for (i = (_DWORD*)a1[126]; i; i = (_DWORD*)i[124]) {
 			v2 = i[4];
 			if (v2 & 0x100 && i[2] & 0x1001000) {
-				if (nox_xxx_unitWeaponInventoryEquipFlags_415820((int)i) & 0x7FFE40C)
+				if (nox_xxx_weaponInventoryEquipFlags_415820((int)i) & 0x7FFE40C)
 					nox_xxx_playerDequipWeapon_53A140(a1, (int)i, 1, 1);
 			}
 		}

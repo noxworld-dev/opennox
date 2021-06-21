@@ -7301,13 +7301,10 @@ int  nox_thing_read_ABIL_415750(nox_memfile* f, void* a2) {
 }
 
 //----- (00415820) --------------------------------------------------------
-int  nox_xxx_unitWeaponInventoryEquipFlags_415820(int a1) {
-	int result; // eax
-
-	result = a1;
-	if (a1)
-		result = nox_xxx_ammoCheck_415880((char*)*(unsigned __int16*)(a1 + 4));
-	return result;
+int  nox_xxx_weaponInventoryEquipFlags_415820(nox_object_t* item) {
+	if (!item)
+		return 0;
+	return nox_xxx_ammoCheck_415880(item->typ_ind);
 }
 
 //----- (00415840) --------------------------------------------------------
@@ -7329,7 +7326,7 @@ int  sub_415840(char* a1) {
 }
 
 //----- (00415880) --------------------------------------------------------
-int  nox_xxx_ammoCheck_415880(char* a1) {
+int  nox_xxx_ammoCheck_415880(unsigned short typ_ind) {
 	int v1;             // ecx
 	unsigned __int8* i; // eax
 	int v3;             // esi
@@ -7337,7 +7334,7 @@ int  nox_xxx_ammoCheck_415880(char* a1) {
 	v1 = 0;
 	if (!*getMemU32Ptr(0x587000, 33064))
 		return 0;
-	for (i = getMemAt(0x587000, 33064); *((char**)i + 1) != a1; i += 12) {
+	for (i = getMemAt(0x587000, 33064); *((char**)i + 1) != typ_ind; i += 12) {
 		v3 = *((_DWORD*)i + 3);
 		++v1;
 		if (!v3)
