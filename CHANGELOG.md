@@ -1,5 +1,13 @@
 # Changelog
 
+## v1.6.1
+
+- Fix: Prevent freeze when closing the game on Windows. 
+- Fix: Prevent crash in `set mana`.
+- Fix: Prevent crash when switching shield and bow with `set allow.all` enabled.
+- Fix: Ignore item strength requirement when using `allow.all`.
+- Fix: Remove restrictions from `cheat gold`, so it's accepted in Quest games.
+
 ## v1.6.0
 
 - Rename project to OpenNox to avoid confusion.
