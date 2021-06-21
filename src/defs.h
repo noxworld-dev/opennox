@@ -97,6 +97,7 @@ typedef unsigned __int64 _QWORD;
 #define __SPAIR64__(x, y) ((__int64)((((_QWORD)(x)) << 32) | ((_DWORD)(y))))
 
 void nox_exit(int exitCode);
+void nox_on_exit(void (*fnc)(void));
 
 static int __OFSUB__(int x, int y) {
 	abort();

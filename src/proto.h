@@ -6333,7 +6333,6 @@ unsigned int  sub_5654A0(int a1, unsigned __int8* a2, int* a3, unsigned int a4, 
 // char * strstr(const char *, const char *);
 // int  _itow(int, LPWSTR lpWideCharStr, int); idb
 // int  _chmod(LPCSTR lpFileName, char); idb
-// _onexit_t  _onexit(_onexit_t);
 // int  atexit(void ( *)());
 // int  vswprintf(wchar_t *, const wchar_t *, va_list);
 // int  wcstol(const wchar_t *, wchar_t **, int);

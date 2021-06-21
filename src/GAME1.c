@@ -148,6 +148,9 @@ void nox_exit(int exitCode) {
 #endif
 	exit(exitCode);
 }
+void nox_on_exit(void (*fnc)(void)) {
+	atexit(fnc);
+}
 #endif // NOX_CGO
 
 //----- (00401000) --------------------------------------------------------

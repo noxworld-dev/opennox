@@ -306,7 +306,6 @@ enum {
 #define _read read
 #define _write write
 #define _close close
-#define _onexit atexit
 
 BOOL WINAPI CloseHandle(HANDLE hObject);
 DWORD WINAPI GetLastError();

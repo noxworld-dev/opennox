@@ -1867,7 +1867,9 @@ int  sub_43E940(int a1) {
 	int v1;     // eax
 	int result; // eax
 
-	_onexit(sub_43E9C0);
+#ifndef NOX_CGO
+	nox_on_exit(sub_43E9C0);
+#endif // NOX_CGO
 	AIL_startup();
 	v1 = AIL_register_timer(sub_43E9D0);
 	dword_587000_93944 = v1;

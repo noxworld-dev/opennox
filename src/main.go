@@ -407,7 +407,7 @@ func change_windowed_fullscreen() {
 }
 
 func cleanup() {
-	fmt.Println("cleanup")
+	log.Println("cleanup")
 	if noxflags.HasGame(noxflags.GameFlag26) {
 		C.nox_xxx_networkLog_close_413D00()
 	}
@@ -438,6 +438,7 @@ func cleanup() {
 	C.sub_40AF30()
 	//C.sub_48B1B0() // does nothing on SDL
 	C.nox_free_thing_bin()
+	AIL_shutdown()
 }
 
 func sub_4311B0() {

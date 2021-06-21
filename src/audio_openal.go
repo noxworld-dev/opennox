@@ -1097,13 +1097,6 @@ func AIL_set_timer_frequency(h C.HTIMER, hertz C.uint32_t) {
 	t.dt = time.Duration(1000.0/float32(hertz)) * time.Millisecond
 }
 
-//export AIL_shutdown
-func AIL_shutdown() {
-	if audioDebug {
-		audioLog.Println("AIL_shutdown")
-	}
-}
-
 //export AIL_start_stream
 func AIL_start_stream(h C.HSTREAM) {
 	if audioDebug {
@@ -1123,7 +1116,6 @@ func AIL_start_timer(h C.HTIMER) {
 	tm := time.NewTicker(dt)
 	t.t = tm
 	go func() {
-		// TODO(dennwc): a way to stop it
 		for range tm.C {
 			t.f(t.user)
 			if t.dt != dt {
@@ -1140,6 +1132,27 @@ func AIL_startup() C.int32_t {
 		audioLog.Println("AIL_startup")
 	}
 	return -1
+}
+
+//export AIL_shutdown
+func AIL_shutdown() {
+	if audioDebug {
+		audioLog.Println("AIL_shutdown")
+	}
+	audioTimers.Lock()
+	for _, t := range audioTimers.byHandle {
+		if t.t != nil {
+			t.t.Stop()
+		}
+	}
+	audioTimers.Unlock()
+	audioDrivers.Lock()
+	for _, d := range audioDrivers.byHandle {
+		if d.t != nil {
+			d.t.Stop()
+		}
+	}
+	audioDrivers.Unlock()
 }
 
 //export AIL_stop_sample
