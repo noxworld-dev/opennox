@@ -4290,9 +4290,9 @@ char* sub_4C3B70() {
 	nox_window_call_field_94(*(int*)&dword_5d4594_1321240, 16399, 0, 0);
 	nox_window_call_field_94(*(int*)&dword_5d4594_1321244, 16399, 0, 0);
 	nox_window_call_field_94(*(int*)&dword_5d4594_1321248, 16399, 0, 0);
-	result = *(char**)getMemAt(0x587000, 75892);
-	if (*getMemU32Ptr(0x587000, 75892)) {
-		v1 = getMemIntPtr(0x587000, 75896);
+	result = *(char**)getMemAt(0x587000, 75880 + 12*1);
+	if (*getMemU32Ptr(0x587000, 75880 + 12*1)) {
+		v1 = getMemIntPtr(0x587000, 75880 + 12*1 + 4);
 		do {
 			if (*v1 != 44) {
 				nox_window_call_field_94(*(int*)&dword_5d4594_1321240, 16397, v1[1], -1);
@@ -6847,9 +6847,9 @@ char* sub_4CBBF0() {
 	nox_window_call_field_94(*(int*)&dword_5d4594_1522620, 16399, 0, 0);
 	nox_window_call_field_94(*(int*)&dword_5d4594_1522624, 16399, 0, 0);
 	nox_window_call_field_94(*(int*)&dword_5d4594_1522628, 16399, 0, 0);
-	result = *(char**)getMemAt(0x587000, 75892);
-	if (*getMemU32Ptr(0x587000, 75892)) {
-		v1 = getMemIntPtr(0x587000, 75896);
+	result = *(char**)getMemAt(0x587000, 75880 + 12*1);
+	if (*getMemU32Ptr(0x587000, 75880 + 12*1)) {
+		v1 = getMemIntPtr(0x587000, 75880 + 12*1 + 4);
 		do {
 			if (*v1 != 44) {
 				nox_window_call_field_94(*(int*)&dword_5d4594_1522620, 16397, v1[1], -1);

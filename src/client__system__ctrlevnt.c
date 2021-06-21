@@ -133,11 +133,11 @@ char* nox_xxx_bindevent_42EAE0() {
 			v0 += 16;
 		} while (v1);
 	}
-	*getMemU32Ptr(0x587000, 75888) =
+	*getMemU32Ptr(0x587000, 75880 + 8) =
 		nox_strman_loadString_40F1D0("bindevent:NullEvent", 0, "C:\\NoxPost\\src\\Client\\System\\Ctrlevnt.c", 2095);
-	result = *(char**)getMemAt(0x587000, 75892);
-	if (*getMemU32Ptr(0x587000, 75892)) {
-		v3 = getMemAt(0x587000, 75892);
+	result = *(char**)getMemAt(0x587000, 75880 + 12*1);
+	if (*getMemU32Ptr(0x587000, 75880 + 12*1)) {
+		v3 = getMemAt(0x587000, 75880 + 12*1);
 		do {
 			nox_sprintf(v4, "bindevent:%s", result);
 			*((_DWORD*)v3 + 2) = nox_strman_loadString_40F1D0(v4, 0, "C:\\NoxPost\\src\\Client\\System\\Ctrlevnt.c", 2100);

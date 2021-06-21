@@ -3816,11 +3816,11 @@ int  sub_42CF50(const char* a1) {
 								v15 = *(_DWORD*)(v17 + 68);
 								if (v15 == 8)
 									goto LABEL_38;
-								*(_DWORD*)(v17 + 4 * v15 + 36) = *getMemU32Ptr(0x587000, 75884 + 12 * v13);
+								*(_DWORD*)(v17 + 4 * v15 + 36) = *getMemU32Ptr(0x587000, 75880 + 12*v13 + 4);
 								++*(_DWORD*)(v17 + 68);
 							}
 						LABEL_33:
-							if (!*getMemU32Ptr(0x587000, 75880 + 12 * v13))
+							if (!*getMemU32Ptr(0x587000, 75880 + 12*v13))
 								return 0;
 						}
 						v11 = strtok(0, " \r\t\n");
@@ -4138,7 +4138,7 @@ int  sub_42EA40(wchar_t* a1) {
 		if (!v3)
 			return 0;
 	}
-	return *getMemU32Ptr(0x587000, 75880 + 12 * v1);
+	return *getMemU32Ptr(0x587000, 75880 + 12*v1);
 }
 
 //----- (0042EA90) --------------------------------------------------------
@@ -4161,7 +4161,7 @@ char*  sub_42EA90(char* a1) {
 		if (!v4)
 			return (char*)getMemAt(0x5D4594, 754084);
 	}
-	return *(char**)getMemAt(0x587000, 75888 + 12 * v1);
+	return *(char**)getMemAt(0x587000, 75880 + 12*v1 + 8);
 }
 
 //----- (0042EB90) --------------------------------------------------------
