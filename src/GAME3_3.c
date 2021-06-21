@@ -12245,7 +12245,10 @@ void  nox_xxx_inventoryPutImpl_4F3070(int a1, int a2, int a3) {
 }
 
 //----- (004F3180) --------------------------------------------------------
+extern int nox_cheat_allowall;
 bool  nox_xxx_playerCheckStrength_4F3180(int a1, int a2) {
+	if (nox_cheat_allowall)
+		return 1;
 	int v2;      // esi
 	_DWORD* v3;  // eax
 	bool result; // al
