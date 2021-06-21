@@ -1128,8 +1128,6 @@ void  nox_xxx_clientTrade_42E850(int a1);
 void  nullsub_33(_DWORD, _DWORD, _DWORD); // weak
 void  sub_42E8C0(int a1);
 wchar_t* sub_42E8E0(int a1, int a2);
-char*  sub_42E960(wchar_t* a1);
-wchar_t* sub_42EA00(unsigned int a1);
 char*  nox_xxx_bindevent_bindNameByTitle_42EA40(wchar_t* title);
 int  sub_42EB90(int a1);
 int sub_42EBA0();
@@ -3546,7 +3544,7 @@ int  sub_4CBE70(int a1, int a2, int* a3, int a4);
 void sub_4CBF40();
 int  sub_4CC140(_DWORD* a1, unsigned int a2, unsigned int a3, int a4);
 int  sub_4CC170(int a1, int a2, char* a3, int a4);
-int  sub_4CC280(char* a1);
+int  sub_4CC280(unsigned int a1);
 int  sub_4CC3C0(unsigned int a1);
 int nox_game_showLegal_4CC4E0();
 int  sub_4CC660(_DWORD* a1, int a2, int a3, int a4);

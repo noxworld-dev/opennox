@@ -132,7 +132,6 @@ extern obj_5D4594_3799572_t obj_5D4594_3800716;
 
 nox_gui_animation* nox_wnd_xxx_1522608 = 0;
 
-extern nox_keybind_t nox_keybind_arr[NOX_KEYEVENT_MAX];
 extern nox_bindevent_t nox_bindevent_arr[NOX_BINDEVENT_MAX];
 
 //----- (004B9470) --------------------------------------------------------
@@ -4370,14 +4369,7 @@ int  sub_4C3EB0(int a1, int a2, unsigned int a3, int a4) {
 
 //----- (004C3FC0) --------------------------------------------------------
 int  sub_4C3FC0(unsigned int a1) {
-	const wchar_t* v6 = 0;
-	for (int i = 0; i < NOX_KEYEVENT_MAX; i++) {
-		nox_keybind_t* ev = &nox_keybind_arr[i];
-		if (ev->key == a1) {
-			v6 = ev->title;
-			break;
-		}
-	}
+	const wchar_t* v6 = nox_xxx_keybind_titleByKeyZero_42EA00(a1);
 	if (!v6) {
 		return 0;
 	}
@@ -4420,7 +4412,7 @@ int  sub_4C4100(unsigned int a1) {
 	int v6;            // ebx
 	const wchar_t* v7; // eax
 
-	v1 = sub_42EA00(a1);
+	v1 = nox_xxx_keybind_titleByKey_42EA00(a1);
 	if (!dword_5d4594_1321252)
 		return 1;
 	v2 = 0;
@@ -6950,15 +6942,8 @@ int  sub_4CC170(int a1, int a2, char* a3, int a4) {
 }
 
 //----- (004CC280) --------------------------------------------------------
-int  sub_4CC280(char* a1) {
-	const wchar_t* v6 = 0;
-	for (int i = 0; i < NOX_KEYEVENT_MAX; i++) {
-		nox_keybind_t* ev = &nox_keybind_arr[i];
-		if (ev->key == a1) {
-			v6 = ev->title;
-			break;
-		}
-	}
+int  sub_4CC280(unsigned int a1) {
+	const wchar_t* v6 = nox_xxx_keybind_titleByKeyZero_42EA00(a1);
 	if (!v6) {
 		return 0;
 	}
@@ -7001,7 +6986,7 @@ int  sub_4CC3C0(unsigned int a1) {
 	int v6;            // ebx
 	const wchar_t* v7; // eax
 
-	v1 = sub_42EA00(a1);
+	v1 = nox_xxx_keybind_titleByKey_42EA00(a1);
 	if (!dword_5d4594_1522632)
 		return 1;
 	v2 = 0;

@@ -1,5 +1,6 @@
 #include "client__gui__guiinput.h"
 #include "client__gui__window.h"
+#include "client__system__ctrlevnt.h"
 
 #include "proto.h"
 
@@ -35,9 +36,9 @@ char* sub_4C3620() {
 		v2 = (wchar_t*)nox_window_call_field_94(*(int*)&dword_5d4594_1321240, 16406, i, 0);
 		v3 = nox_xxx_bindevent_bindNameByTitle_42EA40(v2);
 		v4 = (wchar_t*)nox_window_call_field_94(*(int*)&dword_5d4594_1321244, 16406, i, 0);
-		v5 = sub_42E960(v4);
+		v5 = nox_xxx_keybind_nameByTitle_42E960(v4);
 		v6 = (wchar_t*)nox_window_call_field_94(*(int*)&dword_5d4594_1321248, 16406, i, 0);
-		v7 = sub_42E960(v6);
+		v7 = nox_xxx_keybind_nameByTitle_42E960(v6);
 		if (v7) {
 			nox_sprintf(v12, "%s = %s", v7, v3);
 			sub_42CF50(v12);
@@ -50,7 +51,7 @@ char* sub_4C3620() {
 	v8 = nox_strman_loadString_40F1D0("bindevent:ToggleQuitMenu", 0, "C:\\NoxPost\\src\\client\\Gui\\GuiInput.c", 191);
 	v9 = nox_xxx_bindevent_bindNameByTitle_42EA40(v8);
 	v10 = nox_strman_loadString_40F1D0("keybind:Esc", 0, "C:\\NoxPost\\src\\client\\Gui\\GuiInput.c", 192);
-	result = sub_42E960(v10);
+	result = nox_xxx_keybind_nameByTitle_42E960(v10);
 	if (result) {
 		nox_sprintf(v12, "%s = %s", result, v9);
 		result = (char*)sub_42CF50(v12);

@@ -150,7 +150,6 @@ int nox_max_height = NOX_MAX_HEIGHT;
 
 FILE* nox_video_bag_fileptr = 0;
 
-extern nox_keybind_t nox_keybind_arr[NOX_KEYEVENT_MAX];
 extern nox_bindevent_t nox_bindevent_arr[NOX_BINDEVENT_MAX];
 extern nox_ctrlevent_xxx_t nox_ctrlevent_buf_747884[NOX_CTRLEVENT_XXX_MAX];
 extern nox_ctrlevent_code_info_t nox_ctrlevent_code_infos[];
@@ -3668,11 +3667,9 @@ _DWORD*  sub_42CDF0(FILE* a1) {
 			if (v4[8] > 0) {
 				v11 = v4;
 				do {
-					for (int i = 0; i < NOX_KEYEVENT_MAX; i++) {
-						nox_keybind_t* ev = &nox_keybind_arr[i];
-						if (*v11 == ev->key) {
-							nox_fs_fprintf(v2, "%s ", ev->name);
-						}
+					const char* name = nox_xxx_keybind_nameByKey(*v11);
+					if (name) {
+						nox_fs_fprintf(v2, "%s ", name);
 					}
 					if (v5 != v4[8] - 1)
 						nox_fs_fprintf(v2, "+ ");
@@ -3757,18 +3754,15 @@ int  sub_42CF50(const char* a1) {
 	}
 	while (*v2 != 61) {
 		if (*v2 != 43) {
-			for (int i = 0; i < NOX_KEYEVENT_MAX; i++) {
-				nox_keybind_t* ev = &nox_keybind_arr[i];
-				if (strcmp(ev->name, v16) == 0) {
-					v10 = v3[8];
-					if (v10 == 8) {
-						free(v3);
-						return 0;
-					}
-					v3[v10] = ev->key;
-					++v3[8];
-					break;
+			unsigned int k = nox_xxx_keybind_keyByName(v16);
+			if (k) {
+				v10 = v3[8];
+				if (v10 == 8) {
+					free(v3);
+					return 0;
 				}
+				v3[v10] = k;
+				++v3[8];
 			}
 		}
 		v16 = strtok(0, " \r\t\n");
@@ -4005,34 +3999,10 @@ wchar_t* sub_42E8E0(int a1, int a2) {
 			if (!(v5[v4] == a1 && --a2 <= 0)) {
 				continue;
 			}
-			for (int i = 0; i < NOX_KEYEVENT_MAX; i++) {
-				nox_keybind_t* ev = &nox_keybind_arr[i];
-				if (*v2 == ev->key) {
-					return ev->title;
-				}
+			const wchar_t* title = nox_xxx_keybind_titleByKeyZero_42EA00(*v2);
+			if (title) {
+				return title;
 			}
-		}
-	}
-	return L"";
-}
-
-//----- (0042E960) --------------------------------------------------------
-char*  sub_42E960(wchar_t* title) {
-	for (int i = 0; i < NOX_KEYEVENT_MAX; i++) {
-		nox_keybind_t* ev = &nox_keybind_arr[i];
-		if (_nox_wcsicmp(ev->title, title) == 0) {
-			return ev->name;
-		}
-	}
-	return 0;
-}
-
-//----- (0042EA00) --------------------------------------------------------
-wchar_t* sub_42EA00(unsigned int a1) {
-	for (int i = 0; i < NOX_KEYEVENT_MAX; i++) {
-		nox_keybind_t* ev = &nox_keybind_arr[i];
-		if (ev->key == a1) {
-			return ev->title;
 		}
 	}
 	return L"";

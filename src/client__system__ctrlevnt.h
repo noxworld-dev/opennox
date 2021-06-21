@@ -18,6 +18,11 @@ typedef struct nox_bindevent_t {
 	const wchar_t* title;
 } nox_bindevent_t;
 
+char* nox_xxx_keybind_nameByKey(unsigned int key);
+unsigned int nox_xxx_keybind_keyByName(const char* name);
+char*  nox_xxx_keybind_nameByTitle_42E960(wchar_t* title);
+wchar_t* nox_xxx_keybind_titleByKey_42EA00(unsigned int a1);
+wchar_t* nox_xxx_keybind_titleByKeyZero_42EA00(unsigned int a1);
 void nox_xxx_bindevent_initStrings_42EAE0();
 void nox_xxx_clientControl_42D6B0(nox_mouse_state_t* mouse, int a4);
 void nox_ctrlevent_action_42E670(nox_ctrlevent_code code, _DWORD data);

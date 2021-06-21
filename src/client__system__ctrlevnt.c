@@ -300,6 +300,59 @@ int nox_ctrlevent_add_ticks_42E630() {
 // 42E644: control flows out of bounds to 554290
 // 42E649: control flows out of bounds to 554300
 
+char*  nox_xxx_keybind_nameByKey(unsigned int key) {
+	for (int i = 0; i < NOX_KEYEVENT_MAX; i++) {
+		nox_keybind_t* ev = &nox_keybind_arr[i];
+		if (ev->key == key) {
+			return ev->name;
+		}
+	}
+	return 0;
+}
+
+unsigned int nox_xxx_keybind_keyByName(const char* name) {
+	for (int i = 0; i < NOX_KEYEVENT_MAX; i++) {
+		nox_keybind_t* ev = &nox_keybind_arr[i];
+		if (strcmp(ev->name, name) == 0) {
+			return ev->key;
+		}
+	}
+	return 0;
+}
+
+//----- (0042E960) --------------------------------------------------------
+char*  nox_xxx_keybind_nameByTitle_42E960(wchar_t* title) {
+	for (int i = 0; i < NOX_KEYEVENT_MAX; i++) {
+		nox_keybind_t* ev = &nox_keybind_arr[i];
+		if (_nox_wcsicmp(ev->title, title) == 0) {
+			return ev->name;
+		}
+	}
+	return 0;
+}
+
+//----- (0042EA00) --------------------------------------------------------
+wchar_t* nox_xxx_keybind_titleByKey_42EA00(unsigned int a1) {
+	for (int i = 0; i < NOX_KEYEVENT_MAX; i++) {
+		nox_keybind_t* ev = &nox_keybind_arr[i];
+		if (ev->key == a1) {
+			return ev->title;
+		}
+	}
+	return L"";
+}
+
+//----- (0042EA00) --------------------------------------------------------
+wchar_t* nox_xxx_keybind_titleByKeyZero_42EA00(unsigned int a1) {
+	for (int i = 0; i < NOX_KEYEVENT_MAX; i++) {
+		nox_keybind_t* ev = &nox_keybind_arr[i];
+		if (ev->key == a1) {
+			return ev->title;
+		}
+	}
+	return 0;
+}
+
 //----- (0042EAE0) --------------------------------------------------------
 void nox_xxx_bindevent_initStrings_42EAE0() {
 	for (int i = 0; i < NOX_KEYEVENT_MAX; i++) {
