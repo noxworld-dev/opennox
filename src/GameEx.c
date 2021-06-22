@@ -25,6 +25,8 @@ extern nox_window* nox_win_unk3;
 //-------------------------------------------------------------------------
 // Data declarations
 
+unsigned int gameex_flags = 0x1E;
+
 #ifndef NOX_CGO
 keyCodeStruct keycodeArray[] = {
 	{183u, "print scren"},
@@ -235,27 +237,27 @@ void  GameExCfgSaver() {
 	}
 	nox_fs_fwrite(v1, "AUTO_SHIELD = ",  0xE);
 	v2 = "1\r\n";
-	if (!((*getMemU32Ptr(0x980858, 2) >> 1) & 1))
+	if (!((gameex_flags >> 1) & 1))
 		v2 = "0\r\n";
 	nox_fs_fwrite(v1, v2, 3);
 	nox_fs_fwrite(v1, "GREAT_SWORD_BLOKING_WALK = ",  0x1B);
 	v3 = "1\r\n";
-	if (!((*getMemU32Ptr(0x980858, 2) >> 2) & 1))
+	if (!((gameex_flags >> 2) & 1))
 		v3 = "0\r\n";
 	nox_fs_fwrite(v1, v3, 3);
 	nox_fs_fwrite(v1, "MOUSE_KEYBOARD_ROLL = ", 0x16);
 	v4 = "1\r\n";
-	if (!((*getMemU32Ptr(0x980858, 2) >> 3) & 1))
+	if (!((gameex_flags >> 3) & 1))
 		v4 = "0\r\n";
 	nox_fs_fwrite(v1, v4, 3);
 	nox_fs_fwrite(v1, "BERSERKER_SHIED_BLOCK = ", 0x18);
 	v5 = "1\r\n";
-	if (!((*getMemU32Ptr(0x980858, 2) >> 4) & 1))
+	if (!((gameex_flags >> 4) & 1))
 		v5 = "0\r\n";
 	nox_fs_fwrite(v1, v5, 3);
 	nox_fs_fwrite(v1, "EXTENSION_MESSAGES = ", 0x15);
 	v6 = "1\r\n";
-	if (!((*getMemU32Ptr(0x980858, 2) >> 5) & 1))
+	if (!((gameex_flags >> 5) & 1))
 		v6 = "0\r\n";
 	nox_fs_fwrite(v1, v6, 3);
 	nox_fs_fwrite(v1, "PANEL1 = ", 9);
@@ -401,34 +403,34 @@ char GameExCfgLoader() {
 		if (nox_fs_fread(v1, v4,  v3) == v3) {
 			SomeStringSearcher(v4, "AUTO_SHIELD", (char*)&v6);
 			if ((_BYTE)*v6 == 48)
-				*getMemU32Ptr(0x980858, 2) &= 0xFFFFFFFD;
+				gameex_flags &= 0xFFFFFFFD;
 			else
-				*getMemU32Ptr(0x980858, 2) |= 2u;
+				gameex_flags |= 2u;
 			SomeStringSearcher(v4, "GREAT_SWORD_BLOKING_WALK", (char*)&v6);
 			if ((_BYTE)*v6 == 48)
-				*getMemU32Ptr(0x980858, 2) &= 0xFFFFFFFB;
+				gameex_flags &= 0xFFFFFFFB;
 			else
-				*getMemU32Ptr(0x980858, 2) |= 4u;
+				gameex_flags |= 4u;
 			SomeStringSearcher(v4, "MOUSE_KEYBOARD_ROLL", (char*)&v6);
 			if ((_BYTE)*v6 == 48)
-				*getMemU32Ptr(0x980858, 2) &= 0xFFFFFFF7;
+				gameex_flags &= 0xFFFFFFF7;
 			else
-				*getMemU32Ptr(0x980858, 2) |= 8u;
+				gameex_flags |= 8u;
 			SomeStringSearcher(v4, "MOUSE_KEYBOARD_ROLL", (char*)&v6);
 			if ((_BYTE)*v6 == 48)
-				*getMemU32Ptr(0x980858, 2) &= 0xFFFFFFF7;
+				gameex_flags &= 0xFFFFFFF7;
 			else
-				*getMemU32Ptr(0x980858, 2) |= 8u;
+				gameex_flags |= 8u;
 			SomeStringSearcher(v4, "BERSERKER_SHIED_BLOCK", (char*)&v6);
 			if ((_BYTE)*v6 == 48)
-				*getMemU32Ptr(0x980858, 2) &= 0xFFFFFFEF;
+				gameex_flags &= 0xFFFFFFEF;
 			else
-				*getMemU32Ptr(0x980858, 2) |= 0x10u;
+				gameex_flags |= 0x10u;
 			SomeStringSearcher(v4, "EXTENSION_MESSAGES", (char*)&v6);
 			if ((_BYTE)*v6 == 48)
-				*getMemU32Ptr(0x980858, 2) &= 0xFFFFFFDF;
+				gameex_flags &= 0xFFFFFFDF;
 			else
-				*getMemU32Ptr(0x980858, 2) |= 0x20u;
+				gameex_flags |= 0x20u;
 			v6[0] = 0;
 			SomeStringSearcher(v4, "PANEL1", (char*)&v6);
 			functionalKeyCodes[0] = KeyCodeMatcher((char*)&v6);
@@ -860,38 +862,38 @@ int  modifyWndInputHandler(int a1, int a2, int a3, int a4) {
 	} else {
 		switch (v4) {
 		case 0x5F0u:
-			if ((*getMemU32Ptr(0x980858, 2) >> 1) & 1)
-				*getMemU32Ptr(0x980858, 2) &= 0xFFFFFFFD;
+			if ((gameex_flags >> 1) & 1)
+				gameex_flags &= 0xFFFFFFFD;
 			else
-				*getMemU32Ptr(0x980858, 2) |= 2u;
+				gameex_flags |= 2u;
 			result = 0;
 			break;
 		case 0x5F1u:
-			if ((*getMemU32Ptr(0x980858, 2) >> 2) & 1)
-				*getMemU32Ptr(0x980858, 2) &= 0xFFFFFFFB;
+			if ((gameex_flags >> 2) & 1)
+				gameex_flags &= 0xFFFFFFFB;
 			else
-				*getMemU32Ptr(0x980858, 2) |= 4u;
+				gameex_flags |= 4u;
 			result = 0;
 			break;
 		case 0x5F2u:
-			if ((*getMemU32Ptr(0x980858, 2) >> 3) & 1)
-				*getMemU32Ptr(0x980858, 2) &= 0xFFFFFFF7;
+			if ((gameex_flags >> 3) & 1)
+				gameex_flags &= 0xFFFFFFF7;
 			else
-				*getMemU32Ptr(0x980858, 2) |= 8u;
+				gameex_flags |= 8u;
 			result = 0;
 			break;
 		case 0x5F3u:
-			if ((*getMemU32Ptr(0x980858, 2) >> 4) & 1)
-				*getMemU32Ptr(0x980858, 2) &= 0xFFFFFFEF;
+			if ((gameex_flags >> 4) & 1)
+				gameex_flags &= 0xFFFFFFEF;
 			else
-				*getMemU32Ptr(0x980858, 2) |= 0x10u;
+				gameex_flags |= 0x10u;
 			result = 0;
 			break;
 		case 0x5F4u:
-			if ((*getMemU32Ptr(0x980858, 2) >> 5) & 1)
-				*getMemU32Ptr(0x980858, 2) &= 0xFFFFFFDF;
+			if ((gameex_flags >> 5) & 1)
+				gameex_flags &= 0xFFFFFFDF;
 			else
-				*getMemU32Ptr(0x980858, 2) |= 0x20u;
+				gameex_flags |= 0x20u;
 			result = 0;
 			break;
 		default:
@@ -948,7 +950,7 @@ int MixRecvFromReplacer(nox_socket_t s, char* buf, int len, struct nox_net_socka
 	int op = *((unsigned __int16*)buf + 1);
 	switch (op) {
 	case 0: // warrior weapon scroll
-		if ((*getMemU32Ptr(0x980858, 2) >> 3) & 1) {
+		if ((gameex_flags >> 3) & 1) {
 			v8 = nox_xxx_objGetTeamByNetCode_418C80(*((_DWORD*)buf + 1));
 			v9 = buf[8];
 			v10 = (int)(v8 - 12);
@@ -970,7 +972,7 @@ int MixRecvFromReplacer(nox_socket_t s, char* buf, int len, struct nox_net_socka
 		nox_xxx_clientPlaySoundSpecial_452D80(895, 100);
 		break;
 	case 3u: // Send back playerInfoStructs
-		if (nox_common_gameFlags_check_40A5C0(1) && (*getMemU32Ptr(0x980858, 2) >> 5) & 1) {
+		if (nox_common_gameFlags_check_40A5C0(1) && (gameex_flags >> 5) & 1) {
 			smallPlayerStructVector vector;
 			smallPlayerStruct* it;
 			smallPlayerStruct* end;
@@ -979,7 +981,7 @@ int MixRecvFromReplacer(nox_socket_t s, char* buf, int len, struct nox_net_socka
 			// v45 = 0;
 			if (playerInfoStructsToVector(&vector)) {
 				copyServerMatchData((char*)v44);
-				v11 = *getMemU32Ptr(0x980858, 2);
+				v11 = gameex_flags;
 				v39 = 18 * da_count(vector) + 68;
 				memcpy(buf + 8, v44, 0x40u);
 				*((_DWORD*)buf + 1) = v11;
@@ -1001,7 +1003,7 @@ int MixRecvFromReplacer(nox_socket_t s, char* buf, int len, struct nox_net_socka
 		break;
 	case 4u:
 		if (nox_common_gameFlags_check_40A5C0(1)) {
-			if ((*getMemU32Ptr(0x980858, 2) >> 5) & 1) {
+			if ((gameex_flags >> 5) & 1) {
 				v18 = buf + 4;
 				do {
 					v19 = *v18;
@@ -1031,7 +1033,7 @@ int MixRecvFromReplacer(nox_socket_t s, char* buf, int len, struct nox_net_socka
 		}
 		break;
 	case 5u:
-		if ((*getMemU32Ptr(0x980858, 2) >> 5) & 1) {
+		if ((gameex_flags >> 5) & 1) {
 			memset(v44, 0, 0x80u);
 			mbstowcs((wchar_t*)v44, buf + 4, strlen(buf + 4));
 			nox_xxx_printCentered_445490((wchar_t*)v44);
@@ -1045,7 +1047,7 @@ int MixRecvFromReplacer(nox_socket_t s, char* buf, int len, struct nox_net_socka
 		nox_xxx_clientPlaySoundSpecial_452D80(901, 100);
 		break;
 	case 8u:
-		if (nox_common_gameFlags_check_40A5C0(1) && (*getMemU32Ptr(0x980858, 2) >> 5) & 1) {
+		if (nox_common_gameFlags_check_40A5C0(1) && (gameex_flags >> 5) & 1) {
 			v26 = buf + 4;
 			v27 = buf + 4;
 			do {
@@ -1072,7 +1074,7 @@ int MixRecvFromReplacer(nox_socket_t s, char* buf, int len, struct nox_net_socka
 		}
 		break;
 	case 9u:
-		if ((*getMemU32Ptr(0x980858, 2) >> 3) & 1) {
+		if ((gameex_flags >> 3) & 1) {
 			v35 = nox_xxx_objGetTeamByNetCode_418C80(*((_DWORD*)buf + 1));
 			playerDropATrap((int)(v35 - 12));
 		}
@@ -1145,7 +1147,7 @@ void OnLibraryNotice_265(unsigned int arg1, unsigned int arg2, int arg3) {
 	if (arg2 == 2 &&
 		// FIXME: checked in asm (cmp ds:6D8555, eax)
 		((dword_5d4594_1064896 >> 8) | (dword_5d4594_1064900 << 24)) == result) {
-		if ((*getMemU32Ptr(0x980858, 2) >> 3) & 1) {
+		if ((gameex_flags >> 3) & 1) {
 			if (nox_common_gameFlags_check_40A5C0(516)) {
 				if (nox_common_gameFlags_check_40A5C0(1)) {
 					if (nox_xxx_host_player_unit_3843628) { // playerObjServerHost
@@ -1168,7 +1170,7 @@ void OnLibraryNotice_265(unsigned int arg1, unsigned int arg2, int arg3) {
 void OnKeyboardEvent(nox_keyboard_btn_t* ev) {
 	if (ev->state != 2)
 		return;
-	if (((*getMemU32Ptr(0x980858, 2) >> 3) & 1) && (ev->code == 26 || ev->code == 27)) {
+	if (((gameex_flags >> 3) & 1) && (ev->code == 26 || ev->code == 27)) {
 		char v8 = ev->code == 26;
 		// checks some gameFlags that are yet undiscovered
 		if (nox_common_gameFlags_check_40A5C0(0x204)) {
@@ -1186,7 +1188,7 @@ void OnKeyboardEvent(nox_keyboard_btn_t* ev) {
 		}
 	}
 	if (ev->code == functionalKeyCodes[5]) {
-		if ((*getMemU32Ptr(0x980858, 2) >> 3) & 1) {
+		if ((gameex_flags >> 3) & 1) {
 			if (nox_common_gameFlags_check_40A5C0(516)) {
 				if (dword_5d4594_1064868 || nox_win_unk3)
 					return;
@@ -1232,7 +1234,7 @@ void OnKeyboardEvent(nox_keyboard_btn_t* ev) {
 			_DWORD va1 = 5;
 			do {
 				nox_window_call_field_94((int)a2b, 16397, (int)v13, -1);
-				if (getFlagValueFromFlagIndex(v12 - 1519) & *getMemU32Ptr(0x980858, 2)) {
+				if (getFlagValueFromFlagIndex(v12 - 1519) & gameex_flags) {
 					_DWORD* v14 = nox_xxx_wndGetChildByID_46B0C0(modifyWndPntr, v12);
 					v14[9] |= 4u;
 				} else {

@@ -7,6 +7,7 @@ extern unsigned int dword_587000_87404;
 extern unsigned int dword_5d4594_1064868;
 extern unsigned int dword_5d4594_1316972;
 extern nox_window* nox_win_unk3;
+extern unsigned int gameex_flags;
 int sub_4BDFD0();
 int  gameex_sendPacket(char* buf, int len, int smth);
 char  mix_MouseKeyboardWeaponRoll(int playerObj, char a2);
@@ -180,9 +181,9 @@ func gameexReadConfig(path string) error {
 				return err
 			}
 			if v {
-				*memmap.PtrUint32(0x980858, 2) |= 0x2
+				C.gameex_flags |= 0x2
 			} else {
-				*memmap.PtrUint32(0x980858, 2) &^= 0x2
+				C.gameex_flags &^= 0x2
 			}
 		case "GREAT_SWORD_BLOKING_WALK", "GREAT_SWORD_BLOCKING_WALK":
 			v, err := strconv.ParseBool(val)
@@ -190,9 +191,9 @@ func gameexReadConfig(path string) error {
 				return err
 			}
 			if v {
-				*memmap.PtrUint32(0x980858, 2) |= 0x4
+				C.gameex_flags |= 0x4
 			} else {
-				*memmap.PtrUint32(0x980858, 2) &^= 0x4
+				C.gameex_flags &^= 0x4
 			}
 		case "MOUSE_KEYBOARD_ROLL":
 			v, err := strconv.ParseBool(val)
@@ -200,9 +201,9 @@ func gameexReadConfig(path string) error {
 				return err
 			}
 			if v {
-				*memmap.PtrUint32(0x980858, 2) |= 0x8
+				C.gameex_flags |= 0x8
 			} else {
-				*memmap.PtrUint32(0x980858, 2) &^= 0x8
+				C.gameex_flags &^= 0x8
 			}
 		case "BERSERKER_SHIED_BLOCK", "BERSERKER_SHIELD_BLOCK":
 			v, err := strconv.ParseBool(val)
@@ -210,9 +211,9 @@ func gameexReadConfig(path string) error {
 				return err
 			}
 			if v {
-				*memmap.PtrUint32(0x980858, 2) |= 0x10
+				C.gameex_flags |= 0x10
 			} else {
-				*memmap.PtrUint32(0x980858, 2) &^= 0x10
+				C.gameex_flags &^= 0x10
 			}
 		case "EXTENSION_MESSAGES":
 			v, err := strconv.ParseBool(val)
@@ -220,9 +221,9 @@ func gameexReadConfig(path string) error {
 				return err
 			}
 			if v {
-				*memmap.PtrUint32(0x980858, 2) |= 0x20
+				C.gameex_flags |= 0x20
 			} else {
-				*memmap.PtrUint32(0x980858, 2) &^= 0x20
+				C.gameex_flags &^= 0x20
 			}
 		case "PANEL1":
 			k, err := gameexKeyCode(val)
@@ -318,7 +319,7 @@ func OnKeyboardEvent(ev *C.nox_keyboard_btn_t) {
 	if ev.state != 2 {
 		return
 	}
-	if ((memmap.Uint32(0x980858, 2)>>3)&1 != 0) && (ev.code == 26 || ev.code == 27) { // '[' and ']'
+	if ((C.gameex_flags>>3)&1 != 0) && (ev.code == 26 || ev.code == 27) { // '[' and ']'
 		v8 := byte(bool2int(ev.code == 26))
 		// checks some gameFlags that are yet undiscovered
 		if nox_common_gameFlags_check_40A5C0(0x204) {
@@ -339,7 +340,7 @@ func OnKeyboardEvent(ev *C.nox_keyboard_btn_t) {
 		}
 	}
 	if keybind.Key(ev.code) == gameex.keys.trap {
-		if (memmap.Uint32(0x980858, 2)>>3)&1 != 0 {
+		if (C.gameex_flags>>3)&1 != 0 {
 			if nox_common_gameFlags_check_40A5C0(516) {
 				if C.dword_5d4594_1064868 != 0 || C.nox_win_unk3 != nil {
 					return
@@ -388,7 +389,7 @@ func OnKeyboardEvent(ev *C.nox_keyboard_btn_t) {
 				wstr := GoWStringSlice(wndEntryNames[i][:])
 				id := uint(1520 + i)
 				a2b.Func94(16397, uintptr(unsafe.Pointer(internWStr(wstr))), math.MaxUint32)
-				if uint32(C.getFlagValueFromFlagIndex(C.int(id)-1519))&memmap.Uint32(0x980858, 2) != 0 {
+				if uint32(C.getFlagValueFromFlagIndex(C.int(id)-1519))&uint32(C.gameex_flags) != 0 {
 					v14 := modifyWndPntr.ChildByID(id)
 					v14.DrawData().field_0 |= 0x4
 				} else {
@@ -424,23 +425,23 @@ func gameexSaveConfig() error {
 	}
 	defer f.Close()
 
-	_, err = fmt.Fprintf(f, "AUTO_SHIELD = %d\r\n", bool2int((memmap.Uint32(0x980858, 2)>>1)&1 != 0))
+	_, err = fmt.Fprintf(f, "AUTO_SHIELD = %d\r\n", bool2int((C.gameex_flags>>1)&1 != 0))
 	if err != nil {
 		return err
 	}
-	_, err = fmt.Fprintf(f, "GREAT_SWORD_BLOKING_WALK = %d\r\n", bool2int((memmap.Uint32(0x980858, 2)>>2)&1 != 0))
+	_, err = fmt.Fprintf(f, "GREAT_SWORD_BLOKING_WALK = %d\r\n", bool2int((C.gameex_flags>>2)&1 != 0))
 	if err != nil {
 		return err
 	}
-	_, err = fmt.Fprintf(f, "MOUSE_KEYBOARD_ROLL = %d\r\n", bool2int((memmap.Uint32(0x980858, 2)>>3)&1 != 0))
+	_, err = fmt.Fprintf(f, "MOUSE_KEYBOARD_ROLL = %d\r\n", bool2int((C.gameex_flags>>3)&1 != 0))
 	if err != nil {
 		return err
 	}
-	_, err = fmt.Fprintf(f, "BERSERKER_SHIED_BLOCK = %d\r\n", bool2int((memmap.Uint32(0x980858, 2)>>4)&1 != 0))
+	_, err = fmt.Fprintf(f, "BERSERKER_SHIED_BLOCK = %d\r\n", bool2int((C.gameex_flags>>4)&1 != 0))
 	if err != nil {
 		return err
 	}
-	_, err = fmt.Fprintf(f, "EXTENSION_MESSAGES = %d\r\n", bool2int((memmap.Uint32(0x980858, 2)>>5)&1 != 0))
+	_, err = fmt.Fprintf(f, "EXTENSION_MESSAGES = %d\r\n", bool2int((C.gameex_flags>>5)&1 != 0))
 	if err != nil {
 		return err
 	}
@@ -488,34 +489,34 @@ func modifyWndInputHandler(a1, a2, a3, a4 C.int) C.int {
 			C.nox_wnd_nox_xxx_wndDraw_46A9B0((*C.nox_window)(unsafe.Pointer(uintptr(C.dword_5d4594_1316972))), 200, 100)
 		}
 	case 1520:
-		if (memmap.Uint32(0x980858, 2)>>1)&1 != 0 {
-			*memmap.PtrUint32(0x980858, 2) &= 0xFFFFFFFD
+		if (C.gameex_flags>>1)&1 != 0 {
+			C.gameex_flags &= 0xFFFFFFFD
 		} else {
-			*memmap.PtrUint32(0x980858, 2) |= 0x2
+			C.gameex_flags |= 0x2
 		}
 	case 1521:
-		if (memmap.Uint32(0x980858, 2)>>2)&1 != 0 {
-			*memmap.PtrUint32(0x980858, 2) &= 0xFFFFFFFB
+		if (C.gameex_flags>>2)&1 != 0 {
+			C.gameex_flags &= 0xFFFFFFFB
 		} else {
-			*memmap.PtrUint32(0x980858, 2) |= 0x4
+			C.gameex_flags |= 0x4
 		}
 	case 1522:
-		if (memmap.Uint32(0x980858, 2)>>3)&1 != 0 {
-			*memmap.PtrUint32(0x980858, 2) &= 0xFFFFFFF7
+		if (C.gameex_flags>>3)&1 != 0 {
+			C.gameex_flags &= 0xFFFFFFF7
 		} else {
-			*memmap.PtrUint32(0x980858, 2) |= 0x8
+			C.gameex_flags |= 0x8
 		}
 	case 1523:
-		if (memmap.Uint32(0x980858, 2)>>4)&1 != 0 {
-			*memmap.PtrUint32(0x980858, 2) &= 0xFFFFFFEF
+		if (C.gameex_flags>>4)&1 != 0 {
+			C.gameex_flags &= 0xFFFFFFEF
 		} else {
-			*memmap.PtrUint32(0x980858, 2) |= 0x10
+			C.gameex_flags |= 0x10
 		}
 	case 1524:
-		if (memmap.Uint32(0x980858, 2)>>5)&1 != 0 {
-			*memmap.PtrUint32(0x980858, 2) &= 0xFFFFFFDF
+		if (C.gameex_flags>>5)&1 != 0 {
+			C.gameex_flags &= 0xFFFFFFDF
 		} else {
-			*memmap.PtrUint32(0x980858, 2) |= 0x20
+			C.gameex_flags |= 0x20
 		}
 	}
 	return 0

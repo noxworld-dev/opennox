@@ -14,7 +14,6 @@
 #include "common/fs/nox_fs.h"
 #include "proto.h"
 
-unsigned int mix_dword_980858[] = {1966080, 1821179904, 2415929931};
 extern _DWORD nox_xxx_respawnAllow_587000_205200;
 extern _DWORD dword_5d4594_1567960;
 extern _DWORD dword_5d4594_1567956;
@@ -55,6 +54,7 @@ extern _DWORD dword_5d4594_2650652;
 extern nox_memfile* nox_loaded_thing_bin;
 extern unsigned int nox_gameFPS;
 extern unsigned int nox_frame_xxx_2598000;
+extern unsigned int gameex_flags;
 
 void* nox_alloc_gameObject_1563344 = 0;
 
@@ -276,7 +276,7 @@ int  nox_server_handler_PlayerDamage_4E17B0(int a1, int a2, int a3, int a4, int 
 					// references armor types and corresponding flags)
 					if (*(_BYTE *) (v12 + 88) == 1 && nox_common_mapPlrActionToStateId_4FA2B0(v5) == 45 &&
 						armorrFlags & 0x3000000) {
-						if (mix_dword_980858[0] & 0x100000) { // BERSERKER_SHIED_BLOCK
+						if (gameex_flags & 0x10) { // BERSERKER_SHIED_BLOCK
 							goto M_LABEL_78;
 						}
 					}
@@ -287,7 +287,7 @@ int  nox_server_handler_PlayerDamage_4E17B0(int a1, int a2, int a3, int a4, int 
 				if (*(_BYTE *) (v5 + 8) & 4) {
 					v31 = *(_BYTE *) (v12 + 88);
 					if (v31 != 13 && v31 != 18 && v31 != 19 && v31 != 20 &&
-						(v31 || !(mix_dword_980858[0] & 0x40000))) { // GREAT_SWORD_BLOKING_WALK
+						(v31 || !(gameex_flags & 0x4))) { // GREAT_SWORD_BLOKING_WALK
 						goto LABEL_120;
 					}
 				} else if (!sub_534340(v5)) {
@@ -5312,7 +5312,7 @@ void  nox_xxx_spellFlyCollide_4E9500(int a1, int a2, float* a3) {
 				(v10 = *(_BYTE*)(*(_DWORD*)(v6 + 276) + 3), v10 != 1) && v10 != 2) {
 			LABEL_22:
 				if (*(_BYTE*)(v6 + 88) == 13 ||
-					!*(_BYTE*)(v6 + 88) && mix_dword_980858[0] & 0x40000) // GREAT_SWORD_BLOKING_WALK
+					!*(_BYTE*)(v6 + 88) && gameex_flags & 0x4) // GREAT_SWORD_BLOKING_WALK
 				{
 					v7 = *(_DWORD*)(*(_DWORD*)(v6 + 276) + 4);
 					if (v7 & 0x400 &&
@@ -5343,7 +5343,7 @@ void  nox_xxx_spellFlyCollide_4E9500(int a1, int a2, float* a3) {
 				}
 				goto LABEL_18;
 			}
-			if (!(mix_dword_980858[0] & 0x100000)) // BERSERKER_SHIED_BLOCK
+			if (!(gameex_flags & 0x10)) // BERSERKER_SHIED_BLOCK
 				goto LABEL_13;
 		}
 		if (nox_server_testTwoPointsAndDirection_4E6E50((float2*)(a2 + 56), *(__int16*)(a2 + 124), (float2*)(a1 + 72)) &

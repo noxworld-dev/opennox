@@ -58,6 +58,7 @@ extern _DWORD dword_5d4594_251572;
 extern _DWORD dword_5d4594_2650652;
 extern obj_5D4594_2650668_t** ptr_5D4594_2650668;
 extern unsigned int nox_frame_xxx_2598000;
+extern unsigned int gameex_flags;
 
 unsigned int nox_gameFPS = 0;
 
@@ -7169,7 +7170,7 @@ int  nox_xxx_playerDequipWeapon_53A140(_DWORD* a1, nox_object_t* item, int a3, i
 	nox_xxx_itemApplyDisengageEffect_4F3030(item, a1);
 	// Following code is not present in the original exe(!) and it's responsible for automatically equipping shields
 	// whenever possible.
-	if (*getMemU32Ptr(0x980858, 2) & 2) {
+	if (gameex_flags & 2) {
 		sub_980523(a1);
 		int v16 = a1[187];
 		if (!*(_DWORD*)(v16 + 108) || !(nox_xxx_weaponInventoryEquipFlags_415820(*(_DWORD*)(v16 + 108)) & 0x7FFE40C)) {
