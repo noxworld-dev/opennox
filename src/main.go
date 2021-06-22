@@ -53,6 +53,7 @@ import (
 	"strings"
 	"unsafe"
 
+	"nox/v1/client/input/keybind"
 	"nox/v1/common/alloc/handles"
 	"nox/v1/common/datapath"
 	noxflags "nox/v1/common/flags"
@@ -300,6 +301,7 @@ func runNox(args []string) error {
 	if err := nox_common_scanAllMaps_4D07F0(); err != nil {
 		return fmt.Errorf("cannot find maps: %w", err)
 	}
+	keyBinding = keybind.New(strMan)
 	C.sub_40AED0()
 	C.nox_xxx_mapSetDataDefault_416500()
 	if C.nox_common_readcfgfile(C.CString("nox.cfg"), 0) == 0 {
@@ -310,7 +312,6 @@ func runNox(args []string) error {
 	}
 	C.nox_xxx_clear18hDD_416190()
 	noxCommonInitRandom()
-	C.nox_xxx_bindevent_initStrings_42EAE0()
 	C.nox_xxx_loadLook_415D50()
 	C.nox_xxx_loadModifyers_4158C0()
 	C.nox_xxx_cmdTokensLoad_4444F0()

@@ -4,12 +4,13 @@
 
 #include "proto.h"
 
-extern _DWORD dword_5d4594_1321236;
-extern _DWORD dword_5d4594_1321240;
+nox_window* dword_5d4594_1321236 = 0;
+nox_window* dword_5d4594_1321240 = 0;
+nox_window* dword_5d4594_1321248 = 0;
+nox_window* dword_5d4594_1321244 = 0;
+
 extern _DWORD dword_5d4594_1321252;
 extern _DWORD dword_5d4594_1321232;
-extern _DWORD dword_5d4594_1321248;
-extern _DWORD dword_5d4594_1321244;
 extern _DWORD dword_5d4594_1321228;
 extern int nox_win_width;
 extern int nox_win_height;
@@ -30,7 +31,7 @@ char* sub_4C3620() {
 	char* result;  // eax
 	char v12[256]; // [esp+8h] [ebp-100h]
 
-	v0 = *(_DWORD*)(dword_5d4594_1321240 + 32);
+	v0 = *(_DWORD*)((_DWORD)dword_5d4594_1321240 + 32);
 	sub_42CD90();
 	for (i = 0; i < *(__int16*)(v0 + 44); ++i) {
 		v2 = (wchar_t*)nox_window_call_field_94(*(int*)&dword_5d4594_1321240, 16406, i, 0);
@@ -83,7 +84,7 @@ int sub_4C3760() {
 		dword_5d4594_1321248 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1321228, 913);
 		result = dword_5d4594_1321236;
 		if (dword_5d4594_1321236) {
-			v1 = *(_DWORD***)(dword_5d4594_1321236 + 32);
+			v1 = *(_DWORD***)((_DWORD)dword_5d4594_1321236 + 32);
 			*v1[7] = 921;
 			*v1[8] = 922;
 			*v1[9] = 920;

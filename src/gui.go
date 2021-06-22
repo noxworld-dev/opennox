@@ -258,7 +258,7 @@ func (win *Window) Func93(ev int, a1, a2 int) int {
 	return int(C.nox_window_call_field_93(win.C(), C.int(ev), C.int(a1), C.int(a2)))
 }
 
-func (win *Window) Func94(ev int, a1, a2 int) int {
+func (win *Window) Func94(ev int, a1, a2 uintptr) int {
 	if win == nil {
 		return 0
 	}
@@ -897,7 +897,7 @@ func (p *guiParser) parseWindowOrWidget(typ string, id uint, status int, px, py,
 	}
 	win.SetID(id)
 	if parent != nil {
-		parent.Func94(22, int(id), 0)
+		parent.Func94(22, uintptr(id), 0)
 	}
 	return win
 }

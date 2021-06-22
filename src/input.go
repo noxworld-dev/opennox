@@ -3,6 +3,7 @@ package main
 import (
 	"image"
 
+	"nox/v1/client/input/keybind"
 	"nox/v1/common/log"
 	"nox/v1/common/memmap"
 )
@@ -11,6 +12,7 @@ var (
 	inputSeq    uint
 	mouseBounds = image.Rect(0, 0, noxDefaultWidth, noxDefaultHeight)
 	inputLog    = log.New("input")
+	keyBinding  *keybind.Binding
 )
 
 func nextInputSeq() uint {

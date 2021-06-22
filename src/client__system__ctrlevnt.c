@@ -24,6 +24,7 @@ extern unsigned int nox_gameFPS;
 
 __int64 nox_ctrlevent_ticks = 0;
 
+#ifndef NOX_CGO
 nox_keybind_t nox_keybind_arr[NOX_KEYEVENT_MAX] = {
 	{"KP0", 0x52, "keybind:Kp0", 0},
 	{"KP1", 0x4f, "keybind:Kp1", 0},
@@ -207,6 +208,7 @@ nox_bindevent_t nox_bindevent_arr[NOX_BINDEVENT_MAX] = {
 	{"DecreaseGamma", 0xf, 0},
 	{"ScreenShot", 0x37, 0},
 };
+#endif // NOX_CGO
 
 nox_ctrlevent_xxx_t nox_ctrlevent_buf_747884[NOX_CTRLEVENT_XXX_MAX] = {0};
 nox_ctrlevent_xxx_t nox_ctrlevent_buf_750964[NOX_CTRLEVENT_XXX_MAX] = {0}; // TODO: size a guess
@@ -300,6 +302,7 @@ int nox_ctrlevent_add_ticks_42E630() {
 // 42E644: control flows out of bounds to 554290
 // 42E649: control flows out of bounds to 554300
 
+#ifndef NOX_CGO
 char*  nox_xxx_keybind_nameByKey(unsigned int key) {
 	for (int i = 0; i < NOX_KEYEVENT_MAX; i++) {
 		nox_keybind_t* ev = &nox_keybind_arr[i];
@@ -310,7 +313,7 @@ char*  nox_xxx_keybind_nameByKey(unsigned int key) {
 	return 0;
 }
 
-unsigned int nox_xxx_keybind_keyByName(const char* name) {
+unsigned int nox_xxx_keybind_keyByName(char* name) {
 	for (int i = 0; i < NOX_KEYEVENT_MAX; i++) {
 		nox_keybind_t* ev = &nox_keybind_arr[i];
 		if (strcmp(ev->name, name) == 0) {
@@ -363,7 +366,7 @@ char* nox_xxx_bindevent_bindNameByKey(unsigned int key) {
 	return 0;
 }
 
-unsigned int nox_xxx_bindevent_bindKeyByName(const char* name) {
+unsigned int nox_xxx_bindevent_bindKeyByName(char* name) {
 	for (int i = 0; i < NOX_BINDEVENT_MAX; i++) {
 		nox_bindevent_t* ev = &nox_bindevent_arr[i];
 		if (strcmp(ev->name, name) == 0) {
@@ -398,6 +401,7 @@ void nox_xxx_bindevent_initStrings_42EAE0() {
 		ev->title = nox_strman_loadString_40F1D0(buf, 0, "C:\\NoxPost\\src\\Client\\System\\Ctrlevnt.c", 2100);
 	}
 }
+#endif // NOX_CGO
 
 //----- (0042D6B0) --------------------------------------------------------
 void nox_xxx_clientControl_42D6B0_orientation(nox_mouse_state_t* mouse) {

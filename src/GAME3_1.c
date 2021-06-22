@@ -73,20 +73,24 @@ extern _DWORD dword_5d4594_1319232;
 extern _DWORD dword_5d4594_1321216;
 extern int nox_gui_console_translucent;
 extern _DWORD nox_client_fadeObjects_80836;
-extern _DWORD dword_5d4594_1522616;
+extern nox_window* dword_5d4594_1321236;
+extern nox_window* dword_5d4594_1321240;
+extern nox_window* dword_5d4594_1321248;
+extern nox_window* dword_5d4594_1321244;
+nox_window* dword_5d4594_1522616 = 0;
+nox_window* dword_5d4594_1522620 = 0;
+nox_window* dword_5d4594_1522624 = 0;
+nox_window* dword_5d4594_1522628 = 0;
 extern _DWORD nox_client_lockHighResFloors_1193152;
 extern _DWORD nox_win_legalBg_1522892;
 extern _DWORD nox_client_drawFrontWalls_80812;
-extern _DWORD dword_5d4594_1321236;
 extern _DWORD dword_5d4594_1320992;
 extern _DWORD dword_5d4594_1321204;
 extern _DWORD nox_client_translucentFrontWalls_805844;
-extern _DWORD dword_5d4594_1522620;
 extern _DWORD dword_5d4594_1316408;
 extern _QWORD qword_581450_9512;
 extern _QWORD qword_581450_9544;
 extern _DWORD dword_5d4594_1320968;
-extern _DWORD dword_5d4594_1321240;
 extern _DWORD dword_5d4594_1319060;
 extern _DWORD dword_5d4594_3798720;
 extern _DWORD dword_5d4594_1522632;
@@ -101,16 +105,12 @@ extern _DWORD dword_5d4594_3807156;
 extern _DWORD dword_5d4594_1522600;
 extern int dword_5d4594_3799524;
 extern _DWORD dword_5d4594_3679320;
-extern _DWORD dword_5d4594_1522628;
-extern _DWORD dword_5d4594_1522624;
 extern _DWORD dword_5d4594_1313796;
 extern _DWORD nox_client_texturedFloors_154956;
 extern _DWORD nox_client_highResFrontWalls_80820;
 extern _DWORD dword_5d4594_1321232;
 extern _DWORD dword_5d4594_1313800;
 extern _DWORD dword_5d4594_1316712;
-extern _DWORD dword_5d4594_1321248;
-extern _DWORD dword_5d4594_1321244;
 extern _DWORD dword_5d4594_1320964;
 extern _DWORD dword_5d4594_1316708;
 extern _DWORD dword_5d4594_1319228;
@@ -132,7 +132,9 @@ extern obj_5D4594_3799572_t obj_5D4594_3800716;
 
 nox_gui_animation* nox_wnd_xxx_1522608 = 0;
 
+#ifndef NOX_CGO
 extern nox_bindevent_t nox_bindevent_arr[NOX_BINDEVENT_MAX];
+#endif // NOX_CGO
 
 //----- (004B9470) --------------------------------------------------------
 int  sub_4B9470(const char** a1) {
@@ -4283,6 +4285,7 @@ int  sub_4C3A90(int a1, int a2, int* a3, int a4) {
 }
 
 //----- (004C3B70) --------------------------------------------------------
+#ifndef NOX_CGO
 void sub_4C3B70() {
 	nox_window_call_field_94(*(int*)&dword_5d4594_1321236, 16399, 0, 0);
 	nox_window_call_field_94(*(int*)&dword_5d4594_1321240, 16399, 0, 0);
@@ -4316,6 +4319,7 @@ void sub_4C3CB0() {
 	nox_common_readcfgfile("default.cfg", 1);
 	sub_4C3B70();
 }
+#endif // NOX_CGO
 
 //----- (004C3EB0) --------------------------------------------------------
 int  sub_4C3EB0(int a1, int a2, unsigned int a3, int a4) {
@@ -4377,7 +4381,7 @@ int  sub_4C3FC0(unsigned int a1) {
 		return 1;
 	}
 	int v7 = 0;
-	int v8 = *(_DWORD*)(dword_5d4594_1321244 + 32);
+	int v8 = *(_DWORD*)((_DWORD)dword_5d4594_1321244 + 32);
 	if (*(_WORD*)(v8 + 44) > 0) {
 		do {
 			const wchar_t* v9 = (const wchar_t*)nox_window_call_field_94(*(int*)&dword_5d4594_1321244, 16406, v7, 0);
@@ -4387,7 +4391,7 @@ int  sub_4C3FC0(unsigned int a1) {
 		} while (v7 < *(__int16*)(v8 + 44));
 	}
 	int v10 = 0;
-	int v11 = *(_DWORD*)(dword_5d4594_1321248 + 32);
+	int v11 = *(_DWORD*)((_DWORD)dword_5d4594_1321248 + 32);
 	if (*(_WORD*)(v11 + 44) > 0) {
 		do {
 			const wchar_t*  v12 = (const wchar_t*)nox_window_call_field_94(*(int*)&dword_5d4594_1321248, 16406, v10, 0);
@@ -4416,7 +4420,7 @@ int  sub_4C4100(unsigned int a1) {
 	if (!dword_5d4594_1321252)
 		return 1;
 	v2 = 0;
-	v3 = *(_DWORD*)(dword_5d4594_1321244 + 32);
+	v3 = *(_DWORD*)((_DWORD)dword_5d4594_1321244 + 32);
 	if (*(_WORD*)(v3 + 44) > 0) {
 		do {
 			v4 = (const wchar_t*)nox_window_call_field_94(*(int*)&dword_5d4594_1321244, 16406, v2, 0);
@@ -4426,7 +4430,7 @@ int  sub_4C4100(unsigned int a1) {
 		} while (v2 < *(__int16*)(v3 + 44));
 	}
 	v5 = 0;
-	v6 = *(_DWORD*)(dword_5d4594_1321248 + 32);
+	v6 = *(_DWORD*)((_DWORD)dword_5d4594_1321248 + 32);
 	if (*(_WORD*)(v6 + 44) > 0) {
 		do {
 			v7 = (const wchar_t*)nox_window_call_field_94(*(int*)&dword_5d4594_1321248, 16406, v5, 0);
@@ -6740,7 +6744,7 @@ int sub_4CB880() {
 			dword_5d4594_1522628 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1522604, 913);
 			result = dword_5d4594_1522616;
 			if (dword_5d4594_1522616) {
-				v1 = *(_DWORD***)(dword_5d4594_1522616 + 32);
+				v1 = *(_DWORD***)((_DWORD)dword_5d4594_1522616 + 32);
 				*v1[7] = 921;
 				*v1[8] = 922;
 				*v1[9] = 920;
@@ -6809,6 +6813,7 @@ int sub_4CBBB0() {
 }
 
 //----- (004CBBF0) --------------------------------------------------------
+#ifndef NOX_CGO
 void sub_4CBBF0() {
 	nox_window_call_field_94(*(int*)&dword_5d4594_1522616, 16399, 0, 0);
 	nox_window_call_field_94(*(int*)&dword_5d4594_1522620, 16399, 0, 0);
@@ -6835,6 +6840,7 @@ void sub_4CBBF0() {
 		}
 	}
 }
+#endif // NOX_CGO
 
 //----- (004CBE70) --------------------------------------------------------
 int  sub_4CBE70(int a1, int a2, int* a3, int a4) {
@@ -6874,11 +6880,13 @@ int  sub_4CBE70(int a1, int a2, int* a3, int a4) {
 }
 
 //----- (004CBF40) --------------------------------------------------------
+#ifndef NOX_CGO
 void sub_4CBF40() {
 	sub_42CD90();
 	nox_common_readcfgfile("default.cfg", 1);
 	sub_4CBBF0();
 }
+#endif // NOX_CGO
 
 //----- (004CC140) --------------------------------------------------------
 int  sub_4CC140(_DWORD* a1, unsigned int a2, unsigned int a3, int a4) {
@@ -6951,7 +6959,7 @@ int  sub_4CC280(unsigned int a1) {
 		return 1;
 	}
 	int v7 = 0;
-	int v8 = *(_DWORD*)(dword_5d4594_1522624 + 32);
+	int v8 = *(_DWORD*)((_DWORD)dword_5d4594_1522624 + 32);
 	if (*(_WORD*)(v8 + 44) > 0) {
 		do {
 			const wchar_t* v9 = (const wchar_t*)nox_window_call_field_94(*(int*)&dword_5d4594_1522624, 16406, v7, 0);
@@ -6961,7 +6969,7 @@ int  sub_4CC280(unsigned int a1) {
 		} while (v7 < *(__int16*)(v8 + 44));
 	}
 	int v10 = 0;
-	int v11 = *(_DWORD*)(dword_5d4594_1522628 + 32);
+	int v11 = *(_DWORD*)((_DWORD)dword_5d4594_1522628 + 32);
 	if (*(_WORD*)(v11 + 44) > 0) {
 		do {
 			const wchar_t* v12 = (const wchar_t*)nox_window_call_field_94(*(int*)&dword_5d4594_1522628, 16406, v10, 0);
@@ -6990,7 +6998,7 @@ int  sub_4CC3C0(unsigned int a1) {
 	if (!dword_5d4594_1522632)
 		return 1;
 	v2 = 0;
-	v3 = *(_DWORD*)(dword_5d4594_1522624 + 32);
+	v3 = *(_DWORD*)((_DWORD)dword_5d4594_1522624 + 32);
 	if (*(_WORD*)(v3 + 44) > 0) {
 		do {
 			v4 = (const wchar_t*)nox_window_call_field_94(*(int*)&dword_5d4594_1522624, 16406, v2, 0);
@@ -7000,7 +7008,7 @@ int  sub_4CC3C0(unsigned int a1) {
 		} while (v2 < *(__int16*)(v3 + 44));
 	}
 	v5 = 0;
-	v6 = *(_DWORD*)(dword_5d4594_1522628 + 32);
+	v6 = *(_DWORD*)((_DWORD)dword_5d4594_1522628 + 32);
 	if (*(_WORD*)(v6 + 44) > 0) {
 		do {
 			v7 = (const wchar_t*)nox_window_call_field_94(*(int*)&dword_5d4594_1522628, 16406, v5, 0);

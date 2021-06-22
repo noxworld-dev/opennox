@@ -2,12 +2,12 @@
 #include "client__system__ctrlevnt.h"
 
 #include "proto.h"
-extern _DWORD dword_5d4594_1522620;
+extern nox_window* dword_5d4594_1522620;
+extern nox_window* dword_5d4594_1522624;
+extern nox_window* dword_5d4594_1522628;
 extern _DWORD dword_5d4594_1522632;
 extern _DWORD dword_5d4594_1522612;
 extern _DWORD dword_5d4594_1522604;
-extern _DWORD dword_5d4594_1522628;
-extern _DWORD dword_5d4594_1522624;
 
 //----- (004CBD30) --------------------------------------------------------
 char* sub_4CBD30() {
@@ -25,7 +25,7 @@ char* sub_4CBD30() {
 	char* result;  // eax
 	char v12[256]; // [esp+8h] [ebp-100h]
 
-	v0 = *(_DWORD*)(dword_5d4594_1522620 + 32);
+	v0 = *(_DWORD*)((_DWORD)dword_5d4594_1522620 + 32);
 	sub_42CD90();
 	for (i = 0; i < *(__int16*)(v0 + 44); ++i) {
 		v2 = (wchar_t*)nox_window_call_field_94(*(int*)&dword_5d4594_1522620, 16406, i, 0);
