@@ -352,7 +352,7 @@ int  nox_client_processMouseInput_4308A0(int a1) {
 	nox_xxx_getKeyFromKeyboard_430710();
 	if (nox_input_arr_787228[0].code) {
 		if (!nox_input_arr_787228[0].field_2) {
-			OnLibraryNotice_417(*(unsigned int*)&nox_input_arr_787228[0]);
+			OnKeyboardEvent(&nox_input_arr_787228[0]);
 		}
 	}
 	++nox_mouse_prev_seq;

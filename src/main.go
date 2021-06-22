@@ -307,6 +307,9 @@ func runNox(args []string) error {
 	if C.nox_common_readcfgfile(C.CString("nox.cfg"), 0) == 0 {
 		return fmt.Errorf("failed to load config file")
 	}
+	if err := gameexReadConfig("game_ex.cfg"); err != nil {
+		return fmt.Errorf("failed to load gameex config file: %w", err)
+	}
 	if C.nox_profiled_805856 == 0 {
 		C.sub_4445C0()
 	}

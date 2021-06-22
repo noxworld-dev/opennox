@@ -251,6 +251,14 @@ func (win *Window) CopyDrawData(p *WindowData) int {
 	return 0
 }
 
+func (win *Window) Hide() {
+	C.nox_window_set_hidden(win.C(), 1)
+}
+
+func (win *Window) Show() {
+	C.nox_window_set_hidden(win.C(), 0)
+}
+
 func (win *Window) Func93(ev int, a1, a2 int) int {
 	if win == nil {
 		return 0
@@ -345,7 +353,15 @@ func newWindowFromFile(name string, fnc unsafe.Pointer) *Window {
 	}
 	defer f.Close()
 
-	return newGUIParser(strMan, f).ParseRoot(fnc)
+	return newWindowFromReader(f, fnc)
+}
+
+func newWindowFromString(src string, fnc unsafe.Pointer) *Window {
+	return newWindowFromReader(strings.NewReader(src), fnc)
+}
+
+func newWindowFromReader(r io.Reader, fnc unsafe.Pointer) *Window {
+	return newGUIParser(strMan, r).ParseRoot(fnc)
 }
 
 func newGUIParser(sm *strman.StringManager, r io.Reader) *guiParser {

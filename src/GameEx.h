@@ -30,10 +30,10 @@ DA_TYPEDEF(int, intArray);
 #define __usercall  // Test compile in C mode
 
 unsigned __int8  KeyCodeMatcher(char* a1);
-int  GameExCfgSaver();
+void  GameExCfgSaver();
 const char* __usercall SomeStringSearcher(const char* result, const char* a2, char* a3);
 char GameExCfgLoader();
-int __usercall DestroyNoxWindow();
+void DestroyNoxWindow();
 int __usercall copyServerMatchData(char* a1);
 char  getPlayerClassFromObjPtr(int a1);
 int __usercall playerInfoStructsToVector(smallPlayerStructVector* vector);

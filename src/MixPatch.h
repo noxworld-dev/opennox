@@ -18,7 +18,7 @@ void OnLibraryNotice_262(DWORD arg1);
 void OnLibraryNotice_263(DWORD arg1);
 void OnLibraryNotice_264(DWORD arg1);
 void OnLibraryNotice_265(unsigned int arg1, unsigned int arg2, int arg3);
-void OnLibraryNotice_417(DWORD arg1);
+void OnKeyboardEvent(nox_keyboard_btn_t* ev);
 void OnLibraryNotice_418();
 void OnLibraryNotice_420(DWORD arg1, DWORD arg2, DWORD arg3, DWORD arg4);
 int MixRecvFromReplacer(nox_socket_t s, char* buf, int len, struct nox_net_sockaddr* from); // idb

@@ -4448,5 +4448,7 @@ void init_data() {
 	dword_587000_81128 = getMemAt(0x5D4594, 805884);
 	dword_587000_66120 = getMemAt(0x5D4594, 599084);
 
+#ifndef NOX_CGO
 	init_data_mix();
+#endif // NOX_CGO
 }

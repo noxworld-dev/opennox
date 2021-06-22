@@ -26,6 +26,8 @@ func (global) Write(p []byte) (int, error) {
 	return n, err
 }
 
+type Logger = log.Logger
+
 func New(name string) *log.Logger {
 	return log.New(global{}, "["+name+"]: ", log.LstdFlags|log.Lmsgprefix)
 }

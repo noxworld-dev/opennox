@@ -25,6 +25,7 @@ extern nox_window* nox_win_unk3;
 //-------------------------------------------------------------------------
 // Data declarations
 
+#ifndef NOX_CGO
 keyCodeStruct keycodeArray[] = {
 	{183u, "print scren"},
 	{210u, "insert"},
@@ -115,9 +116,12 @@ keyCodeStruct keycodeArray[] = {
 	{0, 0},
 };
 int keycodeArraySize = sizeof(keycodeArray) / sizeof(keyCodeStruct);
-char* EndOfKeyCodeArray = 0;                          // weak
-int DefaultPacket[4] = {171901697, 1, 347, 44391266}; // weak
 unsigned __int8 functionalKeyCodes[] = {2u, 3u, 4u, 5u, 6u, 156u, 0u};
+char* EndOfKeyCodeArray = 0;                          // weak
+void* modifyWndPntr = 0;    // weak
+#endif // NOX_CGO
+
+int DefaultPacket[4] = {171901697, 1, 347, 44391266}; // weak
 wchar_t wndEntryNames[5][35] = {
 	{119u, 97u,  114u, 114u, 105u, 111u, 114u, 115u, 32u, 108u, 105u, 107u, 101u, 32u, 115u, 104u, 105u, 101u,
 	 108u, 100u, 115u, 0u,   0u,   0u,   0u,   0u,   0u,  0u,   0u,   0u,   0u,   0u,  0u,   0u,   0u},
@@ -133,15 +137,15 @@ unsigned __int8 serverData[64];
 char someSwitch = 0;        // weak
 char isInvalidIp = 0;       // weak
 char inputNewIpMsgBox[512]; // weak
-char isLoaded = 0;          // weak
-void* modifyWndPntr = 0;    // weak
 
 intArray gameIps;
 
 BOOL nox_CharToOemW(LPCWSTR pSrc, LPSTR pDst) { return nox_sprintf(pDst, "%S", pSrc); }
 
+#ifndef NOX_CGO
 //----- (10001000) --------------------------------------------------------
 BOOL __stdcall GameEx_DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved) {
+	static char isLoaded = 0;
 	if (fdwReason && fdwReason == 1 && !isLoaded) {
 		da_init(gameIps);
 		isLoaded = 1;
@@ -194,7 +198,7 @@ unsigned __int8  KeyCodeMatcher(char* a1) {
 }
 
 //----- (10001290) --------------------------------------------------------
-int  GameExCfgSaver() {
+void  GameExCfgSaver() {
 	int result;         // eax
 	void* v1;           // esi
 	const char* v2;     // eax
@@ -227,7 +231,7 @@ int  GameExCfgSaver() {
 	result = nox_fs_create_text("game_ex.cfg");
 	v1 = (void*)result;
 	if (result == 0) {
-		return 0;
+		return;
 	}
 	nox_fs_fwrite(v1, "AUTO_SHIELD = ",  0xE);
 	v2 = "1\r\n";
@@ -345,7 +349,6 @@ LABEL_37:
 	nox_fs_fwrite(v1, v24, strlen(v24));
 	nox_fs_fwrite(v1, "\r\n----------", 0xC);
 	nox_fs_close(v1);
-	return 1;
 }
 // 10001290: could not find valid save-restore pair for ebx
 // 10001290: could not find valid save-restore pair for ebp
@@ -454,6 +457,7 @@ char GameExCfgLoader() {
 	}
 	return result;
 }
+#endif // NOX_CGO
 
 //----- (10001A20) --------------------------------------------------------
 int  gameex_sendPacket(char* buf, int len, int smth) {
@@ -477,15 +481,13 @@ void  gameex_makeExtensionPacket(int ptr, __int16 opcode, bool needsPlayer) {
 }
 
 //----- (10001B10) --------------------------------------------------------
-int __usercall DestroyNoxWindow() {
-	_DWORD* v1; // edi MAPDST
-
-	v1 = modifyWndPntr;
-	v1 = modifyWndPntr;
-	nox_xxx_wnd_46C6E0((int)modifyWndPntr);
+#ifndef NOX_CGO
+void DestroyNoxWindow() {
+	_DWORD* v1 = modifyWndPntr;
+	nox_xxx_wnd_46C6E0(modifyWndPntr);
 	nox_xxx_windowDestroyMB_46C4E0(v1);
-	return (int)v1;
 }
+#endif // NOX_CGO
 
 //----- (10001B40) --------------------------------------------------------
 int __usercall copyServerMatchData(char* a1) {
@@ -830,7 +832,6 @@ int startInvalidIpChecker() {
 		result = SDL_AddTimer(300, invalidIpChecker, NULL);
 	return result;
 }
-#endif // NOX_CGO
 
 //----- (100024A0) --------------------------------------------------------
 int  modifyWndInputHandler(int a1, int a2, int a3, int a4) {
@@ -899,6 +900,7 @@ int  modifyWndInputHandler(int a1, int a2, int a3, int a4) {
 	}
 	return result;
 }
+#endif // NOX_CGO
 
 //----- (10002680) --------------------------------------------------------
 int MixRecvFromReplacer(nox_socket_t s, char* buf, int len, struct nox_net_sockaddr* from) {
@@ -1162,27 +1164,18 @@ void OnLibraryNotice_265(unsigned int arg1, unsigned int arg2, int arg3) {
 		}
 	}
 }
-void OnLibraryNotice_417(DWORD arg1) {
-	char* vaArg1_1 = &arg1;
-	__int16 v7 = *(_WORD*)vaArg1_1;
-	if (vaArg1_1[1] != 2)
+#ifndef NOX_CGO
+void OnKeyboardEvent(nox_keyboard_btn_t* ev) {
+	if (ev->state != 2)
 		return;
-	char v8 = 0;
-	if (vaArg1_1[0] == 26) {
-		v8 = 1;
-	} else if (vaArg1_1[0] == 27) {
-		v8 = 0;
-	} else {
-		goto LABEL_37;
-	}
-	vaArg1_1[1] = v8;
-	if ((*getMemU32Ptr(0x980858, 2) >> 3) & 1) {
+	if (((*getMemU32Ptr(0x980858, 2) >> 3) & 1) && (ev->code == 26 || ev->code == 27)) {
+		char v8 = ev->code == 26;
 		// checks some gameFlags that are yet undiscovered
 		if (nox_common_gameFlags_check_40A5C0(0x204)) {
 			if (dword_5d4594_1064868 || nox_win_unk3)
 				return;
 			if (nox_common_gameFlags_check_40A5C0(1)) { // isServer
-				if (nox_xxx_host_player_unit_3843628 && mix_MouseKeyboardWeaponRoll(nox_xxx_host_player_unit_3843628, vaArg1_1[1]))
+				if (nox_xxx_host_player_unit_3843628 && mix_MouseKeyboardWeaponRoll(nox_xxx_host_player_unit_3843628, v8))
 					nox_xxx_clientPlaySoundSpecial_452D80(895, 100);
 			} else {
 				char buf[10];
@@ -1192,8 +1185,7 @@ void OnLibraryNotice_417(DWORD arg1) {
 			}
 		}
 	}
-LABEL_37:
-	if ((_BYTE)v7 == functionalKeyCodes[5]) {
+	if (ev->code == functionalKeyCodes[5]) {
 		if ((*getMemU32Ptr(0x980858, 2) >> 3) & 1) {
 			if (nox_common_gameFlags_check_40A5C0(516)) {
 				if (dword_5d4594_1064868 || nox_win_unk3)
@@ -1209,15 +1201,15 @@ LABEL_37:
 			}
 		}
 	}
-	if ((_BYTE)v7 != 66) {
-		goto LABEL_60;
-	}
-	if (!nox_common_gameFlags_check_40A5C0(1)) {
-		nox_xxx_printCentered_445490(L"only server can change these options");
-		nox_xxx_clientPlaySoundSpecial_452D80(231, 100);
-		return;
-	}
-	if (nox_common_gameFlags_check_40A5C0(516)) {
+	if (ev->code == 66) {
+		if (!nox_common_gameFlags_check_40A5C0(1)) {
+			nox_xxx_printCentered_445490(L"only server can change these options");
+			nox_xxx_clientPlaySoundSpecial_452D80(231, 100);
+			return;
+		}
+		if (!nox_common_gameFlags_check_40A5C0(516)) {
+			return;
+		}
 		nox_xxx_clientPlaySoundSpecial_452D80(921, 100);
 		if (modifyWndPntr) {
 			GameExCfgSaver();
@@ -1237,7 +1229,7 @@ LABEL_37:
 			_DWORD* a2b = nox_xxx_wndGetChildByID_46B0C0(modifyWndPntr, 1981);
 			int v12 = 1520;
 			wchar_t(*v13)[35] = wndEntryNames;
-			*(_DWORD*)vaArg1_1 = 5;
+			_DWORD va1 = 5;
 			do {
 				nox_window_call_field_94((int)a2b, 16397, (int)v13, -1);
 				if (getFlagValueFromFlagIndex(v12 - 1519) & *getMemU32Ptr(0x980858, 2)) {
@@ -1249,20 +1241,18 @@ LABEL_37:
 				}
 				++v13;
 				++v12;
-				--*(_DWORD*)vaArg1_1;
-			} while (*(_DWORD*)vaArg1_1);
+				--va1;
+			} while (va1);
 		}
-	LABEL_60:;
-		_DWORD* result = 0;
-		while ((_BYTE)v7 != functionalKeyCodes[(_DWORD)result]) {
-			result = (_DWORD*)((char*)result + 1);
-			if ((signed int)result >= 5)
-				return;
-		}
-		nox_xxx_clientUpdateButtonRow_45E110((int)result);
 	}
+	_DWORD* result = 0;
+	while (ev->code != functionalKeyCodes[(_DWORD)result]) {
+		result = (_DWORD*)((char*)result + 1);
+		if ((signed int)result >= 5)
+			return;
+	}
+	nox_xxx_clientUpdateButtonRow_45E110((int)result);
 }
-#ifndef NOX_CGO
 void OnLibraryNotice_418() {
 	if (!sub_44A4A0()) {
 		memset(inputNewIpMsgBox, 0, 0x200u);

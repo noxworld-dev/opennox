@@ -25,11 +25,13 @@ __int16 asc_9800B0[] = {
 	57,  0,   45,  45,  0,   52,  52,  0,   53,  53,  0,   54,  54,  0,   43,  43,  0,   49,  49,  0,   50,  50,  0,
 	51,  51,  0,   48,  48,  0,   46,  46,  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0};
 
+#ifndef NOX_CGO
 void init_data_mix() { GameEx_DllMain(NULL, 1, NULL); }
 
 void OnLibraryNotice_stub(int a1, ...) {
 	/* TODO: STUB */
 }
+#endif // NOX_CGO
 
 void  sub_980523(_DWORD* a1) {
 	_DWORD* i; // esi
