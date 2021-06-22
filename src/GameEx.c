@@ -808,6 +808,7 @@ signed int __usercall inputNewIp_(int a1, int ebx0, int a2, int a3, int a4) {
 void playErrSoundClient() { nox_xxx_clientPlaySoundSpecial_452D80(766, 100); }
 
 //----- (10002400) --------------------------------------------------------
+#ifndef NOX_CGO
 unsigned int invalidIpChecker(unsigned int interval, void* param) {
 	while (sub_44A4A0())
 		return 1;
@@ -822,7 +823,6 @@ unsigned int invalidIpChecker(unsigned int interval, void* param) {
 // 100129C1: using guessed type char isInvalidIp;
 
 //----- (10002470) --------------------------------------------------------
-#ifndef NOX_CGO
 int startInvalidIpChecker() {
 	int result = 0; // eax
 
