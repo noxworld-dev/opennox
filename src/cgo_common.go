@@ -14,6 +14,7 @@ package main
 #cgo CFLAGS: -Werror=stringop-overflow
 #cgo linux CFLAGS: -Werror=attribute-warning
 #cgo linux CFLAGS: -Werror=uninitialized
+//#cgo linux CFLAGS: -Werror=parentheses // FIXME: resolve issues related to this flag
 //#cgo linux CFLAGS: -Werror=switch-outside-range
 
 #cgo CFLAGS: -Wno-pointer-to-int-cast
