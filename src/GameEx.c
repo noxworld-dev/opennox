@@ -678,27 +678,24 @@ playerCheckStrength
 char  playerDropATrap(int playerObj) {
 	int v2;   // eax
 	int i;    // esi
-	float v4; // [esp+Ch] [ebp-18h]
 	// int v5; // [esp+10h] [ebp-14h]
-	float* v6; // [esp+14h] [ebp-10h]
 	char v7;   // [esp+18h] [ebp-Ch]
 	char v8;   // [esp+1Fh] [ebp-5h]
+	float pos[2] = {0};
 
 	v7 = 17;
 	if (!playerObj)
 		return 0;
 	v8 = 0;
-	v6 = &v4;
 	v2 = *(_DWORD*)(*(_DWORD*)(playerObj + 0x2EC) + 0x114);
-	v4 = *(float*)(v2 + 0xE30);
-	// v5 = *(_DWORD *)(v2 + 0xE34);
-	v6 = &v4;
+	pos[0] = *(float*)(v2 + 0xE30);
+	pos[1] = *(float*)(v2 + 0xE34);
 	if (!(*(_BYTE*)(*(_DWORD*)(*(_DWORD*)(playerObj + 0x2EC) + 0x114) + 0xE60) & 3) // check playerGameStatus/isObs
 		&& *(_BYTE*)(*(_DWORD*)(playerObj + 0x2EC) + 0x58) != 1) {
 		for (i = *(_DWORD*)(playerObj + 0x1F8); i; i = *(_DWORD*)(i + 0x1F0)) {
 			if (*(_BYTE*)(i + 0xA) == v7) // check if something from *(byte*)(unit+0xA)=17
 			{
-				nox_xxx_drop_4ED810(playerObj, i, v6); // drop this item
+				nox_xxx_drop_4ED810(playerObj, i, pos); // drop this item
 				return 1;
 			}
 		}
