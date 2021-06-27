@@ -1150,7 +1150,7 @@ BOOL  sub_42FFF0(FILE* a1);
 bool nox_video_bagexists_4300D0(int a1);
 const char* nox_video_getbagfilename(int is16bit);
 char*  nox_video_getBagIdxName_430120(int a1);
-void sub_430140(int a1);
+void nox_input_reset_430140(int a1);
 int nox_xxx_initInput_430190();
 void nox_xxx_freeKeyboard_430210();
 void nox_client_mouseBtnState_430230();

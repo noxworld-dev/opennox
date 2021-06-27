@@ -36,7 +36,7 @@ nox_keyboard_btn_t nox_input_arr_789276[256];
 nox_keyboard_btn_t nox_input_arr_787228[256];
 
 //----- (00430140) --------------------------------------------------------
-void sub_430140(int a1) {
+void nox_input_reset_430140(int a1) {
 	for (int i = 0; i < 256; i++) {
 		nox_keyboard_btn_t* cur = &nox_input_arr_789276[i];
 		cur->state = 1;
@@ -213,7 +213,7 @@ int nox_xxx_initInput_430190() {
 	nox_xxx_initKeyboard_yyy();
 	nox_xxx_initMouse_47D8D0();
 	nox_xxx_setMouseBounds_430A70(0, nox_win_width - 1, 0, nox_win_height - 1);
-	sub_42EBB0(2u, sub_430140, 0, "Input");
+	sub_42EBB0(2u, nox_input_reset_430140, 0, "Input");
 	return 1;
 }
 

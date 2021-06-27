@@ -28,7 +28,6 @@ extern int obj_5D4594_754104_switch;
 extern int nox_client_mouseCursorType;
 extern void* nox_client_spriteUnderCursorXxx_1096644;
 
-void sub_42CD90();
 int nox_common_readcfgfile(const char* path, int a2);
 void nox_xxx_onChar_488BD0(unsigned short c);
 void nox_xxx_keyboard_47DBD0();
@@ -36,7 +35,7 @@ void OnLibraryNotice_265(unsigned int arg1, unsigned int arg2, int arg3);
 int  nox_xxx_netServerCmd_440950(char a1, wchar_t* a2);
 int nox_xxx_serverHandleClientConsole_443E90(nox_playerInfo* pl, char a2, wchar_t* a3);
 void sub_42EBB0(unsigned int a1, void (*fnc)(int), int field_4, const char* name);
-void sub_430140(int a1);
+void nox_input_reset_430140(int a1);
 int sub_46A4A0();
 */
 import "C"
@@ -52,43 +51,6 @@ import (
 	"nox/v1/common/memmap"
 	"nox/v1/common/types"
 )
-
-const (
-	NOX_MOUSE_LEFT   = 0
-	NOX_MOUSE_RIGHT  = 1
-	NOX_MOUSE_MIDDLE = 2
-)
-
-const (
-	NOX_MOUSE_DOWN     = 1
-	NOX_MOUSE_DRAG_END = 2
-	NOX_MOUSE_UP       = 3
-	NOX_MOUSE_PRESSED  = 4
-)
-
-type noxMouseEventType uint
-
-const (
-	noxMouseEventMotion = noxMouseEventType(iota)
-	noxMouseEventWheel
-	noxMouseEventLeft
-	noxMouseEventRight
-	noxMouseEventMiddle
-)
-
-var imeBuffer string
-
-func setIMEBuffer(buf string) {
-	imeBuffer = buf
-}
-
-func getMousePos() image.Point {
-	return nox_mouse.pos
-}
-
-func setMousePos(p image.Point) {
-	nox_mouse.pos = p
-}
 
 func nox_client_getCursorType_477620() int {
 	return int(C.nox_client_mouseCursorType)
@@ -153,11 +115,6 @@ func nox_input_pollEventsMovie() C.int {
 	return C.int(bool2int(inpHandler.WaitClick()))
 }
 
-//export nox_xxx_freeKeyboard_47FCC0
-func nox_xxx_freeKeyboard_47FCC0() C.int {
-	return 0
-}
-
 //export nox_input_getSensitivity
 func nox_input_getSensitivity() C.float {
 	return C.float(inpHandler.GetSensitivity())
@@ -180,12 +137,6 @@ func unacquireMouse_sub_47D8B0() C.int {
 	return 0
 }
 
-//export nox_xxx_initMouse_47D8D0
-func nox_xxx_initMouse_47D8D0() C.int {
-	inputInitMouse()
-	return 1
-}
-
 //export nox_input_enableTextEdit_5700CA
 func nox_input_enableTextEdit_5700CA() {
 	inpHandler.StartTextInput()
@@ -206,55 +157,13 @@ func nox_input_freeStringBuffer_57011C(p *C.wchar_t) {
 	WStrFree(p)
 }
 
-//export nox_input_resetBuffers
-func nox_input_resetBuffers() {}
-
 func noxInputOnChar(c uint16) {
 	C.nox_xxx_onChar_488BD0(C.wchar_t(c))
 }
 
-func nox_client_nextMouseEvent_47DB20(e *noxMouseStateInt) C.bool {
-	*e = noxMouseStateInt{}
-	me := nextMouseEvent()
-	if me == nil {
-		return false
-	}
-	e.pos.X = me.X
-	e.pos.Y = me.Y
-	switch me.Type {
-	case noxMouseEventMotion:
-		e.wheel = me.Wheel
-	case noxMouseEventWheel:
-		e.wheel = me.Wheel
-		// mix event hanlder is triggered only for wheel events
-		C.OnLibraryNotice_265(C.uint(uintptr(unsafe.Pointer(&e))), 2, C.int(e.wheel))
-	case noxMouseEventLeft:
-		e.btn[NOX_MOUSE_LEFT].pressed = me.Pressed
-		e.btn[NOX_MOUSE_LEFT].seq = me.Seq
-	case noxMouseEventRight:
-		e.btn[NOX_MOUSE_RIGHT].pressed = me.Pressed
-		e.btn[NOX_MOUSE_RIGHT].seq = me.Seq
-	case noxMouseEventMiddle:
-		e.btn[NOX_MOUSE_MIDDLE].pressed = me.Pressed
-		e.btn[NOX_MOUSE_MIDDLE].seq = me.Seq
-	}
-	return true
-}
-
-func nox_xxx_getKeyFromKeyboardImpl_47FA80() (noxKeyEventInt, bool) {
-	ke := nextKeyEvent()
-	if ke == nil {
-		return noxKeyEventInt{}, false
-	}
-	state := 0
-	if ke.Pressed {
-		state = 1
-	}
-	return noxKeyEventInt{
-		code:  ke.Code,
-		state: byte(state + 1),
-		seq:   ke.Seq,
-	}, true
+func call_OnLibraryNotice_265(e *noxMouseStateInt) {
+	// FIXME: passing Go pointer
+	C.OnLibraryNotice_265(C.uint(uintptr(unsafe.Pointer(&e))), 2, C.int(e.wheel))
 }
 
 //export nox_input_isMouseDown
@@ -403,48 +312,6 @@ func sub_4CBBF0() {
 	}
 }
 
-type noxMouseBtnInt struct {
-	pressed bool
-	state   uint
-	seq     uint
-}
-
-type noxMouseStateInt struct {
-	pos   types.Point
-	wheel int
-	dpos  types.Point
-	btn   [3]noxMouseBtnInt
-}
-
-type noxKeyEventInt struct {
-	code   keybind.Key
-	state  byte
-	field2 bool
-	field3 byte
-	seq    uint
-}
-
-type noxKeyState struct {
-	state  byte
-	field2 bool
-	seq    uint
-}
-
-func nox_mouse_state(btn, st int) uint {
-	return uint(4*(btn+1) + st)
-}
-
-var (
-	nox_mouse            noxMouseStateInt
-	nox_mouse_prev       noxMouseStateInt
-	nox_input_prev_seq   uint
-	nox_mouse_prev_seq_2 uint
-	nox_mouse_prev_btn   [3]types.Point
-	nox_input_buffer     [256]noxMouseStateInt
-	nox_input_map_byKey  = make(map[keybind.Key]noxKeyState)
-	nox_input_arr_787228 [256]noxKeyEventInt
-)
-
 func nox_client_processMouseInput_4308A0(a1 bool) bool {
 	nox_client_readMouseBuffer_4306A0(a1)
 	nox_xxx_getKeyFromKeyboard_430710()
@@ -464,170 +331,21 @@ func nox_client_processMouseInput_4308A0(a1 bool) bool {
 	return true
 }
 
-//export sub_430140
-func sub_430140(a1 C.int) {
-	for key := keybind.Key(0); key <= 0xff; key++ {
-		nox_input_map_byKey[key] = noxKeyState{
-			state:  1,
-			field2: false,
-			seq:    0,
-		}
-	}
-	nox_input_buffer[0].btn[0].seq = 1
-	nox_input_buffer[0].btn[0].pressed = false
-	nox_input_buffer[0].btn[1].seq = 1
-	nox_input_buffer[0].btn[1].pressed = false
-	nox_input_buffer[0].btn[2].seq = 1
-	nox_input_buffer[0].btn[2].pressed = false
-	nox_client_processMouseEvents_4302A0(1, true)
+//export nox_input_reset_430140
+func nox_input_reset_430140(a1 C.int) {
+	nox_xxx_initKeyboard_yyy()
+	noxResetMouseBuffer()
 }
 
 func nox_xxx_freeKeyboard_430210() {
-	nox_xxx_freeKeyboard_47FCC0()
 	*memmap.PtrUint32(0x5D4594, 805808) = 0
 }
 
-func nox_client_mouseBtnStateReset(ind uint) {
-	cur := &nox_mouse.btn[ind]
-	prev := &nox_mouse_prev.btn[ind]
-	btn := 4 * (ind + 1)
-
-	if cur.pressed && (prev.state == btn+NOX_MOUSE_DOWN || prev.state == btn+NOX_MOUSE_PRESSED) {
-		cur.state = btn + NOX_MOUSE_PRESSED
-	}
+func get_obj_5D4594_754104_switch() bool {
+	return C.obj_5D4594_754104_switch != 0
 }
 
-func nox_client_mouseBtnState_430230() {
-	nox_client_mouseBtnStateReset(NOX_MOUSE_LEFT)
-	nox_client_mouseBtnStateReset(NOX_MOUSE_RIGHT)
-	nox_client_mouseBtnStateReset(NOX_MOUSE_MIDDLE)
-}
-
-func nox_client_mouseBtnStateApply(evt *noxMouseStateInt, pos types.Point, ind uint) {
-	ev := &evt.btn[ind]
-	cur := &nox_mouse.btn[ind]
-	prevPos := nox_mouse_prev_btn[ind]
-	btn := 4 * (ind + 1)
-
-	if ev.seq == 0 {
-		nox_client_mouseBtnStateReset(ind)
-		return
-	}
-	if cur.pressed == ev.pressed {
-		return
-	}
-	dx := pos.X - prevPos.X
-	dy := pos.Y - prevPos.Y
-	if ev.pressed {
-		if cur.state != btn+NOX_MOUSE_UP {
-			cur.state = btn + NOX_MOUSE_DOWN
-			cur.pressed = true
-			cur.seq = nox_input_prev_seq
-		}
-	} else {
-		if int(nox_input_prev_seq)-int(cur.seq) >= 15 || dx*dx+dy*dy >= 100 {
-			cur.state = btn + NOX_MOUSE_DRAG_END
-		} else {
-			cur.state = btn + NOX_MOUSE_UP
-		}
-		cur.pressed = false
-		cur.seq = nox_input_prev_seq
-	}
-}
-
-func nox_client_mouseBtnStateFinal(pos types.Point, ind uint) {
-	cur := &nox_mouse.btn[ind]
-	btn := 4 * (ind + 1)
-
-	if cur.state == btn+NOX_MOUSE_DOWN {
-		nox_mouse_prev_btn[ind] = pos
-	}
-}
-
-func nox_client_processMouseEvents_4302A0(evNum int, a2 bool) {
-	if nox_mouse_prev_seq_2 != nox_input_prev_seq {
-		nox_mouse.btn[NOX_MOUSE_LEFT].state = 0
-		nox_mouse.btn[NOX_MOUSE_RIGHT].state = 0
-		nox_mouse.btn[NOX_MOUSE_MIDDLE].state = 0
-		nox_mouse.wheel = 0
-		nox_mouse_prev_seq_2 = nox_input_prev_seq
-	}
-	num := 0
-	if C.obj_5D4594_754104_switch != 1 {
-		num = evNum
-		if num == 0 {
-			nox_client_mouseBtnState_430230()
-		}
-	}
-	pos := nox_mouse.pos
-	for i := 0; i < num; i++ {
-		ev := &nox_input_buffer[i]
-		// apply absolute mouse pos
-		changeMousePos(ev.pos, true)
-		nox_mouse.wheel += ev.wheel
-
-		// variable needs to be updated as well
-		pos = nox_mouse.pos
-
-		// apply button states
-		nox_client_mouseBtnStateApply(ev, pos, NOX_MOUSE_LEFT)
-		nox_client_mouseBtnStateApply(ev, pos, NOX_MOUSE_RIGHT)
-		nox_client_mouseBtnStateApply(ev, pos, NOX_MOUSE_MIDDLE)
-	}
-	// update button prev pos, if necessary
-	nox_client_mouseBtnStateFinal(pos, NOX_MOUSE_LEFT)
-	nox_client_mouseBtnStateFinal(pos, NOX_MOUSE_RIGHT)
-	nox_client_mouseBtnStateFinal(pos, NOX_MOUSE_MIDDLE)
-
-	nox_mouse.dpos.X = pos.X - nox_mouse_prev.pos.X
-	nox_mouse.dpos.Y = pos.Y - nox_mouse_prev.pos.Y
-	if nox_mouse.dpos.X*nox_mouse.dpos.X+nox_mouse.dpos.Y*nox_mouse.dpos.Y >= 4 {
-		*memmap.PtrUint32(0x5D4594, 805824) = 0
-		*memmap.PtrUint32(0x5D4594, 805804) = 0
-	} else {
-		*memmap.PtrUint32(0x5D4594, 805824)++
-		if *memmap.PtrUint32(0x5D4594, 805824) >= 10 {
-			*memmap.PtrUint32(0x5D4594, 805804) = 1
-		}
-	}
-	if a2 { // TODO: this is weird
-		if nox_mouse.wheel <= 0 {
-			if nox_mouse.wheel >= 0 {
-				nox_mouse.wheel = 0
-			} else {
-				nox_mouse.wheel = 20
-			}
-		} else {
-			nox_mouse.wheel = 19
-		}
-		nox_mouse_prev = nox_mouse
-	}
-}
-
-var nox_readingMouseBuffer = false
-
-func nox_client_readMouseBuffer_4306A0(a1 bool) {
-	if nox_readingMouseBuffer {
-		return
-	}
-	nox_readingMouseBuffer = true
-	n := 0
-	for i := range nox_input_buffer {
-		e := &nox_input_buffer[i]
-		if !nox_client_nextMouseEvent_47DB20(e) {
-			break
-		}
-		n++
-	}
-	nox_client_processMouseEvents_4302A0(n, a1)
-	nox_readingMouseBuffer = false
-	if n > 0 {
-		*memmap.PtrUint32(0x5D4594, 805816) = uint32(nox_input_prev_seq)
-	}
-}
 func nox_xxx_initKeyboard_47FB10() {
-	nox_input_resetBuffers()
-
 	// On non-IME languages, Nox uses this input for text input. This sets up
 	// current SHIFT state and the mapping from DIK code => wide character.
 	C.dword_5d4594_1193132 = C.uint(bool2int(inpHandler.KeyModState(input.KeyShift)))
@@ -637,10 +355,8 @@ func nox_xxx_initKeyboard_47FB10() {
 func nox_xxx_initInput_430190() error {
 	nox_xxx_initKeyboard_47FB10()
 	nox_xxx_initKeyboard_yyy()
-	nox_xxx_initMouse_47D8D0()
-	sz := videoGetWindowSize()
-	nox_xxx_setMouseBounds_430A70(0, C.int(sz.W)-1, 0, C.int(sz.H)-1)
-	C.sub_42EBB0(2, (*[0]byte)(C.sub_430140), 0, internCStr("Input"))
+	inputInitMouse()
+	C.sub_42EBB0(2, (*[0]byte)(C.nox_input_reset_430140), 0, internCStr("Input"))
 	return nil
 }
 
@@ -667,7 +383,7 @@ func nox_xxx_getKeyFromKeyboard_430710() {
 		} else if ev.code == keybind.KeyCaps {
 			nox_input_scanCodeToAlpha(ev.code)
 		}
-		if C.obj_5D4594_754104_switch == 1 {
+		if get_obj_5D4594_754104_switch() {
 			ev.field2 = true
 		}
 		nox_input_map_byKey[ev.code] = noxKeyState{
@@ -682,52 +398,9 @@ func nox_xxx_getKeyFromKeyboard_430710() {
 	}
 }
 
-func sub_4307D0() bool {
-	if C.obj_5D4594_754104_switch == 1 {
-		return false
-	}
-	li := 0
-	for li = 0; nox_input_arr_787228[li].code != 0; li++ {
-	}
-	for k, p := range nox_input_map_byKey {
-		if p.state == 2 && nox_input_prev_seq-p.seq > 10 {
-			nox_input_arr_787228[li].code = k
-			nox_input_arr_787228[li].state = 2
-			nox_input_arr_787228[li].field2 = false
-			nox_input_arr_787228[li+1].code = 0
-			for k2, p2 := range nox_input_map_byKey {
-				if k == k2 {
-					p2.seq = nox_input_prev_seq - 12
-				} else {
-					p2.seq = nox_input_prev_seq
-				}
-				nox_input_map_byKey[k2] = p2
-			}
-			return true
-		}
-	}
-	return false
-}
-
-func nox_xxx_initKeyboard_yyy() {
-	for key := keybind.Key(0); key <= 0xff; key++ {
-		nox_input_map_byKey[key] = noxKeyState{
-			state:  1,
-			field2: false,
-			seq:    0,
-		}
-	}
-}
-
 //export sub_4309B0
 func sub_4309B0(i, v C.uchar) {
 	inputSetKey4309B0(keybind.Key(i), v != 0)
-}
-
-func inputSetKey4309B0(k keybind.Key, v bool) {
-	st := nox_input_map_byKey[k]
-	st.field2 = v
-	nox_input_map_byKey[k] = st
 }
 
 func (c *CtrlEventHandler) nox_xxx_input_42D220() {
@@ -767,9 +440,49 @@ func (c *CtrlEventHandler) nox_xxx_input_42D220() {
 	c.writeToNetBuffer()
 }
 
+func (c *CtrlEventHandler) handleMouseAction(key keybind.Key, ev keybind.Event) bool {
+	mouse := &nox_mouse
+	if key == keybind.KeyLeftMouse {
+		btn := NOX_MOUSE_LEFT
+		state := mouse.btn[btn].state
+		if state != nox_mouse_state(btn, NOX_MOUSE_DOWN) && state != nox_mouse_state(btn, NOX_MOUSE_PRESSED) {
+			return true
+		}
+		if state == nox_mouse_state(btn, NOX_MOUSE_PRESSED) && ev == 1 {
+			return true
+		}
+	} else if key == keybind.KeyMiddleMouse {
+		btn := NOX_MOUSE_MIDDLE
+		state := mouse.btn[btn].state
+		if state != nox_mouse_state(btn, NOX_MOUSE_DOWN) && state != nox_mouse_state(btn, NOX_MOUSE_PRESSED) {
+			return true
+		}
+		if state == nox_mouse_state(btn, NOX_MOUSE_PRESSED) && ev == 1 {
+			return true
+		}
+	} else if key == keybind.KeyRightMouse {
+		btn := NOX_MOUSE_RIGHT
+		state := mouse.btn[btn].state
+		if state != nox_mouse_state(btn, NOX_MOUSE_DOWN) && state != nox_mouse_state(btn, NOX_MOUSE_PRESSED) {
+			return true
+		}
+		if state == nox_mouse_state(btn, NOX_MOUSE_PRESSED) && ev == 1 {
+			return true
+		}
+	} else if key == keybind.KeyMouseWheelUp {
+		if mouse.wheel != 19 {
+			return true
+		}
+	} else if key == keybind.KeyMouseWheelDown {
+		if mouse.wheel != 20 {
+			return true
+		}
+	}
+	return false
+}
+
 func (c *CtrlEventHandler) nox_xxx_input_42D220_A() *CtrlEventBinding {
 	var res *CtrlEventBinding
-	mouse := &nox_mouse
 	for it := c.bindings; it != nil; it = it.next {
 		li := -1
 		for i, key := range it.keys {
@@ -781,41 +494,8 @@ func (c *CtrlEventHandler) nox_xxx_input_42D220_A() *CtrlEventBinding {
 					break
 				}
 			} else if key.IsMouse() && memmap.Uint8(0x5D4594, 747848) != 2 {
-				if key == keybind.KeyLeftMouse {
-					btn := NOX_MOUSE_LEFT
-					state := mouse.btn[btn].state
-					if state != nox_mouse_state(btn, NOX_MOUSE_DOWN) && state != nox_mouse_state(btn, NOX_MOUSE_PRESSED) {
-						break
-					}
-					if state == nox_mouse_state(btn, NOX_MOUSE_PRESSED) && it.events[0] == 1 {
-						break
-					}
-				} else if key == keybind.KeyMiddleMouse {
-					btn := NOX_MOUSE_MIDDLE
-					state := mouse.btn[btn].state
-					if state != nox_mouse_state(btn, NOX_MOUSE_DOWN) && state != nox_mouse_state(btn, NOX_MOUSE_PRESSED) {
-						break
-					}
-					if state == nox_mouse_state(btn, NOX_MOUSE_PRESSED) && it.events[0] == 1 {
-						break
-					}
-				} else if key == keybind.KeyRightMouse {
-					btn := NOX_MOUSE_RIGHT
-					state := mouse.btn[btn].state
-					if state != nox_mouse_state(btn, NOX_MOUSE_DOWN) && state != nox_mouse_state(btn, NOX_MOUSE_PRESSED) {
-						break
-					}
-					if state == nox_mouse_state(btn, NOX_MOUSE_PRESSED) && it.events[0] == 1 {
-						break
-					}
-				} else if key == keybind.KeyMouseWheelUp {
-					if mouse.wheel != 19 {
-						break
-					}
-				} else if key == keybind.KeyMouseWheelDown {
-					if mouse.wheel != 20 {
-						break
-					}
+				if c.handleMouseAction(key, it.events[0]) {
+					break
 				}
 			} else if key.IsJoystick() && (memmap.Uint8(0x5D4594, 750956) != 0 || (1<<uint32(key))&memmap.Uint32(0x5D4594, 747844) == 0) {
 				break
