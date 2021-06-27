@@ -1232,10 +1232,9 @@ func nox_xxx_windowUpdateKeysMB_46B6B0(a1 *noxKeyEventInt) {
 	if a1.code == 0 {
 		return
 	}
-	if a1.field_2 == 1 {
+	if a1.field2 {
 		return
 	}
-	v3 := byte(1)
 	ok := false
 	for win := root; win != nil; win = win.Parent() {
 		if win.Func93(21, uintptr(a1.code), uintptr(a1.state)) != 0 {
@@ -1243,12 +1242,8 @@ func nox_xxx_windowUpdateKeysMB_46B6B0(a1 *noxKeyEventInt) {
 			break
 		}
 	}
-	if !ok {
-		v3 = 0
-	}
-	v6 := a1.code
-	a1.field_2 = v3
-	sub_4309B0_go(v6, v3)
+	a1.field2 = ok
+	inputSetKey4309B0(a1.code, a1.field2)
 }
 
 //export nox_xxx_consoleEditProc_450F40
@@ -1256,7 +1251,7 @@ func nox_xxx_consoleEditProc_450F40(a1 unsafe.Pointer, a2, a3, a4 C.int) C.int {
 	if a2 != 21 {
 		return C.nox_xxx_wndEditProc_487D70((*C.uint)(a1), a2, a3, a4)
 	}
-	if ctrlEvent.nox_xxx_consoleEditProc_450F40_check(11, keybind.Key(a3)) {
+	if ctrlEvent.hasDefBinding(11, keybind.Key(a3)) {
 		if a4 == 2 {
 			C.nox_gui_console_F1_451350()
 		}
@@ -1285,18 +1280,17 @@ func sub_437060() C.int {
 	if C.sub_46A4A0() != 0 {
 		return 1
 	}
-	for j := range nox_input_arr_787228 {
-		p := &nox_input_arr_787228[j]
+	for _, p := range nox_input_arr_787228 {
 		if p.code == 0 {
 			break
 		}
 		//dword_5d4594_2618912 = p
-		if p.field_2 != 1 && p.state != 2 {
+		if !p.field2 && p.state != 2 {
 			switch p.code {
-			case 0x3B, 0x3C, 0x3D, 0x3E, 0x3F,
-				0x40, 0x41, 0x42, 0x43, 0x44, 0x57, 0x58:
-				v2 := !nox_xxx_guiCursor_477600()
-				if v2 {
+			case keybind.KeyF1, keybind.KeyF2, keybind.KeyF3, keybind.KeyF4, keybind.KeyF5,
+				keybind.KeyF6, keybind.KeyF7, keybind.KeyF8, keybind.KeyF9, keybind.KeyF10,
+				keybind.KeyF11, keybind.KeyF12:
+				if !nox_xxx_guiCursor_477600() {
 					sub_4443B0(p.code)
 				}
 			}
@@ -1305,8 +1299,8 @@ func sub_437060() C.int {
 	return 1
 }
 
-func sub_4443B0(a1 byte) {
-	if a1 < 0x3B || a1 > 0x58 {
+func sub_4443B0(a1 keybind.Key) {
+	if a1 < keybind.KeyF1 || a1 > keybind.KeyF12 {
 		return
 	}
 	if *memmap.PtrUint32(0x587000, 95416) == 0 {
@@ -1318,8 +1312,8 @@ func sub_4443B0(a1 byte) {
 		sub_4309B0(C.uchar(a1), 1)
 	}
 }
-func sub_4281F0(a1 types.Point, a2 types.Rect) bool {
-	return a1.X >= a2.Left && a1.X <= a2.Right && a1.Y >= a2.Top && a1.Y <= a2.Bottom
+func sub_4281F0(p types.Point, r types.Rect) bool {
+	return p.X >= r.Left && p.X <= r.Right && p.Y >= r.Top && p.Y <= r.Bottom
 }
 
 //export sub_46C200

@@ -59,98 +59,98 @@ var gameex = struct {
 }{
 	Log: log.New("gameex"),
 	keysByCode: map[keybind.Key]string{
-		183: "print scren",
-		210: "insert",
-		211: "delete",
-		199: "home",
-		207: "end",
-		197: "pause break",
-		41:  "~",
-		2:   "1",
-		3:   "2",
-		4:   "3",
-		5:   "4",
-		6:   "5",
-		7:   "6",
-		8:   "7",
-		9:   "8",
-		10:  "9",
-		11:  "0",
-		12:  "-",
-		13:  "=",
-		14:  "backspace",
-		181: "num /",
-		55:  "num *",
-		74:  "num -",
-		71:  "num 7",
-		72:  "num 8",
-		73:  "num 9",
-		75:  "num 4",
-		76:  "num 5",
-		77:  "num 6",
-		79:  "num 1",
-		80:  "num 2",
-		81:  "num 3",
-		78:  "num +",
-		82:  "num 0",
-		83:  "del",
-		156: "enter2",
-		15:  "tab",
-		16:  "q",
-		17:  "w",
-		18:  "e",
-		19:  "r",
-		20:  "t",
-		21:  "y",
-		22:  "u",
-		23:  "i",
-		24:  "o",
-		25:  "p",
-		26:  "[",
-		27:  "]",
-		28:  "enter",
-		30:  "a",
-		31:  "s",
-		32:  "d",
-		33:  "f",
-		34:  "g",
-		35:  "h",
-		36:  "j",
-		37:  "k",
-		38:  "l",
-		39:  ";",
-		40:  "'",
-		43:  "\\",
-		42:  "left shift",
-		86:  "|",
-		44:  "z",
-		45:  "x",
-		46:  "c",
-		47:  "v",
-		48:  "b",
-		49:  "n",
-		50:  "m",
-		51:  ",",
-		52:  ".",
-		53:  "/",
-		54:  "right shift",
-		29:  "left ctrl",
-		56:  "left alt",
-		57:  "spacebar",
-		184: "right alt",
-		201: "page up",
-		209: "page down",
-		157: "right ctrl",
-		200: "up",
-		203: "left",
-		208: "down",
-		205: "right",
+		keybind.KeySysReq:    "print scren",
+		keybind.KeyIns:       "insert",
+		keybind.KeyDel:       "delete",
+		keybind.KeyHome:      "home",
+		keybind.KeyEnd:       "end",
+		197:                  "pause break",
+		keybind.KeyApos:      "~",
+		keybind.Key1:         "1",
+		keybind.Key2:         "2",
+		keybind.Key3:         "3",
+		keybind.Key4:         "4",
+		keybind.Key5:         "5",
+		keybind.Key6:         "6",
+		keybind.Key7:         "7",
+		keybind.Key8:         "8",
+		keybind.Key9:         "9",
+		keybind.Key0:         "0",
+		keybind.KeyMinus:     "-",
+		keybind.KeyEqual:     "=",
+		keybind.KeyBackspace: "backspace",
+		keybind.KeyKpSlash:   "num /",
+		keybind.KeyKpStar:    "num *",
+		keybind.KeyKpMinus:   "num -",
+		keybind.KeyKp7:       "num 7",
+		keybind.KeyKp8:       "num 8",
+		keybind.KeyKp9:       "num 9",
+		keybind.KeyKp4:       "num 4",
+		keybind.KeyKp5:       "num 5",
+		keybind.KeyKp6:       "num 6",
+		keybind.KeyKp1:       "num 1",
+		keybind.KeyKp2:       "num 2",
+		keybind.KeyKp3:       "num 3",
+		keybind.KeyKpPlus:    "num +",
+		keybind.KeyKp0:       "num 0",
+		keybind.KeyKpPeriod:  "del",
+		keybind.KeyKpEnter:   "enter2",
+		keybind.KeyTab:       "tab",
+		keybind.KeyQ:         "q",
+		keybind.KeyW:         "w",
+		keybind.KeyE:         "e",
+		keybind.KeyR:         "r",
+		keybind.KeyT:         "t",
+		keybind.KeyY:         "y",
+		keybind.KeyU:         "u",
+		keybind.KeyI:         "i",
+		keybind.KeyO:         "o",
+		keybind.KeyP:         "p",
+		keybind.KeyLBracket:  "[",
+		keybind.KeyRBracket:  "]",
+		keybind.KeyEnter:     "enter",
+		keybind.KeyA:         "a",
+		keybind.KeyS:         "s",
+		keybind.KeyD:         "d",
+		keybind.KeyF:         "f",
+		keybind.KeyG:         "g",
+		keybind.KeyH:         "h",
+		keybind.KeyJ:         "j",
+		keybind.KeyK:         "k",
+		keybind.KeyL:         "l",
+		keybind.KeySemiColon: ";",
+		keybind.KeySquote:    "'",
+		keybind.KeyBslash:    "\\",
+		keybind.KeyLShift:    "left shift",
+		86:                   "|",
+		keybind.KeyZ:         "z",
+		keybind.KeyX:         "x",
+		keybind.KeyC:         "c",
+		keybind.KeyV:         "v",
+		keybind.KeyB:         "b",
+		keybind.KeyN:         "n",
+		keybind.KeyM:         "m",
+		keybind.KeyComma:     ",",
+		keybind.KeyPeriod:    ".",
+		keybind.KeySlash:     "/",
+		keybind.KeyRShift:    "right shift",
+		keybind.KeyLCtrl:     "left ctrl",
+		keybind.KeyLAlt:      "left alt",
+		keybind.KeySpace:     "spacebar",
+		keybind.KeyRAlt:      "right alt",
+		keybind.KeyPgUp:      "page up",
+		keybind.KeyPgDn:      "page down",
+		keybind.KeyRCtrl:     "right ctrl",
+		keybind.KeyUp:        "up",
+		keybind.KeyLeft:      "left",
+		keybind.KeyDown:      "down",
+		keybind.KeyRight:     "right",
 	},
 }
 
 func init() {
-	gameex.keys.panels = [5]keybind.Key{2, 3, 4, 5, 6} // '1', '2', '3', '4', '5'
-	gameex.keys.trap = 156                             // 'Num Enter'
+	gameex.keys.panels = [5]keybind.Key{keybind.Key1, keybind.Key2, keybind.Key3, keybind.Key4, keybind.Key5}
+	gameex.keys.trap = keybind.KeyKpEnter
 	gameex.keysByName = make(map[string]keybind.Key)
 	for k, s := range gameex.keysByCode {
 		gameex.keysByName[s] = k
@@ -285,11 +285,11 @@ func gameexKeyCode(s string) (keybind.Key, error) {
 	if ok {
 		return key, nil
 	}
-	b := keyBinding.KeyByName(s)
-	if b == nil {
+	k := keybind.KeyByName(s)
+	if k == 0 {
 		return 0, fmt.Errorf("invalid key: %q", s)
 	}
-	return b.Key, nil
+	return k, nil
 }
 
 func gameexKeyName(k keybind.Key) (string, error) {
@@ -300,11 +300,10 @@ func gameexKeyName(k keybind.Key) (string, error) {
 	if ok {
 		return s, nil
 	}
-	b := keyBinding.KeyByCode(k)
-	if b == nil {
+	if !k.IsValid() {
 		return "", fmt.Errorf("invalid key: %v", k)
 	}
-	return b.Name, nil
+	return k.String(), nil
 }
 
 func gameex_makeExtensionPacket(buf []byte, opcode uint16, needsPlayer bool) {
@@ -327,8 +326,8 @@ func OnKeyboardEvent(ev *noxKeyEventInt) {
 	if ev.state != 2 {
 		return
 	}
-	if ((C.gameex_flags>>3)&1 != 0) && (ev.code == 26 || ev.code == 27) { // '[' and ']'
-		v8 := byte(bool2int(ev.code == 26))
+	if ((C.gameex_flags>>3)&1 != 0) && (ev.code == keybind.KeyLBracket || ev.code == keybind.KeyRBracket) {
+		v8 := byte(bool2int(ev.code == keybind.KeyLBracket))
 		// checks some gameFlags that are yet undiscovered
 		if noxflags.HasGame(0x204) {
 			if C.dword_5d4594_1064868 != 0 || nox_win_unk3 != nil {
@@ -347,7 +346,7 @@ func OnKeyboardEvent(ev *noxKeyEventInt) {
 			}
 		}
 	}
-	if keybind.Key(ev.code) == gameex.keys.trap {
+	if ev.code == gameex.keys.trap {
 		if (C.gameex_flags>>3)&1 != 0 {
 			if noxflags.HasGame(516) {
 				if C.dword_5d4594_1064868 != 0 || nox_win_unk3 != nil {
@@ -365,7 +364,7 @@ func OnKeyboardEvent(ev *noxKeyEventInt) {
 			}
 		}
 	}
-	if ev.code == 66 { // F8
+	if ev.code == keybind.KeyF8 { // TODO: should be configurable
 		if !noxflags.HasGame(1) {
 			nox_xxx_printCentered_445490("only server can change these options")
 			clientPlaySoundSpecial(231, 100)
@@ -408,7 +407,7 @@ func OnKeyboardEvent(ev *noxKeyEventInt) {
 		}
 	}
 	for i, k := range gameex.keys.panels {
-		if keybind.Key(ev.code) == k {
+		if ev.code == k {
 			C.nox_xxx_clientUpdateButtonRow_45E110(C.int(i))
 			break
 		}

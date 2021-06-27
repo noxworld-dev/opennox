@@ -60,7 +60,7 @@ var (
 )
 
 type noxKeyEvent struct {
-	Code    byte
+	Code    keybind.Key
 	Pressed bool
 	Seq     uint
 }

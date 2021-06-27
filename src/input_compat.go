@@ -22,6 +22,8 @@
 
 package main
 
+import "nox/v1/client/input/keybind"
+
 // TODO: map the following keys, if possible:
 // #define DIK_UNDERLINE       0x93    /*                     (NEC PC98) */
 // #define DIK_KANJI           0x94    /* (Japanese keyboard)            */
@@ -35,7 +37,7 @@ package main
 //                                         according to USB doc, so probably it doesn't need mapping here)
 
 // maps SDL2 scancodes to directinput keynums/scancodes - dinput_key = scanCodeToKeyNum[(int)your_sdl2_scancode];
-var scanCodeToKeyNum = []byte{
+var scanCodeToKeyNum = []keybind.Key{
 	0x0,  //	SDL_SCANCODE_UNKNOWN = 0, => 0 should also work for dinput codes as "not assigned/unknown"
 	0x0,  //	// 1 (unused)
 	0x0,  //	// 2 (unused)

@@ -50,6 +50,20 @@ type CtrlEventBinding struct {
 	frame   uint32
 }
 
+func (c *CtrlEventBinding) defKey() keybind.Key {
+	if len(c.keys) == 0 {
+		return 0
+	}
+	return c.keys[0]
+}
+
+func (c *CtrlEventBinding) defEvent() keybind.Event {
+	if len(c.events) == 0 {
+		return 0
+	}
+	return c.events[0]
+}
+
 type CtrlEventHandler struct {
 	ticks     uint32
 	playerDir uint32
@@ -659,16 +673,16 @@ func sub_42E8E0(key, a2 C.int) *C.wchar_t {
 	return internWStr(s)
 }
 
-func (c *CtrlEventHandler) sub_42E8E0_go(key keybind.Event, ind int) string {
+func (c *CtrlEventHandler) sub_42E8E0_go(ev keybind.Event, ind int) string {
 	for v2 := c.bindings; v2 != nil; v2 = v2.next {
-		for _, k := range v2.events {
-			if k != key {
+		for _, e := range v2.events {
+			if e != ev {
 				continue
 			}
 			ind--
 			if ind <= 0 {
-				if b := keyBinding.KeyByCode(v2.keys[0]); b != nil {
-					return b.Title
+				if key := v2.defKey(); key.IsValid() {
+					return key.Title(strMan)
 				}
 			}
 		}
@@ -732,8 +746,8 @@ func nox_client_parseConfigHotkeysLine_42CF50(a1 *C.char) C.int {
 		ce := new(CtrlEventBinding)
 		for _, s := range strings.Split(key, "+") {
 			s = strings.TrimSpace(s)
-			if b := keyBinding.KeyByName(s); b != nil && b.Key != 0 {
-				ce.keys = append(ce.keys, b.Key)
+			if k := keybind.KeyByName(s); k != 0 {
+				ce.keys = append(ce.keys, k)
 			}
 		}
 		for _, s := range strings.Split(val, "+") {
@@ -757,18 +771,19 @@ func writeConfigHotkeys(w io.Writer) error {
 	for _, it := range ctrlEvent.listBindings() {
 		first := true
 		for _, k := range it.keys {
-			if b := keyBinding.KeyByCode(k); b != nil && b.Name != "" {
-				_, err = fmt.Fprintf(w, "%s ", b.Name)
-				if err != nil {
+			if !k.IsValid() {
+				continue
+			}
+			_, err = fmt.Fprintf(w, "%s ", k.String())
+			if err != nil {
+				return err
+			}
+			if !first {
+				if _, err = io.WriteString(w, "+ "); err != nil {
 					return err
 				}
-				if !first {
-					if _, err = io.WriteString(w, "+ "); err != nil {
-						return err
-					}
-				}
-				first = false
 			}
+			first = false
 		}
 		if _, err = io.WriteString(w, "= "); err != nil {
 			return err
@@ -882,9 +897,9 @@ func nox_xxx_playerSaveInput_51A960(a1 C.int, a2 *C.uchar) C.int {
 	return C.int(v3) + 1
 }
 
-func (c *CtrlEventHandler) nox_xxx_consoleEditProc_450F40_check(bind keybind.Event, a3 keybind.Key) bool {
+func (c *CtrlEventHandler) hasDefBinding(ev keybind.Event, key keybind.Key) bool {
 	for it := c.bindings; it != nil; it = it.next {
-		if it.events[0] == bind && a3 == it.keys[0] {
+		if it.defEvent() == ev && it.defKey() == key {
 			return true
 		}
 	}

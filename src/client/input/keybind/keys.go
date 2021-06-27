@@ -1,141 +1,126 @@
 package keybind
 
-var defKeyBinds = []KeyBind{
-	{Name: "KP0", Key: 0x52, TitleID: "keybind:Kp0"},
-	{Name: "KP1", Key: 0x4f, TitleID: "keybind:Kp1"},
-	{Name: "KP2", Key: 0x50, TitleID: "keybind:Kp2"},
-	{Name: "KP3", Key: 0x51, TitleID: "keybind:Kp3"},
-	{Name: "KP4", Key: 0x4b, TitleID: "keybind:Kp4"},
-	{Name: "KP5", Key: 0x4c, TitleID: "keybind:Kp5"},
-	{Name: "KP6", Key: 0x4d, TitleID: "keybind:Kp6"},
-	{Name: "KP7", Key: 0x47, TitleID: "keybind:Kp7"},
-	{Name: "KP8", Key: 0x48, TitleID: "keybind:Kp8"},
-	{Name: "KP9", Key: 0x49, TitleID: "keybind:Kp9"},
-	{Name: "KPDEL", Key: 0x53, TitleID: "keybind:KpPeriod"},
-	{Name: "KPSTAR", Key: 0x37, TitleID: "keybind:KpStar"},
-	{Name: "KPMINUS", Key: 0x4a, TitleID: "keybind:KpMinus"},
-	{Name: "KPPLUS", Key: 0x4e, TitleID: "keybind:KpPlus"},
-	{Name: "KPENTER", Key: 0x9c, TitleID: "keybind:KpEnter"},
-	{Name: "KPSLASH", Key: 0xb5, TitleID: "keybind:KpSlash"},
-	{Name: "ESC", Key: 0x1, TitleID: "keybind:Esc"},
-	{Name: "BACKSPACE", Key: 0xe, TitleID: "keybind:Back"},
-	{Name: "ENTER", Key: 0x1c, TitleID: "keybind:Enter"},
-	{Name: "SPACE", Key: 0x39, TitleID: "keybind:Space"},
-	{Name: "TAB", Key: 0xf, TitleID: "keybind:Tab"},
-	{Name: "F1", Key: 0x3b, TitleID: "keybind:F1"},
-	{Name: "F2", Key: 0x3c, TitleID: "keybind:F2"},
-	{Name: "F3", Key: 0x3d, TitleID: "keybind:F3"},
-	{Name: "F4", Key: 0x3e, TitleID: "keybind:F4"},
-	{Name: "F5", Key: 0x3f, TitleID: "keybind:F5"},
-	{Name: "F6", Key: 0x40, TitleID: "keybind:F6"},
-	{Name: "F7", Key: 0x41, TitleID: "keybind:F7"},
-	{Name: "F8", Key: 0x42, TitleID: "keybind:F8"},
-	{Name: "F9", Key: 0x43, TitleID: "keybind:F9"},
-	{Name: "F10", Key: 0x44, TitleID: "keybind:F10"},
-	{Name: "F11", Key: 0x57, TitleID: "keybind:F11"},
-	{Name: "F12", Key: 0x58, TitleID: "keybind:F12"},
-	{Name: "A", Key: 0x1e, TitleID: "keybind:A"},
-	{Name: "B", Key: 0x30, TitleID: "keybind:B"},
-	{Name: "C", Key: 0x2e, TitleID: "keybind:C"},
-	{Name: "D", Key: 0x20, TitleID: "keybind:D"},
-	{Name: "E", Key: 0x12, TitleID: "keybind:E"},
-	{Name: "F", Key: 0x21, TitleID: "keybind:F"},
-	{Name: "G", Key: 0x22, TitleID: "keybind:G"},
-	{Name: "H", Key: 0x23, TitleID: "keybind:H"},
-	{Name: "I", Key: 0x17, TitleID: "keybind:I"},
-	{Name: "J", Key: 0x24, TitleID: "keybind:J"},
-	{Name: "K", Key: 0x25, TitleID: "keybind:K"},
-	{Name: "L", Key: 0x26, TitleID: "keybind:L"},
-	{Name: "M", Key: 0x32, TitleID: "keybind:M"},
-	{Name: "N", Key: 0x31, TitleID: "keybind:N"},
-	{Name: "O", Key: 0x18, TitleID: "keybind:O"},
-	{Name: "P", Key: 0x19, TitleID: "keybind:P"},
-	{Name: "Q", Key: 0x10, TitleID: "keybind:Q"},
-	{Name: "R", Key: 0x13, TitleID: "keybind:R"},
-	{Name: "S", Key: 0x1f, TitleID: "keybind:S"},
-	{Name: "T", Key: 0x14, TitleID: "keybind:T"},
-	{Name: "U", Key: 0x16, TitleID: "keybind:U"},
-	{Name: "V", Key: 0x2f, TitleID: "keybind:V"},
-	{Name: "W", Key: 0x11, TitleID: "keybind:W"},
-	{Name: "X", Key: 0x2d, TitleID: "keybind:X"},
-	{Name: "Y", Key: 0x15, TitleID: "keybind:Y"},
-	{Name: "Z", Key: 0x2c, TitleID: "keybind:Z"},
-	{Name: "1", Key: 0x2, TitleID: "keybind:1"},
-	{Name: "2", Key: 0x3, TitleID: "keybind:2"},
-	{Name: "3", Key: 0x4, TitleID: "keybind:3"},
-	{Name: "4", Key: 0x5, TitleID: "keybind:4"},
-	{Name: "5", Key: 0x6, TitleID: "keybind:5"},
-	{Name: "6", Key: 0x7, TitleID: "keybind:6"},
-	{Name: "7", Key: 0x8, TitleID: "keybind:7"},
-	{Name: "8", Key: 0x9, TitleID: "keybind:8"},
-	{Name: "9", Key: 0xa, TitleID: "keybind:9"},
-	{Name: "0", Key: 0xb, TitleID: "keybind:0"},
-	{Name: "MINUS", Key: 0xc, TitleID: "keybind:Minus"},
-	{Name: "EQUALS", Key: 0xd, TitleID: "keybind:Equal"},
-	{Name: "LEFT_BRACKET", Key: 0x1a, TitleID: "keybind:["},
-	{Name: "RIGHT_BRACKET", Key: 0x1b, TitleID: "keybind:]"},
-	{Name: "SEMICOLON", Key: 0x27, TitleID: "keybind:SemiColon"},
-	{Name: "APOSTROPHE", Key: 0x28, TitleID: "keybind:Squote"},
-	{Name: "TICK", Key: 0x29, TitleID: "keybind:Apos"},
-	{Name: "BACKSLASH", Key: 0x2b, TitleID: "keybind:Bslash"},
-	{Name: "COMMA", Key: 0x33, TitleID: "keybind:Comma"},
-	{Name: "PERIOD", Key: 0x34, TitleID: "keybind:Period"},
-	{Name: "SLASH", Key: 0x35, TitleID: "keybind:Slash"},
-	{Name: "SYSREQ", Key: 0xb7, TitleID: "keybind:SysReq"},
-	{Name: "CAPS_LOCK", Key: 0x3a, TitleID: "keybind:Caps"},
-	{Name: "NUM", Key: 0x45, TitleID: "keybind:NumLck"},
-	{Name: "SCROLL", Key: 0x46, TitleID: "keybind:Scroll"},
-	{Name: "LEFT_CTRL", Key: 0x1d, TitleID: "keybind:LCtrl"},
-	{Name: "LEFT_ALT", Key: 0x38, TitleID: "keybind:LAlt"},
-	{Name: "LEFT_SHIFT", Key: 0x2a, TitleID: "keybind:LShift"},
-	{Name: "RIGHT_SHIFT", Key: 0x36, TitleID: "keybind:RShift"},
-	{Name: "RIGHT_ALT", Key: 0xb8, TitleID: "keybind:RAlt"},
-	{Name: "RIGHT_CTRL", Key: 0x9d, TitleID: "keybind:RCtrl"},
-	{Name: "UP_ARROW", Key: 0xc8, TitleID: "keybind:Up"},
-	{Name: "DOWN_ARROW", Key: 0xd0, TitleID: "keybind:Down"},
-	{Name: "LEFT_ARROW", Key: 0xcb, TitleID: "keybind:Left"},
-	{Name: "RIGHT_ARROW", Key: 0xcd, TitleID: "keybind:Right"},
-	{Name: "HOME", Key: 0xc7, TitleID: "keybind:Home"},
-	{Name: "END", Key: 0xcf, TitleID: "keybind:End"},
-	{Name: "PAGEUP", Key: 0xc9, TitleID: "keybind:PgUp"},
-	{Name: "PAGEDOWN", Key: 0xd1, TitleID: "keybind:PgDn"},
-	{Name: "INS", Key: 0xd2, TitleID: "keybind:Ins"},
-	{Name: "DEL", Key: 0xd3, TitleID: "keybind:Del"},
-	{Name: "MOUSE_BUTTON_LEFT", Key: 0x10000, TitleID: "keybind:LeftMouse"},
-	{Name: "MOUSE_BUTTON_MID", Key: 0x10001, TitleID: "keybind:MiddleMouse"},
-	{Name: "MOUSE_BUTTON_RIGHT", Key: 0x10002, TitleID: "keybind:RightMouse"},
-	{Name: "MOUSE_WHEEL_UP", Key: 0x10003, TitleID: "keybind:MouseWheelUp"},
-	{Name: "MOUSE_WHEEL_DOWN", Key: 0x10004, TitleID: "keybind:MouseWheelDown"},
-	{Name: "JOYSTICK_BUTTON_1", Key: 0x20000, TitleID: "keybind:NA"},
-	{Name: "JOYSTICK_BUTTON_2", Key: 0x20001, TitleID: "keybind:NA"},
-	{Name: "JOYSTICK_BUTTON_3", Key: 0x20002, TitleID: "keybind:NA"},
-	{Name: "JOYSTICK_BUTTON_4", Key: 0x20003, TitleID: "keybind:NA"},
-	{Name: "JOYSTICK_BUTTON_5", Key: 0x20004, TitleID: "keybind:NA"},
-	{Name: "JOYSTICK_BUTTON_6", Key: 0x20005, TitleID: "keybind:NA"},
-	{Name: "JOYSTICK_BUTTON_7", Key: 0x20006, TitleID: "keybind:NA"},
-	{Name: "JOYSTICK_BUTTON_8", Key: 0x20007, TitleID: "keybind:NA"},
-	{Name: "JOYSTICK_BUTTON_9", Key: 0x20008, TitleID: "keybind:NA"},
-	{Name: "JOYSTICK_BUTTON_10", Key: 0x20009, TitleID: "keybind:NA"},
-	{Name: "JOYSTICK_BUTTON_11", Key: 0x2000a, TitleID: "keybind:NA"},
-	{Name: "JOYSTICK_BUTTON_12", Key: 0x2000b, TitleID: "keybind:NA"},
-	{Name: "JOYSTICK_BUTTON_13", Key: 0x2000c, TitleID: "keybind:NA"},
-	{Name: "JOYSTICK_BUTTON_14", Key: 0x2000d, TitleID: "keybind:NA"},
-	{Name: "JOYSTICK_BUTTON_15", Key: 0x2000e, TitleID: "keybind:NA"},
-	{Name: "JOYSTICK_BUTTON_16", Key: 0x2000f, TitleID: "keybind:NA"},
-	{Name: "JOYSTICK_BUTTON_17", Key: 0x20010, TitleID: "keybind:NA"},
-	{Name: "JOYSTICK_BUTTON_18", Key: 0x20011, TitleID: "keybind:NA"},
-	{Name: "JOYSTICK_BUTTON_19", Key: 0x20012, TitleID: "keybind:NA"},
-	{Name: "JOYSTICK_BUTTON_20", Key: 0x20013, TitleID: "keybind:NA"},
-	{Name: "JOYSTICK_BUTTON_21", Key: 0x20014, TitleID: "keybind:NA"},
-	{Name: "JOYSTICK_BUTTON_22", Key: 0x20015, TitleID: "keybind:NA"},
-	{Name: "JOYSTICK_BUTTON_23", Key: 0x20016, TitleID: "keybind:NA"},
-	{Name: "JOYSTICK_BUTTON_24", Key: 0x20017, TitleID: "keybind:NA"},
-	{Name: "JOYSTICK_BUTTON_25", Key: 0x20018, TitleID: "keybind:NA"},
-	{Name: "JOYSTICK_BUTTON_26", Key: 0x20019, TitleID: "keybind:NA"},
-	{Name: "JOYSTICK_BUTTON_27", Key: 0x2001a, TitleID: "keybind:NA"},
-	{Name: "JOYSTICK_BUTTON_28", Key: 0x2001b, TitleID: "keybind:NA"},
-	{Name: "JOYSTICK_BUTTON_29", Key: 0x2001c, TitleID: "keybind:NA"},
-	{Name: "JOYSTICK_BUTTON_30", Key: 0x2001d, TitleID: "keybind:NA"},
-	{Name: "JOYSTICK_BUTTON_31", Key: 0x2001e, TitleID: "keybind:NA"},
-	{Name: "JOYSTICK_BUTTON_32", Key: 0x2001f, TitleID: "keybind:NA"},
+import (
+	"strconv"
+
+	"nox/v1/common/strman"
+)
+
+const (
+	// StrmanPref is a default prefix for string localisation IDs.
+	StrmanPref = "keybind:"
+	// StrmanNA is a default localisation ID for unknown keys.
+	StrmanNA = "keybind:NA"
+)
+
+type keyDesc struct {
+	Name    string
+	Code    Key
+	TitleID strman.ID
+	Title   string
+}
+
+var keys struct {
+	list   []*keyDesc
+	byCode map[Key]*keyDesc
+	byName map[string]Key
+}
+
+func init() {
+	keys.byCode = make(map[Key]*keyDesc)
+	keys.byName = make(map[string]Key)
+	for _, d := range defKeys {
+		RegisterKey(d.Code, d.Name, d.TitleID, d.Title)
+	}
+}
+
+// KeyByName finds the key by its name. It returns 0 if there's no such key.
+func KeyByName(name string) Key {
+	return keys.byName[name]
+}
+
+// Key represent a key code registered with this package.
+// The code is arbitrary and may not represent key code of the underlying input source.
+type Key uint32
+
+// IsValid checks if the key is registered.
+func (k Key) IsValid() bool {
+	if k == 0 {
+		return false
+	}
+	return keys.byCode[k] != nil
+}
+
+// String returns the name of the key.
+func (k Key) String() string {
+	if k == 0 {
+		return ""
+	}
+	b := keys.byCode[k]
+	if b == nil || b.Name == "" {
+		return strconv.Itoa(int(k))
+	}
+	return b.Name
+}
+
+// TitleID returns key title ID for localisation.
+func (k Key) TitleID() strman.ID {
+	if k == 0 {
+		return ""
+	}
+	b := keys.byCode[k]
+	if b == nil {
+		return StrmanNA
+	} else if b.TitleID == "" {
+		return StrmanPref + strman.ID(b.Name)
+	}
+	return b.TitleID
+}
+
+// Title returns key localised key title.
+func (k Key) Title(sm *strman.StringManager) string {
+	if k == 0 {
+		return ""
+	}
+	b := keys.byCode[k]
+	if b == nil {
+		return sm.GetString(StrmanNA)
+	}
+	sid := b.TitleID
+	if sid == "" {
+		if b.Title != "" {
+			return b.Title
+		}
+		sid = StrmanNA
+	}
+	return sm.GetString(sid)
+}
+
+// ListKeys lists all keys registered with this package.
+func ListKeys() []Key {
+	out := make([]Key, 0, len(keys.list))
+	for _, d := range keys.list {
+		out = append(out, d.Code)
+	}
+	return out
+}
+
+// RegisterKey registers a new key with specified code, name and title.
+func RegisterKey(code Key, name string, titleID strman.ID, titleDef string) {
+	if code == 0 {
+		panic("empty key code")
+	}
+	if name == "" {
+		panic("empty name")
+	}
+	if _, ok := keys.byCode[code]; ok {
+		panic("key code already registered")
+	}
+	if _, ok := keys.byName[name]; ok {
+		panic("key name already registered")
+	}
+	d := &keyDesc{Name: name, Code: code, TitleID: titleID, Title: titleDef}
+	keys.list = append(keys.list, d)
+	keys.byCode[d.Code] = d
+	keys.byName[d.Name] = d.Code
 }
