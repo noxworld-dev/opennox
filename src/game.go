@@ -7,10 +7,22 @@ package main
 #include "common__magic__comguide.h"
 #include "common__net_list.h"
 #include "client__drawable__drawdb.h"
+#include "client__gui__guicon.h"
+#include "client__gui__guisave.h"
+#include "client__gui__chaticon.h"
+#include "client__gui__guirank.h"
+#include "client__gui__guimeter.h"
+#include "client__gui__guisumn.h"
+#include "client__gui__guiquit.h"
+#include "client__gui__gui_ctf.h"
+#include "client__gui__guiobs.h"
+#include "client__gui__guitrade.h"
+#include "client__gui__guiinput.h"
 extern unsigned int nox_game_createOrJoin_815048;
 extern unsigned int nox_client_gui_flag_815132;
 extern unsigned int nox_client_gui_flag_1556112;
-extern unsigned int dword_5d4594_811372;
+extern unsigned int nox_client_renderGUI_80828;
+extern unsigned int nox_xxx_xxxRenderGUI_587000_80832;
 extern int nox_win_width;
 extern int nox_win_height;
 extern nox_draw_viewport_t nox_draw_viewport;
@@ -20,6 +32,8 @@ int nox_xxx_mapExitAndCheckNext_4D1860_server();
 */
 import "C"
 import (
+	"errors"
+	"fmt"
 	"os"
 	"unsafe"
 
@@ -30,9 +44,35 @@ import (
 	noxflags "nox/v1/common/flags"
 	"nox/v1/common/log"
 	"nox/v1/common/memmap"
+	"nox/v1/common/types"
 )
 
-var noXwis = os.Getenv("NOX_XWIS") == "false"
+var (
+	noXwis  = os.Getenv("NOX_XWIS") == "false"
+	gameLog = log.New("game")
+)
+
+var (
+	nox_game_playState_811372 int
+)
+
+//export nox_xxx_gameGetPlayState_4356B0
+func nox_xxx_gameGetPlayState_4356B0() C.int {
+	return C.int(gameGetPlayState())
+}
+func gameGetPlayState() int {
+	return nox_game_playState_811372
+}
+
+//export nox_xxx_gameSetPlayState_4356B0
+func nox_xxx_gameSetPlayState_4356B0(st C.int) {
+	gameSetPlayState(int(st))
+}
+
+func gameSetPlayState(st int) {
+	gameLog.Println("play state:", st)
+	nox_game_playState_811372 = st
+}
 
 func nox_game_setMovieFile_4CB230(name string, out *C.char) bool {
 	cname := C.CString(name)
@@ -221,7 +261,19 @@ func maybeRegisterGameOnline() {
 	srvReg.srv.Update(info.XWIS())
 }
 
-func initGameSession435CC0() int {
+func noxGetViewport() *C.nox_draw_viewport_t {
+	return &C.nox_draw_viewport
+}
+
+func nox_xxx_getSomeCoods_435670() types.Point {
+	vp := noxGetViewport()
+	return types.Point{
+		X: int(vp.field_6),
+		Y: int(vp.field_7),
+	}
+}
+
+func initGameSession435CC0() error {
 	C.sub_445450()
 	C.sub_45DB90()
 	C.sub_41D1A0(0)
@@ -229,53 +281,53 @@ func initGameSession435CC0() int {
 	C.nox_client_gui_flag_1556112 = 0
 
 	if C.nox_alloc_drawable_init(5000) == 0 {
-		return 0
+		return errors.New("nox_alloc_drawable_init failed")
 	}
 
 	if C.sub_49A8E0_init() == 0 {
-		return 0
+		return errors.New("sub_49A8E0_init failed")
 	}
 
 	if C.nox_xxx_allocArrayHealthChanges_49A5F0() == 0 {
-		return 0
+		return errors.New("nox_xxx_allocArrayHealthChanges_49A5F0 failed")
 	}
 
 	if C.nox_xxx_parseThingBinClient_44C840_read_things() == nil {
-		return 0
+		return errors.New("nox_xxx_parseThingBinClient_44C840_read_things failed")
 	}
 
 	if C.nox_xxx_loadGuides_427070() == 0 {
-		return 0
+		return errors.New("nox_xxx_loadGuides_427070 failed")
 	}
 
 	if C.sub_494F00() == 0 {
-		return 0
+		return errors.New("sub_494F00 failed")
 	}
 
-	if C.nox_game_guiInit_473680() == 0 {
-		return 0
+	if err := nox_game_guiInit_473680(); err != nil {
+		return fmt.Errorf("game gui init failed: %w", err)
 	}
 
 	C.nox_alloc_npcs()
 	if C.nox_xxx_loadReflSheild_499360() == 0 {
-		return 0
+		return errors.New("nox_xxx_loadReflSheild_499360 failed")
 	}
 
 	C.sub_485F80()
 	if C.sub_4960B0() == 0 {
-		return 0
+		return errors.New("nox_xxx_loadReflSheild_499360 failed")
 	}
 
 	if C.sub_473A40() == 0 {
-		return 0
+		return errors.New("nox_xxx_loadReflSheild_499360 failed")
 	}
 
 	if C.nox_xxx_allocArrayDrawableFX_495AB0() == 0 {
-		return 0
+		return errors.New("nox_xxx_loadReflSheild_499360 failed")
 	}
 
 	if C.nox_xxx_allocClassListFriends_495980() == 0 {
-		return 0
+		return errors.New("nox_xxx_loadReflSheild_499360 failed")
 	}
 
 	C.sub_4958F0()
@@ -286,19 +338,20 @@ func initGameSession435CC0() int {
 	} else {
 		C.nox_xxx_netSendIncomingClient_43CB00()
 	}
-	C.nox_game_SetCliDrawFunc((*[0]byte)(C.nox_xxx_client_435F80_draw))
-	C.dword_5d4594_811372 = 3
+	gameSetCliDrawFunc(nox_xxx_client_435F80_draw)
+	gameSetPlayState(3)
 	*memmap.PtrUint32(0x587000, 85720) = 1
 	sz := videoGetWindowSize()
-	C.nox_draw_viewport.x1 = 0
-	C.nox_draw_viewport.y1 = 0
-	C.nox_draw_viewport.x2 = C.int(sz.W - 1)
-	C.nox_draw_viewport.y2 = C.int(sz.H - 1)
-	C.nox_draw_viewport.width = C.int(sz.W)
-	C.nox_draw_viewport.height = C.int(sz.H)
-	C.nox_draw_viewport.field_10 = 0
-	C.nox_draw_viewport.field_11 = 0
-	C.nox_draw_viewport.field_12 = 0
+	vp := noxGetViewport()
+	vp.x1 = 0
+	vp.y1 = 0
+	vp.x2 = C.int(sz.W - 1)
+	vp.y2 = C.int(sz.H - 1)
+	vp.width = C.int(sz.W)
+	vp.height = C.int(sz.H)
+	vp.field_10 = 0
+	vp.field_11 = 0
+	vp.field_12 = 0
 	v1 := C.nox_video_getCutSize_4766D0()
 	C.nox_draw_setCutSize_476700(v1, 0)
 	if noxflags.HasGame(noxflags.GameSolo) {
@@ -334,7 +387,7 @@ func initGameSession435CC0() int {
 	}
 	C.sub_4951C0()
 	C.sub_465DE0(0)
-	return 1
+	return nil
 }
 
 func nox_server_parseCmdText_443C80(cmd string, flag int) int {
@@ -371,4 +424,150 @@ func nox_xxx_servInitialMapLoad_4D17F0() bool {
 
 func nox_xxx_gameTick_4D2580_server() bool {
 	return C.nox_xxx_gameTick_4D2580_server() != 0
+}
+
+func nox_game_guiInit_473680() error {
+	*memmap.PtrPtr(0x5D4594, 1096420) = unsafe.Pointer(C.nox_xxx_gLoadImg_42F970(internCStr("CursorBitmap")))
+	if C.sub_455C30() == 0 {
+		return errors.New("sub_455C30 failed")
+	}
+	if C.sub_456070() == 0 {
+		return errors.New("sub_456070 failed")
+	}
+	if C.sub_470710() == 0 {
+		return errors.New("sub_470710 failed")
+	}
+	if C.nox_xxx_guiHealthManaInit_4714E0() == 0 {
+		return errors.New("nox_xxx_guiHealthManaInit_4714E0 failed")
+	}
+	if C.nox_xxx_bookInit_45B9D0() == 0 {
+		return errors.New("nox_xxx_bookInit_45B9D0 failed")
+	}
+	if C.sub_476E20() == nil {
+		return errors.New("sub_476E20 failed")
+	}
+	if C.sub_4BFAD0() == 0 {
+		return errors.New("sub_4BFAD0 failed")
+	}
+	tmp := C.nox_xxx_wndCreateInventoryMB_465E00()
+	*memmap.PtrUint32(0x5D4594, 1096328) = uint32(tmp)
+	if tmp == 0 {
+		return errors.New("nox_xxx_wndCreateInventoryMB_465E00 failed")
+	}
+	if C.sub_4ADAD0() == 0 {
+		return errors.New("sub_4ADAD0 failed")
+	}
+	if C.sub_48D000() == 0 {
+		return errors.New("sub_48D000 failed")
+	}
+	if C.sub_4C3760() == 0 {
+		return errors.New("sub_4C3760 failed")
+	}
+	if C.nox_savegame_sub_46C730() == 0 {
+		return errors.New("nox_savegame_sub_46C730 failed")
+	}
+	if C.sub_4C09D0() == 0 {
+		return errors.New("sub_4C09D0 failed")
+	}
+	if C.sub_478110() == 0 {
+		return errors.New("sub_478110 failed")
+	}
+	if C.sub_49B3E0() == 0 {
+		return errors.New("sub_49B3E0 failed")
+	}
+	if C.sub_4BFC90() == 0 {
+		return errors.New("sub_4BFC90 failed")
+	}
+	if C.sub_4BFEF0() == 0 {
+		return errors.New("sub_4BFEF0 failed")
+	}
+	if C.sub_4799A0() == 0 {
+		return errors.New("sub_4799A0 failed")
+	}
+	if C.nox_xxx_cliPrepareGameplay1_460E60() == 0 {
+		return errors.New("nox_xxx_cliPrepareGameplay1_460E60 failed")
+	}
+	vsz := videoGetWindowSize()
+	*memmap.PtrPtr(0x5D4594, 1096352) = unsafe.Pointer(C.nox_gui_console_Create_450C70(C.int(vsz.W), C.int(vsz.H)))
+	if memmap.Uint32(0x5D4594, 1096352) == 0 {
+		return errors.New("nox_gui_console_Create_450C70 failed")
+	}
+	if C.sub_46A730() == nil {
+		return errors.New("sub_46A730 failed")
+	}
+	if C.sub_44E560() == nil {
+		return errors.New("sub_44E560 failed")
+	}
+	if C.sub_4C3500() == 0 {
+		return errors.New("sub_4C3500 failed")
+	}
+	tmp = C.nox_xxx_guiDrawRank_46E870()
+	*memmap.PtrUint32(0x5D4594, 1096340) = uint32(tmp)
+	if tmp == 0 {
+		return errors.New("nox_xxx_guiDrawRank_46E870 failed")
+	}
+	tmp = C.nox_xxx_guiMotdLoad_4465C0()
+	*memmap.PtrUint32(0x5D4594, 1096324) = uint32(tmp)
+	if tmp == 0 {
+		return errors.New("nox_xxx_guiMotdLoad_4465C0 failed")
+	}
+	if C.nox_xxx_guiSummonCreatureLoad_4C1D80() == 0 {
+		return errors.New("nox_xxx_guiSummonCreatureLoad_4C1D80 failed")
+	}
+	if C.nox_xxx_wndLoadQuiteMenu_445790() == 0 {
+		return errors.New("nox_xxx_wndLoadQuiteMenu_445790 failed")
+	}
+	if C.sub_4AB260() == 0 {
+		return errors.New("sub_4AB260 failed")
+	}
+	if C.nox_xxx_guiChatIconLoad_445650() == 0 {
+		return errors.New("nox_xxx_guiChatIconLoad_445650 failed")
+	}
+	if C.sub_4C3390() == 0 {
+		return errors.New("sub_4C3390 failed")
+	}
+	if C.sub_48C980() == 0 {
+		return errors.New("sub_48C980 failed")
+	}
+	C.nox_gui_console_Enable_450BE0()
+	C.sub_4AB4A0(0)
+	C.sub_4AB4D0(0)
+	if C.nox_client_renderGUI_80828 == 0 || getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) {
+		C.sub_4721A0(0)
+		C.sub_460EA0(0)
+		C.nox_window_set_visible_unk5(0)
+		C.sub_45D500(0)
+		C.sub_455A00(0)
+		C.sub_455F10(0)
+	}
+	return nil
+}
+
+//export sub_473840
+func sub_473840() C.int {
+	C.nox_gui_console_Disable_450BF0()
+	C.sub_4C03E0()
+	C.sub_46CCB0()
+	C.sub_4AE3B0()
+	C.sub_48D450()
+	C.sub_4C4220()
+	C.nox_xxx_closeP2PTradeWnd_4C12A0()
+	C.sub_4BFD10()
+	C.sub_49B490()
+	C.sub_478F80()
+	C.sub_479D10()
+	C.sub_4AB470()
+	C.sub_4C34A0()
+	C.sub_445770()
+	C.sub_456240()
+	C.sub_455EE0()
+	C.sub_460E90()
+	C.sub_4505E0()
+	C.sub_46A860()
+	C.sub_49C7A0()
+	C.nox_xxx_guiServerOptionsHide_4597E0(1)
+	C.sub_467980()
+	C.sub_46C5D0()
+	C.nox_client_renderGUI_80828 = C.nox_xxx_xxxRenderGUI_587000_80832
+	return 1
 }

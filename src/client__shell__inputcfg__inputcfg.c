@@ -36,11 +36,11 @@ char* sub_4CBD30() {
 		v7 = nox_xxx_keybind_nameByTitle_42E960(v6);
 		if (v7) {
 			nox_sprintf(v12, "%s = %s", v7, v3);
-			sub_42CF50(v12);
+			nox_client_parseConfigHotkeysLine_42CF50(v12);
 		}
 		if (v5) {
 			nox_sprintf(v12, "%s = %s", v5, v3);
-			sub_42CF50(v12);
+			nox_client_parseConfigHotkeysLine_42CF50(v12);
 		}
 	}
 	v8 = nox_strman_loadString_40F1D0("bindevent:ToggleQuitMenu", 0, "C:\\NoxPost\\src\\Client\\shell\\InputCfg\\inputcfg.c",
@@ -51,7 +51,7 @@ char* sub_4CBD30() {
 	result = nox_xxx_keybind_nameByTitle_42E960(v10);
 	if (result) {
 		nox_sprintf(v12, "%s = %s", result, v9);
-		result = (char*)sub_42CF50(v12);
+		result = (char*)nox_client_parseConfigHotkeysLine_42CF50(v12);
 	}
 	return result;
 }
@@ -81,7 +81,7 @@ int  sub_4CBF60(int a1, unsigned int a2, int a3, int a4) {
 										   "C:\\NoxPost\\src\\Client\\shell\\InputCfg\\inputcfg.c", 424);
 				nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1522636), L"%s\n'%s'", v6, v9);
 				nox_xxx_wndShowModalMB_46A8C0(*(int*)&dword_5d4594_1522612);
-				nox_xxx_windowDestroyChildsMB_46B500(*(int*)&dword_5d4594_1522612);
+				nox_xxx_windowFocus_46B500(*(int*)&dword_5d4594_1522612);
 				sub_46C690(*(int*)&dword_5d4594_1522612);
 				return nox_xxx_wndListboxProcPre_4A30D0(a1, 0x4010u, (wchar_t*)a3, a4);
 			}

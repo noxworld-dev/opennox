@@ -65,7 +65,7 @@ extern _DWORD dword_5d4594_2614264;
 extern _DWORD dword_5d4594_830292;
 extern _DWORD dword_5d4594_816448;
 extern _DWORD dword_5d4594_815704;
-extern _DWORD nox_xxx_useAudio_587000_80832;
+extern _DWORD nox_xxx_xxxRenderGUI_587000_80832;
 extern _DWORD dword_5d4594_826036;
 extern _DWORD dword_5d4594_816356;
 extern _DWORD dword_5d4594_826032;
@@ -161,9 +161,10 @@ extern int nox_parse_thing_draw_funcs_cnt;
 extern _DWORD nox_game_continueMenuOrHost_93200;
 extern _DWORD nox_continue_mainloop_93196;
 int (*func_5D4594_816388)(void) = 0;
-#endif // NOX_CGO
 
 int (*nox_draw_unk1)(void) = 0;
+int (*func_5D4594_816392)(void) = 0;
+#endif // NOX_CGO
 
 void (*mainloop_enter)(void*);
 void* mainloop_enter_args;
@@ -177,7 +178,6 @@ extern obj_5D4594_3799572_t* ptr_5D4594_3799572;
 obj_5D4594_3799572_t obj_5D4594_3799660 = {0};
 obj_5D4594_3799572_t obj_5D4594_3800716 = {0};
 
-int (*func_5D4594_816392)(void) = 0;
 void (*func_5D4594_830220)(void) = 0;
 void (*func_5d4594_830216)(void) = 0;
 
@@ -881,6 +881,7 @@ int  nox_xxx_netHandleCliPacket_43C860(int a1, unsigned __int8* a2, int a3, void
 	return 1;
 }
 
+#ifndef NOX_CGO
 //----- (0043C8F0) --------------------------------------------------------
 int  nox_xxx_clientSendInput_43C8F0(int a1, int a2, int a3) {
 	int v3;     // ebx
@@ -918,6 +919,7 @@ int  nox_xxx_clientSendInput_43C8F0(int a1, int a2, int a3) {
 	}
 	return result;
 }
+#endif // NOX_CGO
 
 //----- (0043C9F0) --------------------------------------------------------
 int nox_xxx_netSendClientReady_43C9F0() {
@@ -1687,17 +1689,15 @@ int  nox_xxx_setGameState_43DDF0(int (*a1)(void)) {
 		func_5D4594_816388 = nox_return_1_43DE10;
 	return 1;
 }
-#endif // NOX_CGO
 
 //----- (0043DE10) --------------------------------------------------------
 int nox_return_1_43DE10() { return 1; }
 
 //----- (0043DE20) --------------------------------------------------------
-int  nox_game_SetCliDrawFunc(int (*fnc)(void)) {
+void nox_game_SetCliDrawFunc(int (*fnc)(void)) {
 	nox_draw_unk1 = fnc;
 	if (!fnc)
 		nox_draw_unk1 = nox_return_1_43DE10;
-	return 1;
 }
 
 //----- (0043DE40) --------------------------------------------------------
@@ -1709,7 +1709,6 @@ int  sub_43DE40(int (*a1)(void)) {
 }
 
 //----- (0043DE60) --------------------------------------------------------
-#ifndef NOX_CGO
 void nox_game_exit_xxx_43DE60() {
 	nox_continue_mainloop_93196 = 0;
 	nox_xxx_gameSetCliConnected_43C720(0);
@@ -3760,6 +3759,7 @@ int  nox_xxx_doExecrul_4438A0(int a1) {
 }
 
 //----- (004443B0) --------------------------------------------------------
+#ifndef NOX_CGO
 void  sub_4443B0(unsigned __int8 a1) {
 	char* v1;    // eax
 	wchar_t* v2; // esi
@@ -3778,9 +3778,10 @@ void  sub_4443B0(unsigned __int8 a1) {
 		}
 	}
 }
+#endif // NOX_CGO
 
 //----- (00444410) --------------------------------------------------------
-char*  sub_444410(int a1) {
+wchar_t*  sub_444410(int a1) {
 	char* result;        // eax
 	int v2;              // edx
 	unsigned __int8* v3; // ecx
@@ -3811,7 +3812,7 @@ void sub_4445C0() {
 	*getMemU32Ptr(0x587000, 80816) = 1;
 	nox_xxx_useAudio_587000_80840 = 1;
 	nox_client_renderGUI_80828 = 1;
-	nox_xxx_useAudio_587000_80832 = 1;
+	nox_xxx_xxxRenderGUI_587000_80832 = 1;
 	if (v0 <= 266) {
 		if (v0 != 266) {
 			if (!v0) {
@@ -4467,7 +4468,7 @@ _BYTE*  nox_xxx_motdAddSomeTextMB_446730(_BYTE* a1) {
 int sub_446780() {
 	if (wndIsShown_nox_xxx_wndIsShown_46ACC0(*(int*)&dword_5d4594_826028))
 		return 0;
-	nox_xxx_windowDestroyChildsMB_46B500(0);
+	nox_xxx_windowFocus_46B500(0);
 	nox_window_set_hidden(*(int*)&dword_5d4594_826028, 1);
 	*(_DWORD*)(dword_5d4594_826028 + 4) &= 0xFFFFFFF7;
 	*(_DWORD*)(dword_5d4594_826032 + 4) &= 0xFFFFFFF7;
@@ -4516,7 +4517,7 @@ void nox_xxx_motd_4467F0() {
 										nox_xxx_motdAddSomeTextMB_446730(v4);
 								}
 								v3 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_826028, 4202);
-								nox_xxx_windowDestroyChildsMB_46B500((int)v3);
+								nox_xxx_windowFocus_46B500((int)v3);
 							}
 						}
 					}
@@ -4868,7 +4869,7 @@ int sub_4475E0() { return nox_window_call_field_94(*(int*)&dword_5d4594_829488, 
 //----- (00447600) --------------------------------------------------------
 void sub_447600() {
 	if (!sub_44A4A0())
-		nox_xxx_windowDestroyChildsMB_46B500(*(int*)&dword_5d4594_829500);
+		nox_xxx_windowFocus_46B500(*(int*)&dword_5d4594_829500);
 }
 
 //----- (00447BD0) --------------------------------------------------------
@@ -5393,7 +5394,7 @@ int sub_449280() {
 		sub_46B120(*(_DWORD**)&dword_5d4594_830104, 0);
 		nox_xxx_wndShowModalMB_46A8C0(*(int*)&dword_5d4594_830104);
 		sub_46C690(*(int*)&dword_5d4594_830104);
-		nox_xxx_windowDestroyChildsMB_46B500(*(int*)&dword_5d4594_830104);
+		nox_xxx_windowFocus_46B500(*(int*)&dword_5d4594_830104);
 		result = 1;
 	}
 	return result;
@@ -5482,7 +5483,7 @@ int nox_xxx_guiServerListLoad_449530() {
 		sub_46B120(*(_DWORD**)&dword_5d4594_830108, 0);
 		nox_xxx_wndShowModalMB_46A8C0(*(int*)&dword_5d4594_830108);
 		sub_46C690(*(int*)&dword_5d4594_830108);
-		nox_xxx_windowDestroyChildsMB_46B500(*(int*)&dword_5d4594_830108);
+		nox_xxx_windowFocus_46B500(*(int*)&dword_5d4594_830108);
 		if (nox_common_gameFlags_check_40A5C0(0x2000000)) {
 			v16 = sub_4A7F10();
 			v0 = v16;
@@ -5537,7 +5538,7 @@ int nox_xxx_guiServerListLoad_449530() {
 }
 
 //----- (00449A10) --------------------------------------------------------
-_DWORD*  nox_xxx_dialogMsgBoxCreate_449A10(nox_window* win, int a2, wchar_t* text, int a4, void (*a5)(void), void (*a6)(void)) {
+_DWORD*  nox_xxx_dialogMsgBoxCreate_449A10(nox_window* win, wchar_t* a2, wchar_t* text, int a4, void (*a5)(void), void (*a6)(void)) {
 	int a1 = win;
 	int v6;         // esi
 	_DWORD* result; // eax
@@ -5913,7 +5914,7 @@ int sub_44A400() {
 		nox_xxx_wndClearCaptureMain_46ADE0(*(int*)&dword_5d4594_830224);
 		nox_xxx_windowDestroyMB_46C4E0(*(_DWORD**)&dword_5d4594_830224);
 		if (dword_5d4594_830232)
-			nox_xxx_windowDestroyChildsMB_46B500(*(int*)&dword_5d4594_830232);
+			nox_xxx_windowFocus_46B500(*(int*)&dword_5d4594_830232);
 		dword_5d4594_830224 = 0;
 		dword_5d4594_830228 = 0;
 		nox_client_setCursorType_477610(0);

@@ -3,6 +3,7 @@
 
 #include "common__telnet__telnetd.h"
 #include "client__system__parsecmd.h"
+#include "client__system__ctrlevnt.h"
 #include "client__gui__gadgets__listbox.h"
 
 #include "proto.h"
@@ -124,7 +125,7 @@ void nox_gui_console_F1_451350() {
 		nox_gui_console_scrollbox->flags |= 8u;
 		nox_gui_console_input->flags |= 8u;
 		nox_gui_console_input->flags |= 1u;
-		nox_xxx_windowDestroyChildsMB_46B500(nox_gui_console_input);
+		nox_xxx_windowFocus_46B500(nox_gui_console_input);
 		if (nox_gui_console_locked) {
 			nox_gui_console_Clear_450B70();
 			wchar_t* v1 = nox_strman_loadString_40F1D0("ENTERPASSWORD", 0, "C:\\NoxPost\\src\\Client\\Gui\\guicon.c", 459);
@@ -135,6 +136,9 @@ void nox_gui_console_F1_451350() {
 }
 
 //----- (00450F40) --------------------------------------------------------
+#ifdef NOX_CGO
+int  nox_xxx_consoleEditProc_450F40(void* a1, int a2, int a3, int a4);
+#else // NOX_CGO
 int  nox_xxx_consoleEditProc_450F40(_DWORD* a1, int a2, int a3, int a4) {
 	_DWORD* v4; // eax
 
@@ -167,6 +171,7 @@ LABEL_6:
 	}
 	return 1;
 }
+#endif // NOX_CGO
 
 //----- (00450E80) --------------------------------------------------------
 int nox_xxx_consoleWndFn_450E80() { return 0; }
@@ -314,7 +319,7 @@ int nox_gui_console_Hide_4512B0() {
 	if (wndIsShown_nox_xxx_wndIsShown_46ACC0(nox_gui_console_win))
 		return 0;
 	if (nox_xxx_wndGetFocus_46B4F0() == nox_gui_console_input)
-		nox_xxx_windowDestroyChildsMB_46B500(0);
+		nox_xxx_windowFocus_46B500(0);
 	nox_window_set_hidden(nox_gui_console_win, 1);
 	nox_gui_console_win->flags &= 0xFFFFFFF7;
 	nox_gui_console_input->flags &= 0xFFFFFFF7;

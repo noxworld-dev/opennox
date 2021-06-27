@@ -388,7 +388,7 @@ void  sub_484E60(int a1) {
 		v7 = v1[9];
 		v10.field_8 = v1[8] + v5 + 100;
 		v10.field_C = v7 + v6 + 100;
-		nox_xxx_spriteEnum_49AB00(&v10, sub_484F90, (int)v1);
+		nox_xxx_forEachSprite_49AB00(&v10, sub_484F90, (int)v1);
 	}
 }
 
@@ -923,7 +923,7 @@ void  sub_468F80(int a1) {
 		v16 = v1[9];
 		v17.field_8 = v1[8] + v14 + 100;
 		v17.field_C = v16 + v15 + 100;
-		nox_xxx_spriteEnum_49AB00(&v17, nox_xxx_cliLight16_469140, (int)v1);
+		nox_xxx_forEachSprite_49AB00(&v17, nox_xxx_cliLight16_469140, (int)v1);
 	}
 }
 

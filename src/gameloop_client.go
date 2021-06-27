@@ -101,11 +101,11 @@ func generateMouseSparks() {
 		return
 	}
 
-	mouse := C.nox_client_getMouseState_4309F0()
+	mouse := &nox_mouse
 	// emit sparks when passing a certain distance
 	const distanceSparks = 0.25
-	dx := int(mouse.pos.x) - int(memmap.Uint32(0x5D4594, 816420))
-	dy := int(mouse.pos.y) - int(memmap.Uint32(0x5D4594, 816424))
+	dx := mouse.pos.X - int(memmap.Uint32(0x5D4594, 816420))
+	dy := mouse.pos.Y - int(memmap.Uint32(0x5D4594, 816424))
 	r2 := dx*dx + dy*dy
 	if memmap.Uint32(0x5D4594, 816428) != 0 {
 		cnt := (int)(math.Sqrt(float64(r2)) * distanceSparks)
@@ -122,14 +122,14 @@ func generateMouseSparks() {
 		if r2 < 10 {
 			*memmap.PtrUint32(0x5D4594, 816428) = 0
 		}
-		*memmap.PtrUint32(0x5D4594, 816420) = uint32(mouse.pos.x)
-		*memmap.PtrUint32(0x5D4594, 816424) = uint32(mouse.pos.y)
+		*memmap.PtrUint32(0x5D4594, 816420) = uint32(mouse.pos.X)
+		*memmap.PtrUint32(0x5D4594, 816424) = uint32(mouse.pos.Y)
 	} else if r2 > 64 {
 		*memmap.PtrUint32(0x5D4594, 816428) = 1
 	}
 	// explode with sparks when clicking
 	const explosionSparks = 75
-	if mouse.btn[C.NOX_MOUSE_LEFT].pressed == 1 {
+	if mouse.btn[NOX_MOUSE_LEFT].pressed {
 		randomIntMinMax(0, 2)
 		if memmap.Uint32(0x5D4594, 816416) == 0 {
 			*memmap.PtrUint32(0x5D4594, 816416) = 1
@@ -141,7 +141,7 @@ func generateMouseSparks() {
 				v15 := v13*int(memmap.Int32(0x587000, 192092+8*uintptr(v12)))/16 - 6
 				v24 := randomIntMinMax(2, 5)
 				v16 := randomIntMinMax(2, 5)
-				C.nox_client_newScreenParticle_431540(4, C.int(v14/16+int(mouse.pos.x)), C.int(int(mouse.pos.y)+v15), C.int(v14/16), C.int(v15), 1, C.char(v16), C.char(v24), 2, 1)
+				C.nox_client_newScreenParticle_431540(4, C.int(v14/16+mouse.pos.X), C.int(mouse.pos.Y+v15), C.int(v14/16), C.int(v15), 1, C.char(v16), C.char(v24), 2, 1)
 			}
 		}
 	} else {

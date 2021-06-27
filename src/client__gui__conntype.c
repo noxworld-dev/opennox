@@ -18,7 +18,7 @@ int sub_49C820() {
 	sub_46B120(*(_DWORD**)&dword_5d4594_1305684, 0);
 	nox_xxx_wndShowModalMB_46A8C0(*(int*)&dword_5d4594_1305684);
 	sub_46C690(*(int*)&dword_5d4594_1305684);
-	nox_xxx_windowDestroyChildsMB_46B500(*(int*)&dword_5d4594_1305684);
+	nox_xxx_windowFocus_46B500(*(int*)&dword_5d4594_1305684);
 	sub_49C910();
 	nox_wnd_nox_xxx_wndDraw_46A9B0(*(_DWORD**)&dword_5d4594_1305684, nox_win_width / 2 - *(int*)(dword_5d4594_1305684 + 8) / 2,
 					   nox_win_height / 2 - *(int*)(dword_5d4594_1305684 + 12) / 2);

@@ -13770,6 +13770,8 @@ int  nox_xxx_XFerInvLight_4F5AA0(int* a1) {
 		} else {
 			v2 = nox_xxx_netSpriteByCodeDynamic_45A6F0(a1[9]);
 		}
+		if (!v2)
+			abort();
 		memcpy(v6, v2 + 34, sizeof(v6));
 	LABEL_14:
 		if ((__int16)v3 >= 2) {

@@ -109,13 +109,13 @@ func nox_xxx_gameTick_4D2580_server_B(ticks int64) C.int {
 	}
 	updateRemotePlayers()
 	C.nox_xxx_unitsNewAddToList_4DAC00()
-	if C.nox_xxx_checkKeybTimeout_4160F0(0x10, C.uint(10*gameFPS())) != 0 {
+	if nox_xxx_checkKeybTimeout_4160F0(0x10, 10*gameFPS()) {
 		C.nox_xxx_protectUnitDefUpdateMB_4E3C20()
-		C.nox_xxx_setKeybTimeout_4160D0(16)
+		nox_xxx_setKeybTimeout_4160D0(16)
 	}
-	if noxflags.HasGame(noxflags.GameServerXxx) && C.nox_xxx_check_flag_aaa_43AF70() == 1 && !noxflags.HasGame(noxflags.GameFlag8) && C.nox_xxx_checkKeybTimeout_4160F0(0xF, C.uint(60*gameFPS())) != 0 {
+	if noxflags.HasGame(noxflags.GameServerXxx) && C.nox_xxx_check_flag_aaa_43AF70() == 1 && !noxflags.HasGame(noxflags.GameFlag8) && nox_xxx_checkKeybTimeout_4160F0(0xF, 60*gameFPS()) {
 		C.nox_xxx_net_4263C0()
-		C.nox_xxx_setKeybTimeout_4160D0(15)
+		nox_xxx_setKeybTimeout_4160D0(15)
 	}
 	return 1
 }
@@ -229,8 +229,7 @@ func updateRemotePlayers() {
 			var buf [3]byte
 			buf[0] = 39
 			binary.LittleEndian.PutUint16(buf[1:], uint16(gameFrame()))
-			// TODO: passing Go pointer
-			C.nox_netlist_addToMsgListCli_40EBC0(C.int(pl.Index()), 1, (*C.uchar)(unsafe.Pointer(&buf[0])), C.int(len(buf)))
+			nox_netlist_addToMsgListCli_40EBC0(pl.Index(), 1, buf[:])
 		} else {
 			C.nox_xxx_netUpdate_518EE0(pl.UnitC().CObj())
 		}
@@ -340,7 +339,7 @@ func nox_server_netCloseHandler_4DEC60(a1 uint32) {
 	C.nox_xxx_netStructReadPackets_5545B0(C.uint(a1))
 	C.nox_server_netClose_5546A0(C.uint(a1))
 	C.nox_xxx_host_player_unit_3843628 = nil
-	C.sub_552450()
+	sub_43DE40(nil)
 	gameStopNAT()
 	gameStopHTTP()
 }

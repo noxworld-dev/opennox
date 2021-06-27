@@ -20,7 +20,8 @@ void nox_xxx_wndWddSetTooltip_46B000(nox_window_data* data, wchar_t* str) {
 #endif // NOX_CGO
 
 //----- (0046C140) --------------------------------------------------------
-void  nox_xxx_clientPickup_46C140(int a1) {
+void  nox_xxx_clientPickup_46C140(nox_drawable* a1p) {
+	int a1 = a1p;
 	int v2;      // eax
 	wchar_t* v3; // eax
 	int v4;      // [esp+0h] [ebp-4h]

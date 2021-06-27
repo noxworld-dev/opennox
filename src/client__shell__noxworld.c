@@ -53,7 +53,7 @@ void sub_4373A0() {
 		nox_window_set_hidden(*(int*)&dword_5d4594_815000, 1);
 		dword_5d4594_815056 = 0;
 		nox_xxx_wnd_46C6E0(*(int*)&dword_5d4594_815000);
-		nox_xxx_windowDestroyChildsMB_46B500(*(int*)&nox_wol_wnd_world_814980);
+		nox_xxx_windowFocus_46B500(*(int*)&nox_wol_wnd_world_814980);
 	}
 	if (*(int*)&dword_587000_87408 == 1 || *(int*)&dword_587000_87412 == -1) {
 		if (nox_game_createOrJoin_815048 == 1) {

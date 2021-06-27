@@ -4320,7 +4320,8 @@ int  nox_xxx_client_57B400(int a1) {
 }
 
 //----- (0057B450) --------------------------------------------------------
-BOOL  sub_57B450(int* a1) {
+BOOL  sub_57B450(nox_drawable* a1p) {
+	int* a1 = a1p;
 	int v1;             // eax
 	unsigned __int8 v2; // bl
 

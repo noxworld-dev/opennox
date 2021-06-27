@@ -83,7 +83,6 @@ func clientGetServerMap() string {
 	return nox_server_currentMapGetFilename_409B30()
 }
 
-//export map_download_start
 func map_download_start() {
 	C.nox_xxx_gameClearAll_467DF0(1)
 	C.nox_xxx_gameDownloadShowDialog_4CC770()
@@ -104,8 +103,8 @@ func mapDownloadLoop(first bool) (bool, error) {
 
 	nox_framerate_limit_416C70(30)
 	nox_input_pollEvents_4453A0()
-	C.nox_client_processMouseInput_4308A0(1)
-	C.nox_xxx_cursorUpdate_46B740()
+	nox_client_processMouseInput_4308A0(true)
+	nox_xxx_cursorUpdate_46B740()
 	if C.nox_xxx_check_flag_aaa_43AF70() == 1 {
 		C.sub_40D250()
 		C.sub_40DF90()

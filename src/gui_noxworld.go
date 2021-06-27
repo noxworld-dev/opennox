@@ -162,7 +162,7 @@ func nox_xxx_createSocketLocal_554B40(port uint16) int {
 	}
 	lobbyBroadcastSock = sock
 	lobbyBroadcastSockC = newSocketHandle(sock)
-	C.nox_game_SetCliDrawFunc((*[0]byte)(C.sub_554FF0))
+	gameSetCliDrawFunc(sub_554FF0)
 	lobbySockFlag = 1
 	return 0
 }
@@ -174,7 +174,7 @@ func sub_554D10() C.int {
 		lobbyBroadcastSock = nil
 		lobbyBroadcastSockC = 0
 		lobbySockFlag = 0
-		C.nox_game_SetCliDrawFunc(nil)
+		gameSetCliDrawFunc(nil)
 		clientSetOnLobbyServer(nil)
 		nox_net_stop()
 	}
@@ -283,10 +283,9 @@ func nox_xxx_sendLobbyPacket_554C80(port int, buf []byte) (int, error) {
 	return lobbyBroadcastSock.WriteTo(buf, &net.UDPAddr{IP: ip, Port: port})
 }
 
-//export sub_554FF0
-func sub_554FF0() C.int {
+func sub_554FF0() bool {
 	sub_554D70(lobbyBroadcastSock, lobbyBroadcastSockC, 1)
-	return 1
+	return true
 }
 
 func sub_554D70(sock *Socket, csock nox_socket_t, a1 byte) (int, error) {
@@ -384,4 +383,13 @@ func sendToServer(addr net.IP, port int, data []byte) (int, error) {
 		return 0, errors.New("no broadcast socket")
 	}
 	return lobbyBroadcastSock.WriteTo(data, &net.UDPAddr{IP: addr, Port: port})
+}
+
+//export sub_41D4C0
+func sub_41D4C0() C.int {
+	C.sub_41EB40()
+	C.sub_41F4B0()
+	gameSetCliDrawFunc(nil)
+	C.sub_40D0F0()
+	return 1
 }

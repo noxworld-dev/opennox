@@ -1,3 +1,5 @@
+//+build none
+
 #ifdef _WIN32
 #define _USE_MATH_DEFINES
 #endif // _WIN32
@@ -6,25 +8,27 @@
 
 #include "proto.h"
 #include "input.h"
+#include "common/fs/nox_fs.h"
 #include "client__gui__guicon.h"
 #include "client__gui__guisave.h"
 #include "client__gui__guispell.h"
 #include "client__gui__servopts__guiserv.h"
 
+nox_ctrlevent_key_t* dword_5d4594_754056 = 0;
 _DWORD nox_ctrlevent_player_orientation = 0;
-extern _DWORD dword_5d4594_754048;
-extern _DWORD dword_5d4594_754044;
-extern _DWORD nox_xxx_useAudio_587000_80832;
-extern _DWORD dword_5d4594_754040;
-extern _DWORD dword_5d4594_754036;
+extern _DWORD nox_xxx_xxxRenderGUI_587000_80832;
+_DWORD dword_5d4594_754036 = 0;
+_DWORD dword_5d4594_754040 = 0;
+_DWORD dword_5d4594_754044 = 0;
+_DWORD dword_5d4594_754048 = 0;
 extern _DWORD nox_client_renderGUI_80828;
 extern int nox_win_width;
 extern int nox_win_height;
 extern unsigned int nox_gameFPS;
+extern nox_ctrlevent_key_t* dword_5d4594_754056;
 
 __int64 nox_ctrlevent_ticks = 0;
 
-#ifndef NOX_CGO
 nox_keybind_t nox_keybind_arr[NOX_KEYEVENT_MAX] = {
 	{"KP0", 0x52, "keybind:Kp0", 0},
 	{"KP1", 0x4f, "keybind:Kp1", 0},
@@ -208,7 +212,6 @@ nox_bindevent_t nox_bindevent_arr[NOX_BINDEVENT_MAX] = {
 	{"DecreaseGamma", 0xf, 0},
 	{"ScreenShot", 0x37, 0},
 };
-#endif // NOX_CGO
 
 nox_ctrlevent_xxx_t nox_ctrlevent_buf_747884[NOX_CTRLEVENT_XXX_MAX] = {0};
 nox_ctrlevent_xxx_t nox_ctrlevent_buf_750964[NOX_CTRLEVENT_XXX_MAX] = {0}; // TODO: size a guess
@@ -302,7 +305,6 @@ int nox_ctrlevent_add_ticks_42E630() {
 // 42E644: control flows out of bounds to 554290
 // 42E649: control flows out of bounds to 554300
 
-#ifndef NOX_CGO
 char*  nox_xxx_keybind_nameByKey(unsigned int key) {
 	for (int i = 0; i < NOX_KEYEVENT_MAX; i++) {
 		nox_keybind_t* ev = &nox_keybind_arr[i];
@@ -401,7 +403,6 @@ void nox_xxx_bindevent_initStrings_42EAE0() {
 		ev->title = nox_strman_loadString_40F1D0(buf, 0, "C:\\NoxPost\\src\\Client\\System\\Ctrlevnt.c", 2100);
 	}
 }
-#endif // NOX_CGO
 
 //----- (0042D6B0) --------------------------------------------------------
 void nox_xxx_clientControl_42D6B0_orientation(nox_mouse_state_t* mouse) {
@@ -915,7 +916,7 @@ void nox_xxx_clientControl_42D6B0_B() {
 			case 53:
 				if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
 					nox_client_renderGUI_80828 ^= 1u;
-					nox_xxx_useAudio_587000_80832 = nox_client_renderGUI_80828;
+					nox_xxx_xxxRenderGUI_587000_80832 = nox_client_renderGUI_80828;
 					nox_xxx_clientPlaySoundSpecial_452D80(921, 100);
 				}
 				nox_ctrlevent_buf_747884[li].active = 0;
@@ -1075,5 +1076,403 @@ void nox_ctrlevent_action_42E780(nox_ctrlevent_code code, _DWORD data) {
 		if (!nox_xxx_checkGameFlagPause_413A50()) {
 			nox_ctrlevent_action_42E670(code, data);
 		}
+	}
+}
+
+//----- (0042CD70) --------------------------------------------------------
+nox_ctrlevent_key_t* nox_xxx_getBindKeysBuf_42CD70() { return dword_5d4594_754056; }
+
+
+//----- (0042E8C0) --------------------------------------------------------
+void  sub_42E8C0(int a1) {
+	nullsub_33(a1, nox_ctrlevent_buf_747884, dword_5d4594_754036);
+}
+// 42E8B0: using guessed type void  nullsub_33(_DWORD, _DWORD, _DWORD);
+
+//----- (0042E8E0) --------------------------------------------------------
+wchar_t* sub_42E8E0(int a1, int a2) {
+	for (nox_ctrlevent_key_t* v2 = dword_5d4594_754056; v2; v2 = v2->field_19) {
+		int v3 = v2->field_9_cnt;
+		if (v3 <= 0) {
+			continue;
+		}
+		for (int v4 = 0; v4 < v3 && v4 < NOX_CTRLEVENT_KEYS_NUM; v4++) {
+			if (v2->field_9[v4] == a1 && --a2 <= 0) {
+				const wchar_t* title = nox_xxx_keybind_titleByKeyZero_42EA00(v2->keys[0]);
+				if (title) {
+					return title;
+				}
+			}
+		}
+	}
+	return L"";
+}
+
+//----- (0042CF50) --------------------------------------------------------
+int  nox_client_parseConfigHotkeysLine_42CF50(char* a1) {
+	int result;           // eax
+	const char* v2;       // ebp
+	_DWORD* v3;           // ebx
+	char* v4;             // ebp
+	int v5;               // edi
+	const char** v6;      // esi
+	int v10;              // eax
+	char* v11;            // eax
+	int v15;              // eax
+	char* v16;            // [esp+10h] [ebp-408h]
+	int v17;              // [esp+14h] [ebp-404h]
+	char v18[1024];       // [esp+18h] [ebp-400h]
+
+	*getMemU32Ptr(0x5D4594, 747868) = 4;
+	*getMemU8Ptr(0x5D4594, 747848) = 0;
+	strcpy(v18, a1);
+	result = (int)strtok(v18, " \r\t\n");
+	v2 = (const char*)result;
+	v16 = (char*)result;
+	if (!result) {
+		return 0;
+	}
+	result = (int)calloc(1, 96);
+	v3 = (_DWORD*)result;
+	v17 = result;
+	if (!result) {
+		return 0;
+	}
+	if (!strcmp(v2, "MousePickup")) {
+		strtok(0, " \r\t\n");
+		v4 = strtok(0, " \r\t\n");
+		v5 = 0;
+		v6 = (const char**)getMemAt(0x587000, 73652);
+		while (_strcmpi(v4, *v6)) {
+			++v6;
+			++v5;
+			if ((int)v6 >= (int)getMemAt(0x587000, 73668))
+				goto LABEL_9;
+		}
+		if (v5 < 4)
+			goto LABEL_10;
+	LABEL_9:
+		v5 = 0;
+	LABEL_10:
+		sub_430AA0(v5);
+		free(v3);
+		return 1;
+	}
+	while (*v2 != 61) {
+		if (*v2 != 43) {
+			unsigned int k = nox_xxx_keybind_keyByName(v16);
+			if (k) {
+				v10 = v3[8];
+				if (v10 == 8) {
+					free(v3);
+					return 0;
+				}
+				v3[v10] = k;
+				++v3[8];
+			}
+		}
+		v16 = strtok(0, " \r\t\n");
+		if (!v16)
+			break;
+		v2 = v16;
+	}
+	v3[17] = 0;
+	v11 = strtok(0, " \r\t\n");
+	if (v11) {
+		while (*v11 != 61) {
+			if (*v11 != 43) {
+				unsigned int k = nox_xxx_bindevent_bindKeyByName(v11);
+				if (k) {
+					v3 = (_DWORD*)v17;
+					v15 = *(_DWORD*)(v17 + 68);
+					if (v15 == 8) {
+						free(v3);
+						return 0;
+					}
+					*(_DWORD*)(v17 + 4 * v15 + 36) = k;
+					++*(_DWORD*)(v17 + 68);
+				} else {
+					v3 = (_DWORD*)v17;
+				}
+			}
+			v11 = strtok(0, " \r\t\n");
+			if (!v11)
+				break;
+		}
+	}
+	v3[18] = 0;
+	v3[19] = dword_5d4594_754056;
+	if (dword_5d4594_754056)
+		dword_5d4594_754056->field_18 = v3;
+	dword_5d4594_754056 = v3;
+	return 1;
+}
+
+//----- (0042CDF0) --------------------------------------------------------
+void nox_client_writeConfigHotkeys_42CDF0(FILE* a1) {
+	int v1;              // eax
+	FILE* v2;            // edi
+	_DWORD* result;      // eax
+	_DWORD* v4;          // ebx
+	int v5;              // ebp
+	int v8;              // ebp
+	_DWORD* v11;         // [esp+Ch] [ebp+4h]
+	_DWORD* v12;         // [esp+Ch] [ebp+4h]
+
+	v1 = nox_client_mousePriKey_430AF0();
+	v2 = a1;
+	nox_fs_fprintf(a1, "MousePickup = %s\n", *getMemU32Ptr(0x587000, 73652 + 4 * v1));
+	result = dword_5d4594_754056;
+	v4 = dword_5d4594_754056;
+	if (dword_5d4594_754056) {
+		for (result = dword_5d4594_754056->field_19; result; result = (_DWORD*)result[19])
+			v4 = result;
+		for (; v4; v4 = (_DWORD*)v4[18]) {
+			v5 = 0;
+			if (v4[8] > 0) {
+				v11 = v4;
+				do {
+					const char* name = nox_xxx_keybind_nameByKey(*v11);
+					if (name) {
+						nox_fs_fprintf(v2, "%s ", name);
+					}
+					if (v5 != v4[8] - 1)
+						nox_fs_fprintf(v2, "+ ");
+					++v5;
+					v11++;
+				} while (v5 < v4[8]);
+			}
+			nox_fs_fprintf(v2, "= ");
+			v8 = 0;
+			if (v4[17] > 0) {
+				v12 = v4 + 9;
+				do {
+					const char* name = nox_xxx_bindevent_bindNameByKey(*v12);
+					if (name) {
+						nox_fs_fprintf(v2, "%s ", name);
+					}
+					if (v8 != v4[17] - 1)
+						nox_fs_fprintf(v2, "+ ");
+					++v8;
+					v12++;
+				} while (v8 < v4[17]);
+			}
+			result = (_DWORD*)nox_fs_fprintf(v2, "\n");
+		}
+	}
+}
+
+//----- (0042CD90) --------------------------------------------------------
+void sub_42CD90() {
+	_DWORD* result; // eax
+	_DWORD* v1;     // esi
+
+	result = dword_5d4594_754056;
+	if (result) {
+		do {
+			v1 = (_DWORD*)result[19];
+			free(result);
+			result = v1;
+		} while (v1);
+	}
+	dword_5d4594_754056 = 0;
+	*getMemU8Ptr(0x5D4594, 747848) = 0;
+	*getMemU8Ptr(0x5D4594, 750956) = 0;
+	dword_5d4594_754036 = 0;
+	dword_5d4594_754040 = 0;
+	dword_5d4594_754044 = 0;
+	dword_5d4594_754048 = 0;
+	*getMemU32Ptr(0x5D4594, 747856) = 100;
+	*getMemU32Ptr(0x5D4594, 747868) = 4;
+}
+
+//----- (0042CD50) --------------------------------------------------------
+char*  nox_xxx_netGetBuffSize_42CD50(_BYTE* a1) {
+	*a1 = getMemByte(0x5D4594, 747864);
+	return (char*)getMemAt(0x5D4594, 741692);
+}
+
+//----- (0042D510) --------------------------------------------------------
+void nox_xxx_netBuf_42D510() {
+	__int64 ticks = nox_platform_get_ticks();
+	*getMemU32Ptr(0x5D4594, 747864) = 0;
+	if (nox_common_gameFlags_check_40A5C0(1)) {
+		if (dword_5d4594_754040 != dword_5d4594_754036) {
+			for (int i = dword_5d4594_754040; i != dword_5d4594_754036; i = (i + 1) % NOX_CTRLEVENT_XXX_MAX) {
+				nox_ctrlevent_xxx_t* p = &nox_ctrlevent_buf_747884[i];
+				if (p->tick > ticks + 50) {
+					break;
+				}
+				if (p->active != 1) {
+					continue;
+				}
+				int v5 = *getMemU32Ptr(0x5D4594, 747864);
+				*getMemU8Ptr(0x5D4594, 741692 + *getMemU32Ptr(0x5D4594, 747864)) = p->code & 0xff;
+				*getMemU32Ptr(0x5D4594, 747864) = v5 + 4;
+				if (nox_ctrlevent_has_data_42D440(p->code)) {
+					int sz = nox_ctrlevent_data_size_42D450(p->code);
+					memcpy(getMemAt(0x5D4594, 741692 + *getMemU32Ptr(0x5D4594, 747864)), &p->data, sz);
+					*getMemU32Ptr(0x5D4594, 747864) += sz;
+				}
+			}
+			dword_5d4594_754040 = dword_5d4594_754036;
+		}
+	} else if (dword_5d4594_754036 > 0) {
+		for (int i = 0; i < dword_5d4594_754036; i++) {
+			nox_ctrlevent_xxx_t* p = &nox_ctrlevent_buf_747884[i];
+			if (p->active != 1) {
+				continue;
+			}
+			int v8 = *getMemU32Ptr(0x5D4594, 747864);
+			*getMemU8Ptr(0x5D4594, 741692 + *getMemU32Ptr(0x5D4594, 747864)) = p->code & 0xff;
+			*getMemU32Ptr(0x5D4594, 747864) = v8 + 4;
+			if (nox_ctrlevent_has_data_42D440(p->code)) {
+				int sz = nox_ctrlevent_data_size_42D450(p->code);
+				memcpy(getMemAt(0x5D4594, 741692 + *getMemU32Ptr(0x5D4594, 747864)), &p->data, sz);
+				*getMemU32Ptr(0x5D4594, 747864) += sz;
+			}
+		}
+	}
+}
+
+//----- (0051AAA0) --------------------------------------------------------
+int  sub_51AAA0(int a1, int a2, int a3) {
+	int v3;             // edi
+	int v4;             // ebp
+	_DWORD* v5;         // ebx
+	int v6;             // ecx
+	unsigned __int8 v7; // al
+	int v9;             // [esp+8h] [ebp-4h]
+
+	v3 = 0;
+	v4 = 0;
+	v9 = 0;
+	if (a2 <= 0)
+		return 0;
+	v5 = (_DWORD*)(a3 + 12);
+	do {
+		v6 = *(unsigned __int8*)(a1 + v4);
+		v4 += 4;
+		*(v5 - 1) = v6;
+		if (nox_ctrlevent_has_data_42D440(v6)) {
+			v7 = nox_ctrlevent_data_size_42D450(*(v5 - 1));
+			*v5 = 0;
+			memcpy(v5, (const void*)(v4 + a1), v7);
+			v4 += v7;
+			v3 = v9;
+		} else {
+			*v5 = 0;
+		}
+		v5[1] = 1;
+		++v3;
+		v5 += 6;
+		v9 = v3;
+	} while (v4 < a2);
+	return v3;
+}
+
+//----- (0051A960) --------------------------------------------------------
+int  nox_xxx_playerSaveInput_51A960(int a1, unsigned __int8* a2) {
+	char* v2;      // eax
+	int v3;        // esi
+	int v5;        // eax
+	int v6;        // edx
+	int v7;        // [esp+Ch] [ebp-C04h]
+	char v8[3072]; // [esp+10h] [ebp-C00h]
+
+	v2 = nox_common_playerInfoFromNum_417090(a1);
+	v3 = *a2;
+	v7 = *a2;
+	if (v2 && !(v2[3680] & 0x10))
+		return v3 + 1;
+	v5 = sub_51AAA0((int)(a2 + 1), v3, (int)v8);
+	v6 = *getMemU32Ptr(0x5D4594, 2388804 + 4 * a1);
+	if (v6 + v5 < 128) {
+		*getMemU32Ptr(0x5D4594, 2388804 + 4 * a1) = v6 + v5;
+		memcpy(getMemAt(0x5D4594, 2388932 + 24 * (v6 + (a1 << 7))), v8, 24 * v5);
+		v3 = v7;
+	}
+	sub_51AA20(a1);
+	return v3 + 1;
+}
+
+//----- (0042D460) --------------------------------------------------------
+int nox_xxx_keyCheckWarrorKeys_42D460(nox_ctrlevent_code code) {
+	switch (code) {
+	case CC_SpellGestureLeft:
+	case CC_SpellGestureRight:
+	case CC_SpellGestureUpperRight:
+	case CC_SpellGestureUpperLeft:
+	case CC_SpellGestureLowerRight:
+	case CC_SpellGestureLowerLeft:
+	case CC_SpellPatternEnd:
+	case CC_CastQueuedSpell:
+	case CC_CastMostRecentSpell:
+	case CC_CastSpell1:
+	case CC_CastSpell2:
+	case CC_SelectSpellSet:
+	case CC_BuildTrap:
+	case CC_ServerOptions:
+	case CC_Taunt:
+		return 1;
+	default:
+		return 0;
+	}
+}
+
+//----- (0042D4B0) --------------------------------------------------------
+int nox_xxx_keyCanPauseMode_42D4B0(nox_ctrlevent_code code) {
+	switch (code) {
+	case CC_Action:
+	case CC_Jump:
+	case CC_Chat:
+	case CC_TeamChat:
+	case CC_ReadSpellbook:
+	case CC_ToggleConsole:
+	case CC_IncreaseWindowSize:
+	case CC_DecreaseWindowSize:
+	case CC_Quit:
+	case CC_QuitMenu:
+	case CC_ReadMap:
+	case CC_Inventory:
+	case CC_SpellGestureUp:
+	case CC_SpellGestureDown:
+	case CC_SpellGestureLeft:
+	case CC_SpellGestureRight:
+	case CC_SpellGestureUpperRight:
+	case CC_SpellGestureUpperLeft:
+	case CC_SpellGestureLowerRight:
+	case CC_SpellGestureLowerLeft:
+	case CC_SpellPatternEnd:
+	case CC_CastQueuedSpell:
+	case CC_CastMostRecentSpell:
+	case CC_CastSpell1:
+	case CC_CastSpell2:
+	case CC_CastSpell3:
+	case CC_CastSpell4:
+	case CC_CastSpell5:
+	case CC_MapZoomIn:
+	case CC_MapZoomOut:
+	case CC_QuickManaPotion:
+	case CC_QuickCurePoisonPotion:
+	case CC_NextSpellSet:
+	case CC_PreviousSpellSet:
+	case CC_SelectSpellSet:
+	case CC_BuildTrap:
+	case CC_ServerOptions:
+	case CC_Taunt:
+	case CC_Laugh:
+	case CC_Point:
+	case CC_InvertSpellTarget:
+	case CC_ToggleRank:
+	case CC_ToggleGUI:
+	case CC_AutoSave:
+	case CC_AutoLoad:
+	case CC_ScreenShot:
+	case CC_Unknown55:
+	case CC_Unknown56:
+		return 1;
+	default:
+		return 0;
 	}
 }

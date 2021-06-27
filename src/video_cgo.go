@@ -310,7 +310,7 @@ func recreateRenderTarget() error {
 	}
 	C.nox_xxx_setSomeFunc_48A210(C.int(uintptr(C.sub_47FCE0))) // TODO: another callback
 	v1 := C.nox_client_getCursorType_477620()
-	C.nox_client_setCursorType_477610(0)
+	nox_client_setCursorType_477610(0)
 	v2 := C.sub_48B3E0(0)
 	depth := 16
 	if !videoIs16Bit() {
@@ -324,7 +324,7 @@ func recreateRenderTarget() error {
 		return err
 	}
 	C.nox_xxx_cursorLoadAll_477710()
-	C.nox_client_setCursorType_477610(v1)
+	nox_client_setCursorType_477610(int(v1))
 	C.sub_48B3E0(v2)
 	C.sub_440900()
 	C.nox_xxx_setupSomeVideo_47FEF0()

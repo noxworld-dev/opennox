@@ -15,7 +15,6 @@ void cmain_loop(int);
 // defined in GAME1.c
 extern _DWORD nox_game_loop_xxx_805872;
 extern _DWORD dword_5d4594_2660032;
-extern _DWORD dword_5d4594_811372;
 extern _DWORD dword_5d4594_815704;
 extern _DWORD dword_5d4594_815708;
 extern _DWORD dword_5d4594_3844304;
@@ -208,7 +207,7 @@ void CONNECT_PREPARE(sm_args_t* args) {
 		*getMemU32Ptr(0x5D4594, 2616328) = nox_xxx_playerNew_4DD320(31, Data);
 		nox_client_setVersion_409AE0(NOX_CLIENT_VERS_CODE);
 		nox_netlist_receiveCli_494E90(31);
-		dword_5d4594_811372 = 2;
+		nox_xxx_gameSetPlayState_4356B0(2);
 		GOTO_CONNECT_RESULT(0);
 	} else {
 		v3 = nox_client_getServerPort_43B320();
@@ -392,7 +391,7 @@ void CONNECT_WAIT_THEN(sm_args_t* args) {
 	if (nox_client_getVersionCode_409AD0() != NOX_CLIENT_VERS_CODE) {
 		GOTO_CONNECT_RESULT(-20);
 	}
-	dword_5d4594_811372 = 2;
+	nox_xxx_gameSetPlayState_4356B0(2);
 	if (!nox_common_gameFlags_check_40A5C0(1)) {
 		sub_417C60();
 	}

@@ -8143,31 +8143,6 @@ int  sub_51A940(int a1) {
 //----- (0051A950) --------------------------------------------------------
 int sub_51A950() { return *getMemU32Ptr(0x5D4594, 2388656); }
 
-//----- (0051A960) --------------------------------------------------------
-int  nox_xxx_playerSaveInput_51A960(int a1, unsigned __int8* a2) {
-	char* v2;      // eax
-	int v3;        // esi
-	int v5;        // eax
-	int v6;        // edx
-	int v7;        // [esp+Ch] [ebp-C04h]
-	char v8[3072]; // [esp+10h] [ebp-C00h]
-
-	v2 = nox_common_playerInfoFromNum_417090(a1);
-	v3 = *a2;
-	v7 = *a2;
-	if (v2 && !(v2[3680] & 0x10))
-		return v3 + 1;
-	v5 = sub_51AAA0((int)(a2 + 1), v3, (int)v8);
-	v6 = *getMemU32Ptr(0x5D4594, 2388804 + 4 * a1);
-	if (v6 + v5 < 128) {
-		*getMemU32Ptr(0x5D4594, 2388804 + 4 * a1) = v6 + v5;
-		memcpy(getMemAt(0x5D4594, 2388932 + 24 * (v6 + (a1 << 7))), v8, 24 * v5);
-		v3 = v7;
-	}
-	sub_51AA20(a1);
-	return v3 + 1;
-}
-
 //----- (0051AA20) --------------------------------------------------------
 int  sub_51AA20(int a1) {
 	int v1;              // esi
@@ -8215,42 +8190,6 @@ int  sub_51AA20(int a1) {
 		} while (v5);
 	}
 	return result;
-}
-
-//----- (0051AAA0) --------------------------------------------------------
-int  sub_51AAA0(int a1, int a2, int a3) {
-	int v3;             // edi
-	int v4;             // ebp
-	_DWORD* v5;         // ebx
-	int v6;             // ecx
-	unsigned __int8 v7; // al
-	int v9;             // [esp+8h] [ebp-4h]
-
-	v3 = 0;
-	v4 = 0;
-	v9 = 0;
-	if (a2 <= 0)
-		return 0;
-	v5 = (_DWORD*)(a3 + 12);
-	do {
-		v6 = *(unsigned __int8*)(a1 + v4);
-		v4 += 4;
-		*(v5 - 1) = v6;
-		if (nox_ctrlevent_has_data_42D440(v6)) {
-			v7 = nox_ctrlevent_data_size_42D450(*(v5 - 1));
-			*v5 = 0;
-			memcpy(v5, (const void*)(v4 + a1), v7);
-			v4 += v7;
-			v3 = v9;
-		} else {
-			*v5 = 0;
-		}
-		v5[1] = 1;
-		++v3;
-		v5 += 6;
-		v9 = v3;
-	} while (v4 < a2);
-	return v3;
 }
 
 //----- (0051AB50) --------------------------------------------------------

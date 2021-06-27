@@ -5548,8 +5548,8 @@ void  nox_xxx_updateSpritePosition_49AA90(nox_drawable* dr, int a2, int a3) {
 }
 
 //----- (0049AB00) --------------------------------------------------------
-void  nox_xxx_spriteEnum_49AB00(int4* a1, void(* draw_fnc)(nox_drawable*, int), int a3) {
-	if (!draw_fnc)
+void  nox_xxx_forEachSprite_49AB00(int4* a1, void(* fnc)(nox_drawable*, int), int a3) {
+	if (!fnc)
 		return;
 
 	int v3;  // edi
@@ -5586,7 +5586,7 @@ void  nox_xxx_spriteEnum_49AB00(int4* a1, void(* draw_fnc)(nox_drawable*, int), 
 					nox_drawable* cur = nox_drawable_2d_index[v3][v6];
 					if (cur) {
 						do {
-							draw_fnc(cur, a3);
+							fnc(cur, a3);
 							cur = cur->field_100;
 						} while (cur);
 						v5 = v9;
@@ -6098,7 +6098,7 @@ int sub_49B490() {
 int sub_49B6B0() {
 	nox_window_set_hidden(*(int*)&dword_5d4594_1303452, 1);
 	nox_xxx_wnd_46ABB0(*(int*)&dword_5d4594_1303452, 0);
-	return nox_xxx_windowDestroyChildsMB_46B500(0);
+	return nox_xxx_windowFocus_46B500(0);
 }
 
 //----- (0049B7A0) --------------------------------------------------------
@@ -6389,7 +6389,8 @@ int  nox_xxx_getSprite178_49BD50(int a1) {
 }
 
 //----- (0049BD70) --------------------------------------------------------
-void sub_49BD70(int a1) {
+void sub_49BD70(nox_draw_viewport_t* a1p) {
+	int a1 = a1p;
 	void( * result2)(int, int); // eax
 	int ( * v4)(int, _DWORD);   // eax
 
@@ -6609,7 +6610,7 @@ int sub_49C7A0() {
 		nox_xxx_wndClearCaptureMain_46ADE0(*(int*)&dword_5d4594_1305680);
 		nox_xxx_windowDestroyMB_46C4E0(*(_DWORD**)&dword_5d4594_1305680);
 		dword_5d4594_1305680 = 0;
-		nox_xxx_windowDestroyChildsMB_46B500(0);
+		nox_xxx_windowFocus_46B500(0);
 		result = nox_common_gameFlags_check_40A5C0(1);
 		if (result)
 			result = sub_459D80(0);
@@ -6644,7 +6645,7 @@ int  sub_49CA60(int a1, int a2, int* a3, int a4) {
 			nox_xxx_rateUpdate_40A6D0(v6);
 			nox_xxx_windowDestroyMB_46C4E0(*(_DWORD**)&dword_5d4594_1305684);
 			dword_5d4594_1305684 = 0;
-			nox_xxx_windowDestroyChildsMB_46B500(0);
+			nox_xxx_windowFocus_46B500(0);
 		}
 	}
 	return 1;

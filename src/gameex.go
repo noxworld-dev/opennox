@@ -6,7 +6,7 @@ package main
 extern unsigned int dword_587000_87404;
 extern unsigned int dword_5d4594_1064868;
 extern unsigned int dword_5d4594_1316972;
-extern nox_window* nox_win_unk3;
+extern nox_window* dword_5d4594_1064896;
 extern unsigned int gameex_flags;
 int sub_4BDFD0();
 int  gameex_sendPacket(char* buf, int len, int smth);
@@ -32,10 +32,19 @@ import (
 	"nox/v1/client/input/keybind"
 	"nox/v1/common/alloc"
 	"nox/v1/common/datapath"
+	noxflags "nox/v1/common/flags"
 	"nox/v1/common/fs"
 	"nox/v1/common/log"
 	"nox/v1/common/memmap"
 )
+
+//export gameexSomeWeirdCheckFixmePlease
+func gameexSomeWeirdCheckFixmePlease() C.bool {
+	// FIXME: no idea what is supposed to do... just checking if both are nil?
+	//        previously checked in asm: (cmp ds:6D8555, eax)
+	//        although we now know that offsets in Mix was wrong compared to our base binary
+	return (uintptr(unsafe.Pointer(C.dword_5d4594_1064896))>>8)|(uintptr(unsafe.Pointer(nox_win_1064900))<<24) == 0
+}
 
 var modifyWndPntr *Window
 var gameex = struct {
@@ -314,19 +323,18 @@ var wndEntryNames = [5][35]uint16{
 	{101, 120, 116, 101, 110, 115, 105, 111, 110, 32, 109, 101, 115, 115, 97, 103, 101, 115, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 }
 
-//export OnKeyboardEvent
-func OnKeyboardEvent(ev *C.nox_keyboard_btn_t) {
+func OnKeyboardEvent(ev *noxKeyEventInt) {
 	if ev.state != 2 {
 		return
 	}
 	if ((C.gameex_flags>>3)&1 != 0) && (ev.code == 26 || ev.code == 27) { // '[' and ']'
 		v8 := byte(bool2int(ev.code == 26))
 		// checks some gameFlags that are yet undiscovered
-		if nox_common_gameFlags_check_40A5C0(0x204) {
-			if C.dword_5d4594_1064868 != 0 || C.nox_win_unk3 != nil {
+		if noxflags.HasGame(0x204) {
+			if C.dword_5d4594_1064868 != 0 || nox_win_unk3 != nil {
 				return
 			}
-			if nox_common_gameFlags_check_40A5C0(1) { // isServer
+			if noxflags.HasGame(1) { // isServer
 				if u := HostPlayerUnit(); u != nil && C.mix_MouseKeyboardWeaponRoll(C.int(uintptr(unsafe.Pointer(u.CObj()))), C.char(v8)) != 0 {
 					clientPlaySoundSpecial(895, 100)
 				}
@@ -341,11 +349,11 @@ func OnKeyboardEvent(ev *C.nox_keyboard_btn_t) {
 	}
 	if keybind.Key(ev.code) == gameex.keys.trap {
 		if (C.gameex_flags>>3)&1 != 0 {
-			if nox_common_gameFlags_check_40A5C0(516) {
-				if C.dword_5d4594_1064868 != 0 || C.nox_win_unk3 != nil {
+			if noxflags.HasGame(516) {
+				if C.dword_5d4594_1064868 != 0 || nox_win_unk3 != nil {
 					return
 				}
-				if nox_common_gameFlags_check_40A5C0(1) { // checkGameFlags isServer
+				if noxflags.HasGame(1) { // checkGameFlags isServer
 					v9 := C.nox_xxx_objGetTeamByNetCode_418C80(C.int(memmap.Uint32(0x5D4594, 2616328)))
 					C.playerDropATrap(C.int(uintptr(unsafe.Pointer(v9)) - 12*4)) // TODO: this doesn't look right
 				} else {
@@ -358,12 +366,12 @@ func OnKeyboardEvent(ev *C.nox_keyboard_btn_t) {
 		}
 	}
 	if ev.code == 66 { // F8
-		if !nox_common_gameFlags_check_40A5C0(1) {
-			C.nox_xxx_printCentered_445490(internWStr("only server can change these options"))
+		if !noxflags.HasGame(1) {
+			nox_xxx_printCentered_445490("only server can change these options")
 			clientPlaySoundSpecial(231, 100)
 			return
 		}
-		if !nox_common_gameFlags_check_40A5C0(516) {
+		if !noxflags.HasGame(516) {
 			return
 		}
 		clientPlaySoundSpecial(921, 100)
@@ -378,12 +386,12 @@ func OnKeyboardEvent(ev *C.nox_keyboard_btn_t) {
 			if modifyWndPntr == nil {
 				return
 			}
-			if nox_common_gameFlags_check_40A5C0(512) {
+			if noxflags.HasGame(512) {
 				modifyWndPntr.ChildByID(1938).Hide()
 				v11 := modifyWndPntr.ChildByID(1524)
 				C.nox_xxx_wnd_46ABB0(C.int(uintptr(unsafe.Pointer(v11.C()))), 0)
 			}
-			C.sub_46B120(modifyWndPntr.C(), 0)
+			sub_46B120(modifyWndPntr.C(), nil)
 			a2b := modifyWndPntr.ChildByID(1981)
 			for i := 0; i < 5; i++ {
 				wstr := GoWStringSlice(wndEntryNames[i][:])
@@ -408,8 +416,8 @@ func OnKeyboardEvent(ev *C.nox_keyboard_btn_t) {
 }
 
 func DestroyNoxWindow() {
-	C.nox_xxx_wnd_46C6E0(C.int(uintptr(unsafe.Pointer(modifyWndPntr.C()))))
-	C.nox_xxx_windowDestroyMB_46C4E0((*C.uint)(unsafe.Pointer(modifyWndPntr.C())))
+	C.nox_xxx_wnd_46C6E0(modifyWndPntr.C())
+	modifyWndPntr.Destroy()
 	modifyWndPntr = nil
 }
 
@@ -484,7 +492,7 @@ func modifyWndInputHandler(a1, a2, a3, a4 C.int) C.int {
 		}
 		DestroyNoxWindow()
 	case 1938:
-		if !nox_common_gameFlags_check_40A5C0(512) {
+		if !noxflags.HasGame(512) {
 			C.sub_4BDFD0()
 			C.nox_wnd_nox_xxx_wndDraw_46A9B0((*C.nox_window)(unsafe.Pointer(uintptr(C.dword_5d4594_1316972))), 200, 100)
 		}

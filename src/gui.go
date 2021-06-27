@@ -7,9 +7,23 @@ package main
 
 extern nox_window* nox_win_xxx1_first;
 extern unsigned int nox_client_gui_flag_815132;
+extern nox_window* dword_5d4594_1064896;
+extern nox_alloc_class* nox_alloc_window;
+extern nox_window_ref* nox_win_1064912;
 
 void  sub_4AA030(nox_window* win, nox_window_data* data);
 void nox_window_call_draw_func(nox_window* win, nox_window_data* data);
+int nox_gui_console_Enter_450FD0();
+void nox_gui_console_F1_451350();
+void  nox_window_set_ptrs_97(nox_window* win, nox_window* a2); // TODO: move to Go
+void  nox_client_wndListXxxAdd_46A920(nox_window* win); // TODO: move to Go
+void  nox_client_wndListXxxRemove_46A960(nox_window* win); // TODO: move to Go
+void  sub_46AC60(nox_window* a1);
+static void nox_window_call_tooltip_func(nox_window* win, nox_window_data* data, int a3) {
+	if (!win || !win->tooltip_func)
+		return;
+	win->tooltip_func(win, data, a3);
+}
 */
 import "C"
 import (
@@ -23,17 +37,62 @@ import (
 	"unsafe"
 
 	"nox/v1/client/gui"
+	"nox/v1/client/input/keybind"
+	"nox/v1/client/system/parsecmd"
 	"nox/v1/common/alloc"
 	noxcolor "nox/v1/common/color"
 	"nox/v1/common/fs"
 	"nox/v1/common/log"
 	"nox/v1/common/memmap"
 	"nox/v1/common/strman"
+	"nox/v1/common/types"
 )
 
 var (
-	guiLog = log.New("gui")
+	guiLog              = log.New("gui")
+	nox_win_unk3        *Window
+	nox_win_cur_focused *Window
+	nox_win_1064900     *Window
+	nox_win_1064916     *Window
 )
+
+//export nox_xxx_wndGetFocus_46B4F0
+func nox_xxx_wndGetFocus_46B4F0() *C.nox_window {
+	return nox_win_cur_focused.C()
+}
+
+//export nox_xxx_windowFocus_46B500
+func nox_xxx_windowFocus_46B500(win *C.nox_window) C.int {
+	guiFocus(asWindow(win))
+	return 0
+}
+
+//export nox_client_getWin1064916_46C720
+func nox_client_getWin1064916_46C720() *C.nox_window {
+	return nox_win_1064916.C()
+}
+
+//export nox_xxx_wndSetCaptureMain_46ADC0
+func nox_xxx_wndSetCaptureMain_46ADC0(win *C.nox_window) C.int {
+	if nox_win_unk3 != nil {
+		return -4
+	}
+	nox_win_unk3 = asWindow(win)
+	return 0
+}
+
+//export nox_xxx_wndClearCaptureMain_46ADE0
+func nox_xxx_wndClearCaptureMain_46ADE0(win *C.nox_window) C.int {
+	if win == nox_win_unk3.C() {
+		nox_win_unk3 = nil
+	}
+	return 0
+}
+
+//export nox_xxx_wndGetCaptureMain_46AE00
+func nox_xxx_wndGetCaptureMain_46AE00() *C.nox_window {
+	return nox_win_unk3.C()
+}
 
 func asWindowData(data *C.nox_window_data) *WindowData {
 	return (*WindowData)(unsafe.Pointer(data))
@@ -212,14 +271,61 @@ func (win *Window) Flags() WindowFlag {
 	return WindowFlag(win.flags)
 }
 
-func (win *Window) Offs() image.Point {
+func (win *Window) Offs() types.Point {
 	if win == nil {
-		return image.Point{}
+		return types.Point{}
 	}
-	return image.Point{
+	return types.Point{
 		X: int(win.off_x),
 		Y: int(win.off_y),
 	}
+}
+
+func (win *Window) SetOffs(p types.Point) {
+	win.off_x = C.int(p.X)
+	win.off_y = C.int(p.Y)
+}
+
+func (win *Window) End() types.Point {
+	if win == nil {
+		return types.Point{}
+	}
+	return types.Point{
+		X: int(win.end_x),
+		Y: int(win.end_y),
+	}
+}
+
+func (win *Window) SetEnd(p types.Point) {
+	win.end_x = C.int(p.X)
+	win.end_y = C.int(p.Y)
+}
+
+func (win *Window) Size() types.Size {
+	if win == nil {
+		return types.Size{}
+	}
+	return types.Size{
+		W: int(win.width),
+		H: int(win.height),
+	}
+}
+
+func (win *Window) pointIn(p types.Point) bool {
+	off, end := win.Offs(), win.End()
+	return p.X >= off.X && p.X <= end.X && p.Y >= off.Y && p.Y <= end.Y
+}
+
+func (win *Window) IsChild(win2 *Window) bool {
+	if win == nil || win2 == nil {
+		return false
+	}
+	for cur := win2.Parent(); cur != nil; cur = cur.Parent() {
+		if win == cur {
+			return true
+		}
+	}
+	return false
 }
 
 func (win *Window) ChildByID(id uint) *Window {
@@ -234,6 +340,28 @@ func (win *Window) ChildByID(id uint) *Window {
 		}
 	}
 	return nil
+}
+
+func (win *Window) ChildByPos(p types.Point) *Window {
+	if win == nil {
+		return nil
+	}
+	cur := win
+loop:
+	for it1 := cur.Field100(); it1 != nil; it1 = it1.Prev() {
+		sz := it1.Size()
+		off := it1.Offs()
+		for it2 := it1.Parent(); it2 != nil; it2 = it2.Parent() {
+			off = off.Add(it2.Offs())
+		}
+		if p.X >= off.X && p.X <= off.X+sz.W && p.Y >= off.Y && p.Y <= off.Y+sz.H {
+			if f := it1.Flags(); f.Has(8) && !f.Has(0x10) {
+				cur = it1
+				goto loop
+			}
+		}
+	}
+	return cur
 }
 
 func (win *Window) DrawData() *WindowData {
@@ -259,7 +387,7 @@ func (win *Window) Show() {
 	C.nox_window_set_hidden(win.C(), 0)
 }
 
-func (win *Window) Func93(ev int, a1, a2 int) int {
+func (win *Window) Func93(ev int, a1, a2 uintptr) int {
 	if win == nil {
 		return 0
 	}
@@ -271,6 +399,13 @@ func (win *Window) Func94(ev int, a1, a2 uintptr) int {
 		return 0
 	}
 	return int(C.nox_window_call_field_94(win.C(), C.int(ev), C.int(a1), C.int(a2)))
+}
+
+func (win *Window) TooltipFunc(a1 uintptr) {
+	if win == nil {
+		return
+	}
+	C.nox_window_call_tooltip_func(win.C(), win.DrawData().C(), C.int(a1))
 }
 
 func (win *Window) Next() *Window {
@@ -285,6 +420,20 @@ func (win *Window) Prev() *Window {
 		return nil
 	}
 	return asWindow(win.prev)
+}
+
+func (win *Window) Parent() *Window {
+	if win == nil {
+		return nil
+	}
+	return asWindow(win.parent)
+}
+
+func (win *Window) Field100() *Window {
+	if win == nil {
+		return nil
+	}
+	return asWindow(win.field_100)
 }
 
 func (win *Window) drawRecursive() bool {
@@ -309,6 +458,26 @@ func (win *Window) Draw() {
 	if win.draw_func != nil {
 		C.nox_window_call_draw_func(win.C(), win.DrawData().C())
 	}
+}
+
+func guiFocus(win *Window) {
+	win.Focus()
+}
+
+func (win *Window) Focus() {
+	if win != nil && win.Flags().Has(0x400) {
+		return
+	}
+	if nox_win_cur_focused != nil && nox_win_cur_focused != win {
+		nox_win_cur_focused.Func94(23, 0, 0)
+	}
+	nox_win_cur_focused = win
+	for cur := win; cur != nil; cur = cur.Parent() {
+		if cur.Func94(23, 1, 0) != 0 {
+			return
+		}
+	}
+	nox_win_cur_focused = nil
 }
 
 func DrawGUI() {
@@ -1053,4 +1222,218 @@ func newRadioButton(parent *Window, status int, px, py, w, h int, draw *WindowDa
 	win.field_8 = C.uint(unsafePtrToInt(unsafe.Pointer(d)))
 	win.CopyDrawData(draw)
 	return win
+}
+
+func nox_xxx_windowUpdateKeysMB_46B6B0(a1 *noxKeyEventInt) {
+	root := nox_win_cur_focused
+	if root == nil {
+		return
+	}
+	if a1.code == 0 {
+		return
+	}
+	if a1.field_2 == 1 {
+		return
+	}
+	v3 := byte(1)
+	ok := false
+	for win := root; win != nil; win = win.Parent() {
+		if win.Func93(21, uintptr(a1.code), uintptr(a1.state)) != 0 {
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		v3 = 0
+	}
+	v6 := a1.code
+	a1.field_2 = v3
+	sub_4309B0_go(v6, v3)
+}
+
+//export nox_xxx_consoleEditProc_450F40
+func nox_xxx_consoleEditProc_450F40(a1 unsafe.Pointer, a2, a3, a4 C.int) C.int {
+	if a2 != 21 {
+		return C.nox_xxx_wndEditProc_487D70((*C.uint)(a1), a2, a3, a4)
+	}
+	for it := nox_ctrlevent_key_head; it != nil; it = it.field_19 {
+		if it.binds[0] == 11 && keybind.Key(a3) == it.keys[0] {
+			if a4 == 2 {
+				C.nox_gui_console_F1_451350()
+			}
+			return 1
+		}
+	}
+	if a3 == 1 {
+		if a4 == 2 {
+			C.nox_xxx_consoleEsc_49B7A0()
+		}
+	} else {
+		if a3 != 28 {
+			return C.nox_xxx_wndEditProc_487D70((*C.uint)(a1), a2, a3, a4)
+		}
+		if a4 == 2 {
+			C.nox_gui_console_Enter_450FD0()
+			return 1
+		}
+	}
+	return 1
+}
+
+//var dword_5d4594_2618912 *noxKeyEventInt
+
+//export sub_437060
+func sub_437060() C.int {
+	if C.sub_46A4A0() != 0 {
+		return 1
+	}
+	for j := range nox_input_arr_787228 {
+		p := &nox_input_arr_787228[j]
+		if p.code == 0 {
+			break
+		}
+		//dword_5d4594_2618912 = p
+		if p.field_2 != 1 && p.state != 2 {
+			switch p.code {
+			case 0x3B, 0x3C, 0x3D, 0x3E, 0x3F,
+				0x40, 0x41, 0x42, 0x43, 0x44, 0x57, 0x58:
+				v2 := !nox_xxx_guiCursor_477600()
+				if v2 {
+					sub_4443B0(p.code)
+				}
+			}
+		}
+	}
+	return 1
+}
+
+func sub_4443B0(a1 byte) {
+	if a1 < 0x3B || a1 > 0x58 {
+		return
+	}
+	if *memmap.PtrUint32(0x587000, 95416) == 0 {
+		return
+	}
+	if str := GoWString(C.sub_444410(C.int(a1))); str != "" {
+		consolePrintf(parsecmd.ColorWhite, "> %s\n", str)
+		nox_server_parseCmdText_443C80(str, 0)
+		sub_4309B0(C.uchar(a1), 1)
+	}
+}
+func sub_4281F0(a1 types.Point, a2 types.Rect) bool {
+	return a1.X >= a2.Left && a1.X <= a2.Right && a1.Y >= a2.Top && a1.Y <= a2.Bottom
+}
+
+//export sub_46C200
+func sub_46C200() {
+	v0 := asWindow(C.dword_5d4594_1064896)
+	C.dword_5d4594_1064896 = nil
+	for v0 != nil {
+		prev := v0.Prev()
+		if nox_win_unk3 == v0 {
+			nox_win_unk3 = nil
+		}
+		if nox_win_cur_focused == v0 {
+			guiFocus(nil)
+		}
+		if C.nox_win_1064912 != nil && v0.C() == C.nox_win_1064912.win {
+			C.nox_xxx_wnd_46C6E0(C.nox_win_1064912.win)
+		}
+		if nox_win_1064900 == v0 {
+			nox_win_1064900 = nil
+		}
+		if nox_win_1064916 == v0 {
+			nox_win_1064916 = nil
+		}
+		v0.Func94(2, 0, 0)
+		nox_alloc_class_free_obj(C.nox_alloc_window, unsafe.Pointer(v0.C()))
+		v0 = prev
+	}
+}
+
+func sub_46B180(win *Window) {
+	next := win.Next()
+	prev := win.Prev()
+	if next != nil {
+		next.prev = prev.C()
+		if prev != nil {
+			prev.next = win.Next().C()
+		}
+	} else if prev != nil {
+		win.Parent().field_100 = prev.C()
+		win.Prev().next = win.Next().C()
+		win.prev = nil
+	} else {
+		win.Parent().field_100 = nil
+	}
+}
+
+func (win *Window) Destroy() {
+	if win == nil {
+		return
+	}
+	if win.Flags().Has(0x800) {
+		return
+	}
+	win.flags |= 0x800
+	C.sub_46AC60(win.C())
+	if nox_win_unk3 == win {
+		nox_win_unk3 = nil
+	}
+	if nox_win_cur_focused == win {
+		guiFocus(nil)
+	}
+	if C.nox_win_1064912 != nil && win.C() == C.nox_win_1064912.win {
+		C.nox_xxx_wnd_46C6E0(C.nox_win_1064912.win)
+	}
+	if nox_win_1064900 == win {
+		nox_win_1064900 = nil
+	}
+	if nox_win_1064916 == win {
+		nox_win_1064916 = nil
+	}
+	v3 := win.Field100()
+	for v3 != nil {
+		v4 := v3.Prev()
+		v3.Destroy()
+		v3 = v4
+	}
+	if win.Parent() != nil {
+		sub_46B180(win)
+	} else {
+		C.nox_client_wndListXxxRemove_46A960(win.C())
+	}
+	win.next = nil
+	win.prev = C.dword_5d4594_1064896
+	C.dword_5d4594_1064896 = win.C() // TODO: this doesn't look right; or is it a list of free items?
+}
+
+//export nox_xxx_windowDestroyMB_46C4E0
+func nox_xxx_windowDestroyMB_46C4E0(a1 *C.nox_window) C.int {
+	win := asWindow(a1)
+	if win == nil {
+		return -2
+	}
+	win.Destroy()
+	return 0
+}
+
+//export sub_46B120
+func sub_46B120(a1, a2 *C.nox_window) C.int {
+	win := asWindow(a1)
+	if win == nil {
+		return -2
+	}
+	if win.Parent() != nil {
+		sub_46B180(win)
+	} else {
+		C.nox_client_wndListXxxRemove_46A960(win.C())
+	}
+	if a2 != nil {
+		C.nox_window_set_ptrs_97(win.C(), a2)
+	} else {
+		C.nox_client_wndListXxxAdd_46A920(win.C())
+		win.parent = nil
+	}
+	return 0
 }

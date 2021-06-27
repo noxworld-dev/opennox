@@ -42,11 +42,11 @@ char* sub_4C3620() {
 		v7 = nox_xxx_keybind_nameByTitle_42E960(v6);
 		if (v7) {
 			nox_sprintf(v12, "%s = %s", v7, v3);
-			sub_42CF50(v12);
+			nox_client_parseConfigHotkeysLine_42CF50(v12);
 		}
 		if (v5) {
 			nox_sprintf(v12, "%s = %s", v5, v3);
-			sub_42CF50(v12);
+			nox_client_parseConfigHotkeysLine_42CF50(v12);
 		}
 	}
 	v8 = nox_strman_loadString_40F1D0("bindevent:ToggleQuitMenu", 0, "C:\\NoxPost\\src\\client\\Gui\\GuiInput.c", 191);
@@ -55,7 +55,7 @@ char* sub_4C3620() {
 	result = nox_xxx_keybind_nameByTitle_42E960(v10);
 	if (result) {
 		nox_sprintf(v12, "%s = %s", result, v9);
-		result = (char*)sub_42CF50(v12);
+		result = (char*)nox_client_parseConfigHotkeysLine_42CF50(v12);
 	}
 	return result;
 }
@@ -111,7 +111,7 @@ int sub_4C3760() {
 					++v4;
 				} while (v4 < v5);
 			}
-			v7 = nox_xxx_cursor_430AF0();
+			v7 = nox_client_mousePriKey_430AF0();
 			v8 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1321228, v7 + 971);
 			nox_window_call_field_94((int)v8, 16392, 1, 0);
 			nox_wnd_nox_xxx_wndDraw_46A9B0(*(_DWORD**)&dword_5d4594_1321228,
@@ -163,7 +163,7 @@ int  sub_4C3CD0(int a1, unsigned int a2, int a3, int a4) {
 										   436);
 				nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1321256), L"%s\n'%s'", v6, v9);
 				nox_xxx_wndShowModalMB_46A8C0(*(int*)&dword_5d4594_1321232);
-				nox_xxx_windowDestroyChildsMB_46B500(*(int*)&dword_5d4594_1321232);
+				nox_xxx_windowFocus_46B500(*(int*)&dword_5d4594_1321232);
 				sub_46C690(*(int*)&dword_5d4594_1321232);
 				return nox_xxx_wndListboxProcPre_4A30D0(a1, 0x4010u, (wchar_t*)a3, a4);
 			}

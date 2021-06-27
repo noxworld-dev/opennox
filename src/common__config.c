@@ -1289,7 +1289,7 @@ int  nox_common_skipcfgfile_4331E0(FILE* a1, int a2) {
 			} while (getMemByte(0x5D4594, 806084) == 35);
 			if (!strncmp("---", (const char*)getMemAt(0x5D4594, 806084), 3u))
 				return 1;
-		} while (sub_42CF50((const char*)getMemAt(0x5D4594, 806084)));
+		} while (nox_client_parseConfigHotkeysLine_42CF50((const char*)getMemAt(0x5D4594, 806084)));
 		result = 0;
 	}
 	return result;
@@ -1302,7 +1302,7 @@ void  nox_common_writecfgfile(char* a1) {
 		return;
 	}
 	sub_4332E0(f);
-	sub_42CDF0(f);
+	nox_client_writeConfigHotkeys_42CDF0(f);
 	nox_fs_fprintf(f, "---\n");
 	nox_fs_close(f);
 #ifdef __EMSCRIPTEN__

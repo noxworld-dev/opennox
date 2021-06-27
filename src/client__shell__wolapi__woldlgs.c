@@ -46,7 +46,7 @@ int sub_448730_wol_dialogs() {
 		dword_5d4594_830140 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_830124, 1938);
 		*getMemU32Ptr(0x5D4594, 830144) = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_830124, 1939);
 		dword_5d4594_830148 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_830124, 1936);
-		nox_xxx_windowDestroyChildsMB_46B500(*(int*)&dword_5d4594_830132);
+		nox_xxx_windowFocus_46B500(*(int*)&dword_5d4594_830132);
 		*getMemU32Ptr(0x5D4594, 830160) = nox_strman_loadString_40F1D0("WolFind.wnd:Title", 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c", 579);
 		*getMemU32Ptr(0x5D4594, 830164) = nox_strman_loadString_40F1D0("WolFind.wnd:pageTitle", 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c", 580);
 		*getMemU32Ptr(0x5D4594, 830168) = nox_strman_loadString_40F1D0("WolFind.wnd:Loc", 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c", 581);
@@ -60,7 +60,7 @@ int sub_448730_wol_dialogs() {
 		sub_46B120(*(_DWORD**)&dword_5d4594_830124, 0);
 		nox_xxx_wndShowModalMB_46A8C0(*(int*)&dword_5d4594_830124);
 		sub_46C690(*(int*)&dword_5d4594_830124);
-		nox_xxx_windowDestroyChildsMB_46B500(*(int*)&dword_5d4594_830124);
+		nox_xxx_windowFocus_46B500(*(int*)&dword_5d4594_830124);
 		nox_xxx_wndSetDrawFn_46B340(*(int*)&dword_5d4594_830124, sub_448FC0);
 		result = 1;
 	}

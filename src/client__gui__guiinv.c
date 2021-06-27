@@ -229,7 +229,8 @@ void  sub_462040(int a1) {
 	} else {
 		if (!*getMemU32Ptr(0x5D4594, 1049848) || *(_DWORD*)(*getMemU32Ptr(0x5D4594, 1049848) + 128) != a1) {
 			v7 = nox_strman_loadString_40F1D0("EquippedNotFound", 0, "C:\\NoxPost\\src\\Client\\Gui\\guiinv.c", 1605);
-			goto LABEL_36;
+			nox_xxx_printCentered_445490(v7);
+			return;
 		}
 		v20 = sub_4622E0(*getMemIntPtr(0x5D4594, 1049848));
 		v3 = *getMemU32Ptr(0x5D4594, 1049848);
@@ -239,13 +240,13 @@ void  sub_462040(int a1) {
 	v18 = *(_WORD*)(v3 + 292);
 	if (v20 == 9) {
 		v7 = nox_strman_loadString_40F1D0("TooManyEquipped", 0, "C:\\NoxPost\\src\\Client\\Gui\\guiinv.c", 1701);
-		goto LABEL_36;
+		nox_xxx_printCentered_445490(v7);
+		return;
 	}
 	v5 = nox_new_drawable_for_thing(*(_DWORD*)(v3 + 108));
 	v6 = v5;
 	if (!v5) {
 		v7 = nox_strman_loadString_40F1D0("DrawablesExhausted", 0, "C:\\NoxPost\\src\\Client\\Gui\\guiinv.c", 1619);
-	LABEL_36:
 		nox_xxx_printCentered_445490(v7);
 		return;
 	}

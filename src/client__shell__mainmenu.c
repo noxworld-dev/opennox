@@ -14,7 +14,7 @@ nox_window* nox_win_main_bg = 0;
 nox_window* nox_win_main_menu = 0;
 
 //----- (004A24F0) --------------------------------------------------------
-int sub_4A24F0() { return nox_xxx_windowDestroyChildsMB_46B500(nox_win_main_bg); }
+int sub_4A24F0() { return nox_xxx_windowFocus_46B500(nox_win_main_bg); }
 
 //----- (004A1D40) --------------------------------------------------------
 int sub_4A1D40() {
@@ -87,7 +87,7 @@ int nox_xxx_wndLoadMainBG_4A2210() {
 			v3 += 48;
 		} while (v2);
 	}
-	nox_xxx_windowDestroyChildsMB_46B500(nox_win_main_bg);
+	nox_xxx_windowFocus_46B500(nox_win_main_bg);
 	return 1;
 }
 

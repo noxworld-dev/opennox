@@ -12,15 +12,21 @@ int mix_recvfrom(nox_socket_t s, char* buf, int len, struct nox_net_sockaddr* fr
 int sub_43B6D0();
 int sub_43AF80();
 int sub_43AF90(int a1);
+int nox_xxx_netClientSend2_4E53C0(int a1, const void* a2, int a3, int a4, int a5);
+int  nox_netlist_addToMsgListCli_40EBC0(int ind1, int ind2, unsigned char* buf, int sz);
+void* nox_xxx_spriteGetMB_476F80();
 */
 import "C"
 import (
+	"encoding/binary"
 	"net"
 	"os"
 	"strconv"
 	"unsafe"
 
+	"nox/v1/common/alloc"
 	"nox/v1/common/log"
+	"nox/v1/common/memmap"
 )
 
 const (
@@ -298,4 +304,62 @@ func sendXXX_5550D0(addr net.IP, port int, data []byte) (int, error) {
 
 func nox_client_getServerAddr_43B300() net.IP {
 	return int2ip(uint32(C.nox_client_getServerAddr_43B300()))
+}
+
+func nox_xxx_netClientSend2_4E53C0(a1 int, buf []byte, a4, a5 int) {
+	p := alloc.Bytes(uintptr(len(buf)))
+	copy(p, buf)
+	defer alloc.FreeBytes(p)
+	C.nox_xxx_netClientSend2_4E53C0(C.int(a1), unsafe.Pointer(&p[0]), C.int(len(buf)), C.int(a4), C.int(a5))
+}
+
+//export nox_xxx_clientSendInput_43C8F0
+func nox_xxx_clientSendInput_43C8F0(a1, a2, a3 C.int) C.int {
+	if !clientSendInput(int(a1), uint16(a2), uint16(a3)) {
+		return 0
+	}
+	return 1
+}
+
+func clientSendInput(a1 int, a2 uint16, a3 uint16) bool {
+	v3 := C.nox_xxx_spriteGetMB_476F80()
+	v4 := noxCtrlEventNetbuf[:noxCtrlEventNetbufSize]
+	if len(v4) == 0 {
+		return true
+	}
+	var buf [5]byte
+	buf[0] = 63
+	if !nox_netlist_addToMsgListCli_40EBC0(a1, 0, buf[:1]) {
+		return false
+	}
+	buf[0] = byte(len(v4))
+	if !nox_netlist_addToMsgListCli_40EBC0(a1, 0, buf[:1]) {
+		return false
+	}
+	if !nox_netlist_addToMsgListCli_40EBC0(a1, 0, v4) {
+		return false
+	}
+	v6 := a3
+	if v3 != nil {
+		v6 = uint16(*(*uint32)(unsafe.Pointer(uintptr(v3) + 16)))
+	}
+	if a2 == memmap.Uint16(0x5D4594, 815768) && v6 == memmap.Uint16(0x5D4594, 815770) {
+		return true
+	}
+	*memmap.PtrUint16(0x5D4594, 815768) = a2
+	*memmap.PtrUint16(0x5D4594, 815770) = v6
+	buf[0] = 0xAC
+	binary.LittleEndian.PutUint16(buf[1:], a2)
+	binary.LittleEndian.PutUint16(buf[3:], v6)
+	if !nox_netlist_addToMsgListCli_40EBC0(a1, 0, buf[:5]) {
+		return false
+	}
+	return true
+}
+
+func nox_netlist_addToMsgListCli_40EBC0(ind1, ind2 int, buf []byte) bool {
+	cbuf := alloc.Bytes(uintptr(len(buf)))
+	defer alloc.FreeBytes(cbuf)
+	copy(cbuf, buf)
+	return C.nox_netlist_addToMsgListCli_40EBC0(C.int(ind1), C.int(ind2), (*C.uchar)(unsafe.Pointer(&cbuf[0])), C.int(len(cbuf))) != 0
 }

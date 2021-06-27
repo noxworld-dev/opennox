@@ -300,7 +300,7 @@ void sub_445C40() {
 			}
 		}
 	} else {
-		nox_xxx_windowDestroyChildsMB_46B500(0);
+		nox_xxx_windowFocus_46B500(0);
 		nox_xxx_wndClearCaptureMain_46ADE0(*(int*)&dword_5d4594_825760);
 		nox_window_set_hidden(*(int*)&dword_5d4594_825760, 1);
 		*(_DWORD*)(dword_5d4594_825760 + 4) &= 0xFFFFFFF7;

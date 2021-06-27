@@ -8,6 +8,8 @@ import (
 
 type Key uint32
 
+type Event uint32
+
 type KeyBind struct {
 	Name    string
 	Key     Key
@@ -17,7 +19,7 @@ type KeyBind struct {
 
 type BindEvent struct {
 	Name  string
-	Key   Key
+	Event Event
 	Title string
 }
 
@@ -31,7 +33,7 @@ type Binding struct {
 	}
 	events struct {
 		list    []BindEvent
-		byKey   map[Key]*BindEvent
+		byKey   map[Event]*BindEvent
 		byName  map[string]*BindEvent
 		byTitle map[string]*BindEvent
 	}
@@ -73,13 +75,13 @@ func (kb *Binding) index() {
 		kb.keys.byName[b.Name] = b
 		kb.keys.byTitle[strings.ToLower(b.Title)] = b
 	}
-	kb.events.byKey = make(map[Key]*BindEvent)
+	kb.events.byKey = make(map[Event]*BindEvent)
 	kb.events.byName = make(map[string]*BindEvent)
 	kb.events.byTitle = make(map[string]*BindEvent)
 	for i := range kb.events.list {
 		b := &kb.events.list[i]
-		if b.Key != 0 {
-			kb.events.byKey[b.Key] = b
+		if b.Event != 0 {
+			kb.events.byKey[b.Event] = b
 		}
 		if b.Name != "" {
 			kb.events.byName[b.Name] = b
@@ -108,7 +110,7 @@ func (kb *Binding) Events() []BindEvent {
 	return kb.events.list[1:]
 }
 
-func (kb *Binding) EventByCode(key Key) *BindEvent {
+func (kb *Binding) EventByCode(key Event) *BindEvent {
 	return kb.events.byKey[key]
 }
 

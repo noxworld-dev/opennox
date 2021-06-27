@@ -1,10 +1,14 @@
+//+build none
+
 #include "input.h"
 #include "proto.h"
 #include "client__system__parsecmd.h"
 #include "client__system__ctrlevnt.h"
 #include "client__gui__window.h"
 
-extern _DWORD dword_5d4594_754056;
+extern __int16 asc_9800B0[526];
+
+extern nox_ctrlevent_key_t* dword_5d4594_754056;
 extern _DWORD dword_5d4594_1193132;
 extern int obj_5D4594_754104_switch;
 extern unsigned int nox_frame_xxx_2598000;
@@ -21,14 +25,12 @@ _DWORD nox_mouse_prev_seq = 0;
 _DWORD nox_mouse_prev_seq_2 = 0;
 nox_point nox_mouse_prev_btn[3] = {0};
 
-#ifndef NOX_CGO
 nox_point nox_mouse_min = {0, 0};
 #ifdef __GNUC__
 nox_point nox_mouse_max = {NOX_DEFAULT_WIDTH - 1, NOX_DEFAULT_HEIGHT - 1};
 #else
 nox_point nox_mouse_max = {639, 478}; // ugly hack for MSVC
 #endif
-#endif // NOX_CGO
 
 nox_keyboard_btn_t nox_input_arr_789276[256];
 nox_keyboard_btn_t nox_input_arr_787228[256];
@@ -373,11 +375,6 @@ void sub_4309B0(unsigned char i, unsigned char v) {
 	nox_input_arr_789276[i].field_2 = v;
 }
 
-//----- (004309D0) --------------------------------------------------------
-void nox_input_keyboardGetKeyState_4309D0(unsigned char i, unsigned char v) {
-	nox_input_arr_789276[i].state = v;
-}
-
 //----- (004309F0) --------------------------------------------------------
 nox_point nox_client_getMousePos_4309F0() { return nox_mouse.pos; }
 nox_mouse_state_t* nox_client_getMouseState_4309F0() { return &nox_mouse; }
@@ -386,7 +383,6 @@ nox_mouse_state_t* nox_client_getMouseState_4309F0() { return &nox_mouse; }
 int nox_xxx_bookGet_430B40_get_mouse_prev_seq() { return nox_mouse_prev_seq; }
 
 //----- (00430A00) --------------------------------------------------------
-#ifndef NOX_CGO
 void nox_client_changeMousePos_430A00(int x, int y, bool isAbs) {
 	nox_point p;
 	p.x = x;
@@ -419,7 +415,6 @@ void nox_xxx_setMouseBounds_430A70(int x_min, int x_max, int y_min, int y_max) {
 	nox_mouse_max.x = x_max;
 	nox_mouse_max.y = y_max;
 }
-#endif // NOX_CGO
 
 //----- (0042D220) --------------------------------------------------------
 void nox_xxx_input_42D220() {

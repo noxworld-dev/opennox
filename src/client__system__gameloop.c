@@ -1,3 +1,5 @@
+//+build none
+
 #include "client__system__gameloop.h"
 
 #include "common__random.h"
@@ -22,12 +24,10 @@ extern unsigned int nox_gameFPS;
 extern unsigned int nox_frame_xxx_2598000;
 
 void cmain_loop(int);
-#ifndef NOX_CGO
 extern int g_v21;
 _DWORD nox_game_continueMenuOrHost_93200 = 0x1;
 _DWORD nox_continue_mainloop_93196 = 0x1;
 extern int (*func_5D4594_816388)(void);
-#endif // NOX_CGO
 
 extern void (*mainloop_enter)(void*);
 extern void* mainloop_enter_args;
@@ -36,9 +36,6 @@ extern BOOL mainloop_exit_path;
 extern int (*nox_draw_unk1)(void);
 extern int (*func_5D4594_816392)(void);
 
-#ifdef NOX_CGO
-void map_download_start();
-#else // NOX_CGO
 void map_download_start() {
 	nox_xxx_gameClearAll_467DF0(1);
 	nox_xxx_gameDownloadShowDialog_4CC770();
@@ -46,7 +43,6 @@ void map_download_start() {
 	nox_xxx_mapDownloadOK_587000_173332 = 1;
 	map_download_loop(1);
 }
-#endif // NOX_CGO
 
 //----- (0043DEB0) --------------------------------------------------------
 int nox_xxx_gameChangeMap_43DEB0() {
@@ -166,7 +162,6 @@ int map_download_finish() {
 }
 
 //----- (0043E290) --------------------------------------------------------
-#ifndef NOX_CGO
 #ifdef USE_SDL
 void sub_48B1B0();
 #endif
@@ -474,4 +469,3 @@ MAINLOOP_EXIT:
 	cmain_loop(0);
 	return;
 }
-#endif // NOX_CGO

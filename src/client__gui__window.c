@@ -18,8 +18,6 @@ nox_video_bag_image_t*  nox_xxx_gLoadImg_42F970(const char* a1);
 void sub_4309B0(unsigned char i, unsigned char v);
 
 extern nox_video_bag_section_t* nox_video_bag_sections_arr;
-extern unsigned int dword_5d4594_1064912;
-extern unsigned int dword_5d4594_1064900;
 extern unsigned int dword_5d4594_3799468;
 extern nox_window* nox_win_1064916;
 
@@ -30,13 +28,17 @@ int dword_5d4594_3799524 = 0;
 unsigned int dword_5d4594_1309696 = 0;
 unsigned int dword_5d4594_1309704 = 0;
 
-unsigned int dword_5d4594_1064896 = 0;
+nox_window* dword_5d4594_1064896 = 0;
 
-nox_window* nox_win_unk2 = 0;
-nox_window* nox_win_unk3 = 0;
-
+nox_window_ref* nox_win_1064912 = 0;
 nox_window* nox_win_xxx1_first = 0;
 nox_window* nox_win_xxx1_last = 0;
+#ifndef NOX_CGO
+void* nox_win_1064900 = 0;
+nox_window* nox_win_cur_focused = 0;
+nox_window* nox_win_unk3 = 0;
+#endif // NOX_CGO
+
 
 //----- (0046ACE0) --------------------------------------------------------
 void  sub_46ACE0(unsigned int* a1, int a2, int a3, int a4) {
@@ -167,7 +169,8 @@ void sub_42FAE0(void* a1) {
 }
 
 //----- (0046AC60) --------------------------------------------------------
-void  sub_46AC60(int a1) {
+void  sub_46AC60(nox_window* a1p) {
+	int a1 = a1p;
 	int v2; // esi
 
 	if (*(unsigned char*)(a1 + 4) & 0x80) {
@@ -185,6 +188,7 @@ void  sub_46AC60(int a1) {
 	}
 }
 
+#ifndef NOX_CGO
 //----- (0046B180) --------------------------------------------------------
 void  sub_46B180(nox_window* win) {
 	nox_window* next = win->next;
@@ -218,12 +222,12 @@ int  nox_xxx_windowDestroyMB_46C4E0(unsigned int* a1) {
 		sub_46AC60((int)a1);
 		if (nox_win_unk3 == a1)
 			nox_xxx_wndClearCaptureMain_46ADE0((int)a1);
-		if (nox_win_unk2 == a1)
-			nox_xxx_windowDestroyChildsMB_46B500(0);
-		if (dword_5d4594_1064912 && a1 == **(unsigned int***)&dword_5d4594_1064912)
-			nox_xxx_wnd_46C6E0(**(unsigned int**)&dword_5d4594_1064912);
-		if (*(unsigned int**)&dword_5d4594_1064900 == a1)
-			dword_5d4594_1064900 = 0;
+		if (nox_win_cur_focused == a1)
+			nox_xxx_windowFocus_46B500(0);
+		if (nox_win_1064912 && a1 == nox_win_1064912->win)
+			nox_xxx_wnd_46C6E0(nox_win_1064912->win);
+		if (nox_win_1064900 == a1)
+			nox_win_1064900 = 0;
 		if (nox_win_1064916 == a1)
 			nox_win_1064916 = 0;
 		v3 = (unsigned int*)a1[100];
@@ -244,6 +248,7 @@ int  nox_xxx_windowDestroyMB_46C4E0(unsigned int* a1) {
 	}
 	return 0;
 }
+#endif // NOX_CGO
 
 //----- (0046AA20) --------------------------------------------------------
 int nox_gui_getWindowOffs_46AA20(nox_window* win, unsigned int* px, unsigned int* py) {
@@ -373,7 +378,7 @@ int  nox_xxx_wndSetRectColor2MB_46AFE0(int a1, int a2) {
 
 //----- (0046B070) --------------------------------------------------------
 void nox_gui_winSetFunc96_46B070(nox_window* win, void* fnc) {
-	win->field_96 = fnc;
+	win->tooltip_func = fnc;
 }
 
 //----- (0046B080) --------------------------------------------------------
@@ -428,8 +433,9 @@ void  nox_window_set_ptrs_97(nox_window* win, nox_window* a2) {
 	win->parent = a2;
 }
 
+#ifndef NOX_CGO
 //----- (0046B120) --------------------------------------------------------
-int  sub_46B120(nox_window* win, int a2) {
+int  sub_46B120(nox_window* win, nox_window* a2) {
 	if (!win)
 		return -2;
 	if (win->parent)
@@ -444,6 +450,7 @@ int  sub_46B120(nox_window* win, int a2) {
 	}
 	return 0;
 }
+#endif // NOX_CGO
 
 //----- (004A9E90) --------------------------------------------------------
 void  sub_4A9E90(int a1, int a2, int a3, int a4) {
@@ -768,7 +775,7 @@ int  nox_window_set_all_funcs(nox_window* win, int (*a2)(int, int, int, int), in
 		win->draw_func = draw;
 	else
 		win->draw_func = nox_xxx_wndDrawFnDefault_46B370;
-	win->field_96 = a4;
+	win->tooltip_func = a4;
 	return 0;
 }
 
@@ -794,22 +801,23 @@ int  nox_window_call_field_93(nox_window* win, int a2, int a3, int a4) {
 	return win->field_93(win, a2, a3, a4);
 }
 
+#ifndef NOX_CGO
 //----- (0046B4F0) --------------------------------------------------------
-int nox_xxx_wndGetFocus_46B4F0() { return nox_win_unk2; }
+nox_window* nox_xxx_wndGetFocus_46B4F0() { return nox_win_cur_focused; }
 
 //----- (0046B500) --------------------------------------------------------
-int  nox_xxx_windowDestroyChildsMB_46B500(nox_window* win) {
+int  nox_xxx_windowFocus_46B500(nox_window* win) {
 	if (win) {
 		if (win->flags & 0x400)
 			return 0;
 	}
-	if (nox_win_unk2) {
-		if (nox_win_unk2 != win)
-			nox_window_call_field_94(nox_win_unk2, 23, 0, 0);
+	if (nox_win_cur_focused) {
+		if (nox_win_cur_focused != win)
+			nox_window_call_field_94(nox_win_cur_focused, 23, 0, 0);
 	}
-	nox_win_unk2 = win;
+	nox_win_cur_focused = win;
 	if (!win) {
-		nox_win_unk2 = 0;
+		nox_win_cur_focused = 0;
 		return 0;
 	}
 	if (!nox_window_call_field_94(win, 23, 1, 0)) {
@@ -821,10 +829,11 @@ int  nox_xxx_windowDestroyChildsMB_46B500(nox_window* win) {
 			if (nox_window_call_field_94(cur, 23, 1, 0))
 				return 0;
 		}
-		nox_win_unk2 = 0;
+		nox_win_cur_focused = 0;
 	}
 	return 0;
 }
+#endif // NOX_CGO
 
 //----- (0046AD60) --------------------------------------------------------
 int  nox_xxx_wnd_46AD60(int a1, int a2) {
@@ -859,8 +868,9 @@ int  nox_xxx_wndGetFlags_46ADA0(int a1) {
 	return result;
 }
 
+#ifndef NOX_CGO
 //----- (0046ADC0) --------------------------------------------------------
-int  nox_xxx_wndSetCaptureMain_46ADC0(int a1) {
+int  nox_xxx_wndSetCaptureMain_46ADC0(nox_windows* a1) {
 	if (nox_win_unk3)
 		return -4;
 	nox_win_unk3 = a1;
@@ -868,18 +878,18 @@ int  nox_xxx_wndSetCaptureMain_46ADC0(int a1) {
 }
 
 //----- (0046ADE0) --------------------------------------------------------
-int  nox_xxx_wndClearCaptureMain_46ADE0(int a1) {
+int  nox_xxx_wndClearCaptureMain_46ADE0(nox_windows* a1) {
 	if (a1 == nox_win_unk3)
 		nox_win_unk3 = 0;
 	return 0;
 }
 
 //----- (0046AE00) --------------------------------------------------------
-int nox_xxx_wndGetCaptureMain_46AE00() { return nox_win_unk3; }
+nox_windows* nox_xxx_wndGetCaptureMain_46AE00() { return nox_win_unk3; }
 
 //----- (0046B6B0) --------------------------------------------------------
 void nox_xxx_windowUpdateKeysMB_46B6B0(unsigned char* a1) {
-	if (!nox_win_unk2) {
+	if (!nox_win_cur_focused) {
 		return;
 	}
 	if (!*a1) {
@@ -891,7 +901,7 @@ void nox_xxx_windowUpdateKeysMB_46B6B0(unsigned char* a1) {
 	char v3 = 1;
 	char v7 = 1;
 	unsigned char* v2 = a1;
-	int v1 = nox_win_unk2;
+	int v1 = nox_win_cur_focused;
 	while (!nox_window_call_field_93(v1, 21, *v2, v2[1])) {
 		v1 = *(unsigned int*)(v1 + 396);
 		if (!v1) {
@@ -919,12 +929,12 @@ void sub_46C200() {
 			v2 = *(unsigned int*)(v0 + 388);
 			if (nox_win_unk3 == v0)
 				nox_xxx_wndClearCaptureMain_46ADE0(v0);
-			if (nox_win_unk2 == v0)
-				nox_xxx_windowDestroyChildsMB_46B500(0);
-			if (dword_5d4594_1064912 && v0 == **(unsigned int**)&dword_5d4594_1064912)
-				nox_xxx_wnd_46C6E0(**(unsigned int**)&dword_5d4594_1064912);
-			if (dword_5d4594_1064900 == v0)
-				dword_5d4594_1064900 = 0;
+			if (nox_win_cur_focused == v0)
+				nox_xxx_windowFocus_46B500(0);
+			if (nox_win_1064912 && v0 == nox_win_1064912->win)
+				nox_xxx_wnd_46C6E0(nox_win_1064912->win);
+			if (nox_win_1064900 == v0)
+				nox_win_1064900 = 0;
 			if (nox_win_1064916 == v0)
 				nox_win_1064916 = 0;
 			nox_window_call_field_94(v0, 2, 0, 0);
@@ -933,35 +943,34 @@ void sub_46C200() {
 		} while (v2);
 	}
 }
+#endif // NOX_CGO
 
 //----- (0046C690) --------------------------------------------------------
 int  sub_46C690(int a1) {
-	unsigned int* v2; // eax
-
 	if (!a1)
 		return -2;
 	if (*(unsigned int*)(a1 + 396))
 		return -3;
-	v2 = malloc(8u);
+	nox_window_ref* v2 = malloc(sizeof(nox_window_ref));
 	if (!v2)
 		return -1;
-	*v2 = a1;
-	v2[1] = dword_5d4594_1064912;
-	dword_5d4594_1064912 = v2;
+	v2->win = a1;
+	v2->next = nox_win_1064912;
+	nox_win_1064912 = v2;
 	return 0;
 }
 
 //----- (0046C6E0) --------------------------------------------------------
-int  nox_xxx_wnd_46C6E0(int a1) {
+int  nox_xxx_wnd_46C6E0(nox_window* a1) {
 	int v2; // esi
 
 	if (!a1)
 		return -2;
-	if (!dword_5d4594_1064912 || **(unsigned int**)&dword_5d4594_1064912 != a1)
+	if (!nox_win_1064912 || nox_win_1064912->win != a1)
 		return -1;
-	v2 = *(unsigned int*)(dword_5d4594_1064912 + 4);
-	free(dword_5d4594_1064912);
-	dword_5d4594_1064912 = v2;
+	v2 = nox_win_1064912->next;
+	free(nox_win_1064912);
+	nox_win_1064912 = v2;
 	return 0;
 }
 

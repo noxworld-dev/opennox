@@ -47,6 +47,10 @@ type Size struct {
 	H int `json:"h"`
 }
 
+func (s Size) Point() Point {
+	return Point{X: s.W, Y: s.H}
+}
+
 type Sizef struct {
 	W float32 `json:"w"`
 	H float32 `json:"h"`

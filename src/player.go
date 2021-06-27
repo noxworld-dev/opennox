@@ -72,6 +72,10 @@ var _ noxObject = (*Player)(nil) // proxies Unit
 
 type Player C.nox_playerInfo
 
+func (p *Player) field(off uintptr) unsafe.Pointer {
+	return unsafe.Pointer(uintptr(unsafe.Pointer(p)) + off)
+}
+
 func (p *Player) Pos() types.Pointf {
 	if p == nil {
 		return types.Pointf{}
@@ -95,11 +99,11 @@ func (p *Player) SetPos(pos types.Pointf) {
 }
 
 func (p *Player) OrigName() string {
-	return GoWString((*C.wchar_t)(unsafe.Pointer(uintptr(unsafe.Pointer(p)) + 2185)))
+	return GoWString((*C.wchar_t)(p.field(2185)))
 }
 
 func (p *Player) Name() string {
-	return GoWString((*C.wchar_t)(unsafe.Pointer(uintptr(unsafe.Pointer(p)) + 4704)))
+	return GoWString((*C.wchar_t)(p.field(4704)))
 }
 
 func (p *Player) String() string {

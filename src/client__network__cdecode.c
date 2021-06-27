@@ -37,7 +37,7 @@ extern _DWORD nox_xxx_warriorMaxStrength_587000_312792;
 extern _DWORD nox_xxx_conjurerStrength_587000_312808;
 extern _DWORD nox_client_gui_flag_1556112;
 extern _DWORD dword_5d4594_2614264;
-extern _DWORD nox_xxx_useAudio_587000_80832;
+extern _DWORD nox_xxx_xxxRenderGUI_587000_80832;
 extern _DWORD nox_xxx_warriorMaxMana_587000_312788;
 extern _DWORD dword_5d4594_1200804;
 extern _DWORD nox_client_fadeObjects_80836;
@@ -1649,7 +1649,7 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 			} else {
 				if (v119[3680] & 1) {
 					nox_client_renderGUI_80828 = 0;
-				} else if (nox_xxx_useAudio_587000_80832 == 1) {
+				} else if (nox_xxx_xxxRenderGUI_587000_80832 == 1) {
 					nox_client_renderGUI_80828 = 1;
 				}
 				sub_470C40((*((_DWORD*)v119 + 920) >> 10) & 1);

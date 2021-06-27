@@ -1126,7 +1126,7 @@ void sub_44E320() {
 	int v0; // eax
 
 	nox_xxx_wndClearCaptureMain_46ADE0(*(int*)&dword_5d4594_831236);
-	nox_xxx_windowDestroyChildsMB_46B500(0);
+	nox_xxx_windowFocus_46B500(0);
 	nox_window_set_hidden(*(int*)&dword_5d4594_831236, 1);
 	sub_450580();
 	sub_43DDA0();
@@ -1210,7 +1210,7 @@ int  nox_client_wndQuestBriefProc_44E630(int a1, int a2, int a3, int a4) {
 			}
 		} else {
 			nox_xxx_wndClearCaptureMain_46ADE0(*(int*)&dword_5d4594_831236);
-			nox_xxx_windowDestroyChildsMB_46B500(0);
+			nox_xxx_windowFocus_46B500(0);
 			dword_5d4594_831256 = 1;
 			nox_savegame_sub_46D580();
 		}
@@ -1309,7 +1309,7 @@ int  nox_client_lockScreenBriefing_450160(int a1, int a2, char a3) {
 		v4 = a2; // chapter
 	nox_xxx_wndShowModalMB_46A8C0(*(int*)&dword_5d4594_831236);
 	nox_xxx_wndSetCaptureMain_46ADC0(*(int*)&dword_5d4594_831236);
-	nox_xxx_windowDestroyChildsMB_46B500(*(int*)&dword_5d4594_831236);
+	nox_xxx_windowFocus_46B500(*(int*)&dword_5d4594_831236);
 	nox_xxx_wndSetWindowProc_46B300(*(int*)&dword_5d4594_831236, nox_client_wndQuestBriefProc_44E630);
 	v5 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_831232, 1010);
 	nox_xxx_wndSetDrawFn_46B340((int)v5, sub_44E6F0);
@@ -5018,7 +5018,7 @@ int*  nox_xxx_guiServerOptionsHide_4597E0(int a1) {
 	if (dword_5d4594_1046492) {
 		v1 = nox_xxx_wndGetFocus_46B4F0();
 		if (nox_window_is_child(*(int*)&dword_5d4594_1046492, v1))
-			nox_xxx_windowDestroyChildsMB_46B500(0);
+			nox_xxx_windowFocus_46B500(0);
 		nox_xxx_windowDestroyMB_46C4E0(*(_DWORD**)&dword_5d4594_1046492);
 		dword_5d4594_1046492 = 0;
 		sub_456D60(0);

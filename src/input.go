@@ -15,6 +15,13 @@ var (
 	keyBinding  *keybind.Binding
 )
 
+var noxMouseSelectOpt = []string{
+	"Left",
+	"Right",
+	"Middle",
+	"Wheel",
+}
+
 func nextInputSeq() uint {
 	v := inputSeq
 	inputSeq++

@@ -25,7 +25,7 @@ int  sub_4B5770_wol_locale(int a1) {
 	sub_46B120(*(_DWORD**)&dword_5d4594_1312480, 0);
 	nox_xxx_wndShowModalMB_46A8C0(*(int*)&dword_5d4594_1312480);
 	sub_46C690(*(int*)&dword_5d4594_1312480);
-	nox_xxx_windowDestroyChildsMB_46B500(*(int*)&dword_5d4594_1312480);
+	nox_xxx_windowFocus_46B500(*(int*)&dword_5d4594_1312480);
 	dword_5d4594_1312484 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1312480, 1981);
 	sub_4B5990();
 	for (i = 0; i < *(int*)&dword_5d4594_1312472; ++i)

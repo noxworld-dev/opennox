@@ -3,8 +3,6 @@
 
 #include "proto.h"
 
-extern __int16 asc_9800B0[526];
-
 void init_data_mix();
 
 BOOL __stdcall GameEx_DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved);

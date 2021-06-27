@@ -26,3 +26,7 @@ func nox_common_gameFlags_getVal_40A5B0() C.uint {
 func nox_common_gameFlags_check_40A5C0(f C.uint) C.bool {
 	return C.bool(noxflags.HasGame(noxflags.GameFlag(f)))
 }
+
+func nox_xxx_checkGameFlagPause_413A50() bool {
+	return noxflags.HasGame(noxflags.GamePause)
+}

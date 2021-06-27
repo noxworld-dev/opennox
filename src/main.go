@@ -213,8 +213,8 @@ func runNox(args []string) error {
 	gameFrameSetFromFlags()
 	nox_ticks_xxx_416D40()
 	nox_xxx_setGameState_43DDF0(nil)
-	C.nox_game_SetCliDrawFunc(nil)
-	C.sub_43DE40(nil)
+	gameSetCliDrawFunc(nil)
+	sub_43DE40(nil)
 	noxflags.SetGame(noxflags.GameFlag9)
 	if *fNoLimit {
 		C.nox_xxx_setFrameLimit_43DDE0(0)
@@ -337,8 +337,8 @@ func runNox(args []string) error {
 	if !C.nox_xxx_loadAllBinFiles_415470() {
 		return fmt.Errorf("failed to load bin files")
 	}
-	if C.nox_xxx_initInput_430190() == 0 {
-		return fmt.Errorf("failed to init input")
+	if err := nox_xxx_initInput_430190(); err != nil {
+		return fmt.Errorf("failed to init input: %w", err)
 	}
 	if C.nox_xxx_mapAlloc_4101D0() == 0 {
 		return fmt.Errorf("failed to init map")
@@ -423,12 +423,12 @@ func cleanup() {
 	C.nox_xxx_freeWeaponArmorDefAndModifs_413060()
 	sub_4311B0()
 	C.nox_xxx_freeFloorBuffer_430EF0()
-	C.nox_xxx_freeKeyboard_430210()
+	nox_xxx_freeKeyboard_430210()
 	C.nox_xxx_tileFree_410FC0_free()
 	C.sub_4106C0()
 	C.nox_video_bagFree_42F4D0()
 	C.sub_42EDC0()
-	C.sub_42CD90()
+	sub_42CD90()
 	nox_strman_free_410020()
 	C.nox_netlist_free_40EA70()
 	C.sub_40D0F0()

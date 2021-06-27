@@ -29,7 +29,7 @@ _DWORD* nox_xxx_cliShowHelpGui_49C560() {
 		sub_46B120(result, 0);
 		nox_xxx_wndShowModalMB_46A8C0(*(int*)&dword_5d4594_1305680);
 		sub_46C690(*(int*)&dword_5d4594_1305680);
-		nox_xxx_windowDestroyChildsMB_46B500(*(int*)&dword_5d4594_1305680);
+		nox_xxx_windowFocus_46B500(*(int*)&dword_5d4594_1305680);
 		nox_wnd_nox_xxx_wndDraw_46A9B0(*(_DWORD**)&dword_5d4594_1305680, (nox_win_width - *(int*)(dword_5d4594_1305680 + 8)) / 2,
 						   (nox_win_height - *(int*)(dword_5d4594_1305680 + 12)) / 2);
 		if (nox_common_gameFlags_check_40A5C0(1)) {

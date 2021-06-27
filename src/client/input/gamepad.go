@@ -35,6 +35,9 @@ func (s *Stick) SetY(v int) {
 }
 
 func (s *Stick) Posf() types.Pointf {
+	if s == nil {
+		return types.Pointf{}
+	}
 	return types.Pointf{
 		X: float32(s.Pos.X) / gpadStickMax,
 		Y: float32(s.Pos.Y) / gpadStickMax,
@@ -109,6 +112,9 @@ func (g *Gamepad) InRelative() bool {
 }
 
 func (g *Gamepad) StickRel() *Stick {
+	if g == nil {
+		return nil
+	}
 	return &g.lstick
 }
 

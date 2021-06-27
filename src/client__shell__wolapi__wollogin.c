@@ -131,7 +131,7 @@ int nox_game_showWolLogin_44A560() {
 	}
 	if (!sub_44A4A0()) {
 		nox_xxx_wndRetNULL_46A8A0();
-		nox_xxx_windowDestroyChildsMB_46B500(*(int*)&dword_5d4594_830256);
+		nox_xxx_windowFocus_46B500(*(int*)&dword_5d4594_830256);
 	}
 	dword_5d4594_830268 = 0;
 	if (nox_common_gameFlags_check_40A5C0(0x2000000)) {
