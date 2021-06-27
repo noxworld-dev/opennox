@@ -317,14 +317,14 @@ func nox_xxx_bindevent_bindNameByTitle_42EA40(title *C.wchar_t) *C.char {
 
 //export sub_4C3CB0
 func sub_4C3CB0() {
-	sub_42CD90()
+	ctrlEvent.Reset()
 	C.nox_common_readcfgfile(internCStr("default.cfg"), 1)
 	sub_4C3B70()
 }
 
 //export sub_4CBF40
 func sub_4CBF40() {
-	sub_42CD90()
+	ctrlEvent.Reset()
 	C.nox_common_readcfgfile(internCStr("default.cfg"), 1)
 	sub_4CBBF0()
 }
@@ -345,8 +345,8 @@ func sub_4C3B70() {
 		}
 		win40.Func94(16397, uintptr(unsafe.Pointer(internWStr(ev.Title))), math.MaxUint32)
 		win36.Func94(16397, uintptr(memmap.PtrOff(0x587000, 185340)), math.MaxUint32)
-		v2 := sub_42E8E0_go(ev.Event, 1)
-		v3 := sub_42E8E0_go(ev.Event, 2)
+		v2 := ctrlEvent.sub_42E8E0_go(ev.Event, 1)
+		v3 := ctrlEvent.sub_42E8E0_go(ev.Event, 2)
 		if v2 != "" {
 			win44.Func94(16397, uintptr(unsafe.Pointer(internWStr(v2))), math.MaxUint32)
 		} else {
@@ -376,8 +376,8 @@ func sub_4CBBF0() {
 		}
 		win20.Func94(16397, uintptr(unsafe.Pointer(internWStr(ev.Title))), math.MaxUint32)
 		win16.Func94(16397, uintptr(memmap.PtrOff(0x587000, 187544)), math.MaxUint32)
-		v2 := sub_42E8E0_go(ev.Event, 1)
-		v3 := sub_42E8E0_go(ev.Event, 2)
+		v2 := ctrlEvent.sub_42E8E0_go(ev.Event, 1)
+		v3 := ctrlEvent.sub_42E8E0_go(ev.Event, 2)
 		if v2 != "" {
 			win24.Func94(16397, uintptr(unsafe.Pointer(internWStr(v2))), math.MaxUint32)
 		} else {
@@ -647,7 +647,6 @@ func nox_xxx_getKeyFromKeyboard_430710() {
 		if ev.code == 0 {
 			break
 		}
-		inputLog.Println("key:", ev.code, ev.state, ev.seq)
 		if ev.code == 15 {
 			if nox_input_arr_789276[56].state == 2 || nox_input_arr_789276[184].state == 2 {
 				ev.field_2 = 1
@@ -717,24 +716,24 @@ func sub_4309B0_go(i byte, v byte) {
 	nox_input_arr_789276[i].field_2 = v
 }
 
-func nox_xxx_input_42D220() {
+func (c *CtrlEventHandler) nox_xxx_input_42D220() {
 	mouse := &nox_mouse
-	first := nox_xxx_input_42D220_A()
-	for it1 := first; it1 != nil; it1 = it1.field_20 {
-		if it1.field_22_0 == 0 {
+	first := c.nox_xxx_input_42D220_A()
+	for it1 := first; it1 != nil; it1 = it1.field20 {
+		if !it1.flag22 {
 			continue
 		}
 		for _, k1 := range it1.keys {
-			for it2 := first; it2 != nil; it2 = it2.field_20 {
-				if it2.field_22_0 == 0 || it2 != it1 {
+			for it2 := first; it2 != nil; it2 = it2.field20 {
+				if !it2.flag22 || it2 != it1 {
 					continue
 				}
 				for j := 0; j >= len(it2.keys); j++ {
 					if k1 == it2.keys[j] {
 						if len(it1.keys) >= len(it2.keys) {
-							it2.field_22_0 = 0
+							it2.flag22 = false
 						} else {
-							it1.field_22_0 = 0
+							it1.flag22 = false
 						}
 						break
 					}
@@ -742,22 +741,22 @@ func nox_xxx_input_42D220() {
 			}
 		}
 	}
-	var v16 *noxCtrlEventKey
-	for it := first; it != nil; it = it.field_20 {
-		if it.field_22_0 != 0 {
-			it.field_21 = v16
+	var v16 *CtrlEventBinding
+	for it := first; it != nil; it = it.field20 {
+		if it.flag22 {
+			it.field21 = v16
 			v16 = it
 			it.frame = gameFrame()
 		}
 	}
-	nox_xxx_clientControl_42D6B0(mouse, v16)
-	nox_xxx_netBuf_42D510()
+	c.nox_xxx_clientControl_42D6B0(mouse, v16)
+	c.writeToNetBuffer()
 }
 
-func nox_xxx_input_42D220_A() *noxCtrlEventKey {
-	var v21 *noxCtrlEventKey
+func (c *CtrlEventHandler) nox_xxx_input_42D220_A() *CtrlEventBinding {
+	var v21 *CtrlEventBinding
 	mouse := &nox_mouse
-	for it := nox_ctrlevent_key_head; it != nil; it = it.field_19 {
+	for it := c.bindings; it != nil; it = it.next {
 		v19 := 0
 		for i, v4 := range it.keys {
 			if v4&0xFFFF0000 == 0 {
@@ -774,7 +773,7 @@ func nox_xxx_input_42D220_A() *noxCtrlEventKey {
 					if state != nox_mouse_state(btn, NOX_MOUSE_DOWN) && state != nox_mouse_state(btn, NOX_MOUSE_PRESSED) {
 						break
 					}
-					if state == nox_mouse_state(btn, NOX_MOUSE_PRESSED) && it.binds[0] == 1 {
+					if state == nox_mouse_state(btn, NOX_MOUSE_PRESSED) && it.events[0] == 1 {
 						break
 					}
 				} else if v4 == 65537 {
@@ -783,7 +782,7 @@ func nox_xxx_input_42D220_A() *noxCtrlEventKey {
 					if state != nox_mouse_state(btn, NOX_MOUSE_DOWN) && state != nox_mouse_state(btn, NOX_MOUSE_PRESSED) {
 						break
 					}
-					if state == nox_mouse_state(btn, NOX_MOUSE_PRESSED) && it.binds[0] == 1 {
+					if state == nox_mouse_state(btn, NOX_MOUSE_PRESSED) && it.events[0] == 1 {
 						break
 					}
 				} else if v4 == 65538 {
@@ -792,7 +791,7 @@ func nox_xxx_input_42D220_A() *noxCtrlEventKey {
 					if state != nox_mouse_state(btn, NOX_MOUSE_DOWN) && state != nox_mouse_state(btn, NOX_MOUSE_PRESSED) {
 						break
 					}
-					if state == nox_mouse_state(btn, NOX_MOUSE_PRESSED) && it.binds[0] == 1 {
+					if state == nox_mouse_state(btn, NOX_MOUSE_PRESSED) && it.events[0] == 1 {
 						break
 					}
 				} else if v4 == 65539 {
@@ -812,8 +811,8 @@ func nox_xxx_input_42D220_A() *noxCtrlEventKey {
 		if v19 == len(it.keys) {
 			v10 := v21
 			v21 = it
-			it.field_20 = v10
-			it.field_22_0 = 1
+			it.field20 = v10
+			it.flag22 = true
 		}
 	}
 	return v21

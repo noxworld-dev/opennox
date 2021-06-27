@@ -25,7 +25,7 @@ func nox_xxx_client_435F80_draw() bool {
 	if C.sub_478030() == 0 && !nox_xxx_guiCursor_477600() {
 		C.sub_470DE0()
 	}
-	nox_xxx_input_42D220()
+	ctrlEvent.nox_xxx_input_42D220()
 	if C.nox_xxx_get_430890() == 1 {
 		C.sub_430880(0)
 	}

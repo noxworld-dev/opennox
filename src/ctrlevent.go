@@ -28,20 +28,9 @@ import (
 	"nox/v1/common/memmap"
 )
 
-const NOX_CTRLEVENT_XXX_MAX = 128
+var ctrlEvent = new(CtrlEventHandler)
 
-var (
-	nox_ctrlevent_ticks              uint32
-	nox_ctrlevent_player_orientation uint32
-	nox_ctrlevent_buf_747884         [NOX_CTRLEVENT_XXX_MAX]noxCtrlEvent
-	nox_ctrlevent_buf_750964         [NOX_CTRLEVENT_XXX_MAX]noxCtrlEvent // TODO: size a guess
-	nox_ctrlevent_key_head           *noxCtrlEventKey
-
-	nox_ctrlevent_754036 int
-	nox_ctrlevent_754040 int
-	nox_ctrlevent_754044 int
-	nox_ctrlevent_754048 int
-)
+const ctrlEventCap = 128
 
 type noxCtrlEvent struct {
 	tick   uint32
@@ -50,39 +39,63 @@ type noxCtrlEvent struct {
 	active bool
 }
 
-type noxCtrlEventKey struct {
-	keys       []keybind.Key
-	binds      []keybind.Event
-	field_18   *noxCtrlEventKey
-	field_19   *noxCtrlEventKey
-	field_20   *noxCtrlEventKey
-	field_21   *noxCtrlEventKey
-	field_22_0 byte
-	frame      uint32
+type CtrlEventBinding struct {
+	keys    []keybind.Key
+	events  []keybind.Event
+	prev    *CtrlEventBinding
+	next    *CtrlEventBinding
+	field20 *CtrlEventBinding
+	field21 *CtrlEventBinding
+	flag22  bool
+	frame   uint32
 }
 
-func nox_xxx_clientControl_42D6B0(mouse *noxMouseStateInt, a4 *noxCtrlEventKey) {
-	nox_ctrlevent_ticks = uint32(platformTicks())
-	if noxflags.HasGame(1) && noxflags.HasGame(0x2000) {
-		nox_ctrlevent_ticks += nox_ctrlevent_add_ticks_42E630()
+type CtrlEventHandler struct {
+	ticks     uint32
+	playerDir uint32
+	bufA      [ctrlEventCap]noxCtrlEvent
+	bufB      [ctrlEventCap]noxCtrlEvent // TODO: size a guess
+	bindings  *CtrlEventBinding
+	indA      int
+	indB      int
+	indC      int
+	indD      int
+}
+
+func (c *CtrlEventHandler) Reset() {
+	c.bindings = nil
+	*memmap.PtrUint8(0x5D4594, 747848) = 0
+	*memmap.PtrUint8(0x5D4594, 750956) = 0
+	c.indA = 0
+	c.indB = 0
+	c.indC = 0
+	c.indD = 0
+	*memmap.PtrUint32(0x5D4594, 747856) = 100
+	*memmap.PtrUint32(0x5D4594, 747868) = 4
+}
+
+func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0(mouse *noxMouseStateInt, a4 *CtrlEventBinding) {
+	c.ticks = uint32(platformTicks())
+	if noxflags.HasGame(noxflags.GameHost) && noxflags.HasGame(0x2000) {
+		c.ticks += nox_ctrlevent_add_ticks_42E630()
 	}
-	if !noxflags.HasGame(1) {
-		nox_ctrlevent_754036 = 0
+	if !noxflags.HasGame(noxflags.GameHost) {
+		c.indA = 0
 	}
-	nox_xxx_clientControl_42D6B0_A(a4)
-	nox_xxx_clientControl_42D6B0_orientation(mouse)
+	c.nox_xxx_clientControl_42D6B0_A(a4)
+	c.nox_xxx_clientControl_42D6B0_orientation(mouse)
 	if memmap.Uint8(0x5D4594, 2661958) != 0 {
 		C.nox_xxx_guiSpellTargetClickCheckSend_45DBB0()
 	}
 	if memmap.Uint8(0x5D4594, 754064)&4 != 0 {
-		nox_ctrlevent_action_42E670(CC_CastMostRecentSpell, nil)
+		c.nox_ctrlevent_action_42E670(CC_CastMostRecentSpell, nil)
 	}
-	nox_xxx_clientControl_42D6B0_C()
+	c.nox_xxx_clientControl_42D6B0_C()
 	*memmap.PtrUint32(0x5D4594, 754064) = 0
-	nox_xxx_clientControl_42D6B0_B()
+	c.nox_xxx_clientControl_42D6B0_B()
 }
 
-func nox_xxx_clientControl_42D6B0_orientation(mouse *noxMouseStateInt) {
+func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_orientation(mouse *noxMouseStateInt) {
 	if memmap.Uint8(0x5D4594, 747848) != 2 && memmap.Uint32(0x5D4594, 747868) == 4 {
 		// calculates player orientation
 		x := mouse.pos.X
@@ -106,17 +119,17 @@ func nox_xxx_clientControl_42D6B0_orientation(mouse *noxMouseStateInt) {
 		if ang >= 256 {
 			ang -= int((uint(ang) >> 8) << 8)
 		}
-		nox_ctrlevent_player_orientation = uint32(ang)
+		c.playerDir = uint32(ang)
 	}
 	var buf [4]byte
-	binary.LittleEndian.PutUint32(buf[:], nox_ctrlevent_player_orientation)
-	nox_ctrlevent_action_42E670(CC_Orientation, &buf)
+	binary.LittleEndian.PutUint32(buf[:], c.playerDir)
+	c.nox_ctrlevent_action_42E670(CC_Orientation, &buf)
 }
 
-func nox_xxx_clientControl_42D6B0_A(a4 *noxCtrlEventKey) {
+func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_A(a4 *CtrlEventBinding) {
 	v2 := *memmap.PtrPtr(0x5D4594, 2618908)
-	for it := a4; it != nil; it = it.field_21 {
-		for _, k := range it.binds {
+	for it := a4; it != nil; it = it.field21 {
+		for _, k := range it.events {
 			switch k {
 			case 1:
 				switch nox_client_getCursorType_477620() {
@@ -132,7 +145,7 @@ func nox_xxx_clientControl_42D6B0_A(a4 *noxCtrlEventKey) {
 					v12 := nox_xxx_clientGetSpriteAtCursor_476F90()
 					C.nox_xxx_clientCollideOrUse_42E810(v12.C())
 				default:
-					nox_ctrlevent_action_42E670(CC_Action, nil)
+					c.nox_ctrlevent_action_42E670(CC_Action, nil)
 				}
 			case 2:
 				if inpHandler.IsMouseDown() {
@@ -142,7 +155,7 @@ func nox_xxx_clientControl_42D6B0_A(a4 *noxCtrlEventKey) {
 					}
 					var buf [4]byte
 					binary.LittleEndian.PutUint32(buf[:], uint32(v5))
-					nox_ctrlevent_action_42E670(CC_MoveForward, &buf)
+					c.nox_ctrlevent_action_42E670(CC_MoveForward, &buf)
 				}
 			case 3, 4, 5:
 				var code byte
@@ -160,158 +173,158 @@ func nox_xxx_clientControl_42D6B0_A(a4 *noxCtrlEventKey) {
 				}
 				var buf [4]byte
 				binary.LittleEndian.PutUint32(buf[:], v6)
-				nox_ctrlevent_action_42E670(code, &buf)
+				c.nox_ctrlevent_action_42E670(code, &buf)
 			case 6:
-				nox_ctrlevent_action_42E670(CC_Jump, nil)
+				c.nox_ctrlevent_action_42E670(CC_Jump, nil)
 			case 7:
-				nox_ctrlevent_action_42E670(CC_SpellGestureDown, nil)
+				c.nox_ctrlevent_action_42E670(CC_SpellGestureDown, nil)
 			case 8:
-				nox_ctrlevent_action_42E670(CC_Chat, nil)
+				c.nox_ctrlevent_action_42E670(CC_Chat, nil)
 			case 9:
 				if *(*byte)(unsafe.Pointer(uintptr(v2) + 3680))&0x1 == 0 {
-					nox_ctrlevent_action_42E670(CC_TeamChat, nil)
+					c.nox_ctrlevent_action_42E670(CC_TeamChat, nil)
 				}
 			case 0xA:
-				nox_ctrlevent_action_42E670(CC_ReadSpellbook, nil)
+				c.nox_ctrlevent_action_42E670(CC_ReadSpellbook, nil)
 			case 0xB:
-				nox_ctrlevent_action_42E670(CC_ToggleConsole, nil)
+				c.nox_ctrlevent_action_42E670(CC_ToggleConsole, nil)
 			case 0xC:
 				if !nox_xxx_checkGameFlagPause_413A50() {
-					nox_ctrlevent_action_42E670(CC_IncreaseWindowSize, nil)
+					c.nox_ctrlevent_action_42E670(CC_IncreaseWindowSize, nil)
 				}
 			case 0xD:
 				if !nox_xxx_checkGameFlagPause_413A50() {
-					nox_ctrlevent_action_42E670(CC_DecreaseWindowSize, nil)
+					c.nox_ctrlevent_action_42E670(CC_DecreaseWindowSize, nil)
 				}
 			case 0xE:
-				nox_ctrlevent_action_42E670(CC_Quit, nil)
+				c.nox_ctrlevent_action_42E670(CC_Quit, nil)
 			case 0xF:
-				nox_ctrlevent_action_42E670(CC_QuitMenu, nil)
+				c.nox_ctrlevent_action_42E670(CC_QuitMenu, nil)
 			case 0x10:
-				nox_ctrlevent_action_42E670(CC_SpellGestureUp, nil)
+				c.nox_ctrlevent_action_42E670(CC_SpellGestureUp, nil)
 			case 0x11:
 				if !nox_xxx_guiSpellTest_45D9C0() {
 					v13 := C.nox_xxx_packetGetMarshall_476F40()
 					var b [4]byte
 					binary.LittleEndian.PutUint32(b[:], uint32(v13))
-					nox_ctrlevent_action_42E780(CC_CastSpell1, &b)
+					c.nox_ctrlevent_action_42E780(CC_CastSpell1, &b)
 				}
 			case 0x12:
 				if !nox_xxx_guiSpellTest_45D9C0() {
-					nox_ctrlevent_action_42E780(CC_SpellGestureLeft, nil)
+					c.nox_ctrlevent_action_42E780(CC_SpellGestureLeft, nil)
 				}
 			case 0x13:
 				if !nox_xxx_guiSpellTest_45D9C0() {
-					nox_ctrlevent_action_42E780(CC_SpellGestureRight, nil)
+					c.nox_ctrlevent_action_42E780(CC_SpellGestureRight, nil)
 				}
 			case 0x14:
 				if !nox_xxx_guiSpellTest_45D9C0() {
-					nox_ctrlevent_action_42E780(CC_SpellGestureUpperRight, nil)
+					c.nox_ctrlevent_action_42E780(CC_SpellGestureUpperRight, nil)
 				}
 			case 0x15:
 				if !nox_xxx_guiSpellTest_45D9C0() {
-					nox_ctrlevent_action_42E780(CC_SpellGestureUpperLeft, nil)
+					c.nox_ctrlevent_action_42E780(CC_SpellGestureUpperLeft, nil)
 				}
 			case 0x16:
 				if !nox_xxx_guiSpellTest_45D9C0() {
-					nox_ctrlevent_action_42E780(CC_SpellGestureLowerRight, nil)
+					c.nox_ctrlevent_action_42E780(CC_SpellGestureLowerRight, nil)
 				}
 			case 0x17:
 				if !nox_xxx_guiSpellTest_45D9C0() {
-					nox_ctrlevent_action_42E780(CC_SpellGestureLowerLeft, nil)
+					c.nox_ctrlevent_action_42E780(CC_SpellGestureLowerLeft, nil)
 				}
 			case 0x18:
 				if !nox_xxx_guiSpellTest_45D9C0() {
-					nox_ctrlevent_action_42E780(CC_SpellPatternEnd, nil)
+					c.nox_ctrlevent_action_42E780(CC_SpellPatternEnd, nil)
 				}
 			case 0x19:
 				if !nox_xxx_guiSpellTest_45D9C0() {
-					nox_ctrlevent_action_42E780(CC_CastQueuedSpell, nil)
+					c.nox_ctrlevent_action_42E780(CC_CastQueuedSpell, nil)
 				}
 			case 0x1A:
 				if !nox_xxx_guiSpellTest_45D9C0() {
-					nox_ctrlevent_action_42E780(CC_CastMostRecentSpell, nil)
+					c.nox_ctrlevent_action_42E780(CC_CastMostRecentSpell, nil)
 				}
 			case 0x1B:
 				if !nox_xxx_guiSpellTest_45D9C0() {
 					v14 := C.nox_xxx_packetGetMarshall_476F40()
 					var b [4]byte
 					binary.LittleEndian.PutUint32(b[:], uint32(v14))
-					nox_ctrlevent_action_42E780(CC_CastSpell2, &b)
+					c.nox_ctrlevent_action_42E780(CC_CastSpell2, &b)
 				}
 			case 0x1C:
-				nox_ctrlevent_action_42E780(CC_CastSpell3, nil)
+				c.nox_ctrlevent_action_42E780(CC_CastSpell3, nil)
 			case 0x1D:
-				nox_ctrlevent_action_42E780(CC_CastSpell4, nil)
+				c.nox_ctrlevent_action_42E780(CC_CastSpell4, nil)
 			case 0x1E:
-				nox_ctrlevent_action_42E780(CC_CastSpell5, nil)
+				c.nox_ctrlevent_action_42E780(CC_CastSpell5, nil)
 			case 0x1F:
-				nox_ctrlevent_action_42E780(CC_MapZoomIn, nil)
+				c.nox_ctrlevent_action_42E780(CC_MapZoomIn, nil)
 			case 0x20:
-				nox_ctrlevent_action_42E780(CC_MapZoomOut, nil)
+				c.nox_ctrlevent_action_42E780(CC_MapZoomOut, nil)
 			case 0x21:
-				nox_ctrlevent_action_42E670(CC_NextWeapon, nil)
+				c.nox_ctrlevent_action_42E670(CC_NextWeapon, nil)
 			case 0x22:
-				nox_ctrlevent_action_42E670(CC_QuickHealthPotion, nil)
+				c.nox_ctrlevent_action_42E670(CC_QuickHealthPotion, nil)
 			case 0x23:
-				nox_ctrlevent_action_42E780(CC_QuickManaPotion, nil)
+				c.nox_ctrlevent_action_42E780(CC_QuickManaPotion, nil)
 			case 0x24:
-				nox_ctrlevent_action_42E780(CC_QuickCurePoisonPotion, nil)
+				c.nox_ctrlevent_action_42E780(CC_QuickCurePoisonPotion, nil)
 			case 0x25:
-				nox_ctrlevent_action_42E780(CC_NextSpellSet, nil)
+				c.nox_ctrlevent_action_42E780(CC_NextSpellSet, nil)
 			case 0x26:
-				nox_ctrlevent_action_42E780(CC_PreviousSpellSet, nil)
+				c.nox_ctrlevent_action_42E780(CC_PreviousSpellSet, nil)
 			case 0x27:
-				nox_ctrlevent_action_42E780(CC_SelectSpellSet, nil)
+				c.nox_ctrlevent_action_42E780(CC_SelectSpellSet, nil)
 			case 0x28:
-				nox_ctrlevent_action_42E780(CC_BuildTrap, nil)
+				c.nox_ctrlevent_action_42E780(CC_BuildTrap, nil)
 			case 0x29:
-				nox_ctrlevent_action_42E780(CC_ServerOptions, nil)
+				c.nox_ctrlevent_action_42E780(CC_ServerOptions, nil)
 			case 0x2A:
-				nox_ctrlevent_action_42E780(CC_Taunt, nil)
+				c.nox_ctrlevent_action_42E780(CC_Taunt, nil)
 			case 0x2B:
-				nox_ctrlevent_action_42E670(CC_ReadMap, nil)
+				c.nox_ctrlevent_action_42E670(CC_ReadMap, nil)
 			case 0x2C:
-				nox_ctrlevent_action_42E670(CC_Inventory, nil)
+				c.nox_ctrlevent_action_42E670(CC_Inventory, nil)
 			case 0x2D:
-				nox_ctrlevent_action_42E670(CC_Laugh, nil)
+				c.nox_ctrlevent_action_42E670(CC_Laugh, nil)
 			case 0x2E:
 				if noxflags.HasGame(0x2000) && nox_xxx_checkKeybTimeout_4160F0(0x15, gameFPS()) {
 					nox_xxx_setKeybTimeout_4160D0(21)
-					nox_ctrlevent_action_42E670(CC_Point, nil)
+					c.nox_ctrlevent_action_42E670(CC_Point, nil)
 				}
 			case 0x2F:
 				if noxflags.HasGame(0x2000) && nox_xxx_checkKeybTimeout_4160F0(0x14, 2*gameFPS()) {
 					nox_xxx_setKeybTimeout_4160D0(20)
-					nox_ctrlevent_action_42E670(CC_InvertSpellTarget, nil)
+					c.nox_ctrlevent_action_42E670(CC_InvertSpellTarget, nil)
 				}
 			case 0x30:
 				if noxflags.HasGame(0x2000) && nox_xxx_checkKeybTimeout_4160F0(0x16, gameFPS()) {
 					nox_xxx_setKeybTimeout_4160D0(22)
-					nox_ctrlevent_action_42E670(CC_ToggleRank, nil)
+					c.nox_ctrlevent_action_42E670(CC_ToggleRank, nil)
 				}
 			case 0x31:
-				nox_ctrlevent_action_42E670(CC_ToggleNetstat, nil)
+				c.nox_ctrlevent_action_42E670(CC_ToggleNetstat, nil)
 			case 0x32:
 				if noxflags.HasGame(0x2000) {
-					nox_ctrlevent_action_42E670(CC_ToggleGUI, nil)
+					c.nox_ctrlevent_action_42E670(CC_ToggleGUI, nil)
 				}
 			case 0x33:
 				if !nox_xxx_checkGameFlagPause_413A50() {
-					nox_ctrlevent_action_42E670(CC_AutoSave, nil)
+					c.nox_ctrlevent_action_42E670(CC_AutoSave, nil)
 				}
 			case 0x34:
-				nox_ctrlevent_action_42E670(CC_AutoLoad, nil)
+				c.nox_ctrlevent_action_42E670(CC_AutoLoad, nil)
 			case 0x35:
 				if noxflags.HasGame(2048) && !nox_xxx_guiCursor_477600() {
-					nox_ctrlevent_action_42E670(CC_ScreenShot, nil)
+					c.nox_ctrlevent_action_42E670(CC_ScreenShot, nil)
 				}
 			case 0x36:
 				if noxflags.HasGame(2048) && !nox_xxx_guiCursor_477600() {
-					nox_ctrlevent_action_42E670(CC_Unknown55, nil)
+					c.nox_ctrlevent_action_42E670(CC_Unknown55, nil)
 				}
 			case 0x37:
-				nox_ctrlevent_action_42E670(CC_Unknown56, nil)
+				c.nox_ctrlevent_action_42E670(CC_Unknown56, nil)
 			}
 		}
 	}
@@ -321,22 +334,20 @@ func sub_476E00(a1 int) {
 	*memmap.PtrUint32(0x5D4594, 1096596+4*uintptr(a1)) = gameFrame()
 }
 
-func nox_xxx_clientControl_42D6B0_B() {
-	l0 := 0
-	v34 := 0
-	if noxflags.HasGame(1) {
-		l0 = nox_ctrlevent_754040
-		v34 = nox_ctrlevent_754036
-		if nox_ctrlevent_754036 < nox_ctrlevent_754040 {
-			v34 = nox_ctrlevent_754036 + NOX_CTRLEVENT_XXX_MAX
+func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_B() {
+	indStart := 0
+	indEnd := 0
+	if noxflags.HasGame(noxflags.GameHost) {
+		indStart = c.indB
+		indEnd = c.indA
+		if c.indA < c.indB {
+			indEnd = c.indA + cap(c.bufA)
 		}
 	} else {
-		v34 = nox_ctrlevent_754036
+		indEnd = c.indA
 	}
-	v43 := v34
-	for l := l0; l < v43; l++ {
-		li := l % NOX_CTRLEVENT_XXX_MAX
-		ce := &nox_ctrlevent_buf_747884[li]
+	for i := indStart; i < indEnd; i++ {
+		ce := &c.bufA[i%cap(c.bufA)]
 		if !ce.active {
 			continue
 		}
@@ -534,44 +545,44 @@ func nox_xxx_clientControl_42D6B0_B() {
 	}
 }
 
-func nox_xxx_clientControl_42D6B0_C() {
-	if noxflags.HasGame(1) {
-		v20 := nox_ctrlevent_754040
+func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_C() {
+	if noxflags.HasGame(noxflags.GameHost) {
+		v20 := c.indB
 		cnt := 0
-		for i := nox_ctrlevent_754048; i != v20; i = (i + 1) % NOX_CTRLEVENT_XXX_MAX {
-			nox_ctrlevent_buf_750964[cnt] = nox_ctrlevent_buf_747884[i]
+		for i := c.indD; i != v20; i = (i + 1) % cap(c.bufA) {
+			c.bufB[cnt] = c.bufA[i]
 			cnt++
 		}
 		if cnt > 0 {
-			nox_ctrlevent_754048 = v20
-			nox_ctrlevent_754044 = cnt
+			c.indD = v20
+			c.indC = cnt
 		}
-		v23 := nox_ctrlevent_754044
-		for i := v20; i != nox_ctrlevent_754036; i = (i + 1) % NOX_CTRLEVENT_XXX_MAX {
+		v23 := c.indC
+		for i := v20; i != c.indA; i = (i + 1) % cap(c.bufA) {
 			if v23 <= 0 {
 				continue
 			}
-			p1 := &nox_ctrlevent_buf_747884[i]
+			p1 := &c.bufA[i]
 			for j := 0; j < v23; j++ {
-				p2 := &nox_ctrlevent_buf_750964[j]
+				p2 := &c.bufB[j]
 				if p1.code == p2.code {
 					if nox_xxx_keyCanPauseMode_42D4B0(p1.code) {
 						p1.active = false
 					}
-					v23 = nox_ctrlevent_754044
+					v23 = c.indC
 					break
 				}
 			}
 		}
 	} else {
-		for i := 0; i < nox_ctrlevent_754036; i++ {
-			p1 := &nox_ctrlevent_buf_747884[i]
+		for i := 0; i < c.indA; i++ {
+			p1 := &c.bufA[i]
 			p1.active = true
-			if nox_ctrlevent_754044 <= 0 {
+			if c.indC <= 0 {
 				continue
 			}
-			for j := 0; j < nox_ctrlevent_754044; j++ {
-				p2 := &nox_ctrlevent_buf_750964[j]
+			for j := 0; j < c.indC; j++ {
+				p2 := &c.bufB[j]
 				if p1.code == p2.code {
 					if nox_xxx_keyCanPauseMode_42D4B0(p1.code) {
 						p1.active = false
@@ -580,33 +591,33 @@ func nox_xxx_clientControl_42D6B0_C() {
 				}
 			}
 		}
-		n := nox_ctrlevent_754036
-		copy(nox_ctrlevent_buf_750964[:n], nox_ctrlevent_buf_747884[:n])
-		nox_ctrlevent_754044 = nox_ctrlevent_754036
+		n := c.indA
+		copy(c.bufB[:n], c.bufA[:n])
+		c.indC = c.indA
 	}
 }
 
-func nox_ctrlevent_action_42E670(code byte, data *[4]byte) {
-	if !noxflags.HasGame(1) {
-		if nox_ctrlevent_754036 >= NOX_CTRLEVENT_XXX_MAX {
+func (c *CtrlEventHandler) nox_ctrlevent_action_42E670(code byte, data *[4]byte) {
+	if !noxflags.HasGame(noxflags.GameHost) {
+		if c.indA >= cap(c.bufA) {
 			return
 		}
 	} else {
-		if nox_ctrlevent_754036+1 == nox_ctrlevent_754040 {
+		if c.indA+1 == c.indB {
 			return
 		}
 	}
 	if memmap.Uint8(0x5D4594, 2661958) != 0 || !nox_xxx_keyCheckWarrorKeys_42D460(code) {
-		j := nox_ctrlevent_754036
-		if noxflags.HasGame(1) && nox_xxx_keyCanPauseMode_42D4B0(code) {
-			for i := nox_ctrlevent_754040; i != nox_ctrlevent_754036; i = (i + 1) % NOX_CTRLEVENT_XXX_MAX {
-				if nox_ctrlevent_buf_747884[i].code == code {
+		j := c.indA
+		if noxflags.HasGame(noxflags.GameHost) && nox_xxx_keyCanPauseMode_42D4B0(code) {
+			for i := c.indB; i != c.indA; i = (i + 1) % cap(c.bufA) {
+				if c.bufA[i].code == code {
 					return
 				}
 			}
 		}
-		p := &nox_ctrlevent_buf_747884[j]
-		p.tick = nox_ctrlevent_ticks
+		p := &c.bufA[j]
+		p.tick = c.ticks
 		p.code = code
 		if data != nil {
 			p.data = *data
@@ -614,17 +625,17 @@ func nox_ctrlevent_action_42E670(code byte, data *[4]byte) {
 			p.data = [4]byte{}
 		}
 		p.active = true
-		nox_ctrlevent_754036 = j + 1
-		if noxflags.HasGame(1) {
-			nox_ctrlevent_754036 %= NOX_CTRLEVENT_XXX_MAX
+		c.indA = j + 1
+		if noxflags.HasGame(noxflags.GameHost) {
+			c.indA %= cap(c.bufA)
 		}
 	}
 }
 
-func nox_ctrlevent_action_42E780(code byte, data *[4]byte) {
+func (c *CtrlEventHandler) nox_ctrlevent_action_42E780(code byte, data *[4]byte) {
 	if p := *memmap.PtrPtr(0x5D4594, 2614252); p != nil && *(*byte)(unsafe.Pointer(uintptr(p) + 120))&2 == 0 {
 		if !nox_xxx_checkGameFlagPause_413A50() {
-			nox_ctrlevent_action_42E670(code, data)
+			c.nox_ctrlevent_action_42E670(code, data)
 		}
 	}
 }
@@ -644,13 +655,13 @@ func nox_ctrlevent_add_ticks_42E630() uint32 {
 
 //export sub_42E8E0
 func sub_42E8E0(key, a2 C.int) *C.wchar_t {
-	s := sub_42E8E0_go(keybind.Event(key), int(a2))
+	s := ctrlEvent.sub_42E8E0_go(keybind.Event(key), int(a2))
 	return internWStr(s)
 }
 
-func sub_42E8E0_go(key keybind.Event, ind int) string {
-	for v2 := nox_ctrlevent_key_head; v2 != nil; v2 = v2.field_19 {
-		for _, k := range v2.binds {
+func (c *CtrlEventHandler) sub_42E8E0_go(key keybind.Event, ind int) string {
+	for v2 := c.bindings; v2 != nil; v2 = v2.next {
+		for _, k := range v2.events {
 			if k != key {
 				continue
 			}
@@ -663,6 +674,30 @@ func sub_42E8E0_go(key keybind.Event, ind int) string {
 		}
 	}
 	return ""
+}
+
+func (c *CtrlEventHandler) addBinding(ce *CtrlEventBinding) {
+	ce.prev = nil
+	ce.next = c.bindings
+	if c.bindings != nil {
+		c.bindings.prev = ce
+	}
+	c.bindings = ce
+}
+
+func (c *CtrlEventHandler) listBindings() []*CtrlEventBinding {
+	var tail *CtrlEventBinding
+	for it := c.bindings; it != nil; it = it.next {
+		tail = it
+	}
+	if tail == nil {
+		return nil
+	}
+	var out []*CtrlEventBinding
+	for it := tail; it != nil; it = it.prev {
+		out = append(out, it)
+	}
+	return out
 }
 
 //export nox_client_parseConfigHotkeysLine_42CF50
@@ -694,7 +729,7 @@ func nox_client_parseConfigHotkeysLine_42CF50(a1 *C.char) C.int {
 			C.sub_430AA0(0)
 			return 1
 		}
-		ce := new(noxCtrlEventKey)
+		ce := new(CtrlEventBinding)
 		for _, s := range strings.Split(key, "+") {
 			s = strings.TrimSpace(s)
 			if b := keyBinding.KeyByName(s); b != nil && b.Key != 0 {
@@ -704,15 +739,10 @@ func nox_client_parseConfigHotkeysLine_42CF50(a1 *C.char) C.int {
 		for _, s := range strings.Split(val, "+") {
 			s = strings.TrimSpace(s)
 			if b := keyBinding.EventByName(s); b != nil && b.Event != 0 {
-				ce.binds = append(ce.binds, b.Event)
+				ce.events = append(ce.events, b.Event)
 			}
 		}
-		ce.field_18 = nil
-		ce.field_19 = nox_ctrlevent_key_head
-		if nox_ctrlevent_key_head != nil {
-			nox_ctrlevent_key_head.field_18 = ce
-		}
-		nox_ctrlevent_key_head = ce
+		ctrlEvent.addBinding(ce)
 		return 1
 	}
 	return 0
@@ -724,14 +754,7 @@ func writeConfigHotkeys(w io.Writer) error {
 	if err != nil {
 		return err
 	}
-	var tail *noxCtrlEventKey
-	for it := nox_ctrlevent_key_head; it != nil; it = it.field_19 {
-		tail = it
-	}
-	if tail == nil {
-		return nil
-	}
-	for it := tail; it != nil; it = it.field_18 {
+	for _, it := range ctrlEvent.listBindings() {
 		first := true
 		for _, k := range it.keys {
 			if b := keyBinding.KeyByCode(k); b != nil && b.Name != "" {
@@ -751,7 +774,7 @@ func writeConfigHotkeys(w io.Writer) error {
 			return err
 		}
 		first = true
-		for _, k := range it.binds {
+		for _, k := range it.events {
 			if b := keyBinding.EventByCode(k); b != nil && b.Name != "" {
 				_, err = fmt.Fprintf(w, "%s ", b.Name)
 				if err != nil {
@@ -787,15 +810,7 @@ func nox_client_writeConfigHotkeys_42CDF0(h *C.FILE) {
 
 //export sub_42CD90
 func sub_42CD90() {
-	nox_ctrlevent_key_head = nil
-	*memmap.PtrUint8(0x5D4594, 747848) = 0
-	*memmap.PtrUint8(0x5D4594, 750956) = 0
-	nox_ctrlevent_754036 = 0
-	nox_ctrlevent_754040 = 0
-	nox_ctrlevent_754044 = 0
-	nox_ctrlevent_754048 = 0
-	*memmap.PtrUint32(0x5D4594, 747856) = 100
-	*memmap.PtrUint32(0x5D4594, 747868) = 4
+	ctrlEvent.Reset()
 }
 
 var (
@@ -803,36 +818,34 @@ var (
 	noxCtrlEventNetbuf     [256]byte // TODO: size is a guess
 )
 
-func nox_xxx_netBuf_42D510() {
+func (c *CtrlEventHandler) writeToNetBuffer() { // nox_xxx_netBuf_42D510
 	bufSize := &noxCtrlEventNetbufSize
 	buf := noxCtrlEventNetbuf[:]
 	ticks := uint32(platformTicks())
 	*bufSize = 0
-	if noxflags.HasGame(1) {
-		if nox_ctrlevent_754040 != nox_ctrlevent_754036 {
-			for i := nox_ctrlevent_754040; i != nox_ctrlevent_754036; i = (i + 1) % NOX_CTRLEVENT_XXX_MAX {
-				p := &nox_ctrlevent_buf_747884[i]
-				if p.tick > ticks+50 {
-					break
-				}
-				if !p.active {
-					continue
-				}
-				off := *bufSize
-				buf[off] = p.code & 0xff
-				*bufSize = off + 4
-				if p.HasData() {
-					sz := p.DataSize()
-					off = *bufSize
-					copy(buf[off:], p.data[:sz])
-					*bufSize += byte(sz)
-				}
+	if noxflags.HasGame(noxflags.GameHost) {
+		for i := c.indB; i != c.indA; i = (i + 1) % cap(c.bufA) {
+			p := &c.bufA[i]
+			if p.tick > ticks+50 {
+				break
 			}
-			nox_ctrlevent_754040 = nox_ctrlevent_754036
+			if !p.active {
+				continue
+			}
+			off := *bufSize
+			buf[off] = p.code & 0xff
+			*bufSize = off + 4
+			if p.HasData() {
+				sz := p.DataSize()
+				off = *bufSize
+				copy(buf[off:], p.data[:sz])
+				*bufSize += byte(sz)
+			}
 		}
-	} else if nox_ctrlevent_754036 > 0 {
-		for i := 0; i < nox_ctrlevent_754036; i++ {
-			p := &nox_ctrlevent_buf_747884[i]
+		c.indB = c.indA
+	} else {
+		for i := 0; i < c.indA; i++ {
+			p := &c.bufA[i]
 			if !p.active {
 				continue
 			}
@@ -867,6 +880,15 @@ func nox_xxx_playerSaveInput_51A960(a1 C.int, a2 *C.uchar) C.int {
 	}
 	C.sub_51AA20(a1)
 	return C.int(v3) + 1
+}
+
+func (c *CtrlEventHandler) nox_xxx_consoleEditProc_450F40_check(bind keybind.Event, a3 keybind.Key) bool {
+	for it := c.bindings; it != nil; it = it.next {
+		if it.events[0] == bind && a3 == it.keys[0] {
+			return true
+		}
+	}
+	return false
 }
 
 func sub_51AAA0(a1 []byte, a3 []byte) int {

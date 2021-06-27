@@ -1256,13 +1256,11 @@ func nox_xxx_consoleEditProc_450F40(a1 unsafe.Pointer, a2, a3, a4 C.int) C.int {
 	if a2 != 21 {
 		return C.nox_xxx_wndEditProc_487D70((*C.uint)(a1), a2, a3, a4)
 	}
-	for it := nox_ctrlevent_key_head; it != nil; it = it.field_19 {
-		if it.binds[0] == 11 && keybind.Key(a3) == it.keys[0] {
-			if a4 == 2 {
-				C.nox_gui_console_F1_451350()
-			}
-			return 1
+	if ctrlEvent.nox_xxx_consoleEditProc_450F40_check(11, keybind.Key(a3)) {
+		if a4 == 2 {
+			C.nox_gui_console_F1_451350()
 		}
+		return 1
 	}
 	if a3 == 1 {
 		if a4 == 2 {
