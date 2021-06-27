@@ -203,8 +203,8 @@ mainloop:
 		C.sub_435740()
 		if !isDedicatedServer {
 			C.sub_430880(1)
-			nox_client_processMouseInput_4308A0(true)
-			nox_xxx_cursorUpdate_46B740()
+			nox_client_processMouseInput_4308A0(noxInp, true)
+			nox_xxx_cursorUpdate_46B740(noxInp)
 			mainloopKeysUpdate()
 			if nox_draw_unk1 != nil && !nox_draw_unk1() {
 				if debugMainloop {

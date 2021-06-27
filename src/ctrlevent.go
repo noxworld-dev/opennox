@@ -26,6 +26,7 @@ import (
 	"nox/v1/client/input/keybind"
 	noxflags "nox/v1/common/flags"
 	"nox/v1/common/memmap"
+	"nox/v1/common/types"
 )
 
 var ctrlEvent = new(CtrlEventHandler)
@@ -88,7 +89,7 @@ func (c *CtrlEventHandler) Reset() {
 	*memmap.PtrUint32(0x5D4594, 747868) = 4
 }
 
-func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0(mouse *noxMouseStateInt, a4 *CtrlEventBinding) {
+func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0(mpos types.Point, a4 *CtrlEventBinding) {
 	c.ticks = uint32(platformTicks())
 	if noxflags.HasGame(noxflags.GameHost) && noxflags.HasGame(0x2000) {
 		c.ticks += nox_ctrlevent_add_ticks_42E630()
@@ -97,7 +98,7 @@ func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0(mouse *noxMouseStateInt,
 		c.indA = 0
 	}
 	c.nox_xxx_clientControl_42D6B0_A(a4)
-	c.nox_xxx_clientControl_42D6B0_orientation(mouse)
+	c.nox_xxx_clientControl_42D6B0_orientation(mpos)
 	if memmap.Uint8(0x5D4594, 2661958) != 0 {
 		C.nox_xxx_guiSpellTargetClickCheckSend_45DBB0()
 	}
@@ -109,11 +110,11 @@ func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0(mouse *noxMouseStateInt,
 	c.nox_xxx_clientControl_42D6B0_B()
 }
 
-func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_orientation(mouse *noxMouseStateInt) {
+func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_orientation(mpos types.Point) {
 	if memmap.Uint8(0x5D4594, 747848) != 2 && memmap.Uint32(0x5D4594, 747868) == 4 {
 		// calculates player orientation
-		x := mouse.pos.X
-		y := mouse.pos.Y
+		x := mpos.X
+		y := mpos.Y
 		if v15 := C.nox_xxx_spriteGetMB_476F80(); v15 != nil {
 			y = int(C.sub_4739D0(*(*C.int)(unsafe.Pointer(uintptr(v15) + 16))))
 		}

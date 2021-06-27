@@ -19,7 +19,6 @@ int nox_video_initFloorBuffer_430BA0();
 import "C"
 import (
 	"errors"
-	"image"
 
 	"nox/v1/common/memmap"
 	"nox/v1/common/types"
@@ -269,7 +268,7 @@ func gameUpdateVideoMode(inMenu bool) error {
 	}
 	C.nox_xxx_loadPal_4A96C0_video_read_palette(internCStr("default.pal"))
 	C.sub_461520()
-	setMouseBounds(image.Rect(0, 0, mode.Width-1, mode.Height-1))
+	noxInp.m.updateScreen(mode.Size())
 	C.nox_video_mouseThreadXxx_48BE50(0)
 	return nil
 }

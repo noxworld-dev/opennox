@@ -84,8 +84,9 @@ func nox_client_setCursorType_477610(v int) {
 
 //export nox_client_getMousePos_4309F0
 func nox_client_getMousePos_4309F0() (out C.nox_point) {
-	out.x = C.int(nox_mouse.pos.X)
-	out.y = C.int(nox_mouse.pos.Y)
+	mpos := noxInp.GetMousePos()
+	out.x = C.int(mpos.X)
+	out.y = C.int(mpos.Y)
 	return
 }
 
@@ -96,12 +97,12 @@ func nox_xxx_bookGet_430B40_get_mouse_prev_seq() C.int {
 
 //export nox_client_changeMousePos_430A00
 func nox_client_changeMousePos_430A00(x, y C.int, isAbs C.bool) {
-	changeMousePos(image.Pt(int(x), int(y)), bool(isAbs))
+	noxInp.m.changeMousePos(image.Pt(int(x), int(y)), bool(isAbs))
 }
 
 //export nox_xxx_setMouseBounds_430A70
 func nox_xxx_setMouseBounds_430A70(xmin, xmax, ymin, ymax C.int) {
-	setMouseBounds(image.Rect(int(xmin), int(ymin), int(xmax), int(ymax)))
+	noxInp.m.setMouseBounds(image.Rect(int(xmin), int(ymin), int(xmax), int(ymax)))
 }
 
 //export nox_input_pollEvents_4453A0
@@ -312,8 +313,8 @@ func sub_4CBBF0() {
 	}
 }
 
-func nox_client_processMouseInput_4308A0(a1 bool) bool {
-	nox_client_readMouseBuffer_4306A0(a1)
+func nox_client_processMouseInput_4308A0(inp *Input, a1 bool) bool {
+	inp.m.nox_client_readMouseBuffer_4306A0(a1)
 	nox_xxx_getKeyFromKeyboard_430710()
 	if nox_input_arr_787228[0].code != 0 && !nox_input_arr_787228[0].field2 {
 		OnKeyboardEvent(&nox_input_arr_787228[0])
@@ -334,7 +335,7 @@ func nox_client_processMouseInput_4308A0(a1 bool) bool {
 //export nox_input_reset_430140
 func nox_input_reset_430140(a1 C.int) {
 	nox_xxx_initKeyboard_yyy()
-	noxResetMouseBuffer()
+	noxInp.m.noxResetMouseBuffer()
 }
 
 func nox_xxx_freeKeyboard_430210() {
@@ -403,9 +404,8 @@ func sub_4309B0(i, v C.uchar) {
 	inputSetKey4309B0(keybind.Key(i), v != 0)
 }
 
-func (c *CtrlEventHandler) nox_xxx_input_42D220() {
-	mouse := &nox_mouse
-	first := c.nox_xxx_input_42D220_A()
+func (c *CtrlEventHandler) nox_xxx_input_42D220(inp *Input) {
+	first := c.nox_xxx_input_42D220_A(inp)
 	for it1 := first; it1 != nil; it1 = it1.field20 {
 		if !it1.flag22 {
 			continue
@@ -436,15 +436,14 @@ func (c *CtrlEventHandler) nox_xxx_input_42D220() {
 			res = it
 		}
 	}
-	c.nox_xxx_clientControl_42D6B0(mouse, res)
+	c.nox_xxx_clientControl_42D6B0(inp.GetMousePos(), res)
 	c.writeToNetBuffer()
 }
 
-func (c *CtrlEventHandler) handleMouseAction(key keybind.Key, ev keybind.Event) bool {
-	mouse := &nox_mouse
+func (c *CtrlEventHandler) handleMouseAction(inp *Input, key keybind.Key, ev keybind.Event) bool {
 	if key == keybind.KeyLeftMouse {
 		btn := NOX_MOUSE_LEFT
-		state := mouse.btn[btn].state
+		state := inp.GetMouseState(btn)
 		if state != nox_mouse_state(btn, NOX_MOUSE_DOWN) && state != nox_mouse_state(btn, NOX_MOUSE_PRESSED) {
 			return true
 		}
@@ -453,7 +452,7 @@ func (c *CtrlEventHandler) handleMouseAction(key keybind.Key, ev keybind.Event) 
 		}
 	} else if key == keybind.KeyMiddleMouse {
 		btn := NOX_MOUSE_MIDDLE
-		state := mouse.btn[btn].state
+		state := inp.GetMouseState(btn)
 		if state != nox_mouse_state(btn, NOX_MOUSE_DOWN) && state != nox_mouse_state(btn, NOX_MOUSE_PRESSED) {
 			return true
 		}
@@ -462,7 +461,7 @@ func (c *CtrlEventHandler) handleMouseAction(key keybind.Key, ev keybind.Event) 
 		}
 	} else if key == keybind.KeyRightMouse {
 		btn := NOX_MOUSE_RIGHT
-		state := mouse.btn[btn].state
+		state := inp.GetMouseState(btn)
 		if state != nox_mouse_state(btn, NOX_MOUSE_DOWN) && state != nox_mouse_state(btn, NOX_MOUSE_PRESSED) {
 			return true
 		}
@@ -470,18 +469,18 @@ func (c *CtrlEventHandler) handleMouseAction(key keybind.Key, ev keybind.Event) 
 			return true
 		}
 	} else if key == keybind.KeyMouseWheelUp {
-		if mouse.wheel != 19 {
+		if inp.GetMouseWheel() != 19 {
 			return true
 		}
 	} else if key == keybind.KeyMouseWheelDown {
-		if mouse.wheel != 20 {
+		if inp.GetMouseWheel() != 20 {
 			return true
 		}
 	}
 	return false
 }
 
-func (c *CtrlEventHandler) nox_xxx_input_42D220_A() *CtrlEventBinding {
+func (c *CtrlEventHandler) nox_xxx_input_42D220_A(inp *Input) *CtrlEventBinding {
 	var res *CtrlEventBinding
 	for it := c.bindings; it != nil; it = it.next {
 		li := -1
@@ -494,7 +493,7 @@ func (c *CtrlEventHandler) nox_xxx_input_42D220_A() *CtrlEventBinding {
 					break
 				}
 			} else if key.IsMouse() && memmap.Uint8(0x5D4594, 747848) != 2 {
-				if c.handleMouseAction(key, it.events[0]) {
+				if c.handleMouseAction(inp, key, it.events[0]) {
 					break
 				}
 			} else if key.IsJoystick() && (memmap.Uint8(0x5D4594, 750956) != 0 || (1<<uint32(key))&memmap.Uint32(0x5D4594, 747844) == 0) {
@@ -521,7 +520,7 @@ func loadRect(p unsafe.Pointer) types.Rect {
 	}
 }
 
-func nox_xxx_cursorUpdate_46B740_sprites(v63 bool, v66 []int) {
+func nox_xxx_cursorUpdate_46B740_sprites(inp *Input, v63 bool, v66 []int) {
 	if gameGetPlayState() != 3 {
 		return
 	}
@@ -540,7 +539,6 @@ func nox_xxx_cursorUpdate_46B740_sprites(v63 bool, v66 []int) {
 	if C.nox_xxx_clientIsObserver_4372E0() != 0 {
 		return
 	}
-	m := &nox_mouse
 	v42 := int(C.sub_4675B0())
 	if v42 == 5 {
 		nox_client_setCursorType_477610(6)
@@ -566,9 +564,10 @@ func nox_xxx_cursorUpdate_46B740_sprites(v63 bool, v66 []int) {
 			if v47.Flags().Has(0x10) {
 				continue
 			}
-			if v47.pointIn(m.pos) {
+			mpos := inp.GetMousePos()
+			if v47.pointIn(mpos) {
 				if v47 == v46 {
-					v65 = m.pos
+					v65 = mpos
 					v50 := loadRect(unsafe.Pointer(C.sub_4676B0()))
 					if sub_4281F0(v65, v50) {
 						v63 = true
@@ -643,7 +642,7 @@ func nox_xxx_cursorUpdate_46B740_sprites(v63 bool, v66 []int) {
 	}
 }
 
-func nox_xxx_cursorUpdate_46B740() {
+func nox_xxx_cursorUpdate_46B740(inp *Input) {
 	var v0 *Window
 	var v1 *Window
 	var v23 *Window
@@ -651,16 +650,15 @@ func nox_xxx_cursorUpdate_46B740() {
 	v63 := false
 	v64 := 0
 
-	m := &nox_mouse
-
 	var v66 [4]int
-	v66[0] = int(m.btn[NOX_MOUSE_LEFT].state)
-	v66[1] = int(m.btn[NOX_MOUSE_RIGHT].state)
-	v66[2] = int(m.btn[NOX_MOUSE_MIDDLE].state)
-	v66[3] = m.wheel
+	v66[0] = int(inp.GetMouseState(NOX_MOUSE_LEFT))
+	v66[1] = int(inp.GetMouseState(NOX_MOUSE_RIGHT))
+	v66[2] = int(inp.GetMouseState(NOX_MOUSE_MIDDLE))
+	v66[3] = inp.GetMouseWheel()
 
-	sx := uint16(m.pos.X)
-	sy := uint16(m.pos.Y)
+	mpos := inp.GetMousePos()
+	sx := uint16(mpos.X)
+	sy := uint16(mpos.Y)
 	spos := uintptr(uint32(sx) | (uint32(sy) << 16))
 	spos2 := spos
 
@@ -673,11 +671,11 @@ func nox_xxx_cursorUpdate_46B740() {
 	if nox_win_unk3 != nil {
 		nox_client_setCursorType_477610(0)
 		nox_win_1064916 = nil
-		child := nox_win_unk3.ChildByPos(m.pos)
+		child := nox_win_unk3.ChildByPos(mpos)
 		v1 = child
 		for v62, v9 := range v66 {
 			if v9 == 0 {
-				if v62 == 0 && m.btn[NOX_MOUSE_LEFT].pressed {
+				if v62 == 0 && inp.IsMousePressed(NOX_MOUSE_LEFT) {
 					child.Func93(8, spos2, 0)
 				}
 				continue
@@ -703,7 +701,7 @@ func nox_xxx_cursorUpdate_46B740() {
 		switch v66[0] {
 		case 0, 8:
 			if nox_win_1064916.Flags().Has(4) && C.sub_45D9B0() == 0 {
-				dp := m.dpos
+				dp := inp.GetMouseRel()
 				off := nox_win_1064916.Offs()
 				end := nox_win_1064916.End()
 				if par := nox_win_1064916.Parent(); par != nil {
@@ -750,7 +748,7 @@ func nox_xxx_cursorUpdate_46B740() {
 			v66[0] = 0
 		case 6:
 			nox_win_1064916.flags &= 0xFFFFFFFE
-			if nox_win_1064916.ChildByPos(m.pos) != nil {
+			if nox_win_1064916.ChildByPos(mpos) != nil {
 				nox_win_1064916.Func93(6, spos, 0)
 			} else if nox_win_1064916.Flags().Has(4) {
 				nox_win_1064916.Func93(6, spos, 0)
@@ -767,7 +765,7 @@ func nox_xxx_cursorUpdate_46B740() {
 		}
 	} else {
 		if C.nox_win_1064912 != nil {
-			v23 = asWindow(C.nox_win_1064912.win).ChildByPos(m.pos)
+			v23 = asWindow(C.nox_win_1064912.win).ChildByPos(mpos)
 			goto LABEL_98
 		}
 		for v24 := asWindow(C.nox_win_xxx1_last); v24 != nil; v24 = v24.Prev() {
@@ -777,14 +775,14 @@ func nox_xxx_cursorUpdate_46B740() {
 			if v24.Flags().Has(0x10) {
 				continue
 			}
-			if v24.pointIn(m.pos) {
-				v28 := asWindow(C.sub_46B630(v24.C(), C.int(m.pos.X), C.int(m.pos.Y)))
+			if v24.pointIn(mpos) {
+				v28 := asWindow(C.sub_46B630(v24.C(), C.int(mpos.X), C.int(mpos.Y)))
 				if v0 == nil && (v28.tooltip_func != nil || v28.DrawData().Tooltip() != "") {
 					v0 = v28
 				}
 				if v24.Flags().Has(8) {
 					v61 = v0
-					v1 = v24.ChildByPos(m.pos)
+					v1 = v24.ChildByPos(mpos)
 					if v1 == nil {
 						break
 					}
@@ -796,14 +794,14 @@ func nox_xxx_cursorUpdate_46B740() {
 			if v29.Flags().Has(0x70) {
 				continue
 			}
-			if v29.pointIn(m.pos) {
-				v32 := asWindow(C.sub_46B630(v29.C(), C.int(m.pos.X), C.int(m.pos.Y)))
+			if v29.pointIn(mpos) {
+				v32 := asWindow(C.sub_46B630(v29.C(), C.int(mpos.X), C.int(mpos.Y)))
 				if v0 == nil && (v32.tooltip_func != nil || v32.DrawData().Tooltip() != "") {
 					v0 = v32
 				}
 				if v29.Flags().Has(8) {
 					v61 = v0
-					v1 = v29.ChildByPos(m.pos)
+					v1 = v29.ChildByPos(mpos)
 					if v1 == nil {
 						break
 					}
@@ -818,8 +816,8 @@ func nox_xxx_cursorUpdate_46B740() {
 			if v1.Flags().Has(0x10) {
 				continue
 			}
-			if v1.pointIn(m.pos) {
-				v36 := asWindow(C.sub_46B630(v1.C(), C.int(m.pos.X), C.int(m.pos.Y)))
+			if v1.pointIn(mpos) {
+				v36 := asWindow(C.sub_46B630(v1.C(), C.int(mpos.X), C.int(mpos.Y)))
 				if v0 == nil && (v36.tooltip_func != nil || v36.DrawData().Tooltip() != "") {
 					v0 = v36
 				}
@@ -829,7 +827,7 @@ func nox_xxx_cursorUpdate_46B740() {
 			}
 		}
 		v61 = v0
-		v23 = v1.ChildByPos(m.pos)
+		v23 = v1.ChildByPos(mpos)
 	LABEL_98:
 		v1 = v23
 		if v23 == nil {
@@ -899,11 +897,11 @@ func nox_xxx_cursorUpdate_46B740() {
 		}
 		nox_win_1064900 = v1
 	}
-	nox_xxx_cursorUpdate_46B740_sprites(v63, v66[:])
-	m.btn[NOX_MOUSE_LEFT].state = uint(v66[0])
-	m.btn[NOX_MOUSE_RIGHT].state = uint(v66[1])
-	m.btn[NOX_MOUSE_MIDDLE].state = uint(v66[2])
-	m.wheel = v66[3]
+	nox_xxx_cursorUpdate_46B740_sprites(inp, v63, v66[:])
+	inp.SetMouseState(NOX_MOUSE_LEFT, uint(v66[0]))
+	inp.SetMouseState(NOX_MOUSE_RIGHT, uint(v66[1]))
+	inp.SetMouseState(NOX_MOUSE_MIDDLE, uint(v66[2]))
+	inp.SetMouseWheel(v66[3])
 	if v64 == 1 {
 		nox_win_1064916 = nil
 	}

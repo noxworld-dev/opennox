@@ -8,6 +8,11 @@ import (
 )
 
 const (
+	mouseEventBufChan = 256
+	mouseEventBuf     = 256
+)
+
+const (
 	NOX_MOUSE_LEFT   = 0
 	NOX_MOUSE_RIGHT  = 1
 	NOX_MOUSE_MIDDLE = 2
@@ -30,15 +35,9 @@ const (
 	noxMouseEventMiddle
 )
 
-var (
-	nox_mouse              noxMouseStateInt
-	nox_mouse_prev         noxMouseStateInt
-	nox_mouse_prev_seq_2   uint
-	nox_readingMouseBuffer = false
-	mouseBounds            = image.Rect(0, 0, noxDefaultWidth, noxDefaultHeight)
-	nox_mouse_prev_btn     [3]types.Point
-	nox_input_buffer       [256]noxMouseStateInt
-)
+func nox_mouse_state(btn, st int) uint {
+	return uint(4*(btn+1) + st)
+}
 
 var noxMouseSelectOpt = []string{
 	"Left",
@@ -68,11 +67,26 @@ type noxMouseEvent struct {
 	Seq     uint
 }
 
-const mouseEventBuf = 256
+func NewMouseHandler() *MouseHandler {
+	h := &MouseHandler{
+		queue: make(chan noxMouseEvent, mouseEventBufChan),
+	}
+	return h
+}
 
-var (
-	mouseEventQueue = make(chan noxMouseEvent, mouseEventBuf)
-)
+type MouseHandler struct {
+	bounds image.Rectangle
+
+	cur     noxMouseStateInt
+	prev    noxMouseStateInt
+	prevSeq uint
+	prevBtn [3]types.Point
+
+	buffer  [mouseEventBuf]noxMouseStateInt
+	reading bool
+
+	queue chan noxMouseEvent
+}
 
 func inputInitMouse() {
 	inpHandler.AcquireMouse()
@@ -80,114 +94,118 @@ func inputInitMouse() {
 	// indicates that mouse is present so cursor should be drawn
 	*memmap.PtrUint32(0x5D4594, 1193108) = 1
 
-	sz := videoGetWindowSize()
-	setMouseBounds(image.Rect(0, 0, sz.W-1, sz.H-1))
+	noxInp.m.updateScreen(videoGetWindowSize())
 }
 
-func pushMouseEvent(e noxMouseEvent) {
+func (h *MouseHandler) updateScreen(sz types.Size) {
+	h.setMouseBounds(image.Rect(0, 0, sz.W-1, sz.H-1))
+}
+
+func (h *MouseHandler) pushEvent(e noxMouseEvent) bool {
 	e.Seq = nextInputSeq()
 	select {
-	case mouseEventQueue <- e:
+	case h.queue <- e:
+		return true
 	default:
 		inputLog.Println("cannot keep up, mouse event dropped")
+		return false
 	}
 }
 
-func nox_mouse_state(btn, st int) uint {
-	return uint(4*(btn+1) + st)
-}
-
-func setMouseBounds(r image.Rectangle) {
+func (h *MouseHandler) setMouseBounds(r image.Rectangle) {
 	inputLog.Printf("mouse bounds: %v", r)
-	mouseBounds = r
+	h.bounds = r
 }
 
-func getMousePos() image.Point {
-	return nox_mouse.pos
+func (h *MouseHandler) getMousePos() image.Point {
+	return h.cur.pos
 }
 
-func setMousePos(p image.Point) {
-	nox_mouse.pos = p
+func (h *MouseHandler) getMouseRel() image.Point {
+	return h.cur.dpos
 }
 
-func changeMousePos(p image.Point, isAbs bool) {
+func (h *MouseHandler) setMousePos(p image.Point) {
+	h.cur.pos = p
+}
+
+func (h *MouseHandler) changeMousePos(p image.Point, isAbs bool) {
 	if !isAbs {
-		p = p.Add(getMousePos())
+		p = p.Add(h.getMousePos())
 	}
-	if p.X > mouseBounds.Max.X {
-		p.X = mouseBounds.Max.X
+	if p.X > h.bounds.Max.X {
+		p.X = h.bounds.Max.X
 	}
-	if p.X < mouseBounds.Min.X {
-		p.X = mouseBounds.Min.X
+	if p.X < h.bounds.Min.X {
+		p.X = h.bounds.Min.X
 	}
 
-	if p.Y > mouseBounds.Max.Y {
-		p.Y = mouseBounds.Max.Y
+	if p.Y > h.bounds.Max.Y {
+		p.Y = h.bounds.Max.Y
 	}
-	if p.Y < mouseBounds.Min.Y {
-		p.Y = mouseBounds.Min.Y
+	if p.Y < h.bounds.Min.Y {
+		p.Y = h.bounds.Min.Y
 	}
-	setMousePos(p)
+	h.setMousePos(p)
 }
 
-func nox_client_mouseBtnStateFinal(pos types.Point, ind uint) {
-	cur := &nox_mouse.btn[ind]
+func (h *MouseHandler) nox_client_mouseBtnStateFinal(pos types.Point, ind uint) {
+	cur := &h.cur.btn[ind]
 	btn := 4 * (ind + 1)
 
 	if cur.state == btn+NOX_MOUSE_DOWN {
-		nox_mouse_prev_btn[ind] = pos
+		h.prevBtn[ind] = pos
 	}
 }
 
-func noxResetMouseBuffer() {
-	nox_input_buffer[0].btn[0].seq = 1
-	nox_input_buffer[0].btn[0].pressed = false
-	nox_input_buffer[0].btn[1].seq = 1
-	nox_input_buffer[0].btn[1].pressed = false
-	nox_input_buffer[0].btn[2].seq = 1
-	nox_input_buffer[0].btn[2].pressed = false
-	nox_client_processMouseEvents_4302A0(1, true)
+func (h *MouseHandler) noxResetMouseBuffer() {
+	h.buffer[0].btn[0].seq = 1
+	h.buffer[0].btn[0].pressed = false
+	h.buffer[0].btn[1].seq = 1
+	h.buffer[0].btn[1].pressed = false
+	h.buffer[0].btn[2].seq = 1
+	h.buffer[0].btn[2].pressed = false
+	h.nox_client_processMouseEvents_4302A0(1, true)
 }
 
-func nox_client_mouseBtnStateReset(ind uint) {
-	cur := &nox_mouse.btn[ind]
-	prev := &nox_mouse_prev.btn[ind]
+func (h *MouseHandler) nox_client_mouseBtnStateReset(ind uint) {
+	cur := &h.cur.btn[ind]
+	prev := &h.prev.btn[ind]
 	btn := 4 * (ind + 1)
-
 	if cur.pressed && (prev.state == btn+NOX_MOUSE_DOWN || prev.state == btn+NOX_MOUSE_PRESSED) {
 		cur.state = btn + NOX_MOUSE_PRESSED
 	}
 }
 
-func nox_client_mouseBtnState_430230() {
-	nox_client_mouseBtnStateReset(NOX_MOUSE_LEFT)
-	nox_client_mouseBtnStateReset(NOX_MOUSE_RIGHT)
-	nox_client_mouseBtnStateReset(NOX_MOUSE_MIDDLE)
+func (h *MouseHandler) nox_client_mouseBtnState_430230() {
+	h.nox_client_mouseBtnStateReset(NOX_MOUSE_LEFT)
+	h.nox_client_mouseBtnStateReset(NOX_MOUSE_RIGHT)
+	h.nox_client_mouseBtnStateReset(NOX_MOUSE_MIDDLE)
 }
 
-func nox_client_readMouseBuffer_4306A0(a1 bool) {
-	if nox_readingMouseBuffer {
+func (h *MouseHandler) nox_client_readMouseBuffer_4306A0(a1 bool) {
+	if h.reading {
 		return
 	}
-	nox_readingMouseBuffer = true
+	h.reading = true
 	n := 0
-	for i := range nox_input_buffer {
-		e := &nox_input_buffer[i]
-		if !nox_client_nextMouseEvent_47DB20(e) {
+	for i := range h.buffer {
+		e := &h.buffer[i]
+		if !h.nox_client_nextMouseEvent_47DB20(e) {
 			break
 		}
 		n++
 	}
-	nox_client_processMouseEvents_4302A0(n, a1)
-	nox_readingMouseBuffer = false
+	h.nox_client_processMouseEvents_4302A0(n, a1)
+	h.reading = false
 	if n > 0 {
 		*memmap.PtrUint32(0x5D4594, 805816) = uint32(nox_input_prev_seq)
 	}
 }
 
-func nextMouseEvent() *noxMouseEvent {
+func (h *MouseHandler) nextMouseEvent() *noxMouseEvent {
 	select {
-	case e, ok := <-mouseEventQueue:
+	case e, ok := <-h.queue:
 		if !ok {
 			return nil
 		}
@@ -197,9 +215,9 @@ func nextMouseEvent() *noxMouseEvent {
 	}
 }
 
-func nox_client_nextMouseEvent_47DB20(e *noxMouseStateInt) bool {
+func (h *MouseHandler) nox_client_nextMouseEvent_47DB20(e *noxMouseStateInt) bool {
 	*e = noxMouseStateInt{}
-	me := nextMouseEvent()
+	me := h.nextMouseEvent()
 	if me == nil {
 		return false
 	}
@@ -225,14 +243,14 @@ func nox_client_nextMouseEvent_47DB20(e *noxMouseStateInt) bool {
 	return true
 }
 
-func nox_client_mouseBtnStateApply(evt *noxMouseStateInt, pos types.Point, ind uint) {
+func (h *MouseHandler) nox_client_mouseBtnStateApply(evt *noxMouseStateInt, pos types.Point, ind uint) {
 	ev := &evt.btn[ind]
-	cur := &nox_mouse.btn[ind]
-	prevPos := nox_mouse_prev_btn[ind]
+	cur := &h.cur.btn[ind]
+	prevPos := h.prevBtn[ind]
 	btn := 4 * (ind + 1)
 
 	if ev.seq == 0 {
-		nox_client_mouseBtnStateReset(ind)
+		h.nox_client_mouseBtnStateReset(ind)
 		return
 	}
 	if cur.pressed == ev.pressed {
@@ -257,44 +275,44 @@ func nox_client_mouseBtnStateApply(evt *noxMouseStateInt, pos types.Point, ind u
 	}
 }
 
-func nox_client_processMouseEvents_4302A0(evNum int, a2 bool) {
-	if nox_mouse_prev_seq_2 != nox_input_prev_seq {
-		nox_mouse.btn[NOX_MOUSE_LEFT].state = 0
-		nox_mouse.btn[NOX_MOUSE_RIGHT].state = 0
-		nox_mouse.btn[NOX_MOUSE_MIDDLE].state = 0
-		nox_mouse.wheel = 0
-		nox_mouse_prev_seq_2 = nox_input_prev_seq
+func (h *MouseHandler) nox_client_processMouseEvents_4302A0(evNum int, a2 bool) {
+	if h.prevSeq != nox_input_prev_seq {
+		h.cur.btn[NOX_MOUSE_LEFT].state = 0
+		h.cur.btn[NOX_MOUSE_RIGHT].state = 0
+		h.cur.btn[NOX_MOUSE_MIDDLE].state = 0
+		h.cur.wheel = 0
+		h.prevSeq = nox_input_prev_seq
 	}
 	num := 0
 	if !get_obj_5D4594_754104_switch() {
 		num = evNum
 		if num == 0 {
-			nox_client_mouseBtnState_430230()
+			h.nox_client_mouseBtnState_430230()
 		}
 	}
-	pos := nox_mouse.pos
+	pos := h.cur.pos
 	for i := 0; i < num; i++ {
-		ev := &nox_input_buffer[i]
+		ev := &h.buffer[i]
 		// apply absolute mouse pos
-		changeMousePos(ev.pos, true)
-		nox_mouse.wheel += ev.wheel
+		h.changeMousePos(ev.pos, true)
+		h.cur.wheel += ev.wheel
 
 		// variable needs to be updated as well
-		pos = nox_mouse.pos
+		pos = h.cur.pos
 
 		// apply button states
-		nox_client_mouseBtnStateApply(ev, pos, NOX_MOUSE_LEFT)
-		nox_client_mouseBtnStateApply(ev, pos, NOX_MOUSE_RIGHT)
-		nox_client_mouseBtnStateApply(ev, pos, NOX_MOUSE_MIDDLE)
+		h.nox_client_mouseBtnStateApply(ev, pos, NOX_MOUSE_LEFT)
+		h.nox_client_mouseBtnStateApply(ev, pos, NOX_MOUSE_RIGHT)
+		h.nox_client_mouseBtnStateApply(ev, pos, NOX_MOUSE_MIDDLE)
 	}
 	// update button prev pos, if necessary
-	nox_client_mouseBtnStateFinal(pos, NOX_MOUSE_LEFT)
-	nox_client_mouseBtnStateFinal(pos, NOX_MOUSE_RIGHT)
-	nox_client_mouseBtnStateFinal(pos, NOX_MOUSE_MIDDLE)
+	h.nox_client_mouseBtnStateFinal(pos, NOX_MOUSE_LEFT)
+	h.nox_client_mouseBtnStateFinal(pos, NOX_MOUSE_RIGHT)
+	h.nox_client_mouseBtnStateFinal(pos, NOX_MOUSE_MIDDLE)
 
-	nox_mouse.dpos.X = pos.X - nox_mouse_prev.pos.X
-	nox_mouse.dpos.Y = pos.Y - nox_mouse_prev.pos.Y
-	if nox_mouse.dpos.X*nox_mouse.dpos.X+nox_mouse.dpos.Y*nox_mouse.dpos.Y >= 4 {
+	h.cur.dpos.X = pos.X - h.prev.pos.X
+	h.cur.dpos.Y = pos.Y - h.prev.pos.Y
+	if h.cur.dpos.X*h.cur.dpos.X+h.cur.dpos.Y*h.cur.dpos.Y >= 4 {
 		*memmap.PtrUint32(0x5D4594, 805824) = 0
 		*memmap.PtrUint32(0x5D4594, 805804) = 0
 	} else {
@@ -304,15 +322,15 @@ func nox_client_processMouseEvents_4302A0(evNum int, a2 bool) {
 		}
 	}
 	if a2 { // TODO: this is weird
-		if nox_mouse.wheel <= 0 {
-			if nox_mouse.wheel >= 0 {
-				nox_mouse.wheel = 0
+		if h.cur.wheel <= 0 {
+			if h.cur.wheel >= 0 {
+				h.cur.wheel = 0
 			} else {
-				nox_mouse.wheel = 20
+				h.cur.wheel = 20
 			}
 		} else {
-			nox_mouse.wheel = 19
+			h.cur.wheel = 19
 		}
-		nox_mouse_prev = nox_mouse
+		h.prev = h.cur
 	}
 }

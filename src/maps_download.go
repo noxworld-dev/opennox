@@ -102,9 +102,9 @@ func mapDownloadLoop(first bool) (bool, error) {
 	}
 
 	nox_framerate_limit_416C70(30)
-	nox_input_pollEvents_4453A0()
-	nox_client_processMouseInput_4308A0(true)
-	nox_xxx_cursorUpdate_46B740()
+	inpHandler.Tick()
+	nox_client_processMouseInput_4308A0(noxInp, true)
+	nox_xxx_cursorUpdate_46B740(noxInp)
 	if C.nox_xxx_check_flag_aaa_43AF70() == 1 {
 		C.sub_40D250()
 		C.sub_40DF90()

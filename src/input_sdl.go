@@ -13,12 +13,16 @@ import (
 	"github.com/veandco/go-sdl2/sdl"
 )
 
-var inpHandler *input.Handler
+var (
+	inpHandler *input.Handler
+	noxInp     *Input
+)
 
-var _ input.Interface = noxInput{}
+var _ input.Interface = &Input{}
 
 func inputInit() (func(), error) {
-	inp, err := input.NewHandler(noxInput{})
+	noxInp = NewInput()
+	inp, err := input.NewHandler(noxInp)
 	if err != nil {
 		return nil, fmt.Errorf("input initialization failed: %w", err)
 	}
@@ -28,9 +32,45 @@ func inputInit() (func(), error) {
 	}, nil
 }
 
-type noxInput struct{}
+func NewInput() *Input {
+	return &Input{
+		m: NewMouseHandler(),
+	}
+}
 
-func (noxInput) MouseButtonAt(p image.Point, button input.MouseButton, pressed bool) {
+type Input struct {
+	m *MouseHandler
+}
+
+func (inp *Input) GetMousePos() types.Point {
+	return inp.m.getMousePos()
+}
+
+func (inp *Input) GetMouseRel() types.Point {
+	return inp.m.getMouseRel()
+}
+
+func (inp *Input) IsMousePressed(btn int) bool {
+	return inp.m.cur.btn[btn].pressed
+}
+
+func (inp *Input) GetMouseState(btn int) uint {
+	return inp.m.cur.btn[btn].state
+}
+
+func (inp *Input) SetMouseState(btn int, st uint) {
+	inp.m.cur.btn[btn].state = st
+}
+
+func (inp *Input) GetMouseWheel() int {
+	return inp.m.cur.wheel
+}
+
+func (inp *Input) SetMouseWheel(v int) {
+	inp.m.cur.wheel = v
+}
+
+func (inp *Input) MouseButtonAt(p types.Point, button input.MouseButton, pressed bool) {
 	var typ noxMouseEventType
 	switch button {
 	case input.MouseButtonLeft:
@@ -42,7 +82,7 @@ func (noxInput) MouseButtonAt(p image.Point, button input.MouseButton, pressed b
 	default:
 		panic(button)
 	}
-	pushMouseEvent(noxMouseEvent{
+	inp.m.pushEvent(noxMouseEvent{
 		Type:    typ,
 		X:       p.X,
 		Y:       p.Y,
@@ -50,8 +90,8 @@ func (noxInput) MouseButtonAt(p image.Point, button input.MouseButton, pressed b
 	})
 }
 
-func (noxInput) MouseMotion(p image.Point) {
-	pushMouseEvent(noxMouseEvent{
+func (inp *Input) MouseMotion(p image.Point) {
+	inp.m.pushEvent(noxMouseEvent{
 		Type:  noxMouseEventMotion,
 		X:     p.X,
 		Y:     p.Y,
@@ -59,8 +99,8 @@ func (noxInput) MouseMotion(p image.Point) {
 	})
 }
 
-func (noxInput) MouseWheel(p image.Point, dv int) {
-	pushMouseEvent(noxMouseEvent{
+func (inp *Input) MouseWheel(p image.Point, dv int) {
+	inp.m.pushEvent(noxMouseEvent{
 		Type:  noxMouseEventWheel,
 		X:     p.X,
 		Y:     p.Y,
@@ -68,18 +108,18 @@ func (noxInput) MouseWheel(p image.Point, dv int) {
 	})
 }
 
-func (noxInput) InputKeyboard(code input.Scancode, pressed bool) {
+func (inp *Input) InputKeyboard(code input.Scancode, pressed bool) {
 	pushKeyEvent(noxKeyEvent{
 		Code:    scanCodeToKeyNum[code],
 		Pressed: pressed,
 	})
 }
 
-func (noxInput) WindowDefault() types.Size {
+func (inp *Input) WindowDefault() types.Size {
 	return types.Size{W: noxDefaultWidth, H: noxDefaultHeight}
 }
 
-func (noxInput) WindowEvent(ev input.WindowEvent) {
+func (inp *Input) WindowEvent(ev input.WindowEvent) {
 	switch ev {
 	case input.WindowUnfocus:
 		unacquireMouse_sub_47D8B0()
@@ -98,11 +138,11 @@ func (noxInput) WindowEvent(ev input.WindowEvent) {
 	}
 }
 
-func (noxInput) TextEdit(text string) {
+func (inp *Input) TextEdit(text string) {
 	setIMEBuffer(text)
 }
 
-func (noxInput) TextInput(text string) {
+func (inp *Input) TextInput(text string) {
 	setIMEBuffer("")
 	for _, c := range utf16.Encode([]rune(text)) {
 		noxInputOnChar(c)
