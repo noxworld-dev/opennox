@@ -106,14 +106,14 @@ extern void (*nox_color_rgb_func)(uint8_t, uint8_t, uint8_t, uint32_t*);
 #ifndef NOX_CGO
 extern SDL_Surface* g_backbuffer1;
 extern unsigned int g_format;
+
+extern int g_rotate;
+extern int g_rotated;
 #endif // NOX_CGO
 extern SDL_Surface* g_cursor_surf_6F7C48;
 extern SDL_Surface* g_cursor_surf;
 extern SDL_Surface* g_surface_973C60;
 extern SDL_Surface* g_surface_973C88;
-
-extern int g_rotate;
-extern int g_rotated;
 
 extern float draw_gamma;
 

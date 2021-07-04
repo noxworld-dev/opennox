@@ -20,10 +20,12 @@ import (
 )
 
 var (
-	noxWindow   *sdl.Window
-	noxRenderer *sdl.Renderer
-	noxBackbuf  *sdl.Surface
-	noxViewport sdl.Rect
+	noxWindow      *sdl.Window
+	noxRenderer    *sdl.Renderer
+	noxBackbuf     *sdl.Surface
+	noxViewport    sdl.Rect
+	noxViewRotate  bool
+	noxViewRotated bool
 )
 
 //export nox_video_setWinTitle_401FE0
@@ -214,12 +216,12 @@ func setViewport(srcw, srch, tw, th int) sdl.Rect {
 	vpw, vph = tw, th
 
 	// Maintain source aspect ratio
-	if C.g_rotate != 0 && float32(vph)-ratio*float32(vpw) > float32(vpw)-ratio*float32(vph) {
-		C.g_rotated = 1
+	if noxViewRotate && float32(vph)-ratio*float32(vpw) > float32(vpw)-ratio*float32(vph) {
+		noxViewRotated = true
 	} else {
-		C.g_rotated = 0
+		noxViewRotated = false
 	}
-	if C.g_rotated != 0 {
+	if noxViewRotated {
 		ratio = 1.0 / ratio
 	}
 

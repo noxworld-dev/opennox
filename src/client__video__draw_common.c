@@ -55,15 +55,14 @@ static inline void rect_to_sdl(const RECT* r, SDL_Rect* sr) {
 	sr->h = r->bottom - r->top;
 }
 unsigned int g_format;
+int g_rotate;
+int g_rotated;
 #endif // NOX_CGO
 
 SDL_Surface* g_cursor_surf_6F7C48;
 SDL_Surface* g_cursor_surf;
 SDL_Surface* g_surface_973C60;
 SDL_Surface* g_surface_973C88;
-
-int g_rotate;
-int g_rotated;
 
 float draw_gamma = 1.0f;
 
