@@ -4178,11 +4178,15 @@ int sub_47D200() {
 	if (dword_5d4594_3801780 == 0) {
 		nox_client_drawAtFunc_3799500 = sub_4C5EB0;
 	} else if (dword_5d4594_3801780 == 1) {
+#ifdef NOX_CGO
+		nox_client_drawAtFunc_3799500 = nox_client_xxxDraw16_4C7440;
+#else // NOX_CGO
 		if (cpuid_5d4594_3801804) {
 			nox_client_drawAtFunc_3799500 = nox_xxx_smthPlayerAnim_4C7670;
 		} else {
 			nox_client_drawAtFunc_3799500 = nox_client_xxxDraw16_4C7440;
 		}
+#endif // NOX_CGO
 	}
 	dword_5d4594_3799484 = 0;
 	*getMemU32Ptr(0x5D4594, 3799480) = 0;
@@ -5939,9 +5943,13 @@ int*  nox_xxx_someEdgeProcessing_480EF0(int a1, int a2, int a3, int* a4, int* a5
 	if ((v11 & 0x3F) != 3) {
 		return result;
 	}
+#ifdef NOX_CGO
+	v42 = sub_480860;
+#else // NOX_CGO
 	v42 = sub_480700;
 	if (!cpuid_5d4594_3801804)
 		v42 = sub_480860;
+#endif // NOX_CGO
 	result = (int*)nox_video_getImagePixdata_42FB30(a1);
 	if (!result) {
 		return result;
@@ -12437,6 +12445,7 @@ int  sub_48B6B0(int a1, int a2, int a3) {
 	ptr_5D4594_3799572->data[34] = (unsigned __int8)a1;
 	ptr_5D4594_3799572->data[35] = (unsigned __int8)a2;
 	ptr_5D4594_3799572->data[36] = (unsigned __int8)a3;
+#ifndef NOX_CGO
 	if (cpuid_5d4594_3801804) {
 		v4 = (unsigned __int8)a1 | ((unsigned __int8)a1 << 16);
 		HIDWORD(v4) = 0;
@@ -12455,6 +12464,7 @@ int  sub_48B6B0(int a1, int a2, int a3) {
 		result = ptr_5D4594_3799572;
 		ptr_5D4594_3799572->data[33] = HIDWORD(v6);
 	}
+#endif // NOX_CGO
 	return result;
 }
 

@@ -4928,6 +4928,7 @@ int  nox_xxx_drawMakeRGB_433F10(unsigned __int8 a1, unsigned __int8 a2, unsigned
 	ptr_5D4594_3799572->data[54] = a1;
 	ptr_5D4594_3799572->data[55] = a2;
 	ptr_5D4594_3799572->data[56] = a3;
+#ifndef NOX_CGO
 	if (cpuid_5d4594_3801804) {
 		v4 = a1 | (a1 << 16);
 		HIDWORD(v4) = 0;
@@ -4944,6 +4945,7 @@ int  nox_xxx_drawMakeRGB_433F10(unsigned __int8 a1, unsigned __int8 a2, unsigned
 		ptr_5D4594_3799572->data[53] = HIDWORD(v6);
 		result = ptr_5D4594_3799572;
 	}
+#endif // NOX_CGO
 	return result;
 }
 

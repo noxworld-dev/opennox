@@ -44,6 +44,7 @@ void nox_color_rgb_func_set(int mode);
 #endif // NOX_CGO
 
 #ifndef NOX_CGO
+_DWORD cpuid_5d4594_3801804 = 0; // always 0
 DWORD g_present_ticks;
 void (*g_copy_backbuffer_ptr)();
 SDL_Surface* g_backbuffer1;
@@ -117,7 +118,9 @@ int  nox_client_drawXxx_444AC0(int w, int h, int depth, int flags) {
 	if (!(v7 & 4)) {
 		if (!nox_video_resetRenderer_48A040(v8, h, depth))
 			return 0;
+#ifndef NOX_CGO
 		cpuid_5d4594_3801804 = nox_xxx_testCPUID2_444D90();
+#endif // NOX_CGO
 		return 1;
 	}
 	v9 = (v7 & 0x17) - 20;
@@ -132,7 +135,9 @@ int  nox_client_drawXxx_444AC0(int w, int h, int depth, int flags) {
 		dword_5d4594_3801780 = 0;
 		*getMemU32Ptr(0x5D4594, 3801776) = v8 >> 2;
 		nox_backbuffer_width32 = v8 >> 5;
+#ifndef NOX_CGO
 		cpuid_5d4594_3801804 = nox_xxx_testCPUID2_444D90();
+#endif // NOX_CGO
 		return 1;
 	}
 	v10 = v9 - 1;
@@ -147,7 +152,9 @@ int  nox_client_drawXxx_444AC0(int w, int h, int depth, int flags) {
 	nox_backbuffer_pitch_3801808 = 2 * v8;
 	*getMemU32Ptr(0x5D4594, 3801776) = v8 >> 1;
 	nox_backbuffer_width32 = v8 >> 4;
+#ifndef NOX_CGO
 	cpuid_5d4594_3801804 = nox_xxx_testCPUID2_444D90();
+#endif // NOX_CGO
 	return 1;
 }
 
@@ -444,6 +451,7 @@ void  sub_4340A0(int a1, int a2, int a3, int a4) {
 		*(_DWORD*)(v5 + 24) = (unsigned __int8)a2;
 		*(_DWORD*)(v5 + 28) = (unsigned __int8)a3;
 		nox_color_rgb_func(a2, a3, a4, (DWORD*)(v5 + 40));
+#ifndef NOX_CGO
 		LODWORD(v4) = cpuid_5d4594_3801804;
 		if (cpuid_5d4594_3801804) {
 			v6 = ((unsigned __int8)a2 | (((unsigned __int8)a2 | ((unsigned __int64)(unsigned __int8)a2 << 16)) << 16))
@@ -459,6 +467,7 @@ void  sub_4340A0(int a1, int a2, int a3, int a4) {
 			LODWORD(v4) = (unsigned __int8)a4 | (unsigned int)v4;
 			*(_QWORD*)(v5 + 16) = v4;
 		}
+#endif // NOX_CGO
 	}
 }
 
@@ -961,6 +970,7 @@ int  sub_433CD0(BYTE a1, BYTE a2, BYTE a3) {
 	ptr_5D4594_3799572->data[25] = a2;
 	ptr_5D4594_3799572->data[26] = a3;
 	ptr_5D4594_3799572->data[16] = a1 == 0xFF && a2 == 0xFF && a3 == 0xFF;
+#ifndef NOX_CGO
 	if (cpuid_5d4594_3801804) {
 		v5 = a1 | (a1 << 16);
 		v5 <<= 16;
@@ -975,6 +985,7 @@ int  sub_433CD0(BYTE a1, BYTE a2, BYTE a3) {
 		ptr_5D4594_3799572->data[22] = a3 | (unsigned int)v7;
 		ptr_5D4594_3799572->data[23] = HIDWORD(v7);
 	}
+#endif // NOX_CGO
 	result = dword_975380(a1, a2, a3);
 	((_WORD*)(&ptr_5D4594_3799572->data[258]))[1] = result;
 	return result;
@@ -1031,6 +1042,7 @@ int  nox_xxx_drawPlayer_4341D0(int a1, int a2) {
 			v5 = (unsigned __int8)v10;
 			*(_DWORD*)(v4 + 40) = v3;
 			*(_DWORD*)(v4 + 32) = v5;
+#ifndef NOX_CGO
 			result = cpuid_5d4594_3801804;
 			if (cpuid_5d4594_3801804) {
 				v6 = (unsigned __int64)((unsigned __int8)a1 | ((unsigned __int8)a1 << 16)) << 16;
@@ -1047,6 +1059,7 @@ int  nox_xxx_drawPlayer_4341D0(int a1, int a2) {
 				*(_DWORD*)(v4 + 16) = result;
 				*(_DWORD*)(v4 + 20) = HIDWORD(v8) | HIDWORD(v9);
 			}
+#endif // NOX_CGO
 		}
 	}
 	return result;

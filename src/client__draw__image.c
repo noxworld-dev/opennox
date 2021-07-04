@@ -2194,6 +2194,7 @@ void nox_client_drawImg_aaa_4C79F0(nox_video_bag_image_t* img, int x, int y) {
 	}
 }
 
+#ifndef NOX_CGO
 //----- (004C7670) --------------------------------------------------------
 void  nox_xxx_smthPlayerAnim_4C7670(nox_video_bag_image_t* img, int x, int y) {
 	int a1 = img;
@@ -2286,6 +2287,7 @@ void  nox_xxx_smthPlayerAnim_4C7670(nox_video_bag_image_t* img, int x, int y) {
 		}
 	}
 }
+#endif // NOX_CGO
 
 //----- (004C8130) --------------------------------------------------------
 void sub_4C8130() {
