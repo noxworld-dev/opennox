@@ -50,7 +50,7 @@ func sub_48B1D0_free_surface(p *unsafe.Pointer) {
 }
 
 func createSurface(w, h int) (*sdl.Surface, error) {
-	return sdl.CreateRGBSurfaceWithFormat(0, int32(w), int32(h), 16, uint32(C.g_format))
+	return sdl.CreateRGBSurfaceWithFormat(0, int32(w), int32(h), 16, sdl.PIXELFORMAT_RGB555)
 }
 
 //export nox_video_getSurfaceData_48A720
@@ -241,7 +241,6 @@ func setViewport(srcw, srch, tw, th int) sdl.Rect {
 }
 
 func initRenderer() error {
-	C.g_format = sdl.PIXELFORMAT_RGB555
 	if noxRenderer == nil {
 		var err error
 		noxRenderer, err = sdl.CreateRenderer(noxWindow, 0, sdl.RENDERER_ACCELERATED|sdl.RENDERER_PRESENTVSYNC)
