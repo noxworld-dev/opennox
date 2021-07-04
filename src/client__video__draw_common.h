@@ -117,8 +117,6 @@ extern SDL_Surface* g_surface_973C88;
 
 extern float draw_gamma;
 
-extern unsigned int g_tex_coord_itemsize, g_tex_coord_numitems;
-
 extern int nox_backbuffer_pitchDiff;
 extern int nox_backbuffer_width32;
 

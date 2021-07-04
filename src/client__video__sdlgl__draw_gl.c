@@ -25,6 +25,8 @@ SDL_GLContext g_ddraw;
 extern DWORD g_present_ticks;
 GLuint g_texture, g_program, g_tex_coord_buffer, g_tex_coord_attr, g_gamma_uniform, g_matrix_uniform, g_sampler_uniform;
 
+unsigned int g_tex_coord_itemsize, g_tex_coord_numitems;
+
 SDL_Surface* g_frontbuffer1;
 
 

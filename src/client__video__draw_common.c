@@ -66,8 +66,6 @@ SDL_Surface* g_surface_973C88;
 
 float draw_gamma = 1.0f;
 
-unsigned int g_tex_coord_itemsize, g_tex_coord_numitems;
-
 int nox_backbuffer_pitchDiff;
 int nox_backbuffer_width32;
 void sdl_present();
