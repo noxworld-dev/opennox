@@ -29,9 +29,9 @@ int  nox_thing_animate_draw(unsigned int* a1, struct nox_drawable* dr) {
 		nox_xxx_spriteDeleteStatic_45A4E0_drawable(dr);
 		return 0;
 	case 2:
-		if (dr->flags & 0x1000000)
+		if (dr->flags30 & 0x1000000)
 			goto LABEL_9;
-		if (!(dr->field_28 & 0x10000000))
+		if (!(dr->flags28 & 0x10000000))
 			goto LABEL_8;
 		if (nox_common_gameFlags_check_40A5C0(32)) {
 		LABEL_9:
@@ -39,7 +39,7 @@ int  nox_thing_animate_draw(unsigned int* a1, struct nox_drawable* dr) {
 				 ((unsigned int)*(unsigned __int8*)(v2 + 9) + 1);
 			goto LABEL_10;
 		}
-		if (dr->field_28 & 0x10000000)
+		if (dr->flags28 & 0x10000000)
 			goto LABEL_14;
 	LABEL_8:
 		v3 = 0;
@@ -84,7 +84,7 @@ int  nox_thing_animate_state_draw(_DWORD* a1, nox_drawable* dr) {
 	int v5;     // eax
 	int result; // eax
 
-	v2 = dr->field_70;
+	v2 = dr->flags70;
 	v3 = dr->field_76;
 	if (v2 & 2) {
 		dr->field_79 = nox_frame_xxx_2598000;

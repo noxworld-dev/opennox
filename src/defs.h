@@ -845,9 +845,9 @@ typedef struct nox_drawable {
 	float field_25;        // 25, 100
 	_DWORD field_26;       // 26, 104
 	_DWORD field_27;       // 27, 108, thing ID?
-	unsigned int field_28; // 28, 112, flags?
-	_DWORD field_29;       // 29, 116
-	unsigned int flags;    // 30, 120
+	unsigned int flags28;  // 28, 112
+	unsigned int flags29;  // 29, 116
+	unsigned int flags30;  // 30, 120
 	_DWORD field_31;       // 31, 124
 	_DWORD field_32;       // 32, 128, npc ID?
 	_DWORD field_33;       // 33, 132
@@ -871,7 +871,7 @@ typedef struct nox_drawable {
 	_DWORD field_67;
 	_DWORD field_68;
 	_DWORD field_69; // 69, 276
-	_DWORD field_70; // 70, 280
+	unsigned int flags70; // 70, 280
 	_DWORD field_71; // 71, 284
 	_DWORD field_72; // 72, 288
 	_WORD field_73_1; // 73, 292

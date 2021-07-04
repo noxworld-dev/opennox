@@ -8088,7 +8088,7 @@ void  nox_xxx_spriteAddQueue_475560_draw(nox_drawable* dr, int a2) {
 				dr->field_121 = 1;
 				dr->field_120 = 0;
 			} else {
-				if (!dr->field_121 || (LOBYTE(dr->field_28) & 0x6))
+				if (!dr->field_121 || (LOBYTE(dr->flags28) & 0x6))
 					return;
 				dr->field_120 = 1;
 			}
@@ -8366,7 +8366,7 @@ int4*  nox_xxx_drawAllMB_475810_draw(int* a1) {
 				v41 = 0x7FFFFFFF;
 			if (dr->field_27 != *getMemU32Ptr(0x5D4594, 1096448) || nox_xxx_TeamGet_418B10() || (v25 = nox_xxx_cliGetSpritePlayer_45A000()) == 0) {
 			LABEL_64:
-				v26 = dr->field_28;
+				v26 = dr->flags28;
 				if (!(v26 & 6) || (unsigned int)(nox_frame_xxx_2598000 - dr->field_72) <= 5)
 					goto LABEL_71;
 				if (v26 & 2) {
@@ -8379,7 +8379,7 @@ int4*  nox_xxx_drawAllMB_475810_draw(int* a1) {
 					if (dr->draw_func(v1, dr)) {
 						if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_SHOW_EXTENTS))
 							nox_thing_debug_draw(v1, dr);
-						v28 = *(_BYTE*)(&dr->field_70);
+						v28 = *(_BYTE*)(&dr->flags70);
 						dr->field_33 = 0;
 						if (v28 & 0x40)
 							nox_xxx_drawShinySpot_4C4F40(v1, dr);
@@ -8389,7 +8389,7 @@ int4*  nox_xxx_drawAllMB_475810_draw(int* a1) {
 							dr->field_85 = nox_frame_xxx_2598000;
 						if (sub_459DB0(dr))
 							sub_459DD0(dr, 1);
-						if (dr->field_28 & 0x20006)
+						if (dr->flags28 & 0x20006)
 							sub_49A6A0(v1, dr);
 					}
 				}

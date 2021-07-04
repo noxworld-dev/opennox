@@ -316,10 +316,10 @@ int  nox_drawable_link_thing(nox_drawable* a1, int i) {
 	*((_BYTE*)&a1->field_0) = *(_BYTE*)v5;
 	*((_BYTE*)&a1->field_0 + 1) = *(_BYTE*)(v5 + 1);
 	*(_WORD*)((char*)a1 + 104 + 2) = *(_WORD*)(v5 + 10);
-	a1->field_28 = *(_DWORD*)(v5 + 20);
-	a1->field_29 = *(_DWORD*)(v5 + 24);
-	a1->flags = *(_DWORD*)(v5 + 28);
-	a1->field_70 = *(_DWORD*)(v5 + 72);
+	a1->flags28 = *(_DWORD*)(v5 + 20);
+	a1->flags29 = *(_DWORD*)(v5 + 24);
+	a1->flags30 = *(_DWORD*)(v5 + 28);
+	a1->flags70 = *(_DWORD*)(v5 + 72);
 	*(_BYTE*)((char*)a1 + 298) = *(_BYTE*)(v5 + 2);
 	a1->draw_func = *(_DWORD*)(v5 + 76); // nox_thing->draw_func
 	a1->field_76 = *(_DWORD*)(v5 + 80);
@@ -5391,13 +5391,13 @@ _DWORD*  nox_xxx_sprite_45A110_drawable(nox_drawable* a1) {
 	else
 		nox_drawable_head_unk4 = a1;
 	nox_drawable_head_unk3 = a1;
-	a1->flags |= 0x400000u;
+	a1->flags30 |= 0x400000u;
 	return result;
 }
 
 //----- (0045A160) --------------------------------------------------------
 void  sub_45A160_drawable(nox_drawable* a1) {
-	if (!(a1->flags & 0x400000))
+	if (!(a1->flags30 & 0x400000))
 		return;
 
 	nox_drawable* v2 = a1->field_98;
@@ -5412,7 +5412,7 @@ void  sub_45A160_drawable(nox_drawable* a1) {
 	else
 		nox_drawable_head_unk4 = a1->field_98;
 
-	a1->flags &= 0xFFBFFFFF;
+	a1->flags30 &= 0xFFBFFFFF;
 }
 
 //----- (0045A1D0) --------------------------------------------------------
@@ -5440,7 +5440,7 @@ nox_drawable*  nox_xxx_spriteLoadAdd_45A360_drawable(int thingInd, int a2, int a
 	sub_452E60(&dr->field_31);
 	if (dr->field_116)
 		nox_xxx_spriteToList_49BC80_drawable(dr);
-	if (dr->flags & 0x200000)
+	if (dr->flags30 & 0x200000)
 		nox_xxx_spriteToSightDestroyList_49BAB0_drawable(dr);
 	if (dr->field_123)
 		sub_459F40_drawable(dr);
@@ -5455,7 +5455,7 @@ nox_drawable*  nox_xxx_spriteLoadAdd_45A360_drawable(int thingInd, int a2, int a
 		nox_drawable_head_unk1->field_93 = dr;
 	nox_drawable_head_unk1 = dr;
 	nox_xxx_sprite_49AA00_drawable(dr);
-	if (dr->flags & 0x10000) {
+	if (dr->flags30 & 0x10000) {
 		nox_drawable* v6 = nox_drawable_head_unk2;
 		dr->field_91 = 0;
 		dr->field_90 = v6;
@@ -5465,7 +5465,7 @@ nox_drawable*  nox_xxx_spriteLoadAdd_45A360_drawable(int thingInd, int a2, int a
 	}
 	if (*(_BYTE*)((char*)dr + 112) & 4)
 		sub_459ED0_drawable(dr);
-	dr->flags |= 0x1000000u;
+	dr->flags30 |= 0x1000000u;
 	nox_xxx_spriteSetActiveMB_45A990_drawable(dr);
 	dr->field_120 = 0;
 	dr->field_121 = 0;
@@ -5504,7 +5504,7 @@ void  nox_xxx_spriteDeleteStatic_45A4E0_drawable(nox_drawable* dr) {
 	nox_xxx_sprite_49A9B0_drawable(dr);
 	nox_xxx_clientDeleteSprite_476F10_drawable(dr);
 
-	if (dr->flags & 0x10000) {
+	if (dr->flags30 & 0x10000) {
 		if (dr->field_91)
 			dr->field_91->field_90 = dr->field_90;
 		else
@@ -5521,7 +5521,7 @@ void  nox_xxx_spriteDeleteStatic_45A4E0_drawable(nox_drawable* dr) {
 	nox_xxx_cliRemoveHealthbar_459E30(dr, 3);
 	sub_459F70(dr);
 
-	if (*(_BYTE*)(&dr->field_28) & 0x4)
+	if (*(_BYTE*)(&dr->flags28) & 0x4)
 		sub_459F00(dr);
 
 	if (nox_xxx_servObjectHasTeam_419130(&dr->field_6))

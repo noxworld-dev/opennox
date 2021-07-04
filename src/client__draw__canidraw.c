@@ -16,7 +16,7 @@ int  nox_thing_cond_animate_draw(unsigned int* a1, struct nox_drawable* dr) {
 	signed int v10; // eax
 
 	v2 = dr->field_76;
-	if (dr->flags & 0x1000000) {
+	if (dr->flags30 & 0x1000000) {
 		v3 = *(unsigned int*)(v2 + 4);
 		v4 = *(unsigned __int8*)(v2 + 24);
 		v5 = *(unsigned __int8*)(v2 + 29);

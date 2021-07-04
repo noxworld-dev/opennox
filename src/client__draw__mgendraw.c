@@ -27,14 +27,14 @@ int  nox_thing_monster_gen_draw(int* a1, nox_drawable* dr) {
 	unsigned __int8* v21; // [esp+20h] [ebp+8h]
 
 	v2 = dr;
-	v3 = *(unsigned int*)&dr->field_70;
+	v3 = *(unsigned int*)&dr->flags70;
 	v4 = *(unsigned int*)&dr->field_76;
 	if (v3 & 0x100) {
 		v5 = 1;
 	} else if (v3 & 0x200) {
 		v5 = 2;
 	} else {
-		v5 = (*(unsigned int*)&dr->field_70 & 0xC00) != 0 ? 3 : 0;
+		v5 = (*(unsigned int*)&dr->flags70 & 0xC00) != 0 ? 3 : 0;
 	}
 	v6 = *(unsigned __int8*)(v5 + v4 + 24);
 	v19 = (unsigned __int8*)(v5 + v4 + 24);

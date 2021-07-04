@@ -59,12 +59,12 @@ int  nox_xxx_spritePickup_461660(int a1, int a2, const void* a3) {
 			}
 			v6 = a4.field_0;
 			v7 = a4.field_4;
-			if (nox_obj_arr_1050020[a4.field_4 + NOX_OBJ_1050020_XXX * a4.field_0].field_0->field_28 & 0x10) {
+			if (nox_obj_arr_1050020[a4.field_4 + NOX_OBJ_1050020_XXX * a4.field_0].field_0->flags28 & 0x10) {
 				sub_472310();
 				v7 = a4.field_4;
 				v6 = a4.field_0;
 			}
-			if (nox_obj_arr_1050020[v7 + NOX_OBJ_1050020_XXX * v6].field_0->field_28 & 0x3001000) {
+			if (nox_obj_arr_1050020[v7 + NOX_OBJ_1050020_XXX * v6].field_0->flags28 & 0x3001000) {
 				dword_5d4594_1062516 = 0;
 				if (v7 >= 3)
 					dword_5d4594_1062516 = 10 * (5 * v7 - 10);

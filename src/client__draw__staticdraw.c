@@ -4,7 +4,7 @@
 
 //----- (004BCC20) --------------------------------------------------------
 int  nox_thing_static_draw(_DWORD* a1, nox_drawable* dr) {
-	if (!(dr->field_28 & 0x40000) || dr->flags & 0x1000000)
+	if (!(dr->flags28 & 0x40000) || dr->flags30 & 0x1000000)
 		nox_xxx_drawObject_4C4770_draw(a1, dr, *(_DWORD*)((char*)dr->field_76 + 4));
 	return 1;
 }
