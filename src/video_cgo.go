@@ -43,6 +43,7 @@ import (
 	"errors"
 	"unsafe"
 
+	"nox/v1/client/input"
 	"nox/v1/client/render"
 	"nox/v1/common/alloc"
 	"nox/v1/common/memmap"
@@ -323,7 +324,6 @@ func gameResetVideoMode(inMenu, force bool) error {
 	}
 	C.nox_xxx_loadPal_4A96C0_video_read_palette(internCStr("default.pal"))
 	C.sub_461520()
-	noxInp.m.updateScreen(mode.Size())
 	return nil
 }
 
@@ -387,7 +387,6 @@ func recreateRenderTarget() error {
 	*memmap.PtrUint32(0x5D4594, 3805488) = uint32(nox_backbuffer_pitch_3801808 * int(nox_getBackbufHeight()))
 	*memmap.PtrUint32(0x5D4594, 3807124) = uint32(bool2int(C.dword_5d4594_3801780 == 1))
 	C.sub_430B50(0, 0, noxDefaultWidth-1, noxDefaultHeight-1)
-	inpHandler.Tick()
 	return nil
 }
 
@@ -425,7 +424,7 @@ func drawGeneral_4B0340(a1 int) error {
 	}
 	C.sub_43E8E0(0)
 	v12 := C.sub_48B3E0(0)
-	inpHandler.UnacquireMouse()
+	//inpHandler.UnacquireMouse()
 	//sub_48A7F0()
 	v2 := C.dword_5d4594_3801780
 	var (
@@ -485,7 +484,7 @@ func drawGeneral_4B0340(a1 int) error {
 	}
 	C.sub_43E910(0)
 	C.sub_43DBE0()
-	inpHandler.AcquireMouse()
+	//inpHandler.AcquireMouse()
 	C.sub_48B3E0(v12)
 	C.sub_4B05D0()
 	return nil
@@ -915,7 +914,7 @@ func sub_48B680(a1 int) {
 	}
 }
 
-func nox_video_cursorDrawImpl_477A30(a2, a3 int) {
+func nox_video_cursorDrawImpl_477A30(inp *input.Handler, a2, a3 int) {
 	v18 := memmap.Uint32(0x5D4594, 3799496)
 	v3 := a2 - 64
 	v4 := a3 - 64
@@ -975,7 +974,7 @@ func nox_video_cursorDrawImpl_477A30(a2, a3 int) {
 		nox_video_drawAnimatedImageOrCursorAt_4BE6D0(memmap.Uint32(0x5D4594, 1097272), v3, v4)
 		dword_5d4594_1097208 = -2 * v5
 	case 14:
-		mpos := noxInp.GetMousePos()
+		mpos := inp.GetMousePos()
 		v19 := types.Pointf{
 			X: float32(mpos.X - nox_win_width/2),
 			Y: float32(mpos.Y - nox_win_height/2),
@@ -1043,11 +1042,11 @@ func nox_xxx_cursorResetDraggedItem_4776A0() {
 	nox_client_itemDragnDrop_1097188 = nil
 }
 
-func nox_client_drawCursorAndTooltips_477830() {
+func nox_client_drawCursorAndTooltips_477830(inp *input.Handler) {
 	if memmap.Uint32(0x5D4594, 1097220) == 0 {
 		C.nox_xxx_cursorLoadAll_477710()
 	}
-	mpos := noxInp.GetMousePos()
+	mpos := inp.GetMousePos()
 	vp := asViewport((*C.nox_draw_viewport_t)(alloc.Malloc(unsafe.Sizeof(C.nox_draw_viewport_t{}))))
 	defer alloc.Free(unsafe.Pointer(vp.C()))
 	vp.x1 = 0
@@ -1078,7 +1077,7 @@ func nox_client_drawCursorAndTooltips_477830() {
 			}
 		}
 	}
-	nox_video_cursorDrawImpl_477A30(mpos.X, mpos.Y)
+	nox_video_cursorDrawImpl_477A30(inp, mpos.X, mpos.Y)
 	if str := GoWStringP(memmap.PtrOff(0x5D4594, 1096676)); str != "" && C.nox_xxx_useAudio_587000_80840 == 1 {
 		sz := nox_xxx_drawGetStringSize_43F840(0, str, 0)
 		px := mpos.X - dword_5d4594_1097204

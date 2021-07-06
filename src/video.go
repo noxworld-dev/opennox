@@ -2,16 +2,17 @@ package main
 
 import (
 	"nox/v1/client/render"
+	"nox/v1/client/seat"
 	"nox/v1/common/log"
 	"nox/v1/common/types"
 )
 
 const (
-	noxDefaultWidth  = render.DefaultWidth
-	noxDefaultHeight = render.DefaultHeight
-	noxDefaultDepth  = render.DefaultDepth
-	noxMaxWidth      = render.MaxWidth
-	noxMaxHeight     = render.MaxHeight
+	noxDefaultWidth  = seat.DefaultWidth
+	noxDefaultHeight = seat.DefaultHeight
+	noxDefaultDepth  = seat.DefaultDepth
+	noxMaxWidth      = 1024
+	noxMaxHeight     = 768
 )
 
 var (

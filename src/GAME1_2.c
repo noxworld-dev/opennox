@@ -4467,8 +4467,10 @@ int nox_xxx_cursor_430B00() { return nox_xxx_useAudio_587000_80772; }
 //----- (00430B10) --------------------------------------------------------
 void  nox_client_setMousePos_430B10(int x, int y) { nox_client_changeMousePos_430A00(x, y, true); }
 
+#ifndef NOX_CGO
 //----- (00430B30) --------------------------------------------------------
 int sub_430B30() { return *getMemU32Ptr(0x5D4594, 805804); }
+#endif // NOX_CGO
 
 //----- (00430B50) --------------------------------------------------------
 int  sub_430B50(int a1, int a2, int a3, int a4) {

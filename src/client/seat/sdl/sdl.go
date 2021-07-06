@@ -178,7 +178,7 @@ func (win *Window) NewSurface(sz types.Size) seat.Surface {
 	return &Surface{win: win, p: s}
 }
 
-func (win *Window) Tick() {
+func (win *Window) InputTick() {
 	for {
 		switch ev := sdl.PollEvent().(type) {
 		case nil:

@@ -6,6 +6,8 @@ import (
 )
 
 type Input interface {
+	// InputTick runs input event processing, triggering all relevant callback functions.
+	InputTick()
 	// OnInput adds a handler function that will be called on each input event.
 	OnInput(fnc func(ev InputEvent))
 	// SetMouseGrab enables or disables capturing mouse pinter inside the window.

@@ -322,12 +322,9 @@ var wndEntryNames = [5][35]uint16{
 	{101, 120, 116, 101, 110, 115, 105, 111, 110, 32, 109, 101, 115, 115, 97, 103, 101, 115, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 }
 
-func OnKeyboardEvent(ev *noxKeyEventInt) {
-	if ev.state != 2 {
-		return
-	}
-	if ((C.gameex_flags>>3)&1 != 0) && (ev.code == keybind.KeyLBracket || ev.code == keybind.KeyRBracket) {
-		v8 := byte(bool2int(ev.code == keybind.KeyLBracket))
+func gameexOnKeyboardPress(kcode keybind.Key) {
+	if ((C.gameex_flags>>3)&1 != 0) && (kcode == keybind.KeyLBracket || kcode == keybind.KeyRBracket) {
+		v8 := byte(bool2int(kcode == keybind.KeyLBracket))
 		// checks some gameFlags that are yet undiscovered
 		if noxflags.HasGame(0x204) {
 			if C.dword_5d4594_1064868 != 0 || nox_win_unk3 != nil {
@@ -346,7 +343,7 @@ func OnKeyboardEvent(ev *noxKeyEventInt) {
 			}
 		}
 	}
-	if ev.code == gameex.keys.trap {
+	if kcode == gameex.keys.trap {
 		if (C.gameex_flags>>3)&1 != 0 {
 			if noxflags.HasGame(516) {
 				if C.dword_5d4594_1064868 != 0 || nox_win_unk3 != nil {
@@ -364,7 +361,7 @@ func OnKeyboardEvent(ev *noxKeyEventInt) {
 			}
 		}
 	}
-	if ev.code == keybind.KeyF8 { // TODO: should be configurable
+	if kcode == keybind.KeyF8 { // TODO: should be configurable
 		if !noxflags.HasGame(1) {
 			nox_xxx_printCentered_445490("only server can change these options")
 			clientPlaySoundSpecial(231, 100)
@@ -407,7 +404,7 @@ func OnKeyboardEvent(ev *noxKeyEventInt) {
 		}
 	}
 	for i, k := range gameex.keys.panels {
-		if ev.code == k {
+		if kcode == k {
 			C.nox_xxx_clientUpdateButtonRow_45E110(C.int(i))
 			break
 		}

@@ -1,13 +1,9 @@
-//+build !server
-
 package input
 
 import (
 	"image"
 
 	"nox/v1/common/types"
-
-	"github.com/veandco/go-sdl2/sdl"
 )
 
 type window struct {
@@ -15,6 +11,12 @@ type window struct {
 	pos   image.Point // offset for the viewport
 	draw  types.Size  // size of the image that game draws
 	scale types.Sizef // scale factors calculated from sizes above
+}
+
+func (win *window) init(def types.Size) {
+	win.size = def
+	win.draw = def
+	win.scale = types.Sizef{W: 1, H: 1}
 }
 
 func (win *window) updateScale() {
@@ -65,54 +67,19 @@ func (win *window) inputClamp(p image.Point) image.Point {
 	return p
 }
 
-func (h *Handler) initWindow() {
-	def := h.iface.WindowDefault()
-	h.win = window{
-		size:  def,
-		draw:  def,
-		scale: types.Sizef{W: 1, H: 1},
-	}
-}
-
-func (h *Handler) processQuitEvent(ev *sdl.QuitEvent) {
-	if h.iface == nil {
-		return
-	}
-	h.iface.WindowEvent(WindowQuit)
-}
-
-func (h *Handler) processFullscreenToggle() {
-	if h.iface == nil {
-		return
-	}
-	h.iface.WindowEvent(WindowToggleFullscreen)
-}
-
-func (h *Handler) processWindowEvent(ev *sdl.WindowEvent) {
-	if h.iface == nil {
-		return
-	}
-	switch ev.GetType() {
-	case sdl.WINDOWEVENT_FOCUS_LOST:
-		h.iface.WindowEvent(WindowUnfocus)
-	case sdl.WINDOWEVENT_FOCUS_GAINED:
-		h.iface.WindowEvent(WindowFocus)
-	}
-}
-
-func (h *Handler) SetWinSize(rect image.Rectangle) {
+func (win *window) SetWinSize(rect image.Rectangle) {
 	if rect.Dx() == 0 || rect.Dy() == 0 {
 		return
 	}
-	h.win.size = types.Size{W: rect.Dx(), H: rect.Dy()}
-	h.win.pos = rect.Min
-	h.win.updateScale()
+	win.size = types.Size{W: rect.Dx(), H: rect.Dy()}
+	win.pos = rect.Min
+	win.updateScale()
 }
 
-func (h *Handler) SetDrawWinSize(sz types.Size) {
+func (win *window) SetDrawWinSize(sz types.Size) {
 	if sz.W == 0 || sz.H == 0 {
 		return
 	}
-	h.win.draw = sz
-	h.win.updateScale()
+	win.draw = sz
+	win.updateScale()
 }

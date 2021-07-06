@@ -5154,7 +5154,7 @@ int  nox_xxx_netSendVampFx_523270(char a1, __int16* a2, __int16 a3);
 int  nox_xxx_netSendRayFx_5232F0(char a1, int a2);
 int  nox_xxx_servCode_523340(int* a1, const void* a2, int a3);
 int  nox_xxx_netClientPredictLinear_523530(int a1);
-int  nox_xxx_mapGenSetFlags_5235F0(char a1);
+void  nox_xxx_mapGenSetFlags_5235F0(char a1);
 int  nox_xxx_netSendShieldFx_523670(int a1, float* a2);
 int  nox_xxx_sendSummonStartFX_5236F0(__int16 a1, float* a2, char a3, __int16 a4, __int16 a5);
 int  nox_xxx_sendSummonCancelFX_523760(__int16 a1);

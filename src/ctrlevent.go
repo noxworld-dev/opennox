@@ -23,6 +23,7 @@ import (
 	"strings"
 	"unsafe"
 
+	"nox/v1/client/input"
 	"nox/v1/client/input/keybind"
 	noxflags "nox/v1/common/flags"
 	"nox/v1/common/memmap"
@@ -122,10 +123,13 @@ func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_orientation(mpos types.P
 		cx := x - wsz.W/2
 		cy := y - wsz.H/2
 		rad := math.Atan2(float64(cy), float64(cx))
-		if inpHandler.Gamepad().InRelative() {
-			p := inpHandler.Gamepad().StickRel().Posf()
-			rad = math.Atan2(float64(p.Y), float64(p.X))
-		}
+
+		// TODO: support gamepad again
+		//if inpHandler.Gamepad().InRelative() {
+		//	p := inpHandler.Gamepad().StickRel().Posf()
+		//	rad = math.Atan2(float64(p.Y), float64(p.X))
+		//}
+
 		// represent as integer
 		ang := int((rad+2*math.Pi)*128.0/math.Pi + 0.5)
 		if ang < 0 {
@@ -163,7 +167,7 @@ func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_A(a4 *CtrlEventBinding) 
 					c.nox_ctrlevent_action_42E670(CC_Action, nil)
 				}
 			case 2:
-				if inpHandler.IsMouseDown() {
+				if isMousePressed() {
 					v5 := 1
 					if memmap.Uint8(0x5D4594, 754064)&0x8 != 0 {
 						v5 = 3
@@ -728,7 +732,7 @@ func nox_client_parseConfigHotkeysLine_42CF50(a1 *C.char) C.int {
 		}
 		i := strings.IndexByte(line, '=')
 		if i < 0 {
-			inputLog.Printf("invalid config line: %q", line)
+			input.Log.Printf("invalid config line: %q", line)
 			continue
 		}
 		key, val := strings.TrimSpace(line[:i]), strings.TrimSpace(line[i+1:])
@@ -815,11 +819,11 @@ func writeConfigHotkeys(w io.Writer) error {
 func nox_client_writeConfigHotkeys_42CDF0(h *C.FILE) {
 	f := fileByHandle(h)
 	if f == nil {
-		inputLog.Println("cannot save config: empty file handle")
+		input.Log.Println("cannot save config: empty file handle")
 		return
 	}
 	if err := writeConfigHotkeys(f.File); err != nil {
-		inputLog.Println("cannot save config:", err)
+		input.Log.Println("cannot save config:", err)
 		return
 	}
 }

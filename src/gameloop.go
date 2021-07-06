@@ -190,7 +190,7 @@ mainloop:
 			C.sub_40DF90()
 		}
 		nox_framerate_limit_416C70(30)
-		inpHandler.Tick()
+		processInput()
 		C.sub_413520_gamedisk()
 		C.nox_xxx_time_startProfile_435770()
 		if fnc := gameStateFunc; !gameStateFunc() {
@@ -203,9 +203,6 @@ mainloop:
 		C.sub_435740()
 		if !isDedicatedServer {
 			C.sub_430880(1)
-			nox_client_processMouseInput_4308A0(noxInp, true)
-			nox_xxx_cursorUpdate_46B740(noxInp)
-			mainloopKeysUpdate()
 			if nox_draw_unk1 != nil && !nox_draw_unk1() {
 				if debugMainloop {
 					log.Println("call_nox_draw_unk1 exit")
@@ -226,14 +223,7 @@ mainloop:
 		if noxflags.HasGame(noxflags.GameHost) && continueMenuOrHost {
 			mainloopMaybeSwitchMapXXX()
 		}
-		if C.nox_client_gui_flag_815132 != 0 {
-			guiAnimationStep()
-			resetEngineFlag(NOX_ENGINE_FLAG_32)
-			generateMouseSparks()
-		}
-		if !getEngineFlag(NOX_ENGINE_FLAG_32) {
-			mainloopDrawAndPresent()
-		}
+		drawAndPresent()
 		C.sub_435750()
 		if memmap.Uint32(0x587000, 93192) != 0 {
 			if noxflags.HasGame(noxflags.GameHost) && noxflags.HasGame(noxflags.GameFlag2) && !getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) && noxflags.HasGame(noxflags.GameFlag29) {
@@ -786,17 +776,6 @@ func CONNECT_RESULT_OK() {
 	noxflags.SetGame(noxflags.GameFlag29)
 	mainloopExitPath = true
 	mainloop_43E290()
-}
-
-func mainloopKeysUpdate() {
-	for i := range nox_input_arr_787228 {
-		p := &nox_input_arr_787228[i]
-		if p.code == 0 {
-			break
-		}
-		//dword_5d4594_2618912 = p
-		nox_xxx_windowUpdateKeysMB_46B6B0(p)
-	}
 }
 
 func mainloopMaybeSwitchMapXXX() {

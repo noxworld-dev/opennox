@@ -1,132 +1,481 @@
-//+build !server
-
 package input
 
 import (
 	"image"
 
-	"github.com/veandco/go-sdl2/sdl"
-
+	"nox/v1/client/input/keybind"
+	"nox/v1/client/seat"
 	"nox/v1/common/types"
 )
 
-type mouse struct {
-	pos      image.Point // last mouse coordinates (in window space)
-	grab     bool
-	acquired bool
+const (
+	mouseEventBufChan = 256
+	mouseEventBuf     = 256
+)
+
+const (
+	NOX_MOUSE_LEFT   = 0
+	NOX_MOUSE_RIGHT  = 1
+	NOX_MOUSE_MIDDLE = 2
+)
+
+const (
+	NOX_MOUSE_DOWN     = 1
+	NOX_MOUSE_DRAG_END = 2
+	NOX_MOUSE_UP       = 3
+	NOX_MOUSE_PRESSED  = 4
+)
+
+func nox_mouse_state(btn, st int) uint {
+	return uint(4*(btn+1) + st)
 }
 
-func (h *Handler) SetMouseGrab(grab bool) {
-	h.mouse.grab = grab
+type noxMouseEventType uint
+
+const (
+	noxMouseEventMotion = noxMouseEventType(iota)
+	noxMouseEventWheel
+	noxMouseEventLeft
+	noxMouseEventRight
+	noxMouseEventMiddle
+)
+
+type noxMouseBtnInt struct {
+	pressed bool
+	state   uint
+	seq     uint
 }
 
-func (h *Handler) AcquireMouse() {
-	if h.mouse.acquired {
-		return
+type noxMouseStateInt struct {
+	pos   types.Point
+	wheel int
+	dpos  types.Point
+	btn   [3]noxMouseBtnInt
+}
+
+type noxMouseEvent struct {
+	Type    noxMouseEventType
+	Pos     types.Point
+	Wheel   int
+	Pressed bool
+	Seq     uint
+}
+
+func newMouseHandler(s Sequencer, chk Checker) *mouseHandler {
+	def := types.Size{W: seat.DefaultWidth, H: seat.DefaultHeight}
+	h := &mouseHandler{
+		seq:   s,
+		chk:   chk,
+		sens:  1.0,
+		queue: make(chan noxMouseEvent, mouseEventBufChan),
 	}
-	if h.mouse.grab {
-		h.iface.WindowEvent(WindowAcquireMouse)
-		sdl.SetRelativeMouseMode(true)
-	}
-	h.mouse.acquired = true
+	h.win.init(def)
+	return h
 }
 
-func (h *Handler) UnacquireMouse() {
-	if h.mouse.grab {
-		sdl.SetRelativeMouseMode(false)
-		h.iface.WindowEvent(WindowUnacquireMouse)
-	}
-	h.mouse.acquired = false
+type mouseHandler struct {
+	seq    Sequencer
+	chk    Checker
+	bounds image.Rectangle
+	win    window
+	pos    types.Point
+
+	sens float32
+
+	distSlow bool // TODO: check what this does
+	distCnt  int
+
+	cur     noxMouseStateInt
+	prev    noxMouseStateInt
+	prevSeq uint
+	prevBtn [3]types.Point
+
+	buffer  [mouseEventBuf]noxMouseStateInt
+	reading bool
+
+	queue chan noxMouseEvent
+
+	onMouseWheel []func(dv int)
 }
 
-func (h *Handler) GlobalMousePos() image.Point {
-	mouseX, mouseY, _ := sdl.GetGlobalMouseState()
-	return image.Point{
-		X: int(mouseX),
-		Y: int(mouseY),
-	}
+func (h *mouseHandler) OnMouseWheel(fnc func(dv int)) {
+	h.onMouseWheel = append(h.onMouseWheel, fnc)
 }
 
-func (h *Handler) IsMouseDown() bool {
-	return sdl.GetEventState(sdl.MOUSEBUTTONDOWN) != 0
+func (h *mouseHandler) MouseMove(ev *seat.MouseMoveEvent) {
+	h.pos = ev.Pos
+	h.pushEvent(noxMouseEvent{
+		Type:  noxMouseEventMotion,
+		Pos:   h.win.toDrawSpace(h.pos),
+		Wheel: 0,
+	})
 }
 
-func (h *Handler) processMouseEvent(ev *sdl.MouseButtonEvent) {
-	pressed := ev.State == sdl.PRESSED
-	if pressed {
-		h.iface.WindowEvent(WindowFocus)
+func toMouseBtn(v seat.MouseButton) int {
+	switch v {
+	case seat.MouseButtonLeft:
+		return NOX_MOUSE_LEFT
+	case seat.MouseButtonRight:
+		return NOX_MOUSE_RIGHT
+	case seat.MouseButtonMiddle:
+		return NOX_MOUSE_MIDDLE
 	}
+	return -1
+}
 
-	var button MouseButton
+func (h *mouseHandler) MouseButton(ev *seat.MouseButtonEvent) {
+	h.pos = ev.Pos
+	var typ noxMouseEventType
 	switch ev.Button {
-	case sdl.BUTTON_LEFT:
-		button = MouseButtonLeft
-	case sdl.BUTTON_RIGHT:
-		button = MouseButtonRight
-	case sdl.BUTTON_MIDDLE:
-		button = MouseButtonMiddle
+	case seat.MouseButtonLeft:
+		typ = noxMouseEventLeft
+	case seat.MouseButtonRight:
+		typ = noxMouseEventRight
+	case seat.MouseButtonMiddle:
+		typ = noxMouseEventMiddle
 	default:
+		panic(ev.Button)
+	}
+	h.pushEvent(noxMouseEvent{
+		Type:    typ,
+		Pos:     h.win.toDrawSpace(h.pos),
+		Pressed: ev.Pressed,
+	})
+}
+
+func (h *mouseHandler) MouseWheel(ev *seat.MouseWheelEvent) {
+	h.pushEvent(noxMouseEvent{
+		Type:  noxMouseEventWheel,
+		Pos:   h.win.toDrawSpace(h.pos),
+		Wheel: ev.Wheel,
+	})
+}
+
+func (h *mouseHandler) GetSensitivity() float32 {
+	return h.sens
+}
+
+func (h *mouseHandler) SetSensitivity(v float32) {
+	h.sens = v
+}
+
+func (h *mouseHandler) IsMousePressed(btn seat.MouseButton) bool {
+	return h.cur.btn[toMouseBtn(btn)].pressed
+}
+
+func (h *mouseHandler) GetMouseState(btn seat.MouseButton) uint {
+	return h.cur.btn[toMouseBtn(btn)].state
+}
+
+func (h *mouseHandler) SetMouseState(btn seat.MouseButton, st uint) {
+	h.cur.btn[toMouseBtn(btn)].state = st
+}
+
+func (h *mouseHandler) SetWinSize(rect image.Rectangle) {
+	h.win.SetWinSize(rect)
+}
+
+func (h *mouseHandler) SetDrawWinSize(sz types.Size) {
+	h.win.SetDrawWinSize(sz)
+	h.setMouseBounds(image.Rect(0, 0, sz.W-1, sz.H-1))
+}
+
+func (h *mouseHandler) pushEvent(e noxMouseEvent) bool {
+	e.Seq = h.seq.NextEventSeq()
+	select {
+	case h.queue <- e:
+		return true
+	default:
+		Log.Println("cannot keep up, mouse event dropped")
+		return false
+	}
+}
+
+func (h *mouseHandler) SetMouseBounds(r image.Rectangle) {
+	h.setMouseBounds(r)
+}
+
+func (h *mouseHandler) setMouseBounds(r image.Rectangle) {
+	Log.Printf("mouse bounds: %v", r)
+	h.bounds = r
+}
+
+func (h *mouseHandler) getMousePos() image.Point {
+	return h.cur.pos
+}
+
+func (h *mouseHandler) getMouseRel() image.Point {
+	return h.cur.dpos
+}
+
+func (h *mouseHandler) setMousePos(p image.Point) {
+	h.cur.pos = p
+}
+
+func (h *mouseHandler) GetMousePos() types.Point {
+	return h.getMousePos()
+}
+
+func (h *mouseHandler) GetMouseRel() types.Point {
+	return h.getMouseRel()
+}
+
+func (h *mouseHandler) GetMouseWheel() int {
+	return h.cur.wheel
+}
+
+func (h *mouseHandler) SetMouseWheel(v int) {
+	h.cur.wheel = v
+}
+
+func (h *mouseHandler) ChangeMousePos(p image.Point, isAbs bool) {
+	h.changeMousePos(p, isAbs)
+}
+
+func (h *mouseHandler) changeMousePos(p image.Point, isAbs bool) {
+	if !isAbs {
+		p = p.Add(h.getMousePos())
+	}
+	if p.X > h.bounds.Max.X {
+		p.X = h.bounds.Max.X
+	}
+	if p.X < h.bounds.Min.X {
+		p.X = h.bounds.Min.X
+	}
+
+	if p.Y > h.bounds.Max.Y {
+		p.Y = h.bounds.Max.Y
+	}
+	if p.Y < h.bounds.Min.Y {
+		p.Y = h.bounds.Min.Y
+	}
+	h.setMousePos(p)
+}
+
+func (h *mouseHandler) nox_client_mouseBtnStateFinal(pos types.Point, ind uint) {
+	cur := &h.cur.btn[ind]
+	btn := 4 * (ind + 1)
+
+	if cur.state == btn+NOX_MOUSE_DOWN {
+		h.prevBtn[ind] = pos
+	}
+}
+
+func (h *mouseHandler) noxResetMouseBuffer(cseq uint) {
+	h.buffer[0].btn[0].seq = 1
+	h.buffer[0].btn[0].pressed = false
+	h.buffer[0].btn[1].seq = 1
+	h.buffer[0].btn[1].pressed = false
+	h.buffer[0].btn[2].seq = 1
+	h.buffer[0].btn[2].pressed = false
+	h.nox_client_processMouseEvents_4302A0(cseq, 1, true)
+}
+
+func (h *mouseHandler) nox_client_mouseBtnStateReset(ind uint) {
+	cur := &h.cur.btn[ind]
+	prev := &h.prev.btn[ind]
+	btn := 4 * (ind + 1)
+	if cur.pressed && (prev.state == btn+NOX_MOUSE_DOWN || prev.state == btn+NOX_MOUSE_PRESSED) {
+		cur.state = btn + NOX_MOUSE_PRESSED
+	}
+}
+
+func (h *mouseHandler) nox_client_mouseBtnState_430230() {
+	h.nox_client_mouseBtnStateReset(NOX_MOUSE_LEFT)
+	h.nox_client_mouseBtnStateReset(NOX_MOUSE_RIGHT)
+	h.nox_client_mouseBtnStateReset(NOX_MOUSE_MIDDLE)
+}
+
+func (h *mouseHandler) nextMouseEvent() *noxMouseEvent {
+	select {
+	case e, ok := <-h.queue:
+		if !ok {
+			return nil
+		}
+		return &e
+	default:
+		return nil
+	}
+}
+
+func (h *mouseHandler) nox_client_nextMouseEvent_47DB20(e *noxMouseStateInt) bool {
+	*e = noxMouseStateInt{}
+	me := h.nextMouseEvent()
+	if me == nil {
+		return false
+	}
+	e.pos = me.Pos
+	switch me.Type {
+	case noxMouseEventMotion:
+		e.wheel = me.Wheel
+	case noxMouseEventWheel:
+		e.wheel = me.Wheel
+		for _, fnc := range h.onMouseWheel {
+			fnc(e.wheel)
+		}
+	case noxMouseEventLeft:
+		e.btn[NOX_MOUSE_LEFT].pressed = me.Pressed
+		e.btn[NOX_MOUSE_LEFT].seq = me.Seq
+	case noxMouseEventRight:
+		e.btn[NOX_MOUSE_RIGHT].pressed = me.Pressed
+		e.btn[NOX_MOUSE_RIGHT].seq = me.Seq
+	case noxMouseEventMiddle:
+		e.btn[NOX_MOUSE_MIDDLE].pressed = me.Pressed
+		e.btn[NOX_MOUSE_MIDDLE].seq = me.Seq
+	}
+	return true
+}
+
+func (h *mouseHandler) nox_client_mouseBtnStateApply(cseq uint, evt *noxMouseStateInt, pos types.Point, ind uint) {
+	ev := &evt.btn[ind]
+	cur := &h.cur.btn[ind]
+	prevPos := h.prevBtn[ind]
+	btn := 4 * (ind + 1)
+
+	if ev.seq == 0 {
+		h.nox_client_mouseBtnStateReset(ind)
 		return
 	}
-	h.MouseButtonAt(image.Point{
-		X: int(ev.X), Y: int(ev.Y),
-	}, button, pressed)
+	if cur.pressed == ev.pressed {
+		return
+	}
+	dx := pos.X - prevPos.X
+	dy := pos.Y - prevPos.Y
+	if ev.pressed {
+		if cur.state != btn+NOX_MOUSE_UP {
+			cur.state = btn + NOX_MOUSE_DOWN
+			cur.pressed = true
+			cur.seq = cseq
+		}
+	} else {
+		if int(cseq)-int(cur.seq) >= 15 || dx*dx+dy*dy >= 100 {
+			cur.state = btn + NOX_MOUSE_DRAG_END
+		} else {
+			cur.state = btn + NOX_MOUSE_UP
+		}
+		cur.pressed = false
+		cur.seq = cseq
+	}
 }
 
-// MouseButtonAt sets mouse pos to a given position and sets a specified mouse button state.
-func (h *Handler) MouseButtonAt(p image.Point, button MouseButton, pressed bool) {
-	h.mouse.pos = p
-	p = h.win.toDrawSpace(p)
-	h.iface.MouseButtonAt(p, button, pressed)
+func (h *mouseHandler) MouseAction(key keybind.Key, ev keybind.Event) bool {
+	if key == keybind.KeyLeftMouse {
+		btn := NOX_MOUSE_LEFT
+		state := h.GetMouseState(seat.MouseButtonLeft)
+		if state != nox_mouse_state(btn, NOX_MOUSE_DOWN) && state != nox_mouse_state(btn, NOX_MOUSE_PRESSED) {
+			return true
+		}
+		if state == nox_mouse_state(btn, NOX_MOUSE_PRESSED) && ev == 1 {
+			return true
+		}
+	} else if key == keybind.KeyMiddleMouse {
+		btn := NOX_MOUSE_MIDDLE
+		state := h.GetMouseState(seat.MouseButtonMiddle)
+		if state != nox_mouse_state(btn, NOX_MOUSE_DOWN) && state != nox_mouse_state(btn, NOX_MOUSE_PRESSED) {
+			return true
+		}
+		if state == nox_mouse_state(btn, NOX_MOUSE_PRESSED) && ev == 1 {
+			return true
+		}
+	} else if key == keybind.KeyRightMouse {
+		btn := NOX_MOUSE_RIGHT
+		state := h.GetMouseState(seat.MouseButtonRight)
+		if state != nox_mouse_state(btn, NOX_MOUSE_DOWN) && state != nox_mouse_state(btn, NOX_MOUSE_PRESSED) {
+			return true
+		}
+		if state == nox_mouse_state(btn, NOX_MOUSE_PRESSED) && ev == 1 {
+			return true
+		}
+	} else if key == keybind.KeyMouseWheelUp {
+		if h.GetMouseWheel() != 19 {
+			return true
+		}
+	} else if key == keybind.KeyMouseWheelDown {
+		if h.GetMouseWheel() != 20 {
+			return true
+		}
+	}
+	return false
 }
 
-// MouseSet sets mouse to a specific position in the window space.
-func (h *Handler) MouseSet(p image.Point) {
-	h.mouse.pos = p
-	p = h.win.toDrawSpace(p)
-	h.iface.MouseMotion(p)
+func (h *mouseHandler) GetDistSlow() bool { // sub_430B30
+	return h.distSlow
 }
 
-// MouseWheel moves mouse wheel by a specific amount.
-func (h *Handler) MouseWheel(dv int) {
-	p := h.mouse.pos
-	p = h.win.toDrawSpace(p)
-	h.iface.MouseWheel(p, dv)
+func (h *mouseHandler) nox_client_processMouseEvents_4302A0(cseq uint, evNum int, a2 bool) {
+	if h.prevSeq != cseq {
+		h.cur.btn[NOX_MOUSE_LEFT].state = 0
+		h.cur.btn[NOX_MOUSE_RIGHT].state = 0
+		h.cur.btn[NOX_MOUSE_MIDDLE].state = 0
+		h.cur.wheel = 0
+		h.prevSeq = cseq
+	}
+	num := 0
+	if !h.chk.CheckInputFlag() {
+		num = evNum
+		if num == 0 {
+			h.nox_client_mouseBtnState_430230()
+		}
+	}
+	pos := h.cur.pos
+	for i := 0; i < num; i++ {
+		ev := &h.buffer[i]
+		// apply absolute mouse pos
+		h.changeMousePos(ev.pos, true)
+		h.cur.wheel += ev.wheel
+
+		// variable needs to be updated as well
+		pos = h.cur.pos
+
+		// apply button states
+		h.nox_client_mouseBtnStateApply(cseq, ev, pos, NOX_MOUSE_LEFT)
+		h.nox_client_mouseBtnStateApply(cseq, ev, pos, NOX_MOUSE_RIGHT)
+		h.nox_client_mouseBtnStateApply(cseq, ev, pos, NOX_MOUSE_MIDDLE)
+	}
+	// update button prev pos, if necessary
+	h.nox_client_mouseBtnStateFinal(pos, NOX_MOUSE_LEFT)
+	h.nox_client_mouseBtnStateFinal(pos, NOX_MOUSE_RIGHT)
+	h.nox_client_mouseBtnStateFinal(pos, NOX_MOUSE_MIDDLE)
+
+	h.cur.dpos.X = pos.X - h.prev.pos.X
+	h.cur.dpos.Y = pos.Y - h.prev.pos.Y
+	if h.cur.dpos.X*h.cur.dpos.X+h.cur.dpos.Y*h.cur.dpos.Y >= 4 {
+		h.distCnt = 0
+		h.distSlow = false
+	} else {
+		h.distCnt++
+		if h.distCnt >= 10 {
+			h.distSlow = true
+		}
+	}
+	if a2 { // TODO: this is weird
+		if h.cur.wheel <= 0 {
+			if h.cur.wheel >= 0 {
+				h.cur.wheel = 0
+			} else {
+				h.cur.wheel = 20
+			}
+		} else {
+			h.cur.wheel = 19
+		}
+		h.prev = h.cur
+	}
 }
 
-// MouseMove moves mouse by a specific amount in the window space.
-func (h *Handler) MouseMove(dp types.Pointf) {
-	h.mouse.pos.X += int(dp.X)
-	h.mouse.pos.Y += int(dp.Y)
-	// TODO: native support for relative events
-	h.MouseSet(h.mouse.pos)
-}
-
-// MouseButton sets a specified mouse button state.
-func (h *Handler) MouseButton(button MouseButton, pressed bool) {
-	h.MouseButtonAt(h.mouse.pos, button, pressed)
-}
-
-func (h *Handler) MouseDownAt(p image.Point, button MouseButton) {
-	h.MouseButtonAt(p, button, true)
-}
-
-func (h *Handler) MouseUpAt(p image.Point, button MouseButton) {
-	h.MouseButtonAt(p, button, false)
-}
-
-func (h *Handler) MouseDown(button MouseButton) {
-	h.MouseButton(button, true)
-}
-
-func (h *Handler) MouseUp(button MouseButton) {
-	h.MouseButton(button, false)
-}
-
-func (h *Handler) processMotionEvent(ev *sdl.MouseMotionEvent) {
-	h.MouseSet(image.Point{X: int(ev.X), Y: int(ev.Y)})
-}
-
-func (h *Handler) processWheelEvent(ev *sdl.MouseWheelEvent) {
-	h.MouseWheel(int(ev.Y))
+func (h *mouseHandler) nox_client_readMouseBuffer_4306A0(cseq uint, a1 bool) bool {
+	if h.reading {
+		return false
+	}
+	h.reading = true
+	n := 0
+	for i := range h.buffer {
+		e := &h.buffer[i]
+		if !h.nox_client_nextMouseEvent_47DB20(e) {
+			break
+		}
+		n++
+	}
+	h.nox_client_processMouseEvents_4302A0(cseq, n, a1)
+	h.reading = false
+	return n > 0
 }

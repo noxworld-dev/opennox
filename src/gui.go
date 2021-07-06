@@ -37,6 +37,7 @@ import (
 	"unsafe"
 
 	"nox/v1/client/gui"
+	"nox/v1/client/input"
 	"nox/v1/client/input/keybind"
 	"nox/v1/client/system/parsecmd"
 	"nox/v1/common/alloc"
@@ -1230,26 +1231,29 @@ func newRadioButton(parent *Window, status int, px, py, w, h int, draw *WindowDa
 	return win
 }
 
-func nox_xxx_windowUpdateKeysMB_46B6B0(a1 *noxKeyEventInt) {
+func nox_xxx_windowUpdateKeysMB_46B6B0(inp *input.Handler, key keybind.Key) {
 	root := nox_win_cur_focused
 	if root == nil {
 		return
 	}
-	if a1.code == 0 {
+	if key == 0 {
 		return
 	}
-	if a1.field2 {
+	if inp.GetKeyFlag(key) {
 		return
 	}
 	ok := false
 	for win := root; win != nil; win = win.Parent() {
-		if win.Func93(21, uintptr(a1.code), uintptr(a1.state)) != 0 {
+		st := 1
+		if inp.IsPressed(key) {
+			st = 2
+		}
+		if win.Func93(21, uintptr(key), uintptr(st)) != 0 {
 			ok = true
 			break
 		}
 	}
-	a1.field2 = ok
-	inputSetKey4309B0(a1.code, a1.field2)
+	inp.SetKeyFlag(key, ok)
 }
 
 //export nox_xxx_consoleEditProc_450F40
@@ -1281,23 +1285,19 @@ func nox_xxx_consoleEditProc_450F40(a1 unsafe.Pointer, a2, a3, a4 C.int) C.int {
 
 //var dword_5d4594_2618912 *noxKeyEventInt
 
-//export sub_437060
-func sub_437060() C.int {
+func sub_437060(inp *input.Handler) int {
 	if C.sub_46A4A0() != 0 {
 		return 1
 	}
-	for _, p := range nox_input_arr_787228 {
-		if p.code == 0 {
-			break
-		}
+	for _, key := range inp.KeyboardKeys() {
 		//dword_5d4594_2618912 = p
-		if !p.field2 && p.state != 2 {
-			switch p.code {
+		if !inp.GetKeyFlag(key) && !inp.IsPressed(key) {
+			switch key {
 			case keybind.KeyF1, keybind.KeyF2, keybind.KeyF3, keybind.KeyF4, keybind.KeyF5,
 				keybind.KeyF6, keybind.KeyF7, keybind.KeyF8, keybind.KeyF9, keybind.KeyF10,
 				keybind.KeyF11, keybind.KeyF12:
 				if !nox_xxx_guiCursor_477600() {
-					sub_4443B0(p.code)
+					sub_4443B0(key)
 				}
 			}
 		}
@@ -1318,6 +1318,7 @@ func sub_4443B0(a1 keybind.Key) {
 		sub_4309B0(C.uchar(a1), 1)
 	}
 }
+
 func sub_4281F0(p types.Point, r types.Rect) bool {
 	return p.X >= r.Left && p.X <= r.Right && p.Y >= r.Top && p.Y <= r.Bottom
 }

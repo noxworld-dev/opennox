@@ -12,6 +12,7 @@ import "C"
 import (
 	"unsafe"
 
+	"nox/v1/client/input"
 	"nox/v1/common/alloc"
 	noxflags "nox/v1/common/flags"
 	"nox/v1/common/memmap"
@@ -89,12 +90,12 @@ func nox_client_drawImageAt_47D2C0(img *C.nox_video_bag_image_t, x, y int) {
 	C.nox_client_drawImageAt_47D2C0(img, C.int(x), C.int(y))
 }
 
-func nox_xxx_client_435F80_draw() bool {
-	mpos := noxInp.GetMousePos()
+func nox_xxx_client_435F80_draw(inp *input.Handler) bool {
+	mpos := inp.GetMousePos()
 	if C.nox_xxx_serverIsClosing_446180() != 0 {
 		C.sub_446190()
 	}
-	if C.sub_437060() == 0 && !noxflags.HasGame(8) {
+	if sub_437060(inp) == 0 && !noxflags.HasGame(8) {
 		nox_xxx_setContinueMenuOrHost_43DDD0(0)
 		return false
 	}
@@ -102,7 +103,7 @@ func nox_xxx_client_435F80_draw() bool {
 	if C.sub_478030() == 0 && !nox_xxx_guiCursor_477600() {
 		C.sub_470DE0()
 	}
-	ctrlEvent.nox_xxx_input_42D220(noxInp)
+	ctrlEvent.nox_xxx_input_42D220(inp)
 	if C.nox_xxx_get_430890() == 1 {
 		C.sub_430880(0)
 	}

@@ -4027,27 +4027,22 @@ int  nox_xxx_netClientPredictLinear_523530(int a1) {
 }
 
 //----- (005235F0) --------------------------------------------------------
-int  nox_xxx_mapGenSetFlags_5235F0(char a1) {
-	int result; // eax
+void nox_xxx_mapGenSetFlags_5235F0(char a1) {
 	int v3;     // [esp+0h] [ebp-4h]
 
-	result = nox_common_gameFlags_check_40A5C0(0x200000);
-	if (!result) {
+	if (!nox_common_gameFlags_check_40A5C0(0x200000)) {
 		dword_5d4594_2487564 = clock();
 		if (dword_5d4594_2487568 > *(int*)&dword_5d4594_2487564)
 			dword_5d4594_2487568 = 0;
 		nox_input_pollEvents_4453A0();
-		result = dword_5d4594_2487564 - dword_5d4594_2487568;
 		if (dword_5d4594_2487564 - dword_5d4594_2487568 > *getMemIntPtr(0x587000, 254948)) {
 			*(_WORD*)((char*)&v3 + 1) = *getMemU16Ptr(0x5D4594, 2487572);
 			LOBYTE(v3) = a1;
 			++*getMemU32Ptr(0x5D4594, 2487572);
 			nox_xxx_mapGenClientText_4A9D00((unsigned __int8*)&v3);
-			result = dword_5d4594_2487564;
 			dword_5d4594_2487568 = dword_5d4594_2487564;
 		}
 	}
-	return result;
 }
 
 //----- (00523670) --------------------------------------------------------

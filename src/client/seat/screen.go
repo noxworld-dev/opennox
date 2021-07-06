@@ -7,6 +7,12 @@ import (
 )
 
 const (
+	DefaultWidth  = 640
+	DefaultHeight = 480
+	DefaultDepth  = 16
+)
+
+const (
 	Windowed = ScreenMode(iota)
 	Fullscreen
 	Borderless

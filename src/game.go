@@ -342,7 +342,9 @@ func initGameSession435CC0() error {
 	} else {
 		C.nox_xxx_netSendIncomingClient_43CB00()
 	}
-	gameSetCliDrawFunc(nox_xxx_client_435F80_draw)
+	gameSetCliDrawFunc(func() bool {
+		return nox_xxx_client_435F80_draw(inpHandlerS)
+	})
 	gameSetPlayState(3)
 	*memmap.PtrUint32(0x587000, 85720) = 1
 	sz := videoGetWindowSize()

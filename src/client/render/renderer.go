@@ -9,14 +9,6 @@ import (
 	"nox/v1/common/types"
 )
 
-const (
-	DefaultWidth  = 640
-	DefaultHeight = 480
-	DefaultDepth  = 16
-	MaxWidth      = 1024
-	MaxHeight     = 768
-)
-
 var (
 	Log = log.New("render")
 )
@@ -210,7 +202,7 @@ func (r *Renderer) RenderMode() Mode {
 	return Mode{
 		Width:  sz.W,
 		Height: sz.H,
-		Depth:  DefaultDepth, // only one mode is supported
+		Depth:  seat.DefaultDepth, // only one mode is supported
 	}
 }
 

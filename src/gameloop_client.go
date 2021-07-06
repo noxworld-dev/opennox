@@ -15,6 +15,7 @@ extern unsigned int nox_client_gui_flag_815132;
 extern int nox_win_width;
 extern int nox_win_height;
 extern BYTE** nox_pixbuffer_rows_3798784;
+extern unsigned int nox_client_gui_flag_815132;
 */
 import "C"
 import (
@@ -23,18 +24,31 @@ import (
 	"math"
 	"unsafe"
 
+	"nox/v1/client/input"
+	"nox/v1/client/seat"
 	"nox/v1/common/alloc"
 	"nox/v1/common/memmap"
 )
 
-func mainloopDrawAndPresent() {
+func drawAndPresent() {
+	if C.nox_client_gui_flag_815132 != 0 {
+		guiAnimationStep()
+		resetEngineFlag(NOX_ENGINE_FLAG_32)
+		generateMouseSparks(inpHandlerS)
+	}
+	if !getEngineFlag(NOX_ENGINE_FLAG_32) {
+		mainloopDrawAndPresent(inpHandlerS)
+	}
+}
+
+func mainloopDrawAndPresent(inp *input.Handler) {
 	C.sub_437180()
 	if C.nox_client_gui_flag_1556112 == 0 {
 		DrawGUI() // Draw game windows
 	}
 	DrawSparks()
 	if !getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) || getEngineFlag(NOX_ENGINE_FLAG_9) || C.nox_client_gui_flag_815132 != 0 {
-		nox_client_drawCursorAndTooltips_477830() // Draw cursor
+		nox_client_drawCursorAndTooltips_477830(inp) // Draw cursor
 	}
 	C.sub_44D9F0(1)
 	maybeScreenshot()
@@ -90,12 +104,12 @@ func DrawSparks() {
 	}
 }
 
-func generateMouseSparks() {
+func generateMouseSparks(inp *input.Handler) {
 	if memmap.Uint32(0x5D4594, 816408) != 0 {
 		return
 	}
 
-	mpos := noxInp.GetMousePos()
+	mpos := inp.GetMousePos()
 	// emit sparks when passing a certain distance
 	const distanceSparks = 0.25
 	dx := mpos.X - int(memmap.Uint32(0x5D4594, 816420))
@@ -123,7 +137,7 @@ func generateMouseSparks() {
 	}
 	// explode with sparks when clicking
 	const explosionSparks = 75
-	if noxInp.IsMousePressed(NOX_MOUSE_LEFT) {
+	if inp.IsMousePressed(seat.MouseButtonLeft) {
 		randomIntMinMax(0, 2)
 		if memmap.Uint32(0x5D4594, 816416) == 0 {
 			*memmap.PtrUint32(0x5D4594, 816416) = 1
