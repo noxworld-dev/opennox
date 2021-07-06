@@ -21,28 +21,17 @@ import (
 )
 
 var (
-	noxWindow            *sdl.Window
-	noxRenderer          *sdl.Renderer
-	noxBackbuf           *sdl.Surface
-	g_cursor_surf        *sdl.Surface
-	g_cursor_surf_6F7C48 *sdl.Surface
-	g_surface_973C60     *sdl.Surface
-	g_surface_973C88     *sdl.Surface
-	noxViewport          sdl.Rect
-	noxViewRotate        bool
-	noxViewRotated       bool
+	noxWindow      *sdl.Window
+	noxRenderer    *sdl.Renderer
+	noxBackbuf     *sdl.Surface
+	noxViewport    sdl.Rect
+	noxViewRotate  bool
+	noxViewRotated bool
 )
 
 //export nox_video_setWinTitle_401FE0
 func nox_video_setWinTitle_401FE0(title *C.char) {
 	noxWindow.SetTitle(C.GoString(title))
-}
-
-func sub_48B1D0_free_surface(p **sdl.Surface) {
-	if s := *p; s != nil {
-		s.Free()
-		*p = nil
-	}
 }
 
 func createSurface(w, h int) (*sdl.Surface, error) {
@@ -258,8 +247,6 @@ func resetRenderer(width, height int) error {
 	dropRenderer()
 	noxBackbuf = nil // TODO: should we release it?
 
-	g_surface_973C88 = nil
-	g_surface_973C60 = nil
 	dword_973C70 = 0
 	dword_974854 = 0
 	if C.nox_video_renderTargetFlags&4 == 0 {
@@ -304,8 +291,6 @@ func nox_video_setBackBufSizes_48A3D0() int {
 func nox_video_free_renderer_48A120() {
 	dword_6F7BB0 = 0
 
-	sub_48B1D0_free_surface(&g_surface_973C60)
-	sub_48B1D0_free_surface(&g_surface_973C88)
 	if noxBackbuf != nil {
 		noxBackbuf.Free()
 		noxBackbuf = nil
@@ -331,10 +316,6 @@ func presentFrame() {
 	var srect sdl.Rect
 	noxBackbuf.GetClipRect(&srect)
 
-	nox_video_mouseThreadXxx_48BE50(true)
-	defer nox_video_mouseThreadXxx_48BE50(false)
-	nox_video_waitVBlankAndDrawCursorFromThread_48B5D0(0, 0)
-
 	drect := setViewport(int(noxBackbuf.W), int(noxBackbuf.H), int(dstw), int(dsth))
 	if drect != noxViewport {
 		noxViewport = drect
@@ -354,26 +335,6 @@ func presentFrame() {
 	}
 	noxRenderer.Present()
 	_ = tex.Destroy()
-}
-
-func nox_video_waitVBlankAndDrawCursorFromThread_48B5D0(a1, a2 int) int {
-	if memmap.Uint32(0x5D4594, 1193708) == 0 && nox_video_drawCursorThreadOk && C.dword_5d4594_823776 != 0 &&
-		nox_video_cursorDrawIsThreaded && C.dword_5d4594_1193672 != 0 && memmap.Uint32(0x5D4594, 1193108) != 0 && C.nox_video_bag_ready != 0 {
-		*memmap.PtrUint32(0x5D4594, 1193708) = 1
-		mu := asMutex(memmap.PtrOff(0x5D4594, 3799596))
-		mu.Lock()
-		res := sdl_drawCursorThreaded(a1) // FIXME SDL will always wait for vblank?
-		mu.Unlock()
-		*memmap.PtrUint32(0x5D4594, 1193708) = 0
-		return res
-	}
-	return 0
-}
-
-func nox_video_mouseThreadXxx_48BE50(a1 bool) {
-	if nox_video_drawCursorThreadOk && nox_video_cursorDrawIsThreaded {
-		nox_video_pauseThreadedDrawCursor = a1
-	}
 }
 
 //export nox_video_showMovieFrame
@@ -396,85 +357,10 @@ func nox_video_showMovieFrame(s unsafe.Pointer) {
 	presentFrame()
 }
 
-func rect2sdl(r *types.Rect) (sr sdl.Rect) {
-	sr.X = int32(r.Left)
-	sr.Y = int32(r.Top)
-	sr.W = int32(r.Right - r.Left)
-	sr.H = int32(r.Bottom - r.Top)
-	return
-}
-
-func sdl_drawCursorThreaded(a1 int) int {
-	r1 := (*types.Rect)(memmap.PtrOff(0x5D4594, 1193532))
-	r2 := (*types.Rect)(memmap.PtrOff(0x5D4594, 1193548))
-	r3 := (*types.Rect)(memmap.PtrOff(0x5D4594, 1193604))
-	var src, dst sdl.Rect
-
-	if a1 != 0 && (C.dword_5d4594_1193668 != 0 || C.dword_5d4594_1193664 != 0) && !r1.IsEmpty() {
-		// FIXME frontbuffer?
-		src = rect2sdl(r2)
-		dst = rect2sdl(r1)
-		// SDL_BlitScaled(g_cursor_surf_6F7C48, &src, g_backbuffer1, &dst)
-	}
-
-	r1.Left = int(C.dword_5d4594_1193648) - int(memmap.Uint32(0x5D4594, 1193580))
-	r1.Right = r1.Left + int(memmap.Uint32(0x5D4594, 1193600))
-	r1.Top = int(C.dword_5d4594_1193524) - int(memmap.Uint32(0x5D4594, 1193636))
-	r1.Bottom = r1.Top + int(memmap.Uint32(0x5D4594, 1193620))
-
-	objRect := *(*types.Rect)(unsafe.Pointer(&C.obj_5D4594_3800716.data[9]))
-	if a1 == 0 || C.dword_5d4594_1193668 != 0 || C.dword_5d4594_1193664 != 0 {
-		if v4, ok := nox_xxx_utilRect_49F930(*r1, objRect); ok {
-			r2.Left = 0
-			r2.Top = 0
-			r2.Right = v4.Right - v4.Left
-			r2.Bottom = v4.Bottom - v4.Top
-
-			// FIXME frontbuffer?
-			src = rect2sdl(&v4)
-			dst = rect2sdl(r2)
-			// if (SDL_BlitScaled(g_backbuffer1, &src, g_cursor_surf_6F7C48, &dst))
-			//    return 0;
-		}
-	}
-
-	if v4, ok := nox_xxx_utilRect_49F930(*r1, objRect); ok {
-		r3.Left = v4.Left - r1.Left
-		r3.Top = v4.Top - r1.Top
-		r3.Right = v4.Right - r1.Left
-		r3.Bottom = v4.Bottom - r1.Top
-
-		// FIXME frontbuffer?
-		src = rect2sdl(r3)
-		dst = rect2sdl(&v4)
-
-		if err := g_cursor_surf.BlitScaled(&src, noxBackbuf, &dst); err != nil {
-			log.Println(err)
-			return 0
-		}
-
-		*r1 = v4
-	}
-
-	C.dword_5d4594_1193664 = 0
-	C.dword_5d4594_1193668 = 0
-	return 1
-}
-
 //export nox_xxx_makeFillerColor_48BDE0
 func nox_xxx_makeFillerColor_48BDE0() C.bool {
 	v0 := noxcolor.ExtendColor16(noxcolor.RGBColor(255, 0, 255))
-	*memmap.PtrUint32(0x5D4594, 1193592) = uint32(v0)
-	if g_cursor_surf != nil {
-		// FIXME use SDL_MapRGB instead?
-		var v uint32
-		if C.dword_5d4594_3799624 != 0 {
-			v = uint32(uint16(v0))
-		} else {
-			v = uint32(uint8(v0))
-		}
-		g_cursor_surf.SetColorKey(true, v)
-	}
+	*memmap.PtrUint32(0x5D4594, 1193592) = v0
 	return true
 }
 

@@ -54,9 +54,6 @@ var (
 	nox_win_width                          int
 	nox_win_height                         int
 	noxBackBufCopyFunc                     func()
-	nox_video_allowCursorDrawThread        bool
-	nox_video_drawCursorThreadOk           bool // FIXME: remove thread-related things based on this
-	nox_video_pauseThreadedDrawCursor      bool
 	nox_video_cursorDrawIsThreaded         bool
 	dword_6F7C10                           func(a1 unsafe.Pointer, a2, a3 uint32)
 	nox_backbuffer_pitch_3801808           int
@@ -263,9 +260,6 @@ func drawInitAll(sz types.Size, depth, flags int) error {
 	if err := nox_video_setBackBufferCopyFunc_4AD100(); err != nil {
 		return err
 	}
-	if err := nox_video_initCursorDrawVars_48B1F0(); err != nil {
-		return err
-	}
 	if res := C.sub_44D9A0(); res == 0 {
 		return errors.New("sub_44D9A0 failed")
 	}
@@ -327,7 +321,6 @@ func gameUpdateVideoMode(inMenu bool) error {
 	if mode == cur {
 		return nil
 	}
-	nox_video_mouseThreadXxx_48BE50(true)
 	if mode.Depth != cur.Depth {
 		if C.nox_video_bagMaybeReload(C.int(bool2int(videoIs16Bit()))) == 0 {
 			return errors.New("nox_video_bagMaybeReload failed")
@@ -339,7 +332,6 @@ func gameUpdateVideoMode(inMenu bool) error {
 	C.nox_xxx_loadPal_4A96C0_video_read_palette(internCStr("default.pal"))
 	C.sub_461520()
 	noxInp.m.updateScreen(mode.Size())
-	nox_video_mouseThreadXxx_48BE50(false)
 	return nil
 }
 
@@ -498,9 +490,6 @@ func drawGeneral_4B0340(a1 int) error {
 		if C.sub_4338D0() == 0 {
 			return errors.New("sub_4338D0 failed")
 		}
-		if err := nox_video_initCursorDrawVars_48B1F0(); err != nil {
-			return err
-		}
 		sub_48B3F0(v11, C.int(v10), C.int(v9))
 	}
 	C.sub_43E910(0)
@@ -524,19 +513,6 @@ func nox_video_initFloorBuffer_430BA0() error {
 }
 
 func nox_video_stopCursorDrawThread_48B350() {
-	nox_video_drawCursorThreadOk = false
-	nox_video_allowCursorDrawThread = false
-	if C.nox_video_cursorDrawThreadHandle != nil {
-		nox_video_pauseThreadedDrawCursor = true
-		panic("TODO")
-		//C.WaitForSingleObject(C.nox_video_cursorDrawThreadHandle, 0x108)
-		//C.CloseHandle(C.nox_video_cursorDrawThreadHandle)
-		//C.nox_video_cursorDrawThreadHandle = nil
-	}
-
-	sub_48B1D0_free_surface(&g_cursor_surf)
-	sub_48B1D0_free_surface(&g_cursor_surf_6F7C48)
-
 	if dword_5d4594_1193704_arr != nil {
 		alloc.FreePointers(dword_5d4594_1193704_arr)
 		dword_5d4594_1193704_arr = nil
@@ -598,18 +574,6 @@ func sub_49F610() {
 	C.ptr_5D4594_3799572.data[11] = C.uint(nox_backbuffer_width)
 	C.ptr_5D4594_3799572.data[12] = C.uint(nox_backbuffer_height)
 	C.dword_5d4594_1305748 = 0
-}
-
-func sub_48C170(a2 types.Rect) types.Rect {
-	if C.nox_video_renderTargetFlags&0x10 != 0 {
-		return types.Rect{
-			Left:   int(memmap.Int32(0x5D4594, 1193684)) * a2.Left / nox_backbuffer_width,
-			Top:    int(memmap.Int32(0x5D4594, 1193688)) * a2.Top / nox_backbuffer_height,
-			Right:  int(memmap.Int32(0x5D4594, 1193684)) * a2.Right / nox_backbuffer_width,
-			Bottom: int(memmap.Int32(0x5D4594, 1193688)) * a2.Bottom / nox_backbuffer_height,
-		}
-	}
-	return a2
 }
 
 //export sub_49FC20
@@ -722,24 +686,9 @@ func nox_free_pixbuffers_486110() {
 	}
 }
 
-func sub_48A5D0() int {
-	return 0
-}
-
 func sub_486090() error {
 	sub_4861D0()
 	sub_486230()
-	// FIXME: this doesn't look right
-	//if C.nox_video_renderTargetFlags&0x40 != 0 {
-	//	g_surface_973C88 = sub_48A5D0()
-	//	if g_surface_973C88 == 0 {
-	//		return 0
-	//	}
-	//}
-	//g_surface_973C60 = sub_48A5D0()
-	//if g_surface_973C60 == 0 {
-	//	return 0
-	//}
 	return nil
 }
 
@@ -788,7 +737,6 @@ func sub_48B3F0(a1 unsafe.Pointer, a2, a3 C.int) C.int {
 		C.dword_5d4594_1193524 = C.uint(a3)
 		if a1 != nil && a1 != C.dword_5d4594_1193624 {
 			C.dword_5d4594_1193624 = a1
-			g_cursor_surf.Lock()
 			for i := range dword_5d4594_1193704_arr {
 				C.sub_49D1C0(dword_5d4594_1193704_arr[i], C.int(memmap.Uint32(0x5D4594, 1193592)), 128)
 			}
@@ -806,7 +754,6 @@ func sub_48B3F0(a1 unsafe.Pointer, a2, a3 C.int) C.int {
 				*memmap.PtrUint32(0x5D4594, 1193616) = uint32(C.dword_5d4594_1193576)
 				C.dword_5d4594_1193664 = 1
 			}
-			g_cursor_surf.Unlock()
 		}
 		if uint32(C.dword_5d4594_1193648) != memmap.Uint32(0x5D4594, 1193640) ||
 			uint32(C.dword_5d4594_1193524) != memmap.Uint32(0x5D4594, 1193628) {
@@ -818,95 +765,6 @@ func sub_48B3F0(a1 unsafe.Pointer, a2, a3 C.int) C.int {
 		return 1
 	}
 	return 1
-}
-
-func nox_video_initCursorDrawVars_48B1F0() error {
-	if C.nox_video_renderTargetFlags&0x100 != 0 {
-		nox_video_cursorDrawIsThreaded = false
-		return nil
-	}
-	nox_video_cursorDrawIsThreaded = true
-	if C.nox_video_renderTargetFlags&4 != 0 {
-		return nil
-	}
-	*memmap.PtrUint32(0x5D4594, 1193640) = 0
-	*memmap.PtrUint32(0x5D4594, 1193628) = 0
-	C.dword_5d4594_1193648 = 0
-	C.dword_5d4594_1193524 = 0
-	*memmap.PtrUint32(0x5D4594, 1193580) = 0
-	*memmap.PtrUint32(0x5D4594, 1193636) = 0
-	*memmap.PtrUint32(0x5D4594, 1193600) = 0
-	*memmap.PtrUint32(0x5D4594, 1193620) = 0
-	// TODO: rect
-	*(*[4]int32)(memmap.PtrOff(0x5D4594, 1193532)) = [4]int32{}
-	*(*[4]int32)(memmap.PtrOff(0x5D4594, 1193548)) = [4]int32{}
-	*(*[4]int32)(memmap.PtrOff(0x5D4594, 1193604)) = [4]int32{}
-	C.dword_5d4594_1193624 = nil
-	C.dword_5d4594_3798728 = 0
-	C.dword_5d4594_1193664 = 0
-	C.dword_5d4594_1193668 = 0
-	C.dword_5d4594_1193672 = 0
-	nox_video_pauseThreadedDrawCursor = false
-	nox_video_allowCursorDrawThread = false
-	sub_48C110()
-	if C.dword_5d4594_3801780 != 0 {
-		if C.dword_5d4594_3801780 == 1 {
-			dword_6F7C10 = func(a1 unsafe.Pointer, a2, a3 uint32) {
-				C.sub_48C200(a1, C.int(a2), C.int(a3))
-			}
-			C.dword_6F7C40 = (*[0]byte)(C.sub_48C480)
-			C.dword_6F7C34 = (*[0]byte)(C.sub_48C4D0)
-		}
-	} else {
-		dword_6F7C10 = func(a1 unsafe.Pointer, a2, a3 uint32) {
-			C.sub_48C320(a1, C.int(a2), C.int(a3))
-		}
-		C.dword_6F7C40 = (*[0]byte)(C.sub_48C420)
-		C.dword_6F7C34 = (*[0]byte)(C.sub_48C420)
-	}
-	if err := nox_video_createCursorSurface_48BF70(); err != nil {
-		return err
-	}
-	if err := sub_48C060(); err != nil {
-		return err
-	}
-	if !nox_xxx_makeFillerColor_48BDE0() {
-		return errors.New("nox_xxx_makeFillerColor_48BDE0 failed")
-	}
-	return nil
-}
-
-func nox_video_createCursorSurface_48BF70() error {
-	var err error
-	g_cursor_surf, err = createSurface(128, 128)
-	if err != nil {
-		return err
-	}
-	rect := sub_48C170(types.Rect{Right: 128, Top: 128})
-	g_cursor_surf_6F7C48, err = createSurface(rect.Right, rect.Top)
-	if err != nil {
-		return err
-	}
-	return nil
-}
-
-func sub_48C110() {
-	*memmap.PtrUint32(0x5D4594, 1193684) = uint32(nox_backbuffer_width)
-	*memmap.PtrUint32(0x5D4594, 1193688) = uint32(nox_backbuffer_height)
-}
-
-func sub_48C060() error {
-	if g_cursor_surf != nil {
-		dword_5d4594_1193704_arr = alloc.Pointers(128)
-		C.dword_5d4594_1193704 = (unsafe.Pointer)(&dword_5d4594_1193704_arr[0])
-		pix := g_cursor_surf.Pixels()
-
-		for i := range dword_5d4594_1193704_arr {
-			dword_5d4594_1193704_arr[i] = unsafe.Pointer(&pix[0])
-			pix = pix[g_cursor_surf.Pitch:]
-		}
-	}
-	return nil
 }
 
 //export nox_draw_setCutSize_476700
