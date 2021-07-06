@@ -150,6 +150,10 @@ func CBytes(s []byte) unsafe.Pointer {
 	return C.CBytes(s)
 }
 
+func GoWStringP(s unsafe.Pointer) string {
+	return GoWString((*C.wchar_t)(s))
+}
+
 func GoWString(s *C.wchar_t) string {
 	n := WStrLen(s)
 	if n == 0 {

@@ -23,8 +23,6 @@ extern unsigned int nox_client_gui_flag_815132;
 extern unsigned int nox_client_gui_flag_1556112;
 extern unsigned int nox_client_renderGUI_80828;
 extern unsigned int nox_xxx_xxxRenderGUI_587000_80832;
-extern int nox_win_width;
-extern int nox_win_height;
 extern nox_draw_viewport_t nox_draw_viewport;
 
 int nox_xxx_gameTick_4D2580_server();
@@ -94,7 +92,9 @@ func nox_game_rollLogoAndStart_4AB1F0() C.int {
 	}
 	C.sub_4B0300(path)
 	C.sub_4B0640((*[0]byte)(C.nox_game_rollIntroAndStart_4AB170))
-	C.nox_client_drawGeneral_4B0340(0)
+	if err := drawGeneral_4B0340(0); err != nil {
+		videoLog.Println(err)
+	}
 	return 1
 }
 
@@ -108,7 +108,9 @@ func nox_game_rollIntroAndStart_4AB170() C.int {
 	}
 	C.sub_4B0300(path)
 	C.sub_4B0640((*[0]byte)(C.nox_game_rollNoxLogoAndStart_4AB0F0))
-	C.nox_client_drawGeneral_4B0340(1)
+	if err := drawGeneral_4B0340(1); err != nil {
+		videoLog.Println(err)
+	}
 	C.sub_578DE0(C.char(C.sub_578DF0() | 0x80))
 	return 1
 }
@@ -126,7 +128,9 @@ func nox_game_rollNoxLogoAndStart_4AB0F0() C.int {
 	}
 	C.sub_4B0300(path)
 	C.sub_4B0640((*[0]byte)(C.nox_game_showLegal_4CC4E0))
-	C.nox_client_drawGeneral_4B0340(0)
+	if err := drawGeneral_4B0340(0); err != nil {
+		videoLog.Println(err)
+	}
 	return 1
 }
 
@@ -353,7 +357,7 @@ func initGameSession435CC0() error {
 	vp.field_11 = 0
 	vp.field_12 = 0
 	v1 := C.nox_video_getCutSize_4766D0()
-	C.nox_draw_setCutSize_476700(v1, 0)
+	nox_draw_setCutSize_476700(v1, 0)
 	if noxflags.HasGame(noxflags.GameSolo) {
 		C.sub_41CC00((*C.char)(memmap.PtrOff(0x5D4594, 2660688)))
 	} else if C.sub_4D6F50() != 0 || C.sub_4D6F70() != 0 {

@@ -2629,7 +2629,7 @@ int  sub_43F690(int a1, int a2, int a3, int a4) {
 }
 
 //----- (0043F6E0) --------------------------------------------------------
-int  nox_xxx_drawString_43F6E0(int a1, __int16* a2, int a3, int a4) {
+int  nox_xxx_drawString_43F6E0(int a1, wchar_t* a2, int a3, int a4) {
 	int result; // eax
 
 	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_TEXT_RENDERING))
@@ -2687,7 +2687,7 @@ int  sub_43F7B0(int a1, __int16* a2, int a3, int a4) {
 }
 
 //----- (0043F840) --------------------------------------------------------
-int  nox_xxx_drawGetStringSize_43F840(int a1, unsigned __int16* a2, int* a3, _DWORD* a4, int a5) {
+int  nox_xxx_drawGetStringSize_43F840(int a1, unsigned __int16* a2, int* a3, int* a4, int a5) {
 	unsigned __int16 v5;  // cx
 	unsigned __int16 v6;  // bp
 	int v7;               // ebx
@@ -3652,6 +3652,7 @@ __int16  sub_4408C0(_BYTE* a1) {
 	return 63;
 }
 
+#ifndef NOX_CGO
 //----- (004408E0) --------------------------------------------------------
 int sub_4408E0() { return 1; }
 
@@ -3669,6 +3670,7 @@ void sub_440900() {
 		++dst;
 	}
 }
+#endif // NOX_CGO
 
 //----- (00440950) --------------------------------------------------------
 int  nox_xxx_netServerCmd_440950(char a1, wchar_t* a2) {

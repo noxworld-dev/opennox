@@ -24,6 +24,7 @@
 #include "client__gui__tooltip.h"
 #include "client__gui__guicon.h"
 #include "common__wolapi__wolpatch.h"
+#include "client__video__draw_common.h"
 
 #include "client__draw__drawwin.h"
 #include "client__draw__selectdw.h"
@@ -8245,10 +8246,10 @@ int4*  nox_xxx_drawAllMB_475810_draw(int* a1) {
 		sub_437290();
 		if (dword_5d4594_3799524) {
 			nox_client_drawSetColor_434460(*getMemIntPtr(0x5D4594, 2650656));
-			nox_client_drawRectFilledOpaque_49CE30(0, 0, nox_backbuffer_width, v2);
-			nox_client_drawRectFilledOpaque_49CE30(0, v3, nox_backbuffer_width, nox_backbuffer_height - v3);
+			nox_client_drawRectFilledOpaque_49CE30(0, 0, nox_getBackbufWidth(), v2);
+			nox_client_drawRectFilledOpaque_49CE30(0, v3, nox_getBackbufWidth(), nox_getBackbufHeight() - v3);
 			nox_client_drawRectFilledOpaque_49CE30(0, v2, v39, v3 - v2);
-			nox_client_drawRectFilledOpaque_49CE30(v4, v2, nox_backbuffer_width - v4, v3 - v2);
+			nox_client_drawRectFilledOpaque_49CE30(v4, v2, nox_getBackbufWidth() - v4, v3 - v2);
 			dword_5d4594_3799524 = 0;
 		}
 		nox_client_drawSetColor_434460(*getMemIntPtr(0x5D4594, 2650660));

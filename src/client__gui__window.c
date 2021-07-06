@@ -9,7 +9,7 @@
 
 // TODO: part of the GUI toolkit
 void  nox_client_drawImageAt_47D2C0(void* a1, int x, int y);
-int  nox_xxx_drawGetStringSize_43F840(int a1, unsigned short* a2, int* a3, unsigned int* a4, int a5);
+int  nox_xxx_drawGetStringSize_43F840(int a1, unsigned short* a2, int* a3, int* a4, int a5);
 int  nox_client_drawSetColor_434460(int a1);
 void  nox_client_drawRectFilledOpaque_49CE30(int xLeft, int yTop, int a3, int a4);
 nox_video_bag_image_t*  nox_xxx_gLoadImg_42F970(const char* a1);
@@ -208,7 +208,8 @@ void  sub_46B180(nox_window* win) {
 }
 
 //----- (0046C4E0) --------------------------------------------------------
-int  nox_xxx_windowDestroyMB_46C4E0(unsigned int* a1) {
+int  nox_xxx_windowDestroyMB_46C4E0(nox_window* a1p) {
+	unsigned int* a1 = a1p;
 	int v2;     // eax
 	unsigned int* v3; // eax
 	unsigned int* v4; // edi
@@ -870,7 +871,7 @@ int  nox_xxx_wndGetFlags_46ADA0(int a1) {
 
 #ifndef NOX_CGO
 //----- (0046ADC0) --------------------------------------------------------
-int  nox_xxx_wndSetCaptureMain_46ADC0(nox_windows* a1) {
+int  nox_xxx_wndSetCaptureMain_46ADC0(nox_window* a1) {
 	if (nox_win_unk3)
 		return -4;
 	nox_win_unk3 = a1;
@@ -878,14 +879,14 @@ int  nox_xxx_wndSetCaptureMain_46ADC0(nox_windows* a1) {
 }
 
 //----- (0046ADE0) --------------------------------------------------------
-int  nox_xxx_wndClearCaptureMain_46ADE0(nox_windows* a1) {
+int  nox_xxx_wndClearCaptureMain_46ADE0(nox_window* a1) {
 	if (a1 == nox_win_unk3)
 		nox_win_unk3 = 0;
 	return 0;
 }
 
 //----- (0046AE00) --------------------------------------------------------
-nox_windows* nox_xxx_wndGetCaptureMain_46AE00() { return nox_win_unk3; }
+nox_window* nox_xxx_wndGetCaptureMain_46AE00() { return nox_win_unk3; }
 
 //----- (0046B6B0) --------------------------------------------------------
 void nox_xxx_windowUpdateKeysMB_46B6B0(unsigned char* a1) {

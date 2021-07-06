@@ -117,8 +117,8 @@ int  nox_thing_player_draw(_DWORD* a1, nox_drawable* dr) {
 		v11 = *(_DWORD**)&dword_5d4594_1313792;
 		v3 = v32;
 		LABEL_23:
-		v11[3] = dr->field_3 - v10[4] + *v10 + 15;
-		*(_DWORD*)(dword_5d4594_1313792 + 16) = v10[1] - v10[5] + dr->field_4 - 25;
+		v11[3] = dr->pos.x - v10[4] + *v10 + 15;
+		*(_DWORD*)(dword_5d4594_1313792 + 16) = v10[1] - v10[5] + dr->pos.y - 25;
 		(*(void(**)(int*, _DWORD))(dword_5d4594_1313792 + 300))(v36, dword_5d4594_1313792);
 		goto LABEL_24;
 	}
@@ -207,8 +207,8 @@ int  nox_thing_player_draw(_DWORD* a1, nox_drawable* dr) {
 		if (!sub_48D830(dr) && !nox_common_gameFlags_check_40A5C0(2048)) {
 			v21 = (__int16*)(v3 + 4704);
 			nox_xxx_drawGetStringSize_43F840(0, (unsigned __int16*)v3 + 2352, &v34, 0, 0);
-			v22 = *v10 + dr->field_3 + v34 / -2 - v10[4];
-			int a2 = v10[1] - v10[5] + dr->field_4 - 64;
+			v22 = *v10 + dr->pos.x + v34 / -2 - v10[4];
+			int a2 = v10[1] - v10[5] + dr->pos.y - 64;
 			nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 2614248));
 			nox_xxx_drawString_43F6E0(0, v21, v22 + 1, a2 + 1);
 			nox_xxx_drawSetTextColor_434390(a1);
@@ -237,8 +237,8 @@ int  nox_thing_player_draw(_DWORD* a1, nox_drawable* dr) {
 				dword_5d4594_1313796 = nox_new_drawable_for_thing(v24);
 				*(_DWORD*)(dword_5d4594_1313796 + 120) |= 0x1000000u;
 			}
-			*(_DWORD*)(dword_5d4594_1313796 + 12) = *v10 + dr->field_3 - v10[4];
-			*(_DWORD*)(dword_5d4594_1313796 + 16) = v10[1] - v10[5] + dr->field_4 - 50;
+			*(_DWORD*)(dword_5d4594_1313796 + 12) = *v10 + dr->pos.x - v10[4];
+			*(_DWORD*)(dword_5d4594_1313796 + 16) = v10[1] - v10[5] + dr->pos.y - 50;
 			(*(void(**)(int*, _DWORD))(dword_5d4594_1313796 + 300))(v36, dword_5d4594_1313796);
 		}
 		if (nox_xxx_spriteTestBuf_4356C0(dr, 30)) {
@@ -255,8 +255,8 @@ int  nox_thing_player_draw(_DWORD* a1, nox_drawable* dr) {
 				dword_5d4594_1313800 = nox_new_drawable_for_thing(v25);
 				*(_DWORD*)(dword_5d4594_1313800 + 120) |= 0x1000000u;
 			}
-			*(_DWORD*)(dword_5d4594_1313800 + 12) = *v10 + dr->field_3 - v10[4];
-			*(_DWORD*)(dword_5d4594_1313800 + 16) = v10[1] - v10[5] + dr->field_4 - 50;
+			*(_DWORD*)(dword_5d4594_1313800 + 12) = *v10 + dr->pos.x - v10[4];
+			*(_DWORD*)(dword_5d4594_1313800 + 16) = v10[1] - v10[5] + dr->pos.y - 50;
 			(*(void(**)(int*, _DWORD))(dword_5d4594_1313800 + 300))(v36, dword_5d4594_1313800);
 		}
 		do

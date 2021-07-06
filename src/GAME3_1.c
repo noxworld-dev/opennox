@@ -5035,7 +5035,11 @@ LABEL_82:
 	}
 	nox_xxx_draw_434600(1);
 	sub_433E40(*getMemIntPtr(0x5D4594, 2618904));
+#ifdef NOX_CGO
+	v62 = -1;
+#else // NOX_CGO
 	v62 = nox_backbuffer_depth >= 16 ? -1 : -128;
+#endif // NOX_CGO
 LABEL_104:
 	nox_client_drawEnableAlpha_434560(1);
 	nox_client_drawSetAlpha_434580(v62);

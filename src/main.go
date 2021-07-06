@@ -11,15 +11,6 @@ package main
 #include "common__log.h"
 
 extern unsigned int dword_5d4594_805860;
-extern int g_scaled;
-extern int nox_win_width;
-extern int nox_win_height;
-extern int nox_win_width_game;
-extern int nox_win_height_game;
-extern int nox_win_depth_game;
-extern int nox_win_width_menu;
-extern int nox_win_height_menu;
-extern int nox_win_depth_menu;
 extern int nox_video_dxFullScreen;
 extern int nox_enable_audio;
 extern int nox_video_dxUnlockSurface;
@@ -177,7 +168,7 @@ func runNox(args []string) error {
 		noxFullScreen = -1
 	}
 	if *fStretch {
-		C.g_scaled = -1
+		g_scaled = -1
 	}
 	if *fMinimize {
 		*memmap.PtrUint32(0x5D4594, 805864) = 1
@@ -324,7 +315,7 @@ func runNox(args []string) error {
 		return fmt.Errorf("failed to update video mode: %w", err)
 	}
 	C.nox_xxx_drawSelectColor_434350(C.int(memmap.Int32(0x5D4594, 2650656)))
-	C.sub_440900()
+	sub_440900()
 	if C.nox_video_read_videobag(C.int(bool2int(videoIs16Bit()))) == 0 {
 		return fmt.Errorf("failed to read graphics")
 	}

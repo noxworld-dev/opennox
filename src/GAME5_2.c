@@ -8263,7 +8263,9 @@ void nullsub_9(_DWORD a1) {}
 void nullsub_33(_DWORD a1, _DWORD a2, _DWORD a3) {}
 int __thiscall sub_558800(int (**this)(void)) { return this[385](); }
 int __thiscall sub_558810(int (**this)(void)) { return this[386](); }
+#ifndef NOX_CGO
 BOOL nox_xxx_testCPUID2_444D90() { return 0; }
+#endif // NOX_CGO
 void nox_xxx_j_allocHitArray_511840(void) { nox_xxx_allocHitArray_5486D0(); }
 
 // ALL OK, 8062 function(s) have been successfully decompiled

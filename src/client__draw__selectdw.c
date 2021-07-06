@@ -2,7 +2,7 @@
 #include "common__random.h"
 
 #include "proto.h"
-extern _DWORD dword_5d4594_1096640;
+extern void* dword_5d4594_1096640;
 
 //----- (004773C0) --------------------------------------------------------
 void  nox_video_drawCursorSelectCircle_4773C0(_DWORD* a1) {
@@ -13,7 +13,7 @@ void  nox_video_drawCursorSelectCircle_4773C0(_DWORD* a1) {
 	int v5;     // edx
 
 	if (dword_5d4594_1096640) {
-		if (*(_BYTE*)(dword_5d4594_1096640 + 112) & 6 && !sub_495A80(*(_DWORD*)(dword_5d4594_1096640 + 128))) {
+		if (*(_BYTE*)((_DWORD)dword_5d4594_1096640 + 112) & 6 && !sub_495A80(*(_DWORD*)((_DWORD)dword_5d4594_1096640 + 128))) {
 			v4 = nox_common_randomIntMinMax_415FF0(0, 1, "C:\\NoxPost\\src\\Client\\Draw\\selectdw.c", 440);
 			if (!v4) {
 				v3 = *(_DWORD**)getMemAt(0x5D4594, 2598268);
@@ -41,7 +41,7 @@ void  nox_video_drawCursorSelectCircle_4773C0(_DWORD* a1) {
 		}
 		v3 = a1;
 	LABEL_15:
-		v5 = *(_DWORD*)(dword_5d4594_1096640 + 112);
+		v5 = *(_DWORD*)((_DWORD)dword_5d4594_1096640 + 112);
 		if (!(v5 & 0x200))
 			nox_video_drawCursorSelectCircle2_477470(a1, (int)v3, *(int*)&dword_5d4594_1096640);
 	}

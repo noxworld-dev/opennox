@@ -13,6 +13,9 @@
 
 #include "proto.h"
 
+int nox_getBackbufWidth();
+int nox_getBackbufHeight();
+
 #ifndef NOX_CGO
 #include <SDL2/SDL.h>
 #else // NOX_CGO
@@ -30,7 +33,7 @@ extern _DWORD dword_5d4594_810628;
 extern _DWORD dword_5d4594_808564;
 extern _DWORD dword_5d4594_1311936;
 extern _DWORD dword_5d4594_1193672;
-extern _DWORD dword_5d4594_1193624;
+extern void* dword_5d4594_1193624;
 extern _DWORD dword_5d4594_1193664;
 extern _DWORD dword_5d4594_1193524;
 extern _DWORD dword_5d4594_1193648;
@@ -40,7 +43,7 @@ extern _DWORD dword_5d4594_1193668;
 extern _DWORD nox_video_bag_ready;
 extern _DWORD dword_5d4594_823776;
 extern BYTE* nox_pixbuffer_3798780;
-extern _DWORD dword_5d4594_1193704;
+extern void* dword_5d4594_1193704;
 extern _DWORD dword_5d4594_3804668;
 extern _DWORD dword_5d4594_1193584;
 extern int nox_backbuffer_pitch_3801808;
@@ -105,13 +108,13 @@ extern void (*nox_color_rgb_func)(uint8_t, uint8_t, uint8_t, uint32_t*);
 
 #ifndef NOX_CGO
 extern SDL_Surface* g_backbuffer1;
+extern SDL_Surface* g_cursor_surf_6F7C48;
+extern SDL_Surface* g_cursor_surf;
 extern unsigned int g_format;
 
 extern int g_rotate;
 extern int g_rotated;
 #endif // NOX_CGO
-extern SDL_Surface* g_cursor_surf_6F7C48;
-extern SDL_Surface* g_cursor_surf;
 extern SDL_Surface* g_surface_973C60;
 extern SDL_Surface* g_surface_973C88;
 
@@ -131,6 +134,8 @@ enum {
 
 int nox_video_getFullScreen();
 void nox_video_setFullScreen(int v);
+int nox_video_getScaled();
+void nox_video_setScaled(int v);
 
 #ifndef NOX_CGO
 #ifdef USE_SDL

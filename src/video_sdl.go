@@ -7,6 +7,7 @@ package main
 */
 import "C"
 import (
+	"errors"
 	"fmt"
 	"image"
 	"unsafe"
@@ -20,12 +21,16 @@ import (
 )
 
 var (
-	noxWindow      *sdl.Window
-	noxRenderer    *sdl.Renderer
-	noxBackbuf     *sdl.Surface
-	noxViewport    sdl.Rect
-	noxViewRotate  bool
-	noxViewRotated bool
+	noxWindow            *sdl.Window
+	noxRenderer          *sdl.Renderer
+	noxBackbuf           *sdl.Surface
+	g_cursor_surf        *sdl.Surface
+	g_cursor_surf_6F7C48 *sdl.Surface
+	g_surface_973C60     *sdl.Surface
+	g_surface_973C88     *sdl.Surface
+	noxViewport          sdl.Rect
+	noxViewRotate        bool
+	noxViewRotated       bool
 )
 
 //export nox_video_setWinTitle_401FE0
@@ -33,20 +38,9 @@ func nox_video_setWinTitle_401FE0(title *C.char) {
 	noxWindow.SetTitle(C.GoString(title))
 }
 
-//export nox_video_createSurface_48A600
-func nox_video_createSurface_48A600(w, h, caps C.int) unsafe.Pointer {
-	surf, err := createSurface(int(w), int(h))
-	if err != nil {
-		panic(err)
-	}
-	return unsafe.Pointer(surf)
-}
-
-//export sub_48B1D0_free_surface
-func sub_48B1D0_free_surface(p *unsafe.Pointer) {
+func sub_48B1D0_free_surface(p **sdl.Surface) {
 	if s := *p; s != nil {
-		surf := (*sdl.Surface)(unsafe.Pointer(s))
-		surf.Free()
+		s.Free()
 		*p = nil
 	}
 }
@@ -68,7 +62,7 @@ func nox_video_getSurfaceData_48A720(s unsafe.Pointer, outPitch *C.int, outPixel
 }
 
 func nox_video_copyBackBuffer3_4AD1E0() {
-	if C.dword_973C70 != 0 {
+	if dword_973C70 != 0 {
 		return
 	}
 
@@ -80,12 +74,10 @@ func nox_video_copyBackBuffer3_4AD1E0() {
 	}
 	defer noxBackbuf.Unlock()
 
-	pixbuf := asPtrSlice(unsafe.Pointer(C.nox_pixbuffer_rows_3798784), height)
-
 	dpix := asU16Slice(noxBackbuf.Data(), int(noxBackbuf.Pitch*noxBackbuf.H)/2)
 	pitch := int(noxBackbuf.Pitch)
 	for y := 0; y < height; y++ {
-		row := asU16Slice(pixbuf[y], width)
+		row := asU16Slice(nox_pixbuffer_rows_3798784_arr[y], width)
 		drow := dpix[y*pitch/2 : (y+1)*pitch/2]
 		copy(drow, row[:width])
 	}
@@ -94,7 +86,6 @@ func nox_video_copyBackBuffer3_4AD1E0() {
 
 //export nox_video_setBackBufferPtrs_48A190
 func nox_video_setBackBufferPtrs_48A190() {
-	C.dword_6F7B9C = 1
 	C.nox_backbuffer1_pix = noxBackbuf.Data()
 	C.nox_backbuffer_pix = C.nox_backbuffer1_pix
 }
@@ -113,18 +104,17 @@ func nox_video_unlockSurface_48A6B0(s unsafe.Pointer) {
 
 func nox_video_copyBackBuffer_4AD2A0() {
 	// FIXME unlocked surfaces
-	if C.dword_973C70 != 0 {
+	if dword_973C70 != 0 {
 		return
 	}
-	width32 := int(C.nox_backbuffer_width32)
+	width32 := nox_backbuffer_width32
 	width := width32 * 32
-	pitch := width + int(C.nox_backbuffer_pitchDiff)
-	height := int(C.nox_backbuffer_height)
+	pitch := width + nox_backbuffer_pitchDiff
+	height := nox_backbuffer_height
 
 	dst := asByteSlice(unsafe.Pointer(C.nox_backbuffer_pix), height*width)
-	pixbuf := asPtrSlice(unsafe.Pointer(C.nox_pixbuffer_rows_3798784), height)
 	for y := 0; y < height; y++ {
-		row := asByteSlice(pixbuf[y], width32*32)
+		row := asByteSlice(nox_pixbuffer_rows_3798784_arr[y], width32*32)
 		drow := dst[y*pitch:]
 		for x := 0; x < width32; x++ {
 			i := x * 32
@@ -262,38 +252,31 @@ func createSurfaces(width, height int) error {
 	return nil
 }
 
-//export nox_video_resetRenderer_48A040
-func nox_video_resetRenderer_48A040(width, height, depth C.int) C.int {
-	C.g_backbuffer_count = 2
-	C.dword_6F7BB0 = 0
+func resetRenderer(width, height int) error {
+	dword_6F7BB0 = 0
 
 	dropRenderer()
 	noxBackbuf = nil // TODO: should we release it?
 
-	C.g_surface_973C88 = nil
-	C.g_surface_973C60 = nil
-	C.dword_973C70 = 0
-	C.dword_974854 = 0
-	C.dword_6F7B9C = 1
-	C.dword_5ACFAC = 1
+	g_surface_973C88 = nil
+	g_surface_973C60 = nil
+	dword_973C70 = 0
+	dword_974854 = 0
 	if C.nox_video_renderTargetFlags&4 == 0 {
-		C.sub_48AA40()
 		if err := initRenderer(); err != nil {
-			log.Println(err)
-			return 0
+			return err
 		}
-		if err := createSurfaces(int(width), int(height)); err != nil {
-			log.Println(err)
-			return 0
+		if err := createSurfaces(width, height); err != nil {
+			return err
 		}
 	}
-	C.dword_6F7BB0 = 1
-	C.sub_48A820(1)
+	dword_6F7BB0 = 1
+	//sub_48A820(1)
 	if nox_video_setBackBufSizes_48A3D0() == 0 {
-		return 0
+		return errors.New("nox_video_setBackBufSizes_48A3D0 failed")
 	}
-	C.sub_48A7F0()
-	return 1
+	//sub_48A7F0()
+	return nil
 }
 
 func nox_video_setBackBufSizes_48A3D0() int {
@@ -302,33 +285,32 @@ func nox_video_setBackBufSizes_48A3D0() int {
 	if noxBackbuf == nil {
 		return 0
 	}
-	C.nox_backbuffer_width = C.int(noxBackbuf.W)
-	C.nox_backbuffer_height = C.int(noxBackbuf.H)
+	nox_backbuffer_width = int(noxBackbuf.W)
+	nox_backbuffer_height = int(noxBackbuf.H)
 	*memmap.PtrUint32(0x5D4594, 3799564) = uint32(noxBackbuf.Pitch)
 	*memmap.PtrUint32(0x5D4594, 3801796) = 1
 	nox_video_setBackBufferPtrs_48A190()
 
-	C.nox_backbuffer_width32 = C.int(noxBackbuf.W >> 4)
+	nox_backbuffer_width32 = int(noxBackbuf.W >> 4)
 	*memmap.PtrUint32(0x5D4594, 3801776) = uint32(noxBackbuf.W >> 1)
 	C.dword_5d4594_3801780 = 1
-	C.nox_backbuffer_pitch_3801808 = 2 * C.int(noxBackbuf.W)
-	C.nox_backbuffer_pitchDiff = C.int(noxBackbuf.Pitch - 2*noxBackbuf.W)
+	nox_backbuffer_pitch_3801808 = 2 * int(noxBackbuf.W)
+	nox_backbuffer_pitchDiff = int(noxBackbuf.Pitch - 2*noxBackbuf.W)
 	C.dword_5d4594_3799624 = 1
 	return 1
 }
 
 //export nox_video_free_renderer_48A120
 func nox_video_free_renderer_48A120() {
-	C.dword_6F7BB0 = 0
+	dword_6F7BB0 = 0
 
-	C.sub_48B1D0_free_surface(&C.g_surface_973C60)
-	C.sub_48B1D0_free_surface(&C.g_surface_973C88)
+	sub_48B1D0_free_surface(&g_surface_973C60)
+	sub_48B1D0_free_surface(&g_surface_973C88)
 	if noxBackbuf != nil {
 		noxBackbuf.Free()
 		noxBackbuf = nil
 	}
 	nox_video_minimizeOrMaximize_48A9C0(0)
-	C.sub_48AA40()
 	_ = noxRenderer.Destroy()
 }
 
@@ -349,8 +331,9 @@ func presentFrame() {
 	var srect sdl.Rect
 	noxBackbuf.GetClipRect(&srect)
 
-	C.nox_video_mouseThreadXxx_48BE50(1)
-	C.nox_video_waitVBlankAndDrawCursorFromThread_48B5D0(0, 0)
+	nox_video_mouseThreadXxx_48BE50(true)
+	defer nox_video_mouseThreadXxx_48BE50(false)
+	nox_video_waitVBlankAndDrawCursorFromThread_48B5D0(0, 0)
 
 	drect := setViewport(int(noxBackbuf.W), int(noxBackbuf.H), int(dstw), int(dsth))
 	if drect != noxViewport {
@@ -371,8 +354,26 @@ func presentFrame() {
 	}
 	noxRenderer.Present()
 	_ = tex.Destroy()
+}
 
-	C.nox_video_mouseThreadXxx_48BE50(0)
+func nox_video_waitVBlankAndDrawCursorFromThread_48B5D0(a1, a2 int) int {
+	if memmap.Uint32(0x5D4594, 1193708) == 0 && nox_video_drawCursorThreadOk && C.dword_5d4594_823776 != 0 &&
+		nox_video_cursorDrawIsThreaded && C.dword_5d4594_1193672 != 0 && memmap.Uint32(0x5D4594, 1193108) != 0 && C.nox_video_bag_ready != 0 {
+		*memmap.PtrUint32(0x5D4594, 1193708) = 1
+		mu := asMutex(memmap.PtrOff(0x5D4594, 3799596))
+		mu.Lock()
+		res := sdl_drawCursorThreaded(a1) // FIXME SDL will always wait for vblank?
+		mu.Unlock()
+		*memmap.PtrUint32(0x5D4594, 1193708) = 0
+		return res
+	}
+	return 0
+}
+
+func nox_video_mouseThreadXxx_48BE50(a1 bool) {
+	if nox_video_drawCursorThreadOk && nox_video_cursorDrawIsThreaded {
+		nox_video_pauseThreadedDrawCursor = a1
+	}
 }
 
 //export nox_video_showMovieFrame
@@ -403,8 +404,7 @@ func rect2sdl(r *types.Rect) (sr sdl.Rect) {
 	return
 }
 
-//export sdl_drawCursorThreaded
-func sdl_drawCursorThreaded(a1 C.int) C.int {
+func sdl_drawCursorThreaded(a1 int) int {
 	r1 := (*types.Rect)(memmap.PtrOff(0x5D4594, 1193532))
 	r2 := (*types.Rect)(memmap.PtrOff(0x5D4594, 1193548))
 	r3 := (*types.Rect)(memmap.PtrOff(0x5D4594, 1193604))
@@ -448,8 +448,7 @@ func sdl_drawCursorThreaded(a1 C.int) C.int {
 		src = rect2sdl(r3)
 		dst = rect2sdl(&v4)
 
-		csurf := (*sdl.Surface)(unsafe.Pointer(C.g_cursor_surf))
-		if err := csurf.BlitScaled(&src, noxBackbuf, &dst); err != nil {
+		if err := g_cursor_surf.BlitScaled(&src, noxBackbuf, &dst); err != nil {
 			log.Println(err)
 			return 0
 		}
@@ -466,8 +465,7 @@ func sdl_drawCursorThreaded(a1 C.int) C.int {
 func nox_xxx_makeFillerColor_48BDE0() C.bool {
 	v0 := noxcolor.ExtendColor16(noxcolor.RGBColor(255, 0, 255))
 	*memmap.PtrUint32(0x5D4594, 1193592) = uint32(v0)
-	csurf := (*sdl.Surface)(unsafe.Pointer(C.g_cursor_surf))
-	if csurf != nil {
+	if g_cursor_surf != nil {
 		// FIXME use SDL_MapRGB instead?
 		var v uint32
 		if C.dword_5d4594_3799624 != 0 {
@@ -475,32 +473,32 @@ func nox_xxx_makeFillerColor_48BDE0() C.bool {
 		} else {
 			v = uint32(uint8(v0))
 		}
-		csurf.SetColorKey(true, v)
+		g_cursor_surf.SetColorKey(true, v)
 	}
 	return true
 }
 
 func nox_video_minimizeOrMaximize_48A9C0(a1 int) {
-	if C.dword_6F7BB0 == 0 {
+	if dword_6F7BB0 == 0 {
 		return
 	}
 	mu := asMutex(memmap.PtrOff(0x5D4594, 3799596))
 	mu.Lock()
 	defer mu.Unlock()
 
-	if C.dword_974854 != 0 {
+	if dword_974854 != 0 {
 		return
 	}
 
 	if C.nox_video_renderTargetFlags&0x10 != 0 {
-		C.dword_974854 = 1
+		dword_974854 = 1
 		log.Println("Ungrab")
 		noxWindow.SetGrab(false)
 		return
 	}
 	if a1 != 0 {
-		C.dword_974854 = 1
-		C.dword_973C70 = 1
+		dword_974854 = 1
+		dword_973C70 = 1
 		log.Println("Minimize")
 		windowMinimize()
 	}

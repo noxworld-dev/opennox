@@ -929,13 +929,19 @@ void  sub_468F80(int a1) {
 
 //----- (00430CC0) --------------------------------------------------------
 BOOL nox_xxx___cfltcvt_init_430CC0() {
-	BOOL result; // eax
-
 	*getMemU32Ptr(0x5D4594, 3807124) = 1;
 	*getMemU32Ptr(0x5D4594, 3807128) = nox_xxx_someEdgeProcessing_480EF0;
 	*getMemU32Ptr(0x5D4594, 3807132) = sub_468F80;
 	*getMemU32Ptr(0x5D4594, 3807148) = sub_4814F0;
 	dword_5d4594_3807156 = sub_469920;
+#ifdef NOX_CGO
+	nox_xxx_useMMX_587000_80800 = 0; // TODO: this is always zero, remove
+	dword_5d4594_805836 = 0;
+	dword_5d4594_3805484 = sub_480BE0;
+	dword_5d4594_3805492 = sub_480860;
+	return 0;
+#else // NOX_CGO
+	BOOL result; // eax
 	result = nox_xxx_testMMXSupport_430D40();
 	nox_xxx_useMMX_587000_80800 = result;
 	if (result) {
@@ -948,8 +954,10 @@ BOOL nox_xxx___cfltcvt_init_430CC0() {
 		dword_5d4594_3805492 = sub_480860;
 	}
 	return result;
+#endif // NOX_CGO
 }
 
+#ifndef NOX_CGO
 //----- (00430BA0) --------------------------------------------------------
 int nox_video_initFloorBuffer_430BA0() {
 	if (dword_5d4594_3801780 == 1)
@@ -964,7 +972,6 @@ int nox_video_initFloorBuffer_430BA0() {
 }
 
 //----- (00431040) --------------------------------------------------------
-#ifndef NOX_CGO
 int  nox_xxx_unused_431040(int a1, int a2, int a3) {
 	nox_win_width = a2;
 	nox_win_height = a3;

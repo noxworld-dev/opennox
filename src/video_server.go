@@ -63,18 +63,12 @@ func nox_video_setWinTitle_401FE0(title *C.char) {
 func nox_video_showMovieFrame(s unsafe.Pointer) {
 }
 
-//export nox_video_resetRenderer_48A040
-func nox_video_resetRenderer_48A040(width, height, depth C.int) C.int {
-	return 1
+func resetRenderer(width, height int) error {
+	return nil
 }
 
 //export nox_video_free_renderer_48A120
 func nox_video_free_renderer_48A120() {
-}
-
-//export sdl_drawCursorThreaded
-func sdl_drawCursorThreaded(a1 C.int) C.int {
-	return 1
 }
 
 //export nox_xxx_makeFillerColor_48BDE0

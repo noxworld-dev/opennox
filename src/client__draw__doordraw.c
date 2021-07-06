@@ -30,10 +30,10 @@ int  nox_thing_door_draw(_DWORD* a1, nox_drawable* dr) {
 		dr->field_111 = nox_xxx_gLoadImg_42F970("DoorLockGoldSW");
 		dr->field_112 = nox_xxx_gLoadImg_42F970("DoorLockGoldSE");
 	}
-	sub_4739E0(a1, (int2*)&dr->field_3, &a3);
+	sub_4739E0(a1, &dr->pos, &a3);
 	a3.field_0 -= 64;
 	a3.field_4 -= 79;
-	v2 = (_BYTE*)(*(int(**)(int2*)) & dword_5d4594_3807156)((int2*)&dr->field_3);
+	v2 = (_BYTE*)(*(int(**)(int2*)) & dword_5d4594_3807156)(&dr->pos);
 	v3 = sub_4345F0(1);
 	LOBYTE(v4) = v2[8];
 	LOBYTE(v3) = v2[4];

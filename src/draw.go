@@ -5,12 +5,85 @@ package main
 #include "client__system__client.h"
 #include "client__gui__guiquit.h"
 #include "client__gui__guiggovr.h"
+#include "client__video__draw_common.h"
+extern nox_draw_viewport_t nox_draw_viewport;
 */
 import "C"
 import (
+	"unsafe"
+
+	"nox/v1/common/alloc"
 	noxflags "nox/v1/common/flags"
 	"nox/v1/common/memmap"
+	"nox/v1/common/types"
 )
+
+func getViewport() *Viewport {
+	return asViewport(&C.nox_draw_viewport)
+}
+
+func asViewport(p *C.nox_draw_viewport_t) *Viewport {
+	return (*Viewport)(unsafe.Pointer(p))
+}
+
+type Viewport C.nox_draw_viewport_t
+
+func (vp *Viewport) C() *C.nox_draw_viewport_t {
+	return (*C.nox_draw_viewport_t)(unsafe.Pointer(vp))
+}
+
+func nox_xxx_guiFontHeightMB_43F320(a1 int) int {
+	return int(C.nox_xxx_guiFontHeightMB_43F320(C.int(a1)))
+}
+
+func nox_xxx_drawSetTextColor_434390(a1 uint32) {
+	C.ptr_5D4594_3799572.data[59] = C.uint(a1)
+}
+
+func nox_xxx_drawSetColor_4343E0(a1 uint32) {
+	C.ptr_5D4594_3799572.data[60] = C.uint(a1)
+}
+
+func nox_client_drawSetColor_434460(a1 uint32) {
+	C.ptr_5D4594_3799572.data[61] = C.uint(a1)
+}
+
+func nox_client_drawRectFilledOpaque_49CE30(x, y, w, h int) {
+	C.nox_client_drawRectFilledOpaque_49CE30(C.int(x), C.int(y), C.int(w), C.int(h))
+}
+
+func nox_client_drawRectFilledAlpha_49CF10(x, y, w, h int) {
+	C.nox_client_drawRectFilledAlpha_49CF10(C.int(x), C.int(y), C.int(w), C.int(h))
+}
+
+func nox_xxx_drawString_43F6E0(a1 int, a2 string, a3 int, a4 int) {
+	sp := CWString(a2)
+	defer WStrFree(sp)
+	C.nox_xxx_drawString_43F6E0(C.int(a1), sp, C.int(a3), C.int(a4))
+}
+
+func nox_xxx_drawString_43FAF0(a1 int, a2 string, a3, a4, a5, a6 int) {
+	sp := CWString(a2)
+	defer WStrFree(sp)
+	C.nox_xxx_drawString_43FAF0(C.int(a1), sp, C.int(a3), C.int(a4), C.int(a5), C.int(a6))
+}
+
+func nox_xxx_drawGetStringSize_43F840(a1 int, a2 string, a5 int) types.Size {
+	sp := CWString(a2)
+	defer WStrFree(sp)
+	p := (*C.nox_point)(alloc.Malloc(unsafe.Sizeof(C.nox_point{})))
+	defer alloc.Free(unsafe.Pointer(p))
+	C.nox_xxx_drawGetStringSize_43F840(C.int(a1), sp, &p.x, &p.y, C.int(a5))
+	return types.Size{W: int(p.x), H: int(p.y)}
+}
+
+func nox_video_drawAnimatedImageOrCursorAt_4BE6D0(a1 uint32, a2, a3 int) {
+	C.nox_video_drawAnimatedImageOrCursorAt_4BE6D0(C.int(a1), C.int(a2), C.int(a3))
+}
+
+func nox_client_drawImageAt_47D2C0(img *C.nox_video_bag_image_t, x, y int) {
+	C.nox_client_drawImageAt_47D2C0(img, C.int(x), C.int(y))
+}
 
 func nox_xxx_client_435F80_draw() bool {
 	mpos := noxInp.GetMousePos()

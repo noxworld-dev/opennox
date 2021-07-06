@@ -35,12 +35,10 @@ extern _DWORD dword_5d4594_1098620;
 extern _DWORD nox_xxx_cursorTypePrev_587000_151528;
 extern _DWORD dword_5d4594_1123520;
 extern _DWORD dword_5d4594_1193188;
-extern _DWORD dword_5d4594_1097196;
 extern _DWORD dword_5d4594_1193176;
 extern _DWORD dword_5d4594_1098596;
 extern _DWORD dword_5d4594_1193336;
 extern _DWORD nox_xxx_useAudio_587000_80840;
-extern _DWORD dword_5d4594_1097192;
 extern _DWORD dword_5d4594_3799452;
 extern _DWORD dword_5d4594_1098600;
 extern _DWORD dword_5d4594_3807152;
@@ -49,20 +47,18 @@ extern _DWORD dword_5d4594_1193672;
 extern _DWORD dword_5d4594_3807136;
 extern _DWORD dword_5d4594_1098604;
 extern _DWORD dword_587000_154968;
-extern _DWORD dword_5d4594_1193624;
+extern void* dword_5d4594_1193624;
 extern _DWORD dword_5d4594_1193664;
 extern _DWORD dword_5d4594_1193524;
 extern _DWORD dword_5d4594_3805484;
 extern _DWORD dword_5d4594_3804684;
 extern _DWORD dword_5d4594_1193156;
 extern _DWORD dword_5d4594_3807140;
-extern _DWORD dword_5d4594_1097208;
 extern _DWORD dword_5d4594_3799552;
 extern _DWORD dword_5d4594_1193648;
 extern _DWORD dword_5d4594_1193668;
 extern _DWORD nox_video_bag_ready;
 extern _DWORD nox_xxx_xxxRenderGUI_587000_80832;
-extern _DWORD dword_5d4594_1097188;
 extern _DWORD dword_587000_154960;
 extern _DWORD dword_5d4594_3799476;
 extern _DWORD dword_5d4594_3799468;
@@ -82,7 +78,6 @@ extern _DWORD dword_5d4594_3799508;
 extern _DWORD dword_5d4594_3798812;
 extern _DWORD dword_5d4594_3798800;
 extern _DWORD dword_5d4594_1193584;
-extern int nox_backbuffer_pitch_3801808;
 extern _DWORD dword_5d4594_3798828;
 extern _QWORD qword_581450_9552;
 extern _QWORD qword_581450_9544;
@@ -93,7 +88,6 @@ extern _DWORD dword_5d4594_1189596;
 extern _DWORD dword_5d4594_1189592;
 extern _DWORD cpuid_5d4594_3801804;
 extern _DWORD dword_5d4594_3798816;
-extern _DWORD dword_5d4594_1096640;
 extern _DWORD nox_client_highResFloors_154952;
 extern _DWORD dword_5d4594_3798808;
 extern _DWORD dword_5d4594_3798832;
@@ -139,7 +133,7 @@ extern int nox_video_drawCursorThreadOk;
 extern int nox_video_allowCursorDrawThread;
 extern int nox_video_windowsPlatformVersion;
 extern int nox_video_cursorDrawIsThreaded;
-extern int nox_client_mouseCursorType;
+int nox_client_mouseCursorType = 0;
 extern unsigned int nox_frame_xxx_2598000;
 extern HANDLE* nox_video_cursorDrawThreadHandle;
 
@@ -153,8 +147,19 @@ extern obj_5D4594_3799572_t* ptr_5D4594_3799572;
 
 extern obj_5D4594_2650668_t** ptr_5D4594_2650668;
 
+#ifndef NOX_CGO
+_DWORD dword_5d4594_1097208 = 0;
+
+_DWORD nox_client_spellDragnDrop_1097192 = 0;
+_DWORD nox_client_spellDragnDrop_type_1097196 = 0;
+void* nox_client_itemDragnDrop_1097188 = 0;
+
+int nox_backbuffer_pitch_3801808 = 0;
+#endif // NOX_CGO
 BYTE** nox_pixbuffer_rows_3798776 = 0;
 BYTE* nox_pixbuffer_3798788 = 0;
+
+void* dword_5d4594_1096640 = 0;
 
 void( *func_587000_154940)(int2*, _DWORD, _DWORD) = nox_xxx_tileDraw_4815E0;
 int ( *func_587000_154944)(int, int) = nox_xxx_drawTexEdgesProbably_481900;
@@ -510,6 +515,7 @@ void sub_4766E0() { nox_draw_setCutSize_476700(0, 2); }
 //----- (004766F0) --------------------------------------------------------
 void sub_4766F0() { nox_draw_setCutSize_476700(0, -2); }
 
+#ifndef NOX_CGO
 //----- (00476700) --------------------------------------------------------
 void nox_draw_setCutSize_476700(int cutPerc, int a2) {
 	nox_draw_viewport_t* rdr = nox_draw_getViewport_437250();
@@ -567,6 +573,7 @@ void nox_draw_setCutSize_476700(int cutPerc, int a2) {
 	dword_5d4594_1193188 = 1;
 	dword_5d4594_3799524 = 1;
 }
+#endif // NOX_CGO
 
 //----- (00476850) --------------------------------------------------------
 void  sub_476850(int a1, unsigned __int8* a2) {
@@ -963,7 +970,7 @@ int sub_476F60() {
 	int result; // eax
 
 	if (dword_5d4594_1096640)
-		result = *(_DWORD*)(dword_5d4594_1096640 + 128);
+		result = *(_DWORD*)((_DWORD)dword_5d4594_1096640 + 128);
 	else
 		result = 0;
 	return result;
@@ -1226,43 +1233,33 @@ int nox_client_getCursorType_477620() { return nox_client_mouseCursorType; }
 //----- (00477630) --------------------------------------------------------
 int nox_xxx_cursorGetTypePrev_477630() { return nox_xxx_cursorTypePrev_587000_151528; }
 
+#ifndef NOX_CGO
 //----- (00477640) --------------------------------------------------------
-int  nox_xxx_bookSaveSpellForDragDrop_477640(int a1, int a2) {
-	int result; // eax
-
-	result = a1;
-	dword_5d4594_1097192 = a1;
-	dword_5d4594_1097196 = a2;
-	return result;
+void  nox_xxx_bookSaveSpellForDragDrop_477640(int a1, int a2) {
+	nox_client_spellDragnDrop_1097192 = a1;
+	nox_client_spellDragnDrop_type_1097196 = a2;
 }
 
 //----- (00477660) --------------------------------------------------------
-int nox_xxx_bookSpellDnDclear_477660() {
-	int result; // eax
-
-	result = 0;
-	dword_5d4594_1097192 = 0;
-	dword_5d4594_1097196 = 0;
-	return result;
+void nox_xxx_bookSpellDnDclear_477660() {
+	nox_client_spellDragnDrop_1097192 = 0;
+	nox_client_spellDragnDrop_type_1097196 = 0;
 }
 
 //----- (00477670) --------------------------------------------------------
-int nox_xxx_bookGetSpellDnDType_477670() { return dword_5d4594_1097196; }
+int nox_xxx_bookGetSpellDnDType_477670() { return nox_client_spellDragnDrop_type_1097196; }
 
 //----- (00477680) --------------------------------------------------------
-int nox_xxx_cursorGetDraggedItem_477680() { return dword_5d4594_1097188; }
+nox_drawable* nox_xxx_cursorGetDraggedItem_477680() { return nox_client_itemDragnDrop_1097188; }
 
 //----- (00477690) --------------------------------------------------------
-int  nox_xxx_cursorSetDraggedItem_477690(int a1) {
-	int result; // eax
-
-	result = a1;
-	dword_5d4594_1097188 = a1;
-	return result;
+void nox_xxx_cursorSetDraggedItem_477690(nox_drawable* a1) {
+	nox_client_itemDragnDrop_1097188 = a1;
 }
 
 //----- (004776A0) --------------------------------------------------------
-void nox_xxx_cursorResetDraggedItem_4776A0() { dword_5d4594_1097188 = 0; }
+void nox_xxx_cursorResetDraggedItem_4776A0() { nox_client_itemDragnDrop_1097188 = 0; }
+#endif // NOX_CGO
 
 //----- (004776B0) --------------------------------------------------------
 void  nox_xxx_cursorSetTooltip_4776B0(wchar_t* a1) {
@@ -1304,6 +1301,7 @@ char* nox_xxx_cursorLoadAll_477710() {
 	return result;
 }
 
+#ifndef NOX_CGO
 //----- (00477830) --------------------------------------------------------
 void nox_client_drawCursorAndTooltips_477830() {
 	char* v1;     // eax
@@ -1328,22 +1326,22 @@ void nox_client_drawCursorAndTooltips_477830() {
 	v9[5] = 0;
 	*getMemU32Ptr(0x5D4594, 1097204) = 0;
 	dword_5d4594_1097208 = nox_xxx_guiFontHeightMB_43F320(0) + 4;
-	if (dword_5d4594_1097188) // Dragging item
+	if (nox_client_itemDragnDrop_1097188) // Dragging item
 	{
-		*(_DWORD*)(dword_5d4594_1097188 + 12) = mpos.x;
-		*(_DWORD*)(dword_5d4594_1097188 + 16) = mpos.y;
-		(*(void(**)(int*, _DWORD))(dword_5d4594_1097188 + 300))(v9, dword_5d4594_1097188);
+		*(_DWORD*)((_DWORD)nox_client_itemDragnDrop_1097188 + 12) = mpos.x;
+		*(_DWORD*)((_DWORD)nox_client_itemDragnDrop_1097188 + 16) = mpos.y;
+		(*(void(**)(int*, _DWORD))((_DWORD)nox_client_itemDragnDrop_1097188 + 300))(v9, nox_client_itemDragnDrop_1097188);
 	}
-	if (dword_5d4594_1097192) // Player is dragging spell or ability
+	if (nox_client_spellDragnDrop_1097192) // Player is dragging spell or ability
 	{
 		v1 = nox_common_playerInfoGetByID_417040(*getMemIntPtr(0x5D4594, 2616328));
 		if (!v1 || v1[2251]) {
-			v2 = nox_xxx_spellIcon_424A90(*(int*)&dword_5d4594_1097192); // Spell icon
+			v2 = nox_xxx_spellIcon_424A90(nox_client_spellDragnDrop_1097192); // Spell icon
 			if (v2) {
 				nox_client_drawImageAt_47D2C0(v2, mpos.x - 15, mpos.y - 15);
 			}
 		} else {
-			v2 = nox_xxx_spellGetAbilityIcon_425310(*(int*)&dword_5d4594_1097192, 0); // Ability icon
+			v2 = nox_xxx_spellGetAbilityIcon_425310(nox_client_spellDragnDrop_1097192, 0); // Ability icon
 			if (v2) {
 				nox_client_drawImageAt_47D2C0(v2, mpos.x - 15, mpos.y - 15);
 			}
@@ -1416,24 +1414,28 @@ void sub_477F80() {
 		}
 	}
 }
+#endif // NOX_CGO
 
 //----- (00477FF0) --------------------------------------------------------
 int sub_477FF0() { return sub_4BE7B0(*getMemIntPtr(0x5D4594, 1097260)); }
 
+
+#ifndef NOX_CGO
 //----- (00478000) --------------------------------------------------------
 int sub_478000() {
 	int result; // eax
 	int v1;     // eax
 
 	sub_467CD0();
-	result = dword_5d4594_1097196;
-	if (dword_5d4594_1097196) {
+	result = nox_client_spellDragnDrop_type_1097196;
+	if (nox_client_spellDragnDrop_type_1097196) {
 		v1 = nox_xxx_wndGetCaptureMain_46AE00();
 		nox_xxx_wndClearCaptureMain_46ADE0(v1);
-		result = nox_xxx_bookSpellDnDclear_477660();
+		nox_xxx_bookSpellDnDclear_477660();
 	}
 	return result;
 }
+#endif // NOX_CGO
 
 //----- (00478030) --------------------------------------------------------
 int sub_478030() { return dword_5d4594_1098624; }
@@ -5874,6 +5876,7 @@ _WORD*  sub_480EB0(_WORD* a1, __int16* a2, int a3) {
 }
 
 //----- (00480EF0) --------------------------------------------------------
+int nox_getBackbufferPitch();
 int*  nox_xxx_someEdgeProcessing_480EF0(int a1, int a2, int a3, int* a4, int* a5, int a6, int a7, int a8, int a9, int a10) {
 	int* result;                                        // eax
 	int v10;                                            // ebx
@@ -6051,6 +6054,11 @@ int*  nox_xxx_someEdgeProcessing_480EF0(int a1, int a2, int a3, int* a4, int* a5
 		return result;
 	}
 	v56 = v41;
+#ifdef NOX_CGO
+	int bpitch = nox_getBackbufferPitch();
+#else // NOX_CGO
+	int bpitch = nox_backbuffer_pitch_3801808;
+#endif // NOX_CGO
 	while (1) {
 		v32 = 0;
 		v54 = 0;
@@ -6134,7 +6142,7 @@ int*  nox_xxx_someEdgeProcessing_480EF0(int a1, int a2, int a3, int* a4, int* a5
 			}
 		}
 		v31 = v52;
-		v52 += nox_backbuffer_pitch_3801808;
+		v52 += bpitch;
 		++v45.field_4;
 		result = (int*)--v56;
 		if (!v56)
@@ -6591,8 +6599,8 @@ LABEL_9:
 		goto LABEL_60;
 	}
 	if (v3 >= *(int*)&dword_5d4594_3798820 + 23) {
-		v71 = nox_backbuffer_width + v3;
-		if (nox_backbuffer_width + v3 <= *(int*)&dword_5d4594_3798800 + dword_5d4594_3798820 - 46 ||
+		v71 = nox_getBackbufWidth() + v3;
+		if (v71 <= *(int*)&dword_5d4594_3798800 + dword_5d4594_3798820 - 46 ||
 			*(int*)&dword_5d4594_3798812 + *(int*)&dword_5d4594_3798828 - 1 >= 128) {
 			goto LABEL_36;
 		}
@@ -6677,12 +6685,12 @@ LABEL_9:
 	}
 LABEL_36:
 	if ((int)v78 >= *(int*)&dword_5d4594_3798824 + 23) {
-		if ((int)&v78[nox_backbuffer_height] <= *(int*)&dword_5d4594_3798824 + *(int*)&dword_5d4594_3798808)
+		if ((int)&v78[nox_getBackbufHeight()] <= *(int*)&dword_5d4594_3798824 + *(int*)&dword_5d4594_3798808)
 			goto LABEL_60;
 		v22 = dword_5d4594_3798832;
 		if (*(int*)&dword_5d4594_3798832 + *(int*)&dword_5d4594_3798816 >= 128)
 			goto LABEL_60;
-		if ((int)&v78[nox_backbuffer_height] > *(int*)&dword_5d4594_3798824 + *(int*)&dword_5d4594_3798808 + 46) {
+		if ((int)&v78[nox_getBackbufHeight()] > *(int*)&dword_5d4594_3798824 + *(int*)&dword_5d4594_3798808 + 46) {
 			nox_xxx_tileDrawImpl_4826A0(a1);
 			goto LABEL_60;
 		}
@@ -9768,6 +9776,7 @@ int nox_xxx_tile_486060() {
 	return result;
 }
 
+#ifndef NOX_CGO
 //----- (00486110) --------------------------------------------------------
 void nox_free_pixbuffers_486110() {
 	if (!*getMemU32Ptr(0x5D4594, 1193200)) {
@@ -9862,6 +9871,7 @@ int sub_486230() {
 	}
 	return 1;
 }
+#endif // NOX_CGO
 
 //----- (004862E0) --------------------------------------------------------
 int  sub_4862E0(int a3, int a4) {
@@ -12411,6 +12421,7 @@ int  sub_48B3E0(int a1) {
 	return result;
 }
 
+#ifndef NOX_CGO
 //----- (0048B590) --------------------------------------------------------
 void  sub_48B590(_DWORD* a1, _DWORD* a2, _DWORD* a3) {
 	if (a1)
@@ -12445,7 +12456,6 @@ int  sub_48B6B0(int a1, int a2, int a3) {
 	ptr_5D4594_3799572->data[34] = (unsigned __int8)a1;
 	ptr_5D4594_3799572->data[35] = (unsigned __int8)a2;
 	ptr_5D4594_3799572->data[36] = (unsigned __int8)a3;
-#ifndef NOX_CGO
 	if (cpuid_5d4594_3801804) {
 		v4 = (unsigned __int8)a1 | ((unsigned __int8)a1 << 16);
 		HIDWORD(v4) = 0;
@@ -12464,7 +12474,6 @@ int  sub_48B6B0(int a1, int a2, int a3) {
 		result = ptr_5D4594_3799572;
 		ptr_5D4594_3799572->data[33] = HIDWORD(v6);
 	}
-#endif // NOX_CGO
 	return result;
 }
 
@@ -12476,6 +12485,7 @@ int  sub_48B800(int a1) {
 	sub_434480(a1, (int)&v3, (int)&v2, (int)&a1);
 	return sub_48B6B0(v3, v2, a1);
 }
+#endif // NOX_CGO
 
 //----- (0048BD90) --------------------------------------------------------
 void  sub_48BD90(int a1) {
@@ -12488,6 +12498,7 @@ void  sub_48BD90(int a1) {
 	nox_mutex_unlock(getMemAt(0x5D4594, 3799596));
 }
 
+#ifndef NOX_CGO
 //----- (0048BE50) --------------------------------------------------------
 int  nox_video_mouseThreadXxx_48BE50(int a1) {
 	int result; // eax
@@ -12504,7 +12515,6 @@ int  nox_video_mouseThreadXxx_48BE50(int a1) {
 }
 
 //----- (0048BE70) --------------------------------------------------------
-#ifndef NOX_CGO
 int nox_video_createCursorDrawThread_48BE70() {
 	nox_video_allowCursorDrawThread = 1;
 	nox_video_cursorDrawThreadHandle = _beginthread(nox_video_cursorThreadWorker_48BEB0, 0, 0);
@@ -12542,7 +12552,7 @@ int nox_video_cursorThreadWorker_48BEB0() {
 #endif // NOX_CGO
 
 //----- (0048C0C0) --------------------------------------------------------
-int  sub_48C0C0(int a1, _DWORD* a2, _DWORD* a3) {
+int  sub_48C0C0(void* a1, _DWORD* a2, _DWORD* a3) {
 	int result; // eax
 	_DWORD* v4; // eax
 	_DWORD* v5; // eax
@@ -12561,6 +12571,7 @@ int  sub_48C0C0(int a1, _DWORD* a2, _DWORD* a3) {
 	return result;
 }
 
+#ifndef NOX_CGO
 //----- (0048C170) --------------------------------------------------------
 void  sub_48C170(int4* a1, int4* a2) {
 	if (nox_video_renderTargetFlags & 0x10) {
@@ -12575,6 +12586,7 @@ void  sub_48C170(int4* a1, int4* a2) {
 		a1->field_C = a2->field_C;
 	}
 }
+#endif // NOX_CGO
 
 //----- (0048C420) --------------------------------------------------------
 char sub_48C420() {

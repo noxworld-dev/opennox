@@ -159,7 +159,6 @@ int nox_video_setBackBufSizes_48A3D0() {
 	dword_5d4594_3799624 = 1;
 	return 1;
 }
-#endif // NOX_CGO
 
 
 #ifdef NOX_PLAY_MOVIES
@@ -267,7 +266,6 @@ int  nox_client_drawGeneral_4B0340(int a1) // draw general
 }
 
 //----- (0048A040) --------------------------------------------------------
-#ifndef NOX_CGO
 int  nox_video_resetRenderer_48A040(int width, int height, int depth) {
 	g_backbuffer_count = 2;
 	dword_6F7BB0 = 0;

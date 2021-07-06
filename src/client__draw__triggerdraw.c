@@ -6,14 +6,14 @@ int  nox_thing_trigger_draw(_DWORD* a1, nox_drawable* dr) {
 	int v2 = *a1 - a1[4];
 	int v3 = a1[1] - a1[5];
 
-	int v4 = *(_DWORD*)&dr->field_3 + v2 + nox_float2int(dr->shape.box_left_top);
-	int v12 = *(_DWORD*)&dr->field_4 + v3 + nox_float2int(dr->shape.box_left_bottom);
-	int v7 = *(_DWORD*)&dr->field_3 + v2 + nox_float2int(dr->shape.box_right_bottom_2);
-	int v8 = *(_DWORD*)&dr->field_4 + v3 + nox_float2int(dr->shape.box_right_top_2);
-	int v9 = *(_DWORD*)&dr->field_3 + v2 + nox_float2int(dr->shape.box_left_bottom_2);
-	int v10 = *(_DWORD*)&dr->field_4 + v3 + nox_float2int(dr->shape.box_left_top_2);
-	int v11 = *(_DWORD*)&dr->field_3 + v2 + nox_float2int(dr->shape.box_right_top);
-	int v5 = *(_DWORD*)&dr->field_4 + v3 + nox_float2int(dr->shape.box_right_bottom);
+	int v4 = dr->pos.x + v2 + nox_float2int(dr->shape.box_left_top);
+	int v12 = dr->pos.y + v3 + nox_float2int(dr->shape.box_left_bottom);
+	int v7 = dr->pos.x + v2 + nox_float2int(dr->shape.box_right_bottom_2);
+	int v8 = dr->pos.y + v3 + nox_float2int(dr->shape.box_right_top_2);
+	int v9 = dr->pos.x + v2 + nox_float2int(dr->shape.box_left_bottom_2);
+	int v10 = dr->pos.y + v3 + nox_float2int(dr->shape.box_left_top_2);
+	int v11 = dr->pos.x + v2 + nox_float2int(dr->shape.box_right_top);
+	int v5 = dr->pos.y + v3 + nox_float2int(dr->shape.box_right_bottom);
 
 	nox_client_drawSetColor_434460(*getMemIntPtr(0x5D4594, 2650656));
 	nox_client_drawEnableAlpha_434560(1);

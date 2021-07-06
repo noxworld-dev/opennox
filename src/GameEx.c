@@ -1139,7 +1139,7 @@ void OnLibraryNotice_264(DWORD arg1) {
 bool gameexSomeWeirdCheckFixmePlease();
 #else // NOX_CGO
 bool gameexSomeWeirdCheckFixmePlease() {
-	return ((dword_5d4594_1064896 >> 8) | ((unsigned int)nox_win_1064900 << 24)) == 0;
+	return (((_DWORD)dword_5d4594_1064896 >> 8) | ((unsigned int)nox_win_1064900 << 24)) == 0;
 }
 #endif // NOX_CGO
 void OnLibraryNotice_265(unsigned int arg1, unsigned int arg2, int arg3) {
@@ -1147,7 +1147,6 @@ void OnLibraryNotice_265(unsigned int arg1, unsigned int arg2, int arg3) {
 	// autoshield is actually implemented in appendix of nox_xxx_playerDequipWeapon_53A140
 	//a2a = (*(_DWORD*)(vaArg3 + 4) >> 7) & 1;
 	char a2a = arg3 > 0; // scroll weapons back or forth
-	_DWORD* result = (_DWORD*)(arg2 - 2);
 	if (arg2 == 2 && gameexSomeWeirdCheckFixmePlease()) {
 		if ((gameex_flags >> 3) & 1) {
 			if (nox_common_gameFlags_check_40A5C0(516)) {

@@ -1,3 +1,5 @@
+//+build none
+
 #include "client__gui__guicurs.h"
 
 #include "proto.h"
@@ -10,7 +12,7 @@ extern _DWORD dword_5d4594_3798728;
 extern int nox_win_width;
 extern int nox_win_height;
 extern unsigned int nox_frame_xxx_2598000;
-int nox_client_mouseCursorType = 0;
+extern int nox_client_mouseCursorType;
 
 //----- (00477A30) --------------------------------------------------------
 int  nox_video_cursorDrawImpl_477A30(int a1, int a2, int a3) {

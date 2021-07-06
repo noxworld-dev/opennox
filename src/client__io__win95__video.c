@@ -1,3 +1,5 @@
+//+build none
+
 #include "client__io__win95__video.h"
 
 #include "common/fs/nox_fs.h"

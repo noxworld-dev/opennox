@@ -48,7 +48,9 @@ __int16  nox_xxx_mapGenClientText_4A9D00(unsigned __int8* a1) {
 	sub_43F730(0, *(__int16**)getMemAt(0x5D4594, 1309660), v6 / 2, v7);
 	if (++*getMemU32Ptr(0x5D4594, 1309672) >= 32)
 		*getMemU32Ptr(0x5D4594, 1309672) = 0;
+#ifndef NOX_CGO
 	nox_xxx_directDrawBlitMB_48A220();
+#endif // NOX_CGO
 	nox_video_callCopyBackBuffer_4AD170();
 	sub_48A290_call_present();
 	return v2;

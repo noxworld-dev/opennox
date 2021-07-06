@@ -26,6 +26,7 @@ extern unsigned int nox_client_gui_flag_815132;
 
 extern int obj_5D4594_754104_switch;
 extern int nox_client_mouseCursorType;
+extern void* dword_5d4594_1096640;
 extern void* nox_client_spriteUnderCursorXxx_1096644;
 
 int nox_common_readcfgfile(const char* path, int a2);
@@ -56,8 +57,12 @@ func nox_client_getCursorType_477620() int {
 	return int(C.nox_client_mouseCursorType)
 }
 
-func nox_xxx_clientGetSpriteAtCursor_476F90() *Sprite {
-	return asSprite((*C.nox_drawable)(C.nox_client_spriteUnderCursorXxx_1096644))
+func nox_xxx_spriteGetMB_476F80() *Drawable {
+	return asDrawable((*C.nox_drawable)(C.dword_5d4594_1096640))
+}
+
+func nox_xxx_clientGetSpriteAtCursor_476F90() *Drawable {
+	return asDrawable((*C.nox_drawable)(C.nox_client_spriteUnderCursorXxx_1096644))
 }
 
 func nox_xxx_guiSpellTest_45D9C0() bool {
@@ -587,11 +592,11 @@ func nox_xxx_cursorUpdate_46B740_sprites(inp *Input, v63 bool, v66 []int) {
 		}
 
 		v65 = nox_xxx_getSomeCoods_435670()
-		sp := sprite.posMB()
+		sp := sprite.Pos()
 		c1 := v65.X - sp.X
 		c2 := v65.Y - sp.Y
 		v54 := c1*c1 + c2*c2
-		if sprite.Flags28()&0x80000000 == 0 || C.nox_xxx_cursorGetDraggedItem_477680() != 0 {
+		if sprite.Flags28()&0x80000000 == 0 || C.nox_xxx_cursorGetDraggedItem_477680() != nil {
 			if v54 < 125*125 {
 				if p := *memmap.PtrPtr(0x5D4594, 2618908); p != nil {
 					v57 := *(*uintptr)(unsafe.Pointer(uintptr(p) + 3680))
@@ -632,7 +637,7 @@ func nox_xxx_cursorUpdate_46B740_sprites(inp *Input, v63 bool, v66 []int) {
 		}
 		if sprite.Flags28()&0x400000 != 0 && sprite.Flags29()&0x80 != 0 && sprite.Flags70()&0xC == 0 || uint32(sprite.field_27) == mimic && sprite.field_69 == 0 {
 			v65 = nox_xxx_getSomeCoods_435670()
-			sp := sprite.posMB()
+			sp := sprite.Pos()
 			c1 := v65.X - sp.X
 			c2 := v65.Y - sp.Y
 			if c1*c1+c2*c2 < 75*75 && sprite.Flags30()&0x1000000 != 0 && sprite.Flags70()&0xC == 0 {

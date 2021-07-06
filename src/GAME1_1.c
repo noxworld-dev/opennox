@@ -7922,7 +7922,7 @@ int  nox_xxx_abilityCooldown_4252D0(int a1) { return *getMemU32Ptr(0x5D4594, 599
 int  sub_4252F0(int a1) { return *getMemU32Ptr(0x5D4594, 599136 + 52 * a1); }
 
 //----- (00425310) --------------------------------------------------------
-int  nox_xxx_spellGetAbilityIcon_425310(int a1, int a2) { return *getMemU32Ptr(0x5D4594, 599140 + 4 * (a1 + a2 + 12 * a1)); }
+void*  nox_xxx_spellGetAbilityIcon_425310(int a1, int a2) { return *getMemU32Ptr(0x5D4594, 599140 + 4 * (a1 + a2 + 12 * a1)); }
 
 //----- (00425330) --------------------------------------------------------
 int nox_xxx_bookFirstKnownAbil_425330() {

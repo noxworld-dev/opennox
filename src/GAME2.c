@@ -21,6 +21,7 @@
 #include "common__net_list.h"
 
 #include "client__audio__audevent.h"
+#include "client__video__draw_common.h"
 
 #include "proto.h"
 
@@ -790,7 +791,7 @@ int  sub_44DC40(int a1, int a2) {
 	if (!obj) {
 		return 0;
 	}
-	int v4 = a1 * nox_backbuffer_height / 100;
+	int v4 = a1 * nox_getBackbufHeight() / 100;
 	obj->fields[0] = 3;
 	obj->fields[1] = a2;
 	obj->fields[2] = 0;
@@ -806,7 +807,7 @@ int  sub_44DCA0(int a1, int a2) {
 	if (!obj) {
 		return 0;
 	}
-	int v4 = a1 * nox_backbuffer_height / 100;
+	int v4 = a1 * nox_getBackbufHeight() / 100;
 	v4 <<= 16;
 	obj->fields[0] = 1;
 	obj->fields[1] = a2;
@@ -826,7 +827,7 @@ int  nox_xxx_screenFadeEffect_44DD20(int a1) {
 	int result; // eax
 
 	nox_xxx_drawMakeRGB_433F10(*(int*)(a1 + 8) >> 16, *(int*)(a1 + 8) >> 16, *(int*)(a1 + 8) >> 16);
-	nox_client_drawRectFadingScreen_49D0F0(0, 0, nox_backbuffer_width, nox_backbuffer_height);
+	nox_client_drawRectFadingScreen_49D0F0(0, 0, nox_getBackbufWidth(), nox_getBackbufHeight());
 	result = *(_DWORD*)(a1 + 12);
 	*(_DWORD*)(a1 + 8) += result;
 	return result;
@@ -841,7 +842,7 @@ int  nox_client_drawFadingScreen_44DD70(int a1) {
 	v1 = a1;
 	v3 = -1 - (*(int*)(a1 + 8) >> 16);
 	nox_xxx_drawMakeRGB_433F10(v3, v3, v3);
-	nox_client_drawRectFadingScreen_49D0F0(0, 0, nox_backbuffer_width, nox_backbuffer_height);
+	nox_client_drawRectFadingScreen_49D0F0(0, 0, nox_getBackbufWidth(), nox_getBackbufHeight());
 	result = *(_DWORD*)(v1 + 12) + *(_DWORD*)(v1 + 8);
 	*(_DWORD*)(v1 + 8) = result;
 	return result;
@@ -850,7 +851,7 @@ int  nox_client_drawFadingScreen_44DD70(int a1) {
 //----- (0044DDC0) --------------------------------------------------------
 void nox_xxx_cliClearScreen_44DDC0() {
 	nox_client_drawSetColor_434460(*getMemIntPtr(0x5D4594, 2650656));
-	nox_client_drawRectFilledOpaque_49CE30(0, 0, nox_backbuffer_width, nox_backbuffer_height);
+	nox_client_drawRectFilledOpaque_49CE30(0, 0, nox_getBackbufWidth(), nox_getBackbufHeight());
 }
 
 //----- (0044DDF0) --------------------------------------------------------
@@ -860,7 +861,7 @@ int4*  sub_44DDF0(int a1) {
 	v1 = *(_DWORD*)(a1 + 12) + *(_DWORD*)(a1 + 8);
 	*(_DWORD*)(a1 + 8) = v1;
 	nox_xxx_drawMakeRGB_433F10(BYTE2(v1), BYTE2(v1), BYTE2(v1));
-	return sub_49D050(0, 0, nox_backbuffer_width, nox_backbuffer_height);
+	return sub_49D050(0, 0, nox_getBackbufWidth(), nox_getBackbufHeight());
 }
 
 //----- (0044DE30) --------------------------------------------------------
@@ -870,7 +871,7 @@ int4*  sub_44DE30(int a1) {
 	v1 = *(_DWORD*)(a1 + 12) + *(_DWORD*)(a1 + 8);
 	*(_DWORD*)(a1 + 8) = v1;
 	nox_xxx_drawMakeRGB_433F10(-1 - BYTE2(v1), -1 - BYTE2(v1), -1 - BYTE2(v1));
-	return sub_49D050(0, 0, nox_backbuffer_width, nox_backbuffer_height);
+	return sub_49D050(0, 0, nox_getBackbufWidth(), nox_getBackbufHeight());
 }
 
 //----- (0044DE80) --------------------------------------------------------
@@ -881,8 +882,8 @@ void  sub_44DE80(_DWORD* a1) {
 		a1[2] += a1[3];
 	v1 = a1[2] >> 16;
 	nox_set_color_rgb_434430(0, 0, 0);
-	nox_client_drawRectFilledOpaque_49CE30(0, 0, nox_backbuffer_width, v1);
-	nox_client_drawRectFilledOpaque_49CE30(0, nox_backbuffer_height - v1, nox_backbuffer_width, v1);
+	nox_client_drawRectFilledOpaque_49CE30(0, 0, nox_getBackbufWidth(), v1);
+	nox_client_drawRectFilledOpaque_49CE30(0, nox_getBackbufHeight() - v1, nox_getBackbufWidth(), v1);
 }
 
 //----- (0044DEE0) --------------------------------------------------------
@@ -898,8 +899,8 @@ void  sub_44DEE0(_DWORD* a1) {
 	a1[2] = v1;
 	v2 = v1 >> 16;
 	nox_set_color_rgb_434430(0, 0, 0);
-	nox_client_drawRectFilledOpaque_49CE30(0, 0, nox_backbuffer_width, v2);
-	nox_client_drawRectFilledOpaque_49CE30(0, nox_backbuffer_height - v2, nox_backbuffer_width, v2);
+	nox_client_drawRectFilledOpaque_49CE30(0, 0, nox_getBackbufWidth(), v2);
+	nox_client_drawRectFilledOpaque_49CE30(0, nox_getBackbufHeight() - v2, nox_getBackbufWidth(), v2);
 }
 
 //----- (0044DF50) --------------------------------------------------------
@@ -1241,7 +1242,7 @@ int  sub_44E6F0(_DWORD* a1, int xLeft) {
 	} else {
 		nox_xxx_wndStaticDrawNoImage_488D00((int)a1, xLeft);
 	}
-	nox_client_copyRect_49F6F0(0, 0, nox_backbuffer_width, nox_backbuffer_height);
+	nox_client_copyRect_49F6F0(0, 0, nox_getBackbufWidth(), nox_getBackbufHeight());
 	if ((__int64)*(float*)&dword_5d4594_831276 <= *getMemIntPtr(0x5D4594, 831280) && dword_5d4594_831244 == 1 &&
 		!sub_44D930() && (unsigned __int64)(nox_platform_get_ticks() - *getMemU64Ptr(0x5D4594, 831292)) > 0x3A98 &&
 		(*getMemU32Ptr(0x5D4594, 832488) == 1 || !(getMemByte(0x5D4594, 832472) & 5))) {
@@ -5444,9 +5445,9 @@ nox_drawable*  nox_xxx_spriteLoadAdd_45A360_drawable(int thingInd, int a2, int a
 		nox_xxx_spriteToSightDestroyList_49BAB0_drawable(dr);
 	if (dr->field_123)
 		sub_459F40_drawable(dr);
-	dr->field_3 = a2;
+	dr->pos.x = a2;
 	dr->field_8 = a2;
-	dr->field_4 = a3;
+	dr->pos.y = a3;
 	dr->field_9 = a3;
 	dr->field_80 = nox_frame_xxx_2598000;
 	dr->field_92 = nox_drawable_head_unk1;

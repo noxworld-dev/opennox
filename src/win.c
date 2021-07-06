@@ -10,13 +10,13 @@
 #include <SDL2/SDL.h>
 
 SDL_Window* g_window;
+int g_scaled = 0;
 int g_fullscreen = -4; // -4 means "unset"
 extern _DWORD dword_5d4594_371712;
 extern _DWORD dword_5d4594_805860;
 extern _DWORD dword_5d4594_823776;
 extern int nox_video_dxFullScreen;
 
-extern int g_scaled;
 // FIXME: w&h are set to 0 at initialization (but window will be resized a moment later)
 extern int nox_win_width;
 extern int nox_win_height;
@@ -27,6 +27,12 @@ int nox_video_getFullScreen() {
 }
 void nox_video_setFullScreen(int v) {
 	g_fullscreen = v;
+}
+int nox_video_getScaled() {
+	return g_scaled;
+}
+void nox_video_setScaled(int v) {
+	g_scaled = v;
 }
 //----- (00401C70) --------------------------------------------------------
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd) {

@@ -292,6 +292,16 @@ typedef struct int4 {
 	int field_C;
 } int4;
 
+typedef struct {
+	int x;
+	int y;
+} nox_point;
+
+typedef struct {
+	float x;
+	float y;
+} nox_pointf;
+
 typedef enum { NOX_SHAPE_NONE = 0, NOX_SHAPE_CENTER = 1, NOX_SHAPE_CIRCLE = 2, NOX_SHAPE_BOX = 3 } nox_shape_kind;
 
 typedef struct nox_shape {
@@ -832,8 +842,7 @@ typedef struct nox_drawable {
 	_DWORD field_0;        // 0, 0
 	_DWORD field_1;        // 1, 4
 	_DWORD field_2;        // 2, 8
-	int field_3;           // 3, 12
-	int field_4;           // 4, 16
+	nox_point pos;         // 3, 12
 	_DWORD field_5;        // 5, 20
 	_DWORD field_6;        // 6, 24
 	_DWORD field_7;        // 7, 28
@@ -1111,16 +1120,6 @@ typedef struct nox_video_mode {
 	int id;
 } nox_video_mode;
 
-typedef struct {
-	int x;
-	int y;
-} nox_point;
-
-typedef struct {
-	float x;
-	float y;
-} nox_pointf;
-
 enum {
 	NOX_MOUSE_LEFT = 0,
 	NOX_MOUSE_RIGHT = 1,
@@ -1326,7 +1325,17 @@ typedef struct nox_playerInfo {
 	unsigned int active; // 523, 2092
 	char field_2096[16]; // 524, 2096
 	_DWORD data_2112[22]; // 2112 is a string buf, 2185 is wchar_t buf
-	_DWORD data_2200[50]; // 2352 is wchar_t buf
+	_DWORD data_2200[10];
+	_DWORD field_2240;
+	_DWORD field_2244;
+	_WORD field_2248; // 562, 2248
+	_BYTE field_2250; // 562, 2250
+	_BYTE playerClass; // 562, 2251
+	_DWORD field_2252;
+	_DWORD field_2256;
+	_DWORD data_2260[5];
+	_DWORD data_2280[5];
+	_DWORD data_2300[25]; // 2352 is wchar_t buf
 	_DWORD data_2400[100];
 	_DWORD data_2800[100];
 	_DWORD data_3200[50];

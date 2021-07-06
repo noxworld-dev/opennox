@@ -137,13 +137,12 @@ extern int nox_backbuffer_height;
 
 extern float input_sensitivity;
 
-int nox_win_width = 0;
-int nox_win_height = 0;
-
 #ifndef NOX_CGO
 int nox_max_width = NOX_MAX_WIDTH;
 int nox_max_height = NOX_MAX_HEIGHT;
 #endif // NOX_CGO
+int nox_win_width = 0;
+int nox_win_height = 0;
 
 FILE* nox_video_bag_fileptr = 0;
 
@@ -4489,6 +4488,7 @@ char*  sub_430B80(_DWORD* a1) {
 	return (char*)getMemAt(0x5D4594, 3805516);
 }
 
+#ifndef NOX_CGO
 //----- (00430BB0) --------------------------------------------------------
 void  sub_430BB0(_DWORD* a1, _DWORD* a2, _DWORD* a3) {
 	*a1 = nox_backbuffer_width;
@@ -4497,7 +4497,6 @@ void  sub_430BB0(_DWORD* a1, _DWORD* a2, _DWORD* a3) {
 }
 
 //----- (00430BE0) --------------------------------------------------------
-#ifndef NOX_CGO
 void input_set_draw_win_size(int w, int h);
 void nox_video_resizewnd(int w, int h, int d) {
 	printf("New size: %d, %d\n", w, h);
@@ -4524,7 +4523,6 @@ void  nox_xxx_screenGetSize_430C50_get_video_max(int* w, int* h) {
 	*w = nox_max_width;
 	*h = nox_max_height;
 }
-#endif // NOX_CGO
 
 //----- (00430D40) --------------------------------------------------------
 BOOL nox_xxx_testMMXSupport_430D40() {
@@ -4536,6 +4534,7 @@ BOOL nox_xxx_testMMXSupport_430D40() {
 		result = nox_xxx_testCPUID2_444D90();
 	return result;
 }
+#endif // NOX_CGO
 
 //----- (00430DB0) --------------------------------------------------------
 int  nox_xxx_tileInitBuf_430DB0(int a1, int a2) {
@@ -6037,7 +6036,7 @@ void sub_437260() {
 }
 
 //----- (00437290) --------------------------------------------------------
-int4* sub_437290() { return nox_client_copyRect_49F6F0(0, 0, nox_backbuffer_width, nox_backbuffer_height); }
+int4* sub_437290() { return nox_client_copyRect_49F6F0(0, 0, nox_getBackbufWidth(), nox_getBackbufHeight()); }
 
 //----- (004372B0) --------------------------------------------------------
 BOOL nox_xxx_playerAnimCheck_4372B0() {

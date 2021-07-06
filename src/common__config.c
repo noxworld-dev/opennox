@@ -32,7 +32,6 @@ extern _DWORD nox_server_connectionType_3596;
 extern _DWORD nox_server_resetQuestMinVotes_229988;
 extern _DWORD nox_server_kickQuestPlayerMinVotes_229992;
 
-int g_scaled = 0;
 int g_scaled_cfg = 0;
 int g_fullscreen_cfg = 0;
 
@@ -301,8 +300,8 @@ LABEL_2:
 			token = strtok(NULL, " \r\t\n");
 			if (token) {
 				g_scaled_cfg = atoi(token);
-				if (g_scaled >= 0) {
-					g_scaled = g_scaled_cfg;
+				if (nox_video_getScaled() >= 0) {
+					nox_video_setScaled(g_scaled_cfg);
 				}
 			}
 		} else if (!strcmp(v1, "InputSensitivity")) {

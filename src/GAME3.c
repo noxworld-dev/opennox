@@ -65,7 +65,6 @@ extern _DWORD dword_5d4594_1308116;
 extern _DWORD dword_5d4594_1313740;
 extern _DWORD dword_5d4594_1308100;
 extern _DWORD dword_5d4594_1308132;
-extern _DWORD dword_5d4594_3798644;
 extern _DWORD dword_5d4594_1308108;
 extern _DWORD dword_5d4594_1308120;
 extern _DWORD dword_5d4594_1308156;
@@ -88,7 +87,7 @@ extern _DWORD dword_5d4594_1309784;
 extern _DWORD dword_5d4594_1312476;
 extern nox_gui_animation* nox_wnd_xxx_1307748;
 extern _DWORD dword_5d4594_1307736;
-extern _DWORD dword_5d4594_3798648;
+extern char* dword_5d4594_3798648;
 extern _DWORD dword_5d4594_1309776;
 extern _DWORD dword_5d4594_1309708;
 extern _DWORD nox_client_renderGlow_805852;
@@ -120,7 +119,6 @@ extern void* (*nox_video_getImagePixdata_func)(nox_video_bag_image_t*);
 extern _DWORD dword_5d4594_2618912;
 extern _DWORD dword_5d4594_3798640;
 extern _DWORD dword_5d4594_1307776;
-extern _DWORD dword_5d4594_3798632;
 extern _DWORD dword_5d4594_1309748;
 extern _DWORD dword_5d4594_1311148;
 extern _DWORD dword_5d4594_1313796;
@@ -163,6 +161,9 @@ FILE* nox_file_9 = 0;
 nox_gui_animation* nox_wnd_xxx_1307732 = 0;
 nox_gui_animation* nox_wnd_xxx_1308092 = 0;
 nox_gui_animation* nox_wnd_xxx_1309740 = 0;
+
+void* dword_5d4594_3798632 = 0;
+char* dword_5d4594_3798644 = 0;
 
 //----- (004A19D0) --------------------------------------------------------
 void sub_4A19D0() {
@@ -6093,7 +6094,7 @@ int sub_4AE470() {
 			if (result) {
 				v1 = dword_5d4594_3798636;
 				for (result = dword_5d4594_3798640; v1 <= *(int*)&dword_5d4594_3798640; dword_5d4594_3798636 = v1) {
-					v2 = *(unsigned __int16**)(dword_5d4594_3798632 + 4 * v1);
+					v2 = *(unsigned __int16**)((_DWORD)dword_5d4594_3798632 + 4 * v1);
 					v3 = (unsigned __int16*)*((_DWORD*)v2 + 1);
 					if (*((_DWORD*)v3 + 1)) {
 						(*(void(**)(_DWORD, _DWORD, _DWORD)) & dword_5d4594_3798720)(*v2, v1, *v3);
@@ -6108,6 +6109,7 @@ int sub_4AE470() {
 	return result;
 }
 
+#ifndef NOX_CGO
 //----- (004AE520) --------------------------------------------------------
 int sub_4AE520() {
 	int result; // eax
@@ -6131,6 +6133,7 @@ void sub_4AE540() {
 		dword_5d4594_3798644 = 0;
 	}
 }
+#endif // NOX_CGO
 
 //----- (004AE580) --------------------------------------------------------
 int  sub_4AE580(int a1) {
@@ -6158,7 +6161,7 @@ int  sub_4AE5C0(int a1) {
 	v1 = dword_5d4594_3798636;
 	for (result = dword_5d4594_3798640; v1 <= *(int*)&dword_5d4594_3798640; dword_5d4594_3798636 = v1) {
 		v3 = 0;
-		v4 = *(_DWORD*)(dword_5d4594_3798632 + 4 * v1);
+		v4 = *(_DWORD*)((_DWORD)dword_5d4594_3798632 + 4 * v1);
 		if (v4) {
 			v5 = v10;
 			do {
@@ -6286,7 +6289,7 @@ int  sub_4AE6F0(int a1, int a2, int a3, int a4, int a5) {
 					if (v30 <= 0)
 						v10(v13 + v40, v12, v13 + v39);
 				} else {
-					v14 = *(unsigned __int16**)(v33 + dword_5d4594_3798632);
+					v14 = *(unsigned __int16**)(v33 + (_DWORD)dword_5d4594_3798632);
 					v15 = (unsigned __int16*)*((_DWORD*)v14 + 1);
 					if (v15) {
 						if (*v14 > *v15) {
@@ -6310,7 +6313,7 @@ int  sub_4AE6F0(int a1, int a2, int a3, int a4, int a5) {
 					if (v30 <= 0)
 						v10(v13 + v41, v40, v13 + v11);
 				} else {
-					v17 = *(unsigned __int16**)(v36 + dword_5d4594_3798632);
+					v17 = *(unsigned __int16**)(v36 + (_DWORD)dword_5d4594_3798632);
 					v18 = (unsigned __int16*)*((_DWORD*)v17 + 1);
 					if (v18) {
 						if (*v17 > *v18) {
@@ -6344,7 +6347,7 @@ int  sub_4AE6F0(int a1, int a2, int a3, int a4, int a5) {
 					if (v30 <= 0)
 						v10(v13 + v40, v11, v13 + v39);
 				} else {
-					v24 = *(unsigned __int16**)(dword_5d4594_3798632 + 4 * v11);
+					v24 = *(unsigned __int16**)((_DWORD)dword_5d4594_3798632 + 4 * v11);
 					v25 = (unsigned __int16*)*((_DWORD*)v24 + 1);
 					if (v25) {
 						if (*v24 > *v25) {
@@ -6387,7 +6390,7 @@ int  sub_4AE6F0(int a1, int a2, int a3, int a4, int a5) {
 			if (v27)
 				return result;
 		}
-		v20 = *(unsigned __int16**)(dword_5d4594_3798632 + 4 * v39);
+		v20 = *(unsigned __int16**)((_DWORD)dword_5d4594_3798632 + 4 * v39);
 		v21 = (unsigned __int16*)*((_DWORD*)v20 + 1);
 		if (v21) {
 			if (*v20 > *v21) {
@@ -6413,8 +6416,9 @@ int  sub_4AE6F0(int a1, int a2, int a3, int a4, int a5) {
 	return result;
 }
 
+#ifndef NOX_CGO
 //----- (004AEBD0) --------------------------------------------------------
-int sub_4AEBD0() {
+void sub_4AEBD0() {
 	int v0;     // eax
 	int result; // eax
 
@@ -6422,13 +6426,13 @@ int sub_4AEBD0() {
 	v0 = 0;
 	dword_5d4594_3798640 = 0;
 	for (dword_5d4594_3798636 = 0; dword_5d4594_3798636 < nox_backbuffer_height; ++dword_5d4594_3798636) {
-		*(_DWORD*)(dword_5d4594_3798632 + 4 * v0) = 0;
+		*(_DWORD*)((_DWORD)dword_5d4594_3798632 + 4 * v0) = 0;
 		v0 = dword_5d4594_3798636 + 1;
 	}
 	result = v0 - 1;
 	dword_5d4594_3798636 = result;
-	return result;
 }
+#endif // NOX_CGO
 
 //----- (004AEC20) --------------------------------------------------------
 int  sub_4AEC20(int a1, int a2) {
@@ -6474,8 +6478,8 @@ int  sub_4AEC20(int a1, int a2) {
 				}
 				if (v7 > 0) {
 					do {
-						v8 = *(_DWORD*)(dword_5d4594_3798632 + 4 * v4);
-						*(_DWORD*)(dword_5d4594_3798632 + 4 * v4) = dword_5d4594_3798648;
+						v8 = *(_DWORD*)((_DWORD)dword_5d4594_3798632 + 4 * v4);
+						*(_DWORD*)((_DWORD)dword_5d4594_3798632 + 4 * v4) = dword_5d4594_3798648;
 						**(_WORD**)&dword_5d4594_3798648 = HIWORD(v10);
 						*(_DWORD*)(dword_5d4594_3798648 + 4) = v8;
 						dword_5d4594_3798648 += 8;
@@ -6486,8 +6490,8 @@ int  sub_4AEC20(int a1, int a2) {
 					} while (v7);
 				}
 				if (a2) {
-					v9 = *(_DWORD*)(dword_5d4594_3798632 + 4 * v4);
-					*(_DWORD*)(dword_5d4594_3798632 + 4 * v4) = dword_5d4594_3798648;
+					v9 = *(_DWORD*)((_DWORD)dword_5d4594_3798632 + 4 * v4);
+					*(_DWORD*)((_DWORD)dword_5d4594_3798632 + 4 * v4) = dword_5d4594_3798648;
 					**(_WORD**)&dword_5d4594_3798648 = v12;
 					*(_DWORD*)(dword_5d4594_3798648 + 4) = v9;
 					dword_5d4594_3798648 += 8;
@@ -6521,6 +6525,7 @@ int  sub_4AEDA0(int* a1, int* a2, int a3, int a4) {
 	return result;
 }
 
+#ifndef NOX_CGO
 //----- (004AEDF0) --------------------------------------------------------
 void* sub_4AEDF0() {
 	void* result; // eax
@@ -6533,6 +6538,7 @@ void* sub_4AEDF0() {
 	}
 	return result;
 }
+#endif // NOX_CGO
 
 //----- (004AEE30) --------------------------------------------------------
 __int64 sub_4AEE30() {

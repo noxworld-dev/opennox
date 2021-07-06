@@ -36,6 +36,15 @@ func Bytes(size uintptr) (out []byte) {
 	return
 }
 
+func Pointers(size int) (out []unsafe.Pointer) {
+	ptr := Malloc(uintptr(size) * unsafe.Sizeof(unsafe.Pointer(nil)))
+	h := (*reflect.SliceHeader)(unsafe.Pointer(&out))
+	h.Data = uintptr(ptr)
+	h.Len = size
+	h.Cap = size
+	return
+}
+
 func Realloc(ptr unsafe.Pointer, size uintptr) unsafe.Pointer {
 	if size == 0 {
 		panic("zero alloc")
@@ -74,6 +83,11 @@ func Free(ptr unsafe.Pointer) {
 }
 
 func FreeBytes(b []byte) {
+	b = b[:1]
+	Free(unsafe.Pointer(&b[0]))
+}
+
+func FreePointers(b []unsafe.Pointer) {
 	b = b[:1]
 	Free(unsafe.Pointer(&b[0]))
 }

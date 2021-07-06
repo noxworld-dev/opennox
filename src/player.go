@@ -99,11 +99,11 @@ func (p *Player) SetPos(pos types.Pointf) {
 }
 
 func (p *Player) OrigName() string {
-	return GoWString((*C.wchar_t)(p.field(2185)))
+	return GoWStringP(p.field(2185))
 }
 
 func (p *Player) Name() string {
-	return GoWString((*C.wchar_t)(p.field(4704)))
+	return GoWStringP(p.field(4704))
 }
 
 func (p *Player) String() string {
@@ -186,6 +186,13 @@ func (p *Player) UnitC() *Unit {
 	return asUnit(p.playerUnit)
 }
 
+func (p *Player) PlayerClass() player.Class {
+	if p == nil {
+		return 0
+	}
+	return player.Class(p.playerClass)
+}
+
 func (p *Player) Disconnect(v int) {
 	if !p.IsActive() {
 		return
@@ -222,6 +229,16 @@ func getPlayerByInd(i int) *Player {
 	}
 	p.playerInd = C.uchar(i)
 	return p
+}
+
+func getPlayerByID(id int) *Player { // nox_common_playerInfoGetByID_417040
+	for i := 0; i < NOX_PLAYERINFO_MAX; i++ {
+		p := asPlayer(&C.nox_playerinfo_arr[i])
+		if p.IsActive() && int(p.netCode) == id {
+			return p
+		}
+	}
+	return nil
 }
 
 func hasPlayerUnits() bool {

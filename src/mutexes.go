@@ -33,10 +33,18 @@ func nox_mutex_init(m *C.nox_mutex_t) {
 	m.p = C.uint(id)
 }
 
+func nox_mutex_initP(p unsafe.Pointer) {
+	nox_mutex_init((*C.nox_mutex_t)(p))
+}
+
 //export nox_mutex_free
 func nox_mutex_free(m *C.nox_mutex_t) {
 	id := uint32(m.p)
 	mutexes.byID.Delete(id)
+}
+
+func nox_mutex_freeP(p unsafe.Pointer) {
+	nox_mutex_free((*C.nox_mutex_t)(p))
 }
 
 //export nox_mutex_lock

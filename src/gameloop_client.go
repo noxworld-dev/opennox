@@ -34,7 +34,7 @@ func mainloopDrawAndPresent() {
 	}
 	DrawSparks()
 	if !getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) || getEngineFlag(NOX_ENGINE_FLAG_9) || C.nox_client_gui_flag_815132 != 0 {
-		C.nox_client_drawCursorAndTooltips_477830() // Draw cursor
+		nox_client_drawCursorAndTooltips_477830() // Draw cursor
 	}
 	C.sub_44D9F0(1)
 	maybeScreenshot()
@@ -46,10 +46,6 @@ func mainloopDrawAndPresent() {
 		nox_video_callCopyBackBuffer_4AD170()
 		callPresent()
 	}
-}
-
-func getGamePixBufferC() []unsafe.Pointer {
-	return asPtrSlice(unsafe.Pointer(C.nox_pixbuffer_rows_3798784), int(C.nox_win_height))
 }
 
 func colorRGB15(cl uint16) color.RGBA {
@@ -68,9 +64,8 @@ func copyGamePixBuffer() image.Image {
 	sz := videoGetWindowSize()
 	img := image.NewRGBA(image.Rect(0, 0, sz.W, sz.H))
 
-	pixbuf := getGamePixBufferC()
 	for y := 0; y < sz.H; y++ {
-		row := asU16Slice(pixbuf[y], sz.W)
+		row := asU16Slice(nox_pixbuffer_rows_3798784_arr[y], sz.W)
 		for x := 0; x < sz.W; x++ {
 			img.SetRGBA(x, y, colorRGB15(row[x]))
 		}
@@ -82,6 +77,7 @@ func DrawSparks() {
 	if C.nox_client_gui_flag_815132 != 0 {
 		sz := videoGetWindowSize()
 		rdr := (*C.nox_draw_viewport_t)(alloc.Malloc(unsafe.Sizeof(C.nox_draw_viewport_t{})))
+		defer alloc.Free(unsafe.Pointer(rdr))
 		rdr.x1 = 0
 		rdr.y1 = 0
 		rdr.x2 = C.int(sz.W)
@@ -89,10 +85,9 @@ func DrawSparks() {
 		rdr.width = C.int(sz.W)
 		rdr.height = C.int(sz.H)
 		C.nox_client_screenParticlesDraw_431720(rdr)
-		alloc.Free(unsafe.Pointer(rdr))
 	} else {
-		rdr := C.nox_draw_getViewport_437250()
-		C.nox_client_screenParticlesDraw_431720(rdr)
+		vp := getViewport()
+		C.nox_client_screenParticlesDraw_431720(vp.C())
 	}
 }
 

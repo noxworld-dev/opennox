@@ -8,31 +8,34 @@ unsigned char byte_5D4594_3804364[160] = { 0 };
 void* nox_backbuffer1_pix = 0;
 void* nox_backbuffer_pix = 0;
 
+#ifndef NOX_CGO
 int nox_backbuffer_width = 0;
 int nox_backbuffer_height = 0;
 int nox_backbuffer_depth = 0;
+int nox_backbuffer_pitchDiff;
+int nox_backbuffer_width32;
 
-int nox_video_renderTargetFlags = 0;
-int nox_video_pauseThreadedDrawCursor = 0;
-int nox_video_drawCursorThreadOk = 0;
 int nox_video_allowCursorDrawThread = 0;
-int nox_video_windowsPlatformVersion = 0;
+int nox_video_drawCursorThreadOk = 0;
+int nox_video_pauseThreadedDrawCursor = 0;
 int nox_video_cursorDrawIsThreaded = 0;
-int nox_video_gammaValue = 0;
-int (*func_5d4594_1311924)(void) = 0;
+void (*dword_6F7C10)(_DWORD, _DWORD, _DWORD);
 
 DWORD dword_974854;
 DWORD dword_973C70;
-DWORD g_backbuffer_count;
 DWORD dword_5ACFAC;
 DWORD dword_6F7B9C;
 DWORD dword_6F7BB0;
-DWORD g_cursor_surf_pitch;
-BYTE* g_cursor_surf_pixels;
-BYTE* g_cursor_surf_pixels_6F7C78;
-void (*dword_6F7C10)(_DWORD, _DWORD, _DWORD);
+#endif // NOX_CGO
+
 __int16 (*dword_6F7C40)();
 __int16 (*dword_6F7C34)();
+
+int nox_video_renderTargetFlags = 0;
+int nox_video_windowsPlatformVersion = 0;
+int nox_video_gammaValue = 0;
+int (*func_5d4594_1311924)(void) = 0;
+
 void (*dword_975240)(_DWORD, _DWORD*, _DWORD*, _DWORD*);
 int (*dword_975380)(_DWORD, _DWORD, _DWORD);
 #ifndef NOX_CGO
@@ -44,10 +47,22 @@ void nox_color_rgb_func_set(int mode);
 #endif // NOX_CGO
 
 #ifndef NOX_CGO
+DWORD g_backbuffer_count;
+DWORD g_cursor_surf_pitch;
+BYTE* g_cursor_surf_pixels;
+BYTE* g_cursor_surf_pixels_6F7C78;
 _DWORD cpuid_5d4594_3801804 = 0; // always 0
 DWORD g_present_ticks;
 void (*g_copy_backbuffer_ptr)();
 SDL_Surface* g_backbuffer1;
+SDL_Surface* g_cursor_surf_6F7C48;
+SDL_Surface* g_cursor_surf;
+
+SDL_Surface* g_surface_973C60;
+SDL_Surface* g_surface_973C88;
+
+int nox_getBackbufWidth() { return nox_backbuffer_width; }
+int nox_getBackbufHeight() { return nox_backbuffer_height; }
 
 static inline void rect_to_sdl(const RECT* r, SDL_Rect* sr) {
 	sr->x = r->left;
@@ -60,15 +75,8 @@ int g_rotate;
 int g_rotated;
 #endif // NOX_CGO
 
-SDL_Surface* g_cursor_surf_6F7C48;
-SDL_Surface* g_cursor_surf;
-SDL_Surface* g_surface_973C60;
-SDL_Surface* g_surface_973C88;
-
 float draw_gamma = 1.0f;
 
-int nox_backbuffer_pitchDiff;
-int nox_backbuffer_width32;
 void sdl_present();
 int sdl_drawCursorThreaded(int);
 int create_surfaces(int width, int height);
@@ -80,6 +88,7 @@ void  nox_video_unlockSurface_48A6B0(SDL_Surface* a1);
 
 DWORD dword_973C64;
 
+#ifndef NOX_CGO
 //----- (00444AC0) --------------------------------------------------------
 int  nox_client_drawXxx_444AC0(int w, int h, int depth, int flags) {
 	int v5;             // eax
@@ -158,7 +167,6 @@ int  nox_client_drawXxx_444AC0(int w, int h, int depth, int flags) {
 	return 1;
 }
 
-#ifndef NOX_CGO
 int4 sdl_get_display_dim() {
 	int display_id;
 	int4 result;
@@ -284,7 +292,6 @@ void  sub_48B1D0_free_surface(SDL_Surface** a1) {
 		*a1 = NULL;
 	}
 }
-#endif // NOX_CGO
 
 //----- (0048A220) --------------------------------------------------------
 void  nox_xxx_directDrawBlitMB_48A220() {
@@ -366,18 +373,15 @@ int nox_video_initCursorDrawVars_48B1F0() {
 	if (!result) {
 		return 0;
 	}
-#ifndef NOX_CGO
 	result = nox_video_createCursorDrawThread_48BE70();
 	printf("%s: %d\n", __FUNCTION__, result);
 	if (!result) {
 		return 0;
 	}
 	nox_video_drawCursorThreadOk = 1;
-#endif // NOX_CGO
 	return 1;
 }
 
-#ifndef NOX_CGO
 int sdl_drawCursorThreaded(int a1) {
 	RECT* r1 = (RECT*)getMemAt(0x5D4594, 1193532);
 	RECT* r2 = (RECT*)getMemAt(0x5D4594, 1193548);
@@ -532,7 +536,9 @@ void sub_435550() {
 
 //----- (00433C20) --------------------------------------------------------
 void sub_433C20() {
+#ifndef NOX_CGO
 	sub_48A7F0();
+#endif // NOX_CGO
 
 	if (dword_5d4594_810640) {
 		free(*(LPVOID*)&dword_5d4594_810640);
@@ -577,7 +583,6 @@ int  nox_xxx_GfxInit_444930(int w, int h, int depth, int flags) {
 	++dword_5d4594_823772;
 	return 1;
 }
-#endif // NOX_CGO
 
 //----- (00444C50) --------------------------------------------------------
 void sub_444C50() {
@@ -617,7 +622,6 @@ void sub_48C110() {
 	*getMemU32Ptr(0x5D4594, 1193688) = nox_backbuffer_height;
 }
 
-#ifndef NOX_CGO
 //----- (004AD100) --------------------------------------------------------
 int nox_video_setBackBufferCopyFunc_4AD100() {
 	if (nox_video_renderTargetFlags & 0x40)
@@ -692,7 +696,6 @@ void nox_video_copyBackBuffer_4AD2A0() {
 	}
 	++*getMemU32Ptr(0x5D4594, 3798652);
 }
-#endif // NOX_CGO
 
 //----- (00486090) --------------------------------------------------------
 int sub_486090() {
@@ -752,7 +755,8 @@ int nox_video_createCursorSurface_48BF70() {
 }
 
 //----- (0048B3F0) --------------------------------------------------------
-int  sub_48B3F0(int a1, int a2, int a3) {
+int  sub_48B3F0(void* a1p, int a2, int a3) {
+	int a1 = a1p;
 	int i; // esi
 
 	if (nox_video_cursorDrawIsThreaded) {
@@ -765,7 +769,7 @@ int  sub_48B3F0(int a1, int a2, int a3) {
 			dword_5d4594_1193624 = a1;
 			nox_video_lockSurface_48A670(g_cursor_surf);
 			for (i = 0; i < 512; i += 4)
-				sub_49D1C0(*(_DWORD*)(i + dword_5d4594_1193704), *getMemIntPtr(0x5D4594, 1193592), 128);
+				sub_49D1C0(*(_DWORD*)(i + (_DWORD)dword_5d4594_1193704), *getMemIntPtr(0x5D4594, 1193592), 128);
 			a3 = 0;
 			a2 = 0;
 			if (sub_48C0C0(a1, &a2, &a3)) {
@@ -795,7 +799,6 @@ int  sub_48B3F0(int a1, int a2, int a3) {
 }
 
 //----- (0048BDE0) --------------------------------------------------------
-#ifndef NOX_CGO
 bool nox_xxx_makeFillerColor_48BDE0() {
 	int v0; // eax
 
@@ -808,28 +811,18 @@ bool nox_xxx_makeFillerColor_48BDE0() {
 	}
 	return 1;
 }
-#endif // NOX_CGO
 
 //----- (0048C060) --------------------------------------------------------
 int sub_48C060() {
-	int result; // eax
-	int v1;     // ecx
-	int v2;     // edx
-
 	if (g_cursor_surf && g_cursor_surf_pixels) {
-		result = (int)malloc(0x200u);
-		dword_5d4594_1193704 = result;
-		if (!result)
-			return result;
-		v1 = g_cursor_surf_pixels;
-		v2 = 0;
-		while (1) {
-			*(_DWORD*)(v2 + result) = v1;
-			v2 += 4;
+		dword_5d4594_1193704 = malloc(512);
+		if (!dword_5d4594_1193704)
+			return 0;
+		int v1 = g_cursor_surf_pixels;
+
+		for (int v2 = 0; v2 < 512; v2 += 4) {
+			*(_DWORD*)((_DWORD)dword_5d4594_1193704 + v2) = v1;
 			v1 += g_cursor_surf_pitch;
-			if (v2 >= 512)
-				break;
-			result = dword_5d4594_1193704;
 		}
 	}
 	return 1;
@@ -855,6 +848,7 @@ void nox_video_stopCursorDrawThread_48B350() {
 	}
 	dword_5d4594_1193624 = 0;
 }
+#endif // NOX_CGO
 
 //----- (004338D0) --------------------------------------------------------
 int sub_4338D0() {
@@ -1086,7 +1080,7 @@ void nox_set_color_rgb_434430(int r, int g, int b) {
 }
 
 //----- (00434480) --------------------------------------------------------
-void  sub_434480(int a1, int a2, int a3, int a4) { dword_975240(a1, a2, a3, a4); }
+void  sub_434480(int a1, int* a2, int* a3, int* a4) { dword_975240(a1, a2, a3, a4); }
 
 //----- (004344A0) --------------------------------------------------------
 #ifndef NOX_CGO
@@ -1299,6 +1293,7 @@ int  sub_4B0640(int (*a1)(void)) {
 	return result;
 }
 
+#ifndef NOX_CGO
 //----- (0048B5D0) --------------------------------------------------------
 int  nox_video_waitVBlankAndDrawCursorFromThread_48B5D0(int a1, int a2) {
 	if (!*getMemU32Ptr(0x5D4594, 1193708) && nox_video_drawCursorThreadOk && dword_5d4594_823776 &&
@@ -1314,9 +1309,11 @@ int  nox_video_waitVBlankAndDrawCursorFromThread_48B5D0(int a1, int a2) {
 	}
 	return 0;
 }
+#endif // NOX_CGO
 
 //----- (0048C200) --------------------------------------------------------
-unsigned __int8*  sub_48C200(int a1, int a2, int a3) {
+unsigned __int8*  sub_48C200(void* a1p, int a2, int a3) {
+	int a1 = a1p;
 	unsigned __int8* result; // eax
 	int v4;                  // ebp
 	unsigned __int8* v5;     // eax
@@ -1371,8 +1368,8 @@ unsigned __int8*  sub_48C200(int a1, int a2, int a3) {
 			do {
 				v14 += 4;
 				v15 = v4;
-				v16 = v23 + *(_DWORD*)(v14 + dword_5d4594_1193704 - 4);
-				for (dword_5d4594_1193584 = v23 + *(_DWORD*)(v14 + dword_5d4594_1193704 - 4); v15 > 0; v15 -= v19) {
+				v16 = v23 + *(_DWORD*)(v14 + (_DWORD)dword_5d4594_1193704 - 4);
+				for (dword_5d4594_1193584 = v23 + *(_DWORD*)(v14 + (_DWORD)dword_5d4594_1193704 - 4); v15 > 0; v15 -= v19) {
 					v17 = *result;
 					v18 = result + 1;
 					*getMemU32Ptr(0x5D4594, 1193588) = v17;
@@ -1402,7 +1399,8 @@ unsigned __int8*  sub_48C200(int a1, int a2, int a3) {
 }
 
 //----- (0048C320) --------------------------------------------------------
-unsigned __int8*  sub_48C320(int a1, int a2, int a3) {
+unsigned __int8*  sub_48C320(void* a1p, int a2, int a3) {
+	int a1 = a1p;
 	unsigned __int8* result; // eax
 	int v4;                  // edi
 	unsigned __int8* v5;     // eax
@@ -1452,7 +1450,7 @@ unsigned __int8*  sub_48C320(int a1, int a2, int a3) {
 			do {
 				v13 += 4;
 				v14 = v4;
-				for (dword_5d4594_1193584 = v8 + *(_DWORD*)(dword_5d4594_1193704 + v13 - 4); v14 > 0; v14 -= v17) {
+				for (dword_5d4594_1193584 = v8 + *(_DWORD*)((_DWORD)dword_5d4594_1193704 + v13 - 4); v14 > 0; v14 -= v17) {
 					v15 = *result;
 					v16 = result + 1;
 					*getMemU32Ptr(0x5D4594, 1193588) = v15;

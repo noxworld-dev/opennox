@@ -25,11 +25,11 @@ int  nox_thing_debug_draw(_DWORD* a1, nox_drawable* dr) {
 		v2 = *getMemU32Ptr(0x5D4594, 2589772);
 	nox_client_drawSetColor_434460(v2);
 	nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 2523948));
-	v3 = dr->field_4;
-	v4 = *a1 + dr->field_3 - a1[4];
+	v3 = dr->pos.y;
+	v4 = *a1 + dr->pos.x - a1[4];
 	v5 = dr->flags28;
 	v6 = a1[1] - a1[5];
-	a2a.field_0 = *a1 + dr->field_3 - a1[4];
+	a2a.field_0 = *a1 + dr->pos.x - a1[4];
 	a2a.field_4 = v3 + v6;
 	if ((v5 & 0x80) == 0) {
 		if (v5 & 0x2) {

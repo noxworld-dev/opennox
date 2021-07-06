@@ -221,7 +221,7 @@ mainloop:
 			goto MAINLOOP_EXIT
 		}
 		C.sub_4519C0()
-		C.sub_4312C0()
+		sub_4312C0()
 		C.sub_495430()
 		if noxflags.HasGame(noxflags.GameHost) && continueMenuOrHost {
 			mainloopMaybeSwitchMapXXX()
@@ -861,7 +861,7 @@ func nox_xxx_gameStateWait_43C020() bool {
 		return true
 	}
 	C.nox_xxx_drawSelectColor_434350(C.int(memmap.Uint32(0x5D4594, 2650656)))
-	C.sub_440900()
+	sub_440900()
 	return false
 }
 

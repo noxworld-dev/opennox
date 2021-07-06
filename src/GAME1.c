@@ -8257,7 +8257,7 @@ nox_playerInfo* nox_common_playerInfoResetInd_417000(int i) {
 nox_playerInfo* nox_common_playerInfoGetByID_417040(int a1) {
 	for (int i = 0; i < NOX_PLAYERINFO_MAX; i++) {
 		nox_playerInfo* p = &nox_playerinfo_arr[i];
-		if (!(!p->active || p->netCode != a1)) {
+		if (p->active && p->netCode == a1) {
 			p->playerInd = i;
 			return p;
 		}

@@ -15,6 +15,7 @@
 
 #include "client__draw__fx.h"
 #include "client__gui__guibook.h"
+#include "client__video__draw_common.h"
 
 #include "common/fs/nox_fs.h"
 #include "common__net_list.h"
@@ -5504,8 +5505,8 @@ int  nox_xxx_sprite_49A9B0_drawable(nox_drawable* dr) {
 
 //----- (0049AA00) --------------------------------------------------------
 void  nox_xxx_sprite_49AA00_drawable(nox_drawable* dr) {
-	int i = dr->field_3 / 128;
-	int j = dr->field_4 / 128;
+	int i = dr->pos.x / 128;
+	int j = dr->pos.y / 128;
 
 	if (dr->field_99)
 		nox_xxx_sprite_49A9B0_drawable(dr);
@@ -6774,7 +6775,7 @@ void  nox_client_drawRectFilledOpaque_49CE30(int xLeft, int yTop, int a3, int a4
 			} else {
 				v8 = xLeft;
 			}
-			if (v8 || v7 || v4 != nox_backbuffer_width || v5 != nox_backbuffer_height) {
+			if (v8 || v7 || v4 != nox_getBackbufWidth() || v5 != nox_getBackbufHeight()) {
 				(*(void(**)(_DWORD, _DWORD, _DWORD, _DWORD)) getMemAt(0x5D4594, 1305704))(v8, v7, v4, v5);
 			} else {
 				v9 = v6->data[58];
@@ -6855,7 +6856,7 @@ int  nox_client_drawRectStringSize_49D190(int a1, int a2, int a3, int a4, int a5
 }
 
 //----- (0049D1C0) --------------------------------------------------------
-int  sub_49D1C0(int a1, int a2, int a3) {
+int  sub_49D1C0(void* a1, int a2, int a3) {
 	func_5D4594_1305708(a1, a2, a3);
 	return 0;
 }
@@ -7377,8 +7378,8 @@ int4*  sub_49DD60(int a1, int a2, int a3, int a4, int a5) {
 		a2a.field_C = a5 + a3;
 		a3a.field_4 = 1;
 		a3a.field_0 = 1;
-		a3a.field_8 = nox_backbuffer_width - 1;
-		a3a.field_C = nox_backbuffer_height - 1;
+		a3a.field_8 = nox_getBackbufWidth() - 1;
+		a3a.field_C = nox_getBackbufHeight() - 1;
 		result = nox_xxx_utilRect_49F930(&a1a, &a2a, &a3a);
 		if (!result)
 			return result;
@@ -7525,8 +7526,8 @@ int4*  sub_49E060(int a1, int a2, int a3, int a4, int a5) {
 		a2a.field_C = a5 + a3;
 		a3a.field_4 = 1;
 		a3a.field_0 = 1;
-		a3a.field_8 = nox_backbuffer_width - 1;
-		a3a.field_C = nox_backbuffer_height - 1;
+		a3a.field_8 = nox_getBackbufWidth() - 1;
+		a3a.field_C = nox_getBackbufHeight() - 1;
 		result = nox_xxx_utilRect_49F930(&a1a, &a2a, &a3a);
 		if (!result)
 			return result;
@@ -8700,6 +8701,7 @@ int  sub_49F5B0(_DWORD* a1, _DWORD* a2, int a3) {
 	return 1;
 }
 
+#ifndef NOX_CGO
 //----- (0049F610) --------------------------------------------------------
 int sub_49F610() {
 	ptr_5D4594_3799572->data[0] = 0;
@@ -8718,6 +8720,7 @@ int sub_49F610() {
 	dword_5d4594_1305748 = 0;
 	return 1;
 }
+#endif // NOX_CGO
 
 //----- (0049F6D0) --------------------------------------------------------
 int  sub_49F6D0(int a1) {
@@ -8997,6 +9000,7 @@ LABEL_18:
 	return 0;
 }
 
+#ifndef NOX_CGO
 //----- (0049FC20) --------------------------------------------------------
 int  sub_49FC20(int* a1, int* a2, int* a3, int* a4) {
 	int v4;  // ebx
@@ -9028,30 +9032,35 @@ int  sub_49FC20(int* a1, int* a2, int* a3, int* a4) {
 	v8 = *a2;
 	v9 = *a4;
 	if (*a2 >= v4) {
-		if (v8 > v5)
+		if (v8 > v5) {
 			v16 = 4;
+		}
 	} else {
 		v16 = 8;
 	}
 	v17 = 0;
 	if (v9 >= v4) {
-		if (v9 > v5)
+		if (v9 > v5) {
 			v17 = 4;
+		}
 	} else {
 		v17 = 8;
 	}
-	if (v17 & v16)
+	if (v17 & v16) {
 		return 0;
+	}
 	if (v16) {
 		if (v16 & 8) {
-			if (v9 == v8)
+			if (v9 == v8) {
 				return 0;
+			}
 			v11 = (v4 - v8) * (v7 - v6) / (v9 - v8);
 			v8 = v4;
 			v6 += v11;
 		} else if (v16 & 4) {
-			if (v9 == v8)
+			if (v9 == v8) {
 				return 0;
+			}
 			v12 = (v15 - v8) * (v7 - v6) / (v9 - v8);
 			v8 = v15;
 			v6 += v12;
@@ -9059,14 +9068,16 @@ int  sub_49FC20(int* a1, int* a2, int* a3, int* a4) {
 	}
 	if (v17) {
 		if (v17 & 8) {
-			if (v9 == v8)
+			if (v9 == v8) {
 				return 0;
+			}
 			v13 = (v7 - v6) * (v4 - v9) / (v9 - v8);
 			v9 = v4;
 			v7 += v13;
 		} else if (v17 & 4) {
-			if (v9 == v8)
+			if (v9 == v8) {
 				return 0;
+			}
 			v14 = (v7 - v6) * (v15 - v9) / (v9 - v8);
 			v9 = v15;
 			v7 += v14;
@@ -9078,6 +9089,7 @@ int  sub_49FC20(int* a1, int* a2, int* a3, int* a4) {
 	*a4 = v9;
 	return 1;
 }
+#endif // NOX_CGO
 
 //----- (0049FDB0) --------------------------------------------------------
 void  sub_49FDB0(int a1) {
