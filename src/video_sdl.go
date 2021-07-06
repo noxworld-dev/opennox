@@ -29,11 +29,6 @@ var (
 	noxViewRotated bool
 )
 
-//export nox_video_setWinTitle_401FE0
-func nox_video_setWinTitle_401FE0(title *C.char) {
-	noxWindow.SetTitle(C.GoString(title))
-}
-
 func createSurface(w, h int) (*sdl.Surface, error) {
 	return sdl.CreateRGBSurfaceWithFormat(0, int32(w), int32(h), 16, sdl.PIXELFORMAT_RGB555)
 }
@@ -73,22 +68,18 @@ func nox_video_copyBackBuffer3_4AD1E0() {
 	*memmap.PtrUint32(0x5D4594, 3798652)++
 }
 
-//export nox_video_setBackBufferPtrs_48A190
 func nox_video_setBackBufferPtrs_48A190() {
 	C.nox_backbuffer1_pix = noxBackbuf.Data()
 	C.nox_backbuffer_pix = C.nox_backbuffer1_pix
 }
 
-//export nox_video_lockSurface_48A670
-func nox_video_lockSurface_48A670(s unsafe.Pointer) {
-	surf := (*sdl.Surface)(unsafe.Pointer(s))
-	_ = surf.Lock()
-}
-
-//export nox_video_unlockSurface_48A6B0
-func nox_video_unlockSurface_48A6B0(s unsafe.Pointer) {
-	surf := (*sdl.Surface)(unsafe.Pointer(s))
-	surf.Unlock()
+//export sub_444D00
+func sub_444D00() {
+	mu := asMutex(memmap.PtrOff(0x5D4594, 3799596))
+	mu.Lock()
+	defer mu.Unlock()
+	nox_video_setBackBufferPtrs_48A190()
+	nox_video_setBackBufferCopyFunc2_4AD150()
 }
 
 func nox_video_copyBackBuffer_4AD2A0() {
@@ -287,7 +278,6 @@ func nox_video_setBackBufSizes_48A3D0() int {
 	return 1
 }
 
-//export nox_video_free_renderer_48A120
 func nox_video_free_renderer_48A120() {
 	dword_6F7BB0 = 0
 

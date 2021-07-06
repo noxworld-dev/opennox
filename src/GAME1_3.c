@@ -4015,6 +4015,7 @@ int  nox_client_drawInitAll_4449D0(int w, int h, int depth, int flags) {
 // 4B02F0: using guessed type void nullsub_18(void);
 // 4B0B80: using guessed type void nullsub_19(void);
 
+#ifndef NOX_CGO
 //----- (00444D00) --------------------------------------------------------
 void sub_444D00() {
 	nox_mutex_lock(getMemAt(0x5D4594, 3799596));
@@ -4022,6 +4023,7 @@ void sub_444D00() {
 	nox_video_setBackBufferCopyFunc2_4AD150();
 	nox_mutex_unlock(getMemAt(0x5D4594, 3799596));
 }
+#endif // NOX_CGO
 
 //----- (00444D30) --------------------------------------------------------
 void sub_444D30() { memcpy(ptr_5D4594_3799572, &obj_5D4594_3799660, sizeof(obj_5D4594_3799572_t)); }

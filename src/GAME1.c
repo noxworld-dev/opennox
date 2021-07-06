@@ -822,11 +822,12 @@ unsigned int  sub_40A3C0(unsigned int a1) {
 
 //----- (0040A3E0) --------------------------------------------------------
 void  nox_xxx_setPortParam_40A3E0(int a1) {
-	CHAR String[64]; // [esp+0h] [ebp-40h]
-
 	*getMemU32Ptr(0x5D4594, 3524) = a1;
+#ifndef NOX_CGO
+	CHAR String[64]; // [esp+0h] [ebp-40h]
 	nox_sprintf(String, "Nox - %d", a1);
 	nox_video_setWinTitle_401FE0(String);
+#endif // NOX_CGO
 }
 
 //----- (0040A410) --------------------------------------------------------
