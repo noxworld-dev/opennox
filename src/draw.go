@@ -36,6 +36,10 @@ func nox_xxx_guiFontHeightMB_43F320(a1 int) int {
 	return int(C.nox_xxx_guiFontHeightMB_43F320(C.int(a1)))
 }
 
+func nox_xxx_drawSelectColor_434350(a1 uint32) {
+	C.ptr_5D4594_3799572.data[58] = C.uint(a1)
+}
+
 func nox_xxx_drawSetTextColor_434390(a1 uint32) {
 	C.ptr_5D4594_3799572.data[59] = C.uint(a1)
 }

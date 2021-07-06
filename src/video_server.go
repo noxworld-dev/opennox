@@ -55,10 +55,6 @@ func nox_video_getSurfaceData_48A720(s unsafe.Pointer, outPitch *C.int, outPixel
 	return 0
 }
 
-//export nox_video_setWinTitle_401FE0
-func nox_video_setWinTitle_401FE0(title *C.char) {
-}
-
 //export nox_video_showMovieFrame
 func nox_video_showMovieFrame(s unsafe.Pointer) {
 }
@@ -76,19 +72,8 @@ func nox_xxx_makeFillerColor_48BDE0() C.bool {
 	return true
 }
 
-//export nox_video_lockSurface_48A670
-func nox_video_lockSurface_48A670(s unsafe.Pointer) {
-}
-
-//export nox_video_unlockSurface_48A6B0
-func nox_video_unlockSurface_48A6B0(s unsafe.Pointer) {
-}
-
 //export nox_video_setBackBufferPtrs_48A190
 func nox_video_setBackBufferPtrs_48A190() {
-}
-
-func presentFrame() {
 }
 
 func getDisplayDim() (r [4]int) {

@@ -100,12 +100,12 @@ func (h *Handler) processWindowEvent(ev *sdl.WindowEvent) {
 	}
 }
 
-func (h *Handler) SetWinSize(sz types.Size, pos image.Point) {
-	if sz.W == 0 || sz.H == 0 {
+func (h *Handler) SetWinSize(rect image.Rectangle) {
+	if rect.Dx() == 0 || rect.Dy() == 0 {
 		return
 	}
-	h.win.size = sz
-	h.win.pos = pos
+	h.win.size = types.Size{W: rect.Dx(), H: rect.Dy()}
+	h.win.pos = rect.Min
 	h.win.updateScale()
 }
 

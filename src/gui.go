@@ -767,6 +767,12 @@ var parseWindowFuncs = []struct {
 			str = "\tWindowed"
 		case "Options.wnd:16BitColor":
 			str = "\tFullscreen"
+		case "Options.wnd:640X480":
+			str = " 848 X 480 (w)"
+		case "Options.wnd:800X600":
+			str = "1024 X 576 (w)"
+		case "Options.wnd:1024X768":
+			str = "1024 X 768"
 		default:
 			str = p.sm.GetStringInFile(strman.ID(buf), "C:\\NoxPost\\src\\Client\\Gui\\GameWin\\psscript.c")
 		}

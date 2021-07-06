@@ -8,29 +8,47 @@ import (
 	"unicode/utf16"
 
 	"nox/v1/client/input"
+	"nox/v1/client/render"
+	"nox/v1/client/seat"
+	"nox/v1/client/seat/sdl"
 	"nox/v1/common/types"
-
-	"github.com/veandco/go-sdl2/sdl"
 )
 
 var (
-	inpHandler *input.Handler
-	noxInp     *Input
+	noxRendererS *render.Renderer
+	inpHandler   *input.Handler
+	noxInp       *Input
 )
 
-var _ input.Interface = &Input{}
+func getBackbufSize() types.Size {
+	return noxRendererS.BufferSize()
+}
 
-func inputInit() (func(), error) {
+func newSeat(sz types.Size) (seat.Seat, error) {
+	s, err := sdl.New("OpenNox "+ClientVersionString(), sz)
+	if err != nil {
+		return nil, err
+	}
+	r, err := render.New(s)
+	if err != nil {
+		_ = s.Close()
+		return nil, err
+	}
+	noxRendererS = r
+
 	noxInp = NewInput()
 	inp, err := input.NewHandler(noxInp)
 	if err != nil {
 		return nil, fmt.Errorf("input initialization failed: %w", err)
 	}
 	inpHandler = inp
-	return func() {
-		inp.Close()
-	}, nil
+
+	r.OnViewResize(inp.SetWinSize)
+	r.OnBufferResize(inp.SetDrawWinSize)
+	return s, nil
 }
+
+var _ input.Interface = &Input{}
 
 func NewInput() *Input {
 	return &Input{
@@ -123,16 +141,10 @@ func (inp *Input) WindowEvent(ev input.WindowEvent) {
 	switch ev {
 	case input.WindowUnfocus:
 		unacquireMouse_sub_47D8B0()
-	case input.WindowFocus:
-		if isMouseInside(noxWindow) {
-			acquireMouse_sub_47D8C0()
-		}
-	case input.WindowAcquireMouse:
-		noxWindow.SetGrab(true)
-	case input.WindowUnacquireMouse:
-		noxWindow.SetGrab(false)
 	case input.WindowToggleFullscreen:
-		toggleFullsreen()
+		if noxRendererS != nil {
+			noxRendererS.ToggleWindowMode()
+		}
 	case input.WindowQuit:
 		mainloopStop()
 	}
@@ -147,14 +159,4 @@ func (inp *Input) TextInput(text string) {
 	for _, c := range utf16.Encode([]rune(text)) {
 		noxInputOnChar(c)
 	}
-}
-
-func isMouseInside(win *sdl.Window) bool {
-	mouse := inpHandler.GlobalMousePos()
-	wndPosX, wndPosY := win.GetPosition()
-	wndSizeW, wndSizeH := win.GetSize()
-	return mouse.X >= int(wndPosX) &&
-		mouse.X <= int(wndPosX+wndSizeW) &&
-		mouse.Y >= int(wndPosY) &&
-		mouse.Y <= int(wndPosY+wndSizeH)
 }

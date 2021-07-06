@@ -3,6 +3,7 @@ package input
 import (
 	"image"
 
+	"nox/v1/client/seat"
 	"nox/v1/common/types"
 )
 
@@ -21,12 +22,12 @@ const (
 	WindowQuit
 )
 
-type MouseButton int
+type MouseButton = seat.MouseButton
 
 const (
-	MouseButtonLeft = MouseButton(iota)
-	MouseButtonRight
-	MouseButtonMiddle
+	MouseButtonLeft   = seat.MouseButtonLeft
+	MouseButtonRight  = seat.MouseButtonRight
+	MouseButtonMiddle = seat.MouseButtonMiddle
 )
 
 type Interface interface {

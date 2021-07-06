@@ -1,26 +1,22 @@
 package main
 
 import (
-	"image"
-
+	"nox/v1/client/render"
 	"nox/v1/common/log"
 	"nox/v1/common/types"
 )
 
 const (
-	noxDefaultWidth  = 640
-	noxDefaultHeight = 480
-	noxDefaultDepth  = 16
-	noxMaxWidth      = 1024
-	noxMaxHeight     = 768
+	noxDefaultWidth  = render.DefaultWidth
+	noxDefaultHeight = render.DefaultHeight
+	noxDefaultDepth  = render.DefaultDepth
+	noxMaxWidth      = render.MaxWidth
+	noxMaxHeight     = render.MaxHeight
 )
 
 var (
-	noxFullScreen    int = -4 // unset
-	noxBorderless        = false
-	noxPresentTicks  uint
 	videoLog         = log.New("video")
-	noxVideoModeMenu = renderMode{
+	noxVideoModeMenu = render.Mode{
 		Width:  noxDefaultWidth,
 		Height: noxDefaultHeight,
 		Depth:  noxDefaultDepth,
@@ -31,24 +27,11 @@ var (
 	}
 )
 
-type renderMode struct {
-	Width  int
-	Height int
-	Depth  int
-}
-
-func (m renderMode) Size() types.Size {
-	return types.Size{
-		W: m.Width,
-		H: m.Height,
-	}
-}
-
-func videoGetMenuMode() renderMode {
+func videoGetMenuMode() render.Mode {
 	return noxVideoModeMenu
 }
 
-func videoSetMenuMode(mode renderMode) {
+func videoSetMenuMode(mode render.Mode) {
 	noxVideoModeMenu = mode
 }
 
@@ -69,12 +52,7 @@ func videoSyncMenuDepth() bool {
 	return false
 }
 
-func callPresent() {
-	presentFrame()
-	noxPresentTicks++
-}
-
-func videoResizeView(mode renderMode) {
+func videoResizeView(mode render.Mode) {
 	mode.Depth = 16 // 8 bit not supported
 	max := videoGetMaxSize()
 	if mode.Width > max.W {
@@ -85,10 +63,9 @@ func videoResizeView(mode renderMode) {
 	}
 	videoSetWindowSize(mode.Size())
 	videoSet16Bit(mode.Depth != 8)
-	inpHandler.SetDrawWinSize(mode.Size())
 }
 
-func videoApplyConfigVideoMode(mode renderMode) {
+func videoApplyConfigVideoMode(mode render.Mode) {
 	mode.Depth = 16 // 8 bit not supported
 	if !getEngineFlag(NOX_ENGINE_FLAG_ENABLE_WINDOWED_MODE) {
 		videoSetGameMode(mode)
@@ -131,54 +108,5 @@ func nox_xxx_utilRect_49F930(a2, a3 types.Rect) (out types.Rect, _ bool) {
 }
 
 func changeWindowedOrFullscreen() {
-	winSize := videoGetGameMode().Size()
-	dispSize := getDisplayDim()
-	centeredPos := image.Point{
-		X: dispSize[2] + (dispSize[0]-winSize.W)/2,
-		Y: dispSize[3] + (dispSize[1]-winSize.H)/2,
-	}
-
-	// Init all sizes
-
-	// Windowed
-	windowedSize := winSize
-	windowedPos := centeredPos
-
-	// Fullscreen
-	fullscreenSize := types.Size{W: dispSize[0], H: dispSize[1]}
-	fullscreenPos := image.Point{X: dispSize[2], Y: dispSize[3]}
-
-	switch noxFullScreen {
-	case -1, 1:
-		// Normal fullscreen
-		setFullScreenMode(fullscreenSize, fullscreenPos)
-	case -2, 2:
-		// Borderless fullscreen
-		setFullScreenBorderlessMode(fullscreenSize, fullscreenPos)
-	default:
-		// Windowed
-		setWindowedMode(windowedSize, windowedPos)
-	}
 	cfgUpdateFullScreen()
-}
-
-func toggleFullsreen() {
-	switch noxFullScreen {
-	case -1, 1:
-		// Normal fullscreen -> Windowed
-		noxBorderless = false
-		noxFullScreen = -3
-	case -2, 2:
-		// Borderless fullscreen -> Windowed
-		noxBorderless = true
-		noxFullScreen = -3
-	default:
-		// Windowed -> last fullscreen
-		if noxBorderless {
-			noxFullScreen = -2
-		} else {
-			noxFullScreen = -1
-		}
-	}
-	changeWindowedOrFullscreen()
 }

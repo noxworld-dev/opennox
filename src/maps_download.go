@@ -185,7 +185,6 @@ func mapDownloadLoop(first bool) (bool, error) {
 	nox_client_drawCursorAndTooltips_477830()
 	// C.nox_xxx_directDrawBlitMB_48A220() // does nothing
 	nox_video_callCopyBackBuffer_4AD170()
-	callPresent()
 
 	if !mapDownloading() {
 		if C.map_download_finish() == 0 {
