@@ -19,6 +19,14 @@ var (
 	inpHandlerS  *input.Handler
 )
 
+func updateFullScreen(mode int) {
+	noxRendererS.SetWindowMode(mode)
+}
+
+func getWindowMode() int {
+	return noxRendererS.WindowMode()
+}
+
 func processInput() *input.Handler {
 	inp := inpHandlerS
 	inp.Tick()

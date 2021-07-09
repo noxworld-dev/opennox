@@ -30,7 +30,7 @@ extern _DWORD dword_5d4594_3835360;
 extern _DWORD dword_5d4594_1549844;
 extern _DWORD dword_5d4594_3835364;
 extern _DWORD dword_5d4594_1563064;
-extern _DWORD dword_5d4594_1548532;
+extern void* dword_5d4594_1548532;
 extern _DWORD dword_5d4594_1556128;
 extern _DWORD dword_5d4594_1556316;
 extern _DWORD dword_5d4594_1548524;
@@ -55,7 +55,6 @@ extern _DWORD dword_5d4594_1563096;
 extern _DWORD dword_5d4594_1523044;
 extern _DWORD dword_5d4594_1523032;
 extern _DWORD dword_5d4594_1563088;
-extern _DWORD dword_5d4594_1556848;
 extern _DWORD nox_xxx_warriorMaxSpeed_587000_312796;
 extern _DWORD nox_server_sanctuaryHelp_54276;
 extern _DWORD dword_5d4594_3835312;
@@ -101,6 +100,7 @@ extern obj_5D4594_2650668_t** ptr_5D4594_2650668;
 extern int ptr_5D4594_2650668_cap;
 
 void* nox_server_objects_uninited_1556860 = 0;
+nox_object_t* nox_server_objects_updatable2_1556848 = 0;
 void* nox_server_objects_1556844 = 0;
 
 nox_object_t* nox_xxx_host_player_unit_3843628 = 0;
@@ -1919,7 +1919,7 @@ int sub_4D1620() {
 	int result; // eax
 
 	if (dword_5d4594_1548532)
-		result = dword_5d4594_1548532 + 56;
+		result = (_DWORD)dword_5d4594_1548532 + 56;
 	else
 		result = 0;
 	return result;
@@ -6084,7 +6084,8 @@ int  nox_xxx_playerSubLessons_4D8EC0(int a1, int a2) {
 }
 
 //----- (004D8EF0) --------------------------------------------------------
-int  nox_xxx_netReportLesson_4D8EF0(int a1) {
+int  nox_xxx_netReportLesson_4D8EF0(nox_object_t* a1p) {
+	int a1 = a1p;
 	int v1;      // eax
 	char v3[11]; // [esp+0h] [ebp-Ch]
 
@@ -7212,7 +7213,7 @@ int  nox_xxx_getNextPlayerUnit_4DA7F0(int a1) {
 }
 
 //----- (004DA840) --------------------------------------------------------
-int nox_xxx_getFirstUpdatable2Object_4DA840() { return dword_5d4594_1556848; }
+nox_object_t* nox_xxx_getFirstUpdatable2Object_4DA840() { return nox_server_objects_updatable2_1556848; }
 
 //----- (004DA850) --------------------------------------------------------
 int  nox_xxx_getNextUpdatable2Object_4DA850(int a1) {
@@ -7424,10 +7425,10 @@ void nox_xxx_unitsNewAddToList_4DAC00() {
 		}
 		if (*(_BYTE*)(v0 + 8) & 1) {
 			*(_DWORD*)(v0 + 448) = 0;
-			*(_DWORD*)(v0 + 444) = dword_5d4594_1556848;
-			if (dword_5d4594_1556848)
-				*(_DWORD*)(dword_5d4594_1556848 + 448) = v0;
-			dword_5d4594_1556848 = v0;
+			*(_DWORD*)(v0 + 444) = nox_server_objects_updatable2_1556848;
+			if (nox_server_objects_updatable2_1556848)
+				*(_DWORD*)((_DWORD)nox_server_objects_updatable2_1556848 + 448) = v0;
+			nox_server_objects_updatable2_1556848 = v0;
 		} else {
 			v3 = *(_DWORD*)(v0 + 16);
 			if (v3 & 0x10000) {
@@ -7518,7 +7519,7 @@ int  sub_4DAE50(int a1) {
 				*(_DWORD*)(result + 448) = *(_DWORD*)(a1 + 448);
 		} else {
 			result = *(_DWORD*)(a1 + 444);
-			dword_5d4594_1556848 = *(_DWORD*)(a1 + 444);
+			nox_server_objects_updatable2_1556848 = *(_DWORD*)(a1 + 444);
 			v3 = *(_DWORD*)(a1 + 444);
 			if (v3)
 				*(_DWORD*)(v3 + 448) = 0;
@@ -7760,7 +7761,7 @@ unsigned int  nox_xxx_gameSetSoloSavePath_4DB270(const char* a1) {
 }
 
 //----- (004DB2A0) --------------------------------------------------------
-unsigned int  nox_xxx_cliCheckMapExists_4DB2A0(const char* a1) {
+char* nox_xxx_cliCheckMapExists_4DB2A0(const char* a1) {
 	char* v1;      // eax
 	char* v2;      // eax
 	char v4[24];   // [esp+4h] [ebp-418h]
@@ -7774,7 +7775,7 @@ unsigned int  nox_xxx_cliCheckMapExists_4DB2A0(const char* a1) {
 	v4[strlen(v5)] = 0;
 	v2 = nox_fs_root();
 	nox_sprintf((char*)getMemAt(0x5D4594, 1558936), "%s\\Save\\%s\\%s\\%s", v2, getMemAt(0x587000, 199148), &v4[4], v5);
-	return _access((LPCSTR)getMemAt(0x5D4594, 1558936), 0) != -1 ? (unsigned int)getMemAt(0x5D4594, 1558936) : 0;
+	return _access((LPCSTR)getMemAt(0x5D4594, 1558936), 0) != -1 ? getMemAt(0x5D4594, 1558936) : 0;
 }
 
 //----- (004DB540) --------------------------------------------------------
@@ -8265,7 +8266,8 @@ int  sub_4DCBF0(int a1) {
 }
 
 //----- (004DCC10) --------------------------------------------------------
-int  sub_4DCC10(int a1) {
+int  sub_4DCC10(nox_object_t* a1p) {
+	int a1 = a1p;
 	int v1;     // esi
 	int v2;     // eax
 	int result; // eax

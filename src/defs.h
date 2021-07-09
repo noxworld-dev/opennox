@@ -478,7 +478,7 @@ typedef struct nox_object_t {
 	unsigned short typ_ind; // 1, 4
 	_WORD field_1_2; // 1, 6
 	unsigned int obj_class; // 2, 8
-	_DWORD field_3; // 3, 12
+	_DWORD field_3; // 3, 12, // TODO: some flags?
 	unsigned int field_4; // 4, 16, // TODO: some flags?
 	_DWORD field_5; // 5, 20
 	_WORD field_6_0; // 6, 24
@@ -486,10 +486,10 @@ typedef struct nox_object_t {
 	_DWORD field_7; // 7, 28
 	_DWORD field_8; // 8, 32
 	_DWORD field_9; // 9, 36
-	_DWORD field_10; // 10, 40
+	unsigned int extent; // 10, 40
 	_DWORD field_11; // 11, 44
 	_DWORD field_12; // 12, 48
-	_DWORD field_13; // 13, 52
+	_DWORD field_13; // 13, 52, // TODO: first byte is team?
 	float x; // 14, 56
 	float y; // 15, 60
 	float new_x; // 16, 64
@@ -575,7 +575,7 @@ typedef struct nox_object_t {
 	_DWORD field_108; // 108, 432
 	_DWORD field_109; // 109, 436
 	_DWORD field_110; // 110, 440
-	_DWORD field_111; // 111, 444
+	void* field_111; // 111, 444
 	_DWORD field_112; // 112, 448
 	_DWORD field_113; // 113, 452
 	_DWORD field_114; // 114, 456
@@ -590,12 +590,12 @@ typedef struct nox_object_t {
 	_BYTE field_122_1; // 122, 489
 	_WORD field_122_2; // 122, 490
 	_DWORD field_123; // 123, 492
-	_DWORD field_124; // 124, 496
+	void* field_124; // 124, 496
 	_DWORD field_125; // 125, 500
-	_DWORD field_126; // 126, 504
+	void* field_126; // 126, 504
 	_DWORD field_127; // 127, 508
-	_DWORD field_128; // 128, 512
-	_DWORD field_129; // 129, 516
+	void* field_128; // 128, 512
+	void* field_129; // 129, 516
 	_DWORD field_130; // 130, 520
 	_DWORD field_131; // 131, 524
 	_DWORD field_132; // 132, 528

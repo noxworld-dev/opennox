@@ -34,12 +34,20 @@ func (u *Unit) String() string {
 	return u.stringAs("Unit")
 }
 
+func (u *Unit) team() byte {
+	return byte(u.field_13)
+}
+
+func (u *Unit) setPos(cp *C.float2) {
+	C.nox_xxx_unitMove_4E7010(u.CObj(), cp)
+}
+
 func (u *Unit) SetPos(p types.Pointf) {
 	cp := (*C.float2)(alloc.Malloc(unsafe.Sizeof(C.float2{})))
 	defer alloc.Free(unsafe.Pointer(cp))
 	cp.field_0 = C.float(p.X)
 	cp.field_4 = C.float(p.Y)
-	C.nox_xxx_unitMove_4E7010(u.CObj(), cp)
+	u.setPos(cp)
 }
 
 func (u *Unit) Push(vec types.Pointf, force float32) {
@@ -295,4 +303,20 @@ func (u *Unit) AddGold(v int) {
 	} else {
 		C.nox_xxx_playerAddGold_4FA590(C.int(uintptr(unsafe.Pointer(u.CObj()))), C.int(v))
 	}
+}
+
+func (u *Unit) dropAllItems() {
+	C.nox_xxx_dropAllItems_4EDA40((*C.uint)(unsafe.Pointer(u.CObj())))
+}
+
+func (u *Unit) clearActionStack() { // aka nox_xxx_monsterClearActionStack_50A3A0
+	if u.Class().Has(object.ClassMonster) {
+		for C.sub_5341F0(u.CObj()) == 0 {
+			C.nox_xxx_monsterPopAction_50A160(u.CObj())
+		}
+	}
+}
+
+func (u *Unit) monsterPushAction(v int) unsafe.Pointer { // aka nox_xxx_monsterPushAction_50A260
+	return unsafe.Pointer(C.nox_xxx_monsterPushAction_50A260(u.CObj(), C.int(v)))
 }

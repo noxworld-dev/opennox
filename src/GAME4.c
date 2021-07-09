@@ -1153,7 +1153,8 @@ int  nox_xxx_playerConfusedGetDirection_4F7A40(int a1) {
 }
 
 //----- (004F7AB0) --------------------------------------------------------
-_DWORD*  nox_xxx_mapFindPlayerStart_4F7AB0(float2* a1, int a2) {
+void nox_xxx_mapFindPlayerStart_4F7AB0(float2* a1, nox_object_t* a2p) {
+	int a2 = a2p;
 	_DWORD* result; // eax
 	int v3;         // ebp
 	int v4;         // ebx
@@ -1245,13 +1246,12 @@ _DWORD*  nox_xxx_mapFindPlayerStart_4F7AB0(float2* a1, int a2) {
 				result = (_DWORD*)&a1->field_0;
 				a1->field_0 = 2000.0;
 				a1->field_4 = 2000.0;
-				return result;
+				return;
 			}
 			result = (_DWORD*)&a1->field_0;
 			*a1 = v5[7];
 		}
 	}
-	return result;
 }
 
 //----- (004F7CE0) --------------------------------------------------------

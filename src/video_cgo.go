@@ -5,7 +5,6 @@ package main
 #include "proto.h"
 extern int g_fullscreen_cfg;
 extern unsigned int dword_5d4594_805860;
-extern unsigned int nox_game_loop_xxx_805872;
 extern int nox_video_dxFullScreen;
 extern int nox_enable_threads;
 extern int nox_video_dxFullScreen;
@@ -90,12 +89,8 @@ func videoSetWindowSize(sz types.Size) {
 	nox_win_height = sz.H
 }
 
-func updateFullScreen(mode int) {
-	noxRendererS.SetWindowMode(mode)
-}
-
 func cfgUpdateFullScreen() {
-	C.g_fullscreen_cfg = C.int(noxRendererS.WindowMode())
+	C.g_fullscreen_cfg = C.int(getWindowMode())
 }
 
 //export nox_video_getScaled
@@ -110,12 +105,12 @@ func nox_video_setScaled(v C.int) {
 
 //export nox_getBackbufWidth
 func nox_getBackbufWidth() C.int {
-	return C.int(noxRendererS.RenderMode().Width)
+	return C.int(getBackbufWidth())
 }
 
 //export nox_getBackbufHeight
 func nox_getBackbufHeight() C.int {
-	return C.int(noxRendererS.RenderMode().Height)
+	return C.int(getBackbufHeight())
 }
 
 //export sub_48A290_call_present
@@ -124,12 +119,12 @@ func sub_48A290_call_present() {
 
 //export nox_video_getFullScreen
 func nox_video_getFullScreen() C.int {
-	return C.int(noxRendererS.WindowMode())
+	return C.int(getWindowMode())
 }
 
 //export nox_video_setFullScreen
 func nox_video_setFullScreen(v C.int) {
-	noxRendererS.SetWindowMode(int(v))
+	updateFullScreen(int(v))
 }
 
 //export nox_video_sync_depths
@@ -229,6 +224,11 @@ func videoInit(sz types.Size, depth, flags int) error {
 	return nil
 }
 
+func videoInitStub() {
+	C.ptr_5D4594_3799572 = &C.obj_5D4594_3800716
+	C.dword_5d4594_823776 = 1
+}
+
 func drawInitAll(sz types.Size, depth, flags int) error {
 	if err := nox_client_drawXxx_444AC0(sz.W, sz.H, depth, flags); err != nil {
 		return err
@@ -292,39 +292,6 @@ func nox_video_copyBackBuffer2_4AD180() {
 
 func gameUpdateVideoMode(inMenu bool) error {
 	return gameResetVideoMode(inMenu, false)
-}
-
-func gameResetVideoMode(inMenu, force bool) error {
-	var mode render.Mode
-	if inMenu {
-		if debugMainloop {
-			videoLog.Printf("gameUpdateVideoMode: menu (%s)", caller(1))
-		}
-		mode = videoGetMenuMode()
-	} else {
-		if debugMainloop {
-			videoLog.Printf("gameUpdateVideoMode: game (%s)", caller(1))
-		}
-		mode = videoGetGameMode()
-	}
-	videoLog.Printf("mode switch: %+v (menu: %v)", mode, inMenu)
-	videoResizeView(mode)
-	C.nox_game_loop_xxx_805872 = 0
-	cur := noxRendererS.RenderMode()
-	if !force && mode == cur {
-		return nil
-	}
-	if mode.Depth != cur.Depth {
-		if C.nox_video_bagMaybeReload(C.int(bool2int(videoIs16Bit()))) == 0 {
-			return errors.New("nox_video_bagMaybeReload failed")
-		}
-	}
-	if err := recreateBuffersAndTarget(); err != nil {
-		return err
-	}
-	C.nox_xxx_loadPal_4A96C0_video_read_palette(internCStr("default.pal"))
-	C.sub_461520()
-	return nil
 }
 
 func recreateBuffersAndTarget() error {

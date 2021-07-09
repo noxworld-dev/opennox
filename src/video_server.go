@@ -23,6 +23,10 @@ type fakeSurface struct {
 	w, h int
 }
 
+//export sub_444D00
+func sub_444D00() {
+}
+
 //export nox_video_createSurface_48A600
 func nox_video_createSurface_48A600(w, h, caps C.int) unsafe.Pointer {
 	data := alloc.Calloc(uintptr(w*h), 2)
@@ -59,7 +63,7 @@ func nox_video_getSurfaceData_48A720(s unsafe.Pointer, outPitch *C.int, outPixel
 func nox_video_showMovieFrame(s unsafe.Pointer) {
 }
 
-func resetRenderer(width, height int) error {
+func resetRenderer(sz types.Size) error {
 	return nil
 }
 

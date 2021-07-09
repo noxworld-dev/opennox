@@ -45,7 +45,6 @@ extern _DWORD nox_xxx_conjurerMaxMana_587000_312804;
 extern _DWORD dword_5d4594_3844304;
 extern _DWORD nox_xxx_wizardMaximumMana_587000_312820;
 extern _QWORD qword_581450_9544;
-extern _DWORD dword_5d4594_2523912;
 extern _DWORD dword_5d4594_2523780;
 extern _DWORD dword_5d4594_2495920;
 extern _DWORD dword_5d4594_2516344;
@@ -62,6 +61,7 @@ int (*nox_client_onLobbyServer_2513928)(const char*, uint16_t, const char*, cons
 
 nox_net_struct_t* nox_net_struct_arr[NOX_NET_STRUCT_MAX] = {0};
 nox_net_struct2_t nox_net_struct2_arr[NOX_NET_STRUCT_MAX] = {0};
+void* dword_5d4594_2523912 = 0;
 
 #ifndef NOX_CGO
 _DWORD dword_5d4594_2513916 = 0;
@@ -5099,14 +5099,14 @@ int  nox_server_addNewMapGroup_57C3B0(int a1) {
 }
 
 //----- (0057C3E0) --------------------------------------------------------
-int nox_xxx_getDebugData_57C3E0() { return dword_5d4594_2523912; }
+void* nox_xxx_getDebugData_57C3E0() { return dword_5d4594_2523912; }
 
 //----- (0057C3F0) --------------------------------------------------------
-int  nox_xxx_nextDebugObject_57C3F0(int a1) {
+void*  nox_xxx_nextDebugObject_57C3F0(void* a1) {
 	int result; // eax
 
 	if (a1)
-		result = *(_DWORD*)(a1 + 336);
+		result = *(_DWORD*)((_DWORD)a1 + 336);
 	else
 		result = 0;
 	return result;
@@ -5161,7 +5161,7 @@ int  sub_57C500(const char* a1, const char* a2) {
 	*((_DWORD*)v2 + 85) = 0;
 	*((_DWORD*)v2 + 84) = dword_5d4594_2523912;
 	if (dword_5d4594_2523912)
-		*(_DWORD*)(dword_5d4594_2523912 + 340) = v2;
+		*(_DWORD*)((_DWORD)dword_5d4594_2523912 + 340) = v2;
 	dword_5d4594_2523912 = v2;
 	return 1;
 }

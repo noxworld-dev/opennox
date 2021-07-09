@@ -80,13 +80,12 @@ func gameFrameInc() {
 	C.nox_frame_xxx_2598000++
 }
 
-//export nox_xxx_gameTick_4D2580_server_B
-func nox_xxx_gameTick_4D2580_server_B(ticks int64) C.int {
+func nox_xxx_gameTick_4D2580_server_B(ticks uint64) bool {
 	C.nox_xxx_updateServer_4D2DA0(C.longlong(ticks))
 	nox_server_netMaybeSendInitialPackets_4DEB30()
-	C.nox_xxx_netlist_4DEB50()
+	nox_xxx_netlist_4DEB50()
 	if nox_server_mainloop_exiting_43DEA0() {
-		return 0
+		return false
 	}
 	if gameFrame()%2 == 0 {
 		C.nox_xxx_serverLoopSendMap_519990()
@@ -117,16 +116,15 @@ func nox_xxx_gameTick_4D2580_server_B(ticks int64) C.int {
 		C.nox_xxx_net_4263C0()
 		nox_xxx_setKeybTimeout_4160D0(15)
 	}
-	return 1
+	return true
 }
 
-//export nox_xxx_gameTick_4D2580_server_E
 func nox_xxx_gameTick_4D2580_server_E() {
 	if getEngineFlag(NOX_ENGINE_FLAG_REPLAY_WRITE | NOX_ENGINE_FLAG_REPLAY_READ) {
 		C.sub_4E76C0()
 	}
 	if C.nox_xxx_gameGet_4DB1B0() != 0 {
-		C.nox_xxx_gameTick_4D2580_server_D()
+		nox_xxx_gameTick_4D2580_server_D()
 	}
 	C.sub_4139C0()
 	if C.nox_xxx_serverIsClosing_446180() != 0 {

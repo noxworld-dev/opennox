@@ -1898,7 +1898,8 @@ double  nox_xxx_objectGetMass_4E4A70(int a1) { return *(float*)(a1 + 120); }
 int  sub_4E4A80(int a1) { return *(_DWORD*)(a1 + 340); }
 
 //----- (004E4A90) --------------------------------------------------------
-int*  nox_xxx_setNPCColor_4E4A90(int a1, unsigned __int8 a2, int a3) {
+int*  nox_xxx_setNPCColor_4E4A90(nox_object_t* a1p, unsigned __int8 a2, int a3) {
+	int a1 = a1p;
 	int v3;      // edi
 	int v4;      // eax
 	int* result; // eax
@@ -2715,7 +2716,8 @@ void  nox_xxx_playerRemoveSpawnedStuff_4E5AD0(int a1) {
 }
 
 //----- (004E5B50) --------------------------------------------------------
-BOOL  nox_xxx_isUnit_4E5B50(int a1) {
+BOOL  nox_xxx_isUnit_4E5B50(nox_object_t* a1p) {
+	int a1 = a1p;
 	int v1;      // ecx
 	BOOL result; // eax
 
@@ -2731,7 +2733,8 @@ BOOL  nox_xxx_isUnit_4E5B50(int a1) {
 }
 
 //----- (004E5B80) --------------------------------------------------------
-BOOL  sub_4E5B80(int a1) {
+BOOL  sub_4E5B80(nox_object_t* a1p) {
+	int a1 = a1p;
 	int v1;      // eax
 	BOOL result; // eax
 
@@ -4355,7 +4358,8 @@ char*  sub_4E8110(int a1) {
 }
 
 //----- (004E81D0) --------------------------------------------------------
-int  sub_4E81D0(int a1) {
+int  sub_4E81D0(nox_object_t* a1p) {
+	int a1 = a1p;
 	int result; // eax
 
 	result = *getMemU32Ptr(0x5D4594, 1567728);

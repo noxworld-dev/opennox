@@ -209,7 +209,10 @@ func runNox(args []string) error {
 	}
 	if *fServer {
 		C.nox_enable_audio = 0
-		setEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING | NOX_ENGINE_FLAG_31)
+		setEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING |
+			NOX_ENGINE_FLAG_DISABLE_TEXT_RENDERING |
+			NOX_ENGINE_FLAG_DISABLE_FLOOR_RENDERING |
+			NOX_ENGINE_FLAG_31)
 	}
 	if *fSleep {
 		setEngineFlag(NOX_ENGINE_FLAG_31)
@@ -306,12 +309,17 @@ func runNox(args []string) error {
 	C.nox_xxx_loadModifyers_4158C0()
 	C.nox_xxx_cmdTokensLoad_4444F0()
 	C.sub_4D11A0()
-	videoResizeView(render.Mode{Depth: 16})
-	if err := gameResetVideoMode(true, true); err != nil {
-		return fmt.Errorf("failed to update video mode: %w", err)
+	if !isDedicatedServer {
+		videoResizeView(render.Mode{Depth: 16})
+		if err := gameResetVideoMode(true, true); err != nil {
+			return fmt.Errorf("failed to update video mode: %w", err)
+		}
+		nox_xxx_drawSelectColor_434350(memmap.Uint32(0x5D4594, 2650656))
+		sub_440900()
+	} else {
+		enableGUIDrawing(false)
+		videoInitStub()
 	}
-	nox_xxx_drawSelectColor_434350(memmap.Uint32(0x5D4594, 2650656))
-	sub_440900()
 	if C.nox_video_read_videobag(C.int(bool2int(videoIs16Bit()))) == 0 {
 		return fmt.Errorf("failed to read graphics")
 	}

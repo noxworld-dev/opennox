@@ -19,7 +19,7 @@
 extern _DWORD nox_xxx_respawnAllow_587000_205200;
 extern _DWORD dword_5d4594_1569656;
 extern _DWORD dword_5d4594_1563064;
-extern _DWORD dword_5d4594_1548532;
+extern void* dword_5d4594_1548532;
 extern _DWORD dword_5d4594_1548524;
 extern _DWORD dword_5d4594_1568028;
 extern _DWORD dword_5d4594_600116;
@@ -64,6 +64,7 @@ nox_server_xxx nox_server_xxx_1599716[NOX_SERVER_XXX_SIZE*NOX_SERVER_XXX_SIZE] =
 void nullsub_21(void) {}
 void nullsub_25(_DWORD a1) {}
 
+//#ifndef NOX_CGO
 //----- (00413980) --------------------------------------------------------
 void  sub_413980(int a1) {
 	if (a1) {
@@ -73,6 +74,7 @@ void  sub_413980(int a1) {
 		dword_5d4594_251744 = 0;
 	}
 }
+//#endif // NOX_CGO
 
 //----- (004139C0) --------------------------------------------------------
 void sub_4139C0() {
@@ -86,7 +88,7 @@ void sub_4139C0() {
 }
 
 //----- (00417160) --------------------------------------------------------
-char* sub_417160() {
+void sub_417160() {
 	char* result; // eax
 	int i;        // esi
 
@@ -95,11 +97,10 @@ char* sub_417160() {
 		nox_xxx_playerUnsetStatus_417530(i, 16);
 		result = nox_common_playerInfoGetNext_416EE0(i);
 	}
-	return result;
 }
 
 //----- (00426060) --------------------------------------------------------
-LPVOID sub_426060() {
+void sub_426060() {
 	char* v0;      // eax
 	char* i;       // eax
 	char* v2;      // eax
@@ -130,7 +131,7 @@ LPVOID sub_426060() {
 				*getMemU8Ptr(0x5D4594, 739691) = 0;
 				strncpy((char*)getMemAt(0x5D4594, 739420), v6, 8u);
 				*getMemU8Ptr(0x5D4594, 739428) = 0;
-				result = sub_4289D0((LPVOID*)getMemAt(0x5D4594, 739396));
+				sub_4289D0((LPVOID*)getMemAt(0x5D4594, 739396));
 			}
 		}
 	} else {
@@ -144,10 +145,9 @@ LPVOID sub_426060() {
 				sub_425F10((int)j);
 		}
 		sub_426150();
-		result = (LPVOID)sub_428810((int)getMemAt(0x5D4594, 599476), 0);
+		sub_428810((int)getMemAt(0x5D4594, 599476), 0);
 		*getMemU16Ptr(0x5D4594, 599482) = 0;
 	}
-	return result;
 }
 
 //----- (0043DEA0) --------------------------------------------------------
@@ -270,7 +270,7 @@ int  nox_server_loadMapFile_4CF5F0(char* a1, int a2) {
 // 4CF5F0: using guessed type char var_100[256];
 
 //----- (004D0CF0) --------------------------------------------------------
-char* sub_4D0CF0() {
+char* nox_xxx_getSomeMapName_4D0CF0() {
 	int v0; // eax
 	int v1; // eax
 	int v2; // edi
@@ -334,7 +334,7 @@ void  sub_4D10F0(char* a1) {
 void nox_xxx____setargv_14_4D15F0() { *getMemU32Ptr(0x5D4594, 1548520) = 1; }
 
 //----- (004D2160) --------------------------------------------------------
-char* sub_4D2160() {
+void sub_4D2160() {
 	char* result; // eax
 	char* i;      // ebp
 	int v2;       // edi
@@ -359,7 +359,6 @@ char* sub_4D2160() {
 		}
 		result = nox_xxx_TeamNext_418B60((int)i);
 	}
-	return result;
 }
 
 //----- (004D2230) --------------------------------------------------------
@@ -383,7 +382,7 @@ void sub_4D2230() {
 }
 
 //----- (004D22B0) --------------------------------------------------------
-char* sub_4D22B0() {
+void sub_4D22B0() {
 	char* result; // eax
 	int i;        // esi
 	int v2;       // eax
@@ -420,7 +419,6 @@ char* sub_4D22B0() {
 		}
 		result = nox_common_playerInfoGetNext_416EE0(i);
 	}
-	return result;
 }
 
 //----- (004D2DA0) --------------------------------------------------------
@@ -524,7 +522,7 @@ int  nox_xxx_updateServer_4D2DA0(__int64 a1) {
 }
 
 //----- (004D3130) --------------------------------------------------------
-char* sub_4D3130() {
+void sub_4D3130() {
 	char* result; // eax
 	int i;        // esi
 	int v2;       // [esp-14h] [ebp-24h]
@@ -554,7 +552,6 @@ char* sub_4D3130() {
 		}
 		result = nox_common_playerInfoGetNext_416EE0(i);
 	}
-	return result;
 }
 
 //----- (004D6FD0) --------------------------------------------------------
@@ -596,7 +593,7 @@ int  sub_4D7140(int a1) {
 }
 
 //----- (004DB160) --------------------------------------------------------
-unsigned __int8* sub_4DB160() { return getMemAt(0x5D4594, 1557900); }
+char* sub_4DB160() { return getMemAt(0x5D4594, 1557900); }
 
 //----- (004DBA30) --------------------------------------------------------
 void sub_4DBA30(int a1) {
@@ -804,15 +801,12 @@ int sub_4DCF20() {
 }
 
 //----- (004DEB30) --------------------------------------------------------
-#ifdef NOX_CGO
-void nox_server_netMaybeSendInitialPackets_4DEB30();
-#else // NOX_CGO
+#ifndef NOX_CGO
 void nox_server_netMaybeSendInitialPackets_4DEB30() {
 	if (!(nox_common_getEngineFlag(NOX_ENGINE_FLAG_REPLAY_READ))) {
 		nox_xxx_servNetInitialPackets_552A80(*getMemUintPtr(0x5D4594, 1563148), 1);
 	}
 }
-#endif // NOX_CGO
 
 //----- (004DEB50) --------------------------------------------------------
 void nox_xxx_netlist_4DEB50() {
@@ -831,6 +825,7 @@ void nox_xxx_netlist_4DEB50() {
 		}
 	}
 }
+#endif // NOX_CGO
 
 //----- (004DEC80) --------------------------------------------------------
 #ifndef NOX_CGO
@@ -1111,7 +1106,8 @@ int sub_4EDD70() {
 }
 
 //----- (004EF660) --------------------------------------------------------
-int  sub_4EF660(int a1) {
+int  sub_4EF660(nox_object_t* a1p) {
+	int a1 = a1p;
 	int v1; // esi
 	int i;  // eax
 
@@ -1460,7 +1456,7 @@ void nox_xxx_voteUptate_506F30() {
 }
 
 //----- (0050AFA0) --------------------------------------------------------
-float* sub_50AFA0() {
+void sub_50AFA0() {
 	int i;                // edi
 	int v1;               // eax
 	int v2;               // esi
@@ -1605,7 +1601,6 @@ float* sub_50AFA0() {
 		}
 		result = (float*)nox_xxx_waypointNext_579870((int)k);
 	}
-	return result;
 }
 
 //----- (0050D890) --------------------------------------------------------
@@ -1621,7 +1616,9 @@ unsigned int sub_50D890() {
 }
 
 //----- (00511590) --------------------------------------------------------
-void  nox_xxx_addDebugEntry_511590(int a1, int a2) {
+void  nox_xxx_addDebugEntry_511590(void* a1p, void* a2p) {
+	int a1 = a1p;
+	int a2 = a2p;
 	int v2;         // ebx
 	_DWORD* v3;     // eax
 	int v4;         // esi
@@ -2164,9 +2161,7 @@ bool sub_57B140() {
 }
 
 //----- (004D1860) --------------------------------------------------------
-#ifdef NOX_CGO
-void nox_server_questMapNextLevel();
-#else // !NOX_CGO
+#ifndef NOX_CGO
 void nox_server_questMapNextLevel() {
 	// server loading next quest level
 	sub_51A920(nox_common_randomInt_415FA0(0, 2));
@@ -2184,7 +2179,7 @@ void nox_server_questMapNextLevel() {
 		sub_4D7520(0);
 	}
 }
-#endif // NOX_CGO
+
 int nox_xxx_mapExitAndCheckNext_4D1860_server() {
 	char* v2;         // eax
 	int i;            // eax
@@ -2539,20 +2534,17 @@ void nox_xxx_gameTick_4D2580_server_A(int v2, char* v38) {
 		v7[57] = 0;
 	} else if (sub_4D0D70()) {
 		nox_xxx_loadMapCycle_4D0A30();
-		char* v11 = sub_4D0CF0();
+		char* v11 = nox_xxx_getSomeMapName_4D0CF0();
 		if (v11) {
 			char* v12 = nox_server_currentMapGetFilename_409B30();
 			if (!_strcmpi(v11, v12))
-				v11 = sub_4D0CF0();
+				v11 = nox_xxx_getSomeMapName_4D0CF0();
 			if (v11)
 				nox_xxx_gameSetMapPath_409D70(v11);
 		}
 	}
 }
 
-#ifdef NOX_CGO
-int nox_xxx_gameTick_4D2580_server_B(__int64 ticks);
-#else // NOX_CGO
 int nox_xxx_gameTick_4D2580_server_B(__int64 ticks) {
 	nox_xxx_updateServer_4D2DA0(ticks);
 	nox_server_netMaybeSendInitialPackets_4DEB30();
@@ -2591,7 +2583,6 @@ int nox_xxx_gameTick_4D2580_server_B(__int64 ticks) {
 	}
 	return 1;
 }
-#endif // NOX_CGO
 
 int nox_xxx_gameTick_4D2580_server_C() {
 	sub_4EDD70();
@@ -2684,9 +2675,6 @@ void nox_xxx_gameTick_4D2580_server_D() {
 	sub_4DB170(0, v29, 0);
 }
 
-#ifdef NOX_CGO
-void nox_xxx_gameTick_4D2580_server_E();
-#else // !NOX_CGO
 void nox_xxx_gameTick_4D2580_server_E() {
 	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_REPLAY_WRITE | NOX_ENGINE_FLAG_REPLAY_READ))
 		sub_4E76C0();
@@ -2720,15 +2708,12 @@ void nox_xxx_gameTick_4D2580_server_E() {
 		sub_4DCF20();
 	}
 }
-#endif // NOX_CGO
 
 int nox_xxx_gameTick_4D2580_server() {
 	char v38[16];         // [esp+10h] [ebp-30h]
 
 	__int64 v0 = nox_platform_get_ticks();
-	unsigned int v1 = v0;
 	int v2 = 0;
-	unsigned int v3 = HIDWORD(v0);
 	if (!dword_5d4594_2650652) {
 		nox_netlist_resetAllInList_40EE90(1);
 	} else {
@@ -2745,11 +2730,10 @@ int nox_xxx_gameTick_4D2580_server() {
 	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_REPLAY_READ))
 		nox_xxx_replayTickMB_4D3580_net_playback(1);
 	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_LOG_BAND)) {
-		*(_DWORD*)&v38[4] = (__PAIR64__(v3, v1) - *getMemU64Ptr(0x5D4594, 1548684)) >> 32;
-		if (__PAIR64__(v3, v1) - *getMemU64Ptr(0x5D4594, 1548684) > 0x3E8) {
+		*(_DWORD*)&v38[4] = (v0 - *getMemU64Ptr(0x5D4594, 1548684)) >> 32;
+		if (v0 - *getMemU64Ptr(0x5D4594, 1548684) > 0x3E8) {
 			sub_4D3130();
-			*getMemU32Ptr(0x5D4594, 1548684) = v1;
-			*getMemU32Ptr(0x5D4594, 1548688) = v3;
+			*getMemU64Ptr(0x5D4594, 1548684) = v0;
 		}
 	}
 	if (!nox_common_gameFlags_check_40A5C0(2048)) {
@@ -2769,6 +2753,7 @@ int nox_xxx_gameTick_4D2580_server() {
 	nox_xxx_gameTick_4D2580_server_E();
 	return 1;
 }
+#endif // NOX_CGO
 // 4D26F3: variable 'v5' is possibly undefined
 // 4D2A52: variable 'v19' is possibly undefined
 // 4D2CEB: variable 'v32' is possibly undefined

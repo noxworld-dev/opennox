@@ -182,7 +182,7 @@ int  nox_xxx_saveDoAutosaveMB_4DB370_savegame(const char* a1) {
 	v5 = nox_xxx_mapGetMapName_409B40();
 	if (!sub_4DB5A0((int)getMemAt(0x587000, 199184), (int)v5))
 		return 0;
-	if (!nox_xxx_saveMakePlayerLocation_4DB600(*(int*)&dword_5d4594_1563084))
+	if (!nox_xxx_saveMakePlayerLocation_4DB600(dword_5d4594_1563084))
 		return 0;
 	v13 = nox_xxx_mapGetMapName_409B40();
 	v12 = nox_xxx_mapGetMapName_409B40();

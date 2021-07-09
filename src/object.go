@@ -4,6 +4,7 @@ package main
 #include "proto.h"
 extern void* nox_server_objects_1556844;
 extern void* nox_server_objects_uninited_1556860;
+extern void* nox_server_objects_updatable2_1556848;
 */
 import "C"
 import (
@@ -17,6 +18,13 @@ import (
 	"nox/v1/server/script"
 )
 
+func asPointf(p unsafe.Pointer) types.Pointf {
+	cp := (*C.float2)(p)
+	return types.Pointf{
+		X: float32(cp.field_0),
+		Y: float32(cp.field_4),
+	}
+}
 func asObject(p unsafe.Pointer) *Object {
 	return (*Object)(p)
 }
@@ -28,6 +36,10 @@ func firstServerObject() *Object {
 	return asObject(C.nox_server_objects_1556844)
 }
 
+func firstServerObjectUpdatable2() *Object {
+	return asObject(C.nox_server_objects_updatable2_1556848)
+}
+
 func firstServerObjectUninited() *Object {
 	return asObject(C.nox_server_objects_uninited_1556860)
 }
@@ -35,6 +47,14 @@ func firstServerObjectUninited() *Object {
 func getObjects() []*Object {
 	var out []*Object
 	for p := firstServerObject(); p != nil; p = p.Next() {
+		out = append(out, p)
+	}
+	return out
+}
+
+func getObjectsUpdatable2() []*Object {
+	var out []*Object
+	for p := firstServerObjectUpdatable2(); p != nil; p = p.Next() {
 		out = append(out, p)
 	}
 	return out
@@ -62,9 +82,9 @@ func getObjectByID(id string) *Object {
 	return nil
 }
 
-func getObjectByInd(ind int) *Object {
+func getObjectByInd(ind int) *Object { // aka nox_xxx_netGetUnitByExtent_4ED020
 	for p := firstServerObject(); p != nil; p = p.Next() {
-		if p.flags16()&0x20 == 0 && p.Ind() == ind {
+		if p.Flags16()&0x20 == 0 && p.Ind() == ind {
 			return p
 		}
 	}
@@ -112,8 +132,8 @@ func (obj *Object) ID() string {
 	return GoString(obj.id)
 }
 
-func (obj *Object) Ind() int {
-	return int(*(*int32)(obj.field(40)))
+func (obj *Object) Ind() int { // aka "extent"
+	return int(obj.extent)
 }
 
 func (obj *Object) objTypeInd() int {
@@ -159,8 +179,12 @@ func (obj *Object) Class() object.Class {
 	return object.Class(obj.obj_class)
 }
 
-func (obj *Object) flags16() byte {
-	return *(*byte)(obj.field(16))
+func (obj *Object) Flags16() uint32 {
+	return uint32(obj.field_4)
+}
+
+func (obj *Object) SetFlags16(v uint32) {
+	obj.field_4 = C.uint(v)
 }
 
 func (obj *Object) findByID(id string) *Object {
@@ -184,23 +208,36 @@ func (obj *Object) equalID(id2 string) bool {
 }
 
 func (obj *Object) Next() *Object {
-	p := *(*unsafe.Pointer)(obj.field(444))
-	return asObject(p)
+	return asObject(unsafe.Pointer(obj.field_111))
 }
 
 func (obj *Object) FirstXxx() *Object {
-	p := *(*unsafe.Pointer)(obj.field(504))
-	return asObject(p)
+	return asObject(unsafe.Pointer(obj.field_126))
 }
 
 func (obj *Object) NextXxx() *Object {
-	p := *(*unsafe.Pointer)(obj.field(496))
-	return asObject(p)
+	return asObject(unsafe.Pointer(obj.field_124))
 }
 
 func (obj *Object) GetXxx() []*Object {
 	var out []*Object
 	for p := obj.FirstXxx(); p != nil; p = p.NextXxx() {
+		out = append(out, p)
+	}
+	return out
+}
+
+func (obj *Object) Next512() *Object {
+	return asObject(unsafe.Pointer(obj.field_128))
+}
+
+func (obj *Object) First516() *Object {
+	return asObject(unsafe.Pointer(obj.field_129))
+}
+
+func (obj *Object) Get516() []*Object {
+	var out []*Object
+	for p := obj.First516(); p != nil; p = p.Next512() {
 		out = append(out, p)
 	}
 	return out

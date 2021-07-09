@@ -3,60 +3,79 @@
 package main
 
 import (
+	"image"
+
 	"nox/v1/client/input"
+	"nox/v1/client/input/keybind"
 	"nox/v1/common/types"
 )
 
-func inputInit() (func(), error) {
-	return func() {}, nil
+var (
+	inpHandlerS *input.Handler
+	srvSens     float32
+	winMode     = -4
+)
+
+func getSensitivity() float32 {
+	return srvSens
 }
 
-var inpHandler fakeInput
-
-type fakeInput struct {
-	sens float32
+func setSensitivity(v float32) {
+	srvSens = v
 }
 
-func (fakeInput) Tick()           {}
-func (fakeInput) AcquireMouse()   {}
-func (fakeInput) UnacquireMouse() {}
-func (fakeInput) StartTextInput() {}
-func (fakeInput) StopTextInput()  {}
-
-func (h *fakeInput) GetSensitivity() float32 {
-	return h.sens
+func updateFullScreen(mode int) {
+	winMode = mode
 }
 
-func (h *fakeInput) SetSensitivity(v float32) {
-	h.sens = v
+func getWindowMode() int {
+	return winMode
 }
 
-func (fakeInput) WaitClick() bool {
-	return true
+func getBackbufWidth() int {
+	return getBackbufSize().W
 }
 
-func (fakeInput) IsMouseDown() bool {
-	return false
-}
-func (fakeInput) KeyModState(mod input.Keymod) bool {
-	return false
+func getBackbufHeight() int {
+	return getBackbufSize().H
 }
 
-func (fakeInput) SetWinSize(sz types.Size)     {}
-func (fakeInput) SetDrawWinSize(sz types.Size) {}
+func getBackbufSize() types.Size {
+	return types.Size{W: 640, H: 480}
+}
 
-type fakeGamepad struct{}
-type fakeGamepadStick struct{}
-
-func (fakeGamepadStick) Posf() types.Pointf {
-	return types.Pointf{}
-}
-func (*fakeGamepad) StickRel() fakeGamepadStick {
-	return fakeGamepadStick{}
-}
-func (*fakeGamepad) InRelative() bool {
-	return false
-}
-func (fakeInput) Gamepad() *fakeGamepad {
+func gameResetVideoMode(inMenu, force bool) error {
 	return nil
+}
+
+func setTextInput(enable bool) {}
+
+func getTextEditBuf() string { return "" }
+
+func keymodShift() bool { return false }
+
+func processInput() {}
+
+func isMousePressed() bool { return false }
+
+func clientDraw() bool { return true }
+
+func drawAndPresent() {}
+
+func getMousePos() types.Point { return types.Point{} }
+
+func changeMousePos(pos types.Point, abs bool) {}
+
+func getInputSeq() uint { return 1 }
+
+func resetInput() {}
+
+func setMouseBounds(rect image.Rectangle) {}
+
+func setKeyFlag(key keybind.Key, val bool) {}
+
+func map_download_start() {}
+
+func mapDownloadLoop(first bool) (bool, error) {
+	return true, nil
 }

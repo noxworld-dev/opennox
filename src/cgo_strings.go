@@ -64,6 +64,14 @@ func asU32Slice(p unsafe.Pointer, sz int) (out []uint32) {
 	return
 }
 
+func asF32Slice(p unsafe.Pointer, sz int) (out []float32) {
+	*(*reflect.SliceHeader)(unsafe.Pointer(&out)) = reflect.SliceHeader{
+		Data: uintptr(p),
+		Len:  sz, Cap: sz,
+	}
+	return
+}
+
 func asWStr(p unsafe.Pointer, sz int) (out []C.wchar_t) {
 	*(*reflect.SliceHeader)(unsafe.Pointer(&out)) = reflect.SliceHeader{
 		Data: uintptr(p),
@@ -140,6 +148,14 @@ func WStrLenN(s *C.wchar_t, max int) int {
 
 func GoString(s *C.char) string {
 	return C.GoString(s)
+}
+
+func GoStringP(s unsafe.Pointer) string {
+	return GoString((*C.char)(s))
+}
+
+func GoStringS(s []byte) string {
+	return string(s[:StrLenBytes(s)])
 }
 
 func CString(s string) *C.char {

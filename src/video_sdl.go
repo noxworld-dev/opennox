@@ -4,16 +4,30 @@ package main
 
 /*
 #include "client__video__draw_common.h"
+extern unsigned int nox_game_loop_xxx_805872;
 */
 import "C"
 import (
 	"errors"
 	"unsafe"
 
+	"nox/v1/client/render"
 	noxcolor "nox/v1/common/color"
 	"nox/v1/common/memmap"
 	"nox/v1/common/types"
 )
+
+func clientDraw() bool {
+	return nox_xxx_client_435F80_draw(inpHandlerS)
+}
+
+func getBackbufWidth() int {
+	return noxRendererS.RenderMode().Width
+}
+
+func getBackbufHeight() int {
+	return noxRendererS.RenderMode().Height
+}
 
 func nox_video_copyBackBuffer3_4AD1E0() {
 	sz := noxRendererS.BufferSize()
@@ -74,6 +88,39 @@ func resetRenderer(sz types.Size) error {
 		return errors.New("nox_video_setBackBufSizes_48A3D0 failed")
 	}
 	//sub_48A7F0()
+	return nil
+}
+
+func gameResetVideoMode(inMenu, force bool) error {
+	var mode render.Mode
+	if inMenu {
+		if debugMainloop {
+			videoLog.Printf("gameUpdateVideoMode: menu (%s)", caller(1))
+		}
+		mode = videoGetMenuMode()
+	} else {
+		if debugMainloop {
+			videoLog.Printf("gameUpdateVideoMode: game (%s)", caller(1))
+		}
+		mode = videoGetGameMode()
+	}
+	videoLog.Printf("mode switch: %+v (menu: %v)", mode, inMenu)
+	videoResizeView(mode)
+	C.nox_game_loop_xxx_805872 = 0
+	cur := noxRendererS.RenderMode()
+	if !force && mode == cur {
+		return nil
+	}
+	if mode.Depth != cur.Depth {
+		if C.nox_video_bagMaybeReload(C.int(bool2int(videoIs16Bit()))) == 0 {
+			return errors.New("nox_video_bagMaybeReload failed")
+		}
+	}
+	if err := recreateBuffersAndTarget(); err != nil {
+		return err
+	}
+	C.nox_xxx_loadPal_4A96C0_video_read_palette(internCStr("default.pal"))
+	C.sub_461520()
 	return nil
 }
 

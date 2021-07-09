@@ -507,7 +507,8 @@ int  nox_xxx_monsterActionReset_50A110(int a1) {
 }
 
 //----- (0050A160) --------------------------------------------------------
-char  nox_xxx_monsterPopAction_50A160(int a1) {
+char  nox_xxx_monsterPopAction_50A160(nox_object_t* a1p) {
+	int a1 = a1p;
 	int v1;                  // esi
 	int v2;                  // eax
 	int v3;                  // eax
@@ -570,7 +571,8 @@ char  nox_xxx_monsterPopAction_50A160(int a1) {
 // 50A21D: variable 'v11' is possibly undefined
 
 //----- (0050A260) --------------------------------------------------------
-int*  nox_xxx_monsterPushAction_50A260(int a1, int a2) {
+int*  nox_xxx_monsterPushAction_50A260(nox_object_t* a1p, int a2) {
+	int a1 = a1p;
 	int v2;                  // esi
 	int* result;             // eax
 	char v4;                 // cl
@@ -636,10 +638,10 @@ int*  nox_xxx_monsterAction_50A360(int a1, int a2) {
 
 //----- (0050A3A0) --------------------------------------------------------
 void  nox_xxx_monsterClearActionStack_50A3A0(int a1) {
-	if (*(_BYTE*)(a1 + 8) & 2 && !sub_5341F0(a1)) {
-		do
+	if (*(_BYTE*)(a1 + 8) & 2) {
+		while (!sub_5341F0(a1)) {
 			nox_xxx_monsterPopAction_50A160(a1);
-		while (!sub_5341F0(a1));
+		}
 	}
 }
 

@@ -53,6 +53,9 @@ func (t *ObjectType) ID() string {
 }
 
 func (t *ObjectType) Ind() int {
+	if t == nil {
+		return 0
+	}
 	return int(t.ind)
 }
 

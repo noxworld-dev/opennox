@@ -73,10 +73,8 @@ func noxCheatGold(c *parsecmd.Console, tokens []string) bool {
 		c.Printf(parsecmd.ColorLightRed, "failed to parse the value")
 		return true
 	}
-	for _, p := range getPlayers() {
-		if u := p.UnitC(); u != nil {
-			u.AddGold(v)
-		}
+	for _, u := range getPlayerUnits() {
+		u.AddGold(v)
 	}
 	c.Printf(parsecmd.ColorLightYellow, "added %d gold to all players", v)
 	return true

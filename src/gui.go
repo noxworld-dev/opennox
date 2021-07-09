@@ -11,6 +11,9 @@ extern nox_window* dword_5d4594_1064896;
 extern nox_alloc_class* nox_alloc_window;
 extern nox_window_ref* nox_win_1064912;
 
+extern unsigned int nox_client_renderGUI_80828;
+extern unsigned int nox_xxx_xxxRenderGUI_587000_80832;
+
 void  sub_4AA030(nox_window* win, nox_window_data* data);
 void nox_window_call_draw_func(nox_window* win, nox_window_data* data);
 int nox_gui_console_Enter_450FD0();
@@ -56,6 +59,17 @@ var (
 	nox_win_1064900     *Window
 	nox_win_1064916     *Window
 )
+
+func enableGUIDrawing(enable bool) {
+	if enable {
+		// TODO: might be a bitfield
+		C.nox_client_renderGUI_80828 = 1
+		C.nox_xxx_xxxRenderGUI_587000_80832 = 1
+	} else {
+		C.nox_client_renderGUI_80828 = 0
+		C.nox_xxx_xxxRenderGUI_587000_80832 = 0
+	}
+}
 
 //export nox_xxx_wndGetFocus_46B4F0
 func nox_xxx_wndGetFocus_46B4F0() *C.nox_window {
@@ -509,6 +523,9 @@ func nox_gui_draw() {
 
 //export nox_new_window_from_file
 func nox_new_window_from_file(name *C.char, fnc unsafe.Pointer) *C.nox_window {
+	if isDedicatedServer {
+		panic("server should not load GUI")
+	}
 	return newWindowFromFile(C.GoString(name), fnc).C()
 }
 

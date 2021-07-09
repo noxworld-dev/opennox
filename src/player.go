@@ -219,6 +219,15 @@ func getPlayers() (out []*Player) {
 	return out
 }
 
+func getPlayerUnits() (out []*Unit) {
+	for _, p := range getPlayers() {
+		if u := p.UnitC(); u != nil {
+			out = append(out, u)
+		}
+	}
+	return out
+}
+
 func getPlayerByInd(i int) *Player {
 	if i < 0 || i >= NOX_PLAYERINFO_MAX {
 		return nil

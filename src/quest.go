@@ -176,7 +176,6 @@ func nox_server_questNextStageThreshold_4D74F0(lvl C.int) C.int {
 	return C.int(questNextStageThreshold(int(lvl)))
 }
 
-//export nox_server_questMapNextLevel
 func nox_server_questMapNextLevel() {
 	// server loading next quest level
 	C.sub_51A920(C.int(nox_common_randomInt_415FA0(0, 2)))
