@@ -1123,7 +1123,7 @@ func nox_xxx_netlist_4DEB50() {
 	if getEngineFlag(NOX_ENGINE_FLAG_REPLAY_READ) {
 		C.nox_xxx_replayTickMB_4D3580_net_playback(0)
 		C.nox_netlist_resetByInd_40ED10(31, 0)
-	} else {
+	} else if !isDedicatedServer {
 		var v3 C.uint
 		v2 := C.nox_netlist_copyPacketList_40ED60(31, 0, &v3)
 		if v2 != nil {

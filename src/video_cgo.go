@@ -228,6 +228,8 @@ func videoInit(sz types.Size, depth, flags int) error {
 func videoInitStub() {
 	C.ptr_5D4594_3799572 = &C.obj_5D4594_3800716
 	C.dword_5d4594_823776 = 1
+	C.nox_win_width = noxDefaultWidth
+	C.nox_win_height = noxDefaultHeight
 }
 
 func drawInitAll(sz types.Size, depth, flags int) error {

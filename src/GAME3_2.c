@@ -2133,7 +2133,7 @@ char* nox_xxx_netReportAllLatency_4D3050() {
 		dword_5d4594_1548700 = result;
 	}
 	if (result) {
-		while (result[2064] != 31) {
+		for (int k = 0; result[2064] != 31 && k < 32; k++) {
 			v1 = sub_554240((unsigned __int8)result[2064]) == 0;
 			result = *(char**)&dword_5d4594_1548700;
 			if (!v1)

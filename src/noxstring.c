@@ -323,6 +323,9 @@ wchar_t* nox_wcschr(wchar_t* nox_wcs, wchar_t wc) {
 }
 
 int nox_wcscmp(const wchar_t* s1, const wchar_t* s2) {
+	if (s1 == s2) return 0;
+	if (!s1) return -1;
+	if (!s2) return +1;
 	size_t result;
 	for (result = 0; s1[result] && s1[result] == s2[result]; result++)
 		;
