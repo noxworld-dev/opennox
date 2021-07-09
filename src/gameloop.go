@@ -291,7 +291,7 @@ mainloop:
 						C.nox_xxx_mapSwitchLevel_4D12E0(0)
 						continue mainloop
 					}
-					C.sub_4D3C30()
+					sub_4D3C30()
 					noxflags.UnsetGame(noxflags.GameFlag23)
 				}
 				CONNECT_OR_HOST()

@@ -12,6 +12,7 @@ extern unsigned int dword_5d4594_1569656;
 extern unsigned int dword_5d4594_2650652;
 extern unsigned int nox_xxx_questFlag_1556148;
 extern unsigned int dword_5d4594_2649712;
+extern unsigned int dword_5d4594_825768;
 extern nox_object_t* nox_xxx_host_player_unit_3843628;
 
 void nox_xxx_abilUpdateMB_4FBEE0();
@@ -29,7 +30,6 @@ unsigned int sub_50D890();
 void nox_xxx_gameTick_4D2580_server_D();
 int  nox_xxx_playerSomeWallsUpdate_5003B0(nox_object_t* obj);
 void sub_4139C0();
-int sub_446040();
 void sub_446190();
 int sub_4DCF20();
 int sub_4E76C0();
@@ -43,8 +43,12 @@ import "C"
 import (
 	"encoding/binary"
 	"errors"
+	"fmt"
+	"path/filepath"
+	"strings"
 	"unsafe"
 
+	"nox/v1/common/crypt"
 	"nox/v1/common/datapath"
 	noxflags "nox/v1/common/flags"
 	"nox/v1/common/fs"
@@ -119,6 +123,10 @@ func nox_xxx_gameTick_4D2580_server_B(ticks uint64) bool {
 	return true
 }
 
+func sub_446040() uint32 {
+	return uint32(C.dword_5d4594_825768)
+}
+
 func nox_xxx_gameTick_4D2580_server_E() {
 	if getEngineFlag(NOX_ENGINE_FLAG_REPLAY_WRITE | NOX_ENGINE_FLAG_REPLAY_READ) {
 		C.sub_4E76C0()
@@ -130,7 +138,7 @@ func nox_xxx_gameTick_4D2580_server_E() {
 	if C.nox_xxx_serverIsClosing_446180() != 0 {
 		C.sub_446190()
 	}
-	if C.sub_446030() != 0 && gameFrame() > 5*gameFPS()+uint32(C.sub_446040()) {
+	if C.sub_446030() != 0 && gameFrame() > 5*gameFPS()+sub_446040() {
 		C.sub_446380()
 	}
 	if !noxflags.HasGame(noxflags.GamePause) {
@@ -379,4 +387,99 @@ func nox_xxx_servEndSession_4D3200() {
 	C.sub_56F3B0()
 	C.nox_netlist_resetAll_40EE60()
 	_ = fs.Remove(datapath.Path("save/_temp_.dat"))
+}
+
+func sub_4D3C30() {
+	C.nox_xxx_free_503F40()
+	C.sub_51D0E0()
+	C.sub_502DF0()
+}
+
+func nox_server_loadMapFile_4CF5F0(a1 string, a2 int) bool {
+	C.sub_481410()
+	C.nox_xxx_unitsNewAddToList_4DAC00()
+	C.nox_xxx_waypoint_5799C0()
+	mname := a1
+	if a1 == "" {
+		return false
+	}
+	if strings.ToLower(a1) == "#return" {
+		mname = GoStringP(memmap.PtrOff(0x5D4594, 1523080))
+	} else if strings.HasPrefix(a1, "#") {
+		v3 := datapath.Path()
+		C.sub_4D39F0(internCStr(v3))
+		v13 := a1[1:]
+		if i := strings.IndexByte(mname, '.'); i > 0 {
+			v13 = v3[:i]
+		}
+		C.sub_4D42E0(internCStr(v13))
+		v12 := fmt.Sprintf("$%s.map", v13)
+		nox_xxx_gameSetMapPath_409D70(v12)
+		if C.nox_xxx_mapGenStart_4D4320() == 0 {
+			C.nox_xxx_mapSwitchLevel_4D12E0(1)
+			return false
+		}
+		sub_4D3C30()
+		mname = v12
+	}
+	var fname string
+	if strings.ContainsAny(mname, "\\/") {
+		fname = mname
+	} else {
+		dir := strings.TrimSuffix(mname, filepath.Ext(mname))
+		fname = filepath.Join("maps", dir, mname)
+	}
+	if _, err := fs.Stat(fname); err != nil {
+		tname := strings.TrimSuffix(fname, filepath.Ext(mname)) + ".nxz"
+		if _, err := fs.Stat(tname); err != nil {
+			return false
+		}
+		if C.nox_xxx_mapNxzDecompress_57BC50(internCStr(tname), internCStr(fname)) == 0 {
+			return false
+		}
+	}
+	v8 := getServerMap()
+	C.nox_common_checkMapFile_4CFE10(internCStr(v8))
+	var v9 C.int
+	if a2 != 0 {
+		v9 = C.nox_xxx_cryptOpen_426910(internCStr(fname), 1, -1)
+	} else {
+		v9 = C.nox_xxx_cryptOpen_426910(internCStr(fname), 1, crypt.MapKey)
+	}
+	if v9 == 0 {
+		return false
+	}
+	var magic uint32
+	C.nox_xxx_fileReadWrite_426AC0_file3_fread((*C.uchar)(unsafe.Pointer(&magic)), 4)
+	if magic == 0xFADEBEEF {
+		C.nox_xxx_mapSetCrcMB_409B10(0)
+	} else {
+		if magic != 0xFADEFACE {
+			C.nox_xxx_cryptClose_4269F0()
+			return false
+		}
+		var crc uint32
+		C.nox_xxx_fileCryptReadCrcMB_426C20((*C.uchar)(unsafe.Pointer(&crc)), 4)
+		C.nox_xxx_mapSetCrcMB_409B10(C.int(crc))
+	}
+	if C.nox_xxx_serverParseEntireMap_4CFCE0() == 0 {
+		return false
+	}
+	C.nox_xxx_scriptRunFirst_507290()
+	C.nox_xxx_cryptClose_4269F0()
+	if !nox_common_gameFlags_check_40A5C0(0x200000) {
+		C.nox_xxx_mapReadSetFlags_4CF990()
+		if C.nox_xxx_check_flag_aaa_43AF70() == 1 {
+			C.sub_416690()
+		}
+		nox_common_gameFlags_unset_40A540(0x4000000)
+		C.sub_470680()
+		C.sub_4D0550(internCStr(fname))
+		C.sub_4161E0()
+		if !nox_common_gameFlags_check_40A5C0(128) {
+			C.sub_4165F0(0, 1)
+		}
+	}
+	StrCopyP(memmap.PtrOff(0x5D4594, 1523080), 1024, mname)
+	return true
 }

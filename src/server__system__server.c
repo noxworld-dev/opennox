@@ -161,6 +161,7 @@ int sub_446040() { return dword_5d4594_825768; }
 
 int sub_46DCB0(void) { return sub_46DCC0(); }
 
+#ifndef NOX_CGO
 //----- (004CF5F0) --------------------------------------------------------
 int  nox_server_loadMapFile_4CF5F0(char* a1, int a2) {
 	char* v2;            // ebx
@@ -268,6 +269,7 @@ int  nox_server_loadMapFile_4CF5F0(char* a1, int a2) {
 }
 // 4CF980: using guessed type void nullsub_21(void);
 // 4CF5F0: using guessed type char var_100[256];
+#endif // NOX_CGO
 
 //----- (004D0CF0) --------------------------------------------------------
 char* nox_xxx_getSomeMapName_4D0CF0() {

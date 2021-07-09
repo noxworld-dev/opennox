@@ -801,7 +801,7 @@ func nox_xxx_mapExitAndCheckNext_4D1860_server() bool {
 	var v6 bool
 	if C.nox_xxx_gameIsSwitchToSolo_4DB240() != 0 {
 		v5 := nox_xxx_mapFilenameGetSolo_4DB260()
-		v6 = C.nox_server_loadMapFile_4CF5F0(internCStr(v5), 0) != 0
+		v6 = nox_server_loadMapFile_4CF5F0(v5, 0)
 	} else {
 		v7p := unsafe.Pointer(C.sub_4165B0())
 		v7 := asByteSlice(v7p, 58)
@@ -820,7 +820,7 @@ func nox_xxx_mapExitAndCheckNext_4D1860_server() bool {
 			C.sub_4537F0()
 		}
 		v10 := nox_server_currentMapGetFilename_409B30()
-		v6 = C.nox_server_loadMapFile_4CF5F0(internCStr(v10), 0) != 0
+		v6 = nox_server_loadMapFile_4CF5F0(v10, 0)
 		if noxflags.HasGame(0x2000) && !noxflags.HasGame(128) {
 			v13 := 0
 			if C.nox_xxx_gamePlayIsAnyPlayers_40A8A0() != 0 {
