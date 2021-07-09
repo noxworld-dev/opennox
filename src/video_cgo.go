@@ -45,6 +45,7 @@ import (
 	"nox/v1/client/input"
 	"nox/v1/client/render"
 	"nox/v1/common/alloc"
+	noxcolor "nox/v1/common/color"
 	"nox/v1/common/memmap"
 	"nox/v1/common/player"
 	"nox/v1/common/types"
@@ -360,6 +361,18 @@ func recreateRenderTarget() error {
 //export nox_getBackbufferPitch
 func nox_getBackbufferPitch() C.int {
 	return C.int(nox_backbuffer_pitch_3801808)
+}
+
+//export nox_video_getSurfaceData_48A720
+func nox_video_getSurfaceData_48A720(s unsafe.Pointer, outPitch *C.int, outPixels *unsafe.Pointer) C.int {
+	panic("TODO")
+}
+
+//export nox_xxx_makeFillerColor_48BDE0
+func nox_xxx_makeFillerColor_48BDE0() C.bool {
+	v0 := noxcolor.ExtendColor16(noxcolor.RGBColor(255, 0, 255))
+	*memmap.PtrUint32(0x5D4594, 1193592) = v0
+	return true
 }
 
 //export nox_client_drawGeneral_4B0340

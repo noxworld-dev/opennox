@@ -12,7 +12,6 @@ import (
 	"unsafe"
 
 	"nox/v1/client/render"
-	noxcolor "nox/v1/common/color"
 	"nox/v1/common/memmap"
 	"nox/v1/common/types"
 )
@@ -142,11 +141,6 @@ func nox_video_setBackBufSizes_48A3D0(sz types.Size) int {
 	return 1
 }
 
-//export nox_video_getSurfaceData_48A720
-func nox_video_getSurfaceData_48A720(s unsafe.Pointer, outPitch *C.int, outPixels *unsafe.Pointer) C.int {
-	panic("TODO")
-}
-
 //export nox_video_showMovieFrame
 func nox_video_showMovieFrame(s unsafe.Pointer) {
 	panic("TODO")
@@ -165,11 +159,4 @@ func nox_video_showMovieFrame(s unsafe.Pointer) {
 	//surf.Blit(&srcRect, noxBackbuf, &dstRect)
 	//
 	//presentFrame()
-}
-
-//export nox_xxx_makeFillerColor_48BDE0
-func nox_xxx_makeFillerColor_48BDE0() C.bool {
-	v0 := noxcolor.ExtendColor16(noxcolor.RGBColor(255, 0, 255))
-	*memmap.PtrUint32(0x5D4594, 1193592) = v0
-	return true
 }
