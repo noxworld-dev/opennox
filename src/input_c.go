@@ -38,6 +38,7 @@ int nox_xxx_serverHandleClientConsole_443E90(nox_playerInfo* pl, char a2, wchar_
 void sub_42EBB0(unsigned int a1, void (*fnc)(int), int field_4, const char* name);
 void nox_input_reset_430140(int a1);
 int sub_46A4A0();
+static bool iswalpha_go(wchar_t r) { return iswalpha(r); }
 */
 import "C"
 import (
@@ -852,7 +853,7 @@ func nox_input_scanCodeToAlpha(inp *input.Handler, r keybind.Key) uint16 {
 		return 0
 	} else if memmap.Uint32(0x5D4594, 1193140) != 0 {
 		return memmap.Uint16(0x5D4594, 1191576+6*uintptr(r))
-	} else if memmap.Uint32(0x5D4594, 1193136) != 0 || C.dword_5d4594_1193132 != 0 && C.iswalpha(C.uint(memmap.Uint16(0x5D4594, 1191572+6*uintptr(r)))) != 0 {
+	} else if memmap.Uint32(0x5D4594, 1193136) != 0 || C.dword_5d4594_1193132 != 0 && C.iswalpha_go(C.wchar_t(memmap.Uint16(0x5D4594, 1191572+6*uintptr(r)))) {
 		if scrollLockStatus {
 			return uint16(asc_9800B0[3*int(r)+264])
 		}
