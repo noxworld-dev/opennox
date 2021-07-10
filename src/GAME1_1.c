@@ -8300,16 +8300,22 @@ void nox_common_list_append_4258E0(nox_list_item_t* list, nox_list_item_t* cur) 
 	if (!list || !cur)
 		abort();
 	nox_list_item_t* it = list->field_1;
-	if (!it && !list->field_0 && !list->field_2) {
-		nox_common_list_clear_425760(list);
-		it = list->field_1;
-	}
+
+	// FIXME: in some cases 'it' is null, which suggests that some lists are not initialized properly
+	//        auto-initializing them however leads to more serious issues like double-free
+
+	//	if (!it && !list->field_0 && !list->field_2) {
+	//		nox_common_list_clear_425760(list);
+	//		it = list->field_1;
+	//	}
 
 	cur->field_0 = list;
 	cur->field_1 = it;
 
 	list->field_1 = cur;
-	it->field_0 = cur;
+	if (it) { // see above note
+		it->field_0 = cur;
+	}
 }
 
 //----- (00425900) --------------------------------------------------------
