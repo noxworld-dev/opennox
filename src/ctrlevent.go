@@ -153,7 +153,7 @@ func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_A(a4 *CtrlEventBinding) 
 	for it := a4; it != nil; it = it.field21 {
 		for _, k := range it.events {
 			switch k {
-			case 1:
+			case keybind.EventAction:
 				switch nox_client_getCursorType_477620() {
 				case 3:
 					v10 := nox_xxx_clientGetSpriteAtCursor_476F90()
@@ -169,7 +169,7 @@ func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_A(a4 *CtrlEventBinding) 
 				default:
 					c.nox_ctrlevent_action_42E670(client.CCAction, nil) // regular attack?
 				}
-			case 2:
+			case keybind.EventMoveForward:
 				if isMousePressed() {
 					v5 := 1
 					if memmap.Uint8(0x5D4594, 754064)&0x8 != 0 {
@@ -179,14 +179,14 @@ func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_A(a4 *CtrlEventBinding) 
 					binary.LittleEndian.PutUint32(buf[:], uint32(v5))
 					c.nox_ctrlevent_action_42E670(client.CCMoveForward, &buf)
 				}
-			case 3, 4, 5:
+			case keybind.EventMoveBackward, keybind.EventMoveLeft, keybind.EventMoveRight:
 				var code client.CtrlCode
 				switch k {
-				case 3:
+				case keybind.EventMoveBackward:
 					code = client.CCMoveBackward
-				case 4:
+				case keybind.EventMoveLeft:
 					code = client.CCMoveLeft
-				case 5:
+				case keybind.EventMoveRight:
 					code = client.CCMoveRight
 				}
 				v6 := uint32(bool2int(memmap.Uint8(0x5D4594, 754064)&0x1 != 0))
@@ -196,156 +196,156 @@ func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_A(a4 *CtrlEventBinding) 
 				var buf [4]byte
 				binary.LittleEndian.PutUint32(buf[:], v6)
 				c.nox_ctrlevent_action_42E670(code, &buf)
-			case 6:
+			case keybind.EventJump:
 				c.nox_ctrlevent_action_42E670(client.CCJump, nil)
-			case 7:
+			case keybind.EventToggleInventory:
 				c.nox_ctrlevent_action_42E670(client.CCInventory, nil)
-			case 8:
+			case keybind.EventChat:
 				c.nox_ctrlevent_action_42E670(client.CCChat, nil)
-			case 9:
+			case keybind.EventTeamChat:
 				if *(*byte)(unsafe.Pointer(uintptr(v2) + 3680))&0x1 == 0 {
 					c.nox_ctrlevent_action_42E670(client.CCTeamChat, nil)
 				}
-			case 0xA:
+			case keybind.EventToggleBook:
 				c.nox_ctrlevent_action_42E670(client.CCReadSpellbook, nil)
-			case 0xB:
+			case keybind.EventToggleConsole:
 				c.nox_ctrlevent_action_42E670(client.CCToggleConsole, nil)
-			case 0xC:
+			case keybind.EventIncreaseWindowSize:
 				if !nox_xxx_checkGameFlagPause_413A50() {
 					c.nox_ctrlevent_action_42E670(client.CCIncreaseWindowSize, nil)
 				}
-			case 0xD:
+			case keybind.EventDecreaseWindowSize:
 				if !nox_xxx_checkGameFlagPause_413A50() {
 					c.nox_ctrlevent_action_42E670(client.CCDecreaseWindowSize, nil)
 				}
-			case 0xE:
+			case keybind.EventIncreaseGamma:
 				c.nox_ctrlevent_action_42E670(client.CCIncreaseGamma, nil)
-			case 0xF:
+			case keybind.EventDecreaseGamma:
 				c.nox_ctrlevent_action_42E670(client.CCDecreaseGamma, nil)
-			case 0x10:
+			case keybind.EventToggleMap:
 				c.nox_ctrlevent_action_42E670(client.CCReadMap, nil)
-			case 0x11:
+			case keybind.EventCastQueued:
 				if !nox_xxx_guiSpellTest_45D9C0() {
 					v13 := C.nox_xxx_packetGetMarshall_476F40()
 					var b [4]byte
 					binary.LittleEndian.PutUint32(b[:], uint32(v13))
 					c.nox_ctrlevent_action_42E780(client.CCCastQueuedSpell, &b)
 				}
-			case 0x12:
+			case keybind.EventPhonemeUN:
 				if !nox_xxx_guiSpellTest_45D9C0() {
 					c.nox_ctrlevent_action_42E780(client.CCSpellGestureUp, nil)
 				}
-			case 0x13:
+			case keybind.EventPhonemeZO:
 				if !nox_xxx_guiSpellTest_45D9C0() {
 					c.nox_ctrlevent_action_42E780(client.CCSpellGestureDown, nil)
 				}
-			case 0x14:
+			case keybind.EventPhonemeET:
 				if !nox_xxx_guiSpellTest_45D9C0() {
 					c.nox_ctrlevent_action_42E780(client.CCSpellGestureLeft, nil)
 				}
-			case 0x15:
+			case keybind.EventPhonemeCHA:
 				if !nox_xxx_guiSpellTest_45D9C0() {
 					c.nox_ctrlevent_action_42E780(client.CCSpellGestureRight, nil)
 				}
-			case 0x16:
+			case keybind.EventPhonemeIN:
 				if !nox_xxx_guiSpellTest_45D9C0() {
 					c.nox_ctrlevent_action_42E780(client.CCSpellGestureUpperRight, nil)
 				}
-			case 0x17:
+			case keybind.EventPhonemeKA:
 				if !nox_xxx_guiSpellTest_45D9C0() {
 					c.nox_ctrlevent_action_42E780(client.CCSpellGestureUpperLeft, nil)
 				}
-			case 0x18:
+			case keybind.EventPhonemeDO:
 				if !nox_xxx_guiSpellTest_45D9C0() {
 					c.nox_ctrlevent_action_42E780(client.CCSpellGestureLowerRight, nil)
 				}
-			case 0x19:
+			case keybind.EventPhonemeRO:
 				if !nox_xxx_guiSpellTest_45D9C0() {
 					c.nox_ctrlevent_action_42E780(client.CCSpellGestureLowerLeft, nil)
 				}
-			case 0x1A:
+			case keybind.EventSpellEnd:
 				if !nox_xxx_guiSpellTest_45D9C0() {
 					c.nox_ctrlevent_action_42E780(client.CCSpellPatternEnd, nil)
 				}
-			case 0x1B:
+			case keybind.EventCastRecent:
 				if !nox_xxx_guiSpellTest_45D9C0() {
 					v14 := C.nox_xxx_packetGetMarshall_476F40()
 					var b [4]byte
 					binary.LittleEndian.PutUint32(b[:], uint32(v14))
 					c.nox_ctrlevent_action_42E780(client.CCCastMostRecentSpell, &b)
 				}
-			case 0x1C:
+			case keybind.EventInvokeSlot1:
 				c.nox_ctrlevent_action_42E780(client.CCCastSpell1, nil)
-			case 0x1D:
+			case keybind.EventInvokeSlot2:
 				c.nox_ctrlevent_action_42E780(client.CCCastSpell2, nil)
-			case 0x1E:
+			case keybind.EventInvokeSlot3:
 				c.nox_ctrlevent_action_42E780(client.CCCastSpell3, nil)
-			case 0x1F:
+			case keybind.EventInvokeSlot4:
 				c.nox_ctrlevent_action_42E780(client.CCCastSpell4, nil)
-			case 0x20:
+			case keybind.EventInvokeSlot5:
 				c.nox_ctrlevent_action_42E780(client.CCCastSpell5, nil)
-			case 0x21:
+			case keybind.EventMapZoomIn:
 				c.nox_ctrlevent_action_42E670(client.CCMapZoomIn, nil)
-			case 0x22:
+			case keybind.EventMapZoomOut:
 				c.nox_ctrlevent_action_42E670(client.CCMapZoomOut, nil)
-			case 0x23:
+			case keybind.EventSwapWeapons:
 				c.nox_ctrlevent_action_42E780(client.CCNextWeapon, nil)
-			case 0x24:
+			case keybind.EventQuickHealth:
 				c.nox_ctrlevent_action_42E780(client.CCQuickHealthPotion, nil)
-			case 0x25:
+			case keybind.EventQuickMana:
 				c.nox_ctrlevent_action_42E780(client.CCQuickManaPotion, nil)
-			case 0x26:
+			case keybind.EventQuickCurePoison:
 				c.nox_ctrlevent_action_42E780(client.CCQuickCurePoisonPotion, nil)
-			case 0x27:
+			case keybind.EventNextSpellSet:
 				c.nox_ctrlevent_action_42E780(client.CCNextSpellSet, nil)
-			case 0x28:
+			case keybind.EventPreviousSpellSet:
 				c.nox_ctrlevent_action_42E780(client.CCPreviousSpellSet, nil)
-			case 0x29:
+			case keybind.EventSelectSpellSet:
 				c.nox_ctrlevent_action_42E780(client.CCSelectSpellSet, nil)
-			case 0x2A:
+			case keybind.EventPlaceTrapBomber:
 				c.nox_ctrlevent_action_42E780(client.CCBuildTrap, nil)
-			case 0x2B:
+			case keybind.EventQuit:
 				c.nox_ctrlevent_action_42E670(client.CCQuit, nil)
-			case 0x2C:
+			case keybind.EventToggleQuitMenu:
 				c.nox_ctrlevent_action_42E670(client.CCQuitMenu, nil)
-			case 0x2D:
+			case keybind.EventToggleServerMenu:
 				c.nox_ctrlevent_action_42E670(client.CCServerOptions, nil)
-			case 0x2E:
+			case keybind.EventTaunt:
 				if noxflags.HasGame(0x2000) && nox_xxx_checkKeybTimeout_4160F0(0x15, gameFPS()) {
 					nox_xxx_setKeybTimeout_4160D0(21)
 					c.nox_ctrlevent_action_42E670(client.CCTaunt, nil)
 				}
-			case 0x2F:
+			case keybind.EventLaugh:
 				if noxflags.HasGame(0x2000) && nox_xxx_checkKeybTimeout_4160F0(0x14, 2*gameFPS()) {
 					nox_xxx_setKeybTimeout_4160D0(20)
 					c.nox_ctrlevent_action_42E670(client.CCLaugh, nil)
 				}
-			case 0x30:
+			case keybind.EventPoint:
 				if noxflags.HasGame(0x2000) && nox_xxx_checkKeybTimeout_4160F0(0x16, gameFPS()) {
 					nox_xxx_setKeybTimeout_4160D0(22)
 					c.nox_ctrlevent_action_42E670(client.CCPoint, nil)
 				}
-			case 0x31:
+			case keybind.EventInvertSpellTarget:
 				c.nox_ctrlevent_action_42E670(client.CCInvertSpellTarget, nil)
-			case 0x32:
+			case keybind.EventToggleRank:
 				if noxflags.HasGame(0x2000) {
 					c.nox_ctrlevent_action_42E670(client.CCToggleRank, nil)
 				}
-			case 0x33:
+			case keybind.EventToggleNetstat:
 				if !nox_xxx_checkGameFlagPause_413A50() {
 					c.nox_ctrlevent_action_42E670(client.CCToggleNetstat, nil)
 				}
-			case 0x34:
+			case keybind.EventToggleGUI:
 				c.nox_ctrlevent_action_42E670(client.CCToggleGUI, nil)
-			case 0x35:
+			case keybind.EventAutoSave:
 				if noxflags.HasGame(2048) && !nox_xxx_guiCursor_477600() {
 					c.nox_ctrlevent_action_42E670(client.CCAutoSave, nil)
 				}
-			case 0x36:
+			case keybind.EventAutoLoad:
 				if noxflags.HasGame(2048) && !nox_xxx_guiCursor_477600() {
 					c.nox_ctrlevent_action_42E670(client.CCAutoLoad, nil)
 				}
-			case 0x37:
+			case keybind.EventScreenShot:
 				c.nox_ctrlevent_action_42E670(client.CCScreenShot, nil)
 			}
 		}

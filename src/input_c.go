@@ -266,7 +266,7 @@ func sub_4C3B70() {
 	win44.Func94(16399, 0, 0)
 	win48.Func94(16399, 0, 0)
 	for _, ev := range keyBinding.Events() {
-		if ev.Event == 44 {
+		if ev.Event == keybind.EventToggleQuitMenu {
 			continue
 		}
 		win40.Func94(16397, uintptr(unsafe.Pointer(internWStr(ev.Title))), math.MaxUint32)
@@ -297,7 +297,7 @@ func sub_4CBBF0() {
 	win24.Func94(16399, 0, 0)
 	win28.Func94(16399, 0, 0)
 	for _, ev := range keyBinding.Events() {
-		if ev.Event == 44 {
+		if ev.Event == keybind.EventToggleQuitMenu {
 			continue
 		}
 		win20.Func94(16397, uintptr(unsafe.Pointer(internWStr(ev.Title))), math.MaxUint32)

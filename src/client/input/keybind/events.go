@@ -1,57 +1,115 @@
 package keybind
 
+const (
+	EventAction             = Event(0x1)
+	EventMoveForward        = Event(0x2)
+	EventMoveBackward       = Event(0x3)
+	EventMoveLeft           = Event(0x4)
+	EventMoveRight          = Event(0x5)
+	EventJump               = Event(0x6)
+	EventToggleInventory    = Event(0x7)
+	EventChat               = Event(0x8)
+	EventTeamChat           = Event(0x9)
+	EventToggleBook         = Event(0xa)
+	EventToggleConsole      = Event(0xb)
+	EventIncreaseWindowSize = Event(0xc)
+	EventDecreaseWindowSize = Event(0xd)
+	EventIncreaseGamma      = Event(0xe)
+	EventDecreaseGamma      = Event(0xf)
+	EventToggleMap          = Event(0x10)
+	EventCastQueued         = Event(0x11)
+	EventPhonemeUN          = Event(0x12) // up
+	EventPhonemeZO          = Event(0x13) // down
+	EventPhonemeET          = Event(0x14) // left
+	EventPhonemeCHA         = Event(0x15) // right
+	EventPhonemeIN          = Event(0x16) // upper-right
+	EventPhonemeKA          = Event(0x17) // upper-left
+	EventPhonemeDO          = Event(0x18) // lower-right
+	EventPhonemeRO          = Event(0x19) // lower-left
+	EventSpellEnd           = Event(0x1a)
+	EventCastRecent         = Event(0x1b)
+	EventInvokeSlot1        = Event(0x1c)
+	EventInvokeSlot2        = Event(0x1d)
+	EventInvokeSlot3        = Event(0x1e)
+	EventInvokeSlot4        = Event(0x1f)
+	EventInvokeSlot5        = Event(0x20)
+	EventMapZoomIn          = Event(0x21)
+	EventMapZoomOut         = Event(0x22)
+	EventSwapWeapons        = Event(0x23)
+	EventQuickHealth        = Event(0x24)
+	EventQuickMana          = Event(0x25)
+	EventQuickCurePoison    = Event(0x26)
+	EventNextSpellSet       = Event(0x27)
+	EventPreviousSpellSet   = Event(0x28)
+	EventSelectSpellSet     = Event(0x29)
+	EventPlaceTrapBomber    = Event(0x2a)
+	EventQuit               = Event(0x2b)
+	EventToggleQuitMenu     = Event(0x2c)
+	EventToggleServerMenu   = Event(0x2d)
+	EventTaunt              = Event(0x2e)
+	EventLaugh              = Event(0x2f)
+	EventPoint              = Event(0x30)
+	EventInvertSpellTarget  = Event(0x31)
+	EventToggleRank         = Event(0x32)
+	EventToggleNetstat      = Event(0x33)
+	EventToggleGUI          = Event(0x34)
+	EventAutoSave           = Event(0x35)
+	EventAutoLoad           = Event(0x36)
+	EventScreenShot         = Event(0x37)
+)
+
 var defBindEvents = []BindEvent{
 	{Name: "", Event: 0}, // represents no binding
-	{Name: "MoveForward", Event: 0x2},
-	{Name: "Action", Event: 0x1},
-	{Name: "Jump", Event: 0x6},
-	{Name: "ToggleInventory", Event: 0x7},
-	{Name: "ToggleBook", Event: 0xa},
-	{Name: "ToggleMap", Event: 0x10},
-	{Name: "MapZoomOut", Event: 0x22},
-	{Name: "MapZoomIn", Event: 0x21},
-	{Name: "InvokeSlot1", Event: 0x1c},
-	{Name: "InvokeSlot2", Event: 0x1d},
-	{Name: "InvokeSlot3", Event: 0x1e},
-	{Name: "InvokeSlot4", Event: 0x1f},
-	{Name: "InvokeSlot5", Event: 0x20},
-	{Name: "PreviousSpellSet", Event: 0x28},
-	{Name: "NextSpellSet", Event: 0x27},
-	{Name: "SelectSpellSet", Event: 0x29},
-	{Name: "InvertSpellTarget", Event: 0x31},
-	{Name: "PlaceTrapBomber", Event: 0x2a},
-	{Name: "SwapWeapons", Event: 0x23},
-	{Name: "QuickHealth", Event: 0x24},
-	{Name: "QuickMana", Event: 0x25},
-	{Name: "QuickCurePoison", Event: 0x26},
-	{Name: "Chat", Event: 0x8},
-	{Name: "TeamChat", Event: 0x9},
-	{Name: "ToggleConsole", Event: 0xb},
-	{Name: "ToggleQuitMenu", Event: 0x2c},
-	{Name: "ToggleServerMenu", Event: 0x2d},
-	{Name: "ToggleRank", Event: 0x32},
-	{Name: "ToggleNetstat", Event: 0x33},
-	{Name: "ToggleGUI", Event: 0x34},
-	{Name: "AutoSave", Event: 0x35},
-	{Name: "AutoLoad", Event: 0x36},
-	{Name: "Taunt", Event: 0x2e},
-	{Name: "Point", Event: 0x30},
-	{Name: "Laugh", Event: 0x2f},
-	{Name: "IncreaseWindowSize", Event: 0xc},
-	{Name: "DecreaseWindowSize", Event: 0xd},
-	{Name: "IncreaseGamma", Event: 0xe},
-	{Name: "DecreaseGamma", Event: 0xf},
-	{Name: "ScreenShot", Event: 0x37},
+	{Name: "MoveForward", Event: EventMoveForward},
+	{Name: "Action", Event: EventAction},
+	{Name: "Jump", Event: EventJump},
+	{Name: "ToggleInventory", Event: EventToggleInventory},
+	{Name: "ToggleBook", Event: EventToggleBook},
+	{Name: "ToggleMap", Event: EventToggleMap},
+	{Name: "MapZoomOut", Event: EventMapZoomOut},
+	{Name: "MapZoomIn", Event: EventMapZoomIn},
+	{Name: "InvokeSlot1", Event: EventInvokeSlot1},
+	{Name: "InvokeSlot2", Event: EventInvokeSlot2},
+	{Name: "InvokeSlot3", Event: EventInvokeSlot3},
+	{Name: "InvokeSlot4", Event: EventInvokeSlot4},
+	{Name: "InvokeSlot5", Event: EventInvokeSlot5},
+	{Name: "PreviousSpellSet", Event: EventPreviousSpellSet},
+	{Name: "NextSpellSet", Event: EventNextSpellSet},
+	{Name: "SelectSpellSet", Event: EventSelectSpellSet},
+	{Name: "InvertSpellTarget", Event: EventInvertSpellTarget},
+	{Name: "PlaceTrapBomber", Event: EventPlaceTrapBomber},
+	{Name: "SwapWeapons", Event: EventSwapWeapons},
+	{Name: "QuickHealth", Event: EventQuickHealth},
+	{Name: "QuickMana", Event: EventQuickMana},
+	{Name: "QuickCurePoison", Event: EventQuickCurePoison},
+	{Name: "Chat", Event: EventChat},
+	{Name: "TeamChat", Event: EventTeamChat},
+	{Name: "ToggleConsole", Event: EventToggleConsole},
+	{Name: "ToggleQuitMenu", Event: EventToggleQuitMenu},
+	{Name: "ToggleServerMenu", Event: EventToggleServerMenu},
+	{Name: "ToggleRank", Event: EventToggleRank},
+	{Name: "ToggleNetstat", Event: EventToggleNetstat},
+	{Name: "ToggleGUI", Event: EventToggleGUI},
+	{Name: "AutoSave", Event: EventAutoSave},
+	{Name: "AutoLoad", Event: EventAutoLoad},
+	{Name: "Taunt", Event: EventTaunt},
+	{Name: "Point", Event: EventPoint},
+	{Name: "Laugh", Event: EventLaugh},
+	{Name: "IncreaseWindowSize", Event: EventIncreaseWindowSize},
+	{Name: "DecreaseWindowSize", Event: EventDecreaseWindowSize},
+	{Name: "IncreaseGamma", Event: EventIncreaseGamma},
+	{Name: "DecreaseGamma", Event: EventDecreaseGamma},
+	{Name: "ScreenShot", Event: EventScreenShot},
 	// restored phoneme bindings
-	{Name: "CastQueued", Event: 0x11, Title: "Cast queued spell"},
-	{Name: "PhonemeUN", Event: 0x12, Title: "Phoneme UN (N)"},   // up
-	{Name: "PhonemeZO", Event: 0x13, Title: "Phoneme ZO (S)"},   // down
-	{Name: "PhonemeET", Event: 0x14, Title: "Phoneme ET (W)"},   // left
-	{Name: "PhonemeCHA", Event: 0x15, Title: "Phoneme CHA (E)"}, // right
-	{Name: "PhonemeIN", Event: 0x16, Title: "Phoneme IN (NE)"},  // upper-right
-	{Name: "PhonemeKA", Event: 0x17, Title: "Phoneme KA (NW)"},  // upper-left
-	{Name: "PhonemeDO", Event: 0x18, Title: "Phoneme DO (SE)"},  // lower-right
-	{Name: "PhonemeRO", Event: 0x19, Title: "Phoneme RO (SW)"},  // lower-left
-	{Name: "SpellEnd", Event: 0x1a, Title: "Spell end"},
-	{Name: "CastRecent", Event: 0x1b, Title: "Cast recent spell"},
+	{Name: "CastQueued", Event: EventCastQueued, Title: "Cast queued spell"},
+	{Name: "PhonemeUN", Event: EventPhonemeUN, Title: "Phoneme UN (N)"},    // up
+	{Name: "PhonemeZO", Event: EventPhonemeZO, Title: "Phoneme ZO (S)"},    // down
+	{Name: "PhonemeET", Event: EventPhonemeET, Title: "Phoneme ET (W)"},    // left
+	{Name: "PhonemeCHA", Event: EventPhonemeCHA, Title: "Phoneme CHA (E)"}, // right
+	{Name: "PhonemeIN", Event: EventPhonemeIN, Title: "Phoneme IN (NE)"},   // upper-right
+	{Name: "PhonemeKA", Event: EventPhonemeKA, Title: "Phoneme KA (NW)"},   // upper-left
+	{Name: "PhonemeDO", Event: EventPhonemeDO, Title: "Phoneme DO (SE)"},   // lower-right
+	{Name: "PhonemeRO", Event: EventPhonemeRO, Title: "Phoneme RO (SW)"},   // lower-left
+	{Name: "SpellEnd", Event: EventSpellEnd, Title: "Spell end"},
+	{Name: "CastRecent", Event: EventCastRecent, Title: "Cast recent spell"},
 }
