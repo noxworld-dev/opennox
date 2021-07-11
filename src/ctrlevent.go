@@ -307,6 +307,8 @@ func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_A(a4 *CtrlEventBinding) 
 				c.nox_ctrlevent_action_42E780(client.CCSelectSpellSet, nil)
 			case keybind.EventPlaceTrapBomber:
 				c.nox_ctrlevent_action_42E780(client.CCBuildTrap, nil)
+			case keybind.EventTrapDrop:
+				gameexDropTrap()
 			case keybind.EventTrapBomber1, keybind.EventTrapBomber2, keybind.EventTrapBomber3:
 				C.nox_client_trapSetSelect_4604B0(C.int(k - keybind.EventTrapBomber1))
 				clientPlaySoundSpecial(798, 100)

@@ -65,8 +65,7 @@ const (
 	EventSpellSet3
 	EventSpellSet4
 	EventSpellSet5
-	EventTrapPrev
-	EventTrapNext
+	EventTrapDrop
 	EventTrapBomber1
 	EventTrapBomber2
 	EventTrapBomber3
@@ -106,6 +105,7 @@ var defBindEvents = []BindEvent{
 	{Name: "TrapBomber1", Event: EventTrapBomber1, Title: "Trap/Bomber 1"},
 	{Name: "TrapBomber2", Event: EventTrapBomber2, Title: "Trap/Bomber 2"},
 	{Name: "TrapBomber3", Event: EventTrapBomber3, Title: "Trap/Bomber 3"},
+	{Name: "DropTrap", Event: EventTrapDrop, Title: "Drop Trap"},
 
 	{Name: "SwapWeapons", Event: EventSwapWeapons},
 	{Name: "QuickHealth", Event: EventQuickHealth},

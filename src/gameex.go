@@ -22,7 +22,6 @@ import "C"
 import (
 	"bufio"
 	"encoding/binary"
-	"fmt"
 	"math"
 	"os"
 	"strconv"
@@ -49,112 +48,9 @@ func gameexSomeWeirdCheckFixmePlease() C.bool {
 var modifyWndPntr *Window
 var gameex = struct {
 	Log        *log.Logger
-	keysByCode map[keybind.Key]string
-	keysByName map[string]keybind.Key
-	keys       struct {
-		panels [5]keybind.Key
-		trap   keybind.Key
-	}
 	configPath string
 }{
 	Log: log.New("gameex"),
-	keysByCode: map[keybind.Key]string{
-		keybind.KeySysReq:    "print scren",
-		keybind.KeyIns:       "insert",
-		keybind.KeyDel:       "delete",
-		keybind.KeyHome:      "home",
-		keybind.KeyEnd:       "end",
-		197:                  "pause break",
-		keybind.KeyApos:      "~",
-		keybind.Key1:         "1",
-		keybind.Key2:         "2",
-		keybind.Key3:         "3",
-		keybind.Key4:         "4",
-		keybind.Key5:         "5",
-		keybind.Key6:         "6",
-		keybind.Key7:         "7",
-		keybind.Key8:         "8",
-		keybind.Key9:         "9",
-		keybind.Key0:         "0",
-		keybind.KeyMinus:     "-",
-		keybind.KeyEqual:     "=",
-		keybind.KeyBackspace: "backspace",
-		keybind.KeyKpSlash:   "num /",
-		keybind.KeyKpStar:    "num *",
-		keybind.KeyKpMinus:   "num -",
-		keybind.KeyKp7:       "num 7",
-		keybind.KeyKp8:       "num 8",
-		keybind.KeyKp9:       "num 9",
-		keybind.KeyKp4:       "num 4",
-		keybind.KeyKp5:       "num 5",
-		keybind.KeyKp6:       "num 6",
-		keybind.KeyKp1:       "num 1",
-		keybind.KeyKp2:       "num 2",
-		keybind.KeyKp3:       "num 3",
-		keybind.KeyKpPlus:    "num +",
-		keybind.KeyKp0:       "num 0",
-		keybind.KeyKpPeriod:  "del",
-		keybind.KeyKpEnter:   "enter2",
-		keybind.KeyTab:       "tab",
-		keybind.KeyQ:         "q",
-		keybind.KeyW:         "w",
-		keybind.KeyE:         "e",
-		keybind.KeyR:         "r",
-		keybind.KeyT:         "t",
-		keybind.KeyY:         "y",
-		keybind.KeyU:         "u",
-		keybind.KeyI:         "i",
-		keybind.KeyO:         "o",
-		keybind.KeyP:         "p",
-		keybind.KeyLBracket:  "[",
-		keybind.KeyRBracket:  "]",
-		keybind.KeyEnter:     "enter",
-		keybind.KeyA:         "a",
-		keybind.KeyS:         "s",
-		keybind.KeyD:         "d",
-		keybind.KeyF:         "f",
-		keybind.KeyG:         "g",
-		keybind.KeyH:         "h",
-		keybind.KeyJ:         "j",
-		keybind.KeyK:         "k",
-		keybind.KeyL:         "l",
-		keybind.KeySemiColon: ";",
-		keybind.KeySquote:    "'",
-		keybind.KeyBslash:    "\\",
-		keybind.KeyLShift:    "left shift",
-		86:                   "|",
-		keybind.KeyZ:         "z",
-		keybind.KeyX:         "x",
-		keybind.KeyC:         "c",
-		keybind.KeyV:         "v",
-		keybind.KeyB:         "b",
-		keybind.KeyN:         "n",
-		keybind.KeyM:         "m",
-		keybind.KeyComma:     ",",
-		keybind.KeyPeriod:    ".",
-		keybind.KeySlash:     "/",
-		keybind.KeyRShift:    "right shift",
-		keybind.KeyLCtrl:     "left ctrl",
-		keybind.KeyLAlt:      "left alt",
-		keybind.KeySpace:     "spacebar",
-		keybind.KeyRAlt:      "right alt",
-		keybind.KeyPgUp:      "page up",
-		keybind.KeyPgDn:      "page down",
-		keybind.KeyRCtrl:     "right ctrl",
-		keybind.KeyUp:        "up",
-		keybind.KeyLeft:      "left",
-		keybind.KeyDown:      "down",
-		keybind.KeyRight:     "right",
-	},
-}
-
-func init() {
-	gameex.keys.panels = [5]keybind.Key{keybind.Key1, keybind.Key2, keybind.Key3, keybind.Key4, keybind.Key5}
-	gameex.keys.trap = keybind.KeyKpEnter
-	gameex.keysByName = make(map[string]keybind.Key)
-	for k, s := range gameex.keysByCode {
-		gameex.keysByName[s] = k
-	}
 }
 
 func gameexReadConfig(path string) error {
@@ -234,76 +130,12 @@ func gameexReadConfig(path string) error {
 			} else {
 				C.gameex_flags &^= 0x20
 			}
-		case "PANEL1":
-			k, err := gameexKeyCode(val)
-			if err != nil {
-				return err
-			}
-			gameex.keys.panels[0] = k
-		case "PANEL2":
-			k, err := gameexKeyCode(val)
-			if err != nil {
-				return err
-			}
-			gameex.keys.panels[1] = k
-		case "PANEL3":
-			k, err := gameexKeyCode(val)
-			if err != nil {
-				return err
-			}
-			gameex.keys.panels[2] = k
-		case "PANEL4":
-			k, err := gameexKeyCode(val)
-			if err != nil {
-				return err
-			}
-			gameex.keys.panels[3] = k
-		case "PANEL5":
-			k, err := gameexKeyCode(val)
-			if err != nil {
-				return err
-			}
-			gameex.keys.panels[4] = k
-		case "TRAPKEY":
-			k, err := gameexKeyCode(val)
-			if err != nil {
-				return err
-			}
-			gameex.keys.trap = k
+		case "PANEL1", "PANEL2", "PANEL3", "PANEL4", "PANEL5", "TRAPKEY":
 		default:
 			gameex.Log.Printf("unrecognized option: %q", key)
 		}
 	}
 	return sc.Err()
-}
-
-func gameexKeyCode(s string) (keybind.Key, error) {
-	if s == "" {
-		return 0, nil
-	}
-	key, ok := gameex.keysByName[s]
-	if ok {
-		return key, nil
-	}
-	k := keybind.KeyByName(s)
-	if k == 0 {
-		return 0, fmt.Errorf("invalid key: %q", s)
-	}
-	return k, nil
-}
-
-func gameexKeyName(k keybind.Key) (string, error) {
-	if k == 0 {
-		return "", nil
-	}
-	s, ok := gameex.keysByCode[k]
-	if ok {
-		return s, nil
-	}
-	if !k.IsValid() {
-		return "", fmt.Errorf("invalid key: %v", k)
-	}
-	return k.String(), nil
 }
 
 func gameex_makeExtensionPacket(buf []byte, opcode uint16, needsPlayer bool) {
@@ -320,6 +152,26 @@ var wndEntryNames = [5][35]uint16{
 	{119, 101, 97, 112, 111, 110, 32, 114, 111, 108, 108, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	{115, 104, 105, 101, 108, 100, 32, 38, 32, 98, 101, 114, 115, 101, 114, 107, 101, 114, 32, 98, 108, 111, 99, 107, 105, 110, 103, 0, 0, 0, 0, 0, 0, 0, 0},
 	{101, 120, 116, 101, 110, 115, 105, 111, 110, 32, 109, 101, 115, 115, 97, 103, 101, 115, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+}
+
+func gameexDropTrap() {
+	if noxflags.HasGame(516) {
+		if C.dword_5d4594_1064868 != 0 || nox_win_unk3 != nil {
+			return
+		}
+		if noxflags.HasGame(1) { // checkGameFlags isServer
+			v9 := C.nox_xxx_objGetTeamByNetCode_418C80(C.int(memmap.Uint32(0x5D4594, 2616328)))
+			C.playerDropATrap(C.int(uintptr(unsafe.Pointer(v9)) - 12*4)) // TODO: this doesn't look right
+		} else {
+			// TODO: this currently relies on extension packets, which should not be required for this
+			//       it can be done the "natural way": find the trap in the client-side data structures
+			//       and ask server to drop that item, as the client does when doing the same manually
+			buf := alloc.Bytes(10)
+			gameex_makeExtensionPacket(buf, 9, true)
+			C.gameex_sendPacket((*C.char)(unsafe.Pointer(&buf[0])), 8, 0)
+			alloc.FreeBytes(buf)
+		}
+	}
 }
 
 func gameexOnKeyboardPress(kcode keybind.Key) {
@@ -343,25 +195,7 @@ func gameexOnKeyboardPress(kcode keybind.Key) {
 			}
 		}
 	}
-	if kcode == gameex.keys.trap {
-		if (C.gameex_flags>>3)&1 != 0 {
-			if noxflags.HasGame(516) {
-				if C.dword_5d4594_1064868 != 0 || nox_win_unk3 != nil {
-					return
-				}
-				if noxflags.HasGame(1) { // checkGameFlags isServer
-					v9 := C.nox_xxx_objGetTeamByNetCode_418C80(C.int(memmap.Uint32(0x5D4594, 2616328)))
-					C.playerDropATrap(C.int(uintptr(unsafe.Pointer(v9)) - 12*4)) // TODO: this doesn't look right
-				} else {
-					buf := alloc.Bytes(10)
-					gameex_makeExtensionPacket(buf, 9, true)
-					C.gameex_sendPacket((*C.char)(unsafe.Pointer(&buf[0])), 8, 0)
-					alloc.FreeBytes(buf)
-				}
-			}
-		}
-	}
-	if kcode == keybind.KeyF8 { // TODO: should be configurable
+	if kcode == keybind.KeyF8 { // TODO: should be configurable, or actually just set defaults and remove this window
 		if !noxflags.HasGame(1) {
 			nox_xxx_printCentered_445490("only server can change these options")
 			clientPlaySoundSpecial(231, 100)
