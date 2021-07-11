@@ -2514,7 +2514,7 @@ int  sub_41C280(void* a1) {
 			LOBYTE(a1) = sub_4604E0();
 			nox_xxx_fileReadWrite_426AC0_file3_fread(&a1, 1u);
 			if (*getMemU32Ptr(0x5D4594, 3803300) == 1)
-				sub_4604B0((unsigned __int8)a1);
+				nox_client_trapSetSelect_4604B0((unsigned __int8)a1);
 		}
 		if ((__int16)v4 >= 3) {
 			v2 = nox_common_playerInfoGetByID_417040(*getMemIntPtr(0x5D4594, 2616328));

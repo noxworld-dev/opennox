@@ -56,12 +56,20 @@ const (
 	EventAutoSave           = Event(0x35)
 	EventAutoLoad           = Event(0x36)
 	EventScreenShot         = Event(0x37)
+)
 
-	EventSpellSet1 = Event(0x50)
-	EventSpellSet2 = Event(0x51)
-	EventSpellSet3 = Event(0x52)
-	EventSpellSet4 = Event(0x53)
-	EventSpellSet5 = Event(0x54)
+// Extensions to the key bindings.
+const (
+	EventSpellSet1 = Event(0x50 + iota)
+	EventSpellSet2
+	EventSpellSet3
+	EventSpellSet4
+	EventSpellSet5
+	EventTrapPrev
+	EventTrapNext
+	EventTrapBomber1
+	EventTrapBomber2
+	EventTrapBomber3
 )
 
 var defBindEvents = []BindEvent{
@@ -91,6 +99,10 @@ var defBindEvents = []BindEvent{
 	{Name: "InvertSpellTarget", Event: EventInvertSpellTarget},
 
 	{Name: "PlaceTrapBomber", Event: EventPlaceTrapBomber},
+	{Name: "TrapBomber1", Event: EventTrapBomber1, Title: "Trap/Bomber 1"},
+	{Name: "TrapBomber2", Event: EventTrapBomber2, Title: "Trap/Bomber 2"},
+	{Name: "TrapBomber3", Event: EventTrapBomber3, Title: "Trap/Bomber 3"},
+
 	{Name: "SwapWeapons", Event: EventSwapWeapons},
 	{Name: "QuickHealth", Event: EventQuickHealth},
 	{Name: "QuickMana", Event: EventQuickMana},

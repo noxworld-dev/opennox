@@ -7570,10 +7570,10 @@ int  nox_xxx_quickbarTrapUpDownProc_45F630(int a1, unsigned int a2) {
 				sub_460920();
 				break;
 			case 3:
-				sub_4603F0();
+				nox_client_trapSetPrev_4603F0();
 				break;
 			case 4:
-				sub_4603A0();
+				nox_client_trapSetNext_4603A0();
 				break;
 			default:
 				break;
@@ -7860,7 +7860,7 @@ void* sub_460380() {
 }
 
 //----- (004603A0) --------------------------------------------------------
-void sub_4603A0() {
+void nox_client_trapSetNext_4603A0() {
 	if (getMemByte(0x5D4594, 1048140) == 2)
 		*getMemU8Ptr(0x5D4594, 1048140) = 0;
 	else
@@ -7870,7 +7870,7 @@ void sub_4603A0() {
 }
 
 //----- (004603F0) --------------------------------------------------------
-void sub_4603F0() {
+void nox_client_trapSetPrev_4603F0() {
 	if (getMemByte(0x5D4594, 1048140))
 		--*getMemU8Ptr(0x5D4594, 1048140);
 	else
@@ -7900,7 +7900,7 @@ void sub_460440() {
 }
 
 //----- (004604B0) --------------------------------------------------------
-int  sub_4604B0(int a1) {
+int  nox_client_trapSetSelect_4604B0(int a1) {
 	int result; // eax
 
 	result = a1;
