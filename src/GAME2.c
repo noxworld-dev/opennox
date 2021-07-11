@@ -5888,7 +5888,7 @@ int nox_xxx_bookSetColor_45AC40() {
 }
 
 //----- (0045AC70) --------------------------------------------------------
-void sub_45AC70() {
+void nox_client_toggleSpellbook_45AC70() {
 	if (wndIsShown_nox_xxx_wndIsShown_46ACC0(nox_win_unk1))
 		nox_xxx_bookShowMB_45AD70(0);
 	else
@@ -6007,7 +6007,7 @@ int  nox_xxx_bookWndProc_45B070(int a1, int a2) {
 	if (dword_5d4594_1047520 == 1)
 		return 1;
 	if (a2 == 10) {
-		sub_45AC70();
+		nox_client_toggleSpellbook_45AC70();
 		return 1;
 	}
 	if (*getMemU32Ptr(0x5D4594, 2614252) && !sub_478030() && !sub_47A260() &&
@@ -6073,7 +6073,7 @@ int  nox_xxx_book_45B210(int a1, int a2) {
 	if (dword_5d4594_1047520 == 1)
 		return 1;
 	if (a2 == 10) {
-		sub_45AC70();
+		nox_client_toggleSpellbook_45AC70();
 		return 1;
 	}
 	if (*getMemU32Ptr(0x5D4594, 2614252) && !sub_478030() && !sub_47A260() &&
@@ -6217,7 +6217,7 @@ int  nox_xxx_bookListWndProc_45B5F0(int a1, unsigned int a2, unsigned int a3) {
 				return 1;
 			if (a2 == 11) {
 			LABEL_47:
-				sub_45AC70();
+				nox_client_toggleSpellbook_45AC70();
 				return 1;
 			}
 		}
@@ -7030,7 +7030,7 @@ int  nox_xxx_guiSpell_45DA10(int a1) {
 }
 
 //----- (0045DA50) --------------------------------------------------------
-void  nox_xxx_clientUseQWEButton_45DA50(int a1) {
+void  nox_client_invokeSpellSlot_45DA50(int a1) {
 	if (*getMemU32Ptr(0x5D4594, 2618908)) {
 		if (!nox_xxx_playerAnimCheck_4372B0()) {
 			if (*(_BYTE*)(*getMemU32Ptr(0x5D4594, 2618908) + 2251)) {
@@ -7492,7 +7492,7 @@ int  nox_xxx_quickbarButtonBookWnd_45F450(int a1, unsigned int a2) {
 		if (a2 <= 6)
 			return 1;
 		if (a2 == 7) {
-			sub_45AC70();
+			nox_client_toggleSpellbook_45AC70();
 			return 1;
 		}
 	}
@@ -7559,11 +7559,11 @@ int  nox_xxx_quickbarTrapUpDownProc_45F630(int a1, unsigned int a2) {
 			switch (v2) {
 			case 0:
 				*(_DWORD*)(dword_5d4594_1049508 + 60) = 0;
-				nox_xxx_spellPrev_460540();
+				nox_client_spellSetPrev_460540();
 				break;
 			case 1:
 				*(_DWORD*)(dword_5d4594_1049508 + 60) = 0;
-				nox_xxx_spellNext_4604F0();
+				nox_client_spellSetNext_4604F0();
 				break;
 			case 2:
 				*(_DWORD*)(dword_5d4594_1049508 + 60) = 0;
@@ -7633,7 +7633,7 @@ int  nox_xxx_quickbarTrapButtonProc_45F7A0(_DWORD* a1, unsigned int a2, unsigned
 	}
 	if (*getMemU32Ptr(0x5D4594, 1047928)) {
 		if (!nox_xxx_wndPointInWnd_46AAB0(a1, (unsigned __int16)a3, a3 >> 16))
-			nox_xxx_clientUseTrap_45E040();
+			nox_client_buildTrap_45E040();
 		nox_xxx_wndClearCaptureMain_46ADE0((int)a1);
 		dword_5d4594_1049532 = 0;
 		*getMemU32Ptr(0x5D4594, 1047928) = 0;
@@ -7648,7 +7648,7 @@ int  nox_xxx_quickbarTrapButtonProc_45F7A0(_DWORD* a1, unsigned int a2, unsigned
 		*getMemU32Ptr(0x5D4594, 1047928) = 1;
 		result = 1;
 	} else {
-		nox_xxx_clientUseTrap_45E040();
+		nox_client_buildTrap_45E040();
 		result = 1;
 	}
 	return result;
@@ -7916,7 +7916,7 @@ int  sub_4604B0(int a1) {
 int sub_4604E0() { return getMemByte(0x5D4594, 1048140); }
 
 //----- (004604F0) --------------------------------------------------------
-int nox_xxx_spellNext_4604F0() {
+int nox_client_spellSetNext_4604F0() {
 	int result; // eax
 	int v1;     // eax
 
@@ -7938,7 +7938,7 @@ int nox_xxx_spellNext_4604F0() {
 }
 
 //----- (00460540) --------------------------------------------------------
-int nox_xxx_spellPrev_460540() {
+int nox_client_spellSetPrev_460540() {
 	int result; // eax
 	int v1;     // eax
 
@@ -7960,7 +7960,7 @@ int nox_xxx_spellPrev_460540() {
 }
 
 //----- (00460590) --------------------------------------------------------
-void nox_xxx_spellReset_460590() {
+void nox_client_spellSetSelect_460590() {
 	int result; // eax
 
 	result = *getMemU32Ptr(0x5D4594, 1049476);

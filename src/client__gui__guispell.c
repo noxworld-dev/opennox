@@ -59,7 +59,7 @@ int  nox_xxx_spellPutInBox_45DEB0(int* a1, int a2, int a3, int a4) {
 }
 
 //----- (0045E040) --------------------------------------------------------
-void nox_xxx_clientUseTrap_45E040() {
+void nox_client_buildTrap_45E040() {
 	_DWORD** v0;    // edx
 	_DWORD* v1;     // ecx
 	int v2;         // edi

@@ -509,13 +509,13 @@ void nox_video_setCutSize_4766A0(int a1) {
 //----- (004766D0) --------------------------------------------------------
 int nox_video_getCutSize_4766D0() { return nox_video_cutSize; }
 
+#ifndef NOX_CGO
 //----- (004766E0) --------------------------------------------------------
-void sub_4766E0() { nox_draw_setCutSize_476700(0, 2); }
+void nox_client_increaseViewport_4766E0() { nox_draw_setCutSize_476700(0, 2); }
 
 //----- (004766F0) --------------------------------------------------------
-void sub_4766F0() { nox_draw_setCutSize_476700(0, -2); }
+void nox_client_decreaseViewport_4766F0() { nox_draw_setCutSize_476700(0, -2); }
 
-#ifndef NOX_CGO
 //----- (00476700) --------------------------------------------------------
 void nox_draw_setCutSize_476700(int cutPerc, int a2) {
 	nox_draw_viewport_t* rdr = nox_draw_getViewport_437250();
@@ -891,7 +891,7 @@ void  sub_476DA0(unsigned int* a1, _DWORD* a2, unsigned int a3) {
 }
 
 //----- (00476E00) --------------------------------------------------------
-int  sub_476E00(int a1) {
+int  nox_client_setPhonemeFrame_476E00(int a1) {
 	int result; // eax
 
 	result = a1;
@@ -1190,7 +1190,7 @@ unsigned __int8  sub_477530(int a1) {
 		nox_client_renderGUI_80828 = 0;
 		*getMemU32Ptr(0x5D4594, 1096656) = sub_473670();
 		if (*getMemU32Ptr(0x5D4594, 1096656) == 1)
-			sub_473610();
+			nox_client_toggleMap_473610();
 		nox_gui_console_Hide_4512B0();
 		sub_446780();
 		sub_4AD9B0(1);
@@ -1208,7 +1208,7 @@ unsigned __int8  sub_477530(int a1) {
 			nox_xxx_guiServerOptsLoad_457500();
 		result = getMemByte(0x5D4594, 1096656);
 		if (*getMemU32Ptr(0x5D4594, 1096656))
-			result = sub_473610();
+			result = nox_client_toggleMap_473610();
 		if (nox_xxx_xxxRenderGUI_587000_80832 == 1)
 			nox_client_renderGUI_80828 = 1;
 	}

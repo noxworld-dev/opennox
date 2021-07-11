@@ -11,7 +11,6 @@ static void nox_gui_call_void2_go(void (*f)(void)) { f(); }
 */
 import "C"
 import (
-	"os"
 	"unsafe"
 
 	"nox/v1/common/alloc"
@@ -20,7 +19,7 @@ import (
 var guiAnimSpeed = 1
 
 func init() {
-	if os.Getenv("NOX_DEV") == "true" {
+	if isDevMode() {
 		guiAnimSpeed = 5
 	}
 }

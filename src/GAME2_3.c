@@ -6074,7 +6074,7 @@ int  sub_49B420(int a1, int a2, int* a3, int a4) {
 		v3 = nox_xxx_wndGetID_46B0A0(a3);
 		nox_xxx_clientPlaySoundSpecial_452D80(766, 100);
 		if (v3 == 10701) {
-			nox_xxx_quit_4460C0();
+			nox_client_quit_4460C0();
 			sub_49B6B0();
 		} else if (v3 == 10702) {
 			LOWORD(a2) = 1008;
@@ -6319,7 +6319,7 @@ void sub_49BBC0() {
 		if (nox_frame_xxx_2598000 >= *getMemIntPtr(0x5D4594, 1303516)) {
 			v0 = nox_xxx_spellGetPhoneme_4FE1C0(*getMemIntPtr(0x5D4594, 2616328), v1);
 			nox_xxx_clientPlaySoundSpecial_452D80(v0, 100);
-			sub_476E00(*getMemU32Ptr(0x587000, 163576 + 4 * v1));
+			nox_client_setPhonemeFrame_476E00(*getMemU32Ptr(0x587000, 163576 + 4 * v1));
 			*getMemU32Ptr(0x5D4594, 1303516) = nox_frame_xxx_2598000 + 3;
 			dword_5d4594_1303508 = nox_xxx_updateSpellRelated_424830(*(int*)&dword_5d4594_1303508, v1);
 			++*getMemU8Ptr(0x5D4594, 1303512);

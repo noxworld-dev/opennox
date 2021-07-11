@@ -1753,7 +1753,7 @@ void  sub_4658A0(int a1, int2* a2) {
 			dword_5d4594_1049856 = 0;
 			if (sub_4281F0(a2, (int4*)getMemAt(0x587000, 136368))) {
 				if ((a2->field_4 - 13) / 50 == 2)
-					sub_473610();
+					nox_client_toggleMap_473610();
 			} else if (sub_4281F0(a2, (int4*)getMemAt(0x587000, 136352))) {
 				dword_5d4594_1049796 = (a2->field_0 - 314) / 50;
 				dword_5d4594_1049800 = (a2->field_4 + *(int*)&dword_5d4594_1062512 - 13) / 50;
@@ -2106,7 +2106,7 @@ int  sub_466550(int a1, unsigned int a2) {
 		if (a2 <= 6)
 			return 1;
 		if (a2 == 7) {
-			sub_467C60();
+			nox_client_toggleInventory_467C60();
 			return 1;
 		}
 	}
@@ -2922,7 +2922,7 @@ int sub_467C10() {
 }
 
 //----- (00467C60) --------------------------------------------------------
-int sub_467C60() {
+int nox_client_toggleInventory_467C60() {
 	int result; // eax
 
 	if (sub_467C80())
@@ -3677,7 +3677,7 @@ char*  nox_xxx_getWallDrawOffset_46A3F0(int a1, int a2, int a3, int a4) {
 }
 
 //----- (0046A430) --------------------------------------------------------
-void  sub_46A430(int a1) {
+void  nox_client_chatStart_46A430(int a1) {
 	if (!nox_common_gameFlags_check_40A5C0(2048)) {
 		if (!dword_5d4594_1064868) {
 			**(_WORD**)&dword_5d4594_1064864 = 0;
@@ -6339,7 +6339,7 @@ int nox_xxx_cliPrepareGameplay2_4721D0() {
 }
 
 //----- (00472220) --------------------------------------------------------
-void sub_472220() {
+void nox_client_quickHealthPotion_472220() {
 	if (!nox_xxx_guiCursor_477600()) {
 		if (*getMemU32Ptr(0x5D4594, 1090308))
 			nox_xxx_cliUseCurePoison_4674E0(*getMemIntPtr(0x5D4594, 1090308));
@@ -6347,7 +6347,7 @@ void sub_472220() {
 }
 
 //----- (00472240) --------------------------------------------------------
-void sub_472240() {
+void nox_client_quickManaPotion_472240() {
 	if (!nox_xxx_guiCursor_477600()) {
 		if (*getMemU32Ptr(0x5D4594, 1090844))
 			nox_xxx_cliUseCurePoison_4674E0(*getMemIntPtr(0x5D4594, 1090844));
@@ -6355,7 +6355,7 @@ void sub_472240() {
 }
 
 //----- (00472260) --------------------------------------------------------
-void sub_472260() {
+void nox_client_quickCurePoisonPotion_472260() {
 	if (!nox_xxx_guiCursor_477600()) {
 		if (*getMemU32Ptr(0x5D4594, 1091380))
 			nox_xxx_cliUseCurePoison_4674E0(*getMemIntPtr(0x5D4594, 1091380));
@@ -6460,14 +6460,14 @@ unsigned __int8* sub_472310() {
 }
 
 //----- (004724E0) --------------------------------------------------------
-void sub_4724E0() {
+void nox_client_mapZoomIn_4724E0() {
 	nox_xxx_minimap_587000_149232 -= 10;
 	if (*(int*)&nox_xxx_minimap_587000_149232 < 500)
 		nox_xxx_minimap_587000_149232 = 500;
 }
 
 //----- (00472500) --------------------------------------------------------
-void sub_472500() {
+void nox_client_mapZoomOut_472500() {
 	nox_xxx_minimap_587000_149232 += 10;
 	if (nox_xxx_minimap_587000_149232 > 4000)
 		nox_xxx_minimap_587000_149232 = 4000;
@@ -7097,7 +7097,7 @@ void  sub_4735C0(int xLeft, int yTop) {
 }
 
 //----- (00473610) --------------------------------------------------------
-char sub_473610() {
+char nox_client_toggleMap_473610() {
 	int v0; // eax
 
 	v0 = nox_xxx_guiCursor_477600();

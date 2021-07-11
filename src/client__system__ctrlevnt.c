@@ -718,49 +718,49 @@ void nox_xxx_clientControl_42D6B0_B() {
 			case 0x14:
 				if (!nox_common_gameFlags_check_40A5C0(128)) {
 					nox_xxx_clientPlaySoundSpecial_452D80(186, 100);
-					sub_476E00(1);
+					nox_client_setPhonemeFrame_476E00(1);
 				}
 				break;
 			case 0x15:
 				if (!nox_common_gameFlags_check_40A5C0(128)) {
 					nox_xxx_clientPlaySoundSpecial_452D80(190, 100);
-					sub_476E00(6);
+					nox_client_setPhonemeFrame_476E00(6);
 				}
 				break;
 			case 0x16:
 				if (!nox_common_gameFlags_check_40A5C0(128)) {
 					nox_xxx_clientPlaySoundSpecial_452D80(192, 100);
-					sub_476E00(3);
+					nox_client_setPhonemeFrame_476E00(3);
 				}
 				break;
 			case 0x17:
 				if (!nox_common_gameFlags_check_40A5C0(128)) {
 					nox_xxx_clientPlaySoundSpecial_452D80(188, 100);
-					sub_476E00(4);
+					nox_client_setPhonemeFrame_476E00(4);
 				}
 				break;
 			case 0x18:
 				if (!nox_common_gameFlags_check_40A5C0(128)) {
 					nox_xxx_clientPlaySoundSpecial_452D80(187, 100);
-					sub_476E00(2);
+					nox_client_setPhonemeFrame_476E00(2);
 				}
 				break;
 			case 0x19:
 				if (!nox_common_gameFlags_check_40A5C0(128)) {
 					nox_xxx_clientPlaySoundSpecial_452D80(193, 100);
-					sub_476E00(0);
+					nox_client_setPhonemeFrame_476E00(0);
 				}
 				break;
 			case 0x1A:
 				if (!nox_common_gameFlags_check_40A5C0(128)) {
 					nox_xxx_clientPlaySoundSpecial_452D80(189, 100);
-					sub_476E00(7);
+					nox_client_setPhonemeFrame_476E00(7);
 				}
 				break;
 			case 0x1B:
 				if (!nox_common_gameFlags_check_40A5C0(128)) {
 					nox_xxx_clientPlaySoundSpecial_452D80(191, 100);
-					sub_476E00(5);
+					nox_client_setPhonemeFrame_476E00(5);
 				}
 				break;
 			default:
@@ -770,29 +770,29 @@ void nox_xxx_clientControl_42D6B0_B() {
 		int tmp = 0;
 		switch (v37) {
 			case 8:
-				sub_46A430(0);
+				nox_client_chatStart_46A430(0);
 				nox_ctrlevent_buf_747884[li].active = 0;
 				break;
 			case 9:
-				sub_46A430(1);
+				nox_client_chatStart_46A430(1);
 				nox_ctrlevent_buf_747884[li].active = 0;
 				break;
 			case 10:
-				sub_45AC70();
+				nox_client_toggleSpellbook_45AC70();
 				nox_ctrlevent_buf_747884[li].active = 0;
 				break;
 			case 11:
-				nox_gui_console_F1_451350();
+				nox_client_toggleConsole_451350();
 				nox_ctrlevent_buf_747884[li].active = 0;
 				break;
 			case 12:
 				nox_xxx_clientPlaySoundSpecial_452D80(921, 100);
-				sub_4766E0();
+				nox_client_increaseViewport_4766E0();
 				nox_ctrlevent_buf_747884[li].active = 0;
 				break;
 			case 13:
 				nox_xxx_clientPlaySoundSpecial_452D80(921, 100);
-				sub_4766F0();
+				nox_client_decreaseViewport_4766F0();
 				nox_ctrlevent_buf_747884[li].active = 0;
 				break;
 			case 14:
@@ -812,7 +812,7 @@ void nox_xxx_clientControl_42D6B0_B() {
 				nox_ctrlevent_buf_747884[li].active = 0;
 				break;
 			case 16:
-				nox_xxx_quit_4460C0();
+				nox_client_quit_4460C0();
 				nox_ctrlevent_buf_747884[li].active = 0;
 				break;
 			case 17:
@@ -824,11 +824,11 @@ void nox_xxx_clientControl_42D6B0_B() {
 				nox_ctrlevent_buf_747884[li].active = 0;
 				break;
 			case 18:
-				sub_473610();
+				nox_client_toggleMap_473610();
 				nox_ctrlevent_buf_747884[li].active = 0;
 				break;
 			case 19:
-				sub_467C60();
+				nox_client_toggleInventory_467C60();
 				nox_ctrlevent_buf_747884[li].active = 0;
 				break;
 			case 31:
@@ -836,15 +836,15 @@ void nox_xxx_clientControl_42D6B0_B() {
 			case 33:
 			case 34:
 			case 35:
-				nox_xxx_clientUseQWEButton_45DA50(v37 - 31);
+				nox_client_invokeSpellSlot_45DA50(v37 - 31);
 				nox_ctrlevent_buf_747884[li].active = 0;
 				break;
 			case 36:
-				sub_4724E0();
+				nox_client_mapZoomIn_4724E0();
 				nox_ctrlevent_buf_747884[li].active = 0;
 				break;
 			case 37:
-				sub_472500();
+				nox_client_mapZoomOut_472500();
 				nox_ctrlevent_buf_747884[li].active = 0;
 				break;
 			case 38:
@@ -852,31 +852,31 @@ void nox_xxx_clientControl_42D6B0_B() {
 				nox_ctrlevent_buf_747884[li].active = 0;
 				break;
 			case 39:
-				sub_472220();
+				nox_client_quickHealthPotion_472220();
 				nox_ctrlevent_buf_747884[li].active = 0;
 				break;
 			case 40:
-				sub_472240();
+				nox_client_quickManaPotion_472240();
 				nox_ctrlevent_buf_747884[li].active = 0;
 				break;
 			case 41:
-				sub_472260();
+				nox_client_quickCurePoisonPotion_472260();
 				nox_ctrlevent_buf_747884[li].active = 0;
 				break;
 			case 42:
-				nox_xxx_spellNext_4604F0();
+				nox_client_spellSetNext_4604F0();
 				nox_ctrlevent_buf_747884[li].active = 0;
 				break;
 			case 43:
-				nox_xxx_spellPrev_460540();
+				nox_client_spellSetPrev_460540();
 				nox_ctrlevent_buf_747884[li].active = 0;
 				break;
 			case 44:
-				nox_xxx_spellReset_460590();
+				nox_client_spellSetSelect_460590();
 				nox_ctrlevent_buf_747884[li].active = 0;
 				break;
 			case 45:
-				nox_xxx_clientUseTrap_45E040();
+				nox_client_buildTrap_45E040();
 				nox_ctrlevent_buf_747884[li].active = 0;
 				break;
 			case 46:

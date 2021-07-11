@@ -31,7 +31,7 @@ void nox_gui_console_Enable_450BE0();
 void nox_gui_console_Disable_450BF0();
 void nox_gui_console_Lock_450B20(wchar_t* pass);
 void nox_gui_console_Unlock_450B50();
-void nox_gui_console_F1_451350();
+void nox_client_toggleConsole_451350();
 int nox_gui_console_flagXxx_451410();
 
 int nox_gui_console_Print_450B90(unsigned char cl, wchar_t* str);

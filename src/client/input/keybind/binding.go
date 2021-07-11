@@ -38,7 +38,7 @@ func (kb *Binding) loadStrings() {
 		b := &kb.events.list[i]
 		if i == 0 {
 			b.Title = kb.sm.GetString("bindevent:NullEvent")
-		} else {
+		} else if b.Title == "" {
 			b.Title = kb.sm.GetString(strman.ID("bindevent:" + b.Name))
 		}
 	}

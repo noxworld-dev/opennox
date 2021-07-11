@@ -203,7 +203,7 @@ int  nox_xxx_windowMainMenuProc_4A1DC0(int a1, int a2, int* a3, int a4) {
 				sub_4D6F60(0);
 				sub_4D6F80(0);
 				if (!sub_473670())
-					sub_473610();
+					nox_client_toggleMap_473610();
 				nox_xxx_cliShowHideTubes_470AA0(0);
 				nox_xxx_cliSetMinimapZoom_472520(2300);
 				if (!nox_xxx_parseGamedataBinPre_4D1630()) {
@@ -253,7 +253,7 @@ int  nox_xxx_windowMainMenuProc_4A1DC0(int a1, int a2, int* a3, int a4) {
 				sub_4D7440(0);
 				nox_xxx_cliSetMinimapZoom_472520(2300);
 				if (!sub_473670())
-					sub_473610();
+					nox_client_toggleMap_473610();
 				sub_461440(0);
 				if (!nox_xxx_parseGamedataBinPre_4D1630()) {
 					nox_xxx_setContinueMenuOrHost_43DDD0(0);

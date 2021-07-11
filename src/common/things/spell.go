@@ -19,15 +19,15 @@ var (
 )
 
 const (
-	PhonKA  = Phoneme(0)
-	PhonUN  = Phoneme(1)
-	PhonIN  = Phoneme(2)
-	PhonET  = Phoneme(3)
+	PhonKA  = Phoneme(0) // upper-left
+	PhonUN  = Phoneme(1) // up
+	PhonIN  = Phoneme(2) // upper-right
+	PhonET  = Phoneme(3) // left
 	PhonEnd = Phoneme(4)
-	PhonCHA = Phoneme(5)
-	PhonRO  = Phoneme(6)
-	PhonZO  = Phoneme(7)
-	PhonDO  = Phoneme(8)
+	PhonCHA = Phoneme(5) // right
+	PhonRO  = Phoneme(6) // lower-left
+	PhonZO  = Phoneme(7) // down
+	PhonDO  = Phoneme(8) // lower-right
 	phonMax = 9
 )
 

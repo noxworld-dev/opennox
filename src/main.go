@@ -55,11 +55,17 @@ import (
 )
 
 func init() {
-	go func() {
-		if err := http.ListenAndServe("127.0.0.1:6060", nil); err != nil {
-			log.Printf("failed to start pprof: %v", err)
-		}
-	}()
+	if isDevMode() || IsDevVersion() {
+		go func() {
+			if err := http.ListenAndServe("127.0.0.1:6060", nil); err != nil {
+				log.Printf("failed to start pprof: %v", err)
+			}
+		}()
+	}
+}
+
+func isDevMode() bool {
+	return os.Getenv("NOX_DEV") == "true"
 }
 
 var (

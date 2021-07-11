@@ -114,7 +114,7 @@ int nox_gui_console_Enter_450FD0() {
 }
 
 //----- (00451350) --------------------------------------------------------
-void nox_gui_console_F1_451350() {
+void nox_client_toggleConsole_451350() {
 	if (!(nox_xxx_wndGetFlags_46ADA0(nox_gui_console_win) & NOX_WIN_HIDDEN)) {
 		nox_gui_console_Hide_4512B0();
 		return;
@@ -152,7 +152,7 @@ int  nox_xxx_consoleEditProc_450F40(_DWORD* a1, int a2, int a3, int a4) {
 				goto LABEL_6;
 		}
 		if (a4 == 2) {
-			nox_gui_console_F1_451350();
+			nox_client_toggleConsole_451350();
 			return 1;
 		}
 		return 1;

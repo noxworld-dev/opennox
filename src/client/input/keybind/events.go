@@ -42,4 +42,16 @@ var defBindEvents = []BindEvent{
 	{Name: "IncreaseGamma", Event: 0xe},
 	{Name: "DecreaseGamma", Event: 0xf},
 	{Name: "ScreenShot", Event: 0x37},
+	// restored phoneme bindings
+	{Name: "CastQueued", Event: 0x11, Title: "Cast queued spell"},
+	{Name: "PhonemeUN", Event: 0x12, Title: "Phoneme UN (N)"},   // up
+	{Name: "PhonemeZO", Event: 0x13, Title: "Phoneme ZO (S)"},   // down
+	{Name: "PhonemeET", Event: 0x14, Title: "Phoneme ET (W)"},   // left
+	{Name: "PhonemeCHA", Event: 0x15, Title: "Phoneme CHA (E)"}, // right
+	{Name: "PhonemeIN", Event: 0x16, Title: "Phoneme IN (NE)"},  // upper-right
+	{Name: "PhonemeKA", Event: 0x17, Title: "Phoneme KA (NW)"},  // upper-left
+	{Name: "PhonemeDO", Event: 0x18, Title: "Phoneme DO (SE)"},  // lower-right
+	{Name: "PhonemeRO", Event: 0x19, Title: "Phoneme RO (SW)"},  // lower-left
+	{Name: "SpellEnd", Event: 0x1a, Title: "Spell end"},
+	{Name: "CastRecent", Event: 0x1b, Title: "Cast recent spell"},
 }

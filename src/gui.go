@@ -17,7 +17,7 @@ extern unsigned int nox_xxx_xxxRenderGUI_587000_80832;
 void  sub_4AA030(nox_window* win, nox_window_data* data);
 void nox_window_call_draw_func(nox_window* win, nox_window_data* data);
 int nox_gui_console_Enter_450FD0();
-void nox_gui_console_F1_451350();
+void nox_client_toggleConsole_451350();
 void  nox_window_set_ptrs_97(nox_window* win, nox_window* a2); // TODO: move to Go
 void  nox_client_wndListXxxAdd_46A920(nox_window* win); // TODO: move to Go
 void  nox_client_wndListXxxRemove_46A960(nox_window* win); // TODO: move to Go
@@ -1280,7 +1280,7 @@ func nox_xxx_consoleEditProc_450F40(a1 unsafe.Pointer, a2, a3, a4 C.int) C.int {
 	}
 	if ctrlEvent.hasDefBinding(11, keybind.Key(a3)) {
 		if a4 == 2 {
-			C.nox_gui_console_F1_451350()
+			C.nox_client_toggleConsole_451350()
 		}
 		return 1
 	}
