@@ -284,6 +284,8 @@ func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_A(a4 *CtrlEventBinding) 
 				c.nox_ctrlevent_action_42E780(client.CCCastSpell4, nil)
 			case keybind.EventInvokeSlot5:
 				c.nox_ctrlevent_action_42E780(client.CCCastSpell5, nil)
+			case keybind.EventSpellSet1, keybind.EventSpellSet2, keybind.EventSpellSet3, keybind.EventSpellSet4, keybind.EventSpellSet5:
+				C.nox_xxx_clientUpdateButtonRow_45E110(C.int(k - keybind.EventSpellSet1))
 			case keybind.EventMapZoomIn:
 				c.nox_ctrlevent_action_42E670(client.CCMapZoomIn, nil)
 			case keybind.EventMapZoomOut:

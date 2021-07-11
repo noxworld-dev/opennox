@@ -372,10 +372,7 @@ func gameexOnKeyboardPress(kcode keybind.Key) {
 		}
 		clientPlaySoundSpecial(921, 100)
 		if modifyWndPntr != nil {
-			if err := gameexSaveConfig(); err != nil {
-				gameex.Log.Println(err)
-			}
-			DestroyNoxWindow()
+			destroyGameExWindow()
 			modifyWndPntr = nil
 		} else {
 			modifyWndPntr = newWindowFromString(gameexModifWnd, unsafe.Pointer(C.modifyWndInputHandler))
@@ -403,75 +400,12 @@ func gameexOnKeyboardPress(kcode keybind.Key) {
 			}
 		}
 	}
-	for i, k := range gameex.keys.panels {
-		if kcode == k {
-			C.nox_xxx_clientUpdateButtonRow_45E110(C.int(i))
-			break
-		}
-	}
 }
 
-func DestroyNoxWindow() {
+func destroyGameExWindow() {
 	C.nox_xxx_wnd_46C6E0(modifyWndPntr.C())
 	modifyWndPntr.Destroy()
 	modifyWndPntr = nil
-}
-
-func gameexSaveConfig() error {
-	path := gameex.configPath
-	if path == "" {
-		path = datapath.Path("game_ex.cfg")
-	}
-	gameex.Log.Println("saving config", path)
-	f, err := fs.Create(path)
-	if err != nil {
-		return err
-	}
-	defer f.Close()
-
-	_, err = fmt.Fprintf(f, "AUTO_SHIELD = %d\r\n", bool2int((C.gameex_flags>>1)&1 != 0))
-	if err != nil {
-		return err
-	}
-	_, err = fmt.Fprintf(f, "GREAT_SWORD_BLOKING_WALK = %d\r\n", bool2int((C.gameex_flags>>2)&1 != 0))
-	if err != nil {
-		return err
-	}
-	_, err = fmt.Fprintf(f, "MOUSE_KEYBOARD_ROLL = %d\r\n", bool2int((C.gameex_flags>>3)&1 != 0))
-	if err != nil {
-		return err
-	}
-	_, err = fmt.Fprintf(f, "BERSERKER_SHIED_BLOCK = %d\r\n", bool2int((C.gameex_flags>>4)&1 != 0))
-	if err != nil {
-		return err
-	}
-	_, err = fmt.Fprintf(f, "EXTENSION_MESSAGES = %d\r\n", bool2int((C.gameex_flags>>5)&1 != 0))
-	if err != nil {
-		return err
-	}
-	for i, k := range gameex.keys.panels {
-		s, err := gameexKeyName(k)
-		if err != nil {
-			return err
-		}
-		_, err = fmt.Fprintf(f, "PANEL%d = %s\r\n", i+1, s)
-		if err != nil {
-			return err
-		}
-	}
-	s, err := gameexKeyName(gameex.keys.trap)
-	if err != nil {
-		return err
-	}
-	_, err = fmt.Fprintf(f, "TRAPKEY = %s\r\n", s)
-	if err != nil {
-		return err
-	}
-	_, err = f.WriteString("----------\r\n")
-	if err != nil {
-		return err
-	}
-	return f.Close()
 }
 
 //export modifyWndInputHandler
@@ -483,10 +417,7 @@ func modifyWndInputHandler(a1, a2, a3, a4 C.int) C.int {
 	a3p := asWindow((*C.nox_window)(unsafe.Pointer(uintptr(a3))))
 	switch a3p.ID() {
 	case 1937:
-		if err := gameexSaveConfig(); err != nil {
-			gameex.Log.Println(err)
-		}
-		DestroyNoxWindow()
+		destroyGameExWindow()
 	case 1938:
 		if !noxflags.HasGame(512) {
 			C.sub_4BDFD0()

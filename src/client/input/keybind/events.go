@@ -56,6 +56,12 @@ const (
 	EventAutoSave           = Event(0x35)
 	EventAutoLoad           = Event(0x36)
 	EventScreenShot         = Event(0x37)
+
+	EventSpellSet1 = Event(0x50)
+	EventSpellSet2 = Event(0x51)
+	EventSpellSet3 = Event(0x52)
+	EventSpellSet4 = Event(0x53)
+	EventSpellSet5 = Event(0x54)
 )
 
 var defBindEvents = []BindEvent{
@@ -68,6 +74,7 @@ var defBindEvents = []BindEvent{
 	{Name: "ToggleMap", Event: EventToggleMap},
 	{Name: "MapZoomOut", Event: EventMapZoomOut},
 	{Name: "MapZoomIn", Event: EventMapZoomIn},
+
 	{Name: "InvokeSlot1", Event: EventInvokeSlot1},
 	{Name: "InvokeSlot2", Event: EventInvokeSlot2},
 	{Name: "InvokeSlot3", Event: EventInvokeSlot3},
@@ -76,7 +83,13 @@ var defBindEvents = []BindEvent{
 	{Name: "PreviousSpellSet", Event: EventPreviousSpellSet},
 	{Name: "NextSpellSet", Event: EventNextSpellSet},
 	{Name: "SelectSpellSet", Event: EventSelectSpellSet},
+	{Name: "SpellSet1", Event: EventSpellSet1, Title: "Spell Set 1"},
+	{Name: "SpellSet2", Event: EventSpellSet2, Title: "Spell Set 2"},
+	{Name: "SpellSet3", Event: EventSpellSet3, Title: "Spell Set 3"},
+	{Name: "SpellSet4", Event: EventSpellSet4, Title: "Spell Set 4"},
+	{Name: "SpellSet5", Event: EventSpellSet5, Title: "Spell Set 5"},
 	{Name: "InvertSpellTarget", Event: EventInvertSpellTarget},
+
 	{Name: "PlaceTrapBomber", Event: EventPlaceTrapBomber},
 	{Name: "SwapWeapons", Event: EventSwapWeapons},
 	{Name: "QuickHealth", Event: EventQuickHealth},
