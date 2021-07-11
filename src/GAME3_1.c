@@ -3664,6 +3664,26 @@ int  sub_4C2A00(int a1, int a2, int a3, int a4, __int16* a5) {
 	return nox_xxx_drawString_43F6E0(0, a5, a1, a2);
 }
 
+void nox_client_orderCreature(int creature, int command) {
+	unsigned char buf[4] = {0};
+	buf[0] = 0x78;
+	if (creature) {
+		*(_WORD*)(&buf[1]) = *(_WORD*)creature;
+	} else {
+		if (command == 1)
+			return;
+		*(_WORD*)(&buf[1]) = 0;
+	}
+	buf[3] = command;
+	nox_netlist_addToMsgListCli_40EBC0(31, 0, buf, 4);
+	sub_4C2470();
+	if (!command) {
+		nox_xxx_clientPlaySoundSpecial_452D80(777, 100);
+	} else {
+		nox_xxx_clientPlaySoundSpecial_452D80(898, 100);
+	}
+}
+
 //----- (004C2A60) --------------------------------------------------------
 int  nox_xxx_clientOrderCreature_4C2A60(int a1, unsigned int a2) {
 	int result; // eax
@@ -3674,23 +3694,9 @@ int  nox_xxx_clientOrderCreature_4C2A60(int a1, unsigned int a2) {
 		if (a2 == 7) {
 			LOBYTE(a2) = 120;
 			result = *(_DWORD*)(a1 + 32);
-			if (result == 2)
+			if (result == 2 || (!dword_5d4594_1321204 && result == 1))
 				return 1;
-			if (dword_5d4594_1321204) {
-				*(_WORD*)((char*)&a2 + 1) = **(_WORD**)&dword_5d4594_1321204;
-			} else {
-				if (result == 1)
-					return result;
-				*(_WORD*)((char*)&a2 + 1) = 0;
-			}
-			HIBYTE(a2) = *(_BYTE*)(a1 + 32);
-			nox_netlist_addToMsgListCli_40EBC0(31, 0, &a2, 4);
-			sub_4C2470();
-			if (!*(_DWORD*)(a1 + 32)) {
-				nox_xxx_clientPlaySoundSpecial_452D80(777, 100);
-				return 1;
-			}
-			nox_xxx_clientPlaySoundSpecial_452D80(898, 100);
+			nox_client_orderCreature(dword_5d4594_1321204, *(_DWORD*)(a1 + 32));
 			return 1;
 		}
 	}

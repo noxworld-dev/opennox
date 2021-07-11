@@ -70,6 +70,10 @@ const (
 	EventTrapBomber1
 	EventTrapBomber2
 	EventTrapBomber3
+	EventCreaturesBanish
+	EventCreaturesGuard
+	EventCreaturesEscort
+	EventCreaturesHunt
 )
 
 var defBindEvents = []BindEvent{
@@ -137,4 +141,9 @@ var defBindEvents = []BindEvent{
 	{Name: "PhonemeRO", Event: EventPhonemeRO, Title: "Phoneme RO (SW)"},   // lower-left
 	{Name: "SpellEnd", Event: EventSpellEnd, Title: "Spell end"},
 	{Name: "CastRecent", Event: EventCastRecent, Title: "Cast recent spell"},
+	// creature control
+	{Name: "CreaturesBanish", Event: EventCreaturesBanish, Title: "Creatures command: Banish"},
+	{Name: "CreaturesGuard", Event: EventCreaturesGuard, Title: "Creatures command: Guard"},
+	{Name: "CreaturesEscort", Event: EventCreaturesEscort, Title: "Creatures command: Escort"},
+	{Name: "CreaturesHunt", Event: EventCreaturesHunt, Title: "Creatures command: Hunt"},
 }

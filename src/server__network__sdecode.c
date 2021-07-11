@@ -256,7 +256,7 @@ int  nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned __int8* a2,
 			v10 = (int*)v85;
 			v4 += 3;
 			break;
-		case 0x78u:
+		case 0x78: // command spawned creatures
 			v31 = nox_xxx_packetDynamicUnitCode_578B40(*(unsigned __int16*)(v4 + 1));
 			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG))
 				nox_xxx_netTestHighBit_578B70(*(unsigned __int16*)(v4 + 1));

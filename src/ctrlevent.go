@@ -12,6 +12,7 @@ extern unsigned int nox_client_renderGUI_80828;
 extern unsigned int nox_xxx_xxxRenderGUI_587000_80832;
 
 int nox_ctrlevent_add_ticks_42E630();
+void nox_client_orderCreature(int creature, int command);
 */
 import "C"
 import (
@@ -352,6 +353,14 @@ func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_A(a4 *CtrlEventBinding) 
 				}
 			case keybind.EventScreenShot:
 				c.nox_ctrlevent_action_42E670(client.CCScreenShot, nil)
+			case keybind.EventCreaturesBanish:
+				C.nox_client_orderCreature(0, 0)
+			case keybind.EventCreaturesGuard:
+				C.nox_client_orderCreature(0, 3)
+			case keybind.EventCreaturesEscort:
+				C.nox_client_orderCreature(0, 4)
+			case keybind.EventCreaturesHunt:
+				C.nox_client_orderCreature(0, 5)
 			}
 		}
 	}
