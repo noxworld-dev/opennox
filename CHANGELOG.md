@@ -1,5 +1,17 @@
 # Changelog
 
+## v1.7.0
+
+- Completely reworked input and present pipelines.
+- Manual spell casting is now supported. Bind keys to individual spell gestures and become a real wizard/conjurer!
+- Input sensitivity should now be fixed in fullscreen mode.
+- Wide-screen 16:9 resolutions are now available. Older 4:3 resolutions are still supported via config.
+- Added key bindings for:
+  - Switching to a specific spell slot.
+  - Switching to a specific trap slot.
+  - Dropping a trap from your inventory.
+  - Controlling spawned creature behavior.
+
 ## v1.6.1
 
 - Fix: Prevent freeze when closing the game on Windows. 
