@@ -240,8 +240,10 @@ func (h *Handler) onWindow(ev seat.WindowEvent) {
 			fnc()
 		}
 	case seat.WindowFocused:
+		Log.Println("focused")
 		// TODO
 	case seat.WindowUnfocused:
+		Log.Println("unfocused")
 		// TODO
 	}
 }

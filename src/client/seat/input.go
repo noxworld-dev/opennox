@@ -10,10 +10,6 @@ type Input interface {
 	InputTick()
 	// OnInput adds a handler function that will be called on each input event.
 	OnInput(fnc func(ev InputEvent))
-	// SetMouseGrab enables or disables capturing mouse pinter inside the window.
-	SetMouseGrab(enable bool)
-	// SetMouseRelative enables or disables relative mouse mode.
-	SetMouseRelative(enable bool)
 	// SetTextInput enables or disables text input mode.
 	SetTextInput(enable bool)
 }
@@ -33,8 +29,9 @@ const (
 var _ InputEvent = &MouseMoveEvent{}
 
 type MouseMoveEvent struct {
-	Pos types.Point
-	Rel types.Point
+	Relative bool
+	Pos      types.Point
+	Rel      types.Point
 }
 
 func (e *MouseMoveEvent) isInputEvent() {}
@@ -42,7 +39,6 @@ func (e *MouseMoveEvent) isInputEvent() {}
 var _ InputEvent = &MouseButtonEvent{}
 
 type MouseButtonEvent struct {
-	Pos     types.Point
 	Button  MouseButton
 	Pressed bool
 }

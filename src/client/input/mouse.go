@@ -103,7 +103,15 @@ func (h *mouseHandler) OnMouseWheel(fnc func(dv int)) {
 }
 
 func (h *mouseHandler) MouseMove(ev *seat.MouseMoveEvent) {
-	h.pos = ev.Pos
+	if ev.Relative {
+		dp := ev.Rel
+		dp.X = int(float32(dp.X) * h.sens)
+		dp.Y = int(float32(dp.Y) * h.sens)
+		h.pos = h.pos.Add(dp)
+		h.pos = clamp(h.win.view, h.pos)
+	} else {
+		h.pos = ev.Pos
+	}
 	h.pushEvent(noxMouseEvent{
 		Type:  noxMouseEventMotion,
 		Pos:   h.win.toDrawSpace(h.pos),
@@ -124,7 +132,6 @@ func toMouseBtn(v seat.MouseButton) int {
 }
 
 func (h *mouseHandler) MouseButton(ev *seat.MouseButtonEvent) {
-	h.pos = ev.Pos
 	var typ noxMouseEventType
 	switch ev.Button {
 	case seat.MouseButtonLeft:
@@ -156,6 +163,9 @@ func (h *mouseHandler) GetSensitivity() float32 {
 }
 
 func (h *mouseHandler) SetSensitivity(v float32) {
+	if v <= 0 {
+		v = 1
+	}
 	h.sens = v
 }
 

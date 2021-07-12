@@ -45,6 +45,8 @@ type Window struct {
 	ren      *sdl.Renderer
 	prev     types.Size
 	mode     seat.ScreenMode
+	rel      bool
+	mpos     types.Point
 	onResize []func(sz types.Size)
 	onInput  []func(ev seat.InputEvent)
 }
@@ -67,14 +69,6 @@ func (win *Window) Close() error {
 
 func (win *Window) OnInput(fnc func(ev seat.InputEvent)) {
 	win.onInput = append(win.onInput, fnc)
-}
-
-func (win *Window) SetMouseGrab(enable bool) {
-	win.win.SetGrab(enable)
-}
-
-func (win *Window) SetMouseRelative(enable bool) {
-	sdl.SetRelativeMouseMode(enable)
 }
 
 func (win *Window) SetTextInput(enable bool) {
@@ -131,6 +125,15 @@ func (win *Window) ResizeScreen(sz types.Size) {
 	win.prev = sz
 }
 
+func (win *Window) setRelative(rel bool) {
+	if win.rel == rel {
+		return
+	}
+	win.rel = rel
+	win.win.SetGrab(rel)
+	sdl.SetRelativeMouseMode(rel)
+}
+
 func (win *Window) SetScreenMode(mode seat.ScreenMode) {
 	if win.mode == mode {
 		return
@@ -147,12 +150,14 @@ func (win *Window) SetScreenMode(mode seat.ScreenMode) {
 		win.setSize(win.prev)
 		win.center() // TODO: restore original position
 		sdl.ShowCursor(sdl.ENABLE)
+		win.setRelative(false)
 	case seat.Fullscreen:
 		win.win.SetResizable(false)
 		win.win.SetBordered(false)
 		win.setSize(win.ScreenMaxSize())
 		win.win.SetFullscreen(sdl.WINDOW_FULLSCREEN_DESKTOP)
 		sdl.ShowCursor(sdl.DISABLE)
+		win.setRelative(true)
 	case seat.Borderless:
 		win.win.SetFullscreen(0)
 		win.win.SetResizable(false)
@@ -160,6 +165,7 @@ func (win *Window) SetScreenMode(mode seat.ScreenMode) {
 		win.setSize(win.ScreenMaxSize())
 		win.center()
 		sdl.ShowCursor(sdl.DISABLE)
+		win.setRelative(false)
 	}
 	win.mode = mode
 }
@@ -292,7 +298,6 @@ func (win *Window) processMouseButtonEvent(ev *sdl.MouseButtonEvent) {
 		return
 	}
 	win.inputEvent(&seat.MouseButtonEvent{
-		Pos:     types.Point{X: int(ev.X), Y: int(ev.Y)},
 		Button:  button,
 		Pressed: pressed,
 	})
@@ -300,8 +305,9 @@ func (win *Window) processMouseButtonEvent(ev *sdl.MouseButtonEvent) {
 
 func (win *Window) processMotionEvent(ev *sdl.MouseMotionEvent) {
 	win.inputEvent(&seat.MouseMoveEvent{
-		Pos: types.Point{X: int(ev.X), Y: int(ev.Y)},
-		Rel: types.Point{X: int(ev.XRel), Y: int(ev.YRel)},
+		Relative: win.rel,
+		Pos:      types.Point{X: int(ev.X), Y: int(ev.Y)},
+		Rel:      types.Point{X: int(ev.XRel), Y: int(ev.YRel)},
 	})
 }
 
