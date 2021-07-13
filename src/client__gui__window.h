@@ -63,10 +63,10 @@ typedef struct nox_window_ref {
 	nox_window_ref* next;
 } nox_window_ref;
 
-int  nox_xxx_wndShowModalMB_46A8C0(int a1);
+int  nox_xxx_wndShowModalMB_46A8C0(nox_window* a1);
 void  sub_46ACE0(unsigned int* a1, int a2, int a3, int a4);
 void  sub_46AD20(unsigned int* a1, int a2, int a3, int a4);
-int  nox_wnd_nox_xxx_wndDraw_46A9B0(nox_window* win, int a2, int a3);
+int  nox_window_setPos_46A9B0(nox_window* win, int a2, int a3);
 int  nox_xxx_windowDestroyMB_46C4E0(nox_window* win);
 int nox_gui_getWindowOffs_46AA20(nox_window* win, unsigned int* px, unsigned int* py);
 int  nox_client_wndGetPosition_46AA60(nox_window* a1, unsigned int* a2, unsigned int* a3);
@@ -75,8 +75,8 @@ int  sub_46AB20(unsigned int* a1, int a2, int a3);
 int  nox_window_get_size(nox_window* win, int* outW, int* outH);
 int  nox_xxx_wnd_46ABB0(int a1, int a2);
 int  nox_window_set_hidden(nox_window* win, int visible);
-int  wndIsShown_nox_xxx_wndIsShown_46ACC0(int a1);
-int  nox_xxx_wndSetRectColor2MB_46AFE0(int a1, int a2); // TODO: callers probably private
+int  wndIsShown_nox_xxx_wndIsShown_46ACC0(nox_window* win);
+int  nox_xxx_wndSetRectColor2MB_46AFE0(nox_window* win, int a2); // TODO: callers probably private
 void nox_gui_winSetFunc96_46B070(nox_window* win, void* fnc);
 int  nox_xxx_wndSetID_46B080(nox_window* win, int id);
 int  nox_xxx_wndGetID_46B0A0(nox_window* win);
@@ -85,8 +85,7 @@ int  sub_46B120(nox_window* win, nox_window* a2);
 void nox_gui_draw();
 nox_window*  nox_window_new(nox_window* a1, int flags, int a3, int a4, int w, int h, int (*fnc)(int, int, int, int));
 int sub_46C5D0();
-int  nox_window_set_all_funcs(nox_window* win, int (*a2)(int, int, int, int), int (*draw)(nox_window*, void*),
-							  void* a4);
+int nox_window_set_all_funcs(nox_window* win, int (*a2)(int, int, int, int), int (*draw)(nox_window*, void*), void* a4);
 int  nox_window_call_field_94(nox_window* win, int a2, int a3, int a4);
 int  nox_window_call_field_93(nox_window* win, int a2, int a3, int a4);
 nox_window* nox_xxx_wndGetFocus_46B4F0();

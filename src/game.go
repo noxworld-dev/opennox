@@ -652,7 +652,7 @@ func nox_xxx_gameTick_4D2580_server_C() bool {
 }
 
 func nox_game_guiInit_473680() error {
-	*memmap.PtrPtr(0x5D4594, 1096420) = unsafe.Pointer(C.nox_xxx_gLoadImg_42F970(internCStr("CursorBitmap")))
+	*memmap.PtrPtr(0x5D4594, 1096420) = nox_xxx_gLoadImg_42F970("CursorBitmap")
 	if C.sub_455C30() == 0 {
 		return errors.New("sub_455C30 failed")
 	}
@@ -1111,7 +1111,7 @@ func sub_473840() C.int {
 	C.sub_49C7A0()
 	C.nox_xxx_guiServerOptionsHide_4597E0(1)
 	C.sub_467980()
-	C.sub_46C5D0()
+	sub_46C5D0()
 	C.nox_client_renderGUI_80828 = C.nox_xxx_xxxRenderGUI_587000_80832
 	return 1
 }

@@ -56,7 +56,7 @@ func (c *AllocClass) UPtr() unsafe.Pointer {
 
 type allocClass struct {
 	name string
-	size int
+	size uintptr
 	cnt  int
 	c    *AllocClass
 }
@@ -65,7 +65,7 @@ func (al *allocClass) String() string {
 	return fmt.Sprintf("%s (Allocation Class)", al.name)
 }
 
-func New(name string, size, cnt int) *AllocClass {
+func New(name string, size uintptr, cnt int) *AllocClass {
 	if name == "" {
 		panic("empty name")
 	}
@@ -79,7 +79,7 @@ func New(name string, size, cnt int) *AllocClass {
 	i := copy(asByteSlice(unsafe.Pointer(&p.name[0]), int(C.ALLOC_CLASS_NAME_MAX)), name)
 	p.name[i] = 0
 
-	isize := uintptr(size) + unsafe.Sizeof(C.nox_alloc_hdr{})
+	isize := size + unsafe.Sizeof(C.nox_alloc_hdr{})
 	arrp := C.calloc(C.uint(cnt), C.uint(isize))
 	p.items = arrp
 
@@ -110,7 +110,7 @@ func New(name string, size, cnt int) *AllocClass {
 	return asClass(p)
 }
 
-func NewDynamic(name string, size, cnt int) *AllocClass {
+func NewDynamic(name string, size uintptr, cnt int) *AllocClass {
 	p := New(name, size, cnt)
 	if p == nil {
 		return nil

@@ -5,18 +5,19 @@ package main
 */
 import "C"
 import (
-	"nox/v1/common/alloc/classes"
 	"unsafe"
+
+	"nox/v1/common/alloc/classes"
 )
 
 //export nox_new_alloc_class
 func nox_new_alloc_class(name *C.char, size, cnt C.int) *C.nox_alloc_class {
-	return (*C.nox_alloc_class)(classes.New(C.GoString(name), int(size), int(cnt)).UPtr())
+	return (*C.nox_alloc_class)(classes.New(C.GoString(name), uintptr(size), int(cnt)).UPtr())
 }
 
 //export nox_new_alloc_class_dynamic
 func nox_new_alloc_class_dynamic(name *C.char, size, cnt C.int) *C.nox_alloc_class {
-	return (*C.nox_alloc_class)(classes.NewDynamic(C.GoString(name), int(size), int(cnt)).UPtr())
+	return (*C.nox_alloc_class)(classes.NewDynamic(C.GoString(name), uintptr(size), int(cnt)).UPtr())
 }
 
 //export nox_free_alloc_class

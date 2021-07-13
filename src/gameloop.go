@@ -863,7 +863,7 @@ func nox_xxx_cliSetupSession_437190() {
 	C.sub_48D800()
 	C.sub_49A8C0()
 	C.sub_470550()
-	C.sub_46C5D0()
+	sub_46C5D0()
 	C.sub_44DF70()
 	if !noxflags.HasGame(noxflags.GameHost) {
 		C.sub_43CC80()

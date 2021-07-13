@@ -609,7 +609,7 @@ void nox_gui_doAnimation_out(nox_gui_animation* a) {
 		}
 	}
 
-	nox_wnd_nox_xxx_wndDraw_46A9B0(a->win, x, y);
+	nox_window_setPos_46A9B0(a->win, x, y);
 	if (maxed == 2) {
 		a->state = NOX_GUI_ANIM_OUT_DONE;
 		sub_43BE40(1);
@@ -653,7 +653,7 @@ void nox_gui_doAnimation_in(nox_gui_animation* a) {
 		}
 	}
 
-	nox_wnd_nox_xxx_wndDraw_46A9B0(a->win, x, y);
+	nox_window_setPos_46A9B0(a->win, x, y);
 	if (maxed == 2) {
 		a->state = NOX_GUI_ANIM_IN_DONE;
 		sub_43BE40(0);
@@ -737,7 +737,7 @@ nox_gui_animation* nox_gui_makeAnimation_43C5B0(nox_window* win, int x1, int y1,
 	nox_gui_animation* p = nox_gui_newAnimation_43C540();
 	if (!p)
 		return 0;
-	nox_wnd_nox_xxx_wndDraw_46A9B0(win, x2, y2);
+	nox_window_setPos_46A9B0(win, x2, y2);
 	p->win = win;
 	p->x1 = x1;
 	p->y1 = y1;
@@ -5588,7 +5588,7 @@ _DWORD*  nox_xxx_dialogMsgBoxCreate_449A10(nox_window* win, wchar_t* a2, wchar_t
 			sub_46B120(*(_DWORD**)&dword_5d4594_830224, 0);
 			nox_xxx_wndShowModalMB_46A8C0(*(int*)&dword_5d4594_830224);
 			sub_46C690(*(int*)&dword_5d4594_830224);
-			nox_wnd_nox_xxx_wndDraw_46A9B0(*(_DWORD**)&dword_5d4594_830224, (nox_win_width - *(int*)(dword_5d4594_830224 + 8)) / 2,
+			nox_window_setPos_46A9B0(*(_DWORD**)&dword_5d4594_830224, (nox_win_width - *(int*)(dword_5d4594_830224 + 8)) / 2,
 							   (nox_win_height - *(int*)(dword_5d4594_830224 + 12)) / 2);
 			sub_449EA0(a4);
 			result = (_DWORD*)nox_xxx_wndGetCaptureMain_46AE00();
@@ -5883,7 +5883,7 @@ int  sub_44A200(int a1) {
 }
 
 //----- (0044A340) --------------------------------------------------------
-int  sub_44A340(int a1, int a2) { return nox_wnd_nox_xxx_wndDraw_46A9B0(*(_DWORD**)&dword_5d4594_830224, a1, a2); }
+int  sub_44A340(int a1, int a2) { return nox_window_setPos_46A9B0(*(_DWORD**)&dword_5d4594_830224, a1, a2); }
 
 //----- (0044A360) --------------------------------------------------------
 void  sub_44A360(int a1) {

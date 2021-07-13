@@ -1542,7 +1542,7 @@ int sub_478110() {
 	} while ((int)v3 < (int)getMemAt(0x5D4594, 1100036));
 	sub_478F10();
 	nox_window_get_size(*(int*)&dword_5d4594_1098576, &v8, &v7);
-	nox_wnd_nox_xxx_wndDraw_46A9B0(*(_DWORD**)&dword_5d4594_1098576, nox_win_width - v8, nox_win_height - v7);
+	nox_window_setPos_46A9B0(*(_DWORD**)&dword_5d4594_1098576, nox_win_width - v8, nox_win_height - v7);
 	nox_window_set_hidden(*(int*)&dword_5d4594_1098576, 1);
 	nox_xxx_wnd_46ABB0(*(int*)&dword_5d4594_1098576, 0);
 	*getMemU32Ptr(0x5D4594, 1098400) = nox_xxx_gLoadImg_42F970("ShopBase");
@@ -11422,7 +11422,7 @@ int  nox_xxx_wndEditDrawNoImage_488160(int a1, int a2) {
 		}
 		v14 = (_DWORD*)*((_DWORD*)v23 + 262);
 		if (v14)
-			nox_wnd_nox_xxx_wndDraw_46A9B0(v14, v4 + v22, v29 + v7);
+			nox_window_setPos_46A9B0(v14, v4 + v22, v29 + v7);
 		nox_xxx_drawSetTextColor_434390(*(_DWORD*)(a2 + 68));
 		nox_xxx_drawString_43FAF0(*(_DWORD*)(a2 + 200), v26, v4 + 5, v7, 0, 0);
 		v15 = nox_color_rgb_4344A0(192, 0, 192);

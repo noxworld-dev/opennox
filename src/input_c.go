@@ -477,7 +477,7 @@ func nox_xxx_cursorUpdate_46B740_sprites(inp *input.Handler, v63 bool, v66 []int
 	var v65 types.Point
 	if sprite.Flags28()&0x400006 == 0 || C.nox_xxx_sprite_4C3220(sprite.C()) != 0 || sprite.Flags28()&2 != 0 && sprite.Flags29()&8 != 0 || sprite.Flags28()&2 != 0 && sprite.Flags70()&0x10 != 0 {
 		v46 := asWindow(C.dword_5d4594_1062452)
-		for v47 := asWindow(C.nox_win_xxx1_last); v47 != nil; v47 = v47.Prev() {
+		for v47 := nox_win_xxx1_last; v47 != nil; v47 = v47.Prev() {
 			if v47.Flags().Has(0x10) {
 				continue
 			}
@@ -685,7 +685,7 @@ func nox_xxx_cursorUpdate_46B740(inp *input.Handler) {
 			v23 = asWindow(C.nox_win_1064912.win).ChildByPos(mpos)
 			goto LABEL_98
 		}
-		for v24 := asWindow(C.nox_win_xxx1_last); v24 != nil; v24 = v24.Prev() {
+		for v24 := nox_win_xxx1_last; v24 != nil; v24 = v24.Prev() {
 			if !v24.Flags().Has(0x20) {
 				continue
 			}
@@ -707,7 +707,7 @@ func nox_xxx_cursorUpdate_46B740(inp *input.Handler) {
 				}
 			}
 		}
-		for v29 := asWindow(C.nox_win_xxx1_last); v29 != nil; v29 = v29.Prev() {
+		for v29 := nox_win_xxx1_last; v29 != nil; v29 = v29.Prev() {
 			if v29.Flags().Has(0x70) {
 				continue
 			}
@@ -726,7 +726,7 @@ func nox_xxx_cursorUpdate_46B740(inp *input.Handler) {
 				}
 			}
 		}
-		for v1 = asWindow(C.nox_win_xxx1_last); v1 != nil; v1 = v1.Prev() {
+		for v1 = nox_win_xxx1_last; v1 != nil; v1 = v1.Prev() {
 			if !v1.Flags().Has(0x40) {
 				continue
 			}

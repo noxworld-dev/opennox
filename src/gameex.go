@@ -35,6 +35,7 @@ import (
 	"nox/v1/common/fs"
 	"nox/v1/common/log"
 	"nox/v1/common/memmap"
+	"nox/v1/common/types"
 )
 
 //export gameexSomeWeirdCheckFixmePlease
@@ -255,7 +256,7 @@ func modifyWndInputHandler(a1, a2, a3, a4 C.int) C.int {
 	case 1938:
 		if !noxflags.HasGame(512) {
 			C.sub_4BDFD0()
-			C.nox_wnd_nox_xxx_wndDraw_46A9B0((*C.nox_window)(unsafe.Pointer(uintptr(C.dword_5d4594_1316972))), 200, 100)
+			asWindow((*C.nox_window)(unsafe.Pointer(uintptr(C.dword_5d4594_1316972)))).SetPos(types.Point{X: 200, Y: 100})
 		}
 	case 1520:
 		if (C.gameex_flags>>1)&1 != 0 {

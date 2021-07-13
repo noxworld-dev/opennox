@@ -31,7 +31,7 @@ int  sub_49B4B0(unsigned __int16* a1) {
 	nox_xxx_wnd_46ABB0(*(int*)&dword_5d4594_1303452, 1);
 	nox_xxx_clientPlaySoundSpecial_452D80(1007, 100);
 	nox_window_get_size(*(int*)&dword_5d4594_1303452, &v15, &v14);
-	nox_wnd_nox_xxx_wndDraw_46A9B0(*(_DWORD**)&dword_5d4594_1303452, nox_win_width / 2 - v15 / 2, nox_win_height / 2 - v14 / 2);
+	nox_window_setPos_46A9B0(*(_DWORD**)&dword_5d4594_1303452, nox_win_width / 2 - v15 / 2, nox_win_height / 2 - v14 / 2);
 	v11 = a1[1];
 	v1 = nox_strman_loadString_40F1D0("GGOver.wnd:GeneratorsDestroyed", 0, "C:\\NoxPost\\src\\client\\Gui\\GUIGGOvr.c", 178);
 	nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1302172), v1, v11);

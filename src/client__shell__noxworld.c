@@ -516,7 +516,7 @@ void  sub_439370(int2* a1, int a2) {
 		sub_46B120(*(_DWORD**)&dword_5d4594_815000, 0);
 		nox_xxx_wndShowModalMB_46A8C0(*(int*)&dword_5d4594_815000);
 		sub_46C690(*(int*)&dword_5d4594_815000);
-		nox_wnd_nox_xxx_wndDraw_46A9B0(*(_DWORD**)&dword_5d4594_815000, a1->field_0, a1->field_4);
+		nox_window_setPos_46A9B0(*(_DWORD**)&dword_5d4594_815000, a1->field_0, a1->field_4);
 		sub_4394D0(a2);
 		dword_5d4594_815056 = 1;
 		*getMemU16Ptr(0x5D4594, 814604) = *(_WORD*)(a2 + 109);

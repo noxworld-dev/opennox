@@ -845,7 +845,7 @@ int  modifyWndInputHandler(int a1, int a2, int a3, int a4) {
 	if (v4 > 0x791) {
 		if (v4 == 1938 && !nox_common_gameFlags_check_40A5C0(512)) {
 			sub_4BDFD0();
-			nox_wnd_nox_xxx_wndDraw_46A9B0(dword_5d4594_1316972, 200, 100);
+			nox_window_setPos_46A9B0(dword_5d4594_1316972, 200, 100);
 		}
 		return 0;
 	}

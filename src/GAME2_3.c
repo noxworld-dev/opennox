@@ -433,7 +433,7 @@ int sub_48D000() {
 		return 0;
 	dword_5d4594_1197316 = nox_xxx_wndGetChildByID_46B0C0(v0, 4320);
 	dword_5d4594_1197320 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1197312, 4321);
-	nox_wnd_nox_xxx_wndDraw_46A9B0(*(_DWORD**)&dword_5d4594_1197312, (nox_win_width - *(int*)(dword_5d4594_1197312 + 8)) / 2,
+	nox_window_setPos_46A9B0(*(_DWORD**)&dword_5d4594_1197312, (nox_win_width - *(int*)(dword_5d4594_1197312 + 8)) / 2,
 					   *(_DWORD*)(dword_5d4594_1197312 + 20));
 	nox_window_set_hidden(*(int*)&dword_5d4594_1197312, 1);
 	dword_5d4594_1197324 = 0;

@@ -21,8 +21,6 @@ extern nox_video_bag_section_t* nox_video_bag_sections_arr;
 extern unsigned int dword_5d4594_3799468;
 extern nox_window* nox_win_1064916;
 
-nox_alloc_class* nox_alloc_window = 0;
-
 int dword_5d4594_3799524 = 0;
 
 unsigned int dword_5d4594_1309696 = 0;
@@ -31,9 +29,10 @@ unsigned int dword_5d4594_1309704 = 0;
 nox_window* dword_5d4594_1064896 = 0;
 
 nox_window_ref* nox_win_1064912 = 0;
+#ifndef NOX_CGO
+nox_alloc_class* nox_alloc_window = 0;
 nox_window* nox_win_xxx1_first = 0;
 nox_window* nox_win_xxx1_last = 0;
-#ifndef NOX_CGO
 void* nox_win_1064900 = 0;
 nox_window* nox_win_cur_focused = 0;
 nox_window* nox_win_unk3 = 0;
@@ -59,6 +58,7 @@ void  sub_46AD20(unsigned int* a1, int a2, int a3, int a4) {
 	}
 }
 
+#ifndef NOX_CGO
 //----- (0046A920) --------------------------------------------------------
 void  nox_client_wndListXxxAdd_46A920(nox_window* win) {
 	win->next = 0;
@@ -87,14 +87,13 @@ void  nox_client_wndListXxxRemove_46A960(nox_window* win) {
 }
 
 //----- (0046A9F0) --------------------------------------------------------
-unsigned int*  nox_xxx_wndFixCoords_46A9F0(unsigned int* a1) {
-	unsigned int* result; // eax
+void nox_xxx_wndFixCoords_46A9F0(nox_window* win) {
+	unsigned int* a1 = win;
 	int v2;         // ecx
 	int v3;         // edx
 	int v4;         // ecx
 	int v5;         // edx
 
-	result = a1;
 	v2 = a1[4];
 	v3 = a1[6];
 	if (v2 > v3) {
@@ -107,11 +106,10 @@ unsigned int*  nox_xxx_wndFixCoords_46A9F0(unsigned int* a1) {
 		a1[5] = v5;
 		a1[7] = v4;
 	}
-	return result;
 }
 
 //----- (0046A9B0) --------------------------------------------------------
-int  nox_wnd_nox_xxx_wndDraw_46A9B0(nox_window* win, int a2, int a3) {
+int  nox_window_setPos_46A9B0(nox_window* win, int a2, int a3) {
 	unsigned int* a1 = win;
 	int v4; // esi
 	int v5; // ecx
@@ -129,7 +127,8 @@ int  nox_wnd_nox_xxx_wndDraw_46A9B0(nox_window* win, int a2, int a3) {
 }
 
 //----- (0046A8C0) --------------------------------------------------------
-int  nox_xxx_wndShowModalMB_46A8C0(int a1) {
+int  nox_xxx_wndShowModalMB_46A8C0(nox_window* win) {
+	int a1 = win;
 	int result; // eax
 	int v2;     // eax
 	int v3;     // eax
@@ -156,6 +155,7 @@ int  nox_xxx_wndShowModalMB_46A8C0(int a1) {
 	}
 	return result;
 }
+#endif // NOX_CGO
 
 //----- (0042FAE0) --------------------------------------------------------
 void sub_42FAE0(void* a1) {
@@ -358,8 +358,10 @@ int  nox_window_set_hidden(nox_window* win, int hidden) {
 	return 0;
 }
 
+#ifndef NOX_CGO
 //----- (0046ACC0) --------------------------------------------------------
-int  wndIsShown_nox_xxx_wndIsShown_46ACC0(int a1) {
+int  wndIsShown_nox_xxx_wndIsShown_46ACC0(nox_window* win) {
+	int a1 = win;
 	int result; // eax
 
 	if (a1)
@@ -370,7 +372,8 @@ int  wndIsShown_nox_xxx_wndIsShown_46ACC0(int a1) {
 }
 
 //----- (0046AFE0) --------------------------------------------------------
-int  nox_xxx_wndSetRectColor2MB_46AFE0(int a1, int a2) {
+int  nox_xxx_wndSetRectColor2MB_46AFE0(nox_window* win, int a2) {
+	int a1 = win;
 	if (!a1)
 		return -2;
 	*(unsigned int*)(a1 + 56) = a2;
@@ -434,7 +437,6 @@ void  nox_window_set_ptrs_97(nox_window* win, nox_window* a2) {
 	win->parent = a2;
 }
 
-#ifndef NOX_CGO
 //----- (0046B120) --------------------------------------------------------
 int  sub_46B120(nox_window* win, nox_window* a2) {
 	if (!win)
@@ -697,6 +699,7 @@ int  nox_xxx_wndDrawFnDefault_46B370(int a1, int* a2) {
 	return result;
 }
 
+#ifndef NOX_CGO
 //----- (0046B330) --------------------------------------------------------
 int nox_xxx_wndDefaultProc_0_46B330(int a1, int a2, int a3, int a4) { return 0; }
 
@@ -764,8 +767,7 @@ int sub_46C5D0() {
 }
 
 //----- (0046B430) --------------------------------------------------------
-int  nox_window_set_all_funcs(nox_window* win, int (*a2)(int, int, int, int), int (*draw)(nox_window*, void*),
-							  void* a4) {
+int  nox_window_set_all_funcs(nox_window* win, int (*a2)(int, int, int, int), int (*draw)(nox_window*, void*), void* a4) {
 	if (!win)
 		return -2;
 	if (a2)
@@ -802,7 +804,6 @@ int  nox_window_call_field_93(nox_window* win, int a2, int a3, int a4) {
 	return win->field_93(win, a2, a3, a4);
 }
 
-#ifndef NOX_CGO
 //----- (0046B4F0) --------------------------------------------------------
 nox_window* nox_xxx_wndGetFocus_46B4F0() { return nox_win_cur_focused; }
 
@@ -1024,6 +1025,7 @@ int  sub_46B2B0(int a1) {
 	return result;
 }
 
+#ifndef NOX_CGO
 //----- (0046B2C0) --------------------------------------------------------
 int  nox_xxx_wndSetProc_46B2C0(int a1, int (*a2)(int, int, int, int)) {
 	if (!a1)
@@ -1065,6 +1067,7 @@ int  sub_46B580(int a1) {
 		nox_xxx_wndDrawFnDefault_46B370(a1, (int*)(a1 + 36));
 	return 0;
 }
+#endif // NOX_CGO
 
 //----- (0046B5B0) --------------------------------------------------------
 nox_window* nox_client_inWindowByPos_46B5B0(nox_window* root, int x, int y) {

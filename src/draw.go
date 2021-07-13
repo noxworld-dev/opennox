@@ -82,6 +82,10 @@ func nox_xxx_drawGetStringSize_43F840(a1 int, a2 string, a5 int) types.Size {
 	return types.Size{W: int(p.x), H: int(p.y)}
 }
 
+func nox_xxx_gLoadImg_42F970(name string) unsafe.Pointer {
+	return unsafe.Pointer(C.nox_xxx_gLoadImg_42F970(internCStr(name)))
+}
+
 func nox_video_drawAnimatedImageOrCursorAt_4BE6D0(a1 uint32, a2, a3 int) {
 	C.nox_video_drawAnimatedImageOrCursorAt_4BE6D0(C.int(a1), C.int(a2), C.int(a3))
 }

@@ -32,7 +32,7 @@ int  sub_479D30(wchar_t* a1, int a2, char* a3, const char* a4, char a5) {
 	sub_445C20();
 	nox_window_call_field_94((int)v5, 16399, 0, 0);
 	nox_window_get_size(*(int*)&dword_5d4594_1123524, &v19, &v18);
-	nox_wnd_nox_xxx_wndDraw_46A9B0(*(_DWORD**)&dword_5d4594_1123524, nox_win_width - v19, nox_win_height - v18);
+	nox_window_setPos_46A9B0(*(_DWORD**)&dword_5d4594_1123524, nox_win_width - v19, nox_win_height - v18);
 	sub_47A020(a3);
 	nox_wcscpy((wchar_t*)getMemAt(0x5D4594, 1107056), a1);
 	v17 = nox_xxx_gLoadImg_42F970(a4);

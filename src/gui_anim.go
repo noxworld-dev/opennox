@@ -14,6 +14,7 @@ import (
 	"unsafe"
 
 	"nox/v1/common/alloc"
+	"nox/v1/common/types"
 )
 
 var guiAnimSpeed = 1
@@ -111,7 +112,7 @@ func (a *guiAnim) doOut() {
 		}
 	}
 
-	C.nox_wnd_nox_xxx_wndDraw_46A9B0(a.Window().C(), C.int(p.X), C.int(p.Y))
+	a.Window().SetPos(p)
 	if maxed == 2 {
 		a.setState(NOX_GUI_ANIM_OUT_DONE)
 		C.sub_43BE40(1)
@@ -151,7 +152,7 @@ func (a *guiAnim) doIn() {
 		}
 	}
 
-	C.nox_wnd_nox_xxx_wndDraw_46A9B0(a.Window().C(), C.int(p.X), C.int(p.Y))
+	a.Window().SetPos(p)
 	if maxed == 2 {
 		a.setState(NOX_GUI_ANIM_IN_DONE)
 		C.sub_43BE40(0)
@@ -221,7 +222,7 @@ func (a *guiAnim) Free() {
 //export nox_gui_makeAnimation_43C5B0
 func nox_gui_makeAnimation_43C5B0(win *Window, x1, y1, x2, y2, in_dx, in_dy, out_dx, out_dy int) *C.nox_gui_animation {
 	a := newGUIAnimation(win)
-	C.nox_wnd_nox_xxx_wndDraw_46A9B0(win.C(), C.int(x2), C.int(y2))
+	win.SetPos(types.Point{X: x2, Y: y2})
 	a.x1 = C.int(x1)
 	a.y1 = C.int(y1)
 	a.x2 = C.int(x2)

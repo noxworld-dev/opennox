@@ -496,7 +496,7 @@ int  nox_xxx_bookDrawFn_45C7D0(_DWORD* a1) {
 LABEL_27:
 	v23 = nox_float2int(*(float*)&dword_5d4594_1046640);
 	v12 = nox_float2int(*(float*)&dword_5d4594_1046636);
-	nox_wnd_nox_xxx_wndDraw_46A9B0(a1, v12, v23);
+	nox_window_setPos_46A9B0(a1, v12, v23);
 	return 1;
 }
 

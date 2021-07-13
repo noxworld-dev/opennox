@@ -269,7 +269,7 @@ int  sub_4A2610(int a1, _DWORD* a2, int* a3) {
 	if (dword_5d4594_1307720 > 0) {
 		dword_5d4594_1307716 = nox_new_window_from_file("proxlist.wnd", *(_DWORD*)(a1 + 376));
 		sub_4A2830(*a2 + 216, a2[1] + 27, v15);
-		nox_wnd_nox_xxx_wndDraw_46A9B0(*(_DWORD**)&dword_5d4594_1307716, v15[0], v15[1]);
+		nox_window_setPos_46A9B0(*(_DWORD**)&dword_5d4594_1307716, v15[0], v15[1]);
 		nox_xxx_wnd_46B280(*(int*)&dword_5d4594_1307716, a1);
 		v5 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1307716, 10064);
 		v6 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1307716, 10062);
@@ -1061,13 +1061,13 @@ int  nox_xxx_wndListboxProcPre_4A30D0(int a1, unsigned int a2, wchar_t* a3, int 
 		if (a2 == 16388) {
 			v9 = (_DWORD*)*((_DWORD*)v5 + 7);
 			if (v9)
-				nox_wnd_nox_xxx_wndDraw_46A9B0(v9, (int)a3 - v9[2], 0);
+				nox_window_setPos_46A9B0(v9, (int)a3 - v9[2], 0);
 			v10 = (_DWORD*)*((_DWORD*)v5 + 8);
 			if (v10)
-				nox_wnd_nox_xxx_wndDraw_46A9B0(v10, (int)a3 - v10[2], a4 - v10[3]);
+				nox_window_setPos_46A9B0(v10, (int)a3 - v10[2], a4 - v10[3]);
 			v11 = (_DWORD*)*((_DWORD*)v5 + 9);
 			if (v11) {
-				nox_wnd_nox_xxx_wndDraw_46A9B0(v11, (int)a3 - v11[2], *(_DWORD*)(*((_DWORD*)v5 + 7) + 12));
+				nox_window_setPos_46A9B0(v11, (int)a3 - v11[2], *(_DWORD*)(*((_DWORD*)v5 + 7) + 12));
 				sub_46AB20(*((_DWORD**)v5 + 9), *(_DWORD*)(*((_DWORD*)v5 + 9) + 8),
 						   a4 - 2 * *(_DWORD*)(*(_DWORD*)(*((_DWORD*)v5 + 9) + 400) + 12));
 			}
@@ -2499,7 +2499,7 @@ _DWORD*  sub_4A7530(unsigned __int16 a1) {
 int  sub_4A7580(int a1, int a2) {
 	nox_xxx_wndShowModalMB_46A8C0(*(int*)&dword_5d4594_1308088);
 	sub_46C690(*(int*)&dword_5d4594_1308088);
-	return nox_wnd_nox_xxx_wndDraw_46A9B0(*(_DWORD**)&dword_5d4594_1308088, a1 - *(_DWORD*)(dword_5d4594_1308088 + 8),
+	return nox_window_setPos_46A9B0(*(_DWORD**)&dword_5d4594_1308088, a1 - *(_DWORD*)(dword_5d4594_1308088 + 8),
 							  a2 - *(_DWORD*)(dword_5d4594_1308088 + 12) / 2);
 }
 
@@ -4447,7 +4447,7 @@ int sub_4AB260() {
 	dword_5d4594_1309748 = nox_new_window_from_file("discon.wnd", sub_4AB390);
 	nox_xxx_wndSetWindowProc_46B300(*(int*)&dword_5d4594_1309748, sub_4AB340);
 	sub_46B120(*(_DWORD**)&dword_5d4594_1309748, 0);
-	nox_wnd_nox_xxx_wndDraw_46A9B0(*(_DWORD**)&dword_5d4594_1309748, nox_win_width / 2 - *(_DWORD*)(dword_5d4594_1309748 + 24) / 2,
+	nox_window_setPos_46A9B0(*(_DWORD**)&dword_5d4594_1309748, nox_win_width / 2 - *(_DWORD*)(dword_5d4594_1309748 + 24) / 2,
 					   nox_win_height / 2 - *(_DWORD*)(dword_5d4594_1309748 + 28) / 2);
 	return 1;
 }
@@ -5812,8 +5812,8 @@ int sub_4ADAD0() {
 				} while (v20 != -1);
 			}
 			v23 = nox_win_width - *(_DWORD*)(dword_5d4594_1309820 + 8);
-			nox_wnd_nox_xxx_wndDraw_46A9B0(*(_DWORD**)&dword_5d4594_1309820, v23 / 2, 0);
-			nox_wnd_nox_xxx_wndDraw_46A9B0(*(_DWORD**)&dword_5d4594_1309824, v23 / 2, 0);
+			nox_window_setPos_46A9B0(*(_DWORD**)&dword_5d4594_1309820, v23 / 2, 0);
+			nox_window_setPos_46A9B0(*(_DWORD**)&dword_5d4594_1309824, v23 / 2, 0);
 			v24 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1309820, 371);
 			nox_window_set_hidden((int)v24, 0);
 			nox_window_set_hidden(*(int*)&dword_5d4594_1309820, 1);
@@ -9973,7 +9973,7 @@ int  sub_4B4860(int a1, int a2, int a3, int a4) {
 		nox_client_wndGetPosition_46AA60((_DWORD*)a1, &a4, &a3);
 		if (v10 > *(int*)(a1 + 8) + a4 - 10)
 			v10 = *(_DWORD*)(a1 + 8) + a4 - 10;
-		nox_wnd_nox_xxx_wndDraw_46A9B0(*(_DWORD**)(a1 + 400), v10 - a4 - 5, 0);
+		nox_window_setPos_46A9B0(*(_DWORD**)(a1 + 400), v10 - a4 - 5, 0);
 		nox_window_call_field_94(a1, 0x4000, 0, v9);
 		return 1;
 	case 8:
@@ -10025,7 +10025,7 @@ int  sub_4B4860(int a1, int a2, int a3, int a4) {
 			v14 = v13 + 2;
 			*(_DWORD*)(v4 + 12) = v14;
 			nox_window_call_field_94(*(_DWORD*)(a1 + 52), 16393, a1, v14);
-			nox_wnd_nox_xxx_wndDraw_46A9B0(*(_DWORD**)(a1 + 400),
+			nox_window_setPos_46A9B0(*(_DWORD**)(a1 + 400),
 							   (__int64)((double)(int)(*(_DWORD*)(v4 + 12) - *(_DWORD*)v4) * *(float*)(v4 + 8)), 0);
 			result = 1;
 			break;
@@ -10038,7 +10038,7 @@ int  sub_4B4860(int a1, int a2, int a3, int a4) {
 			v12 = v11 - 2;
 			*(_DWORD*)(v4 + 12) = v12;
 			nox_window_call_field_94(*(_DWORD*)(a1 + 52), 16393, a1, v12);
-			nox_wnd_nox_xxx_wndDraw_46A9B0(*(_DWORD**)(a1 + 400),
+			nox_window_setPos_46A9B0(*(_DWORD**)(a1 + 400),
 							   (__int64)((double)(int)(*(_DWORD*)(v4 + 12) - *(_DWORD*)v4) * *(float*)(v4 + 8)), 0);
 			result = 1;
 			break;
@@ -10079,7 +10079,7 @@ int  nox_xxx_wndScrollBoxDraw_4B4BA0(int a1, int a2, unsigned int a3, int a4) {
 		nox_client_wndGetPosition_46AA60((_DWORD*)a1, &a3, &a4);
 		if (v10 > *(int*)(a1 + 12) + a4 - 10)
 			v10 = *(_DWORD*)(a1 + 12) + a4 - 10;
-		nox_wnd_nox_xxx_wndDraw_46A9B0(*(_DWORD**)(a1 + 400), 0, v10 - a4 - 5);
+		nox_window_setPos_46A9B0(*(_DWORD**)(a1 + 400), 0, v10 - a4 - 5);
 		nox_window_call_field_94(a1, 0x4000, 0, v9);
 		return 1;
 	case 8:
@@ -10127,7 +10127,7 @@ int  nox_xxx_wndScrollBoxDraw_4B4BA0(int a1, int a2, unsigned int a3, int a4) {
 			v12 = v11 + 2;
 			*(_DWORD*)(v4 + 12) = v12;
 			nox_window_call_field_94(*(_DWORD*)(a1 + 52), 16393, a1, v12);
-			nox_wnd_nox_xxx_wndDraw_46A9B0(*(_DWORD**)(a1 + 400), 0,
+			nox_window_setPos_46A9B0(*(_DWORD**)(a1 + 400), 0,
 							   (__int64)((double)(int)(*(_DWORD*)(v4 + 4) - *(_DWORD*)(v4 + 12)) * *(float*)(v4 + 8)));
 			result = 1;
 			break;
@@ -10144,7 +10144,7 @@ int  nox_xxx_wndScrollBoxDraw_4B4BA0(int a1, int a2, unsigned int a3, int a4) {
 			v14 = v13 - 2;
 			*(_DWORD*)(v4 + 12) = v14;
 			nox_window_call_field_94(*(_DWORD*)(a1 + 52), 16393, a1, v14);
-			nox_wnd_nox_xxx_wndDraw_46A9B0(*(_DWORD**)(a1 + 400), 0,
+			nox_window_setPos_46A9B0(*(_DWORD**)(a1 + 400), 0,
 							   (__int64)((double)(int)(*(_DWORD*)(v4 + 4) - *(_DWORD*)(v4 + 12)) * *(float*)(v4 + 8)));
 			result = 1;
 			break;
@@ -10228,7 +10228,7 @@ int  sub_4B5010(int a1, unsigned int a2, int a3, int a4) {
 			if (a3 >= *(int*)v5 && a3 <= *(int*)(v5 + 4)) {
 				v17 = (double)a3;
 				*(_DWORD*)(v5 + 12) = a3;
-				nox_wnd_nox_xxx_wndDraw_46A9B0(*(_DWORD**)(v4 + 400), (__int64)(v17 * *(float*)(v5 + 8)), 0);
+				nox_window_setPos_46A9B0(*(_DWORD**)(v4 + 400), (__int64)(v17 * *(float*)(v5 + 8)), 0);
 			}
 		} else if (a2 == 16395) {
 			v14 = a3;
@@ -10239,7 +10239,7 @@ int  sub_4B5010(int a1, unsigned int a2, int a3, int a4) {
 			*(_DWORD*)(v5 + 12) = v14;
 			a3 = v15 - v14;
 			*(float*)(v5 + 8) = (double)v16 / (double)(v15 - v14);
-			nox_wnd_nox_xxx_wndDraw_46A9B0(*(_DWORD**)(v4 + 400), 0, 0);
+			nox_window_setPos_46A9B0(*(_DWORD**)(v4 + 400), 0, 0);
 			return 0;
 		}
 		return 0;
@@ -10248,7 +10248,7 @@ int  sub_4B5010(int a1, unsigned int a2, int a3, int a4) {
 		v10 = (unsigned __int16)a4;
 		nox_client_wndGetPosition_46AA60((_DWORD*)a1, &a3, &a1);
 		if (v10 < a3) {
-			nox_wnd_nox_xxx_wndDraw_46A9B0(*(_DWORD**)(v4 + 400), 0, 0);
+			nox_window_setPos_46A9B0(*(_DWORD**)(v4 + 400), 0, 0);
 			v11 = *(_DWORD*)v5;
 		LABEL_15:
 			*(_DWORD*)(v5 + 12) = v11;
@@ -10263,7 +10263,7 @@ int  sub_4B5010(int a1, unsigned int a2, int a3, int a4) {
 			if ((int)v13 > v11)
 				goto LABEL_15;
 		} else {
-			nox_wnd_nox_xxx_wndDraw_46A9B0(*(_DWORD**)(v4 + 400), v12 - *(_DWORD*)(*(_DWORD*)(v4 + 400) + 8), 0);
+			nox_window_setPos_46A9B0(*(_DWORD**)(v4 + 400), v12 - *(_DWORD*)(*(_DWORD*)(v4 + 400) + 8), 0);
 			*(_DWORD*)(v5 + 12) = *(_DWORD*)(v5 + 4);
 		}
 	LABEL_16:
@@ -10378,7 +10378,7 @@ int  nox_xxx_wndScrollBoxProc_4B5320(int a1, unsigned int a2, int a3, unsigned i
 					v19 = v18 - a3;
 					*(_DWORD*)(v5 + 12) = a3;
 					a3 = v19;
-					nox_wnd_nox_xxx_wndDraw_46A9B0(*(_DWORD**)(v4 + 400), 0, (__int64)((double)v19 * *(float*)(v5 + 8)));
+					nox_window_setPos_46A9B0(*(_DWORD**)(v4 + 400), 0, (__int64)((double)v19 * *(float*)(v5 + 8)));
 				}
 			}
 		} else if (a2 == 16395) {
@@ -10392,7 +10392,7 @@ int  nox_xxx_wndScrollBoxProc_4B5320(int a1, unsigned int a2, int a3, unsigned i
 			v17 = (double)a3;
 			a3 = v16 - 10;
 			*(float*)(v5 + 8) = (double)(v16 - 10) / v17;
-			nox_wnd_nox_xxx_wndDraw_46A9B0(*(_DWORD**)(v4 + 400), 0, (__int64)(v17 * *(float*)(v5 + 8)));
+			nox_window_setPos_46A9B0(*(_DWORD**)(v4 + 400), 0, (__int64)(v17 * *(float*)(v5 + 8)));
 			return 0;
 		}
 		return 0;
@@ -10432,11 +10432,11 @@ int  nox_xxx_wndScrollBoxProc_4B5320(int a1, unsigned int a2, int a3, unsigned i
 				*(_DWORD*)(v5 + 12) = v9;
 			*(_DWORD*)(v5 + 12) = v9 - *(_DWORD*)(v5 + 12);
 		} else {
-			nox_wnd_nox_xxx_wndDraw_46A9B0(*(_DWORD**)(v4 + 400), 0, v7 - *(_DWORD*)(*(_DWORD*)(v4 + 400) + 12));
+			nox_window_setPos_46A9B0(*(_DWORD**)(v4 + 400), 0, v7 - *(_DWORD*)(*(_DWORD*)(v4 + 400) + 12));
 			*(_DWORD*)(v5 + 12) = *(_DWORD*)v5;
 		}
 	} else {
-		nox_wnd_nox_xxx_wndDraw_46A9B0(*(_DWORD**)(v4 + 400), 0, 0);
+		nox_window_setPos_46A9B0(*(_DWORD**)(v4 + 400), 0, 0);
 		*(_DWORD*)(v5 + 12) = *(_DWORD*)(v5 + 4);
 	}
 	nox_window_call_field_94(*(_DWORD*)(v4 + 52), 16393, v4, *(_DWORD*)(v5 + 12));
