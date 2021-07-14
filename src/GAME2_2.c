@@ -1703,7 +1703,7 @@ int  sub_478650(int a1, int a2, unsigned int a3) {
 void  sub_478850(int a1, __int16 a2, int a3, int a4) {
 	if (a4) {
 		if (a4 == 1)
-			sub_478880(a3, a2);
+			nox_client_tradeXxxBuyAccept_478880(a3, a2);
 		else
 			sub_4788F0(a3, a4);
 	}
@@ -2132,7 +2132,7 @@ int  sub_479690(int a1, __int16 a2, __int16 a3, int a4) {
 	dword_5d4594_1098616 = 0;
 	if (a4) {
 		if (a4 == 1)
-			result = sub_4796D0(a2);
+			result = nox_client_tradeXxxSellAccept_4796D0(a2);
 		else
 			result = sub_479700(a3, a4);
 	}
@@ -2140,7 +2140,7 @@ int  sub_479690(int a1, __int16 a2, __int16 a3, int a4) {
 }
 
 //----- (004796D0) --------------------------------------------------------
-int  sub_4796D0(__int16 a1) {
+int  nox_client_tradeXxxSellAccept_4796D0(__int16 a1) {
 	char v2[4]; // [esp+0h] [ebp-4h]
 
 	v2[0] = -55;

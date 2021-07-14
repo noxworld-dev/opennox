@@ -64,13 +64,12 @@ void sub_478730(int* a1) {
 	v13 = *(_DWORD*)&v5[4 * *((_DWORD*)v5 + 1) + 4];
 	v12 = a1[1];
 	v11 = *a1;
-	v10 =
-			nox_strman_loadString_40F1D0("BuyLabel", 0, "C:\\NoxPost\\src\\client\\Gui\\GUIShop.c", 328);
-	sub_4C0430((int)v10, v11, v12, v13, v14, v9, v8, 0, sub_478850, 0);
+	v10 = nox_strman_loadString_40F1D0("BuyLabel", 0, "C:\\NoxPost\\src\\client\\Gui\\GUIShop.c", 328);
+	nox_gui_itemAmountDialog_4C0430((int)v10, v11, v12, v13, v14, v9, v8, 0, sub_478850, 0);
 }
 
 //----- (00478880) --------------------------------------------------------
-void  sub_478880(int a1, __int16 a2) {
+void  nox_client_tradeXxxBuyAccept_478880(int a1, __int16 a2) {
 	wchar_t* v2; // eax
 
 	if (sub_467B00(a1, 1)) {
@@ -201,9 +200,6 @@ int  sub_4795E0(int a1, int a2) {
 	const void* v2; // ebp
 	int result;     // eax
 	int v5;         // esi
-	wchar_t* v6;    // eax
-	int v7;         // [esp-24h] [ebp-34h]
-	int v8;         // [esp-20h] [ebp-30h]
 	int v9;         // [esp-18h] [ebp-28h]
 	int v10;        // [esp-10h] [ebp-20h]
 
@@ -219,11 +215,8 @@ int  sub_4795E0(int a1, int a2) {
 			sub_4C05F0(1, a2);
 			v10 = sub_467700(a1);
 			v9 = *(_DWORD*)(v5 + 108);
-			v8 = mpos.y;
-			v7 = mpos.x;
-			v6 =
-				nox_strman_loadString_40F1D0("SellLabel", 0, "C:\\NoxPost\\src\\client\\Gui\\GUIShop.c", 1504);
-			result = sub_4C0430((int)v6, v7, v8, a1, v9, v2, v10, 0, sub_479690, (int)&sub_479680);
+			wchar_t* str = nox_strman_loadString_40F1D0("SellLabel", 0, "C:\\NoxPost\\src\\client\\Gui\\GUIShop.c", 1504);
+			result = nox_gui_itemAmountDialog_4C0430(str, mpos.x, mpos.y, a1, v9, v2, v10, 0, sub_479690, sub_479680);
 			dword_5d4594_1098616 = 1;
 		}
 	}
@@ -258,9 +251,8 @@ void  sub_479740(int a1, unsigned int a2) {
 				v9 = *(_DWORD*)(v5 + 108);
 				v8 = mpos.y;
 				v7 = mpos.x;
-				v6 = nox_strman_loadString_40F1D0("RepairLabel", 0, "C:\\NoxPost\\src\\client\\Gui\\GUIShop.c",
-										   1580);
-				sub_4C0430((int)v6, v7, v8, a1, v9, v2, 1, 0, sub_479820, sub_479810);
+				v6 = nox_strman_loadString_40F1D0("RepairLabel", 0, "C:\\NoxPost\\src\\client\\Gui\\GUIShop.c", 1580);
+				nox_gui_itemAmountDialog_4C0430((int)v6, v7, v8, a1, v9, v2, 1, 0, sub_479820, sub_479810);
 				dword_5d4594_1098620 = 1;
 			}
 		}

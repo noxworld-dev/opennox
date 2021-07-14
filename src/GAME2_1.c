@@ -7174,7 +7174,7 @@ int nox_game_guiInit_473680() {
 	if (!sub_4BFC90()) {
 		return 0;
 	}
-	if (!sub_4BFEF0()) {
+	if (!nox_gui_itemAmount_init_4BFEF0()) {
 		return 0;
 	}
 	if (!sub_4799A0()) {
@@ -7241,7 +7241,7 @@ int nox_game_guiInit_473680() {
 //----- (00473840) --------------------------------------------------------
 int sub_473840() {
 	nox_gui_console_Disable_450BF0();
-	sub_4C03E0();
+	nox_gui_itemAmount_free_4C03E0();
 	sub_46CCB0();
 	sub_4AE3B0();
 	sub_48D450();

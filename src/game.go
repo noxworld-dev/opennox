@@ -703,8 +703,8 @@ func nox_game_guiInit_473680() error {
 	if C.sub_4BFC90() == 0 {
 		return errors.New("sub_4BFC90 failed")
 	}
-	if C.sub_4BFEF0() == 0 {
-		return errors.New("sub_4BFEF0 failed")
+	if C.nox_gui_itemAmount_init_4BFEF0() == 0 {
+		return errors.New("nox_gui_itemAmount_init_4BFEF0 failed")
 	}
 	if C.sub_4799A0() == 0 {
 		return errors.New("sub_4799A0 failed")
@@ -1090,7 +1090,7 @@ func nox_xxx_mapTraceRay_535250_00(a1 *[4]float32, a4 byte) bool {
 //export sub_473840
 func sub_473840() C.int {
 	C.nox_gui_console_Disable_450BF0()
-	C.sub_4C03E0()
+	C.nox_gui_itemAmount_free_4C03E0()
 	C.sub_46CCB0()
 	C.sub_4AE3B0()
 	C.sub_48D450()

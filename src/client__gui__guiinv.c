@@ -1242,9 +1242,8 @@ int  sub_464BD0(int a1, int a2, unsigned int a3) {
 					v53 = *(_DWORD*)(*getMemU32Ptr(0x5D4594, 1049848) + 108);
 					v52 = *(_DWORD*)(*getMemU32Ptr(0x5D4594, 1049848) + 128);
 					v51 = v58;
-					v50 = nox_strman_loadString_40F1D0("DropLabel", 0,
-												"C:\\NoxPost\\src\\Client\\Gui\\guiinv.c", 4148);
-					sub_4C0430((int)v50, v51.field_0, v51.field_4, v52, v53, v49, v48 + 1, 0, sub_465CD0, 0);
+					v50 = nox_strman_loadString_40F1D0("DropLabel", 0, "C:\\NoxPost\\src\\Client\\Gui\\guiinv.c", 4148);
+					nox_gui_itemAmountDialog_4C0430((int)v50, v51.field_0, v51.field_4, v52, v53, v49, v48 + 1, 0, sub_465CD0, 0);
 				} else if (!sub_4C12C0()) {
 					nox_xxx_clientDrop_465BE0(&v57);
 				}

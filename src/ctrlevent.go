@@ -10,6 +10,7 @@ package main
 
 extern unsigned int nox_client_renderGUI_80828;
 extern unsigned int nox_xxx_xxxRenderGUI_587000_80832;
+extern void* nox_gui_itemAmount_dialog_1319228;
 
 int nox_ctrlevent_add_ticks_42E630();
 void nox_client_orderCreature(int creature, int command);
@@ -363,9 +364,23 @@ func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_A(a4 *CtrlEventBinding) 
 				C.nox_client_orderCreature(0, 4)
 			case keybind.EventCreaturesHunt:
 				C.nox_client_orderCreature(0, 5)
+			case keybind.EventAcceptItemsBatch:
+				clientAcceptTradeOrDrop()
 			}
 		}
 	}
+}
+
+func clientAcceptTradeOrDrop() {
+	dialog := asWindow((*C.nox_window)(C.nox_gui_itemAmount_dialog_1319228))
+	if dialog == nil {
+		return
+	}
+	if dialog.Flags().Has(NOX_WIN_HIDDEN) {
+		return
+	}
+	accept := dialog.ChildByID(3606)
+	C.sub_4C01C0(0, 16391, (*C.int)(unsafe.Pointer(accept.C())), 0)
 }
 
 func clientSetPhonemeFrame(a1 int) {

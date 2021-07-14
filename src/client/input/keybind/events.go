@@ -73,6 +73,7 @@ const (
 	EventCreaturesGuard
 	EventCreaturesEscort
 	EventCreaturesHunt
+	EventAcceptItemsBatch
 )
 
 var defBindEvents = []BindEvent{
@@ -146,4 +147,6 @@ var defBindEvents = []BindEvent{
 	{Name: "CreaturesGuard", Event: EventCreaturesGuard, Title: "Creatures command: Guard"},
 	{Name: "CreaturesEscort", Event: EventCreaturesEscort, Title: "Creatures command: Escort"},
 	{Name: "CreaturesHunt", Event: EventCreaturesHunt, Title: "Creatures command: Hunt"},
+	// other
+	{Name: "AcceptItemsBatch", Event: EventAcceptItemsBatch, Title: "Accept Trade / Drop"},
 }
