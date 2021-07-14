@@ -37,13 +37,14 @@ func New(title string, sz types.Size) (*Window, error) {
 		sdl.Quit()
 		return nil, fmt.Errorf("SDL cannot create renderer: %w", err)
 	}
-	return &Window{win: win, ren: ren, prev: sz, mode: seat.Windowed}, nil
+	return &Window{win: win, ren: ren, prevSz: sz, mode: seat.Windowed}, nil
 }
 
 type Window struct {
 	win      *sdl.Window
 	ren      *sdl.Renderer
-	prev     types.Size
+	prevPos  types.Point
+	prevSz   types.Size
 	mode     seat.ScreenMode
 	rel      bool
 	mpos     types.Point
@@ -86,6 +87,13 @@ func (win *Window) ScreenSize() types.Size {
 	}
 }
 
+func (win *Window) screenPos() types.Point {
+	x, y := win.win.GetPosition()
+	return types.Point{
+		X: int(x), Y: int(y),
+	}
+}
+
 func (win *Window) displayRect() sdl.Rect {
 	disp, err := win.win.GetDisplayIndex()
 	if err != nil {
@@ -121,8 +129,7 @@ func (win *Window) ResizeScreen(sz types.Size) {
 		return
 	}
 	win.setSize(sz)
-	win.center()
-	win.prev = sz
+	win.prevSz = sz
 }
 
 func (win *Window) setRelative(rel bool) {
@@ -139,16 +146,21 @@ func (win *Window) SetScreenMode(mode seat.ScreenMode) {
 		return
 	}
 	if win.mode == seat.Windowed {
-		// preserve size so we can restore to it later
-		win.prev = win.ScreenSize()
+		// preserve size and pos, so we can restore them later
+		win.prevSz = win.ScreenSize()
+		win.prevPos = win.screenPos()
 	}
 	switch mode {
 	case seat.Windowed:
 		win.win.SetFullscreen(0)
 		win.win.SetResizable(true)
 		win.win.SetBordered(true)
-		win.setSize(win.prev)
-		win.center() // TODO: restore original position
+		win.setSize(win.prevSz)
+		if win.prevPos != (types.Point{}) {
+			win.win.SetPosition(int32(win.prevPos.X), int32(win.prevPos.Y))
+		} else {
+			win.center()
+		}
 		sdl.ShowCursor(sdl.ENABLE)
 		win.setRelative(false)
 	case seat.Fullscreen:
