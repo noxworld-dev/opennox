@@ -118,7 +118,8 @@ extern int g_rotated;
 extern SDL_Surface* g_surface_973C60;
 extern SDL_Surface* g_surface_973C88;
 
-extern float draw_gamma;
+float nox_video_getGamma();
+void nox_video_setGamma(float v);
 
 extern int nox_backbuffer_pitchDiff;
 extern int nox_backbuffer_width32;

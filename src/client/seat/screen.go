@@ -30,6 +30,8 @@ type Screen interface {
 	// SetScreenMode changes the screen mode. Fullscreen will maximize the screen to max, while Windowed will return
 	// is back to the previous state.
 	SetScreenMode(mode ScreenMode)
+	// SetGamma sets screen gamma parameter.
+	SetGamma(v float32)
 	// OnScreenResize adds a handler function that will be called on screen resize.
 	OnScreenResize(fnc func(sz types.Size))
 	// NewSurface creates a new screen surface.

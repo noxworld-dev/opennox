@@ -14,6 +14,7 @@ int nox_backbuffer_height = 0;
 int nox_backbuffer_depth = 0;
 int nox_backbuffer_pitchDiff;
 int nox_backbuffer_width32;
+int nox_video_gammaValue = 1;
 
 int nox_video_allowCursorDrawThread = 0;
 int nox_video_drawCursorThreadOk = 0;
@@ -28,12 +29,12 @@ DWORD dword_6F7B9C;
 DWORD dword_6F7BB0;
 #endif // NOX_CGO
 
+DWORD dword_973C64;
 __int16 (*dword_6F7C40)();
 __int16 (*dword_6F7C34)();
 
 int nox_video_renderTargetFlags = 0;
 int nox_video_windowsPlatformVersion = 0;
-int nox_video_gammaValue = 0;
 int (*func_5d4594_1311924)(void) = 0;
 
 void (*dword_975240)(_DWORD, _DWORD*, _DWORD*, _DWORD*);
@@ -73,22 +74,17 @@ static inline void rect_to_sdl(const RECT* r, SDL_Rect* sr) {
 unsigned int g_format;
 int g_rotate;
 int g_rotated;
-#endif // NOX_CGO
-
 float draw_gamma = 1.0f;
-
-void sdl_present();
-int sdl_drawCursorThreaded(int);
-int create_surfaces(int width, int height);
 
 SDL_Surface*  nox_video_createSurface_48A600(int w, int h, int a4);
 int  nox_video_getSurfaceData_48A720(SDL_Surface* surf, int* outPitch, void** outPixels);
 void  nox_video_lockSurface_48A670(SDL_Surface* a1);
 void  nox_video_unlockSurface_48A6B0(SDL_Surface* a1);
 
-DWORD dword_973C64;
+void sdl_present();
+int sdl_drawCursorThreaded(int);
+int create_surfaces(int width, int height);
 
-#ifndef NOX_CGO
 //----- (00444AC0) --------------------------------------------------------
 int  nox_client_drawXxx_444AC0(int w, int h, int depth, int flags) {
 	int v5;             // eax
@@ -1108,6 +1104,7 @@ int  sub_434AC0(int a1) {
 	return dword_975380(v3, v2, a1);
 }
 
+#ifndef NOX_CGO
 //----- (00434B00) --------------------------------------------------------
 int nox_video_getGammaSetting_434B00() {
 	int result; // eax
@@ -1146,6 +1143,14 @@ void updateGamma(int value) {
 	draw_gamma += modificator;
 }
 
+float nox_video_getGamma() {
+	return draw_gamma;
+}
+
+void nox_video_setGamma(float v) {
+	draw_gamma = v;
+}
+
 //----- (00434B30) --------------------------------------------------------
 int  nox_video_setGammaSetting_434B30(int a1) {
 	int result; // eax
@@ -1162,6 +1167,7 @@ int  nox_video_setGammaSetting_434B30(int a1) {
 
 	return result;
 }
+#endif // NOX_CGO
 
 //----- (00434B60) --------------------------------------------------------
 BOOL sub_434B60() {
@@ -1174,19 +1180,8 @@ BOOL sub_434B60() {
 	char v14[1536];
 	pixel888 v19[256]; // [esp+61Ch] [ebp-300h]
 
-	v0 = nox_video_gammaValue;
+	v0 = nox_video_getGammaSetting_434B00();
 	v1 = v19;
-	if (nox_video_gammaValue < 1) {
-		v0 = 1;
-	LABEL_5:
-		nox_video_gammaValue = v0;
-		goto LABEL_6;
-	}
-	if (nox_video_gammaValue > 10) {
-		v0 = 10;
-		goto LABEL_5;
-	}
-LABEL_6:
 	v2 = 0;
 	v3 = &v14[512];
 	v13 = 0;

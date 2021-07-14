@@ -182,6 +182,15 @@ func (win *Window) SetScreenMode(mode seat.ScreenMode) {
 	win.mode = mode
 }
 
+// SetGamma sets screen gamma parameter.
+func (win *Window) SetGamma(v float32) {
+	var ramp [256]uint16
+	sdl.CalculateGammaRamp(v, &ramp)
+	if err := win.win.SetGammaRamp(&ramp, &ramp, &ramp); err != nil {
+		Log.Printf("cannot set gamma: %v", err)
+	}
+}
+
 func (win *Window) OnScreenResize(fnc func(sz types.Size)) {
 	win.onResize = append(win.onResize, fnc)
 }

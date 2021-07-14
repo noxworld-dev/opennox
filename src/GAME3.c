@@ -142,7 +142,6 @@ extern _DWORD dword_5d4594_3804672;
 extern _DWORD dword_5d4594_3804656;
 extern _DWORD dword_5d4594_3804664;
 extern BYTE** nox_pixbuffer_rows_3798784;
-extern float draw_gamma;
 extern float input_sensitivity;
 extern int default_win_width;
 extern int default_win_height;
@@ -4111,7 +4110,7 @@ _DWORD* sub_4AAA70() {
 	}
 	nox_window_call_field_94((int)v1, 16392, 1, 0);
 
-	nox_window_call_field_94(nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1309820, 316), 16394, (draw_gamma - 0.5f) * 50, 0);
+	nox_window_call_field_94(nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1309820, 316), 16394, (nox_video_getGamma() - 0.5f) * 50, 0);
 	nox_window_call_field_94(nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1309820, 318), 16394,
 							 (log10f(nox_input_getSensitivity()) + 1.0f) * 50, 0);
 #if 0
@@ -4314,7 +4313,7 @@ int  sub_4AABE0(int a1, int a2, int* a3, int a4) {
 			}
 			break;
 		case 316: // gamma slider
-			draw_gamma = 0.5 + a4 / 50.0f;
+			nox_video_setGamma(0.5 + a4 / 50.0f);
 			break;
 		case 318: // input sensitivity slider
 			nox_input_setSensitivity(powf(10.0, a4 / 50.0f - 1.0));
@@ -5791,7 +5790,7 @@ int sub_4ADAD0() {
 			else
 				v17 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1309820, 334);
 			nox_window_call_field_94((int)v17, 16392, 1, 0);
-			nox_window_call_field_94(nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1309820, 316), 16394, (draw_gamma - 0.5f) * 50,
+			nox_window_call_field_94(nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1309820, 316), 16394, (nox_video_getGamma() - 0.5f) * 50,
 									 0);
 			nox_window_call_field_94(nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1309820, 318), 16394,
 									 (log10f(nox_input_getSensitivity()) + 1.0f) * 50, 0);
@@ -5969,7 +5968,7 @@ int  nox_xxx_windowOptionsProc_4ADF30(int a1, int a2, int* a3, int a4) {
 			}
 			break;
 		case 316: // gamma slider
-			draw_gamma = 0.5 + a4 / 50.0f;
+			nox_video_setGamma(0.5 + a4 / 50.0f);
 			break;
 		case 318: // input sensitivity slider
 			nox_input_setSensitivity(powf(10.0, a4 / 50.0f - 1.0));

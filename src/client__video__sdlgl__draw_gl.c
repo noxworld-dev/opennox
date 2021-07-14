@@ -219,7 +219,7 @@ void sdl_present() {
 		glCheckError();
 		glUniformMatrix2fv(g_matrix_uniform, 1, GL_FALSE, g_rotated ? matrixRotated : matrix);
 		glCheckError();
-		glUniform1f(g_gamma_uniform, draw_gamma);
+		glUniform1f(g_gamma_uniform, nox_video_getGamma());
 		glCheckError();
 		glBindBuffer(GL_ARRAY_BUFFER, g_tex_coord_buffer);
 		glCheckError();

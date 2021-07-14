@@ -9,7 +9,6 @@ extern _DWORD dword_587000_154960;
 extern int nox_win_width_game;
 extern int nox_win_height_game;
 extern int nox_win_depth_game;
-extern float draw_gamma;
 extern void* dword_587000_127004;
 extern void* dword_587000_122852;
 extern void* dword_587000_93164;
@@ -293,7 +292,7 @@ LABEL_2:
 			strtok(NULL, " \r\t\n");
 			token = strtok(NULL, " \r\t\n");
 			if (token)
-				draw_gamma = atof(token);
+				nox_video_setGamma(atof(token));
 		} else if (!strcmp(v1, "Stretched")) {
 			const char* token;
 			strtok(NULL, " \r\t\n");
@@ -1342,7 +1341,7 @@ int  sub_4332E0(FILE* a1) {
 	v2 = nox_video_getCutSize_4766D0();
 	nox_fs_fprintf(a1, "VideoSize = %d\n", v2);
 	// nox_fs_fprintf(a1, "Gamma = %d\n", *(_DWORD *)getMemAt(0x587000, 80852));
-	nox_fs_fprintf(a1, "Gamma2 = %f\n", draw_gamma);
+	nox_fs_fprintf(a1, "Gamma2 = %f\n", nox_video_getGamma());
 	nox_fs_fprintf(a1, "InputSensitivity = %f\n", nox_input_getSensitivity());
 	if (sub_453070() == 1)
 		v3 = *(_DWORD*)((_DWORD)dword_587000_127004 + 4) >> 16;
