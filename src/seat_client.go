@@ -23,6 +23,10 @@ func updateFullScreen(mode int) {
 	noxRendererS.SetWindowMode(mode)
 }
 
+func setScaled(v bool) {
+	noxRendererS.SetStretch(v)
+}
+
 func getWindowMode() int {
 	return noxRendererS.WindowMode()
 }

@@ -104,6 +104,7 @@ func nox_video_getScaled() C.int {
 //export nox_video_setScaled
 func nox_video_setScaled(v C.int) {
 	g_scaled = int(v)
+	setScaled(v != 0)
 }
 
 //export nox_video_getGammaSetting_434B00

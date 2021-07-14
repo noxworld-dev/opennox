@@ -28,6 +28,9 @@ func updateFullScreen(mode int) {
 	winMode = mode
 }
 
+func setScaled(v bool) {
+}
+
 func getWindowMode() int {
 	return winMode
 }

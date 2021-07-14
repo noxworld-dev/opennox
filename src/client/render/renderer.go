@@ -46,6 +46,7 @@ type Renderer struct {
 	view       image.Rectangle
 	fullscreen int
 	borderless bool // only used for toggle
+	stretch    bool
 	rotate     bool
 	rotated    bool
 	ticks      uint
@@ -163,7 +164,14 @@ func (r *Renderer) present(wsz types.Size) {
 	r.ticks++
 }
 
+func (r *Renderer) SetStretch(stretch bool) {
+	r.stretch = stretch
+}
+
 func (r *Renderer) setViewport(srcw, srch, tw, th int) image.Rectangle {
+	if r.stretch {
+		return image.Rect(0, 0, tw, th)
+	}
 	var (
 		ratio    = float32(srcw) / float32(srch)
 		offx     = 0
