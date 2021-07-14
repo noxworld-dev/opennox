@@ -112,7 +112,7 @@ func (consolePrinter) Printf(cl parsecmd.Color, format string, args ...interface
 	consolePrintf(cl, format, args...)
 }
 
-func cheatAllowAll(v bool) {
+func cheatEquipAll(v bool) {
 	C.nox_cheat_allowall = C.int(bool2int(v))
 }
 

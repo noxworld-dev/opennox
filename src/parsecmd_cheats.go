@@ -7,10 +7,10 @@ import (
 )
 
 func init() {
-	noxCmdSet.Sub = append(noxCmdSet.Sub,
+	noxCmdCheat.Sub = append(noxCmdCheat.Sub,
 		&parsecmd.Command{
 			Token:  "health",
-			HelpID: "sethealth",
+			HelpID: "cheathealth",
 			Help:   "sets health for the player",
 			Flags:  parsecmd.Server | parsecmd.Cheat,
 			Func: func(c *parsecmd.Console, tokens []string) bool {
@@ -19,7 +19,7 @@ func init() {
 		},
 		&parsecmd.Command{
 			Token:  "mana",
-			HelpID: "setmana",
+			HelpID: "cheatmana",
 			Help:   "sets mana for the player",
 			Flags:  parsecmd.Server | parsecmd.Cheat,
 			Func: func(c *parsecmd.Console, tokens []string) bool {
@@ -27,9 +27,9 @@ func init() {
 			},
 		},
 		&parsecmd.Command{
-			Token:  "allow.all",
-			HelpID: "setallowall",
-			Help:   "allows to use all items by all classes",
+			Token:  "equip.all",
+			HelpID: "cheatequipall",
+			Help:   "allows to equip all items by all classes",
 			Flags:  parsecmd.Server | parsecmd.Cheat,
 			Func: func(c *parsecmd.Console, tokens []string) bool {
 				if len(tokens) > 1 {
@@ -44,17 +44,15 @@ func init() {
 					}
 					allow = v
 				}
-				cheatAllowAll(allow)
+				cheatEquipAll(allow)
 				if allow {
-					c.Printf(parsecmd.ColorLightYellow, "all players are allowed to use all items")
+					c.Printf(parsecmd.ColorLightYellow, "all players are allowed to equip all items")
 				} else {
-					c.Printf(parsecmd.ColorLightYellow, "class restrictions with work as usual")
+					c.Printf(parsecmd.ColorLightYellow, "equip restrictions with work as usual")
 				}
 				return true
 			},
 		},
-	)
-	noxCmdCheat.Sub = append(noxCmdCheat.Sub,
 		&parsecmd.Command{
 			Token:  "gold",
 			HelpID: "cheatgoldhelp",
