@@ -228,6 +228,9 @@ func (win *Window) C() *C.nox_window {
 }
 
 func (win *Window) ID() uint {
+	if win == nil {
+		return 0
+	}
 	return uint(win.id)
 }
 
@@ -355,10 +358,16 @@ func (win *Window) CopyDrawData(p *WindowData) int {
 }
 
 func (win *Window) Hide() {
+	if win == nil {
+		return
+	}
 	C.nox_window_set_hidden(win.C(), 1)
 }
 
 func (win *Window) Show() {
+	if win == nil {
+		return
+	}
 	C.nox_window_set_hidden(win.C(), 0)
 }
 

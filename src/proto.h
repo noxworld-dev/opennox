@@ -3176,7 +3176,7 @@ int  nox_xxx_windowServerOptionsGeneralProc_4AD5D0(int a1, int a2, int* a3, int 
 int sub_4AD820();
 int  sub_4AD9B0(int a1);
 int sub_4ADA40();
-int sub_4ADAD0();
+int nox_game_initOptionsInGame_4ADAD0();
 int  sub_4ADEF0(_DWORD* a1, int a2);
 int  nox_xxx_windowOptionsProc_4ADF30(int a1, int a2, int* a3, int a4);
 int sub_4AE3B0();

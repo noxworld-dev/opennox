@@ -23,11 +23,16 @@ import (
 )
 
 //export nox_new_window_from_file
-func nox_new_window_from_file(name *C.char, fnc unsafe.Pointer) *C.nox_window {
+func nox_new_window_from_file(cname *C.char, fnc unsafe.Pointer) *C.nox_window {
 	if isDedicatedServer {
 		panic("server should not load GUI")
 	}
-	return newWindowFromFile(C.GoString(name), fnc).C()
+	name := C.GoString(cname)
+	win := newWindowFromFile(name, fnc)
+	if win != nil {
+		guiParseHook(name, win)
+	}
+	return win.C()
 }
 
 func newWindowFromFile(name string, fnc unsafe.Pointer) *Window {
@@ -417,6 +422,25 @@ func (p *guiParser) parseWindowOrWidget(typ string, id uint, status int, px, py,
 	return win
 }
 
+const (
+	winStatusActive = 1 << iota
+	winStatusToggle
+	winStatusDraggable
+	winStatusEnabled
+	winStatusHidden
+	winStatusAbove
+	winStatusBelow
+	winStatusImage
+	winStatusTabStop
+	winStatusNoInput
+	winStatusNoFocus
+	winStatusDestroyed
+	winStatusBorder
+	winStatusSmoothText
+	winStatusOneLine
+	winStatusNoFlush
+)
+
 var guiWinStatuses = []string{
 	"ACTIVE", "TOGGLE", "DRAGABLE", "ENABLED", "HIDDEN", "ABOVE", "BELOW", "IMAGE",
 	"TABSTOP", "NOINPUT", "NOFOCUS", "DESTROYED", "BORDER", "SMOOTH_TEXT", "ONE_LINE", "NO_FLUSH",
@@ -488,24 +512,7 @@ var parseWindowFuncs = []struct {
 		return &data.text_color
 	})},
 	{"TEXT", func(p *guiParser, draw *WindowData, buf string) bool {
-		var str string
-		// TODO: this is a hack to replace 8-16bit switch with Window-FullScreen switch
-		//       we can probably do better than this and insert additional controls based
-		//       on the window identifier later
-		switch buf {
-		case "Options.wnd:8BitColor":
-			str = "\tWindowed"
-		case "Options.wnd:16BitColor":
-			str = "\tFullscreen"
-		case "Options.wnd:640X480":
-			str = " 848 X 480 (w)"
-		case "Options.wnd:800X600":
-			str = "1024 X 576 (w)"
-		case "Options.wnd:1024X768":
-			str = "1024 X 768"
-		default:
-			str = p.sm.GetStringInFile(strman.ID(buf), "C:\\NoxPost\\src\\Client\\Gui\\GameWin\\psscript.c")
-		}
+		str := p.sm.GetStringInFile(strman.ID(buf), "C:\\NoxPost\\src\\Client\\Gui\\GameWin\\psscript.c")
 		draw.SetText(str)
 		return true
 	}},

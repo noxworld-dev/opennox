@@ -145,8 +145,10 @@ func setGamma(v float32) {
 	} else if v > 3.0 {
 		v = 3.0
 	}
+	if draw_gamma != v {
+		videoLog.Printf("gamma2: %v", draw_gamma)
+	}
 	draw_gamma = v
-	videoLog.Printf("gamma2: %v", draw_gamma)
 	if noxSeat != nil {
 		noxSeat.SetGamma(v)
 	}
@@ -160,8 +162,10 @@ func nox_video_setGammaSetting_434B30(a1 C.int) C.int {
 	} else if v > 10 {
 		v = 10
 	}
+	if nox_video_gammaValue != v {
+		videoLog.Printf("gamma: %v", nox_video_gammaValue)
+	}
 	nox_video_gammaValue = v
-	videoLog.Printf("gamma: %v", nox_video_gammaValue)
 	return C.int(v)
 }
 

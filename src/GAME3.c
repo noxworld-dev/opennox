@@ -3925,7 +3925,6 @@ int sub_4AA490() {
 
 //----- (004AA6B0) --------------------------------------------------------
 int nox_game_showOptions_4AA6B0() {
-	int result;       // eax
 	_DWORD* v1;       // esi
 	char* v2;         // eax
 	int v3;           // eax
@@ -3949,79 +3948,78 @@ int nox_game_showOptions_4AA6B0() {
 	char* v21;        // [esp-8h] [ebp-8h]
 
 	nox_game_addStateCode_43BDD0(300);
-	result = nox_new_window_from_file("Options.wnd", sub_4AABE0);
-	dword_5d4594_1309720 = result;
-	if (result) {
-		result = sub_4CB590(result);
-		if (result) {
-			nox_xxx_wndSetWindowProc_46B300(*(int*)&dword_5d4594_1309720, sub_4A18E0);
-			sub_43FE20(15);
-			result = nox_gui_makeAnimation_43C5B0(*(_DWORD**)&dword_5d4594_1309720, 0, 0, 0, -480, 0, 20, 0, -40);
-			nox_wnd_xxx_1309740 = result;
-			if (result) {
-				nox_wnd_xxx_1309740->field_0 = 300;
-				nox_wnd_xxx_1309740->field_12 = sub_4AA9C0;
-				nox_wnd_xxx_1309740->fnc_done_out = sub_4AAA10;
-				v1 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1309720, 351);
-				*(_DWORD*)(v1[100] + 8) = 24;
-				*(_DWORD*)(v1[100] + 12) = 20;
-				v19 = nox_xxx_gLoadImg_42F970("OptionsVolumeSliderLit");
-				v16 = nox_xxx_gLoadImg_42F970("OptionsVolumeSliderLit");
-				v2 = nox_xxx_gLoadImg_42F970("OptionsVolumeSlider");
-				sub_4B5700((int)v1, 0, 0, (int)v2, (int)v16, (int)v19);
-				nox_window_call_field_94((int)v1, 16395, 0, 0x4000);
-				nox_window_call_field_94((int)v1, 16394, *(_DWORD*)((_DWORD)dword_587000_127004 + 4) >> 16, 0);
-				dword_5d4594_1309728 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1309720, 361);
-				v3 = sub_453070();
-				v4 = *(_DWORD*)(dword_5d4594_1309728 + 36);
-				if (v3 == 1)
-					v5 = v4 | 4;
-				else
-					v5 = v4 & 0xFFFFFFFB;
-				*(_DWORD*)(dword_5d4594_1309728 + 36) = v5;
-				v6 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1309720, 352);
-				*(_DWORD*)(v6[100] + 8) = 24;
-				*(_DWORD*)(v6[100] + 12) = 20;
-				v20 = nox_xxx_gLoadImg_42F970("OptionsVolumeSliderLit");
-				v17 = nox_xxx_gLoadImg_42F970("OptionsVolumeSliderLit");
-				v7 = nox_xxx_gLoadImg_42F970("OptionsVolumeSlider");
-				sub_4B5700((int)v6, 0, 0, (int)v7, (int)v17, (int)v20);
-				nox_window_call_field_94((int)v6, 16395, 0, 0x4000);
-				nox_window_call_field_94((int)v6, 16394, *(_DWORD*)((_DWORD)dword_587000_122852 + 4) >> 16, 0);
-				dword_5d4594_1309732 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1309720, 362);
-				v8 = sub_44D990();
-				v9 = *(_DWORD*)(dword_5d4594_1309732 + 36);
-				if (v8 == 1)
-					v10 = v9 | 4;
-				else
-					v10 = v9 & 0xFFFFFFFB;
-				*(_DWORD*)(dword_5d4594_1309732 + 36) = v10;
-				v11 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1309720, 353);
-				*(_DWORD*)(v11[100] + 8) = 24;
-				*(_DWORD*)(v11[100] + 12) = 20;
-				v21 = nox_xxx_gLoadImg_42F970("OptionsVolumeSliderLit");
-				v18 = nox_xxx_gLoadImg_42F970("OptionsVolumeSliderLit");
-				v12 = nox_xxx_gLoadImg_42F970("OptionsVolumeSlider");
-				sub_4B5700((int)v11, 0, 0, (int)v12, (int)v18, (int)v21);
-				nox_window_call_field_94((int)v11, 16395, 0, 0x4000);
-				nox_window_call_field_94((int)v11, 16394, *(_DWORD*)((_DWORD)dword_587000_93164 + 4) >> 16, 0);
-				dword_5d4594_1309736 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1309720, 363);
-				v13 = sub_43DC30();
-				v14 = *(_DWORD*)(dword_5d4594_1309736 + 36);
-				if (v13 == 1)
-					v15 = v14 | 4;
-				else
-					v15 = v14 & 0xFFFFFFFB;
-				*(_DWORD*)(dword_5d4594_1309736 + 36) = v15;
-				nox_xxx_wndRetNULL_46A8A0();
-				sub_4A19F0("OptsBack.wnd:Back");
-				sub_4A1A40(0);
-				sub_4AAA70();
-				result = 1;
-			}
-		}
+	dword_5d4594_1309720 = nox_new_window_from_file("Options.wnd", sub_4AABE0);
+	if (!dword_5d4594_1309720) {
+		return 0;
 	}
-	return result;
+	if (!sub_4CB590(dword_5d4594_1309720)) {
+		return 0;
+	}
+	nox_xxx_wndSetWindowProc_46B300(*(int*)&dword_5d4594_1309720, sub_4A18E0);
+	sub_43FE20(15);
+	nox_wnd_xxx_1309740 = nox_gui_makeAnimation_43C5B0(*(_DWORD**)&dword_5d4594_1309720, 0, 0, 0, -480, 0, 20, 0, -40);
+	if (!nox_wnd_xxx_1309740) {
+		return 0;
+	}
+	nox_wnd_xxx_1309740->field_0 = 300;
+	nox_wnd_xxx_1309740->field_12 = sub_4AA9C0;
+	nox_wnd_xxx_1309740->fnc_done_out = sub_4AAA10;
+	v1 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1309720, 351);
+	*(_DWORD*)(v1[100] + 8) = 24;
+	*(_DWORD*)(v1[100] + 12) = 20;
+	v19 = nox_xxx_gLoadImg_42F970("OptionsVolumeSliderLit");
+	v16 = nox_xxx_gLoadImg_42F970("OptionsVolumeSliderLit");
+	v2 = nox_xxx_gLoadImg_42F970("OptionsVolumeSlider");
+	sub_4B5700((int)v1, 0, 0, (int)v2, (int)v16, (int)v19);
+	nox_window_call_field_94((int)v1, 16395, 0, 0x4000);
+	nox_window_call_field_94((int)v1, 16394, *(_DWORD*)((_DWORD)dword_587000_127004 + 4) >> 16, 0);
+	dword_5d4594_1309728 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1309720, 361);
+	v3 = sub_453070();
+	v4 = *(_DWORD*)(dword_5d4594_1309728 + 36);
+	if (v3 == 1)
+		v5 = v4 | 4;
+	else
+		v5 = v4 & 0xFFFFFFFB;
+	*(_DWORD*)(dword_5d4594_1309728 + 36) = v5;
+	v6 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1309720, 352);
+	*(_DWORD*)(v6[100] + 8) = 24;
+	*(_DWORD*)(v6[100] + 12) = 20;
+	v20 = nox_xxx_gLoadImg_42F970("OptionsVolumeSliderLit");
+	v17 = nox_xxx_gLoadImg_42F970("OptionsVolumeSliderLit");
+	v7 = nox_xxx_gLoadImg_42F970("OptionsVolumeSlider");
+	sub_4B5700((int)v6, 0, 0, (int)v7, (int)v17, (int)v20);
+	nox_window_call_field_94((int)v6, 16395, 0, 0x4000);
+	nox_window_call_field_94((int)v6, 16394, *(_DWORD*)((_DWORD)dword_587000_122852 + 4) >> 16, 0);
+	dword_5d4594_1309732 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1309720, 362);
+	v8 = sub_44D990();
+	v9 = *(_DWORD*)(dword_5d4594_1309732 + 36);
+	if (v8 == 1)
+		v10 = v9 | 4;
+	else
+		v10 = v9 & 0xFFFFFFFB;
+	*(_DWORD*)(dword_5d4594_1309732 + 36) = v10;
+	v11 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1309720, 353);
+	*(_DWORD*)(v11[100] + 8) = 24;
+	*(_DWORD*)(v11[100] + 12) = 20;
+	v21 = nox_xxx_gLoadImg_42F970("OptionsVolumeSliderLit");
+	v18 = nox_xxx_gLoadImg_42F970("OptionsVolumeSliderLit");
+	v12 = nox_xxx_gLoadImg_42F970("OptionsVolumeSlider");
+	sub_4B5700((int)v11, 0, 0, (int)v12, (int)v18, (int)v21);
+	nox_window_call_field_94((int)v11, 16395, 0, 0x4000);
+	nox_window_call_field_94((int)v11, 16394, *(_DWORD*)((_DWORD)dword_587000_93164 + 4) >> 16, 0);
+	dword_5d4594_1309736 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1309720, 363);
+	v13 = sub_43DC30();
+	v14 = *(_DWORD*)(dword_5d4594_1309736 + 36);
+	if (v13 == 1)
+		v15 = v14 | 4;
+	else
+		v15 = v14 & 0xFFFFFFFB;
+	*(_DWORD*)(dword_5d4594_1309736 + 36) = v15;
+	nox_xxx_wndRetNULL_46A8A0();
+	sub_4A19F0("OptsBack.wnd:Back");
+	sub_4A1A40(0);
+	sub_4AAA70();
+	return 1;
 }
 // 4A18E0: using guessed type int  sub_4A18E0(int, int, int, int);
 
@@ -4109,10 +4107,10 @@ _DWORD* sub_4AAA70() {
 		v1 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1309720, 332);
 	}
 	nox_window_call_field_94((int)v1, 16392, 1, 0);
-
+#ifndef NOX_CGO
 	nox_window_call_field_94(nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1309820, 316), 16394, (nox_video_getGamma() - 0.5f) * 50, 0);
-	nox_window_call_field_94(nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1309820, 318), 16394,
-							 (log10f(nox_input_getSensitivity()) + 1.0f) * 50, 0);
+	nox_window_call_field_94(nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1309820, 318), 16394, (log10f(nox_input_getSensitivity()) + 1.0f) * 50, 0);
+#endif // NOX_CGO
 #if 0
     _DWORD* v2; // eax
     _DWORD* v3; // eax
@@ -5683,8 +5681,7 @@ LABEL_9:
 }
 
 //----- (004ADAD0) --------------------------------------------------------
-int sub_4ADAD0() {
-	int result;       // eax
+int nox_game_initOptionsInGame_4ADAD0() {
 	_DWORD* v1;       // esi
 	char* v2;         // eax
 	int v3;           // eax
@@ -5720,107 +5717,106 @@ int sub_4ADAD0() {
 	int v33;          // [esp+4h] [ebp-8h]
 	int v34;          // [esp+8h] [ebp-4h]
 
-	result = nox_new_window_from_file("Options.wnd", nox_xxx_windowOptionsProc_4ADF30);
-	dword_5d4594_1309820 = result;
-	if (result) {
-		result = sub_4CB590(result);
-		if (result) {
-			v1 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1309820, 351);
-			*(_DWORD*)(v1[100] + 8) = 24;
-			*(_DWORD*)(v1[100] + 12) = 20;
-			v28 = nox_xxx_gLoadImg_42F970("OptionsVolumeSliderLit");
-			v25 = nox_xxx_gLoadImg_42F970("OptionsVolumeSliderLit");
-			v2 = nox_xxx_gLoadImg_42F970("OptionsVolumeSlider");
-			sub_4B5700((int)v1, 0, 0, (int)v2, (int)v25, (int)v28);
-			nox_window_call_field_94((int)v1, 16395, 0, 0x4000);
-			nox_window_call_field_94((int)v1, 16394, *(_DWORD*)((_DWORD)dword_587000_127004 + 4) >> 16, 0);
-			dword_5d4594_1309828 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1309820, 361);
-			v3 = sub_453070();
-			v4 = *(_DWORD*)(dword_5d4594_1309828 + 36);
-			if (v3 == 1)
-				v5 = v4 | 4;
-			else
-				v5 = v4 & 0xFFFFFFFB;
-			*(_DWORD*)(dword_5d4594_1309828 + 36) = v5;
-			v6 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1309820, 352);
-			*(_DWORD*)(v6[100] + 8) = 24;
-			*(_DWORD*)(v6[100] + 12) = 20;
-			v29 = nox_xxx_gLoadImg_42F970("OptionsVolumeSliderLit");
-			v26 = nox_xxx_gLoadImg_42F970("OptionsVolumeSliderLit");
-			v7 = nox_xxx_gLoadImg_42F970("OptionsVolumeSlider");
-			sub_4B5700((int)v6, 0, 0, (int)v7, (int)v26, (int)v29);
-			nox_window_call_field_94((int)v6, 16395, 0, 0x4000);
-			nox_window_call_field_94((int)v6, 16394, *(_DWORD*)((_DWORD)dword_587000_122852 + 4) >> 16, 0);
-			dword_5d4594_1309836 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1309820, 362);
-			v8 = sub_44D990();
-			v9 = *(_DWORD*)(dword_5d4594_1309836 + 36);
-			if (v8 == 1)
-				v10 = v9 | 4;
-			else
-				v10 = v9 & 0xFFFFFFFB;
-			*(_DWORD*)(dword_5d4594_1309836 + 36) = v10;
-			v11 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1309820, 353);
-			*(_DWORD*)(v11[100] + 8) = 24;
-			*(_DWORD*)(v11[100] + 12) = 20;
-			v30 = nox_xxx_gLoadImg_42F970("OptionsVolumeSliderLit");
-			v27 = nox_xxx_gLoadImg_42F970("OptionsVolumeSliderLit");
-			v12 = nox_xxx_gLoadImg_42F970("OptionsVolumeSlider");
-			sub_4B5700((int)v11, 0, 0, (int)v12, (int)v27, (int)v30);
-			nox_window_call_field_94((int)v11, 16395, 0, 0x4000);
-			nox_window_call_field_94((int)v11, 16394, *(_DWORD*)((_DWORD)dword_587000_93164 + 4) >> 16, 0);
-			dword_5d4594_1309832 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1309820, 363);
-			v13 = sub_43DC30();
-			v14 = *(_DWORD*)(dword_5d4594_1309832 + 36);
-			if (v13 == 1)
-				v15 = v14 | 4;
-			else
-				v15 = v14 & 0xFFFFFFFB;
-			*(_DWORD*)(dword_5d4594_1309832 + 36) = v15;
-			nox_xxx_gameGetScreenBoundaries_43BEB0_get_video_mode(&v32, &v34, &v33);
-			if (v34 == 480)
-				v31 = 321;
-			else if (v34 == 576)
-				v31 = 322;
-			else
-				v31 = 323;
-			v16 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1309820, v31);
-			nox_window_call_field_94((int)v16, 16392, 1, 0);
-			if (nox_video_getFullScreen())
-				v17 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1309820, 333);
-			else
-				v17 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1309820, 334);
-			nox_window_call_field_94((int)v17, 16392, 1, 0);
-			nox_window_call_field_94(nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1309820, 316), 16394, (nox_video_getGamma() - 0.5f) * 50,
-									 0);
-			nox_window_call_field_94(nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1309820, 318), 16394,
-									 (log10f(nox_input_getSensitivity()) + 1.0f) * 50, 0);
-			for (i = 320; i <= 332; ++i) {
-				v19 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1309820, i);
-				if (v19 && !(v19[9] & 4))
-					nox_xxx_wndClearFlag_46AD80((int)v19, 8);
-			}
-			dword_5d4594_1309824 = nox_window_new(0, 32, 0, 0, 1, 1, 0);
-			v20 = *getMemU32Ptr(0x587000, 174072);
-			if (*getMemIntPtr(0x587000, 174072) != -1) {
-				v21 = getMemIntPtr(0x587000, 174080);
-				do {
-					v22 = nox_window_new(*(int*)&dword_5d4594_1309824, 0, v20, *(v21 - 1), *v21, v21[1], 0);
-					nox_xxx_wndSetDrawFn_46B340((int)v22, sub_4ADEF0);
-					v20 = v21[2];
-					v21 += 4;
-				} while (v20 != -1);
-			}
-			v23 = nox_win_width - *(_DWORD*)(dword_5d4594_1309820 + 8);
-			nox_window_setPos_46A9B0(*(_DWORD**)&dword_5d4594_1309820, v23 / 2, 0);
-			nox_window_setPos_46A9B0(*(_DWORD**)&dword_5d4594_1309824, v23 / 2, 0);
-			v24 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1309820, 371);
-			nox_window_set_hidden((int)v24, 0);
-			nox_window_set_hidden(*(int*)&dword_5d4594_1309820, 1);
-			nox_window_set_hidden(*(int*)&dword_5d4594_1309824, 1);
-			result = 1;
-		}
+	dword_5d4594_1309820 = nox_new_window_from_file("Options.wnd", nox_xxx_windowOptionsProc_4ADF30);
+	if (!dword_5d4594_1309820) {
+		return 0;
 	}
-	return result;
+	if (!sub_4CB590(dword_5d4594_1309820)) {
+		return 0;
+	}
+	v1 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1309820, 351);
+	*(_DWORD*)(v1[100] + 8) = 24;
+	*(_DWORD*)(v1[100] + 12) = 20;
+	v28 = nox_xxx_gLoadImg_42F970("OptionsVolumeSliderLit");
+	v25 = nox_xxx_gLoadImg_42F970("OptionsVolumeSliderLit");
+	v2 = nox_xxx_gLoadImg_42F970("OptionsVolumeSlider");
+	sub_4B5700((int)v1, 0, 0, (int)v2, (int)v25, (int)v28);
+	nox_window_call_field_94((int)v1, 16395, 0, 0x4000);
+	nox_window_call_field_94((int)v1, 16394, *(_DWORD*)((_DWORD)dword_587000_127004 + 4) >> 16, 0);
+	dword_5d4594_1309828 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1309820, 361);
+	v3 = sub_453070();
+	v4 = *(_DWORD*)(dword_5d4594_1309828 + 36);
+	if (v3 == 1)
+		v5 = v4 | 4;
+	else
+		v5 = v4 & 0xFFFFFFFB;
+	*(_DWORD*)(dword_5d4594_1309828 + 36) = v5;
+	v6 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1309820, 352);
+	*(_DWORD*)(v6[100] + 8) = 24;
+	*(_DWORD*)(v6[100] + 12) = 20;
+	v29 = nox_xxx_gLoadImg_42F970("OptionsVolumeSliderLit");
+	v26 = nox_xxx_gLoadImg_42F970("OptionsVolumeSliderLit");
+	v7 = nox_xxx_gLoadImg_42F970("OptionsVolumeSlider");
+	sub_4B5700((int)v6, 0, 0, (int)v7, (int)v26, (int)v29);
+	nox_window_call_field_94((int)v6, 16395, 0, 0x4000);
+	nox_window_call_field_94((int)v6, 16394, *(_DWORD*)((_DWORD)dword_587000_122852 + 4) >> 16, 0);
+	dword_5d4594_1309836 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1309820, 362);
+	v8 = sub_44D990();
+	v9 = *(_DWORD*)(dword_5d4594_1309836 + 36);
+	if (v8 == 1)
+		v10 = v9 | 4;
+	else
+		v10 = v9 & 0xFFFFFFFB;
+	*(_DWORD*)(dword_5d4594_1309836 + 36) = v10;
+	v11 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1309820, 353);
+	*(_DWORD*)(v11[100] + 8) = 24;
+	*(_DWORD*)(v11[100] + 12) = 20;
+	v30 = nox_xxx_gLoadImg_42F970("OptionsVolumeSliderLit");
+	v27 = nox_xxx_gLoadImg_42F970("OptionsVolumeSliderLit");
+	v12 = nox_xxx_gLoadImg_42F970("OptionsVolumeSlider");
+	sub_4B5700((int)v11, 0, 0, (int)v12, (int)v27, (int)v30);
+	nox_window_call_field_94((int)v11, 16395, 0, 0x4000);
+	nox_window_call_field_94((int)v11, 16394, *(_DWORD*)((_DWORD)dword_587000_93164 + 4) >> 16, 0);
+	dword_5d4594_1309832 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1309820, 363);
+	v13 = sub_43DC30();
+	v14 = *(_DWORD*)(dword_5d4594_1309832 + 36);
+	if (v13 == 1)
+		v15 = v14 | 4;
+	else
+		v15 = v14 & 0xFFFFFFFB;
+	*(_DWORD*)(dword_5d4594_1309832 + 36) = v15;
+	nox_xxx_gameGetScreenBoundaries_43BEB0_get_video_mode(&v32, &v34, &v33);
+	if (v34 == 480)
+		v31 = 321;
+	else if (v34 == 576)
+		v31 = 322;
+	else
+		v31 = 323;
+	v16 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1309820, v31);
+	nox_window_call_field_94((int)v16, 16392, 1, 0);
+	if (nox_video_getFullScreen())
+		v17 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1309820, 333);
+	else
+		v17 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1309820, 334);
+	nox_window_call_field_94((int)v17, 16392, 1, 0);
+#ifndef NOX_CGO
+	nox_window_call_field_94(nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1309820, 316), 16394, (nox_video_getGamma() - 0.5f) * 50, 0);
+	nox_window_call_field_94(nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1309820, 318), 16394, (log10f(nox_input_getSensitivity()) + 1.0f) * 50, 0);
+#endif // NOX_CGO
+	for (i = 320; i <= 332; ++i) {
+		v19 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1309820, i);
+		if (v19 && !(v19[9] & 4))
+			nox_xxx_wndClearFlag_46AD80((int)v19, 8);
+	}
+	dword_5d4594_1309824 = nox_window_new(0, 32, 0, 0, 1, 1, 0);
+	v20 = *getMemU32Ptr(0x587000, 174072);
+	if (*getMemIntPtr(0x587000, 174072) != -1) {
+		v21 = getMemIntPtr(0x587000, 174080);
+		do {
+			v22 = nox_window_new(*(int*)&dword_5d4594_1309824, 0, v20, *(v21 - 1), *v21, v21[1], 0);
+			nox_xxx_wndSetDrawFn_46B340((int)v22, sub_4ADEF0);
+			v20 = v21[2];
+			v21 += 4;
+		} while (v20 != -1);
+	}
+	v23 = nox_win_width - *(_DWORD*)(dword_5d4594_1309820 + 8);
+	nox_window_setPos_46A9B0(*(_DWORD**)&dword_5d4594_1309820, v23 / 2, 0);
+	nox_window_setPos_46A9B0(*(_DWORD**)&dword_5d4594_1309824, v23 / 2, 0);
+	v24 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1309820, 371);
+	nox_window_set_hidden((int)v24, 0);
+	nox_window_set_hidden(*(int*)&dword_5d4594_1309820, 1);
+	nox_window_set_hidden(*(int*)&dword_5d4594_1309824, 1);
+	return 1;
 }
 
 //----- (004ADEF0) --------------------------------------------------------

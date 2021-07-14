@@ -12,6 +12,7 @@ import (
 
 	"nox/v1/client/gui"
 	"nox/v1/common/alloc"
+	noxcolor "nox/v1/common/color"
 )
 
 type guiWidgetData interface {
@@ -96,6 +97,68 @@ func guiNewWidget(typ string, parent *Window, status int, px, py, w, h int, draw
 		return asWindow(C.nox_gui_newProgressBar_4CAF10(iparent, C.int(status), C.int(px), C.int(py), C.int(w), C.int(h), (*C.uint)(udraw)))
 	}
 	return nil
+}
+
+func tempDrawData() (*WindowData, func()) {
+	p := alloc.Calloc(1, unsafe.Sizeof(WindowData{}))
+	return (*WindowData)(p), func() {
+		alloc.Free(p)
+	}
+}
+
+func NewStaticText(par *Window, id uint, px, py, w, h int, f1, f2 bool, text string) *Window {
+	draw, dfree := tempDrawData()
+	defer dfree()
+	*draw = *par.DrawData()
+
+	draw.win = par.C()
+	draw.style |= C.int(gui.StyleStaticText)
+	status := winStatusSmoothText | winStatusNoFocus
+
+	data := (*staticTextData)(alloc.Calloc(1, unsafe.Sizeof(staticTextData{})))
+	defer alloc.Free(unsafe.Pointer(data))
+	data.field_1 = C.uint(bool2int(f1))
+	data.field_2 = C.uint(bool2int(f2))
+	data.text = internWStr(text)
+
+	iparent := unsafePtrToInt(unsafe.Pointer(par.C()))
+	win := asWindow(C.nox_gui_newStaticText_489300(iparent, C.int(status), C.int(px), C.int(py), C.int(w), C.int(h),
+		(*C.uint)(unsafe.Pointer(draw)), (*C.uint)(unsafe.Pointer(data))))
+	win.SetID(id)
+	if par != nil {
+		par.Func94(22, uintptr(id), 0)
+	}
+	return win
+}
+
+func NewHorizontalSlider(par *Window, id uint, px, py, w, h int, min, max int) *Window {
+	draw, dfree := tempDrawData()
+	defer dfree()
+	*draw = *par.DrawData()
+
+	draw.win = par.C()
+	draw.style |= C.int(gui.StyleHorizSlider)
+	draw.SetHighlightColor(gui.ColorTransparent)
+	draw.SetDisabledColor(gui.ColorTransparent)
+	draw.SetEnabledColor(noxcolor.RGBColor(230, 165, 65))
+	draw.SetSelectedColor(noxcolor.RGBColor(230, 165, 65))
+	status := winStatusEnabled | winStatusNoFocus
+
+	data := (*sliderData)(alloc.Calloc(1, unsafe.Sizeof(sliderData{})))
+	defer alloc.Free(unsafe.Pointer(data))
+	data.field_0 = C.uint(min)
+	data.field_1 = C.uint(max)
+	data.field_2 = 0
+	data.field_3 = 0
+
+	iparent := unsafePtrToInt(unsafe.Pointer(par.C()))
+	win := asWindow(C.nox_gui_newSlider_4B4EE0(iparent, C.int(status), C.int(px), C.int(py), C.int(w), C.int(h),
+		(*C.uint)(unsafe.Pointer(draw)), (*C.float)(unsafe.Pointer(data))))
+	win.SetID(id)
+	if par != nil {
+		par.Func94(22, uintptr(id), 0)
+	}
+	return win
 }
 
 func newButtonOrCheckbox(parent *Window, status int, px, py, w, h int, draw *WindowData) *Window {

@@ -71,9 +71,11 @@ func ParseColor(str string) (r, g, b int) {
 	return
 }
 
+const ColorTransparent = noxcolor.RGBA5551(0x8000)
+
 func ParseColorTransp(str string) (noxcolor.Color16, bool) {
 	if str == "TRANSPARENT" {
-		return noxcolor.RGBA5551(0x8000), true
+		return ColorTransparent, true
 	}
 	r, g, b := ParseColor(str)
 	cl := noxcolor.RGBColor(byte(r), byte(g), byte(b))

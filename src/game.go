@@ -679,8 +679,8 @@ func nox_game_guiInit_473680() error {
 	if tmp == 0 {
 		return errors.New("nox_xxx_wndCreateInventoryMB_465E00 failed")
 	}
-	if C.sub_4ADAD0() == 0 {
-		return errors.New("sub_4ADAD0 failed")
+	if C.nox_game_initOptionsInGame_4ADAD0() == 0 {
+		return errors.New("nox_game_initOptionsInGame_4ADAD0 failed")
 	}
 	if C.sub_48D000() == 0 {
 		return errors.New("sub_48D000 failed")

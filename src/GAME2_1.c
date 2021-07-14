@@ -7150,7 +7150,7 @@ int nox_game_guiInit_473680() {
 	if (!tmp) {
 		return 0;
 	}
-	if (!sub_4ADAD0()) {
+	if (!nox_game_initOptionsInGame_4ADAD0()) {
 		return 0;
 	}
 	if (!sub_48D000()) {
