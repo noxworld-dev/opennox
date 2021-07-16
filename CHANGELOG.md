@@ -4,13 +4,20 @@
 
 - Completely reworked input and present pipelines.
 - Manual spell casting is now supported. Bind keys to individual spell gestures and become a real wizard/conjurer!
-- Input sensitivity should now be fixed in fullscreen mode.
+- Gamma and mouse sensitivity sliders were added to the options menu.
 - Wide-screen 16:9 resolutions are now available. Older 4:3 resolutions are still supported via config.
+- Fix: Input sensitivity should now work correctly in fullscreen mode.
+- Fix: Gamma setting in the config is now respected.
+- Fix: Stretched video setting in the config is now respected.
 - Added key bindings for:
   - Switching to a specific spell slot.
   - Switching to a specific trap slot.
   - Dropping a trap from your inventory.
   - Controlling spawned creature behavior.
+  - Accepting item buy/sell/drop.
+- Breaking change: `set allow.all` was renamed to `cheat equip.all`
+- Breaking change: `set mana` was renamed to `cheat mana`
+- Breaking change: `set health` was renamed to `cheat health`
 
 ## v1.6.1
 
