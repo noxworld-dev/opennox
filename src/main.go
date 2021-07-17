@@ -215,10 +215,10 @@ func runNox(args []string) error {
 		setEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING |
 			NOX_ENGINE_FLAG_DISABLE_TEXT_RENDERING |
 			NOX_ENGINE_FLAG_DISABLE_FLOOR_RENDERING |
-			NOX_ENGINE_FLAG_31)
+			NOX_ENGINE_FLAG_SLEEP)
 	}
 	if *fSleep {
-		setEngineFlag(NOX_ENGINE_FLAG_31)
+		setEngineFlag(NOX_ENGINE_FLAG_SLEEP)
 	}
 	if v := *fDrop; v != 0 {
 		// TODO: can it be 0?
@@ -231,7 +231,7 @@ func runNox(args []string) error {
 		C.nox_xxx_log_4_close_413C00()
 	}
 	if *fLock {
-		setEngineFlag(NOX_ENGINE_FLAG_26)
+		setEngineFlag(NOX_ENGINE_FLAG_LOCK_VIDEO_RESOLUTION)
 	}
 	if *fSafe {
 		resetEngineFlag(NOX_ENGINE_FLAG_ENABLE_SOFT_SHADOW_EDGE)

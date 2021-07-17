@@ -428,7 +428,7 @@ BOOL sub_4139B0();
 void sub_413A00(int a1);
 BOOL nox_xxx_checkGameFlagPause_413A50();
 int sub_413E10();
-void sub_413E30();
+void nox_xxx_gameLoopMemDump_413E30();
 int  sub_413F60(const void*, const void*); // idb
 void nullsub_2(void);                             // weak
 char*  nox_clone_str(const char* a1);
@@ -3054,8 +3054,8 @@ int  sub_4A4CB0(const void*, const void*); // idb
 int sub_4A50A0();
 int sub_4A50D0();
 int  sub_4A5690(_BYTE* a1);
-void* sub_4A56E0();
-void sub_4A5700();
+void* nox_xxx_clearAdminFlag();
+void nox_xxx_setAdminFlag();
 int sub_4A5C70();
 int sub_4A5E90();
 unsigned __int8*  sub_4A61E0(_DWORD* a1, int a2, _BYTE* a3);

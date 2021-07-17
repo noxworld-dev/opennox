@@ -86,7 +86,7 @@ func nox_ticks_until_next_416D00() int64 {
 func nox_ticks_xxx_416D40() {
 	*memmap.PtrUint64(0x5D4594, 371764) = platformTicks()
 	*memmap.PtrUint32(0x5D4594, 371772) = gameFrame()
-	resetEngineFlag(NOX_ENGINE_FLAG_32)
+	resetEngineFlag(NOX_ENGINE_FLAG_PAUSE)
 }
 
 //export sub_416D70

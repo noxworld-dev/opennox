@@ -215,9 +215,9 @@ int cmain(int argc, const char* argv[]) {
 			*getMemU32Ptr(0x587000, 84) = 0;
 		} else if (!_strcmpi(flag, "-serveronly")) {
 			nox_enable_audio = 0;
-			nox_common_setEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING | NOX_ENGINE_FLAG_31);
+			nox_common_setEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING | NOX_ENGINE_FLAG_SLEEP);
 		} else if (!_strcmpi(flag, "-sleep")) {
-			nox_common_setEngineFlag(NOX_ENGINE_FLAG_31);
+			nox_common_setEngineFlag(NOX_ENGINE_FLAG_SLEEP);
 		} else if (!_strcmpi(flag, "-drop")) {
 			++i;
 			int v = atoi(argv[i]);
@@ -227,7 +227,7 @@ int cmain(int argc, const char* argv[]) {
 		} else if (!_strcmpi(flag, "-nolog")) {
 			nox_xxx_log_4_close_413C00();
 		} else if (!_strcmpi(flag, "-lock")) {
-			nox_common_setEngineFlag(NOX_ENGINE_FLAG_26);
+			nox_common_setEngineFlag(NOX_ENGINE_FLAG_LOCK_VIDEO_RESOLUTION);
 		} else if (!_strcmpi(flag, "-safe")) {
 			nox_common_resetEngineFlag(NOX_ENGINE_FLAG_ENABLE_SOFT_SHADOW_EDGE);
 			nox_common_setEngineFlag(NOX_ENGINE_FLAG_ENABLE_WINDOWED_MODE);
@@ -6322,7 +6322,7 @@ int sub_413E10() {
 }
 
 //----- (00413E30) --------------------------------------------------------
-void sub_413E30() {
+void nox_xxx_gameLoopMemDump_413E30() {
 	signed int v0;       // ebx
 	int v1;              // esi
 	unsigned __int8* v2; // eax
@@ -8107,7 +8107,7 @@ unsigned int sub_416A00() {
 
 //----- (00416B80) --------------------------------------------------------
 BOOL nox_check_tick_flags() {
-	return nox_common_getEngineFlag(NOX_ENGINE_FLAG_32) &&
+	return nox_common_getEngineFlag(NOX_ENGINE_FLAG_PAUSE) &&
 			nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) &&
 			!nox_get_audio_enabled();
 }
@@ -8148,7 +8148,7 @@ void nox_ticks_xxx_416D40() {
 	*getMemU64Ptr(0x5D4594, 371764) = nox_platform_get_ticks();
 	*getMemU32Ptr(0x5D4594, 371772) = nox_frame_xxx_2598000;
 
-	nox_common_resetEngineFlag(NOX_ENGINE_FLAG_32);
+	nox_common_resetEngineFlag(NOX_ENGINE_FLAG_PAUSE);
 }
 
 //----- (00416D70) --------------------------------------------------------

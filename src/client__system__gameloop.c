@@ -310,7 +310,7 @@ void mainloop() {
 	}
 	if (nox_client_gui_flag_815132) {
 		nox_gui_doAnimation_43C380();
-		nox_common_resetEngineFlag(NOX_ENGINE_FLAG_32);
+		nox_common_resetEngineFlag(NOX_ENGINE_FLAG_PAUSE);
 		if (!*getMemU32Ptr(0x5D4594, 816408)) {
 			nox_mouse_state_t* mouse = nox_client_getMouseState_4309F0();
 			// emit sparks when passing a certain distance
@@ -360,7 +360,7 @@ void mainloop() {
 			}
 		}
 	}
-	if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_32)) {
+	if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_PAUSE)) {
 		sub_437180();
 		if (!nox_client_gui_flag_1556112)
 			nox_gui_draw(); // Draw game windows
@@ -398,7 +398,7 @@ void mainloop() {
 	}
 	if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
 		if (nox_common_gameFlags_check_40A5C0(0x10000000)) {
-			if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_32)) {
+			if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_PAUSE)) {
 				nox_ticks_maybe_sleep_416DD0();
 			}
 			goto MAINLOOP_CHECK_STOP;
@@ -406,7 +406,7 @@ void mainloop() {
 	}
 	goto MAINLOOP_WAIT;
 MAINLOOP_WAIT:
-	if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_31)) {
+	if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_SLEEP)) {
 		while (!nox_ticks_should_update_416CD0()) {}
 	} else {
 		int ms = nox_ticks_until_next_416D00();
@@ -460,8 +460,8 @@ MAINLOOP_EXIT:
 		nox_xxx_cliSetupSession_437190();
 	}
 	nox_xxx_clear18hDD_416190();
-	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_13)) {
-		sub_413E30();
+	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_GAMELOOP_MEMDUMP)) {
+		nox_xxx_gameLoopMemDump_413E30();
 	}
 	nullsub_2();
 

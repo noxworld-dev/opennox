@@ -427,7 +427,7 @@ LABEL_120:
 	}
 	if (v33 > 0 && !a1)
 		a1 = 1;
-	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_6) && *(_BYTE*)(v5 + 8) & 4)
+	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_GODMODE) && *(_BYTE*)(v5 + 8) & 4)
 		return 1;
 	if (nox_common_gameFlags_check_40A5C0(4096)) {
 		v44 = a1;
@@ -1621,47 +1621,51 @@ int*  sub_4E4500(int a1, int a2, int a3, int a4) {
 //----- (004E4560) --------------------------------------------------------
 int  nox_xxx_unitSetHP_4E4560(nox_object_t* obj, unsigned __int16 amount) {
 	int unit = obj;
-	int result; // eax
-	int v3;     // eax
-	int v4;     // eax
+	int healthData; // eax
+	int otherHealthData;     // eax
+	int unitFlags;     // eax
 	int* v5;    // eax
-	int v6;     // ecx
+	int counter;     // ecx
 	int v7;     // edx
 	int v8;     // eax
 
-	result = *(_DWORD*)(unit + 556);
-	if (result) {
+	healthData = *(_DWORD*)(unit + 556);
+	if (healthData) {
 		nox_xxx_unitNeedSync_4E44F0(unit);
-		v3 = *(_DWORD*)(unit + 492);
-		if (v3 && *(_BYTE*)(v3 + 8) & 4)
-			nox_xxx_protect_56FC50(*(_DWORD*)(*(_DWORD*)(*(_DWORD*)(v3 + 748) + 276) + 4632), (int*)unit);
+		otherHealthData = *(_DWORD*)(unit + 492);
+		if (otherHealthData && *(_BYTE*)(otherHealthData + 8) & 4)
+			nox_xxx_protect_56FC50(*(_DWORD*)(*(_DWORD*)(*(_DWORD*)(otherHealthData + 748) + 276) + 4632), (int*)unit);
+
 		**(_WORD**)(unit + 556) = amount;
+
 		if (*(_BYTE*)(unit + 8) & 4) // Is player and is local?
 			nox_xxx_protectPlayerHPMana_56F870(*(_DWORD*)(*(_DWORD*)(*(_DWORD*)(unit + 748) + 276) + 4584), amount);
-		v4 = *(_DWORD*)(unit + 8); // Is player?
-		if (v4 & 2 && (*(_BYTE*)(unit + 12) & 0x80)) {
-			if (v4 & 0x20400004) {
+
+		unitFlags = *(_DWORD*)(unit + 8); // flags
+		if (unitFlags & 2 && (*(_BYTE*)(unit + 12) & 0x80)) { // is owned monster ?
+			if (unitFlags & 0x20400004) {
 				v5 = (int*)(unit + 560);
-				v6 = 32;
+				counter = 32;
 				do {
 					v7 = *v5;
 					++v5;
-					--v6;
+					--counter;
 					*(v5 - 1) = v7 & 0xFFFFF000 | 0x20000;
-				} while (v6);
+				} while (counter);
 			} else {
 				nox_xxx_objectTypeByInd_4E3B70(*(unsigned __int16*)(unit + 4));
 				v8 = sub_4E4C90(unit, 2u);
 				sub_4E4500(unit, 0x20000, 2, v8);
 			}
 		}
-		result = *(_DWORD*)(unit + 492);
-		if (result) {
-			if (*(_BYTE*)(result + 8) & 4)
-				result = nox_xxx_protect_56FBF0(*(_DWORD*)(*(_DWORD*)(*(_DWORD*)(result + 748) + 276) + 4632), (int*)unit);
+
+		healthData = *(_DWORD*)(unit + 492);
+		if (healthData) {
+			if (*(_BYTE*)(healthData + 8) & 4)
+				healthData = nox_xxx_protect_56FBF0(*(_DWORD*)(*(_DWORD*)(*(_DWORD*)(healthData + 748) + 276) + 4632), (int*)unit);
 		}
 	}
-	return result;
+	return healthData;
 }
 
 //----- (004E4670) --------------------------------------------------------
@@ -8764,7 +8768,7 @@ void  nox_xxx_unitDamageClear_4EE5E0(int unit, int damageAmount) {
 	if (unit) {
 		healthData = *(_DWORD*)(unit + 556);
 		if (healthData) {
-			if (*(_WORD*)(healthData + 4) && (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_6) || !(*(_BYTE*)(unit + 8) & 4))) {
+			if (*(_WORD*)(healthData + 4) && (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_GODMODE) || !(*(_BYTE*)(unit + 8) & 4))) {
 				if (*(_BYTE*)(unit + 8) & 4) {
 					v3 = *(_DWORD*)(unit + 748);
 					if (v3) {
@@ -9049,49 +9053,57 @@ void  nox_xxx_setSomePoisonData_4EEA90(int a1, int a2) {
 }
 
 //----- (004EEB80) --------------------------------------------------------
-unsigned __int16  nox_xxx_playerManaAdd_4EEB80(int a1, __int16 a2) {
+unsigned __int16  nox_xxx_playerManaAdd_4EEB80(int unit, __int16 amount) {
 	unsigned __int16 result; // ax
-	int v3;                  // esi
-	__int16 v4;              // ax
-	unsigned __int16 v5;     // cx
-	unsigned __int16 v6;     // ax
+	int manaData;                  // esi
+	__int16 currentMana;              // ax
+	unsigned __int16 maxMana;     // cx
+	unsigned __int16 newAmount;     // ax
 
-	result = a1;
-	if (a1 && *(_BYTE*)(a1 + 8) & 4) {
-		v3 = *(_DWORD*)(a1 + 748);
-		v4 = *(_WORD*)(v3 + 4);
-		v5 = *(_WORD*)(v3 + 8);
-		*(_WORD*)(v3 + 6) = v4;
-		v6 = a2 + v4;
-		*(_WORD*)(v3 + 4) = v6;
-		if (v6 > v5)
-			*(_WORD*)(v3 + 4) = v5;
-		nox_xxx_protectMana_56F9E0(*(_DWORD*)(*(_DWORD*)(v3 + 276) + 4596), a2);
-		result = *(_WORD*)(v3 + 8);
-		if (*(_WORD*)(v3 + 4) > result)
-			result = (unsigned int)nox_xxx_protectPlayerHPMana_56F870(*(_DWORD*)(*(_DWORD*)(v3 + 276) + 4596), result);
+	result = unit;
+	if (unit && *(_BYTE*)(unit + 8) & 4) { // is player
+		manaData = *(_DWORD*)(unit + 748);
+		currentMana = *(_WORD*)(manaData + 4);
+		maxMana = *(_WORD*)(manaData + 8);
+
+		//Previous mana amount?
+		*(_WORD*)(manaData + 6) = currentMana;
+
+		newAmount = amount + currentMana;
+		*(_WORD*)(manaData + 4) = newAmount;
+
+		if (newAmount > maxMana)
+			*(_WORD*)(manaData + 4) = maxMana;
+
+		nox_xxx_protectMana_56F9E0(*(_DWORD*)(*(_DWORD*)(manaData + 276) + 4596), amount);
+		result = *(_WORD*)(manaData + 8);
+
+		if (*(_WORD*)(manaData + 4) > result)
+			result = (unsigned int)nox_xxx_protectPlayerHPMana_56F870(*(_DWORD*)(*(_DWORD*)(manaData + 276) + 4596), result);
 	}
 	return result;
 }
 
 //----- (004EEBF0) --------------------------------------------------------
-_DWORD*  nox_xxx_playerManaSub_4EEBF0(int a1, int a2) {
+_DWORD*  nox_xxx_playerManaSub_4EEBF0(int unit, int amount) {
 	_DWORD* result;      // eax
-	unsigned __int16 v3; // cx
+	unsigned __int16 currentMana; // cx
 
-	result = (_DWORD*)a1;
-	if (a1) {
-		if (*(_BYTE*)(a1 + 8) & 4) {
-			result = *(_DWORD**)(a1 + 748);
-			if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_6)) {
-				v3 = *((_WORD*)result + 2);
-				*((_WORD*)result + 3) = v3;
-				if (v3 > a2)
-					*((_WORD*)result + 2) = v3 - a2;
+	result = (_DWORD*)unit;
+	if (unit) {
+		if (*(_BYTE*)(unit + 8) & 4) { // is player
+			result = *(_DWORD**)(unit + 748);
+			if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_GODMODE)) {
+				currentMana = *((_WORD*)result + 2);
+				*((_WORD*)result + 3) = currentMana;
+
+				if (currentMana > amount)
+					*((_WORD*)result + 2) = currentMana - amount;
 				else
 					*((_WORD*)result + 2) = 0;
-				if (*((unsigned __int16*)result + 2) > a2)
-					result = nox_xxx_protectMana_56F9E0(*(_DWORD*)(result[69] + 4596), -(__int16)a2);
+
+				if (*((unsigned __int16*)result + 2) > amount)
+					result = nox_xxx_protectMana_56F9E0(*(_DWORD*)(result[69] + 4596), -(__int16)amount);
 				else
 					result = nox_xxx_protectMana_56F9E0(*(_DWORD*)(result[69] + 4596), -*((_WORD*)result + 2));
 			}
@@ -9101,16 +9113,16 @@ _DWORD*  nox_xxx_playerManaSub_4EEBF0(int a1, int a2) {
 }
 
 //----- (004EEC80) --------------------------------------------------------
-__int16  nox_xxx_unitGetOldMana_4EEC80(int a1) {
-	int v1;         // eax
+__int16  nox_xxx_unitGetOldMana_4EEC80(int unit) {
+	int flags;         // eax
 	__int16 result; // ax
 
-	if (!a1)
+	if (!unit)
 		goto LABEL_9;
-	v1 = *(_DWORD*)(a1 + 8);
-	if (v1 & 4)
-		return *(_WORD*)(*(_DWORD*)(a1 + 748) + 4);
-	if (v1 & 2)
+	flags = *(_DWORD*)(unit + 8);
+	if (flags & 4) //is player
+		return *(_WORD*)(*(_DWORD*)(unit + 748) + 4);
+	if (flags & 2) //owned monster
 		result = 1000;
 	else
 	LABEL_9:
@@ -9119,45 +9131,45 @@ __int16  nox_xxx_unitGetOldMana_4EEC80(int a1) {
 }
 
 //----- (004EECB0) --------------------------------------------------------
-__int16  nox_xxx_playerGetMaxMana_4EECB0(int a1) {
+__int16  nox_xxx_playerGetMaxMana_4EECB0(int unit) {
 	__int16 result; // ax
 
-	if (a1 && *(_BYTE*)(a1 + 8) & 4)
-		result = *(_WORD*)(*(_DWORD*)(a1 + 748) + 8);
+	if (unit && *(_BYTE*)(unit + 8) & 4) // is player
+		result = *(_WORD*)(*(_DWORD*)(unit + 748) + 8);
 	else
 		result = 0;
 	return result;
 }
 
 //----- (004EECD0) --------------------------------------------------------
-int  nox_xxx_playerSetMaxMana_4EECD0(int a1, __int16 a2) {
+int  nox_xxx_playerSetMaxMana_4EECD0(int unit, __int16 amount) {
 	int result; // eax
 
-	result = a1;
-	if (a1) {
-		if (*(_BYTE*)(a1 + 8) & 4) {
-			result = *(_DWORD*)(a1 + 748);
-			*(_WORD*)(result + 8) = a2;
+	result = unit;
+	if (unit) {
+		if (*(_BYTE*)(unit + 8) & 4) { //is player
+			result = *(_DWORD*)(unit + 748);
+			*(_WORD*)(result + 8) = amount;
 		}
 	}
 	return result;
 }
 
 //----- (004EECF0) --------------------------------------------------------
-_DWORD*  nox_xxx_playerManaRefresh_4EECF0(int a1) {
+_DWORD*  nox_xxx_playerManaRefresh_4EECF0(int unit) {
 	_DWORD* result; // eax
-	int v2;         // eax
+	int manaData;         // eax
 	int v3;         // edx
 	__int16 v4;     // cx
 
-	result = (_DWORD*)a1;
-	if (a1) {
-		if (*(_BYTE*)(a1 + 8) & 4) {
-			v2 = *(_DWORD*)(a1 + 748);
-			v3 = *(_DWORD*)(v2 + 276);
-			*(_WORD*)(v2 + 6) = *(_WORD*)(v2 + 4);
-			v4 = *(_WORD*)(v2 + 8);
-			*(_WORD*)(v2 + 4) = v4;
+	result = (_DWORD*)unit;
+	if (unit) {
+		if (*(_BYTE*)(unit + 8) & 4) { // Is player ?
+			manaData = *(_DWORD*)(unit + 748);
+			v3 = *(_DWORD*)(manaData + 276);
+			*(_WORD*)(manaData + 6) = *(_WORD*)(manaData + 4);
+			v4 = *(_WORD*)(manaData + 8);
+			*(_WORD*)(manaData + 4) = v4;
 			result = nox_xxx_protectMana_56F9E0(*(_DWORD*)(v3 + 4596), v4);
 		}
 	}
@@ -9363,9 +9375,9 @@ void  sub_4EF410(int a1, unsigned __int8 a2) {
 void nox_xxx_set_god_4EF500(int a1) {
 	if (nox_common_gameFlags_check_40A5C0(2048)) {
 		if (a1 == 1) {
-			nox_common_setEngineFlag(NOX_ENGINE_FLAG_5 | NOX_ENGINE_FLAG_6);
+			nox_common_setEngineFlag(NOX_ENGINE_FLAG_ADMIN | NOX_ENGINE_FLAG_GODMODE);
 		} else {
-			nox_common_resetEngineFlag(NOX_ENGINE_FLAG_5 | NOX_ENGINE_FLAG_6);
+			nox_common_resetEngineFlag(NOX_ENGINE_FLAG_ADMIN | NOX_ENGINE_FLAG_GODMODE);
 		}
 		char* result = nox_common_playerInfoGetFirst_416EA0();
 		for (int i = (int)result; result; i = (int)result) {
@@ -9626,7 +9638,7 @@ int  nox_xxx_spellAdward_4EFC80(int a1) {
 	nox_xxx_playerUpdateNetBuffs_56F7D0(*(_DWORD*)(a1 + 4636), 0);
 	v1 = 1;
 	v2 = (_DWORD*)(a1 + 3700);
-	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_5)) {
+	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ADMIN)) {
 		do {
 			*v2 = 3;
 			nox_xxx_playerAwardSpellProtection_56FCE0(*(_DWORD*)(a1 + 4636), v1++, 3);
@@ -9659,7 +9671,7 @@ int  nox_xxx_spellAdward_4EFD80(int a1) {
 	nox_xxx_playerUpdateNetBuffs_56F7D0(*(_DWORD*)(a1 + 4640), 0);
 	v1 = 1;
 	v2 = (_DWORD*)(a1 + 4248);
-	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_5)) {
+	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ADMIN)) {
 		do {
 			*v2 = 1;
 			nox_xxx_playerAwardSpellProtection_56FCE0(*(_DWORD*)(a1 + 4640), v1++, 1);
@@ -9685,7 +9697,7 @@ char  nox_xxx_spellAdward_4EFE10(int a1) {
 	if (!result) {
 		v2 = 1;
 		v3 = (_DWORD*)(a1 + 3700);
-		if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_5)) {
+		if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ADMIN)) {
 			do {
 				*v3 = 5;
 				result = nox_xxx_playerAwardSpellProtection_56FCE0(*(_DWORD*)(a1 + 4636), v2++, 5);

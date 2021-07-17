@@ -101,8 +101,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		g_hwnd = v13;
 
 		sub_401070(g_argc, g_argv);
-		if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_13))
-			sub_413E30(/* "Memory dump after GameLoop() :" */);
+		if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_GAMELOOP_MEMDUMP))
+			nox_xxx_gameLoopMemDump_413E30(/* "Memory dump after GameLoop() :" */);
 		*getMemU32Ptr(0x5D4594, 823800) = 1;
 		nox_input_pollEvents_4453A0();
 		DestroyWindow(g_hwnd);

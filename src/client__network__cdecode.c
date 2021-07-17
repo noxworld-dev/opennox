@@ -631,7 +631,7 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 		case 47:
 			nox_xxx_netClearHighBit_578B30(*(_WORD*)(data + 1));
 			if (nox_client_isConnected_43C700()) {
-				if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_29))
+				if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ADDITIONAL_NETWORK_TEST))
 					nox_xxx_netTestHighBit_578B70(*(unsigned __int16*)(data + 1));
 				LODWORD(v5) = nox_xxx_spriteCreate_48E970(*(unsigned __int16*)(data + 3), *(unsigned __int16*)(data + 1),
 										 *(unsigned __int16*)(data + 5), *(unsigned __int16*)(data + 7));
@@ -648,7 +648,7 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 				data += 11;
 				break;
 			}
-			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_29))
+			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ADDITIONAL_NETWORK_TEST))
 				nox_xxx_netTestHighBit_578B70(*(unsigned __int16*)(data + 1));
 			if (*(_WORD*)(data + 3) || *(_WORD*)(data + 1)) {
 				LODWORD(v5) = nox_xxx_spriteCreate_48E970(*(unsigned __int16*)(data + 3), *(unsigned __int16*)(data + 1),
@@ -685,7 +685,7 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 				data += 3;
 				break;
 			}
-			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_29))
+			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ADDITIONAL_NETWORK_TEST))
 				nox_xxx_netTestHighBit_578B70(*(unsigned __int16*)(data + 1));
 			LODWORD(v5) = nox_xxx_netTestHighBit_578B70(*(unsigned __int16*)(data + 1)) ? nox_xxx_netSpriteByCodeStatic_45A720(v45) : nox_xxx_netSpriteByCodeDynamic_45A6F0(v45);
 			v46 = v5;
@@ -716,7 +716,7 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 				data += 3;
 				break;
 			}
-			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_29))
+			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ADDITIONAL_NETWORK_TEST))
 				nox_xxx_netTestHighBit_578B70(*(unsigned __int16*)(data + 1));
 			LODWORD(v5) = nox_xxx_netTestHighBit_578B70(*(unsigned __int16*)(data + 1)) ? nox_xxx_netSpriteByCodeStatic_45A720(v50) : nox_xxx_netSpriteByCodeDynamic_45A6F0(v50);
 			v51 = v5;
@@ -2661,7 +2661,7 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 			break;
 		case 0xC3u:
 			nox_xxx_netClearHighBit_578B30(*(_WORD*)(data + 1));
-			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_29))
+			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ADDITIONAL_NETWORK_TEST))
 				nox_xxx_netTestHighBit_578B70(*(unsigned __int16*)(data + 1));
 			if (*(_WORD*)(data + 3) || *(_WORD*)(data + 1)) {
 				v27 = nox_xxx_spriteCreate_48E970(*(unsigned __int16*)(data + 3), *(unsigned __int16*)(data + 1),

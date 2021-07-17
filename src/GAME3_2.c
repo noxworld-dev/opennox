@@ -4502,7 +4502,7 @@ int nox_server_setupQuestGame_4D6C70() {
 	if (!sub_4D6F30())
 		nox_game_setQuestStage_4E3CD0(0);
 	sub_4D0F30();
-	nox_common_resetEngineFlag(NOX_ENGINE_FLAG_5);
+	nox_common_resetEngineFlag(NOX_ENGINE_FLAG_ADMIN);
 	nox_common_gameFlags_unset_40A540(0x10000);
 	sub_4D9CF0(255);
 	for (int i = nox_xxx_getFirstPlayerUnit_4DA7C0(); i; i = nox_xxx_getNextPlayerUnit_4DA7F0(i))

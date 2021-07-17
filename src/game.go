@@ -169,8 +169,8 @@ func nox_game_rollNoxLogoAndStart_4AB0F0() C.int {
 
 func startServer() int {
 	C.nox_game_createOrJoin_815048 = 1
-	setEngineFlag(NOX_ENGINE_FLAG_5)
-	resetEngineFlag(NOX_ENGINE_FLAG_6)
+	setEngineFlag(NOX_ENGINE_FLAG_ADMIN)
+	resetEngineFlag(NOX_ENGINE_FLAG_GODMODE)
 	noxflags.SetGame(noxflags.GameServerXxx)
 	if !isServerQuest {
 		noxflags.SetGame(noxflags.GameNotQuest)

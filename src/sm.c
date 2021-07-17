@@ -410,8 +410,8 @@ void CONNECT_RESULT(sm_args_t* args) {
 			nox_xxx_cliSetupSession_437190();
 		}
 		nox_xxx_clear18hDD_416190();
-		if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_13)) {
-			sub_413E30();
+		if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_GAMELOOP_MEMDUMP)) {
+			nox_xxx_gameLoopMemDump_413E30();
 		}
 		sub_43D0A0(result);
 		cmain_loop(0);
@@ -448,8 +448,8 @@ void CONNECT_RESULT(sm_args_t* args) {
 			return;
 		}
 	}
-	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_13)) {
-		sub_413E30();
+	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_GAMELOOP_MEMDUMP)) {
+		nox_xxx_gameLoopMemDump_413E30();
 	}
 	if (nox_common_gameFlags_check_40A5C0(0x2000) && nox_common_gameFlags_check_40A5C0(1) && sub_43AF40()) {
 		sub_43AA70();

@@ -1640,14 +1640,14 @@ int  sub_4A5690(_BYTE* a1) {
 }
 
 //----- (004A56E0) --------------------------------------------------------
-void* sub_4A56E0() {
-	nox_common_resetEngineFlag(NOX_ENGINE_FLAG_5);
+void* nox_xxx_clearAdminFlag() {
+	nox_common_resetEngineFlag(NOX_ENGINE_FLAG_ADMIN);
 	return sub_4602F0();
 }
 
 //----- (004A5700) --------------------------------------------------------
-void sub_4A5700() {
-	nox_common_setEngineFlag(NOX_ENGINE_FLAG_5);
+void nox_xxx_setAdminFlag() {
+	nox_common_setEngineFlag(NOX_ENGINE_FLAG_ADMIN);
 }
 
 //----- (004A5C70) --------------------------------------------------------
