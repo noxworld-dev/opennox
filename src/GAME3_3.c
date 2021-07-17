@@ -1011,7 +1011,7 @@ nox_object_t* nox_xxx_newObjectWithType_4E3470(nox_objectType_t* typ) {
 	ob->field_178 = typ->field_42;
 	ob->func_damage = typ->func_damage;
 	ob->func_damage_sound = typ->func_damage_sound;
-	ob->field_181 = typ->field_40;
+	ob->deleteOverride = typ->field_40;
 	ob->field_190 = 0;
 	ob->field_182 = typ->field_41;
 	ob->field_192 = -1;
@@ -1619,8 +1619,8 @@ int*  sub_4E4500(int a1, int a2, int a3, int a4) {
 }
 
 //----- (004E4560) --------------------------------------------------------
-int  nox_xxx_unitSetHP_4E4560(nox_object_t* obj, unsigned __int16 a2) {
-	int a1 = obj;
+int  nox_xxx_unitSetHP_4E4560(nox_object_t* obj, unsigned __int16 amount) {
+	int unit = obj;
 	int result; // eax
 	int v3;     // eax
 	int v4;     // eax
@@ -1629,19 +1629,19 @@ int  nox_xxx_unitSetHP_4E4560(nox_object_t* obj, unsigned __int16 a2) {
 	int v7;     // edx
 	int v8;     // eax
 
-	result = *(_DWORD*)(a1 + 556);
+	result = *(_DWORD*)(unit + 556);
 	if (result) {
-		nox_xxx_unitNeedSync_4E44F0(a1);
-		v3 = *(_DWORD*)(a1 + 492);
+		nox_xxx_unitNeedSync_4E44F0(unit);
+		v3 = *(_DWORD*)(unit + 492);
 		if (v3 && *(_BYTE*)(v3 + 8) & 4)
-			nox_xxx_protect_56FC50(*(_DWORD*)(*(_DWORD*)(*(_DWORD*)(v3 + 748) + 276) + 4632), (int*)a1);
-		**(_WORD**)(a1 + 556) = a2;
-		if (*(_BYTE*)(a1 + 8) & 4)
-			nox_xxx_protectPlayerHPMana_56F870(*(_DWORD*)(*(_DWORD*)(*(_DWORD*)(a1 + 748) + 276) + 4584), a2);
-		v4 = *(_DWORD*)(a1 + 8);
-		if (v4 & 2 && (*(_BYTE*)(a1 + 12) & 0x80)) {
+			nox_xxx_protect_56FC50(*(_DWORD*)(*(_DWORD*)(*(_DWORD*)(v3 + 748) + 276) + 4632), (int*)unit);
+		**(_WORD**)(unit + 556) = amount;
+		if (*(_BYTE*)(unit + 8) & 4) // Is player and is local?
+			nox_xxx_protectPlayerHPMana_56F870(*(_DWORD*)(*(_DWORD*)(*(_DWORD*)(unit + 748) + 276) + 4584), amount);
+		v4 = *(_DWORD*)(unit + 8); // Is player?
+		if (v4 & 2 && (*(_BYTE*)(unit + 12) & 0x80)) {
 			if (v4 & 0x20400004) {
-				v5 = (int*)(a1 + 560);
+				v5 = (int*)(unit + 560);
 				v6 = 32;
 				do {
 					v7 = *v5;
@@ -1650,15 +1650,15 @@ int  nox_xxx_unitSetHP_4E4560(nox_object_t* obj, unsigned __int16 a2) {
 					*(v5 - 1) = v7 & 0xFFFFF000 | 0x20000;
 				} while (v6);
 			} else {
-				nox_xxx_objectTypeByInd_4E3B70(*(unsigned __int16*)(a1 + 4));
-				v8 = sub_4E4C90(a1, 2u);
-				sub_4E4500(a1, 0x20000, 2, v8);
+				nox_xxx_objectTypeByInd_4E3B70(*(unsigned __int16*)(unit + 4));
+				v8 = sub_4E4C90(unit, 2u);
+				sub_4E4500(unit, 0x20000, 2, v8);
 			}
 		}
-		result = *(_DWORD*)(a1 + 492);
+		result = *(_DWORD*)(unit + 492);
 		if (result) {
 			if (*(_BYTE*)(result + 8) & 4)
-				result = nox_xxx_protect_56FBF0(*(_DWORD*)(*(_DWORD*)(*(_DWORD*)(result + 748) + 276) + 4632), (int*)a1);
+				result = nox_xxx_protect_56FBF0(*(_DWORD*)(*(_DWORD*)(*(_DWORD*)(result + 748) + 276) + 4632), (int*)unit);
 		}
 	}
 	return result;
@@ -5456,19 +5456,19 @@ void  nox_xxx_collideBoom_4E9770(int a1, int a2, float* a3) {
 }
 
 //----- (004E99B0) --------------------------------------------------------
-void  nox_xxx_collideDie_4E99B0(int a1, int a2) {
+void  nox_xxx_collideDie_4E99B0(int unit, int a2) {
 	int v2;                  // edx
-	void( * v3)(int); // eax
+	void( * deleteOverride)(int); // eax
 
-	if (a2 && !nox_xxx_unitsHaveSameTeam_4EC520(a1, a2) && *(_BYTE*)(a2 + 8) & 6) {
-		v2 = *(_DWORD*)(a1 + 16);
-		v3 = *(void(**)(int))(a1 + 724);
+	if (a2 && !nox_xxx_unitsHaveSameTeam_4EC520(unit, a2) && *(_BYTE*)(a2 + 8) & 6) {
+		v2 = *(_DWORD*)(unit + 16);
+		deleteOverride = *(void(**)(int))(unit + 724);
 		BYTE1(v2) |= 0x80u;
-		*(_DWORD*)(a1 + 16) = v2;
-		if (v3)
-			v3(a1);
+		*(_DWORD*)(unit + 16) = v2;
+		if (deleteOverride)
+			deleteOverride(unit);
 		else
-			nox_xxx_delayedDeleteObject_4E5CC0(a1);
+			nox_xxx_delayedDeleteObject_4E5CC0(unit);
 	}
 }
 
@@ -8755,63 +8755,64 @@ void  nox_xxx_mobInformOwnerHP_4EE4C0(nox_object_t* obj) {
 }
 
 //----- (004EE5E0) --------------------------------------------------------
-void  nox_xxx_unitDamageClear_4EE5E0(int a1, int a2) {
-	int v2;                  // eax
+void  nox_xxx_unitDamageClear_4EE5E0(int unit, int damageAmount) {
+	int healthData;                  // eax
 	int v3;                  // eax
 	int v4;                  // eax
-	void( * v5)(int); // eax
+	void( * deleteOverride)(int); // eax
 
-	if (a1) {
-		v2 = *(_DWORD*)(a1 + 556);
-		if (v2) {
-			if (*(_WORD*)(v2 + 4) && (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_6) || !(*(_BYTE*)(a1 + 8) & 4))) {
-				if (*(_BYTE*)(a1 + 8) & 4) {
-					v3 = *(_DWORD*)(a1 + 748);
+	if (unit) {
+		healthData = *(_DWORD*)(unit + 556);
+		if (healthData) {
+			if (*(_WORD*)(healthData + 4) && (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_6) || !(*(_BYTE*)(unit + 8) & 4))) {
+				if (*(_BYTE*)(unit + 8) & 4) {
+					v3 = *(_DWORD*)(unit + 748);
 					if (v3) {
 						if (!*(_BYTE*)(*(_DWORD*)(v3 + 276) + 2251) && *(_DWORD*)(v3 + 132))
-							nox_xxx_harpoonBreakForPlr_537520((_DWORD*)a1);
+							nox_xxx_harpoonBreakForPlr_537520((_DWORD*)unit);
 					}
 				}
-				if (**(unsigned __int16**)(a1 + 556) > a2) {
-					nox_xxx_unitSetHP_4E4560(a1, **(_WORD**)(a1 + 556) - a2);
+				// Checks if health is higher than the amount of damage
+				if (**(unsigned __int16**)(unit + 556) > damageAmount) {
+					nox_xxx_unitSetHP_4E4560(unit, **(_WORD**)(unit + 556) - damageAmount);
 				} else {
-					nox_xxx_unitSetHP_4E4560(a1, 0);
-					v4 = *(_DWORD*)(a1 + 16);
+					nox_xxx_unitSetHP_4E4560(unit, 0);
+					v4 = *(_DWORD*)(unit + 16);
 					if ((v4 & 0x8000) == 0) {
 						BYTE1(v4) |= 0x80u;
-						*(_DWORD*)(a1 + 16) = v4;
-						nox_xxx_spellBuffOff_4FF5B0(a1, 16);
-						if (!nox_xxx_unitIsZombie_534A40(a1))
-							nox_xxx_soloMonsterKillReward_4EE500_obj_health(a1);
-						if (*(_BYTE*)(a1 + 8) & 2) {
-							nox_xxx_monsterCallDieFn_50A3D0((_DWORD*)a1);
+						*(_DWORD*)(unit + 16) = v4;
+						nox_xxx_spellBuffOff_4FF5B0(unit, 16);
+						if (!nox_xxx_unitIsZombie_534A40(unit))
+							nox_xxx_soloMonsterKillReward_4EE500_obj_health(unit);
+						if (*(_BYTE*)(unit + 8) & 2) {
+							nox_xxx_monsterCallDieFn_50A3D0((_DWORD*)unit);
 						} else {
-							v5 = *(void(**)(int))(a1 + 724);
-							if (v5)
-								v5(a1);
+							deleteOverride = *(void(**)(int))(unit + 724);
+							if (deleteOverride)
+								deleteOverride(unit);
 							else
-								nox_xxx_delayedDeleteObject_4E5CC0(a1);
+								nox_xxx_delayedDeleteObject_4E5CC0(unit);
 						}
 					}
 				}
-				if (*(_BYTE*)(a1 + 8) & 2)
-					nox_xxx_mobInformOwnerHP_4EE4C0((_DWORD*)a1);
+				if (*(_BYTE*)(unit + 8) & 2)
+					nox_xxx_mobInformOwnerHP_4EE4C0((_DWORD*)unit);
 			}
 		}
 	}
 }
 
 //----- (004EE6F0) --------------------------------------------------------
-void  nox_xxx_unitHPsetOnMax_4EE6F0(int a1) {
+void  nox_xxx_unitHPsetOnMax_4EE6F0(int unit) {
 	int v1; // eax
 
-	if (a1) {
-		v1 = *(_DWORD*)(a1 + 556);
+	if (unit) {
+		v1 = *(_DWORD*)(unit + 556);
 		if (v1) {
-			nox_xxx_unitSetHP_4E4560(a1, *(_WORD*)(v1 + 4));
-			*(_WORD*)(*(_DWORD*)(a1 + 556) + 2) = **(_WORD**)(a1 + 556);
-			if (*(_BYTE*)(a1 + 8) & 2)
-				nox_xxx_mobInformOwnerHP_4EE4C0((_DWORD*)a1);
+			nox_xxx_unitSetHP_4E4560(unit, *(_WORD*)(v1 + 4));
+			*(_WORD*)(*(_DWORD*)(unit + 556) + 2) = **(_WORD**)(unit + 556);
+			if (*(_BYTE*)(unit + 8) & 2)
+				nox_xxx_mobInformOwnerHP_4EE4C0((_DWORD*)unit);
 		}
 	}
 }

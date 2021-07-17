@@ -477,7 +477,7 @@ typedef struct nox_object_t {
 	const char* id; // 0, 0
 	unsigned short typ_ind; // 1, 4
 	_WORD field_1_2; // 1, 6
-	unsigned int obj_class; // 2, 8
+	unsigned int obj_class; // 2, 8 -- Bitmask: 0x2 is owned monster, 0x4 is player
 	_DWORD field_3; // 3, 12, // TODO: some flags?
 	unsigned int field_4; // 4, 16, // TODO: some flags?
 	_DWORD field_5; // 5, 20
@@ -605,7 +605,7 @@ typedef struct nox_object_t {
 	float float_136; // 136, 544, TODO: current speed?
 	float float_137; // 137, 548
 	float float_138; // 138, 552
-	void* field_139; // 139, 556, TODO: data, *[20]byte
+	void* field_139; // 139, 556, TODO: data, *[20]byte, related to health and damage
 	_DWORD field_140; // 140, 560
 	_DWORD field_141; // 141, 564
 	_DWORD field_142; // 142, 568
@@ -647,7 +647,7 @@ typedef struct nox_object_t {
 	_DWORD field_178; // 178, 712
 	void* func_damage; // 179, 716
 	void* func_damage_sound; // 180, 720
-	_DWORD field_181; // 181, 724
+	_DWORD deleteOverride; // 181, 724 // deletion override function (see 004EE5E0)
 	_DWORD field_182; // 182, 728
 	_DWORD field_183; // 183, 732
 	void* field_184; // 184, 736, // TODO: data
