@@ -75,9 +75,9 @@ int nox_game_showSelChar_4A4DB0() {
 			sub_4A19F0("OptsBack.wnd:Back");
 			nox_xxx_wndRetNULL_46A8A0();
 			if (nox_common_gameFlags_check_40A5C0(0x2000))
-				sub_4A5700();
+				nox_xxx_setAdminFlag();
 			else
-				sub_4A56E0();
+				nox_xxx_clearAdminFlag();
 			if (nox_common_gameFlags_check_40A5C0(0x2000000)) {
 				v9 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1307764, 502);
 				nox_window_call_field_94(*(int*)&dword_5d4594_1307764, 16391, (int)v9, 0);

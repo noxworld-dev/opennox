@@ -589,7 +589,7 @@ typedef struct nox_object_t {
 	_BYTE field_122_0; // 122, 488
 	_BYTE field_122_1; // 122, 489
 	_WORD field_122_2; // 122, 490
-	_DWORD field_123; // 123, 492
+	_DWORD field_123; // 123, 492 // Also health data, possibly same as 556, see 4E4560
 	void* field_124; // 124, 496
 	_DWORD field_125; // 125, 500
 	void* field_126; // 126, 504
@@ -653,7 +653,7 @@ typedef struct nox_object_t {
 	void* field_184; // 184, 736, // TODO: data
 	_DWORD field_185; // 185, 740
 	_DWORD field_186; // 186, 744
-	void* field_187; // 187, 748, // TODO: data
+	void* field_187; // 187, 748, // Mana data, source 4EEBF0
 	_DWORD field_188; // 188, 752
 	_DWORD field_189; // 189, 756
 	_DWORD field_190; // 190, 760
@@ -1400,15 +1400,15 @@ typedef enum {
 	NOX_ENGINE_FLAG_ENABLE_SHOW_EXTENTS = 1u << 1u,
 	NOX_ENGINE_FLAG_3 = 1u << 2u,
 	NOX_ENGINE_FLAG_ENABLE_SHOW_AI = 1u << 3u,
-	NOX_ENGINE_FLAG_5 = 1u << 4u,
-	NOX_ENGINE_FLAG_6 = 1u << 5u,
+	NOX_ENGINE_FLAG_ADMIN = 1u << 4u,
+	NOX_ENGINE_FLAG_GODMODE = 1u << 5u,
 	NOX_ENGINE_FLAG_7 = 1u << 6u,
 	NOX_ENGINE_FLAG_8 = 1u << 7u,
 	NOX_ENGINE_FLAG_9 = 1u << 8u,
 	NOX_ENGINE_FLAG_ENABLE_WINDOWED_MODE = 1u << 9u,
 	NOX_ENGINE_FLAG_ENABLE_SOFT_SHADOW_EDGE = 1u << 10u,
 	NOX_ENGINE_FLAG_12 = 1u << 11u,
-	NOX_ENGINE_FLAG_13 = 1u << 12u,
+	NOX_ENGINE_FLAG_GAMELOOP_MEMDUMP = 1u << 12u,
 	NOX_ENGINE_FLAG_14 = 1u << 13u,
 	NOX_ENGINE_FLAG_15 = 1u << 14u,
 	NOX_ENGINE_FLAG_ENABLE_NET_DEBUG = 1u << 15u,
@@ -1419,15 +1419,15 @@ typedef enum {
 	NOX_ENGINE_FLAG_DISABLE_FLOOR_RENDERING = 1u << 20u,
 	NOX_ENGINE_FLAG_REPLAY_WRITE = 1u << 21u,
 	NOX_ENGINE_FLAG_REPLAY_READ = 1u << 22u,
-	NOX_ENGINE_FLAG_24 = 1u << 23u,
-	NOX_ENGINE_FLAG_25 = 1u << 24u,
-	NOX_ENGINE_FLAG_26 = 1u << 25u,
+	NOX_ENGINE_FLAG_LOG_TO_FILE = 1u << 23u,
+	NOX_ENGINE_FLAG_LOG_TO_CONSOLE = 1u << 24u,
+	NOX_ENGINE_FLAG_LOCK_VIDEO_RESOLUTION = 1u << 25u,
 	NOX_ENGINE_FLAG_27 = 1u << 26u,
-	NOX_ENGINE_FLAG_28 = 1u << 27u,
-	NOX_ENGINE_FLAG_29 = 1u << 28u,
+	NOX_ENGINE_FLAG_SAVE_DEBUG = 1u << 27u,
+	NOX_ENGINE_FLAG_ADDITIONAL_NETWORK_TEST = 1u << 28u,
 	NOX_ENGINE_FLAG_LOG_BAND = 1u << 29u,
-	NOX_ENGINE_FLAG_31 = 1u << 30u,
-	NOX_ENGINE_FLAG_32 = 1u << 31u,
+	NOX_ENGINE_FLAG_SLEEP = 1u << 30u,
+	NOX_ENGINE_FLAG_PAUSE = 1u << 31u,
 } nox_engine_flag;
 
 #pragma pack(push,1)

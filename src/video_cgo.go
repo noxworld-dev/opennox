@@ -387,7 +387,7 @@ func recreateRenderTarget() error {
 	if C.dword_5d4594_805860 != 0 {
 		flags |= 0x18
 	}
-	if getEngineFlag(NOX_ENGINE_FLAG_26) && C.nox_video_dxFullScreen != 0 {
+	if getEngineFlag(NOX_ENGINE_FLAG_LOCK_VIDEO_RESOLUTION) && C.nox_video_dxFullScreen != 0 {
 		flags &= 0xFFFFFFDF
 	}
 	if C.nox_enable_threads == 0 {

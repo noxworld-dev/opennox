@@ -227,11 +227,11 @@ mainloop:
 		C.sub_435750()
 		if memmap.Uint32(0x587000, 93192) != 0 {
 			if noxflags.HasGame(noxflags.GameHost) && noxflags.HasGame(noxflags.GameFlag2) && !getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) && noxflags.HasGame(noxflags.GameFlag29) {
-				if !getEngineFlag(NOX_ENGINE_FLAG_32) {
+				if !getEngineFlag(NOX_ENGINE_FLAG_PAUSE) {
 					nox_ticks_maybe_sleep_416DD0()
 				}
 			} else {
-				if !getEngineFlag(NOX_ENGINE_FLAG_31) {
+				if !getEngineFlag(NOX_ENGINE_FLAG_SLEEP) {
 					for !nox_ticks_should_update_416CD0() {
 					}
 				} else {
@@ -335,8 +335,8 @@ mainloop:
 			nox_xxx_cliSetupSession_437190()
 		}
 		C.nox_xxx_clear18hDD_416190()
-		if getEngineFlag(NOX_ENGINE_FLAG_13) {
-			C.sub_413E30()
+		if getEngineFlag(NOX_ENGINE_FLAG_GAMELOOP_MEMDUMP) {
+			C.nox_xxx_gameLoopMemDump_413E30()
 		}
 		// C.nullsub_2()
 
@@ -716,8 +716,8 @@ func CONNECT_RESULT_FAIL(result int) {
 		nox_xxx_cliSetupSession_437190()
 	}
 	C.nox_xxx_clear18hDD_416190()
-	if getEngineFlag(NOX_ENGINE_FLAG_13) {
-		C.sub_413E30()
+	if getEngineFlag(NOX_ENGINE_FLAG_GAMELOOP_MEMDUMP) {
+		C.nox_xxx_gameLoopMemDump_413E30()
 	}
 	C.sub_43D0A0(C.int(result))
 	cmainLoop()
@@ -770,8 +770,8 @@ func CONNECT_RESULT_OK() {
 			return
 		}
 	}
-	if getEngineFlag(NOX_ENGINE_FLAG_13) {
-		C.sub_413E30()
+	if getEngineFlag(NOX_ENGINE_FLAG_GAMELOOP_MEMDUMP) {
+		C.nox_xxx_gameLoopMemDump_413E30()
 	}
 	if noxflags.HasGame(noxflags.GameServerXxx) && noxflags.HasGame(noxflags.GameHost) && C.sub_43AF40() != 0 {
 		C.sub_43AA70()

@@ -762,7 +762,7 @@ int nox_cmd_set_obs(int tokInd, int tokCnt, wchar_t** tokens) {
 
 //----- (004423D0) --------------------------------------------------------
 int nox_cmd_set_save_debug(int tokInd, int tokCnt, wchar_t** tokens) {
-	nox_common_setEngineFlag(NOX_ENGINE_FLAG_28);
+	nox_common_setEngineFlag(NOX_ENGINE_FLAG_SAVE_DEBUG);
 	wchar_t* s = nox_strman_loadString_40F1D0("savedebugset", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2541);
 	nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, s);
 	return 1;
@@ -2195,7 +2195,7 @@ int nox_cmd_show_info(int tokInd, int tokCnt, wchar_t** tokens) {
 //----- (00441500) --------------------------------------------------------
 int nox_cmd_show_mem(int tokInd, int tokCnt, wchar_t** tokens) {
 	nox_server_currentMapGetFilename_409B30();
-	sub_413E30();
+	nox_xxx_gameLoopMemDump_413E30();
 	return 1;
 }
 
@@ -2252,7 +2252,7 @@ int nox_cmd_list_maps(int tokInd, int tokCnt, wchar_t** tokens) {
 int nox_cmd_log_file(int tokInd, int tokCnt, wchar_t** tokens) {
 	if (tokCnt == 3) {
 		if (tokens[2]) {
-			nox_common_setEngineFlag(NOX_ENGINE_FLAG_24);
+			nox_common_setEngineFlag(NOX_ENGINE_FLAG_LOG_TO_FILE);
 			char v4[256];
 			nox_sprintf(v4, "%S", tokens[2]);
 			return nox_xxx_log_4_reopen_413A80(v4);
@@ -2265,7 +2265,7 @@ int nox_cmd_log_file(int tokInd, int tokCnt, wchar_t** tokens) {
 int nox_cmd_log_console(int tokInd, int tokCnt, wchar_t** tokens) {
 	if (tokCnt != 2)
 		return 0;
-	nox_common_setEngineFlag(NOX_ENGINE_FLAG_25);
+	nox_common_setEngineFlag(NOX_ENGINE_FLAG_LOG_TO_CONSOLE);
 	return 1;
 }
 

@@ -4070,7 +4070,7 @@ int  nox_xxx_spellCheckSmth_4FCEF0(int a1, int* a2, int a3) {
 		v3 = a2;
 		if (a2) {
 			if (a3) {
-				if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_6))
+				if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_GODMODE))
 					return 1;
 				if (*(_BYTE*)(a1 + 8) & 2)
 					return 1;
@@ -4110,7 +4110,7 @@ int  sub_4FCF90(int a1, int a2, int a3) {
 		return -1;
 	if (!a2)
 		return -1;
-	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_6))
+	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_GODMODE))
 		return 0;
 	if (a2 < 75 || a2 > 114)
 		v5 = nox_xxx_spellManaCost_4249A0(a2, a3);

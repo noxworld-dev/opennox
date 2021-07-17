@@ -51,11 +51,11 @@ void nox_xxx_clientDrawAll_436100_draw() {
 	}
 	if (!(!*getMemU32Ptr(0x587000, 85724) || v3 || !nox_common_gameFlags_check_40A5C0(1) || sub_416D70() ||
 		  nox_client_gui_flag_815132 || nox_xxx_checkGameFlagPause_413A50() || nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING))) {
-		nox_common_setEngineFlag(NOX_ENGINE_FLAG_32);
+		nox_common_setEngineFlag(NOX_ENGINE_FLAG_PAUSE);
 		return;
 	}
 	*getMemU32Ptr(0x5D4594, 814532) = v2;
-	nox_common_resetEngineFlag(NOX_ENGINE_FLAG_32);
+	nox_common_resetEngineFlag(NOX_ENGINE_FLAG_PAUSE);
 	*getMemU32Ptr(0x5D4594, 814536) = v1;
 	*getMemU32Ptr(0x5D4594, 811916) = nox_frame_xxx_2598000;
 	if (*getMemU32Ptr(0x587000, 85744)) {

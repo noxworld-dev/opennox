@@ -38,10 +38,10 @@ import (
 func drawAndPresent() {
 	if C.nox_client_gui_flag_815132 != 0 {
 		guiAnimationStep()
-		resetEngineFlag(NOX_ENGINE_FLAG_32)
+		resetEngineFlag(NOX_ENGINE_FLAG_PAUSE)
 		generateMouseSparks(inpHandlerS)
 	}
-	if !getEngineFlag(NOX_ENGINE_FLAG_32) {
+	if !getEngineFlag(NOX_ENGINE_FLAG_PAUSE) {
 		mainloopDrawAndPresent(inpHandlerS)
 	}
 }

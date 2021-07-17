@@ -156,7 +156,7 @@ int  nox_xxx_windowMainMenuProc_4A1DC0(int a1, int a2, int* a3, int a4) {
 					nox_common_gameFlags_unset_40A540(0x2000);
 					nox_common_gameFlags_unset_40A540(0x10000);
 					nox_xxx_gameSetAudioFadeoutMb_501AC0(0);
-					nox_common_resetEngineFlag(NOX_ENGINE_FLAG_5 | NOX_ENGINE_FLAG_6);
+					nox_common_resetEngineFlag(NOX_ENGINE_FLAG_ADMIN | NOX_ENGINE_FLAG_GODMODE);
 					sub_4D6F40(0);
 					sub_4D6F90(0);
 					sub_4D6F60(0);
@@ -192,8 +192,8 @@ int  nox_xxx_windowMainMenuProc_4A1DC0(int a1, int a2, int* a3, int a4) {
 			case 112:
 				// prepare to start a server
 				sub_4A1D40();
-				nox_common_setEngineFlag(NOX_ENGINE_FLAG_5);
-				nox_common_resetEngineFlag(NOX_ENGINE_FLAG_6);
+				nox_common_setEngineFlag(NOX_ENGINE_FLAG_ADMIN);
+				nox_common_resetEngineFlag(NOX_ENGINE_FLAG_GODMODE);
 				nox_xxx_setGameFlags_40A4D0(0x2000);
 				nox_xxx_setGameFlags_40A4D0(0x10000);
 				nox_common_gameFlags_unset_40A540(2048);
@@ -242,8 +242,8 @@ int  nox_xxx_windowMainMenuProc_4A1DC0(int a1, int a2, int* a3, int a4) {
 					return 1;
 				}
 				sub_4A1D40();
-				nox_common_setEngineFlag(NOX_ENGINE_FLAG_5);
-				nox_common_resetEngineFlag(NOX_ENGINE_FLAG_6);
+				nox_common_setEngineFlag(NOX_ENGINE_FLAG_ADMIN);
+				nox_common_resetEngineFlag(NOX_ENGINE_FLAG_GODMODE);
 				nox_xxx_setGameFlags_40A4D0(0x2000);
 				nox_xxx_setGameFlags_40A4D0(0x10000);
 				nox_common_gameFlags_unset_40A540(2048);
