@@ -8126,16 +8126,16 @@ void  nox_xxx_updatePhantomPlayer_53B860(int a1) {
 }
 
 //----- (0053B8F0) --------------------------------------------------------
-void  nox_xxx_updateLifetime_53B8F0(int a1) {
-	void( * v1)(int); // ecx
+void  nox_xxx_updateLifetime_53B8F0(int unit) {
+	void( * deleteOverride)(int); // ecx
 
-	if ((unsigned int)(nox_frame_xxx_2598000 - *(_DWORD*)(a1 + 128)) > **(_DWORD**)(a1 + 748)) {
-		v1 = *(void(**)(int))(a1 + 724);
-		*(_DWORD*)(a1 + 16) |= 0x8000u;
-		if (v1)
-			v1(a1);
+	if ((unsigned int)(nox_frame_xxx_2598000 - *(_DWORD*)(unit + 128)) > **(_DWORD**)(unit + 748)) {
+		deleteOverride = *(void(**)(int))(unit + 724);
+		*(_DWORD*)(unit + 16) |= 0x8000u;
+		if (deleteOverride)
+			deleteOverride(unit);
 		else
-			nox_xxx_delayedDeleteObject_4E5CC0(a1);
+			nox_xxx_delayedDeleteObject_4E5CC0(unit);
 	}
 }
 
