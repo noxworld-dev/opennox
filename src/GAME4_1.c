@@ -3253,10 +3253,10 @@ int  sub_50E1B0(int a1) {
 }
 
 //----- (0050E1E0) --------------------------------------------------------
-void  sub_50E1E0(int a1) {
-	if (a1) {
-		if (!nox_xxx_unitIsZombie_534A40(a1))
-			sub_50E140(a1);
+void  sub_50E1E0(int object) {
+	if (object) {
+		if (!nox_xxx_unitIsZombie_534A40(object))
+			sub_50E140(object);
 	}
 }
 
