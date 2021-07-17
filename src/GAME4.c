@@ -7428,14 +7428,14 @@ _DWORD*  nox_xxx_unitDoSummonAt_5016C0(int a1, int* a2, int a3, unsigned __int8 
 }
 
 //----- (005017F0) --------------------------------------------------------
-void  nox_xxx_banishUnit_5017F0(int unitId) {
+void  nox_xxx_banishUnit_5017F0(int unit) {
 	int v1; // eax
 	int v2; // esi
 
 	if (!*getMemU32Ptr(0x5D4594, 1570280))
 		*getMemU32Ptr(0x5D4594, 1570280) = nox_xxx_getNameId_4E3AA0("Glyph");
-	if (unitId) {
-		v1 = *(_DWORD*)(unitId + 504);
+	if (unit) {
+		v1 = *(_DWORD*)(unit + 504);
 		if (v1) {
 			do {
 				v2 = *(_DWORD*)(v1 + 496);
@@ -7444,8 +7444,8 @@ void  nox_xxx_banishUnit_5017F0(int unitId) {
 				v1 = v2;
 			} while (v2);
 		}
-		nox_xxx_netSendPointFx_522FF0(129, (float2*)(unitId + 56));
-		nox_xxx_delayedDeleteObject_4E5CC0(unitId);
+		nox_xxx_netSendPointFx_522FF0(129, (float2*)(unit + 56));
+		nox_xxx_delayedDeleteObject_4E5CC0(unit);
 	}
 }
 
