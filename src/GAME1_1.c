@@ -2494,6 +2494,7 @@ int sub_41C200() {
 }
 
 //----- (0041C280) --------------------------------------------------------
+//Related to placing traps??
 int  sub_41C280(void* a1) {
 	int result; // eax
 	char* v2;   // eax
@@ -2526,7 +2527,7 @@ int  sub_41C280(void* a1) {
 			nox_xxx_fileReadWrite_426AC0_file3_fread(&a1, 1u);
 			if (*getMemU32Ptr(0x5D4594, 3803300) == 1) {
 				if (nox_common_gameFlags_check_40A5C0(2048))
-					sub_500C70((unsigned __int8)v3[2064], (unsigned __int8)a1);
+					nox_xxx_orderUnitLocal_500C70((unsigned __int8)v3[2064], (unsigned __int8)a1);
 			}
 		}
 		result = 1;

@@ -6913,9 +6913,10 @@ int sub_500B70() {
 // 500B70: using guessed type char var_100[256];
 
 //----- (00500C70) --------------------------------------------------------
-int  sub_500C70(int a1, int a2) {
-	*((_DWORD*)nox_common_playerInfoFromNum_417090(a1) + 912) = a2;
-	return nox_xxx_netCreatureCmd_4D7EE0(a1, a2);
+// Sends information to the player that an unit order happened
+int  nox_xxx_orderUnitLocal_500C70(int owner, int orderType) {
+	*((_DWORD*)nox_common_playerInfoFromNum_417090(owner) + 912) = orderType;
+	return nox_xxx_netCreatureCmd_4D7EE0(owner, orderType);
 }
 
 //----- (00500CA0) --------------------------------------------------------
@@ -7427,14 +7428,14 @@ _DWORD*  nox_xxx_unitDoSummonAt_5016C0(int a1, int* a2, int a3, unsigned __int8 
 }
 
 //----- (005017F0) --------------------------------------------------------
-void  sub_5017F0(int a1) {
+void  nox_xxx_banishUnit_5017F0(int unitId) {
 	int v1; // eax
 	int v2; // esi
 
 	if (!*getMemU32Ptr(0x5D4594, 1570280))
 		*getMemU32Ptr(0x5D4594, 1570280) = nox_xxx_getNameId_4E3AA0("Glyph");
-	if (a1) {
-		v1 = *(_DWORD*)(a1 + 504);
+	if (unitId) {
+		v1 = *(_DWORD*)(unitId + 504);
 		if (v1) {
 			do {
 				v2 = *(_DWORD*)(v1 + 496);
@@ -7443,8 +7444,8 @@ void  sub_5017F0(int a1) {
 				v1 = v2;
 			} while (v2);
 		}
-		nox_xxx_netSendPointFx_522FF0(129, (float2*)(a1 + 56));
-		nox_xxx_delayedDeleteObject_4E5CC0(a1);
+		nox_xxx_netSendPointFx_522FF0(129, (float2*)(unitId + 56));
+		nox_xxx_delayedDeleteObject_4E5CC0(unitId);
 	}
 }
 

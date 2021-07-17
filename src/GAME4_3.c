@@ -2709,27 +2709,29 @@ int  nox_xxx_mobActionToAnimation_533790(int a1) {
 }
 
 //----- (00533900) --------------------------------------------------------
-void  nox_xxx_orderUnit_533900(int a1, int a2, int a3) {
+void  nox_xxx_orderUnit_533900(int owner, int creature, int orderType) {
 	int i; // esi
 
-	if (a1) {
-		if (a2) {
-			sub_5339A0(a1, a2, a3);
+	if (owner) {
+		if (creature) {
+			nox_xxx_enactUnitOrder_5339A0(owner, creature, orderType);
 		} else {
-			if (*(_BYTE*)(a1 + 8) & 4 && (a3 == 4 || a3 == 3 || a3 == 5))
-				sub_500C70(*(unsigned __int8*)(*(_DWORD*)(*(_DWORD*)(a1 + 748) + 276) + 2064), a3);
-			for (i = *(_DWORD*)(a1 + 516); i; i = *(_DWORD*)(i + 512)) {
+			//Sends message to player. owner+8 might be isPlayer/isLocalPlayer
+			if (*(_BYTE*)(owner + 8) & 4 && (orderType == 4 || orderType == 3 || orderType == 5))
+				nox_xxx_orderUnitLocal_500C70(*(unsigned __int8*)(*(_DWORD*)(*(_DWORD*)(owner + 748) + 276) + 2064), orderType);
+			//I think this loops through all of the owner's units
+			for (i = *(_DWORD*)(owner + 516); i; i = *(_DWORD*)(i + 512)) {
 				if (*(_BYTE*)(i + 8) & 2) {
 					if (*(_BYTE*)(*(_DWORD*)(i + 748) + 1440) & 0x80)
-						sub_5339A0(a1, i, a3);
+						nox_xxx_enactUnitOrder_5339A0(owner, i, orderType);
 				}
-			}
+			}	
 		}
 	}
 }
 
 //----- (005339A0) --------------------------------------------------------
-void  sub_5339A0(int a1, int a2, int a3) {
+void  nox_xxx_enactUnitOrder_5339A0(int source, int unit, int orderId) {
 	_DWORD* v3;       // edi
 	int v4;           // eax
 	_DWORD* v5;       // eax
@@ -2746,87 +2748,87 @@ void  sub_5339A0(int a1, int a2, int a3) {
 	int v16;          // eax
 	unsigned int v17; // ebp
 
-	v3 = *(_DWORD**)(a2 + 748);
-	if (a1 && *(_BYTE*)(a2 + 8) & 2) {
-		if (nox_xxx_unitIsZombie_534A40(a2) && !a3 || (v4 = *(_DWORD*)(a2 + 16), (v4 & 0x8000) == 0)) {
-			if (v3[121] || (v5 = nox_xxx_monsterDefByTT_517560(*(unsigned __int16*)(a2 + 4)), (v3[121] = v5) != 0)) {
-				switch (a3) {
-				case 0:
-					if (*(_DWORD*)(a2 + 508) == a1)
-						sub_5017F0(a2);
+	v3 = *(_DWORD**)(unit + 748);
+	if (source && *(_BYTE*)(unit + 8) & 2) {
+		if (nox_xxx_unitIsZombie_534A40(unit) && !orderId || (v4 = *(_DWORD*)(unit + 16), (v4 & 0x8000) == 0)) {
+			if (v3[121] || (v5 = nox_xxx_monsterDefByTT_517560(*(unsigned __int16*)(unit + 4)), (v3[121] = v5) != 0)) {
+				switch (orderId) {
+				case 0: //BANISH
+					if (*(_DWORD*)(unit + 508) == source) // 508 - unit owner?
+						nox_xxx_banishUnit_5017F0(unit);
 					break;
-				case 1:
-					if (*(_BYTE*)(a1 + 8) & 4)
-						nox_xxx_playerObserveMonster_4DDE80(a1, a2);
+				case 1: //OBSERVE
+					if (*(_BYTE*)(source + 8) & 4) // if source is player / local player ???
+						nox_xxx_playerObserveMonster_4DDE80(source, unit);
 					break;
-				case 2:
-					if (*(_BYTE*)(a1 + 8) & 4)
-						nox_xxx_monsterCmdSend_528BD0(a2, a1, "MonUtil.c:idle", 0);
-					v6 = nox_xxx_monsterGetSoundSet_424300(a2);
+				case 2: //IDLE
+					if (*(_BYTE*)(source + 8) & 4)
+						nox_xxx_monsterCmdSend_528BD0(unit, source, "MonUtil.c:idle", 0);
+					v6 = nox_xxx_monsterGetSoundSet_424300(unit);
 					if (v6)
-						nox_xxx_aud_501960(*(_DWORD*)(v6 + 68), a2, 0, 0);
+						nox_xxx_aud_501960(*(_DWORD*)(v6 + 68), unit, 0, 0);
 					v7 = v3[360] & 0xFFFFFFBF;
 					v3[326] = 1056964608;
 					v3[360] = v7;
-					nox_xxx_monsterClearActionStack_50A3A0(a2);
-					nox_xxx_monsterPushAction_50A260(a2, 0);
+					nox_xxx_monsterClearActionStack_50A3A0(unit);
+					nox_xxx_monsterPushAction_50A260(unit, 0);
 					break;
-				case 3:
-					if (nox_xxx_monsterIsMoveing_534320(a2)) {
-						if (*(_BYTE*)(a1 + 8) & 4)
-							nox_xxx_monsterCmdSend_528BD0(a2, a1, "MonUtil.c:guarding", 0);
-						v8 = nox_xxx_monsterGetSoundSet_424300(a2);
+				case 3: //GUARD
+					if (nox_xxx_monsterIsMoveing_534320(unit)) {
+						if (*(_BYTE*)(source + 8) & 4)
+							nox_xxx_monsterCmdSend_528BD0(unit, source, "MonUtil.c:guarding", 0);
+						v8 = nox_xxx_monsterGetSoundSet_424300(unit);
 						if (v8)
-							nox_xxx_aud_501960(*(_DWORD*)(v8 + 68), a2, 0, 0);
+							nox_xxx_aud_501960(*(_DWORD*)(v8 + 68), unit, 0, 0);
 						v3[326] = 1056964608;
-						if (nox_xxx_monsterCanShoot_534280(a2)) {
+						if (nox_xxx_monsterCanShoot_534280(unit)) {
 							v9 = v3[360];
 							LOBYTE(v9) = v9 | 0x40;
 							v3[360] = v9;
 						}
 						v3[328] = 1132068864;
-						nox_xxx_monsterClearActionStack_50A3A0(a2);
-						v10 = nox_xxx_monsterPushAction_50A260(a2, 4);
+						nox_xxx_monsterClearActionStack_50A3A0(unit);
+						v10 = nox_xxx_monsterPushAction_50A260(unit, 4);
 						if (v10) {
-							v10[1] = *(_DWORD*)(a2 + 56);
-							v10[2] = *(_DWORD*)(a2 + 60);
-							v10[3] = *(__int16*)(a2 + 124);
+							v10[1] = *(_DWORD*)(unit + 56);
+							v10[2] = *(_DWORD*)(unit + 60);
+							v10[3] = *(__int16*)(unit + 124);
 						}
 					}
 					break;
-				case 4:
-					v11 = *(_DWORD*)(a2 + 748);
-					if (nox_xxx_monsterIsMoveing_534320(a2)) {
-						if (*(_BYTE*)(a1 + 8) & 4)
-							nox_xxx_monsterCmdSend_528BD0(a2, a1, "MonUtil.c:escorting", 0);
-						v12 = nox_xxx_monsterGetSoundSet_424300(a2);
+				case 4: //ESCORT
+					v11 = *(_DWORD*)(unit + 748);
+					if (nox_xxx_monsterIsMoveing_534320(unit)) {
+						if (*(_BYTE*)(source + 8) & 4)
+							nox_xxx_monsterCmdSend_528BD0(unit, source, "MonUtil.c:escorting", 0);
+						v12 = nox_xxx_monsterGetSoundSet_424300(unit);
 						if (v12)
-							nox_xxx_aud_501960(*(_DWORD*)(v12 + 68), a2, 0, 0);
+							nox_xxx_aud_501960(*(_DWORD*)(v12 + 68), unit, 0, 0);
 						v13 = *(_DWORD*)(v11 + 1440) & 0xFFFFFFBF;
 						*(_DWORD*)(v11 + 1304) = 1062501089;
 						*(_DWORD*)(v11 + 1440) = v13;
-						nox_xxx_monsterClearActionStack_50A3A0(a2);
-						v14 = nox_xxx_monsterPushAction_50A260(a2, 3);
+						nox_xxx_monsterClearActionStack_50A3A0(unit);
+						v14 = nox_xxx_monsterPushAction_50A260(unit, 3);
 						if (v14) {
-							v14[1] = *(_DWORD*)(a1 + 56);
-							v15 = *(_DWORD*)(a1 + 60);
-							v14[3] = a1;
+							v14[1] = *(_DWORD*)(source + 56);
+							v15 = *(_DWORD*)(source + 60);
+							v14[3] = source;
 							v14[2] = v15;
 						}
 					}
 					break;
-				case 5:
-					if (nox_xxx_monsterIsMoveing_534320(a2)) {
-						v16 = nox_xxx_monsterGetSoundSet_424300(a2);
+				case 5: //HUNT
+					if (nox_xxx_monsterIsMoveing_534320(unit)) {
+						v16 = nox_xxx_monsterGetSoundSet_424300(unit);
 						if (v16)
-							nox_xxx_aud_501960(*(_DWORD*)(v16 + 68), a2, 0, 0);
-						if (*(_BYTE*)(a1 + 8) & 4)
-							nox_xxx_monsterCmdSend_528BD0(a2, a1, "MonUtil.c:Hunting", 0);
+							nox_xxx_aud_501960(*(_DWORD*)(v16 + 68), unit, 0, 0);
+						if (*(_BYTE*)(source + 8) & 4)
+							nox_xxx_monsterCmdSend_528BD0(unit, source, "MonUtil.c:Hunting", 0);
 						v17 = v3[360] & 0xFFFFFFBF;
 						v3[326] = 1062501089;
 						v3[360] = v17;
-						nox_xxx_monsterClearActionStack_50A3A0(a2);
-						nox_xxx_monsterPushAction_50A260(a2, 5);
+						nox_xxx_monsterClearActionStack_50A3A0(unit);
+						nox_xxx_monsterPushAction_50A260(unit, 5);
 					}
 					break;
 				default:

@@ -2907,22 +2907,22 @@ void  sub_4E5FC0(int a1) {
 }
 
 //----- (004E6040) --------------------------------------------------------
-int  nox_xxx_playerCameraUnlock_4E6040(int a1) {
+int  nox_xxx_playerCameraUnlock_4E6040(int player) {
 	int result; // eax
 
-	result = a1;
-	*(_DWORD*)(*(_DWORD*)(*(_DWORD*)(a1 + 748) + 276) + 3628) = 0;
+	result = player;
+	*(_DWORD*)(*(_DWORD*)(*(_DWORD*)(player + 748) + 276) + 3628) = 0;
 	return result;
 }
 
 //----- (004E6060) --------------------------------------------------------
-int  nox_xxx_playerCameraFollow_4E6060(int a1, int a2) {
+int  nox_xxx_playerCameraFollow_4E6060(int player, int unitId) {
 	int result; // eax
 
-	result = *(_DWORD*)(*(_DWORD*)(a1 + 748) + 276);
-	if (*(_DWORD*)(result + 3628) == a2)
-		return nox_xxx_playerCameraUnlock_4E6040(a1);
-	*(_DWORD*)(result + 3628) = a2;
+	result = *(_DWORD*)(*(_DWORD*)(player + 748) + 276);
+	if (*(_DWORD*)(result + 3628) == unitId)
+		return nox_xxx_playerCameraUnlock_4E6040(player);
+	*(_DWORD*)(result + 3628) = unitId;
 	return result;
 }
 
