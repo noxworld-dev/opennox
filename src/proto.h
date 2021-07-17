@@ -4817,7 +4817,7 @@ int  sub_50E110(int a1);
 void  sub_50E140(int a1);
 int  sub_50E1B0(int a1);
 void  sub_50E1E0(int a1);
-void  sub_50E210(int a1);
+void  sub_50E210(int object);
 int nox_xxx_registerShopClasses_50E2A0();
 int nox_xxx_deleteShopInventories_50E300();
 int sub_50E360();

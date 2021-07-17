@@ -2794,28 +2794,28 @@ void  sub_4E5BF0(int a1) {
 
 //----- (004E5CC0) --------------------------------------------------------
 void  nox_xxx_delayedDeleteObject_4E5CC0(nox_object_t* obj) {
-	int a1 = obj;
+	int object = obj;
 	int v1; // eax
 	int v2; // eax
 
-	if (a1 && !(*(_BYTE*)(a1 + 16) & 0x20)) {
-		v1 = *(_DWORD*)(a1 + 508);
-		if (v1 && *(_BYTE*)(v1 + 8) & 4 && *(_BYTE*)(a1 + 8) & 2 && !nox_xxx_creatureIsMonitored_500CC0(v1, a1) && (*(_BYTE*)(a1 + 12) & 0x80))
-			nox_xxx_monsterRemoveMonitors_4E7B60(*(_DWORD*)(a1 + 508), (_DWORD*)a1);
-		v2 = *(_DWORD*)(a1 + 492);
+	if (object && !(*(_BYTE*)(object + 16) & 0x20)) {
+		v1 = *(_DWORD*)(object + 508);
+		if (v1 && *(_BYTE*)(v1 + 8) & 4 && *(_BYTE*)(object + 8) & 2 && !nox_xxx_creatureIsMonitored_500CC0(v1, object) && (*(_BYTE*)(object + 12) & 0x80))
+			nox_xxx_monsterRemoveMonitors_4E7B60(*(_DWORD*)(object + 508), (_DWORD*)object);
+		v2 = *(_DWORD*)(object + 492);
 		if (v2)
-			sub_4ED0C0(v2, (int*)a1);
-		nox_xxx_playerCancelSpells_4FEAE0(a1);
-		if (nox_common_gameFlags_check_40A5C0(4096) && *(_BYTE*)(a1 + 8) & 2)
-			sub_50E210(a1);
-		if (*(_BYTE*)(a1 + 8) & 4)
-			sub_506740(a1);
-		*(_DWORD*)(a1 + 16) |= 0x20u;
-		*(_DWORD*)(a1 + 452) = *getMemU32Ptr(0x5D4594, 1565588);
-		*getMemU32Ptr(0x5D4594, 1565588) = a1;
-		*(_DWORD*)(a1 + 456) = nox_frame_xxx_2598000;
-		if (nox_xxx_servObjectHasTeam_419130(a1 + 48))
-			nox_xxx_netChangeTeamMb_419570(a1 + 48, *(_DWORD*)(a1 + 36));
+			sub_4ED0C0(v2, (int*)object);
+		nox_xxx_playerCancelSpells_4FEAE0(object);
+		if (nox_common_gameFlags_check_40A5C0(4096) && *(_BYTE*)(object + 8) & 2)
+			sub_50E210(object);
+		if (*(_BYTE*)(object + 8) & 4)
+			sub_506740(object);
+		*(_DWORD*)(object + 16) |= 0x20u;
+		*(_DWORD*)(object + 452) = *getMemU32Ptr(0x5D4594, 1565588);
+		*getMemU32Ptr(0x5D4594, 1565588) = object;
+		*(_DWORD*)(object + 456) = nox_frame_xxx_2598000;
+		if (nox_xxx_servObjectHasTeam_419130(object + 48))
+			nox_xxx_netChangeTeamMb_419570(object + 48, *(_DWORD*)(object + 36));
 	}
 }
 
