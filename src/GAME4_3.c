@@ -2735,17 +2735,17 @@ void  nox_xxx_enactUnitOrder_5339A0(int source, int unit, int orderId) {
 	_DWORD* v3;       // edi
 	int v4;           // eax
 	_DWORD* v5;       // eax
-	int v6;           // eax
+	int sfxIdle;           // eax
 	unsigned int v7;  // ebp
-	int v8;           // eax
+	int sfxGuard;           // eax
 	int v9;           // eax
 	int* v10;         // eax
 	int v11;          // edi
-	int v12;          // eax
+	int sfxEscort;          // eax
 	unsigned int v13; // edx
 	int* v14;         // eax
 	int v15;          // edx
-	int v16;          // eax
+	int sfxHunt;          // eax
 	unsigned int v17; // ebp
 
 	v3 = *(_DWORD**)(unit + 748);
@@ -2764,9 +2764,9 @@ void  nox_xxx_enactUnitOrder_5339A0(int source, int unit, int orderId) {
 				case 2: //IDLE
 					if (*(_BYTE*)(source + 8) & 4)
 						nox_xxx_monsterCmdSend_528BD0(unit, source, "MonUtil.c:idle", 0);
-					v6 = nox_xxx_monsterGetSoundSet_424300(unit);
-					if (v6)
-						nox_xxx_aud_501960(*(_DWORD*)(v6 + 68), unit, 0, 0);
+					sfxIdle = nox_xxx_monsterGetSoundSet_424300(unit);
+					if (sfxIdle)
+						nox_xxx_aud_501960(*(_DWORD*)(sfxIdle + 68), unit, 0, 0);
 					v7 = v3[360] & 0xFFFFFFBF;
 					v3[326] = 1056964608;
 					v3[360] = v7;
@@ -2777,9 +2777,9 @@ void  nox_xxx_enactUnitOrder_5339A0(int source, int unit, int orderId) {
 					if (nox_xxx_monsterIsMoveing_534320(unit)) {
 						if (*(_BYTE*)(source + 8) & 4)
 							nox_xxx_monsterCmdSend_528BD0(unit, source, "MonUtil.c:guarding", 0);
-						v8 = nox_xxx_monsterGetSoundSet_424300(unit);
-						if (v8)
-							nox_xxx_aud_501960(*(_DWORD*)(v8 + 68), unit, 0, 0);
+						sfxGuard = nox_xxx_monsterGetSoundSet_424300(unit);
+						if (sfxGuard)
+							nox_xxx_aud_501960(*(_DWORD*)(sfxGuard + 68), unit, 0, 0);
 						v3[326] = 1056964608;
 						if (nox_xxx_monsterCanShoot_534280(unit)) {
 							v9 = v3[360];
@@ -2801,9 +2801,9 @@ void  nox_xxx_enactUnitOrder_5339A0(int source, int unit, int orderId) {
 					if (nox_xxx_monsterIsMoveing_534320(unit)) {
 						if (*(_BYTE*)(source + 8) & 4)
 							nox_xxx_monsterCmdSend_528BD0(unit, source, "MonUtil.c:escorting", 0);
-						v12 = nox_xxx_monsterGetSoundSet_424300(unit);
-						if (v12)
-							nox_xxx_aud_501960(*(_DWORD*)(v12 + 68), unit, 0, 0);
+						sfxEscort = nox_xxx_monsterGetSoundSet_424300(unit);
+						if (sfxEscort)
+							nox_xxx_aud_501960(*(_DWORD*)(sfxEscort + 68), unit, 0, 0);
 						v13 = *(_DWORD*)(v11 + 1440) & 0xFFFFFFBF;
 						*(_DWORD*)(v11 + 1304) = 1062501089;
 						*(_DWORD*)(v11 + 1440) = v13;
@@ -2819,9 +2819,9 @@ void  nox_xxx_enactUnitOrder_5339A0(int source, int unit, int orderId) {
 					break;
 				case 5: //HUNT
 					if (nox_xxx_monsterIsMoveing_534320(unit)) {
-						v16 = nox_xxx_monsterGetSoundSet_424300(unit);
-						if (v16)
-							nox_xxx_aud_501960(*(_DWORD*)(v16 + 68), unit, 0, 0);
+						sfxHunt = nox_xxx_monsterGetSoundSet_424300(unit);
+						if (sfxHunt)
+							nox_xxx_aud_501960(*(_DWORD*)(sfxHunt + 68), unit, 0, 0);
 						if (*(_BYTE*)(source + 8) & 4)
 							nox_xxx_monsterCmdSend_528BD0(unit, source, "MonUtil.c:Hunting", 0);
 						v17 = v3[360] & 0xFFFFFFBF;
