@@ -8256,7 +8256,7 @@ int  nox_xxx_netObjectInShadows_528A90(int a1, _DWORD* a2) {
 }
 
 //----- (00528BD0) --------------------------------------------------------
-int  nox_xxx_monsterCmdSend_528BD0(int a1, int a2, const char* a3, __int16 a4) {
+int  nox_xxx_monsterCmdSend_528BD0(int unit, int source, const char* command, __int16 a4) {
 	__int16 v4;    // ax
 	double v5;     // st7
 	__int64 v6;    // rax
@@ -8267,20 +8267,20 @@ int  nox_xxx_monsterCmdSend_528BD0(int a1, int a2, const char* a3, __int16 a4) {
 
 	v10[0] = -88;
 	v10[3] = 8;
-	v4 = nox_xxx_netGetUnitCodeServ_578AC0((_DWORD*)a1);
-	v5 = *(float*)(a1 + 56);
+	v4 = nox_xxx_netGetUnitCodeServ_578AC0((_DWORD*)unit);
+	v5 = *(float*)(unit + 56);
 	*(_WORD*)&v10[1] = v4;
 	v6 = (__int64)v5;
-	v7 = *(float*)(a1 + 60);
+	v7 = *(float*)(unit + 60);
 	*(_WORD*)&v10[4] = v6;
 	*(_WORD*)&v10[6] = (__int64)v7;
 	*(_WORD*)&v10[9] = a4;
-	v10[8] = strlen(a3) + 1;
-	result = a2;
-	strcpy(&v10[11], a3);
-	if (a2) {
-		if (*(_BYTE*)(a2 + 8) & 4)
-			result = nox_netlist_addToMsgListCli_40EBC0(*(unsigned __int8*)(*(_DWORD*)(*(_DWORD*)(a2 + 748) + 276) + 2064), 1, v10,
+	v10[8] = strlen(command) + 1;
+	result = source;
+	strcpy(&v10[11], command);
+	if (source) {
+		if (*(_BYTE*)(source + 8) & 4) // if source is player / local player ?
+			result = nox_netlist_addToMsgListCli_40EBC0(*(unsigned __int8*)(*(_DWORD*)(*(_DWORD*)(source + 748) + 276) + 2064), 1, v10,
 								(unsigned __int8)v10[8] + 11);
 	} else {
 		result = nox_xxx_getFirstPlayerUnit_4DA7C0();

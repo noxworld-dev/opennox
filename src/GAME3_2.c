@@ -5338,12 +5338,12 @@ int sub_4D7EA0() {
 }
 
 //----- (004D7EE0) --------------------------------------------------------
-int  nox_xxx_netCreatureCmd_4D7EE0(int a1, char a2) {
-	char v3[2]; // [esp+0h] [ebp-2h]
+int  nox_xxx_netCreatureCmd_4D7EE0(int player, char orderType) {
+	char buf[2]; // [esp+0h] [ebp-2h]
 
-	v3[0] = -19;
-	v3[1] = a2;
-	return nox_xxx_netSendPacket1_4E5390(a1, (int)v3, 2, 0, 1);
+	buf[0] = -19;
+	buf[1] = orderType;
+	return nox_xxx_netSendPacket1_4E5390(player, (int)buf, 2, 0, 1);
 }
 
 //----- (004D7F10) --------------------------------------------------------
@@ -8862,31 +8862,31 @@ _DWORD*  sub_4DDE10(int a1, int a2) {
 }
 
 //----- (004DDE80) --------------------------------------------------------
-int  nox_xxx_playerObserveMonster_4DDE80(int a1, int a2) {
+int  nox_xxx_playerObserveMonster_4DDE80(int player, int unit) {
 	int v2;     // edi
 	int result; // eax
 
-	v2 = *(_DWORD*)(a1 + 748);
+	v2 = *(_DWORD*)(player + 748);
 	if (*(_BYTE*)(*(_DWORD*)(v2 + 276) + 3680) & 1)
 		nox_xxx_playerLeaveObserver_0_4E6AA0(*(_DWORD*)(v2 + 276));
 	if (*(_BYTE*)(*(_DWORD*)(v2 + 276) + 3680) & 2)
-		nox_xxx_playerObserveClear_4DDEF0(a1);
+		nox_xxx_playerObserveClear_4DDEF0(player);
 	nox_xxx_netNeedTimestampStatus_4174F0(*(_DWORD*)(v2 + 276), 2);
-	nox_xxx_playerCameraUnlock_4E6040(a1);
-	result = nox_xxx_playerCameraFollow_4E6060(a1, a2);
-	*(_DWORD*)(a1 + 744) = nox_xxx_updatePlayerObserver_4E62F0;
+	nox_xxx_playerCameraUnlock_4E6040(player);
+	result = nox_xxx_playerCameraFollow_4E6060(player, unit);
+	*(_DWORD*)(player + 744) = nox_xxx_updatePlayerObserver_4E62F0;
 	return result;
 }
 
 //----- (004DDEF0) --------------------------------------------------------
-int  nox_xxx_playerObserveClear_4DDEF0(int a1) {
+int  nox_xxx_playerObserveClear_4DDEF0(int player) {
 	int result; // eax
 
-	result = *(_DWORD*)(*(_DWORD*)(a1 + 748) + 276);
+	result = *(_DWORD*)(*(_DWORD*)(player + 748) + 276);
 	if (*(_BYTE*)(result + 3680) & 2) {
 		nox_xxx_playerUnsetStatus_417530(result, 2);
-		result = nox_xxx_playerCameraUnlock_4E6040(a1);
-		*(_DWORD*)(a1 + 744) = nox_xxx_updatePlayer_4F8100;
+		result = nox_xxx_playerCameraUnlock_4E6040(player);
+		*(_DWORD*)(player + 744) = nox_xxx_updatePlayer_4F8100;
 	}
 	return result;
 }
