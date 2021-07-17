@@ -7431,6 +7431,7 @@ _DWORD*  nox_xxx_unitDoSummonAt_5016C0(int a1, int* a2, int a3, unsigned __int8 
 void  nox_xxx_banishUnit_5017F0(int unit) {
 	int v1; // eax
 	int v2; // esi
+	void( * deleteOverride)(int);
 
 	if (!*getMemU32Ptr(0x5D4594, 1570280))
 		*getMemU32Ptr(0x5D4594, 1570280) = nox_xxx_getNameId_4E3AA0("Glyph");
@@ -7439,13 +7440,23 @@ void  nox_xxx_banishUnit_5017F0(int unit) {
 		if (v1) {
 			do {
 				v2 = *(_DWORD*)(v1 + 496);
-				if (*(unsigned __int16*)(v1 + 4) == *getMemU32Ptr(0x5D4594, 1570280))
-					nox_xxx_delayedDeleteObject_4E5CC0(v1);
+				if (*(unsigned __int16*)(v1 + 4) == *getMemU32Ptr(0x5D4594, 1570280)){
+					deleteOverride = *(void(**)(int))(v1 + 724);
+					if (deleteOverride)
+						deleteOverride(v1);
+					else
+						nox_xxx_delayedDeleteObject_4E5CC0(v1);
+				}
 				v1 = v2;
 			} while (v2);
 		}
 		nox_xxx_netSendPointFx_522FF0(129, (float2*)(unit + 56));
-		nox_xxx_delayedDeleteObject_4E5CC0(unit);
+
+		deleteOverride = *(void(**)(int))(unit + 724);
+		if (deleteOverride)
+			deleteOverride(unit);
+		else
+			nox_xxx_delayedDeleteObject_4E5CC0(unit);
 	}
 }
 
