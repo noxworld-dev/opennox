@@ -1,5 +1,12 @@
 # Changelog
 
+## v1.7.1
+
+- Fix: Hide OS mouse cursor in windowed mode as well.
+- Fix: Rename "Back" button in input config menu to "Accept".
+- Fix: Prevent crash on audio errors.
+- Fix: Avoid collision of new health and mana cheats with old ones.
+
 ## v1.7.0
 
 - Completely reworked input and present pipelines.
