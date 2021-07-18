@@ -32,25 +32,30 @@ func init() {
 			Help:   "allows to equip all items by all classes",
 			Flags:  parsecmd.Server | parsecmd.Cheat,
 			Func: func(c *parsecmd.Console, tokens []string) bool {
-				if len(tokens) > 1 {
-					return false
-				}
-				allow := true
-				if len(tokens) == 1 {
-					v, err := strconv.ParseBool(tokens[0])
-					if err != nil {
-						c.Printf(parsecmd.ColorLightRed, "failed to parse the value")
-						return true
+				return noxCmdSetBool(c, tokens, func(allow bool) {
+					cheatEquipAll(allow)
+					if allow {
+						c.Printf(parsecmd.ColorLightYellow, "all players are allowed to equip all items")
+					} else {
+						c.Printf(parsecmd.ColorLightYellow, "equip restrictions with work as usual")
 					}
-					allow = v
-				}
-				cheatEquipAll(allow)
-				if allow {
-					c.Printf(parsecmd.ColorLightYellow, "all players are allowed to equip all items")
-				} else {
-					c.Printf(parsecmd.ColorLightYellow, "equip restrictions with work as usual")
-				}
-				return true
+				})
+			},
+		},
+		&parsecmd.Command{
+			Token:  "charm.all",
+			HelpID: "cheatcharmall",
+			Help:   "allows to charm all creatures",
+			Flags:  parsecmd.Server | parsecmd.Cheat,
+			Func: func(c *parsecmd.Console, tokens []string) bool {
+				return noxCmdSetBool(c, tokens, func(allow bool) {
+					cheatCharmAll(allow)
+					if allow {
+						c.Printf(parsecmd.ColorLightYellow, "players can charm any creature")
+					} else {
+						c.Printf(parsecmd.ColorLightYellow, "charming will work as it should")
+					}
+				})
 			},
 		},
 		&parsecmd.Command{
@@ -75,6 +80,23 @@ func noxCheatGold(c *parsecmd.Console, tokens []string) bool {
 		u.AddGold(v)
 	}
 	c.Printf(parsecmd.ColorLightYellow, "added %d gold to all players", v)
+	return true
+}
+
+func noxCmdSetBool(c *parsecmd.Console, tokens []string, fnc func(v bool)) bool {
+	if len(tokens) > 1 {
+		return false
+	}
+	allow := true
+	if len(tokens) == 1 {
+		v, err := strconv.ParseBool(tokens[0])
+		if err != nil {
+			c.Printf(parsecmd.ColorLightRed, "failed to parse the value")
+			return true
+		}
+		allow = v
+	}
+	fnc(allow)
 	return true
 }
 

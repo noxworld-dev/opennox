@@ -58,6 +58,8 @@ extern unsigned int nox_gameFPS;
 
 FILE* nox_file_8 = 0;
 
+int nox_cheat_charmall = 0;
+
 //----- (004F5F30) --------------------------------------------------------
 int  nox_xxx_XFerSpellReward_4F5F30(int* a1) {
 	unsigned __int8* v1; // esi
@@ -7220,7 +7222,7 @@ int  nox_xxx_charmCreature1_5011F0(int* a1) {
 	if (*(_BYTE*)(v4 + 8) & 2 && !nox_xxx_creatureIsMonitored_500CC0(a1[4], v4)) {
 		v5 = nox_xxx_creatureIsCharmableByTT_4272B0(*(unsigned __int16*)(a1[12] + 4));
 		v6 = a1[4];
-		if (*(_BYTE*)(v6 + 8) & 4) {
+		if (*(_BYTE*)(v6 + 8) & 4 && !nox_cheat_charmall) {
 			if (!v5) {
 				nox_xxx_netPriMsgToPlayer_4DA2C0(v6, "Summon.c:CreatureNotCharmable", 0);
 				v12 = a1[4];
@@ -7236,19 +7238,17 @@ int  nox_xxx_charmCreature1_5011F0(int* a1) {
 			}
 		}
 		v7 = nox_xxx_guideGetUnitSize_427460(v5) - 1;
-		if (v7) {
-			v8 = v7 - 1;
-			if (v8) {
-				if (v8 != 2) {
-					v10 = a1;
-					goto LABEL_20;
-				}
-				v9 = nox_xxx_gamedataGetFloatTable_419D70("CharmLargeDuration", a1[2] - 1);
-			} else {
-				v9 = nox_xxx_gamedataGetFloatTable_419D70("CharmMediumDuration", a1[2] - 1);
-			}
-		} else {
+		if (v7 <= 0) {
 			v9 = nox_xxx_gamedataGetFloatTable_419D70("CharmSmallDuration", a1[2] - 1);
+		} else if (v7 == 1) {
+			v9 = nox_xxx_gamedataGetFloatTable_419D70("CharmMediumDuration", a1[2] - 1);
+		} else {
+			v8 = v7 - 1;
+			if (v8 != 2) {
+				v10 = a1;
+				goto LABEL_20;
+			}
+			v9 = nox_xxx_gamedataGetFloatTable_419D70("CharmLargeDuration", a1[2] - 1);
 		}
 		v16 = v9;
 		v10 = (int*)nox_float2int(v16);
@@ -7305,18 +7305,20 @@ int  nox_xxx_charmCreatureFinish_5013E0(int* a1) {
 		return 0;
 	v4 = a1[12];
 	v5 = *(_DWORD*)(v4 + 12);
-	if (v5 & 0x2000) {
-		nox_xxx_netPriMsgToPlayer_4DA2C0(a1[4], "Summon.c:CreatureControlImpossible", 0);
-	LABEL_13:
-		nox_xxx_aud_501960(16, a1[4], 0, 0);
-		return 1;
-	}
-	if (*(_BYTE*)(a1[4] + 8) & 4) {
-		v6 = nox_xxx_creatureIsCharmableByTT_4272B0(*(unsigned __int16*)(v4 + 4));
-		v7 = nox_xxx_checkSummonedCreaturesLimit_500D70(a1[4], v6);
-		if (!v7) {
-			nox_xxx_netPriMsgToPlayer_4DA2C0(a1[4], "Summon.c:CreatureControlFailed", 0);
-			goto LABEL_13;
+	if (!nox_cheat_charmall) {
+		if (v5 & 0x2000) {
+			nox_xxx_netPriMsgToPlayer_4DA2C0(a1[4], "Summon.c:CreatureControlImpossible", 0);
+		LABEL_13:
+			nox_xxx_aud_501960(16, a1[4], 0, 0);
+			return 1;
+		}
+		if (*(_BYTE*)(a1[4] + 8) & 4) {
+			v6 = nox_xxx_creatureIsCharmableByTT_4272B0(*(unsigned __int16*)(v4 + 4));
+			v7 = nox_xxx_checkSummonedCreaturesLimit_500D70(a1[4], v6);
+			if (!v7) {
+				nox_xxx_netPriMsgToPlayer_4DA2C0(a1[4], "Summon.c:CreatureControlFailed", 0);
+				goto LABEL_13;
+			}
 		}
 	}
 	nox_xxx_spellBuffOff_4FF5B0(a1[12], 28);

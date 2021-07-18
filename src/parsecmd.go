@@ -4,6 +4,7 @@ package main
 #include <stddef.h>
 extern unsigned int dword_5d4594_823684;
 extern int nox_cheat_allowall;
+extern int nox_cheat_charmall;
 
 void nox_xxx_consoleTokenAddPair_4444C0(wchar_t* tok, wchar_t* tok2);
 int nox_gui_console_Print_450B90(unsigned char typ, wchar_t* str);
@@ -112,6 +113,10 @@ func (consolePrinter) Printf(cl parsecmd.Color, format string, args ...interface
 
 func cheatEquipAll(v bool) {
 	C.nox_cheat_allowall = C.int(bool2int(v))
+}
+
+func cheatCharmAll(v bool) {
+	C.nox_cheat_charmall = C.int(bool2int(v))
 }
 
 var parseCmd = parsecmd.NewConsole(consolePrinter{}, strMan)
