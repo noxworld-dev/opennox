@@ -10,6 +10,15 @@ func guiParseHook(name string, win *Window) {
 	switch name {
 	case "options.wnd":
 		guiEnhanceOptions(win)
+	case "inputcfg.wnd":
+		guiEnhanceInputCfg(win)
+	}
+}
+
+func guiEnhanceInputCfg(root *Window) {
+	// "Back" is confusing, we rename it to "Apply"
+	if w := root.ChildByID(932); w != nil {
+		w.DrawData().SetText("Apply")
 	}
 }
 
