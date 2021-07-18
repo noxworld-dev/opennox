@@ -5,13 +5,20 @@ import (
 	"os"
 
 	"nox/v1/common"
-	"nox/v1/common/nat"
+	"nox/v1/common/log"
+
+	"github.com/noxworld-dev/nat"
 )
 
 var (
 	gameNAT func()
 	useNAT  = os.Getenv("NOX_NET_NAT") != "false"
 )
+
+func init() {
+	nat.Log = log.New("nat")
+	nat.LogUPNP = log.New("nat-upnp")
+}
 
 func gameStartNAT() error {
 	if !useNAT {
