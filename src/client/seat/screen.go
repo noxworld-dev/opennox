@@ -13,7 +13,7 @@ const (
 )
 
 const (
-	Windowed = ScreenMode(iota)
+	Windowed = ScreenMode(iota + 1)
 	Fullscreen
 	Borderless
 )

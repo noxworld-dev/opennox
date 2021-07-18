@@ -48,6 +48,7 @@ import (
 	"nox/v1/client/render"
 	"nox/v1/common/alloc/handles"
 	"nox/v1/common/datapath"
+	"nox/v1/common/env"
 	noxflags "nox/v1/common/flags"
 	"nox/v1/common/log"
 	"nox/v1/common/memmap"
@@ -55,17 +56,13 @@ import (
 )
 
 func init() {
-	if isDevMode() || IsDevVersion() {
+	if env.IsDevMode() || IsDevVersion() {
 		go func() {
 			if err := http.ListenAndServe("127.0.0.1:6060", nil); err != nil {
 				log.Printf("failed to start pprof: %v", err)
 			}
 		}()
 	}
-}
-
-func isDevMode() bool {
-	return os.Getenv("NOX_DEV") == "true"
 }
 
 var (

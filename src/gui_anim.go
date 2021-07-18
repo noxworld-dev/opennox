@@ -14,13 +14,14 @@ import (
 	"unsafe"
 
 	"nox/v1/common/alloc"
+	"nox/v1/common/env"
 	"nox/v1/common/types"
 )
 
 var guiAnimSpeed = 1
 
 func init() {
-	if isDevMode() {
+	if env.IsDevMode() {
 		guiAnimSpeed = 5
 	}
 }

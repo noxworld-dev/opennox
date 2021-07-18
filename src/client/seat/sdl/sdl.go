@@ -7,6 +7,7 @@ import (
 	"github.com/veandco/go-sdl2/sdl"
 
 	"nox/v1/client/seat"
+	"nox/v1/common/env"
 	"nox/v1/common/log"
 	"nox/v1/common/types"
 )
@@ -37,7 +38,9 @@ func New(title string, sz types.Size) (*Window, error) {
 		sdl.Quit()
 		return nil, fmt.Errorf("SDL cannot create renderer: %w", err)
 	}
-	return &Window{win: win, ren: ren, prevSz: sz, mode: seat.Windowed}, nil
+	h := &Window{win: win, ren: ren, prevSz: sz}
+	h.SetScreenMode(seat.Windowed)
+	return h, nil
 }
 
 type Window struct {
@@ -161,7 +164,11 @@ func (win *Window) SetScreenMode(mode seat.ScreenMode) {
 		} else {
 			win.center()
 		}
-		sdl.ShowCursor(sdl.ENABLE)
+		if env.IsDevMode() {
+			sdl.ShowCursor(sdl.ENABLE)
+		} else {
+			sdl.ShowCursor(sdl.DISABLE)
+		}
 		win.setRelative(false)
 	case seat.Fullscreen:
 		win.win.SetResizable(false)
