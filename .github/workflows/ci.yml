@@ -289,6 +289,9 @@ jobs:
       if: startsWith(github.ref, 'refs/tags/v')
       needs: [hybrid_linux_mingw_go, windows_native_hosted]
       steps:
+        - name: Install NSIS
+          run: sudo apt-get install -y nsis
+
         - uses: actions/checkout@v2
           with:
             fetch-depth: 0
@@ -323,6 +326,7 @@ jobs:
             cp ./docs/*-sample.yml /tmp/opennox-win/docs/
 
             export VERSION=$(git name-rev --tags --name-only $(git rev-parse HEAD))
+            makensis -DVERSION="$VERSION" -DDATA="/tmp/opennox-win/" -DOUTDIR="/tmp/" ./scripts/opennox.nsi
             cd /tmp/opennox-win
             rm -f /tmp/OpenNox-*.zip
             zip -9 -r /tmp/OpenNox-$VERSION.zip ./*
@@ -331,4 +335,6 @@ jobs:
           uses: actions/upload-artifact@v2
           with:
             name: opennox-release-win
-            path: /tmp/OpenNox-*.zip
+            path: |
+              /tmp/OpenNox-*.zip
+              /tmp/OpenNox-*.exe
