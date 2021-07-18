@@ -579,7 +579,7 @@ func (s *audioStream) mp3_tell() uint32 {
 
 func audioCheckError() {
 	if err := openal.Err(); err != nil {
-		panic(err)
+		audioLog.Println(err)
 	}
 }
 
