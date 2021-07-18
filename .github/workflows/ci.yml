@@ -238,3 +238,97 @@ jobs:
            path: |
              ${{ runner.workspace }}\b\gmake\Release\*.exe
              ${{ runner.workspace }}\b\gmake\Release\*.dll
+
+  release_repackage_linux:
+    name: Repackage Linux release
+    runs-on: ubuntu-20.04
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: [hybrid_linux_go]
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          submodules: true
+
+      - uses: actions/download-artifact@v2
+        with:
+          name: opennox-linux
+          path: ~/Downloads/
+
+      - name: Repackage release
+        run: |
+          rm -rf /tmp/linux-tmp
+          mkdir -p /tmp/linux-tmp
+          tar -xvzf ~/Downloads/opennox-linux.tar.gz -C /tmp/linux-tmp/
+
+          rm -rf /tmp/opennox-linux
+          mkdir -p /tmp/opennox-linux
+          cp /tmp/linux-tmp/tmp/* /tmp/opennox-linux
+          cp ./CHANGELOG.md /tmp/opennox-linux
+
+          mkdir /tmp/opennox-linux/docs
+          cp ./docs/game-*.md /tmp/opennox-linux/docs/
+          cp ./docs/mod-*.md /tmp/opennox-linux/docs/
+          cp ./docs/maps-*.md /tmp/opennox-linux/docs/
+          cp ./docs/*-sample.yml /tmp/opennox-linux/docs/
+
+          export VERSION=$(git name-rev --tags --name-only $(git rev-parse HEAD))
+          cd /tmp/opennox-linux
+          rm -f /tmp/OpenNox-linux-*.tar.gz
+          tar -czf /tmp/OpenNox-linux-$VERSION.tar.gz ./*
+
+      - name: Upload the archive
+        uses: actions/upload-artifact@v2
+        with:
+          name: opennox-release-linux
+          path: /tmp/OpenNox-linux-*.tar.gz
+
+  release_repackage_win:
+      name: Repackage Windows release
+      runs-on: ubuntu-20.04
+      if: startsWith(github.ref, 'refs/tags/v')
+      needs: [hybrid_linux_mingw_go, windows_native_hosted]
+      steps:
+        - uses: actions/checkout@v2
+          with:
+            fetch-depth: 0
+            submodules: true
+
+        - uses: actions/download-artifact@v2
+          with:
+            name: nox-win # needed for SDL and OpenAL DLLs
+            path: ~/Downloads/
+
+        - uses: actions/download-artifact@v2
+          with:
+            name: opennox-win
+            path: ~/Downloads/
+
+        - name: Repackage release
+          run: |
+            rm -rf /tmp/win-tmp
+            mkdir -p /tmp/win-tmp
+            unzip ~/Downloads/opennox-win.zip -d /tmp/win-tmp/
+
+            rm -rf /tmp/opennox-win
+            mkdir -p /tmp/opennox-win
+            cp ~/Downloads/*.dll /tmp/opennox-win/
+            cp /tmp/win-tmp/tmp/*.exe /tmp/opennox-win/
+            cp ./CHANGELOG.md /tmp/opennox-win/
+
+            mkdir /tmp/opennox-win/docs
+            cp ./docs/game-*.md /tmp/opennox-win/docs/
+            cp ./docs/mod-*.md /tmp/opennox-win/docs/
+            cp ./docs/maps-*.md /tmp/opennox-win/docs/
+            cp ./docs/*-sample.yml /tmp/opennox-win/docs/
+
+            export VERSION=$(git name-rev --tags --name-only $(git rev-parse HEAD))
+            cd /tmp/opennox-win
+            rm -f /tmp/OpenNox-*.zip
+            zip -9 -r /tmp/OpenNox-$VERSION.zip ./*
+
+        - name: Upload the archive
+          uses: actions/upload-artifact@v2
+          with:
+            name: opennox-release-win
+            path: /tmp/OpenNox-*.zip
