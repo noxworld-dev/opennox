@@ -5781,8 +5781,8 @@ void  nox_xxx_mobSearchEdible2_544A40(int a1, int a2);
 int  sub_544AE0(int, float); // idb
 void  sub_544B20(int a1, int a2);
 char  nox_xxx_mobActionPickupObject_544B90(int a1);
-int  sub_544C40(int a1);
-void  sub_544CA0(_DWORD* a1);
+int  nox_xxx_mobGenericDeath_544C40(int a1);
+void  nox_xxx_zombieBurnDeathCheck_544CA0(_DWORD* a1);
 void  nox_xxx_zombieBurnDelete_544CE0(_DWORD* a1);
 char  sub_544D60(int a1);
 char  nox_xxx_mobActionDead1_544D80(_DWORD* a1);

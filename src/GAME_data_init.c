@@ -2687,9 +2687,9 @@ void init_data() {
 	*(void**)getMemAt(0x587000, 233612) = &sub_5453E0;
 	*(void**)getMemAt(0x587000, 233620) = &sub_532100;
 	*(void**)getMemAt(0x587000, 233628) = &nox_xxx_mobActionRandomWalk_545020;
-	*(void**)getMemAt(0x587000, 233640) = &sub_544C40;
+	*(void**)getMemAt(0x587000, 233640) = &nox_xxx_mobGenericDeath_544C40;
 	*(void**)getMemAt(0x587000, 233644) = &sub_544D60;
-	*(void**)getMemAt(0x587000, 233648) = &sub_544CA0;
+	*(void**)getMemAt(0x587000, 233648) = &nox_xxx_zombieBurnDeathCheck_544CA0;
 	*(void**)getMemAt(0x587000, 233656) = &nox_xxx_mobActionDead1_544D80;
 	*(void**)getMemAt(0x587000, 233660) = &nox_xxx_mobActionDead2_544EC0;
 	*(void**)getMemAt(0x587000, 233676) = &nox_xxx_mobActionReportComplete_544FF0;

@@ -13097,7 +13097,7 @@ char  nox_xxx_mobActionPickupObject_544B90(int a1) {
 }
 
 //----- (00544C40) --------------------------------------------------------
-int  sub_544C40(int a1) {
+int  nox_xxx_mobGenericDeath_544C40(int a1) {
 	int v1;                      // edi
 	int v2;                      // eax
 	int result = 0;              // eax
@@ -13115,7 +13115,7 @@ int  sub_544C40(int a1) {
 }
 
 //----- (00544CA0) --------------------------------------------------------
-void  sub_544CA0(_DWORD* a1) {
+void  nox_xxx_zombieBurnDeathCheck_544CA0(_DWORD* a1) {
 	int v1; // edi
 
 	v1 = a1[187];
