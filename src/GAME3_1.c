@@ -3534,7 +3534,7 @@ int  nox_xxx_guiDrawSummonBox_4C1FE0(_DWORD* a1) {
 		}
 	}
 	if (dword_5d4594_1321044 && !nox_xxx_wndPointInWnd_46AAB0(*(_DWORD**)&dword_5d4594_1321044, mpos.x, mpos.y))
-		sub_4C2470();
+		nox_xxx_guiHideSummonWindow_4C2470();
 	return 1;
 }
 
@@ -3569,7 +3569,7 @@ int  nox_xxx_guiDrawSummon_4C2440(int a1) {
 }
 
 //----- (004C2470) --------------------------------------------------------
-int sub_4C2470() {
+int nox_xxx_guiHideSummonWindow_4C2470() {
 	int result; // eax
 
 	nox_xxx_windowDestroyMB_46C4E0(*(_DWORD**)&dword_5d4594_1321044);
@@ -3666,7 +3666,7 @@ void nox_client_orderCreature(int creature, int command) {
 	}
 	buf[3] = command;
 	nox_netlist_addToMsgListCli_40EBC0(31, 0, buf, 4);
-	sub_4C2470();
+	nox_xxx_guiHideSummonWindow_4C2470();
 	if (!command) {
 		nox_xxx_clientPlaySoundSpecial_452D80(777, 100);
 	} else {
@@ -4056,7 +4056,7 @@ void nox_xxx_cliSummonOnDieOrBanish_4C3140(int a1, void* a2) {
 		return;
 	}
 	if (result == *(int**)&dword_5d4594_1321204)
-		sub_4C2470();
+		nox_xxx_guiHideSummonWindow_4C2470();
 	v4 = nox_xxx_netSpriteByCodeDynamic_45A6F0(a1);
 	if (v4)
 		v4[30] &= 0xBFFFFFFF;

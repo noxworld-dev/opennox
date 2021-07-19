@@ -13115,7 +13115,7 @@ int  nox_xxx_mobGenericDeath_544C40(int a1) {
 }
 
 //----- (00544CA0) --------------------------------------------------------
-void  nox_xxx_zombieBurnDeathCheck_544CA0(_DWORD* a1) {
+void  nox_xxx_zombieBurnDeleteCheck_544CA0(_DWORD* a1) {
 	int v1; // edi
 
 	v1 = a1[187];

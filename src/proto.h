@@ -3441,7 +3441,7 @@ int sub_4C1D70();
 int  nox_xxx_guiDrawSummonBox_4C1FE0(_DWORD* a1);
 int  nox_xxx_wndSummonGet_4C2410(int2* a1); // idb
 int  nox_xxx_guiDrawSummon_4C2440(int a1);
-int sub_4C2470();
+int nox_xxx_guiHideSummonWindow_4C2470();
 int sub_4C24A0();
 int  nox_xxx_wndSummonBigButtonProc_4C24B0(int a1, int a2, unsigned int a3);
 int  sub_4C26F0(int yTop);     // idb
@@ -5782,7 +5782,7 @@ int  sub_544AE0(int, float); // idb
 void  sub_544B20(int a1, int a2);
 char  nox_xxx_mobActionPickupObject_544B90(int a1);
 int  nox_xxx_mobGenericDeath_544C40(int a1);
-void  nox_xxx_zombieBurnDeathCheck_544CA0(_DWORD* a1);
+void  nox_xxx_zombieBurnDeleteCheck_544CA0(_DWORD* a1);
 void  nox_xxx_zombieBurnDelete_544CE0(_DWORD* a1);
 char  sub_544D60(int a1);
 char  nox_xxx_mobActionDead1_544D80(_DWORD* a1);
