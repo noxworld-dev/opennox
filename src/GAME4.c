@@ -7434,9 +7434,12 @@ void  nox_xxx_banishUnit_5017F0(int unit) {
 	int v1; // eax
 	int v2; // esi
 
+	int unitEventData;
+
 	if (!*getMemU32Ptr(0x5D4594, 1570280))
 		*getMemU32Ptr(0x5D4594, 1570280) = nox_xxx_getNameId_4E3AA0("Glyph");
 	if (unit) {
+		// Checks for children and kills them
 		v1 = *(_DWORD*)(unit + 504);
 		if (v1) {
 			do {
@@ -7446,7 +7449,12 @@ void  nox_xxx_banishUnit_5017F0(int unit) {
 				v1 = v2;
 			} while (v2);
 		}
+		//Creates banish FX
 		nox_xxx_netSendPointFx_522FF0(129, (float2*)(unit + 56));
+
+		unitEventData = *(_DWORD*)(unit + 748);
+		nox_xxx_scriptCallByEventBlock_502490((int*)(unitEventData + 1264), 0, unit, 7); //Emit on death event
+
 		nox_xxx_delayedDeleteObject_4E5CC0(unit);
 	}
 }
