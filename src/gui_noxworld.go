@@ -244,7 +244,7 @@ func clientOnLobbyServer(info *LobbyServerInfo) int {
 			srv.field_9 = C.nox_wol_server_result_cnt_815088
 			srv.field_7 = 0
 			*(*uint16)(field(109)) = uint16(info.Port) // port
-			StrCopy(&srv.server_name[0], 15, info.Name)
+			StrNCopy(&srv.server_name[0], 15, info.Name)
 			*(*uint16)(field(163)) = info.Flags // flags
 			C.nox_wol_servers_addResult_4A0030(srv)
 			C.nox_wol_server_result_cnt_815088++

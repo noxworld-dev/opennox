@@ -113,6 +113,11 @@ func StrCopy(dst *C.char, max int, src string) int {
 	return StrCopyBytes(d, src)
 }
 
+func StrNCopy(dst *C.char, max int, src string) int {
+	d := asByteSlice(unsafe.Pointer(dst), max)
+	return StrNCopyBytes(d, src)
+}
+
 func StrCopyP(dst unsafe.Pointer, max int, src string) int {
 	return StrCopy((*C.char)(dst), max, src)
 }
@@ -120,6 +125,14 @@ func StrCopyP(dst unsafe.Pointer, max int, src string) int {
 func StrCopyBytes(dst []byte, src string) int {
 	n := copy(dst[:len(dst)-1], src)
 	dst[n] = 0
+	return n
+}
+
+func StrNCopyBytes(dst []byte, src string) int {
+	n := copy(dst, src)
+	if n < len(dst) {
+		dst[n] = 0
+	}
 	return n
 }
 
