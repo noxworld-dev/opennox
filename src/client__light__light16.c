@@ -89,8 +89,7 @@ signed int  sub_485880(_DWORD* a1, int* a2, int a3, signed int a4, char* a5) {
 			v13 = 12 * a3;
 			v14 = *getMemU32Ptr(0x5D4594, 2598288 + 280 * *a2 + 12 * a3);
 			dword_5d4594_1193176 = v14;
-			v15 =
-				*getMemU32Ptr(0x5D4594, 2615304 + 4 * ((*getMemIntPtr(0x5D4594, 2598568 + 280 * *a2 + 12 * a3) - v14) >> 8));
+			v15 = *getMemU32Ptr(0x5D4594, 2615304 + 4 * ((*getMemIntPtr(0x5D4594, 2598568 + 280 * *a2 + 12 * a3) - v14) >> 8));
 			if (v12 <= 0) {
 				v23 = 23;
 				v16 = 23;

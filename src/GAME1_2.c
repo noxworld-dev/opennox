@@ -5758,7 +5758,7 @@ int nox_xxx_initGameSession_435CC0() {
 	if (!nox_xxx_loadReflSheild_499360())
 		return 0;
 
-	sub_485F80();
+	nox_xxx_initSight_485F80();
 	if (!sub_4960B0())
 		return 0;
 

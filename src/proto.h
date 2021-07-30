@@ -2546,7 +2546,7 @@ int  sub_4855D0(int, int, int, float);                           // idb
 unsigned int  sub_485AE0(int a1, int a2);
 int  nox_thing_read_floor_485B30(int a1, char* a2);
 int  nox_thing_read_edge_485D40(int a1, char* a2);
-void sub_485F80();
+void nox_xxx_initSight_485F80();
 int nox_xxx_tile_486060();
 int sub_486090();
 void nox_free_pixbuffers_486110();

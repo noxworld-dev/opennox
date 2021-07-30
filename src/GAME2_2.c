@@ -5704,13 +5704,9 @@ int  sub_480950(int* a1, int* a2, int a3, int a4, int a5) {
 			v11 = 12 * a3 + 280 * *a2;
 			v12 = getMemIntPtr(0x5D4594, 2598288 + v11);
 			v13 = *getMemU32Ptr(0x5D4594, 2615304 + 4 * ((*getMemIntPtr(0x5D4594, 2598568 + v11) - *getMemIntPtr(0x5D4594, 2598288 + v11)) >> 8));
-			v22[0] =
-				*getMemU32Ptr(0x5D4594, 2615304 + 4 * ((*getMemIntPtr(0x5D4594, 2598568 + v11) - *getMemIntPtr(0x5D4594, 2598288 + v11)) >>
-											8));
+			v22[0] = *getMemU32Ptr(0x5D4594, 2615304 + 4 * ((*getMemIntPtr(0x5D4594, 2598568 + v11) - *getMemIntPtr(0x5D4594, 2598288 + v11)) >> 8));
 			v14 = *getMemU32Ptr(0x5D4594, 2615304 + 4 * ((*getMemIntPtr(0x5D4594, 2598572 + v11) - *getMemIntPtr(0x5D4594, 2598292 + v11)) >> 8));
-			v22[1] =
-				*getMemU32Ptr(0x5D4594, 2615304 + 4 * ((*getMemIntPtr(0x5D4594, 2598572 + v11) - *getMemIntPtr(0x5D4594, 2598292 + v11)) >>
-											8));
+			v22[1] = *getMemU32Ptr(0x5D4594, 2615304 + 4 * ((*getMemIntPtr(0x5D4594, 2598572 + v11) - *getMemIntPtr(0x5D4594, 2598292 + v11)) >> 8));
 			v15 = *getMemU32Ptr(0x5D4594, 2615304 + 4 * ((*getMemIntPtr(0x5D4594, 2598576 + v11) - *getMemIntPtr(0x5D4594, 2598296 + v11)) >> 8));
 			v22[2] = v15;
 			v21[0] = *v12;
@@ -9712,7 +9708,7 @@ int  nox_thing_read_edge_485D40(int a1, char* a2) {
 // 485D40: using guessed type char var_20[32];
 
 //----- (00485F80) --------------------------------------------------------
-void sub_485F80() {
+void nox_xxx_initSight_485F80() {
 	int v0;               // esi
 	int v1;               // eax
 	int v2;               // edx
@@ -9721,10 +9717,6 @@ void sub_485F80() {
 	int v5;               // edi
 	int v6;               // ecx
 	int v7;               // ebx
-	unsigned __int8* v8;  // esi
-	int j;                // ecx
-	unsigned __int8* v12; // esi
-	int k;                // ecx
 
 	v0 = 0;
 	v1 = 0;
@@ -9753,16 +9745,15 @@ void sub_485F80() {
 			--v7;
 		} while (v7);
 	}
-	v8 = getMemAt(0x5D4594, 2614284);
-	for (j = -64768; j < 0; j += 256) {
-		v8 += 4;
-		*((_DWORD*)v8 - 1) = j / 22;
+
+	unsigned int* v8 = getMemAt(0x5D4594, 2614284);
+	for (int j = 0; j < 253; j++) {
+		v8[j] = ((j - 253) * 256) / 22;
 	}
 	*getMemU32Ptr(0x5D4594, 2615300) = 0;
-	v12 = getMemAt(0x5D4594, 2615304);
-	for (k = 0; k < 0x10000; k += 256) {
-		v12 += 4;
-		*((_DWORD*)v12 - 1) = k / 22;
+	unsigned int* v12 = getMemAt(0x5D4594, 2615304);
+	for (int k = 0; k < 256; k++) {
+		v12[k] = (k * 256) / 22;
 	}
 }
 
