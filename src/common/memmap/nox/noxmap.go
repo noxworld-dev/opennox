@@ -14,7 +14,6 @@ func init() {
 	memmap.RegisterBlob(0x85B3FC, "byte_85B3FC", 1029636)
 	memmap.RegisterBlob(0x84EB20, "byte_84EB20", 15960)
 	memmap.RegisterBlob(0x852978, "byte_852978", 40)
-	memmap.RegisterBlob(0x956A00, "byte_956A00", 3616)
 	memmap.RegisterBlob(0x957820, "byte_957820", 115904)
 	for _, v := range noxMemmap {
 		memmap.RegisterVariableOff(v.blob, v.off, v.size, v.name, nil)

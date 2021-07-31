@@ -133,6 +133,8 @@ nox_gui_animation* nox_wnd_xxx_1522608 = 0;
 void* nox_gui_itemAmount_item_1319256 = 0;
 void* nox_gui_itemAmount_dialog_1319228 = 0;
 
+_DWORD nox_arr_956A00[NOX_MAX_HEIGHT] = {0};
+
 #ifndef NOX_CGO
 extern nox_bindevent_t nox_bindevent_arr[NOX_BINDEVENT_MAX];
 #endif // NOX_CGO
@@ -4531,7 +4533,7 @@ int  sub_4C42A0(int2* a1, int2* a2, int* a3, int* a4) {
 	v4 = a1->field_4;
 	v5 = a2->field_4;
 	if (v4 == v5) {
-		if (!*getMemU32Ptr(0x956A00, + 4 * v4))
+		if (!nox_arr_956A00[v4])
 			return 0;
 		v47 = a1->field_0;
 		v54 = (int2*)a2->field_0;
@@ -4552,7 +4554,7 @@ int  sub_4C42A0(int2* a1, int2* a2, int* a3, int* a4) {
 		v8 = (double)nox_win_width;
 		if (v51 > v8)
 			v51 = v8;
-		v9 = *getMemU32Ptr(0x956A00, + 4 * v4);
+		v9 = nox_arr_956A00[v4];
 		v10 = 0;
 		if (v9 <= 0) {
 		LABEL_22:
@@ -4655,7 +4657,7 @@ LABEL_44:
 		v42 = v44 - v22;
 		v18 -= nox_float2int(v42);
 	}
-	v23 = *getMemU32Ptr(0x956A00, + 4 * v15);
+	v23 = nox_arr_956A00[v15];
 	v24 = 0;
 	v25 = 1;
 	if (v23 > 0) {
@@ -4683,7 +4685,7 @@ LABEL_61:
 				return 0;
 			goto LABEL_77;
 		}
-		v45 = getMemAt(0x956A00, + 4 * v28);
+		v45 = &nox_arr_956A00[v28];
 		v32 = getMemAt(0x957820, 4 + 128 * v28);
 		while (1) {
 			v33 = 0;
@@ -4720,7 +4722,7 @@ LABEL_61:
 	v31 = v29 <= 0;
 LABEL_77:
 	if (!v31) {
-		v37 = getMemAt(0x956A00, + 4 * v28);
+		v37 = &nox_arr_956A00[v28];
 		v38 = getMemAt(0x957820, 4 + 128 * v28);
 		while (1) {
 			v39 = 0;
@@ -5278,7 +5280,7 @@ int  sub_4C52E0(int* a1, int a2) {
 	int v21;    // [esp+18h] [ebp-4h]
 
 	v2 = nox_win_height;
-	memset(getMemAt(0x956A00, 0), 0, 4 * nox_win_height);
+	memset(nox_arr_956A00, 0, sizeof(nox_arr_956A00));
 	result = a2;
 	v4 = 0;
 	dword_5d4594_3679320 = v2;
@@ -5367,7 +5369,7 @@ void  sub_4C5430(int a1, int a2) {
 	int v5;              // eax
 	unsigned __int8* v6; // edx
 
-	v2 = *getMemU32Ptr(0x956A00, + 4 * a2);
+	v2 = nox_arr_956A00[a2];
 	if (v2 < 32) {
 		v3 = 0;
 		if (v2 > 0) {
@@ -5388,7 +5390,7 @@ void  sub_4C5430(int a1, int a2) {
 				--v5;
 			} while (v5);
 		}
-		*getMemU32Ptr(0x956A00, + 4 * a2) = v2 + 1;
+		nox_arr_956A00[a2] = v2 + 1;
 		*getMemU32Ptr(0x957820, + 4 * (v3 + 32 * a2)) = a1;
 		if (a2 < *(int*)&dword_5d4594_3679320)
 			dword_5d4594_3679320 = a2;
@@ -5442,7 +5444,7 @@ void sub_4C5500(int* a1) {
 	}
 	v5 = dword_5d4594_3798156;
 	if (v4 < *(int*)&dword_5d4594_3798156) {
-		v13 = getMemAt(0x956A00, + 4 * v4);
+		v13 = &nox_arr_956A00[v4];
 		v6 = getMemAt(0x957820, + 128 * v4);
 		do {
 			v7 = (int*)(v6 + 4);
@@ -5484,7 +5486,7 @@ int  sub_4C5630(int a1, int a2, int a3) {
 	unsigned __int8* i; // eax
 
 	v3 = 0;
-	v4 = *getMemU32Ptr(0x956A00, + 4 * a3);
+	v4 = nox_arr_956A00[a3];
 	if (v4 <= 0)
 		return 0;
 	for (i = getMemAt(0x957820, + 128 * a3); a1 > *((_DWORD*)i + 1) || a2 < *(int*)i; i += 8) {
@@ -5502,7 +5504,7 @@ int  sub_4C5680(int a1, int a2, int a3) {
 	unsigned __int8* i; // eax
 
 	v3 = 0;
-	v4 = *getMemU32Ptr(0x956A00, + 4 * a3);
+	v4 = nox_arr_956A00[a3];
 	if (v4 <= 0)
 		return 0;
 	for (i = getMemAt(0x957820, 4 + 128 * a3); a1 < *((_DWORD*)i - 1) || a2 >= *(int*)i; i += 8) {
@@ -5577,7 +5579,7 @@ int  sub_4C56D0(_DWORD* a1) {
 	if (v10) {
 		v11 = getMemAt(0x957820, 4 + 128 * v2);
 		v12 = result - v2;
-		v13 = getMemAt(0x956A00, + 4 * v2);
+		v13 = &nox_arr_956A00[v2];
 		v14 = v12;
 		v15 = v12;
 		result = 2;
