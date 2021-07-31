@@ -6769,7 +6769,7 @@ LABEL_60:
 		do {
 			*(_DWORD*)v48 = -1;
 			v48 += 280;
-		} while ((int)v48 < (int)getMemAt(0x5D4594, 2614244));
+		} while ((int)(v48 - (unsigned char*)getMemAt(0x5D4594, 2598284)) < 15960);
 		v66.field_4 = (v67.field_4 - *(int*)&dword_5d4594_2650680) / 23;
 		v49 = dword_5d4594_3679320;
 		v50 = v67.field_4 - 23 * v66.field_4 - dword_5d4594_2650680;
