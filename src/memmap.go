@@ -12,7 +12,6 @@ extern unsigned char byte_853BC0[30780];
 extern unsigned char byte_85B3FC[1029636];
 extern unsigned char byte_84EB20[15960];
 extern unsigned char byte_852978[40];
-extern unsigned char byte_957820[115200];
 extern unsigned char byte_973A20[704];
 */
 import "C"
@@ -35,6 +34,5 @@ func init() {
 	memmap.RegisterBlobData(0x85B3FC, "byte_85B3FC", asByteSlice(unsafe.Pointer(&C.byte_85B3FC[0]), int(unsafe.Sizeof(C.byte_85B3FC))))
 	memmap.RegisterBlobData(0x84EB20, "byte_84EB20", asByteSlice(unsafe.Pointer(&C.byte_84EB20[0]), int(unsafe.Sizeof(C.byte_84EB20))))
 	memmap.RegisterBlobData(0x852978, "byte_852978", asByteSlice(unsafe.Pointer(&C.byte_852978[0]), int(unsafe.Sizeof(C.byte_852978))))
-	memmap.RegisterBlobData(0x957820, "byte_957820", asByteSlice(unsafe.Pointer(&C.byte_957820[0]), int(unsafe.Sizeof(C.byte_957820))))
 	memmap.RegisterBlobData(0x973A20, "byte_973A20", asByteSlice(unsafe.Pointer(&C.byte_973A20[0]), int(unsafe.Sizeof(C.byte_973A20))))
 }

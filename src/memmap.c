@@ -18,7 +18,6 @@ extern unsigned char byte_853BC0[30780];
 extern unsigned char byte_85B3FC[1029636];
 extern unsigned char byte_84EB20[15960];
 extern unsigned char byte_852978[40];
-extern unsigned char byte_957820[115200];
 extern unsigned char byte_973A20[704];
 #ifndef NOX_CGO_MEMMAP
 void* mem_getPtrSize(uintptr_t base, uintptr_t off, uintptr_t size) {
@@ -56,9 +55,6 @@ void* mem_getPtrSize(uintptr_t base, uintptr_t off, uintptr_t size) {
 	case 0x852978:
 		if (off+size <= sizeof(byte_852978))
 			return &byte_852978[off];
-	case 0x957820:
-		if (off+size <= sizeof(byte_957820))
-			return &byte_957820[off];
 	case 0x973A20:
 		if (off+size <= sizeof(byte_973A20))
 			return &byte_973A20[off];

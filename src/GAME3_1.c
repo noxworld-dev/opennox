@@ -134,6 +134,7 @@ void* nox_gui_itemAmount_item_1319256 = 0;
 void* nox_gui_itemAmount_dialog_1319228 = 0;
 
 _DWORD nox_arr_956A00[NOX_MAX_HEIGHT] = {0};
+unsigned char nox_arr_957820[128*(NOX_MAX_HEIGHT+150)] = {0};
 
 #ifndef NOX_CGO
 extern nox_bindevent_t nox_bindevent_arr[NOX_BINDEVENT_MAX];
@@ -4561,7 +4562,7 @@ int  sub_4C42A0(int2* a1, int2* a2, int* a3, int* a4) {
 			*a4 = 0;
 			result = 1;
 		} else {
-			v11 = getMemIntPtr(0x957820, 4 + 128 * v4);
+			v11 = ((void*)&nox_arr_957820[4 + 128 * v4]);
 			while (1) {
 				v12 = *(v11 - 1);
 				v13 = *v11;
@@ -4661,7 +4662,7 @@ LABEL_44:
 	v24 = 0;
 	v25 = 1;
 	if (v23 > 0) {
-		v26 = getMemAt(0x957820, 4 + 128 * v15);
+		v26 = ((void*)&nox_arr_957820[4 + 128 * v15]);
 		while ((double)*((int*)v26 - 1) > v52 || (double)(int)(*(_DWORD*)v26 + 2) < v52) {
 			v24 += 2;
 			v26 += 8;
@@ -4686,7 +4687,7 @@ LABEL_61:
 			goto LABEL_77;
 		}
 		v45 = &nox_arr_956A00[v28];
-		v32 = getMemAt(0x957820, 4 + 128 * v28);
+		v32 = ((void*)&nox_arr_957820[4 + 128 * v28]);
 		while (1) {
 			v33 = 0;
 			if (*(_DWORD*)v45 > 0)
@@ -4723,7 +4724,7 @@ LABEL_61:
 LABEL_77:
 	if (!v31) {
 		v37 = &nox_arr_956A00[v28];
-		v38 = getMemAt(0x957820, 4 + 128 * v28);
+		v38 = ((void*)&nox_arr_957820[4 + 128 * v28]);
 		while (1) {
 			v39 = 0;
 			if (*(int*)v37 <= 0)
@@ -5373,7 +5374,7 @@ void  sub_4C5430(int a1, int a2) {
 	if (v2 < 32) {
 		v3 = 0;
 		if (v2 > 0) {
-			v4 = getMemAt(0x957820, + 128 * a2);
+			v4 = ((void*)&nox_arr_957820[128 * a2]);
 			do {
 				if (a1 < *(int*)v4)
 					break;
@@ -5383,7 +5384,7 @@ void  sub_4C5430(int a1, int a2) {
 		}
 		if (v3 != v2 && v2 - 1 >= v3) {
 			v5 = v2 - v3;
-			v6 = getMemAt(0x957820, 4 + 4 * (v2 - 1 + 32 * a2));
+			v6 = ((void*)&nox_arr_957820[4 + 4 * (v2 - 1 + 32 * a2)]);
 			do {
 				*(_DWORD*)v6 = *((_DWORD*)v6 - 1);
 				v6 -= 4;
@@ -5391,7 +5392,7 @@ void  sub_4C5430(int a1, int a2) {
 			} while (v5);
 		}
 		nox_arr_956A00[a2] = v2 + 1;
-		*getMemU32Ptr(0x957820, + 4 * (v3 + 32 * a2)) = a1;
+		*((unsigned int*)&nox_arr_957820[4 * (v3 + 32 * a2)]) = a1;
 		if (a2 < *(int*)&dword_5d4594_3679320)
 			dword_5d4594_3679320 = a2;
 		if (a2 > *(int*)&dword_5d4594_3798156)
@@ -5445,7 +5446,7 @@ void sub_4C5500(int* a1) {
 	v5 = dword_5d4594_3798156;
 	if (v4 < *(int*)&dword_5d4594_3798156) {
 		v13 = &nox_arr_956A00[v4];
-		v6 = getMemAt(0x957820, + 128 * v4);
+		v6 = ((void*)&nox_arr_957820[128 * v4]);
 		do {
 			v7 = (int*)(v6 + 4);
 			v8 = v2;
@@ -5489,7 +5490,7 @@ int  sub_4C5630(int a1, int a2, int a3) {
 	v4 = nox_arr_956A00[a3];
 	if (v4 <= 0)
 		return 0;
-	for (i = getMemAt(0x957820, + 128 * a3); a1 > *((_DWORD*)i + 1) || a2 < *(int*)i; i += 8) {
+	for (i = ((void*)&nox_arr_957820[128 * a3]); a1 > *((_DWORD*)i + 1) || a2 < *(int*)i; i += 8) {
 		v3 += 2;
 		if (v3 >= v4)
 			return 0;
@@ -5507,7 +5508,7 @@ int  sub_4C5680(int a1, int a2, int a3) {
 	v4 = nox_arr_956A00[a3];
 	if (v4 <= 0)
 		return 0;
-	for (i = getMemAt(0x957820, 4 + 128 * a3); a1 < *((_DWORD*)i - 1) || a2 >= *(int*)i; i += 8) {
+	for (i = ((void*)&nox_arr_957820[4 + 128 * a3]); a1 < *((_DWORD*)i - 1) || a2 >= *(int*)i; i += 8) {
 		v3 += 2;
 		if (v3 >= v4)
 			return 0;
@@ -5577,7 +5578,7 @@ int  sub_4C56D0(_DWORD* a1) {
 		v10 = 0;
 	}
 	if (v10) {
-		v11 = getMemAt(0x957820, 4 + 128 * v2);
+		v11 = ((void*)&nox_arr_957820[4 + 128 * v2]);
 		v12 = result - v2;
 		v13 = &nox_arr_956A00[v2];
 		v14 = v12;

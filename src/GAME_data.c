@@ -17075,8 +17075,6 @@ unsigned char byte_84EB20[15960] = {0};
 
 unsigned char byte_852978[40] = {0};
 
-unsigned char byte_957820[115200] = {0};
-
 unsigned char byte_973A20[704] = {0};
 
 unsigned char byte_581450_9176[160] = {

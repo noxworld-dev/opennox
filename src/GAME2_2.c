@@ -148,6 +148,7 @@ extern obj_5D4594_3799572_t* ptr_5D4594_3799572;
 extern obj_5D4594_2650668_t** ptr_5D4594_2650668;
 
 extern _DWORD nox_arr_956A00[NOX_MAX_HEIGHT];
+extern unsigned char nox_arr_957820[128*(NOX_MAX_HEIGHT+150)];
 
 #ifndef NOX_CGO
 _DWORD dword_5d4594_1097208 = 0;
@@ -6778,9 +6779,9 @@ LABEL_60:
 		v78 = (unsigned __int8*)(v67.field_4 - 23 * v66.field_4 - dword_5d4594_2650680);
 		v80 = dword_5d4594_3679320;
 		if (*(int*)&dword_5d4594_3679320 < *(int*)&dword_5d4594_3798156) {
-			v51 = getMemAt(0x957820, + 128 * dword_5d4594_3679320);
+			v51 = ((void*)&nox_arr_957820[128 * dword_5d4594_3679320]);
 			v76 = 4 * dword_5d4594_3679320 - 4;
-			for (j = (int)getMemAt(0x957820, + 128 * dword_5d4594_3679320);; v51 = (unsigned __int8*)j) {
+			for (j = ((void*)&nox_arr_957820[128 * dword_5d4594_3679320]);; v51 = (unsigned __int8*)j) {
 				i = (_DWORD)nox_pixbuffer_rows_3798784[v49];
 				if (v50 == 23) {
 					v78 = 0;
@@ -6788,7 +6789,7 @@ LABEL_60:
 				}
 				v52 = nox_arr_956A00[v76/4+1];
 				v53 = (int*)v51;
-				if (nox_client_highResFloors_154952 || !(v67.field_4 & 1) || v51 == getMemAt(0x957820, 0)) {
+				if (nox_client_highResFloors_154952 || !(v67.field_4 & 1) || v51 == nox_arr_957820) {
 					if (v52 > 0) {
 						v71 = (unsigned int)(v52 + 1) >> 1;
 						do {
@@ -6855,7 +6856,7 @@ LABEL_60:
 		result = dword_5d4594_3679320;
 		v79 = dword_5d4594_3679320;
 		if (*(int*)&dword_5d4594_3679320 < *(int*)&dword_5d4594_3798156) {
-			v78 = getMemAt(0x957820, + 128 * dword_5d4594_3679320);
+			v78 = ((void*)&nox_arr_957820[128 * dword_5d4594_3679320]);
 			do {
 				v35 = v78;
 				v36 = nox_arr_956A00[v79];
