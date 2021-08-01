@@ -3406,45 +3406,49 @@ int  sub_468E60(int a1) {
 
 //----- (00469920) --------------------------------------------------------
 char*  sub_469920(_DWORD* a1) {
-	int v1;       // esi
-	int v2;       // edi
-	int v3;       // ecx
-	int v4;       // ebx
-	int v5;       // esi
-	int v6;       // ecx
-	int v7;       // ebp
-	int v10;      // ebx
-	int v11;      // eax
-	int v12;      // edi
-	int v13;      // ecx
-	char* result; // eax
-	int v16;      // [esp+18h] [ebp-Ch]
-	int v17;      // [esp+1Ch] [ebp-8h]
-	int v18;      // [esp+20h] [ebp-4h]
-
 	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_12))
 		return (char*)getMemAt(0x587000, 142336);
-	v1 = *a1 - dword_5d4594_2650676;
-	v2 = a1[1] - dword_5d4594_2650680;
-	v3 = v1 / 23;
-	v4 = v2 / 23;
-	if (v1 / 23 < 0 || v4 < 0 || v3 > 56 || v4 > 44)
+
+	int x = a1[0] - dword_5d4594_2650676;
+	int y = a1[1] - dword_5d4594_2650680;
+
+	int xd = x / 23;
+	int yd = y / 23;
+	if (xd < 0 || yd < 0 || xd > 56 || yd > 44)
 		return (char*)getMemAt(0x587000, 142336);
-	v5 = v1 % 23;
-	v6 = 3 * (v4 + 40 * v3 + 5 * v3);
-	v7 = v2 % 23;
-	v16 = nox_arr_853BC0[0 + v6] + v5 * (nox_arr_853BC0[135 + 0 + v6] - nox_arr_853BC0[0 + v6]) / 23;
-	v17 = nox_arr_853BC0[1 + v6] + v5 * (nox_arr_853BC0[135 + 1 + v6] - nox_arr_853BC0[1 + v6]) / 23;
-	v18 = nox_arr_853BC0[2 + v6] + v5 * (nox_arr_853BC0[135 + 2 + v6] - nox_arr_853BC0[2 + v6]) / 23;
-	v10 = nox_arr_853BC0[3 + v6];
-	v11 = v5 * (nox_arr_853BC0[135 + 3 + v6] - v10);
-	v12 = v7 * (nox_arr_853BC0[4 + v6] + v5 * (nox_arr_853BC0[135 + 4 + v6] - nox_arr_853BC0[4 + v6]) / 23 - v17);
-	v13 = v7 * (nox_arr_853BC0[5 + v6] + v5 * (nox_arr_853BC0[135 + 5 + v6] - nox_arr_853BC0[5 + v6]) / 23 - v18);
-	*getMemU32Ptr(0x5D4594, 1064836) = (v16 + v7 * (v10 + v11 / 23 - v16) / 23) >> 16;
-	*getMemU32Ptr(0x5D4594, 1064840) = (v17 + v12 / 23) >> 16;
-	result = (char*)getMemAt(0x5D4594, 1064836);
-	*getMemU32Ptr(0x5D4594, 1064844) = (v18 + v13 / 23) >> 16;
-	return result;
+
+	int ind = yd + 45 * xd;
+
+	int xr = x % 23;
+	int yr = y % 23;
+
+	int v1,v2,v3;
+	int u1,u2,u3;
+
+	v1 = nox_arr_853BC0[0 + 3*(ind+0)];
+	v2 = nox_arr_853BC0[1 + 3*(ind+0)];
+	v3 = nox_arr_853BC0[2 + 3*(ind+0)];
+	u1 = nox_arr_853BC0[0 + 3*(ind+45+0)];
+	u2 = nox_arr_853BC0[1 + 3*(ind+45+0)];
+	u3 = nox_arr_853BC0[2 + 3*(ind+45+0)];
+	int v16 = v1 + xr * (u1 - v1) / 23;
+	int v17 = v2 + xr * (u2 - v2) / 23;
+	int v18 = v3 + xr * (u3 - v3) / 23;
+
+	v1 = nox_arr_853BC0[0 + 3*(ind+1)];
+	v2 = nox_arr_853BC0[1 + 3*(ind+1)];
+	v3 = nox_arr_853BC0[2 + 3*(ind+1)];
+	u1 = nox_arr_853BC0[0 + 3*(ind+45+1)];
+	u2 = nox_arr_853BC0[1 + 3*(ind+45+1)];
+	u3 = nox_arr_853BC0[2 + 3*(ind+45+1)];
+	int v20 = v1 + xr * (u1 - v1) / 23;
+	int v21 = v2 + xr * (u2 - v2) / 23;
+	int v22 = v3 + xr * (u3 - v3) / 23;
+
+	*getMemU32Ptr(0x5D4594, 1064836) = (v16 + yr * (v20 - v16) / 23) >> 16;
+	*getMemU32Ptr(0x5D4594, 1064840) = (v17 + yr * (v21 - v17) / 23) >> 16;
+	*getMemU32Ptr(0x5D4594, 1064844) = (v18 + yr * (v22 - v18) / 23) >> 16;
+	return getMemAt(0x5D4594, 1064836);
 }
 
 //----- (00469B90) --------------------------------------------------------

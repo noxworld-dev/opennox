@@ -474,7 +474,7 @@ void sub_4695E0(int a1, int a2, int* a3, int a4, int a5) {
 	int v7 = sub_4C1C60(v5, a3[1]) << 8;
 	int v8 = sub_4C1C60(v5, a3[2]) << 8;
 
-	int ind = 3 * (a2 + 40 * a1 + 5 * a1);
+	int ind = 3 * (a2 + 45 * a1);
 	unsigned int* ptr = &nox_arr_853BC0[ind];
 	int v10 = v6 + ptr[0];
 	int v11 = v7 + ptr[1];
@@ -791,8 +791,8 @@ void  sub_468F80(int a1) {
 	dword_5d4594_2650680 = 46 * ((*(_DWORD*)(a1 + 20) + 11) / 46) - 57;
 	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_12)) {
 		for (int i = 0; i < 352; i++) {
-			for (int j = 0; j < 21; j++) {
-				nox_arr_853BC0[21*i + j] = 0xFF0000;
+			for (int j = 0; j < 3*7; j++) {
+				nox_arr_853BC0[3*7*i + j] = 0xFF0000;
 			}
 		}
 	} else {
