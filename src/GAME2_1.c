@@ -156,6 +156,8 @@ extern nox_window* nox_win_xxx1_last;
 
 extern unsigned int nox_gameFPS;
 
+extern unsigned int nox_arr_853BC0[3*45*57];
+
 nox_window* nox_win_unk5 = 0;
 nox_window* dword_5d4594_1062452 = 0;
 #ifndef NOX_CGO
@@ -3429,21 +3431,15 @@ char*  sub_469920(_DWORD* a1) {
 	if (v1 / 23 < 0 || v4 < 0 || v3 > 56 || v4 > 44)
 		return (char*)getMemAt(0x587000, 142336);
 	v5 = v1 % 23;
-	v6 = 12 * (v4 + 40 * v3 + 5 * v3);
+	v6 = 3 * (v4 + 40 * v3 + 5 * v3);
 	v7 = v2 % 23;
-	v16 = *getMemU32Ptr(0x853BC0, + v6) +
-		  v5 * (*getMemIntPtr(0x853BC0, 540 + v6) - *getMemIntPtr(0x853BC0, + v6)) / 23;
-	v17 = *getMemU32Ptr(0x853BC0, 4 + v6) +
-		  v5 * (*getMemIntPtr(0x853BC0, 544 + v6) - *getMemIntPtr(0x853BC0, 4 + v6)) / 23;
-	v18 = *getMemU32Ptr(0x853BC0, 8 + v6) +
-		  v5 * (*getMemIntPtr(0x853BC0, 548 + v6) - *getMemIntPtr(0x853BC0, 8 + v6)) / 23;
-	v10 = *getMemU32Ptr(0x853BC0, 12 + v6);
-	v11 = v5 * (*getMemU32Ptr(0x853BC0, 552 + v6) - v10);
-	v12 = v2 % 23 *
-		  (*getMemU32Ptr(0x853BC0, 16 + v6) +
-		   v5 * (*getMemIntPtr(0x853BC0, 556 + v6) - *getMemIntPtr(0x853BC0, 16 + v6)) / 23 - v17);
-	v13 = v7 * (*getMemU32Ptr(0x853BC0, 20 + v6) +
-				v5 * (*getMemIntPtr(0x853BC0, 560 + v6) - *getMemIntPtr(0x853BC0, 20 + v6)) / 23 - v18);
+	v16 = nox_arr_853BC0[0 + v6] + v5 * (nox_arr_853BC0[135 + 0 + v6] - nox_arr_853BC0[0 + v6]) / 23;
+	v17 = nox_arr_853BC0[1 + v6] + v5 * (nox_arr_853BC0[135 + 1 + v6] - nox_arr_853BC0[1 + v6]) / 23;
+	v18 = nox_arr_853BC0[2 + v6] + v5 * (nox_arr_853BC0[135 + 2 + v6] - nox_arr_853BC0[2 + v6]) / 23;
+	v10 = nox_arr_853BC0[3 + v6];
+	v11 = v5 * (nox_arr_853BC0[135 + 3 + v6] - v10);
+	v12 = v7 * (nox_arr_853BC0[4 + v6] + v5 * (nox_arr_853BC0[135 + 4 + v6] - nox_arr_853BC0[4 + v6]) / 23 - v17);
+	v13 = v7 * (nox_arr_853BC0[5 + v6] + v5 * (nox_arr_853BC0[135 + 5 + v6] - nox_arr_853BC0[5 + v6]) / 23 - v18);
 	*getMemU32Ptr(0x5D4594, 1064836) = (v16 + v7 * (v10 + v11 / 23 - v16) / 23) >> 16;
 	*getMemU32Ptr(0x5D4594, 1064840) = (v17 + v12 / 23) >> 16;
 	result = (char*)getMemAt(0x5D4594, 1064836);

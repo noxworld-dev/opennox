@@ -150,6 +150,7 @@ extern obj_5D4594_2650668_t** ptr_5D4594_2650668;
 extern _DWORD nox_arr_956A00[NOX_MAX_HEIGHT];
 extern unsigned char nox_arr_957820[128*(NOX_MAX_HEIGHT+150)];
 unsigned char nox_arr_84EB20[280*57*2] = {0}; // TODO: the 2x factor is for high-res; figure out what 57 is
+extern unsigned int nox_arr_853BC0[3*45*57];
 
 #ifndef NOX_CGO
 _DWORD dword_5d4594_1097208 = 0;
@@ -6176,18 +6177,17 @@ int nox_xxx_tileSetDrawFn_481420() {
 
 //----- (004814F0) --------------------------------------------------------
 int  sub_4814F0(int2* a1) {
-	int v1;              // eax
 	int v5;              // edi
 	unsigned __int8* v6; // eax
 	int result;          // eax
 
-	v1 = 12 * (a1->field_4 + 45 * a1->field_0);
-	int v2 = *getMemU32Ptr(0x853BC0, 0 + v1) >> 8;
-	int v3 = *getMemU32Ptr(0x853BC0, 4 + v1) >> 8;
-	int v4 = *getMemU32Ptr(0x853BC0, 8 + v1) >> 8;
-	int v2b = *getMemU32Ptr(0x853BC0, 12 + v1) >> 8;
-	int v3b = *getMemU32Ptr(0x853BC0, 16 + v1) >> 8;
-	int v4b = *getMemU32Ptr(0x853BC0, 20 + v1) >> 8;
+	int v1 = 3 * (a1->field_4 + 45 * a1->field_0);
+	int v2 = nox_arr_853BC0[0 + v1] >> 8;
+	int v3 = nox_arr_853BC0[1 + v1] >> 8;
+	int v4 = nox_arr_853BC0[2 + v1] >> 8;
+	int v2b = nox_arr_853BC0[3 + v1] >> 8;
+	int v3b = nox_arr_853BC0[4 + v1] >> 8;
+	int v4b = nox_arr_853BC0[5 + v1] >> 8;
 	int v8 = *getMemU32Ptr(0x8529A0, 1020 + 4 * ((v2b - v2) >> 8));
 	int v9 = *getMemU32Ptr(0x8529A0, 1020 + 4 * ((v3b - v3) >> 8));
 	int v10 = *getMemU32Ptr(0x8529A0, 1020 + 4 * ((v4b - v4) >> 8));

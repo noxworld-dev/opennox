@@ -36,6 +36,7 @@ extern int nox_backbuffer_width;
 extern int nox_backbuffer_height;
 
 extern unsigned char nox_arr_84EB20[280*57*2]; // TODO: the 2x factor is for high-res; figure out what 57 is
+unsigned int nox_arr_853BC0[3*45*57] = {0};
 
 //----- (00485880) --------------------------------------------------------
 signed int  sub_485880(_DWORD* a1, int* a2, int a3, signed int a4, char* a5) {
@@ -477,13 +478,13 @@ int  sub_4695E0(int a1, int a2, int* a3, int a4, int a5) {
 	v5 = a4;
 	if (a5)
 		v5 = -a4;
-	v6 = sub_4C1C60(v5, *a3) << 8;
+	v6 = sub_4C1C60(v5, a3[0]) << 8;
 	v7 = sub_4C1C60(v5, a3[1]) << 8;
-	v8 = sub_4C1C60(v5, a3[2]);
-	v9 = getMemAt(0x853BC0, + 12 * (a2 + 40 * a1 + 5 * a1));
-	v10 = *getMemU32Ptr(0x853BC0, + 12 * (a2 + 40 * a1 + 5 * a1)) + v6;
-	v11 = *getMemU32Ptr(0x853BC0, 4 + 12 * (a2 + 40 * a1 + 5 * a1)) + v7;
-	result = *getMemU32Ptr(0x853BC0, 8 + 12 * (a2 + 40 * a1 + 5 * a1)) + (v8 << 8);
+	v8 = sub_4C1C60(v5, a3[2]) << 8;
+	v9 = &nox_arr_853BC0[3 * (a2 + 40 * a1 + 5 * a1)];
+	v10 = v6 + nox_arr_853BC0[0 + 3 * (a2 + 40 * a1 + 5 * a1)];
+	v11 = v7 + nox_arr_853BC0[1 + 3 * (a2 + 40 * a1 + 5 * a1)];
+	result = v8 + nox_arr_853BC0[2 + 3 * (a2 + 40 * a1 + 5 * a1)];
 	if (v10 <= 16711680) {
 		if (v10 < 0)
 			v10 = 0;
@@ -835,10 +836,9 @@ void  sub_468F80(int a1) {
 	dword_5d4594_2650676 = 46 * ((*(_DWORD*)(a1 + 16) + 11) / 46 - 1) - 11;
 	dword_5d4594_2650680 = 46 * ((*(_DWORD*)(a1 + 20) + 11) / 46) - 57;
 	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_12)) {
-		unsigned int* arr = getMemAt(0x853BC0, 0);
 		for (int i = 0; i < 352; i++) {
 			for (int j = 0; j < 21; j++) {
-				arr[21*i + j] = 0xFF0000;
+				nox_arr_853BC0[21*i + j] = 0xFF0000;
 			}
 		}
 	} else {
@@ -863,12 +863,11 @@ void  sub_468F80(int a1) {
 		v11 = v8;
 		v12 = v19;
 		v13 = v20;
-		unsigned int* arr = getMemAt(0x853BC0, 0);
 		for (int i = 0; i < 352; i++) {
 			for (int j = 0; j < 7; j++) {
-				arr[21*i + 3*j + 0] = v11;
-				arr[21*i + 3*j + 1] = v12;
-				arr[21*i + 3*j + 2] = v13;
+				nox_arr_853BC0[21*i + 3*j + 0] = v11;
+				nox_arr_853BC0[21*i + 3*j + 1] = v12;
+				nox_arr_853BC0[21*i + 3*j + 2] = v13;
 			}
 		}
 		v14 = v1[4];

@@ -14,7 +14,6 @@ extern unsigned char byte_8529A0[2044];
 extern unsigned char byte_8531A0[2592];
 extern unsigned char byte_973CE0[568];
 extern unsigned char byte_973F18[44881];
-extern unsigned char byte_853BC0[30780];
 extern unsigned char byte_85B3FC[1029636];
 extern unsigned char byte_852978[40];
 extern unsigned char byte_973A20[704];
@@ -43,9 +42,6 @@ void* mem_getPtrSize(uintptr_t base, uintptr_t off, uintptr_t size) {
 	case 0x973F18:
 		if (off+size <= sizeof(byte_973F18))
 			return &byte_973F18[off];
-	case 0x853BC0:
-		if (off+size <= sizeof(byte_853BC0))
-			return &byte_853BC0[off];
 	case 0x85B3FC:
 		if (off+size <= sizeof(byte_85B3FC))
 			return &byte_85B3FC[off];
