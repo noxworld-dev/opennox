@@ -16,33 +16,8 @@ extern unsigned int nox_frame_xxx_2598000;
 
 //----- (00436100) --------------------------------------------------------
 void nox_xxx_clientDrawAll_436100_draw() {
-	__int64 v0;            // rax
-	int v1;                // ebx
-	int v2;                // esi
-	int v3;                // edi
-	int v6;                // ecx
-	int v7;                // eax
-	bool v8;               // zf
-	int v10;               // esi
-	unsigned __int16* v11; // eax
-	__int16* v12;          // eax
-	unsigned __int64 v13;  // rax
-	int v14;               // edi
-	int* v15;              // ebx
-	int v16;               // esi
-	int v17;               // edi
-	int v18;               // ebx
-	unsigned __int16* i;   // esi
-	int v20;               // [esp-8h] [ebp-220h]
-	int v21;               // [esp-4h] [ebp-21Ch]
-	int v22;               // [esp+Ch] [ebp-20Ch]
-	int v23;               // [esp+10h] [ebp-208h]
-	int v24;               // [esp+14h] [ebp-204h]
-	wchar_t v25[128];      // [esp+18h] [ebp-200h]
-
-	v0 = nox_platform_get_ticks();
-	v1 = HIDWORD(v0);
-	v2 = v0;
+	unsigned __int64 v0 = nox_platform_get_ticks();
+	int v3 = 0;
 	if ((unsigned int)(v0 - *getMemU32Ptr(0x5D4594, 814532)) < *getMemIntPtr(0x587000, 85748)) {
 		v3 = 0;
 	} else {
@@ -54,10 +29,11 @@ void nox_xxx_clientDrawAll_436100_draw() {
 		nox_common_setEngineFlag(NOX_ENGINE_FLAG_PAUSE);
 		return;
 	}
-	*getMemU32Ptr(0x5D4594, 814532) = v2;
 	nox_common_resetEngineFlag(NOX_ENGINE_FLAG_PAUSE);
-	*getMemU32Ptr(0x5D4594, 814536) = v1;
+	*getMemU64Ptr(0x5D4594, 814532) = v0;
 	*getMemU32Ptr(0x5D4594, 811916) = nox_frame_xxx_2598000;
+	int v6 = nox_draw_viewport.x1;
+	int v7 = nox_draw_viewport.y1;
 	if (*getMemU32Ptr(0x587000, 85744)) {
 		nox_draw_viewport.height = nox_draw_viewport.width * nox_win_height / nox_win_width;
 		v6 = (nox_win_width - nox_draw_viewport.width) / 2;
@@ -66,32 +42,30 @@ void nox_xxx_clientDrawAll_436100_draw() {
 		nox_draw_viewport.y1 = v7;
 		nox_draw_viewport.x2 = v6 + nox_draw_viewport.width - 1;
 		nox_draw_viewport.y2 = v7 + nox_draw_viewport.height - 1;
-	} else {
-		v6 = nox_draw_viewport.x1;
-		v7 = nox_draw_viewport.y1;
 	}
 	sub_430B50(v6, v7, nox_draw_viewport.x2, nox_draw_viewport.y2);
-	if (*getMemU32Ptr(0x85319C, 0))
+	if (*getMemU32Ptr(0x85319C, 0)) {
 		*getMemU32Ptr(0x852978, 8) = nox_xxx_netSpriteByCodeDynamic_45A6F0(*getMemIntPtr(0x85319C, 0));
+	}
 	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
-		v8 = !sub_436550();
-		if (v8)
+		if (!sub_436550()) {
 			nox_common_resetEngineFlag(NOX_ENGINE_FLAG_9);
-		else
+		} else {
 			nox_common_setEngineFlag(NOX_ENGINE_FLAG_9);
-		if (!*getMemU32Ptr(0x5D4594, 814540))
+		}
+		if (!*getMemU32Ptr(0x5D4594, 814540)) {
 			*getMemU32Ptr(0x5D4594, 814540) = nox_xxx_gLoadImg_42F970("MenuSystemBG");
+		}
 		if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_9)) {
-			v10 = nox_xxx_guiFontPtrByName_43F360("large");
+			void* v10 = nox_xxx_guiFontPtrByName_43F360("large");
 			nox_client_drawImageAt_47D2C0(*getMemIntPtr(0x5D4594, 814540), 0, 0);
-			v11 = nox_strman_loadString_40F1D0("InProgress", 0, "C:\\NoxPost\\src\\client\\System\\client.c",
-										1550);
+			wchar_t* v11 = nox_strman_loadString_40F1D0("InProgress", 0, "C:\\NoxPost\\src\\client\\System\\client.c", 1550);
+			int v22 = 0;
 			nox_xxx_drawGetStringSize_43F840(v10, v11, &v22, 0, 0);
 			nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 2523948));
-			v21 = nox_win_height / 2;
-			v20 = (nox_win_width - v22) / 2;
-			v12 = (__int16*)nox_strman_loadString_40F1D0("InProgress", 0,
-												  "C:\\NoxPost\\src\\client\\System\\client.c", 1553);
+			int v21 = nox_win_height / 2;
+			int v20 = (nox_win_width - v22) / 2;
+			wchar_t* v12 = nox_strman_loadString_40F1D0("InProgress", 0, "C:\\NoxPost\\src\\client\\System\\client.c", 1553);
 			nox_xxx_drawString_43F6E0(v10, v12, v20, v21);
 		}
 	} else if (*getMemU32Ptr(0x852978, 8) && nox_client_isConnected_43C700()) {
@@ -101,34 +75,38 @@ void nox_xxx_clientDrawAll_436100_draw() {
 		nox_xxx_drawSelectColor_434350(*getMemIntPtr(0x85B3FC, 952));
 		sub_440900();
 	}
-	if (dword_5d4594_811896)
+	if (dword_5d4594_811896) {
 		sub_4365C0();
-	if (dword_5d4594_811904)
+	}
+	if (dword_5d4594_811904) {
 		sub_436F50();
-	if (nox_common_gameFlags_check_40A5C0(8)) {
-		v13 = nox_platform_get_ticks() - *getMemU64Ptr(0x5D4594, 811908);
-		v24 = HIDWORD(v13);
-		if (v13 > 0x2710 && !nox_common_gameFlags_check_40A5C0(1))
-			nox_common_gameFlags_unset_40A540(8);
 	}
 	if (nox_common_gameFlags_check_40A5C0(8)) {
+		unsigned __int64 v13 = nox_platform_get_ticks() - *getMemU64Ptr(0x5D4594, 811908);
+		if (v13 > 0x2710 && !nox_common_gameFlags_check_40A5C0(1)) {
+			nox_common_gameFlags_unset_40A540(8);
+		}
+	}
+	if (nox_common_gameFlags_check_40A5C0(8)) {
+		wchar_t v25[128];
 		nox_wcscpy(v25, (const wchar_t*)getMemAt(0x5D4594, 811376));
-		v14 = (nox_win_width - 310) / 2;
-		v15 = getMemIntPtr(0x5D4594, 811888 + 4 * *getMemU32Ptr(0x5D4594, 811060));
-		v16 = (nox_win_height - 200) / 2;
-		if (!*getMemU32Ptr(0x5D4594, 811888 + 4 * *getMemU32Ptr(0x5D4594, 811060))) {
-			v15 = getMemIntPtr(0x5D4594, 811888 + 4 * *getMemU32Ptr(0x5D4594, 811060));
+		int v14 = (nox_win_width - 310) / 2;
+		int v16 = (nox_win_height - 200) / 2;
+		int* v15 = getMemIntPtr(0x5D4594, 811888 + 4 * *getMemU32Ptr(0x5D4594, 811060));
+		if (!*v15) {
 			*v15 = nox_xxx_gLoadImg_42F970(*(const char**)getMemAt(0x587000, 85712 + 4 * *getMemU32Ptr(0x5D4594, 811060)));
 		}
 		nox_client_drawImageAt_47D2C0(*v15, v14, v16);
+		int v22 = 0;
+		int v23 = 0;
 		nox_xxx_drawGetStringSize_43F840(0, v25, &v22, &v23, 220);
-		v17 = v14 + 45;
-		v18 = v16 + (49 - v23) / 2 + 143;
+		int v17 = v14 + 45;
+		int v18 = v16 + (49 - v23) / 2 + 143;
 		nox_client_drawSetColor_434460(*getMemIntPtr(0x5D4594, 2523948));
-		for (i = nox_wcstok(v25, L"\n\r"); i; i = nox_wcstok(0, L"\n\r")) {
+		for (wchar_t* tok = nox_wcstok(v25, L"\n\r"); tok; tok = nox_wcstok(0, L"\n\r")) {
 			nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 2523948));
-			nox_xxx_drawGetStringSize_43F840(0, i, &v22, 0, 0);
-			nox_xxx_drawString_43FAF0(0, i, v17 + (220 - v22) / 2, v18, 220, 0);
+			nox_xxx_drawGetStringSize_43F840(0, tok, &v22, 0, 0);
+			nox_xxx_drawString_43FAF0(0, tok, v17 + (220 - v22) / 2, v18, 220, 0);
 			v18 += nox_xxx_guiFontHeightMB_43F320(0);
 		}
 	}
