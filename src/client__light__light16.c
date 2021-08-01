@@ -35,6 +35,8 @@ extern int nox_video_dxFullScreen;
 extern int nox_backbuffer_width;
 extern int nox_backbuffer_height;
 
+extern unsigned char nox_arr_84EB20[280*57*2]; // TODO: the 2x factor is for high-res; figure out what 57 is
+
 //----- (00485880) --------------------------------------------------------
 signed int  sub_485880(_DWORD* a1, int* a2, int a3, signed int a4, char* a5) {
 	signed int result; // eax
@@ -87,9 +89,9 @@ signed int  sub_485880(_DWORD* a1, int* a2, int a3, signed int a4, char* a5) {
 		} else {
 			v12 = *a1 - 23 * *a2 - dword_5d4594_2650676;
 			v13 = 12 * a3;
-			v14 = *getMemU32Ptr(0x84EB20, 4 + 280 * *a2 + 12 * a3);
+			v14 = *((unsigned int*)&nox_arr_84EB20[4 + 280 * *a2 + 12 * a3]);
 			dword_5d4594_1193176 = v14;
-			v15 = *getMemU32Ptr(0x8529A0, 1020 + 4 * ((*getMemIntPtr(0x84EB20, 284 + 280 * *a2 + 12 * a3) - v14) >> 8));
+			v15 = *getMemU32Ptr(0x8529A0, 1020 + 4 * ((*((int*)&nox_arr_84EB20[284 + 280 * *a2 + 12 * a3]) - v14) >> 8));
 			if (v12 <= 0) {
 				v23 = 23;
 				v16 = 23;
@@ -125,8 +127,8 @@ signed int  sub_485880(_DWORD* a1, int* a2, int a3, signed int a4, char* a5) {
 				v19 = v18;
 				*a2 = v18;
 				v9 = *(char**)&dword_5d4594_1193184;
-				dword_5d4594_1193176 = *getMemU32Ptr(0x84EB20, 4 + 280 * v19 + v13);
-				v15 = *getMemU32Ptr(0x8529A0, 1020 + 4 * ((*getMemIntPtr(0x84EB20, 284 + 280 * *a2 + v13) - *(int*)&dword_5d4594_1193176) >> 8));
+				dword_5d4594_1193176 = *((unsigned int*)&nox_arr_84EB20[4 + 280 * v19 + v13]);
+				v15 = *getMemU32Ptr(0x8529A0, 1020 + 4 * ((*((int*)&nox_arr_84EB20[284 + 280 * *a2 + v13]) - *(int*)&dword_5d4594_1193176) >> 8));
 			}
 		}
 	}
@@ -154,7 +156,7 @@ int  sub_481470(int2* a1) {
 		v3 += v4;
 	} while (v5 < 276);
 	result = 35 * a1->field_0;
-	*getMemU32Ptr(0x84EB20, + 280 * a1->field_0) = a1->field_4;
+	*((unsigned int*)&nox_arr_84EB20[280 * a1->field_0]) = a1->field_4;
 	return result;
 }
 
