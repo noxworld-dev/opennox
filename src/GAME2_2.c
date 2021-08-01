@@ -151,7 +151,7 @@ extern obj_5D4594_2650668_t** ptr_5D4594_2650668;
 extern _DWORD nox_arr_956A00[NOX_MAX_HEIGHT+150];
 extern unsigned char nox_arr_957820[128*(NOX_MAX_HEIGHT+150)];
 unsigned char nox_arr_84EB20[280*57*2] = {0}; // TODO: the 2x factor is for high-res; figure out what 57 is
-extern nox_light_3 nox_arr2_853BC0[57][45];
+extern nox_light_3 nox_arr2_853BC0[57*2][45*2]; // TODO: the 2x factor is for high-res; figure out what those values are
 
 #ifndef NOX_CGO
 _DWORD dword_5d4594_1097208 = 0;

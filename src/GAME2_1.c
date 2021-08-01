@@ -157,7 +157,7 @@ extern nox_window* nox_win_xxx1_last;
 
 extern unsigned int nox_gameFPS;
 
-extern nox_light_3 nox_arr2_853BC0[57][45];
+extern nox_light_3 nox_arr2_853BC0[57*2][45*2]; // TODO: the 2x factor is for high-res; figure out what those values are
 
 nox_window* nox_win_unk5 = 0;
 nox_window* dword_5d4594_1062452 = 0;
@@ -3415,7 +3415,7 @@ char*  sub_469920(_DWORD* a1) {
 
 	int xd = x / 23;
 	int yd = y / 23;
-	if (xd < 0 || yd < 0 || xd > 56 || yd > 44)
+	if (xd < 0 || yd < 0 || xd+1 >= 57*2 || yd+1 >= 45*2)
 		return (char*)getMemAt(0x587000, 142336);
 
 	int xr = x % 23;

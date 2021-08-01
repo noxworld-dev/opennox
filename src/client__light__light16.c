@@ -36,7 +36,7 @@ extern int nox_backbuffer_width;
 extern int nox_backbuffer_height;
 
 extern unsigned char nox_arr_84EB20[280*57*2]; // TODO: the 2x factor is for high-res; figure out what 57 is
-nox_light_3 nox_arr2_853BC0[57][45] = {0};
+nox_light_3 nox_arr2_853BC0[57*2][45*2] = {0}; // TODO: the 2x factor is for high-res; figure out what those values are
 
 //----- (00485880) --------------------------------------------------------
 signed int  sub_485880(_DWORD* a1, int* a2, int a3, signed int a4, char* a5) {
@@ -790,8 +790,8 @@ void  sub_468F80(int a1) {
 	dword_5d4594_2650676 = 46 * ((*(_DWORD*)(a1 + 16) + 11) / 46 - 1) - 11;
 	dword_5d4594_2650680 = 46 * ((*(_DWORD*)(a1 + 20) + 11) / 46) - 57;
 	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_12)) {
-		for (int i = 0; i < 57; i++) {
-			for (int j = 0; j < 45; j++) {
+		for (int i = 0; i < 57*2; i++) {
+			for (int j = 0; j < 45*2; j++) {
 				nox_arr2_853BC0[i][j].r = 0xFF0000;
 				nox_arr2_853BC0[i][j].g = 0xFF0000;
 				nox_arr2_853BC0[i][j].b = 0xFF0000;
@@ -819,8 +819,8 @@ void  sub_468F80(int a1) {
 		v11 = v8;
 		v12 = v19;
 		v13 = v20;
-		for (int i = 0; i < 57; i++) {
-			for (int j = 0; j < 45; j++) {
+		for (int i = 0; i < 57*2; i++) {
+			for (int j = 0; j < 45*2; j++) {
 				nox_arr2_853BC0[i][j].r = v11;
 				nox_arr2_853BC0[i][j].g = v12;
 				nox_arr2_853BC0[i][j].b = v13;
