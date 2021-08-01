@@ -647,13 +647,6 @@ void  nox_xxx_cliLight16_469140(int arg0) {
 	int v5;           // ecx
 	int v6;           // eax
 	int v7;           // ebx
-	int v8;           // ebp
-	signed int v9;    // eax
-	int v10;          // edx
-	int v12;          // edi
-	int v13;          // eax
-	int v14;          // edx
-	unsigned int v15; // eax
 	unsigned int v16; // eax
 	__int16 v17;      // cx
 	int v18;          // edi
@@ -666,18 +659,13 @@ void  nox_xxx_cliLight16_469140(int arg0) {
 	int v25;          // eax
 	int* v26;         // esi
 	float v27;        // [esp+0h] [ebp-68h]
-	int v29;          // [esp+14h] [ebp-54h]
-	signed int v30;   // [esp+18h] [ebp-50h]
 	signed int v33;   // [esp+24h] [ebp-44h]
-	int i;            // [esp+2Ch] [ebp-3Ch]
 	unsigned int v36; // [esp+34h] [ebp-34h]
 	int2 a1;          // [esp+38h] [ebp-30h]
 	int2 a4;          // [esp+40h] [ebp-28h]
-	int v39;          // [esp+4Ch] [ebp-1Ch]
 	int2 a3;          // [esp+50h] [ebp-18h]
 	int2 a2;          // [esp+58h] [ebp-10h]
 	int2 v42;         // [esp+60h] [ebp-8h]
-	int v43;          // [esp+6Ch] [ebp+4h]
 	int v44;          // [esp+6Ch] [ebp+4h]
 	int v45;          // [esp+6Ch] [ebp+4h]
 
@@ -709,62 +697,45 @@ void  nox_xxx_cliLight16_469140(int arg0) {
 	a4.field_0 = v5;
 	a4.field_4 = v7;
 	if (v6 == 0xFFFF) {
-		unsigned int dist = v4 * v4;
+		unsigned int dlimit = v4 * v4;
 
-		v43 = (v5 - v4) / 23;
-		if (v43 < 0) {
-			v43 = 0;
+		int xmin = (v5 - v4) / 23;
+		if (xmin < 0) {
+			xmin = 0;
 		}
 
-		v30 = (v5 + v4) / 23;
-		if (v30 > 56) {
-			v30 = 56;
+		int xmax = (v5 + v4) / 23;
+		if (xmax > 56) {
+			xmax = 56;
 		}
 
-		v8 = (v7 - v4) / 23;
-		if (v8 < 0) {
-			v8 = 0;
+		int ymin = (v7 - v4) / 23;
+		if (ymin < 0) {
+			ymin = 0;
 		}
 
-		v9 = (v7 + v4) / 23;
-		if (v9 > 44) {
-			v9 = 44;
+		int ymax = (v7 + v4) / 23;
+		if (ymax > 44) {
+			ymax = 44;
 		}
 
-		v10 = 23 * v8;
-		v39 = 23 * v8;
-		if (v8 <= v9) {
-			int v11 = dword_587000_142328;
-			v12 = 23 * v43;
-			while (1) {
-				v13 = v7 - v10;
-				v29 = v43;
-				if (v43 <= v30) {
-					v14 = v13 * v13;
-					for (i = v13 * v13;; v14 = i) {
-						v15 = v14 + (v5 - v12) * (v5 - v12);
-						if (v15 <= dist) {
-							v16 = sub_4C1C70(v33 + v11, 66 * v15 * *getMemU32Ptr(0x587000, 142324) / v36 + 0x10000);
-							v11 = dword_587000_142328;
-							if (v16 > v11) {
-								sub_4695E0(v29, v8, (int*)(v1 + 152), 8 * (v16 - dword_587000_142328), *(_DWORD*)(v1 + 172));
-								v5 = a4.field_0;
-								v7 = a4.field_4;
-							} else {
-								v5 = a4.field_0;
-								v7 = a4.field_4;
-							}
-						}
-						v12 += 23;
-						if (++v29 > v30)
-							break;
+		int v11 = dword_587000_142328;
+		for (int y = ymin; y <= ymax; y++) {
+			int dy = v7 - 23 * y;
+			int dy2 = dy * dy;
+			for (int x = xmin; x <= xmax; x++) {
+				int dx = v5 - 23 * x;
+				int dx2 = dx * dx;
+				unsigned int dist = dx2 + dy2;
+				if (dist <= dlimit) {
+					v16 = sub_4C1C70(v33 + v11, 66 * dist * *getMemU32Ptr(0x587000, 142324) / v36 + 0x10000);
+					v11 = dword_587000_142328;
+					if (v16 > v11) {
+						sub_4695E0(x, y, (int*)(v1 + 152), 8 * (v16 - dword_587000_142328), *(_DWORD*)(v1 + 172));
 					}
+					v5 = a4.field_0;
+					v7 = a4.field_4;
 				}
-				v39 += 23;
-				if (++v8 > v9)
-					break;
-				v12 = 23 * v43;
-				v10 = v39;
 			}
 		}
 	} else {
