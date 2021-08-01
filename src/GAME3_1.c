@@ -133,7 +133,7 @@ nox_gui_animation* nox_wnd_xxx_1522608 = 0;
 void* nox_gui_itemAmount_item_1319256 = 0;
 void* nox_gui_itemAmount_dialog_1319228 = 0;
 
-_DWORD nox_arr_956A00[NOX_MAX_HEIGHT] = {0};
+_DWORD nox_arr_956A00[NOX_MAX_HEIGHT+150] = {0};
 unsigned char nox_arr_957820[128*(NOX_MAX_HEIGHT+150)] = {0};
 
 #ifndef NOX_CGO
