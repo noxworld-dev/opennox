@@ -2,7 +2,6 @@ package render
 
 import (
 	"image"
-	"unsafe"
 
 	"nox/v1/client/seat"
 	"nox/v1/common/log"
@@ -118,12 +117,6 @@ func (r *Renderer) newSurface(sz types.Size) seat.Surface {
 // BufferSize returns the size of the back buffer.
 func (r *Renderer) BufferSize() types.Size {
 	return r.backbuf.Size()
-}
-
-// BufferData returns C pointer to the back buffer data.
-func (r *Renderer) BufferData() unsafe.Pointer {
-	b := r.backbuf.Bytes()
-	return unsafe.Pointer(&b[0])
 }
 
 // BufferPitch returns for the back buffer data.

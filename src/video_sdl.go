@@ -43,36 +43,12 @@ func nox_video_copyBackBuffer3_4AD1E0() {
 	*memmap.PtrUint32(0x973A20, 496)++
 }
 
-func nox_video_setBackBufferPtrs_48A190() {
-	C.nox_backbuffer_pix = noxRendererS.BufferData()
-}
-
 //export sub_444D00
 func sub_444D00() {
 	mu := asMutex(memmap.PtrOff(0x973F18, 168))
 	mu.Lock()
 	defer mu.Unlock()
-	nox_video_setBackBufferPtrs_48A190()
 	nox_video_setBackBufferCopyFunc2_4AD150()
-}
-
-func nox_video_copyBackBuffer_4AD2A0() {
-	// FIXME unlocked surfaces
-	width32 := nox_backbuffer_width32
-	width := width32 * 32
-	pitch := width + nox_backbuffer_pitchDiff
-	height := noxRendererS.BufferSize().H
-
-	dst := asByteSlice(unsafe.Pointer(C.nox_backbuffer_pix), height*width)
-	for y := 0; y < height; y++ {
-		row := asByteSlice(nox_pixbuffer_rows_3798784_arr[y], width32*32)
-		drow := dst[y*pitch:]
-		for x := 0; x < width32; x++ {
-			i := x * 32
-			copy(drow[i:], row[i:i+32])
-		}
-	}
-	*memmap.PtrUint32(0x973A20, 496)++
 }
 
 func resetRenderer(sz types.Size) error {
@@ -129,7 +105,6 @@ func nox_video_setBackBufSizes_48A3D0(sz types.Size) int {
 
 	*memmap.PtrUint32(0x973F18, 136) = uint32(pitch)
 	*memmap.PtrUint32(0x973F18, 2368) = 1
-	nox_video_setBackBufferPtrs_48A190()
 
 	nox_backbuffer_width32 = sz.W >> 4
 	*memmap.PtrUint32(0x973F18, 2348) = uint32(sz.W >> 1)

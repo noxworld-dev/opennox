@@ -253,7 +253,6 @@ func nox_common_parsecfg_videomode_apply(w, h, d C.int) {
 
 func nox_video_setBackBufferCopyFunc_4AD100() error {
 	if C.nox_video_renderTargetFlags&0x40 != 0 {
-		noxBackBufCopyFunc = nox_video_copyBackBuffer2_4AD180
 		return errors.New("nox_video_setBackBufferCopyFunc_4AD100: flag not implemented")
 	} else {
 		nox_video_setBackBufferCopyFunc2_4AD150()
@@ -265,7 +264,7 @@ func nox_video_setBackBufferCopyFunc_4AD100() error {
 //export nox_video_setBackBufferCopyFunc2_4AD150
 func nox_video_setBackBufferCopyFunc2_4AD150() {
 	if C.nox_video_renderTargetFlags&0x40 != 0 {
-		noxBackBufCopyFunc = nox_video_copyBackBuffer_4AD2A0
+		panic("not implemented")
 	} else {
 		noxBackBufCopyFunc = nox_video_copyBackBuffer3_4AD1E0
 	}
@@ -352,10 +351,6 @@ func drawInitAll(sz types.Size, depth, flags int) error {
 		return errors.New("sub_49F4A0 failed")
 	}
 	return nil
-}
-
-func nox_video_copyBackBuffer2_4AD180() {
-	panic("not implemented")
 }
 
 func gameUpdateVideoMode(inMenu bool) error {
