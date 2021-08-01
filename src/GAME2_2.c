@@ -179,7 +179,8 @@ void* dword_5d4594_1189584 = 0;
 void* nox_client_spriteUnderCursorXxx_1096644 = 0;
 
 //----- (00475F10) --------------------------------------------------------
-int  sub_475F10(_DWORD* a1) {
+int  sub_475F10(nox_draw_viewport_t* a1p) {
+	_DWORD* a1 = a1p;
 	int* v1;    // ebp
 	int result; // eax
 	bool i;     // zf
@@ -213,7 +214,8 @@ int  sub_475F10(_DWORD* a1) {
 }
 
 //----- (00475FE0) --------------------------------------------------------
-int  sub_475FE0(_DWORD* a1) {
+int  sub_475FE0(nox_draw_viewport_t* a1p) {
+	_DWORD* a1 = a1p;
 	int* v1;    // ebp
 	int result; // eax
 	bool i;     // zf
@@ -333,7 +335,8 @@ int  sub_476240(const void* a1, const void* a2) {
 }
 
 //----- (00476270) --------------------------------------------------------
-void sub_476270(_DWORD* a1) {
+void sub_476270(nox_draw_viewport_t* a1p) {
+	_DWORD* a1 = a1p;
 	_DWORD* v1;  // esi
 	int v2;      // ebp
 	int v3;      // ebx
@@ -470,7 +473,8 @@ void sub_476270(_DWORD* a1) {
 }
 
 //----- (004765F0) --------------------------------------------------------
-int  sub_4765F0(int a1) {
+int  sub_4765F0(nox_draw_viewport_t* a1p) {
+	int a1 = a1p;
 	int result; // eax
 	int v2;     // eax
 
@@ -6494,7 +6498,8 @@ void  nox_xxx_tileCallDrawEdges_481BF0(int a1, int a2) {
 
 #if 1
 //----- (00481C20) --------------------------------------------------------
-int  nox_xxx_tileDrawMB_481C20(int* a1) {
+int  nox_xxx_tileDrawMB_481C20(nox_draw_viewport_t* a1p) {
+	int* a1 = a1p;
 	int v1;               // esi
 	int v2;               // edx
 	int v3;               // esi

@@ -5148,7 +5148,8 @@ int  sub_4C5020(int a1) {
 void sub_4C5050() { dword_5d4594_1321800 = 0; }
 
 //----- (004C5060) --------------------------------------------------------
-int  sub_4C5060(_DWORD* a1) {
+int  sub_4C5060(nox_draw_viewport_t* a1p) {
+	_DWORD* a1 = a1p;
 	int result;           // eax
 	unsigned __int16* v2; // ebp
 	int v3;               // esi
@@ -5414,7 +5415,8 @@ int sub_4C54E0() {
 }
 
 //----- (004C5500) --------------------------------------------------------
-void sub_4C5500(int* a1) {
+void sub_4C5500(nox_draw_viewport_t* a1p) {
+	int* a1 = a1p;
 	int* v1;              // ebx
 	int v2;               // ebp
 	int v3;               // esi

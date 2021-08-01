@@ -2890,7 +2890,8 @@ int sub_496120() {
 }
 
 //----- (00496150) --------------------------------------------------------
-int  nox_xxx_drawBlack_496150(int* a1) {
+int  nox_xxx_drawBlack_496150(nox_draw_viewport_t* a1p) {
+	int* a1 = a1p;
 	int v1;               // esi
 	int v2;               // ecx
 	int v3;               // ebx

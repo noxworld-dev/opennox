@@ -6,12 +6,24 @@ package main
 #include "client__gui__guiquit.h"
 #include "client__gui__guiggovr.h"
 #include "client__video__draw_common.h"
+#include "client__draw__selectdw.h"
 extern nox_draw_viewport_t nox_draw_viewport;
 extern unsigned int dword_5d4594_811896;
 extern unsigned int dword_5d4594_811904;
 extern unsigned int nox_client_gui_flag_815132;
+extern unsigned int dword_5d4594_1096432;
+extern unsigned int dword_5d4594_1096516;
+extern int dword_5d4594_3799524;
+extern unsigned int nox_client_gui_flag_1556112;
+extern unsigned int nox_gameDisableMapDraw_5d4594_2650672;
 void nox_xxx_clientDrawAll_436100_draw_A();
 void nox_xxx_clientDrawAll_436100_draw_B();
+void nox_xxx_drawAllMB_475810_draw_A(nox_draw_viewport_t* vp);
+int nox_xxx_drawAllMB_475810_draw_B(nox_draw_viewport_t* vp);
+void nox_xxx_drawAllMB_475810_draw_C(nox_draw_viewport_t* vp, int v36, int v7);
+void nox_xxx_drawAllMB_475810_draw_D(nox_draw_viewport_t* vp);
+void nox_xxx_drawAllMB_475810_draw_E(nox_draw_viewport_t* vp);
+void nox_xxx_drawAllMB_475810_draw_F(nox_draw_viewport_t* vp);
 */
 import "C"
 import (
@@ -173,26 +185,26 @@ func nox_xxx_clientDrawAll_436100_draw() {
 	resetEngineFlag(NOX_ENGINE_FLAG_PAUSE)
 	*memmap.PtrUint64(0x5D4594, 814532) = v0
 	*memmap.PtrUint32(0x5D4594, 811916) = gameFrame()
-	viewport := &C.nox_draw_viewport
-	v6 := int(viewport.x1)
-	v7 := int(viewport.y1)
+	vp := getViewport()
+	v6 := int(vp.x1)
+	v7 := int(vp.y1)
 	if memmap.Uint32(0x587000, 85744) != 0 {
-		viewport.height = viewport.width * C.int(nox_win_height) / C.int(nox_win_width)
-		v6 = (nox_win_width - int(viewport.width)) / 2
-		v7 = (nox_win_height - int(viewport.height)) / 2
-		viewport.x1 = C.int(v6)
-		viewport.y1 = C.int(v7)
-		viewport.x2 = C.int(v6) + viewport.width - 1
-		viewport.y2 = C.int(v7) + viewport.height - 1
+		vp.height = vp.width * C.int(nox_win_height) / C.int(nox_win_width)
+		v6 = (nox_win_width - int(vp.width)) / 2
+		v7 = (nox_win_height - int(vp.height)) / 2
+		vp.x1 = C.int(v6)
+		vp.y1 = C.int(v7)
+		vp.x2 = C.int(v6) + vp.width - 1
+		vp.y2 = C.int(v7) + vp.height - 1
 	}
-	C.sub_430B50(C.int(v6), C.int(v7), viewport.x2, viewport.y2)
+	C.sub_430B50(C.int(v6), C.int(v7), vp.x2, vp.y2)
 	if id := memmap.Uint32(0x85319C, 0); id != 0 {
 		*memmap.PtrPtr(0x852978, 8) = unsafe.Pointer(C.nox_xxx_netSpriteByCodeDynamic_45A6F0(C.int(id)))
 	}
 	if getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) {
 		C.nox_xxx_clientDrawAll_436100_draw_A()
 	} else if memmap.Uint32(0x852978, 8) != 0 && C.nox_client_isConnected_43C700() != 0 {
-		C.nox_xxx_drawAllMB_475810_draw(viewport)
+		nox_xxx_drawAllMB_475810_draw(vp)
 		C.nox_xxx_drawMinimapAndLines_4738E0()
 	} else {
 		nox_xxx_drawSelectColor_434350(memmap.Uint32(0x85B3FC, 952))
@@ -218,4 +230,68 @@ func nox_xxx_clientDrawAll_436100_draw() {
 		sub_440900()
 		*memmap.PtrUint32(0x587000, 85744) = 0
 	}
+}
+
+func nox_xxx_drawAllMB_475810_draw(vp *Viewport) {
+	C.nox_xxx_drawAllMB_475810_draw_A(vp.C())
+	if int32(vp.field_12) < 0 {
+		vp.field_12 = C.int(-1 - int32(vp.field_12))
+	} else if int32(vp.field_12) > 0 {
+		vp.field_12 = C.int(1 - int32(vp.field_12))
+	}
+	*memmap.PtrInt32(0x5D4594, 1096428) = int32(C.int(vp.field_4) - vp.x1)
+	C.dword_5d4594_1096432 = C.uint(C.int(vp.field_5) - vp.y1)
+	v36 := vp.field_4 / 23
+	v7 := vp.field_5 / 23
+	C.dword_5d4594_1096516 = 0
+	C.nox_xxx_drawBlack_496150(vp.C())
+	v8 := false
+	if !nox_common_gameFlags_check_40A5C0(2048) && C.nox_xxx_testCD_413830() == 0 ||
+		nox_common_gameFlags_check_40A5C0(2048) && C.nox_xxx_testCDAndSolo_413840() == 0 ||
+		C.nox_xxx_spriteTestBuf_4356C0((*C.nox_drawable)(*memmap.PtrPtr(0x852978, 8)), 2) != 0 ||
+		C.nox_gameDisableMapDraw_5d4594_2650672 != 0 {
+		v8 = true
+	}
+	if C.nox_client_gui_flag_1556112 != 0 || v8 {
+		nox_xxx_drawSelectColor_434350(memmap.Uint32(0x85B3FC, 952))
+		sub_440900()
+		C.sub_437290()
+		C.dword_5d4594_3799524 = 1
+		return
+	}
+	if memmap.Uint32(0x5D4594, 1096520) != 0 {
+		nox_xxx_drawSelectColor_434350(memmap.Uint32(0x5D4594, 2523948))
+		sub_440900()
+		nox_xxx_drawSelectColor_434350(memmap.Uint32(0x85B3FC, 952))
+		*memmap.PtrUint32(0x5D4594, 1096520) = 0
+		C.sub_437290()
+		C.dword_5d4594_3799524 = 1
+		return
+	}
+	v10 := C.nox_xxx_drawAllMB_475810_draw_B(vp.C()) != 0
+	C.sub_4765F0(vp.C())
+	C.sub_4754F0(vp.C())
+	if v10 {
+		C.nox_xxx_tileDrawMB_481C20(vp.C())
+		C.sub_4C5500(vp.C())
+	} else {
+		sub_440900()
+	}
+	C.sub_475F10(vp.C())
+	C.nox_xxx_drawAllMB_475810_draw_C(vp.C(), C.int(v36), C.int(v7))
+	C.nox_xxx_drawAllMB_475810_draw_D(vp.C())
+	C.sub_475FE0(vp.C())
+	C.nox_video_drawCursorSelectCircle_4773C0(vp.C())
+	C.nox_xxx_drawAllMB_475810_draw_E(vp.C())
+	C.sub_4AFD40()
+	C.sub_4C5060(vp.C())
+	C.nox_xxx_drawAllMB_475810_draw_F(vp.C())
+	C.sub_44D9F0(0)
+	if getEngineFlag(NOX_ENGINE_FLAG_ENABLE_SHOW_AI) {
+		C.sub_476270(vp.C())
+	}
+	C.sub_45AB40()
+	C.sub_437290()
+	*memmap.PtrUint32(0x973F18, 68) = 1
+	C.sub_476680()
 }

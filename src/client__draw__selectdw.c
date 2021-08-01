@@ -5,7 +5,8 @@
 extern void* dword_5d4594_1096640;
 
 //----- (004773C0) --------------------------------------------------------
-void  nox_video_drawCursorSelectCircle_4773C0(_DWORD* a1) {
+void  nox_video_drawCursorSelectCircle_4773C0(nox_draw_viewport_t* a1p) {
+	_DWORD* a1 = a1p;
 	int v1;     // eax
 	int v2;     // eax
 	_DWORD* v3; // eax
