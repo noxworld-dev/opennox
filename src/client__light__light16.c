@@ -814,15 +814,10 @@ void  nox_xxx_cliLight16_469140(int arg0) {
 //----- (00468F80) --------------------------------------------------------
 void  sub_468F80(int a1) {
 	_DWORD* v1;           // esi
-	int v2;               // ecx
-	unsigned __int8* v3;  // edi
-	bool v4;              // cc
 	int v5;               // ecx
 	int v6;               // eax
 	int v7;               // edx
 	int v8;               // edx
-	int v9;               // ecx
-	unsigned __int8* v10; // edi
 	int v11;              // eax
 	int v12;              // ebx
 	int v13;              // edx
@@ -840,10 +835,9 @@ void  sub_468F80(int a1) {
 	dword_5d4594_2650676 = 46 * ((*(_DWORD*)(a1 + 16) + 11) / 46 - 1) - 11;
 	dword_5d4594_2650680 = 46 * ((*(_DWORD*)(a1 + 20) + 11) / 46) - 57;
 	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_12)) {
-		v2 = 2464;
-		v3 = getMemAt(0x853BC0, 0);
-		do {
-			*(_DWORD*)v3 = 16711680;
+		unsigned __int8* v3 = getMemAt(0x853BC0, 0);
+		for (int i = 352; i > 0; i--) {
+			*((_DWORD*)v3 + 0) = 16711680;
 			*((_DWORD*)v3 + 1) = 16711680;
 			*((_DWORD*)v3 + 2) = 16711680;
 			*((_DWORD*)v3 + 3) = 16711680;
@@ -865,34 +859,32 @@ void  sub_468F80(int a1) {
 			*((_DWORD*)v3 + 19) = 16711680;
 			*((_DWORD*)v3 + 20) = 16711680;
 			v3 += 84;
-			v4 = v2 <= 7;
-			v2 -= 7;
-		} while (!v4);
+		}
 	} else {
-		sub_434A10(&a1, &v22, &v21);
+		int a1b = 0;
+		sub_434A10(&a1b, &v22, &v21);
 		if (nox_xxx_get_57AF20()) {
 			v5 = 50;
 			v6 = 50;
 			v7 = 50;
 			v22 = 50;
 			v21 = 50;
-			a1 = 50;
+			a1b = 50;
 		} else {
 			v6 = v21;
 			v5 = v22;
-			v7 = a1;
+			v7 = a1b;
 		}
 		v8 = v7 << 16;
 		v20 = v6 << 16;
 		v19 = v5 << 16;
 		v18 = v8;
-		v9 = 2464;
-		v10 = getMemAt(0x853BC0, 0);
 		v11 = v8;
 		v12 = v19;
 		v13 = v20;
-		do {
-			*(_DWORD*)v10 = v11;
+		unsigned __int8* v10 = getMemAt(0x853BC0, 0);
+		for (int i = 352; i > 0; i--) {
+			*((_DWORD*)v10 + 0) = v11;
 			*((_DWORD*)v10 + 1) = v12;
 			*((_DWORD*)v10 + 2) = v13;
 			*((_DWORD*)v10 + 3) = v11;
@@ -914,9 +906,7 @@ void  sub_468F80(int a1) {
 			*((_DWORD*)v10 + 19) = v12;
 			*((_DWORD*)v10 + 20) = v13;
 			v10 += 84;
-			v4 = v9 <= 7;
-			v9 -= 7;
-		} while (!v4);
+		}
 		v14 = v1[4];
 		v17.field_0 = v14 - 100;
 		v15 = v1[5];
