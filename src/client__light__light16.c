@@ -687,121 +687,115 @@ void  nox_xxx_cliLight16_469140(int arg0) {
 	int v45;          // [esp+6Ch] [ebp+4h]
 
 	v1 = arg0;
-	if (sub_45A840((_DWORD*)arg0) || *(_DWORD*)(arg0 + 112) & 0x80000 &&
-										 (v2 = *(_DWORD*)(arg0 + 120), v2 & 0x1000000) && *(_DWORD*)(arg0 + 144) > 0 &&
-										 v2 & 4) {
-		if (!nox_xxx_get_57AF20() || arg0 == *getMemU32Ptr(0x852978, 8) ||
-			*(int(**)(int*, int))(arg0 + 300) == nox_thing_glow_orb_draw) {
-			v3 = *(_DWORD*)(arg0 + 148);
-			v4 = *(_DWORD*)(arg0 + 144);
-			if (*(_DWORD*)(arg0 + 120) & 0x20000000) {
-				v3 += nox_common_randomIntMinMax_415FF0(0, *(_DWORD*)(arg0 + 148) >> 18, "C:\\NoxPost\\src\\Client\\Light\\Light16.c", 267)
-					  << 16;
-				v27 = (double)v3 * 0.000015258789;
-				v4 = sub_484C60(v27);
-			}
-			v28 = sub_484BD0() * 65536.0;
-			if (v3 > nox_float2int(v28)) {
-				v33 = *getMemU32Ptr(0x587000, 142320);
-				if ((unsigned int)v3 <= *getMemIntPtr(0x587000, 142320))
-					v33 = v3;
-				v5 = *(_DWORD*)(arg0 + 12) - dword_5d4594_2650676;
-				v36 = (v3 >> 16) * (v3 >> 16);
-				v6 = *(_DWORD*)(arg0 + 168);
-				v7 = *(_DWORD*)(arg0 + 16) - dword_5d4594_2650680;
-				a4.field_0 = *(_DWORD*)(arg0 + 12) - dword_5d4594_2650676;
-				a4.field_4 = v7;
-				if (v6 == 0xFFFF) {
-					v35 = v4 * v4;
-					v43 = (v5 - v4) / 23;
-					if (v43 < 0)
-						v43 = 0;
-					v30 = (v5 + v4) / 0x17u;
-					if (v30 > 56)
-						v30 = 56;
-					v8 = (v7 - v4) / 23;
-					if (v8 < 0)
-						v8 = 0;
-					v9 = (v7 + v4) / 0x17u;
-					v32 = (v7 + v4) / 0x17u;
-					if (v9 > 44) {
-						v32 = 44;
-						v9 = 44;
-					}
-					v31 = v8;
-					v10 = 23 * v8;
-					v39 = 23 * v8;
-					if (v8 <= v9) {
-						v11 = dword_587000_142328;
-						v12 = 23 * v43;
-						while (1) {
-							v13 = v7 - v10;
-							v29 = v43;
-							if (v43 <= v30) {
-								v14 = v13 * v13;
-								for (i = v13 * v13;; v14 = i) {
-									v15 = v14 + (v5 - v12) * (v5 - v12);
-									if (v15 <= v35) {
-										v16 = sub_4C1C70(v33 + v11,
-														 66 * v15 * *getMemU32Ptr(0x587000, 142324) / v36 + 0x10000);
-										v11 = dword_587000_142328;
-										if (v16 > *(int*)&dword_587000_142328) {
-											sub_4695E0(v29, v31, (int*)(v1 + 152), 8 * (v16 - dword_587000_142328),
-													   *(_DWORD*)(v1 + 172));
-											v7 = a4.field_4;
-											v5 = a4.field_0;
-											v11 = dword_587000_142328;
-										} else {
-											v7 = a4.field_4;
-											v5 = a4.field_0;
-										}
-										v12 += 23;
-									} else {
-										v12 += 23;
-									}
-									if (++v29 > v30)
-										break;
-								}
+	if (!(sub_45A840((_DWORD*)arg0) || *(_DWORD*)(arg0 + 112) & 0x80000 && (v2 = *(_DWORD*)(arg0 + 120), v2 & 0x1000000) && *(_DWORD*)(arg0 + 144) > 0 && v2 & 4)) {
+		return;
+	}
+	if (!(!nox_xxx_get_57AF20() || arg0 == *getMemU32Ptr(0x852978, 8) || *(int(**)(int*, int))(arg0 + 300) == nox_thing_glow_orb_draw)) {
+		return;
+	}
+	v3 = *(_DWORD*)(arg0 + 148);
+	v4 = *(_DWORD*)(arg0 + 144);
+	if (*(_DWORD*)(arg0 + 120) & 0x20000000) {
+		v3 += nox_common_randomIntMinMax_415FF0(0, *(_DWORD*)(arg0 + 148) >> 18, "C:\\NoxPost\\src\\Client\\Light\\Light16.c", 267) << 16;
+		v27 = (double)v3 * 0.000015258789;
+		v4 = sub_484C60(v27);
+	}
+	v28 = sub_484BD0() * 65536.0;
+	if (v3 <= (int)(v28)) {
+		return;
+	}
+	v33 = *getMemU32Ptr(0x587000, 142320);
+	if ((unsigned int)v3 <= *getMemIntPtr(0x587000, 142320)) {
+		v33 = v3;
+	}
+	v5 = *(_DWORD*)(arg0 + 12) - dword_5d4594_2650676;
+	v36 = (v3 >> 16) * (v3 >> 16);
+	v6 = *(_DWORD*)(arg0 + 168);
+	v7 = *(_DWORD*)(arg0 + 16) - dword_5d4594_2650680;
+	a4.field_0 = *(_DWORD*)(arg0 + 12) - dword_5d4594_2650676;
+	a4.field_4 = v7;
+	if (v6 == 0xFFFF) {
+		v35 = v4 * v4;
+		v43 = (v5 - v4) / 23;
+		if (v43 < 0)
+			v43 = 0;
+		v30 = (v5 + v4) / 0x17u;
+		if (v30 > 56)
+			v30 = 56;
+		v8 = (v7 - v4) / 23;
+		if (v8 < 0)
+			v8 = 0;
+		v9 = (v7 + v4) / 0x17u;
+		v32 = (v7 + v4) / 0x17u;
+		if (v9 > 44) {
+			v32 = 44;
+			v9 = 44;
+		}
+		v31 = v8;
+		v10 = 23 * v8;
+		v39 = 23 * v8;
+		if (v8 <= v9) {
+			v11 = dword_587000_142328;
+			v12 = 23 * v43;
+			while (1) {
+				v13 = v7 - v10;
+				v29 = v43;
+				if (v43 <= v30) {
+					v14 = v13 * v13;
+					for (i = v13 * v13;; v14 = i) {
+						v15 = v14 + (v5 - v12) * (v5 - v12);
+						if (v15 <= v35) {
+							v16 = sub_4C1C70(v33 + v11, 66 * v15 * *getMemU32Ptr(0x587000, 142324) / v36 + 0x10000);
+							v11 = dword_587000_142328;
+							if (v16 > *(int*)&dword_587000_142328) {
+								sub_4695E0(v29, v31, (int*)(v1 + 152), 8 * (v16 - dword_587000_142328), *(_DWORD*)(v1 + 172));
+								v7 = a4.field_4;
+								v5 = a4.field_0;
+								v11 = dword_587000_142328;
+							} else {
+								v7 = a4.field_4;
+								v5 = a4.field_0;
 							}
-							v39 += 23;
-							if (++v31 > v32)
-								break;
-							v12 = 23 * v43;
-							v10 = v39;
+							v12 += 23;
+						} else {
+							v12 += 23;
 						}
+						if (++v29 > v30)
+							break;
 					}
-				} else {
-					a1.field_0 = (v5 << 16) / 23;
-					v17 = *(_WORD*)(arg0 + 164);
-					v18 = v4 << 16;
-					a1.field_4 = (v7 << 16) / 23;
-					v19 = v18 / 23;
-					v20 = sub_4C1C60(
-						v18 / 23, 16 * *getMemU32Ptr(0x85B3FC, 12260 + 4 * ((unsigned __int16)(v17 + 0x4000) >> 4)));
-					v21 = v18 / 23;
-					v22 = v20;
-					v23 = sub_4C1C60(
-						v21, 16 * *getMemU32Ptr(0x85B3FC, 12260 + 4 * (*(unsigned __int16*)(arg0 + 164) >> 4)));
-					a3.field_0 = a1.field_0 + v22;
-					LOWORD(v22) = *(_WORD*)(arg0 + 164) + *(_WORD*)(arg0 + 166);
-					a3.field_4 = a1.field_4 + v23;
-					v44 = sub_4C1C60(
-						v19, 16 * *getMemU32Ptr(0x85B3FC, 12260 + 4 * ((unsigned __int16)(v22 + 0x4000) >> 4)));
-					v24 = sub_4C1C60(v19, 16 * *getMemU32Ptr(0x85B3FC, 12260 + 4 * ((unsigned __int16)v22 >> 4)));
-					LOWORD(v22) = *(_WORD*)(v1 + 164) - *(_WORD*)(v1 + 166);
-					a2.field_0 = a1.field_0 + v44;
-					a2.field_4 = a1.field_4 + v24;
-					v45 = sub_4C1C60(
-						v19, 16 * *getMemU32Ptr(0x85B3FC, 12260 + 4 * ((unsigned __int16)(v22 + 0x4000) >> 4)));
-					v25 = sub_4C1C60(v19, 16 * *getMemU32Ptr(0x85B3FC, 12260 + 4 * ((unsigned __int16)v22 >> 4)));
-					v26 = (int*)(v1 + 152);
-					v42.field_0 = a1.field_0 + v45;
-					v42.field_4 = a1.field_4 + v25;
-					sub_4696B0(&a1, &a2, &a3, &a4, v3, v26);
-					sub_4696B0(&a1, &a3, &v42, &a4, v3, v26);
 				}
+				v39 += 23;
+				if (++v31 > v32)
+					break;
+				v12 = 23 * v43;
+				v10 = v39;
 			}
 		}
+	} else {
+		a1.field_0 = (v5 << 16) / 23;
+		v17 = *(_WORD*)(arg0 + 164);
+		v18 = v4 << 16;
+		a1.field_4 = (v7 << 16) / 23;
+		v19 = v18 / 23;
+		v20 = sub_4C1C60(v18 / 23, 16 * *getMemU32Ptr(0x85B3FC, 12260 + 4 * ((unsigned __int16)(v17 + 0x4000) >> 4)));
+		v21 = v18 / 23;
+		v22 = v20;
+		v23 = sub_4C1C60(v21, 16 * *getMemU32Ptr(0x85B3FC, 12260 + 4 * (*(unsigned __int16*)(arg0 + 164) >> 4)));
+		a3.field_0 = a1.field_0 + v22;
+		LOWORD(v22) = *(_WORD*)(arg0 + 164) + *(_WORD*)(arg0 + 166);
+		a3.field_4 = a1.field_4 + v23;
+		v44 = sub_4C1C60(v19, 16 * *getMemU32Ptr(0x85B3FC, 12260 + 4 * ((unsigned __int16)(v22 + 0x4000) >> 4)));
+		v24 = sub_4C1C60(v19, 16 * *getMemU32Ptr(0x85B3FC, 12260 + 4 * ((unsigned __int16)v22 >> 4)));
+		LOWORD(v22) = *(_WORD*)(v1 + 164) - *(_WORD*)(v1 + 166);
+		a2.field_0 = a1.field_0 + v44;
+		a2.field_4 = a1.field_4 + v24;
+		v45 = sub_4C1C60(v19, 16 * *getMemU32Ptr(0x85B3FC, 12260 + 4 * ((unsigned __int16)(v22 + 0x4000) >> 4)));
+		v25 = sub_4C1C60(v19, 16 * *getMemU32Ptr(0x85B3FC, 12260 + 4 * ((unsigned __int16)v22 >> 4)));
+		v26 = (int*)(v1 + 152);
+		v42.field_0 = a1.field_0 + v45;
+		v42.field_4 = a1.field_4 + v25;
+		sub_4696B0(&a1, &a2, &a3, &a4, v3, v26);
+		sub_4696B0(&a1, &a3, &v42, &a4, v3, v26);
 	}
 }
 
