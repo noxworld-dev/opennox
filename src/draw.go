@@ -7,6 +7,11 @@ package main
 #include "client__gui__guiggovr.h"
 #include "client__video__draw_common.h"
 extern nox_draw_viewport_t nox_draw_viewport;
+extern unsigned int dword_5d4594_811896;
+extern unsigned int dword_5d4594_811904;
+extern unsigned int nox_client_gui_flag_815132;
+void nox_xxx_clientDrawAll_436100_draw_A();
+void nox_xxx_clientDrawAll_436100_draw_B();
 */
 import "C"
 import (
@@ -136,7 +141,7 @@ func nox_xxx_client_435F80_draw(inp *input.Handler) bool {
 	if C.nox_client_isConnected_43C700() != 0 {
 		C.nox_xxx_cliToggleObsWindow_4357A0()
 	}
-	C.nox_xxx_clientDrawAll_436100_draw()
+	nox_xxx_clientDrawAll_436100_draw()
 	C.sub_49BB40()
 	C.sub_49BA70()
 	if C.sub_409F40(4096) != 0 {
@@ -151,4 +156,66 @@ func nox_xxx_client_435F80_draw(inp *input.Handler) bool {
 	}
 	C.sub_49B6E0()
 	return C.int(memmap.Uint32(0x587000, 85720)) != 0
+}
+
+func nox_xxx_clientDrawAll_436100_draw() {
+	v0 := platformTicks()
+	isTick := false
+	if int(v0-memmap.Uint64(0x5D4594, 814532)) >= int(memmap.Int32(0x587000, 85748)) {
+		isTick = true
+		nox_ticks_xxx_416D40()
+	}
+	if !(memmap.Uint32(0x587000, 85724) == 0 || isTick || !noxflags.HasGame(1) || sub_416D70() ||
+		C.nox_client_gui_flag_815132 != 0 || nox_xxx_checkGameFlagPause_413A50() || getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
+		setEngineFlag(NOX_ENGINE_FLAG_PAUSE)
+		return
+	}
+	resetEngineFlag(NOX_ENGINE_FLAG_PAUSE)
+	*memmap.PtrUint64(0x5D4594, 814532) = v0
+	*memmap.PtrUint32(0x5D4594, 811916) = gameFrame()
+	viewport := &C.nox_draw_viewport
+	v6 := int(viewport.x1)
+	v7 := int(viewport.y1)
+	if memmap.Uint32(0x587000, 85744) != 0 {
+		viewport.height = viewport.width * C.int(nox_win_height) / C.int(nox_win_width)
+		v6 = (nox_win_width - int(viewport.width)) / 2
+		v7 = (nox_win_height - int(viewport.height)) / 2
+		viewport.x1 = C.int(v6)
+		viewport.y1 = C.int(v7)
+		viewport.x2 = C.int(v6) + viewport.width - 1
+		viewport.y2 = C.int(v7) + viewport.height - 1
+	}
+	C.sub_430B50(C.int(v6), C.int(v7), viewport.x2, viewport.y2)
+	if id := memmap.Uint32(0x85319C, 0); id != 0 {
+		*memmap.PtrPtr(0x852978, 8) = unsafe.Pointer(C.nox_xxx_netSpriteByCodeDynamic_45A6F0(C.int(id)))
+	}
+	if getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) {
+		C.nox_xxx_clientDrawAll_436100_draw_A()
+	} else if memmap.Uint32(0x852978, 8) != 0 && C.nox_client_isConnected_43C700() != 0 {
+		C.nox_xxx_drawAllMB_475810_draw(viewport)
+		C.nox_xxx_drawMinimapAndLines_4738E0()
+	} else {
+		nox_xxx_drawSelectColor_434350(memmap.Uint32(0x85B3FC, 952))
+		sub_440900()
+	}
+	if C.dword_5d4594_811896 != 0 {
+		C.sub_4365C0()
+	}
+	if C.dword_5d4594_811904 != 0 {
+		C.sub_436F50()
+	}
+	if nox_common_gameFlags_check_40A5C0(8) {
+		v13 := platformTicks() - memmap.Uint64(0x5D4594, 811908)
+		if v13 > 10000 && !nox_common_gameFlags_check_40A5C0(1) {
+			nox_common_gameFlags_unset_40A540(8)
+		}
+	}
+	if nox_common_gameFlags_check_40A5C0(8) {
+		C.nox_xxx_clientDrawAll_436100_draw_B()
+	}
+	if memmap.Uint32(0x587000, 85744) != 0 {
+		C.sub_430B50(0, 0, C.int(nox_win_width-1), C.int(nox_win_height-1))
+		sub_440900()
+		*memmap.PtrUint32(0x587000, 85744) = 0
+	}
 }

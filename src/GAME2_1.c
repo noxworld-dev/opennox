@@ -8188,7 +8188,8 @@ int  sub_4757D0_drawable(_DWORD* a1) {
 }
 
 //----- (00475810) --------------------------------------------------------
-int4*  nox_xxx_drawAllMB_475810_draw(int* a1) {
+void nox_xxx_drawAllMB_475810_draw(nox_draw_viewport_t* a1p) {
+	int* a1 = a1p;
 	int* v1;               // edi
 	int v2;                // ebx
 	int v3;                // ebp
@@ -8279,7 +8280,7 @@ int4*  nox_xxx_drawAllMB_475810_draw(int* a1) {
 		sub_440900();
 		result = sub_437290();
 		dword_5d4594_3799524 = 1;
-		return result;
+		return;
 	}
 	if (*getMemU32Ptr(0x5D4594, 1096520)) {
 		nox_xxx_drawSelectColor_434350(*getMemIntPtr(0x5D4594, 2523948));
@@ -8288,7 +8289,7 @@ int4*  nox_xxx_drawAllMB_475810_draw(int* a1) {
 		*getMemU32Ptr(0x5D4594, 1096520) = 0;
 		result = sub_437290();
 		dword_5d4594_3799524 = 1;
-		return result;
+		return;
 	}
 	(*(void(**)(_DWORD)) getMemAt(0x973F18, 7704))(v1);
 	v10 = 1;
@@ -8445,5 +8446,5 @@ int4*  nox_xxx_drawAllMB_475810_draw(int* a1) {
 	sub_45AB40();
 	sub_437290();
 	*getMemU32Ptr(0x973F18, 68) = 1;
-	return (int4*)sub_476680();
+	sub_476680();
 }

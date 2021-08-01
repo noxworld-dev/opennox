@@ -2376,7 +2376,7 @@ int  nox_xxx_sprite_4756E0_drawable(_DWORD* a1);
 int  nox_xxx_sprite_475740_drawable(_DWORD* a1);
 int  nox_xxx_sprite_4757A0_drawable(int a1);
 int  sub_4757D0_drawable(_DWORD* a1);
-int4*  nox_xxx_drawAllMB_475810_draw(int* a1);
+void nox_xxx_drawAllMB_475810_draw(nox_draw_viewport_t* a1);
 int  sub_475F10(_DWORD* a1);
 int  sub_475FE0(_DWORD* a1);
 int  sub_476080(unsigned __int8* a1);

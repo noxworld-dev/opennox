@@ -89,8 +89,7 @@ func nox_ticks_xxx_416D40() {
 	resetEngineFlag(NOX_ENGINE_FLAG_PAUSE)
 }
 
-//export sub_416D70
-func sub_416D70() C.bool {
+func sub_416D70() bool {
 	v2 := float64(int(gameFrame())-int(memmap.Uint32(0x5D4594, 371772))) * float64(memmap.Float32(0x587000, 54424))
 	return float64(int64(platformTicks())-int64(memmap.Uint32(0x5D4594, 371764)))*0.001 <= v2
 }
