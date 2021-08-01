@@ -6177,34 +6177,31 @@ int nox_xxx_tileSetDrawFn_481420() {
 //----- (004814F0) --------------------------------------------------------
 int  sub_4814F0(int2* a1) {
 	int v1;              // eax
-	int v2;              // ecx
-	int v3;              // edx
-	int v4;              // esi
 	int v5;              // edi
 	unsigned __int8* v6; // eax
 	int result;          // eax
-	int v8;              // [esp+10h] [ebp-Ch]
-	int v9;              // [esp+14h] [ebp-8h]
-	int v10;             // [esp+18h] [ebp-4h]
 
 	v1 = 12 * (a1->field_4 + 45 * a1->field_0);
-	v2 = *getMemU32Ptr(0x853BC0, + v1) >> 8;
-	v3 = *getMemU32Ptr(0x853BC0, 4 + v1) >> 8;
-	v8 = *getMemU32Ptr(0x8529A0, 1020 + 4 * (((*getMemIntPtr(0x853BC0, 12 + v1) >> 8) - v2) >> 8));
-	v4 = *getMemU32Ptr(0x853BC0, 8 + v1) >> 8;
-	v9 = *getMemU32Ptr(0x8529A0, 1020 + 4 * (((*getMemIntPtr(0x853BC0, 16 + v1) >> 8) - v3) >> 8));
-	v10 = *getMemU32Ptr(0x8529A0, 1020 + 4 * (((*getMemIntPtr(0x853BC0, 20 + v1) >> 8) - v4) >> 8));
+	int v2 = *getMemU32Ptr(0x853BC0, 0 + v1) >> 8;
+	int v3 = *getMemU32Ptr(0x853BC0, 4 + v1) >> 8;
+	int v4 = *getMemU32Ptr(0x853BC0, 8 + v1) >> 8;
+	int v2b = *getMemU32Ptr(0x853BC0, 12 + v1) >> 8;
+	int v3b = *getMemU32Ptr(0x853BC0, 16 + v1) >> 8;
+	int v4b = *getMemU32Ptr(0x853BC0, 20 + v1) >> 8;
+	int v8 = *getMemU32Ptr(0x8529A0, 1020 + 4 * ((v2b - v2) >> 8));
+	int v9 = *getMemU32Ptr(0x8529A0, 1020 + 4 * ((v3b - v3) >> 8));
+	int v10 = *getMemU32Ptr(0x8529A0, 1020 + 4 * ((v4b - v4) >> 8));
 	v5 = 0;
 	do {
 		v6 = ((void*)&nox_arr_84EB20[4 + 280 * a1->field_0 + v5]);
 		v5 += 12;
-		*(_DWORD*)v6 = v2;
+		*((_DWORD*)v6 + 0) = v2;
 		*((_DWORD*)v6 + 1) = v3;
-		v3 += v9;
 		*((_DWORD*)v6 + 2) = v4;
 		v2 += v8;
+		v3 += v9;
 		v4 += v10;
-	} while (v5 < 276);
+	} while (v5 < 12*23);
 	result = 7 * a1->field_0;
 	*((unsigned int*)&nox_arr_84EB20[280 * a1->field_0]) = a1->field_4;
 	return result;
