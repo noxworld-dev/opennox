@@ -44,8 +44,7 @@ func nox_video_copyBackBuffer3_4AD1E0() {
 }
 
 func nox_video_setBackBufferPtrs_48A190() {
-	C.nox_backbuffer1_pix = noxRendererS.BufferData()
-	C.nox_backbuffer_pix = C.nox_backbuffer1_pix
+	C.nox_backbuffer_pix = noxRendererS.BufferData()
 }
 
 //export sub_444D00

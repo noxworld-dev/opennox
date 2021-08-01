@@ -5,10 +5,10 @@
 
 unsigned char byte_5D4594_3804364[160] = { 0 };
 
-void* nox_backbuffer1_pix = 0;
 void* nox_backbuffer_pix = 0;
 
 #ifndef NOX_CGO
+void* nox_backbuffer1_pix = 0;
 int nox_backbuffer_width = 0;
 int nox_backbuffer_height = 0;
 int nox_backbuffer_depth = 0;
