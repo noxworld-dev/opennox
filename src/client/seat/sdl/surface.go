@@ -2,38 +2,33 @@ package sdl
 
 import (
 	"image"
-	"sync"
 
 	"github.com/veandco/go-sdl2/sdl"
 
-	"nox/v1/common/alloc"
 	"nox/v1/common/types"
 )
 
 type Surface struct {
-	win   *Window
-	sz    types.Size
-	pitch int
-	mu    sync.Mutex
-	data  []byte
-	tex   *sdl.Texture
+	win *Window
+	sz  types.Size
+	tex *sdl.Texture
 }
 
-func (s *Surface) Lock() bool {
-	s.mu.Lock()
-	return true
+func (s *Surface) rect() *sdl.Rect {
+	return &sdl.Rect{W: int32(s.sz.W), H: int32(s.sz.H)}
+}
+
+func (s *Surface) Lock() ([]byte, int, bool) {
+	data, pitch, err := s.tex.Lock(s.rect())
+	if err != nil {
+		Log.Printf("cannot lock surface: %v", err)
+		return nil, 0, false
+	}
+	return data, pitch, true
 }
 
 func (s *Surface) Unlock() {
-	s.mu.Unlock()
-}
-
-func (s *Surface) Bytes() []byte {
-	return s.data
-}
-
-func (s *Surface) Pitch() int {
-	return s.pitch
+	s.tex.Unlock()
 }
 
 func (s *Surface) Size() types.Size {
@@ -42,13 +37,7 @@ func (s *Surface) Size() types.Size {
 
 func (s *Surface) Present(vp image.Rectangle) {
 	ren := s.win.ren
-	rect := &sdl.Rect{W: int32(s.sz.W), H: int32(s.sz.H)}
-	s.mu.Lock()
-	err := s.tex.Update(rect, s.data, s.pitch)
-	s.mu.Unlock()
-	if err != nil {
-		panic(err)
-	}
+	rect := s.rect()
 	if err := ren.Clear(); err != nil {
 		panic(err)
 	}
@@ -66,10 +55,6 @@ func (s *Surface) Destroy() {
 	if s.tex != nil {
 		_ = s.tex.Destroy()
 		s.tex = nil
-	}
-	if s.data != nil {
-		alloc.FreeBytes(s.data)
-		s.data = nil
 	}
 	s.win = nil
 }

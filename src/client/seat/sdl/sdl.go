@@ -7,7 +7,6 @@ import (
 	"github.com/veandco/go-sdl2/sdl"
 
 	"nox/v1/client/seat"
-	"nox/v1/common/alloc"
 	"nox/v1/common/env"
 	"nox/v1/common/log"
 	"nox/v1/common/types"
@@ -204,14 +203,13 @@ func (win *Window) OnScreenResize(fnc func(sz types.Size)) {
 }
 
 func (win *Window) NewSurface(sz types.Size) seat.Surface {
-	data := alloc.Bytes(2 * uintptr(sz.W*sz.H))
 	tex, err := win.ren.CreateTexture(sdl.PIXELFORMAT_RGB555, sdl.TEXTUREACCESS_STREAMING, int32(sz.W), int32(sz.H))
 	if err != nil {
 		err = fmt.Errorf("cannot create surface: %w", err)
 		Log.Print(err)
 		panic(err)
 	}
-	return &Surface{win: win, sz: sz, data: data, pitch: 2 * sz.W, tex: tex}
+	return &Surface{win: win, sz: sz, tex: tex}
 }
 
 func (win *Window) InputTick() {

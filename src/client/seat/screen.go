@@ -42,15 +42,11 @@ type Surface interface {
 	// Size of the surface.
 	Size() types.Size
 	// Lock the surface.
-	Lock() bool
+	Lock() (data []byte, pitch int, ok bool)
 	// Unlock the surface.
 	Unlock()
 	// Present the surface in a given viewport rectangle.
 	Present(vp image.Rectangle)
-	// Bytes exposes underlying data of the surface.
-	Bytes() []byte
-	// Pitch returns the index shift for each surface row (in bytes).
-	Pitch() int
 	// Destroy the surface.
 	Destroy()
 }
