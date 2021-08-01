@@ -4534,7 +4534,7 @@ int  sub_4C42A0(int2* a1, int2* a2, int* a3, int* a4) {
 	v4 = a1->field_4;
 	v5 = a2->field_4;
 	if (v4 == v5) {
-		if (!nox_arr_956A00[v4])
+		if (v4 < 0 || v4 >= sizeof(nox_arr_956A00)/4 || !nox_arr_956A00[v4])  // TODO: figure out why overflow happens on high-res
 			return 0;
 		v47 = a1->field_0;
 		v54 = (int2*)a2->field_0;
@@ -5482,6 +5482,9 @@ void sub_4C5500(int* a1) {
 
 //----- (004C5630) --------------------------------------------------------
 int  sub_4C5630(int a1, int a2, int a3) {
+	if (a3 < 0 || a3 > sizeof(nox_arr_956A00)/4) { // TODO: figure out why overflow happens on high-res
+		return 0;
+	}
 	int v3;             // ecx
 	int v4;             // edx
 	unsigned __int8* i; // eax
