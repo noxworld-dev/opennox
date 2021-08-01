@@ -465,51 +465,44 @@ double sub_484BD0() { return *(float*)&dword_587000_154968; }
 int __fastcall sub_4C1C70(int a1, int a2) { return ((__int64)a1 << 16) / a2; }
 
 //----- (004695E0) --------------------------------------------------------
-int  sub_4695E0(int a1, int a2, int* a3, int a4, int a5) {
-	int v5;              // ebx
-	int v6;              // esi
-	int v7;              // edi
-	int v8;              // eax
-	unsigned __int8* v9; // ecx
-	int v10;             // esi
-	int v11;             // edi
-	int result;          // eax
-
-	v5 = a4;
-	if (a5)
+void sub_4695E0(int a1, int a2, int* a3, int a4, int a5) {
+	int v5 = a4;
+	if (a5) {
 		v5 = -a4;
-	v6 = sub_4C1C60(v5, a3[0]) << 8;
-	v7 = sub_4C1C60(v5, a3[1]) << 8;
-	v8 = sub_4C1C60(v5, a3[2]) << 8;
-	v9 = &nox_arr_853BC0[3 * (a2 + 40 * a1 + 5 * a1)];
-	v10 = v6 + nox_arr_853BC0[0 + 3 * (a2 + 40 * a1 + 5 * a1)];
-	v11 = v7 + nox_arr_853BC0[1 + 3 * (a2 + 40 * a1 + 5 * a1)];
-	result = v8 + nox_arr_853BC0[2 + 3 * (a2 + 40 * a1 + 5 * a1)];
-	if (v10 <= 16711680) {
-		if (v10 < 0)
+	}
+	int v6 = sub_4C1C60(v5, a3[0]) << 8;
+	int v7 = sub_4C1C60(v5, a3[1]) << 8;
+	int v8 = sub_4C1C60(v5, a3[2]) << 8;
+
+	int ind = 3 * (a2 + 40 * a1 + 5 * a1);
+	unsigned int* ptr = &nox_arr_853BC0[ind];
+	int v10 = v6 + ptr[0];
+	int v11 = v7 + ptr[1];
+	int v12 = v8 + ptr[2];
+	if (v10 <= 0xFF0000) {
+		if (v10 < 0) {
 			v10 = 0;
+		}
 	} else {
-		v10 = 16711680;
+		v10 = 0xFF0000;
 	}
-	if (v11 <= 16711680) {
-		if (v11 < 0)
+	if (v11 <= 0xFF0000) {
+		if (v11 < 0) {
 			v11 = 0;
+		}
 	} else {
-		v11 = 16711680;
+		v11 = 0xFF0000;
 	}
-	if (result <= 16711680) {
-		if (result < 0)
-			result = 0;
-		*((_DWORD*)v9 + 1) = v11;
-		*(_DWORD*)v9 = v10;
-		*((_DWORD*)v9 + 2) = result;
+	if (v12 <= 0xFF0000) {
+		if (v12 < 0) {
+			v12 = 0;
+		}
 	} else {
-		*((_DWORD*)v9 + 1) = v11;
-		*(_DWORD*)v9 = v10;
-		result = 16711680;
-		*((_DWORD*)v9 + 2) = 16711680;
+		v12 = 0xFF0000;
 	}
-	return result;
+	ptr[0] = v10;
+	ptr[1] = v11;
+	ptr[2] = v12;
 }
 
 //----- (004697C0) --------------------------------------------------------
