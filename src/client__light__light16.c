@@ -835,30 +835,11 @@ void  sub_468F80(int a1) {
 	dword_5d4594_2650676 = 46 * ((*(_DWORD*)(a1 + 16) + 11) / 46 - 1) - 11;
 	dword_5d4594_2650680 = 46 * ((*(_DWORD*)(a1 + 20) + 11) / 46) - 57;
 	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_12)) {
-		unsigned __int8* v3 = getMemAt(0x853BC0, 0);
-		for (int i = 352; i > 0; i--) {
-			*((_DWORD*)v3 + 0) = 16711680;
-			*((_DWORD*)v3 + 1) = 16711680;
-			*((_DWORD*)v3 + 2) = 16711680;
-			*((_DWORD*)v3 + 3) = 16711680;
-			*((_DWORD*)v3 + 4) = 16711680;
-			*((_DWORD*)v3 + 5) = 16711680;
-			*((_DWORD*)v3 + 6) = 16711680;
-			*((_DWORD*)v3 + 7) = 16711680;
-			*((_DWORD*)v3 + 8) = 16711680;
-			*((_DWORD*)v3 + 9) = 16711680;
-			*((_DWORD*)v3 + 10) = 16711680;
-			*((_DWORD*)v3 + 11) = 16711680;
-			*((_DWORD*)v3 + 12) = 16711680;
-			*((_DWORD*)v3 + 13) = 16711680;
-			*((_DWORD*)v3 + 14) = 16711680;
-			*((_DWORD*)v3 + 15) = 16711680;
-			*((_DWORD*)v3 + 16) = 16711680;
-			*((_DWORD*)v3 + 17) = 16711680;
-			*((_DWORD*)v3 + 18) = 16711680;
-			*((_DWORD*)v3 + 19) = 16711680;
-			*((_DWORD*)v3 + 20) = 16711680;
-			v3 += 84;
+		unsigned int* arr = getMemAt(0x853BC0, 0);
+		for (int i = 0; i < 352; i++) {
+			for (int j = 0; j < 21; j++) {
+				arr[21*i + j] = 0xFF0000;
+			}
 		}
 	} else {
 		int a1b = 0;
@@ -882,30 +863,13 @@ void  sub_468F80(int a1) {
 		v11 = v8;
 		v12 = v19;
 		v13 = v20;
-		unsigned __int8* v10 = getMemAt(0x853BC0, 0);
-		for (int i = 352; i > 0; i--) {
-			*((_DWORD*)v10 + 0) = v11;
-			*((_DWORD*)v10 + 1) = v12;
-			*((_DWORD*)v10 + 2) = v13;
-			*((_DWORD*)v10 + 3) = v11;
-			*((_DWORD*)v10 + 4) = v12;
-			*((_DWORD*)v10 + 5) = v13;
-			*((_DWORD*)v10 + 6) = v11;
-			*((_DWORD*)v10 + 7) = v12;
-			*((_DWORD*)v10 + 8) = v13;
-			*((_DWORD*)v10 + 9) = v11;
-			*((_DWORD*)v10 + 10) = v12;
-			*((_DWORD*)v10 + 11) = v13;
-			*((_DWORD*)v10 + 12) = v11;
-			*((_DWORD*)v10 + 13) = v12;
-			*((_DWORD*)v10 + 14) = v13;
-			*((_DWORD*)v10 + 15) = v11;
-			*((_DWORD*)v10 + 16) = v12;
-			*((_DWORD*)v10 + 17) = v13;
-			*((_DWORD*)v10 + 18) = v11;
-			*((_DWORD*)v10 + 19) = v12;
-			*((_DWORD*)v10 + 20) = v13;
-			v10 += 84;
+		unsigned int* arr = getMemAt(0x853BC0, 0);
+		for (int i = 0; i < 352; i++) {
+			for (int j = 0; j < 7; j++) {
+				arr[21*i + 3*j + 0] = v11;
+				arr[21*i + 3*j + 1] = v12;
+				arr[21*i + 3*j + 2] = v13;
+			}
 		}
 		v14 = v1[4];
 		v17.field_0 = v14 - 100;
