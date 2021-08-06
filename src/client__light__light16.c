@@ -36,7 +36,7 @@ extern int nox_backbuffer_width;
 extern int nox_backbuffer_height;
 
 extern unsigned char nox_arr_84EB20[280*57*2]; // TODO: the 2x factor is for high-res; figure out what 57 is
-unsigned int nox_arr_853BC0[3*45*57] = {0};
+nox_light_3 nox_arr2_853BC0[57][45] = {0};
 
 //----- (00485880) --------------------------------------------------------
 signed int  sub_485880(_DWORD* a1, int* a2, int a3, signed int a4, char* a5) {
@@ -475,6 +475,7 @@ void sub_4695E0(int a1, int a2, int* a3, int a4, int a5) {
 	int v8 = sub_4C1C60(v5, a3[2]) << 8;
 
 	int ind = 3 * (a2 + 45 * a1);
+	unsigned int* nox_arr_853BC0 = nox_arr2_853BC0;
 	unsigned int* ptr = &nox_arr_853BC0[ind];
 	int v10 = v6 + ptr[0];
 	int v11 = v7 + ptr[1];
@@ -790,9 +791,11 @@ void  sub_468F80(int a1) {
 	dword_5d4594_2650676 = 46 * ((*(_DWORD*)(a1 + 16) + 11) / 46 - 1) - 11;
 	dword_5d4594_2650680 = 46 * ((*(_DWORD*)(a1 + 20) + 11) / 46) - 57;
 	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_12)) {
-		for (int i = 0; i < 352; i++) {
-			for (int j = 0; j < 3*7; j++) {
-				nox_arr_853BC0[3*7*i + j] = 0xFF0000;
+		for (int i = 0; i < 57; i++) {
+			for (int j = 0; j < 45; j++) {
+				nox_arr2_853BC0[i][j].r = 0xFF0000;
+				nox_arr2_853BC0[i][j].g = 0xFF0000;
+				nox_arr2_853BC0[i][j].b = 0xFF0000;
 			}
 		}
 	} else {
@@ -817,11 +820,11 @@ void  sub_468F80(int a1) {
 		v11 = v8;
 		v12 = v19;
 		v13 = v20;
-		for (int i = 0; i < 352; i++) {
-			for (int j = 0; j < 7; j++) {
-				nox_arr_853BC0[21*i + 3*j + 0] = v11;
-				nox_arr_853BC0[21*i + 3*j + 1] = v12;
-				nox_arr_853BC0[21*i + 3*j + 2] = v13;
+		for (int i = 0; i < 57; i++) {
+			for (int j = 0; j < 45; j++) {
+				nox_arr2_853BC0[i][j].r = v11;
+				nox_arr2_853BC0[i][j].g = v12;
+				nox_arr2_853BC0[i][j].b = v13;
 			}
 		}
 		v14 = v1[4];

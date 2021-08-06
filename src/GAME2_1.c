@@ -25,6 +25,7 @@
 #include "client__gui__guicon.h"
 #include "common__wolapi__wolpatch.h"
 #include "client__video__draw_common.h"
+#include "client__light__light16.h"
 
 #include "client__draw__drawwin.h"
 #include "client__draw__selectdw.h"
@@ -156,7 +157,7 @@ extern nox_window* nox_win_xxx1_last;
 
 extern unsigned int nox_gameFPS;
 
-extern unsigned int nox_arr_853BC0[3*45*57];
+extern nox_light_3 nox_arr2_853BC0[57][45];
 
 nox_window* nox_win_unk5 = 0;
 nox_window* dword_5d4594_1062452 = 0;
@@ -3418,6 +3419,7 @@ char*  sub_469920(_DWORD* a1) {
 		return (char*)getMemAt(0x587000, 142336);
 
 	int ind = yd + 45 * xd;
+	unsigned int* nox_arr_853BC0 = nox_arr2_853BC0;
 
 	int xr = x % 23;
 	int yr = y % 23;

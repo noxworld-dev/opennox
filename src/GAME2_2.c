@@ -13,6 +13,7 @@
 #include "client__gui__guicon.h"
 
 #include "client__draw__drawwin.h"
+#include "client__light__light16.h"
 
 #include "client__video__draw_common.h"
 
@@ -150,7 +151,7 @@ extern obj_5D4594_2650668_t** ptr_5D4594_2650668;
 extern _DWORD nox_arr_956A00[NOX_MAX_HEIGHT];
 extern unsigned char nox_arr_957820[128*(NOX_MAX_HEIGHT+150)];
 unsigned char nox_arr_84EB20[280*57*2] = {0}; // TODO: the 2x factor is for high-res; figure out what 57 is
-extern unsigned int nox_arr_853BC0[3*45*57];
+extern nox_light_3 nox_arr2_853BC0[57][45];
 
 #ifndef NOX_CGO
 _DWORD dword_5d4594_1097208 = 0;
@@ -6182,6 +6183,7 @@ int  sub_4814F0(int2* a1) {
 	int result;          // eax
 
 	int v1 = 3 * (a1->field_4 + 45 * a1->field_0);
+	unsigned int* nox_arr_853BC0 = nox_arr2_853BC0;
 	int v2 = nox_arr_853BC0[0 + v1] >> 8;
 	int v3 = nox_arr_853BC0[1 + v1] >> 8;
 	int v4 = nox_arr_853BC0[2 + v1] >> 8;
