@@ -3418,38 +3418,32 @@ char*  sub_469920(_DWORD* a1) {
 	if (xd < 0 || yd < 0 || xd > 56 || yd > 44)
 		return (char*)getMemAt(0x587000, 142336);
 
-	int ind = yd + 45 * xd;
-	unsigned int* nox_arr_853BC0 = nox_arr2_853BC0;
-
 	int xr = x % 23;
 	int yr = y % 23;
 
-	int v1,v2,v3;
-	int u1,u2,u3;
+	nox_light_3 c00 = nox_arr2_853BC0[xd+0][yd+0];
+	nox_light_3 c10 = nox_arr2_853BC0[xd+1][yd+0];
+	nox_light_3 c01 = nox_arr2_853BC0[xd+0][yd+1];
+	nox_light_3 c11 = nox_arr2_853BC0[xd+1][yd+1];
 
-	v1 = nox_arr_853BC0[0 + 3*(ind+0)];
-	v2 = nox_arr_853BC0[1 + 3*(ind+0)];
-	v3 = nox_arr_853BC0[2 + 3*(ind+0)];
-	u1 = nox_arr_853BC0[0 + 3*(ind+45+0)];
-	u2 = nox_arr_853BC0[1 + 3*(ind+45+0)];
-	u3 = nox_arr_853BC0[2 + 3*(ind+45+0)];
-	int v16 = v1 + xr * (u1 - v1) / 23;
-	int v17 = v2 + xr * (u2 - v2) / 23;
-	int v18 = v3 + xr * (u3 - v3) / 23;
+	nox_light_3 cr1;
+	cr1.r = c00.r + xr * ((int)c10.r - (int)c00.r) / 23;
+	cr1.g = c00.g + xr * ((int)c10.g - (int)c00.g) / 23;
+	cr1.b = c00.b + xr * ((int)c10.b - (int)c00.b) / 23;
 
-	v1 = nox_arr_853BC0[0 + 3*(ind+1)];
-	v2 = nox_arr_853BC0[1 + 3*(ind+1)];
-	v3 = nox_arr_853BC0[2 + 3*(ind+1)];
-	u1 = nox_arr_853BC0[0 + 3*(ind+45+1)];
-	u2 = nox_arr_853BC0[1 + 3*(ind+45+1)];
-	u3 = nox_arr_853BC0[2 + 3*(ind+45+1)];
-	int v20 = v1 + xr * (u1 - v1) / 23;
-	int v21 = v2 + xr * (u2 - v2) / 23;
-	int v22 = v3 + xr * (u3 - v3) / 23;
+	nox_light_3 cr2;
+	cr2.r = c01.r + xr * ((int)c11.r - (int)c01.r) / 23;
+	cr2.g = c01.g + xr * ((int)c11.g - (int)c01.g) / 23;
+	cr2.b = c01.b + xr * ((int)c11.b - (int)c01.b) / 23;
 
-	*getMemU32Ptr(0x5D4594, 1064836) = (v16 + yr * (v20 - v16) / 23) >> 16;
-	*getMemU32Ptr(0x5D4594, 1064840) = (v17 + yr * (v21 - v17) / 23) >> 16;
-	*getMemU32Ptr(0x5D4594, 1064844) = (v18 + yr * (v22 - v18) / 23) >> 16;
+	nox_light_3 res;
+	res.r = cr1.r + yr * ((int)cr2.r - (int)cr1.r) / 23;
+	res.g = cr1.g + yr * ((int)cr2.g - (int)cr1.g) / 23;
+	res.b = cr1.b + yr * ((int)cr2.b - (int)cr1.b) / 23;
+
+	*getMemU32Ptr(0x5D4594, 1064836) = res.r >> 16;
+	*getMemU32Ptr(0x5D4594, 1064840) = res.g >> 16;
+	*getMemU32Ptr(0x5D4594, 1064844) = res.b >> 16;
 	return getMemAt(0x5D4594, 1064836);
 }
 
