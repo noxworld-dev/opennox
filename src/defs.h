@@ -1293,15 +1293,15 @@ typedef struct nox_draw_viewport_t {
 	int y1; // 1, 4
 	int x2; // 2, 8
 	int y2; // 3, 12
-	_DWORD field_4; // 4, 16
-	_DWORD field_5; // 5, 20
+	int field_4; // 4, 16
+	int field_5; // 5, 20
 	int field_6; // 6, 24
 	int field_7; // 7, 28
 	int width;  // 8, 32
 	int height; // 9, 36
 	_DWORD field_10; // 10, 40
 	_DWORD field_11; // 11, 44
-	_DWORD field_12; // 12, 48
+	int field_12; // 12, 48
 } nox_draw_viewport_t;
 _Static_assert(sizeof(nox_draw_viewport_t) == 52, "wrong size of nox_draw_viewport_t structure!");
 
