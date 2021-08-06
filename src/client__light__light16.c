@@ -474,36 +474,35 @@ void sub_4695E0(int a1, int a2, int* a3, int a4, int a5) {
 	int v7 = sub_4C1C60(v5, a3[1]) << 8;
 	int v8 = sub_4C1C60(v5, a3[2]) << 8;
 
-	int ind = 3 * (a2 + 45 * a1);
-	unsigned int* nox_arr_853BC0 = nox_arr2_853BC0;
-	unsigned int* ptr = &nox_arr_853BC0[ind];
-	int v10 = v6 + ptr[0];
-	int v11 = v7 + ptr[1];
-	int v12 = v8 + ptr[2];
-	if (v10 <= 0xFF0000) {
-		if (v10 < 0) {
-			v10 = 0;
+	nox_light_3* ptr = &nox_arr2_853BC0[a1][a2];
+
+	nox_light_3 res;
+	res.r = v6 + ptr->r;
+	res.g = v7 + ptr->g;
+	res.b = v8 + ptr->b;
+
+	if (res.r <= 0xFF0000) {
+		if (res.r < 0) {
+			res.r = 0;
 		}
 	} else {
-		v10 = 0xFF0000;
+		res.r = 0xFF0000;
 	}
-	if (v11 <= 0xFF0000) {
-		if (v11 < 0) {
-			v11 = 0;
+	if (res.g <= 0xFF0000) {
+		if (res.g < 0) {
+			res.g = 0;
 		}
 	} else {
-		v11 = 0xFF0000;
+		res.g = 0xFF0000;
 	}
-	if (v12 <= 0xFF0000) {
-		if (v12 < 0) {
-			v12 = 0;
+	if (res.b <= 0xFF0000) {
+		if (res.b < 0) {
+			res.b = 0;
 		}
 	} else {
-		v12 = 0xFF0000;
+		res.b = 0xFF0000;
 	}
-	ptr[0] = v10;
-	ptr[1] = v11;
-	ptr[2] = v12;
+	*ptr = res;
 }
 
 //----- (004697C0) --------------------------------------------------------
