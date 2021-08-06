@@ -6182,14 +6182,16 @@ int  sub_4814F0(int2* a1) {
 	unsigned __int8* v6; // eax
 	int result;          // eax
 
-	int v1 = 3 * (a1->field_4 + 45 * a1->field_0);
-	unsigned int* nox_arr_853BC0 = nox_arr2_853BC0;
-	int v2 = nox_arr_853BC0[0 + v1] >> 8;
-	int v3 = nox_arr_853BC0[1 + v1] >> 8;
-	int v4 = nox_arr_853BC0[2 + v1] >> 8;
-	int v2b = nox_arr_853BC0[3 + v1] >> 8;
-	int v3b = nox_arr_853BC0[4 + v1] >> 8;
-	int v4b = nox_arr_853BC0[5 + v1] >> 8;
+	nox_light_3 c1 = nox_arr2_853BC0[a1->field_0][a1->field_4+0];
+	int v2 = c1.r >> 8;
+	int v3 = c1.g >> 8;
+	int v4 = c1.b >> 8;
+
+	nox_light_3 c2 = nox_arr2_853BC0[a1->field_0][a1->field_4+1];
+	int v2b = c2.r >> 8;
+	int v3b = c2.g >> 8;
+	int v4b = c2.b >> 8;
+
 	int v8 = *getMemU32Ptr(0x8529A0, 1020 + 4 * ((v2b - v2) >> 8));
 	int v9 = *getMemU32Ptr(0x8529A0, 1020 + 4 * ((v3b - v3) >> 8));
 	int v10 = *getMemU32Ptr(0x8529A0, 1020 + 4 * ((v4b - v4) >> 8));
