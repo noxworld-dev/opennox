@@ -1072,7 +1072,7 @@ void nox_ctrlevent_action_42E670(nox_ctrlevent_code code, _DWORD data) {
 
 //----- (0042E780) --------------------------------------------------------
 void nox_ctrlevent_action_42E780(nox_ctrlevent_code code, _DWORD data) {
-	if (*getMemU32Ptr(0x84EB20, 15968) && !(*(_BYTE*)(*getMemU32Ptr(0x84EB20, 15968) + 120) & 2)) {
+	if (*getMemU32Ptr(0x852978, 8) && !(*(_BYTE*)(*getMemU32Ptr(0x852978, 8) + 120) & 2)) {
 		if (!nox_xxx_checkGameFlagPause_413A50()) {
 			nox_ctrlevent_action_42E670(code, data);
 		}

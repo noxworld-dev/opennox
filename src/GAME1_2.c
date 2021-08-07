@@ -5618,7 +5618,7 @@ int nox_xxx_cliToggleObsWindow_4357A0() {
 //----- (004357D0) --------------------------------------------------------
 BOOL  nox_xxx_clientResetSpriteAndGui_4357D0(int argc, const char** argv) {
 	*getMemU32Ptr(0x8529A0, 2044) = 0;
-	*getMemU32Ptr(0x84EB20, 15968) = 0;
+	*getMemU32Ptr(0x852978, 8) = 0;
 	*getMemU32Ptr(0x8531A0, 2576) = 0;
 	strcpy((char*)getMemAt(0x5D4594, 811280), nox_xxx_getRandomName_4358A0());
 	if (argc > 1) {
@@ -6023,7 +6023,7 @@ int nox_xxx_cliSetupSession_437190() {
 		nox_netlist_resetAll_40EE60();
 	result = sub_417CF0();
 	*getMemU32Ptr(0x8529A0, 2044) = 0;
-	*getMemU32Ptr(0x84EB20, 15968) = 0;
+	*getMemU32Ptr(0x852978, 8) = 0;
 	*getMemU32Ptr(0x8531A0, 2576) = 0;
 	return result;
 }
@@ -6046,8 +6046,8 @@ BOOL nox_xxx_playerAnimCheck_4372B0() {
 	BOOL result; // eax
 
 	result = 1;
-	if (*getMemU32Ptr(0x84EB20, 15968)) {
-		v0 = *(_DWORD*)(*getMemU32Ptr(0x84EB20, 15968) + 276);
+	if (*getMemU32Ptr(0x852978, 8)) {
+		v0 = *(_DWORD*)(*getMemU32Ptr(0x852978, 8) + 276);
 		if (v0 != 1 && v0 != 2 && v0 != 51)
 			result = 0;
 	}

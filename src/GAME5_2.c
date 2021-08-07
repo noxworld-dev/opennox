@@ -4330,7 +4330,7 @@ BOOL  sub_57B450(nox_drawable* a1p) {
 		v1 = nox_xxx_getTTByNameSpriteMB_44CFC0("Glyph");
 		*getMemU32Ptr(0x5D4594, 2523880) = v1;
 	}
-	if (!a1 || !*getMemU32Ptr(0x84EB20, 15968) || !*getMemU32Ptr(0x8531A0, 2576) ||
+	if (!a1 || !*getMemU32Ptr(0x852978, 8) || !*getMemU32Ptr(0x8531A0, 2576) ||
 		a1[27] == v1 && *(_BYTE*)(*getMemU32Ptr(0x8531A0, 2576) + 2251) != 1) {
 		return 0;
 	}

@@ -80,10 +80,10 @@ nox_window*  nox_gui_newScrollListBox_4A4310(int a1, int a2, int a3, int a4, int
 			if ((signed char)*((_BYTE*)v8 + 4) >= 0) {
 				*(_DWORD*)&v25[20] = *getMemU32Ptr(0x85B3FC, 952);
 				*(_DWORD*)&v25[44] = *getMemU32Ptr(0x85B3FC, 952);
-				*(_DWORD*)&v25[28] = *getMemU32Ptr(0x84EB20, 15972);
+				*(_DWORD*)&v25[28] = *getMemU32Ptr(0x852978, 12);
 				*(_DWORD*)&v25[36] = *getMemU32Ptr(0x5D4594, 2523948);
 				*(_DWORD*)&v25[52] = *getMemU32Ptr(0x5D4594, 2589772);
-				*(_DWORD*)&v25[68] = *getMemU32Ptr(0x84EB20, 15972);
+				*(_DWORD*)&v25[68] = *getMemU32Ptr(0x852978, 12);
 				v16 = nox_strman_loadString_40F1D0("WindowDir:Up", 0,
 											"C:\\NoxPost\\src\\Client\\Gui\\Gadgets\\listbox.c", 1483);
 				nox_wcscpy((wchar_t*)&v25[72], v16);
@@ -104,10 +104,10 @@ nox_window*  nox_gui_newScrollListBox_4A4310(int a1, int a2, int a3, int a4, int
 			if ((signed char)*((_BYTE*)v8 + 4) >= 0) {
 				*(_DWORD*)&v25[20] = *getMemU32Ptr(0x85B3FC, 952);
 				*(_DWORD*)&v25[44] = *getMemU32Ptr(0x85B3FC, 952);
-				*(_DWORD*)&v25[28] = *getMemU32Ptr(0x84EB20, 15972);
+				*(_DWORD*)&v25[28] = *getMemU32Ptr(0x852978, 12);
 				*(_DWORD*)&v25[36] = *getMemU32Ptr(0x5D4594, 2523948);
 				*(_DWORD*)&v25[52] = *getMemU32Ptr(0x5D4594, 2589772);
-				*(_DWORD*)&v25[68] = *getMemU32Ptr(0x84EB20, 15972);
+				*(_DWORD*)&v25[68] = *getMemU32Ptr(0x852978, 12);
 				v18 = nox_strman_loadString_40F1D0("WindowDir:Down", 0,
 											"C:\\NoxPost\\src\\Client\\Gui\\Gadgets\\listbox.c", 1519);
 				nox_wcscpy((wchar_t*)&v25[72], v18);
@@ -126,8 +126,8 @@ nox_window*  nox_gui_newScrollListBox_4A4310(int a1, int a2, int a3, int a4, int
 				*(_DWORD*)&v25[20] = *getMemU32Ptr(0x85B3FC, 952);
 				*(_DWORD*)&v25[44] = *getMemU32Ptr(0x85B3FC, 952);
 				*(_DWORD*)&v25[36] = *getMemU32Ptr(0x85B3FC, 952);
-				*(_DWORD*)&v25[28] = *getMemU32Ptr(0x84EB20, 15972);
-				*(_DWORD*)&v25[52] = *getMemU32Ptr(0x84EB20, 15972);
+				*(_DWORD*)&v25[28] = *getMemU32Ptr(0x852978, 12);
+				*(_DWORD*)&v25[52] = *getMemU32Ptr(0x852978, 12);
 				v19 = 10;
 			} else {
 				*(_DWORD*)&v25[24] = nox_xxx_gLoadImg_42F970("DefaultSliderThumb");

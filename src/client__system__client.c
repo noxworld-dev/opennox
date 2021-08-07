@@ -72,7 +72,7 @@ void nox_xxx_clientDrawAll_436100_draw() {
 	}
 	sub_430B50(v6, v7, nox_draw_viewport.x2, nox_draw_viewport.y2);
 	if (*getMemU32Ptr(0x8529A0, 2044))
-		*getMemU32Ptr(0x84EB20, 15968) = nox_xxx_netSpriteByCodeDynamic_45A6F0(*getMemIntPtr(0x8529A0, 2044));
+		*getMemU32Ptr(0x852978, 8) = nox_xxx_netSpriteByCodeDynamic_45A6F0(*getMemIntPtr(0x8529A0, 2044));
 	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
 		v8 = !sub_436550();
 		if (v8)
@@ -94,7 +94,7 @@ void nox_xxx_clientDrawAll_436100_draw() {
 												  "C:\\NoxPost\\src\\client\\System\\client.c", 1553);
 			nox_xxx_drawString_43F6E0(v10, v12, v20, v21);
 		}
-	} else if (*getMemU32Ptr(0x84EB20, 15968) && nox_client_isConnected_43C700()) {
+	} else if (*getMemU32Ptr(0x852978, 8) && nox_client_isConnected_43C700()) {
 		nox_xxx_drawAllMB_475810_draw(&nox_draw_viewport);
 		nox_xxx_drawMinimapAndLines_4738E0();
 	} else {
@@ -519,13 +519,13 @@ int sub_436F50() {
 	v4 = nox_server_currentMapGetFilename_409B30();
 	nox_swprintf((wchar_t*)getMemAt(0x5D4594, 811120), L"%S", v4);
 	nox_xxx_drawString_43F6E0(0, getMemI16Ptr(0x5D4594, 811120), v2, v3);
-	result = *getMemU32Ptr(0x84EB20, 15968);
+	result = *getMemU32Ptr(0x852978, 8);
 	v6 = v0 + v3;
-	if (*getMemU32Ptr(0x84EB20, 15968)) {
+	if (*getMemU32Ptr(0x852978, 8)) {
 		if (*getMemU32Ptr(0x8531A0, 2576)) {
 			nox_swprintf((wchar_t*)getMemAt(0x5D4594, 811120), L"X:%d\tY:%d",
-						 *(_DWORD*)(*getMemU32Ptr(0x84EB20, 15968) + 12),
-						 *(_DWORD*)(*getMemU32Ptr(0x84EB20, 15968) + 16));
+						 *(_DWORD*)(*getMemU32Ptr(0x852978, 8) + 12),
+						 *(_DWORD*)(*getMemU32Ptr(0x852978, 8) + 16));
 			nox_xxx_drawString_43F6E0(0, getMemI16Ptr(0x5D4594, 811120), v2, v6);
 			v9 = nox_strman_loadString_40F1D0(
 				*(char**)getMemAt(0x587000, 29456 + 4 * *(unsigned __int8*)(*getMemU32Ptr(0x8531A0, 2576) + 2251)), 0,

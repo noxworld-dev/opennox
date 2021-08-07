@@ -6272,8 +6272,8 @@ void nox_xxx_polygonDrawColor_421B80() {
 	int2 v5;      // [esp+4h] [ebp-10h]
 	int2 v6;      // [esp+Ch] [ebp-8h]
 
-	v0 = *getMemU32Ptr(0x84EB20, 15968);
-	if (*getMemU32Ptr(0x84EB20, 15968)) {
+	v0 = *getMemU32Ptr(0x852978, 8);
+	if (*getMemU32Ptr(0x852978, 8)) {
 		nox_xxx_getSomeCoods_435670(&v5);
 		sub_435690(&v6);
 		v1 = nox_common_playerInfoGetByID_417040(*(_DWORD*)(v0 + 128));

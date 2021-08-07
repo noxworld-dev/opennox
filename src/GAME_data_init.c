@@ -791,7 +791,7 @@ void init_data() {
 	*(void**)getMemAt(0x587000, 54624) = getMemAt(0x587000, 54804);
 	*(void**)getMemAt(0x587000, 54636) = getMemAt(0x85B3FC, 980);
 	*(void**)getMemAt(0x587000, 54640) = getMemAt(0x587000, 54840);
-	*(void**)getMemAt(0x587000, 54652) = getMemAt(0x84EB20, 15984);
+	*(void**)getMemAt(0x587000, 54652) = getMemAt(0x852978, 24);
 	*(void**)getMemAt(0x587000, 54656) = getMemAt(0x587000, 54876);
 	*(void**)getMemAt(0x587000, 54668) = getMemAt(0x85B3FC, 116);
 	*(void**)getMemAt(0x587000, 54672) = getMemAt(0x587000, 54912);
@@ -802,7 +802,7 @@ void init_data() {
 	*(void**)getMemAt(0x587000, 54716) = getMemAt(0x85B3FC, 952);
 	*(void**)getMemAt(0x587000, 54720) = getMemAt(0x587000, 55020);
 	*(void**)getMemAt(0x587000, 54736) = getMemAt(0x587000, 55056);
-	*(void**)getMemAt(0x587000, 54748) = getMemAt(0x84EB20, 15972);
+	*(void**)getMemAt(0x587000, 54748) = getMemAt(0x852978, 12);
 	*(void**)getMemAt(0x587000, 55744) = getMemAt(0x5D4594, 527672);
 	*(void**)getMemAt(0x587000, 55816) = getMemAt(0x587000, 55988);
 	*(void**)getMemAt(0x587000, 55824) = &sub_41A590;

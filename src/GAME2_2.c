@@ -243,7 +243,7 @@ int  sub_476080(unsigned __int8* a1) {
 	int v4;     // edx
 	int v5;     // ecx
 
-	if (!*getMemU32Ptr(0x84EB20, 15968))
+	if (!*getMemU32Ptr(0x852978, 8))
 		return 23 * a1[6] + 11;
 	switch (*a1) {
 	case 0u:
@@ -260,10 +260,10 @@ int  sub_476080(unsigned __int8* a1) {
 		v2 = 23 * a1[5];
 		result = 23 * a1[6];
 	LABEL_5:
-		v4 = *(_DWORD*)(*getMemU32Ptr(0x84EB20, 15968) + 12) - v2;
-		v5 = v1 * (*(_DWORD*)(*getMemU32Ptr(0x84EB20, 15968) + 16) - result) - 23 * v4;
+		v4 = *(_DWORD*)(*getMemU32Ptr(0x852978, 8) + 12) - v2;
+		v5 = v1 * (*(_DWORD*)(*getMemU32Ptr(0x852978, 8) + 16) - result) - 23 * v4;
 		if (v1 < 0)
-			v5 = 23 * v4 - v1 * (*(_DWORD*)(*getMemU32Ptr(0x84EB20, 15968) + 16) - result);
+			v5 = 23 * v4 - v1 * (*(_DWORD*)(*getMemU32Ptr(0x852978, 8) + 16) - result);
 		if (v5 < 0)
 			result += 22;
 		break;
@@ -297,16 +297,16 @@ int  sub_4761B0(int a1) {
 	int v3;     // ecx
 	int v4;     // edx
 
-	if (!*getMemU32Ptr(0x84EB20, 15968))
+	if (!*getMemU32Ptr(0x852978, 8))
 		return *(_DWORD*)(a1 + 16) + *getMemIntPtr(0x587000, 196188 + 8 * *(unsigned __int8*)(a1 + 299)) / 2;
 	result = *(_DWORD*)(a1 + 16);
 	v2 = 8 * *(unsigned __int8*)(a1 + 299);
-	v3 = (*(_DWORD*)(*getMemU32Ptr(0x84EB20, 15968) + 16) - result) * *getMemIntPtr(0x587000, 196184 + v2) -
-		 (*(_DWORD*)(*getMemU32Ptr(0x84EB20, 15968) + 12) - *(_DWORD*)(a1 + 12)) * *getMemIntPtr(0x587000, 196188 + v2);
+	v3 = (*(_DWORD*)(*getMemU32Ptr(0x852978, 8) + 16) - result) * *getMemIntPtr(0x587000, 196184 + v2) -
+		 (*(_DWORD*)(*getMemU32Ptr(0x852978, 8) + 12) - *(_DWORD*)(a1 + 12)) * *getMemIntPtr(0x587000, 196188 + v2);
 	if (*getMemIntPtr(0x587000, 196184 + v2) < 0)
-		v3 = (*(_DWORD*)(*getMemU32Ptr(0x84EB20, 15968) + 12) - *(_DWORD*)(a1 + 12)) *
+		v3 = (*(_DWORD*)(*getMemU32Ptr(0x852978, 8) + 12) - *(_DWORD*)(a1 + 12)) *
 				 *getMemIntPtr(0x587000, 196188 + 8 * *(unsigned __int8*)(a1 + 299)) -
-			 (*(_DWORD*)(*getMemU32Ptr(0x84EB20, 15968) + 16) - result) *
+			 (*(_DWORD*)(*getMemU32Ptr(0x852978, 8) + 16) - result) *
 				 *getMemIntPtr(0x587000, 196184 + 8 * *(unsigned __int8*)(a1 + 299));
 	v4 = result + *getMemIntPtr(0x587000, 196188 + 8 * *(unsigned __int8*)(a1 + 299));
 	if (v3 >= 0) {
@@ -469,10 +469,10 @@ int  sub_4765F0(int a1) {
 	int v2;     // eax
 
 	*getMemU32Ptr(0x5D4594, 1096440) = nox_client_highResFloors_154952;
-	result = *getMemU32Ptr(0x84EB20, 15968);
+	result = *getMemU32Ptr(0x852978, 8);
 	*getMemU32Ptr(0x5D4594, 1096444) = nox_client_highResFrontWalls_80820;
-	if (*getMemU32Ptr(0x84EB20, 15968) && !nox_client_lockHighResFloors_1193152) {
-		v2 = *(_DWORD*)(*getMemU32Ptr(0x84EB20, 15968) + 276);
+	if (*getMemU32Ptr(0x852978, 8) && !nox_client_lockHighResFloors_1193152) {
+		v2 = *(_DWORD*)(*getMemU32Ptr(0x852978, 8) + 276);
 		if ((v2 == 3 || v2 == 6 || v2 == 45) && (*(int*)(a1 + 16) - *getMemIntPtr(0x5D4594, 1096556) >= 4 ||
 												 *(int*)(a1 + 20) - *getMemIntPtr(0x5D4594, 1096560) >= 4)) {
 			nox_client_highResFloors_154952 = 0;
@@ -1036,11 +1036,11 @@ void  nox_xxx_clientOnCursorHover_477050(int arg0, int a2) {
 	if (!*getMemU32Ptr(0x5D4594, 1096648))
 		*getMemU32Ptr(0x5D4594, 1096648) = nox_xxx_getTTByNameSpriteMB_44CFC0("Polyp");
 	v2 = arg0;
-	if (arg0 == *getMemU32Ptr(0x84EB20, 15968)) {
+	if (arg0 == *getMemU32Ptr(0x852978, 8)) {
 		return;
 	}
 	v3 = *(_DWORD*)(arg0 + 120);
-	if (!((v3 & 0x8000) == 0 && (!nox_xxx_spriteTestBuf_4356C0(arg0, 0) || nox_xxx_spriteTestBuf_4356C0(*getMemIntPtr(0x84EB20, 15968), 21)))) {
+	if (!((v3 & 0x8000) == 0 && (!nox_xxx_spriteTestBuf_4356C0(arg0, 0) || nox_xxx_spriteTestBuf_4356C0(*getMemIntPtr(0x852978, 8), 21)))) {
 		return;
 	}
 	v4 = *(_DWORD*)(arg0 + 112);
@@ -1129,7 +1129,7 @@ LABEL_38:
 		*getMemU32Ptr(0x5D4594, 1096628) = v22;
 		dword_5d4594_1096640 = v2;
 	}
-	if (v2 != *getMemU32Ptr(0x84EB20, 15968) &&
+	if (v2 != *getMemU32Ptr(0x852978, 8) &&
 		v22 > *(int*)&dword_5d4594_1096636 && nox_xxx_client_57B400(v2)) {
 		if (*getMemU32Ptr(0x8531A0, 2576) &&
 			*(_BYTE*)(*getMemU32Ptr(0x8531A0, 2576) + 2251) == 1 &&
@@ -1382,8 +1382,8 @@ int sub_477EA0() {
 	int x = mpos.x;
 	int y = mpos.y + 22;
 	nox_video_cursorDrawImpl_477A30(*getMemIntPtr(0x85B3FC, 952), x, y);
-	sub_477EF0(*getMemIntPtr(0x84EB20, 15964), --x, y);
-	return sub_477EF0(*getMemIntPtr(0x84EB20, 15964), x + 2, y);
+	sub_477EF0(*getMemIntPtr(0x852978, 4), --x, y);
+	return sub_477EF0(*getMemIntPtr(0x852978, 4), x + 2, y);
 }
 
 //----- (00477EF0) --------------------------------------------------------

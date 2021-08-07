@@ -1526,7 +1526,7 @@ char  nox_xxx_updatePlayer_4F8100(_DWORD* a1) {
 			}
 			v16 = *(_DWORD*)(v4 + 216);
 			if (v16 && !*(_BYTE*)(v4 + 188) &&
-				(unsigned int)(nox_frame_xxx_2598000 - v16) > *getMemIntPtr(0x84EB20, 15976)) {
+				(unsigned int)(nox_frame_xxx_2598000 - v16) > *getMemIntPtr(0x852978, 16)) {
 				nox_xxx_playerSpell_4FB2A0_magic_plyrspel((int)a1);
 				*(_DWORD*)(v4 + 216) = 0;
 			}

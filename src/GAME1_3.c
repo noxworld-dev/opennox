@@ -4192,7 +4192,7 @@ _DWORD* sub_445FF0() {
 	for (i = 9001; i <= 9006; ++i) {
 		result = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_825760, i);
 		if (result)
-			result[26] = *getMemU32Ptr(0x84EB20, 15972);
+			result[26] = *getMemU32Ptr(0x852978, 12);
 	}
 	return result;
 }

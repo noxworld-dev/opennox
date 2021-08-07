@@ -95,7 +95,7 @@ int  nox_xxx_drawHasteAndRunParticles_4746C0(_DWORD* a1, int a2) {
 	if (nox_xxx_spriteTestBuf_4356C0(a2, 17))
 		sub_474BE0(a1, (int*)(a2 + 12), a2, 0, 0, *getMemIntPtr(0x85B3FC, 940), *getMemIntPtr(0x5D4594, 2589776), 1);
 	if (nox_xxx_spriteTestBuf_4356C0(a2, 18))
-		sub_474BE0(a1, (int*)(a2 + 12), a2, 85, 1, *getMemIntPtr(0x8531A0, 2572), *getMemIntPtr(0x84EB20, 15984), 1);
+		sub_474BE0(a1, (int*)(a2 + 12), a2, 85, 1, *getMemIntPtr(0x8531A0, 2572), *getMemIntPtr(0x852978, 24), 1);
 	if (nox_xxx_spriteTestBuf_4356C0(a2, 20))
 		sub_474BE0(a1, (int*)(a2 + 12), a2, 170, 2, *getMemIntPtr(0x85B3FC, 980), *getMemIntPtr(0x5D4594, 2523948), 1);
 	if (!nox_xxx_spriteTestBuf_4356C0(a2, 27) || (v8 = *(_BYTE*)(a2 + 297)) != 0 && v8 != 1 && v8 != 2)
@@ -246,7 +246,7 @@ int  nox_xxx_drawEffectsMB_474E60(_DWORD* a1, int a2) {
 	if (nox_xxx_spriteTestBuf_4356C0(v2, 17))
 		sub_474BE0(v4, (int*)(v2 + 12), v2, 0, 0, *getMemIntPtr(0x85B3FC, 940), *getMemIntPtr(0x5D4594, 2589776), 0);
 	if (nox_xxx_spriteTestBuf_4356C0(v2, 18))
-		sub_474BE0(v4, (int*)(v2 + 12), v2, 85, 1, *getMemIntPtr(0x8531A0, 2572), *getMemIntPtr(0x84EB20, 15984), 0);
+		sub_474BE0(v4, (int*)(v2 + 12), v2, 85, 1, *getMemIntPtr(0x8531A0, 2572), *getMemIntPtr(0x852978, 24), 0);
 	if (nox_xxx_spriteTestBuf_4356C0(v2, 20))
 		sub_474BE0(v4, (int*)(v2 + 12), v2, 170, 2, *getMemIntPtr(0x85B3FC, 980), *getMemIntPtr(0x5D4594, 2523948), 0);
 	if (nox_xxx_spriteTestBuf_4356C0(v2, 26)) {

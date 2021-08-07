@@ -57,7 +57,7 @@ int  nox_thing_npc_draw(int* a1, nox_drawable* dr) {
 	} else {
 		v4 = a2;
 		v30 = *(_DWORD*)(a2 + 128);
-		v36 = *(_DWORD*)(*getMemU32Ptr(0x84EB20, 15968) + 304);
+		v36 = *(_DWORD*)(*getMemU32Ptr(0x852978, 8) + 304);
 		v5 = (int*)nox_npc_by_id(v30);
 		v33 = v5;
 		if (v36 && v5) {

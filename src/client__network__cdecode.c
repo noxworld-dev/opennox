@@ -733,7 +733,7 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 					}
 				}
 			}
-			if (v51 == *getMemU32Ptr(0x84EB20, 15968)) {
+			if (v51 == *getMemU32Ptr(0x852978, 8)) {
 				data += 3;
 				break;
 			}
@@ -759,11 +759,11 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 			*(_DWORD*)(v5 + 480) = 1;
 			*(_DWORD*)(v5 + 488) = 1;
 			if (nox_client_fadeObjects_80836) {
-				if ((_DWORD)v5 != *getMemU32Ptr(0x84EB20, 15968))
+				if ((_DWORD)v5 != *getMemU32Ptr(0x852978, 8))
 					nox_xxx_spriteTransparentDecay_49B950((_DWORD*)v5, (int)nox_gameFPS);
 			} else if (*(int(**)(int*, int))(v5 + 300) != nox_thing_animate_draw ||
 					   (v56 = *(_DWORD*)(v5 + 304)) == 0 || *(_DWORD*)(v56 + 12) != 1) {
-				if (v51 != *getMemU32Ptr(0x84EB20, 15968)) {
+				if (v51 != *getMemU32Ptr(0x852978, 8)) {
 					v53 = nox_xxx_netTestHighBit_578B70(*(unsigned __int16*)(data + 1));
 				LABEL_208:
 					v331 = v51;
@@ -1412,9 +1412,9 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 			HIDWORD(v5) = *(_DWORD*)(data + 3);
 			v135 = v5;
 			*(_DWORD*)(v134 + 124) = HIDWORD(v5);
-			if (v134 == *getMemU32Ptr(0x84EB20, 15968))
+			if (v134 == *getMemU32Ptr(0x852978, 8))
 				sub_467410(*(_DWORD*)(data + 3));
-			if (v135 != 1 || nox_xxx_spriteTestBuf_4356C0(v134, 15) || v134 == *getMemU32Ptr(0x84EB20, 15968) && sub_467430() & 8)
+			if (v135 != 1 || nox_xxx_spriteTestBuf_4356C0(v134, 15) || v134 == *getMemU32Ptr(0x852978, 8) && sub_467430() & 8)
 				goto LABEL_1149;
 			nox_thing* v136 = nox_get_thing(*(_DWORD*)(v134 + 108));
 			nox_xxx_spriteChangeIntensity_484D70_light_intensity(v134 + 136, v136->light_intensity);
@@ -1425,10 +1425,10 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 				LOBYTE(v129) = sub_467430();
 				v130 = (v129 >> 3) & 1;
 				sub_467420(*(_BYTE*)(data + 1));
-				if (v130 == 1 && !(sub_467430() & 8) && *getMemU32Ptr(0x84EB20, 15968) &&
-					!nox_xxx_spriteTestBuf_4356C0(*getMemIntPtr(0x84EB20, 15968), 15)) {
-					nox_thing* v131 = nox_get_thing(*(_DWORD*)(*getMemU32Ptr(0x84EB20, 15968) + 108));
-					nox_xxx_spriteChangeIntensity_484D70_light_intensity(*getMemU32Ptr(0x84EB20, 15968) + 136, v131->light_intensity);
+				if (v130 == 1 && !(sub_467430() & 8) && *getMemU32Ptr(0x852978, 8) &&
+					!nox_xxx_spriteTestBuf_4356C0(*getMemIntPtr(0x852978, 8), 15)) {
+					nox_thing* v131 = nox_get_thing(*(_DWORD*)(*getMemU32Ptr(0x852978, 8) + 108));
+					nox_xxx_spriteChangeIntensity_484D70_light_intensity(*getMemU32Ptr(0x852978, 8) + 136, v131->light_intensity);
 				}
 			}
 			data += 2;
@@ -1550,9 +1550,9 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 			data += 7;
 			break;
 		case 102:
-			if (nox_client_isConnected_43C700() && *getMemU32Ptr(0x84EB20, 15968)) {
+			if (nox_client_isConnected_43C700() && *getMemU32Ptr(0x852978, 8)) {
 				HIDWORD(v5) = *(_DWORD*)(data + 1);
-				*(_DWORD*)(*getMemU32Ptr(0x84EB20, 15968) + 120) = HIDWORD(v5);
+				*(_DWORD*)(*getMemU32Ptr(0x852978, 8) + 120) = HIDWORD(v5);
 			}
 			data += 5;
 			break;
@@ -2041,13 +2041,13 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 			if (nox_client_isConnected_43C700()) {
 				sub_4C5020(data);
 				if (nox_common_randomIntMinMax_415FF0(0, 100, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 4987) < 25) {
-					if (*getMemU32Ptr(0x84EB20, 15968)) {
-						v225 = *(unsigned __int16*)(data + 5) - *(_DWORD*)(*getMemU32Ptr(0x84EB20, 15968) + 12);
+					if (*getMemU32Ptr(0x852978, 8)) {
+						v225 = *(unsigned __int16*)(data + 5) - *(_DWORD*)(*getMemU32Ptr(0x852978, 8) + 12);
 						v226 = nox_double2int(
 							sqrt((double)(v225 * v225 + (*(unsigned __int16*)(data + 7) -
-														 *(_DWORD*)(*getMemU32Ptr(0x84EB20, 15968) + 16)) *
+														 *(_DWORD*)(*getMemU32Ptr(0x852978, 8) + 16)) *
 															(*(unsigned __int16*)(data + 7) -
-															 *(_DWORD*)(*getMemU32Ptr(0x84EB20, 15968) + 16)))));
+															 *(_DWORD*)(*getMemU32Ptr(0x852978, 8) + 16)))));
 						if (v226 < 600)
 							nox_xxx_clientPlaySoundSpecial_452D80(297, 100 * (600 - v226) / 600);
 					}

@@ -284,7 +284,7 @@ func runNox(args []string) error {
 	// C.nox_common_readSKU_fromRegistry_4D78C0()
 	C.fesetround(C.FE_TOWARDZERO)
 	C.nox_xxx_servSetPlrLimit_409F80(32)
-	*memmap.PtrUint32(0x84EB20, 15976) = gameFPS() / 2
+	*memmap.PtrUint32(0x852978, 16) = gameFPS() / 2
 	C.nox_binfile_reset_4093A0()
 	C.nox_ensure_thing_bin()
 	// should be .csf but it works anyway

@@ -116,7 +116,7 @@ int  nox_video_cursorDrawImpl_477A30(int a1, int a2, int a3) {
 			// _dprintf("cur %f %f %d", v19.field_0, v19.field_4, nox_xxx_math_509ED0(&v19));
 			v15 = nox_xxx_math_509ED0(&v19) / 8;
 			if (v19.field_4 * v19.field_4 + v19.field_0 * v19.field_0 > 10000.0 ||
-				*getMemU32Ptr(0x84EB20, 15968) && *(_DWORD*)(*getMemU32Ptr(0x84EB20, 15968) + 276) == 6) {
+				*getMemU32Ptr(0x852978, 8) && *(_DWORD*)(*getMemU32Ptr(0x852978, 8) + 276) == 6) {
 				v15 += 32;
 			}
 			v16 = nox_xxx_spriteGetMB_476F80();

@@ -14,7 +14,7 @@ int  nox_thing_glyph_draw(int* a1, nox_drawable* dr) {
 
 	_DWORD* a2 = dr;
 
-	if (!nox_common_gameFlags_check_40A5C0(2) || !*getMemU32Ptr(0x84EB20, 15968))
+	if (!nox_common_gameFlags_check_40A5C0(2) || !*getMemU32Ptr(0x852978, 8))
 		goto LABEL_10;
 	if (a2[30] & 0x40000000) {
 		LOBYTE(a2) = -1;
@@ -26,7 +26,7 @@ int  nox_thing_glyph_draw(int* a1, nox_drawable* dr) {
 		nox_xxx_draw_434600(0);
 		return v7;
 	}
-	if (nox_xxx_spriteTestBuf_4356C0(*getMemIntPtr(0x84EB20, 15968), 21)) {
+	if (nox_xxx_spriteTestBuf_4356C0(*getMemIntPtr(0x852978, 8), 21)) {
 		nox_xxx_draw_434600(1);
 		sub_433E40(*getMemIntPtr(0x8531A0, 2572));
 #ifdef NOX_CGO
@@ -38,8 +38,8 @@ int  nox_thing_glyph_draw(int* a1, nox_drawable* dr) {
 		LOBYTE(a2) = v3;
 		goto LABEL_10;
 	}
-	v4 = a2[3] - *(_DWORD*)(*getMemU32Ptr(0x84EB20, 15968) + 12);
-	v5 = a2[4] - *(_DWORD*)(*getMemU32Ptr(0x84EB20, 15968) + 16);
+	v4 = a2[3] - *(_DWORD*)(*getMemU32Ptr(0x852978, 8) + 12);
+	v5 = a2[4] - *(_DWORD*)(*getMemU32Ptr(0x852978, 8) + 16);
 	v6 = v4 * v4 + v5 * v5;
 	if (v6 < 22500) {
 		v3 = -56 - 200 * v6 / 22500;

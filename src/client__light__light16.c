@@ -209,7 +209,7 @@ void  sub_484F90(int a1) {
 	v1 = a1;
 	if (sub_45A840((_DWORD*)a1) || *(_DWORD*)(a1 + 112) & 0x80000 && (v2 = *(_DWORD*)(a1 + 120), v2 & 0x1000000) &&
 									   v2 & 4 && *(_DWORD*)(a1 + 144) > 0) {
-		if (!nox_xxx_get_57AF20() || a1 == *getMemU32Ptr(0x84EB20, 15968) ||
+		if (!nox_xxx_get_57AF20() || a1 == *getMemU32Ptr(0x852978, 8) ||
 			*(int(**)(int*, int))(a1 + 300) == nox_thing_glow_orb_draw) {
 			if (*(_DWORD*)(a1 + 120) & 0x20000000 && dword_5d4594_3801780 == 1) {
 				a5 = nox_common_randomFloatXxx_416090(0.89999998, 1.1) * *(float*)(a1 + 140);
@@ -694,7 +694,7 @@ void  nox_xxx_cliLight16_469140(int arg0) {
 	if (sub_45A840((_DWORD*)arg0) || *(_DWORD*)(arg0 + 112) & 0x80000 &&
 										 (v2 = *(_DWORD*)(arg0 + 120), v2 & 0x1000000) && *(_DWORD*)(arg0 + 144) > 0 &&
 										 v2 & 4) {
-		if (!nox_xxx_get_57AF20() || arg0 == *getMemU32Ptr(0x84EB20, 15968) ||
+		if (!nox_xxx_get_57AF20() || arg0 == *getMemU32Ptr(0x852978, 8) ||
 			*(int(**)(int*, int))(arg0 + 300) == nox_thing_glow_orb_draw) {
 			v3 = *(_DWORD*)(arg0 + 148);
 			v4 = *(_DWORD*)(arg0 + 144);

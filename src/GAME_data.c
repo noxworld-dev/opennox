@@ -17071,7 +17071,9 @@ unsigned char byte_853BC0[30780] = {0};
 
 unsigned char byte_85B3FC[1149156] = {0};
 
-unsigned char byte_84EB20[16000] = {0};
+unsigned char byte_84EB20[15960] = {0};
+
+unsigned char byte_852978[40] = {0};
 
 unsigned char byte_581450_9176[160] = {
 	0x00, 0x7c, 0x00, 0x00, 0xe0, 0x03, 0x00, 0x00, 0x1f, 0x00, 0x00, 0x00, 0x07, 0x00, 0x00, 0x00,
