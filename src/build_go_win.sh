@@ -16,6 +16,7 @@ fi
 NOX_LDFLAGS="-X 'main.Commit=$GIT_SHA' -X 'main.Version=$VERSION'"
 
 go build -v -ldflags="-H windowsgui $NOX_LDFLAGS" -o opennox.exe
+go build -v -ldflags="-H windowsgui $NOX_LDFLAGS" -tags highres -o opennox-hd.exe
 go build -v -ldflags="$NOX_LDFLAGS" -tags server -o opennox-server.exe
 go build -v -ldflags="$NOX_LDFLAGS" -o noxtools.exe ./cmd/noxtools
 echo "Build complete: $VERSION ($GIT_SHA)"

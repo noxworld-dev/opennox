@@ -48,6 +48,7 @@ jobs:
       - name: Prepare the binaries
         run: |
           cp ./src/opennox /tmp/opennox
+          cp ./src/opennox-hd /tmp/opennox-hd
           cp ./src/opennox-server /tmp/opennox-server
           cp ./src/noxtools /tmp/noxtools
           tar -czf /tmp/opennox-linux.tar.gz /tmp/opennox /tmp/opennox-server /tmp/noxtools
@@ -109,6 +110,7 @@ jobs:
       - name: Prepare the binary
         run: |
           cp ./src/opennox.exe /tmp/opennox.exe
+          cp ./src/opennox-hd.exe /tmp/opennox-hd.exe
           cp ./src/opennox-server.exe /tmp/opennox-server.exe
           cp ./src/noxtools.exe /tmp/noxtools.exe
           zip /tmp/opennox-win.zip /tmp/opennox.exe /tmp/opennox-server.exe /tmp/noxtools.exe

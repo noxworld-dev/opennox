@@ -11,8 +11,6 @@ const (
 	noxDefaultWidth  = seat.DefaultWidth
 	noxDefaultHeight = seat.DefaultHeight
 	noxDefaultDepth  = seat.DefaultDepth
-	noxMaxWidth      = 1024
-	noxMaxHeight     = 768
 )
 
 var (

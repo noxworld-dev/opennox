@@ -4075,12 +4075,21 @@ _DWORD* sub_4AAA70() {
 
 	nox_xxx_gameGetScreenBoundaries_43BEB0_get_video_mode(&v8, &v10, &v9);
 	v9 = nox_xxx_normalWndBits_587000_172880;
+#ifdef NOX_HIGH_RES
+	if (v10 == 768)
+		v6 = 321;
+	else if (v10 == 720)
+		v6 = 322;
+	else
+		v6 = 323;
+#else // NOX_HIGH_RES
 	if (v10 == 480)
 		v6 = 321;
 	else if (v10 == 576)
 		v6 = 322;
 	else
 		v6 = 323;
+#endif // NOX_HIGH_RES
 	v0 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1309720, v6);
 	nox_window_call_field_94((int)v0, 16392, 1, 0);
 	// TODO: This is original handling of 8/16bit and windowed/fullscreen.
@@ -4217,6 +4226,20 @@ int  sub_4AABE0(int a1, int a2, int* a3, int a4) {
 			case 314:
 				nox_video_setCutSize_4766A0(100);
 				break;
+#ifdef NOX_HIGH_RES
+			case 321:
+				nox_xxx_normalWndHeight_587000_172876 = 1024;
+				nox_xxx_normalWndWidth_587000_172872 = 768;
+				break;
+			case 322:
+				nox_xxx_normalWndHeight_587000_172876 = 1280;
+				nox_xxx_normalWndWidth_587000_172872 = 720;
+				break;
+			case 323:
+				nox_xxx_normalWndHeight_587000_172876 = 1920;
+				nox_xxx_normalWndWidth_587000_172872 = 1080;
+				break;
+#else // NOX_HIGH_RES
 			case 321:
 				nox_xxx_normalWndHeight_587000_172876 = 848;
 				nox_xxx_normalWndWidth_587000_172872 = 480;
@@ -4229,6 +4252,7 @@ int  sub_4AABE0(int a1, int a2, int* a3, int a4) {
 				nox_xxx_normalWndHeight_587000_172876 = 1024;
 				nox_xxx_normalWndWidth_587000_172872 = 768;
 				break;
+#endif // NOX_HIGH_RES
 			case 332:
 				nox_xxx_normalWndBits_587000_172880 = 16;
 			case 333:
@@ -5776,12 +5800,21 @@ int nox_game_initOptionsInGame_4ADAD0() {
 		v15 = v14 & 0xFFFFFFFB;
 	*(_DWORD*)(dword_5d4594_1309832 + 36) = v15;
 	nox_xxx_gameGetScreenBoundaries_43BEB0_get_video_mode(&v32, &v34, &v33);
+#ifdef NOX_HIGH_RES
 	if (v34 == 480)
 		v31 = 321;
 	else if (v34 == 576)
 		v31 = 322;
 	else
 		v31 = 323;
+#else // NOX_HIGH_RES
+	if (v34 == 768)
+		v31 = 321;
+	else if (v34 == 720)
+		v31 = 322;
+	else
+		v31 = 323;
+#endif // NOX_HIGH_RES
 	v16 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1309820, v31);
 	nox_window_call_field_94((int)v16, 16392, 1, 0);
 	if (nox_video_getFullScreen())

@@ -1,8 +1,11 @@
 package main
 
 import (
+	"fmt"
 	"math"
 	"strings"
+
+	"nox/v1/common/types"
 )
 
 func guiParseHook(name string, win *Window) {
@@ -24,14 +27,26 @@ func guiEnhanceInputCfg(root *Window) {
 
 func guiEnhanceOptions(root *Window) {
 	// change resolution options to a new ones
-	if w := root.ChildByID(321); w != nil { // 640x480
-		w.DrawData().SetText(" 848 X 480 (w)")
+	// if you decide to change these, check carefully in other places, especially in C
+	var resOpts [3]types.Size
+	if noxHighRes {
+		resOpts = [3]types.Size{
+			{1024, 768},
+			{1280, 720},
+			{noxMaxWidth, noxMaxHeight},
+		}
+	} else {
+		resOpts = [3]types.Size{
+			{848, 480},
+			{1024, 576},
+			{noxMaxWidth, noxMaxHeight},
+		}
 	}
-	if w := root.ChildByID(322); w != nil { // 800x600
-		w.DrawData().SetText("1024 X 576 (w)")
-	}
-	if w := root.ChildByID(323); w != nil { // 1024x768
-		w.DrawData().SetText("1024 X 768")
+	// exactly 3 options in the menu (321-323)
+	for i, res := range resOpts {
+		if w := root.ChildByID(uint(321 + i)); w != nil {
+			w.DrawData().SetText(fmt.Sprintf("%4d X %d", res.W, res.H))
+		}
 	}
 
 	// replace 8bit/16bit switch with window/fullscreen

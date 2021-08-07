@@ -51,8 +51,6 @@ import (
 	"nox/v1/common/platform"
 )
 
-const NOX_CLIENT_VERS_CODE = C.NOX_CLIENT_VERS_CODE
-
 var (
 	debugMainloop           = os.Getenv("NOX_DEBUG_MAINLOOP") == "true"
 	g_v20                   bool

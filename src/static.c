@@ -1118,6 +1118,10 @@ nox_video_mode nox_video_modes[] = {
 	{640, 480, 0},
 	{800, 600, 1},
 	{1024, 768, 2},
+#ifdef NOX_HIGH_RES
+	{1280, 720, 3},
+	{1920, 1080, 4},
+#endif // NOX_HIGH_RES
 };
 int nox_video_modes_cnt = sizeof(nox_video_modes) / sizeof(nox_video_mode);
 
