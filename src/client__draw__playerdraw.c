@@ -202,14 +202,14 @@ int  nox_thing_player_draw(_DWORD* a1, nox_drawable* dr) {
 	}
 
 	if (v30 || !nox_xxx_spriteTestBuf_4356C0(dr, 0) || dr->field_32 == *getMemU32Ptr(0x8529A0, 2044) ||
-	    *getMemU32Ptr(0x5D4594, 2614252) && (nox_xxx_spriteTestBuf_4356C0(*getMemIntPtr(0x5D4594, 2614252), 21) || v31)) {
+	    *getMemU32Ptr(0x84EB20, 15968) && (nox_xxx_spriteTestBuf_4356C0(*getMemIntPtr(0x84EB20, 15968), 21) || v31)) {
 		a1 = nox_color_rgb_4344A0(155, 155, 155);
 		if (!sub_48D830(dr) && !nox_common_gameFlags_check_40A5C0(2048)) {
 			v21 = (__int16*)(v3 + 4704);
 			nox_xxx_drawGetStringSize_43F840(0, (unsigned __int16*)v3 + 2352, &v34, 0, 0);
 			v22 = *v10 + dr->pos.x + v34 / -2 - v10[4];
 			int a2 = v10[1] - v10[5] + dr->pos.y - 64;
-			nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 2614248));
+			nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x84EB20, 15964));
 			nox_xxx_drawString_43F6E0(0, v21, v22 + 1, a2 + 1);
 			nox_xxx_drawSetTextColor_434390(a1);
 			if (v35) {
@@ -262,7 +262,7 @@ int  nox_thing_player_draw(_DWORD* a1, nox_drawable* dr) {
 		do
 			nox_xxx_drawPlayer_4341D0(v12++, *getMemIntPtr(0x5D4594, 2523948));
 		while (v12 < 6);
-		if (dr != *getMemU32Ptr(0x5D4594, 2614252) && nox_xxx_playerGet_470A90()) {
+		if (dr != *getMemU32Ptr(0x84EB20, 15968) && nox_xxx_playerGet_470A90()) {
 			if (nox_common_gameFlags_check_40A5C0(4096))
 				nox_xxx_drawOtherPlayerHP_4B8EB0(v10, dr, (unsigned __int8)v3[2282], (*((_DWORD*)v3 + 920) >> 10) & 1);
 		}

@@ -691,7 +691,7 @@ func (c *CtrlEventHandler) nox_ctrlevent_action_42E670(code client.CtrlCode, dat
 }
 
 func (c *CtrlEventHandler) nox_ctrlevent_action_42E780(code client.CtrlCode, data *[4]byte) {
-	if p := *memmap.PtrPtr(0x5D4594, 2614252); p != nil && *(*byte)(unsafe.Pointer(uintptr(p) + 120))&2 == 0 {
+	if p := *memmap.PtrPtr(0x84EB20, 15968); p != nil && *(*byte)(unsafe.Pointer(uintptr(p) + 120))&2 == 0 {
 		if !nox_xxx_checkGameFlagPause_413A50() {
 			c.nox_ctrlevent_action_42E670(code, data)
 		}

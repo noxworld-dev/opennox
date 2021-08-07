@@ -143,10 +143,10 @@ int  nox_thing_monster_draw(int* a1, nox_drawable* dr) {
 		v10 = 0;
 		v11 = 0;
 	} else {
-		v10 = *(_DWORD*)(v2 + 12) - *(_DWORD*)(*getMemU32Ptr(0x5D4594, 2614252) + 12);
-		v11 = *(_DWORD*)(v2 + 16) - *(_DWORD*)(*getMemU32Ptr(0x5D4594, 2614252) + 16);
+		v10 = *(_DWORD*)(v2 + 12) - *(_DWORD*)(*getMemU32Ptr(0x84EB20, 15968) + 12);
+		v11 = *(_DWORD*)(v2 + 16) - *(_DWORD*)(*getMemU32Ptr(0x84EB20, 15968) + 16);
 	}
-	if (*getMemU32Ptr(0x5D4594, 2614252) && nox_xxx_spriteTestBuf_4356C0(*getMemIntPtr(0x5D4594, 2614252), 21)) {
+	if (*getMemU32Ptr(0x84EB20, 15968) && nox_xxx_spriteTestBuf_4356C0(*getMemIntPtr(0x84EB20, 15968), 21)) {
 		nox_xxx_draw_434600(1);
 		sub_433E40(*getMemIntPtr(0x8531A0, 2572));
 #ifdef NOX_CGO
@@ -175,10 +175,10 @@ int  nox_thing_monster_draw(int* a1, nox_drawable* dr) {
 		sub_495180(*(_DWORD*)(v2 + 128), &v22, &v21, &a2);
 		nox_xxx_spriteDrawMonsterHP_4BC080(v12, v2, v22, v21, a2);
 	}
-	if (!nox_xxx_CheckGameplayFlags_417DA0(4) && (!*getMemU32Ptr(0x5D4594, 2614252) || !nox_xxx_servObjectHasTeam_419130(*getMemU32Ptr(0x5D4594, 2614252) + 24)))
+	if (!nox_xxx_CheckGameplayFlags_417DA0(4) && (!*getMemU32Ptr(0x84EB20, 15968) || !nox_xxx_servObjectHasTeam_419130(*getMemU32Ptr(0x84EB20, 15968) + 24)))
 		goto LABEL_45;
 	if (!nox_common_gameFlags_check_40A5C0(1)) {
-		v15 = *getMemU32Ptr(0x5D4594, 2614252) + 24;
+		v15 = *getMemU32Ptr(0x84EB20, 15968) + 24;
 		LABEL_34:
 		if (v15) {
 			v16 = 0;

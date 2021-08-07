@@ -3614,7 +3614,7 @@ int  nox_xxx_wndRadioButtonProcPre_4A93C0(int a1, int a2, wchar_t* a3, int a4) {
 int nox_xxx_loadDefColor_4A94A0() // initListBoxColors, recall that one
 {
 	*getMemU32Ptr(0x85B3FC, 952) = nox_color_rgb_4344A0(0, 0, 0); // rgbatocompatiblecolor
-	*getMemU32Ptr(0x5D4594, 2614248) = nox_color_rgb_4344A0(8, 8, 8);
+	*getMemU32Ptr(0x84EB20, 15964) = nox_color_rgb_4344A0(8, 8, 8);
 	*getMemU32Ptr(0x85B3FC, 956) = nox_color_rgb_4344A0(115, 115, 115);
 	*getMemU32Ptr(0x5D4594, 2597996) = nox_color_rgb_4344A0(212, 212, 212);
 	*getMemU32Ptr(0x5D4594, 2523948) = nox_color_rgb_4344A0(255, 255, 255);
@@ -3623,15 +3623,15 @@ int nox_xxx_loadDefColor_4A94A0() // initListBoxColors, recall that one
 	*getMemU32Ptr(0x5D4594, 2589776) = nox_color_rgb_4344A0(255, 128, 128);
 	*getMemU32Ptr(0x85B3FC, 984) = nox_color_rgb_4344A0(0, 100, 0);
 	*getMemU32Ptr(0x8531A0, 2572) = nox_color_rgb_4344A0(0, 255, 0);
-	*getMemU32Ptr(0x5D4594, 2614268) = nox_color_rgb_4344A0(128, 255, 128);
+	*getMemU32Ptr(0x84EB20, 15984) = nox_color_rgb_4344A0(128, 255, 128);
 	*getMemU32Ptr(0x85B3FC, 944) = nox_color_rgb_4344A0(0, 0, 140);
 	*getMemU32Ptr(0x85B3FC, 116) = nox_color_rgb_4344A0(0, 0, 255);
 	*getMemU32Ptr(0x85B3FC, 980) = nox_color_rgb_4344A0(0, 160, 255);
-	*getMemU32Ptr(0x5D4594, 2614256) = nox_color_rgb_4344A0(240, 180, 42);
+	*getMemU32Ptr(0x84EB20, 15972) = nox_color_rgb_4344A0(240, 180, 42);
 	*getMemU32Ptr(0x5D4594, 2589772) = nox_color_rgb_4344A0(255, 255, 0);
-	*getMemU32Ptr(0x5D4594, 2614244) = nox_color_rgb_4344A0(255, 255, 128);
+	*getMemU32Ptr(0x84EB20, 15960) = nox_color_rgb_4344A0(255, 255, 128);
 	*getMemU32Ptr(0x85B3FC, 132) = getMemAt(0x85B3FC, 952);
-	*getMemU32Ptr(0x85B3FC, 136) = getMemAt(0x5D4594, 2614248);
+	*getMemU32Ptr(0x85B3FC, 136) = getMemAt(0x84EB20, 15964);
 	*getMemU32Ptr(0x85B3FC, 140) = getMemAt(0x85B3FC, 956);
 	*getMemU32Ptr(0x85B3FC, 144) = getMemAt(0x5D4594, 2597996);
 	*getMemU32Ptr(0x85B3FC, 148) = getMemAt(0x5D4594, 2523948);
@@ -3640,13 +3640,13 @@ int nox_xxx_loadDefColor_4A94A0() // initListBoxColors, recall that one
 	*getMemU32Ptr(0x85B3FC, 160) = getMemAt(0x5D4594, 2589776);
 	*getMemU32Ptr(0x85B3FC, 164) = getMemAt(0x85B3FC, 984);
 	*getMemU32Ptr(0x85B3FC, 168) = getMemAt(0x8531A0, 2572);
-	*getMemU32Ptr(0x85B3FC, 172) = getMemAt(0x5D4594, 2614268);
+	*getMemU32Ptr(0x85B3FC, 172) = getMemAt(0x84EB20, 15984);
 	*getMemU32Ptr(0x85B3FC, 176) = getMemAt(0x85B3FC, 944);
 	*getMemU32Ptr(0x85B3FC, 180) = getMemAt(0x85B3FC, 116);
 	*getMemU32Ptr(0x85B3FC, 184) = getMemAt(0x85B3FC, 980);
-	*getMemU32Ptr(0x85B3FC, 188) = getMemAt(0x5D4594, 2614256);
+	*getMemU32Ptr(0x85B3FC, 188) = getMemAt(0x84EB20, 15972);
 	*getMemU32Ptr(0x85B3FC, 192) = getMemAt(0x5D4594, 2589772);
-	*getMemU32Ptr(0x85B3FC, 196) = getMemAt(0x5D4594, 2614244);
+	*getMemU32Ptr(0x85B3FC, 196) = getMemAt(0x84EB20, 15960);
 	return 1;
 }
 

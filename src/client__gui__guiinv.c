@@ -889,7 +889,7 @@ int*  nox_xxx_makeStatsDlg_463880(int* a1) {
 		nox_swprintf(v77, L"%d", *(_DWORD*)(v4 + 2239));
 		nox_xxx_drawString_43FAF0(*(int*)&dword_5d4594_1063636, v77, v10 + 45, v19 + v73, 200, 0);
 		v25 = v19 + v1 + 1;
-		nox_client_drawSetColor_434460(*getMemIntPtr(0x5D4594, 2614256));
+		nox_client_drawSetColor_434460(*getMemIntPtr(0x84EB20, 15972));
 		nox_client_drawRectFilledOpaque_49CE30(v10 + 60, v25, 90, v1);
 		v68 = 90 * *(_DWORD*)(v4 + 2235);
 		v62 = (double)v68 / v70[2] + 0.5;

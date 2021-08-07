@@ -1027,7 +1027,7 @@ func nox_video_cursorDrawImpl_477A30(inp *input.Handler, a2, a3 int) {
 			Y: float32(mpos.Y - nox_win_height/2),
 		}
 		v15 := nox_xxx_math_509ED0(v19) / 8
-		if v19.X*v19.X+v19.Y*v19.Y > 100*100 || memmap.Uint32(0x5D4594, 2614252) != 0 && *(*uint32)(unsafe.Pointer(uintptr(*memmap.PtrPtr(0x5D4594, 2614252)) + 276)) == 6 {
+		if v19.X*v19.X+v19.Y*v19.Y > 100*100 || memmap.Uint32(0x84EB20, 15968) != 0 && *(*uint32)(unsafe.Pointer(uintptr(*memmap.PtrPtr(0x84EB20, 15968)) + 276)) == 6 {
 			v15 += 32
 		}
 		v16 := nox_xxx_spriteGetMB_476F80()

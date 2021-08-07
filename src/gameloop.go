@@ -881,7 +881,7 @@ func nox_xxx_cliSetupSession_437190() {
 	}
 	C.sub_417CF0()
 	*memmap.PtrUint32(0x8529A0, 2044) = 0
-	*memmap.PtrUint32(0x5D4594, 2614252) = 0
+	*memmap.PtrUint32(0x84EB20, 15968) = 0
 	*memmap.PtrUint32(0x8531A0, 2576) = 0
 }
 

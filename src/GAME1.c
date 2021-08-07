@@ -280,7 +280,7 @@ int cmain(int argc, const char* argv[]) {
 	_controlfp(0x300u, 0x300u);
 	nox_win_width = 0;
 	nox_xxx_servSetPlrLimit_409F80(32);
-	*getMemU32Ptr(0x5D4594, 2614260) = nox_gameFPS >> 1;
+	*getMemU32Ptr(0x84EB20, 15976) = nox_gameFPS >> 1;
 	nox_binfile_reset_4093A0();
 	nox_ensure_thing_bin();
 	result = nox_strman_readfile("nox.str"); // strange, should be .csf but it works anyway

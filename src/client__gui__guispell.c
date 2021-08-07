@@ -521,7 +521,7 @@ int  sub_45F9B0(_DWORD* a1) {
 		a1 = &v3[nox_xxx_guiFontHeightMB_43F320(*getMemIntPtr(0x5D4594, 1049684)) + 1];
 		v6 += (v7 - v8) / 2;
 		nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 2523948));
-		nox_xxx_drawSetColor_4343E0(*getMemIntPtr(0x5D4594, 2614248));
+		nox_xxx_drawSetColor_4343E0(*getMemIntPtr(0x84EB20, 15964));
 		sub_43F730(0, (__int16*)v11, v6, (int)a1);
 	}
 	return 1;
@@ -547,7 +547,7 @@ int  nox_xxx_quickbarDraw_45FAC0(_DWORD* a1) {
 	nox_xxx_drawGetStringSize_43F840(0, v9, &v6, 0, 0);
 	a1 = (_DWORD*)((char*)a1 + (v5 - v6) / 2);
 	nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 2523948));
-	nox_xxx_drawSetColor_4343E0(*getMemIntPtr(0x5D4594, 2614248));
+	nox_xxx_drawSetColor_4343E0(*getMemIntPtr(0x84EB20, 15964));
 	sub_43F730(0, (__int16*)v9, (int)a1, v7);
 	return 1;
 }
@@ -716,7 +716,7 @@ int  nox_xxx_quickBarWarriorDraw_45FDE0(int yTop) {
 			} while (v19);
 			v14 = v20;
 		}
-		if (!nox_xxx_spellIsEnabled_424B70(v4[2 * v2]) || nox_xxx_playerAnimCheck_4372B0() || nox_xxx_spriteTestBuf_4356C0(*getMemIntPtr(0x5D4594, 2614252), 29)) {
+		if (!nox_xxx_spellIsEnabled_424B70(v4[2 * v2]) || nox_xxx_playerAnimCheck_4372B0() || nox_xxx_spriteTestBuf_4356C0(*getMemIntPtr(0x84EB20, 15968), 29)) {
 			nox_client_drawRectFilledAlpha_49CF10(xLeft, yTop, 30, 30);
 			return 1;
 		}

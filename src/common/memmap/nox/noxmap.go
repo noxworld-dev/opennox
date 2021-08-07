@@ -5,13 +5,14 @@ import "nox/v1/common/memmap"
 func init() {
 	memmap.RegisterBlob(0x581450, "byte_581450", 23472)
 	memmap.RegisterBlob(0x587000, "byte_587000", 316820)
-	memmap.RegisterBlob(0x5D4594, "byte_5D4594", 2614284)
+	memmap.RegisterBlob(0x5D4594, "byte_5D4594", 2598284)
 	memmap.RegisterBlob(0x8529A0, "byte_8529A0", 2048)
 	memmap.RegisterBlob(0x8531A0, "byte_8531A0", 2592)
 	memmap.RegisterBlob(0x973CE0, "byte_973CE0", 568)
 	memmap.RegisterBlob(0x973F18, "byte_973F18", 44881)
 	memmap.RegisterBlob(0x853BC0, "byte_853BC0", 30780)
 	memmap.RegisterBlob(0x85B3FC, "byte_85B3FC", 1149156)
+	memmap.RegisterBlob(0x84EB20, "byte_84EB20", 16000)
 	for _, v := range noxMemmap {
 		memmap.RegisterVariableOff(v.blob, v.off, v.size, v.name, nil)
 	}
@@ -1299,7 +1300,7 @@ var noxMemmap = []struct {
 	{0x5D4594, 2523908, 4, "nox_alloc_debugData_2523908"},                 // 0x83C898
 	{0x5D4594, 2523912, 4, "dword_5d4594_2523912"},                        // 0x83C89C
 	{0x5D4594, 2598000, 4, "nox_frame_xxx_2598000"},                       // 0x84EA04
-	{0x5D4594, 2614264, 4, "dword_5d4594_2614264"},                        // 0x85298C
+	{0x84EB20, 15980, 4, "dword_5d4594_2614264"},                          // 0x85298C
 	{0x8531A0, 2568, 4, "dword_5d4594_2618900"},                           // 0x853BA8
 	{0x8531A0, 2580, 4, "dword_5d4594_2618912"},                           // 0x853BB4
 	{0x85B3FC, 0, 4, "nox_gameFPS"},                                       // 0x85B3FC

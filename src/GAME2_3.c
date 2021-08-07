@@ -983,7 +983,7 @@ void sub_48D990(_DWORD* a1) {
 					--v8;
 					--v18;
 				} else {
-					v9 = *getMemU32Ptr(0x5D4594, 2614248);
+					v9 = *getMemU32Ptr(0x84EB20, 15964);
 				}
 				nox_client_drawSetColor_434460(v9);
 				v23 = v8 - v1;
@@ -1041,7 +1041,7 @@ void sub_48D990(_DWORD* a1) {
 				nox_client_drawLineFromPoints_49E4B0();
 			}
 			nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 2523948));
-			nox_xxx_drawSetColor_4343E0(*getMemIntPtr(0x5D4594, 2614248));
+			nox_xxx_drawSetColor_4343E0(*getMemIntPtr(0x84EB20, 15964));
 			sub_43FD00(0, (_WORD*)v30, v8, v18, 128, 0);
 			if (v20) {
 				nox_xxx_drawSetTextColor_434390(v21);
@@ -4297,7 +4297,7 @@ int  nox_xxx_client_4984B0_drawable(int a1) {
 	v1 = a1;
 	if (!*(_DWORD*)(a1 + 300))
 		return 0;
-	if (a1 == *getMemU32Ptr(0x5D4594, 2614252))
+	if (a1 == *getMemU32Ptr(0x84EB20, 15968))
 		return 1;
 	if ((signed char)*(_BYTE*)(a1 + 112) >= 0) {
 		v42 = *(_DWORD*)(a1 + 12);
@@ -5383,7 +5383,7 @@ void  sub_49A6A0(_DWORD* a1, int a2) {
 	wchar_t v13[80]; // [esp+24h] [ebp-A0h]
 
 	v10 = nox_xxx_bookGet_430B40_get_mouse_prev_seq();
-	if (a2 == *getMemU32Ptr(0x5D4594, 2614252))
+	if (a2 == *getMemU32Ptr(0x84EB20, 15968))
 		v9 = *getMemU32Ptr(0x85B3FC, 940);
 	else
 		v9 = *getMemU32Ptr(0x5D4594, 2589772);

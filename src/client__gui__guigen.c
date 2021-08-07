@@ -44,7 +44,7 @@ __int16  nox_xxx_mapGenClientText_4A9D00(unsigned __int8* a1) {
 	v6 = nox_win_width - (_DWORD)a1;
 	v7 = nox_win_height / 2 - (2 * nox_xxx_guiFontHeightMB_43F320(0) + 70);
 	nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 2523948));
-	nox_xxx_drawSetColor_4343E0(*getMemIntPtr(0x5D4594, 2614248));
+	nox_xxx_drawSetColor_4343E0(*getMemIntPtr(0x84EB20, 15964));
 	sub_43F730(0, *(__int16**)getMemAt(0x5D4594, 1309660), v6 / 2, v7);
 	if (++*getMemU32Ptr(0x5D4594, 1309672) >= 32)
 		*getMemU32Ptr(0x5D4594, 1309672) = 0;
