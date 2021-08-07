@@ -7667,8 +7667,8 @@ void  sub_49E3C0(_DWORD* a1, int a2, unsigned int a3) {
 int nox_video_initLineDrawingFuncs_49E3F0() {
 	if (!dword_5d4594_3801780) {
 		dword_5d4594_3798716 = sub_49E540;
-		*getMemU32Ptr(0x956A00, 119360) = sub_49EFC0;
-		*getMemU32Ptr(0x956A00, 119364) = sub_49ED80;
+		*getMemU32Ptr(0x957820, 115744) = sub_49EFC0;
+		*getMemU32Ptr(0x957820, 115748) = sub_49ED80;
 		dword_5d4594_3798720 = sub_49F060;
 		dword_5d4594_3798708 = sub_49F0F0;
 		dword_5d4594_3798712 = sub_49F3A0;
@@ -7686,8 +7686,8 @@ int nox_video_initLineDrawingFuncs_49E3F0() {
 #endif // NOX_CGO
 	dword_5d4594_3798712 = sub_49F420;
 	dword_5d4594_3798716 = sub_49E930;
-	*getMemU32Ptr(0x956A00, 119360) = sub_49F010;
-	*getMemU32Ptr(0x956A00, 119364) = sub_49ED80;
+	*getMemU32Ptr(0x957820, 115744) = sub_49F010;
+	*getMemU32Ptr(0x957820, 115748) = sub_49ED80;
 	return 1;
 }
 
@@ -7702,7 +7702,7 @@ int  sub_49E4C0(int a1, int a2, int a3, int a4) {
 }
 
 //----- (0049E4F0) --------------------------------------------------------
-int  sub_49E4F0(int a1) { return (*(int(**)(_DWORD, _DWORD)) getMemAt(0x956A00, 119364))(a1, 0); }
+int  sub_49E4F0(int a1) { return (*(int(**)(_DWORD, _DWORD)) getMemAt(0x957820, 115748))(a1, 0); }
 
 //----- (0049E510) --------------------------------------------------------
 int  sub_49E510(int a1) {
@@ -8366,7 +8366,7 @@ int  sub_49ED80(unsigned __int8 a1, int a2) {
 }
 
 //----- (0049EFA0) --------------------------------------------------------
-int  sub_49EFA0(int a1, int a2) { return (*(int(**)(_DWORD, _DWORD)) getMemAt(0x956A00, 119360))(a1, a2); }
+int  sub_49EFA0(int a1, int a2) { return (*(int(**)(_DWORD, _DWORD)) getMemAt(0x957820, 115744))(a1, a2); }
 
 //----- (0049EFC0) --------------------------------------------------------
 int  sub_49EFC0(int a1, int a2) {
@@ -8648,7 +8648,7 @@ void  sub_49F420(int a1, int a2, int a3) {
 //----- (0049F4A0) --------------------------------------------------------
 BOOL sub_49F4A0() {
 	dword_5d4594_1305724 = 32;
-	*getMemU32Ptr(0x956A00, 119352) = 0;
+	*getMemU32Ptr(0x957820, 115736) = 0;
 	dword_5d4594_3798696 = calloc(0x20u, 8u);
 	return dword_5d4594_3798696 != 0;
 }
@@ -8658,30 +8658,30 @@ void sub_49F4D0() {
 	if (dword_5d4594_3798696) {
 		free(*(LPVOID*)&dword_5d4594_3798696);
 		dword_5d4594_3798696 = 0;
-		*getMemU32Ptr(0x956A00, 119352) = 0;
+		*getMemU32Ptr(0x957820, 115736) = 0;
 	}
 }
 
 //----- (0049F500) --------------------------------------------------------
 int  nox_client_drawAddPoint_49F500(int a1, int a2) {
-	if (*getMemU32Ptr(0x956A00, 119352) >= *(int*)&dword_5d4594_1305724) {
+	if (*getMemU32Ptr(0x957820, 115736) >= *(int*)&dword_5d4594_1305724) {
 		dword_5d4594_1305724 += 16;
 		dword_5d4594_3798696 = realloc(*(LPVOID*)&dword_5d4594_3798696, 8 * dword_5d4594_1305724);
 	}
-	*(_DWORD*)(dword_5d4594_3798696 + 8 * *getMemU32Ptr(0x956A00, 119352)) = a1;
-	*(_DWORD*)(dword_5d4594_3798696 + 8 * *getMemU32Ptr(0x956A00, 119352) + 4) = a2;
-	return ++*getMemU32Ptr(0x956A00, 119352);
+	*(_DWORD*)(dword_5d4594_3798696 + 8 * *getMemU32Ptr(0x957820, 115736)) = a1;
+	*(_DWORD*)(dword_5d4594_3798696 + 8 * *getMemU32Ptr(0x957820, 115736) + 4) = a2;
+	return ++*getMemU32Ptr(0x957820, 115736);
 }
 
 //----- (0049F570) --------------------------------------------------------
 int  nox_xxx_rasterPointRel_49F570(int a1, int a2) {
 	int result; // eax
 
-	result = *getMemU32Ptr(0x956A00, 119352);
-	if (*getMemU32Ptr(0x956A00, 119352))
+	result = *getMemU32Ptr(0x957820, 115736);
+	if (*getMemU32Ptr(0x957820, 115736))
 		result = nox_client_drawAddPoint_49F500(
-			a1 + *(_DWORD*)(dword_5d4594_3798696 + 8 * *getMemU32Ptr(0x956A00, 119352) - 8),
-			a2 + *(_DWORD*)(dword_5d4594_3798696 + 8 * *getMemU32Ptr(0x956A00, 119352) - 4));
+			a1 + *(_DWORD*)(dword_5d4594_3798696 + 8 * *getMemU32Ptr(0x957820, 115736) - 8),
+			a2 + *(_DWORD*)(dword_5d4594_3798696 + 8 * *getMemU32Ptr(0x957820, 115736) - 4));
 	return result;
 }
 
@@ -8689,15 +8689,15 @@ int  nox_xxx_rasterPointRel_49F570(int a1, int a2) {
 int  sub_49F5B0(_DWORD* a1, _DWORD* a2, int a3) {
 	int v3; // ecx
 
-	if (*getMemIntPtr(0x956A00, 119352) <= 0)
+	if (*getMemIntPtr(0x957820, 115736) <= 0)
 		return 0;
-	v3 = --*getMemU32Ptr(0x956A00, 119352);
+	v3 = --*getMemU32Ptr(0x957820, 115736);
 	if (a1)
 		*a1 = *(_DWORD*)(dword_5d4594_3798696 + 8 * v3);
 	if (a2)
-		*a2 = *(_DWORD*)(dword_5d4594_3798696 + 8 * *getMemU32Ptr(0x956A00, 119352) + 4);
+		*a2 = *(_DWORD*)(dword_5d4594_3798696 + 8 * *getMemU32Ptr(0x957820, 115736) + 4);
 	if (a3)
-		++*getMemU32Ptr(0x956A00, 119352);
+		++*getMemU32Ptr(0x957820, 115736);
 	return 1;
 }
 

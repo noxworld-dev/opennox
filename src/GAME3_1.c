@@ -2034,13 +2034,13 @@ __int16  sub_4BF7E0(_DWORD* a1) {
 			nox_xxx_drawPlayer_4341D0(5, *(_DWORD*)(v4 + 2300));
 			nox_xxx_drawPlayer_4341D0(6, *(_DWORD*)(v4 + 2292));
 			if (*(_DWORD*)(v4 + 2292) == *(_DWORD*)(v4 + 2296))
-				nox_client_drawImageAt_47D2C0(*getMemU32Ptr(0x956A00, 118840 + 4 * *(unsigned __int8*)(v4 + 2252)), v2,
+				nox_client_drawImageAt_47D2C0(*getMemU32Ptr(0x957820, 115224 + 4 * *(unsigned __int8*)(v4 + 2252)), v2,
 											  v1);
 			else
-				nox_client_drawImageAt_47D2C0(*getMemU32Ptr(0x956A00, 118832 + 4 * *(unsigned __int8*)(v4 + 2252)), v2,
+				nox_client_drawImageAt_47D2C0(*getMemU32Ptr(0x957820, 115216 + 4 * *(unsigned __int8*)(v4 + 2252)), v2,
 											  v1);
 			v5 = 0;
-			v14 = getMemAt(0x956A00, 118848 + 104 * *(unsigned __int8*)(v4 + 2252));
+			v14 = getMemAt(0x957820, 115232 + 104 * *(unsigned __int8*)(v4 + 2252));
 			do {
 				if (*(_DWORD*)v4 & (1 << v5) && !((1 << v5) & 0x3000000)) {
 					v6 = sub_415CD0((char*)(1 << v5));
@@ -2061,7 +2061,7 @@ __int16  sub_4BF7E0(_DWORD* a1) {
 				++v8;
 			} while (v8 < 26);
 			v10 = 0;
-			v15 = getMemAt(0x956A00, 119072 + 108 * *(unsigned __int8*)(v4 + 2252));
+			v15 = getMemAt(0x957820, 115456 + 108 * *(unsigned __int8*)(v4 + 2252));
 			do {
 				v3 = *(_DWORD*)(v4 + 4);
 				if (v3 & (1 << v10)) {
@@ -2151,17 +2151,17 @@ int sub_4BFAD0() {
 	for (i = 0; i < 8; i += 4) {
 		v3 = nox_xxx_gLoadImg_42F970(*(const char**)getMemAt(0x587000, 180960 + i));
 		v4 = *(const char**)getMemAt(0x587000, 180968 + i);
-		*getMemU32Ptr(0x956A00, 118832 + i) = v3;
-		*getMemU32Ptr(0x956A00, 118840 + i) = nox_xxx_gLoadImg_42F970(v4);
+		*getMemU32Ptr(0x957820, 115216 + i) = v3;
+		*getMemU32Ptr(0x957820, 115224 + i) = nox_xxx_gLoadImg_42F970(v4);
 		v5 = 26;
 		do {
-			*getMemU32Ptr(0x956A00, 118848 + v1) = nox_xxx_gLoadImg_42F970(*(const char**)getMemAt(0x587000, 180976 + v1));
+			*getMemU32Ptr(0x957820, 115232 + v1) = nox_xxx_gLoadImg_42F970(*(const char**)getMemAt(0x587000, 180976 + v1));
 			v1 += 4;
 			--v5;
 		} while (v5);
 		v6 = 27;
 		do {
-			*getMemU32Ptr(0x956A00, 119072 + v0) = nox_xxx_gLoadImg_42F970(*(const char**)getMemAt(0x587000, 181184 + v0));
+			*getMemU32Ptr(0x957820, 115456 + v0) = nox_xxx_gLoadImg_42F970(*(const char**)getMemAt(0x587000, 181184 + v0));
 			v0 += 4;
 			--v6;
 		} while (v6);
@@ -4559,7 +4559,7 @@ int  sub_4C42A0(int2* a1, int2* a2, int* a3, int* a4) {
 			*a4 = 0;
 			result = 1;
 		} else {
-			v11 = getMemIntPtr(0x956A00, 3620 + 128 * v4);
+			v11 = getMemIntPtr(0x957820, 4 + 128 * v4);
 			while (1) {
 				v12 = *(v11 - 1);
 				v13 = *v11;
@@ -4659,7 +4659,7 @@ LABEL_44:
 	v24 = 0;
 	v25 = 1;
 	if (v23 > 0) {
-		v26 = getMemAt(0x956A00, 3620 + 128 * v15);
+		v26 = getMemAt(0x957820, 4 + 128 * v15);
 		while ((double)*((int*)v26 - 1) > v52 || (double)(int)(*(_DWORD*)v26 + 2) < v52) {
 			v24 += 2;
 			v26 += 8;
@@ -4684,7 +4684,7 @@ LABEL_61:
 			goto LABEL_77;
 		}
 		v45 = getMemAt(0x956A00, + 4 * v28);
-		v32 = getMemAt(0x956A00, 3620 + 128 * v28);
+		v32 = getMemAt(0x957820, 4 + 128 * v28);
 		while (1) {
 			v33 = 0;
 			if (*(_DWORD*)v45 > 0)
@@ -4721,7 +4721,7 @@ LABEL_61:
 LABEL_77:
 	if (!v31) {
 		v37 = getMemAt(0x956A00, + 4 * v28);
-		v38 = getMemAt(0x956A00, 3620 + 128 * v28);
+		v38 = getMemAt(0x957820, 4 + 128 * v28);
 		while (1) {
 			v39 = 0;
 			if (*(int*)v37 <= 0)
@@ -5371,7 +5371,7 @@ void  sub_4C5430(int a1, int a2) {
 	if (v2 < 32) {
 		v3 = 0;
 		if (v2 > 0) {
-			v4 = getMemAt(0x956A00, 3616 + 128 * a2);
+			v4 = getMemAt(0x957820, + 128 * a2);
 			do {
 				if (a1 < *(int*)v4)
 					break;
@@ -5381,7 +5381,7 @@ void  sub_4C5430(int a1, int a2) {
 		}
 		if (v3 != v2 && v2 - 1 >= v3) {
 			v5 = v2 - v3;
-			v6 = getMemAt(0x956A00, 3620 + 4 * (v2 - 1 + 32 * a2));
+			v6 = getMemAt(0x957820, 4 + 4 * (v2 - 1 + 32 * a2));
 			do {
 				*(_DWORD*)v6 = *((_DWORD*)v6 - 1);
 				v6 -= 4;
@@ -5389,7 +5389,7 @@ void  sub_4C5430(int a1, int a2) {
 			} while (v5);
 		}
 		*getMemU32Ptr(0x956A00, + 4 * a2) = v2 + 1;
-		*getMemU32Ptr(0x956A00, 3616 + 4 * (v3 + 32 * a2)) = a1;
+		*getMemU32Ptr(0x957820, + 4 * (v3 + 32 * a2)) = a1;
 		if (a2 < *(int*)&dword_5d4594_3679320)
 			dword_5d4594_3679320 = a2;
 		if (a2 > *(int*)&dword_5d4594_3798156)
@@ -5443,7 +5443,7 @@ void sub_4C5500(int* a1) {
 	v5 = dword_5d4594_3798156;
 	if (v4 < *(int*)&dword_5d4594_3798156) {
 		v13 = getMemAt(0x956A00, + 4 * v4);
-		v6 = getMemAt(0x956A00, 3616 + 128 * v4);
+		v6 = getMemAt(0x957820, + 128 * v4);
 		do {
 			v7 = (int*)(v6 + 4);
 			v8 = v2;
@@ -5487,7 +5487,7 @@ int  sub_4C5630(int a1, int a2, int a3) {
 	v4 = *getMemU32Ptr(0x956A00, + 4 * a3);
 	if (v4 <= 0)
 		return 0;
-	for (i = getMemAt(0x956A00, 3616 + 128 * a3); a1 > *((_DWORD*)i + 1) || a2 < *(int*)i; i += 8) {
+	for (i = getMemAt(0x957820, + 128 * a3); a1 > *((_DWORD*)i + 1) || a2 < *(int*)i; i += 8) {
 		v3 += 2;
 		if (v3 >= v4)
 			return 0;
@@ -5505,7 +5505,7 @@ int  sub_4C5680(int a1, int a2, int a3) {
 	v4 = *getMemU32Ptr(0x956A00, + 4 * a3);
 	if (v4 <= 0)
 		return 0;
-	for (i = getMemAt(0x956A00, 3620 + 128 * a3); a1 < *((_DWORD*)i - 1) || a2 >= *(int*)i; i += 8) {
+	for (i = getMemAt(0x957820, 4 + 128 * a3); a1 < *((_DWORD*)i - 1) || a2 >= *(int*)i; i += 8) {
 		v3 += 2;
 		if (v3 >= v4)
 			return 0;
@@ -5575,7 +5575,7 @@ int  sub_4C56D0(_DWORD* a1) {
 		v10 = 0;
 	}
 	if (v10) {
-		v11 = getMemAt(0x956A00, 3620 + 128 * v2);
+		v11 = getMemAt(0x957820, 4 + 128 * v2);
 		v12 = result - v2;
 		v13 = getMemAt(0x956A00, + 4 * v2);
 		v14 = v12;
