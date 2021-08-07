@@ -60,8 +60,8 @@ int nox_video_recreateRenderTarget_47FD70() {
 	sub_49F6D0(1);
 	sub_437290();
 	nox_video_16bit = dword_5d4594_3801780;
-	*getMemU32Ptr(0x8531A0, 1189156) = nox_backbuffer_pitch_3801808 * nox_backbuffer_height;
-	*getMemU32Ptr(0x8531A0, 1190792) = dword_5d4594_3801780 == 1;
+	*getMemU32Ptr(0x973CE0, 6628) = nox_backbuffer_pitch_3801808 * nox_backbuffer_height;
+	*getMemU32Ptr(0x973CE0, 8264) = dword_5d4594_3801780 == 1;
 	sub_430B50(0, 0, NOX_DEFAULT_WIDTH - 1, NOX_DEFAULT_HEIGHT - 1);
 	nox_input_pollEvents_4453A0();
 	return 1;

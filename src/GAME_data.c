@@ -17061,7 +17061,9 @@ unsigned char byte_5D4594[2614284] = {0};
 
 unsigned char byte_8529A0[2048] = {0};
 
-unsigned char byte_8531A0[1227977] = {0};
+unsigned char byte_8531A0[1182528] = {0};
+
+unsigned char byte_973CE0[45449] = {0};
 
 unsigned char byte_581450_9176[160] = {
 	0x00, 0x7c, 0x00, 0x00, 0xe0, 0x03, 0x00, 0x00, 0x1f, 0x00, 0x00, 0x00, 0x07, 0x00, 0x00, 0x00,

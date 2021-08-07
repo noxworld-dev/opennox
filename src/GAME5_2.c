@@ -1169,7 +1169,7 @@ int  nox_xxx_net_getIP_554200(unsigned int a1) {
 }
 
 //----- (00554230) --------------------------------------------------------
-char* sub_554230() { return (char*)getMemAt(0x8531A0, 1227312); }
+char* sub_554230() { return (char*)getMemAt(0x973CE0, 44784); }
 
 unsigned int sub_554290() {
 	unsigned int v0;     // edi
@@ -1265,9 +1265,9 @@ int nox_xxx_netInit_554380(nox_net_struct_arg_t* narg) {
 		return -5;
 	if (narg->field_4 > 128)
 		return -2;
-	*getMemU8Ptr(0x8531A0, 1227312) = 0;
+	*getMemU8Ptr(0x973CE0, 44784) = 0;
 	dword_5d4594_3843632 = 0;
-	*getMemU8Ptr(0x8531A0, 1227328) = 0;
+	*getMemU8Ptr(0x973CE0, 44800) = 0;
 	v2 = -1;
 	for (int i = 0; i < NOX_NET_STRUCT_MAX; i++) {
 		if (!nox_net_struct_arr[i]) {
@@ -1306,7 +1306,7 @@ int nox_xxx_netInit_554380(nox_net_struct_arg_t* narg) {
 	v9 = (_WORD)(narg->port);
 	name.sin_port = htons(v11);
 	name.sin_addr = 0;
-	*getMemU16Ptr(0x8531A0, 1227304) = v9;
+	*getMemU16Ptr(0x973CE0, 44776) = v9;
 	while (nox_net_bind(ns->sock, &name) == -1) {
 		if (nox_net_error(ns->sock) != NOX_NET_EADDRINUSE) {
 			nox_net_stop();
@@ -1316,18 +1316,18 @@ int nox_xxx_netInit_554380(nox_net_struct_arg_t* narg) {
 		++narg->port;
 		name.sin_port = htons(v12);
 	}
-	if (gethostname((char*)getMemAt(0x8531A0, 1227328), 128) != -1) {
-		v10 = gethostbyname((const char*)getMemAt(0x8531A0, 1227328));
+	if (gethostname((char*)getMemAt(0x973CE0, 44800), 128) != -1) {
+		v10 = gethostbyname((const char*)getMemAt(0x973CE0, 44800));
 		if (v10) {
 			dword_5d4594_3843632 = **(_DWORD**)v10->h_addr_list;
-			strcpy((char*)getMemAt(0x8531A0, 1227312), nox_net_ip2str(*(nox_net_in_addr*)&dword_5d4594_3843632));
+			strcpy((char*)getMemAt(0x973CE0, 44784), nox_net_ip2str(*(nox_net_in_addr*)&dword_5d4594_3843632));
 		}
 	}
 	return v2;
 }
 
 //----- (005545A0) --------------------------------------------------------
-__int16 sub_5545A0() { return *getMemU16Ptr(0x8531A0, 1227304); }
+__int16 sub_5545A0() { return *getMemU16Ptr(0x973CE0, 44776); }
 
 //----- (005545B0) --------------------------------------------------------
 int  nox_xxx_netStructReadPackets_5545B0(unsigned int a1) {

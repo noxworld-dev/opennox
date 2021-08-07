@@ -7721,7 +7721,7 @@ char  nox_xxx_drawWalls_473C10(_DWORD* a1, unsigned __int8* a2) {
 						v63 = v74;
 						v52 = nox_xxx_getWallSprite_46A3B0(v3[1], v84, v3[2], v73);
 						(*(void(**)(_DWORD, _DWORD, _DWORD, _DWORD, _DWORD, _DWORD, _DWORD, _DWORD, _DWORD,
-										   _DWORD)) getMemAt(0x8531A0, 1190796))(v52, v46, v47, v32, v63, v64, v65, v66, 0, v69);
+										   _DWORD)) getMemAt(0x973CE0, 8268))(v52, v46, v47, v32, v63, v64, v65, v66, 0, v69);
 						goto LABEL_106;
 					}
 					if (!sub_47D380(a3, a4))
@@ -8236,7 +8236,7 @@ int4*  nox_xxx_drawAllMB_475810_draw(int* a1) {
 		*getMemU32Ptr(0x5D4594, 1096448) = nox_xxx_getTTByNameSpriteMB_44CFC0("Crown");
 	sub_477F80();
 	v1 = a1;
-	*getMemU32Ptr(0x8531A0, 1183164) = 0;
+	*getMemU32Ptr(0x973CE0, 636) = 0;
 	v2 = a1[1];
 	v39 = a1[0];
 	if (v39) {
@@ -8294,7 +8294,7 @@ int4*  nox_xxx_drawAllMB_475810_draw(int* a1) {
 		dword_5d4594_3799524 = 1;
 		return result;
 	}
-	(*(void(**)(_DWORD)) getMemAt(0x8531A0, 1190800))(v1);
+	(*(void(**)(_DWORD)) getMemAt(0x973CE0, 8272))(v1);
 	v10 = 1;
 	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_FLOOR_RENDERING) ||
 		(v38.field_0 = (double)v1[6], v38.field_4 = (double)v1[7], v11 = nox_xxx_tileNFromPoint_411160(&v38), v11 == 255) || v11 == -1) {
@@ -8448,6 +8448,6 @@ int4*  nox_xxx_drawAllMB_475810_draw(int* a1) {
 		sub_476270(v1);
 	sub_45AB40();
 	sub_437290();
-	*getMemU32Ptr(0x8531A0, 1183164) = 1;
+	*getMemU32Ptr(0x973CE0, 636) = 1;
 	return (int4*)sub_476680();
 }

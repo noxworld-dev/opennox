@@ -995,7 +995,7 @@ func nox_xxx_gameChangeMap_43DEB0() int {
 				C.nox_xxx_netSendClientReady_43C9F0()
 			}
 			C.nox_xxx_gameSetCliConnected_43C720(1)
-			if memmap.Int32(0x8531A0, 1186896) < 0 {
+			if memmap.Int32(0x973CE0, 4368) < 0 {
 				v7 := strMan.GetStringInFile("cdecode.c:EnterChat", "C:\\NoxPost\\src\\Client\\System\\gameloop.c")
 				nox_xxx_printCentered_445490(v7)
 				v14 := ctrlEvent.sub_42E8E0_go(8, 1)

@@ -5132,7 +5132,7 @@ char*  nox_xxx_mapCliReadAll_4AC2B0(char* a1) {
 		v2 = nox_common_playerInfoGetByID_417040(*getMemIntPtr(0x8529A0, 2044));
 		sub_422140((int)v2);
 		nox_xxx_gameSetNoMPFlag_4DB230(0);
-		if (*getMemIntPtr(0x8531A0, 1186896) < 0) {
+		if (*getMemIntPtr(0x973CE0, 4368) < 0) {
 			if (sub_461450() == 1) {
 				sub_461400();
 				sub_461440(0);
@@ -5158,7 +5158,7 @@ int nox_client_mapSpecialRWObjectData_4AC610() {
 	nox_xxx_fileReadWrite_426AC0_file3_fread(&v6, 2u);
 	if ((__int16)v6 > 1)
 		return 0;
-	if (!*getMemU32Ptr(0x8531A0, 1186968))
+	if (!*getMemU32Ptr(0x973CE0, 4440))
 		return 0;
 	nox_xxx_fileReadWrite_426AC0_file3_fread(&v4, 2u);
 	if ((_WORD)v4) {
@@ -5366,7 +5366,7 @@ int  nox_xxx_colorLightClientLoad_4AC980(int a1) {
 		*(_DWORD*)(v2 + 264) = 0;
 		*(_WORD*)(v2 + 270) = 0;
 		*(_BYTE*)(v2 + 274) = -128;
-		if (*getMemU32Ptr(0x8531A0, 1186968) != 1)
+		if (*getMemU32Ptr(0x973CE0, 4440) != 1)
 			goto LABEL_24;
 		if (*(float*)(v2 + 140) <= 63.0 &&
 			(double)*(int*)(v2 + 148) * *getMemDoublePtr(0x581450, 9752) <= *getMemDoublePtr(0x581450, 9744)) {
@@ -5392,7 +5392,7 @@ int  nox_xxx_colorLightClientLoad_4AC980(int a1) {
 		}
 		sub_484CE0(v2 + 136, 63.0);
 	}
-	if (*getMemU32Ptr(0x8531A0, 1186968) == 1)
+	if (*getMemU32Ptr(0x973CE0, 4440) == 1)
 		goto LABEL_13;
 LABEL_24:
 	*(_DWORD*)(v2 + 288) = 0;

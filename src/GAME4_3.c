@@ -4806,7 +4806,7 @@ char*  sub_5367B0(__int16* a1) {
 	__int16 v5;          // dx
 
 	if (!*getMemU32Ptr(0x5D4594, 2488572)) {
-		v1 = getMemAt(0x8531A0, 1199072);
+		v1 = getMemAt(0x973CE0, 16544);
 		v2 = 51;
 		do {
 			*(_WORD*)v1 = -1;
@@ -4817,7 +4817,7 @@ char*  sub_5367B0(__int16* a1) {
 		*getMemU32Ptr(0x5D4594, 2488572) = 1;
 	}
 	result = 0;
-	for (i = getMemAt(0x8531A0, 1199072); *(short*)i != -1; i += 4) {
+	for (i = getMemAt(0x973CE0, 16544); *(short*)i != -1; i += 4) {
 		if ((int)++result >= 50)
 			return result;
 	}
@@ -4962,7 +4962,7 @@ char*  sub_536AC0(__int16* a1) {
 	__int16 v5;          // dx
 
 	if (!*getMemU32Ptr(0x5D4594, 2488580)) {
-		v1 = getMemAt(0x8531A0, 1198848);
+		v1 = getMemAt(0x973CE0, 16320);
 		v2 = 51;
 		do {
 			*(_WORD*)v1 = -1;
@@ -4973,7 +4973,7 @@ char*  sub_536AC0(__int16* a1) {
 		*getMemU32Ptr(0x5D4594, 2488580) = 1;
 	}
 	result = 0;
-	for (i = getMemAt(0x8531A0, 1198848); *(short*)i != -1; i += 4) {
+	for (i = getMemAt(0x973CE0, 16320); *(short*)i != -1; i += 4) {
 		if ((int)++result >= 50)
 			return result;
 	}
@@ -12238,7 +12238,7 @@ int  sub_543680(float* a1) {
 		return 1;
 	result = nox_xxx_mapGenFixCoords_4D3D90((float2*)a1, &a2);
 	if (result) {
-		v4[0] = *getMemU32Ptr(0x8531A0, 1219008);
+		v4[0] = *getMemU32Ptr(0x973CE0, 36480);
 		dword_5d4594_3835352 = 1;
 		v4[1] = dword_5d4594_3835348;
 		v4[6] = dword_5d4594_3835356;
@@ -12257,14 +12257,14 @@ void  nox_xxx_unused_543720(int a1, int a2, int a3, int a4) {
 	int v5;     // ecx
 
 	if (dword_5d4594_2489432 >= 500) {
-		*getMemU32Ptr(0x8531A0, 1190836) = 1;
+		*getMemU32Ptr(0x973CE0, 8308) = 1;
 	} else {
 		result = 16 * dword_5d4594_2489432;
 		v5 = dword_5d4594_2489432 + 1;
-		*getMemU32Ptr(0x8531A0, 1190848 + result) = a1;
-		*getMemU32Ptr(0x8531A0, 1190852 + result) = a2;
-		*getMemU32Ptr(0x8531A0, 1190856 + result) = a3;
-		*getMemU32Ptr(0x8531A0, 1190860 + result) = a4;
+		*getMemU32Ptr(0x973CE0, 8320 + result) = a1;
+		*getMemU32Ptr(0x973CE0, 8324 + result) = a2;
+		*getMemU32Ptr(0x973CE0, 8328 + result) = a3;
+		*getMemU32Ptr(0x973CE0, 8332 + result) = a4;
 		dword_5d4594_2489432 = v5;
 	}
 }
@@ -12277,10 +12277,10 @@ int  nox_xxx_unused_543770(_DWORD* a1, _DWORD* a2, _DWORD* a3, _DWORD* a4) {
 		return 0;
 	v4 = dword_5d4594_2489432 - 1;
 	dword_5d4594_2489432 = v4;
-	*a1 = *getMemU32Ptr(0x8531A0, 1190848 + 16 * v4);
-	*a2 = *getMemU32Ptr(0x8531A0, 1190852 + 16 * dword_5d4594_2489432);
-	*a3 = *getMemU32Ptr(0x8531A0, 1190856 + 16 * dword_5d4594_2489432);
-	*a4 = *getMemU32Ptr(0x8531A0, 1190860 + 16 * dword_5d4594_2489432);
+	*a1 = *getMemU32Ptr(0x973CE0, 8320 + 16 * v4);
+	*a2 = *getMemU32Ptr(0x973CE0, 8324 + 16 * dword_5d4594_2489432);
+	*a3 = *getMemU32Ptr(0x973CE0, 8328 + 16 * dword_5d4594_2489432);
+	*a4 = *getMemU32Ptr(0x973CE0, 8332 + 16 * dword_5d4594_2489432);
 	return 1;
 }
 
@@ -12317,7 +12317,7 @@ BOOL  sub_5437E0(int* a1, int a2, int a3) {
 	v7 = (__int64)(v6 * 0.021739131);
 	a1 = (int*)(__int64)(v6 * 0.021739131);
 	v8 = (int)(__int64)v3 % 46;
-	*getMemU32Ptr(0x8531A0, 1205296) = 0;
+	*getMemU32Ptr(0x973CE0, 22768) = 0;
 	v9 = (__int64)v24 % 46;
 	dword_5d4594_2487248 = 0;
 	if (v5 <= 0 || v5 >= 127 || v7 <= 0 || v7 >= 127) {
@@ -12344,7 +12344,7 @@ BOOL  sub_5437E0(int* a1, int a2, int a3) {
 	}
 	v16 = 0;
 	if (dword_5d4594_2487248 > 0) {
-		v17 = getMemAt(0x8531A0, 1199300);
+		v17 = getMemAt(0x973CE0, 16772);
 		do {
 			v18 = *((_DWORD*)v17 + 1);
 			v19 = *((_DWORD*)v17 - 1);
@@ -12391,7 +12391,7 @@ BOOL  sub_5437E0(int* a1, int a2, int a3) {
 			}
 		} while (sub_51DE30(&v23, &a1, &a3));
 	}
-	return *getMemU32Ptr(0x8531A0, 1205296) == 0;
+	return *getMemU32Ptr(0x973CE0, 22768) == 0;
 }
 
 //----- (00543BC0) --------------------------------------------------------
@@ -12749,7 +12749,7 @@ int  nox_xxx_tileSubtile_544310(float2* a1) {
 	dword_5d4594_3835352 = 1;
 	v1 = a1->field_0 + 11.5;
 	v8[1] = dword_5d4594_3835348;
-	v8[0] = *getMemU32Ptr(0x8531A0, 1219008);
+	v8[0] = *getMemU32Ptr(0x973CE0, 36480);
 	v8[2] = 0;
 	LOBYTE(v8[5]) = 0;
 	v8[3] = -1;
@@ -12762,7 +12762,7 @@ int  nox_xxx_tileSubtile_544310(float2* a1) {
 	v4 = (__int64)(v2 * 0.021739131);
 	v5 = (int)(__int64)v1 % 46;
 	v6 = (__int64)v9 % 46;
-	if (*getMemU32Ptr(0x8531A0, 1219008) == 255)
+	if (*getMemU32Ptr(0x973CE0, 36480) == 255)
 		result = sub_51D9C0(v3, v4, v5, v6, 0);
 	else
 		result = sub_51D9C0(v3, v4, v5, v6, (int)v8);
