@@ -637,7 +637,7 @@ int nox_cmd_load(int tokInd, int tokCnt, wchar_t** tokens) {
 	nox_sprintf(&v11[4], "%S", tokens[1]);
 	if (v11[4] != 35 && !nox_common_checkMapFile_4CFE10(&v11[4]))
 		return 1;
-	v4 = nox_xxx_mapGetTypeMB_4CFFA0((int)getMemAt(0x8529A0, 1187552));
+	v4 = nox_xxx_mapGetTypeMB_4CFFA0((int)getMemAt(0x8531A0, 1185504));
 	v5 = v4;
 	if (nox_common_gameFlags_check_40A5C0(0x2000)) {
 		if (!(v5 && !(v5 & 0x200))) {

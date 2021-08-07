@@ -434,7 +434,7 @@ void nox_xxx_clientControl_42D6B0_orientation(nox_mouse_state_t* mouse) {
 	nox_ctrlevent_action_42E670(CC_Orientation, nox_ctrlevent_player_orientation);
 }
 void nox_xxx_clientControl_42D6B0_A(int a4) {
-	int v2 = *getMemU32Ptr(0x8529A0, 4624);
+	int v2 = *getMemU32Ptr(0x8531A0, 2576);
 	for (int i = a4; i; i = *(_DWORD*)(i + 84)) {
 		for (int j = 0; j < *(int*)(i + 68); ++j) {
 			switch (*(_DWORD*)(i + 4 * j + 36)) {
@@ -1028,7 +1028,7 @@ void nox_xxx_clientControl_42D6B0(nox_mouse_state_t* mouse, int a4) {
 	{
 		nox_xxx_clientControl_42D6B0_orientation(mouse);
 	}
-	if (getMemByte(0x8529A0, 47674) != 0) {
+	if (getMemByte(0x8531A0, 45626) != 0) {
 		nox_xxx_guiSpellTargetClickCheckSend_45DBB0();
 	}
 	if (getMemByte(0x5D4594, 754064) & 4) {
@@ -1050,7 +1050,7 @@ void nox_ctrlevent_action_42E670(nox_ctrlevent_code code, _DWORD data) {
 			return;
 		}
 	}
-	if (getMemByte(0x8529A0, 47674) != 0 || (nox_xxx_keyCheckWarrorKeys_42D460(code) == 0)) {
+	if (getMemByte(0x8531A0, 45626) != 0 || (nox_xxx_keyCheckWarrorKeys_42D460(code) == 0)) {
 		int j = dword_5d4594_754036;
 		if (nox_common_gameFlags_check_40A5C0(1) && nox_xxx_keyCanPauseMode_42D4B0(code)) {
 			for (int i = dword_5d4594_754040; i != dword_5d4594_754036; i = (i + 1) % NOX_CTRLEVENT_XXX_MAX) {

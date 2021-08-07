@@ -172,7 +172,7 @@ int nox_xxx_guiDrawRank_46E870() {
 	*(_DWORD*)(dword_5d4594_1090048 + 88) = 0x80000000;
 	memset(v49, 0, sizeof(v49));
 	nox_wcscpy((wchar_t*)&v49[72], (const wchar_t*)getMemAt(0x5D4594, 1090136));
-	*(_DWORD*)&v49[68] = *getMemU32Ptr(0x8529A0, 36360);
+	*(_DWORD*)&v49[68] = *getMemU32Ptr(0x8531A0, 34312);
 	*(_DWORD*)&v49[20] = 0x80000000;
 	memset(v48, 0, sizeof(v48));
 	*(_WORD*)&v48[6] = 0;
@@ -237,11 +237,11 @@ int nox_xxx_guiDrawRank_46E870() {
 	v45[0] = nox_strman_loadString_40F1D0("WindowDir:Empty", 0, "C:\\NoxPost\\src\\client\\Gui\\guirank.c", 1782);
 	dword_5d4594_1090112 =
 		nox_gui_newStaticText_489300(*(int*)&dword_5d4594_1090048, 1088, 0, v20, *(int*)&dword_5d4594_1090040, v30, v49, v45);
-	*(_DWORD*)&v49[68] = *getMemU32Ptr(0x8529A0, 36360);
+	*(_DWORD*)&v49[68] = *getMemU32Ptr(0x8531A0, 34312);
 	v45[0] = nox_strman_loadString_40F1D0("WindowDir:Empty", 0, "C:\\NoxPost\\src\\client\\Gui\\guirank.c", 1790);
 	dword_5d4594_1090108 =
 		nox_gui_newStaticText_489300(*(int*)&dword_5d4594_1090048, 1088, 0, v47, *(int*)&dword_5d4594_1090040, v30, v49, v45);
-	*(_DWORD*)&v49[68] = *getMemU32Ptr(0x8529A0, 4620);
+	*(_DWORD*)&v49[68] = *getMemU32Ptr(0x8531A0, 2572);
 	v45[0] = nox_strman_loadString_40F1D0("TeamPlayerRank", 0, "C:\\NoxPost\\src\\client\\Gui\\guirank.c", 1798);
 	*getMemU32Ptr(0x5D4594, 1090104) =
 		nox_gui_newStaticText_489300(*(int*)&dword_5d4594_1090048, 1088, 0, 0, *(int*)&dword_5d4594_1090040, v30, v49, v45);
@@ -344,8 +344,8 @@ int  sub_46F080(int a1, int a2) {
 			v2 = nox_xxx_clientGetTeamColor_418AB0(*((unsigned __int8*)v7 + 4));
 			v35 = v2;
 		}
-		if (*getMemU32Ptr(0x8529A0, 4624)) {
-			v8 = *(_DWORD*)(*getMemU32Ptr(0x8529A0, 4624) + 3680);
+		if (*getMemU32Ptr(0x8531A0, 2576)) {
+			v8 = *(_DWORD*)(*getMemU32Ptr(0x8531A0, 2576) + 3680);
 			if (!(v8 & 1) || v8 & 0x20)
 				v33 = 1;
 		}

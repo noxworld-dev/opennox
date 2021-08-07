@@ -364,8 +364,8 @@ int  nox_client_processMouseInput_4308A0(int a1) {
 			nox_xxx_netServerCmd_440950(0, (wchar_t*)getMemAt(0x587000, 80784));
 			return 1;
 		}
-		if (*getMemU32Ptr(0x8529A0, 4624))
-			nox_xxx_serverHandleClientConsole_443E90(*getMemIntPtr(0x8529A0, 4624), 0, (wchar_t*)getMemAt(0x587000, 80792));
+		if (*getMemU32Ptr(0x8531A0, 2576))
+			nox_xxx_serverHandleClientConsole_443E90(*getMemIntPtr(0x8531A0, 2576), 0, (wchar_t*)getMemAt(0x587000, 80792));
 	}
 	return 1;
 }

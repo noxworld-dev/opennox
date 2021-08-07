@@ -124,7 +124,7 @@ int  nox_xxx_xferReadScriptHandler_4F5580(int a1, char* a2) {
 	nox_xxx_fileReadWrite_426AC0_file3_fread(&v6, 2u);
 	if ((__int16)v6 > 1)
 		return 0;
-	if (*getMemU32Ptr(0x8529A0, 1189016) == 1) {
+	if (*getMemU32Ptr(0x8531A0, 1186968) == 1) {
 		nox_xxx_fileReadWrite_426AC0_file3_fread(&v5, 4u);
 		if (v5 >= 0x400)
 			return 0;
@@ -225,7 +225,7 @@ int nox_server_mapRWScriptData_504F90() {
 	if (!v1)
 		return 1;
 	nox_xxx_fileReadWrite_426AC0_file3_fread(nox_script_arr_xxx_1599636[1].field_28, 4 * nox_script_arr_xxx_1599636[1].field_16);
-	if (*getMemU32Ptr(0x8529A0, 1189016)) {
+	if (*getMemU32Ptr(0x8531A0, 1186968)) {
 		result = sub_51AF80();
 		if (!result)
 			return result;

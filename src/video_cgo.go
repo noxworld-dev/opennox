@@ -258,7 +258,7 @@ func nox_video_setBackBufferCopyFunc_4AD100() error {
 	} else {
 		nox_video_setBackBufferCopyFunc2_4AD150()
 	}
-	*memmap.PtrUint32(0x8529A0, 1184368) = 0
+	*memmap.PtrUint32(0x8531A0, 1182320) = 0
 	return nil
 }
 
@@ -419,8 +419,8 @@ func recreateRenderTarget() error {
 	C.sub_49F6D0(1)
 	C.sub_437290()
 	videoSet16Bit(C.dword_5d4594_3801780 != 0)
-	*memmap.PtrUint32(0x8529A0, 1191204) = uint32(nox_backbuffer_pitch_3801808 * int(nox_getBackbufHeight()))
-	*memmap.PtrUint32(0x8529A0, 1192840) = uint32(bool2int(C.dword_5d4594_3801780 == 1))
+	*memmap.PtrUint32(0x8531A0, 1189156) = uint32(nox_backbuffer_pitch_3801808 * int(nox_getBackbufHeight()))
+	*memmap.PtrUint32(0x8531A0, 1190792) = uint32(bool2int(C.dword_5d4594_3801780 == 1))
 	C.sub_430B50(0, 0, noxDefaultWidth-1, noxDefaultHeight-1)
 	return nil
 }
@@ -773,7 +773,7 @@ func sub_486230() {
 //export sub_48B3F0
 func sub_48B3F0(a1 unsafe.Pointer, a2, a3 C.int) C.int {
 	if nox_video_cursorDrawIsThreaded {
-		mu := asMutex(memmap.PtrOff(0x8529A0, 1185312))
+		mu := asMutex(memmap.PtrOff(0x8531A0, 1183264))
 		mu.Lock()
 		*memmap.PtrUint32(0x5D4594, 1193640) = uint32(C.dword_5d4594_1193648)
 		*memmap.PtrUint32(0x5D4594, 1193628) = uint32(C.dword_5d4594_1193524)
@@ -878,7 +878,7 @@ func nox_client_drawXxx_444AC0(w, h, depth int, flags int) error {
 	//int v9;             // eax
 	//int v10;            // eax
 
-	nox_mutex_initP(memmap.PtrOff(0x8529A0, 1185312))
+	nox_mutex_initP(memmap.PtrOff(0x8531A0, 1183264))
 	*memmap.PtrUint32(0x5D4594, 823780) = 1
 
 	C.nox_video_renderTargetFlags = C.int(flags)
@@ -900,7 +900,7 @@ func nox_client_drawXxx_444AC0(w, h, depth int, flags int) error {
 	}
 	panic("TODO")
 	v9 := (v7 & 0x17) - 20
-	*memmap.PtrUint32(0x8529A0, 1187512) = 0
+	*memmap.PtrUint32(0x8531A0, 1185464) = 0
 	//nox_backbuffer_width = v8
 	//nox_backbuffer_height = h
 	nox_backbuffer_pitchDiff = 0
@@ -909,7 +909,7 @@ func nox_client_drawXxx_444AC0(w, h, depth int, flags int) error {
 		C.dword_5d4594_3799624 = 0
 		nox_backbuffer_pitch_3801808 = v8
 		C.dword_5d4594_3801780 = 0
-		*memmap.PtrUint32(0x8529A0, 1187492) = uint32(v8) >> 2
+		*memmap.PtrUint32(0x8531A0, 1185444) = uint32(v8) >> 2
 		nox_backbuffer_width32 = v8 >> 5
 		return nil
 	}
@@ -924,7 +924,7 @@ func nox_client_drawXxx_444AC0(w, h, depth int, flags int) error {
 	}
 	C.dword_5d4594_3801780 = 1
 	nox_backbuffer_pitch_3801808 = 2 * v8
-	*memmap.PtrUint32(0x8529A0, 1187492) = uint32(v8) >> 1
+	*memmap.PtrUint32(0x8531A0, 1185444) = uint32(v8) >> 1
 	nox_backbuffer_width32 = v8 >> 4
 	return nil
 }
@@ -962,10 +962,10 @@ func sub_48B680(a1 int) {
 }
 
 func nox_video_cursorDrawImpl_477A30(inp *input.Handler, a2, a3 int) {
-	v18 := memmap.Uint32(0x8529A0, 1185212)
+	v18 := memmap.Uint32(0x8531A0, 1183164)
 	v3 := a2 - 64
 	v4 := a3 - 64
-	*memmap.PtrUint32(0x8529A0, 1185212) = 0
+	*memmap.PtrUint32(0x8531A0, 1183164) = 0
 	C.dword_5d4594_3798728 = 1
 	C.dword_5d4594_1097212 = C.int(a2 - 64)
 	C.dword_5d4594_1097216 = C.int(a3 - 64)
@@ -978,7 +978,7 @@ func nox_video_cursorDrawImpl_477A30(inp *input.Handler, a2, a3 int) {
 		nox_video_drawAnimatedImageOrCursorAt_4BE6D0(memmap.Uint32(0x5D4594, 1097240), v3, v4)
 		C.dword_5d4594_3798728 = 0
 		C.nox_xxx_cursorTypePrev_587000_151528 = 5
-		*memmap.PtrUint32(0x8529A0, 1185212) = v18
+		*memmap.PtrUint32(0x8531A0, 1183164) = v18
 		return
 	}
 	v6 := C.nox_client_mouseCursorType
@@ -1034,9 +1034,9 @@ func nox_video_cursorDrawImpl_477A30(inp *input.Handler, a2, a3 int) {
 		if v16 != nil {
 			sub_48B680(1)
 			if v16.Flags28()&6 == 0 || C.sub_495A80(C.int(v16.Field32())) != 0 {
-				sub_48B800(memmap.Uint32(0x8529A0, 36400))
+				sub_48B800(memmap.Uint32(0x8531A0, 34352))
 			} else {
-				sub_48B800(memmap.Uint32(0x8529A0, 36360))
+				sub_48B800(memmap.Uint32(0x8531A0, 34312))
 			}
 		} else {
 			sub_48B680(0)
@@ -1054,7 +1054,7 @@ func nox_video_cursorDrawImpl_477A30(inp *input.Handler, a2, a3 int) {
 	}
 	C.dword_5d4594_3798728 = 0
 	C.nox_xxx_cursorTypePrev_587000_151528 = C.nox_client_mouseCursorType
-	*memmap.PtrUint32(0x8529A0, 1185212) = v18
+	*memmap.PtrUint32(0x8531A0, 1183164) = v18
 }
 
 //export nox_xxx_bookSaveSpellForDragDrop_477640
@@ -1161,7 +1161,7 @@ func sub_477F80() {
 		if C.dword_5d4594_3799468 != 0 {
 			vp := getViewport()
 			if C.dword_5d4594_1097212 < vp.x1 || C.dword_5d4594_1097212+64 >= vp.x2 || C.dword_5d4594_1097216 < vp.y1 || C.dword_5d4594_1097216+64 >= vp.y2 {
-				nox_client_drawSetColor_434460(memmap.Uint32(0x8529A0, 36372))
+				nox_client_drawSetColor_434460(memmap.Uint32(0x8531A0, 34324))
 				nox_client_drawRectFilledOpaque_49CE30(int(C.dword_5d4594_1097212)+32, int(C.dword_5d4594_1097216)+32, 64, 64)
 			}
 		}
@@ -1182,7 +1182,7 @@ func sub_444C50() {
 		C.sub_49F4D0()
 		C.dword_5d4594_823776 = 0
 		if memmap.Uint32(0x5D4594, 823780) != 0 {
-			nox_mutex_freeP(memmap.PtrOff(0x8529A0, 1185312))
+			nox_mutex_freeP(memmap.PtrOff(0x8531A0, 1183264))
 			*memmap.PtrUint32(0x5D4594, 823780) = 0
 		}
 	}

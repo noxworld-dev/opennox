@@ -32,9 +32,9 @@ int sub_430F00_screenshot() {
 		for (int v7 = 0; v7 < nox_backbuffer_width; v7++) {
 			if (v7 != 0 && (v7 % 60) == 0)
 				nox_fs_fprintf(file, "\n");
-			nox_fs_fprintf(file, "%d %d %d ", getMemByte(0x8529A0, 1190432 + 3 * *(unsigned __int8*)(v7 + v4)),
-					getMemByte(0x8529A0, 1190433 + 3 * *(unsigned __int8*)(v7 + v4)),
-					getMemByte(0x8529A0, 1190434 + 3 * *(unsigned __int8*)(v7 + v4)));
+			nox_fs_fprintf(file, "%d %d %d ", getMemByte(0x8531A0, 1188384 + 3 * *(unsigned __int8*)(v7 + v4)),
+					getMemByte(0x8531A0, 1188385 + 3 * *(unsigned __int8*)(v7 + v4)),
+					getMemByte(0x8531A0, 1188386 + 3 * *(unsigned __int8*)(v7 + v4)));
 		}
 		v4 += nox_backbuffer_pitch_3801808;
 	}

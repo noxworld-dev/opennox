@@ -100,7 +100,7 @@ int nox_xxx_guiHealthManaInit_4714E0() {
 	wchar_t* v14;        // eax
 	char v15[32];        // [esp+4h] [ebp-20h]
 
-	if (!*getMemU32Ptr(0x8529A0, 4624))
+	if (!*getMemU32Ptr(0x8531A0, 2576))
 		return 0;
 	dword_5d4594_1096288 = nox_xxx_guiFontPtrByName_43F360("small");
 	dword_5d4594_1096264 = 0;
@@ -156,7 +156,7 @@ int nox_xxx_guiHealthManaInit_4714E0() {
 	*getMemU16Ptr(0x5D4594, 1090312) = 0;
 	*getMemU32Ptr(0x5D4594, 1090296) = 0;
 	*getMemU32Ptr(0x5D4594, 1090308) = 0;
-	if (*(_BYTE*)(*getMemU32Ptr(0x8529A0, 4624) + 2251)) {
+	if (*(_BYTE*)(*getMemU32Ptr(0x8531A0, 2576) + 2251)) {
 		dword_5d4594_1090828 = nox_window_new(*(int*)&dword_5d4594_1090276, 8, 62, 166, 28, 30, 0);
 		nox_window_set_all_funcs(*(_DWORD**)&dword_5d4594_1090828, nox_xxx_guiBottleSlotProc_471B90, nox_xxx_guiBottleSlotDrawFn_471A80, 0);
 		v6 = nox_strman_loadString_40F1D0("ManaSlotTT", 0, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c", 1083);
@@ -263,7 +263,7 @@ int  nox_xxx_guiHealthManaTubeDraw_471D10(int xLeft) {
 	nox_client_wndGetPosition_46AA60(v1, &xLeft, &yTop);
 	xLeft += 5;
 	if (dword_5d4594_3799468) {
-		nox_client_drawSetColor_434460(*getMemIntPtr(0x8529A0, 36372));
+		nox_client_drawSetColor_434460(*getMemIntPtr(0x8531A0, 34324));
 		nox_client_drawRectFilledOpaque_49CE30(xLeft, yTop, 15, 125);
 	}
 	v4 = *((_DWORD*)v3 + 2);

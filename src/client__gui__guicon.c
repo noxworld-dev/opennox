@@ -199,12 +199,12 @@ int  nox_xxx_consoleWndFn_450E90(int a1, int a2) {
 
 //----- (00450C70) --------------------------------------------------------
 nox_window* nox_gui_console_Create_450C70(int win_width, int win_height) {
-	int v0 = *getMemU32Ptr(0x8529A0, 36376);
+	int v0 = *getMemU32Ptr(0x8531A0, 34328);
 	*getMemU32Ptr(0x5D4594, 833704) = win_width - 1;
 	*getMemU32Ptr(0x5D4594, 833708) = win_height / 2;
 	nox_gui_console_win = nox_window_new(0, 56, 0, 0, win_width - 1, win_height / 2, 0);
 	nox_window_set_all_funcs(nox_gui_console_win, nox_xxx_consoleWndFn_450E80, nox_xxx_consoleWndFn_450E90, 0);
-	*(_DWORD*)((char*)nox_gui_console_win + 56) = *getMemU32Ptr(0x8529A0, 36372);
+	*(_DWORD*)((char*)nox_gui_console_win + 56) = *getMemU32Ptr(0x8531A0, 34324);
 
 	char drawData[332];
 	memset(drawData, 0, sizeof(drawData));
@@ -256,8 +256,8 @@ nox_window* nox_gui_console_Create_450C70(int win_width, int win_height) {
 
 //----- (00451100) --------------------------------------------------------
 void nox_gui_console_reloadColors_451100() {
-	unsigned int color = *getMemU32Ptr(0x8529A0, 36376);
-	unsigned int color2 = *getMemU32Ptr(0x8529A0, 36372);
+	unsigned int color = *getMemU32Ptr(0x8531A0, 34328);
+	unsigned int color2 = *getMemU32Ptr(0x8531A0, 34324);
 	if (nox_gui_console_win) {
 		nox_gui_console_win->draw_data.bg_color = color2;
 	}

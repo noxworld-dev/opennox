@@ -679,7 +679,7 @@ int  sub_543110(const char* lpExistingFileName, int* a2) {
 
 	sub_542BF0(*(int*)&dword_5d4594_3835312, a2[0], a2[1]);
 	v2 = *getMemU32Ptr(0x587000, 282612);
-	strcpy(NewFileName, (const char*)getMemAt(0x8529A0, 1227296));
+	strcpy(NewFileName, (const char*)getMemAt(0x8531A0, 1225248));
 	v3 = *getMemU32Ptr(0x587000, 282616);
 	v4 = &NewFileName[strlen(NewFileName)];
 	*(_DWORD*)v4 = *getMemU32Ptr(0x587000, 282608);

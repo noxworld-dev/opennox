@@ -173,7 +173,7 @@ int  sub_44E8E0(int a1, int a2) {
 		v10 = *((_DWORD*)v6 - 1) + v2 - 320;
 		if (*(_DWORD*)v7) {
 			++v43;
-			if (v9 == *getMemU32Ptr(0x8529A0, 4624))
+			if (v9 == *getMemU32Ptr(0x8531A0, 2576))
 				v47 = *((unsigned __int16*)v7 + 5);
 			else
 				v45 += *((unsigned __int16*)v7 + 5);
@@ -223,7 +223,7 @@ int  sub_44E8E0(int a1, int a2) {
 				nox_strman_loadString_40F1D0("GUIBrief.c:TotalScore", 0, "C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c", 565);
 			nox_xxx_drawString_43FAF0(*(_DWORD*)(a2 + 200), v20, v10, v19, *(int*)&dword_5d4594_832476, v38);
 			nox_swprintf(&v55[1], L" %d", *((_DWORD*)v7 + 3));
-			nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x8529A0, 36400));
+			nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x8531A0, 34352));
 			nox_xxx_drawString_43FAF0(*(_DWORD*)(a2 + 200), &v55[1], v10 + dword_5d4594_832476, v19, v40 - dword_5d4594_832476 - 8,
 					   v38);
 			v6 = v48;
@@ -394,7 +394,7 @@ int  sub_44F300(int a1, int a2) {
 	nox_xxx_drawGetStringSize_43F840(*(_DWORD*)(a2 + 200), v5, &v31, 0, 0);
 	v29 = (unsigned __int16*)(v3 - v31 / 2 + 320);
 	v30 = (unsigned __int16*)(v4 + 20);
-	nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x8529A0, 36372));
+	nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x8531A0, 34324));
 	v26 = *(_DWORD*)(a2 + 200);
 	v32 = (unsigned __int16*)((char*)v29 - 1);
 	nox_xxx_drawString_43F6E0(v26, (__int16*)v5, (int)v29 - 1, v4 + 19);

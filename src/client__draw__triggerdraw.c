@@ -15,7 +15,7 @@ int  nox_thing_trigger_draw(_DWORD* a1, nox_drawable* dr) {
 	int v11 = dr->pos.x + v2 + nox_float2int(dr->shape.box_right_top);
 	int v5 = dr->pos.y + v3 + nox_float2int(dr->shape.box_right_bottom);
 
-	nox_client_drawSetColor_434460(*getMemIntPtr(0x8529A0, 36372));
+	nox_client_drawSetColor_434460(*getMemIntPtr(0x8531A0, 34324));
 	nox_client_drawEnableAlpha_434560(1);
 	nox_client_drawAddPoint_49F500(v4, v12);
 	nox_client_drawAddPoint_49F500(v11, v5);

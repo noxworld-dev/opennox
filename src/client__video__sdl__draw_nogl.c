@@ -141,18 +141,18 @@ void nox_video_drop_renderer() {
 //----- (0048A3D0) --------------------------------------------------------
 int nox_video_setBackBufSizes_48A3D0() {
 	dword_5d4594_3801780 = 2;
-	*getMemU32Ptr(0x8529A0, 1187512) = 0;
+	*getMemU32Ptr(0x8531A0, 1185464) = 0;
 	if (!g_backbuffer1) {
 		return 0;
 	}
 	nox_backbuffer_width = g_backbuffer1->w;
 	nox_backbuffer_height = g_backbuffer1->h;
-	*getMemU32Ptr(0x8529A0, 1185280) = g_backbuffer1->pitch;
-	*getMemU32Ptr(0x8529A0, 1187512) = 1;
+	*getMemU32Ptr(0x8531A0, 1183232) = g_backbuffer1->pitch;
+	*getMemU32Ptr(0x8531A0, 1185464) = 1;
 	nox_video_setBackBufferPtrs_48A190();
 
 	nox_backbuffer_width32 = g_backbuffer1->w >> 4;
-	*getMemU32Ptr(0x8529A0, 1187492) = g_backbuffer1->w >> 1;
+	*getMemU32Ptr(0x8531A0, 1185444) = g_backbuffer1->w >> 1;
 	dword_5d4594_3801780 = 1;
 	nox_backbuffer_pitch_3801808 = 2 * g_backbuffer1->w;
 	nox_backbuffer_pitchDiff = g_backbuffer1->pitch - 2 * g_backbuffer1->w;

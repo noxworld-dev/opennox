@@ -94,7 +94,7 @@ int  nox_client_drawXxx_444AC0(int w, int h, int depth, int flags) {
 	int v9;             // eax
 	int v10;            // eax
 
-	nox_mutex_init(getMemAt(0x8529A0, 1185312));
+	nox_mutex_init(getMemAt(0x8531A0, 1183264));
 	*getMemU32Ptr(0x5D4594, 823780) = 1;
 
 	nox_backbuffer_width = w;
@@ -129,7 +129,7 @@ int  nox_client_drawXxx_444AC0(int w, int h, int depth, int flags) {
 		return 1;
 	}
 	v9 = (v7 & 0x17) - 20;
-	*getMemU32Ptr(0x8529A0, 1187512) = 0;
+	*getMemU32Ptr(0x8531A0, 1185464) = 0;
 	nox_backbuffer_width = w & 0xFFFFFFE0;
 	nox_backbuffer_height = h;
 	nox_backbuffer_pitchDiff = 0;
@@ -138,7 +138,7 @@ int  nox_client_drawXxx_444AC0(int w, int h, int depth, int flags) {
 		dword_5d4594_3799624 = 0;
 		nox_backbuffer_pitch_3801808 = w & 0xFFFFFFE0;
 		dword_5d4594_3801780 = 0;
-		*getMemU32Ptr(0x8529A0, 1187492) = v8 >> 2;
+		*getMemU32Ptr(0x8531A0, 1185444) = v8 >> 2;
 		nox_backbuffer_width32 = v8 >> 5;
 #ifndef NOX_CGO
 		cpuid_5d4594_3801804 = nox_xxx_testCPUID2_444D90();
@@ -155,7 +155,7 @@ int  nox_client_drawXxx_444AC0(int w, int h, int depth, int flags) {
 	}
 	dword_5d4594_3801780 = 1;
 	nox_backbuffer_pitch_3801808 = 2 * v8;
-	*getMemU32Ptr(0x8529A0, 1187492) = v8 >> 1;
+	*getMemU32Ptr(0x8531A0, 1185444) = v8 >> 1;
 	nox_backbuffer_width32 = v8 >> 4;
 #ifndef NOX_CGO
 	cpuid_5d4594_3801804 = nox_xxx_testCPUID2_444D90();
@@ -262,13 +262,13 @@ void  nox_video_unlockSurface_48A6B0(SDL_Surface* a1) { SDL_UnlockSurface(a1); }
 //----- (0048A9C0) --------------------------------------------------------
 void  nox_video_minimizeOrMaximize_48A9C0(int a1) {
 	if (dword_6F7BB0) {
-		nox_mutex_lock(getMemAt(0x8529A0, 1185312));
+		nox_mutex_lock(getMemAt(0x8531A0, 1183264));
 		if (!dword_974854) {
 			if (nox_video_renderTargetFlags & 0x10) {
 				dword_974854 = 1;
 				printf("Ungrab\n");
 				SDL_SetWindowGrab(nox_video_getWindow_401FD0(), SDL_FALSE);
-				nox_mutex_unlock(getMemAt(0x8529A0, 1185312));
+				nox_mutex_unlock(getMemAt(0x8531A0, 1183264));
 				return;
 			}
 			if (a1) {
@@ -278,7 +278,7 @@ void  nox_video_minimizeOrMaximize_48A9C0(int a1) {
 				SDL_MinimizeWindow(nox_video_getWindow_401FD0());
 			}
 		}
-		nox_mutex_unlock(getMemAt(0x8529A0, 1185312));
+		nox_mutex_unlock(getMemAt(0x8531A0, 1183264));
 	}
 }
 
@@ -474,7 +474,7 @@ void  sub_4340A0(int a1, int a2, int a3, int a4) {
 //----- (004347F0) --------------------------------------------------------
 BOOL  sub_4347F0(char* a1, int a2) {
 	if (a2 <= 256) {
-		sub_435120(getMemAt(0x8529A0, 1189024), a1);
+		sub_435120(getMemAt(0x8531A0, 1186976), a1);
 		sub_4353F0();
 		sub_435040();
 		sub_434F00();
@@ -557,7 +557,7 @@ void sub_433C20() {
 		dword_5d4594_3804664 = 0;
 	}
 	sub_435550();
-	*getMemU32Ptr(0x8529A0, 1190376) = 0;
+	*getMemU32Ptr(0x8531A0, 1188328) = 0;
 }
 
 //----- (00444930) --------------------------------------------------------
@@ -606,7 +606,7 @@ void sub_444C50() {
 		sub_49F4D0();
 		dword_5d4594_823776 = 0;
 		if (*getMemU32Ptr(0x5D4594, 823780)) {
-			nox_mutex_free(getMemAt(0x8529A0, 1185312));
+			nox_mutex_free(getMemAt(0x8531A0, 1183264));
 			*getMemU32Ptr(0x5D4594, 823780) = 0;
 		}
 	}
@@ -624,7 +624,7 @@ int nox_video_setBackBufferCopyFunc_4AD100() {
 		g_copy_backbuffer_ptr = nox_video_copyBackBuffer2_4AD180;
 	else
 		nox_video_setBackBufferCopyFunc2_4AD150();
-	*getMemU32Ptr(0x8529A0, 1184368) = 0;
+	*getMemU32Ptr(0x8531A0, 1182320) = 0;
 	return 1;
 }
 
@@ -670,7 +670,7 @@ void nox_video_copyBackBuffer3_4AD1E0() {
 		++v3;
 	}
 	SDL_UnlockSurface(g_backbuffer1);
-	++*getMemU32Ptr(0x8529A0, 1184368);
+	++*getMemU32Ptr(0x8531A0, 1182320);
 }
 
 //----- (004AD2A0) --------------------------------------------------------
@@ -690,7 +690,7 @@ void nox_video_copyBackBuffer_4AD2A0() {
 		}
 		dst = (_DWORD*)((char*)dst + nox_backbuffer_pitchDiff);
 	}
-	++*getMemU32Ptr(0x8529A0, 1184368);
+	++*getMemU32Ptr(0x8531A0, 1182320);
 }
 
 //----- (00486090) --------------------------------------------------------
@@ -756,7 +756,7 @@ int  sub_48B3F0(void* a1p, int a2, int a3) {
 	int i; // esi
 
 	if (nox_video_cursorDrawIsThreaded) {
-		nox_mutex_lock(getMemAt(0x8529A0, 1185312));
+		nox_mutex_lock(getMemAt(0x8531A0, 1183264));
 		*getMemU32Ptr(0x5D4594, 1193640) = dword_5d4594_1193648;
 		*getMemU32Ptr(0x5D4594, 1193628) = dword_5d4594_1193524;
 		dword_5d4594_1193648 = a2;
@@ -786,7 +786,7 @@ int  sub_48B3F0(void* a1p, int a2, int a3) {
 			dword_5d4594_1193524 != *getMemU32Ptr(0x5D4594, 1193628)) {
 			dword_5d4594_1193668 = 1;
 		}
-		nox_mutex_unlock(getMemAt(0x8529A0, 1185312));
+		nox_mutex_unlock(getMemAt(0x8531A0, 1183264));
 	} else if (dword_5d4594_1193672 && a1) {
 		nox_client_drawImageAt_47D2C0(a1, a2, a3);
 		return 1;
@@ -914,7 +914,7 @@ int sub_4338D0() {
 			dword_5d4594_808568 = 0;
 			dword_5d4594_810628 = 0;
 			if (dword_5d4594_823772) {
-				sub_435150(v2, (char*)getMemAt(0x8529A0, 1189024));
+				sub_435150(v2, (char*)getMemAt(0x8531A0, 1186976));
 				sub_4347F0((char*)v2, 256);
 			} else {
 				sub_4347F0((char*)getMemAt(0x581450, 8404), 256);
@@ -941,7 +941,7 @@ int sub_4338D0() {
 				dword_5d4594_808564 = 0;
 				sub_4348C0();
 				sub_4352E0();
-				*getMemU32Ptr(0x8529A0, 1190376) = 0;
+				*getMemU32Ptr(0x8531A0, 1188328) = 0;
 				result = 1;
 			}
 		}
@@ -1295,10 +1295,10 @@ int  nox_video_waitVBlankAndDrawCursorFromThread_48B5D0(int a1, int a2) {
 		nox_video_cursorDrawIsThreaded && dword_5d4594_1193672 && *getMemU32Ptr(0x5D4594, 1193108) &&
 		nox_video_bag_ready) {
 		*getMemU32Ptr(0x5D4594, 1193708) = 1;
-		nox_mutex_lock(getMemAt(0x8529A0, 1185312));
+		nox_mutex_lock(getMemAt(0x8531A0, 1183264));
 		// FIXME SDL will always wait for vblank?
 		int res = sdl_drawCursorThreaded(a1);
-		nox_mutex_unlock(getMemAt(0x8529A0, 1185312));
+		nox_mutex_unlock(getMemAt(0x8531A0, 1183264));
 		*getMemU32Ptr(0x5D4594, 1193708) = 0;
 		return res;
 	}

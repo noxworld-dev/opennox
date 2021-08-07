@@ -28,7 +28,7 @@ int  nox_thing_glyph_draw(int* a1, nox_drawable* dr) {
 	}
 	if (nox_xxx_spriteTestBuf_4356C0(*getMemIntPtr(0x5D4594, 2614252), 21)) {
 		nox_xxx_draw_434600(1);
-		sub_433E40(*getMemIntPtr(0x8529A0, 4620));
+		sub_433E40(*getMemIntPtr(0x8531A0, 2572));
 #ifdef NOX_CGO
 		v3 = -1;
 #else // NOX_CGO

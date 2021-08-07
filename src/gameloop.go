@@ -266,8 +266,8 @@ mainloop:
 				nox_common_initRandom_415F70()
 				gameFrameSetFromFlags()
 				C.nox_ensure_thing_bin()
-				*memmap.PtrUint32(0x8529A0, 36380) = 0
-				*memmap.PtrUint32(0x8529A0, 35424) = 0
+				*memmap.PtrUint32(0x8531A0, 34332) = 0
+				*memmap.PtrUint32(0x8531A0, 33376) = 0
 				if mainloopConnectResultOK {
 					if debugMainloop {
 						log.Println("CONNECT_RESULT_OK retry")
@@ -395,24 +395,24 @@ func CONNECT_OR_HOST() {
 	var info *C.char = C.nox_xxx_getHostInfoPtr_431770()
 	infos := asByteSlice(unsafe.Pointer(info), 97)
 
-	C.nox_wcscpy((*C.wchar_t)(unsafe.Pointer(&infos[0])), (*C.wchar_t)(memmap.PtrOff(0x8529A0, 47624)))
+	C.nox_wcscpy((*C.wchar_t)(unsafe.Pointer(&infos[0])), (*C.wchar_t)(memmap.PtrOff(0x8531A0, 45576)))
 	infos[66] = byte(getPlayerClass())
-	infos[67] = memmap.Uint8(0x8529A0, 47675)
-	*(*uint16)(unsafe.Pointer(&infos[68])) = memmap.Uint16(0x8529A0, 47607)
-	infos[70] = memmap.Uint8(0x8529A0, 47609)
-	*(*uint16)(unsafe.Pointer(&infos[71])) = memmap.Uint16(0x8529A0, 47604)
-	infos[73] = memmap.Uint8(0x8529A0, 47606)
-	*(*uint16)(unsafe.Pointer(&infos[74])) = memmap.Uint16(0x8529A0, 47610)
-	infos[76] = memmap.Uint8(0x8529A0, 47612)
-	*(*uint16)(unsafe.Pointer(&infos[77])) = memmap.Uint16(0x8529A0, 47613)
-	infos[79] = memmap.Uint8(0x8529A0, 47615)
-	*(*uint16)(unsafe.Pointer(&infos[80])) = memmap.Uint16(0x8529A0, 47616)
-	infos[82] = memmap.Uint8(0x8529A0, 47618)
-	infos[83] = memmap.Uint8(0x8529A0, 47619)
-	infos[84] = memmap.Uint8(0x8529A0, 47620)
-	infos[85] = memmap.Uint8(0x8529A0, 47621)
-	infos[86] = memmap.Uint8(0x8529A0, 47622)
-	infos[87] = memmap.Uint8(0x8529A0, 47623)
+	infos[67] = memmap.Uint8(0x8531A0, 45627)
+	*(*uint16)(unsafe.Pointer(&infos[68])) = memmap.Uint16(0x8531A0, 45559)
+	infos[70] = memmap.Uint8(0x8531A0, 45561)
+	*(*uint16)(unsafe.Pointer(&infos[71])) = memmap.Uint16(0x8531A0, 45556)
+	infos[73] = memmap.Uint8(0x8531A0, 45558)
+	*(*uint16)(unsafe.Pointer(&infos[74])) = memmap.Uint16(0x8531A0, 45562)
+	infos[76] = memmap.Uint8(0x8531A0, 45564)
+	*(*uint16)(unsafe.Pointer(&infos[77])) = memmap.Uint16(0x8531A0, 45565)
+	infos[79] = memmap.Uint8(0x8531A0, 45567)
+	*(*uint16)(unsafe.Pointer(&infos[80])) = memmap.Uint16(0x8531A0, 45568)
+	infos[82] = memmap.Uint8(0x8531A0, 45570)
+	infos[83] = memmap.Uint8(0x8531A0, 45571)
+	infos[84] = memmap.Uint8(0x8531A0, 45572)
+	infos[85] = memmap.Uint8(0x8531A0, 45573)
+	infos[86] = memmap.Uint8(0x8531A0, 45574)
+	infos[87] = memmap.Uint8(0x8531A0, 45575)
 
 	Datas := alloc.Bytes(1024)
 	defer alloc.FreeBytes(Datas)
@@ -425,10 +425,10 @@ func CONNECT_OR_HOST() {
 		C.nox_common_getInstallPath_40E0D0((*C.char)(unsafe.Pointer(&Datas[105])), internCStr("SOFTWARE\\Westwood\\Nox"), 0)
 	}
 	Datas[152] = byte(bool2int(C.nox_xxx_checkHasSoloMaps_40ABD0() == 0))
-	if memmap.Uint8(0x8529A0, 46400)&4 != 0 {
+	if memmap.Uint8(0x8531A0, 44352)&4 != 0 {
 		Datas[152] |= 0x80
 	}
-	s1 := C.GoString((*C.char)(memmap.PtrOff(0x8529A0, 45815)))
+	s1 := C.GoString((*C.char)(memmap.PtrOff(0x8531A0, 43767)))
 	StrCopyBytes(Datas[142:], s1)
 	s2 := C.GoString(C.sub_41FA40())
 	StrCopyBytes(Datas[128:], s2)
@@ -846,7 +846,7 @@ func nox_xxx_gameStateWait_43C020() bool {
 		return true
 	}
 	if !isDedicatedServer {
-		C.nox_xxx_drawSelectColor_434350(C.int(memmap.Uint32(0x8529A0, 36372)))
+		C.nox_xxx_drawSelectColor_434350(C.int(memmap.Uint32(0x8531A0, 34324)))
 		sub_440900()
 	}
 	return false
@@ -882,7 +882,7 @@ func nox_xxx_cliSetupSession_437190() {
 	C.sub_417CF0()
 	*memmap.PtrUint32(0x8529A0, 2044) = 0
 	*memmap.PtrUint32(0x5D4594, 2614252) = 0
-	*memmap.PtrUint32(0x8529A0, 4624) = 0
+	*memmap.PtrUint32(0x8531A0, 2576) = 0
 }
 
 func nox_xxx_mapLoad_40A380() {
@@ -995,7 +995,7 @@ func nox_xxx_gameChangeMap_43DEB0() int {
 				C.nox_xxx_netSendClientReady_43C9F0()
 			}
 			C.nox_xxx_gameSetCliConnected_43C720(1)
-			if memmap.Int32(0x8529A0, 1188944) < 0 {
+			if memmap.Int32(0x8531A0, 1186896) < 0 {
 				v7 := strMan.GetStringInFile("cdecode.c:EnterChat", "C:\\NoxPost\\src\\Client\\System\\gameloop.c")
 				nox_xxx_printCentered_445490(v7)
 				v14 := ctrlEvent.sub_42E8E0_go(8, 1)

@@ -174,7 +174,7 @@ func runNox(args []string) error {
 	}
 
 	C.nox_video_bag_var_2650640 = 0
-	*memmap.PtrUint32(0x8529A0, 4632) = 0
+	*memmap.PtrUint32(0x8531A0, 2584) = 0
 	C.nox_gameDisableMapDraw_5d4594_2650672 = 0
 	C.nox_game_addStateCode_43BDD0(10)
 	noxflags.ResetGame()
@@ -317,7 +317,7 @@ func runNox(args []string) error {
 		if err := gameResetVideoMode(true, true); err != nil {
 			return fmt.Errorf("failed to update video mode: %w", err)
 		}
-		nox_xxx_drawSelectColor_434350(memmap.Uint32(0x8529A0, 36372))
+		nox_xxx_drawSelectColor_434350(memmap.Uint32(0x8531A0, 34324))
 		sub_440900()
 	} else {
 		enableGUIDrawing(false)

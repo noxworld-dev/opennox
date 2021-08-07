@@ -323,8 +323,8 @@ func nox_client_processInput_4308A0(h *input.Handler) {
 			C.nox_xxx_netServerCmd_440950(0, (*C.wchar_t)(memmap.PtrOff(0x587000, 80784)))
 			return
 		}
-		if memmap.Uint32(0x8529A0, 4624) != 0 {
-			C.nox_xxx_serverHandleClientConsole_443E90((*C.nox_playerInfo)(*memmap.PtrPtr(0x8529A0, 4624)), 0, (*C.wchar_t)(memmap.PtrOff(0x587000, 80792)))
+		if memmap.Uint32(0x8531A0, 2576) != 0 {
+			C.nox_xxx_serverHandleClientConsole_443E90((*C.nox_playerInfo)(*memmap.PtrPtr(0x8531A0, 2576)), 0, (*C.wchar_t)(memmap.PtrOff(0x587000, 80792)))
 		}
 	}
 }
@@ -510,7 +510,7 @@ func nox_xxx_cursorUpdate_46B740_sprites(inp *input.Handler, v63 bool, v66 []int
 		v54 := c1*c1 + c2*c2
 		if sprite.Flags28()&0x80000000 == 0 || C.nox_xxx_cursorGetDraggedItem_477680() != nil {
 			if v54 < 125*125 {
-				if p := *memmap.PtrPtr(0x8529A0, 4624); p != nil {
+				if p := *memmap.PtrPtr(0x8531A0, 2576); p != nil {
 					v57 := *(*uintptr)(unsafe.Pointer(uintptr(p) + 3680))
 					if v57&0x200 == 0 && C.sub_478030() == 0 {
 						if sprite.Flags28()&2 != 0 && sprite.Flags70()&0x10 != 0 {

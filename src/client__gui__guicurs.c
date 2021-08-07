@@ -33,10 +33,10 @@ int  nox_video_cursorDrawImpl_477A30(int a1, int a2, int a3) {
 	int v18;      // [esp+10h] [ebp-Ch]
 	float2 v19;   // [esp+14h] [ebp-8h]
 
-	v18 = *getMemU32Ptr(0x8529A0, 1185212);
+	v18 = *getMemU32Ptr(0x8531A0, 1183164);
 	v3 = a2 - 64;
 	v4 = a3 - 64;
-	*getMemU32Ptr(0x8529A0, 1185212) = 0;
+	*getMemU32Ptr(0x8531A0, 1183164) = 0;
 	dword_5d4594_3798728 = 1;
 	dword_5d4594_1097212 = a2 - 64;
 	dword_5d4594_1097216 = a3 - 64;
@@ -48,7 +48,7 @@ int  nox_video_cursorDrawImpl_477A30(int a1, int a2, int a3) {
 		LOWORD(result) = nox_video_drawAnimatedImageOrCursorAt_4BE6D0(*getMemIntPtr(0x5D4594, 1097240), v3, v4);
 		dword_5d4594_3798728 = 0;
 		nox_xxx_cursorTypePrev_587000_151528 = 5;
-		*getMemU32Ptr(0x8529A0, 1185212) = v18;
+		*getMemU32Ptr(0x8531A0, 1183164) = v18;
 	} else {
 		v6 = nox_client_mouseCursorType;
 		if (nox_client_mouseCursorType != nox_xxx_cursorTypePrev_587000_151528 && nox_client_mouseCursorType != 14) {
@@ -123,9 +123,9 @@ int  nox_video_cursorDrawImpl_477A30(int a1, int a2, int a3) {
 			if (v16) {
 				sub_48B680(1);
 				if (!(*(_BYTE*)(v16 + 112) & 6) || sub_495A80(*(_DWORD*)(v16 + 128)))
-					sub_48B800(*getMemIntPtr(0x8529A0, 36400));
+					sub_48B800(*getMemIntPtr(0x8531A0, 34352));
 				else
-					sub_48B800(*getMemIntPtr(0x8529A0, 36360));
+					sub_48B800(*getMemIntPtr(0x8531A0, 34312));
 			} else {
 				sub_48B680(0);
 			}
@@ -147,7 +147,7 @@ int  nox_video_cursorDrawImpl_477A30(int a1, int a2, int a3) {
 		result = v18;
 		dword_5d4594_3798728 = 0;
 		nox_xxx_cursorTypePrev_587000_151528 = nox_client_mouseCursorType;
-		*getMemU32Ptr(0x8529A0, 1185212) = v18;
+		*getMemU32Ptr(0x8531A0, 1183164) = v18;
 	}
 	return result;
 }

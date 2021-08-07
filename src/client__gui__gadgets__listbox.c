@@ -78,8 +78,8 @@ nox_window*  nox_gui_newScrollListBox_4A4310(int a1, int a2, int a3, int a4, int
 			}
 			memset(v25, 0, sizeof(v25));
 			if ((signed char)*((_BYTE*)v8 + 4) >= 0) {
-				*(_DWORD*)&v25[20] = *getMemU32Ptr(0x8529A0, 36372);
-				*(_DWORD*)&v25[44] = *getMemU32Ptr(0x8529A0, 36372);
+				*(_DWORD*)&v25[20] = *getMemU32Ptr(0x8531A0, 34324);
+				*(_DWORD*)&v25[44] = *getMemU32Ptr(0x8531A0, 34324);
 				*(_DWORD*)&v25[28] = *getMemU32Ptr(0x5D4594, 2614256);
 				*(_DWORD*)&v25[36] = *getMemU32Ptr(0x5D4594, 2523948);
 				*(_DWORD*)&v25[52] = *getMemU32Ptr(0x5D4594, 2589772);
@@ -102,8 +102,8 @@ nox_window*  nox_gui_newScrollListBox_4A4310(int a1, int a2, int a3, int a4, int
 			*((_DWORD*)a8 + 7) = nox_gui_newButtonOrCheckbox_4A91A0((int)v8, v26 | 9, a5 - 10, v22, 10, v23, v25);
 			memset(v25, 0, sizeof(v25));
 			if ((signed char)*((_BYTE*)v8 + 4) >= 0) {
-				*(_DWORD*)&v25[20] = *getMemU32Ptr(0x8529A0, 36372);
-				*(_DWORD*)&v25[44] = *getMemU32Ptr(0x8529A0, 36372);
+				*(_DWORD*)&v25[20] = *getMemU32Ptr(0x8531A0, 34324);
+				*(_DWORD*)&v25[44] = *getMemU32Ptr(0x8531A0, 34324);
 				*(_DWORD*)&v25[28] = *getMemU32Ptr(0x5D4594, 2614256);
 				*(_DWORD*)&v25[36] = *getMemU32Ptr(0x5D4594, 2523948);
 				*(_DWORD*)&v25[52] = *getMemU32Ptr(0x5D4594, 2589772);
@@ -123,9 +123,9 @@ nox_window*  nox_gui_newScrollListBox_4A4310(int a1, int a2, int a3, int a4, int
 			*((_DWORD*)a8 + 8) = nox_gui_newButtonOrCheckbox_4A91A0((int)v8, v17, a5 - 10, v22 + v10 - v23, 10, v23, v25);
 			memset(v25, 0, sizeof(v25));
 			if ((signed char)*((_BYTE*)v8 + 4) >= 0) {
-				*(_DWORD*)&v25[20] = *getMemU32Ptr(0x8529A0, 36372);
-				*(_DWORD*)&v25[44] = *getMemU32Ptr(0x8529A0, 36372);
-				*(_DWORD*)&v25[36] = *getMemU32Ptr(0x8529A0, 36372);
+				*(_DWORD*)&v25[20] = *getMemU32Ptr(0x8531A0, 34324);
+				*(_DWORD*)&v25[44] = *getMemU32Ptr(0x8531A0, 34324);
+				*(_DWORD*)&v25[36] = *getMemU32Ptr(0x8531A0, 34324);
 				*(_DWORD*)&v25[28] = *getMemU32Ptr(0x5D4594, 2614256);
 				*(_DWORD*)&v25[52] = *getMemU32Ptr(0x5D4594, 2614256);
 				v19 = 10;

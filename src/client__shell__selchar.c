@@ -287,14 +287,14 @@ int  nox_xxx_windowSelCharProc_4A5710(int a1, unsigned int a2, int* a3, int a4) 
 				nox_savegame_nameFromPath_4DC970((char*)(dword_5d4594_1307780 + sizeof(nox_savegame_xxx) * v8 + 4), v20);
 				if ((!nox_common_gameFlags_check_40A5C0(2048) || sub_4DC100((int)v20, (int)getMemAt(0x587000, 171268))) &&
 					sub_41A000((char*)(dword_5d4594_1307780 + sizeof(nox_savegame_xxx) * *(_DWORD*)(v7 + 48) + 4), v23)) {
-					memcpy(getMemAt(0x8529A0, 46400), v23, 0x4FCu);
-					*getMemU16Ptr(0x8529A0, 47676) = *(_WORD*)&v23[1276];
+					memcpy(getMemAt(0x8531A0, 44352), v23, 0x4FCu);
+					*getMemU16Ptr(0x8531A0, 45628) = *(_WORD*)&v23[1276];
 					nox_game_decStateInd_43BDC0();
-					if (getMemByte(0x8529A0, 47674) == 0) {
+					if (getMemByte(0x8531A0, 45626) == 0) {
 						nox_xxx_gameSetMapPath_409D70("war01a.map");
-					} else if (getMemByte(0x8529A0, 47674) == 1) {
+					} else if (getMemByte(0x8531A0, 45626) == 1) {
 						nox_xxx_gameSetMapPath_409D70("wiz01a.map");
-					} else if (getMemByte(0x8529A0, 47674) == 2) {
+					} else if (getMemByte(0x8531A0, 45626) == 2) {
 						nox_xxx_gameSetMapPath_409D70("con01a.map");
 					}
 					if (nox_common_gameFlags_check_40A5C0(2048)) {

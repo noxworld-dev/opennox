@@ -193,14 +193,14 @@ int  nox_xxx_saveDoAutosaveMB_4DB370_savegame(const char* a1) {
 	nox_xxx_monstersAllBelongToHost_4DB6A0();
 	v7 = nox_fs_root();
 	nox_sprintf(v14, "%s\\Save\\%s\\Player.plr", v7, getMemAt(0x587000, 199224));
-	v8 = *getMemU32Ptr(0x8529A0, 46400) & 0xFFFFFFF7;
-	*getMemU32Ptr(0x8529A0, 46400) &= 0xFFFFFFF7;
+	v8 = *getMemU32Ptr(0x8531A0, 44352) & 0xFFFFFFF7;
+	*getMemU32Ptr(0x8531A0, 44352) &= 0xFFFFFFF7;
 	if (*getMemU32Ptr(0x5D4594, 1563076)) {
 		v9 = v8;
 		LOBYTE(v9) = v8 | 8;
-		*getMemU32Ptr(0x8529A0, 46400) = v9;
+		*getMemU32Ptr(0x8531A0, 44352) = v9;
 	}
-	*getMemU8Ptr(0x8529A0, 47677) = sub_450750();
+	*getMemU8Ptr(0x8531A0, 45629) = sub_450750();
 	if (!nox_xxx_playerSaveToFile_41A140(v14, (unsigned __int8)v2[2064]))
 		return 0;
 	if (!nox_xxx_mapSavePlayerDataMB_41A230(v14))

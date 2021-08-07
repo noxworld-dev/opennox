@@ -20,7 +20,7 @@ int  nox_thing_debug_draw(_DWORD* a1, nox_drawable* dr) {
 	int v19;   // [esp+20h] [ebp-10h]
 	int v20;   // [esp+28h] [ebp-8h]
 
-	v2 = *getMemU32Ptr(0x8529A0, 4620);
+	v2 = *getMemU32Ptr(0x8531A0, 2572);
 	if (dr->field_72 >= nox_frame_xxx_2598000)
 		v2 = *getMemU32Ptr(0x5D4594, 2589772);
 	nox_client_drawSetColor_434460(v2);
