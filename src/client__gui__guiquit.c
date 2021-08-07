@@ -26,7 +26,7 @@ int nox_xxx_wndLoadQuiteMenu_445790() {
 	dword_5d4594_825760 = result;
 	if (result) {
 		nox_window_set_all_funcs((_DWORD*)result, sub_445BB0, nox_xxx_wndDrawQuiteMenu_445BC0, 0);
-		*(_DWORD*)(dword_5d4594_825760 + 56) = *getMemU32Ptr(0x8531A0, 34324);
+		*(_DWORD*)(dword_5d4594_825760 + 56) = *getMemU32Ptr(0x853BC0, 31732);
 		*(_DWORD*)(dword_5d4594_825760 + 16) = (nox_win_width - *(_DWORD*)(dword_5d4594_825760 + 8)) / 2;
 		*(_DWORD*)(dword_5d4594_825760 + 24) =
 			*(_DWORD*)(dword_5d4594_825760 + 8) + *(_DWORD*)(dword_5d4594_825760 + 16);

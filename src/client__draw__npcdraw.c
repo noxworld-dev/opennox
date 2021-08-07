@@ -73,7 +73,7 @@ int  nox_thing_npc_draw(int* a1, nox_drawable* dr) {
 					v8 = 0;
 					do {
 						v9 = v8 + 1;
-						nox_xxx_drawPlayer_4341D0(v8 + 1, *getMemIntPtr(0x8531A0, 34352));
+						nox_xxx_drawPlayer_4341D0(v8 + 1, *getMemIntPtr(0x853BC0, 31760));
 						v8 = v9;
 					} while (v9 < 6);
 				}
@@ -81,7 +81,7 @@ int  nox_thing_npc_draw(int* a1, nox_drawable* dr) {
 				v10 = 0;
 				do {
 					v11 = v10 + 1;
-					nox_xxx_drawPlayer_4341D0(v10 + 1, *getMemIntPtr(0x8531A0, 34352));
+					nox_xxx_drawPlayer_4341D0(v10 + 1, *getMemIntPtr(0x853BC0, 31760));
 					v10 = v11;
 				} while (v11 < 6);
 			} else if (v5[328] == 1) {

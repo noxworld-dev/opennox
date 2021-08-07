@@ -4530,7 +4530,7 @@ void  nox_xxx_collidePlayer_4E8460(int a1, int a2) {
 					nox_xxx_buffApplyTo_4FF380(a1, 5, v6, 5);
 				} else {
 					v7 = *(_DWORD*)(*(_DWORD*)(a1 + 748) + 296);
-					if (v7 && !(getMemByte(0x8531A0, 76448 + 12332 * *(unsigned __int8*)(v7 + 1)) & 5)) {
+					if (v7 && !(getMemByte(0x853BC0, 73856 + 12332 * *(unsigned __int8*)(v7 + 1)) & 5)) {
 					LABEL_25:
 						nox_xxx_unitMove_4E7010(a1, (float2*)(a1 + 72));
 						goto LABEL_26;

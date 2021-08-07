@@ -120,9 +120,9 @@ int  sub_51DA70(int a1, int a2, int a3, int a4, int a5) {
 LABEL_11:
 	v9 = *v7;
 	v14 = 60 * *v7;
-	v15 = getMemByte(0x8531A0, 65908 + v14);
+	v15 = getMemByte(0x853BC0, 63316 + v14);
 	v29 = (v12 + v11) % v15;
-	v16 = getMemByte(0x8531A0, 65909 + v14);
+	v16 = getMemByte(0x853BC0, 63317 + v14);
 	v17 = (v30 + a2 - v28) % v16;
 	v18 = v29;
 	if (v29 < 0)

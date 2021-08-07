@@ -5394,7 +5394,7 @@ char  nox_xxx_mapTraceRayImpl_57C9A0(int a1, int a2, float* a3, float* a4, char 
 	v9 = v6 & 1 ? nox_xxx_wall_4105E0(v5, a2) : nox_server_getWallAtGrid_410580(v5, a2);
 	if (!v9 || v6 < 0 && *(_BYTE*)(v9 + 4) & 4 && *(_BYTE*)(*(_DWORD*)(v9 + 28) + 20) & 2)
 		return 0;
-	v10 = *getMemU32Ptr(0x8531A0, 76448 + 12332 * *(unsigned __int8*)(v9 + 1));
+	v10 = *getMemU32Ptr(0x853BC0, 73856 + 12332 * *(unsigned __int8*)(v9 + 1));
 	if (v10 & 2 || v6 & 0x40 && !(v10 & 1))
 		return 0;
 	if (*a3 >= (double)a3[2]) {

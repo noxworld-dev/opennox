@@ -170,7 +170,7 @@ int  sub_4C27F0(_DWORD* a1) {
 		nox_xxx_guiFontHeightMB_43F320(0);
 		v4 = (nox_xxx_screenWidth_587000_184452 - v12) / 2 + 1;
 		if (nox_xxx_wndPointInWnd_46AAB0(a1, mpos.x, mpos.y)) {
-			sub_4C2A00(v11 + v4, v10 + 3, *getMemIntPtr(0x5D4594, 2589772), *getMemIntPtr(0x8531A0, 34324), (__int16*)v2);
+			sub_4C2A00(v11 + v4, v10 + 3, *getMemIntPtr(0x5D4594, 2589772), *getMemIntPtr(0x853BC0, 31732), (__int16*)v2);
 			if (a1[8] != *getMemU32Ptr(0x587000, 184552)) {
 				*getMemU32Ptr(0x587000, 184552) = a1[8];
 				nox_xxx_clientPlaySoundSpecial_452D80(920, 100);
@@ -180,30 +180,30 @@ int  sub_4C27F0(_DWORD* a1) {
 		}
 		if (dword_5d4594_1321204) {
 			if (sub_4C2DD0(*(int*)&dword_5d4594_1321204)) {
-				sub_4C2A00(v11 + v4, v10 + 3, *getMemIntPtr(0x5D4594, 2523948), *getMemIntPtr(0x8531A0, 34324), (__int16*)v2);
+				sub_4C2A00(v11 + v4, v10 + 3, *getMemIntPtr(0x5D4594, 2523948), *getMemIntPtr(0x853BC0, 31732), (__int16*)v2);
 				return 1;
 			}
 			v5 = a1[8];
 			if (v5 != 4 && v5 != 5) {
-				sub_4C2A00(v11 + v4, v10 + 3, *getMemIntPtr(0x5D4594, 2523948), *getMemIntPtr(0x8531A0, 34324), (__int16*)v2);
+				sub_4C2A00(v11 + v4, v10 + 3, *getMemIntPtr(0x5D4594, 2523948), *getMemIntPtr(0x853BC0, 31732), (__int16*)v2);
 				return 1;
 			}
-			v6 = *getMemU32Ptr(0x8531A0, 34328);
+			v6 = *getMemU32Ptr(0x853BC0, 31736);
 			v9 = (__int16*)v2;
-			v8 = *getMemU32Ptr(0x8531A0, 34324);
+			v8 = *getMemU32Ptr(0x853BC0, 31732);
 		} else {
 			v7 = a1[8];
 			if (v7 != 4 && v7 != 5) {
-				sub_4C2A00(v11 + v4, v10 + 3, *getMemIntPtr(0x8531A0, 34352), *getMemIntPtr(0x8531A0, 34324), (__int16*)v2);
+				sub_4C2A00(v11 + v4, v10 + 3, *getMemIntPtr(0x853BC0, 31760), *getMemIntPtr(0x853BC0, 31732), (__int16*)v2);
 				return 1;
 			}
 			v9 = (__int16*)v2;
 			if (!sub_4C2E00()) {
-				sub_4C2A00(v11 + v4, v10 + 3, *getMemIntPtr(0x8531A0, 34328), *getMemIntPtr(0x8531A0, 34324), (__int16*)v2);
+				sub_4C2A00(v11 + v4, v10 + 3, *getMemIntPtr(0x853BC0, 31736), *getMemIntPtr(0x853BC0, 31732), (__int16*)v2);
 				return 1;
 			}
-			v6 = *getMemU32Ptr(0x8531A0, 34352);
-			v8 = *getMemU32Ptr(0x8531A0, 34324);
+			v6 = *getMemU32Ptr(0x853BC0, 31760);
+			v8 = *getMemU32Ptr(0x853BC0, 31732);
 		}
 		sub_4C2A00(v11 + v4, v10 + 3, v6, v8, v9);
 		return 1;

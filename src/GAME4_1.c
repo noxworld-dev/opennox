@@ -8766,11 +8766,11 @@ int  sub_51D490(char* a1) {
 	if (!a1)
 		return -1;
 	v1 = 0;
-	v2 = (const char*)getMemAt(0x8531A0, 65856);
+	v2 = (const char*)getMemAt(0x853BC0, 63264);
 	while (_strcmpi(v2, a1)) {
 		v2 += 60;
 		++v1;
-		if ((int)v2 >= (int)getMemAt(0x8531A0, 76416))
+		if ((int)v2 >= (int)getMemAt(0x853BC0, 73824))
 			return -1;
 	}
 	return v1;
@@ -8784,7 +8784,7 @@ int  nox_xxx_tileGetDefByName_51D4D0(char* a1) {
 
 	v1 = 0;
 	v2 = 0;
-	v3 = (const char*)getMemAt(0x8531A0, 65856);
+	v3 = (const char*)getMemAt(0x853BC0, 63264);
 	do {
 		if (!_strcmpi(v3, a1)) {
 			v1 = 1;
@@ -8792,7 +8792,7 @@ int  nox_xxx_tileGetDefByName_51D4D0(char* a1) {
 		}
 		v3 += 60;
 		++v2;
-	} while ((int)v3 < (int)getMemAt(0x8531A0, 76416));
+	} while ((int)v3 < (int)getMemAt(0x853BC0, 73824));
 	if (!_strcmpi(a1, "NONE")) {
 		*getMemU32Ptr(0x973F18, 35912) = 255;
 		return 1;
@@ -8821,8 +8821,8 @@ int  nox_xxx_tileCheckImage_51D540(int a1) {
 int  nox_xxx_tileCheckImageVari_51D570(int a1) {
 	int result; // eax
 
-	if (a1 <= getMemByte(0x8531A0, 65908 + 60 * *getMemU32Ptr(0x973F18, 35912)) *
-					  getMemByte(0x8531A0, 65909 + 60 * *getMemU32Ptr(0x973F18, 35912)) -
+	if (a1 <= getMemByte(0x853BC0, 63316 + 60 * *getMemU32Ptr(0x973F18, 35912)) *
+					  getMemByte(0x853BC0, 63317 + 60 * *getMemU32Ptr(0x973F18, 35912)) -
 				  1) {
 		dword_5d4594_3835348 = a1;
 		result = 1;

@@ -42,7 +42,7 @@ int  nox_thing_spider_spit_draw(_DWORD* a1, nox_drawable* dr) {
 		v17 = v13 - v14;
 	else
 		v17 = v14 - v13;
-	nox_client_drawSetColor_434460(*getMemIntPtr(0x8531A0, 34328));
+	nox_client_drawSetColor_434460(*getMemIntPtr(0x853BC0, 31736));
 	if (v15 <= v17) {
 		nox_client_drawAddPoint_49F500(v9 + 1, v7);
 		nox_client_drawAddPoint_49F500(v8 - 1, v10);
