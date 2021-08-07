@@ -59,38 +59,38 @@ int sub_41DDB0() {
 					sub_468F30_wol_reg();
 					break;
 				}
-				if (*getMemU16Ptr(0x853BC0, 41216)) {
-					sub_468DF0((wchar_t*)getMemAt(0x853BC0, 41216));
+				if (*getMemU16Ptr(0x85B3FC, 10436)) {
+					sub_468DF0((wchar_t*)getMemAt(0x85B3FC, 10436));
 					break;
 				}
 				switch (dword_5d4594_2660652 + 2147221403) {
 					case 0:
 						v2 = nox_strman_loadString_40F1D0("ServerBusy", 0,
 												   "C:\\NoxPost\\src\\common\\WolAPI\\wolstate.c", 414);
-						nox_wcscpy((wchar_t*)getMemAt(0x853BC0, 41216), v2);
+						nox_wcscpy((wchar_t*)getMemAt(0x85B3FC, 10436), v2);
 						break;
 					case 1:
 						v3 = nox_strman_loadString_40F1D0("Timeout", 0,
 												   "C:\\NoxPost\\src\\common\\WolAPI\\wolstate.c", 418);
-						nox_swprintf((wchar_t*)getMemAt(0x853BC0, 41216), v3);
+						nox_swprintf((wchar_t*)getMemAt(0x85B3FC, 10436), v3);
 						break;
 					case 155:
 						v3 = nox_strman_loadString_40F1D0("InvalidField", 0,
 												   "C:\\NoxPost\\src\\common\\WolAPI\\wolstate.c", 422);
-						nox_swprintf((wchar_t*)getMemAt(0x853BC0, 41216), v3);
+						nox_swprintf((wchar_t*)getMemAt(0x85B3FC, 10436), v3);
 						break;
 					case 156:
 						v3 = nox_strman_loadString_40F1D0("CantVerify", 0,
 												   "C:\\NoxPost\\src\\common\\WolAPI\\wolstate.c", 426);
-						nox_swprintf((wchar_t*)getMemAt(0x853BC0, 41216), v3);
+						nox_swprintf((wchar_t*)getMemAt(0x85B3FC, 10436), v3);
 						break;
 					default:
 						v3 = nox_strman_loadString_40F1D0("NetError", 0,
 												   "C:\\NoxPost\\src\\common\\WolAPI\\wolstate.c", 430);
-						nox_swprintf((wchar_t*)getMemAt(0x853BC0, 41216), v3);
+						nox_swprintf((wchar_t*)getMemAt(0x85B3FC, 10436), v3);
 						break;
 				}
-				sub_468DF0((wchar_t*)getMemAt(0x853BC0, 41216));
+				sub_468DF0((wchar_t*)getMemAt(0x85B3FC, 10436));
 				break;
 			case 20:
 				sub_468E60(0);

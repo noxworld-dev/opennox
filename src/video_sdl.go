@@ -40,7 +40,7 @@ func nox_video_copyBackBuffer3_4AD1E0() {
 	}
 	noxRendererS.CopyBufferRows(rows)
 
-	*memmap.PtrUint32(0x853BC0, 1179728)++
+	*memmap.PtrUint32(0x85B3FC, 1148948)++
 }
 
 func nox_video_setBackBufferPtrs_48A190() {
@@ -73,7 +73,7 @@ func nox_video_copyBackBuffer_4AD2A0() {
 			copy(drow[i:], row[i:i+32])
 		}
 	}
-	*memmap.PtrUint32(0x853BC0, 1179728)++
+	*memmap.PtrUint32(0x85B3FC, 1148948)++
 }
 
 func resetRenderer(sz types.Size) error {

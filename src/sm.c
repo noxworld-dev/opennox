@@ -168,24 +168,24 @@ void CONNECT_PREPARE(sm_args_t* args) {
 
 	nox_xxx_gameGetScreenBoundaries_43BEB0_get_video_mode(&v5, &v4, &v6);
 	v1 = nox_xxx_getHostInfoPtr_431770();
-	nox_wcscpy((wchar_t*)v1, (const wchar_t*)getMemAt(0x853BC0, 42984));
-	v1[66] = getMemByte(0x853BC0, 43034);
-	*(_WORD*)(v1 + 71) = *getMemU16Ptr(0x853BC0, 42964);
-	v1[73] = getMemByte(0x853BC0, 42966);
-	*((_WORD*)v1 + 34) = *getMemU16Ptr(0x853BC0, 42967);
-	v1[70] = getMemByte(0x853BC0, 42969);
-	*((_WORD*)v1 + 37) = *getMemU16Ptr(0x853BC0, 42970);
-	v1[76] = getMemByte(0x853BC0, 42972);
-	*(_WORD*)(v1 + 77) = *getMemU16Ptr(0x853BC0, 42973);
-	v1[79] = getMemByte(0x853BC0, 42975);
-	*((_WORD*)v1 + 40) = *getMemU16Ptr(0x853BC0, 42976);
-	v1[82] = getMemByte(0x853BC0, 42978);
-	v1[83] = getMemByte(0x853BC0, 42979);
-	v1[84] = getMemByte(0x853BC0, 42980);
-	v1[85] = getMemByte(0x853BC0, 42981);
-	v1[86] = getMemByte(0x853BC0, 42982);
-	v1[87] = getMemByte(0x853BC0, 42983);
-	v1[67] = getMemByte(0x853BC0, 43035);
+	nox_wcscpy((wchar_t*)v1, (const wchar_t*)getMemAt(0x85B3FC, 12204));
+	v1[66] = getMemByte(0x85B3FC, 12254);
+	*(_WORD*)(v1 + 71) = *getMemU16Ptr(0x85B3FC, 12184);
+	v1[73] = getMemByte(0x85B3FC, 12186);
+	*((_WORD*)v1 + 34) = *getMemU16Ptr(0x85B3FC, 12187);
+	v1[70] = getMemByte(0x85B3FC, 12189);
+	*((_WORD*)v1 + 37) = *getMemU16Ptr(0x85B3FC, 12190);
+	v1[76] = getMemByte(0x85B3FC, 12192);
+	*(_WORD*)(v1 + 77) = *getMemU16Ptr(0x85B3FC, 12193);
+	v1[79] = getMemByte(0x85B3FC, 12195);
+	*((_WORD*)v1 + 40) = *getMemU16Ptr(0x85B3FC, 12196);
+	v1[82] = getMemByte(0x85B3FC, 12198);
+	v1[83] = getMemByte(0x85B3FC, 12199);
+	v1[84] = getMemByte(0x85B3FC, 12200);
+	v1[85] = getMemByte(0x85B3FC, 12201);
+	v1[86] = getMemByte(0x85B3FC, 12202);
+	v1[87] = getMemByte(0x85B3FC, 12203);
+	v1[67] = getMemByte(0x85B3FC, 12255);
 	sub_48D740();
 	*(_DWORD*)&Data[97] = v5;
 	*(_DWORD*)&Data[101] = v4;
@@ -194,10 +194,10 @@ void CONNECT_PREPARE(sm_args_t* args) {
 		nox_common_getInstallPath_40E0D0((int) &Data[105], "SOFTWARE\\Westwood\\Nox", 0);
 	}
 	Data[152] = !nox_xxx_checkHasSoloMaps_40ABD0();
-	if (getMemByte(0x853BC0, 41760) & 4) {
+	if (getMemByte(0x85B3FC, 10980) & 4) {
 		Data[152] |= 0x80u;
 	}
-	strcpy((char*)&Data[142], (const char*)getMemAt(0x853BC0, 41175));
+	strcpy((char*)&Data[142], (const char*)getMemAt(0x85B3FC, 10395));
 	strcpy((char*)&Data[128], sub_41FA40());
 	*(_DWORD*)&Data[138] = dword_5d4594_2660032;
 	memcpy(Data, v1, 0x61u);
@@ -484,8 +484,8 @@ void cmain_loop(int reentrant) {
 	nox_common_initRandom_415F70();
 	nox_frame_xxx_2598000 = nox_common_gameFlags_check_40A5C0(1);
 	nox_ensure_thing_bin();
-	*getMemU32Ptr(0x853BC0, 31740) = 0;
-	*getMemU32Ptr(0x853BC0, 30784) = 0;
+	*getMemU32Ptr(0x85B3FC, 960) = 0;
+	*getMemU32Ptr(0x85B3FC, 4) = 0;
 	if (g_v21) {
 		GOTO_CONNECT_RESULT(0);
 	}

@@ -1681,7 +1681,7 @@ void  nox_xxx_unitUpdatePlayerImpl_4F8460(int a1) {
 		v26 = nox_xxx_tileNFromPoint_411160((float2*)(v1 + 56));
 		if (v26 < 0 || v26 >= *(int*)&dword_5d4594_251568)
 			goto LABEL_90;
-		v27 = *getMemU32Ptr(0x853BC0, 63300 + 60 * v26);
+		v27 = *getMemU32Ptr(0x85B3FC, 32520 + 60 * v26);
 		if (v27 <= 0x80) {
 			if (v27 == 128) {
 				nox_xxx_aud_501960(278, v1, 0, 0);
@@ -1735,7 +1735,7 @@ void  nox_xxx_unitUpdatePlayerImpl_4F8460(int a1) {
 			if ((!nox_common_playerIsAbilityActive_4FC250(v1, 4) || a1) && v33 != v32 && (v33 == 3 || v33 == 9)) {
 				v34 = nox_xxx_tileNFromPoint_411160((float2*)(v1 + 56));
 				if (v34 >= 0 && v34 < *(int*)&dword_5d4594_251568) {
-					v35 = *getMemU32Ptr(0x853BC0, 63300 + 60 * v34);
+					v35 = *getMemU32Ptr(0x85B3FC, 32520 + 60 * v34);
 					if (v35 <= 0x80) {
 						if (v35 == 128) {
 							nox_xxx_aud_501960(272, v1, 0, 0);
@@ -9191,7 +9191,7 @@ int  nox_xxx_tileInit_504150(int a1, int a2) {
 	if (*getMemIntPtr(0x587000, 229704) == -1) {
 		v2 = 0;
 		if (*(int*)&dword_5d4594_251568 > 0) {
-			v3 = (const char*)getMemAt(0x853BC0, 63264);
+			v3 = (const char*)getMemAt(0x85B3FC, 32484);
 			while (strcmp(v3, "TransparentFloor")) {
 				++v2;
 				v3 += 60;

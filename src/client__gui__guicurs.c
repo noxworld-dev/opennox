@@ -123,9 +123,9 @@ int  nox_video_cursorDrawImpl_477A30(int a1, int a2, int a3) {
 			if (v16) {
 				sub_48B680(1);
 				if (!(*(_BYTE*)(v16 + 112) & 6) || sub_495A80(*(_DWORD*)(v16 + 128)))
-					sub_48B800(*getMemIntPtr(0x853BC0, 31760));
+					sub_48B800(*getMemIntPtr(0x85B3FC, 980));
 				else
-					sub_48B800(*getMemIntPtr(0x853BC0, 31720));
+					sub_48B800(*getMemIntPtr(0x85B3FC, 940));
 			} else {
 				sub_48B680(0);
 			}

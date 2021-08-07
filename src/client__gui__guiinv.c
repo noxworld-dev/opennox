@@ -412,7 +412,7 @@ int  sub_4627F0(_DWORD* a1) {
 	v2 = 0;
 	nox_xxx_Font_43F340(0);
 	nox_xxx_guiFontHeightMB_43F320(0);
-	nox_client_drawSetColor_434460(*getMemIntPtr(0x853BC0, 31732));
+	nox_client_drawSetColor_434460(*getMemIntPtr(0x85B3FC, 952));
 	nox_client_drawRectFilledOpaque_49CE30(*a1 + 11, a1[1] + 15, 200, 200);
 	sub_463370(*(_DWORD**)&dword_5d4594_1062456, &mpos, &v74);
 	if (sub_4281F0(&v74, (int4*)getMemAt(0x587000, 136352)) || sub_4281F0(&v74, (int4*)getMemAt(0x587000, 136368))) {
@@ -801,7 +801,7 @@ int*  nox_xxx_makeStatsDlg_463880(int* a1) {
 		v8 = v6 + 11;
 		v9 = v7 + 15;
 		nox_xxx_drawSetTextColor_434390(v72);
-		nox_client_drawSetColor_434460(*getMemIntPtr(0x853BC0, 31732));
+		nox_client_drawSetColor_434460(*getMemIntPtr(0x85B3FC, 952));
 		nox_client_drawRectFilledOpaque_49CE30(v8, v9, 200, 200);
 		v10 = v8 + 2;
 		v11 = v9 + 2 * v1 + 3;
@@ -830,7 +830,7 @@ int*  nox_xxx_makeStatsDlg_463880(int* a1) {
 		v68 = 90 * sub_470CC0();
 		v55 = (double)v68 / *v70;
 		v67 = nox_float2int(v55);
-		nox_client_drawSetColor_434460(*getMemIntPtr(0x853BC0, 31720));
+		nox_client_drawSetColor_434460(*getMemIntPtr(0x85B3FC, 940));
 		nox_client_drawRectFilledOpaque_49CE30(v10 + 60, v15, v67, v1);
 		v56 = nox_float2int(*v70);
 		v42 = *(_DWORD*)(v4 + 2247);
@@ -844,7 +844,7 @@ int*  nox_xxx_makeStatsDlg_463880(int* a1) {
 		nox_xxx_drawString_43FAF0(*(int*)&dword_5d4594_1063636, v77, v10 + 45, SLODWORD(v69), 200, 0);
 		v19 = v15 + v1 + 1;
 		if (*(_BYTE*)(v4 + 2251)) {
-			nox_client_drawSetColor_434460(*getMemIntPtr(0x853BC0, 31724));
+			nox_client_drawSetColor_434460(*getMemIntPtr(0x85B3FC, 944));
 			nox_client_drawRectFilledOpaque_49CE30(v10 + 60, v19, 90, v1);
 			v68 = 90 * *(_DWORD*)(v4 + 2243);
 			v57 = (double)v68 / v70[1];
@@ -852,12 +852,12 @@ int*  nox_xxx_makeStatsDlg_463880(int* a1) {
 			v20 =
 				nox_strman_loadString_40F1D0("StatsMana", 0, "C:\\NoxPost\\src\\Client\\Gui\\guiinv.c", 1941);
 			nox_xxx_drawString_43FAF0(0, v20, v10, v19, 200, 0);
-			nox_client_drawSetColor_434460(*getMemIntPtr(0x853BC0, 31760));
+			nox_client_drawSetColor_434460(*getMemIntPtr(0x85B3FC, 980));
 			nox_client_drawRectFilledOpaque_49CE30(v10 + 60, v19, v67, v1);
 			v68 = 90 * nox_xxx_cliGetMana_470DD0();
 			v58 = (double)v68 / v70[1];
 			v67 = nox_float2int(v58);
-			nox_client_drawSetColor_434460(*getMemIntPtr(0x853BC0, 30896));
+			nox_client_drawSetColor_434460(*getMemIntPtr(0x85B3FC, 116));
 			nox_client_drawRectFilledOpaque_49CE30(v10 + 60, v19, v67, v1);
 			v59 = nox_float2int(v70[1]);
 			v43 = *(_DWORD*)(v4 + 2243);
@@ -871,7 +871,7 @@ int*  nox_xxx_makeStatsDlg_463880(int* a1) {
 			nox_xxx_drawString_43FAF0(*(int*)&dword_5d4594_1063636, v77, v10 + 45, v19 + v73, 200, 0);
 			v19 += v1 + 1;
 		}
-		nox_client_drawSetColor_434460(*getMemIntPtr(0x853BC0, 31736));
+		nox_client_drawSetColor_434460(*getMemIntPtr(0x85B3FC, 956));
 		nox_client_drawRectFilledOpaque_49CE30(v10 + 60, v19, 90, v1);
 		v68 = 90 * *(_DWORD*)(v4 + 2239);
 		v60 = (double)v68 / v70[3];
@@ -911,10 +911,10 @@ int*  nox_xxx_makeStatsDlg_463880(int* a1) {
 					v68 = 90 - v67;
 				nox_client_drawSetColor_434460(*getMemIntPtr(0x5D4594, 2589772));
 				nox_client_drawRectFilledOpaque_49CE30(v67 + v10 + 60, v25, v68, v1);
-				nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x853BC0, 31760));
+				nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x85B3FC, 980));
 			}
 		} else {
-			nox_client_drawSetColor_434460(*getMemIntPtr(0x853BC0, 31724));
+			nox_client_drawSetColor_434460(*getMemIntPtr(0x85B3FC, 944));
 			v45 = -v69;
 			v46 = nox_float2int(v45);
 			v27 = nox_float2int(v69);
@@ -973,7 +973,7 @@ int*  nox_xxx_makeStatsDlg_463880(int* a1) {
 		v37 = nox_strman_loadString_40F1D0("DollWeight", 0, "C:\\NoxPost\\src\\Client\\Gui\\guiinv.c", 2099);
 		nox_xxx_drawString_43FAF0(0, v37, v39, v40, 0, 0);
 		if (v34 > *(unsigned __int16*)(v4 + 3652))
-			v72 = *getMemU32Ptr(0x853BC0, 31720);
+			v72 = *getMemU32Ptr(0x85B3FC, 940);
 		nox_xxx_drawSetTextColor_434390(v72);
 		v66 = *(unsigned __int16*)(v4 + 3652);
 		v38 = nox_strman_loadString_40F1D0("MinMaxFormat", 0, "C:\\NoxPost\\src\\Client\\Gui\\guiinv.c", 2107);

@@ -172,7 +172,7 @@ int nox_xxx_guiDrawRank_46E870() {
 	*(_DWORD*)(dword_5d4594_1090048 + 88) = 0x80000000;
 	memset(v49, 0, sizeof(v49));
 	nox_wcscpy((wchar_t*)&v49[72], (const wchar_t*)getMemAt(0x5D4594, 1090136));
-	*(_DWORD*)&v49[68] = *getMemU32Ptr(0x853BC0, 31720);
+	*(_DWORD*)&v49[68] = *getMemU32Ptr(0x85B3FC, 940);
 	*(_DWORD*)&v49[20] = 0x80000000;
 	memset(v48, 0, sizeof(v48));
 	*(_WORD*)&v48[6] = 0;
@@ -237,7 +237,7 @@ int nox_xxx_guiDrawRank_46E870() {
 	v45[0] = nox_strman_loadString_40F1D0("WindowDir:Empty", 0, "C:\\NoxPost\\src\\client\\Gui\\guirank.c", 1782);
 	dword_5d4594_1090112 =
 		nox_gui_newStaticText_489300(*(int*)&dword_5d4594_1090048, 1088, 0, v20, *(int*)&dword_5d4594_1090040, v30, v49, v45);
-	*(_DWORD*)&v49[68] = *getMemU32Ptr(0x853BC0, 31720);
+	*(_DWORD*)&v49[68] = *getMemU32Ptr(0x85B3FC, 940);
 	v45[0] = nox_strman_loadString_40F1D0("WindowDir:Empty", 0, "C:\\NoxPost\\src\\client\\Gui\\guirank.c", 1790);
 	dword_5d4594_1090108 =
 		nox_gui_newStaticText_489300(*(int*)&dword_5d4594_1090048, 1088, 0, v47, *(int*)&dword_5d4594_1090040, v30, v49, v45);

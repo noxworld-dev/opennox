@@ -105,7 +105,7 @@ func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0(mpos types.Point, a4 *Ct
 	}
 	c.nox_xxx_clientControl_42D6B0_A(a4)
 	c.nox_xxx_clientControl_42D6B0_orientation(mpos)
-	if memmap.Uint8(0x853BC0, 43034) != 0 {
+	if memmap.Uint8(0x85B3FC, 12254) != 0 {
 		C.nox_xxx_guiSpellTargetClickCheckSend_45DBB0()
 	}
 	if memmap.Uint8(0x5D4594, 754064)&4 != 0 {
@@ -665,7 +665,7 @@ func (c *CtrlEventHandler) nox_ctrlevent_action_42E670(code client.CtrlCode, dat
 			return
 		}
 	}
-	if memmap.Uint8(0x853BC0, 43034) != 0 || !code.IsMagicRelated() {
+	if memmap.Uint8(0x85B3FC, 12254) != 0 || !code.IsMagicRelated() {
 		j := c.indA
 		if noxflags.HasGame(noxflags.GameHost) && code.CanPauseMode() {
 			for i := c.indB; i != c.indA; i = (i + 1) % cap(c.bufA) {

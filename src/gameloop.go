@@ -266,8 +266,8 @@ mainloop:
 				nox_common_initRandom_415F70()
 				gameFrameSetFromFlags()
 				C.nox_ensure_thing_bin()
-				*memmap.PtrUint32(0x853BC0, 31740) = 0
-				*memmap.PtrUint32(0x853BC0, 30784) = 0
+				*memmap.PtrUint32(0x85B3FC, 960) = 0
+				*memmap.PtrUint32(0x85B3FC, 4) = 0
 				if mainloopConnectResultOK {
 					if debugMainloop {
 						log.Println("CONNECT_RESULT_OK retry")
@@ -395,24 +395,24 @@ func CONNECT_OR_HOST() {
 	var info *C.char = C.nox_xxx_getHostInfoPtr_431770()
 	infos := asByteSlice(unsafe.Pointer(info), 97)
 
-	C.nox_wcscpy((*C.wchar_t)(unsafe.Pointer(&infos[0])), (*C.wchar_t)(memmap.PtrOff(0x853BC0, 42984)))
+	C.nox_wcscpy((*C.wchar_t)(unsafe.Pointer(&infos[0])), (*C.wchar_t)(memmap.PtrOff(0x85B3FC, 12204)))
 	infos[66] = byte(getPlayerClass())
-	infos[67] = memmap.Uint8(0x853BC0, 43035)
-	*(*uint16)(unsafe.Pointer(&infos[68])) = memmap.Uint16(0x853BC0, 42967)
-	infos[70] = memmap.Uint8(0x853BC0, 42969)
-	*(*uint16)(unsafe.Pointer(&infos[71])) = memmap.Uint16(0x853BC0, 42964)
-	infos[73] = memmap.Uint8(0x853BC0, 42966)
-	*(*uint16)(unsafe.Pointer(&infos[74])) = memmap.Uint16(0x853BC0, 42970)
-	infos[76] = memmap.Uint8(0x853BC0, 42972)
-	*(*uint16)(unsafe.Pointer(&infos[77])) = memmap.Uint16(0x853BC0, 42973)
-	infos[79] = memmap.Uint8(0x853BC0, 42975)
-	*(*uint16)(unsafe.Pointer(&infos[80])) = memmap.Uint16(0x853BC0, 42976)
-	infos[82] = memmap.Uint8(0x853BC0, 42978)
-	infos[83] = memmap.Uint8(0x853BC0, 42979)
-	infos[84] = memmap.Uint8(0x853BC0, 42980)
-	infos[85] = memmap.Uint8(0x853BC0, 42981)
-	infos[86] = memmap.Uint8(0x853BC0, 42982)
-	infos[87] = memmap.Uint8(0x853BC0, 42983)
+	infos[67] = memmap.Uint8(0x85B3FC, 12255)
+	*(*uint16)(unsafe.Pointer(&infos[68])) = memmap.Uint16(0x85B3FC, 12187)
+	infos[70] = memmap.Uint8(0x85B3FC, 12189)
+	*(*uint16)(unsafe.Pointer(&infos[71])) = memmap.Uint16(0x85B3FC, 12184)
+	infos[73] = memmap.Uint8(0x85B3FC, 12186)
+	*(*uint16)(unsafe.Pointer(&infos[74])) = memmap.Uint16(0x85B3FC, 12190)
+	infos[76] = memmap.Uint8(0x85B3FC, 12192)
+	*(*uint16)(unsafe.Pointer(&infos[77])) = memmap.Uint16(0x85B3FC, 12193)
+	infos[79] = memmap.Uint8(0x85B3FC, 12195)
+	*(*uint16)(unsafe.Pointer(&infos[80])) = memmap.Uint16(0x85B3FC, 12196)
+	infos[82] = memmap.Uint8(0x85B3FC, 12198)
+	infos[83] = memmap.Uint8(0x85B3FC, 12199)
+	infos[84] = memmap.Uint8(0x85B3FC, 12200)
+	infos[85] = memmap.Uint8(0x85B3FC, 12201)
+	infos[86] = memmap.Uint8(0x85B3FC, 12202)
+	infos[87] = memmap.Uint8(0x85B3FC, 12203)
 
 	Datas := alloc.Bytes(1024)
 	defer alloc.FreeBytes(Datas)
@@ -425,10 +425,10 @@ func CONNECT_OR_HOST() {
 		C.nox_common_getInstallPath_40E0D0((*C.char)(unsafe.Pointer(&Datas[105])), internCStr("SOFTWARE\\Westwood\\Nox"), 0)
 	}
 	Datas[152] = byte(bool2int(C.nox_xxx_checkHasSoloMaps_40ABD0() == 0))
-	if memmap.Uint8(0x853BC0, 41760)&4 != 0 {
+	if memmap.Uint8(0x85B3FC, 10980)&4 != 0 {
 		Datas[152] |= 0x80
 	}
-	s1 := C.GoString((*C.char)(memmap.PtrOff(0x853BC0, 41175)))
+	s1 := C.GoString((*C.char)(memmap.PtrOff(0x85B3FC, 10395)))
 	StrCopyBytes(Datas[142:], s1)
 	s2 := C.GoString(C.sub_41FA40())
 	StrCopyBytes(Datas[128:], s2)
@@ -846,7 +846,7 @@ func nox_xxx_gameStateWait_43C020() bool {
 		return true
 	}
 	if !isDedicatedServer {
-		C.nox_xxx_drawSelectColor_434350(C.int(memmap.Uint32(0x853BC0, 31732)))
+		C.nox_xxx_drawSelectColor_434350(C.int(memmap.Uint32(0x85B3FC, 952)))
 		sub_440900()
 	}
 	return false

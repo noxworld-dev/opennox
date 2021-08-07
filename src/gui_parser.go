@@ -107,7 +107,7 @@ func (p *guiParser) parentsPush(win *Window) {
 }
 
 func (p *guiParser) resetDefaults() {
-	val := noxcolor.IntToColor(memmap.Uint32(0x853BC0, 31732))
+	val := noxcolor.IntToColor(memmap.Uint32(0x85B3FC, 952))
 	p.defaults.font = 0
 	p.defaults.SetColors(val)
 }

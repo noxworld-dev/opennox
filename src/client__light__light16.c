@@ -320,23 +320,23 @@ void  sub_484F90(int a1) {
 					a1a.field_4 = (v7 << 16) / 23;
 					v22 = (int)((__int64)*(float*)&v44 << 16) / 23;
 					v23 = sub_4C1C60(
-						v22, 16 * *getMemU32Ptr(0x853BC0, 43040 + 4 * ((unsigned __int16)(*(_WORD*)(v1 + 164) + 0x4000) >> 4)));
+						v22, 16 * *getMemU32Ptr(0x85B3FC, 12260 + 4 * ((unsigned __int16)(*(_WORD*)(v1 + 164) + 0x4000) >> 4)));
 					v24 = sub_4C1C60(v22,
-									 16 * *getMemU32Ptr(0x853BC0, 43040 + 4 * (*(unsigned __int16*)(v1 + 164) >> 4)));
+									 16 * *getMemU32Ptr(0x85B3FC, 12260 + 4 * (*(unsigned __int16*)(v1 + 164) >> 4)));
 					a3.field_0 = a1a.field_0 + v23;
 					LOWORD(v23) = *(_WORD*)(v1 + 164) + *(_WORD*)(v1 + 166);
 					a3.field_4 = a1a.field_4 + v24;
 					v25 = sub_4C1C60(
-						v22, 16 * *getMemU32Ptr(0x853BC0, 43040 + 4 * ((unsigned __int16)(v23 + 0x4000) >> 4)));
-					v26 = sub_4C1C60(v22, 16 * *getMemU32Ptr(0x853BC0, 43040 + 4 * ((unsigned __int16)v23 >> 4)));
+						v22, 16 * *getMemU32Ptr(0x85B3FC, 12260 + 4 * ((unsigned __int16)(v23 + 0x4000) >> 4)));
+					v26 = sub_4C1C60(v22, 16 * *getMemU32Ptr(0x85B3FC, 12260 + 4 * ((unsigned __int16)v23 >> 4)));
 					LOWORD(v23) = *(_WORD*)(v1 + 164) - *(_WORD*)(v1 + 166);
 					a2.field_4 = a1a.field_4 + v26;
 					a2.field_0 = a1a.field_0 + v25;
 					v27 = sub_4C1C60(
-						v22, 16 * *getMemU32Ptr(0x853BC0, 43040 + 4 * ((unsigned __int16)(v23 + 0x4000) >> 4)));
+						v22, 16 * *getMemU32Ptr(0x85B3FC, 12260 + 4 * ((unsigned __int16)(v23 + 0x4000) >> 4)));
 					v35.field_4 =
 						a1a.field_4 +
-						sub_4C1C60(v22, 16 * *getMemU32Ptr(0x853BC0, 43040 + 4 * ((unsigned __int16)v23 >> 4)));
+						sub_4C1C60(v22, 16 * *getMemU32Ptr(0x85B3FC, 12260 + 4 * ((unsigned __int16)v23 >> 4)));
 					v35.field_0 = a1a.field_0 + v27;
 					sub_4854D0(&a1a, &a2, &a3, (int)&a4, a5);
 					sub_4854D0(&a1a, &a3, &v35, (int)&a4, a5);
@@ -781,23 +781,23 @@ void  nox_xxx_cliLight16_469140(int arg0) {
 					a1.field_4 = (v7 << 16) / 23;
 					v19 = v18 / 23;
 					v20 = sub_4C1C60(
-						v18 / 23, 16 * *getMemU32Ptr(0x853BC0, 43040 + 4 * ((unsigned __int16)(v17 + 0x4000) >> 4)));
+						v18 / 23, 16 * *getMemU32Ptr(0x85B3FC, 12260 + 4 * ((unsigned __int16)(v17 + 0x4000) >> 4)));
 					v21 = v18 / 23;
 					v22 = v20;
 					v23 = sub_4C1C60(
-						v21, 16 * *getMemU32Ptr(0x853BC0, 43040 + 4 * (*(unsigned __int16*)(arg0 + 164) >> 4)));
+						v21, 16 * *getMemU32Ptr(0x85B3FC, 12260 + 4 * (*(unsigned __int16*)(arg0 + 164) >> 4)));
 					a3.field_0 = a1.field_0 + v22;
 					LOWORD(v22) = *(_WORD*)(arg0 + 164) + *(_WORD*)(arg0 + 166);
 					a3.field_4 = a1.field_4 + v23;
 					v44 = sub_4C1C60(
-						v19, 16 * *getMemU32Ptr(0x853BC0, 43040 + 4 * ((unsigned __int16)(v22 + 0x4000) >> 4)));
-					v24 = sub_4C1C60(v19, 16 * *getMemU32Ptr(0x853BC0, 43040 + 4 * ((unsigned __int16)v22 >> 4)));
+						v19, 16 * *getMemU32Ptr(0x85B3FC, 12260 + 4 * ((unsigned __int16)(v22 + 0x4000) >> 4)));
+					v24 = sub_4C1C60(v19, 16 * *getMemU32Ptr(0x85B3FC, 12260 + 4 * ((unsigned __int16)v22 >> 4)));
 					LOWORD(v22) = *(_WORD*)(v1 + 164) - *(_WORD*)(v1 + 166);
 					a2.field_0 = a1.field_0 + v44;
 					a2.field_4 = a1.field_4 + v24;
 					v45 = sub_4C1C60(
-						v19, 16 * *getMemU32Ptr(0x853BC0, 43040 + 4 * ((unsigned __int16)(v22 + 0x4000) >> 4)));
-					v25 = sub_4C1C60(v19, 16 * *getMemU32Ptr(0x853BC0, 43040 + 4 * ((unsigned __int16)v22 >> 4)));
+						v19, 16 * *getMemU32Ptr(0x85B3FC, 12260 + 4 * ((unsigned __int16)(v22 + 0x4000) >> 4)));
+					v25 = sub_4C1C60(v19, 16 * *getMemU32Ptr(0x85B3FC, 12260 + 4 * ((unsigned __int16)v22 >> 4)));
 					v26 = (int*)(v1 + 152);
 					v42.field_0 = a1.field_0 + v45;
 					v42.field_4 = a1.field_4 + v25;

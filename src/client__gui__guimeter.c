@@ -263,7 +263,7 @@ int  nox_xxx_guiHealthManaTubeDraw_471D10(int xLeft) {
 	nox_client_wndGetPosition_46AA60(v1, &xLeft, &yTop);
 	xLeft += 5;
 	if (dword_5d4594_3799468) {
-		nox_client_drawSetColor_434460(*getMemIntPtr(0x853BC0, 31732));
+		nox_client_drawSetColor_434460(*getMemIntPtr(0x85B3FC, 952));
 		nox_client_drawRectFilledOpaque_49CE30(xLeft, yTop, 15, 125);
 	}
 	v4 = *((_DWORD*)v3 + 2);

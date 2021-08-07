@@ -258,7 +258,7 @@ func nox_video_setBackBufferCopyFunc_4AD100() error {
 	} else {
 		nox_video_setBackBufferCopyFunc2_4AD150()
 	}
-	*memmap.PtrUint32(0x853BC0, 1179728) = 0
+	*memmap.PtrUint32(0x85B3FC, 1148948) = 0
 	return nil
 }
 
@@ -1034,9 +1034,9 @@ func nox_video_cursorDrawImpl_477A30(inp *input.Handler, a2, a3 int) {
 		if v16 != nil {
 			sub_48B680(1)
 			if v16.Flags28()&6 == 0 || C.sub_495A80(C.int(v16.Field32())) != 0 {
-				sub_48B800(memmap.Uint32(0x853BC0, 31760))
+				sub_48B800(memmap.Uint32(0x85B3FC, 980))
 			} else {
-				sub_48B800(memmap.Uint32(0x853BC0, 31720))
+				sub_48B800(memmap.Uint32(0x85B3FC, 940))
 			}
 		} else {
 			sub_48B680(0)
@@ -1161,7 +1161,7 @@ func sub_477F80() {
 		if C.dword_5d4594_3799468 != 0 {
 			vp := getViewport()
 			if C.dword_5d4594_1097212 < vp.x1 || C.dword_5d4594_1097212+64 >= vp.x2 || C.dword_5d4594_1097216 < vp.y1 || C.dword_5d4594_1097216+64 >= vp.y2 {
-				nox_client_drawSetColor_434460(memmap.Uint32(0x853BC0, 31732))
+				nox_client_drawSetColor_434460(memmap.Uint32(0x85B3FC, 952))
 				nox_client_drawRectFilledOpaque_49CE30(int(C.dword_5d4594_1097212)+32, int(C.dword_5d4594_1097216)+32, 64, 64)
 			}
 		}

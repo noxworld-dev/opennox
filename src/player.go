@@ -33,7 +33,7 @@ func nox_xxx_playerCallDisconnect_4DEAB0(ind C.int, v C.char) *C.char {
 }
 
 func getPlayerClass() player.Class {
-	return player.Class(memmap.Uint8(0x853BC0, 43034))
+	return player.Class(memmap.Uint8(0x85B3FC, 12254))
 }
 
 func newPlayer(ind int, data unsafe.Pointer) unsafe.Pointer {

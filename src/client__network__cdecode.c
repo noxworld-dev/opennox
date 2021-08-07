@@ -514,7 +514,7 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 			v364 = v12;
 			if (!nox_common_gameFlags_check_40A5C0(1) && !v9) {
 				--dword_5d4594_2618900;
-				++*getMemU32Ptr(0x853BC0, 30900);
+				++*getMemU32Ptr(0x85B3FC, 120);
 				return 1;
 			}
 			if (nox_frame_xxx_2598000 > (unsigned int)(v10 + 1))
@@ -556,7 +556,7 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 				sub_57B920(getMemAt(0x5D4594, 1198020));
 			dword_5d4594_1200804 = 0;
 			dword_5d4594_2618900 = 0;
-			*getMemU32Ptr(0x853BC0, 30900) = 0;
+			*getMemU32Ptr(0x85B3FC, 120) = 0;
 			dword_5d4594_2614264 = 0;
 			dword_5d4594_1200832 = 0;
 			nox_xxx_cliSetSettingsAcquired_4169D0(0);
@@ -595,7 +595,7 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 				nox_swprintf(v399, v213, v212);
 				if (nox_xxx_gameGetPlayState_4356B0() == 3)
 					nox_xxx_printCentered_445490(v399);
-				if (v210 == *getMemU32Ptr(0x8529A0, 2044) && nox_wcscmp((const wchar_t*)getMemAt(0x853BC0, 42984), v212))
+				if (v210 == *getMemU32Ptr(0x8529A0, 2044) && nox_wcscmp((const wchar_t*)getMemAt(0x85B3FC, 12204), v212))
 					dword_5d4594_1200832 = 1;
 				OnLibraryNotice_263(v211);
 			}
@@ -3331,17 +3331,17 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 			}
 			return 0;
 		case 0xEFu:
-			if (getMemByte(0x853BC0, 43034) == 0) {
+			if (getMemByte(0x85B3FC, 12254) == 0) {
 				nox_xxx_warriorMaxHealth_587000_312784 = *(_DWORD*)(data + 1);
 				nox_xxx_warriorMaxMana_587000_312788 = *(_DWORD*)(data + 5);
 				nox_xxx_warriorMaxStrength_587000_312792 = *(_DWORD*)(data + 9);
 				nox_xxx_warriorMaxSpeed_587000_312796 = *(_DWORD*)(data + 13);
-			} else if (getMemByte(0x853BC0, 43034) == 1) {
+			} else if (getMemByte(0x85B3FC, 12254) == 1) {
 				nox_xxx_wizardMaxHealth_587000_312816 = *(_DWORD*)(data + 1);
 				nox_xxx_wizardMaximumMana_587000_312820 = *(_DWORD*)(data + 5);
 				nox_xxx_wizardStrength_587000_312824 = *(_DWORD*)(data + 9);
 				nox_xxx_wizardSpeed_587000_312828 = *(_DWORD*)(data + 13);
-			} else if (getMemByte(0x853BC0, 43034) == 2) {
+			} else if (getMemByte(0x85B3FC, 12254) == 2) {
 				nox_xxx_conjurerMaxHealth_587000_312800 = *(_DWORD*)(data + 1);
 				nox_xxx_conjurerMaxMana_587000_312804 = *(_DWORD*)(data + 5);
 				nox_xxx_conjurerStrength_587000_312808 = *(_DWORD*)(data + 9);
@@ -3357,8 +3357,8 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 					if (nox_common_gameFlags_check_40A5C0(1)) {
 						sub_460380();
 						nox_xxx_cliPrepareGameplay1_460E60();
-						sub_41CC00((char*)getMemAt(0x853BC0, 41764));
-						nox_xxx_plrLoad_41A480((char*)getMemAt(0x853BC0, 41764));
+						sub_41CC00((char*)getMemAt(0x85B3FC, 10984));
+						nox_xxx_plrLoad_41A480((char*)getMemAt(0x85B3FC, 10984));
 					}
 					nox_xxx_cliShowHideTubes_470AA0(1);
 					sub_48D4A0();

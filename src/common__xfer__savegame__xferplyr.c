@@ -26,20 +26,20 @@ int  nox_xxx_savePlayerMB_41C8F0(char* a1, unsigned int a2) {
 		nox_gui_console_Printf_450C00(NOX_CONSOLE_BLUE, v2);
 		v3 = nox_strman_loadString_40F1D0("Wol.c:Wolapierror", 0, "C:\\NoxPost\\src\\common\\Xfer\\SaveGame\\XferPlyr.c", 3342);
 		nox_xxx_printCentered_445490(v3);
-		nox_xxx_networkLog_printf_413D30("SavePlayerOnClient: Error - character file too small '%s' (%d vs %d)\n", getMemAt(0x853BC0, 41764), a2, *getMemIntPtr(0x587000, 55984));
+		nox_xxx_networkLog_printf_413D30("SavePlayerOnClient: Error - character file too small '%s' (%d vs %d)\n", getMemAt(0x85B3FC, 10984), a2, *getMemIntPtr(0x587000, 55984));
 		return 0;
 	}
 	v5 = nox_fs_root();
 	nox_sprintf(PathName, "%s\\Save\\", v5);
 	nox_fs_mkdir(PathName);
-	v6 = nox_binfile_open_408CC0((char*)getMemAt(0x853BC0, 41764), 1);
+	v6 = nox_binfile_open_408CC0((char*)getMemAt(0x85B3FC, 10984), 1);
 	nox_file_2 = v6;
 	if (!v6) {
-		nox_xxx_networkLog_printf_413D30("SavePlayerOnClient: Unable to open file '%s'\n", getMemAt(0x853BC0, 41764));
+		nox_xxx_networkLog_printf_413D30("SavePlayerOnClient: Unable to open file '%s'\n", getMemAt(0x85B3FC, 10984));
 		return 0;
 	}
 	if (!nox_binfile_cryptSet_408D40((int)v6, 27)) {
-		nox_xxx_networkLog_printf_413D30("SavePlayerOnClient: Unable to key file '%s'\n", getMemAt(0x853BC0, 41764));
+		nox_xxx_networkLog_printf_413D30("SavePlayerOnClient: Unable to key file '%s'\n", getMemAt(0x85B3FC, 10984));
 		return 0;
 	}
 	v7 = a1;
@@ -52,10 +52,10 @@ int  nox_xxx_savePlayerMB_41C8F0(char* a1, unsigned int a2) {
 	}
 	nox_binfile_close_408D90(nox_file_2);
 	if (nox_common_gameFlags_check_40A5C0(4096))
-		*getMemU8Ptr(0x853BC0, 43037) = sub_465DF0();
+		*getMemU8Ptr(0x85B3FC, 12257) = sub_465DF0();
 	else
-		*getMemU8Ptr(0x853BC0, 43037) = 0;
-	if (nox_xxx_mapSavePlayerDataMB_41A230((char*)getMemAt(0x853BC0, 41764))) {
+		*getMemU8Ptr(0x85B3FC, 12257) = 0;
+	if (nox_xxx_mapSavePlayerDataMB_41A230((char*)getMemAt(0x85B3FC, 10984))) {
 		v9 = nox_strman_loadString_40F1D0("CharacterSaved", 0,
 								   "C:\\NoxPost\\src\\common\\Xfer\\SaveGame\\XferPlyr.c", 3420);
 		nox_gui_console_Printf_450C00(NOX_CONSOLE_BLUE, v9);

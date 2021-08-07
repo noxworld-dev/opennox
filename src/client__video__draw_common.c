@@ -624,7 +624,7 @@ int nox_video_setBackBufferCopyFunc_4AD100() {
 		g_copy_backbuffer_ptr = nox_video_copyBackBuffer2_4AD180;
 	else
 		nox_video_setBackBufferCopyFunc2_4AD150();
-	*getMemU32Ptr(0x853BC0, 1179728) = 0;
+	*getMemU32Ptr(0x85B3FC, 1148948) = 0;
 	return 1;
 }
 
@@ -670,7 +670,7 @@ void nox_video_copyBackBuffer3_4AD1E0() {
 		++v3;
 	}
 	SDL_UnlockSurface(g_backbuffer1);
-	++*getMemU32Ptr(0x853BC0, 1179728);
+	++*getMemU32Ptr(0x85B3FC, 1148948);
 }
 
 //----- (004AD2A0) --------------------------------------------------------
@@ -690,7 +690,7 @@ void nox_video_copyBackBuffer_4AD2A0() {
 		}
 		dst = (_DWORD*)((char*)dst + nox_backbuffer_pitchDiff);
 	}
-	++*getMemU32Ptr(0x853BC0, 1179728);
+	++*getMemU32Ptr(0x85B3FC, 1148948);
 }
 
 //----- (00486090) --------------------------------------------------------

@@ -82,7 +82,7 @@ void  nox_xxx_guiDrawJournal_469D40(int xLeft, int yTop, int a3) {
 	v3 = *getMemU32Ptr(0x8531A0, 2576);
 	v4 = yTop - a3;
 	if (*getMemU32Ptr(0x8531A0, 2576)) {
-		nox_client_drawSetColor_434460(*getMemIntPtr(0x853BC0, 31732));
+		nox_client_drawSetColor_434460(*getMemIntPtr(0x85B3FC, 952));
 		nox_client_drawRectFilledOpaque_49CE30(xLeft, yTop, 260, 150);
 		v5 = *(_DWORD*)(v3 + 3644);
 		if (v5) {
@@ -99,13 +99,13 @@ void  nox_xxx_guiDrawJournal_469D40(int xLeft, int yTop, int a3) {
 					v8 = *getMemU32Ptr(0x5D4594, 2523948);
 					goto LABEL_12;
 				case 2:
-					v8 = *getMemU32Ptr(0x853BC0, 31720);
+					v8 = *getMemU32Ptr(0x85B3FC, 940);
 					v9 = nox_strman_loadString_40F1D0("Journal:QuestLabel", 0,
 											   "C:\\NoxPost\\src\\client\\Gui\\GUIJourn.c", 135);
 					nox_wcscpy(v17, v9);
 					break;
 				case 4:
-					v8 = *getMemU32Ptr(0x853BC0, 31736);
+					v8 = *getMemU32Ptr(0x85B3FC, 956);
 					v10 = nox_strman_loadString_40F1D0("Journal:CompletedLabel", 0,
 												"C:\\NoxPost\\src\\client\\Gui\\GUIJourn.c", 140);
 					nox_wcscpy(v17, v10);

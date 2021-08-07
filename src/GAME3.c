@@ -1152,7 +1152,7 @@ int  nox_xxx_wndListBoxAddLine_4A3AC0(wchar_t* a1, int a2, _DWORD* a3) {
 	if (a2 >= 17 || a2 < 0)
 		*(_DWORD*)(*(_DWORD*)(v4 + 24) + 524 * *(__int16*)(v4 + 46) + 516) = a3[26];
 	else
-		*(_DWORD*)(*(_DWORD*)(v4 + 24) + 524 * *(__int16*)(v4 + 46) + 516) = **(_DWORD**)getMemAt(0x853BC0, 30912 + 4 * a2);
+		*(_DWORD*)(*(_DWORD*)(v4 + 24) + 524 * *(__int16*)(v4 + 46) + 516) = **(_DWORD**)getMemAt(0x85B3FC, 132 + 4 * a2);
 	v6 = (wchar_t*)(*(_DWORD*)(v4 + 24) + 524 * *(__int16*)(v4 + 46) + 4);
 	if (a1) {
 		nox_wcsncpy(v6, a1, 0xFFu);
@@ -2249,14 +2249,14 @@ int  sub_4A6DC0(_DWORD* a1, int a2) {
 	}
 	if (*(_BYTE*)(dword_5d4594_1308136 + 4) & 8)
 		nox_client_drawImageAt_47D2C0(
-			*getMemU32Ptr(0x853BC0, 1179248 + 4 * *(unsigned __int8*)(dword_5d4594_1307784 + 67)), v54, v55);
+			*getMemU32Ptr(0x85B3FC, 1148468 + 4 * *(unsigned __int8*)(dword_5d4594_1307784 + 67)), v54, v55);
 	else
 		nox_client_drawImageAt_47D2C0(
-			*getMemU32Ptr(0x853BC0, 1179256 + 4 * *(unsigned __int8*)(dword_5d4594_1307784 + 67)), v54, v55);
+			*getMemU32Ptr(0x85B3FC, 1148476 + 4 * *(unsigned __int8*)(dword_5d4594_1307784 + 67)), v54, v55);
 	v21 = 0;
 	v22 = *(unsigned __int8*)(dword_5d4594_1307784 + 67);
 	v23 = 3 * v22;
-	v24 = getMemIntPtr(0x853BC0, 1179264 + 104 * v22);
+	v24 = getMemIntPtr(0x85B3FC, 1148484 + 104 * v22);
 	do {
 		v25 = v21;
 		v26 = 1 << v21;
@@ -3613,40 +3613,40 @@ int  nox_xxx_wndRadioButtonProcPre_4A93C0(int a1, int a2, wchar_t* a3, int a4) {
 //----- (004A94A0) --------------------------------------------------------
 int nox_xxx_loadDefColor_4A94A0() // initListBoxColors, recall that one
 {
-	*getMemU32Ptr(0x853BC0, 31732) = nox_color_rgb_4344A0(0, 0, 0); // rgbatocompatiblecolor
+	*getMemU32Ptr(0x85B3FC, 952) = nox_color_rgb_4344A0(0, 0, 0); // rgbatocompatiblecolor
 	*getMemU32Ptr(0x5D4594, 2614248) = nox_color_rgb_4344A0(8, 8, 8);
-	*getMemU32Ptr(0x853BC0, 31736) = nox_color_rgb_4344A0(115, 115, 115);
+	*getMemU32Ptr(0x85B3FC, 956) = nox_color_rgb_4344A0(115, 115, 115);
 	*getMemU32Ptr(0x5D4594, 2597996) = nox_color_rgb_4344A0(212, 212, 212);
 	*getMemU32Ptr(0x5D4594, 2523948) = nox_color_rgb_4344A0(255, 255, 255);
 	*getMemU32Ptr(0x5D4594, 2598268) = nox_color_rgb_4344A0(100, 0, 0);
-	*getMemU32Ptr(0x853BC0, 31720) = nox_color_rgb_4344A0(255, 0, 0);
+	*getMemU32Ptr(0x85B3FC, 940) = nox_color_rgb_4344A0(255, 0, 0);
 	*getMemU32Ptr(0x5D4594, 2589776) = nox_color_rgb_4344A0(255, 128, 128);
-	*getMemU32Ptr(0x853BC0, 31764) = nox_color_rgb_4344A0(0, 100, 0);
+	*getMemU32Ptr(0x85B3FC, 984) = nox_color_rgb_4344A0(0, 100, 0);
 	*getMemU32Ptr(0x8531A0, 2572) = nox_color_rgb_4344A0(0, 255, 0);
 	*getMemU32Ptr(0x5D4594, 2614268) = nox_color_rgb_4344A0(128, 255, 128);
-	*getMemU32Ptr(0x853BC0, 31724) = nox_color_rgb_4344A0(0, 0, 140);
-	*getMemU32Ptr(0x853BC0, 30896) = nox_color_rgb_4344A0(0, 0, 255);
-	*getMemU32Ptr(0x853BC0, 31760) = nox_color_rgb_4344A0(0, 160, 255);
+	*getMemU32Ptr(0x85B3FC, 944) = nox_color_rgb_4344A0(0, 0, 140);
+	*getMemU32Ptr(0x85B3FC, 116) = nox_color_rgb_4344A0(0, 0, 255);
+	*getMemU32Ptr(0x85B3FC, 980) = nox_color_rgb_4344A0(0, 160, 255);
 	*getMemU32Ptr(0x5D4594, 2614256) = nox_color_rgb_4344A0(240, 180, 42);
 	*getMemU32Ptr(0x5D4594, 2589772) = nox_color_rgb_4344A0(255, 255, 0);
 	*getMemU32Ptr(0x5D4594, 2614244) = nox_color_rgb_4344A0(255, 255, 128);
-	*getMemU32Ptr(0x853BC0, 30912) = getMemAt(0x853BC0, 31732);
-	*getMemU32Ptr(0x853BC0, 30916) = getMemAt(0x5D4594, 2614248);
-	*getMemU32Ptr(0x853BC0, 30920) = getMemAt(0x853BC0, 31736);
-	*getMemU32Ptr(0x853BC0, 30924) = getMemAt(0x5D4594, 2597996);
-	*getMemU32Ptr(0x853BC0, 30928) = getMemAt(0x5D4594, 2523948);
-	*getMemU32Ptr(0x853BC0, 30932) = getMemAt(0x5D4594, 2598268);
-	*getMemU32Ptr(0x853BC0, 30936) = getMemAt(0x853BC0, 31720);
-	*getMemU32Ptr(0x853BC0, 30940) = getMemAt(0x5D4594, 2589776);
-	*getMemU32Ptr(0x853BC0, 30944) = getMemAt(0x853BC0, 31764);
-	*getMemU32Ptr(0x853BC0, 30948) = getMemAt(0x8531A0, 2572);
-	*getMemU32Ptr(0x853BC0, 30952) = getMemAt(0x5D4594, 2614268);
-	*getMemU32Ptr(0x853BC0, 30956) = getMemAt(0x853BC0, 31724);
-	*getMemU32Ptr(0x853BC0, 30960) = getMemAt(0x853BC0, 30896);
-	*getMemU32Ptr(0x853BC0, 30964) = getMemAt(0x853BC0, 31760);
-	*getMemU32Ptr(0x853BC0, 30968) = getMemAt(0x5D4594, 2614256);
-	*getMemU32Ptr(0x853BC0, 30972) = getMemAt(0x5D4594, 2589772);
-	*getMemU32Ptr(0x853BC0, 30976) = getMemAt(0x5D4594, 2614244);
+	*getMemU32Ptr(0x85B3FC, 132) = getMemAt(0x85B3FC, 952);
+	*getMemU32Ptr(0x85B3FC, 136) = getMemAt(0x5D4594, 2614248);
+	*getMemU32Ptr(0x85B3FC, 140) = getMemAt(0x85B3FC, 956);
+	*getMemU32Ptr(0x85B3FC, 144) = getMemAt(0x5D4594, 2597996);
+	*getMemU32Ptr(0x85B3FC, 148) = getMemAt(0x5D4594, 2523948);
+	*getMemU32Ptr(0x85B3FC, 152) = getMemAt(0x5D4594, 2598268);
+	*getMemU32Ptr(0x85B3FC, 156) = getMemAt(0x85B3FC, 940);
+	*getMemU32Ptr(0x85B3FC, 160) = getMemAt(0x5D4594, 2589776);
+	*getMemU32Ptr(0x85B3FC, 164) = getMemAt(0x85B3FC, 984);
+	*getMemU32Ptr(0x85B3FC, 168) = getMemAt(0x8531A0, 2572);
+	*getMemU32Ptr(0x85B3FC, 172) = getMemAt(0x5D4594, 2614268);
+	*getMemU32Ptr(0x85B3FC, 176) = getMemAt(0x85B3FC, 944);
+	*getMemU32Ptr(0x85B3FC, 180) = getMemAt(0x85B3FC, 116);
+	*getMemU32Ptr(0x85B3FC, 184) = getMemAt(0x85B3FC, 980);
+	*getMemU32Ptr(0x85B3FC, 188) = getMemAt(0x5D4594, 2614256);
+	*getMemU32Ptr(0x85B3FC, 192) = getMemAt(0x5D4594, 2589772);
+	*getMemU32Ptr(0x85B3FC, 196) = getMemAt(0x5D4594, 2614244);
 	return 1;
 }
 
@@ -6058,9 +6058,9 @@ int sub_4AE400() { return 1; }
 int sub_4AE420() {
 	int result; // eax
 
-	if (*getMemU32Ptr(0x853BC0, 1179768) >= 3)
-		nox_client_drawAddPoint_49F500(*(_DWORD*)(dword_5d4594_3798696 + 8 * *getMemU32Ptr(0x853BC0, 1179768) - 24),
-									   *(_DWORD*)(dword_5d4594_3798696 + 8 * *getMemU32Ptr(0x853BC0, 1179768) - 20));
+	if (*getMemU32Ptr(0x85B3FC, 1148988) >= 3)
+		nox_client_drawAddPoint_49F500(*(_DWORD*)(dword_5d4594_3798696 + 8 * *getMemU32Ptr(0x85B3FC, 1148988) - 24),
+									   *(_DWORD*)(dword_5d4594_3798696 + 8 * *getMemU32Ptr(0x85B3FC, 1148988) - 20));
 	result = (*(int(**)(_DWORD)) & dword_5d4594_3798716)(1);
 	if (result) {
 		result = (*(int(**)(_DWORD)) & dword_5d4594_3798716)(1);
@@ -6078,9 +6078,9 @@ int sub_4AE470() {
 	unsigned __int16* v3; // ecx
 
 	sub_4AEBD0();
-	if (*getMemU32Ptr(0x853BC0, 1179768) >= 3)
-		nox_client_drawAddPoint_49F500(*(_DWORD*)(dword_5d4594_3798696 + 8 * *getMemU32Ptr(0x853BC0, 1179768) - 24),
-									   *(_DWORD*)(dword_5d4594_3798696 + 8 * *getMemU32Ptr(0x853BC0, 1179768) - 20));
+	if (*getMemU32Ptr(0x85B3FC, 1148988) >= 3)
+		nox_client_drawAddPoint_49F500(*(_DWORD*)(dword_5d4594_3798696 + 8 * *getMemU32Ptr(0x85B3FC, 1148988) - 24),
+									   *(_DWORD*)(dword_5d4594_3798696 + 8 * *getMemU32Ptr(0x85B3FC, 1148988) - 20));
 	result = sub_4AEC20(1, 0);
 	if (result) {
 		result = sub_4AEC20(1, 0);
@@ -6132,10 +6132,10 @@ void sub_4AE540() {
 
 //----- (004AE580) --------------------------------------------------------
 int  sub_4AE580(int a1) {
-	if (*getMemU32Ptr(0x853BC0, 1179768) >= a1)
+	if (*getMemU32Ptr(0x85B3FC, 1148988) >= a1)
 		nox_client_drawAddPoint_49F500(
-			*(_DWORD*)(dword_5d4594_3798696 + 8 * (*getMemU32Ptr(0x853BC0, 1179768) - a1)),
-			*(_DWORD*)(dword_5d4594_3798696 + 8 * (*getMemU32Ptr(0x853BC0, 1179768) - a1) + 4));
+			*(_DWORD*)(dword_5d4594_3798696 + 8 * (*getMemU32Ptr(0x85B3FC, 1148988) - a1)),
+			*(_DWORD*)(dword_5d4594_3798696 + 8 * (*getMemU32Ptr(0x85B3FC, 1148988) - a1) + 4));
 	return sub_49E510(a1);
 }
 
@@ -6190,10 +6190,10 @@ BOOL  sub_4AE5E0(int a1, int a2) {
 	int v2; // esi
 
 	v2 = a1;
-	if (*getMemU32Ptr(0x853BC0, 1179768) >= a1)
+	if (*getMemU32Ptr(0x85B3FC, 1148988) >= a1)
 		nox_client_drawAddPoint_49F500(
-			*(_DWORD*)(dword_5d4594_3798696 + 8 * (*getMemU32Ptr(0x853BC0, 1179768) - a1)),
-			*(_DWORD*)(dword_5d4594_3798696 + 8 * (*getMemU32Ptr(0x853BC0, 1179768) - a1) + 4));
+			*(_DWORD*)(dword_5d4594_3798696 + 8 * (*getMemU32Ptr(0x85B3FC, 1148988) - a1)),
+			*(_DWORD*)(dword_5d4594_3798696 + 8 * (*getMemU32Ptr(0x85B3FC, 1148988) - a1) + 4));
 	if (a2)
 		sub_4AEBD0();
 	if (a1 <= 1)
@@ -6838,7 +6838,7 @@ void  sub_4AF2D0(int* a1, int a2, int a3) {
 	v5 = sub_48C5E0(1, a1[7]);
 	v7 = nox_xxx_drawPartFx2_4AF990(v9, v8, 0, v5);
 	if (v7) {
-		nox_xxx_partfxLoadParticle_4AFE20(v7, *(CHAR**)getMemAt(0x853BC0, 1179704));
+		nox_xxx_partfxLoadParticle_4AFE20(v7, *(CHAR**)getMemAt(0x85B3FC, 1148924));
 		sub_4AFB10((int)v7, *a1);
 		sub_4AFB00((int)v7, (int)v4);
 		sub_4AFC90(v7, a2, a3, 0);
@@ -6910,7 +6910,7 @@ int  sub_4AF4C0(int a1) {
 	v6 = (int)v5;
 	if (!v5)
 		return 0;
-	nox_xxx_partfxLoadParticle_4AFE20(v5, *(CHAR**)getMemAt(0x853BC0, 1179704));
+	nox_xxx_partfxLoadParticle_4AFE20(v5, *(CHAR**)getMemAt(0x85B3FC, 1148924));
 	sub_4AFB00(v6, *(_DWORD*)(*(_DWORD*)(a1 + 20) + 4));
 	sub_4AFB50(v6, 1);
 	sub_4AFC50(v6, -32768);
@@ -7149,7 +7149,7 @@ int  sub_4AF8C0(_DWORD* a1) {
 int sub_4AF8D0() {
 	unsigned __int8* v1; // eax
 
-	*getMemU32Ptr(0x853BC0, 1179704) = getMemAt(0x587000, 174348);
+	*getMemU32Ptr(0x85B3FC, 1148924) = getMemAt(0x587000, 174348);
 	dword_5d4594_1311148 = 512;
 	dword_5d4594_1311140 = calloc(0x200u, 0x88u);
 	if (!dword_5d4594_1311140)
@@ -11233,7 +11233,7 @@ __int16  sub_4B8960(int* a1, nox_drawable* dr, int a3, _DWORD* a4, int a5, int a
 	if ((unsigned char)nox_frame_xxx_2598000 & 1)
 		v27 = *getMemU32Ptr(0x5D4594, 2523948);
 	else
-		v27 = *getMemU32Ptr(0x853BC0, 31760);
+		v27 = *getMemU32Ptr(0x85B3FC, 980);
 	v8 = a3;
 	if (a3 & 2) {
 		v9 = *(_BYTE*)(a2 + 297);
@@ -11411,7 +11411,7 @@ __int16  sub_4B8D40(int* a1, nox_drawable* dr, int a3, _DWORD* a4, int a5, int a
 	if ((unsigned char)nox_frame_xxx_2598000 & 1)
 		v13 = *getMemU32Ptr(0x5D4594, 2523948);
 	else
-		v13 = *getMemU32Ptr(0x853BC0, 31760);
+		v13 = *getMemU32Ptr(0x85B3FC, 980);
 	v7 = 1;
 	v8 = (int*)(a5 + 160);
 	do {
@@ -11511,15 +11511,15 @@ void  nox_xxx_drawOtherPlayerHP_4B8EB0(_DWORD* a1, nox_drawable* dr, unsigned __
 		v7 = *(float*)(a2 + 48) + *(float*)(a2 + 48);
 		v5 = nox_float2int(v7) + v4;
 		v6 = *(_DWORD*)(a2 + 16) + a1[1] - *(__int16*)(a2 + 104) - a1[5] - 48;
-		nox_client_drawSetColor_434460(*getMemIntPtr(0x853BC0, 31732));
+		nox_client_drawSetColor_434460(*getMemIntPtr(0x85B3FC, 952));
 		nox_client_drawRectFilledOpaque_49CE30(v5, v6, 2, 48);
 		if (a4)
 			nox_client_drawSetColor_434460(*getMemIntPtr(0x8531A0, 2572));
 		else
-			nox_client_drawSetColor_434460(*getMemIntPtr(0x853BC0, 31720));
+			nox_client_drawSetColor_434460(*getMemIntPtr(0x85B3FC, 940));
 		nox_client_drawRectFilledOpaque_49CE30(v5, v6 - 48 * a3 / 100 + 48, 2, 48 * a3 / 100);
 		if (a4)
-			nox_client_drawSetColor_434460(*getMemIntPtr(0x853BC0, 31764));
+			nox_client_drawSetColor_434460(*getMemIntPtr(0x85B3FC, 984));
 		else
 			nox_client_drawSetColor_434460(*getMemIntPtr(0x5D4594, 2598268));
 		nox_client_drawBorderLines_49CC70(v5 - 1, v6 - 1, 4, 50);
