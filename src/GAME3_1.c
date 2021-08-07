@@ -5065,9 +5065,9 @@ LABEL_105:
 	if (v51)
 		sub_49F860();
 	*((_WORD*)v3 + 1) = 1;
-	LOWORD(v4) = *getMemU16Ptr(0x973CE0, 656);
-	*((_WORD*)v3 + 2) = *getMemU16Ptr(0x973CE0, 656);
-	*((_WORD*)v3 + 3) = *getMemU16Ptr(0x973CE0, 644);
+	LOWORD(v4) = *getMemU16Ptr(0x973F18, 88);
+	*((_WORD*)v3 + 2) = *getMemU16Ptr(0x973F18, 88);
+	*((_WORD*)v3 + 3) = *getMemU16Ptr(0x973F18, 76);
 	*((_DWORD*)v3 + 2) = a3;
 	return (__int16)v4;
 }

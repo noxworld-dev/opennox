@@ -447,11 +447,11 @@ int sub_430D60() {
 	dword_5d4594_3805484 = sub_485880;
 	nox_xxx_useMMX_587000_80800 = 0;
 	dword_5d4594_805836 = 0;
-	*getMemU32Ptr(0x973CE0, 8264) = 0;
-	*getMemU32Ptr(0x973CE0, 8288) = sub_481470;
-	*getMemU32Ptr(0x973CE0, 8272) = sub_484E60;
+	*getMemU32Ptr(0x973F18, 7696) = 0;
+	*getMemU32Ptr(0x973F18, 7720) = sub_481470;
+	*getMemU32Ptr(0x973F18, 7704) = sub_484E60;
 	dword_5d4594_3807156 = sub_485740;
-	*getMemU32Ptr(0x973CE0, 8268) = sub_484B70;
+	*getMemU32Ptr(0x973F18, 7700) = sub_484B70;
 	return result;
 }
 
@@ -928,10 +928,10 @@ void  sub_468F80(int a1) {
 
 //----- (00430CC0) --------------------------------------------------------
 BOOL nox_xxx___cfltcvt_init_430CC0() {
-	*getMemU32Ptr(0x973CE0, 8264) = 1;
-	*getMemU32Ptr(0x973CE0, 8268) = nox_xxx_someEdgeProcessing_480EF0;
-	*getMemU32Ptr(0x973CE0, 8272) = sub_468F80;
-	*getMemU32Ptr(0x973CE0, 8288) = sub_4814F0;
+	*getMemU32Ptr(0x973F18, 7696) = 1;
+	*getMemU32Ptr(0x973F18, 7700) = nox_xxx_someEdgeProcessing_480EF0;
+	*getMemU32Ptr(0x973F18, 7704) = sub_468F80;
+	*getMemU32Ptr(0x973F18, 7720) = sub_4814F0;
 	dword_5d4594_3807156 = sub_469920;
 #ifdef NOX_CGO
 	nox_xxx_useMMX_587000_80800 = 0; // TODO: this is always zero, remove

@@ -50,7 +50,7 @@ func nox_video_setBackBufferPtrs_48A190() {
 
 //export sub_444D00
 func sub_444D00() {
-	mu := asMutex(memmap.PtrOff(0x973CE0, 736))
+	mu := asMutex(memmap.PtrOff(0x973F18, 168))
 	mu.Lock()
 	defer mu.Unlock()
 	nox_video_setBackBufferPtrs_48A190()
@@ -126,14 +126,14 @@ func gameResetVideoMode(inMenu, force bool) error {
 func nox_video_setBackBufSizes_48A3D0(sz types.Size) int {
 	pitch := noxRendererS.BufferPitch()
 	C.dword_5d4594_3801780 = 2
-	*memmap.PtrUint32(0x973CE0, 2936) = 0
+	*memmap.PtrUint32(0x973F18, 2368) = 0
 
-	*memmap.PtrUint32(0x973CE0, 704) = uint32(pitch)
-	*memmap.PtrUint32(0x973CE0, 2936) = 1
+	*memmap.PtrUint32(0x973F18, 136) = uint32(pitch)
+	*memmap.PtrUint32(0x973F18, 2368) = 1
 	nox_video_setBackBufferPtrs_48A190()
 
 	nox_backbuffer_width32 = sz.W >> 4
-	*memmap.PtrUint32(0x973CE0, 2916) = uint32(sz.W >> 1)
+	*memmap.PtrUint32(0x973F18, 2348) = uint32(sz.W >> 1)
 	C.dword_5d4594_3801780 = 1
 	nox_backbuffer_pitch_3801808 = 2 * int(sz.W)
 	nox_backbuffer_pitchDiff = pitch - 2*sz.W

@@ -7218,15 +7218,15 @@ unsigned __int8  sub_49DA90(int a1, int a2, int a3, int a4) {
 		v7 = (unsigned __int8*)(a1 + v6);
 		do {
 			v8 = *v7;
-			// v9 = (unsigned __int8)(__CFADD__(obj_5D4594_3800716.data[56], getMemByte(0x973CE0, 4450 + 4 * v8))
-			// ? -1 : (unsigned __int8)(obj_5D4594_3800716.data[56] + getMemByte(0x973CE0, 4450 + 4 * v8))) >> 3;
-			v9 = SADD8(obj_5D4594_3800716.data[56], getMemByte(0x973CE0, 4450 + 4 * v8)) >> 3;
-			// v10 = (__CFADD__(obj_5D4594_3800716.data[55], getMemByte(0x973CE0, 4449 + 4 * v8)) ? -1 : (unsigned
-			// __int8)(obj_5D4594_3800716.data[55] + getMemByte(0x973CE0, 4449 + 4 * v8))) & 0xF8;
-			v10 = SADD8(obj_5D4594_3800716.data[55], getMemByte(0x973CE0, 4449 + 4 * v8)) & 0xF8;
+			// v9 = (unsigned __int8)(__CFADD__(obj_5D4594_3800716.data[56], getMemByte(0x973F18, 3882 + 4 * v8))
+			// ? -1 : (unsigned __int8)(obj_5D4594_3800716.data[56] + getMemByte(0x973F18, 3882 + 4 * v8))) >> 3;
+			v9 = SADD8(obj_5D4594_3800716.data[56], getMemByte(0x973F18, 3882 + 4 * v8)) >> 3;
+			// v10 = (__CFADD__(obj_5D4594_3800716.data[55], getMemByte(0x973F18, 3881 + 4 * v8)) ? -1 : (unsigned
+			// __int8)(obj_5D4594_3800716.data[55] + getMemByte(0x973F18, 3881 + 4 * v8))) & 0xF8;
+			v10 = SADD8(obj_5D4594_3800716.data[55], getMemByte(0x973F18, 3881 + 4 * v8)) & 0xF8;
 			// v11 = 32
 			//    * (((unsigned __int8)-__CFADD__(obj_5D4594_3800716.data[54], getMemByte(0x5D4594, + 4 * v8 + //    3803308)) | (unsigned __int8)(obj_5D4594_3800716.data[54] + getMemByte(0x5D4594, + 4 * v8 + //    3803308))) & 0xF8);
-			v11 = 32 * (SADD8(obj_5D4594_3800716.data[54], getMemByte(0x973CE0, 4448 + 4 * v8)) & 0xF8);
+			v11 = 32 * (SADD8(obj_5D4594_3800716.data[54], getMemByte(0x973F18, 3880 + 4 * v8)) & 0xF8);
 			LOBYTE(v11) = v10;
 			v11 *= 4;
 			LOBYTE(v11) = v9 | v11;
@@ -7260,17 +7260,17 @@ unsigned __int8  sub_49DB20(int a1, int a2, int a3, int a4) {
 		v7 = (unsigned __int8*)(a1 + v6);
 		do {
 			v8 = *v7;
-			v9 = (unsigned __int8)(getMemByte(0x973CE0, 4450 + 4 * v8) < obj_5D4594_3800716.data[56]
+			v9 = (unsigned __int8)(getMemByte(0x973F18, 3882 + 4 * v8) < obj_5D4594_3800716.data[56]
 									   ? 0
-									   : (unsigned __int8)(getMemByte(0x973CE0, 4450 + 4 * v8) -
+									   : (unsigned __int8)(getMemByte(0x973F18, 3882 + 4 * v8) -
 														   obj_5D4594_3800716.data[56])) >>
 				 3;
-			v10 = (getMemByte(0x973CE0, 4449 + 4 * v8) < obj_5D4594_3800716.data[55]
+			v10 = (getMemByte(0x973F18, 3881 + 4 * v8) < obj_5D4594_3800716.data[55]
 					   ? 0
-					   : (unsigned __int8)(getMemByte(0x973CE0, 4449 + 4 * v8) - obj_5D4594_3800716.data[55])) &
+					   : (unsigned __int8)(getMemByte(0x973F18, 3881 + 4 * v8) - obj_5D4594_3800716.data[55])) &
 				  0xF8;
-			v11 = 32 * ((unsigned __int8)((getMemByte(0x973CE0, 4448 + 4 * v8) < obj_5D4594_3800716.data[54]) - 1) &
-						(unsigned __int8)(getMemByte(0x973CE0, 4448 + 4 * v8) - obj_5D4594_3800716.data[54]) & 0xF8);
+			v11 = 32 * ((unsigned __int8)((getMemByte(0x973F18, 3880 + 4 * v8) < obj_5D4594_3800716.data[54]) - 1) &
+						(unsigned __int8)(getMemByte(0x973F18, 3880 + 4 * v8) - obj_5D4594_3800716.data[54]) & 0xF8);
 			LOBYTE(v11) = v10;
 			v11 *= 4;
 			LOBYTE(v11) = v9 | v11;
@@ -7395,9 +7395,9 @@ int4*  sub_49DD60(int a1, int a2, int a3, int a4, int a5) {
 	}
 	v9 = a1;
 	v10 = 4 * a1;
-	v34 = getMemByte(0x973CE0, 4448 + v10);
-	v35 = getMemByte(0x973CE0, 4449 + v10);
-	v11 = getMemByte(0x973CE0, 4450 + v10);
+	v34 = getMemByte(0x973F18, 3880 + v10);
+	v35 = getMemByte(0x973F18, 3881 + v10);
+	v11 = getMemByte(0x973F18, 3882 + v10);
 	result = v8;
 	v12 = (int)&v8[-1].field_C + 3;
 	v36 = v11;
@@ -7432,9 +7432,9 @@ int4*  sub_49DD60(int a1, int a2, int a3, int a4, int a5) {
 							v22 = *getMemU32Ptr(0x581450, 9680 + v20 * 4);
 							++v20;
 							v23 = 4 * *v21;
-							v17 += v22 * getMemByte(0x973CE0, 4448 + v23);
-							v18 += v22 * getMemByte(0x973CE0, 4449 + v23);
-							v19 += v22 * getMemByte(0x973CE0, 4450 + v23);
+							v17 += v22 * getMemByte(0x973F18, 3880 + v23);
+							v18 += v22 * getMemByte(0x973F18, 3881 + v23);
+							v19 += v22 * getMemByte(0x973F18, 3882 + v23);
 						} while (v20 < 9);
 						v24 = v17 / 12;
 						v25 = v19 / 12;
@@ -7864,7 +7864,7 @@ int  sub_49E6C0(int a1) {
 		result = sub_49F5B0(&v30, &v31, a1);
 		if (result) {
 			if (!ptr_5D4594_3799572->data[0] || sub_49F990(&v30, &v31, &v29, &v28)) {
-				v2 = getMemAt(0x973CE0, 4448 + 4 * obj_5D4594_3800716.data[61]);
+				v2 = getMemAt(0x973F18, 3880 + 4 * obj_5D4594_3800716.data[61]);
 				v3 = nox_pixbuffer_rows_3798784;
 				v17 = *v2;
 				v18 = v2[1];
@@ -7892,7 +7892,7 @@ int  sub_49E6C0(int a1) {
 					v27 = 2 * (v13 - v6);
 					while (1) {
 						v15 = (_BYTE*)(v30 + *(_DWORD*)(v3 + 4 * v31));
-						v16 = getMemAt(0x973CE0, 4448 + 4 * (unsigned __int8)*v15);
+						v16 = getMemAt(0x973F18, 3880 + 4 * (unsigned __int8)*v15);
 						*v15 = *(
 							_BYTE*)(dword_5d4594_810640 +
 									(unsigned __int16)((4 *
@@ -7930,7 +7930,7 @@ int  sub_49E6C0(int a1) {
 					v26 = 2 * (v8 - v4);
 				LABEL_15:
 					for (i = (_BYTE*)(v30 + *(_DWORD*)(v3 + 4 * v31));; i += v20) {
-						v11 = getMemAt(0x973CE0, 4448 + 4 * (unsigned __int8)*i);
+						v11 = getMemAt(0x973F18, 3880 + 4 * (unsigned __int8)*i);
 						*i = *(
 							_BYTE*)(dword_5d4594_810640 +
 									(unsigned __int16)((4 *

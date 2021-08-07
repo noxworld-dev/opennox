@@ -4018,10 +4018,10 @@ int  nox_client_drawInitAll_4449D0(int w, int h, int depth, int flags) {
 #ifndef NOX_CGO
 //----- (00444D00) --------------------------------------------------------
 void sub_444D00() {
-	nox_mutex_lock(getMemAt(0x973CE0, 736));
+	nox_mutex_lock(getMemAt(0x973F18, 168));
 	nox_video_setBackBufferPtrs_48A190();
 	nox_video_setBackBufferCopyFunc2_4AD150();
-	nox_mutex_unlock(getMemAt(0x973CE0, 736));
+	nox_mutex_unlock(getMemAt(0x973F18, 168));
 }
 #endif // NOX_CGO
 
