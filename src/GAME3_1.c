@@ -2036,13 +2036,13 @@ __int16  sub_4BF7E0(_DWORD* a1) {
 			nox_xxx_drawPlayer_4341D0(5, *(_DWORD*)(v4 + 2300));
 			nox_xxx_drawPlayer_4341D0(6, *(_DWORD*)(v4 + 2292));
 			if (*(_DWORD*)(v4 + 2292) == *(_DWORD*)(v4 + 2296))
-				nox_client_drawImageAt_47D2C0(*getMemU32Ptr(0x957820, 115224 + 4 * *(unsigned __int8*)(v4 + 2252)), v2,
+				nox_client_drawImageAt_47D2C0(*getMemU32Ptr(0x973A20, 24 + 4 * *(unsigned __int8*)(v4 + 2252)), v2,
 											  v1);
 			else
-				nox_client_drawImageAt_47D2C0(*getMemU32Ptr(0x957820, 115216 + 4 * *(unsigned __int8*)(v4 + 2252)), v2,
+				nox_client_drawImageAt_47D2C0(*getMemU32Ptr(0x973A20, 16 + 4 * *(unsigned __int8*)(v4 + 2252)), v2,
 											  v1);
 			v5 = 0;
-			v14 = getMemAt(0x957820, 115232 + 104 * *(unsigned __int8*)(v4 + 2252));
+			v14 = getMemAt(0x973A20, 32 + 104 * *(unsigned __int8*)(v4 + 2252));
 			do {
 				if (*(_DWORD*)v4 & (1 << v5) && !((1 << v5) & 0x3000000)) {
 					v6 = sub_415CD0((char*)(1 << v5));
@@ -2063,7 +2063,7 @@ __int16  sub_4BF7E0(_DWORD* a1) {
 				++v8;
 			} while (v8 < 26);
 			v10 = 0;
-			v15 = getMemAt(0x957820, 115456 + 108 * *(unsigned __int8*)(v4 + 2252));
+			v15 = getMemAt(0x973A20, 256 + 108 * *(unsigned __int8*)(v4 + 2252));
 			do {
 				v3 = *(_DWORD*)(v4 + 4);
 				if (v3 & (1 << v10)) {
@@ -2153,17 +2153,17 @@ int sub_4BFAD0() {
 	for (i = 0; i < 8; i += 4) {
 		v3 = nox_xxx_gLoadImg_42F970(*(const char**)getMemAt(0x587000, 180960 + i));
 		v4 = *(const char**)getMemAt(0x587000, 180968 + i);
-		*getMemU32Ptr(0x957820, 115216 + i) = v3;
-		*getMemU32Ptr(0x957820, 115224 + i) = nox_xxx_gLoadImg_42F970(v4);
+		*getMemU32Ptr(0x973A20, 16 + i) = v3;
+		*getMemU32Ptr(0x973A20, 24 + i) = nox_xxx_gLoadImg_42F970(v4);
 		v5 = 26;
 		do {
-			*getMemU32Ptr(0x957820, 115232 + v1) = nox_xxx_gLoadImg_42F970(*(const char**)getMemAt(0x587000, 180976 + v1));
+			*getMemU32Ptr(0x973A20, 32 + v1) = nox_xxx_gLoadImg_42F970(*(const char**)getMemAt(0x587000, 180976 + v1));
 			v1 += 4;
 			--v5;
 		} while (v5);
 		v6 = 27;
 		do {
-			*getMemU32Ptr(0x957820, 115456 + v0) = nox_xxx_gLoadImg_42F970(*(const char**)getMemAt(0x587000, 181184 + v0));
+			*getMemU32Ptr(0x973A20, 256 + v0) = nox_xxx_gLoadImg_42F970(*(const char**)getMemAt(0x587000, 181184 + v0));
 			v0 += 4;
 			--v6;
 		} while (v6);

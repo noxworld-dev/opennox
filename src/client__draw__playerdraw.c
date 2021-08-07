@@ -125,7 +125,7 @@ int  nox_thing_player_draw(_DWORD* a1, nox_drawable* dr) {
 	LABEL_25:
 	if (!nox_xxx_spriteTestBuf_4356C0(dr, 23)) {
 		if (!nox_xxx_spriteTestBuf_4356C0(dr, 25)) {
-			*getMemU32Ptr(0x957820, 115712) = *((_DWORD*)v3 + 574);
+			*getMemU32Ptr(0x973A20, 512) = *((_DWORD*)v3 + 574);
 			dword_5d4594_3798672 = *((_DWORD*)v3 + 576);
 			dword_5d4594_3798676 = *((_DWORD*)v3 + 578);
 			dword_5d4594_3798680 = *((_DWORD*)v3 + 577);
@@ -133,7 +133,7 @@ int  nox_thing_player_draw(_DWORD* a1, nox_drawable* dr) {
 			dword_5d4594_3798688 = *((_DWORD*)v3 + 573);
 			v16 = *((_DWORD*)v3 + 920);
 			if (v16 & 0x400) {
-				v17 = getMemIntPtr(0x957820, 115712);
+				v17 = getMemIntPtr(0x973A20, 512);
 				do {
 					int a2 = 0;
 					sub_434480(*v17, (int)&v33, &a2, (int)&a1);
@@ -143,7 +143,7 @@ int  nox_thing_player_draw(_DWORD* a1, nox_drawable* dr) {
 					LOBYTE(a2) = a2 + 100;
 					*v17 = nox_color_rgb_4344A0(v33, a2, a1);
 					++v17;
-				} while ((int)v17 < (int)getMemAt(0x957820, 115736));
+				} while ((int)v17 < (int)getMemAt(0x973A20, 536));
 				v12 = 0;
 			}
 			goto LABEL_37;
@@ -152,7 +152,7 @@ int  nox_thing_player_draw(_DWORD* a1, nox_drawable* dr) {
 	}
 	if (!((unsigned char)nox_frame_xxx_2598000 & 1)) {
 		LABEL_29:
-		*getMemU32Ptr(0x957820, 115712) = *getMemU32Ptr(0x85B3FC, 980);
+		*getMemU32Ptr(0x973A20, 512) = *getMemU32Ptr(0x85B3FC, 980);
 		dword_5d4594_3798672 = *getMemU32Ptr(0x85B3FC, 980);
 		dword_5d4594_3798676 = *getMemU32Ptr(0x85B3FC, 980);
 		dword_5d4594_3798680 = *getMemU32Ptr(0x85B3FC, 980);
@@ -160,14 +160,14 @@ int  nox_thing_player_draw(_DWORD* a1, nox_drawable* dr) {
 		dword_5d4594_3798688 = *getMemU32Ptr(0x85B3FC, 980);
 		goto LABEL_37;
 	}
-	*getMemU32Ptr(0x957820, 115712) = *getMemU32Ptr(0x5D4594, 2523948);
+	*getMemU32Ptr(0x973A20, 512) = *getMemU32Ptr(0x5D4594, 2523948);
 	dword_5d4594_3798672 = *getMemU32Ptr(0x5D4594, 2523948);
 	dword_5d4594_3798676 = *getMemU32Ptr(0x5D4594, 2523948);
 	dword_5d4594_3798680 = *getMemU32Ptr(0x5D4594, 2523948);
 	dword_5d4594_3798684 = *getMemU32Ptr(0x5D4594, 2523948);
 	dword_5d4594_3798688 = *getMemU32Ptr(0x5D4594, 2523948);
 	LABEL_37:
-	nox_xxx_drawPlayer_4341D0(1, *getMemIntPtr(0x957820, 115712));
+	nox_xxx_drawPlayer_4341D0(1, *getMemIntPtr(0x973A20, 512));
 	nox_xxx_drawPlayer_4341D0(2, *(int*)&dword_5d4594_3798672);
 	nox_xxx_drawPlayer_4341D0(3, *(int*)&dword_5d4594_3798676);
 	nox_xxx_drawPlayer_4341D0(4, *(int*)&dword_5d4594_3798680);
