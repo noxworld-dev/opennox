@@ -258,7 +258,7 @@ func nox_video_setBackBufferCopyFunc_4AD100() error {
 	} else {
 		nox_video_setBackBufferCopyFunc2_4AD150()
 	}
-	*memmap.PtrUint32(0x85B3FC, 1148948) = 0
+	*memmap.PtrUint32(0x956A00, 119312) = 0
 	return nil
 }
 
