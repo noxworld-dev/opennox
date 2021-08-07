@@ -20,7 +20,7 @@ void  nox_video_drawCursorSelectCircle_4773C0(_DWORD* a1) {
 				goto LABEL_15;
 			}
 			if (v4 == 1) {
-				v3 = *(_DWORD**)getMemAt(0x5D4594, 2650644);
+				v3 = *(_DWORD**)getMemAt(0x8529A0, 36360);
 				goto LABEL_15;
 			}
 		} else {
@@ -31,11 +31,11 @@ void  nox_video_drawCursorSelectCircle_4773C0(_DWORD* a1) {
 			}
 			v2 = v1 - 1;
 			if (!v2) {
-				v3 = *(_DWORD**)getMemAt(0x5D4594, 2650684);
+				v3 = *(_DWORD**)getMemAt(0x8529A0, 36400);
 				goto LABEL_15;
 			}
 			if (v2 == 1) {
-				v3 = *(_DWORD**)getMemAt(0x5D4594, 2649820);
+				v3 = *(_DWORD**)getMemAt(0x8529A0, 35536);
 				goto LABEL_15;
 			}
 		}

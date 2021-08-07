@@ -22,7 +22,7 @@ _DWORD*  nox_xxx_wolApiError_41D1D0(int a1) {
 			v2 = nox_strman_loadString_40F1D0("Internalerror", 0, "C:\\NoxPost\\src\\common\\WolAPI\\wol.c", 117);
 		v6 = (unsigned __int8*)v2;
 	} else if (*(int*)&dword_5d4594_2660652 >= -2147221248) {
-		v6 = getMemAt(0x5D4594, 2660140);
+		v6 = getMemAt(0x8529A0, 45856);
 	} else {
 		switch (*(int *) &dword_5d4594_2660652 + 2147221404) {
 			case 0:

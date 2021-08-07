@@ -82,7 +82,7 @@ int  sub_512E80(int a1) {
 
 	v1 = dword_5d4594_1599628;
 	if (*(int*)&dword_5d4594_1599628 < 1024) {
-		*getMemU32Ptr(0x5D4594, 3826092 + 4 * dword_5d4594_1599628) = a1;
+		*getMemU32Ptr(0x8529A0, 1211808 + 4 * dword_5d4594_1599628) = a1;
 		dword_5d4594_1599628 = ++v1;
 	}
 	return v1 - 1;
@@ -859,8 +859,8 @@ int nox_script_intToString_512EA0() {
 	int v1; // eax
 
 	v0 = nox_script_pop();
-	_itoa(v0, (char*)getMemAt(0x5D4594, 3821708), 10);
-	v1 = nox_script_addString_512E40((char*)getMemAt(0x5D4594, 3821708));
+	_itoa(v0, (char*)getMemAt(0x8529A0, 1207424), 10);
+	v1 = nox_script_addString_512E40((char*)getMemAt(0x8529A0, 1207424));
 	nox_script_push(v1);
 	return 0;
 }
@@ -871,8 +871,8 @@ int nox_script_floatToString_512ED0() {
 	int v1;   // eax
 
 	v0 = nox_script_popf();
-	nox_sprintf((char*)getMemAt(0x5D4594, 3821708), "%f", v0, v0);
-	v1 = nox_script_addString_512E40((char*)getMemAt(0x5D4594, 3821708));
+	nox_sprintf((char*)getMemAt(0x8529A0, 1207424), "%f", v0, v0);
+	v1 = nox_script_addString_512E40((char*)getMemAt(0x8529A0, 1207424));
 	nox_script_push(v1);
 	return 0;
 }

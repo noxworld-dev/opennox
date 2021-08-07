@@ -396,7 +396,7 @@ func initGameSession435CC0() error {
 	v1 := C.nox_video_getCutSize_4766D0()
 	nox_draw_setCutSize_476700(v1, 0)
 	if noxflags.HasGame(noxflags.GameSolo) {
-		C.sub_41CC00((*C.char)(memmap.PtrOff(0x5D4594, 2660688)))
+		C.sub_41CC00((*C.char)(memmap.PtrOff(0x8529A0, 46404)))
 	} else if C.sub_4D6F50() != 0 || C.sub_4D6F70() != 0 {
 		if C.sub_4D6F50() != 0 || C.sub_4D6F70() != 0 {
 			C.sub_460380()
@@ -404,11 +404,11 @@ func initGameSession435CC0() error {
 			C.nox_xxx_cliPrepareGameplay2_4721D0()
 		}
 		if !noxflags.HasGame(noxflags.GameHost) {
-			C.sub_41CC00((*C.char)(memmap.PtrOff(0x5D4594, 2660688)))
+			C.sub_41CC00((*C.char)(memmap.PtrOff(0x8529A0, 46404)))
 		}
 	}
 	if !isServer {
-		C.nox_xxx_plrLoad_41A480((*C.char)(memmap.PtrOff(0x5D4594, 2660688)))
+		C.nox_xxx_plrLoad_41A480((*C.char)(memmap.PtrOff(0x8529A0, 46404)))
 	}
 	if isServer && !isDedicatedServer {
 		getPlayers()[0].GoObserver(false, true)

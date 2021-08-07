@@ -75,7 +75,7 @@ int sub_49B6E0() {
 				 nox_frame_xxx_2598000;
 			if (v1 < 0)
 				v1 = 0;
-			if (*getMemU32Ptr(0x5D4594, 2618908) && *(_BYTE*)(*getMemU32Ptr(0x5D4594, 2618908) + 2064) == 31) {
+			if (*getMemU32Ptr(0x8529A0, 4624) && *(_BYTE*)(*getMemU32Ptr(0x8529A0, 4624) + 2064) == 31) {
 				nox_wcscpy((wchar_t*)getMemAt(0x5D4594, 1301852), (const wchar_t*)getMemAt(0x5D4594, 1303464));
 			} else {
 				v4 = (unsigned int)v1 / nox_gameFPS;

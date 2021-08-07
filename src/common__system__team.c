@@ -43,9 +43,9 @@ int nox_xxx_createCoopTeam_417E10() {
 	v0 = nox_xxx_clientGetTeamColor_418AB0(1);
 	if (!v0)
 		v0 = nox_xxx_teamCreate_4186D0(1);
-	v1 = nox_xxx_objGetTeamByNetCode_418C80(*getMemIntPtr(0x5D4594, 2616328));
+	v1 = nox_xxx_objGetTeamByNetCode_418C80(*getMemIntPtr(0x8529A0, 2044));
 	if (v1)
-		nox_xxx_createAtImpl_4191D0(v0[57], (int)v1, 0, *getMemIntPtr(0x5D4594, 2616328), 0);
+		nox_xxx_createAtImpl_4191D0(v0[57], (int)v1, 0, *getMemIntPtr(0x8529A0, 2044), 0);
 	if (v0) {
 		v2 = nox_strman_loadString_40F1D0("COOP", 0, "C:\\NoxPost\\src\\common\\System\\team.c", 405);
 		sub_418800((wchar_t*)v0, v2, 0);
@@ -156,7 +156,7 @@ void nox_xxx_createAtImpl_4191D0(unsigned __int8 a1, int a2, int a3, int a4, int
 	*(_BYTE*)(a2 + 4) = v6[57];
 	*(_DWORD*)a2 = *((_DWORD*)v6 + 11);
 	*((_DWORD*)v6 + 11) = a2;
-	if (a4 == *getMemU32Ptr(0x5D4594, 2616328))
+	if (a4 == *getMemU32Ptr(0x8529A0, 2044))
 		sub_455E70(v6[57]);
 	if (nox_common_gameFlags_check_40A5C0(1)) {
 		if (nox_common_gameFlags_check_40A5C0(0x2000)) {

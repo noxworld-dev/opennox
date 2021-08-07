@@ -121,7 +121,7 @@ int  sub_4617C0(int a1, int a2, const void* a3, int2* a4) {
 								!(*(_BYTE*)(v13 + 116) & 2) ||
 							v14 & 0x1000) {
 							v15 = nox_xxx_getProjectileClassById_413250(*(_DWORD*)(v13 + 108));
-							if (!v15 || (unsigned __int8)(1 << *(_BYTE*)(*getMemU32Ptr(0x5D4594, 2618908) + 2251)) &
+							if (!v15 || (unsigned __int8)(1 << *(_BYTE*)(*getMemU32Ptr(0x8529A0, 4624) + 2251)) &
 											*((_BYTE*)v15 + 62)) {
 								sub_461550((int)v9);
 								*((_DWORD*)v9 + 34) = 1;
@@ -412,7 +412,7 @@ int  sub_4627F0(_DWORD* a1) {
 	v2 = 0;
 	nox_xxx_Font_43F340(0);
 	nox_xxx_guiFontHeightMB_43F320(0);
-	nox_client_drawSetColor_434460(*getMemIntPtr(0x5D4594, 2650656));
+	nox_client_drawSetColor_434460(*getMemIntPtr(0x8529A0, 36372));
 	nox_client_drawRectFilledOpaque_49CE30(*a1 + 11, a1[1] + 15, 200, 200);
 	sub_463370(*(_DWORD**)&dword_5d4594_1062456, &mpos, &v74);
 	if (sub_4281F0(&v74, (int4*)getMemAt(0x587000, 136352)) || sub_4281F0(&v74, (int4*)getMemAt(0x587000, 136368))) {
@@ -517,14 +517,14 @@ LABEL_14:
 	if (!(v16 & 0x2000000)) {
 		if (!(v16 & 0x1001000))
 			goto LABEL_72;
-		v23 = *getMemU32Ptr(0x5D4594, 2618908);
+		v23 = *getMemU32Ptr(0x8529A0, 4624);
 		LODWORD(v68) = dword_5d4594_1063116 + 432;
 		v69 = 1.0;
-		v70 = *getMemFloatPtr(0x5D4594, 2618908);
+		v70 = *getMemFloatPtr(0x8529A0, 4624);
 		if (!*getMemU32Ptr(0x5D4594, 1063644)) {
 			*getMemU32Ptr(0x5D4594, 1063644) = nox_xxx_getTTByNameSpriteMB_44CFC0("ArcherArrow");
 			v24 = nox_xxx_getTTByNameSpriteMB_44CFC0("ArcherBolt");
-			v23 = *getMemU32Ptr(0x5D4594, 2618908);
+			v23 = *getMemU32Ptr(0x8529A0, 4624);
 			*getMemU32Ptr(0x5D4594, 1063648) = v24;
 			v15 = dword_5d4594_1063116;
 		}
@@ -788,20 +788,20 @@ int*  nox_xxx_makeStatsDlg_463880(int* a1) {
 	v68 = v1 - v2;
 	v51 = (double)(v1 - v2) * 0.5 + 0.5;
 	v3 = nox_float2int(v51);
-	v4 = *getMemU32Ptr(0x5D4594, 2618908);
+	v4 = *getMemU32Ptr(0x8529A0, 4624);
 	v73 = v3;
 	result = a1;
 	v72 = *getMemU32Ptr(0x5D4594, 2523948);
 	v6 = *a1;
 	v7 = a1[1];
-	if (*getMemU32Ptr(0x5D4594, 2618908)) {
+	if (*getMemU32Ptr(0x8529A0, 4624)) {
 		sub_57B350();
 		v70 = nox_xxx_plrGetMaxVarsPtr_57B360(*(unsigned __int8*)(v4 + 2251));
 		v71 = nox_xxx_plrGetMaxVarsPtr_57B360(0);
 		v8 = v6 + 11;
 		v9 = v7 + 15;
 		nox_xxx_drawSetTextColor_434390(v72);
-		nox_client_drawSetColor_434460(*getMemIntPtr(0x5D4594, 2650656));
+		nox_client_drawSetColor_434460(*getMemIntPtr(0x8529A0, 36372));
 		nox_client_drawRectFilledOpaque_49CE30(v8, v9, 200, 200);
 		v10 = v8 + 2;
 		v11 = v9 + 2 * v1 + 3;
@@ -830,7 +830,7 @@ int*  nox_xxx_makeStatsDlg_463880(int* a1) {
 		v68 = 90 * sub_470CC0();
 		v55 = (double)v68 / *v70;
 		v67 = nox_float2int(v55);
-		nox_client_drawSetColor_434460(*getMemIntPtr(0x5D4594, 2650644));
+		nox_client_drawSetColor_434460(*getMemIntPtr(0x8529A0, 36360));
 		nox_client_drawRectFilledOpaque_49CE30(v10 + 60, v15, v67, v1);
 		v56 = nox_float2int(*v70);
 		v42 = *(_DWORD*)(v4 + 2247);
@@ -844,7 +844,7 @@ int*  nox_xxx_makeStatsDlg_463880(int* a1) {
 		nox_xxx_drawString_43FAF0(*(int*)&dword_5d4594_1063636, v77, v10 + 45, SLODWORD(v69), 200, 0);
 		v19 = v15 + v1 + 1;
 		if (*(_BYTE*)(v4 + 2251)) {
-			nox_client_drawSetColor_434460(*getMemIntPtr(0x5D4594, 2650648));
+			nox_client_drawSetColor_434460(*getMemIntPtr(0x8529A0, 36364));
 			nox_client_drawRectFilledOpaque_49CE30(v10 + 60, v19, 90, v1);
 			v68 = 90 * *(_DWORD*)(v4 + 2243);
 			v57 = (double)v68 / v70[1];
@@ -852,12 +852,12 @@ int*  nox_xxx_makeStatsDlg_463880(int* a1) {
 			v20 =
 				nox_strman_loadString_40F1D0("StatsMana", 0, "C:\\NoxPost\\src\\Client\\Gui\\guiinv.c", 1941);
 			nox_xxx_drawString_43FAF0(0, v20, v10, v19, 200, 0);
-			nox_client_drawSetColor_434460(*getMemIntPtr(0x5D4594, 2650684));
+			nox_client_drawSetColor_434460(*getMemIntPtr(0x8529A0, 36400));
 			nox_client_drawRectFilledOpaque_49CE30(v10 + 60, v19, v67, v1);
 			v68 = 90 * nox_xxx_cliGetMana_470DD0();
 			v58 = (double)v68 / v70[1];
 			v67 = nox_float2int(v58);
-			nox_client_drawSetColor_434460(*getMemIntPtr(0x5D4594, 2649820));
+			nox_client_drawSetColor_434460(*getMemIntPtr(0x8529A0, 35536));
 			nox_client_drawRectFilledOpaque_49CE30(v10 + 60, v19, v67, v1);
 			v59 = nox_float2int(v70[1]);
 			v43 = *(_DWORD*)(v4 + 2243);
@@ -871,7 +871,7 @@ int*  nox_xxx_makeStatsDlg_463880(int* a1) {
 			nox_xxx_drawString_43FAF0(*(int*)&dword_5d4594_1063636, v77, v10 + 45, v19 + v73, 200, 0);
 			v19 += v1 + 1;
 		}
-		nox_client_drawSetColor_434460(*getMemIntPtr(0x5D4594, 2650660));
+		nox_client_drawSetColor_434460(*getMemIntPtr(0x8529A0, 36376));
 		nox_client_drawRectFilledOpaque_49CE30(v10 + 60, v19, 90, v1);
 		v68 = 90 * *(_DWORD*)(v4 + 2239);
 		v60 = (double)v68 / v70[3];
@@ -911,10 +911,10 @@ int*  nox_xxx_makeStatsDlg_463880(int* a1) {
 					v68 = 90 - v67;
 				nox_client_drawSetColor_434460(*getMemIntPtr(0x5D4594, 2589772));
 				nox_client_drawRectFilledOpaque_49CE30(v67 + v10 + 60, v25, v68, v1);
-				nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 2650684));
+				nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x8529A0, 36400));
 			}
 		} else {
-			nox_client_drawSetColor_434460(*getMemIntPtr(0x5D4594, 2650648));
+			nox_client_drawSetColor_434460(*getMemIntPtr(0x8529A0, 36364));
 			v45 = -v69;
 			v46 = nox_float2int(v45);
 			v27 = nox_float2int(v69);
@@ -973,7 +973,7 @@ int*  nox_xxx_makeStatsDlg_463880(int* a1) {
 		v37 = nox_strman_loadString_40F1D0("DollWeight", 0, "C:\\NoxPost\\src\\Client\\Gui\\guiinv.c", 2099);
 		nox_xxx_drawString_43FAF0(0, v37, v39, v40, 0, 0);
 		if (v34 > *(unsigned __int16*)(v4 + 3652))
-			v72 = *getMemU32Ptr(0x5D4594, 2650644);
+			v72 = *getMemU32Ptr(0x8529A0, 36360);
 		nox_xxx_drawSetTextColor_434390(v72);
 		v66 = *(unsigned __int16*)(v4 + 3652);
 		v38 = nox_strman_loadString_40F1D0("MinMaxFormat", 0, "C:\\NoxPost\\src\\Client\\Gui\\guiinv.c", 2107);
@@ -1602,17 +1602,17 @@ int nox_xxx_inventoryNameSignInit_4671E0() {
 		result = dword_5d4594_1049844;
 		if (dword_5d4594_1049844 > NOX_PLAYER_MAX_LEVEL)
 			result = NOX_PLAYER_MAX_LEVEL;
-		v1 = *getMemU32Ptr(0x5D4594, 2618908);
+		v1 = *getMemU32Ptr(0x8529A0, 4624);
 	} else {
-		v1 = *getMemU32Ptr(0x5D4594, 2618908);
-		if (!*getMemU32Ptr(0x5D4594, 2618908))
+		v1 = *getMemU32Ptr(0x8529A0, 4624);
+		if (!*getMemU32Ptr(0x8529A0, 4624))
 			return result;
-		result = *(char*)(*getMemU32Ptr(0x5D4594, 2618908) + 3684);
+		result = *(char*)(*getMemU32Ptr(0x8529A0, 4624) + 3684);
 	}
 	if (v1) {
 		nox_sprintf(v5, "experience:%s%d", *getMemU32Ptr(0x587000, 29456 + 4 * *(unsigned __int8*)(v1 + 2251)), result);
 		v4 = nox_strman_loadString_40F1D0(v5, 0, "C:\\NoxPost\\src\\Client\\Gui\\guiinv.c", 4763);
-		v3 = *getMemU32Ptr(0x5D4594, 2618908) + 4704;
+		v3 = *getMemU32Ptr(0x8529A0, 4624) + 4704;
 		v2 = nox_strman_loadString_40F1D0("ElaborateNameFormat", 0, "C:\\NoxPost\\src\\Client\\Gui\\guiinv.c", 4761);
 		result = nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1062588), v2, v3, v4);
 	}

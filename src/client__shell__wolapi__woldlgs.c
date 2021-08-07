@@ -31,7 +31,7 @@ int sub_448730_wol_dialogs() {
 	result = nox_new_window_from_file("wolfind.wnd", sub_4489C0_wol_dialogs);
 	dword_5d4594_830124 = result;
 	if (result) {
-		*(_DWORD*)(result + 56) = *getMemU32Ptr(0x5D4594, 2650656);
+		*(_DWORD*)(result + 56) = *getMemU32Ptr(0x8529A0, 36372);
 		*(_DWORD*)(dword_5d4594_830124 + 16) = (nox_win_width - *(_DWORD*)(dword_5d4594_830124 + 8)) / 2;
 		*(_DWORD*)(dword_5d4594_830124 + 24) =
 			*(_DWORD*)(dword_5d4594_830124 + 8) + *(_DWORD*)(dword_5d4594_830124 + 16);

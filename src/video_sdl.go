@@ -40,7 +40,7 @@ func nox_video_copyBackBuffer3_4AD1E0() {
 	}
 	noxRendererS.CopyBufferRows(rows)
 
-	*memmap.PtrUint32(0x5D4594, 3798652)++
+	*memmap.PtrUint32(0x8529A0, 1184368)++
 }
 
 func nox_video_setBackBufferPtrs_48A190() {
@@ -50,7 +50,7 @@ func nox_video_setBackBufferPtrs_48A190() {
 
 //export sub_444D00
 func sub_444D00() {
-	mu := asMutex(memmap.PtrOff(0x5D4594, 3799596))
+	mu := asMutex(memmap.PtrOff(0x8529A0, 1185312))
 	mu.Lock()
 	defer mu.Unlock()
 	nox_video_setBackBufferPtrs_48A190()
@@ -73,7 +73,7 @@ func nox_video_copyBackBuffer_4AD2A0() {
 			copy(drow[i:], row[i:i+32])
 		}
 	}
-	*memmap.PtrUint32(0x5D4594, 3798652)++
+	*memmap.PtrUint32(0x8529A0, 1184368)++
 }
 
 func resetRenderer(sz types.Size) error {
@@ -126,14 +126,14 @@ func gameResetVideoMode(inMenu, force bool) error {
 func nox_video_setBackBufSizes_48A3D0(sz types.Size) int {
 	pitch := noxRendererS.BufferPitch()
 	C.dword_5d4594_3801780 = 2
-	*memmap.PtrUint32(0x5D4594, 3801796) = 0
+	*memmap.PtrUint32(0x8529A0, 1187512) = 0
 
-	*memmap.PtrUint32(0x5D4594, 3799564) = uint32(pitch)
-	*memmap.PtrUint32(0x5D4594, 3801796) = 1
+	*memmap.PtrUint32(0x8529A0, 1185280) = uint32(pitch)
+	*memmap.PtrUint32(0x8529A0, 1187512) = 1
 	nox_video_setBackBufferPtrs_48A190()
 
 	nox_backbuffer_width32 = sz.W >> 4
-	*memmap.PtrUint32(0x5D4594, 3801776) = uint32(sz.W >> 1)
+	*memmap.PtrUint32(0x8529A0, 1187492) = uint32(sz.W >> 1)
 	C.dword_5d4594_3801780 = 1
 	nox_backbuffer_pitch_3801808 = 2 * int(sz.W)
 	nox_backbuffer_pitchDiff = pitch - 2*sz.W

@@ -1169,7 +1169,7 @@ int  nox_xxx_net_getIP_554200(unsigned int a1) {
 }
 
 //----- (00554230) --------------------------------------------------------
-char* sub_554230() { return (char*)getMemAt(0x5D4594, 3843644); }
+char* sub_554230() { return (char*)getMemAt(0x8529A0, 1229360); }
 
 unsigned int sub_554290() {
 	unsigned int v0;     // edi
@@ -1265,9 +1265,9 @@ int nox_xxx_netInit_554380(nox_net_struct_arg_t* narg) {
 		return -5;
 	if (narg->field_4 > 128)
 		return -2;
-	*getMemU8Ptr(0x5D4594, 3843644) = 0;
+	*getMemU8Ptr(0x8529A0, 1229360) = 0;
 	dword_5d4594_3843632 = 0;
-	*getMemU8Ptr(0x5D4594, 3843660) = 0;
+	*getMemU8Ptr(0x8529A0, 1229376) = 0;
 	v2 = -1;
 	for (int i = 0; i < NOX_NET_STRUCT_MAX; i++) {
 		if (!nox_net_struct_arr[i]) {
@@ -1306,7 +1306,7 @@ int nox_xxx_netInit_554380(nox_net_struct_arg_t* narg) {
 	v9 = (_WORD)(narg->port);
 	name.sin_port = htons(v11);
 	name.sin_addr = 0;
-	*getMemU16Ptr(0x5D4594, 3843636) = v9;
+	*getMemU16Ptr(0x8529A0, 1229352) = v9;
 	while (nox_net_bind(ns->sock, &name) == -1) {
 		if (nox_net_error(ns->sock) != NOX_NET_EADDRINUSE) {
 			nox_net_stop();
@@ -1316,18 +1316,18 @@ int nox_xxx_netInit_554380(nox_net_struct_arg_t* narg) {
 		++narg->port;
 		name.sin_port = htons(v12);
 	}
-	if (gethostname((char*)getMemAt(0x5D4594, 3843660), 128) != -1) {
-		v10 = gethostbyname((const char*)getMemAt(0x5D4594, 3843660));
+	if (gethostname((char*)getMemAt(0x8529A0, 1229376), 128) != -1) {
+		v10 = gethostbyname((const char*)getMemAt(0x8529A0, 1229376));
 		if (v10) {
 			dword_5d4594_3843632 = **(_DWORD**)v10->h_addr_list;
-			strcpy((char*)getMemAt(0x5D4594, 3843644), nox_net_ip2str(*(nox_net_in_addr*)&dword_5d4594_3843632));
+			strcpy((char*)getMemAt(0x8529A0, 1229360), nox_net_ip2str(*(nox_net_in_addr*)&dword_5d4594_3843632));
 		}
 	}
 	return v2;
 }
 
 //----- (005545A0) --------------------------------------------------------
-__int16 sub_5545A0() { return *getMemU16Ptr(0x5D4594, 3843636); }
+__int16 sub_5545A0() { return *getMemU16Ptr(0x8529A0, 1229352); }
 
 //----- (005545B0) --------------------------------------------------------
 int  nox_xxx_netStructReadPackets_5545B0(unsigned int a1) {
@@ -4312,9 +4312,9 @@ int  nox_xxx_client_57B400(int a1) {
 		v1 = nox_xxx_getTTByNameSpriteMB_44CFC0("Glyph");
 		*getMemU32Ptr(0x5D4594, 2523876) = v1;
 	}
-	if (!*getMemU32Ptr(0x5D4594, 2618908))
+	if (!*getMemU32Ptr(0x8529A0, 4624))
 		return 0;
-	if (*(_DWORD*)(a1 + 108) != v1 || *(_BYTE*)(*getMemU32Ptr(0x5D4594, 2618908) + 2251) == 1)
+	if (*(_DWORD*)(a1 + 108) != v1 || *(_BYTE*)(*getMemU32Ptr(0x8529A0, 4624) + 2251) == 1)
 		return 1;
 	return 0;
 }
@@ -4330,13 +4330,13 @@ BOOL  sub_57B450(nox_drawable* a1p) {
 		v1 = nox_xxx_getTTByNameSpriteMB_44CFC0("Glyph");
 		*getMemU32Ptr(0x5D4594, 2523880) = v1;
 	}
-	if (!a1 || !*getMemU32Ptr(0x5D4594, 2614252) || !*getMemU32Ptr(0x5D4594, 2618908) ||
-		a1[27] == v1 && *(_BYTE*)(*getMemU32Ptr(0x5D4594, 2618908) + 2251) != 1) {
+	if (!a1 || !*getMemU32Ptr(0x5D4594, 2614252) || !*getMemU32Ptr(0x8529A0, 4624) ||
+		a1[27] == v1 && *(_BYTE*)(*getMemU32Ptr(0x8529A0, 4624) + 2251) != 1) {
 		return 0;
 	}
 	if (nox_cheat_allowall)
 		return 1;
-	v2 = 1 << *(_BYTE*)(*getMemU32Ptr(0x5D4594, 2618908) + 2251);
+	v2 = 1 << *(_BYTE*)(*getMemU32Ptr(0x8529A0, 4624) + 2251);
 	return (v2 & (unsigned __int8)sub_57B370(a1[28], a1[29], a1[27])) != 0;
 }
 
@@ -5394,7 +5394,7 @@ char  nox_xxx_mapTraceRayImpl_57C9A0(int a1, int a2, float* a3, float* a4, char 
 	v9 = v6 & 1 ? nox_xxx_wall_4105E0(v5, a2) : nox_server_getWallAtGrid_410580(v5, a2);
 	if (!v9 || v6 < 0 && *(_BYTE*)(v9 + 4) & 4 && *(_BYTE*)(*(_DWORD*)(v9 + 28) + 20) & 2)
 		return 0;
-	v10 = *getMemU32Ptr(0x5D4594, 2692780 + 12332 * *(unsigned __int8*)(v9 + 1));
+	v10 = *getMemU32Ptr(0x8529A0, 78496 + 12332 * *(unsigned __int8*)(v9 + 1));
 	if (v10 & 2 || v6 & 0x40 && !(v10 & 1))
 		return 0;
 	if (*a3 >= (double)a3[2]) {

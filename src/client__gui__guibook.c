@@ -41,8 +41,8 @@ void nox_xxx_bookShowMB_45AD70(int a1) {
 	if (!(!nox_xxx_playerAnimCheck_4372B0() || (result = nox_common_gameFlags_check_40A5C0(2048)) == 0)) {
 		return;
 	}
-	if (!*getMemU32Ptr(0x5D4594, 2618908) ||
-		nox_xxx_guiSpellSortList_45ADF0(*(unsigned __int8*)(*getMemU32Ptr(0x5D4594, 2618908) + 2251))) {
+	if (!*getMemU32Ptr(0x8529A0, 4624) ||
+		nox_xxx_guiSpellSortList_45ADF0(*(unsigned __int8*)(*getMemU32Ptr(0x8529A0, 4624) + 2251))) {
 		nox_xxx_book_45B010(a1);
 	} else {
 		v2 = nox_strman_loadString_40F1D0("EmptyBook", 0, "C:\\NoxPost\\src\\Client\\Gui\\guibook.c", 377);

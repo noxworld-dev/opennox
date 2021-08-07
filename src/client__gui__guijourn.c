@@ -20,8 +20,8 @@ void nox_xxx_cliBuildJournalString_469BC0() {
 	char v13[76];      // [esp+Ch] [ebp-104Ch]
 	wchar_t v14[2048]; // [esp+58h] [ebp-1000h]
 
-	v0 = *getMemU32Ptr(0x5D4594, 2618908);
-	if (*getMemU32Ptr(0x5D4594, 2618908)) {
+	v0 = *getMemU32Ptr(0x8529A0, 4624);
+	if (*getMemU32Ptr(0x8529A0, 4624)) {
 		v1 = nox_xxx_guiFontHeightMB_43F320(0);
 		v2 = *(_DWORD*)(v0 + 3644);
 		v11 = v1;
@@ -79,10 +79,10 @@ void  nox_xxx_guiDrawJournal_469D40(int xLeft, int yTop, int a3) {
 	char v16[76];      // [esp+18h] [ebp-104Ch]
 	wchar_t v17[2048]; // [esp+64h] [ebp-1000h]
 
-	v3 = *getMemU32Ptr(0x5D4594, 2618908);
+	v3 = *getMemU32Ptr(0x8529A0, 4624);
 	v4 = yTop - a3;
-	if (*getMemU32Ptr(0x5D4594, 2618908)) {
-		nox_client_drawSetColor_434460(*getMemIntPtr(0x5D4594, 2650656));
+	if (*getMemU32Ptr(0x8529A0, 4624)) {
+		nox_client_drawSetColor_434460(*getMemIntPtr(0x8529A0, 36372));
 		nox_client_drawRectFilledOpaque_49CE30(xLeft, yTop, 260, 150);
 		v5 = *(_DWORD*)(v3 + 3644);
 		if (v5) {
@@ -99,13 +99,13 @@ void  nox_xxx_guiDrawJournal_469D40(int xLeft, int yTop, int a3) {
 					v8 = *getMemU32Ptr(0x5D4594, 2523948);
 					goto LABEL_12;
 				case 2:
-					v8 = *getMemU32Ptr(0x5D4594, 2650644);
+					v8 = *getMemU32Ptr(0x8529A0, 36360);
 					v9 = nox_strman_loadString_40F1D0("Journal:QuestLabel", 0,
 											   "C:\\NoxPost\\src\\client\\Gui\\GUIJourn.c", 135);
 					nox_wcscpy(v17, v9);
 					break;
 				case 4:
-					v8 = *getMemU32Ptr(0x5D4594, 2650660);
+					v8 = *getMemU32Ptr(0x8529A0, 36376);
 					v10 = nox_strman_loadString_40F1D0("Journal:CompletedLabel", 0,
 												"C:\\NoxPost\\src\\client\\Gui\\GUIJourn.c", 140);
 					nox_wcscpy(v17, v10);
@@ -117,7 +117,7 @@ void  nox_xxx_guiDrawJournal_469D40(int xLeft, int yTop, int a3) {
 					nox_wcscpy(v17, v11);
 					break;
 				default:
-					v8 = *getMemU32Ptr(0x5D4594, 2618904);
+					v8 = *getMemU32Ptr(0x8529A0, 4620);
 				LABEL_12:
 					v17[0] = 0;
 					break;

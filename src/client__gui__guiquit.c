@@ -26,7 +26,7 @@ int nox_xxx_wndLoadQuiteMenu_445790() {
 	dword_5d4594_825760 = result;
 	if (result) {
 		nox_window_set_all_funcs((_DWORD*)result, sub_445BB0, nox_xxx_wndDrawQuiteMenu_445BC0, 0);
-		*(_DWORD*)(dword_5d4594_825760 + 56) = *getMemU32Ptr(0x5D4594, 2650656);
+		*(_DWORD*)(dword_5d4594_825760 + 56) = *getMemU32Ptr(0x8529A0, 36372);
 		*(_DWORD*)(dword_5d4594_825760 + 16) = (nox_win_width - *(_DWORD*)(dword_5d4594_825760 + 8)) / 2;
 		*(_DWORD*)(dword_5d4594_825760 + 24) =
 			*(_DWORD*)(dword_5d4594_825760 + 8) + *(_DWORD*)(dword_5d4594_825760 + 16);
@@ -142,7 +142,7 @@ int  nox_xxx_menuGameOnButton_445840(_DWORD* a1, int a2, int* a3, int a4) {
 		goto LABEL_11;
 	case 9007:
 		if (nox_common_gameFlags_check_40A5C0(1)) {
-			v8 = nox_common_playerInfoGetByID_417040(*getMemIntPtr(0x5D4594, 2616328));
+			v8 = nox_common_playerInfoGetByID_417040(*getMemIntPtr(0x8529A0, 2044));
 			nox_xxx_serverHandleClientConsole_443E90((int)v8, 0, 0);
 		LABEL_11:
 			sub_445C40();

@@ -36,7 +36,7 @@ int  nox_xxx_drawHasteAndRunParticles_4746C0(_DWORD* a1, int a2) {
 		goto LABEL_37;
 	if (nox_xxx_spriteTestBuf_4356C0(a2, 14)) {
 		sub_4739E0(a1, (int2*)(a2 + 12), &v26);
-		sub_4B6720(&v26, *getMemIntPtr(0x5D4594, 2650684), 30, 31);
+		sub_4B6720(&v26, *getMemIntPtr(0x8529A0, 36400), 30, 31);
 	}
 	if (nox_xxx_spriteTestBuf_4356C0(a2, 9) && !nox_xxx_checkGameFlagPause_413A50()) {
 		if (!*getMemU32Ptr(0x5D4594, 1096524)) {
@@ -93,11 +93,11 @@ int  nox_xxx_drawHasteAndRunParticles_4746C0(_DWORD* a1, int a2) {
 		} while (v5);
 	}
 	if (nox_xxx_spriteTestBuf_4356C0(a2, 17))
-		sub_474BE0(a1, (int*)(a2 + 12), a2, 0, 0, *getMemIntPtr(0x5D4594, 2650644), *getMemIntPtr(0x5D4594, 2589776), 1);
+		sub_474BE0(a1, (int*)(a2 + 12), a2, 0, 0, *getMemIntPtr(0x8529A0, 36360), *getMemIntPtr(0x5D4594, 2589776), 1);
 	if (nox_xxx_spriteTestBuf_4356C0(a2, 18))
-		sub_474BE0(a1, (int*)(a2 + 12), a2, 85, 1, *getMemIntPtr(0x5D4594, 2618904), *getMemIntPtr(0x5D4594, 2614268), 1);
+		sub_474BE0(a1, (int*)(a2 + 12), a2, 85, 1, *getMemIntPtr(0x8529A0, 4620), *getMemIntPtr(0x5D4594, 2614268), 1);
 	if (nox_xxx_spriteTestBuf_4356C0(a2, 20))
-		sub_474BE0(a1, (int*)(a2 + 12), a2, 170, 2, *getMemIntPtr(0x5D4594, 2650684), *getMemIntPtr(0x5D4594, 2523948), 1);
+		sub_474BE0(a1, (int*)(a2 + 12), a2, 170, 2, *getMemIntPtr(0x8529A0, 36400), *getMemIntPtr(0x5D4594, 2523948), 1);
 	if (!nox_xxx_spriteTestBuf_4356C0(a2, 27) || (v8 = *(_BYTE*)(a2 + 297)) != 0 && v8 != 1 && v8 != 2)
 	LABEL_37:
 		result = 0;
@@ -179,7 +179,7 @@ int  nox_xxx_drawEffectsMB_474E60(_DWORD* a1, int a2) {
 		}
 		if (nox_xxx_spriteTestBuf_4356C0(a2, 29)) {
 			nox_xxx_draw_434600(1);
-			sub_433E40(*getMemIntPtr(0x5D4594, 2650684));
+			sub_433E40(*getMemIntPtr(0x8529A0, 36400));
 		}
 		nox_video_drawAnimatedImageOrCursorAt_4BE6D0(*getMemIntPtr(0x5D4594, 1096456), xLeft.field_0 - 64,
 													 xLeft.field_4 - 64);
@@ -244,11 +244,11 @@ int  nox_xxx_drawEffectsMB_474E60(_DWORD* a1, int a2) {
 		} while (v16);
 	}
 	if (nox_xxx_spriteTestBuf_4356C0(v2, 17))
-		sub_474BE0(v4, (int*)(v2 + 12), v2, 0, 0, *getMemIntPtr(0x5D4594, 2650644), *getMemIntPtr(0x5D4594, 2589776), 0);
+		sub_474BE0(v4, (int*)(v2 + 12), v2, 0, 0, *getMemIntPtr(0x8529A0, 36360), *getMemIntPtr(0x5D4594, 2589776), 0);
 	if (nox_xxx_spriteTestBuf_4356C0(v2, 18))
-		sub_474BE0(v4, (int*)(v2 + 12), v2, 85, 1, *getMemIntPtr(0x5D4594, 2618904), *getMemIntPtr(0x5D4594, 2614268), 0);
+		sub_474BE0(v4, (int*)(v2 + 12), v2, 85, 1, *getMemIntPtr(0x8529A0, 4620), *getMemIntPtr(0x5D4594, 2614268), 0);
 	if (nox_xxx_spriteTestBuf_4356C0(v2, 20))
-		sub_474BE0(v4, (int*)(v2 + 12), v2, 170, 2, *getMemIntPtr(0x5D4594, 2650684), *getMemIntPtr(0x5D4594, 2523948), 0);
+		sub_474BE0(v4, (int*)(v2 + 12), v2, 170, 2, *getMemIntPtr(0x8529A0, 36400), *getMemIntPtr(0x5D4594, 2523948), 0);
 	if (nox_xxx_spriteTestBuf_4356C0(v2, 26)) {
 		sub_4739E0(v4, (int2*)(v2 + 12), &xLeft);
 		v23 = *(_DWORD*)(v2 + 276);

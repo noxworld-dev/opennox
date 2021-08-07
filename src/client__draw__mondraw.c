@@ -148,7 +148,7 @@ int  nox_thing_monster_draw(int* a1, nox_drawable* dr) {
 	}
 	if (*getMemU32Ptr(0x5D4594, 2614252) && nox_xxx_spriteTestBuf_4356C0(*getMemIntPtr(0x5D4594, 2614252), 21)) {
 		nox_xxx_draw_434600(1);
-		sub_433E40(*getMemIntPtr(0x5D4594, 2618904));
+		sub_433E40(*getMemIntPtr(0x8529A0, 4620));
 #ifdef NOX_CGO
 		LOBYTE(a2) = -1;
 #else // NOX_CGO

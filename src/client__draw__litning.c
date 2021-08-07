@@ -13,7 +13,7 @@ extern _DWORD dword_5d4594_1316476;
 extern _DWORD dword_5d4594_1316492;
 
 //----- (0049F5A0) --------------------------------------------------------
-void sub_49F5A0() { *getMemU32Ptr(0x5D4594, 3798692) = 0; }
+void sub_49F5A0() { *getMemU32Ptr(0x8529A0, 1184408) = 0; }
 
 //----- (004BB070) --------------------------------------------------------
 int  nox_xxx_drawLightningStep_4BB070(int a1, int a2) {
