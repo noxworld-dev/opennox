@@ -759,7 +759,7 @@ int  nox_xxx_wndListboxProcPre_4A30D0(int a1, unsigned int a2, wchar_t* a3, int 
 
 	v4 = (_DWORD*)a1;
 	v5 = *(__int16**)(a1 + 32);
-	if (a2 > 0x4012) {
+	if (a2 > 16402) {
 		switch (a2) {
 		case 0x4013u:
 			if ((int)a3 < 0) {
@@ -914,7 +914,7 @@ int  nox_xxx_wndListboxProcPre_4A30D0(int a1, unsigned int a2, wchar_t* a3, int 
 				v5[27] = 0;
 			nox_xxx_wndListBox_4A2D10(a1, 0, 0);
 			return 0;
-		case 0x400Du:
+		case 16397:
 			v18 = v5[23];
 			v19 = v5[22];
 			if (v18 != v19) {

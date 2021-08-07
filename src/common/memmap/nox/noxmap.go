@@ -599,7 +599,7 @@ var noxMemmap = []struct {
 	{0x5D4594, 1046532, 4, "dword_5d4594_1046532"},                        // 0x6D3D98
 	{0x5D4594, 1046536, 4, "dword_5d4594_1046536"},                        // 0x6D3D9C
 	{0x5D4594, 1046540, 4, "dword_5d4594_1046540"},                        // 0x6D3DA0
-	{0x5D4594, 1046548, 4, "dword_5d4594_1046548"},                        // 0x6D3DA8
+	{0x5D4594, 1046548, 4, "nox_gui_gamemode_loaded_1046548"},             // 0x6D3DA8
 	{0x5D4594, 1046568, 4, "nox_drawable_head_unk2"},                      // 0x6D3DBC
 	{0x5D4594, 1046572, 4, "nox_drawable_head_unk1"},                      // 0x6D3DC0
 	{0x5D4594, 1046576, 4, "dword_5d4594_1046576"},                        // 0x6D3DC4

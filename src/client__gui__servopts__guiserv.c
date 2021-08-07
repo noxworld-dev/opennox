@@ -6,7 +6,6 @@
 #include "client__gui__gamewin__gamewin.h"
 #include "client__gui__servopts__playrlst.h"
 
-extern _DWORD dword_5d4594_1046548;
 extern _DWORD dword_5d4594_1046512;
 extern _DWORD dword_587000_129656;
 extern _DWORD dword_5d4594_1046360;
@@ -26,26 +25,119 @@ extern _DWORD dword_5d4594_1046492;
 extern int nox_win_width;
 extern int nox_win_height;
 
-//----- (00457410) --------------------------------------------------------
-char* sub_457410() {
-	char* result;        // eax
-	unsigned __int8* v1; // esi
+typedef struct {
+	const char* name;
+	const wchar_t* title;
+	unsigned int mode;
+	bool hide;
+} nox_gui_gamemode;
 
-	result = *(char**)&dword_5d4594_1046548;
-	if (!dword_5d4594_1046548) {
-		result = *(char**)getMemAt(0x587000, 129664);
-		if (*getMemU32Ptr(0x587000, 129664)) {
-			v1 = getMemAt(0x587000, 129664);
-			do {
-				*((_DWORD*)v1 + 1) =
-					nox_strman_loadString_40F1D0(result, 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c", 212);
-				result = (char*)*((_DWORD*)v1 + 3);
-				v1 += 12;
-			} while (result);
-		}
-		dword_5d4594_1046548 = 1;
+nox_gui_gamemode nox_gui_gamemodes[] = {
+	{"CTF", 0, 0x20, 0},
+	{"Arena", 0, 0x100, 0},
+	{"Highlander", 0, 0x400, 0},
+	{"KotR", 0, 0x10, 0},
+	{"Flagball", 0, 0x40, 0},
+	{"Quest", 0, 0x1000, 1},
+	{"Noxworld.c:Chat", 0, 0x80, 0},
+	{},
+};
+int nox_gui_gamemode_cnt = sizeof(nox_gui_gamemodes) / sizeof(nox_gui_gamemode) - 1;
+
+int nox_gui_gamemode_loaded_1046548 = 0;
+
+//----- (00457410) --------------------------------------------------------
+void nox_gui_gamemode_load_457410() {
+	if (nox_gui_gamemode_loaded_1046548) {
+		return;
 	}
-	return result;
+	for (int i = 0; i < nox_gui_gamemode_cnt; i++) {
+		nox_gui_gamemode* p = &nox_gui_gamemodes[i];
+		if (!p->name)
+			break;
+		p->title = nox_strman_loadString_40F1D0(p->name, 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c", 212);
+	}
+	nox_gui_gamemode_loaded_1046548 = 1;
+}
+
+//----- (004573C0) --------------------------------------------------------
+wchar_t* nox_xxx_guiServerOptionsGetGametypeName_4573C0(short mode) {
+	mode &= 0x17F0;
+
+	if (!nox_gui_gamemode_loaded_1046548)
+		nox_gui_gamemode_load_457410();
+
+	for (int i = 0; i < nox_gui_gamemode_cnt; i++) {
+		nox_gui_gamemode* p = &nox_gui_gamemodes[i];
+		if (p->mode == mode) {
+			return p->title;
+		}
+	}
+	return nox_gui_gamemodes[1].title;
+}
+
+//----- (00457A10) --------------------------------------------------------
+void sub_457A10() {
+	_DWORD* v0;          // eax
+	_DWORD* v1;          // esi
+	int v3;              // eax
+	int v6;              // edi
+	int v7;              // edx
+
+	v0 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1046492, 10120);
+	v1 = v0;
+
+	int max = 0;
+	int cnt = 0;
+	for (int i = 0; i < nox_gui_gamemode_cnt; i++) {
+		nox_gui_gamemode* p = &nox_gui_gamemodes[i];
+		if (p->hide)
+			continue;
+		cnt++;
+		int w = 0;
+		nox_xxx_drawGetStringSize_43F840(v1[59], p->title, &w, 0, 0);
+		if (w > max)
+			max = w;
+	}
+	v3 = cnt * (nox_xxx_guiFontHeightMB_43F320(v0[59]) + 1);
+	v1[7] = v1[5] + v3 + 2;
+	v1[3] = v3 + 2;
+	v6 = max + 7;
+	v7 = v1[6] - v6;
+	v1[2] = v6;
+	v1[4] = v7;
+}
+
+//----- (00459650) --------------------------------------------------------
+int  sub_459650(wchar_t* title) {
+	for (int i = 0; i < nox_gui_gamemode_cnt; i++) {
+		nox_gui_gamemode* p = &nox_gui_gamemodes[i];
+		if (!nox_wcscmp(p->title, title)) {
+			return p->mode;
+		}
+	}
+	return 0;
+}
+
+//----- (00459C10) --------------------------------------------------------
+int sub_459C10() {
+	wchar_t* v0; // eax
+
+	v0 = (wchar_t*)nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1046492, 10119);
+	return sub_459650(v0 + 54);
+}
+
+//----- (004596A0) --------------------------------------------------------
+void nox_xxx_windowServerOptionsFillGametypeList_4596A0() {
+	void* v0 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1046492, 10120);
+	nox_window_call_field_94(v0, 16399, 0, 0);
+
+	for (int i = 0; i < nox_gui_gamemode_cnt; i++) {
+		nox_gui_gamemode* p = &nox_gui_gamemodes[i];
+		if (!p->hide) {
+			nox_window_call_field_94(v0, 16397, p->title, -1);
+		}
+	}
 }
 
 //----- (00457500) --------------------------------------------------------
@@ -82,8 +174,7 @@ int nox_xxx_guiServerOptsLoad_457500() {
 			v1 = 2;
 		dword_5d4594_1046492 = nox_new_window_from_file(*(const char**)getMemAt(0x587000, 129760 + 4 * v1), nox_xxx_guiServerOptionsProcPre_4585D0);
 		sub_43FE20(100);
-		nox_window_setPos_46A9B0(*(_DWORD**)&dword_5d4594_1046492, nox_win_width - *(_DWORD*)(dword_5d4594_1046492 + 8) - 10,
-						   0);
+		nox_window_setPos_46A9B0(*(_DWORD**)&dword_5d4594_1046492, nox_win_width - *(_DWORD*)(dword_5d4594_1046492 + 8) - 10, 0);
 		nox_xxx_wndSetWindowProc_46B300(*(int*)&dword_5d4594_1046492, nox_xxx_guiServerOptionsProc_458590);
 		nox_xxx_wndSetDrawFn_46B340(*(int*)&dword_5d4594_1046492, nox_xxx_windowServerOptionsDrawProc_458500);
 		dword_5d4594_1046512 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1046492, 10101);
@@ -134,19 +225,17 @@ int nox_xxx_guiServerOptsLoad_457500() {
 		v9 = sub_4165D0(0);
 		if (nox_common_gameFlags_check_40A5C0(1))
 			sub_4161E0();
-		sub_457410();
+		nox_gui_gamemode_load_457410();
 		sub_457B60((int)v9);
 		sub_457A10();
 		if (nox_common_gameFlags_check_40A5C0(1)) {
 			sub_4165F0(0, 1);
 			sub_4165D0(1);
 		} else {
-			v10 = (wchar_t*)nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1046492, 10159);
-			v11 = nox_strman_loadString_40F1D0("servopts.wnd:teams", 0,
-										"C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c", 1811);
+			v10 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1046492, 10159);
+			v11 = nox_strman_loadString_40F1D0("servopts.wnd:teams", 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c", 1811);
 			nox_window_call_field_94((int)v10, 16385, (int)v11, -1);
-			v12 = nox_strman_loadString_40F1D0("servopts.wnd:TeamTT", 0,
-										"C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c", 1812);
+			v12 = nox_strman_loadString_40F1D0("servopts.wnd:TeamTT", 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c", 1812);
 			nox_xxx_wndWddSetTooltip_46B000(v10 + 18, v12);
 			v13 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1046492, 10149);
 			nox_window_set_hidden((int)v13, 0);
@@ -381,7 +470,7 @@ int  nox_xxx_guiServerOptionsProcPre_4585D0(int a1, unsigned int a2, int a3, int
 	char v41[100];        // [esp+18h] [ebp-C8h]
 	char v42[100];        // [esp+7Ch] [ebp-64h]
 
-	if (a2 > 0x4007) {
+	if (a2 > 16391) {
 		if (a2 == 16400) {
 			v28 = nox_xxx_wndGetID_46B0A0((int*)a3) - 10114;
 			if (v28) {

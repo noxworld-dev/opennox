@@ -41,7 +41,6 @@ extern _DWORD dword_5d4594_831240;
 extern _DWORD dword_5d4594_1046604;
 extern _DWORD dword_5d4594_823772;
 extern _DWORD dword_5d4594_1045580;
-extern _DWORD dword_5d4594_1046548;
 extern _DWORD dword_5d4594_1046512;
 extern _DWORD dword_5d4594_1045548;
 extern _DWORD dword_5d4594_1045640;
@@ -4501,26 +4500,6 @@ int sub_4573A0() {
 //----- (004573B0) --------------------------------------------------------
 void sub_4573B0() { *getMemU32Ptr(0x5D4594, 1045696) = 0; }
 
-//----- (004573C0) --------------------------------------------------------
-int  nox_xxx_guiServerOptionsGetGametypeName_4573C0(__int16 a1) {
-	int v1;             // ecx
-	unsigned __int8* i; // eax
-	int v3;             // esi
-
-	if (!dword_5d4594_1046548)
-		sub_457410();
-	v1 = 0;
-	if (!*getMemU32Ptr(0x587000, 129664 + 4))
-		return *getMemU32Ptr(0x587000, 129664 + 12*1 + 4);
-	for (i = getMemAt(0x587000, 129664 + 4); (a1 & 0x17F0) != *((_DWORD*)i + 1); i += 12) {
-		v3 = *((_DWORD*)i + 3);
-		++v1;
-		if (!v3)
-			return *getMemU32Ptr(0x587000, 129664 + 12*1 + 4);
-	}
-	return *getMemU32Ptr(0x587000, 129664 + 12*v1 + 4);
-}
-
 //----- (00457460) --------------------------------------------------------
 int  sub_457460(int a1) {
 	WCHAR WideCharStr[16]; // [esp+4h] [ebp-20h]
@@ -4538,42 +4517,6 @@ int nox_xxx_guiServerOptionsTryHide_4574D0() {
 	nox_xxx_guiServerOptionsHide_4597E0(0);
 	dword_5d4594_1046492 = 0;
 	return 1;
-}
-
-//----- (00457A10) --------------------------------------------------------
-char* sub_457A10() {
-	_DWORD* v0;          // eax
-	_DWORD* v1;          // esi
-	int v2;              // edi
-	int v3;              // eax
-	char* result;        // eax
-	unsigned __int8* v5; // ebx
-	int v6;              // edi
-	int v7;              // edx
-	int v8;              // [esp+8h] [ebp-4h]
-
-	v0 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1046492, 10120);
-	v1 = v0;
-	v2 = 0;
-	v3 = 6 * (nox_xxx_guiFontHeightMB_43F320(v0[59]) + 1);
-	v1[7] = v1[5] + v3 + 2;
-	v1[3] = v3 + 2;
-	result = *(char**)getMemAt(0x587000, 129664);
-	if (*getMemU32Ptr(0x587000, 129664)) {
-		v5 = getMemAt(0x587000, 129664);
-		do {
-			nox_xxx_drawGetStringSize_43F840(v1[59], *((unsigned __int16**)v5 + 1), &v8, 0, 0);
-			if (v8 > v2)
-				v2 = v8;
-			result = (char*)*((_DWORD*)v5 + 3);
-			v5 += 12;
-		} while (result);
-	}
-	v6 = v2 + 7;
-	v7 = v1[6] - v6;
-	v1[2] = v6;
-	v1[4] = v7;
-	return result;
 }
 
 //----- (00457B60) --------------------------------------------------------
@@ -4943,50 +4886,6 @@ int  sub_459560(int a1) {
 	return sub_46B120(v1, v2);
 }
 
-//----- (00459650) --------------------------------------------------------
-int  sub_459650(wchar_t* a1) {
-	int v1;              // edi
-	const wchar_t** v2;  // eax
-	unsigned __int8* v3; // esi
-	int v4;              // ecx
-
-	v1 = 0;
-	if (!*getMemU32Ptr(0x587000, 129664 + 4))
-		return 0;
-	v2 = (const wchar_t**)getMemAt(0x587000, 129664 + 4);
-	v3 = getMemAt(0x587000, 129664 + 4);
-	while (nox_wcscmp(*v2, a1)) {
-		v4 = *((_DWORD*)v3 + 3);
-		v3 += 12;
-		++v1;
-		v2 = (const wchar_t**)v3;
-		if (!v4)
-			return 0;
-	}
-	return *getMemU32Ptr(0x587000, 129664 + 12*v1 + 8);
-}
-
-//----- (004596A0) --------------------------------------------------------
-int nox_xxx_windowServerOptionsFillGametypeList_4596A0() {
-	_DWORD* v0; // edi
-	int result; // eax
-	int* v2;    // esi
-
-	v0 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1046492, 10120);
-	nox_window_call_field_94((int)v0, 16399, 0, 0);
-	result = *getMemU32Ptr(0x587000, 129664 + 4);
-	if (*getMemU32Ptr(0x587000, 129664 + 4)) {
-		v2 = getMemIntPtr(0x587000, 129664 + 4);
-		do {
-			if (v2[1] != 4096)
-				nox_window_call_field_94((int)v0, 16397, *v2, -1);
-			result = v2[3];
-			v2 += 3;
-		} while (result);
-	}
-	return result;
-}
-
 //----- (00459700) --------------------------------------------------------
 int sub_459700() {
 	char* v0;          // esi
@@ -5086,14 +4985,6 @@ char*  sub_459AA0(int a1) {
 		*(_BYTE*)a1 = 0;
 	}
 	return result;
-}
-
-//----- (00459C10) --------------------------------------------------------
-int sub_459C10() {
-	wchar_t* v0; // eax
-
-	v0 = (wchar_t*)nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1046492, 10119);
-	return sub_459650(v0 + 54);
 }
 
 //----- (00459C30) --------------------------------------------------------
