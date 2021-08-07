@@ -3678,7 +3678,7 @@ int  nox_xxx_netServerCmd_440950(char a1, wchar_t* a2) {
 
 	v3[0] = -69;
 	v3[1] = a1;
-	*(_WORD*)&v3[2] = *getMemU16Ptr(0x8529A0, 2044);
+	*(_WORD*)&v3[2] = *getMemU16Ptr(0x85319C, 0);
 	v3[4] = 0;
 	*(_WORD*)&v3[5] = 0;
 	if (a2) {

@@ -62,8 +62,8 @@ int  nox_thing_player_draw(_DWORD* a1, nox_drawable* dr) {
 		return 1;
 	if (*getMemU32Ptr(0x8531A0, 2576) && *(_BYTE*)(*getMemU32Ptr(0x8531A0, 2576) + 3680) & 1)
 		v30 = 1;
-	if (*getMemU32Ptr(0x8529A0, 2044) == dr->field_32) {
-		v4 = nox_xxx_objGetTeamByNetCode_418C80(*getMemIntPtr(0x8529A0, 2044));
+	if (*getMemU32Ptr(0x85319C, 0) == dr->field_32) {
+		v4 = nox_xxx_objGetTeamByNetCode_418C80(*getMemIntPtr(0x85319C, 0));
 		if (!v4)
 			goto LABEL_15;
 		v5 = nox_xxx_clientGetTeamColor_418AB0(*((unsigned __int8*)v4 + 4));
@@ -71,7 +71,7 @@ int  nox_thing_player_draw(_DWORD* a1, nox_drawable* dr) {
 	}
 	if (v3[3680] & 1)
 		return 1;
-	v6 = nox_xxx_objGetTeamByNetCode_418C80(*getMemIntPtr(0x8529A0, 2044));
+	v6 = nox_xxx_objGetTeamByNetCode_418C80(*getMemIntPtr(0x85319C, 0));
 	if (v6) {
 		v7 = nox_xxx_objGetTeamByNetCode_418C80(dr->field_32);
 		v8 = v7;
@@ -201,7 +201,7 @@ int  nox_thing_player_draw(_DWORD* a1, nox_drawable* dr) {
 		sub_4B8D40(v10, dr, *((_DWORD*)v3 + 1) & 2, (_DWORD*)v3 + 581, v28, v27);
 	}
 
-	if (v30 || !nox_xxx_spriteTestBuf_4356C0(dr, 0) || dr->field_32 == *getMemU32Ptr(0x8529A0, 2044) ||
+	if (v30 || !nox_xxx_spriteTestBuf_4356C0(dr, 0) || dr->field_32 == *getMemU32Ptr(0x85319C, 0) ||
 	    *getMemU32Ptr(0x852978, 8) && (nox_xxx_spriteTestBuf_4356C0(*getMemIntPtr(0x852978, 8), 21) || v31)) {
 		a1 = nox_color_rgb_4344A0(155, 155, 155);
 		if (!sub_48D830(dr) && !nox_common_gameFlags_check_40A5C0(2048)) {

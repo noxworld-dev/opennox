@@ -3704,14 +3704,14 @@ size_t  nox_xxx_cmdSayDo_46A4B0(wchar_t* a1, int a2) {
 	int v7;            // eax
 	char v8[520];      // [esp+Ch] [ebp-208h]
 
-	v2 = nox_xxx_netSpriteByCodeDynamic_45A6F0(*getMemIntPtr(0x8529A0, 2044));
+	v2 = nox_xxx_netSpriteByCodeDynamic_45A6F0(*getMemIntPtr(0x85319C, 0));
 	v3 = nox_wcsspn(a1, L" ");
 	result = nox_wcslen(a1);
 	if (v3 != result) {
 		v5 = &a1[v3];
 		v8[0] = -88;
 		*(_WORD*)&v8[9] = 0;
-		*(_WORD*)&v8[1] = *getMemU16Ptr(0x8529A0, 2044);
+		*(_WORD*)&v8[1] = *getMemU16Ptr(0x85319C, 0);
 		v8[3] = 0;
 		if (nox_xxx_cliCanTalkMB_4100F0((__int16*)a1))
 			v6 = v8[3] | 2;
@@ -5271,7 +5271,7 @@ char sub_46FEE0() {
 	v1 = 1;
 	if (!getMemByte(0x5D4594, 1090117))
 		return 0;
-	for (i = getMemAt(0x5D4594, 1084192); *(_DWORD*)i != *getMemU32Ptr(0x8529A0, 2044); i += 80) {
+	for (i = getMemAt(0x5D4594, 1084192); *(_DWORD*)i != *getMemU32Ptr(0x85319C, 0); i += 80) {
 		if (++v0 >= (unsigned int)getMemByte(0x5D4594, 1090117))
 			return 0;
 	}
@@ -5390,7 +5390,7 @@ unsigned __int8 sub_46FFD0() {
 					v5 = sub_46FE60(*(_DWORD*)v2);
 					LOBYTE(v21) = sub_46FEB0(v5);
 				}
-				if (*((_DWORD*)v2 + 2) == *getMemU32Ptr(0x8529A0, 2044)) {
+				if (*((_DWORD*)v2 + 2) == *getMemU32Ptr(0x85319C, 0)) {
 					dword_587000_145672 = *(__int16*)(*(_DWORD*)(*getMemU32Ptr(0x5D4594, 1090060) + 32) + 46);
 					*getMemU32Ptr(0x5D4594, 1088996) = 0;
 				}
@@ -5400,7 +5400,7 @@ unsigned __int8 sub_46FFD0() {
 				v7 = *((_DWORD*)v2 + 2);
 				v8 = v4[2282];
 				LOBYTE(v22) = 4;
-				if (v7 == *getMemU32Ptr(0x8529A0, 2044)) {
+				if (v7 == *getMemU32Ptr(0x85319C, 0)) {
 					v9 = sub_470CD0();
 					v24 = v9;
 					v25 = (double)v9;
@@ -5937,8 +5937,8 @@ int sub_470DE0() {
 	int v2;     // edx
 	int v3;     // esi
 
-	result = *getMemU32Ptr(0x8529A0, 2044);
-	if (*getMemU32Ptr(0x8529A0, 2044)) {
+	result = *getMemU32Ptr(0x85319C, 0);
+	if (*getMemU32Ptr(0x85319C, 0)) {
 		v1 = nox_windows_arr_1093036[0].field_1;
 		if (nox_windows_arr_1093036[0].field_1 >= 1) {
 			result = -858993458 * nox_windows_arr_1093036[0].field_2;
@@ -6771,7 +6771,7 @@ int  nox_xxx_cliDrawMinimap_472600(int a1, int a2) {
 		*getMemU32Ptr(0x5D4594, 1096304) = nox_xxx_getTTByNameSpriteMB_44CFC0("Crown");
 		*getMemU32Ptr(0x5D4594, 1096308) = nox_xxx_getTTByNameSpriteMB_44CFC0("GameBall");
 	}
-	v39 = nox_xxx_objGetTeamByNetCode_418C80(*getMemIntPtr(0x8529A0, 2044));
+	v39 = nox_xxx_objGetTeamByNetCode_418C80(*getMemIntPtr(0x85319C, 0));
 	v70 = (int)v39;
 	if (v39 && nox_xxx_servObjectHasTeam_419130((int)v39))
 		v73 = 1;
@@ -7276,7 +7276,7 @@ int nox_xxx_drawMinimapAndLines_4738E0() {
 	result = 1;
 	if (nox_client_gui_flag_1556112 != 1) {
 		if (getMemByte(0x5D4594, 1096424) & 1) {
-			v1 = nox_xxx_netSpriteByCodeDynamic_45A6F0(*getMemIntPtr(0x8529A0, 2044));
+			v1 = nox_xxx_netSpriteByCodeDynamic_45A6F0(*getMemIntPtr(0x85319C, 0));
 			nox_xxx_drawMinimap4Sprite_4725C0((int)v1);
 		}
 		result = nox_xxx_drawMessageLines_445530();
@@ -7907,11 +7907,11 @@ int  sub_474B40(int a1) {
 	_DWORD* v2; // eax
 	int v3;     // eax
 
-	v1 = nox_xxx_objGetTeamByNetCode_418C80(*getMemIntPtr(0x8529A0, 2044));
+	v1 = nox_xxx_objGetTeamByNetCode_418C80(*getMemIntPtr(0x85319C, 0));
 	if (v1) {
 		v2 = nox_xxx_objGetTeamByNetCode_418C80(*(_DWORD*)(a1 + 128));
 		if (v2) {
-			if (*getMemU32Ptr(0x8529A0, 2044) == *(_DWORD*)(a1 + 128) || nox_xxx_servCompareTeams_419150((int)v1, (int)v2))
+			if (*getMemU32Ptr(0x85319C, 0) == *(_DWORD*)(a1 + 128) || nox_xxx_servCompareTeams_419150((int)v1, (int)v2))
 				return 1;
 		}
 	}

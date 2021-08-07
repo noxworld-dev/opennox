@@ -4824,17 +4824,17 @@ __int16  nox_xxx_drawObject_4C4770_draw(int* a1, nox_drawable* dr, int a3) {
 	v3 = a2;
 	if (a2[112] & 4) {
 		v4 = nox_common_playerInfoGetByID_417040(*((_DWORD*)a2 + 32));
-		if (*getMemU32Ptr(0x8529A0, 2044) == *((_DWORD*)a2 + 32)) {
+		if (*getMemU32Ptr(0x85319C, 0) == *((_DWORD*)a2 + 32)) {
 			if (v4 && v4[3680] & 1)
 				v54 = 1;
 		} else if (v4 && v4[3680] & 1) {
 			return (__int16)v4;
 		}
-		v5 = nox_xxx_objGetTeamByNetCode_418C80(*getMemIntPtr(0x8529A0, 2044));
+		v5 = nox_xxx_objGetTeamByNetCode_418C80(*getMemIntPtr(0x85319C, 0));
 		if (v5) {
 			v6 = nox_xxx_objGetTeamByNetCode_418C80(*((_DWORD*)a2 + 32));
 			if (v6) {
-				if (*getMemU32Ptr(0x8529A0, 2044) == *((_DWORD*)a2 + 32) || nox_xxx_servCompareTeams_419150((int)v5, (int)v6))
+				if (*getMemU32Ptr(0x85319C, 0) == *((_DWORD*)a2 + 32) || nox_xxx_servCompareTeams_419150((int)v5, (int)v6))
 					v53 = 1;
 			}
 		}

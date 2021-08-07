@@ -438,7 +438,7 @@ func CONNECT_OR_HOST() {
 	if noxflags.HasGame(noxflags.GameHost) {
 		C.nox_xxx_replay_4D3860(unsafe.Pointer(&Datas[0]))
 		if !isDedicatedServer {
-			*memmap.PtrPtr(0x8529A0, 2044) = newPlayer(31, unsafe.Pointer(&Datas[0]))
+			*memmap.PtrPtr(0x85319C, 0) = newPlayer(31, unsafe.Pointer(&Datas[0]))
 		}
 		C.nox_client_setVersion_409AE0(NOX_CLIENT_VERS_CODE)
 		if !isDedicatedServer {
@@ -880,7 +880,7 @@ func nox_xxx_cliSetupSession_437190() {
 		C.nox_netlist_resetAll_40EE60()
 	}
 	C.sub_417CF0()
-	*memmap.PtrUint32(0x8529A0, 2044) = 0
+	*memmap.PtrUint32(0x85319C, 0) = 0
 	*memmap.PtrUint32(0x852978, 8) = 0
 	*memmap.PtrUint32(0x8531A0, 2576) = 0
 }

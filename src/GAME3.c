@@ -5129,7 +5129,7 @@ char*  nox_xxx_mapCliReadAll_4AC2B0(char* a1) {
 		sub_470680();
 		sub_461520();
 		nox_xxx_tile_486060();
-		v2 = nox_common_playerInfoGetByID_417040(*getMemIntPtr(0x8529A0, 2044));
+		v2 = nox_common_playerInfoGetByID_417040(*getMemIntPtr(0x85319C, 0));
 		sub_422140((int)v2);
 		nox_xxx_gameSetNoMPFlag_4DB230(0);
 		if (*getMemIntPtr(0x973F18, 3800) < 0) {

@@ -479,7 +479,7 @@ void  gameex_makeExtensionPacket(int ptr, __int16 opcode, bool needsPlayer) {
 	*(_WORD*)(ptr + 0) = 0xF13A;  // extension packet code
 	*(_WORD*)(ptr + 2) = opcode;
 	if (needsPlayer)
-		*(_DWORD*)(ptr + 4) = (*getMemU32Ptr(0x8529A0, 2044)); // playerNetCode
+		*(_DWORD*)(ptr + 4) = (*getMemU32Ptr(0x85319C, 0)); // playerNetCode
 }
 
 //----- (10001B10) --------------------------------------------------------
@@ -1194,7 +1194,7 @@ void OnKeyboardEvent(nox_keyboard_btn_t* ev) {
 				if (dword_5d4594_1064868 || nox_win_unk3)
 					return;
 				if (nox_common_gameFlags_check_40A5C0(1)) { // checkGameFlags isServer
-					_DWORD* v9 = nox_xxx_objGetTeamByNetCode_418C80(*getMemU32Ptr(0x8529A0, 2044));
+					_DWORD* v9 = nox_xxx_objGetTeamByNetCode_418C80(*getMemU32Ptr(0x85319C, 0));
 					playerDropATrap((int)(v9 - 12));
 				} else {
 					char buf[10];

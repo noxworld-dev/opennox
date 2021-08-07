@@ -94,7 +94,7 @@ _DWORD*  sub_48CB10(int a1) {
 		v14 = nox_strman_loadString_40F1D0("VoteKickPlayer", 0, "C:\\NoxPost\\src\\client\\Gui\\GUIVote.c", 520);
 		sub_46AEE0((int)v13, (int)v14);
 		if (nox_xxx_getTeamCounter_417DD0()) {
-			v15 = nox_xxx_objGetTeamByNetCode_418C80(*getMemIntPtr(0x8529A0, 2044));
+			v15 = nox_xxx_objGetTeamByNetCode_418C80(*getMemIntPtr(0x85319C, 0));
 			v16 = nox_xxx_clientGetTeamColor_418AB0(*((unsigned __int8*)v15 + 4));
 			v26 = v16;
 			if (v16) {

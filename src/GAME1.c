@@ -9117,7 +9117,7 @@ void sub_4181F0(int a1) {
 	}
 	do {
 		v5 = *((_DWORD*)v4 + 514);
-		if (v5 && (*((_DWORD*)v4 + 515) != *getMemU32Ptr(0x8529A0, 2044) ||
+		if (v5 && (*((_DWORD*)v4 + 515) != *getMemU32Ptr(0x85319C, 0) ||
 				   !nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING))) {
 			v6 = *((_DWORD*)v4 + 920);
 			if ((!(v6 & 1) || v6 & 0x20) && !nox_xxx_servObjectHasTeam_419130(v5 + 48)) {
@@ -9201,7 +9201,7 @@ int sub_4183C0() {
 	result = nox_xxx_getFirstPlayerUnit_4DA7C0();
 	for (i = result; result; i = result) {
 		v2 = *(_DWORD*)(i + 748);
-		if (!v2 || ((v3 = *(_DWORD*)(v2 + 276), *(_DWORD*)(v3 + 2060) != *getMemU32Ptr(0x8529A0, 2044)) ||
+		if (!v2 || ((v3 = *(_DWORD*)(v2 + 276), *(_DWORD*)(v3 + 2060) != *getMemU32Ptr(0x85319C, 0)) ||
 					!nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) &&
 					   ((v4 = *(_DWORD*)(v3 + 3680), !(v4 & 1)) || v4 & 0x20)) {
 			v5 = nox_xxx_clientGetTeamColor_418AB0(*(unsigned __int8*)(i + 52));

@@ -6,7 +6,7 @@ func init() {
 	memmap.RegisterBlob(0x581450, "byte_581450", 23472)
 	memmap.RegisterBlob(0x587000, "byte_587000", 316820)
 	memmap.RegisterBlob(0x5D4594, "byte_5D4594", 2598284)
-	memmap.RegisterBlob(0x8529A0, "byte_8529A0", 2048)
+	memmap.RegisterBlob(0x8529A0, "byte_8529A0", 2044)
 	memmap.RegisterBlob(0x8531A0, "byte_8531A0", 2592)
 	memmap.RegisterBlob(0x973CE0, "byte_973CE0", 568)
 	memmap.RegisterBlob(0x973F18, "byte_973F18", 44881)
@@ -14,6 +14,7 @@ func init() {
 	memmap.RegisterBlob(0x85B3FC, "byte_85B3FC", 1029636)
 	memmap.RegisterBlob(0x852978, "byte_852978", 40)
 	memmap.RegisterBlob(0x973A20, "byte_973A20", 704)
+	memmap.RegisterBlob(0x85319C, "byte_85319C", 4)
 	for _, v := range noxMemmap {
 		memmap.RegisterVariableOff(v.blob, v.off, v.size, v.name, nil)
 	}

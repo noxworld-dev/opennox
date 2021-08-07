@@ -3919,7 +3919,7 @@ void  nox_xxx_playerCursorScanFn_54AFB0(int a1, float* a2) {
 		(!nox_xxx_testUnitBuffs_4FF350(a1, 0) || nox_xxx_testUnitBuffs_4FF350(*(int*)&dword_5d4594_2491592, 21)) &&
 		(*(_DWORD*)(a1 + 8) & 0x80000206 || *(unsigned __int16*)(a1 + 4) == *getMemU32Ptr(0x5D4594, 2491604))) {
 		if (nox_xxx_mapCheck_537110(a1, *(int*)&dword_5d4594_2491592)) {
-			if (!(*(_BYTE*)(a1 + 8) & 4) || (*(_DWORD*)(a1 + 36) != *getMemU32Ptr(0x8529A0, 2044) ||
+			if (!(*(_BYTE*)(a1 + 8) & 4) || (*(_DWORD*)(a1 + 36) != *getMemU32Ptr(0x85319C, 0) ||
 											 !nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) &&
 												(v3 = nox_common_playerInfoGetByID_417040(*(_DWORD*)(a1 + 36))) != 0 && !(v3[3680] & 1)) {
 				if ((*(_DWORD*)(a1 + 8) & 0x200) != 512 || (v4 = *(_DWORD*)(a1 + 16), BYTE1(v4) & 0x40)) {

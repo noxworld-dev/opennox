@@ -71,8 +71,8 @@ void nox_xxx_clientDrawAll_436100_draw() {
 		v7 = nox_draw_viewport.y1;
 	}
 	sub_430B50(v6, v7, nox_draw_viewport.x2, nox_draw_viewport.y2);
-	if (*getMemU32Ptr(0x8529A0, 2044))
-		*getMemU32Ptr(0x852978, 8) = nox_xxx_netSpriteByCodeDynamic_45A6F0(*getMemIntPtr(0x8529A0, 2044));
+	if (*getMemU32Ptr(0x85319C, 0))
+		*getMemU32Ptr(0x852978, 8) = nox_xxx_netSpriteByCodeDynamic_45A6F0(*getMemIntPtr(0x85319C, 0));
 	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
 		v8 = !sub_436550();
 		if (v8)

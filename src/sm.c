@@ -204,7 +204,7 @@ void CONNECT_PREPARE(sm_args_t* args) {
 
 	if (nox_common_gameFlags_check_40A5C0(1)) {
 		nox_xxx_replay_4D3860(Data);
-		*getMemU32Ptr(0x8529A0, 2044) = nox_xxx_playerNew_4DD320(31, Data);
+		*getMemU32Ptr(0x85319C, 0) = nox_xxx_playerNew_4DD320(31, Data);
 		nox_client_setVersion_409AE0(NOX_CLIENT_VERS_CODE);
 		nox_netlist_receiveCli_494E90(31);
 		nox_xxx_gameSetPlayState_4356B0(2);

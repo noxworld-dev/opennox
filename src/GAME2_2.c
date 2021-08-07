@@ -1338,7 +1338,7 @@ void nox_client_drawCursorAndTooltips_477830() {
 	}
 	if (nox_client_spellDragnDrop_1097192) // Player is dragging spell or ability
 	{
-		v1 = nox_common_playerInfoGetByID_417040(*getMemIntPtr(0x8529A0, 2044));
+		v1 = nox_common_playerInfoGetByID_417040(*getMemIntPtr(0x85319C, 0));
 		if (!v1 || v1[2251]) {
 			v2 = nox_xxx_spellIcon_424A90(nox_client_spellDragnDrop_1097192); // Spell icon
 			if (v2) {
