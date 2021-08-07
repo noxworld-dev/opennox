@@ -4510,15 +4510,15 @@ int  nox_xxx_guiServerOptionsGetGametypeName_4573C0(__int16 a1) {
 	if (!dword_5d4594_1046548)
 		sub_457410();
 	v1 = 0;
-	if (!*getMemU32Ptr(0x587000, 129668))
-		return *getMemU32Ptr(0x587000, 129680);
-	for (i = getMemAt(0x587000, 129668); (a1 & 0x17F0) != *((_DWORD*)i + 1); i += 12) {
+	if (!*getMemU32Ptr(0x587000, 129664 + 4))
+		return *getMemU32Ptr(0x587000, 129664 + 12*1 + 4);
+	for (i = getMemAt(0x587000, 129664 + 4); (a1 & 0x17F0) != *((_DWORD*)i + 1); i += 12) {
 		v3 = *((_DWORD*)i + 3);
 		++v1;
 		if (!v3)
-			return *getMemU32Ptr(0x587000, 129680);
+			return *getMemU32Ptr(0x587000, 129664 + 12*1 + 4);
 	}
-	return *getMemU32Ptr(0x587000, 129668 + 12 * v1);
+	return *getMemU32Ptr(0x587000, 129664 + 12*v1 + 4);
 }
 
 //----- (00457460) --------------------------------------------------------
@@ -4951,10 +4951,10 @@ int  sub_459650(wchar_t* a1) {
 	int v4;              // ecx
 
 	v1 = 0;
-	if (!*getMemU32Ptr(0x587000, 129668))
+	if (!*getMemU32Ptr(0x587000, 129664 + 4))
 		return 0;
-	v2 = (const wchar_t**)getMemAt(0x587000, 129668);
-	v3 = getMemAt(0x587000, 129668);
+	v2 = (const wchar_t**)getMemAt(0x587000, 129664 + 4);
+	v3 = getMemAt(0x587000, 129664 + 4);
 	while (nox_wcscmp(*v2, a1)) {
 		v4 = *((_DWORD*)v3 + 3);
 		v3 += 12;
@@ -4963,7 +4963,7 @@ int  sub_459650(wchar_t* a1) {
 		if (!v4)
 			return 0;
 	}
-	return *getMemU32Ptr(0x587000, 129672 + 12 * v1);
+	return *getMemU32Ptr(0x587000, 129664 + 12*v1 + 8);
 }
 
 //----- (004596A0) --------------------------------------------------------
@@ -4974,9 +4974,9 @@ int nox_xxx_windowServerOptionsFillGametypeList_4596A0() {
 
 	v0 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1046492, 10120);
 	nox_window_call_field_94((int)v0, 16399, 0, 0);
-	result = *getMemU32Ptr(0x587000, 129668);
-	if (*getMemU32Ptr(0x587000, 129668)) {
-		v2 = getMemIntPtr(0x587000, 129668);
+	result = *getMemU32Ptr(0x587000, 129664 + 4);
+	if (*getMemU32Ptr(0x587000, 129664 + 4)) {
+		v2 = getMemIntPtr(0x587000, 129664 + 4);
 		do {
 			if (v2[1] != 4096)
 				nox_window_call_field_94((int)v0, 16397, *v2, -1);
