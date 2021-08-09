@@ -31,10 +31,10 @@ import (
 )
 
 var (
-	guiLog          = log.New("gui")
-	nox_win_unk3    *Window
-	nox_win_1064900 *Window
-	nox_win_1064916 *Window
+	guiLog                       = log.New("gui")
+	nox_win_unk3                 *Window
+	nox_win_activeWindow_1064900 *Window
+	nox_win_1064916              *Window
 )
 
 func enableGUIDrawing(enable bool) {
@@ -398,8 +398,8 @@ func sub_46C200() {
 		if C.nox_win_1064912 != nil && v0.C() == C.nox_win_1064912.win {
 			C.nox_xxx_wnd_46C6E0(C.nox_win_1064912.win)
 		}
-		if nox_win_1064900 == v0 {
-			nox_win_1064900 = nil
+		if nox_win_activeWindow_1064900 == v0 {
+			nox_win_activeWindow_1064900 = nil
 		}
 		if nox_win_1064916 == v0 {
 			nox_win_1064916 = nil

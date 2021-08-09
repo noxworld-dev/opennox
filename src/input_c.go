@@ -801,18 +801,18 @@ func nox_xxx_cursorUpdate_46B740(inp *input.Handler) {
 			}
 		}
 	}
-	if nox_win_1064916 == nil && v1 != nox_win_1064900 {
+	if nox_win_1064916 == nil && v1 != nox_win_activeWindow_1064900 {
 		if nox_win_unk3 != nil {
-			if nox_win_unk3.IsChild(nox_win_1064900) {
-				nox_win_1064900.Func93(18, spos2, 0)
+			if nox_win_unk3.IsChild(nox_win_activeWindow_1064900) {
+				nox_win_activeWindow_1064900.Func93(18, spos2, 0)
 			}
-		} else if nox_win_1064900 != nil {
-			nox_win_1064900.Func93(18, spos2, 0)
+		} else if nox_win_activeWindow_1064900 != nil {
+			nox_win_activeWindow_1064900.Func93(18, spos2, 0)
 		}
 		if v1 != nil {
 			v1.Func93(17, spos2, 0)
 		}
-		nox_win_1064900 = v1
+		nox_win_activeWindow_1064900 = v1
 	}
 	nox_xxx_cursorUpdate_46B740_sprites(inp, v63, v66[:])
 	inp.SetMouseState(seat.MouseButtonLeft, uint(v66[0]))

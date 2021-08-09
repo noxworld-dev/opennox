@@ -33,7 +33,7 @@ nox_window_ref* nox_win_1064912 = 0;
 nox_alloc_class* nox_alloc_window = 0;
 nox_window* nox_win_xxx1_first = 0;
 nox_window* nox_win_xxx1_last = 0;
-void* nox_win_1064900 = 0;
+void* nox_win_activeWindow_1064900 = 0;
 nox_window* nox_win_cur_focused = 0;
 nox_window* nox_win_unk3 = 0;
 #endif // NOX_CGO
@@ -227,8 +227,8 @@ int  nox_xxx_windowDestroyMB_46C4E0(nox_window* a1p) {
 			nox_xxx_windowFocus_46B500(0);
 		if (nox_win_1064912 && a1 == nox_win_1064912->win)
 			nox_xxx_wnd_46C6E0(nox_win_1064912->win);
-		if (nox_win_1064900 == a1)
-			nox_win_1064900 = 0;
+		if (nox_win_activeWindow_1064900 == a1)
+			nox_win_activeWindow_1064900 = 0;
 		if (nox_win_1064916 == a1)
 			nox_win_1064916 = 0;
 		v3 = (unsigned int*)a1[100];
@@ -935,8 +935,8 @@ void sub_46C200() {
 				nox_xxx_windowFocus_46B500(0);
 			if (nox_win_1064912 && v0 == nox_win_1064912->win)
 				nox_xxx_wnd_46C6E0(nox_win_1064912->win);
-			if (nox_win_1064900 == v0)
-				nox_win_1064900 = 0;
+			if (nox_win_activeWindow_1064900 == v0)
+				nox_win_activeWindow_1064900 = 0;
 			if (nox_win_1064916 == v0)
 				nox_win_1064916 = 0;
 			nox_window_call_field_94(v0, 2, 0, 0);

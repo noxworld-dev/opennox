@@ -539,8 +539,8 @@ func (win *Window) Destroy() {
 	if C.nox_win_1064912 != nil && win.C() == C.nox_win_1064912.win {
 		C.nox_xxx_wnd_46C6E0(C.nox_win_1064912.win)
 	}
-	if nox_win_1064900 == win {
-		nox_win_1064900 = nil
+	if nox_win_activeWindow_1064900 == win {
+		nox_win_activeWindow_1064900 = nil
 	}
 	if nox_win_1064916 == win {
 		nox_win_1064916 = nil

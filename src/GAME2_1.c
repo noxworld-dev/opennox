@@ -94,7 +94,7 @@ extern _DWORD dword_5d4594_2650680;
 extern _DWORD dword_5d4594_1049484;
 extern _DWORD dword_5d4594_1096508;
 extern _DWORD nox_client_fadeObjects_80836;
-extern void* nox_win_1064900;
+extern void* nox_win_activeWindow_1064900;
 extern _DWORD dword_5d4594_1062516;
 extern _DWORD nox_client_drawFrontWalls_80812;
 extern _DWORD nox_client_translucentFrontWalls_805844;
@@ -4318,18 +4318,18 @@ void nox_xxx_cursorUpdate_46B740() {
 			}
 		}
 	}
-	if (!nox_win_1064916 && v1 != *(wchar_t**)&nox_win_1064900) {
+	if (!nox_win_1064916 && v1 != *(wchar_t**)&nox_win_activeWindow_1064900) {
 		if (nox_win_unk3) {
-			if (nox_window_is_child(nox_win_unk3, *(int*)&nox_win_1064900)) {
-				nox_window_call_field_93(*(int *) &nox_win_1064900, 18, spos2, 0);
+			if (nox_window_is_child(nox_win_unk3, *(int*)&nox_win_activeWindow_1064900)) {
+				nox_window_call_field_93(*(int *) &nox_win_activeWindow_1064900, 18, spos2, 0);
 			}
-		} else if (nox_win_1064900) {
-			nox_window_call_field_93(*(int*)&nox_win_1064900, 18, spos2, 0);
+		} else if (nox_win_activeWindow_1064900) {
+			nox_window_call_field_93(*(int*)&nox_win_activeWindow_1064900, 18, spos2, 0);
 		}
 		if (v1) {
 			nox_window_call_field_93((int) v1, 17, spos2, 0);
 		}
-		nox_win_1064900 = v1;
+		nox_win_activeWindow_1064900 = v1;
 	}
 	if (nox_xxx_gameGetPlayState_4356B0() == 3 && !*getMemU32Ptr(0x5D4594, 1064940) && !nox_xxx_playerAnimCheck_4372B0() && !nox_xxx_checkGameFlagPause_413A50() && !nox_xxx_guiCursor_477600() &&
 		!nox_xxx_clientIsObserver_4372E0()) {

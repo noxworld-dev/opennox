@@ -15,7 +15,7 @@ extern int nox_win_height_game;
 extern int dword_5d4594_3484;
 extern nox_object_t* nox_xxx_host_player_unit_3843628;
 extern nox_window* dword_5d4594_1064896;
-extern void* nox_win_1064900;
+extern void* nox_win_activeWindow_1064900;
 extern unsigned int dword_587000_87404;
 extern unsigned int dword_5d4594_1064868;
 extern unsigned int dword_5d4594_1316972;
@@ -1139,7 +1139,7 @@ void OnLibraryNotice_264(DWORD arg1) {
 bool gameexSomeWeirdCheckFixmePlease();
 #else // NOX_CGO
 bool gameexSomeWeirdCheckFixmePlease() {
-	return (((_DWORD)dword_5d4594_1064896 >> 8) | ((unsigned int)nox_win_1064900 << 24)) == 0;
+	return (((_DWORD)dword_5d4594_1064896 >> 8) | ((unsigned int)nox_win_activeWindow_1064900 << 24)) == 0;
 }
 #endif // NOX_CGO
 void OnLibraryNotice_265(unsigned int arg1, unsigned int arg2, int arg3) {

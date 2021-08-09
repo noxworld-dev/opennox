@@ -705,7 +705,7 @@ var noxMemmap = []struct {
 	{0x5D4594, 1064888, 4, "nox_win_xxx1_last"},                           // 0x6D854C
 	{0x5D4594, 1064892, 4, "nox_win_xxx1_first"},                          // 0x6D8550
 	{0x5D4594, 1064896, 4, "dword_5d4594_1064896"},                        // 0x6D8554
-	{0x5D4594, 1064900, 4, "nox_win_1064900"},                             // 0x6D8558
+	{0x5D4594, 1064900, 4, "nox_win_activeWindow_1064900"},                // 0x6D8558
 	{0x5D4594, 1064904, 4, "nox_win_unk3"},                                // 0x6D855C
 	{0x5D4594, 1064908, 4, "nox_win_cur_focused"},                         // 0x6D8560
 	{0x5D4594, 1064912, 4, "nox_win_1064912"},                             // 0x6D8564
