@@ -4076,11 +4076,11 @@ _DWORD* sub_4AAA70() {
 	nox_xxx_gameGetScreenBoundaries_43BEB0_get_video_mode(&v8, &v10, &v9);
 	v9 = nox_xxx_normalWndBits_587000_172880;
 #ifdef NOX_HIGH_RES
-	if (v10 == 768)
+	if (v10 == 768 || v10 == 720)
 		v6 = 321;
-	else if (v10 == 720)
+	else if (v10 == 1080)
 		v6 = 322;
-	else
+	else // 1440
 		v6 = 323;
 #else // NOX_HIGH_RES
 	if (v10 == 480)
@@ -4228,16 +4228,16 @@ int  sub_4AABE0(int a1, int a2, int* a3, int a4) {
 				break;
 #ifdef NOX_HIGH_RES
 			case 321:
-				nox_xxx_normalWndHeight_587000_172876 = 1024;
-				nox_xxx_normalWndWidth_587000_172872 = 768;
-				break;
-			case 322:
 				nox_xxx_normalWndHeight_587000_172876 = 1280;
 				nox_xxx_normalWndWidth_587000_172872 = 720;
 				break;
-			case 323:
+			case 322:
 				nox_xxx_normalWndHeight_587000_172876 = 1920;
 				nox_xxx_normalWndWidth_587000_172872 = 1080;
+				break;
+			case 323:
+				nox_xxx_normalWndHeight_587000_172876 = 2560;
+				nox_xxx_normalWndWidth_587000_172872 = 1440;
 				break;
 #else // NOX_HIGH_RES
 			case 321:
@@ -5801,16 +5801,16 @@ int nox_game_initOptionsInGame_4ADAD0() {
 	*(_DWORD*)(dword_5d4594_1309832 + 36) = v15;
 	nox_xxx_gameGetScreenBoundaries_43BEB0_get_video_mode(&v32, &v34, &v33);
 #ifdef NOX_HIGH_RES
+	if (v34 == 768 || v34 == 720)
+		v31 = 321;
+	else if (v34 == 1080)
+		v31 = 322;
+	else // 1440
+		v31 = 323;
+#else // NOX_HIGH_RES
 	if (v34 == 480)
 		v31 = 321;
 	else if (v34 == 576)
-		v31 = 322;
-	else
-		v31 = 323;
-#else // NOX_HIGH_RES
-	if (v34 == 768)
-		v31 = 321;
-	else if (v34 == 720)
 		v31 = 322;
 	else
 		v31 = 323;

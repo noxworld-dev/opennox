@@ -31,9 +31,9 @@ func guiEnhanceOptions(root *Window) {
 	var resOpts [3]types.Size
 	if noxHighRes {
 		resOpts = [3]types.Size{
-			{1024, 768},
 			{1280, 720},
-			{noxMaxWidth, noxMaxHeight},
+			{1920, 1080},
+			{2560, 1440},
 		}
 	} else {
 		resOpts = [3]types.Size{
