@@ -99,7 +99,7 @@ func nox_xxx_gameTick_4D2580_server_B(ticks uint64) bool {
 	if !noxflags.HasGame(noxflags.GamePause) {
 		C.nox_xxx_updateUnits_51B100()
 		C.sub_4EC720()
-		if noxflags.HasGame(noxflags.GameQuest) {
+		if noxflags.HasGame(noxflags.GameModeQuest) {
 			C.sub_50D890()
 			C.sub_4E4170()
 		}
@@ -116,7 +116,7 @@ func nox_xxx_gameTick_4D2580_server_B(ticks uint64) bool {
 		C.nox_xxx_protectUnitDefUpdateMB_4E3C20()
 		nox_xxx_setKeybTimeout_4160D0(16)
 	}
-	if noxflags.HasGame(noxflags.GameServerXxx) && C.nox_xxx_check_flag_aaa_43AF70() == 1 && !noxflags.HasGame(noxflags.GameFlag8) && nox_xxx_checkKeybTimeout_4160F0(0xF, 60*gameFPS()) {
+	if noxflags.HasGame(noxflags.GameServerXxx) && C.nox_xxx_check_flag_aaa_43AF70() == 1 && !noxflags.HasGame(noxflags.GameModeChat) && nox_xxx_checkKeybTimeout_4160F0(0xF, 60*gameFPS()) {
 		C.nox_xxx_net_4263C0()
 		nox_xxx_setKeybTimeout_4160D0(15)
 	}
@@ -314,7 +314,7 @@ func nox_xxx_servNewSession_4D1660() error {
 		return errors.New("nox_xxx_monsterList_517520 failed")
 	}
 	C.sub_416920()
-	if !noxflags.HasGame(noxflags.GameSolo) {
+	if !noxflags.HasGame(noxflags.GameModeSolo12) {
 		v1 := nox_xxx_servGetPort_40A430()
 		*memmap.PtrInt32(0x5D4594, 1548516) = int32(C.nox_xxx_netAddPlayerHandler_4DEBC0(C.int(v1)))
 		if !noxflags.HasGame(noxflags.GameFlag26) {
@@ -378,7 +378,7 @@ func nox_xxx_servEndSession_4D3200() {
 	C.sub_416950()
 	C.nox_xxx_freeGameObjectClass_4E3420()
 	C.nox_xxx_freeObjectTypes_4E2A20()
-	if !noxflags.HasGame(noxflags.GameSolo) {
+	if !noxflags.HasGame(noxflags.GameModeSolo12) {
 		nox_server_netCloseHandler_4DEC60(*memmap.PtrUint32(0x5D4594, 1548516))
 		if !noxflags.HasGame(noxflags.GameFlag26) {
 			C.nox_xxx_networkLog_close_413D00()

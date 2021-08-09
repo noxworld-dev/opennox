@@ -177,7 +177,7 @@ func startServer() int {
 	} else {
 		noxflags.UnsetGame(noxflags.GameNotQuest)
 	}
-	noxflags.UnsetGame(noxflags.GameSolo)
+	noxflags.UnsetGame(noxflags.GameModeSolo12)
 	C.sub_461440(0)
 	C.sub_4D6F40(0)
 	C.sub_4D6F90(0)
@@ -395,7 +395,7 @@ func initGameSession435CC0() error {
 	vp.field_12 = 0
 	v1 := C.nox_video_getCutSize_4766D0()
 	nox_draw_setCutSize_476700(v1, 0)
-	if noxflags.HasGame(noxflags.GameSolo) {
+	if noxflags.HasGame(noxflags.GameModeSolo12) {
 		C.sub_41CC00((*C.char)(memmap.PtrOff(0x85B3FC, 10984)))
 	} else if C.sub_4D6F50() != 0 || C.sub_4D6F70() != 0 {
 		if C.sub_4D6F50() != 0 || C.sub_4D6F70() != 0 {

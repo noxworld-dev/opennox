@@ -185,7 +185,7 @@ func runNox(args []string) error {
 	})
 	noxflags.OnGameSet(func(f noxflags.GameFlag) {
 		log.Printf("game flag set: %v", f)
-		C.nox_xxx_guiChatShowHide_445730(C.int(bool2int((noxflags.GetGame() & 0x17F0) != noxflags.GameFlag8)))
+		C.nox_xxx_guiChatShowHide_445730(C.int(bool2int((noxflags.GetGame() & 0x17F0) != noxflags.GameModeChat)))
 		if f.Has(noxflags.GameSuddenDeath) && noxflags.HasGame(noxflags.GameHost) {
 			C.nox_xxx_netPrintLineToAll_4DA390(C.CString("Settings.c:SuddenDeathStart"))
 		}
@@ -205,7 +205,7 @@ func runNox(args []string) error {
 	nox_xxx_setGameState_43DDF0(nil)
 	gameSetCliDrawFunc(nil)
 	sub_43DE40(nil)
-	noxflags.SetGame(noxflags.GameFlag9)
+	noxflags.SetGame(noxflags.GameModeArena)
 	if *fNoLimit {
 		C.nox_xxx_setFrameLimit_43DDE0(0)
 		*memmap.PtrUint32(0x587000, 84) = 0

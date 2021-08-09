@@ -25,38 +25,38 @@ func init() {
 }
 
 const (
-	GameHost        = GameFlag(0x1)
-	GameFlag2       = GameFlag(0x2)
-	GameFlag3       = GameFlag(0x4)
-	GameFlag4       = GameFlag(0x8)
-	GameFlag5       = GameFlag(0x10)
-	GameFlag6       = GameFlag(0x20)
-	GameFlag7       = GameFlag(0x40)
-	GameFlag8       = GameFlag(0x80)
-	GameFlag9       = GameFlag(0x100)
-	GameFlag10      = GameFlag(0x200)
-	GameFlag11      = GameFlag(0x400)
-	GameSolo        = GameFlag(0x800)
-	GameQuest       = GameFlag(0x1000)
-	GameServerXxx   = GameFlag(0x2000)
-	GameFlag15      = GameFlag(0x4000)
-	GameFlag16      = GameFlag(0x8000)
-	GameNotQuest    = GameFlag(0x10000)
-	GameFlag18      = GameFlag(0x20000)
-	GamePause       = GameFlag(0x40000)
-	GameFlag20      = GameFlag(0x80000)
-	GameFlag21      = GameFlag(0x100000)
-	GameFlag22      = GameFlag(0x200000)
-	GameFlag23      = GameFlag(0x400000)
-	GameFlag24      = GameFlag(0x800000)
-	GameFlag25      = GameFlag(0x1000000)
-	GameFlag26      = GameFlag(0x2000000)
-	GameSuddenDeath = GameFlag(0x4000000)
-	GameFlag28      = GameFlag(0x8000000)
-	GameFlag29      = GameFlag(0x10000000)
-	GameFlag30      = GameFlag(0x20000000)
-	GameFlag31      = GameFlag(0x40000000)
-	GameFlag32      = GameFlag(0x80000000)
+	GameHost            = GameFlag(0x1)
+	GameFlag2           = GameFlag(0x2)
+	GameFlag3           = GameFlag(0x4)
+	GameFlag4           = GameFlag(0x8)
+	GameModeKOTR        = GameFlag(0x10)
+	GameModeCTF         = GameFlag(0x20)
+	GameModeFlagBall    = GameFlag(0x40)
+	GameModeChat        = GameFlag(0x80)
+	GameModeArena       = GameFlag(0x100)
+	GameModeSolo10      = GameFlag(0x200)
+	GameModeElimination = GameFlag(0x400)
+	GameModeSolo12      = GameFlag(0x800)
+	GameModeQuest       = GameFlag(0x1000)
+	GameServerXxx       = GameFlag(0x2000)
+	GameFlag15          = GameFlag(0x4000)
+	GameFlag16          = GameFlag(0x8000)
+	GameNotQuest        = GameFlag(0x10000)
+	GameFlag18          = GameFlag(0x20000)
+	GamePause           = GameFlag(0x40000)
+	GameFlag20          = GameFlag(0x80000)
+	GameFlag21          = GameFlag(0x100000)
+	GameFlag22          = GameFlag(0x200000)
+	GameFlag23          = GameFlag(0x400000)
+	GameFlag24          = GameFlag(0x800000)
+	GameFlag25          = GameFlag(0x1000000)
+	GameFlag26          = GameFlag(0x2000000)
+	GameSuddenDeath     = GameFlag(0x4000000)
+	GameFlag28          = GameFlag(0x8000000)
+	GameFlag29          = GameFlag(0x10000000)
+	GameFlag30          = GameFlag(0x20000000)
+	GameFlag31          = GameFlag(0x40000000)
+	GameFlag32          = GameFlag(0x80000000)
 )
 
 const (
@@ -143,24 +143,24 @@ func (f GameFlag) String() string {
 		return "Flag3"
 	case GameFlag4:
 		return "Flag4"
-	case GameFlag5:
-		return "Flag5"
-	case GameFlag6:
-		return "Flag6"
-	case GameFlag7:
-		return "Flag7"
-	case GameFlag8:
-		return "Flag8"
-	case GameFlag9:
-		return "Flag9"
-	case GameFlag10:
-		return "Flag10"
-	case GameFlag11:
-		return "Flag11"
-	case GameSolo:
-		return "Solo"
-	case GameQuest:
-		return "Flag13"
+	case GameModeKOTR:
+		return "KOTR"
+	case GameModeCTF:
+		return "CTF"
+	case GameModeFlagBall:
+		return "FlagBall"
+	case GameModeChat:
+		return "Chat"
+	case GameModeArena:
+		return "Arena"
+	case GameModeSolo10:
+		return "Solo10"
+	case GameModeElimination:
+		return "Elimination"
+	case GameModeSolo12:
+		return "Solo12"
+	case GameModeQuest:
+		return "Quest"
 	case GameServerXxx:
 		return "ServerXxx"
 	case GameFlag15:

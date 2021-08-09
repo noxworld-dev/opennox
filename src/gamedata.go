@@ -48,7 +48,7 @@ func nox_xxx_gamedataGetFloatTable_419D70(k *C.char, i C.int) C.double {
 
 func gamedataTag() string {
 	// TODO: check if it's a valid condition
-	if noxflags.HasGame(noxflags.GameSolo) {
+	if noxflags.HasGame(noxflags.GameModeSolo12) {
 		return balance.TagSolo
 	}
 	return balance.TagArena
