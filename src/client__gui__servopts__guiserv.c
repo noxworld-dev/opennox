@@ -40,7 +40,7 @@ nox_gui_gamemode nox_gui_gamemodes[] = {
 	{"Flagball", 0, 0x40, 0},
 	{"Quest", 0, 0x1000, 1},
 	{"Noxworld.c:Chat", 0, 0x80, 0},
-	{},
+	{0},
 };
 int nox_gui_gamemode_cnt = sizeof(nox_gui_gamemodes) / sizeof(nox_gui_gamemode) - 1;
 
