@@ -756,7 +756,7 @@ int  nox_xxx_unitUpdateMonster_50A5C0(float a1) {
 	if (v4 && *(_DWORD*)(v4 + 16) & 0x8020)
 		*(_DWORD*)(v2 + 2192) = 0;
 	nox_xxx_mobAction_50A910(SLODWORD(a1));
-	sub_50CDD0(SLODWORD(a1));
+	nox_xxx_unitListenRoutine_50CDD0(SLODWORD(a1));
 	result = *(_DWORD*)(LODWORD(a1) + 16);
 	if (result & 0x1000000) {
 		dword_5d4594_1599692 = 0;
@@ -2306,7 +2306,7 @@ void nox_xxx_audioAddAIInteresting_50CD40(int a1, int a2, _DWORD* a3) {
 }
 
 //----- (0050CDD0) --------------------------------------------------------
-void sub_50CDD0(int unitA) {
+void nox_xxx_unitListenRoutine_50CDD0(int unitA) {
 	int unit;                  // ebx
 	int previousMonsterListen;                  // edi
 	int monsterListen;                  // esi
@@ -2323,31 +2323,18 @@ void sub_50CDD0(int unitA) {
 	flags = *(_DWORD*)(unitA + 748);
 	heardMonster = 0;
 	raycastDistance = 0;
-	if (!nox_xxx_checkIsKillable_528190(unit)) {
-		printf("PJ 50CDD0 !isKillable");
-		return;
-	}
 
-	if (!nox_xxx_unitIsAFish_534B10(unit)) {
-		printf("PJ 50CDD0 !isFish");
-		return;
-	}
+	// Not sure about this check. If an unit is invulnerable, don't listen for anything?
+	// Is present in vanilla though, so this might be some kind of weird fix for strange behaviour
+	if (!nox_xxx_checkIsKillable_528190(unit)) return;
 
-	if (!nox_xxx_unitIsAFrog_534B90(unit)) {
-		printf("PJ 50CDD0 !isFrog");
-		return;
-	}
-
-	if (!nox_xxx_unitIsARat_534B60(unit)) {
-		printf("PJ 50CDD0 !isRat");
-		return;
-	}
-
+	//Do not listen to anything if you are a fish, frog or rat
+	if (nox_xxx_unitIsAFish_534B10(unit)) return;
+	if (nox_xxx_unitIsAFrog_534B90(unit)) return;
+	if (nox_xxx_unitIsARat_534B60(unit)) return;
+	
 	monsterListen = nox_monsterListen_2386192;
-	if (!nox_monsterListen_2386192) {
-		printf("PJ 50CDD0 !monsterListen");
-		return;
-	}
+	if (!nox_monsterListen_2386192)	return;
 
 	do {
 		monsterListenFlags = *(_DWORD*)(monsterListen + 16);
@@ -2364,7 +2351,7 @@ void sub_50CDD0(int unitA) {
 				*(_DWORD*)(monsterListen + 4) = 0;
 			if (*(_DWORD*)(flags + 404) <= *(int*)(monsterListen + 16)) {
 				// should unit bother listening ?
-				if (sub_50CF10(unit, monsterListen)) { 
+				if (sub_nox_xxx_checkIfUnitShouldListenOther_50CF10(unit, monsterListen)) { 
 					//Raycast?
 					raycastResults = sub_50D000(unit, monsterListen);
 					//This finds the farthest?
@@ -2380,13 +2367,12 @@ void sub_50CDD0(int unitA) {
 	} while (nextMonsterListen);
 
 	if (heardMonster && ((unsigned int)heardMonster[4] > *(int*)(flags + 404) || raycastDistance > *(int*)(flags + 408)))
-		sub_50D110(unit, heardMonster, raycastDistance); //send event 16 (monster hears something ???)
+		nox_xxx_unitEmitHearEvent_50D110(unit, heardMonster, raycastDistance); //send event 16 (monster hears something ???)
 }
 
 
 //----- (0050CF10) --------------------------------------------------------
-BOOL  sub_50CF10(int unitA, int unitB) {
-	printf("PJ 50CF10");
+BOOL  sub_nox_xxx_checkIfUnitShouldListenOther_50CF10(int unitA, int unitB) {
 	int unit;       // ebx
 	int v3;       // edi
 	int playerUnit;       // ebp
@@ -2477,23 +2463,23 @@ int  sub_50D0C0(char a1, int a2) {
 }
 
 //----- (0050D110) --------------------------------------------------------
-unsigned __int8*  sub_50D110(int a1, _DWORD* a2, int a3) {
+unsigned __int8*  nox_xxx_unitEmitHearEvent_50D110(int unit, _DWORD* heardUnit, int distance) {
 	_DWORD* v3; // esi
 	int v4;     // eax
 	int v5;     // eax
 
-	v3 = *(_DWORD**)(a1 + 748);
-	v3[97] = *a2;
+	v3 = *(_DWORD**)(unit + 748);
+	v3[97] = *heardUnit;
 	v3[101] = nox_frame_xxx_2598000;
-	v3[102] = a3;
-	v4 = a2[1];
+	v3[102] = distance;
+	v4 = heardUnit[1];
 	if (v4)
 		v3[98] = *(_DWORD*)(v4 + 36);
 	else
 		v3[98] = 0;
-	sub_50D190(a1, a2 + 2, v3 + 99);
-	v5 = nox_xxx_findParentChainPlayer_4EC580(a2[1]);
-	return nox_xxx_scriptCallByEventBlock_502490(v3 + 320, v5, a1, 16); //EventID 16 is ??? - could it be MonsterHearsEnemy?
+	sub_50D190(unit, heardUnit + 2, v3 + 99);
+	v5 = nox_xxx_findParentChainPlayer_4EC580(heardUnit[1]);
+	return nox_xxx_scriptCallByEventBlock_502490(v3 + 320, v5, unit, 16); //EventID 16 is ??? - could it be MonsterHearsEnemy?
 }
 
 //----- (0050D190) --------------------------------------------------------
