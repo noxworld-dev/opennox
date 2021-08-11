@@ -6053,7 +6053,7 @@ int  nox_xxx_polygon_421660(int* a1, int a2) {
 
 //----- (00421790) --------------------------------------------------------
 int  nox_xxx_polygonGetIdxA_421790(int2* a1, int a2) {
-	struc_19* v2; // eax
+	nox_player_polygon_check_data* v2; // eax
 	int result;   // eax
 
 	v2 = nox_xxx_polygonIsPlayerInPolygon_4217B0(a1, a2);
@@ -6065,7 +6065,7 @@ int  nox_xxx_polygonGetIdxA_421790(int2* a1, int a2) {
 }
 
 //----- (004217B0) --------------------------------------------------------
-struc_19*  nox_xxx_polygonIsPlayerInPolygon_4217B0(int2* a1, int a2) {
+nox_player_polygon_check_data*  nox_xxx_polygonIsPlayerInPolygon_4217B0(int2* a1, int a2) {
 	int v2;             // eax
 	int v4;             // edi
 	unsigned __int8* i; // esi
@@ -6077,7 +6077,7 @@ struc_19*  nox_xxx_polygonIsPlayerInPolygon_4217B0(int2* a1, int a2) {
 				v2 = sub_4281F0(a1, (int4*)getMemAt(0x5D4594, 552316 + 140 * a2));
 				if (v2) {
 					if (nox_xxx_polygon_421660(&a1->field_0, (int)getMemAt(0x5D4594, 552228 + 140 * a2)))
-						return (struc_19*)getMemAt(0x5D4594, 552228 + 140 * a2);
+						return (nox_player_polygon_check_data*)getMemAt(0x5D4594, 552228 + 140 * a2);
 				}
 			}
 		}
@@ -6098,7 +6098,7 @@ struc_19*  nox_xxx_polygonIsPlayerInPolygon_4217B0(int2* a1, int a2) {
 		if ((unsigned int)++v4 >= *(int*)&nox_xxx_polygonNextIdx_587000_60352)
 			return 0;
 	}
-	return (struc_19*)(i - 80);
+	return (nox_player_polygon_check_data*)(i - 80);
 }
 // 4217F5: variable 'v2' is possibly undefined
 // 421840: variable 'v6' is possibly undefined
@@ -6267,7 +6267,7 @@ void nox_xxx_polygonDrawColor_421B80() {
 	int v0;       // esi
 	char* v1;     // eax
 	char* v2;     // esi
-	struc_19* v3; // eax
+	nox_player_polygon_check_data* v3; // eax
 	char* v4;     // eax
 	int2 v5;      // [esp+4h] [ebp-10h]
 	int2 v6;      // [esp+Ch] [ebp-8h]

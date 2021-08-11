@@ -2306,117 +2306,123 @@ void nox_xxx_audioAddAIInteresting_50CD40(int a1, int a2, _DWORD* a3) {
 }
 
 //----- (0050CDD0) --------------------------------------------------------
-void sub_50CDD0(int a1) {
-	int v1;                  // ebx
-	int v2;                  // edi
-	int v4;                  // esi
-	unsigned int v5;         // eax
-	int v6;                  // ebp
-	int v7;                  // eax
-	int v8;                  // eax
-	int v9;                  // [esp-4h] [ebp-18h]
-	int* v10;                // [esp+Ch] [ebp-8h]
-	int v11;                 // [esp+10h] [ebp-4h]
-	int v12;                 // [esp+18h] [ebp+4h]
+void sub_50CDD0(int unitA) {
+	int unit;                  // ebx
+	int previousMonsterListen;                  // edi
+	int monsterListen;                  // esi
+	unsigned int monsterListenFlags;         // eax
+	int nextMonsterListen;                  // ebp
+	int monsterListenData;                  // eax
+	int raycastResults;                  // eax
+	int* heardMonster;                // [esp+Ch] [ebp-8h]
+	int flags;                 // [esp+10h] [ebp-4h]
+	int raycastDistance;                 // [esp+18h] [ebp+4h]
 
-	v1 = a1;
-	v2 = 0;
-	v9 = a1;
-	v11 = *(_DWORD*)(a1 + 748);
-	v10 = 0;
-	v12 = 0;
-	if (!nox_xxx_checkIsKillable_528190(v9)) {
+	unit = unitA;
+	previousMonsterListen = 0;
+	flags = *(_DWORD*)(unitA + 748);
+	heardMonster = 0;
+	raycastDistance = 0;
+	if (!nox_xxx_checkIsKillable_528190(unit)) {
+		printf("PJ 50CDD0 !isKillable");
 		return;
 	}
 
-	if (!nox_xxx_unitIsAFish_534B10(v1)) {
+	if (!nox_xxx_unitIsAFish_534B10(unit)) {
+		printf("PJ 50CDD0 !isFish");
 		return;
 	}
 
-	if (!nox_xxx_unitIsAFrog_534B90(v1)) {
+	if (!nox_xxx_unitIsAFrog_534B90(unit)) {
+		printf("PJ 50CDD0 !isFrog");
 		return;
 	}
 
-	if (!nox_xxx_unitIsARat_534B60(v1)) {
+	if (!nox_xxx_unitIsARat_534B60(unit)) {
+		printf("PJ 50CDD0 !isRat");
 		return;
 	}
 
-	v4 = nox_monsterListen_2386192;
+	monsterListen = nox_monsterListen_2386192;
 	if (!nox_monsterListen_2386192) {
+		printf("PJ 50CDD0 !monsterListen");
 		return;
 	}
 
 	do {
-		v5 = *(_DWORD*)(v4 + 16);
-		v6 = *(_DWORD*)(v4 + 20);
-		if (nox_frame_xxx_2598000 < v5 || nox_frame_xxx_2598000 - v5 > 2) {
-			if (v2)
-				*(_DWORD*)(v2 + 20) = v6;
+		monsterListenFlags = *(_DWORD*)(monsterListen + 16);
+		nextMonsterListen = *(_DWORD*)(monsterListen + 20);
+		if (nox_frame_xxx_2598000 < monsterListenFlags || nox_frame_xxx_2598000 - monsterListenFlags > 2) {
+			if (previousMonsterListen)
+				*(_DWORD*)(previousMonsterListen + 20) = nextMonsterListen;
 			else
-				nox_monsterListen_2386192 = *(_DWORD*)(v4 + 20);
-			nox_alloc_class_free_obj(*(unsigned int**)&nox_alloc_monsterListen_2386188, (_QWORD*)v4);
+				nox_monsterListen_2386192 = *(_DWORD*)(monsterListen + 20);
+			nox_alloc_class_free_obj(*(unsigned int**)&nox_alloc_monsterListen_2386188, (_QWORD*)monsterListen);
 		} else {
-			v7 = *(_DWORD*)(v4 + 4);
-			if (v7 && *(_BYTE*)(v7 + 16) & 0x20)
-				*(_DWORD*)(v4 + 4) = 0;
-			if (*(_DWORD*)(v11 + 404) <= *(int*)(v4 + 16)) {
-				if (sub_50CF10(v1, v4)) {
-					v8 = sub_50D000(v1, v4);
-					if (v8 > 0 && v8 > v12) {
-						v12 = v8;
-						v10 = (int*)v4;
+			monsterListenData = *(_DWORD*)(monsterListen + 4);
+			if (monsterListenData && *(_BYTE*)(monsterListenData + 16) & 0x20)
+				*(_DWORD*)(monsterListen + 4) = 0;
+			if (*(_DWORD*)(flags + 404) <= *(int*)(monsterListen + 16)) {
+				// should unit bother listening ?
+				if (sub_50CF10(unit, monsterListen)) { 
+					//Raycast?
+					raycastResults = sub_50D000(unit, monsterListen);
+					//This finds the farthest?
+					if (raycastResults > 0 && raycastResults > raycastDistance) {
+						raycastDistance = raycastResults;
+						heardMonster = (int*)monsterListen;
 					}
 				}
 			}
-			v2 = v4;
+			previousMonsterListen = monsterListen;
 		}
-		v4 = v6;
-	} while (v6);
-	if (v10 && ((unsigned int)v10[4] > *(int*)(v11 + 404) || v12 > *(int*)(v11 + 408)))
-		sub_50D110(v1, v10, v12);
+		monsterListen = nextMonsterListen;
+	} while (nextMonsterListen);
+
+	if (heardMonster && ((unsigned int)heardMonster[4] > *(int*)(flags + 404) || raycastDistance > *(int*)(flags + 408)))
+		sub_50D110(unit, heardMonster, raycastDistance); //send event 16 (monster hears something ???)
 }
 
+
 //----- (0050CF10) --------------------------------------------------------
-BOOL  sub_50CF10(int a1, int a2) {
-	int v2;       // ebx
+BOOL  sub_50CF10(int unitA, int unitB) {
+	printf("PJ 50CF10");
+	int unit;       // ebx
 	int v3;       // edi
-	int v4;       // ebp
-	int v5;       // eax
-	int v7;       // eax
-	float v8;     // edx
-	struc_19* v9; // eax
-	int2 v10;     // [esp+10h] [ebp-8h]
-	int v11;      // [esp+1Ch] [ebp+4h]
+	int playerUnit;       // ebp
+	int listenable;       // eax
+	int xpos;       // eax
+	float ypos;     // edx
+	nox_player_polygon_check_data* polygonQueryResponse; // eax
+	int2 pos;     // [esp+10h] [ebp-8h]
 	char v12;     // [esp+1Ch] [ebp+4h]
 
-	v2 = a1;
-	v3 = *(_DWORD*)(a1 + 748);
-	v4 = nox_xxx_findParentChainPlayer_4EC580(*(_DWORD*)(a2 + 4));
-	v5 = sub_501900(*(_DWORD*)a2);
-	v11 = v5;
+	unit = unitA;
+	v3 = *(_DWORD*)(unitA + 748);
+	playerUnit = nox_xxx_findParentChainPlayer_4EC580(*(_DWORD*)(unitB + 4));
+	listenable = sub_501900(*(_DWORD*)unitB);
 	if (*(_DWORD*)(v3 + 404) > nox_frame_xxx_2598000)
-		return 0;
-	if (!v4) {
-		if (!v5)
+		return 0;	
+	if (!playerUnit) {
+		if (!listenable)
 			return 0;
 	} else {
-		if (nox_xxx_unitIsEnemyTo_5330C0(v2, v4)) {
-			v5 = v11;
-			if (!v5)
+		if (nox_xxx_unitIsEnemyTo_5330C0(unit, playerUnit)) {
+			if (!listenable)
 				return 0;
-		} else if (!(v11 & 0x10)) {
+		} else if (!(listenable & 0x10)) {
 			return 0;
 		}
 	}
-	v12 = sub_501C00((float*)(a2 + 8), *(_DWORD*)(a2 + 4));
+	v12 = sub_501C00((float*)(unitB + 8), *(_DWORD*)(unitB + 4));
 	if (v12) {
-		v7 = nox_float2int(*(float*)(v2 + 56));
-		v8 = *(float*)(v2 + 60);
-		v10.field_0 = v7;
-		v10.field_4 = nox_float2int(v8);
-		v9 = nox_xxx_polygonIsPlayerInPolygon_4217B0(&v10, 0);
-		if (v9) {
-			if (v12 != BYTE2(v9->field_0[32]))
+		xpos = nox_float2int(*(float*)(unit + 56));
+		ypos = *(float*)(unit + 60);
+		pos.field_0 = xpos;
+		pos.field_4 = nox_float2int(ypos);
+		polygonQueryResponse = nox_xxx_polygonIsPlayerInPolygon_4217B0(&pos, 0);
+		if (polygonQueryResponse) {
+			if (v12 != BYTE2(polygonQueryResponse->field_0[32]))
 				return 0;
 		}
 	}
@@ -2487,7 +2493,7 @@ unsigned __int8*  sub_50D110(int a1, _DWORD* a2, int a3) {
 		v3[98] = 0;
 	sub_50D190(a1, a2 + 2, v3 + 99);
 	v5 = nox_xxx_findParentChainPlayer_4EC580(a2[1]);
-	return nox_xxx_scriptCallByEventBlock_502490(v3 + 320, v5, a1, 16);
+	return nox_xxx_scriptCallByEventBlock_502490(v3 + 320, v5, a1, 16); //EventID 16 is ??? - could it be MonsterHearsEnemy?
 }
 
 //----- (0050D190) --------------------------------------------------------
