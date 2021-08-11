@@ -211,9 +211,9 @@ typedef struct struc_18 {
 } struc_18;
 
 /* 293 */
-typedef struct struc_19 {
+typedef struct nox_player_polygon_check_data {
 	int field_0[35];
-} struc_19;
+} nox_player_polygon_check_data;
 
 /* 294 */
 typedef struct struc_20 {

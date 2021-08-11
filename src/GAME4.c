@@ -7639,7 +7639,7 @@ char  sub_501C00(float* a1, int a2) {
 	char* v4;     // eax
 	int v5;       // eax
 	float v6;     // ecx
-	struc_19* v7; // eax
+	nox_player_polygon_check_data* v7; // eax
 	int2 v9;      // [esp+4h] [ebp-8h]
 
 	v2 = 0;
@@ -7680,7 +7680,7 @@ int  nox_xxx_netUpdateRemotePlr_501CA0(int a1) {
 	int v5;       // ecx
 	int v6;       // eax
 	int v7;       // edx
-	struc_19* v8; // eax
+	nox_player_polygon_check_data* v8; // eax
 	int i;        // esi
 	int v10;      // eax
 	char* v11;    // eax

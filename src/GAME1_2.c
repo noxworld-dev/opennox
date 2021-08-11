@@ -1273,7 +1273,7 @@ int  nox_server_mapRWWallMap_429B20(_DWORD* a1) {
 	int v9;               // edi
 	_BYTE* v10;           // eax
 	_BYTE* v11;           // esi
-	struc_19* v12;        // eax
+	nox_player_polygon_check_data* v12;        // eax
 	int v13;              // eax
 	int v14;              // eax
 	char v15;             // bl
@@ -1427,7 +1427,7 @@ int  nox_server_mapRWWallMap_429B20(_DWORD* a1) {
 								v32.field_0 = 23 * (unsigned __int8)v11[5] + 11;
 								v32.field_4 = 23 * (unsigned __int8)v11[6] + 11;
 								v12 = nox_xxx_polygonIsPlayerInPolygon_4217B0(&v32, 0);
-								if (v12 || (v12 = (struc_19*)sub_421990(&v32, 10.0, 0)) != 0)
+								if (v12 || (v12 = (nox_player_polygon_check_data*)sub_421990(&v32, 10.0, 0)) != 0)
 									v23 = BYTE2(v12->field_0[32]);
 								else
 									v23 = 100;
@@ -1486,7 +1486,7 @@ int  sub_42A150(__int16 a1, _DWORD* a2) {
 	int v11;               // edi
 	int v12;               // eax
 	_BYTE* v13;            // esi
-	struc_19* v14;         // eax
+	nox_player_polygon_check_data* v14;         // eax
 	int v16;               // eax
 	int v17;               // ebp
 	unsigned __int8 v18;   // bl
@@ -1577,7 +1577,7 @@ int  sub_42A150(__int16 a1, _DWORD* a2) {
 					v32.field_0 = 23 * (unsigned __int8)v13[5] + 11;
 					v32.field_4 = 23 * (unsigned __int8)v13[6] + 11;
 					v14 = nox_xxx_polygonIsPlayerInPolygon_4217B0(&v32, 0);
-					if (v14 || (v14 = (struc_19*)sub_421990(&v32, 10.0, 0)) != 0)
+					if (v14 || (v14 = (nox_player_polygon_check_data*)sub_421990(&v32, 10.0, 0)) != 0)
 						v26 = BYTE2(v14->field_0[32]);
 					else
 						v26 = 1;

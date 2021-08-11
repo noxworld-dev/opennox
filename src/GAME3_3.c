@@ -7343,13 +7343,13 @@ int  nox_xxx_unitsHaveSameTeam_4EC520(int a1, int a2) {
 }
 
 //----- (004EC580) --------------------------------------------------------
-int  nox_xxx_findParentChainPlayer_4EC580(int a1) {
+int  nox_xxx_findParentChainPlayer_4EC580(int unit) {
 	int result; // eax
 	int i;      // ecx
 
-	result = a1;
-	if (a1) {
-		for (i = *(_DWORD*)(a1 + 508); i; i = *(_DWORD*)(i + 508)) {
+	result = unit;
+	if (unit) {
+		for (i = *(_DWORD*)(unit + 508); i; i = *(_DWORD*)(i + 508)) {
 			if (*(_BYTE*)(result + 8) & 4)
 				break;
 			result = i;

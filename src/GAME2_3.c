@@ -9152,7 +9152,7 @@ _DWORD* sub_49FF20() {
 //----- (0049FF40) --------------------------------------------------------
 char*  sub_49FF40(__int16* a1) {
 	int v1;       // edx
-	struc_19* v2; // eax
+	nox_player_polygon_check_data* v2; // eax
 	char* result; // eax
 	int2 v4;      // [esp+0h] [ebp-8h]
 
@@ -9160,7 +9160,7 @@ char*  sub_49FF40(__int16* a1) {
 	v4.field_0 = *a1 + 10;
 	v4.field_4 = v1;
 	v2 = nox_xxx_polygonIsPlayerInPolygon_4217B0(&v4, 0);
-	if (v2 || (v2 = (struc_19*)sub_421990(&v4, 100.0, 0)) != 0)
+	if (v2 || (v2 = (nox_player_polygon_check_data*)sub_421990(&v4, 100.0, 0)) != 0)
 		result = (char*)&v2->field_0[1];
 	else
 		result = *(char**)getMemAt(0x587000, 165756);

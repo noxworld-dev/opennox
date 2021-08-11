@@ -823,7 +823,7 @@ char*  nox_xxx_polygonGetByIdx_4214A0(int a1);
 void sub_4214D0();
 int  nox_xxx_polygon_421660(int* a1, int a2);
 int  nox_xxx_polygonGetIdxA_421790(int2* a1, int a2); // idb
-struc_19*  nox_xxx_polygonIsPlayerInPolygon_4217B0(int2*, int);
+nox_player_polygon_check_data*  nox_xxx_polygonIsPlayerInPolygon_4217B0(int2*, int);
 int  sub_421880(int, int, float); // idb
 int  sub_421960(int a1, float a2, int a3);
 int*  sub_421990(int2*, float, int);
@@ -4784,11 +4784,11 @@ LPVOID sub_50CB10();
 int  sub_50CB20(int a1, float* a2);
 unsigned __int8* sub_50CD30();
 void nox_xxx_audioAddAIInteresting_50CD40(int a1, int a2, _DWORD* a3);
-void sub_50CDD0(int a1);
-BOOL  sub_50CF10(int a1, int a2);
+void nox_xxx_unitListenRoutine_50CDD0(int a1);
+BOOL  sub_nox_xxx_checkIfUnitShouldListenOther_50CF10(int a1, int a2);
 int  sub_50D000(int a1, int a2);
 int  sub_50D0C0(char a1, int a2);
-unsigned __int8*  sub_50D110(int a1, _DWORD* a2, int a3);
+unsigned __int8*  nox_xxx_unitEmitHearEvent_50D110(int a1, _DWORD* a2, int a3);
 _DWORD*  sub_50D190(int a1, _DWORD* a2, _DWORD* a3);
 void sub_50D1C0();
 void sub_50D1E0();

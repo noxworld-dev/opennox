@@ -6562,7 +6562,7 @@ int  nox_xxx_cliDrawMinimap_472600(int a1, int a2) {
 	double v38;           // st7
 	_DWORD* v39;          // eax
 	int k;                // esi
-	struc_19* v41;        // eax
+	nox_player_polygon_check_data* v41;        // eax
 	int v42;              // et1
 	int v43;              // eax
 	int v44;              // eax
@@ -6584,7 +6584,7 @@ int  nox_xxx_cliDrawMinimap_472600(int a1, int a2) {
 	BOOL v60;             // eax
 	int v61;              // edx
 	_DWORD* v62;          // edi
-	struc_19* v63;        // eax
+	nox_player_polygon_check_data* v63;        // eax
 	int v64;              // et1
 	char* v65;            // eax
 	int* v66;             // eax

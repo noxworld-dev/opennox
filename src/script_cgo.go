@@ -27,7 +27,7 @@ const (
 	noxEventMonsterFightStart  = noxEventType(13) // 1+2
 	noxEventMonsterSeeEnemy    = noxEventType(14) // 1+2
 	noxEventMonsterLostEnemy   = noxEventType(15) // 1+2
-	noxEventXXX                = noxEventType(16) // 1+2
+	noxEventMonsterHearEnemy   = noxEventType(16) // 1+2 -- unit, heardMonster, raycastDistance
 	noxEventMonsterZZZ         = noxEventType(17) // 1+2
 	noxEventInventoryPlace     = noxEventType(18) // 1+2
 	noxEventGeneratorCollide   = noxEventType(19) // 1+2
@@ -79,8 +79,8 @@ func (ev noxEventType) String() string {
 		return "MonsterSeeEnemy"
 	case noxEventMonsterLostEnemy:
 		return "MonsterLostEnemy"
-	case noxEventXXX:
-		return "EventXXX"
+	case noxEventMonsterHearEnemy:
+		return "MonsterHearEnemy"
 	case noxEventMonsterZZZ:
 		return "MonsterZZZ"
 	case noxEventInventoryPlace:
