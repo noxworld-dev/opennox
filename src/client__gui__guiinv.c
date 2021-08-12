@@ -20,10 +20,10 @@ extern _DWORD dword_5d4594_1062488;
 extern _DWORD dword_5d4594_1062516;
 extern _DWORD dword_5d4594_1062476;
 extern _DWORD dword_5d4594_1049856;
-extern _DWORD dword_5d4594_1049800;
+extern _DWORD dword_5d4594_1049800_inventory_click_row_index;
 extern _DWORD dword_5d4594_1062456;
 extern _DWORD dword_5d4594_1063636;
-extern _DWORD dword_5d4594_1049796;
+extern _DWORD dword_5d4594_1049796_inventory_click_column_index;
 extern _DWORD dword_5d4594_1062512;
 extern _DWORD dword_5d4594_1049864;
 extern _DWORD dword_5d4594_1063116;
@@ -1231,7 +1231,7 @@ int  sub_464BD0(int a1, int a2, unsigned int a3) {
 				if (!sub_4C12C0())
 					nox_xxx_clientDrop_465BE0(&v57);
 			} else {
-				v47 = dword_5d4594_1049800 + 14 * dword_5d4594_1049796 + 7 * dword_5d4594_1049796;
+				v47 = dword_5d4594_1049800_inventory_click_row_index + 14 * dword_5d4594_1049796_inventory_click_column_index + 7 * dword_5d4594_1049796_inventory_click_column_index;
 				v48 = nox_obj_arr_1050020[v47].field_140;
 				if (nox_obj_arr_1050020[v47].field_140) {
 					v49 = 0;
@@ -1251,8 +1251,8 @@ int  sub_464BD0(int a1, int a2, unsigned int a3) {
 			if (dword_5d4594_1049856)
 				goto LABEL_121;
 		LABEL_119:
-			v55 = dword_5d4594_1049800;
-			v54 = dword_5d4594_1049796;
+			v55 = dword_5d4594_1049800_inventory_click_row_index;
+			v54 = dword_5d4594_1049796_inventory_click_column_index;
 			goto LABEL_120;
 		}
 		v32 = *getMemU32Ptr(0x5D4594, 1062572) - v56.field_0;
@@ -1263,14 +1263,14 @@ int  sub_464BD0(int a1, int a2, unsigned int a3) {
 				goto LABEL_121;
 			if (!sub_4C12C0()) {
 				if (*(_DWORD*)(*getMemU32Ptr(0x5D4594, 1049848) + 112) & 0x3001000) {
-					int v35 = dword_5d4594_1049800 + NOX_OBJ_1050020_XXX * dword_5d4594_1049796;
+					int v35 = dword_5d4594_1049800_inventory_click_row_index + NOX_OBJ_1050020_XXX * dword_5d4594_1049796_inventory_click_column_index;
 					if (nox_obj_arr_1050020[v35].field_136) {
 						sub_461550(0);
 						nox_obj_arr_1050020[v35].field_136 = 0;
 					} else if (nox_obj_arr_1050020[v35].field_132) {
 						nox_xxx_clientDequip_464B70(*getMemIntPtr(0x5D4594, 1049848));
 					} else {
-						nox_xxx_clientKeyEquip_465C30(*(int*)&dword_5d4594_1049796, *(int*)&dword_5d4594_1049800);
+						nox_xxx_clientKeyEquip_465C30(*(int*)&dword_5d4594_1049796_inventory_click_column_index, *(int*)&dword_5d4594_1049800_inventory_click_row_index);
 					}
 				} else {
 					nox_xxx_clientUse_465C70(*getMemIntPtr(0x5D4594, 1049848));
@@ -1282,7 +1282,7 @@ int  sub_464BD0(int a1, int a2, unsigned int a3) {
 		if (v36 && !getMemByte(0x5D4594, 1049870)) {
 			if (!dword_5d4594_1049856) {
 				nox_xxx_clientEquip_4623B0(*getMemIntPtr(0x5D4594, 1049848));
-				sub_4649B0(*getMemIntPtr(0x5D4594, 1049848), *(int*)&dword_5d4594_1049796, *(int*)&dword_5d4594_1049800);
+				sub_4649B0(*getMemIntPtr(0x5D4594, 1049848), *(int*)&dword_5d4594_1049796_inventory_click_column_index, *(int*)&dword_5d4594_1049800_inventory_click_row_index);
 			}
 			goto LABEL_121;
 		}
@@ -1292,7 +1292,7 @@ int  sub_464BD0(int a1, int a2, unsigned int a3) {
 		v38 = *(_DWORD*)(*getMemU32Ptr(0x5D4594, 1049848) + 108);
 		if (v38 == dword_5d4594_1062560 || v38 == *getMemU32Ptr(0x5D4594, 1049728) ||
 			v38 == *getMemU32Ptr(0x5D4594, 1049724) || v38 == dword_5d4594_1062556 || v38 == dword_5d4594_1062564) {
-			sub_4649B0(*getMemIntPtr(0x5D4594, 1049848), *(int*)&dword_5d4594_1049796, *(int*)&dword_5d4594_1049800);
+			sub_4649B0(*getMemIntPtr(0x5D4594, 1049848), *(int*)&dword_5d4594_1049796_inventory_click_column_index, *(int*)&dword_5d4594_1049800_inventory_click_row_index);
 			goto LABEL_121;
 		}
 		dword_5d4594_1049804 = (v56.field_0 - 314) / 50;
@@ -1315,20 +1315,20 @@ int  sub_464BD0(int a1, int a2, unsigned int a3) {
 			}
 			goto LABEL_121;
 		}
-		if (nox_obj_arr_1050020[dword_5d4594_1049800 + NOX_OBJ_1050020_XXX * dword_5d4594_1049796].field_140) {
-			v55 = dword_5d4594_1049800;
-			v54 = dword_5d4594_1049796;
+		if (nox_obj_arr_1050020[dword_5d4594_1049800_inventory_click_row_index + NOX_OBJ_1050020_XXX * dword_5d4594_1049796_inventory_click_column_index].field_140) {
+			v55 = dword_5d4594_1049800_inventory_click_row_index;
+			v54 = dword_5d4594_1049796_inventory_click_column_index;
 		LABEL_120:
 			sub_4649B0(*getMemIntPtr(0x5D4594, 1049848), v54, v55);
 			goto LABEL_121;
 		}
 		if (!sub_4649B0(*getMemIntPtr(0x5D4594, 1049848), *(int*)&dword_5d4594_1049804, *(int*)&dword_5d4594_1049808)) {
 		LABEL_80:
-			sub_4649B0(*getMemIntPtr(0x5D4594, 1049848), *(int*)&dword_5d4594_1049796, *(int*)&dword_5d4594_1049800);
+			sub_4649B0(*getMemIntPtr(0x5D4594, 1049848), *(int*)&dword_5d4594_1049796_inventory_click_column_index, *(int*)&dword_5d4594_1049800_inventory_click_row_index);
 			goto LABEL_121;
 		}
 		nox_xxx_clientPlaySoundSpecial_452D80(792, 100);
-		int v43 = dword_5d4594_1049800 + NOX_OBJ_1050020_XXX * dword_5d4594_1049796;
+		int v43 = dword_5d4594_1049800_inventory_click_row_index + NOX_OBJ_1050020_XXX * dword_5d4594_1049796_inventory_click_column_index;
 		v45 = nox_obj_arr_1050020[v43].field_136;
 		if (v45) {
 			int v46 = dword_5d4594_1049808 + NOX_OBJ_1050020_XXX * dword_5d4594_1049804;
@@ -1381,25 +1381,22 @@ int  sub_464BD0(int a1, int a2, unsigned int a3) {
 }
 //----- (00465A30) --------------------------------------------------------
 void nox_xxx_cliInventorySpriteUpd_465A30() {
-	_DWORD* v1;  // eax
-	wchar_t* v2; // eax
-
-	int v0 = dword_5d4594_1049800 + NOX_OBJ_1050020_XXX * dword_5d4594_1049796;
-	if (nox_obj_arr_1050020[v0].field_140) {
-		v1 = nox_new_drawable_for_thing(nox_obj_arr_1050020[v0].field_0->field_27);
+	int inventory_item_idx = dword_5d4594_1049800_inventory_click_row_index + NOX_OBJ_1050020_XXX * dword_5d4594_1049796_inventory_click_column_index;
+	if (nox_obj_arr_1050020[inventory_item_idx].field_140) {
+		_DWORD* v1 = nox_new_drawable_for_thing(nox_obj_arr_1050020[inventory_item_idx].field_0->field_27);
 		*getMemU32Ptr(0x5D4594, 1049848) = v1;
 		if (v1) {
 			v1[30] |= 0x40000000u;
-			*(_DWORD*)(*getMemU32Ptr(0x5D4594, 1049848) + 128) = nox_obj_arr_1050020[v0].field_4;
-			memcpy((void*)(*getMemU32Ptr(0x5D4594, 1049848) + 432), (const void*)&(nox_obj_arr_1050020[v0].field_0->field_108_1), 24);
-			*(_WORD*)(*getMemU32Ptr(0x5D4594, 1049848) + 292) = nox_obj_arr_1050020[v0].field_0->field_73_1;
-			*(_WORD*)(*getMemU32Ptr(0x5D4594, 1049848) + 294) = nox_obj_arr_1050020[v0].field_0->field_73_2;
+			*(_DWORD*)((uint32_t)v1 + 128) = nox_obj_arr_1050020[inventory_item_idx].field_4;
+			memcpy((void*)((uint32_t)v1 + 432), (const void*)&(nox_obj_arr_1050020[inventory_item_idx].field_0->field_108_1), 24);
+			*(_WORD*)((uint32_t)v1 + 292) = nox_obj_arr_1050020[inventory_item_idx].field_0->field_73_1;
+			*(_WORD*)((uint32_t)v1 + 294) = nox_obj_arr_1050020[inventory_item_idx].field_0->field_73_2;
 			int* v3[2];
-			v3[0] = &nox_obj_arr_1050020[v0].field_0;
+			v3[0] = &nox_obj_arr_1050020[inventory_item_idx].field_0;
 			v3[1] = 0;
 			sub_461E60((_QWORD***)v3);
 		} else {
-			v2 = nox_strman_loadString_40F1D0("DrawablesExhausted", 0, "C:\\NoxPost\\src\\Client\\Gui\\guiinv.c", 1123);
+			wchar_t* v2 = nox_strman_loadString_40F1D0("DrawablesExhausted", 0, "C:\\NoxPost\\src\\Client\\Gui\\guiinv.c", 1123);
 			nox_xxx_printCentered_445490(v2);
 		}
 	}
@@ -1453,18 +1450,18 @@ wchar_t*  sub_466660(int a1, int2* a2) {
 				v7 = a2->field_4 - 13;
 				v8 = v7 / 50;
 				v9 = 20;
-				dword_5d4594_1049796 = v7 / 50;
+				dword_5d4594_1049796_inventory_click_column_index = v7 / 50;
 			} else {
 				v10 = sub_4281F0(a2, (int4*)getMemAt(0x587000, 136352));
 				if (!v10)
 					return 0;
 				v8 = (a2->field_0 - 314) / 50;
-				dword_5d4594_1049796 = (a2->field_0 - 314) / 50;
+				dword_5d4594_1049796_inventory_click_column_index = (a2->field_0 - 314) / 50;
 				v9 = (a2->field_4 + dword_5d4594_1062512 - 13) / 50;
 			}
-			dword_5d4594_1049800 = v9;
+			dword_5d4594_1049800_inventory_click_row_index = v9;
 			if (sub_464B40(v8, v9)) {
-				int v12 = dword_5d4594_1049800 + NOX_OBJ_1050020_XXX * dword_5d4594_1049796;
+				int v12 = dword_5d4594_1049800_inventory_click_row_index + NOX_OBJ_1050020_XXX * dword_5d4594_1049796_inventory_click_column_index;
 				if (nox_obj_arr_1050020[v12].field_140) {
 					v13 = nox_obj_arr_1050020[v12].field_0;
 					*(_DWORD*)(v13 + 128) = nox_obj_arr_1050020[v12].field_4;

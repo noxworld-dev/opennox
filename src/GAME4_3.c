@@ -2725,7 +2725,7 @@ void  nox_xxx_orderUnit_533900(int owner, int creature, int orderType) {
 					if (*(_BYTE*)(*(_DWORD*)(i + 748) + 1440) & 0x80)
 						nox_xxx_enactUnitOrder_5339A0(owner, i, orderType);
 				}
-			}	
+			}
 		}
 	}
 }

@@ -117,14 +117,14 @@ extern _DWORD dword_5d4594_1064856;
 extern _DWORD dword_5d4594_1049856;
 extern _DWORD dword_5d4594_1049520;
 extern _DWORD nox_client_highResFrontWalls_80820;
-extern _DWORD dword_5d4594_1049800;
+extern _DWORD dword_5d4594_1049800_inventory_click_row_index;
 extern _DWORD dword_5d4594_1064296;
 extern _DWORD nox_xxx_minimap_587000_149232;
 extern _DWORD nox_gameDisableMapDraw_5d4594_2650672;
 extern _DWORD dword_5d4594_1062456;
 extern _DWORD dword_5d4594_1063636;
 extern _DWORD nox_client_gui_flag_815132;
-extern _DWORD dword_5d4594_1049796;
+extern _DWORD dword_5d4594_1049796_inventory_click_column_index;
 extern _DWORD dword_5d4594_1049508;
 extern _DWORD dword_5d4594_1090048;
 extern _DWORD dword_5d4594_1049500;
@@ -1624,8 +1624,8 @@ int  sub_464770(int a1, int a2, unsigned int a3) {
 				}
 			}
 		} else if (!(*(_DWORD*)(*getMemU32Ptr(0x5D4594, 1049848) + 112) & 0x1001000) ||
-					nox_obj_arr_1050020[dword_5d4594_1049800 + NOX_OBJ_1050020_XXX * dword_5d4594_1049796].field_132) {
-			sub_4649B0(*getMemIntPtr(0x5D4594, 1049848), *(int*)&dword_5d4594_1049796, *(int*)&dword_5d4594_1049800);
+					nox_obj_arr_1050020[dword_5d4594_1049800_inventory_click_row_index + NOX_OBJ_1050020_XXX * dword_5d4594_1049796_inventory_click_column_index].field_132) {
+			sub_4649B0(*getMemIntPtr(0x5D4594, 1049848), *(int*)&dword_5d4594_1049796_inventory_click_column_index, *(int*)&dword_5d4594_1049800_inventory_click_row_index);
 		} else {
 			if (nox_xxx_ammoCheck_415880(*(char**)(*getMemU32Ptr(0x5D4594, 1049848) + 108)) == 2) {
 				v3 = sub_415840((char*)4);
@@ -1633,8 +1633,8 @@ int  sub_464770(int a1, int a2, unsigned int a3) {
 				v5 = sub_415840((char*)8);
 				v6 = sub_461600(v5);
 				if (!v4 && !v6) {
-					sub_4649B0(*getMemIntPtr(0x5D4594, 1049848), *(int*)&dword_5d4594_1049796,
-							   *(int*)&dword_5d4594_1049800);
+					sub_4649B0(*getMemIntPtr(0x5D4594, 1049848), *(int*)&dword_5d4594_1049796_inventory_click_column_index,
+							   *(int*)&dword_5d4594_1049800_inventory_click_row_index);
 					nox_xxx_cursorResetDraggedItem_4776A0();
 					if (!dword_5d4594_1049856)
 						nox_xxx_spriteDelete_45A4B0(*(_QWORD**)getMemAt(0x5D4594, 1049848));
@@ -1645,8 +1645,8 @@ int  sub_464770(int a1, int a2, unsigned int a3) {
 			}
 			if (dword_5d4594_1062480)
 				*(_DWORD*)(dword_5d4594_1062480 + 136) = 0;
-			sub_4649B0(*getMemIntPtr(0x5D4594, 1049848), *(int*)&dword_5d4594_1049796, *(int*)&dword_5d4594_1049800);
-			sub_461550(&nox_obj_arr_1050020[dword_5d4594_1049800 + NOX_OBJ_1050020_XXX * dword_5d4594_1049796]);
+			sub_4649B0(*getMemIntPtr(0x5D4594, 1049848), *(int*)&dword_5d4594_1049796_inventory_click_column_index, *(int*)&dword_5d4594_1049800_inventory_click_row_index);
+			sub_461550(&nox_obj_arr_1050020[dword_5d4594_1049800_inventory_click_row_index + NOX_OBJ_1050020_XXX * dword_5d4594_1049796_inventory_click_column_index]);
 			*(_DWORD*)(dword_5d4594_1062480 + 136) = 1;
 		}
 	LABEL_22:
@@ -1758,9 +1758,9 @@ void  sub_4658A0(int a1, int2* a2) {
 				if ((a2->field_4 - 13) / 50 == 2)
 					nox_client_toggleMap_473610();
 			} else if (sub_4281F0(a2, (int4*)getMemAt(0x587000, 136352))) {
-				dword_5d4594_1049796 = (a2->field_0 - 314) / 50;
-				dword_5d4594_1049800 = (a2->field_4 + *(int*)&dword_5d4594_1062512 - 13) / 50;
-				if (sub_464B40(*(int*)&dword_5d4594_1049796, *(int*)&dword_5d4594_1049800))
+				dword_5d4594_1049796_inventory_click_column_index = (a2->field_0 - 314) / 50;
+				dword_5d4594_1049800_inventory_click_row_index = (a2->field_4 + *(int*)&dword_5d4594_1062512 - 13) / 50;
+				if (sub_464B40(*(int*)&dword_5d4594_1049796_inventory_click_column_index, *(int*)&dword_5d4594_1049800_inventory_click_row_index))
 					nox_xxx_cliInventorySpriteUpd_465A30();
 			}
 		}
@@ -1828,8 +1828,8 @@ int  nox_xxx_clientDrop_465BE0(int2* a1) {
 
 //----- (00465C30) --------------------------------------------------------
 BOOL  nox_xxx_clientKeyEquip_465C30(int a1, int a2) {
-	dword_5d4594_1049796 = a1;
-	dword_5d4594_1049800 = a2;
+	dword_5d4594_1049796_inventory_click_column_index = a1;
+	dword_5d4594_1049800_inventory_click_row_index = a2;
 	nox_xxx_cliInventorySpriteUpd_465A30();
 	nox_xxx_clientEquip_4623B0(*getMemIntPtr(0x5D4594, 1049848));
 	return sub_4649B0(*getMemIntPtr(0x5D4594, 1049848), a1, a2);
@@ -2966,7 +2966,7 @@ int sub_467CD0() {
 	v0 = 0;
 	if (*getMemU32Ptr(0x5D4594, 1049848)) {
 		if (!dword_5d4594_1049856 &&
-			!sub_4649B0(*getMemIntPtr(0x5D4594, 1049848), *(int*)&dword_5d4594_1049796, *(int*)&dword_5d4594_1049800)) {
+			!sub_4649B0(*getMemIntPtr(0x5D4594, 1049848), *(int*)&dword_5d4594_1049796_inventory_click_column_index, *(int*)&dword_5d4594_1049800_inventory_click_row_index)) {
 			nox_xxx_spritePickup_461660(*(_DWORD*)(*getMemU32Ptr(0x5D4594, 1049848) + 128),
 					   *(_DWORD*)(*getMemU32Ptr(0x5D4594, 1049848) + 108),
 					   (const void*)(*getMemU32Ptr(0x5D4594, 1049848) + 432));
