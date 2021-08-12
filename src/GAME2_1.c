@@ -614,7 +614,7 @@ char* sub_461520() {
 }
 
 //----- (00461550) --------------------------------------------------------
-int  sub_461550(int a1) {
+int  nox_xxx_clientSetAltWeapon_461550(int a1) {
 	if (dword_5d4594_1062480)
 		dword_5d4594_1062484 = *(_DWORD*)(dword_5d4594_1062480 + 4);
 	else
@@ -946,7 +946,7 @@ _QWORD**  sub_461E60(_QWORD*** a1) {
 	}
 	result = (_QWORD**)(*a1)[34];
 	if (result) {
-		sub_461550(0);
+		nox_xxx_clientSetAltWeapon_461550(0);
 		result = *a1;
 		(*a1)[34] = 0;
 	}
@@ -1155,7 +1155,7 @@ int  sub_4624D0(int a1) {
 		if (nox_xxx_ammoCheck_415880(*(char**)(v2 + 108)) & 0xC && dword_5d4594_1062480 &&
 			nox_xxx_ammoCheck_415880(*(char**)(**(_DWORD**)&dword_5d4594_1062480 + 108)) == 2) {
 			*(_DWORD*)(dword_5d4594_1062480 + 136) = 0;
-			sub_461550(0);
+			nox_xxx_clientSetAltWeapon_461550(0);
 		}
 		return nox_xxx_spriteDelete_45A4B0((_QWORD*)v2);
 	}
@@ -1165,7 +1165,7 @@ int  sub_4624D0(int a1) {
 		*(_DWORD*)(**(_DWORD**)&dword_5d4594_1062480 + 128) = *(_DWORD*)(dword_5d4594_1062480 + 4);
 		nox_xxx_clientEquip_4623B0(**(_DWORD**)&dword_5d4594_1062480);
 	} else {
-		sub_461550(*v3);
+		nox_xxx_clientSetAltWeapon_461550(*v3);
 		*(_DWORD*)(*v4 + 136) = 1;
 	}
 	return nox_xxx_spriteDelete_45A4B0((_QWORD*)v2);
@@ -1646,7 +1646,7 @@ int  sub_464770(int a1, int a2, unsigned int a3) {
 			if (dword_5d4594_1062480)
 				*(_DWORD*)(dword_5d4594_1062480 + 136) = 0;
 			sub_4649B0(*getMemIntPtr(0x5D4594, 1049848), *(int*)&dword_5d4594_1049796_inventory_click_column_index, *(int*)&dword_5d4594_1049800_inventory_click_row_index);
-			sub_461550(&nox_obj_arr_1050020[dword_5d4594_1049800_inventory_click_row_index + NOX_OBJ_1050020_XXX * dword_5d4594_1049796_inventory_click_column_index]);
+			nox_xxx_clientSetAltWeapon_461550(&nox_obj_arr_1050020[dword_5d4594_1049800_inventory_click_row_index + NOX_OBJ_1050020_XXX * dword_5d4594_1049796_inventory_click_column_index]);
 			*(_DWORD*)(dword_5d4594_1062480 + 136) = 1;
 		}
 	LABEL_22:
@@ -2817,7 +2817,7 @@ int sub_467980() {
 	} while ((int)v0 <= (int)&nox_obj_arr_1050020[NOX_OBJ_1050020_XXX-1]);
 	sub_462740();
 	dword_5d4594_1049864 = 0;
-	sub_461550(0);
+	nox_xxx_clientSetAltWeapon_461550(0);
 	dword_5d4594_1062488 = 0;
 	memset(&array_5D4594_1049872, 0, 0x24u); // equipped weapon array?
 	dword_5d4594_1062492 = 0;
@@ -2985,7 +2985,7 @@ int sub_467CD0() {
 						}
 						*(_DWORD*)(*(_DWORD*)v2 + 132) = 1;
 						if (*(_DWORD*)(*(_DWORD*)v2 + 136)) {
-							sub_461550(0);
+							nox_xxx_clientSetAltWeapon_461550(0);
 							*(_DWORD*)(*(_DWORD*)v2 + 136) = 0;
 						}
 					}

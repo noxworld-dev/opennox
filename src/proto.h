@@ -2096,7 +2096,7 @@ int  sub_461440(int a1);
 int sub_461450();
 int  nox_xxx_playerInitColors_461460(int a1);
 char* sub_461520();
-int  sub_461550(int a1);
+int  nox_xxx_clientSetAltWeapon_461550(int a1);
 int sub_4615C0();
 int  sub_461600(int a1);
 int  nox_xxx_send2ServInvenFail_461630(__int16 a1);

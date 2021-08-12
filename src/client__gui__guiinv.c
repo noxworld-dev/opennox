@@ -123,7 +123,7 @@ int  sub_4617C0(int a1, int a2, const void* a3, int2* a4) {
 							v15 = nox_xxx_getProjectileClassById_413250(*(_DWORD*)(v13 + 108));
 							if (!v15 || (unsigned __int8)(1 << *(_BYTE*)(*getMemU32Ptr(0x8531A0, 2576) + 2251)) &
 											*((_BYTE*)v15 + 62)) {
-								sub_461550((int)v9);
+								nox_xxx_clientSetAltWeapon_461550((int)v9);
 								*((_DWORD*)v9 + 34) = 1;
 							}
 						}
@@ -261,7 +261,7 @@ void  sub_462040(int a1) {
 	if (v2) {
 		*(_DWORD*)(*(_DWORD*)v2 + 132) = 1;
 		if (*(_DWORD*)(*(_DWORD*)v2 + 136)) {
-			sub_461550(0);
+			nox_xxx_clientSetAltWeapon_461550(0);
 			*(_DWORD*)(*(_DWORD*)v2 + 136) = 0;
 		}
 	}
@@ -302,7 +302,7 @@ void  sub_462040(int a1) {
 		v17 = (int*)sub_461EF0(*(int*)&dword_5d4594_1062496);
 		if (v17) {
 			*(_DWORD*)(*v17 + 136) = 1;
-			sub_461550(*v17);
+			nox_xxx_clientSetAltWeapon_461550(*v17);
 			dword_5d4594_1062496 = 0;
 		}
 	}
@@ -1042,7 +1042,7 @@ BOOL  sub_4649B0(int a1, int a2, int a3) {
 	v10 = *((_DWORD*)v4 + 34);
 	*((_DWORD*)v4 + 33) = 1;
 	if (v10) {
-		sub_461550(0);
+		nox_xxx_clientSetAltWeapon_461550(0);
 		*((_DWORD*)v4 + 34) = 0;
 	}
 	return 1;
@@ -1265,7 +1265,7 @@ int  sub_464BD0(int a1, int a2, unsigned int a3) {
 				if (*(_DWORD*)(*getMemU32Ptr(0x5D4594, 1049848) + 112) & 0x3001000) {
 					int v35 = dword_5d4594_1049800_inventory_click_row_index + NOX_OBJ_1050020_XXX * dword_5d4594_1049796_inventory_click_column_index;
 					if (nox_obj_arr_1050020[v35].field_136) {
-						sub_461550(0);
+						nox_xxx_clientSetAltWeapon_461550(0);
 						nox_obj_arr_1050020[v35].field_136 = 0;
 					} else if (nox_obj_arr_1050020[v35].field_132) {
 						nox_xxx_clientDequip_464B70(*getMemIntPtr(0x5D4594, 1049848));
@@ -1638,7 +1638,7 @@ int  sub_467750(int a1, char a2) {
 				return 0;
 			v6 = (int*)sub_461EF0(*(int*)&dword_5d4594_1062484);
 			if (v6) {
-				sub_461550(*v6);
+				nox_xxx_clientSetAltWeapon_461550(*v6);
 				return 0;
 			}
 		}
