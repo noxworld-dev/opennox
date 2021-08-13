@@ -18,6 +18,13 @@ func (s *Surface) rect() *sdl.Rect {
 	return &sdl.Rect{W: int32(s.sz.W), H: int32(s.sz.H)}
 }
 
+func (s *Surface) Update(data []byte) {
+	err := s.tex.Update(s.rect(), data, 2*s.sz.W)
+	if err != nil {
+		Log.Printf("cannot update surface: %v", err)
+	}
+}
+
 func (s *Surface) Lock() ([]byte, int, bool) {
 	data, pitch, err := s.tex.Lock(s.rect())
 	if err != nil {

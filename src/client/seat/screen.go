@@ -41,6 +41,8 @@ type Screen interface {
 type Surface interface {
 	// Size of the surface.
 	Size() types.Size
+	// Update the surface with 16 bit data.
+	Update(data []byte)
 	// Lock the surface.
 	Lock() (data []byte, pitch int, ok bool)
 	// Unlock the surface.

@@ -28,17 +28,8 @@ func getBackbufHeight() int {
 	return noxRendererS.RenderMode().Height
 }
 
-func nox_video_copyBackBuffer3_4AD1E0() {
-	sz := noxRendererS.BufferSize()
-	width := sz.W
-	height := sz.H
-
-	rows := make([][]byte, height)
-	for i := range rows {
-		rows[i] = asByteSlice(nox_pixbuffer_main_rows[i], width*2)
-	}
-	noxRendererS.CopyBufferRows(rows)
-
+func copyPixBuffer() {
+	noxRendererS.CopyBuffer(nox_pixbuffer_main)
 	*memmap.PtrUint32(0x973A20, 496)++
 }
 

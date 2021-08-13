@@ -264,7 +264,7 @@ func nox_video_setBackBufferCopyFunc2_4AD150() {
 	if C.nox_video_renderTargetFlags&0x40 != 0 {
 		panic("not implemented")
 	} else {
-		noxBackBufCopyFunc = nox_video_copyBackBuffer3_4AD1E0
+		noxBackBufCopyFunc = copyPixBuffer
 	}
 }
 

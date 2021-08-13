@@ -119,23 +119,10 @@ func (r *Renderer) BufferSize() types.Size {
 	return r.backbuf.Size()
 }
 
-// CopyBufferRows copies given image rows into the buffer and presents it.
-func (r *Renderer) CopyBufferRows(rows [][]byte) {
-	dpix, pitch, ok := r.backbuf.Lock()
-	if !ok {
-		return
-	}
-	defer func() {
-		r.backbuf.Unlock()
-		r.present(r.sc.ScreenSize())
-	}()
-	height := r.backbuf.Size().H
-
-	for y := 0; y < height; y++ {
-		row := rows[y]
-		drow := dpix[y*pitch : (y+1)*pitch]
-		copy(drow, row[:pitch])
-	}
+// CopyBuffer copies given 16 bit image into the buffer and presents it.
+func (r *Renderer) CopyBuffer(src []byte) {
+	defer r.present(r.sc.ScreenSize())
+	r.backbuf.Update(src)
 }
 
 func (r *Renderer) present(wsz types.Size) {

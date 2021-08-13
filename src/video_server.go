@@ -27,5 +27,5 @@ func nox_video_setBackBufferPtrs_48A190() {
 
 func nox_video_copyBackBuffer_4AD2A0() {
 }
-func nox_video_copyBackBuffer3_4AD1E0() {
+func copyPixBuffer() {
 }
