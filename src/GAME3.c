@@ -8197,6 +8197,9 @@ char  nox_video_drawCircle8Opaque_4B0D30(int a1, int a2, int a3) {
 	v4 = a3;
 	if (ptr_5D4594_3799572->data[0] && sub_49F8E0(a1, a2, a3))
 		return sub_4B0F50(a1, a2, a3);
+
+	_BYTE** pixbuffer = nox_pixbuffer_rows_3798784;
+
 	v6 = 0;
 	v9 = 1 - a3;
 	v15 = 5 - 2 * a3;
@@ -8204,15 +8207,15 @@ char  nox_video_drawCircle8Opaque_4B0D30(int a1, int a2, int a3) {
 	v13 = 4 * (v4 + a2);
 	v7 = v4;
 	v10 = 3;
-	nox_pixbuffer_rows_3798784[v13/4][v3] = result;
-	*(_BYTE*)(v3 + *(_DWORD*)(4 * a2 + (_DWORD)nox_pixbuffer_rows_3798784) + v4) = result;
-	nox_pixbuffer_rows_3798784[a2][v4 + v3] = result;
+	pixbuffer[v13/4][v3] = result;
+	*(_BYTE*)(v3 + *(_DWORD*)(4 * a2 + (_DWORD)pixbuffer) + v4) = result;
+	pixbuffer[a2][v4 + v3] = result;
 	v12 = 4 * (a2 - v4);
-	nox_pixbuffer_rows_3798784[v12/4][v3] = result;
-	nox_pixbuffer_rows_3798784[v12/4][v3] = result;
-	nox_pixbuffer_rows_3798784[a2][v3 - v4] = result;
-	nox_pixbuffer_rows_3798784[a2][v3 - v4] = result;
-	nox_pixbuffer_rows_3798784[v13/4][v3] = result;
+	pixbuffer[v12/4][v3] = result;
+	pixbuffer[v12/4][v3] = result;
+	pixbuffer[a2][v3 - v4] = result;
+	pixbuffer[a2][v3 - v4] = result;
+	pixbuffer[v13/4][v3] = result;
 	if (v4 > 0) {
 		v8 = 4 * a2;
 		v14 = 4 * a2;
@@ -8232,14 +8235,14 @@ char  nox_video_drawCircle8Opaque_4B0D30(int a1, int a2, int a3) {
 			++v6;
 			v10 += 2;
 			v14 -= 4;
-			nox_pixbuffer_rows_3798784[v13/4][v6 + v3] = result;
-			nox_pixbuffer_rows_3798784[v8/4][v7 + v3] = result;
-			nox_pixbuffer_rows_3798784[v14/4][v7 + v3] = result;
-			nox_pixbuffer_rows_3798784[v11/4][v3 + v6] = result;
-			nox_pixbuffer_rows_3798784[v11/4][v3 - v6] = result;
-			nox_pixbuffer_rows_3798784[v14/4][v3 - v7] = result;
-			nox_pixbuffer_rows_3798784[v8/4][v3 - v7] = result;
-			nox_pixbuffer_rows_3798784[v13/4][v3 - v6] = result;
+			pixbuffer[v13/4][v6 + v3] = result;
+			pixbuffer[v8/4][v7 + v3] = result;
+			pixbuffer[v14/4][v7 + v3] = result;
+			pixbuffer[v11/4][v3 + v6] = result;
+			pixbuffer[v11/4][v3 - v6] = result;
+			pixbuffer[v14/4][v3 - v7] = result;
+			pixbuffer[v8/4][v3 - v7] = result;
+			pixbuffer[v13/4][v3 - v6] = result;
 		} while (v7 > v6);
 	}
 	return result;
@@ -8277,6 +8280,8 @@ int  sub_4B0F50(int a1, int a2, int a3) {
 	int v30;    // [esp+48h] [ebp+8h]
 	char v31;   // [esp+4Ch] [ebp+Ch]
 
+	_BYTE** pixbuffer = nox_pixbuffer_rows_3798784;
+
 	v3 = a3;
 	v28 = 0;
 	v20 = 1 - a3;
@@ -8293,38 +8298,38 @@ int  sub_4B0F50(int a1, int a2, int a3) {
 	v18 = ptr_5D4594_3799572->data[2];
 	v24 = a2 + v27;
 	if (a1 >= v17 && a1 < ptr_5D4594_3799572->data[3] && result >= ptr_5D4594_3799572->data[2] && result < v15) {
-		nox_pixbuffer_rows_3798784[result][a1] = v4;
+		pixbuffer[result][a1] = v4;
 	}
 	v7 = a1 + v3;
 	v30 = a1 + v3;
 	if (a1 + v3 >= v17) {
 		if (v7 < v16 && v5 >= v18 && v5 < v15) {
-			nox_pixbuffer_rows_3798784[v5][v30] = v4;
+			pixbuffer[v5][v30] = v4;
 			v7 = a1 + v3;
 		}
 		if (v7 >= v17 && v7 < v16 && v5 >= v18 && v5 < v15)
-			nox_pixbuffer_rows_3798784[v5][v30] = v4;
+			pixbuffer[v5][v30] = v4;
 	}
 	v8 = v5 - v3;
 	if (a1 >= v17) {
 		if (a1 < v16 && v8 >= v18 && v8 < v15)
-			nox_pixbuffer_rows_3798784[v8][a1] = v4;
+			pixbuffer[v8][a1] = v4;
 		if (a1 >= v17 && a1 < v16 && v8 >= v18 && v8 < v15)
-			nox_pixbuffer_rows_3798784[v8][a1] = v4;
+			pixbuffer[v8][a1] = v4;
 	}
 	v9 = a1 - v3;
 	if (a1 - v3 >= v17) {
 		if (v9 < v16 && v5 >= v18 && v5 < v15) {
-			nox_pixbuffer_rows_3798784[v5][v9] = v31;
+			pixbuffer[v5][v9] = v31;
 			result = v24;
 		}
 		if (v9 >= v17 && v9 < v16 && v5 >= v18 && v5 < v15) {
-			nox_pixbuffer_rows_3798784[v5][v9] = v31;
+			pixbuffer[v5][v9] = v31;
 			result = v24;
 		}
 	}
 	if (a1 >= v17 && a1 < v16 && result >= v18 && result < v15) {
-		nox_pixbuffer_rows_3798784[result][a1] = v31;
+		pixbuffer[result][a1] = v31;
 		result = v24;
 	}
 	if (v3 > 0) {
@@ -8358,29 +8363,29 @@ int  sub_4B0F50(int a1, int a2, int a3) {
 			--result;
 			v22 -= 4;
 			if (v10 >= v17 && v10 < v16 && v13 + v30 >= v12 && v13 + v30 < v15)
-				nox_pixbuffer_rows_3798784[v25/4][v10] = v31;
+				pixbuffer[v25/4][v10] = v31;
 			if (v30 >= v17) {
 				if (v30 < v16 && v13 + v10 >= v12 && v13 + v10 < v15) {
-					nox_pixbuffer_rows_3798784[v23/4][v30] = v31;
+					pixbuffer[v23/4][v30] = v31;
 					v12 = v18;
 				}
 				if (v30 < v16 && v13 + result >= v12 && v13 + result < v15) {
-					nox_pixbuffer_rows_3798784[v22/4][v30] = v31;
+					pixbuffer[v22/4][v30] = v31;
 					v12 = v18;
 				}
 			}
 			if (v10 >= v17 && v10 < v16 && v13 + v9 >= v12 && v13 + v9 < v15)
-				nox_pixbuffer_rows_3798784[v29/4][v10] = v31;
+				pixbuffer[v29/4][v10] = v31;
 			if (result >= v17 && result < v16 && v13 + v9 >= v12 && v13 + v9 < v15)
-				nox_pixbuffer_rows_3798784[v29/4][result] = v31;
+				pixbuffer[v29/4][result] = v31;
 			if (v9 >= v17 && v9 < v16) {
 				if (v13 + result >= v12 && v13 + result < v15)
-					nox_pixbuffer_rows_3798784[v22/4][v9] = v31;
+					pixbuffer[v22/4][v9] = v31;
 				if (v9 < v16 && v13 + v10 >= v12 && v13 + v10 < v15)
-					nox_pixbuffer_rows_3798784[v23/4][v9] = v31;
+					pixbuffer[v23/4][v9] = v31;
 			}
 			if (result >= v17 && result < v16 && v13 + v30 >= v12 && v13 + v30 < v15)
-				nox_pixbuffer_rows_3798784[v25/4][result] = v31;
+				pixbuffer[v25/4][result] = v31;
 			if (v27 <= v28)
 				break;
 			v14 = v21;
@@ -8415,6 +8420,8 @@ __int16  nox_video_drawCircle16Opaque_4B1380(int a1, int a2, int a3) {
 	int v24;        // [esp+30h] [ebp+8h]
 	int v25;        // [esp+34h] [ebp+Ch]
 
+	_BYTE** pixbuffer = nox_pixbuffer_rows_3798784;
+
 	v3 = a2;
 	v4 = a3;
 	if (ptr_5D4594_3799572->data[0] && sub_49F8E0(a1, a2, a3))
@@ -8428,19 +8435,19 @@ __int16  nox_video_drawCircle16Opaque_4B1380(int a1, int a2, int a3) {
 	v20 = 0;
 	v21 = v4;
 	v16 = 3;
-	*(_WORD*)((_DWORD)nox_pixbuffer_rows_3798784[v7/4] + v6) = result;
+	*(_WORD*)((_DWORD)pixbuffer[v7/4] + v6) = result;
 	v23 = 4 * a2;
 	v8 = 2 * (v4 + a1);
 	v17 = v8;
-	*(_WORD*)(*(_DWORD*)(4 * v3 + (_DWORD)nox_pixbuffer_rows_3798784) + v8) = result;
-	*(_WORD*)((_DWORD)nox_pixbuffer_rows_3798784[v3] + v8) = result;
+	*(_WORD*)(*(_DWORD*)(4 * v3 + (_DWORD)pixbuffer) + v8) = result;
+	*(_WORD*)((_DWORD)pixbuffer[v3] + v8) = result;
 	v9 = 4 * (v3 - v4);
-	*(_WORD*)((_DWORD)nox_pixbuffer_rows_3798784[v9/4] + v18) = result;
-	*(_WORD*)((_DWORD)nox_pixbuffer_rows_3798784[v9/4] + 2 * a1) = result;
+	*(_WORD*)((_DWORD)pixbuffer[v9/4] + v18) = result;
+	*(_WORD*)((_DWORD)pixbuffer[v9/4] + 2 * a1) = result;
 	v10 = 2 * (a1 - v4);
-	*(_WORD*)((_DWORD)nox_pixbuffer_rows_3798784[v3] + v10) = result;
-	*(_WORD*)((_DWORD)nox_pixbuffer_rows_3798784[v3] + v10) = result;
-	*(_WORD*)((_DWORD)nox_pixbuffer_rows_3798784[v7/4] + 2 * a1) = result;
+	*(_WORD*)((_DWORD)pixbuffer[v3] + v10) = result;
+	*(_WORD*)((_DWORD)pixbuffer[v3] + v10) = result;
+	*(_WORD*)((_DWORD)pixbuffer[v7/4] + 2 * a1) = result;
 	if (v4 > 0) {
 		v11 = 4 * v3;
 		v12 = v18;
@@ -8468,14 +8475,14 @@ __int16  nox_video_drawCircle16Opaque_4B1380(int a1, int a2, int a3) {
 			v11 += 4;
 			v14 -= 4;
 			++v20;
-			*(_WORD*)((_DWORD)nox_pixbuffer_rows_3798784[v22/4] + v12) = result;
-			*(_WORD*)((_DWORD)nox_pixbuffer_rows_3798784[v11/4] + v17) = result;
-			*(_WORD*)((_DWORD)nox_pixbuffer_rows_3798784[v14/4] + v17) = result;
-			*(_WORD*)((_DWORD)nox_pixbuffer_rows_3798784[v24/4] + v12) = result;
-			*(_WORD*)((_DWORD)nox_pixbuffer_rows_3798784[v24/4] + v13) = result;
-			*(_WORD*)((_DWORD)nox_pixbuffer_rows_3798784[v14/4] + v19) = result;
-			*(_WORD*)((_DWORD)nox_pixbuffer_rows_3798784[v11/4] + v19) = result;
-			*(_WORD*)((_DWORD)nox_pixbuffer_rows_3798784[v22/4] + v13) = result;
+			*(_WORD*)((_DWORD)pixbuffer[v22/4] + v12) = result;
+			*(_WORD*)((_DWORD)pixbuffer[v11/4] + v17) = result;
+			*(_WORD*)((_DWORD)pixbuffer[v14/4] + v17) = result;
+			*(_WORD*)((_DWORD)pixbuffer[v24/4] + v12) = result;
+			*(_WORD*)((_DWORD)pixbuffer[v24/4] + v13) = result;
+			*(_WORD*)((_DWORD)pixbuffer[v14/4] + v19) = result;
+			*(_WORD*)((_DWORD)pixbuffer[v11/4] + v19) = result;
+			*(_WORD*)((_DWORD)pixbuffer[v22/4] + v13) = result;
 		} while (v21 > v20);
 	}
 	return result;
@@ -8520,6 +8527,8 @@ int  sub_4B15E0(int a1, int a2, int a3) {
 	int v37;     // [esp+5Ch] [ebp+8h]
 	int v38;     // [esp+60h] [ebp+Ch]
 
+	_BYTE** pixbuffer = nox_pixbuffer_rows_3798784;
+
 	v3 = a3;
 	v32 = 0;
 	v21 = 1 - a3;
@@ -8538,35 +8547,35 @@ int  sub_4B15E0(int a1, int a2, int a3) {
 	v19 = ptr_5D4594_3799572->data[3];
 	v36 = a2 + v31;
 	if (a1 >= v5 && a1 < ptr_5D4594_3799572->data[3] && v8 >= v38 && v8 < v18)
-		*(_WORD*)((_DWORD)nox_pixbuffer_rows_3798784[v8] + 2 * a1) = v4;
+		*(_WORD*)((_DWORD)pixbuffer[v8] + 2 * a1) = v4;
 	v9 = a1 + v3;
 	v33 = a1 + v3;
 	if (a1 + v3 >= v5) {
 		if (v9 < v19 && v6 >= v38 && v6 < v18)
-			*(_WORD*)((_DWORD)nox_pixbuffer_rows_3798784[v6] + 2 * v9) = v4;
+			*(_WORD*)((_DWORD)pixbuffer[v6] + 2 * v9) = v4;
 		if (v9 >= v20 && v9 < v19 && v6 >= v38 && v6 < v18)
-			*(_WORD*)((_DWORD)nox_pixbuffer_rows_3798784[v6] + 2 * v9) = v4;
+			*(_WORD*)((_DWORD)pixbuffer[v6] + 2 * v9) = v4;
 	}
 	v10 = v6 - v3;
 	if (a1 >= v20) {
 		if (a1 < v19 && v10 >= v38 && v10 < v18)
-			*(_WORD*)((_DWORD)nox_pixbuffer_rows_3798784[v10] + 2 * a1) = v4;
+			*(_WORD*)((_DWORD)pixbuffer[v10] + 2 * a1) = v4;
 		if (a1 >= v20 && a1 < v19 && v10 >= v38 && v10 < v18)
-			*(_WORD*)((_DWORD)nox_pixbuffer_rows_3798784[v10] + 2 * a1) = v4;
+			*(_WORD*)((_DWORD)pixbuffer[v10] + 2 * a1) = v4;
 	}
 	v11 = a1 - v3;
 	if (a1 - v3 >= v20) {
 		if (v11 < v19 && v6 >= v38 && v6 < v18) {
-			*(_WORD*)((_DWORD)nox_pixbuffer_rows_3798784[v6] + 2 * v11) = v4;
+			*(_WORD*)((_DWORD)pixbuffer[v6] + 2 * v11) = v4;
 			v8 = v36;
 		}
 		if (v11 >= v20 && v11 < v19 && v6 >= v38 && v6 < v18) {
-			*(_WORD*)((_DWORD)nox_pixbuffer_rows_3798784[v6] + 2 * v11) = v4;
+			*(_WORD*)((_DWORD)pixbuffer[v6] + 2 * v11) = v4;
 			v8 = v36;
 		}
 	}
 	if (a1 >= v20 && a1 < v19 && v8 >= v38 && v8 < v18) {
-		*(_WORD*)((_DWORD)nox_pixbuffer_rows_3798784[v8] + 2 * a1) = v4;
+		*(_WORD*)((_DWORD)pixbuffer[v8] + 2 * a1) = v4;
 		v8 = v36;
 	}
 	if (v3 > 0) {
@@ -8607,37 +8616,37 @@ int  sub_4B15E0(int a1, int a2, int a3) {
 			v16 = v15 + v34;
 			--result;
 			if (v15 + v34 >= v20 && v16 < v19 && v14 >= v38 && v14 < v18) {
-				*(_WORD*)((_DWORD)nox_pixbuffer_rows_3798784[v14] + v37) = v24;
+				*(_WORD*)((_DWORD)pixbuffer[v14] + v37) = v24;
 				v14 = v23;
 			}
 			v17 = v34 + v14;
 			if (v17 >= v20) {
 				if (v17 < v19 && v15 >= v38 && v15 < v18)
-					*(_WORD*)(v13 + (_DWORD)nox_pixbuffer_rows_3798784[v15]) = v24;
+					*(_WORD*)(v13 + (_DWORD)pixbuffer[v15]) = v24;
 				if (v17 >= v20 && v17 < v19 && result + v26 >= v38 && result + v26 < v18)
-					*(_WORD*)((_DWORD)nox_pixbuffer_rows_3798784[v27/4] + v13) = v24;
+					*(_WORD*)((_DWORD)pixbuffer[v27/4] + v13) = v24;
 			}
 			if (v16 < v20 || v16 >= v19) {
 				v12 = v35;
 			} else {
 				v12 = v35;
 				if (v35 + v26 >= v38 && v35 + v26 < v18)
-					*(_WORD*)((_DWORD)nox_pixbuffer_rows_3798784[v25/4] + v37) = v24;
+					*(_WORD*)((_DWORD)pixbuffer[v25/4] + v37) = v24;
 			}
 			if (result >= v20 && result < v19 && v26 + v12 >= v38 && v26 + v12 < v18)
-				*(_WORD*)((_DWORD)nox_pixbuffer_rows_3798784[v25/4] + v29) = v24;
+				*(_WORD*)((_DWORD)pixbuffer[v25/4] + v29) = v24;
 			if (v12 >= v20 && v12 < v19) {
 				if (result + v26 >= v38 && result + v26 < v18)
-					*(_WORD*)((_DWORD)nox_pixbuffer_rows_3798784[v27/4] + v28) = v24;
+					*(_WORD*)((_DWORD)pixbuffer[v27/4] + v28) = v24;
 				if (v12 < v19 && v15 >= v38 && v15 < v18)
-					*(_WORD*)((_DWORD)nox_pixbuffer_rows_3798784[v15] + v28) = v24;
+					*(_WORD*)((_DWORD)pixbuffer[v15] + v28) = v24;
 			}
 			if (result < v20 || result >= v19) {
 				v14 = v23;
 			} else {
 				v14 = v23;
 				if (v23 >= v38 && v23 < v18) {
-					*(_WORD*)((_DWORD)nox_pixbuffer_rows_3798784[v23] + v29) = v24;
+					*(_WORD*)((_DWORD)pixbuffer[v23] + v29) = v24;
 					v12 = v35;
 				}
 			}
@@ -8667,6 +8676,8 @@ int  nox_video_drawCircle8Alpha_4B1A60(int a1, int a2, int a3) {
 	int v19;    // [esp+2Ch] [ebp+8h]
 	int v20;    // [esp+30h] [ebp+Ch]
 
+	_BYTE** pixbuffer = nox_pixbuffer_rows_3798784;
+
 	result = dword_5d4594_810632;
 	if (dword_5d4594_810632) {
 		v4 = a3;
@@ -8681,28 +8692,28 @@ int  nox_video_drawCircle8Alpha_4B1A60(int a1, int a2, int a3) {
 			v16 = 3;
 			v8 = 4 * (a2 + a3);
 			v15 = v8;
-			v9 = (_BYTE*)(v5 + (_DWORD)nox_pixbuffer_rows_3798784[v8/4]);
+			v9 = (_BYTE*)(v5 + (_DWORD)pixbuffer[v8/4]);
 			result = *(unsigned __int8*)(&ptr_5D4594_3799572->data[61]);
 			*v9 = *(_BYTE*)(result + ((unsigned __int8)*v9 << 8) + dword_5d4594_810632);
 			v14 = 4 * a2;
-			v10 = (_BYTE*)(a3 + v5 + *(_DWORD*)(4 * a2 + (_DWORD)nox_pixbuffer_rows_3798784));
+			v10 = (_BYTE*)(a3 + v5 + *(_DWORD*)(4 * a2 + (_DWORD)pixbuffer));
 			*v10 = *(_BYTE*)(result + ((unsigned __int8)*v10 << 8) + dword_5d4594_810632);
-			v11 = (_BYTE*)(a3 + v5 + (_DWORD)nox_pixbuffer_rows_3798784[a2]);
+			v11 = (_BYTE*)(a3 + v5 + (_DWORD)pixbuffer[a2]);
 			*v11 = *(_BYTE*)(result + ((unsigned __int8)*v11 << 8) + dword_5d4594_810632);
 			v17 = 4 * (a2 - a3);
-			nox_pixbuffer_rows_3798784[v17/4][v5] =
-				*(_BYTE*)(result + (*(unsigned __int8*)((_DWORD)nox_pixbuffer_rows_3798784[v17/4] + v5) << 8) +
+			pixbuffer[v17/4][v5] =
+				*(_BYTE*)(result + (*(unsigned __int8*)((_DWORD)pixbuffer[v17/4] + v5) << 8) +
 						  dword_5d4594_810632);
-			nox_pixbuffer_rows_3798784[v17/4][v5] =
-				*(_BYTE*)(result + (*(unsigned __int8*)(v5 + (_DWORD)nox_pixbuffer_rows_3798784[v17/4]) << 8) +
+			pixbuffer[v17/4][v5] =
+				*(_BYTE*)(result + (*(unsigned __int8*)(v5 + (_DWORD)pixbuffer[v17/4]) << 8) +
 						  dword_5d4594_810632);
-			v12 = (_BYTE*)(v5 + (_DWORD)nox_pixbuffer_rows_3798784[a2] - a3);
+			v12 = (_BYTE*)(v5 + (_DWORD)pixbuffer[a2] - a3);
 			*v12 = *(_BYTE*)(result + ((unsigned __int8)*v12 << 8) + dword_5d4594_810632);
-			*(_BYTE*)(v5 + *(_DWORD*)(4 * a2 + (_DWORD)nox_pixbuffer_rows_3798784) - a3) =
-				*(_BYTE*)(result + (*(unsigned __int8*)(v5 + *(_DWORD*)(4 * a2 + (_DWORD)nox_pixbuffer_rows_3798784) - a3) << 8) +
+			*(_BYTE*)(v5 + *(_DWORD*)(4 * a2 + (_DWORD)pixbuffer) - a3) =
+				*(_BYTE*)(result + (*(unsigned __int8*)(v5 + *(_DWORD*)(4 * a2 + (_DWORD)pixbuffer) - a3) << 8) +
 						  dword_5d4594_810632);
-			nox_pixbuffer_rows_3798784[v15/4][v5] =
-				*(_BYTE*)(result + (*(unsigned __int8*)((_DWORD)nox_pixbuffer_rows_3798784[v15/4] + v5) << 8) +
+			pixbuffer[v15/4][v5] =
+				*(_BYTE*)(result + (*(unsigned __int8*)((_DWORD)pixbuffer[v15/4] + v5) << 8) +
 						  dword_5d4594_810632);
 			if (a3 > 0) {
 				v20 = 4 * a2;
@@ -8722,29 +8733,29 @@ int  nox_video_drawCircle8Alpha_4B1A60(int a1, int a2, int a3) {
 					v20 -= 4;
 					++v6;
 					v14 += 4;
-					nox_pixbuffer_rows_3798784[v15/4][v5 + v6] = *(
-						_BYTE*)(result + (*(unsigned __int8*)(v5 + v6 + (_DWORD)nox_pixbuffer_rows_3798784[v15/4]) << 8) +
+					pixbuffer[v15/4][v5 + v6] = *(
+						_BYTE*)(result + (*(unsigned __int8*)(v5 + v6 + (_DWORD)pixbuffer[v15/4]) << 8) +
 								dword_5d4594_810632);
-					nox_pixbuffer_rows_3798784[v14/4][v5 + v7] = *(
-						_BYTE*)(result + (*(unsigned __int8*)(v5 + v7 + (_DWORD)nox_pixbuffer_rows_3798784[v14/4]) << 8) +
+					pixbuffer[v14/4][v5 + v7] = *(
+						_BYTE*)(result + (*(unsigned __int8*)(v5 + v7 + (_DWORD)pixbuffer[v14/4]) << 8) +
 								dword_5d4594_810632);
-					nox_pixbuffer_rows_3798784[v20/4][v5 + v7] = *(
-						_BYTE*)(result + (*(unsigned __int8*)(v5 + v7 + (_DWORD)nox_pixbuffer_rows_3798784[v20/4]) << 8) +
+					pixbuffer[v20/4][v5 + v7] = *(
+						_BYTE*)(result + (*(unsigned __int8*)(v5 + v7 + (_DWORD)pixbuffer[v20/4]) << 8) +
 								dword_5d4594_810632);
-					nox_pixbuffer_rows_3798784[v19/4][v5 + v6] = *(
-						_BYTE*)(result + (*(unsigned __int8*)(v5 + v6 + (_DWORD)nox_pixbuffer_rows_3798784[v19/4]) << 8) +
+					pixbuffer[v19/4][v5 + v6] = *(
+						_BYTE*)(result + (*(unsigned __int8*)(v5 + v6 + (_DWORD)pixbuffer[v19/4]) << 8) +
 								dword_5d4594_810632);
-					*(_BYTE*)(v5 + (_DWORD)nox_pixbuffer_rows_3798784[v19/4] - v6) = *(
-						_BYTE*)(result + (*(unsigned __int8*)(v5 + (_DWORD)nox_pixbuffer_rows_3798784[v19/4] - v6) << 8) +
+					*(_BYTE*)(v5 + (_DWORD)pixbuffer[v19/4] - v6) = *(
+						_BYTE*)(result + (*(unsigned __int8*)(v5 + (_DWORD)pixbuffer[v19/4] - v6) << 8) +
 								dword_5d4594_810632);
-					*(_BYTE*)(v5 + (_DWORD)nox_pixbuffer_rows_3798784[v20/4] - v7) = *(
-						_BYTE*)(result + (*(unsigned __int8*)(v5 + (_DWORD)nox_pixbuffer_rows_3798784[v20/4] - v7) << 8) +
+					*(_BYTE*)(v5 + (_DWORD)pixbuffer[v20/4] - v7) = *(
+						_BYTE*)(result + (*(unsigned __int8*)(v5 + (_DWORD)pixbuffer[v20/4] - v7) << 8) +
 								dword_5d4594_810632);
-					*(_BYTE*)(v5 + (_DWORD)nox_pixbuffer_rows_3798784[v14/4] - v7) = *(
-						_BYTE*)(result + (*(unsigned __int8*)(v5 + (_DWORD)nox_pixbuffer_rows_3798784[v14/4] - v7) << 8) +
+					*(_BYTE*)(v5 + (_DWORD)pixbuffer[v14/4] - v7) = *(
+						_BYTE*)(result + (*(unsigned __int8*)(v5 + (_DWORD)pixbuffer[v14/4] - v7) << 8) +
 								dword_5d4594_810632);
-					*(_BYTE*)(v5 + (_DWORD)nox_pixbuffer_rows_3798784[v15/4] - v6) = *(
-						_BYTE*)(result + (*(unsigned __int8*)(v5 + (_DWORD)nox_pixbuffer_rows_3798784[v15/4] - v6) << 8) +
+					*(_BYTE*)(v5 + (_DWORD)pixbuffer[v15/4] - v6) = *(
+						_BYTE*)(result + (*(unsigned __int8*)(v5 + (_DWORD)pixbuffer[v15/4] - v6) << 8) +
 								dword_5d4594_810632);
 				} while (v7 > v6);
 			}
@@ -8790,6 +8801,8 @@ int  sub_4B1E30(int a1, int a2, int a3) {
 	int i;               // [esp+50h] [ebp+4h]
 	int v36;             // [esp+58h] [ebp+Ch]
 
+	_BYTE** pixbuffer = nox_pixbuffer_rows_3798784;
+
 	result = dword_5d4594_810632;
 	if (dword_5d4594_810632) {
 		v4 = a3;
@@ -8812,23 +8825,23 @@ int  sub_4B1E30(int a1, int a2, int a3) {
 		v30 = a2 + a3;
 		if (!v7 && a1 < v5 && v9 >= ptr_5D4594_3799572->data[2] && v9 < v18) {
 			v5 = ptr_5D4594_3799572->data[3];
-			*(_BYTE*)(a1 + *(_DWORD*)((_DWORD)nox_pixbuffer_rows_3798784 + 4 * (a2 + a3))) =
-				*(_BYTE*)(v23 + (*(unsigned __int8*)(a1 + *(_DWORD*)((_DWORD)nox_pixbuffer_rows_3798784 + 4 * (a2 + a3))) << 8) +
+			*(_BYTE*)(a1 + *(_DWORD*)((_DWORD)pixbuffer + 4 * (a2 + a3))) =
+				*(_BYTE*)(v23 + (*(unsigned __int8*)(a1 + *(_DWORD*)((_DWORD)pixbuffer + 4 * (a2 + a3))) << 8) +
 						  dword_5d4594_810632);
 		}
 		v10 = a1 + a3;
 		if (a1 + a3 >= v21) {
 			if (v10 < v5 && a2 >= v20 && a2 < v18) {
 				v5 = v19;
-				nox_pixbuffer_rows_3798784[a2][a1 + a3] =
-					*(_BYTE*)(v23 + (*(unsigned __int8*)(a1 + a3 + (_DWORD)nox_pixbuffer_rows_3798784[a2]) << 8) +
+				pixbuffer[a2][a1 + a3] =
+					*(_BYTE*)(v23 + (*(unsigned __int8*)(a1 + a3 + (_DWORD)pixbuffer[a2]) << 8) +
 							  dword_5d4594_810632);
 				v10 = a1 + a3;
 			}
 			if (v10 >= v21 && v10 < v5 && a2 >= v20 && a2 < v18) {
 				v5 = v19;
-				nox_pixbuffer_rows_3798784[a2][v10] =
-					*(_BYTE*)(v23 + (*(unsigned __int8*)(v10 + (_DWORD)nox_pixbuffer_rows_3798784[a2]) << 8) +
+				pixbuffer[a2][v10] =
+					*(_BYTE*)(v23 + (*(unsigned __int8*)(v10 + (_DWORD)pixbuffer[a2]) << 8) +
 							  dword_5d4594_810632);
 			}
 		}
@@ -8836,14 +8849,14 @@ int  sub_4B1E30(int a1, int a2, int a3) {
 		if (a1 >= v21) {
 			if (a1 < v5 && v11 >= v20 && v11 < v18) {
 				v5 = v19;
-				*(_BYTE*)(a1 + *(_DWORD*)((_DWORD)nox_pixbuffer_rows_3798784 + 4 * (a2 - a3))) =
-					*(_BYTE*)(v23 + (*(unsigned __int8*)(a1 + *(_DWORD*)((_DWORD)nox_pixbuffer_rows_3798784 + 4 * (a2 - a3))) << 8) +
+				*(_BYTE*)(a1 + *(_DWORD*)((_DWORD)pixbuffer + 4 * (a2 - a3))) =
+					*(_BYTE*)(v23 + (*(unsigned __int8*)(a1 + *(_DWORD*)((_DWORD)pixbuffer + 4 * (a2 - a3))) << 8) +
 							  dword_5d4594_810632);
 				v11 = a2 - a3;
 			}
 			if (a1 >= v21 && a1 < v5 && v11 >= v20 && v11 < v18) {
-				nox_pixbuffer_rows_3798784[v11][a1] =
-					*(_BYTE*)(v23 + (*(unsigned __int8*)(a1 + (_DWORD)nox_pixbuffer_rows_3798784[v11]) << 8) +
+				pixbuffer[v11][a1] =
+					*(_BYTE*)(v23 + (*(unsigned __int8*)(a1 + (_DWORD)pixbuffer[v11]) << 8) +
 							  dword_5d4594_810632);
 				v11 = a2 - a3;
 			}
@@ -8851,15 +8864,15 @@ int  sub_4B1E30(int a1, int a2, int a3) {
 		v12 = a1 - a3;
 		if (a1 - a3 >= v21) {
 			if (v12 < v19 && a2 >= v20 && a2 < v18) {
-				nox_pixbuffer_rows_3798784[a2][v12] =
-					*(_BYTE*)(v23 + (*(unsigned __int8*)(v12 + (_DWORD)nox_pixbuffer_rows_3798784[a2]) << 8) +
+				pixbuffer[a2][v12] =
+					*(_BYTE*)(v23 + (*(unsigned __int8*)(v12 + (_DWORD)pixbuffer[a2]) << 8) +
 							  dword_5d4594_810632);
 				v8 = v23;
 				v11 = a2 - a3;
 			}
 			if (v12 >= v21 && v12 < v19 && a2 >= v20 && a2 < v18) {
-				nox_pixbuffer_rows_3798784[a2][v12] =
-					*(_BYTE*)(v8 + (*(unsigned __int8*)(v12 + (_DWORD)nox_pixbuffer_rows_3798784[a2]) << 8) +
+				pixbuffer[a2][v12] =
+					*(_BYTE*)(v8 + (*(unsigned __int8*)(v12 + (_DWORD)pixbuffer[a2]) << 8) +
 							  dword_5d4594_810632);
 				v8 = v23;
 				v11 = a2 - a3;
@@ -8867,8 +8880,8 @@ int  sub_4B1E30(int a1, int a2, int a3) {
 		}
 		if (a1 >= v21 && a1 < v19) {
 			if (v30 >= v20 && v30 < v18) {
-				nox_pixbuffer_rows_3798784[v30][a1] =
-					*(_BYTE*)(v8 + (*(unsigned __int8*)(a1 + (_DWORD)nox_pixbuffer_rows_3798784[v30]) << 8) +
+				pixbuffer[v30][a1] =
+					*(_BYTE*)(v8 + (*(unsigned __int8*)(a1 + (_DWORD)pixbuffer[v30]) << 8) +
 							  dword_5d4594_810632);
 				v8 = v23;
 			}
@@ -8917,47 +8930,47 @@ int  sub_4B1E30(int a1, int a2, int a3) {
 				if (v15 >= v21 && v15 < v19) {
 					if (v14 + i >= v17 && v14 + i < v18) {
 						v17 = v20;
-						nox_pixbuffer_rows_3798784[v27/4][v15] =
-							*(_BYTE*)(v8 + (*(unsigned __int8*)((_DWORD)nox_pixbuffer_rows_3798784[v27/4] + v15) << 8) +
+						pixbuffer[v27/4][v15] =
+							*(_BYTE*)(v8 + (*(unsigned __int8*)((_DWORD)pixbuffer[v27/4] + v15) << 8) +
 									  dword_5d4594_810632);
 						result = v36;
 					}
 					if (v15 < v19 && a2 >= v17 && a2 < v18) {
-						nox_pixbuffer_rows_3798784[v26/4][v15] =
-							*(_BYTE*)(v8 + (*(unsigned __int8*)((_DWORD)nox_pixbuffer_rows_3798784[v26/4] + v15) << 8) +
+						pixbuffer[v26/4][v15] =
+							*(_BYTE*)(v8 + (*(unsigned __int8*)((_DWORD)pixbuffer[v26/4] + v15) << 8) +
 									  dword_5d4594_810632);
 						result = v36;
 					}
 				}
 				if (v14 >= v21 && v14 < v19 && result + i >= v17 && result + i < v18) {
-					nox_pixbuffer_rows_3798784[v24/4][v14] =
-						*(_BYTE*)(v8 + (*(unsigned __int8*)((_DWORD)nox_pixbuffer_rows_3798784[v24/4] + v14) << 8) +
+					pixbuffer[v24/4][v14] =
+						*(_BYTE*)(v8 + (*(unsigned __int8*)((_DWORD)pixbuffer[v24/4] + v14) << 8) +
 								  dword_5d4594_810632);
 					result = v36;
 				}
 				if (v34 + a2 >= v21 && v34 + a2 < v19 && result + i >= v17 && result + i < v18) {
-					nox_pixbuffer_rows_3798784[v24/4][v34 + a2] =
-						*(_BYTE*)(v8 + (*(unsigned __int8*)((_DWORD)nox_pixbuffer_rows_3798784[v24/4] + v34 + a2) << 8) +
+					pixbuffer[v24/4][v34 + a2] =
+						*(_BYTE*)(v8 + (*(unsigned __int8*)((_DWORD)pixbuffer[v24/4] + v34 + a2) << 8) +
 								  dword_5d4594_810632);
 					result = v36;
 				}
 				if (result >= v21 && result < v19) {
 					if (a2 >= v17 && a2 < v18) {
-						nox_pixbuffer_rows_3798784[v26/4][result] =
-							*(_BYTE*)(v8 + (*(unsigned __int8*)(result + (_DWORD)nox_pixbuffer_rows_3798784[v26/4]) << 8) +
+						pixbuffer[v26/4][result] =
+							*(_BYTE*)(v8 + (*(unsigned __int8*)(result + (_DWORD)pixbuffer[v26/4]) << 8) +
 									  dword_5d4594_810632);
 						result = v36;
 					}
 					if (result < v19 && v14 + i >= v17 && v14 + i < v18)
-						nox_pixbuffer_rows_3798784[v27/4][result] =
-							*(_BYTE*)(v8 + (*(unsigned __int8*)(result + (_DWORD)nox_pixbuffer_rows_3798784[v27/4]) << 8) +
+						pixbuffer[v27/4][result] =
+							*(_BYTE*)(v8 + (*(unsigned __int8*)(result + (_DWORD)pixbuffer[v27/4]) << 8) +
 									  dword_5d4594_810632);
 				}
 				if (v33 <= v32)
 					return result;
 			}
-			nox_pixbuffer_rows_3798784[v31/4][v14] =
-				*(_BYTE*)(v8 + (*(unsigned __int8*)((_DWORD)nox_pixbuffer_rows_3798784[v31/4] + v14) << 8) +
+			pixbuffer[v31/4][v14] =
+				*(_BYTE*)(v8 + (*(unsigned __int8*)((_DWORD)pixbuffer[v31/4] + v14) << 8) +
 						  dword_5d4594_810632);
 			result = v36;
 		LABEL_54:
@@ -9018,6 +9031,9 @@ _WORD*  nox_video_drawCircle16Alpha_4B2480(int a1, int a2, int a3) {
 
 	if (ptr_5D4594_3799572->data[0] && sub_49F8E0(a1, a2, a3))
 		return (_WORD*)sub_4B3450(a1, a2, a3);
+
+	_BYTE** pixbuffer = nox_pixbuffer_rows_3798784;
+
 	v57 = 0;
 	v56 = a3; // Radius?
 	colourBase = *(unsigned __int16*)(&ptr_5D4594_3799572->data[61]);
@@ -9030,7 +9046,7 @@ _WORD*  nox_video_drawCircle16Alpha_4B2480(int a1, int a2, int a3) {
 	v5 = 4 * (a3 + a2);
 	v53 = v5;
 	v46 = 2 * a1;
-	v6 = 2 * a1 + (_DWORD)nox_pixbuffer_rows_3798784[v5/4];
+	v6 = 2 * a1 + (_DWORD)pixbuffer[v5/4];
 	redcol = (unsigned __int8)((*((_DWORD*)((_BYTE*)byte_5D4594_3804364 + 0)) & colourBase) >> *((_BYTE*)byte_5D4594_3804364 + 12));
 	bluecol2 = bluecol;
 	grencol2 = grencol;
@@ -9055,7 +9071,7 @@ _WORD*  nox_video_drawCircle16Alpha_4B2480(int a1, int a2, int a3) {
 															*((_BYTE*)byte_5D4594_3804364 + 12))) >>
 										 2)));
 	v49 = 4 * a2;
-	v10 = 2 * (a1 + a3) + *(_DWORD*)(4 * a2 + (_DWORD)nox_pixbuffer_rows_3798784);
+	v10 = 2 * (a1 + a3) + *(_DWORD*)(4 * a2 + (_DWORD)pixbuffer);
 	v59 = 2 * (a1 + a3);
 	*v10 =
 		*(_WORD*)(dword_5d4594_3804664 +
@@ -9077,7 +9093,7 @@ _WORD*  nox_video_drawCircle16Alpha_4B2480(int a1, int a2, int a3) {
 										  (unsigned __int8)((unsigned __int16)(*((_WORD*)((_BYTE*)byte_5D4594_3804364 + 0)) & *v10) >>
 															*((_BYTE*)byte_5D4594_3804364 + 12))) >>
 										 2)));
-	v11 = v59 + (_DWORD)nox_pixbuffer_rows_3798784[a2];
+	v11 = v59 + (_DWORD)pixbuffer[a2];
 	*v11 =
 		*(_WORD*)(dword_5d4594_3804664 +
 				  2 * (unsigned __int8)((((unsigned __int8)*v11 & *((_BYTE*)byte_5D4594_3804364 + 8)) << *((_BYTE*)byte_5D4594_3804364 + 20)) +
@@ -9100,7 +9116,7 @@ _WORD*  nox_video_drawCircle16Alpha_4B2480(int a1, int a2, int a3) {
 										 2)));
 	v12 = 4 * (a2 - a3);
 	v61 = v12;
-	v13 = 2 * a1 + (_DWORD)nox_pixbuffer_rows_3798784[v12/4];
+	v13 = 2 * a1 + (_DWORD)pixbuffer[v12/4];
 	*v13 =
 		*(_WORD*)(dword_5d4594_3804664 +
 				  2 * (unsigned __int8)((((unsigned __int8)*v13 & *((_BYTE*)byte_5D4594_3804364 + 8)) << *((_BYTE*)byte_5D4594_3804364 + 20)) +
@@ -9122,7 +9138,7 @@ _WORD*  nox_video_drawCircle16Alpha_4B2480(int a1, int a2, int a3) {
 															*((_BYTE*)byte_5D4594_3804364 + 12))) >>
 										 2)));
 	v51 = 2 * a1;
-	v14 = 2 * a1 + (_DWORD)nox_pixbuffer_rows_3798784[v61/4];
+	v14 = 2 * a1 + (_DWORD)pixbuffer[v61/4];
 	*v14 =
 		*(_WORD*)(dword_5d4594_3804664 +
 				  2 * (unsigned __int8)((((unsigned __int8)*v14 & *((_BYTE*)byte_5D4594_3804364 + 8)) << *((_BYTE*)byte_5D4594_3804364 + 20)) +
@@ -9144,7 +9160,7 @@ _WORD*  nox_video_drawCircle16Alpha_4B2480(int a1, int a2, int a3) {
 															*((_BYTE*)byte_5D4594_3804364 + 12))) >>
 										 2)));
 	v62 = 2 * (a1 - a3);
-	v15 = v62 + (_DWORD)nox_pixbuffer_rows_3798784[a2];
+	v15 = v62 + (_DWORD)pixbuffer[a2];
 	*v15 =
 		*(_WORD*)(dword_5d4594_3804664 +
 				  2 * (unsigned __int8)((((unsigned __int8)*v15 & *((_BYTE*)byte_5D4594_3804364 + 8)) << *((_BYTE*)byte_5D4594_3804364 + 20)) +
@@ -9165,7 +9181,7 @@ _WORD*  nox_video_drawCircle16Alpha_4B2480(int a1, int a2, int a3) {
 										  (unsigned __int8)((unsigned __int16)(*((_WORD*)((_BYTE*)byte_5D4594_3804364 + 0)) & *v15) >>
 															*((_BYTE*)byte_5D4594_3804364 + 12))) >>
 										 2)));
-	v16 = v62 + *(_DWORD*)(4 * a2 + (_DWORD)nox_pixbuffer_rows_3798784);
+	v16 = v62 + *(_DWORD*)(4 * a2 + (_DWORD)pixbuffer);
 	*v16 =
 		*(_WORD*)(dword_5d4594_3804664 +
 				  2 * (unsigned __int8)((((unsigned __int8)*v16 & *((_BYTE*)byte_5D4594_3804364 + 8)) << *((_BYTE*)byte_5D4594_3804364 + 20)) +
@@ -9186,7 +9202,7 @@ _WORD*  nox_video_drawCircle16Alpha_4B2480(int a1, int a2, int a3) {
 										  (unsigned __int8)((unsigned __int16)(*((_WORD*)((_BYTE*)byte_5D4594_3804364 + 0)) & *v16) >>
 															*((_BYTE*)byte_5D4594_3804364 + 12))) >>
 										 2)));
-	v17 = v51 + (_DWORD)nox_pixbuffer_rows_3798784[v53/4];
+	v17 = v51 + (_DWORD)pixbuffer[v53/4];
 	*v17 =
 		*(_WORD*)(dword_5d4594_3804664 +
 				  2 * (unsigned __int8)((((unsigned __int8)*v17 & *((_BYTE*)byte_5D4594_3804364 + 8)) << *((_BYTE*)byte_5D4594_3804364 + 20)) +
@@ -9235,7 +9251,7 @@ _WORD*  nox_video_drawCircle16Alpha_4B2480(int a1, int a2, int a3) {
 			v48 += 4;
 			v47 -= 4;
 			v54 -= 2;
-			v20 = v19 + 2 + (_DWORD)nox_pixbuffer_rows_3798784[v52/4];
+			v20 = v19 + 2 + (_DWORD)pixbuffer[v52/4];
 			*v20 =
 				*(_WORD*)(dword_5d4594_3804664 +
 						  2 * (unsigned __int8)((((unsigned __int8)*v20 & *((_BYTE*)byte_5D4594_3804364 + 8))
@@ -9260,7 +9276,7 @@ _WORD*  nox_video_drawCircle16Alpha_4B2480(int a1, int a2, int a3) {
 																					   *v20) >>
 																	*((_BYTE*)byte_5D4594_3804364 + 12))) >>
 												 2)));
-			v21 = v64 + (_DWORD)nox_pixbuffer_rows_3798784[v48/4];
+			v21 = v64 + (_DWORD)pixbuffer[v48/4];
 			*v21 =
 				*(_WORD*)(dword_5d4594_3804664 +
 						  2 * (unsigned __int8)((((unsigned __int8)*v21 & *((_BYTE*)byte_5D4594_3804364 + 8))
@@ -9285,7 +9301,7 @@ _WORD*  nox_video_drawCircle16Alpha_4B2480(int a1, int a2, int a3) {
 																					   *v21) >>
 																	*((_BYTE*)byte_5D4594_3804364 + 12))) >>
 												 2)));
-			v22 = v64 + (_DWORD)nox_pixbuffer_rows_3798784[v47/4];
+			v22 = v64 + (_DWORD)pixbuffer[v47/4];
 			*v22 =
 				*(_WORD*)(dword_5d4594_3804664 +
 						  2 * (unsigned __int8)((((unsigned __int8)*v22 & *((_BYTE*)byte_5D4594_3804364 + 8))
@@ -9310,7 +9326,7 @@ _WORD*  nox_video_drawCircle16Alpha_4B2480(int a1, int a2, int a3) {
 																					   *v22) >>
 																	*((_BYTE*)byte_5D4594_3804364 + 12))) >>
 												 2)));
-			v23 = v19 + 2 + (_DWORD)nox_pixbuffer_rows_3798784[v63/4];
+			v23 = v19 + 2 + (_DWORD)pixbuffer[v63/4];
 			*v23 =
 				*(_WORD*)(dword_5d4594_3804664 +
 						  2 * (unsigned __int8)((((unsigned __int8)*v23 & *((_BYTE*)byte_5D4594_3804364 + 8))
@@ -9335,7 +9351,7 @@ _WORD*  nox_video_drawCircle16Alpha_4B2480(int a1, int a2, int a3) {
 																					   *v23) >>
 																	*((_BYTE*)byte_5D4594_3804364 + 12))) >>
 												 2)));
-			v24 = v54 + (_DWORD)nox_pixbuffer_rows_3798784[v63/4];
+			v24 = v54 + (_DWORD)pixbuffer[v63/4];
 			*v24 =
 				*(_WORD*)(dword_5d4594_3804664 +
 						  2 * (unsigned __int8)((((unsigned __int8)*v24 & *((_BYTE*)byte_5D4594_3804364 + 8))
@@ -9360,7 +9376,7 @@ _WORD*  nox_video_drawCircle16Alpha_4B2480(int a1, int a2, int a3) {
 																					   *v24) >>
 																	*((_BYTE*)byte_5D4594_3804364 + 12))) >>
 												 2)));
-			v25 = v50 + (_DWORD)nox_pixbuffer_rows_3798784[v47/4];
+			v25 = v50 + (_DWORD)pixbuffer[v47/4];
 			*v25 =
 				*(_WORD*)(dword_5d4594_3804664 +
 						  2 * (unsigned __int8)((((unsigned __int8)*v25 & *((_BYTE*)byte_5D4594_3804364 + 8))
@@ -9385,7 +9401,7 @@ _WORD*  nox_video_drawCircle16Alpha_4B2480(int a1, int a2, int a3) {
 																					   *v25) >>
 																	*((_BYTE*)byte_5D4594_3804364 + 12))) >>
 												 2)));
-			v26 = v50 + (_DWORD)nox_pixbuffer_rows_3798784[v48/4];
+			v26 = v50 + (_DWORD)pixbuffer[v48/4];
 			*v26 =
 				*(_WORD*)(dword_5d4594_3804664 +
 						  2 * (unsigned __int8)((((unsigned __int8)*v26 & *((_BYTE*)byte_5D4594_3804364 + 8))
@@ -9410,7 +9426,7 @@ _WORD*  nox_video_drawCircle16Alpha_4B2480(int a1, int a2, int a3) {
 																					   *v26) >>
 																	*((_BYTE*)byte_5D4594_3804364 + 12))) >>
 												 2)));
-			v27 = v54 + (_DWORD)nox_pixbuffer_rows_3798784[v52/4];
+			v27 = v54 + (_DWORD)pixbuffer[v52/4];
 			*v27 =
 				*(_WORD*)(dword_5d4594_3804664 +
 						  2 * (unsigned __int8)((((unsigned __int8)*v27 & *((_BYTE*)byte_5D4594_3804364 + 8))
@@ -9528,6 +9544,8 @@ int  sub_4B3450(int a1, int a2, int a3) {
 	int v82;             // [esp+78h] [ebp+8h]
 	int v83;             // [esp+7Ch] [ebp+Ch]
 
+	_BYTE** pixbuffer = nox_pixbuffer_rows_3798784;
+
 	v79 = a3;
 	v65 = 1 - a3;
 	v66 = 5 - 2 * a3;
@@ -9549,7 +9567,7 @@ int  sub_4B3450(int a1, int a2, int a3) {
 	v80 = v7 << *((_BYTE*)byte_5D4594_3804364 + 20);
 	v9 = v7 << *((_BYTE*)byte_5D4594_3804364 + 20);
 	if (a1 >= v60 && a1 < v48 && v73 >= v49 && v73 < v50) {
-		v39 = (_WORD*)((_DWORD)nox_pixbuffer_rows_3798784[v73] + 2 * a1);
+		v39 = (_WORD*)((_DWORD)pixbuffer[v73] + 2 * a1);
 		v51 = (unsigned __int16)*v39;
 		*v39 = *(_WORD*)(dword_5d4594_3804672 +
 						 2 * (unsigned __int8)(((*((_DWORD*)((_BYTE*)byte_5D4594_3804364 + 0)) & v51) >> *((_BYTE*)byte_5D4594_3804364 + 12)) +
@@ -9575,7 +9593,7 @@ int  sub_4B3450(int a1, int a2, int a3) {
 		goto LABEL_17;
 	if (v10 < v48) {
 		if (a2 >= v49 && a2 < v50) {
-			v40 = (_WORD*)((_DWORD)nox_pixbuffer_rows_3798784[a2] + 2 * v63);
+			v40 = (_WORD*)((_DWORD)pixbuffer[a2] + 2 * v63);
 			v52 = (unsigned __int16)*v40;
 			*v40 = *(_WORD*)(dword_5d4594_3804672 +
 							 2 * (unsigned __int8)(((*((_DWORD*)((_BYTE*)byte_5D4594_3804364 + 0)) & v52) >> *((_BYTE*)byte_5D4594_3804364 + 12)) +
@@ -9599,7 +9617,7 @@ int  sub_4B3450(int a1, int a2, int a3) {
 		goto LABEL_17;
 	v11 = a2;
 	if (a2 >= v49 && a2 < v50) {
-		v41 = (_WORD*)((_DWORD)nox_pixbuffer_rows_3798784[a2] + 2 * v63);
+		v41 = (_WORD*)((_DWORD)pixbuffer[a2] + 2 * v63);
 		v53 = (unsigned __int16)*v41;
 		*v41 = *(_WORD*)(dword_5d4594_3804672 +
 						 2 * (unsigned __int8)(((*((_DWORD*)((_BYTE*)byte_5D4594_3804364 + 0)) & v53) >> *((_BYTE*)byte_5D4594_3804364 + 12)) +
@@ -9621,7 +9639,7 @@ int  sub_4B3450(int a1, int a2, int a3) {
 	}
 	v67 = v11 - a3;
 	if (a1 >= v60 && a1 < v48 && v67 >= v49 && v67 < v50) {
-		v42 = (_WORD*)((_DWORD)nox_pixbuffer_rows_3798784[v67] + 2 * a1);
+		v42 = (_WORD*)((_DWORD)pixbuffer[v67] + 2 * a1);
 		v54 = (unsigned __int16)*v42;
 		*v42 = *(_WORD*)(dword_5d4594_3804672 +
 						 2 * (unsigned __int8)(((*((_DWORD*)((_BYTE*)byte_5D4594_3804364 + 0)) & v54) >> *((_BYTE*)byte_5D4594_3804364 + 12)) +
@@ -9640,7 +9658,7 @@ int  sub_4B3450(int a1, int a2, int a3) {
 		v5 = *((_BYTE*)byte_5D4594_3804364 + 8);
 	}
 	if (a1 >= v60 && a1 < v48 && v67 >= v49 && v67 < v50) {
-		v43 = (_WORD*)((_DWORD)nox_pixbuffer_rows_3798784[v67] + 2 * a1);
+		v43 = (_WORD*)((_DWORD)pixbuffer[v67] + 2 * a1);
 		v55 = (unsigned __int16)*v43;
 		*v43 = *(_WORD*)(dword_5d4594_3804672 +
 						 2 * (unsigned __int8)(((*((_DWORD*)((_BYTE*)byte_5D4594_3804364 + 0)) & v55) >> *((_BYTE*)byte_5D4594_3804364 + 12)) +
@@ -9663,7 +9681,7 @@ int  sub_4B3450(int a1, int a2, int a3) {
 	if (a1 - a3 >= v60) {
 		if (v12 < v48) {
 			if (a2 >= v49 && a2 < v50) {
-				v44 = (_WORD*)((_DWORD)nox_pixbuffer_rows_3798784[a2] + 2 * v61);
+				v44 = (_WORD*)((_DWORD)pixbuffer[a2] + 2 * v61);
 				v56 = (unsigned __int16)*v44;
 				*v44 =
 					*(_WORD*)(dword_5d4594_3804672 +
@@ -9685,7 +9703,7 @@ int  sub_4B3450(int a1, int a2, int a3) {
 			v12 = a1 - a3;
 		}
 		if (v12 >= v60 && v12 < v48 && a2 >= v49 && a2 < v50) {
-			v45 = (_WORD*)((_DWORD)nox_pixbuffer_rows_3798784[a2] + 2 * v61);
+			v45 = (_WORD*)((_DWORD)pixbuffer[a2] + 2 * v61);
 			v57 = (unsigned __int16)*v45;
 			*v45 = *(_WORD*)(dword_5d4594_3804672 +
 							 2 * (unsigned __int8)(((*((_DWORD*)((_BYTE*)byte_5D4594_3804364 + 0)) & v57) >> *((_BYTE*)byte_5D4594_3804364 + 12)) +
@@ -9707,7 +9725,7 @@ int  sub_4B3450(int a1, int a2, int a3) {
 	v13 = a1;
 	if (a1 >= v60 && a1 < v48) {
 		if (v73 >= v49 && v73 < v50) {
-			v46 = (_WORD*)((_DWORD)nox_pixbuffer_rows_3798784[v73] + 2 * a1);
+			v46 = (_WORD*)((_DWORD)pixbuffer[v73] + 2 * a1);
 			v58 = (unsigned __int16)*v46;
 			*v46 = *(_WORD*)(dword_5d4594_3804672 +
 							 2 * (unsigned __int8)(((*((_DWORD*)((_BYTE*)byte_5D4594_3804364 + 0)) & v58) >> *((_BYTE*)byte_5D4594_3804364 + 12)) +
@@ -9768,7 +9786,7 @@ int  sub_4B3450(int a1, int a2, int a3) {
 			--v83;
 			v77 = v21;
 			if (v21 >= v60 && v21 < v48 && v19 >= v49 && v19 < v50) {
-				v22 = (_WORD*)(v62 + (_DWORD)nox_pixbuffer_rows_3798784[v19]);
+				v22 = (_WORD*)(v62 + (_DWORD)pixbuffer[v19]);
 				v23 = (unsigned __int16)*v22;
 				*v22 =
 					*(_WORD*)(dword_5d4594_3804672 +
@@ -9793,7 +9811,7 @@ int  sub_4B3450(int a1, int a2, int a3) {
 			v24 = v59 + i;
 			if (v59 + i >= v60) {
 				if (v24 < v48 && v70 >= v49 && v70 < v50) {
-					v25 = (_WORD*)(v64 + (_DWORD)nox_pixbuffer_rows_3798784[v70]);
+					v25 = (_WORD*)(v64 + (_DWORD)pixbuffer[v70]);
 					v26 = (unsigned __int16)*v25;
 					v24 = v59 + i;
 					*v25 =
@@ -9821,7 +9839,7 @@ int  sub_4B3450(int a1, int a2, int a3) {
 					v21 = v77;
 				}
 				if (v24 >= v60 && v24 < v48 && v68 + v83 >= v49 && v68 + v83 < v50) {
-					v27 = (_WORD*)(v64 + (_DWORD)nox_pixbuffer_rows_3798784[v69/4]);
+					v27 = (_WORD*)(v64 + (_DWORD)pixbuffer[v69/4]);
 					v28 = (unsigned __int16)*v27;
 					*v27 =
 						*(_WORD*)(dword_5d4594_3804672 +
@@ -9849,7 +9867,7 @@ int  sub_4B3450(int a1, int a2, int a3) {
 				}
 			}
 			if (v21 >= v60 && v21 < v48 && v68 + v82 >= v49 && v68 + v82 < v50) {
-				v29 = (_WORD*)(v62 + (_DWORD)nox_pixbuffer_rows_3798784[v47/4]);
+				v29 = (_WORD*)(v62 + (_DWORD)pixbuffer[v47/4]);
 				v30 = (unsigned __int16)*v29;
 				*v29 =
 					*(_WORD*)(dword_5d4594_3804672 +
@@ -9871,7 +9889,7 @@ int  sub_4B3450(int a1, int a2, int a3) {
 													 2)));
 			}
 			if (v83 >= v60 && v83 < v48 && v68 + v82 >= v49 && v68 + v82 < v50) {
-				v31 = (_WORD*)(v74 + (_DWORD)nox_pixbuffer_rows_3798784[v47/4]);
+				v31 = (_WORD*)(v74 + (_DWORD)pixbuffer[v47/4]);
 				v32 = (unsigned __int16)*v31;
 				*v31 =
 					*(_WORD*)(dword_5d4594_3804672 +
@@ -9894,7 +9912,7 @@ int  sub_4B3450(int a1, int a2, int a3) {
 			}
 			if (v82 >= v60) {
 				if (v82 < v48 && v68 + v83 >= v49 && v68 + v83 < v50) {
-					v33 = (_WORD*)(v72 + (_DWORD)nox_pixbuffer_rows_3798784[v69/4]);
+					v33 = (_WORD*)(v72 + (_DWORD)pixbuffer[v69/4]);
 					v34 = (unsigned __int16)*v33;
 					*v33 =
 						*(_WORD*)(dword_5d4594_3804672 +
@@ -9920,7 +9938,7 @@ int  sub_4B3450(int a1, int a2, int a3) {
 														 2)));
 				}
 				if (v82 < v48 && v70 >= v49 && v70 < v50) {
-					v35 = (_WORD*)(v72 + (_DWORD)nox_pixbuffer_rows_3798784[v70]);
+					v35 = (_WORD*)(v72 + (_DWORD)pixbuffer[v70]);
 					v36 = (unsigned __int16)*v35;
 					*v35 =
 						*(_WORD*)(dword_5d4594_3804672 +
@@ -9947,7 +9965,7 @@ int  sub_4B3450(int a1, int a2, int a3) {
 				}
 			}
 			if (v83 >= v60 && v83 < v48 && v59 >= v49 && v59 < v50) {
-				v37 = (_WORD*)(v74 + (_DWORD)nox_pixbuffer_rows_3798784[v59]);
+				v37 = (_WORD*)(v74 + (_DWORD)pixbuffer[v59]);
 				v38 = (unsigned __int16)*v37;
 				*v37 =
 					*(_WORD*)(dword_5d4594_3804672 +

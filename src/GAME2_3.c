@@ -7520,6 +7520,8 @@ int4*  sub_49E060(int a1, int a2, int a3, int a4, int a5) {
 	int v48; // [esp+84h] [ebp+Ch]
 	int v49; // [esp+8Ch] [ebp+14h]
 
+	_BYTE** pixbuffer = nox_pixbuffer_rows_3798784;
+
 	if (ptr_5D4594_3799572->data[0]) {
 		a2a.field_0 = a2;
 		a2a.field_8 = a4 + a2;
@@ -7554,12 +7556,12 @@ int4*  sub_49E060(int a1, int a2, int a3, int a4, int a5) {
 		v47 = 4 * v7;
 		v30 = v10 + 1;
 		do {
-			v13 = (_WORD*)(v11 + *(_DWORD*)(v12 + (_DWORD)nox_pixbuffer_rows_3798784 - 4));
+			v13 = (_WORD*)(v11 + *(_DWORD*)(v12 + (_DWORD)pixbuffer - 4));
 			v38[1] = v13;
 			v38[0] = v13 - 1;
 			v38[2] = v13 + 1;
-			v14 = (_WORD*)(v11 + (_DWORD)nox_pixbuffer_rows_3798784[v12/4]);
-			v15 = (_WORD*)(v11 + *(_DWORD*)(v12 + (_DWORD)nox_pixbuffer_rows_3798784 + 4));
+			v14 = (_WORD*)(v11 + (_DWORD)pixbuffer[v12/4]);
+			v15 = (_WORD*)(v11 + *(_DWORD*)(v12 + (_DWORD)pixbuffer + 4));
 			v38[4] = v14;
 			v38[7] = v15;
 			v38[3] = v14 - 1;
@@ -7749,12 +7751,15 @@ int  sub_49E540(int a1) {
 
 	if (ptr_5D4594_3799572->data[13])
 		return sub_49E6C0(a1);
+
+	_BYTE** pixbuffer = nox_pixbuffer_rows_3798784;
+
 	result = sub_49F5B0(&v25, &v23, 0);
 	if (result) {
 		result = sub_49F5B0(&v26, &v24, a1);
 		if (result) {
 			if (!ptr_5D4594_3799572->data[0] || sub_49F990(&v26, &v24, &v25, &v23)) {
-				v2 = nox_pixbuffer_rows_3798784;
+				v2 = pixbuffer;
 				v3 = v26;
 				v4 = v24;
 				if (v26 == v25) {
@@ -7860,13 +7865,15 @@ int  sub_49E6C0(int a1) {
 	int v30;              // [esp+30h] [ebp-8h]
 	int v31;              // [esp+34h] [ebp-4h]
 
+	_BYTE** pixbuffer = nox_pixbuffer_rows_3798784;
+
 	result = sub_49F5B0(&v29, &v28, 0);
 	if (result) {
 		result = sub_49F5B0(&v30, &v31, a1);
 		if (result) {
 			if (!ptr_5D4594_3799572->data[0] || sub_49F990(&v30, &v31, &v29, &v28)) {
 				v2 = getMemAt(0x973F18, 3880 + 4 * obj_5D4594_3800716.data[61]);
-				v3 = nox_pixbuffer_rows_3798784;
+				v3 = pixbuffer;
 				v17 = *v2;
 				v18 = v2[1];
 				v19 = v2[2];
@@ -8005,12 +8012,15 @@ int  sub_49E930(int a1) {
 
 	if (ptr_5D4594_3799572->data[13])
 		return sub_49EAB0(a1);
+
+	_BYTE** pixbuffer = nox_pixbuffer_rows_3798784;
+
 	result = sub_49F5B0(&v25, &v23, 0);
 	if (result) {
 		result = sub_49F5B0(&v26, &v24, a1);
 		if (result) {
 			if (!ptr_5D4594_3799572->data[0] || sub_49F990(&v26, &v24, &v25, &v23)) {
-				v2 = nox_pixbuffer_rows_3798784;
+				v2 = pixbuffer;
 				v3 = v24;
 				if (v26 == v25) {
 					(*(void(**)(_DWORD, _DWORD, _DWORD)) & dword_5d4594_3798712)(v26, v24, v23);
@@ -8115,6 +8125,8 @@ int  sub_49EAB0(int a1) {
 	int v29;      // [esp+30h] [ebp-8h]
 	int v30;      // [esp+34h] [ebp-4h]
 
+	_BYTE** pixbuffer = nox_pixbuffer_rows_3798784;
+
 	result = sub_49F5B0(&v28, &v27, 0);
 	if (result) {
 		result = sub_49F5B0(&v29, &v30, a1);
@@ -8126,7 +8138,7 @@ int  sub_49EAB0(int a1) {
 					  *((_BYTE*)byte_5D4594_3804364 + 16);
 				v18 = (unsigned __int16)(*((_WORD*)((_BYTE*)byte_5D4594_3804364 + 8)) & *(_WORD*)(&obj_5D4594_3800716.data[61]))
 					  << *((_BYTE*)byte_5D4594_3804364 + 20);
-				v2 = nox_pixbuffer_rows_3798784;
+				v2 = pixbuffer;
 				v3 = v28 - v29;
 				v4 = 2;
 				if (v28 < v29) {
