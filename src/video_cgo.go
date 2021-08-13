@@ -61,9 +61,9 @@ var (
 	nox_backbuffer_pitch_3801808           int
 	nox_backbuffer_pitchDiff               int
 	nox_backbuffer_width32                 int
-	nox_pixbuffer_rows_3798784_arr         []unsafe.Pointer
+	nox_pixbuffer_main_rows                []unsafe.Pointer
 	nox_pixbuffer_rows_3798776_arr         []unsafe.Pointer
-	nox_pixbuffer_3798780_arr              []byte
+	nox_pixbuffer_main                     []byte
 	nox_pixbuffer_3798788_arr              []byte
 	dword_5d4594_3798632_arr               []unsafe.Pointer
 	dword_5d4594_3798644_arr               []byte
@@ -691,7 +691,7 @@ func sub_440900() {
 	height := getBackbufSize().H
 	val := uint32(C.ptr_5D4594_3799572.data[58])
 	for y := 0; y < height; y++ {
-		row := asU32Slice(nox_pixbuffer_rows_3798784_arr[y], nox_backbuffer_width32*8)
+		row := asU32Slice(nox_pixbuffer_main_rows[y], nox_backbuffer_width32*8)
 		for x := 0; x < nox_backbuffer_width32*8; x++ {
 			row[x] = val
 		}
@@ -700,10 +700,9 @@ func sub_440900() {
 
 func nox_free_pixbuffers_486110() {
 	if memmap.Uint32(0x5D4594, 1193200) == 0 {
-		if nox_pixbuffer_3798780_arr != nil {
-			alloc.FreeBytes(nox_pixbuffer_3798780_arr)
-			nox_pixbuffer_3798780_arr = nil
-			C.nox_pixbuffer_3798780 = nil
+		if nox_pixbuffer_main != nil {
+			alloc.FreeBytes(nox_pixbuffer_main)
+			nox_pixbuffer_main = nil
 		}
 		if nox_pixbuffer_3798788_arr != nil {
 			alloc.FreeBytes(nox_pixbuffer_3798788_arr)
@@ -711,9 +710,9 @@ func nox_free_pixbuffers_486110() {
 			C.nox_pixbuffer_3798788 = nil
 		}
 	}
-	if nox_pixbuffer_rows_3798784_arr != nil {
-		alloc.FreePointers(nox_pixbuffer_rows_3798784_arr)
-		nox_pixbuffer_rows_3798784_arr = nil
+	if nox_pixbuffer_main_rows != nil {
+		alloc.FreePointers(nox_pixbuffer_main_rows)
+		nox_pixbuffer_main_rows = nil
 		C.nox_pixbuffer_rows_3798784 = nil
 	}
 	if nox_pixbuffer_rows_3798776_arr != nil {
@@ -735,9 +734,7 @@ func sub_4861D0() {
 	}
 	height := getBackbufSize().H
 
-	nox_pixbuffer_3798780_arr = alloc.Bytes(uintptr(nox_backbuffer_pitch_3801808 * height))
-	C.nox_pixbuffer_3798780 = (*C.uchar)(unsafe.Pointer(&nox_pixbuffer_3798780_arr[0]))
-
+	nox_pixbuffer_main = alloc.Bytes(uintptr(nox_backbuffer_pitch_3801808 * height))
 	if C.nox_video_renderTargetFlags&0x40 == 0 {
 		return
 	}
@@ -748,10 +745,10 @@ func sub_4861D0() {
 
 func sub_486230() {
 	height := getBackbufSize().H
-	nox_pixbuffer_rows_3798784_arr = alloc.Pointers(height)
-	C.nox_pixbuffer_rows_3798784 = (**C.uchar)(unsafe.Pointer(&nox_pixbuffer_rows_3798784_arr[0]))
+	nox_pixbuffer_main_rows = alloc.Pointers(height)
+	C.nox_pixbuffer_rows_3798784 = (**C.uchar)(unsafe.Pointer(&nox_pixbuffer_main_rows[0]))
 	for y := 0; y < height; y++ {
-		nox_pixbuffer_rows_3798784_arr[y] = unsafe.Pointer(&nox_pixbuffer_3798780_arr[y*nox_backbuffer_pitch_3801808])
+		nox_pixbuffer_main_rows[y] = unsafe.Pointer(&nox_pixbuffer_main[y*nox_backbuffer_pitch_3801808])
 	}
 
 	if C.nox_video_renderTargetFlags&0x40 == 0 {

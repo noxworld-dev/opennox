@@ -193,7 +193,7 @@ func copyGamePixBuffer() image.Image {
 	img := image.NewRGBA(image.Rect(0, 0, sz.W, sz.H))
 
 	for y := 0; y < sz.H; y++ {
-		row := asU16Slice(nox_pixbuffer_rows_3798784_arr[y], sz.W)
+		row := asU16Slice(nox_pixbuffer_main_rows[y], sz.W)
 		for x := 0; x < sz.W; x++ {
 			img.SetRGBA(x, y, colorRGB15(row[x]))
 		}

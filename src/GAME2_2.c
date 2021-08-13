@@ -70,7 +70,6 @@ extern _DWORD dword_5d4594_1193184;
 extern _DWORD dword_5d4594_1189600;
 extern _DWORD dword_5d4594_823776;
 extern int nox_video_16bit;
-extern BYTE* nox_pixbuffer_3798780;
 extern _DWORD dword_5d4594_1098580;
 extern _DWORD dword_5d4594_2650680;
 extern _DWORD nox_client_lockHighResFloors_1193152;
@@ -160,6 +159,7 @@ _DWORD nox_client_spellDragnDrop_1097192 = 0;
 _DWORD nox_client_spellDragnDrop_type_1097196 = 0;
 void* nox_client_itemDragnDrop_1097188 = 0;
 
+BYTE* nox_pixbuffer_3798780 = 0;
 int nox_backbuffer_pitch_3801808 = 0;
 #endif // NOX_CGO
 BYTE** nox_pixbuffer_rows_3798776 = 0;
