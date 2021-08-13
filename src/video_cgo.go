@@ -55,7 +55,6 @@ var (
 	g_scaled                               int
 	nox_win_width                          int
 	nox_win_height                         int
-	noxBackBufCopyFunc                     func()
 	nox_video_cursorDrawIsThreaded         bool
 	dword_6F7C10                           func(a1 unsafe.Pointer, a2, a3 uint32)
 	nox_backbuffer_width32                 int
@@ -263,14 +262,12 @@ func nox_video_setBackBufferCopyFunc_4AD100() error {
 func nox_video_setBackBufferCopyFunc2_4AD150() {
 	if C.nox_video_renderTargetFlags&0x40 != 0 {
 		panic("not implemented")
-	} else {
-		noxBackBufCopyFunc = copyPixBuffer
 	}
 }
 
 //export nox_video_callCopyBackBuffer_4AD170
 func nox_video_callCopyBackBuffer_4AD170() {
-	noxBackBufCopyFunc()
+	copyPixBuffer()
 }
 
 func videoInit(sz types.Size, depth, flags int) error {
