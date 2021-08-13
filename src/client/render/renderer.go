@@ -119,11 +119,6 @@ func (r *Renderer) BufferSize() types.Size {
 	return r.backbuf.Size()
 }
 
-// BufferPitch returns for the back buffer data.
-func (r *Renderer) BufferPitch() int {
-	return r.backbuf.Size().W * 2
-}
-
 // CopyBufferRows copies given image rows into the buffer and presents it.
 func (r *Renderer) CopyBufferRows(rows [][]byte) {
 	dpix, pitch, ok := r.backbuf.Lock()

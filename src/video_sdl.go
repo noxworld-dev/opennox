@@ -33,10 +33,9 @@ func nox_video_copyBackBuffer3_4AD1E0() {
 	width := sz.W
 	height := sz.H
 
-	pixbuf := asPtrSlice(unsafe.Pointer(C.nox_pixbuffer_rows_3798784), height)
 	rows := make([][]byte, height)
 	for i := range rows {
-		rows[i] = asByteSlice(pixbuf[i], width*2)
+		rows[i] = asByteSlice(nox_pixbuffer_main_rows[i], width*2)
 	}
 	noxRendererS.CopyBufferRows(rows)
 
@@ -99,18 +98,15 @@ func gameResetVideoMode(inMenu, force bool) error {
 }
 
 func nox_video_setBackBufSizes_48A3D0(sz types.Size) int {
-	pitch := noxRendererS.BufferPitch()
 	C.dword_5d4594_3801780 = 2
 	*memmap.PtrUint32(0x973F18, 2368) = 0
 
-	*memmap.PtrUint32(0x973F18, 136) = uint32(pitch)
+	*memmap.PtrUint32(0x973F18, 136) = uint32(2 * sz.W)
 	*memmap.PtrUint32(0x973F18, 2368) = 1
 
 	nox_backbuffer_width32 = sz.W >> 4
 	*memmap.PtrUint32(0x973F18, 2348) = uint32(sz.W >> 1)
 	C.dword_5d4594_3801780 = 1
-	nox_backbuffer_pitch_3801808 = 2 * int(sz.W)
-	nox_backbuffer_pitchDiff = pitch - 2*sz.W
 	C.dword_5d4594_3799624 = 1
 	return 1
 }

@@ -14,7 +14,6 @@ extern unsigned int nox_client_gui_flag_1556112;
 extern unsigned int nox_client_gui_flag_815132;
 extern int nox_win_width;
 extern int nox_win_height;
-extern BYTE** nox_pixbuffer_rows_3798784;
 extern unsigned int nox_client_gui_flag_815132;
 */
 import "C"

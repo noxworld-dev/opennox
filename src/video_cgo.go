@@ -58,8 +58,6 @@ var (
 	noxBackBufCopyFunc                     func()
 	nox_video_cursorDrawIsThreaded         bool
 	dword_6F7C10                           func(a1 unsafe.Pointer, a2, a3 uint32)
-	nox_backbuffer_pitch_3801808           int
-	nox_backbuffer_pitchDiff               int
 	nox_backbuffer_width32                 int
 	nox_pixbuffer_main_rows                []unsafe.Pointer
 	nox_pixbuffer_rows_3798776_arr         []unsafe.Pointer
@@ -414,7 +412,7 @@ func recreateRenderTarget() error {
 	C.sub_49F6D0(1)
 	C.sub_437290()
 	videoSet16Bit(C.dword_5d4594_3801780 != 0)
-	*memmap.PtrUint32(0x973F18, 6060) = uint32(nox_backbuffer_pitch_3801808 * int(nox_getBackbufHeight()))
+	*memmap.PtrUint32(0x973F18, 6060) = uint32(2 * getBackbufWidth() * getBackbufHeight())
 	*memmap.PtrUint32(0x973F18, 7696) = uint32(bool2int(C.dword_5d4594_3801780 == 1))
 	C.sub_430B50(0, 0, noxDefaultWidth-1, noxDefaultHeight-1)
 	return nil
@@ -422,7 +420,7 @@ func recreateRenderTarget() error {
 
 //export nox_getBackbufferPitch
 func nox_getBackbufferPitch() C.int {
-	return C.int(nox_backbuffer_pitch_3801808)
+	return C.int(2 * getBackbufWidth())
 }
 
 //export nox_video_getSurfaceData_48A720
@@ -732,33 +730,33 @@ func sub_4861D0() {
 	if memmap.Uint32(0x5D4594, 1193200) != 0 {
 		return
 	}
-	height := getBackbufSize().H
+	sz := getBackbufSize()
 
-	nox_pixbuffer_main = alloc.Bytes(uintptr(nox_backbuffer_pitch_3801808 * height))
+	nox_pixbuffer_main = alloc.Bytes(uintptr(2 * sz.W * sz.H))
 	if C.nox_video_renderTargetFlags&0x40 == 0 {
 		return
 	}
 
-	nox_pixbuffer_3798788_arr = alloc.Bytes(uintptr(nox_backbuffer_pitch_3801808 * height))
+	nox_pixbuffer_3798788_arr = alloc.Bytes(uintptr(len(nox_pixbuffer_main)))
 	C.nox_pixbuffer_3798788 = (*C.uchar)(unsafe.Pointer(&nox_pixbuffer_3798788_arr[0]))
 }
 
 func sub_486230() {
-	height := getBackbufSize().H
-	nox_pixbuffer_main_rows = alloc.Pointers(height)
+	sz := getBackbufSize()
+	nox_pixbuffer_main_rows = alloc.Pointers(sz.H)
 	C.nox_pixbuffer_rows_3798784 = (**C.uchar)(unsafe.Pointer(&nox_pixbuffer_main_rows[0]))
-	for y := 0; y < height; y++ {
-		nox_pixbuffer_main_rows[y] = unsafe.Pointer(&nox_pixbuffer_main[y*nox_backbuffer_pitch_3801808])
+	for y := 0; y < sz.H; y++ {
+		nox_pixbuffer_main_rows[y] = unsafe.Pointer(&nox_pixbuffer_main[y*2*sz.W])
 	}
 
 	if C.nox_video_renderTargetFlags&0x40 == 0 {
 		return
 	}
 
-	nox_pixbuffer_rows_3798776_arr = alloc.Pointers(height)
+	nox_pixbuffer_rows_3798776_arr = alloc.Pointers(sz.H)
 	C.nox_pixbuffer_rows_3798776 = (**C.uchar)(unsafe.Pointer(&nox_pixbuffer_rows_3798776_arr[0]))
-	for y := 0; y < height; y++ {
-		nox_pixbuffer_rows_3798776_arr[y] = unsafe.Pointer(&nox_pixbuffer_3798788_arr[y*nox_backbuffer_pitch_3801808])
+	for y := 0; y < sz.H; y++ {
+		nox_pixbuffer_rows_3798776_arr[y] = unsafe.Pointer(&nox_pixbuffer_3798788_arr[y*2*sz.W])
 	}
 }
 
@@ -895,11 +893,11 @@ func nox_client_drawXxx_444AC0(w, h, depth int, flags int) error {
 	*memmap.PtrUint32(0x973F18, 2368) = 0
 	//nox_backbuffer_width = v8
 	//nox_backbuffer_height = h
-	nox_backbuffer_pitchDiff = 0
+	//nox_backbuffer_pitchDiff = 0
 	//dword_973C64 = 0
 	if v9 == 0 {
 		C.dword_5d4594_3799624 = 0
-		nox_backbuffer_pitch_3801808 = v8
+		//nox_backbuffer_pitch_3801808 = v8
 		C.dword_5d4594_3801780 = 0
 		*memmap.PtrUint32(0x973F18, 2348) = uint32(v8) >> 2
 		nox_backbuffer_width32 = v8 >> 5
@@ -915,7 +913,7 @@ func nox_client_drawXxx_444AC0(w, h, depth int, flags int) error {
 		C.dword_5d4594_3799624 = 1
 	}
 	C.dword_5d4594_3801780 = 1
-	nox_backbuffer_pitch_3801808 = 2 * v8
+	//nox_backbuffer_pitch_3801808 = 2 * v8
 	*memmap.PtrUint32(0x973F18, 2348) = uint32(v8) >> 1
 	nox_backbuffer_width32 = v8 >> 4
 	return nil
