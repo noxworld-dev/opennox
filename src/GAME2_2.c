@@ -4222,6 +4222,7 @@ int sub_47D200() {
 	return 1;
 }
 
+#ifndef NOX_CGO
 //----- (0047D2C0) --------------------------------------------------------
 void nox_client_drawImageAt_47D2C0(nox_video_bag_image_t* img, int x, int y) {
 	if (dword_5d4594_3799452) {
@@ -4244,6 +4245,7 @@ void nox_client_drawImageAt_47D2C0(nox_video_bag_image_t* img, int x, int y) {
 		img->field_1_1 = *getMemU16Ptr(0x973F18, 84);
 	}
 }
+#endif // NOX_CGO
 
 //----- (0047D370) --------------------------------------------------------
 int  sub_47D370(int a1) {

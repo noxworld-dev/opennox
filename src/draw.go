@@ -13,9 +13,12 @@ extern unsigned int dword_5d4594_811904;
 extern unsigned int nox_client_gui_flag_815132;
 extern unsigned int dword_5d4594_1096432;
 extern unsigned int dword_5d4594_1096516;
+extern unsigned int dword_5d4594_3799452;
+extern unsigned int dword_5d4594_3799484;
 extern int dword_5d4594_3799524;
 extern unsigned int nox_client_gui_flag_1556112;
 extern unsigned int nox_gameDisableMapDraw_5d4594_2650672;
+void  nox_client_xxxDraw16_4C7440(nox_video_bag_image_t* img, int x, int y);
 void nox_xxx_clientDrawAll_436100_draw_A();
 void nox_xxx_clientDrawAll_436100_draw_B();
 void nox_xxx_drawAllMB_475810_draw_A(nox_draw_viewport_t* vp);
@@ -109,10 +112,6 @@ func nox_xxx_gLoadImg_42F970(name string) unsafe.Pointer {
 
 func nox_video_drawAnimatedImageOrCursorAt_4BE6D0(a1 uint32, a2, a3 int) {
 	C.nox_video_drawAnimatedImageOrCursorAt_4BE6D0(C.int(a1), C.int(a2), C.int(a3))
-}
-
-func nox_client_drawImageAt_47D2C0(img *C.nox_video_bag_image_t, x, y int) {
-	C.nox_client_drawImageAt_47D2C0(img, C.int(x), C.int(y))
 }
 
 func nox_xxx_client_435F80_draw(inp *input.Handler) bool {
@@ -312,5 +311,32 @@ func nox_video_drawCircle_4B0B90(a1, a2, a3 C.int) {
 		C.nox_video_drawCircle16Alpha_4B2480(a1, a2, a3)
 	} else {
 		C.nox_video_drawCircle16Opaque_4B1380(a1, a2, a3)
+	}
+}
+
+func drawImageAt(img *C.nox_video_bag_image_t, x, y int) {
+	nox_client_drawImageAt_47D2C0(img, C.int(x), C.int(y))
+}
+
+//export nox_client_drawImageAt_47D2C0
+func nox_client_drawImageAt_47D2C0(img *C.nox_video_bag_image_t, x, y C.int) {
+	if C.dword_5d4594_3799452 != 0 {
+		C.nox_xxx_wndDraw_49F7F0()
+		C.sub_49F780(C.int(memmap.Int32(0x973F18, 52)), C.int(memmap.Int32(0x973F18, 12)))
+		C.sub_49F6D0(1)
+	}
+	C.nox_client_xxxDraw16_4C7440(img, x, y)
+	if C.dword_5d4594_3799452 != 0 {
+		C.sub_49F860()
+		C.dword_5d4594_3799452 = 0
+	}
+	C.dword_5d4594_3799484 = 0
+	*memmap.PtrUint32(0x973F18, 120) = 0
+	if memmap.Uint32(0x973F18, 68) != 0 && img != nil {
+		if memmap.Uint32(0x973F18, 92) != uint32(img.field_1_0) || memmap.Uint32(0x973F18, 84) != uint32(img.field_1_1) {
+			C.dword_5d4594_3799524 = 1
+		}
+		img.field_1_0 = C.ushort(memmap.Uint32(0x973F18, 92))
+		img.field_1_1 = C.ushort(memmap.Uint32(0x973F18, 84))
 	}
 }
