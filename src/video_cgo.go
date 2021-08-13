@@ -301,9 +301,6 @@ func drawInitAll(sz types.Size, depth, flags int) error {
 	if err := sub_486090(); err != nil {
 		return err
 	}
-	if res := C.nox_video_assignCircleDrawFuncs_4B0B30(); res == 0 {
-		return errors.New("nox_video_assignCircleDrawFuncs_4B0B30 failed")
-	}
 	sub_49F610()
 	if res := C.sub_4338D0(); res == 0 {
 		return errors.New("sub_4338D0 failed")

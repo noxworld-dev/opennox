@@ -506,9 +506,9 @@ int  sub_4BD010(nox_drawable* dr, int2* a2, int a3) {
 		v13 = *(float*)(v3 + 96) - (double)*(__int16*)(v3 + 104);
 		v11 = v19 - nox_float2int(v13);
 		if (v11 > 0)
-			sub_4C3270(a2->field_0, v19, v9, *getMemIntPtr(0x85B3FC, 940));
-		sub_4C3270(a2->field_0, v11, v9, a3);
-		sub_4C3270(a2->field_0, v10, v9, a3);
+			nox_video_drawCircleColored_4C3270(a2->field_0, v19, v9, *getMemIntPtr(0x85B3FC, 940));
+		nox_video_drawCircleColored_4C3270(a2->field_0, v11, v9, a3);
+		nox_video_drawCircleColored_4C3270(a2->field_0, v10, v9, a3);
 		nox_client_drawSetColor_434460(a3);
 		nox_client_drawAddPoint_49F500(a2->field_0 - v9, v11);
 		nox_client_drawAddPoint_49F500(a2->field_0 - v9, v10);
@@ -3488,7 +3488,7 @@ int  nox_xxx_guiDrawSummonBox_4C1FE0(_DWORD* a1) {
 					v8 = v5 + v20 / 2;
 					nox_client_drawSetColor_434460(*getMemIntPtr(0x85B3FC, 956));
 					sub_4B0BC0(v7, v8, 9);
-					sub_4C3270(v7, v8, 9, *getMemIntPtr(0x852978, 4));
+					nox_video_drawCircleColored_4C3270(v7, v8, 9, *getMemIntPtr(0x852978, 4));
 					v3 = a1a.field_0;
 				}
 			}
@@ -4108,11 +4108,13 @@ BOOL  sub_4C3240(int a1) { return sub_4C31D0(a1) != 0; }
 //----- (004C3260) --------------------------------------------------------
 BOOL sub_4C3260() { return sub_4C2D60() != 0; }
 
+#ifndef NOX_CGO
 //----- (004C3270) --------------------------------------------------------
-int  sub_4C3270(int a1, int a2, int a3, int a4) {
+void nox_video_drawCircleColored_4C3270(int a1, int a2, int a3, int a4) {
 	nox_client_drawSetColor_434460(a4);
-	return nox_video_drawCircle_4B0B90(a1, a2, a3);
+	nox_video_drawCircle_4B0B90(a1, a2, a3);
 }
+#endif // NOX_CGO
 
 //----- (004C32A0) --------------------------------------------------------
 int  nox_xxx_spriteDrawCircleMB_4C32A0(int a1, int a2, int a3, int a4) {

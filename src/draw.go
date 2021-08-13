@@ -54,6 +54,10 @@ func nox_xxx_guiFontHeightMB_43F320(a1 int) int {
 	return int(C.nox_xxx_guiFontHeightMB_43F320(C.int(a1)))
 }
 
+func nox_xxx_drawAlphaEnabled() bool {
+	return C.ptr_5D4594_3799572.data[13] != 0
+}
+
 func nox_xxx_drawSelectColor_434350(a1 uint32) {
 	C.ptr_5D4594_3799572.data[58] = C.uint(a1)
 }
@@ -294,4 +298,19 @@ func nox_xxx_drawAllMB_475810_draw(vp *Viewport) {
 	C.sub_437290()
 	*memmap.PtrUint32(0x973F18, 68) = 1
 	C.sub_476680()
+}
+
+//export nox_video_drawCircleColored_4C3270
+func nox_video_drawCircleColored_4C3270(a1, a2, a3, a4 C.int) {
+	nox_client_drawSetColor_434460(uint32(a4))
+	nox_video_drawCircle_4B0B90(a1, a2, a3)
+}
+
+//export nox_video_drawCircle_4B0B90
+func nox_video_drawCircle_4B0B90(a1, a2, a3 C.int) {
+	if nox_xxx_drawAlphaEnabled() {
+		C.nox_video_drawCircle16Alpha_4B2480(a1, a2, a3)
+	} else {
+		C.nox_video_drawCircle16Opaque_4B1380(a1, a2, a3)
+	}
 }

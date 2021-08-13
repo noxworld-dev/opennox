@@ -8089,6 +8089,7 @@ void*  nox_video_getImagePixdataInline_4B0B20(nox_video_bag_image_t* img) {
 	return img->offset;
 }
 
+#ifndef NOX_CGO
 //----- (004B0B30) --------------------------------------------------------
 int nox_video_assignCircleDrawFuncs_4B0B30() {
 	if (dword_5d4594_3801780) {
@@ -8105,15 +8106,15 @@ int nox_video_assignCircleDrawFuncs_4B0B30() {
 }
 
 //----- (004B0B90) --------------------------------------------------------
-int  nox_video_drawCircle_4B0B90(int a1, int a2, int a3) {
+void nox_video_drawCircle_4B0B90(int a1, int a2, int a3) {
 	int result; // eax
 
 	if (ptr_5D4594_3799572->data[13])
 		result = (*(int(**)(_DWORD, _DWORD, _DWORD)) getMemAt(0x5D4594, 1312464))(a1, a2, a3);
 	else
 		result = (*(int(**)(_DWORD, _DWORD, _DWORD)) getMemAt(0x5D4594, 1312468))(a1, a2, a3);
-	return result;
 }
+#endif // NOX_CGO
 
 //----- (004B0BC0) --------------------------------------------------------
 int  sub_4B0BC0(int a1, int a2, int a3) {
@@ -8177,6 +8178,7 @@ int  sub_4B0BC0(int a1, int a2, int a3) {
 	return result;
 }
 
+#ifndef NOX_CGO
 //----- (004B0D30) --------------------------------------------------------
 char  nox_video_drawCircle8Opaque_4B0D30(int a1, int a2, int a3) {
 	int v3;      // esi
@@ -8247,6 +8249,7 @@ char  nox_video_drawCircle8Opaque_4B0D30(int a1, int a2, int a3) {
 	}
 	return result;
 }
+#endif // NOX_CGO
 
 //----- (004B0F50) --------------------------------------------------------
 int  sub_4B0F50(int a1, int a2, int a3) {
@@ -8655,6 +8658,7 @@ int  sub_4B15E0(int a1, int a2, int a3) {
 	return result;
 }
 
+#ifndef NOX_CGO
 //----- (004B1A60) --------------------------------------------------------
 int  nox_video_drawCircle8Alpha_4B1A60(int a1, int a2, int a3) {
 	int result; // eax
@@ -8763,6 +8767,7 @@ int  nox_video_drawCircle8Alpha_4B1A60(int a1, int a2, int a3) {
 	}
 	return result;
 }
+#endif // NOX_CGO
 
 //----- (004B1E30) --------------------------------------------------------
 int  sub_4B1E30(int a1, int a2, int a3) {

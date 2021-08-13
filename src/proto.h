@@ -2341,7 +2341,7 @@ int  sub_4730D0(int2* a1, unsigned __int8 a2, int a3); // idb
 int  sub_473380(int a1, int a2, int a3, int a4, int a5);
 int  sub_4733B0(_DWORD* a1);
 int  sub_473420(_DWORD* a1);
-int  nox_video_drawCircleRad3_4734F0(int* a1);
+void nox_video_drawCircleRad3_4734F0(int* a1);
 int  nox_client_drawRectLines_473510(int a1, int a2, int a3, int a4);
 void  nox_xxx_minimapDrawPoint_473570(int xLeft, int yTop);
 void  sub_4735C0(int xLeft, int yTop);
@@ -3262,7 +3262,7 @@ int  sub_4B0870(int* a1);
 void*  nox_video_getImagePixdataInline_4B0B20(nox_video_bag_image_t* img);
 int nox_video_assignCircleDrawFuncs_4B0B30();
 void nullsub_19(void); // weak
-int  nox_video_drawCircle_4B0B90(int a1, int a2, int a3);
+void nox_video_drawCircle_4B0B90(int a1, int a2, int a3);
 int  sub_4B0BC0(int a1, int a2, int a3);
 char  nox_video_drawCircle8Opaque_4B0D30(int a1, int a2, int a3);
 int  sub_4B0F50(int a1, int a2, int a3);
@@ -3466,7 +3466,7 @@ int  sub_4C3210(int a1);
 BOOL  nox_xxx_sprite_4C3220(nox_drawable* a1);
 BOOL  sub_4C3240(int a1);
 BOOL sub_4C3260();
-int  sub_4C3270(int a1, int a2, int a3, int a4);
+void nox_video_drawCircleColored_4C3270(int a1, int a2, int a3, int a4);
 int  nox_xxx_spriteDrawCircleMB_4C32A0(int a1, int a2, int a3, int a4);
 int sub_4C3390();
 int  sub_4C3410(int* a1);
