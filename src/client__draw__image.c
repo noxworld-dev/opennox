@@ -1905,10 +1905,7 @@ void nox_client_drawXxx_4C7C80(int x, int y, int width, int4* a4) {
 	}
 	unsigned char* pix = nox_video_cur_pixdata_3799444;
 	int v11 = 4 * v7;
-	int v41 = v11;
-	int v40 = 0;
 	for (int v43 = v9; v43 != 0; v43--) {
-		int v12 = width;
 		int v13 = x;
 		int v42 = width;
 		if (!dword_5d4594_3799552 || (dword_5d4594_3799508 ^= 1u) == 0) {
@@ -1999,7 +1996,6 @@ void nox_client_drawXxx_4C7C80(int x, int y, int width, int4* a4) {
 					v13 += v44;
 					v42 -= v44;
 					if (v42 <= 0) {
-						v11 = v41;
 						goto LABEL_72;
 					}
 					break;
@@ -2071,7 +2067,7 @@ void nox_client_drawXxx_4C7C80(int x, int y, int width, int4* a4) {
 				}
 			}
 		}
-		if (v40) {
+		if (v43 != v9) {
 			char* v14 = (char*)(2 * v4 + *(unsigned int*)(v11 + (unsigned int)nox_pixbuffer_rows_3798784 - 4));
 			char* v15 = (char*)((unsigned int)nox_pixbuffer_rows_3798784[v11/4] + 2 * v4);
 			int v16 = v5 - v4;
@@ -2083,17 +2079,12 @@ void nox_client_drawXxx_4C7C80(int x, int y, int width, int4* a4) {
 			memcpy(v15, v14, 4 * v17);
 			char* v20 = &v14[4 * v17];
 			char* v19 = &v15[4 * v17];
-			LOBYTE(v17) = v18;
-			v12 = width;
-			memcpy(v19, v20, v17 & 3);
-			v11 = v41;
+			memcpy(v19, v20, v18 & 3);
 		}
-		sub_4C8040(v12, 1);
+		sub_4C8040(width, 1);
 		pix = nox_video_cur_pixdata_3799444;
 	LABEL_72:
 		v11 += 4;
-		++v40;
-		v41 = v11;
 	}
 }
 
