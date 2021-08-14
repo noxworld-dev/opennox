@@ -1906,10 +1906,8 @@ void nox_client_drawXxx_4C7C80(int x, int y, int width, int4* a4) {
 	unsigned char* pix = nox_video_cur_pixdata_3799444;
 	int v11 = 4 * v7;
 	int v41 = v11;
-	int v43 = v9;
-	bool v37;
 	int v40 = 0;
-	do {
+	for (int v43 = v9; v43 != 0; v43--) {
 		int v12 = width;
 		int v13 = x;
 		int v42 = width;
@@ -2094,11 +2092,9 @@ void nox_client_drawXxx_4C7C80(int x, int y, int width, int4* a4) {
 		pix = nox_video_cur_pixdata_3799444;
 	LABEL_72:
 		v11 += 4;
-		v37 = v43 == 1;
 		++v40;
 		v41 = v11;
-		--v43;
-	} while (!v37);
+	}
 }
 
 //----- (004C79F0) --------------------------------------------------------
