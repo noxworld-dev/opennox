@@ -1884,7 +1884,6 @@ char*  sub_4C8040(int a1, int a2) {
 void nox_client_drawXxx_4C7C80(int x, int y, int width, int4* a4) {
 	int v4 = a4->field_0;
 	int v5 = a4->field_8;
-	int v7 = y;
 	int v8 = a4->field_4 - y;
 	int v9 = a4->field_C - a4->field_4;
 	int v45 = a4->field_8;
@@ -1895,19 +1894,19 @@ void nox_client_drawXxx_4C7C80(int x, int y, int width, int4* a4) {
 		}
 		dword_5d4594_3799476 = v9 + y;
 	}
+	int v7 = y;
 	if (v8) {
 		v7 = v8 + y;
 		sub_4C8040(width, v8);
 	}
 	dword_5d4594_3799508 ^= v7 & 1;
-	int v10 = (int)(v9 - 1);
 	if (!v9) {
 		return;
 	}
 	unsigned char* pix = nox_video_cur_pixdata_3799444;
 	int v11 = 4 * v7;
 	int v41 = v11;
-	int v43 = v10 + 1;
+	int v43 = v9;
 	bool v37;
 	int v40 = 0;
 	do {
