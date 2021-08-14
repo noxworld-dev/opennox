@@ -1886,14 +1886,14 @@ void nox_client_drawXxx_4C7C80(int x, int y, int width, int4* a4) {
 	int v5 = a4->field_8;
 	int v7 = y;
 	int v8 = a4->field_4 - y;
-	unsigned char* v9 = (unsigned char*)(a4->field_C - a4->field_4);
+	int v9 = a4->field_C - a4->field_4;
 	int v45 = a4->field_8;
 	if (dword_5d4594_3799484) {
 		v9 -= dword_5d4594_3799484;
-		if ((int)v9 <= 0) {
+		if (v9 <= 0) {
 			return;
 		}
-		dword_5d4594_3799476 = &v9[y];
+		dword_5d4594_3799476 = v9 + y;
 	}
 	if (v8) {
 		v7 = v8 + y;
