@@ -1750,10 +1750,6 @@ __int16 sub_4C8C00() {
 
 //----- (004C7860) --------------------------------------------------------
 void  sub_4C7860(int a1, int a2, int a3) {
-	int4* result; // eax
-	int v4;       // esi
-	int* v5;      // eax
-	int4* v6;     // ecx
 	int v7;       // edx
 	int v8;       // edi
 	int v9;       // ebx
@@ -1769,15 +1765,15 @@ void  sub_4C7860(int a1, int a2, int a3) {
 	RECT rc;      // [esp+20h] [ebp-10h]
 	int v20;      // [esp+3Ch] [ebp+Ch]
 
-	result = nox_video_getImagePixdata_func(a1);
+	unsigned char* result = nox_video_getImagePixdata_func(a1);
 	nox_video_cur_pixdata_3799444 = result;
 	if (!result) {
 		return;
 	}
-	v4 = result->field_0;
-	v5 = &result->field_4;
+	int v4 = *(int*)(&result[0]);
+	int* v5 = &result[4];
 	nox_video_cur_pixdata_3799444 = v5;
-	v6 = (int4*)*v5;
+	int v6 = v5[0];
 	++v5;
 	v7 = v4;
 	nox_video_cur_pixdata_3799444 = v5;
@@ -1788,14 +1784,14 @@ void  sub_4C7860(int a1, int a2, int a3) {
 	nox_video_cur_pixdata_3799444 = v5;
 	dword_5d4594_3799556 = *v5;
 	v10 = dword_5d4594_3799556 + a3;
-	result = (int4*)(v5 + 1);
+	result = v5 + 1;
 	v20 = dword_5d4594_3799556 + a3;
 	nox_video_cur_pixdata_3799444 = result;
 	if (dword_5d4594_3799484) {
-		v6 = (int4*)((char*)v6 - dword_5d4594_3799484);
-		if ((int)v6 <= 0)
+		v6 = v6 - dword_5d4594_3799484;
+		if (v6 <= 0)
 			return;
-		dword_5d4594_3799476 = (char*)v6 + v10;
+		dword_5d4594_3799476 = v6 + v10;
 	}
 	*getMemU32Ptr(0x973F18, 92) = v8 + a2;
 	nox_video_cur_pixdata_3799444 = (char*)result + 1;
@@ -1803,14 +1799,13 @@ void  sub_4C7860(int a1, int a2, int a3) {
 	*getMemU32Ptr(0x973F18, 88) = v4;
 	*getMemU32Ptr(0x973F18, 76) = v6;
 	if (ptr_5D4594_3799572->data[0]) {
-		SetRect(&rc, v9, v10, v4 + v9, (int)v6 + v10);
-		result = nox_xxx_utilRect_49F930(&a1a, (int4*)&rc, (int4*)(&ptr_5D4594_3799572->data[1]));
-		if (!result)
+		SetRect(&rc, v9, v10, v4 + v9, v6 + v10);
+		if (!nox_xxx_utilRect_49F930(&a1a, (int4*)&rc, (int4*)(&ptr_5D4594_3799572->data[1])))
 			return;
 		v11 = a1a.field_0 - rc.left;
 		v12 = a1a.field_4 - rc.top;
 		v7 = a1a.field_8 - a1a.field_0;
-		v6 = (int4*)(a1a.field_C - a1a.field_4);
+		v6 = a1a.field_C - a1a.field_4;
 		if (a1a.field_0 != rc.left || v12) {
 			v9 += v11;
 			nox_video_cur_pixdata_3799444 += v4 * v12 + 2 * v11;
@@ -1821,10 +1816,9 @@ void  sub_4C7860(int a1, int a2, int a3) {
 	}
 	v13 = 2 * v9;
 	v14 = 2 * (v4 - v7);
-	result = v6;
-	v15 = (int)&v6[-1].field_C + 3;
+	v15 = v6 - 1;
 	*getMemU32Ptr(0x973F18, 28) = v7;
-	if (result) {
+	if (v6) {
 		v16 = 4 * v10;
 		v17 = v15 + 1;
 		do {
