@@ -1750,21 +1750,6 @@ __int16 sub_4C8C00() {
 
 //----- (004C7860) --------------------------------------------------------
 void  sub_4C7860(int a1, int a2, int a3) {
-	int v7;       // edx
-	int v8;       // edi
-	int v9;       // ebx
-	int v10;      // ebp
-	int v11;      // eax
-	int v12;      // edi
-	int v13;      // ebx
-	int v14;      // esi
-	int v15;      // ecx
-	int v16;      // ebp
-	int v17;      // edi
-	int4 a1a;     // [esp+10h] [ebp-20h]
-	RECT rc;      // [esp+20h] [ebp-10h]
-	int v20;      // [esp+3Ch] [ebp+Ch]
-
 	unsigned char* result = nox_video_getImagePixdata_func(a1);
 	nox_video_cur_pixdata_3799444 = result;
 	if (!result) {
@@ -1775,17 +1760,17 @@ void  sub_4C7860(int a1, int a2, int a3) {
 	nox_video_cur_pixdata_3799444 = v5;
 	int v6 = v5[0];
 	++v5;
-	v7 = v4;
+	int v7 = v4;
 	nox_video_cur_pixdata_3799444 = v5;
-	v8 = *v5;
+	int v8 = *v5;
 	++v5;
 	dword_5d4594_3799560 = v8;
-	v9 = v8 + a2;
+	int v9 = v8 + a2;
 	nox_video_cur_pixdata_3799444 = v5;
 	dword_5d4594_3799556 = *v5;
-	v10 = dword_5d4594_3799556 + a3;
+	int v10 = dword_5d4594_3799556 + a3;
 	result = v5 + 1;
-	v20 = dword_5d4594_3799556 + a3;
+	int v20 = dword_5d4594_3799556 + a3;
 	nox_video_cur_pixdata_3799444 = result;
 	if (dword_5d4594_3799484) {
 		v6 = v6 - dword_5d4594_3799484;
@@ -1799,11 +1784,13 @@ void  sub_4C7860(int a1, int a2, int a3) {
 	*getMemU32Ptr(0x973F18, 88) = v4;
 	*getMemU32Ptr(0x973F18, 76) = v6;
 	if (ptr_5D4594_3799572->data[0]) {
+		RECT rc;
 		SetRect(&rc, v9, v10, v4 + v9, v6 + v10);
+		int4 a1a;
 		if (!nox_xxx_utilRect_49F930(&a1a, (int4*)&rc, (int4*)(&ptr_5D4594_3799572->data[1])))
 			return;
-		v11 = a1a.field_0 - rc.left;
-		v12 = a1a.field_4 - rc.top;
+		int v11 = a1a.field_0 - rc.left;
+		int v12 = a1a.field_4 - rc.top;
 		v7 = a1a.field_8 - a1a.field_0;
 		v6 = a1a.field_C - a1a.field_4;
 		if (a1a.field_0 != rc.left || v12) {
@@ -1814,13 +1801,13 @@ void  sub_4C7860(int a1, int a2, int a3) {
 			v10 = v20;
 		}
 	}
-	v13 = 2 * v9;
-	v14 = 2 * (v4 - v7);
-	v15 = v6 - 1;
+	int v13 = 2 * v9;
+	int v14 = 2 * (v4 - v7);
+	int v15 = v6 - 1;
 	*getMemU32Ptr(0x973F18, 28) = v7;
 	if (v6) {
-		v16 = 4 * v10;
-		v17 = v15 + 1;
+		int v16 = 4 * v10;
+		int v17 = v15 + 1;
 		do {
 			v16 += 4;
 			dword_5d4594_3799540 = v13 + *(unsigned int*)((unsigned int)nox_pixbuffer_rows_3798784 + v16 - 4);
