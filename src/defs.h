@@ -953,11 +953,12 @@ typedef struct nox_drawable {
 } nox_drawable;
 _Static_assert(sizeof(nox_drawable) == 512, "wrong size of nox_drawable structure!");
 
-// 3108 = NOX_OBJ_1050020_XXX * sizeof(nox_obj_1050020_t)
-// 777 = NOX_OBJ_1050020_XXX * (sizeof(nox_obj_1050020_t)/4)
+// 3108 = NOX_OBJ_1050020_ROW_COUNT * sizeof(nox_obj_1050020_t)
+// 777 = NOX_OBJ_1050020_ROW_COUNT * (sizeof(nox_obj_1050020_t)/4)
 // 37 = (sizeof(nox_obj_1050020_t)/4)
-#define NOX_OBJ_1050020_XXX 21
-#define NOX_OBJ_1050020_MAX NOX_OBJ_1050020_XXX*4
+#define NOX_OBJ_1050020_ROW_COUNT 21
+#define NOX_OBJ_1050020_COL_COUNT 4
+#define NOX_OBJ_1050020_MAX (NOX_OBJ_1050020_ROW_COUNT*NOX_OBJ_1050020_COL_COUNT)
 typedef struct nox_obj_1050020_t {
 	nox_drawable* field_0;
 	_DWORD field_4;
