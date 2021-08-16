@@ -954,47 +954,30 @@ _QWORD**  sub_461E60(_QWORD*** a1) {
 }
 
 //----- (00461EF0) --------------------------------------------------------
-char*  sub_461EF0(int a1) {
-	unsigned __int8* v1; // ebx
-	int v2;              // edi
-	unsigned __int8* v3; // esi
-	int v4;              // eax
-	int v5;              // edx
-	unsigned __int8* v6; // ecx
-	char* result;        // eax
-	int v8;              // [esp+10h] [ebp-4h]
-
-	v8 = 0;
-	v1 = &(nox_obj_arr_1050020[0].field_140);
-	while (1) {
-		v2 = 0;
-		v3 = v1;
+char* sub_461EF0(int a1) {
+	int row_idx = 0;
+	do {
+		int col_idx = 0;
 		do {
-			v4 = 0;
-			v5 = *v3;
-			if (v5 > 0) {
-				v6 = v3 - 136;
-				while (*(_DWORD*)v6 != a1) {
-					++v4;
-					v6 += 4;
-					if (v4 >= v5)
-						goto LABEL_7;
+			const nox_obj_1050020_t* p_item = &nox_obj_arr_1050020[row_idx + NOX_OBJ_1050020_XXX * col_idx];
+			const int field140_val = p_item->field_140;
+			if (field140_val > 0) {
+				const _DWORD* p_maybe_stack_items = &p_item->field_4;
+				for (int maybe_stack_idx = 0; maybe_stack_idx < field140_val; ++maybe_stack_idx) {
+					if (*(p_maybe_stack_items + maybe_stack_idx) == a1) {
+						*getMemU32Ptr(0x5D4594, 1049792) = maybe_stack_idx;
+						const char* result = (char*)getMemAt(0x5D4594, 1049788);
+						*getMemU32Ptr(0x5D4594, 1049788) = p_item;
+						return result;
+					}
 				}
-				*getMemU32Ptr(0x5D4594, 1049792) = v4;
-				result = (char*)getMemAt(0x5D4594, 1049788);
-				*getMemU32Ptr(0x5D4594, 1049788) = &nox_obj_arr_1050020[v8 + NOX_OBJ_1050020_XXX * v2];
-				return result;
 			}
-		LABEL_7:
-			++v2;
-			v3 += NOX_OBJ_1050020_XXX * sizeof(nox_obj_1050020_t);
-		} while (v2 < 4);
-		v1 += sizeof(nox_obj_1050020_t);
-		++v8;
-		if ((int)v1 <= (int)&(nox_obj_arr_1050020[NOX_OBJ_1050020_XXX-1].field_140))
-			continue;
-		return 0;
-	}
+			++col_idx;
+		} while (col_idx < 4);
+		++row_idx;
+	} while (row_idx <= NOX_OBJ_1050020_XXX);
+
+	return 0;
 }
 
 //----- (00461F90) --------------------------------------------------------
