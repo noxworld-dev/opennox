@@ -1974,10 +1974,11 @@ LABEL_9:
 }
 
 //----- (004E4C00) --------------------------------------------------------
-int  sub_4E4C00(int a1) {
+int  sub_4E4C00(nox_object_t* item) {
+	const int a1 = (int)item;
 	int result; // eax
 
-	if (a1)
+	if (item)
 		result = *(_DWORD*)(a1 + 36);
 	else
 		result = 0;
@@ -1985,10 +1986,11 @@ int  sub_4E4C00(int a1) {
 }
 
 //----- (004E4C10) --------------------------------------------------------
-int  sub_4E4C10(int a1) {
+int  sub_4E4C10(nox_object_t* item) {
+	const int a1 = (int)item;
 	int result; // eax
 
-	if (a1)
+	if (item)
 		result = *(unsigned __int16*)(a1 + 4);
 	else
 		result = 0;
@@ -1996,10 +1998,11 @@ int  sub_4E4C10(int a1) {
 }
 
 //----- (004E4C30) --------------------------------------------------------
-int  sub_4E4C30(int a1) {
+int  sub_4E4C30(nox_object_t* item) {
+	const int a1 = (int)item;
 	int result; // eax
 
-	if (a1)
+	if (item)
 		result = *(_DWORD*)(a1 + 692);
 	else
 		result = 0;
@@ -2007,11 +2010,12 @@ int  sub_4E4C30(int a1) {
 }
 
 //----- (004E4C50) --------------------------------------------------------
-int  sub_4E4C50(int a1) {
+int  sub_4E4C50(nox_object_t* item) {
+	const int a1 = (int)item;
 	int v1;     // eax
 	int result; // eax
 
-	if (a1 && (v1 = nox_xxx_objectTypeByInd_4E3B70(*(unsigned __int16*)(a1 + 4))) != 0)
+	if (item && (v1 = nox_xxx_objectTypeByInd_4E3B70(*(unsigned __int16*)(a1 + 4))) != 0)
 		result = *(_DWORD*)(v1 + 180);
 	else
 		result = 0;
@@ -2019,10 +2023,11 @@ int  sub_4E4C50(int a1) {
 }
 
 //----- (004E4C80) --------------------------------------------------------
-int  sub_4E4C80(int* a1) {
+int  sub_4E4C80(nox_object_t* item) {
+	const int* a1 = (int*)item;
 	int result; // eax
 
-	if (a1)
+	if (item)
 		result = *a1;
 	else
 		result = 0;
@@ -4135,7 +4140,8 @@ int  sub_4E7DA0(int a1, int a2, int a3) {
 }
 
 //----- (004E7DE0) --------------------------------------------------------
-int  sub_4E7DE0(int a1, int a2) {
+int  sub_4E7DE0(int a1, nox_object_t* item) {
+	const int a2 = (int)item;
 	int v2;     // ebx
 	_DWORD* v3; // eax
 	int v4;     // ecx
@@ -4143,7 +4149,7 @@ int  sub_4E7DE0(int a1, int a2) {
 	int v6;     // eax
 	bool v7;    // zf
 
-	if (!a1 || !a2 || *(_WORD*)(a1 + 4) != *(_WORD*)(a2 + 4))
+	if (!a1 || !item || *(_WORD*)(a1 + 4) != *(_WORD*)(a2 + 4))
 		return 0;
 	v2 = *(_DWORD*)(a1 + 8);
 	if (v2 & 0x13001000) {
@@ -4178,17 +4184,17 @@ LABEL_8:
 }
 
 //----- (004E7EC0) --------------------------------------------------------
-int  sub_4E7EC0(int a1, int a2) {
+int  sub_4E7EC0(int a1, nox_object_t* item) {
 	int v2; // esi
 
 	if (!a1)
 		return 0;
-	if (!a2)
+	if (!item)
 		return 0;
 	v2 = *(_DWORD*)(a1 + 504);
 	if (!v2)
 		return 0;
-	while (!sub_4E7DE0(v2, a2)) {
+	while (!sub_4E7DE0(v2, item)) {
 		v2 = *(_DWORD*)(v2 + 496);
 		if (!v2)
 			return 0;
@@ -8836,11 +8842,12 @@ void  nox_xxx_playerHP_4EE730(int a1) {
 }
 
 //----- (004EE780) --------------------------------------------------------
-__int16  nox_xxx_unitGetHP_4EE780(int a1) {
+__int16  nox_xxx_unitGetHP_4EE780(nox_object_t* item) {
+	const int a1 = (int)item;
 	__int16* v1;    // eax
 	__int16 result; // ax
 
-	if (a1 && (v1 = *(__int16**)(a1 + 556)) != 0)
+	if (item && (v1 = *(__int16**)(a1 + 556)) != 0)
 		result = *v1;
 	else
 		result = 0;
@@ -12157,10 +12164,10 @@ LABEL_8:
 }
 
 //----- (004F2F70) --------------------------------------------------------
-int  nox_xxx_playerTryEquip_4F2F70(_DWORD* a1, int a2) {
+int  nox_xxx_playerTryEquip_4F2F70(_DWORD* a1, nox_object_t* item) {
 	int result; // eax
 
-	if (nox_xxx_playerEquipWeapon_53A420(a1, a2, 1, 1) || (result = nox_xxx_playerEquipArmor_53E650(a1, a2, 1, 1)) != 0)
+	if (nox_xxx_playerEquipWeapon_53A420(a1, item, 1, 1) || (result = nox_xxx_playerEquipArmor_53E650(a1, item, 1, 1)) != 0)
 		result = 1;
 	return result;
 }
@@ -12220,7 +12227,8 @@ int  nox_xxx_itemApplyDisengageEffect_4F3030(int a1, int a2) {
 }
 
 //----- (004F3070) --------------------------------------------------------
-void  nox_xxx_inventoryPutImpl_4F3070(int a1, int a2, int a3) {
+void  nox_xxx_inventoryPutImpl_4F3070(int a1, nox_object_t* item, int a3) {
+	const int a2 = (int)item;
 	int v3; // ebp
 	int v4; // eax
 	int v5; // ebx
@@ -12228,7 +12236,7 @@ void  nox_xxx_inventoryPutImpl_4F3070(int a1, int a2, int a3) {
 	int v7; // ecx
 
 	v3 = 0;
-	if (a1 && a2 && !(*(_BYTE*)(a1 + 16) & 0x20) && !(*(_BYTE*)(a2 + 16) & 0x20)) {
+	if (a1 && item && !(*(_BYTE*)(a1 + 16) & 0x20) && !(*(_BYTE*)(a2 + 16) & 0x20)) {
 		*(_DWORD*)(a2 + 500) = 0;
 		*(_DWORD*)(a2 + 496) = *(_DWORD*)(a1 + 504);
 		v4 = *(_DWORD*)(a1 + 504);
@@ -12236,12 +12244,12 @@ void  nox_xxx_inventoryPutImpl_4F3070(int a1, int a2, int a3) {
 			*(_DWORD*)(v4 + 500) = a2;
 		*(_DWORD*)(a1 + 504) = a2;
 		*(_DWORD*)(a2 + 492) = a1;
-		nox_xxx_unitSetOwner_4EC290(a1, a2);
+		nox_xxx_unitSetOwner_4EC290(a1, item);
 		if (*(_BYTE*)(a1 + 8) & 4) {
 			v5 = *(_DWORD*)(*(_DWORD*)(a1 + 748) + 276);
 			if (a3)
-				nox_xxx_netReportPickup_4D8A60(*(unsigned __int8*)(v5 + 2064), a2);
-			nox_xxx_protect_56FBF0(*(_DWORD*)(v5 + 4632), (int*)a2);
+				nox_xxx_netReportPickup_4D8A60(*(unsigned __int8*)(v5 + 2064), item);
+			nox_xxx_protect_56FBF0(*(_DWORD*)(v5 + 4632), item);
 			for (i = *(_DWORD*)(a1 + 504); i; v3 += v7) {
 				v7 = *(unsigned __int8*)(i + 488);
 				i = *(_DWORD*)(i + 496);
@@ -12275,7 +12283,8 @@ bool  nox_xxx_playerCheckStrength_4F3180(int a1, nox_object_t* item) {
 }
 
 //----- (004F31E0) --------------------------------------------------------
-int  nox_xxx_pickupDefault_4F31E0(int a1, int a2, int a3) {
+int  nox_xxx_pickupDefault_4F31E0(int a1, nox_object_t* item, int a3) {
+	const int a2 = (int)item;
 	BOOL v3;    // eax
 	int v4;     // edi
 	int v5;     // ebp
@@ -12307,8 +12316,8 @@ int  nox_xxx_pickupDefault_4F31E0(int a1, int a2, int a3) {
 						 ? (v13 = v12 - 3)
 						 : (v13 = v12 - 9),
 					 v13 < 0)) {
-					nox_xxx_servFinalizeDelObject_4DADE0(v5);
-					nox_xxx_inventoryPutImpl_4F3070(v4, v5, a3);
+					nox_xxx_servFinalizeDelObject_4DADE0(item);
+					nox_xxx_inventoryPutImpl_4F3070(v4, item, a3);
 					result = 1;
 				} else {
 					nox_xxx_netPriMsgToPlayer_4DA2C0(v4, "pickup.c:MaxSameItem", 0);

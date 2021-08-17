@@ -5462,11 +5462,11 @@ int  nox_xxx_netReportPlrStatus_4D8270(int a1) {
 }
 
 //----- (004D82B0) --------------------------------------------------------
-int  nox_xxx_netReportCharges_4D82B0(int a1, _DWORD* a2, char a3, char a4) {
+int  nox_xxx_netReportCharges_4D82B0(int a1, nox_object_t* item, char a3, char a4) {
 	char v5[5]; // [esp+0h] [ebp-8h]
 
 	v5[0] = 100;
-	*(_WORD*)&v5[1] = nox_xxx_netGetUnitCodeServ_578AC0(a2);
+	*(_WORD*)&v5[1] = nox_xxx_netGetUnitCodeServ_578AC0(item);
 	v5[3] = a3;
 	v5[4] = a4;
 	return nox_xxx_netSendPacket1_4E5390(a1, (int)v5, 5, 0, 0);
@@ -5728,7 +5728,8 @@ __int16  nox_xxx_netReportHealthDelta_4D8760(int a1, __int16 a2, __int16 a3) {
 }
 
 //----- (004D87A0) --------------------------------------------------------
-int  nox_xxx_itemReportHealth_4D87A0(int a1, _DWORD* a2) {
+int  nox_xxx_itemReportHealth_4D87A0(int a1, nox_object_t* item) {
+	const _DWORD* a2 = (_DWORD*)item;
 	int result; // eax
 	_WORD* v3;  // eax
 	char v4[7]; // [esp+4h] [ebp-8h]
@@ -5737,7 +5738,7 @@ int  nox_xxx_itemReportHealth_4D87A0(int a1, _DWORD* a2) {
 	if (result) {
 		if (*(_WORD*)(result + 4)) {
 			v4[0] = 68;
-			*(_WORD*)&v4[1] = nox_xxx_netGetUnitCodeServ_578AC0(a2);
+			*(_WORD*)&v4[1] = nox_xxx_netGetUnitCodeServ_578AC0(item);
 			v3 = (_WORD*)a2[139];
 			*(_WORD*)&v4[3] = *v3;
 			*(_WORD*)&v4[5] = v3[2];
@@ -5862,7 +5863,8 @@ int  nox_xxx_netReportArmorVal_4D8A30(int a1, int a2) {
 }
 
 //----- (004D8A60) --------------------------------------------------------
-int  nox_xxx_netReportPickup_4D8A60(int a1, int a2) {
+int  nox_xxx_netReportPickup_4D8A60(int a1, nox_object_t* item) {
+	const int a2 = (int)item;
 	__int16 v3; // ax
 	__int16 v4; // cx
 	char v5[5]; // [esp+4h] [ebp-8h]
@@ -5879,7 +5881,8 @@ int  nox_xxx_netReportPickup_4D8A60(int a1, int a2) {
 }
 
 //----- (004D8AD0) --------------------------------------------------------
-int  nox_xxx_netReportModifiablePickup_4D8AD0(int a1, int a2) {
+int  nox_xxx_netReportModifiablePickup_4D8AD0(int a1, nox_object_t* item) {
+	const int a2 = (int)item;
 	int v2;     // esi
 	int v3;     // eax
 	int v4;     // edx
@@ -5887,7 +5890,7 @@ int  nox_xxx_netReportModifiablePickup_4D8AD0(int a1, int a2) {
 
 	v6[0] = 76;
 	v2 = *(_DWORD*)(a2 + 692);
-	*(_WORD*)&v6[1] = nox_xxx_netGetUnitCodeServ_578AC0((_DWORD*)a2);
+	*(_WORD*)&v6[1] = nox_xxx_netGetUnitCodeServ_578AC0(item);
 	*(_WORD*)&v6[3] = *(_WORD*)(a2 + 4);
 	v3 = 0;
 	v4 = v2;
@@ -5900,7 +5903,7 @@ int  nox_xxx_netReportModifiablePickup_4D8AD0(int a1, int a2) {
 		v4 += 4;
 	} while (v3 < 4);
 	nox_xxx_netSendPacket1_4E5390(a1, (int)v6, 9, 0, 0);
-	return nox_xxx_itemReportHealth_4D87A0(a1, (_DWORD*)a2);
+	return nox_xxx_itemReportHealth_4D87A0(a1, item);
 }
 
 //----- (004D8B50) --------------------------------------------------------
@@ -7477,7 +7480,8 @@ void nox_xxx_unitsNewAddToList_4DAC00() {
 }
 
 //----- (004DADE0) --------------------------------------------------------
-char  nox_xxx_servFinalizeDelObject_4DADE0(int a1) {
+char  nox_xxx_servFinalizeDelObject_4DADE0(nox_object_t* item) {
+	const int a1 = (int)item;
 	int v1; // eax
 
 	v1 = *(_DWORD*)(a1 + 16);

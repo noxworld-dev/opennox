@@ -7051,32 +7051,32 @@ int  nox_xxx_shootApplyEffects_539F40(int a1, int a2, int a3) {
 
 //----- (00539FB0) --------------------------------------------------------
 int  sub_539FB0(_DWORD* a1) {
-	int v1; // esi
+	nox_object_t* item;
 
-	v1 = a1[126];
-	if (!v1)
+	item = (nox_object_t*)a1[126];
+	if (!item)
 		return 0;
-	while (nox_xxx_weaponInventoryEquipFlags_415820(v1) != 128) {
-		v1 = *(_DWORD*)(v1 + 496);
-		if (!v1)
+	while (nox_xxx_weaponInventoryEquipFlags_415820(item) != 128) {
+		item = item->field_124;
+		if (!item)
 			return 0;
 	}
-	return nox_xxx_playerEquipWeapon_53A420(a1, v1, 1, 1);
+	return nox_xxx_playerEquipWeapon_53A420(a1, item, 1, 1);
 }
 
 //----- (00539FF0) --------------------------------------------------------
 int  nox_xxx_playerTryReloadQuiver_539FF0(_DWORD* a1) {
-	int v1; // esi
+	nox_object_t* item;
 
-	v1 = a1[126];
-	if (!v1)
+	item = (nox_object_t*)a1[126];
+	if (!item)
 		return 0;
-	while (nox_xxx_weaponInventoryEquipFlags_415820(v1) != 2) {
-		v1 = *(_DWORD*)(v1 + 496);
-		if (!v1)
+	while (nox_xxx_weaponInventoryEquipFlags_415820(item) != 2) {
+		item = item->field_124;
+		if (!item)
 			return 0;
 	}
-	return nox_xxx_playerEquipWeapon_53A420(a1, v1, 1, 1);
+	return nox_xxx_playerEquipWeapon_53A420(a1, item, 1, 1);
 }
 
 //----- (0053A030) --------------------------------------------------------
@@ -7278,14 +7278,14 @@ int nox_xxx_playerEquipWeapon_53A420(_DWORD* a1, nox_object_t* item, int a3, int
 	if (v5 & 0x100) {
 		return 0;
 	}
-	const int v6 = a1[2];
+	const int v6 = a1[2]; // +8
 	if (v6 & 2) {
 		return nox_xxx_NPCEquipWeapon_53A2C0((int)a1, item);
 	}
 	if (!(v6 & 4)) {
 		return 0;
 	}
-	const int v8 = a1[187];
+	const int v8 = a1[187]; // +748
 	if (nox_xxx_probablyWarcryCheck_4FC3E0((int)a1, 2) || nox_xxx_probablyWarcryCheck_4FC3E0((int)a1, 1)) {
 		return 0;
 	}
@@ -7304,7 +7304,7 @@ int nox_xxx_playerEquipWeapon_53A420(_DWORD* a1, nox_object_t* item, int a3, int
 		}
 		return 0;
 	}
-	int result = a1[126];
+	int result = a1[126]; // +504
 	if (!result) {
 		return 0;
 	}
@@ -7362,25 +7362,26 @@ int nox_xxx_playerEquipWeapon_53A420(_DWORD* a1, nox_object_t* item, int a3, int
 
 //----- (0053A680) --------------------------------------------------------
 int  sub_53A680(int a1) {
-	int v1; // esi
+	nox_object_t* item;
 
-	v1 = *(_DWORD*)(a1 + 504);
-	if (!v1)
+	item = *(nox_object_t**)(a1 + 504);
+	if (!item)
 		return 0;
-	while (!(nox_xxx_weaponInventoryEquipFlags_415820(v1) & 0xC)) {
-		v1 = *(_DWORD*)(v1 + 496);
-		if (!v1)
+	while (!(nox_xxx_weaponInventoryEquipFlags_415820(item) & 0xC)) {
+		item = item->field_124;
+		if (!item)
 			return 0;
 	}
-	return nox_xxx_playerEquipWeapon_53A420((_DWORD*)a1, v1, 1, 1);
+	return nox_xxx_playerEquipWeapon_53A420((_DWORD*)a1, item, 1, 1);
 }
 
 //----- (0053A6C0) --------------------------------------------------------
-void  sub_53A6C0(int a1, int a2) {
+void  sub_53A6C0(int a1, nox_object_t* item) {
+	const int a2 = (int)item;
 	int v2;     // edx
 	__int16 v3; // ax
 
-	if (a1 && a2) {
+	if (a1 && item) {
 		v2 = *(_DWORD*)(a2 + 8);
 		if (v2 & 0x1000) {
 			nox_xxx_aud_501960(830, a1, 0, 0);
@@ -7396,7 +7397,8 @@ void  sub_53A6C0(int a1, int a2) {
 }
 
 //----- (0053A720) --------------------------------------------------------
-int  sub_53A720(int a1, int a2, int a3, int a4) {
+int  sub_53A720(int a1, nox_object_t* item, int a3, int a4) {
+	const int a2 = (int)item;
 	_DWORD* v4; // esi
 	int v5;     // ebp
 	int v6;     // ebx
@@ -7423,7 +7425,7 @@ int  sub_53A720(int a1, int a2, int a3, int a4) {
 		}
 	}
 	if (!nox_common_gameFlags_check_40A5C0(2048) && !nox_common_gameFlags_check_40A5C0(4096) && sub_409F40(2)) {
-		if (!(*(_BYTE*)(a2 + 12) & 0x82) && sub_4E7EC0(a1, a2))
+		if (!(*(_BYTE*)(a2 + 12) & 0x82) && sub_4E7EC0(a1, item))
 			v5 = 1;
 		if (*(_BYTE*)(a2 + 12) & 0x40) {
 			v8 = *(_DWORD*)(a1 + 516);
@@ -7447,38 +7449,38 @@ int  sub_53A720(int a1, int a2, int a3, int a4) {
 		}
 	}
 	if (!nox_common_gameFlags_check_40A5C0(2048) && !nox_common_gameFlags_check_40A5C0(4096) && *(_BYTE*)(a1 + 8) & 4 &&
-		!nox_xxx_playerClassCanUseItem_57B3D0(a2, *(_BYTE*)(*(_DWORD*)(*(_DWORD*)(a1 + 748) + 276) + 2251))) {
+		!nox_xxx_playerClassCanUseItem_57B3D0(item, *(_BYTE*)(*(_DWORD*)(*(_DWORD*)(a1 + 748) + 276) + 2251))) {
 		nox_xxx_netPriMsgToPlayer_4DA2C0(a1, "weapon.c:WeaponEquipClassFail", 0);
 		nox_xxx_aud_501960(925, a1, 2, *(_DWORD*)(a1 + 36));
 		return 0;
 	}
-	if (nox_xxx_pickupDefault_4F31E0(a1, a2, a3) != 1)
+	if (nox_xxx_pickupDefault_4F31E0(a1, item, a3) != 1)
 		return 0;
 	if (*(_BYTE*)(a1 + 8) & 4) {
 		v9 = 0;
 		v13 = *(_DWORD*)(a1 + 748);
-		if (!*(_DWORD*)(v13 + 104) && !sub_419E60((int)v4) && nox_xxx_weaponInventoryEquipFlags_415820(a2) != 2)
-			v9 = nox_xxx_playerEquipWeapon_53A420(v4, a2, a4, 0);
-		if (!sub_419E60((int)v4) && nox_xxx_weaponInventoryEquipFlags_415820(a2) == 2) {
+		if (!*(_DWORD*)(v13 + 104) && !sub_419E60((int)v4) && nox_xxx_weaponInventoryEquipFlags_415820(item) != 2)
+			v9 = nox_xxx_playerEquipWeapon_53A420(v4, item, a4, 0);
+		if (!sub_419E60((int)v4) && nox_xxx_weaponInventoryEquipFlags_415820(item) == 2) {
 			v10 = *(_DWORD*)(*(_DWORD*)(v13 + 276) + 4);
 			if (v10 & 0xC) {
 				if (!(v10 & 2))
-					v9 = nox_xxx_playerEquipWeapon_53A420(v4, a2, a4, 0);
+					v9 = nox_xxx_playerEquipWeapon_53A420(v4, item, a4, 0);
 			}
 		}
 		if (!v9) {
 			v11 = *(_DWORD*)(a2 + 8);
 			if (v11 & 0x1000 && *(_DWORD*)(a2 + 12) & 0x47F0000) {
-				nox_xxx_netReportCharges_4D82B0(*(unsigned __int8*)(*(_DWORD*)(v13 + 276) + 2064), (_DWORD*)a2,
+				nox_xxx_netReportCharges_4D82B0(*(unsigned __int8*)(*(_DWORD*)(v13 + 276) + 2064), item,
 						   *(_BYTE*)(*(_DWORD*)(a2 + 736) + 108), *(_BYTE*)(*(_DWORD*)(a2 + 736) + 109));
 			} else if (v11 & 0x1000000 && *(_BYTE*)(a2 + 12) & 0x82) {
-				nox_xxx_netReportCharges_4D82B0(*(unsigned __int8*)(*(_DWORD*)(v13 + 276) + 2064), (_DWORD*)a2,
+				nox_xxx_netReportCharges_4D82B0(*(unsigned __int8*)(*(_DWORD*)(v13 + 276) + 2064), item,
 						   *(_BYTE*)(*(_DWORD*)(a2 + 736) + 1), **(_BYTE**)(a2 + 736));
 			}
 		}
 	}
-	sub_53A6C0((int)v4, a2);
-	nox_xxx_decay_5116F0(a2);
+	sub_53A6C0((int)v4, item);
+	nox_xxx_decay_5116F0(item);
 	return 1;
 }
 
@@ -10043,7 +10045,8 @@ void  sub_53E600(_DWORD* a1) {
 }
 
 //----- (0053E650) --------------------------------------------------------
-int  nox_xxx_playerEquipArmor_53E650(_DWORD* a1, int a2, int a3, int a4) {
+int  nox_xxx_playerEquipArmor_53E650(_DWORD* a1, nox_object_t* item, int a3, int a4) {
+	const int a2 = (int)item;
 	int v4;      // eax
 	int v5;      // eax
 	int v7;      // ebx

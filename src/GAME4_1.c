@@ -2332,7 +2332,7 @@ void nox_xxx_unitListenRoutine_50CDD0(int unitA) {
 	if (nox_xxx_unitIsAFish_534B10(unit)) return;
 	if (nox_xxx_unitIsAFrog_534B90(unit)) return;
 	if (nox_xxx_unitIsARat_534B60(unit)) return;
-	
+
 	monsterListen = nox_monsterListen_2386192;
 	if (!nox_monsterListen_2386192)	return;
 
@@ -2351,7 +2351,7 @@ void nox_xxx_unitListenRoutine_50CDD0(int unitA) {
 				*(_DWORD*)(monsterListen + 4) = 0;
 			if (*(_DWORD*)(flags + 404) <= *(int*)(monsterListen + 16)) {
 				// should unit bother listening ?
-				if (sub_nox_xxx_checkIfUnitShouldListenOther_50CF10(unit, monsterListen)) { 
+				if (sub_nox_xxx_checkIfUnitShouldListenOther_50CF10(unit, monsterListen)) {
 					//Raycast?
 					raycastResults = sub_50D000(unit, monsterListen);
 					//This finds the farthest?
@@ -2388,7 +2388,7 @@ BOOL  sub_nox_xxx_checkIfUnitShouldListenOther_50CF10(int unitA, int unitB) {
 	playerUnit = nox_xxx_findParentChainPlayer_4EC580(*(_DWORD*)(unitB + 4));
 	listenable = sub_501900(*(_DWORD*)unitB);
 	if (*(_DWORD*)(v3 + 404) > nox_frame_xxx_2598000)
-		return 0;	
+		return 0;
 	if (!playerUnit) {
 		if (!listenable)
 			return 0;
@@ -4913,7 +4913,8 @@ int  nox_xxx_unitSetDecayTime_511660(_DWORD* a1, int a2) {
 }
 
 //----- (005116F0) --------------------------------------------------------
-int  nox_xxx_decay_5116F0(int a1) {
+int  nox_xxx_decay_5116F0(nox_object_t* item) {
+	const int a1 = (int)item;
 	int result; // eax
 	int v2;     // ecx
 

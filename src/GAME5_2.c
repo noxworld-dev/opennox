@@ -2776,7 +2776,7 @@ int  sub_56FB00(int* a1, unsigned int a2, int a3) {
 // 560840: using guessed type void  nullsub_31(_DWORD);
 
 //----- (0056FB60) --------------------------------------------------------
-int  sub_56FB60(int* a1) {
+int  sub_56FB60(nox_object_t* item) {
 	int result; // eax
 	int v2;     // ebx
 	int v3;     // ebx
@@ -2786,15 +2786,15 @@ int  sub_56FB60(int* a1) {
 	int* v7;    // eax
 
 	result = 0;
-	if (a1) {
-		v2 = sub_4E4C00((int)a1);
-		v3 = (unsigned __int16)nox_xxx_unitGetHP_4EE780((int)a1) ^ v2;
-		v4 = sub_4E4C10((int)a1) ^ v3;
-		v5 = (int*)sub_4E4C30((int)a1);
-		v6 = sub_4E4C50((int)a1);
+	if (item) {
+		v2 = sub_4E4C00(item);
+		v3 = (unsigned __int16)nox_xxx_unitGetHP_4EE780(item) ^ v2;
+		v4 = sub_4E4C10(item) ^ v3;
+		v5 = (int*)sub_4E4C30(item);
+		v6 = sub_4E4C50(item);
 		if (v5 && v6 > 0)
 			v4 ^= nox_xxx_protectionStringCRC_56FAC0(v5, v6);
-		v7 = (int*)sub_4E4C80(a1);
+		v7 = (int*)sub_4E4C80(item);
 		if (v7) {
 			if (strlen((const char*)v7))
 				v4 ^= nox_xxx_protectionStringCRC_56FAC0(v7, strlen((const char*)v7));
@@ -2805,7 +2805,7 @@ int  sub_56FB60(int* a1) {
 }
 
 //----- (0056FBF0) --------------------------------------------------------
-int  nox_xxx_protect_56FBF0(int a1, int* a2) {
+int  nox_xxx_protect_56FBF0(int a1, nox_object_t* item) {
 	int result; // eax
 	_DWORD* v3; // eax
 	_DWORD* v4; // esi
@@ -2817,7 +2817,7 @@ int  nox_xxx_protect_56FBF0(int a1, int* a2) {
 		v4 = v3;
 		if (v3) {
 			dword_5d4594_2516328 ^= v3[1];
-			v5 = sub_56FB60(a2) ^ v3[1];
+			v5 = sub_56FB60(item) ^ v3[1];
 			v4[1] = v5;
 			result = v5 ^ dword_5d4594_2516328;
 			dword_5d4594_2516328 ^= v5;
@@ -3000,10 +3000,11 @@ int  sub_56FF80(int a1, int a2) {
 }
 
 //----- (00578AC0) --------------------------------------------------------
-unsigned int  nox_xxx_netGetUnitCodeServ_578AC0(_DWORD* a1) {
+unsigned int  nox_xxx_netGetUnitCodeServ_578AC0(nox_object_t* item) {
+	const _DWORD* a1 = (_DWORD*)item;
 	unsigned int result; // eax
 
-	if (!a1)
+	if (!item)
 		return 0;
 	if (a1[9] >= 0x8000u)
 		return 0;
