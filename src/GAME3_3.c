@@ -12612,8 +12612,8 @@ LABEL_36:
 }
 
 //----- (004F3B00) --------------------------------------------------------
-int  nox_xxx_pickupAmmo_4F3B00(int a1, int a2, int a3, int a4) {
-	int v4;               // ebp
+int  nox_xxx_pickupAmmo_4F3B00(int a1, nox_object_t* item, int a3, int a4) {
+	const int a2 = (int)item;
 	int v5;               // eax
 	int v6;               // ebx
 	int v7;               // esi
@@ -12631,23 +12631,22 @@ int  nox_xxx_pickupAmmo_4F3B00(int a1, int a2, int a3, int a4) {
 	_DWORD* v20;          // [esp+18h] [ebp-8h]
 	int v21;              // [esp+1Ch] [ebp-4h]
 
-	v4 = a2;
-	v5 = nox_xxx_weaponInventoryEquipFlags_415820(a2);
+	v5 = nox_xxx_weaponInventoryEquipFlags_415820(item);
 	v6 = a1;
 	v18 = v5;
 	if (!(*(_BYTE*)(a1 + 8) & 4))
-		return sub_53A720(v6, v4, a3, a4);
+		return sub_53A720(v6, item, a3, a4);
 	v21 = *(_DWORD*)(a1 + 748);
 	if (!(v5 & 0x82))
-		return sub_53A720(v6, v4, a3, a4);
+		return sub_53A720(v6, item, a3, a4);
 	v7 = *(_DWORD*)(a1 + 504);
 	v8 = *(_DWORD**)(a2 + 692);
 	v20 = *(_DWORD**)(a2 + 692);
 	v19 = *(unsigned __int8**)(a2 + 736);
 	if (!v7)
-		return sub_53A720(v6, v4, a3, a4);
+		return sub_53A720(v6, item, a3, a4);
 	while (1) {
-		if (*(_WORD*)(v7 + 4) != *(_WORD*)(v4 + 4) || !(*(_DWORD*)(v7 + 8) & 0x1000000) || !(nox_xxx_weaponInventoryEquipFlags_415820(v7) & v18))
+		if (*(_WORD*)(v7 + 4) != *(_WORD*)(a2 + 4) || !(*(_DWORD*)(v7 + 8) & 0x1000000) || !(nox_xxx_weaponInventoryEquipFlags_415820(v7) & v18))
 			goto LABEL_15;
 		v9 = *(char**)(v7 + 736);
 		v10 = v8;
@@ -12663,12 +12662,11 @@ int  nox_xxx_pickupAmmo_4F3B00(int a1, int a2, int a3, int a4) {
 		if (v12 == 1 && !v9[2] && *v19 + (unsigned __int8)*v9 <= 250)
 			break;
 		v6 = a1;
-		v4 = a2;
 		v8 = v20;
 	LABEL_15:
 		v7 = *(_DWORD*)(v7 + 496);
 		if (!v7)
-			return sub_53A720(v6, v4, a3, a4);
+			return sub_53A720(v6, item, a3, a4);
 	}
 	v15 = v19[1] + v9[1];
 	v16 = *v9;
@@ -12676,8 +12674,8 @@ int  nox_xxx_pickupAmmo_4F3B00(int a1, int a2, int a3, int a4) {
 	v17 = *v19 + v16;
 	*v9 = v17;
 	nox_xxx_netReportCharges_4D82B0(*(unsigned __int8*)(*(_DWORD*)(v21 + 276) + 2064), (_DWORD*)v7, v15, v17);
-	nox_xxx_delayedDeleteObject_4E5CC0(a2);
-	sub_53A6C0(a1, a2);
+	nox_xxx_delayedDeleteObject_4E5CC0(item);
+	sub_53A6C0(a1, item);
 	return 1;
 }
 

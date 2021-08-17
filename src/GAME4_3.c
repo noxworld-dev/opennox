@@ -7485,11 +7485,12 @@ int  sub_53A720(int a1, nox_object_t* item, int a3, int a4) {
 }
 
 //----- (0053A9C0) --------------------------------------------------------
-int  nox_xxx_sendMsgOblivionPickup_53A9C0(int a1, int a2, int a3, int a4) {
+int  nox_xxx_sendMsgOblivionPickup_53A9C0(int a1, nox_object_t* item, int a3, int a4) {
+	const int a2 = (int)item;
 	int v4; // edi
 	int v5; // eax
 
-	v4 = sub_53A720(a1, a2, a3, a4);
+	v4 = sub_53A720(a1, item, a3, a4);
 	if (v4 == 1 && *(_BYTE*)(a1 + 8) & 4 && !sub_419E60(a1)) {
 		v5 = *(_DWORD*)(a2 + 12);
 		if (0x800000 & v5) {
@@ -7506,7 +7507,7 @@ int  nox_xxx_sendMsgOblivionPickup_53A9C0(int a1, int a2, int a3, int a4) {
 			nox_xxx_aud_501960(917, a1, 0, 0);
 		}
 		sub_57AF30(a1, 1);
-		nox_xxx_playerTryEquip_4F2F70((_DWORD*)a1, a2);
+		nox_xxx_playerTryEquip_4F2F70((_DWORD*)a1, item);
 	}
 	return v4;
 }

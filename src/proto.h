@@ -4393,7 +4393,7 @@ int  nox_xxx_pickupTrap_4F3510(int a1, int a2, int a3);
 int  nox_xxx_pickupTreasure_4F3580(int a1, int a2, int a3);
 int  nox_xxx_inventoryServPlace_4F36F0(int a1, int a2, int a3, int a4);
 int  nox_xxx_pickupPotion_4F37D0(int a1, int a2, int a3);
-int  nox_xxx_pickupAmmo_4F3B00(int a1, int a2, int a3, int a4);
+int  nox_xxx_pickupAmmo_4F3B00(int a1, nox_object_t* item, int a3, int a4);
 int  nox_xxx_pickupSpellbook_4F3C60(int a1, int a2, int a3);
 int  nox_xxx_pickupAbilitybook_4F3CE0(int a1, int a2, int a3);
 int  sub_4F3D50(int a1, int a2, int a3);
@@ -5607,7 +5607,7 @@ int  nox_xxx_playerEquipWeapon_53A420(_DWORD* a1, nox_object_t* item, int a3, in
 int  sub_53A680(int a1);
 void  sub_53A6C0(int a1, nox_object_t* item);
 int  sub_53A720(int a1, nox_object_t* item, int a3, int a4);
-int  nox_xxx_sendMsgOblivionPickup_53A9C0(int a1, int a2, int a3, int a4);
+int  nox_xxx_sendMsgOblivionPickup_53A9C0(int a1, nox_object_t* item, int a3, int a4);
 void sub_53AAB0(int a1);
 int  nox_xxx_dropWeapon_53AB10(int a1, _DWORD* a2, int* a3);
 void  sub_53AB90(int a1, int a2);
