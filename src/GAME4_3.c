@@ -7268,7 +7268,7 @@ void  sub_53A3D0(_DWORD* a1) {
 }
 
 //----- (0053A420) --------------------------------------------------------
-int  nox_xxx_playerEquipWeapon_53A420(_DWORD* a1, int a2, int a3, int a4) {
+int nox_xxx_playerEquipWeapon_53A420(_DWORD* a1, int a2, int a3, int a4) {
 	int v4;     // ebx
 	int v5;     // eax
 	int v6;     // eax
@@ -7280,75 +7280,91 @@ int  nox_xxx_playerEquipWeapon_53A420(_DWORD* a1, int a2, int a3, int a4) {
 	int v12;    // eax
 
 	v4 = nox_xxx_weaponInventoryEquipFlags_415820(a2);
-	if (!(*(_DWORD*)(a2 + 8) & 0x1001000))
+	if (!(*(_DWORD*)(a2 + 8) & 0x1001000)) {
 		return 0;
+	}
 	v5 = *(_DWORD*)(a2 + 16);
-	if (v5 & 0x100)
+	if (v5 & 0x100) {
 		return 0;
+	}
 	v6 = a1[2];
-	if (v6 & 2)
+	if (v6 & 2) {
 		return nox_xxx_NPCEquipWeapon_53A2C0((int)a1, a2);
-	if (!(v6 & 4))
+	}
+	if (!(v6 & 4)) {
 		return 0;
+	}
 	v8 = a1[187];
-	if (nox_xxx_probablyWarcryCheck_4FC3E0((int)a1, 2) || nox_xxx_probablyWarcryCheck_4FC3E0((int)a1, 1))
+	if (nox_xxx_probablyWarcryCheck_4FC3E0((int)a1, 2) || nox_xxx_probablyWarcryCheck_4FC3E0((int)a1, 1)) {
 		return 0;
+	}
 	if (!nox_xxx_playerClassCanUseItem_57B3D0(a2, *(_BYTE*)(*(_DWORD*)(v8 + 276) + 2251))) {
 		nox_xxx_netPriMsgToPlayer_4DA2C0((int)a1, "weapon.c:WeaponEquipClassFail", 0);
-		goto LABEL_10;
+		if (a4) {
+			nox_xxx_aud_501960(925, (int)a1, 2, a1[9]);
+		}
+		return 0;
 	}
 	LOBYTE(v9) = nox_xxx_playerCheckStrength_4F3180((int)a1, a2);
 	if (!v9) {
 		nox_xxx_netPriMsgToPlayer_4DA2C0((int)a1, "weapon.c:WeaponEquipStrengthFail", 0);
-		if (a4)
+		if (a4) {
 			nox_xxx_aud_501960(925, (int)a1, 2, a1[9]);
+		}
 		return 0;
 	}
 	result = a1[126];
-	if (!result)
+	if (!result) {
 		return 0;
+	}
 	while (result != a2) {
 		result = *(_DWORD*)(result + 496);
-		if (!result)
+		if (!result) {
 			return result;
+		}
 	}
-	if (*(_BYTE*)(v8 + 88) == 1)
+	if (*(_BYTE*)(v8 + 88) == 1) {
 		nox_xxx_playerSetState_4FA020(a1, 13);
+	}
 	if (v4 == 2) {
 		if (!(*(_BYTE*)(*(_DWORD*)(v8 + 276) + 4) & 0xC) && !sub_53A680((int)a1)) {
 			nox_xxx_netPriMsgToPlayer_4DA2C0((int)a1, "weapon.c:BowNotFound", 0);
-		LABEL_10:
-			if (a4)
+			if (a4) {
 				nox_xxx_aud_501960(925, (int)a1, 2, a1[9]);
+			}
 			return 0;
 		}
 		sub_53A0F0((int)a1, 1, 1);
 	}
 	v10 = *(_DWORD*)(v8 + 104);
-	if (v10 && v4 != 2 && !nox_xxx_playerDequipWeapon_53A140(a1, v10, 1, 1))
+	if (v10 && v4 != 2 && !nox_xxx_playerDequipWeapon_53A140(a1, v10, 1, 1)) {
 		return 0;
+	}
 	v11 = *(_DWORD*)(a2 + 16);
 	BYTE1(v11) |= 1u;
 	*(_DWORD*)(a2 + 16) = v11;
 	*(_DWORD*)(*(_DWORD*)(v8 + 276) + 4) |= v4;
 	nox_xxx_netReportEquip_4D8540(*(unsigned __int8*)(*(_DWORD*)(v8 + 276) + 2064), (_DWORD*)a2, a3);
-	if (v4 != 2)
+	if (v4 != 2) {
 		*(_DWORD*)(v8 + 104) = a2;
+	}
 	v12 = *(_DWORD*)(a2 + 8);
 	if (v12 & 0x1000 && *(_DWORD*)(a2 + 12) & 0x47F0000) {
-		nox_xxx_netReportCharges_4D82B0(*(unsigned __int8*)(*(_DWORD*)(v8 + 276) + 2064), (_DWORD*)a2, *(_BYTE*)(*(_DWORD*)(a2 + 736) + 108),
-				   *(_BYTE*)(*(_DWORD*)(a2 + 736) + 109));
+		nox_xxx_netReportCharges_4D82B0(*(unsigned __int8*)(*(_DWORD*)(v8 + 276) + 2064), (_DWORD*)a2,
+		                                *(_BYTE*)(*(_DWORD*)(a2 + 736) + 108),
+		                                *(_BYTE*)(*(_DWORD*)(a2 + 736) + 109));
 	} else if (v12 & 0x1000000) {
 		if (v4 & 0x82) {
 			nox_xxx_netReportCharges_4D82B0(*(unsigned __int8*)(*(_DWORD*)(v8 + 276) + 2064), (_DWORD*)a2,
-					   *(_BYTE*)(*(_DWORD*)(a2 + 736) + 1), **(_BYTE**)(a2 + 736));
+			                                *(_BYTE*)(*(_DWORD*)(a2 + 736) + 1), **(_BYTE**)(a2 + 736));
 		} else if (v4 & 0xC) {
 			**(_BYTE**)(a2 + 736) = 0;
 		}
 	}
 	nox_xxx_itemApplyEngageEffect_4F2FF0(a2, (int)a1);
-	if (v4 & 0x7FFE40C)
+	if (v4 & 0x7FFE40C) {
 		sub_53A3D0(a1);
+	}
 	return 1;
 }
 // 53A4E9: variable 'v9' is possibly undefined
