@@ -5603,7 +5603,7 @@ void  sub_53A0F0(int a1, int a2, int a3);
 int  nox_xxx_playerDequipWeapon_53A140(_DWORD* a1, nox_object_t* item, int a3, int a4);
 int  nox_xxx_NPCEquipWeapon_53A2C0(int a1, int a2);
 void  sub_53A3D0(_DWORD* a1);
-int  nox_xxx_playerEquipWeapon_53A420(_DWORD* a1, int a2, int a3, int a4);
+int  nox_xxx_playerEquipWeapon_53A420(_DWORD* a1, nox_object_t* item, int a3, int a4);
 int  sub_53A680(int a1);
 void  sub_53A6C0(int a1, int a2);
 int  sub_53A720(int a1, int a2, int a3, int a4);

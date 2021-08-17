@@ -7268,7 +7268,8 @@ void  sub_53A3D0(_DWORD* a1) {
 }
 
 //----- (0053A420) --------------------------------------------------------
-int nox_xxx_playerEquipWeapon_53A420(_DWORD* a1, int a2, int a3, int a4) {
+int nox_xxx_playerEquipWeapon_53A420(_DWORD* a1, nox_object_t* item, int a3, int a4) {
+	int a2 = (int) item;
 	const int v4 = nox_xxx_weaponInventoryEquipFlags_415820(a2);
 	if (!(*(_DWORD*)(a2 + 8) & 0x1001000)) {
 		return 0;
