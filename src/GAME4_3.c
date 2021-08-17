@@ -7269,32 +7269,22 @@ void  sub_53A3D0(_DWORD* a1) {
 
 //----- (0053A420) --------------------------------------------------------
 int nox_xxx_playerEquipWeapon_53A420(_DWORD* a1, int a2, int a3, int a4) {
-	int v4;     // ebx
-	int v5;     // eax
-	int v6;     // eax
-	int result; // eax
-	int v8;     // ebp
-	int v9;     // eax
-	int v10;    // eax
-	int v11;    // edx
-	int v12;    // eax
-
-	v4 = nox_xxx_weaponInventoryEquipFlags_415820(a2);
+	const int v4 = nox_xxx_weaponInventoryEquipFlags_415820(a2);
 	if (!(*(_DWORD*)(a2 + 8) & 0x1001000)) {
 		return 0;
 	}
-	v5 = *(_DWORD*)(a2 + 16);
+	const int v5 = *(_DWORD*)(a2 + 16);
 	if (v5 & 0x100) {
 		return 0;
 	}
-	v6 = a1[2];
+	const int v6 = a1[2];
 	if (v6 & 2) {
 		return nox_xxx_NPCEquipWeapon_53A2C0((int)a1, a2);
 	}
 	if (!(v6 & 4)) {
 		return 0;
 	}
-	v8 = a1[187];
+	const int v8 = a1[187];
 	if (nox_xxx_probablyWarcryCheck_4FC3E0((int)a1, 2) || nox_xxx_probablyWarcryCheck_4FC3E0((int)a1, 1)) {
 		return 0;
 	}
@@ -7305,7 +7295,7 @@ int nox_xxx_playerEquipWeapon_53A420(_DWORD* a1, int a2, int a3, int a4) {
 		}
 		return 0;
 	}
-	LOBYTE(v9) = nox_xxx_playerCheckStrength_4F3180((int)a1, a2);
+	const bool v9 = nox_xxx_playerCheckStrength_4F3180((int)a1, a2);
 	if (!v9) {
 		nox_xxx_netPriMsgToPlayer_4DA2C0((int)a1, "weapon.c:WeaponEquipStrengthFail", 0);
 		if (a4) {
@@ -7313,7 +7303,7 @@ int nox_xxx_playerEquipWeapon_53A420(_DWORD* a1, int a2, int a3, int a4) {
 		}
 		return 0;
 	}
-	result = a1[126];
+	int result = a1[126];
 	if (!result) {
 		return 0;
 	}
@@ -7336,11 +7326,11 @@ int nox_xxx_playerEquipWeapon_53A420(_DWORD* a1, int a2, int a3, int a4) {
 		}
 		sub_53A0F0((int)a1, 1, 1);
 	}
-	v10 = *(_DWORD*)(v8 + 104);
+	const int v10 = *(_DWORD*)(v8 + 104);
 	if (v10 && v4 != 2 && !nox_xxx_playerDequipWeapon_53A140(a1, v10, 1, 1)) {
 		return 0;
 	}
-	v11 = *(_DWORD*)(a2 + 16);
+	const int v11 = *(_DWORD*)(a2 + 16);
 	BYTE1(v11) |= 1u;
 	*(_DWORD*)(a2 + 16) = v11;
 	*(_DWORD*)(*(_DWORD*)(v8 + 276) + 4) |= v4;
@@ -7348,7 +7338,7 @@ int nox_xxx_playerEquipWeapon_53A420(_DWORD* a1, int a2, int a3, int a4) {
 	if (v4 != 2) {
 		*(_DWORD*)(v8 + 104) = a2;
 	}
-	v12 = *(_DWORD*)(a2 + 8);
+	const int v12 = *(_DWORD*)(a2 + 8);
 	if (v12 & 0x1000 && *(_DWORD*)(a2 + 12) & 0x47F0000) {
 		nox_xxx_netReportCharges_4D82B0(*(unsigned __int8*)(*(_DWORD*)(v8 + 276) + 2064), (_DWORD*)a2,
 		                                *(_BYTE*)(*(_DWORD*)(a2 + 736) + 108),
