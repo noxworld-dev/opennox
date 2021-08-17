@@ -1617,41 +1617,40 @@ int nox_xxx_inventoryNameSignInit_4671E0() {
 }
 
 //----- (00467750) --------------------------------------------------------
-int  sub_467750(int a1, char a2) {
-	char* v2;    // eax
-	int v3;      // eax
-	wchar_t* v5; // eax
-	int* v6;     // eax
-
-	if (!a1) {
+int sub_467750(int a1, char a2) {
+	if (a1 != 0) {
+		char* v2 = sub_461EF0(a1);
+		if (v2 != NULL) {
+			if (dword_5d4594_1062480) {
+				*(_DWORD*)(dword_5d4594_1062480 + 136) = 0;
+			}
+			int v3 = *(_DWORD*)v2;
+			dword_5d4594_1062480 = v3;
+			*(_DWORD*)(v3 + 136) = 1;
+			return 1;
+		}
+	} else {
 		if (dword_5d4594_1062480) {
 			*(_DWORD*)(dword_5d4594_1062480 + 136) = 0;
 			dword_5d4594_1062480 = 0;
 		}
-	LABEL_8:
-		if (a2) {
-			if (a2 != 1)
-				return 0;
-			v5 = nox_strman_loadString_40F1D0("Weapon2CantUse", 0, "C:\\NoxPost\\src\\Client\\Gui\\guiinv.c", 5379);
-			nox_xxx_printCentered_445490(v5);
-			if (!dword_5d4594_1062484)
-				return 0;
-			v6 = (int*)sub_461EF0(*(int*)&dword_5d4594_1062484);
-			if (v6) {
-				nox_xxx_clientSetAltWeapon_461550(*v6);
-				return 0;
-			}
-		}
-		dword_5d4594_1062484 = 0;
-		return 0;
 	}
-	v2 = sub_461EF0(a1);
-	if (!v2)
-		goto LABEL_8;
-	if (dword_5d4594_1062480)
-		*(_DWORD*)(dword_5d4594_1062480 + 136) = 0;
-	v3 = *(_DWORD*)v2;
-	dword_5d4594_1062480 = v3;
-	*(_DWORD*)(v3 + 136) = 1;
-	return 1;
+
+	if (a2) {
+		if (a2 != 1) {
+			return 0;
+		}
+		wchar_t* v5 = nox_strman_loadString_40F1D0("Weapon2CantUse", 0, "C:\\NoxPost\\src\\Client\\Gui\\guiinv.c", 5379);
+		nox_xxx_printCentered_445490(v5);
+		if (!dword_5d4594_1062484) {
+			return 0;
+		}
+		int* v6 = (int*)sub_461EF0(*(int*)&dword_5d4594_1062484);
+		if (v6) {
+			nox_xxx_clientSetAltWeapon_461550(*v6);
+			return 0;
+		}
+	}
+	dword_5d4594_1062484 = 0;
+	return 0;
 }
