@@ -7496,11 +7496,11 @@ double  nox_xxx_itemApplyDefendEffect_415C00(int a1) {
 }
 
 //----- (00415C70) --------------------------------------------------------
-int  nox_xxx_unitArmorInventoryEquipFlags_415C70(int a1) {
+int  nox_xxx_unitArmorInventoryEquipFlags_415C70(nox_object_t* item) {
 	int v1;     // eax
 	int result; // eax
 
-	v1 = sub_415C90(a1);
+	v1 = sub_415C90(item);
 	if (v1 < 0)
 		result = 0;
 	else
@@ -7509,7 +7509,8 @@ int  nox_xxx_unitArmorInventoryEquipFlags_415C70(int a1) {
 }
 
 //----- (00415C90) --------------------------------------------------------
-int  sub_415C90(int a1) {
+int  sub_415C90(nox_object_t* item) {
+	int a1 = (int)item;
 	int result;         // eax
 	int v2;             // edx
 	unsigned __int8* i; // ecx

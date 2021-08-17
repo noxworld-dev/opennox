@@ -4296,7 +4296,8 @@ char  sub_57B370(int a1, unsigned __int8 a2, int a3) {
 
 //----- (0057B3D0) --------------------------------------------------------
 int nox_cheat_allowall = 0;
-BOOL  nox_xxx_playerClassCanUseItem_57B3D0(int a1, char a2) {
+BOOL  nox_xxx_playerClassCanUseItem_57B3D0(nox_object_t* item, char a2) {
+	const int a1 = (int)item;
 	if (nox_cheat_allowall)
 		return 1;
 	return ((unsigned __int8)(1 << a2) &

@@ -7192,7 +7192,8 @@ int  nox_xxx_playerDequipWeapon_53A140(_DWORD* a1, nox_object_t* item, int a3, i
 }
 
 //----- (0053A2C0) --------------------------------------------------------
-int  nox_xxx_NPCEquipWeapon_53A2C0(int a1, int a2) {
+int  nox_xxx_NPCEquipWeapon_53A2C0(int a1, nox_object_t* item) {
+	const int a2 = (int)item;
 	int v2;     // ebp
 	int result; // eax
 	int v4;     // eax
@@ -7240,11 +7241,11 @@ LABEL_22:
 	BYTE1(v8) |= 1u;
 	*(_DWORD*)(a2 + 16) = v8;
 	if (*(_BYTE*)(a1 + 12) & 0x10)
-		nox_xxx_npcSetItemEquipFlags_4E4B20(a1, a2, 1);
+		nox_xxx_npcSetItemEquipFlags_4E4B20(a1, item, 1);
 	if (!(*(_BYTE*)(a2 + 12) & 2))
 		*(_DWORD*)(v2 + 2064) = a2;
-	nox_xxx_itemApplyEngageEffect_4F2FF0(a2, a1);
-	if (nox_xxx_weaponInventoryEquipFlags_415820(a2) & 0x7FFE40C)
+	nox_xxx_itemApplyEngageEffect_4F2FF0(item, a1);
+	if (nox_xxx_weaponInventoryEquipFlags_415820(item) & 0x7FFE40C)
 		sub_53A3D0((_DWORD*)a1);
 	return 1;
 }
@@ -7279,7 +7280,7 @@ int nox_xxx_playerEquipWeapon_53A420(_DWORD* a1, nox_object_t* item, int a3, int
 	}
 	const int v6 = a1[2];
 	if (v6 & 2) {
-		return nox_xxx_NPCEquipWeapon_53A2C0((int)a1, (int)item);
+		return nox_xxx_NPCEquipWeapon_53A2C0((int)a1, item);
 	}
 	if (!(v6 & 4)) {
 		return 0;
@@ -7288,14 +7289,14 @@ int nox_xxx_playerEquipWeapon_53A420(_DWORD* a1, nox_object_t* item, int a3, int
 	if (nox_xxx_probablyWarcryCheck_4FC3E0((int)a1, 2) || nox_xxx_probablyWarcryCheck_4FC3E0((int)a1, 1)) {
 		return 0;
 	}
-	if (!nox_xxx_playerClassCanUseItem_57B3D0((int)item, *(_BYTE*)(*(_DWORD*)(v8 + 276) + 2251))) {
+	if (!nox_xxx_playerClassCanUseItem_57B3D0(item, *(_BYTE*)(*(_DWORD*)(v8 + 276) + 2251))) {
 		nox_xxx_netPriMsgToPlayer_4DA2C0((int)a1, "weapon.c:WeaponEquipClassFail", 0);
 		if (a4) {
 			nox_xxx_aud_501960(925, (int)a1, 2, a1[9]);
 		}
 		return 0;
 	}
-	const bool v9 = nox_xxx_playerCheckStrength_4F3180((int)a1, (int)item);
+	const bool v9 = nox_xxx_playerCheckStrength_4F3180((int)a1, item);
 	if (!v9) {
 		nox_xxx_netPriMsgToPlayer_4DA2C0((int)a1, "weapon.c:WeaponEquipStrengthFail", 0);
 		if (a4) {
@@ -7351,7 +7352,7 @@ int nox_xxx_playerEquipWeapon_53A420(_DWORD* a1, nox_object_t* item, int a3, int
 			**(_BYTE**)item->field_184 = 0;
 		}
 	}
-	nox_xxx_itemApplyEngageEffect_4F2FF0((int)item, (int)a1);
+	nox_xxx_itemApplyEngageEffect_4F2FF0(item, (int)a1);
 	if (v4 & 0x7FFE40C) {
 		sub_53A3D0(a1);
 	}

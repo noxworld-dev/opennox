@@ -1933,7 +1933,8 @@ int*  nox_xxx_setNPCColor_4E4A90(nox_object_t* a1p, unsigned __int8 a2, int a3) 
 }
 
 //----- (004E4B20) --------------------------------------------------------
-int*  nox_xxx_npcSetItemEquipFlags_4E4B20(int a1, int a2, int a3) {
+int*  nox_xxx_npcSetItemEquipFlags_4E4B20(int a1, nox_object_t* item, int a3) {
+	const int a2 = (int)item;
 	int v3;      // esi
 	int v4;      // ecx
 	int v5;      // ecx
@@ -1946,16 +1947,16 @@ int*  nox_xxx_npcSetItemEquipFlags_4E4B20(int a1, int a2, int a3) {
 	v4 = *(_DWORD*)(a2 + 8);
 	if (a3 == 1) {
 		if (v4 & 0x1001000) {
-			*(_DWORD*)(v3 + 2056) |= nox_xxx_weaponInventoryEquipFlags_415820(a2);
+			*(_DWORD*)(v3 + 2056) |= nox_xxx_weaponInventoryEquipFlags_415820(item);
 			goto LABEL_9;
 		}
-		v5 = nox_xxx_unitArmorInventoryEquipFlags_415C70(a2) | *(_DWORD*)(v3 + 2060);
+		v5 = nox_xxx_unitArmorInventoryEquipFlags_415C70(item) | *(_DWORD*)(v3 + 2060);
 	} else {
 		if (v4 & 0x1001000) {
-			*(_DWORD*)(v3 + 2056) &= ~nox_xxx_weaponInventoryEquipFlags_415820(a2);
+			*(_DWORD*)(v3 + 2056) &= ~nox_xxx_weaponInventoryEquipFlags_415820(item);
 			goto LABEL_9;
 		}
-		v5 = ~nox_xxx_unitArmorInventoryEquipFlags_415C70(a2) & *(_DWORD*)(v3 + 2060);
+		v5 = ~nox_xxx_unitArmorInventoryEquipFlags_415C70(item) & *(_DWORD*)(v3 + 2060);
 	}
 	*(_DWORD*)(v3 + 2060) = v5;
 LABEL_9:
@@ -12174,7 +12175,8 @@ int  nox_xxx_playerTryDequip_4F2FB0(_DWORD* a1, int a2) {
 }
 
 //----- (004F2FF0) --------------------------------------------------------
-int  nox_xxx_itemApplyEngageEffect_4F2FF0(int a1, int a2) {
+int  nox_xxx_itemApplyEngageEffect_4F2FF0(nox_object_t* item, int a2) {
+	const int a1 = (int)item;
 	int v2;                           // ebp
 	int* v3;                          // esi
 	int result;                       // eax
@@ -12253,7 +12255,8 @@ void  nox_xxx_inventoryPutImpl_4F3070(int a1, int a2, int a3) {
 
 //----- (004F3180) --------------------------------------------------------
 extern int nox_cheat_allowall;
-bool  nox_xxx_playerCheckStrength_4F3180(int a1, int a2) {
+bool  nox_xxx_playerCheckStrength_4F3180(int a1, nox_object_t* item) {
+	const int a2 = (int)item;
 	if (nox_cheat_allowall)
 		return 1;
 	int v2;      // esi
