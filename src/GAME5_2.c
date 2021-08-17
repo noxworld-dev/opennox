@@ -3001,18 +3001,17 @@ int  sub_56FF80(int a1, int a2) {
 
 //----- (00578AC0) --------------------------------------------------------
 unsigned int  nox_xxx_netGetUnitCodeServ_578AC0(nox_object_t* item) {
-	const _DWORD* a1 = (_DWORD*)item;
 	unsigned int result; // eax
 
 	if (!item)
 		return 0;
-	if (a1[9] >= 0x8000u)
+	if (item->field_9 >= 0x8000u)
 		return 0;
-	result = a1[10];
+	result = item->extent;
 	if (result >= 0x8000)
 		return 0;
-	if (!(a1[2] & 0x20400000))
-		return a1[9];
+	if (!(item->obj_class & 0x20400000))
+		return item->field_9;
 	BYTE1(result) |= 0x80u;
 	return result;
 }
@@ -4297,12 +4296,14 @@ char  sub_57B370(int a1, unsigned __int8 a2, int a3) {
 
 //----- (0057B3D0) --------------------------------------------------------
 int nox_cheat_allowall = 0;
-BOOL  nox_xxx_playerClassCanUseItem_57B3D0(nox_object_t* item, char a2) {
-	const int a1 = (int)item;
-	if (nox_cheat_allowall)
+
+BOOL nox_xxx_playerClassCanUseItem_57B3D0(nox_object_t* item, char a2) {
+	if (nox_cheat_allowall) {
 		return 1;
+	}
 	return ((unsigned __int8)(1 << a2) &
-			(unsigned __int8)sub_57B370(*(_DWORD*)(a1 + 8), *(_DWORD*)(a1 + 12), *(unsigned __int16*)(a1 + 4))) != 0;
+			(unsigned __int8)sub_57B370(*(_DWORD*)&item->obj_class, *(_DWORD*)&item->field_3,
+			                            *(unsigned __int16*)&item->typ_ind)) != 0;
 }
 
 //----- (0057B400) --------------------------------------------------------

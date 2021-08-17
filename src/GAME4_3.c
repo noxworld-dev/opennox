@@ -7193,7 +7193,6 @@ int  nox_xxx_playerDequipWeapon_53A140(_DWORD* a1, nox_object_t* item, int a3, i
 
 //----- (0053A2C0) --------------------------------------------------------
 int  nox_xxx_NPCEquipWeapon_53A2C0(int a1, nox_object_t* item) {
-	const int a2 = (int)item;
 	int v2;     // ebp
 	int result; // eax
 	int v4;     // eax
@@ -7203,23 +7202,23 @@ int  nox_xxx_NPCEquipWeapon_53A2C0(int a1, nox_object_t* item) {
 	int v8;     // ecx
 
 	v2 = *(_DWORD*)(a1 + 748);
-	if (!(*(_DWORD*)(a2 + 8) & 0x1001000))
+	if (!(*(_DWORD*)&item->obj_class & 0x1001000))
 		return 0;
-	v4 = *(_DWORD*)(a2 + 16);
+	v4 = *(_DWORD*)&item->field_4;
 	if (v4 & 0x100)
 		return 0;
 	result = *(_DWORD*)(a1 + 504);
 	if (!result)
 		return 0;
-	while (result != a2) {
+	while (result != item) {
 		result = *(_DWORD*)(result + 496);
 		if (!result)
 			return result;
 	}
 	*(_BYTE*)(v2 + 2068) = 0;
-	if (!(*(_BYTE*)(a2 + 12) & 0xC))
+	if (!(*(_BYTE*)&item->field_3 & 0xC))
 		sub_53A0F0(a1, 1, 1);
-	v5 = *(_DWORD*)(a2 + 12);
+	v5 = *(_DWORD*)&item->field_3;
 	if (!(v5 & 2)) {
 		v6 = *(_DWORD*)(a1 + 504);
 		if (v6) {
@@ -7237,13 +7236,13 @@ int  nox_xxx_NPCEquipWeapon_53A2C0(int a1, nox_object_t* item) {
 		}
 	}
 LABEL_22:
-	v8 = *(_DWORD*)(a2 + 16);
+	v8 = *(_DWORD*)&item->field_4;
 	BYTE1(v8) |= 1u;
-	*(_DWORD*)(a2 + 16) = v8;
+	*(_DWORD*)&item->field_4 = v8;
 	if (*(_BYTE*)(a1 + 12) & 0x10)
 		nox_xxx_npcSetItemEquipFlags_4E4B20(a1, item, 1);
-	if (!(*(_BYTE*)(a2 + 12) & 2))
-		*(_DWORD*)(v2 + 2064) = a2;
+	if (!(*(_BYTE*)&item->field_3 & 2))
+		*(_DWORD*)(v2 + 2064) = item;
 	nox_xxx_itemApplyEngageEffect_4F2FF0(item, a1);
 	if (nox_xxx_weaponInventoryEquipFlags_415820(item) & 0x7FFE40C)
 		sub_53A3D0((_DWORD*)a1);
@@ -7377,16 +7376,15 @@ int  sub_53A680(int a1) {
 
 //----- (0053A6C0) --------------------------------------------------------
 void  sub_53A6C0(int a1, nox_object_t* item) {
-	const int a2 = (int)item;
 	int v2;     // edx
 	__int16 v3; // ax
 
 	if (a1 && item) {
-		v2 = *(_DWORD*)(a2 + 8);
+		v2 = *(_DWORD*)&item->obj_class;
 		if (v2 & 0x1000) {
 			nox_xxx_aud_501960(830, a1, 0, 0);
 		} else {
-			v3 = *(_WORD*)(a2 + 24);
+			v3 = *(_WORD*)&item->field_6_0;
 			if (v3 & 0x10) {
 				nox_xxx_aud_501960(842, a1, 0, 0);
 			} else if (v3 & 8) {
@@ -7398,7 +7396,6 @@ void  sub_53A6C0(int a1, nox_object_t* item) {
 
 //----- (0053A720) --------------------------------------------------------
 int  sub_53A720(int a1, nox_object_t* item, int a3, int a4) {
-	const int a2 = (int)item;
 	_DWORD* v4; // esi
 	int v5;     // ebp
 	int v6;     // ebx
@@ -7413,10 +7410,10 @@ int  sub_53A720(int a1, nox_object_t* item, int a3, int a4) {
 	v5 = 0;
 	if (*(_BYTE*)(a1 + 8) & 4) {
 		if (nox_common_gameFlags_check_40A5C0(4096)) {
-			if (*(_DWORD*)(a2 + 12) & 0x200000) {
+			if (*(_DWORD*)&item->field_3 & 0x200000) {
 				v12 = nox_xxx_gamedataGetFloat_419D40("ForceOfNatureStaffLimit");
 				v6 = nox_float2int(v12);
-				if (nox_xxx_inventoryCountObjects_4E7D30(a1, *(unsigned __int16*)(a2 + 4)) >= v6) {
+				if (nox_xxx_inventoryCountObjects_4E7D30(a1, *(unsigned __int16*)&item->field_4) >= v6) {
 					nox_xxx_netPriMsgToPlayer_4DA2C0(a1, "pickup.c:MaxSameItem", 0);
 					nox_xxx_aud_501960(925, a1, 0, 0);
 					return 0;
@@ -7425,9 +7422,9 @@ int  sub_53A720(int a1, nox_object_t* item, int a3, int a4) {
 		}
 	}
 	if (!nox_common_gameFlags_check_40A5C0(2048) && !nox_common_gameFlags_check_40A5C0(4096) && sub_409F40(2)) {
-		if (!(*(_BYTE*)(a2 + 12) & 0x82) && sub_4E7EC0(a1, item))
+		if (!(*(_BYTE*)&item->field_3 & 0x82) && sub_4E7EC0(a1, item))
 			v5 = 1;
-		if (*(_BYTE*)(a2 + 12) & 0x40) {
+		if (*(_BYTE*)&item->field_3 & 0x40) {
 			v8 = *(_DWORD*)(a1 + 516);
 			if (v8) {
 				while (!(*(_DWORD*)(v8 + 8) & 0x1000000) || !(*(_BYTE*)(v8 + 12) & 0x40)) {
@@ -7469,13 +7466,14 @@ int  sub_53A720(int a1, nox_object_t* item, int a3, int a4) {
 			}
 		}
 		if (!v9) {
-			v11 = *(_DWORD*)(a2 + 8);
-			if (v11 & 0x1000 && *(_DWORD*)(a2 + 12) & 0x47F0000) {
+			v11 = *(_DWORD*)&item->obj_class;
+			if (v11 & 0x1000 && *(_DWORD*)&item->field_3 & 0x47F0000) {
 				nox_xxx_netReportCharges_4D82B0(*(unsigned __int8*)(*(_DWORD*)(v13 + 276) + 2064), item,
-						   *(_BYTE*)(*(_DWORD*)(a2 + 736) + 108), *(_BYTE*)(*(_DWORD*)(a2 + 736) + 109));
-			} else if (v11 & 0x1000000 && *(_BYTE*)(a2 + 12) & 0x82) {
+				                                *(_BYTE*)(*(_DWORD*)&item->field_184 + 108),
+				                                *(_BYTE*)(*(_DWORD*)&item->field_184 + 109));
+			} else if (v11 & 0x1000000 && *(_BYTE*)&item->field_3 & 0x82) {
 				nox_xxx_netReportCharges_4D82B0(*(unsigned __int8*)(*(_DWORD*)(v13 + 276) + 2064), item,
-						   *(_BYTE*)(*(_DWORD*)(a2 + 736) + 1), **(_BYTE**)(a2 + 736));
+				                                *(_BYTE*)(*(_DWORD*)&item->field_184 + 1), **(_BYTE**)&item->field_184);
 			}
 		}
 	}
@@ -7486,13 +7484,12 @@ int  sub_53A720(int a1, nox_object_t* item, int a3, int a4) {
 
 //----- (0053A9C0) --------------------------------------------------------
 int  nox_xxx_sendMsgOblivionPickup_53A9C0(int a1, nox_object_t* item, int a3, int a4) {
-	const int a2 = (int)item;
 	int v4; // edi
 	int v5; // eax
 
 	v4 = sub_53A720(a1, item, a3, a4);
 	if (v4 == 1 && *(_BYTE*)(a1 + 8) & 4 && !sub_419E60(a1)) {
-		v5 = *(_DWORD*)(a2 + 12);
+		v5 = *(_DWORD*)&item->field_3;
 		if (0x800000 & v5) {
 			nox_xxx_netPriMsgToPlayer_4DA2C0(a1, "weapon.c:PickupHalberdOblivion", 0);
 			nox_xxx_aud_501960(914, a1, 0, 0);
@@ -10056,9 +10053,9 @@ int  nox_xxx_playerEquipArmor_53E650(_DWORD* a1, nox_object_t* item, int a3, int
 	int v10;     // ecx
 	_DWORD* v11; // ebp
 
-	if (!(*(_DWORD*)(a2 + 8) & 0x2000000))
+	if (!(*(_DWORD*)&item->obj_class & 0x2000000))
 		return 0;
-	v4 = *(_DWORD*)(a2 + 16);
+	v4 = *(_DWORD*)&item->field_4;
 	if (v4 & 0x100)
 		return 0;
 	v5 = a1[2];
@@ -10068,13 +10065,13 @@ int  nox_xxx_playerEquipArmor_53E650(_DWORD* a1, nox_object_t* item, int a3, int
 		return 0;
 	v7 = a1[187];
 	v8 = nox_xxx_armorHaveSameSubclass_53E7B0((int)a1, a2);
-	if (!nox_xxx_playerClassCanUseItem_57B3D0(a2, *(_BYTE*)(*(_DWORD*)(v7 + 276) + 2251))) {
+	if (!nox_xxx_playerClassCanUseItem_57B3D0(item, *(_BYTE*)(*(_DWORD*)(v7 + 276) + 2251))) {
 		nox_xxx_netPriMsgToPlayer_4DA2C0((int)a1, "armor.c:ArmorEquipClassFail", 0);
 		if (a4)
 			nox_xxx_aud_501960(925, (int)a1, 2, a1[9]);
 		return 0;
 	}
-	LOBYTE(v9) = nox_xxx_playerCheckStrength_4F3180((int)a1, a2);
+	LOBYTE(v9) = nox_xxx_playerCheckStrength_4F3180((int)a1, item);
 	if (!v9) {
 		nox_xxx_netPriMsgToPlayer_4DA2C0((int)a1, "armor.c:ArmorEquipStrengthFail", 0);
 		if (a4)
@@ -10083,17 +10080,17 @@ int  nox_xxx_playerEquipArmor_53E650(_DWORD* a1, nox_object_t* item, int a3, int
 	}
 	if (v8)
 		sub_53E430(a1, (int)v8, 1, 1);
-	v10 = *(_DWORD*)(a2 + 16);
+	v10 = *(_DWORD*)&item->field_4;
 	BYTE1(v10) |= 1u;
-	*(_DWORD*)(a2 + 16) = v10;
+	*(_DWORD*)&item->field_4 = v10;
 	v11 = *(_DWORD**)(v7 + 276);
-	*v11 |= nox_xxx_unitArmorInventoryEquipFlags_415C70(a2);
+	*v11 |= nox_xxx_unitArmorInventoryEquipFlags_415C70(item);
 	nox_xxx_netReportEquip_4D8540(*(unsigned __int8*)(*(_DWORD*)(v7 + 276) + 2064), (_DWORD*)a2, a3);
 	if (!sub_53E2D0(a2))
-		*(_DWORD*)(a2 + 16) |= 0x10000000u;
+		*(_DWORD*)&item->field_4 |= 0x10000000u;
 	nox_xxx_recalculateArmorVal_53E300(a1);
-	nox_xxx_itemApplyEngageEffect_4F2FF0(a2, (int)a1);
-	if (*(_BYTE*)(a2 + 12) & 2)
+	nox_xxx_itemApplyEngageEffect_4F2FF0(item, (int)a1);
+	if (*(_BYTE*)&item->field_3 & 2)
 		sub_53E600(a1);
 	return 1;
 }

@@ -4914,17 +4914,16 @@ int  nox_xxx_unitSetDecayTime_511660(_DWORD* a1, int a2) {
 
 //----- (005116F0) --------------------------------------------------------
 int  nox_xxx_decay_5116F0(nox_object_t* item) {
-	const int a1 = (int)item;
 	int result; // eax
 	int v2;     // ecx
 
-	result = *(_DWORD*)(a1 + 16);
+	result = *(_DWORD*)&item->field_4;
 	if (result & 0x400000) {
 		v2 = 0;
-		*(_DWORD*)(a1 + 16) = result & 0xFFBFFFFF;
+		*(_DWORD*)&item->field_4 = result & 0xFFBFFFFF;
 		result = dword_5d4594_2386576;
 		if (dword_5d4594_2386576) {
-			while (result != a1) {
+			while (result != item) {
 				v2 = result;
 				result = *(_DWORD*)(result + 468);
 				if (!result)
@@ -4932,10 +4931,10 @@ int  nox_xxx_decay_5116F0(nox_object_t* item) {
 			}
 			if (result) {
 				if (v2) {
-					result = *(_DWORD*)(a1 + 468);
+					result = *(_DWORD*)&item->field_117;
 					*(_DWORD*)(v2 + 468) = result;
 				} else {
-					dword_5d4594_2386576 = *(_DWORD*)(a1 + 468);
+					dword_5d4594_2386576 = *(_DWORD*)&item->field_117;
 				}
 			}
 		}

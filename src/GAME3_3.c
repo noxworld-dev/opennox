@@ -1934,7 +1934,6 @@ int*  nox_xxx_setNPCColor_4E4A90(nox_object_t* a1p, unsigned __int8 a2, int a3) 
 
 //----- (004E4B20) --------------------------------------------------------
 int*  nox_xxx_npcSetItemEquipFlags_4E4B20(int a1, nox_object_t* item, int a3) {
-	const int a2 = (int)item;
 	int v3;      // esi
 	int v4;      // ecx
 	int v5;      // ecx
@@ -1944,7 +1943,7 @@ int*  nox_xxx_npcSetItemEquipFlags_4E4B20(int a1, nox_object_t* item, int a3) {
 
 	v3 = *(_DWORD*)(a1 + 748);
 	nox_xxx_unitNeedSync_4E44F0(a1);
-	v4 = *(_DWORD*)(a2 + 8);
+	v4 = *(_DWORD*)&item->obj_class;
 	if (a3 == 1) {
 		if (v4 & 0x1001000) {
 			*(_DWORD*)(v3 + 2056) |= nox_xxx_weaponInventoryEquipFlags_415820(item);
@@ -1975,11 +1974,10 @@ LABEL_9:
 
 //----- (004E4C00) --------------------------------------------------------
 int  sub_4E4C00(nox_object_t* item) {
-	const int a1 = (int)item;
 	int result; // eax
 
 	if (item)
-		result = *(_DWORD*)(a1 + 36);
+		result = *(_DWORD*)&item->field_9;
 	else
 		result = 0;
 	return result;
@@ -1987,11 +1985,10 @@ int  sub_4E4C00(nox_object_t* item) {
 
 //----- (004E4C10) --------------------------------------------------------
 int  sub_4E4C10(nox_object_t* item) {
-	const int a1 = (int)item;
 	int result; // eax
 
 	if (item)
-		result = *(unsigned __int16*)(a1 + 4);
+		result = *(unsigned __int16*)&item->typ_ind;
 	else
 		result = 0;
 	return result;
@@ -1999,11 +1996,10 @@ int  sub_4E4C10(nox_object_t* item) {
 
 //----- (004E4C30) --------------------------------------------------------
 int  sub_4E4C30(nox_object_t* item) {
-	const int a1 = (int)item;
 	int result; // eax
 
 	if (item)
-		result = *(_DWORD*)(a1 + 692);
+		result = *(_DWORD*)&item->field_173;
 	else
 		result = 0;
 	return result;
@@ -2011,11 +2007,10 @@ int  sub_4E4C30(nox_object_t* item) {
 
 //----- (004E4C50) --------------------------------------------------------
 int  sub_4E4C50(nox_object_t* item) {
-	const int a1 = (int)item;
 	int v1;     // eax
 	int result; // eax
 
-	if (item && (v1 = nox_xxx_objectTypeByInd_4E3B70(*(unsigned __int16*)(a1 + 4))) != 0)
+	if (item && (v1 = nox_xxx_objectTypeByInd_4E3B70(*(unsigned __int16*)&item->typ_ind)) != 0)
 		result = *(_DWORD*)(v1 + 180);
 	else
 		result = 0;
@@ -2028,7 +2023,7 @@ int  sub_4E4C80(nox_object_t* item) {
 	int result; // eax
 
 	if (item)
-		result = *a1;
+		result = *a1; // item->id?
 	else
 		result = 0;
 	return result;
@@ -4141,7 +4136,6 @@ int  sub_4E7DA0(int a1, int a2, int a3) {
 
 //----- (004E7DE0) --------------------------------------------------------
 int  sub_4E7DE0(int a1, nox_object_t* item) {
-	const int a2 = (int)item;
 	int v2;     // ebx
 	_DWORD* v3; // eax
 	int v4;     // ecx
@@ -4149,13 +4143,13 @@ int  sub_4E7DE0(int a1, nox_object_t* item) {
 	int v6;     // eax
 	bool v7;    // zf
 
-	if (!a1 || !item || *(_WORD*)(a1 + 4) != *(_WORD*)(a2 + 4))
+	if (!a1 || !item || *(_WORD*)(a1 + 4) != *(_WORD*)&item->typ_ind)
 		return 0;
 	v2 = *(_DWORD*)(a1 + 8);
 	if (v2 & 0x13001000) {
 		v3 = *(_DWORD**)(a1 + 692);
 		v4 = 0;
-		v5 = *(_DWORD*)(a2 + 692) - (_DWORD)v3;
+		v5 = *(_DWORD*)&item->field_173 - (_DWORD)v3;
 		while (*v3 == *(_DWORD*)((char*)v3 + v5)) {
 			++v4;
 			++v3;
@@ -4169,14 +4163,14 @@ LABEL_8:
 		return 1;
 	v6 = *(_DWORD*)(a1 + 12);
 	if (v6 & 1) {
-		v7 = **(_BYTE**)(a1 + 736) == **(_BYTE**)(a2 + 736);
+		v7 = **(_BYTE**)(a1 + 736) == **(_BYTE**)&item->field_184;
 	} else {
 		if (!(v6 & 2)) {
-			if (**(_BYTE**)(a1 + 736) != **(_BYTE**)(a2 + 736))
+			if (**(_BYTE**)(a1 + 736) != **(_BYTE**)&item->field_184)
 				return 0;
 			return 1;
 		}
-		v7 = strcmp(*(const char**)(a1 + 736), *(const char**)(a2 + 736)) == 0;
+		v7 = strcmp(*(const char**)(a1 + 736), *(const char**)&item->field_184) == 0;
 	}
 	if (!v7)
 		return 0;
@@ -8843,11 +8837,10 @@ void  nox_xxx_playerHP_4EE730(int a1) {
 
 //----- (004EE780) --------------------------------------------------------
 __int16  nox_xxx_unitGetHP_4EE780(nox_object_t* item) {
-	const int a1 = (int)item;
 	__int16* v1;    // eax
 	__int16 result; // ax
 
-	if (item && (v1 = *(__int16**)(a1 + 556)) != 0)
+	if (item && (v1 = *(__int16**)&item->field_139) != 0)
 		result = *v1;
 	else
 		result = 0;
@@ -12183,20 +12176,19 @@ int  nox_xxx_playerTryDequip_4F2FB0(_DWORD* a1, int a2) {
 
 //----- (004F2FF0) --------------------------------------------------------
 int  nox_xxx_itemApplyEngageEffect_4F2FF0(nox_object_t* item, int a2) {
-	const int a1 = (int)item;
 	int v2;                           // ebp
 	int* v3;                          // esi
 	int result;                       // eax
 	int( * v5)(int, int, int); // ecx
 
 	v2 = 2;
-	v3 = (int*)(*(_DWORD*)(a1 + 692) + 8);
+	v3 = (int*)(*(_DWORD*)&item->field_173 + 8);
 	do {
 		result = *v3;
 		if (*v3) {
 			v5 = *(int(**)(int, int, int))(result + 112);
 			if (v5)
-				result = v5(result, a2, a1);
+				result = v5(result, a2, item);
 		}
 		++v3;
 		--v2;
@@ -12228,7 +12220,6 @@ int  nox_xxx_itemApplyDisengageEffect_4F3030(int a1, int a2) {
 
 //----- (004F3070) --------------------------------------------------------
 void  nox_xxx_inventoryPutImpl_4F3070(int a1, nox_object_t* item, int a3) {
-	const int a2 = (int)item;
 	int v3; // ebp
 	int v4; // eax
 	int v5; // ebx
@@ -12236,14 +12227,14 @@ void  nox_xxx_inventoryPutImpl_4F3070(int a1, nox_object_t* item, int a3) {
 	int v7; // ecx
 
 	v3 = 0;
-	if (a1 && item && !(*(_BYTE*)(a1 + 16) & 0x20) && !(*(_BYTE*)(a2 + 16) & 0x20)) {
-		*(_DWORD*)(a2 + 500) = 0;
-		*(_DWORD*)(a2 + 496) = *(_DWORD*)(a1 + 504);
+	if (a1 && item && !(*(_BYTE*)(a1 + 16) & 0x20) && !(*(_BYTE*)&item->field_4 & 0x20)) {
+		*(_DWORD*)&item->field_125 = 0;
+		*(_DWORD*)&item->field_124 = *(_DWORD*)(a1 + 504);
 		v4 = *(_DWORD*)(a1 + 504);
 		if (v4)
-			*(_DWORD*)(v4 + 500) = a2;
-		*(_DWORD*)(a1 + 504) = a2;
-		*(_DWORD*)(a2 + 492) = a1;
+			*(_DWORD*)(v4 + 500) = item;
+		*(_DWORD*)(a1 + 504) = item;
+		*(_DWORD*)&item->field_123 = a1;
 		nox_xxx_unitSetOwner_4EC290(a1, item);
 		if (*(_BYTE*)(a1 + 8) & 4) {
 			v5 = *(_DWORD*)(*(_DWORD*)(a1 + 748) + 276);
@@ -12256,25 +12247,28 @@ void  nox_xxx_inventoryPutImpl_4F3070(int a1, nox_object_t* item, int a3) {
 			}
 			*(_DWORD*)(v5 + 3656) = v3 > *(unsigned __int16*)(a1 + 490);
 		}
-		if (*(_BYTE*)(a2 + 8) & 0x40)
+		if (*(_BYTE*)&item->obj_class & 0x40)
 			nox_xxx_aud_501960(820, a1, 0, 0);
 	}
 }
 
 //----- (004F3180) --------------------------------------------------------
 extern int nox_cheat_allowall;
-bool  nox_xxx_playerCheckStrength_4F3180(int a1, nox_object_t* item) {
-	const int a2 = (int)item;
-	if (nox_cheat_allowall)
+
+bool nox_xxx_playerCheckStrength_4F3180(int a1, nox_object_t* item) {
+	if (nox_cheat_allowall) {
 		return 1;
+	}
 	int v2;      // esi
 	_DWORD* v3;  // eax
 	bool result; // al
 
 	if (*(_BYTE*)(a1 + 8) & 4 &&
-		((v2 = nox_xxx_unitGetStrength_4F9FD0(a1), !(*(_DWORD*)(a2 + 8) & 0x2000000)) ? (v3 = nox_xxx_getProjectileClassById_413250(*(unsigned __int16*)(a2 + 4)))
-																  : (v3 = nox_xxx_equipClothFindDefByTT_413270(*(unsigned __int16*)(a2 + 4))),
-		 v3)) {
+			((v2 = nox_xxx_unitGetStrength_4F9FD0(
+					a1), !(*(_DWORD*)&item->obj_class & 0x2000000)) ? (v3 = nox_xxx_getProjectileClassById_413250(
+					*(unsigned __int16*)&item->typ_ind))
+					:(v3 = nox_xxx_equipClothFindDefByTT_413270(*(unsigned __int16*)&item->typ_ind)),
+					v3)) {
 		result = v2 >= *((unsigned __int16*)v3 + 30);
 	} else {
 		result = 0;
@@ -12284,10 +12278,8 @@ bool  nox_xxx_playerCheckStrength_4F3180(int a1, nox_object_t* item) {
 
 //----- (004F31E0) --------------------------------------------------------
 int  nox_xxx_pickupDefault_4F31E0(int a1, nox_object_t* item, int a3) {
-	const int a2 = (int)item;
 	BOOL v3;    // eax
 	int v4;     // edi
-	int v5;     // ebp
 	char* v6;   // eax
 	int v7;     // ecx
 	int result; // eax
@@ -12299,10 +12291,9 @@ int  nox_xxx_pickupDefault_4F31E0(int a1, nox_object_t* item, int a3) {
 
 	v3 = nox_common_gameFlags_check_40A5C0(4096);
 	v4 = a1;
-	v5 = a2;
-	if (v3 || !nox_xxx_servObjectHasTeam_419130(a2 + 48) || nox_xxx_servCompareTeams_419150(v4 + 48, v5 + 48) ||
-		(v6 = nox_xxx_clientGetTeamColor_418AB0(*(unsigned __int8*)(v5 + 52))) == 0) {
-		if (*(_DWORD*)(v5 + 492)) {
+	if (v3 || !nox_xxx_servObjectHasTeam_419130(&item->field_12) || nox_xxx_servCompareTeams_419150(v4 + 48, &item->field_12) ||
+		(v6 = nox_xxx_clientGetTeamColor_418AB0(*(unsigned __int8*)&item->field_13)) == 0) {
+		if (*(_DWORD*)&item->field_123) {
 			result = 0;
 		} else if (*(_WORD*)(v4 + 490)) {
 			v9 = *(_DWORD*)(v4 + 504);
@@ -12310,9 +12301,9 @@ int  nox_xxx_pickupDefault_4F31E0(int a1, nox_object_t* item, int a3) {
 				v11 = *(unsigned __int8*)(v9 + 488);
 				v9 = *(_DWORD*)(v9 + 496);
 			}
-			if (2 * *(unsigned __int16*)(v4 + 490) - i >= *(unsigned __int8*)(v5 + 488)) {
-				if ((*(_BYTE*)(v5 + 8) & 0x10) != 16 ||
-					((v12 = nox_xxx_inventoryCountObjects_4E7D30(v4, *(unsigned __int16*)(v5 + 4)), !nox_common_gameFlags_check_40A5C0(6144))
+			if (2 * *(unsigned __int16*)(v4 + 490) - i >= *(unsigned __int8*)&item->field_122_0) {
+				if ((*(_BYTE*)&item->obj_class & 0x10) != 16 ||
+					((v12 = nox_xxx_inventoryCountObjects_4E7D30(v4, *(unsigned __int16*)&item->typ_ind), !nox_common_gameFlags_check_40A5C0(6144))
 						 ? (v13 = v12 - 3)
 						 : (v13 = v12 - 9),
 					 v13 < 0)) {
@@ -12613,7 +12604,6 @@ LABEL_36:
 
 //----- (004F3B00) --------------------------------------------------------
 int  nox_xxx_pickupAmmo_4F3B00(int a1, nox_object_t* item, int a3, int a4) {
-	const int a2 = (int)item;
 	int v5;               // eax
 	int v6;               // ebx
 	int v7;               // esi
@@ -12640,13 +12630,13 @@ int  nox_xxx_pickupAmmo_4F3B00(int a1, nox_object_t* item, int a3, int a4) {
 	if (!(v5 & 0x82))
 		return sub_53A720(v6, item, a3, a4);
 	v7 = *(_DWORD*)(a1 + 504);
-	v8 = *(_DWORD**)(a2 + 692);
-	v20 = *(_DWORD**)(a2 + 692);
-	v19 = *(unsigned __int8**)(a2 + 736);
+	v8 = *(_DWORD**)&item->field_173;
+	v20 = *(_DWORD**)&item->field_173;
+	v19 = *(unsigned __int8**)&item->field_184;
 	if (!v7)
 		return sub_53A720(v6, item, a3, a4);
 	while (1) {
-		if (*(_WORD*)(v7 + 4) != *(_WORD*)(a2 + 4) || !(*(_DWORD*)(v7 + 8) & 0x1000000) || !(nox_xxx_weaponInventoryEquipFlags_415820(v7) & v18))
+		if (*(_WORD*)(v7 + 4) != *(_WORD*)&item->typ_ind || !(*(_DWORD*)(v7 + 8) & 0x1000000) || !(nox_xxx_weaponInventoryEquipFlags_415820(v7) & v18))
 			goto LABEL_15;
 		v9 = *(char**)(v7 + 736);
 		v10 = v8;

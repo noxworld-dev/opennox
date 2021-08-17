@@ -5729,17 +5729,16 @@ __int16  nox_xxx_netReportHealthDelta_4D8760(int a1, __int16 a2, __int16 a3) {
 
 //----- (004D87A0) --------------------------------------------------------
 int  nox_xxx_itemReportHealth_4D87A0(int a1, nox_object_t* item) {
-	const _DWORD* a2 = (_DWORD*)item;
 	int result; // eax
 	_WORD* v3;  // eax
 	char v4[7]; // [esp+4h] [ebp-8h]
 
-	result = a2[139];
+	result = item->field_139;
 	if (result) {
 		if (*(_WORD*)(result + 4)) {
 			v4[0] = 68;
 			*(_WORD*)&v4[1] = nox_xxx_netGetUnitCodeServ_578AC0(item);
-			v3 = (_WORD*)a2[139];
+			v3 = (_WORD*)item->field_139;
 			*(_WORD*)&v4[3] = *v3;
 			*(_WORD*)&v4[5] = v3[2];
 			result = nox_xxx_netSendPacket1_4E5390(a1, (int)v4, 7, 0, 0);
@@ -5864,34 +5863,32 @@ int  nox_xxx_netReportArmorVal_4D8A30(int a1, int a2) {
 
 //----- (004D8A60) --------------------------------------------------------
 int  nox_xxx_netReportPickup_4D8A60(int a1, nox_object_t* item) {
-	const int a2 = (int)item;
 	__int16 v3; // ax
 	__int16 v4; // cx
 	char v5[5]; // [esp+4h] [ebp-8h]
 
-	if (*(_DWORD*)(a2 + 8) & 0x13001000)
-		return nox_xxx_netReportModifiablePickup_4D8AD0(a1, a2);
+	if (*(_DWORD*)&item->obj_class & 0x13001000)
+		return nox_xxx_netReportModifiablePickup_4D8AD0(a1, item);
 	v5[0] = 75;
-	v3 = nox_xxx_netGetUnitCodeServ_578AC0((_DWORD*)a2);
-	v4 = *(_WORD*)(a2 + 4);
+	v3 = nox_xxx_netGetUnitCodeServ_578AC0(item);
+	v4 = *(_WORD*)&item->typ_ind;
 	*(_WORD*)&v5[1] = v3;
 	*(_WORD*)&v5[3] = v4;
 	nox_xxx_netSendPacket1_4E5390(a1, (int)v5, 5, 0, 0);
-	return nox_xxx_itemReportHealth_4D87A0(a1, (_DWORD*)a2);
+	return nox_xxx_itemReportHealth_4D87A0(a1, item);
 }
 
 //----- (004D8AD0) --------------------------------------------------------
 int  nox_xxx_netReportModifiablePickup_4D8AD0(int a1, nox_object_t* item) {
-	const int a2 = (int)item;
 	int v2;     // esi
 	int v3;     // eax
 	int v4;     // edx
 	char v6[9]; // [esp+8h] [ebp-Ch]
 
 	v6[0] = 76;
-	v2 = *(_DWORD*)(a2 + 692);
+	v2 = *(_DWORD*)&item->field_173;
 	*(_WORD*)&v6[1] = nox_xxx_netGetUnitCodeServ_578AC0(item);
-	*(_WORD*)&v6[3] = *(_WORD*)(a2 + 4);
+	*(_WORD*)&v6[3] = *(_WORD*)&item->typ_ind;
 	v3 = 0;
 	v4 = v2;
 	do {
@@ -7484,21 +7481,21 @@ char  nox_xxx_servFinalizeDelObject_4DADE0(nox_object_t* item) {
 	const int a1 = (int)item;
 	int v1; // eax
 
-	v1 = *(_DWORD*)(a1 + 16);
+	v1 = *(_DWORD*)&item->field_4;
 	if (v1 & 4) {
 		LOBYTE(v1) = v1 & 0xFB;
-		*(_DWORD*)(a1 + 16) = v1;
+		*(_DWORD*)&item->field_4 = v1;
 		nox_xxx_playerLeaveObsByObserved_4E60A0(a1);
 		if (!nox_common_gameFlags_check_40A5C0(0x80000))
 			nox_xxx_netReportDestroyObject_5289D0(a1);
 		nox_xxx_unit_511810(a1);
-		nox_xxx_unitClearOwner_4EC300(a1);
+		nox_xxx_unitClearOwner_4EC300(item);
 		nox_xxx_unitRemoveChild_4EC470(a1);
 		sub_517870(a1);
 		sub_4DAE50(a1);
 		sub_4ECFA0(a1);
 		sub_511DE0(a1);
-		LOBYTE(v1) = *(_BYTE*)(a1 + 8);
+		LOBYTE(v1) = *(_BYTE*)&item->obj_class;
 		if (v1 & 6)
 			LOBYTE(v1) = sub_528990(a1);
 	}
