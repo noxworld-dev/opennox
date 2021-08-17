@@ -1619,14 +1619,13 @@ int nox_xxx_inventoryNameSignInit_4671E0() {
 //----- (00467750) --------------------------------------------------------
 int sub_467750(int a1, char a2) {
 	if (a1 != 0) {
-		char* v2 = sub_461EF0(a1);
+		_DWORD* v2 = (_DWORD*)sub_461EF0(a1);
 		if (v2 != NULL) {
 			if (dword_5d4594_1062480) {
 				*(_DWORD*)(dword_5d4594_1062480 + 136) = 0;
 			}
-			int v3 = *(_DWORD*)v2;
-			dword_5d4594_1062480 = v3;
-			*(_DWORD*)(v3 + 136) = 1;
+			dword_5d4594_1062480 = *v2;
+			*(_DWORD*)(dword_5d4594_1062480 + 136) = 1;
 			return 1;
 		}
 	} else {
