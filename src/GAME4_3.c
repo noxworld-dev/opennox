@@ -7269,18 +7269,17 @@ void  sub_53A3D0(_DWORD* a1) {
 
 //----- (0053A420) --------------------------------------------------------
 int nox_xxx_playerEquipWeapon_53A420(_DWORD* a1, nox_object_t* item, int a3, int a4) {
-	int a2 = (int) item;
-	const int v4 = nox_xxx_weaponInventoryEquipFlags_415820(a2);
-	if (!(*(_DWORD*)(a2 + 8) & 0x1001000)) {
+	const int v4 = nox_xxx_weaponInventoryEquipFlags_415820(item);
+	if (!(item->obj_class & 0x1001000)) {
 		return 0;
 	}
-	const int v5 = *(_DWORD*)(a2 + 16);
+	const int v5 = item->field_4;
 	if (v5 & 0x100) {
 		return 0;
 	}
 	const int v6 = a1[2];
 	if (v6 & 2) {
-		return nox_xxx_NPCEquipWeapon_53A2C0((int)a1, a2);
+		return nox_xxx_NPCEquipWeapon_53A2C0((int)a1, (int)item);
 	}
 	if (!(v6 & 4)) {
 		return 0;
@@ -7289,14 +7288,14 @@ int nox_xxx_playerEquipWeapon_53A420(_DWORD* a1, nox_object_t* item, int a3, int
 	if (nox_xxx_probablyWarcryCheck_4FC3E0((int)a1, 2) || nox_xxx_probablyWarcryCheck_4FC3E0((int)a1, 1)) {
 		return 0;
 	}
-	if (!nox_xxx_playerClassCanUseItem_57B3D0(a2, *(_BYTE*)(*(_DWORD*)(v8 + 276) + 2251))) {
+	if (!nox_xxx_playerClassCanUseItem_57B3D0((int)item, *(_BYTE*)(*(_DWORD*)(v8 + 276) + 2251))) {
 		nox_xxx_netPriMsgToPlayer_4DA2C0((int)a1, "weapon.c:WeaponEquipClassFail", 0);
 		if (a4) {
 			nox_xxx_aud_501960(925, (int)a1, 2, a1[9]);
 		}
 		return 0;
 	}
-	const bool v9 = nox_xxx_playerCheckStrength_4F3180((int)a1, a2);
+	const bool v9 = nox_xxx_playerCheckStrength_4F3180((int)a1, (int)item);
 	if (!v9) {
 		nox_xxx_netPriMsgToPlayer_4DA2C0((int)a1, "weapon.c:WeaponEquipStrengthFail", 0);
 		if (a4) {
@@ -7308,7 +7307,7 @@ int nox_xxx_playerEquipWeapon_53A420(_DWORD* a1, nox_object_t* item, int a3, int
 	if (!result) {
 		return 0;
 	}
-	while (result != a2) {
+	while (result != item) {
 		result = *(_DWORD*)(result + 496);
 		if (!result) {
 			return result;
@@ -7331,28 +7330,28 @@ int nox_xxx_playerEquipWeapon_53A420(_DWORD* a1, nox_object_t* item, int a3, int
 	if (v10 && v4 != 2 && !nox_xxx_playerDequipWeapon_53A140(a1, v10, 1, 1)) {
 		return 0;
 	}
-	const int v11 = *(_DWORD*)(a2 + 16);
+	const int v11 = item->field_4;
 	BYTE1(v11) |= 1u;
-	*(_DWORD*)(a2 + 16) = v11;
+	item->field_4 = v11;
 	*(_DWORD*)(*(_DWORD*)(v8 + 276) + 4) |= v4;
-	nox_xxx_netReportEquip_4D8540(*(unsigned __int8*)(*(_DWORD*)(v8 + 276) + 2064), (_DWORD*)a2, a3);
+	nox_xxx_netReportEquip_4D8540(*(unsigned __int8*)(*(_DWORD*)(v8 + 276) + 2064), (_DWORD*)item, a3);
 	if (v4 != 2) {
-		*(_DWORD*)(v8 + 104) = a2;
+		*(_DWORD*)(v8 + 104) = item;
 	}
-	const int v12 = *(_DWORD*)(a2 + 8);
-	if (v12 & 0x1000 && *(_DWORD*)(a2 + 12) & 0x47F0000) {
-		nox_xxx_netReportCharges_4D82B0(*(unsigned __int8*)(*(_DWORD*)(v8 + 276) + 2064), (_DWORD*)a2,
-		                                *(_BYTE*)(*(_DWORD*)(a2 + 736) + 108),
-		                                *(_BYTE*)(*(_DWORD*)(a2 + 736) + 109));
+	const int v12 = item->obj_class;
+	if (v12 & 0x1000 && item->field_3 & 0x47F0000) {
+		nox_xxx_netReportCharges_4D82B0(*(unsigned __int8*)(*(_DWORD*)(v8 + 276) + 2064), (_DWORD*)item,
+										*(_BYTE*)(*(_DWORD*)&item->field_184 + 108),
+										*(_BYTE*)(*(_DWORD*)&item->field_184 + 109));
 	} else if (v12 & 0x1000000) {
 		if (v4 & 0x82) {
-			nox_xxx_netReportCharges_4D82B0(*(unsigned __int8*)(*(_DWORD*)(v8 + 276) + 2064), (_DWORD*)a2,
-			                                *(_BYTE*)(*(_DWORD*)(a2 + 736) + 1), **(_BYTE**)(a2 + 736));
+			nox_xxx_netReportCharges_4D82B0(*(unsigned __int8*)(*(_DWORD*)(v8 + 276) + 2064), (_DWORD*)item,
+											*(_BYTE*)(*(_DWORD*)&item->field_184 + 1), **(_BYTE**)&item->field_184);
 		} else if (v4 & 0xC) {
-			**(_BYTE**)(a2 + 736) = 0;
+			**(_BYTE**)item->field_184 = 0;
 		}
 	}
-	nox_xxx_itemApplyEngageEffect_4F2FF0(a2, (int)a1);
+	nox_xxx_itemApplyEngageEffect_4F2FF0((int)item, (int)a1);
 	if (v4 & 0x7FFE40C) {
 		sub_53A3D0(a1);
 	}
