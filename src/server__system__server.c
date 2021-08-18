@@ -1938,6 +1938,7 @@ char nox_xxx_updateUnits_51B100() {
 				v61 = sub_419A10(v58);
 				v59 = *(float*)(v2 + 68) - *(float*)(v2 + 60);
 				v62 = sub_419A10(v59);
+				// Checks if fields are within 0.01d of...something?
 				if (*(float*)(v2 + 88) <= *(double*)&qword_581450_10392 ||
 					*(float*)(v2 + 88) >= *(double*)&qword_581450_10256 ||
 					*(float*)(v2 + 92) <= *(double*)&qword_581450_10392 ||
