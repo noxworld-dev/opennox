@@ -1100,12 +1100,12 @@ func nox_client_drawCursorAndTooltips_477830(inp *input.Handler) {
 		if pl == nil || pl.PlayerClass() != player.Warrior {
 			v2 := C.nox_xxx_spellIcon_424A90(C.int(nox_client_spellDragnDrop_1097192)) // Spell icon
 			if v2 != nil {
-				noxrend.DrawImageAt((*C.nox_video_bag_image_t)(v2), mpos.X-15, mpos.Y-15)
+				noxrend.DrawImageAt((*C.nox_video_bag_image_t)(v2), mpos.Sub(types.Point{X: 15, Y: 15}))
 			}
 		} else {
 			v2 := C.nox_xxx_spellGetAbilityIcon_425310(C.int(nox_client_spellDragnDrop_1097192), 0) // Ability icon
 			if v2 != nil {
-				noxrend.DrawImageAt((*C.nox_video_bag_image_t)(v2), mpos.X-15, mpos.Y-15)
+				noxrend.DrawImageAt((*C.nox_video_bag_image_t)(v2), mpos.Sub(types.Point{X: 15, Y: 15}))
 			}
 		}
 	}
