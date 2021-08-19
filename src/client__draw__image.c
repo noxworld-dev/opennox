@@ -2367,6 +2367,7 @@ void sub_4C8410() {
 	}
 }
 
+#ifndef NOX_CGO
 //----- (004C8A30) --------------------------------------------------------
 void sub_4C8A30() {
 	unsigned short* v1;           // esi
@@ -2415,6 +2416,7 @@ void sub_4C8A30() {
 	nox_video_cur_pixdata_3799444 = px;
 	*(unsigned short**)&nox_draw_sprite_dstPtr_3799540 = v1;
 }
+#endif // NOX_CGO
 
 //----- (004C86B0) --------------------------------------------------------
 void sub_4C86B0() {

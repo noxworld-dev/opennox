@@ -34,7 +34,6 @@ void sub_4C8130();
 void sub_4C8410();
 void sub_4C86B0();
 void sub_4C8850();
-void sub_4C8A30();
 void sub_4C8D60();
 void sub_4C8DF0();
 void sub_4C8EC0();
@@ -92,6 +91,7 @@ type NoxRender struct {
 
 	cur    []byte // nox_video_cur_pixdata_3799444
 	dst    []byte // nox_draw_sprite_dstPtr_3799540
+	val    int
 	draw27 func()
 	draw4  func()
 	draw5  func()
@@ -181,6 +181,11 @@ func (r *NoxRender) syncCurDest() []byte {
 	di := ci - si
 	r.dst = r.dst[di:]
 	return r.dst
+}
+
+func (r *NoxRender) setCurVal(val int) {
+	r.val = val
+	*memmap.PtrInt32(0x973F18, 28) = int32(val)
 }
 
 func (r *NoxRender) DrawRectFilledOpaque(x, y, w, h int) { // nox_client_drawRectFilledOpaque_49CE30
@@ -526,7 +531,7 @@ func (r *NoxRender) drawImage16(img *C.nox_video_bag_image_t, x, y int, pixels g
 						r.draw4 = func() { C.sub_4C8DF0() }
 					}
 				} else if v3 == 128 {
-					r.draw27 = func() { C.sub_4C8A30() }
+					r.draw27 = r.pixBlend
 					r.draw4 = func() { C.sub_4C94D0() }
 				} else {
 					r.draw27 = func() { C.sub_4C8850() }
@@ -554,7 +559,7 @@ func (r *NoxRender) drawImage16(img *C.nox_video_bag_image_t, x, y int, pixels g
 }
 
 func (r *NoxRender) pixCopy() { // sub_4C80E0
-	r.pixCopyN(int(memmap.Uint32(0x973F18, 28)))
+	r.pixCopyN(r.val)
 }
 
 func (r *NoxRender) pixCopyN(n int) {
@@ -693,7 +698,7 @@ func (r *NoxRender) nox_client_drawImg_aaa_4C79F0(img *C.nox_video_bag_image_t, 
 				continue
 			}
 			*memmap.PtrUint32(0x973F18, 0) = uint32(op)
-			*memmap.PtrUint32(0x973F18, 28) = uint32(val)
+			r.setCurVal(val)
 			switch op & 0xF {
 			case 2, 7:
 				r.draw27()
@@ -778,7 +783,7 @@ func (r *NoxRender) nox_client_drawXxx_4C7C80(x, y, width int, a4 types.Rect) { 
 				continue
 			}
 			*memmap.PtrUint32(0x973F18, 0) = uint32(op)
-			*memmap.PtrUint32(0x973F18, 28) = uint32(val)
+			r.setCurVal(val)
 
 			var (
 				fnc    func()
@@ -811,19 +816,19 @@ func (r *NoxRender) nox_client_drawXxx_4C7C80(x, y, width int, a4 types.Rect) { 
 					} else {
 						wsz = right - left
 					}
-					*memmap.PtrInt32(0x973F18, 28) = int32(wsz)
+					r.setCurVal(wsz)
 					r.setCurPixdata(pix[ppitch:])
 					r.setCurDest(row[2*(left-xs):])
 					fnc()
 				} else if xs < right && xend > right {
-					*memmap.PtrInt32(0x973F18, 28) = int32(right - xs)
+					r.setCurVal(right - xs)
 					fnc()
 				}
 			} else {
 				if xend <= right {
 					fnc()
 				} else if xs < right && xend > right {
-					*memmap.PtrInt32(0x973F18, 28) = int32(right - xs)
+					r.setCurVal(right - xs)
 					fnc()
 				}
 			}
@@ -912,4 +917,47 @@ func (r *NoxRender) nox_client_drawImg_bbb_4C7860(img *C.nox_video_bag_image_t, 
 		src := data[ipitch*i:]
 		copy(dst[:wsz*2], src[:wsz*2])
 	}
+}
+
+func (r *NoxRender) pixBlend() { // sub_4C8A30
+	par := asU32Slice(unsafe.Pointer(&C.byte_5D4594_3804364[0]), 40)
+
+	rshift := par[5]
+	gshift := par[4]
+	bshift := par[3]
+
+	rmask := uint16(par[2])
+	gmask := uint16(par[1])
+	bmask := uint16(par[0])
+
+	rtbl := asU16Slice(unsafe.Pointer(uintptr(C.nox_draw_colors_r_3804672)), 256)
+	gtbl := asU16Slice(unsafe.Pointer(uintptr(C.nox_draw_colors_g_3804656)), 256)
+	btbl := asU16Slice(unsafe.Pointer(uintptr(C.nox_draw_colors_b_3804664)), 256)
+
+	pix := r.cur
+	dst := r.dst
+	sz := r.val
+
+	rmul := uint16(byte(C.ptr_5D4594_3799572.data[26]))
+	gmul := uint16(byte(C.ptr_5D4594_3799572.data[25]))
+	bmul := uint16(byte(C.ptr_5D4594_3799572.data[24]))
+
+	for i := 0; i < sz; i++ {
+		c1 := binary.LittleEndian.Uint16(dst) // old color
+		c2 := binary.LittleEndian.Uint16(pix) // color to draw
+
+		rc := byte((rmul * ((rmask & c2) << rshift)) >> 8)
+		gc := byte((gmul * ((gmask & c2) >> gshift)) >> 8)
+		bc := byte((bmul * ((bmask & c2) >> bshift)) >> 8)
+
+		c3 := rtbl[byte(int16(bc)+(int16((bmask&c1)>>bshift)-int16(bc))/2)] |
+			gtbl[byte(int16(gc)+(int16((gmask&c1)>>gshift)-int16(gc))/2)] |
+			btbl[byte(int16(rc)+(int16((rmask&c1)<<rshift)-int16(rc))/2)]
+
+		binary.LittleEndian.PutUint16(dst, c3)
+		dst = dst[2:]
+		pix = pix[2:]
+	}
+	r.setCurPixdata(pix)
+	r.setCurDest(dst)
 }
