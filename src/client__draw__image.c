@@ -23,7 +23,7 @@ unsigned int dword_5d4594_3799508 = 0; // TODO: remove externs to it
 unsigned int nox_draw_sprite_dstPtr_3799540 = 0;
 unsigned int dword_5d4594_3799552 = 0; // TODO: remove externs to it
 unsigned int nox_draw_sprite_offsY_3799556 = 0;
-unsigned int dword_5d4594_3799560 = 0;
+unsigned int nox_draw_sprite_offsX_3799560 = 0;
 unsigned int dword_5d4594_3799484 = 0;
 unsigned int dword_5d4594_3799476 = 0;
 unsigned char* nox_video_cur_pixdata_3799444 = 0;
@@ -61,7 +61,7 @@ void  sub_4C60D0(nox_video_bag_image_t* img, int x, int y) {
 	nox_video_cur_pixdata_3799444 = v5;
 	v8 = *v5;
 	++v5;
-	dword_5d4594_3799560 = v8;
+	nox_draw_sprite_offsX_3799560 = v8;
 	v9 = v8 + x;
 	nox_video_cur_pixdata_3799444 = v5;
 	nox_draw_sprite_offsY_3799556 = *v5;
@@ -900,7 +900,7 @@ int  sub_4C6260(int a1, int a2, int a3) {
 		nox_video_cur_pixdata_3799444 = v6;
 		v7 = *(unsigned int*)(result + 8);
 		++v6;
-		dword_5d4594_3799560 = v7;
+		nox_draw_sprite_offsX_3799560 = v7;
 		v8 = v7 + a2;
 		nox_video_cur_pixdata_3799444 = v6;
 		v9 = *v6;
@@ -1764,7 +1764,7 @@ void  sub_4C7860(int a1, int a2, int a3) {
 	nox_video_cur_pixdata_3799444 = v5;
 	int v8 = *v5;
 	++v5;
-	dword_5d4594_3799560 = v8;
+	nox_draw_sprite_offsX_3799560 = v8;
 	int v9 = v8 + a2;
 	nox_video_cur_pixdata_3799444 = v5;
 	nox_draw_sprite_offsY_3799556 = *v5;
@@ -2099,7 +2099,7 @@ void nox_client_drawImg_aaa_4C79F0(nox_video_bag_image_t* img, int x, int y) {
 
 	int offX = *(int*)nox_video_cur_pixdata_3799444;
 	nox_video_cur_pixdata_3799444 += 4;
-	dword_5d4594_3799560 = offX;
+	nox_draw_sprite_offsX_3799560 = offX;
 	x += offX;
 
 	int offY = *(int*)nox_video_cur_pixdata_3799444;
