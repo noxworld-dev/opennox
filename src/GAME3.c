@@ -138,7 +138,7 @@ extern _DWORD dword_5d4594_3801780;
 extern _DWORD dword_5d4594_810632;
 extern _DWORD dword_5d4594_2650652;
 extern _DWORD dword_5d4594_1307784;
-extern _DWORD dword_5d4594_3804672;
+extern _DWORD nox_draw_colors_r_3804672;
 extern _DWORD dword_5d4594_3804656;
 extern _DWORD dword_5d4594_3804664;
 extern BYTE** nox_pixbuffer_rows_3798784;
@@ -9068,7 +9068,7 @@ _WORD*  nox_video_drawCircle16Alpha_4B2480(int a1, int a2, int a3) {
 										  (unsigned __int8)((unsigned __int16)(*((_WORD*)((_BYTE*)byte_5D4594_3804364 + 4)) & *v6) >>
 															*((_BYTE*)byte_5D4594_3804364 + 16))) >>
 										 2))) |
-		*(_WORD*)(dword_5d4594_3804672 +
+		*(_WORD*)(nox_draw_colors_r_3804672 +
 				  2 * (unsigned __int8)(((unsigned __int16)(*((_WORD*)((_BYTE*)byte_5D4594_3804364 + 0)) & *v6) >>
 										 *((_BYTE*)byte_5D4594_3804364 + 12)) +
 										((redcol -
@@ -9091,7 +9091,7 @@ _WORD*  nox_video_drawCircle16Alpha_4B2480(int a1, int a2, int a3) {
 										  (unsigned __int8)((unsigned __int16)(*((_WORD*)((_BYTE*)byte_5D4594_3804364 + 4)) & *v10) >>
 															*((_BYTE*)byte_5D4594_3804364 + 16))) >>
 										 2))) |
-		*(_WORD*)(dword_5d4594_3804672 +
+		*(_WORD*)(nox_draw_colors_r_3804672 +
 				  2 * (unsigned __int8)(((unsigned __int16)(*((_WORD*)((_BYTE*)byte_5D4594_3804364 + 0)) & *v10) >>
 										 *((_BYTE*)byte_5D4594_3804364 + 12)) +
 										((redcol -
@@ -9112,7 +9112,7 @@ _WORD*  nox_video_drawCircle16Alpha_4B2480(int a1, int a2, int a3) {
 										  (unsigned __int8)((unsigned __int16)(*((_WORD*)((_BYTE*)byte_5D4594_3804364 + 4)) & *v11) >>
 															*((_BYTE*)byte_5D4594_3804364 + 16))) >>
 										 2))) |
-		*(_WORD*)(dword_5d4594_3804672 +
+		*(_WORD*)(nox_draw_colors_r_3804672 +
 				  2 * (unsigned __int8)(((unsigned __int16)(*((_WORD*)((_BYTE*)byte_5D4594_3804364 + 0)) & *v11) >>
 										 *((_BYTE*)byte_5D4594_3804364 + 12)) +
 										((redcol -
@@ -9135,7 +9135,7 @@ _WORD*  nox_video_drawCircle16Alpha_4B2480(int a1, int a2, int a3) {
 										  (unsigned __int8)((unsigned __int16)(*((_WORD*)((_BYTE*)byte_5D4594_3804364 + 4)) & *v13) >>
 															*((_BYTE*)byte_5D4594_3804364 + 16))) >>
 										 2))) |
-		*(_WORD*)(dword_5d4594_3804672 +
+		*(_WORD*)(nox_draw_colors_r_3804672 +
 				  2 * (unsigned __int8)(((unsigned __int16)(*((_WORD*)((_BYTE*)byte_5D4594_3804364 + 0)) & *v13) >>
 										 *((_BYTE*)byte_5D4594_3804364 + 12)) +
 										((redcol -
@@ -9157,7 +9157,7 @@ _WORD*  nox_video_drawCircle16Alpha_4B2480(int a1, int a2, int a3) {
 										  (unsigned __int8)((unsigned __int16)(*((_WORD*)((_BYTE*)byte_5D4594_3804364 + 4)) & *v14) >>
 															*((_BYTE*)byte_5D4594_3804364 + 16))) >>
 										 2))) |
-		*(_WORD*)(dword_5d4594_3804672 +
+		*(_WORD*)(nox_draw_colors_r_3804672 +
 				  2 * (unsigned __int8)(((unsigned __int16)(*((_WORD*)((_BYTE*)byte_5D4594_3804364 + 0)) & *v14) >>
 										 *((_BYTE*)byte_5D4594_3804364 + 12)) +
 										((redcol -
@@ -9179,7 +9179,7 @@ _WORD*  nox_video_drawCircle16Alpha_4B2480(int a1, int a2, int a3) {
 										  (unsigned __int8)((unsigned __int16)(*((_WORD*)((_BYTE*)byte_5D4594_3804364 + 4)) & *v15) >>
 															*((_BYTE*)byte_5D4594_3804364 + 16))) >>
 										 2))) |
-		*(_WORD*)(dword_5d4594_3804672 +
+		*(_WORD*)(nox_draw_colors_r_3804672 +
 				  2 * (unsigned __int8)(((unsigned __int16)(*((_WORD*)((_BYTE*)byte_5D4594_3804364 + 0)) & *v15) >>
 										 *((_BYTE*)byte_5D4594_3804364 + 12)) +
 										((redcol -
@@ -9200,7 +9200,7 @@ _WORD*  nox_video_drawCircle16Alpha_4B2480(int a1, int a2, int a3) {
 										  (unsigned __int8)((unsigned __int16)(*((_WORD*)((_BYTE*)byte_5D4594_3804364 + 4)) & *v16) >>
 															*((_BYTE*)byte_5D4594_3804364 + 16))) >>
 										 2))) |
-		*(_WORD*)(dword_5d4594_3804672 +
+		*(_WORD*)(nox_draw_colors_r_3804672 +
 				  2 * (unsigned __int8)(((unsigned __int16)(*((_WORD*)((_BYTE*)byte_5D4594_3804364 + 0)) & *v16) >>
 										 *((_BYTE*)byte_5D4594_3804364 + 12)) +
 										((redcol -
@@ -9221,7 +9221,7 @@ _WORD*  nox_video_drawCircle16Alpha_4B2480(int a1, int a2, int a3) {
 										  (unsigned __int8)((unsigned __int16)(*((_WORD*)((_BYTE*)byte_5D4594_3804364 + 4)) & *v17) >>
 															*((_BYTE*)byte_5D4594_3804364 + 16))) >>
 										 2))) |
-		*(_WORD*)(dword_5d4594_3804672 +
+		*(_WORD*)(nox_draw_colors_r_3804672 +
 				  2 * (unsigned __int8)(((unsigned __int16)(*((_WORD*)((_BYTE*)byte_5D4594_3804364 + 0)) & *v17) >>
 										 *((_BYTE*)byte_5D4594_3804364 + 12)) +
 										((redcol -
@@ -9273,7 +9273,7 @@ _WORD*  nox_video_drawCircle16Alpha_4B2480(int a1, int a2, int a3) {
 																					   *v20) >>
 																	*((_BYTE*)byte_5D4594_3804364 + 16))) >>
 												 2))) |
-				*(_WORD*)(dword_5d4594_3804672 +
+				*(_WORD*)(nox_draw_colors_r_3804672 +
 						  2 * (unsigned __int8)(((unsigned __int16)(*((_WORD*)((_BYTE*)byte_5D4594_3804364 + 0)) & *v20) >>
 												 *((_BYTE*)byte_5D4594_3804364 + 12)) +
 												((redcol -
@@ -9298,7 +9298,7 @@ _WORD*  nox_video_drawCircle16Alpha_4B2480(int a1, int a2, int a3) {
 																					   *v21) >>
 																	*((_BYTE*)byte_5D4594_3804364 + 16))) >>
 												 2))) |
-				*(_WORD*)(dword_5d4594_3804672 +
+				*(_WORD*)(nox_draw_colors_r_3804672 +
 						  2 * (unsigned __int8)(((unsigned __int16)(*((_WORD*)((_BYTE*)byte_5D4594_3804364 + 0)) & *v21) >>
 												 *((_BYTE*)byte_5D4594_3804364 + 12)) +
 												((redcol -
@@ -9323,7 +9323,7 @@ _WORD*  nox_video_drawCircle16Alpha_4B2480(int a1, int a2, int a3) {
 																					   *v22) >>
 																	*((_BYTE*)byte_5D4594_3804364 + 16))) >>
 												 2))) |
-				*(_WORD*)(dword_5d4594_3804672 +
+				*(_WORD*)(nox_draw_colors_r_3804672 +
 						  2 * (unsigned __int8)(((unsigned __int16)(*((_WORD*)((_BYTE*)byte_5D4594_3804364 + 0)) & *v22) >>
 												 *((_BYTE*)byte_5D4594_3804364 + 12)) +
 												((redcol -
@@ -9348,7 +9348,7 @@ _WORD*  nox_video_drawCircle16Alpha_4B2480(int a1, int a2, int a3) {
 																					   *v23) >>
 																	*((_BYTE*)byte_5D4594_3804364 + 16))) >>
 												 2))) |
-				*(_WORD*)(dword_5d4594_3804672 +
+				*(_WORD*)(nox_draw_colors_r_3804672 +
 						  2 * (unsigned __int8)(((unsigned __int16)(*((_WORD*)((_BYTE*)byte_5D4594_3804364 + 0)) & *v23) >>
 												 *((_BYTE*)byte_5D4594_3804364 + 12)) +
 												((redcol -
@@ -9373,7 +9373,7 @@ _WORD*  nox_video_drawCircle16Alpha_4B2480(int a1, int a2, int a3) {
 																					   *v24) >>
 																	*((_BYTE*)byte_5D4594_3804364 + 16))) >>
 												 2))) |
-				*(_WORD*)(dword_5d4594_3804672 +
+				*(_WORD*)(nox_draw_colors_r_3804672 +
 						  2 * (unsigned __int8)(((unsigned __int16)(*((_WORD*)((_BYTE*)byte_5D4594_3804364 + 0)) & *v24) >>
 												 *((_BYTE*)byte_5D4594_3804364 + 12)) +
 												((redcol -
@@ -9398,7 +9398,7 @@ _WORD*  nox_video_drawCircle16Alpha_4B2480(int a1, int a2, int a3) {
 																					   *v25) >>
 																	*((_BYTE*)byte_5D4594_3804364 + 16))) >>
 												 2))) |
-				*(_WORD*)(dword_5d4594_3804672 +
+				*(_WORD*)(nox_draw_colors_r_3804672 +
 						  2 * (unsigned __int8)(((unsigned __int16)(*((_WORD*)((_BYTE*)byte_5D4594_3804364 + 0)) & *v25) >>
 												 *((_BYTE*)byte_5D4594_3804364 + 12)) +
 												((redcol -
@@ -9423,7 +9423,7 @@ _WORD*  nox_video_drawCircle16Alpha_4B2480(int a1, int a2, int a3) {
 																					   *v26) >>
 																	*((_BYTE*)byte_5D4594_3804364 + 16))) >>
 												 2))) |
-				*(_WORD*)(dword_5d4594_3804672 +
+				*(_WORD*)(nox_draw_colors_r_3804672 +
 						  2 * (unsigned __int8)(((unsigned __int16)(*((_WORD*)((_BYTE*)byte_5D4594_3804364 + 0)) & *v26) >>
 												 *((_BYTE*)byte_5D4594_3804364 + 12)) +
 												((redcol -
@@ -9448,7 +9448,7 @@ _WORD*  nox_video_drawCircle16Alpha_4B2480(int a1, int a2, int a3) {
 																					   *v27) >>
 																	*((_BYTE*)byte_5D4594_3804364 + 16))) >>
 												 2))) |
-				*(_WORD*)(dword_5d4594_3804672 +
+				*(_WORD*)(nox_draw_colors_r_3804672 +
 						  2 * (unsigned __int8)(((unsigned __int16)(*((_WORD*)((_BYTE*)byte_5D4594_3804364 + 0)) & *v27) >>
 												 *((_BYTE*)byte_5D4594_3804364 + 12)) +
 												((redcol -
@@ -9574,7 +9574,7 @@ int  sub_4B3450(int a1, int a2, int a3) {
 	if (a1 >= v60 && a1 < v48 && v73 >= v49 && v73 < v50) {
 		v39 = (_WORD*)((_DWORD)pixbuffer[v73] + 2 * a1);
 		v51 = (unsigned __int16)*v39;
-		*v39 = *(_WORD*)(dword_5d4594_3804672 +
+		*v39 = *(_WORD*)(nox_draw_colors_r_3804672 +
 						 2 * (unsigned __int8)(((*((_DWORD*)((_BYTE*)byte_5D4594_3804364 + 0)) & v51) >> *((_BYTE*)byte_5D4594_3804364 + 12)) +
 											   ((v71 - (unsigned __int8)((*((_DWORD*)((_BYTE*)byte_5D4594_3804364 + 0)) & v51) >>
 																		 *((_BYTE*)byte_5D4594_3804364 + 12))) >>
@@ -9600,7 +9600,7 @@ int  sub_4B3450(int a1, int a2, int a3) {
 		if (a2 >= v49 && a2 < v50) {
 			v40 = (_WORD*)((_DWORD)pixbuffer[a2] + 2 * v63);
 			v52 = (unsigned __int16)*v40;
-			*v40 = *(_WORD*)(dword_5d4594_3804672 +
+			*v40 = *(_WORD*)(nox_draw_colors_r_3804672 +
 							 2 * (unsigned __int8)(((*((_DWORD*)((_BYTE*)byte_5D4594_3804364 + 0)) & v52) >> *((_BYTE*)byte_5D4594_3804364 + 12)) +
 												   ((v71 - (unsigned __int8)((*((_DWORD*)((_BYTE*)byte_5D4594_3804364 + 0)) & v52) >>
 																			 *((_BYTE*)byte_5D4594_3804364 + 12))) >>
@@ -9624,7 +9624,7 @@ int  sub_4B3450(int a1, int a2, int a3) {
 	if (a2 >= v49 && a2 < v50) {
 		v41 = (_WORD*)((_DWORD)pixbuffer[a2] + 2 * v63);
 		v53 = (unsigned __int16)*v41;
-		*v41 = *(_WORD*)(dword_5d4594_3804672 +
+		*v41 = *(_WORD*)(nox_draw_colors_r_3804672 +
 						 2 * (unsigned __int8)(((*((_DWORD*)((_BYTE*)byte_5D4594_3804364 + 0)) & v53) >> *((_BYTE*)byte_5D4594_3804364 + 12)) +
 											   ((v71 - (unsigned __int8)((*((_DWORD*)((_BYTE*)byte_5D4594_3804364 + 0)) & v53) >>
 																		 *((_BYTE*)byte_5D4594_3804364 + 12))) >>
@@ -9646,7 +9646,7 @@ int  sub_4B3450(int a1, int a2, int a3) {
 	if (a1 >= v60 && a1 < v48 && v67 >= v49 && v67 < v50) {
 		v42 = (_WORD*)((_DWORD)pixbuffer[v67] + 2 * a1);
 		v54 = (unsigned __int16)*v42;
-		*v42 = *(_WORD*)(dword_5d4594_3804672 +
+		*v42 = *(_WORD*)(nox_draw_colors_r_3804672 +
 						 2 * (unsigned __int8)(((*((_DWORD*)((_BYTE*)byte_5D4594_3804364 + 0)) & v54) >> *((_BYTE*)byte_5D4594_3804364 + 12)) +
 											   ((v71 - (unsigned __int8)((*((_DWORD*)((_BYTE*)byte_5D4594_3804364 + 0)) & v54) >>
 																		 *((_BYTE*)byte_5D4594_3804364 + 12))) >>
@@ -9665,7 +9665,7 @@ int  sub_4B3450(int a1, int a2, int a3) {
 	if (a1 >= v60 && a1 < v48 && v67 >= v49 && v67 < v50) {
 		v43 = (_WORD*)((_DWORD)pixbuffer[v67] + 2 * a1);
 		v55 = (unsigned __int16)*v43;
-		*v43 = *(_WORD*)(dword_5d4594_3804672 +
+		*v43 = *(_WORD*)(nox_draw_colors_r_3804672 +
 						 2 * (unsigned __int8)(((*((_DWORD*)((_BYTE*)byte_5D4594_3804364 + 0)) & v55) >> *((_BYTE*)byte_5D4594_3804364 + 12)) +
 											   ((v71 - (unsigned __int8)((*((_DWORD*)((_BYTE*)byte_5D4594_3804364 + 0)) & v55) >>
 																		 *((_BYTE*)byte_5D4594_3804364 + 12))) >>
@@ -9689,7 +9689,7 @@ int  sub_4B3450(int a1, int a2, int a3) {
 				v44 = (_WORD*)((_DWORD)pixbuffer[a2] + 2 * v61);
 				v56 = (unsigned __int16)*v44;
 				*v44 =
-					*(_WORD*)(dword_5d4594_3804672 +
+					*(_WORD*)(nox_draw_colors_r_3804672 +
 							  2 * (unsigned __int8)(((*((_DWORD*)((_BYTE*)byte_5D4594_3804364 + 0)) & v56) >> *((_BYTE*)byte_5D4594_3804364 + 12)) +
 													((v71 - (unsigned __int8)((*((_DWORD*)((_BYTE*)byte_5D4594_3804364 + 0)) & v56) >>
 																			  *((_BYTE*)byte_5D4594_3804364 + 12))) >>
@@ -9710,7 +9710,7 @@ int  sub_4B3450(int a1, int a2, int a3) {
 		if (v12 >= v60 && v12 < v48 && a2 >= v49 && a2 < v50) {
 			v45 = (_WORD*)((_DWORD)pixbuffer[a2] + 2 * v61);
 			v57 = (unsigned __int16)*v45;
-			*v45 = *(_WORD*)(dword_5d4594_3804672 +
+			*v45 = *(_WORD*)(nox_draw_colors_r_3804672 +
 							 2 * (unsigned __int8)(((*((_DWORD*)((_BYTE*)byte_5D4594_3804364 + 0)) & v57) >> *((_BYTE*)byte_5D4594_3804364 + 12)) +
 												   ((v71 - (unsigned __int8)((*((_DWORD*)((_BYTE*)byte_5D4594_3804364 + 0)) & v57) >>
 																			 *((_BYTE*)byte_5D4594_3804364 + 12))) >>
@@ -9732,7 +9732,7 @@ int  sub_4B3450(int a1, int a2, int a3) {
 		if (v73 >= v49 && v73 < v50) {
 			v46 = (_WORD*)((_DWORD)pixbuffer[v73] + 2 * a1);
 			v58 = (unsigned __int16)*v46;
-			*v46 = *(_WORD*)(dword_5d4594_3804672 +
+			*v46 = *(_WORD*)(nox_draw_colors_r_3804672 +
 							 2 * (unsigned __int8)(((*((_DWORD*)((_BYTE*)byte_5D4594_3804364 + 0)) & v58) >> *((_BYTE*)byte_5D4594_3804364 + 12)) +
 												   ((v71 - (unsigned __int8)((*((_DWORD*)((_BYTE*)byte_5D4594_3804364 + 0)) & v58) >>
 																			 *((_BYTE*)byte_5D4594_3804364 + 12))) >>
@@ -9794,7 +9794,7 @@ int  sub_4B3450(int a1, int a2, int a3) {
 				v22 = (_WORD*)(v62 + (_DWORD)pixbuffer[v19]);
 				v23 = (unsigned __int16)*v22;
 				*v22 =
-					*(_WORD*)(dword_5d4594_3804672 +
+					*(_WORD*)(nox_draw_colors_r_3804672 +
 							  2 * (unsigned __int8)(((*((_DWORD*)((_BYTE*)byte_5D4594_3804364 + 0)) & v23) >> *((_BYTE*)byte_5D4594_3804364 + 12)) +
 													((v4 - (unsigned __int8)((*((_DWORD*)((_BYTE*)byte_5D4594_3804364 + 0)) & v23) >>
 																			 *((_BYTE*)byte_5D4594_3804364 + 12))) >>
@@ -9820,7 +9820,7 @@ int  sub_4B3450(int a1, int a2, int a3) {
 					v26 = (unsigned __int16)*v25;
 					v24 = v59 + i;
 					*v25 =
-						*(_WORD*)(dword_5d4594_3804672 +
+						*(_WORD*)(nox_draw_colors_r_3804672 +
 								  2 * (unsigned __int8)(((*((_DWORD*)((_BYTE*)byte_5D4594_3804364 + 0)) & v26) >>
 														 *((_BYTE*)byte_5D4594_3804364 + 12)) +
 														((v4 -
@@ -9847,7 +9847,7 @@ int  sub_4B3450(int a1, int a2, int a3) {
 					v27 = (_WORD*)(v64 + (_DWORD)pixbuffer[v69/4]);
 					v28 = (unsigned __int16)*v27;
 					*v27 =
-						*(_WORD*)(dword_5d4594_3804672 +
+						*(_WORD*)(nox_draw_colors_r_3804672 +
 								  2 * (unsigned __int8)(((*((_DWORD*)((_BYTE*)byte_5D4594_3804364 + 0)) & v28) >>
 														 *((_BYTE*)byte_5D4594_3804364 + 12)) +
 														((v4 -
@@ -9875,7 +9875,7 @@ int  sub_4B3450(int a1, int a2, int a3) {
 				v29 = (_WORD*)(v62 + (_DWORD)pixbuffer[v47/4]);
 				v30 = (unsigned __int16)*v29;
 				*v29 =
-					*(_WORD*)(dword_5d4594_3804672 +
+					*(_WORD*)(nox_draw_colors_r_3804672 +
 							  2 * (unsigned __int8)(((*((_DWORD*)((_BYTE*)byte_5D4594_3804364 + 0)) & v30) >> *((_BYTE*)byte_5D4594_3804364 + 12)) +
 													((v4 - (unsigned __int8)((*((_DWORD*)((_BYTE*)byte_5D4594_3804364 + 0)) & v30) >>
 																			 *((_BYTE*)byte_5D4594_3804364 + 12))) >>
@@ -9897,7 +9897,7 @@ int  sub_4B3450(int a1, int a2, int a3) {
 				v31 = (_WORD*)(v74 + (_DWORD)pixbuffer[v47/4]);
 				v32 = (unsigned __int16)*v31;
 				*v31 =
-					*(_WORD*)(dword_5d4594_3804672 +
+					*(_WORD*)(nox_draw_colors_r_3804672 +
 							  2 * (unsigned __int8)(((*((_DWORD*)((_BYTE*)byte_5D4594_3804364 + 0)) & v32) >> *((_BYTE*)byte_5D4594_3804364 + 12)) +
 													((v4 - (unsigned __int8)((*((_DWORD*)((_BYTE*)byte_5D4594_3804364 + 0)) & v32) >>
 																			 *((_BYTE*)byte_5D4594_3804364 + 12))) >>
@@ -9920,7 +9920,7 @@ int  sub_4B3450(int a1, int a2, int a3) {
 					v33 = (_WORD*)(v72 + (_DWORD)pixbuffer[v69/4]);
 					v34 = (unsigned __int16)*v33;
 					*v33 =
-						*(_WORD*)(dword_5d4594_3804672 +
+						*(_WORD*)(nox_draw_colors_r_3804672 +
 								  2 * (unsigned __int8)(((*((_DWORD*)((_BYTE*)byte_5D4594_3804364 + 0)) & v34) >>
 														 *((_BYTE*)byte_5D4594_3804364 + 12)) +
 														((v4 -
@@ -9946,7 +9946,7 @@ int  sub_4B3450(int a1, int a2, int a3) {
 					v35 = (_WORD*)(v72 + (_DWORD)pixbuffer[v70]);
 					v36 = (unsigned __int16)*v35;
 					*v35 =
-						*(_WORD*)(dword_5d4594_3804672 +
+						*(_WORD*)(nox_draw_colors_r_3804672 +
 								  2 * (unsigned __int8)(((*((_DWORD*)((_BYTE*)byte_5D4594_3804364 + 0)) & v36) >>
 														 *((_BYTE*)byte_5D4594_3804364 + 12)) +
 														((v4 -
@@ -9973,7 +9973,7 @@ int  sub_4B3450(int a1, int a2, int a3) {
 				v37 = (_WORD*)(v74 + (_DWORD)pixbuffer[v59]);
 				v38 = (unsigned __int16)*v37;
 				*v37 =
-					*(_WORD*)(dword_5d4594_3804672 +
+					*(_WORD*)(nox_draw_colors_r_3804672 +
 							  2 * (unsigned __int8)(((*((_DWORD*)((_BYTE*)byte_5D4594_3804364 + 0)) & v38) >> *((_BYTE*)byte_5D4594_3804364 + 12)) +
 													((v4 - (unsigned __int8)((*((_DWORD*)((_BYTE*)byte_5D4594_3804364 + 0)) & v38) >>
 																			 *((_BYTE*)byte_5D4594_3804364 + 12))) >>

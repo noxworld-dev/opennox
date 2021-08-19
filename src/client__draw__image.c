@@ -14,7 +14,7 @@ extern unsigned char byte_5D4594_3804364[160];
 extern unsigned int dword_5d4594_3804656;
 extern unsigned int dword_5d4594_3804664;
 extern unsigned int dword_5d4594_3804668;
-extern unsigned int dword_5d4594_3804672;
+extern unsigned int nox_draw_colors_r_3804672;
 extern unsigned int dword_5d4594_810632;
 extern unsigned int dword_5d4594_810636;
 extern unsigned int dword_5d4594_810640;
@@ -1141,7 +1141,7 @@ void sub_4C9B20() {
 		LOBYTE(v5) = SADD8((8 * v6) & 0xF8 | 7, (unsigned char)v5);
 		LOBYTE(v4) = SADD8((v6 >> 3) & 0xFC | 3, (unsigned char)v4);
 		result = *(unsigned int*)(dword_5d4594_3804664 + 2 * v5) | *(unsigned int*)(dword_5d4594_3804656 + 2 * v4) |
-				 *(unsigned int*)(dword_5d4594_3804672 + 2 * v3);
+				 *(unsigned int*)(nox_draw_colors_r_3804672 + 2 * v3);
 		*v1 = result;
 		++v1;
 	} while ((*getMemU32Ptr(0x973F18, 28))-- > 1);
@@ -1174,7 +1174,7 @@ void sub_4C8EC0() {
 			++nox_video_cur_pixdata_3799444;
 			v6 = (unsigned short)(*((unsigned short*)((unsigned char*)byte_5D4594_3804364 + 4)) & *v1) >> *((unsigned char*)byte_5D4594_3804364 + 16);
 			**(unsigned short**)&nox_draw_sprite_dstPtr_3799540 =
-				*(unsigned short*)(dword_5d4594_3804672 +
+				*(unsigned short*)(nox_draw_colors_r_3804672 +
 						  2 * (unsigned char)(((unsigned short)(*((unsigned short*)((unsigned char*)byte_5D4594_3804364 + 0)) & *v1) >>
 												 *((unsigned char*)byte_5D4594_3804364 + 12)) +
 												((unsigned short)(v2 *
@@ -1233,7 +1233,7 @@ void sub_4C9050() {
 			v2 = nox_video_cur_pixdata_3799444[0];
 			++nox_video_cur_pixdata_3799444;
 			v3 = (unsigned short)*v1;
-			*v1 = *(unsigned short*)(dword_5d4594_3804672 +
+			*v1 = *(unsigned short*)(nox_draw_colors_r_3804672 +
 							2 * (unsigned char)(((*((unsigned int*)((unsigned char*)byte_5D4594_3804364 + 0)) & v3) >> *((unsigned char*)byte_5D4594_3804364 + 12)) +
 												  ((int)((((*(unsigned int*)&v5[24] * (unsigned int)v2) >> 8) & 0xFF) -
 														 (unsigned char)((*((unsigned int*)((unsigned char*)byte_5D4594_3804364 + 0)) & v3) >>
@@ -1312,7 +1312,7 @@ void sub_4C92F0() {
 																				 8) -
 																				v10)) >>
 													   8))) |
-				*(unsigned short*)(dword_5d4594_3804672 +
+				*(unsigned short*)(nox_draw_colors_r_3804672 +
 						  2 * (unsigned char)(v3 + ((unsigned short)(v9 * (((int)(v8 * (((*(unsigned int*)&v12[24] *
 																							  (unsigned int)v2) >>
 																							 8) &
@@ -1375,7 +1375,7 @@ void sub_4C8850() {
 																	  8) -
 																	 v9)) >>
 												 8))) |
-				*(unsigned short*)(dword_5d4594_3804672 +
+				*(unsigned short*)(nox_draw_colors_r_3804672 +
 						  2 * (unsigned char)(v5 +
 												((unsigned short)(v7 *
 																	(((v6 *
@@ -1423,7 +1423,7 @@ void sub_4C94D0() {
 			v3 = (unsigned short)(*((unsigned short*)((unsigned char*)byte_5D4594_3804364 + 0)) & *v2) >> *((unsigned char*)byte_5D4594_3804364 + 12);
 			v5 = (unsigned short)(*((unsigned short*)((unsigned char*)byte_5D4594_3804364 + 4)) & *v2) >> *((unsigned char*)byte_5D4594_3804364 + 16);
 			*v2 =
-				*(unsigned short*)(dword_5d4594_3804672 +
+				*(unsigned short*)(nox_draw_colors_r_3804672 +
 						  2 * (((v0 *
 								 (unsigned char)(v3 + ((int)((((*(unsigned int*)&v9[24] * (unsigned int)v6) >> 8) & 0xFF) -
 															   (unsigned char)v3) >>
@@ -1486,7 +1486,7 @@ void sub_4C97F0() {
 																						*((unsigned char*)byte_5D4594_3804364 + 8))
 																					   << *((unsigned char*)byte_5D4594_3804364 + 20)))) >>
 												 8))) |
-				*(unsigned short*)(dword_5d4594_3804672 +
+				*(unsigned short*)(nox_draw_colors_r_3804672 +
 						  2 * (unsigned char)(((*((unsigned int*)((unsigned char*)byte_5D4594_3804364 + 0)) & v4) >> *((unsigned char*)byte_5D4594_3804364 + 12)) +
 												((unsigned short)(BYTE1(v5) *
 																	(((*(unsigned short*)(&nox_video_cur_pixdata_3799444[0]) >> 8) & 0xF0) -
@@ -1536,7 +1536,7 @@ void sub_4C8DF0() {
 		do {
 			v6 = nox_video_cur_pixdata_3799444[0];
 			++nox_video_cur_pixdata_3799444;
-			**(unsigned short**)&nox_draw_sprite_dstPtr_3799540 = *(unsigned short*)(dword_5d4594_3804672 + 2 * ((v3 * (unsigned int)v6) >> 8)) |
+			**(unsigned short**)&nox_draw_sprite_dstPtr_3799540 = *(unsigned short*)(nox_draw_colors_r_3804672 + 2 * ((v3 * (unsigned int)v6) >> 8)) |
 											   *(unsigned short*)(dword_5d4594_3804656 + 2 * ((v2 * (unsigned int)v6) >> 8)) |
 											   *(unsigned short*)(dword_5d4594_3804664 + 2 * ((v1 * (unsigned int)v6) >> 8));
 			result = v5 - 1;
@@ -1564,7 +1564,7 @@ void sub_4C8D60() {
 		++v0;
 		v3 = (unsigned char)*(unsigned int*)(dword_5d4594_3804668 + v2);
 		result =
-			*(unsigned int*)(dword_5d4594_3804672 +
+			*(unsigned int*)(nox_draw_colors_r_3804672 +
 					   2 * ((unsigned int)(*(unsigned int*)(&obj_5D4594_3800716.data[24]) * v3) >> 8)) |
 			*(unsigned int*)(dword_5d4594_3804656 +
 					   2 * ((unsigned int)(*(unsigned int*)(&obj_5D4594_3800716.data[25]) * v3) >> 8)) |
@@ -1608,7 +1608,7 @@ void sub_4C91C0() {
 						  2 * (((int)(v1 * (((*(unsigned int*)&v9[32] * (unsigned int)v8) >> 8) & 0xFF)) >> 8) & 0xFF)) |
 				*(unsigned short*)(dword_5d4594_3804656 +
 						  2 * (((int)(v6 * (((*(unsigned int*)&v9[28] * (unsigned int)v8) >> 8) & 0xFF)) >> 8) & 0xFF)) |
-				*(unsigned short*)(dword_5d4594_3804672 +
+				*(unsigned short*)(nox_draw_colors_r_3804672 +
 						  2 * (((int)(v2 * (((*(unsigned int*)&v9[24] * (unsigned int)v8) >> 8) & 0xFF)) >> 8) & 0xFF));
 			result = v5 - 1;
 			v3 = v5 == 1;
@@ -1658,7 +1658,7 @@ void sub_4C9970() {
 												  ((unsigned short)(v3 * (((int)(v1 * ((result >> 4) & 0xF0)) >> 8) -
 																			v4)) >>
 												   8))) |
-				  *(unsigned short*)(dword_5d4594_3804672 +
+				  *(unsigned short*)(nox_draw_colors_r_3804672 +
 							2 * (unsigned char)(v7 +
 												  ((unsigned short)(v3 *
 																	  (((v5 * ((*(unsigned short*)(&nox_video_cur_pixdata_3799444[0]) >> 8) &
@@ -1702,7 +1702,7 @@ void sub_4C96A0() {
 																						  *((unsigned char*)byte_5D4594_3804364 + 8))
 																						 << *((unsigned char*)byte_5D4594_3804364 + 20)))) >>
 												   8))) |
-				  *(unsigned short*)(dword_5d4594_3804672 +
+				  *(unsigned short*)(nox_draw_colors_r_3804672 +
 							2 * (unsigned char)(v5 +
 												  ((unsigned short)(v2 * (((*(unsigned short*)(&nox_video_cur_pixdata_3799444[0]) >> 8) &
 																			 0xF0) -
@@ -2275,7 +2275,7 @@ void sub_4C8130() {
 			v5 = (unsigned short)(*((unsigned short*)((unsigned char*)byte_5D4594_3804364 + 0)) & *v2) >> *((unsigned char*)byte_5D4594_3804364 + 12);
 			v4 = (unsigned short)(*((unsigned short*)((unsigned char*)byte_5D4594_3804364 + 4)) & *v2) >> *((unsigned char*)byte_5D4594_3804364 + 16);
 			*v2 =
-				*(unsigned short*)(dword_5d4594_3804672 +
+				*(unsigned short*)(nox_draw_colors_r_3804672 +
 						  2 * (unsigned char)(v5 +
 												((unsigned short)(v1 *
 																	((unsigned char)((unsigned short)(*((unsigned short*)((unsigned char*)byte_5D4594_3804364 + 0)) &
@@ -2325,7 +2325,7 @@ void sub_4C8410() {
 			v3 = (unsigned short)(*((unsigned short*)((unsigned char*)byte_5D4594_3804364 + 4)) & *v1) >> *((unsigned char*)byte_5D4594_3804364 + 16);
 			v4 = (unsigned short)(*((unsigned short*)((unsigned char*)byte_5D4594_3804364 + 0)) & *v1) >> *((unsigned char*)byte_5D4594_3804364 + 12);
 			*v1 =
-				*(unsigned short*)(dword_5d4594_3804672 +
+				*(unsigned short*)(nox_draw_colors_r_3804672 +
 						  2 * (unsigned char)(v4 +
 												(((unsigned char)((unsigned short)(*((unsigned short*)((unsigned char*)byte_5D4594_3804364 + 0)) &
 																					   *(unsigned short*)(&nox_video_cur_pixdata_3799444[0])) >>
@@ -2371,7 +2371,7 @@ void sub_4C8A30() {
 	unsigned int gmask = *(unsigned int*)((unsigned char*)byte_5D4594_3804364 + 4);
 	unsigned int bmask = *(unsigned int*)((unsigned char*)byte_5D4594_3804364 + 0);
 
-	unsigned short* add1 = dword_5d4594_3804672;
+	unsigned short* add1 = nox_draw_colors_r_3804672;
 	unsigned short* add2 = dword_5d4594_3804664;
 	unsigned short* add3 = dword_5d4594_3804656;
 
@@ -2418,7 +2418,7 @@ void sub_4C86B0() {
 	do {
 		v2 = *v0;
 		++v0;
-		result = *(unsigned int*)(dword_5d4594_3804672 +
+		result = *(unsigned int*)(nox_draw_colors_r_3804672 +
 							2 * ((unsigned int)(*(unsigned int*)(&obj_5D4594_3800716.data[24]) *
 												((unsigned short)(*((unsigned short*)((unsigned char*)byte_5D4594_3804364 + 0)) & v2) >>
 												 *((unsigned char*)byte_5D4594_3804364 + 12))) >>
