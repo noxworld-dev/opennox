@@ -99,7 +99,11 @@ extern _DWORD dword_5d4594_3798156;
 extern _DWORD dword_5d4594_1522612;
 extern _DWORD dword_5d4594_1522604;
 extern _DWORD nox_client_highResFloors_154952;
+#ifndef NOX_CGO
 extern void* (*nox_video_getImagePixdata_func)(nox_video_bag_image_t*);
+#else // NOX_CGO
+void* nox_video_getImagePixdata_func(nox_video_bag_image_t*);
+#endif // NOX_CGO
 extern _DWORD dword_5d4594_3807156;
 extern _DWORD dword_5d4594_1522600;
 extern int dword_5d4594_3799524;

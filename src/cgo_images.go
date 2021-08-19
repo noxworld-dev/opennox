@@ -5,27 +5,19 @@ package main
 */
 import "C"
 import (
-	"unsafe"
-
 	"nox/v1/common/bag"
 	"nox/v1/common/log"
 )
 
 var noxImages struct {
-	bySect map[[2]int]unsafe.Pointer
+	bySect map[[2]int][]byte
 }
 
 func init() {
-	noxImages.bySect = make(map[[2]int]unsafe.Pointer)
+	noxImages.bySect = make(map[[2]int][]byte)
 }
 
-func internImagePCX(img *bag.Image) unsafe.Pointer {
-	data := bag.EncodePCX(img)
-	return C.CBytes(data)
-}
-
-//export nox_video_getImagePixdata_new
-func nox_video_getImagePixdata_new(img *C.nox_video_bag_image_t) unsafe.Pointer {
+func nox_video_getImagePixdata_new(img *C.nox_video_bag_image_t) []byte {
 	if img == nil {
 		return nil
 	}
@@ -50,7 +42,7 @@ func nox_video_getImagePixdata_new(img *C.nox_video_bag_image_t) unsafe.Pointer 
 		noxImages.bySect[key] = nil
 		return nil
 	}
-	ptr := internImagePCX(im)
+	ptr := bag.EncodePCX(im)
 	noxImages.bySect[key] = ptr
 	return ptr
 }
