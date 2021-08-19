@@ -69,7 +69,7 @@ func (b *Blob) ContainsPtr(ptr unsafe.Pointer) (uintptr, bool) {
 }
 
 var (
-	blobs      []Blob
+	blobs      []*Blob
 	variables  []Variable
 	varsSorted bool
 )
@@ -86,7 +86,7 @@ func sortVars() {
 
 // RegisterBlob registers a blob with a given address in original Nox binary and specified name and size.
 func RegisterBlob(addr uintptr, name string, size uintptr) {
-	b := Blob{
+	b := &Blob{
 		Addr: addr,
 		Name: name,
 		Size: size,
@@ -104,7 +104,7 @@ func RegisterBlob(addr uintptr, name string, size uintptr) {
 
 // RegisterBlobData registers a raw blob with a given address in original Nox binary and specified name and data.
 func RegisterBlobData(addr uintptr, name string, data []byte) {
-	b := Blob{
+	b := &Blob{
 		Addr:    addr,
 		Name:    name,
 		Size:    uintptr(len(data)),
@@ -128,7 +128,7 @@ func RegisterBlobData(addr uintptr, name string, data []byte) {
 func BlobByAddr(addr uintptr) *Blob {
 	for _, b := range blobs {
 		if b.Contains(addr) {
-			return &b
+			return b
 		}
 	}
 	return nil
@@ -138,7 +138,7 @@ func BlobByAddr(addr uintptr) *Blob {
 func BlobByPtr(ptr unsafe.Pointer) (*Blob, uintptr) {
 	for _, b := range blobs {
 		if off, ok := b.ContainsPtr(ptr); ok {
-			return &b, off
+			return b, off
 		}
 	}
 	return nil, 0
@@ -146,7 +146,11 @@ func BlobByPtr(ptr unsafe.Pointer) (*Blob, uintptr) {
 
 // Blobs returns a sorted list of blobs.
 func Blobs() []Blob {
-	return append([]Blob{}, blobs...)
+	out := make([]Blob, 0, len(blobs))
+	for _, b := range blobs {
+		out = append(out, *b)
+	}
+	return out
 }
 
 // RegisterVariable registers an extracted variable with a given address in original Nox binary,
