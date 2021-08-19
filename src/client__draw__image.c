@@ -20,7 +20,7 @@ extern unsigned int dword_5d4594_810636;
 extern unsigned int dword_5d4594_810640;
 
 unsigned int dword_5d4594_3799508 = 0; // TODO: remove externs to it
-unsigned int nox_draw_sprite_dstPtr_3799540 = 0;
+void* nox_draw_sprite_dstPtr_3799540 = 0;
 unsigned int dword_5d4594_3799552 = 0; // TODO: remove externs to it
 int nox_draw_sprite_offsY_3799556 = 0;
 int nox_draw_sprite_offsX_3799560 = 0;
@@ -187,10 +187,10 @@ void sub_4C6A00() {
 										   ((unsigned short)(v1 * (v4 - getMemByte(0x973F18, 3880 + v5))) >> 8)) &
 										  0xF8))))) +
 							dword_5d4594_810640);
-			v2 = (unsigned char*)(nox_draw_sprite_dstPtr_3799540 + 1);
+			v2 = (unsigned char*)((unsigned int)nox_draw_sprite_dstPtr_3799540 + 1);
 			result = v8 - 1;
 			v6 = v8 == 1;
-			++nox_draw_sprite_dstPtr_3799540;
+			nox_draw_sprite_dstPtr_3799540 = (unsigned int)nox_draw_sprite_dstPtr_3799540 + 1;
 			--v8;
 		} while (!v6);
 	}
@@ -310,10 +310,10 @@ void sub_4C6C60() {
 										   ((unsigned short)(v8 * (v5 - getMemByte(0x973F18, 3880 + v6))) >> 8)) &
 										  0xF8))))) +
 							dword_5d4594_810640);
-			v2 = (unsigned char*)(nox_draw_sprite_dstPtr_3799540 + 1);
+			v2 = (unsigned char*)((unsigned int)nox_draw_sprite_dstPtr_3799540 + 1);
 			result = v10 - 1;
 			v7 = v10 == 1;
-			++nox_draw_sprite_dstPtr_3799540;
+			nox_draw_sprite_dstPtr_3799540 = (unsigned int)nox_draw_sprite_dstPtr_3799540 + 1;
 			--v10;
 			if (v7)
 				break;
@@ -387,10 +387,10 @@ void sub_4C6E40() {
 										   ((unsigned short)(v8 * (v5 - getMemByte(0x973F18, 3880 + v6))) >> 8)) &
 										  0xF8))))) +
 							dword_5d4594_810640);
-			v2 = (unsigned char*)(nox_draw_sprite_dstPtr_3799540 + 1);
+			v2 = (unsigned char*)((unsigned int)nox_draw_sprite_dstPtr_3799540 + 1);
 			result = v10 - 1;
 			v7 = v10 == 1;
-			++nox_draw_sprite_dstPtr_3799540;
+			nox_draw_sprite_dstPtr_3799540 = (unsigned int)nox_draw_sprite_dstPtr_3799540 + 1;
 			--v10;
 			if (v7)
 				break;
@@ -415,10 +415,10 @@ void sub_4C6FD0() {
 								*(unsigned char*)(32 * v2 + nox_video_cur_pixdata_3799444[0] +
 													dword_5d4594_810636) +
 								dword_5d4594_810632);
-			result = (unsigned char*)(nox_draw_sprite_dstPtr_3799540 + 1);
+			result = (unsigned char*)((unsigned int)nox_draw_sprite_dstPtr_3799540 + 1);
 			--v1;
 			++nox_video_cur_pixdata_3799444;
-			++nox_draw_sprite_dstPtr_3799540;
+			nox_draw_sprite_dstPtr_3799540 = (unsigned int)nox_draw_sprite_dstPtr_3799540 + 1;
 		} while (v1);
 	}
 }
@@ -442,7 +442,7 @@ void sub_4C7060() {
 			++nox_video_cur_pixdata_3799444;
 			**(unsigned char**)&nox_draw_sprite_dstPtr_3799540 = *(unsigned char*)(v1 + 32 * v3 + dword_5d4594_810636);
 			--v2;
-			++nox_draw_sprite_dstPtr_3799540;
+			nox_draw_sprite_dstPtr_3799540 = (unsigned int)nox_draw_sprite_dstPtr_3799540 + 1;
 		} while (v2);
 	}
 }
@@ -479,9 +479,9 @@ unsigned int sub_4C7110() {
 															   8)) &
 														0xF8))))) +
 						dword_5d4594_810640);
-			v1 = (unsigned char*)(nox_draw_sprite_dstPtr_3799540 + 1);
+			v1 = (unsigned char*)((unsigned int)nox_draw_sprite_dstPtr_3799540 + 1);
 			result = v5 - 1;
-			++nox_draw_sprite_dstPtr_3799540;
+			nox_draw_sprite_dstPtr_3799540 = (unsigned int)nox_draw_sprite_dstPtr_3799540 + 1;
 			v5 = result;
 		} while (result);
 	}
@@ -531,9 +531,9 @@ unsigned int sub_4C7240() {
 														  8)) &
 														0xF8))))) +
 						dword_5d4594_810640);
-			v2 = (unsigned char*)(nox_draw_sprite_dstPtr_3799540 + 1);
+			v2 = (unsigned char*)((unsigned int)nox_draw_sprite_dstPtr_3799540 + 1);
 			result = v7 - 1;
-			++nox_draw_sprite_dstPtr_3799540;
+			nox_draw_sprite_dstPtr_3799540 = (unsigned int)nox_draw_sprite_dstPtr_3799540 + 1;
 			v7 = result;
 			if (!result)
 				break;
@@ -959,7 +959,7 @@ int  sub_4C6260(int a1, int a2, int a3) {
 							++nox_video_cur_pixdata_3799444;
 							switch (getMemByte(0x973F18, 0) & 0xF) {
 							case 1:
-								nox_draw_sprite_dstPtr_3799540 += v17;
+								nox_draw_sprite_dstPtr_3799540 = (unsigned int)nox_draw_sprite_dstPtr_3799540 + v17;
 								goto LABEL_26;
 							case 2:
 							case 7:
@@ -1206,9 +1206,9 @@ void sub_4C8EC0() {
 																						*((unsigned char*)byte_5D4594_3804364 + 8))
 																					   << *((unsigned char*)byte_5D4594_3804364 + 20)))) >>
 												 8)));
-			v1 = (unsigned short*)(nox_draw_sprite_dstPtr_3799540 + 2);
+			v1 = (unsigned short*)((unsigned int)nox_draw_sprite_dstPtr_3799540 + 2);
 			result = v4 - 1;
-			nox_draw_sprite_dstPtr_3799540 += 2;
+			nox_draw_sprite_dstPtr_3799540 = (unsigned int)nox_draw_sprite_dstPtr_3799540 + 2;
 			v4 = result;
 		} while (result);
 	}
@@ -1251,9 +1251,9 @@ void sub_4C9050() {
 														 (unsigned char)((*(unsigned char*)v1 & *((unsigned char*)byte_5D4594_3804364 + 8))
 																		   << *((unsigned char*)byte_5D4594_3804364 + 20))) >>
 												   1)));
-			v1 = (unsigned short*)(nox_draw_sprite_dstPtr_3799540 + 2);
+			v1 = (unsigned short*)((unsigned int)nox_draw_sprite_dstPtr_3799540 + 2);
 			result = v4 - 1;
-			nox_draw_sprite_dstPtr_3799540 += 2;
+			nox_draw_sprite_dstPtr_3799540 = (unsigned int)nox_draw_sprite_dstPtr_3799540 + 2;
 			v4 = result;
 		} while (result);
 	}
@@ -1320,10 +1320,10 @@ void sub_4C92F0() {
 																				8) -
 																			   (unsigned char)v3)) >>
 													  8)));
-			v1 = (unsigned short*)(nox_draw_sprite_dstPtr_3799540 + 2);
+			v1 = (unsigned short*)((unsigned int)nox_draw_sprite_dstPtr_3799540 + 2);
 			result = v6 - 1;
 			v4 = v6 == 1;
-			nox_draw_sprite_dstPtr_3799540 += 2;
+			nox_draw_sprite_dstPtr_3799540 = (unsigned int)nox_draw_sprite_dstPtr_3799540 + 2;
 			--v6;
 		} while (!v4);
 	}
@@ -1386,10 +1386,10 @@ void sub_4C8850() {
 																	 v5)) >>
 												 8)));
 			nox_video_cur_pixdata_3799444 += 2;
-			v1 = (unsigned short*)(nox_draw_sprite_dstPtr_3799540 + 2);
+			v1 = (unsigned short*)((unsigned int)nox_draw_sprite_dstPtr_3799540 + 2);
 			result = v4 - 1;
 			v3 = v4 == 1;
-			nox_draw_sprite_dstPtr_3799540 += 2;
+			nox_draw_sprite_dstPtr_3799540 = (unsigned int)nox_draw_sprite_dstPtr_3799540 + 2;
 			--v4;
 		} while (!v3);
 	}
@@ -1445,9 +1445,9 @@ void sub_4C94D0() {
 														 1))) >>
 								8) &
 							   0xFF));
-			v2 = (unsigned short*)(nox_draw_sprite_dstPtr_3799540 + 2);
+			v2 = (unsigned short*)((unsigned int)nox_draw_sprite_dstPtr_3799540 + 2);
 			result = v4 - 1;
-			nox_draw_sprite_dstPtr_3799540 += 2;
+			nox_draw_sprite_dstPtr_3799540 = (unsigned int)nox_draw_sprite_dstPtr_3799540 + 2;
 			v4 = result;
 		} while (result);
 	}
@@ -1502,10 +1502,10 @@ void sub_4C97F0() {
 																						v4) >>
 																					   *((unsigned char*)byte_5D4594_3804364 + 16)))) >>
 												 8)));
-			v2 = (unsigned short*)(nox_draw_sprite_dstPtr_3799540 + 2);
+			v2 = (unsigned short*)((unsigned int)nox_draw_sprite_dstPtr_3799540 + 2);
 			result = v7 - 1;
 			nox_video_cur_pixdata_3799444 += 2;
-			nox_draw_sprite_dstPtr_3799540 += 2;
+			nox_draw_sprite_dstPtr_3799540 = (unsigned int)nox_draw_sprite_dstPtr_3799540 + 2;
 			v7 = result;
 			if (!result)
 				break;
@@ -1541,7 +1541,7 @@ void sub_4C8DF0() {
 											   *(unsigned short*)(dword_5d4594_3804664 + 2 * ((v1 * (unsigned int)v6) >> 8));
 			result = v5 - 1;
 			v4 = v5 == 1;
-			nox_draw_sprite_dstPtr_3799540 += 2;
+			nox_draw_sprite_dstPtr_3799540 = (unsigned int)nox_draw_sprite_dstPtr_3799540 + 2;
 			--v5;
 		} while (!v4);
 	}
@@ -1612,7 +1612,7 @@ void sub_4C91C0() {
 						  2 * (((int)(v2 * (((*(unsigned int*)&v9[24] * (unsigned int)v8) >> 8) & 0xFF)) >> 8) & 0xFF));
 			result = v5 - 1;
 			v3 = v5 == 1;
-			nox_draw_sprite_dstPtr_3799540 += 2;
+			nox_draw_sprite_dstPtr_3799540 = (unsigned int)nox_draw_sprite_dstPtr_3799540 + 2;
 			--v5;
 		} while (!v3);
 	}
@@ -1666,10 +1666,10 @@ void sub_4C9970() {
 																		8) -
 																	   v7)) >>
 												   8)));
-			v2 = (unsigned short*)(nox_draw_sprite_dstPtr_3799540 + 2);
+			v2 = (unsigned short*)((unsigned int)nox_draw_sprite_dstPtr_3799540 + 2);
 			result = v6 - 1;
 			nox_video_cur_pixdata_3799444 += 2;
-			nox_draw_sprite_dstPtr_3799540 += 2;
+			nox_draw_sprite_dstPtr_3799540 = (unsigned int)nox_draw_sprite_dstPtr_3799540 + 2;
 			v6 = result;
 		} while (result);
 	}
@@ -1710,10 +1710,10 @@ void sub_4C96A0() {
 												   8))) |
 				  *(unsigned short*)(dword_5d4594_3804656 +
 							2 * (unsigned char)(v3 + ((unsigned short)(v2 * (((result >> 4) & 0xF0) - v3)) >> 8)));
-			v1 = (unsigned short*)(nox_draw_sprite_dstPtr_3799540 + 2);
+			v1 = (unsigned short*)((unsigned int)nox_draw_sprite_dstPtr_3799540 + 2);
 			result = v4 - 1;
 			nox_video_cur_pixdata_3799444 += 2;
-			nox_draw_sprite_dstPtr_3799540 += 2;
+			nox_draw_sprite_dstPtr_3799540 = (unsigned int)nox_draw_sprite_dstPtr_3799540 + 2;
 			v4 = result;
 		} while (result);
 	}
@@ -1721,9 +1721,10 @@ void sub_4C96A0() {
 
 //----- (004C80E0) --------------------------------------------------------
 void sub_4C80E0() {
-	memcpy(*(unsigned short**)&nox_draw_sprite_dstPtr_3799540, nox_video_cur_pixdata_3799444, *getMemU32Ptr(0x973F18, 28) << 1);
-	nox_video_cur_pixdata_3799444 += *getMemU32Ptr(0x973F18, 28) << 1;
-	nox_draw_sprite_dstPtr_3799540 += *getMemU32Ptr(0x973F18, 28) << 1;
+	const uint32_t size = *getMemU32Ptr(0x973F18, 28) << 1;
+	memcpy(nox_draw_sprite_dstPtr_3799540, nox_video_cur_pixdata_3799444, size);
+	nox_video_cur_pixdata_3799444 += size;
+	nox_draw_sprite_dstPtr_3799540 = (unsigned int)nox_draw_sprite_dstPtr_3799540 + size;
 }
 
 void nullsub_7(void) {}
@@ -2315,10 +2316,10 @@ void sub_4C8130() {
 																						*((unsigned char*)byte_5D4594_3804364 + 8))
 																					   << *((unsigned char*)byte_5D4594_3804364 + 20)))) >>
 												 8)));
-			v2 = (unsigned short*)(nox_draw_sprite_dstPtr_3799540 + 2);
+			v2 = (unsigned short*)((unsigned int)nox_draw_sprite_dstPtr_3799540 + 2);
 			result = v3 - 1;
 			nox_video_cur_pixdata_3799444 += 2;
-			nox_draw_sprite_dstPtr_3799540 += 2;
+			nox_draw_sprite_dstPtr_3799540 = (unsigned int)nox_draw_sprite_dstPtr_3799540 + 2;
 			v3 = result;
 		} while (result);
 	}
@@ -2361,10 +2362,10 @@ void sub_4C8410() {
 												  (unsigned char)((*(unsigned char*)v1 & *((unsigned char*)byte_5D4594_3804364 + 8))
 																	<< *((unsigned char*)byte_5D4594_3804364 + 20))) >>
 												 1)));
-			v1 = (unsigned short*)(nox_draw_sprite_dstPtr_3799540 + 2);
+			v1 = (unsigned short*)((unsigned int)nox_draw_sprite_dstPtr_3799540 + 2);
 			result = v2 - 1;
 			nox_video_cur_pixdata_3799444 += 2;
-			nox_draw_sprite_dstPtr_3799540 += 2;
+			nox_draw_sprite_dstPtr_3799540 = (unsigned int)nox_draw_sprite_dstPtr_3799540 + 2;
 			v2 = result;
 		} while (result);
 	}
