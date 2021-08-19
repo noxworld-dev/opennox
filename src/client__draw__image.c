@@ -1750,7 +1750,7 @@ __int16 sub_4C8C00() {
 }
 
 //----- (004C7860) --------------------------------------------------------
-void  sub_4C7860(int a1, int a2, int a3) {
+void  nox_client_drawImg_bbb_4C7860(int a1, int a2, int a3) {
 	unsigned char* result = nox_video_getImagePixdata_func(a1);
 	nox_video_cur_pixdata_3799444 = result;
 	if (!result) {
@@ -2195,7 +2195,7 @@ void  nox_xxx_smthPlayerAnim_4C7670(nox_video_bag_image_t* img, int x, int y) {
 		case 2:
 		case 7:
 			func_type27_3799536 = sub_4C80E0;
-			sub_4C7860(a1, a2, a3);
+			nox_client_drawImg_bbb_4C7860(a1, a2, a3);
 			return;
 		case 3:
 		case 4:
@@ -2476,7 +2476,7 @@ void  nox_client_xxxDraw16_4C7440(nox_video_bag_image_t* img, int x, int y) {
 	case 2:
 	case 7:
 		func_type27_3799536 = sub_4C80E0;
-		sub_4C7860(img, x, y);
+		nox_client_drawImg_bbb_4C7860(img, x, y);
 		return;
 	case 3:
 	case 4:
