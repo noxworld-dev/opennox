@@ -1372,7 +1372,7 @@ var noxMemmap = []struct {
 	{0x973F18, 112, 4, "nox_draw_sprite_dstPtr_3799540"},     // 0x973F88
 	{0x973F18, 116, 4, "func_type5_3799544"},                 // 0x973F8C
 	{0x973F18, 124, 4, "dword_5d4594_3799552"},               // 0x973F94
-	{0x973F18, 128, 4, "dword_5d4594_3799556"},               // 0x973F98
+	{0x973F18, 128, 4, "nox_draw_sprite_offsY_3799556"},      // 0x973F98
 	{0x973F18, 132, 4, "dword_5d4594_3799560"},               // 0x973F9C
 	{0x973F18, 140, 4, "nox_backbuffer_depth"},               // 0x973FA4
 	{0x973F18, 144, 4, "ptr_5D4594_3799572"},                 // 0x973FA8

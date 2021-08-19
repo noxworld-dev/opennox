@@ -22,7 +22,7 @@ extern unsigned int dword_5d4594_810640;
 unsigned int dword_5d4594_3799508 = 0; // TODO: remove externs to it
 unsigned int nox_draw_sprite_dstPtr_3799540 = 0;
 unsigned int dword_5d4594_3799552 = 0; // TODO: remove externs to it
-unsigned int dword_5d4594_3799556 = 0;
+unsigned int nox_draw_sprite_offsY_3799556 = 0;
 unsigned int dword_5d4594_3799560 = 0;
 unsigned int dword_5d4594_3799484 = 0;
 unsigned int dword_5d4594_3799476 = 0;
@@ -64,10 +64,10 @@ void  sub_4C60D0(nox_video_bag_image_t* img, int x, int y) {
 	dword_5d4594_3799560 = v8;
 	v9 = v8 + x;
 	nox_video_cur_pixdata_3799444 = v5;
-	dword_5d4594_3799556 = *v5;
-	v10 = dword_5d4594_3799556 + y;
+	nox_draw_sprite_offsY_3799556 = *v5;
+	v10 = nox_draw_sprite_offsY_3799556 + y;
 	result = (int4*)(v5 + 1);
-	v19 = dword_5d4594_3799556 + y;
+	v19 = nox_draw_sprite_offsY_3799556 + y;
 	nox_video_cur_pixdata_3799444 = result;
 	if (dword_5d4594_3799484) {
 		v6 = (int4*)((char*)v6 - dword_5d4594_3799484);
@@ -904,7 +904,7 @@ int  sub_4C6260(int a1, int a2, int a3) {
 		v8 = v7 + a2;
 		nox_video_cur_pixdata_3799444 = v6;
 		v9 = *v6;
-		dword_5d4594_3799556 = v9;
+		nox_draw_sprite_offsY_3799556 = v9;
 		v10 = v9 + a3;
 		result = dword_5d4594_3799484;
 		v11 = (int)(v6 + 1);
@@ -1767,10 +1767,10 @@ void  sub_4C7860(int a1, int a2, int a3) {
 	dword_5d4594_3799560 = v8;
 	int v9 = v8 + a2;
 	nox_video_cur_pixdata_3799444 = v5;
-	dword_5d4594_3799556 = *v5;
-	int v10 = dword_5d4594_3799556 + a3;
+	nox_draw_sprite_offsY_3799556 = *v5;
+	int v10 = nox_draw_sprite_offsY_3799556 + a3;
 	result = v5 + 1;
-	int v20 = dword_5d4594_3799556 + a3;
+	int v20 = nox_draw_sprite_offsY_3799556 + a3;
 	nox_video_cur_pixdata_3799444 = result;
 	if (dword_5d4594_3799484) {
 		v6 = v6 - dword_5d4594_3799484;
@@ -2104,7 +2104,7 @@ void nox_client_drawImg_aaa_4C79F0(nox_video_bag_image_t* img, int x, int y) {
 
 	int offY = *(int*)nox_video_cur_pixdata_3799444;
 	nox_video_cur_pixdata_3799444 += 4;
-	dword_5d4594_3799556 = offY;
+	nox_draw_sprite_offsY_3799556 = offY;
 	y += offY;
 
 	nox_video_cur_pixdata_3799444++; // unused
