@@ -115,7 +115,11 @@ extern _DWORD dword_5d4594_1312484;
 extern void* dword_587000_127004;
 extern _DWORD dword_5d4594_1308088;
 extern _DWORD dword_5d4594_1312480;
+#ifndef NOX_CGO
 extern void* (*nox_video_getImagePixdata_func)(nox_video_bag_image_t*);
+#else // NOX_CGO
+void* nox_video_getImagePixdata_func(nox_video_bag_image_t*);
+#endif // NOX_CGO
 extern _DWORD dword_5d4594_2618912;
 extern _DWORD dword_5d4594_3798640;
 extern _DWORD dword_5d4594_1307776;
@@ -7936,6 +7940,7 @@ int  sub_4B07D0(LPVOID lpMem) {
 }
 
 //----- (004B0820) --------------------------------------------------------
+#ifndef NOX_CGO
 void nox_video_drawImageAt2_4B0820(void* a1, int x, int y) {
 	nox_video_bag_image_t img;
 	img.typ = 8;
@@ -7948,6 +7953,7 @@ void nox_video_drawImageAt2_4B0820(void* a1, int x, int y) {
 
 	nox_video_getImagePixdata_func = old;
 }
+#endif // NOX_CGO
 
 //----- (004B0870) --------------------------------------------------------
 int  sub_4B0870(int* a1) {

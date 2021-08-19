@@ -317,7 +317,7 @@ func runNox(args []string) error {
 		if err := gameResetVideoMode(true, true); err != nil {
 			return fmt.Errorf("failed to update video mode: %w", err)
 		}
-		nox_xxx_drawSelectColor_434350(memmap.Uint32(0x85B3FC, 952))
+		noxrend.SelectColor(memmap.Uint32(0x85B3FC, 952))
 		sub_440900()
 	} else {
 		enableGUIDrawing(false)

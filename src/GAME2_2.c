@@ -161,6 +161,7 @@ void* nox_client_itemDragnDrop_1097188 = 0;
 
 BYTE* nox_pixbuffer_3798780 = 0;
 int nox_backbuffer_pitch_3801808 = 0;
+void* (*nox_video_getImagePixdata_func)(nox_video_bag_image_t*) = 0;
 #endif // NOX_CGO
 BYTE** nox_pixbuffer_rows_3798776 = 0;
 BYTE* nox_pixbuffer_3798788 = 0;
@@ -171,7 +172,6 @@ void( *func_587000_154940)(int2*, _DWORD, _DWORD) = nox_xxx_tileDraw_4815E0;
 int ( *func_587000_154944)(int, int) = nox_xxx_drawTexEdgesProbably_481900;
 
 void(*nox_client_drawAtFunc_3799500)(nox_video_bag_image_t*, int, int) = 0;
-void* (*nox_video_getImagePixdata_func)(nox_video_bag_image_t*) = 0;
 
 int nox_video_cutSize = 100;
 void* dword_5d4594_1189584 = 0;
@@ -4185,6 +4185,7 @@ LPVOID sub_47D150() {
 	return result;
 }
 
+#ifndef NOX_CGO
 //----- (0047D200) --------------------------------------------------------
 int sub_47D200() {
 	if (dword_5d4594_3801780 == 0) {
@@ -4222,7 +4223,6 @@ int sub_47D200() {
 	return 1;
 }
 
-#ifndef NOX_CGO
 //----- (0047D2C0) --------------------------------------------------------
 void nox_client_drawImageAt_47D2C0(nox_video_bag_image_t* img, int x, int y) {
 	if (dword_5d4594_3799452) {
