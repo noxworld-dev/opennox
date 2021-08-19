@@ -543,9 +543,9 @@ void sub_433C20() {
 		free(*(LPVOID*)&dword_5d4594_3804668);
 		dword_5d4594_3804668 = 0;
 	}
-	if (dword_5d4594_3804672) {
-		free(*(LPVOID*)&dword_5d4594_3804672);
-		dword_5d4594_3804672 = 0;
+	if (nox_draw_colors_r_3804672) {
+		free(*(LPVOID*)&nox_draw_colors_r_3804672);
+		nox_draw_colors_r_3804672 = 0;
 	}
 	if (dword_5d4594_3804656) {
 		free(*(LPVOID*)&dword_5d4594_3804656);
@@ -1220,7 +1220,7 @@ int sub_434CC0() {
 #endif // NOX_CGO
 	}
 	result = calloc(257, 2);
-	dword_5d4594_3804672 = result;
+	nox_draw_colors_r_3804672 = result;
 	if (!result) {
 		return 0;
 	}
@@ -1235,7 +1235,7 @@ int sub_434CC0() {
 		return 0;
 	}
 	for (i = 0; i < 256; ++i) {
-		*(_WORD*)(dword_5d4594_3804672 + 2 * i) = nox_color_rgb_4344A0(i, 0, 0);
+		*(_WORD*)(nox_draw_colors_r_3804672 + 2 * i) = nox_color_rgb_4344A0(i, 0, 0);
 		*(_WORD*)(dword_5d4594_3804656 + 2 * i) = nox_color_rgb_4344A0(0, i, 0);
 		*(_WORD*)(dword_5d4594_3804664 + 2 * i) = nox_color_rgb_4344A0(0, 0, i);
 	}
