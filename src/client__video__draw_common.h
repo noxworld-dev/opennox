@@ -55,7 +55,7 @@ extern _DWORD dword_5d4594_3799624;
 extern _DWORD dword_5d4594_3801780;
 extern _DWORD nox_draw_colors_r_3804672;
 extern _DWORD nox_draw_colors_g_3804656;
-extern _DWORD dword_5d4594_3804664;
+extern _DWORD nox_draw_colors_b_3804664;
 extern BYTE** nox_pixbuffer_rows_3798784;
 extern int nox_enable_audio;
 

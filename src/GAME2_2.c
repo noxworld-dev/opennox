@@ -121,7 +121,7 @@ extern _DWORD dword_5d4594_3798796;
 extern _DWORD dword_5d4594_3798844;
 extern _DWORD nox_draw_colors_r_3804672;
 extern _DWORD nox_draw_colors_g_3804656;
-extern _DWORD dword_5d4594_3804664;
+extern _DWORD nox_draw_colors_b_3804664;
 extern BYTE** nox_pixbuffer_rows_3798784;
 extern int nox_win_width;
 extern int nox_win_height;
@@ -5649,7 +5649,7 @@ __int16  sub_480700(int a1, void* a2, int a3, unsigned int* a4, unsigned int* a5
 //----- (00480860) --------------------------------------------------------
 void  sub_480860(WORD* a1, WORD* a2, int a3, int* a4, int* a5) {
 	WORD* dword_975384 = nox_draw_colors_g_3804656;
-	WORD* dword_97538C = dword_5d4594_3804664;
+	WORD* dword_97538C = nox_draw_colors_b_3804664;
 	WORD* dword_975394 = nox_draw_colors_r_3804672;
 	WORD dword_975260 = *((_WORD*)((_BYTE*)byte_5D4594_3804364 + 0));
 	WORD dword_975264 = *((_WORD*)((_BYTE*)byte_5D4594_3804364 + 4));
