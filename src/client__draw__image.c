@@ -1819,46 +1819,30 @@ void  nox_client_drawImg_bbb_4C7860(int a1, int a2, int a3) {
 }
 
 //----- (004C8040) --------------------------------------------------------
-char*  sub_4C8040(int a1, int a2) {
-	char* result;       // eax
-	int v3;             // ebp
-	int i;              // esi
-	char v5;            // cl
-	char* v6;           // eax
-	unsigned char v7; // dl
-
-	result = (char*)(a2 - 1);
-	if (a2) {
-		v3 = a2;
-		result = nox_video_cur_pixdata_3799444;
-		do {
-			for (i = a1; i > 0; i -= v7) {
-				v5 = *result;
-				v6 = result + 1;
-				nox_video_cur_pixdata_3799444 = v6;
-				v7 = *v6;
-				result = v6 + 1;
-				nox_video_cur_pixdata_3799444 = result;
-				switch (v5 & 0xF) {
-				case 2:
-				case 5:
-				case 6:
-				case 7:
-					result += 2 * v7;
-					goto LABEL_7;
-				case 4:
-					result += v7;
-				LABEL_7:
-					nox_video_cur_pixdata_3799444 = result;
-					break;
-				default:
-					continue;
-				}
+void nox_client_draw_skip_4C8040(int width, int skip) {
+	char* pix = nox_video_cur_pixdata_3799444;
+	for (int i = 0; i < skip; i++) {
+		unsigned char val = 0;
+		for (int j = 0; j < width; j += val) {
+			char op = pix[0];
+			val = pix[1];
+			pix = pix + 2;
+			nox_video_cur_pixdata_3799444 = pix;
+			switch (op & 0xF) {
+			case 2:
+			case 5:
+			case 6:
+			case 7:
+				pix += 2 * val;
+				nox_video_cur_pixdata_3799444 = pix;
+				break;
+			case 4:
+				pix += val;
+				nox_video_cur_pixdata_3799444 = pix;
+				break;
 			}
-			--v3;
-		} while (v3);
+		}
 	}
-	return result;
 }
 
 //----- (004C7C80) --------------------------------------------------------
@@ -1878,7 +1862,7 @@ void nox_client_drawXxx_4C7C80(int x, int y, int width, int4* a4) {
 	int v7 = y;
 	if (v8) {
 		v7 = v8 + y;
-		sub_4C8040(width, v8);
+		nox_client_draw_skip_4C8040(width, v8);
 	}
 	dword_5d4594_3799508 ^= v7 & 1;
 	if (!v9) {
@@ -1905,7 +1889,7 @@ void nox_client_drawXxx_4C7C80(int x, int y, int width, int4* a4) {
 				char* v19 = &v15[4 * v17];
 				memcpy(v19, v20, v18 & 3);
 			}
-			sub_4C8040(width, 1);
+			nox_client_draw_skip_4C8040(width, 1);
 			pix = nox_video_cur_pixdata_3799444;
 			continue;
 		}
@@ -2140,7 +2124,7 @@ void nox_client_drawImg_aaa_4C79F0(nox_video_bag_image_t* img, int x, int y) {
 			if (i != 0) {
 				memcpy(row, &nox_pixbuffer_rows_3798784[y + i - 1][2 * x], 2 * width);
 			}
-			sub_4C8040(width, 1);
+			nox_client_draw_skip_4C8040(width, 1);
 		} else {
 			for (int j = width; j > 0; j -= *getMemU32Ptr(0x973F18, 28)) {
 				int a = nox_video_cur_pixdata_3799444[0];
