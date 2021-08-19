@@ -22,13 +22,13 @@ extern unsigned int dword_5d4594_810640;
 unsigned int dword_5d4594_3799508 = 0; // TODO: remove externs to it
 void* nox_draw_sprite_dstPtr_3799540 = 0;
 unsigned int dword_5d4594_3799552 = 0; // TODO: remove externs to it
-int nox_draw_sprite_offsY_3799556 = 0;
-int nox_draw_sprite_offsX_3799560 = 0;
 unsigned int dword_5d4594_3799484 = 0;
 unsigned int dword_5d4594_3799476 = 0;
 unsigned char* nox_video_cur_pixdata_3799444 = 0;
 
 #ifndef NOX_CGO
+int nox_draw_sprite_offsY_3799556 = 0;
+int nox_draw_sprite_offsX_3799560 = 0;
 void (*func_type27_3799536)(void) = 0;
 void (*func_type4_3799432)(void) = 0;
 void (*func_type5_3799544)(void) = 0;

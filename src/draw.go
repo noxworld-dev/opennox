@@ -20,8 +20,6 @@ extern unsigned int dword_5d4594_3799476;
 extern unsigned int dword_5d4594_3799508;
 extern void* nox_draw_sprite_dstPtr_3799540;
 extern unsigned int dword_5d4594_3799552;
-extern int nox_draw_sprite_offsY_3799556;
-extern int nox_draw_sprite_offsX_3799560;
 extern unsigned char* nox_video_cur_pixdata_3799444;
 extern int dword_5d4594_3799524;
 extern unsigned int nox_client_gui_flag_1556112;
@@ -642,8 +640,6 @@ func (r *NoxRender) nox_client_drawImg_aaa_4C79F0(img *C.nox_video_bag_image_t, 
 	offX := int32(binary.LittleEndian.Uint32(data[0:]))
 	offY := int32(binary.LittleEndian.Uint32(data[4:]))
 	data = data[8:]
-	C.nox_draw_sprite_offsX_3799560 = C.int(offX)
-	C.nox_draw_sprite_offsY_3799556 = C.int(offY)
 	x += int(offX)
 	y += int(offY)
 
@@ -709,7 +705,7 @@ func (r *NoxRender) nox_client_drawImg_aaa_4C79F0(img *C.nox_video_bag_image_t, 
 			case 6:
 				r.draw6()
 			default:
-				// TODO: fail?
+				panic(op)
 			}
 			data = r.syncCurPixdata()
 			row = r.syncCurDest()
@@ -803,8 +799,7 @@ func (r *NoxRender) nox_client_drawXxx_4C7C80(x, y, width int, a4 types.Rect) { 
 				fnc = r.draw6
 				ppitch = 2 * val
 			default:
-				// TODO: fail?
-				continue
+				panic(op)
 			}
 
 			xend := val + xs
@@ -867,8 +862,6 @@ func (r *NoxRender) nox_client_drawImg_bbb_4C7860(img *C.nox_video_bag_image_t, 
 	offX := int32(binary.LittleEndian.Uint32(data[0:]))
 	offY := int32(binary.LittleEndian.Uint32(data[4:]))
 	data = data[8:]
-	//C.nox_draw_sprite_offsX_3799560 = C.int(offX)
-	//C.nox_draw_sprite_offsY_3799556 = C.int(offY)
 	x += int(offX)
 	y += int(offY)
 
