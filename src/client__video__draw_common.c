@@ -397,7 +397,7 @@ int sdl_drawCursorThreaded(int a1) {
 	r1->bottom = r1->top + *getMemU32Ptr(0x5D4594, 1193620);
 
 	if ((!a1 || dword_5d4594_1193668 || dword_5d4594_1193664) &&
-		nox_xxx_utilRect_49F930((int4*)&v4, r1, (int4*)(&obj_5D4594_3800716.data[9]))) {
+		nox_xxx_utilRect_49F930((int4*)&v4, r1, (int4*)(&obj_5D4594_3800716.field_9))) {
 		r2->left = 0;
 		r2->top = 0;
 		r2->right = v4.right - v4.left;
@@ -410,7 +410,7 @@ int sdl_drawCursorThreaded(int a1) {
 		//    return 0;
 	}
 
-	if (nox_xxx_utilRect_49F930((int4*)&v4, r1, (int4*)(&obj_5D4594_3800716.data[9]))) {
+	if (nox_xxx_utilRect_49F930((int4*)&v4, r1, (int4*)(&obj_5D4594_3800716.field_9))) {
 		r3->left = v4.left - r1->left;
 		r3->top = v4.top - r1->top;
 		r3->right = v4.right - r1->left;
@@ -445,7 +445,7 @@ void  sub_4340A0(int a1, int a2, int a3, int a4) {
 
 	v4 = a1;
 	if (a1 >= 0 && a1 < 16) {
-		v5 = 48 * a1 + (_DWORD)(&ptr_5D4594_3799572->data[66]);
+		v5 = 48 * a1 + (_DWORD)(&ptr_5D4594_3799572->field_66);
 		*(_DWORD*)(v5 + 32) = (unsigned __int8)a4;
 		*(_DWORD*)(v5 + 24) = (unsigned __int8)a2;
 		*(_DWORD*)(v5 + 28) = (unsigned __int8)a3;
@@ -882,26 +882,26 @@ int sub_4338D0() {
 		memcpy(byte_5D4594_3804364, byte_581450_9336, sizeof(byte_581450_9336));
 		break;
 	}
-	ptr_5D4594_3799572->data[13] = 0;
-	ptr_5D4594_3799572->data[14] = 0;
-	ptr_5D4594_3799572->data[17] = 0;
-	ptr_5D4594_3799572->data[24] = 0;
-	ptr_5D4594_3799572->data[25] = 0;
-	ptr_5D4594_3799572->data[26] = 0;
-	ptr_5D4594_3799572->data[44] = 0;
-	ptr_5D4594_3799572->data[45] = 0;
-	ptr_5D4594_3799572->data[46] = 0;
-	ptr_5D4594_3799572->data[54] = 0;
-	ptr_5D4594_3799572->data[55] = 0;
-	ptr_5D4594_3799572->data[56] = 0;
-	ptr_5D4594_3799572->data[58] = 0;
-	ptr_5D4594_3799572->data[59] = 0;
-	ptr_5D4594_3799572->data[60] = 0;
-	ptr_5D4594_3799572->data[61] = 0;
-	ptr_5D4594_3799572->data[259] = 255;
-	ptr_5D4594_3799572->data[260] = 16711935;
-	ptr_5D4594_3799572->data[261] = 16711935;
-	ptr_5D4594_3799572->data[262] = 0;
+	ptr_5D4594_3799572->field_13 = 0;
+	ptr_5D4594_3799572->field_14 = 0;
+	ptr_5D4594_3799572->field_17 = 0;
+	ptr_5D4594_3799572->field_24 = 0;
+	ptr_5D4594_3799572->field_25 = 0;
+	ptr_5D4594_3799572->field_26 = 0;
+	ptr_5D4594_3799572->field_44 = 0;
+	ptr_5D4594_3799572->field_45 = 0;
+	ptr_5D4594_3799572->field_46 = 0;
+	ptr_5D4594_3799572->field_54 = 0;
+	ptr_5D4594_3799572->field_55 = 0;
+	ptr_5D4594_3799572->field_56 = 0;
+	ptr_5D4594_3799572->field_58 = 0;
+	ptr_5D4594_3799572->field_59 = 0;
+	ptr_5D4594_3799572->field_60 = 0;
+	ptr_5D4594_3799572->field_61 = 0;
+	ptr_5D4594_3799572->field_259 = 255;
+	ptr_5D4594_3799572->field_260 = 16711935;
+	ptr_5D4594_3799572->field_261 = 16711935;
+	ptr_5D4594_3799572->field_262 = 0;
 	sub_434990(25, 25, 25);
 	result = sub_434CC0();
 	if (result) {
@@ -955,28 +955,28 @@ int  sub_433CD0(BYTE a1, BYTE a2, BYTE a3) {
 	unsigned __int64 v7; // rax
 	int result;          // eax
 
-	ptr_5D4594_3799572->data[24] = a1;
-	ptr_5D4594_3799572->data[25] = a2;
-	ptr_5D4594_3799572->data[26] = a3;
-	ptr_5D4594_3799572->data[16] = a1 == 0xFF && a2 == 0xFF && a3 == 0xFF;
+	ptr_5D4594_3799572->field_24 = a1;
+	ptr_5D4594_3799572->field_25 = a2;
+	ptr_5D4594_3799572->field_26 = a3;
+	ptr_5D4594_3799572->field_16 = a1 == 0xFF && a2 == 0xFF && a3 == 0xFF;
 #ifndef NOX_CGO
 	if (cpuid_5d4594_3801804) {
 		v5 = a1 | (a1 << 16);
 		v5 <<= 16;
 		LODWORD(v5) = a1 | (unsigned int)v5;
 		v5 <<= 16;
-		ptr_5D4594_3799572->data[18] = a1 | (unsigned int)v5;
-		ptr_5D4594_3799572->data[19] = HIDWORD(v5);
+		ptr_5D4594_3799572->field_18 = a1 | (unsigned int)v5;
+		ptr_5D4594_3799572->field_19 = HIDWORD(v5);
 		v6 = (a2 | ((a2 | ((unsigned __int64)a2 << 16)) << 16)) << 16;
-		ptr_5D4594_3799572->data[20] = a2 | (unsigned int)v6;
-		ptr_5D4594_3799572->data[21] = HIDWORD(v6);
+		ptr_5D4594_3799572->field_20 = a2 | (unsigned int)v6;
+		ptr_5D4594_3799572->field_21 = HIDWORD(v6);
 		v7 = (a3 | ((a3 | ((unsigned __int64)a3 << 16)) << 16)) << 16;
-		ptr_5D4594_3799572->data[22] = a3 | (unsigned int)v7;
-		ptr_5D4594_3799572->data[23] = HIDWORD(v7);
+		ptr_5D4594_3799572->field_22 = a3 | (unsigned int)v7;
+		ptr_5D4594_3799572->field_23 = HIDWORD(v7);
 	}
 #endif // NOX_CGO
 	result = dword_975380(a1, a2, a3);
-	((_WORD*)(&ptr_5D4594_3799572->data[258]))[1] = result;
+	((_WORD*)(&ptr_5D4594_3799572->field_258))[1] = result;
 	return result;
 }
 
@@ -1022,8 +1022,8 @@ int  nox_xxx_drawPlayer_4341D0(int a1, int a2) {
 	result = a1;
 	if (a1 >= 0 && a1 < 16) {
 		v3 = a2;
-		v4 = 48 * a1 + (_DWORD)(&ptr_5D4594_3799572->data[66]);
-		result = *(_DWORD*)(48 * a1 + (_DWORD)(&ptr_5D4594_3799572->data[76]));
+		v4 = 48 * a1 + (_DWORD)(&ptr_5D4594_3799572->field_66);
+		result = *(_DWORD*)(48 * a1 + (_DWORD)(&ptr_5D4594_3799572->field_76));
 		if (a2 != result) {
 			dword_975240(a2, &a1, &a2, &v10);
 			*(_DWORD*)(v4 + 24) = (unsigned __int8)a1;
@@ -1056,22 +1056,22 @@ int  nox_xxx_drawPlayer_4341D0(int a1, int a2) {
 
 //----- (00434320) --------------------------------------------------------
 void nox_set_color_rgb_434320(int r, int g, int b) {
-	*(int*)(&ptr_5D4594_3799572->data[58]) = nox_color_rgb_4344A0(r, g, b);
+	*(int*)(&ptr_5D4594_3799572->field_58) = nox_color_rgb_4344A0(r, g, b);
 }
 
 //----- (004343B0) --------------------------------------------------------
 void nox_set_color_rgb_4343B0(int r, int g, int b) {
-	*(int*)(&ptr_5D4594_3799572->data[59]) = nox_color_rgb_4344A0(r, g, b);
+	*(int*)(&ptr_5D4594_3799572->field_59) = nox_color_rgb_4344A0(r, g, b);
 }
 
 //----- (00434400) --------------------------------------------------------
 void nox_set_color_rgb_434400(int r, int g, int b) {
-	*(int*)(&ptr_5D4594_3799572->data[60]) = nox_color_rgb_4344A0(r, g, b);
+	*(int*)(&ptr_5D4594_3799572->field_60) = nox_color_rgb_4344A0(r, g, b);
 }
 
 //----- (00434430) --------------------------------------------------------
 void nox_set_color_rgb_434430(int r, int g, int b) {
-	*(int*)(&ptr_5D4594_3799572->data[61]) = nox_color_rgb_4344A0(r, g, b);
+	*(int*)(&ptr_5D4594_3799572->field_61) = nox_color_rgb_4344A0(r, g, b);
 }
 
 //----- (00434480) --------------------------------------------------------
@@ -1350,7 +1350,7 @@ unsigned __int8*  sub_48C200(void* a1p, int a2, int a3) {
 		dword_5d4594_1193576 = v6;
 		dword_5d4594_1193516 = result;
 		v11 = dword_6F7C34;
-		if (!ptr_5D4594_3799572->data[15])
+		if (!ptr_5D4594_3799572->field_15)
 			v11 = dword_6F7C40;
 		v21 = v11;
 		v12 = v6;
@@ -1433,7 +1433,7 @@ unsigned __int8*  sub_48C320(void* a1p, int a2, int a3) {
 		dword_5d4594_1193576 = v6;
 		dword_5d4594_1193516 = result;
 		v10 = dword_6F7C34;
-		if (!ptr_5D4594_3799572->data[15])
+		if (!ptr_5D4594_3799572->field_15)
 			v10 = dword_6F7C40;
 		v19 = v10;
 		v11 = v6;

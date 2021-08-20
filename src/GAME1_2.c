@@ -4903,9 +4903,9 @@ char*  nox_xxx_copyServerIPAndPort_431790(char* a1) {
 
 //----- (00433E80) --------------------------------------------------------
 void  sub_433E80(unsigned __int8 a1, unsigned __int8 a2, unsigned __int8 a3) {
-	ptr_5D4594_3799572->data[44] = a1;
-	ptr_5D4594_3799572->data[45] = a2;
-	ptr_5D4594_3799572->data[46] = a3;
+	ptr_5D4594_3799572->field_44 = a1;
+	ptr_5D4594_3799572->field_45 = a2;
+	ptr_5D4594_3799572->field_46 = a3;
 }
 
 //----- (00433F10) --------------------------------------------------------
@@ -4916,9 +4916,9 @@ int  nox_xxx_drawMakeRGB_433F10(unsigned __int8 a1, unsigned __int8 a2, unsigned
 	unsigned __int64 v6; // rax
 
 	result = a1;
-	ptr_5D4594_3799572->data[54] = a1;
-	ptr_5D4594_3799572->data[55] = a2;
-	ptr_5D4594_3799572->data[56] = a3;
+	ptr_5D4594_3799572->field_54 = a1;
+	ptr_5D4594_3799572->field_55 = a2;
+	ptr_5D4594_3799572->field_56 = a3;
 #ifndef NOX_CGO
 	if (cpuid_5d4594_3801804) {
 		v4 = a1 | (a1 << 16);
@@ -4926,14 +4926,14 @@ int  nox_xxx_drawMakeRGB_433F10(unsigned __int8 a1, unsigned __int8 a2, unsigned
 		v4 <<= 16;
 		LODWORD(v4) = a1 | (unsigned int)v4;
 		v4 <<= 16;
-		ptr_5D4594_3799572->data[48] = a1 | (unsigned int)v4;
-		ptr_5D4594_3799572->data[49] = HIDWORD(v4);
+		ptr_5D4594_3799572->field_48 = a1 | (unsigned int)v4;
+		ptr_5D4594_3799572->field_49 = HIDWORD(v4);
 		v5 = (a2 | ((a2 | ((unsigned __int64)a2 << 16)) << 16)) << 16;
-		ptr_5D4594_3799572->data[50] = a2 | (unsigned int)v5;
-		ptr_5D4594_3799572->data[51] = HIDWORD(v5);
+		ptr_5D4594_3799572->field_50 = a2 | (unsigned int)v5;
+		ptr_5D4594_3799572->field_51 = HIDWORD(v5);
 		v6 = (a3 | ((a3 | ((unsigned __int64)a3 << 16)) << 16)) << 16;
-		ptr_5D4594_3799572->data[52] = a3 | (unsigned int)v6;
-		ptr_5D4594_3799572->data[53] = HIDWORD(v6);
+		ptr_5D4594_3799572->field_52 = a3 | (unsigned int)v6;
+		ptr_5D4594_3799572->field_53 = HIDWORD(v6);
 		result = ptr_5D4594_3799572;
 	}
 #endif // NOX_CGO
@@ -4945,7 +4945,7 @@ int  sub_434080(int a1) {
 	int result; // eax
 
 	result = a1;
-	ptr_5D4594_3799572->data[262] = a1;
+	ptr_5D4594_3799572->field_262 = a1;
 	return result;
 }
 
@@ -4954,31 +4954,31 @@ int  nox_xxx_drawSelectColor_434350(int a1) {
 	int result; // eax
 
 	result = a1;
-	ptr_5D4594_3799572->data[58] = a1;
+	ptr_5D4594_3799572->field_58 = a1;
 	return result;
 }
 
 //----- (00434370) --------------------------------------------------------
 int sub_434370() {
-	ptr_5D4594_3799572->data[61] = ptr_5D4594_3799572->data[58];
+	ptr_5D4594_3799572->field_61 = ptr_5D4594_3799572->field_58;
 	return ptr_5D4594_3799572;
 }
 
 //----- (00434390) --------------------------------------------------------
 int  nox_xxx_drawSetTextColor_434390(int a1) {
-	ptr_5D4594_3799572->data[59] = a1;
+	ptr_5D4594_3799572->field_59 = a1;
 	return a1;
 }
 
 //----- (004343E0) --------------------------------------------------------
 int  nox_xxx_drawSetColor_4343E0(int a1) {
-	ptr_5D4594_3799572->data[60] = a1;
+	ptr_5D4594_3799572->field_60 = a1;
 	return a1;
 }
 
 //----- (00434460) --------------------------------------------------------
 int  nox_client_drawSetColor_434460(int a1) {
-	ptr_5D4594_3799572->data[61] = a1;
+	ptr_5D4594_3799572->field_61 = a1;
 	return a1;
 }
 
@@ -5016,8 +5016,8 @@ char*  sub_434510(char* a1, unsigned __int8 a2, unsigned __int8 a3, unsigned __i
 
 //----- (00434560) --------------------------------------------------------
 int  nox_client_drawEnableAlpha_434560(int a1) {
-	if (ptr_5D4594_3799572->data[13] != a1)
-		ptr_5D4594_3799572->data[13] = a1;
+	if (ptr_5D4594_3799572->field_13 != a1)
+		ptr_5D4594_3799572->field_13 = a1;
 	return ptr_5D4594_3799572;
 }
 
@@ -5027,29 +5027,29 @@ int  nox_client_drawSetAlpha_434580(unsigned __int8 a1) {
 	__int64 v2; // rax
 
 	result = a1;
-	if (ptr_5D4594_3799572->data[259] != a1) {
-		ptr_5D4594_3799572->data[259] = a1;
+	if (ptr_5D4594_3799572->field_259 != a1) {
+		ptr_5D4594_3799572->field_259 = a1;
 		v2 = a1 | (a1 << 16);
 		HIDWORD(v2) = 0;
 		v2 <<= 16;
 		LODWORD(v2) = a1 | (unsigned int)v2;
 		v2 <<= 16;
-		ptr_5D4594_3799572->data[260] = a1 | (unsigned int)v2;
+		ptr_5D4594_3799572->field_260 = a1 | (unsigned int)v2;
 		result = ptr_5D4594_3799572;
-		ptr_5D4594_3799572->data[261] = HIDWORD(v2);
+		ptr_5D4594_3799572->field_261 = HIDWORD(v2);
 	}
 	return result;
 }
 
 //----- (004345F0) --------------------------------------------------------
 int  sub_4345F0(int a1) {
-	ptr_5D4594_3799572->data[14] = a1;
+	ptr_5D4594_3799572->field_14 = a1;
 	return a1;
 }
 
 //----- (00434600) --------------------------------------------------------
 int  nox_xxx_draw_434600(int a1) {
-	ptr_5D4594_3799572->data[17] = a1;
+	ptr_5D4594_3799572->field_17 = a1;
 	return a1;
 }
 
@@ -5215,31 +5215,31 @@ int sub_434950() {
 
 //----- (00434990) --------------------------------------------------------
 int  sub_434990(int a1, int a2, int a3) {
-	ptr_5D4594_3799572->data[62] = a1;
-	ptr_5D4594_3799572->data[63] = a2;
-	ptr_5D4594_3799572->data[64] = a3;
+	ptr_5D4594_3799572->field_62 = a1;
+	ptr_5D4594_3799572->field_63 = a2;
+	ptr_5D4594_3799572->field_64 = a3;
 	return a2;
 }
 
 //----- (004349C0) --------------------------------------------------------
 int  sub_4349C0(_DWORD* a1) {
-	ptr_5D4594_3799572->data[62] = *a1;
-	ptr_5D4594_3799572->data[63] = a1[1];
-	ptr_5D4594_3799572->data[64] = a1[2];
+	ptr_5D4594_3799572->field_62 = *a1;
+	ptr_5D4594_3799572->field_63 = a1[1];
+	ptr_5D4594_3799572->field_64 = a1[2];
 	return a1[2];
 }
 
 //----- (00434A00) --------------------------------------------------------
-int sub_434A00() { return (_DWORD)(&ptr_5D4594_3799572->data[62]); }
+int sub_434A00() { return (_DWORD)(&ptr_5D4594_3799572->field_62); }
 
 //----- (00434A10) --------------------------------------------------------
 _DWORD*  sub_434A10(_DWORD* a1, _DWORD* a2, _DWORD* a3) {
 	if (a1)
-		*a1 = ptr_5D4594_3799572->data[62];
+		*a1 = ptr_5D4594_3799572->field_62;
 	if (a2)
-		*a2 = ptr_5D4594_3799572->data[63];
+		*a2 = ptr_5D4594_3799572->field_63;
 	if (a3)
-		*a3 = ptr_5D4594_3799572->data[64];
+		*a3 = ptr_5D4594_3799572->field_64;
 	return a3;
 }
 
