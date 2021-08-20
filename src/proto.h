@@ -2964,7 +2964,7 @@ int4*  sub_49F780(int xLeft, int a2);
 int4*  sub_49F7C0(int a1);
 int nox_xxx_wndDraw_49F7F0();
 int sub_49F860();
-BOOL  sub_49F8E0(int a1, int a2, int a3);
+bool sub_49F8E0(int a1, int a2, int a3);
 int4*  nox_xxx_utilRect_49F930(int4* a1, int4* a2, int4* a3); // idb
 int  sub_49F990(int* a1, int* a2, int* a3, int* a4);
 int  sub_49FC20(int* a1, int* a2, int* a3, int* a4);

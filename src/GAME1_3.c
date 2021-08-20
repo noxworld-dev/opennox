@@ -3096,7 +3096,7 @@ int  nox_xxx_StringDraw_43FE90(int a1, __int16 a2, int xLeft, int yTop) {
 	if (!ptr_5D4594_3799572->field_0)
 		goto LABEL_102;
 	SetRect(&rc, xLeft, v5, xLeft + *v8, v10 + v5);
-	if (!nox_xxx_utilRect_49F930(&v72, (int4*)&rc, (int4*)(&ptr_5D4594_3799572->field_1)))
+	if (!nox_xxx_utilRect_49F930(&v72, (int4*)&rc, (int4*)(&ptr_5D4594_3799572->clip)))
 		return v11 + dword_5d4594_816440 + v67;
 	if (rc.left == v72.field_0 && rc.right == v72.field_8 && rc.top == v72.field_4 && rc.bottom == v72.field_C) {
 	LABEL_102:
@@ -3190,8 +3190,8 @@ int  nox_xxx_StringDraw_43FE90(int a1, __int16 a2, int xLeft, int yTop) {
 	}
 	v12 = v72.field_4 - rc.top + v5;
 	v66 = *(_DWORD*)(a1 + 4) * (v72.field_4 - rc.top) + v65;
-	v13 = ptr_5D4594_3799572->field_1;
-	v14 = ptr_5D4594_3799572->field_3;
+	v13 = ptr_5D4594_3799572->clip.left;
+	v14 = ptr_5D4594_3799572->clip.right;
 	if (v72.field_C == v72.field_4)
 		goto LABEL_60;
 	v15 = xLeft;
@@ -3384,7 +3384,7 @@ int  sub_440360(int a1, int a2, int xLeft, int yTop) {
 	if (!v10)
 		goto LABEL_100;
 	SetRect(&rc, xLeft, yTop, v8 + xLeft, v7 + yTop);
-	if (!nox_xxx_utilRect_49F930(&v71, (int4*)&rc, (int4*)(&ptr_5D4594_3799572->field_1)))
+	if (!nox_xxx_utilRect_49F930(&v71, (int4*)&rc, (int4*)(&ptr_5D4594_3799572->clip)))
 		return xLeft + v8 + dword_5d4594_816440;
 	if (rc.left == v71.field_0 && rc.right == v71.field_8 && rc.top == v71.field_4 && rc.bottom == v71.field_C) {
 	LABEL_100:
@@ -3473,9 +3473,9 @@ int  sub_440360(int a1, int a2, int xLeft, int yTop) {
 	}
 	v11 = v71.field_4 - rc.top + yTop;
 	v66 += *(_DWORD*)(a1 + 4) * (v71.field_4 - rc.top);
-	v12 = ptr_5D4594_3799572->field_1;
-	v13 = ptr_5D4594_3799572->field_3;
-	yTopa = ptr_5D4594_3799572->field_3;
+	v12 = ptr_5D4594_3799572->clip.left;
+	v13 = ptr_5D4594_3799572->clip.right;
+	yTopa = ptr_5D4594_3799572->clip.right;
 	if (v71.field_C == v71.field_4)
 		goto LABEL_61;
 	v14 = 4 * v11;

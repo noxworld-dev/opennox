@@ -89,7 +89,7 @@ void  sub_4C60D0(nox_video_bag_image_t* img, int x, int y) {
 	int v7 = width;
 	if (ptr_5D4594_3799572->field_0) {
 		SetRect(&rc, v9, v10, width + v9, (int)v6 + v10);
-		result = nox_xxx_utilRect_49F930(&a1a, (int4*)&rc, (int4*)(&ptr_5D4594_3799572->field_1));
+		result = nox_xxx_utilRect_49F930(&a1a, (int4*)&rc, (int4*)(&ptr_5D4594_3799572->clip));
 		if (!result)
 			return;
 		v11 = a1a.field_0 - rc.left;
@@ -931,7 +931,7 @@ int  sub_4C6260(int a1, int a2, int a3) {
 		if (!ptr_5D4594_3799572->field_0)
 			goto LABEL_30;
 		SetRect(&rc, v8, v10, v4 + v8, v5 + v10);
-		result = nox_xxx_utilRect_49F930(&a1a, (int4*)&rc, (int4*)(&ptr_5D4594_3799572->field_1));
+		result = nox_xxx_utilRect_49F930(&a1a, (int4*)&rc, (int4*)(&ptr_5D4594_3799572->clip));
 		if (!result)
 			return result;
 		if (rc.left != a1a.field_0 || rc.right != a1a.field_8 || rc.top != a1a.field_4 || rc.bottom != a1a.field_C) {
@@ -1801,7 +1801,7 @@ void  nox_client_drawImg_bbb_4C7860(int a1, int a2, int a3) {
 		RECT rc;
 		SetRect(&rc, v9, v10, v4 + v9, v6 + v10);
 		int4 a1a;
-		if (!nox_xxx_utilRect_49F930(&a1a, (int4*)&rc, (int4*)(&ptr_5D4594_3799572->field_1)))
+		if (!nox_xxx_utilRect_49F930(&a1a, (int4*)&rc, (int4*)(&ptr_5D4594_3799572->clip)))
 			return;
 		int v11 = a1a.field_0 - rc.left;
 		int v12 = a1a.field_4 - rc.top;
@@ -2122,7 +2122,7 @@ void nox_client_drawImg_aaa_4C79F0(nox_video_bag_image_t* img, int x, int y) {
 		RECT rc;
 		int4 a1a;
 		SetRect(&rc, x, y, x + width, y + height);
-		if (!nox_xxx_utilRect_49F930(&a1a, (int4*)&rc, (int4*)(&ptr_5D4594_3799572->field_1))) {
+		if (!nox_xxx_utilRect_49F930(&a1a, (int4*)&rc, (int4*)(&ptr_5D4594_3799572->clip))) {
 			return;
 		}
 		if (rc.left != a1a.field_0 || rc.right != a1a.field_8 || rc.top != a1a.field_4 || rc.bottom != a1a.field_C) {

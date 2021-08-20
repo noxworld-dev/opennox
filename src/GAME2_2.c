@@ -4271,19 +4271,19 @@ int  sub_47D380(int a1, int a2) {
 		v2 = a2;
 		v3 = a1;
 	}
-	v4 = ptr_5D4594_3799572->field_1;
+	v4 = ptr_5D4594_3799572->clip.left;
 	if (v2 >= v4) {
-		if (v2 >= ptr_5D4594_3799572->field_3)
+		if (v2 >= ptr_5D4594_3799572->clip.right)
 			return 0;
 	} else {
-		v2 = ptr_5D4594_3799572->field_1;
+		v2 = ptr_5D4594_3799572->clip.left;
 	}
-	v5 = ptr_5D4594_3799572->field_3;
+	v5 = ptr_5D4594_3799572->clip.right;
 	if (v3 < v5) {
 		if (v3 < v4)
 			return 0;
 	} else {
-		v3 = ptr_5D4594_3799572->field_3;
+		v3 = ptr_5D4594_3799572->clip.right;
 	}
 	if (v2 == v3)
 		return 0;

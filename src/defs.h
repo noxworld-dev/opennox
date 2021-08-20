@@ -308,6 +308,13 @@ typedef struct {
 	float y;
 } nox_pointf;
 
+typedef struct {
+	int left;
+	int top;
+	int right;
+	int bottom;
+} nox_rect;
+
 typedef enum { NOX_SHAPE_NONE = 0, NOX_SHAPE_CENTER = 1, NOX_SHAPE_CIRCLE = 2, NOX_SHAPE_BOX = 3 } nox_shape_kind;
 
 typedef struct nox_shape {
@@ -1181,10 +1188,7 @@ _Static_assert(sizeof(nox_ctrlevent_xxx_t) == 24, "wrong size of nox_ctrlevent_x
 
 typedef struct nox_render_data_t {
 	_DWORD field_0; // 0, 0
-	_DWORD field_1; // 1, 4
-	_DWORD field_2; // 2, 8
-	_DWORD field_3; // 3, 12
-	_DWORD field_4; // 4, 16
+	nox_rect clip; // 1, 4
 	_DWORD field_5; // 5, 20
 	_DWORD field_6; // 6, 24
 	_DWORD field_7; // 7, 28
