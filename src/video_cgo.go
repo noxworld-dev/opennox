@@ -591,10 +591,7 @@ func sub_49F610() {
 	bsz := getBackbufSize()
 	C.ptr_5D4594_3799572.flag_0 = 0
 	C.ptr_5D4594_3799572.clip = C.nox_rect{right: C.int(bsz.W), bottom: C.int(bsz.H)}
-	C.ptr_5D4594_3799572.field_5 = 0
-	C.ptr_5D4594_3799572.field_6 = 0
-	C.ptr_5D4594_3799572.field_7 = C.uint(bsz.W - 1)
-	C.ptr_5D4594_3799572.field_8 = C.uint(bsz.H - 1)
+	C.ptr_5D4594_3799572.rect2 = C.nox_rect{right: C.int(bsz.W - 1), bottom: C.int(bsz.H - 1)}
 	C.ptr_5D4594_3799572.field_9 = 0
 	C.ptr_5D4594_3799572.field_10 = 0
 	C.ptr_5D4594_3799572.field_11 = C.uint(bsz.W)
@@ -604,29 +601,29 @@ func sub_49F610() {
 
 //export sub_49FC20
 func sub_49FC20(a1, a2, a3, a4 *C.int) int {
-	var v4, v5 int
+	var ys, ye int
 	if C.ptr_5D4594_3799572.flag_0 != 0 {
-		v4 = int(C.ptr_5D4594_3799572.field_6)
-		v5 = int(C.ptr_5D4594_3799572.field_8)
+		ys = int(C.ptr_5D4594_3799572.rect2.top)
+		ye = int(C.ptr_5D4594_3799572.rect2.bottom)
 	} else {
-		v4 = 0
-		v5 = getBackbufSize().H - 1
+		ys = 0
+		ye = getBackbufSize().H - 1
 	}
 	v16 := 0
 	v6 := int(*a1)
 	v7 := int(*a3)
 	v8 := int(*a2)
 	v9 := int(*a4)
-	if v8 >= v4 {
-		if v8 > v5 {
+	if v8 >= ys {
+		if v8 > ye {
 			v16 = 4
 		}
 	} else {
 		v16 = 8
 	}
 	v17 := 0
-	if v9 >= v4 {
-		if v9 > v5 {
+	if v9 >= ys {
+		if v9 > ye {
 			v17 = 4
 		}
 	} else {
@@ -640,15 +637,15 @@ func sub_49FC20(a1, a2, a3, a4 *C.int) int {
 			if v9 == v8 {
 				return 0
 			}
-			v11 := (v4 - v8) * (v7 - v6) / (v9 - v8)
-			v8 = v4
+			v11 := (ys - v8) * (v7 - v6) / (v9 - v8)
+			v8 = ys
 			v6 += v11
 		} else if v16&4 != 0 {
 			if v9 == v8 {
 				return 0
 			}
-			v12 := (v5 - v8) * (v7 - v6) / (v9 - v8)
-			v8 = v5
+			v12 := (ye - v8) * (v7 - v6) / (v9 - v8)
+			v8 = ye
 			v6 += v12
 		}
 	}
@@ -657,15 +654,15 @@ func sub_49FC20(a1, a2, a3, a4 *C.int) int {
 			if v9 == v8 {
 				return 0
 			}
-			v13 := (v7 - v6) * (v4 - v9) / (v9 - v8)
-			v9 = v4
+			v13 := (v7 - v6) * (ys - v9) / (v9 - v8)
+			v9 = ys
 			v7 += v13
 		} else if v17&4 != 0 {
 			if v9 == v8 {
 				return 0
 			}
-			v14 := (v7 - v6) * (v5 - v9) / (v9 - v8)
-			v9 = v5
+			v14 := (v7 - v6) * (ye - v9) / (v9 - v8)
+			v9 = ye
 			v7 += v14
 		}
 	}

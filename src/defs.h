@@ -1189,10 +1189,7 @@ _Static_assert(sizeof(nox_ctrlevent_xxx_t) == 24, "wrong size of nox_ctrlevent_x
 typedef struct nox_render_data_t {
 	int flag_0; // 0, 0
 	nox_rect clip; // 1, 4
-	_DWORD field_5; // 5, 20
-	_DWORD field_6; // 6, 24
-	_DWORD field_7; // 7, 28
-	_DWORD field_8; // 8, 32
+	nox_rect rect2; // 5, 20; is usually set to [0,w-1] as opposed to clip, which is [0,w]
 	_DWORD field_9; // 9, 36
 	_DWORD field_10; // 10, 40
 	_DWORD field_11; // 11, 44
