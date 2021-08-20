@@ -589,28 +589,28 @@ func sub_4AEBD0() {
 
 func sub_49F610() {
 	bsz := getBackbufSize()
-	C.ptr_5D4594_3799572.data[0] = 0
-	C.ptr_5D4594_3799572.data[1] = 0
-	C.ptr_5D4594_3799572.data[2] = 0
-	C.ptr_5D4594_3799572.data[3] = C.uint(bsz.W)
-	C.ptr_5D4594_3799572.data[4] = C.uint(bsz.H)
-	C.ptr_5D4594_3799572.data[5] = 0
-	C.ptr_5D4594_3799572.data[6] = 0
-	C.ptr_5D4594_3799572.data[7] = C.uint(bsz.W - 1)
-	C.ptr_5D4594_3799572.data[8] = C.uint(bsz.H - 1)
-	C.ptr_5D4594_3799572.data[9] = 0
-	C.ptr_5D4594_3799572.data[10] = 0
-	C.ptr_5D4594_3799572.data[11] = C.uint(bsz.W)
-	C.ptr_5D4594_3799572.data[12] = C.uint(bsz.H)
+	C.ptr_5D4594_3799572.field_0 = 0
+	C.ptr_5D4594_3799572.field_1 = 0
+	C.ptr_5D4594_3799572.field_2 = 0
+	C.ptr_5D4594_3799572.field_3 = C.uint(bsz.W)
+	C.ptr_5D4594_3799572.field_4 = C.uint(bsz.H)
+	C.ptr_5D4594_3799572.field_5 = 0
+	C.ptr_5D4594_3799572.field_6 = 0
+	C.ptr_5D4594_3799572.field_7 = C.uint(bsz.W - 1)
+	C.ptr_5D4594_3799572.field_8 = C.uint(bsz.H - 1)
+	C.ptr_5D4594_3799572.field_9 = 0
+	C.ptr_5D4594_3799572.field_10 = 0
+	C.ptr_5D4594_3799572.field_11 = C.uint(bsz.W)
+	C.ptr_5D4594_3799572.field_12 = C.uint(bsz.H)
 	C.dword_5d4594_1305748 = 0
 }
 
 //export sub_49FC20
 func sub_49FC20(a1, a2, a3, a4 *C.int) int {
 	var v4, v5 int
-	if C.ptr_5D4594_3799572.data[0] != 0 {
-		v4 = int(C.ptr_5D4594_3799572.data[6])
-		v5 = int(C.ptr_5D4594_3799572.data[8])
+	if C.ptr_5D4594_3799572.field_0 != 0 {
+		v4 = int(C.ptr_5D4594_3799572.field_6)
+		v5 = int(C.ptr_5D4594_3799572.field_8)
 	} else {
 		v4 = 0
 		v5 = getBackbufSize().H - 1
@@ -682,7 +682,7 @@ func sub_49FC20(a1, a2, a3, a4 *C.int) int {
 //export sub_440900
 func sub_440900() {
 	height := getBackbufSize().H
-	val := uint32(C.ptr_5D4594_3799572.data[58])
+	val := uint32(C.ptr_5D4594_3799572.field_58)
 	for y := 0; y < height; y++ {
 		row := asU32Slice(nox_pixbuffer_main_rows[y], nox_backbuffer_width32*8)
 		for x := 0; x < nox_backbuffer_width32*8; x++ {
@@ -925,9 +925,9 @@ func sub_48B6B0(a1, a2, a3 byte) {
 	if !nox_video_cursorDrawIsThreaded {
 		C.sub_433CD0(C.uchar(a1), C.uchar(a2), C.uchar(a3))
 	} else {
-		C.ptr_5D4594_3799572.data[34] = C.uint(a1)
-		C.ptr_5D4594_3799572.data[35] = C.uint(a2)
-		C.ptr_5D4594_3799572.data[36] = C.uint(a3)
+		C.ptr_5D4594_3799572.field_34 = C.uint(a1)
+		C.ptr_5D4594_3799572.field_35 = C.uint(a2)
+		C.ptr_5D4594_3799572.field_36 = C.uint(a3)
 	}
 }
 
@@ -936,11 +936,11 @@ func sub_48B590() (a1 unsafe.Pointer, a2, a3 int) {
 }
 
 func sub_48B680(a1 int) {
-	if a1 != int(C.ptr_5D4594_3799572.data[15]) {
+	if a1 != int(C.ptr_5D4594_3799572.field_15) {
 		if nox_video_cursorDrawIsThreaded {
-			C.ptr_5D4594_3799572.data[15] = C.uint(a1)
+			C.ptr_5D4594_3799572.field_15 = C.uint(a1)
 		} else {
-			C.ptr_5D4594_3799572.data[14] = C.uint(a1)
+			C.ptr_5D4594_3799572.field_14 = C.uint(a1)
 		}
 		C.sub_48BD90(1)
 	}

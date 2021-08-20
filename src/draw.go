@@ -105,31 +105,31 @@ func (r *NoxRender) SetData(p *C.nox_render_data_t) {
 
 func (r *NoxRender) Rect() types.Rect {
 	return types.Rect{
-		Left:   int(r.p.data[1]),
-		Top:    int(r.p.data[2]),
-		Right:  int(r.p.data[3]),
-		Bottom: int(r.p.data[4]),
+		Left:   int(r.p.field_1),
+		Top:    int(r.p.field_2),
+		Right:  int(r.p.field_3),
+		Bottom: int(r.p.field_4),
 	}
 }
 
 func (r *NoxRender) IsAlphaEnabled() bool {
-	return r.p.data[13] != 0
+	return r.p.field_13 != 0
 }
 
 func (r *NoxRender) SelectColor(a1 uint32) { // nox_xxx_drawSelectColor_434350
-	r.p.data[58] = C.uint(a1)
+	r.p.field_58 = C.uint(a1)
 }
 
 func (r *NoxRender) SetTextColor(a1 uint32) { // nox_xxx_drawSetTextColor_434390
-	r.p.data[59] = C.uint(a1)
+	r.p.field_59 = C.uint(a1)
 }
 
 func (r *NoxRender) SetColor(a1 uint32) { // nox_xxx_drawSetColor_4343E0
-	r.p.data[60] = C.uint(a1)
+	r.p.field_60 = C.uint(a1)
 }
 
 func (r *NoxRender) SetColor2(a1 uint32) { // nox_client_drawSetColor_434460
-	r.p.data[61] = C.uint(a1)
+	r.p.field_61 = C.uint(a1)
 }
 
 func (r *NoxRender) DrawRectFilledOpaque(x, y, w, h int) { // nox_client_drawRectFilledOpaque_49CE30
@@ -447,24 +447,24 @@ func (r *NoxRender) drawImage16(img *C.nox_video_bag_image_t, pos types.Point, p
 	case 3, 4, 5, 6:
 		r.draw5 = drawOpC(func() { C.sub_4C96A0() })
 		r.draw6 = func(dst, src []byte, op byte, val int) (_, _ []byte) { return dst, src }
-		if C.ptr_5D4594_3799572.data[13] == 0 {
-			if C.ptr_5D4594_3799572.data[14] != 0 {
+		if C.ptr_5D4594_3799572.field_13 == 0 {
+			if C.ptr_5D4594_3799572.field_14 != 0 {
 				r.draw5 = drawOpC(func() { C.sub_4C9970() })
 				r.draw27 = sub_4C86B0
 				r.draw4 = drawOpC(func() { C.sub_4C91C0() })
 			} else {
 				r.draw27 = drawOpC(func() { C.sub_4C8D60() })
-				if C.ptr_5D4594_3799572.data[17] == 0 {
+				if C.ptr_5D4594_3799572.field_17 == 0 {
 					r.draw27 = pixCopyN
 				}
 				r.draw4 = drawOpC(func() { C.sub_4C8DF0() })
 			}
 		} else {
 			r.draw5 = drawOpC(func() { C.sub_4C97F0() })
-			if C.ptr_5D4594_3799572.data[14] != 0 {
-				v3 := C.ptr_5D4594_3799572.data[259]
+			if C.ptr_5D4594_3799572.field_14 != 0 {
+				v3 := C.ptr_5D4594_3799572.field_259
 				if v3 == 255 {
-					if C.ptr_5D4594_3799572.data[16] == 0 {
+					if C.ptr_5D4594_3799572.field_16 == 0 {
 						r.draw27 = sub_4C86B0
 						r.draw4 = drawOpC(func() { C.sub_4C91C0() })
 					} else {
@@ -479,7 +479,7 @@ func (r *NoxRender) drawImage16(img *C.nox_video_bag_image_t, pos types.Point, p
 					r.draw4 = drawOpC(func() { C.sub_4C92F0() })
 				}
 			} else {
-				v4 := C.ptr_5D4594_3799572.data[259]
+				v4 := C.ptr_5D4594_3799572.field_259
 				if v4 == 255 {
 					r.draw27 = pixCopyN
 					r.draw4 = drawOpC(func() { C.sub_4C8DF0() })
@@ -620,7 +620,7 @@ func (r *NoxRender) nox_client_drawImg_aaa_4C79F0(img *C.nox_video_bag_image_t, 
 	*memmap.PtrInt32(0x973F18, 84) = int32(pos.Y)
 	*memmap.PtrUint32(0x973F18, 88) = width
 	*memmap.PtrUint32(0x973F18, 76) = height
-	if C.ptr_5D4594_3799572.data[0] != 0 {
+	if C.ptr_5D4594_3799572.field_0 != 0 {
 		rc := types.Rect{Left: pos.X, Top: pos.Y, Right: pos.X + int(width), Bottom: pos.Y + int(height)}
 		a1a, ok := nox_xxx_utilRect_49F930(rc, r.Rect())
 		if !ok {
@@ -814,7 +814,7 @@ func (r *NoxRender) nox_client_drawImg_bbb_4C7860(img *C.nox_video_bag_image_t, 
 	}
 
 	wsz := int(width)
-	if r.p.data[0] != 0 {
+	if r.p.field_0 != 0 {
 		rc := types.Rect{
 			Left:   pos.X,
 			Top:    pos.Y,
@@ -860,9 +860,9 @@ func pixBlend(dst, src []byte, _ byte, sz int) (_, _ []byte) { // sub_4C8A30
 	gtbl := asU16Slice(unsafe.Pointer(uintptr(C.nox_draw_colors_g_3804656)), 256)
 	btbl := asU16Slice(unsafe.Pointer(uintptr(C.nox_draw_colors_b_3804664)), 256)
 
-	rmul := uint16(byte(C.ptr_5D4594_3799572.data[26]))
-	gmul := uint16(byte(C.ptr_5D4594_3799572.data[25]))
-	bmul := uint16(byte(C.ptr_5D4594_3799572.data[24]))
+	rmul := uint16(byte(C.ptr_5D4594_3799572.field_26))
+	gmul := uint16(byte(C.ptr_5D4594_3799572.field_25))
+	bmul := uint16(byte(C.ptr_5D4594_3799572.field_24))
 
 	for i := 0; i < sz; i++ {
 		c1 := binary.LittleEndian.Uint16(dst) // old color
@@ -898,9 +898,9 @@ func sub_4C86B0(dst, src []byte, _ byte, sz int) (_, _ []byte) { // sub_4C86B0
 	gtbl := asU16Slice(unsafe.Pointer(uintptr(C.nox_draw_colors_g_3804656)), 256)
 	btbl := asU16Slice(unsafe.Pointer(uintptr(C.nox_draw_colors_b_3804664)), 256)
 
-	rmul := uint32(C.obj_5D4594_3800716.data[26])
-	gmul := uint32(C.obj_5D4594_3800716.data[25])
-	bmul := uint32(C.obj_5D4594_3800716.data[24])
+	rmul := uint32(C.obj_5D4594_3800716.field_26)
+	gmul := uint32(C.obj_5D4594_3800716.field_25)
+	bmul := uint32(C.obj_5D4594_3800716.field_24)
 
 	for i := 0; i < sz; i++ {
 		v2 := binary.LittleEndian.Uint16(src[2*i:])

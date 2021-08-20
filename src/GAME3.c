@@ -6305,7 +6305,7 @@ int  sub_4AE6F0(int a1, int a2, int a3, int a4, int a5) {
 		nox_client_drawAddPoint_49F500(a1 + v7, a2 + v8);
 		sub_4AEC20(0, 1);
 		v10 = *(void(**)(int, int, int)) & dword_5d4594_3798708;
-		if (!ptr_5D4594_3799572->data[13])
+		if (!ptr_5D4594_3799572->field_13)
 			v10 = *(void(**)(int, int, int)) & dword_5d4594_3798720;
 		v11 = a2 + a3;
 		v12 = a2 - a3;
@@ -7229,7 +7229,7 @@ char*  nox_xxx_drawPartFx2_4AF990(int a1, int a2, int a3, int a4) {
 		*((_DWORD*)result + 4) = 0;
 		*((_DWORD*)result + 3) = 0;
 		*((_DWORD*)result + 5) = 0;
-		*((_DWORD*)result + 6) = ptr_5D4594_3799572->data[61];
+		*((_DWORD*)result + 6) = ptr_5D4594_3799572->field_61;
 		*((_DWORD*)result + 7) = a1;
 		*((_DWORD*)result + 8) = a2;
 		*((_DWORD*)result + 9) = a3;
@@ -7877,12 +7877,12 @@ int*  sub_4B0680(unsigned __int8 a1, unsigned __int8 a2) {
 
 	result = *(int**)&dword_5d4594_1312460;
 	v3 = a1;
-	v4 = ptr_5D4594_3799572->data[262];
+	v4 = ptr_5D4594_3799572->field_262;
 	if (dword_5d4594_1312460) {
 		while (1) {
 			v7 = result;
-			if (*result == v4 && result[1] == v3 && result[2] == a2 && result[12] == ptr_5D4594_3799572->data[54] &&
-				result[13] == ptr_5D4594_3799572->data[55] && result[14] == ptr_5D4594_3799572->data[56]) {
+			if (*result == v4 && result[1] == v3 && result[2] == a2 && result[12] == ptr_5D4594_3799572->field_54 &&
+				result[13] == ptr_5D4594_3799572->field_55 && result[14] == ptr_5D4594_3799572->field_56) {
 				break;
 			}
 			result = (int*)result[18];
@@ -7905,9 +7905,9 @@ int*  sub_4B0680(unsigned __int8 a1, unsigned __int8 a2) {
 		v5[4] = 0;
 		v6 = 2 * (22 * v4 * (v4 + 1) / 7 + 6 * v4) + 17;
 		v5[3] = v6;
-		v5[12] = ptr_5D4594_3799572->data[54];
-		v5[13] = ptr_5D4594_3799572->data[55];
-		v5[14] = ptr_5D4594_3799572->data[56];
+		v5[12] = ptr_5D4594_3799572->field_54;
+		v5[13] = ptr_5D4594_3799572->field_55;
+		v5[14] = ptr_5D4594_3799572->field_56;
 		v5[16] = (int)calloc(1u, v6);
 		v5[18] = 0;
 		sub_4B0870(v5);
@@ -8115,7 +8115,7 @@ int nox_video_assignCircleDrawFuncs_4B0B30() {
 void nox_video_drawCircle_4B0B90(int a1, int a2, int a3) {
 	int result; // eax
 
-	if (ptr_5D4594_3799572->data[13])
+	if (ptr_5D4594_3799572->field_13)
 		result = (*(int(**)(_DWORD, _DWORD, _DWORD)) getMemAt(0x5D4594, 1312464))(a1, a2, a3);
 	else
 		result = (*(int(**)(_DWORD, _DWORD, _DWORD)) getMemAt(0x5D4594, 1312468))(a1, a2, a3);
@@ -8146,7 +8146,7 @@ int  sub_4B0BC0(int a1, int a2, int a3) {
 	v12 = 0;
 	v13 = v3;
 	v11 = 3;
-	if (!ptr_5D4594_3799572->data[13])
+	if (!ptr_5D4594_3799572->field_13)
 		v4 = *(int(**)(int, int, int)) & dword_5d4594_3798720;
 	v5 = a2;
 	v6 = a1;
@@ -8203,7 +8203,7 @@ char  nox_video_drawCircle8Opaque_4B0D30(int a1, int a2, int a3) {
 
 	v3 = a1;
 	v4 = a3;
-	if (ptr_5D4594_3799572->data[0] && sub_49F8E0(a1, a2, a3))
+	if (ptr_5D4594_3799572->field_0 && sub_49F8E0(a1, a2, a3))
 		return sub_4B0F50(a1, a2, a3);
 
 	_BYTE** pixbuffer = nox_pixbuffer_rows_3798784;
@@ -8211,7 +8211,7 @@ char  nox_video_drawCircle8Opaque_4B0D30(int a1, int a2, int a3) {
 	v6 = 0;
 	v9 = 1 - a3;
 	v15 = 5 - 2 * a3;
-	result = *(_BYTE*)(&ptr_5D4594_3799572->data[61]);
+	result = *(_BYTE*)(&ptr_5D4594_3799572->field_61);
 	v13 = 4 * (v4 + a2);
 	v7 = v4;
 	v10 = 3;
@@ -8297,16 +8297,16 @@ int  sub_4B0F50(int a1, int a2, int a3) {
 	v19 = 5 - 2 * a3;
 	v27 = a3;
 	v26 = 3;
-	v4 = *(_BYTE*)(&ptr_5D4594_3799572->data[61]);
-	v17 = ptr_5D4594_3799572->data[1];
+	v4 = *(_BYTE*)(&ptr_5D4594_3799572->field_61);
+	v17 = ptr_5D4594_3799572->field_1;
 	v5 = a2;
-	v15 = ptr_5D4594_3799572->data[4];
-	v31 = *(_BYTE*)(&ptr_5D4594_3799572->data[61]);
+	v15 = ptr_5D4594_3799572->field_4;
+	v31 = *(_BYTE*)(&ptr_5D4594_3799572->field_61);
 	result = a2 + v27;
-	v16 = ptr_5D4594_3799572->data[3];
-	v18 = ptr_5D4594_3799572->data[2];
+	v16 = ptr_5D4594_3799572->field_3;
+	v18 = ptr_5D4594_3799572->field_2;
 	v24 = a2 + v27;
-	if (a1 >= v17 && a1 < ptr_5D4594_3799572->data[3] && result >= ptr_5D4594_3799572->data[2] && result < v15) {
+	if (a1 >= v17 && a1 < ptr_5D4594_3799572->field_3 && result >= ptr_5D4594_3799572->field_2 && result < v15) {
 		pixbuffer[result][a1] = v4;
 	}
 	v7 = a1 + v3;
@@ -8433,11 +8433,11 @@ __int16  nox_video_drawCircle16Opaque_4B1380(int a1, int a2, int a3) {
 
 	v3 = a2;
 	v4 = a3;
-	if (ptr_5D4594_3799572->data[0] && sub_49F8E0(a1, a2, a3))
+	if (ptr_5D4594_3799572->field_0 && sub_49F8E0(a1, a2, a3))
 		return sub_4B15E0(a1, a2, a3);
 	v15 = 1 - a3;
 	v25 = 5 - 2 * a3;
-	result = *(_WORD*)(&ptr_5D4594_3799572->data[61]);
+	result = *(_WORD*)(&ptr_5D4594_3799572->field_61);
 	v6 = 2 * a1;
 	v7 = 4 * (a2 + v4);
 	v18 = v6;
@@ -8544,18 +8544,18 @@ int  sub_4B15E0(int a1, int a2, int a3) {
 	v31 = a3;
 	v22 = 5 - 2 * a3;
 	v30 = 3;
-	v4 = *(_WORD*)(&ptr_5D4594_3799572->data[61]);
-	v5 = ptr_5D4594_3799572->data[1];
-	v38 = ptr_5D4594_3799572->data[2];
+	v4 = *(_WORD*)(&ptr_5D4594_3799572->field_61);
+	v5 = ptr_5D4594_3799572->field_1;
+	v38 = ptr_5D4594_3799572->field_2;
 	v6 = a2;
-	v18 = ptr_5D4594_3799572->data[4];
+	v18 = ptr_5D4594_3799572->field_4;
 	result = a1;
-	v24 = *(_WORD*)(&ptr_5D4594_3799572->data[61]);
+	v24 = *(_WORD*)(&ptr_5D4594_3799572->field_61);
 	v8 = a2 + v31;
-	v20 = ptr_5D4594_3799572->data[1];
-	v19 = ptr_5D4594_3799572->data[3];
+	v20 = ptr_5D4594_3799572->field_1;
+	v19 = ptr_5D4594_3799572->field_3;
 	v36 = a2 + v31;
-	if (a1 >= v5 && a1 < ptr_5D4594_3799572->data[3] && v8 >= v38 && v8 < v18)
+	if (a1 >= v5 && a1 < ptr_5D4594_3799572->field_3 && v8 >= v38 && v8 < v18)
 		*(_WORD*)((_DWORD)pixbuffer[v8] + 2 * a1) = v4;
 	v9 = a1 + v3;
 	v33 = a1 + v3;
@@ -8692,7 +8692,7 @@ int  nox_video_drawCircle8Alpha_4B1A60(int a1, int a2, int a3) {
 	if (dword_5d4594_810632) {
 		v4 = a3;
 		v5 = a1;
-		if (ptr_5D4594_3799572->data[0] && sub_49F8E0(a1, a2, a3)) {
+		if (ptr_5D4594_3799572->field_0 && sub_49F8E0(a1, a2, a3)) {
 			result = sub_4B1E30(a1, a2, a3);
 		} else {
 			v6 = 0;
@@ -8703,7 +8703,7 @@ int  nox_video_drawCircle8Alpha_4B1A60(int a1, int a2, int a3) {
 			v8 = 4 * (a2 + a3);
 			v15 = v8;
 			v9 = (_BYTE*)(v5 + (_DWORD)pixbuffer[v8/4]);
-			result = *(unsigned __int8*)(&ptr_5D4594_3799572->data[61]);
+			result = *(unsigned __int8*)(&ptr_5D4594_3799572->field_61);
 			*v9 = *(_BYTE*)(result + ((unsigned __int8)*v9 << 8) + dword_5d4594_810632);
 			v14 = 4 * a2;
 			v10 = (_BYTE*)(a3 + v5 + *(_DWORD*)(4 * a2 + (_DWORD)pixbuffer));
@@ -8822,20 +8822,20 @@ int  sub_4B1E30(int a1, int a2, int a3) {
 		v25 = 5 - 2 * a3;
 		v33 = a3;
 		v29 = 3;
-		v5 = ptr_5D4594_3799572->data[3];
-		v23 = *(_BYTE*)(&ptr_5D4594_3799572->data[61]);
-		v6 = ptr_5D4594_3799572->data[1];
-		v18 = ptr_5D4594_3799572->data[4];
+		v5 = ptr_5D4594_3799572->field_3;
+		v23 = *(_BYTE*)(&ptr_5D4594_3799572->field_61);
+		v6 = ptr_5D4594_3799572->field_1;
+		v18 = ptr_5D4594_3799572->field_4;
 		result = a2;
 		v21 = v6;
 		v7 = a1 < v6;
-		v8 = *(_BYTE*)(&ptr_5D4594_3799572->data[61]);
+		v8 = *(_BYTE*)(&ptr_5D4594_3799572->field_61);
 		v9 = a2 + a3;
-		v19 = ptr_5D4594_3799572->data[3];
-		v20 = ptr_5D4594_3799572->data[2];
+		v19 = ptr_5D4594_3799572->field_3;
+		v20 = ptr_5D4594_3799572->field_2;
 		v30 = a2 + a3;
-		if (!v7 && a1 < v5 && v9 >= ptr_5D4594_3799572->data[2] && v9 < v18) {
-			v5 = ptr_5D4594_3799572->data[3];
+		if (!v7 && a1 < v5 && v9 >= ptr_5D4594_3799572->field_2 && v9 < v18) {
+			v5 = ptr_5D4594_3799572->field_3;
 			*(_BYTE*)(a1 + *(_DWORD*)((_DWORD)pixbuffer + 4 * (a2 + a3))) =
 				*(_BYTE*)(v23 + (*(unsigned __int8*)(a1 + *(_DWORD*)((_DWORD)pixbuffer + 4 * (a2 + a3))) << 8) +
 						  dword_5d4594_810632);
@@ -9040,18 +9040,18 @@ _WORD*  nox_video_drawCircle16Alpha_4B2480(int a1, int a2, int a3) {
 	int v63;                 // [esp+54h] [ebp+4h]
 	int v64;                 // [esp+58h] [ebp+8h]
 
-	if (ptr_5D4594_3799572->data[0] && sub_49F8E0(a1, a2, a3))
+	if (ptr_5D4594_3799572->field_0 && sub_49F8E0(a1, a2, a3))
 		return (_WORD*)sub_4B3450(a1, a2, a3);
 
 	_BYTE** pixbuffer = nox_pixbuffer_rows_3798784;
 
 	v57 = 0;
 	v56 = a3; // Radius?
-	colourBase = *(unsigned __int16*)(&ptr_5D4594_3799572->data[61]);
+	colourBase = *(unsigned __int16*)(&ptr_5D4594_3799572->field_61);
 	v55 = 3;
 	grencol = (*((_DWORD*)((_BYTE*)byte_5D4594_3804364 + 4)) & colourBase) >> *((_BYTE*)byte_5D4594_3804364 + 16);
 	v44 = 1 - a3;
-	bluecol = ((unsigned __int8)*(_WORD*)(&ptr_5D4594_3799572->data[61]) & *((_BYTE*)byte_5D4594_3804364 + 8))
+	bluecol = ((unsigned __int8)*(_WORD*)(&ptr_5D4594_3799572->field_61) & *((_BYTE*)byte_5D4594_3804364 + 8))
 			  << *((_BYTE*)byte_5D4594_3804364 + 20);
 	v45 = 5 - 2 * a3;
 	v5 = 4 * (a3 + a2);
@@ -9560,11 +9560,11 @@ int  sub_4B3450(int a1, int a2, int a3) {
 	v79 = a3;
 	v65 = 1 - a3;
 	v66 = 5 - 2 * a3;
-	v60 = ptr_5D4594_3799572->data[1];
-	v48 = ptr_5D4594_3799572->data[3];
-	v3 = *(_WORD*)(&ptr_5D4594_3799572->data[61]);
-	v49 = ptr_5D4594_3799572->data[2];
-	v50 = ptr_5D4594_3799572->data[4];
+	v60 = ptr_5D4594_3799572->field_1;
+	v48 = ptr_5D4594_3799572->field_3;
+	v3 = *(_WORD*)(&ptr_5D4594_3799572->field_61);
+	v49 = ptr_5D4594_3799572->field_2;
+	v50 = ptr_5D4594_3799572->field_4;
 	v78 = 0;
 	v75 = 3;
 	v71 = (unsigned __int16)(*((_WORD*)((_BYTE*)byte_5D4594_3804364 + 0)) & v3) >> *((_BYTE*)byte_5D4594_3804364 + 12);

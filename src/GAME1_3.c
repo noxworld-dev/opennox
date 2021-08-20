@@ -2656,8 +2656,8 @@ int  sub_43F730(int a1, __int16* a2, int a3, int a4) {
 			return 0;
 	}
 	dword_5d4594_816460 = a3;
-	v6 = ptr_5D4594_3799572->data[59];
-	nox_xxx_drawSetTextColor_434390(ptr_5D4594_3799572->data[60]);
+	v6 = ptr_5D4594_3799572->field_59;
+	nox_xxx_drawSetTextColor_434390(ptr_5D4594_3799572->field_60);
 	nox_xxx_guiDrawString_4407F0(v5, a2, a3 + 1, a4 + 1);
 	nox_xxx_drawSetTextColor_434390(v6);
 	return nox_xxx_guiDrawString_4407F0(v5, a2, a3, a4);
@@ -2950,8 +2950,8 @@ int  sub_43FD00(int a1, _WORD* a2, int a3, int a4, int a5, int a6) {
 	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_TEXT_RENDERING))
 		return a3;
 	dword_5d4594_816460 = a3;
-	v7 = ptr_5D4594_3799572->data[59];
-	nox_xxx_drawSetTextColor_434390(ptr_5D4594_3799572->data[60]);
+	v7 = ptr_5D4594_3799572->field_59;
+	nox_xxx_drawSetTextColor_434390(ptr_5D4594_3799572->field_60);
 	nox_xxx_drawString_43FAF0(a1, a2, a3 + 1, a4 + 1, a5, a6);
 	nox_xxx_drawSetTextColor_434390(v7);
 	return nox_xxx_drawString_43FAF0(a1, a2, a3, a4, a5, a6);
@@ -3079,7 +3079,7 @@ int  nox_xxx_StringDraw_43FE90(int a1, __int16 a2, int xLeft, int yTop) {
 	if (a2 == 9)
 		return dword_5d4594_816456 + xLeft - (dword_5d4594_816456 + xLeft - dword_5d4594_816460) % dword_5d4594_816456;
 	v7 = a1;
-	LOWORD(v4) = *(_WORD*)(&ptr_5D4594_3799572->data[59]);
+	LOWORD(v4) = *(_WORD*)(&ptr_5D4594_3799572->field_59);
 	yTop = v4;
 	v8 = (unsigned __int8*)nox_xxx_FontGetChar_43FE30(a1, a2);
 	if (!v8) {
@@ -3093,10 +3093,10 @@ int  nox_xxx_StringDraw_43FE90(int a1, __int16 a2, int xLeft, int yTop) {
 	v11 = xLeft;
 	v65 = (int)(v8 + 1);
 	v67 = *v8;
-	if (!ptr_5D4594_3799572->data[0])
+	if (!ptr_5D4594_3799572->field_0)
 		goto LABEL_102;
 	SetRect(&rc, xLeft, v5, xLeft + *v8, v10 + v5);
-	if (!nox_xxx_utilRect_49F930(&v72, (int4*)&rc, (int4*)(&ptr_5D4594_3799572->data[1])))
+	if (!nox_xxx_utilRect_49F930(&v72, (int4*)&rc, (int4*)(&ptr_5D4594_3799572->field_1)))
 		return v11 + dword_5d4594_816440 + v67;
 	if (rc.left == v72.field_0 && rc.right == v72.field_8 && rc.top == v72.field_4 && rc.bottom == v72.field_C) {
 	LABEL_102:
@@ -3181,7 +3181,7 @@ int  nox_xxx_StringDraw_43FE90(int a1, __int16 a2, int xLeft, int yTop) {
 		}
 	LABEL_97:
 		if (dword_5d4594_816452) {
-			nox_client_drawRectStringSize_49D190(ptr_5D4594_3799572->data[59], v11, v5, v67, *(_DWORD*)(v7 + 8));
+			nox_client_drawRectStringSize_49D190(ptr_5D4594_3799572->field_59, v11, v5, v67, *(_DWORD*)(v7 + 8));
 			dword_5d4594_816452 = 0;
 			nox_xxx_StringDraw_43FE90(v7, a2, v11, v5);
 			dword_5d4594_816452 = 1;
@@ -3190,8 +3190,8 @@ int  nox_xxx_StringDraw_43FE90(int a1, __int16 a2, int xLeft, int yTop) {
 	}
 	v12 = v72.field_4 - rc.top + v5;
 	v66 = *(_DWORD*)(a1 + 4) * (v72.field_4 - rc.top) + v65;
-	v13 = ptr_5D4594_3799572->data[1];
-	v14 = ptr_5D4594_3799572->data[3];
+	v13 = ptr_5D4594_3799572->field_1;
+	v14 = ptr_5D4594_3799572->field_3;
 	if (v72.field_C == v72.field_4)
 		goto LABEL_60;
 	v15 = xLeft;
@@ -3282,7 +3282,7 @@ int  nox_xxx_StringDraw_43FE90(int a1, __int16 a2, int xLeft, int yTop) {
 	}
 LABEL_60:
 	if (dword_5d4594_816452) {
-		nox_client_drawRectStringSize_49D190(ptr_5D4594_3799572->data[59], xLeft, v71, v67, v72.field_C - v72.field_4);
+		nox_client_drawRectStringSize_49D190(ptr_5D4594_3799572->field_59, xLeft, v71, v67, v72.field_C - v72.field_4);
 		dword_5d4594_816452 = 0;
 		nox_xxx_StringDraw_43FE90(a1, a2, xLeft, v71);
 		dword_5d4594_816452 = 1;
@@ -3366,7 +3366,7 @@ int  sub_440360(int a1, int a2, int xLeft, int yTop) {
 	v70 = yTop;
 	if ((_WORD)a2 == 9)
 		return dword_5d4594_816456 + xLeft - (dword_5d4594_816456 + xLeft - dword_5d4594_816460) % dword_5d4594_816456;
-	v65 = *(_BYTE*)(&ptr_5D4594_3799572->data[59]);
+	v65 = *(_BYTE*)(&ptr_5D4594_3799572->field_59);
 	v5 = (unsigned __int8*)nox_xxx_FontGetChar_43FE30(a1, a2);
 	if (!v5) {
 		LOWORD(v6) = sub_4408C0(&v65);
@@ -3378,13 +3378,13 @@ int  sub_440360(int a1, int a2, int xLeft, int yTop) {
 	v7 = *(_DWORD*)(a1 + 8);
 	v8 = *v5;
 	v9 = (int)(v5 + 1);
-	v10 = ptr_5D4594_3799572->data[0];
+	v10 = ptr_5D4594_3799572->field_0;
 	v66 = (char*)v9;
 	v67 = v8;
 	if (!v10)
 		goto LABEL_100;
 	SetRect(&rc, xLeft, yTop, v8 + xLeft, v7 + yTop);
-	if (!nox_xxx_utilRect_49F930(&v71, (int4*)&rc, (int4*)(&ptr_5D4594_3799572->data[1])))
+	if (!nox_xxx_utilRect_49F930(&v71, (int4*)&rc, (int4*)(&ptr_5D4594_3799572->field_1)))
 		return xLeft + v8 + dword_5d4594_816440;
 	if (rc.left == v71.field_0 && rc.right == v71.field_8 && rc.top == v71.field_4 && rc.bottom == v71.field_C) {
 	LABEL_100:
@@ -3393,7 +3393,7 @@ int  sub_440360(int a1, int a2, int xLeft, int yTop) {
 		if (!v43) {
 		LABEL_95:
 			if (dword_5d4594_816452) {
-				nox_client_drawRectStringSize_49D190(ptr_5D4594_3799572->data[59], xLeft, yTop, v67,
+				nox_client_drawRectStringSize_49D190(ptr_5D4594_3799572->field_59, xLeft, yTop, v67,
 													 *(_DWORD*)(a1 + 8));
 				dword_5d4594_816452 = 0;
 				sub_440360(a1, a2, xLeft, yTop);
@@ -3473,9 +3473,9 @@ int  sub_440360(int a1, int a2, int xLeft, int yTop) {
 	}
 	v11 = v71.field_4 - rc.top + yTop;
 	v66 += *(_DWORD*)(a1 + 4) * (v71.field_4 - rc.top);
-	v12 = ptr_5D4594_3799572->data[1];
-	v13 = ptr_5D4594_3799572->data[3];
-	yTopa = ptr_5D4594_3799572->data[3];
+	v12 = ptr_5D4594_3799572->field_1;
+	v13 = ptr_5D4594_3799572->field_3;
+	yTopa = ptr_5D4594_3799572->field_3;
 	if (v71.field_C == v71.field_4)
 		goto LABEL_61;
 	v14 = 4 * v11;
@@ -3579,7 +3579,7 @@ int  sub_440360(int a1, int a2, int xLeft, int yTop) {
 LABEL_61:
 	if (dword_5d4594_816452) {
 		v42 = v70;
-		nox_client_drawRectStringSize_49D190(ptr_5D4594_3799572->data[59], xLeft, v70, v67, v71.field_C - v71.field_4);
+		nox_client_drawRectStringSize_49D190(ptr_5D4594_3799572->field_59, xLeft, v70, v67, v71.field_C - v71.field_4);
 		dword_5d4594_816452 = 0;
 		sub_440360(a1, a2, xLeft, v42);
 		dword_5d4594_816452 = 1;
@@ -3659,7 +3659,7 @@ int sub_4408E0() { return 1; }
 //----- (00440900) --------------------------------------------------------
 void sub_440900() {
 	_DWORD** dst = nox_pixbuffer_rows_3798784;
-	int val = ptr_5D4594_3799572->data[58];
+	int val = ptr_5D4594_3799572->field_58;
 	for (int y = 0; y < nox_backbuffer_height; y++) {
 		_DWORD* row = *dst;
 		for (int x = 0; x < nox_backbuffer_width32; x++) {

@@ -4271,19 +4271,19 @@ int  sub_47D380(int a1, int a2) {
 		v2 = a2;
 		v3 = a1;
 	}
-	v4 = ptr_5D4594_3799572->data[1];
+	v4 = ptr_5D4594_3799572->field_1;
 	if (v2 >= v4) {
-		if (v2 >= ptr_5D4594_3799572->data[3])
+		if (v2 >= ptr_5D4594_3799572->field_3)
 			return 0;
 	} else {
-		v2 = ptr_5D4594_3799572->data[1];
+		v2 = ptr_5D4594_3799572->field_1;
 	}
-	v5 = ptr_5D4594_3799572->data[3];
+	v5 = ptr_5D4594_3799572->field_3;
 	if (v3 < v5) {
 		if (v3 < v4)
 			return 0;
 	} else {
-		v3 = ptr_5D4594_3799572->data[3];
+		v3 = ptr_5D4594_3799572->field_3;
 	}
 	if (v2 == v3)
 		return 0;
@@ -12439,11 +12439,11 @@ void  sub_48B590(_DWORD* a1, _DWORD* a2, _DWORD* a3) {
 
 //----- (0048B680) --------------------------------------------------------
 void  sub_48B680(int a1) {
-	if (a1 != ptr_5D4594_3799572->data[15]) {
+	if (a1 != ptr_5D4594_3799572->field_15) {
 		if (nox_video_cursorDrawIsThreaded)
-			ptr_5D4594_3799572->data[15] = a1;
+			ptr_5D4594_3799572->field_15 = a1;
 		else
-			ptr_5D4594_3799572->data[14] = a1;
+			ptr_5D4594_3799572->field_14 = a1;
 		sub_48BD90(1);
 	}
 }
@@ -12458,26 +12458,26 @@ int  sub_48B6B0(int a1, int a2, int a3) {
 	if (!nox_video_cursorDrawIsThreaded)
 		return sub_433CD0(a1, a2, a3);
 	result = (unsigned __int8)a1;
-	ptr_5D4594_3799572->data[34] = (unsigned __int8)a1;
-	ptr_5D4594_3799572->data[35] = (unsigned __int8)a2;
-	ptr_5D4594_3799572->data[36] = (unsigned __int8)a3;
+	ptr_5D4594_3799572->field_34 = (unsigned __int8)a1;
+	ptr_5D4594_3799572->field_35 = (unsigned __int8)a2;
+	ptr_5D4594_3799572->field_36 = (unsigned __int8)a3;
 	if (cpuid_5d4594_3801804) {
 		v4 = (unsigned __int8)a1 | ((unsigned __int8)a1 << 16);
 		HIDWORD(v4) = 0;
 		v4 <<= 16;
 		LODWORD(v4) = (unsigned __int8)a1 | (unsigned int)v4;
 		v4 <<= 16;
-		ptr_5D4594_3799572->data[28] = (unsigned __int8)a1 | (unsigned int)v4;
-		ptr_5D4594_3799572->data[29] = HIDWORD(v4);
+		ptr_5D4594_3799572->field_28 = (unsigned __int8)a1 | (unsigned int)v4;
+		ptr_5D4594_3799572->field_29 = HIDWORD(v4);
 		v5 = ((unsigned __int8)a2 | (((unsigned __int8)a2 | ((unsigned __int64)(unsigned __int8)a2 << 16)) << 16))
 			 << 16;
-		ptr_5D4594_3799572->data[30] = (unsigned __int8)a2 | (unsigned int)v5;
-		ptr_5D4594_3799572->data[31] = HIDWORD(v5);
+		ptr_5D4594_3799572->field_30 = (unsigned __int8)a2 | (unsigned int)v5;
+		ptr_5D4594_3799572->field_31 = HIDWORD(v5);
 		v6 = ((unsigned __int8)a3 | (((unsigned __int8)a3 | ((unsigned __int64)(unsigned __int8)a3 << 16)) << 16))
 			 << 16;
-		ptr_5D4594_3799572->data[32] = (unsigned __int8)a3 | (unsigned int)v6;
+		ptr_5D4594_3799572->field_32 = (unsigned __int8)a3 | (unsigned int)v6;
 		result = ptr_5D4594_3799572;
-		ptr_5D4594_3799572->data[33] = HIDWORD(v6);
+		ptr_5D4594_3799572->field_33 = HIDWORD(v6);
 	}
 	return result;
 }
