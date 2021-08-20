@@ -1179,9 +1179,9 @@ typedef struct nox_ctrlevent_xxx_t {
 } nox_ctrlevent_xxx_t;
 _Static_assert(sizeof(nox_ctrlevent_xxx_t) == 24, "wrong size of nox_ctrlevent_xxx_t structure!");
 
-typedef struct obj_5D4594_3799572_t {
+typedef struct nox_render_data_t {
 	_DWORD data[264];
-} obj_5D4594_3799572_t;
+} nox_render_data_t;
 
 typedef struct {
 	void (*fnc)(int);

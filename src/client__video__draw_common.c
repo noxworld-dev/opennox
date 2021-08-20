@@ -570,7 +570,7 @@ int  nox_xxx_GfxInit_444930(int w, int h, int depth, int flags) {
 		return 0;
 	}
 	ptr_5D4594_3799572 = &obj_5D4594_3800716;
-	memcpy(&obj_5D4594_3800716, &obj_5D4594_3799660, sizeof(obj_5D4594_3799572_t));
+	memcpy(&obj_5D4594_3800716, &obj_5D4594_3799660, sizeof(nox_render_data_t));
 	if (nox_video_renderTargetFlags & 0x200) {
 		SDL_MinimizeWindow(nox_video_getWindow_401FD0());
 	}

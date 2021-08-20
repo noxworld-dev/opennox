@@ -174,9 +174,9 @@ nox_thing* nox_things_head = 0;
 nox_thing** nox_things_array = 0;
 int nox_things_count = 0;
 
-extern obj_5D4594_3799572_t* ptr_5D4594_3799572;
-obj_5D4594_3799572_t obj_5D4594_3799660 = {0};
-obj_5D4594_3799572_t obj_5D4594_3800716 = {0};
+extern nox_render_data_t* ptr_5D4594_3799572;
+nox_render_data_t obj_5D4594_3799660 = {0};
+nox_render_data_t obj_5D4594_3800716 = {0};
 
 void (*func_5D4594_830220)(void) = 0;
 void (*func_5d4594_830216)(void) = 0;
@@ -4026,13 +4026,13 @@ void sub_444D00() {
 #endif // NOX_CGO
 
 //----- (00444D30) --------------------------------------------------------
-void sub_444D30() { memcpy(ptr_5D4594_3799572, &obj_5D4594_3799660, sizeof(obj_5D4594_3799572_t)); }
+void sub_444D30() { memcpy(ptr_5D4594_3799572, &obj_5D4594_3799660, sizeof(nox_render_data_t)); }
 
 //----- (00444D50) --------------------------------------------------------
-void  sub_444D50(obj_5D4594_3799572_t* a1) { memcpy(a1, ptr_5D4594_3799572, sizeof(obj_5D4594_3799572_t)); }
+void  sub_444D50(nox_render_data_t* a1) { memcpy(a1, ptr_5D4594_3799572, sizeof(nox_render_data_t)); }
 
 //----- (00444D70) --------------------------------------------------------
-void  sub_444D70(obj_5D4594_3799572_t* a1) { memcpy(ptr_5D4594_3799572, a1, sizeof(obj_5D4594_3799572_t)); }
+void  sub_444D70(nox_render_data_t* a1) { memcpy(ptr_5D4594_3799572, a1, sizeof(nox_render_data_t)); }
 
 //----- (00445440) --------------------------------------------------------
 int sub_445440() { return 1; }

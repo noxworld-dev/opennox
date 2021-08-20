@@ -8,8 +8,8 @@ int4* nox_xxx_utilRect_49F930(int4* a1, int4* a2, int4* a3);
 
 
 extern unsigned char** nox_pixbuffer_rows_3798784;
-extern obj_5D4594_3799572_t obj_5D4594_3800716;
-extern obj_5D4594_3799572_t* ptr_5D4594_3799572;
+extern nox_render_data_t obj_5D4594_3800716;
+extern nox_render_data_t* ptr_5D4594_3799572;
 extern unsigned char byte_5D4594_3804364[160];
 extern unsigned int nox_draw_colors_g_3804656;
 extern unsigned int nox_draw_colors_b_3804664;

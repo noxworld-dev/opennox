@@ -157,7 +157,7 @@ extern int nox_win_depth_menu;
 extern unsigned int nox_frame_xxx_2598000;
 extern char nox_savegame_name_1307752[9];
 
-extern obj_5D4594_3799572_t* ptr_5D4594_3799572;
+extern nox_render_data_t* ptr_5D4594_3799572;
 
 FILE* nox_file_9 = 0;
 
