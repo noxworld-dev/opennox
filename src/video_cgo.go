@@ -589,7 +589,7 @@ func sub_4AEBD0() {
 
 func sub_49F610() {
 	bsz := getBackbufSize()
-	C.ptr_5D4594_3799572.field_0 = 0
+	C.ptr_5D4594_3799572.flag_0 = 0
 	C.ptr_5D4594_3799572.clip = C.nox_rect{right: C.int(bsz.W), bottom: C.int(bsz.H)}
 	C.ptr_5D4594_3799572.field_5 = 0
 	C.ptr_5D4594_3799572.field_6 = 0
@@ -605,7 +605,7 @@ func sub_49F610() {
 //export sub_49FC20
 func sub_49FC20(a1, a2, a3, a4 *C.int) int {
 	var v4, v5 int
-	if C.ptr_5D4594_3799572.field_0 != 0 {
+	if C.ptr_5D4594_3799572.flag_0 != 0 {
 		v4 = int(C.ptr_5D4594_3799572.field_6)
 		v5 = int(C.ptr_5D4594_3799572.field_8)
 	} else {

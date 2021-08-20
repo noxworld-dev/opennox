@@ -8203,7 +8203,7 @@ char  nox_video_drawCircle8Opaque_4B0D30(int a1, int a2, int a3) {
 
 	v3 = a1;
 	v4 = a3;
-	if (ptr_5D4594_3799572->field_0 && sub_49F8E0(a1, a2, a3))
+	if (ptr_5D4594_3799572->flag_0 && sub_49F8E0(a1, a2, a3))
 		return sub_4B0F50(a1, a2, a3);
 
 	_BYTE** pixbuffer = nox_pixbuffer_rows_3798784;
@@ -8433,7 +8433,7 @@ __int16  nox_video_drawCircle16Opaque_4B1380(int a1, int a2, int a3) {
 
 	v3 = a2;
 	v4 = a3;
-	if (ptr_5D4594_3799572->field_0 && sub_49F8E0(a1, a2, a3))
+	if (ptr_5D4594_3799572->flag_0 && sub_49F8E0(a1, a2, a3))
 		return sub_4B15E0(a1, a2, a3);
 	v15 = 1 - a3;
 	v25 = 5 - 2 * a3;
@@ -8692,7 +8692,7 @@ int  nox_video_drawCircle8Alpha_4B1A60(int a1, int a2, int a3) {
 	if (dword_5d4594_810632) {
 		v4 = a3;
 		v5 = a1;
-		if (ptr_5D4594_3799572->field_0 && sub_49F8E0(a1, a2, a3)) {
+		if (ptr_5D4594_3799572->flag_0 && sub_49F8E0(a1, a2, a3)) {
 			result = sub_4B1E30(a1, a2, a3);
 		} else {
 			v6 = 0;
@@ -9040,7 +9040,7 @@ _WORD*  nox_video_drawCircle16Alpha_4B2480(int a1, int a2, int a3) {
 	int v63;                 // [esp+54h] [ebp+4h]
 	int v64;                 // [esp+58h] [ebp+8h]
 
-	if (ptr_5D4594_3799572->field_0 && sub_49F8E0(a1, a2, a3))
+	if (ptr_5D4594_3799572->flag_0 && sub_49F8E0(a1, a2, a3))
 		return (_WORD*)sub_4B3450(a1, a2, a3);
 
 	_BYTE** pixbuffer = nox_pixbuffer_rows_3798784;

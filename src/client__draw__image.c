@@ -87,7 +87,7 @@ void  sub_4C60D0(nox_video_bag_image_t* img, int x, int y) {
 	*getMemU32Ptr(0x973F18, 88) = width;
 	*getMemU32Ptr(0x973F18, 76) = v6;
 	int v7 = width;
-	if (ptr_5D4594_3799572->field_0) {
+	if (ptr_5D4594_3799572->flag_0) {
 		SetRect(&rc, v9, v10, width + v9, (int)v6 + v10);
 		result = nox_xxx_utilRect_49F930(&a1a, (int4*)&rc, (int4*)(&ptr_5D4594_3799572->clip));
 		if (!result)
@@ -928,7 +928,7 @@ int  sub_4C6260(int a1, int a2, int a3) {
 		*getMemU32Ptr(0x973F18, 84) = v10;
 		*getMemU32Ptr(0x973F18, 88) = v4;
 		*getMemU32Ptr(0x973F18, 76) = v5;
-		if (!ptr_5D4594_3799572->field_0)
+		if (!ptr_5D4594_3799572->flag_0)
 			goto LABEL_30;
 		SetRect(&rc, v8, v10, v4 + v8, v5 + v10);
 		result = nox_xxx_utilRect_49F930(&a1a, (int4*)&rc, (int4*)(&ptr_5D4594_3799572->clip));
@@ -1797,7 +1797,7 @@ void  nox_client_drawImg_bbb_4C7860(int a1, int a2, int a3) {
 	*getMemU32Ptr(0x973F18, 84) = v10;
 	*getMemU32Ptr(0x973F18, 88) = v4;
 	*getMemU32Ptr(0x973F18, 76) = v6;
-	if (ptr_5D4594_3799572->field_0) {
+	if (ptr_5D4594_3799572->flag_0) {
 		RECT rc;
 		SetRect(&rc, v9, v10, v4 + v9, v6 + v10);
 		int4 a1a;
@@ -2118,7 +2118,7 @@ void nox_client_drawImg_aaa_4C79F0(nox_video_bag_image_t* img, int x, int y) {
 	*getMemU32Ptr(0x973F18, 84) = y;
 	*getMemU32Ptr(0x973F18, 88) = width;
 	*getMemU32Ptr(0x973F18, 76) = height;
-	if (ptr_5D4594_3799572->field_0) {
+	if (ptr_5D4594_3799572->flag_0) {
 		RECT rc;
 		int4 a1a;
 		SetRect(&rc, x, y, x + width, y + height);

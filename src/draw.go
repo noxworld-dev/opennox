@@ -620,7 +620,7 @@ func (r *NoxRender) nox_client_drawImg_aaa_4C79F0(img *C.nox_video_bag_image_t, 
 	*memmap.PtrInt32(0x973F18, 84) = int32(pos.Y)
 	*memmap.PtrUint32(0x973F18, 88) = width
 	*memmap.PtrUint32(0x973F18, 76) = height
-	if C.ptr_5D4594_3799572.field_0 != 0 {
+	if C.ptr_5D4594_3799572.flag_0 != 0 {
 		rc := types.Rect{Left: pos.X, Top: pos.Y, Right: pos.X + int(width), Bottom: pos.Y + int(height)}
 		a1a, ok := nox_xxx_utilRect_49F930(rc, r.Rect())
 		if !ok {
@@ -814,7 +814,7 @@ func (r *NoxRender) nox_client_drawImg_bbb_4C7860(img *C.nox_video_bag_image_t, 
 	}
 
 	wsz := int(width)
-	if r.p.field_0 != 0 {
+	if r.p.flag_0 != 0 {
 		rc := types.Rect{
 			Left:   pos.X,
 			Top:    pos.Y,
