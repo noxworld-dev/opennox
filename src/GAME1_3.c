@@ -3093,7 +3093,7 @@ int  nox_xxx_StringDraw_43FE90(int a1, __int16 a2, int xLeft, int yTop) {
 	v11 = xLeft;
 	v65 = (int)(v8 + 1);
 	v67 = *v8;
-	if (!ptr_5D4594_3799572->field_0)
+	if (!ptr_5D4594_3799572->flag_0)
 		goto LABEL_102;
 	SetRect(&rc, xLeft, v5, xLeft + *v8, v10 + v5);
 	if (!nox_xxx_utilRect_49F930(&v72, (int4*)&rc, (int4*)(&ptr_5D4594_3799572->clip)))
@@ -3378,7 +3378,7 @@ int  sub_440360(int a1, int a2, int xLeft, int yTop) {
 	v7 = *(_DWORD*)(a1 + 8);
 	v8 = *v5;
 	v9 = (int)(v5 + 1);
-	v10 = ptr_5D4594_3799572->field_0;
+	v10 = ptr_5D4594_3799572->flag_0;
 	v66 = (char*)v9;
 	v67 = v8;
 	if (!v10)

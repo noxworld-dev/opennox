@@ -1187,7 +1187,7 @@ typedef struct nox_ctrlevent_xxx_t {
 _Static_assert(sizeof(nox_ctrlevent_xxx_t) == 24, "wrong size of nox_ctrlevent_xxx_t structure!");
 
 typedef struct nox_render_data_t {
-	_DWORD field_0; // 0, 0
+	int flag_0; // 0, 0
 	nox_rect clip; // 1, 4
 	_DWORD field_5; // 5, 20
 	_DWORD field_6; // 6, 24
