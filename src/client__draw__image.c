@@ -2416,7 +2416,6 @@ void sub_4C8A30() {
 	nox_video_cur_pixdata_3799444 = px;
 	*(unsigned short**)&nox_draw_sprite_dstPtr_3799540 = v1;
 }
-#endif // NOX_CGO
 
 //----- (004C86B0) --------------------------------------------------------
 void sub_4C86B0() {
@@ -2455,7 +2454,6 @@ void sub_4C86B0() {
 	nox_draw_sprite_dstPtr_3799540 = v1;
 }
 
-#ifndef NOX_CGO
 //----- (004C7440) --------------------------------------------------------
 void  nox_client_xxxDraw16_4C7440(nox_video_bag_image_t* img, int x, int y) {
 	int v3; // ecx

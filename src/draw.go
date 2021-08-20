@@ -450,7 +450,7 @@ func (r *NoxRender) drawImage16(img *C.nox_video_bag_image_t, pos types.Point, p
 		if C.ptr_5D4594_3799572.data[13] == 0 {
 			if C.ptr_5D4594_3799572.data[14] != 0 {
 				r.draw5 = drawOpC(func() { C.sub_4C9970() })
-				r.draw27 = drawOpC(func() { C.sub_4C86B0() })
+				r.draw27 = sub_4C86B0
 				r.draw4 = drawOpC(func() { C.sub_4C91C0() })
 			} else {
 				r.draw27 = drawOpC(func() { C.sub_4C8D60() })
@@ -465,7 +465,7 @@ func (r *NoxRender) drawImage16(img *C.nox_video_bag_image_t, pos types.Point, p
 				v3 := C.ptr_5D4594_3799572.data[259]
 				if v3 == 255 {
 					if C.ptr_5D4594_3799572.data[16] == 0 {
-						r.draw27 = drawOpC(func() { C.sub_4C86B0() })
+						r.draw27 = sub_4C86B0
 						r.draw4 = drawOpC(func() { C.sub_4C91C0() })
 					} else {
 						r.draw27 = pixCopyN
@@ -748,7 +748,7 @@ func (r *NoxRender) nox_client_drawXxx_4C7C80(pix []byte, pos types.Point, width
 			xs := pos.X + j
 			xe := xs + n
 			xw := n
-			if xs >= right {
+			if xe <= 0 || xs >= right {
 				pix = pix[pmul*n:]
 				continue
 			}
@@ -881,4 +881,34 @@ func pixBlend(dst, src []byte, _ byte, sz int) (_, _ []byte) { // sub_4C8A30
 		src = src[2:]
 	}
 	return dst, src
+}
+
+func sub_4C86B0(dst, src []byte, _ byte, sz int) (_, _ []byte) { // sub_4C86B0
+	par := asU32Slice(unsafe.Pointer(&C.byte_5D4594_3804364[0]), 40)
+
+	rshift := par[5]
+	gshift := par[4]
+	bshift := par[3]
+
+	rmask := uint16(par[2])
+	gmask := uint16(par[1])
+	bmask := uint16(par[0])
+
+	rtbl := asU16Slice(unsafe.Pointer(uintptr(C.nox_draw_colors_r_3804672)), 256)
+	gtbl := asU16Slice(unsafe.Pointer(uintptr(C.nox_draw_colors_g_3804656)), 256)
+	btbl := asU16Slice(unsafe.Pointer(uintptr(C.nox_draw_colors_b_3804664)), 256)
+
+	rmul := uint32(C.obj_5D4594_3800716.data[26])
+	gmul := uint32(C.obj_5D4594_3800716.data[25])
+	bmul := uint32(C.obj_5D4594_3800716.data[24])
+
+	for i := 0; i < sz; i++ {
+		v2 := binary.LittleEndian.Uint16(src[2*i:])
+		cr := rtbl[byte((bmul*(uint32(bmask&v2)>>bshift))>>8)]
+		cg := gtbl[byte((gmul*(uint32(gmask&v2)>>gshift))>>8)]
+		cb := btbl[byte((rmul*(uint32(rmask&v2)<<rshift))>>8)]
+		c := cr | cg | cb
+		binary.LittleEndian.PutUint16(dst[2*i:], c)
+	}
+	return dst[2*sz:], src[2*sz:]
 }
