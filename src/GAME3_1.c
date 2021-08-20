@@ -129,8 +129,8 @@ extern unsigned int nox_frame_xxx_2598000;
 extern int nox_backbuffer_depth;
 extern int nox_video_dxUnlockSurface;
 
-extern obj_5D4594_3799572_t* ptr_5D4594_3799572;
-extern obj_5D4594_3799572_t obj_5D4594_3800716;
+extern nox_render_data_t* ptr_5D4594_3799572;
+extern nox_render_data_t obj_5D4594_3800716;
 
 nox_gui_animation* nox_wnd_xxx_1522608 = 0;
 

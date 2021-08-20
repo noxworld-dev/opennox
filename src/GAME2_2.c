@@ -143,7 +143,7 @@ extern int nox_drawable_list_3_size;
 extern nox_drawable** nox_drawable_list_4;
 extern int nox_drawable_list_4_size;
 
-extern obj_5D4594_3799572_t* ptr_5D4594_3799572;
+extern nox_render_data_t* ptr_5D4594_3799572;
 
 extern obj_5D4594_2650668_t** ptr_5D4594_2650668;
 

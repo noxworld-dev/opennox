@@ -87,7 +87,7 @@ var noxrend = NewNoxRender()
 type drawOpFunc func(dst, src []byte, op byte, val int) (outDst, outSrc []byte)
 
 type NoxRender struct {
-	p *C.obj_5D4594_3799572_t
+	p *C.nox_render_data_t
 
 	draw27 drawOpFunc
 	draw4  drawOpFunc
@@ -99,7 +99,7 @@ func NewNoxRender() *NoxRender {
 	return &NoxRender{}
 }
 
-func (r *NoxRender) SetData(p *C.obj_5D4594_3799572_t) {
+func (r *NoxRender) SetData(p *C.nox_render_data_t) {
 	r.p = p
 }
 

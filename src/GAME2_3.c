@@ -110,8 +110,8 @@ extern unsigned int nox_frame_xxx_2598000;
 const int nox_max_npcs = 1024;
 nox_npc* npc_array;
 
-extern obj_5D4594_3799572_t* ptr_5D4594_3799572;
-extern obj_5D4594_3799572_t obj_5D4594_3800716;
+extern nox_render_data_t* ptr_5D4594_3799572;
+extern nox_render_data_t obj_5D4594_3800716;
 
 nox_drawable*** nox_drawable_2d_index = 0;
 int nox_drawable_2d_index_size = 0;
@@ -6752,7 +6752,7 @@ void  sub_49CD30(int xLeft, int yTop, int a3, int a4, int a5, int a6) {
 void  nox_client_drawRectFilledOpaque_49CE30(int xLeft, int yTop, int a3, int a4) {
 	int v4; // ecx
 	int v5; // eax
-	obj_5D4594_3799572_t* v6;
+	nox_render_data_t* v6;
 	int v7;  // edx
 	LONG v8; // esi
 	int v9;  // esi

@@ -66,9 +66,9 @@ extern int nox_enable_audio;
 extern int nox_win_width;
 extern int nox_win_height;
 
-extern obj_5D4594_3799572_t* ptr_5D4594_3799572;
-extern obj_5D4594_3799572_t obj_5D4594_3799660;
-extern obj_5D4594_3799572_t obj_5D4594_3800716;
+extern nox_render_data_t* ptr_5D4594_3799572;
+extern nox_render_data_t obj_5D4594_3799660;
+extern nox_render_data_t obj_5D4594_3800716;
 
 extern HANDLE* nox_video_cursorDrawThreadHandle;
 extern DWORD dword_974854;
