@@ -8298,15 +8298,15 @@ int  sub_4B0F50(int a1, int a2, int a3) {
 	v27 = a3;
 	v26 = 3;
 	v4 = *(_BYTE*)(&ptr_5D4594_3799572->field_61);
-	v17 = ptr_5D4594_3799572->field_1;
+	v17 = ptr_5D4594_3799572->clip.left;
 	v5 = a2;
-	v15 = ptr_5D4594_3799572->field_4;
+	v15 = ptr_5D4594_3799572->clip.bottom;
 	v31 = *(_BYTE*)(&ptr_5D4594_3799572->field_61);
 	result = a2 + v27;
-	v16 = ptr_5D4594_3799572->field_3;
-	v18 = ptr_5D4594_3799572->field_2;
+	v16 = ptr_5D4594_3799572->clip.right;
+	v18 = ptr_5D4594_3799572->clip.top;
 	v24 = a2 + v27;
-	if (a1 >= v17 && a1 < ptr_5D4594_3799572->field_3 && result >= ptr_5D4594_3799572->field_2 && result < v15) {
+	if (a1 >= v17 && a1 < ptr_5D4594_3799572->clip.right && result >= ptr_5D4594_3799572->clip.top && result < v15) {
 		pixbuffer[result][a1] = v4;
 	}
 	v7 = a1 + v3;
@@ -8545,17 +8545,17 @@ int  sub_4B15E0(int a1, int a2, int a3) {
 	v22 = 5 - 2 * a3;
 	v30 = 3;
 	v4 = *(_WORD*)(&ptr_5D4594_3799572->field_61);
-	v5 = ptr_5D4594_3799572->field_1;
-	v38 = ptr_5D4594_3799572->field_2;
+	v5 = ptr_5D4594_3799572->clip.left;
+	v38 = ptr_5D4594_3799572->clip.top;
 	v6 = a2;
-	v18 = ptr_5D4594_3799572->field_4;
+	v18 = ptr_5D4594_3799572->clip.bottom;
 	result = a1;
 	v24 = *(_WORD*)(&ptr_5D4594_3799572->field_61);
 	v8 = a2 + v31;
-	v20 = ptr_5D4594_3799572->field_1;
-	v19 = ptr_5D4594_3799572->field_3;
+	v20 = ptr_5D4594_3799572->clip.left;
+	v19 = ptr_5D4594_3799572->clip.right;
 	v36 = a2 + v31;
-	if (a1 >= v5 && a1 < ptr_5D4594_3799572->field_3 && v8 >= v38 && v8 < v18)
+	if (a1 >= v5 && a1 < ptr_5D4594_3799572->clip.right && v8 >= v38 && v8 < v18)
 		*(_WORD*)((_DWORD)pixbuffer[v8] + 2 * a1) = v4;
 	v9 = a1 + v3;
 	v33 = a1 + v3;
@@ -8822,20 +8822,20 @@ int  sub_4B1E30(int a1, int a2, int a3) {
 		v25 = 5 - 2 * a3;
 		v33 = a3;
 		v29 = 3;
-		v5 = ptr_5D4594_3799572->field_3;
+		v5 = ptr_5D4594_3799572->clip.right;
 		v23 = *(_BYTE*)(&ptr_5D4594_3799572->field_61);
-		v6 = ptr_5D4594_3799572->field_1;
-		v18 = ptr_5D4594_3799572->field_4;
+		v6 = ptr_5D4594_3799572->clip.left;
+		v18 = ptr_5D4594_3799572->clip.bottom;
 		result = a2;
 		v21 = v6;
 		v7 = a1 < v6;
 		v8 = *(_BYTE*)(&ptr_5D4594_3799572->field_61);
 		v9 = a2 + a3;
-		v19 = ptr_5D4594_3799572->field_3;
-		v20 = ptr_5D4594_3799572->field_2;
+		v19 = ptr_5D4594_3799572->clip.right;
+		v20 = ptr_5D4594_3799572->clip.top;
 		v30 = a2 + a3;
-		if (!v7 && a1 < v5 && v9 >= ptr_5D4594_3799572->field_2 && v9 < v18) {
-			v5 = ptr_5D4594_3799572->field_3;
+		if (!v7 && a1 < v5 && v9 >= ptr_5D4594_3799572->clip.top && v9 < v18) {
+			v5 = ptr_5D4594_3799572->clip.right;
 			*(_BYTE*)(a1 + *(_DWORD*)((_DWORD)pixbuffer + 4 * (a2 + a3))) =
 				*(_BYTE*)(v23 + (*(unsigned __int8*)(a1 + *(_DWORD*)((_DWORD)pixbuffer + 4 * (a2 + a3))) << 8) +
 						  dword_5d4594_810632);
@@ -9560,11 +9560,11 @@ int  sub_4B3450(int a1, int a2, int a3) {
 	v79 = a3;
 	v65 = 1 - a3;
 	v66 = 5 - 2 * a3;
-	v60 = ptr_5D4594_3799572->field_1;
-	v48 = ptr_5D4594_3799572->field_3;
+	v60 = ptr_5D4594_3799572->clip.left;
+	v48 = ptr_5D4594_3799572->clip.right;
 	v3 = *(_WORD*)(&ptr_5D4594_3799572->field_61);
-	v49 = ptr_5D4594_3799572->field_2;
-	v50 = ptr_5D4594_3799572->field_4;
+	v49 = ptr_5D4594_3799572->clip.top;
+	v50 = ptr_5D4594_3799572->clip.bottom;
 	v78 = 0;
 	v75 = 3;
 	v71 = (unsigned __int16)(*((_WORD*)((_BYTE*)byte_5D4594_3804364 + 0)) & v3) >> *((_BYTE*)byte_5D4594_3804364 + 12);

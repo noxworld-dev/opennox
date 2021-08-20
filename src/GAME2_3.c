@@ -6707,7 +6707,7 @@ void  nox_client_drawBorderLines_49CC70(int xLeft, int yTop, int a3, int a4) {
 		if (a4) {
 			if (!ptr_5D4594_3799572->field_0 ||
 				(SetRect(&rc, xLeft, yTop, xLeft + a3, yTop + a4),
-				 nox_xxx_utilRect_49F930((int4*)&rc, (int4*)&rc, (int4*)(&ptr_5D4594_3799572->field_1)))) {
+				 nox_xxx_utilRect_49F930((int4*)&rc, (int4*)&rc, (int4*)(&ptr_5D4594_3799572->clip)))) {
 				v4 = xLeft + a3 - 1;
 				(*(void(**)(_DWORD, _DWORD, _DWORD)) & dword_5d4594_3798720)(xLeft, yTop, v4);
 				v5 = yTop + a4 - 1;
@@ -6728,7 +6728,7 @@ void  sub_49CD30(int xLeft, int yTop, int a3, int a4, int a5, int a6) {
 		if (a4) {
 			if (!ptr_5D4594_3799572->field_0 ||
 				(SetRect(&rc, xLeft, yTop, xLeft + a3, yTop + a4),
-				 nox_xxx_utilRect_49F930((int4*)&rc, (int4*)&rc, (int4*)(&ptr_5D4594_3799572->field_1)))) {
+				 nox_xxx_utilRect_49F930((int4*)&rc, (int4*)&rc, (int4*)(&ptr_5D4594_3799572->clip)))) {
 				sub_434040(a5);
 				sub_434080(a6);
 				nox_client_drawAddPoint_49F500(xLeft, yTop);
@@ -6766,7 +6766,7 @@ void  nox_client_drawRectFilledOpaque_49CE30(int xLeft, int yTop, int a3, int a4
 			v7 = yTop;
 			if (ptr_5D4594_3799572->field_0) {
 				SetRect(&rc, xLeft, yTop, xLeft + a3, yTop + a4);
-				if (!nox_xxx_utilRect_49F930((int4*)&rc, (int4*)&rc, (int4*)(&ptr_5D4594_3799572->field_1)))
+				if (!nox_xxx_utilRect_49F930((int4*)&rc, (int4*)&rc, (int4*)(&ptr_5D4594_3799572->clip)))
 					return;
 				v7 = rc.top;
 				v6 = ptr_5D4594_3799572;
@@ -6796,7 +6796,7 @@ int4*  nox_client_drawRectFilledAlpha_49CF10(int xLeft, int yTop, int a3, int a4
 	if (!ptr_5D4594_3799572->field_0)
 		return (int4*)(*(int(**)(_DWORD, _DWORD, _DWORD, _DWORD)) & dword_5d4594_1305712)(xLeft, yTop, a3, a4);
 	SetRect(&rc, xLeft, yTop, xLeft + a3, yTop + a4);
-	result = nox_xxx_utilRect_49F930((int4*)&rc, (int4*)&rc, (int4*)(&ptr_5D4594_3799572->field_1));
+	result = nox_xxx_utilRect_49F930((int4*)&rc, (int4*)&rc, (int4*)(&ptr_5D4594_3799572->clip));
 	if (result)
 		result = (int4*)(*(int(**)(_DWORD, _DWORD, _DWORD, _DWORD)) &
 						 dword_5d4594_1305712)(rc.left, rc.top, rc.right - rc.left, rc.bottom - rc.top);
@@ -6812,7 +6812,7 @@ int4*  sub_49CFB0(int xLeft, int yTop, int a3, int a4) {
 	if (!ptr_5D4594_3799572->field_0)
 		return (int4*)(*(int(**)(_DWORD, _DWORD, _DWORD, _DWORD)) & dword_5d4594_1305720)(xLeft, yTop, a3, a4);
 	SetRect(&rc, xLeft, yTop, xLeft + a3, yTop + a4);
-	result = nox_xxx_utilRect_49F930((int4*)&rc, (int4*)&rc, (int4*)(&ptr_5D4594_3799572->field_1));
+	result = nox_xxx_utilRect_49F930((int4*)&rc, (int4*)&rc, (int4*)(&ptr_5D4594_3799572->clip));
 	if (result)
 		result = (int4*)(*(int(**)(_DWORD, _DWORD, _DWORD, _DWORD)) &
 						 dword_5d4594_1305720)(rc.left, rc.top, rc.right - rc.left, rc.bottom - rc.top);
@@ -6828,7 +6828,7 @@ int4*  sub_49D050(int xLeft, int yTop, int a3, int a4) {
 	if (!ptr_5D4594_3799572->field_0)
 		return (int4*)(*(int(**)(_DWORD, _DWORD, _DWORD, _DWORD)) & dword_5d4594_1305700)(xLeft, yTop, a3, a4);
 	SetRect(&rc, xLeft, yTop, xLeft + a3, yTop + a4);
-	result = nox_xxx_utilRect_49F930((int4*)&rc, (int4*)&rc, (int4*)(&ptr_5D4594_3799572->field_1));
+	result = nox_xxx_utilRect_49F930((int4*)&rc, (int4*)&rc, (int4*)(&ptr_5D4594_3799572->clip));
 	if (result)
 		result = (int4*)(*(int(**)(_DWORD, _DWORD, _DWORD, _DWORD)) &
 						 dword_5d4594_1305700)(rc.left, rc.top, rc.right - rc.left, rc.bottom - rc.top);
@@ -6844,7 +6844,7 @@ int4*  nox_client_drawRectFadingScreen_49D0F0(int xLeft, int yTop, int a3, int a
 	if (!ptr_5D4594_3799572->field_0)
 		return (int4*)(*(int(**)(_DWORD, _DWORD, _DWORD, _DWORD)) & dword_5d4594_1305716)(xLeft, yTop, a3, a4);
 	SetRect(&rc, xLeft, yTop, xLeft + a3, yTop + a4);
-	result = nox_xxx_utilRect_49F930((int4*)&rc, (int4*)&rc, (int4*)(&ptr_5D4594_3799572->field_1));
+	result = nox_xxx_utilRect_49F930((int4*)&rc, (int4*)&rc, (int4*)(&ptr_5D4594_3799572->clip));
 	if (result)
 		result = (int4*)(*(int(**)(_DWORD, _DWORD, _DWORD, _DWORD)) &
 						 dword_5d4594_1305716)(rc.left, rc.top, rc.right - rc.left, rc.bottom - rc.top);
@@ -8719,13 +8719,13 @@ int  sub_49F5B0(_DWORD* a1, _DWORD* a2, int a3) {
 int sub_49F610() {
 	ptr_5D4594_3799572->field_0 = 0;
 	ptr_5D4594_3799572->field_9 = 0;
-	ptr_5D4594_3799572->field_1 = 0;
+	ptr_5D4594_3799572->clip.left = 0;
 	ptr_5D4594_3799572->field_10 = 0;
-	ptr_5D4594_3799572->field_2 = 0;
+	ptr_5D4594_3799572->clip.top = 0;
 	ptr_5D4594_3799572->field_11 = nox_backbuffer_width;
-	ptr_5D4594_3799572->field_3 = nox_backbuffer_width;
+	ptr_5D4594_3799572->clip.right = nox_backbuffer_width;
 	ptr_5D4594_3799572->field_12 = nox_backbuffer_height;
-	ptr_5D4594_3799572->field_4 = nox_backbuffer_height;
+	ptr_5D4594_3799572->clip.bottom = nox_backbuffer_height;
 	ptr_5D4594_3799572->field_5 = 0;
 	ptr_5D4594_3799572->field_6 = 0;
 	ptr_5D4594_3799572->field_7 = nox_backbuffer_width - 1;
@@ -8756,7 +8756,7 @@ int4*  nox_client_copyRect_49F6F0(int xLeft, int yTop, int a3, int a4) {
 	SetRect(&rc, xLeft, yTop, xLeft + a3, yTop + a4);
 	result = nox_xxx_utilRect_49F930((int4*)&rcSrc, (int4*)&rc, (int4*)(&ptr_5D4594_3799572->field_9));
 	if (result) {
-		CopyRect((LPRECT)(&ptr_5D4594_3799572->field_1), &rcSrc);
+		CopyRect(&ptr_5D4594_3799572->clip, &rcSrc);
 		--rcSrc.right;
 		--rcSrc.bottom;
 		result = (int4*)CopyRect((LPRECT)(&ptr_5D4594_3799572->field_5), &rcSrc);
@@ -8770,13 +8770,13 @@ int4*  sub_49F780(int xLeft, int a2) {
 	int v3; // eax
 
 	v2 = xLeft;
-	if (xLeft < (int)ptr_5D4594_3799572->field_1)
-		v2 = ptr_5D4594_3799572->field_1;
+	if (xLeft < (int)ptr_5D4594_3799572->clip.left)
+		v2 = ptr_5D4594_3799572->clip.left;
 	v3 = a2;
-	if (a2 > (int)ptr_5D4594_3799572->field_3)
-		v3 = ptr_5D4594_3799572->field_3;
-	return nox_client_copyRect_49F6F0(v2, ptr_5D4594_3799572->field_2, v3 - v2,
-									  ptr_5D4594_3799572->field_4 - ptr_5D4594_3799572->field_2);
+	if (a2 > (int)ptr_5D4594_3799572->clip.right)
+		v3 = ptr_5D4594_3799572->clip.right;
+	return nox_client_copyRect_49F6F0(v2, ptr_5D4594_3799572->clip.top, v3 - v2,
+									  ptr_5D4594_3799572->clip.bottom - ptr_5D4594_3799572->clip.top);
 }
 
 //----- (0049F7C0) --------------------------------------------------------
@@ -8784,11 +8784,11 @@ int4*  sub_49F7C0(int a1) {
 	int v1; // eax
 
 	v1 = a1;
-	if (a1 > (int)ptr_5D4594_3799572->field_4)
-		v1 = ptr_5D4594_3799572->field_4;
-	return nox_client_copyRect_49F6F0(ptr_5D4594_3799572->field_1, ptr_5D4594_3799572->field_2,
-									  ptr_5D4594_3799572->field_3 - ptr_5D4594_3799572->field_1,
-									  v1 - ptr_5D4594_3799572->field_2);
+	if (a1 > (int)ptr_5D4594_3799572->clip.bottom)
+		v1 = ptr_5D4594_3799572->clip.bottom;
+	return nox_client_copyRect_49F6F0(ptr_5D4594_3799572->clip.left, ptr_5D4594_3799572->clip.top,
+									  ptr_5D4594_3799572->clip.right - ptr_5D4594_3799572->clip.left,
+									  v1 - ptr_5D4594_3799572->clip.top);
 }
 
 //----- (0049F7F0) --------------------------------------------------------
@@ -8800,10 +8800,10 @@ int nox_xxx_wndDraw_49F7F0() {
 	if (!dword_5d4594_1305748) {
 		*getMemU32Ptr(0x5D4594, 1305772) = ptr_5D4594_3799572->field_0;
 		result = (_DWORD)(&ptr_5D4594_3799572->field_5);
-		*getMemU32Ptr(0x5D4594, 1305756) = ptr_5D4594_3799572->field_1;
-		*getMemU32Ptr(0x5D4594, 1305760) = ptr_5D4594_3799572->field_2;
-		*getMemU32Ptr(0x5D4594, 1305764) = ptr_5D4594_3799572->field_3;
-		*getMemU32Ptr(0x5D4594, 1305768) = ptr_5D4594_3799572->field_4;
+		*getMemU32Ptr(0x5D4594, 1305756) = ptr_5D4594_3799572->clip.left;
+		*getMemU32Ptr(0x5D4594, 1305760) = ptr_5D4594_3799572->clip.top;
+		*getMemU32Ptr(0x5D4594, 1305764) = ptr_5D4594_3799572->clip.right;
+		*getMemU32Ptr(0x5D4594, 1305768) = ptr_5D4594_3799572->clip.bottom;
 		*getMemU32Ptr(0x5D4594, 1305732) = ptr_5D4594_3799572->field_5;
 		*getMemU32Ptr(0x5D4594, 1305736) = ptr_5D4594_3799572->field_6;
 		*getMemU32Ptr(0x5D4594, 1305740) = ptr_5D4594_3799572->field_7;
@@ -8817,17 +8817,16 @@ int nox_xxx_wndDraw_49F7F0() {
 //----- (0049F860) --------------------------------------------------------
 int sub_49F860() {
 	int result; // eax
-	_DWORD* v1; // edx
 	_DWORD* v2; // edx
 
 	result = dword_5d4594_1305748;
 	if (dword_5d4594_1305748) {
 		ptr_5D4594_3799572->field_0 = *getMemU32Ptr(0x5D4594, 1305772);
-		v1 = &ptr_5D4594_3799572->field_1;
-		ptr_5D4594_3799572->field_1 = *getMemU32Ptr(0x5D4594, 1305756);
-		v1[1] = *getMemU32Ptr(0x5D4594, 1305760);
-		v1[2] = *getMemU32Ptr(0x5D4594, 1305764);
-		v1[3] = *getMemU32Ptr(0x5D4594, 1305768);
+		nox_rect* v1 = &ptr_5D4594_3799572->clip;
+		v1->left = *getMemU32Ptr(0x5D4594, 1305756);
+		v1->top = *getMemU32Ptr(0x5D4594, 1305760);
+		v1->right = *getMemU32Ptr(0x5D4594, 1305764);
+		v1->bottom = *getMemU32Ptr(0x5D4594, 1305768);
 		v2 = &ptr_5D4594_3799572->field_5;
 		ptr_5D4594_3799572->field_5 = *getMemU32Ptr(0x5D4594, 1305732);
 		v2[1] = *getMemU32Ptr(0x5D4594, 1305736);
@@ -8840,9 +8839,9 @@ int sub_49F860() {
 }
 
 //----- (0049F8E0) --------------------------------------------------------
-BOOL  sub_49F8E0(int a1, int a2, int a3) {
-	return a1 - a3 < (int)ptr_5D4594_3799572->field_1 || a3 + a1 >= (int)ptr_5D4594_3799572->field_3 ||
-		   a2 - a3 < (int)ptr_5D4594_3799572->field_2 || a3 + a2 >= (int)ptr_5D4594_3799572->field_4;
+bool sub_49F8E0(int x, int y, int d) {
+	return x - d < ptr_5D4594_3799572->clip.left || x + d >= ptr_5D4594_3799572->clip.right ||
+		   y - d < ptr_5D4594_3799572->clip.top || y + d >= ptr_5D4594_3799572->clip.bottom;
 }
 
 //----- (0049F930) --------------------------------------------------------

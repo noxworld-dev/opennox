@@ -105,10 +105,10 @@ func (r *NoxRender) SetData(p *C.nox_render_data_t) {
 
 func (r *NoxRender) Rect() types.Rect {
 	return types.Rect{
-		Left:   int(r.p.field_1),
-		Top:    int(r.p.field_2),
-		Right:  int(r.p.field_3),
-		Bottom: int(r.p.field_4),
+		Left:   int(r.p.clip.left),
+		Top:    int(r.p.clip.top),
+		Right:  int(r.p.clip.right),
+		Bottom: int(r.p.clip.bottom),
 	}
 }
 
