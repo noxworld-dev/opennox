@@ -7760,25 +7760,20 @@ int  sub_4ECF10(int a1) {
 	} else {
 	LABEL_9:
 		result = nox_server_getFirstObjectUninited_4DA870();
-		if (result) {
-			while (*(_BYTE*)(result + 16) & 0x20 || *(_DWORD*)(result + 44) != a1) {
-				result = nox_server_getNextObjectUninited_4DA880(result);
-				if (!result)
-					goto LABEL_13;
+		while(result != 0){
+			if (!(*(_BYTE*)(result + 16) & 0x20) && *(_DWORD*)(result + 44) == a1) {
+				return result;
 			}
-		} else {
-		LABEL_13:
-			result = nox_xxx_getFirstUpdatable2Object_4DA840();
-			if (result) {
-				while (*(_BYTE*)(result + 16) & 0x20 || *(_DWORD*)(result + 44) != a1) {
-					result = nox_xxx_getNextUpdatable2Object_4DA850(result);
-					if (!result)
-						goto LABEL_17;
-				}
-			} else {
-			LABEL_17:
-				result = 0;
+			result = nox_server_getNextObjectUninited_4DA880(result);
+		}
+
+		result = nox_xxx_getFirstUpdatable2Object_4DA840();
+		while(result != 0){
+			if (!(*(_BYTE*)(result + 16) & 0x20) && *(_DWORD*)(result + 44) == a1) {
+				return result;
 			}
+
+			result = nox_xxx_getNextUpdatable2Object_4DA850(result);
 		}
 	}
 	return result;
