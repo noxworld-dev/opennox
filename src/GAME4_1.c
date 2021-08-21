@@ -7586,18 +7586,18 @@ int  nox_xxx_netUpdate_518EE0(nox_object_t* obj) {
 					}
 				}
 			}
-			for (int cur_obj = nox_xxx_getFirstUpdatable2Object_4DA840(); cur_obj; cur_obj = nox_xxx_getNextUpdatable2Object_4DA850(
+			for (nox_object_t* cur_obj = nox_xxx_getFirstUpdatable2Object_4DA840(); cur_obj; cur_obj = nox_xxx_getNextUpdatable2Object_4DA850(
 					cur_obj)) {
-				if (!(*(_DWORD*)(cur_obj + 8) & 0x20400000) &&
+				if (!(cur_obj->obj_class & 0x20400000) &&
 						!nox_xxx_playerMapTracksObj_4173D0(*(unsigned __int8*)(*(_DWORD*)(v2 + 276) + 2064),
 						                                   cur_obj) &&
-						(*(float*)(cur_obj + 232) > (double)a1.field_8 || *(float*)(cur_obj + 240) < (double)a1.field_0 ||
-								*(float*)(cur_obj + 236) > (double)a1.field_C || *(float*)(cur_obj + 244) < (double)a1.field_4)) {
-					if (v14 & *(_DWORD*)(cur_obj + 148)) {
+						                                   (*(float*)&cur_obj->field_58 > (double)a1.field_8 || *(float*)&cur_obj->field_60 < (double)a1.field_0 ||
+						                                   *(float*)&cur_obj->field_59 > (double)a1.field_C || *(float*)&cur_obj->field_61 < (double)a1.field_4)) {
+					if (v14 & cur_obj->field_37) {
 						nox_xxx_netObjectOutOfSight_528A60(*(unsigned __int8*)(*(_DWORD*)(v2 + 276) + 2064),
 						                                   (_DWORD*)cur_obj);
-						*(_DWORD*)(cur_obj + 152) |= v14;
-						*(_DWORD*)(cur_obj + 148) &= ~v14;
+						*(_DWORD*)&cur_obj->field_38 |= v14;
+						cur_obj->field_37 &= ~v14;
 					}
 				}
 			}

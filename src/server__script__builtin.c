@@ -2559,8 +2559,6 @@ int nox_script_Blind_515220() {
 //----- (00515240) --------------------------------------------------------
 void nox_xxx_WideScreenDo_515240(bool enable) {
 	BOOL v0; // esi
-	int v1;  // esi
-	int v2;  // edi
 	int v3;  // esi
 	int v4;  // edi
 	int v5;  // eax
@@ -2596,14 +2594,14 @@ void nox_xxx_WideScreenDo_515240(bool enable) {
 		*getMemU32Ptr(0x5D4594, 2386896) = nox_xxx_getNameId_4E3AA0("LargeFist");
 		*getMemU32Ptr(0x5D4594, 2386900) = nox_xxx_getNameId_4E3AA0("Pixie");
 	}
-	v1 = nox_xxx_getFirstUpdatable2Object_4DA840();
-	if (v1) {
+	nox_object_t* obj = nox_xxx_getFirstUpdatable2Object_4DA840();
+	if (obj) {
 		do {
-			v2 = nox_xxx_getNextUpdatable2Object_4DA850(v1);
-			if (*(unsigned __int16*)(v1 + 4) != *getMemU32Ptr(0x5D4594, 2386900))
-				nox_xxx_delayedDeleteObject_4E5CC0(v1);
-			v1 = v2;
-		} while (v2);
+			nox_object_t* v2 = nox_xxx_getNextUpdatable2Object_4DA850(obj);
+			if (obj->typ_ind != *getMemU32Ptr(0x5D4594, 2386900))
+				nox_xxx_delayedDeleteObject_4E5CC0(obj);
+			obj = v2;
+		} while (obj);
 	}
 	v3 = nox_server_getFirstObject_4DA790();
 	if (!v3)

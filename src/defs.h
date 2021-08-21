@@ -513,7 +513,8 @@ typedef struct nox_object_t {
 	float float_28; // 28, 112, // TODO: damping/drag?
 	_DWORD field_29; // 29, 116
 	float float_30; // 30, 120
-	_DWORD field_31; // 31, 124, // TODO: 126 accessed as word, probably direction
+	_WORD field_31_0; // 31, 124, // TODO: 124 is set to value of 126 in at least 51B100
+	_WORD field_31_1; // 31, 126, // TODO: 126 accessed as word in at least 51B100, probably direction
 	_DWORD field_32; // 32, 128
 	_DWORD field_33; // 33, 132
 	_DWORD field_34; // 34, 136
@@ -658,7 +659,7 @@ typedef struct nox_object_t {
 	_DWORD field_183; // 183, 732
 	void* field_184; // 184, 736, // TODO: data
 	_DWORD field_185; // 185, 740
-	_DWORD field_186; // 186, 744
+	_DWORD field_186; // 186, 744 // TODO: (void(**)(int))
 	void* field_187; // 187, 748, // Mana data, source 4EEBF0
 	_DWORD field_188; // 188, 752
 	_DWORD field_189; // 189, 756

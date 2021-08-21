@@ -9781,7 +9781,6 @@ int  sub_504AB0(char* a1) {
 int  nox_server_mapRWObjectData_504CF0(_DWORD* a2) {
 	int result;          // eax
 	int i;               // esi
-	int j;               // esi
 	int v4;              // eax
 	float v5;            // ecx
 	int v6;              // eax
@@ -9838,21 +9837,21 @@ int  nox_server_mapRWObjectData_504CF0(_DWORD* a2) {
 				return 0;
 		}
 	}
-	for (j = nox_xxx_getFirstUpdatable2Object_4DA840(); j; j = nox_xxx_getNextUpdatable2Object_4DA850(j)) {
+	for (nox_object_t* obj = nox_xxx_getFirstUpdatable2Object_4DA840(); obj; obj = nox_xxx_getNextUpdatable2Object_4DA850(obj)) {
 		if (a2) {
-			v4 = nox_float2int(*(float*)(j + 56));
-			v5 = *(float*)(j + 60);
+			v4 = nox_float2int(obj->x);
+			v5 = obj->y;
 			a1.field_0 = v4;
 			a1.field_4 = nox_float2int(v5);
 			if (!sub_4280E0(&a1, a2))
 				continue;
 		}
-		if (*(_DWORD*)(j + 8) & 0x1000000 && *(_BYTE*)(j + 12) & 0x40) {
-			v6 = nox_xxx_inventoryGetFirst_4E7980(j);
-			*(_DWORD*)(v6 + 56) = *(_DWORD*)(j + 56);
-			*(_DWORD*)(v6 + 60) = *(_DWORD*)(j + 60);
+		if (obj->obj_class & 0x1000000 && *(_BYTE*)&obj->field_3 & 0x40) {
+			v6 = nox_xxx_inventoryGetFirst_4E7980(obj);
+			*(_DWORD*)(v6 + 56) = *(_DWORD*)&obj->x;
+			*(_DWORD*)(v6 + 60) = *(_DWORD*)&obj->y;
 			nox_xxx_xfer_saveObj_51DF90(v6);
-		} else if (sub_4E3B80(*(unsigned __int16*)(j + 4)) && !nox_xxx_xfer_saveObj_51DF90(j)) {
+		} else if (sub_4E3B80(obj->typ_ind) && !nox_xxx_xfer_saveObj_51DF90(obj)) {
 			return 0;
 		}
 	}

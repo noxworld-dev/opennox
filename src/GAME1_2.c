@@ -2850,7 +2850,6 @@ int sub_42BFE0() {
 	_WORD* v7;            // eax
 	int k;                // esi
 	_WORD* v9;            // eax
-	int l;                // eax
 	unsigned __int16 v11; // cx
 	_WORD* v12;           // ecx
 	int m;                // esi
@@ -2893,8 +2892,8 @@ int sub_42BFE0() {
 			if (*(_DWORD*)(k + 8) & 0x20000)
 				sub_42C210(k, &v15, getMemAt(0x5D4594, 741684));
 		}
-		for (l = nox_xxx_getFirstUpdatable2Object_4DA840(); l; l = nox_xxx_getNextUpdatable2Object_4DA850(l)) {
-			v11 = *(_WORD*)(l + 4);
+		for (nox_object_t* obj = nox_xxx_getFirstUpdatable2Object_4DA840(); obj; obj = nox_xxx_getNextUpdatable2Object_4DA850(obj)) {
+			v11 = *(_WORD*)&obj->typ_ind;
 			v3 = *(_WORD*)(dword_5d4594_741676 + 2 * v11) == 0;
 			v12 = (_WORD*)(dword_5d4594_741676 + 2 * v11);
 			if (v3) {

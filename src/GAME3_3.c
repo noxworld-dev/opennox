@@ -2768,8 +2768,6 @@ void  sub_4E5BF0(int a1) {
 	int v2; // edi
 	int v3; // eax
 	int v4; // eax
-	int v5; // esi
-	int v6; // edi
 
 	if (!*getMemU32Ptr(0x5D4594, 1565596))
 		*getMemU32Ptr(0x5D4594, 1565596) = nox_xxx_getNameId_4E3AA0("Moonglow");
@@ -2786,14 +2784,14 @@ void  sub_4E5BF0(int a1) {
 			v1 = v2;
 		} while (v2);
 	}
-	v5 = nox_xxx_getFirstUpdatable2Object_4DA840();
-	if (v5) {
+	nox_object_t* obj = nox_xxx_getFirstUpdatable2Object_4DA840();
+	if (obj) {
 		do {
-			v6 = nox_xxx_getNextUpdatable2Object_4DA850(v5);
-			if (a1 != 1 || !sub_4E5B80(v5))
-				nox_xxx_delayedDeleteObject_4E5CC0(v5);
-			v5 = v6;
-		} while (v6);
+			nox_object_t* v6 = nox_xxx_getNextUpdatable2Object_4DA850(obj);
+			if (a1 != 1 || !sub_4E5B80(obj))
+				nox_xxx_delayedDeleteObject_4E5CC0(obj);
+			obj = v6;
+		} while (obj);
 	}
 }
 
@@ -7756,23 +7754,23 @@ int sub_4ECF10(int a1) {
 	}
 
 	result = nox_server_getFirstObjectUninited_4DA870();
-	while(result != 0){
+	while (result != 0) {
 		if (!(*(_BYTE*)(result + 16) & 0x20) && *(_DWORD*)(result + 44) == a1) {
 			return result;
 		}
 		result = nox_server_getNextObjectUninited_4DA880(result);
 	}
 
-	result = nox_xxx_getFirstUpdatable2Object_4DA840();
-	while(result != 0){
-		if (!(*(_BYTE*)(result + 16) & 0x20) && *(_DWORD*)(result + 44) == a1) {
-			return result;
+	nox_object_t* obj = nox_xxx_getFirstUpdatable2Object_4DA840();
+	while (obj) {
+		if (!(*(_BYTE*)&obj->field_4 & 0x20) && obj->field_11 == a1) {
+			return obj;
 		}
 
-		result = nox_xxx_getNextUpdatable2Object_4DA850(result);
+		obj = nox_xxx_getNextUpdatable2Object_4DA850(obj);
 	}
 
-	return result;
+	return obj;
 }
 
 //----- (004ECFA0) --------------------------------------------------------

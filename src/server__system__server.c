@@ -618,8 +618,6 @@ void sub_4DBA30(int a1) {
 	int v17;      // eax
 	int v18;      // esi
 	int v19;      // edi
-	int v20;      // esi
-	int v21;      // edi
 	int i;        // esi
 	int v23;      // eax
 	char* v24;    // [esp+Ch] [ebp-8h]
@@ -737,16 +735,16 @@ void sub_4DBA30(int a1) {
 							v16 = v3;
 						} while (v3);
 					}
-					v20 = nox_xxx_getFirstUpdatable2Object_4DA840();
-					if (v20 != v3) {
+					nox_object_t* obj = nox_xxx_getFirstUpdatable2Object_4DA840();
+					if (obj != v3) {
 						do {
-							v21 = nox_xxx_getNextUpdatable2Object_4DA850(v20);
-							if ((int)*(_DWORD*)(v20 + 16) >= 0) {
-								if (sub_4E5B80(v20))
-									nox_xxx_delayedDeleteObject_4E5CC0(v20);
+							nox_object_t* v21 = nox_xxx_getNextUpdatable2Object_4DA850(obj);
+							if ((int)obj->field_4 >= 0) {
+								if (sub_4E5B80(obj))
+									nox_xxx_delayedDeleteObject_4E5CC0(obj);
 							}
-							v20 = v21;
-						} while (v21 != v3);
+							obj = v21;
+						} while (obj != v3);
 					}
 					v2 = v24;
 				}
@@ -1843,7 +1841,6 @@ char nox_xxx_updateUnits_51B100() {
 	int v10;                  // eax
 	int v11;                  // ecx
 	int v12;                  // eax
-	int j;                    // esi
 	void( * v14)(int); // eax
 	int v15;                  // eax
 	int v16;                  // ecx
@@ -1974,26 +1971,26 @@ char nox_xxx_updateUnits_51B100() {
 			v2 = v3;
 		} while (v3);
 	}
-	for (j = nox_xxx_getFirstUpdatable2Object_4DA840(); j; j = nox_xxx_getNextUpdatable2Object_4DA850(j)) {
-		if (!(*(_BYTE*)(j + 16) & 0x22)) {
-			v14 = *(void(**)(int))(j + 744);
+	for (nox_object_t* obj = nox_xxx_getFirstUpdatable2Object_4DA840(); obj; obj = nox_xxx_getNextUpdatable2Object_4DA850(obj)) {
+		if (!(*(_BYTE*)&obj->field_4 & 0x22)) {
+			v14 = *(void(**)(int))&obj->field_186;
 			if (v14)
-				v14(j);
-			nox_xxx_updateFallLogic_51B870(j);
-			sub_51B810(j);
-			sub_537770(j);
-			v15 = *(_DWORD*)(j + 56);
-			v16 = *(_DWORD*)(j + 60);
-			*(_WORD*)(j + 124) = *(_WORD*)(j + 126);
-			v17 = *(_DWORD*)(j + 64);
-			*(_DWORD*)(j + 72) = v15;
-			v18 = *(_DWORD*)(j + 68);
-			*(_DWORD*)(j + 56) = v17;
-			*(_DWORD*)(j + 76) = v16;
-			*(_DWORD*)(j + 60) = v18;
-			*(_DWORD*)(j + 88) = 0;
-			*(_DWORD*)(j + 92) = 0;
-			nox_xxx_moveUpdateSpecial_517970(j);
+				v14(obj);
+			nox_xxx_updateFallLogic_51B870(obj);
+			sub_51B810(obj);
+			sub_537770(obj);
+			v15 = *(_DWORD*)&obj->x;
+			v16 = *(_DWORD*)&obj->y;
+			obj->field_31_0 = obj->field_31_1;
+			v17 = *(_DWORD*)&obj->new_x;
+			obj->field_18 = v15;
+			v18 = *(_DWORD*)&obj->new_y;
+			*(_DWORD*)&obj->x = v17;
+			obj->field_19 = v16;
+			*(_DWORD*)&obj->y = v18;
+			*(_DWORD*)&obj->force_x = 0;
+			*(_DWORD*)&obj->force_y = 0;
+			nox_xxx_moveUpdateSpecial_517970(obj);
 		}
 	}
 	nox_xxx_collisions_511850();
@@ -2186,7 +2183,6 @@ void nox_server_questMapNextLevel() {
 int nox_xxx_mapExitAndCheckNext_4D1860_server() {
 	char* v2;         // eax
 	int i;            // eax
-	int j;            // eax
 	char* v5;         // eax
 	int v6;           // esi
 	char* v7;         // ebx
@@ -2231,7 +2227,6 @@ int nox_xxx_mapExitAndCheckNext_4D1860_server() {
 	int v48;          // edi
 	int* v49;         // eax
 	int ii;           // eax
-	int jj;           // eax
 	char v57;         // al
 	int* v58;         // [esp-1Ch] [ebp-68h]
 	__int16 v59;      // [esp-14h] [ebp-60h]
@@ -2250,8 +2245,8 @@ int nox_xxx_mapExitAndCheckNext_4D1860_server() {
 	nox_xxx_mapSwitchLevel_4D12E0(1);
 	for (i = nox_server_getFirstObject_4DA790(); i; i = nox_server_getNextObject_4DA7A0(i))
 		*(_DWORD*)(i + 16) |= 0x80000000;
-	for (j = nox_xxx_getFirstUpdatable2Object_4DA840(); j; j = nox_xxx_getNextUpdatable2Object_4DA850(j))
-		*(_DWORD*)(j + 16) |= 0x80000000;
+	for (nox_object_t* obj = nox_xxx_getFirstUpdatable2Object_4DA840(); obj; obj = nox_xxx_getNextUpdatable2Object_4DA850(obj))
+		obj->field_4 |= 0x80000000;
 	if (nox_common_gameFlags_check_40A5C0(2048)) {
 		nox_xxx_spellEnableAll_424BD0();
 		sub_4537F0();
@@ -2451,8 +2446,8 @@ int nox_xxx_mapExitAndCheckNext_4D1860_server() {
 	}
 	for (ii = nox_server_getFirstObject_4DA790(); ii; ii = nox_server_getNextObject_4DA7A0(ii))
 		*(_DWORD*)(ii + 16) &= 0x7FFFFFFFu;
-	for (jj = nox_xxx_getFirstUpdatable2Object_4DA840(); jj; jj = nox_xxx_getNextUpdatable2Object_4DA850(jj))
-		*(_DWORD*)(jj + 16) &= 0x7FFFFFFFu;
+	for (nox_object_t* obj = nox_xxx_getFirstUpdatable2Object_4DA840(); obj; obj = nox_xxx_getNextUpdatable2Object_4DA850(obj))
+		obj->field_4 &= 0x7FFFFFFFu;
 	if (nox_common_gameFlags_check_40A5C0(16) && nox_xxx_CheckGameplayFlags_417DA0(4))
 		sub_4D2160();
 	if (nox_common_gameFlags_check_40A5C0(4096)) {

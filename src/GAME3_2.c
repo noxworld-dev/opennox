@@ -1792,7 +1792,6 @@ void  nox_xxx_mapSwitchLevel_4D12E0(int a1) {
 	_DWORD* v4; // eax
 	int v5;     // esi
 	_DWORD* v6; // eax
-	int i;      // esi
 	int v11[3]; // [esp+0h] [ebp-Ch]
 
 	v11[0] = 25;
@@ -1861,9 +1860,9 @@ void  nox_xxx_mapSwitchLevel_4D12E0(int a1) {
 		v1 = a1;
 	}
 	sub_50D1C0();
-	for (i = nox_xxx_getFirstUpdatable2Object_4DA840(); i; i = nox_xxx_getNextUpdatable2Object_4DA850(i)) {
-		if (sub_4E5B80(i))
-			sub_4E81D0(i);
+	for (nox_object_t* obj = nox_xxx_getFirstUpdatable2Object_4DA840(); obj; obj = nox_xxx_getNextUpdatable2Object_4DA850(obj)) {
+		if (sub_4E5B80(obj))
+			sub_4E81D0(obj);
 	}
 	sub_4ECFE0();
 	sub_511E20();
@@ -7216,7 +7215,8 @@ int  nox_xxx_getNextPlayerUnit_4DA7F0(int a1) {
 nox_object_t* nox_xxx_getFirstUpdatable2Object_4DA840() { return nox_server_objects_updatable2_1556848; }
 
 //----- (004DA850) --------------------------------------------------------
-int  nox_xxx_getNextUpdatable2Object_4DA850(int a1) {
+nox_object_t* nox_xxx_getNextUpdatable2Object_4DA850(const nox_object_t* obj) {
+	int a1 = (int)obj;
 	int result; // eax
 
 	if (a1)

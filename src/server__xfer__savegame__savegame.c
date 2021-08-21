@@ -121,8 +121,6 @@ void nox_xxx_monstersAllBelongToHost_4DB6A0() {
 void sub_4DB9C0() {
 	int v0; // esi
 	int v1; // edi
-	int v2; // esi
-	int v3; // edi
 
 	v0 = nox_server_getFirstObject_4DA790();
 	if (v0) {
@@ -133,14 +131,14 @@ void sub_4DB9C0() {
 			v0 = v1;
 		} while (v1);
 	}
-	v2 = nox_xxx_getFirstUpdatable2Object_4DA840();
-	if (v2) {
+	nox_object_t* obj = nox_xxx_getFirstUpdatable2Object_4DA840();
+	if (obj) {
 		do {
-			v3 = nox_xxx_getNextUpdatable2Object_4DA850(v2);
-			if (sub_4E5B80(v2))
-				nox_xxx_delayedDeleteObject_4E5CC0(v2);
-			v2 = v3;
-		} while (v3);
+			nox_object_t* v3 = nox_xxx_getNextUpdatable2Object_4DA850(obj);
+			if (sub_4E5B80(obj))
+				nox_xxx_delayedDeleteObject_4E5CC0(obj);
+			obj = v3;
+		} while (obj);
 	}
 }
 
