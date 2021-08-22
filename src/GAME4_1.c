@@ -7502,10 +7502,7 @@ int  nox_xxx_netUpdate_518EE0(nox_object_t* obj) {
 	int v10;     // eax
 	int v11;     // eax
 	int v12;     // eax
-	int v13;     // ebp
 	int v14;     // ebx
-	int v15;     // eax
-	int v16;     // edi
 	char v17[3]; // [esp+Ch] [ebp-20h]
 	int v18;     // [esp+10h] [ebp-1Ch]
 	char v19[5]; // [esp+14h] [ebp-18h]
@@ -7572,33 +7569,38 @@ int  nox_xxx_netUpdate_518EE0(nox_object_t* obj) {
 		if (sub_519710(v2))
 			sub_519760((int)a3, &a1.field_0);
 		if ((unsigned char)nox_frame_xxx_2598000 & 8) {
-			v13 = 0;
+			int processing_second_group = 0;
 			v14 = 1 << *(_BYTE*)(*(_DWORD*)(v2 + 276) + 2064);
-			v15 = nox_server_getFirstObject_4DA790();
-		LABEL_25:
-			v16 = v15;
+			int cur_obj;
+			cur_obj = nox_server_getFirstObject_4DA790();
+
 			while (1) {
-				if (v16) {
-					if (!(*(_DWORD*)(v16 + 8) & 0x20400000) &&
-						!nox_xxx_playerMapTracksObj_4173D0(*(unsigned __int8*)(*(_DWORD*)(v2 + 276) + 2064), v16) &&
-						(*(float*)(v16 + 232) > (double)a1.field_8 || *(float*)(v16 + 240) < (double)a1.field_0 ||
-						 *(float*)(v16 + 236) > (double)a1.field_C || *(float*)(v16 + 244) < (double)a1.field_4)) {
-						if (v14 & *(_DWORD*)(v16 + 148)) {
-							nox_xxx_netObjectOutOfSight_528A60(*(unsigned __int8*)(*(_DWORD*)(v2 + 276) + 2064), (_DWORD*)v16);
-							*(_DWORD*)(v16 + 152) |= v14;
-							*(_DWORD*)(v16 + 148) &= ~v14;
+				if (cur_obj) {
+					if (!(*(_DWORD*)(cur_obj + 8) & 0x20400000) &&
+							!nox_xxx_playerMapTracksObj_4173D0(*(unsigned __int8*)(*(_DWORD*)(v2 + 276) + 2064),
+							                                   cur_obj) &&
+							(*(float*)(cur_obj + 232) > (double)a1.field_8 || *(float*)(cur_obj + 240) < (double)a1.field_0 ||
+									*(float*)(cur_obj + 236) > (double)a1.field_C || *(float*)(cur_obj + 244) < (double)a1.field_4)) {
+						if (v14 & *(_DWORD*)(cur_obj + 148)) {
+							nox_xxx_netObjectOutOfSight_528A60(*(unsigned __int8*)(*(_DWORD*)(v2 + 276) + 2064),
+							                                   (_DWORD*)cur_obj);
+							*(_DWORD*)(cur_obj + 152) |= v14;
+							*(_DWORD*)(cur_obj + 148) &= ~v14;
 						}
 					}
-					if (v13)
-						v15 = nox_xxx_getNextUpdatable2Object_4DA850(v16);
-					else
-						v15 = nox_server_getNextObject_4DA7A0(v16);
-					goto LABEL_25;
+					if (processing_second_group == 1) {
+						cur_obj = nox_xxx_getNextUpdatable2Object_4DA850(cur_obj);
+					} else {
+						cur_obj = nox_server_getNextObject_4DA7A0(cur_obj);
+					}
+					continue;
 				}
-				if (v13 == 1)
+				if (processing_second_group == 1) {
 					break;
-				v16 = nox_xxx_getFirstUpdatable2Object_4DA840();
-				v13 = 1;
+				} else {
+					cur_obj = nox_xxx_getFirstUpdatable2Object_4DA840();
+					processing_second_group = 1;
+				}
 			}
 			v1 = a3;
 		}
