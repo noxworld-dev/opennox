@@ -7489,7 +7489,6 @@ int  nox_xxx_netPlayerObjSend_518C30(int a1, _DWORD* a2, int a3, signed int a4) 
 
 //----- (00518EE0) --------------------------------------------------------
 int  nox_xxx_netUpdate_518EE0(nox_object_t* obj) {
-	_DWORD* a3 = obj;
 	_DWORD* v1;  // ebx
 	int v2;      // esi
 	int v3;      // edi
@@ -7508,12 +7507,12 @@ int  nox_xxx_netUpdate_518EE0(nox_object_t* obj) {
 	char v19[5]; // [esp+14h] [ebp-18h]
 	float4 a1;   // [esp+1Ch] [ebp-10h]
 
-	v1 = a3;
-	v2 = a3[187];
+	v1 = obj;
+	v2 = obj->field_187;
 	v3 = *(unsigned __int8*)(*(_DWORD*)(v2 + 276) + 2064);
 	nox_netlist_initPlayerBufs_40F020(v3);
 	if (v3 != 31 && !((nox_frame_xxx_2598000 + v3) % (unsigned int)(15 * nox_gameFPS)))
-		nox_xxx_netReportUnitHeight_4D9020(v3, (int)a3);
+		nox_xxx_netReportUnitHeight_4D9020(v3, (int)obj);
 	if (!dword_5d4594_2650652 || !(nox_frame_xxx_2598000 % (unsigned int)nox_xxx_rateGet_40A6C0()) ||
 		nox_common_gameFlags_check_40A5C0(8)) {
 		if (*(_BYTE*)(*(_DWORD*)(v2 + 276) + 3680) & 0x40) {
@@ -7527,16 +7526,16 @@ int  nox_xxx_netUpdate_518EE0(nox_object_t* obj) {
 			nox_netlist_addToMsgListSrv_40EF40(v3, v17, 3);
 		}
 	}
-	if (!dword_5d4594_2650652 || a3 == *(_DWORD**)&nox_xxx_host_player_unit_3843628 || nox_common_gameFlags_check_40A5C0(8) ||
+	if (!dword_5d4594_2650652 || (_DWORD*)obj == *(_DWORD**)&nox_xxx_host_player_unit_3843628 || nox_common_gameFlags_check_40A5C0(8) ||
 		!(nox_frame_xxx_2598000 % (unsigned int)nox_xxx_rateGet_40A6C0())) {
 		if (*(_BYTE*)(*(_DWORD*)(v2 + 276) + 3680) & 3 || nox_common_getEngineFlag(NOX_ENGINE_FLAG_REPLAY_READ)) {
-			result = nox_xxx_netPlayerObjSendCamera_519330((int)a3);
+			result = nox_xxx_netPlayerObjSendCamera_519330((int)obj);
 			if (!result)
 				return result;
 			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_REPLAY_READ))
-				nox_xxx_netPlayerObjSend_518C30((int)a3, a3, 1, 1);
+				nox_xxx_netPlayerObjSend_518C30((int)obj, obj, 1, 1);
 		} else {
-			result = nox_xxx_netPlayerObjSend_518C30((int)a3, a3, 1, 1);
+			result = nox_xxx_netPlayerObjSend_518C30((int)obj, obj, 1, 1);
 			if (!result)
 				return result;
 		}
@@ -7552,7 +7551,7 @@ int  nox_xxx_netUpdate_518EE0(nox_object_t* obj) {
 		v8 = *(_DWORD*)(v2 + 276);
 		v18 = *(unsigned __int16*)(v8 + 12);
 		a1.field_C = (double)v18 + *(float*)(v8 + 3636) + 100.0;
-		nox_xxx_getUnitsInRectAdv_517ED0(&a1, nox_xxx_unitAroundPlayerFn_5193B0, (int)a3);
+		nox_xxx_getUnitsInRectAdv_517ED0(&a1, nox_xxx_unitAroundPlayerFn_5193B0, (int)obj);
 		v9 = *(_DWORD*)(v2 + 276);
 		v18 = *(unsigned __int16*)(v9 + 10);
 		a1.field_0 = *(float*)(v9 + 3632) - (double)v18 - 128.0;
@@ -7565,9 +7564,9 @@ int  nox_xxx_netUpdate_518EE0(nox_object_t* obj) {
 		v12 = *(_DWORD*)(v2 + 276);
 		v18 = *(unsigned __int16*)(v12 + 12);
 		a1.field_C = (double)v18 + *(float*)(v12 + 3636) + 128.0;
-		nox_xxx_secretWallCheckUnits_517F00(&a1, sub_519660, (int)a3);
+		nox_xxx_secretWallCheckUnits_517F00(&a1, sub_519660, (int)obj);
 		if (sub_519710(v2))
-			sub_519760((int)a3, &a1.field_0);
+			sub_519760((int)obj, &a1.field_0);
 		if ((unsigned char)nox_frame_xxx_2598000 & 8) {
 			v14 = 1 << *(_BYTE*)(*(_DWORD*)(v2 + 276) + 2064);
 
@@ -7602,7 +7601,7 @@ int  nox_xxx_netUpdate_518EE0(nox_object_t* obj) {
 				}
 			}
 
-			v1 = a3;
+			v1 = obj;
 		}
 	}
 	if (!dword_5d4594_2650652 || !(nox_frame_xxx_2598000 % (unsigned int)nox_xxx_rateGet_40A6C0()) ||
