@@ -91,9 +91,10 @@ type NoxRender struct {
 	p *C.nox_render_data_t
 
 	colors struct {
-		R []uint16
-		G []uint16
-		B []uint16
+		mode noxcolor.Mode
+		R    [256]uint16
+		G    [256]uint16
+		B    [256]uint16
 	}
 
 	draw27 drawOpFunc
@@ -103,7 +104,9 @@ type NoxRender struct {
 }
 
 func NewNoxRender() *NoxRender {
-	return &NoxRender{}
+	r := &NoxRender{}
+	r.SetColorMode(noxcolor.ModeRGBA5551)
+	return r
 }
 
 func (r *NoxRender) SetData(p *C.nox_render_data_t) {
@@ -918,13 +921,13 @@ func nox_draw_initColorTables_434CC0() C.int {
 	if C.dword_5d4594_3801780 == 0 {
 		mode = noxcolor.ModeRGBA5551
 	}
-	noxrend.initColorTables(mode)
+	noxrend.SetColorMode(mode)
 	arrR := alloc.Uints16(257)[:256]
 	arrG := alloc.Uints16(257)[:256]
 	arrB := alloc.Uints16(257)[:256]
-	copy(arrR, noxrend.colors.R)
-	copy(arrG, noxrend.colors.G)
-	copy(arrB, noxrend.colors.B)
+	copy(arrR, noxrend.colors.R[:])
+	copy(arrG, noxrend.colors.G[:])
+	copy(arrB, noxrend.colors.B[:])
 	C.nox_draw_colors_r_3804672 = (*C.uchar)(unsafe.Pointer(&arrR[0]))
 	C.nox_draw_colors_g_3804656 = (*C.uchar)(unsafe.Pointer(&arrG[0]))
 	C.nox_draw_colors_b_3804664 = (*C.uchar)(unsafe.Pointer(&arrB[0]))
@@ -947,16 +950,14 @@ func sub_433C20_freeColorTables() {
 	}
 }
 
-func (r *NoxRender) initColorTables(mode noxcolor.Mode) {
-	arrR := make([]uint16, 256)
-	arrG := make([]uint16, 256)
-	arrB := make([]uint16, 256)
-	for i := 0; i < 256; i++ {
-		arrR[i] = mode.RGB(byte(i), 0, 0).Color16()
-		arrG[i] = mode.RGB(0, byte(i), 0).Color16()
-		arrB[i] = mode.RGB(0, 0, byte(i)).Color16()
+func (r *NoxRender) SetColorMode(mode noxcolor.Mode) {
+	if r.colors.mode == mode {
+		return
 	}
-	r.colors.R = arrR
-	r.colors.G = arrG
-	r.colors.B = arrB
+	for i := 0; i < 256; i++ {
+		r.colors.R[i] = mode.RGB(byte(i), 0, 0).Color16()
+		r.colors.G[i] = mode.RGB(0, byte(i), 0).Color16()
+		r.colors.B[i] = mode.RGB(0, 0, byte(i)).Color16()
+	}
+	r.colors.mode = mode
 }
