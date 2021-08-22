@@ -20,16 +20,8 @@ func clientDraw() bool {
 	return nox_xxx_client_435F80_draw(inpHandlerS)
 }
 
-func getBackbufWidth() int {
-	return noxRendererS.RenderMode().Width
-}
-
-func getBackbufHeight() int {
-	return noxRendererS.RenderMode().Height
-}
-
 func copyPixBuffer() {
-	noxRendererS.CopyBuffer(nox_pixbuffer_main)
+	noxRendererS.CopyBuffer(nox_pixbuffer_size, nox_pixbuffer_main)
 	*memmap.PtrUint32(0x973A20, 496)++
 }
 
@@ -41,8 +33,8 @@ func sub_444D00() {
 	nox_video_setBackBufferCopyFunc2_4AD150()
 }
 
-func resetRenderer(sz types.Size) error {
-	if C.nox_video_renderTargetFlags&4 == 0 {
+func resetRenderer(sz types.Size, init bool) error {
+	if C.nox_video_renderTargetFlags&4 == 0 && !init {
 		if err := noxRendererS.Reset(sz); err != nil {
 			return err
 		}
@@ -71,16 +63,10 @@ func gameResetVideoMode(inMenu, force bool) error {
 	videoLog.Printf("mode switch: %+v (menu: %v)", mode, inMenu)
 	videoResizeView(mode)
 	C.nox_game_loop_xxx_805872 = 0
-	cur := noxRendererS.RenderMode()
-	if !force && mode == cur {
+	if !force && mode.Size() == nox_pixbuffer_size {
 		return nil
 	}
-	if mode.Depth != cur.Depth {
-		if C.nox_video_bagMaybeReload(C.int(bool2int(videoIs16Bit()))) == 0 {
-			return errors.New("nox_video_bagMaybeReload failed")
-		}
-	}
-	if err := recreateBuffersAndTarget(); err != nil {
+	if err := recreateBuffersAndTarget(mode.Size()); err != nil {
 		return err
 	}
 	C.nox_xxx_loadPal_4A96C0_video_read_palette(internCStr("default.pal"))

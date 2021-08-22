@@ -44,10 +44,6 @@ func resetInput() {
 	inpHandlerS.Reset()
 }
 
-func getBackbufSize() types.Size {
-	return noxRendererS.BufferSize()
-}
-
 func getInputSeq() uint {
 	return inpHandlerS.CurrentSeq()
 }
@@ -84,18 +80,6 @@ func isMousePressed() bool {
 	return inpHandlerS.IsMousePressed(seat.MouseButtonLeft) ||
 		inpHandlerS.IsMousePressed(seat.MouseButtonRight) ||
 		inpHandlerS.IsMousePressed(seat.MouseButtonMiddle)
-}
-
-func isPressed(key keybind.Key) bool {
-	return inpHandlerS.IsPressed(key)
-}
-
-func keymodCtrl() bool {
-	return inpHandlerS.KeyModCtrl()
-}
-
-func keymodAlt() bool {
-	return inpHandlerS.KeyModAlt()
 }
 
 func keymodShift() bool {
@@ -135,7 +119,7 @@ func newSeat(sz types.Size) (seat.Seat, error) {
 	})
 
 	r.OnViewResize(inp.SetWinSize)
-	r.OnBufferResize(inp.SetDrawWinSize)
+	OnPixBufferResize(inp.SetDrawWinSize)
 
 	return s, nil
 }
