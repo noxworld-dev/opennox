@@ -2,6 +2,8 @@ package render
 
 import (
 	"image"
+	"sync"
+	"sync/atomic"
 
 	"nox/v1/client/seat"
 	"nox/v1/common/log"
@@ -26,20 +28,24 @@ func (m Mode) Size() types.Size {
 }
 
 func New(sc seat.Screen) (*Renderer, error) {
+	sz := sc.ScreenSize()
 	r := &Renderer{
+		updates:    make(chan update, 1),
 		sc:         sc,
 		fullscreen: -4, // unset
 	}
-	if err := r.Init(sc.ScreenSize()); err != nil {
+	if err := r.Init(sz); err != nil {
 		return nil, err
 	}
 	sc.OnScreenResize(func(sz types.Size) {
-		r.present(sz)
+		r.present(types.Size{}, nil)
 	})
 	return r, nil
 }
 
 type Renderer struct {
+	ticks      uint32 // atomic
+	updates    chan update
 	sc         seat.Screen
 	backbuf    seat.Surface
 	view       image.Rectangle
@@ -48,14 +54,15 @@ type Renderer struct {
 	stretch    bool
 	rotate     bool
 	rotated    bool
-	ticks      uint
 	onResize   []func(view image.Rectangle)
-	onReset    []func(sz types.Size)
+
+	bufMu sync.Mutex
+	buf   []byte
 }
 
 // Ticks returns the number of present ticks since the last Reset or Init.
 func (r *Renderer) Ticks() uint {
-	return r.ticks
+	return uint(atomic.LoadUint32(&r.ticks))
 }
 
 // Init the renderer.
@@ -63,38 +70,14 @@ func (r *Renderer) Init(sz types.Size) error {
 	if r.backbuf != nil {
 		return nil
 	}
-	r.reset(sz)
+	Log.Printf("creating surface: %dx%d", sz.W, sz.H)
+	r.backbuf = r.sc.NewSurface(sz)
 	return nil
 }
 
 // Reset the renderer.
 func (r *Renderer) Reset(sz types.Size) error {
-	if r.sc != nil && sz == r.BufferSize() {
-		Log.Printf("reusing surface: %dx%d", sz.W, sz.H)
-		r.ticks = 0
-		return nil
-	}
-	r.reset(sz)
 	return nil
-}
-
-// reset the renderer. This function always resets the surface and won't check anything.
-func (r *Renderer) reset(sz types.Size) {
-	Log.Printf("creating surface: %dx%d", sz.W, sz.H)
-	r.Stop()
-	r.backbuf = r.newSurface(sz)
-	for _, fnc := range r.onReset {
-		fnc(sz)
-	}
-}
-
-// Stop the renderer temporarily.
-func (r *Renderer) Stop() {
-	if r.backbuf != nil {
-		r.backbuf.Destroy()
-		r.backbuf = nil
-	}
-	r.ticks = 0
 }
 
 // OnViewResize registers a function that will be called when the render or the underlying window resizes.
@@ -103,60 +86,97 @@ func (r *Renderer) OnViewResize(fnc func(view image.Rectangle)) {
 	fnc(r.view)
 }
 
-// OnBufferResize registers a function that will be called when the render buffer resizes.
-func (r *Renderer) OnBufferResize(fnc func(sz types.Size)) {
-	r.onReset = append(r.onReset, fnc)
-	fnc(r.BufferSize())
-}
-
-// newSurface creates a new surface of a given size.
-func (r *Renderer) newSurface(sz types.Size) seat.Surface {
-	return r.sc.NewSurface(sz)
-}
-
-// BufferSize returns the size of the back buffer.
-func (r *Renderer) BufferSize() types.Size {
-	return r.backbuf.Size()
-}
-
 // CopyBuffer copies given 16 bit image into the buffer and presents it.
-func (r *Renderer) CopyBuffer(src []byte) {
-	defer r.present(r.sc.ScreenSize())
-	r.backbuf.Update(src)
+func (r *Renderer) CopyBuffer(sz types.Size, src []byte) {
+	r.present(sz, src)
 }
 
-func (r *Renderer) present(wsz types.Size) {
-	bsz := r.BufferSize()
-	view := r.setViewport(bsz.W, bsz.H, wsz.W, wsz.H)
+func (r *Renderer) present(sz types.Size, src []byte) {
+	view := r.setViewport(float32(sz.W) / float32(sz.H))
 	if r.view != view {
 		r.view = view
 		for _, fnc := range r.onResize {
 			fnc(view)
 		}
 	}
-	r.sc.Clear()
-	r.backbuf.Draw(view)
-	r.sc.Present()
-	r.ticks++
+	upd := update{view: view, size: sz}
+	if src != nil {
+		r.bufMu.Lock()
+		defer r.bufMu.Unlock()
+		if len(r.buf) != len(src) {
+			r.buf = make([]byte, len(src))
+		}
+		copy(r.buf, src)
+		upd.copy = true
+	}
+	r.triggerUpdate(upd)
+}
+
+type update struct {
+	view image.Rectangle
+	size types.Size
+	copy bool
+}
+
+func (r *Renderer) triggerUpdate(u update) {
+	for {
+		select {
+		case r.updates <- u:
+			return
+		case <-r.updates:
+			// continue
+		}
+	}
+}
+
+func (r *Renderer) Loop() {
+	var (
+		prev []byte
+		bsz  = r.backbuf.Size()
+	)
+	for u := range r.updates {
+		func() {
+			if u.copy {
+				if u.size != bsz {
+					old := r.backbuf.Size()
+					Log.Printf("recreating surface: %dx%d -> %dx%d", old.W, old.H, u.size.W, u.size.H)
+					if r.backbuf != nil {
+						r.backbuf.Destroy()
+						r.backbuf = nil
+					}
+					r.backbuf = r.sc.NewSurface(u.size)
+					bsz = u.size
+				}
+				r.bufMu.Lock()
+				prev, r.buf = r.buf, prev
+				r.bufMu.Unlock()
+				r.backbuf.Update(prev)
+			}
+			r.sc.Clear()
+			r.backbuf.Draw(u.view)
+			r.sc.Present()
+			atomic.AddUint32(&r.ticks, 1)
+		}()
+	}
 }
 
 func (r *Renderer) SetStretch(stretch bool) {
 	r.stretch = stretch
 }
 
-func (r *Renderer) setViewport(srcw, srch, tw, th int) image.Rectangle {
+func (r *Renderer) setViewport(ratio float32) image.Rectangle {
+	wsz := r.sc.ScreenSize()
 	if r.stretch {
-		return image.Rect(0, 0, tw, th)
+		return image.Rect(0, 0, wsz.W, wsz.H)
 	}
 	var (
-		ratio    = float32(srcw) / float32(srch)
 		offx     = 0
 		offy     = 0
 		vpw, vph int
 		vpx, vpy int
 	)
 
-	vpw, vph = tw, th
+	vpw, vph = wsz.W, wsz.H
 
 	// Maintain source aspect ratio
 	if r.rotate && float32(vph)-ratio*float32(vpw) > float32(vpw)-ratio*float32(vph) {
@@ -178,16 +198,6 @@ func (r *Renderer) setViewport(srcw, srch, tw, th int) image.Rectangle {
 	vpx = offx
 	vpy = offy
 	return image.Rect(vpx, vpy, vpx+vpw, vpy+vph)
-}
-
-// RenderMode returns the current rendering mode.
-func (r *Renderer) RenderMode() Mode {
-	sz := r.backbuf.Size()
-	return Mode{
-		Width:  sz.W,
-		Height: sz.H,
-		Depth:  seat.DefaultDepth, // only one mode is supported
-	}
 }
 
 // IsFullScreen checks if the renderer's window is set to fullscreen mode.

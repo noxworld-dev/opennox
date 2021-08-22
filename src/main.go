@@ -360,7 +360,14 @@ func runNox(args []string) error {
 	}
 	g_argc2 = len(args)
 	g_argv2 = &CStringArray(args)[0]
-	cmainLoop()
+	if isDedicatedServer {
+		cmainLoop()
+		return nil
+	}
+	// Due to SDL we need to run all code related to it on the main thread, which prevents
+	// us from using async rendering. So we will run Nox on a secondary thread instead.
+	go cmainLoop()
+	noxRendererS.Loop()
 	return nil
 }
 

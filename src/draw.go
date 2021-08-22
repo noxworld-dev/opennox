@@ -642,7 +642,7 @@ func (r *NoxRender) nox_client_drawImg_aaa_4C79F0(img *C.nox_video_bag_image_t, 
 		}
 	}
 	C.dword_5d4594_3799508 ^= C.uint(pos.Y & 1)
-	pitch := 2 * getBackbufWidth()
+	pitch := 2 * nox_pixbuffer_size.W
 	for i := 0; i < int(height); i++ {
 		dst := nox_pixbuffer_main[pitch*(pos.Y+i)+2*pos.X:]
 		if C.dword_5d4594_3799552 != 0 {
@@ -702,7 +702,7 @@ func (r *NoxRender) nox_client_drawXxx_4C7C80(pix []byte, pos types.Point, width
 		pix = skipPixdata(pix, width, dy)
 	}
 	C.dword_5d4594_3799508 ^= C.uint(ys & 1)
-	pitch := 2 * getBackbufWidth()
+	pitch := 2 * nox_pixbuffer_size.W
 	for i := 0; i < height; i++ {
 		yi := ys + i
 		if C.dword_5d4594_3799552 != 0 {
@@ -847,7 +847,7 @@ func (r *NoxRender) nox_client_drawImg_bbb_4C7860(img *C.nox_video_bag_image_t, 
 	}
 	xoff := 2 * pos.X
 	ipitch := 2 * int(width)
-	pitch := 2 * getBackbufWidth()
+	pitch := 2 * nox_pixbuffer_size.W
 	for i := 0; i < int(height); i++ {
 		dst := nox_pixbuffer_main[pitch*(pos.Y+1)+xoff:]
 		src := data[ipitch*i:]

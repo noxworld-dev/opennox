@@ -35,18 +35,6 @@ func getWindowMode() int {
 	return winMode
 }
 
-func getBackbufWidth() int {
-	return getBackbufSize().W
-}
-
-func getBackbufHeight() int {
-	return getBackbufSize().H
-}
-
-func getBackbufSize() types.Size {
-	return types.Size{W: 640, H: 480}
-}
-
 func gameResetVideoMode(inMenu, force bool) error {
 	return nil
 }

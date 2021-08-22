@@ -58,6 +58,8 @@ var (
 	nox_video_cursorDrawIsThreaded         bool
 	dword_6F7C10                           func(a1 unsafe.Pointer, a2, a3 uint32)
 	nox_backbuffer_width32                 int
+	onPixBufferResize                      []func(sz types.Size)
+	nox_pixbuffer_size                     types.Size
 	nox_pixbuffer_main_rows                []unsafe.Pointer
 	nox_pixbuffer_rows_3798776_arr         []unsafe.Pointer
 	nox_pixbuffer_main                     []byte
@@ -74,6 +76,10 @@ var (
 	nox_video_gammaValue                   int
 	draw_gamma                             float32
 )
+
+func OnPixBufferResize(fnc func(sz types.Size)) {
+	onPixBufferResize = append(onPixBufferResize, fnc)
+}
 
 func videoGetWindowSize() types.Size {
 	return types.Size{
@@ -168,12 +174,12 @@ func nox_video_setGammaSetting_434B30(a1 C.int) C.int {
 
 //export nox_getBackbufWidth
 func nox_getBackbufWidth() C.int {
-	return C.int(getBackbufWidth())
+	return C.int(nox_pixbuffer_size.W)
 }
 
 //export nox_getBackbufHeight
 func nox_getBackbufHeight() C.int {
-	return C.int(getBackbufHeight())
+	return C.int(nox_pixbuffer_size.H)
 }
 
 //export sub_48A290_call_present
@@ -299,10 +305,10 @@ func drawInitAll(sz types.Size, depth, flags int) error {
 		return err
 	}
 	sub_47D200()
-	if err := sub_486090(); err != nil {
+	if err := sub_486090(sz); err != nil {
 		return err
 	}
-	sub_49F610()
+	sub_49F610(sz)
 	if res := C.sub_4338D0(); res == 0 {
 		return errors.New("sub_4338D0 failed")
 	}
@@ -350,20 +356,20 @@ func gameUpdateVideoMode(inMenu bool) error {
 	return gameResetVideoMode(inMenu, false)
 }
 
-func recreateBuffersAndTarget() error {
+func recreateBuffersAndTarget(sz types.Size) error {
 	C.nox_video_freeFloorBuffer_430EC0()
-	if err := recreateRenderTarget(); err != nil {
+	if err := recreateRenderTarget(sz); err != nil {
 		videoLog.Println("recreate render target:", err)
 		return err
 	}
 	videoLog.Println("recreate render target: ok")
-	if err := nox_video_initFloorBuffer_430BA0(); err != nil {
+	if err := nox_video_initFloorBuffer_430BA0(sz); err != nil {
 		return err
 	}
 	return nil
 }
 
-func recreateRenderTarget() error {
+func recreateRenderTarget(sz types.Size) error {
 	flags := uint(0)
 	if C.nox_video_dxFullScreen != 0 {
 		if C.nox_video_dxUnlockSurface != 0 {
@@ -407,7 +413,7 @@ func recreateRenderTarget() error {
 	C.sub_49F6D0(1)
 	C.sub_437290()
 	videoSet16Bit(C.dword_5d4594_3801780 != 0)
-	*memmap.PtrUint32(0x973F18, 6060) = uint32(2 * getBackbufWidth() * getBackbufHeight())
+	*memmap.PtrUint32(0x973F18, 6060) = uint32(2 * sz.W * sz.H)
 	*memmap.PtrUint32(0x973F18, 7696) = uint32(bool2int(C.dword_5d4594_3801780 == 1))
 	C.sub_430B50(0, 0, noxDefaultWidth-1, noxDefaultHeight-1)
 	return nil
@@ -415,7 +421,7 @@ func recreateRenderTarget() error {
 
 //export nox_getBackbufferPitch
 func nox_getBackbufferPitch() C.int {
-	return C.int(2 * getBackbufWidth())
+	return C.int(2 * nox_pixbuffer_size.W)
 }
 
 //export nox_video_getSurfaceData_48A720
@@ -464,7 +470,7 @@ func drawGeneral_4B0340(a1 int) error {
 	v2 := C.dword_5d4594_3801780
 	var (
 		v4      int
-		v7, v8  int
+		prevSz  types.Size
 		v9, v10 int
 		v11     unsafe.Pointer
 	)
@@ -474,17 +480,16 @@ func drawGeneral_4B0340(a1 int) error {
 		v11, v10, v9 = sub_48B590()
 		v2 = C.dword_5d4594_3801780
 		v4 = int(C.nox_video_renderTargetFlags)
-		bsz := getBackbufSize()
-		v8 = bsz.W
-		v7 = bsz.H
+		prevSz = nox_pixbuffer_size
 		nox_video_stopCursorDrawThread_48B350()
 		C.sub_433C20()
 		nox_free_pixbuffers_486110()
 		C.nox_video_renderTargetFlags = C.int(v4)
-		if err := resetRenderer(types.Size{W: noxDefaultWidth, H: noxDefaultHeight}); err != nil {
+		sz := types.Size{W: noxDefaultWidth, H: noxDefaultHeight}
+		if err := resetRenderer(sz, false); err != nil {
 			return err
 		}
-		if err := sub_486090(); err != nil {
+		if err := sub_486090(sz); err != nil {
 			return err
 		}
 	}
@@ -506,10 +511,10 @@ func drawGeneral_4B0340(a1 int) error {
 	if v2 == 0 {
 		nox_free_pixbuffers_486110()
 		C.nox_video_renderTargetFlags = C.int(v4)
-		if err := resetRenderer(types.Size{W: v8, H: v7}); err != nil {
+		if err := resetRenderer(prevSz, false); err != nil {
 			return err
 		}
-		if err := sub_486090(); err != nil {
+		if err := sub_486090(prevSz); err != nil {
 			return err
 		}
 		if C.sub_4338D0() == 0 {
@@ -525,14 +530,13 @@ func drawGeneral_4B0340(a1 int) error {
 	return nil
 }
 
-func nox_video_initFloorBuffer_430BA0() error {
+func nox_video_initFloorBuffer_430BA0(sz types.Size) error {
 	if C.dword_5d4594_3801780 == 1 {
 		C.nox_xxx___cfltcvt_init_430CC0()
 	} else {
 		C.sub_430D60()
 	}
-	bsz := getBackbufSize()
-	if C.nox_xxx_tileInitBuf_430DB0(C.int(bsz.W), C.int(bsz.H)) == 0 {
+	if C.nox_xxx_tileInitBuf_430DB0(C.int(sz.W), C.int(sz.H)) == 0 {
 		return errors.New("VideoInit: error initializing floor buffer")
 	}
 	return nil
@@ -548,7 +552,7 @@ func nox_video_stopCursorDrawThread_48B350() {
 }
 
 func sub_4AEDF0() {
-	height := getBackbufSize().H
+	height := nox_pixbuffer_size.H
 	dword_5d4594_3798632_arr = alloc.Pointers(height)
 	C.dword_5d4594_3798632 = (*C.char)(unsafe.Pointer(&dword_5d4594_3798632_arr[0]))
 
@@ -576,26 +580,24 @@ func sub_4AE520() {
 
 //export sub_4AEBD0
 func sub_4AEBD0() {
-	height := getBackbufSize().H
 	C.dword_5d4594_3798648, dword_5d4594_3798648_arr = C.dword_5d4594_3798644, dword_5d4594_3798644_arr
 	v0 := 0
 	C.dword_5d4594_3798640 = 0
-	for C.dword_5d4594_3798636 = 0; int(C.dword_5d4594_3798636) < height; C.dword_5d4594_3798636++ {
+	for C.dword_5d4594_3798636 = 0; int(C.dword_5d4594_3798636) < nox_pixbuffer_size.H; C.dword_5d4594_3798636++ {
 		dword_5d4594_3798632_arr[v0] = nil
 		v0 = int(C.dword_5d4594_3798636 + 1)
 	}
 	C.dword_5d4594_3798636 = C.uint(v0 - 1)
 }
 
-func sub_49F610() {
-	bsz := getBackbufSize()
+func sub_49F610(sz types.Size) {
 	C.ptr_5D4594_3799572.flag_0 = 0
-	C.ptr_5D4594_3799572.clip = C.nox_rect{right: C.int(bsz.W), bottom: C.int(bsz.H)}
-	C.ptr_5D4594_3799572.rect2 = C.nox_rect{right: C.int(bsz.W - 1), bottom: C.int(bsz.H - 1)}
+	C.ptr_5D4594_3799572.clip = C.nox_rect{right: C.int(sz.W), bottom: C.int(sz.H)}
+	C.ptr_5D4594_3799572.rect2 = C.nox_rect{right: C.int(sz.W - 1), bottom: C.int(sz.H - 1)}
 	C.ptr_5D4594_3799572.field_9 = 0
 	C.ptr_5D4594_3799572.field_10 = 0
-	C.ptr_5D4594_3799572.field_11 = C.uint(bsz.W)
-	C.ptr_5D4594_3799572.field_12 = C.uint(bsz.H)
+	C.ptr_5D4594_3799572.field_11 = C.uint(sz.W)
+	C.ptr_5D4594_3799572.field_12 = C.uint(sz.H)
 	C.dword_5d4594_1305748 = 0
 }
 
@@ -607,7 +609,7 @@ func sub_49FC20(a1, a2, a3, a4 *C.int) int {
 		ye = int(C.ptr_5D4594_3799572.rect2.bottom)
 	} else {
 		ys = 0
-		ye = getBackbufSize().H - 1
+		ye = nox_pixbuffer_size.H - 1
 	}
 	v16 := 0
 	v6 := int(*a1)
@@ -675,9 +677,8 @@ func sub_49FC20(a1, a2, a3, a4 *C.int) int {
 
 //export sub_440900
 func sub_440900() {
-	height := getBackbufSize().H
 	val := uint32(C.ptr_5D4594_3799572.field_58)
-	for y := 0; y < height; y++ {
+	for y := 0; y < nox_pixbuffer_size.H; y++ {
 		row := asU32Slice(nox_pixbuffer_main_rows[y], nox_backbuffer_width32*8)
 		for x := 0; x < nox_backbuffer_width32*8; x++ {
 			row[x] = val
@@ -709,18 +710,16 @@ func nox_free_pixbuffers_486110() {
 	}
 }
 
-func sub_486090() error {
-	sub_4861D0()
-	sub_486230()
+func sub_486090(sz types.Size) error {
+	sub_4861D0(sz)
+	sub_486230(sz)
 	return nil
 }
 
-func sub_4861D0() {
+func sub_4861D0(sz types.Size) {
 	if memmap.Uint32(0x5D4594, 1193200) != 0 {
 		return
 	}
-	sz := getBackbufSize()
-
 	nox_pixbuffer_main = alloc.Bytes(uintptr(2 * sz.W * sz.H))
 	if C.nox_video_renderTargetFlags&0x40 == 0 {
 		return
@@ -730,12 +729,16 @@ func sub_4861D0() {
 	C.nox_pixbuffer_3798788 = (*C.uchar)(unsafe.Pointer(&nox_pixbuffer_3798788_arr[0]))
 }
 
-func sub_486230() {
-	sz := getBackbufSize()
+func sub_486230(sz types.Size) {
+	videoLog.Printf("initializing pixbuffer: %v", sz)
+	nox_pixbuffer_size = sz
 	nox_pixbuffer_main_rows = alloc.Pointers(sz.H)
 	C.nox_pixbuffer_rows_3798784 = (**C.uchar)(unsafe.Pointer(&nox_pixbuffer_main_rows[0]))
 	for y := 0; y < sz.H; y++ {
 		nox_pixbuffer_main_rows[y] = unsafe.Pointer(&nox_pixbuffer_main[y*2*sz.W])
+	}
+	for _, fnc := range onPixBufferResize {
+		fnc(sz)
 	}
 
 	if C.nox_video_renderTargetFlags&0x40 == 0 {
@@ -793,7 +796,7 @@ func sub_48B3F0(a1 unsafe.Pointer, a2, a3 C.int) C.int {
 //export nox_draw_setCutSize_476700
 func nox_draw_setCutSize_476700(cutPerc C.int, a2 C.int) {
 	vp := getViewport()
-	bsz := getBackbufSize()
+	bsz := nox_pixbuffer_size
 	v2 := int(a2)
 	v4 := int(vp.width)
 	perc := int(cutPerc)
@@ -872,7 +875,7 @@ func nox_client_drawXxx_444AC0(w, h, depth int, flags int) error {
 	}
 	v8 := int(uint32(w) & 0xFFFFFFE0)
 	if v7&4 == 0 {
-		if err := resetRenderer(types.Size{W: v8, H: h}); err != nil {
+		if err := resetRenderer(types.Size{W: v8, H: h}, true); err != nil {
 			return err
 		}
 		return nil
