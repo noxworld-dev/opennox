@@ -1314,7 +1314,7 @@ int  sub_434AC0(int a1);
 int nox_video_getGammaSetting_434B00();
 int  nox_video_setGammaSetting_434B30(int a1);
 BOOL sub_434B60();
-int sub_434CC0();
+int nox_draw_initColorTables_434CC0();
 int sub_434DA0();
 char  sub_434E80(char a1, char a2, char a3);
 char  sub_434EC0(char a1, char a2, char a3);

@@ -59,6 +59,7 @@ import (
 
 	"nox/v1/client/input"
 	"nox/v1/common/alloc"
+	noxcolor "nox/v1/common/color"
 	noxflags "nox/v1/common/flags"
 	"nox/v1/common/memmap"
 	"nox/v1/common/types"
@@ -88,6 +89,12 @@ type drawOpFunc func(dst, src []byte, op byte, val int) (outDst, outSrc []byte)
 
 type NoxRender struct {
 	p *C.nox_render_data_t
+
+	colors struct {
+		R []uint16
+		G []uint16
+		B []uint16
+	}
 
 	draw27 drawOpFunc
 	draw4  drawOpFunc
@@ -450,7 +457,7 @@ func (r *NoxRender) drawImage16(img *C.nox_video_bag_image_t, pos types.Point, p
 		if C.ptr_5D4594_3799572.field_13 == 0 {
 			if C.ptr_5D4594_3799572.field_14 != 0 {
 				r.draw5 = drawOpC(func() { C.sub_4C9970() })
-				r.draw27 = sub_4C86B0
+				r.draw27 = r.sub_4C86B0
 				r.draw4 = drawOpC(func() { C.sub_4C91C0() })
 			} else {
 				r.draw27 = drawOpC(func() { C.sub_4C8D60() })
@@ -465,14 +472,14 @@ func (r *NoxRender) drawImage16(img *C.nox_video_bag_image_t, pos types.Point, p
 				v3 := C.ptr_5D4594_3799572.field_259
 				if v3 == 255 {
 					if C.ptr_5D4594_3799572.field_16 == 0 {
-						r.draw27 = sub_4C86B0
+						r.draw27 = r.sub_4C86B0
 						r.draw4 = drawOpC(func() { C.sub_4C91C0() })
 					} else {
 						r.draw27 = pixCopyN
 						r.draw4 = drawOpC(func() { C.sub_4C8DF0() })
 					}
 				} else if v3 == 128 {
-					r.draw27 = pixBlend
+					r.draw27 = r.pixBlend
 					r.draw4 = drawOpC(func() { C.sub_4C94D0() })
 				} else {
 					r.draw27 = drawOpC(func() { C.sub_4C8850() })
@@ -845,7 +852,7 @@ func (r *NoxRender) nox_client_drawImg_bbb_4C7860(img *C.nox_video_bag_image_t, 
 	}
 }
 
-func pixBlend(dst, src []byte, _ byte, sz int) (_, _ []byte) { // sub_4C8A30
+func (r *NoxRender) pixBlend(dst, src []byte, _ byte, sz int) (_, _ []byte) { // sub_4C8A30
 	par := asU32Slice(unsafe.Pointer(&C.byte_5D4594_3804364[0]), 40)
 
 	rshift := par[5]
@@ -855,10 +862,6 @@ func pixBlend(dst, src []byte, _ byte, sz int) (_, _ []byte) { // sub_4C8A30
 	rmask := uint16(par[2])
 	gmask := uint16(par[1])
 	bmask := uint16(par[0])
-
-	rtbl := asU16Slice(unsafe.Pointer(uintptr(C.nox_draw_colors_r_3804672)), 256)
-	gtbl := asU16Slice(unsafe.Pointer(uintptr(C.nox_draw_colors_g_3804656)), 256)
-	btbl := asU16Slice(unsafe.Pointer(uintptr(C.nox_draw_colors_b_3804664)), 256)
 
 	rmul := uint16(byte(C.ptr_5D4594_3799572.field_26))
 	gmul := uint16(byte(C.ptr_5D4594_3799572.field_25))
@@ -872,9 +875,9 @@ func pixBlend(dst, src []byte, _ byte, sz int) (_, _ []byte) { // sub_4C8A30
 		gc := byte((gmul * ((gmask & c2) >> gshift)) >> 8)
 		bc := byte((bmul * ((bmask & c2) >> bshift)) >> 8)
 
-		c3 := rtbl[byte(int16(bc)+(int16((bmask&c1)>>bshift)-int16(bc))/2)] |
-			gtbl[byte(int16(gc)+(int16((gmask&c1)>>gshift)-int16(gc))/2)] |
-			btbl[byte(int16(rc)+(int16((rmask&c1)<<rshift)-int16(rc))/2)]
+		c3 := r.colors.R[byte(int16(bc)+(int16((bmask&c1)>>bshift)-int16(bc))/2)] |
+			r.colors.G[byte(int16(gc)+(int16((gmask&c1)>>gshift)-int16(gc))/2)] |
+			r.colors.B[byte(int16(rc)+(int16((rmask&c1)<<rshift)-int16(rc))/2)]
 
 		binary.LittleEndian.PutUint16(dst, c3)
 		dst = dst[2:]
@@ -883,7 +886,7 @@ func pixBlend(dst, src []byte, _ byte, sz int) (_, _ []byte) { // sub_4C8A30
 	return dst, src
 }
 
-func sub_4C86B0(dst, src []byte, _ byte, sz int) (_, _ []byte) { // sub_4C86B0
+func (r *NoxRender) sub_4C86B0(dst, src []byte, _ byte, sz int) (_, _ []byte) { // sub_4C86B0
 	par := asU32Slice(unsafe.Pointer(&C.byte_5D4594_3804364[0]), 40)
 
 	rshift := par[5]
@@ -894,21 +897,66 @@ func sub_4C86B0(dst, src []byte, _ byte, sz int) (_, _ []byte) { // sub_4C86B0
 	gmask := uint16(par[1])
 	bmask := uint16(par[0])
 
-	rtbl := asU16Slice(unsafe.Pointer(uintptr(C.nox_draw_colors_r_3804672)), 256)
-	gtbl := asU16Slice(unsafe.Pointer(uintptr(C.nox_draw_colors_g_3804656)), 256)
-	btbl := asU16Slice(unsafe.Pointer(uintptr(C.nox_draw_colors_b_3804664)), 256)
-
 	rmul := uint32(C.obj_5D4594_3800716.field_26)
 	gmul := uint32(C.obj_5D4594_3800716.field_25)
 	bmul := uint32(C.obj_5D4594_3800716.field_24)
 
 	for i := 0; i < sz; i++ {
 		v2 := binary.LittleEndian.Uint16(src[2*i:])
-		cr := rtbl[byte((bmul*(uint32(bmask&v2)>>bshift))>>8)]
-		cg := gtbl[byte((gmul*(uint32(gmask&v2)>>gshift))>>8)]
-		cb := btbl[byte((rmul*(uint32(rmask&v2)<<rshift))>>8)]
+		cr := r.colors.R[byte((bmul*(uint32(bmask&v2)>>bshift))>>8)]
+		cg := r.colors.G[byte((gmul*(uint32(gmask&v2)>>gshift))>>8)]
+		cb := r.colors.B[byte((rmul*(uint32(rmask&v2)<<rshift))>>8)]
 		c := cr | cg | cb
 		binary.LittleEndian.PutUint16(dst[2*i:], c)
 	}
 	return dst[2*sz:], src[2*sz:]
+}
+
+//export nox_draw_initColorTables_434CC0
+func nox_draw_initColorTables_434CC0() C.int {
+	mode := noxcolor.GetMode()
+	if C.dword_5d4594_3801780 == 0 {
+		mode = noxcolor.ModeRGBA5551
+	}
+	noxrend.initColorTables(mode)
+	arrR := alloc.Uints16(257)[:256]
+	arrG := alloc.Uints16(257)[:256]
+	arrB := alloc.Uints16(257)[:256]
+	copy(arrR, noxrend.colors.R)
+	copy(arrG, noxrend.colors.G)
+	copy(arrB, noxrend.colors.B)
+	C.nox_draw_colors_r_3804672 = (*C.uchar)(unsafe.Pointer(&arrR[0]))
+	C.nox_draw_colors_g_3804656 = (*C.uchar)(unsafe.Pointer(&arrG[0]))
+	C.nox_draw_colors_b_3804664 = (*C.uchar)(unsafe.Pointer(&arrB[0]))
+	return 1
+}
+
+//export sub_433C20_freeColorTables
+func sub_433C20_freeColorTables() {
+	if p := C.nox_draw_colors_r_3804672; p != nil {
+		alloc.Free(unsafe.Pointer(p))
+		C.nox_draw_colors_r_3804672 = nil
+	}
+	if p := C.nox_draw_colors_g_3804656; p != nil {
+		alloc.Free(unsafe.Pointer(p))
+		C.nox_draw_colors_g_3804656 = nil
+	}
+	if p := C.nox_draw_colors_b_3804664; p != nil {
+		alloc.Free(unsafe.Pointer(p))
+		C.nox_draw_colors_b_3804664 = nil
+	}
+}
+
+func (r *NoxRender) initColorTables(mode noxcolor.Mode) {
+	arrR := make([]uint16, 256)
+	arrG := make([]uint16, 256)
+	arrB := make([]uint16, 256)
+	for i := 0; i < 256; i++ {
+		arrR[i] = mode.RGB(byte(i), 0, 0).Color16()
+		arrG[i] = mode.RGB(0, byte(i), 0).Color16()
+		arrB[i] = mode.RGB(0, 0, byte(i)).Color16()
+	}
+	r.colors.R = arrR
+	r.colors.G = arrG
+	r.colors.B = arrB
 }

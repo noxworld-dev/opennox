@@ -11,10 +11,7 @@ extern unsigned char** nox_pixbuffer_rows_3798784;
 extern nox_render_data_t obj_5D4594_3800716;
 extern nox_render_data_t* ptr_5D4594_3799572;
 extern unsigned char byte_5D4594_3804364[160];
-extern unsigned int nox_draw_colors_g_3804656;
-extern unsigned int nox_draw_colors_b_3804664;
 extern unsigned int dword_5d4594_3804668;
-extern unsigned int nox_draw_colors_r_3804672;
 extern unsigned int dword_5d4594_810632;
 extern unsigned int dword_5d4594_810636;
 extern unsigned int dword_5d4594_810640;
@@ -25,6 +22,9 @@ unsigned int dword_5d4594_3799552 = 0; // TODO: remove externs to it
 unsigned int dword_5d4594_3799484 = 0;
 unsigned int dword_5d4594_3799476 = 0;
 unsigned char* nox_video_cur_pixdata_3799444 = 0;
+unsigned char* nox_draw_colors_r_3804672 = 0;
+unsigned char* nox_draw_colors_g_3804656 = 0;
+unsigned char* nox_draw_colors_b_3804664 = 0;
 
 #ifndef NOX_CGO
 int nox_draw_sprite_offsY_3799556 = 0;
