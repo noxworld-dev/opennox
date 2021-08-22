@@ -42,20 +42,14 @@ func (s *Surface) Size() types.Size {
 	return s.sz
 }
 
-func (s *Surface) Present(vp image.Rectangle) {
-	ren := s.win.ren
-	rect := s.rect()
-	if err := ren.Clear(); err != nil {
-		panic(err)
-	}
+func (s *Surface) Draw(vp image.Rectangle) {
 	svp := sdl.Rect{
 		X: int32(vp.Min.X), Y: int32(vp.Min.Y),
 		W: int32(vp.Dx()), H: int32(vp.Dy()),
 	}
-	if err := ren.Copy(s.tex, rect, &svp); err != nil {
+	if err := s.win.ren.Copy(s.tex, s.rect(), &svp); err != nil {
 		panic(err)
 	}
-	ren.Present()
 }
 
 func (s *Surface) Destroy() {
