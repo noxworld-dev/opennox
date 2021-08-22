@@ -202,6 +202,16 @@ func (win *Window) OnScreenResize(fnc func(sz types.Size)) {
 	win.onResize = append(win.onResize, fnc)
 }
 
+func (win *Window) Clear() {
+	if err := win.ren.Clear(); err != nil {
+		panic(err)
+	}
+}
+
+func (win *Window) Present() {
+	win.ren.Present()
+}
+
 func (win *Window) NewSurface(sz types.Size) seat.Surface {
 	tex, err := win.ren.CreateTexture(sdl.PIXELFORMAT_RGB555, sdl.TEXTUREACCESS_STREAMING, int32(sz.W), int32(sz.H))
 	if err != nil {

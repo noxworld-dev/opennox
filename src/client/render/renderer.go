@@ -128,13 +128,15 @@ func (r *Renderer) CopyBuffer(src []byte) {
 func (r *Renderer) present(wsz types.Size) {
 	bsz := r.BufferSize()
 	view := r.setViewport(bsz.W, bsz.H, wsz.W, wsz.H)
-	r.backbuf.Present(view)
 	if r.view != view {
 		r.view = view
 		for _, fnc := range r.onResize {
 			fnc(view)
 		}
 	}
+	r.sc.Clear()
+	r.backbuf.Draw(view)
+	r.sc.Present()
 	r.ticks++
 }
 

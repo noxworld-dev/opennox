@@ -36,6 +36,10 @@ type Screen interface {
 	OnScreenResize(fnc func(sz types.Size))
 	// NewSurface creates a new screen surface.
 	NewSurface(sz types.Size) Surface
+	// Clear the screen.
+	Clear()
+	// Present the current buffer to the screen.
+	Present()
 }
 
 type Surface interface {
@@ -47,8 +51,8 @@ type Surface interface {
 	Lock() (data []byte, pitch int, ok bool)
 	// Unlock the surface.
 	Unlock()
-	// Present the surface in a given viewport rectangle.
-	Present(vp image.Rectangle)
+	// Draw the surface in a given viewport rectangle.
+	Draw(vp image.Rectangle)
 	// Destroy the surface.
 	Destroy()
 }
