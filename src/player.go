@@ -183,7 +183,7 @@ func (p *Player) UnitC() *Unit {
 	if p == nil {
 		return nil
 	}
-	return asUnit(p.playerUnit)
+	return asUnitC(p.playerUnit)
 }
 
 func (p *Player) PlayerClass() player.Class {

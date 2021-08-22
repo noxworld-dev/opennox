@@ -22,6 +22,13 @@ func asUnit(p unsafe.Pointer) *Unit {
 	return (*Unit)(p)
 }
 
+func asUnitC(p *C.nox_object_t) *Unit {
+	if p == nil {
+		return nil
+	}
+	return (*Unit)(unsafe.Pointer(p))
+}
+
 type Unit struct {
 	Object
 }

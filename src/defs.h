@@ -1323,7 +1323,7 @@ typedef struct nox_playerInfo {
 	_DWORD data_2000[8];
 	_DWORD data_2032[4];
 	_DWORD data_2048[2];
-	void* playerUnit; // 514, 2056
+	nox_object_t* playerUnit; // 514, 2056
 	unsigned int netCode; // 515, 2060
 	unsigned char playerInd; // 516, 2064
 	_BYTE field_2064_1; // 516, 2065
