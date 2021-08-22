@@ -530,6 +530,25 @@ void sub_435550() {
 }
 
 //----- (00433C20) --------------------------------------------------------
+#ifndef NOX_CGO
+void sub_433C20_freeColorTables() {
+	if (nox_draw_colors_r_3804672) {
+		free(*(LPVOID*)&nox_draw_colors_r_3804672);
+		nox_draw_colors_r_3804672 = 0;
+	}
+	if (nox_draw_colors_g_3804656) {
+		free(*(LPVOID*)&nox_draw_colors_g_3804656);
+		nox_draw_colors_g_3804656 = 0;
+	}
+	if (nox_draw_colors_b_3804664) {
+		free(*(LPVOID*)&nox_draw_colors_b_3804664);
+		nox_draw_colors_b_3804664 = 0;
+	}
+}
+#else // NOX_CGO
+void sub_433C20_freeColorTables();
+#endif // NOX_CGO
+
 void sub_433C20() {
 #ifndef NOX_CGO
 	sub_48A7F0();
@@ -543,18 +562,7 @@ void sub_433C20() {
 		free(*(LPVOID*)&dword_5d4594_3804668);
 		dword_5d4594_3804668 = 0;
 	}
-	if (nox_draw_colors_r_3804672) {
-		free(*(LPVOID*)&nox_draw_colors_r_3804672);
-		nox_draw_colors_r_3804672 = 0;
-	}
-	if (nox_draw_colors_g_3804656) {
-		free(*(LPVOID*)&nox_draw_colors_g_3804656);
-		nox_draw_colors_g_3804656 = 0;
-	}
-	if (nox_draw_colors_b_3804664) {
-		free(*(LPVOID*)&nox_draw_colors_b_3804664);
-		nox_draw_colors_b_3804664 = 0;
-	}
+	sub_433C20_freeColorTables();
 	sub_435550();
 	*getMemU32Ptr(0x973F18, 5232) = 0;
 }
@@ -903,7 +911,7 @@ int sub_4338D0() {
 	ptr_5D4594_3799572->field_261 = 16711935;
 	ptr_5D4594_3799572->field_262 = 0;
 	sub_434990(25, 25, 25);
-	result = sub_434CC0();
+	result = nox_draw_initColorTables_434CC0();
 	if (result) {
 		result = sub_434DA0();
 		if (result) {
@@ -1204,20 +1212,16 @@ BOOL sub_434B60() {
 // 434B60: using guessed type char var_6FF[512];
 // 434B60: using guessed type char var_4FF[511];
 
+#ifndef NOX_CGO
 //----- (00434CC0) --------------------------------------------------------
-int sub_434CC0() {
+int nox_draw_initColorTables_434CC0() {
 	int v0 = 0;       // edi
 	void* result; // eax
 	int i;        // esi
 
 	if (!dword_5d4594_3801780) {
-#ifndef NOX_CGO
 		v0 = nox_color_rgb_func;
 		nox_color_rgb_func = nox_color_rgba5551ext_4351C0;
-#else // NOX_CGO
-		v0 = nox_color_rgb_func_get();
-		nox_color_rgb_func_set(1);
-#endif // NOX_CGO
 	}
 	result = calloc(257, 2);
 	nox_draw_colors_r_3804672 = result;
@@ -1240,15 +1244,12 @@ int sub_434CC0() {
 		*(_WORD*)(nox_draw_colors_b_3804664 + 2 * i) = nox_color_rgb_4344A0(0, 0, i);
 	}
 	if (!dword_5d4594_3801780) {
-#ifndef NOX_CGO
 		nox_color_rgb_func = v0;
-#else // NOX_CGO
-		nox_color_rgb_func_set(v0);
-#endif // NOX_CGO
 	}
 	return 1;
 }
 // 434CDD: variable 'v3' is possibly undefined
+#endif // NOX_CGO
 
 //----- (004B0300) --------------------------------------------------------
 int  sub_4B0300(char* a1) {
