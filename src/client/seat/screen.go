@@ -47,10 +47,6 @@ type Surface interface {
 	Size() types.Size
 	// Update the surface with 16 bit data.
 	Update(data []byte)
-	// Lock the surface.
-	Lock() (data []byte, pitch int, ok bool)
-	// Unlock the surface.
-	Unlock()
 	// Draw the surface in a given viewport rectangle.
 	Draw(vp image.Rectangle)
 	// Destroy the surface.

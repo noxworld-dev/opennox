@@ -3,6 +3,7 @@ module nox/v1
 go 1.16
 
 require (
+	github.com/go-gl/gl v0.0.0-20210813123233-e4099ee2221f
 	github.com/icza/bitio v1.0.0
 	github.com/julienschmidt/httprouter v1.3.0
 	github.com/noxworld-dev/nat v0.1.0
