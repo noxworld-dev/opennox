@@ -565,6 +565,8 @@ func nox_video_getImagePixdata(img *C.nox_video_bag_image_t) []byte {
 		return nil
 	}
 	if data := nox_video_getImagePixdata_new(img); len(data) != 0 {
+		// TODO: remove interning when we get rid of C renderer
+		data = asByteSlice(internCBytes(data), len(data))
 		return data
 	}
 	// FIXME
