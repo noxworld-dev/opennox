@@ -1043,17 +1043,14 @@ int nox_cmd_set_spell(int tokInd, int tokCnt, wchar_t** tokens) {
 
 //----- (004E5DB0) --------------------------------------------------------
 void nox_xxx_deleteAllObjectsOfType_4E5DB0(int a1) {
-	int v1; // edi
-	int v2; // ebx
-	int v3; // eax
-	int v4; // esi
-
-	v1 = nox_server_getFirstObject_4DA790();
+	int v1 = nox_server_getFirstObject_4DA790();
 	if (v1) {
+		int v2;
 		do {
 			v2 = nox_server_getNextObject_4DA7A0(v1);
-			v3 = *(_DWORD*)(v1 + 504);
+			int v3 = *(_DWORD*)(v1 + 504);
 			if (v3) {
+				int v4;
 				do {
 					v4 = *(_DWORD*)(v3 + 496);
 					if (*(unsigned __int16*)(v3 + 4) == a1)
