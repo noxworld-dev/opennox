@@ -48,6 +48,7 @@ import (
 	"strings"
 	"unsafe"
 
+	"nox/v1/common"
 	"nox/v1/common/crypt"
 	"nox/v1/common/datapath"
 	noxflags "nox/v1/common/flags"
@@ -55,6 +56,55 @@ import (
 	"nox/v1/common/memmap"
 	"nox/v1/server/script"
 )
+
+var (
+	noxServerPort int = common.GamePort
+	noxHTTPPort   int = common.GameHTTPPort
+)
+
+//export nox_xxx_servGetPort_40A430
+func nox_xxx_servGetPort_40A430() C.int {
+	return C.int(getServerPort())
+}
+
+//export nox_xxx_setPortParam_40A3E0
+func nox_xxx_setPortParam_40A3E0(port C.int) {
+	setServerPort(int(port))
+}
+
+func inferHTTPPort(port int) int {
+	return common.GameHTTPPort + (port - common.GamePort)
+}
+
+func setServerPort(port int) {
+	if port <= 0 {
+		port = common.GamePort
+	}
+	noxServerPort = port
+	// TODO: decouple those once we implement our own server lobby
+	setHTTPPort(inferHTTPPort(port))
+}
+
+func getServerPort() int {
+	if noxServerPort <= 0 {
+		return common.GamePort
+	}
+	return noxServerPort
+}
+
+func setHTTPPort(port int) {
+	if port <= 0 {
+		port = common.GameHTTPPort
+	}
+	noxHTTPPort = port
+}
+
+func getHTTPPort() int {
+	if noxHTTPPort <= 0 {
+		return common.GameHTTPPort
+	}
+	return noxHTTPPort
+}
 
 func gameFPS() uint32 {
 	return uint32(C.nox_gameFPS)
@@ -315,7 +365,7 @@ func nox_xxx_servNewSession_4D1660() error {
 	}
 	C.sub_416920()
 	if !noxflags.HasGame(noxflags.GameModeSolo12) {
-		v1 := nox_xxx_servGetPort_40A430()
+		v1 := getServerPort()
 		*memmap.PtrInt32(0x5D4594, 1548516) = int32(C.nox_xxx_netAddPlayerHandler_4DEBC0(C.int(v1)))
 		if !noxflags.HasGame(noxflags.GameFlag26) {
 			C.nox_xxx_networkLog_init_413CC0()
@@ -328,17 +378,13 @@ func nox_xxx_servNewSession_4D1660() error {
 	C.sub_421B10()
 	C.sub_4DB0A0()
 	C.sub_4D0F30()
-	if err := gameStartHTTP(); err != nil {
+	if err := gameStartHTTP(getHTTPPort()); err != nil {
 		return err
 	}
-	if err := gameStartNAT(); err != nil {
+	if err := gameStartNAT(getServerPort(), getHTTPPort()); err != nil {
 		return err
 	}
 	return nil
-}
-
-func nox_xxx_servGetPort_40A430() int {
-	return int(C.nox_xxx_servGetPort_40A430())
 }
 
 func nox_server_netCloseHandler_4DEC60(a1 uint32) {

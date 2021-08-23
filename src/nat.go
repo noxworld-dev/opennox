@@ -4,7 +4,6 @@ import (
 	"context"
 	"os"
 
-	"nox/v1/common"
 	"nox/v1/common/log"
 
 	"github.com/noxworld-dev/nat"
@@ -20,15 +19,15 @@ func init() {
 	nat.LogUPNP = log.New("nat-upnp")
 }
 
-func gameStartNAT() error {
+func gameStartNAT(port, hport int) error {
 	if !useNAT {
 		return nil
 	}
 	ctx, cancel := context.WithCancel(context.Background())
 	go func() {
 		stop, _ := nat.Map(ctx, []nat.Port{
-			{Port: common.GamePort, Proto: "udp", Desc: "Nox game port"},
-			{Port: common.GameHTTPPort, Proto: "tcp", Desc: "Nox HTTP port"},
+			{Port: port, Proto: "udp", Desc: "Nox game port"},
+			{Port: hport, Proto: "tcp", Desc: "Nox HTTP port"},
 		})
 		if stop != nil {
 			<-ctx.Done()

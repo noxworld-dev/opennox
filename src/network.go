@@ -275,9 +275,11 @@ func nox_client_sendToServer_555010(addr C.uint, port C.uint16_t, cbuf *C.char, 
 }
 
 //export nox_client_sendJoinGame_5550A0
-func nox_client_sendJoinGame_5550A0(addr C.uint, port C.uint16_t, cdata *C.char) C.int {
+func nox_client_sendJoinGame_5550A0(caddr C.uint, cport C.uint16_t, cdata *C.char) C.int {
 	buf := asByteSlice(unsafe.Pointer(cdata), 100)
-	n, err := sendJoinGame(int2ip(uint32(addr)), int(port), buf)
+	host, port := int2ip(uint32(caddr)), int(cport)
+	netLog.Printf("join server: %s:%d", host.String(), port)
+	n, err := sendJoinGame(host, port, buf)
 	return convSendToServerErr(n, err)
 }
 

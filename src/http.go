@@ -16,10 +16,11 @@ var (
 	httpLog     = log.New("http")
 )
 
-func gameStartHTTP() error {
+func gameStartHTTP(port int) error {
 	if gameHTTPLis != nil {
 		return nil
 	}
+	gameHTTP.Addr = fmt.Sprintf(":%d", port)
 	ln, err := net.Listen("tcp", gameHTTP.Addr)
 	if err != nil {
 		return fmt.Errorf("cannot start http server: %w", err)
