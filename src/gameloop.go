@@ -422,7 +422,7 @@ func CONNECT_OR_HOST() {
 	if C.nox_xxx_check_flag_aaa_43AF70() == 0 {
 		C.nox_common_getInstallPath_40E0D0((*C.char)(unsafe.Pointer(&Datas[105])), internCStr("SOFTWARE\\Westwood\\Nox"), 0)
 	}
-	Datas[152] = byte(bool2int(C.nox_xxx_checkHasSoloMaps_40ABD0() == 0))
+	Datas[152] = byte(bool2int(!nox_xxx_checkHasSoloMaps()))
 	if memmap.Uint8(0x85B3FC, 10980)&4 != 0 {
 		Datas[152] |= 0x80
 	}

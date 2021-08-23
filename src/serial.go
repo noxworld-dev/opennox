@@ -2,8 +2,9 @@ package main
 
 import "C"
 import (
-	"nox/v1/common/serial"
 	"unsafe"
+
+	"nox/v1/common/serial"
 )
 
 //export nox_xxx_regGetSerial_420120

@@ -3,6 +3,10 @@ package main
 /*
 #include "defs.h"
 #include "nox_net.h"
+extern unsigned int dword_5d4594_2660032;
+extern unsigned int dword_5d4594_814548;
+extern unsigned int dword_587000_87404;
+extern unsigned long long qword_5d4594_814956;
 extern nox_socket_t nox_xxx_sockLocalBroadcast_2513920;
 extern nox_net_struct_t* nox_net_struct_arr[NOX_NET_STRUCT_MAX];
 unsigned int nox_client_getServerAddr_43B300();
@@ -27,6 +31,7 @@ import (
 	"nox/v1/common/alloc"
 	"nox/v1/common/log"
 	"nox/v1/common/memmap"
+	"nox/v1/common/serial"
 )
 
 const (
@@ -259,7 +264,7 @@ func (op clientNetOp) String() string {
 }
 
 func convSendToServerErr(n int, err error) C.int {
-	if err == errLobbySockFlag {
+	if err == errLobbyNoSocket {
 		return -17
 	} else if err != nil {
 		return -1
@@ -274,13 +279,54 @@ func nox_client_sendToServer_555010(addr C.uint, port C.uint16_t, cbuf *C.char, 
 	return convSendToServerErr(n, err)
 }
 
-//export nox_client_sendJoinGame_5550A0
-func nox_client_sendJoinGame_5550A0(caddr C.uint, cport C.uint16_t, cdata *C.char) C.int {
-	buf := asByteSlice(unsafe.Pointer(cdata), 100)
-	host, port := int2ip(uint32(caddr)), int(cport)
-	netLog.Printf("join server: %s:%d", host.String(), port)
-	n, err := sendJoinGame(host, port, buf)
-	return convSendToServerErr(n, err)
+func sub_43AF90(v int) {
+	C.dword_5d4594_814548 = C.uint(v)
+}
+
+func nox_client_createSockAndJoin_43B440() error {
+	if C.dword_587000_87404 == 1 {
+		if err := nox_xxx_createSocketLocal(0); err != nil {
+			return err
+		}
+	}
+	return nox_client_joinGame()
+}
+
+//export nox_client_joinGame_438A90
+func nox_client_joinGame_438A90() C.int {
+	if err := nox_client_joinGame(); err != nil {
+		return convSendToServerErr(0, err)
+	}
+	return 1
+}
+
+func nox_client_joinGame() error {
+	endianess := binary.LittleEndian
+	buf := alloc.Bytes(100)
+	defer alloc.FreeBytes(buf)
+	if s, ok := serial.Serial(); ok {
+		copy(buf[56:], s)
+	}
+	wstr := memmap.PtrOff(0x85B3FC, 12204)
+	if n := WStrLen((*C.wchar_t)(wstr)); n != 0 {
+		copy(buf[4:54], asByteSlice(wstr, n*2))
+	}
+	buf[54] = memmap.Uint8(0x85B3FC, 12254)
+	buf[55] = memmap.Uint8(0x85B3FC, 12256)
+	endianess.PutUint32(buf[80:], NOX_CLIENT_VERS_CODE)
+	endianess.PutUint32(buf[84:], uint32(C.dword_5d4594_2660032))
+
+	copy(buf[88:98], GoStringP(memmap.PtrOff(0x85B3FC, 10344)))
+	buf[98] = byte(bool2int(!nox_xxx_checkHasSoloMaps()))
+
+	sub_43AF90(3)
+	C.qword_5d4594_814956 = C.ulonglong(platformTicks() + 20000)
+
+	addr := nox_client_getServerAddr_43B300()
+	port := clientGetServerPort()
+	netLog.Printf("join server: %s:%d", addr.String(), port)
+	_, err := sendJoinGame(addr, port, buf)
+	return err
 }
 
 //export sub_5550D0

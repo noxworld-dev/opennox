@@ -3540,6 +3540,7 @@ int sub_41E080() {
 	return 1;
 }
 
+#ifndef NOX_CGO
 //----- (0041E0D0) --------------------------------------------------------
 int sub_41E0D0() {
 	int v0; // esi
@@ -3563,7 +3564,7 @@ int sub_41E0D0() {
 				sub_41F3A0(v2, 1);
 				break;
 			case 19:
-				sub_43B440();
+				nox_client_createSockAndJoin_43B440();
 				break;
 			default:
 				break;
@@ -3574,6 +3575,7 @@ int sub_41E0D0() {
 	sub_40D250();
 	return 1;
 }
+#endif // NOX_CGO
 
 //----- (0041E170) --------------------------------------------------------
 int sub_41E170() {

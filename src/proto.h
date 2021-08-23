@@ -140,7 +140,7 @@ int sub_40AA40();
 int sub_40AA50();
 int  sub_40AA60(int a1);
 int  sub_40AA70(int a1);
-BOOL nox_xxx_checkHasSoloMaps_40ABD0();
+bool nox_xxx_checkHasSoloMaps_40ABD0();
 int  nox_xxx_PtFuncCompare_40AE90(const void*, const void*); // idb
 int  sub_40AEB0(const void*, const void*); // idb
 void sub_40AED0();
@@ -1407,7 +1407,7 @@ unsigned int nox_client_getServerAddr_43B300();
 int nox_client_getServerPort_43B320();
 int sub_43B340();
 int nox_xxx_cliDrawConnectedLoop_43B360();
-int sub_43B440();
+int nox_client_createSockAndJoin_43B440();
 int sub_43B460();
 int sub_43B490();
 void nox_xxx_serverHost_43B4D0();

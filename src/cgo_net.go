@@ -45,8 +45,13 @@ func newSocketUDP() *Socket {
 	return &Socket{udp: true}
 }
 
-func newSocketUDPBroadcast() *Socket {
-	return &Socket{udp: true, broadcast: true}
+func listenUDPBroadcast(ip net.IP, port int) (net.PacketConn, *Socket, error) {
+	netLog.Printf("bind udp %s:%d", ip, port)
+	l, err := net.ListenUDP("udp4", &net.UDPAddr{IP: ip, Port: port})
+	if err != nil {
+		return nil, nil, err
+	}
+	return l, &Socket{udp: true, broadcast: true, pc: l}, nil
 }
 
 type Socket struct {
@@ -71,17 +76,14 @@ func (s *Socket) getErrno() int {
 	return s.errno // TODO: mutex
 }
 
-func (s *Socket) CanRead() (int, error) {
-	if s.pc == nil {
-		panic("TODO")
-	}
-	sc, ok := s.pc.(syscall.Conn)
+func netCanReadConn(pc net.PacketConn) (int, syscall.Errno, error) {
+	sc, ok := pc.(syscall.Conn)
 	if !ok {
-		panic(fmt.Errorf("unexpected type: %T", s.pc))
+		panic(fmt.Errorf("unexpected type: %T", pc))
 	}
 	rc, err := sc.SyscallConn()
 	if err != nil {
-		panic(fmt.Errorf("unexpected type: %T: %w", s.pc, err))
+		panic(fmt.Errorf("unexpected type: %T: %w", pc, err))
 	}
 	var (
 		ierr syscall.Errno
@@ -91,18 +93,31 @@ func (s *Socket) CanRead() (int, error) {
 		cnt, ierr = netCanRead(fd)
 	})
 	if err != nil {
-		s.setErrno(12345, err)
-		log.Println(err)
-		return 0, err
+		return 0, 0, err
 	}
 	if ierr == 0 {
-		return int(cnt), nil
+		return int(cnt), 0, nil
 	}
-	s.setErrno(int(ierr), err)
 	if debugNet {
 		netLog.Printf("can read: %d", cnt)
 	}
-	return int(cnt), ierr
+	return int(cnt), ierr, ierr
+}
+
+func (s *Socket) CanRead() (int, error) {
+	if s.pc == nil {
+		panic("TODO")
+	}
+	cnt, ierr, err := netCanReadConn(s.pc)
+	if ierr != 0 {
+		s.setErrno(int(ierr), err)
+		return cnt, err
+	} else if err != nil {
+		s.setErrno(12345, err)
+		log.Println(err)
+		return cnt, err
+	}
+	return cnt, nil
 }
 
 func ErrIsInUse(err error) bool {

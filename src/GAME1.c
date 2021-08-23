@@ -1230,12 +1230,14 @@ LABEL_31:
 	return result;
 }
 
+#ifndef NOX_CGO
 //----- (0040ABD0) --------------------------------------------------------
-BOOL nox_xxx_checkHasSoloMaps_40ABD0() {
+bool nox_xxx_checkHasSoloMaps_40ABD0() {
 	struct _stat v1; // [esp+0h] [ebp-24h]
 
 	return _stat("maps\\con01a\\con01a.map", (int)&v1) == 0;
 }
+#endif // NOX_CGO
 
 //----- (0040AE90) --------------------------------------------------------
 int  nox_xxx_PtFuncCompare_40AE90(const void* a1, const void* a2) {
