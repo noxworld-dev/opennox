@@ -46,6 +46,7 @@ import (
 
 	"nox/v1/client/input/keybind"
 	"nox/v1/client/render"
+	"nox/v1/common"
 	"nox/v1/common/alloc/handles"
 	"nox/v1/common/datapath"
 	"nox/v1/common/env"
@@ -125,7 +126,7 @@ func runNox(args []string) error {
 		fVol        = flags.Int("vol", -1, "vol")
 		fNoFloor    = flags.Bool("noFloor", false, "noFloor")
 		fNoDraw     = flags.Bool("noDraw", false, "noDraw")
-		fPort       = flags.Int("port", 0, "port")
+		fPort       = flags.Int("port", common.GamePort, "server port number to use")
 		fClientPort = flags.Int("clientport", 0, "clientport")
 		fNoSoft     = flags.Bool("nosoft", false, "nosoft")
 		// TODO: replace with -serveronly once we figure out all the details
@@ -273,7 +274,7 @@ func runNox(args []string) error {
 		setEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)
 	}
 	if v := *fPort; v > 0 {
-		C.nox_xxx_setPortParam_40A3E0(C.int(v))
+		setServerPort(v)
 	}
 	if v := *fClientPort; v > 0 {
 		C.nox_xxx_setClientNetPort_40A410(C.int(v))

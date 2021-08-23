@@ -820,15 +820,24 @@ unsigned int  sub_40A3C0(unsigned int a1) {
 	return result;
 }
 
+#ifndef NOX_CGO
+//----- (0040A430) --------------------------------------------------------
+int nox_xxx_servGetPort_40A430() {
+	int result; // eax
+
+	result = *getMemU32Ptr(0x5D4594, 3524);
+	if (!*getMemU32Ptr(0x5D4594, 3524))
+		result = *getMemU32Ptr(0x587000, 4652);
+	return result;
+}
 //----- (0040A3E0) --------------------------------------------------------
 void  nox_xxx_setPortParam_40A3E0(int a1) {
 	*getMemU32Ptr(0x5D4594, 3524) = a1;
-#ifndef NOX_CGO
 	CHAR String[64]; // [esp+0h] [ebp-40h]
 	nox_sprintf(String, "Nox - %d", a1);
 	nox_video_setWinTitle_401FE0(String);
-#endif // NOX_CGO
 }
+#endif // NOX_CGO
 
 //----- (0040A410) --------------------------------------------------------
 int  nox_xxx_setClientNetPort_40A410(int a1) {
@@ -841,16 +850,6 @@ int  nox_xxx_setClientNetPort_40A410(int a1) {
 
 //----- (0040A420) --------------------------------------------------------
 int nox_client_getClientPort_40A420() { return *getMemU32Ptr(0x5D4594, 3528); }
-
-//----- (0040A430) --------------------------------------------------------
-int nox_xxx_servGetPort_40A430() {
-	int result; // eax
-
-	result = *getMemU32Ptr(0x5D4594, 3524);
-	if (!*getMemU32Ptr(0x5D4594, 3524))
-		result = *getMemU32Ptr(0x587000, 4652);
-	return result;
-}
 
 //----- (0040A440) --------------------------------------------------------
 char*  nox_xxx_gameSetServername_40A440(char* a1) {

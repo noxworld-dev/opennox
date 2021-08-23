@@ -20,6 +20,7 @@ import "C"
 import (
 	"context"
 	"errors"
+	"fmt"
 	"image"
 	"image/color"
 	"math"
@@ -74,7 +75,8 @@ func mapDownloadLoop(first bool) (bool, error) {
 	if first {
 		ctx, cancel := context.WithCancel(context.Background())
 
-		srv := clientGetServerHost()
+		hport := inferHTTPPort(clientGetServerPort())
+		srv := fmt.Sprintf("%s:%d", clientGetServerHost(), hport)
 		mapsendLog.Printf("checking map download API on server %q", srv)
 		cli, err := maps.NewClient(ctx, srv)
 		if err != nil {
