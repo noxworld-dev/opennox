@@ -2,9 +2,9 @@ package main
 
 /*
 #include "proto.h"
-extern void* nox_server_objects_1556844;
-extern void* nox_server_objects_uninited_1556860;
-extern void* nox_server_objects_updatable2_1556848;
+extern nox_object_t* nox_server_objects_1556844;
+extern nox_object_t* nox_server_objects_uninited_1556860;
+extern nox_object_t* nox_server_objects_updatable2_1556848;
 */
 import "C"
 import (
@@ -33,15 +33,15 @@ func asObjectC(p *C.nox_object_t) *Object {
 }
 
 func firstServerObject() *Object {
-	return asObject(C.nox_server_objects_1556844)
+	return asObjectC(C.nox_server_objects_1556844)
 }
 
 func firstServerObjectUpdatable2() *Object {
-	return asObject(C.nox_server_objects_updatable2_1556848)
+	return asObjectC(C.nox_server_objects_updatable2_1556848)
 }
 
 func firstServerObjectUninited() *Object {
-	return asObject(C.nox_server_objects_uninited_1556860)
+	return asObjectC(C.nox_server_objects_uninited_1556860)
 }
 
 func getObjects() []*Object {

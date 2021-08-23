@@ -99,9 +99,9 @@ extern unsigned int nox_frame_xxx_2598000;
 extern obj_5D4594_2650668_t** ptr_5D4594_2650668;
 extern int ptr_5D4594_2650668_cap;
 
-void* nox_server_objects_uninited_1556860 = 0;
+nox_object_t* nox_server_objects_uninited_1556860 = 0;
 nox_object_t* nox_server_objects_updatable2_1556848 = 0;
-void* nox_server_objects_1556844 = 0;
+nox_object_t* nox_server_objects_1556844 = 0;
 
 nox_object_t* nox_xxx_host_player_unit_3843628 = 0;
 
@@ -7170,10 +7170,13 @@ int  sub_4DA660(int a1, const char* a2) {
 }
 
 //----- (004DA790) --------------------------------------------------------
-int nox_server_getFirstObject_4DA790() { return nox_server_objects_1556844; }
+nox_object_t* nox_server_getFirstObject_4DA790() {
+	return nox_server_objects_1556844;
+}
 
 //----- (004DA7A0) --------------------------------------------------------
-int  nox_server_getNextObject_4DA7A0(int a1) {
+nox_object_t* nox_server_getNextObject_4DA7A0(const nox_object_t* obj) {
+	const int a1 = obj;
 	int result; // eax
 
 	if (a1)
@@ -7184,7 +7187,7 @@ int  nox_server_getNextObject_4DA7A0(int a1) {
 }
 
 //----- (004DA7C0) --------------------------------------------------------
-void* nox_xxx_getFirstPlayerUnit_4DA7C0() {
+nox_object_t* nox_xxx_getFirstPlayerUnit_4DA7C0() {
 	for (nox_playerInfo* p = nox_common_playerInfoGetFirst_416EA0(); p; p = nox_common_playerInfoGetNext_416EE0(p)) {
 		if (p->playerUnit)
 			return p->playerUnit;
@@ -7193,7 +7196,8 @@ void* nox_xxx_getFirstPlayerUnit_4DA7C0() {
 }
 
 //----- (004DA7F0) --------------------------------------------------------
-int  nox_xxx_getNextPlayerUnit_4DA7F0(int a1) {
+nox_object_t* nox_xxx_getNextPlayerUnit_4DA7F0(const nox_object_t* obj) {
+	const int a1 = obj;
 	char* v1; // eax
 
 	if (!a1)
@@ -7227,10 +7231,11 @@ nox_object_t* nox_xxx_getNextUpdatable2Object_4DA850(const nox_object_t* obj) {
 }
 
 //----- (004DA870) --------------------------------------------------------
-int nox_server_getFirstObjectUninited_4DA870() { return nox_server_objects_uninited_1556860; }
+nox_object_t* nox_server_getFirstObjectUninited_4DA870() { return nox_server_objects_uninited_1556860; }
 
 //----- (004DA880) --------------------------------------------------------
-int  nox_server_getNextObjectUninited_4DA880(int a1) {
+nox_object_t* nox_server_getNextObjectUninited_4DA880(const nox_object_t* obj) {
+	const int a1 = obj;
 	int result; // eax
 
 	if (a1)
@@ -7241,10 +7246,11 @@ int  nox_server_getNextObjectUninited_4DA880(int a1) {
 }
 
 //----- (004DA8A0) --------------------------------------------------------
-int nox_xxx_getFirstUpdatableObject_4DA8A0() { return dword_5d4594_1556852; }
+nox_object_t* nox_xxx_getFirstUpdatableObject_4DA8A0() { return dword_5d4594_1556852; }
 
 //----- (004DA8B0) --------------------------------------------------------
-int  nox_xxx_getNextUpdatableObject_4DA8B0(int a1) {
+nox_object_t* nox_xxx_getNextUpdatableObject_4DA8B0(const nox_object_t* obj) {
+	const int a1 = obj;
 	int result; // eax
 
 	if (a1)
@@ -7255,7 +7261,8 @@ int  nox_xxx_getNextUpdatableObject_4DA8B0(int a1) {
 }
 
 //----- (004DA8D0) --------------------------------------------------------
-int  nox_xxx_unitAddToUpdatable_4DA8D0(int a1) {
+nox_object_t* nox_xxx_unitAddToUpdatable_4DA8D0(const nox_object_t* obj) {
+	const int a1 = obj;
 	int result; // eax
 
 	result = a1;
