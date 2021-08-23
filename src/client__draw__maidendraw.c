@@ -6,8 +6,9 @@
 int nox_thing_maiden_draw(_DWORD* a1, nox_drawable* dr) {
 	if (!nox_common_gameFlags_check_40A5C0(0x200000)) {
 		char* v9 = nox_npc_by_id(dr->field_32);
-		if (!v9)
+		if (!v9) {
 			return 1;
+		}
 		int v10 = 0;
 		int* v11 = (int*)(v9 + 8);
 		int v12;
@@ -19,19 +20,22 @@ int nox_thing_maiden_draw(_DWORD* a1, nox_drawable* dr) {
 		} while (v12 < 6);
 		return nox_thing_monster_draw(a1, dr);
 	}
-	int v2 = nox_server_getFirstObject_4DA790();
-	if (!v2)
+	const nox_object_t* v2 = nox_server_getFirstObject_4DA790();
+	if (!v2) {
 		return nox_thing_monster_draw(a1, dr);
+	}
 	int v3;
 	while (1) {
-		v3 = *(_DWORD*)(v2 + 40);
-		if (dr->field_32 == v3)
+		v3 = v2->extent;
+		if (dr->field_32 == v3) {
 			break;
+		}
 		v2 = nox_server_getNextObject_4DA7A0(v2);
-		if (!v2)
+		if (!v2) {
 			return nox_thing_monster_draw(a1, dr);
+		}
 	}
-	int v5 = *(_DWORD*)(v2 + 748);
+	int v5 = *(_DWORD*)&v2->field_187;
 	int v6 = 0;
 	_BYTE* v7 = (_BYTE*)(v5 + 2077);
 	int v8;
