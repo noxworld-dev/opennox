@@ -1064,7 +1064,7 @@ var noxMemmap = []struct {
 	{0x5D4594, 1556316, 4, "dword_5d4594_1556316"},                              // 0x7504F0
 	{0x5D4594, 1556844, 4, "nox_server_objects_1556844"},                        // 0x750700
 	{0x5D4594, 1556848, 4, "nox_server_objects_updatable2_1556848"},             // 0x750704
-	{0x5D4594, 1556852, 4, "dword_5d4594_1556852"},                              // 0x750708
+	{0x5D4594, 1556852, 4, "nox_server_object_updateable_1556852"},              // 0x750708
 	{0x5D4594, 1556856, 4, "dword_5d4594_1556856"},                              // 0x75070C
 	{0x5D4594, 1556860, 4, "nox_server_objects_uninited_1556860"},               // 0x750710
 	{0x5D4594, 1563044, 4, "dword_5d4594_1563044"},                              // 0x751F38

@@ -661,7 +661,6 @@ void* nox_alloc_execAbil_1569644 = 0;
 _DWORD dword_5d4594_3807140 = 0;
 _DWORD dword_5d4594_831092 = 0;
 _DWORD dword_5d4594_2487676 = 0;
-_DWORD dword_5d4594_1556852 = 0;
 _DWORD dword_5d4594_741256 = 0;
 _DWORD dword_5d4594_1049696 = 0;
 _DWORD nox_xxx_wizardSpeed_587000_312828 = 0x3f800000; // 1f?

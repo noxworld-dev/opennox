@@ -61,7 +61,6 @@ extern _DWORD dword_5d4594_3835312;
 extern _DWORD dword_5d4594_1563052;
 extern _DWORD nox_xxx_conjurerSpeed_587000_312812;
 extern _DWORD nox_xxx_wizardSpeed_587000_312828;
-extern _DWORD dword_5d4594_1556852;
 extern _DWORD nox_xxx_wizardStrength_587000_312824;
 extern _DWORD nox_xxx_warriorMaxStrength_587000_312792;
 extern _DWORD nox_xxx_questFlag_1556148;
@@ -99,6 +98,7 @@ extern unsigned int nox_frame_xxx_2598000;
 extern obj_5D4594_2650668_t** ptr_5D4594_2650668;
 extern int ptr_5D4594_2650668_cap;
 
+nox_object_t* nox_server_object_updateable_1556852 = 0;
 nox_object_t* nox_server_objects_uninited_1556860 = 0;
 nox_object_t* nox_server_objects_updatable2_1556848 = 0;
 nox_object_t* nox_server_objects_1556844 = 0;
@@ -7246,7 +7246,7 @@ nox_object_t* nox_server_getNextObjectUninited_4DA880(const nox_object_t* obj) {
 }
 
 //----- (004DA8A0) --------------------------------------------------------
-nox_object_t* nox_xxx_getFirstUpdatableObject_4DA8A0() { return dword_5d4594_1556852; }
+nox_object_t* nox_xxx_getFirstUpdatableObject_4DA8A0() { return nox_server_object_updateable_1556852; }
 
 //----- (004DA8B0) --------------------------------------------------------
 nox_object_t* nox_xxx_getNextUpdatableObject_4DA8B0(const nox_object_t* obj) {
@@ -7268,10 +7268,10 @@ nox_object_t* nox_xxx_unitAddToUpdatable_4DA8D0(const nox_object_t* obj) {
 	result = a1;
 	if (!*(_DWORD*)(a1 + 484) && !(*(_BYTE*)(a1 + 8) & 1)) {
 		*(_DWORD*)(a1 + 480) = 0;
-		*(_DWORD*)(a1 + 476) = dword_5d4594_1556852;
-		if (dword_5d4594_1556852)
-			*(_DWORD*)(dword_5d4594_1556852 + 480) = a1;
-		dword_5d4594_1556852 = a1;
+		*(_DWORD*)(a1 + 476) = nox_server_object_updateable_1556852;
+		if (nox_server_object_updateable_1556852)
+			nox_server_object_updateable_1556852->field_120 = a1;
+		nox_server_object_updateable_1556852 = a1;
 		*(_DWORD*)(a1 + 484) = 1;
 		*(_DWORD*)(a1 + 520) = 0;
 	}
@@ -7298,7 +7298,7 @@ _DWORD*  nox_xxx_unitRemoveFromUpdatable_4DA920(_DWORD* a1) {
 				return result;
 			}
 		} else {
-			dword_5d4594_1556852 = a1[119];
+			nox_server_object_updateable_1556852 = a1[119];
 			v4 = a1[119];
 			if (v4)
 				*(_DWORD*)(v4 + 480) = 0;
