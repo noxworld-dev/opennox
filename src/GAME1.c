@@ -9047,8 +9047,10 @@ int nox_xxx_mapInfoSetKotr_4180D0() {
 		return 0;
 	do {
 		v5 = nox_server_getNextObject_4DA7A0(v4);
-		if (*(unsigned __int16*)(v4 + 4) != *getMemU32Ptr(0x5D4594, 527652))
-			goto LABEL_19;
+		if (*(unsigned __int16*)(v4 + 4) != *getMemU32Ptr(0x5D4594, 527652)) {
+			v4 = v5;
+			continue;
+		}
 		++v3;
 		*(_DWORD*)(*(_DWORD*)(v4 + 748) + 4) = 0;
 		v6 = !nox_xxx_CheckGameplayFlags_417DA0(4);
@@ -9057,22 +9059,24 @@ int nox_xxx_mapInfoSetKotr_4180D0() {
 			if (v7) {
 				nox_xxx_delayedDeleteObject_4E5CC0(v4);
 				sub_4EC6A0(v4);
-				goto LABEL_19;
+				v4 = v5;
+				continue;
 			}
-			goto LABEL_18;
+			nox_xxx_netMarkMinimapForAll_4174B0(v4, 1);
+			v4 = v5;
+			continue;
 		}
 		if (!v7) {
 			nox_xxx_delayedDeleteObject_4E5CC0(v4);
 			sub_4EC6A0(v4);
-			goto LABEL_19;
+			v4 = v5;
+			continue;
 		}
 		v8 = nox_xxx_clientGetTeamColor_418AB0(*(unsigned __int8*)(v4 + 52));
 		if (v8) {
 			*((_DWORD*)v8 + 19) = v4;
-		LABEL_18:
 			nox_xxx_netMarkMinimapForAll_4174B0(v4, 1);
 		}
-	LABEL_19:
 		v4 = v5;
 	} while (v5);
 	if (!v3)
