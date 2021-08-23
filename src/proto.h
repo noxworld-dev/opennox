@@ -2360,7 +2360,7 @@ int  sub_4739E0(_DWORD* a1, int2* a2, int2* a3); // idb
 int  sub_473A10(_DWORD*, int2*, _DWORD*);
 int sub_473A40();
 int sub_473B30_free();
-char  nox_xxx_drawWalls_473C10(_DWORD* a1, unsigned __int8* a2);
+char  nox_xxx_drawWalls_473C10(nox_draw_viewport_t* vp, void* data);
 int  sub_4745F0(_DWORD* a1);
 int  sub_474B40(int a1);
 int  sub_474BE0(_DWORD* a1, int* a2, int a3, int a4, int a5, int a6, int a7, int a8);

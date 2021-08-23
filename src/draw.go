@@ -8,11 +8,25 @@ package main
 #include "client__video__draw_common.h"
 #include "client__draw__selectdw.h"
 extern nox_draw_viewport_t nox_draw_viewport;
+extern nox_drawable** nox_drawable_list_1;
+extern int nox_drawable_list_1_size;
+extern nox_drawable** nox_drawable_list_2;
+extern int nox_drawable_list_2_size;
+extern nox_drawable** nox_drawable_list_3;
+extern int nox_drawable_list_3_size;
+extern nox_drawable** nox_drawable_list_4;
+extern int nox_drawable_list_4_size;
+extern void* dword_5d4594_1096496;
+extern int dword_5d4594_1096500;
+extern void* dword_5d4594_1096504;
+extern int dword_5d4594_1096508;
+extern void* dword_5d4594_1096512;
+extern int dword_5d4594_1096516;
+extern unsigned int nox_client_drawFrontWalls_80812;
 extern unsigned int dword_5d4594_811896;
 extern unsigned int dword_5d4594_811904;
 extern unsigned int nox_client_gui_flag_815132;
 extern unsigned int dword_5d4594_1096432;
-extern unsigned int dword_5d4594_1096516;
 extern unsigned int dword_5d4594_3799452;
 extern unsigned int dword_5d4594_3799468;
 extern unsigned int dword_5d4594_3799484;
@@ -25,9 +39,7 @@ extern int dword_5d4594_3799524;
 extern unsigned int nox_client_gui_flag_1556112;
 extern unsigned int nox_gameDisableMapDraw_5d4594_2650672;
 extern nox_video_bag_section_t* nox_video_bag_sections_arr;
-void  nox_client_xxxDraw16_4C7440(nox_video_bag_image_t* img, int x, int y);
-void nox_client_drawXxx_4C7C80(int x, int y, int width, int4* a4);
-void  nox_client_drawImg_bbb_4C7860(int a1, int a2, int a3);
+char  nox_xxx_drawWalls_473C10(nox_draw_viewport_t* vp, void* data);
 void sub_4C8130();
 void sub_4C8410();
 void sub_4C86B0();
@@ -50,7 +62,6 @@ int nox_xxx_drawAllMB_475810_draw_B(nox_draw_viewport_t* vp);
 void nox_xxx_drawAllMB_475810_draw_C(nox_draw_viewport_t* vp, int v36, int v7);
 void nox_xxx_drawAllMB_475810_draw_D(nox_draw_viewport_t* vp);
 void nox_xxx_drawAllMB_475810_draw_E(nox_draw_viewport_t* vp);
-void nox_xxx_drawAllMB_475810_draw_F(nox_draw_viewport_t* vp);
 */
 import "C"
 import (
@@ -366,7 +377,7 @@ func nox_xxx_drawAllMB_475810_draw(vp *Viewport) {
 	C.nox_xxx_drawAllMB_475810_draw_E(vp.C())
 	C.sub_4AFD40()
 	C.sub_4C5060(vp.C())
-	C.nox_xxx_drawAllMB_475810_draw_F(vp.C())
+	nox_xxx_drawAllMB_475810_draw_F(vp)
 	C.sub_44D9F0(0)
 	if getEngineFlag(NOX_ENGINE_FLAG_ENABLE_SHOW_AI) {
 		C.sub_476270(vp.C())
@@ -375,6 +386,121 @@ func nox_xxx_drawAllMB_475810_draw(vp *Viewport) {
 	C.sub_437290()
 	*memmap.PtrUint32(0x973F18, 68) = 1
 	C.sub_476680()
+}
+
+const (
+	nox_drawable_list_1_cap = 8192
+	nox_drawable_lists_cap  = 512
+	nox_drawable_lists_cap2 = 256
+)
+
+var (
+	nox_drawable_list_1  []unsafe.Pointer
+	nox_drawable_list_3  []unsafe.Pointer
+	nox_drawable_list_2  []unsafe.Pointer
+	nox_drawable_list_4  []unsafe.Pointer
+	dword_5d4594_1096496 []unsafe.Pointer
+	dword_5d4594_1096504 []unsafe.Pointer
+	dword_5d4594_1096512 []unsafe.Pointer
+)
+
+func sub_473A40() {
+	nox_drawable_list_1 = alloc.Pointers(nox_drawable_list_1_cap)
+	C.nox_drawable_list_1 = (**C.nox_drawable)(unsafe.Pointer(&nox_drawable_list_1[0]))
+	C.nox_drawable_list_1_size = 0
+
+	nox_drawable_list_3 = alloc.Pointers(nox_drawable_lists_cap)
+	C.nox_drawable_list_3 = (**C.nox_drawable)(unsafe.Pointer(&nox_drawable_list_3[0]))
+	C.nox_drawable_list_3_size = 0
+
+	nox_drawable_list_2 = alloc.Pointers(nox_drawable_lists_cap)
+	C.nox_drawable_list_2 = (**C.nox_drawable)(unsafe.Pointer(&nox_drawable_list_2[0]))
+	C.nox_drawable_list_2_size = 0
+
+	nox_drawable_list_4 = alloc.Pointers(nox_drawable_lists_cap)
+	C.nox_drawable_list_4 = (**C.nox_drawable)(unsafe.Pointer(&nox_drawable_list_4[0]))
+	C.nox_drawable_list_4_size = 0
+
+	dword_5d4594_1096496 = alloc.Pointers(nox_drawable_lists_cap2)
+	C.dword_5d4594_1096496 = unsafe.Pointer(&dword_5d4594_1096496[0])
+	C.dword_5d4594_1096500 = 0
+
+	dword_5d4594_1096504 = alloc.Pointers(nox_drawable_lists_cap2)
+	C.dword_5d4594_1096504 = unsafe.Pointer(&dword_5d4594_1096504[0])
+	C.dword_5d4594_1096508 = 0
+
+	dword_5d4594_1096512 = alloc.Pointers(nox_drawable_lists_cap2)
+	C.dword_5d4594_1096512 = unsafe.Pointer(&dword_5d4594_1096512[0])
+	C.dword_5d4594_1096516 = 0
+}
+
+func sub_473B30_free() {
+	if nox_drawable_list_1 != nil {
+		alloc.FreePointers(nox_drawable_list_1)
+		nox_drawable_list_1 = nil
+		C.nox_drawable_list_1 = nil
+		C.nox_drawable_list_1_size = 0
+	}
+	if nox_drawable_list_3 != nil {
+		alloc.FreePointers(nox_drawable_list_3)
+		nox_drawable_list_3 = nil
+		C.nox_drawable_list_3 = nil
+		C.nox_drawable_list_3_size = 0
+	}
+	if nox_drawable_list_2 != nil {
+		alloc.FreePointers(nox_drawable_list_2)
+		nox_drawable_list_2 = nil
+		C.nox_drawable_list_2 = nil
+		C.nox_drawable_list_2_size = 0
+	}
+	if nox_drawable_list_4 != nil {
+		alloc.FreePointers(nox_drawable_list_4)
+		nox_drawable_list_4 = nil
+		C.nox_drawable_list_4 = nil
+		C.nox_drawable_list_4_size = 0
+	}
+	if dword_5d4594_1096496 != nil {
+		alloc.FreePointers(dword_5d4594_1096496)
+		dword_5d4594_1096496 = nil
+		C.dword_5d4594_1096496 = nil
+		C.dword_5d4594_1096500 = 0
+	}
+	if dword_5d4594_1096504 != nil {
+		alloc.FreePointers(dword_5d4594_1096504)
+		dword_5d4594_1096504 = nil
+		C.dword_5d4594_1096504 = nil
+		C.dword_5d4594_1096508 = 0
+	}
+	if dword_5d4594_1096512 != nil {
+		alloc.FreePointers(dword_5d4594_1096512)
+		dword_5d4594_1096512 = nil
+		C.dword_5d4594_1096512 = nil
+		C.dword_5d4594_1096516 = 0
+	}
+}
+
+func nox_xxx_drawAllMB_475810_draw_F(vp *Viewport) {
+	v30 := dword_5d4594_1096504
+	j := C.dword_5d4594_1096508 == 0
+	C.dword_5d4594_1096508--
+	if C.nox_client_drawFrontWalls_80812 != 0 {
+		for !j {
+			v32 := v30[0]
+			v30 = v30[1:]
+			C.nox_xxx_drawWalls_473C10(vp.C(), v32)
+			j = C.dword_5d4594_1096508 == 0
+			C.dword_5d4594_1096508--
+		}
+	} else {
+		for !j {
+			v33 := asByteSlice(v30[0], 5)
+			v30 = v30[1:]
+			v33[3] = 0
+			v33[4] &= 0xFC
+			j = C.dword_5d4594_1096508 == 0
+			C.dword_5d4594_1096508--
+		}
+	}
 }
 
 //export nox_video_drawCircleColored_4C3270

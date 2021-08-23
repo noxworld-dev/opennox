@@ -354,19 +354,17 @@ func initGameSession435CC0() error {
 
 	C.nox_xxx_initSight_485F80()
 	if C.sub_4960B0() == 0 {
-		return errors.New("nox_xxx_loadReflSheild_499360 failed")
+		return errors.New("sub_4960B0 failed")
 	}
 
-	if C.sub_473A40() == 0 {
-		return errors.New("nox_xxx_loadReflSheild_499360 failed")
-	}
+	sub_473A40()
 
 	if C.nox_xxx_allocArrayDrawableFX_495AB0() == 0 {
-		return errors.New("nox_xxx_loadReflSheild_499360 failed")
+		return errors.New("nox_xxx_allocArrayDrawableFX_495AB0 failed")
 	}
 
 	if C.nox_xxx_allocClassListFriends_495980() == 0 {
-		return errors.New("nox_xxx_loadReflSheild_499360 failed")
+		return errors.New("nox_xxx_allocClassListFriends_495980 failed")
 	}
 
 	C.sub_4958F0()

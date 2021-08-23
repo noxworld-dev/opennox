@@ -948,7 +948,7 @@ func sub_435EB0() {
 	C.nox_xxx_gameClearAll_467DF0(0)
 	C.sub_495AE0()
 	C.sub_4959D0()
-	C.sub_473B30_free()
+	sub_473B30_free()
 	C.sub_496120()
 	sub_473840()
 	C.nox_things_free_44C580()
