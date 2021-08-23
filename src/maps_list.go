@@ -11,6 +11,7 @@ import (
 	"os"
 
 	"nox/v1/common/datapath"
+	"nox/v1/common/fs"
 	"nox/v1/common/maps"
 )
 
@@ -30,4 +31,14 @@ func nox_common_scanAllMaps_4D07F0() error {
 		StrFree(s)
 	}
 	return nil
+}
+
+//export nox_xxx_checkHasSoloMaps_40ABD0
+func nox_xxx_checkHasSoloMaps_40ABD0() C.bool {
+	return C.bool(nox_xxx_checkHasSoloMaps())
+}
+
+func nox_xxx_checkHasSoloMaps() bool {
+	_, err := fs.Stat("maps\\con01a\\con01a.map")
+	return err == nil
 }

@@ -230,7 +230,7 @@ func nox_xxx_serverHost_43B4D0() {
 	} else {
 		// join
 		C.sub_43B630()
-		C.sub_43B440()
+		nox_client_createSockAndJoin_43B440()
 	}
 	C.sub_49FF20()
 	if isHost {
@@ -474,7 +474,7 @@ func nox_xxx_gameTick_4D2580_server() bool {
 		C.nox_netlist_resetAllInList_40EE90(1)
 	} else {
 		v4 := int(C.nox_xxx_rateGet_40A6C0())
-		if C.sub_416650() != 0 && C.sub_41E2F0() == 8 {
+		if C.sub_416650() != 0 && sub_41E2F0() == 8 {
 			v2 = true
 		}
 		if v4 == 1 || noxflags.HasGame(8) || gameFrame()%uint32(v4) == 1 {

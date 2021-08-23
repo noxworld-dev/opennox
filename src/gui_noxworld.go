@@ -5,6 +5,9 @@ package main
 extern unsigned int dword_587000_87404;
 extern unsigned int dword_587000_87412;
 extern unsigned int dword_5d4594_3844304;
+extern unsigned int dword_5d4594_2660652;
+extern unsigned int dword_5d4594_527988;
+extern unsigned int dword_5d4594_814552;
 extern nox_window* dword_5d4594_815004;
 extern unsigned int dword_5d4594_815044;
 extern unsigned int dword_5d4594_815060;
@@ -28,10 +31,12 @@ import (
 )
 
 var (
-	lobbyBroadcastSock  *Socket
-	lobbyBroadcastSockC nox_socket_t
-	lobbySockFlag       int
-	errLobbySockFlag    = errors.New("lobbySockFlag is false")
+	lobbyBroadcast struct {
+		Conn  net.PacketConn
+		Sock  *Socket
+		SockC nox_socket_t
+	}
+	errLobbyNoSocket = errors.New("no broadcast socket")
 )
 
 type LobbyServerInfo struct {
@@ -133,8 +138,8 @@ func nox_client_refreshServerList_4378B0() {
 	C.nox_wol_server_result_cnt_815088 = 0
 	if C.dword_587000_87404 != 0 {
 		C.sub_41F370(1)
-		v3 := C.sub_41E2F0()
-		C.sub_41DA70(v3, 12)
+		v3 := sub_41E2F0()
+		C.sub_41DA70(C.int(v3), 12)
 	} else {
 		clientSetOnLobbyServer(clientOnLobbyServer)
 		ticks := platformTicks()
@@ -149,34 +154,38 @@ func nox_client_refreshServerList_4378B0() {
 
 //export nox_xxx_createSocketLocal_554B40
 func nox_xxx_createSocketLocal_554B40(port uint16) int {
-	if lobbySockFlag == 1 {
-		return -14
-	}
-	if nox_net_init() == -1 {
+	if err := nox_xxx_createSocketLocal(int(port)); err != nil {
 		return -1
 	}
-	sock := newSocketUDPBroadcast()
-	if err := sock.Bind(nil, int(port)); err != nil {
-		netLog.Println("cannot bind broadcast socket:", err)
-		return -1
-	}
-	lobbyBroadcastSock = sock
-	lobbyBroadcastSockC = newSocketHandle(sock)
-	gameSetCliDrawFunc(sub_554FF0)
-	lobbySockFlag = 1
 	return 0
+}
+
+func nox_xxx_createSocketLocal(port int) error {
+	if lobbyBroadcast.Conn != nil {
+		return nil
+	}
+	nox_net_init()
+	conn, sock, err := listenUDPBroadcast(nil, port)
+	if err != nil {
+		netLog.Println("cannot bind broadcast socket:", err)
+		return err
+	}
+	lobbyBroadcast.Conn = conn
+	lobbyBroadcast.Sock = sock
+	lobbyBroadcast.SockC = newSocketHandle(sock)
+	gameSetCliDrawFunc(sub_554FF0)
+	return nil
 }
 
 //export sub_554D10
 func sub_554D10() C.int {
-	if lobbySockFlag != 0 {
-		_ = lobbyBroadcastSock.Close()
-		lobbyBroadcastSock = nil
-		lobbyBroadcastSockC = 0
-		lobbySockFlag = 0
+	if lobbyBroadcast.Conn != nil {
+		_ = lobbyBroadcast.Conn.Close()
+		lobbyBroadcast.Conn = nil
+		lobbyBroadcast.Sock = nil
+		lobbyBroadcast.SockC = 0
 		gameSetCliDrawFunc(nil)
 		clientSetOnLobbyServer(nil)
-		nox_net_stop()
 	}
 	return 0
 }
@@ -273,33 +282,30 @@ func nox_xxx_lobbyMakePacket_554AA0(port int, payload []byte, ticks uint32) {
 }
 
 func nox_xxx_sendLobbyPacket_554C80(port int, buf []byte) (int, error) {
-	if lobbySockFlag == 0 {
-		return 0, errLobbySockFlag
+	if lobbyBroadcast.Conn == nil {
+		return 0, errLobbyNoSocket
 	}
 	if len(buf) < 2 {
 		return 0, nil
 	}
 	ip := net.IPv4(255, 255, 255, 255)
-	return lobbyBroadcastSock.WriteTo(buf, &net.UDPAddr{IP: ip, Port: port})
+	return lobbyBroadcast.Conn.WriteTo(buf, &net.UDPAddr{IP: ip, Port: port})
 }
 
 func sub_554FF0() bool {
-	sub_554D70(lobbyBroadcastSock, lobbyBroadcastSockC, 1)
+	sub_554D70(lobbyBroadcast.Conn, lobbyBroadcast.Sock, lobbyBroadcast.SockC, 1)
 	return true
 }
 
-func sub_554D70(sock *Socket, csock nox_socket_t, a1 byte) (int, error) {
-	if lobbySockFlag == 0 {
-		return 0, errLobbySockFlag
-	}
-	if sock == nil {
-		return 0, errors.New("lobbyBroadcastSock is nil")
+func sub_554D70(conn net.PacketConn, sock *Socket, csock nox_socket_t, a1 byte) (int, error) {
+	if conn == nil {
+		return 0, errLobbyNoSocket
 	}
 	v11 := int(a1 & 1)
 	argp := 0
 	if a1&1 != 0 {
 		var err error
-		argp, err = sock.CanRead()
+		argp, _, err = netCanReadConn(conn)
 		if err != nil {
 			return 0, err
 		} else if argp == 0 {
@@ -336,11 +342,11 @@ func sub_554D70(sock *Socket, csock nox_socket_t, a1 byte) (int, error) {
 					}
 				case 15:
 					if C.sub_43B6D0() != 0 {
-						C.sub_43AF90(5)
+						sub_43AF90(5)
 					}
 				case 16:
 					if C.sub_43B6D0() != 0 {
-						C.sub_43AF90(4)
+						sub_43AF90(4)
 						buf[2] = 18
 						sendToServer(fromIP, fromPort, buf[:8])
 					}
@@ -350,11 +356,11 @@ func sub_554D70(sock *Socket, csock nox_socket_t, a1 byte) (int, error) {
 				//  }
 				case 19, 20:
 					if C.sub_43B6D0() != 0 && C.sub_43AF80() == 3 {
-						C.sub_43AF90(7)
+						sub_43AF90(7)
 					}
 				case 21:
 					if C.sub_43B6D0() != 0 {
-						C.sub_43AF90(8)
+						sub_43AF90(8)
 					}
 				}
 			}
@@ -363,7 +369,7 @@ func sub_554D70(sock *Socket, csock nox_socket_t, a1 byte) (int, error) {
 			return n, nil
 		}
 		var err error
-		argp, err = sock.CanRead()
+		argp, _, err = netCanReadConn(conn)
 		if err != nil {
 			return n, err
 		} else if argp == 0 {
@@ -373,16 +379,16 @@ func sub_554D70(sock *Socket, csock nox_socket_t, a1 byte) (int, error) {
 }
 
 func sendToServer(addr net.IP, port int, data []byte) (int, error) {
-	if lobbySockFlag == 0 {
-		return 0, errLobbySockFlag
+	if lobbyBroadcast.Conn == nil {
+		return 0, errLobbyNoSocket
 	}
 	if len(data) < 2 {
 		return 0, nil
 	}
-	if lobbyBroadcastSock == nil {
+	if lobbyBroadcast.Conn == nil {
 		return 0, errors.New("no broadcast socket")
 	}
-	return lobbyBroadcastSock.WriteTo(data, &net.UDPAddr{IP: addr, Port: port})
+	return lobbyBroadcast.Conn.WriteTo(data, &net.UDPAddr{IP: addr, Port: port})
 }
 
 //export sub_41D4C0
@@ -392,4 +398,50 @@ func sub_41D4C0() C.int {
 	gameSetCliDrawFunc(nil)
 	C.sub_40D0F0()
 	return 1
+}
+
+func sub_41E2F0() int { return int(C.dword_5d4594_527988) }
+
+func sub_420100() int { return int(memmap.Uint32(0x587000, 60072) >> 8) }
+
+func sub_43AFA0(a1 int) {
+	C.dword_5d4594_814552 = C.uint(a1)
+	sub_43AF90(2)
+}
+
+//export sub_41E0D0
+func sub_41E0D0() C.int {
+	for v0 := memmap.Uint32(0x587000, 58264); v0 != 0; v0-- {
+		v1 := sub_41E2F0()
+		switch C.sub_41DCC0(C.int(v1)) {
+		case 5:
+			if C.dword_5d4594_2660652 == 0x8004006E {
+				sub_43AFA0(11)
+			}
+		case 10:
+			C.sub_43ACC0()
+		case 12:
+			v2 := sub_420100()
+			sub_41F3A0(v2, 1)
+		case 19:
+			nox_client_createSockAndJoin_43B440()
+		}
+		v0--
+	}
+	C.sub_40D250()
+	return 1
+}
+
+func sub_41F3A0(a1, a2 int) bool {
+	var v2, v4 string
+	if sub_41E2F0() == 7 {
+		v4 = strMan.GetStringInFile("wolchat.c:LoadingChannels", "C:\\NoxPost\\src\\common\\WolAPI\\wolchnl.c")
+		v2 = strMan.GetStringInFile("wolchat.c:PleaseWait", "C:\\NoxPost\\src\\common\\WolAPI\\wolchnl.c")
+	} else {
+		v4 = strMan.GetStringInFile("noxworld.c:LoadingGames", "C:\\NoxPost\\src\\common\\WolAPI\\wolchnl.c")
+		v2 = strMan.GetStringInFile("wolchat.c:PleaseWait", "C:\\NoxPost\\src\\common\\WolAPI\\wolchnl.c")
+	}
+	NewDialogWindow(nil, v2, v4, 288, nil, nil)
+	C.sub_44A4B0()
+	return C.sub_40D2F0(C.int(a1), C.int(a2)) != 0
 }

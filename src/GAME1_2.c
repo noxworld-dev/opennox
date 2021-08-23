@@ -6254,6 +6254,7 @@ int sub_438480() {
 									*(_DWORD*)(*(_DWORD*)(nox_wol_wnd_gameList_815012 + 32) + 36), 0);
 }
 
+#ifndef NOX_CGO
 //----- (00438A90) --------------------------------------------------------
 int nox_client_joinGame_438A90() {
 	int result = 0;    // eax
@@ -6289,6 +6290,7 @@ int nox_client_joinGame_438A90() {
 	}*/
 	return result;
 }
+#endif // NOX_CGO
 
 //----- (00438C80) --------------------------------------------------------
 int sub_438C80(int a1, int a2) {
@@ -6942,13 +6944,15 @@ int nox_xxx_cliDrawConnectedLoop_43B360() { // client connecting draw handler
 	return 1;
 }
 
+#ifndef NOX_CGO
 //----- (0043B440) --------------------------------------------------------
-int sub_43B440() {
+int nox_client_createSockAndJoin_43B440() {
 	if (dword_587000_87404 == 1)
 		nox_xxx_createSocketLocal_554B40(0);
 	nox_client_joinGame_438A90();
 	return 1;
 }
+#endif // NOX_CGO
 
 //----- (0043B460) --------------------------------------------------------
 int sub_43B460() {
@@ -6978,7 +6982,7 @@ void nox_xxx_serverHost_43B4D0() {
 		nox_xxx_gameSetAudioFadeoutMb_501AC0(0);
 	} else {
 		sub_43B630();
-		sub_43B440();
+		nox_client_createSockAndJoin_43B440();
 	}
 	sub_49FF20();
 }
