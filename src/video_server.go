@@ -17,7 +17,7 @@ func sub_444D00() {
 func nox_video_showMovieFrame(s unsafe.Pointer) {
 }
 
-func resetRenderer(sz types.Size) error {
+func resetRenderer(sz types.Size, _ bool) error {
 	return nil
 }
 
