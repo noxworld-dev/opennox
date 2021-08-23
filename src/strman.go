@@ -6,6 +6,8 @@ package main
 */
 import "C"
 import (
+	"unsafe"
+
 	"nox/v1/common/log"
 	"nox/v1/common/strman"
 )
@@ -25,6 +27,16 @@ func internCStr(s string) *C.char {
 	p = C.CString(s)
 	strManC[s] = p
 	return p
+}
+
+func internCBytes(b []byte) unsafe.Pointer {
+	p, ok := strManC[string(b)]
+	if ok {
+		return unsafe.Pointer(p)
+	}
+	bp := C.CBytes(b)
+	strManC[string(b)] = (*C.char)(bp)
+	return bp
 }
 
 func internWStr(s string) *C.wchar_t {
