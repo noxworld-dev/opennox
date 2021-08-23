@@ -1,9 +1,11 @@
 package sdl
 
 import (
+	"errors"
 	"fmt"
 	"os"
 
+	"github.com/go-gl/gl/v3.3-core/gl"
 	"github.com/veandco/go-sdl2/sdl"
 
 	"nox/v1/client/seat"
@@ -26,43 +28,63 @@ func New(title string, sz types.Size) (*Window, error) {
 		return nil, fmt.Errorf("SDL Initialization failed: %w", err)
 	}
 	sdl.SetHint(sdl.HINT_RENDER_SCALE_QUALITY, "1")
+	if err := sdl.GLSetAttribute(sdl.GL_CONTEXT_MAJOR_VERSION, 3); err != nil {
+		return nil, fmt.Errorf("cannot set OpenGL version: %w", err)
+	}
+	if err := sdl.GLSetAttribute(sdl.GL_CONTEXT_MINOR_VERSION, 3); err != nil {
+		return nil, fmt.Errorf("cannot set OpenGL version: %w", err)
+	}
+	if err := sdl.GLSetAttribute(sdl.GL_CONTEXT_PROFILE_CORE, 1); err != nil {
+		return nil, fmt.Errorf("cannot set OpenGL core: %w", err)
+	}
+	if err := sdl.GLSetAttribute(sdl.GL_CONTEXT_FORWARD_COMPATIBLE_FLAG, 1); err != nil {
+		return nil, fmt.Errorf("cannot set OpenGL forward: %w", err)
+	}
+	if err := sdl.GLSetAttribute(sdl.GL_DOUBLEBUFFER, 1); err != nil {
+		return nil, fmt.Errorf("cannot set OpenGL attribute: %w", err)
+	}
 
-	win, err := sdl.CreateWindow(title, sdl.WINDOWPOS_UNDEFINED, sdl.WINDOWPOS_UNDEFINED, int32(sz.W), int32(sz.H), sdl.WINDOW_RESIZABLE)
+	win, err := sdl.CreateWindow(title, sdl.WINDOWPOS_UNDEFINED, sdl.WINDOWPOS_UNDEFINED, int32(sz.W), int32(sz.H),
+		sdl.WINDOW_RESIZABLE|sdl.WINDOW_OPENGL)
 	if err != nil {
 		sdl.Quit()
 		return nil, fmt.Errorf("SDL Window creation failed: %w", err)
 	}
-	ren, err := sdl.CreateRenderer(win, 0, sdl.RENDERER_ACCELERATED|sdl.RENDERER_PRESENTVSYNC)
-	if err != nil {
-		win.Destroy()
-		sdl.Quit()
-		return nil, fmt.Errorf("SDL cannot create renderer: %w", err)
+	h := &Window{
+		win: win, prevSz: sz,
 	}
-	h := &Window{win: win, ren: ren, prevSz: sz}
 	h.SetScreenMode(seat.Windowed)
+	if err := h.initGL(); err != nil {
+		_ = win.Destroy()
+		sdl.Quit()
+		return nil, err
+	}
 	return h, nil
 }
 
 type Window struct {
 	win      *sdl.Window
-	ren      *sdl.Renderer
 	prevPos  types.Point
 	prevSz   types.Size
 	mode     seat.ScreenMode
+	nofilter bool
 	rel      bool
 	mpos     types.Point
 	onResize []func(sz types.Size)
 	onInput  []func(ev seat.InputEvent)
+	vao      uint32
+	vbo      uint32
+	ebo      uint32
+	prog     uint32
+	frag     uint32
+	vert     uint32
 }
 
 func (win *Window) Close() error {
 	if win.win == nil {
 		return nil
 	}
-	if win.ren != nil {
-		_ = win.ren.Destroy()
-		win.ren = nil
-	}
+	win.closeGL()
 	err := win.win.Destroy()
 	win.win = nil
 	win.onResize = nil
@@ -75,6 +97,10 @@ func (win *Window) OnInput(fnc func(ev seat.InputEvent)) {
 	win.onInput = append(win.onInput, fnc)
 }
 
+func (win *Window) SetNoFilter(enable bool) {
+	win.SetNoFilter(enable)
+}
+
 func (win *Window) SetTextInput(enable bool) {
 	if enable {
 		sdl.StartTextInput()
@@ -84,7 +110,7 @@ func (win *Window) SetTextInput(enable bool) {
 }
 
 func (win *Window) ScreenSize() types.Size {
-	w, h := win.win.GetSize()
+	w, h := win.win.GLGetDrawableSize()
 	return types.Size{
 		W: int(w), H: int(h),
 	}
@@ -202,24 +228,150 @@ func (win *Window) OnScreenResize(fnc func(sz types.Size)) {
 	win.onResize = append(win.onResize, fnc)
 }
 
-func (win *Window) Clear() {
-	if err := win.ren.Clear(); err != nil {
-		panic(err)
+func (win *Window) initGL() error {
+	gtx, err := win.win.GLCreateContext()
+	if err != nil {
+		return fmt.Errorf("OpenGL creation failed: %w", err)
 	}
+	err = win.win.GLMakeCurrent(gtx)
+	if err != nil {
+		return fmt.Errorf("OpenGL bind failed: %w", err)
+	}
+	sdl.GLSetSwapInterval(0)
+	if err := gl.Init(); err != nil {
+		return fmt.Errorf("OpenGL init failed: %w", err)
+	}
+	Log.Println("OpenGL version:", gl.GoStr(gl.GetString(gl.VERSION)))
+
+	gl.GenVertexArrays(1, &win.vao)
+	gl.BindVertexArray(win.vao)
+
+	gl.GenBuffers(1, &win.vbo)
+	gl.BindBuffer(gl.ARRAY_BUFFER, win.vbo)
+	quad := []float32{
+		// pos, tex
+		-1, -1, 0, 1,
+		-1, +1, 0, 0,
+		+1, +1, 1, 0,
+		+1, -1, 1, 1,
+	}
+	gl.BufferData(gl.ARRAY_BUFFER, len(quad)*4, gl.Ptr(quad), gl.STATIC_DRAW)
+
+	gl.GenBuffers(1, &win.ebo)
+	gl.BindBuffer(gl.ELEMENT_ARRAY_BUFFER, win.ebo)
+	elems := []uint32{
+		0, 1, 2,
+		2, 3, 0,
+	}
+	gl.BufferData(gl.ELEMENT_ARRAY_BUFFER, len(elems)*4, gl.Ptr(elems), gl.STATIC_DRAW)
+
+	if err := win.initProgram(); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (win *Window) closeGL() {
+	gl.DeleteProgram(win.prog)
+	gl.DeleteShader(win.vert)
+	gl.DeleteShader(win.frag)
+	gl.DeleteBuffers(1, &win.vbo)
+	gl.DeleteBuffers(1, &win.ebo)
+	gl.DeleteVertexArrays(1, &win.vao)
+}
+
+func (win *Window) compileShader(typ uint32, src string) (uint32, error) {
+	s := gl.CreateShader(typ)
+	cstr, free := gl.Strs(src)
+	gl.ShaderSource(s, 1, cstr, nil)
+	free()
+	gl.CompileShader(s)
+	var st int32
+	gl.GetShaderiv(s, gl.COMPILE_STATUS, &st)
+	if st == gl.FALSE {
+		var sz int32
+		gl.GetShaderiv(s, gl.INFO_LOG_LENGTH, &sz)
+		text := make([]byte, sz+1)
+		gl.GetShaderInfoLog(s, sz, nil, &text[0])
+		return 0, errors.New(string(text))
+	}
+	return s, nil
+}
+
+func (win *Window) initProgram() error {
+	const glVertShader = `#version 150 core
+in vec2 position;
+in vec2 texcoord;
+
+out vec2 Texcoord;
+
+void main()
+{
+	Texcoord = texcoord;
+    gl_Position = vec4(position, 0.0, 1.0);
+}
+` + "\x00"
+
+	const glFragShader = `#version 150 core
+uniform sampler2D tex;
+in vec2 Texcoord;
+
+out vec4 outColor;
+
+void main()
+{
+    outColor = texture(tex, Texcoord);
+}
+` + "\x00"
+
+	vert, err := win.compileShader(gl.VERTEX_SHADER, glVertShader)
+	if err != nil {
+		return fmt.Errorf("cannot compile vertex shader: %w", err)
+	}
+	frag, err := win.compileShader(gl.FRAGMENT_SHADER, glFragShader)
+	if err != nil {
+		return fmt.Errorf("cannot compile vertex shader: %w", err)
+	}
+
+	prog := gl.CreateProgram()
+	gl.AttachShader(prog, vert)
+	gl.AttachShader(prog, frag)
+	gl.BindFragDataLocation(prog, 0, gl.Str("outColor\x00"))
+	gl.LinkProgram(prog)
+
+	var st int32
+	gl.GetProgramiv(prog, gl.LINK_STATUS, &st)
+	if st == gl.FALSE {
+		var sz int32
+		gl.GetProgramiv(prog, gl.INFO_LOG_LENGTH, &sz)
+		text := make([]byte, sz+1)
+		gl.GetProgramInfoLog(prog, sz, nil, &text[0])
+		return errors.New(string(text))
+	}
+	win.prog = prog
+
+	gl.UseProgram(prog)
+	gl.Uniform1i(gl.GetUniformLocation(prog, gl.Str("tex\x00")), 0)
+
+	posAttr := gl.GetAttribLocation(prog, gl.Str("position\x00"))
+	gl.EnableVertexAttribArray(uint32(posAttr))
+	gl.VertexAttribPointer(uint32(posAttr), 2, gl.FLOAT, false, 4*4, gl.PtrOffset(0*4))
+
+	texAttr := gl.GetAttribLocation(prog, gl.Str("texcoord\x00"))
+	gl.EnableVertexAttribArray(uint32(texAttr))
+	gl.VertexAttribPointer(uint32(texAttr), 2, gl.FLOAT, false, 4*4, gl.PtrOffset(2*4))
+	return nil
+}
+
+func (win *Window) Clear() {
+	gl.Disable(gl.DEPTH_TEST)
+	gl.ClearColor(0, 0, 0, 1)
+	gl.Clear(gl.COLOR_BUFFER_BIT)
 }
 
 func (win *Window) Present() {
-	win.ren.Present()
-}
-
-func (win *Window) NewSurface(sz types.Size) seat.Surface {
-	tex, err := win.ren.CreateTexture(sdl.PIXELFORMAT_RGB555, sdl.TEXTUREACCESS_STREAMING, int32(sz.W), int32(sz.H))
-	if err != nil {
-		err = fmt.Errorf("cannot create surface: %w", err)
-		Log.Print(err)
-		panic(err)
-	}
-	return &Surface{win: win, sz: sz, tex: tex}
+	win.win.GLSwap()
 }
 
 func (win *Window) InputTick() {

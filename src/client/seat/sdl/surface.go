@@ -3,15 +3,34 @@ package sdl
 import (
 	"image"
 
+	"github.com/go-gl/gl/v3.3-core/gl"
 	"github.com/veandco/go-sdl2/sdl"
 
+	"nox/v1/client/seat"
 	"nox/v1/common/types"
 )
+
+func (win *Window) NewSurface(sz types.Size) seat.Surface {
+	s := &Surface{win: win, sz: sz}
+	gl.GenTextures(1, &s.tex)
+	gl.BindTexture(gl.TEXTURE_2D, s.tex)
+	gl.TexParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE)
+	gl.TexParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE)
+	if win.nofilter {
+		gl.TexParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST)
+		gl.TexParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST)
+	} else {
+		gl.TexParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR)
+		gl.TexParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR)
+	}
+	gl.TexImage2D(gl.TEXTURE_2D, 0, gl.RGBA, int32(s.sz.W), int32(s.sz.H), 0, gl.BGRA, gl.UNSIGNED_SHORT_1_5_5_5_REV, nil)
+	return s
+}
 
 type Surface struct {
 	win *Window
 	sz  types.Size
-	tex *sdl.Texture
+	tex uint32
 }
 
 func (s *Surface) rect() *sdl.Rect {
@@ -19,23 +38,8 @@ func (s *Surface) rect() *sdl.Rect {
 }
 
 func (s *Surface) Update(data []byte) {
-	err := s.tex.Update(s.rect(), data, 2*s.sz.W)
-	if err != nil {
-		Log.Printf("cannot update surface: %v", err)
-	}
-}
-
-func (s *Surface) Lock() ([]byte, int, bool) {
-	data, pitch, err := s.tex.Lock(s.rect())
-	if err != nil {
-		Log.Printf("cannot lock surface: %v", err)
-		return nil, 0, false
-	}
-	return data, pitch, true
-}
-
-func (s *Surface) Unlock() {
-	s.tex.Unlock()
+	gl.BindTexture(gl.TEXTURE_2D, s.tex)
+	gl.TexImage2D(gl.TEXTURE_2D, 0, gl.RGBA, int32(s.sz.W), int32(s.sz.H), 0, gl.BGRA, gl.UNSIGNED_SHORT_1_5_5_5_REV, gl.Ptr(data))
 }
 
 func (s *Surface) Size() types.Size {
@@ -43,19 +47,18 @@ func (s *Surface) Size() types.Size {
 }
 
 func (s *Surface) Draw(vp image.Rectangle) {
-	svp := sdl.Rect{
-		X: int32(vp.Min.X), Y: int32(vp.Min.Y),
-		W: int32(vp.Dx()), H: int32(vp.Dy()),
-	}
-	if err := s.win.ren.Copy(s.tex, s.rect(), &svp); err != nil {
-		panic(err)
-	}
+	gl.Viewport(int32(vp.Min.X), int32(vp.Min.Y), int32(vp.Dx()), int32(vp.Dy()))
+	gl.ActiveTexture(gl.TEXTURE0)
+	gl.BindTexture(gl.TEXTURE_2D, s.tex)
+	//gl.BindVertexArray(s.win.vao)
+	gl.BindBuffer(gl.ARRAY_BUFFER, s.win.vbo)
+	gl.BindBuffer(gl.ELEMENT_ARRAY_BUFFER, s.win.ebo)
+	gl.UseProgram(s.win.prog)
+	gl.DrawElements(gl.TRIANGLES, 6, gl.UNSIGNED_INT, nil)
 }
 
 func (s *Surface) Destroy() {
-	if s.tex != nil {
-		_ = s.tex.Destroy()
-		s.tex = nil
-	}
+	gl.DeleteTextures(1, &s.tex)
+	s.tex = 0
 	s.win = nil
 }
