@@ -2368,10 +2368,10 @@ int  sub_474DD0(_DWORD* a1, int2* a2, int2* a3, int a4, int a5); // idb
 size_t  sub_4754C0(int a1);
 void  sub_4754F0(nox_draw_viewport_t* a1);
 void  nox_xxx_spriteAddQueue_475560_draw(nox_drawable* dr, nox_draw_viewport_t* a2);
-int  nox_xxx_sprite_4756E0_drawable(_DWORD* a1);
-int  nox_xxx_sprite_475740_drawable(_DWORD* a1);
-int  nox_xxx_sprite_4757A0_drawable(int a1);
-int  sub_4757D0_drawable(_DWORD* a1);
+int  nox_xxx_sprite_4756E0_drawable(nox_drawable* dr);
+int  nox_xxx_sprite_475740_drawable(nox_drawable* dr);
+int  nox_xxx_sprite_4757A0_drawable(nox_drawable* dr);
+int  sub_4757D0_drawable(nox_drawable* dr);
 void nox_xxx_drawAllMB_475810_draw(nox_draw_viewport_t* a1);
 int  sub_475F10(nox_draw_viewport_t* a1);
 int  sub_475FE0(nox_draw_viewport_t* a1);

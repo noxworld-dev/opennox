@@ -23,6 +23,7 @@ extern int dword_5d4594_1096508;
 extern void* dword_5d4594_1096512;
 extern int dword_5d4594_1096516;
 extern unsigned int nox_client_drawFrontWalls_80812;
+extern unsigned int nox_client_fadeObjects_80836;
 extern unsigned int dword_5d4594_811896;
 extern unsigned int dword_5d4594_811904;
 extern unsigned int nox_client_gui_flag_815132;
@@ -400,9 +401,52 @@ func sub_4754F0(vp *Viewport) {
 	C.nox_drawable_list_4_size = 0
 	C.dword_5d4594_1096500 = 0
 	C.dword_5d4594_1096508 = 0
-	nox_xxx_forEachSprite(rect, func(dr *Drawable) {
-		C.nox_xxx_spriteAddQueue_475560_draw(dr.C(), vp.C())
-	})
+	nox_xxx_forEachSprite(rect, nox_xxx_spriteAddQueue_475560_draw)
+}
+
+func nox_xxx_spriteAddQueue_475560_draw(dr *Drawable) {
+	if C.nox_xxx_sprite_4756E0_drawable(dr.C()) != 0 {
+		if C.nox_drawable_list_2_size < nox_drawable_lists_cap {
+			nox_drawable_list_2[C.nox_drawable_list_2_size] = unsafe.Pointer(dr.C())
+			C.nox_drawable_list_2_size++
+		}
+		return
+	}
+	if C.nox_xxx_sprite_475740_drawable(dr.C()) != 0 {
+		if C.nox_drawable_list_3_size < nox_drawable_lists_cap {
+			nox_drawable_list_3[C.nox_drawable_list_3_size] = unsafe.Pointer(dr.C())
+			C.nox_drawable_list_3_size++
+		}
+		return
+	}
+	if C.nox_xxx_sprite_4757A0_drawable(dr.C()) != 0 {
+		if C.nox_drawable_list_4_size < nox_drawable_lists_cap {
+			nox_drawable_list_4[C.nox_drawable_list_4_size] = unsafe.Pointer(dr.C())
+			C.nox_drawable_list_4_size++
+		}
+		return
+	}
+	if C.sub_4757D0_drawable(dr.C()) != 0 {
+		if C.nox_client_fadeObjects_80836 != 0 || unsafe.Pointer(dr.C()) == *memmap.PtrPtr(0x852978, 8) || C.nox_xxx_client_4984B0_drawable(dr.C()) != 0 {
+			if dr.field_122 == 0 {
+				if C.nox_xxx_client_4984B0_drawable(dr.C()) != 0 {
+					dr.field_121 = 1
+					dr.field_120 = 0
+				} else {
+					if dr.field_121 == 0 || (dr.flags28&0x6 != 0) {
+						return
+					}
+					dr.field_120 = 1
+				}
+			}
+			if (dr.field_120 != 0 || dr.field_122 != 0) && (gameFrame()-uint32(dr.field_85)) > gameFPS() {
+				dr.field_120 = 0
+			} else if C.nox_drawable_list_1_size < nox_drawable_list_1_cap {
+				nox_drawable_list_1[C.nox_drawable_list_1_size] = unsafe.Pointer(dr.C())
+				C.nox_drawable_list_1_size++
+			}
+		}
+	}
 }
 
 const (

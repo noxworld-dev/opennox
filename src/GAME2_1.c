@@ -8067,7 +8067,6 @@ void  sub_4754F0(nox_draw_viewport_t* a1p) {
 	dword_5d4594_1096508 = 0;
 	nox_xxx_forEachSprite_49AB00(&v4, nox_xxx_spriteAddQueue_475560_draw, (int)a1);
 }
-#endif // NOX_CGO
 
 //----- (00475560) --------------------------------------------------------
 void  nox_xxx_spriteAddQueue_475560_draw(nox_drawable* dr, nox_draw_viewport_t* a2) {
@@ -8102,9 +8101,11 @@ void  nox_xxx_spriteAddQueue_475560_draw(nox_drawable* dr, nox_draw_viewport_t* 
 		}
 	}
 }
+#endif // NOX_CGO
 
 //----- (004756E0) --------------------------------------------------------
-int  nox_xxx_sprite_4756E0_drawable(_DWORD* a1) {
+int  nox_xxx_sprite_4756E0_drawable(nox_drawable* dr) {
+	_DWORD* a1 = dr;
 	int result;                   // eax
 	int( * v2)(int*, int); // esi
 	int v3;                       // edx
@@ -8124,7 +8125,8 @@ int  nox_xxx_sprite_4756E0_drawable(_DWORD* a1) {
 }
 
 //----- (00475740) --------------------------------------------------------
-int  nox_xxx_sprite_475740_drawable(_DWORD* a1) {
+int  nox_xxx_sprite_475740_drawable(nox_drawable* dr) {
+	_DWORD* a1 = dr;
 	int result;                   // eax
 	int( * v2)(int*, int); // edx
 	int v3;                       // ebx
@@ -8149,7 +8151,8 @@ int  nox_xxx_sprite_475740_drawable(_DWORD* a1) {
 }
 
 //----- (004757A0) --------------------------------------------------------
-int  nox_xxx_sprite_4757A0_drawable(int a1) {
+int  nox_xxx_sprite_4757A0_drawable(nox_drawable* dr) {
+	int a1 = dr;
 	int result; // eax
 	int v2;     // ecx
 
@@ -8167,7 +8170,8 @@ int  nox_xxx_sprite_4757A0_drawable(int a1) {
 }
 
 //----- (004757D0) --------------------------------------------------------
-int  sub_4757D0_drawable(_DWORD* a1) {
+int  sub_4757D0_drawable(nox_drawable* dr) {
+	_DWORD* a1 = dr;
 	int result; // eax
 	int v2;     // ecx
 
