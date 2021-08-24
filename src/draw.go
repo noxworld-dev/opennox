@@ -19,6 +19,8 @@ extern void* dword_5d4594_1096512;
 extern int dword_5d4594_1096516;
 extern unsigned int nox_client_drawFrontWalls_80812;
 extern unsigned int nox_client_fadeObjects_80836;
+extern unsigned int nox_client_texturedFloors_154956;
+extern unsigned int nox_xxx_waypointCounterMB_587000_154948;
 extern unsigned int dword_5d4594_811896;
 extern unsigned int dword_5d4594_811904;
 extern unsigned int nox_client_gui_flag_815132;
@@ -28,6 +30,9 @@ extern unsigned int dword_5d4594_3799468;
 extern unsigned int dword_5d4594_3799484;
 extern unsigned int dword_5d4594_3799476;
 extern unsigned int dword_5d4594_3799508;
+extern unsigned int dword_587000_154960;
+extern unsigned int dword_5d4594_1193156;
+extern unsigned int dword_5d4594_1193188;
 extern void* nox_draw_sprite_dstPtr_3799540;
 extern unsigned int dword_5d4594_3799552;
 extern unsigned char* nox_video_cur_pixdata_3799444;
@@ -36,6 +41,9 @@ extern unsigned int nox_client_gui_flag_1556112;
 extern unsigned int nox_gameDisableMapDraw_5d4594_2650672;
 extern nox_video_bag_section_t* nox_video_bag_sections_arr;
 char  nox_xxx_drawWalls_473C10(nox_draw_viewport_t* vp, void* data);
+void nox_xxx_tileDrawMB_481C20_A(nox_draw_viewport_t* vp, int v3);
+void nox_xxx_tileDrawMB_481C20_B(nox_draw_viewport_t* vp, int v78);
+void nox_xxx_tileDrawMB_481C20_C(nox_draw_viewport_t* vp, int v72, int v78);
 void sub_4C8130();
 void sub_4C8410();
 void sub_4C86B0();
@@ -361,7 +369,7 @@ func nox_xxx_drawAllMB_475810_draw(vp *Viewport) {
 	C.sub_4765F0(vp.C())
 	sub_4754F0(vp)
 	if v10 {
-		C.nox_xxx_tileDrawMB_481C20(vp.C())
+		nox_xxx_tileDrawMB_481C20(vp)
 		C.sub_4C5500(vp.C())
 	} else {
 		sub_440900()
@@ -383,6 +391,30 @@ func nox_xxx_drawAllMB_475810_draw(vp *Viewport) {
 	C.sub_437290()
 	*memmap.PtrUint32(0x973F18, 68) = 1
 	C.sub_476680()
+}
+
+func nox_xxx_tileDrawMB_481C20(vp *Viewport) {
+	C.nox_xxx_waypointCounterMB_587000_154948++
+	dx := int(vp.field_4) - int(vp.x1)
+	dy := int(vp.field_5) - int(vp.y1)
+	if C.nox_client_texturedFloors_154956 == 0 && C.dword_5d4594_1193156 == 1 {
+		C.dword_587000_154960 = 0
+		C.nox_client_texturedFloors_154956 = 1
+		C.nox_xxx_tileSetDrawFn_481420()
+	}
+	if C.dword_5d4594_1193156 == 1 && C.dword_587000_154960 == 0 && gameFrame()%30 == 0 && C.nox_xxx_tileCheckRedrawMB_482570(vp.C()) == 0 {
+		C.dword_5d4594_1193156 = 0
+		C.nox_client_texturedFloors_154956 = C.dword_587000_154960
+		C.nox_xxx_tileSetDrawFn_481420()
+	}
+	if C.dword_5d4594_1193188 != 0 {
+		C.nox_xxx_tileDrawImpl_4826A0(vp.C())
+		C.dword_5d4594_1193188 = 0
+	} else {
+		C.nox_xxx_tileDrawMB_481C20_A(vp.C(), C.int(dx))
+		C.nox_xxx_tileDrawMB_481C20_B(vp.C(), C.int(dy))
+	}
+	C.nox_xxx_tileDrawMB_481C20_C(vp.C(), C.int(dx), C.int(dy))
 }
 
 func sub_4754F0(vp *Viewport) {
