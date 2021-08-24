@@ -8043,6 +8043,7 @@ size_t  sub_4754C0(int a1) {
 	return result;
 }
 
+#ifndef NOX_CGO
 //----- (004754F0) --------------------------------------------------------
 void  sub_4754F0(nox_draw_viewport_t* a1p) {
 	_DWORD* a1 = a1p;
@@ -8066,9 +8067,10 @@ void  sub_4754F0(nox_draw_viewport_t* a1p) {
 	dword_5d4594_1096508 = 0;
 	nox_xxx_forEachSprite_49AB00(&v4, nox_xxx_spriteAddQueue_475560_draw, (int)a1);
 }
+#endif // NOX_CGO
 
 //----- (00475560) --------------------------------------------------------
-void  nox_xxx_spriteAddQueue_475560_draw(nox_drawable* dr, int a2) {
+void  nox_xxx_spriteAddQueue_475560_draw(nox_drawable* dr, nox_draw_viewport_t* a2) {
 	if (nox_xxx_sprite_4756E0_drawable(dr)) {
 		if (nox_drawable_list_2_size < nox_drawable_lists_cap)
 			nox_drawable_list_2[nox_drawable_list_2_size++] = dr;

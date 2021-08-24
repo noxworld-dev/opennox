@@ -66,6 +66,7 @@ void nox_xxx_drawAllMB_475810_draw_E(nox_draw_viewport_t* vp);
 import "C"
 import (
 	"encoding/binary"
+	"image"
 	"unsafe"
 
 	"nox/v1/client/input"
@@ -362,7 +363,7 @@ func nox_xxx_drawAllMB_475810_draw(vp *Viewport) {
 	}
 	v10 := C.nox_xxx_drawAllMB_475810_draw_B(vp.C()) != 0
 	C.sub_4765F0(vp.C())
-	C.sub_4754F0(vp.C())
+	sub_4754F0(vp)
 	if v10 {
 		C.nox_xxx_tileDrawMB_481C20(vp.C())
 		C.sub_4C5500(vp.C())
@@ -386,6 +387,22 @@ func nox_xxx_drawAllMB_475810_draw(vp *Viewport) {
 	C.sub_437290()
 	*memmap.PtrUint32(0x973F18, 68) = 1
 	C.sub_476680()
+}
+
+func sub_4754F0(vp *Viewport) {
+	rect := image.Rect(
+		int(vp.field_4), int(vp.field_5),
+		int(vp.field_4+vp.width), int(vp.field_5+vp.height)+128,
+	)
+	C.nox_drawable_list_1_size = 0
+	C.nox_drawable_list_3_size = 0
+	C.nox_drawable_list_2_size = 0
+	C.nox_drawable_list_4_size = 0
+	C.dword_5d4594_1096500 = 0
+	C.dword_5d4594_1096508 = 0
+	nox_xxx_forEachSprite(rect, func(dr *Drawable) {
+		C.nox_xxx_spriteAddQueue_475560_draw(dr.C(), vp.C())
+	})
 }
 
 const (
