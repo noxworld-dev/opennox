@@ -2816,7 +2816,7 @@ int  sub_498290(int a1);
 int  sub_4982E0(int a1);
 int  sub_498330(int a1);
 void  sub_498380(int a1, int a2);
-int  nox_xxx_client_4984B0_drawable(int a1);
+int  nox_xxx_client_4984B0_drawable(nox_drawable* dr);
 void  sub_4989A0();
 void sub_498AE0();
 int  sub_498B50(int a1, int a2, int a3, int a4);
@@ -2855,8 +2855,12 @@ int sub_49A950_free();
 int  nox_xxx_sprite_49A9B0_drawable(nox_drawable* dr);
 void  nox_xxx_sprite_49AA00_drawable(nox_drawable* a1);
 void  nox_xxx_updateSpritePosition_49AA90(nox_drawable* dr, int a2, int a3);
+#ifndef NOX_CGO
 void  nox_xxx_forEachSprite_49AB00(int4*, void(*)(nox_drawable*, int), int);
-_DWORD*  sub_49ABF0(_DWORD* a1, int a2);
+#else // NOX_CGO
+void  nox_xxx_forEachSprite_49AB00(int4*, void*, int);
+#endif // NOX_CGO
+nox_drawable* nox_drawable_find_49ABF0(nox_point* pt, int r);
 int  sub_49AD20(_DWORD* a1, int a2);
 int  nox_xxx_unused_49ADD0(int a1);
 int sub_49AEA0();

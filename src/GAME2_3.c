@@ -113,9 +113,11 @@ nox_npc* npc_array;
 extern nox_render_data_t* ptr_5D4594_3799572;
 extern nox_render_data_t obj_5D4594_3800716;
 
+#ifndef NOX_CGO
 nox_drawable*** nox_drawable_2d_index = 0;
 int nox_drawable_2d_index_size = 0;
 const int nox_drawable_2d_index_cap = 47;
+#endif // NOX_CGO
 
 int4*(* func_5D4594_1305696)(int, int, int, int, int);
 void(* func_5D4594_1305708)(_DWORD*, int, unsigned int);
@@ -4243,7 +4245,8 @@ void  sub_498380(int a1, int a2) {
 }
 
 //----- (004984B0) --------------------------------------------------------
-int  nox_xxx_client_4984B0_drawable(int a1) {
+int  nox_xxx_client_4984B0_drawable(nox_drawable* dr) {
+	int a1 = dr;
 	int v1;    // edi
 	int v3;    // ebx
 	int v4;    // ecx
@@ -5454,6 +5457,7 @@ int sub_49A8C0() {
 	return result;
 }
 
+#ifndef NOX_CGO
 //----- (0049A8E0) --------------------------------------------------------
 int sub_49A8E0_init() {
 	nox_drawable_2d_index_size = nox_drawable_2d_index_cap;
@@ -5486,22 +5490,16 @@ int sub_49A950_free() {
 
 //----- (0049A9B0) --------------------------------------------------------
 int  nox_xxx_sprite_49A9B0_drawable(nox_drawable* dr) {
-	int a1 = dr;
-	int result; // eax
-	int v2;     // ecx
-	int v3;     // ecx
-
-	result = a1;
-	v2 = *(_DWORD*)(a1 + 404);
+	nox_drawable* v2 = dr->field_101;
 	if (v2)
-		*(_DWORD*)(v2 + 400) = *(_DWORD*)(a1 + 400);
+		v2->field_100 = dr->field_100;
 	else
-		**(_DWORD**)(a1 + 396) = *(_DWORD*)(a1 + 400);
-	v3 = *(_DWORD*)(a1 + 400);
+		*dr->field_99 = dr->field_100;
+	nox_drawable* v3 = dr->field_100;
 	if (v3)
-		*(_DWORD*)(v3 + 404) = *(_DWORD*)(a1 + 404);
-	*(_DWORD*)(a1 + 396) = 0;
-	return result;
+		v3->field_101 = dr->field_101;
+	dr->field_99 = 0;
+	return 0;
 }
 
 //----- (0049AA00) --------------------------------------------------------
@@ -5522,6 +5520,7 @@ void  nox_xxx_sprite_49AA00_drawable(nox_drawable* dr) {
 
 	dr->field_99 = &nox_drawable_2d_index[i][j];
 }
+#endif // BOX_CGO
 
 //----- (0049AA90) --------------------------------------------------------
 void  nox_xxx_updateSpritePosition_49AA90(nox_drawable* dr, int a2, int a3) {
@@ -5549,6 +5548,7 @@ void  nox_xxx_updateSpritePosition_49AA90(nox_drawable* dr, int a2, int a3) {
 	nox_xxx_sprite_49AA00_drawable(dr);
 }
 
+#ifndef NOX_CGO
 //----- (0049AB00) --------------------------------------------------------
 void  nox_xxx_forEachSprite_49AB00(int4* a1, void(* fnc)(nox_drawable*, int), int a3) {
 	if (!fnc)
@@ -5604,66 +5604,44 @@ void  nox_xxx_forEachSprite_49AB00(int4* a1, void(* fnc)(nox_drawable*, int), in
 }
 
 //----- (0049ABF0) --------------------------------------------------------
-_DWORD*  sub_49ABF0(_DWORD* a1, int a2) {
-	int v2;      // ecx
-	_DWORD* v3;  // edi
-	int v4;      // ebx
-	int v5;      // esi
-	int v6;      // ebp
-	int v7;      // esi
-	int v8;      // eax
-	int v9;      // edx
-	int v10;     // ebp
-	_DWORD* v11; // esi
-	int v12;     // eax
-	int v13;     // eax
-	_DWORD* v15; // [esp+10h] [ebp-10h]
-	int v16;     // [esp+14h] [ebp-Ch]
-	int i;       // [esp+18h] [ebp-8h]
-	int v18;     // [esp+1Ch] [ebp-4h]
-	int v19;     // [esp+24h] [ebp+4h]
-	int v20;     // [esp+24h] [ebp+4h]
-	int v21;     // [esp+28h] [ebp+8h]
-
-	v2 = a2;
-	v3 = a1;
-	v18 = a2 * a2;
-	v4 = 999999999;
-	v5 = *a1;
-	v15 = 0;
-	v16 = (*a1 - a2) / 128;
+nox_drawable* nox_drawable_find_49ABF0(nox_point* pt, int r) {
+	int v18 = r * r;
+	int v4 = 999999999;
+	int v5 = pt->x;
+	int v16 = (pt->x - r) / 128;
 	if (v16 < 0)
 		v16 = 0;
-	v19 = a1[1];
-	v6 = (v19 - a2) / 128;
+	int v19 = pt->y;
+	int v6 = (v19 - r) / 128;
 	if (v6 < 0)
 		v6 = 0;
-	v7 = (v5 + a2) / 128;
-	v21 = v7;
+	int v7 = (v5 + r) / 128;
+	int v21 = v7;
 	if (v7 >= nox_drawable_2d_index_size) {
 		v21 = nox_drawable_2d_index_size - 1;
 		v7 = nox_drawable_2d_index_size - 1;
 	}
-	v8 = (v2 + v19) / 128;
-	v20 = v8;
+	int v8 = (v19 + r) / 128;
+	int v20 = v8;
 	if (v8 >= nox_drawable_2d_index_size) {
 		v20 = nox_drawable_2d_index_size - 1;
 		v8 = nox_drawable_2d_index_size - 1;
 	}
-	v9 = v6;
-	for (i = v6; v9 <= v8; i = v9) {
-		v10 = v16;
+	int v9 = v6;
+	nox_drawable* out = 0;
+	for (int i = v6; v9 <= v8; i = v9) {
+		int v10 = v16;
 		if (v16 <= v7) {
 			do {
-				v11 = nox_drawable_2d_index[v10][v9];
+				_DWORD* v11 = nox_drawable_2d_index[v10][v9];
 				if (v11) {
 					do {
 						if (nox_xxx_client_4984B0_drawable((int)v11)) {
-							v12 = v3[1] - v11[4];
-							v13 = (*v3 - v11[3]) * (*v3 - v11[3]) + v12 * v12;
+							int v12 = pt->y - v11[4];
+							int v13 = (pt->x - v11[3]) * (pt->y - v11[3]) + v12 * v12;
 							if (v13 < v4 && v13 < v18) {
 								v4 = v13;
-								v15 = v11;
+								out = v11;
 							}
 						}
 						v11 = (_DWORD*)v11[100];
@@ -5677,7 +5655,7 @@ _DWORD*  sub_49ABF0(_DWORD* a1, int a2) {
 		}
 		++v9;
 	}
-	return v15;
+	return out;
 }
 
 //----- (0049AD20) --------------------------------------------------------
@@ -5730,6 +5708,7 @@ int  sub_49AD20(_DWORD* a1, int a2) {
 	}
 	return result;
 }
+#endif // NOX_CGO
 
 //----- (0049ADD0) --------------------------------------------------------
 int  nox_xxx_unused_49ADD0(int a1) {

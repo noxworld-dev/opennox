@@ -321,9 +321,7 @@ func initGameSession435CC0() error {
 		return errors.New("nox_alloc_drawable_init failed")
 	}
 
-	if C.sub_49A8E0_init() == 0 {
-		return errors.New("sub_49A8E0_init failed")
-	}
+	sub_49A8E0_init()
 
 	if C.nox_xxx_allocArrayHealthChanges_49A5F0() == 0 {
 		return errors.New("nox_xxx_allocArrayHealthChanges_49A5F0 failed")
