@@ -6502,7 +6502,6 @@ void  nox_xxx_tileCallDrawEdges_481BF0(int a1, int a2) {
 }
 // 5ACD40: invalid function type has been ignored
 
-#if 1
 //----- (00481C20) --------------------------------------------------------
 void nox_xxx_tileDrawMB_481C20_A(nox_draw_viewport_t* vp, int v3) {
 	int v17;              // esi
@@ -6609,7 +6608,7 @@ void nox_xxx_tileDrawMB_481C20_A(nox_draw_viewport_t* vp, int v3) {
 	}
 }
 
-void nox_xxx_tileDrawMB_481C20_B(nox_draw_viewport_t* vp, unsigned __int8* v78) {
+void nox_xxx_tileDrawMB_481C20_B(nox_draw_viewport_t* vp, int v78) {
 	int v33;              // esi
 	int v65;              // [esp-8h] [ebp-54h]
 	int v32;              // edi
@@ -6630,12 +6629,12 @@ void nox_xxx_tileDrawMB_481C20_B(nox_draw_viewport_t* vp, unsigned __int8* v78) 
 	int v22;              // esi
 	int v76;
 	if ((int)v78 >= *(int*)&dword_5d4594_3798824 + 23) {
-		if ((int)&v78[nox_getBackbufHeight()] <= *(int*)&dword_5d4594_3798824 + *(int*)&dword_5d4594_3798808)
+		if ((int)v78 + nox_getBackbufHeight() <= *(int*)&dword_5d4594_3798824 + *(int*)&dword_5d4594_3798808)
 			return;
 		v22 = dword_5d4594_3798832;
 		if (*(int*)&dword_5d4594_3798832 + *(int*)&dword_5d4594_3798816 >= 128)
 			return;
-		if ((int)&v78[nox_getBackbufHeight()] > *(int*)&dword_5d4594_3798824 + *(int*)&dword_5d4594_3798808 + 46) {
+		if ((int)v78 + nox_getBackbufHeight() > *(int*)&dword_5d4594_3798824 + *(int*)&dword_5d4594_3798808 + 46) {
 			nox_xxx_tileDrawImpl_4826A0(vp);
 			return;
 		}
@@ -6711,7 +6710,7 @@ void nox_xxx_tileDrawMB_481C20_B(nox_draw_viewport_t* vp, unsigned __int8* v78) 
 		}
 	}
 }
-void nox_xxx_tileDrawMB_481C20_C(nox_draw_viewport_t* vp, int v72, unsigned __int8* v78) {
+void nox_xxx_tileDrawMB_481C20_C(nox_draw_viewport_t* vp, int v72, int v78) {
 	unsigned __int8* v35; // ebx
 	int v36;              // eax
 	int v37;              // eax
@@ -6746,7 +6745,7 @@ void nox_xxx_tileDrawMB_481C20_C(nox_draw_viewport_t* vp, int v72, unsigned __in
 	unsigned __int8* v75; // [esp+3Ch] [ebp-10h]
 	int v79;              // [esp+54h] [ebp+8h]
 	int v80;              // [esp+54h] [ebp+8h]
-	v67.field_4 = (int)&v78[dword_5d4594_3679320];
+	v67.field_4 = v78 + dword_5d4594_3679320;
 	sub_4745F0(vp);
 	if (nox_client_texturedFloors_154956) {
 		v48 = nox_arr_84EB20;
@@ -6757,7 +6756,7 @@ void nox_xxx_tileDrawMB_481C20_C(nox_draw_viewport_t* vp, int v72, unsigned __in
 		v66.field_4 = (v67.field_4 - *(int*)&dword_5d4594_2650680) / 23;
 		v49 = dword_5d4594_3679320;
 		v50 = v67.field_4 - 23 * v66.field_4 - dword_5d4594_2650680;
-		v78 = (unsigned __int8*)(v67.field_4 - 23 * v66.field_4 - dword_5d4594_2650680);
+		v78 = v67.field_4 - 23 * v66.field_4 - dword_5d4594_2650680;
 		v80 = dword_5d4594_3679320;
 		if (*(int*)&dword_5d4594_3679320 < *(int*)&dword_5d4594_3798156) {
 			v51 = ((void*)&nox_arr_957820[128 * dword_5d4594_3679320]);
@@ -6825,7 +6824,7 @@ void nox_xxx_tileDrawMB_481C20_C(nox_draw_viewport_t* vp, int v72, unsigned __in
 				if (!v18)
 					break;
 				v49 = v80;
-				v50 = (int)v78;
+				v50 = v78;
 			}
 		}
 #if 0
@@ -6835,10 +6834,10 @@ void nox_xxx_tileDrawMB_481C20_C(nox_draw_viewport_t* vp, int v72, unsigned __in
 	} else {
 		v79 = dword_5d4594_3679320;
 		if (*(int*)&dword_5d4594_3679320 < *(int*)&dword_5d4594_3798156) {
-			v78 = ((void*)&nox_arr_957820[128 * dword_5d4594_3679320]);
+			unsigned __int8* v78a = ((void*)&nox_arr_957820[128 * dword_5d4594_3679320]);
 			bool v18;
 			do {
-				v35 = v78;
+				v35 = v78a;
 				v36 = nox_arr_956A00[v79];
 				int i = nox_pixbuffer_rows_3798784[v79];
 				if (v36 > 0) {
@@ -6878,12 +6877,13 @@ void nox_xxx_tileDrawMB_481C20_C(nox_draw_viewport_t* vp, int v72, unsigned __in
 					} while (!v46);
 				}
 				v18 = ++v79 < *(int*)&dword_5d4594_3798156;
-				v78 += 128;
+				v78a += 128;
 				++v67.field_4;
 			} while (v18);
 		}
 	}
 }
+#ifndef NOX_CGO
 void nox_xxx_tileDrawMB_481C20(nox_draw_viewport_t* vp) {
 	int v1;               // esi
 	int v2;               // edx
@@ -6917,12 +6917,13 @@ void nox_xxx_tileDrawMB_481C20(nox_draw_viewport_t* vp) {
 	}
 	nox_xxx_tileDrawMB_481C20_C(vp, v72, v78);
 }
+#endif // NOX_CGO
 // 481F0B: variable 'v13' is possibly undefined
 // 482142: variable 'v27' is possibly undefined
-#endif
 
 //----- (00482570) --------------------------------------------------------
-int  nox_xxx_tileCheckRedrawMB_482570(_DWORD* a1) {
+int  nox_xxx_tileCheckRedrawMB_482570(nox_draw_viewport_t* vp) {
+	_DWORD* a1 = vp;
 	int v1;     // esi
 	int v2;     // ebx
 	int v3;     // eax
@@ -6984,7 +6985,8 @@ int  nox_xxx_tileCheckRedrawMB_482570(_DWORD* a1) {
 }
 
 //----- (004826A0) --------------------------------------------------------
-int  nox_xxx_tileDrawImpl_4826A0(_DWORD* a1) {
+int  nox_xxx_tileDrawImpl_4826A0(nox_draw_viewport_t* vp) {
+	_DWORD* a1 = vp;
 	int v1;     // esi
 	int v2;     // ebx
 	int result; // eax
