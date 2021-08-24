@@ -72,6 +72,17 @@ func (s *Drawable) Flags30() uint {
 	return uint(s.flags30)
 }
 
+func (s *Drawable) Flags31() uint {
+	return uint(s.flags31)
+}
+
+func (s *Drawable) CheckFlag31(i byte) bool { // nox_xxx_spriteCheckFlag31_4356C0
+	if s == nil {
+		return false
+	}
+	return (s.Flags31() & (1 << i)) != 0
+}
+
 func (s *Drawable) Flags70() uint {
 	return uint(s.flags70)
 }
@@ -82,6 +93,10 @@ func (s *Drawable) Field32() uint32 {
 
 func (s *Drawable) Field100() *Drawable {
 	return asDrawable(s.field_100)
+}
+
+func (s *Drawable) Field104() *Drawable { // sub_45A010
+	return asDrawable(s.field_104)
 }
 
 func (s *Drawable) DrawFunc(vp *Viewport) int {

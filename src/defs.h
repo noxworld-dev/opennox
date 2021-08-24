@@ -871,7 +871,7 @@ typedef struct nox_drawable {
 	unsigned int flags28;  // 28, 112
 	unsigned int flags29;  // 29, 116
 	unsigned int flags30;  // 30, 120
-	_DWORD field_31;       // 31, 124
+	unsigned int flags31;  // 31, 124
 	_DWORD field_32;       // 32, 128, npc ID?
 	_DWORD field_33;       // 33, 132
 	_DWORD field_34;       // 34, 136
@@ -913,7 +913,7 @@ typedef struct nox_drawable {
 	_DWORD field_82;
 	_DWORD field_83;
 	_DWORD field_84;
-	_DWORD field_85; // 85, 340
+	_DWORD field_85; // 85, 340, last draw frame number?
 	_DWORD field_86;
 	_DWORD field_87;
 	_DWORD field_88;
@@ -930,12 +930,12 @@ typedef struct nox_drawable {
 	nox_drawable** field_99; // 99, 396
 	nox_drawable* field_100; // 100, 400
 	nox_drawable* field_101; // 101, 404
-	_DWORD field_102;
-	_DWORD field_103;
-	_DWORD field_104;
-	_DWORD field_105;
-	_DWORD field_106;
-	_DWORD field_107;
+	_DWORD field_102; // 102, 408
+	_DWORD field_103; // 103, 412
+	nox_drawable* field_104; // 104, 416
+	nox_drawable* field_105; // 105, 420
+	_DWORD field_106; // 106, 424
+	_DWORD field_107; // 107, 428
 	_BYTE field_108_1; // 108, 432
 	_BYTE field_108_2; // 108, 433
 	_WORD field_108_3; // 108, 434

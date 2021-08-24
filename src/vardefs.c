@@ -704,7 +704,6 @@ void* dword_5d4594_1193624 = 0;
 _DWORD dword_587000_154968 = 0x3f800000; // 1f?
 _DWORD dword_5d4594_1098604 = 0;
 _DWORD nox_server_needInitNetCodeCache = 0x1;
-_DWORD dword_5d4594_1046600 = 0;
 _DWORD dword_5d4594_1308116 = 0;
 _DWORD dword_5d4594_1319248 = 0;
 _DWORD nox_xxx_warriorMaxSpeed_587000_312796 = 0x3f800000; // 1f?

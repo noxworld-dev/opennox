@@ -5523,7 +5523,7 @@ void nox_xxx_gameSetPlayState_4356B0(int v) { nox_game_playState_811372 = v; }
 #endif // NOX_CGO
 
 //----- (004356C0) --------------------------------------------------------
-BOOL  nox_xxx_spriteTestBuf_4356C0(nox_drawable* dr, char a2) {
+bool nox_xxx_spriteCheckFlag31_4356C0(nox_drawable* dr, char a2) {
 	int a1 = dr;
 	BOOL result; // eax
 

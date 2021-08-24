@@ -162,7 +162,9 @@ nox_window* nox_win_1064916 = 0;
 nox_window_yyy nox_windows_arr_1093036[7] = {0};
 
 const int nox_drawable_lists_cap = 512;
+const int nox_drawable_list_1_cap = 8192;
 
+#ifndef NOX_CGO
 nox_drawable** nox_drawable_list_2 = 0;
 int nox_drawable_list_2_size = 0;
 
@@ -172,9 +174,9 @@ int nox_drawable_list_3_size = 0;
 nox_drawable** nox_drawable_list_4 = 0;
 int nox_drawable_list_4_size = 0;
 
-const int nox_drawable_list_1_cap = 8192;
 nox_drawable** nox_drawable_list_1 = 0;
 int nox_drawable_list_1_size = 0;
+#endif // NOX_CGO
 
 void* dword_5d4594_1096496 = 0;
 int dword_5d4594_1096500 = 0;
@@ -5017,7 +5019,7 @@ int  sub_46E080(int a1) {
 	} else if (nox_common_gameFlags_check_40A5C0(16)) {
 		v3 = nox_xxx_netSpriteByCodeDynamic_45A6F0(*(_DWORD*)(a1 + 2060));
 		if (v3) {
-			if (nox_xxx_spriteTestBuf_4356C0((int)v3, 30))
+			if (nox_xxx_spriteCheckFlag31_4356C0((int)v3, 30))
 				return 1;
 		}
 	}
@@ -6497,7 +6499,7 @@ int  sub_472540(int a1) {
 int4*  nox_xxx_drawMinimap4Sprite_4725C0(int a1) {
 	int4* result; // eax
 
-	result = (int4*)nox_xxx_spriteTestBuf_4356C0(*getMemIntPtr(0x852978, 8), 2);
+	result = (int4*)nox_xxx_spriteCheckFlag31_4356C0(*getMemIntPtr(0x852978, 8), 2);
 	if (!result) {
 		sub_437260();
 		*getMemU32Ptr(0x5D4594, 1096316) = sub_472540(a1);
@@ -6786,7 +6788,7 @@ int  nox_xxx_cliDrawMinimap_472600(int a1, int a2) {
 				}
 				sub_473420(&xLeft);
 			} else {
-				while (!nox_xxx_spriteTestBuf_4356C0(v45, 30)) {
+				while (!nox_xxx_spriteCheckFlag31_4356C0(v45, 30)) {
 					v45 = sub_45A010(v45);
 					if (!v45)
 						goto LABEL_64;
@@ -6854,7 +6856,7 @@ int  nox_xxx_cliDrawMinimap_472600(int a1, int a2) {
 	}
 	v79 = *getMemU32Ptr(0x8531A0, 2572);
 	for (l = nox_xxx_cliGetSpritePlayer_45A000(); l; l = sub_45A010(l)) {
-		v60 = nox_xxx_spriteTestBuf_4356C0(l, 30);
+		v60 = nox_xxx_spriteCheckFlag31_4356C0(l, 30);
 		v61 = *(_DWORD*)(l + 128);
 		v77 = v60;
 		v62 = nox_xxx_objGetTeamByNetCode_418C80(v61);
@@ -7852,8 +7854,10 @@ char  nox_xxx_drawWalls_473C10(nox_draw_viewport_t* vp, void* data) {
 // 4744A3: variable 'v60' is possibly undefined
 // 4744A3: variable 'v59' is possibly undefined
 
+#ifndef NOX_CGO
 //----- (004745F0) --------------------------------------------------------
-int  sub_4745F0(_DWORD* a1) {
+void sub_4745F0(nox_draw_viewport_t* vp) {
+	_DWORD* a1 = vp;
 	void( * v1)(int, unsigned __int8*); // ebx
 	int result;                                // eax
 	int* i;                                    // ebp
@@ -7884,8 +7888,8 @@ int  sub_4745F0(_DWORD* a1) {
 		}
 		result = nox_drawable_list_2_size - 1;
 	}
-	return result;
 }
+#endif // NOX_CGO
 
 //----- (00474B40) --------------------------------------------------------
 int  sub_474B40(int a1) {
@@ -7905,7 +7909,7 @@ int  sub_474B40(int a1) {
 	if (a1 == *getMemU32Ptr(0x852978, 8))
 		return 1;
 	if (*getMemU32Ptr(0x852978, 8)) {
-		if (!nox_xxx_spriteTestBuf_4356C0(*getMemIntPtr(0x852978, 8), 21)) {
+		if (!nox_xxx_spriteCheckFlag31_4356C0(*getMemIntPtr(0x852978, 8), 21)) {
 			v3 = *getMemU32Ptr(0x852978, 8);
 			goto LABEL_9;
 		}
@@ -8256,6 +8260,7 @@ void nox_xxx_drawAllMB_475810_draw_D(nox_draw_viewport_t* vp) {
 		j = dword_5d4594_1096500 == 0;
 	}
 }
+#ifndef NOX_CGO
 void nox_xxx_drawAllMB_475810_draw_E(nox_draw_viewport_t* vp) {
 	qsort(nox_drawable_list_1, nox_drawable_list_1_size, sizeof(void*), sub_476160);
 	qsort(dword_5d4594_1096512, dword_5d4594_1096516, sizeof(void*), sub_476240);
@@ -8302,12 +8307,14 @@ void nox_xxx_drawAllMB_475810_draw_E(nox_draw_viewport_t* vp) {
 			if (dr->field_27 != *getMemU32Ptr(0x5D4594, 1096448) || nox_xxx_TeamGet_418B10() || (v25 = nox_xxx_cliGetSpritePlayer_45A000()) == 0) {
 			LABEL_64:
 				v26 = dr->flags28;
-				if (!(v26 & 6) || (unsigned int)(nox_frame_xxx_2598000 - dr->field_72) <= 5)
+				if (!(v26 & 6) || (unsigned int)(nox_frame_xxx_2598000 - dr->field_72) <= 5) {
 					goto LABEL_71;
+				}
 				if (v26 & 2) {
 					v27 = dr->field_69;
-					if (v27 == 9 || v27 == 10)
+					if (v27 == 9 || v27 == 10) {
 						goto LABEL_71;
+					}
 				} else if (*getMemU32Ptr(0x852978, 8) == dr) {
 				LABEL_71:
 					nox_xxx_drawHasteAndRunParticles_4746C0(vp, dr);
@@ -8328,10 +8335,11 @@ void nox_xxx_drawAllMB_475810_draw_E(nox_draw_viewport_t* vp) {
 					}
 				}
 			} else {
-				while (!nox_xxx_spriteTestBuf_4356C0(v25, 30)) {
+				while (!nox_xxx_spriteCheckFlag31_4356C0(v25, 30)) {
 					v25 = sub_45A010(v25);
-					if (!v25)
+					if (!v25) {
 						goto LABEL_64;
+					}
 				}
 			}
 		} else {
@@ -8339,7 +8347,6 @@ void nox_xxx_drawAllMB_475810_draw_E(nox_draw_viewport_t* vp) {
 		}
 	}
 }
-#ifndef NOX_CGO
 void nox_xxx_drawAllMB_475810_draw_F(nox_draw_viewport_t* vp) {
 	unsigned __int8** v30 = dword_5d4594_1096504;
 	int v31 = dword_5d4594_1096508;
@@ -8383,7 +8390,7 @@ void nox_xxx_drawAllMB_475810_draw(nox_draw_viewport_t* vp) {
 	nox_xxx_drawBlack_496150(vp);
 	int v8 = 0;
 	if (!nox_common_gameFlags_check_40A5C0(2048) && !nox_xxx_testCD_413830() ||
-		nox_common_gameFlags_check_40A5C0(2048) && !nox_xxx_testCDAndSolo_413840() || nox_xxx_spriteTestBuf_4356C0(*getMemIntPtr(0x852978, 8), 2) ||
+		nox_common_gameFlags_check_40A5C0(2048) && !nox_xxx_testCDAndSolo_413840() || nox_xxx_spriteCheckFlag31_4356C0(*getMemIntPtr(0x852978, 8), 2) ||
 		nox_gameDisableMapDraw_5d4594_2650672) {
 		v8 = 1;
 	}
