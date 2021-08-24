@@ -1200,7 +1200,7 @@ int  sub_464BD0(int a1, int a2, unsigned int a3) {
 		if (dword_5d4594_1049864 == 4) {
 			v58 = v59;
 			sub_473970(&v58, &v58);
-			v28 = sub_49ABF0(&v58, 20);
+			v28 = nox_drawable_find_49ABF0(&v58, 20);
 			if (v28) {
 				v57.field_0 = nox_win_width / 2;
 				v57.field_4 = nox_win_height / 2;

@@ -952,7 +952,7 @@ func sub_435EB0() {
 	C.sub_496120()
 	sub_473840()
 	C.nox_things_free_44C580()
-	C.sub_49A950_free()
+	sub_49A950_free()
 	C.nox_drawable_free()
 	C.sub_49AEA0()
 	C.nox_xxx_j_resetNPCRenderData_49A2E0()
