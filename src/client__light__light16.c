@@ -77,7 +77,7 @@ signed int  sub_485880(_DWORD* a1, int* a2, int a3, signed int a4, char* a5) {
 			v9 -= dword_5d4594_3798844 - dword_5d4594_3798796;
 			dword_5d4594_1193184 = v9;
 		}
-		if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_12)) {
+		if (nox_common_getEngineFlag(NOX_ENGINE_DISABLE_SOFT_LIGHTS)) {
 			if ((unsigned int)&v9[a4] < *(int*)&dword_5d4594_3798844) {
 				memcpy(a5, v9, a4);
 			} else {
@@ -365,7 +365,7 @@ void  sub_484E60(int a1) {
 	v1 = (_DWORD*)a1;
 	dword_5d4594_2650676 = 46 * ((*(_DWORD*)(a1 + 16) + 11) / 46 - 1) - 11;
 	dword_5d4594_2650680 = 46 * ((*(_DWORD*)(a1 + 20) + 11) / 46) - 57;
-	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_12)) {
+	if (nox_common_getEngineFlag(NOX_ENGINE_DISABLE_SOFT_LIGHTS)) {
 		memset(getMemAt(0x8531A0, 0), 0x1Fu, 0xA04u);
 		*getMemU8Ptr(0x8531A0, 2564) = 31;
 	} else {
@@ -407,7 +407,7 @@ char*  sub_485740(_DWORD* a1) {
 	char* result; // eax
 	int v10;      // [esp+10h] [ebp-4h]
 
-	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_12))
+	if (nox_common_getEngineFlag(NOX_ENGINE_DISABLE_SOFT_LIGHTS))
 		return (char*)getMemAt(0x587000, 155000);
 	v1 = *a1 - dword_5d4594_2650676;
 	v2 = a1[1] - dword_5d4594_2650680;
@@ -789,7 +789,7 @@ void  sub_468F80(int a1) {
 	v1 = (_DWORD*)a1;
 	dword_5d4594_2650676 = 46 * ((*(_DWORD*)(a1 + 16) + 11) / 46 - 1) - 11;
 	dword_5d4594_2650680 = 46 * ((*(_DWORD*)(a1 + 20) + 11) / 46) - 57;
-	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_12)) {
+	if (nox_common_getEngineFlag(NOX_ENGINE_DISABLE_SOFT_LIGHTS)) {
 		for (int i = 0; i < 57*4; i++) {
 			for (int j = 0; j < 45*4; j++) {
 				nox_arr2_853BC0[i][j].r = 0xFF0000;

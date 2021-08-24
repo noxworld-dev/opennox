@@ -37,7 +37,7 @@ const (
 	NOX_ENGINE_FLAG_9                          = EngineFlags(1 << 8) //Related to rendering
 	NOX_ENGINE_FLAG_ENABLE_WINDOWED_MODE       = EngineFlags(1 << 9)
 	NOX_ENGINE_FLAG_ENABLE_SOFT_SHADOW_EDGE    = EngineFlags(1 << 10)
-	NOX_ENGINE_FLAG_12                         = EngineFlags(1 << 11) //Related to lights render
+	NOX_ENGINE_DISABLE_SOFT_LIGHTS             = EngineFlags(1 << 11) //Related to lights render
 	NOX_ENGINE_FLAG_GAMELOOP_MEMDUMP           = EngineFlags(1 << 12)
 	NOX_ENGINE_FLAG_14                         = EngineFlags(1 << 13) //Unused
 	NOX_ENGINE_FLAG_15                         = EngineFlags(1 << 14) //Unused
@@ -49,12 +49,12 @@ const (
 	NOX_ENGINE_FLAG_DISABLE_FLOOR_RENDERING    = EngineFlags(1 << 20)
 	NOX_ENGINE_FLAG_REPLAY_WRITE               = EngineFlags(1 << 21)
 	NOX_ENGINE_FLAG_REPLAY_READ                = EngineFlags(1 << 22)
-	NOX_ENGINE_FLAG_LOG_TO_FILE                = EngineFlags(1 << 23) 
+	NOX_ENGINE_FLAG_LOG_TO_FILE                = EngineFlags(1 << 23)
 	NOX_ENGINE_FLAG_LOG_TO_CONSOLE             = EngineFlags(1 << 24)
 	NOX_ENGINE_FLAG_LOCK_VIDEO_RESOLUTION      = EngineFlags(1 << 25)
-	NOX_ENGINE_FLAG_27                         = EngineFlags(1 << 26)//Unused
+	NOX_ENGINE_FLAG_27                         = EngineFlags(1 << 26) //Unused
 	NOX_ENGINE_FLAG_SAVE_DEBUG                 = EngineFlags(1 << 27)
-	NOX_ENGINE_FLAG_ADDITIONAL_NETWORK_TEST    = EngineFlags(1 << 28)//Tests for high bits but doesnt do anything. For coding purposes
+	NOX_ENGINE_FLAG_ADDITIONAL_NETWORK_TEST    = EngineFlags(1 << 28) //Tests for high bits but doesnt do anything. For coding purposes
 	NOX_ENGINE_FLAG_LOG_BAND                   = EngineFlags(1 << 29)
 	NOX_ENGINE_FLAG_SLEEP                      = EngineFlags(1 << 30)
 	NOX_ENGINE_FLAG_PAUSE                      = EngineFlags(1 << 31)

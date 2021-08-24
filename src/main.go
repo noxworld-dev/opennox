@@ -280,7 +280,7 @@ func runNox(args []string) error {
 		C.nox_xxx_setClientNetPort_40A410(C.int(v))
 	}
 	if *fNoSoft {
-		resetEngineFlag(NOX_ENGINE_FLAG_12)
+		setEngineFlag(NOX_ENGINE_DISABLE_SOFT_LIGHTS)
 	}
 	// C.nox_common_readSKU_fromRegistry_4D78C0()
 	C.fesetround(C.FE_TOWARDZERO)

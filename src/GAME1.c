@@ -268,7 +268,7 @@ int cmain(int argc, const char* argv[]) {
 			int v = atoi(argv[i]);
 			nox_xxx_setClientNetPort_40A410(v);
 		} else if (!_strcmpi(flag, "-nosoft")) {
-			nox_common_resetEngineFlag(NOX_ENGINE_FLAG_12);
+			nox_common_setEngineFlag(NOX_ENGINE_DISABLE_SOFT_LIGHTS);
 		}
 	}
 	char cwd[1024]; // [esp+44h] [ebp-400h]
