@@ -43,7 +43,8 @@ extern nox_video_bag_section_t* nox_video_bag_sections_arr;
 char  nox_xxx_drawWalls_473C10(nox_draw_viewport_t* vp, void* data);
 void nox_xxx_tileDrawMB_481C20_A(nox_draw_viewport_t* vp, int v3);
 void nox_xxx_tileDrawMB_481C20_B(nox_draw_viewport_t* vp, int v78);
-void nox_xxx_tileDrawMB_481C20_C(nox_draw_viewport_t* vp, int v72, int v78);
+void nox_xxx_tileDrawMB_481C20_C_textured(nox_draw_viewport_t* vp, int v72, int v78);
+void nox_xxx_tileDrawMB_481C20_C_solid(nox_draw_viewport_t* vp, int v72, int v78);
 void sub_4C8130();
 void sub_4C8410();
 void sub_4C86B0();
@@ -414,7 +415,11 @@ func nox_xxx_tileDrawMB_481C20(vp *Viewport) {
 		C.nox_xxx_tileDrawMB_481C20_A(vp.C(), C.int(dx))
 		C.nox_xxx_tileDrawMB_481C20_B(vp.C(), C.int(dy))
 	}
-	C.nox_xxx_tileDrawMB_481C20_C(vp.C(), C.int(dx), C.int(dy))
+	if C.nox_client_texturedFloors_154956 != 0 {
+		C.nox_xxx_tileDrawMB_481C20_C_textured(vp.C(), C.int(dx), C.int(dy))
+	} else {
+		C.nox_xxx_tileDrawMB_481C20_C_solid(vp.C(), C.int(dx), C.int(dy))
+	}
 }
 
 func sub_4754F0(vp *Viewport) {
