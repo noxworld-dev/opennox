@@ -178,6 +178,7 @@ void* dword_5d4594_1189584 = 0;
 
 void* nox_client_spriteUnderCursorXxx_1096644 = 0;
 
+#ifndef NOX_CGO
 //----- (00475F10) --------------------------------------------------------
 int  sub_475F10(nox_draw_viewport_t* a1p) {
 	_DWORD* a1 = a1p;
@@ -242,6 +243,7 @@ int  sub_475FE0(nox_draw_viewport_t* a1p) {
 	}
 	return result;
 }
+#endif // NOX_CGO
 
 //----- (00476080) --------------------------------------------------------
 int  sub_476080(unsigned __int8* a1) {
@@ -586,7 +588,8 @@ void nox_draw_setCutSize_476700(int cutPerc, int a2) {
 #endif // NOX_CGO
 
 //----- (00476850) --------------------------------------------------------
-void  sub_476850(int a1, unsigned __int8* a2) {
+void  sub_476850(nox_draw_viewport_t* vp, nox_drawable* dr) {
+	unsigned __int8* a2 = dr;
 	int v2;           // eax
 	int* v3;          // eax
 	int v4;           // edi
@@ -715,7 +718,8 @@ void  sub_476850(int a1, unsigned __int8* a2) {
 }
 
 //----- (00476AE0) --------------------------------------------------------
-int(*  sub_476AE0(int a1, unsigned __int8* a2))(int* a1, int a2) {
+void* sub_476AE0(nox_draw_viewport_t* vp, nox_drawable* dr) {
+	unsigned __int8* a2 = dr;
 	unsigned __int8* v2;                            // ebx
 	int result;                                     // eax
 	int( * result2)(int*, int);              // eax
@@ -1050,7 +1054,7 @@ void  nox_xxx_clientOnCursorHover_477050(int arg0, int a2) {
 		return;
 	}
 	v3 = *(_DWORD*)(arg0 + 120);
-	if (!((v3 & 0x8000) == 0 && (!nox_xxx_spriteTestBuf_4356C0(arg0, 0) || nox_xxx_spriteTestBuf_4356C0(*getMemIntPtr(0x852978, 8), 21)))) {
+	if (!((v3 & 0x8000) == 0 && (!nox_xxx_spriteCheckFlag31_4356C0(arg0, 0) || nox_xxx_spriteCheckFlag31_4356C0(*getMemIntPtr(0x852978, 8), 21)))) {
 		return;
 	}
 	v4 = *(_DWORD*)(arg0 + 112);

@@ -11288,7 +11288,7 @@ __int16  sub_4B8960(int* a1, nox_drawable* dr, int a3, _DWORD* a4, int a5, int a
 	int v31;             // [esp+18h] [ebp-8h]
 
 	v6 = (unsigned __int8*)dr;
-	v28 = nox_xxx_spriteTestBuf_4356C0(dr, 23);
+	v28 = nox_xxx_spriteCheckFlag31_4356C0(dr, 23);
 	v7 = 0;
 	v30 = 0;
 	v31 = 0;
@@ -11469,7 +11469,7 @@ __int16  sub_4B8D40(int* a1, nox_drawable* dr, int a3, _DWORD* a4, int a5, int a
 	BOOL v14;            // [esp+14h] [ebp-4h]
 
 	v6 = (unsigned __int8*)dr;
-	v14 = nox_xxx_spriteTestBuf_4356C0(dr, 25);
+	v14 = nox_xxx_spriteCheckFlag31_4356C0(dr, 25);
 	if ((unsigned char)nox_frame_xxx_2598000 & 1)
 		v13 = *getMemU32Ptr(0x5D4594, 2523948);
 	else
@@ -11601,7 +11601,7 @@ int  sub_4B8FA0(nox_drawable* dr, int* a2, int* a3) {
 
 	v3 = *(_DWORD*)(a1 + 304);
 	if (*(_DWORD*)(a1 + 276) || !sub_48D830(dr)) {
-		if (*(_DWORD*)(a1 + 276) != 4 || (v5 = !nox_xxx_spriteTestBuf_4356C0(dr, 31), v4 = 53, v5))
+		if (*(_DWORD*)(a1 + 276) != 4 || (v5 = !nox_xxx_spriteCheckFlag31_4356C0(dr, 31), v4 = 53, v5))
 			v4 = *(_DWORD*)(a1 + 276);
 	} else {
 		v4 = 19;

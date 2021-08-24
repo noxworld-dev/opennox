@@ -63,7 +63,6 @@ extern _DWORD dword_5d4594_1046864;
 extern _DWORD dword_5d4594_831256;
 extern _DWORD dword_5d4594_1049536;
 extern _DWORD dword_5d4594_1046944;
-extern _DWORD dword_5d4594_1046600;
 extern _DWORD dword_5d4594_1045424;
 extern _DWORD dword_5d4594_1045584;
 extern _DWORD dword_5d4594_830972;
@@ -180,6 +179,7 @@ nox_window* nox_win_unk1 = 0;
 
 nox_alloc_class* nox_alloc_drawable = 0;
 
+nox_drawable* nox_xxx_drawablePlayer_1046600 = 0;
 nox_drawable* nox_drawable_head_unk1 = 0;
 nox_drawable* nox_drawable_head_unk2 = 0;
 nox_drawable* nox_drawable_head_unk3 = 0;
@@ -5048,10 +5048,14 @@ int  sub_459D80(int a1) {
 BOOL sub_459DA0() { return dword_5d4594_1046492 != 0; }
 
 //----- (00459DB0) --------------------------------------------------------
-BOOL  sub_459DB0(int a1) { return *(_DWORD*)(a1 + 112) & 0x400000 && *(_BYTE*)(a1 + 116) & 8; }
+BOOL  sub_459DB0(nox_drawable* dr) {
+	int a1 = dr;
+	return *(_DWORD*)(a1 + 112) & 0x400000 && *(_BYTE*)(a1 + 116) & 8;
+}
 
 //----- (00459DD0) --------------------------------------------------------
-void sub_459DD0(int a1, char a2) {
+void sub_459DD0(nox_drawable* dr, char a2) {
+	int a1 = dr;
 	if (!a1) {
 		return;
 	}
@@ -5117,16 +5121,12 @@ int  nox_xxx_cliNextMinimapObj_459EC0(int a1) {
 }
 
 //----- (00459ED0) --------------------------------------------------------
-int  sub_459ED0_drawable(int a1) {
-	int result; // eax
-
-	result = a1;
-	*(_DWORD*)(a1 + 416) = dword_5d4594_1046600;
-	*(_DWORD*)(a1 + 420) = 0;
-	if (dword_5d4594_1046600)
-		*(_DWORD*)(dword_5d4594_1046600 + 420) = a1;
-	dword_5d4594_1046600 = a1;
-	return result;
+void sub_459ED0_drawable(nox_drawable* dr) {
+	dr->field_104 = nox_xxx_drawablePlayer_1046600;
+	dr->field_105 = 0;
+	if (nox_xxx_drawablePlayer_1046600)
+		nox_xxx_drawablePlayer_1046600->field_105 = dr;
+	nox_xxx_drawablePlayer_1046600 = dr;
 }
 
 //----- (00459F00) --------------------------------------------------------
@@ -5145,7 +5145,7 @@ int  sub_459F00(nox_drawable* dr) {
 		result = *(_DWORD*)(a1 + 416);
 		*(_DWORD*)(v3 + 416) = result;
 	} else {
-		dword_5d4594_1046600 = *(_DWORD*)(a1 + 416);
+		nox_xxx_drawablePlayer_1046600 = *(_DWORD*)(a1 + 416);
 	}
 	return result;
 }
@@ -5191,10 +5191,10 @@ _DWORD*  sub_459F70(nox_drawable* dr) {
 }
 
 //----- (0045A000) --------------------------------------------------------
-int nox_xxx_cliGetSpritePlayer_45A000() { return dword_5d4594_1046600; }
+nox_drawable* nox_xxx_cliGetSpritePlayer_45A000() { return nox_xxx_drawablePlayer_1046600; }
 
 //----- (0045A010) --------------------------------------------------------
-int  sub_45A010(int a1) { return *(_DWORD*)(a1 + 416); }
+nox_drawable* sub_45A010(nox_drawable* dr) { return dr->field_104; }
 
 //----- (0045A020) --------------------------------------------------------
 int nox_get_drawable_count() { return nox_drawable_count; }
@@ -5329,7 +5329,7 @@ nox_drawable*  nox_xxx_spriteLoadAdd_45A360_drawable(int thingInd, int a2, int a
 	nox_drawable* dr = nox_new_drawable_for_thing(thingInd);
 	if (!dr)
 		return 0;
-	sub_452E60(&dr->field_31);
+	sub_452E60(&dr->flags31);
 	if (dr->field_116)
 		nox_xxx_spriteToList_49BC80_drawable(dr);
 	if (dr->flags30 & 0x200000)
@@ -5588,11 +5588,11 @@ int  sub_45A840(_DWORD* a1) {
 	int v2;     // eax
 	int v3;     // eax
 
-	if (nox_xxx_spriteTestBuf_4356C0((int)a1, 23)) {
+	if (nox_xxx_spriteCheckFlag31_4356C0((int)a1, 23)) {
 		nox_xxx_spriteChangeLightColor_484BE0(a1 + 34, 128, 128, 255);
 		nox_xxx_spriteChangeIntensity_484D70_light_intensity((int)(a1 + 34), 300.0);
 		result = 1;
-	} else if (nox_xxx_spriteTestBuf_4356C0((int)a1, 15) || a1 == *(_DWORD**)getMemAt(0x852978, 8) && sub_467430() & 8) {
+	} else if (nox_xxx_spriteCheckFlag31_4356C0((int)a1, 15) || a1 == *(_DWORD**)getMemAt(0x852978, 8) && sub_467430() & 8) {
 		nox_xxx_spriteChangeLightColor_484BE0(a1 + 34, 255, 255, 255);
 		nox_xxx_spriteChangeIntensity_484D70_light_intensity((int)(a1 + 34), 200.0);
 		result = 1;

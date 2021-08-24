@@ -2577,7 +2577,9 @@ _DWORD*  sub_495B50(_DWORD* a1) {
 }
 
 //----- (00495BB0) --------------------------------------------------------
-_DWORD*  sub_495BB0(_DWORD* a1, _DWORD* a2) {
+_DWORD*  sub_495BB0(nox_drawable* dr, nox_draw_viewport_t* vp) {
+	_DWORD* a1 = dr;
+	_DWORD* a2 = vp;
 	_DWORD* result; // eax
 	_DWORD* v3;     // esi
 
@@ -3429,7 +3431,7 @@ int  sub_497260(int* a1) {
 		v3 = a1;
 		do {
 			*(_DWORD*)(v2 + 132) = 0;
-			if (!nox_xxx_spriteTestBuf_4356C0(v2, 0)) {
+			if (!nox_xxx_spriteCheckFlag31_4356C0(v2, 0)) {
 				if (*(char*)(v2 + 112) >= 0) {
 					v6 = *(_DWORD*)(v2 + 44);
 					if (v6 == 2) {
@@ -5372,7 +5374,9 @@ _WORD*  nox_xxx_cliAddHealthChange_49A650(int a1, __int16 a2) {
 }
 
 //----- (0049A6A0) --------------------------------------------------------
-void  sub_49A6A0(_DWORD* a1, int a2) {
+void  sub_49A6A0(nox_draw_viewport_t* vp, nox_drawable* dr) {
+	_DWORD* a1 = vp;
+	int a2 = dr;
 	_DWORD* v2;      // eax
 	int v3;          // esi
 	_DWORD* v4;      // edi

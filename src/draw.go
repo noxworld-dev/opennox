@@ -7,15 +7,10 @@ package main
 #include "client__gui__guiggovr.h"
 #include "client__video__draw_common.h"
 #include "client__draw__selectdw.h"
+#include "client__draw__drawwin.h"
+#include "client__draw__debugdraw.h"
 extern nox_draw_viewport_t nox_draw_viewport;
-extern nox_drawable** nox_drawable_list_1;
-extern int nox_drawable_list_1_size;
-extern nox_drawable** nox_drawable_list_2;
-extern int nox_drawable_list_2_size;
-extern nox_drawable** nox_drawable_list_3;
-extern int nox_drawable_list_3_size;
-extern nox_drawable** nox_drawable_list_4;
-extern int nox_drawable_list_4_size;
+extern nox_drawable* nox_xxx_drawablePlayer_1046600;
 extern void* dword_5d4594_1096496;
 extern int dword_5d4594_1096500;
 extern void* dword_5d4594_1096504;
@@ -62,12 +57,12 @@ void nox_xxx_drawAllMB_475810_draw_A(nox_draw_viewport_t* vp);
 int nox_xxx_drawAllMB_475810_draw_B(nox_draw_viewport_t* vp);
 void nox_xxx_drawAllMB_475810_draw_C(nox_draw_viewport_t* vp, int v36, int v7);
 void nox_xxx_drawAllMB_475810_draw_D(nox_draw_viewport_t* vp);
-void nox_xxx_drawAllMB_475810_draw_E(nox_draw_viewport_t* vp);
 */
 import "C"
 import (
 	"encoding/binary"
 	"image"
+	"sort"
 	"unsafe"
 
 	"nox/v1/client/input"
@@ -340,9 +335,9 @@ func nox_xxx_drawAllMB_475810_draw(vp *Viewport) {
 	C.dword_5d4594_1096516 = 0
 	C.nox_xxx_drawBlack_496150(vp.C())
 	v8 := false
-	if !nox_common_gameFlags_check_40A5C0(2048) && C.nox_xxx_testCD_413830() == 0 ||
-		nox_common_gameFlags_check_40A5C0(2048) && C.nox_xxx_testCDAndSolo_413840() == 0 ||
-		C.nox_xxx_spriteTestBuf_4356C0((*C.nox_drawable)(*memmap.PtrPtr(0x852978, 8)), 2) != 0 ||
+	if !noxflags.HasGame(2048) && (C.nox_xxx_testCD_413830() == 0) ||
+		noxflags.HasGame(2048) && (C.nox_xxx_testCDAndSolo_413840() == 0) ||
+		asDrawable((*C.nox_drawable)(*memmap.PtrPtr(0x852978, 8))).CheckFlag31(2) ||
 		C.nox_gameDisableMapDraw_5d4594_2650672 != 0 {
 		v8 = true
 	}
@@ -371,12 +366,12 @@ func nox_xxx_drawAllMB_475810_draw(vp *Viewport) {
 	} else {
 		sub_440900()
 	}
-	C.sub_475F10(vp.C())
+	sub_475F10(vp)
 	C.nox_xxx_drawAllMB_475810_draw_C(vp.C(), C.int(v36), C.int(v7))
 	C.nox_xxx_drawAllMB_475810_draw_D(vp.C())
-	C.sub_475FE0(vp.C())
+	sub_475FE0(vp)
 	C.nox_video_drawCursorSelectCircle_4773C0(vp.C())
-	C.nox_xxx_drawAllMB_475810_draw_E(vp.C())
+	nox_xxx_drawAllMB_475810_draw_E(vp)
 	C.sub_4AFD40()
 	C.sub_4C5060(vp.C())
 	nox_xxx_drawAllMB_475810_draw_F(vp)
@@ -395,10 +390,10 @@ func sub_4754F0(vp *Viewport) {
 		int(vp.field_4), int(vp.field_5),
 		int(vp.field_4+vp.width), int(vp.field_5+vp.height)+128,
 	)
-	C.nox_drawable_list_1_size = 0
-	C.nox_drawable_list_3_size = 0
-	C.nox_drawable_list_2_size = 0
-	C.nox_drawable_list_4_size = 0
+	nox_drawable_list_1 = nox_drawable_list_1[:0]
+	nox_drawable_list_3 = nox_drawable_list_3[:0]
+	nox_drawable_list_2 = nox_drawable_list_2[:0]
+	nox_drawable_list_4 = nox_drawable_list_4[:0]
 	C.dword_5d4594_1096500 = 0
 	C.dword_5d4594_1096508 = 0
 	nox_xxx_forEachSprite(rect, nox_xxx_spriteAddQueue_475560_draw)
@@ -406,24 +401,15 @@ func sub_4754F0(vp *Viewport) {
 
 func nox_xxx_spriteAddQueue_475560_draw(dr *Drawable) {
 	if C.nox_xxx_sprite_4756E0_drawable(dr.C()) != 0 {
-		if C.nox_drawable_list_2_size < nox_drawable_lists_cap {
-			nox_drawable_list_2[C.nox_drawable_list_2_size] = unsafe.Pointer(dr.C())
-			C.nox_drawable_list_2_size++
-		}
+		nox_drawable_list_2 = append(nox_drawable_list_2, dr)
 		return
 	}
 	if C.nox_xxx_sprite_475740_drawable(dr.C()) != 0 {
-		if C.nox_drawable_list_3_size < nox_drawable_lists_cap {
-			nox_drawable_list_3[C.nox_drawable_list_3_size] = unsafe.Pointer(dr.C())
-			C.nox_drawable_list_3_size++
-		}
+		nox_drawable_list_3 = append(nox_drawable_list_3, dr)
 		return
 	}
 	if C.nox_xxx_sprite_4757A0_drawable(dr.C()) != 0 {
-		if C.nox_drawable_list_4_size < nox_drawable_lists_cap {
-			nox_drawable_list_4[C.nox_drawable_list_4_size] = unsafe.Pointer(dr.C())
-			C.nox_drawable_list_4_size++
-		}
+		nox_drawable_list_4 = append(nox_drawable_list_4, dr)
 		return
 	}
 	if C.sub_4757D0_drawable(dr.C()) != 0 {
@@ -441,9 +427,8 @@ func nox_xxx_spriteAddQueue_475560_draw(dr *Drawable) {
 			}
 			if (dr.field_120 != 0 || dr.field_122 != 0) && (gameFrame()-uint32(dr.field_85)) > gameFPS() {
 				dr.field_120 = 0
-			} else if C.nox_drawable_list_1_size < nox_drawable_list_1_cap {
-				nox_drawable_list_1[C.nox_drawable_list_1_size] = unsafe.Pointer(dr.C())
-				C.nox_drawable_list_1_size++
+			} else {
+				nox_drawable_list_1 = append(nox_drawable_list_1, dr)
 			}
 		}
 	}
@@ -456,31 +441,20 @@ const (
 )
 
 var (
-	nox_drawable_list_1  []unsafe.Pointer
-	nox_drawable_list_3  []unsafe.Pointer
-	nox_drawable_list_2  []unsafe.Pointer
-	nox_drawable_list_4  []unsafe.Pointer
+	nox_drawable_list_1  []*Drawable
+	nox_drawable_list_3  []*Drawable
+	nox_drawable_list_2  []*Drawable
+	nox_drawable_list_4  []*Drawable
 	dword_5d4594_1096496 []unsafe.Pointer
 	dword_5d4594_1096504 []unsafe.Pointer
 	dword_5d4594_1096512 []unsafe.Pointer
 )
 
 func sub_473A40() {
-	nox_drawable_list_1 = alloc.Pointers(nox_drawable_list_1_cap)
-	C.nox_drawable_list_1 = (**C.nox_drawable)(unsafe.Pointer(&nox_drawable_list_1[0]))
-	C.nox_drawable_list_1_size = 0
-
-	nox_drawable_list_3 = alloc.Pointers(nox_drawable_lists_cap)
-	C.nox_drawable_list_3 = (**C.nox_drawable)(unsafe.Pointer(&nox_drawable_list_3[0]))
-	C.nox_drawable_list_3_size = 0
-
-	nox_drawable_list_2 = alloc.Pointers(nox_drawable_lists_cap)
-	C.nox_drawable_list_2 = (**C.nox_drawable)(unsafe.Pointer(&nox_drawable_list_2[0]))
-	C.nox_drawable_list_2_size = 0
-
-	nox_drawable_list_4 = alloc.Pointers(nox_drawable_lists_cap)
-	C.nox_drawable_list_4 = (**C.nox_drawable)(unsafe.Pointer(&nox_drawable_list_4[0]))
-	C.nox_drawable_list_4_size = 0
+	nox_drawable_list_1 = make([]*Drawable, 0, nox_drawable_list_1_cap)
+	nox_drawable_list_3 = make([]*Drawable, 0, nox_drawable_lists_cap)
+	nox_drawable_list_2 = make([]*Drawable, 0, nox_drawable_lists_cap)
+	nox_drawable_list_4 = make([]*Drawable, 0, nox_drawable_lists_cap)
 
 	dword_5d4594_1096496 = alloc.Pointers(nox_drawable_lists_cap2)
 	C.dword_5d4594_1096496 = unsafe.Pointer(&dword_5d4594_1096496[0])
@@ -496,30 +470,10 @@ func sub_473A40() {
 }
 
 func sub_473B30_free() {
-	if nox_drawable_list_1 != nil {
-		alloc.FreePointers(nox_drawable_list_1)
-		nox_drawable_list_1 = nil
-		C.nox_drawable_list_1 = nil
-		C.nox_drawable_list_1_size = 0
-	}
-	if nox_drawable_list_3 != nil {
-		alloc.FreePointers(nox_drawable_list_3)
-		nox_drawable_list_3 = nil
-		C.nox_drawable_list_3 = nil
-		C.nox_drawable_list_3_size = 0
-	}
-	if nox_drawable_list_2 != nil {
-		alloc.FreePointers(nox_drawable_list_2)
-		nox_drawable_list_2 = nil
-		C.nox_drawable_list_2 = nil
-		C.nox_drawable_list_2_size = 0
-	}
-	if nox_drawable_list_4 != nil {
-		alloc.FreePointers(nox_drawable_list_4)
-		nox_drawable_list_4 = nil
-		C.nox_drawable_list_4 = nil
-		C.nox_drawable_list_4_size = 0
-	}
+	nox_drawable_list_1 = nil
+	nox_drawable_list_3 = nil
+	nox_drawable_list_2 = nil
+	nox_drawable_list_4 = nil
 	if dword_5d4594_1096496 != nil {
 		alloc.FreePointers(dword_5d4594_1096496)
 		dword_5d4594_1096496 = nil
@@ -538,6 +492,144 @@ func sub_473B30_free() {
 		C.dword_5d4594_1096512 = nil
 		C.dword_5d4594_1096516 = 0
 	}
+}
+
+func nox_xxx_cliGetSpritePlayer_45A000() *Drawable {
+	return asDrawable(C.nox_xxx_drawablePlayer_1046600)
+}
+
+func nox_xxx_drawAllMB_475810_draw_E(vp *Viewport) {
+	tmp := alloc.Pointers(2)
+	defer alloc.FreePointers(tmp)
+	sort.Slice(nox_drawable_list_1, func(i, j int) bool {
+		a, b := nox_drawable_list_1[i], nox_drawable_list_1[j]
+		pa, pb := unsafe.Pointer(a.C()), unsafe.Pointer(b.C())
+		tmp[0], tmp[1] = pa, pb
+		return C.sub_476160(unsafe.Pointer(&tmp[0]), unsafe.Pointer(&tmp[1])) < 0
+	})
+	sort.Slice(dword_5d4594_1096512[:C.dword_5d4594_1096516], func(i, j int) bool {
+		a, b := dword_5d4594_1096512[i], dword_5d4594_1096512[j]
+		return C.sub_476080((*C.uchar)(a)) < C.sub_476080((*C.uchar)(b))
+	})
+	arr1 := nox_drawable_list_1
+	arr2 := dword_5d4594_1096512[:C.dword_5d4594_1096516]
+	v41 := 0x7FFFFFFF
+	if len(arr1) > 0 {
+		v41 = arr1[0].Pos().Y
+	}
+	v21 := 0x7FFFFFFF
+	if len(arr2) > 0 {
+		v21 = int(C.sub_476080((*C.uchar)(arr2[0])))
+	}
+LOOP:
+	for len(arr1) > 0 || C.dword_5d4594_1096516 != 0 {
+		if v41 >= v21 {
+			if C.dword_5d4594_1096516 != 0 {
+				C.nox_xxx_drawWalls_473C10(vp.C(), arr2[0])
+				arr2 = arr2[1:]
+				C.dword_5d4594_1096516--
+				if C.dword_5d4594_1096516 != 0 {
+					v21 = int(C.sub_476080((*C.uchar)(arr2[0])))
+					continue
+				}
+			}
+			v21 = 0x7FFFFFFF
+			continue
+		}
+		if len(arr1) == 0 {
+			v41 = 0x7FFFFFFF
+			continue
+		}
+		dr := arr1[0]
+		arr1 = arr1[1:]
+		//nox_drawable_list_1_size--
+		if len(arr1) > 0 {
+			v41 = arr1[0].Pos().Y
+		} else {
+			v41 = 0x7FFFFFFF
+		}
+		if uint32(dr.field_27) == memmap.Uint32(0x5D4594, 1096448) && C.nox_xxx_TeamGet_418B10() != nil {
+			for v25 := nox_xxx_cliGetSpritePlayer_45A000(); v25 != nil; v25 = v25.Field104() {
+				if v25.CheckFlag31(30) {
+					continue LOOP
+				}
+			}
+		}
+		v26 := dr.Flags28()
+		if !((v26&6 == 0) || gameFrame()-uint32(dr.field_72) <= 5) {
+			if v26&2 != 0 {
+				v27 := dr.field_69
+				if !(v27 == 9 || v27 == 10) {
+					continue
+				}
+			} else if *memmap.PtrPtr(0x852978, 8) != unsafe.Pointer(dr.C()) {
+				continue
+			}
+		}
+		C.nox_xxx_drawHasteAndRunParticles_4746C0(vp.C(), dr.C())
+		if dr.DrawFunc(vp) == 0 {
+			continue
+		}
+		if getEngineFlag(NOX_ENGINE_FLAG_ENABLE_SHOW_EXTENTS) {
+			C.nox_thing_debug_draw(vp.C(), dr.C())
+		}
+		dr.field_33 = 0
+		if dr.Flags70()&0x40 != 0 {
+			C.nox_xxx_drawShinySpot_4C4F40(vp.C(), dr.C())
+		}
+		C.nox_xxx_drawEffectsMB_474E60(vp.C(), dr.C())
+		C.sub_495BB0(dr.C(), vp.C())
+		if dr.field_120 == 0 && dr.field_122 == 0 {
+			dr.field_85 = C.uint(gameFrame())
+		}
+		if C.sub_459DB0(dr.C()) != 0 {
+			C.sub_459DD0(dr.C(), 1)
+		}
+		if dr.Flags28()&0x20006 != 0 {
+			C.sub_49A6A0(vp.C(), dr.C())
+		}
+	}
+	nox_drawable_list_1 = nox_drawable_list_1[:0]
+}
+
+func sub_475FE0(vp *Viewport) {
+	for _, dr := range nox_drawable_list_4 {
+		if C.nox_xxx_client_4984B0_drawable(dr.C()) != 0 {
+			dr.field_121 = 1
+			dr.DrawFunc(vp)
+			if getEngineFlag(NOX_ENGINE_FLAG_ENABLE_SHOW_EXTENTS) {
+				C.nox_thing_debug_draw(vp.C(), dr.C())
+			}
+			dr.field_33 = 0
+			if dr.field_120 == 0 && dr.field_122 == 0 {
+				dr.field_85 = C.uint(gameFrame())
+			}
+		}
+	}
+	nox_drawable_list_4 = nox_drawable_list_4[:0]
+}
+
+func sub_475F10(vp *Viewport) {
+	for _, dr := range nox_drawable_list_3 {
+		C.nox_xxx_drawHasteAndRunParticles_4746C0(vp.C(), dr.C())
+		if C.nox_xxx_client_4984B0_drawable(dr.C()) != 0 {
+			dr.field_121 = 1
+			dr.DrawFunc(vp)
+			if dr.Flags70()&0x40 != 0 {
+				C.nox_xxx_drawShinySpot_4C4F40(vp.C(), dr.C())
+			}
+			C.nox_xxx_drawEffectsMB_474E60(vp.C(), dr.C())
+			C.sub_495BB0(dr.C(), vp.C())
+			if getEngineFlag(NOX_ENGINE_FLAG_ENABLE_SHOW_EXTENTS) {
+				C.nox_thing_debug_draw(vp.C(), dr.C())
+			}
+			dr.field_33 = 0
+			if dr.field_120 == 0 && dr.field_122 == 0 {
+				dr.field_85 = C.uint(gameFrame())
+			}
+		}
+	}
+	nox_drawable_list_3 = nox_drawable_list_3[:0]
 }
 
 func nox_xxx_drawAllMB_475810_draw_F(vp *Viewport) {
@@ -562,6 +654,40 @@ func nox_xxx_drawAllMB_475810_draw_F(vp *Viewport) {
 			C.dword_5d4594_1096508--
 		}
 	}
+}
+
+//export sub_4745F0
+func sub_4745F0(cvp *C.nox_draw_viewport_t) {
+	vp := asViewport(cvp)
+	fnc := func(vp *Viewport, dr *Drawable) {
+		C.sub_476850(vp.C(), dr.C())
+	}
+	if C.dword_5d4594_3799624 != 0 {
+		fnc = func(vp *Viewport, dr *Drawable) {
+			C.sub_476AE0(vp.C(), dr.C())
+		}
+	}
+	for _, dr := range nox_drawable_list_2 {
+		C.nox_xxx_drawHasteAndRunParticles_4746C0(vp.C(), dr.C())
+		if C.nox_xxx_client_4984B0_drawable(dr.C()) == 0 {
+			continue
+		}
+		dr.field_121 = 1
+		fnc(vp, dr)
+		if dr.Flags70()&0x40 != 0 {
+			C.nox_xxx_drawShinySpot_4C4F40(vp.C(), dr.C())
+		}
+		C.nox_xxx_drawEffectsMB_474E60(vp.C(), dr.C())
+		C.sub_495BB0(dr.C(), vp.C())
+		if getEngineFlag(NOX_ENGINE_FLAG_ENABLE_SHOW_EXTENTS) {
+			C.nox_thing_debug_draw(vp.C(), dr.C())
+		}
+		dr.field_33 = 0
+		if dr.field_120 == 0 && dr.field_122 == 0 {
+			dr.field_85 = C.uint(gameFrame())
+		}
+	}
+	nox_drawable_list_2 = nox_drawable_list_2[:0]
 }
 
 //export nox_video_drawCircleColored_4C3270

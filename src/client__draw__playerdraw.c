@@ -123,8 +123,8 @@ int  nox_thing_player_draw(_DWORD* a1, nox_drawable* dr) {
 		goto LABEL_24;
 	}
 	LABEL_25:
-	if (!nox_xxx_spriteTestBuf_4356C0(dr, 23)) {
-		if (!nox_xxx_spriteTestBuf_4356C0(dr, 25)) {
+	if (!nox_xxx_spriteCheckFlag31_4356C0(dr, 23)) {
+		if (!nox_xxx_spriteCheckFlag31_4356C0(dr, 25)) {
 			*getMemU32Ptr(0x973A20, 512) = *((_DWORD*)v3 + 574);
 			dword_5d4594_3798672 = *((_DWORD*)v3 + 576);
 			dword_5d4594_3798676 = *((_DWORD*)v3 + 578);
@@ -201,8 +201,8 @@ int  nox_thing_player_draw(_DWORD* a1, nox_drawable* dr) {
 		sub_4B8D40(v10, dr, *((_DWORD*)v3 + 1) & 2, (_DWORD*)v3 + 581, v28, v27);
 	}
 
-	if (v30 || !nox_xxx_spriteTestBuf_4356C0(dr, 0) || dr->field_32 == *getMemU32Ptr(0x85319C, 0) ||
-	    *getMemU32Ptr(0x852978, 8) && (nox_xxx_spriteTestBuf_4356C0(*getMemIntPtr(0x852978, 8), 21) || v31)) {
+	if (v30 || !nox_xxx_spriteCheckFlag31_4356C0(dr, 0) || dr->field_32 == *getMemU32Ptr(0x85319C, 0) ||
+	    *getMemU32Ptr(0x852978, 8) && (nox_xxx_spriteCheckFlag31_4356C0(*getMemIntPtr(0x852978, 8), 21) || v31)) {
 		a1 = nox_color_rgb_4344A0(155, 155, 155);
 		if (!sub_48D830(dr) && !nox_common_gameFlags_check_40A5C0(2048)) {
 			v21 = (__int16*)(v3 + 4704);
@@ -223,7 +223,7 @@ int  nox_thing_player_draw(_DWORD* a1, nox_drawable* dr) {
 			v3 = v32;
 			v12 = 0;
 		}
-		if (nox_xxx_spriteTestBuf_4356C0(dr, 16)) {
+		if (nox_xxx_spriteCheckFlag31_4356C0(dr, 16)) {
 			v36[2] = nox_win_width;
 			v36[8] = nox_win_width;
 			v36[0] = 0;
@@ -241,7 +241,7 @@ int  nox_thing_player_draw(_DWORD* a1, nox_drawable* dr) {
 			*(_DWORD*)(dword_5d4594_1313796 + 16) = v10[1] - v10[5] + dr->pos.y - 50;
 			(*(void(**)(int*, _DWORD))(dword_5d4594_1313796 + 300))(v36, dword_5d4594_1313796);
 		}
-		if (nox_xxx_spriteTestBuf_4356C0(dr, 30)) {
+		if (nox_xxx_spriteCheckFlag31_4356C0(dr, 30)) {
 			v36[2] = nox_win_width;
 			v36[8] = nox_win_width;
 			v36[0] = 0;
