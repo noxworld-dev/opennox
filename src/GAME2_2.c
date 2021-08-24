@@ -5705,7 +5705,7 @@ int  sub_480950(int* a1, int* a2, int a3, int a4, int a5) {
 			 2 * (dword_5d4594_3798836 + v7);
 		if (v8 >= *(int*)&dword_5d4594_3798844)
 			v8 += dword_5d4594_3798796 - dword_5d4594_3798844;
-		if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_12)) {
+		if (nox_common_getEngineFlag(NOX_ENGINE_DISABLE_SOFT_LIGHTS)) {
 			if (2 * a4 + v8 < *(int*)&dword_5d4594_3798844) {
 				result = (*(int(**)(_DWORD, _DWORD, _DWORD)) & dword_5d4594_3807160)(a5, v8, 2 * a4);
 			} else {
@@ -5792,7 +5792,7 @@ void  sub_480BE0(_DWORD* a1, int* a2, int a3, int a4, int a5) {
 				  2 * (dword_5d4594_3798836 + *a1 - dword_5d4594_3798820));
 	if (v6 >= x1)
 		v6 += x2 - x1;
-	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_12)) {
+	if (nox_common_getEngineFlag(NOX_ENGINE_DISABLE_SOFT_LIGHTS)) {
 		if ((unsigned int)&v6[2 * a4] < x1) {
 			(*(int(**)(_DWORD, _DWORD, _DWORD)) & dword_5d4594_3807160)(a5, v6, 2 * a4);
 		} else {
@@ -6756,6 +6756,7 @@ void nox_xxx_tileDrawMB_481C20_C_textured(nox_draw_viewport_t* vp, int v72, int 
 			}
 			v52 = nox_arr_956A00[v76/4+1];
 			v53 = (int*)v51;
+			// low-res floors basically skip each second row (interlacing) and then duplicate result from the first row
 			if (nox_client_highResFloors_154952 || !(v67.field_4 & 1) || v51 == nox_arr_957820) {
 				if (v52 > 0) {
 					int v71 = (unsigned int)(v52 + 1) >> 1;
@@ -6789,6 +6790,7 @@ void nox_xxx_tileDrawMB_481C20_C_textured(nox_draw_viewport_t* vp, int v72, int 
 					} while (v71);
 				}
 			} else if (v52 > 0) {
+				// remove interlacing
 				unsigned int v74 = (unsigned int)(v52 + 1) >> 1;
 				do {
 					v54 = *v53;

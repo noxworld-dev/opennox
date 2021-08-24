@@ -3395,7 +3395,7 @@ int  sub_468E60(int a1) {
 
 //----- (00469920) --------------------------------------------------------
 char*  sub_469920(_DWORD* a1) {
-	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_12))
+	if (nox_common_getEngineFlag(NOX_ENGINE_DISABLE_SOFT_LIGHTS))
 		return (char*)getMemAt(0x587000, 142336);
 
 	int x = a1[0] - dword_5d4594_2650676;
