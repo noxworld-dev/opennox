@@ -6711,11 +6711,7 @@ void nox_xxx_tileDrawMB_481C20_B(nox_draw_viewport_t* vp, unsigned __int8* v78) 
 		}
 	}
 }
-int  nox_xxx_tileDrawMB_481C20(nox_draw_viewport_t* vp) {
-	int v1;               // esi
-	int v2;               // edx
-	int v3;               // esi
-	int result;           // eax
+void nox_xxx_tileDrawMB_481C20_C(nox_draw_viewport_t* vp, int v72, unsigned __int8* v78) {
 	unsigned __int8* v35; // ebx
 	int v36;              // eax
 	int v37;              // eax
@@ -6747,36 +6743,9 @@ int  nox_xxx_tileDrawMB_481C20(nox_draw_viewport_t* vp) {
 	int2 v67;             // [esp+14h] [ebp-38h]
 	int v69;              // [esp+24h] [ebp-28h]
 	int v70;              // [esp+28h] [ebp-24h]
-	int v72;              // [esp+30h] [ebp-1Ch]
 	unsigned __int8* v75; // [esp+3Ch] [ebp-10h]
-	unsigned __int8* v78; // [esp+48h] [ebp-4h]
 	int v79;              // [esp+54h] [ebp+8h]
 	int v80;              // [esp+54h] [ebp+8h]
-
-	++nox_xxx_waypointCounterMB_587000_154948;
-	int* a1 = vp;
-	v1 = a1[4];
-	v2 = *a1;
-	v78 = (unsigned __int8*)(a1[5] - a1[1]);
-	v3 = v1 - v2;
-	v72 = v3;
-	if (!nox_client_texturedFloors_154956 && dword_5d4594_1193156 == 1) {
-		dword_587000_154960 = 0;
-		nox_client_texturedFloors_154956 = 1;
-		nox_xxx_tileSetDrawFn_481420();
-	}
-	if (dword_5d4594_1193156 == 1 && !dword_587000_154960 && !(nox_frame_xxx_2598000 % 0x1Eu) && !nox_xxx_tileCheckRedrawMB_482570(vp)) {
-		dword_5d4594_1193156 = 0;
-		nox_client_texturedFloors_154956 = dword_587000_154960;
-		nox_xxx_tileSetDrawFn_481420();
-	}
-	if (dword_5d4594_1193188) {
-		nox_xxx_tileDrawImpl_4826A0(vp);
-		dword_5d4594_1193188 = 0;
-	} else {
-		nox_xxx_tileDrawMB_481C20_A(vp, v3);
-		nox_xxx_tileDrawMB_481C20_B(vp, v78);
-	}
 	v67.field_4 = (int)&v78[dword_5d4594_3679320];
 	sub_4745F0(vp);
 	if (nox_client_texturedFloors_154956) {
@@ -6859,13 +6828,11 @@ int  nox_xxx_tileDrawMB_481C20(nox_draw_viewport_t* vp) {
 				v50 = (int)v78;
 			}
 		}
-		result = dword_5d4594_805836;
 #if 0
-        if (*(_DWORD*)& dword_5d4594_805836)
-            _m_femms();
+		if (*(_DWORD*)& dword_5d4594_805836)
+			_m_femms();
 #endif
 	} else {
-		result = dword_5d4594_3679320;
 		v79 = dword_5d4594_3679320;
 		if (*(int*)&dword_5d4594_3679320 < *(int*)&dword_5d4594_3798156) {
 			v78 = ((void*)&nox_arr_957820[128 * dword_5d4594_3679320]);
@@ -6910,14 +6877,45 @@ int  nox_xxx_tileDrawMB_481C20(nox_draw_viewport_t* vp) {
 						j = v47;
 					} while (!v46);
 				}
-				result = v79 + 1;
 				v18 = ++v79 < *(int*)&dword_5d4594_3798156;
 				v78 += 128;
 				++v67.field_4;
 			} while (v18);
 		}
 	}
-	return result;
+}
+void nox_xxx_tileDrawMB_481C20(nox_draw_viewport_t* vp) {
+	int v1;               // esi
+	int v2;               // edx
+	int v3;               // esi
+	int v72;              // [esp+30h] [ebp-1Ch]
+	unsigned __int8* v78; // [esp+48h] [ebp-4h]
+
+	++nox_xxx_waypointCounterMB_587000_154948;
+	int* a1 = vp;
+	v1 = a1[4];
+	v2 = *a1;
+	v78 = (unsigned __int8*)(a1[5] - a1[1]);
+	v3 = v1 - v2;
+	v72 = v3;
+	if (!nox_client_texturedFloors_154956 && dword_5d4594_1193156 == 1) {
+		dword_587000_154960 = 0;
+		nox_client_texturedFloors_154956 = 1;
+		nox_xxx_tileSetDrawFn_481420();
+	}
+	if (dword_5d4594_1193156 == 1 && !dword_587000_154960 && !(nox_frame_xxx_2598000 % 0x1Eu) && !nox_xxx_tileCheckRedrawMB_482570(vp)) {
+		dword_5d4594_1193156 = 0;
+		nox_client_texturedFloors_154956 = dword_587000_154960;
+		nox_xxx_tileSetDrawFn_481420();
+	}
+	if (dword_5d4594_1193188) {
+		nox_xxx_tileDrawImpl_4826A0(vp);
+		dword_5d4594_1193188 = 0;
+	} else {
+		nox_xxx_tileDrawMB_481C20_A(vp, v3);
+		nox_xxx_tileDrawMB_481C20_B(vp, v78);
+	}
+	nox_xxx_tileDrawMB_481C20_C(vp, v72, v78);
 }
 // 481F0B: variable 'v13' is possibly undefined
 // 482142: variable 'v27' is possibly undefined

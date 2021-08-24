@@ -2520,7 +2520,7 @@ char*  sub_481770(_DWORD* a1, int a2, unsigned __int16 a3);
 char  nox_xxx_drawTexEdgesProbably_481900(_DWORD* a1, _DWORD* a2);
 int nullsub_8(int, int); // weak
 void  nox_xxx_tileCallDrawEdges_481BF0(int a1, int a2);
-int  nox_xxx_tileDrawMB_481C20(nox_draw_viewport_t* a1);
+void nox_xxx_tileDrawMB_481C20(nox_draw_viewport_t* a1);
 int  nox_xxx_tileCheckRedrawMB_482570(_DWORD* a1);
 int  nox_xxx_tileDrawImpl_4826A0(_DWORD* a1);
 char  sub_482910(int a1, int a2);
