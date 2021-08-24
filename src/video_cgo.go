@@ -35,7 +35,6 @@ extern unsigned char** nox_pixbuffer_rows_3798776;
 extern unsigned char* nox_pixbuffer_3798788;
 int nox_video_initFloorBuffer_430BA0();
 BOOL nox_xxx___cfltcvt_init_430CC0();
-int sub_430D60();
 */
 import "C"
 import (
@@ -531,11 +530,7 @@ func drawGeneral_4B0340(a1 int) error {
 }
 
 func nox_video_initFloorBuffer_430BA0(sz types.Size) error {
-	if C.dword_5d4594_3801780 == 1 {
-		C.nox_xxx___cfltcvt_init_430CC0()
-	} else {
-		C.sub_430D60()
-	}
+	C.nox_xxx___cfltcvt_init_430CC0()
 	if C.nox_xxx_tileInitBuf_430DB0(C.int(sz.W), C.int(sz.H)) == 0 {
 		return errors.New("VideoInit: error initializing floor buffer")
 	}

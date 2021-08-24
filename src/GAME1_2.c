@@ -4222,7 +4222,7 @@ const struct bag_file {
 	{100702878, 16784419, "video.bag.6"}, {117487297, 4419642, "video.bag.7"}, {0, 0, 0},
 };
 FILE* bag_fp[8];
-#endif
+#endif // __EMSCRIPTEN__0
 
 static FILE* nox_video_bag_seek(unsigned int offset) {
 	FILE* fp;
@@ -4236,13 +4236,14 @@ static FILE* nox_video_bag_seek(unsigned int offset) {
 			nox_fs_fseek_start(fp, offset - bag_files[i].offset);
 		}
 	}
-#else
+#else // __EMSCRIPTEN__0
 	fp = nox_video_bag_fileptr;
 	nox_fs_fseek_start(fp, offset);
-#endif
+#endif // __EMSCRIPTEN__0
 	return fp;
 }
 
+#ifdef __EMSCRIPTEN__0
 static int preloaded[] = {
 	3,    4,    17,   18,   438,  439,  575,  584,  586,  587,  588,  589,  590,  592,  593,  596,  597,  628,  629,
 	630,  631,  632,  708,  852,  853,  854,  856,  857,  858,  883,  884,  885,  886,  887,  888,  937,  938,  939,
@@ -4303,6 +4304,7 @@ void check_preload(unsigned int x) {
 			return;
 	printf("bag: %d\n", x);
 }
+#endif // __EMSCRIPTEN__0
 
 void  nox_video_bagReadImage_42FE30(nox_video_bag_section_t* ent) {
 	// check_preload((a1 - *(_DWORD *)&nox_video_bag_sections_arr) / 36);
@@ -4553,6 +4555,7 @@ int  nox_xxx_tileInitBuf_430DB0(int a1, int a2) {
 	return 1;
 }
 
+#ifndef NOX_CGO
 //----- (00430E70) --------------------------------------------------------
 int sub_430E70() {
 	int result; // eax
@@ -4572,6 +4575,7 @@ int sub_430E70() {
 	}
 	return result;
 }
+#endif // NOX_CGO
 
 //----- (00430EC0) --------------------------------------------------------
 int nox_video_freeFloorBuffer_430EC0() {

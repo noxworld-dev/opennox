@@ -12,7 +12,6 @@ extern _DWORD dword_5d4594_1193176;
 extern _DWORD dword_587000_142328;
 extern _DWORD dword_587000_154968;
 extern _DWORD dword_5d4594_3805484;
-extern _DWORD nox_xxx_useMMX_587000_80800;
 extern _DWORD dword_5d4594_1193184;
 extern _DWORD dword_5d4594_2650680;
 extern _DWORD dword_5d4594_805836;
@@ -37,6 +36,9 @@ extern int nox_backbuffer_height;
 
 extern unsigned char nox_arr_84EB20[280*57*4]; // TODO: the 4x factor is for high-res; figure out what 57 is
 nox_light_3 nox_arr2_853BC0[57*4][45*4] = {0}; // TODO: the 4x factor is for high-res; figure out what those values are
+
+#ifndef NOX_CGO
+_DWORD nox_xxx_useMMX_587000_80800 = 1;
 
 //----- (00485880) --------------------------------------------------------
 signed int  sub_485880(_DWORD* a1, int* a2, int a3, signed int a4, char* a5) {
@@ -160,6 +162,7 @@ int  sub_481470(int2* a1) {
 	*((unsigned int*)&nox_arr_84EB20[280 * a1->field_0]) = a1->field_4;
 	return result;
 }
+#endif // NOX_CGO
 
 //----- (00484F90) --------------------------------------------------------
 void  sub_484F90(int a1) {
@@ -349,6 +352,7 @@ void  sub_484F90(int a1) {
 	}
 }
 
+#ifndef NOX_CGO
 //----- (00484E60) --------------------------------------------------------
 void  sub_484E60(int a1) {
 	_DWORD* v1;         // esi
@@ -457,6 +461,7 @@ int sub_430D60() {
 	*getMemU32Ptr(0x973F18, 7700) = sub_484B70;
 	return result;
 }
+#endif // NOX_CGO
 
 //----- (00484BD0) --------------------------------------------------------
 double sub_484BD0() { return *(float*)&dword_587000_154968; }
@@ -845,7 +850,6 @@ BOOL nox_xxx___cfltcvt_init_430CC0() {
 	*getMemU32Ptr(0x973F18, 7720) = sub_4814F0;
 	dword_5d4594_3807156 = sub_469920;
 #ifdef NOX_CGO
-	nox_xxx_useMMX_587000_80800 = 0; // TODO: this is always zero, remove
 	dword_5d4594_805836 = 0;
 	dword_5d4594_3805484 = sub_480BE0;
 	dword_5d4594_3805492 = sub_480860;
