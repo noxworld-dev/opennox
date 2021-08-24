@@ -6746,6 +6746,8 @@ void nox_xxx_tileDrawMB_481C20_C_textured(nox_draw_viewport_t* vp, int v72, int 
 	if (*(int*)&dword_5d4594_3679320 < *(int*)&dword_5d4594_3798156) {
 		v51 = ((void*)&nox_arr_957820[128 * dword_5d4594_3679320]);
 		int v76 = 4 * dword_5d4594_3679320 - 4;
+		unsigned char ishift = getMemByte(0x973F18, 7696);
+		void* func1 = getMemAt(0x973F18, 7720);
 		for (int j = ((void*)&nox_arr_957820[128 * dword_5d4594_3679320]);; v51 = (unsigned __int8*)j) {
 			int i = (_DWORD)nox_pixbuffer_rows_3798784[v49];
 			if (v50 == 23) {
@@ -6772,7 +6774,7 @@ void nox_xxx_tileDrawMB_481C20_C_textured(nox_draw_viewport_t* vp, int v72, int 
 						if (v61 < v58 + v72 + 23) {
 							do {
 								if (*(_DWORD*)v75 != v66.field_4) {
-									(*(int(**)(int2*)) getMemAt(0x973F18, 7720))(&v66);
+									(*(int(**)(int2*))func1)(&v66);
 									v59 = v67.field_0;
 									v60 = v66.field_0;
 								}
@@ -6782,8 +6784,7 @@ void nox_xxx_tileDrawMB_481C20_C_textured(nox_draw_viewport_t* vp, int v72, int 
 							} while (v61 < (int)(v74 + v59 + 23));
 						}
 						v66.field_0 = v70;
-						(*(void(**)(int2*, int*, _DWORD, _DWORD, _DWORD)) &
-						 dword_5d4594_3805484)(&v67, &v66.field_0, v78, v74, i + (v69 << getMemByte(0x973F18, 7696)));
+						(*(void(**)(int2*, int*, _DWORD, _DWORD, _DWORD))&dword_5d4594_3805484)(&v67, &v66.field_0, v78, v74, i + (v69 << ishift));
 						--v71;
 					} while (v71);
 				}
@@ -6793,11 +6794,9 @@ void nox_xxx_tileDrawMB_481C20_C_textured(nox_draw_viewport_t* vp, int v72, int 
 					v54 = *v53;
 					v55 = v53[1];
 					v53 += 2;
-					v56 = (v55 - v54) << getMemByte(0x973F18, 7696);
+					v56 = (v55 - v54) << ishift;
 					v57 = v74;
-					memcpy((void*)(i + (v54 << getMemByte(0x973F18, 7696))),
-							(const void*)((v54 << getMemByte(0x973F18, 7696)) + (_DWORD)nox_pixbuffer_rows_3798784[v76/4]),
-							v56);
+					memcpy((void*)(i + (v54 << ishift)), (const void*)((v54 << ishift) + (_DWORD)nox_pixbuffer_rows_3798784[v76/4]), v56);
 					v74 = v57 - 1;
 				} while (v57 != 1);
 			}
