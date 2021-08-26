@@ -35,9 +35,9 @@ extern int nox_backbuffer_width;
 extern int nox_backbuffer_height;
 
 extern unsigned char nox_arr_84EB20[280*57*4]; // TODO: the 4x factor is for high-res; figure out what 57 is
+#ifndef NOX_CGO
 nox_light_3 nox_arr2_853BC0[57*4][45*4] = {0}; // TODO: the 4x factor is for high-res; figure out what those values are
 
-#ifndef NOX_CGO
 _DWORD nox_xxx_useMMX_587000_80800 = 1;
 
 //----- (00485880) --------------------------------------------------------
@@ -469,6 +469,9 @@ double sub_484BD0() { return *(float*)&dword_587000_154968; }
 //----- (004C1C70) --------------------------------------------------------
 int __fastcall sub_4C1C70(int a1, int a2) { return ((__int64)a1 << 16) / a2; }
 
+#ifdef NOX_CGO
+void sub_4695E0(int a1, int a2, int* a3, int a4, int a5);
+#else // NOX_CGO
 //----- (004695E0) --------------------------------------------------------
 void sub_4695E0(int a1, int a2, int* a3, int a4, int a5) {
 	int v5 = a4;
@@ -509,6 +512,7 @@ void sub_4695E0(int a1, int a2, int* a3, int a4, int a5) {
 	}
 	*ptr = res;
 }
+#endif // NOX_CGO
 
 //----- (004697C0) --------------------------------------------------------
 int  sub_4697C0(int* a1, int* a2, int2* a3, signed int a4, int* a5) {
@@ -644,7 +648,8 @@ LABEL_9:
 }
 
 //----- (00469140) --------------------------------------------------------
-void  nox_xxx_cliLight16_469140(int arg0) {
+void  nox_xxx_cliLight16_469140(nox_drawable* dr, nox_draw_viewport_t* vp) {
+	int arg0 = dr;
 	int v1;           // esi
 	int v2;           // eax
 	signed int v3;    // ebp
@@ -675,7 +680,7 @@ void  nox_xxx_cliLight16_469140(int arg0) {
 	int v45;          // [esp+6Ch] [ebp+4h]
 
 	v1 = arg0;
-	if (!(sub_45A840((_DWORD*)arg0) || *(_DWORD*)(arg0 + 112) & 0x80000 && (v2 = *(_DWORD*)(arg0 + 120), v2 & 0x1000000) && *(_DWORD*)(arg0 + 144) > 0 && v2 & 4)) {
+	if (!(sub_45A840(arg0) || *(_DWORD*)(arg0 + 112) & 0x80000 && (v2 = *(_DWORD*)(arg0 + 120), v2 & 0x1000000) && *(_DWORD*)(arg0 + 144) > 0 && v2 & 4)) {
 		return;
 	}
 	if (!(!nox_xxx_get_57AF20() || arg0 == *getMemU32Ptr(0x852978, 8) || *(int(**)(int*, int))(arg0 + 300) == nox_thing_glow_orb_draw)) {
@@ -771,8 +776,10 @@ void  nox_xxx_cliLight16_469140(int arg0) {
 	}
 }
 
+#ifndef NOX_CGO
 //----- (00468F80) --------------------------------------------------------
-void  sub_468F80(int a1) {
+void  sub_468F80(nox_draw_viewport_t* vp) {
+	int a1 = vp;
 	_DWORD* v1;           // esi
 	int v5;               // ecx
 	int v6;               // eax
@@ -841,12 +848,12 @@ void  sub_468F80(int a1) {
 		nox_xxx_forEachSprite_49AB00(&v17, nox_xxx_cliLight16_469140, (int)v1);
 	}
 }
+#endif // NOX_CGO
 
 //----- (00430CC0) --------------------------------------------------------
 BOOL nox_xxx___cfltcvt_init_430CC0() {
 	*getMemU32Ptr(0x973F18, 7696) = 1;
 	*getMemU32Ptr(0x973F18, 7700) = nox_xxx_someEdgeProcessing_480EF0;
-	*getMemU32Ptr(0x973F18, 7704) = sub_468F80;
 	*getMemU32Ptr(0x973F18, 7720) = sub_4814F0;
 	dword_5d4594_3807156 = sub_469920;
 #ifdef NOX_CGO
@@ -855,6 +862,7 @@ BOOL nox_xxx___cfltcvt_init_430CC0() {
 	dword_5d4594_3805492 = sub_480860;
 	return 0;
 #else // NOX_CGO
+	*getMemU32Ptr(0x973F18, 7704) = sub_468F80;
 	BOOL result; // eax
 	result = nox_xxx_testMMXSupport_430D40();
 	nox_xxx_useMMX_587000_80800 = result;

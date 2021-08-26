@@ -45,6 +45,15 @@ func Uints16(size uintptr) (out []uint16) {
 	return
 }
 
+func Uints32(size uintptr) (out []uint32) {
+	ptr := Malloc(size * 4)
+	h := (*reflect.SliceHeader)(unsafe.Pointer(&out))
+	h.Data = uintptr(ptr)
+	h.Len = int(size)
+	h.Cap = int(size)
+	return
+}
+
 func Pointers(size int) (out []unsafe.Pointer) {
 	ptr := Malloc(uintptr(size) * unsafe.Sizeof(unsafe.Pointer(nil)))
 	h := (*reflect.SliceHeader)(unsafe.Pointer(&out))
@@ -97,6 +106,11 @@ func FreeBytes(b []byte) {
 }
 
 func FreeUints16(b []uint16) {
+	b = b[:1]
+	Free(unsafe.Pointer(&b[0]))
+}
+
+func FreeUints32(b []uint32) {
 	b = b[:1]
 	Free(unsafe.Pointer(&b[0]))
 }

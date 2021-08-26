@@ -3393,13 +3393,14 @@ int  sub_468E60(int a1) {
 	return result;
 }
 
+#ifndef NOX_CGO
 //----- (00469920) --------------------------------------------------------
-char*  sub_469920(_DWORD* a1) {
+char*  sub_469920(nox_point* a1) {
 	if (nox_common_getEngineFlag(NOX_ENGINE_DISABLE_SOFT_LIGHTS))
 		return (char*)getMemAt(0x587000, 142336);
 
-	int x = a1[0] - dword_5d4594_2650676;
-	int y = a1[1] - dword_5d4594_2650680;
+	int x = a1->x - dword_5d4594_2650676;
+	int y = a1->y - dword_5d4594_2650680;
 
 	int xd = x / 23;
 	int yd = y / 23;
@@ -3434,6 +3435,7 @@ char*  sub_469920(_DWORD* a1) {
 	*getMemU32Ptr(0x5D4594, 1064844) = res.b >> 16;
 	return getMemAt(0x5D4594, 1064836);
 }
+#endif // NOX_CGO
 
 //----- (00469B90) --------------------------------------------------------
 int  sub_469B90(int* a1) {
@@ -8216,7 +8218,6 @@ void nox_xxx_drawAllMB_475810_draw_A(nox_draw_viewport_t* vp) {
 	sub_437260();
 }
 int nox_xxx_drawAllMB_475810_draw_B(nox_draw_viewport_t* vp) {
-	(*(void(**)(_DWORD)) getMemAt(0x973F18, 7704))(vp);
 	int v10 = 1;
 	int v11;
 	float2 v38;
@@ -8410,6 +8411,7 @@ void nox_xxx_drawAllMB_475810_draw(nox_draw_viewport_t* vp) {
 		dword_5d4594_3799524 = 1;
 		return;
 	}
+	(*(void(**)(_DWORD)) getMemAt(0x973F18, 7704))(vp);
 	int v10 = nox_xxx_drawAllMB_475810_draw_B(vp);
 	sub_4765F0(vp);
 	sub_4754F0(vp);

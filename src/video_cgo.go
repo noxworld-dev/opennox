@@ -534,6 +534,12 @@ func nox_video_initFloorBuffer_430BA0(sz types.Size) error {
 	if C.nox_xxx_tileInitBuf_430DB0(C.int(sz.W), C.int(sz.H)) == 0 {
 		return errors.New("VideoInit: error initializing floor buffer")
 	}
+	if lightsOutBuf == nil {
+		lightsOutBuf = alloc.Uints32(6)
+		lightsOutBuf[0] = 255
+		lightsOutBuf[1] = 255
+		lightsOutBuf[2] = 255
+	}
 	return nil
 }
 
