@@ -181,16 +181,16 @@ func (r *NoxRender) DrawRectFilledAlpha(x, y, w, h int) { // nox_client_drawRect
 	C.nox_client_drawRectFilledAlpha_49CF10(C.int(x), C.int(y), C.int(w), C.int(h))
 }
 
-func (r *NoxRender) DrawString(a1 int, a2 string, a3 int, a4 int) { // nox_xxx_drawString_43F6E0
-	sp := CWString(a2)
+func (r *NoxRender) DrawString(a1 int, str string, a3 int, a4 int) { // nox_xxx_drawString_43F6E0
+	sp := CWString(str)
 	defer WStrFree(sp)
 	C.nox_xxx_drawString_43F6E0(C.int(a1), sp, C.int(a3), C.int(a4))
 }
 
-func (r *NoxRender) DrawString2(a1 int, a2 string, a3, a4, a5, a6 int) { // nox_xxx_drawString_43FAF0
-	sp := CWString(a2)
+func (r *NoxRender) DrawString2(a1 unsafe.Pointer, str string, a3, a4, a5, a6 int) { // nox_xxx_drawString_43FAF0
+	sp := CWString(str)
 	defer WStrFree(sp)
-	C.nox_xxx_drawString_43FAF0(C.int(a1), sp, C.int(a3), C.int(a4), C.int(a5), C.int(a6))
+	C.nox_xxx_drawString_43FAF0(a1, sp, C.int(a3), C.int(a4), C.int(a5), C.int(a6))
 }
 
 func (r *NoxRender) GetStringSize(a1 int, a2 string, a5 int) types.Size { // nox_xxx_drawGetStringSize_43F840

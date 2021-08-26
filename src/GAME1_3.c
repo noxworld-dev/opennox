@@ -2816,127 +2816,101 @@ int  nox_xxx_bookGetStringSize_43FA80(int a1, unsigned __int16* a2, int* a3, _DW
 }
 
 //----- (0043FAF0) --------------------------------------------------------
-int  nox_xxx_drawString_43FAF0(int a1, _WORD* a2, int a3, int a4, int a5, int a6) {
-	int v7;     // ebx
-	int v8;     // ecx
-	_WORD* v9;  // edi
-	int v10;    // eax
-	int v11;    // ebp
-	bool v12;   // zf
-	_WORD* v13; // esi
-	int v14;    // eax
-	int i;      // eax
-	int v16;    // ebp
-	int v17;    // ecx
-	int j;      // eax
-	int v19;    // eax
-	_WORD* v20; // [esp+10h] [ebp-4h]
-	int v21;    // [esp+18h] [ebp+4h]
-	int v22;    // [esp+1Ch] [ebp+8h]
-
+int  nox_xxx_drawString_43FAF0(void* a1, wchar_t* str, int a3, int a4, int a5, int a6) {
 	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_TEXT_RENDERING))
 		return a3;
-	v7 = a1;
-	v8 = 0;
 	if (!a1) {
-		v7 = dword_5d4594_816492;
-		if (!dword_5d4594_816492)
+		a1 = dword_5d4594_816492;
+		if (!a1) {
 			return 0;
+		}
 	}
-	v9 = a2;
-	if (!a2)
+	if (!str) {
 		return 0;
-	HIWORD(v10) = HIWORD(a3);
-	v11 = 0;
+	}
 	dword_5d4594_816460 = a3;
-	LOWORD(v10) = *a2;
-	v12 = *a2 == 0;
-	v21 = 0;
-	v13 = a2;
-	v20 = 0;
-	v22 = v10;
-	if (!v12) {
-		while (2) {
-			v14 = (unsigned __int16)v22 - 9;
-			switch ((unsigned __int16)v22) {
-			case 9u:
-				v16 = dword_5d4594_816456 + v11;
-				v14 = v16 / dword_5d4594_816456;
-				v11 = v16 - v16 % dword_5d4594_816456;
-				goto LABEL_31;
-			case 0xAu:
-			case 0xDu:
-				if ((_WORD)v8 == 13)
-					goto LABEL_14;
-				for (i = a3; v13 < v9;
-					 i = (*(int(**)(_DWORD, _DWORD, _DWORD, _DWORD)) & dword_5d4594_816448)(v7, v8, i, a4)) {
-					LOWORD(v8) = *v13;
-					++v13;
-				}
-				v14 = *(_DWORD*)(v7 + 28);
-				v11 = 0;
-				v21 += v14;
-				if (a6 && v21 >= a6)
-					return 1;
-				a4 += v14;
-			LABEL_14:
-				++v13;
-				goto LABEL_31;
-			case 0x20u:
-				v20 = v9;
-				goto LABEL_17;
-			default:
-			LABEL_17:
-				v14 = nox_xxx_FontGetChar_43FE30(v7, v22);
-				if (!v14) {
-					v14 = nox_xxx_FontGetChar_43FE30(v7, 0x3Fu);
-					if (!v14)
-						goto LABEL_31;
-				}
-				v17 = dword_5d4594_816440 + *(unsigned __int8*)v14;
-				HIWORD(v14) = HIWORD(a5);
-				v11 += v17;
-				if (!a5 || v11 <= a5)
-					goto LABEL_31;
-				if (v20)
-					v9 = v20;
-				else
-					--v9;
-				for (j = a3; v13 < v9;
-					 j = (*(int(**)(_DWORD, _DWORD, _DWORD, _DWORD)) & dword_5d4594_816448)(v7, v17, j, a4)) {
-					LOWORD(v17) = *v13;
-					++v13;
-				}
-				if (v20) {
-					v20 = 0;
-					++v13;
-				}
-				v14 = *(_DWORD*)(v7 + 28);
-				v11 = 0;
-				v21 += v14;
-				if (a6 && v21 >= a6)
-					return 1;
-				a4 += v14;
-			LABEL_31:
-				LOWORD(v14) = v9[1];
-				v8 = v22;
-				++v9;
-				v22 = v14;
-				if ((_WORD)v14)
-					continue;
-				if (v13 < v9) {
-					v19 = a3;
-					do {
-						LOWORD(v8) = *v13;
-						++v13;
-						v19 =
-							(*(int(**)(_DWORD, _DWORD, _DWORD, _DWORD)) & dword_5d4594_816448)(v7, v8, v19, a4);
-					} while (v13 < v9);
-				}
+	wchar_t c = str[0];
+	if (!c) {
+		return 1;
+	}
+	int v11 = 0;
+	int v21 = 0;
+	wchar_t c2 = 0;
+	wchar_t* str2 = str;
+	wchar_t* str3 = str;
+	wchar_t* str4 = 0;
+	while (1) {
+		switch (c) {
+		case '\t':;
+			int v16 = dword_5d4594_816456 + v11;
+			v11 = v16 - v16 % dword_5d4594_816456;
+			break;
+		case '\n':
+		case '\r':
+			if (c2 == 13) {
+				++str3;
 				break;
 			}
+			for (int i = a3; str3 < str2; i = (*(int(**)(_DWORD, _DWORD, _DWORD, _DWORD)) & dword_5d4594_816448)(a1, c2, i, a4)) {
+				c2 = *str3;
+				++str3;
+			}
+			int v14j = *(_DWORD*)((unsigned int)a1 + 28);
+			v11 = 0;
+			v21 += v14j;
+			if (a6 && v21 >= a6) {
+				return 1;
+			}
+			a4 += v14j;
+			++str3;
+			break;
+		case ' ':
+			str4 = str2;
+		default:;
+			int v14p = nox_xxx_FontGetChar_43FE30(a1, c);
+			if (!v14p) {
+				v14p = nox_xxx_FontGetChar_43FE30(a1, '?');
+				if (!v14p) {
+					break;
+				}
+			}
+			v11 += dword_5d4594_816440 + *(unsigned __int8*)v14p;
+			if (!a5 || v11 <= a5) {
+				break;
+			}
+			if (str4) {
+				str2 = str4;
+			} else {
+				--str2;
+			}
+			wchar_t v17c = 0;
+			for (int j = a3; str3 < str2; j = (*(int(**)(_DWORD, _DWORD, _DWORD, _DWORD)) & dword_5d4594_816448)(a1, v17c, j, a4)) {
+				v17c = *str3;
+				++str3;
+			}
+			if (str4) {
+				str4 = 0;
+				++str3;
+			}
+			int v14i = *(_DWORD*)((unsigned int)a1 + 28);
+			v11 = 0;
+			v21 += v14i;
+			if (a6 && v21 >= a6) {
+				return 1;
+			}
+			a4 += v14i;
 			break;
 		}
+		c2 = c;
+		++str2;
+		c = str2[0];
+		if (!c) {
+			break;
+		}
+	}
+	for (int v19 = a3; str3 < str2; v19 = (*(int(**)(_DWORD, _DWORD, _DWORD, _DWORD)) & dword_5d4594_816448)(a1, c2, v19, a4)) {
+		c2 = *str3;
+		++str3;
 	}
 	return 1;
 }

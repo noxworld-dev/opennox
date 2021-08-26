@@ -1563,7 +1563,7 @@ int  sub_43F7B0(int a1, __int16* a2, int a3, int a4);
 int  nox_xxx_drawGetStringSize_43F840(int a1, unsigned __int16* a2, int* a3, int* a4, int a5);
 int  sub_43F9E0(int a1, unsigned __int16* a2, int a3);
 int  nox_xxx_bookGetStringSize_43FA80(int a1, unsigned __int16* a2, int* a3, _DWORD* a4, int a5);
-int  nox_xxx_drawString_43FAF0(int a1, _WORD* a2, int a3, int a4, int a5, int a6);
+int  nox_xxx_drawString_43FAF0(void* a1, wchar_t* str, int a3, int a4, int a5, int a6);
 int  sub_43FD00(int a1, _WORD* a2, int a3, int a4, int a5, int a6);
 int  nox_xxx_bookDrawString_43FA80_43FD80(int a1, _WORD* a2, int a3, int a4, int a5, int a6);
 int  sub_43FE20(int a1);
