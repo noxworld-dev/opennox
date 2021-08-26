@@ -22,6 +22,10 @@ extern unsigned int nox_client_fadeObjects_80836;
 extern unsigned int nox_client_texturedFloors_154956;
 extern unsigned int nox_xxx_waypointCounterMB_587000_154948;
 extern unsigned char nox_arr_84EB20[280*57*4];
+extern unsigned int dword_5d4594_816440;
+extern unsigned int dword_5d4594_816456;
+extern unsigned int dword_5d4594_816460;
+extern void* nox_draw_defaultFont_816492;
 extern unsigned int dword_5d4594_2523804;
 extern unsigned int dword_5d4594_2650676;
 extern unsigned int dword_5d4594_2650680;
@@ -77,6 +81,8 @@ import (
 	"encoding/binary"
 	"image"
 	"sort"
+	"unicode"
+	"unicode/utf16"
 	"unsafe"
 
 	"nox/v1/client/input"
@@ -187,10 +193,104 @@ func (r *NoxRender) DrawString(a1 int, str string, a3 int, a4 int) { // nox_xxx_
 	C.nox_xxx_drawString_43F6E0(C.int(a1), sp, C.int(a3), C.int(a4))
 }
 
-func (r *NoxRender) DrawString2(a1 unsafe.Pointer, str string, a3, a4, a5, a6 int) { // nox_xxx_drawString_43FAF0
-	sp := CWString(str)
-	defer WStrFree(sp)
-	C.nox_xxx_drawString_43FAF0(a1, sp, C.int(a3), C.int(a4), C.int(a5), C.int(a6))
+func rune2wchar(r rune) uint16 {
+	// TODO: should we drop the second one?
+	r1, _ := utf16.EncodeRune(r)
+	if r1 == unicode.ReplacementChar {
+		return uint16(r)
+	}
+	return uint16(r1)
+}
+
+func nox_xxx_FontGetChar_43FE30(font unsafe.Pointer, r rune) unsafe.Pointer {
+	p := C.nox_xxx_FontGetChar_43FE30(font, C.ushort(rune2wchar(r)))
+	if p != nil {
+		return p
+	}
+	p = C.nox_xxx_FontGetChar_43FE30(font, C.ushort('?'))
+	if p != nil {
+		return p
+	}
+	return nil
+}
+
+func (r *NoxRender) DrawString2(font unsafe.Pointer, s string, x, y, maxW, maxH int) { // nox_xxx_drawString_43FAF0
+	if getEngineFlag(NOX_ENGINE_FLAG_DISABLE_TEXT_RENDERING) {
+		return
+	}
+	if font == nil {
+		font = C.nox_draw_defaultFont_816492
+		if font == nil {
+			return
+		}
+	}
+	if s == "" {
+		return
+	}
+	dy := int(*(*uint32)(unsafe.Pointer(uintptr(font) + 28)))
+	C.dword_5d4594_816460 = C.uint(x)
+	str := []rune(s)
+
+	var (
+		wordX int // relative to X
+		wordY int // relative to Y
+		word  []rune
+		addX  int // relative to wordX
+	)
+
+	drawWord := func() {
+		cx := x + wordX
+		cy := y + wordY
+		for _, c := range word {
+			cx = int(C.nox_xxx_StringDraw_43FE90(font, C.short(rune2wchar(c)), C.int(cx), C.int(cy)))
+		}
+		word = word[:0]
+		wordX = cx - x
+		addX = 0
+	}
+
+	for i, c := range str {
+		switch c {
+		case '\t':
+			drawWord()
+			tab := int(C.dword_5d4594_816456)
+			wordX += tab
+			wordX -= wordX % tab
+			continue
+		case '\r', '\n':
+			if i != 0 && str[i-1] == '\r' {
+				continue
+			}
+			drawWord()
+			wordX = 0
+			wordY += dy
+			if maxH > 0 && wordY >= maxH {
+				return
+			}
+			continue
+		}
+		if maxW > 0 {
+			cv := nox_xxx_FontGetChar_43FE30(font, c)
+			if cv == nil {
+				continue
+			}
+			dx := int(*(*byte)(cv))
+			addX += dx
+			if wordX+addX > maxW {
+				// word is too long
+				wordX = 0
+				wordY += dy
+				if maxH > 0 && wordY >= maxH {
+					return
+				}
+			}
+		}
+		word = append(word, c)
+		if c == ' ' {
+			drawWord()
+		}
+	}
+	drawWord()
 }
 
 func (r *NoxRender) GetStringSize(a1 int, a2 string, a5 int) types.Size { // nox_xxx_drawGetStringSize_43F840
@@ -213,6 +313,13 @@ func (r *NoxRender) DrawCircle(a1, a2, a3 int) {
 func (r *NoxRender) DrawCircleColored(a1, a2, a3 int, a4 uint32) {
 	r.SetColor2(a4)
 	r.DrawCircle(a1, a2, a3)
+}
+
+//export nox_xxx_drawString_43FAF0
+func nox_xxx_drawString_43FAF0(font unsafe.Pointer, sp *C.wchar_t, x, y, a5, a6 C.int) C.int {
+	s := GoWString(sp)
+	noxrend.DrawString2(font, s, int(x), int(y), int(a5), int(a6))
+	return 1
 }
 
 func nox_xxx_gLoadImg_42F970(name string) unsafe.Pointer {

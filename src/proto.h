@@ -1567,8 +1567,8 @@ int  nox_xxx_drawString_43FAF0(void* a1, wchar_t* str, int a3, int a4, int a5, i
 int  sub_43FD00(int a1, _WORD* a2, int a3, int a4, int a5, int a6);
 int  nox_xxx_bookDrawString_43FA80_43FD80(int a1, _WORD* a2, int a3, int a4, int a5, int a6);
 int  sub_43FE20(int a1);
-int  nox_xxx_FontGetChar_43FE30(int a1, unsigned __int16 a2);
-int  nox_xxx_StringDraw_43FE90(int a1, __int16 a2, int xLeft, int yTop);
+void*  nox_xxx_FontGetChar_43FE30(void* font, unsigned __int16 a2);
+int  nox_xxx_StringDraw_43FE90(void* font, __int16 a2, int xLeft, int yTop);
 int  sub_440360(int, int, int xLeft, int yTop); // idb
 int  nox_xxx_guiDrawString_4407F0(int a1, __int16* a2, int a3, int a4);
 void  nox_xxx_Font_440840(LPVOID lpMem); // idb
