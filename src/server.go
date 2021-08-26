@@ -203,7 +203,7 @@ func nox_xxx_gameTick_4D2580_server_E() {
 	if unit := getPlayerByInd(31).UnitC(); unit != nil {
 		C.nox_xxx_playerSomeWallsUpdate_5003B0(unit.CObj())
 	}
-	if C.nox_xxx_get_57AF20() != 0 && C.sub_57B140() {
+	if nox_xxx_get_57AF20() != 0 && C.sub_57B140() {
 		C.sub_57B0A0()
 	}
 	if C.sub_4D6F50() != 0 {

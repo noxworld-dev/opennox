@@ -6186,18 +6186,19 @@ int nox_xxx_tileSetDrawFn_481420() {
 }
 // 481BE0: using guessed type void nullsub_8();
 
+#ifndef NOX_CGO
 //----- (004814F0) --------------------------------------------------------
-int  sub_4814F0(int2* a1) {
+int  sub_4814F0(nox_point* a1) {
 	int v5;              // edi
 	unsigned __int8* v6; // eax
 	int result;          // eax
 
-	nox_light_3 c1 = nox_arr2_853BC0[a1->field_0][a1->field_4+0];
+	nox_light_3 c1 = nox_arr2_853BC0[a1->x][a1->y+0];
 	int v2 = c1.r >> 8;
 	int v3 = c1.g >> 8;
 	int v4 = c1.b >> 8;
 
-	nox_light_3 c2 = nox_arr2_853BC0[a1->field_0][a1->field_4+1];
+	nox_light_3 c2 = nox_arr2_853BC0[a1->x][a1->y+1];
 	int v2b = c2.r >> 8;
 	int v3b = c2.g >> 8;
 	int v4b = c2.b >> 8;
@@ -6207,7 +6208,7 @@ int  sub_4814F0(int2* a1) {
 	int v10 = *getMemU32Ptr(0x8529A0, 1020 + 4 * ((v4b - v4) >> 8));
 	v5 = 0;
 	do {
-		v6 = ((void*)&nox_arr_84EB20[4 + 280 * a1->field_0 + v5]);
+		v6 = ((void*)&nox_arr_84EB20[4 + 280 * a1->x + v5]);
 		v5 += 12;
 		*((_DWORD*)v6 + 0) = v2;
 		*((_DWORD*)v6 + 1) = v3;
@@ -6216,10 +6217,11 @@ int  sub_4814F0(int2* a1) {
 		v3 += v9;
 		v4 += v10;
 	} while (v5 < 12*23);
-	result = 7 * a1->field_0;
-	*((unsigned int*)&nox_arr_84EB20[280 * a1->field_0]) = a1->field_4;
+	result = 7 * a1->x;
+	*((unsigned int*)&nox_arr_84EB20[280 * a1->x]) = a1->y;
 	return result;
 }
+#endif // NOX_CGO
 
 //----- (004815E0) --------------------------------------------------------
 char  nox_xxx_tileDraw_4815E0(_DWORD* a1, int a2) {

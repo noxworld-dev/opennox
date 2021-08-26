@@ -21,6 +21,10 @@ extern unsigned int nox_client_drawFrontWalls_80812;
 extern unsigned int nox_client_fadeObjects_80836;
 extern unsigned int nox_client_texturedFloors_154956;
 extern unsigned int nox_xxx_waypointCounterMB_587000_154948;
+extern unsigned char nox_arr_84EB20[280*57*4];
+extern unsigned int dword_5d4594_2523804;
+extern unsigned int dword_5d4594_2650676;
+extern unsigned int dword_5d4594_2650680;
 extern unsigned int dword_5d4594_811896;
 extern unsigned int dword_5d4594_811904;
 extern unsigned int nox_client_gui_flag_815132;
@@ -60,6 +64,7 @@ void sub_4C96A0();
 void sub_4C97F0();
 void sub_4C9970();
 void sub_4C9B20();
+void  nox_xxx_cliLight16_469140(nox_drawable* dr, nox_draw_viewport_t* vp);
 void nox_xxx_clientDrawAll_436100_draw_A();
 void nox_xxx_clientDrawAll_436100_draw_B();
 void nox_xxx_drawAllMB_475810_draw_A(nox_draw_viewport_t* vp);
@@ -75,6 +80,7 @@ import (
 	"unsafe"
 
 	"nox/v1/client/input"
+	"nox/v1/common"
 	"nox/v1/common/alloc"
 	noxcolor "nox/v1/common/color"
 	noxflags "nox/v1/common/flags"
@@ -157,6 +163,14 @@ func (r *NoxRender) SetColor(a1 uint32) { // nox_xxx_drawSetColor_4343E0
 
 func (r *NoxRender) SetColor2(a1 uint32) { // nox_client_drawSetColor_434460
 	r.p.field_61 = C.uint(a1)
+}
+
+func (r *NoxRender) GetLightColor() NoxLight { // sub_434A10
+	return NoxLight{
+		R: int(r.p.field_62),
+		G: int(r.p.field_63),
+		B: int(r.p.field_64),
+	}
 }
 
 func (r *NoxRender) DrawRectFilledOpaque(x, y, w, h int) { // nox_client_drawRectFilledOpaque_49CE30
@@ -366,6 +380,7 @@ func nox_xxx_drawAllMB_475810_draw(vp *Viewport) {
 		C.dword_5d4594_3799524 = 1
 		return
 	}
+	sub_468F80(vp)
 	v10 := C.nox_xxx_drawAllMB_475810_draw_B(vp.C()) != 0
 	C.sub_4765F0(vp.C())
 	sub_4754F0(vp)
@@ -392,6 +407,185 @@ func nox_xxx_drawAllMB_475810_draw(vp *Viewport) {
 	C.sub_437290()
 	*memmap.PtrUint32(0x973F18, 68) = 1
 	C.sub_476680()
+}
+
+type NoxLight struct {
+	R, G, B int
+}
+
+const (
+	// TODO: the 4x factor is for high-res; figure out what those values are
+	lightGridW = 57 * 4
+	lightGridH = 45 * 4
+	lightGrid  = common.GridStep
+)
+
+var (
+	nox_arr2_853BC0 [lightGridW][lightGridH]NoxLight
+	lightsOutBuf    []uint32
+)
+
+func nox_xxx_get_57AF20() int {
+	return int(C.dword_5d4594_2523804)
+}
+
+func sub_468F80(vp *Viewport) {
+	// TODO: values here are similar to lightGridW and lightGridH
+	C.dword_5d4594_2650676 = C.uint(46*((int(vp.field_4)+11)/46-1) - 11)
+	C.dword_5d4594_2650680 = C.uint(46*((int(vp.field_5)+11)/46) - 57)
+	if getEngineFlag(NOX_ENGINE_DISABLE_SOFT_LIGHTS) {
+		for i := 0; i < lightGridW; i++ {
+			for j := 0; j < lightGridH; j++ {
+				nox_arr2_853BC0[i][j].R = 255 << 16
+				nox_arr2_853BC0[i][j].G = 255 << 16
+				nox_arr2_853BC0[i][j].B = 255 << 16
+			}
+		}
+	} else {
+		cl := noxrend.GetLightColor()
+		if nox_xxx_get_57AF20() != 0 {
+			cl = NoxLight{R: 50, G: 50, B: 50}
+		}
+		for i := 0; i < lightGridW; i++ {
+			for j := 0; j < lightGridH; j++ {
+				nox_arr2_853BC0[i][j].R = cl.R << 16
+				nox_arr2_853BC0[i][j].G = cl.G << 16
+				nox_arr2_853BC0[i][j].B = cl.B << 16
+			}
+		}
+		const add = 100
+		rect := image.Rect(
+			int(vp.field_4)-add,
+			int(vp.field_5)-add,
+			int(vp.width)+int(vp.field_4)+add,
+			int(vp.height)+int(vp.field_5)+add,
+		)
+		nox_xxx_forEachSprite(rect, func(dr *Drawable) {
+			C.nox_xxx_cliLight16_469140(dr.C(), vp.C())
+		})
+	}
+}
+
+//export sub_469920
+func sub_469920(p *C.nox_point) *C.char {
+	if getEngineFlag(NOX_ENGINE_DISABLE_SOFT_LIGHTS) {
+		return (*C.char)(unsafe.Pointer(&lightsOutBuf[0]))
+	}
+
+	x := int(int32(p.x) - int32(uint32(C.dword_5d4594_2650676)))
+	y := int(int32(p.y) - int32(uint32(C.dword_5d4594_2650680)))
+
+	xd := x / lightGrid
+	yd := y / lightGrid
+	if xd < 0 || yd < 0 || xd+1 >= lightGridW || yd+1 >= lightGridH {
+		return (*C.char)(unsafe.Pointer(&lightsOutBuf[0]))
+	}
+
+	xr := x % lightGrid
+	yr := y % lightGrid
+
+	c00 := nox_arr2_853BC0[xd+0][yd+0]
+	c10 := nox_arr2_853BC0[xd+1][yd+0]
+	c01 := nox_arr2_853BC0[xd+0][yd+1]
+	c11 := nox_arr2_853BC0[xd+1][yd+1]
+
+	var cr1 NoxLight
+	cr1.R = c00.R + xr*(c10.R-c00.R)/lightGrid
+	cr1.G = c00.G + xr*(c10.G-c00.G)/lightGrid
+	cr1.B = c00.B + xr*(c10.B-c00.B)/lightGrid
+
+	var cr2 NoxLight
+	cr2.R = c01.R + xr*(c11.R-c01.R)/lightGrid
+	cr2.G = c01.G + xr*(c11.G-c01.G)/lightGrid
+	cr2.B = c01.B + xr*(c11.B-c01.B)/lightGrid
+
+	var res NoxLight
+	res.R = cr1.R + yr*(cr2.R-cr1.R)/lightGrid
+	res.G = cr1.G + yr*(cr2.G-cr1.G)/lightGrid
+	res.B = cr1.B + yr*(cr2.B-cr1.B)/lightGrid
+
+	dst := lightsOutBuf[3:]
+	dst[0] = uint32(res.R >> 16)
+	dst[1] = uint32(res.G >> 16)
+	dst[2] = uint32(res.B >> 16)
+	return (*C.char)(unsafe.Pointer(&dst[0]))
+}
+
+//export sub_4814F0
+func sub_4814F0(a1 *C.nox_point) C.int {
+	c1 := nox_arr2_853BC0[a1.x][a1.y+0]
+	v2 := c1.R >> 8
+	v3 := c1.G >> 8
+	v4 := c1.B >> 8
+
+	c2 := nox_arr2_853BC0[a1.x][a1.y+1]
+	v2b := c2.R >> 8
+	v3b := c2.G >> 8
+	v4b := c2.B >> 8
+
+	v8 := int(memmap.Int32(0x8529A0, uintptr(1020+4*((v2b-v2)>>8))))
+	v9 := int(memmap.Int32(0x8529A0, uintptr(1020+4*((v3b-v3)>>8))))
+	v10 := int(memmap.Int32(0x8529A0, uintptr(1020+4*((v4b-v4)>>8))))
+
+	for i := 0; i < lightGrid; i++ {
+		v6 := asU32Slice(unsafe.Pointer(&C.nox_arr_84EB20[280*int(a1.x)+12*i+4]), 3)
+		v6[0] = uint32(int32(v2))
+		v6[1] = uint32(int32(v3))
+		v6[2] = uint32(int32(v4))
+		v2 += v8
+		v3 += v9
+		v4 += v10
+	}
+
+	v6p := (*int32)(unsafe.Pointer(&C.nox_arr_84EB20[280*a1.x]))
+	*v6p = int32(a1.y)
+	return 7 * a1.x
+}
+
+func sub_4C1C60(a1, a2 int) int {
+	return int((int64(a1) * int64(a2)) >> 16)
+}
+
+//export sub_4695E0
+func sub_4695E0(a1, a2 C.int, a3p *C.int, a4, a5 C.int) {
+	v5 := int(a4)
+	if a5 != 0 {
+		v5 = -int(a4)
+	}
+	a3 := asI32Slice(unsafe.Pointer(a3p), 3)
+	v6 := sub_4C1C60(v5, int(a3[0])) << 8
+	v7 := sub_4C1C60(v5, int(a3[1])) << 8
+	v8 := sub_4C1C60(v5, int(a3[2])) << 8
+
+	ptr := &nox_arr2_853BC0[a1][a2]
+
+	var res NoxLight
+	res.R = v6 + ptr.R
+	res.G = v7 + ptr.G
+	res.B = v8 + ptr.B
+
+	if res.R <= 0xFF0000 {
+		if res.R < 0 {
+			res.R = 0
+		}
+	} else {
+		res.R = 0xFF0000
+	}
+	if res.G <= 0xFF0000 {
+		if res.G < 0 {
+			res.G = 0
+		}
+	} else {
+		res.G = 0xFF0000
+	}
+	if res.B <= 0xFF0000 {
+		if res.B < 0 {
+			res.B = 0
+		}
+	} else {
+		res.B = 0xFF0000
+	}
+	*ptr = res
 }
 
 func nox_xxx_tileDrawMB_481C20(vp *Viewport) {
