@@ -1128,7 +1128,7 @@ func nox_client_drawCursorAndTooltips_477830(inp *input.Handler) {
 		}
 		noxrend.DrawRectFilledAlpha(px, py, sz.W, sz.H)
 		noxrend.SetTextColor(memmap.Uint32(0x5D4594, 2589772))
-		noxrend.DrawString2(0, str, px+2, py+2, 0, 0)
+		noxrend.DrawString2(nil, str, px+2, py+2, 0, 0)
 		if C.dword_5d4594_3799468 != 0 {
 			vp := getViewport()
 			if px < int(vp.x1) || px+sz.W > int(vp.x2) || py < int(vp.y1) || py+sz.H > int(vp.y2) {
