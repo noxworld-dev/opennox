@@ -861,7 +861,8 @@ func nox_xxx_mapExitAndCheckNext_4D1860_server() bool {
 		}
 		k.SetPos(v61)
 		if !noxflags.HasGame(512) {
-			v18 := unsafe.Pointer(uintptr(k.ptrYyy()) + 276)
+			v18 := k.ptrYyy()
+			v18 = *(*unsafe.Pointer)(unsafe.Pointer(uintptr(v18) + 276))
 			*(*uint32)(unsafe.Pointer(uintptr(v18) + 2136)) = 0
 			*(*uint32)(unsafe.Pointer(uintptr(v18) + 2140)) = 0
 			*(*uint32)(unsafe.Pointer(uintptr(v18) + 2144)) = gameFrame()
