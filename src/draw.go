@@ -187,10 +187,27 @@ func (r *NoxRender) DrawRectFilledAlpha(x, y, w, h int) { // nox_client_drawRect
 	C.nox_client_drawRectFilledAlpha_49CF10(C.int(x), C.int(y), C.int(w), C.int(h))
 }
 
-func (r *NoxRender) DrawString(a1 int, str string, a3 int, a4 int) { // nox_xxx_drawString_43F6E0
-	sp := CWString(str)
-	defer WStrFree(sp)
-	C.nox_xxx_drawString_43F6E0(C.int(a1), sp, C.int(a3), C.int(a4))
+func (r *NoxRender) DrawString(font unsafe.Pointer, str string, pos types.Point) { // nox_xxx_drawString_43F6E0
+	if getEngineFlag(NOX_ENGINE_FLAG_DISABLE_TEXT_RENDERING) {
+		return
+	}
+	if font == nil {
+		font = C.nox_draw_defaultFont_816492
+		if font == nil {
+			return
+		}
+	}
+	C.dword_5d4594_816460 = C.uint(pos.X)
+	r.drawStringLine(font, str, pos)
+}
+
+func (r *NoxRender) drawStringLine(font unsafe.Pointer, str string, pos types.Point) { // nox_xxx_guiDrawString_4407F0
+	for _, c := range str {
+		if c == '\n' || c == '\r' {
+			continue
+		}
+		pos.X = r.drawChar(font, c, pos)
+	}
 }
 
 func rune2wchar(r rune) uint16 {
@@ -214,7 +231,11 @@ func nox_xxx_FontGetChar_43FE30(font unsafe.Pointer, r rune) unsafe.Pointer {
 	return nil
 }
 
-func (r *NoxRender) DrawString2(font unsafe.Pointer, s string, x, y, maxW, maxH int) { // nox_xxx_drawString_43FAF0
+func (r *NoxRender) drawChar(font unsafe.Pointer, c rune, pos types.Point) int {
+	return int(C.nox_xxx_StringDraw_43FE90(font, C.short(rune2wchar(c)), C.int(pos.X), C.int(pos.Y)))
+}
+
+func (r *NoxRender) DrawStringWrapped(font unsafe.Pointer, s string, x, y, maxW, maxH int) { // nox_xxx_drawString_43FAF0
 	if getEngineFlag(NOX_ENGINE_FLAG_DISABLE_TEXT_RENDERING) {
 		return
 	}
@@ -242,7 +263,7 @@ func (r *NoxRender) DrawString2(font unsafe.Pointer, s string, x, y, maxW, maxH 
 		cx := x + wordX
 		cy := y + wordY
 		for _, c := range word {
-			cx = int(C.nox_xxx_StringDraw_43FE90(font, C.short(rune2wchar(c)), C.int(cx), C.int(cy)))
+			cx = r.drawChar(font, c, types.Point{X: cx, Y: cy})
 		}
 		word = word[:0]
 		wordX = cx - x
@@ -318,7 +339,7 @@ func (r *NoxRender) DrawCircleColored(a1, a2, a3 int, a4 uint32) {
 //export nox_xxx_drawString_43FAF0
 func nox_xxx_drawString_43FAF0(font unsafe.Pointer, sp *C.wchar_t, x, y, a5, a6 C.int) C.int {
 	s := GoWString(sp)
-	noxrend.DrawString2(font, s, int(x), int(y), int(a5), int(a6))
+	noxrend.DrawStringWrapped(font, s, int(x), int(y), int(a5), int(a6))
 	return 1
 }
 
@@ -326,8 +347,8 @@ func nox_xxx_gLoadImg_42F970(name string) unsafe.Pointer {
 	return unsafe.Pointer(C.nox_xxx_gLoadImg_42F970(internCStr(name)))
 }
 
-func nox_video_drawAnimatedImageOrCursorAt_4BE6D0(a1 uint32, a2, a3 int) {
-	C.nox_video_drawAnimatedImageOrCursorAt_4BE6D0(C.int(a1), C.int(a2), C.int(a3))
+func nox_video_drawAnimatedImageOrCursorAt_4BE6D0(a1 uint32, pos types.Point) {
+	C.nox_video_drawAnimatedImageOrCursorAt_4BE6D0(C.int(a1), C.int(pos.X), C.int(pos.Y))
 }
 
 func nox_xxx_client_435F80_draw(inp *input.Handler) bool {
