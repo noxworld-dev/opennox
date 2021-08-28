@@ -9943,7 +9943,8 @@ int  sub_53E3A0(int a1, int a2) {
 }
 
 //----- (0053E430) --------------------------------------------------------
-int  sub_53E430(_DWORD* a1, int a2, int a3, int a4) {
+int  sub_53E430(_DWORD* a1, const nox_object_t* object, int a3, int a4) {
+	const int a2 = object;
 	int v4;     // ecx
 	int v5;     // eax
 	int v7;     // eax
