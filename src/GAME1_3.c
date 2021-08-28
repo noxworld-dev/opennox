@@ -185,6 +185,8 @@ nox_gui_animation* nox_wnd_xxx_830244 = 0;
 
 void* nox_draw_defaultFont_816492 = 0;
 
+int nox_game_state_arr[16] = {0};
+
 //----- (0043B510) --------------------------------------------------------
 char* sub_43B510() {
 	__int16 v0;         // ax
@@ -286,15 +288,15 @@ int  nox_game_addStateCode_43BDD0(int a1) {
 	int result; // eax
 
 	result = a1;
-	if (*getMemU32Ptr(0x5D4594, 815140 + 4 * getMemByte(0x5D4594, 815208)) != a1) {
+	if (nox_game_state_arr[getMemByte(0x5D4594, 815208)] != a1) {
 		++*getMemU8Ptr(0x5D4594, 815208);
-		*getMemU32Ptr(0x5D4594, 815140 + 4 * getMemByte(0x5D4594, 815208)) = a1;
+		nox_game_state_arr[getMemByte(0x5D4594, 815208)] = a1;
 	}
 	return result;
 }
 
 //----- (0043BE10) --------------------------------------------------------
-int nox_game_getStateCode_43BE10() { return *getMemU32Ptr(0x5D4594, 815140 + 4 * getMemByte(0x5D4594, 815208)); }
+int nox_game_getStateCode_43BE10() { return nox_game_state_arr[getMemByte(0x5D4594, 815208)]; }
 
 //----- (0043BE30) --------------------------------------------------------
 int sub_43BE30() { return *getMemU32Ptr(0x5D4594, 815204); }
@@ -433,7 +435,7 @@ int nox_game_switchStates_43C0A0() { // switch game states
 	if (si == 0)
 		return 1;
 
-	unsigned int st = *getMemU32Ptr(0x5D4594, 815140 + 4 * si);
+	unsigned int st = nox_game_state_arr[si];
 	switch (st) {
 	case 10:
 		if (!nox_game_rollLogoAndStart_4AB1F0())
@@ -499,7 +501,7 @@ void nox_game_checkStateSwitch_43C1E0() {
 	_DWORD* v1; // esi
 
 	if (getMemByte(0x5D4594, 815208)) {
-		v0 = nox_gui_findAnimationForDest_43C520(*getMemU32Ptr(0x5D4594, 815140 + 4 * getMemByte(0x5D4594, 815208)));
+		v0 = nox_gui_findAnimationForDest_43C520(nox_game_state_arr[getMemByte(0x5D4594, 815208)]);
 		v1 = v0;
 		if (v0) {
 			((int (*)(void))v0[12])();
@@ -516,7 +518,7 @@ _DWORD* nox_game_checkStateOptions_43C220() {
 
 	result = *(_DWORD**)getMemAt(0x5D4594, 815208);
 	if (getMemByte(0x5D4594, 815208)) {
-		result = nox_gui_findAnimationForDest_43C520(*getMemU32Ptr(0x5D4594, 815140 + 4 * getMemByte(0x5D4594, 815208)));
+		result = nox_gui_findAnimationForDest_43C520(nox_game_state_arr[getMemByte(0x5D4594, 815208)]);
 		v1 = result;
 		if (result) {
 			result = (_DWORD*)((int (*)(void))result[12])();
@@ -533,17 +535,17 @@ int nox_game_checkStateWol_43C260() {
 
 	result = *getMemU32Ptr(0x5D4594, 815208);
 	if (getMemByte(0x5D4594, 815208)) {
-		result = nox_gui_findAnimationForDest_43C520(*getMemU32Ptr(0x5D4594, 815140 + 4 * getMemByte(0x5D4594, 815208)));
+		result = nox_gui_findAnimationForDest_43C520(nox_game_state_arr[getMemByte(0x5D4594, 815208)]);
 		v1 = result;
 		if (result) {
-			if (*getMemU32Ptr(0x5D4594, 815140 + 4 * getMemByte(0x5D4594, 815208)) == 1700) {
+			if (nox_game_state_arr[getMemByte(0x5D4594, 815208)] == 1700) {
 				result = nox_game_showWolLogin_44A560();
 			} else {
 				result = (*(int (**)(void))(result + 48))();
 				*(_DWORD*)(v1 + 52) = nox_game_showWolLogin_44A560;
 			}
 		}
-		for (; *getMemU32Ptr(0x5D4594, 815140 + 4 * getMemByte(0x5D4594, 815208)) != 1700; result = getMemByte(0x5D4594, 815208))
+		for (; nox_game_state_arr[getMemByte(0x5D4594, 815208)] != 1700; result = getMemByte(0x5D4594, 815208))
 			nox_game_decStateInd_43BDC0();
 	}
 	return result;
@@ -556,17 +558,17 @@ int nox_game_checkStateMenu_43C2F0() {
 
 	result = *getMemU32Ptr(0x5D4594, 815208);
 	if (getMemByte(0x5D4594, 815208)) {
-		result = nox_gui_findAnimationForDest_43C520(*getMemU32Ptr(0x5D4594, 815140 + 4 * getMemByte(0x5D4594, 815208)));
+		result = nox_gui_findAnimationForDest_43C520(nox_game_state_arr[getMemByte(0x5D4594, 815208)]);
 		v1 = result;
 		if (result) {
-			if (*getMemU32Ptr(0x5D4594, 815140 + 4 * getMemByte(0x5D4594, 815208)) == 100) {
+			if (nox_game_state_arr[getMemByte(0x5D4594, 815208)] == 100) {
 				result = nox_game_showMainMenu_4A1C00();
 			} else {
 				result = (*(int (**)(void))(result + 48))();
 				*(_DWORD*)(v1 + 52) = nox_game_showMainMenu_4A1C00;
 			}
 		}
-		for (; *getMemU32Ptr(0x5D4594, 815140 + 4 * getMemByte(0x5D4594, 815208)) != 100; result = getMemByte(0x5D4594, 815208))
+		for (; nox_game_state_arr[getMemByte(0x5D4594, 815208)] != 100; result = getMemByte(0x5D4594, 815208))
 			nox_game_decStateInd_43BDC0();
 	}
 	return result;
