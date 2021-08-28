@@ -9915,31 +9915,30 @@ int  nox_xxx_recalculateArmorVal_53E300(_DWORD* a1) {
 }
 
 //----- (0053E3A0) --------------------------------------------------------
-int  sub_53E3A0(int a1, const nox_object_t* object) {
-	int a2 = object;
+int  sub_53E3A0(int a1, nox_object_t* object) {
 	int result; // eax
 	int v3;     // ecx
 
-	if (!(*(_DWORD*)(a2 + 8) & 0x2000000))
+	if (!(object->obj_class & 0x2000000))
 		return 0;
-	v3 = *(_DWORD*)(a2 + 16);
+	v3 = object->field_4;
 	if (!(v3 & 0x100))
 		return 0;
 	result = *(_DWORD*)(a1 + 504);
 	if (!result)
 		return 0;
-	while (result != a2) {
+	while (result != object) {
 		result = *(_DWORD*)(result + 496);
 		if (!result)
 			return result;
 	}
 	BYTE1(v3) &= 0xFEu;
-	*(_DWORD*)(a2 + 16) = v3;
+	object->field_4 = v3;
 	if (*(_BYTE*)(a1 + 12) & 0x10)
-		nox_xxx_npcSetItemEquipFlags_4E4B20(a1, a2, 0);
-	*(_DWORD*)(a2 + 16) &= 0xEFFFFFFF;
+		nox_xxx_npcSetItemEquipFlags_4E4B20(a1, object, 0);
+	object->field_4 &= 0xEFFFFFFF;
 	nox_xxx_recalculateArmorVal_53E300((_DWORD*)a1);
-	nox_xxx_itemApplyDisengageEffect_4F3030(a2, a1);
+	nox_xxx_itemApplyDisengageEffect_4F3030(object, a1);
 	return 1;
 }
 

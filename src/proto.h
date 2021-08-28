@@ -5685,7 +5685,7 @@ void  nox_xxx_updateCrown_53E1D0(int a1);
 char  sub_53E2B0(int a1);
 BOOL  sub_53E2D0(int a1);
 int  nox_xxx_recalculateArmorVal_53E300(_DWORD* a1);
-int  sub_53E3A0(int a1, const nox_object_t* object);
+int  sub_53E3A0(int a1, nox_object_t* object);
 int  sub_53E430(_DWORD* a1, nox_object_t* object, int a3, int a4);
 int  nox_xxx_NPCEquipArmor_53E520(int a1, _DWORD* a2);
 void  sub_53E600(_DWORD* a1);
