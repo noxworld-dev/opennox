@@ -297,7 +297,7 @@ func runNox(args []string) error {
 		return fmt.Errorf("failed to load gameex config file: %w", err)
 	}
 	if C.nox_profiled_805856 == 0 {
-		C.sub_4445C0()
+		nox_setProfiledMode_4445C0(450)
 	}
 	C.nox_xxx_clear18hDD_416190()
 	noxCommonInitRandom()

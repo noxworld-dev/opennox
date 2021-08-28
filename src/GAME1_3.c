@@ -3761,53 +3761,45 @@ wchar_t*  sub_444410(int a1) {
 }
 
 //----- (004445C0) --------------------------------------------------------
-void sub_4445C0() {
-	int v0;     // ebx
-	int v4;     // ebx
-	int v5;     // ebp
-	int v9 = 0;     // [esp+10h] [ebp-Ch]
-	int v10;    // [esp+14h] [ebp-8h]
-	int v11;    // [esp+18h] [ebp-4h]
-
-	v0 = 0;
+void nox_setProfiledMode_4445C0() {
+	int v0 = 0;
+	int v4 = 0;
+	int v5 = 0;
 	*getMemU32Ptr(0x587000, 80808) = 1;
 	*getMemU32Ptr(0x587000, 80816) = 1;
 	nox_xxx_useAudio_587000_80840 = 1;
 	nox_client_renderGUI_80828 = 1;
 	nox_xxx_xxxRenderGUI_587000_80832 = 1;
-	if (v0 <= 266) {
-		if (v0 != 266) {
-			if (!v0) {
-				v4 = 8;
-				v5 = 75;
-				nox_client_drawFrontWalls_80812 = 0;
-				goto LABEL_21;
-			}
-			if (v0 == 200) {
-				v4 = 8;
-				v5 = 85;
-				nox_client_drawFrontWalls_80812 = 1;
-			LABEL_21:
-				nox_client_translucentFrontWalls_805844 = 0;
-				nox_client_highResFrontWalls_80820 = 0;
-				nox_client_highResFloors_154952 = 0;
-				nox_client_lockHighResFloors_1193152 = 0;
-				nox_client_texturedFloors_154956 = 1;
-				nox_gui_console_translucent = 0;
-				nox_client_renderGlow_805852 = 0;
-				nox_client_fadeObjects_80836 = 0;
-				nox_common_resetEngineFlag(NOX_ENGINE_FLAG_ENABLE_SOFT_SHADOW_EDGE);
-				nox_client_renderBubbles_80844 = 0;
-				goto LABEL_30;
-			}
-			goto LABEL_29;
-		}
+	if (v0 == 0) {
 		v4 = 8;
-		goto LABEL_27;
-	}
-	if (v0 == 300) {
-		v4 = 16;
-	LABEL_27:
+		v5 = 75;
+		nox_client_drawFrontWalls_80812 = 0;
+		nox_client_translucentFrontWalls_805844 = 0;
+		nox_client_highResFrontWalls_80820 = 0;
+		nox_client_highResFloors_154952 = 0;
+		nox_client_lockHighResFloors_1193152 = 0;
+		nox_client_texturedFloors_154956 = 1;
+		nox_gui_console_translucent = 0;
+		nox_client_renderGlow_805852 = 0;
+		nox_client_fadeObjects_80836 = 0;
+		nox_common_resetEngineFlag(NOX_ENGINE_FLAG_ENABLE_SOFT_SHADOW_EDGE);
+		nox_client_renderBubbles_80844 = 0;
+	} else if (v0 == 200) {
+		v4 = 8;
+		v5 = 85;
+		nox_client_drawFrontWalls_80812 = 1;
+		nox_client_translucentFrontWalls_805844 = 0;
+		nox_client_highResFrontWalls_80820 = 0;
+		nox_client_highResFloors_154952 = 0;
+		nox_client_lockHighResFloors_1193152 = 0;
+		nox_client_texturedFloors_154956 = 1;
+		nox_gui_console_translucent = 0;
+		nox_client_renderGlow_805852 = 0;
+		nox_client_fadeObjects_80836 = 0;
+		nox_common_resetEngineFlag(NOX_ENGINE_FLAG_ENABLE_SOFT_SHADOW_EDGE);
+		nox_client_renderBubbles_80844 = 0;
+	} else if (v0 == 266) {
+		v4 = 8;
 		v5 = 100;
 		nox_client_drawFrontWalls_80812 = 1;
 		nox_client_translucentFrontWalls_805844 = 1;
@@ -3816,9 +3808,25 @@ void sub_4445C0() {
 		nox_client_lockHighResFloors_1193152 = 0;
 		nox_client_texturedFloors_154956 = 1;
 		nox_gui_console_translucent = 0;
-		goto LABEL_28;
-	}
-	if (v0 == 450) {
+		nox_client_renderGlow_805852 = 1;
+		nox_client_fadeObjects_80836 = 1;
+		nox_common_setEngineFlag(NOX_ENGINE_FLAG_ENABLE_SOFT_SHADOW_EDGE);
+		nox_client_renderBubbles_80844 = 1;
+	} else if (v0 == 300) {
+		v4 = 16;
+		v5 = 100;
+		nox_client_drawFrontWalls_80812 = 1;
+		nox_client_translucentFrontWalls_805844 = 1;
+		nox_client_highResFrontWalls_80820 = 1;
+		nox_client_highResFloors_154952 = 1;
+		nox_client_lockHighResFloors_1193152 = 0;
+		nox_client_texturedFloors_154956 = 1;
+		nox_gui_console_translucent = 0;
+		nox_client_renderGlow_805852 = 1;
+		nox_client_fadeObjects_80836 = 1;
+		nox_common_setEngineFlag(NOX_ENGINE_FLAG_ENABLE_SOFT_SHADOW_EDGE);
+		nox_client_renderBubbles_80844 = 1;
+	} else if (v0 == 450) {
 		v4 = 16;
 		v5 = 100;
 		nox_client_drawFrontWalls_80812 = 1;
@@ -3828,17 +3836,14 @@ void sub_4445C0() {
 		nox_client_lockHighResFloors_1193152 = 1;
 		nox_client_texturedFloors_154956 = 1;
 		nox_gui_console_translucent = 1;
-	LABEL_28:
 		nox_client_renderGlow_805852 = 1;
 		nox_client_fadeObjects_80836 = 1;
 		nox_common_setEngineFlag(NOX_ENGINE_FLAG_ENABLE_SOFT_SHADOW_EDGE);
 		nox_client_renderBubbles_80844 = 1;
-		goto LABEL_30;
 	}
-LABEL_29:
-	v4 = v9;
-	v5 = v9;
-LABEL_30:
+	int v11;
+	int v10;
+	int v9 = 0;
 	nox_xxx_gameGetScreenBoundaries_43BEB0_get_video_mode(&v11, &v10, &v9);
 	v4 = 16; // 8 bit not supported
 	nox_xxx_tileSetDrawFn_481420();

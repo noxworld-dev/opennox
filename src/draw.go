@@ -18,8 +18,19 @@ extern int dword_5d4594_1096508;
 extern void* dword_5d4594_1096512;
 extern int dword_5d4594_1096516;
 extern unsigned int nox_client_drawFrontWalls_80812;
-extern unsigned int nox_client_fadeObjects_80836;
+extern unsigned int nox_client_translucentFrontWalls_805844;
+extern unsigned int nox_client_highResFrontWalls_80820;
+extern unsigned int nox_client_highResFloors_154952;
+extern unsigned int nox_client_lockHighResFloors_1193152;
 extern unsigned int nox_client_texturedFloors_154956;
+extern unsigned int nox_gui_console_translucent;
+extern unsigned int nox_client_renderGlow_805852;
+extern unsigned int nox_client_fadeObjects_80836;
+extern unsigned int nox_client_renderBubbles_80844;
+extern unsigned int nox_client_renderGUI_80828;
+extern unsigned int nox_xxx_useAudio_587000_80840;
+extern unsigned int nox_xxx_xxxRenderGUI_587000_80832;
+extern unsigned int nox_profiled_805856;
 extern unsigned int nox_xxx_waypointCounterMB_587000_154948;
 extern unsigned char nox_arr_84EB20[280*57*4];
 extern unsigned int dword_5d4594_816440;
@@ -86,6 +97,7 @@ import (
 	"unsafe"
 
 	"nox/v1/client/input"
+	"nox/v1/client/render"
 	"nox/v1/common"
 	"nox/v1/common/alloc"
 	noxcolor "nox/v1/common/color"
@@ -110,6 +122,99 @@ func (vp *Viewport) C() *C.nox_draw_viewport_t {
 
 func nox_xxx_guiFontHeightMB_43F320(a1 int) int {
 	return int(C.nox_xxx_guiFontHeightMB_43F320(C.int(a1)))
+}
+
+func nox_setProfiledMode_4445C0(cfg int) {
+	cut := 0
+	*memmap.PtrUint32(0x587000, 80808) = 1
+	*memmap.PtrUint32(0x587000, 80816) = 1
+	C.nox_xxx_useAudio_587000_80840 = 1
+	C.nox_client_renderGUI_80828 = 1
+	C.nox_xxx_xxxRenderGUI_587000_80832 = 1
+	if cfg == 0 {
+		//v4 = 8
+		cut = 75
+		C.nox_client_drawFrontWalls_80812 = 0
+		C.nox_client_translucentFrontWalls_805844 = 0
+		C.nox_client_highResFrontWalls_80820 = 0
+		C.nox_client_highResFloors_154952 = 0
+		C.nox_client_lockHighResFloors_1193152 = 0
+		C.nox_client_texturedFloors_154956 = 1
+		C.nox_gui_console_translucent = 0
+		C.nox_client_renderGlow_805852 = 0
+		C.nox_client_fadeObjects_80836 = 0
+		resetEngineFlag(NOX_ENGINE_FLAG_ENABLE_SOFT_SHADOW_EDGE)
+		C.nox_client_renderBubbles_80844 = 0
+	} else if cfg == 200 {
+		//v4 = 8
+		cut = 85
+		C.nox_client_drawFrontWalls_80812 = 1
+		C.nox_client_translucentFrontWalls_805844 = 0
+		C.nox_client_highResFrontWalls_80820 = 0
+		C.nox_client_highResFloors_154952 = 0
+		C.nox_client_lockHighResFloors_1193152 = 0
+		C.nox_client_texturedFloors_154956 = 1
+		C.nox_gui_console_translucent = 0
+		C.nox_client_renderGlow_805852 = 0
+		C.nox_client_fadeObjects_80836 = 0
+		resetEngineFlag(NOX_ENGINE_FLAG_ENABLE_SOFT_SHADOW_EDGE)
+		C.nox_client_renderBubbles_80844 = 0
+	} else if cfg == 266 {
+		//v4 = 8
+		cut = 100
+		C.nox_client_drawFrontWalls_80812 = 1
+		C.nox_client_translucentFrontWalls_805844 = 1
+		C.nox_client_highResFrontWalls_80820 = 1
+		C.nox_client_highResFloors_154952 = 1
+		C.nox_client_lockHighResFloors_1193152 = 0
+		C.nox_client_texturedFloors_154956 = 1
+		C.nox_gui_console_translucent = 0
+		C.nox_client_renderGlow_805852 = 1
+		C.nox_client_fadeObjects_80836 = 1
+		setEngineFlag(NOX_ENGINE_FLAG_ENABLE_SOFT_SHADOW_EDGE)
+		C.nox_client_renderBubbles_80844 = 1
+	} else if cfg == 300 {
+		//v4 = 16
+		cut = 100
+		C.nox_client_drawFrontWalls_80812 = 1
+		C.nox_client_translucentFrontWalls_805844 = 1
+		C.nox_client_highResFrontWalls_80820 = 1
+		C.nox_client_highResFloors_154952 = 1
+		C.nox_client_lockHighResFloors_1193152 = 0
+		C.nox_client_texturedFloors_154956 = 1
+		C.nox_gui_console_translucent = 0
+		C.nox_client_renderGlow_805852 = 1
+		C.nox_client_fadeObjects_80836 = 1
+		setEngineFlag(NOX_ENGINE_FLAG_ENABLE_SOFT_SHADOW_EDGE)
+		C.nox_client_renderBubbles_80844 = 1
+	} else if cfg == 450 {
+		//v4 = 16
+		cut = 100
+		C.nox_client_drawFrontWalls_80812 = 1
+		C.nox_client_translucentFrontWalls_805844 = 1
+		C.nox_client_highResFrontWalls_80820 = 1
+		C.nox_client_highResFloors_154952 = 1
+		C.nox_client_lockHighResFloors_1193152 = 1
+		C.nox_client_texturedFloors_154956 = 1
+		C.nox_gui_console_translucent = 1
+		C.nox_client_renderGlow_805852 = 1
+		C.nox_client_fadeObjects_80836 = 1
+		setEngineFlag(NOX_ENGINE_FLAG_ENABLE_SOFT_SHADOW_EDGE)
+		C.nox_client_renderBubbles_80844 = 1
+	}
+	C.nox_xxx_tileSetDrawFn_481420()
+	if !getEngineFlag(NOX_ENGINE_FLAG_ENABLE_WINDOWED_MODE) {
+		videoUpdateGameMode(render.Mode{
+			Width:  noxDefaultWidth,
+			Height: noxDefaultHeight,
+			Depth:  noxDefaultDepth,
+		})
+	}
+	C.nox_video_setCutSize_4766A0(C.int(cut))
+	if noxflags.HasGame(0x10000000) {
+		nox_draw_setCutSize_476700(C.int(cut), 0)
+	}
+	C.nox_profiled_805856 = 1
 }
 
 var noxrend = NewNoxRender()

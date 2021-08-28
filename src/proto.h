@@ -1584,7 +1584,7 @@ void  sub_4417E0(wchar_t* a1, const char* a2);
 int  nox_xxx_doExecrul_4438A0(int a1);
 void  sub_4443B0(unsigned __int8 a1);
 wchar_t*  sub_444410(int a1);
-void sub_4445C0();
+void nox_setProfiledMode_4445C0();
 BOOL nox_xxx____crtGetStringTypeA_0_444830();
 int  nox_xxx_GfxInit_444930(int w, int h, int depth, int flags);
 int  nox_client_drawInitAll_4449D0(int w, int h, int depth, int flags);

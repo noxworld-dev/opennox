@@ -1,7 +1,7 @@
 //+build none
 
 //----- (004445C0) --------------------------------------------------------
-void sub_4445C0() {
+void nox_setProfiledMode_4445C0() {
 	int v0;     // ebx
 	int v4;     // ebx
 	int v5;     // ebp

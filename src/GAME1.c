@@ -295,7 +295,7 @@ int cmain(int argc, const char* argv[]) {
 		return 0;
 	}
 	if (!nox_profiled_805856)
-		sub_4445C0();
+		nox_setProfiledMode_4445C0();
 	nox_xxx_clear18hDD_416190();
 	nox_common_initRandom_415F70();
 	nox_xxx_bindevent_initStrings_42EAE0();

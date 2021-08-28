@@ -6712,7 +6712,7 @@ int  sub_4CB5D0(int a1, int a2, int* a3, int a4) {
 			nox_client_renderBubbles_80844 = 1 - nox_client_renderBubbles_80844;
 			goto LABEL_23;
 		case 2099:
-			sub_4445C0();
+			nox_setProfiledMode_4445C0();
 			sub_4CB330();
 			v4 = *(_DWORD*)(a1 + 396);
 			if (!v4)
