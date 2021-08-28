@@ -12195,7 +12195,8 @@ int  nox_xxx_itemApplyEngageEffect_4F2FF0(nox_object_t* item, int a2) {
 }
 
 //----- (004F3030) --------------------------------------------------------
-int  nox_xxx_itemApplyDisengageEffect_4F3030(int a1, int a2) {
+int  nox_xxx_itemApplyDisengageEffect_4F3030(const nox_object_t* object, int a2) {
+	int a1 = object;
 	int v2;                           // ebp
 	int* v3;                          // esi
 	int result;                       // eax

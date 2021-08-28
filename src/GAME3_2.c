@@ -5616,7 +5616,8 @@ _DWORD*  nox_xxx_netReportEquip_4D8540(int a1, _DWORD* a2, int a3) {
 }
 
 //----- (004D8590) --------------------------------------------------------
-int  nox_xxx_netReportDequip_4D8590(int a1, _DWORD* a2) {
+int  nox_xxx_netReportDequip_4D8590(int a1, const nox_object_t* object) {
+	_DWORD* a2 = object;
 	int v2;     // ecx
 	char v4[3]; // [esp+0h] [ebp-4h]
 	char v5;    // [esp+3h] [ebp-1h]

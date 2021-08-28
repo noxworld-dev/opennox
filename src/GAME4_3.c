@@ -9915,7 +9915,8 @@ int  nox_xxx_recalculateArmorVal_53E300(_DWORD* a1) {
 }
 
 //----- (0053E3A0) --------------------------------------------------------
-int  sub_53E3A0(int a1, int a2) {
+int  sub_53E3A0(int a1, const nox_object_t* object) {
+	int a2 = object;
 	int result; // eax
 	int v3;     // ecx
 
