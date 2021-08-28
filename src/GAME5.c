@@ -8203,7 +8203,7 @@ int  nox_xxx_sendto_551F90(nox_socket_t s, char* buf, int len, struct nox_net_so
 }
 
 //----- (00552010) --------------------------------------------------------
-int  sub_552010(int a1) {
+int  nox_net_setPacketDrop_552010(int a1) {
 	int result; // eax
 
 	result = a1;

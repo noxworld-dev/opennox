@@ -114,7 +114,7 @@ func runNox(args []string) error {
 		fMinimize   = flags.Bool("minimize", false, "minimize")
 		fNoLimit    = flags.Bool("nolimit", false, "nolimit")
 		fSleep      = flags.Bool("sleep", false, "sleep")
-		fDrop       = flags.Int("drop", 0, "drop")
+		fDrop       = flags.Int("drop", 0, "drop given percent of network packets")
 		fNoText     = flags.Bool("notext", false, "notext")
 		fNoLog      = flags.Bool("nolog", false, "nolog")
 		fLock       = flags.Bool("lock", false, "lock")
@@ -221,8 +221,7 @@ func runNox(args []string) error {
 		setEngineFlag(NOX_ENGINE_FLAG_SLEEP)
 	}
 	if v := *fDrop; v != 0 {
-		// TODO: can it be 0?
-		C.sub_552010(C.int(v))
+		C.nox_net_setPacketDrop_552010(C.int(v))
 	}
 	if *fNoText {
 		setEngineFlag(NOX_ENGINE_FLAG_DISABLE_TEXT_RENDERING)

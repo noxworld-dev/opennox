@@ -221,7 +221,7 @@ int cmain(int argc, const char* argv[]) {
 		} else if (!_strcmpi(flag, "-drop")) {
 			++i;
 			int v = atoi(argv[i]);
-			sub_552010(v);
+			nox_net_setPacketDrop_552010(v);
 		} else if (!_strcmpi(flag, "-notext")) {
 			nox_common_setEngineFlag(NOX_ENGINE_FLAG_DISABLE_TEXT_RENDERING);
 		} else if (!_strcmpi(flag, "-nolog")) {
