@@ -642,7 +642,7 @@ char  mix_MouseKeyboardWeaponRoll(int playerObj, char a2) {
 					if (nox_xxx_playerClassCanUseItem_57B3D0(next, *(_BYTE*)(*(_DWORD*)(*(_DWORD*)(playerObj + 748) + 276) + 2251))) {
 						v11 = nox_xxx_playerCheckStrength_4F3180(playerObj, next);
 						if (v11) {
-							if (nox_xxx_playerTryDequip_4F2FB0((_DWORD*)playerObj, cur) && nox_xxx_playerTryEquip_4F2F70((_DWORD*)playerObj, next)) {
+							if (nox_xxx_playerTryDequip_4F2FB0((_DWORD*)playerObj, (const nox_object_t*)cur) && nox_xxx_playerTryEquip_4F2F70((_DWORD*)playerObj, next)) {
 								v16 = 1;
 							}
 							return v16;

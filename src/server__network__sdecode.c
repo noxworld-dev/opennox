@@ -249,7 +249,7 @@ int  nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned __int8* ope
 					v7 = v85;
 					if (!(*(_BYTE *) (v85 + 88) == 1 && *(_DWORD *) (v18 + 8) & 0x1000000 &&
 						  *(_BYTE *) (v18 + 12) & 8)) {
-						nox_xxx_playerTryDequip_4F2FB0((_DWORD *) unit, v18);
+						nox_xxx_playerTryDequip_4F2FB0((_DWORD *) unit, (const nox_object_t*)v18);
 					}
 				}
 			}

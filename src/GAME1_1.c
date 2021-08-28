@@ -1755,7 +1755,7 @@ BOOL  sub_41AC30(_DWORD* a1) {
 				}
 				v26 = v25[4];
 				if (!(v26 & 0x20) && v26 & 0x100)
-					nox_xxx_playerTryDequip_4F2FB0(a1, (int)v25);
+					nox_xxx_playerTryDequip_4F2FB0(a1, (nox_object_t*)v25);
 			} while (++v23 < k);
 		}
 		nox_xxx_fileReadWrite_426AC0_file3_fread(&v41, 1u);

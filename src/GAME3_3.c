@@ -12164,7 +12164,8 @@ int  nox_xxx_playerTryEquip_4F2F70(_DWORD* a1, nox_object_t* item) {
 }
 
 //----- (004F2FB0) --------------------------------------------------------
-int  nox_xxx_playerTryDequip_4F2FB0(_DWORD* a1, int a2) {
+int  nox_xxx_playerTryDequip_4F2FB0(_DWORD* a1, const nox_object_t* object) {
+	int a2 = object;
 	int result; // eax
 
 	if (nox_xxx_playerDequipWeapon_53A140(a1, a2, 1, 1) || (result = sub_53E430(a1, a2, 1, 1)) != 0)
