@@ -124,7 +124,13 @@ func nox_xxx_guiFontHeightMB_43F320(a1 int) int {
 	return int(C.nox_xxx_guiFontHeightMB_43F320(C.int(a1)))
 }
 
-func nox_setProfiledMode_4445C0(cfg int) {
+//export nox_setProfiledMode_4445C0
+func nox_setProfiledMode_4445C0() {
+	detectBestVideoSettings()
+}
+
+func detectBestVideoSettings() { // nox_setProfiledMode_4445C0
+	const cfg = 450
 	cut := 0
 	*memmap.PtrUint32(0x587000, 80808) = 1
 	*memmap.PtrUint32(0x587000, 80816) = 1

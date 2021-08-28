@@ -30,6 +30,10 @@ extern unsigned int dword_5d4594_816348;
 extern unsigned int dword_5d4594_805988;
 extern int nox_video_bag_var_2650640;
 
+extern nox_gui_animation* nox_wnd_xxx_1309740;
+extern int nox_xxx_normalWndHeight_587000_172876;
+extern int nox_xxx_normalWndWidth_587000_172872;
+
 void init_data();
 */
 import "C"
@@ -297,7 +301,7 @@ func runNox(args []string) error {
 		return fmt.Errorf("failed to load gameex config file: %w", err)
 	}
 	if C.nox_profiled_805856 == 0 {
-		nox_setProfiledMode_4445C0(450)
+		detectBestVideoSettings()
 	}
 	C.nox_xxx_clear18hDD_416190()
 	noxCommonInitRandom()
@@ -367,15 +371,6 @@ func nox_xxx_getNoxVer_401020() *C.wchar_t {
 	return internWStr(ClientVersionString())
 }
 
-//export nox_xxx_gameResizeScreen_43BEF0_set_video_mode
-func nox_xxx_gameResizeScreen_43BEF0_set_video_mode(w, h, d C.int) {
-	videoUpdateGameMode(render.Mode{
-		Width:  int(w),
-		Height: int(h),
-		Depth:  int(d),
-	})
-}
-
 //export nox_xxx_gameGetScreenBoundaries_43BEB0_get_video_mode
 func nox_xxx_gameGetScreenBoundaries_43BEB0_get_video_mode(w, h, d *C.int) {
 	mode := videoGetGameMode()
@@ -399,6 +394,21 @@ func videoUpdateGameMode(mode render.Mode) {
 //export change_windowed_fullscreen
 func change_windowed_fullscreen() {
 	changeWindowedOrFullscreen()
+}
+
+//export sub_4AA9C0
+func sub_4AA9C0() C.int {
+	C.sub_44D8F0()
+	videoUpdateGameMode(render.Mode{
+		Width:  int(C.nox_xxx_normalWndHeight_587000_172876),
+		Height: int(C.nox_xxx_normalWndWidth_587000_172872),
+		Depth:  noxDefaultDepth,
+	})
+	C.nox_common_writecfgfile(internCStr("nox.cfg"))
+	C.nox_wnd_xxx_1309740.state = C.nox_gui_anim_state(NOX_GUI_ANIM_OUT)
+	C.sub_43BE40(2)
+	clientPlaySoundSpecial(923, 100)
+	return 1
 }
 
 func cleanup() {

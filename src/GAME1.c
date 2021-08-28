@@ -359,7 +359,6 @@ int cmain(int argc, const char* argv[]) {
 	cmain_loop(0);
 	return result;
 }
-#endif // NOX_CGO
 // 4015E2: variable 'v18' is possibly undefined
 // 4017F7: variable 'v22' is possibly undefined
 // 4093D0: using guessed type int sub_4093D0(void);
@@ -396,6 +395,7 @@ void  sub_401B20(char* a1) {
 		*getMemU32Ptr(0x5D4594, 272 + 4 * *getMemU32Ptr(0x5D4594, 404)) = 0;
 	}
 }
+#endif // NOX_CGO
 
 //----- (004093E0) --------------------------------------------------------
 void  nox_xxx_parseRead_4093E0(FILE* a1, char* a2, int a3) {

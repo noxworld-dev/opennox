@@ -4027,6 +4027,7 @@ int nox_game_showOptions_4AA6B0() {
 }
 // 4A18E0: using guessed type int  sub_4A18E0(int, int, int, int);
 
+#ifndef NOX_CGO
 //----- (004AA9C0) --------------------------------------------------------
 int sub_4AA9C0() {
 	sub_44D8F0();
@@ -4039,7 +4040,6 @@ int sub_4AA9C0() {
 }
 
 //----- (004AAA10) --------------------------------------------------------
-#ifndef NOX_CGO
 bool nox_video_sync_depths() {
 	if (nox_win_depth_game == nox_win_depth_menu) {
 		return true;

@@ -3760,6 +3760,7 @@ wchar_t*  sub_444410(int a1) {
 	return (char*)getMemAt(0x587000, 94516 + 76 * v2);
 }
 
+#ifndef NOX_CGO
 //----- (004445C0) --------------------------------------------------------
 void nox_setProfiledMode_4445C0() {
 	int v0 = 0;
@@ -3854,7 +3855,6 @@ void nox_setProfiledMode_4445C0() {
 		nox_draw_setCutSize_476700(v5, 0);
 	nox_profiled_805856 = 1;
 }
-#ifndef NOX_CGO
 BOOL nox_xxx____crtGetStringTypeA_0_444830() {
 	abort();
 	return 0;
