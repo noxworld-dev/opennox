@@ -239,14 +239,10 @@ func runNox(args []string) error {
 		C.nox_video_dxUnlockSurface = 1
 		*memmap.PtrUint32(0x5D4594, 805840) = 1
 		C.nox_enable_threads = 0
-		depth := 16
-		if !C.nox_video_bagexists_4300D0(1) {
-			depth = 8
-		}
 		mode := render.Mode{
 			Width:  noxDefaultWidth,
 			Height: noxDefaultHeight,
-			Depth:  depth,
+			Depth:  noxDefaultDepth,
 		}
 		videoSetGameMode(mode)
 		videoSetMenuMode(mode)
