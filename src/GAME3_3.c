@@ -12196,20 +12196,19 @@ int  nox_xxx_itemApplyEngageEffect_4F2FF0(nox_object_t* item, int a2) {
 
 //----- (004F3030) --------------------------------------------------------
 int  nox_xxx_itemApplyDisengageEffect_4F3030(const nox_object_t* object, int a2) {
-	int a1 = object;
 	int v2;                           // ebp
 	int* v3;                          // esi
 	int result;                       // eax
 	int( * v5)(int, int, int); // ecx
 
 	v2 = 2;
-	v3 = (int*)(*(_DWORD*)(a1 + 692) + 8);
+	v3 = (int*)(*(_DWORD*)&object->field_173 + 8);
 	do {
 		result = *v3;
 		if (*v3) {
 			v5 = *(int(**)(int, int, int))(result + 116);
 			if (v5)
-				result = v5(result, a2, a1);
+				result = v5(result, a2, object);
 		}
 		++v3;
 		--v2;

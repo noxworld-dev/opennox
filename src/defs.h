@@ -659,7 +659,7 @@ typedef struct nox_object_t {
 	_DWORD field_170; // 170, 680
 	_DWORD field_171; // 171, 684
 	_DWORD field_172; // 172, 688
-	void* field_173; // 173, 692, // TODO: data
+	void* field_173; // 173, 692, // TODO: struct pointer; struct at least 8 bytes wide. see 4F3030.
 	_DWORD field_174; // 174, 696
 	void* field_175; // 175, 700, // TODO: data
 	void* func_xfer; // 176, 704
