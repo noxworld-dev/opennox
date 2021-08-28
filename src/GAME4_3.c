@@ -9943,8 +9943,7 @@ int  sub_53E3A0(int a1, int a2) {
 }
 
 //----- (0053E430) --------------------------------------------------------
-int  sub_53E430(_DWORD* a1, const nox_object_t* object, int a3, int a4) {
-	const int a2 = object;
+int  sub_53E430(_DWORD* a1, nox_object_t* object, int a3, int a4) {
 	int v4;     // ecx
 	int v5;     // eax
 	int v7;     // eax
@@ -9952,35 +9951,35 @@ int  sub_53E430(_DWORD* a1, const nox_object_t* object, int a3, int a4) {
 	_DWORD* v9; // edi
 	char v10;   // al
 
-	if (!(*(_DWORD*)(a2 + 8) & 0x2000000))
+	if (!(object->obj_class & 0x2000000))
 		return 0;
-	v4 = *(_DWORD*)(a2 + 16);
+	v4 = object->field_4;
 	if (!(v4 & 0x100))
 		return 0;
 	v5 = a1[2];
 	if (v5 & 2)
-		return sub_53E3A0((int)a1, a2);
+		return sub_53E3A0((int)a1, object);
 	if (!(v5 & 4))
 		return 0;
 	v7 = a1[126];
 	v8 = a1[187];
 	if (!v7)
 		return 0;
-	while (v7 != a2) {
+	while (v7 != object) {
 		v7 = *(_DWORD*)(v7 + 496);
 		if (!v7)
 			return 0;
 	}
-	*(_DWORD*)(a2 + 16) = v4 & 0xEFFFFEFF;
+	object->field_4 = v4 & 0xEFFFFEFF;
 	v9 = *(_DWORD**)(v8 + 276);
-	*v9 &= ~nox_xxx_unitArmorInventoryEquipFlags_415C70(a2);
+	*v9 &= ~nox_xxx_unitArmorInventoryEquipFlags_415C70(object);
 	if (a3)
-		nox_xxx_netReportDequip_4D8590(*(unsigned __int8*)(*(_DWORD*)(v8 + 276) + 2064), (_DWORD*)a2);
+		nox_xxx_netReportDequip_4D8590(*(unsigned __int8*)(*(_DWORD*)(v8 + 276) + 2064), object);
 	if (a4)
-		nox_xxx_netReportDequip_4D84C0(255, a2);
+		nox_xxx_netReportDequip_4D84C0(255, object);
 	nox_xxx_recalculateArmorVal_53E300(a1);
-	nox_xxx_itemApplyDisengageEffect_4F3030(a2, (int)a1);
-	if (*(_BYTE*)(a2 + 12) & 2) {
+	nox_xxx_itemApplyDisengageEffect_4F3030(object, (int)a1);
+	if (*(_BYTE*)&object->field_12 & 2) {
 		v10 = *(_BYTE*)(v8 + 88);
 		if (v10 == 15 || v10 == 16 || v10 == 17)
 			nox_xxx_playerSetState_4FA020(a1, 13);
