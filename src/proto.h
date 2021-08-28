@@ -143,7 +143,7 @@ int  sub_40AA70(int a1);
 bool nox_xxx_checkHasSoloMaps_40ABD0();
 int  nox_xxx_PtFuncCompare_40AE90(const void*, const void*); // idb
 int  sub_40AEB0(const void*, const void*); // idb
-void sub_40AED0();
+void nox_init_sound_index_40AED0();
 void sub_40AF30();
 int  nox_xxx_utilFindSound_40AF50(void* a1);
 const char*  nox_xxx_getSndName_40AF80(int a1);

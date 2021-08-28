@@ -288,7 +288,7 @@ int cmain(int argc, const char* argv[]) {
 		return 0;
 	}
 	nox_common_scanAllMaps_4D07F0();
-	sub_40AED0();
+	nox_init_sound_index_40AED0();
 	nox_xxx_mapSetDataDefault_416500();
 	result = nox_common_readcfgfile("nox.cfg", 0);
 	if (!result) {
@@ -1248,7 +1248,7 @@ int  nox_xxx_PtFuncCompare_40AE90(const void* a1, const void* a2) {
 int  sub_40AEB0(const void* a1, const void* a2) { return _strcmpi((const char*)a1, *((const char**)a2 + 1)); }
 
 //----- (0040AED0) --------------------------------------------------------
-void sub_40AED0() {
+void nox_init_sound_index_40AED0() {
 	if (dword_5d4594_3616) {
 		return;
 	}

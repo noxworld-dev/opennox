@@ -288,7 +288,7 @@ func runNox(args []string) error {
 		return fmt.Errorf("cannot find maps: %w", err)
 	}
 	keyBinding = keybind.New(strMan)
-	C.sub_40AED0()
+	C.nox_init_sound_index_40AED0()
 	C.nox_xxx_mapSetDataDefault_416500()
 	if C.nox_common_readcfgfile(C.CString("nox.cfg"), 0) == 0 {
 		return fmt.Errorf("failed to load config file")
