@@ -494,7 +494,7 @@ int nox_xxx_clear18hDD_416190();
 BOOL  sub_4161B0(unsigned __int8 a1);
 int sub_4161E0();
 void sub_4164F0();
-int nox_xxx_mapSetDataDefault_416500();
+void nox_xxx_mapSetDataDefault_416500();
 int sub_416580();
 char*  nox_xxx_cliGamedataGet_416590(int a1);
 char* sub_4165B0();

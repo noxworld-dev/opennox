@@ -7830,15 +7830,12 @@ int sub_4161E0() {
 void sub_4164F0() { dword_5d4594_371692 = 0; }
 
 //----- (00416500) --------------------------------------------------------
-int nox_xxx_mapSetDataDefault_416500() {
-	int result; // eax
-
-	memset(getMemAt(0x5D4594, 371380), 0, 0x74u);
-	memset(getMemAt(0x5D4594, 371516), 0, 0xA8u);
+void nox_xxx_mapSetDataDefault_416500() {
+	memset(getMemAt(0x5D4594, 371380), 0, 116);
+	memset(getMemAt(0x5D4594, 371516), 0, 168);
 	*getMemU8Ptr(0x5D4594, 371684) = 0;
 	*getMemU16Ptr(0x5D4594, 371621) = -1;
 	*getMemU16Ptr(0x5D4594, 371623) = -1;
-	result = 0;
 	*getMemU32Ptr(0x5D4594, 371688) = 0;
 	*getMemU8Ptr(0x5D4594, 371617) = -1;
 	*getMemU8Ptr(0x5D4594, 371568) = 32;
@@ -7849,7 +7846,6 @@ int nox_xxx_mapSetDataDefault_416500() {
 	*getMemU32Ptr(0x5D4594, 371586) = 0;
 	*getMemU32Ptr(0x5D4594, 371590) = 20;
 	*getMemU32Ptr(0x5D4594, 371696) = 0;
-	return result;
 }
 
 //----- (00416580) --------------------------------------------------------
