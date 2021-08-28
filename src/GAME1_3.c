@@ -3849,13 +3849,13 @@ LABEL_30:
 		nox_draw_setCutSize_476700(v5, 0);
 	nox_profiled_805856 = 1;
 }
+#ifndef NOX_CGO
 BOOL nox_xxx____crtGetStringTypeA_0_444830() {
 	abort();
 	return 0;
 }
 
 //----- (004449D0) --------------------------------------------------------
-#ifndef NOX_CGO
 int  nox_client_drawInitAll_4449D0(int w, int h, int depth, int flags) {
 	int result; // eax
 
