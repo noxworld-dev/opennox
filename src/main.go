@@ -177,7 +177,7 @@ func runNox(args []string) error {
 	C.nox_video_bag_var_2650640 = 0
 	*memmap.PtrUint32(0x8531A0, 2584) = 0
 	C.nox_gameDisableMapDraw_5d4594_2650672 = 0
-	gameAddStateCode(10)
+	gameAddStateCode(gameStateMovies)
 	noxflags.ResetGame()
 	noxflags.OnGameChange(func(f noxflags.GameFlag) {
 		if f.Has(noxflags.GameServerSettings) {
