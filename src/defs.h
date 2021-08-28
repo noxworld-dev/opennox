@@ -611,7 +611,7 @@ typedef struct nox_object_t {
 	_WORD field_122_2; // 122, 490
 	_DWORD field_123; // 123, 492 // Also health data, possibly same as 556, see 4E4560
 	nox_object_t* field_124; // 124, 496, TODO: Next item?
-	_DWORD field_125; // 125, 500
+	_DWORD field_125; // 125, 500, TODO: a nox_object_t*? see 4ED0C0
 	void* field_126; // 126, 504, TODO: a nox_object_t*? see 4E5DB0
 	_DWORD field_127; // 127, 508
 	void* field_128; // 128, 512

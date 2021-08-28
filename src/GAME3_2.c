@@ -5574,7 +5574,8 @@ _DWORD*  sub_4D82F0(int a1, _DWORD* a2) {
 }
 
 //----- (004D84C0) --------------------------------------------------------
-int  nox_xxx_netReportDequip_4D84C0(int a1, int a2) {
+int  nox_xxx_netReportDequip_4D84C0(int a1, const nox_object_t* object) {
+	int a2 = object;
 	int result; // eax
 	int v3;     // ecx
 	int v4;     // ecx
@@ -5903,7 +5904,8 @@ int  nox_xxx_netReportModifiablePickup_4D8AD0(int a1, nox_object_t* item) {
 }
 
 //----- (004D8B50) --------------------------------------------------------
-int  nox_xxx_netReportDrop_4D8B50(int a1, int a2) {
+int  nox_xxx_netReportDrop_4D8B50(int a1, const nox_object_t* object) {
+	int a2 = object;
 	char v3[5]; // [esp+4h] [ebp-8h]
 
 	v3[0] = 77;

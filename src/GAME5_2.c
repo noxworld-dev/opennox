@@ -2830,7 +2830,8 @@ int  nox_xxx_protect_56FBF0(int a1, nox_object_t* item) {
 // 560840: using guessed type void  nullsub_31(_DWORD);
 
 //----- (0056FC50) --------------------------------------------------------
-int  nox_xxx_protect_56FC50(int a1, int* a2) {
+int  nox_xxx_protect_56FC50(int a1, const nox_object_t* object) {
+	int* a2 = object;
 	int result; // eax
 	_DWORD* v3; // eax
 	_DWORD* v4; // esi
