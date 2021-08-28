@@ -477,7 +477,7 @@ int  sub_415B20(char* a1);
 double  sub_415BD0(int a1);
 double  nox_xxx_itemApplyDefendEffect_415C00(int a1);
 int  nox_xxx_unitArmorInventoryEquipFlags_415C70(nox_object_t* item);
-int  sub_415C90(nox_object_t* item);
+int  sub_415C90(const nox_object_t* item);
 int  sub_415CD0(char* a1);
 int  sub_415D10(char* a1);
 int  sub_415DA0(wchar_t* a1);

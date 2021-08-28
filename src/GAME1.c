@@ -7512,21 +7512,20 @@ int  nox_xxx_unitArmorInventoryEquipFlags_415C70(nox_object_t* item) {
 }
 
 //----- (00415C90) --------------------------------------------------------
-int  sub_415C90(nox_object_t* item) {
-	int a1 = (int)item;
+int  sub_415C90(const nox_object_t* item) {
 	int result;         // eax
 	int v2;             // edx
 	unsigned __int8* i; // ecx
 	int v4;             // esi
 
-	if (!a1)
+	if (!item)
 		return -1;
 	result = 0;
 	if (!*getMemU32Ptr(0x587000, 34848))
 		return -1;
 	HIWORD(v2) = 0;
 	for (i = getMemAt(0x587000, 34848);; i += 24) {
-		LOWORD(v2) = *(_WORD*)(a1 + 4);
+		LOWORD(v2) = item->typ_ind;
 		if (v2 == *((_DWORD*)i + 2))
 			break;
 		v4 = *((_DWORD*)i + 6);
