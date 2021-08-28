@@ -14,19 +14,6 @@ var (
 	Log = log.New("render")
 )
 
-type Mode struct {
-	Width  int
-	Height int
-	Depth  int
-}
-
-func (m Mode) Size() types.Size {
-	return types.Size{
-		W: m.Width,
-		H: m.Height,
-	}
-}
-
 func New(sc seat.Screen) (*Renderer, error) {
 	sz := sc.ScreenSize()
 	r := &Renderer{

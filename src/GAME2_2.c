@@ -69,7 +69,6 @@ extern _DWORD dword_5d4594_1098592;
 extern _DWORD dword_5d4594_1193184;
 extern _DWORD dword_5d4594_1189600;
 extern _DWORD dword_5d4594_823776;
-extern int nox_video_16bit;
 extern _DWORD dword_5d4594_1098580;
 extern _DWORD dword_5d4594_2650680;
 extern _DWORD nox_client_lockHighResFloors_1193152;
@@ -153,6 +152,7 @@ unsigned char nox_arr_84EB20[280*57*4] = {0}; // TODO: the 4x factor is for high
 extern nox_light_3 nox_arr2_853BC0[57*4][45*4]; // TODO: the 4x factor is for high-res; figure out what those values are
 
 #ifndef NOX_CGO
+int nox_video_16bit = 0;
 _DWORD dword_5d4594_1097208 = 0;
 
 _DWORD nox_client_spellDragnDrop_1097192 = 0;

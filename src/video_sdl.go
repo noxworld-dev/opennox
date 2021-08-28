@@ -11,7 +11,6 @@ import (
 	"errors"
 	"unsafe"
 
-	"nox/v1/client/render"
 	"nox/v1/common/memmap"
 	"nox/v1/common/types"
 )
@@ -48,7 +47,7 @@ func resetRenderer(sz types.Size, init bool) error {
 }
 
 func gameResetVideoMode(inMenu, force bool) error {
-	var mode render.Mode
+	var mode types.Size
 	if inMenu {
 		if debugMainloop {
 			videoLog.Printf("gameUpdateVideoMode: menu (%s)", caller(1))
@@ -63,10 +62,10 @@ func gameResetVideoMode(inMenu, force bool) error {
 	videoLog.Printf("mode switch: %+v (menu: %v)", mode, inMenu)
 	videoResizeView(mode)
 	C.nox_game_loop_xxx_805872 = 0
-	if !force && mode.Size() == nox_pixbuffer_size {
+	if !force && mode == nox_pixbuffer_size {
 		return nil
 	}
-	if err := recreateBuffersAndTarget(mode.Size()); err != nil {
+	if err := recreateBuffersAndTarget(mode); err != nil {
 		return err
 	}
 	C.nox_xxx_loadPal_4A96C0_video_read_palette(internCStr("default.pal"))

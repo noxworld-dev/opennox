@@ -1,7 +1,6 @@
 package main
 
 import (
-	"nox/v1/client/render"
 	"nox/v1/client/seat"
 	"nox/v1/common/log"
 	"nox/v1/common/types"
@@ -15,10 +14,9 @@ const (
 
 var (
 	videoLog         = log.New("video")
-	noxVideoModeMenu = render.Mode{
-		Width:  noxDefaultWidth,
-		Height: noxDefaultHeight,
-		Depth:  noxDefaultDepth,
+	noxVideoModeMenu = types.Size{
+		W: noxDefaultWidth,
+		H: noxDefaultHeight,
 	}
 	noxVideoMax = types.Size{
 		W: noxMaxWidth,
@@ -26,11 +24,11 @@ var (
 	}
 )
 
-func videoGetMenuMode() render.Mode {
+func videoGetMenuMode() types.Size {
 	return noxVideoModeMenu
 }
 
-func videoSetMenuMode(mode render.Mode) {
+func videoSetMenuMode(mode types.Size) {
 	noxVideoModeMenu = mode
 }
 
@@ -42,33 +40,20 @@ func videoGetMaxSize() types.Size {
 	return noxVideoMax
 }
 
-func videoSyncMenuDepth() bool {
-	depth := videoGetGameMode().Depth
-	if depth == noxVideoModeMenu.Depth {
-		return true
-	}
-	noxVideoModeMenu.Depth = depth
-	return false
-}
-
-func videoResizeView(mode render.Mode) {
-	mode.Depth = 16 // 8 bit not supported
+func videoResizeView(mode types.Size) {
 	max := videoGetMaxSize()
-	if mode.Width > max.W {
-		mode.Width = max.W
+	if mode.W > max.W {
+		mode.W = max.W
 	}
-	if mode.Height > max.H {
-		mode.Height = max.H
+	if mode.H > max.H {
+		mode.H = max.H
 	}
-	videoSetWindowSize(mode.Size())
-	videoSet16Bit(mode.Depth != 8)
+	videoSetWindowSize(mode)
 }
 
-func videoApplyConfigVideoMode(mode render.Mode) {
-	mode.Depth = 16 // 8 bit not supported
+func videoApplyConfigVideoMode(mode types.Size) {
 	if !getEngineFlag(NOX_ENGINE_FLAG_ENABLE_WINDOWED_MODE) {
 		videoSetGameMode(mode)
-		videoSyncMenuDepth()
 
 		// FIXME: this will cause the game to change its window size to whatever set in nox.cfg right at the
 		// start! this is different from original game where window is only resized after joining the game

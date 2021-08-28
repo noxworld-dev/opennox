@@ -48,7 +48,6 @@ import (
 	"unsafe"
 
 	"nox/v1/client/input/keybind"
-	"nox/v1/client/render"
 	"nox/v1/common"
 	"nox/v1/common/alloc/handles"
 	"nox/v1/common/datapath"
@@ -243,10 +242,9 @@ func runNox(args []string) error {
 		C.nox_video_dxUnlockSurface = 1
 		*memmap.PtrUint32(0x5D4594, 805840) = 1
 		C.nox_enable_threads = 0
-		mode := render.Mode{
-			Width:  noxDefaultWidth,
-			Height: noxDefaultHeight,
-			Depth:  noxDefaultDepth,
+		mode := types.Size{
+			W: noxDefaultWidth,
+			H: noxDefaultHeight,
 		}
 		videoSetGameMode(mode)
 		videoSetMenuMode(mode)
@@ -310,7 +308,7 @@ func runNox(args []string) error {
 	C.nox_xxx_cmdTokensLoad_4444F0()
 	C.sub_4D11A0()
 	if !isDedicatedServer {
-		videoResizeView(render.Mode{Depth: 16})
+		videoResizeView(types.Size{})
 		if err := gameResetVideoMode(true, true); err != nil {
 			return fmt.Errorf("failed to update video mode: %w", err)
 		}
@@ -320,7 +318,7 @@ func runNox(args []string) error {
 		enableGUIDrawing(false)
 		videoInitStub()
 	}
-	if C.nox_video_read_videobag(C.int(bool2int(videoIs16Bit()))) == 0 {
+	if C.nox_video_read_videobag(1) == 0 {
 		return fmt.Errorf("failed to read graphics")
 	}
 	if C.sub_431370() == 0 {
@@ -375,18 +373,17 @@ func nox_xxx_getNoxVer_401020() *C.wchar_t {
 func nox_xxx_gameGetScreenBoundaries_43BEB0_get_video_mode(w, h, d *C.int) {
 	mode := videoGetGameMode()
 	if w != nil {
-		*w = C.int(mode.Width)
+		*w = C.int(mode.W)
 	}
 	if h != nil {
-		*h = C.int(mode.Height)
+		*h = C.int(mode.H)
 	}
 	if d != nil {
-		*d = C.int(mode.Depth)
+		*d = 16
 	}
 }
 
-func videoUpdateGameMode(mode render.Mode) {
-	mode.Depth = 16 // 8 bit not supported
+func videoUpdateGameMode(mode types.Size) {
 	videoSetGameMode(mode)
 	changeWindowedOrFullscreen()
 }
@@ -399,10 +396,9 @@ func change_windowed_fullscreen() {
 //export sub_4AA9C0
 func sub_4AA9C0() C.int {
 	C.sub_44D8F0()
-	videoUpdateGameMode(render.Mode{
-		Width:  int(C.nox_xxx_normalWndHeight_587000_172876),
-		Height: int(C.nox_xxx_normalWndWidth_587000_172872),
-		Depth:  noxDefaultDepth,
+	videoUpdateGameMode(types.Size{
+		W: int(C.nox_xxx_normalWndHeight_587000_172876),
+		H: int(C.nox_xxx_normalWndWidth_587000_172872),
 	})
 	C.nox_common_writecfgfile(internCStr("nox.cfg"))
 	C.nox_wnd_xxx_1309740.state = C.nox_gui_anim_state(NOX_GUI_ANIM_OUT)

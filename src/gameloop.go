@@ -389,7 +389,6 @@ func CONNECT_OR_HOST() {
 		}()
 	}
 	mode := videoGetGameMode()
-	v5, v4 := mode.Width, mode.Height
 	var info *C.char = C.nox_xxx_getHostInfoPtr_431770()
 	infos := asByteSlice(unsafe.Pointer(info), 97)
 
@@ -416,8 +415,8 @@ func CONNECT_OR_HOST() {
 	defer alloc.FreeBytes(Datas)
 
 	C.sub_48D740()
-	*(*uint32)(unsafe.Pointer(&Datas[97])) = uint32(v5)
-	*(*uint32)(unsafe.Pointer(&Datas[101])) = uint32(v4)
+	*(*uint32)(unsafe.Pointer(&Datas[97])) = uint32(mode.W)
+	*(*uint32)(unsafe.Pointer(&Datas[101])) = uint32(mode.H)
 	C.nox_xxx_regGetSerial_420120((*C.uchar)(unsafe.Pointer(&Datas[105])))
 	if C.nox_xxx_check_flag_aaa_43AF70() == 0 {
 		C.nox_common_getInstallPath_40E0D0((*C.char)(unsafe.Pointer(&Datas[105])), internCStr("SOFTWARE\\Westwood\\Nox"), 0)
@@ -750,9 +749,9 @@ func CONNECT_RESULT_OK() {
 		gameSetCliDrawFunc(nil)
 	} else {
 		if !noxflags.HasGame(noxflags.GameFlag21) {
-			if mode := videoGetGameMode(); mode.Width == 0 || mode.Height == 0 {
-				mode.Width = noxDefaultWidth
-				mode.Height = noxDefaultHeight
+			if mode := videoGetGameMode(); mode.W == 0 || mode.H == 0 {
+				mode.W = noxDefaultWidth
+				mode.H = noxDefaultHeight
 				videoUpdateGameMode(mode)
 			}
 			if err := gameUpdateVideoMode(false); err != nil {
@@ -901,11 +900,10 @@ func nox_xxx_gameSetMapPath_409D70(path string) {
 func map_download_finish() C.int {
 	C.nox_xxx_guiDownloadClose_4CC930()
 	if C.nox_xxx_mapDownloadOK_587000_173332 != 0 {
-		vm := videoGetGameMode()
-		if vm.Width == 0 || vm.Height == 0 {
-			vm.Width = noxDefaultWidth
-			vm.Height = noxDefaultHeight
-			videoUpdateGameMode(vm)
+		if mode := videoGetGameMode(); mode.W == 0 || mode.H == 0 {
+			mode.W = noxDefaultWidth
+			mode.H = noxDefaultHeight
+			videoUpdateGameMode(mode)
 		}
 	}
 

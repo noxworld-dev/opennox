@@ -97,7 +97,6 @@ import (
 	"unsafe"
 
 	"nox/v1/client/input"
-	"nox/v1/client/render"
 	"nox/v1/common"
 	"nox/v1/common/alloc"
 	noxcolor "nox/v1/common/color"
@@ -210,10 +209,9 @@ func detectBestVideoSettings() { // nox_setProfiledMode_4445C0
 	}
 	C.nox_xxx_tileSetDrawFn_481420()
 	if !getEngineFlag(NOX_ENGINE_FLAG_ENABLE_WINDOWED_MODE) {
-		videoUpdateGameMode(render.Mode{
-			Width:  noxDefaultWidth,
-			Height: noxDefaultHeight,
-			Depth:  noxDefaultDepth,
+		videoUpdateGameMode(types.Size{
+			W: noxDefaultWidth,
+			H: noxDefaultHeight,
 		})
 	}
 	C.nox_video_setCutSize_4766A0(C.int(cut))
