@@ -4293,7 +4293,7 @@ int  sub_4ECFA0(int a1);
 int sub_4ECFE0();
 int  nox_xxx_netGetUnitByExtent_4ED020(int a1);
 void  sub_4ED050(int a1, int a2);
-void  sub_4ED0C0(int a1, int* a2);
+void  sub_4ED0C0(int a1, const nox_object_t* object);
 int  nox_xxx_dropDefault_4ED290(int a1, int a2, float2* a3); // idb
 int  sub_4ED500(int a1, int a2, float2* a3); // idb
 int  nox_xxx_dropTrap_4ED580(int a1, int a2, float2* a3); // idb

@@ -7853,7 +7853,8 @@ void  sub_4ED050(int a1, int a2) {
 }
 
 //----- (004ED0C0) --------------------------------------------------------
-void  sub_4ED0C0(int a1, int* a2) {
+void  sub_4ED0C0(int a1, const nox_object_t* object) {
+	int* a2 = object;
 	int v2;  // ebx
 	int v3;  // eax
 	int v4;  // ebp
