@@ -163,6 +163,9 @@ int (*func_5D4594_816388)(void) = 0;
 
 int (*nox_draw_unk1)(void) = 0;
 int (*func_5D4594_816392)(void) = 0;
+
+int nox_game_state_arr[16] = {0};
+int nox_game_state_ind = 0;
 #endif // NOX_CGO
 
 void (*mainloop_enter)(void*);
@@ -184,9 +187,6 @@ nox_gui_animation* nox_wnd_xxx_829520 = 0;
 nox_gui_animation* nox_wnd_xxx_830244 = 0;
 
 void* nox_draw_defaultFont_816492 = 0;
-
-int nox_game_state_arr[16] = {0};
-int nox_game_state_ind = 0;
 
 //----- (0043B510) --------------------------------------------------------
 char* sub_43B510() {
@@ -281,23 +281,21 @@ int  sub_43BD90(int a1) {
 //----- (0043BDB0) --------------------------------------------------------
 int sub_43BDB0() { return *getMemU32Ptr(0x5D4594, 815092); }
 
+#ifndef NOX_CGO
 //----- (0043BDC0) --------------------------------------------------------
 void nox_game_decStateInd_43BDC0() { --nox_game_state_ind; }
 
 //----- (0043BDD0) --------------------------------------------------------
-int  nox_game_addStateCode_43BDD0(int a1) {
-	int result; // eax
-
-	result = a1;
-	if (nox_game_state_arr[nox_game_state_ind] != a1) {
+void  nox_game_addStateCode_43BDD0(int a1) {
+	if (nox_game_getStateCode_43BE10() != a1) {
 		++nox_game_state_ind;
 		nox_game_state_arr[nox_game_state_ind] = a1;
 	}
-	return result;
 }
 
 //----- (0043BE10) --------------------------------------------------------
 int nox_game_getStateCode_43BE10() { return nox_game_state_arr[nox_game_state_ind]; }
+#endif // NOX_CGO
 
 //----- (0043BE30) --------------------------------------------------------
 int sub_43BE30() { return *getMemU32Ptr(0x5D4594, 815204); }
@@ -430,6 +428,7 @@ BOOL sub_43C060() {
 	return nox_xxx_compassGenStrings_4A9C80() != 0;
 }
 
+#ifndef NOX_CGO
 //----- (0043C0A0) --------------------------------------------------------
 int nox_game_switchStates_43C0A0() { // switch game states
 	unsigned char si = nox_game_state_ind;
@@ -498,12 +497,9 @@ int nox_game_switchStates_43C0A0() { // switch game states
 
 //----- (0043C1E0) --------------------------------------------------------
 void nox_game_checkStateSwitch_43C1E0() {
-	_DWORD* v0; // eax
-	_DWORD* v1; // esi
-
 	if (nox_game_state_ind) {
-		v0 = nox_gui_findAnimationForDest_43C520(nox_game_state_arr[nox_game_state_ind]);
-		v1 = v0;
+		_DWORD* v0 = nox_gui_findAnimationForDest_43C520(nox_game_getStateCode_43BE10());
+		_DWORD* v1 = v0;
 		if (v0) {
 			((int (*)(void))v0[12])();
 			v1[13] = nox_game_switchStates_43C0A0;
@@ -513,70 +509,54 @@ void nox_game_checkStateSwitch_43C1E0() {
 }
 
 //----- (0043C220) --------------------------------------------------------
-_DWORD* nox_game_checkStateOptions_43C220() {
-	_DWORD* result; // eax
-	_DWORD* v1;     // esi
-
-	result = nox_game_state_ind;
+void nox_game_checkStateOptions_43C220() {
 	if (nox_game_state_ind) {
-		result = nox_gui_findAnimationForDest_43C520(nox_game_state_arr[nox_game_state_ind]);
-		v1 = result;
+		_DWORD* result = nox_gui_findAnimationForDest_43C520(nox_game_getStateCode_43BE10());
+		_DWORD* v1 = result;
 		if (result) {
 			result = (_DWORD*)((int (*)(void))result[12])();
 			v1[13] = nox_game_showOptions_4AA6B0;
 		}
 	}
-	return result;
 }
 
 //----- (0043C260) --------------------------------------------------------
-int nox_game_checkStateWol_43C260() {
-	int result; // eax
-	int v1;     // esi
-
-	result = nox_game_state_ind;
+void nox_game_checkStateWol_43C260() {
 	if (nox_game_state_ind) {
-		result = nox_gui_findAnimationForDest_43C520(nox_game_state_arr[nox_game_state_ind]);
-		v1 = result;
+		int result = nox_gui_findAnimationForDest_43C520(nox_game_getStateCode_43BE10());
+		int v1 = result;
 		if (result) {
-			if (nox_game_state_arr[nox_game_state_ind] == 1700) {
+			if (nox_game_getStateCode_43BE10() == 1700) {
 				result = nox_game_showWolLogin_44A560();
 			} else {
 				result = (*(int (**)(void))(result + 48))();
 				*(_DWORD*)(v1 + 52) = nox_game_showWolLogin_44A560;
 			}
 		}
-		for (; nox_game_state_arr[nox_game_state_ind] != 1700; result = nox_game_state_ind)
+		while (nox_game_getStateCode_43BE10() != 1700)
 			nox_game_decStateInd_43BDC0();
 	}
-	return result;
 }
 
 //----- (0043C2F0) --------------------------------------------------------
-int nox_game_checkStateMenu_43C2F0() {
-	int result; // eax
-	int v1;     // esi
-
-	result = nox_game_state_ind;
+void nox_game_checkStateMenu_43C2F0() {
 	if (nox_game_state_ind) {
-		result = nox_gui_findAnimationForDest_43C520(nox_game_state_arr[nox_game_state_ind]);
-		v1 = result;
+		int result = nox_gui_findAnimationForDest_43C520(nox_game_getStateCode_43BE10());
+		int v1 = result;
 		if (result) {
-			if (nox_game_state_arr[nox_game_state_ind] == 100) {
+			if (nox_game_getStateCode_43BE10() == 100) {
 				result = nox_game_showMainMenu_4A1C00();
 			} else {
 				result = (*(int (**)(void))(result + 48))();
 				*(_DWORD*)(v1 + 52) = nox_game_showMainMenu_4A1C00;
 			}
 		}
-		for (; nox_game_state_arr[nox_game_state_ind] != 100; result = nox_game_state_ind)
+		while (nox_game_getStateCode_43BE10() != 100)
 			nox_game_decStateInd_43BDC0();
 	}
-	return result;
 }
 
 //----- (0043C380) --------------------------------------------------------
-#ifndef NOX_CGO
 nox_gui_animation* nox_gui_animationHead_815212 = 0;
 void nox_gui_doAnimation_out(nox_gui_animation* a) {
 	int x = 0;

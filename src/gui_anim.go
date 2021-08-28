@@ -83,6 +83,14 @@ func (a *guiAnim) Prev() *guiAnim {
 	return asGUIAnim(a.prev)
 }
 
+func (a *guiAnim) Func12() int {
+	return int(C.nox_gui_call_intvoid_go(a.field_12))
+}
+
+func (a *guiAnim) Func13() int {
+	return int(C.nox_gui_call_intvoid_go(a.field_13))
+}
+
 func (a *guiAnim) doOut() {
 	p := a.Window().Offs()
 	p.X += int(a.out_dx) * guiAnimSpeed
@@ -176,11 +184,10 @@ func guiAnimationStep() {
 	}
 }
 
-//export nox_gui_findAnimationForDest_43C520
-func nox_gui_findAnimationForDest_43C520(dest int) *C.nox_gui_animation {
+func nox_gui_findAnimationForDest_43C520(dest int) *guiAnim {
 	for p := guiAnimationsHead; p != nil; p = p.Next() {
 		if int(p.field_0) == dest {
-			return p.C()
+			return p
 		}
 	}
 	return nil

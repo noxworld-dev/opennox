@@ -18,6 +18,11 @@ package main
 #include "client__gui__guiobs.h"
 #include "client__gui__guitrade.h"
 #include "client__gui__guiinput.h"
+#include "client__shell__mainmenu.h"
+#include "client__shell__selchar.h"
+#include "client__shell__selcolor.h"
+#include "client__shell__wolapi__wolchat.h"
+#include "client__shell__wolapi__wollogin.h"
 #include "common__telnet__telnetd.h"
 #include "server__network__playback.h"
 #include "server__network__sdecode.h"
@@ -111,24 +116,24 @@ func nox_game_setMovieFile_4CB230(name string, out *C.char) bool {
 	return C.nox_game_setMovieFile_4CB230(cname, out) != 0
 }
 
-//export nox_game_rollLogoAndStart_4AB1F0
-func nox_game_rollLogoAndStart_4AB1F0() C.int {
+func nox_game_rollLogoAndStart_4AB1F0() bool {
 	if isServer || isServerQuest {
-		return C.int(startServer())
+		// FIXME: switch to server state directly
+		return startServer()
 	}
 	path := (*C.char)(alloc.Calloc(128, 1))
 	defer alloc.Free(unsafe.Pointer(path))
-	C.nox_game_decStateInd_43BDC0()
+	gamePopState()
 	if noxflags.HasGame(noxflags.GameFlag26) || !nox_game_setMovieFile_4CB230("WWLogo.vqa", path) {
 		nox_game_rollIntroAndStart_4AB170()
-		return 1
+		return true
 	}
 	C.sub_4B0300(path)
 	C.sub_4B0640((*[0]byte)(C.nox_game_rollIntroAndStart_4AB170))
 	if err := drawGeneral_4B0340(0); err != nil {
 		videoLog.Println(err)
 	}
-	return 1
+	return true
 }
 
 //export nox_game_rollIntroAndStart_4AB170
@@ -167,7 +172,7 @@ func nox_game_rollNoxLogoAndStart_4AB0F0() C.int {
 	return 1
 }
 
-func startServer() int {
+func startServer() bool {
 	C.nox_game_createOrJoin_815048 = 1
 	setEngineFlag(NOX_ENGINE_FLAG_ADMIN)
 	resetEngineFlag(NOX_ENGINE_FLAG_GODMODE)
@@ -199,10 +204,10 @@ func startServer() int {
 	if C.nox_xxx_parseGamedataBinPre_4D1630() == 0 {
 		nox_xxx_setContinueMenuOrHost_43DDD0(0)
 		C.nox_client_gui_flag_815132 = 0
-		return 0
+		return false
 	}
 	nox_xxx_serverHost_43B4D0()
-	return 1
+	return true
 }
 
 func getServerName() string {
@@ -1128,4 +1133,179 @@ func nox_xxx_netlist_4DEB50() {
 		}
 		C.nox_netlist_resetByInd_40ED10(31, 0)
 	}
+}
+
+var (
+	nox_game_state_arr []int
+)
+
+//export nox_game_addStateCode_43BDD0
+func nox_game_addStateCode_43BDD0(code C.int) {
+	gameAddStateCode(int(code))
+}
+
+//export nox_game_getStateCode_43BE10
+func nox_game_getStateCode_43BE10() C.int {
+	return C.int(gameGetStateCode())
+}
+
+//export nox_game_decStateInd_43BDC0
+func nox_game_decStateInd_43BDC0() {
+	gamePopState()
+}
+
+func gameAddStateCode(code int) {
+	if gameGetStateCode() == code {
+		return
+	}
+	nox_game_state_arr = append(nox_game_state_arr, code)
+	gameLog.Println("game state code:", code)
+}
+
+func gameGetStateCode() int {
+	if len(nox_game_state_arr) == 0 {
+		return -1
+	}
+	return nox_game_state_arr[len(nox_game_state_arr)-1]
+}
+
+func gamePopState() {
+	if len(nox_game_state_arr) > 0 {
+		nox_game_state_arr = nox_game_state_arr[:len(nox_game_state_arr)-1]
+	}
+	gameLog.Println("game state code:", gameGetStateCode())
+}
+
+func gamePopStateUntil(code int) {
+	for gameGetStateCode() != code {
+		gamePopState()
+	}
+}
+
+//export nox_game_switchStates_43C0A0
+func nox_game_switchStates_43C0A0() C.int { // switch game states
+	switch gameGetStateCode() {
+	case 10:
+		if !nox_game_rollLogoAndStart_4AB1F0() {
+			return 0
+		}
+		return 1
+	case 100: // main menu
+		if C.nox_game_showMainMenu_4A1C00() == 0 {
+			return 0
+		}
+		return 1
+	case 300: // main menu options
+		if C.nox_game_showOptions_4AA6B0() == 0 {
+			return 0
+		}
+		return 1
+	case 400: // online or LAN
+		if C.nox_game_showOnlineOrLAN_413800() == 0 {
+			return 0
+		}
+		return 1
+	case 500: // character selection
+		C.sub_4A7A70(1)
+		if C.nox_game_showSelChar_4A4DB0() == 0 {
+			return 0
+		}
+		return 1
+	case 600:
+		if C.nox_game_showSelClass_4A4840() == 0 {
+			return 0
+		}
+		return 1
+	case 700:
+		if C.nox_game_showSelColor_4A5D00() == 0 {
+			return 0
+		}
+		return 1
+	case 1700:
+		if C.nox_game_showWolLogin_44A560() == 0 {
+			return 0
+		}
+		return 1
+	case 1900:
+		if C.nox_game_showWolChat_447620() == 0 {
+			return 0
+		}
+		return 1
+	case 10000: // list of servers
+		if C.nox_xxx_check_flag_aaa_43AF70() == 1 && C.sub_40E0B0() == 0 {
+			C.sub_41E300(9)
+			C.sub_41F4B0()
+			C.sub_41EC30()
+			C.sub_446490(0)
+			C.nox_xxx____setargv_4_44B000()
+			C.sub_44A400()
+			return 1
+		}
+		fallthrough
+	case 1915:
+		if C.nox_game_showGameSel_4379F0() == 0 {
+			return 0
+		}
+		return 1
+	}
+	return 1
+}
+
+//export nox_game_checkStateSwitch_43C1E0
+func nox_game_checkStateSwitch_43C1E0() {
+	if gameGetStateCode() < 0 {
+		return
+	}
+	p := nox_gui_findAnimationForDest_43C520(gameGetStateCode())
+	if p != nil {
+		p.Func12()
+		p.field_13 = (*[0]byte)(C.nox_game_switchStates_43C0A0)
+		gamePopState()
+	}
+}
+
+//export nox_game_checkStateOptions_43C220
+func nox_game_checkStateOptions_43C220() {
+	if gameGetStateCode() < 0 {
+		return
+	}
+	p := nox_gui_findAnimationForDest_43C520(gameGetStateCode())
+	if p != nil {
+		p.Func12()
+		p.field_13 = (*[0]byte)(C.nox_game_showOptions_4AA6B0)
+	}
+}
+
+//export nox_game_checkStateWol_43C260
+func nox_game_checkStateWol_43C260() {
+	if gameGetStateCode() < 0 {
+		return
+	}
+	p := nox_gui_findAnimationForDest_43C520(gameGetStateCode())
+	if p != nil {
+		if gameGetStateCode() == 1700 {
+			C.nox_game_showWolLogin_44A560()
+		} else {
+			p.Func12()
+			p.field_13 = (*[0]byte)(C.nox_game_showWolLogin_44A560)
+		}
+	}
+	gamePopStateUntil(1700)
+}
+
+//export nox_game_checkStateMenu_43C2F0
+func nox_game_checkStateMenu_43C2F0() {
+	if gameGetStateCode() < 0 {
+		return
+	}
+	p := nox_gui_findAnimationForDest_43C520(gameGetStateCode())
+	if p != nil {
+		if gameGetStateCode() == 100 {
+			C.nox_game_showMainMenu_4A1C00()
+		} else {
+			p.Func12()
+			p.field_13 = (*[0]byte)(C.nox_game_showMainMenu_4A1C00)
+		}
+	}
+	gamePopStateUntil(100)
 }

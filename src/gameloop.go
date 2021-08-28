@@ -831,7 +831,7 @@ func nox_xxx_cliWaitForJoinData_43BFE0() bool {
 		C.nox_client_gui_flag_815132 = 1
 		return true
 	}
-	if C.nox_game_switchStates_43C0A0() == 0 {
+	if nox_game_switchStates_43C0A0() == 0 {
 		return false
 	}
 	C.nox_client_gui_flag_815132 = 1
