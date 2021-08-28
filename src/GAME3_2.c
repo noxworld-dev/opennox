@@ -5575,7 +5575,6 @@ _DWORD*  sub_4D82F0(int a1, _DWORD* a2) {
 
 //----- (004D84C0) --------------------------------------------------------
 int  nox_xxx_netReportDequip_4D84C0(int a1, const nox_object_t* object) {
-	int a2 = object;
 	int result; // eax
 	int v3;     // ecx
 	int v4;     // ecx
@@ -5583,20 +5582,20 @@ int  nox_xxx_netReportDequip_4D84C0(int a1, const nox_object_t* object) {
 	int v6;     // ecx
 	char v7[7]; // [esp+0h] [ebp-8h]
 
-	result = a2;
-	v3 = *(_DWORD*)(a2 + 8);
+	result = object;
+	v3 = object->obj_class;
 	if (v3 & 0x11001000) {
-		v4 = *(_DWORD*)(a2 + 492);
+		v4 = object->field_123;
 		v7[0] = 84;
 		*(_WORD*)&v7[1] = *(_WORD*)(v4 + 36);
-		v5 = nox_xxx_weaponInventoryEquipFlags_415820(a2);
+		v5 = nox_xxx_weaponInventoryEquipFlags_415820(object);
 	} else {
 		if (!(v3 & 0x2000000))
 			return result;
-		v6 = *(_DWORD*)(a2 + 492);
+		v6 = object->field_123;
 		v7[0] = 83;
 		*(_WORD*)&v7[1] = *(_WORD*)(v6 + 36);
-		v5 = nox_xxx_unitArmorInventoryEquipFlags_415C70(a2);
+		v5 = nox_xxx_unitArmorInventoryEquipFlags_415C70(object);
 	}
 	*(_DWORD*)&v7[3] = v5;
 	return nox_xxx_netSendPacket1_4E5390(a1, (int)v7, 7, 0, 0);
