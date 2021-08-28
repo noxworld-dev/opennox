@@ -1028,7 +1028,7 @@ func nox_xxx_mapExitAndCheckNext_4D1860_server() bool {
 	} else {
 		sub_4D7140(0)
 	}
-	nox_ticks_xxx_416D40()
+	nox_ticks_reset_416D40()
 	C.sub_40A970()
 	C.dword_5d4594_1548704 = 0
 	if noxflags.HasGame(4096) {

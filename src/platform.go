@@ -7,7 +7,6 @@ import "C"
 import (
 	"time"
 
-	"nox/v1/common/memmap"
 	"nox/v1/common/platform"
 )
 
@@ -63,13 +62,11 @@ func nox_framerate_limit_416C70(fps C.int) {
 	nox_framerate_next_ticks = ticks + nox_framerate_step_ticks
 }
 
-//export nox_ticks_should_update_416CD0
 func nox_ticks_should_update_416CD0() C.bool {
 	nox_framerate_cur_ticks = platformTicks()
 	return nox_framerate_cur_ticks >= nox_framerate_next_ticks
 }
 
-//export nox_ticks_until_next_416D00
 func nox_ticks_until_next_416D00() int64 {
 	ticks := platformTicks()
 	if nox_framerate_next_ticks < ticks {
@@ -82,22 +79,35 @@ func nox_ticks_until_next_416D00() int64 {
 	return int64(diff)
 }
 
-//export nox_ticks_xxx_416D40
-func nox_ticks_xxx_416D40() {
-	*memmap.PtrUint64(0x5D4594, 371764) = platformTicks()
-	*memmap.PtrUint32(0x5D4594, 371772) = gameFrame()
+var (
+	nox_gameTicks_371764 uint64
+	nox_gameFrame_371772 uint32
+)
+
+//export nox_ticks_reset_416D40
+func nox_ticks_reset_416D40() {
+	nox_gameTicks_371764 = platformTicks()
+	nox_gameFrame_371772 = gameFrame()
 	resetEngineFlag(NOX_ENGINE_FLAG_PAUSE)
 }
 
-func sub_416D70() bool {
-	v2 := float64(int(gameFrame())-int(memmap.Uint32(0x5D4594, 371772))) * float64(memmap.Float32(0x587000, 54424))
-	return float64(int64(platformTicks())-int64(memmap.Uint32(0x5D4594, 371764)))*0.001 <= v2
+func nox_ticks_check_416D70() bool {
+	const mul = float32(0.033333335)
+
+	df := int(gameFrame()) - int(nox_gameFrame_371772)
+	dt := int64(platformTicks()) - int64(nox_gameTicks_371764)
+
+	v2 := float64(df) * float64(mul)
+	return float64(dt)*0.001 <= v2
 }
 
-//export nox_ticks_maybe_sleep_416DD0
 func nox_ticks_maybe_sleep_416DD0() {
-	v1 := float64(int(gameFrame())-int(memmap.Uint32(0x5D4594, 371772))) * float64(memmap.Float32(0x587000, 54428))
-	ms := int64(v1) + int64(memmap.Uint32(0x5D4594, 371764)) - int64(platformTicks())
+	const mul = float32(1000) / 30
+
+	df := int(gameFrame()) - int(nox_gameFrame_371772)
+	dt := int64(nox_gameTicks_371764) - int64(platformTicks())
+
+	ms := int64(float64(df)*float64(mul)) + dt
 	if ms > 0 {
 		platform.Sleep(time.Duration(ms) * time.Millisecond)
 	}

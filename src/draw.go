@@ -415,9 +415,9 @@ func nox_xxx_clientDrawAll_436100_draw() {
 	isTick := false
 	if int(v0-memmap.Uint64(0x5D4594, 814532)) >= int(memmap.Int32(0x587000, 85748)) {
 		isTick = true
-		nox_ticks_xxx_416D40()
+		nox_ticks_reset_416D40()
 	}
-	if !(memmap.Uint32(0x587000, 85724) == 0 || isTick || !noxflags.HasGame(1) || sub_416D70() ||
+	if !(memmap.Uint32(0x587000, 85724) == 0 || isTick || !noxflags.HasGame(1) || nox_ticks_check_416D70() ||
 		C.nox_client_gui_flag_815132 != 0 || nox_xxx_checkGameFlagPause_413A50() || getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
 		setEngineFlag(NOX_ENGINE_FLAG_PAUSE)
 		return

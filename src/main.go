@@ -202,7 +202,7 @@ func runNox(args []string) error {
 	C.dword_5d4594_2650652 = 0
 	gameFPSSet(30)
 	gameFrameSetFromFlags()
-	nox_ticks_xxx_416D40()
+	nox_ticks_reset_416D40()
 	nox_xxx_setGameState_43DDF0(nil)
 	gameSetCliDrawFunc(nil)
 	sub_43DE40(nil)

@@ -203,7 +203,7 @@ int cmain(int argc, const char* argv[]) {
 	BOOL v2 = nox_common_gameFlags_check_40A5C0(1);
 	nox_gameFPS = 30; // gameFPS
 	nox_frame_xxx_2598000 = v2;
-	nox_ticks_xxx_416D40();
+	nox_ticks_reset_416D40();
 	nox_xxx_setGameState_43DDF0(0);
 	nox_game_SetCliDrawFunc(0);
 	sub_43DE40(0);
@@ -6304,7 +6304,7 @@ void sub_413A00(int a1) {
 		} else {
 			if (!dword_5d4594_251744) {
 				nox_common_gameFlags_unset_40A540(0x40000);
-				nox_ticks_xxx_416D40();
+				nox_ticks_reset_416D40();
 			}
 		}
 	}
@@ -8146,7 +8146,7 @@ __int64 nox_ticks_until_next_416D00() {
 }
 
 //----- (00416D40) --------------------------------------------------------
-void nox_ticks_xxx_416D40() {
+void nox_ticks_reset_416D40() {
 	*getMemU64Ptr(0x5D4594, 371764) = nox_platform_get_ticks();
 	*getMemU32Ptr(0x5D4594, 371772) = nox_frame_xxx_2598000;
 
@@ -8154,7 +8154,7 @@ void nox_ticks_xxx_416D40() {
 }
 
 //----- (00416D70) --------------------------------------------------------
-bool sub_416D70() {
+bool nox_ticks_check_416D70() {
 	float v2; // [esp+4h] [ebp-8h]
 
 	v2 = (double)(unsigned int)(nox_frame_xxx_2598000 - *getMemU32Ptr(0x5D4594, 371772)) *

@@ -70,9 +70,9 @@ void nox_xxx_clientDrawAll_436100_draw() {
 		v3 = 0;
 	} else {
 		v3 = 1;
-		nox_ticks_xxx_416D40();
+		nox_ticks_reset_416D40();
 	}
-	if (!(!*getMemU32Ptr(0x587000, 85724) || v3 || !nox_common_gameFlags_check_40A5C0(1) || sub_416D70() ||
+	if (!(!*getMemU32Ptr(0x587000, 85724) || v3 || !nox_common_gameFlags_check_40A5C0(1) || nox_ticks_check_416D70() ||
 		  nox_client_gui_flag_815132 || nox_xxx_checkGameFlagPause_413A50() || nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING))) {
 		nox_common_setEngineFlag(NOX_ENGINE_FLAG_PAUSE);
 		return;

@@ -767,7 +767,7 @@ void sub_4DBA30(int a1) {
 			}
 			nox_xxx_gameSetSwitchSolo_4DB220(v3);
 			dword_5d4594_1563096 = v3;
-			nox_ticks_xxx_416D40();
+			nox_ticks_reset_416D40();
 		}
 	}
 }
@@ -2464,7 +2464,7 @@ int nox_xxx_mapExitAndCheckNext_4D1860_server() {
 		sub_4D7140(nox_frame_xxx_2598000 + nox_gameFPS);
 	else
 		sub_4D7140(0);
-	nox_ticks_xxx_416D40();
+	nox_ticks_reset_416D40();
 	sub_40A970();
 	dword_5d4594_1548704 = 0;
 	if (nox_common_gameFlags_check_40A5C0(4096)) {
