@@ -176,7 +176,6 @@ func runNox(args []string) error {
 		*memmap.PtrUint32(0x5D4594, 805864) = 1
 	}
 
-	C.nox_video_bag_var_2650640 = 0
 	*memmap.PtrUint32(0x8531A0, 2584) = 0
 	C.nox_gameDisableMapDraw_5d4594_2650672 = 0
 	gameAddStateCode(gameStateMovies)
@@ -318,8 +317,8 @@ func runNox(args []string) error {
 		enableGUIDrawing(false)
 		videoInitStub()
 	}
-	if C.nox_video_read_videobag(1) == 0 {
-		return fmt.Errorf("failed to read graphics")
+	if err := nox_video_read_videobag(); err != nil {
+		return err
 	}
 	if C.sub_431370() == 0 {
 		return fmt.Errorf("sub_431370 failed")
@@ -423,7 +422,7 @@ func cleanup() {
 	nox_xxx_freeKeyboard_430210()
 	C.nox_xxx_tileFree_410FC0_free()
 	C.sub_4106C0()
-	C.nox_video_bagFree_42F4D0()
+	nox_video_bagFree_42F4D0()
 	C.sub_42EDC0()
 	ctrlEvent.Reset()
 	nox_strman_free_410020()

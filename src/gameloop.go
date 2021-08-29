@@ -191,9 +191,9 @@ mainloop:
 		processInput()
 		C.sub_413520_gamedisk()
 		C.nox_xxx_time_startProfile_435770()
-		if fnc := gameStateFunc; !gameStateFunc() {
+		if !gameStateFunc() {
 			if debugMainloop {
-				log.Println("gameStateFunc exit", fnc)
+				log.Println("gameStateFunc exit")
 			}
 			goto MAINLOOP_EXIT
 		}
@@ -821,7 +821,7 @@ func nox_xxx_setGameState_43DDF0(fnc func() bool) {
 
 func nox_xxx_cliWaitForJoinData_43BFE0() bool {
 	if debugMainloop {
-		log.Println("gameStateFunc = nox_xxx_gameStateWait_43C020", nox_xxx_gameStateWait_43C020)
+		log.Println("gameStateFunc = nox_xxx_gameStateWait_43C020")
 	}
 	nox_xxx_setGameState_43DDF0(nox_xxx_gameStateWait_43C020)
 	gameSetCliDrawFunc(nil)

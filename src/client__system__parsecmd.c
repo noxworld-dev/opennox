@@ -2439,7 +2439,6 @@ int nox_cmd_cheat_gold(int tokInd, int tokCnt, wchar_t** tokens) {
 	}
 	return 1;
 }
-#endif // NOX_CGO
 
 //----- (00442120) --------------------------------------------------------
 int nox_cmd_image(int tokInd, int tokCnt, wchar_t** tokens) {
@@ -2463,6 +2462,7 @@ int nox_cmd_exit(int tokInd, int tokCnt, wchar_t** tokens) {
 	nox_game_exit_xxx_43DE60();
 	return 1;
 }
+#endif // NOX_CGO
 
 //----- (00442210) --------------------------------------------------------
 int nox_cmd_watch(int tokInd, int tokCnt, wchar_t** tokens) {

@@ -990,7 +990,7 @@ int sub_434FB0() {
 	PALETTEENTRY v1[256]; // [esp+0h] [ebp-400h]
 
 	g_ddraw_palette = 0;
-	if (nox_video_renderTargetFlags & 4 || dword_5d4594_3799624)
+	if (nox_video_renderTargetFlags & 4 || nox_video_pixmode_3799624)
 		return 1;
 
 	sub_4350E0(v1, getMemAt(0x5D4594, 3803308));
@@ -1077,7 +1077,7 @@ void sub_4353F0() {
 	*(_WORD*)plpal = 768;
 	*(_WORD*)&plpal[2] = 256;
 	memset(&plpal[4], 0, 0x400u);
-	if (!dword_5d4594_3799624 && nox_video_renderTargetFlags & 0x10) {
+	if (!nox_video_pixmode_3799624 && nox_video_renderTargetFlags & 0x10) {
 		sub_435550();
 		v1 = &plpal[5];
 		v2 = 256;
@@ -1116,7 +1116,7 @@ void sub_4353F0() {
 void sub_4354F0() {
 	HDC v1; // esi
 
-	if (!dword_5d4594_3799624 && nox_video_renderTargetFlags & 0x10) {
+	if (!nox_video_pixmode_3799624 && nox_video_renderTargetFlags & 0x10) {
 		if (*getMemU32Ptr(0x5D4594, 809596)) {
 			v1 = GetDC(windowHandle_dword_973FE0);
 			SelectPalette(v1, *(HPALETTE*)getMemAt(0x5D4594, 809596), 0);
@@ -1343,18 +1343,18 @@ int sub_48A3D0() {
 					return 1;
 				if (i == 5) {
 					if (j == 5)
-						dword_5d4594_3799624 = 1;
+						nox_video_pixmode_3799624 = 1;
 					return 1;
 				}
 				if (i != 6 || j != 5)
 					return 1;
-				dword_5d4594_3799624 = 2;
+				nox_video_pixmode_3799624 = 2;
 				return 1;
 			}
 			if (v12.ddpfPixelFormat.dwRGBBitCount == 8) {
 				dword_5d4594_3801780 = 0;
 				*getMemU32Ptr(0x5D4594, 3801776) = v1 >> 2;
-				dword_5d4594_3799624 = 0;
+				nox_video_pixmode_3799624 = 0;
 				nox_pitch_3801808 = v1;
 				nox_backbuffer_width32 = v1 >> 5;
 				nox_backbuffer_pitch32 = v2 - v1;
@@ -1421,7 +1421,7 @@ BOOL nox_xxx_makeFillerColor_48BDE0() {
 	if (g_cursor_surf) {
 		DDCOLORKEY v2; // [esp+0h] [ebp-8h]
 
-		v0 = dword_5d4594_3799624 ? (unsigned __int16)v0 : (unsigned __int8)v0;
+		v0 = nox_video_pixmode_3799624 ? (unsigned __int16)v0 : (unsigned __int8)v0;
 		v2.dwColorSpaceHighValue = v0;
 		v2.dwColorSpaceLowValue = v0;
 		if (g_cursor_surf->lpVtbl->SetColorKey(g_cursor_surf, DDCKEY_SRCBLT, &v2))
@@ -1476,7 +1476,7 @@ int sub_4338D0() {
 	int result;          // eax
 	pixel888 v2[256];    // [esp+Ch] [ebp-300h]
 
-	switch (dword_5d4594_3799624) {
+	switch (nox_video_pixmode_3799624) {
 		case 0:
 			nox_color_rgb_func = nox_color_func_435180;
 			dword_975240 = sub_435240;
@@ -1609,7 +1609,7 @@ BOOL sub_434B60() {
     int v9;              // ecx
     char v10;            // dl
 	int v11;             // ecx
-	if (dword_5d4594_3799624)
+	if (nox_video_pixmode_3799624)
 		return g_ddraw_gamma_control && !g_ddraw_gamma_control->lpVtbl->SetGammaRamp(g_ddraw_gamma_control, 0, &v14);
 	sub_434920();
 	v5 = getMemAt(0x5D4594, 808573);

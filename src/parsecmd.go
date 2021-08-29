@@ -8,6 +8,8 @@ extern int nox_cheat_charmall;
 
 void nox_xxx_consoleTokenAddPair_4444C0(wchar_t* tok, wchar_t* tok2);
 int nox_gui_console_Print_450B90(unsigned char typ, wchar_t* str);
+int nox_client_quit_4460C0();
+int  sub_4D6B10(int a1);
 
 int nox_cmd_lock(int, int, wchar_t**);
 int nox_cmd_unlock(int, int, wchar_t**);
@@ -77,9 +79,6 @@ int nox_cmd_cheat_goto(int, int, wchar_t**);
 int nox_cmd_cheat_level(int, int, wchar_t**);
 int nox_cmd_cheat_spells(int, int, wchar_t**);
 int nox_cmd_cheat_gold(int, int, wchar_t**);
-int nox_cmd_image(int, int, wchar_t**);
-int nox_cmd_quit(int, int, wchar_t**);
-int nox_cmd_exit(int, int, wchar_t**);
 int nox_cmd_watch(int, int, wchar_t**);
 int nox_cmd_gamma(int, int, wchar_t**);
 int nox_cmd_window(int, int, wchar_t**);
@@ -102,6 +101,7 @@ import (
 	"fmt"
 
 	"nox/v1/client/system/parsecmd"
+	noxflags "nox/v1/common/flags"
 	"nox/v1/common/strman"
 )
 
@@ -329,9 +329,18 @@ var (
 		{Token: "clear", HelpID: "clearhelp", Flags: parsecmd.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_clear)},
 		{Token: "exec", HelpID: "exechelp", Flags: parsecmd.Server, LegacyFunc: wrapCommandC(nox_cmd_exec)},
 		{Token: "execrul", HelpID: "execrulhelp", Flags: parsecmd.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_exec_rul)},
-		{Token: "exit", HelpID: "exithelp", Flags: parsecmd.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_exit)},
+		{Token: "exit", HelpID: "exithelp", Flags: parsecmd.ClientServer, Func: func(c *parsecmd.Console, tokens []string) bool {
+			if noxflags.HasGame(4096) && noxflags.HasGame(1) {
+				C.sub_4D6B10(0)
+			}
+			if noxflags.HasGame(0x2000000) {
+				C.nox_client_quit_4460C0()
+			}
+			nox_xxx_setContinueMenuOrHost_43DDD0(0)
+			nox_game_exit_xxx_43DE60()
+			return true
+		}},
 		{Token: "gamma", HelpID: "gammahelp", Flags: parsecmd.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_gamma)},
-		{Token: "image", HelpID: "imagehelp", Flags: parsecmd.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_image)},
 		{Token: "kick", HelpID: "kickhelp", Flags: parsecmd.Server, LegacyFunc: wrapCommandC(nox_cmd_kick)},
 		{Token: "lock", HelpID: "lockhelp", Flags: parsecmd.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_lock)},
 		{Token: "load", HelpID: "loadhelp", Flags: parsecmd.Server | parsecmd.Cheat, LegacyFunc: wrapCommandC(nox_cmd_load)},
@@ -349,7 +358,10 @@ var (
 			{Token: "options", HelpID: "menuoptionshelp", Flags: parsecmd.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_menu_options)},
 		}},
 		{Token: "mute", HelpID: "mutehelp", Flags: parsecmd.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_mute)},
-		{Token: "quit", HelpID: "quithelp", Flags: parsecmd.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_quit)},
+		{Token: "quit", HelpID: "quithelp", Flags: parsecmd.ClientServer, Func: func(c *parsecmd.Console, tokens []string) bool {
+			C.nox_client_quit_4460C0()
+			return true
+		}},
 		{Token: "say", HelpID: "sayhelp", Flags: parsecmd.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_say)},
 		{Token: "sysop", HelpID: "nohelp", Flags: parsecmd.ClientServer | parsecmd.NoHelp, LegacyFunc: wrapCommandC(nox_cmd_sysop)},
 		{Token: "unset", HelpID: "unsethelp", Flags: parsecmd.ClientServer, Sub: []*parsecmd.Command{
@@ -567,15 +579,6 @@ func nox_cmd_cheat_level(i C.int, n C.int, arr **C.wchar_t) C.int {
 }
 func nox_cmd_cheat_spells(i C.int, n C.int, arr **C.wchar_t) C.int {
 	return C.nox_cmd_cheat_spells(i, n, arr)
-}
-func nox_cmd_image(i C.int, n C.int, arr **C.wchar_t) C.int {
-	return C.nox_cmd_image(i, n, arr)
-}
-func nox_cmd_quit(i C.int, n C.int, arr **C.wchar_t) C.int {
-	return C.nox_cmd_quit(i, n, arr)
-}
-func nox_cmd_exit(i C.int, n C.int, arr **C.wchar_t) C.int {
-	return C.nox_cmd_exit(i, n, arr)
 }
 func nox_cmd_watch(i C.int, n C.int, arr **C.wchar_t) C.int {
 	return C.nox_cmd_watch(i, n, arr)

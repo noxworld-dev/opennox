@@ -168,9 +168,6 @@ func mainloopDrawAndPresent(inp *input.Handler) {
 	}
 	C.sub_44D9F0(1)
 	maybeScreenshot()
-	if C.sub_409F40(4096) == 0 { // CheckRuleFlags and smth
-		C.nox_xxx_screenshot_46D830()
-	}
 	if !getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) || getEngineFlag(NOX_ENGINE_FLAG_9) || C.nox_client_gui_flag_815132 != 0 {
 		// C.nox_xxx_directDrawBlitMB_48A220() // does nothing
 		nox_video_callCopyBackBuffer_4AD170()

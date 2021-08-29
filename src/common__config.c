@@ -964,6 +964,7 @@ int nox_common_parsecfg_videomode() {
 	v4 = strtok(0, " \r\t\n");
 	v5 = atoi(v4);
 	v6 = v5;
+#ifndef NOX_CGO
 	if (v5 == 8) {
 		if (!nox_video_bagexists_4300D0(0))
 			v6 = 16;
@@ -973,6 +974,9 @@ int nox_common_parsecfg_videomode() {
 	} else {
 		v6 = nox_video_bagexists_4300D0(1) ? 16 : 8;
 	}
+#else // NOX_CGO
+	v6 = 16;
+#endif // NOX_CGO
 #ifdef __EMSCRIPTEN__
 	w = EM_ASM_INT(return Module['ingameWidth']());
 	h = EM_ASM_INT(return Module['ingameHeight']());

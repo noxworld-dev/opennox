@@ -458,7 +458,7 @@ func nox_xxx_servInitialMapLoad_4D17F0() bool {
 		return false
 	}
 	if debugMainloop {
-		log.Println("gameStateFunc = nox_xxx_gameTick_4D2580_server", nox_xxx_gameTick_4D2580_server)
+		log.Println("gameStateFunc = nox_xxx_gameTick_4D2580_server")
 	}
 	nox_xxx_setGameState_43DDF0(nox_xxx_gameTick_4D2580_server)
 	C.nox_netlist_resetAllInList_40EE90(1)
@@ -653,7 +653,7 @@ func nox_xxx_gameTick_4D2580_server_C() bool {
 }
 
 func nox_game_guiInit_473680() error {
-	*memmap.PtrPtr(0x5D4594, 1096420) = nox_xxx_gLoadImg_42F970("CursorBitmap")
+	*memmap.PtrPtr(0x5D4594, 1096420) = unsafe.Pointer(nox_xxx_gLoadImg("CursorBitmap").C())
 	if C.sub_455C30() == 0 {
 		return errors.New("sub_455C30 failed")
 	}

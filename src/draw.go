@@ -58,7 +58,6 @@ extern unsigned char* nox_video_cur_pixdata_3799444;
 extern int dword_5d4594_3799524;
 extern unsigned int nox_client_gui_flag_1556112;
 extern unsigned int nox_gameDisableMapDraw_5d4594_2650672;
-extern nox_video_bag_section_t* nox_video_bag_sections_arr;
 char  nox_xxx_drawWalls_473C10(nox_draw_viewport_t* vp, void* data);
 void nox_xxx_tileDrawMB_481C20_A(nox_draw_viewport_t* vp, int v3);
 void nox_xxx_tileDrawMB_481C20_B(nox_draw_viewport_t* vp, int v78);
@@ -90,6 +89,7 @@ void nox_xxx_drawAllMB_475810_draw_D(nox_draw_viewport_t* vp);
 import "C"
 import (
 	"encoding/binary"
+	"fmt"
 	"image"
 	"sort"
 	"unicode"
@@ -221,6 +221,94 @@ func detectBestVideoSettings() { // nox_setProfiledMode_4445C0
 	C.nox_profiled_805856 = 1
 }
 
+func sub_4338D0() int {
+	switch 1 {
+	case 0:
+		nox_color_rgb_func_set(0)
+		C.dword_975240 = (*[0]byte)(C.sub_435240)
+		C.dword_975380 = (*[0]byte)(C.sub_434E80)
+		copy(C.byte_5D4594_3804364[:], C.byte_581450_9176[:])
+		break
+	case 1:
+		nox_color_rgb_func_set(1)
+		C.dword_975240 = (*[0]byte)(C.sub_435280)
+		C.dword_975380 = (*[0]byte)(C.sub_434E80)
+		copy(C.byte_5D4594_3804364[:], C.byte_581450_9176[:])
+		break
+	case 2:
+		nox_color_rgb_func_set(2)
+		C.dword_975240 = (*[0]byte)(C.sub_435280)
+		C.dword_975380 = (*[0]byte)(C.sub_434EC0)
+		copy(C.byte_5D4594_3804364[:], C.byte_581450_9336[:])
+		break
+	}
+	ptr := C.ptr_5D4594_3799572
+	ptr.field_13 = 0
+	ptr.field_14 = 0
+	ptr.field_17 = 0
+	ptr.field_24 = 0
+	ptr.field_25 = 0
+	ptr.field_26 = 0
+	ptr.field_44 = 0
+	ptr.field_45 = 0
+	ptr.field_46 = 0
+	ptr.field_54 = 0
+	ptr.field_55 = 0
+	ptr.field_56 = 0
+	ptr.field_58 = 0
+	ptr.field_59 = 0
+	ptr.field_60 = 0
+	ptr.field_61 = 0
+	ptr.field_259 = 255
+	ptr.field_260 = 16711935
+	ptr.field_261 = 16711935
+	ptr.field_262 = 0
+	C.sub_434990(25, 25, 25)
+	nox_draw_initColorTables_434CC0()
+	if C.sub_434DA0() == 0 {
+		return 0
+	}
+	if C.dword_5d4594_823772 == 0 {
+		C.sub_4353C0()
+	}
+	*memmap.PtrUint32(0x5D4594, 809596) = 0
+	C.dword_5d4594_808568 = 0
+	C.dword_5d4594_810628 = 0
+	if C.dword_5d4594_823772 != 0 {
+		v2 := alloc.Malloc(256 * 3)
+		defer alloc.Free(v2)
+		C.sub_435150((*C.uchar)(v2), (*C.char)(memmap.PtrOff(0x973F18, 3880)))
+		C.sub_4347F0((*C.char)(v2), 256)
+	} else {
+		C.sub_4347F0((*C.char)(memmap.PtrOff(0x581450, 8404)), 256)
+	}
+	if C.sub_434FB0() == 0 {
+		return 0
+	}
+	C.sub_4340A0(0, 0, 0, 255)
+	C.sub_4340A0(1, 0, 255, 0)
+	C.sub_4340A0(2, 0, 255, 255)
+	C.sub_4340A0(3, 255, 0, 0)
+	C.sub_4340A0(4, 255, 0, 255)
+	C.sub_4340A0(5, 255, 255, 0)
+	C.sub_4340A0(6, 255, 255, 255)
+	C.sub_4340A0(7, 0, 0, 0)
+	C.sub_4340A0(8, 0, 0, 128)
+	C.sub_4340A0(9, 0, 128, 0)
+	C.sub_4340A0(10, 0, 128, 128)
+	C.sub_4340A0(11, 128, 0, 0)
+	C.sub_4340A0(12, 128, 0, 128)
+	C.sub_4340A0(13, 128, 128, 0)
+	C.sub_4340A0(14, 128, 128, 128)
+	C.sub_4340A0(15, 0, 0, 0)
+	// TODO gamma control
+	C.dword_5d4594_808564 = 0
+	C.sub_4348C0()
+	C.sub_4352E0()
+	*memmap.PtrUint32(0x973F18, 5232) = 0
+	return 1
+}
+
 var noxrend = NewNoxRender()
 
 type drawOpFunc func(dst, src []byte, op byte, val int) (outDst, outSrc []byte)
@@ -239,6 +327,11 @@ type NoxRender struct {
 	draw4  drawOpFunc
 	draw5  drawOpFunc
 	draw6  drawOpFunc
+}
+
+func newNoxRenderData() *C.nox_render_data_t {
+	p := (*C.nox_render_data_t)(alloc.Malloc(unsafe.Sizeof(C.nox_render_data_t{})))
+	return p
 }
 
 func NewNoxRender() *NoxRender {
@@ -452,10 +545,6 @@ func nox_xxx_drawString_43FAF0(font unsafe.Pointer, sp *C.wchar_t, x, y, a5, a6 
 	return 1
 }
 
-func nox_xxx_gLoadImg_42F970(name string) unsafe.Pointer {
-	return unsafe.Pointer(C.nox_xxx_gLoadImg_42F970(internCStr(name)))
-}
-
 func nox_video_drawAnimatedImageOrCursorAt_4BE6D0(a1 uint32, pos types.Point) {
 	C.nox_video_drawAnimatedImageOrCursorAt_4BE6D0(C.int(a1), C.int(pos.X), C.int(pos.Y))
 }
@@ -505,9 +594,7 @@ func nox_xxx_client_435F80_draw(inp *input.Handler) bool {
 	nox_xxx_clientDrawAll_436100_draw()
 	C.sub_49BB40()
 	C.sub_49BA70()
-	if C.sub_409F40(4096) != 0 {
-		C.nox_xxx_screenshot_46D830()
-	}
+	maybeScreenshot()
 	if memmap.Uint32(0x5D4594, 826068) != 0 {
 		C.nox_xxx_motd_4467F0()
 	}
@@ -1127,21 +1214,13 @@ func nox_xxx_drawAllMB_475810_draw_F(vp *Viewport) {
 //export sub_4745F0
 func sub_4745F0(cvp *C.nox_draw_viewport_t) {
 	vp := asViewport(cvp)
-	fnc := func(vp *Viewport, dr *Drawable) {
-		C.sub_476850(vp.C(), dr.C())
-	}
-	if C.dword_5d4594_3799624 != 0 {
-		fnc = func(vp *Viewport, dr *Drawable) {
-			C.sub_476AE0(vp.C(), dr.C())
-		}
-	}
 	for _, dr := range nox_drawable_list_2 {
 		C.nox_xxx_drawHasteAndRunParticles_4746C0(vp.C(), dr.C())
 		if C.nox_xxx_client_4984B0_drawable(dr.C()) == 0 {
 			continue
 		}
 		dr.field_121 = 1
-		fnc(vp, dr)
+		C.sub_476AE0(vp.C(), dr.C())
 		if dr.Flags70()&0x40 != 0 {
 			C.nox_xxx_drawShinySpot_4C4F40(vp.C(), dr.C())
 		}
@@ -1168,19 +1247,18 @@ func nox_video_drawCircle_4B0B90(a1, a2, a3 C.int) {
 	noxrend.DrawCircle(int(a1), int(a2), int(a3))
 }
 
-func (r *NoxRender) DrawImageAt(img *C.nox_video_bag_image_t, pos types.Point) {
-	r.DrawImageAtPix(img, pos, nil)
-}
-
-type getPixdataFunc func(img *C.nox_video_bag_image_t) []byte
-
-func (r *NoxRender) DrawImageAtPix(img *C.nox_video_bag_image_t, pos types.Point, pixels getPixdataFunc) {
+func (r *NoxRender) DrawImageAt(img *Image, pos types.Point) {
+	defer func() {
+		if r := recover(); r != nil {
+			panic(fmt.Errorf("panic drawing image %v: %v", img, r))
+		}
+	}()
 	if C.dword_5d4594_3799452 != 0 {
 		C.nox_xxx_wndDraw_49F7F0()
 		C.sub_49F780(C.int(memmap.Int32(0x973F18, 52)), C.int(memmap.Int32(0x973F18, 12)))
-		C.sub_49F6D0(1)
+		r.p.flag_0 = 1
 	}
-	r.drawImage16(img, pos, pixels)
+	r.drawImage16(img, pos)
 	if C.dword_5d4594_3799452 != 0 {
 		C.sub_49F860()
 		C.dword_5d4594_3799452 = 0
@@ -1191,14 +1269,14 @@ func (r *NoxRender) DrawImageAtPix(img *C.nox_video_bag_image_t, pos types.Point
 		if memmap.Uint32(0x973F18, 92) != uint32(img.field_1_0) || memmap.Uint32(0x973F18, 84) != uint32(img.field_1_1) {
 			C.dword_5d4594_3799524 = 1
 		}
-		img.field_1_0 = C.ushort(memmap.Uint32(0x973F18, 92))
-		img.field_1_1 = C.ushort(memmap.Uint32(0x973F18, 84))
+		img.field_1_0 = uint16(memmap.Uint32(0x973F18, 92))
+		img.field_1_1 = uint16(memmap.Uint32(0x973F18, 84))
 	}
 }
 
 //export nox_client_drawImageAt_47D2C0
 func nox_client_drawImageAt_47D2C0(img *C.nox_video_bag_image_t, x, y C.int) {
-	noxrend.DrawImageAt(img, types.Point{X: int(x), Y: int(y)})
+	noxrend.DrawImageAt(asImage(img), types.Point{X: int(x), Y: int(y)})
 }
 
 func sub_47D200() {
@@ -1224,38 +1302,37 @@ func sub_47D200() {
 	C.dword_5d4594_3799468 = 0
 	C.dword_5d4594_3799552 = 0
 	C.dword_5d4594_3799508 = 0
-	//nox_video_getImagePixdata_func = nox_video_getImagePixdata_42FB30
 }
 
-func (r *NoxRender) drawImage16(img *C.nox_video_bag_image_t, pos types.Point, pixels getPixdataFunc) { // nox_client_xxxDraw16_4C7440
+func (r *NoxRender) drawImage16(img *Image, pos types.Point) { // nox_client_xxxDraw16_4C7440
 	if img == nil {
 		return
 	}
-	switch img.typ & 0x3F {
+	switch img.Type() & 0x3F {
 	case 2, 7:
 		r.draw27 = pixCopyN
-		r.nox_client_drawImg_bbb_4C7860(img, pos, pixels)
+		r.nox_client_drawImg_bbb_4C7860(img, pos)
 	case 3, 4, 5, 6:
 		r.draw5 = drawOpC(func() { C.sub_4C96A0() })
 		r.draw6 = func(dst, src []byte, op byte, val int) (_, _ []byte) { return dst, src }
-		if C.ptr_5D4594_3799572.field_13 == 0 {
-			if C.ptr_5D4594_3799572.field_14 != 0 {
+		if r.p.field_13 == 0 {
+			if r.p.field_14 != 0 {
 				r.draw5 = drawOpC(func() { C.sub_4C9970() })
 				r.draw27 = r.sub_4C86B0
 				r.draw4 = drawOpC(func() { C.sub_4C91C0() })
 			} else {
 				r.draw27 = drawOpC(func() { C.sub_4C8D60() })
-				if C.ptr_5D4594_3799572.field_17 == 0 {
+				if r.p.field_17 == 0 {
 					r.draw27 = pixCopyN
 				}
 				r.draw4 = drawOpC(func() { C.sub_4C8DF0() })
 			}
 		} else {
 			r.draw5 = drawOpC(func() { C.sub_4C97F0() })
-			if C.ptr_5D4594_3799572.field_14 != 0 {
-				v3 := C.ptr_5D4594_3799572.field_259
+			if r.p.field_14 != 0 {
+				v3 := r.p.field_259
 				if v3 == 255 {
-					if C.ptr_5D4594_3799572.field_16 == 0 {
+					if r.p.field_16 == 0 {
 						r.draw27 = r.sub_4C86B0
 						r.draw4 = drawOpC(func() { C.sub_4C91C0() })
 					} else {
@@ -1270,7 +1347,7 @@ func (r *NoxRender) drawImage16(img *C.nox_video_bag_image_t, pos types.Point, p
 					r.draw4 = drawOpC(func() { C.sub_4C92F0() })
 				}
 			} else {
-				v4 := C.ptr_5D4594_3799572.field_259
+				v4 := r.p.field_259
 				if v4 == 255 {
 					r.draw27 = pixCopyN
 					r.draw4 = drawOpC(func() { C.sub_4C8DF0() })
@@ -1283,10 +1360,10 @@ func (r *NoxRender) drawImage16(img *C.nox_video_bag_image_t, pos types.Point, p
 				}
 			}
 		}
-		r.nox_client_drawImg_aaa_4C79F0(img, pos, pixels)
+		r.nox_client_drawImg_aaa_4C79F0(img, pos)
 	case 8:
 		r.draw27 = drawOpC(func() { C.sub_4C9B20() })
-		r.nox_client_drawImg_aaa_4C79F0(img, pos, pixels)
+		r.nox_client_drawImg_aaa_4C79F0(img, pos)
 	}
 }
 
@@ -1326,40 +1403,22 @@ func drawOpC(fnc func()) drawOpFunc {
 	}
 }
 
-func nox_bag_section(i int) *C.nox_video_bag_section_t {
-	return (*C.nox_video_bag_section_t)(unsafe.Pointer(
-		uintptr(unsafe.Pointer(C.nox_video_bag_sections_arr)) +
-			uintptr(i)*unsafe.Sizeof(C.nox_video_bag_section_t{})))
-}
-
 //export nox_video_getImagePixdata_func
 func nox_video_getImagePixdata_func(img *C.nox_video_bag_image_t) unsafe.Pointer {
-	data := nox_video_getImagePixdata(img)
+	data := asImage(img).Pixdata()
 	if len(data) == 0 {
 		return nil
 	}
 	return unsafe.Pointer(&data[0])
 }
 
-func nox_video_getImagePixdata(img *C.nox_video_bag_image_t) []byte {
-	if img == nil {
+//export nox_video_getImagePixdata_42FB30
+func nox_video_getImagePixdata_42FB30(img *C.nox_video_bag_image_t) unsafe.Pointer {
+	data := asImage(img).Pixdata()
+	if len(data) == 0 {
 		return nil
 	}
-	if data := nox_video_getImagePixdata_new(img); len(data) != 0 {
-		// TODO: remove interning when we get rid of C renderer
-		data = asByteSlice(internCBytes(data), len(data))
-		return data
-	}
-	// FIXME
-	sz := 999999
-	if img.typ&0x80 == 0 && img.typ&0x3F != 7 {
-		if ent := nox_bag_section(int(img.sect_ind)); ent.size > 0 {
-			// TODO: this is still incorrect (size of the section vs size of the image)
-			sz = int(ent.size)
-		}
-	}
-	ptr := C.nox_video_getImagePixdata_42FB30(img)
-	return asByteSlice(ptr, sz)
+	return unsafe.Pointer(&data[0])
 }
 
 func skipPixdata(pix []byte, width int, skip int) []byte {
@@ -1381,11 +1440,8 @@ func skipPixdata(pix []byte, width int, skip int) []byte {
 	return pix
 }
 
-func (r *NoxRender) nox_client_drawImg_aaa_4C79F0(img *C.nox_video_bag_image_t, pos types.Point, pixels getPixdataFunc) { // nox_client_drawImg_aaa_4C79F0
-	if pixels == nil {
-		pixels = nox_video_getImagePixdata
-	}
-	src := pixels(img)
+func (r *NoxRender) nox_client_drawImg_aaa_4C79F0(img *Image, pos types.Point) { // nox_client_drawImg_aaa_4C79F0
+	src := img.Pixdata()
 	if len(src) == 0 {
 		return
 	}
@@ -1413,7 +1469,7 @@ func (r *NoxRender) nox_client_drawImg_aaa_4C79F0(img *C.nox_video_bag_image_t, 
 	*memmap.PtrInt32(0x973F18, 84) = int32(pos.Y)
 	*memmap.PtrUint32(0x973F18, 88) = width
 	*memmap.PtrUint32(0x973F18, 76) = height
-	if C.ptr_5D4594_3799572.flag_0 != 0 {
+	if r.p.flag_0 != 0 {
 		rc := types.Rect{Left: pos.X, Top: pos.Y, Right: pos.X + int(width), Bottom: pos.Y + int(height)}
 		a1a, ok := nox_xxx_utilRect_49F930(rc, r.Rect())
 		if !ok {
@@ -1566,23 +1622,15 @@ func (r *NoxRender) nox_client_drawXxx_4C7C80(pix []byte, pos types.Point, width
 
 //export nox_video_drawImageAt2_4B0820
 func nox_video_drawImageAt2_4B0820(a1 unsafe.Pointer, x, y C.int) {
-	var v C.nox_video_bag_image_t
-	v.typ = 8
 	ptr := *(*unsafe.Pointer)(unsafe.Pointer(uintptr(a1) + 64))
-	pix := asByteSlice(ptr, 999999) // FIXME
-	noxrend.DrawImageAtPix(&v, types.Point{X: int(x), Y: int(y)}, func(img *C.nox_video_bag_image_t) []byte {
-		if img != &v {
-			panic("unexpected argument")
-		}
-		return pix
-	})
+	sz := *(*uint32)(unsafe.Pointer(uintptr(a1) + 12))
+	pix := asByteSlice(ptr, int(sz))
+	img := NewRawImage(8, pix)
+	noxrend.DrawImageAt(img, types.Point{X: int(x), Y: int(y)})
 }
 
-func (r *NoxRender) nox_client_drawImg_bbb_4C7860(img *C.nox_video_bag_image_t, pos types.Point, pixels getPixdataFunc) {
-	if pixels == nil {
-		pixels = nox_video_getImagePixdata
-	}
-	data := pixels(img)
+func (r *NoxRender) nox_client_drawImg_bbb_4C7860(img *Image, pos types.Point) {
+	data := img.Pixdata()
 	if len(data) == 0 {
 		return
 	}
@@ -1649,9 +1697,9 @@ func (r *NoxRender) pixBlend(dst, src []byte, _ byte, sz int) (_, _ []byte) { //
 	gmask := uint16(par[1])
 	bmask := uint16(par[0])
 
-	rmul := uint16(byte(C.ptr_5D4594_3799572.field_26))
-	gmul := uint16(byte(C.ptr_5D4594_3799572.field_25))
-	bmul := uint16(byte(C.ptr_5D4594_3799572.field_24))
+	rmul := uint16(byte(r.p.field_26))
+	gmul := uint16(byte(r.p.field_25))
+	bmul := uint16(byte(r.p.field_24))
 
 	for i := 0; i < sz; i++ {
 		c1 := binary.LittleEndian.Uint16(dst) // old color
@@ -1698,8 +1746,7 @@ func (r *NoxRender) sub_4C86B0(dst, src []byte, _ byte, sz int) (_, _ []byte) { 
 	return dst[2*sz:], src[2*sz:]
 }
 
-//export nox_draw_initColorTables_434CC0
-func nox_draw_initColorTables_434CC0() C.int {
+func nox_draw_initColorTables_434CC0() {
 	mode := noxcolor.GetMode()
 	if C.dword_5d4594_3801780 == 0 {
 		mode = noxcolor.ModeRGBA5551
@@ -1714,7 +1761,6 @@ func nox_draw_initColorTables_434CC0() C.int {
 	C.nox_draw_colors_r_3804672 = (*C.uchar)(unsafe.Pointer(&arrR[0]))
 	C.nox_draw_colors_g_3804656 = (*C.uchar)(unsafe.Pointer(&arrG[0]))
 	C.nox_draw_colors_b_3804664 = (*C.uchar)(unsafe.Pointer(&arrB[0]))
-	return 1
 }
 
 //export sub_433C20_freeColorTables

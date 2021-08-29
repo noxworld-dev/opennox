@@ -2,11 +2,12 @@ package main
 
 /*
 #include "client__gui__window.h"
+extern unsigned int dword_5d4594_3799468;
+extern int dword_5d4594_3799524;
 extern nox_window* dword_5d4594_1064896;
 extern nox_window_ref* nox_win_1064912;
 
 int  nox_xxx_wndDrawFnDefault_46B370(int a1, int* a2);
-void  sub_46AC60(nox_window* a1);
 void  sub_4AA030(nox_window* win, nox_window_data* data);
 
 int nox_xxx_wndDefaultProc_0_46B330(int a1, int a2, int a3, int a4);
@@ -150,6 +151,20 @@ func nox_xxx_windowDestroyMB_46C4E0(a1 *C.nox_window) C.int {
 	return 0
 }
 
+//export nox_window_set_hidden
+func nox_window_set_hidden(p *C.nox_window, hidden C.int) C.int {
+	if p == nil {
+		return -2
+	}
+	win := asWindow(p)
+	if hidden != 0 {
+		win.Hide()
+	} else {
+		win.Show()
+	}
+	return 0
+}
+
 func nox_client_wndListXxxAdd_46A920(win *Window) {
 	win.next = nil
 	win.prev = nox_win_xxx1_last.C()
@@ -219,6 +234,7 @@ const (
 	NOX_WIN_HIDDEN      = WindowFlag(0x10)
 	NOX_WIN_LAYER_FRONT = WindowFlag(0x20)
 	NOX_WIN_LAYER_BACK  = WindowFlag(0x40)
+	NOX_WIN_FLAG4       = WindowFlag(0x80)
 )
 
 type Window C.nox_window
@@ -361,14 +377,23 @@ func (win *Window) Hide() {
 	if win == nil {
 		return
 	}
-	C.nox_window_set_hidden(win.C(), 1)
+	if !win.Flags().Has(0x8000) {
+		win.freeImages()
+	}
+
+	if C.dword_5d4594_3799468 != 0 {
+		if !win.Flags().Has(NOX_WIN_HIDDEN) {
+			C.dword_5d4594_3799524 = 1
+		}
+	}
+	win.flags |= C.nox_window_flags(NOX_WIN_HIDDEN)
 }
 
 func (win *Window) Show() {
 	if win == nil {
 		return
 	}
-	C.nox_window_set_hidden(win.C(), 0)
+	win.flags &^= C.nox_window_flags(NOX_WIN_HIDDEN)
 }
 
 func (win *Window) Func93(ev int, a1, a2 uintptr) int {
@@ -529,7 +554,7 @@ func (win *Window) Destroy() {
 		return
 	}
 	win.flags |= 0x800
-	C.sub_46AC60(win.C())
+	win.freeImages()
 	if nox_win_unk3 == win {
 		nox_win_unk3 = nil
 	}
@@ -632,5 +657,26 @@ func sub_46B180(win *Window) {
 		win.prev = nil
 	} else {
 		win.Parent().field_100 = nil
+	}
+}
+
+func (win *Window) freeImages() {
+	if win.Flags().Has(NOX_WIN_FLAG4) {
+		d := win.DrawData()
+		if d.bg_image != nil {
+			d.bg_image = nil
+		}
+		if d.dis_image != nil {
+			d.dis_image = nil
+		}
+		if d.en_image != nil {
+			d.en_image = nil
+		}
+		if d.sel_image != nil {
+			d.sel_image = nil
+		}
+		if d.hl_image != nil {
+			d.hl_image = nil
+		}
 	}
 }

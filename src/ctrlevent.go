@@ -597,7 +597,7 @@ func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_B() {
 			}
 			ce.active = false
 		case client.CCScreenShot:
-			C.nox_xxx_saveScreenshot_46DB00()
+			makeScreenshot()
 			ce.active = false
 		}
 	}

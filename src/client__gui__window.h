@@ -17,15 +17,15 @@ typedef struct nox_window_data {
 	int status; // 3, 12 (48)
 	nox_window* win; // 4, 16 (52)
 	uint32_t bg_color;  // 5, 20 (56)
-	void*    bg_image;  // 6, 24 (60)
+	void*    bg_image;  // 6, 24 (60), nox_video_bag_image_t
 	uint32_t en_color;  // 7, 28 (64)
-	void*    en_image;  // 8, 32 (68)
+	void*    en_image;  // 8, 32 (68), nox_video_bag_image_t
 	uint32_t hl_color;  // 9, 36 (72)
-	void*    hl_image;  // 10, 40 (76)
+	void*    hl_image;  // 10, 40 (76), nox_video_bag_image_t
 	uint32_t dis_color; // 11, 44 (80)
-	void*    dis_image; // 12, 48 (84)
+	void*    dis_image; // 12, 48 (84), nox_video_bag_image_t
 	uint32_t sel_color; // 13, 52 (88)
-	void*    sel_image; // 14, 56 (92)
+	void*    sel_image; // 14, 56 (92), nox_video_bag_image_t
 	int img_px; // 15, 60 (96)
 	int img_py; // 16, 64 (100)
 	uint32_t text_color; // 17, 68 (104)

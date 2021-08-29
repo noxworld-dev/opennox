@@ -406,9 +406,9 @@ int nox_video_setBackBufSizes_48A3D0() {
 			nox_backbuffer_pitchDiff = g_backbuffer1->pitch - 2 * g_backbuffer1->w;
 
 			if (g_format == SDL_PIXELFORMAT_RGBA5551)
-				dword_5d4594_3799624 = 1;
+				nox_video_pixmode_3799624 = 1;
 			else if (g_format == SDL_PIXELFORMAT_RGB565)
-				dword_5d4594_3799624 = 2;
+				nox_video_pixmode_3799624 = 2;
 			return 1;
 		}
 	}

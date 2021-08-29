@@ -354,7 +354,7 @@ var noxMemmap = []struct {
 	{0x5D4594, 787200, 4, "nox_video_bag_ptr_787200"},                // 0x694894
 	{0x5D4594, 787204, 4, "nox_video_bag_fileptr"},                   // 0x694898
 	{0x5D4594, 787208, 4, "nox_video_bag_tmpBuf_787208"},             // 0x69489C
-	{0x5D4594, 787212, 4, "dword_5d4594_787212"},                     // 0x6948A0
+	{0x5D4594, 787212, 4, "nox_video_bag_nxz_787212"},                // 0x6948A0
 	{0x5D4594, 787224, 4, "dword_5d4594_787224"},                     // 0x6948AC
 	{0x5D4594, 787228, 2048, "nox_input_arr_787228"},                 // 0x6948B0
 	{0x5D4594, 789276, 2048, "nox_input_arr_789276"},                 // 0x6950B0
@@ -1381,7 +1381,7 @@ var noxMemmap = []struct {
 	{0x973F18, 140, 4, "nox_backbuffer_depth"},               // 0x973FA4
 	{0x973F18, 144, 4, "ptr_5D4594_3799572"},                 // 0x973FA8
 	{0x973F18, 192, 4, "nox_video_windowsPlatformVersion"},   // 0x973FD8
-	{0x973F18, 196, 4, "dword_5d4594_3799624"},               // 0x973FDC
+	{0x973F18, 196, 4, "nox_video_pixmode_3799624"},          // 0x973FDC
 	{0x973F18, 232, 1056, "obj_5D4594_3799660"},              // 0x974000
 	{0x973F18, 1288, 1056, "obj_5D4594_3800716"},             // 0x974420
 	{0x973F18, 2344, 4, "nox_video_renderTargetFlags"},       // 0x974840

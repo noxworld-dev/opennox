@@ -1139,13 +1139,18 @@ int  nox_video_bagMaybeReload(int a1);
 void nox_video_bagFree_42F4D0();
 int  nox_xxx_imgLoadAlloc_42F610(int a1);
 int  nox_thing_read_IMAG_one_42F660(nox_memfile* f, char* buf);
-nox_video_bag_image_t*  nox_xxx_gLoadImg_42F970(const char* name);
-nox_things_imageRef_t*  nox_xxx_gLoadAnim_42FA20(const char* a1);
-nox_video_bag_image_t*  nox_xxx_readImgMB_42FAA0(int known_idx, const char* a2, char* a3);
+nox_video_bag_image_t*  nox_xxx_readImgMB_42FAA0(int known_idx, char typ, char* name);
 int sub_42FAD0();
 void*  nox_video_getImagePixdata_42FB30(nox_video_bag_image_t* img);
+#ifdef NOX_CGO
+nox_things_imageRef_t*  nox_xxx_gLoadAnim_42FA20(char* a1);
+nox_video_bag_image_t*  nox_xxx_gLoadImg_42F970(char* name);
+#else NOX_CGO
+nox_things_imageRef_t*  nox_xxx_gLoadAnim_42FA20(const char* a1);
+nox_video_bag_image_t*  nox_xxx_gLoadImg_42F970(const char* name);
 void  nox_video_bagReadImage_42FE30(nox_video_bag_section_t* ent);
 void  nox_video_bag_decodeImagesInSection_42FF90(nox_video_bag_section_t* ent);
+#endif // NOX_CGO
 BOOL  sub_42FFF0(FILE* a1);
 bool nox_video_bagexists_4300D0(int a1);
 const char* nox_video_getbagfilename(int is16bit);
@@ -2472,7 +2477,7 @@ int  nox_xxx_videoBag_LoadTile_47AD60(int a1, int a2, _WORD* a3);
 int  nox_xxx_videoBag_LoadEdge_47AF30(int, int, unsigned __int8*);
 int  nox_xxx_videoBag_LoadPXImg_47B7F0(int a1, int a2, int a3, unsigned __int8 a4);
 int  sub_47D090(int a1, int a2);
-LPVOID sub_47D150();
+void sub_47D150();
 int sub_47D200();
 void nullsub_6(void); // weak
 void  nox_client_drawImageAt_47D2C0(nox_video_bag_image_t* img, int x, int y);

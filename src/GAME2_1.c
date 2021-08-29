@@ -127,7 +127,7 @@ extern _DWORD dword_5d4594_1049864;
 extern _DWORD dword_5d4594_1062508;
 extern _DWORD dword_5d4594_1064816;
 extern _DWORD dword_5d4594_1064192;
-extern _DWORD dword_5d4594_3799624;
+extern _DWORD nox_video_pixmode_3799624;
 extern _DWORD dword_5d4594_1082856;
 extern _DWORD dword_5d4594_1049504;
 extern _DWORD dword_5d4594_1090120;
@@ -4563,6 +4563,7 @@ int sub_46D6F0() {
 	return 1;
 }
 
+#ifndef NOX_CGO
 //----- (0046D750) --------------------------------------------------------
 int  nox_xxx_queueScreenshot_46D750(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, int a9, int a10) {
 	int v10; // edi
@@ -4750,6 +4751,7 @@ int nox_xxx_saveScreenshot_46DB00() {
 	return nox_xxx_queueScreenshot_46D750(*getMemIntPtr(0x5D4594, 1083964), 0, 0, nox_win_width, nox_win_height, 1, 0, 0, nox_xxx_screenshotCallback_46D950,
 					  (int)getMemAt(0x5D4594, 1082932));
 }
+#endif // NOX_CGO
 
 //----- (0046DB80) --------------------------------------------------------
 int sub_46DB80() {
@@ -7867,7 +7869,7 @@ void sub_4745F0(nox_draw_viewport_t* vp) {
 	int v5;                                    // eax
 
 	v1 = sub_476850;
-	if (dword_5d4594_3799624)
+	if (nox_video_pixmode_3799624)
 		v1 = sub_476AE0;
 	result = nox_drawable_list_2_size;
 	for (i = nox_drawable_list_2; nox_drawable_list_2_size > 0; --nox_drawable_list_2_size) {

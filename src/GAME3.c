@@ -137,7 +137,7 @@ extern _DWORD dword_5d4594_1307780;
 extern _DWORD dword_5d4594_1308084;
 extern _DWORD dword_5d4594_1309812;
 extern _DWORD dword_5d4594_1309820;
-extern _DWORD dword_5d4594_3799624;
+extern _DWORD nox_video_pixmode_3799624;
 extern _DWORD dword_5d4594_3801780;
 extern _DWORD dword_5d4594_810632;
 extern _DWORD dword_5d4594_2650652;
@@ -3790,12 +3790,13 @@ __int16  sub_4A9B20(int a1) {
 	return v1;
 }
 
+#ifndef NOX_CGO
 //----- (004A9B70) --------------------------------------------------------
 __int16  sub_4A9B70(__int16* a1) {
 	int v1; // eax
 
 	if (dword_5d4594_3801780) {
-		if (dword_5d4594_3799624 == 2)
+		if (nox_video_pixmode_3799624 == 2)
 			v1 = *a1 & 0x1F | (*a1 >> 1) & 0x7FE0;
 		else
 			LOWORD(v1) = *a1;
@@ -3809,10 +3810,11 @@ __int16  sub_4A9B70(__int16* a1) {
 int  nox_xxx_unused_4A9BC0(unsigned __int8 a1, unsigned __int8 a2, unsigned __int8 a3) {
 	if (dword_5d4594_3801780 != 1)
 		return sub_4A9A30(a1, a2, a3);
-	if (dword_5d4594_3799624 == 1)
+	if (nox_video_pixmode_3799624 == 1)
 		return (a3 >> 3) | (4 * (a2 & 0xF8 | (32 * (a1 & 0xF8))));
 	return (a3 >> 3) | (8 * (a2 & 0xFC | (32 * (a1 & 0xF8))));
 }
+#endif // NOX_CGO
 
 //----- (004A9C50) --------------------------------------------------------
 int  sub_4A9C50(int a1) {
@@ -8090,12 +8092,12 @@ int  sub_4B0870(int* a1) {
 	return result;
 }
 
+#ifndef NOX_CGO
 //----- (004B0B20) --------------------------------------------------------
 void*  nox_video_getImagePixdataInline_4B0B20(nox_video_bag_image_t* img) {
 	return img->offset;
 }
 
-#ifndef NOX_CGO
 //----- (004B0B30) --------------------------------------------------------
 int nox_video_assignCircleDrawFuncs_4B0B30() {
 	if (dword_5d4594_3801780) {

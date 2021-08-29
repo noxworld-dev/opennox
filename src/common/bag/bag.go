@@ -163,6 +163,10 @@ func (f *File) readString8() (string, error) {
 	return string(bytes.TrimRight(b, "\x00")), nil
 }
 
+func (f *File) ReadAll() error {
+	return f.ensureImages()
+}
+
 func (f *File) Segments() ([]*Segment, error) {
 	if f.segm == nil {
 		if err := f.readAll(); err != nil {

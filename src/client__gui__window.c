@@ -17,7 +17,6 @@ nox_video_bag_image_t*  nox_xxx_gLoadImg_42F970(const char* a1);
 // TODO: reference to input
 void sub_4309B0(unsigned char i, unsigned char v);
 
-extern nox_video_bag_section_t* nox_video_bag_sections_arr;
 extern unsigned int dword_5d4594_3799468;
 extern nox_window* nox_win_1064916;
 
@@ -30,6 +29,7 @@ nox_window* dword_5d4594_1064896 = 0;
 
 nox_window_ref* nox_win_1064912 = 0;
 #ifndef NOX_CGO
+extern nox_video_bag_section_t* nox_video_bag_sections_arr;
 nox_alloc_class* nox_alloc_window = 0;
 nox_window* nox_win_xxx1_first = 0;
 nox_window* nox_win_xxx1_last = 0;
@@ -155,7 +155,6 @@ int  nox_xxx_wndShowModalMB_46A8C0(nox_window* win) {
 	}
 	return result;
 }
-#endif // NOX_CGO
 
 //----- (0042FAE0) --------------------------------------------------------
 void sub_42FAE0(void* a1) {
@@ -188,7 +187,6 @@ void  sub_46AC60(nox_window* a1p) {
 	}
 }
 
-#ifndef NOX_CGO
 //----- (0046B180) --------------------------------------------------------
 void  sub_46B180(nox_window* win) {
 	nox_window* next = win->next;
@@ -336,6 +334,7 @@ int  nox_xxx_wnd_46ABB0(int a1, int a2) {
 	return 0;
 }
 
+#ifndef NOX_CGO
 //----- (0046AC00) --------------------------------------------------------
 int  nox_window_set_hidden(nox_window* win, int hidden) {
 	if (!win)
@@ -358,7 +357,6 @@ int  nox_window_set_hidden(nox_window* win, int hidden) {
 	return 0;
 }
 
-#ifndef NOX_CGO
 //----- (0046ACC0) --------------------------------------------------------
 int  wndIsShown_nox_xxx_wndIsShown_46ACC0(nox_window* win) {
 	int a1 = win;

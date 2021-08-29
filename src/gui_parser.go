@@ -565,7 +565,7 @@ func makeImageParseFunc(field func(*WindowData) *unsafe.Pointer) guiWindowParseF
 		if s == "NULL" {
 			*out = nil
 		} else {
-			*out = nox_xxx_gLoadImg_42F970(s)
+			*out = unsafe.Pointer(nox_xxx_gLoadImg(s).C())
 		}
 		return true
 	}

@@ -296,7 +296,7 @@ func drawInitAll(sz types.Size, flags int) error {
 		return err
 	}
 	sub_49F610(sz)
-	if res := C.sub_4338D0(); res == 0 {
+	if res := sub_4338D0(); res == 0 {
 		return errors.New("sub_4338D0 failed")
 	}
 	if err := nox_video_setBackBufferCopyFunc_4AD100(); err != nil {
@@ -500,7 +500,7 @@ func drawGeneral_4B0340(a1 int) error {
 		if err := sub_486090(prevSz); err != nil {
 			return err
 		}
-		if C.sub_4338D0() == 0 {
+		if sub_4338D0() == 0 {
 			return errors.New("sub_4338D0 failed")
 		}
 		sub_48B3F0(v11, C.int(v10), C.int(v9))
@@ -859,40 +859,12 @@ func nox_client_drawXxx_444AC0(w, h int, flags int) error {
 		C.nox_video_renderTargetFlags |= 0x120
 	}
 	v8 := int(uint32(w) & 0xFFFFFFE0)
-	if v7&4 == 0 {
-		if err := resetRenderer(types.Size{W: v8, H: h}, true); err != nil {
-			return err
-		}
-		return nil
+	if v7&4 != 0 {
+		panic("unreachable")
 	}
-	panic("TODO")
-	v9 := (v7 & 0x17) - 20
-	*memmap.PtrUint32(0x973F18, 2368) = 0
-	//nox_backbuffer_width = v8
-	//nox_backbuffer_height = h
-	//nox_backbuffer_pitchDiff = 0
-	//dword_973C64 = 0
-	if v9 == 0 {
-		C.dword_5d4594_3799624 = 0
-		//nox_backbuffer_pitch_3801808 = v8
-		C.dword_5d4594_3801780 = 0
-		*memmap.PtrUint32(0x973F18, 2348) = uint32(v8) >> 2
-		nox_backbuffer_width32 = v8 >> 5
-		return nil
+	if err := resetRenderer(types.Size{W: v8, H: h}, true); err != nil {
+		return err
 	}
-	v10 := v9 - 1
-	if v10 != 0 {
-		if v10 != 1 {
-			return errors.New("nox_client_drawXxx_444AC0 failed")
-		}
-		C.dword_5d4594_3799624 = 2
-	} else {
-		C.dword_5d4594_3799624 = 1
-	}
-	C.dword_5d4594_3801780 = 1
-	//nox_backbuffer_pitch_3801808 = 2 * v8
-	*memmap.PtrUint32(0x973F18, 2348) = uint32(v8) >> 1
-	nox_backbuffer_width32 = v8 >> 4
 	return nil
 }
 
@@ -1081,12 +1053,12 @@ func nox_client_drawCursorAndTooltips_477830(inp *input.Handler) {
 		if pl == nil || pl.PlayerClass() != player.Warrior {
 			v2 := C.nox_xxx_spellIcon_424A90(C.int(nox_client_spellDragnDrop_1097192)) // Spell icon
 			if v2 != nil {
-				noxrend.DrawImageAt((*C.nox_video_bag_image_t)(v2), mpos.Sub(types.Point{X: 15, Y: 15}))
+				noxrend.DrawImageAt(asImage((*C.nox_video_bag_image_t)(v2)), mpos.Sub(types.Point{X: 15, Y: 15}))
 			}
 		} else {
 			v2 := C.nox_xxx_spellGetAbilityIcon_425310(C.int(nox_client_spellDragnDrop_1097192), 0) // Ability icon
 			if v2 != nil {
-				noxrend.DrawImageAt((*C.nox_video_bag_image_t)(v2), mpos.Sub(types.Point{X: 15, Y: 15}))
+				noxrend.DrawImageAt(asImage((*C.nox_video_bag_image_t)(v2)), mpos.Sub(types.Point{X: 15, Y: 15}))
 			}
 		}
 	}

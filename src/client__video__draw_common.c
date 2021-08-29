@@ -134,7 +134,7 @@ int  nox_client_drawXxx_444AC0(int w, int h, int depth, int flags) {
 	nox_backbuffer_pitchDiff = 0;
 	dword_973C64 = 0;
 	if (!v9) {
-		dword_5d4594_3799624 = 0;
+		nox_video_pixmode_3799624 = 0;
 		nox_backbuffer_pitch_3801808 = w & 0xFFFFFFE0;
 		dword_5d4594_3801780 = 0;
 		*getMemU32Ptr(0x973F18, 2348) = v8 >> 2;
@@ -148,9 +148,9 @@ int  nox_client_drawXxx_444AC0(int w, int h, int depth, int flags) {
 	if (v10) {
 		if (v10 != 1)
 			return 0;
-		dword_5d4594_3799624 = 2;
+		nox_video_pixmode_3799624 = 2;
 	} else {
-		dword_5d4594_3799624 = 1;
+		nox_video_pixmode_3799624 = 1;
 	}
 	dword_5d4594_3801780 = 1;
 	nox_backbuffer_pitch_3801808 = 2 * v8;
@@ -809,7 +809,7 @@ bool nox_xxx_makeFillerColor_48BDE0() {
 	*getMemU32Ptr(0x5D4594, 1193592) = v0;
 	if (g_cursor_surf) {
 		// FIXME use SDL_MapRGB instead?
-		v0 = dword_5d4594_3799624 ? (unsigned __int16)v0 : (unsigned __int8)v0;
+		v0 = nox_video_pixmode_3799624 ? (unsigned __int16)v0 : (unsigned __int8)v0;
 		SDL_SetColorKey(g_cursor_surf, SDL_TRUE, v0);
 	}
 	return 1;
@@ -851,14 +851,13 @@ void nox_video_stopCursorDrawThread_48B350() {
 	}
 	dword_5d4594_1193624 = 0;
 }
-#endif // NOX_CGO
 
 //----- (004338D0) --------------------------------------------------------
 int sub_4338D0() {
 	int result;          // eax
 	pixel888 v2[256];    // [esp+Ch] [ebp-300h]
 
-	switch (dword_5d4594_3799624) {
+	switch (nox_video_pixmode_3799624) {
 	case 0:
 #ifndef NOX_CGO
 		nox_color_rgb_func = nox_color_func_435180;
@@ -955,6 +954,7 @@ int sub_4338D0() {
 	}
 	return result;
 }
+#endif // NOX_CGO
 
 //----- (00433CD0) --------------------------------------------------------
 int  sub_433CD0(BYTE a1, BYTE a2, BYTE a3) {

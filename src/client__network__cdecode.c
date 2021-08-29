@@ -3206,7 +3206,9 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 				if (*(_BYTE*)(data + 1) == 1) {
 					if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
 						nox_gameDisableMapDraw_5d4594_2650672 = 0;
+					#ifndef NOX_CGO
 						sub_42EE00();
+					#endif // NOX_CGO
 						sub_413A00(1);
 						nox_client_screenFadeXxx_44DB30(25, *(_BYTE*)(data + 2) == 1, sub_44E020);
 					}

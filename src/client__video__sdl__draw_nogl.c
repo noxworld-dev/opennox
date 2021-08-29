@@ -156,7 +156,7 @@ int nox_video_setBackBufSizes_48A3D0() {
 	dword_5d4594_3801780 = 1;
 	nox_backbuffer_pitch_3801808 = 2 * g_backbuffer1->w;
 	nox_backbuffer_pitchDiff = g_backbuffer1->pitch - 2 * g_backbuffer1->w;
-	dword_5d4594_3799624 = 1;
+	nox_video_pixmode_3799624 = 1;
 	return 1;
 }
 

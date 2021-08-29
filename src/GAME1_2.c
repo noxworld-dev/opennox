@@ -32,7 +32,6 @@
 
 extern unsigned char byte_5D4594_3804364[160];
 
-extern _DWORD dword_5d4594_787188;
 extern _DWORD nox_xxx_useAudio_587000_80772;
 extern _DWORD dword_5d4594_811904;
 extern _DWORD dword_5d4594_805988;
@@ -44,10 +43,7 @@ extern _DWORD dword_5d4594_815060;
 extern _DWORD dword_5d4594_815052;
 extern _DWORD dword_5d4594_805980;
 extern _DWORD dword_5d4594_741652;
-extern _DWORD dword_5d4594_787192;
 extern _DWORD dword_5d4594_3807116;
-extern _DWORD dword_5d4594_787224;
-extern _DWORD nox_video_bag_flag_754144;
 extern _DWORD dword_5d4594_810628;
 extern _DWORD dword_5d4594_808564;
 extern _DWORD dword_5d4594_741680;
@@ -62,15 +58,12 @@ extern _DWORD dword_5d4594_3807140;
 extern _DWORD dword_5d4594_814552;
 extern _DWORD dword_5d4594_815056;
 extern _DWORD dword_5d4594_808568;
-extern _DWORD nox_video_bag_tmpBufSize_787184;
 extern _DWORD dword_5d4594_2660032;
 extern _DWORD nox_client_gui_flag_1556112;
 extern _DWORD dword_5d4594_787180;
-extern _DWORD nox_video_bag_ready;
 extern _DWORD dword_5d4594_741356;
 extern _DWORD dword_5d4594_741332;
 extern _DWORD dword_5d4594_741364;
-extern _DWORD dword_5d4594_787212;
 extern int nox_video_16bit;
 extern nox_gui_animation* nox_wnd_xxx_815040;
 extern _DWORD dword_5d4594_805984;
@@ -119,7 +112,7 @@ extern _DWORD dword_5d4594_3798824;
 extern _DWORD dword_5d4594_815000;
 extern _DWORD dword_5d4594_741676;
 extern _DWORD dword_5d4594_3798840;
-extern _DWORD dword_5d4594_3799624;
+extern _DWORD nox_video_pixmode_3799624;
 extern _DWORD dword_5d4594_3801780;
 extern _DWORD dword_5d4594_810632;
 extern _DWORD nox_client_renderGUI_80828;
@@ -140,11 +133,35 @@ extern float input_sensitivity;
 #ifndef NOX_CGO
 int nox_max_width = NOX_MAX_WIDTH;
 int nox_max_height = NOX_MAX_HEIGHT;
+
+void* nox_video_bag_nxz_787212 = 0;
+_DWORD nox_video_bag_flag_754144 = 0;
+_DWORD nox_video_bag_ready = 0;
+FILE* nox_video_bag_fileptr = 0;
+void* nox_video_bag_ptr_787200 = 0;
+_DWORD nox_video_bag_tmpBufSize_787184 = 0;
+
+int nox_video_bag_sections_cnt = 0;
+int nox_video_bag_images_cnt = 0;
+
+nox_video_bag_section_t* nox_video_bag_sections_arr = 0;
+nox_video_bag_image_t* nox_video_bag_images_arr = 0;
+void* nox_video_bag_tmpBuf_787208 = 0;
+
+int nox_video_bag_var_2650640 = 0;
+int nox_video_bag_var_787176 = 0;
+
+_DWORD dword_5d4594_787188 = 0;
+_DWORD dword_5d4594_787192 = 0;
+_DWORD dword_5d4594_787224 = 0;
+
+nox_things_imageRef_t* nox_images_arr1_787156 = 0;
+int nox_images_cnt1_787160 = 0;
+int nox_images_ind1_787164 = 0;
 #endif // NOX_CGO
+
 int nox_win_width = 0;
 int nox_win_height = 0;
-
-FILE* nox_video_bag_fileptr = 0;
 
 extern nox_ctrlevent_xxx_t nox_ctrlevent_buf_747884[NOX_CTRLEVENT_XXX_MAX];
 extern nox_ctrlevent_code_info_t nox_ctrlevent_code_infos[];
@@ -163,21 +180,6 @@ nox_screenParticle* nox_screenParticles_head = 0;
 nox_screenParticle* dword_5d4594_806052 = 0;
 
 nox_draw_viewport_t nox_draw_viewport = {0};
-
-int nox_video_bag_var_2650640 = 0;
-int nox_video_bag_var_787176 = 0;
-
-int nox_video_bag_sections_cnt = 0;
-int nox_video_bag_images_cnt = 0;
-
-nox_things_imageRef_t* nox_images_arr1_787156 = 0;
-int nox_images_cnt1_787160 = 0;
-int nox_images_ind1_787164 = 0;
-
-void* nox_video_bag_ptr_787200 = 0;
-nox_video_bag_section_t* nox_video_bag_sections_arr = 0;
-nox_video_bag_image_t* nox_video_bag_images_arr = 0;
-void* nox_video_bag_tmpBuf_787208 = 0;
 
 #ifndef NOX_CGO
 char nox_clientServerAddr[32] = "localhost";
@@ -3701,13 +3703,14 @@ void sub_42EDC0() {
 	}
 }
 
+#ifndef NOX_CGO
 //----- (0042EE00) --------------------------------------------------------
 int sub_42EE00() {
 	unsigned __int8* v0; // ecx
 	int result;          // eax
 	int v2;              // esi
 
-	v0 = *(unsigned __int8**)&nox_video_bag_ptr_787200;
+	v0 = (unsigned __int8*)nox_video_bag_ptr_787200;
 	result = 0;
 	if (nox_video_bag_ptr_787200 && *getMemU32Ptr(0x5D4594, 787216)) {
 		v2 = *getMemU32Ptr(0x5D4594, 787216);
@@ -3848,8 +3851,8 @@ int  nox_video_read_videobag(int is16bit) {
 	if (nox_video_bag_flag_754144) {
 		nox_video_bag_tmpBuf_787208 = malloc(nox_video_bag_tmpBufSize_787184);
 	}
-	if (!dword_5d4594_787212) {
-		dword_5d4594_787212 = sub_578BF0();
+	if (!nox_video_bag_nxz_787212) {
+		nox_video_bag_nxz_787212 = sub_578BF0();
 	}
 	if (nox_video_bag_var_2650640 == 1) {
 		nox_video_bagAlloc_47A270();
@@ -3993,9 +3996,9 @@ void nox_video_bagFree_42F4D0() {
 	sub_47D150();
 	nox_fs_close(nox_video_bag_fileptr);
 	nox_video_bag_fileptr = 0;
-	if (dword_5d4594_787212) {
-		sub_578C40(*(LPVOID*)&dword_5d4594_787212);
-		dword_5d4594_787212 = 0;
+	if (nox_video_bag_nxz_787212) {
+		sub_578C40(*(LPVOID*)&nox_video_bag_nxz_787212);
+		nox_video_bag_nxz_787212 = 0;
 	}
 	if (nox_video_bag_tmpBuf_787208) {
 		free(nox_video_bag_tmpBuf_787208);
@@ -4135,7 +4138,7 @@ nox_things_imageRef_t* nox_xxx_gLoadAnim_42FA20(const char* name) {
 }
 
 //----- (0042FAA0) --------------------------------------------------------
-nox_video_bag_image_t* nox_xxx_readImgMB_42FAA0(int known_idx, const char* a2, char* a3) {
+nox_video_bag_image_t* nox_xxx_readImgMB_42FAA0(int known_idx, char a2, char* a3) {
 	if (known_idx != -1) {
 		return &nox_video_bag_images_arr[known_idx];
 	}
@@ -4323,18 +4326,18 @@ void  nox_video_bagReadImage_42FE30(nox_video_bag_section_t* ent) {
 			in = nox_video_bag_tmpBuf_787208;
 			rn = nox_binfile_fread2_40ADD0(nox_video_bag_tmpBuf_787208, 1, ent->size_comp, fp);
 		}
-		sub_578C30(dword_5d4594_787212);
+		sub_578C30(nox_video_bag_nxz_787212);
 		int inLeft = ent->size_comp;
 		int outLeft = ent->size;
 		char* out = ent->data;
-		if (nox_xxx_nxzDecompress_578C10(dword_5d4594_787212, &out[ent->size - outLeft], &outLeft, &in[ent->size_comp - inLeft], &inLeft)) {
-			while (inLeft > 0 && nox_xxx_nxzDecompress_578C10(dword_5d4594_787212, &out[ent->size - outLeft], &outLeft, &in[ent->size_comp - inLeft], &inLeft)) {}
+		if (nox_xxx_nxzDecompress_578C10(nox_video_bag_nxz_787212, &out[ent->size - outLeft], &outLeft, &in[ent->size_comp - inLeft], &inLeft)) {
+			while (inLeft > 0 && nox_xxx_nxzDecompress_578C10(nox_video_bag_nxz_787212, &out[ent->size - outLeft], &outLeft, &in[ent->size_comp - inLeft], &inLeft)) {}
 		}
 		if (buf) {
 			free(buf);
 		}
 	}
-	if (rn == ent->size_comp && dword_5d4594_3799624 == 2) {
+	if (rn == ent->size_comp && nox_video_pixmode_3799624 == 2) {
 		nox_video_bag_decodeImagesInSection_42FF90(ent);
 	}
 }
@@ -4365,6 +4368,7 @@ void  nox_video_bag_decodeImagesInSection_42FF90(nox_video_bag_section_t* ent) {
 		} while (v5);
 	}
 }
+#endif // NOX_CGO
 
 //----- (0042FFF0) --------------------------------------------------------
 BOOL  sub_42FFF0(FILE* a1) {
@@ -4387,6 +4391,7 @@ BOOL  sub_42FFF0(FILE* a1) {
 }
 // 42FFF0: using guessed type char var_20[32];
 
+#ifndef NOX_CGO
 //----- (004300D0) --------------------------------------------------------
 bool nox_video_bagexists_4300D0(int a1) {
 	char* v1; // eax
@@ -4416,6 +4421,7 @@ char*  nox_video_getBagIdxName_430120(int a1) {
 		result = "video8.idx";
 	return result;
 }
+#endif // NOX_CGO
 
 //----- (00430880) --------------------------------------------------------
 int  sub_430880(int a1) {
@@ -4986,6 +4992,7 @@ int  nox_client_drawSetColor_434460(int a1) {
 	return a1;
 }
 
+#ifndef NOX_CGO
 //----- (004344D0) --------------------------------------------------------
 int  nox_xxx_unused_4344D0(_BYTE* a1) {
 	int result; // eax
@@ -4993,7 +5000,7 @@ int  nox_xxx_unused_4344D0(_BYTE* a1) {
 
 	result = 0;
 	if (a1) {
-		if (dword_5d4594_3799624) {
+		if (nox_video_pixmode_3799624) {
 			result = *(unsigned __int16*)a1 | (*(unsigned __int16*)a1 << 16);
 		} else {
 			LOBYTE(v2) = 0;
@@ -5004,6 +5011,7 @@ int  nox_xxx_unused_4344D0(_BYTE* a1) {
 	}
 	return result;
 }
+#endif // NOX_CGO
 
 //----- (00434510) --------------------------------------------------------
 char*  sub_434510(char* a1, unsigned __int8 a2, unsigned __int8 a3, unsigned __int8 a4) {
@@ -5261,10 +5269,11 @@ int sub_434DA0() {
 	void* result;    // eax
 	unsigned int v3; // esi
 
-	if (*(int*)&dword_5d4594_3799624 < 0)
+#ifndef NOX_CGO
+	if (*(int*)&nox_video_pixmode_3799624 < 0)
 		return 1;
-	if (dword_5d4594_3799624 > 1) {
-		if (dword_5d4594_3799624 == 2) {
+	if (nox_video_pixmode_3799624 > 1) {
+		if (nox_video_pixmode_3799624 == 2) {
 			v0 = 3;
 			v1 = 0xFFFF;
 			goto LABEL_6;
@@ -5274,6 +5283,10 @@ int sub_434DA0() {
 	v0 = 7;
 	v1 = 0x7FFF;
 LABEL_6:
+#else // NOX_CGO
+	v0 = 7;
+	v1 = 0x7FFF;
+#endif // NOX_CGO
 	result = (int)calloc(v1 + 3, 1u);
 	dword_5d4594_3804668 = result;
 	if (result) {
@@ -5309,10 +5322,11 @@ char  sub_434EC0(char a1, char a2, char a3) {
 
 //----- (00434F00) --------------------------------------------------------
 int sub_434F00() {
+#ifndef NOX_CGO
 	int result; // eax
 	int i;      // ebx
 
-	if (dword_5d4594_3799624)
+	if (nox_video_pixmode_3799624)
 		return 1;
 	if (dword_5d4594_810640 || (result = (int)calloc(0x8000u, 1u), (dword_5d4594_810640 = result) != 0)) {
 		for (i = 0; i <= 0x7FFF; ++i)
@@ -5321,6 +5335,9 @@ int sub_434F00() {
 		result = 1;
 	}
 	return result;
+#else // NOX_CGO
+	return 1;
+#endif // NOX_CGO
 }
 
 //----- (00435040) --------------------------------------------------------

@@ -15,16 +15,21 @@ import (
 
 func init() {
 	parseCmd.Register(&parsecmd.Command{
-		Token: "screen",
-		Help:  "screen: Save a PNG screenshot to disk.",
-		Flags: parsecmd.ClientServer,
-		Func:  cmdScreenshot,
+		Token:  "image",
+		HelpID: "imagehelp",
+		Flags:  parsecmd.ClientServer,
+		Func:   cmdScreenshot,
 	})
+}
+
+func cmdScreenshot(c *parsecmd.Console, tokens []string) bool {
+	makeScreenshot()
+	return true
 }
 
 var screenshotSeq uint32
 
-func cmdScreenshot(c *parsecmd.Console, tokens []string) bool {
+func makeScreenshot() {
 	// Screenshot will wait for the next clean frame, so must run in a goroutine
 	go func() {
 		img, err := Screenshot(context.Background())
@@ -58,5 +63,4 @@ func cmdScreenshot(c *parsecmd.Console, tokens []string) bool {
 			return
 		}
 	}()
-	return true
 }

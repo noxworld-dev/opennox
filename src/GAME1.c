@@ -7272,6 +7272,7 @@ int  nox_thing_read_SPEL_4156B0(nox_memfile* f, void* a2) {
 	return 0;
 }
 
+#ifndef NOX_CGO
 //----- (00415700) --------------------------------------------------------
 int nox_thing_read_IMAG_415700(nox_memfile* f, char* buf) {
 	unsigned int cnt = nox_memfile_read_u32(f);
@@ -7285,6 +7286,7 @@ int nox_thing_read_IMAG_415700(nox_memfile* f, char* buf) {
 	}
 	return 1;
 }
+#endif // NOX_CGO
 
 //----- (00415750) --------------------------------------------------------
 int  nox_thing_read_ABIL_415750(nox_memfile* f, void* a2) {
