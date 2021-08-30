@@ -22,7 +22,7 @@ var (
 	noxVideoBag *bag.File
 	noxImages   struct {
 		byHandle map[unsafe.Pointer]*Image
-		byIndex  []*Image // FIXME: populate!
+		byIndex  []*Image
 	}
 )
 
