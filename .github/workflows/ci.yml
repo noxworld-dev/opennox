@@ -270,6 +270,7 @@ jobs:
 
           mkdir /tmp/opennox-linux/docs
           cp ./docs/game-*.md /tmp/opennox-linux/docs/
+          cp ./docs/server-*.md /tmp/opennox-linux/docs/
           cp ./docs/mod-*.md /tmp/opennox-linux/docs/
           cp ./docs/maps-*.md /tmp/opennox-linux/docs/
           cp ./docs/*-sample.yml /tmp/opennox-linux/docs/
@@ -323,6 +324,7 @@ jobs:
 
             mkdir /tmp/opennox-win/docs
             cp ./docs/game-*.md /tmp/opennox-win/docs/
+            cp ./docs/server-*.md /tmp/opennox-win/docs/
             cp ./docs/mod-*.md /tmp/opennox-win/docs/
             cp ./docs/maps-*.md /tmp/opennox-win/docs/
             cp ./docs/*-sample.yml /tmp/opennox-win/docs/
