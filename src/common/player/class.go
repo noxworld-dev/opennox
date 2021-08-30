@@ -1,7 +1,5 @@
 package player
 
-import "fmt"
-
 const (
 	Warrior  = Class(0)
 	Wizard   = Class(1)
@@ -19,6 +17,6 @@ func (c Class) String() string {
 	case Conjurer:
 		return "conjurer"
 	default:
-		return fmt.Sprintf("player.Class(%d)", int(c))
+		return "unknown"
 	}
 }

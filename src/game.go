@@ -71,6 +71,7 @@ import (
 	"os"
 	"strconv"
 	"strings"
+	"sync"
 	"unsafe"
 
 	"github.com/noxworld-dev/xwis"
@@ -218,6 +219,14 @@ func getServerMap() string {
 	return C.GoString(C.nox_xxx_mapGetMapName_409B40())
 }
 
+func getServerCurPlayers() int {
+	return cntPlayers()
+}
+
+func getServerMaxPlayers() int {
+	return int(C.nox_xxx_servGetPlrLimit_409FA0())
+}
+
 var srvReg struct {
 	cur xwisInfoShort
 	srv *discover.RegServer
@@ -260,8 +269,8 @@ func getGameInfoXWIS() xwisInfoShort {
 		Name:       getServerName(),
 		Map:        getServerMap(),
 		Flags:      xwis.GameFlags(noxflags.GetGame()),
-		Players:    int(C.nox_common_playerInfoCount_416F40()),
-		MaxPlayers: int(C.nox_xxx_servGetPlrLimit_409FA0()),
+		Players:    getServerCurPlayers(),
+		MaxPlayers: getServerMaxPlayers(),
 		Level:      nox_game_getQuestStage_4E3CC0(),
 	}
 }
@@ -468,7 +477,29 @@ func nox_xxx_servInitialMapLoad_4D17F0() bool {
 	return true
 }
 
+var (
+	gameTickMu    sync.Mutex
+	gameTickHooks []func()
+)
+
+func addGameTickHook(fnc func()) {
+	gameTickMu.Lock()
+	gameTickHooks = append(gameTickHooks, fnc)
+	gameTickMu.Unlock()
+}
+
+func runGameTickHooks() {
+	gameTickMu.Lock()
+	defer gameTickMu.Unlock()
+	for i, fnc := range gameTickHooks {
+		fnc()
+		gameTickHooks[i] = nil
+	}
+	gameTickHooks = gameTickHooks[:0]
+}
+
 func nox_xxx_gameTick_4D2580_server() bool {
+	defer runGameTickHooks()
 	v0 := platformTicks()
 	v2 := false
 	if C.dword_5d4594_2650652 == 0 {

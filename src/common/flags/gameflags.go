@@ -133,6 +133,28 @@ func (f GameFlag) MarshalJSON() ([]byte, error) {
 	return json.Marshal(f.SplitString())
 }
 
+func (f GameFlag) Mode() string {
+	for _, f2 := range f.Split() {
+		switch f2 {
+		case GameModeKOTR:
+			return "kotr"
+		case GameModeCTF:
+			return "ctf"
+		case GameModeFlagBall:
+			return "flagball"
+		case GameModeChat:
+			return "chat"
+		case GameModeArena:
+			return "arena"
+		case GameModeElimination:
+			return "elimination"
+		case GameModeQuest:
+			return "quest"
+		}
+	}
+	return "custom"
+}
+
 func (f GameFlag) String() string {
 	switch f {
 	case GameHost:
