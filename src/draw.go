@@ -222,26 +222,11 @@ func detectBestVideoSettings() { // nox_setProfiledMode_4445C0
 }
 
 func sub_4338D0() int {
-	switch 1 {
-	case 0:
-		nox_color_rgb_func_set(0)
-		C.dword_975240 = (*[0]byte)(C.sub_435240)
-		C.dword_975380 = (*[0]byte)(C.sub_434E80)
-		copy(C.byte_5D4594_3804364[:], C.byte_581450_9176[:])
-		break
-	case 1:
-		nox_color_rgb_func_set(1)
-		C.dword_975240 = (*[0]byte)(C.sub_435280)
-		C.dword_975380 = (*[0]byte)(C.sub_434E80)
-		copy(C.byte_5D4594_3804364[:], C.byte_581450_9176[:])
-		break
-	case 2:
-		nox_color_rgb_func_set(2)
-		C.dword_975240 = (*[0]byte)(C.sub_435280)
-		C.dword_975380 = (*[0]byte)(C.sub_434EC0)
-		copy(C.byte_5D4594_3804364[:], C.byte_581450_9336[:])
-		break
-	}
+	noxcolor.SetMode(noxcolor.ModeRGBA5551)
+	C.dword_975240 = (*[0]byte)(C.sub_435280)
+	C.dword_975380 = (*[0]byte)(C.sub_434E80)
+	copy(byte_5D4594_3804364[:], byte_581450_9176[:])
+	copy(asU32Slice(unsafe.Pointer(&C.byte_5D4594_3804364[0]), 40), byte_581450_9176[:])
 	ptr := C.ptr_5D4594_3799572
 	ptr.field_13 = 0
 	ptr.field_14 = 0
@@ -1697,15 +1682,17 @@ func (r *NoxRender) pixBlend(dst, src []byte, _ byte, sz int) (_, _ []byte) { //
 	if sz < 0 {
 		panic("negative size")
 	}
-	par := asU32Slice(unsafe.Pointer(&C.byte_5D4594_3804364[0]), 40)
+	_ = dst[2*sz:]
+	_ = src[2*sz:]
+	const (
+		rshift = 3
+		gshift = 2
+		bshift = 7
 
-	rshift := par[5]
-	gshift := par[4]
-	bshift := par[3]
-
-	rmask := uint16(par[2])
-	gmask := uint16(par[1])
-	bmask := uint16(par[0])
+		rmask = 0x001f
+		gmask = 0x03e0
+		bmask = 0x7c00
+	)
 
 	rmul := uint16(byte(r.p.field_26))
 	gmul := uint16(byte(r.p.field_25))
@@ -1734,29 +1721,33 @@ func (r *NoxRender) sub_4C86B0(dst, src []byte, _ byte, sz int) (_, _ []byte) { 
 	if sz < 0 {
 		panic("negative size")
 	}
-	par := asU32Slice(unsafe.Pointer(&C.byte_5D4594_3804364[0]), 40)
+	_ = dst[2*sz:]
+	_ = src[2*sz:]
+	const (
+		rshift = 3
+		gshift = 2
+		bshift = 7
 
-	rshift := par[5]
-	gshift := par[4]
-	bshift := par[3]
-
-	rmask := uint16(par[2])
-	gmask := uint16(par[1])
-	bmask := uint16(par[0])
+		rmask = 0x001f
+		gmask = 0x03e0
+		bmask = 0x7c00
+	)
 
 	rmul := uint32(r.p.field_26)
 	gmul := uint32(r.p.field_25)
 	bmul := uint32(r.p.field_24)
 
 	for i := 0; i < sz; i++ {
-		v2 := binary.LittleEndian.Uint16(src[2*i:])
+		v2 := binary.LittleEndian.Uint16(src)
 		cr := r.colors.R[byte((bmul*(uint32(bmask&v2)>>bshift))>>8)]
 		cg := r.colors.G[byte((gmul*(uint32(gmask&v2)>>gshift))>>8)]
 		cb := r.colors.B[byte((rmul*(uint32(rmask&v2)<<rshift))>>8)]
 		c := cr | cg | cb
-		binary.LittleEndian.PutUint16(dst[2*i:], c)
+		binary.LittleEndian.PutUint16(dst, c)
+		dst = dst[2:]
+		src = src[2:]
 	}
-	return dst[2*sz:], src[2*sz:]
+	return dst, src
 }
 
 func nox_draw_initColorTables_434CC0() {

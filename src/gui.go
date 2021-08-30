@@ -268,11 +268,6 @@ func nox_color_rgb_func_get() C.int {
 	return C.int(noxcolor.GetMode())
 }
 
-//export nox_color_rgb_func_set
-func nox_color_rgb_func_set(mode C.int) {
-	noxcolor.SetMode(noxcolor.Mode(mode))
-}
-
 func unsafePtrToInt(p unsafe.Pointer) C.int {
 	return C.int(uintptr(p))
 }
