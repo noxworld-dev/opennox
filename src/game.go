@@ -425,16 +425,13 @@ func initGameSession435CC0() error {
 	}
 	nox_server_parseCmdText_443C80("execrul autoexec.rul", 1)
 	if isServer {
-		old := parseCmd.Cheats()
-		parseCmd.SetCheats(true)
-		nox_server_parseCmdText_443C80("set cycle on", 1)
+		serverCmd("set cycle on")
 		for _, cmd := range serverExec {
 			if len(cmd) == 0 {
 				continue
 			}
-			nox_server_parseCmdText_443C80(cmd, 1)
+			serverCmd(cmd)
 		}
-		parseCmd.SetCheats(old)
 	}
 	C.sub_4951C0()
 	C.sub_465DE0(0)
@@ -443,6 +440,25 @@ func initGameSession435CC0() error {
 
 func nox_server_parseCmdText_443C80(cmd string, flag int) int {
 	return int(C.nox_server_parseCmdText_443C80(internWStr(cmd), C.int(flag)))
+}
+
+func serverCmd(cmd string) {
+	cmd = strings.TrimSpace(cmd)
+	if len(cmd) == 0 {
+		return
+	}
+	if old := parseCmd.Cheats(); !old {
+		parseCmd.SetCheats(true)
+		defer parseCmd.SetCheats(false)
+	}
+	nox_server_parseCmdText_443C80(cmd, 1)
+}
+
+func serverCmdLoadMap(name string) {
+	if len(name) == 0 {
+		return
+	}
+	serverCmd("load " + name)
 }
 
 func nox_xxx_getSomeMapName_4D0CF0() string {

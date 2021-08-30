@@ -41,6 +41,18 @@ func init() {
 	})
 }
 
+func runMapLUA(code string) {
+	if scriptLUA.vm == nil {
+		return
+	}
+	if len(code) == 0 {
+		return
+	}
+	if err := scriptLUA.vm.Exec(code); err != nil {
+		lua.Log.Printf("error: %v", err)
+	}
+}
+
 func luaScriptTick() {
 	if scriptLUA.vm == nil {
 		return

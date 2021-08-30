@@ -3,15 +3,30 @@ package main
 import (
 	"context"
 	"encoding/json"
+	"io"
 	"net/http"
+	"os"
 	"sort"
 	"strings"
 
 	noxflags "nox/v1/common/flags"
+	"nox/v1/common/log"
+)
+
+var (
+	apiLog    = log.New("api")
+	apiTokens = make(map[string]struct{})
 )
 
 func init() {
-	gameMux.HandleFunc("/api/v0/game/info", handleServerInfo)
+	if tok := os.Getenv("NOX_API_TOKEN"); tok != "" {
+		apiTokens[tok] = struct{}{}
+	}
+	const pref = "/api/v0/game"
+	gameMux.HandleFunc(pref+"/info", handleServerInfo)
+	gameMux.HandleFunc(pref+"/map", handleChangeMap)
+	gameMux.HandleFunc(pref+"/cmd", handleRunCmd)
+	gameMux.HandleFunc(pref+"/lua", handleRunLUA)
 }
 
 type gameInfoPlayers struct {
@@ -71,6 +86,30 @@ func getGameInfo(ctx context.Context) (*gameInfoResp, error) {
 	}
 }
 
+func queueServerMapLoad(name string) {
+	name = strings.TrimSpace(name)
+	apiLog.Printf("load map: %q", name)
+	addGameTickHook(func() {
+		serverCmdLoadMap(name)
+	})
+}
+
+func queueServerCmd(cmd string) {
+	cmd = strings.TrimSpace(cmd)
+	apiLog.Printf("run command: %q", cmd)
+	addGameTickHook(func() {
+		serverCmd(cmd)
+	})
+}
+
+func queueMapLUA(code string) {
+	code = strings.TrimSpace(code)
+	apiLog.Printf("run lua: %q", code)
+	addGameTickHook(func() {
+		runMapLUA(code)
+	})
+}
+
 func handleServerInfo(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	default:
@@ -86,4 +125,39 @@ func handleServerInfo(w http.ResponseWriter, r *http.Request) {
 	}
 	w.Header().Set("Content-Type", "application/json")
 	_ = json.NewEncoder(w).Encode(resp)
+}
+
+func handlePostStr(w http.ResponseWriter, r *http.Request, limit int, fnc func(str string)) {
+	switch r.Method {
+	default:
+		w.WriteHeader(http.StatusMethodNotAllowed)
+		return
+	case http.MethodHead:
+		return
+	case http.MethodPost:
+	}
+	defer r.Body.Close()
+	token := r.Header.Get("X-Token")
+	if _, ok := apiTokens[token]; !ok {
+		w.WriteHeader(http.StatusUnauthorized)
+		return
+	}
+	data, err := io.ReadAll(io.LimitReader(r.Body, int64(limit)+1))
+	if err != nil || len(data) > limit {
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
+	fnc(string(data))
+}
+
+func handleChangeMap(w http.ResponseWriter, r *http.Request) {
+	handlePostStr(w, r, 256, queueServerMapLoad)
+}
+
+func handleRunCmd(w http.ResponseWriter, r *http.Request) {
+	handlePostStr(w, r, 256, queueServerCmd)
+}
+
+func handleRunLUA(w http.ResponseWriter, r *http.Request) {
+	handlePostStr(w, r, 4096, queueMapLUA)
 }
