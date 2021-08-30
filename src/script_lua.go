@@ -78,6 +78,7 @@ func luaShutdown() {
 		_ = scriptLUA.vm.Close()
 		scriptLUA.vm = nil
 	}
+	scriptLUA.curmap = ""
 }
 
 func luaOnEvent(event script.EventType) {
