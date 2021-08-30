@@ -9871,7 +9871,7 @@ int  sub_486180(void* a1) {
 
 	nox_free_pixbuffers_486110();
 	nox_pixbuffer_3798780 = a1;
-	result = sub_486230();
+	result = nox_video_initPixbufferRows_486230();
 	*getMemU32Ptr(0x5D4594, 1193200) = 1;
 	return result;
 }
@@ -9888,7 +9888,7 @@ void nox_pixbuffer_swap_4861A0() {
 }
 
 //----- (004861D0) --------------------------------------------------------
-int sub_4861D0() {
+int nox_video_initPixbufferData_4861D0() {
 	if (*getMemU32Ptr(0x5D4594, 1193200))
 		return 1;
 
@@ -9907,7 +9907,7 @@ int sub_4861D0() {
 }
 
 //----- (00486230) --------------------------------------------------------
-int sub_486230() {
+int nox_video_initPixbufferRows_486230() {
 	nox_pixbuffer_rows_3798784 = malloc(sizeof(BYTE*) * nox_backbuffer_height);
 	if (!nox_pixbuffer_rows_3798784)
 		return 0;

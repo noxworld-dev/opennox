@@ -187,7 +187,7 @@ func colorRGB15(cl uint16) color.RGBA {
 }
 
 func copyGamePixBuffer() image.Image {
-	sz := videoGetWindowSize()
+	sz := nox_pixbuffer_size
 	img := image.NewRGBA(image.Rect(0, 0, sz.W, sz.H))
 
 	for y := 0; y < sz.H; y++ {

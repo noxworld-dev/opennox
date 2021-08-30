@@ -3874,7 +3874,7 @@ int  nox_client_drawInitAll_4449D0(int w, int h, int depth, int flags) {
 	if (!result)
 		return result;
 
-	result = sub_486090();
+	result = nox_video_initPixbuffer_486090();
 	printf("%s: %d\n", __FUNCTION__, result);
 	if (!result)
 		return result;

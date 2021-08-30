@@ -351,7 +351,10 @@ func caller(skip int) string {
 	}
 	fnc := "<unknown>"
 	if f := runtime.FuncForPC(pc); f != nil {
-		fnc = strings.TrimPrefix(f.Name(), "main.")
+		fnc = f.Name()
+		if i := strings.LastIndexByte(fnc, '.'); i >= 0 {
+			fnc = fnc[i+1:]
+		}
 	}
 	return fmt.Sprintf("%s, %s:%d", fnc, filepath.Base(file), line)
 }

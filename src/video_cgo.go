@@ -292,9 +292,7 @@ func drawInitAll(sz types.Size, flags int) error {
 		return err
 	}
 	sub_47D200()
-	if err := sub_486090(sz); err != nil {
-		return err
-	}
+	nox_video_initPixbuffer_486090(sz)
 	sub_49F610(sz)
 	if res := sub_4338D0(); res == 0 {
 		return errors.New("sub_4338D0 failed")
@@ -472,9 +470,7 @@ func drawGeneral_4B0340(a1 int) error {
 		if err := resetRenderer(sz, false); err != nil {
 			return err
 		}
-		if err := sub_486090(sz); err != nil {
-			return err
-		}
+		nox_video_initPixbuffer_486090(sz)
 	}
 
 	// FIXME: play movies
@@ -497,9 +493,7 @@ func drawGeneral_4B0340(a1 int) error {
 		if err := resetRenderer(prevSz, false); err != nil {
 			return err
 		}
-		if err := sub_486090(prevSz); err != nil {
-			return err
-		}
+		nox_video_initPixbuffer_486090(prevSz)
 		if sub_4338D0() == 0 {
 			return errors.New("sub_4338D0 failed")
 		}
@@ -695,13 +689,13 @@ func nox_free_pixbuffers_486110() {
 	}
 }
 
-func sub_486090(sz types.Size) error {
-	sub_4861D0(sz)
-	sub_486230(sz)
-	return nil
+func nox_video_initPixbuffer_486090(sz types.Size) {
+	videoLog.Printf("initializing pixbuffer: %v", sz)
+	nox_video_initPixbufferData_4861D0(sz)
+	nox_video_initPixbufferRows_486230(sz)
 }
 
-func sub_4861D0(sz types.Size) {
+func nox_video_initPixbufferData_4861D0(sz types.Size) {
 	if memmap.Uint32(0x5D4594, 1193200) != 0 {
 		return
 	}
@@ -714,8 +708,7 @@ func sub_4861D0(sz types.Size) {
 	C.nox_pixbuffer_3798788 = (*C.uchar)(unsafe.Pointer(&nox_pixbuffer_3798788_arr[0]))
 }
 
-func sub_486230(sz types.Size) {
-	videoLog.Printf("initializing pixbuffer: %v", sz)
+func nox_video_initPixbufferRows_486230(sz types.Size) {
 	nox_pixbuffer_size = sz
 	nox_pixbuffer_main_rows = alloc.Pointers(sz.H)
 	C.nox_pixbuffer_rows_3798784 = (**C.uchar)(unsafe.Pointer(&nox_pixbuffer_main_rows[0]))

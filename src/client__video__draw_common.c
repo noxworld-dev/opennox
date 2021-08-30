@@ -701,12 +701,12 @@ void nox_video_copyBackBuffer_4AD2A0() {
 }
 
 //----- (00486090) --------------------------------------------------------
-int sub_486090() {
+int nox_video_initPixbuffer_486090() {
 	int result; // eax
 
-	result = sub_4861D0();
+	result = nox_video_initPixbufferData_4861D0();
 	if (result) {
-		result = sub_486230();
+		result = nox_video_initPixbufferRows_486230();
 		if (result) {
 			if (!(nox_video_renderTargetFlags & 0x40) || (result = sub_48A5D0(), (g_surface_973C88 = result) != 0) &&
 															 (result = sub_48A5D0(), (g_surface_973C60 = result) != 0)) {

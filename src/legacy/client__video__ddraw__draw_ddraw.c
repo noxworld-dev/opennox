@@ -1256,12 +1256,12 @@ void sub_4AD1E0() {
 }
 
 //----- (00486090) --------------------------------------------------------
-int sub_486090() {
+int nox_video_initPixbuffer_486090() {
 	int result; // eax
 
-	result = sub_4861D0();
+	result = nox_video_initPixbufferData_4861D0();
 	if (result) {
-		result = sub_486230();
+		result = nox_video_initPixbufferRows_486230();
 		if (result) {
 			if (!(nox_video_renderTargetFlags & 0x40) || (result = sub_48A5D0(), (dword_973C88 = result) != 0) &&
 														 (result = sub_48A5D0(), (dword_973C60 = result) != 0)) {
@@ -1704,7 +1704,7 @@ int  nox_client_drawGeneral_4B0340(int a1) // draw general
 			result = sub_48A040(v3, v8, v7, a1);
 			if (!result)
 				return result;
-			result = sub_486090();
+			result = nox_video_initPixbuffer_486090();
 			if (!result)
 				return result;
 			result = sub_4338D0();
@@ -1737,7 +1737,7 @@ int  nox_client_drawGeneral_4B0340(int a1) // draw general
 	nox_video_renderTargetFlags = v4;
 	result = sub_48A040(v3, NOX_DEFAULT_WIDTH, NOX_DEFAULT_HEIGHT, NOX_DEFAULT_DEPTH);
 	if (result) {
-		result = sub_486090();
+		result = nox_video_initPixbuffer_486090();
 		if (result)
 			goto LABEL_13;
 	}

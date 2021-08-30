@@ -260,8 +260,8 @@ func sub_4338D0() int {
 	ptr.field_60 = 0
 	ptr.field_61 = 0
 	ptr.field_259 = 255
-	ptr.field_260 = 16711935
-	ptr.field_261 = 16711935
+	ptr.field_260 = 0xFF00FF
+	ptr.field_261 = 0xFF00FF
 	ptr.field_262 = 0
 	C.sub_434990(25, 25, 25)
 	nox_draw_initColorTables_434CC0()
@@ -312,6 +312,10 @@ func sub_4338D0() int {
 var noxrend = NewNoxRender()
 
 type drawOpFunc func(dst, src []byte, op byte, val int) (outDst, outSrc []byte)
+
+func cgoSetRenderData(p *C.nox_render_data_t) {
+	C.ptr_5D4594_3799572 = p
+}
 
 type NoxRender struct {
 	p *C.nox_render_data_t
@@ -1368,6 +1372,9 @@ func (r *NoxRender) drawImage16(img *Image, pos types.Point) { // nox_client_xxx
 }
 
 func pixCopyN(dst, src []byte, _ byte, n int) (_, _ []byte) { // sub_4C80E0
+	if n < 0 {
+		panic("negative size")
+	}
 	sz := n * 2
 	copy(dst[:sz], src[:sz])
 	return dst[sz:], src[sz:]
@@ -1687,6 +1694,9 @@ func (r *NoxRender) nox_client_drawImg_bbb_4C7860(img *Image, pos types.Point) {
 }
 
 func (r *NoxRender) pixBlend(dst, src []byte, _ byte, sz int) (_, _ []byte) { // sub_4C8A30
+	if sz < 0 {
+		panic("negative size")
+	}
 	par := asU32Slice(unsafe.Pointer(&C.byte_5D4594_3804364[0]), 40)
 
 	rshift := par[5]
@@ -1721,6 +1731,9 @@ func (r *NoxRender) pixBlend(dst, src []byte, _ byte, sz int) (_, _ []byte) { //
 }
 
 func (r *NoxRender) sub_4C86B0(dst, src []byte, _ byte, sz int) (_, _ []byte) { // sub_4C86B0
+	if sz < 0 {
+		panic("negative size")
+	}
 	par := asU32Slice(unsafe.Pointer(&C.byte_5D4594_3804364[0]), 40)
 
 	rshift := par[5]
@@ -1731,9 +1744,9 @@ func (r *NoxRender) sub_4C86B0(dst, src []byte, _ byte, sz int) (_, _ []byte) { 
 	gmask := uint16(par[1])
 	bmask := uint16(par[0])
 
-	rmul := uint32(C.obj_5D4594_3800716.field_26)
-	gmul := uint32(C.obj_5D4594_3800716.field_25)
-	bmul := uint32(C.obj_5D4594_3800716.field_24)
+	rmul := uint32(r.p.field_26)
+	gmul := uint32(r.p.field_25)
+	bmul := uint32(r.p.field_24)
 
 	for i := 0; i < sz; i++ {
 		v2 := binary.LittleEndian.Uint16(src[2*i:])

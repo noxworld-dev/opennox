@@ -479,7 +479,7 @@ int  nox_client_drawGeneral_4B0340(int a1) // draw general
 			result = nox_video_resetRenderer_48A040(v8, v7, a1);
 			if (!result)
 				return result;
-			result = sub_486090();
+			result = nox_video_initPixbuffer_486090();
 			if (!result)
 				return result;
 			result = sub_4338D0();
@@ -511,7 +511,7 @@ int  nox_client_drawGeneral_4B0340(int a1) // draw general
 	nox_video_renderTargetFlags = v4;
 	result = nox_video_resetRenderer_48A040(NOX_DEFAULT_WIDTH, NOX_DEFAULT_HEIGHT, NOX_DEFAULT_DEPTH);
 	if (result) {
-		result = sub_486090();
+		result = nox_video_initPixbuffer_486090();
 		if (result)
 			goto LABEL_13;
 	}
