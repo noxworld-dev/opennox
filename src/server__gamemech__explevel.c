@@ -1,7 +1,12 @@
 #include "server__gamemech__explevel.h"
 
 #include "common__gamemech__pausefx.h"
-#include "proto.h"
+#include "GAME1.h"
+#include "GAME1_1.h"
+#include "GAME3_2.h"
+#include "GAME3_3.h"
+#include "GAME4.h"
+#include "GAME5_2.h"
 extern _DWORD dword_5d4594_2516328;
 extern _DWORD dword_5d4594_2516348;
 

@@ -1,7 +1,8 @@
 #include "client__drawable__update__healup.h"
 
 #include "common__random.h"
-#include "proto.h"
+#include "GAME2.h"
+#include "GAME5_2.h"
 
 //----- (004CD450) --------------------------------------------------------
 int  sub_4CD450(_DWORD* a1, int a2) {

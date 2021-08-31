@@ -5,7 +5,11 @@
 #include "server__script__builtin.h"
 #include "server__script__internal.h"
 #include "common/fs/nox_fs.h"
-#include "proto.h"
+#include "GAME1.h"
+#include "GAME1_1.h"
+#include "GAME3_2.h"
+#include "GAME4.h"
+#include "GAME4_1.h"
 
 extern void* nox_script_activatedList_2487236;
 extern unsigned int dword_5d4594_1599628;

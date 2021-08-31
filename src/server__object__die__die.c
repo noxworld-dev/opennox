@@ -1,7 +1,10 @@
 #include "common__object__armrlook.h"
 #include "server__object__objutil.h"
 
-#include "proto.h"
+#include "GAME1.h"
+#include "GAME3_2.h"
+#include "GAME3_3.h"
+#include "GAME4.h"
 
 // TODO: convert table_274080
 

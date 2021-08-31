@@ -1,4 +1,5 @@
-#include "proto.h"
+#include "GAME1.h"
+#include "GAME3_3.h"
 
 //----- (004E77E0) --------------------------------------------------------
 wchar_t*  nox_xxx_itemGetName_4E77E0_obj_util(int a1) {

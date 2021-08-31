@@ -1,3 +1,17 @@
+#include "GAME1.h"
+#include "GAME1_2.h"
+#include "GAME1_1.h"
+#include "GAME1_3.h"
+#include "GAME2.h"
+#include "GAME2_1.h"
+#include "GAME2_2.h"
+#include "GAME2_3.h"
+#include "GAME3.h"
+#include "GAME3_1.h"
+#include "GAME3_2.h"
+#include "GAME3_3.h"
+#include "GAME4_1.h"
+#include "GAME5_2.h"
 #include "client__draw__debugdraw.h"
 #include "client__draw__staticdraw.h"
 #include "client__drawable__drawable.h"
@@ -31,7 +45,9 @@
 #include "client__draw__selectdw.h"
 
 #include "common/fs/nox_fs.h"
-#include "proto.h"
+#include "client__system__ctrlevnt.h"
+#include "common__magic__speltree.h"
+#include "input_common.h"
 
 extern _DWORD dword_5d4594_1062552;
 extern _DWORD dword_5d4594_1049844;

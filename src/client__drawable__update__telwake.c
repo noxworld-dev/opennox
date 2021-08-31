@@ -1,7 +1,7 @@
 #include "client__drawable__update__telwake.h"
 
 #include "common__random.h"
-#include "proto.h"
+#include "GAME2.h"
 
 extern unsigned int nox_frame_xxx_2598000;
 //----- (004CD8D0) --------------------------------------------------------

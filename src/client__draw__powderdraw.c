@@ -1,5 +1,6 @@
 #include "client__draw__powderdraw.h"
-#include "proto.h"
+#include "GAME1_2.h"
+#include "GAME2_3.h"
 
 //----- (004B9ED0) --------------------------------------------------------
 int  nox_thing_black_powder_draw(_DWORD* a1, nox_drawable* dr) {

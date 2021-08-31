@@ -1,7 +1,8 @@
 #include "client__draw__summondraw.h"
 #include "client__draw__animdraw.h"
 #include "client__draw__fx.h"
-#include "proto.h"
+#include "GAME1_2.h"
+#include "GAME2.h"
 
 extern _DWORD dword_5d4594_1313740;
 extern unsigned int nox_frame_xxx_2598000;

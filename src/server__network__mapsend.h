@@ -8,4 +8,6 @@ void  nox_xxx_netSendMapAbort_519C80_net_mapsend(unsigned __int8* a1, unsigned _
 int  nox_xxx_netMapSendCancelMap_519DE0_net_mapsend(int a1);
 int nox_xxx_netMapSendPrepair_519EB0_net_mapsend();
 
+char* nox_xxx_netMapSend_519D20(int a1);
+
 #endif // NOX_PORT_SERVER_NETWORK_MAPSEND

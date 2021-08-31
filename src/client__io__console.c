@@ -1,4 +1,6 @@
-#include "proto.h"
+#include "GAME1_2.h"
+#include "client__gui__window.h"
+#include "legacy/input_ddraw.h"
 #include "common/fs/nox_fs.h"
 extern _DWORD dword_5d4594_823776;
 

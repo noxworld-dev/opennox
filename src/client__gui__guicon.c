@@ -6,7 +6,12 @@
 #include "client__system__ctrlevnt.h"
 #include "client__gui__gadgets__listbox.h"
 
-#include "proto.h"
+#include "GAME1.h"
+#include "GAME1_2.h"
+#include "GAME1_3.h"
+#include "GAME2_2.h"
+#include "GAME2_3.h"
+#include "GAME3_2.h"
 
 nox_window* nox_gui_console_win = 0;
 nox_window* nox_gui_console_scrollbox = 0;

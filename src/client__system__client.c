@@ -1,7 +1,15 @@
 #include "client__system__client.h"
 
 #include "common__random.h"
-#include "proto.h"
+#include "GAME1.h"
+#include "GAME1_2.h"
+#include "GAME1_3.h"
+#include "GAME2.h"
+#include "GAME2_1.h"
+#include "GAME2_2.h"
+#include "GAME2_3.h"
+#include "GAME3_3.h"
+#include "GAME5_2.h"
 
 extern _DWORD dword_5d4594_811904;
 extern _DWORD dword_5d4594_811896;

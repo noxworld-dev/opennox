@@ -1,7 +1,10 @@
 #include "common__wolapi__wolstate.h"
 
 #include "client__shell__wolapi__wolreg.h"
-#include "proto.h"
+#include "GAME1.h"
+#include "GAME1_1.h"
+#include "GAME1_3.h"
+#include "GAME2_1.h"
 extern _DWORD dword_5d4594_2660652;
 
 //----- (0041DAC0) --------------------------------------------------------

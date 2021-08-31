@@ -19,6 +19,11 @@
 #include <SDL2/SDL_opengl.h>
 #include <SDL2/SDL_opengl_glext.h>
 #endif
+#include "GAME1.h"
+#include "GAME1_2.h"
+#include "GAME1_3.h"
+#include "GAME2.h"
+#include "GAME2_2.h"
 
 
 SDL_GLContext g_ddraw;

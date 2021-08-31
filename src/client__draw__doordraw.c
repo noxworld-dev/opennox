@@ -1,6 +1,12 @@
 #include "client__draw__doordraw.h"
 #include "client__draw__parse__parse.h"
-#include "proto.h"
+#include "GAME1.h"
+#include "GAME1_2.h"
+#include "GAME2_1.h"
+#include "GAME2_2.h"
+#include "GAME3_1.h"
+#include "client__gui__window.h"
+#include "client__video__draw_common.h"
 
 extern _DWORD dword_5d4594_3807156;
 

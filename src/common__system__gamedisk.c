@@ -1,4 +1,8 @@
-#include "proto.h"
+#include "GAME1.h"
+#include "GAME1_3.h"
+#include "GAME2.h"
+#include "cdrom.h"
+#include "client__gui__window.h"
 extern _DWORD dword_5d4594_251728;
 extern _DWORD dword_5d4594_251704;
 extern _DWORD dword_5d4594_251712;

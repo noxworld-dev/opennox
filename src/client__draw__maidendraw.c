@@ -1,6 +1,10 @@
 #include "client__draw__maidendraw.h"
 #include "client__draw__mondraw.h"
-#include "proto.h"
+#include "GAME1.h"
+#include "GAME2_3.h"
+#include "GAME3_2.h"
+#include "client__gui__window.h"
+#include "client__video__draw_common.h"
 
 //----- (004BBF90) --------------------------------------------------------
 int nox_thing_maiden_draw(_DWORD* a1, nox_drawable* dr) {

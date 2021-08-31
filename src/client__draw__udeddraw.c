@@ -1,7 +1,11 @@
 #include "client__draw__udeddraw.h"
 #include "common__random.h"
 
-#include "proto.h"
+#include "GAME2.h"
+#include "GAME2_3.h"
+#include "GAME3.h"
+#include "client__draw__fx.h"
+#include "client__video__draw_common.h"
 #include "client__draw__fx.h"
 
 extern unsigned int nox_frame_xxx_2598000;

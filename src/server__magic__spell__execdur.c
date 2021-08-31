@@ -1,4 +1,8 @@
-#include "proto.h"
+#include "GAME1.h"
+#include "GAME1_1.h"
+#include "GAME3_2.h"
+#include "GAME4.h"
+#include "GAME4_3.h"
 
 extern unsigned int nox_frame_xxx_2598000;
 //----- (00530A30) --------------------------------------------------------

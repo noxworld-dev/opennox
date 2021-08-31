@@ -2,6 +2,15 @@
 #include <emscripten/emscripten.h>
 #endif
 
+#include "GAME1.h"
+#include "GAME1_2.h"
+#include "GAME1_1.h"
+#include "GAME1_3.h"
+#include "GAME2.h"
+#include "GAME3_2.h"
+#include "GAME3_3.h"
+#include "GAME5.h"
+#include "GAME5_2.h"
 #include "common__log.h"
 #include "client__shell__wolapi__wolchat.h"
 #include "client__shell__wolapi__woldlgs.h"
@@ -26,7 +35,14 @@
 #include "common/fs/nox_fs.h"
 #include "static.h"
 #include "mutexes.h"
-#include "proto.h"
+#include "cdrom.h"
+#include "client__gui__window.h"
+#include "client__io__win95__focus.h"
+#include "common__config.h"
+#include "input_common.h"
+#include "legacy/win_ddraw.h"
+#include "thing.h"
+#include "win.h"
 
 extern _DWORD dword_5d4594_526284;
 extern _DWORD nox_profiled_805856;

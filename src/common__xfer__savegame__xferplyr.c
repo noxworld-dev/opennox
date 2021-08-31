@@ -4,7 +4,9 @@
 
 #include "common/fs/nox_fs.h"
 #include "common__log.h"
-#include "proto.h"
+#include "GAME1.h"
+#include "GAME1_1.h"
+#include "GAME2_1.h"
 
 extern FILE* nox_file_2;
 

@@ -1,6 +1,11 @@
 #include "client__gui__guimsg.h"
 
-#include "proto.h"
+#include "GAME1.h"
+#include "GAME1_1.h"
+#include "GAME3_2.h"
+#include "GAME3_3.h"
+#include "GAME4.h"
+#include "GAME5_2.h"
 
 //----- (004D8060) --------------------------------------------------------
 int  nox_xxx_netAbilityReport_4D8060(int a1, int a2, int a3) {

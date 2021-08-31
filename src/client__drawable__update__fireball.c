@@ -1,7 +1,8 @@
 #include "client__drawable__update__fireball.h"
 
 #include "common__random.h"
-#include "proto.h"
+#include "GAME2.h"
+#include "GAME4_1.h"
 
 extern unsigned int nox_frame_xxx_2598000;
 //----- (004CCEA0) --------------------------------------------------------

@@ -2,7 +2,8 @@
 #include "client__draw__lvupdraw.h"
 #include "common__random.h"
 
-#include "proto.h"
+#include "GAME1.h"
+#include "GAME2.h"
 
 extern unsigned int nox_frame_xxx_2598000;
 //----- (004B7810) --------------------------------------------------------

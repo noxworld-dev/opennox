@@ -1,7 +1,9 @@
 #include "client__drawable__update__cloud.h"
 #include "common__random.h"
 
-#include "proto.h"
+#include "GAME2.h"
+#include "GAME2_3.h"
+#include "GAME3_2.h"
 
 //----- (004CE200) --------------------------------------------------------
 int  sub_4CE200(int a1, int a2, int a3, int a4) {

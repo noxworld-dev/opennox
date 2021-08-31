@@ -1,4 +1,5 @@
-#include "proto.h"
+#include "GAME1.h"
+#include "GAME3_3.h"
 
 //----- (004E39F0) --------------------------------------------------------
 wchar_t*  sub_4E39F0_obj_db(const char** a1) {

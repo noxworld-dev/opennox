@@ -10,7 +10,21 @@
 #include "server__script__script.h"
 
 #include "static.h"
-#include "proto.h"
+#include "GAME1.h"
+#include "GAME1_2.h"
+#include "GAME1_1.h"
+#include "GAME1_3.h"
+#include "GAME2.h"
+#include "GAME2_1.h"
+#include "GAME2_2.h"
+#include "GAME2_3.h"
+#include "GAME3.h"
+#include "GAME3_2.h"
+#include "GAME3_3.h"
+#include "GAME4.h"
+#include "GAME5_2.h"
+#include "client__video__draw_common.h"
+#include "common__magic__speltree.h"
 
 extern _DWORD dword_5d4594_823696;
 extern _DWORD dword_5d4594_1563664;

@@ -1,5 +1,9 @@
 #include "common__random.h"
-#include "proto.h"
+#include "GAME1.h"
+#include "GAME5.h"
+#include "GAME5_2.h"
+#include "defs.h"
+#include "MixPatch.h"
 
 //----- (00552020) --------------------------------------------------------
 int  nox_xxx_netRecv_552020(nox_socket_t s, char* buf, int len, struct nox_net_sockaddr_in* from) {

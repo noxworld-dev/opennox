@@ -2,7 +2,16 @@
 #include "client__gui__window.h"
 
 #include "common__random.h"
-#include "proto.h"
+#include "GAME1.h"
+#include "GAME1_2.h"
+#include "GAME1_1.h"
+#include "GAME1_3.h"
+#include "GAME2.h"
+#include "GAME2_2.h"
+#include "GAME3_1.h"
+#include "GAME4_1.h"
+#include "common__magic__speltree.h"
+#include "input_common.h"
 #include "client__gui__guimsg.h"
 
 extern _DWORD dword_5d4594_1046852;

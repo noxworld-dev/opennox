@@ -1,7 +1,8 @@
 #include "client__drawable__update__manabomb.h"
 
 #include "common__random.h"
-#include "proto.h"
+#include "GAME1_1.h"
+#include "GAME2.h"
 #include "client__draw__fx.h"
 extern _DWORD dword_5d4594_1522956;
 extern unsigned int nox_frame_xxx_2598000;

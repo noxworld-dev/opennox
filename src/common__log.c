@@ -1,6 +1,6 @@
 #include <time.h>
 #include <string.h>
-#include "proto.h"
+#include "GAME1.h"
 #include "client__gui__guicon.h"
 #include "common/fs/nox_fs.h"
 

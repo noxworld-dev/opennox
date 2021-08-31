@@ -1,7 +1,10 @@
 #include "client__gui__guivote.h"
 #include "client__gui__window.h"
 
-#include "proto.h"
+#include "GAME1.h"
+#include "GAME1_1.h"
+#include "GAME2_1.h"
+#include "GAME1_3.h"
 extern _DWORD dword_5d4594_1197308;
 extern _DWORD dword_5d4594_1197332;
 extern _DWORD dword_5d4594_1197316;

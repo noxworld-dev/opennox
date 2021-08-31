@@ -1,6 +1,6 @@
 #include "client__io__win95__focus.h"
 
-#include "proto.h"
+#include "client__gui__window.h"
 #include "client__io__console.h"
 
 extern obj_5D4594_754088_t* ptr_5D4594_754088;

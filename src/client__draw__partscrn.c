@@ -1,7 +1,9 @@
 #include "client__draw__partscrn.h"
 #include "common__random.h"
 
-#include "proto.h"
+#include "GAME1_2.h"
+#include "GAME2_3.h"
+#include "GAME3.h"
 
 //----- (00489700) --------------------------------------------------------
 int nox_client_screenParticleDraw_489700(void* a1p, nox_screenParticle* p) {

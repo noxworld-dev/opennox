@@ -1,4 +1,4 @@
-#include "proto.h"
+#include "cdrom.h"
 
 #if 1
 BOOL  sub_423CC0(int a1) { return 0; }

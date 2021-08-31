@@ -27,4 +27,8 @@ void nox_input_freeStringBuffer_57011C(wchar_t* p);
 unsigned short nox_input_scanCodeToAlpha_47F950(unsigned short a1);
 void nox_xxx_getKeyFromKeyboard_430710();
 
+int nox_xxx_initMouse_47D8D0();
+bool nox_client_nextMouseEvent_47DB20(nox_mouse_state_t* e);
+void nox_xxx_clientControl_42D6B0_em_not_mouse_down();
+
 #endif // NOX_INPUT_H

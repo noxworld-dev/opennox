@@ -1,7 +1,10 @@
 #include "common__wolapi__wol.h"
 #include "common__log.h"
 
-#include "proto.h"
+#include "GAME1.h"
+#include "GAME1_1.h"
+#include "GAME1_3.h"
+#include "client__gui__window.h"
 extern _DWORD dword_5d4594_2660652;
 
 //----- (0041D1D0) --------------------------------------------------------

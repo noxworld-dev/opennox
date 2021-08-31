@@ -1,6 +1,10 @@
 #include "client__draw__flagdraw.h"
 #include "client__draw__weapondraw.h"
-#include "proto.h"
+#include "GAME1.h"
+#include "GAME1_2.h"
+#include "GAME1_1.h"
+#include "GAME1_3.h"
+#include "GAME3_1.h"
 
 //----- (004B9500) --------------------------------------------------------
 int  nox_thing_flag_draw(int* a1, nox_drawable* dr) {

@@ -1,7 +1,16 @@
 #include "client__draw__drawwin.h"
 #include "common__random.h"
 
-#include "proto.h"
+#include "GAME1.h"
+#include "GAME1_2.h"
+#include "GAME1_1.h"
+#include "GAME2.h"
+#include "GAME2_1.h"
+#include "GAME2_3.h"
+#include "GAME3.h"
+#include "GAME3_1.h"
+#include "client__draw__fx.h"
+#include "client__video__draw_common.h"
 #include "client__draw__fx.h"
 
 //----- (004746C0) --------------------------------------------------------

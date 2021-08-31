@@ -1,6 +1,15 @@
 #include "client__gui__guimsg.h"
 
-#include "proto.h"
+#include "GAME1.h"
+#include "GAME1_1.h"
+#include "GAME3_2.h"
+#include "GAME3_3.h"
+#include "GAME4.h"
+#include "GAME4_1.h"
+#include "GAME4_3.h"
+#include "GAME5_2.h"
+#include "client__gui__window.h"
+#include "common__magic__speltree.h"
 
 //----- (004D7F90) --------------------------------------------------------
 int  nox_xxx_netSendSpellAward_4D7F90(int a1, int a2, char a3, int a4) {

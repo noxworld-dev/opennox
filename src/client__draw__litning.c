@@ -1,7 +1,15 @@
 #include "client__draw__litning.h"
 #include "common__random.h"
 
-#include "proto.h"
+#include "GAME1.h"
+#include "GAME1_2.h"
+#include "GAME2.h"
+#include "GAME2_3.h"
+#include "GAME5_2.h"
+#include "client__draw__fx.h"
+#include "client__gui__window.h"
+#include "client__video__draw_common.h"
+
 extern _DWORD dword_5d4594_1316452;
 extern _DWORD dword_5d4594_1316448;
 extern _DWORD dword_5d4594_1316456;

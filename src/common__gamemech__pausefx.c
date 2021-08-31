@@ -1,6 +1,10 @@
 #include "common__gamemech__pausefx.h"
 
-#include "proto.h"
+#include "GAME1.h"
+#include "GAME3_2.h"
+#include "GAME3_3.h"
+#include "GAME4.h"
+#include "GAME4_2.h"
 extern _DWORD dword_5d4594_2523804;
 extern _DWORD dword_5d4594_2523776;
 extern _DWORD dword_5d4594_2523780;

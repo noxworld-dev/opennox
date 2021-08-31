@@ -2,6 +2,20 @@
 #include <emscripten/emscripten.h>
 #endif
 
+#include "GAME1.h"
+#include "GAME1_2.h"
+#include "GAME1_1.h"
+#include "GAME1_3.h"
+#include "GAME2.h"
+#include "GAME2_1.h"
+#include "GAME2_2.h"
+#include "GAME2_3.h"
+#include "GAME3.h"
+#include "GAME3_1.h"
+#include "GAME3_2.h"
+#include "GAME4.h"
+#include "GAME4_1.h"
+#include "GAME5_2.h"
 #include "client__draw__animdraw.h"
 #include "client__draw__vectdraw.h"
 #include "client__drawable__drawable.h"
@@ -28,7 +42,11 @@
 
 #include "common/fs/nox_fs.h"
 #include "input.h"
-#include "proto.h"
+#include "client__video__sdl__draw_nogl.h"
+#include "common__config.h"
+#include "input_common.h"
+#include "legacy/input_ddraw.h"
+#include "movie.h"
 
 extern unsigned char byte_5D4594_3804364[160];
 

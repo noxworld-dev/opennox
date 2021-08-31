@@ -1,6 +1,6 @@
 #include "client__gui__guifb.h"
 
-#include "proto.h"
+#include "GAME1_2.h"
 #include "client__gui__gamewin__gamewin.h"
 extern _DWORD dword_5d4594_1045636;
 

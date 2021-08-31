@@ -1,6 +1,9 @@
 #include "common__magic__speltree.h"
 
-#include "proto.h"
+#include "GAME1.h"
+#include "GAME1_2.h"
+#include "GAME1_1.h"
+#include "client__gui__window.h"
 void* dword_587000_66120 = 0;
 extern _DWORD nox_xxx_polygonNextIdx_587000_60352;
 

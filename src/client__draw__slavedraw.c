@@ -1,7 +1,7 @@
 #include "client__draw__slavedraw.h"
 #include "client__draw__staticdraw.h"
 #include "client__draw__parse__parse.h"
-#include "proto.h"
+#include "GAME3_1.h"
 
 //----- (004BBD30) --------------------------------------------------------
 int  nox_thing_slave_draw(int* a1, nox_drawable* dr) {

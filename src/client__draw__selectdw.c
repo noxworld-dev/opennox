@@ -1,7 +1,8 @@
 #include "client__draw__selectdw.h"
 #include "common__random.h"
 
-#include "proto.h"
+#include "GAME2_2.h"
+#include "GAME2_3.h"
 extern void* dword_5d4594_1096640;
 
 //----- (004773C0) --------------------------------------------------------

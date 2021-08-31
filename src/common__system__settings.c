@@ -1,6 +1,10 @@
 #include "client__gui__guimsg.h"
 #include "client__system__parsecmd.h"
-#include "proto.h"
+#include "GAME1.h"
+#include "GAME1_3.h"
+#include "client__gui__window.h"
+#include "defs.h"
+
 extern _DWORD dword_5d4594_3592;
 
 //----- (00409FB0) --------------------------------------------------------

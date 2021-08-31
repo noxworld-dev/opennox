@@ -1,6 +1,12 @@
 #include "client__gui__tooltip.h"
 
-#include "proto.h"
+#include "GAME1.h"
+#include "GAME1_1.h"
+#include "GAME2.h"
+#include "GAME3_3.h"
+#include "GAME5_2.h"
+#include "client__gui__window.h"
+#include "common__magic__speltree.h"
 
 //----- (004BF050) --------------------------------------------------------
 wchar_t*  nox_xxx_clientAskInfoMb_4BF050(nox_drawable* a1p) {

@@ -1,6 +1,12 @@
 #include "server__dbase__objdb.h"
 
-#include "proto.h"
+#include "GAME1.h"
+#include "GAME1_1.h"
+#include "GAME3_2.h"
+#include "GAME3_3.h"
+#include "GAME4.h"
+#include "GAME4_1.h"
+#include "GAME4_3.h"
 extern _DWORD dword_5d4594_2386552;
 extern _DWORD dword_5d4594_2386548;
 extern _DWORD dword_5d4594_2386560;

@@ -1,7 +1,7 @@
 #ifndef NOX_MIXPATCH_H
 #define NOX_MIXPATCH_H
 
-#include "proto.h"
+#include "defs.h"
 
 void init_data_mix();
 

@@ -1,7 +1,19 @@
 //+build none
 
 #include "input.h"
-#include "proto.h"
+#include "GAME1.h"
+#include "GAME1_3.h"
+#include "GAME2_1.h"
+#include "GAME2_2.h"
+#include "client__gui__window.h"
+#include "client__io__win95__focus.h"
+#include "client__system__ctrlevnt.h"
+#include "defs.h"
+#include "input_common.h"
+#include "legacy/input_ddraw.h"
+#include "server__script__builtin.h"
+#include "MixPatch.h"
+
 #include "client__system__parsecmd.h"
 #include "client__system__ctrlevnt.h"
 #include "client__gui__window.h"

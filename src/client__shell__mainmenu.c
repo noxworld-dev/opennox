@@ -5,7 +5,21 @@
 #include "client__shell__noxworld.h"
 #include "client__shell__selchar.h"
 #include "client__shell__optsback.h"
-#include "proto.h"
+#include "GAME1.h"
+#include "GAME1_2.h"
+#include "GAME1_3.h"
+#include "GAME2.h"
+#include "GAME2_1.h"
+#include "GAME2_2.h"
+#include "GAME2_3.h"
+#include "GAME3.h"
+#include "GAME3_1.h"
+#include "GAME3_2.h"
+#include "GAME3_3.h"
+#include "GAME4.h"
+#include "GAME5_2.h"
+#include "client__video__draw_common.h"
+#include "input_common.h"
 
 extern _DWORD nox_client_gui_flag_815132;
 

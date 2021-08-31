@@ -1,6 +1,5 @@
 #include "client__gui__gamewin__psscript.h"
 
-#include "proto.h"
 #include "client__gui__gamewin__gamewin.h"
 
 //----- (004A0800) --------------------------------------------------------

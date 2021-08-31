@@ -1,7 +1,13 @@
 #include "client__gui__servopts__spelllst.h"
 #include "client__gui__window.h"
 
-#include "proto.h"
+#include "GAME1.h"
+#include "GAME1_3.h"
+#include "GAME2.h"
+#include "GAME2_3.h"
+#include "GAME3.h"
+#include "GAME5_2.h"
+#include "common__magic__speltree.h"
 extern _DWORD dword_5d4594_1045508;
 extern _DWORD dword_5d4594_1045480;
 extern _DWORD dword_5d4594_1045484;

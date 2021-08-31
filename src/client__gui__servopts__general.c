@@ -1,7 +1,13 @@
 #include "client__gui__servopts__general.h"
 #include "client__gui__window.h"
 
-#include "proto.h"
+#include "GAME1.h"
+#include "GAME1_2.h"
+#include "GAME1_3.h"
+#include "GAME2_1.h"
+#include "GAME2_3.h"
+#include "GAME3.h"
+#include "GAME3_2.h"
 extern _DWORD nox_server_sendMotd_108752;
 extern _DWORD nox_server_connectionType_3596;
 extern _DWORD dword_5d4594_1309812;

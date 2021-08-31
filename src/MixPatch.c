@@ -1,4 +1,6 @@
+#include "MixPatch.h"
 #include "GameEx.h"
+#include "GAME1.h"
 
 #ifndef NOX_CGO
 __int16 asc_9800B0[] = {

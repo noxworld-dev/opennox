@@ -2,7 +2,15 @@
 
 #include "client__gui__guicurs.h"
 
-#include "proto.h"
+#include "GAME1_2.h"
+#include "GAME1_3.h"
+#include "GAME2.h"
+#include "GAME2_1.h"
+#include "GAME2_2.h"
+#include "GAME2_3.h"
+#include "GAME3_1.h"
+#include "GAME4_1.h"
+#include "input_common.h"
 
 extern int dword_5d4594_1097212;
 extern int dword_5d4594_1097216;

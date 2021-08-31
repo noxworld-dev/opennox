@@ -3,7 +3,6 @@
 #include "client__io__win95__video.h"
 
 #include "common/fs/nox_fs.h"
-#include "proto.h"
 #include "client__io__console.h"
 
 extern BYTE* nox_pixbuffer_3798780;

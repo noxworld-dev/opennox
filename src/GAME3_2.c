@@ -2,6 +2,26 @@
 #include <emscripten/emscripten.h>
 #endif
 
+#include "GAME1.h"
+#include "GAME1_2.h"
+#include "GAME1_1.h"
+#include "GAME1_3.h"
+#include "GAME2.h"
+#include "GAME2_1.h"
+#include "GAME2_2.h"
+#include "GAME2_3.h"
+#include "GAME3.h"
+#include "GAME3_1.h"
+#include "GAME3_2.h"
+#include "GAME3_3.h"
+#include "GAME4.h"
+#include "GAME4_1.h"
+#include "GAME4_2.h"
+#include "GAME4_3.h"
+#include "GAME5.h"
+#include "GAME5_2.h"
+#include "GAME_data.h"
+#include "GAME_data_init.h"
 #include "common__log.h"
 #include "client__system__parsecmd.h"
 #include "common__system__team.h"
@@ -23,7 +43,11 @@
 #include "client__drawable__drawdb.h"
 
 #include "common/fs/nox_fs.h"
-#include "proto.h"
+#include "client__video__draw_common.h"
+#include "common__magic__speltree.h"
+#include "defs.h"
+#include "server__script__builtin.h"
+#include "MixPatch.h"
 
 extern _DWORD dword_5d4594_3835368;
 extern _DWORD dword_5d4594_3835360;

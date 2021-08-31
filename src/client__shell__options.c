@@ -1,6 +1,6 @@
 #include "client__shell__options.h"
 
-#include "proto.h"
+#include "GAME2.h"
 
 //----- (004AA650) --------------------------------------------------------
 void sub_4AA650() {

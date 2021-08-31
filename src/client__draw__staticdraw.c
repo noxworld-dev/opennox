@@ -1,6 +1,7 @@
 #include "client__draw__staticdraw.h"
 #include "client__draw__parse__parse.h"
-#include "proto.h"
+#include "GAME1_2.h"
+#include "GAME3_1.h"
 
 //----- (004BCC20) --------------------------------------------------------
 int  nox_thing_static_draw(_DWORD* a1, nox_drawable* dr) {

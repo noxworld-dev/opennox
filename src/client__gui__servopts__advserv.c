@@ -1,6 +1,6 @@
 #include "client__gui__servopts__advserv.h"
 #include "client__gui__window.h"
-#include "proto.h"
+#include "GAME1.h"
 extern _DWORD dword_5d4594_1316972;
 
 //----- (004BE2C0) --------------------------------------------------------

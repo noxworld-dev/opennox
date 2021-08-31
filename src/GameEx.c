@@ -1,11 +1,23 @@
 #define DG_DYNARR_IMPLEMENTATION
 #include "memmap.h"
+#include "GAME1.h"
+#include "GAME1_1.h"
+#include "GAME1_3.h"
+#include "GAME2.h"
+#include "GAME2_3.h"
+#include "GAME3_1.h"
+#include "GAME3_2.h"
+#include "GAME3_3.h"
+#include "GAME4.h"
+#include "GAME5_2.h"
 #include "GameEx.h"
 #include "client__gui__guimsg.h"
 #include "client__gui__window.h"
 #include "common/fs/nox_fs.h"
 
 #include "client__shell__noxworld.h"
+#include "common__config.h"
+
 #ifndef NOX_CGO
 #include <SDL2/SDL.h>
 #endif // NOX_CGO

@@ -1,6 +1,5 @@
 #include "client__gui__guimsg.h"
 #include "client__gui__guicon.h"
-#include "proto.h"
 extern _DWORD dword_5d4594_825736;
 
 extern unsigned int nox_gameFPS;

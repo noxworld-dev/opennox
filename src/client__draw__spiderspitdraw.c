@@ -1,5 +1,6 @@
 #include "client__draw__spiderspitdraw.h"
-#include "proto.h"
+#include "GAME1_2.h"
+#include "GAME2_3.h"
 
 //----- (004B9D70) --------------------------------------------------------
 int  nox_thing_spider_spit_draw(_DWORD* a1, nox_drawable* dr) {

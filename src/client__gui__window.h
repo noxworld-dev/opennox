@@ -107,4 +107,7 @@ int  nox_xxx_wndSetDrawFn_46B340(int a1, int (*a2)(int, int));
 nox_window* nox_client_inWindowByPos_46B5B0(nox_window* root, int x, int y);
 char* nox_xxx_wndLoadBorder_4AA1F0();
 
+void sub_4309B0(unsigned char i, unsigned char v);
+int nox_xxx_wnd_46AD60(int a1, int a2);
+
 #endif // NOX_CLIENT_GUI_WINDOW_H

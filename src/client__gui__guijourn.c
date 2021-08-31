@@ -1,6 +1,8 @@
 #include "client__gui__guijourn.h"
 
-#include "proto.h"
+#include "GAME1_2.h"
+#include "GAME1_3.h"
+#include "GAME2_3.h"
 
 //----- (00469BC0) --------------------------------------------------------
 void nox_xxx_cliBuildJournalString_469BC0() {

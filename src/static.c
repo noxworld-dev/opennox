@@ -3,7 +3,10 @@
 
 #include "client__drawable__drawdb.h"
 
-#include "proto.h"
+#include "GAME1.h"
+#include "GAME1_1.h"
+#include "GAME3_2.h"
+#include "GAME5_2.h"
 
 void nullsub_38() {}
 void nullsub_39() {}

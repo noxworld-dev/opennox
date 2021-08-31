@@ -1,3 +1,16 @@
+#include "GAME1.h"
+#include "GAME1_2.h"
+#include "GAME1_1.h"
+#include "GAME1_3.h"
+#include "GAME2.h"
+#include "GAME2_1.h"
+#include "GAME2_2.h"
+#include "GAME2_3.h"
+#include "GAME3.h"
+#include "GAME3_1.h"
+#include "GAME3_3.h"
+#include "GAME4_1.h"
+#include "GAME5_2.h"
 #include "client__draw__debugdraw.h"
 #include "client__draw__staticdraw.h"
 #include "client__draw__image.h"
@@ -21,7 +34,9 @@
 #include "common__net_list.h"
 #include "mutexes.h"
 #include "input.h"
-#include "proto.h"
+#include "common__magic__speltree.h"
+#include "input_common.h"
+#include "legacy/input_ddraw.h"
 
 extern unsigned char byte_5D4594_3804364[160];
 

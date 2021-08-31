@@ -1,5 +1,7 @@
 #include "client__draw__pressureplatedraw.h"
-#include "proto.h"
+#include "GAME1_1.h"
+#include "GAME2_3.h"
+#include "client__video__draw_common.h"
 
 //----- (004BBB30) --------------------------------------------------------
 int  nox_thing_pressure_plate_draw(_DWORD* a1, nox_drawable* dr) {

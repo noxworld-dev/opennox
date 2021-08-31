@@ -1,7 +1,10 @@
 #include "client__shell__selclass.h"
 
 #include "common__random.h"
-#include "proto.h"
+#include "GAME1.h"
+#include "GAME2.h"
+#include "GAME3.h"
+#include "GAME3_2.h"
 #include "client__shell__selcolor.h"
 extern _DWORD dword_5d4594_1307724;
 extern nox_gui_animation* nox_wnd_xxx_1307732;

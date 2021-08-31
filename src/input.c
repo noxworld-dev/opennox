@@ -14,7 +14,12 @@
 
 #include "client__video__draw_common.h" // for nox_video_getWindow_401FD0
 
-#include "proto.h"
+#include "GAME2_2.h"
+#include "client__gui__window.h"
+#include "defs.h"
+#include "legacy/input_ddraw.h"
+#include "server__script__builtin.h"
+#include "MixPatch.h"
 
 float input_sensitivity = 1.0;
 void nox_input_setSensitivity(float v) {

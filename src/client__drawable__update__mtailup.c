@@ -1,7 +1,9 @@
 #include "client__drawable__update__mtailup.h"
 
 #include "common__random.h"
-#include "proto.h"
+#include "GAME2.h"
+#include "GAME2_2.h"
+#include "GAME2_3.h"
 #include "client__draw__glowdraw.h"
 
 extern unsigned int nox_gameFPS;

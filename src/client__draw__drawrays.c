@@ -1,7 +1,7 @@
 #include "client__draw__drawrays.h"
 #include "common__random.h"
 
-#include "proto.h"
+#include "GAME2.h"
 #include "client__draw__fx.h"
 extern _DWORD dword_5d4594_1304328;
 

@@ -1,7 +1,10 @@
 #include "client__gui__gadgets__listbox.h"
 #include "client__gui__window.h"
 
-#include "proto.h"
+#include "GAME1_2.h"
+#include "GAME1_3.h"
+#include "GAME2_1.h"
+#include "GAME3.h"
 
 //----- (004A4310) --------------------------------------------------------
 nox_window*  nox_gui_newScrollListBox_4A4310(int a1, int a2, int a3, int a4, int a5, int a6, int a7, __int16* a8) {

@@ -1,6 +1,11 @@
 #include "client__gui__guigen.h"
 
-#include "proto.h"
+#include "GAME1_2.h"
+#include "GAME1_3.h"
+#include "GAME2.h"
+#include "GAME2_2.h"
+#include "client__gui__window.h"
+#include "client__video__draw_common.h"
 
 extern int nox_win_width;
 extern int nox_win_height;

@@ -1,7 +1,8 @@
 #include "client__drawable__update__mmislup.h"
 
 #include "common__random.h"
-#include "proto.h"
+#include "GAME2.h"
+#include "GAME2_3.h"
 
 extern unsigned int nox_gameFPS;
 extern unsigned int nox_frame_xxx_2598000;

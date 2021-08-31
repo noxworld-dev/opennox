@@ -1,6 +1,8 @@
 #include "common__ability__comablty.h"
 
-#include "proto.h"
+#include "GAME1.h"
+#include "GAME1_2.h"
+#include "GAME1_1.h"
 
 //----- (00424F00) --------------------------------------------------------
 int  nox_thing_read_ABIL_rec_424F00(nox_memfile* f, void* a2) {

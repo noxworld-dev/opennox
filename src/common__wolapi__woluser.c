@@ -1,6 +1,10 @@
 #include "common__wolapi__woluser.h"
 
-#include "proto.h"
+#include "GAME1_1.h"
+#include "GAME1_3.h"
+#include "GAME2.h"
+#include "client__gui__window.h"
+#include "client__video__draw_common.h"
 extern _DWORD dword_5d4594_531652;
 extern _DWORD dword_5d4594_531648;
 

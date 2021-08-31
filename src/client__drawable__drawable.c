@@ -41,7 +41,7 @@
 #include "client__draw__weapondraw.h"
 
 #include "common__random.h"
-#include "proto.h"
+#include "GAME2.h"
 
 extern nox_alloc_class* nox_alloc_drawable;
 extern nox_drawable* nox_drawable_head_unk1;

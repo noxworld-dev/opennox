@@ -1,6 +1,8 @@
 #include "client__gui__conntype.h"
 
-#include "proto.h"
+#include "GAME1_3.h"
+#include "GAME2.h"
+#include "GAME2_3.h"
 #include "client__gui__servopts__guiserv.h"
 #include "client__gui__window.h"
 

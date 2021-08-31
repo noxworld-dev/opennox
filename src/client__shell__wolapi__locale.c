@@ -1,4 +1,6 @@
-#include "proto.h"
+#include "GAME1_2.h"
+#include "GAME2_3.h"
+#include "GAME3.h"
 
 extern _DWORD dword_5d4594_1312476;
 extern _DWORD dword_5d4594_1312472;

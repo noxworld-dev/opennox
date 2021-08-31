@@ -1,6 +1,10 @@
 #include "server__gamemech__explevel.h"
 
-#include "proto.h"
+#include "GAME1.h"
+#include "GAME3_2.h"
+#include "GAME3_3.h"
+#include "GAME4.h"
+#include "GAME5_2.h"
 
 //----- (004EF270) --------------------------------------------------------
 double  nox_xxx_unitGiveXP_4EF270(int a1, float a2) {

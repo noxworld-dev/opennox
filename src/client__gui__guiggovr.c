@@ -1,7 +1,8 @@
 #include "client__gui__guiggovr.h"
 #include "client__gui__window.h"
 
-#include "proto.h"
+#include "GAME2.h"
+#include "GAME2_1.h"
 
 extern _DWORD dword_5d4594_1303452;
 extern int nox_win_width;

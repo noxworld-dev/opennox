@@ -1,6 +1,6 @@
 // This must come before the SDL includes.
-#ifndef DRAW_COMMON_H
-#define DRAW_COMMON_H
+#ifndef NOX_PORT_CLIENT_VIDEO_DRAW_COMMON_H
+#define NOX_PORT_CLIENT_VIDEO_DRAW_COMMON_H
 
 #ifdef _WIN32
 #include <windows.h>
@@ -11,7 +11,49 @@
 #include <emscripten/html5.h>
 #endif
 
-#include "proto.h"
+#include "cdrom.h"
+#include "client__drawable__drawdb.h"
+#include "client__draw__fx.h"
+#include "client__draw__image.h"
+#include "client__gui__guiinv.h"
+#include "client__gui__guimeter.h"
+#include "client__gui__guishop.h"
+#include "client__gui__guispell.h"
+#include "client__gui__servopts__guiserv.h"
+#include "client__gui__window.h"
+#include "client__io__win95__focus.h"
+#include "client__network__netclint.h"
+#include "client__shell__optsback.h"
+#include "client__system__ctrlevnt.h"
+#include "client__video__draw_common.h"
+#include "client__video__sdl__draw_nogl.h"
+#include "common__config.h"
+#include "common__magic__speltree.h"
+#include "defs.h"
+#include "GAME1_1.h"
+#include "GAME1_3.h"
+#include "GAME1.h"
+#include "GAME2_2.h"
+#include "GAME2_3.h"
+#include "GAME2.h"
+#include "GAME3_3.h"
+#include "GAME3.h"
+#include "GAME4_1.h"
+#include "GAME4.h"
+#include "GAME5_2.h"
+#include "input_common.h"
+#include "input.h"
+#include "legacy/client__video__ddraw__draw_ddraw.h"
+#include "legacy/input_ddraw.h"
+#include "legacy/mmx.h"
+#include "legacy/win_ddraw.h"
+#include "movie.h"
+#include "server__network__mapsend.h"
+#include "server__script__builtin.h"
+#include "server__script__script.h"
+#include "server__xfer__savegame__savegame.h"
+#include "thing.h"
+#include "win.h"
 
 int nox_getBackbufWidth();
 int nox_getBackbufHeight();
@@ -150,4 +192,70 @@ HWND nox_video_getWindow_401FD0();
 #endif // USE_SDL
 #endif // NOX_CGO
 
+#ifdef USE_SDL
+void change_windowed_fullscreen();
+void updateGamma(int value);
 #endif
+int sub_4338D0();
+void sub_433C20();
+int sub_433CD0(BYTE a1, BYTE a2, BYTE a3);
+int sub_433E40(int a1);
+void sub_433ED0(int a1);
+int sub_434040(int a1);
+void sub_4340A0(int a1, int a2, int a3, int a4);
+int nox_xxx_drawPlayer_4341D0(int a1, int a2);
+void nox_set_color_rgb_434320(int r, int g, int b);
+void nox_set_color_rgb_4343B0(int r, int g, int b);
+void nox_set_color_rgb_434400(int r, int g, int b);
+void nox_set_color_rgb_434430(int r, int g, int b);
+void sub_434480(int a1, int* a2, int* a3, int* a4);
+uint32_t nox_color_rgb_4344A0(int r, int g, int b);
+BOOL sub_4347F0(char* a1, int a2);
+int sub_4348C0();
+int sub_434AA0(int a1, int a2, int a3);
+int sub_434AC0(int a1);
+int nox_video_getGammaSetting_434B00();
+int nox_video_setGammaSetting_434B30(int a1);
+BOOL sub_434B60();
+int nox_draw_initColorTables_434CC0();
+int sub_434FB0();
+void sub_4352E0();
+void sub_4353C0();
+void sub_4353F0();
+void sub_4354F0();
+void sub_435550();
+int nox_xxx_GfxInit_444930(int w, int h, int depth, int flags);
+int nox_client_drawXxx_444AC0(int w, int h, int depth, int flags);
+void sub_444C50();
+HDC sub_444F90();
+void sub_444FC0(HDC a1);
+int nox_video_initPixbuffer_486090();
+void nox_video_setBackBufferPtrs_48A190();
+void nox_xxx_directDrawBlitMB_48A220();
+void sub_48A290_call_present();
+int sub_48A5E0();
+void sub_48A7F0();
+void sub_48A820(UINT uFlags);
+void nox_video_minimizeOrMaximize_48A9C0(int a1);
+void sub_48AA40();
+int nox_video_initCursorDrawVars_48B1F0();
+void nox_video_stopCursorDrawThread_48B350();
+int sub_48B3F0(void* a1p, int a2, int a3);
+int nox_video_waitVBlankAndDrawCursorFromThread_48B5D0(int a1, int a2);
+bool nox_xxx_makeFillerColor_48BDE0();
+int nox_video_createCursorSurface_48BF70();
+int sub_48C060();
+void sub_48C110();
+unsigned __int8* sub_48C200(void* a1p, int a2, int a3);
+unsigned __int8* sub_48C320(void* a1p, int a2, int a3);
+int nox_video_setBackBufferCopyFunc_4AD100();
+void nox_video_setBackBufferCopyFunc2_4AD150();
+void nox_video_callCopyBackBuffer_4AD170(void);
+void nox_video_copyBackBuffer2_4AD180();
+void nox_video_copyBackBuffer3_4AD1E0();
+void nox_video_copyBackBuffer_4AD2A0();
+int sub_4B0300(char* a1);
+void sub_4B05D0();
+int sub_4B0640(int (*a1)(void));
+
+#endif // NOX_PORT_CLIENT_VIDEO_DRAW_COMMON_H

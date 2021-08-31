@@ -1,7 +1,7 @@
 #include "client__network__deathmsg.h"
 #include "client__gui__guicon.h"
 
-#include "proto.h"
+#include "GAME1.h"
 
 //----- (004952E0) --------------------------------------------------------
 int  sub_4952E0(_WORD* a1) {

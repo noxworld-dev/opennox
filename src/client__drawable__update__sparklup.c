@@ -1,7 +1,8 @@
 #include "client__drawable__update__sparklup.h"
 
 #include "common__random.h"
-#include "proto.h"
+#include "GAME2.h"
+#include "GAME2_2.h"
 #include "client__draw__glowdraw.h"
 
 extern unsigned int nox_frame_xxx_2598000;

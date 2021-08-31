@@ -1,6 +1,5 @@
 #include "DG_dynarr.h"
 #include "defs.h"
-#include "proto.h"
 
 #ifdef _WIN32
 typedef intptr_t INT_PTR;

@@ -1,4 +1,4 @@
-#include "proto.h"
+#include "common__object__weaplook.h"
 
 //----- (004158C0) --------------------------------------------------------
 char** nox_xxx_loadModifyers_4158C0() {

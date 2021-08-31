@@ -3,7 +3,8 @@
 
 #include "common/fs/nox_fs.h"
 #include "server__script__builtin.h"
-#include "proto.h"
+#include "GAME3.h"
+#include "GAME4_3.h"
 
 
 extern unsigned int dword_5d4594_3835312;

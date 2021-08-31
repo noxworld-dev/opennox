@@ -1,7 +1,7 @@
 #include "common__system__group.h"
 
 #include "client__gui__guicon.h"
-#include "proto.h"
+#include "GAME5_2.h"
 
 //----- (0057C2D0) --------------------------------------------------------
 int  nox_server_scriptGetGroupId_57C2D0(int** a1) {

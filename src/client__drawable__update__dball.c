@@ -1,7 +1,7 @@
 #include "client__drawable__update__dball.h"
 #include "common__random.h"
 
-#include "proto.h"
+#include "GAME2.h"
 #include "client__draw__fx.h"
 
 extern unsigned int nox_frame_xxx_2598000;

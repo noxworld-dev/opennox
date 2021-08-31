@@ -1,4 +1,7 @@
-#include "proto.h"
+#include "GAME1.h"
+#include "GAME3_2.h"
+#include "GAME3_3.h"
+#include "GAME4.h"
 
 // TODO: convert table_272352
 

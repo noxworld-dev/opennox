@@ -13,5 +13,6 @@ void nox_client_guiserv_updateMapList_458230(int a1, char* name, bool a3);
 int  nox_xxx_guiServerOptionsProcPre_4585D0(int a1, unsigned int a2, int a3, int a4);
 int  sub_459880(int a1);
 int sub_459CD0();
+int sub_459C10();
 
 #endif // NOX_PORT_CLIENT_GUI_SERVOPTS_GUISERV

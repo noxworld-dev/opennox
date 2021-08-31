@@ -1,6 +1,8 @@
 #include "client__draw__glyphdraw.h"
 #include "client__draw__animdraw.h"
-#include "proto.h"
+#include "GAME1.h"
+#include "GAME1_2.h"
+#include "client__video__draw_common.h"
 
 extern int nox_backbuffer_depth;
 

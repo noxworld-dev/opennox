@@ -57,4 +57,16 @@ int nox_ctrlevent_has_data_42D440(nox_ctrlevent_code code);
 unsigned __int8 nox_ctrlevent_data_size_42D450(nox_ctrlevent_code code);
 nox_ctrlevent_key_t* nox_xxx_getBindKeysBuf_42CD70();
 
+char* nox_xxx_netGetBuffSize_42CD50(_BYTE* a1);
+void sub_42CD90();
+void nox_client_writeConfigHotkeys_42CDF0(FILE* a1);
+int nox_client_parseConfigHotkeysLine_42CF50(char* a1);
+int nox_xxx_keyCheckWarrorKeys_42D460(nox_ctrlevent_code code);
+int nox_xxx_keyCanPauseMode_42D4B0(nox_ctrlevent_code code);
+void nox_xxx_netBuf_42D510();
+void sub_42E8C0(int a1);
+wchar_t* sub_42E8E0(int a1, int a2);
+int nox_xxx_playerSaveInput_51A960(int a1, unsigned __int8* a2);
+int sub_51AAA0(int a1, int a2, int a3);
+
 #endif // NOX_PORT_CLIENT_SYSTEM_CTRLEVNT

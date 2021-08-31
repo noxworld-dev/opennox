@@ -1,4 +1,5 @@
-#include "proto.h"
+#include "cdrom.h"
+#include "client__gui__window.h"
 
 //----- (00411B90) --------------------------------------------------------
 int  nox_xxx_parseWeapDescription_411B90(const char* a1, char* a2, obj_412ae0_t* obj) {

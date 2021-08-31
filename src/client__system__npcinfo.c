@@ -1,7 +1,7 @@
 #include "client__system__npcinfo.h"
 
 #include "common__random.h"
-#include "proto.h"
+#include "GAME4.h"
 
 //----- (0049A4B0) --------------------------------------------------------
 int  nox_xxx_spriteNPCInfo_49A4B0(_DWORD* a1, int a2, int a3) {

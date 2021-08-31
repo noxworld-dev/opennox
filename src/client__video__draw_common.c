@@ -2,6 +2,13 @@
 #include "client__video__draw_common.h"
 #undef IGNORE_EXTERNS
 #include "mutexes.h"
+#include "GAME1_2.h"
+#include "GAME1_3.h"
+#include "GAME2.h"
+#include "GAME2_2.h"
+#include "GAME2_3.h"
+#include "GAME3.h"
+#include "GAME5_2.h"
 
 unsigned char byte_5D4594_3804364[160] = { 0 };
 

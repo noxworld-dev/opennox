@@ -1,10 +1,25 @@
+#include "GAME1.h"
+#include "GAME1_2.h"
+#include "GAME1_1.h"
+#include "GAME2.h"
+#include "GAME3_2.h"
+#include "GAME3_3.h"
+#include "GAME4.h"
+#include "GAME4_1.h"
+#include "GAME4_2.h"
+#include "GAME4_3.h"
+#include "GAME5.h"
+#include "GAME5_2.h"
 #include "client__drawable__drawdb.h"
 #include "client__gui__guigen.h"
 #include "common__random.h"
 #include "common__binfile.h"
 #include "common__net_list.h"
 
-#include "proto.h"
+#include "client__video__draw_common.h"
+#include "common__magic__speltree.h"
+#include "legacy/input_ddraw.h"
+#include "server__script__script.h"
 
 #include <time.h>
 

@@ -1,5 +1,10 @@
 #include "client__draw__debugdraw.h"
-#include "proto.h"
+#include "GAME1_2.h"
+#include "GAME1_1.h"
+#include "GAME1_3.h"
+#include "GAME2.h"
+#include "GAME2_3.h"
+#include "GAME3_1.h"
 
 extern unsigned int nox_frame_xxx_2598000;
 //----- (004BCC90) --------------------------------------------------------

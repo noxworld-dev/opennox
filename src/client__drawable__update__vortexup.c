@@ -1,7 +1,9 @@
 #include "client__drawable__update__vortexup.h"
 
 #include "common__random.h"
-#include "proto.h"
+#include "GAME2.h"
+#include "GAME2_3.h"
+#include "client__video__draw_common.h"
 
 //----- (004CC950) --------------------------------------------------------
 int  nox_xxx_updDrawVortexSource_4CC950(int a1, int a2) {

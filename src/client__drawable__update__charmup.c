@@ -1,7 +1,8 @@
 #include "client__drawable__update__charmup.h"
 
 #include "common__random.h"
-#include "proto.h"
+#include "GAME2.h"
+#include "GAME5_2.h"
 
 //----- (004CD150) --------------------------------------------------------
 void  sub_4CD150(int a1, _DWORD* a2, int a3, int a4) {

@@ -1,7 +1,8 @@
 #include "client__draw__canidraw.h"
 #include "client__draw__parse__parse.h"
 #include "common__random.h"
-#include "proto.h"
+#include "GAME1_2.h"
+#include "GAME3_1.h"
 
 extern unsigned int nox_frame_xxx_2598000;
 //----- (004BC930) --------------------------------------------------------

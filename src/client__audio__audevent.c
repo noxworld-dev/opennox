@@ -1,7 +1,9 @@
 #include "client__audio__audevent.h"
 #include "common__random.h"
 
-#include "proto.h"
+#include "GAME2.h"
+#include "GAME2_2.h"
+#include "GAME3_1.h"
 
 //----- (00451CF0) --------------------------------------------------------
 int  sub_451CF0(_DWORD* a1) {

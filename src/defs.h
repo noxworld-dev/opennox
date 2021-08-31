@@ -65,8 +65,41 @@ typedef long LSTATUS;
 #include "common/alloc/classes/alloc_class.h"
 #include "client__gui__window.h"
 
+// '...' differs in levels of indirection from '... *'
+#pragma warning(disable : 4047)
+
+// incompatible types - from '... *' to '... *'
+#pragma warning(disable : 4133)
+
+// '...' undefined; assuming extern returning int
+#pragma warning(disable : 4013)
+
+// signed/unsigned mismatch
+#pragma warning(disable : 4018)
+
+// conversion from '...' to '...', possible loss of data
+#pragma warning(disable : 4244)
+
+// truncation from '...' to '...'
+#pragma warning(disable : 4305)
+
+// integral size mismatch in argument; conversion supplied
+#pragma warning(disable : 4761)
+
+#pragma warning(disable : 4028 4024 4700 4026 4070 4142 4022 4098 4113 4146 4090 4172 4101)
+
+enum {
+	NOX_NET_SEND_NO_LOCK = 0x1,
+	NOX_NET_SEND_FLAG2 = 0x2,
+};
+
 // For now bools are kept 1-byte long
 //_Static_assert(sizeof(bool) == 4, "boolean values must be aligned to 32-bit int");
+
+#ifdef __thiscall
+#undef __thiscall
+#endif
+#define __thiscall  // Test compile in C mode
 
 typedef unsigned char _BYTE;
 typedef unsigned short _WORD;

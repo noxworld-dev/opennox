@@ -1,7 +1,9 @@
 #include "client__gui__chaticon.h"
 #include "client__gui__window.h"
 
-#include "proto.h"
+#include "GAME1_2.h"
+#include "GAME1_3.h"
+#include "GAME2_1.h"
 #include "client__gui__gamewin__gamewin.h"
 
 extern _DWORD dword_5d4594_825744;

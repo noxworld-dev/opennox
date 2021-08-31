@@ -1,5 +1,5 @@
 #include "client__draw__boulderdraw.h"
-#include "proto.h"
+#include "GAME3_1.h"
 
 //----- (004B9B50) --------------------------------------------------------
 int  nox_thing_boulder_draw(int* a1, nox_drawable* dr) {

@@ -1,4 +1,4 @@
-#include "proto.h"
+#include "thing.h"
 
 nox_memfile* nox_loaded_thing_bin = 0;
 

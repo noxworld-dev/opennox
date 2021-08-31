@@ -1,7 +1,10 @@
 #include "client__gui__servopts__access.h"
 #include "client__gui__window.h"
 
-#include "proto.h"
+#include "GAME1.h"
+#include "GAME1_3.h"
+#include "GAME2.h"
+#include "GAME3_2.h"
 extern _DWORD dword_5d4594_1045596;
 extern _DWORD dword_5d4594_1045556;
 extern _DWORD dword_5d4594_1045520;

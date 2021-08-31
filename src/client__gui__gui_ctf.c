@@ -3,7 +3,9 @@
 
 #include "client__gui__gamewin__gamewin.h"
 
-#include "proto.h"
+#include "GAME1_2.h"
+#include "GAME2.h"
+#include "GAME2_3.h"
 extern _DWORD dword_5d4594_1045604;
 
 //----- (00455C30) --------------------------------------------------------

@@ -1,7 +1,8 @@
 #include "client__shell__inputcfg__inputcfg.h"
 #include "client__system__ctrlevnt.h"
 
-#include "proto.h"
+#include "GAME3.h"
+#include "client__gui__window.h"
 extern nox_window* dword_5d4594_1522620;
 extern nox_window* dword_5d4594_1522624;
 extern nox_window* dword_5d4594_1522628;

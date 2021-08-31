@@ -1,4 +1,6 @@
-#include "proto.h"
+#include "GAME1.h"
+#include "GAME3_2.h"
+#include "GAME5_2.h"
 #include "common__net_list.h"
 
 //----- (00528AC0) --------------------------------------------------------

@@ -2,8 +2,20 @@
 #include <emscripten/emscripten.h>
 #endif
 
-#include "client__draw__animdraw.h"
-#include "client__draw__canidraw.h"
+#include "GAME1.h"
+#include "GAME1_2.h"
+#include "GAME1_1.h"
+#include "GAME1_3.h"
+#include "GAME2.h"
+#include "GAME2_1.h"
+#include "GAME2_2.h"
+#include "GAME2_3.h"
+#include "GAME3.h"
+#include "GAME3_2.h"
+#include "GAME3_3.h"
+#include "GAME4.h"
+#include "GAME5.h"
+#include "GAME5_2.h"
 #include "client__light__light16.h"
 #include "client__shell__wolapi__locale.h"
 #include "client__shell__wolapi__wolchat.h"
@@ -24,7 +36,12 @@
 #include "mutexes.h"
 #include "common/fs/nox_fs.h"
 #include "common__net_list.h"
-#include "proto.h"
+#include "client__io__win95__focus.h"
+#include "client__system__ctrlevnt.h"
+#include "client__video__draw_common.h"
+#include "input_common.h"
+#include "legacy/input_ddraw.h"
+#include "MixPatch.h"
 
 extern _DWORD dword_587000_122856;
 extern _DWORD dword_5d4594_830272;

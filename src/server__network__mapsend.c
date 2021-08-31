@@ -1,4 +1,9 @@
-#include "proto.h"
+#include "GAME1.h"
+#include "GAME4_1.h"
+#include "GAME5.h"
+#include "GAME5_2.h"
+#include "client__gui__window.h"
+#include "server__network__mapsend.h"
 #include "client__gui__guicon.h"
 #include "common/fs/nox_fs.h"
 extern _DWORD dword_5d4594_2388640;

@@ -1,6 +1,7 @@
 #include "client__network__netclint.h"
 
-#include "proto.h"
+#include "GAME1_3.h"
+#include "client__gui__window.h"
 #include "client__gui__guimsg.h"
 
 //----- (0043D0A0) --------------------------------------------------------

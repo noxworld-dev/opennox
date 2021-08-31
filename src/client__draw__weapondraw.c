@@ -1,7 +1,10 @@
 #include "client__draw__weapondraw.h"
 #include "client__draw__staticdraw.h"
 #include "client__draw__animdraw.h"
-#include "proto.h"
+#include "GAME2.h"
+#include "GAME2_3.h"
+#include "GAME3_1.h"
+#include "GAME5_2.h"
 
 //----- (004B9690) --------------------------------------------------------
 int  nox_thing_weapon_draw(int* a1, nox_drawable* dr) {

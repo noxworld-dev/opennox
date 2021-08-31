@@ -1,5 +1,6 @@
 #include "input.h"
-#include "proto.h"
+#include "client__gui__window.h"
+#include "movie.h"
 #include "common/fs/nox_fs.h"
 
 #ifndef NOX_CGO

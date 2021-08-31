@@ -1,6 +1,7 @@
 #include "common__magic__comguide.h"
 
-#include "proto.h"
+#include "GAME1_2.h"
+#include "GAME2.h"
 
 //----- (00427070) --------------------------------------------------------
 int nox_xxx_loadGuides_427070() {

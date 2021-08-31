@@ -1,3 +1,14 @@
+#include "GAME1.h"
+#include "GAME1_2.h"
+#include "GAME1_1.h"
+#include "GAME2.h"
+#include "GAME3_2.h"
+#include "GAME3_3.h"
+#include "GAME4.h"
+#include "GAME4_1.h"
+#include "GAME4_2.h"
+#include "GAME4_3.h"
+#include "GAME5_2.h"
 #include "common__system__team.h"
 #include "server__magic__plyrspel.h"
 #include "server__magic__spell__execdur.h"
@@ -8,7 +19,9 @@
 #include "common__net_list.h"
 
 #include "common/fs/nox_fs.h"
-#include "proto.h"
+#include "client__gui__window.h"
+#include "client__video__draw_common.h"
+#include "common__magic__speltree.h"
 
 extern _DWORD dword_5d4594_3835368;
 extern _DWORD dword_5d4594_1569656;

@@ -3,7 +3,9 @@
 #include "client__gui__guimsg.h"
 #include "common__net_list.h"
 
-#include "proto.h"
+#include "GAME2.h"
+#include "GAME2_1.h"
+#include "GAME5_2.h"
 
 //----- (0046B000) --------------------------------------------------------
 #ifndef NOX_CGO

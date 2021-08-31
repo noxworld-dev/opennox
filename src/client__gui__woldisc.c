@@ -1,6 +1,10 @@
 #include "client__gui__woldisc.h"
 
-#include "proto.h"
+#include "GAME1.h"
+#include "GAME1_1.h"
+#include "GAME1_3.h"
+#include "GAME2.h"
+#include "GAME2_3.h"
 #include "client__gui__guimsg.h"
 #include "common__log.h"
 

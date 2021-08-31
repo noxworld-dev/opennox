@@ -1,7 +1,7 @@
 #include "client__draw__lvupdraw.h"
 #include "common__random.h"
 
-#include "proto.h"
+#include "client__draw__fx.h"
 #include "client__draw__fx.h"
 
 //----- (004B7740) --------------------------------------------------------

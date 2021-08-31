@@ -4,8 +4,14 @@
 #include <emscripten/emscripten.h>
 #endif
 
+#include "win.h"
 #include "input.h"
-#include "proto.h"
+#include "GAME1.h"
+#include "GAME1_3.h"
+#include "GAME_data_init.h"
+#include "client__gui__window.h"
+#include "client__video__draw_common.h"
+#include "legacy/win_ddraw.h"
 
 #include <SDL2/SDL.h>
 

@@ -1,24 +1,4 @@
-#include "client__shell__wolapi__wolchat.h"
 #include "client__system__parsecmd.h"
-#include "common__object__modifier.h"
-#include "server__object__die__die.h"
-#include "server__object__pickdrop__pickup.h"
-#include "server__system__cscrfunc.h"
-
-#include "client__gui__gamewin__psscript.h"
-#include "common__wolapi__wolstate.h"
-
-#include "client__drawable__update__dball.h"
-#include "client__drawable__update__drainup.h"
-#include "client__drawable__update__healup.h"
-#include "client__drawable__update__manabomb.h"
-#include "client__drawable__update__mmislup.h"
-#include "client__drawable__update__mtailup.h"
-#include "client__drawable__update__sparklup.h"
-#include "client__drawable__update__telwake.h"
-#include "client__drawable__update__vortexup.h"
-
-#include "proto.h"
 
 void nox_xxx_unknown_libname_86_57F634();
 void nullsub_45();

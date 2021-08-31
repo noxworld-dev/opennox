@@ -1,5 +1,8 @@
 #include "client__audio__auddiag.h"
-#include "proto.h"
+#include "GAME1.h"
+#include "GAME1_3.h"
+#include "GAME2.h"
+#include "GAME2_2.h"
 extern _DWORD dword_5d4594_831076;
 extern _DWORD dword_5d4594_830972;
 extern _DWORD dword_5d4594_831092;

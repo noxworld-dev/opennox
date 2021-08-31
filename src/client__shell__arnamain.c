@@ -1,6 +1,13 @@
 #include "client__shell__arnamain.h"
 
-#include "proto.h"
+#include "GAME1.h"
+#include "GAME1_2.h"
+#include "GAME1_1.h"
+#include "GAME2.h"
+#include "GAME3.h"
+#include "GAME3_2.h"
+#include "client__gui__window.h"
+#include "GAME1_3.h"
 #include "client__shell__noxworld.h"
 #include "client__shell__wolapi__wollogin.h"
 extern _DWORD dword_5d4594_1309708;

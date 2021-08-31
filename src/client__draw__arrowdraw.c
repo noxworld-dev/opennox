@@ -1,6 +1,8 @@
 #include "client__draw__arrowdraw.h"
 #include "client__draw__slavedraw.h"
-#include "proto.h"
+#include "GAME1_2.h"
+#include "GAME2.h"
+#include "GAME2_3.h"
 
 extern unsigned int nox_gameFPS;
 extern unsigned int nox_frame_xxx_2598000;

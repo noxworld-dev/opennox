@@ -1,7 +1,14 @@
 #include "client__gui__guirank.h"
 #include "client__gui__window.h"
 
-#include "proto.h"
+#include "GAME1.h"
+#include "GAME1_2.h"
+#include "GAME1_1.h"
+#include "GAME1_3.h"
+#include "GAME2.h"
+#include "GAME2_1.h"
+#include "GAME2_2.h"
+#include "GAME2_3.h"
 #include "client__gui__gadgets__listbox.h"
 
 extern _DWORD dword_587000_145672;

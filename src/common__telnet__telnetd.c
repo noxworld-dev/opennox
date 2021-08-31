@@ -1,6 +1,6 @@
 #include "common__telnet__telnetd.h"
 #include "client__system__parsecmd.h" // for nox_server_parseCmdText_443C80
-#include "proto.h"
+#include "GAME1.h"
 #include "common__log.h"
 extern unsigned int nox_frame_xxx_2598000;
 

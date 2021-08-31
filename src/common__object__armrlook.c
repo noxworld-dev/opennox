@@ -1,4 +1,5 @@
-#include "proto.h"
+#include "cdrom.h"
+#include "client__gui__window.h"
 
 //----- (00415B60) --------------------------------------------------------
 wchar_t*  sub_415B60(int a1) {

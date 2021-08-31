@@ -1,5 +1,5 @@
 #include "client__draw__parse__parse.h"
-#include "proto.h"
+#include "GAME1_2.h"
 
 //----- (0044C000) --------------------------------------------------------
 void*  nox_xxx_spriteLoadStaticRandomData_44C000(char* attr_value, nox_memfile* f) {

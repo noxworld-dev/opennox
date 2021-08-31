@@ -1,3 +1,13 @@
+#include "GAME1.h"
+#include "GAME1_2.h"
+#include "GAME1_1.h"
+#include "GAME1_3.h"
+#include "GAME2.h"
+#include "GAME2_1.h"
+#include "GAME3_2.h"
+#include "GAME3_3.h"
+#include "GAME4.h"
+#include "GAME5_2.h"
 #include "client__shell__wolapi__wolchat.h"
 #include "client__shell__wolapi__wolprog.h"
 #include "common__system__team.h"
@@ -20,7 +30,10 @@
 #include "client__gui__guibook.h"
 
 #include "common/fs/nox_fs.h"
-#include "proto.h"
+#include "client__video__draw_common.h"
+#include "common__magic__speltree.h"
+#include "server__script__builtin.h"
+#include "server__script__script.h"
 
 #include <time.h>
 

@@ -1,7 +1,10 @@
 #include "client__gui__guidlg.h"
 #include "client__gui__window.h"
 
-#include "proto.h"
+#include "GAME1_2.h"
+#include "GAME1_3.h"
+#include "GAME2.h"
+#include "GAME2_1.h"
 
 extern _DWORD dword_5d4594_1123520;
 extern _DWORD dword_5d4594_1123524;

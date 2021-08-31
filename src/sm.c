@@ -9,7 +9,18 @@
 #include "common__net_list.h"
 
 #include "common/fs/nox_fs.h"
-#include "proto.h"
+#include "GAME1.h"
+#include "GAME1_2.h"
+#include "GAME1_1.h"
+#include "GAME1_3.h"
+#include "GAME2_3.h"
+#include "GAME3_2.h"
+#include "GAME5.h"
+#include "GAME5_2.h"
+#include "client__gui__window.h"
+#include "client__network__netclint.h"
+#include "client__video__draw_common.h"
+#include "thing.h"
 
 void cmain_loop(int);
 // defined in GAME1.c

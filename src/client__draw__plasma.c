@@ -1,7 +1,15 @@
 #include "client__draw__plasma.h"
 #include "common__random.h"
 
-#include "proto.h"
+#include "GAME1_2.h"
+#include "GAME1_1.h"
+#include "GAME2.h"
+#include "GAME3_1.h"
+#include "GAME4_1.h"
+#include "GAME5_2.h"
+#include "client__draw__fx.h"
+#include "client__video__draw_common.h"
+#include "input_common.h"
 #include "client__draw__fx.h"
 extern _DWORD dword_5d4594_1316412;
 extern _DWORD dword_5d4594_1316408;

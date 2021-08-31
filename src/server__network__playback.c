@@ -1,7 +1,10 @@
 #include "client__system__parsecmd.h"
 #include "server__network__sdecode.h"
 
-#include "proto.h"
+#include "GAME1.h"
+#include "GAME1_3.h"
+#include "GAME3_2.h"
+#include "GAME5_2.h"
 extern _DWORD dword_5d4594_1548736;
 extern _DWORD dword_5d4594_1548732;
 extern _DWORD nox_xxx_replayFile_587000_197428;

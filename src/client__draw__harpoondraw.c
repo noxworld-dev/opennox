@@ -1,6 +1,9 @@
 #include "client__draw__harpoondraw.h"
 #include "client__draw__slavedraw.h"
-#include "proto.h"
+#include "GAME2.h"
+#include "GAME3.h"
+#include "GAME5_2.h"
+#include "client__video__draw_common.h"
 
 
 //----- (004B64A0) --------------------------------------------------------
