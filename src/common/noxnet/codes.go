@@ -11,6 +11,14 @@ func (op Op) String() string {
 	return strconv.FormatUint(uint64(op), 16)
 }
 
+func (op Op) Len() int {
+	n, ok := opLen[op]
+	if !ok || n < 0 {
+		return -1
+	}
+	return n
+}
+
 const (
 	MSG_XXX_STOP                       = Op(33)  // 0x21
 	MSG_TIMESTAMP                      = Op(39)  // 0x27
@@ -217,6 +225,134 @@ const (
 	MSG_GAUNTLET                       = Op(240) // 0xF0
 	MSG_INVENTORY_FAIL                 = Op(241) // 0xF1
 )
+
+var opLen = map[Op]int{
+	0x1F:                               7,
+	MSG_TIMESTAMP:                      2,
+	MSG_FULL_TIMESTAMP:                 4,
+	MSG_USE_MAP:                        40,
+	MSG_JOIN_DATA:                      6,
+	MSG_NEW_PLAYER:                     128,
+	MSG_PLAYER_QUIT:                    2,
+	MSG_SIMPLE_OBJ:                     8,
+	MSG_DESTROY_OBJECT:                 2,
+	MSG_OBJECT_OUT_OF_SIGHT:            2,
+	MSG_OBJECT_IN_SHADOWS:              2,
+	MSG_OBJECT_FRIEND_ADD:              2,
+	MSG_OBJECT_FRIEND_REMOVE:           2,
+	MSG_RESET_FRIENDS:                  2,
+	MSG_ENABLE_OBJECT:                  2,
+	MSG_DISABLE_OBJECT:                 2,
+	MSG_DRAW_FRAME:                     3,
+	MSG_DESTROY_WALL:                   2,
+	MSG_OPEN_WALL:                      2,
+	MSG_CLOSE_WALL:                     2,
+	MSG_CHANGE_OR_ADD_WALL_MAGIC:       5,
+	MSG_REMOVE_WALL_MAGIC:              2,
+	MSG_REPORT_HEALTH_DELTA:            4,
+	MSG_REPORT_PLAYER_HEALTH:           2,
+	MSG_REPORT_ITEM_HEALTH:             6,
+	MSG_REPORT_MANA:                    4,
+	MSG_REPORT_STAMINA:                 1,
+	MSG_REPORT_STATS:                   13,
+	MSG_REPORT_ARMOR_VALUE:             4,
+	MSG_REPORT_GOLD:                    4,
+	MSG_REPORT_PICKUP:                  4,
+	MSG_REPORT_MODIFIABLE_PICKUP:       8,
+	MSG_REPORT_DROP:                    4,
+	MSG_REPORT_LESSON:                  10,
+	MSG_REPORT_MUNDANE_ARMOR_EQUIP:     6,
+	MSG_REPORT_MUNDANE_WEAPON_EQUIP:    6,
+	MSG_REPORT_MODIFIABLE_WEAPON_EQUIP: 10,
+	MSG_REPORT_MODIFIABLE_ARMOR_EQUIP:  10,
+	MSG_REPORT_ARMOR_DEQUIP:            6,
+	MSG_REPORT_WEAPON_DEQUIP:           6,
+	MSG_REPORT_FLAG_BALL_WINNER:        7,
+	MSG_REPORT_FLAG_WINNER:             7,
+	MSG_REPORT_DEATHMATCH_WINNER:       7,
+	MSG_REPORT_DEATHMATCH_TEAM_WINNER:  7,
+	MSG_REPORT_ENCHANTMENT:             6,
+	MSG_REPORT_ITEM_ENCHANTMENT:        1,
+	MSG_REPORT_Z_PLUS:                  3,
+	MSG_REPORT_Z_MINUS:                 3,
+	MSG_REPORT_EQUIP:                   2,
+	MSG_REPORT_DEQUIP:                  2,
+	MSG_REPORT_CHARGES:                 4,
+	MSG_REPORT_X_STATUS:                6,
+	MSG_REPORT_MODIFIER:                6,
+	MSG_REPORT_STAT_MODIFIER:           7,
+	MSG_REPORT_CLIENT_STATUS:           6,
+	MSG_REPORT_ANIMATION_FRAME:         6,
+	MSG_FX_SUMMON:                      11,
+	MSG_FX_SUMMON_CANCEL:               2,
+	MSG_FX_SHIELD:                      3,
+	MSG_FX_BLUE_SPARKS:                 4,
+	MSG_FX_YELLOW_SPARKS:               4,
+	MSG_FX_CYAN_SPARKS:                 4,
+	MSG_FX_VIOLET_SPARKS:               4,
+	MSG_FX_EXPLOSION:                   4,
+	MSG_FX_LESSER_EXPLOSION:            4,
+	MSG_FX_COUNTERSPELL_EXPLOSION:      4,
+	MSG_FX_THIN_EXPLOSION:              4,
+	MSG_FX_TELEPORT:                    4,
+	MSG_FX_SMOKE_BLAST:                 4,
+	MSG_FX_DAMAGE_POOF:                 4,
+	MSG_FX_LIGHTNING:                   8,
+	MSG_FX_ENERGY_BOLT:                 8,
+	MSG_FX_CHAIN_LIGHTNING_BOLT:        8,
+	MSG_FX_DRAIN_MANA:                  8,
+	MSG_FX_CHARM:                       8,
+	MSG_FX_GREATER_HEAL:                8,
+	MSG_FX_SPARK_EXPLOSION:             5,
+	MSG_FX_DEATH_RAY:                   8,
+	MSG_FX_SENTRY_RAY:                  8,
+	MSG_FX_RICOCHET:                    4,
+	MSG_FX_JIGGLE:                      1,
+	MSG_FX_WHITE_FLASH:                 4,
+	MSG_FX_DURATION_SPELL:              6,
+	MSG_FX_DELTAZ_SPELL_START:          5,
+	MSG_FX_VAMPIRISM:                   10,
+	MSG_FX_MANA_BOMB_CANCEL:            4,
+	MSG_AUDIO_EVENT:                    3,
+	MSG_AUDIO_PLAYER_EVENT:             3,
+	MSG_IMPORTANT:                      0,
+	MSG_IMPORTANT_ACK:                  4,
+	MSG_OUTGOING_CLIENT:                2,
+	MSG_GAME_SETTINGS:                  19,
+	MSG_GAME_SETTINGS_2:                48,
+	MSG_UPDATE_GUI_GAME_SETTINGS:       59,
+	MSG_DOOR_ANGLE:                     3,
+	MSG_OBELISK_CHARGE:                 3,
+	MSG_PENTAGRAM_ACTIVATE:             3,
+	MSG_CLIENT_PREDICT_LINEAR:          13,
+	MSG_PLAYER_OBJ:                     11,
+	MSG_SERVER_QUIT:                    0,
+	MSG_REPORT_ABILITY_AWARD:           2,
+	MSG_REPORT_ABILITY_STATE:           2,
+	MSG_REPORT_ACTIVE_ABILITIES:        2,
+	MSG_INTERESTING_ID:                 6,
+	MSG_TIMER_STATUS:                   12,
+	MSG_REPORT_ALL_LATENCY:             4,
+	MSG_REPORT_FLAG_STATUS:             5,
+	MSG_REPORT_BALL_STATUS:             3,
+	MSG_REPORT_TOTAL_HEALTH:            6,
+	MSG_REPORT_TOTAL_MANA:              6,
+	MSG_REPORT_SPELL_STAT:              5,
+	MSG_FADE_BEGIN:                     2,
+	MSG_PLAYER_DIED:                    2,
+	MSG_PLAYER_RESPAWN:                 8,
+	MSG_FORGET_DRAWABLES:               4,
+	MSG_RESET_ABILITIES:                1,
+	MSG_RATE_CHANGE:                    1,
+	MSG_STAT_MULTIPLIERS:               16,
+	MSG_UPDATE_STREAM:                  -1, // dynamic
+	MSG_TEXT_MESSAGE:                   -1, // dynamic
+	MSG_INFORM:                         -1, // dynamic
+	MSG_XFER_MSG:                       -1, // dynamic
+	MSG_TEAM_MSG:                       -1, // dynamic
+	MSG_SEQ_IMPORTANT:                  -1, // dynamic
+	MSG_GAUNTLET:                       -1, // dynamic
+}
 
 var opNames = map[Op]string{
 	33: "MSG_XXX_STOP",

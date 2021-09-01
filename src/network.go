@@ -197,7 +197,8 @@ func nox_xxx_setMapCRC_40A360(crc C.int) {
 func noxOnCliPacketDebug(op C.int, data *C.uchar, sz C.int) {
 	buf := asByteSlice(unsafe.Pointer(data), int(sz))
 	if debugNet {
-		netLog.Printf("noxOnCliPacketDebug: op=%d (%s) [%d]\n%x", int(op), noxnet.Op(op).String(), int(sz), buf)
+		op := noxnet.Op(op)
+		netLog.Printf("noxOnCliPacketDebug: op=%d (%s) [%d:%d]\n%x", int(op), op.String(), int(sz), op.Len(), buf)
 	}
 }
 
