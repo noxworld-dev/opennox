@@ -7059,7 +7059,7 @@ int sub_43B490() {
 #ifndef NOX_CGO
 void nox_xxx_serverHost_43B4D0() {
 	if (nox_game_createOrJoin_815048) {
-		sub_43B510();
+		nox_client_xxx_switchChatMap_43B510();
 		sub_43A9D0();
 		sub_4A24A0();
 		nox_xxx_gameSetAudioFadeoutMb_501AC0(0);

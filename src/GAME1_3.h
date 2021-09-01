@@ -5,7 +5,7 @@
 
 
 int map_download_loop(int first);
-char* sub_43B510();
+void nox_client_xxx_switchChatMap_43B510();
 _DWORD* sub_43B670();
 int sub_43B6D0();
 unsigned __int16* sub_43BC10(wchar_t* a1, unsigned __int8 a2);

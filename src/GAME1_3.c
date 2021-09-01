@@ -206,12 +206,10 @@ nox_gui_animation* nox_wnd_xxx_830244 = 0;
 void* nox_draw_defaultFont_816492 = 0;
 
 //----- (0043B510) --------------------------------------------------------
-char* sub_43B510() {
+void nox_client_xxx_switchChatMap_43B510() {
 	__int16 v0;         // ax
 	char* result;       // eax
 	char* v2;           // edi
-	unsigned __int8 v3; // cl
-	bool v4;            // zf
 	__int16 v5;         // cx
 	int v6;             // [esp+0h] [ebp-54h]
 	char v7[80];        // [esp+4h] [ebp-50h]
@@ -226,15 +224,12 @@ char* sub_43B510() {
 		LOWORD(v6) = v0;
 	}
 	strcpy(v7, nox_client_getChatMap_49FF40(&v6));
-	result = strchr(v7, 46);
-	if (!result) {
+	if (!strchr(v7, '.')) {
 		sub_409B50(v7);
 		v2 = &v7[strlen(v7) + 1];
-		v3 = getMemByte(0x587000, 90860);
 		*(_DWORD*)--v2 = *getMemU32Ptr(0x587000, 90856);
-		v4 = !nox_common_getEngineFlag(NOX_ENGINE_FLAG_REPLAY_WRITE | NOX_ENGINE_FLAG_REPLAY_READ);
-		v2[4] = v3;
-		if (v4)
+		v2[4] = 0;
+		if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_REPLAY_WRITE | NOX_ENGINE_FLAG_REPLAY_READ))
 			nox_xxx_gameSetMapPath_409D70(v7);
 		nox_common_gameFlags_unset_40A540(55280);
 		nox_xxx_setGameFlags_40A4D0(128);
@@ -243,7 +238,6 @@ char* sub_43B510() {
 		LOBYTE(v5) = result[52] & 0xF | 0x80;
 		*((_WORD*)result + 26) = v5;
 	}
-	return result;
 }
 // 43B510: using guessed type char var_50[80];
 
@@ -254,7 +248,7 @@ _DWORD* sub_43B670() {
 	v0 = sub_416640();
 	if (nox_game_createOrJoin_815048) {
 		sub_44A400();
-		sub_43B510();
+		nox_client_xxx_switchChatMap_43B510();
 		sub_43A9D0();
 		sub_4A24A0();
 		nox_xxx_gameSetAudioFadeoutMb_501AC0(*(_DWORD*)(v0 + 74));

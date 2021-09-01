@@ -241,7 +241,7 @@ func nox_xxx_serverHost_43B4D0() {
 	isHost := C.nox_game_createOrJoin_815048 != 0
 	if isHost {
 		// host
-		C.sub_43B510()
+		C.nox_client_xxx_switchChatMap_43B510()
 		C.sub_43A9D0()
 		C.sub_4A24A0()
 		C.nox_xxx_gameSetAudioFadeoutMb_501AC0(0)
