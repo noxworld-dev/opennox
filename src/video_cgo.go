@@ -127,8 +127,7 @@ func nox_video_getGammaSetting_434B00() C.int {
 	return C.int(nox_video_gammaValue)
 }
 
-//export updateGamma
-func updateGamma(value C.int) {
+func updateGamma(value int) {
 	var dv float32
 	if value > 0 {
 		dv = 0.1
@@ -186,10 +185,6 @@ func nox_getBackbufWidth() C.int {
 //export nox_getBackbufHeight
 func nox_getBackbufHeight() C.int {
 	return C.int(nox_pixbuffer_size.H)
-}
-
-//export sub_48A290_call_present
-func sub_48A290_call_present() {
 }
 
 //export nox_video_getFullScreen
