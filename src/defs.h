@@ -1172,6 +1172,7 @@ typedef struct nox_video_mode {
 	int width;
 	int height;
 	int id;
+	wchar_t* title;
 } nox_video_mode;
 
 enum {

@@ -55,6 +55,8 @@ extern nox_window* dword_5d4594_815004;
 extern nox_window* nox_wol_wnd_world_814980;
 extern int nox_win_width;
 extern int nox_win_height;
+extern int nox_video_modes_cnt;
+extern nox_video_mode nox_video_modes[7];
 
 int dword_5d4594_815104 = 0;
 nox_gui_animation* nox_wnd_xxx_815040 = 0;
@@ -655,7 +657,8 @@ int  sub_4394D0(int a1) {
 		nox_window_call_field_94(*(int*)&dword_5d4594_815004, 16397, (int)getMemAt(0x587000, 89860), -1);
 		v13 = nox_strman_loadString_40F1D0("Resolution", 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 831);
 		nox_window_call_field_94(*(int*)&dword_5d4594_815004, 16397, (int)v13, 14);
-		nox_window_call_field_94(*(int*)&dword_5d4594_815004, 16397, *getMemU32Ptr(0x587000, 87472 + 4 * v1), -1);
+		int rstr = ((v1 >= 0 && v1 < nox_video_modes_cnt) ? nox_video_modes[v1].title : L"custom");
+		nox_window_call_field_94(*(int*)&dword_5d4594_815004, 16397, rstr, -1);
 		nox_window_call_field_94(*(int*)&dword_5d4594_815004, 16397, (int)getMemAt(0x587000, 89916), -1);
 		v14 = nox_strman_loadString_40F1D0("DisabledSpells", 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 836);
 		nox_window_call_field_94(*(int*)&dword_5d4594_815004, 16397, (int)v14, 14);

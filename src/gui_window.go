@@ -120,10 +120,13 @@ func nox_xxx_wndSetRectColor2MB_46AFE0(win *C.nox_window, a2 C.int) C.int {
 	return 0
 }
 
-//export nox_window_call_field_94
-func nox_window_call_field_94(p *C.nox_window, a2, a3, a4 C.int) C.int {
+//export nox_window_call_field_94_fnc
+func nox_window_call_field_94_fnc(p *C.nox_window, a2, a3, a4 C.int, file *C.char, line C.int) C.int {
 	if p == nil {
 		return 0
+	}
+	if guiDebug {
+		guiLog.Printf("nox_window_call_field_94(%p, %x, %x, %x): %s:%d", p, a2, a3, a4, GoString(file), line)
 	}
 	return C.int(asWindow(p).Func94(int(a2), uintptr(a3), uintptr(a4)))
 }

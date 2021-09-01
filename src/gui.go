@@ -19,6 +19,7 @@ int nox_gui_console_Enter_450FD0();
 import "C"
 import (
 	"image"
+	"os"
 	"unsafe"
 
 	"nox/v1/client/gui"
@@ -34,6 +35,7 @@ import (
 
 var (
 	guiLog                       = log.New("gui")
+	guiDebug                     = os.Getenv("NOX_DEBUG_GUI") == "true"
 	nox_win_unk3                 *Window
 	nox_win_activeWindow_1064900 *Window
 	nox_win_1064916              *Window
