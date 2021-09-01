@@ -550,19 +550,12 @@ func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_B() {
 				C.nox_xxx_guiServerOptsLoad_457500()
 			}
 			ce.active = false
-		case client.CCTaunt:
-			var buf [2]byte
-			binary.LittleEndian.PutUint16(buf[:], 739)
-			nox_xxx_netClientSend2_4E53C0(31, buf[:], 0, 1)
 		case client.CCLaugh:
-			var buf [2]byte
-			binary.LittleEndian.PutUint16(buf[:], 483)
-			nox_xxx_netClientSend2_4E53C0(31, buf[:], 0, 1)
+			nox_xxx_netClientSendSocial(31, 1, 0, 1)
+		case client.CCTaunt:
+			nox_xxx_netClientSendSocial(31, 2, 0, 1)
 		case client.CCPoint:
-			var buf [2]byte
-			buf[0] = 0xE3
-			buf[1] = 4
-			nox_xxx_netClientSend2_4E53C0(31, buf[:], 0, 1)
+			nox_xxx_netClientSendSocial(31, 4, 0, 1)
 		case client.CCInvertSpellTarget:
 			C.sub_460630()
 			ce.active = false

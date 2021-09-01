@@ -26,12 +26,12 @@ import (
 	"encoding/binary"
 	"net"
 	"os"
-	"strconv"
 	"unsafe"
 
 	"nox/v1/common/alloc"
 	"nox/v1/common/log"
 	"nox/v1/common/memmap"
+	"nox/v1/common/noxnet"
 	"nox/v1/common/serial"
 )
 
@@ -197,71 +197,8 @@ func nox_xxx_setMapCRC_40A360(crc C.int) {
 func noxOnCliPacketDebug(op C.int, data *C.uchar, sz C.int) {
 	buf := asByteSlice(unsafe.Pointer(data), int(sz))
 	if debugNet {
-		netLog.Printf("noxOnCliPacketDebug: op=%d (%s) [%d]\n%x", int(op), clientNetOp(op).String(), int(sz), buf)
+		netLog.Printf("noxOnCliPacketDebug: op=%d (%s) [%d]\n%x", int(op), noxnet.Op(op).String(), int(sz), buf)
 	}
-}
-
-type clientNetOp byte
-
-func (op clientNetOp) String() string {
-	const pref = "NET_OP_"
-	switch op {
-	case 33:
-		return pref + "STOP"
-	case 39:
-		return pref + "FRAME_39"
-	case 43:
-		return pref + "MAP_43"
-	case 44:
-		return pref + "PLAYER_NEW_44"
-	case 45:
-		return pref + "PLAYER_JOIN_45"
-	case 46:
-		return pref + "PLAYER_LEFT_46"
-	case 47:
-		return pref + "SPRITE_CREATE_47"
-	case 48:
-		return pref + "SPRITE_XXX_48"
-	case 49:
-		return pref + "SPRITE_XXX_49"
-	case 50:
-		return pref + "SPRITE_XXX_50"
-	case 51:
-		return pref + "SPRITE_XXX_51"
-	case 52:
-		return pref + "ADD_OBJ_FRIEND_52"
-	case 56:
-		return pref + "SPRITE_XXX_56"
-	case 57:
-		return pref + "SPRITE_SET_FRAME_57"
-	case 58:
-		return pref + "WALL_DESTROY_ID_58"
-	case 61:
-		return pref + "WALL_CREATE_AT_61"
-	case 62:
-		return pref + "WALL_DESTROY_AT_62"
-	case 66:
-		return pref + "HEALTH_CHANGE_66"
-	case 69:
-		return pref + "MANA_SET_69"
-	case 72:
-		return pref + "INV_XXX_72"
-	case 75:
-		return pref + "INV_XXX_75"
-	case 76:
-		return pref + "INV_XXX_76"
-	case 79:
-		return pref + "EQUIP_XXX_79"
-	case 80:
-		return pref + "EQUIP_XXX_80"
-	case 81:
-		return pref + "EQUIP_XXX_81"
-	case 82:
-		return pref + "EQUIP_XXX_82"
-	case 228: // 0xE4
-		return pref + "FADE"
-	}
-	return strconv.FormatUint(uint64(op), 16)
 }
 
 func convSendToServerErr(n int, err error) C.int {
@@ -364,7 +301,7 @@ func nox_xxx_netSendPacket1_4E5390(a1 int, buf []byte, a4, a5 int) int {
 
 func nox_xxx_netMsgFadeBegin_4D9800(a1, a2 bool) int {
 	var p [3]byte
-	p[0] = 0xE4
+	p[0] = byte(noxnet.MSG_FADE_BEGIN)
 	p[1] = byte(bool2int(a1))
 	p[2] = byte(bool2int(a2))
 	return nox_xxx_netSendPacket1_4E5390(255, p[:], 0, 1)
@@ -372,6 +309,13 @@ func nox_xxx_netMsgFadeBegin_4D9800(a1, a2 bool) int {
 
 func nox_client_getServerAddr_43B300() net.IP {
 	return int2ip(uint32(C.nox_client_getServerAddr_43B300()))
+}
+
+func nox_xxx_netClientSendSocial(a1 int, emote byte, a4, a5 int) {
+	var buf [2]byte
+	buf[0] = byte(noxnet.MSG_SOCIAL)
+	buf[1] = emote
+	nox_xxx_netClientSend2_4E53C0(a1, buf[:], a4, a5)
 }
 
 func nox_xxx_netClientSend2_4E53C0(a1 int, buf []byte, a4, a5 int) {
@@ -396,7 +340,7 @@ func clientSendInput(a1 int, a2 uint16, a3 uint16) bool {
 		return true
 	}
 	var buf [5]byte
-	buf[0] = 63
+	buf[0] = byte(noxnet.MSG_PLAYER_INPUT)
 	if !nox_netlist_addToMsgListCli_40EBC0(a1, 0, buf[:1]) {
 		return false
 	}
@@ -416,7 +360,7 @@ func clientSendInput(a1 int, a2 uint16, a3 uint16) bool {
 	}
 	*memmap.PtrUint16(0x5D4594, 815768) = a2
 	*memmap.PtrUint16(0x5D4594, 815770) = v6
-	buf[0] = 0xAC
+	buf[0] = byte(noxnet.MSG_MOUSE)
 	binary.LittleEndian.PutUint16(buf[1:], a2)
 	binary.LittleEndian.PutUint16(buf[3:], v6)
 	if !nox_netlist_addToMsgListCli_40EBC0(a1, 0, buf[:5]) {
