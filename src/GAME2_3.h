@@ -265,7 +265,7 @@ int sub_49F990(int* a1, int* a2, int* a3, int* a4);
 int sub_49FC20(int* a1, int* a2, int* a3, int* a4);
 void sub_49FDB0(int a1);
 _DWORD* sub_49FF20();
-char* sub_49FF40(__int16* a1);
+char* nox_client_getChatMap_49FF40(__int16* a1);
 int* sub_49FFA0(int a1);
 char* sub_4A0020();
 int nox_wol_servers_addResult_4A0030(nox_gui_server_ent_t* srv);

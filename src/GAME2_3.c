@@ -9159,7 +9159,7 @@ _DWORD* sub_49FF20() {
 }
 
 //----- (0049FF40) --------------------------------------------------------
-char*  sub_49FF40(__int16* a1) {
+char*  nox_client_getChatMap_49FF40(__int16* a1) {
 	int v1;       // edx
 	nox_player_polygon_check_data* v2; // eax
 	char* result; // eax

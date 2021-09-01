@@ -225,7 +225,7 @@ char* sub_43B510() {
 		HIWORD(v6) -= *getMemU16Ptr(0x587000, 87530 + 8 * dword_587000_87412);
 		LOWORD(v6) = v0;
 	}
-	strcpy(v7, sub_49FF40((__int16*)&v6));
+	strcpy(v7, nox_client_getChatMap_49FF40(&v6));
 	result = strchr(v7, 46);
 	if (!result) {
 		sub_409B50(v7);
