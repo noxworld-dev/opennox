@@ -262,7 +262,7 @@ char* sub_439CC0(int a1, char* a2);
 int sub_439D00(int* a1, int a2, unsigned int a3, int a4);
 int sub_439D90(unsigned int a1, unsigned int a2);
 int sub_43A920();
-int sub_43A9D0();
+int nox_client_guiXxx_43A9D0();
 char* sub_43AA70();
 void sub_43ACC0();
 int sub_43AF30();
