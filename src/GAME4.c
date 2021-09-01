@@ -5789,7 +5789,8 @@ BOOL  nox_xxx_testUnitBuffs_4FF350(int a1, char a2) {
 }
 
 //----- (004FF380) --------------------------------------------------------
-__int16  nox_xxx_buffApplyTo_4FF380(int a1, int a2, __int16 a3, char a4) {
+__int16  nox_xxx_buffApplyTo_4FF380(nox_object_t* unit, int a2, __int16 a3, char a4) {
+	int a1 = unit;
 	int v4; // eax
 	int v5; // eax
 	int v6; // eax

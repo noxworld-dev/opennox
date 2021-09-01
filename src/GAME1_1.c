@@ -1229,45 +1229,43 @@ int  nox_xxx_playerSaveToFile_41A140(char* a1, int a2) {
 	int v10;             // [esp+18h] [ebp+8h]
 
 	result = nox_common_playerInfoFromNum_417090(a2);
-	if (result) {
-		v3 = *(_DWORD*)(result + 2056);
-		if (v3) {
-			v4 = result + 2185;
-			if (nox_xxx_cryptOpen_426910(a1, 0, 27)) {
-				v10 = 0;
-				if (*getMemU32Ptr(0x587000, 55816)) {
-					v5 = getMemAt(0x587000, 55824);
-					while (1) {
-						nox_xxx_fileReadWrite_426AC0_file3_fread(v5 - 4, 4u);
-						nox_xxx_crypt_426C90();
-						v7 = (*(int(**)(int, int, _DWORD, _DWORD))v5)(v3, v4, 0, 0);
-						nox_xxx_crypt_426D40();
-						if (!v7)
-							break;
-						v9 = *((_DWORD*)v5 + 1);
-						v5 += 12;
-						++v10;
-						if (!v9)
-							goto LABEL_10;
-					}
-					nox_xxx_networkLog_printf_413D30("SavePlayerData: Error saving player data '%s'\n", *getMemU32Ptr(0x587000, 55816 + 12 * v10));
-					nox_xxx_cryptClose_4269F0();
-					result = 0;
-				} else {
-				LABEL_10:
-					nox_xxx_cryptClose_4269F0();
-					result = 1;
-				}
-			} else {
-				nox_xxx_networkLog_printf_413D30("SavePlayerData: Can't open file '%s'\n", a1);
-				result = 0;
-			}
-		} else {
-			nox_xxx_networkLog_printf_413D30("SaveServerPlayerData: NULL player object\n");
-			result = 0;
+	if (!result) {
+		return 0;
+	}
+	v3 = *(_DWORD*)(result + 2056);
+	if (!v3) {
+		nox_xxx_networkLog_printf_413D30("SaveServerPlayerData: NULL player object\n");
+		return 0;
+	}
+	v4 = result + 2185;
+	if (!nox_xxx_cryptOpen_426910(a1, 0, 27)) {
+		nox_xxx_networkLog_printf_413D30("SavePlayerData: Can't open file '%s'\n", a1);
+		return 0;
+	}
+	v10 = 0;
+	if (!*getMemU32Ptr(0x587000, 55816)) {
+		nox_xxx_cryptClose_4269F0();
+		return 1;
+	}
+	v5 = getMemAt(0x587000, 55824);
+	while (1) {
+		nox_xxx_fileReadWrite_426AC0_file3_fread(v5 - 4, 4u);
+		nox_xxx_crypt_426C90();
+		v7 = (*(int(**)(int, int, _DWORD, _DWORD))v5)(v3, v4, 0, 0);
+		nox_xxx_crypt_426D40();
+		if (!v7)
+			break;
+		v9 = *((_DWORD*)v5 + 1);
+		v5 += 12;
+		++v10;
+		if (!v9) {
+			nox_xxx_cryptClose_4269F0();
+			return 1;
 		}
 	}
-	return result;
+	nox_xxx_networkLog_printf_413D30("SavePlayerData: Error saving player data '%s'\n", *getMemU32Ptr(0x587000, 55816 + 12 * v10));
+	nox_xxx_cryptClose_4269F0();
+	return 0;
 }
 // 41A1C9: variable 'v6' is possibly undefined
 // 41A1DB: variable 'v8' is possibly undefined

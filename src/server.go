@@ -49,7 +49,6 @@ void sub_4139C0();
 int sub_4DCF20();
 int sub_4E76C0();
 void sub_4FC680();
-int sub_4FC6D0();
 bool sub_57B140();
 //int sub_417C60();
 //int nox_xxx_freeObjectTypes_4E2A20();
@@ -210,7 +209,7 @@ func nox_xxx_gameTick_4D2580_server_E() {
 		gameFrameInc()
 	}
 	C.nox_xxx_protectData_56F5C0()
-	C.sub_4FC6D0()
+	nox_server_xxxInitPlayerUnits_4FC6D0()
 	maybeRegisterGameOnline() // TODO: not exactly the right place
 	nox_xxx_mapInitialize_4FC590()
 	nox_xxx_mapEntry_4FC600()
@@ -543,4 +542,62 @@ func nox_server_loadMapFile_4CF5F0(a1 string, a2 int) bool {
 	}
 	StrCopyP(memmap.PtrOff(0x5D4594, 1523080), 1024, mname)
 	return true
+}
+
+func nox_server_xxxInitPlayerUnits_4FC6D0() {
+	if C.nox_xxx_resetMapInit_1569652 != 1 && C.dword_5d4594_1569656 != 1 {
+		return
+	}
+	if len(getPlayerUnits()) == 0 {
+		return
+	}
+	if noxflags.HasGame(4096) {
+		if nox_game_getQuestStage_4E3CC0() == 1 {
+			C.nox_game_sendQuestStage_4D6960(255)
+			C.sub_4D7440(1)
+			C.sub_4D60B0()
+		} else if C.sub_4D6F30() == 0 || C.sub_4D7430() != 0 {
+			if C.sub_4D76F0() == 1 {
+				C.sub_4D6880(255, 1)
+				C.sub_4D76E0(0)
+				C.sub_4D7440(1)
+				C.sub_4D60B0()
+			} else {
+				fname := datapath.Path("save", "_temp_.dat")
+				for _, u := range getPlayerUnits() {
+					v3 := u.ptrYyy()
+					v4 := asPlayer(*(**C.nox_playerInfo)(unsafe.Pointer(uintptr(v3) + 276)))
+					pi := v4.Index()
+					if *(*uint32)(v4.field(4792)) == 1 && *(*uint32)(unsafe.Pointer(uintptr(v3) + 552)) == 0 &&
+						nox_xxx_playerSaveToFile_41A140(fname, pi) {
+						v5 := C.sub_419EE0(C.char(pi))
+						C.nox_xxx_sendGauntlet_4DCF80(C.int(pi), 1)
+						if C.sub_41CFA0(internCStr(fname), C.int(pi)) == 0 && v5 == 0 {
+							C.nox_xxx_sendGauntlet_4DCF80(C.int(pi), 0)
+						}
+						fs.Remove(fname)
+					}
+					C.sub_4D6770(C.int(pi))
+				}
+				C.sub_4D6880(255, 0)
+				C.sub_4D7440(1)
+				C.sub_4D60B0()
+			}
+		} else {
+			C.nox_game_sendQuestStage_4D6960(255)
+			C.sub_4D7440(1)
+			C.sub_4D60B0()
+		}
+	} else {
+		C.nox_xxx_netMsgFadeBegin_4D9800(1, 1)
+	}
+	if noxflags.HasGame(0x2000) && !noxflags.HasGame(128) {
+		for _, u := range getPlayerUnits() {
+			v3 := u.ptrYyy()
+			v7 := asPlayer(*(**C.nox_playerInfo)(unsafe.Pointer(uintptr(v3) + 276)))
+			if v7.Index() != 31 && v7.field_3680&1 == 0 {
+				C.nox_xxx_buffApplyTo_4FF380(u.CObj(), 23, 0, 5)
+			}
+		}
+	}
 }
