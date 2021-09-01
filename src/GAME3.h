@@ -11,7 +11,7 @@ int sub_4A1BD0();
 int sub_4A1BE0(int a1);
 int nox_client_drawGeneralCallback_4A2200();
 BOOL sub_4A2490(int a1, int a2, int a3, int a4);
-int sub_4A24A0();
+int nox_client_guiXxxDestroy_4A24A0();
 BOOL sub_4A2560(_DWORD* a1, int a2);
 int sub_4A25C0(_DWORD* a1, int* a2);
 int sub_4A2610(int a1, _DWORD* a2, int* a3);

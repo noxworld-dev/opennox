@@ -7023,7 +7023,7 @@ int nox_xxx_cliDrawConnectedLoop_43B360() { // client connecting draw handler
 		sub_430C30_set_video_max(NOX_MAX_WIDTH, NOX_MAX_HEIGHT);
 	sub_44A400();
 	nox_client_guiXxx_43A9D0();
-	sub_4A24A0();
+	nox_client_guiXxxDestroy_4A24A0();
 	return 1;
 }
 
@@ -7061,7 +7061,7 @@ void nox_xxx_serverHost_43B4D0() {
 	if (nox_game_createOrJoin_815048) {
 		nox_client_xxx_switchChatMap_43B510();
 		nox_client_guiXxx_43A9D0();
-		sub_4A24A0();
+		nox_client_guiXxxDestroy_4A24A0();
 		nox_xxx_gameSetAudioFadeoutMb_501AC0(0);
 	} else {
 		sub_43B630();

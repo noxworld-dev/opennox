@@ -228,7 +228,7 @@ int nox_client_drawGeneralCallback_4A2200() { return nox_client_drawGeneral_4B03
 BOOL  sub_4A2490(int a1, int a2, int a3, int a4) { return a2 == 23; }
 
 //----- (004A24A0) --------------------------------------------------------
-int sub_4A24A0() {
+int nox_client_guiXxxDestroy_4A24A0() {
 	sub_4A1BD0();
 	sub_46C5D0();
 	nox_client_gui_flag_815132 = 0;
@@ -1636,7 +1636,7 @@ int sub_4A50D0() {
 			return 1;
 		}
 	} else {
-		sub_4A24A0();
+		nox_client_guiXxxDestroy_4A24A0();
 	}
 	return 1;
 }
@@ -2112,7 +2112,7 @@ int sub_4A6C90() {
 		sub_431510();
 		nox_gui_draw();
 		if (!nox_common_gameFlags_check_40A5C0(0x2000)) {
-			sub_4A24A0();
+			nox_client_guiXxxDestroy_4A24A0();
 			return 1;
 		}
 		if (!nox_xxx_check_flag_aaa_43AF70()) {
