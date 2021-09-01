@@ -1674,16 +1674,13 @@ void sub_43DDA0() {
 void nox_xxx_setContinueMenuOrHost_43DDD0(int v) {
 	nox_game_continueMenuOrHost_93200 = v;
 }
-#endif // NOX_CGO
 
 //----- (0043DDE0) --------------------------------------------------------
-int  nox_xxx_setFrameLimit_43DDE0(int a1) {
+void nox_xxx_setFrameLimit_43DDE0(int a1) {
 	*getMemU32Ptr(0x587000, 93192) = a1;
-	return a1;
 }
 
 //----- (0043DDF0) --------------------------------------------------------
-#ifndef NOX_CGO
 int  nox_xxx_setGameState_43DDF0(int (*a1)(void)) {
 	func_5D4594_816388 = a1;
 	if (!a1)

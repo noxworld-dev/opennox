@@ -76,6 +76,7 @@ var (
 	g_argv2                 **C.char
 	nox_draw_unk1           func() bool
 	func_5D4594_816392      func() bool
+	useFrameLimit           = true
 )
 
 func gameSetCliDrawFunc(fnc func() bool) {
@@ -115,6 +116,11 @@ func nox_xxx_setContinueMenuOrHost_43DDD0(v C.int) {
 		log.Println("nox_xxx_setContinueMenuOrHost_43DDD0 =", int(v))
 	}
 	continueMenuOrHost = v != 0
+}
+
+//export nox_xxx_setFrameLimit_43DDE0
+func nox_xxx_setFrameLimit_43DDE0(v C.int) {
+	useFrameLimit = v != 0
 }
 
 //export nox_server_mainloop_exiting_43DEA0
@@ -235,7 +241,7 @@ mainloop:
 		}
 		drawAndPresent()
 		C.sub_435750()
-		if memmap.Uint32(0x587000, 93192) != 0 {
+		if useFrameLimit {
 			if noxflags.HasGame(noxflags.GameHost) && noxflags.HasGame(noxflags.GameFlag2) && !getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) && noxflags.HasGame(noxflags.GameFlag29) {
 				if !getEngineFlag(NOX_ENGINE_FLAG_PAUSE) {
 					nox_ticks_maybe_sleep_416DD0()

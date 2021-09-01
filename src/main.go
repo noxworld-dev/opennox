@@ -212,10 +212,10 @@ func runNox(args []string) error {
 	nox_ticks_reset_416D40()
 	nox_xxx_setGameState_43DDF0(nil)
 	gameSetCliDrawFunc(nil)
-	sub_43DE40(nil)
+	gameSet816392Func(nil)
 	noxflags.SetGame(noxflags.GameModeArena)
 	if *fNoLimit {
-		C.nox_xxx_setFrameLimit_43DDE0(0)
+		useFrameLimit = false
 		*memmap.PtrUint32(0x587000, 84) = 0
 	}
 	if *fServer {
