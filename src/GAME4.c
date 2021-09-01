@@ -32,7 +32,7 @@ extern _DWORD nox_server_resetQuestMinVotes_229988;
 extern _DWORD dword_5d4594_1599644;
 extern _DWORD dword_5d4594_1599068;
 extern _DWORD dword_5d4594_3835392;
-extern _DWORD dword_5d4594_1569652;
+extern _DWORD nox_xxx_resetMapInit_1569652;
 extern _DWORD dword_5d4594_3835312;
 extern _DWORD dword_5d4594_1568868;
 extern _DWORD nox_alloc_magicEnt_1569668;
@@ -3788,7 +3788,7 @@ int  nox_xxx_resetMapInit_4FC570(int a1) {
 	int result; // eax
 
 	result = a1;
-	dword_5d4594_1569652 = a1;
+	nox_xxx_resetMapInit_1569652 = a1;
 	return result;
 }
 

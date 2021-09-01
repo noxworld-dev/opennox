@@ -22,7 +22,7 @@ package main
 
 extern unsigned int nox_gameFPS;
 extern unsigned int nox_frame_xxx_2598000;
-extern unsigned int dword_5d4594_1569652;
+extern unsigned int nox_xxx_resetMapInit_1569652;
 extern unsigned int dword_5d4594_1569656;
 extern unsigned int dword_5d4594_2650652;
 extern unsigned int nox_xxx_questFlag_1556148;
@@ -235,7 +235,7 @@ func nox_server_netMaybeSendInitialPackets_4DEB30() {
 }
 
 func nox_xxx_mapInitialize_4FC590() {
-	if C.dword_5d4594_1569652 != 0 && hasPlayerUnits() {
+	if C.nox_xxx_resetMapInit_1569652 != 0 && hasPlayerUnits() {
 		clearScriptTriggers()
 		scriptOnEvent(script.EventMapInitialize)
 		C.nox_xxx_resetMapInit_4FC570(0)

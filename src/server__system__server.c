@@ -51,7 +51,6 @@ extern _DWORD dword_5d4594_1548480;
 extern _DWORD dword_5d4594_528260;
 extern _DWORD dword_5d4594_1548704;
 extern _DWORD dword_5d4594_1563096;
-extern _DWORD dword_5d4594_1569652;
 extern _DWORD dword_5d4594_1563052;
 extern void* nox_alloc_execAbil_1569644;
 extern _DWORD nox_xxx_questFlag_1556148;
@@ -76,6 +75,8 @@ extern _DWORD dword_5d4594_2650652;
 extern unsigned int nox_gameFPS;
 extern unsigned int nox_frame_xxx_2598000;
 extern nox_net_struct_t* nox_net_struct_arr[NOX_NET_STRUCT_MAX];
+
+_DWORD nox_xxx_resetMapInit_1569652 = 0;
 
 // monster AI?
 nox_server_xxx nox_server_xxx_1599716[NOX_SERVER_XXX_SIZE*NOX_SERVER_XXX_SIZE] = {0};
@@ -1265,7 +1266,7 @@ void nox_xxx_abilUpdateMB_4FBEE0() {
 //----- (004FC590) --------------------------------------------------------
 #ifndef NOX_CGO
 void nox_xxx_mapInitialize_4FC590() {
-	if (dword_5d4594_1569652) {
+	if (nox_xxx_resetMapInit_1569652) {
 		if (nox_xxx_getFirstPlayerUnit_4DA7C0()) {
 			nox_script_callOnEvent("MapInitialize", 0, 0);
 			nox_xxx_resetMapInit_4FC570(0);
@@ -1310,8 +1311,8 @@ int sub_4FC6D0() {
 	int v7;              // eax
 	CHAR FileName[1024]; // [esp+Ch] [ebp-400h]
 
-	result = dword_5d4594_1569652;
-	if (dword_5d4594_1569652 == 1 || dword_5d4594_1569656 == 1) {
+	result = nox_xxx_resetMapInit_1569652;
+	if (nox_xxx_resetMapInit_1569652 == 1 || dword_5d4594_1569656 == 1) {
 		result = nox_xxx_getFirstPlayerUnit_4DA7C0();
 		if (result) {
 			if (nox_common_gameFlags_check_40A5C0(4096)) {
