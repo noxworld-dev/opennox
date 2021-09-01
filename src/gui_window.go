@@ -377,10 +377,6 @@ func (win *Window) Hide() {
 	if win == nil {
 		return
 	}
-	if !win.Flags().Has(0x8000) {
-		win.freeImages()
-	}
-
 	if C.dword_5d4594_3799468 != 0 {
 		if !win.Flags().Has(NOX_WIN_HIDDEN) {
 			C.dword_5d4594_3799524 = 1
@@ -554,7 +550,6 @@ func (win *Window) Destroy() {
 		return
 	}
 	win.flags |= 0x800
-	win.freeImages()
 	if nox_win_unk3 == win {
 		nox_win_unk3 = nil
 	}
@@ -657,26 +652,5 @@ func sub_46B180(win *Window) {
 		win.prev = nil
 	} else {
 		win.Parent().field_100 = nil
-	}
-}
-
-func (win *Window) freeImages() {
-	if win.Flags().Has(NOX_WIN_FLAG4) {
-		d := win.DrawData()
-		if d.bg_image != nil {
-			d.bg_image = nil
-		}
-		if d.dis_image != nil {
-			d.dis_image = nil
-		}
-		if d.en_image != nil {
-			d.en_image = nil
-		}
-		if d.sel_image != nil {
-			d.sel_image = nil
-		}
-		if d.hl_image != nil {
-			d.hl_image = nil
-		}
 	}
 }
