@@ -1,8 +1,6 @@
 package main
 
 /*
-#include <fenv.h>
-
 #include "GAME1.h"
 #include "GAME1_2.h"
 #include "GAME1_1.h"
@@ -10,63 +8,20 @@ package main
 #include "GAME2.h"
 #include "GAME2_1.h"
 #include "GAME2_2.h"
-#include "GAME2_3.h"
 #include "GAME3.h"
 #include "GAME3_1.h"
 #include "GAME3_2.h"
 #include "GAME3_3.h"
-#include "GAME4.h"
-#include "GAME4_1.h"
-#include "GAME4_2.h"
-#include "GAME4_3.h"
 #include "GAME5.h"
 #include "GAME5_2.h"
-#include "GAME_data.h"
-#include "GAME_data_init.h"
-#include "cdrom.h"
-#include "client__drawable__drawdb.h"
-#include "client__draw__fx.h"
-#include "client__draw__image.h"
-#include "client__gui__guiinv.h"
-#include "client__gui__guimeter.h"
-#include "client__gui__guishop.h"
-#include "client__gui__guispell.h"
-#include "client__gui__servopts__guiserv.h"
-#include "client__gui__window.h"
-#include "client__io__win95__focus.h"
 #include "client__network__netclint.h"
-#include "client__shell__optsback.h"
-#include "client__system__ctrlevnt.h"
 #include "client__video__draw_common.h"
-#include "client__video__sdl__draw_nogl.h"
 #include "common__config.h"
-#include "common__magic__speltree.h"
-#include "defs.h"
-#include "GAME1_1.h"
-#include "GAME1_3.h"
-#include "GAME1.h"
-#include "GAME2_2.h"
 #include "GAME2_3.h"
-#include "GAME2.h"
-#include "GAME3_3.h"
-#include "GAME3.h"
-#include "GAME4_1.h"
-#include "GAME4.h"
-#include "GAME5_2.h"
-#include "input_common.h"
-#include "input.h"
-#include "movie.h"
-#include "server__network__mapsend.h"
-#include "server__script__builtin.h"
-#include "server__script__script.h"
-#include "server__xfer__savegame__savegame.h"
 #include "thing.h"
-#include "win.h"
-#include "common__log.h"
 #include "common__system__team.h"
 #include "common__system__gamedisk.h"
 #include "common__net_list.h"
-#include "client__system__gameloop.h"
 #include "client__drawable__drawdb.h"
 #include "client__io__console.h"
 #include "client__gui__guimsg.h"
@@ -228,7 +183,6 @@ mainloop:
 				goto MAINLOOP_EXIT
 			}
 		} else {
-			C.fesetround(C.FE_TOWARDZERO)
 			if nox_xxx_gameChangeMap_43DEB0() == 0 {
 				// XXX
 				if mapDownloading() {
@@ -380,8 +334,8 @@ mainloop:
 			}
 			continue mainloop
 		}
-		*memmap.PtrUint32(0x587000, 80852) = uint32(C.nox_video_getGammaSetting_434B00())
-		C.nox_video_setGammaSetting_434B30(1)
+		*memmap.PtrUint32(0x587000, 80852) = uint32(nox_video_getGammaSetting_434B00())
+		nox_video_setGammaSetting_434B30(1)
 		C.sub_434B60()
 		mainloopConnectResultOK = false
 		if noxflags.HasGame(noxflags.GameHost) {
@@ -835,7 +789,7 @@ func CONNECT_RESULT_OK() {
 		C.sub_43AA70()
 	}
 	C.sub_43F1A0()
-	C.nox_video_setGammaSetting_434B30(C.int(memmap.Int32(0x587000, 80852)))
+	nox_video_setGammaSetting_434B30(C.int(memmap.Int32(0x587000, 80852)))
 	C.sub_434B60()
 	noxflags.SetGame(noxflags.GameFlag29)
 	mainloopExitPath = true
