@@ -47,7 +47,7 @@ func asPlayer(p *C.nox_playerInfo) *Player {
 }
 
 func BlindPlayers(blind bool) {
-	C.nox_xxx_netMsgFadeBegin_4D9800(C.int(bool2int(!blind)), 0)
+	nox_xxx_netMsgFadeBegin_4D9800(!blind, false)
 }
 
 func CinemaPlayers(cinema bool) {

@@ -835,7 +835,7 @@ func nox_xxx_mapExitAndCheckNext_4D1860_server() bool {
 		nox_client_setCursorType_477610(10)
 	}
 	C.sub_4D22B0()
-	C.nox_xxx_netMsgFadeBegin_4D9800(0, 1)
+	nox_xxx_netMsgFadeBegin_4D9800(false, true)
 	scriptOnEvent("MapExit")
 	v2 := getServerMap()
 	C.sub_500510(internCStr(v2))

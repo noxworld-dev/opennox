@@ -19,6 +19,7 @@ int sub_43AF90(int a1);
 int nox_xxx_netClientSend2_4E53C0(int a1, const void* a2, int a3, int a4, int a5);
 int  nox_netlist_addToMsgListCli_40EBC0(int ind1, int ind2, unsigned char* buf, int sz);
 void* nox_xxx_spriteGetMB_476F80();
+int nox_xxx_netSendPacket_4E5030(int a1, const void* a2, signed int a3, int a4, int a5, char a6);
 */
 import "C"
 import (
@@ -348,6 +349,25 @@ func sendXXX_5550D0(addr net.IP, port int, data []byte) (int, error) {
 	data[1] = 0
 	data[2] = 17 // 0x11
 	return sendToServer(addr, port, data)
+}
+
+func nox_xxx_netSendPacket_4E5030(a1 int, buf []byte, a4, a5, a6 int) int {
+	b := alloc.Bytes(uintptr(len(buf)))
+	defer alloc.FreeBytes(b)
+	copy(b, buf)
+	return int(C.nox_xxx_netSendPacket_4E5030(C.int(a1), unsafe.Pointer(&b[0]), C.int(len(b)), C.int(a4), C.int(a5), C.char(a6)))
+}
+
+func nox_xxx_netSendPacket1_4E5390(a1 int, buf []byte, a4, a5 int) int {
+	return nox_xxx_netSendPacket_4E5030(a1, buf, a4, a5, 1)
+}
+
+func nox_xxx_netMsgFadeBegin_4D9800(a1, a2 bool) int {
+	var p [3]byte
+	p[0] = 0xE4
+	p[1] = byte(bool2int(a1))
+	p[2] = byte(bool2int(a2))
+	return nox_xxx_netSendPacket1_4E5390(255, p[:], 0, 1)
 }
 
 func nox_client_getServerAddr_43B300() net.IP {

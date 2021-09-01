@@ -589,7 +589,7 @@ func nox_server_xxxInitPlayerUnits_4FC6D0() {
 			C.sub_4D60B0()
 		}
 	} else {
-		C.nox_xxx_netMsgFadeBegin_4D9800(1, 1)
+		nox_xxx_netMsgFadeBegin_4D9800(true, true)
 	}
 	if noxflags.HasGame(0x2000) && !noxflags.HasGame(128) {
 		for _, u := range getPlayerUnits() {
