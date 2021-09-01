@@ -1005,12 +1005,12 @@ func nox_xxx_mapExitAndCheckNext_4D1860_server() bool {
 	if C.nox_xxx_gameIsSwitchToSolo_4DB240() == 0 {
 		C.nox_xxx_resetMapInit_4FC570(1)
 	}
-	nox_xxx_setGameFlags_40A4D0(0x8000000)
+	noxflags.SetGame(0x8000000)
 	C.sub_43F140(500)
 	v42 := C.nox_xxx_gameIsSwitchToSolo_4DB240()
 	C.sub_4DBA30(v42)
 	C.sub_43F1A0()
-	nox_common_gameFlags_unset_40A540(0x8000000)
+	noxflags.UnsetGame(0x8000000)
 	C.sub_4FC580(1)
 	if C.dword_5d4594_1548664 != 0 {
 		if wp := getWaypointByID(GoStringP(memmap.PtrOff(0x5D4594, 1548536))); wp != nil {

@@ -644,13 +644,13 @@ func nox_xxx_clientDrawAll_436100_draw() {
 	if C.dword_5d4594_811904 != 0 {
 		C.sub_436F50()
 	}
-	if nox_common_gameFlags_check_40A5C0(8) {
+	if noxflags.HasGame(8) {
 		v13 := platformTicks() - memmap.Uint64(0x5D4594, 811908)
-		if v13 > 10000 && !nox_common_gameFlags_check_40A5C0(1) {
-			nox_common_gameFlags_unset_40A540(8)
+		if v13 > 10000 && !noxflags.HasGame(1) {
+			noxflags.UnsetGame(8)
 		}
 	}
-	if nox_common_gameFlags_check_40A5C0(8) {
+	if noxflags.HasGame(8) {
 		C.nox_xxx_clientDrawAll_436100_draw_B()
 	}
 	if memmap.Uint32(0x587000, 85744) != 0 {

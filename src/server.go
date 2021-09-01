@@ -528,16 +528,16 @@ func nox_server_loadMapFile_4CF5F0(a1 string, a2 int) bool {
 	}
 	C.nox_xxx_scriptRunFirst_507290()
 	C.nox_xxx_cryptClose_4269F0()
-	if !nox_common_gameFlags_check_40A5C0(0x200000) {
+	if !noxflags.HasGame(0x200000) {
 		C.nox_xxx_mapReadSetFlags_4CF990()
 		if C.nox_xxx_check_flag_aaa_43AF70() == 1 {
 			C.sub_416690()
 		}
-		nox_common_gameFlags_unset_40A540(0x4000000)
+		noxflags.UnsetGame(0x4000000)
 		C.sub_470680()
 		C.sub_4D0550(internCStr(fname))
 		C.sub_4161E0()
-		if !nox_common_gameFlags_check_40A5C0(128) {
+		if !noxflags.HasGame(128) {
 			C.sub_4165F0(0, 1)
 		}
 	}
