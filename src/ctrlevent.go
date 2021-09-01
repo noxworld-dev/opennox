@@ -3,64 +3,15 @@ package main
 /*
 #include "GAME1.h"
 #include "GAME1_2.h"
-#include "GAME1_1.h"
 #include "GAME1_3.h"
 #include "GAME2.h"
 #include "GAME2_1.h"
 #include "GAME2_2.h"
-#include "GAME2_3.h"
-#include "GAME3.h"
 #include "GAME3_1.h"
 #include "GAME3_2.h"
-#include "GAME3_3.h"
-#include "GAME4.h"
 #include "GAME4_1.h"
-#include "GAME4_2.h"
-#include "GAME4_3.h"
-#include "GAME5.h"
 #include "GAME5_2.h"
-#include "GAME_data.h"
-#include "GAME_data_init.h"
-#include "cdrom.h"
-#include "client__drawable__drawdb.h"
-#include "client__draw__fx.h"
-#include "client__draw__image.h"
-#include "client__gui__guiinv.h"
-#include "client__gui__guimeter.h"
-#include "client__gui__guishop.h"
-#include "client__gui__guispell.h"
-#include "client__gui__servopts__guiserv.h"
-#include "client__gui__window.h"
-#include "client__io__win95__focus.h"
-#include "client__network__netclint.h"
-#include "client__shell__optsback.h"
-#include "client__system__ctrlevnt.h"
 #include "client__video__draw_common.h"
-#include "client__video__sdl__draw_nogl.h"
-#include "common__config.h"
-#include "common__magic__speltree.h"
-#include "defs.h"
-#include "GAME1_1.h"
-#include "GAME1_3.h"
-#include "GAME1.h"
-#include "GAME2_2.h"
-#include "GAME2_3.h"
-#include "GAME2.h"
-#include "GAME3_3.h"
-#include "GAME3.h"
-#include "GAME4_1.h"
-#include "GAME4.h"
-#include "GAME5_2.h"
-#include "input_common.h"
-#include "input.h"
-#include "movie.h"
-#include "server__network__mapsend.h"
-#include "server__script__builtin.h"
-#include "server__script__script.h"
-#include "server__xfer__savegame__savegame.h"
-#include "thing.h"
-#include "win.h"
-#include "client__system__ctrlevnt.h"
 #include "client__gui__guicon.h"
 #include "client__gui__guisave.h"
 #include "client__gui__guispell.h"
@@ -179,8 +130,8 @@ func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_orientation(mpos types.P
 		// calculates player orientation
 		x := mpos.X
 		y := mpos.Y
-		if v15 := C.nox_xxx_spriteGetMB_476F80(); v15 != nil {
-			y = int(C.sub_4739D0(*(*C.int)(unsafe.Pointer(uintptr(v15) + 16))))
+		if v15 := nox_xxx_spriteGetMB_476F80(); v15 != nil {
+			y = int(C.sub_4739D0(C.int(v15.Pos().Y)))
 		}
 		wsz := videoGetWindowSize()
 		cx := x - wsz.W/2
@@ -533,16 +484,16 @@ func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_B() {
 			ce.active = false
 		case client.CCIncreaseGamma:
 			clientPlaySoundSpecial(921, 100)
-			v38 := C.nox_video_getGammaSetting_434B00()
-			C.nox_video_setGammaSetting_434B30(v38 + 1)
-			C.updateGamma(1)
+			v38 := nox_video_getGammaSetting_434B00()
+			nox_video_setGammaSetting_434B30(v38 + 1)
+			updateGamma(1)
 			C.sub_434B60()
 			ce.active = false
 		case client.CCDecreaseGamma:
 			clientPlaySoundSpecial(921, 100)
-			v39 := C.nox_video_getGammaSetting_434B00()
-			C.nox_video_setGammaSetting_434B30(v39 - 1)
-			C.updateGamma(-1)
+			v39 := nox_video_getGammaSetting_434B00()
+			nox_video_setGammaSetting_434B30(v39 - 1)
+			updateGamma(-1)
 			C.sub_434B60()
 			ce.active = false
 		case client.CCQuit:
