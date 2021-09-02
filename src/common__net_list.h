@@ -2,6 +2,29 @@
 #define NOX_COMMON_NET_LIST_H
 
 #include <stdbool.h>
+#include "common/alloc/classes/alloc_class.h"
+
+#define NOX_NETBUF_MAX_PACKETS 512
+#define NOX_NETBUF_MAX_SIZE 2032
+
+typedef struct nox_net_list_item_t nox_net_list_item_t;
+typedef struct nox_net_list_item_t {
+	unsigned char* buf; // 0, 0
+	unsigned int size; // 1, 4
+	nox_net_list_item_t* prev; // 2, 8
+	nox_net_list_item_t* next; // 3, 12
+} nox_net_list_item_t;
+
+typedef struct {
+	nox_net_list_item_t* first; // 0, 0
+	nox_net_list_item_t* last; // 1, 4
+	unsigned int field_2; // 2, 8
+	nox_alloc_class* alloc; // 3, 12
+	unsigned int count; // 4, 16
+	unsigned int size; // 5, 20
+	unsigned int field_6; // 6, 24
+	unsigned int field_7; // 7, 28
+} nox_net_list_t;
 
 void nox_netlist_init_40EA10();
 void nox_netlist_free_40EA70();

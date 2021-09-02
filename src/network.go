@@ -3,12 +3,14 @@ package main
 /*
 #include "defs.h"
 #include "nox_net.h"
+#include "common__net_list.h"
 extern unsigned int dword_5d4594_2660032;
 extern unsigned int dword_5d4594_814548;
 extern unsigned int dword_587000_87404;
 extern unsigned long long qword_5d4594_814956;
 extern nox_socket_t nox_xxx_sockLocalBroadcast_2513920;
 extern nox_net_struct_t* nox_net_struct_arr[NOX_NET_STRUCT_MAX];
+extern nox_net_list_t* nox_net_lists[3][NOX_PLAYERINFO_MAX];
 unsigned int nox_client_getServerAddr_43B300();
 int nox_client_getServerPort_43B320();
 int nox_client_getClientPort_40A420();
@@ -29,6 +31,7 @@ import (
 	"unsafe"
 
 	"nox/v1/common/alloc"
+	"nox/v1/common/alloc/classes"
 	"nox/v1/common/log"
 	"nox/v1/common/memmap"
 	"nox/v1/common/noxnet"
@@ -384,4 +387,59 @@ func nox_netlist_addToMsgListCli_40EBC0(ind1, ind2 int, buf []byte) bool {
 	defer alloc.FreeBytes(cbuf)
 	copy(cbuf, buf)
 	return C.nox_netlist_addToMsgListCli_40EBC0(C.int(ind1), C.int(ind2), (*C.uchar)(unsafe.Pointer(&cbuf[0])), C.int(len(cbuf))) != 0
+}
+
+func asNetList(p *C.nox_net_list_t) *NetList {
+	return (*NetList)(unsafe.Pointer(p))
+}
+
+type NetList C.nox_net_list_t
+
+func (l *NetList) C() *C.nox_net_list_t {
+	return (*C.nox_net_list_t)(unsafe.Pointer(l))
+}
+
+func (l *NetList) freeItem(item *C.nox_net_list_item_t) {
+	classes.AsClass(unsafe.Pointer(l.alloc)).FreeObject(unsafe.Pointer(item))
+}
+
+func (l *NetList) get() []byte { // nox_netlist_get_420A90
+	if l.first == nil {
+		return nil
+	}
+	item := l.first
+	sz := int(item.size)
+
+	l.count--
+	l.size -= item.size
+
+	if next := item.next; next != nil {
+		next.prev = item.prev
+	} else {
+		l.last = item.prev
+	}
+	if prev := item.prev; prev != nil {
+		prev.next = item.next
+	} else {
+		l.first = item.next
+	}
+
+	buf := asByteSlice(unsafe.Pointer(item.buf), sz)
+	l.freeItem(item)
+	return buf
+}
+
+func nox_netlist_copyPacketList_40ED60(ind1, ind2 int) []byte {
+	list := asNetList(C.nox_net_lists[ind2][ind1])
+	out := make([]byte, 0, netListsBufSize)
+	for {
+		buf := list.get()
+		if len(buf) == 0 {
+			return out
+		} else if len(out)+len(buf) > cap(out) {
+			// TODO: is it okay that it discards data?
+			return out
+		}
+		out = append(out, buf...)
+	}
 }

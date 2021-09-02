@@ -46,6 +46,7 @@ extern unsigned int dword_5d4594_1556144;
 extern unsigned int dword_5d4594_1563064;
 extern unsigned int dword_5d4594_251744;
 extern nox_draw_viewport_t nox_draw_viewport;
+extern unsigned char nox_net_lists_buf[2048];
 
 int sub_4EDD70();
 void sub_426060();
@@ -1169,6 +1170,8 @@ func sub_473840() C.int {
 	return 1
 }
 
+const netListsBufSize = 2048
+
 func nox_xxx_netlist_4DEB50() {
 	if !noxflags.HasGame(2) {
 		return
@@ -1177,10 +1180,11 @@ func nox_xxx_netlist_4DEB50() {
 		C.nox_xxx_replayTickMB_4D3580_net_playback(0)
 		C.nox_netlist_resetByInd_40ED10(31, 0)
 	} else if !isDedicatedServer {
-		var v3 C.uint
-		v2 := C.nox_netlist_copyPacketList_40ED60(31, 0, &v3)
-		if v2 != nil {
-			C.nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(31, v2, C.int(v3))
+		buf := nox_netlist_copyPacketList_40ED60(31, 0)
+		if len(buf) != 0 {
+			dst := asByteSlice(unsafe.Pointer(&C.nox_net_lists_buf[0]), netListsBufSize)
+			n := copy(dst, buf)
+			C.nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(31, &C.nox_net_lists_buf[0], C.int(n))
 		}
 		C.nox_netlist_resetByInd_40ED10(31, 0)
 	}

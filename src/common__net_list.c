@@ -2,11 +2,7 @@
 #include <stdlib.h>
 
 #include "common__net_list.h"
-#include "common/alloc/classes/alloc_class.h"
 #include "defs.h" // for nox_playerInfo and NOX_PLAYERINFO_MAX
-
-#define NOX_NETBUF_MAX_PACKETS 512
-#define NOX_NETBUF_MAX_SIZE 2032
 
 // TODO: link to those properly
 nox_playerInfo* nox_common_playerInfoFromNum_417090(int i);
@@ -18,27 +14,8 @@ typedef struct {
 	unsigned int cur;
 } nox_net_lists_buf_t;
 
-typedef struct nox_net_list_item_t nox_net_list_item_t;
-typedef struct nox_net_list_item_t {
-	unsigned char* buf; // 0, 0
-	unsigned int size; // 1, 4
-	nox_net_list_item_t* prev; // 2, 8
-	nox_net_list_item_t* next; // 3, 12
-} nox_net_list_item_t;
-
-typedef struct {
-	nox_net_list_item_t* first; // 0, 0
-	nox_net_list_item_t* last; // 1, 4
-	unsigned int field_2; // 2, 8
-	nox_alloc_class* alloc; // 3, 12
-	unsigned int count; // 4, 16
-	unsigned int size; // 5, 20
-	unsigned int field_6; // 6, 24
-	unsigned int field_7; // 7, 28
-} nox_net_list_t;
-
 nox_net_list_t* nox_net_lists[3][NOX_PLAYERINFO_MAX] = {0};
-char nox_net_lists_buf[2048] = {0};
+unsigned char nox_net_lists_buf[2048] = {0};
 nox_net_lists_buf_t nox_net_lists_buf_arr[3][NOX_PLAYERINFO_MAX] = {0};
 
 
