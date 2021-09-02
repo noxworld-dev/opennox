@@ -26,10 +26,14 @@
 #include "server__network__mapsend.h"
 #include "common/fs/nox_fs.h"
 
+#ifdef NOX_CGO
+void noxOnSrvPacketDebug(int op, unsigned char* data, int sz);
+#endif // NOX_CGO
+
 extern unsigned int nox_frame_xxx_2598000;
 //----- (0051BAD0) --------------------------------------------------------
 int  nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned __int8* operationId, signed int a3) {
-	unsigned __int8* operationData;                   // esi
+	unsigned __int8* data;                   // esi
 	char* v5;                              // eax
 	char* v6;                              // eax
 	int v7;                                // edx
@@ -128,7 +132,7 @@ int  nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned __int8* ope
 		*((_DWORD*)nox_common_playerInfoFromNum_417090(a1) + 899) = nox_frame_xxx_2598000;
 		return 1;
 	}
-	operationData = operationId;
+	data = operationId;
 	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_REPLAY_WRITE)) {
 		v5 = nox_common_playerInfoFromNum_417090(a1);
 		nox_xxx_replayWriteMSgMB_4D3450((int)v5, operationId, a3);
@@ -161,47 +165,51 @@ int  nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned __int8* ope
 		*(_DWORD*)(v8 + 3596) = nox_frame_xxx_2598000;
 		return 1;
 	}
-	while (operationData < v91) {
+	while (data < v91) {
+#ifdef NOX_CGO
+		unsigned char* old = data;
+#endif // NOX_CGO
 		v11 = 0;
-		switch (*operationData) {
+		int op = data[0];
+		switch (op) {
 		case 0x26u:
-			operationData += 2;
+			data += 2;
 			break;
 		case 0x29u:
 			nox_xxx_netNeedTimestampStatus_4174F0(v8, 64);
-			++operationData;
+			++data;
 			break;
 		case 0x3Fu:
-			operationData += nox_xxx_playerSaveInput_51A960(*(unsigned __int8*)(v10[69] + 2064), operationData + 1) + 1;
+			data += nox_xxx_playerSaveInput_51A960(*(unsigned __int8*)(v10[69] + 2064), data + 1) + 1;
 			break;
 		case 0x40u:
-			v84 = (double)*(unsigned __int16*)(operationData + 5);
-			v83 = (double)*(unsigned __int16*)(operationData + 3);
+			v84 = (double)*(unsigned __int16*)(data + 5);
+			v83 = (double)*(unsigned __int16*)(data + 3);
 			nox_xxx_playerSetCustomWP_4F79A0(unit, SLODWORD(v83), SLODWORD(v84));
-			operationData += 7;
+			data += 7;
 			break;
 		case 0x72u:
-			v19 = nox_xxx_packetDynamicUnitCode_578B40(*(unsigned __int16*)(operationData + 1));
+			v19 = nox_xxx_packetDynamicUnitCode_578B40(*(unsigned __int16*)(data + 1));
 			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG))
-				nox_xxx_netTestHighBit_578B70(*(unsigned __int16*)(operationData + 1));
+				nox_xxx_netTestHighBit_578B70(*(unsigned __int16*)(data + 1));
 			v7 = *(_DWORD*)(v85 + 276);
 			if (!(*(_BYTE*)(v7 + 3680) & 3) && !*(_DWORD*)(v85 + 280) && !*(_DWORD*)(v85 + 284) &&
 				!(*(_BYTE*)(unit + 16) & 2)) {
 				v20 = nox_xxx_equipedItemByCode_4F7920(unit, v19);
 				if (v20) {
-					v21 = *(_WORD*)(operationData + 5);
-					v94.field_0 = (double)*(unsigned __int16*)(operationData + 3);
+					v21 = *(_WORD*)(data + 5);
+					v94.field_0 = (double)*(unsigned __int16*)(data + 3);
 					v94.field_4 = (double)v21;
 					nox_xxx_drop_4ED810(unit, v20, &v94);
 				}
 			}
 			v10 = (int*)v85;
-			operationData += 7;
+			data += 7;
 			break;
 		case 0x73u:
-			v22 = nox_xxx_packetDynamicUnitCode_578B40(*(unsigned __int16*)(operationData + 1));
+			v22 = nox_xxx_packetDynamicUnitCode_578B40(*(unsigned __int16*)(data + 1));
 			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG))
-				nox_xxx_netTestHighBit_578B70(*(unsigned __int16*)(operationData + 1));
+				nox_xxx_netTestHighBit_578B70(*(unsigned __int16*)(data + 1));
 			if (!nox_xxx_gameGet_4DB1B0()) {
 				v7 = *(_DWORD*)(v85 + 276);
 				if (!((*(_BYTE*)(v7 + 3680) & 3) || (*(_DWORD*)(v85 + 280)) || (*(_DWORD*)(v85 + 284)) || (*(_BYTE*)(unit + 16) & 2))) {
@@ -221,12 +229,12 @@ int  nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned __int8* ope
 			}
 			v8 = (int)v89;
 			v10 = (int*)v85;
-			operationData += 3;
+			data += 3;
 			break;
 		case 0x74u:
-			v26 = nox_xxx_packetDynamicUnitCode_578B40(*(unsigned __int16*)(operationData + 1));
+			v26 = nox_xxx_packetDynamicUnitCode_578B40(*(unsigned __int16*)(data + 1));
 			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG))
-				nox_xxx_netTestHighBit_578B70(*(unsigned __int16*)(operationData + 1));
+				nox_xxx_netTestHighBit_578B70(*(unsigned __int16*)(data + 1));
 			if (!nox_xxx_gameGet_4DB1B0()) {
 				v7 = *(_DWORD *) (v85 + 276);
 				if (!(*(_BYTE *) (v7 + 3680) & 3)) {
@@ -237,12 +245,12 @@ int  nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned __int8* ope
 				}
 			}
 			v10 = (int*)v85;
-			operationData += 3;
+			data += 3;
 			break;
 		case 0x75u:
-			v15 = nox_xxx_packetDynamicUnitCode_578B40(*(unsigned __int16*)(operationData + 1));
+			v15 = nox_xxx_packetDynamicUnitCode_578B40(*(unsigned __int16*)(data + 1));
 			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG))
-				nox_xxx_netTestHighBit_578B70(*(unsigned __int16*)(operationData + 1));
+				nox_xxx_netTestHighBit_578B70(*(unsigned __int16*)(data + 1));
 			if (!nox_xxx_gameGet_4DB1B0()) {
 				v7 = v85;
 				if (!(*(_BYTE *) (*(_DWORD *) (v85 + 276) + 3680) & 3)) {
@@ -253,12 +261,12 @@ int  nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned __int8* ope
 				}
 			}
 			v10 = (int*)v85;
-			operationData += 3;
+			data += 3;
 			break;
 		case 0x76u:
-			v17 = nox_xxx_packetDynamicUnitCode_578B40(*(unsigned __int16*)(operationData + 1));
+			v17 = nox_xxx_packetDynamicUnitCode_578B40(*(unsigned __int16*)(data + 1));
 			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG))
-				nox_xxx_netTestHighBit_578B70(*(unsigned __int16*)(operationData + 1));
+				nox_xxx_netTestHighBit_578B70(*(unsigned __int16*)(data + 1));
 			if (!(*(_BYTE*)(*(_DWORD*)(v85 + 276) + 3680) & 3)) {
 				v18 = nox_xxx_equipedItemByCode_4F7920(unit, v17);
 				if (v18) {
@@ -270,24 +278,24 @@ int  nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned __int8* ope
 				}
 			}
 			v10 = (int*)v85;
-			operationData += 3;
+			data += 3;
 			break;
 		case 0x78: // command spawned creatures
-			v31 = nox_xxx_packetDynamicUnitCode_578B40(*(unsigned __int16*)(operationData + 1));
+			v31 = nox_xxx_packetDynamicUnitCode_578B40(*(unsigned __int16*)(data + 1));
 			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG))
-				nox_xxx_netTestHighBit_578B70(*(unsigned __int16*)(operationData + 1));
+				nox_xxx_netTestHighBit_578B70(*(unsigned __int16*)(data + 1));
 			v7 = v85;
 			if (!(*(_BYTE*)(*(_DWORD*)(v85 + 276) + 3680) & 1)) {
-				if (*(_WORD*)(operationData + 1)) {
+				if (*(_WORD*)(data + 1)) {
 					v32 = nox_server_getObjectFromNetCode_4ECCB0(v31);
 					if (v32)
-						nox_xxx_orderUnit_533900(unit, v32, operationData[3]);
+						nox_xxx_orderUnit_533900(unit, v32, data[3]);
 				} else {
-					nox_xxx_orderUnit_533900(unit, 0, operationData[3]);
+					nox_xxx_orderUnit_533900(unit, 0, data[3]);
 				}
 			}
 			v10 = (int*)v85;
-			operationData += 4;
+			data += 4;
 			break;
 		case 0x79u:
 			v34 = 1;
@@ -305,9 +313,9 @@ int  nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned __int8* ope
 					v34 = 0;
 			}
 			if (!nox_common_gameFlags_check_40A5C0(128) && v34) {
-				v36 = (int*)(operationData + 1);
+				v36 = (int*)(data + 1);
 				v37 = 0;
-				v38 = operationData + 1;
+				v38 = data + 1;
 				v39 = 5;
 				while (v39) {
 					if (*v38)
@@ -317,7 +325,7 @@ int  nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned __int8* ope
 				}
 				if ((v37 != 1 || !nox_xxx_spellHasFlags_424A50(*v36, 32) || !*(_DWORD*)(v85 + 288) ||
 					 nox_xxx_unitIsEnemyTo_5330C0(unit, *(_DWORD*)(v85 + 288)) || nox_common_gameFlags_check_40A5C0(4096)) &&
-					!nox_xxx_spellByBookInsert_4FE340(unit, (int*)(operationData + 1), v37, 3, operationData[21]) && v37 == 1) {
+					!nox_xxx_spellByBookInsert_4FE340(unit, (int*)(data + 1), v37, 3, data[21]) && v37 == 1) {
 					v40 = 5;
 					while (v40) {
 						if (*v36)
@@ -329,19 +337,19 @@ int  nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned __int8* ope
 			}
 			v8 = (int)v89;
 			v10 = (int*)v85;
-			operationData += 22;
+			data += 22;
 			break;
 		case 0x7Au:
 			v33 = (*(_BYTE*)(*(_DWORD*)(v85 + 276) + 3680) & 3) == 0;
 			if (!nox_common_gameFlags_check_40A5C0(128) && v33)
-				nox_xxx_playerExecuteAbil_4FBB70(unit, operationData[1]);
+				nox_xxx_playerExecuteAbil_4FBB70(unit, data[1]);
 			v10 = (int*)v85;
-			operationData += 2;
+			data += 2;
 			break;
 		case 0x7Bu:
-			v28 = nox_xxx_packetDynamicUnitCode_578B40(*(unsigned __int16*)(operationData + 1));
+			v28 = nox_xxx_packetDynamicUnitCode_578B40(*(unsigned __int16*)(data + 1));
 			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG))
-				nox_xxx_netTestHighBit_578B70(*(unsigned __int16*)(operationData + 1));
+				nox_xxx_netTestHighBit_578B70(*(unsigned __int16*)(data + 1));
 			v7 = v85;
 			if (!(*(_BYTE*)(*(_DWORD*)(v85 + 276) + 3680) & 3) && !*(_DWORD*)(v85 + 280) &&
 				!*(_DWORD*)(v85 + 284)) {
@@ -353,37 +361,37 @@ int  nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned __int8* ope
 				}
 			}
 			v10 = (int*)v85;
-			operationData += 3;
+			data += 3;
 			break;
 		case 0xA5u:
-			*(_WORD*)(v8 + 8 * operationData[1] + 16) = *((_WORD*)operationData + 1);
-			*(_WORD*)(v8 + 8 * operationData[1] + 18) = *((_WORD*)operationData + 2);
-			v14 = operationData[1];
-			v7 = *(_DWORD*)(operationData + 6);
-			operationData += 10;
+			*(_WORD*)(v8 + 8 * data[1] + 16) = *((_WORD*)data + 1);
+			*(_WORD*)(v8 + 8 * data[1] + 18) = *((_WORD*)data + 2);
+			v14 = data[1];
+			v7 = *(_DWORD*)(data + 6);
+			data += 10;
 			*(_DWORD*)(v8 + 8 * v14 + 20) = v7;
 			break;
 		case 0xA8u:
-			if (operationData[3] & 2) {
-				nox_swprintf(v97, L"%S", operationData + 11);
+			if (data[3] & 2) {
+				nox_swprintf(v97, L"%S", data + 11);
 				v44 = 1;
 			} else {
-				nox_wcscpy(v97, (const wchar_t*)(operationData + 11));
+				nox_wcscpy(v97, (const wchar_t*)(data + 11));
 				v44 = 2;
 			}
-			v45 = v44 * operationData[8] + 11;
+			v45 = v44 * data[8] + 11;
 			if (!nox_xxx_giant_57A190(v8)) {
-				if (!(operationData[3] & 1)) {
+				if (!(data[3] & 1)) {
 					for (char* j = nox_common_playerInfoGetFirst_416EA0(); j; j = nox_common_playerInfoGetNext_416EE0((int) j)) {
 						if (nox_common_gameFlags_check_40A5C0(2) && j[2064] == 31) {
-							nox_xxx_netOnPacketRecvCli_48EA70(31, (unsigned int) operationData, v45);
+							nox_xxx_netOnPacketRecvCli_48EA70(31, (unsigned int) data, v45);
 						} else {
-							nox_xxx_netSendSock_552640((unsigned __int8) j[2064] + 1, operationData, v45, 0);
+							nox_xxx_netSendSock_552640((unsigned __int8) j[2064] + 1, data, v45, 0);
 							nox_xxx_netSendReadPacket_5528B0((unsigned __int8) j[2064] + 1, 1);
 						}
 					}
 				} else {
-					_DWORD* v47 = nox_xxx_objGetTeamByNetCode_418C80(*(unsigned __int16 *) (operationData + 1));
+					_DWORD* v47 = nox_xxx_objGetTeamByNetCode_418C80(*(unsigned __int16 *) (data + 1));
 					if (v47) {
 						if (nox_xxx_servObjectHasTeam_419130((int) v47)) {
 							v86 = nox_xxx_clientGetTeamColor_418AB0(*((unsigned __int8 *) v47 + 4));
@@ -393,9 +401,9 @@ int  nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned __int8* ope
 									if (v49 && nox_xxx_teamCompare2_419180(j + 48, v86[57])) {
 										if (nox_common_gameFlags_check_40A5C0(2) &&
 											*(_DWORD *) (j + 36) == *getMemU32Ptr(0x85319C, 0)) {
-											nox_xxx_netOnPacketRecvCli_48EA70((unsigned __int8) v49[2064], (unsigned int) operationData, v45);
+											nox_xxx_netOnPacketRecvCli_48EA70((unsigned __int8) v49[2064], (unsigned int) data, v45);
 										} else {
-											nox_xxx_netSendSock_552640((unsigned __int8) v49[2064] + 1, operationData, v45, 0);
+											nox_xxx_netSendSock_552640((unsigned __int8) v49[2064] + 1, data, v45, 0);
 											nox_xxx_netSendReadPacket_5528B0((unsigned __int8) v49[2064] + 1, 1);
 										}
 									}
@@ -407,33 +415,33 @@ int  nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned __int8* ope
 			}
 			unit = v93;
 			v8 = (int)v89;
-			operationData += v45;
+			data += v45;
 			v10 = (int*)v85;
 			break;
 		case 0xAAu:
 			v13 = v10[69];
-			*(_DWORD*)&v92[1] = *(_DWORD*)(operationData + 1);
+			*(_DWORD*)&v92[1] = *(_DWORD*)(data + 1);
 			v92[0] = -85;
 			nox_netlist_addToMsgListCli_40EBC0(*(unsigned __int8*)(v13 + 2064), 1, v92, 5);
-			operationData += 5;
+			data += 5;
 			break;
 		case 0xABu:
-			sub_4E55A0(*(_BYTE*)(v10[69] + 2064), *(_DWORD*)(operationData + 1));
-			operationData += 5;
+			sub_4E55A0(*(_BYTE*)(v10[69] + 2064), *(_DWORD*)(data + 1));
+			data += 5;
 			break;
 		case 0xACu:
-			v12 = *(_WORD*)(operationData + 1);
-			operationData += 5;
+			v12 = *(_WORD*)(data + 1);
+			data += 5;
 			*(_DWORD*)(v8 + 2284) = v12;
-			*(_DWORD*)(v8 + 2288) = *((unsigned __int16*)operationData - 1);
+			*(_DWORD*)(v8 + 2288) = *((unsigned __int16*)data - 1);
 			break;
 		case 0xADu:
 			nox_xxx_netPlayerIncomingServ_4DDF60(*(unsigned __int8*)(v8 + 2064));
-			++operationData;
+			++data;
 			break;
 		case 0xAEu:
 			nox_xxx_playerDisconnFinish_4DE530(*(unsigned __int8*)(v8 + 2064), 2);
-			++operationData;
+			++data;
 			break;
 		case 0xB6u:
 			nox_xxx_playerGoObserver_4E6860(v8, 1, 1);
@@ -441,20 +449,20 @@ int  nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned __int8* ope
 			if (v51)
 				nox_xxx_netChangeTeamMb_419570(v51 + 48, *(_DWORD*)(v8 + 2060));
 			nox_xxx_netMapSend_519D20(*(unsigned __int8*)(v8 + 2064));
-			++operationData;
+			++data;
 			break;
 		case 0xB7u:
 			nox_xxx_netMapSendCancelMap_519DE0_net_mapsend(*(unsigned __int8*)(v8 + 2064));
-			++operationData;
+			++data;
 			break;
 		case 0xBBu:
-			nox_xxx_serverHandleClientConsole_443E90(v8, operationData[1], (wchar_t*)(operationData + 5));
-			operationData += 2 * operationData[4] + 7;
+			nox_xxx_serverHandleClientConsole_443E90(v8, data[1], (wchar_t*)(data + 5));
+			data += 2 * data[4] + 7;
 			break;
 		case 0xBCu:
 			v87[0] = -67;
 			v42 = nox_xxx_sysopGetPass_40A630();
-			if (!*v42 || _nox_wcsicmp((const wchar_t*)(operationData + 1), v42)) {
+			if (!*v42 || _nox_wcsicmp((const wchar_t*)(data + 1), v42)) {
 				v87[1] = 0;
 			} else {
 				v87[1] = 1;
@@ -466,148 +474,148 @@ int  nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned __int8* ope
 				}
 			}
 			nox_xxx_netSendPacket0_4E5420(*(unsigned __int8*)(v8 + 2064), v87, 2, 0, 1);
-			operationData += 21;
+			data += 21;
 			break;
 		case 0xBEu:
-			++operationData;
+			++data;
 			break;
 		case 0xBFu:
 			*(_BYTE*)(v8 + 3676) = 3;
 			sub_519E80(*(unsigned __int8*)(v8 + 2064));
-			++operationData;
+			++data;
 			break;
 		case 0xC0u:
 			nox_xxx_gameServerReadyMB_4DD180(*(unsigned __int8*)(v8 + 2064));
-			++operationData;
+			++data;
 			break;
 		case 0xC1u:
 			if (nox_common_gameFlags_check_40A5C0(4096) && *(_BYTE*)(v8 + 2064) != 31 && *(_DWORD*)(v8 + 2092) &&
 				*(_DWORD*)(v8 + 2056) && v10[138] == 1) {
 				nox_xxx_playerCallDisconnect_4DEAB0(*(unsigned __int8*)(v8 + 2064), 2);
-				operationData += 3;
+				data += 3;
 			} else {
 				v52 = nox_fs_root();
 				nox_sprintf(FileName, "%s\\Save\\_temp_.dat", v52);
 				if (nox_xxx_playerSaveToFile_41A140(FileName, *(unsigned __int8*)(v8 + 2064)))
 					sub_41CFA0(FileName, *(unsigned __int8*)(v8 + 2064));
 				nox_fs_remove(FileName);
-				operationData += 3;
+				data += 3;
 			}
 			break;
 		case 0xC2u:
-			switch (operationData[1]) {
+			switch (data[1]) {
 			case 0u:
-				sub_40B5D0(*(unsigned __int8*)(v8 + 2064) + 1, operationData[2], (const char*)operationData + 8, *((_DWORD*)operationData + 1),
-						   operationData[136]);
-				operationData += 140;
+				sub_40B5D0(*(unsigned __int8*)(v8 + 2064) + 1, data[2], (const char*)data + 8, *((_DWORD*)data + 1),
+						   data[136]);
+				data += 140;
 				break;
 			case 1u:
-				LOBYTE(v11) = operationData[3];
-				sub_40BFF0(*(unsigned __int8*)(v8 + 2064) + 1, operationData[2], v11);
-				operationData += 4;
+				LOBYTE(v11) = data[3];
+				sub_40BFF0(*(unsigned __int8*)(v8 + 2064) + 1, data[2], v11);
+				data += 4;
 				break;
 			case 2u:
 				v90[0] = -62;
 				v90[1] = 3;
-				v90[2] = operationData[2];
+				v90[2] = data[2];
 				v82 = *(unsigned __int8*)(v8 + 2064) + 1;
-				*(_WORD*)&v90[4] = *((_WORD*)operationData + 2);
+				*(_WORD*)&v90[4] = *((_WORD*)data + 2);
 				nox_xxx_netSendSock_552640(v82, v90, 6, NOX_NET_SEND_NO_LOCK | NOX_NET_SEND_FLAG2);
-				sub_40B250(*(unsigned __int8*)(v8 + 2064) + 1, operationData[2], *((_WORD*)operationData + 2), operationData + 8,
-						   *((unsigned __int16*)operationData + 3));
-				operationData += *((unsigned __int16*)operationData + 3) + 8;
+				sub_40B250(*(unsigned __int8*)(v8 + 2064) + 1, data[2], *((_WORD*)data + 2), data + 8,
+						   *((unsigned __int16*)data + 3));
+				data += *((unsigned __int16*)data + 3) + 8;
 				break;
 			case 3u:
-				sub_40BF60(*(unsigned __int8*)(v8 + 2064) + 1, operationData[2], *((unsigned __int16*)operationData + 2));
-				operationData += 6;
+				sub_40BF60(*(unsigned __int8*)(v8 + 2064) + 1, data[2], *((unsigned __int16*)data + 2));
+				data += 6;
 				break;
 			case 4u:
-				sub_40C030(*(unsigned __int8*)(v8 + 2064) + 1, operationData[2]);
-				operationData += 3;
+				sub_40C030(*(unsigned __int8*)(v8 + 2064) + 1, data[2]);
+				data += 3;
 				break;
 			case 5u:
-				LOBYTE(v7) = operationData[3];
-				sub_40B720(v7, operationData[2]);
-				operationData += 4;
+				LOBYTE(v7) = data[3];
+				sub_40B720(v7, data[2]);
+				data += 4;
 				break;
 			case 6u:
-				LOBYTE(v11) = operationData[3];
-				sub_40C070(*(unsigned __int8*)(v8 + 2064) + 1, (int)v11, operationData[2]);
-				operationData += 4;
+				LOBYTE(v11) = data[3];
+				sub_40C070(*(unsigned __int8*)(v8 + 2064) + 1, (int)v11, data[2]);
+				data += 4;
 				break;
 			default:
 				break;
 			}
 			break;
 		case 0xC4u:
-			if (operationData[1] == 10) {
-				v55 = nox_xxx_clientGetTeamColor_418AB0(*(_DWORD*)(operationData + 2));
+			if (data[1] == 10) {
+				v55 = nox_xxx_clientGetTeamColor_418AB0(*(_DWORD*)(data + 2));
 				if (v55) {
-					v56 = nox_server_getObjectFromNetCode_4ECCB0(*((unsigned __int16*)operationData + 3));
-					nox_xxx_createAtImpl_4191D0(v55[57], v56 + 48, 1, *((unsigned __int16*)operationData + 3), 1);
+					v56 = nox_server_getObjectFromNetCode_4ECCB0(*((unsigned __int16*)data + 3));
+					nox_xxx_createAtImpl_4191D0(v55[57], v56 + 48, 1, *((unsigned __int16*)data + 3), 1);
 				}
 				v10 = (int*)v85;
-				operationData += 10;
-			} else if (operationData[1] == 11) {
-				v53 = nox_server_getObjectFromNetCode_4ECCB0(*((unsigned __int16*)operationData + 3));
+				data += 10;
+			} else if (data[1] == 11) {
+				v53 = nox_server_getObjectFromNetCode_4ECCB0(*((unsigned __int16*)data + 3));
 				if (v53) {
 					if (!nox_common_gameFlags_check_40A5C0(128)) {
 						nox_xxx_mapFindPlayerStart_4F7AB0(&v96, v53);
 						nox_xxx_unitMove_4E7010(v53, &v96);
 					}
-					v54 = nox_xxx_clientGetTeamColor_418AB0(*(_DWORD*)(operationData + 2));
+					v54 = nox_xxx_clientGetTeamColor_418AB0(*(_DWORD*)(data + 2));
 					if (v54)
-						sub_4196D0(v53 + 48, (int)v54, *((unsigned __int16*)operationData + 3), 1);
+						sub_4196D0(v53 + 48, (int)v54, *((unsigned __int16*)data + 3), 1);
 				}
 				v10 = (int*)v85;
-				operationData += 10;
+				data += 10;
 			}
 			break;
 		case 0xC8u:
 			sub_446070();
-			++operationData;
+			++data;
 			break;
 		case 0xD0u:
-			if (operationData[1] == 1) {
+			if (data[1] == 1) {
 				if (nox_xxx_gameGet_4DB1B0() || (v7 = v10[69], *(_BYTE*)(v7 + 3680) & 3) ||
-					(v57 = nox_server_getObjectFromNetCode_4ECCB0(*((unsigned __int16*)operationData + 1))) == 0) {
-					operationData += 4;
+					(v57 = nox_server_getObjectFromNetCode_4ECCB0(*((unsigned __int16*)data + 1))) == 0) {
+					data += 4;
 				} else {
 					nox_xxx_script_forcedialog_548CD0(unit, v57);
-					operationData += 4;
+					data += 4;
 				}
-			} else if (operationData[1] == 2) {
-				nox_xxx_scriptDialog_548D30(unit, operationData[2]);
-				operationData += 3;
+			} else if (data[1] == 2) {
+				nox_xxx_scriptDialog_548D30(unit, data[2]);
+				data += 3;
 			}
 			break;
 		case 0xD4u:
 			v41 = sub_40A220();
 			nox_xxx_netTimerStatus_4D8F50(a1, v41);
-			++operationData;
+			++data;
 			break;
 		case 0xE0u:
-			v58 = nox_xxx_packetDynamicUnitCode_578B40(*(unsigned __int16*)(operationData + 1));
+			v58 = nox_xxx_packetDynamicUnitCode_578B40(*(unsigned __int16*)(data + 1));
 			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG))
-				nox_xxx_netTestHighBit_578B70(*(unsigned __int16*)(operationData + 1));
-			if (*(_WORD*)(operationData + 1)) {
+				nox_xxx_netTestHighBit_578B70(*(unsigned __int16*)(data + 1));
+			if (*(_WORD*)(data + 1)) {
 				v59 = nox_server_getObjectFromNetCode_4ECCB0(v58);
 				sub_53AB90(unit, v59);
 			} else {
 				sub_53AB90(unit, 0);
 			}
 			v10 = (int*)v85;
-			operationData += 3;
+			data += 3;
 			break;
 		case 0xE2u:
-			v60 = nox_xxx_packetDynamicUnitCode_578B40(*(unsigned __int16*)(operationData + 1));
+			v60 = nox_xxx_packetDynamicUnitCode_578B40(*(unsigned __int16*)(data + 1));
 			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG))
-				nox_xxx_netTestHighBit_578B70(*(unsigned __int16*)(operationData + 1));
+				nox_xxx_netTestHighBit_578B70(*(unsigned __int16*)(data + 1));
 			v61 = nox_xxx_equipedItemByCode_4F7920(unit, v60);
 			if (v61 || (v61 = sub_510DE0(unit, v60)) != 0 || (v61 = nox_server_getObjectFromNetCode_4ECCB0(v60)) != 0) {
 				v88[0] = -30;
 				*(_WORD*)&v88[1] = nox_xxx_netGetUnitCodeServ_578AC0((_DWORD*)v61);
-				v62 = operationData[3];
+				v62 = data[3];
 				if (v62 == 1) {
 					v88[3] = **(_BYTE**)(v61 + 736);
 				} else if (v62 == 2) {
@@ -619,75 +627,75 @@ int  nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned __int8* ope
 			}
 			v8 = (int)v89;
 			v10 = (int*)v85;
-			operationData += 4;
+			data += 4;
 			break;
 		case 0xE3u:
-			switch (operationData[1]) {
+			switch (data[1]) {
 			case 1u:
 				nox_xxx_playerSetState_4FA020((_DWORD*)unit, 26);
-				operationData += 2;
+				data += 2;
 				break;
 			case 2u:
 				nox_xxx_playerSetState_4FA020((_DWORD*)unit, 25);
-				operationData += 2;
+				data += 2;
 				break;
 			case 4u:
 				nox_xxx_playerSetState_4FA020((_DWORD*)unit, 27);
-				operationData += 2;
+				data += 2;
 				break;
 			default:
 				break;
 			}
 			break;
 		case 0xEEu:
-			switch (operationData[1]) {
+			switch (data[1]) {
 			case 0u:;
 				int c1 = 0;
 				if (nox_common_gameFlags_check_40A5C0(4096)) {
 					c1 = 3;
 				}
-				sub_506870(c1, unit, (wchar_t *) operationData + 1);
-				operationData += 52;
+				sub_506870(c1, unit, (wchar_t *) data + 1);
+				data += 52;
 				break;
 			case 1u:
-				sub_506870(1, unit, (wchar_t*)operationData + 1);
-				operationData += 52;
+				sub_506870(1, unit, (wchar_t*)data + 1);
+				data += 52;
 				break;
 			case 2u:;
 				int c2 = 0;
 				if (nox_common_gameFlags_check_40A5C0(4096)) {
 					c2 = 3;
 				}
-				sub_506C90(c2, unit, (wchar_t *) operationData + 1);
-				operationData += 52;
+				sub_506C90(c2, unit, (wchar_t *) data + 1);
+				data += 52;
 				break;
 			case 3u:
-				sub_506C90(1, unit, (wchar_t*)operationData + 1);
-				operationData += 52;
+				sub_506C90(1, unit, (wchar_t*)data + 1);
+				data += 52;
 				break;
 			case 4u:
 				sub_506870(2, unit, 0);
-				operationData += 2;
+				data += 2;
 				break;
 			case 5u:
 				sub_506C90(2, unit, 0);
-				operationData += 2;
+				data += 2;
 				break;
 			default:
 				return 0;
 			}
 			// fallthrough
 		case 0xC9u:
-			switch (operationData[1]) {
+			switch (data[1]) {
 			case 0xEu:
 				if (v10[70])
 					sub_50F3A0((_DWORD*)v10[70]);
-				operationData += 2;
+				data += 2;
 				break;
 			case 0xFu:
-				v67 = nox_xxx_packetDynamicUnitCode_578B40(*((unsigned __int16*)operationData + 1));
+				v67 = nox_xxx_packetDynamicUnitCode_578B40(*((unsigned __int16*)data + 1));
 				if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG))
-					nox_xxx_netTestHighBit_578B70(*((unsigned __int16*)operationData + 1));
+					nox_xxx_netTestHighBit_578B70(*((unsigned __int16*)data + 1));
 				v68 = (int*)nox_xxx_equipedItemByCode_4F7920(unit, v67);
 				if (v68) {
 					v69 = *(_DWORD*)(v85 + 280);
@@ -697,94 +705,94 @@ int  nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned __int8* ope
 					}
 				}
 				v10 = (int*)v85;
-				operationData += 4;
+				data += 4;
 				break;
 			case 0x10u:
-				v70 = nox_xxx_packetDynamicUnitCode_578B40(*((unsigned __int16*)operationData + 1));
+				v70 = nox_xxx_packetDynamicUnitCode_578B40(*((unsigned __int16*)data + 1));
 				if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG))
-					nox_xxx_netTestHighBit_578B70(*((unsigned __int16*)operationData + 1));
+					nox_xxx_netTestHighBit_578B70(*((unsigned __int16*)data + 1));
 				v71 = *(_DWORD*)(v85 + 280);
 				if (v71) {
 					nox_xxx_tradeP2PAddOfferMB_50FE20(v71, v70);
 				}
 				v10 = (int*)v85;
-				operationData += 4;
+				data += 4;
 				break;
 			case 0x11u:
 				v66 = v10[70];
 				if (v66)
 					nox_xxx_tradeAccept_50F5A0(v66, unit);
-				operationData += 2;
+				data += 2;
 				break;
 			case 0x12u:
 				if (v10[70])
 					nox_xxx_shopExit_50F4C0((_DWORD*)v10[70]);
-				operationData += 2;
+				data += 2;
 				break;
 			case 0x15u:
 				if (!nox_xxx_gameGet_4DB1B0() && !(*(_BYTE*)(v10[69] + 3680) & 3)) {
-					v64 = nox_xxx_packetDynamicUnitCode_578B40(*((unsigned __int16*)operationData + 1));
+					v64 = nox_xxx_packetDynamicUnitCode_578B40(*((unsigned __int16*)data + 1));
 					v65 = nox_server_getObjectFromNetCode_4ECCB0(v64);
 					if (v65) {
 						if (*(_BYTE*)(v65 + 12) & 8)
 							nox_xxx_servShopStart_50EF10_trade(unit, v65);
 					}
 				}
-				operationData += 4;
+				data += 4;
 				break;
 			case 0x16u:
 				v72 = (_DWORD*)v10[70];
 				if (v72)
-					sub_5100C0_trade(unit, v72, *((unsigned __int16*)operationData + 1));
-				operationData += 4;
+					sub_5100C0_trade(unit, v72, *((unsigned __int16*)data + 1));
+				data += 4;
 				break;
 			case 0x17u:
 				v73 = v10[70];
 				if (v73)
-					sub_510640_trade(unit, v73, *((unsigned __int16*)operationData + 1), (float*)operationData[4]);
-				operationData += 5;
+					sub_510640_trade(unit, v73, *((unsigned __int16*)data + 1), (float*)data[4]);
+				data += 5;
 				break;
 			case 0x18u:
 				v74 = v10[70];
 				if (v74) {
-					sub_510BE0_trade((int*)unit, v74, (_DWORD*)*((unsigned __int16*)operationData + 1));
+					sub_510BE0_trade((int*)unit, v74, (_DWORD*)*((unsigned __int16*)data + 1));
 				}
-				operationData += 4;
+				data += 4;
 				break;
 			case 0x19u:
 				v76 = v10[70];
 				if (v76) {
-					sub_510D10((int*)unit, v76, *((unsigned __int16*)operationData + 1), operationData[4]);
+					sub_510D10((int*)unit, v76, *((unsigned __int16*)data + 1), data[4]);
 				}
-				operationData += 5;
+				data += 5;
 				break;
 			case 0x1Au:
 				v75 = v10[70];
 				if (v75) {
-					sub_510AE0((int*)unit, v75, (_DWORD*)*((unsigned __int16*)operationData + 1));
+					sub_510AE0((int*)unit, v75, (_DWORD*)*((unsigned __int16*)data + 1));
 				}
-				operationData += 4;
+				data += 4;
 				break;
 			case 0x1Cu:
 				v77 = v10[70];
 				if (v77) {
-					sub_5109C0_trade((int*)unit, v77, (_DWORD*)*((unsigned __int16*)operationData + 1));
+					sub_5109C0_trade((int*)unit, v77, (_DWORD*)*((unsigned __int16*)data + 1));
 				}
-				operationData += 4;
+				data += 4;
 				break;
 			case 0x1Eu:
 				v78 = v10[70];
 				if (v78) {
-					sub_5108D0(unit, v78, *((unsigned __int16*)operationData + 1));
+					sub_5108D0(unit, v78, *((unsigned __int16*)data + 1));
 				}
-				operationData += 4;
+				data += 4;
 				break;
 			default:
 				return 0;
 			}
 			break;
 		case 0xF0u:
-			v79 = operationData[1];
+			v79 = data[1];
 			if (v79 == 3) {
 				v80 = v10[69];
 				v81 = *(_DWORD*)(v80 + 2056);
@@ -800,19 +808,22 @@ int  nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned __int8* ope
 					break;
 				sub_4DD0B0(unit);
 			}
-			operationData += 2;
+			data += 2;
 			break;
 		case 0xF1u:
-			v63 = (_DWORD*)nox_xxx_equipedItemByCode_4F7920(unit, *(unsigned __int16*)(operationData + 1));
+			v63 = (_DWORD*)nox_xxx_equipedItemByCode_4F7920(unit, *(unsigned __int16*)(data + 1));
 			if (v63) {
 				nox_xxx_drop_4ED790(unit, v63, (float2*)(unit + 56));
 				nox_xxx_netPriMsgToPlayer_4DA2C0(unit, "pickup.c:CarryingTooMuch", 0);
 			}
-			operationData += 3;
+			data += 3;
 			break;
 		default:
 			return 0;
 		}
+#ifdef NOX_CGO
+		noxOnSrvPacketDebug(op, old, data - old);
+#endif // NOX_CGO
 	}
 	*(_DWORD*)(v8 + 3596) = nox_frame_xxx_2598000;
 	return 1;

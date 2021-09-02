@@ -196,9 +196,18 @@ func nox_xxx_setMapCRC_40A360(crc C.int) {
 //export noxOnCliPacketDebug
 func noxOnCliPacketDebug(op C.int, data *C.uchar, sz C.int) {
 	buf := asByteSlice(unsafe.Pointer(data), int(sz))
-	if debugNet {
+	if debugNet && sz != 0 {
 		op := noxnet.Op(op)
-		netLog.Printf("noxOnCliPacketDebug: op=%d (%s) [%d:%d]\n%x", int(op), op.String(), int(sz), op.Len(), buf)
+		netLog.Printf("CLIENT: op=%d (%s) [%d:%d]\n%02x %x", int(op), op.String(), int(sz)-1, op.Len(), buf[0], buf[1:])
+	}
+}
+
+//export noxOnSrvPacketDebug
+func noxOnSrvPacketDebug(op C.int, data *C.uchar, sz C.int) {
+	buf := asByteSlice(unsafe.Pointer(data), int(sz))
+	if debugNet && sz != 0 {
+		op := noxnet.Op(op)
+		netLog.Printf("SERVER: op=%d (%s) [%d:%d]\n%02x %x", int(op), op.String(), int(sz)-1, op.Len(), buf[0], buf[1:])
 	}
 }
 
