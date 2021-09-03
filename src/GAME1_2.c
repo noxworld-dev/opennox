@@ -117,7 +117,7 @@ extern _DWORD dword_5d4594_814548;
 extern _DWORD dword_5d4594_3804684;
 extern _DWORD nox_xxx_useMMX_587000_80800;
 extern _DWORD dword_5d4594_3807140;
-extern _DWORD dword_5d4594_814552;
+extern _DWORD nox_client_connError_814552;
 extern _DWORD dword_5d4594_815056;
 extern _DWORD dword_5d4594_808568;
 extern _DWORD dword_5d4594_2660032;
@@ -6854,7 +6854,7 @@ int  sub_43AF90(int a1) {
 
 //----- (0043AFA0) --------------------------------------------------------
 int  sub_43AFA0(int a1) {
-	dword_5d4594_814552 = a1;
+	nox_client_connError_814552 = a1;
 	return sub_43AF90(2);
 }
 

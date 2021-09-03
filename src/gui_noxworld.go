@@ -14,7 +14,7 @@ extern unsigned int dword_587000_87412;
 extern unsigned int dword_5d4594_3844304;
 extern unsigned int dword_5d4594_2660652;
 extern unsigned int dword_5d4594_527988;
-extern unsigned int dword_5d4594_814552;
+extern unsigned int nox_client_connError_814552;
 extern nox_window* dword_5d4594_815004;
 extern unsigned int dword_5d4594_815044;
 extern unsigned int dword_5d4594_815060;
@@ -412,7 +412,7 @@ func sub_41E2F0() int { return int(C.dword_5d4594_527988) }
 func sub_420100() int { return int(memmap.Uint32(0x587000, 60072) >> 8) }
 
 func sub_43AFA0(a1 int) {
-	C.dword_5d4594_814552 = C.uint(a1)
+	C.nox_client_connError_814552 = C.uint(a1)
 	sub_43AF90(2)
 }
 

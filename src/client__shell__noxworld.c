@@ -30,7 +30,7 @@ extern _DWORD dword_5d4594_815052;
 extern _DWORD dword_5d4594_815100;
 extern _DWORD dword_5d4594_814548;
 extern _DWORD dword_5d4594_814992;
-extern _DWORD dword_5d4594_814552;
+extern _DWORD nox_client_connError_814552;
 extern _DWORD dword_5d4594_815056;
 extern _DWORD dword_5d4594_814996;
 extern _DWORD dword_5d4594_814988;
@@ -507,11 +507,11 @@ int sub_438BD0() {
 
 	if (!sub_44A4A0())
 		nox_xxx_dialogMsgBoxCreate_449A10(*(int*)&nox_wol_wnd_world_814980, 0, 0, 0, 0, 0);
-	v0 = dword_5d4594_814552;
-	if (dword_5d4594_814552 != 8 && dword_5d4594_814552 != 9 && dword_5d4594_814552 != 10) {
+	v0 = nox_client_connError_814552;
+	if (nox_client_connError_814552 != 8 && nox_client_connError_814552 != 9 && nox_client_connError_814552 != 10) {
 		v1 = nox_strman_loadString_40F1D0("ConnError", 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 1262);
 		sub_449E00((int)v1);
-		v0 = dword_5d4594_814552;
+		v0 = nox_client_connError_814552;
 	}
 	v2 = nox_strman_loadString_40F1D0(*(char**)getMemAt(0x587000, 87416 + 4 * v0), 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c",
 							   1265);
