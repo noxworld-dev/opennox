@@ -357,10 +357,13 @@ func sub_554D70(conn net.PacketConn, sock *Socket, csock nox_socket_t, a1 byte) 
 						buf[2] = 18
 						sendToServer(fromIP, fromPort, buf[:8])
 					}
+					// TODO: This code is disabled because it causes issues with players reconnecting to the server.
+					//       For some reason the player record gets stuck in the server's player list, so this check fails.
+
 				//case 19:
-				//  if sub_43B6D0() {
-				//		nox_client_setConnError_43AFA0(buf[3])
-				//  }
+				//	if C.sub_43B6D0() != 0 {
+				//		nox_client_setConnError_43AFA0(int(buf[3]))
+				//	}
 				case 19, 20:
 					if C.sub_43B6D0() != 0 && C.sub_43AF80() == 3 {
 						sub_43AF90(7)

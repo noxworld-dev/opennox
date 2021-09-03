@@ -771,20 +771,23 @@ int  nox_xxx_netBigSwitch_553210(unsigned int id, unsigned char* packet, int pac
 			bool a4a = 0;
 			*(_BYTE*)(out + 0) = 0;
 			*(_BYTE*)(out + 1) = p1;
-			if (!nox_xxx_check_flag_aaa_43AF70()) {
-				char* v45 = nox_common_playerInfoGetFirst_416EA0();
-				while (v45) {
-					if (v45[2135] == packet[98]) {
-						if (!strcmp(v45 + 2112, (const char*)packet + 56)) {
-							*(_BYTE*)(out + 2) = 19;
-							*(_BYTE*)(out + 3) = 12;
-							return 4;
-						}
-						v43 = 0;
-					}
-					v45 = nox_common_playerInfoGetNext_416EE0((int)v45);
-				}
-			}
+			// TODO: This code is disabled because it causes issues with players reconnecting to the server.
+			//       For some reason the player record gets stuck in the server's player list, so this check fails.
+
+//			if (!nox_xxx_check_flag_aaa_43AF70()) {
+//				char* v45 = nox_common_playerInfoGetFirst_416EA0();
+//				while (v45) {
+//					if (v45[2135] == packet[98]) {
+//						if (!strcmp(v45 + 2112, (const char*)packet + 56)) {
+//							*(_BYTE*)(out + 2) = 19;
+//							*(_BYTE*)(out + 3) = 12;
+//							return 4;
+//						}
+//						v43 = 0;
+//					}
+//					v45 = nox_common_playerInfoGetNext_416EE0((int)v45);
+//				}
+//			}
 			if (*((_DWORD*)packet + 20) != NOX_CLIENT_VERS_CODE) {
 				*(_BYTE*)(out + 2) = 19;
 				*(_BYTE*)(out + 3) = 13;
