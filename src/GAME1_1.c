@@ -3565,7 +3565,7 @@ int sub_41E0D0() {
 			switch (sub_41DCC0(v1)) {
 			case 5:
 				if (*(int*)&dword_5d4594_2660652 == -2147221394)
-					sub_43AFA0(11);
+					nox_client_setConnError_43AFA0(11);
 				break;
 			case 10:
 				sub_43ACC0();

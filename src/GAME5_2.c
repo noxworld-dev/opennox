@@ -1688,7 +1688,7 @@ int  sub_554D70(char a1) {
 					break;
 				/*case 19:
 				  if ( sub_43B6D0() )
-					sub_43AFA0((unsigned __int8)buf[3]);
+					nox_client_setConnError_43AFA0((unsigned __int8)buf[3]);
 				  break;*/
 				case 19:
 				case 20:

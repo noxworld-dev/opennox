@@ -271,7 +271,7 @@ int sub_43AF50(int a1);
 int nox_xxx_check_flag_aaa_43AF70();
 int sub_43AF80();
 int sub_43AF90(int a1);
-int sub_43AFA0(int a1);
+void nox_client_setConnError_43AFA0(int a1);
 void sub_43AFC0(int a1);
 void nox_xxx_failconn_43B0E0(int a1);
 int sub_43B2A0(int a1);

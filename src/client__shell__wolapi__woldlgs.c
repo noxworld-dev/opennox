@@ -255,8 +255,10 @@ int sub_4491B0_wol_dialogs() {
 	int result;  // eax
 	wchar_t* v1; // eax
 
-	if (sub_43AF80() == 11)
-		return sub_43AFA0(9);
+	if (sub_43AF80() == 11) {
+		nox_client_setConnError_43AFA0(9);
+		return 1;
+	}
 	result = dword_5d4594_830116;
 	if (dword_5d4594_830116) {
 		v1 = nox_strman_loadString_40F1D0("usernoton", 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c",

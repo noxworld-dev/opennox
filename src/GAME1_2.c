@@ -6853,9 +6853,9 @@ int  sub_43AF90(int a1) {
 }
 
 //----- (0043AFA0) --------------------------------------------------------
-int  sub_43AFA0(int a1) {
+void nox_client_setConnError_43AFA0(int a1) {
 	nox_client_connError_814552 = a1;
-	return sub_43AF90(2);
+	sub_43AF90(2);
 }
 
 //----- (0043AFC0) --------------------------------------------------------
@@ -6872,7 +6872,7 @@ void  sub_43AFC0(int a1) {
 
 	v1 = sub_4A04F0((char*)(a1 + 52));
 	if (!v1) {
-		sub_43AFA0(9);
+		nox_client_setConnError_43AFA0(9);
 		return;
 	}
 	if (!dword_587000_87408) {

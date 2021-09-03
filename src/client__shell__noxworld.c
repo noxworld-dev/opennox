@@ -415,7 +415,7 @@ int sub_438770() {
 		case 3:
 			if ((unsigned __int64)nox_platform_get_ticks() < *(_QWORD*)&qword_5d4594_814956)
 				goto LABEL_29;
-			sub_43AFA0(8);
+			nox_client_setConnError_43AFA0(8);
 			result = 1;
 			break;
 		case 4:

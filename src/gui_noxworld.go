@@ -359,7 +359,7 @@ func sub_554D70(conn net.PacketConn, sock *Socket, csock nox_socket_t, a1 byte) 
 					}
 				//case 19:
 				//  if sub_43B6D0() {
-				//		sub_43AFA0(buf[3])
+				//		nox_client_setConnError_43AFA0(buf[3])
 				//  }
 				case 19, 20:
 					if C.sub_43B6D0() != 0 && C.sub_43AF80() == 3 {
@@ -411,7 +411,7 @@ func sub_41E2F0() int { return int(C.dword_5d4594_527988) }
 
 func sub_420100() int { return int(memmap.Uint32(0x587000, 60072) >> 8) }
 
-func sub_43AFA0(a1 int) {
+func nox_client_setConnError_43AFA0(a1 int) {
 	C.nox_client_connError_814552 = C.uint(a1)
 	sub_43AF90(2)
 }
@@ -423,7 +423,7 @@ func sub_41E0D0() C.int {
 		switch C.sub_41DCC0(C.int(v1)) {
 		case 5:
 			if C.dword_5d4594_2660652 == 0x8004006E {
-				sub_43AFA0(11)
+				nox_client_setConnError_43AFA0(11)
 			}
 		case 10:
 			C.sub_43ACC0()
