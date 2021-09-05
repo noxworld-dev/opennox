@@ -325,13 +325,21 @@ func sub_554D70(conn net.PacketConn, sock *Socket, csock nox_socket_t, a1 byte) 
 	buf := alloc.Bytes(256)
 	for {
 		buf = buf[:cap(buf)]
-		var cfrom C.struct_nox_net_sockaddr_in
-		n := int(C.mix_recvfrom(csock, (*C.char)(unsafe.Pointer(&buf[0])), C.int(cap(buf)), (*C.struct_nox_net_sockaddr)(unsafe.Pointer(&cfrom))))
-		if n < 0 {
-			return 0, sock.err
+		n, from, err := sock.ReadFrom(buf)
+		if err != nil {
+			return 0, err
 		}
 		buf = buf[:n]
-		fromIP, fromPort := toIPPort(&cfrom)
+		fromIP, fromPort := getAddr(from)
+		if len(buf) > 2 && binary.LittleEndian.Uint16(buf) == 0xF13A { // extension packet code
+			var cfrom C.struct_nox_net_sockaddr_in
+			setAddr(&cfrom, from)
+			n = int(C.MixRecvFromReplacer(csock, (*C.char)(unsafe.Pointer(&buf[0])), C.int(cap(buf)), (*C.struct_nox_net_sockaddr)(unsafe.Pointer(&cfrom))))
+			if n < 0 {
+				return 0, sock.err
+			}
+			buf = buf[:n]
+		}
 		op := buf[2]
 		if op < 32 {
 			inIP, inPort := fromIP, fromPort
@@ -378,7 +386,6 @@ func sub_554D70(conn net.PacketConn, sock *Socket, csock nox_socket_t, a1 byte) 
 		if v11 == 0 || (a1&4) != 0 {
 			return n, nil
 		}
-		var err error
 		argp, _, err = netCanReadConn(conn)
 		if err != nil {
 			return n, err

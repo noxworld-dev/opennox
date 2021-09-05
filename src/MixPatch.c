@@ -70,5 +70,9 @@ _DWORD*  sub_9805EB(_DWORD* a1) {
 }
 
 int mix_recvfrom(nox_socket_t s, char* buf, int len, struct nox_net_sockaddr* from) {
+	int result = nox_net_recvfrom(s, buf, len, from);
+	if (*(_WORD*)buf != 0xF13A) { // extension packet code
+		return result;
+	}
 	return MixRecvFromReplacer(s, buf, len, from);
 }

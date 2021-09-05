@@ -145,6 +145,26 @@ func (s *Socket) Bind(ip net.IP, port int) error {
 	return nil
 }
 
+func (s *Socket) ReadFrom(buf []byte) (int, net.Addr, error) {
+	if !s.udp || s.pc == nil {
+		err := errors.New("recv on TCP connection")
+		netLog.Printf("warning: %v", err)
+		s.setErrno(123456, err) // TODO
+		return 0, nil, err
+	}
+	n, src, err := s.pc.ReadFrom(buf)
+	if err != nil {
+		netLog.Println(err)
+		s.setErrno(123456, err) // TODO
+		return n, src, err
+	}
+	ip, port := getAddr(src)
+	if debugNet {
+		netLog.Printf("recv %s:%d -> %s [%d]\n%x", ip, port, s.pc.LocalAddr(), n, buf[:n])
+	}
+	return n, src, nil
+}
+
 func (s *Socket) Write(buf []byte) (int, error) {
 	if s.udp || s.c == nil {
 		err := errors.New("send on UDP connection")
@@ -262,7 +282,7 @@ func setIPPort(dst *C.struct_nox_net_sockaddr_in, ip net.IP, port int) {
 	alloc.Memset(unsafe.Pointer(&dst.sin_zero[0]), 0, 8)
 }
 
-func setAddr(dst *C.struct_nox_net_sockaddr_in, addr net.Addr) (net.IP, int) {
+func getAddr(addr net.Addr) (net.IP, int) {
 	var (
 		ip   net.IP
 		port int
@@ -276,6 +296,11 @@ func setAddr(dst *C.struct_nox_net_sockaddr_in, addr net.Addr) (net.IP, int) {
 	default:
 		log.Printf("unsupported address type: %T", a)
 	}
+	return ip, port
+}
+
+func setAddr(dst *C.struct_nox_net_sockaddr_in, addr net.Addr) (net.IP, int) {
+	ip, port := getAddr(addr)
 	setIPPort(dst, ip, port)
 	return ip, port
 }

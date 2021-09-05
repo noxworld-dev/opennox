@@ -952,10 +952,6 @@ int MixRecvFromReplacer(nox_socket_t s, char* buf, int len, struct nox_net_socka
 	// int v45; // [esp+E0h] [ebp-4h]
 
 	to = from;
-	int result = nox_net_recvfrom(s, buf, len, from);
-	if (*(_WORD*)buf != 0xF13A) { // extension packet code
-		return result;
-	}
 	int op = *((unsigned __int16*)buf + 1);
 	switch (op) {
 	case 0: // warrior weapon scroll
