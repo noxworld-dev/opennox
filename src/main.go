@@ -360,7 +360,7 @@ func runNox(args []string) error {
 	}
 	g_argc2 = len(args)
 	g_argv2 = &CStringArray(args)[0]
-	runLoop()
+	cmainLoop()
 	return nil
 }
 

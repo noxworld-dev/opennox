@@ -2,7 +2,6 @@ package render
 
 import (
 	"image"
-	"sync"
 	"sync/atomic"
 
 	"nox/v1/client/seat"
@@ -17,7 +16,6 @@ var (
 func New(sc seat.Screen) (*Renderer, error) {
 	sz := sc.ScreenSize()
 	r := &Renderer{
-		updates:    make(chan update, 1),
 		sc:         sc,
 		fullscreen: -4, // unset
 	}
@@ -32,7 +30,6 @@ func New(sc seat.Screen) (*Renderer, error) {
 
 type Renderer struct {
 	ticks      uint32 // atomic
-	updates    chan update
 	sc         seat.Screen
 	backbuf    seat.Surface
 	view       image.Rectangle
@@ -42,9 +39,8 @@ type Renderer struct {
 	rotate     bool
 	rotated    bool
 	onResize   []func(view image.Rectangle)
-
-	bufMu sync.Mutex
-	buf   []byte
+	buf        []byte
+	prev       []byte
 }
 
 // Ticks returns the number of present ticks since the last Reset or Init.
@@ -86,65 +82,26 @@ func (r *Renderer) present(sz types.Size, src []byte) {
 			fnc(view)
 		}
 	}
-	upd := update{view: view, size: sz}
 	if src != nil {
-		r.bufMu.Lock()
-		defer r.bufMu.Unlock()
 		if len(r.buf) != len(src) {
 			r.buf = make([]byte, len(src))
 		}
 		copy(r.buf, src)
-		upd.copy = true
-	}
-	r.triggerUpdate(upd)
-}
-
-type update struct {
-	view image.Rectangle
-	size types.Size
-	copy bool
-}
-
-func (r *Renderer) triggerUpdate(u update) {
-	for {
-		select {
-		case r.updates <- u:
-			return
-		case <-r.updates:
-			// continue
-		}
-	}
-}
-
-func (r *Renderer) Loop() {
-	var (
-		prev []byte
-		bsz  = r.backbuf.Size()
-	)
-	for u := range r.updates {
-		func() {
-			if u.copy {
-				if u.size != bsz {
-					old := r.backbuf.Size()
-					Log.Printf("recreating surface: %dx%d -> %dx%d", old.W, old.H, u.size.W, u.size.H)
-					if r.backbuf != nil {
-						r.backbuf.Destroy()
-						r.backbuf = nil
-					}
-					r.backbuf = r.sc.NewSurface(u.size)
-					bsz = u.size
-				}
-				r.bufMu.Lock()
-				prev, r.buf = r.buf, prev
-				r.bufMu.Unlock()
-				r.backbuf.Update(prev)
+		if bsz := r.backbuf.Size(); sz != bsz {
+			Log.Printf("recreating surface: %dx%d -> %dx%d", bsz.W, bsz.H, sz.W, sz.H)
+			if r.backbuf != nil {
+				r.backbuf.Destroy()
+				r.backbuf = nil
 			}
-			r.sc.Clear()
-			r.backbuf.Draw(u.view)
-			r.sc.Present()
-			atomic.AddUint32(&r.ticks, 1)
-		}()
+			r.backbuf = r.sc.NewSurface(sz)
+		}
+		r.prev, r.buf = r.buf, r.prev
+		r.backbuf.Update(r.prev)
 	}
+	r.sc.Clear()
+	r.backbuf.Draw(view)
+	r.sc.Present()
+	atomic.AddUint32(&r.ticks, 1)
 }
 
 func (r *Renderer) SetStretch(stretch bool) {
