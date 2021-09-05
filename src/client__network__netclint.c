@@ -5,7 +5,7 @@
 #include "client__gui__guimsg.h"
 
 //----- (0043D0A0) --------------------------------------------------------
-void  sub_43D0A0(int a1) {
+void  nox_client_showConnError_43D0A0(int a1) {
 	wchar_t* v1; // esi
 	wchar_t* v2; // eax
 

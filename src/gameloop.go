@@ -468,12 +468,7 @@ func CONNECT_OR_HOST() {
 		port := clientGetServerPort()
 		if err := CONNECT_SERVER(host, port, Datas[:153]); err != nil {
 			log.Println(err)
-			if debugMainloop {
-				log.Println("goto CONNECT_RESULT")
-			}
-			mainloopEnter = func() {
-				CONNECT_RESULT_FAIL(err.Code)
-			}
+			CONNECT_RESULT_FAIL(err)
 			return
 		}
 	}
@@ -718,9 +713,9 @@ func CONNECT_SERVER(host string, port int, data []byte) *connectFailErr {
 	return nil
 }
 
-func CONNECT_RESULT_FAIL(result int) {
+func CONNECT_RESULT_FAIL(err *connectFailErr) {
 	if debugMainloop {
-		log.Printf("CONNECT_RESULT_FAIL %d (%s)\n", result, caller(1))
+		log.Printf("CONNECT_RESULT_FAIL %d (%s)\n", err.Code, caller(1))
 		defer func() {
 			log.Printf("CONNECT_RESULT_FAIL exit (%s -> %s)\n", caller(1), caller(2))
 		}()
@@ -737,9 +732,45 @@ func CONNECT_RESULT_FAIL(result int) {
 	if getEngineFlag(NOX_ENGINE_FLAG_GAMELOOP_MEMDUMP) {
 		C.nox_xxx_gameLoopMemDump_413E30()
 	}
-	C.sub_43D0A0(C.int(result))
+	nox_client_showConnError_43D0A0(err)
 	cmainLoop()
 	return
+}
+
+func nox_client_showConnError_43D0A0(err *connectFailErr) {
+	const strfile = "netclint.c"
+	title := strMan.GetStringInFile("ConnectionError", strfile)
+	var desc string
+	switch err.Code + 23 {
+	case 0:
+		desc = strMan.GetStringInFile("ConnectAckTimeout", strfile)
+	case 1:
+		desc = strMan.GetStringInFile("SocketCreate", strfile)
+	case 2:
+		desc = strMan.GetStringInFile("WinsockInit", strfile)
+	case 3:
+		desc = strMan.GetStringInFile("VersionConflict", strfile)
+	case 4:
+		desc = strMan.GetStringInFile("Timeout", strfile)
+	case 5:
+		desc = strMan.GetStringInFile("JoinConnTooManyUsers", strfile)
+	case 8:
+		desc = strMan.GetStringInFile("InvalidPort", strfile)
+	case 10:
+		desc = strMan.GetStringInFile("JoinConnUserNotAllowed", strfile)
+	case 11:
+		desc = strMan.GetStringInFile("JoinConnUserBanned", strfile)
+	case 17:
+		desc = strMan.GetStringInFile("JoinConnRefused", strfile)
+	case 19:
+		desc = strMan.GetStringInFile("InvalidAddress", strfile)
+	case 20:
+		desc = strMan.GetStringInFile("InvalidHandle", strfile)
+	default:
+		desc = strMan.GetStringInFile("UnknownConnError", strfile)
+	}
+	NewDialogWindow(nil, title, desc, 33, nil, nil)
+	C.sub_44A360(1)
 }
 
 func CONNECT_RESULT_OK() {

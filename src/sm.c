@@ -424,7 +424,7 @@ void CONNECT_RESULT(sm_args_t* args) {
 		if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_GAMELOOP_MEMDUMP)) {
 			nox_xxx_gameLoopMemDump_413E30();
 		}
-		sub_43D0A0(result);
+		nox_client_showConnError_43D0A0(result);
 		cmain_loop(0);
 		return;
 	}
