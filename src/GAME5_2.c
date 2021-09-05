@@ -34,7 +34,6 @@
 
 extern _DWORD dword_5d4594_2496988;
 extern _DWORD dword_5d4594_2516352;
-extern _DWORD dword_5d4594_3843632;
 extern _DWORD dword_5d4594_2523888;
 extern _DWORD dword_5d4594_2496472;
 extern _DWORD dword_5d4594_2523904;
@@ -81,12 +80,21 @@ int (*nox_client_onLobbyServer_2513928)(const char*, uint16_t, const char*, cons
 nox_net_struct_t* nox_net_struct_arr[NOX_NET_STRUCT_MAX] = {0};
 nox_net_struct2_t nox_net_struct2_arr[NOX_NET_STRUCT_MAX] = {0};
 void* dword_5d4594_2523912 = 0;
+_DWORD dword_5d4594_3843632 = 0;
 
 #ifndef NOX_CGO
 _DWORD dword_5d4594_2513916 = 0;
 _DWORD dword_5d4594_2513924 = 0;
 nox_socket_t nox_xxx_sockLocalBroadcast_2513920 = 0;
 #endif // NOX_CGO
+
+nox_net_struct_t* nox_xxx_makeNewNetStruct_553000(nox_net_struct_arg_t* arg);
+void  nox_xxx_netStructFree_5531C0(nox_net_struct_t* ns);
+
+//----- (00553D60) --------------------------------------------------------
+int nox_xxx_netHandlerDefXxx_553D60(unsigned int a1, char* a2, int a3, void* a4) { return 0; }
+//----- (00553D70) --------------------------------------------------------
+int nox_xxx_netHandlerDefYyy_553D70(unsigned int a1, char* a2, int a3, void* a4) { return 0; }
 
 //----- (005528B0) --------------------------------------------------------
 int  nox_xxx_netSendReadPacket_5528B0(unsigned int a1, char a2) {
@@ -400,10 +408,7 @@ unsigned int sub_552FD0(int a1) {
 	return argp;
 }
 
-//----- (00553D60) --------------------------------------------------------
-int nox_xxx_netHandlerDefXxx_553D60(unsigned int a1, char* a2, int a3, void* a4) { return 0; }
-//----- (00553D70) --------------------------------------------------------
-int nox_xxx_netHandlerDefYyy_553D70(unsigned int a1, char* a2, int a3, void* a4) { return 0; }
+#ifndef NOX_CGO
 //----- (00553000) --------------------------------------------------------
 nox_net_struct_t* nox_xxx_makeNewNetStruct_553000(nox_net_struct_arg_t* arg) {
 	nox_net_struct_t* net = malloc(sizeof(nox_net_struct_t));
@@ -490,6 +495,7 @@ void  nox_xxx_netStructFree_5531C0(nox_net_struct_t* ns) {
 	CloseHandle(ns->mutex_xxx);
 	free(ns);
 }
+#endif // NOX_CGO
 
 //----- (00553210) --------------------------------------------------------
 int  nox_xxx_netBigSwitch_553210(unsigned int id, unsigned char* packet, int packetSz, int a4) {
@@ -1273,6 +1279,7 @@ int  sub_554240(int a1) {
 	return result;
 }
 
+#ifndef NOX_CGO
 //----- (00554380) --------------------------------------------------------
 int nox_xxx_netInit_554380(nox_net_struct_arg_t* narg) {
 	int v2;                 // ebx
@@ -1431,6 +1438,7 @@ int nox_xxx_netPreStructToFull_5546F0(nox_net_struct_arg_t* narg) {
 	nox_net_struct_arr[ind] = ns;
 	return ind;
 }
+#endif // NOX_CGO
 
 //----- (00554760) --------------------------------------------------------
 int  sub_554760(int a1, char* cp, int hostshort, int a4, int a5) {

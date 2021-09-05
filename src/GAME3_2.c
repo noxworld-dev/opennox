@@ -9372,20 +9372,16 @@ char*  nox_xxx_playerCallDisconnect_4DEAB0(int a1, char a2) {
 	if (result) {
 		nox_xxx_playerDisconnFinish_4DE530((unsigned __int8)result[2064], a2);
 		nox_xxx_playerForceDisconnect_4DE7C0((unsigned __int8)v3[2064]);
-		result = (char*)sub_4DEC50((unsigned __int8)v3[2064]);
+		result = (char*)nox_xxx_netStructReadPackets2_4DEC50((unsigned __int8)v3[2064]);
 	}
 	return result;
 }
-#endif // NOX_CGO
 
 //----- (004DEB00) --------------------------------------------------------
-char*  nox_xxx_playerDisconnByPlrID_4DEB00(int a1) {
-	char* result; // eax
-
-	result = nox_common_playerInfoFromNum_417090(a1);
+void nox_xxx_playerDisconnByPlrID_4DEB00(int a1) {
+	char* result = nox_common_playerInfoFromNum_417090(a1);
 	if (result)
-		result = nox_xxx_playerCallDisconnect_4DEAB0((unsigned __int8)result[2064], 4);
-	return result;
+		nox_xxx_playerCallDisconnect_4DEAB0((unsigned __int8)result[2064], 4);
 }
 
 //----- (004DEBC0) --------------------------------------------------------
@@ -9414,10 +9410,9 @@ int  nox_xxx_netlist_ServRecv_4DEC30(int a1, unsigned __int8* a2, signed int a3,
 }
 
 //----- (004DEC50) --------------------------------------------------------
-int  sub_4DEC50(int a1) { return nox_xxx_netStructReadPackets_5545B0(a1 + 1); }
+int  nox_xxx_netStructReadPackets2_4DEC50(int a1) { return nox_xxx_netStructReadPackets_5545B0(a1 + 1); }
 
 //----- (004DEC60) --------------------------------------------------------
-#ifndef NOX_CGO
 void nox_server_netCloseHandler_4DEC60(unsigned int a1) {
 	nox_xxx_netStructReadPackets_5545B0(a1);
 	nox_server_netClose_5546A0(a1);

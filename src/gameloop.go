@@ -501,22 +501,25 @@ func (e *connectFailErr) Unwrap() error {
 	return e.Err
 }
 
-func CONNECT_SERVER(host string, port int, data []byte) *connectFailErr {
+func CONNECT_SERVER(host string, port int, data []byte) error {
 	if debugMainloop {
 		log.Println("CONNECT_SERVER", host, port, len(data))
 		defer func() {
 			log.Printf("CONNECT_SERVER exit (%s -> %s)\n", caller(1), caller(2))
 		}()
 	}
-	narg := (*C.nox_net_struct_arg_t)(alloc.Calloc(1, unsafe.Sizeof(C.nox_net_struct_arg_t{})))
-	defer alloc.Free(unsafe.Pointer(narg))
+	narg := &netStructOpt{
+		datasize: 2048,
+		port:     port,
+		funcyyy:  C.nox_xxx_netHandleCliPacket_43C860,
+	}
 	C.dword_5d4594_815704 = 0
 	C.dword_5d4594_815708 = 0
-	narg.data_size = 2048
-	narg.port = C.int(port)
 	C.nox_xxx_allocNetGQueue_5520B0(200, 1024)
-	narg.func_yyy = (*[0]byte)(unsafe.Pointer(C.nox_xxx_netHandleCliPacket_43C860)) // TODO
-	ind := int(C.nox_xxx_netPreStructToFull_5546F0(narg))
+	ind, err := nox_xxx_netPreStructToFull(narg)
+	if err != nil {
+		return newConnectFailErr(0, err)
+	}
 	*memmap.PtrUint32(0x5D4594, 815700) = uint32(ind)
 
 	if debugMainloop {
@@ -549,7 +552,6 @@ func CONNECT_SERVER(host string, port int, data []byte) *connectFailErr {
 	}
 	sock := newSocketUDP()
 	if sock == nil {
-		nox_net_stop()
 		if debugMainloop {
 			log.Println("NET_CONNECT_THEN_FAIL", -22)
 		}
@@ -561,7 +563,6 @@ func CONNECT_SERVER(host string, port int, data []byte) *connectFailErr {
 		list, err := net.LookupIP(host)
 		if err != nil || len(list) == 0 {
 			log.Printf("error: cannot find ip for a host %q: %v", host, err)
-			nox_net_stop()
 
 			if debugMainloop {
 				log.Println("NET_CONNECT_THEN_FAIL", -4)
@@ -580,8 +581,6 @@ func CONNECT_SERVER(host string, port int, data []byte) *connectFailErr {
 		if err == nil {
 			break
 		} else if !ErrIsInUse(err) {
-			nox_net_stop()
-
 			if debugMainloop {
 				log.Println("NET_CONNECT_THEN_FAIL", -1)
 			}
@@ -590,9 +589,11 @@ func CONNECT_SERVER(host string, port int, data []byte) *connectFailErr {
 		cport++
 	}
 	C.dword_5d4594_3844304 = 0
-	v12 := 0
-	// TODO: passing Go pointer
-	v11 := int8(C.nox_xxx_netSendSock_552640(C.uint(ind), (*C.char)(unsafe.Pointer(&v12)), 1, C.NOX_NET_SEND_NO_LOCK|C.NOX_NET_SEND_FLAG2))
+	var v12 [1]byte
+	v11, err := nox_xxx_netSendSock_552640(ind, v12[:], NOX_NET_SEND_NO_LOCK|NOX_NET_SEND_FLAG2)
+	if err != nil {
+		return fmt.Errorf("cannot send data: %w", err)
+	}
 
 	if debugMainloop {
 		log.Println("start NET_CONNECT_WAIT_LOOP")
@@ -621,7 +622,7 @@ func CONNECT_SERVER(host string, port int, data []byte) *connectFailErr {
 		}
 		C.nox_xxx_servNetInitialPackets_552A80(C.uint(id), C.char(flags|1))
 		C.nox_xxx_netMaybeSendAll_552460()
-		f28 := int8(ns.field_28_1)
+		f28 := int(int8(ns.field_28_1))
 		if debugMainloop {
 			log.Printf("NET_CONNECT_WAIT_LOOP: state %d\n", f28)
 		}
@@ -651,7 +652,7 @@ func CONNECT_SERVER(host string, port int, data []byte) *connectFailErr {
 		if len(data) > 0 {
 			copy(vs[3:], data[:153])
 		}
-		C.nox_xxx_netSendSock_552640(C.uint(id), (*C.char)(unsafe.Pointer(&vs[0])), C.int(len(vs)), C.NOX_NET_SEND_NO_LOCK|C.NOX_NET_SEND_FLAG2)
+		nox_xxx_netSendSock_552640(id, vs, NOX_NET_SEND_NO_LOCK|NOX_NET_SEND_FLAG2)
 	}
 
 	if ns.ID() < 0 {
@@ -713,9 +714,13 @@ func CONNECT_SERVER(host string, port int, data []byte) *connectFailErr {
 	return nil
 }
 
-func CONNECT_RESULT_FAIL(err *connectFailErr) {
+func CONNECT_RESULT_FAIL(err error) {
+	errcode := 0
+	if e, ok := err.(*connectFailErr); ok {
+		errcode = e.Code
+	}
 	if debugMainloop {
-		log.Printf("CONNECT_RESULT_FAIL %d (%s)\n", err.Code, caller(1))
+		log.Printf("CONNECT_RESULT_FAIL %d (%s)\n", errcode, caller(1))
 		defer func() {
 			log.Printf("CONNECT_RESULT_FAIL exit (%s -> %s)\n", caller(1), caller(2))
 		}()
@@ -732,16 +737,16 @@ func CONNECT_RESULT_FAIL(err *connectFailErr) {
 	if getEngineFlag(NOX_ENGINE_FLAG_GAMELOOP_MEMDUMP) {
 		C.nox_xxx_gameLoopMemDump_413E30()
 	}
-	nox_client_showConnError_43D0A0(err)
+	nox_client_showConnError_43D0A0(errcode)
 	cmainLoop()
 	return
 }
 
-func nox_client_showConnError_43D0A0(err *connectFailErr) {
+func nox_client_showConnError_43D0A0(errcode int) {
 	const strfile = "netclint.c"
 	title := strMan.GetStringInFile("ConnectionError", strfile)
 	var desc string
-	switch err.Code + 23 {
+	switch errcode + 23 {
 	case 0:
 		desc = strMan.GetStringInFile("ConnectAckTimeout", strfile)
 	case 1:

@@ -121,27 +121,41 @@ func (s *Socket) CanRead() (int, error) {
 }
 
 func ErrIsInUse(err error) bool {
-	return false // TODO
+	return errors.Is(err, syscall.EADDRINUSE)
 }
+
+var bindsCnt = 0
 
 func (s *Socket) Bind(ip net.IP, port int) error {
 	if s.udp {
-		netLog.Printf("bind udp %s:%d", ip, port)
 		l, err := net.ListenUDP("udp4", &net.UDPAddr{IP: ip, Port: port})
-		if err != nil {
+		netLog.Printf("bind udp %s:%d: %v (%s)", ip, port, err, caller(1))
+		if ErrIsInUse(err) {
+			s.setErrno(NOX_NET_EADDRINUSE, err)
+			return err
+		} else if err != nil {
 			s.setErrno(123456, err) // TODO
 			return err
 		}
 		s.pc = l
+		s.setErrno(0, nil)
+		bindsCnt++
+		if bindsCnt > 5 {
+			panic("TOO MANY BINDS")
+		}
 		return nil
 	}
 	netLog.Printf("bind tcp %s:%d", ip, port)
 	l, err := net.ListenTCP("tcp4", &net.TCPAddr{IP: ip, Port: port})
-	if err != nil {
+	if ErrIsInUse(err) {
+		s.setErrno(NOX_NET_EADDRINUSE, err)
+		return err
+	} else if err != nil {
 		s.setErrno(123456, err) // TODO
 		return err
 	}
 	s.l = l
+	s.setErrno(0, nil)
 	return nil
 }
 
@@ -163,6 +177,13 @@ func (s *Socket) ReadFrom(buf []byte) (int, net.Addr, error) {
 		netLog.Printf("recv %s:%d -> %s [%d]\n%x", ip, port, s.pc.LocalAddr(), n, buf[:n])
 	}
 	return n, src, nil
+}
+
+func (s *Socket) SendTo(buf []byte, ip net.IP, port int) (int, error) {
+	if ip == nil {
+		return s.Write(buf)
+	}
+	return s.WriteTo(buf, &net.UDPAddr{IP: ip, Port: port})
 }
 
 func (s *Socket) Write(buf []byte) (int, error) {
@@ -232,6 +253,9 @@ func init() {
 type nox_socket_t = C.nox_socket_t
 
 func newSocketHandle(s *Socket) C.nox_socket_t {
+	if s == nil {
+		return 0
+	}
 	h := handles.New()
 	sockets.Lock()
 	sockets.byHandle[h] = s

@@ -28,6 +28,13 @@ import (
 
 const NOX_PLAYERINFO_MAX = C.NOX_PLAYERINFO_MAX
 
+//export nox_xxx_playerDisconnByPlrID_4DEB00
+func nox_xxx_playerDisconnByPlrID_4DEB00(id C.int) {
+	if p := getPlayerByInd(int(id)); p != nil {
+		p.Disconnect(4)
+	}
+}
+
 //export nox_xxx_playerCallDisconnect_4DEAB0
 func nox_xxx_playerCallDisconnect_4DEAB0(ind C.int, v C.char) *C.char {
 	getPlayerByInd(int(ind)).Disconnect(int(v))
@@ -201,7 +208,7 @@ func (p *Player) Disconnect(v int) {
 	}
 	C.nox_xxx_playerDisconnFinish_4DE530(C.int(p.Index()), C.char(v))
 	C.nox_xxx_playerForceDisconnect_4DE7C0(C.int(p.Index()))
-	C.sub_4DEC50(C.int(p.Index()))
+	nox_xxx_netStructReadPackets2_4DEC50(p.Index())
 }
 
 func (p *Player) GoObserver(notify, keepPlayer bool) bool {
@@ -240,7 +247,7 @@ func getPlayerUnits() (out []*Unit) {
 	return out
 }
 
-func getPlayerByInd(i int) *Player {
+func getPlayerByInd(i int) *Player { // nox_common_playerInfoFromNum_417090
 	if i < 0 || i >= NOX_PLAYERINFO_MAX {
 		return nil
 	}

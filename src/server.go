@@ -73,7 +73,6 @@ import (
 
 var (
 	noxServerPort int = common.GamePort
-	noxHTTPPort   int = common.GameHTTPPort
 )
 
 //export nox_xxx_servGetPort_40A430
@@ -95,8 +94,6 @@ func setServerPort(port int) {
 		port = common.GamePort
 	}
 	noxServerPort = port
-	// TODO: decouple those once we implement our own server lobby
-	setHTTPPort(inferHTTPPort(port))
 }
 
 func getServerPort() int {
@@ -104,20 +101,6 @@ func getServerPort() int {
 		return common.GamePort
 	}
 	return noxServerPort
-}
-
-func setHTTPPort(port int) {
-	if port <= 0 {
-		port = common.GameHTTPPort
-	}
-	noxHTTPPort = port
-}
-
-func getHTTPPort() int {
-	if noxHTTPPort <= 0 {
-		return common.GameHTTPPort
-	}
-	return noxHTTPPort
 }
 
 func gameFPS() uint32 {
@@ -289,7 +272,7 @@ func updateRemotePlayers() {
 			C.nox_xxx_netInformTextMsg2_4DA180(3, (*C.uchar)(unsafe.Pointer(&m)))
 			var buf [1]byte
 			buf[0] = 198
-			C.nox_xxx_netSendSock_552640(C.uint(pl.Index()+1), (*C.char)(unsafe.Pointer(&buf[0])), C.int(len(buf)), C.NOX_NET_SEND_NO_LOCK|C.NOX_NET_SEND_FLAG2)
+			nox_xxx_netSendSock_552640(pl.Index()+1, buf[:], NOX_NET_SEND_NO_LOCK|NOX_NET_SEND_FLAG2)
 			pl.Disconnect(3)
 		}
 		if pl.field_3680&0x80 != 0 {
@@ -312,6 +295,7 @@ func updateRemotePlayers() {
 }
 
 func nox_xxx_servNewSession_4D1660() error {
+	gameLog.Println("nox_xxx_servNewSession_4D1660")
 	C.sub_4D15C0()
 	C.dword_5d4594_2649712 = 0x80000000
 	C.nox_xxx_host_player_unit_3843628 = nil
@@ -379,8 +363,12 @@ func nox_xxx_servNewSession_4D1660() error {
 	}
 	C.sub_416920()
 	if !noxflags.HasGame(noxflags.GameModeSolo12) {
-		v1 := getServerPort()
-		*memmap.PtrInt32(0x5D4594, 1548516) = int32(C.nox_xxx_netAddPlayerHandler_4DEBC0(C.int(v1)))
+		ind, nport, err := nox_xxx_netAddPlayerHandler_4DEBC0(getServerPort())
+		*memmap.PtrInt32(0x5D4594, 1548516) = int32(ind)
+		if err != nil {
+			return err
+		}
+		setServerPort(nport)
 		if !noxflags.HasGame(noxflags.GameFlag26) {
 			C.nox_xxx_networkLog_init_413CC0()
 		}
@@ -392,18 +380,20 @@ func nox_xxx_servNewSession_4D1660() error {
 	C.sub_421B10()
 	C.sub_4DB0A0()
 	C.sub_4D0F30()
-	if err := gameStartHTTP(getHTTPPort()); err != nil {
+	srvPort := getServerPort()
+	httpPort := inferHTTPPort(srvPort)
+	if err := gameStartHTTP(httpPort); err != nil {
 		return err
 	}
-	if err := gameStartNAT(getServerPort(), getHTTPPort()); err != nil {
+	if err := gameStartNAT(srvPort, httpPort); err != nil {
 		return err
 	}
 	return nil
 }
 
-func nox_server_netCloseHandler_4DEC60(a1 uint32) {
-	C.nox_xxx_netStructReadPackets_5545B0(C.uint(a1))
-	C.nox_server_netClose_5546A0(C.uint(a1))
+func nox_server_netCloseHandler_4DEC60(ind int) {
+	nox_xxx_netStructReadPackets(ind)
+	nox_server_netClose_5546A0(ind)
 	C.nox_xxx_host_player_unit_3843628 = nil
 	sub_43DE40(nil)
 	gameStopNAT()
@@ -439,7 +429,7 @@ func nox_xxx_servEndSession_4D3200() {
 	C.nox_xxx_freeGameObjectClass_4E3420()
 	C.nox_xxx_freeObjectTypes_4E2A20()
 	if !noxflags.HasGame(noxflags.GameModeSolo12) {
-		nox_server_netCloseHandler_4DEC60(*memmap.PtrUint32(0x5D4594, 1548516))
+		nox_server_netCloseHandler_4DEC60(int(memmap.Uint32(0x5D4594, 1548516)))
 		if !noxflags.HasGame(noxflags.GameFlag26) {
 			C.nox_xxx_networkLog_close_413D00()
 		}
