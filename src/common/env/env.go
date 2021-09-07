@@ -1,7 +1,22 @@
 package env
 
-import "os"
+import (
+	"os"
+	"sync"
+)
 
 func IsDevMode() bool {
 	return os.Getenv("NOX_DEV") == "true"
+}
+
+var (
+	e2eOnce sync.Once
+	isE2E   bool
+)
+
+func IsE2E() bool {
+	e2eOnce.Do(func() {
+		isE2E = os.Getenv("NOX_E2E") != ""
+	})
+	return isE2E
 }

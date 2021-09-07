@@ -673,14 +673,14 @@ func nox_xxx_drawAllMB_475810_draw(vp *Viewport) {
 	v7 := vp.field_5 / 23
 	C.dword_5d4594_1096516 = 0
 	C.nox_xxx_drawBlack_496150(vp.C())
-	v8 := false
+	disableDraw := false
 	if !noxflags.HasGame(2048) && (C.nox_xxx_testCD_413830() == 0) ||
 		noxflags.HasGame(2048) && (C.nox_xxx_testCDAndSolo_413840() == 0) ||
 		asDrawable((*C.nox_drawable)(*memmap.PtrPtr(0x852978, 8))).CheckFlag31(2) ||
 		C.nox_gameDisableMapDraw_5d4594_2650672 != 0 {
-		v8 = true
+		disableDraw = true
 	}
-	if C.nox_client_gui_flag_1556112 != 0 || v8 {
+	if C.nox_client_gui_flag_1556112 != 0 || disableDraw {
 		noxrend.SelectColor(memmap.Uint32(0x85B3FC, 952))
 		sub_440900()
 		C.sub_437290()
@@ -715,7 +715,7 @@ func nox_xxx_drawAllMB_475810_draw(vp *Viewport) {
 	C.sub_4AFD40()
 	C.sub_4C5060(vp.C())
 	nox_xxx_drawAllMB_475810_draw_F(vp)
-	C.sub_44D9F0(0)
+	C.nox_client_procFade_44D9F0(0)
 	if getEngineFlag(NOX_ENGINE_FLAG_ENABLE_SHOW_AI) {
 		C.sub_476270(vp.C())
 	}

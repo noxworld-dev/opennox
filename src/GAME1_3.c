@@ -3917,7 +3917,7 @@ int  nox_client_drawInitAll_4449D0(int w, int h, int depth, int flags) {
 	if (!result)
 		return result;
 
-	result = sub_44D9A0();
+	result = nox_client_initFade2_44D9A0();
 	printf("%s: %d\n", __FUNCTION__, result);
 	if (!result)
 		return result;

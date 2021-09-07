@@ -303,8 +303,8 @@ func drawInitAll(sz types.Size, flags int) error {
 	if err := nox_video_setBackBufferCopyFunc_4AD100(); err != nil {
 		return err
 	}
-	if res := C.sub_44D9A0(); res == 0 {
-		return errors.New("sub_44D9A0 failed")
+	if res := C.nox_client_initFade2_44D9A0(); res == 0 {
+		return errors.New("nox_client_initFade2_44D9A0 failed")
 	}
 	if res := C.sub_4B0650(); res == 0 {
 		return errors.New("sub_4B0650 failed")
@@ -1108,7 +1108,7 @@ func sub_444C50() {
 		nox_video_stopCursorDrawThread_48B350()
 		nox_free_pixbuffers_486110()
 		C.sub_433C20()
-		C.sub_44D9D0()
+		C.nox_client_initFade_44D9D0()
 		C.sub_4B0660()
 		C.sub_4AF950()
 		sub_4AE540()

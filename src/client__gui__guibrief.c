@@ -23,7 +23,7 @@ extern _DWORD dword_5d4594_832504;
 extern _DWORD dword_5d4594_832492;
 extern _DWORD dword_5d4594_832532;
 extern _DWORD dword_5d4594_832536;
-extern _DWORD dword_5d4594_831232;
+extern _DWORD nox_wnd_briefing_831232;
 extern _DWORD dword_5d4594_832476;
 extern _DWORD dword_5d4594_832484;
 extern int nox_win_width;
@@ -658,7 +658,7 @@ int  nox_xxx_clientQuestWinScreen_450770(int a1) {
 	} while ((int)v2 < (int)getMemAt(0x5D4594, 832464));
 	qsort(getMemAt(0x5D4594, 832364), v1, 0x10u, sub_450960);
 	if (!dword_5d4594_832476) {
-		v4 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_831232, 1010);
+		v4 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&nox_wnd_briefing_831232, 1010);
 		v5 = nox_strman_loadString_40F1D0("GUIBrief.c:GeneratorsDestroyed", 0, "C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c", 1656);
 		nox_xxx_drawGetStringSize_43F840(v4[59], v5, &a1, 0, 0);
 		if (a1 > *(int*)&dword_5d4594_832476)

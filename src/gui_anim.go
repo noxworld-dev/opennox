@@ -21,7 +21,7 @@ import (
 var guiAnimSpeed = 1
 
 func init() {
-	if env.IsDevMode() {
+	if env.IsDevMode() || env.IsE2E() {
 		guiAnimSpeed = 5
 	}
 }

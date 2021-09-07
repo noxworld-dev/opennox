@@ -75,6 +75,9 @@ extern unsigned int nox_frame_xxx_2598000;
 
 #ifdef NOX_CGO
 void noxOnCliPacketDebug(int op, unsigned char* data, int sz);
+int nox_client_getFadeDuration();
+#else // NOX_CGO
+int nox_client_getFadeDuration() { return 25; }
 #endif // NOX_CGO
 
 //----- (0048EA70) --------------------------------------------------------
@@ -3231,10 +3234,10 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 						sub_42EE00();
 					#endif // NOX_CGO
 						sub_413A00(1);
-						nox_client_screenFadeXxx_44DB30(25, *(_BYTE*)(data + 2) == 1, sub_44E020);
+						nox_client_screenFadeXxx_44DB30(nox_client_getFadeDuration(), *(_BYTE*)(data + 2) == 1, sub_44E020);
 					}
 				} else if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
-					nox_client_screenFadeTimeout_44DAB0(25, *(_BYTE*)(data + 2) == 1, sub_44E000);
+					nox_client_screenFadeTimeout_44DAB0(nox_client_getFadeDuration(), *(_BYTE*)(data + 2) == 1, sub_44E000);
 				}
 			}
 			data += 3;

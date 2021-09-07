@@ -11,6 +11,7 @@ import (
 	"nox/v1/client/render"
 	"nox/v1/client/seat"
 	"nox/v1/client/seat/sdl"
+	"nox/v1/common/env"
 	"nox/v1/common/types"
 )
 
@@ -91,9 +92,13 @@ func setKeyFlag(key keybind.Key, val bool) {
 }
 
 func newSeat(sz types.Size) (seat.Seat, error) {
-	s, err := sdl.New("OpenNox "+ClientVersionString(), sz)
+	sst, err := sdl.New("OpenNox "+ClientVersionString(), sz)
 	if err != nil {
 		return nil, err
+	}
+	var s seat.Seat = sst
+	if env.IsE2E() {
+		s = e2eWrapSeat(s)
 	}
 	r, err := render.New(s)
 	if err != nil {

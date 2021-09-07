@@ -8448,7 +8448,7 @@ void nox_xxx_drawAllMB_475810_draw(nox_draw_viewport_t* vp) {
 	sub_4AFD40();
 	sub_4C5060(vp);
 	nox_xxx_drawAllMB_475810_draw_F(vp);
-	sub_44D9F0(0);
+	nox_client_procFade_44D9F0(0);
 	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_SHOW_AI))
 		sub_476270(vp);
 	sub_45AB40();

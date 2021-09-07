@@ -2,6 +2,7 @@ package main
 
 import (
 	"nox/v1/client/seat"
+	"nox/v1/common/env"
 	"nox/v1/common/log"
 	"nox/v1/common/types"
 )
@@ -52,6 +53,11 @@ func videoResizeView(mode types.Size) {
 }
 
 func videoApplyConfigVideoMode(mode types.Size) {
+	if env.IsE2E() {
+		videoSetGameMode(types.Size{W: 1024, H: 768})
+		changeWindowedOrFullscreen()
+		return
+	}
 	if !getEngineFlag(NOX_ENGINE_FLAG_ENABLE_WINDOWED_MODE) {
 		videoSetGameMode(mode)
 

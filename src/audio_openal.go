@@ -28,6 +28,7 @@ import (
 	"github.com/timshannon/go-openal/openal"
 
 	"nox/v1/common/alloc/handles"
+	"nox/v1/common/env"
 	"nox/v1/common/fs"
 	"nox/v1/common/log"
 )
@@ -605,6 +606,10 @@ func (s *audioStream) unqueueBuffers() {
 
 //export AIL_allocate_sample_handle
 func AIL_allocate_sample_handle(dig C.HDIGDRIVER) C.HSAMPLE {
+	if env.IsE2E() {
+		h := handles.NewPtr()
+		return C.HSAMPLE(h)
+	}
 	if audioDebug {
 		audioLog.Println("AIL_allocate_sample_handle")
 	}
@@ -759,6 +764,10 @@ func AIL_open_stream(dig C.HDIGDRIVER, name *C.char, mem C.int32_t) C.HSTREAM {
 	if audioDebug {
 		audioLog.Println("AIL_open_stream")
 	}
+	if env.IsE2E() {
+		h := handles.NewPtr()
+		return C.HSTREAM(h)
+	}
 	d := audioGetDriver(unsafe.Pointer(dig))
 
 	s, err := audioOpenStream(C.GoString(name))
@@ -789,6 +798,10 @@ func AIL_close_stream(h C.HSTREAM) {
 	if audioDebug {
 		audioLog.Println("AIL_close_stream")
 	}
+	if env.IsE2E() {
+		handles.AssertValidPtr(unsafe.Pointer(h))
+		return
+	}
 	s := audioGetStream(unsafe.Pointer(h))
 	s.d.mu.Lock()
 	s.playing = false
@@ -799,6 +812,10 @@ func AIL_close_stream(h C.HSTREAM) {
 func AIL_register_timer(f C.AILTIMERCB) C.HTIMER {
 	if audioDebug {
 		audioLog.Println("AIL_register_timer")
+	}
+	if env.IsE2E() {
+		h := handles.NewPtr()
+		return C.HTIMER(h)
 	}
 	h := handles.NewPtr()
 	t := &audioTimer{h: h, f: func(u uint32) {
@@ -850,6 +867,9 @@ func AIL_end_sample(h C.HSAMPLE) {
 	if audioDebug {
 		audioLog.Println("AIL_end_sample")
 	}
+	if env.IsE2E() {
+		return
+	}
 	s := audioGetSample(unsafe.Pointer(h))
 
 	s.d.mu.Lock()
@@ -872,6 +892,9 @@ func AIL_get_preference(s C.uint32_t) C.int32_t {
 func AIL_init_sample(h C.HSAMPLE) {
 	if audioDebug {
 		audioLog.Println("AIL_init_sample")
+	}
+	if env.IsE2E() {
+		return
 	}
 	s := audioGetSample(unsafe.Pointer(h))
 
@@ -905,6 +928,9 @@ func AIL_load_sample_buffer(h C.HSAMPLE, num C.uint32_t, buf unsafe.Pointer, sz 
 	if audioDebug {
 		audioLog.Printf("AIL_load_sample_buffer: [%d]", int(sz))
 	}
+	if env.IsE2E() {
+		return
+	}
 	s := audioGetSample(unsafe.Pointer(h))
 	s.bmu.Lock()
 	defer s.bmu.Unlock()
@@ -923,6 +949,9 @@ func AIL_pause_stream(h C.HSTREAM, pause C.int32_t) {
 	if audioDebug {
 		audioLog.Println("AIL_pause_stream")
 	}
+	if env.IsE2E() {
+		return
+	}
 	s := audioGetStream(unsafe.Pointer(h))
 	// TODO: mutex?
 	s.playing = pause == 0
@@ -932,6 +961,9 @@ func AIL_pause_stream(h C.HSTREAM, pause C.int32_t) {
 func AIL_register_EOB_callback(h C.HSAMPLE, f C.AILSAMPLECB) {
 	if audioDebug {
 		audioLog.Println("AIL_register_EOB_callback")
+	}
+	if env.IsE2E() {
+		return
 	}
 	s := audioGetSample(unsafe.Pointer(h))
 	s.eob = func() {
@@ -943,6 +975,9 @@ func AIL_register_EOB_callback(h C.HSAMPLE, f C.AILSAMPLECB) {
 func AIL_register_EOS_callback(h C.HSAMPLE, f C.AILSAMPLECB) {
 	if audioDebug {
 		audioLog.Println("AIL_register_EOS_callback")
+	}
+	if env.IsE2E() {
+		return
 	}
 	s := audioGetSample(unsafe.Pointer(h))
 	s.eos = func() {
@@ -962,6 +997,9 @@ func AIL_resume_sample(s C.HSAMPLE) {
 func AIL_sample_buffer_ready(h C.HSAMPLE) C.int32_t {
 	if audioDebug {
 		audioLog.Println("AIL_sample_buffer_ready")
+	}
+	if env.IsE2E() {
+		return -1
 	}
 	s := audioGetSample(unsafe.Pointer(h))
 	s.bmu.Lock()
@@ -984,6 +1022,9 @@ func AIL_sample_buffer_ready(h C.HSAMPLE) C.int32_t {
 func AIL_sample_user_data(h C.HSAMPLE, ind C.uint32_t) C.int32_t {
 	if audioDebug {
 		audioLog.Println("AIL_sample_user_data")
+	}
+	if env.IsE2E() {
+		return -1
 	}
 	s := audioGetSample(unsafe.Pointer(h))
 	return C.int32_t(s.user[ind])
@@ -1009,6 +1050,9 @@ func AIL_set_sample_adpcm_block_size(h C.HSAMPLE, block C.uint32_t) {
 	if audioDebug {
 		audioLog.Println("AIL_set_sample_adpcm_block_size")
 	}
+	if env.IsE2E() {
+		return
+	}
 	s := audioGetSample(unsafe.Pointer(h))
 	s.block_size = uint32(block)
 }
@@ -1017,6 +1061,9 @@ func AIL_set_sample_adpcm_block_size(h C.HSAMPLE, block C.uint32_t) {
 func AIL_set_sample_pan(h C.HSAMPLE, pan C.int32_t) {
 	if audioDebug {
 		audioLog.Println("AIL_set_sample_pan")
+	}
+	if env.IsE2E() {
+		return
 	}
 	s := audioGetSample(unsafe.Pointer(h))
 	pos := [3]float32{float32(pan-63) / 64.0, 0, 0}
@@ -1029,6 +1076,9 @@ func AIL_set_sample_playback_rate(h C.HSAMPLE, rate C.int32_t) {
 	if audioDebug {
 		audioLog.Println("AIL_set_sample_playback_rate")
 	}
+	if env.IsE2E() {
+		return
+	}
 	s := audioGetSample(unsafe.Pointer(h))
 	s.playback_rate = uint32(rate)
 }
@@ -1037,6 +1087,9 @@ func AIL_set_sample_playback_rate(h C.HSAMPLE, rate C.int32_t) {
 func AIL_set_sample_type(h C.HSAMPLE, format C.int32_t, flags C.uint32_t) {
 	if audioDebug {
 		audioLog.Println("AIL_set_sample_type")
+	}
+	if env.IsE2E() {
+		return
 	}
 	s := audioGetSample(unsafe.Pointer(h))
 	if flags != 0 {
@@ -1051,6 +1104,9 @@ func AIL_set_sample_user_data(h C.HSAMPLE, index C.uint32_t, value C.int32_t) {
 	if audioDebug {
 		audioLog.Println("AIL_set_sample_user_data")
 	}
+	if env.IsE2E() {
+		return
+	}
 	s := audioGetSample(unsafe.Pointer(h))
 	s.user[index] = int32(value)
 }
@@ -1060,6 +1116,9 @@ func AIL_set_sample_volume(h C.HSAMPLE, volume C.int32_t) {
 	if audioDebug {
 		audioLog.Println("AIL_set_sample_volume")
 	}
+	if env.IsE2E() {
+		return
+	}
 	s := audioGetSample(unsafe.Pointer(h))
 	s.source.Setf(openal.AlGain, float32(volume)/127.0)
 }
@@ -1068,6 +1127,9 @@ func AIL_set_sample_volume(h C.HSAMPLE, volume C.int32_t) {
 func AIL_set_stream_position(h C.HSTREAM, offset C.int32_t) {
 	if audioDebug {
 		audioLog.Println("AIL_set_stream_position")
+	}
+	if env.IsE2E() {
+		return
 	}
 	s := audioGetStream(unsafe.Pointer(h))
 	s.d.mu.Lock()
@@ -1084,6 +1146,9 @@ func AIL_set_stream_volume(h C.HSTREAM, volume C.int32_t) {
 	if audioDebug {
 		audioLog.Println("AIL_set_stream_volume", int(volume))
 	}
+	if env.IsE2E() {
+		return
+	}
 	s := audioGetStream(unsafe.Pointer(h))
 	s.source.Setf(openal.AlGain, float32(volume)/127.0)
 }
@@ -1092,6 +1157,9 @@ func AIL_set_stream_volume(h C.HSTREAM, volume C.int32_t) {
 func AIL_set_timer_frequency(h C.HTIMER, hertz C.uint32_t) {
 	if audioDebug {
 		audioLog.Println("AIL_set_timer_frequency")
+	}
+	if env.IsE2E() {
+		return
 	}
 	t := audioGetTimer(unsafe.Pointer(h))
 	t.dt = time.Duration(1000.0/float32(hertz)) * time.Millisecond
@@ -1102,6 +1170,9 @@ func AIL_start_stream(h C.HSTREAM) {
 	if audioDebug {
 		audioLog.Println("AIL_start_stream")
 	}
+	if env.IsE2E() {
+		return
+	}
 	s := audioGetStream(unsafe.Pointer(h))
 	s.playing = true
 }
@@ -1110,6 +1181,9 @@ func AIL_start_stream(h C.HSTREAM) {
 func AIL_start_timer(h C.HTIMER) {
 	if audioDebug {
 		audioLog.Println("AIL_start_timer")
+	}
+	if env.IsE2E() {
+		return
 	}
 	t := audioGetTimer(unsafe.Pointer(h))
 	dt := t.dt
@@ -1139,6 +1213,9 @@ func AIL_shutdown() {
 	if audioDebug {
 		audioLog.Println("AIL_shutdown")
 	}
+	if env.IsE2E() {
+		return
+	}
 	audioTimers.Lock()
 	for _, t := range audioTimers.byHandle {
 		if t.t != nil {
@@ -1160,6 +1237,9 @@ func AIL_stop_sample(h C.HSAMPLE) {
 	if audioDebug {
 		audioLog.Println("AIL_stop_sample")
 	}
+	if env.IsE2E() {
+		return
+	}
 	s := audioGetSample(unsafe.Pointer(h))
 	s.Stop() // TODO: anything else here?
 }
@@ -1168,6 +1248,9 @@ func AIL_stop_sample(h C.HSAMPLE) {
 func AIL_stop_timer(h C.HTIMER) {
 	if audioDebug {
 		audioLog.Println("AIL_stop_timer")
+	}
+	if env.IsE2E() {
+		return
 	}
 	t := audioGetTimer(unsafe.Pointer(h))
 	if t.t != nil {
@@ -1180,12 +1263,18 @@ func AIL_stream_position(h C.HSTREAM) C.int32_t {
 	if audioDebug {
 		audioLog.Println("AIL_stream_position")
 	}
+	if env.IsE2E() {
+		return -1
+	}
 	s := audioGetStream(unsafe.Pointer(h))
 	return C.int32_t(s.tell())
 }
 
 //export AIL_stream_status
 func AIL_stream_status(h C.HSTREAM) C.int32_t {
+	if env.IsE2E() {
+		return 2
+	}
 	s := audioGetStream(unsafe.Pointer(h))
 	if s.playing {
 		return 4
@@ -1197,6 +1286,9 @@ func AIL_stream_status(h C.HSTREAM) C.int32_t {
 func AIL_waveOutClose(h C.HDIGDRIVER) {
 	if audioDebug {
 		audioLog.Println("AIL_waveOutClose")
+	}
+	if env.IsE2E() {
+		return
 	}
 	d := audioGetDriver(unsafe.Pointer(h))
 	if d.t != nil {
@@ -1331,6 +1423,9 @@ func (d *audioDriver) doWork() {
 func AIL_waveOutOpen(pdrvr *C.HDIGDRIVER, lphWaveOut *C.LPHWAVEOUT, wDeviceID C.int32_t, lpFormat C.LPWAVEFORMAT) C.int32_t {
 	if audioDebug {
 		audioLog.Println("AIL_waveOutOpen")
+	}
+	if env.IsE2E() {
+		return 0
 	}
 	h := handles.NewPtr()
 

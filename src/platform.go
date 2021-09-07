@@ -7,6 +7,7 @@ import "C"
 import (
 	"time"
 
+	"nox/v1/common/env"
 	"nox/v1/common/platform"
 )
 
@@ -42,11 +43,18 @@ func nox_platform_get_ticks() C.uint {
 }
 
 func platformTicks() uint64 {
+	if env.IsE2E() {
+		return uint64(platform.Ticks())
+	}
 	return uint64(platform.Ticks() / time.Millisecond)
 }
 
 //export nox_platform_sleep
 func nox_platform_sleep(ms C.uint) {
+	if env.IsE2E() {
+		platform.Sleep(time.Duration(ms))
+		return
+	}
 	platform.Sleep(time.Duration(ms) * time.Millisecond)
 }
 

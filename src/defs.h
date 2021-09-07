@@ -390,10 +390,15 @@ typedef struct struc_35 {
 	int field_10;
 } struc_35;
 
+typedef struct struc_36 struc_36;
 typedef struct struc_36 {
-	_DWORD fields[5];
+	_DWORD field_0;
+	int field_1;
+	_DWORD field_2;
+	_DWORD field_3;
+	_DWORD field_4;
 	void (*field_5)(void);
-	_DWORD field_6;
+	void (*field_6)(struc_36*);
 } struc_36;
 _Static_assert(sizeof(struc_36) == 28, "wrong size of struc_36 structure!");
 

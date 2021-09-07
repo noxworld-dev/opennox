@@ -58,6 +58,7 @@ import (
 	"unsafe"
 
 	"nox/v1/common/alloc"
+	"nox/v1/common/env"
 	noxflags "nox/v1/common/flags"
 	"nox/v1/common/log"
 	"nox/v1/common/memmap"
@@ -77,6 +78,7 @@ var (
 	nox_draw_unk1           func() bool
 	func_5D4594_816392      func() bool
 	useFrameLimit           = true
+	mainloopHook            func()
 )
 
 func gameSetCliDrawFunc(fnc func() bool) {
@@ -85,6 +87,34 @@ func gameSetCliDrawFunc(fnc func() bool) {
 
 func gameSet816392Func(fnc func() bool) {
 	func_5D4594_816392 = fnc
+}
+
+//export nox_client_getIntroScreenDuration_44E3B0
+func nox_client_getIntroScreenDuration_44E3B0() C.int {
+	if env.IsE2E() {
+		return 10
+	}
+	return 25
+}
+
+//export nox_client_getFadeDuration
+func nox_client_getFadeDuration() C.int {
+	if env.IsE2E() {
+		return 10
+	} else if env.IsDevMode() {
+		return 5
+	}
+	return 25
+}
+
+//export nox_client_getBriefDuration
+func nox_client_getBriefDuration() C.int {
+	if env.IsE2E() {
+		return 10
+	} else if env.IsDevMode() {
+		return 3000
+	}
+	return 15000
 }
 
 //export nox_game_SetCliDrawFunc
@@ -169,6 +199,9 @@ func mainloop_43E290() {
 	mainloopEnter = nil
 mainloop:
 	for mainloopContinue {
+		if mainloopHook != nil {
+			mainloopHook()
+		}
 		if mainloopEnter != nil {
 			if debugMainloop {
 				log.Printf("mainloop continues (%s)\n", caller(1))
@@ -971,7 +1004,7 @@ func map_download_finish() C.int {
 	C.nox_xxx_gui_43E1A0(0)
 	if !getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) {
 		C.nox_gameDisableMapDraw_5d4594_2650672 = 1
-		C.sub_44DA60(1)
+		C.nox_client_fadeXxx_44DA60(1)
 	}
 	if fname := nox_server_currentMapGetFilename_409B30(); C.nox_xxx_mapCliReadAll_4AC2B0(internCStr(fname)) == nil {
 		v6 := strMan.GetStringInFile("MapLoadError", "C:\\NoxPost\\src\\Client\\System\\gameloop.c")
@@ -1057,7 +1090,7 @@ func nox_xxx_gameChangeMap_43DEB0() int {
 			}
 			if !getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) {
 				C.nox_gameDisableMapDraw_5d4594_2650672 = 1
-				C.sub_44DA60(1)
+				C.nox_client_fadeXxx_44DA60(1)
 			}
 		} else {
 			if !noxflags.HasGame(noxflags.GameHost) {
@@ -1077,7 +1110,7 @@ func nox_xxx_gameChangeMap_43DEB0() int {
 				}
 				if !getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) {
 					C.nox_gameDisableMapDraw_5d4594_2650672 = 1
-					C.sub_44DA60(1)
+					C.nox_client_fadeXxx_44DA60(1)
 				}
 			}
 		}

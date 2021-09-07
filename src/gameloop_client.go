@@ -166,7 +166,7 @@ func mainloopDrawAndPresent(inp *input.Handler) {
 	if !getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) || getEngineFlag(NOX_ENGINE_FLAG_9) || C.nox_client_gui_flag_815132 != 0 {
 		nox_client_drawCursorAndTooltips_477830(inp) // Draw cursor
 	}
-	C.sub_44D9F0(1)
+	C.nox_client_procFade_44D9F0(1)
 	maybeScreenshot()
 	if !getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) || getEngineFlag(NOX_ENGINE_FLAG_9) || C.nox_client_gui_flag_815132 != 0 {
 		// C.nox_xxx_directDrawBlitMB_48A220() // does nothing
@@ -174,26 +174,26 @@ func mainloopDrawAndPresent(inp *input.Handler) {
 	}
 }
 
-func colorRGB15(cl uint16) color.RGBA {
+func colorNRGB15(cl uint16) color.NRGBA {
 	r := byte((cl & 0xfc00) >> 10)
 	g := byte((cl & 0x03e0) >> 5)
 	b := byte((cl & 0x001f) >> 0)
 	r = byte((float64(r) / 31) * 0xff)
 	g = byte((float64(g) / 31) * 0xff)
 	b = byte((float64(b) / 31) * 0xff)
-	return color.RGBA{
+	return color.NRGBA{
 		R: r, G: g, B: b, A: 0xff,
 	}
 }
 
-func copyGamePixBuffer() image.Image {
+func copyGamePixBuffer() *image.NRGBA {
 	sz := nox_pixbuffer_size
-	img := image.NewRGBA(image.Rect(0, 0, sz.W, sz.H))
+	img := image.NewNRGBA(image.Rect(0, 0, sz.W, sz.H))
 
 	for y := 0; y < sz.H; y++ {
 		row := asU16Slice(nox_pixbuffer_main_rows[y], sz.W)
 		for x := 0; x < sz.W; x++ {
-			img.SetRGBA(x, y, colorRGB15(row[x]))
+			img.SetNRGBA(x, y, colorNRGB15(row[x]))
 		}
 	}
 	return img

@@ -606,7 +606,7 @@ void sub_444C50() {
 		sub_433C20();
 		nullsub_15();
 		nox_video_free_renderer_48A120();
-		sub_44D9D0();
+		nox_client_initFade_44D9D0();
 		sub_4B0660();
 		nullsub_13();
 		nullsub_11();

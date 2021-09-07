@@ -101,7 +101,7 @@ int nox_xxx_gameChangeMap_43DEB0() {
 			}
 			if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
 				nox_gameDisableMapDraw_5d4594_2650672 = 1;
-				sub_44DA60(1);
+				nox_client_fadeXxx_44DA60(1);
 			}
 		} else {
 			if (!nox_common_gameFlags_check_40A5C0(1)) {
@@ -119,7 +119,7 @@ int nox_xxx_gameChangeMap_43DEB0() {
 				nox_xxx_gameServerReadyMB_4DD180(31);
 				if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
 					nox_gameDisableMapDraw_5d4594_2650672 = 1;
-					sub_44DA60(1);
+					nox_client_fadeXxx_44DA60(1);
 				}
 			}
 		}
@@ -158,7 +158,7 @@ int map_download_finish() {
 	nox_xxx_gui_43E1A0(0);
 	if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
 		nox_gameDisableMapDraw_5d4594_2650672 = 1;
-		sub_44DA60(1);
+		nox_client_fadeXxx_44DA60(1);
 	}
 	if (!nox_xxx_mapCliReadAll_4AC2B0(nox_server_currentMapGetFilename_409B30())) {
 		v13 = nox_server_currentMapGetFilename_409B30();
@@ -396,7 +396,7 @@ void mainloop() {
 		if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) || nox_common_getEngineFlag(NOX_ENGINE_FLAG_9) || nox_client_gui_flag_815132) {
 			nox_client_drawCursorAndTooltips_477830(); // Draw cursor
 		}
-		sub_44D9F0(1);
+		nox_client_procFade_44D9F0(1);
 		if (!sub_409F40(4096)) { // CheckRuleFlags and smth
 			nox_xxx_screenshot_46D830();
 		}

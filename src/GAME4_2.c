@@ -4046,7 +4046,7 @@ void nox_xxx_mapGenSetFlags_5235F0(char a1) {
 	int v3;     // [esp+0h] [ebp-4h]
 
 	if (!nox_common_gameFlags_check_40A5C0(0x200000)) {
-		dword_5d4594_2487564 = clock();
+		dword_5d4594_2487564 = nox_platform_get_ticks();
 		if (dword_5d4594_2487568 > *(int*)&dword_5d4594_2487564)
 			dword_5d4594_2487568 = 0;
 		nox_input_pollEvents_4453A0();

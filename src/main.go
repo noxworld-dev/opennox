@@ -65,7 +65,7 @@ import (
 )
 
 func init() {
-	if env.IsDevMode() || IsDevVersion() {
+	if env.IsDevMode() || IsDevVersion() || env.IsE2E() {
 		go func() {
 			if err := http.ListenAndServe("127.0.0.1:6060", nil); err != nil {
 				log.Printf("failed to start pprof: %v", err)
@@ -104,10 +104,14 @@ func writeLogsToDir() error {
 }
 
 func runNox(args []string) error {
-	if err := writeLogsToDir(); err != nil {
-		log.Println("cannot persist logs:", err)
+	if !env.IsE2E() {
+		if err := writeLogsToDir(); err != nil {
+			log.Println("cannot persist logs:", err)
+		}
+		defer log.Close()
+	} else {
+		e2eInit()
 	}
-	defer log.Close()
 	log.Printf("[nox] version: %s (%s)", Version, Commit)
 	handles.Init()
 	defer handles.Release()
@@ -144,6 +148,10 @@ func runNox(args []string) error {
 	)
 	if err := flags.Parse(args[1:]); err != nil {
 		return err
+	}
+	if env.IsE2E() {
+		*fNoLimit = true
+		mainloopHook = e2eRun
 	}
 	if path := *fData; path != "" {
 		datapath.Set(path)
@@ -401,10 +409,12 @@ func change_windowed_fullscreen() {
 //export sub_4AA9C0
 func sub_4AA9C0() C.int {
 	C.sub_44D8F0()
-	videoUpdateGameMode(types.Size{
-		W: int(C.nox_xxx_normalWndHeight_587000_172876),
-		H: int(C.nox_xxx_normalWndWidth_587000_172872),
-	})
+	if !env.IsE2E() {
+		videoUpdateGameMode(types.Size{
+			W: int(C.nox_xxx_normalWndHeight_587000_172876),
+			H: int(C.nox_xxx_normalWndWidth_587000_172872),
+		})
+	}
 	C.nox_common_writecfgfile(internCStr("nox.cfg"))
 	C.nox_wnd_xxx_1309740.state = C.nox_gui_anim_state(NOX_GUI_ANIM_OUT)
 	C.sub_43BE40(2)
