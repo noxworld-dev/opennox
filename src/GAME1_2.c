@@ -6615,7 +6615,7 @@ int  sub_439D90(unsigned int a1, unsigned int a2) {
 		*getMemU16Ptr(0x5D4594, 814918) = v3;
 		sub_43B460();
 		if (sub_43BDB0() & 2)
-			sub_4D6F60(1);
+			nox_xxx_setQuest_4D6F60(1);
 		if (nox_xxx_isQuest_4D6F50()) {
 			if (sub_4DC7D0()) {
 				sub_4A7A70(1);

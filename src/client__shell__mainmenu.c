@@ -173,7 +173,7 @@ int  nox_xxx_windowMainMenuProc_4A1DC0(int a1, int a2, int* a3, int a4) {
 					nox_common_resetEngineFlag(NOX_ENGINE_FLAG_ADMIN | NOX_ENGINE_FLAG_GODMODE);
 					sub_4D6F40(0);
 					sub_4D6F90(0);
-					sub_4D6F60(0);
+					nox_xxx_setQuest_4D6F60(0);
 					sub_4D6F80(0);
 					nox_xxx_cliShowHideTubes_470AA0(0);
 					sub_461440(0);
@@ -214,7 +214,7 @@ int  nox_xxx_windowMainMenuProc_4A1DC0(int a1, int a2, int* a3, int a4) {
 				sub_461440(0);
 				sub_4D6F40(0);
 				sub_4D6F90(0);
-				sub_4D6F60(0);
+				nox_xxx_setQuest_4D6F60(0);
 				sub_4D6F80(0);
 				if (!sub_473670())
 					nox_client_toggleMap_473610();

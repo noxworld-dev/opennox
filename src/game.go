@@ -193,9 +193,9 @@ func startServer() bool {
 	C.sub_4D6F40(0)
 	C.sub_4D6F90(0)
 	if !isServerQuest {
-		C.sub_4D6F60(0)
+		C.nox_xxx_setQuest_4D6F60(0)
 	} else {
-		C.sub_4D6F60(1)
+		C.nox_xxx_setQuest_4D6F60(1)
 		C.nox_xxx_cliShowHideTubes_470AA0(1)
 	}
 	C.sub_4D6F80(0)
