@@ -203,7 +203,7 @@ func nox_xxx_gameTick_4D2580_server_E() {
 	if nox_xxx_get_57AF20() != 0 && C.sub_57B140() {
 		C.sub_57B0A0()
 	}
-	if C.nox_xxx_isQuest_4D6F50() != 0 {
+	if nox_xxx_isQuest_4D6F50() {
 		switchQuestIfRequested4D6FD0()
 		C.sub_4DCF20()
 	}
@@ -255,6 +255,11 @@ func switchQuestIfRequested4D6FD0() {
 
 func mapLoad4D2450(file string) {
 	C.nox_xxx_mapLoad_4D2450(internCStr(file))
+}
+
+func sub_416640() []byte {
+	// TODO: size is a guess
+	return asByteSlice(memmap.PtrOff(0x5D4594, 371516), 168)
 }
 
 func updateRemotePlayers() {
@@ -546,7 +551,7 @@ func nox_server_xxxInitPlayerUnits_4FC6D0() {
 			C.nox_game_sendQuestStage_4D6960(255)
 			C.sub_4D7440(1)
 			C.sub_4D60B0()
-		} else if C.sub_4D6F30() == 0 || C.sub_4D7430() != 0 {
+		} else if sub_4D6F30() == 0 || C.sub_4D7430() != 0 {
 			if C.sub_4D76F0() == 1 {
 				C.sub_4D6880(255, 1)
 				C.sub_4D76E0(0)

@@ -45,6 +45,7 @@ extern unsigned int dword_5d4594_1548704;
 extern unsigned int dword_5d4594_1556144;
 extern unsigned int dword_5d4594_1563064;
 extern unsigned int dword_5d4594_251744;
+extern unsigned int dword_5d4594_815052;
 extern nox_draw_viewport_t nox_draw_viewport;
 extern unsigned char nox_net_lists_buf[2048];
 
@@ -193,9 +194,9 @@ func startServer() bool {
 	C.sub_4D6F40(0)
 	C.sub_4D6F90(0)
 	if !isServerQuest {
-		C.nox_xxx_setQuest_4D6F60(0)
+		nox_xxx_setQuest_4D6F60(0)
 	} else {
-		C.nox_xxx_setQuest_4D6F60(1)
+		nox_xxx_setQuest_4D6F60(1)
 		C.nox_xxx_cliShowHideTubes_470AA0(1)
 	}
 	C.sub_4D6F80(0)
@@ -230,6 +231,22 @@ func getServerCurPlayers() int {
 
 func getServerMaxPlayers() int {
 	return int(C.nox_xxx_servGetPlrLimit_409FA0())
+}
+
+func nox_xxx_isQuest_4D6F50() bool {
+	return memmap.Uint32(0x5D4594, 1556160) != 0
+}
+
+func nox_xxx_setQuest_4D6F60(v int) {
+	*memmap.PtrUint32(0x5D4594, 1556160) = uint32(v)
+}
+
+func sub_4D6F30() uint32 {
+	return memmap.Uint32(0x5D4594, 1556156)
+}
+
+func sub_43AF30() uint32 {
+	return uint32(C.dword_5d4594_815052)
 }
 
 var srvReg struct {
@@ -412,8 +429,8 @@ func initGameSession435CC0() error {
 	nox_draw_setCutSize_476700(v1, 0)
 	if noxflags.HasGame(noxflags.GameModeSolo12) {
 		C.sub_41CC00((*C.char)(memmap.PtrOff(0x85B3FC, 10984)))
-	} else if C.nox_xxx_isQuest_4D6F50() != 0 || C.sub_4D6F70() != 0 {
-		if C.nox_xxx_isQuest_4D6F50() != 0 || C.sub_4D6F70() != 0 {
+	} else if nox_xxx_isQuest_4D6F50() || C.sub_4D6F70() != 0 {
+		if nox_xxx_isQuest_4D6F50() || C.sub_4D6F70() != 0 {
 			C.sub_460380()
 			C.nox_xxx_cliPrepareGameplay1_460E60()
 			C.nox_xxx_cliPrepareGameplay2_4721D0()
@@ -599,7 +616,7 @@ func nox_xxx_gameTick_4D2580_server_A(v2 bool) {
 	if noxflags.HasGame(512) {
 		return
 	}
-	v7 := asByteSlice(unsafe.Pointer(C.nox_xxx_cliGamedataGet_416590(0)), 58)
+	v7 := nox_xxx_cliGamedataGet_416590()
 	if v7[57] != 0 {
 		v8 := GoString(C.sub_409B80()) + ".map"
 		nox_xxx_gameSetMapPath_409D70(v8)
@@ -617,6 +634,10 @@ func nox_xxx_gameTick_4D2580_server_A(v2 bool) {
 			}
 		}
 	}
+}
+
+func nox_xxx_cliGamedataGet_416590() []byte {
+	return asByteSlice(unsafe.Pointer(C.nox_xxx_cliGamedataGet_416590(0)), 58)
 }
 
 func nox_xxx_gameTick_4D2580_server_D() {
@@ -886,8 +907,8 @@ func nox_xxx_mapExitAndCheckNext_4D1860_server() bool {
 			C.sub_40A250()
 			v60 := noxflags.GetGame()
 			v58 := C.sub_459870()
-			v14 := C.nox_xxx_cliGamedataGet_416590(0)
-			C.sub_57A1E0((*C.int)(unsafe.Pointer(v14)), internCStr("user.rul"), (*C.int)(unsafe.Pointer(v58)), 3, C.short(v60))
+			v14 := nox_xxx_cliGamedataGet_416590()
+			C.sub_57A1E0((*C.int)(unsafe.Pointer(&v14[0])), internCStr("user.rul"), (*C.int)(unsafe.Pointer(v58)), 3, C.short(v60))
 			C.sub_4D2230()
 		}
 	}

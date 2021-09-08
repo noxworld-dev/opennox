@@ -218,7 +218,7 @@ func (p *Player) GoObserver(notify, keepPlayer bool) bool {
 	return C.nox_xxx_playerGoObserver_4E6860(p.C(), C.int(bool2int(notify)), C.int(bool2int(keepPlayer))) != 0
 }
 
-func cntPlayers() (n int) {
+func cntPlayers() (n int) { // nox_common_playerInfoCount_416F40
 	for i := 0; i < NOX_PLAYERINFO_MAX; i++ {
 		p := asPlayer(&C.nox_playerinfo_arr[i])
 		if p.IsActive() {
