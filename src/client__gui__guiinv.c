@@ -1608,7 +1608,7 @@ int nox_xxx_inventoryNameSignInit_4671E0() {
 	char v5[100]; // [esp+0h] [ebp-64h]
 
 	nox_wcscpy((wchar_t*)getMemAt(0x5D4594, 1062588), (const wchar_t*)getMemAt(0x5D4594, 1063676));
-	if (nox_common_gameFlags_check_40A5C0(4096) || sub_4D6F50() || (result = sub_4D6F70()) != 0) {
+	if (nox_common_gameFlags_check_40A5C0(4096) || nox_xxx_isQuest_4D6F50() || (result = sub_4D6F70()) != 0) {
 		result = dword_5d4594_1049844;
 		if (dword_5d4594_1049844 > NOX_PLAYER_MAX_LEVEL)
 			result = NOX_PLAYER_MAX_LEVEL;

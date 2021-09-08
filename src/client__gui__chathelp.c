@@ -63,7 +63,7 @@ _DWORD* nox_xxx_cliShowHelpGui_49C560() {
 				nox_xxx_guiServerOptsLoad_457500();
 			sub_459D80(1);
 		}
-		if (nox_common_gameFlags_check_40A5C0(4096) || (result = (_DWORD*)sub_4D6F50()) != 0)
+		if (nox_common_gameFlags_check_40A5C0(4096) || (result = (_DWORD*)nox_xxx_isQuest_4D6F50()) != 0)
 			result = (_DWORD*)sub_49C7A0();
 	}
 	return result;

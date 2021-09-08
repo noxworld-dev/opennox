@@ -228,7 +228,7 @@ int nox_xxx_findAutosaves_4A5150() {
 			v19 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1307764, 502);
 			nox_xxx_wnd_46ABB0((int)v19, 1);
 			v20 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1307764, 501);
-			if ((sub_4D6F50() || sub_4D6F70()) && sub_4DC7D0() >= 14)
+			if ((nox_xxx_isQuest_4D6F50() || sub_4D6F70()) && sub_4DC7D0() >= 14)
 				nox_xxx_wnd_46ABB0((int)v20, 0);
 			else
 				nox_xxx_wnd_46ABB0((int)v20, 1);

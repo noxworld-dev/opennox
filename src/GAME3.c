@@ -1648,12 +1648,12 @@ int  sub_4A5690(_BYTE* a1) {
 	int result; // eax
 
 	if (!(*a1 & 4)) {
-		if (!sub_4D6F50() && !sub_4D6F70())
+		if (!nox_xxx_isQuest_4D6F50() && !sub_4D6F70())
 			return 1;
 		if (!(*a1 & 4))
 			goto LABEL_12;
 	}
-	if (sub_4D6F50() || sub_4D6F70())
+	if (nox_xxx_isQuest_4D6F50() || sub_4D6F70())
 		result = 1;
 	else
 	LABEL_12:

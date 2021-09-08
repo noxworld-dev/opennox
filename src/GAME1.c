@@ -1330,7 +1330,7 @@ void  nox_xxx_soloGameEscMenuCallback_40AF90(int a1, int a2, char a3, int a4, _B
 		v6 = nox_fs_root();
 		nox_sprintf(FileName, "%s\\Save\\_temp_.dat", v6);
 		if (nox_xxx_SavePlayerDataFromClient_41CD70(FileName, a5, a6)) {
-			if (sub_4D6F50() && a1 == 31) {
+			if (nox_xxx_isQuest_4D6F50() && a1 == 31) {
 				sub_4DCEE0(FileName);
 			} else {
 				v7 = nox_xxx_cliPlrInfoLoadFromFile_41A2E0(FileName, a1);
@@ -7920,7 +7920,7 @@ void sub_416690() {
 		sub_4161E0();
 		v1 = sub_416630();
 		memcpy(v1 + 11, v0, 0x3Au);
-		if (sub_4D6F50()) {
+		if (nox_xxx_isQuest_4D6F50()) {
 			v2 = *(_WORD*)(v1 + 63) & 0xFF7F;
 			HIBYTE(v2) |= 0x10u;
 			*(_WORD*)(v1 + 63) = v2;

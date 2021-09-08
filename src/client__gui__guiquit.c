@@ -335,7 +335,7 @@ void sub_446190() {
 		nox_game_checkStateWol_43C260();
 		sub_41E300(9);
 		nox_xxx____setargv_4_44B000();
-	} else if (sub_4D6F50()) {
+	} else if (nox_xxx_isQuest_4D6F50()) {
 		if (sub_4D6F30())
 			nox_game_checkStateMenu_43C2F0();
 		sub_4D70B0();

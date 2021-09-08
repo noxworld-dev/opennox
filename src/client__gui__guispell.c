@@ -256,7 +256,7 @@ int nox_xxx_quickBarCreate_45E190() {
 		if (*(_BYTE*)(*getMemU32Ptr(0x8531A0, 2576) + 2251) == 1) {
 			if ((!*getMemU32Ptr(0x8531A0, 2576) || !*(_DWORD*)(*getMemU32Ptr(0x8531A0, 2576) + 3832)) &&
 				(!nox_common_gameFlags_check_40A5C0(0x2000) || nox_common_gameFlags_check_40A5C0(4096) ||
-				 sub_4D6F50() || sub_4D6F70())) {
+				 nox_xxx_isQuest_4D6F50() || sub_4D6F70())) {
 				v17 = nox_xxx_gLoadImg_42F970("QuickBarWarriorRight");
 				nox_xxx_wndSetIcon_46AE60(*(int*)&dword_5d4594_1049504, (int)v17);
 				v18 = nox_xxx_gLoadImg_42F970("QuickBarWarriorRight");
@@ -281,7 +281,7 @@ int nox_xxx_quickBarCreate_45E190() {
 		} else if (*(_BYTE*)(*getMemU32Ptr(0x8531A0, 2576) + 2251) == 2) {
 			if ((!*getMemU32Ptr(0x8531A0, 2576) || !*(_DWORD*)(*getMemU32Ptr(0x8531A0, 2576) + 3832)) &&
 				(!nox_common_gameFlags_check_40A5C0(0x2000) || nox_common_gameFlags_check_40A5C0(4096) ||
-				 sub_4D6F50() || sub_4D6F70())) {
+				 nox_xxx_isQuest_4D6F50() || sub_4D6F70())) {
 				v11 = nox_xxx_gLoadImg_42F970("QuickBarWarriorRight");
 				nox_xxx_wndSetIcon_46AE60(*(int*)&dword_5d4594_1049504, (int)v11);
 				v12 = nox_xxx_gLoadImg_42F970("QuickBarWarriorRight");

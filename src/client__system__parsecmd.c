@@ -2676,7 +2676,7 @@ int nox_cmd_reenter(int tokInd, int tokCnt, wchar_t** tokens) {
 
 //----- (004423A0) --------------------------------------------------------
 int nox_cmd_startSoloQuest(int tokInd, int tokCnt, wchar_t** tokens) {
-	if (sub_4D6F50() && !nox_common_gameFlags_check_40A5C0(4096))
+	if (nox_xxx_isQuest_4D6F50() && !nox_common_gameFlags_check_40A5C0(4096))
 		nox_server_conCmdHandler_startSoloQuest_4D7080();
 	return 1;
 }

@@ -412,8 +412,8 @@ func initGameSession435CC0() error {
 	nox_draw_setCutSize_476700(v1, 0)
 	if noxflags.HasGame(noxflags.GameModeSolo12) {
 		C.sub_41CC00((*C.char)(memmap.PtrOff(0x85B3FC, 10984)))
-	} else if C.sub_4D6F50() != 0 || C.sub_4D6F70() != 0 {
-		if C.sub_4D6F50() != 0 || C.sub_4D6F70() != 0 {
+	} else if C.nox_xxx_isQuest_4D6F50() != 0 || C.sub_4D6F70() != 0 {
+		if C.nox_xxx_isQuest_4D6F50() != 0 || C.sub_4D6F70() != 0 {
 			C.sub_460380()
 			C.nox_xxx_cliPrepareGameplay1_460E60()
 			C.nox_xxx_cliPrepareGameplay2_4721D0()

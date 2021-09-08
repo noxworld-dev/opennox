@@ -2560,7 +2560,7 @@ int nox_xxx_parseFileInfoData_41C3B0(int a1) {
 		return 0;
 	if (nox_common_gameFlags_check_40A5C0(0x2000)) {
 		*getMemU32Ptr(0x85B3FC, 10980) &= 0xFFFFFFFE;
-		if (nox_common_gameFlags_check_40A5C0(4096) || sub_4D6F50() || sub_4D6F70()) {
+		if (nox_common_gameFlags_check_40A5C0(4096) || nox_xxx_isQuest_4D6F50() || sub_4D6F70()) {
 			v2 = *getMemU32Ptr(0x85B3FC, 10980);
 			LOBYTE(v2) = getMemByte(0x85B3FC, 10980) | 4;
 			*getMemU32Ptr(0x85B3FC, 10980) = v2;

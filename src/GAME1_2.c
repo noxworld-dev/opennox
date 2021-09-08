@@ -5868,8 +5868,8 @@ int nox_xxx_initGameSession_435CC0() {
 	nox_draw_setCutSize_476700(v1, 0);
 	if (nox_common_gameFlags_check_40A5C0(2048)) {
 		sub_41CC00((char*)getMemAt(0x85B3FC, 10984));
-	} else if (sub_4D6F50() || sub_4D6F70()) {
-		if (sub_4D6F50() || sub_4D6F70()) {
+	} else if (nox_xxx_isQuest_4D6F50() || sub_4D6F70()) {
+		if (nox_xxx_isQuest_4D6F50() || sub_4D6F70()) {
 			sub_460380();
 			nox_xxx_cliPrepareGameplay1_460E60();
 			nox_xxx_cliPrepareGameplay2_4721D0();
@@ -6616,7 +6616,7 @@ int  sub_439D90(unsigned int a1, unsigned int a2) {
 		sub_43B460();
 		if (sub_43BDB0() & 2)
 			sub_4D6F60(1);
-		if (sub_4D6F50()) {
+		if (nox_xxx_isQuest_4D6F50()) {
 			if (sub_4DC7D0()) {
 				sub_4A7A70(1);
 				nox_game_showSelChar_4A4DB0();
@@ -6707,7 +6707,7 @@ char* sub_43AA70() {
 	v2 = nox_xxx_serverOptionsGetServername_40A4C0();
 	strncpy(v1 + 120, v2, 0xFu);
 	strcpy(v1 + 111, nox_xxx_mapGetMapName_409B40());
-	if (sub_4D6F50()) {
+	if (nox_xxx_isQuest_4D6F50()) {
 		if (dword_5d4594_528256)
 			*(_WORD*)(v1 + 165) = nox_game_getQuestStage_4E3CC0();
 		else

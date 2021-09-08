@@ -1153,7 +1153,7 @@ unsigned int  nox_server_makeServerInfoPacket_554040(const char* inBuf, int inSz
 	buf[21] = v3[100] & 0x10;
 	*(_DWORD*)&buf[24] = *((_DWORD*)v3 + 12);
 	unsigned int gameFlags = nox_common_gameFlags_getVal_40A5B0();
-	if (sub_4D6F50()) {
+	if (nox_xxx_isQuest_4D6F50()) {
 		gameFlags = (gameFlags & 0xFFFFFF7Fu) | 0x1000u;
 		*(_WORD*)&buf[68] = nox_game_getQuestStage_4E3CC0();
 	}

@@ -9200,7 +9200,7 @@ void  nox_xxx_abilGivePlayerAll_4EED40(int a1, char a2, int a3) {
 		v5 = a2;
 		do {
 			if (*v3) {
-				if (nox_common_gameFlags_check_40A5C0(4096) || sub_4D6F50() || sub_4D6F70())
+				if (nox_common_gameFlags_check_40A5C0(4096) || nox_xxx_isQuest_4D6F50() || sub_4D6F70())
 					*v4 = 0;
 				else
 					nox_xxx_abilityRewardServ_4FB9C0_ability(a1, *v3, a3);

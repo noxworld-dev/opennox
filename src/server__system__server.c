@@ -2715,7 +2715,7 @@ void nox_xxx_gameTick_4D2580_server_E() {
 	}
 	if (nox_xxx_get_57AF20() && sub_57B140())
 		sub_57B0A0();
-	if (sub_4D6F50()) {
+	if (nox_xxx_isQuest_4D6F50()) {
 		nox_server_switchQuestIfRequested_4D6FD0();
 		sub_4DCF20();
 	}

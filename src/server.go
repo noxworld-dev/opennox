@@ -203,7 +203,7 @@ func nox_xxx_gameTick_4D2580_server_E() {
 	if nox_xxx_get_57AF20() != 0 && C.sub_57B140() {
 		C.sub_57B0A0()
 	}
-	if C.sub_4D6F50() != 0 {
+	if C.nox_xxx_isQuest_4D6F50() != 0 {
 		switchQuestIfRequested4D6FD0()
 		C.sub_4DCF20()
 	}

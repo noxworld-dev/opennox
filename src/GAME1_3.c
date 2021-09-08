@@ -4463,7 +4463,7 @@ void nox_xxx_motd_4467F0() {
 
 	result = nox_gui_xxx_check_446360();
 	if (!result) {
-		result = sub_4D6F50();
+		result = nox_xxx_isQuest_4D6F50();
 		if (!result || (result = nox_common_gameFlags_check_40A5C0(128)) == 0) {
 			if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
 				result = nox_xxx_wndGetFlags_46ADA0(*(int*)&dword_5d4594_826028);
