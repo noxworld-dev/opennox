@@ -317,6 +317,11 @@ func (sc *e2eScenario) Load(path string) {
 				sc.Wait(dt, "")
 			}
 			sc.Key(keybind.KeyI, l.Name)
+		case "jump":
+			if dt != 0 {
+				sc.Wait(dt, "")
+			}
+			sc.Key(keybind.KeySpace, l.Name)
 		case "melee":
 			if dt != 0 {
 				sc.Wait(dt, "")
