@@ -72,6 +72,9 @@ func (sc *e2eScenario) Slow(dt time.Duration) {
 }
 
 func (sc *e2eScenario) Wait(dt time.Duration, name string) {
+	if dt == 0 && name == "" {
+		return
+	}
 	sc.add(dt, name, nil)
 }
 
@@ -137,8 +140,8 @@ func (sc *e2eScenario) runStart(ang float64, dist int, name string) {
 	})
 }
 
-func (sc *e2eScenario) runDir(ang float64, dist int, dt time.Duration, name string) {
-	sc.add(dt, name, func() {
+func (sc *e2eScenario) runDir(ang float64, dist int, name string) {
+	sc.add(0, name, func() {
 		pos := e2eAngToPos(ang, dist)
 		e2eQueueInput(&seat.MouseMoveEvent{Pos: pos, Relative: false})
 	})
@@ -163,32 +166,36 @@ func (sc *e2eScenario) WalkFor(ang float64, dt time.Duration, name string) {
 	sc.runFor(ang, e2eWalkDist, dt, name)
 }
 
-func (sc *e2eScenario) WalkStart(ang float64, name string) {
+func (sc *e2eScenario) WalkStart(ang float64, dt time.Duration, name string) {
 	sc.runStart(ang, e2eWalkDist, name)
+	sc.Wait(dt, "")
 }
 
 func (sc *e2eScenario) WalkDir(ang float64, dt time.Duration, name string) {
-	sc.runDir(ang, e2eWalkDist, dt, name)
+	sc.runDir(ang, e2eWalkDist, name)
+	sc.Wait(dt, "")
 }
 
-func (sc *e2eScenario) WalkEnd(dt time.Duration) {
-	sc.runEnd(dt)
+func (sc *e2eScenario) WalkEnd() {
+	sc.runEnd(0)
 }
 
 func (sc *e2eScenario) RunFor(ang float64, dt time.Duration, name string) {
 	sc.runFor(ang, e2eRunDist, dt, name)
 }
 
-func (sc *e2eScenario) RunStart(ang float64, name string) {
+func (sc *e2eScenario) RunStart(ang float64, dt time.Duration, name string) {
 	sc.runStart(ang, e2eRunDist, name)
+	sc.Wait(dt, "")
 }
 
 func (sc *e2eScenario) RunDir(ang float64, dt time.Duration, name string) {
-	sc.runDir(ang, e2eRunDist, dt, name)
+	sc.runDir(ang, e2eRunDist, name)
+	sc.Wait(dt, "")
 }
 
-func (sc *e2eScenario) RunEnd(dt time.Duration) {
-	sc.runEnd(dt)
+func (sc *e2eScenario) RunEnd() {
+	sc.runEnd(0)
 }
 
 func (sc *e2eScenario) Melee(ang float64, name string) {
@@ -282,25 +289,19 @@ func (sc *e2eScenario) Load(path string) {
 		case "walk":
 			sc.WalkFor(l.Ang, dt, l.Name)
 		case "walk-start":
-			if dt != 0 {
-				sc.Wait(dt, "")
-			}
-			sc.WalkStart(l.Ang, l.Name)
+			sc.WalkStart(l.Ang, dt, l.Name)
 		case "walk-dir":
 			sc.WalkDir(l.Ang, dt, l.Name)
 		case "walk-stop":
-			sc.WalkEnd(dt)
+			sc.WalkEnd()
 		case "run":
 			sc.RunFor(l.Ang, dt, l.Name)
 		case "run-start":
-			if dt != 0 {
-				sc.Wait(dt, "")
-			}
-			sc.RunStart(l.Ang, l.Name)
+			sc.RunStart(l.Ang, dt, l.Name)
 		case "run-dir":
 			sc.RunDir(l.Ang, dt, l.Name)
 		case "run-stop":
-			sc.RunEnd(dt)
+			sc.RunEnd()
 		case "screen":
 			if dt != 0 {
 				sc.Wait(dt, "")
