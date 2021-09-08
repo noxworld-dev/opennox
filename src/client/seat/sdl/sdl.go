@@ -190,7 +190,7 @@ func (win *Window) SetScreenMode(mode seat.ScreenMode) {
 		} else {
 			win.center()
 		}
-		if env.IsDevMode() {
+		if env.IsDevMode() || env.IsE2E() {
 			sdl.ShowCursor(sdl.ENABLE)
 		} else {
 			sdl.ShowCursor(sdl.DISABLE)

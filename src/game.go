@@ -84,6 +84,7 @@ import (
 
 	"nox/v1/common/alloc"
 	"nox/v1/common/discover"
+	"nox/v1/common/env"
 	noxflags "nox/v1/common/flags"
 	"nox/v1/common/log"
 	"nox/v1/common/memmap"
@@ -318,7 +319,7 @@ func (v xwisInfoShort) XWIS() xwis.GameInfo {
 }
 
 func maybeRegisterGameOnline() {
-	if noXwis {
+	if noXwis || env.IsE2E() {
 		return
 	}
 	info := getGameInfoXWIS()
