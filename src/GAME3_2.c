@@ -9160,10 +9160,8 @@ char  nox_xxx_playerDisconnFinish_4DE530(int a1, char a2) {
 	char* i;     // edi
 	int v7;      // eax
 	int j;       // eax
-	int v9;      // edx
 	char result; // al
 	int v11;     // eax
-	char v12[3]; // [esp+10h] [ebp-8h]
 	int v13;     // [esp+14h] [ebp-4h]
 
 	v2 = a1;
@@ -9206,11 +9204,13 @@ char  nox_xxx_playerDisconnFinish_4DE530(int a1, char a2) {
 	sub_40C0E0(v2 + 1);
 	sub_4DE410(v2);
 	if (v4) {
+		char v12[3] = {0};
 		v12[0] = -82;
-		v9 = v2;
-		LOBYTE(v9) = v2 | 0x80;
-		*(_WORD*)&v12[1] = *(_WORD*)(*(_DWORD*)(v4 + 2056) + 36);
-		nox_xxx_netSendPacket0_4E5420(v9, v12, 3, 0, 0);
+		// TODO: this can be nil for some reason; should we sent this at all?
+		if (*(_DWORD*)(v4 + 2056)) {
+			*(_WORD*)&v12[1] = *(_WORD*)(*(_DWORD*)(v4 + 2056) + 36);
+		}
+		nox_xxx_netSendPacket0_4E5420(v2 | 0x80, v12, 3, 0, 0);
 	}
 	if (a2 == 4) {
 		LOBYTE(a1) = -59;
