@@ -31,6 +31,20 @@ func updateFullScreen(mode int) {
 func setScaled(v bool) {
 }
 
+func getScaled() bool {
+	return false
+}
+
+func toggleScaled() {
+}
+
+func getFiltering() bool {
+	return true
+}
+
+func toggleFiltering() {
+}
+
 func getWindowMode() int {
 	return winMode
 }

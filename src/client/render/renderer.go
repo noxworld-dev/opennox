@@ -18,6 +18,7 @@ func New(sc seat.Screen) (*Renderer, error) {
 	r := &Renderer{
 		sc:         sc,
 		fullscreen: -4, // unset
+		filtering:  true,
 	}
 	if err := r.Init(sz); err != nil {
 		return nil, err
@@ -29,18 +30,20 @@ func New(sc seat.Screen) (*Renderer, error) {
 }
 
 type Renderer struct {
-	ticks      uint32 // atomic
-	sc         seat.Screen
-	backbuf    seat.Surface
-	view       image.Rectangle
-	fullscreen int
-	borderless bool // only used for toggle
-	stretch    bool
-	rotate     bool
-	rotated    bool
-	onResize   []func(view image.Rectangle)
-	buf        []byte
-	prev       []byte
+	ticks       uint32 // atomic
+	sc          seat.Screen
+	backbuf     seat.Surface
+	backbufFilt bool
+	view        image.Rectangle
+	fullscreen  int
+	borderless  bool // only used for toggle
+	filtering   bool
+	stretch     bool
+	rotate      bool
+	rotated     bool
+	onResize    []func(view image.Rectangle)
+	buf         []byte
+	prev        []byte
 }
 
 // Ticks returns the number of present ticks since the last Reset or Init.
@@ -54,7 +57,8 @@ func (r *Renderer) Init(sz types.Size) error {
 		return nil
 	}
 	Log.Printf("creating surface: %dx%d", sz.W, sz.H)
-	r.backbuf = r.sc.NewSurface(sz)
+	r.backbuf = r.sc.NewSurface(sz, r.filtering)
+	r.backbufFilt = r.filtering
 	return nil
 }
 
@@ -87,13 +91,14 @@ func (r *Renderer) present(sz types.Size, src []byte) {
 			r.buf = make([]byte, len(src))
 		}
 		copy(r.buf, src)
-		if bsz := r.backbuf.Size(); sz != bsz {
+		if bsz := r.backbuf.Size(); sz != bsz || r.filtering != r.backbufFilt {
 			Log.Printf("recreating surface: %dx%d -> %dx%d", bsz.W, bsz.H, sz.W, sz.H)
 			if r.backbuf != nil {
 				r.backbuf.Destroy()
 				r.backbuf = nil
 			}
-			r.backbuf = r.sc.NewSurface(sz)
+			r.backbuf = r.sc.NewSurface(sz, r.filtering)
+			r.backbufFilt = r.filtering
 		}
 		r.prev, r.buf = r.buf, r.prev
 		r.backbuf.Update(r.prev)
@@ -104,8 +109,20 @@ func (r *Renderer) present(sz types.Size, src []byte) {
 	atomic.AddUint32(&r.ticks, 1)
 }
 
-func (r *Renderer) SetStretch(stretch bool) {
+func (r *Renderer) SetStretched(stretch bool) {
 	r.stretch = stretch
+}
+
+func (r *Renderer) GetStretched() bool {
+	return r.stretch
+}
+
+func (r *Renderer) SetFiltering(enable bool) {
+	r.filtering = enable
+}
+
+func (r *Renderer) GetFiltering() bool {
+	return r.filtering
 }
 
 func (r *Renderer) setViewport(ratio float32) image.Rectangle {

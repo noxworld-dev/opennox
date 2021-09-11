@@ -67,7 +67,6 @@ type Window struct {
 	prevPos  types.Point
 	prevSz   types.Size
 	mode     seat.ScreenMode
-	nofilter bool
 	rel      bool
 	mpos     types.Point
 	onResize []func(sz types.Size)
@@ -95,10 +94,6 @@ func (win *Window) Close() error {
 
 func (win *Window) OnInput(fnc func(ev seat.InputEvent)) {
 	win.onInput = append(win.onInput, fnc)
-}
-
-func (win *Window) SetNoFilter(enable bool) {
-	win.SetNoFilter(enable)
 }
 
 func (win *Window) SetTextInput(enable bool) {

@@ -53,11 +53,16 @@ type videoOpt struct {
 	CFlag  *C.uint
 	TextID strman.ID
 	Text   string
+	Get    func() bool
+	Toggle func()
 	Def    bool
+	Hidden bool
 }
 
 var noxVideoAdvOptsList = []*videoOpt{
-	{ID: 2010, CFlag: &C.nox_video_dxUnlockSurface, TextID: "AdVidOpt.wnd:ClipWalls"},
+	{ID: 2051, Get: getFiltering, Toggle: toggleFiltering, Text: "Smooth image", TextID: "AdVidOpt.wnd:Filtering"},
+	{ID: 2050, Get: getScaled, Toggle: toggleScaled, Text: "Stretch image", TextID: "AdVidOpt.wnd:Stretched"},
+	{ID: 2010, CFlag: &C.nox_video_dxUnlockSurface, TextID: "AdVidOpt.wnd:ClipWalls", Def: true, Hidden: true},
 	{ID: 2012, Flag: NOX_ENGINE_FLAG_ENABLE_SOFT_SHADOW_EDGE, TextID: "AdVidOpt.wnd:GouradShading"},
 	{ID: 2014, CFlag: &C.nox_gui_console_translucent, TextID: "AdVidOpt.wnd:TranslucentConsole"},
 	{ID: 2015, CFlag: &C.nox_client_renderGlow_805852, TextID: "AdVidOpt.wnd:RenderGlow"},
@@ -95,7 +100,9 @@ func nox_client_advVideoOptsLoad(win *Window) {
 	for id, opt := range noxVideoAdvOpts {
 		if w := win.ChildByID(id); w != nil {
 			v := opt.Def
-			if opt.Flag != 0 {
+			if opt.Get != nil {
+				v = opt.Get()
+			} else if opt.Flag != 0 {
 				v = getEngineFlag(opt.Flag)
 			} else if opt.CFlag != nil {
 				v = *opt.CFlag != 0
@@ -147,7 +154,9 @@ func nox_client_advVideoOptsProc_4CB5D0(a1 unsafe.Pointer, ev C.int, a3 unsafe.P
 		return 0
 	}
 	if opt, ok := noxVideoAdvOpts[id]; ok {
-		if opt.Flag != 0 {
+		if opt.Toggle != nil {
+			opt.Toggle()
+		} else if opt.Flag != 0 {
 			toggleEngineFlag(opt.Flag)
 		} else if opt.CFlag != nil {
 			v := *opt.CFlag != 0
@@ -190,8 +199,12 @@ func newAdvVideoOpts(sm *strman.StringManager) *Window {
 		crow    = 20
 	)
 
-	for i, opt := range noxVideoAdvOptsList {
-		y := pad + crow*i
+	n := 0
+	for _, opt := range noxVideoAdvOptsList {
+		if opt.Hidden {
+			continue
+		}
+		y := pad + crow*n
 		str := opt.Text
 		if opt.TextID != "" {
 			if e, ok := sm.GetInFile(opt.TextID, "psscript.c"); ok {
@@ -199,6 +212,7 @@ func newAdvVideoOpts(sm *strman.StringManager) *Window {
 			}
 		}
 		NewCheckbox(root, opt.ID, pad, y, width, cheight, str)
+		n++
 	}
 	return root
 }

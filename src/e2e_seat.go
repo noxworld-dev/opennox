@@ -39,8 +39,8 @@ func (e *e2eSeat) OnScreenResize(fnc func(sz types.Size)) {
 	e.s.OnScreenResize(fnc)
 }
 
-func (e *e2eSeat) NewSurface(sz types.Size) seat.Surface {
-	return e.s.NewSurface(sz)
+func (e *e2eSeat) NewSurface(sz types.Size, filter bool) seat.Surface {
+	return e.s.NewSurface(sz, filter)
 }
 
 func (e *e2eSeat) Clear() {

@@ -35,7 +35,7 @@ type Screen interface {
 	// OnScreenResize adds a handler function that will be called on screen resize.
 	OnScreenResize(fnc func(sz types.Size))
 	// NewSurface creates a new screen surface.
-	NewSurface(sz types.Size) Surface
+	NewSurface(sz types.Size, filter bool) Surface
 	// Clear the screen.
 	Clear()
 	// Present the current buffer to the screen.

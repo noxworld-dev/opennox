@@ -25,7 +25,23 @@ func updateFullScreen(mode int) {
 }
 
 func setScaled(v bool) {
-	noxRendererS.SetStretch(v)
+	noxRendererS.SetStretched(v)
+}
+
+func getScaled() bool {
+	return noxRendererS.GetStretched()
+}
+
+func toggleScaled() {
+	noxRendererS.SetStretched(!noxRendererS.GetStretched())
+}
+
+func getFiltering() bool {
+	return noxRendererS.GetFiltering()
+}
+
+func toggleFiltering() {
+	noxRendererS.SetFiltering(!noxRendererS.GetFiltering())
 }
 
 func getWindowMode() int {
