@@ -447,10 +447,11 @@ func (r *NoxRender) DrawStringWrapped(font unsafe.Pointer, s string, x, y, maxW,
 	str := []rune(s)
 
 	var (
-		wordX int // relative to X
-		wordY int // relative to Y
-		word  []rune
-		addX  int // relative to wordX
+		wordX int    // relative to X
+		wordY int    // relative to Y
+		word  []rune // current word
+		wordN int    // words in the current line
+		addX  int    // relative to wordX
 	)
 
 	drawWord := func() {
@@ -462,6 +463,7 @@ func (r *NoxRender) DrawStringWrapped(font unsafe.Pointer, s string, x, y, maxW,
 		word = word[:0]
 		wordX = cx - x
 		addX = 0
+		wordN++
 	}
 
 	for i, c := range str {
@@ -478,6 +480,7 @@ func (r *NoxRender) DrawStringWrapped(font unsafe.Pointer, s string, x, y, maxW,
 			}
 			drawWord()
 			wordX = 0
+			wordN = 0
 			wordY += dy
 			if maxH > 0 && wordY >= maxH {
 				return
@@ -491,9 +494,10 @@ func (r *NoxRender) DrawStringWrapped(font unsafe.Pointer, s string, x, y, maxW,
 			}
 			dx := int(*(*byte)(cv))
 			addX += dx
-			if wordX+addX > maxW {
-				// word is too long
+			if wordN != 0 && wordX+addX > maxW {
+				// word is too long, but not the first in a line
 				wordX = 0
+				wordN = 0
 				wordY += dy
 				if maxH > 0 && wordY >= maxH {
 					return
