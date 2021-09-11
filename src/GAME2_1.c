@@ -5063,20 +5063,25 @@ int  sub_46E130(int a1) {
 
 //----- (0046E170) --------------------------------------------------------
 unsigned __int16*  sub_46E170(wchar_t* a1) {
+	if (!a1 || !*getMemIntPtr(0x5D4594, 1084036))
+		return 0;
 	unsigned __int16* v1; // esi
 	size_t v2;            // edi
-	unsigned __int16* v3; // edi
 
 	v1 = a1;
 	v2 = nox_wcslen(a1);
-	nox_xxx_drawGetStringSize_43F840(0, v1, (int*)&a1, 0, 0);
-	if ((int)(a1 + 5) > *getMemIntPtr(0x5D4594, 1084036)) {
-		v3 = &v1[v2];
+	int a1a = 0;
+	nox_xxx_drawGetStringSize_43F840(0, v1, &a1a, 0, 0);
+	if (a1a == 0) {
+		return 0;
+	}
+	if ((a1a + 5) > *getMemIntPtr(0x5D4594, 1084036)) {
+		unsigned __int16* v3 = &v1[v2];
 		do {
 			*v3 = 0;
 			--v3;
-			nox_xxx_drawGetStringSize_43F840(0, v1, (int*)&a1, 0, 0);
-		} while ((int)(a1 + 5) > *getMemIntPtr(0x5D4594, 1084036));
+			nox_xxx_drawGetStringSize_43F840(0, v1, (int*)&a1a, 0, 0);
+		} while ((a1a + 5) > *getMemIntPtr(0x5D4594, 1084036));
 	}
 	return v1;
 }
