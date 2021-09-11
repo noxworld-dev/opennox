@@ -32,7 +32,7 @@ extern unsigned int nox_client_renderGlow_805852;
 extern unsigned int nox_client_fadeObjects_80836;
 extern unsigned int nox_client_renderBubbles_80844;
 extern unsigned int nox_client_renderGUI_80828;
-extern unsigned int nox_xxx_useAudio_587000_80840;
+extern unsigned int nox_client_showTooltips_80840;
 extern unsigned int nox_xxx_xxxRenderGUI_587000_80832;
 extern unsigned int nox_profiled_805856;
 extern unsigned int nox_xxx_waypointCounterMB_587000_154948;
@@ -53,7 +53,7 @@ extern unsigned int dword_5d4594_3799468;
 extern unsigned int dword_5d4594_3799484;
 extern unsigned int dword_5d4594_3799476;
 extern unsigned int dword_5d4594_3799508;
-extern unsigned int dword_587000_154960;
+extern unsigned int nox_client_texturedFloors2_154960;
 extern unsigned int dword_5d4594_1193156;
 extern unsigned int dword_5d4594_1193188;
 extern void* nox_draw_sprite_dstPtr_3799540;
@@ -126,17 +126,12 @@ func nox_xxx_guiFontHeightMB_43F320(a1 int) int {
 	return int(C.nox_xxx_guiFontHeightMB_43F320(C.int(a1)))
 }
 
-//export nox_setProfiledMode_4445C0
-func nox_setProfiledMode_4445C0() {
-	detectBestVideoSettings()
-}
-
 func detectBestVideoSettings() { // nox_setProfiledMode_4445C0
 	const cfg = 450
 	cut := 0
 	*memmap.PtrUint32(0x587000, 80808) = 1
 	*memmap.PtrUint32(0x587000, 80816) = 1
-	C.nox_xxx_useAudio_587000_80840 = 1
+	C.nox_client_showTooltips_80840 = 1
 	C.nox_client_renderGUI_80828 = 1
 	C.nox_xxx_xxxRenderGUI_587000_80832 = 1
 	if cfg == 0 {
@@ -913,13 +908,13 @@ func nox_xxx_tileDrawMB_481C20(vp *Viewport) {
 	dx := int(vp.field_4) - int(vp.x1)
 	dy := int(vp.field_5) - int(vp.y1)
 	if C.nox_client_texturedFloors_154956 == 0 && C.dword_5d4594_1193156 == 1 {
-		C.dword_587000_154960 = 0
+		C.nox_client_texturedFloors2_154960 = 0
 		C.nox_client_texturedFloors_154956 = 1
 		C.nox_xxx_tileSetDrawFn_481420()
 	}
-	if C.dword_5d4594_1193156 == 1 && C.dword_587000_154960 == 0 && gameFrame()%30 == 0 && C.nox_xxx_tileCheckRedrawMB_482570(vp.C()) == 0 {
+	if C.dword_5d4594_1193156 == 1 && C.nox_client_texturedFloors2_154960 == 0 && gameFrame()%30 == 0 && C.nox_xxx_tileCheckRedrawMB_482570(vp.C()) == 0 {
 		C.dword_5d4594_1193156 = 0
-		C.nox_client_texturedFloors_154956 = C.dword_587000_154960
+		C.nox_client_texturedFloors_154956 = C.nox_client_texturedFloors2_154960
 		C.nox_xxx_tileSetDrawFn_481420()
 	}
 	if C.dword_5d4594_1193188 != 0 {

@@ -19,7 +19,7 @@ nox_window* nox_gui_console_input = 0;
 
 int nox_gui_console_enabled = 0;
 int nox_gui_console_locked = 0;
-int nox_gui_console_translucent = 1;
+unsigned int nox_gui_console_translucent = 1;
 int nox_gui_console_wantsPass = 0;
 extern int dword_5d4594_3799524;
 

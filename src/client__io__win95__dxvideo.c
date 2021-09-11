@@ -23,7 +23,7 @@ extern int nox_backbuffer_width;
 extern int nox_backbuffer_height;
 extern int nox_video_renderTargetFlags;
 extern int nox_video_dxFullScreen;
-extern int nox_video_dxUnlockSurface;
+extern unsigned int nox_video_dxUnlockSurface;
 
 //----- (0047FD70) --------------------------------------------------------
 #ifndef NOX_CGO

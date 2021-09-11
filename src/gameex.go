@@ -219,7 +219,7 @@ func gameexOnKeyboardPress(kcode keybind.Key) {
 				v11 := modifyWndPntr.ChildByID(1524)
 				C.nox_xxx_wnd_46ABB0(C.int(uintptr(unsafe.Pointer(v11.C()))), 0)
 			}
-			sub_46B120(modifyWndPntr.C(), nil)
+			sub46B120(modifyWndPntr, nil)
 			a2b := modifyWndPntr.ChildByID(1981)
 			for i := 0; i < 5; i++ {
 				wstr := GoWStringSlice(wndEntryNames[i][:])

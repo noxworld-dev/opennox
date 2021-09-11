@@ -95,8 +95,8 @@ extern unsigned int nox_rnd_table_37892[4096];
 
 int nox_enable_audio = 1;
 int nox_enable_threads = 1;
-int nox_video_dxFullScreen = 0;
-int nox_video_dxUnlockSurface = 0;
+unsigned int nox_video_dxFullScreen = 0;
+unsigned int nox_video_dxUnlockSurface = 0;
 HANDLE* nox_video_cursorDrawThreadHandle;
 
 nox_engine_flag nox_common_engineFlags = 0u;

@@ -19,21 +19,21 @@
 #include "client__video__draw_common.h"
 
 extern _DWORD dword_5d4594_1193156;
-extern _DWORD dword_587000_154960;
+extern unsigned int nox_client_texturedFloors2_154960;
 extern int nox_win_width_game;
 extern int nox_win_height_game;
 extern int nox_win_depth_game;
 extern void* dword_587000_127004;
 extern void* dword_587000_122852;
 extern void* dword_587000_93164;
-extern int nox_video_dxUnlockSurface;
+extern unsigned int nox_video_dxUnlockSurface;
 extern _DWORD nox_client_drawFrontWalls_80812;
 extern _DWORD nox_client_translucentFrontWalls_805844;
 extern _DWORD nox_client_highResFrontWalls_80820;
 extern _DWORD nox_client_highResFloors_154952;
 extern _DWORD nox_client_lockHighResFloors_1193152;
 extern _DWORD nox_client_texturedFloors_154956;
-extern int nox_gui_console_translucent;
+extern unsigned int nox_gui_console_translucent;
 extern _DWORD nox_client_renderGlow_805852;
 extern _DWORD nox_client_renderGUI_80828;
 extern _DWORD nox_client_fadeObjects_80836;
@@ -539,7 +539,7 @@ int sub_4322E0() {
 		nox_client_texturedFloors_154956 = nox_client_texturedFloors_154956 != 0;
 		nox_xxx_tileSetDrawFn_481420();
 		dword_5d4594_1193156 = 0;
-		dword_587000_154960 = nox_client_texturedFloors_154956;
+		nox_client_texturedFloors2_154960 = nox_client_texturedFloors_154956;
 	}
 	return 1;
 }

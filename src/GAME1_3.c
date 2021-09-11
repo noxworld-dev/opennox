@@ -66,7 +66,7 @@ extern _DWORD dword_5d4594_830260;
 extern _DWORD dword_5d4594_829544;
 extern _DWORD dword_5d4594_816412;
 extern _DWORD dword_5d4594_829500;
-extern _DWORD nox_xxx_useAudio_587000_80840;
+extern _DWORD nox_client_showTooltips_80840;
 extern _DWORD dword_5d4594_830120;
 extern _DWORD dword_5d4594_830256;
 extern _DWORD dword_587000_93944;
@@ -95,7 +95,7 @@ extern _DWORD dword_5d4594_829504;
 extern _DWORD dword_5d4594_825744;
 extern _DWORD dword_5d4594_816372;
 extern _DWORD nox_client_renderGlow_805852;
-extern int nox_gui_console_translucent;
+extern unsigned int nox_gui_console_translucent;
 extern _DWORD nox_client_fadeObjects_80836;
 extern _DWORD nox_client_lockHighResFloors_1193152;
 extern _DWORD dword_5d4594_815708;
@@ -3778,7 +3778,7 @@ void nox_setProfiledMode_4445C0() {
 	int v5 = 0;
 	*getMemU32Ptr(0x587000, 80808) = 1;
 	*getMemU32Ptr(0x587000, 80816) = 1;
-	nox_xxx_useAudio_587000_80840 = 1;
+	nox_client_showTooltips_80840 = 1;
 	nox_client_renderGUI_80828 = 1;
 	nox_xxx_xxxRenderGUI_587000_80832 = 1;
 	if (v0 == 0) {

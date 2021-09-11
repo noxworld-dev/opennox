@@ -16,7 +16,7 @@ extern unsigned int dword_5d4594_805860;
 extern int nox_video_dxFullScreen;
 extern int nox_enable_threads;
 extern int nox_video_dxFullScreen;
-extern int nox_video_dxUnlockSurface;
+extern unsigned int nox_video_dxUnlockSurface;
 extern unsigned int nox_video_16bit;
 extern int nox_win_width_game;
 extern int nox_win_height_game;
@@ -32,7 +32,7 @@ extern unsigned int dword_5d4594_3798640;
 extern char* dword_5d4594_3798644;
 extern char* dword_5d4594_3798648;
 extern unsigned int dword_5d4594_3799468;
-extern unsigned int nox_xxx_useAudio_587000_80840;
+extern unsigned int nox_client_showTooltips_80840;
 extern int dword_5d4594_3799524;
 extern int nox_client_mouseCursorType;
 extern int nox_xxx_cursorTypePrev_587000_151528;
@@ -1059,7 +1059,7 @@ func nox_client_drawCursorAndTooltips_477830(inp *input.Handler) {
 		}
 	}
 	nox_video_cursorDrawImpl_477A30(inp, mpos)
-	if str := GoWStringP(memmap.PtrOff(0x5D4594, 1096676)); str != "" && C.nox_xxx_useAudio_587000_80840 == 1 {
+	if str := GoWStringP(memmap.PtrOff(0x5D4594, 1096676)); str != "" && C.nox_client_showTooltips_80840 == 1 {
 		sz := noxrend.GetStringSize(0, str, 0)
 		px := mpos.X - dword_5d4594_1097204
 		py := mpos.Y - dword_5d4594_1097208

@@ -61,7 +61,7 @@ extern _DWORD dword_5d4594_1321520;
 extern _DWORD dword_5d4594_1319268;
 extern _DWORD dword_5d4594_1321024;
 extern _DWORD dword_5d4594_1320936;
-extern _DWORD nox_xxx_useAudio_587000_80840;
+extern _DWORD nox_client_showTooltips_80840;
 extern _DWORD dword_587000_183456;
 extern _DWORD dword_5d4594_1320988;
 extern _DWORD dword_5d4594_1522596;
@@ -75,7 +75,7 @@ extern _DWORD dword_5d4594_1316704;
 extern _DWORD dword_5d4594_1321208;
 extern _DWORD nox_xxx_xxxRenderGUI_587000_80832;
 extern _DWORD dword_5d4594_1321800;
-extern _DWORD dword_587000_154960;
+extern unsigned int nox_client_texturedFloors2_154960;
 extern _DWORD dword_5d4594_3799476;
 extern _DWORD dword_5d4594_1321224;
 extern _DWORD dword_5d4594_1319056;
@@ -88,7 +88,7 @@ extern _DWORD dword_5d4594_1321044;
 extern _DWORD nox_client_renderGlow_805852;
 extern _DWORD dword_5d4594_1319232;
 extern _DWORD dword_5d4594_1321216;
-extern int nox_gui_console_translucent;
+extern unsigned int nox_gui_console_translucent;
 extern _DWORD nox_client_fadeObjects_80836;
 extern nox_window* dword_5d4594_1321236;
 extern nox_window* dword_5d4594_1321240;
@@ -122,7 +122,6 @@ extern void* (*nox_video_getImagePixdata_func)(nox_video_bag_image_t*);
 void* nox_video_getImagePixdata_func(nox_video_bag_image_t*);
 #endif // NOX_CGO
 extern _DWORD dword_5d4594_3807156;
-extern _DWORD dword_5d4594_1522600;
 extern int dword_5d4594_3799524;
 extern _DWORD dword_5d4594_3679320;
 extern _DWORD dword_5d4594_1313796;
@@ -144,7 +143,7 @@ extern unsigned int nox_gameFPS;
 extern unsigned int nox_frame_xxx_2598000;
 
 extern int nox_backbuffer_depth;
-extern int nox_video_dxUnlockSurface;
+extern unsigned int nox_video_dxUnlockSurface;
 
 extern nox_render_data_t* ptr_5D4594_3799572;
 extern nox_render_data_t obj_5D4594_3800716;
@@ -158,6 +157,7 @@ _DWORD nox_arr_956A00[NOX_MAX_HEIGHT+150] = {0};
 unsigned char nox_arr_957820[128*(NOX_MAX_HEIGHT+150)] = {0};
 
 #ifndef NOX_CGO
+void* nox_win_advVideoOpts_1522600 = 0;
 extern nox_bindevent_t nox_bindevent_arr[NOX_BINDEVENT_MAX];
 #endif // NOX_CGO
 
@@ -6492,8 +6492,9 @@ BOOL  nox_game_setMovieFile_4CB230(const char* a1, char* lpFileName) // setmovie
 	return _stat(lpFileName, (int)&v4) == 0;
 }
 
+#ifndef NOX_CGO
 //----- (004CB330) --------------------------------------------------------
-_DWORD* sub_4CB330() {
+void nox_client_advVideoOptsLoad_4CB330() {
 	_DWORD* v0;       // eax
 	int v1;           // ecx
 	unsigned int v2;  // ecx
@@ -6536,117 +6537,118 @@ _DWORD* sub_4CB330() {
 	_DWORD* result;   // eax
 	int v40;          // ecx
 
-	v0 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1522600, 2010);
+	v0 = nox_xxx_wndGetChildByID_46B0C0(nox_win_advVideoOpts_1522600, 2010);
 	v1 = v0[9];
 	if (nox_video_dxUnlockSurface)
 		v2 = v1 | 4;
 	else
 		v2 = v1 & 0xFFFFFFFB;
 	v0[9] = v2;
-	v3 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1522600, 2012);
+	v3 = nox_xxx_wndGetChildByID_46B0C0(nox_win_advVideoOpts_1522600, 2012);
 	v4 = v3[9];
 	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_SOFT_SHADOW_EDGE))
 		v5 = v4 | 4;
 	else
 		v5 = v4 & 0xFFFFFFFB;
 	v3[9] = v5;
-	v6 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1522600, 2020);
+	v6 = nox_xxx_wndGetChildByID_46B0C0(nox_win_advVideoOpts_1522600, 2020);
 	v7 = v6[9];
 	if (nox_client_drawFrontWalls_80812)
 		v8 = v7 | 4;
 	else
 		v8 = v7 & 0xFFFFFFFB;
 	v6[9] = v8;
-	v9 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1522600, 2021);
+	v9 = nox_xxx_wndGetChildByID_46B0C0(nox_win_advVideoOpts_1522600, 2021);
 	v10 = v9[9];
 	if (nox_client_translucentFrontWalls_805844)
 		v11 = v10 | 4;
 	else
 		v11 = v10 & 0xFFFFFFFB;
 	v9[9] = v11;
-	v12 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1522600, 2022);
+	v12 = nox_xxx_wndGetChildByID_46B0C0(nox_win_advVideoOpts_1522600, 2022);
 	v13 = v12[9];
 	if (nox_client_highResFrontWalls_80820)
 		v14 = v13 | 4;
 	else
 		v14 = v13 & 0xFFFFFFFB;
 	v12[9] = v14;
-	v15 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1522600, 2031);
+	v15 = nox_xxx_wndGetChildByID_46B0C0(nox_win_advVideoOpts_1522600, 2031);
 	v16 = v15[9];
 	if (nox_client_highResFloors_154952)
 		v17 = v16 | 4;
 	else
 		v17 = v16 & 0xFFFFFFFB;
 	v15[9] = v17;
-	v18 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1522600, 2032);
+	v18 = nox_xxx_wndGetChildByID_46B0C0(nox_win_advVideoOpts_1522600, 2032);
 	v19 = v18[9];
 	if (nox_client_lockHighResFloors_1193152)
 		v20 = v19 | 4;
 	else
 		v20 = v19 & 0xFFFFFFFB;
 	v18[9] = v20;
-	v21 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1522600, 2014);
+	v21 = nox_xxx_wndGetChildByID_46B0C0(nox_win_advVideoOpts_1522600, 2014);
 	v22 = v21[9];
 	if (nox_gui_console_translucent)
 		v23 = v22 | 4;
 	else
 		v23 = v22 & 0xFFFFFFFB;
 	v21[9] = v23;
-	v24 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1522600, 2015);
+	v24 = nox_xxx_wndGetChildByID_46B0C0(nox_win_advVideoOpts_1522600, 2015);
 	v25 = v24[9];
 	if (nox_client_renderGlow_805852)
 		v26 = v25 | 4;
 	else
 		v26 = v25 & 0xFFFFFFFB;
 	v24[9] = v26;
-	v27 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1522600, 2040);
+	v27 = nox_xxx_wndGetChildByID_46B0C0(nox_win_advVideoOpts_1522600, 2040);
 	v28 = v27[9];
 	if (nox_client_renderGUI_80828)
 		v29 = v28 | 4;
 	else
 		v29 = v28 & 0xFFFFFFFB;
 	v27[9] = v29;
-	v30 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1522600, 2016);
+	v30 = nox_xxx_wndGetChildByID_46B0C0(nox_win_advVideoOpts_1522600, 2016);
 	v31 = v30[9];
 	if (nox_client_fadeObjects_80836)
 		v32 = v31 | 4;
 	else
 		v32 = v31 & 0xFFFFFFFB;
 	v30[9] = v32;
-	v33 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1522600, 2017);
+	v33 = nox_xxx_wndGetChildByID_46B0C0(nox_win_advVideoOpts_1522600, 2017);
 	v34 = v33[9];
-	if (nox_xxx_useAudio_587000_80840)
+	if (nox_client_showTooltips_80840)
 		v35 = v34 | 4;
 	else
 		v35 = v34 & 0xFFFFFFFB;
 	v33[9] = v35;
-	v36 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1522600, 2041);
+	v36 = nox_xxx_wndGetChildByID_46B0C0(nox_win_advVideoOpts_1522600, 2041);
 	v37 = v36[9];
 	if (nox_client_renderBubbles_80844)
 		v38 = v37 | 4;
 	else
 		v38 = v37 & 0xFFFFFFFB;
 	v36[9] = v38;
-	result = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1522600, 2033);
+	result = nox_xxx_wndGetChildByID_46B0C0(nox_win_advVideoOpts_1522600, 2033);
 	v40 = result[9];
-	if (dword_587000_154960)
+	if (nox_client_texturedFloors2_154960)
 		result[9] = v40 | 4;
 	else
 		result[9] = v40 & 0xFFFFFFFB;
-	return result;
 }
 
 //----- (004CB590) --------------------------------------------------------
-int  sub_4CB590(int a1) {
-	dword_5d4594_1522600 = nox_new_window_from_file("advidopt.wnd", sub_4CB5D0);
-	sub_46B120(*(_DWORD**)&dword_5d4594_1522600, a1);
+int  nox_client_advVideoOpts_New_4CB590(nox_window* a1) {
+	nox_win_advVideoOpts_1522600 = nox_new_window_from_file("advidopt.wnd", nox_client_advVideoOptsProc_4CB5D0);
+	sub_46B120(nox_win_advVideoOpts_1522600, a1);
 	nox_xxx_wndRetNULL_46A8A0();
-	sub_4CB330();
+	nox_client_advVideoOptsLoad_4CB330();
 	return 1;
 }
 
 //----- (004CB5D0) --------------------------------------------------------
-int  sub_4CB5D0(int a1, int a2, int* a3, int a4) {
+int  nox_client_advVideoOptsProc_4CB5D0(void* a1p, int a2, void* a3p, int a4) {
+	int a1 = a1p;
+	int* a3 = a3p;
 	int v3;          // esi
 	int v4;          // eax
 	int result;      // eax
@@ -6688,7 +6690,7 @@ int  sub_4CB5D0(int a1, int a2, int* a3, int a4) {
 			nox_client_fadeObjects_80836 = 1 - nox_client_fadeObjects_80836;
 			break;
 		case 2017:
-			nox_xxx_useAudio_587000_80840 = 1 - nox_xxx_useAudio_587000_80840;
+			nox_client_showTooltips_80840 = 1 - nox_client_showTooltips_80840;
 			result = 0;
 			break;
 		case 2020:
@@ -6713,8 +6715,8 @@ int  sub_4CB5D0(int a1, int a2, int* a3, int a4) {
 			nox_client_lockHighResFloors_1193152 = 1 - nox_client_lockHighResFloors_1193152;
 			break;
 		case 2033:
-			dword_587000_154960 = 1 - dword_587000_154960;
-			nox_client_texturedFloors_154956 = dword_587000_154960;
+			nox_client_texturedFloors2_154960 = 1 - nox_client_texturedFloors2_154960;
+			nox_client_texturedFloors_154956 = nox_client_texturedFloors2_154960;
 			nox_xxx_tileSetDrawFn_481420();
 			dword_5d4594_1193156 = 0;
 			result = 0;
@@ -6730,7 +6732,7 @@ int  sub_4CB5D0(int a1, int a2, int* a3, int a4) {
 			goto LABEL_23;
 		case 2099:
 			nox_setProfiledMode_4445C0();
-			sub_4CB330();
+			nox_client_advVideoOptsLoad_4CB330();
 			v4 = *(_DWORD*)(a1 + 396);
 			if (!v4)
 				goto LABEL_23;
@@ -6746,6 +6748,7 @@ int  sub_4CB5D0(int a1, int a2, int* a3, int a4) {
 	}
 	return result;
 }
+#endif // NOX_CGO
 
 //----- (004CB880) --------------------------------------------------------
 int sub_4CB880() {

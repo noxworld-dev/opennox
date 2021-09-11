@@ -51,7 +51,7 @@ void nox_setProfiledMode_4445C0() {
 	{ v0 = 0; }
 	*getMemU32Ptr(0x587000, 80808) = 1;
 	*getMemU32Ptr(0x587000, 80816) = 1;
-	nox_xxx_useAudio_587000_80840 = 1;
+	nox_client_showTooltips_80840 = 1;
 	nox_client_renderGUI_80828 = 1;
 	nox_xxx_xxxRenderGUI_587000_80832 = 1;
 	if (v0 <= 266) {

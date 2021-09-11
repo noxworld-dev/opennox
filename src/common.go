@@ -73,7 +73,15 @@ func setEngineFlag(f EngineFlags) {
 }
 
 func resetEngineFlag(f EngineFlags) {
-	C.nox_common_engineFlags &= C.uint(^f)
+	C.nox_common_engineFlags &^= C.uint(f)
+}
+
+func toggleEngineFlag(f EngineFlags) {
+	if getEngineFlag(f) {
+		resetEngineFlag(f)
+	} else {
+		setEngineFlag(f)
+	}
 }
 
 //export nox_xxx_replayWriteRndCounter_415F30

@@ -3976,7 +3976,7 @@ int nox_game_showOptions_4AA6B0() {
 	if (!dword_5d4594_1309720) {
 		return 0;
 	}
-	if (!sub_4CB590(dword_5d4594_1309720)) {
+	if (!nox_client_advVideoOpts_New_4CB590(dword_5d4594_1309720)) {
 		return 0;
 	}
 	nox_xxx_wndSetWindowProc_46B300(*(int*)&dword_5d4594_1309720, sub_4A18E0);
@@ -5706,7 +5706,7 @@ int sub_4ADA40() {
 	sub_413A00(1);
 	nox_xxx_wndShowModalMB_46A8C0(*(int*)&dword_5d4594_1309820);
 	nox_xxx_wndShowModalMB_46A8C0(*(int*)&dword_5d4594_1309824);
-	sub_4CB330();
+	nox_client_advVideoOptsLoad_4CB330();
 	v0 = nox_video_getCutSize_4766D0();
 	if (v0 > 69) {
 		if (v0 <= 79) {
@@ -5769,7 +5769,7 @@ int nox_game_initOptionsInGame_4ADAD0() {
 	if (!dword_5d4594_1309820) {
 		return 0;
 	}
-	if (!sub_4CB590(dword_5d4594_1309820)) {
+	if (!nox_client_advVideoOpts_New_4CB590(dword_5d4594_1309820)) {
 		return 0;
 	}
 	v1 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1309820, 351);

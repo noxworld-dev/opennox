@@ -54,7 +54,7 @@ extern _DWORD dword_5d4594_1193188;
 extern _DWORD dword_5d4594_1193176;
 extern _DWORD dword_5d4594_1098596;
 extern _DWORD dword_5d4594_1193336;
-extern _DWORD nox_xxx_useAudio_587000_80840;
+extern _DWORD nox_client_showTooltips_80840;
 extern _DWORD dword_5d4594_3799452;
 extern _DWORD dword_5d4594_1098600;
 extern _DWORD dword_5d4594_3807152;
@@ -75,7 +75,7 @@ extern _DWORD dword_5d4594_1193648;
 extern _DWORD dword_5d4594_1193668;
 extern _DWORD nox_video_bag_ready;
 extern _DWORD nox_xxx_xxxRenderGUI_587000_80832;
-extern _DWORD dword_587000_154960;
+extern unsigned int nox_client_texturedFloors2_154960;
 extern _DWORD dword_5d4594_3799476;
 extern _DWORD dword_5d4594_3799468;
 extern _DWORD nox_xxx_waypointCounterMB_587000_154948;
@@ -1387,7 +1387,7 @@ void nox_client_drawCursorAndTooltips_477830() {
 		}
 	}
 	nox_video_cursorDrawImpl_477A30(*getMemIntPtr(0x5D4594, 2523948), mpos.x, mpos.y);
-	if (*getMemU16Ptr(0x5D4594, 1096676) && nox_xxx_useAudio_587000_80840 == 1) {
+	if (*getMemU16Ptr(0x5D4594, 1096676) && nox_client_showTooltips_80840 == 1) {
 		nox_xxx_drawGetStringSize_43F840(0, getMemU16Ptr(0x5D4594, 1096676), &v8, &v7, 0);
 		v4 = mpos.x - *getMemU32Ptr(0x5D4594, 1097204);
 		v5 = mpos.y - dword_5d4594_1097208;
@@ -6971,13 +6971,13 @@ void nox_xxx_tileDrawMB_481C20(nox_draw_viewport_t* vp) {
 	v3 = v1 - v2;
 	v72 = v3;
 	if (!nox_client_texturedFloors_154956 && dword_5d4594_1193156 == 1) {
-		dword_587000_154960 = 0;
+		nox_client_texturedFloors2_154960 = 0;
 		nox_client_texturedFloors_154956 = 1;
 		nox_xxx_tileSetDrawFn_481420();
 	}
-	if (dword_5d4594_1193156 == 1 && !dword_587000_154960 && !(nox_frame_xxx_2598000 % 0x1Eu) && !nox_xxx_tileCheckRedrawMB_482570(vp)) {
+	if (dword_5d4594_1193156 == 1 && !nox_client_texturedFloors2_154960 && !(nox_frame_xxx_2598000 % 0x1Eu) && !nox_xxx_tileCheckRedrawMB_482570(vp)) {
 		dword_5d4594_1193156 = 0;
-		nox_client_texturedFloors_154956 = dword_587000_154960;
+		nox_client_texturedFloors_154956 = nox_client_texturedFloors2_154960;
 		nox_xxx_tileSetDrawFn_481420();
 	}
 	if (dword_5d4594_1193188) {

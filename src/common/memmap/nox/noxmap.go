@@ -66,7 +66,7 @@ var noxMemmap = []struct {
 	{0x587000, 80828, 4, "nox_client_renderGUI_80828"},                    // 0x59ABBC
 	{0x587000, 80832, 4, "nox_xxx_xxxRenderGUI_587000_80832"},             // 0x59ABC0
 	{0x587000, 80836, 4, "nox_client_fadeObjects_80836"},                  // 0x59ABC4
-	{0x587000, 80840, 4, "nox_xxx_useAudio_587000_80840"},                 // 0x59ABC8
+	{0x587000, 80840, 4, "nox_client_showTooltips_80840"},                 // 0x59ABC8
 	{0x587000, 80844, 4, "nox_client_renderBubbles_80844"},                // 0x59ABCC
 	{0x587000, 80848, 4, "nox_video_dxFullScreen"},                        // 0x59ABD0
 	{0x587000, 80856, 4, "nox_max_width"},                                 // 0x59ABD8
@@ -135,7 +135,7 @@ var noxMemmap = []struct {
 	{0x587000, 154948, 4, "nox_xxx_waypointCounterMB_587000_154948"},      // 0x5ACD44
 	{0x587000, 154952, 4, "nox_client_highResFloors_154952"},              // 0x5ACD48
 	{0x587000, 154956, 4, "nox_client_texturedFloors_154956"},             // 0x5ACD4C
-	{0x587000, 154960, 4, "dword_587000_154960"},                          // 0x5ACD50
+	{0x587000, 154960, 4, "nox_client_texturedFloors2_154960"},            // 0x5ACD50
 	{0x587000, 154968, 4, "dword_587000_154968"},                          // 0x5ACD58
 	{0x587000, 155144, 4, "dword_587000_155144"},                          // 0x5ACE08
 	{0x587000, 166704, 4, "nox_wol_servers_sorting_166704"},               // 0x5AFB30
@@ -1027,7 +1027,7 @@ var noxMemmap = []struct {
 	{0x5D4594, 1321520, 4, "dword_5d4594_1321520"},                              // 0x716FC4
 	{0x5D4594, 1321800, 4, "dword_5d4594_1321800"},                              // 0x7170DC
 	{0x5D4594, 1522596, 4, "dword_5d4594_1522596"},                              // 0x748138
-	{0x5D4594, 1522600, 4, "dword_5d4594_1522600"},                              // 0x74813C
+	{0x5D4594, 1522600, 4, "nox_win_advVideoOpts_1522600"},                      // 0x74813C
 	{0x5D4594, 1522604, 4, "dword_5d4594_1522604"},                              // 0x748140
 	{0x5D4594, 1522608, 4, "nox_wnd_xxx_1522608"},                               // 0x748144
 	{0x5D4594, 1522612, 4, "dword_5d4594_1522612"},                              // 0x748148

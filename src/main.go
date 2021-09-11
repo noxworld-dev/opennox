@@ -20,7 +20,7 @@ package main
 extern unsigned int dword_5d4594_805860;
 extern int nox_video_dxFullScreen;
 extern int nox_enable_audio;
-extern int nox_video_dxUnlockSurface;
+extern unsigned int nox_video_dxUnlockSurface;
 extern int nox_enable_threads;
 extern unsigned int nox_gameDisableMapDraw_5d4594_2650672;
 extern unsigned int nox_gameFPS;

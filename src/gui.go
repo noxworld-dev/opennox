@@ -100,6 +100,18 @@ func (d *WindowData) C() *C.nox_window_data {
 	return (*C.nox_window_data)(unsafe.Pointer(d))
 }
 
+func (d *WindowData) Field0() uint32 {
+	return uint32(d.field_0)
+}
+
+func (d *WindowData) Field0Set(flag uint32, v bool) {
+	if v {
+		d.field_0 |= C.uint(flag)
+	} else {
+		d.field_0 &^= C.uint(flag)
+	}
+}
+
 func (d *WindowData) Group() int {
 	return int(d.group)
 }
@@ -411,6 +423,10 @@ func sub_46C200() {
 
 //export sub_46B120
 func sub_46B120(a1, a2 *C.nox_window) C.int {
+	return C.int(sub46B120(asWindow(a1), asWindow(a2)))
+}
+
+func sub46B120(a1, a2 *Window) int {
 	win := asWindow(a1)
 	if win == nil {
 		return -2
