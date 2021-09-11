@@ -1,7 +1,7 @@
 package main
 
 /*
-#cgo CFLAGS: -fshort-wchar -fno-strict-aliasing -fno-strict-overflow
+#cgo CFLAGS: -fshort-wchar -fno-strict-aliasing -fno-strict-overflow -fstack-protector-strong
 
 #cgo CFLAGS: -Werror=return-type
 #cgo CFLAGS: -Werror=implicit-function-declaration
@@ -30,7 +30,7 @@ package main
 #cgo CFLAGS: -Wno-return-local-addr
 #cgo CFLAGS: -Wno-unused-result
 
-#cgo windows LDFLAGS: -lws2_32
+#cgo windows LDFLAGS: -lws2_32 -lssp
 #cgo linux LDFLAGS: -lm
 #cgo CFLAGS: -DNOX_CGO
 */
