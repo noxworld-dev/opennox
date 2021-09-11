@@ -499,6 +499,7 @@ int _open(const char* filename, int oflag, ...) {
 	return fd;
 }
 
+#ifndef NOX_CGO
 int _chmod(const char* filename, int mode) {
 	int result;
 	char* converted = nox_fs_normalize(filename);
@@ -506,6 +507,7 @@ int _chmod(const char* filename, int mode) {
 	free(converted);
 	return result;
 }
+#endif // NOX_CGO
 
 int _access(const char* filename, int mode) {
 	int result;

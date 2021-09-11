@@ -4085,7 +4085,9 @@ char  sub_57AAA0(const char* a1, char* a2, int* a3) {
 		strncat(FileName, a2, 8u);
 		*(_WORD*)&FileName[strlen(FileName)] = *getMemU16Ptr(0x587000, 312588);
 		strcat(FileName, a1);
+#ifndef NOX_CGO
 		_chmod(FileName, 128);
+#endif // NOX_CGO
 		v3 = nox_fs_create_text(FileName);
 		v4 = v3;
 		if (v3) {

@@ -1780,6 +1780,7 @@ int sub_43E200() {
 int sub_43E230() {
 	sub_477530(0);
 
+#ifndef NOX_CGO
 	char* map_path_1 = nox_server_get_current_map_path_409B90();
 	if (_chmod(map_path_1, 128) == -1)
 		return sub_43E200();
@@ -1787,6 +1788,7 @@ int sub_43E230() {
 	char* map_path_2 = sub_409C70();
 	if (_chmod(map_path_2, 128) == -1)
 		return sub_43E200();
+#endif // NOX_CGO
 
 	nox_xxx_setGameFlags_40A4D0(0x100000);
 	return sub_44A400();
