@@ -49,6 +49,11 @@ func NewPtr() unsafe.Pointer {
 	return unsafe.Pointer(&data[off])
 }
 
+// IsValid checks if a handle is valid.
+func IsValid(h uintptr) bool {
+	return h >= base && h < end
+}
+
 // AssertValid checks if a handle is valid and panic otherwise.
 func AssertValid(h uintptr) {
 	if h == 0 {

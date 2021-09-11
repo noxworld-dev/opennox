@@ -65,8 +65,10 @@ type Socket struct {
 }
 
 func (s *Socket) setErrno(v int, err error) {
-	s.errno = v // TODO: mutex
-	s.err = err
+	if s != nil {
+		s.errno = v // TODO: mutex
+		s.err = err
+	}
 	sockets.Lock()
 	sockets.errno = v
 	sockets.Unlock()
@@ -348,7 +350,9 @@ func nox_net_close(fd C.nox_socket_t) {
 
 func getSocket(fd C.nox_socket_t) *Socket {
 	h := uintptr(fd)
-	handles.AssertValid(h)
+	if !handles.IsValid(h) {
+		return nil
+	}
 	sockets.RLock()
 	s := sockets.byHandle[h]
 	sockets.RUnlock()
