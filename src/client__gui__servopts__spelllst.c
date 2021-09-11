@@ -27,7 +27,7 @@ int  nox_xxx_guiSpelllistLoad_453850(int a1) {
 	sub_453B00();
 	nox_window_call_field_94(*(int*)&dword_5d4594_1045480, 16399, 0, 0);
 	nox_window_call_field_94(*(int*)&dword_5d4594_1045508, 16399, 0, 0);
-	wchar_t wbuf[64];
+	wchar_t wbuf[64] = {0};
 	for (int i = 1; i < NOX_SPELLS_MAX; i++) {
 		if (!nox_xxx_spellIsValid_424B50(i)) {
 			continue;
@@ -43,7 +43,7 @@ int  nox_xxx_guiSpelllistLoad_453850(int a1) {
 			if (flags & 0x6000000 == 0) {
 				continue;
 			}
-			nox_wcscpy(wbuf, getMemAt(0x5D4594, 1045512));
+			wbuf[0] = 0;
 			if (flags & 0x2000000) {
 				wchar_t* v5 = nox_strman_loadString_40F1D0("SpellWizard", 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\spelllst.c", 314);
 				nox_wcscat(wbuf, v5);
@@ -55,7 +55,7 @@ int  nox_xxx_guiSpelllistLoad_453850(int a1) {
 		}
 		nox_window_call_field_94(*(int*)&dword_5d4594_1045508, 16397, wbuf, -1);
 		wchar_t* title = nox_xxx_spellTitle_424930(i);
-		nox_wcsncpy(wbuf, title, sizeof(wbuf)-1);
+		nox_wcsncpy(wbuf, title, sizeof(wbuf)/2-1);
 		nox_window_call_field_94(*(int*)&dword_5d4594_1045480, 16397, wbuf, -1);
 	}
 	v9 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1045484, 1113);
