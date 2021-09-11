@@ -124,12 +124,10 @@ func ErrIsInUse(err error) bool {
 	return errors.Is(err, syscall.EADDRINUSE)
 }
 
-var bindsCnt = 0
-
 func (s *Socket) Bind(ip net.IP, port int) error {
 	if s.udp {
+		netLog.Printf("bind udp %s:%d", ip, port)
 		l, err := net.ListenUDP("udp4", &net.UDPAddr{IP: ip, Port: port})
-		netLog.Printf("bind udp %s:%d: %v (%s)", ip, port, err, caller(1))
 		if ErrIsInUse(err) {
 			s.setErrno(NOX_NET_EADDRINUSE, err)
 			return err
@@ -139,10 +137,6 @@ func (s *Socket) Bind(ip net.IP, port int) error {
 		}
 		s.pc = l
 		s.setErrno(0, nil)
-		bindsCnt++
-		if bindsCnt > 5 {
-			panic("TOO MANY BINDS")
-		}
 		return nil
 	}
 	netLog.Printf("bind tcp %s:%d", ip, port)
