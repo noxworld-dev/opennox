@@ -1,16 +1,20 @@
 package gui
 
 const (
-	StylePushButton    = StyleFlags(0x1)
-	StyleRadioButton   = StyleFlags(0x2)
-	StyleCheckBox      = StyleFlags(0x4)
-	StyleVertSlider    = StyleFlags(0x8)
-	StyleHorizSlider   = StyleFlags(0x10)
-	StyleScrollListBox = StyleFlags(0x20)
-	StyleEntryField    = StyleFlags(0x80)
-	StyleStaticText    = StyleFlags(0x800)
-	StyleProgressBar   = StyleFlags(0x1000)
-	StyleUserWindow    = StyleFlags(0x2000)
+	StylePushButton    = StyleFlags(1 << iota) // 0x1
+	StyleRadioButton                           // 0x2
+	StyleCheckBox                              // 0x4
+	StyleVertSlider                            // 0x8
+	StyleHorizSlider                           // 0x10
+	StyleScrollListBox                         // 0x20
+	StyleFadeListBox                           // 0x40
+	StyleEntryField                            // 0x80
+	StyleMouseTrack                            // 0x100
+	StyleAnimated                              // 0x200
+	StyleTabStop                               // 0x400
+	StyleStaticText                            // 0x800
+	StyleProgressBar                           // 0x1000
+	StyleUserWindow                            // 0x2000
 )
 
 type StyleFlags int

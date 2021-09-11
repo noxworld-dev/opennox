@@ -31,10 +31,14 @@ func init() {
 }
 
 func asImage(p *C.nox_video_bag_image_t) *Image {
+	return asImageP(unsafe.Pointer(p))
+}
+
+func asImageP(p unsafe.Pointer) *Image {
 	if p == nil {
 		return nil
 	}
-	return noxImages.byHandle[unsafe.Pointer(p)]
+	return noxImages.byHandle[p]
 }
 
 func NewRawImage(typ int, data []byte) *Image {

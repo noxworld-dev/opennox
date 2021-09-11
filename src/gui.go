@@ -120,8 +120,16 @@ func (d *WindowData) StyleFlags() gui.StyleFlags {
 	return gui.StyleFlags(d.style)
 }
 
-func (d *WindowData) Status() int {
-	return int(d.status)
+func (d *WindowData) SetStyleFlags(v gui.StyleFlags) {
+	d.style = C.int(v)
+}
+
+func (d *WindowData) Status() gui.StatusFlags {
+	return gui.StatusFlags(d.status)
+}
+
+func (d *WindowData) SetStatus(v gui.StatusFlags) {
+	d.status = C.int(v)
 }
 
 func (d *WindowData) Window() *Window {
@@ -138,8 +146,12 @@ func (d *WindowData) SetText(s string) {
 	d.text[n-1] = 0
 }
 
-func (d *WindowData) BackgroundImage() unsafe.Pointer {
-	return d.bg_image
+func (d *WindowData) BackgroundImage() *Image {
+	return asImageP(d.bg_image)
+}
+
+func (d *WindowData) SetBackgroundImage(p *Image) {
+	d.bg_image = unsafe.Pointer(p.C())
 }
 
 func (d *WindowData) BackgroundColor() noxcolor.Color16 {
@@ -150,8 +162,12 @@ func (d *WindowData) SetBackgroundColor(cl noxcolor.Color16) {
 	d.bg_color = C.uint32_t(noxcolor.ExtendColor16(cl))
 }
 
-func (d *WindowData) EnabledImage() unsafe.Pointer {
-	return d.en_image
+func (d *WindowData) EnabledImage() *Image {
+	return asImageP(d.en_image)
+}
+
+func (d *WindowData) SetEnabledImage(p *Image) {
+	d.en_image = unsafe.Pointer(p.C())
 }
 
 func (d *WindowData) EnabledColor() noxcolor.Color16 {
@@ -162,8 +178,12 @@ func (d *WindowData) SetEnabledColor(cl noxcolor.Color16) {
 	d.en_color = C.uint32_t(noxcolor.ExtendColor16(cl))
 }
 
-func (d *WindowData) DisabledImage() unsafe.Pointer {
-	return d.dis_image
+func (d *WindowData) DisabledImage() *Image {
+	return asImageP(d.dis_image)
+}
+
+func (d *WindowData) SetDisabledImage(p *Image) {
+	d.dis_image = unsafe.Pointer(p.C())
 }
 
 func (d *WindowData) DisabledColor() noxcolor.Color16 {
@@ -174,8 +194,12 @@ func (d *WindowData) SetDisabledColor(cl noxcolor.Color16) {
 	d.dis_color = C.uint32_t(noxcolor.ExtendColor16(cl))
 }
 
-func (d *WindowData) HighlightImage() unsafe.Pointer {
-	return d.hl_image
+func (d *WindowData) HighlightImage() *Image {
+	return asImageP(d.hl_image)
+}
+
+func (d *WindowData) SetHighlightImage(p *Image) {
+	d.hl_image = unsafe.Pointer(p.C())
 }
 
 func (d *WindowData) HighlightColor() noxcolor.Color16 {
@@ -186,8 +210,12 @@ func (d *WindowData) SetHighlightColor(cl noxcolor.Color16) {
 	d.hl_color = C.uint32_t(noxcolor.ExtendColor16(cl))
 }
 
-func (d *WindowData) SelectedImage() unsafe.Pointer {
-	return d.sel_image
+func (d *WindowData) SelectedImage() *Image {
+	return asImageP(d.sel_image)
+}
+
+func (d *WindowData) SetSelectedImage(p *Image) {
+	d.sel_image = unsafe.Pointer(p.C())
 }
 
 func (d *WindowData) SelectedColor() noxcolor.Color16 {
@@ -206,11 +234,24 @@ func (d *WindowData) SetTextColor(cl noxcolor.Color16) {
 	d.text_color = C.uint32_t(noxcolor.ExtendColor16(cl))
 }
 
+func (d *WindowData) Font() uintptr {
+	return uintptr(d.font)
+}
+
+func (d *WindowData) SetFont(font uintptr) {
+	d.font = C.uint(font)
+}
+
 func (d *WindowData) ImagePoint() image.Point {
 	return image.Point{
 		X: int(d.img_px),
 		Y: int(d.img_py),
 	}
+}
+
+func (d *WindowData) SetImagePoint(p image.Point) {
+	d.img_px = C.int(p.X)
+	d.img_py = C.int(p.Y)
 }
 
 func (d *WindowData) Tooltip() string {
@@ -238,19 +279,19 @@ func (d *WindowData) SetDefaults(def gui.StyleDefaults) {
 func DrawGUI() {
 	// back layer (background and some UI parts)
 	for win := nox_win_xxx1_first; win != nil; win = win.Next() {
-		if win.Flags().Has(NOX_WIN_LAYER_BACK) {
+		if win.Flags().Has(gui.StatusBelow) {
 			win.drawRecursive()
 		}
 	}
 	// middle layer
 	for win := nox_win_xxx1_first; win != nil; win = win.Next() {
-		if win.Flags().HasNone(NOX_WIN_LAYER_BACK | NOX_WIN_LAYER_FRONT) {
+		if win.Flags().HasNone(gui.StatusBelow | gui.StatusAbove) {
 			win.drawRecursive()
 		}
 	}
 	// front layer
 	for win := nox_win_xxx1_first; win != nil; win = win.Next() {
-		if win.Flags().Has(NOX_WIN_LAYER_FRONT) {
+		if win.Flags().Has(gui.StatusAbove) {
 			win.drawRecursive()
 		}
 	}
@@ -426,8 +467,7 @@ func sub_46B120(a1, a2 *C.nox_window) C.int {
 	return C.int(sub46B120(asWindow(a1), asWindow(a2)))
 }
 
-func sub46B120(a1, a2 *Window) int {
-	win := asWindow(a1)
+func sub46B120(win, par *Window) int {
 	if win == nil {
 		return -2
 	}
@@ -436,8 +476,8 @@ func sub46B120(a1, a2 *Window) int {
 	} else {
 		nox_client_wndListXxxRemove_46A960(win)
 	}
-	if a2 != nil {
-		win.setParent(asWindow(a2))
+	if par != nil {
+		win.setParent(par)
 	} else {
 		nox_client_wndListXxxAdd_46A920(win)
 		win.parent = nil

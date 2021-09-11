@@ -32,6 +32,7 @@ import "C"
 import (
 	"unsafe"
 
+	"nox/v1/client/gui"
 	"nox/v1/common/alloc/classes"
 	noxcolor "nox/v1/common/color"
 	"nox/v1/common/types"
@@ -46,7 +47,7 @@ var (
 
 //export nox_window_new_go
 func nox_window_new_go(par *C.nox_window, flags, a3, a4, w, h C.int, fnc unsafe.Pointer) *C.nox_window {
-	return newWindow(asWindow(par), int(flags), int(a3), int(a4), int(w), int(h), fnc).C()
+	return newWindowRaw(asWindow(par), gui.StatusFlags(flags), int(a3), int(a4), int(w), int(h), fnc).C()
 }
 
 //export nox_xxx_wndGetID_46B0A0
@@ -194,7 +195,18 @@ func nox_client_wndListXxxRemove_46A960(win *Window) {
 	}
 }
 
-func newWindow(parent *Window, status int, px, py, w, h int, fnc94 unsafe.Pointer) *Window {
+func newUserWindow(parent *Window, id uint, status gui.StatusFlags, px, py, w, h int, drawData *WindowData, fnc unsafe.Pointer) *Window {
+	win := newWindowRaw(parent, status, px, py, w, h, fnc)
+	drawData.style |= C.int(gui.StyleUserWindow)
+	win.SetID(id)
+	win.CopyDrawData(drawData)
+	if parent != nil {
+		parent.Func94(22, uintptr(id), 0)
+	}
+	return win
+}
+
+func newWindowRaw(parent *Window, status gui.StatusFlags, px, py, w, h int, fnc94 unsafe.Pointer) *Window {
 	if nox_alloc_window == nil {
 		nox_alloc_window = classes.New("Window", unsafe.Sizeof(C.nox_window{}), 576)
 	}
@@ -204,8 +216,8 @@ func newWindow(parent *Window, status int, px, py, w, h int, fnc94 unsafe.Pointe
 	} else {
 		nox_client_wndListXxxAdd_46A920(win)
 	}
-	win.id = 0
-	win.flags = C.nox_window_flags(status)
+	win.SetID(0)
+	win.SetFlags(status)
 	win.width = C.int(w)
 	win.height = C.int(h)
 	win.SetPos(types.Point{X: px, Y: py})
@@ -223,22 +235,6 @@ func newWindow(parent *Window, status int, px, py, w, h int, fnc94 unsafe.Pointe
 func asWindow(win *C.nox_window) *Window {
 	return (*Window)(unsafe.Pointer(win))
 }
-
-type WindowFlag int
-
-func (f WindowFlag) Has(f2 WindowFlag) bool {
-	return f&f2 != 0
-}
-func (f WindowFlag) HasNone(f2 WindowFlag) bool {
-	return f&f2 == 0
-}
-
-const (
-	NOX_WIN_HIDDEN      = WindowFlag(0x10)
-	NOX_WIN_LAYER_FRONT = WindowFlag(0x20)
-	NOX_WIN_LAYER_BACK  = WindowFlag(0x40)
-	NOX_WIN_FLAG4       = WindowFlag(0x80)
-)
 
 type Window C.nox_window
 
@@ -261,11 +257,15 @@ func (win *Window) SetID(id uint) int {
 	return 0
 }
 
-func (win *Window) Flags() WindowFlag {
+func (win *Window) Flags() gui.StatusFlags {
 	if win == nil {
 		return 0
 	}
-	return WindowFlag(win.flags)
+	return gui.StatusFlags(win.flags)
+}
+
+func (win *Window) SetFlags(v gui.StatusFlags) {
+	win.flags = C.nox_window_flags(v)
 }
 
 func (win *Window) Offs() types.Point {
@@ -381,18 +381,18 @@ func (win *Window) Hide() {
 		return
 	}
 	if C.dword_5d4594_3799468 != 0 {
-		if !win.Flags().Has(NOX_WIN_HIDDEN) {
+		if !win.Flags().IsHidden() {
 			C.dword_5d4594_3799524 = 1
 		}
 	}
-	win.flags |= C.nox_window_flags(NOX_WIN_HIDDEN)
+	win.flags |= C.nox_window_flags(gui.StatusHidden)
 }
 
 func (win *Window) Show() {
 	if win == nil {
 		return
 	}
-	win.flags &^= C.nox_window_flags(NOX_WIN_HIDDEN)
+	win.flags &^= C.nox_window_flags(gui.StatusHidden)
 }
 
 func (win *Window) Func93(ev int, a1, a2 uintptr) int {
@@ -479,7 +479,7 @@ func (win *Window) drawRecursive() bool {
 	if win == nil {
 		return false
 	}
-	if win.Flags().Has(NOX_WIN_HIDDEN) {
+	if win.Flags().IsHidden() {
 		return true
 	}
 	win.Draw()
@@ -630,7 +630,7 @@ func wndIsShown_nox_xxx_wndIsShown_46ACC0(p *C.nox_window) C.int {
 		return 1
 	}
 	win := asWindow(p)
-	is := win.Flags().Has(NOX_WIN_HIDDEN)
+	is := win.Flags().IsHidden()
 	return C.int(bool2int(is))
 }
 

@@ -58,7 +58,7 @@ func (d *staticTextData) cWidgetData() unsafe.Pointer {
 	return unsafe.Pointer(d)
 }
 
-func guiNewWidget(typ string, parent *Window, status int, px, py, w, h int, draw *WindowData, data guiWidgetData) *Window {
+func guiNewWidget(typ string, parent *Window, status gui.StatusFlags, px, py, w, h int, draw *WindowData, data guiWidgetData) *Window {
 	draw.win = parent.C()
 	iparent := unsafePtrToInt(unsafe.Pointer(parent.C()))
 	udraw := unsafe.Pointer(draw.C())
@@ -102,7 +102,14 @@ func guiNewWidget(typ string, parent *Window, status int, px, py, w, h int, draw
 
 func tempDrawData() (*WindowData, func()) {
 	p := alloc.Calloc(1, unsafe.Sizeof(WindowData{}))
-	return (*WindowData)(p), func() {
+	d := (*WindowData)(p)
+	d.SetHighlightColor(noxcolor.RGBColor(255, 255, 255))
+	d.SetTextColor(noxcolor.RGBColor(200, 200, 200))
+	d.SetEnabledColor(gui.ColorTransparent)
+	d.SetDisabledColor(gui.ColorTransparent)
+	d.SetSelectedColor(gui.ColorTransparent)
+	d.SetBackgroundColor(gui.ColorTransparent)
+	return d, func() {
 		alloc.Free(p)
 	}
 }
@@ -114,7 +121,7 @@ func NewStaticText(par *Window, id uint, px, py, w, h int, f1, f2 bool, text str
 
 	draw.win = par.C()
 	draw.style |= C.int(gui.StyleStaticText)
-	status := winStatusSmoothText | winStatusNoFocus
+	status := gui.StatusSmoothText | gui.StatusNoFocus
 
 	data := (*staticTextData)(alloc.Calloc(1, unsafe.Sizeof(staticTextData{})))
 	defer alloc.Free(unsafe.Pointer(data))
@@ -143,7 +150,7 @@ func NewHorizontalSlider(par *Window, id uint, px, py, w, h int, min, max int) *
 	draw.SetDisabledColor(gui.ColorTransparent)
 	draw.SetEnabledColor(noxcolor.RGBColor(230, 165, 65))
 	draw.SetSelectedColor(noxcolor.RGBColor(230, 165, 65))
-	status := winStatusEnabled | winStatusNoFocus
+	status := gui.StatusEnabled | gui.StatusNoFocus
 
 	data := (*sliderData)(alloc.Calloc(1, unsafe.Sizeof(sliderData{})))
 	defer alloc.Free(unsafe.Pointer(data))
@@ -162,10 +169,35 @@ func NewHorizontalSlider(par *Window, id uint, px, py, w, h int, min, max int) *
 	return win
 }
 
-func newButtonOrCheckbox(parent *Window, status int, px, py, w, h int, draw *WindowData) *Window {
+func NewCheckbox(par *Window, id uint, px, py, w, h int, text string) *Window {
+	draw, dfree := tempDrawData()
+	defer dfree()
+	*draw = *par.DrawData()
+
+	draw.win = par.C()
+	draw.style = C.int(gui.StyleCheckBox | gui.StyleMouseTrack)
+	draw.SetHighlightColor(noxcolor.RGBColor(192, 128, 128))
+	draw.SetTextColor(noxcolor.RGBColor(240, 180, 42))
+	draw.SetText(text)
+	draw.SetBackgroundImage(nox_xxx_gLoadImg("UICheckBox"))
+	draw.SetSelectedImage(nox_xxx_gLoadImg("UICheckBoxLit"))
+	draw.SetDisabledImage(nox_xxx_gLoadImg("UICheckBox"))
+	draw.SetEnabledImage(nil)
+	draw.SetHighlightImage(nil)
+	status := gui.StatusEnabled | gui.StatusImage | gui.StatusNoFocus
+
+	win := newButtonOrCheckbox(par, status, px, py, w, h, draw)
+	win.SetID(id)
+	if par != nil {
+		par.Func94(22, uintptr(id), 0)
+	}
+	return win
+}
+
+func newButtonOrCheckbox(parent *Window, status gui.StatusFlags, px, py, w, h int, draw *WindowData) *Window {
 	st := draw.StyleFlags()
 	if st.IsPushButton() {
-		btn := newWindow(parent, status, px, py, w, h, C.nox_xxx_wndButtonProcPre_4A9250)
+		btn := newWindowRaw(parent, status, px, py, w, h, C.nox_xxx_wndButtonProcPre_4A9250)
 		if btn == nil {
 			return nil
 		}
@@ -176,7 +208,7 @@ func newButtonOrCheckbox(parent *Window, status int, px, py, w, h int, draw *Win
 		btn.CopyDrawData(draw)
 		return btn
 	} else if st.IsCheckBox() {
-		btn := newWindow(parent, status, px, py, w, h, C.nox_xxx_wndCheckboxProcMB_4A92C0)
+		btn := newWindowRaw(parent, status, px, py, w, h, C.nox_xxx_wndCheckboxProcMB_4A92C0)
 		if btn == nil {
 			return nil
 		}
@@ -190,11 +222,11 @@ func newButtonOrCheckbox(parent *Window, status int, px, py, w, h int, draw *Win
 	return nil
 }
 
-func newRadioButton(parent *Window, status int, px, py, w, h int, draw *WindowData, data *radioButtonData) *Window {
+func newRadioButton(parent *Window, status gui.StatusFlags, px, py, w, h int, draw *WindowData, data *radioButtonData) *Window {
 	if !draw.StyleFlags().IsRadioButton() {
 		return nil
 	}
-	win := newWindow(parent, status, px, py, w, h, C.nox_xxx_wndRadioButtonProcPre_4A93C0)
+	win := newWindowRaw(parent, status, px, py, w, h, C.nox_xxx_wndRadioButtonProcPre_4A93C0)
 	if win == nil {
 		return nil
 	}

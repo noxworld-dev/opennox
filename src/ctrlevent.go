@@ -385,7 +385,7 @@ func clientAcceptTradeOrDrop() {
 	if dialog == nil {
 		return
 	}
-	if dialog.Flags().Has(NOX_WIN_HIDDEN) {
+	if dialog.Flags().IsHidden() {
 		return
 	}
 	accept := dialog.ChildByID(3606)

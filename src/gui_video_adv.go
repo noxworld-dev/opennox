@@ -26,37 +26,64 @@ int nox_client_advVideoOptsProc_4CB5D0(void* a1, int a2, void* a3, int a4);
 int nox_xxx_tileSetDrawFn_481420();
 */
 import "C"
-import "unsafe"
+import (
+	"unsafe"
 
-var nox_win_advVideoOpts_1522600 *Window
+	"nox/v1/client/gui"
+	noxcolor "nox/v1/common/color"
+	"nox/v1/common/strman"
+)
+
+var (
+	nox_win_advVideoOpts_1522600 *Window
+	noxVideoAdvOpts              = make(map[uint]*videoOpt)
+)
 
 //export nox_client_advVideoOpts_New_4CB590
 func nox_client_advVideoOpts_New_4CB590(par *C.nox_window) C.int {
-	nox_win_advVideoOpts_1522600 = newWindowFromFile("advidopt.wnd", C.nox_client_advVideoOptsProc_4CB5D0)
+	nox_win_advVideoOpts_1522600 = newAdvVideoOpts(strMan)
 	sub46B120(nox_win_advVideoOpts_1522600, asWindow(par))
 	nox_client_advVideoOptsLoad(nox_win_advVideoOpts_1522600)
 	return 1
 }
 
-var noxVideoAdvOpts = map[uint]struct {
-	Flag  EngineFlags
-	CFlag *C.uint
-	Def   bool
-}{
-	2010: {CFlag: &C.nox_video_dxUnlockSurface},
-	2012: {Flag: NOX_ENGINE_FLAG_ENABLE_SOFT_SHADOW_EDGE},
-	2014: {CFlag: &C.nox_gui_console_translucent},
-	2015: {CFlag: &C.nox_client_renderGlow_805852},
-	2016: {CFlag: &C.nox_client_fadeObjects_80836},
-	2017: {CFlag: &C.nox_client_showTooltips_80840},
-	2020: {CFlag: &C.nox_client_drawFrontWalls_80812},
-	2021: {CFlag: &C.nox_client_translucentFrontWalls_805844},
-	2022: {CFlag: &C.nox_client_highResFrontWalls_80820},
-	2031: {CFlag: &C.nox_client_highResFloors_154952},
-	2032: {CFlag: &C.nox_client_lockHighResFloors_1193152},
-	2033: {CFlag: &C.nox_client_texturedFloors2_154960},
-	2040: {CFlag: &C.nox_client_renderGUI_80828},
-	2041: {CFlag: &C.nox_client_renderBubbles_80844},
+type videoOpt struct {
+	ID     uint
+	Flag   EngineFlags
+	CFlag  *C.uint
+	TextID strman.ID
+	Text   string
+	Def    bool
+}
+
+var noxVideoAdvOptsList = []*videoOpt{
+	{ID: 2010, CFlag: &C.nox_video_dxUnlockSurface, TextID: "AdVidOpt.wnd:ClipWalls"},
+	{ID: 2012, Flag: NOX_ENGINE_FLAG_ENABLE_SOFT_SHADOW_EDGE, TextID: "AdVidOpt.wnd:GouradShading"},
+	{ID: 2014, CFlag: &C.nox_gui_console_translucent, TextID: "AdVidOpt.wnd:TranslucentConsole"},
+	{ID: 2015, CFlag: &C.nox_client_renderGlow_805852, TextID: "AdVidOpt.wnd:RenderGlow"},
+	{ID: 2016, CFlag: &C.nox_client_fadeObjects_80836, TextID: "AdVidOpt.wnd:FadeObjects"},
+	{ID: 2017, CFlag: &C.nox_client_showTooltips_80840, TextID: "AdVidOpt.wnd:ShowTooltips"},
+	{ID: 2020, CFlag: &C.nox_client_drawFrontWalls_80812, TextID: "AdVidOpt.wnd:DrawFrontWalls"},
+	{ID: 2021, CFlag: &C.nox_client_translucentFrontWalls_805844, TextID: "AdVidOpt.wnd:TranslucentFrontWalls"},
+	{ID: 2022, CFlag: &C.nox_client_highResFrontWalls_80820, TextID: "AdVidOpt.wnd:InterlacedFrontWalls"},
+	{ID: 2031, CFlag: &C.nox_client_highResFloors_154952, TextID: "AdVidOpt.wnd:InterlacedFloors"},
+	{ID: 2032, CFlag: &C.nox_client_lockHighResFloors_1193152, TextID: "AdVidOpt.wnd:LockHiResFloors"},
+	{ID: 2033, CFlag: &C.nox_client_texturedFloors2_154960, TextID: "AdVidOpt.wnd:FlatShadedFloors"},
+	{ID: 2041, CFlag: &C.nox_client_renderBubbles_80844, TextID: "AdVidOpt.wnd:RenderBubbles"},
+	{ID: 2040, CFlag: &C.nox_client_renderGUI_80828, TextID: "AdVidOpt.wnd:RenderGUI"},
+}
+
+func init() {
+	for _, opt := range noxVideoAdvOptsList {
+		registerVideoOpt(opt)
+	}
+}
+
+func registerVideoOpt(opt *videoOpt) {
+	if opt.ID == 0 {
+		panic("ID must be set")
+	}
+	noxVideoAdvOpts[opt.ID] = opt
 }
 
 //export nox_client_advVideoOptsLoad_4CB330
@@ -134,4 +161,44 @@ func nox_client_advVideoOptsProc_4CB5D0(a1 unsafe.Pointer, ev C.int, a3 unsafe.P
 		C.nox_xxx_xxxRenderGUI_587000_80832 = C.nox_client_renderGUI_80828
 	}
 	return 0
+}
+
+func newAdvVideoOpts(sm *strman.StringManager) *Window {
+	draw, drawFree := tempDrawData()
+	defer drawFree()
+
+	draw.SetStatus(gui.StatusEnabled | gui.StatusNoFocus)
+
+	draw.SetHighlightColor(noxcolor.RGBColor(192, 128, 128))
+	draw.SetTextColor(noxcolor.RGBColor(240, 180, 42))
+	draw.SetEnabledColor(gui.ColorTransparent)
+	draw.SetDisabledColor(gui.ColorTransparent)
+	draw.SetSelectedColor(gui.ColorTransparent)
+	draw.SetBackgroundColor(gui.ColorTransparent)
+	draw.SetFont(nox_xxx_guiFontPtrByName_43F360("large"))
+
+	const (
+		width  = 184
+		height = 315
+	)
+
+	root := newUserWindow(nil, 2000, draw.Status(), 280, 38, width, height, draw, C.nox_client_advVideoOptsProc_4CB5D0)
+
+	const (
+		pad     = 3
+		cheight = 15
+		crow    = 20
+	)
+
+	for i, opt := range noxVideoAdvOptsList {
+		y := pad + crow*i
+		str := opt.Text
+		if opt.TextID != "" {
+			if e, ok := sm.GetInFile(opt.TextID, "psscript.c"); ok {
+				str = e.Value().Str
+			}
+		}
+		NewCheckbox(root, opt.ID, pad, y, width, cheight, str)
+	}
+	return root
 }
