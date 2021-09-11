@@ -7373,7 +7373,7 @@ int nox_xxx_playerEquipWeapon_53A420(_DWORD* a1, nox_object_t* item, int a3, int
 			nox_xxx_netReportCharges_4D82B0(*(unsigned __int8*)(*(_DWORD*)(v8 + 276) + 2064), (_DWORD*)item,
 											*(_BYTE*)(*(_DWORD*)&item->field_184 + 1), **(_BYTE**)&item->field_184);
 		} else if (v4 & 0xC) {
-			**(_BYTE**)item->field_184 = 0;
+			**(_BYTE**)&item->field_184 = 0;
 		}
 	}
 	nox_xxx_itemApplyEngageEffect_4F2FF0(item, (int)a1);
