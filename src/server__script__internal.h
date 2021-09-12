@@ -22,6 +22,8 @@ int nox_script_pop();
 float nox_script_popf();
 unsigned int nox_script_stack_at(int i);
 int  nox_script_addString_512E40(char* a1);
+void* nox_script_get_caller();
+void* nox_script_get_trigger();
 const char* nox_script_getString_512E40(int i);
 int  nox_server_scriptValToObjectPtr_511B60(int a1);
 const char* nox_script_getField36(int i);

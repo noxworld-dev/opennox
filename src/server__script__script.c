@@ -17,11 +17,10 @@ extern unsigned int nox_frame_xxx_2598000;
 
 _Static_assert(sizeof(nox_script_xxx_t) == 48, "wrong size of nox_script_xxx_t structure!");
 
+void* nox_script_caller_3821964 = 0;
+void* nox_script_trigger_3821968 = 0;
 nox_script_xxx_t* nox_script_arr_xxx_1599636 = 0;
 int nox_script_count_xxx_1599640 = 0;
-
-unsigned int dword_5d4594_3821964 = 0;
-unsigned int dword_5d4594_3821968 = 0;
 
 char* nox_script_strings[1024] = {0};
 unsigned int nox_script_strings_xxx = 0;
@@ -87,6 +86,14 @@ int  nox_script_indexByEvent(const char* a1) {
 	return -1;
 }
 
+void* nox_script_get_caller() {
+	return nox_script_caller_3821964;
+}
+
+void* nox_script_get_trigger() {
+	return nox_script_trigger_3821968;
+}
+
 //----- (00512E40) --------------------------------------------------------
 int nox_script_addString_512E40(char* s) {
 	if (nox_script_strings_cnt >= 1024)
@@ -136,13 +143,13 @@ int  nox_xxx_xferReadScriptHandler_4F5580(int a1, char* a2) {
 		v3 = v5 == 0;
 		v7[v5] = 0;
 		if (!v3) {
-			if (nox_common_gameFlags_check_40A5C0(6291456))
+			if (nox_common_gameFlags_check_40A5C0(0x600000))
 				strcpy(a2, v7);
 			else
 				*(unsigned int*)(a1 + 4) = nox_script_indexByEvent(v7);
 		}
 	} else {
-		if (nox_common_gameFlags_check_40A5C0(6291456)) {
+		if (nox_common_gameFlags_check_40A5C0(0x600000)) {
 			if (a2) {
 				v5 = strlen(a2);
 				nox_xxx_fileReadWrite_426AC0_file3_fread(&v5, 4u);
@@ -470,13 +477,13 @@ void nox_xxx_scriptRunFirst_507290() {
 }
 
 //----- (00507310) --------------------------------------------------------
-void nox_script_callByIndex_507310(int index, int a2, void* a3) {
+void nox_script_callByIndex_507310(int index, void* a2, void* a3) {
 	char buf[256]; // [esp+28h] [ebp-100h]
 
 	nox_script_xxx_t* script = &nox_script_arr_xxx_1599636[index];
 
-	dword_5d4594_3821964 = a2;
-	dword_5d4594_3821968 = a3;
+	nox_script_caller_3821964 = a2;
+	nox_script_trigger_3821968 = a3;
 	for (int i = 0; i < script->size_28; i++) {
 		int v = nox_script_pop();
 		script->field_28[i] = v;
@@ -1126,7 +1133,7 @@ int  sub_508CB0(unsigned int* a1, int a2) {
 	if (!v2)
 		return 0;
 	if (a2 == 14) {
-		if (nox_common_gameFlags_check_40A5C0(6291456))
+		if (nox_common_gameFlags_check_40A5C0(0x600000))
 			result = v2;
 		else
 			result = nox_script_arr_xxx_1599636[a1[192]].field_0;
@@ -1138,7 +1145,7 @@ int  sub_508CB0(unsigned int* a1, int a2) {
 		if (a2) {
 			if (a2 != 1) {
 				if (a2 == 2) {
-					if (nox_common_gameFlags_check_40A5C0(6291456))
+					if (nox_common_gameFlags_check_40A5C0(0x600000))
 						result = v2 + 384;
 					else
 						result = nox_script_arr_xxx_1599636[v5[8]].field_0;
@@ -1146,11 +1153,11 @@ int  sub_508CB0(unsigned int* a1, int a2) {
 				}
 				return 0;
 			}
-			if (nox_common_gameFlags_check_40A5C0(6291456))
+			if (nox_common_gameFlags_check_40A5C0(0x600000))
 				result = v2 + 256;
 			else
 				result = nox_script_arr_xxx_1599636[v5[6]].field_0;
-		} else if (nox_common_gameFlags_check_40A5C0(6291456)) {
+		} else if (nox_common_gameFlags_check_40A5C0(0x600000)) {
 			result = v2 + 512;
 		} else {
 			result = nox_script_arr_xxx_1599636[v5[4]].field_0;
@@ -1159,61 +1166,61 @@ int  sub_508CB0(unsigned int* a1, int a2) {
 		v6 = (unsigned int*)a1[187];
 		switch (a2) {
 		case 3:
-			if (nox_common_gameFlags_check_40A5C0(6291456))
+			if (nox_common_gameFlags_check_40A5C0(0x600000))
 				result = v2 + 640;
 			else
 				result = nox_script_arr_xxx_1599636[v6[309]].field_0;
 			break;
 		case 4:
-			if (nox_common_gameFlags_check_40A5C0(6291456))
+			if (nox_common_gameFlags_check_40A5C0(0x600000))
 				result = v2 + 768;
 			else
 				result = nox_script_arr_xxx_1599636[v6[307]].field_0;
 			break;
 		case 5:
-			if (nox_common_gameFlags_check_40A5C0(6291456))
+			if (nox_common_gameFlags_check_40A5C0(0x600000))
 				result = v2 + 896;
 			else
 				result = nox_script_arr_xxx_1599636[v6[317]].field_0;
 			break;
 		case 6:
-			if (nox_common_gameFlags_check_40A5C0(6291456))
+			if (nox_common_gameFlags_check_40A5C0(0x600000))
 				result = v2 + 1024;
 			else
 				result = nox_script_arr_xxx_1599636[v6[311]].field_0;
 			break;
 		case 7:
-			if (nox_common_gameFlags_check_40A5C0(6291456))
+			if (nox_common_gameFlags_check_40A5C0(0x600000))
 				result = v2 + 1152;
 			else
 				result = nox_script_arr_xxx_1599636[v6[313]].field_0;
 			break;
 		case 8:
-			if (nox_common_gameFlags_check_40A5C0(6291456))
+			if (nox_common_gameFlags_check_40A5C0(0x600000))
 				result = v2 + 1280;
 			else
 				result = nox_script_arr_xxx_1599636[v6[315]].field_0;
 			break;
 		case 9:
-			if (nox_common_gameFlags_check_40A5C0(6291456))
+			if (nox_common_gameFlags_check_40A5C0(0x600000))
 				result = v2 + 1408;
 			else
 				result = nox_script_arr_xxx_1599636[v6[319]].field_0;
 			break;
 		case 10:
-			if (nox_common_gameFlags_check_40A5C0(6291456))
+			if (nox_common_gameFlags_check_40A5C0(0x600000))
 				result = v2 + 1536;
 			else
 				result = nox_script_arr_xxx_1599636[v6[321]].field_0;
 			break;
 		case 11:
-			if (nox_common_gameFlags_check_40A5C0(6291456))
+			if (nox_common_gameFlags_check_40A5C0(0x600000))
 				result = v2 + 1664;
 			else
 				result = nox_script_arr_xxx_1599636[v6[323]].field_0;
 			break;
 		case 13:
-			if (nox_common_gameFlags_check_40A5C0(6291456))
+			if (nox_common_gameFlags_check_40A5C0(0x600000))
 				result = v2 + 1792;
 			else
 				result = nox_script_arr_xxx_1599636[v6[325]].field_0;
@@ -1225,7 +1232,7 @@ int  sub_508CB0(unsigned int* a1, int a2) {
 		v7 = a1[175];
 		if (a2 != 12)
 			return 0;
-		if (nox_common_gameFlags_check_40A5C0(6291456))
+		if (nox_common_gameFlags_check_40A5C0(0x600000))
 			result = v2 + 128;
 		else
 			result = nox_script_arr_xxx_1599636[*(unsigned int*)(v7 + 4)].field_0;
@@ -1235,25 +1242,25 @@ int  sub_508CB0(unsigned int* a1, int a2) {
 		v8 = (unsigned int*)a1[187];
 		switch (a2) {
 		case 15:
-			if (nox_common_gameFlags_check_40A5C0(6291456))
+			if (nox_common_gameFlags_check_40A5C0(0x600000))
 				result = v2 + 1920;
 			else
 				result = nox_script_arr_xxx_1599636[v8[13]].field_0;
 			break;
 		case 16:
-			if (nox_common_gameFlags_check_40A5C0(6291456))
+			if (nox_common_gameFlags_check_40A5C0(0x600000))
 				result = v2 + 2048;
 			else
 				result = nox_script_arr_xxx_1599636[v8[15]].field_0;
 			break;
 		case 17:
-			if (nox_common_gameFlags_check_40A5C0(6291456))
+			if (nox_common_gameFlags_check_40A5C0(0x600000))
 				result = v2 + 2304;
 			else
 				result = nox_script_arr_xxx_1599636[v8[17]].field_0;
 			break;
 		case 18:
-			if (nox_common_gameFlags_check_40A5C0(6291456))
+			if (nox_common_gameFlags_check_40A5C0(0x600000))
 				result = v2 + 2176;
 			else
 				result = nox_script_arr_xxx_1599636[v8[19]].field_0;
@@ -1298,8 +1305,8 @@ int  nox_server_scriptValToObjectPtr_511B60(int a1) {
 	int v3;     // esi
 
 	if (a1 == -1) {
-		result = dword_5d4594_3821964;
-		if (dword_5d4594_3821964 && !(*(_BYTE*)(dword_5d4594_3821964 + 16) & 0x20))
+		result = nox_script_get_caller();
+		if (result && !(*(_BYTE*)(result + 16) & 0x20))
 			return result;
 		return 0;
 	}
@@ -1342,8 +1349,8 @@ int  nox_server_scriptValToObjectPtr_511B60(int a1) {
 		nox_xxx_scriptPrepareFoundUnit_511D70(v3);
 		return v3;
 	}
-	result = dword_5d4594_3821968;
-	if (!dword_5d4594_3821968 || *(_BYTE*)(dword_5d4594_3821968 + 16) & 0x20)
+	result = nox_script_get_trigger();
+	if (!result || *(_BYTE*)(result + 16) & 0x20)
 		return 0;
 	return result;
 }
@@ -1365,7 +1372,7 @@ void sub_51B0C0() {
 }
 
 #ifndef NOX_CGO
-void nox_script_callOnEvent(const char* event, int a1, int a2) {
+void nox_script_callOnEvent(const char* event, void* a1, void* a2) {
 	int n = strlen(event);
 	for (int i = 0; i < nox_script_count_xxx_1599640; i++) {
 		if (!strncmp(event, nox_script_arr_xxx_1599636[i].field_0, n))

@@ -15,8 +15,8 @@ import (
 )
 
 //export nox_script_callOnEvent
-func nox_script_callOnEvent(cevent *C.char, a1, a2 C.int) {
-	if a1 != 0 || a2 != 0 { // these are never set to anything
+func nox_script_callOnEvent(cevent *C.char, a1, a2 unsafe.Pointer) {
+	if a1 != nil || a2 != nil { // these are never set to anything
 		panic("unexpected argument to nox_script_callOnEvent")
 	}
 	event := script.EventType(GoString(cevent))
@@ -28,7 +28,7 @@ func noxscriptOnEvent(event script.EventType) {
 		sc := (*C.nox_script_xxx_t)(unsafe.Pointer(uintptr(unsafe.Pointer(C.nox_script_arr_xxx_1599636)) + unsafe.Sizeof(C.nox_script_xxx_t{})*uintptr(i)))
 		name := GoString(sc.field_0)
 		if strings.HasPrefix(name, string(event)) {
-			C.nox_script_callByIndex_507310(C.int(i), 0, nil)
+			C.nox_script_callByIndex_507310(C.int(i), nil, nil)
 		}
 	}
 }
