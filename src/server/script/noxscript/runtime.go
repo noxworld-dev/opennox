@@ -12,12 +12,8 @@ func NewRuntime() *Runtime {
 }
 
 func LoadScript(rd io.Reader) (*Runtime, error) {
-	sc, err := ReadScript(rd)
-	if err != nil {
-		return nil, err
-	}
 	r := NewRuntime()
-	if err = r.LoadScript(sc); err != nil {
+	if err := r.ReadScript(rd); err != nil {
 		return nil, err
 	}
 	return r, nil
@@ -46,6 +42,14 @@ func (r *Runtime) Reset() {
 	r.funcs = nil
 	r.caller = nil
 	r.trigger = nil
+}
+
+func (r *Runtime) ReadScript(rd io.Reader) error {
+	sc, err := ReadScript(rd)
+	if err != nil {
+		return err
+	}
+	return r.LoadScript(sc)
 }
 
 func (r *Runtime) LoadScript(sc *Script) error {
