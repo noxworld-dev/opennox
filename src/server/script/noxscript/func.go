@@ -175,7 +175,7 @@ func (f *Func) Call(caller, trigger unsafe.Pointer, args ...interface{}) (gerr e
 		return unsafe.Pointer(uintptr(p) + uintptr(4*i))
 	}
 	for {
-		switch nextInt() {
+		switch op := nextInt(); op {
 		case 0x00, 0x03: // int var or string var
 			isGlobal := nextInt() != 0
 			vari := int(nextInt())
@@ -235,65 +235,50 @@ func (f *Func) Call(caller, trigger unsafe.Pointer, args ...interface{}) (gerr e
 			val := nextFloat()
 			r.PushFloat32(val)
 			continue
-		case 0x07: // + (int)
+		case 0x07, 0x09, 0x0B, 0x0D, 0x0F, // +, -, *, /, % (int)
+			0x10, 0x11, 0x12, 0x26, 0x27: // &, |, ^, <<, >> (int)
 			rhs := r.PopInt32()
 			lhs := r.PopInt32()
-			r.PushInt32(lhs + rhs)
+			var val int32
+			switch op {
+			case 0x07:
+				val = lhs + rhs
+			case 0x09:
+				val = lhs - rhs
+			case 0x0B:
+				val = lhs * rhs
+			case 0x0D:
+				val = lhs / rhs
+			case 0x0F:
+				val = lhs % rhs
+			case 0x10:
+				val = lhs & rhs
+			case 0x11:
+				val = lhs | rhs
+			case 0x12:
+				val = lhs ^ rhs
+			case 0x26:
+				val = lhs << rhs
+			case 0x27:
+				val = lhs >> rhs
+			}
+			r.PushInt32(val)
 			continue
-		case 0x08: // + (float)
+		case 0x08, 0x0A, 0x0C, 0x0E: // +, -, *, / (float)
 			rhs := r.PopFloat32()
 			lhs := r.PopFloat32()
-			r.PushFloat32(lhs + rhs)
-			continue
-		case 0x09: // - (int)
-			rhs := r.PopInt32()
-			lhs := r.PopInt32()
-			r.PushInt32(lhs - rhs)
-			continue
-		case 0x0A: // - (float)
-			rhs := r.PopFloat32()
-			lhs := r.PopFloat32()
-			r.PushFloat32(lhs - rhs)
-			continue
-		case 0x0B: // * (int)
-			rhs := r.PopInt32()
-			lhs := r.PopInt32()
-			r.PushInt32(lhs * rhs)
-			continue
-		case 0x0C: // * (float)
-			rhs := r.PopFloat32()
-			lhs := r.PopFloat32()
-			r.PushFloat32(lhs * rhs)
-			continue
-		case 0x0D: // / (int)
-			rhs := r.PopInt32()
-			lhs := r.PopInt32()
-			r.PushInt32(lhs / rhs)
-			continue
-		case 0x0E: // / (float)
-			rhs := r.PopFloat32()
-			lhs := r.PopFloat32()
-			r.PushFloat32(lhs / rhs)
-			continue
-		case 0x0F: // % (int)
-			rhs := r.PopInt32()
-			lhs := r.PopInt32()
-			r.PushInt32(lhs % rhs)
-			continue
-		case 0x10: // & (int)
-			rhs := r.PopInt32()
-			lhs := r.PopInt32()
-			r.PushInt32(lhs & rhs)
-			continue
-		case 0x11: // | (int)
-			rhs := r.PopInt32()
-			lhs := r.PopInt32()
-			r.PushInt32(lhs | rhs)
-			continue
-		case 0x12: // ^ (int)
-			rhs := r.PopInt32()
-			lhs := r.PopInt32()
-			r.PushInt32(lhs ^ rhs)
+			var val float32
+			switch op {
+			case 0x08:
+				val = lhs + rhs
+			case 0x0A:
+				val = lhs - rhs
+			case 0x0C:
+				val = lhs * rhs
+			case 0x0E:
+				val = lhs / rhs
+			}
+			r.PushFloat32(val)
 			continue
 		case 0x13: // jump
 			off := nextInt()
@@ -337,119 +322,80 @@ func (f *Func) Call(caller, trigger unsafe.Pointer, args ...interface{}) (gerr e
 			}
 			r.PushFloat32(rhs)
 			continue
-		case 0x19: // *= (int)
+		case 0x19, 0x1B, 0x1D, 0x20, 0x22, // *=, /=, +=, -=, %=, (int)
+			0x39, 0x3A, 0x3B, 0x3C, 0x3D: //  <<=, >>=, &=, |=, ^= (int)
 			rhs := r.PopInt32()
 			ptr := r.PopInt()
 			isGlobal := r.PopBool()
+			var v int32
 			if isGlobal {
-				v := r.funcs[1].getPtrInt(ptr)
-				v *= rhs
-				r.funcs[1].setPtrInt(ptr, v)
-				r.PushInt32(v)
+				v = r.funcs[1].getPtrInt(ptr)
 			} else if ptr < 0 {
-				*(*int32)(getA3Field(760, -ptr)) *= rhs
-				r.PushInt32(*(*int32)(getA3Field(760, -ptr)))
+				v = *(*int32)(getA3Field(760, -ptr))
 			} else {
-				v := f.getPtrInt(ptr)
-				v *= rhs
-				f.setPtrInt(ptr, v)
-				r.PushInt32(v)
+				v = f.getPtrInt(ptr)
 			}
+			switch op {
+			case 0x19:
+				v *= rhs
+			case 0x1B:
+				v /= rhs
+			case 0x1D:
+				v += rhs
+			case 0x20:
+				v -= rhs
+			case 0x22:
+				v %= rhs
+			case 0x39:
+				v <<= rhs
+			case 0x3A:
+				v >>= rhs
+			case 0x3B:
+				v &= rhs
+			case 0x3C:
+				v |= rhs
+			case 0x3D:
+				v ^= rhs
+			}
+			if isGlobal {
+				r.funcs[1].setPtrInt(ptr, v)
+			} else if ptr < 0 {
+				*(*int32)(getA3Field(760, -ptr)) = v
+			} else {
+				f.setPtrInt(ptr, v)
+			}
+			r.PushInt32(v)
 			continue
-		case 0x1A: // *= (float)
+		case 0x1A, 0x1C, 0x1E, 0x21: // *=, /=, +=, -= (float)
 			rhs := r.PopFloat32()
 			ptr := r.PopInt()
 			isGlobal := r.PopBool()
+			var v float32
 			if isGlobal {
-				v := r.funcs[1].getPtrFloat(ptr)
+				v = r.funcs[1].getPtrFloat(ptr)
+			} else if ptr < 0 {
+				v = *(*float32)(getA3Field(760, -ptr))
+			} else {
+				v = f.getPtrFloat(ptr)
+			}
+			switch op {
+			case 0x1A:
 				v *= rhs
+			case 0x1C:
+				v /= rhs
+			case 0x1E:
+				v += rhs
+			case 0x21:
+				v -= rhs
+			}
+			if isGlobal {
 				r.funcs[1].setPtrFloat(ptr, v)
-				r.PushFloat32(v)
 			} else if ptr < 0 {
-				*(*float32)(getA3Field(760, -ptr)) *= rhs
-				r.PushFloat32(*(*float32)(getA3Field(760, -ptr)))
+				*(*float32)(getA3Field(760, -ptr)) = v
 			} else {
-				v := f.getPtrFloat(ptr)
-				v *= rhs
 				f.setPtrFloat(ptr, v)
-				r.PushFloat32(v)
 			}
-			continue
-		case 0x1B: // /= (int)
-			rhs := r.PopInt32()
-			ptr := r.PopInt()
-			isGlobal := r.PopBool()
-			if isGlobal {
-				v := r.funcs[1].getPtrInt(ptr)
-				v /= rhs
-				r.funcs[1].setPtrInt(ptr, v)
-				r.PushInt32(v)
-			} else if ptr < 0 {
-				*(*int32)(getA3Field(760, -ptr)) /= rhs
-				r.PushInt32(*(*int32)(getA3Field(760, -ptr)))
-			} else {
-				v := f.getPtrInt(ptr)
-				v /= rhs
-				f.setPtrInt(ptr, v)
-				r.PushInt32(v)
-			}
-			continue
-		case 0x1C: // /= (float)
-			rhs := r.PopFloat32()
-			ptr := r.PopInt()
-			isGlobal := r.PopBool()
-			if isGlobal {
-				v := r.funcs[1].getPtrFloat(ptr)
-				v /= rhs
-				r.funcs[1].setPtrFloat(ptr, v)
-				r.PushFloat32(v)
-			} else if ptr < 0 {
-				*(*float32)(getA3Field(760, -ptr)) /= rhs
-				r.PushFloat32(*(*float32)(getA3Field(760, -ptr)))
-			} else {
-				v := f.getPtrFloat(ptr)
-				v /= rhs
-				f.setPtrFloat(ptr, v)
-				r.PushFloat32(v)
-			}
-			continue
-		case 0x1D: // += (int)
-			rhs := r.PopInt32()
-			ptr := r.PopInt()
-			isGlobal := r.PopBool()
-			if isGlobal {
-				v := r.funcs[1].getPtrInt(ptr)
-				v += rhs
-				r.funcs[1].setPtrInt(ptr, v)
-				r.PushInt32(v)
-			} else if ptr < 0 {
-				*(*int32)(getA3Field(760, -ptr)) += rhs
-				r.PushInt32(*(*int32)(getA3Field(760, -ptr)))
-			} else {
-				v := f.getPtrInt(ptr)
-				v += rhs
-				f.setPtrInt(ptr, v)
-				r.PushInt32(v)
-			}
-			continue
-		case 0x1E: // += (float)
-			rhs := r.PopFloat32()
-			ptr := r.PopInt()
-			isGlobal := r.PopBool()
-			if isGlobal {
-				v := r.funcs[1].getPtrFloat(ptr)
-				v += rhs
-				r.funcs[1].setPtrFloat(ptr, v)
-				r.PushFloat32(v)
-			} else if ptr < 0 {
-				*(*float32)(getA3Field(760, -ptr)) += rhs
-				r.PushFloat32(*(*float32)(getA3Field(760, -ptr)))
-			} else {
-				v := f.getPtrFloat(ptr)
-				v += rhs
-				f.setPtrFloat(ptr, v)
-				r.PushFloat32(v)
-			}
+			r.PushFloat32(v)
 			continue
 		case 0x1F: // += (string)
 			rhs := r.PopInt()
@@ -474,162 +420,65 @@ func (f *Func) Call(caller, trigger unsafe.Pointer, args ...interface{}) (gerr e
 			}
 			r.PushInt32(sid)
 			continue
-		case 0x20: // -= (int)
+		case 0x23, 0x28, 0x2B, 0x2E, 0x31, 0x34: // ==, <, >, <=, >=, != (int)
 			rhs := r.PopInt32()
-			ptr := r.PopInt()
-			isGlobal := r.PopBool()
-			if isGlobal {
-				v := r.funcs[1].getPtrInt(ptr)
-				v -= rhs
-				r.funcs[1].setPtrInt(ptr, v)
-				r.PushInt32(v)
-			} else if ptr < 0 {
-				*(*int32)(getA3Field(760, -ptr)) -= rhs
-				r.PushInt32(*(*int32)(getA3Field(760, -ptr)))
-			} else {
-				v := f.getPtrInt(ptr)
-				v -= rhs
-				f.setPtrInt(ptr, v)
-				r.PushInt32(v)
+			lhs := r.PopInt32()
+			var val bool
+			switch op {
+			case 0x23:
+				val = lhs == rhs
+			case 0x28:
+				val = lhs < rhs
+			case 0x2B:
+				val = lhs > rhs
+			case 0x2E:
+				val = lhs <= rhs
+			case 0x31:
+				val = lhs >= rhs
+			case 0x34:
+				val = lhs != rhs
 			}
+			r.PushBool(val)
 			continue
-		case 0x21: // -= (float)
+		case 0x24, 0x29, 0x2C, 0x2F, 0x32, 0x35: // ==, <, >, <=, >=, != (float)
 			rhs := r.PopFloat32()
-			ptr := r.PopInt()
-			isGlobal := r.PopBool()
-			if isGlobal {
-				v := r.funcs[1].getPtrFloat(ptr)
-				v -= rhs
-				r.funcs[1].setPtrFloat(ptr, v)
-				r.PushFloat32(v)
-			} else if ptr < 0 {
-				*(*float32)(getA3Field(760, -ptr)) -= rhs
-				r.PushInt32(*(*int32)(getA3Field(760, -ptr)))
-			} else {
-				v := f.getPtrFloat(ptr)
-				v -= rhs
-				f.setPtrFloat(ptr, v)
-				r.PushFloat32(v)
+			lhs := r.PopFloat32()
+			var val bool
+			switch op {
+			case 0x24:
+				val = lhs == rhs
+			case 0x29:
+				val = lhs < rhs
+			case 0x2C:
+				val = lhs > rhs
+			case 0x2F:
+				val = lhs <= rhs
+			case 0x32:
+				val = lhs >= rhs
+			case 0x35:
+				val = lhs != rhs
 			}
+			r.PushBool(val)
 			continue
-		case 0x22: // %= (int)
-			rhs := r.PopInt32()
-			ptr := r.PopInt()
-			isGlobal := r.PopBool()
-			if isGlobal {
-				v := r.funcs[1].getPtrInt(ptr)
-				v %= rhs
-				r.funcs[1].setPtrInt(ptr, v)
-				r.PushInt32(v)
-			} else if ptr < 0 {
-				*(*int32)(getA3Field(760, -ptr)) %= rhs
-				r.PushInt32(*(*int32)(getA3Field(760, -ptr)))
-			} else {
-				v := f.getPtrInt(ptr)
-				v %= rhs
-				f.setPtrInt(ptr, v)
-				r.PushInt32(v)
-			}
-			continue
-		case 0x23: // == (int)
-			rhs := r.PopInt32()
-			lhs := r.PopInt32()
-			r.PushBool(lhs == rhs)
-			continue
-		case 0x24: // == (float)
-			sf1 := r.PopFloat32()
-			sf2 := r.PopFloat32()
-			r.PushBool(sf2 == sf1)
-			continue
-		case 0x25: // == (string)
-			sa1 := r.PopString()
-			sa2 := r.PopString()
-			r.PushBool(sa2 == sa1)
-			continue
-		case 0x26: // << (int)
-			sa1 := r.PopInt32()
-			sa2 := r.PopInt32()
-			r.PushInt32(sa2 << sa1)
-			continue
-		case 0x27: // >> (int)
-			sa1 := r.PopInt32()
-			sa2 := r.PopInt32()
-			r.PushInt32(sa2 >> sa1)
-			continue
-		case 0x28: // < (int)
-			rhs := r.PopInt32()
-			lhs := r.PopInt32()
-			r.PushBool(lhs < rhs)
-			continue
-		case 0x29: // < (float)
-			sf1 := r.PopFloat32()
-			sf2 := r.PopFloat32()
-			r.PushBool(sf2 < sf1)
-			continue
-		case 0x2A: // < (string)
-			sa1 := r.PopString()
-			sa2 := r.PopString()
-			r.PushBool(sa2 < sa1)
-			continue
-		case 0x2B: // > (int)
-			sa1 := r.PopInt32()
-			sa2 := r.PopInt32()
-			r.PushBool(sa2 > sa1)
-			continue
-		case 0x2C: // > (float)
-			sf1 := r.PopFloat32()
-			sf2 := r.PopFloat32()
-			r.PushBool(sf2 > sf1)
-			continue
-		case 0x2D: // > (string)
-			sa1 := r.PopString()
-			sa2 := r.PopString()
-			r.PushBool(sa2 > sa1)
-			continue
-		case 0x2E: // <= (int)
-			sa1 := r.PopInt32()
-			sa2 := r.PopInt32()
-			r.PushBool(sa2 <= sa1)
-			continue
-		case 0x2F: // <= (float)
-			sf1 := r.PopFloat32()
-			sf2 := r.PopFloat32()
-			r.PushBool(sf2 <= sf1)
-			continue
-		case 0x30: // <= (string)
-			sa1 := r.PopString()
-			sa2 := r.PopString()
-			r.PushBool(sa2 <= sa1)
-			continue
-		case 0x31: // >= (int)
-			sa1 := r.PopInt32()
-			sa2 := r.PopInt32()
-			r.PushBool(sa2 >= sa1)
-			continue
-		case 0x32: // >= (float)
-			sf1 := r.PopFloat32()
-			sf2 := r.PopFloat32()
-			r.PushBool(sf2 >= sf1)
-			continue
-		case 0x33: // >= (string)
-			sa1 := r.PopString()
-			sa2 := r.PopString()
-			r.PushBool(sa2 >= sa1)
-			continue
-		case 0x34: // != (int)
-			sa1 := r.PopInt32()
-			sa2 := r.PopInt32()
-			r.PushBool(sa2 != sa1)
-			continue
-		case 0x35: // != (float)
-			sf1 := r.PopFloat32()
-			sf2 := r.PopFloat32()
-			r.PushBool(sf2 != sf1)
-			continue
-		case 0x36: // != (string)
+		case 0x25, 0x2A, 0x2D, 0x30, 0x33, 0x36: // ==, <, >, <=, >=, != (string)
 			rhs := r.PopString()
 			lhs := r.PopString()
-			r.PushBool(lhs != rhs)
+			var val bool
+			switch op {
+			case 0x25:
+				val = lhs == rhs
+			case 0x2A:
+				val = lhs < rhs
+			case 0x2D:
+				val = lhs > rhs
+			case 0x30:
+				val = lhs <= rhs
+			case 0x33:
+				val = lhs >= rhs
+			case 0x36:
+				val = lhs != rhs
+			}
+			r.PushBool(val)
 			continue
 		case 0x37: // && (int)
 			rhs := r.PopBool()
@@ -640,101 +489,6 @@ func (f *Func) Call(caller, trigger unsafe.Pointer, args ...interface{}) (gerr e
 			rhs := r.PopBool()
 			lhs := r.PopBool()
 			r.PushBool(lhs || rhs)
-			continue
-		case 0x39: // <<= (int)
-			rhs := r.PopInt32()
-			ptr := r.PopInt()
-			isGlobal := r.PopBool()
-			if isGlobal {
-				v := r.funcs[1].getPtrInt(ptr)
-				v <<= rhs
-				r.funcs[1].setPtrInt(ptr, v)
-				r.PushInt32(v)
-			} else if ptr < 0 {
-				*(*uint32)(getA3Field(760, -ptr)) <<= rhs
-				r.PushInt32(*(*int32)(getA3Field(760, -ptr)))
-			} else {
-				v := f.getPtrInt(ptr)
-				v <<= rhs
-				f.setPtrInt(ptr, v)
-				r.PushInt32(v)
-			}
-			continue
-		case 0x3A: // >>= (int)
-			rhs := r.PopInt32()
-			ptr := r.PopInt()
-			isGlobal := r.PopBool()
-			if isGlobal {
-				v := r.funcs[1].getPtrInt(ptr)
-				v >>= rhs
-				r.funcs[1].setPtrInt(ptr, v)
-				r.PushInt32(v)
-			} else if ptr < 0 {
-				*(*uint32)(getA3Field(760, -ptr)) >>= rhs
-				r.PushInt32(*(*int32)(getA3Field(760, -ptr)))
-			} else {
-				v := f.getPtrInt(ptr)
-				v >>= rhs
-				f.setPtrInt(ptr, v)
-				r.PushInt32(v)
-			}
-			continue
-		case 0x3B: // &= (int)
-			rhs := r.PopInt32()
-			ptr := r.PopInt()
-			isGlobal := r.PopBool()
-			if isGlobal {
-				v := r.funcs[1].getPtrInt(ptr)
-				v &= rhs
-				r.funcs[1].setPtrInt(ptr, v)
-				r.PushInt32(v)
-			} else if ptr < 0 {
-				*(*int32)(getA3Field(760, -ptr)) &= rhs
-				r.PushInt32(*(*int32)(getA3Field(760, -ptr)))
-			} else {
-				v := f.getPtrInt(ptr)
-				v &= rhs
-				f.setPtrInt(ptr, v)
-				r.PushInt32(v)
-			}
-			continue
-		case 0x3C: // |= (int)
-			rhs := r.PopInt32()
-			ptr := r.PopInt()
-			isGlobal := r.PopBool()
-			if isGlobal {
-				v := r.funcs[1].getPtrInt(ptr)
-				v |= rhs
-				r.funcs[1].setPtrInt(ptr, v)
-				r.PushInt32(v)
-			} else if ptr < 0 {
-				*(*int32)(getA3Field(760, -ptr)) |= rhs
-				r.PushInt32(*(*int32)(getA3Field(760, -ptr)))
-			} else {
-				v := f.getPtrInt(ptr)
-				v |= rhs
-				f.setPtrInt(ptr, v)
-				r.PushInt32(v)
-			}
-			continue
-		case 0x3D: // ^= (int)
-			rhs := r.PopInt32()
-			ptr := r.PopInt()
-			isGlobal := r.PopBool()
-			if isGlobal {
-				v := r.funcs[1].getPtrInt(ptr)
-				v ^= rhs
-				r.funcs[1].setPtrInt(ptr, v)
-				r.PushInt32(v)
-			} else if ptr < 0 {
-				*(*int32)(getA3Field(760, -ptr)) ^= rhs
-				r.PushInt32(*(*int32)(getA3Field(760, -ptr)))
-			} else {
-				v := f.getPtrInt(ptr)
-				v ^= rhs
-				f.setPtrInt(ptr, v)
-				r.PushInt32(v)
-			}
 			continue
 		case 0x3E: // !v (int)
 			v := r.PopBool()
