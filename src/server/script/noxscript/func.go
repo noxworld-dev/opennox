@@ -1,0 +1,845 @@
+package noxscript
+
+import (
+	"errors"
+	"fmt"
+	"math"
+	"unsafe"
+)
+
+func (r *Runtime) newFunc(def *FuncDef) *Func {
+	f := &Func{r: r, def: def}
+	f.allocVars()
+	return f
+}
+
+type Func struct {
+	r    *Runtime
+	def  *FuncDef
+	vars [][]int32
+	data []int32
+}
+
+func (f *Func) Def() *FuncDef {
+	return f.def
+}
+
+func (f *Func) allocVars() {
+	f.vars = make([][]int32, len(f.def.Vars))
+	f.data = make([]int32, f.def.VarsSz)
+	for i, d := range f.def.Vars {
+		if d.Size == 0 {
+			continue
+		}
+		f.vars[i] = f.data[d.Offs : d.Offs+d.Size]
+	}
+}
+
+func (f *Func) Name() string {
+	return f.def.Name
+}
+
+func (f *Func) ptrToVar(ptr int) (i, j int) {
+	_ = f.data[ptr] // bounds check
+	for i, v := range f.def.Vars {
+		if v.Offs <= ptr && ptr < v.Offs+v.Size {
+			return i, ptr - v.Offs
+		}
+	}
+	panic("unknown var offset")
+}
+
+func (f *Func) setPtrInt(ptr int, v int32) {
+	i, j := f.ptrToVar(ptr)
+	f.setArrInt(i, j, v)
+}
+
+func (f *Func) setArrInt(i, j int, v int32) {
+	f.vars[i][j] = v
+}
+
+func (f *Func) setPtrFloat(ptr int, v float32) {
+	i, j := f.ptrToVar(ptr)
+	f.setArrFloat(i, j, v)
+}
+
+func (f *Func) setArrFloat(i, j int, v float32) {
+	f.vars[i][j] = int32(math.Float32bits(v))
+}
+
+func (f *Func) setArrString(i, j int, s string) {
+	si := f.r.AddString(s)
+	f.setArrInt(i, j, int32(si))
+}
+
+func (f *Func) setArrBool(i, j int, v bool) {
+	if v {
+		f.vars[i][j] = 1
+	} else {
+		f.vars[i][j] = 0
+	}
+}
+
+func (f *Func) getPtrInt(ptr int) int32 {
+	i, j := f.ptrToVar(ptr)
+	return f.getArrInt(i, j)
+}
+
+func (f *Func) getArrInt(i, j int) int32 {
+	return f.vars[i][j]
+}
+
+func (f *Func) getPtrFloat(ptr int) float32 {
+	i, j := f.ptrToVar(ptr)
+	return f.getArrFloat(i, j)
+}
+
+func (f *Func) getArrFloat(i, j int) float32 {
+	return math.Float32frombits(uint32(f.vars[i][j]))
+}
+
+func (f *Func) getPtrBool(ptr int) bool {
+	i, j := f.ptrToVar(ptr)
+	return f.getArrBool(i, j)
+}
+
+func (f *Func) getArrBool(i, j int) bool {
+	return f.vars[i][j] != 0
+}
+
+func (f *Func) Call(caller, trigger unsafe.Pointer, args ...interface{}) (gerr error) {
+	if f == nil {
+		return &Error{Err: errors.New("nil function")}
+	}
+	defer func() {
+		switch r := recover().(type) {
+		case *Error:
+			gerr = r
+		case error:
+			gerr = &Error{Func: f.Name(), Err: r}
+		default:
+			gerr = &Error{Func: f.Name(), Err: fmt.Errorf("panic: %v", r)}
+		case nil:
+			switch err := gerr.(type) {
+			case nil, *Error, *ErrNoFunc:
+			default:
+				gerr = &Error{Func: f.Name(), Err: err}
+			}
+		}
+	}()
+	r := f.r
+	// TODO: pass these via closure
+	r.caller = caller
+	r.trigger = trigger
+
+	if args != nil {
+		if len(args) != f.def.Args {
+			return fmt.Errorf("unexpected number of arguments: expected %d, got %d", f.def.Args, len(args))
+		}
+		for i := 0; i < f.def.Args; i++ {
+			switch v := args[i].(type) {
+			case int:
+				f.setArrInt(i, 0, int32(v))
+			case bool:
+				f.setArrBool(i, 0, v)
+			case float32:
+				f.setArrFloat(i, 0, v)
+			case string:
+				f.setArrString(i, 0, v)
+			default:
+				return fmt.Errorf("unsupported argument type: %T", args[i])
+			}
+		}
+	} else {
+		for i := 0; i < f.def.Args; i++ {
+			v := r.PopInt32()
+			f.vars[i][0] = v
+		}
+	}
+
+	bstack := r.stackTop()
+	code := f.def.Code
+	nextInt := func() int32 {
+		v := int32(code[0])
+		code = code[1:]
+		return v
+	}
+	nextFloat := func() float32 {
+		v := math.Float32frombits(code[0])
+		code = code[1:]
+		return v
+	}
+	// TODO: remove this hack once type of "trigger" is clear
+	getA3Field := func(field int, i int) unsafe.Pointer {
+		p := *(*unsafe.Pointer)(unsafe.Pointer(uintptr(trigger) + uintptr(field)))
+		return unsafe.Pointer(uintptr(p) + uintptr(4*i))
+	}
+	for {
+		switch nextInt() {
+		case 0x00, 0x03: // int var or string var
+			isGlobal := nextInt() != 0
+			vari := int(nextInt())
+			var val int32
+			if isGlobal {
+				val = r.funcs[1].getArrInt(vari, 0)
+			} else if vari < 0 {
+				// TODO: remember those -2 and -1 (self and other)? are they related?
+				off := r.funcs[0].def.Vars[-vari].Offs
+				val = *(*int32)(getA3Field(760, off))
+			} else {
+				val = f.getArrInt(vari, 0)
+			}
+			r.PushInt32(val)
+			continue
+		case 0x01: // float var
+			isGlobal := nextInt() != 0
+			vari := int(nextInt())
+			var val float32
+			if isGlobal {
+				val = r.funcs[1].getArrFloat(vari, 0)
+			} else if vari < 0 {
+				off := r.funcs[0].def.Vars[-vari].Offs
+				val = *(*float32)(getA3Field(760, off))
+			} else {
+				val = f.getArrFloat(vari, 0)
+			}
+			r.PushFloat32(val)
+			continue
+		case 0x02: // var ptr
+			isGlobal := nextInt()
+			ind := int(nextInt())
+			// TODO: this exposes variable layout and forces us to access it unsafely in a few other ops
+			var sz, ptr int
+			if isGlobal != 0 {
+				sz = r.funcs[1].def.Vars[ind].Size
+				ptr = r.funcs[1].def.Vars[ind].Offs
+			} else if ind < 0 {
+				ind = -ind
+				sz = r.funcs[0].def.Vars[ind].Size
+				ptr = -r.funcs[0].def.Vars[ind].Offs
+			} else {
+				sz = f.def.Vars[ind].Size
+				ptr = f.def.Vars[ind].Offs
+			}
+			if sz > 1 {
+				r.PushInt32(int32(sz))
+			}
+			r.PushInt32(isGlobal)
+			r.PushInt32(int32(ptr))
+			continue
+		case 0x04, 0x06: // int literal or string literal
+			val := nextInt()
+			r.PushInt32(val)
+			continue
+		case 0x05: // float literal
+			val := nextFloat()
+			r.PushFloat32(val)
+			continue
+		case 0x07: // + (int)
+			rhs := r.PopInt32()
+			lhs := r.PopInt32()
+			r.PushInt32(lhs + rhs)
+			continue
+		case 0x08: // + (float)
+			rhs := r.PopFloat32()
+			lhs := r.PopFloat32()
+			r.PushFloat32(lhs + rhs)
+			continue
+		case 0x09: // - (int)
+			rhs := r.PopInt32()
+			lhs := r.PopInt32()
+			r.PushInt32(lhs - rhs)
+			continue
+		case 0x0A: // - (float)
+			rhs := r.PopFloat32()
+			lhs := r.PopFloat32()
+			r.PushFloat32(lhs - rhs)
+			continue
+		case 0x0B: // * (int)
+			rhs := r.PopInt32()
+			lhs := r.PopInt32()
+			r.PushInt32(lhs * rhs)
+			continue
+		case 0x0C: // * (float)
+			rhs := r.PopFloat32()
+			lhs := r.PopFloat32()
+			r.PushFloat32(lhs * rhs)
+			continue
+		case 0x0D: // / (int)
+			rhs := r.PopInt32()
+			lhs := r.PopInt32()
+			r.PushInt32(lhs / rhs)
+			continue
+		case 0x0E: // / (float)
+			rhs := r.PopFloat32()
+			lhs := r.PopFloat32()
+			r.PushFloat32(lhs / rhs)
+			continue
+		case 0x0F: // % (int)
+			rhs := r.PopInt32()
+			lhs := r.PopInt32()
+			r.PushInt32(lhs % rhs)
+			continue
+		case 0x10: // & (int)
+			rhs := r.PopInt32()
+			lhs := r.PopInt32()
+			r.PushInt32(lhs & rhs)
+			continue
+		case 0x11: // | (int)
+			rhs := r.PopInt32()
+			lhs := r.PopInt32()
+			r.PushInt32(lhs | rhs)
+			continue
+		case 0x12: // ^ (int)
+			rhs := r.PopInt32()
+			lhs := r.PopInt32()
+			r.PushInt32(lhs ^ rhs)
+			continue
+		case 0x13: // jump
+			off := nextInt()
+			code = f.def.Code[off:]
+			continue
+		case 0x14: // jump if
+			off := nextInt()
+			if r.PopBool() { // TODO: double-check condition
+				code = f.def.Code[off:]
+			}
+			continue
+		case 0x15: // jump if not
+			off := nextInt()
+			if !r.PopBool() { // TODO: double-check condition
+				code = f.def.Code[off:]
+			}
+			continue
+		case 0x16, 0x18: // = (int or string)
+			rhs := r.PopInt32()
+			ptr := r.PopInt()
+			isGlobal := r.PopBool()
+			if isGlobal {
+				r.funcs[1].setPtrInt(ptr, rhs)
+			} else if ptr < 0 {
+				*(*int32)(getA3Field(760, -ptr)) = rhs
+			} else {
+				f.setPtrInt(ptr, rhs)
+			}
+			r.PushInt32(rhs)
+			continue
+		case 0x17: // = (float)
+			rhs := r.PopFloat32()
+			ptr := r.PopInt()
+			isGlobal := r.PopBool()
+			if isGlobal {
+				r.funcs[1].setPtrFloat(ptr, rhs)
+			} else if ptr < 0 {
+				*(*float32)(getA3Field(760, -ptr)) = rhs
+			} else {
+				f.setPtrFloat(ptr, rhs)
+			}
+			r.PushFloat32(rhs)
+			continue
+		case 0x19: // *= (int)
+			rhs := r.PopInt32()
+			ptr := r.PopInt()
+			isGlobal := r.PopBool()
+			if isGlobal {
+				v := r.funcs[1].getPtrInt(ptr)
+				v *= rhs
+				r.funcs[1].setPtrInt(ptr, v)
+				r.PushInt32(v)
+			} else if ptr < 0 {
+				*(*int32)(getA3Field(760, -ptr)) *= rhs
+				r.PushInt32(*(*int32)(getA3Field(760, -ptr)))
+			} else {
+				v := f.getPtrInt(ptr)
+				v *= rhs
+				f.setPtrInt(ptr, v)
+				r.PushInt32(v)
+			}
+			continue
+		case 0x1A: // *= (float)
+			rhs := r.PopFloat32()
+			ptr := r.PopInt()
+			isGlobal := r.PopBool()
+			if isGlobal {
+				v := r.funcs[1].getPtrFloat(ptr)
+				v *= rhs
+				r.funcs[1].setPtrFloat(ptr, v)
+				r.PushFloat32(v)
+			} else if ptr < 0 {
+				*(*float32)(getA3Field(760, -ptr)) *= rhs
+				r.PushFloat32(*(*float32)(getA3Field(760, -ptr)))
+			} else {
+				v := f.getPtrFloat(ptr)
+				v *= rhs
+				f.setPtrFloat(ptr, v)
+				r.PushFloat32(v)
+			}
+			continue
+		case 0x1B: // /= (int)
+			rhs := r.PopInt32()
+			ptr := r.PopInt()
+			isGlobal := r.PopBool()
+			if isGlobal {
+				v := r.funcs[1].getPtrInt(ptr)
+				v /= rhs
+				r.funcs[1].setPtrInt(ptr, v)
+				r.PushInt32(v)
+			} else if ptr < 0 {
+				*(*int32)(getA3Field(760, -ptr)) /= rhs
+				r.PushInt32(*(*int32)(getA3Field(760, -ptr)))
+			} else {
+				v := f.getPtrInt(ptr)
+				v /= rhs
+				f.setPtrInt(ptr, v)
+				r.PushInt32(v)
+			}
+			continue
+		case 0x1C: // /= (float)
+			rhs := r.PopFloat32()
+			ptr := r.PopInt()
+			isGlobal := r.PopBool()
+			if isGlobal {
+				v := r.funcs[1].getPtrFloat(ptr)
+				v /= rhs
+				r.funcs[1].setPtrFloat(ptr, v)
+				r.PushFloat32(v)
+			} else if ptr < 0 {
+				*(*float32)(getA3Field(760, -ptr)) /= rhs
+				r.PushFloat32(*(*float32)(getA3Field(760, -ptr)))
+			} else {
+				v := f.getPtrFloat(ptr)
+				v /= rhs
+				f.setPtrFloat(ptr, v)
+				r.PushFloat32(v)
+			}
+			continue
+		case 0x1D: // += (int)
+			rhs := r.PopInt32()
+			ptr := r.PopInt()
+			isGlobal := r.PopBool()
+			if isGlobal {
+				v := r.funcs[1].getPtrInt(ptr)
+				v += rhs
+				r.funcs[1].setPtrInt(ptr, v)
+				r.PushInt32(v)
+			} else if ptr < 0 {
+				*(*int32)(getA3Field(760, -ptr)) += rhs
+				r.PushInt32(*(*int32)(getA3Field(760, -ptr)))
+			} else {
+				v := f.getPtrInt(ptr)
+				v += rhs
+				f.setPtrInt(ptr, v)
+				r.PushInt32(v)
+			}
+			continue
+		case 0x1E: // += (float)
+			rhs := r.PopFloat32()
+			ptr := r.PopInt()
+			isGlobal := r.PopBool()
+			if isGlobal {
+				v := r.funcs[1].getPtrFloat(ptr)
+				v += rhs
+				r.funcs[1].setPtrFloat(ptr, v)
+				r.PushFloat32(v)
+			} else if ptr < 0 {
+				*(*float32)(getA3Field(760, -ptr)) += rhs
+				r.PushFloat32(*(*float32)(getA3Field(760, -ptr)))
+			} else {
+				v := f.getPtrFloat(ptr)
+				v += rhs
+				f.setPtrFloat(ptr, v)
+				r.PushFloat32(v)
+			}
+			continue
+		case 0x1F: // += (string)
+			rhs := r.PopInt()
+			ptr := r.PopInt()
+			isGlobal := r.PopBool()
+			var sid int32
+			if isGlobal {
+				sid = r.funcs[1].getPtrInt(ptr)
+			} else if ptr < 0 {
+				sid = *(*int32)(getA3Field(760, -ptr))
+			} else {
+				sid = f.getPtrInt(ptr)
+			}
+			buf := r.GetString(int(sid)) + r.GetString(rhs)
+			sid = int32(r.AddString(buf))
+			if isGlobal {
+				r.funcs[1].setPtrInt(ptr, sid)
+			} else if ptr < 0 {
+				*(*int32)(getA3Field(760, -ptr)) = sid
+			} else {
+				f.setPtrInt(ptr, sid)
+			}
+			r.PushInt32(sid)
+			continue
+		case 0x20: // -= (int)
+			rhs := r.PopInt32()
+			ptr := r.PopInt()
+			isGlobal := r.PopBool()
+			if isGlobal {
+				v := r.funcs[1].getPtrInt(ptr)
+				v -= rhs
+				r.funcs[1].setPtrInt(ptr, v)
+				r.PushInt32(v)
+			} else if ptr < 0 {
+				*(*int32)(getA3Field(760, -ptr)) -= rhs
+				r.PushInt32(*(*int32)(getA3Field(760, -ptr)))
+			} else {
+				v := f.getPtrInt(ptr)
+				v -= rhs
+				f.setPtrInt(ptr, v)
+				r.PushInt32(v)
+			}
+			continue
+		case 0x21: // -= (float)
+			rhs := r.PopFloat32()
+			ptr := r.PopInt()
+			isGlobal := r.PopBool()
+			if isGlobal {
+				v := r.funcs[1].getPtrFloat(ptr)
+				v -= rhs
+				r.funcs[1].setPtrFloat(ptr, v)
+				r.PushFloat32(v)
+			} else if ptr < 0 {
+				*(*float32)(getA3Field(760, -ptr)) -= rhs
+				r.PushInt32(*(*int32)(getA3Field(760, -ptr)))
+			} else {
+				v := f.getPtrFloat(ptr)
+				v -= rhs
+				f.setPtrFloat(ptr, v)
+				r.PushFloat32(v)
+			}
+			continue
+		case 0x22: // %= (int)
+			rhs := r.PopInt32()
+			ptr := r.PopInt()
+			isGlobal := r.PopBool()
+			if isGlobal {
+				v := r.funcs[1].getPtrInt(ptr)
+				v %= rhs
+				r.funcs[1].setPtrInt(ptr, v)
+				r.PushInt32(v)
+			} else if ptr < 0 {
+				*(*int32)(getA3Field(760, -ptr)) %= rhs
+				r.PushInt32(*(*int32)(getA3Field(760, -ptr)))
+			} else {
+				v := f.getPtrInt(ptr)
+				v %= rhs
+				f.setPtrInt(ptr, v)
+				r.PushInt32(v)
+			}
+			continue
+		case 0x23: // == (int)
+			rhs := r.PopInt32()
+			lhs := r.PopInt32()
+			r.PushBool(lhs == rhs)
+			continue
+		case 0x24: // == (float)
+			sf1 := r.PopFloat32()
+			sf2 := r.PopFloat32()
+			r.PushBool(sf2 == sf1)
+			continue
+		case 0x25: // == (string)
+			sa1 := r.PopString()
+			sa2 := r.PopString()
+			r.PushBool(sa2 == sa1)
+			continue
+		case 0x26: // << (int)
+			sa1 := r.PopInt32()
+			sa2 := r.PopInt32()
+			r.PushInt32(sa2 << sa1)
+			continue
+		case 0x27: // >> (int)
+			sa1 := r.PopInt32()
+			sa2 := r.PopInt32()
+			r.PushInt32(sa2 >> sa1)
+			continue
+		case 0x28: // < (int)
+			rhs := r.PopInt32()
+			lhs := r.PopInt32()
+			r.PushBool(lhs < rhs)
+			continue
+		case 0x29: // < (float)
+			sf1 := r.PopFloat32()
+			sf2 := r.PopFloat32()
+			r.PushBool(sf2 < sf1)
+			continue
+		case 0x2A: // < (string)
+			sa1 := r.PopString()
+			sa2 := r.PopString()
+			r.PushBool(sa2 < sa1)
+			continue
+		case 0x2B: // > (int)
+			sa1 := r.PopInt32()
+			sa2 := r.PopInt32()
+			r.PushBool(sa2 > sa1)
+			continue
+		case 0x2C: // > (float)
+			sf1 := r.PopFloat32()
+			sf2 := r.PopFloat32()
+			r.PushBool(sf2 > sf1)
+			continue
+		case 0x2D: // > (string)
+			sa1 := r.PopString()
+			sa2 := r.PopString()
+			r.PushBool(sa2 > sa1)
+			continue
+		case 0x2E: // <= (int)
+			sa1 := r.PopInt32()
+			sa2 := r.PopInt32()
+			r.PushBool(sa2 <= sa1)
+			continue
+		case 0x2F: // <= (float)
+			sf1 := r.PopFloat32()
+			sf2 := r.PopFloat32()
+			r.PushBool(sf2 <= sf1)
+			continue
+		case 0x30: // <= (string)
+			sa1 := r.PopString()
+			sa2 := r.PopString()
+			r.PushBool(sa2 <= sa1)
+			continue
+		case 0x31: // >= (int)
+			sa1 := r.PopInt32()
+			sa2 := r.PopInt32()
+			r.PushBool(sa2 >= sa1)
+			continue
+		case 0x32: // >= (float)
+			sf1 := r.PopFloat32()
+			sf2 := r.PopFloat32()
+			r.PushBool(sf2 >= sf1)
+			continue
+		case 0x33: // >= (string)
+			sa1 := r.PopString()
+			sa2 := r.PopString()
+			r.PushBool(sa2 >= sa1)
+			continue
+		case 0x34: // != (int)
+			sa1 := r.PopInt32()
+			sa2 := r.PopInt32()
+			r.PushBool(sa2 != sa1)
+			continue
+		case 0x35: // != (float)
+			sf1 := r.PopFloat32()
+			sf2 := r.PopFloat32()
+			r.PushBool(sf2 != sf1)
+			continue
+		case 0x36: // != (string)
+			rhs := r.PopString()
+			lhs := r.PopString()
+			r.PushBool(lhs != rhs)
+			continue
+		case 0x37: // && (int)
+			rhs := r.PopBool()
+			lhs := r.PopBool()
+			r.PushBool(lhs && rhs)
+			continue
+		case 0x38: // || (int)
+			rhs := r.PopBool()
+			lhs := r.PopBool()
+			r.PushBool(lhs || rhs)
+			continue
+		case 0x39: // <<= (int)
+			rhs := r.PopInt32()
+			ptr := r.PopInt()
+			isGlobal := r.PopBool()
+			if isGlobal {
+				v := r.funcs[1].getPtrInt(ptr)
+				v <<= rhs
+				r.funcs[1].setPtrInt(ptr, v)
+				r.PushInt32(v)
+			} else if ptr < 0 {
+				*(*uint32)(getA3Field(760, -ptr)) <<= rhs
+				r.PushInt32(*(*int32)(getA3Field(760, -ptr)))
+			} else {
+				v := f.getPtrInt(ptr)
+				v <<= rhs
+				f.setPtrInt(ptr, v)
+				r.PushInt32(v)
+			}
+			continue
+		case 0x3A: // >>= (int)
+			rhs := r.PopInt32()
+			ptr := r.PopInt()
+			isGlobal := r.PopBool()
+			if isGlobal {
+				v := r.funcs[1].getPtrInt(ptr)
+				v >>= rhs
+				r.funcs[1].setPtrInt(ptr, v)
+				r.PushInt32(v)
+			} else if ptr < 0 {
+				*(*uint32)(getA3Field(760, -ptr)) >>= rhs
+				r.PushInt32(*(*int32)(getA3Field(760, -ptr)))
+			} else {
+				v := f.getPtrInt(ptr)
+				v >>= rhs
+				f.setPtrInt(ptr, v)
+				r.PushInt32(v)
+			}
+			continue
+		case 0x3B: // &= (int)
+			rhs := r.PopInt32()
+			ptr := r.PopInt()
+			isGlobal := r.PopBool()
+			if isGlobal {
+				v := r.funcs[1].getPtrInt(ptr)
+				v &= rhs
+				r.funcs[1].setPtrInt(ptr, v)
+				r.PushInt32(v)
+			} else if ptr < 0 {
+				*(*int32)(getA3Field(760, -ptr)) &= rhs
+				r.PushInt32(*(*int32)(getA3Field(760, -ptr)))
+			} else {
+				v := f.getPtrInt(ptr)
+				v &= rhs
+				f.setPtrInt(ptr, v)
+				r.PushInt32(v)
+			}
+			continue
+		case 0x3C: // |= (int)
+			rhs := r.PopInt32()
+			ptr := r.PopInt()
+			isGlobal := r.PopBool()
+			if isGlobal {
+				v := r.funcs[1].getPtrInt(ptr)
+				v |= rhs
+				r.funcs[1].setPtrInt(ptr, v)
+				r.PushInt32(v)
+			} else if ptr < 0 {
+				*(*int32)(getA3Field(760, -ptr)) |= rhs
+				r.PushInt32(*(*int32)(getA3Field(760, -ptr)))
+			} else {
+				v := f.getPtrInt(ptr)
+				v |= rhs
+				f.setPtrInt(ptr, v)
+				r.PushInt32(v)
+			}
+			continue
+		case 0x3D: // ^= (int)
+			rhs := r.PopInt32()
+			ptr := r.PopInt()
+			isGlobal := r.PopBool()
+			if isGlobal {
+				v := r.funcs[1].getPtrInt(ptr)
+				v ^= rhs
+				r.funcs[1].setPtrInt(ptr, v)
+				r.PushInt32(v)
+			} else if ptr < 0 {
+				*(*int32)(getA3Field(760, -ptr)) ^= rhs
+				r.PushInt32(*(*int32)(getA3Field(760, -ptr)))
+			} else {
+				v := f.getPtrInt(ptr)
+				v ^= rhs
+				f.setPtrInt(ptr, v)
+				r.PushInt32(v)
+			}
+			continue
+		case 0x3E: // !v (int)
+			v := r.PopBool()
+			r.PushBool(!v)
+			continue
+		case 0x3F: // ^v (int)
+			v := r.PopInt32()
+			r.PushInt32(^v)
+			continue
+		case 0x40: // -v (int)
+			v := r.PopInt32()
+			r.PushInt32(-v)
+			continue
+		case 0x41: // -v (float)
+			v := -r.PopFloat32()
+			r.PushFloat32(v)
+			continue
+		case 0x42: // [i] (int)
+			i := r.PopInt()
+			vari := r.PopInt()
+			isGlobal := r.PopBool()
+			sz := r.PopInt()
+			if i < 0 || i >= sz {
+				return fmt.Errorf("array index out of bounds: [%d:%d]", i, sz)
+			}
+			var val int32
+			if isGlobal {
+				val = r.funcs[1].getArrInt(vari, i)
+			} else if vari < 0 {
+				val = *(*int32)(getA3Field(760, vari-i))
+			} else {
+				val = f.getArrInt(vari, i)
+			}
+			r.PushInt32(val)
+			continue
+		case 0x43: // [i] (float)
+			i := r.PopInt()
+			vari := r.PopInt()
+			isGlobal := r.PopBool()
+			sz := r.PopInt()
+			if i < 0 || i >= sz {
+				return fmt.Errorf("array index out of bounds: [%d:%d]", i, sz)
+			}
+			var val float32
+			if isGlobal {
+				val = r.funcs[1].getArrFloat(vari, i)
+			} else if vari < 0 {
+				val = *(*float32)(getA3Field(760, vari-i))
+			} else {
+				val = f.getArrFloat(vari, i)
+			}
+			r.PushFloat32(val)
+			continue
+		case 0x44: // &[i] (any)
+			i := r.PopInt()
+			vari := r.PopInt()
+			isGlobal := r.PopBool()
+			sz := r.PopInt()
+			if i < 0 || i >= sz {
+				return fmt.Errorf("array index out of bounds: [%d:%d]", i, sz)
+			}
+			r.PushBool(isGlobal)
+			if vari < 0 {
+				r.PushInt(vari - i)
+			} else {
+				r.PushInt(vari + i)
+			}
+			continue
+		case 0x45: // call builtin
+			ind := nextInt()
+			v, err := f.CallBuiltin(int(ind))
+			if err != nil {
+				return err
+			} else if v == 1 {
+				break // TODO: return error?
+			}
+			continue
+		case 0x46: // call script
+			ind := int(nextInt())
+			if err := r.FuncByInd(ind).Call(caller, trigger); err != nil {
+				return err
+			}
+			continue
+		case 0x49: // + (string)
+			sa1 := r.PopString()
+			sa2 := r.PopString()
+			r.PushString(sa2 + sa1)
+			continue
+		case 0x47, 0x48:
+		default:
+		}
+		if top := r.stackTop(); top != bstack+f.def.Return {
+			if f.def.Return != 0 {
+				if top != 0 {
+					v := r.PopInt32()
+					r.stackSet(bstack)
+					r.PushInt32(v)
+				} else {
+					r.stackSet(bstack)
+					r.PushInt32(0)
+				}
+			} else {
+				r.stackSet(bstack)
+			}
+		}
+		return nil
+	}
+}

@@ -1,10 +1,12 @@
 package noxscript
 
-import "nox/v1/common/log"
+import (
+	"fmt"
+)
 
 // TODO: should also accept a reference to Nox engine
 
-type BuiltinFunc func(r *Runtime) int
+type BuiltinFunc func(r *Runtime) (int, error)
 
 type builtinsData struct {
 	byOp map[int]Builtin
@@ -53,27 +55,27 @@ func (r *Runtime) BuiltinF44() int {
 	return r.builtins.F44
 }
 
-func (sc *Script) CallBuiltin(code int) (int, bool) {
-	r := sc.r
+func (f *Func) CallBuiltin(code int) (int, error) {
+	r := f.r
 	b, ok := r.builtins.byOp[code]
 	if !ok {
 		if r.checkPanicMemhack(code) {
-			return 0, true
+			return 0, nil
 		}
-		log.Printf("noxscript: invalid builtin index: %d (%x)", code, code)
-		return 0, false
+		err := fmt.Errorf("invalid builtin index: %d (%x)", code, code)
+		return 0, &Error{Func: f.Name(), Err: err}
 	}
-	if sc.f36 == "" {
-		return b.Fnc(r), true
+	if f.def.f36 == "" {
+		return b.Fnc(r)
 	}
 	if b.NeedsF36 {
-		r.builtins.F36 = sc.f36
+		r.builtins.F36 = f.def.f36
 	}
 	if b.NeedsF4044 {
-		r.builtins.F40 = sc.f40
-		r.builtins.F44 = sc.f44
+		r.builtins.F40 = f.def.f40
+		r.builtins.F44 = f.def.f44
 	}
-	res := b.Fnc(r)
+	res, err := b.Fnc(r)
 	r.resetBuiltinData()
-	return res, true
+	return res, err
 }
