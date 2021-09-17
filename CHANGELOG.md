@@ -1,5 +1,33 @@
 # Changelog
 
+## v1.8.0
+
+### New
+
+- High-resolution support (up to 4K)! You'll need to run `opennox-hd.exe` for it.
+- A lot faster OpenGL-based rendering (partially offloaded to GPU).
+- Add `cheat charm.all` to charm any creature (including humanoids).
+- Automated end-to-end testing mode, see [opennox-e2e](https://github.com/noxworld-dev/opennox-e2e) for details.
+- Simple HTTP-based [Server API](./docs/server-api.md) for controlling game servers.
+- Allow disabling image smoothing in the video options.
+- Allow enabling image stretching in the video options.
+- Other minor optimizations.
+
+### Fixes
+
+- Bug with creatures being "deaf" (not reacting to footsteps, etc).
+- Properly show the last character in long server names.
+- Error when manually saving player in online games.
+- Banish of captured creatures (like vampire bats) leading to scripts being stuck.
+- Properly forward ports when server port is changed via a flag.
+- Disabling soft shadows via `-soft` flag.
+- LUA scripts when reloading the same map from the console.
+- Nox Reloaded failing to join OpenNox Quest games.
+- OpenNox changing `user.rul` file permissions.
+- Potential crash on hosting Quest games.
+- Potential crash when leaving the game.
+- Crash when opening advanced server setting without admin rights.
+
 ## v1.7.1
 
 - Fix: Hide OS mouse cursor in windowed mode as well.
