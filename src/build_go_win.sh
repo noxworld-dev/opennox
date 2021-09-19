@@ -14,9 +14,12 @@ if [ "$VERSION" = "undefined" ]; then
   VERSION="v1.8.x"
 fi
 NOX_LDFLAGS="-X 'main.Commit=$GIT_SHA' -X 'main.Version=$VERSION'"
+NOX_LDFLAGS_GUI="-H windowsgui -X 'main.Commit=$GIT_SHA' -X 'main.Version=$VERSION'"
+NOX_GCFLAGS="-trimpath=$(pwd)"
+NOX_ASMFLAGS="-trimpath=$(pwd)"
 
-go build -v -ldflags="-H windowsgui $NOX_LDFLAGS" -o opennox.exe
-go build -v -ldflags="-H windowsgui $NOX_LDFLAGS" -tags highres -o opennox-hd.exe
-go build -v -ldflags="$NOX_LDFLAGS" -tags server -o opennox-server.exe
-go build -v -ldflags="$NOX_LDFLAGS" -o noxtools.exe ./cmd/noxtools
+go build -v -ldflags="${NOX_LDFLAGS_GUI}" -gcflags="${NOX_GCFLAGS}" -asmflags="${NOX_ASMFLAGS}" -o opennox.exe
+go build -v -ldflags="${NOX_LDFLAGS_GUI}" -gcflags="${NOX_GCFLAGS}" -asmflags="${NOX_ASMFLAGS}" -tags highres -o opennox-hd.exe
+go build -v -ldflags="${NOX_LDFLAGS}" -gcflags="${NOX_GCFLAGS}" -asmflags="${NOX_ASMFLAGS}" -tags server -o opennox-server.exe
+go build -v -ldflags="${NOX_LDFLAGS}" -gcflags="${NOX_GCFLAGS}" -asmflags="${NOX_ASMFLAGS}" -o noxtools.exe ./cmd/noxtools
 echo "Build complete: $VERSION ($GIT_SHA)"
