@@ -92,6 +92,8 @@ jobs:
           tar -xzf /tmp/sdl2.tar.gz
           sudo rsync -r /tmp/SDL2-2.0.14/i686-w64-mingw32/include/ /usr/i686-w64-mingw32/include/
           sudo rsync -r /tmp/SDL2-2.0.14/i686-w64-mingw32/lib/ /usr/i686-w64-mingw32/lib/
+          echo "405eaff3eb18f2e08fe669ef9e63bc9a8710b7d343756f238619761e9b60407d /tmp/sdl2.tar.gz" > /tmp/checksum.txt
+          sha256sum -c /tmp/checksum.txt
 
       - name: Install OpenAL package
         run: |
@@ -100,6 +102,8 @@ jobs:
           unzip -o /tmp/openal.zip
           sudo rsync -r /tmp/openal-soft-1.21.1-bin/include/ /usr/i686-w64-mingw32/include/
           sudo rsync -r /tmp/openal-soft-1.21.1-bin/libs/Win32/ /usr/i686-w64-mingw32/lib/
+          echo "2e4b005c4f8057adcf4459d9b239d3fe745a9128079b2a091f899550f2d931b0 /tmp/openal.zip" > /tmp/checksum.txt
+          sha256sum -c /tmp/checksum.txt
 
       - name: Install Go dependencies
         run: cd ./src && go mod download
