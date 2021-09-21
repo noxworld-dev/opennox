@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 
-#include "../../../static_assert.h"
+#include "../../../tainted/static_assert.h"
 
 #define ALLOC_CLASS_NAME_MAX 88
 

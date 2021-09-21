@@ -1,7 +1,7 @@
 #ifndef NOX_PORT_INPUT_DDRAW
 #define NOX_PORT_INPUT_DDRAW
 
-#include "../defs.h"
+#include "../tainted/defs.h"
 
 int nox_input_pollEvents_4453A0();
 DWORD* sub_47D7A0(DWORD* a1, UINT uJoyID);

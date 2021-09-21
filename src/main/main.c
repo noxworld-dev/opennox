@@ -4,7 +4,7 @@
 #ifdef _WIN32
 #include <windows.h>
 #else
-#include "../windows_compat.h"
+#include "../tainted/windows_compat.h"
 #endif
 #include "../common/fs/nox_fs.h"
 

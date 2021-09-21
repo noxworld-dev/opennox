@@ -1,7 +1,7 @@
 #ifndef NOX_PORT_CLIENT_VIDEO_DDRAW_DRAW_DDRAW
 #define NOX_PORT_CLIENT_VIDEO_DDRAW_DRAW_DDRAW
 
-#include "../defs.h"
+#include "../tainted/defs.h"
 
 int nox_xxx_directDrawBlitImpl_48A2A0();
 void sub_48AAF0();

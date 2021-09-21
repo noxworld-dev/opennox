@@ -1,7 +1,7 @@
 #ifndef NOX_PORT_MXX
 #define NOX_PORT_MXX
 
-#include "../defs.h"
+#include "../tainted/defs.h"
 
 signed int sub_444DD0();
 
