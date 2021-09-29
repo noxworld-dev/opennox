@@ -470,11 +470,7 @@ func e2eRealInput(ev seat.InputEvent) {
 }
 
 func e2eInputTick() {
-	t := platform.Ticks()
 	for _, ev := range e2e.input {
-		if !e2e.realEnable {
-			e2eLog.Printf("script(%v,%d): %#v", t, uint64(t), ev)
-		}
 		for _, fnc := range e2e.onInput {
 			fnc(ev)
 		}
