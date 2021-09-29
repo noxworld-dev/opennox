@@ -7435,10 +7435,9 @@ int sub_473B30_free() {
 #endif // NOX_CGO
 
 //----- (00473C10) --------------------------------------------------------
-char  nox_xxx_drawWalls_473C10(nox_draw_viewport_t* vp, void* data) {
+void nox_xxx_drawWalls_473C10(nox_draw_viewport_t* vp, void* data) {
 	_DWORD* a1 = vp;
 	unsigned __int8* a2 = data;
-	int v2;              // eax
 	unsigned __int8* v3; // esi
 	unsigned __int8 v4;  // dl
 	int v5;              // ecx
@@ -7521,16 +7520,15 @@ char  nox_xxx_drawWalls_473C10(nox_draw_viewport_t* vp, void* data) {
 	int v83[3];          // [esp+5Ch] [ebp-Ch]
 	int v84;             // [esp+70h] [ebp+8h]
 
-	LOBYTE(v2) = nox_win_width;
 	v3 = a2;
 	a4 = nox_win_width;
 	v72 = 0;
 	a3 = 0;
 	if (!a2)
-		return v2;
+		return;
 	v4 = a2[4];
 	if (!(v4 & 1))
-		return v2;
+		return;
 	v5 = a2[6];
 	v6 = *a1 + 23 * a2[5] - a1[4];
 	v82 = *a1 + 23 * a2[5] - a1[4];
@@ -7573,28 +7571,23 @@ char  nox_xxx_drawWalls_473C10(nox_draw_viewport_t* vp, void* data) {
 		a1a.field_4 = v7 + v23;
 		a2a.field_0 = v24;
 		a2a.field_4 = v7 + v25;
-		v2 = sub_4C42A0(&a1a, &a2a, &a3, &a4);
-		if (v2) {
+		if (sub_4C42A0(&a1a, &a2a, &a3, &a4)) {
 		LABEL_51:
 			v19 = a3;
-			v2 = a4;
 			goto LABEL_52;
 		}
 		if (!v22)
-			return v2;
-		v2 = a4;
+			return;
 		if (a4 > a1a.field_0) {
-			v2 = a1a.field_0;
 			a4 = a1a.field_0;
 		}
 		v19 = a3;
 	LABEL_52:
-		if (v19 >= v2) {
+		if (v19 >= a4) {
 			v26 = v3[4];
 			v3[3] = 0;
-			LOBYTE(v2) = v26 & 0xFC;
-			v3[4] = v2;
-			return v2;
+			v3[4] = v26 & 0xFC;
+			return;
 		}
 	LABEL_54:
 		v27 = v3[4];
@@ -7772,11 +7765,10 @@ char  nox_xxx_drawWalls_473C10(nox_draw_viewport_t* vp, void* data) {
 				if (!sub_47D380(a3, a4)) {
 				LABEL_106:
 					sub_4345F0(0);
-					LOBYTE(v2) = v3[4] & 0xFC;
 					v3[3] = 0;
-					v3[4] = v2;
+					v3[4] &= 0xFC;
 					*((_DWORD*)v3 + 3) = 1;
-					return v2;
+					return;
 				}
 				nox_client_drawEnableAlpha_434560(1);
 				nox_client_drawSetAlpha_434580(0x80u);
@@ -7795,9 +7787,8 @@ char  nox_xxx_drawWalls_473C10(nox_draw_viewport_t* vp, void* data) {
 		goto LABEL_62;
 	}
 	if (v74 != 8 && v74 != 10) {
-		v2 = sub_4C42A0(&a1a, &a2a, &a3, &a4);
-		if (!v2)
-			return v2;
+		if (!sub_4C42A0(&a1a, &a2a, &a3, &a4))
+			return;
 		goto LABEL_51;
 	}
 	v76 = v13;
@@ -7819,7 +7810,6 @@ char  nox_xxx_drawWalls_473C10(nox_draw_viewport_t* vp, void* data) {
 	v18 = sub_4C42A0(&v80, &v81, &a3, &a4);
 	v19 = a3;
 	v20 = v18 == 0;
-	v2 = a4;
 	if (v20)
 		v21 = 0;
 	else
@@ -7835,16 +7825,13 @@ char  nox_xxx_drawWalls_473C10(nox_draw_viewport_t* vp, void* data) {
 				a3 = 0;
 			}
 			if (a4 < v76) {
-				v2 = v76;
 				a4 = v76;
 			}
-			if (v2 >= v81.field_0) {
-				v2 = nox_win_width;
+			if (a4 >= v81.field_0) {
 				a4 = nox_win_width;
 			}
 		} else {
 			v19 = v75;
-			v2 = v76;
 			a3 = v75;
 			a4 = v76;
 			if (v74 != 8) {
@@ -7858,7 +7845,6 @@ char  nox_xxx_drawWalls_473C10(nox_draw_viewport_t* vp, void* data) {
 			}
 			v84 = 0;
 			if (v76 == v81.field_0) {
-				v2 = nox_win_width;
 				a4 = nox_win_width;
 			}
 		}
@@ -7867,12 +7853,11 @@ char  nox_xxx_drawWalls_473C10(nox_draw_viewport_t* vp, void* data) {
 	if (v21) {
 		v84 = (v74 != 8) + 13;
 		if (a4 == v81.field_0) {
-			v2 = nox_win_width;
 			a4 = nox_win_width;
 		}
 		goto LABEL_33;
 	}
-	return v2;
+	return;
 }
 // 474366: variable 'v50' is possibly undefined
 // 474366: variable 'v49' is possibly undefined
