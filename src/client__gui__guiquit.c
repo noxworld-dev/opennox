@@ -39,6 +39,10 @@ int nox_xxx_wndLoadQuitMenu_445790() {
 	nox_wnd_quitMenu_825760->draw_data.bg_color = *getMemU32Ptr(0x85B3FC, 952);
 	nox_wnd_quitMenu_825760->off_x = (nox_win_width - nox_wnd_quitMenu_825760->width) / 2;
 	nox_wnd_quitMenu_825760->end_x = nox_wnd_quitMenu_825760->off_x + nox_wnd_quitMenu_825760->width;
+	if (nox_win_height > 768) {
+		nox_wnd_quitMenu_825760->off_y = (nox_win_height - nox_wnd_quitMenu_825760->height - nox_win_height/3) / 2;
+		nox_wnd_quitMenu_825760->end_y = nox_wnd_quitMenu_825760->off_y + nox_wnd_quitMenu_825760->height;
+	}
 	sub_445C40();
 	dword_5d4594_825752 = 0;
 	dword_5d4594_825768 = 0;
