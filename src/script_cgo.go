@@ -116,7 +116,7 @@ func (ev noxEventType) String() string {
 func nox_script_callByEvent_cgo(event C.int, a1, a2 C.int) {
 	ev := noxEventType(event)
 	switch ev {
-	case noxEventCollide, noxEventMonsterCollide:
+	case noxEventCollide, noxEventMonsterCollide, noxEventMonsterHearEnemy:
 		// too frequent, don't log for now
 	case noxEventTriggerActivated:
 		obj := asObject(unsafe.Pointer(uintptr(a1)))
