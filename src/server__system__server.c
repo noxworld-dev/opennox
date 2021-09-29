@@ -768,7 +768,6 @@ void sub_4DBA30(int a1) {
 					}
 					v2 = v24;
 				}
-				sub_4DB090();
 				v4 = v25;
 			}
 			for (i = *(_DWORD*)(v4 + 516); i != v3; i = *(_DWORD*)(i + 512)) {

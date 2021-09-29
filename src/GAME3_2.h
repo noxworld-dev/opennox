@@ -306,7 +306,6 @@ int sub_4DAE50(int a1);
 void sub_4DAF10();
 void sub_4DAFD0(_DWORD* a1);
 _DWORD* nox_xxx_unitClearPendingMB_4DB030();
-int sub_4DB090();
 int sub_4DB0A0();
 int sub_4DB100();
 unsigned int sub_4DB130(const char* a1);

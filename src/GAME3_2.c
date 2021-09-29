@@ -911,7 +911,6 @@ int nox_xxx_serverParseEntireMap_4CFCE0() {
 		nox_xxx_waypoint_5799C0();
 		nox_xxx_unitsNewAddToList_4DAC00();
 	}
-	sub_4DB090();
 	return 1;
 }
 
@@ -7691,9 +7690,6 @@ _DWORD* nox_xxx_unitClearPendingMB_4DB030() {
 	nox_server_objects_uninited_1556860 = 0;
 	return result;
 }
-
-//----- (004DB090) --------------------------------------------------------
-int sub_4DB090() { return *getMemU32Ptr(0x587000, 201376); }
 
 //----- (004DB0A0) --------------------------------------------------------
 int sub_4DB0A0() {
