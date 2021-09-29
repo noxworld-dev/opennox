@@ -15,8 +15,6 @@ package main
 #include "client__draw__debugdraw.h"
 extern nox_draw_viewport_t nox_draw_viewport;
 extern nox_drawable* nox_xxx_drawablePlayer_1046600;
-extern void* dword_5d4594_1096496;
-extern int dword_5d4594_1096500;
 extern unsigned int nox_client_drawFrontWalls_80812;
 extern unsigned int nox_client_translucentFrontWalls_805844;
 extern unsigned int nox_client_highResFrontWalls_80820;
@@ -703,7 +701,7 @@ func nox_xxx_drawAllMB_475810_draw(vp *Viewport) {
 	}
 	sub_475F10(vp)
 	C.nox_xxx_drawAllMB_475810_draw_C(vp.C(), C.int(v36), C.int(v7))
-	C.nox_xxx_drawAllMB_475810_draw_D(vp.C())
+	nox_xxx_drawAllMB_475810_draw_D(vp)
 	sub_475FE0(vp)
 	C.nox_video_drawCursorSelectCircle_4773C0(vp.C())
 	nox_xxx_drawAllMB_475810_draw_E(vp)
@@ -936,7 +934,7 @@ func sub_4754F0(vp *Viewport) {
 	nox_drawable_list_3 = nox_drawable_list_3[:0]
 	nox_drawable_list_2 = nox_drawable_list_2[:0]
 	nox_drawable_list_4 = nox_drawable_list_4[:0]
-	C.dword_5d4594_1096500 = 0
+	dword_5d4594_1096496 = dword_5d4594_1096496[:0]
 	dword_5d4594_1096504 = dword_5d4594_1096504[:0]
 	nox_xxx_forEachSprite(rect, nox_xxx_spriteAddQueue_475560_draw)
 }
@@ -998,10 +996,7 @@ func sub_473A40() {
 	nox_drawable_list_2 = make([]*Drawable, 0, nox_drawable_lists_cap)
 	nox_drawable_list_4 = make([]*Drawable, 0, nox_drawable_lists_cap)
 
-	dword_5d4594_1096496 = alloc.Pointers(nox_drawable_lists_cap2)
-	C.dword_5d4594_1096496 = unsafe.Pointer(&dword_5d4594_1096496[0])
-	C.dword_5d4594_1096500 = 0
-
+	dword_5d4594_1096496 = make([]unsafe.Pointer, 0, nox_drawable_lists_cap2)
 	dword_5d4594_1096504 = make([]unsafe.Pointer, 0, nox_drawable_lists_cap2)
 	dword_5d4594_1096512 = make([]unsafe.Pointer, 0, nox_drawable_lists_cap2)
 }
@@ -1011,12 +1006,8 @@ func sub_473B30_free() {
 	nox_drawable_list_3 = nil
 	nox_drawable_list_2 = nil
 	nox_drawable_list_4 = nil
-	if dword_5d4594_1096496 != nil {
-		alloc.FreePointers(dword_5d4594_1096496)
-		dword_5d4594_1096496 = nil
-		C.dword_5d4594_1096496 = nil
-		C.dword_5d4594_1096500 = 0
-	}
+
+	dword_5d4594_1096496 = nil
 	dword_5d4594_1096504 = nil
 	dword_5d4594_1096512 = nil
 }
@@ -1035,8 +1026,22 @@ func nox_xxx_drawList1096504_Append(p unsafe.Pointer) {
 	}
 }
 
+//export nox_xxx_drawList1096496_Append
+func nox_xxx_drawList1096496_Append(p unsafe.Pointer) {
+	if len(dword_5d4594_1096496) < cap(dword_5d4594_1096496) {
+		dword_5d4594_1096496 = append(dword_5d4594_1096496, p)
+	}
+}
+
 func nox_xxx_cliGetSpritePlayer_45A000() *Drawable {
 	return asDrawable(C.nox_xxx_drawablePlayer_1046600)
+}
+
+func nox_xxx_drawAllMB_475810_draw_D(vp *Viewport) {
+	for _, v20 := range dword_5d4594_1096496 {
+		nox_xxx_drawWalls_473C10(vp, v20)
+	}
+	dword_5d4594_1096496 = dword_5d4594_1096496[:0]
 }
 
 func nox_xxx_drawAllMB_475810_draw_E(vp *Viewport) {

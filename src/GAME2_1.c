@@ -193,15 +193,15 @@ int nox_drawable_list_4_size = 0;
 nox_drawable** nox_drawable_list_1 = 0;
 int nox_drawable_list_1_size = 0;
 
+void* dword_5d4594_1096496 = 0;
+int dword_5d4594_1096500 = 0;
+
 void* dword_5d4594_1096504 = 0;
 int dword_5d4594_1096508 = 0;
 
 void* dword_5d4594_1096512 = 0;
 int dword_5d4594_1096516 = 0;
 #endif // NOX_CGO
-
-void* dword_5d4594_1096496 = 0;
-int dword_5d4594_1096500 = 0;
 
 obj_5D4594_2650668_t** ptr_5D4594_2650668 = 0;
 const int ptr_5D4594_2650668_cap = 128;
@@ -8230,11 +8230,16 @@ int nox_xxx_drawAllMB_475810_draw_B(nox_draw_viewport_t* vp) {
 	return v10;
 }
 #ifndef NOX_CGO
+void nox_xxx_drawList1096496_Append(void* p) {
+	if (dword_5d4594_1096500 < 256)
+		*(_DWORD*)((unsigned int)dword_5d4594_1096496 + 4 * (dword_5d4594_1096500)++) = p;
+}
 void nox_xxx_drawList1096504_Append(void* p) {
 	if (dword_5d4594_1096508 < 256)
 		*(_DWORD*)((unsigned int)dword_5d4594_1096504 + 4 * (dword_5d4594_1096508)++) = p;
 }
 #else // NOX_CGO
+void nox_xxx_drawList1096496_Append(void* p);
 void nox_xxx_drawList1096504_Append(void* p);
 #endif // NOX_CGO
 void nox_xxx_drawAllMB_475810_draw_C(nox_draw_viewport_t* vp, int v36, int v7) {
@@ -8249,8 +8254,8 @@ void nox_xxx_drawAllMB_475810_draw_C(nox_draw_viewport_t* vp, int v36, int v7) {
 				if (v17 && !(getMemByte(0x85B3FC, 43076 + 12332 * *(unsigned __int8*)(v17 + 1)) & 4)) {
 					if (*(_BYTE*)(v17 + 4) & 2) {
 						nox_xxx_drawList1096504_Append(v17);
-					} else if (dword_5d4594_1096500 < 256) {
-						*(_DWORD*)((unsigned int)dword_5d4594_1096496 + 4 * (dword_5d4594_1096500)++) = v17;
+					} else {
+						nox_xxx_drawList1096496_Append(v17);
 					}
 				}
 			}
@@ -8260,6 +8265,7 @@ void nox_xxx_drawAllMB_475810_draw_C(nox_draw_viewport_t* vp, int v36, int v7) {
 		}
 	}
 }
+#ifndef NOX_CGO
 void nox_xxx_drawAllMB_475810_draw_D(nox_draw_viewport_t* vp) {
 	unsigned __int8** v18 = dword_5d4594_1096496;
 	bool j;
@@ -8270,7 +8276,6 @@ void nox_xxx_drawAllMB_475810_draw_D(nox_draw_viewport_t* vp) {
 		j = dword_5d4594_1096500 == 0;
 	}
 }
-#ifndef NOX_CGO
 void nox_xxx_drawAllMB_475810_draw_E(nox_draw_viewport_t* vp) {
 	qsort(nox_drawable_list_1, nox_drawable_list_1_size, sizeof(void*), sub_476160);
 	qsort(dword_5d4594_1096512, dword_5d4594_1096516, sizeof(void*), sub_476240);
