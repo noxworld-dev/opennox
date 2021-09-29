@@ -3071,7 +3071,7 @@ int  nox_xxx_drawBlack_496150(nox_draw_viewport_t* a1p) {
 							v15 = v13 | 2;
 						v9[4] = v15;
 						if (getMemByte(0x85B3FC, 43076 + 12332 * v11) & 4)
-							sub_4754C0((int)v9);
+							nox_xxx_drawList1096512_Append_4754C0(v9);
 					}
 				}
 			}

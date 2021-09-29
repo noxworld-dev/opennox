@@ -294,7 +294,7 @@ void sub_4745F0(nox_draw_viewport_t* vp);
 int sub_474B40(int a1);
 int sub_474BE0(_DWORD* a1, int* a2, int a3, int a4, int a5, int a6, int a7, int a8);
 int sub_474DD0(_DWORD* a1, int2* a2, int2* a3, int a4, int a5);
-size_t sub_4754C0(int a1);
+void nox_xxx_drawList1096512_Append_4754C0(void* a1);
 void sub_4754F0(nox_draw_viewport_t* a1p);
 void nox_xxx_spriteAddQueue_475560_draw(nox_drawable* dr, nox_draw_viewport_t* a2);
 int nox_xxx_sprite_4756E0_drawable(nox_drawable* dr);
