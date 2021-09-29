@@ -84,6 +84,7 @@ nox_server_xxx nox_server_xxx_1599716[NOX_SERVER_XXX_SIZE*NOX_SERVER_XXX_SIZE] =
 void nullsub_21(void) {}
 void nullsub_25(_DWORD a1) {}
 
+#ifndef NOX_CGO
 unsigned int nox_server_lastObjectScriptID = 1000000000;
 unsigned int nox_server_firstObjectScriptID = 1000000000;
 
@@ -111,6 +112,7 @@ void nox_server_ResetObjectGIDs_4E3C70() {
 		nox_server_SetLastObjectScriptID(nox_server_firstObjectScriptID);
 	}
 }
+#endif // NOX_CGO
 
 //#ifndef NOX_CGO
 //----- (00413980) --------------------------------------------------------

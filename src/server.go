@@ -69,12 +69,39 @@ import (
 	noxflags "nox/v1/common/flags"
 	"nox/v1/common/fs"
 	"nox/v1/common/memmap"
+	"nox/v1/server"
 	"nox/v1/server/script"
 )
 
 var (
 	noxServerPort int = common.GamePort
+	noxServer         = server.New()
 )
+
+//export nox_server_ResetObjectGIDs_4E3C70
+func nox_server_ResetObjectGIDs_4E3C70() {
+	noxServer.ResetObjectScriptIDs()
+}
+
+//export nox_server_SetFirstObjectScriptID_4E3C60
+func nox_server_SetFirstObjectScriptID_4E3C60(id C.int) {
+	noxServer.SetFirstObjectScriptID(server.ObjectScriptID(id))
+}
+
+//export nox_server_SetLastObjectScriptID
+func nox_server_SetLastObjectScriptID(id C.uint) {
+	noxServer.SetLastObjectScriptID(server.ObjectScriptID(id))
+}
+
+//export nox_server_LastObjectScriptID
+func nox_server_LastObjectScriptID() C.uint {
+	return C.uint(noxServer.LastObjectScriptID())
+}
+
+//export nox_server_NextObjectScriptID
+func nox_server_NextObjectScriptID() C.uint {
+	return C.uint(noxServer.NextObjectScriptID())
+}
 
 //export nox_xxx_servGetPort_40A430
 func nox_xxx_servGetPort_40A430() C.int {
@@ -307,7 +334,7 @@ func nox_xxx_servNewSession_4D1660() error {
 	C.nox_xxx_host_player_unit_3843628 = nil
 	C.sub_4D7B40()
 	C.sub_41E4B0(0)
-	C.nox_server_ResetObjectGIDs_4E3C70()
+	noxServer.ResetObjectScriptIDs()
 	C.sub_56F1C0()
 	C.nox_xxx_cliResetAllPlayers_416E30()
 	C.nox_netlist_resetAll_40EE60()
