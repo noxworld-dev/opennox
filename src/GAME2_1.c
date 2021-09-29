@@ -8238,10 +8238,6 @@ void nox_xxx_drawList1096504_Append(void* p) {
 	if (nox_client_frontWalls_cnt_1096508 < 256)
 		*(_DWORD*)((unsigned int)nox_client_frontWalls_list_1096504 + 4 * (nox_client_frontWalls_cnt_1096508)++) = p;
 }
-#else // NOX_CGO
-void nox_xxx_drawList1096496_Append(void* p);
-void nox_xxx_drawList1096504_Append(void* p);
-#endif // NOX_CGO
 void nox_xxx_drawAllMB_475810_draw_C(nox_draw_viewport_t* vp, int v36, int v7) {
 	int v13 = vp->height / 23 + 4;
 	int v14 = v13 + v7;
@@ -8265,7 +8261,6 @@ void nox_xxx_drawAllMB_475810_draw_C(nox_draw_viewport_t* vp, int v36, int v7) {
 		}
 	}
 }
-#ifndef NOX_CGO
 void nox_xxx_drawAllMB_475810_draw_D(nox_draw_viewport_t* vp) {
 	unsigned __int8** v18 = nox_client_wallsXxx_list_1096496;
 	bool j;

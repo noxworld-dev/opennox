@@ -662,8 +662,8 @@ func nox_xxx_drawAllMB_475810_draw(vp *Viewport) {
 	}
 	*memmap.PtrInt32(0x5D4594, 1096428) = int32(C.int(vp.field_4) - vp.x1)
 	C.dword_5d4594_1096432 = C.uint(C.int(vp.field_5) - vp.y1)
-	v36 := vp.field_4 / 23
-	v7 := vp.field_5 / 23
+	xmin := int(vp.field_4) / common.GridStep
+	ymin := int(vp.field_5) / common.GridStep
 	nox_wallsYyy = nox_wallsYyy[:0]
 	C.nox_xxx_drawBlack_496150(vp.C())
 	disableDraw := false
@@ -700,8 +700,8 @@ func nox_xxx_drawAllMB_475810_draw(vp *Viewport) {
 		sub_440900()
 	}
 	sub_475F10(vp)
-	C.nox_xxx_drawAllMB_475810_draw_C(vp.C(), C.int(v36), C.int(v7))
-	nox_client_drawWallsXxx(vp)
+	nox_client_queueWallsDraw(vp, xmin, ymin)
+	nox_client_drawBackWalls(vp)
 	sub_475FE0(vp)
 	C.nox_video_drawCursorSelectCircle_4773C0(vp.C())
 	nox_xxx_drawAllMB_475810_draw_E(vp)
@@ -934,7 +934,7 @@ func sub_4754F0(vp *Viewport) {
 	nox_drawable_list_3 = nox_drawable_list_3[:0]
 	nox_drawable_list_2 = nox_drawable_list_2[:0]
 	nox_drawable_list_4 = nox_drawable_list_4[:0]
-	nox_wallsXxx = nox_wallsXxx[:0]
+	nox_backWalls = nox_backWalls[:0]
 	nox_frontWalls = nox_frontWalls[:0]
 	nox_xxx_forEachSprite(rect, nox_xxx_spriteAddQueue_475560_draw)
 }
@@ -987,20 +987,20 @@ var (
 	nox_drawable_list_2 []*Drawable
 	nox_drawable_list_4 []*Drawable
 
-	nox_wallsXxx   []unsafe.Pointer
-	nox_frontWalls []unsafe.Pointer
-	nox_wallsYyy   []unsafe.Pointer
+	nox_backWalls  []*Wall
+	nox_frontWalls []*Wall
+	nox_wallsYyy   []*Wall
 )
 
-func sub_473A40() {
+func initDrawableLists() {
 	nox_drawable_list_1 = make([]*Drawable, 0, nox_drawable_list_1_cap)
 	nox_drawable_list_3 = make([]*Drawable, 0, nox_drawable_lists_cap)
 	nox_drawable_list_2 = make([]*Drawable, 0, nox_drawable_lists_cap)
 	nox_drawable_list_4 = make([]*Drawable, 0, nox_drawable_lists_cap)
 
-	nox_wallsXxx = make([]unsafe.Pointer, 0, noxDrawableWallsCap)
-	nox_frontWalls = make([]unsafe.Pointer, 0, noxDrawableWallsCap)
-	nox_wallsYyy = make([]unsafe.Pointer, 0, noxDrawableWallsCap)
+	nox_backWalls = make([]*Wall, 0, noxDrawableWallsCap)
+	nox_frontWalls = make([]*Wall, 0, noxDrawableWallsCap)
+	nox_wallsYyy = make([]*Wall, 0, noxDrawableWallsCap)
 }
 
 func sub_473B30_free() {
@@ -1009,35 +1009,45 @@ func sub_473B30_free() {
 	nox_drawable_list_2 = nil
 	nox_drawable_list_4 = nil
 
-	nox_wallsXxx = nil
+	nox_backWalls = nil
 	nox_frontWalls = nil
 	nox_wallsYyy = nil
 }
 
 //export nox_xxx_drawList1096512_Append_4754C0
 func nox_xxx_drawList1096512_Append_4754C0(p unsafe.Pointer) {
-	nox_wallsYyy = append(nox_wallsYyy, p)
-}
-
-//export nox_xxx_drawList1096504_Append
-func nox_xxx_drawList1096504_Append(p unsafe.Pointer) {
-	nox_frontWalls = append(nox_frontWalls, p)
-}
-
-//export nox_xxx_drawList1096496_Append
-func nox_xxx_drawList1096496_Append(p unsafe.Pointer) {
-	nox_wallsXxx = append(nox_wallsXxx, p)
+	nox_wallsYyy = append(nox_wallsYyy, asWall(p))
 }
 
 func nox_xxx_cliGetSpritePlayer_45A000() *Drawable {
 	return asDrawable(C.nox_xxx_drawablePlayer_1046600)
 }
 
-func nox_client_drawWallsXxx(vp *Viewport) {
-	for _, v20 := range nox_wallsXxx {
+func nox_client_queueWallsDraw(vp *Viewport, xmin, ymin int) { // nox_xxx_drawAllMB_475810_draw_C
+	xmax := xmin + int(vp.width)/common.GridStep + 2
+	ymax := ymin + int(vp.height)/common.GridStep + 4
+	for y := ymin; y <= ymax; y++ {
+		for x := xmin; x <= xmax; x++ {
+			wl := getWallAtGrid(types.Point{X: x, Y: y})
+			if wl == nil {
+				continue
+			}
+			if memmap.Uint8(0x85B3FC, 43076+12332*uintptr(wl.field1()))&4 == 0 {
+				if wl.field4()&2 != 0 {
+					nox_frontWalls = append(nox_frontWalls, wl)
+				} else {
+					nox_backWalls = append(nox_backWalls, wl)
+				}
+			}
+		}
+	}
+}
+
+func nox_client_drawBackWalls(vp *Viewport) {
+	for _, v20 := range nox_backWalls {
 		nox_xxx_drawWalls_473C10(vp, v20)
 	}
-	nox_wallsXxx = nox_wallsXxx[:0]
+	nox_backWalls = nox_backWalls[:0]
 }
 
 func nox_xxx_drawAllMB_475810_draw_E(vp *Viewport) {
@@ -1051,7 +1061,7 @@ func nox_xxx_drawAllMB_475810_draw_E(vp *Viewport) {
 	})
 	sort.Slice(nox_wallsYyy, func(i, j int) bool {
 		a, b := nox_wallsYyy[i], nox_wallsYyy[j]
-		return C.sub_476080((*C.uchar)(a)) < C.sub_476080((*C.uchar)(b))
+		return C.sub_476080((*C.uchar)(a.C())) < C.sub_476080((*C.uchar)(b.C()))
 	})
 	arr1 := nox_drawable_list_1
 	arr2 := nox_wallsYyy
@@ -1061,7 +1071,7 @@ func nox_xxx_drawAllMB_475810_draw_E(vp *Viewport) {
 	}
 	v21 := 0x7FFFFFFF
 	if len(arr2) > 0 {
-		v21 = int(C.sub_476080((*C.uchar)(arr2[0])))
+		v21 = int(C.sub_476080((*C.uchar)(arr2[0].C())))
 	}
 LOOP:
 	for len(arr1) > 0 || len(arr2) > 0 {
@@ -1070,7 +1080,7 @@ LOOP:
 				nox_xxx_drawWalls_473C10(vp, arr2[0])
 				arr2 = arr2[1:]
 				if len(arr2) != 0 {
-					v21 = int(C.sub_476080((*C.uchar)(arr2[0])))
+					v21 = int(C.sub_476080((*C.uchar)(arr2[0].C())))
 					continue
 				}
 			}
@@ -1173,8 +1183,8 @@ func sub_475F10(vp *Viewport) {
 	nox_drawable_list_3 = nox_drawable_list_3[:0]
 }
 
-func nox_xxx_drawWalls_473C10(vp *Viewport, p unsafe.Pointer) {
-	C.nox_xxx_drawWalls_473C10(vp.C(), p)
+func nox_xxx_drawWalls_473C10(vp *Viewport, p *Wall) {
+	C.nox_xxx_drawWalls_473C10(vp.C(), p.C())
 }
 
 func nox_client_maybeDrawFrontWalls(vp *Viewport) { // nox_client_maybeDrawFrontWalls_475810_F
@@ -1184,9 +1194,8 @@ func nox_client_maybeDrawFrontWalls(vp *Viewport) { // nox_client_maybeDrawFront
 		}
 	} else {
 		for _, wl := range nox_frontWalls {
-			v33 := asByteSlice(wl, 5)
-			v33[3] = 0
-			v33[4] &= 0xFC
+			*(*byte)(wl.field(3)) = 0
+			*(*byte)(wl.field(4)) &= 0xFC
 		}
 	}
 	nox_frontWalls = nox_frontWalls[:0]

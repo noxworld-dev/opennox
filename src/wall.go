@@ -93,6 +93,14 @@ func (w *Wall) String() string {
 	return fmt.Sprintf("Wall(%d, %d)", pos.X, pos.Y)
 }
 
+func (w *Wall) field1() byte {
+	return *(*byte)(w.field(1))
+}
+
+func (w *Wall) field4() byte {
+	return *(*byte)(w.field(4))
+}
+
 func (w *Wall) GridPos() types.Point {
 	x := int(*(*byte)(w.field(5)))
 	y := int(*(*byte)(w.field(6)))
