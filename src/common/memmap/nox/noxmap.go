@@ -756,12 +756,12 @@ var noxMemmap = []struct {
 	{0x5D4594, 1096484, 4, "nox_drawable_list_2_size"},                          // 0x6E00B8
 	{0x5D4594, 1096488, 4, "nox_drawable_list_4"},                               // 0x6E00BC
 	{0x5D4594, 1096492, 4, "nox_drawable_list_4_size"},                          // 0x6E00C0
-	{0x5D4594, 1096496, 4, "dword_5d4594_1096496"},                              // 0x6E00C4
-	{0x5D4594, 1096500, 4, "dword_5d4594_1096500"},                              // 0x6E00C8
-	{0x5D4594, 1096504, 4, "dword_5d4594_1096504"},                              // 0x6E00CC
-	{0x5D4594, 1096508, 4, "dword_5d4594_1096508"},                              // 0x6E00D0
-	{0x5D4594, 1096512, 4, "dword_5d4594_1096512"},                              // 0x6E00D4
-	{0x5D4594, 1096516, 4, "dword_5d4594_1096516"},                              // 0x6E00D8
+	{0x5D4594, 1096496, 4, "nox_client_wallsXxx_list_1096496"},                  // 0x6E00C4
+	{0x5D4594, 1096500, 4, "nox_client_wallsXxx_cnt_1096500"},                   // 0x6E00C8
+	{0x5D4594, 1096504, 4, "nox_client_frontWalls_list_1096504"},                // 0x6E00CC
+	{0x5D4594, 1096508, 4, "nox_client_frontWalls_cnt_1096508"},                 // 0x6E00D0
+	{0x5D4594, 1096512, 4, "nox_client_wallsYyy_list_1096512"},                  // 0x6E00D4
+	{0x5D4594, 1096516, 4, "nox_client_wallsYyy_cnt_1096516"},                   // 0x6E00D8
 	{0x5D4594, 1096636, 4, "dword_5d4594_1096636"},                              // 0x6E0150
 	{0x5D4594, 1096640, 4, "dword_5d4594_1096640"},                              // 0x6E0154
 	{0x5D4594, 1096644, 4, "nox_client_spriteUnderCursorXxx_1096644"},           // 0x6E0158

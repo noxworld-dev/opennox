@@ -664,7 +664,7 @@ func nox_xxx_drawAllMB_475810_draw(vp *Viewport) {
 	C.dword_5d4594_1096432 = C.uint(C.int(vp.field_5) - vp.y1)
 	v36 := vp.field_4 / 23
 	v7 := vp.field_5 / 23
-	dword_5d4594_1096512 = dword_5d4594_1096512[:0]
+	nox_wallsYyy = nox_wallsYyy[:0]
 	C.nox_xxx_drawBlack_496150(vp.C())
 	disableDraw := false
 	if !noxflags.HasGame(2048) && (C.nox_xxx_testCD_413830() == 0) ||
@@ -701,13 +701,13 @@ func nox_xxx_drawAllMB_475810_draw(vp *Viewport) {
 	}
 	sub_475F10(vp)
 	C.nox_xxx_drawAllMB_475810_draw_C(vp.C(), C.int(v36), C.int(v7))
-	nox_xxx_drawAllMB_475810_draw_D(vp)
+	nox_client_drawWallsXxx(vp)
 	sub_475FE0(vp)
 	C.nox_video_drawCursorSelectCircle_4773C0(vp.C())
 	nox_xxx_drawAllMB_475810_draw_E(vp)
 	C.sub_4AFD40()
 	C.sub_4C5060(vp.C())
-	nox_xxx_drawAllMB_475810_draw_F(vp)
+	nox_client_maybeDrawFrontWalls(vp)
 	C.nox_client_procFade_44D9F0(0)
 	if getEngineFlag(NOX_ENGINE_FLAG_ENABLE_SHOW_AI) {
 		C.sub_476270(vp.C())
@@ -934,8 +934,8 @@ func sub_4754F0(vp *Viewport) {
 	nox_drawable_list_3 = nox_drawable_list_3[:0]
 	nox_drawable_list_2 = nox_drawable_list_2[:0]
 	nox_drawable_list_4 = nox_drawable_list_4[:0]
-	dword_5d4594_1096496 = dword_5d4594_1096496[:0]
-	dword_5d4594_1096504 = dword_5d4594_1096504[:0]
+	nox_wallsXxx = nox_wallsXxx[:0]
+	nox_frontWalls = nox_frontWalls[:0]
 	nox_xxx_forEachSprite(rect, nox_xxx_spriteAddQueue_475560_draw)
 }
 
@@ -977,17 +977,19 @@ func nox_xxx_spriteAddQueue_475560_draw(dr *Drawable) {
 const (
 	nox_drawable_list_1_cap = 8192
 	nox_drawable_lists_cap  = 512
-	nox_drawable_lists_cap2 = 256
+
+	noxDrawableWallsCap = 256
 )
 
 var (
-	nox_drawable_list_1  []*Drawable
-	nox_drawable_list_3  []*Drawable
-	nox_drawable_list_2  []*Drawable
-	nox_drawable_list_4  []*Drawable
-	dword_5d4594_1096496 []unsafe.Pointer
-	dword_5d4594_1096504 []unsafe.Pointer
-	dword_5d4594_1096512 []unsafe.Pointer
+	nox_drawable_list_1 []*Drawable
+	nox_drawable_list_3 []*Drawable
+	nox_drawable_list_2 []*Drawable
+	nox_drawable_list_4 []*Drawable
+
+	nox_wallsXxx   []unsafe.Pointer
+	nox_frontWalls []unsafe.Pointer
+	nox_wallsYyy   []unsafe.Pointer
 )
 
 func sub_473A40() {
@@ -996,9 +998,9 @@ func sub_473A40() {
 	nox_drawable_list_2 = make([]*Drawable, 0, nox_drawable_lists_cap)
 	nox_drawable_list_4 = make([]*Drawable, 0, nox_drawable_lists_cap)
 
-	dword_5d4594_1096496 = make([]unsafe.Pointer, 0, nox_drawable_lists_cap2)
-	dword_5d4594_1096504 = make([]unsafe.Pointer, 0, nox_drawable_lists_cap2)
-	dword_5d4594_1096512 = make([]unsafe.Pointer, 0, nox_drawable_lists_cap2)
+	nox_wallsXxx = make([]unsafe.Pointer, 0, noxDrawableWallsCap)
+	nox_frontWalls = make([]unsafe.Pointer, 0, noxDrawableWallsCap)
+	nox_wallsYyy = make([]unsafe.Pointer, 0, noxDrawableWallsCap)
 }
 
 func sub_473B30_free() {
@@ -1007,29 +1009,29 @@ func sub_473B30_free() {
 	nox_drawable_list_2 = nil
 	nox_drawable_list_4 = nil
 
-	dword_5d4594_1096496 = nil
-	dword_5d4594_1096504 = nil
-	dword_5d4594_1096512 = nil
+	nox_wallsXxx = nil
+	nox_frontWalls = nil
+	nox_wallsYyy = nil
 }
 
 //export nox_xxx_drawList1096512_Append_4754C0
 func nox_xxx_drawList1096512_Append_4754C0(p unsafe.Pointer) {
-	if len(dword_5d4594_1096512) < cap(dword_5d4594_1096512) {
-		dword_5d4594_1096512 = append(dword_5d4594_1096512, p)
+	if len(nox_wallsYyy) < cap(nox_wallsYyy) {
+		nox_wallsYyy = append(nox_wallsYyy, p)
 	}
 }
 
 //export nox_xxx_drawList1096504_Append
 func nox_xxx_drawList1096504_Append(p unsafe.Pointer) {
-	if len(dword_5d4594_1096504) < cap(dword_5d4594_1096504) {
-		dword_5d4594_1096504 = append(dword_5d4594_1096504, p)
+	if len(nox_frontWalls) < cap(nox_frontWalls) {
+		nox_frontWalls = append(nox_frontWalls, p)
 	}
 }
 
 //export nox_xxx_drawList1096496_Append
 func nox_xxx_drawList1096496_Append(p unsafe.Pointer) {
-	if len(dword_5d4594_1096496) < cap(dword_5d4594_1096496) {
-		dword_5d4594_1096496 = append(dword_5d4594_1096496, p)
+	if len(nox_wallsXxx) < cap(nox_wallsXxx) {
+		nox_wallsXxx = append(nox_wallsXxx, p)
 	}
 }
 
@@ -1037,11 +1039,11 @@ func nox_xxx_cliGetSpritePlayer_45A000() *Drawable {
 	return asDrawable(C.nox_xxx_drawablePlayer_1046600)
 }
 
-func nox_xxx_drawAllMB_475810_draw_D(vp *Viewport) {
-	for _, v20 := range dword_5d4594_1096496 {
+func nox_client_drawWallsXxx(vp *Viewport) {
+	for _, v20 := range nox_wallsXxx {
 		nox_xxx_drawWalls_473C10(vp, v20)
 	}
-	dword_5d4594_1096496 = dword_5d4594_1096496[:0]
+	nox_wallsXxx = nox_wallsXxx[:0]
 }
 
 func nox_xxx_drawAllMB_475810_draw_E(vp *Viewport) {
@@ -1053,12 +1055,12 @@ func nox_xxx_drawAllMB_475810_draw_E(vp *Viewport) {
 		tmp[0], tmp[1] = pa, pb
 		return C.sub_476160(unsafe.Pointer(&tmp[0]), unsafe.Pointer(&tmp[1])) < 0
 	})
-	sort.Slice(dword_5d4594_1096512, func(i, j int) bool {
-		a, b := dword_5d4594_1096512[i], dword_5d4594_1096512[j]
+	sort.Slice(nox_wallsYyy, func(i, j int) bool {
+		a, b := nox_wallsYyy[i], nox_wallsYyy[j]
 		return C.sub_476080((*C.uchar)(a)) < C.sub_476080((*C.uchar)(b))
 	})
 	arr1 := nox_drawable_list_1
-	arr2 := dword_5d4594_1096512
+	arr2 := nox_wallsYyy
 	v41 := 0x7FFFFFFF
 	if len(arr1) > 0 {
 		v41 = arr1[0].Pos().Y
@@ -1181,19 +1183,19 @@ func nox_xxx_drawWalls_473C10(vp *Viewport, p unsafe.Pointer) {
 	C.nox_xxx_drawWalls_473C10(vp.C(), p)
 }
 
-func nox_xxx_drawAllMB_475810_draw_F(vp *Viewport) {
+func nox_client_maybeDrawFrontWalls(vp *Viewport) { // nox_client_maybeDrawFrontWalls_475810_F
 	if C.nox_client_drawFrontWalls_80812 != 0 {
-		for _, v32 := range dword_5d4594_1096504 {
-			nox_xxx_drawWalls_473C10(vp, v32)
+		for _, wl := range nox_frontWalls {
+			nox_xxx_drawWalls_473C10(vp, wl)
 		}
 	} else {
-		for _, v32 := range dword_5d4594_1096504 {
-			v33 := asByteSlice(v32, 5)
+		for _, wl := range nox_frontWalls {
+			v33 := asByteSlice(wl, 5)
 			v33[3] = 0
 			v33[4] &= 0xFC
 		}
 	}
-	dword_5d4594_1096504 = dword_5d4594_1096504[:0]
+	nox_frontWalls = nox_frontWalls[:0]
 }
 
 //export sub_4745F0

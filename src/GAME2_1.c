@@ -193,14 +193,14 @@ int nox_drawable_list_4_size = 0;
 nox_drawable** nox_drawable_list_1 = 0;
 int nox_drawable_list_1_size = 0;
 
-void* dword_5d4594_1096496 = 0;
-int dword_5d4594_1096500 = 0;
+void* nox_client_wallsXxx_list_1096496 = 0;
+int nox_client_wallsXxx_cnt_1096500 = 0;
 
-void* dword_5d4594_1096504 = 0;
-int dword_5d4594_1096508 = 0;
+void* nox_client_frontWalls_list_1096504 = 0;
+int nox_client_frontWalls_cnt_1096508 = 0;
 
-void* dword_5d4594_1096512 = 0;
-int dword_5d4594_1096516 = 0;
+void* nox_client_wallsYyy_list_1096512 = 0;
+int nox_client_wallsYyy_cnt_1096516 = 0;
 #endif // NOX_CGO
 
 obj_5D4594_2650668_t** ptr_5D4594_2650668 = 0;
@@ -7378,18 +7378,18 @@ int sub_473A40() {
 		return 0;
 	nox_drawable_list_4_size = 0;
 
-	dword_5d4594_1096496 = malloc(256 * sizeof(void*));
-	if (!dword_5d4594_1096496)
+	nox_client_wallsXxx_list_1096496 = malloc(256 * sizeof(void*));
+	if (!nox_client_wallsXxx_list_1096496)
 		return 0;
-	dword_5d4594_1096500 = 0;
-	dword_5d4594_1096504 = malloc(256 * sizeof(void*));
-	if (!dword_5d4594_1096504)
+	nox_client_wallsXxx_cnt_1096500 = 0;
+	nox_client_frontWalls_list_1096504 = malloc(256 * sizeof(void*));
+	if (!nox_client_frontWalls_list_1096504)
 		return 0;
-	dword_5d4594_1096508 = 0;
-	dword_5d4594_1096512 = malloc(256 * sizeof(void*));
-	if (!dword_5d4594_1096512)
+	nox_client_frontWalls_cnt_1096508 = 0;
+	nox_client_wallsYyy_list_1096512 = malloc(256 * sizeof(void*));
+	if (!nox_client_wallsYyy_list_1096512)
 		return 0;
-	dword_5d4594_1096516 = 0;
+	nox_client_wallsYyy_cnt_1096516 = 0;
 	return 1;
 }
 
@@ -7415,20 +7415,20 @@ int sub_473B30_free() {
 		nox_drawable_list_4 = 0;
 		nox_drawable_list_4_size = 0;
 	}
-	if (dword_5d4594_1096496) {
-		free(dword_5d4594_1096496);
-		dword_5d4594_1096496 = 0;
-		dword_5d4594_1096500 = 0;
+	if (nox_client_wallsXxx_list_1096496) {
+		free(nox_client_wallsXxx_list_1096496);
+		nox_client_wallsXxx_list_1096496 = 0;
+		nox_client_wallsXxx_cnt_1096500 = 0;
 	}
-	if (dword_5d4594_1096504) {
-		free(dword_5d4594_1096504);
-		dword_5d4594_1096504 = 0;
-		dword_5d4594_1096508 = 0;
+	if (nox_client_frontWalls_list_1096504) {
+		free(nox_client_frontWalls_list_1096504);
+		nox_client_frontWalls_list_1096504 = 0;
+		nox_client_frontWalls_cnt_1096508 = 0;
 	}
-	if (dword_5d4594_1096512) {
-		free(dword_5d4594_1096512);
-		dword_5d4594_1096512 = 0;
-		dword_5d4594_1096516 = 0;
+	if (nox_client_wallsYyy_list_1096512) {
+		free(nox_client_wallsYyy_list_1096512);
+		nox_client_wallsYyy_list_1096512 = 0;
+		nox_client_wallsYyy_cnt_1096516 = 0;
 	}
 	return 1;
 }
@@ -8046,9 +8046,9 @@ int  sub_474DD0(_DWORD* a1, int2* a2, int2* a3, int a4, int a5) {
 #ifndef NOX_CGO
 //----- (004754C0) --------------------------------------------------------
 void nox_xxx_drawList1096512_Append_4754C0(void* p) {
-	if (dword_5d4594_1096516 < 256) {
-		*(_DWORD*)((unsigned int)dword_5d4594_1096512 + 4 * dword_5d4594_1096516) = p;
-		++dword_5d4594_1096516;
+	if (nox_client_wallsYyy_cnt_1096516 < 256) {
+		*(_DWORD*)((unsigned int)nox_client_wallsYyy_list_1096512 + 4 * nox_client_wallsYyy_cnt_1096516) = p;
+		++nox_client_wallsYyy_cnt_1096516;
 	}
 }
 
@@ -8071,8 +8071,8 @@ void  sub_4754F0(nox_draw_viewport_t* a1p) {
 	nox_drawable_list_3_size = 0;
 	nox_drawable_list_2_size = 0;
 	nox_drawable_list_4_size = 0;
-	dword_5d4594_1096500 = 0;
-	dword_5d4594_1096508 = 0;
+	nox_client_wallsXxx_cnt_1096500 = 0;
+	nox_client_frontWalls_cnt_1096508 = 0;
 	nox_xxx_forEachSprite_49AB00(&v4, nox_xxx_spriteAddQueue_475560_draw, (int)a1);
 }
 
@@ -8231,12 +8231,12 @@ int nox_xxx_drawAllMB_475810_draw_B(nox_draw_viewport_t* vp) {
 }
 #ifndef NOX_CGO
 void nox_xxx_drawList1096496_Append(void* p) {
-	if (dword_5d4594_1096500 < 256)
-		*(_DWORD*)((unsigned int)dword_5d4594_1096496 + 4 * (dword_5d4594_1096500)++) = p;
+	if (nox_client_wallsXxx_cnt_1096500 < 256)
+		*(_DWORD*)((unsigned int)nox_client_wallsXxx_list_1096496 + 4 * (nox_client_wallsXxx_cnt_1096500)++) = p;
 }
 void nox_xxx_drawList1096504_Append(void* p) {
-	if (dword_5d4594_1096508 < 256)
-		*(_DWORD*)((unsigned int)dword_5d4594_1096504 + 4 * (dword_5d4594_1096508)++) = p;
+	if (nox_client_frontWalls_cnt_1096508 < 256)
+		*(_DWORD*)((unsigned int)nox_client_frontWalls_list_1096504 + 4 * (nox_client_frontWalls_cnt_1096508)++) = p;
 }
 #else // NOX_CGO
 void nox_xxx_drawList1096496_Append(void* p);
@@ -8267,19 +8267,19 @@ void nox_xxx_drawAllMB_475810_draw_C(nox_draw_viewport_t* vp, int v36, int v7) {
 }
 #ifndef NOX_CGO
 void nox_xxx_drawAllMB_475810_draw_D(nox_draw_viewport_t* vp) {
-	unsigned __int8** v18 = dword_5d4594_1096496;
+	unsigned __int8** v18 = nox_client_wallsXxx_list_1096496;
 	bool j;
-	for (j = (dword_5d4594_1096500)-- == 0; !j; --dword_5d4594_1096500) {
+	for (j = (nox_client_wallsXxx_cnt_1096500)-- == 0; !j; --nox_client_wallsXxx_cnt_1096500) {
 		unsigned __int8* v20 = *v18;
 		++v18;
 		nox_xxx_drawWalls_473C10(vp, v20);
-		j = dword_5d4594_1096500 == 0;
+		j = nox_client_wallsXxx_cnt_1096500 == 0;
 	}
 }
 void nox_xxx_drawAllMB_475810_draw_E(nox_draw_viewport_t* vp) {
 	qsort(nox_drawable_list_1, nox_drawable_list_1_size, sizeof(void*), sub_476160);
-	qsort(dword_5d4594_1096512, dword_5d4594_1096516, sizeof(void*), sub_476240);
-	unsigned __int8** v37 = dword_5d4594_1096512;
+	qsort(nox_client_wallsYyy_list_1096512, nox_client_wallsYyy_cnt_1096516, sizeof(void*), sub_476240);
+	unsigned __int8** v37 = nox_client_wallsYyy_list_1096512;
 	int v21 = 0x7FFFFFFF;
 	int v41 = 0x7FFFFFFF;
 	if (nox_drawable_list_1_size)
@@ -8292,18 +8292,18 @@ void nox_xxx_drawAllMB_475810_draw_E(nox_draw_viewport_t* vp) {
 	int v27;
 	unsigned __int8** v29;
 	bool j;
-	if (dword_5d4594_1096516) {
-		v22 = *(unsigned __int8**)dword_5d4594_1096512;
+	if (nox_client_wallsYyy_cnt_1096516) {
+		v22 = *(unsigned __int8**)nox_client_wallsYyy_list_1096512;
 		v21 = sub_476080(v22);
 	}
-	while (nox_drawable_list_1_size || dword_5d4594_1096516) {
+	while (nox_drawable_list_1_size || nox_client_wallsYyy_cnt_1096516) {
 		if (v41 >= v21) {
-			if (dword_5d4594_1096516) {
+			if (nox_client_wallsYyy_cnt_1096516) {
 				nox_xxx_drawWalls_473C10(vp, *v37);
 				v29 = v37 + 1;
-				j = dword_5d4594_1096516 == 1;
+				j = nox_client_wallsYyy_cnt_1096516 == 1;
 				++v37;
-				--dword_5d4594_1096516;
+				--nox_client_wallsYyy_cnt_1096516;
 				if (!j) {
 					v22 = *v29;
 					v21 = sub_476080(v22);
@@ -8362,29 +8362,29 @@ void nox_xxx_drawAllMB_475810_draw_E(nox_draw_viewport_t* vp) {
 		}
 	}
 }
-void nox_xxx_drawAllMB_475810_draw_F(nox_draw_viewport_t* vp) {
-	unsigned __int8** v30 = dword_5d4594_1096504;
-	int v31 = dword_5d4594_1096508;
+void nox_client_maybeDrawFrontWalls_475810_F(nox_draw_viewport_t* vp) {
+	unsigned __int8** v30 = nox_client_frontWalls_list_1096504;
+	int v31 = nox_client_frontWalls_cnt_1096508;
 	bool j;
 	if (nox_client_drawFrontWalls_80812) {
-		--dword_5d4594_1096508;
+		--nox_client_frontWalls_cnt_1096508;
 		if (v31) {
 			do {
 				unsigned __int8* v32 = *v30;
 				++v30;
 				nox_xxx_drawWalls_473C10(vp, v32);
-				j = (dword_5d4594_1096508)-- == 0;
+				j = (nox_client_frontWalls_cnt_1096508)-- == 0;
 			} while (!j);
 		}
 	} else {
-		--dword_5d4594_1096508;
+		--nox_client_frontWalls_cnt_1096508;
 		if (v31) {
 			do {
 				unsigned __int8* v33 = *v30;
 				++v30;
 				v33[3] = 0;
 				v33[4] &= 0xFC;
-				j = (dword_5d4594_1096508)-- == 0;
+				j = (nox_client_frontWalls_cnt_1096508)-- == 0;
 			} while (!j);
 		}
 	}
@@ -8401,7 +8401,7 @@ void nox_xxx_drawAllMB_475810_draw(nox_draw_viewport_t* vp) {
 	dword_5d4594_1096432 = vp->field_5 - vp->y1;
 	int v36 = vp->field_4 / 23;
 	int v7 = vp->field_5 / 23;
-	dword_5d4594_1096516 = 0;
+	nox_client_wallsYyy_cnt_1096516 = 0;
 	nox_xxx_drawBlack_496150(vp);
 	int v8 = 0;
 	if (!nox_common_gameFlags_check_40A5C0(2048) && !nox_xxx_testCD_413830() ||
@@ -8443,7 +8443,7 @@ void nox_xxx_drawAllMB_475810_draw(nox_draw_viewport_t* vp) {
 	nox_xxx_drawAllMB_475810_draw_E(vp);
 	sub_4AFD40();
 	sub_4C5060(vp);
-	nox_xxx_drawAllMB_475810_draw_F(vp);
+	nox_client_maybeDrawFrontWalls_475810_F(vp);
 	nox_client_procFade_44D9F0(0);
 	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_SHOW_AI))
 		sub_476270(vp);
