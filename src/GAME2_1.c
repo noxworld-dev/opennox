@@ -7218,7 +7218,7 @@ int nox_game_guiInit_473680() {
 	if (!nox_xxx_guiSummonCreatureLoad_4C1D80()) {
 		return 0;
 	}
-	if (!nox_xxx_wndLoadQuiteMenu_445790()) {
+	if (!nox_xxx_wndLoadQuitMenu_445790()) {
 		return 0;
 	}
 	if (!sub_4AB260()) {

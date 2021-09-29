@@ -31,7 +31,6 @@ _DWORD nox_wol_wnd_gameList_815012 = 0;
 _DWORD dword_5d4594_1062480 = 0;
 _DWORD dword_5d4594_832484 = 0;
 _DWORD dword_5d4594_3798796 = 0;
-_DWORD dword_5d4594_825760 = 0;
 _DWORD nox_client_renderGUI_80828 = 0x1;
 _DWORD dword_5d4594_810632 = 0;
 _DWORD dword_5d4594_2386944 = 0;

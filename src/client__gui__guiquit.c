@@ -22,33 +22,29 @@
 extern _DWORD dword_5d4594_825764;
 extern _DWORD dword_5d4594_825752;
 extern _DWORD dword_5d4594_825768;
-extern _DWORD dword_5d4594_825760;
 extern _DWORD dword_5d4594_2650652;
 extern int nox_win_width;
 extern int nox_win_height;
 extern unsigned int nox_frame_xxx_2598000;
 
-//----- (00445790) --------------------------------------------------------
-int nox_xxx_wndLoadQuiteMenu_445790() {
-	int result;  // eax
-	wchar_t* v1; // eax
+nox_window* nox_wnd_quitMenu_825760 = 0;
 
-	result = nox_new_window_from_file("QuitMenu.wnd", nox_xxx_menuGameOnButton_445840);
-	dword_5d4594_825760 = result;
-	if (result) {
-		nox_window_set_all_funcs((_DWORD*)result, sub_445BB0, nox_xxx_wndDrawQuiteMenu_445BC0, 0);
-		*(_DWORD*)(dword_5d4594_825760 + 56) = *getMemU32Ptr(0x85B3FC, 952);
-		*(_DWORD*)(dword_5d4594_825760 + 16) = (nox_win_width - *(_DWORD*)(dword_5d4594_825760 + 8)) / 2;
-		*(_DWORD*)(dword_5d4594_825760 + 24) =
-			*(_DWORD*)(dword_5d4594_825760 + 8) + *(_DWORD*)(dword_5d4594_825760 + 16);
-		sub_445C40();
-		dword_5d4594_825752 = 0;
-		dword_5d4594_825768 = 0;
-		v1 = nox_strman_loadString_40F1D0("Vote", 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 309);
-		nox_swprintf((wchar_t*)getMemAt(0x5D4594, 825772), L"%s", v1);
-		result = 1;
+//----- (00445790) --------------------------------------------------------
+int nox_xxx_wndLoadQuitMenu_445790() {
+	nox_wnd_quitMenu_825760 = nox_new_window_from_file("QuitMenu.wnd", nox_xxx_menuGameOnButton_445840);
+	if (!nox_wnd_quitMenu_825760) {
+		return 0;
 	}
-	return result;
+	nox_window_set_all_funcs(nox_wnd_quitMenu_825760, sub_445BB0, nox_xxx_wndDrawQuitMenu_445BC0, 0);
+	nox_wnd_quitMenu_825760->draw_data.bg_color = *getMemU32Ptr(0x85B3FC, 952);
+	nox_wnd_quitMenu_825760->off_x = (nox_win_width - nox_wnd_quitMenu_825760->width) / 2;
+	nox_wnd_quitMenu_825760->end_x = nox_wnd_quitMenu_825760->off_x + nox_wnd_quitMenu_825760->width;
+	sub_445C40();
+	dword_5d4594_825752 = 0;
+	dword_5d4594_825768 = 0;
+	wchar_t* v1 = nox_strman_loadString_40F1D0("Vote", 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 309);
+	nox_swprintf((wchar_t*)getMemAt(0x5D4594, 825772), L"%s", v1);
+	return 1;
 }
 
 //----- (00445840) --------------------------------------------------------
@@ -132,10 +128,10 @@ int  nox_xxx_menuGameOnButton_445840(_DWORD* a1, int a2, int* a3, int a4) {
 		result = 0;
 		break;
 	case 9004:
-		nox_xxx_wndClearCaptureMain_46ADE0(*(int*)&dword_5d4594_825760);
+		nox_xxx_wndClearCaptureMain_46ADE0(nox_wnd_quitMenu_825760);
 		v22 = nox_strman_loadString_40F1D0("GUIQuit.c:ReallyQuitMessage", 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 185);
 		v13 = nox_strman_loadString_40F1D0("GUIQuit.c:ReallyQuitTitle", 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 184);
-		nox_xxx_dialogMsgBoxCreate_449A10(*(int*)&dword_5d4594_825760, (int)v13, (int)v22, 56, nox_xxx_quitDialogYes_445B20, nox_xxx_quitDialogNo_445B30);
+		nox_xxx_dialogMsgBoxCreate_449A10(nox_wnd_quitMenu_825760, (int)v13, (int)v22, 56, nox_xxx_quitDialogYes_445B20, nox_xxx_quitDialogNo_445B30);
 		v14 = a3[9];
 		LOBYTE(v14) = v14 & 0xFD;
 		a3[9] = v14;
@@ -240,70 +236,70 @@ void sub_445C40() {
 	wchar_t* v20; // [esp-4h] [ebp-8h]
 	wchar_t* v21; // [esp-4h] [ebp-8h]
 
-	if (nox_xxx_wndGetFlags_46ADA0(*(int*)&dword_5d4594_825760) & 0x10) {
+	if (nox_xxx_wndGetFlags_46ADA0(nox_wnd_quitMenu_825760) & 0x10) {
 		if (!*getMemU32Ptr(0x852978, 8) || !nox_common_gameFlags_check_40A5C0(2048) ||
 			(result = *(_DWORD*)(*getMemU32Ptr(0x852978, 8) + 276), result != 2) && result != 1 && result != 51) {
 			if (sub_45D9B0() != 1) {
 				if (nox_xxx_checkGameFlagPause_413A50() != 1) {
 					nox_xxx_clientPlaySoundSpecial_452D80(921, 100);
-					nox_xxx_wndShowModalMB_46A8C0(*(int*)&dword_5d4594_825760);
-					*(_DWORD*)(dword_5d4594_825760 + 4) |= 8u;
-					nox_xxx_wndSetCaptureMain_46ADC0(*(int*)&dword_5d4594_825760);
+					nox_xxx_wndShowModalMB_46A8C0(nox_wnd_quitMenu_825760);
+					nox_wnd_quitMenu_825760->flags |= 8u;
+					nox_xxx_wndSetCaptureMain_46ADC0(nox_wnd_quitMenu_825760);
 					if (nox_common_gameFlags_check_40A5C0(2048)) {
 						v20 = nox_strman_loadString_40F1D0("SoloSaveLabel", 0,
 													"C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 396);
-						v1 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_825760, 9003);
+						v1 = nox_xxx_wndGetChildByID_46B0C0(nox_wnd_quitMenu_825760, 9003);
 						sub_46AEE0((int)v1, (int)v20);
-						v2 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_825760, 9001);
+						v2 = nox_xxx_wndGetChildByID_46B0C0(nox_wnd_quitMenu_825760, 9001);
 						nox_window_set_hidden((int)v2, 0);
-						v3 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_825760, 9002);
+						v3 = nox_xxx_wndGetChildByID_46B0C0(nox_wnd_quitMenu_825760, 9002);
 						nox_window_set_hidden((int)v3, 0);
-						v4 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_825760, 9007);
+						v4 = nox_xxx_wndGetChildByID_46B0C0(nox_wnd_quitMenu_825760, 9007);
 						nox_window_set_hidden((int)v4, 1);
-						v5 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_825760, 9008);
+						v5 = nox_xxx_wndGetChildByID_46B0C0(nox_wnd_quitMenu_825760, 9008);
 						nox_window_set_hidden((int)v5, 1);
-						v6 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_825760, 9009);
+						v6 = nox_xxx_wndGetChildByID_46B0C0(nox_wnd_quitMenu_825760, 9009);
 						nox_window_set_hidden((int)v6, 1);
-						v7 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_825760, 9004);
+						v7 = nox_xxx_wndGetChildByID_46B0C0(nox_wnd_quitMenu_825760, 9004);
 						nox_window_setPos_46A9B0(v7, v6[4], v6[5]);
 						sub_413A00(1);
-						sub_46AB20(*(_DWORD**)&dword_5d4594_825760, 220, 285);
+						sub_46AB20(nox_wnd_quitMenu_825760, 220, 285);
 					} else {
 						v21 = nox_strman_loadString_40F1D0("MultiplayerSaveLabel", 0,
 													"C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 427);
-						v8 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_825760, 9003);
+						v8 = nox_xxx_wndGetChildByID_46B0C0(nox_wnd_quitMenu_825760, 9003);
 						sub_46AEE0((int)v8, (int)v21);
-						v9 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_825760, 9001);
+						v9 = nox_xxx_wndGetChildByID_46B0C0(nox_wnd_quitMenu_825760, 9001);
 						nox_window_set_hidden((int)v9, 1);
-						v10 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_825760, 9002);
+						v10 = nox_xxx_wndGetChildByID_46B0C0(nox_wnd_quitMenu_825760, 9002);
 						nox_window_set_hidden((int)v10, 1);
-						v11 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_825760, 9007);
+						v11 = nox_xxx_wndGetChildByID_46B0C0(nox_wnd_quitMenu_825760, 9007);
 						nox_window_set_hidden((int)v11, 0);
 						nox_xxx_wnd_46ABB0((int)v11, 1);
-						v12 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_825760, 9008);
+						v12 = nox_xxx_wndGetChildByID_46B0C0(nox_wnd_quitMenu_825760, 9008);
 						nox_window_set_hidden((int)v12, 0);
-						v13 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_825760, 9009);
+						v13 = nox_xxx_wndGetChildByID_46B0C0(nox_wnd_quitMenu_825760, 9009);
 						nox_window_set_hidden((int)v13, 0);
 						sub_46AEE0((int)v13, (int)getMemAt(0x5D4594, 825772));
 						if (nox_common_gameFlags_check_40A5C0(49152) || !nox_xxx_getTeamCounter_417DD0())
 							nox_xxx_wnd_46ABB0((int)v13, 0);
 						else
 							nox_xxx_wnd_46ABB0((int)v13, 1);
-						v14 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_825760, 9004);
+						v14 = nox_xxx_wndGetChildByID_46B0C0(nox_wnd_quitMenu_825760, 9004);
 						nox_window_setPos_46A9B0(v14, v13[4], v13[5] + 45);
-						sub_46AB20(*(_DWORD**)&dword_5d4594_825760, 220, 330);
+						sub_46AB20(nox_wnd_quitMenu_825760, 220, 330);
 						if (nox_common_gameFlags_check_40A5C0(4096)) {
-							v15 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_825760, 9007);
+							v15 = nox_xxx_wndGetChildByID_46B0C0(nox_wnd_quitMenu_825760, 9007);
 							nox_xxx_wnd_46ABB0((int)v15, 0);
-							v16 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_825760, 9003);
+							v16 = nox_xxx_wndGetChildByID_46B0C0(nox_wnd_quitMenu_825760, 9003);
 							nox_xxx_wnd_46ABB0((int)v16, 0);
 						}
 						if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
-							v17 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_825760, 9007);
+							v17 = nox_xxx_wndGetChildByID_46B0C0(nox_wnd_quitMenu_825760, 9007);
 							nox_xxx_wnd_46ABB0((int)v17, 0);
-							v18 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_825760, 9005);
+							v18 = nox_xxx_wndGetChildByID_46B0C0(nox_wnd_quitMenu_825760, 9005);
 							nox_xxx_wnd_46ABB0((int)v18, 0);
-							v19 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_825760, 9003);
+							v19 = nox_xxx_wndGetChildByID_46B0C0(nox_wnd_quitMenu_825760, 9003);
 							nox_xxx_wnd_46ABB0((int)v19, 0);
 						}
 					}
@@ -312,9 +308,9 @@ void sub_445C40() {
 		}
 	} else {
 		nox_xxx_windowFocus_46B500(0);
-		nox_xxx_wndClearCaptureMain_46ADE0(*(int*)&dword_5d4594_825760);
-		nox_window_set_hidden(*(int*)&dword_5d4594_825760, 1);
-		*(_DWORD*)(dword_5d4594_825760 + 4) &= 0xFFFFFFF7;
+		nox_xxx_wndClearCaptureMain_46ADE0(nox_wnd_quitMenu_825760);
+		nox_window_set_hidden(nox_wnd_quitMenu_825760, 1);
+		nox_wnd_quitMenu_825760->flags &= 0xFFFFFFF7;
 		sub_413A00(0);
 	}
 }

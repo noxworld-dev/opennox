@@ -814,8 +814,8 @@ func nox_game_guiInit_473680() error {
 	if C.nox_xxx_guiSummonCreatureLoad_4C1D80() == 0 {
 		return errors.New("nox_xxx_guiSummonCreatureLoad_4C1D80 failed")
 	}
-	if C.nox_xxx_wndLoadQuiteMenu_445790() == 0 {
-		return errors.New("nox_xxx_wndLoadQuiteMenu_445790 failed")
+	if C.nox_xxx_wndLoadQuitMenu_445790() == 0 {
+		return errors.New("nox_xxx_wndLoadQuitMenu_445790 failed")
 	}
 	if C.sub_4AB260() == 0 {
 		return errors.New("sub_4AB260 failed")

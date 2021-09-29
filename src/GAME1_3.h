@@ -193,7 +193,7 @@ void nox_xxx_quitDialogYes_445B20();
 int nox_xxx_quitDialogNo_445B30();
 void sub_445BA0();
 int sub_445BB0();
-int nox_xxx_wndDrawQuiteMenu_445BC0(_DWORD* a1);
+int nox_xxx_wndDrawQuitMenu_445BC0(_DWORD* a1);
 void sub_445C00();
 void sub_445C20();
 _DWORD* sub_445FF0();
