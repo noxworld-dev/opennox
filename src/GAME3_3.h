@@ -45,8 +45,6 @@ BOOL sub_4E3B80(int a1);
 int nox_xxx_getUnitDefDd10_4E3BA0(int a1);
 int sub_4E3BF0(int a1);
 int nox_xxx_protectUnitDefUpdateMB_4E3C20();
-int nox_xxx_cliSetPlrGuid_4E3C60(int a1);
-int nox_xxx_servResetObjectGIDs_4E3C70();
 double sub_4E3CA0();
 int sub_4E3CB0(float a1);
 int nox_game_getQuestStage_4E3CC0();

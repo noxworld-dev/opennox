@@ -11,6 +11,7 @@
 #include "server__xfer__savegame__savegame.h"
 #include "common/fs/nox_fs.h"
 #include "client__gui__guicon.h"
+#include "server__system__server.h"
 extern _DWORD dword_5d4594_1563084;
 extern _DWORD dword_5d4594_1563088;
 extern _DWORD dword_5d4594_1563092;
@@ -252,8 +253,8 @@ char*  nox_xxx_soloLoadGame_4DB7E0_savegame(const char* a1) {
 				result = 0;
 			} else {
 				v5 = sub_41D090(FileName);
-				nox_xxx_cliSetPlrGuid_4E3C60(v5);
-				nox_xxx_servResetObjectGIDs_4E3C70();
+				nox_server_SetFirstObjectScriptID_4E3C60(v5);
+				nox_server_ResetObjectGIDs_4E3C70();
 				nox_xxx_gameSetSwitchSolo_4DB220(1);
 				nox_xxx_gameSetNoMPFlag_4DB230(1);
 				result = nox_xxx_cliPlrInfoLoadFromFile_41A2E0(FileName, 31);

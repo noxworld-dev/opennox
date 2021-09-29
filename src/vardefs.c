@@ -849,7 +849,6 @@ _DWORD dword_5d4594_3798676 = 0;
 _DWORD dword_5d4594_527660 = 0;
 _DWORD dword_5d4594_2489160 = 0;
 _DWORD dword_5d4594_1522968 = 0;
-_DWORD nox_xxx_cliPlayerGuidMb_587000_201380 = 0x3b9aca00;
 _DWORD dword_5d4594_2490508 = 0;
 _DWORD dword_5d4594_1316456 = 0;
 _DWORD dword_5d4594_1045640 = 0;

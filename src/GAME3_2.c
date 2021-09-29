@@ -1975,7 +1975,7 @@ int nox_xxx_servNewSession_4D1660() {
 	nox_xxx_host_player_unit_3843628 = 0;
 	sub_4D7B40();
 	sub_41E4B0(0);
-	nox_xxx_servResetObjectGIDs_4E3C70();
+	nox_server_ResetObjectGIDs_4E3C70();
 	sub_56F1C0();
 	nox_xxx_cliResetAllPlayers_416E30();
 	nox_netlist_resetAll_40EE60();

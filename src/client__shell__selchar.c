@@ -16,6 +16,7 @@
 #include "client__gui__guisave.h"
 #include "client__shell__optsback.h"
 #include "client__shell__mainmenu.h"
+#include "server__system__server.h"
 extern _DWORD dword_5d4594_1307768;
 extern _DWORD dword_5d4594_1307744;
 extern _DWORD dword_5d4594_1307776;
@@ -285,7 +286,7 @@ int  nox_xxx_windowSelCharProc_4A5710(int a1, unsigned int a2, int* a3, int a4) 
 		}
 		switch (nox_xxx_wndGetID_46B0A0(a3)) {
 		case 501:
-			nox_xxx_cliSetPlrGuid_4E3C60(1000000000);
+			nox_server_SetFirstObjectScriptID_4E3C60(1000000000);
 			sub_4A50A0();
 			nox_wnd_xxx_1307748->field_13 = nox_game_showSelClass_4A4840;
 			goto LABEL_40;
@@ -327,12 +328,12 @@ int  nox_xxx_windowSelCharProc_4A5710(int a1, unsigned int a2, int* a3, int a4) 
 						nox_xxx_gameSetMapPath_409D70(v21);
 						nox_xxx_mapLoadOrSaveMB_4DCC70(1);
 						v13 = sub_41D090((char*)(dword_5d4594_1307780 + sizeof(nox_savegame_xxx) * *(_DWORD*)(v7 + 48) + 4));
-						nox_xxx_cliSetPlrGuid_4E3C60(v13);
+						nox_server_SetFirstObjectScriptID_4E3C60(v13);
 					} else if (sub_4D6F30()) {
 						sub_4DCE60(*(unsigned __int8*)(dword_5d4594_1307780 + sizeof(nox_savegame_xxx) * *(_DWORD*)(v7 + 48) + 1277));
 						sub_4DCE80((const char*)(dword_5d4594_1307780 + sizeof(nox_savegame_xxx) * *(_DWORD*)(v7 + 48) + 1156));
 						v14 = sub_41D090((char*)(dword_5d4594_1307780 + sizeof(nox_savegame_xxx) * *(_DWORD*)(v7 + 48) + 4));
-						nox_xxx_cliSetPlrGuid_4E3C60(v14);
+						nox_server_SetFirstObjectScriptID_4E3C60(v14);
 					}
 					sub_4A24C0(0);
 					sub_4A50A0();

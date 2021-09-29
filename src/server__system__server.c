@@ -84,6 +84,34 @@ nox_server_xxx nox_server_xxx_1599716[NOX_SERVER_XXX_SIZE*NOX_SERVER_XXX_SIZE] =
 void nullsub_21(void) {}
 void nullsub_25(_DWORD a1) {}
 
+unsigned int nox_server_lastObjectScriptID = 1000000000;
+unsigned int nox_server_firstObjectScriptID = 1000000000;
+
+unsigned int nox_server_LastObjectScriptID() {
+	return nox_server_lastObjectScriptID;
+}
+
+unsigned int nox_server_NextObjectScriptID() {
+	return nox_server_lastObjectScriptID++;
+}
+
+void nox_server_SetLastObjectScriptID(unsigned int val) {
+	nox_server_lastObjectScriptID = val;
+}
+
+//----- (004E3C60) --------------------------------------------------------
+void nox_server_SetFirstObjectScriptID_4E3C60(int a1) {
+	nox_server_firstObjectScriptID = a1;
+}
+
+//----- (004E3C70) --------------------------------------------------------
+void nox_server_ResetObjectGIDs_4E3C70() {
+	nox_server_SetLastObjectScriptID(1000000000);
+	if (nox_server_firstObjectScriptID) {
+		nox_server_SetLastObjectScriptID(nox_server_firstObjectScriptID);
+	}
+}
+
 //#ifndef NOX_CGO
 //----- (00413980) --------------------------------------------------------
 void  sub_413980(int a1) {

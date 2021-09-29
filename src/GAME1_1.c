@@ -11,6 +11,7 @@
 #include "client__shell__wolapi__wolchat.h"
 #include "client__shell__wolapi__wolprog.h"
 #include "common__system__team.h"
+#include "server__system__server.h"
 #include "server__ability__ability.h"
 #include "server__magic__plyrgide.h"
 #include "server__magic__plyrspel.h"
@@ -1815,7 +1816,7 @@ BOOL  sub_41AC30(_DWORD* a1) {
 	LABEL_106:
 		if (nox_common_gameFlags_check_40A5C0(4096)) {
 			for (j = (_DWORD*)nox_xxx_inventoryGetFirst_4E7980((int)a1); j; j = (_DWORD*)nox_xxx_inventoryGetNext_4E7990((int)j)) {
-				j[11] = (*getMemU32Ptr(0x587000, 201376))++;
+				j[11] = nox_server_NextObjectScriptID();
 				j[10] = j[9];
 			}
 		}
@@ -2459,10 +2460,13 @@ int  sub_41C080(int a1) {
 	if ((__int16)a1 > 5)
 		return 0;
 	if ((__int16)a1 >= 5) {
-		if (*getMemU32Ptr(0x973F18, 3872))
+		if (*getMemU32Ptr(0x973F18, 3872)) {
 			nox_xxx_fileReadWrite_426AC0_file3_fread(v6, 4u);
-		else
-			nox_xxx_fileReadWrite_426AC0_file3_fread(getMemAt(0x587000, 201376), 4u);
+		} else {
+			int oid = nox_server_LastObjectScriptID();
+			nox_xxx_fileReadWrite_426AC0_file3_fread(&oid, 4u);
+			nox_server_SetLastObjectScriptID(oid);
+		}
 	}
 	if (!*getMemU32Ptr(0x973F18, 3872))
 		strcpy((char*)(v2 + 4760), nox_xxx_mapGetMapName_409B40());

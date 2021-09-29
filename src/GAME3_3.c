@@ -23,6 +23,7 @@
 #include "GAME_data.h"
 #include "GAME_data_init.h"
 #include "common__system__team.h"
+#include "server__system__server.h"
 #include "server__ability__ability.h"
 #include "server__magic__plyrspel.h"
 #include "server__object__health.h"
@@ -43,7 +44,6 @@ extern _DWORD dword_5d4594_1567956;
 extern _DWORD dword_5d4594_1568280;
 extern _DWORD dword_5d4594_1568288;
 extern _DWORD dword_5d4594_1563320;
-extern _DWORD nox_xxx_cliPlayerGuidMb_587000_201380;
 extern _DWORD dword_5d4594_1568308;
 extern _DWORD dword_5d4594_1567988;
 extern _DWORD dword_5d4594_1565628;
@@ -1047,7 +1047,7 @@ nox_object_t* nox_xxx_newObjectWithType_4E3470(nox_objectType_t* typ) {
 	if (typ->func_new)
 		typ->func_new(ob);
 	if (!nox_common_gameFlags_check_40A5C0(0x200000))
-		ob->script_id = (*getMemU32Ptr(0x587000, 201376))++;
+		ob->script_id = nox_server_NextObjectScriptID();
 	if (ob->obj_class & 0x100000) {
 		++*getMemU32Ptr(0x5D4594, 1563888);
 	} else if (ob->obj_class & 0x400000) {
@@ -1257,26 +1257,6 @@ int nox_xxx_protectUnitDefUpdateMB_4E3C20() {
 	return result;
 }
 // 560840: using guessed type void  nullsub_31(_DWORD);
-
-//----- (004E3C60) --------------------------------------------------------
-int  nox_xxx_cliSetPlrGuid_4E3C60(int a1) {
-	int result; // eax
-
-	result = a1;
-	nox_xxx_cliPlayerGuidMb_587000_201380 = a1;
-	return result;
-}
-
-//----- (004E3C70) --------------------------------------------------------
-int nox_xxx_servResetObjectGIDs_4E3C70() {
-	int result; // eax
-
-	result = nox_xxx_cliPlayerGuidMb_587000_201380;
-	*getMemU32Ptr(0x587000, 201376) = 1000000000;
-	if (nox_xxx_cliPlayerGuidMb_587000_201380)
-		*getMemU32Ptr(0x587000, 201376) = nox_xxx_cliPlayerGuidMb_587000_201380;
-	return result;
-}
 
 //----- (004E3CA0) --------------------------------------------------------
 double sub_4E3CA0() { return *getMemFloatPtr(0x587000, 202024); }
@@ -12988,7 +12968,7 @@ int  nox_xxx_readObjectOldVer_4F4170(int a1, int a2, int a3) {
 		nox_xxx_fileReadWrite_426AC0_file3_fread((_BYTE*)v3 + 44, 4u);
 		if (!v3[11] && *getMemU32Ptr(0x973F18, 3872) == 1 && !nox_common_gameFlags_check_40A5C0(0x200000) &&
 			!nox_common_gameFlags_check_40A5C0(0x400000))
-			*v14 = (*getMemU32Ptr(0x587000, 201376))++;
+			*v14 = nox_server_NextObjectScriptID();
 		if (v9 >= 2) {
 			v15 = v3[129];
 			v16 = 0;
@@ -13079,7 +13059,7 @@ int  nox_xxx_mapReadWriteObjData_4F4530(int* a1, int a2) {
 	nox_xxx_fileReadWrite_426AC0_file3_fread((_BYTE*)v2 + 44, 4u);
 	if (!v2[11] && *getMemU32Ptr(0x973F18, 3872) == 1 && !nox_common_gameFlags_check_40A5C0(0x200000) &&
 		!nox_common_gameFlags_check_40A5C0(0x400000))
-		*v7 = (*getMemU32Ptr(0x587000, 201376))++;
+		*v7 = nox_server_NextObjectScriptID();
 	if (*getMemU32Ptr(0x973F18, 3872)) {
 		if ((__int16)v18 < 4) {
 			nox_xxx_fileReadWrite_426AC0_file3_fread(v22, 8u);

@@ -16,6 +16,7 @@ package main
 #include "client__drawable__drawdb.h"
 #include "client__gui__guiquit.h"
 #include "common__system__team.h"
+#include "server__system__server.h"
 #include "server__script__script.h"
 #include "common__net_list.h"
 #include "common__log.h"
@@ -306,7 +307,7 @@ func nox_xxx_servNewSession_4D1660() error {
 	C.nox_xxx_host_player_unit_3843628 = nil
 	C.sub_4D7B40()
 	C.sub_41E4B0(0)
-	C.nox_xxx_servResetObjectGIDs_4E3C70()
+	C.nox_server_ResetObjectGIDs_4E3C70()
 	C.sub_56F1C0()
 	C.nox_xxx_cliResetAllPlayers_416E30()
 	C.nox_netlist_resetAll_40EE60()
