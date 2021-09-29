@@ -17,8 +17,6 @@ extern nox_draw_viewport_t nox_draw_viewport;
 extern nox_drawable* nox_xxx_drawablePlayer_1046600;
 extern void* dword_5d4594_1096496;
 extern int dword_5d4594_1096500;
-extern void* dword_5d4594_1096504;
-extern int dword_5d4594_1096508;
 extern unsigned int nox_client_drawFrontWalls_80812;
 extern unsigned int nox_client_translucentFrontWalls_805844;
 extern unsigned int nox_client_highResFrontWalls_80820;
@@ -939,7 +937,7 @@ func sub_4754F0(vp *Viewport) {
 	nox_drawable_list_2 = nox_drawable_list_2[:0]
 	nox_drawable_list_4 = nox_drawable_list_4[:0]
 	C.dword_5d4594_1096500 = 0
-	C.dword_5d4594_1096508 = 0
+	dword_5d4594_1096504 = dword_5d4594_1096504[:0]
 	nox_xxx_forEachSprite(rect, nox_xxx_spriteAddQueue_475560_draw)
 }
 
@@ -1004,10 +1002,7 @@ func sub_473A40() {
 	C.dword_5d4594_1096496 = unsafe.Pointer(&dword_5d4594_1096496[0])
 	C.dword_5d4594_1096500 = 0
 
-	dword_5d4594_1096504 = alloc.Pointers(nox_drawable_lists_cap2)
-	C.dword_5d4594_1096504 = unsafe.Pointer(&dword_5d4594_1096504[0])
-	C.dword_5d4594_1096508 = 0
-
+	dword_5d4594_1096504 = make([]unsafe.Pointer, 0, nox_drawable_lists_cap2)
 	dword_5d4594_1096512 = make([]unsafe.Pointer, 0, nox_drawable_lists_cap2)
 }
 
@@ -1022,12 +1017,7 @@ func sub_473B30_free() {
 		C.dword_5d4594_1096496 = nil
 		C.dword_5d4594_1096500 = 0
 	}
-	if dword_5d4594_1096504 != nil {
-		alloc.FreePointers(dword_5d4594_1096504)
-		dword_5d4594_1096504 = nil
-		C.dword_5d4594_1096504 = nil
-		C.dword_5d4594_1096508 = 0
-	}
+	dword_5d4594_1096504 = nil
 	dword_5d4594_1096512 = nil
 }
 
@@ -1035,6 +1025,13 @@ func sub_473B30_free() {
 func nox_xxx_drawList1096512_Append_4754C0(p unsafe.Pointer) {
 	if len(dword_5d4594_1096512) < cap(dword_5d4594_1096512) {
 		dword_5d4594_1096512 = append(dword_5d4594_1096512, p)
+	}
+}
+
+//export nox_xxx_drawList1096504_Append
+func nox_xxx_drawList1096504_Append(p unsafe.Pointer) {
+	if len(dword_5d4594_1096504) < cap(dword_5d4594_1096504) {
+		dword_5d4594_1096504 = append(dword_5d4594_1096504, p)
 	}
 }
 
@@ -1180,27 +1177,18 @@ func nox_xxx_drawWalls_473C10(vp *Viewport, p unsafe.Pointer) {
 }
 
 func nox_xxx_drawAllMB_475810_draw_F(vp *Viewport) {
-	v30 := dword_5d4594_1096504
-	j := C.dword_5d4594_1096508 == 0
-	C.dword_5d4594_1096508--
 	if C.nox_client_drawFrontWalls_80812 != 0 {
-		for !j {
-			v32 := v30[0]
-			v30 = v30[1:]
+		for _, v32 := range dword_5d4594_1096504 {
 			nox_xxx_drawWalls_473C10(vp, v32)
-			j = C.dword_5d4594_1096508 == 0
-			C.dword_5d4594_1096508--
 		}
 	} else {
-		for !j {
-			v33 := asByteSlice(v30[0], 5)
-			v30 = v30[1:]
+		for _, v32 := range dword_5d4594_1096504 {
+			v33 := asByteSlice(v32, 5)
 			v33[3] = 0
 			v33[4] &= 0xFC
-			j = C.dword_5d4594_1096508 == 0
-			C.dword_5d4594_1096508--
 		}
 	}
+	dword_5d4594_1096504 = dword_5d4594_1096504[:0]
 }
 
 //export sub_4745F0
