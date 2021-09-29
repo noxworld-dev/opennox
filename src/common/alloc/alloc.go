@@ -16,7 +16,7 @@ var (
 	allocs  = make(map[unsafe.Pointer]uintptr)
 )
 
-func Malloc(size uintptr) unsafe.Pointer {
+func Malloc(size uintptr) (unsafe.Pointer, func()) {
 	if size == 0 {
 		panic("zero alloc")
 	}
@@ -24,43 +24,45 @@ func Malloc(size uintptr) unsafe.Pointer {
 	allocMu.Lock()
 	allocs[ptr] = size
 	allocMu.Unlock()
-	return ptr
+	return ptr, func() {
+		Free(ptr)
+	}
 }
 
-func Bytes(size uintptr) (out []byte) {
-	ptr := Malloc(size)
+func Bytes(size uintptr) (out []byte, _ func()) {
+	ptr, free := Malloc(size)
 	h := (*reflect.SliceHeader)(unsafe.Pointer(&out))
 	h.Data = uintptr(ptr)
 	h.Len = int(size)
 	h.Cap = int(size)
-	return
+	return out, free
 }
 
-func Uints16(size uintptr) (out []uint16) {
-	ptr := Malloc(size * 2)
+func Uints16(size uintptr) (out []uint16, _ func()) {
+	ptr, free := Malloc(size * 2)
 	h := (*reflect.SliceHeader)(unsafe.Pointer(&out))
 	h.Data = uintptr(ptr)
 	h.Len = int(size)
 	h.Cap = int(size)
-	return
+	return out, free
 }
 
-func Uints32(size uintptr) (out []uint32) {
-	ptr := Malloc(size * 4)
+func Uints32(size uintptr) (out []uint32, _ func()) {
+	ptr, free := Malloc(size * 4)
 	h := (*reflect.SliceHeader)(unsafe.Pointer(&out))
 	h.Data = uintptr(ptr)
 	h.Len = int(size)
 	h.Cap = int(size)
-	return
+	return out, free
 }
 
-func Pointers(size int) (out []unsafe.Pointer) {
-	ptr := Malloc(uintptr(size) * unsafe.Sizeof(unsafe.Pointer(nil)))
+func Pointers(size int) (out []unsafe.Pointer, _ func()) {
+	ptr, free := Malloc(uintptr(size) * unsafe.Sizeof(unsafe.Pointer(nil)))
 	h := (*reflect.SliceHeader)(unsafe.Pointer(&out))
 	h.Data = uintptr(ptr)
 	h.Len = size
 	h.Cap = size
-	return
+	return out, free
 }
 
 func Realloc(ptr unsafe.Pointer, size uintptr) unsafe.Pointer {
@@ -78,7 +80,7 @@ func Realloc(ptr unsafe.Pointer, size uintptr) unsafe.Pointer {
 	return ptr
 }
 
-func Calloc(num, size uintptr) unsafe.Pointer {
+func Calloc(num, size uintptr) (unsafe.Pointer, func()) {
 	if num*size == 0 {
 		panic("zero alloc")
 	}
@@ -86,7 +88,9 @@ func Calloc(num, size uintptr) unsafe.Pointer {
 	allocMu.Lock()
 	allocs[ptr] = num * size
 	allocMu.Unlock()
-	return ptr
+	return ptr, func() {
+		Free(ptr)
+	}
 }
 
 func Free(ptr unsafe.Pointer) {

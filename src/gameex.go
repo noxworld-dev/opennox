@@ -167,10 +167,10 @@ func gameexDropTrap() {
 			// TODO: this currently relies on extension packets, which should not be required for this
 			//       it can be done the "natural way": find the trap in the client-side data structures
 			//       and ask server to drop that item, as the client does when doing the same manually
-			buf := alloc.Bytes(10)
+			buf, freeBuf := alloc.Bytes(10)
+			defer freeBuf()
 			gameex_makeExtensionPacket(buf, 9, true)
 			C.gameex_sendPacket((*C.char)(unsafe.Pointer(&buf[0])), 8, 0)
-			alloc.FreeBytes(buf)
 		}
 	}
 }
@@ -188,11 +188,11 @@ func gameexOnKeyboardPress(kcode keybind.Key) {
 					clientPlaySoundSpecial(895, 100)
 				}
 			} else {
-				buf := alloc.Bytes(10)
+				buf, freeBuf := alloc.Bytes(10)
+				defer freeBuf()
 				gameex_makeExtensionPacket(buf, 0, true)
 				buf[8] = v8 | 0x10 // TODO: should it be just v8?
 				C.gameex_sendPacket((*C.char)(unsafe.Pointer(&buf[0])), 9, 0)
-				alloc.FreeBytes(buf)
 			}
 		}
 	}

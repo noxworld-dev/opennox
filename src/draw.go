@@ -252,8 +252,8 @@ func sub_4338D0() int {
 	C.dword_5d4594_808568 = 0
 	C.dword_5d4594_810628 = 0
 	if C.dword_5d4594_823772 != 0 {
-		v2 := alloc.Malloc(256 * 3)
-		defer alloc.Free(v2)
+		v2, freeV2 := alloc.Malloc(256 * 3)
+		defer freeV2()
 		C.sub_435150((*C.uchar)(v2), (*C.char)(memmap.PtrOff(0x973F18, 3880)))
 		C.sub_4347F0((*C.char)(v2), 256)
 	} else {
@@ -310,9 +310,9 @@ type NoxRender struct {
 	draw6  drawOpFunc
 }
 
-func newNoxRenderData() *C.nox_render_data_t {
-	p := (*C.nox_render_data_t)(alloc.Malloc(unsafe.Sizeof(C.nox_render_data_t{})))
-	return p
+func newNoxRenderData() (*C.nox_render_data_t, func()) {
+	p, free := alloc.Malloc(unsafe.Sizeof(C.nox_render_data_t{}))
+	return (*C.nox_render_data_t)(p), free
 }
 
 func NewNoxRender() *NoxRender {
@@ -504,8 +504,9 @@ func (r *NoxRender) DrawStringWrapped(font unsafe.Pointer, s string, x, y, maxW,
 func (r *NoxRender) GetStringSize(a1 int, a2 string, a5 int) types.Size { // nox_xxx_drawGetStringSize_43F840
 	sp := CWString(a2)
 	defer WStrFree(sp)
-	p := (*C.nox_point)(alloc.Malloc(unsafe.Sizeof(C.nox_point{})))
-	defer alloc.Free(unsafe.Pointer(p))
+	pp, freeP := alloc.Malloc(unsafe.Sizeof(C.nox_point{}))
+	defer freeP()
+	p := (*C.nox_point)(pp)
 	C.nox_xxx_drawGetStringSize_43F840(C.int(a1), sp, &p.x, &p.y, C.int(a5))
 	return types.Size{W: int(p.x), H: int(p.y)}
 }
@@ -1051,8 +1052,8 @@ func nox_client_drawBackWalls(vp *Viewport) {
 }
 
 func nox_xxx_drawAllMB_475810_draw_E(vp *Viewport) {
-	tmp := alloc.Pointers(2)
-	defer alloc.FreePointers(tmp)
+	tmp, tmpFree := alloc.Pointers(2)
+	defer tmpFree()
 	sort.Slice(nox_drawable_list_1, func(i, j int) bool {
 		a, b := nox_drawable_list_1[i], nox_drawable_list_1[j]
 		pa, pb := unsafe.Pointer(a.C()), unsafe.Pointer(b.C())
@@ -1757,9 +1758,12 @@ func nox_draw_initColorTables_434CC0() {
 		mode = noxcolor.ModeRGBA5551
 	}
 	noxrend.SetColorMode(mode)
-	arrR := alloc.Uints16(257)[:256]
-	arrG := alloc.Uints16(257)[:256]
-	arrB := alloc.Uints16(257)[:256]
+	arrR, _ := alloc.Uints16(257)
+	arrG, _ := alloc.Uints16(257)
+	arrB, _ := alloc.Uints16(257)
+	arrR = arrR[:256]
+	arrG = arrG[:256]
+	arrB = arrB[:256]
 	copy(arrR, noxrend.colors.R[:])
 	copy(arrG, noxrend.colors.G[:])
 	copy(arrB, noxrend.colors.B[:])

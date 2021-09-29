@@ -101,7 +101,7 @@ func guiNewWidget(typ string, parent *Window, status gui.StatusFlags, px, py, w,
 }
 
 func tempDrawData() (*WindowData, func()) {
-	p := alloc.Calloc(1, unsafe.Sizeof(WindowData{}))
+	p, free := alloc.Calloc(1, unsafe.Sizeof(WindowData{}))
 	d := (*WindowData)(p)
 	d.SetHighlightColor(noxcolor.RGBColor(255, 255, 255))
 	d.SetTextColor(noxcolor.RGBColor(200, 200, 200))
@@ -109,9 +109,7 @@ func tempDrawData() (*WindowData, func()) {
 	d.SetDisabledColor(gui.ColorTransparent)
 	d.SetSelectedColor(gui.ColorTransparent)
 	d.SetBackgroundColor(gui.ColorTransparent)
-	return d, func() {
-		alloc.Free(p)
-	}
+	return d, free
 }
 
 func NewStaticText(par *Window, id uint, px, py, w, h int, f1, f2 bool, text string) *Window {
@@ -123,8 +121,9 @@ func NewStaticText(par *Window, id uint, px, py, w, h int, f1, f2 bool, text str
 	draw.style |= C.int(gui.StyleStaticText)
 	status := gui.StatusSmoothText | gui.StatusNoFocus
 
-	data := (*staticTextData)(alloc.Calloc(1, unsafe.Sizeof(staticTextData{})))
-	defer alloc.Free(unsafe.Pointer(data))
+	datap, dataFree := alloc.Calloc(1, unsafe.Sizeof(staticTextData{}))
+	defer dataFree()
+	data := (*staticTextData)(datap)
 	data.field_1 = C.uint(bool2int(f1))
 	data.field_2 = C.uint(bool2int(f2))
 	data.text = internWStr(text)
@@ -152,8 +151,9 @@ func NewHorizontalSlider(par *Window, id uint, px, py, w, h int, min, max int) *
 	draw.SetSelectedColor(noxcolor.RGBColor(230, 165, 65))
 	status := gui.StatusEnabled | gui.StatusNoFocus
 
-	data := (*sliderData)(alloc.Calloc(1, unsafe.Sizeof(sliderData{})))
-	defer alloc.Free(unsafe.Pointer(data))
+	datap, dataFree := alloc.Calloc(1, unsafe.Sizeof(sliderData{}))
+	defer dataFree()
+	data := (*sliderData)(datap)
 	data.field_0 = C.uint(min)
 	data.field_1 = C.uint(max)
 	data.field_2 = 0
@@ -234,7 +234,8 @@ func newRadioButton(parent *Window, status gui.StatusFlags, px, py, w, h int, dr
 	if draw.win == nil {
 		draw.win = win.C()
 	}
-	d := (*C.nox_radioButton_data)(alloc.Calloc(1, unsafe.Sizeof(C.nox_radioButton_data{})))
+	dp, _ := alloc.Calloc(1, unsafe.Sizeof(C.nox_radioButton_data{}))
+	d := (*C.nox_radioButton_data)(dp)
 	if data != nil {
 		d.field_0 = data.field_0
 	}

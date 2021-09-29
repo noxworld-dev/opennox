@@ -465,8 +465,8 @@ func CONNECT_OR_HOST() {
 	infos[86] = memmap.Uint8(0x85B3FC, 12202)
 	infos[87] = memmap.Uint8(0x85B3FC, 12203)
 
-	Datas := alloc.Bytes(1024)
-	defer alloc.FreeBytes(Datas)
+	Datas, freeDatas := alloc.Bytes(1024)
+	defer freeDatas()
 
 	C.sub_48D740()
 	*(*uint32)(unsafe.Pointer(&Datas[97])) = uint32(mode.W)

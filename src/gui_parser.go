@@ -306,7 +306,8 @@ func (p *guiParser) parseDataField(typ string, buf string) (guiWidgetData, bool)
 	switch typ {
 	case "VERTSLIDER", "HORZSLIDER":
 		if p.widgets.slider == nil {
-			p.widgets.slider = (*sliderData)(alloc.Calloc(1, unsafe.Sizeof(sliderData{})))
+			pp, _ := alloc.Calloc(1, unsafe.Sizeof(sliderData{}))
+			p.widgets.slider = (*sliderData)(pp)
 		}
 		d := p.widgets.slider
 		*d = sliderData{}
@@ -319,7 +320,8 @@ func (p *guiParser) parseDataField(typ string, buf string) (guiWidgetData, bool)
 		return d, true
 	case "SCROLLLISTBOX":
 		if p.widgets.scrollBox == nil {
-			p.widgets.scrollBox = (*scrollListBoxData)(alloc.Calloc(1, unsafe.Sizeof(scrollListBoxData{})))
+			pp, _ := alloc.Calloc(1, unsafe.Sizeof(scrollListBoxData{}))
+			p.widgets.scrollBox = (*scrollListBoxData)(pp)
 		}
 		d := p.widgets.scrollBox
 		*d = scrollListBoxData{}
@@ -340,7 +342,8 @@ func (p *guiParser) parseDataField(typ string, buf string) (guiWidgetData, bool)
 		return d, true
 	case "ENTRYFIELD":
 		if p.widgets.entryField == nil {
-			p.widgets.entryField = (*entryFieldData)(alloc.Calloc(1, unsafe.Sizeof(entryFieldData{})))
+			pp, _ := alloc.Calloc(1, unsafe.Sizeof(entryFieldData{}))
+			p.widgets.entryField = (*entryFieldData)(pp)
 		}
 		d := p.widgets.entryField
 		*d = entryFieldData{}
@@ -374,7 +377,8 @@ func (p *guiParser) parseDataField(typ string, buf string) (guiWidgetData, bool)
 		return d, true
 	case "STATICTEXT":
 		if p.widgets.staticText == nil {
-			p.widgets.staticText = (*staticTextData)(alloc.Calloc(1, unsafe.Sizeof(staticTextData{})))
+			pp, _ := alloc.Calloc(1, unsafe.Sizeof(staticTextData{}))
+			p.widgets.staticText = (*staticTextData)(pp)
 		}
 		d := p.widgets.staticText
 		*d = staticTextData{}
@@ -388,7 +392,8 @@ func (p *guiParser) parseDataField(typ string, buf string) (guiWidgetData, bool)
 		return d, true
 	case "RADIOBUTTON":
 		if p.widgets.radioButton == nil {
-			p.widgets.radioButton = (*radioButtonData)(alloc.Calloc(1, unsafe.Sizeof(radioButtonData{})))
+			pp, _ := alloc.Calloc(1, unsafe.Sizeof(radioButtonData{}))
+			p.widgets.radioButton = (*radioButtonData)(pp)
 		}
 		d := p.widgets.radioButton
 		*d = radioButtonData{}
@@ -396,7 +401,8 @@ func (p *guiParser) parseDataField(typ string, buf string) (guiWidgetData, bool)
 		d.field_0 = C.uint(v)
 		// TODO: is this correct?
 		if p.widgets.staticText == nil {
-			p.widgets.staticText = (*staticTextData)(alloc.Calloc(1, unsafe.Sizeof(staticTextData{})))
+			pp, _ := alloc.Calloc(1, unsafe.Sizeof(staticTextData{}))
+			p.widgets.staticText = (*staticTextData)(pp)
 		}
 		d2 := p.widgets.staticText
 		d2.field_1 = C.uint(bool2int(p.widgets.staticText.field_1 != 0))

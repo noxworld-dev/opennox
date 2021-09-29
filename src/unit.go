@@ -55,8 +55,9 @@ func (u *Unit) setPos(cp *C.float2) {
 }
 
 func (u *Unit) SetPos(p types.Pointf) {
-	cp := (*C.float2)(alloc.Malloc(unsafe.Sizeof(C.float2{})))
-	defer alloc.Free(unsafe.Pointer(cp))
+	pp, free := alloc.Malloc(unsafe.Sizeof(C.float2{}))
+	defer free()
+	cp := (*C.float2)(pp)
 	cp.field_0 = C.float(p.X)
 	cp.field_4 = C.float(p.Y)
 	u.setPos(cp)

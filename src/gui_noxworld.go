@@ -218,8 +218,9 @@ func clientOnLobbyServer(info *LobbyServerInfo) int {
 		discover.Log.Printf("OnLobbyServer_4375F0: ignoring server %q: duplicate?", info.Addr)
 		return 0
 	}
-	srv := (*C.nox_gui_server_ent_t)(alloc.Malloc(unsafe.Sizeof(C.nox_gui_server_ent_t{})))
-	defer alloc.Free(unsafe.Pointer(srv))
+	srvP, freeSrv := alloc.Malloc(unsafe.Sizeof(C.nox_gui_server_ent_t{}))
+	defer freeSrv()
+	srv := (*C.nox_gui_server_ent_t)(srvP)
 	// see https://github.com/golang/go/issues/7560
 	field := func(off uintptr) unsafe.Pointer {
 		return unsafe.Pointer(uintptr(unsafe.Pointer(srv)) + off)
@@ -322,7 +323,8 @@ func sub_554D70(conn net.PacketConn, sock *Socket, csock nox_socket_t, a1 byte) 
 	} else {
 		argp = 1
 	}
-	buf := alloc.Bytes(256)
+	buf, freeBuf := alloc.Bytes(256)
+	defer freeBuf()
 	for {
 		buf = buf[:cap(buf)]
 		n, from, err := sock.ReadFrom(buf)

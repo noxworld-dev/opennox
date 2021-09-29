@@ -35,7 +35,8 @@ func nox_thing_read_IMAG_one_42F660(f *C.nox_memfile, cbuf *C.char) error {
 	pbuf := unsafe.Pointer(cbuf)
 	buf := asByteSlice(pbuf, 256*1024)
 
-	ref := (*C.nox_things_imageRef_t)(alloc.Malloc(unsafe.Sizeof(C.nox_things_imageRef_t{})))
+	refP, _ := alloc.Malloc(unsafe.Sizeof(C.nox_things_imageRef_t{}))
+	ref := (*C.nox_things_imageRef_t)(refP)
 	nox_images_arr1_787156 = append(nox_images_arr1_787156, ref)
 
 	readString8 := func() string {
@@ -70,8 +71,8 @@ func nox_thing_read_IMAG_one_42F660(f *C.nox_memfile, cbuf *C.char) error {
 		return nil
 	case 2:
 		sz := C.nox_memfile_read_u8(f)
-		arr := alloc.Pointers(int(sz))
-		pt := alloc.Uints32(4)
+		arr, _ := alloc.Pointers(int(sz))
+		pt, _ := alloc.Uints32(4)
 		ptb := asByteSlice(unsafe.Pointer(&pt[0]), 16)
 		pt[0] = 0
 		pt[1] = uint32(uintptr(unsafe.Pointer(&arr[0])))

@@ -202,8 +202,9 @@ func copyGamePixBuffer() *image.NRGBA {
 func DrawSparks() {
 	if C.nox_client_gui_flag_815132 != 0 {
 		sz := videoGetWindowSize()
-		rdr := (*C.nox_draw_viewport_t)(alloc.Malloc(unsafe.Sizeof(C.nox_draw_viewport_t{})))
-		defer alloc.Free(unsafe.Pointer(rdr))
+		rdrP, rdrFree := alloc.Malloc(unsafe.Sizeof(C.nox_draw_viewport_t{}))
+		defer rdrFree()
+		rdr := (*C.nox_draw_viewport_t)(rdrP)
 		rdr.x1 = 0
 		rdr.y1 = 0
 		rdr.x2 = C.int(sz.W)

@@ -52,6 +52,7 @@ type Image struct {
 	raw       []byte
 	override  []byte
 	cdata     []byte
+	cfree     func()
 	field_1_0 uint16
 	field_1_1 uint16
 }
@@ -128,7 +129,7 @@ func (img *Image) Pixdata() []byte {
 		panic("cannot load")
 	}
 	// TODO: remove interning when we get rid of C renderer
-	img.cdata = alloc.Bytes(uintptr(len(data)))
+	img.cdata, img.cfree = alloc.Bytes(uintptr(len(data)))
 	copy(img.cdata, data)
 	return img.cdata
 }
@@ -256,8 +257,9 @@ func nox_video_bagFree_42F4D0() {
 	noxVideoBag = nil
 	for _, img := range noxImages.byIndex {
 		if img.cdata != nil {
-			alloc.FreeBytes(img.cdata)
+			img.cfree()
 			img.cdata = nil
+			img.cfree = nil
 		}
 	}
 	noxImages.byIndex = nil

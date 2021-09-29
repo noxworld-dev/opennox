@@ -516,7 +516,7 @@ func nox_video_initFloorBuffer_430BA0(sz types.Size) error {
 		return errors.New("VideoInit: error initializing floor buffer")
 	}
 	if lightsOutBuf == nil {
-		lightsOutBuf = alloc.Uints32(6)
+		lightsOutBuf, _ = alloc.Uints32(6)
 		lightsOutBuf[0] = 255
 		lightsOutBuf[1] = 255
 		lightsOutBuf[2] = 255
@@ -535,10 +535,10 @@ func nox_video_stopCursorDrawThread_48B350() {
 
 func sub_4AEDF0() {
 	height := nox_pixbuffer_size.H
-	dword_5d4594_3798632_arr = alloc.Pointers(height)
+	dword_5d4594_3798632_arr, _ = alloc.Pointers(height)
 	C.dword_5d4594_3798632 = (*C.char)(unsafe.Pointer(&dword_5d4594_3798632_arr[0]))
 
-	dword_5d4594_3798644_arr = alloc.Bytes(uintptr(height) << 6)
+	dword_5d4594_3798644_arr, _ = alloc.Bytes(uintptr(height) << 6)
 	C.dword_5d4594_3798644 = (*C.char)(unsafe.Pointer(&dword_5d4594_3798644_arr[0]))
 }
 
@@ -702,18 +702,18 @@ func nox_video_initPixbufferData_4861D0(sz types.Size) {
 	if memmap.Uint32(0x5D4594, 1193200) != 0 {
 		return
 	}
-	nox_pixbuffer_main = alloc.Bytes(uintptr(2 * sz.W * sz.H))
+	nox_pixbuffer_main, _ = alloc.Bytes(uintptr(2 * sz.W * sz.H))
 	if C.nox_video_renderTargetFlags&0x40 == 0 {
 		return
 	}
 
-	nox_pixbuffer_3798788_arr = alloc.Bytes(uintptr(len(nox_pixbuffer_main)))
+	nox_pixbuffer_3798788_arr, _ = alloc.Bytes(uintptr(len(nox_pixbuffer_main)))
 	C.nox_pixbuffer_3798788 = (*C.uchar)(unsafe.Pointer(&nox_pixbuffer_3798788_arr[0]))
 }
 
 func nox_video_initPixbufferRows_486230(sz types.Size) {
 	nox_pixbuffer_size = sz
-	nox_pixbuffer_main_rows = alloc.Pointers(sz.H)
+	nox_pixbuffer_main_rows, _ = alloc.Pointers(sz.H)
 	C.nox_pixbuffer_rows_3798784 = (**C.uchar)(unsafe.Pointer(&nox_pixbuffer_main_rows[0]))
 	for y := 0; y < sz.H; y++ {
 		nox_pixbuffer_main_rows[y] = unsafe.Pointer(&nox_pixbuffer_main[y*2*sz.W])
@@ -726,7 +726,7 @@ func nox_video_initPixbufferRows_486230(sz types.Size) {
 		return
 	}
 
-	nox_pixbuffer_rows_3798776_arr = alloc.Pointers(sz.H)
+	nox_pixbuffer_rows_3798776_arr, _ = alloc.Pointers(sz.H)
 	C.nox_pixbuffer_rows_3798776 = (**C.uchar)(unsafe.Pointer(&nox_pixbuffer_rows_3798776_arr[0]))
 	for y := 0; y < sz.H; y++ {
 		nox_pixbuffer_rows_3798776_arr[y] = unsafe.Pointer(&nox_pixbuffer_3798788_arr[y*2*sz.W])
@@ -747,14 +747,14 @@ func sub_48B3F0(a1 unsafe.Pointer, a2, a3 C.int) C.int {
 			for i := range dword_5d4594_1193704_arr {
 				C.sub_49D1C0(dword_5d4594_1193704_arr[i], C.int(memmap.Uint32(0x5D4594, 1193592)), 128)
 			}
-			pp := (*[2]C.uint)(alloc.Malloc(8))
-			defer alloc.Free(unsafe.Pointer(pp))
-			if C.sub_48C0C0(a1, &pp[0], &pp[1]) != 0 {
-				dword_6F7C10(a1, uint32(pp[0]), uint32(pp[1]))
-				*memmap.PtrUint32(0x5D4594, 1193580) = uint32(pp[0])
+			pp, freePP := alloc.Uints32(2)
+			defer freePP()
+			if C.sub_48C0C0(a1, (*C.uint)(unsafe.Pointer(&pp[0])), (*C.uint)(unsafe.Pointer(&pp[1]))) != 0 {
+				dword_6F7C10(a1, pp[0], pp[1])
+				*memmap.PtrUint32(0x5D4594, 1193580) = pp[0]
 				*memmap.PtrUint32(0x5D4594, 1193600) = uint32(C.dword_5d4594_1193568)
 				*memmap.PtrUint32(0x5D4594, 1193620) = uint32(C.dword_5d4594_1193576)
-				*memmap.PtrUint32(0x5D4594, 1193636) = uint32(pp[1])
+				*memmap.PtrUint32(0x5D4594, 1193636) = pp[1]
 				*memmap.PtrUint32(0x5D4594, 1193604) = 0
 				*memmap.PtrUint32(0x5D4594, 1193608) = 0
 				*memmap.PtrUint32(0x5D4594, 1193612) = uint32(C.dword_5d4594_1193568)
@@ -865,9 +865,9 @@ func nox_client_drawXxx_444AC0(w, h int, flags int) error {
 }
 
 func sub_48B800(a1 uint32) {
-	p := (*[3]C.int)(alloc.Malloc(12))
-	defer alloc.Free(unsafe.Pointer(p))
-	C.sub_434480(C.int(a1), &p[0], &p[1], &p[2])
+	p, pfree := alloc.Uints32(3)
+	defer pfree()
+	C.sub_434480(C.int(a1), (*C.int)(unsafe.Pointer(&p[0])), (*C.int)(unsafe.Pointer(&p[1])), (*C.int)(unsafe.Pointer(&p[2])))
 	sub_48B6B0(byte(p[0]), byte(p[1]), byte(p[2]))
 }
 
@@ -1028,8 +1028,9 @@ func nox_client_drawCursorAndTooltips_477830(inp *input.Handler) {
 		C.nox_xxx_cursorLoadAll_477710()
 	}
 	mpos := inp.GetMousePos()
-	vp := asViewport((*C.nox_draw_viewport_t)(alloc.Malloc(unsafe.Sizeof(C.nox_draw_viewport_t{}))))
-	defer alloc.Free(unsafe.Pointer(vp.C()))
+	vpp, freeVp := alloc.Malloc(unsafe.Sizeof(C.nox_draw_viewport_t{}))
+	defer freeVp()
+	vp := asViewport((*C.nox_draw_viewport_t)(vpp))
 	vp.x1 = 0
 	vp.y1 = 0
 	vp.x2 = C.int(nox_win_width)

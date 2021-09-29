@@ -69,8 +69,9 @@ var (
 	noxServerHost = "localhost"
 )
 
-func newNetStruct() *netStruct {
-	return (*netStruct)(alloc.Malloc(unsafe.Sizeof(C.nox_net_struct_t{})))
+func newNetStruct() (*netStruct, func()) {
+	p, free := alloc.Malloc(unsafe.Sizeof(C.nox_net_struct_t{}))
+	return (*netStruct)(p), free
 }
 
 func asNetStruct(ptr *C.nox_net_struct_t) *netStruct {
@@ -335,8 +336,8 @@ func nox_client_joinGame_438A90() C.int {
 
 func nox_client_joinGame() error {
 	endianess := binary.LittleEndian
-	buf := alloc.Bytes(100)
-	defer alloc.FreeBytes(buf)
+	buf, freeBuf := alloc.Bytes(100)
+	defer freeBuf()
 	if s, ok := serial.Serial(); ok {
 		copy(buf[56:], s)
 	}
@@ -384,8 +385,8 @@ func sendXXX_5550D0(addr net.IP, port int, data []byte) (int, error) {
 }
 
 func nox_xxx_netSendPacket_4E5030(a1 int, buf []byte, a4, a5, a6 int) int {
-	b := alloc.Bytes(uintptr(len(buf)))
-	defer alloc.FreeBytes(b)
+	b, free := alloc.Bytes(uintptr(len(buf)))
+	defer free()
 	copy(b, buf)
 	return int(C.nox_xxx_netSendPacket_4E5030(C.int(a1), unsafe.Pointer(&b[0]), C.int(len(b)), C.int(a4), C.int(a5), C.char(a6)))
 }
@@ -414,9 +415,9 @@ func nox_xxx_netClientSendSocial(a1 int, emote byte, a4, a5 int) {
 }
 
 func nox_xxx_netClientSend2_4E53C0(a1 int, buf []byte, a4, a5 int) {
-	p := alloc.Bytes(uintptr(len(buf)))
+	p, free := alloc.Bytes(uintptr(len(buf)))
+	defer free()
 	copy(p, buf)
-	defer alloc.FreeBytes(p)
 	C.nox_xxx_netClientSend2_4E53C0(C.int(a1), unsafe.Pointer(&p[0]), C.int(len(buf)), C.int(a4), C.int(a5))
 }
 
@@ -465,8 +466,8 @@ func clientSendInput(a1 int, a2 uint16, a3 uint16) bool {
 }
 
 func nox_netlist_addToMsgListCli_40EBC0(ind1, ind2 int, buf []byte) bool {
-	cbuf := alloc.Bytes(uintptr(len(buf)))
-	defer alloc.FreeBytes(cbuf)
+	cbuf, bufFree := alloc.Bytes(uintptr(len(buf)))
+	defer bufFree()
 	copy(cbuf, buf)
 	return C.nox_netlist_addToMsgListCli_40EBC0(C.int(ind1), C.int(ind2), (*C.uchar)(unsafe.Pointer(&cbuf[0])), C.int(len(cbuf))) != 0
 }
@@ -663,7 +664,7 @@ func nox_xxx_makeNewNetStruct_553000(arg *C.nox_net_struct_arg_t) *C.nox_net_str
 var zeroHandle C.HANDLE
 
 func nox_xxx_makeNewNetStruct(arg *netStructOpt) *netStruct {
-	ns := newNetStruct()
+	ns, _ := newNetStruct()
 
 	my := C.CreateMutexA(nil, 0, nil)
 	if my == zeroHandle {
@@ -677,7 +678,7 @@ func nox_xxx_makeNewNetStruct(arg *netStructOpt) *netStruct {
 	}
 	ns.mutex_xxx = mx
 	if arg.data3size > 0 {
-		p := alloc.Bytes(uintptr(arg.data3size))
+		p, _ := alloc.Bytes(uintptr(arg.data3size))
 		ns.data_3 = unsafe.Pointer(&p[0])
 	}
 	if dsz := arg.datasize; dsz > 0 {
@@ -686,13 +687,13 @@ func nox_xxx_makeNewNetStruct(arg *netStructOpt) *netStruct {
 	} else {
 		arg.datasize = 1024
 	}
-	data1 := alloc.Bytes(uintptr(arg.datasize + 2))
+	data1, _ := alloc.Bytes(uintptr(arg.datasize + 2))
 	ns.data_1_base = (*C.char)(unsafe.Pointer(&data1[0]))
 	ns.data_1_xxx = (*C.char)(unsafe.Pointer(&data1[0]))
 	ns.data_1_yyy = (*C.char)(unsafe.Pointer(&data1[0]))
 	ns.data_1_end = (*C.char)(unsafe.Pointer(uintptr(unsafe.Pointer(&data1[0])) + uintptr(len(data1))))
 
-	data2 := alloc.Bytes(uintptr(arg.datasize) + 2)
+	data2, _ := alloc.Bytes(uintptr(arg.datasize) + 2)
 	data2[0] = 0xff
 	ns.data_2_base = (*C.char)(unsafe.Pointer(&data2[0]))
 	ns.data_2_xxx = (*C.char)(unsafe.Pointer(&data2[2]))

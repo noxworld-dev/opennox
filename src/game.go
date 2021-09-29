@@ -129,8 +129,9 @@ func nox_game_rollLogoAndStart_4AB1F0() bool {
 		// FIXME: switch to server state directly
 		return startServer()
 	}
-	path := (*C.char)(alloc.Calloc(128, 1))
-	defer alloc.Free(unsafe.Pointer(path))
+	pathP, freePath := alloc.Malloc(128)
+	defer freePath()
+	path := (*C.char)(pathP)
 	gamePopState()
 	if noxflags.HasGame(noxflags.GameFlag26) || !nox_game_setMovieFile_4CB230("WWLogo.vqa", path) {
 		nox_game_rollIntroAndStart_4AB170()
@@ -146,13 +147,13 @@ func nox_game_rollLogoAndStart_4AB1F0() bool {
 
 //export nox_game_rollIntroAndStart_4AB170
 func nox_game_rollIntroAndStart_4AB170() C.int {
-	path := (*C.char)(alloc.Calloc(128, 1))
-	defer alloc.Free(unsafe.Pointer(path))
-	if C.sub_578DF0()&0x80 != 0 || noxflags.HasGame(noxflags.GameFlag26) || !nox_game_setMovieFile_4CB230("Intro.vqa", path) {
+	path, freePath := alloc.Malloc(128)
+	defer freePath()
+	if C.sub_578DF0()&0x80 != 0 || noxflags.HasGame(noxflags.GameFlag26) || !nox_game_setMovieFile_4CB230("Intro.vqa", (*C.char)(path)) {
 		nox_game_rollNoxLogoAndStart_4AB0F0()
 		return 1
 	}
-	C.sub_4B0300(path)
+	C.sub_4B0300((*C.char)(path))
 	C.sub_4B0640((*[0]byte)(C.nox_game_rollNoxLogoAndStart_4AB0F0))
 	if err := drawGeneral_4B0340(1); err != nil {
 		videoLog.Println(err)
@@ -163,16 +164,16 @@ func nox_game_rollIntroAndStart_4AB170() C.int {
 
 //export nox_game_rollNoxLogoAndStart_4AB0F0
 func nox_game_rollNoxLogoAndStart_4AB0F0() C.int {
-	path := (*C.char)(alloc.Calloc(128, 1))
-	defer alloc.Free(unsafe.Pointer(path))
-	if noxflags.HasGame(noxflags.GameFlag26) || !nox_game_setMovieFile_4CB230("NoxLogo.vqa", path) {
+	path, freePath := alloc.Malloc(128)
+	defer freePath()
+	if noxflags.HasGame(noxflags.GameFlag26) || !nox_game_setMovieFile_4CB230("NoxLogo.vqa", (*C.char)(path)) {
 		if C.nox_game_showLegal_4CC4E0() == 0 {
 			nox_xxx_setContinueMenuOrHost_43DDD0(0)
 			C.nox_client_gui_flag_815132 = 0
 		}
 		return 1
 	}
-	C.sub_4B0300(path)
+	C.sub_4B0300((*C.char)(path))
 	C.sub_4B0640((*[0]byte)(C.nox_game_showLegal_4CC4E0))
 	if err := drawGeneral_4B0340(0); err != nil {
 		videoLog.Println(err)
@@ -844,8 +845,9 @@ func nox_game_guiInit_473680() error {
 }
 
 func nox_xxx_mapFindPlayerStart_4F7AB0(a2 *Unit) types.Pointf {
-	cp := (*C.float2)(alloc.Malloc(unsafe.Sizeof(C.float2{})))
-	defer alloc.Free(unsafe.Pointer(cp))
+	p, freeCp := alloc.Malloc(unsafe.Sizeof(C.float2{}))
+	defer freeCp()
+	cp := (*C.float2)(p)
 	C.nox_xxx_mapFindPlayerStart_4F7AB0(cp, a2.CObj())
 	return types.Pointf{
 		X: float32(cp.field_0),
@@ -882,8 +884,8 @@ func nox_xxx_mapExitAndCheckNext_4D1860_server() bool {
 		v7 := asByteSlice(v7p, 58)
 		if noxflags.HasGame(0x2000) {
 			if v7[57] == 0 {
-				v63 := alloc.Bytes(60)
-				defer alloc.FreeBytes(v63)
+				v63, freeV63 := alloc.Bytes(60)
+				defer freeV63()
 				copy(v63, GoStringS(v7))
 				v59 := *(*uint16)(unsafe.Pointer(&v7[52]))
 				v8 := C.sub_459870()
@@ -1156,8 +1158,9 @@ func sub_4ED970(a1 float32, v3 types.Pointf) types.Pointf {
 }
 
 func nox_xxx_mapTraceRay_535250_00(a1 *[4]float32, a4 byte) bool {
-	a1c := (*[4]float32)(alloc.Malloc(16))
-	alloc.Free(unsafe.Pointer(a1c))
+	a1p, a1Free := alloc.Malloc(16)
+	defer a1Free()
+	a1c := (*[4]float32)(a1p)
 	res := C.nox_xxx_mapTraceRay_535250((*C.float4)(unsafe.Pointer(a1c)), nil, nil, C.char(a4)) != 0
 	*a1 = *a1c
 	return res
