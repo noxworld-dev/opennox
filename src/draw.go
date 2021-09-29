@@ -1016,23 +1016,17 @@ func sub_473B30_free() {
 
 //export nox_xxx_drawList1096512_Append_4754C0
 func nox_xxx_drawList1096512_Append_4754C0(p unsafe.Pointer) {
-	if len(nox_wallsYyy) < cap(nox_wallsYyy) {
-		nox_wallsYyy = append(nox_wallsYyy, p)
-	}
+	nox_wallsYyy = append(nox_wallsYyy, p)
 }
 
 //export nox_xxx_drawList1096504_Append
 func nox_xxx_drawList1096504_Append(p unsafe.Pointer) {
-	if len(nox_frontWalls) < cap(nox_frontWalls) {
-		nox_frontWalls = append(nox_frontWalls, p)
-	}
+	nox_frontWalls = append(nox_frontWalls, p)
 }
 
 //export nox_xxx_drawList1096496_Append
 func nox_xxx_drawList1096496_Append(p unsafe.Pointer) {
-	if len(nox_wallsXxx) < cap(nox_wallsXxx) {
-		nox_wallsXxx = append(nox_wallsXxx, p)
-	}
+	nox_wallsXxx = append(nox_wallsXxx, p)
 }
 
 func nox_xxx_cliGetSpritePlayer_45A000() *Drawable {
