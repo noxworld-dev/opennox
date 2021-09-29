@@ -544,7 +544,7 @@ typedef struct nox_object_t {
 	_DWORD field_8; // 8, 32
 	_DWORD field_9; // 9, 36
 	unsigned int extent; // 10, 40
-	int field_11; // 11, 44, // TODO: NoxScript object handle?
+	int script_id; // 11, 44
 	_DWORD field_12; // 12, 48
 	_DWORD field_13; // 13, 52, // TODO: first byte is team?
 	float x; // 14, 56

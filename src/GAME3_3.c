@@ -1047,7 +1047,7 @@ nox_object_t* nox_xxx_newObjectWithType_4E3470(nox_objectType_t* typ) {
 	if (typ->func_new)
 		typ->func_new(ob);
 	if (!nox_common_gameFlags_check_40A5C0(0x200000))
-		ob->field_11 = (*getMemU32Ptr(0x587000, 201376))++;
+		ob->script_id = (*getMemU32Ptr(0x587000, 201376))++;
 	if (ob->obj_class & 0x100000) {
 		++*getMemU32Ptr(0x5D4594, 1563888);
 	} else if (ob->obj_class & 0x400000) {
@@ -7786,7 +7786,7 @@ int sub_4ECF10(int a1) {
 
 	nox_object_t* obj = nox_xxx_getFirstUpdatable2Object_4DA840();
 	while (obj) {
-		if (!(*(_BYTE*)&obj->field_4 & 0x20) && obj->field_11 == a1) {
+		if (!(*(_BYTE*)&obj->field_4 & 0x20) && obj->script_id == a1) {
 			return obj;
 		}
 

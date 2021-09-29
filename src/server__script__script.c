@@ -1317,19 +1317,19 @@ nox_object_t* nox_server_scriptValToObjectPtr_511B60(int val) {
 		return obj1;
 
 	for (nox_object_t* obj = nox_server_getFirstObject_4DA790(); obj; obj = nox_server_getNextObject_4DA7A0(obj)) {
-		if ((obj->field_4 & 0x20) == 0 && obj->field_11 == val) {
+		if ((obj->field_4 & 0x20) == 0 && obj->script_id == val) {
 			nox_xxx_scriptPrepareFoundUnit_511D70(obj);
 			return obj;
 		}
 		for (nox_object_t* sub = obj->field_126; sub; sub = sub->field_124) {
-			if ((sub->field_4 & 0x20) == 0 && sub->field_11 == val) {
+			if ((sub->field_4 & 0x20) == 0 && sub->script_id == val) {
 				nox_xxx_scriptPrepareFoundUnit_511D70(sub);
 				return sub;
 			}
 		}
 	}
 	for (nox_object_t* obj = nox_server_getFirstObjectUninited_4DA870(); obj; obj = nox_server_getNextObjectUninited_4DA880(obj)) {
-		if ((obj->field_4 & 0x20) == 0 && obj->field_11 == val) {
+		if ((obj->field_4 & 0x20) == 0 && obj->script_id == val) {
 			nox_xxx_scriptPrepareFoundUnit_511D70(obj);
 			return obj;
 		}
