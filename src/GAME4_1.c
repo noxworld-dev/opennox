@@ -5209,7 +5209,8 @@ int sub_511D20() {
 }
 
 //----- (00511D70) --------------------------------------------------------
-int  nox_xxx_scriptPrepareFoundUnit_511D70(int a1) {
+int  nox_xxx_scriptPrepareFoundUnit_511D70(nox_object_t* obj) {
+	int a1 = obj;
 	int* v1;    // eax
 	int v2;     // esi
 	int result; // eax

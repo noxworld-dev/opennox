@@ -1299,39 +1299,39 @@ void nox_xxx_scriptLeverReact_51ADF0() {
 }
 
 //----- (00511B60) --------------------------------------------------------
-void* nox_server_scriptValToObjectPtr_511B60(int val) {
+nox_object_t* nox_server_scriptValToObjectPtr_511B60(int val) {
 	if (val == -1) {
-		void* obj = nox_script_get_caller();
-		if (!obj || *(_BYTE*)((char*)obj + 16) & 0x20)
+		nox_object_t* obj = nox_script_get_caller();
+		if (!obj || (obj->field_4 & 0x20) != 0)
 			return 0;
 		return obj;
 	}
 	if (val == -2) {
-		void* obj = nox_script_get_trigger();
-		if (!obj || *(_BYTE*)((char*)obj + 16) & 0x20)
+		nox_object_t* obj = nox_script_get_trigger();
+		if (!obj || (obj->field_4 & 0x20) != 0)
 			return 0;
 		return obj;
 	}
-	int vv1 = nox_xxx_script_511C50(val);
-	if (vv1)
-		return vv1;
+	nox_object_t* obj1 = nox_xxx_script_511C50(val);
+	if (obj1)
+		return obj1;
 
-	for (int v2 = nox_server_getFirstObject_4DA790(); v2; v2 = nox_server_getNextObject_4DA7A0(v2)) {
-		if ((*(_BYTE*)(v2 + 16) & 0x20) == 0 && *(_DWORD*)(v2 + 44) == val) {
-			nox_xxx_scriptPrepareFoundUnit_511D70(v2);
-			return v2;
+	for (nox_object_t* obj = nox_server_getFirstObject_4DA790(); obj; obj = nox_server_getNextObject_4DA7A0(obj)) {
+		if ((obj->field_4 & 0x20) == 0 && obj->field_11 == val) {
+			nox_xxx_scriptPrepareFoundUnit_511D70(obj);
+			return obj;
 		}
-		for (int v3 = *(_DWORD*)(v2 + 504); v3; v3 = *(_DWORD*)(v3 + 496)) {
-			if ((*(_BYTE*)(v3 + 16) & 0x20) == 0 && *(_DWORD*)(v3 + 44) == val) {
-				nox_xxx_scriptPrepareFoundUnit_511D70(v3);
-				return v3;
+		for (nox_object_t* sub = obj->field_126; sub; sub = sub->field_124) {
+			if ((sub->field_4 & 0x20) == 0 && sub->field_11 == val) {
+				nox_xxx_scriptPrepareFoundUnit_511D70(sub);
+				return sub;
 			}
 		}
 	}
-	for (int v3 = nox_server_getFirstObjectUninited_4DA870(); v3; v3 = nox_server_getNextObjectUninited_4DA880(v3)) {
-		if ((*(_BYTE*)(v3 + 16) & 0x20) == 0 && *(_DWORD*)(v3 + 44) == val) {
-			nox_xxx_scriptPrepareFoundUnit_511D70(v3);
-			return v3;
+	for (nox_object_t* obj = nox_server_getFirstObjectUninited_4DA870(); obj; obj = nox_server_getNextObjectUninited_4DA880(obj)) {
+		if ((obj->field_4 & 0x20) == 0 && obj->field_11 == val) {
+			nox_xxx_scriptPrepareFoundUnit_511D70(obj);
+			return obj;
 		}
 	}
 	return 0;

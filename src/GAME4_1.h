@@ -160,7 +160,7 @@ int nox_xxx_script_511C50(int a1);
 int sub_511CB0(_DWORD* a1, int a2);
 int sub_511CE0(_DWORD* a1, int a2);
 int sub_511D20();
-int nox_xxx_scriptPrepareFoundUnit_511D70(int a1);
+int nox_xxx_scriptPrepareFoundUnit_511D70(nox_object_t* obj);
 int sub_511DC0();
 int sub_511DE0(int a1);
 int sub_511E20();
