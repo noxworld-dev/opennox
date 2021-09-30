@@ -1559,19 +1559,18 @@ int  sub_4BE640(int a1, int a2) {
 	return result;
 }
 
+#ifndef NOX_CGO
 //----- (004BE6D0) --------------------------------------------------------
-__int16  nox_video_drawAnimatedImageOrCursorAt_4BE6D0(int a1, int a2, int a3) {
-	int v3; // eax
-
-	v3 = sub_4BE640(a1, 0);
+void nox_video_drawAnimatedImageOrCursorAt_4BE6D0(int a1, int a2, int a3) {
+	int v3 = sub_4BE640(a1, 0);
 	if (v3) {
 		if (dword_5d4594_3798728)
-			LOWORD(v3) = sub_48B3F0(v3, a2, a3);
+			sub_48B3F0(v3, a2, a3);
 		else
 			nox_client_drawImageAt_47D2C0(v3, a2, a3);
 	}
-	return v3;
 }
+#endif // NOX_CGO
 
 //----- (004BE710) --------------------------------------------------------
 __int16  sub_4BE710(int a1, int a2, int a3, int a4) {

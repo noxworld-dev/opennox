@@ -61,8 +61,7 @@ var (
 	g_scaled                               int
 	nox_win_width                          int
 	nox_win_height                         int
-	nox_video_cursorDrawIsThreaded         bool
-	dword_6F7C10                           func(a1 unsafe.Pointer, a2, a3 uint32)
+	dword_6F7C10                           func(a1 *Image, a2, a3 uint32)
 	nox_backbuffer_width32                 int
 	onPixBufferResize                      []func(sz types.Size)
 	nox_pixbuffer_size                     types.Size
@@ -453,15 +452,15 @@ func drawGeneral_4B0340(a1 int) error {
 	//sub_48A7F0()
 	v2 := C.dword_5d4594_3801780
 	var (
-		v4      int
-		prevSz  types.Size
-		v9, v10 int
-		v11     unsafe.Pointer
+		v4     int
+		prevSz types.Size
+		vpos   types.Point
+		v11    *Image
 	)
 	if v2 != 0 {
 		v4 = a1
 	} else {
-		v11, v10, v9 = sub_48B590()
+		v11, vpos = sub_48B590()
 		v2 = C.dword_5d4594_3801780
 		v4 = int(C.nox_video_renderTargetFlags)
 		prevSz = nox_pixbuffer_size
@@ -500,7 +499,7 @@ func drawGeneral_4B0340(a1 int) error {
 		if sub_4338D0() == 0 {
 			return errors.New("sub_4338D0 failed")
 		}
-		sub_48B3F0(v11, C.int(v10), C.int(v9))
+		noxDrawCursor(v11, vpos)
 	}
 	C.sub_43E910(0)
 	C.sub_43DBE0()
@@ -735,41 +734,12 @@ func nox_video_initPixbufferRows_486230(sz types.Size) {
 
 //export sub_48B3F0
 func sub_48B3F0(a1 unsafe.Pointer, a2, a3 C.int) C.int {
-	if nox_video_cursorDrawIsThreaded {
-		mu := asMutex(memmap.PtrOff(0x973F18, 168))
-		mu.Lock()
-		*memmap.PtrUint32(0x5D4594, 1193640) = uint32(C.dword_5d4594_1193648)
-		*memmap.PtrUint32(0x5D4594, 1193628) = uint32(C.dword_5d4594_1193524)
-		C.dword_5d4594_1193648 = C.uint(a2)
-		C.dword_5d4594_1193524 = C.uint(a3)
-		if a1 != nil && a1 != C.dword_5d4594_1193624 {
-			C.dword_5d4594_1193624 = a1
-			for i := range dword_5d4594_1193704_arr {
-				C.sub_49D1C0(dword_5d4594_1193704_arr[i], C.int(memmap.Uint32(0x5D4594, 1193592)), 128)
-			}
-			pp, freePP := alloc.Uints32(2)
-			defer freePP()
-			if C.sub_48C0C0(a1, (*C.uint)(unsafe.Pointer(&pp[0])), (*C.uint)(unsafe.Pointer(&pp[1]))) != 0 {
-				dword_6F7C10(a1, pp[0], pp[1])
-				*memmap.PtrUint32(0x5D4594, 1193580) = pp[0]
-				*memmap.PtrUint32(0x5D4594, 1193600) = uint32(C.dword_5d4594_1193568)
-				*memmap.PtrUint32(0x5D4594, 1193620) = uint32(C.dword_5d4594_1193576)
-				*memmap.PtrUint32(0x5D4594, 1193636) = pp[1]
-				*memmap.PtrUint32(0x5D4594, 1193604) = 0
-				*memmap.PtrUint32(0x5D4594, 1193608) = 0
-				*memmap.PtrUint32(0x5D4594, 1193612) = uint32(C.dword_5d4594_1193568)
-				*memmap.PtrUint32(0x5D4594, 1193616) = uint32(C.dword_5d4594_1193576)
-				C.dword_5d4594_1193664 = 1
-			}
-		}
-		if uint32(C.dword_5d4594_1193648) != memmap.Uint32(0x5D4594, 1193640) ||
-			uint32(C.dword_5d4594_1193524) != memmap.Uint32(0x5D4594, 1193628) {
-			C.dword_5d4594_1193668 = 1
-		}
-		mu.Unlock()
-	} else if C.dword_5d4594_1193672 != 0 && a1 != nil {
-		C.nox_client_drawImageAt_47D2C0((*C.nox_video_bag_image_t)(a1), a2, a3)
-		return 1
+	return C.int(noxDrawCursor(asImageP(a1), types.Point{X: int(a2), Y: int(a3)}))
+}
+
+func noxDrawCursor(a1 *Image, pos types.Point) int {
+	if C.dword_5d4594_1193672 != 0 && a1 != nil {
+		noxrend.DrawImageAt(a1, pos)
 	}
 	return 1
 }
@@ -872,26 +842,16 @@ func sub_48B800(a1 uint32) {
 }
 
 func sub_48B6B0(a1, a2, a3 byte) {
-	if !nox_video_cursorDrawIsThreaded {
-		C.sub_433CD0(C.uchar(a1), C.uchar(a2), C.uchar(a3))
-	} else {
-		C.ptr_5D4594_3799572.field_34 = C.uint(a1)
-		C.ptr_5D4594_3799572.field_35 = C.uint(a2)
-		C.ptr_5D4594_3799572.field_36 = C.uint(a3)
-	}
+	C.sub_433CD0(C.uchar(a1), C.uchar(a2), C.uchar(a3))
 }
 
-func sub_48B590() (a1 unsafe.Pointer, a2, a3 int) {
-	return C.dword_5d4594_1193624, int(C.dword_5d4594_1193648), int(C.dword_5d4594_1193524)
+func sub_48B590() (a1 *Image, pos types.Point) {
+	return asImageP(C.dword_5d4594_1193624), types.Point{X: int(C.dword_5d4594_1193648), Y: int(C.dword_5d4594_1193524)}
 }
 
 func sub_48B680(a1 int) {
 	if a1 != int(C.ptr_5D4594_3799572.field_15) {
-		if nox_video_cursorDrawIsThreaded {
-			C.ptr_5D4594_3799572.field_15 = C.uint(a1)
-		} else {
-			C.ptr_5D4594_3799572.field_14 = C.uint(a1)
-		}
+		C.ptr_5D4594_3799572.field_14 = C.uint(a1)
 		C.sub_48BD90(1)
 	}
 }
@@ -909,7 +869,7 @@ func nox_video_cursorDrawImpl_477A30(inp *input.Handler, pos types.Point) {
 	noxrend.SetTextColor(memmap.Uint32(0x5D4594, 2589772))
 	fh := nox_xxx_guiFontHeightMB_43F320(0)
 	if C.nox_xxx_guiSpell_460650() != 0 || C.sub_4611A0() != 0 {
-		nox_video_drawAnimatedImageOrCursorAt_4BE6D0(memmap.Uint32(0x5D4594, 1097240), pos)
+		nox_video_drawAnimatedImageOrCursorAt(memmap.Uint32(0x5D4594, 1097240), pos)
 		C.dword_5d4594_3798728 = 0
 		C.nox_xxx_cursorTypePrev_587000_151528 = 5
 		*memmap.PtrUint32(0x973F18, 68) = v18
@@ -924,35 +884,35 @@ func nox_video_cursorDrawImpl_477A30(inp *input.Handler, pos types.Point) {
 	case 1:
 		str := strMan.GetStringInFile("GRAB", "C:\\NoxPost\\src\\Client\\Gui\\guicurs.c")
 		noxrend.DrawString(nil, str, pos.Add(types.Point{X: 54, Y: 64 - fh}))
-		nox_video_drawAnimatedImageOrCursorAt_4BE6D0(memmap.Uint32(0x5D4594, 1097224), pos)
+		nox_video_drawAnimatedImageOrCursorAt(memmap.Uint32(0x5D4594, 1097224), pos)
 	case 2:
 		str := strMan.GetStringInFile("PICKUP", "C:\\NoxPost\\src\\Client\\Gui\\guicurs.c")
 		noxrend.DrawString(nil, str, pos.Add(types.Point{X: 49, Y: 64 + fh}))
-		nox_video_drawAnimatedImageOrCursorAt_4BE6D0(memmap.Uint32(0x5D4594, 1097228), pos)
+		nox_video_drawAnimatedImageOrCursorAt(memmap.Uint32(0x5D4594, 1097228), pos)
 		dword_5d4594_1097208 = -2 * fh
 	case 3:
 		str := strMan.GetStringInFile("SHOPKEEPER", "C:\\NoxPost\\src\\Client\\Gui\\guicurs.c")
 		noxrend.DrawString(nil, str, pos.Add(types.Point{X: 39, Y: 64 - fh}))
-		nox_video_drawAnimatedImageOrCursorAt_4BE6D0(memmap.Uint32(0x5D4594, 1097232), pos)
+		nox_video_drawAnimatedImageOrCursorAt(memmap.Uint32(0x5D4594, 1097232), pos)
 	case 4:
 		str := strMan.GetStringInFile("TALK", "C:\\NoxPost\\src\\Client\\Gui\\guicurs.c")
 		noxrend.DrawString(nil, str, pos.Add(types.Point{X: 49, Y: 64 - fh}))
-		nox_video_drawAnimatedImageOrCursorAt_4BE6D0(memmap.Uint32(0x5D4594, 1097236), pos)
+		nox_video_drawAnimatedImageOrCursorAt(memmap.Uint32(0x5D4594, 1097236), pos)
 	case 6, 7:
 		str := strMan.GetStringInFile("IDENTIFY", "C:\\NoxPost\\src\\Client\\Gui\\guicurs.c")
 		noxrend.DrawString(nil, str, pos.Add(types.Point{X: 49, Y: +88}))
-		nox_video_drawAnimatedImageOrCursorAt_4BE6D0(memmap.Uint32(0x5D4594, 1097220+4*uintptr(C.nox_client_mouseCursorType)), pos)
+		nox_video_drawAnimatedImageOrCursorAt(memmap.Uint32(0x5D4594, 1097220+4*uintptr(C.nox_client_mouseCursorType)), pos)
 	case 8:
 		str := strMan.GetStringInFile("REPAIR", "C:\\NoxPost\\src\\Client\\Gui\\guicurs.c")
 		noxrend.DrawString(nil, str, pos.Add(types.Point{X: 49, Y: 64 - fh}))
-		nox_video_drawAnimatedImageOrCursorAt_4BE6D0(memmap.Uint32(0x5D4594, 1097252), pos)
+		nox_video_drawAnimatedImageOrCursorAt(memmap.Uint32(0x5D4594, 1097252), pos)
 		dword_5d4594_1097208 = 2*fh + 4
 	case 9, 10, 11, 12:
-		nox_video_drawAnimatedImageOrCursorAt_4BE6D0(memmap.Uint32(0x5D4594, 1097220+4*uintptr(v6)), pos)
+		nox_video_drawAnimatedImageOrCursorAt(memmap.Uint32(0x5D4594, 1097220+4*uintptr(v6)), pos)
 	case 13:
 		str := strMan.GetStringInFile("USE", "C:\\NoxPost\\src\\Client\\Gui\\guicurs.c")
 		noxrend.DrawString(nil, str, pos.Add(types.Point{X: 54, Y: 64 + fh}))
-		nox_video_drawAnimatedImageOrCursorAt_4BE6D0(memmap.Uint32(0x5D4594, 1097272), pos)
+		nox_video_drawAnimatedImageOrCursorAt(memmap.Uint32(0x5D4594, 1097272), pos)
 		dword_5d4594_1097208 = -2 * fh
 	case 14:
 		mpos := inp.GetMousePos()
@@ -978,13 +938,13 @@ func nox_video_cursorDrawImpl_477A30(inp *input.Handler, pos types.Point) {
 		C.sub_4BE710(C.int(memmap.Uint32(0x5D4594, 1097276)), C.int(pos.X), C.int(pos.Y), C.int(v15))
 		C.sub_4345F0(0)
 	case 15:
-		nox_video_drawAnimatedImageOrCursorAt_4BE6D0(memmap.Uint32(0x5D4594, 1097220+4*uintptr(v6)), pos)
+		nox_video_drawAnimatedImageOrCursorAt(memmap.Uint32(0x5D4594, 1097220+4*uintptr(v6)), pos)
 		dword_5d4594_1097208 = -2 * fh
 	case 16:
-		nox_video_drawAnimatedImageOrCursorAt_4BE6D0(memmap.Uint32(0x5D4594, 1097220+4*uintptr(v6)), pos)
+		nox_video_drawAnimatedImageOrCursorAt(memmap.Uint32(0x5D4594, 1097220+4*uintptr(v6)), pos)
 		dword_5d4594_1097208 = -fh
 	default:
-		nox_video_drawAnimatedImageOrCursorAt_4BE6D0(memmap.Uint32(0x5D4594, 1097220), pos)
+		nox_video_drawAnimatedImageOrCursorAt(memmap.Uint32(0x5D4594, 1097220), pos)
 	}
 	C.dword_5d4594_3798728 = 0
 	C.nox_xxx_cursorTypePrev_587000_151528 = C.nox_client_mouseCursorType
@@ -1092,13 +1052,11 @@ func nox_client_drawCursorAndTooltips_477830(inp *input.Handler) {
 
 //export sub_477F80
 func sub_477F80() {
-	if !nox_video_cursorDrawIsThreaded {
-		if C.dword_5d4594_3799468 != 0 {
-			vp := getViewport()
-			if C.dword_5d4594_1097212 < vp.x1 || C.dword_5d4594_1097212+64 >= vp.x2 || C.dword_5d4594_1097216 < vp.y1 || C.dword_5d4594_1097216+64 >= vp.y2 {
-				noxrend.SetColor2(memmap.Uint32(0x85B3FC, 952))
-				noxrend.DrawRectFilledOpaque(int(C.dword_5d4594_1097212)+32, int(C.dword_5d4594_1097216)+32, 64, 64)
-			}
+	if C.dword_5d4594_3799468 != 0 {
+		vp := getViewport()
+		if C.dword_5d4594_1097212 < vp.x1 || C.dword_5d4594_1097212+64 >= vp.x2 || C.dword_5d4594_1097216 < vp.y1 || C.dword_5d4594_1097216+64 >= vp.y2 {
+			noxrend.SetColor2(memmap.Uint32(0x85B3FC, 952))
+			noxrend.DrawRectFilledOpaque(int(C.dword_5d4594_1097212)+32, int(C.dword_5d4594_1097216)+32, 64, 64)
 		}
 	}
 }

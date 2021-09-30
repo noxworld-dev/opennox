@@ -66,7 +66,7 @@ int sub_4BE320();
 int sub_4BE330(int a1, unsigned int a2, int* a3, int a4);
 int sub_4BE610();
 int sub_4BE640(int a1, int a2);
-__int16 nox_video_drawAnimatedImageOrCursorAt_4BE6D0(int a1, int a2, int a3);
+void nox_video_drawAnimatedImageOrCursorAt_4BE6D0(int a1, int a2, int a3);
 __int16 sub_4BE710(int a1, int a2, int a3, int a4);
 __int16 sub_4BE750(int a1, int a2, int a3);
 int sub_4BE7B0(int a1);
