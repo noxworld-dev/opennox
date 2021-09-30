@@ -15,13 +15,13 @@ import (
 
 var (
 	thingsLog              = log.New("things")
-	nox_images_arr1_787156 []*C.nox_things_imageRef_t
+	nox_images_arr1_787156 []*noxImageRef
 )
 
 //export nox_thing_read_IMAG_415700
 func nox_thing_read_IMAG_415700(f *C.nox_memfile, buf *C.char) C.int {
 	cnt := C.nox_memfile_read_u32(f)
-	nox_images_arr1_787156 = make([]*C.nox_things_imageRef_t, 0, cnt)
+	nox_images_arr1_787156 = make([]*noxImageRef, 0, cnt)
 	for i := 0; i < int(cnt); i++ {
 		if err := nox_thing_read_IMAG_one_42F660(f, buf); err != nil {
 			thingsLog.Printf("cannot read image %d: %v", i, err)
@@ -37,7 +37,7 @@ func nox_thing_read_IMAG_one_42F660(f *C.nox_memfile, cbuf *C.char) error {
 
 	refP, _ := alloc.Malloc(unsafe.Sizeof(C.nox_things_imageRef_t{}))
 	ref := (*C.nox_things_imageRef_t)(refP)
-	nox_images_arr1_787156 = append(nox_images_arr1_787156, ref)
+	nox_images_arr1_787156 = append(nox_images_arr1_787156, asImageRef(ref))
 
 	readString8 := func() string {
 		sz := C.nox_memfile_read_u8(f)

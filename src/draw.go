@@ -533,11 +533,11 @@ func nox_xxx_drawString_43FAF0(font unsafe.Pointer, sp *C.wchar_t, x, y, a5, a6 
 
 //export nox_video_drawAnimatedImageOrCursorAt_4BE6D0
 func nox_video_drawAnimatedImageOrCursorAt_4BE6D0(a1, a2, a3 C.int) {
-	nox_video_drawAnimatedImageOrCursorAt(uint32(a1), types.Point{X: int(a2), Y: int(a3)})
+	nox_video_drawAnimatedImageOrCursorAt(asImageRefP(unsafe.Pointer(uintptr(a1))), types.Point{X: int(a2), Y: int(a3)})
 }
 
-func nox_video_drawAnimatedImageOrCursorAt(a1 uint32, pos types.Point) { // nox_video_drawAnimatedImageOrCursorAt_4BE6D0
-	if v3 := asImageP(unsafe.Pointer(uintptr(C.sub_4BE640(C.int(a1), 0)))); v3 != nil {
+func nox_video_drawAnimatedImageOrCursorAt(ref *noxImageRef, pos types.Point) {
+	if v3 := asImageP(unsafe.Pointer(uintptr(C.sub_4BE640(C.int(uintptr(unsafe.Pointer(ref.C()))), 0)))); v3 != nil {
 		if C.dword_5d4594_3798728 != 0 {
 			noxDrawCursor(v3, pos)
 		} else {

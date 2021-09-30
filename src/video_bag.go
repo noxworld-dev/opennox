@@ -208,7 +208,7 @@ func nox_xxx_loadImage_47A8C0(typ byte, name string) *Image {
 
 //export nox_xxx_gLoadAnim_42FA20
 func nox_xxx_gLoadAnim_42FA20(name *C.char) *C.nox_things_imageRef_t {
-	return nox_xxx_gLoadAnim(GoString(name))
+	return nox_xxx_gLoadAnim(GoString(name)).C()
 }
 
 func nox_xxx_gLoadImg(name string) *Image {
@@ -230,7 +230,21 @@ func nox_xxx_gLoadImg(name string) *Image {
 	return nil
 }
 
-func nox_xxx_gLoadAnim(name string) *C.nox_things_imageRef_t {
+func asImageRefP(p unsafe.Pointer) *noxImageRef {
+	return (*noxImageRef)(p)
+}
+
+func asImageRef(p *C.nox_things_imageRef_t) *noxImageRef {
+	return asImageRefP(unsafe.Pointer(p))
+}
+
+type noxImageRef C.nox_things_imageRef_t
+
+func (r *noxImageRef) C() *C.nox_things_imageRef_t {
+	return (*C.nox_things_imageRef_t)(unsafe.Pointer(r))
+}
+
+func nox_xxx_gLoadAnim(name string) *noxImageRef {
 	if name == "" {
 		return nil
 	}

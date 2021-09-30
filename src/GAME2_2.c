@@ -1314,17 +1314,16 @@ void  nox_xxx_cursorSetTooltip_4776B0(wchar_t* a1) {
 	}
 }
 
+#ifndef NOX_CGO
 //----- (00477710) --------------------------------------------------------
 char* nox_xxx_cursorLoadAll_477710() {
-	char* result; // eax
-
-	memset(getMemAt(0x5D4594, 1097220), 0, 0x44u);
+	memset(getMemAt(0x5D4594, 1097220), 0, 68);
 	*getMemU32Ptr(0x5D4594, 1097220) = nox_xxx_gLoadAnim_42FA20("CursorSelect");
 	*getMemU32Ptr(0x5D4594, 1097224) = nox_xxx_gLoadAnim_42FA20("CursorGrab");
 	*getMemU32Ptr(0x5D4594, 1097228) = nox_xxx_gLoadAnim_42FA20("CursorPickup");
 	*getMemU32Ptr(0x5D4594, 1097232) = nox_xxx_gLoadAnim_42FA20("CursorTrade");
-	*getMemU32Ptr(0x5D4594, 1097240) = nox_xxx_gLoadAnim_42FA20("CursorTarget");
 	*getMemU32Ptr(0x5D4594, 1097236) = nox_xxx_gLoadAnim_42FA20("CursorTalk");
+	*getMemU32Ptr(0x5D4594, 1097240) = nox_xxx_gLoadAnim_42FA20("CursorTarget");
 	*getMemU32Ptr(0x5D4594, 1097244) = nox_xxx_gLoadAnim_42FA20("CursorIdentify");
 	*getMemU32Ptr(0x5D4594, 1097248) = nox_xxx_gLoadAnim_42FA20("CursorIdentifyNo");
 	*getMemU32Ptr(0x5D4594, 1097252) = nox_xxx_gLoadAnim_42FA20("CursorRepair");
@@ -1335,12 +1334,10 @@ char* nox_xxx_cursorLoadAll_477710() {
 	*getMemU32Ptr(0x5D4594, 1097272) = nox_xxx_gLoadAnim_42FA20("CursorUse");
 	*getMemU32Ptr(0x5D4594, 1097276) = nox_xxx_gLoadAnim_42FA20("CursorMove");
 	*getMemU32Ptr(0x5D4594, 1097280) = nox_xxx_gLoadAnim_42FA20("CursorPickupFar");
-	result = nox_xxx_gLoadAnim_42FA20("CursorCaution");
-	*getMemU32Ptr(0x5D4594, 1097284) = result;
-	return result;
+	*getMemU32Ptr(0x5D4594, 1097284) = nox_xxx_gLoadAnim_42FA20("CursorCaution");
+	return 1;
 }
 
-#ifndef NOX_CGO
 //----- (00477830) --------------------------------------------------------
 void nox_client_drawCursorAndTooltips_477830() {
 	char* v1;     // eax
@@ -1453,13 +1450,10 @@ void sub_477F80() {
 		}
 	}
 }
-#endif // NOX_CGO
 
 //----- (00477FF0) --------------------------------------------------------
 int sub_477FF0() { return sub_4BE7B0(*getMemIntPtr(0x5D4594, 1097260)); }
 
-
-#ifndef NOX_CGO
 //----- (00478000) --------------------------------------------------------
 int sub_478000() {
 	int result; // eax
