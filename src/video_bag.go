@@ -216,12 +216,12 @@ func nox_xxx_gLoadImg(name string) *Image {
 		return nil
 	}
 	for _, p := range nox_images_arr1_787156 {
-		if name == GoString(&p.name[0]) {
+		if name == p.Name() {
 			if p.field_24 == -1 {
 				if p.field_25_0 == -1 {
 					return nil
 				}
-				name2 := GoString(&p.name2[0])
+				name2 := p.Name2()
 				return nox_xxx_loadImage_47A8C0(byte(p.field_25_0), name2)
 			}
 			return noxImages.byIndex[p.field_24]
@@ -244,12 +244,20 @@ func (r *noxImageRef) C() *C.nox_things_imageRef_t {
 	return (*C.nox_things_imageRef_t)(unsafe.Pointer(r))
 }
 
+func (r *noxImageRef) Name() string {
+	return GoString(&r.name[0])
+}
+
+func (r *noxImageRef) Name2() string {
+	return GoString(&r.name2[0])
+}
+
 func nox_xxx_gLoadAnim(name string) *noxImageRef {
 	if name == "" {
 		return nil
 	}
 	for _, p := range nox_images_arr1_787156 {
-		if name == GoString(&p.name[0]) {
+		if name == p.Name() {
 			return p
 		}
 	}
