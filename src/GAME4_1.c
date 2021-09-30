@@ -5135,7 +5135,7 @@ int  nox_xxx_updateObjectsVelocity_5118A0(float step) {
 }
 
 //----- (00511C50) --------------------------------------------------------
-int  nox_xxx_script_511C50(int a1) {
+nox_object_t* nox_xxx_script_511C50(int a1) {
 	_DWORD* v1; // esi
 
 	if (dword_587000_237036)

@@ -30,18 +30,18 @@ func asObject(p unsafe.Pointer) *Object {
 	return (*Object)(p)
 }
 func asObjectC(p *C.nox_object_t) *Object {
-	return (*Object)(unsafe.Pointer(p))
+	return asObject(unsafe.Pointer(p))
 }
 
-func firstServerObject() *Object {
+func firstServerObject() *Object { // nox_server_getFirstObject_4DA790
 	return asObjectC(C.nox_server_objects_1556844)
 }
 
-func firstServerObjectUpdatable2() *Object {
+func firstServerObjectUpdatable2() *Object { // nox_xxx_getFirstUpdatable2Object_4DA840
 	return asObjectC(C.nox_server_objects_updatable2_1556848)
 }
 
-func firstServerObjectUninited() *Object {
+func firstServerObjectUninited() *Object { // nox_server_getFirstObjectUninited_4DA870
 	return asObjectC(C.nox_server_objects_uninited_1556860)
 }
 
@@ -135,6 +135,10 @@ func (obj *Object) ID() string {
 
 func (obj *Object) Ind() int { // aka "extent"
 	return int(obj.extent)
+}
+
+func (obj *Object) ScriptID() int {
+	return int(obj.script_id)
 }
 
 func (obj *Object) objTypeInd() int {

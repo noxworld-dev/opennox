@@ -156,7 +156,7 @@ char sub_5117F0(int a1);
 void nox_xxx_unit_511810(int a1);
 void nox_xxx_collisions_511850();
 int nox_xxx_updateObjectsVelocity_5118A0(float step);
-int nox_xxx_script_511C50(int a1);
+nox_object_t* nox_xxx_script_511C50(int a1);
 int sub_511CB0(_DWORD* a1, int a2);
 int sub_511CE0(_DWORD* a1, int a2);
 int sub_511D20();

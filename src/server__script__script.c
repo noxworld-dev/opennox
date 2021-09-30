@@ -1298,6 +1298,7 @@ void nox_xxx_scriptLeverReact_51ADF0() {
 	}
 }
 
+#ifndef NOX_CGO
 //----- (00511B60) --------------------------------------------------------
 nox_object_t* nox_server_scriptValToObjectPtr_511B60(int val) {
 	if (val == -1) {
@@ -1336,6 +1337,7 @@ nox_object_t* nox_server_scriptValToObjectPtr_511B60(int val) {
 	}
 	return 0;
 }
+#endif // NOX_CGO
 
 //----- (0051B0C0) --------------------------------------------------------
 void sub_51B0C0() {
