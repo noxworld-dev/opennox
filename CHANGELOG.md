@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.8.1
+
+- Fix: Back walls rendering in high-resolution mode.
+- Fix: Center in-game menu in high-resolution mode.
+- Fix: Possible crash after running for some time.
+
 ## v1.8.0
 
 ### New
