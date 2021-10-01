@@ -88,8 +88,12 @@ var _ = [1]struct{}{}[unsafe.Sizeof(int(0))-4]
 
 func main() {
 	if err := runNox(os.Args); err != nil && err != flag.ErrHelp {
-		fmt.Fprintln(os.Stderr, err)
-		os.Exit(1)
+		if code, ok := err.(ErrExit); ok {
+			os.Exit(int(code))
+		} else {
+			fmt.Fprintln(os.Stderr, err)
+			os.Exit(1)
+		}
 	}
 }
 
@@ -106,7 +110,19 @@ func writeLogsToDir() error {
 	return log.WriteToFile(filepath.Join(dir, name))
 }
 
-func runNox(args []string) error {
+func runNox(args []string) (gerr error) {
+	defer func() {
+		switch r := recover().(type) {
+		case ErrExit:
+			if r != 0 {
+				gerr = r
+			}
+		default:
+			panic(r)
+		case nil:
+			// ok
+		}
+	}()
 	if !env.IsE2E() {
 		if err := writeLogsToDir(); err != nil {
 			log.Println("cannot persist logs:", err)
@@ -394,9 +410,15 @@ func runNox(args []string) error {
 	return nil
 }
 
+type ErrExit int
+
+func (e ErrExit) Error() string {
+	return fmt.Sprintf("exit code: %d", int(e))
+}
+
 //export nox_exit
 func nox_exit(exitCode C.int) {
-	os.Exit(int(exitCode))
+	panic(ErrExit(exitCode))
 }
 
 //export nox_xxx_getNoxVer_401020
