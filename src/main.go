@@ -172,6 +172,7 @@ func runNox(args []string) (gerr error) {
 	if err := readConfig(*fConfig); err != nil {
 		return err
 	}
+	defer maybeWriteConfig()
 	if env.IsE2E() {
 		*fNoLimit = true
 		mainloopHook = e2eRun

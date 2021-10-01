@@ -6,6 +6,8 @@ import (
 	"image"
 	"unicode/utf16"
 
+	"github.com/spf13/viper"
+
 	"nox/v1/client/input"
 	"nox/v1/client/input/keybind"
 	"nox/v1/client/render"
@@ -18,6 +20,14 @@ import (
 var (
 	noxRendererS *render.Renderer
 	inpHandlerS  *input.Handler
+)
+
+func init() {
+	viper.SetDefault(configVideoFiltering, true)
+}
+
+const (
+	configVideoFiltering = "video.filtering"
 )
 
 func updateFullScreen(mode int) {
@@ -41,7 +51,10 @@ func getFiltering() bool {
 }
 
 func toggleFiltering() {
-	noxRendererS.SetFiltering(!noxRendererS.GetFiltering())
+	val := !noxRendererS.GetFiltering()
+	viper.Set(configVideoFiltering, val)
+	writeConfigLater()
+	noxRendererS.SetFiltering(val)
 }
 
 func getWindowMode() int {
@@ -135,6 +148,8 @@ func newSeat(sz types.Size) (seat.Seat, error) {
 
 	r.OnViewResize(inp.SetWinSize)
 	OnPixBufferResize(inp.SetDrawWinSize)
+
+	r.SetFiltering(viper.GetBool(configVideoFiltering))
 
 	return s, nil
 }
