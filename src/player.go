@@ -228,6 +228,14 @@ func cntPlayers() (n int) { // nox_common_playerInfoCount_416F40
 	return n
 }
 
+func getAllPlayerStructs() (out []*Player) {
+	for i := 0; i < NOX_PLAYERINFO_MAX; i++ {
+		p := asPlayer(&C.nox_playerinfo_arr[i])
+		out = append(out, p)
+	}
+	return out
+}
+
 func getPlayers() (out []*Player) {
 	for i := 0; i < NOX_PLAYERINFO_MAX; i++ {
 		p := asPlayer(&C.nox_playerinfo_arr[i])
