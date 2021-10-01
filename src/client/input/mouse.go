@@ -78,7 +78,7 @@ type mouseHandler struct {
 	chk    Checker
 	bounds image.Rectangle
 	win    window
-	pos    types.Point
+	pos    types.Pointf // float to make it cumulative for relative events
 
 	sens float32
 
@@ -104,17 +104,15 @@ func (h *mouseHandler) OnMouseWheel(fnc func(dv int)) {
 
 func (h *mouseHandler) MouseMove(ev *seat.MouseMoveEvent) {
 	if ev.Relative {
-		dp := ev.Rel
-		dp.X = int(float32(dp.X) * h.sens)
-		dp.Y = int(float32(dp.Y) * h.sens)
+		dp := ev.Rel.Mul(h.sens)
 		h.pos = h.pos.Add(dp)
-		h.pos = clamp(h.win.view, h.pos)
+		h.pos = clampf(h.win.view, h.pos)
 	} else {
-		h.pos = ev.Pos
+		h.pos = types.Point2f(ev.Pos)
 	}
 	h.pushEvent(noxMouseEvent{
 		Type:  noxMouseEventMotion,
-		Pos:   h.win.toDrawSpace(h.pos),
+		Pos:   h.win.toDrawSpace(h.pos.Point()),
 		Wheel: 0,
 	})
 }
@@ -145,7 +143,7 @@ func (h *mouseHandler) MouseButton(ev *seat.MouseButtonEvent) {
 	}
 	h.pushEvent(noxMouseEvent{
 		Type:    typ,
-		Pos:     h.win.toDrawSpace(h.pos),
+		Pos:     h.win.toDrawSpace(h.pos.Point()),
 		Pressed: ev.Pressed,
 	})
 }
@@ -153,7 +151,7 @@ func (h *mouseHandler) MouseButton(ev *seat.MouseButtonEvent) {
 func (h *mouseHandler) MouseWheel(ev *seat.MouseWheelEvent) {
 	h.pushEvent(noxMouseEvent{
 		Type:  noxMouseEventWheel,
-		Pos:   h.win.toDrawSpace(h.pos),
+		Pos:   h.win.toDrawSpace(h.pos.Point()),
 		Wheel: ev.Wheel,
 	})
 }

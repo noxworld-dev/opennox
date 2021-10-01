@@ -31,7 +31,7 @@ var _ InputEvent = &MouseMoveEvent{}
 type MouseMoveEvent struct {
 	Relative bool
 	Pos      types.Point
-	Rel      types.Point
+	Rel      types.Pointf
 }
 
 func (e *MouseMoveEvent) isInputEvent() {}

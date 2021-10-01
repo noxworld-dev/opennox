@@ -492,7 +492,7 @@ func (win *Window) processMotionEvent(ev *sdl.MouseMotionEvent) {
 	win.inputEvent(&seat.MouseMoveEvent{
 		Relative: win.rel,
 		Pos:      types.Point{X: int(ev.X), Y: int(ev.Y)},
-		Rel:      types.Point{X: int(ev.XRel), Y: int(ev.YRel)},
+		Rel:      types.Pointf{X: float32(ev.XRel), Y: float32(ev.YRel)},
 	})
 }
 

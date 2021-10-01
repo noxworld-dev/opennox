@@ -48,6 +48,22 @@ func clamp(r image.Rectangle, p image.Point) image.Point {
 	return p
 }
 
+func clampf(r image.Rectangle, p types.Pointf) types.Pointf {
+	if p.X < float32(r.Min.X) {
+		p.X = float32(r.Min.X)
+	}
+	if p.Y < float32(r.Min.Y) {
+		p.Y = float32(r.Min.Y)
+	}
+	if r.Max.X != 0 && p.X >= float32(r.Max.X) {
+		p.X = float32(r.Max.X)
+	}
+	if r.Max.Y != 0 && p.Y >= float32(r.Max.Y) {
+		p.Y = float32(r.Max.Y)
+	}
+	return p
+}
+
 func (win *window) SetWinSize(rect image.Rectangle) {
 	if rect.Dx() == 0 || rect.Dy() == 0 {
 		return

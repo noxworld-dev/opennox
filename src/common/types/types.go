@@ -38,6 +38,12 @@ func (p Pointf) Sub(p2 Pointf) Pointf {
 	return p
 }
 
+func (p Pointf) Mul(v float32) Pointf {
+	p.X *= v
+	p.Y *= v
+	return p
+}
+
 func (p Pointf) Len() float64 {
 	return math.Sqrt(float64(p.X*p.X + p.Y*p.Y))
 }
