@@ -44,6 +44,7 @@ extern int nox_xxx_normalWndWidth_587000_172872;
 */
 import "C"
 import (
+	"errors"
 	"flag"
 	"fmt"
 	"net/http"
@@ -52,6 +53,8 @@ import (
 	"path/filepath"
 	"strings"
 	"unsafe"
+
+	"github.com/spf13/viper"
 
 	"nox/v1/client/input/keybind"
 	"nox/v1/common"
@@ -118,6 +121,7 @@ func runNox(args []string) error {
 	flags := flag.NewFlagSet("", flag.ContinueOnError)
 	// TODO: add missing flag descriptions
 	var (
+		fConfig     = flags.String("config", "", "use specified config file")
 		fData       = flags.String("data", "", "explicitly set Nox data dir")
 		fServer     = flags.Bool("serveronly", false, "run the server only")
 		fWindow     = flags.Bool("window", false, "window")
@@ -149,13 +153,31 @@ func runNox(args []string) error {
 	if err := flags.Parse(args[1:]); err != nil {
 		return err
 	}
+	if err := readConfig(*fConfig); err != nil {
+		return err
+	}
 	if env.IsE2E() {
 		*fNoLimit = true
 		mainloopHook = e2eRun
 	}
 	if path := *fData; path != "" {
 		datapath.Set(path)
+	} else if path = os.Getenv("NOX_DATA"); path != "" {
+		datapath.Set(path)
+	} else if path = viper.GetString(configNoxDataPath); path != "" {
+		datapath.Set(path)
+	} else {
+		path = datapath.Find()
+		if path == "" {
+			err := errors.New("cannot find Nox data dir")
+			datapath.Log.Println(err)
+			return err
+		}
+		datapath.Set(path)
+		viper.Set(configNoxDataPath, path)
+		writeConfigLater()
 	}
+	maybeWriteConfig()
 	if err := os.Chdir(datapath.Path()); err != nil {
 		return err
 	}
