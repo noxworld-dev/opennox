@@ -9246,25 +9246,27 @@ void  sub_4DE790(int a1) {
 
 //----- (004DE7C0) --------------------------------------------------------
 void nox_xxx_playerForceDisconnect_4DE7C0(int ind) {
-	char* pl = nox_common_playerInfoFromNum_417090(ind);
+	nox_playerInfo* plr = nox_common_playerInfoFromNum_417090(ind);
 #ifdef NOX_CGO
-	nox_script_callByEvent_cgo(31, pl, 0); // player leave
+	nox_script_callByEvent_cgo(31, plr, 0); // player leave
 #endif // NOX_CGO
 	if (sub_4D12A0(ind))
 		sub_4D1250(ind);
-	if (*((_DWORD*)pl + 517)) {
-		int* v3 = sub_425A70(*((_DWORD*)pl + 517));
+	if (plr->field_2068) {
+		int* v3 = sub_425A70(plr->field_2068);
 		if (v3)
 			sub_425B60(v3, ind);
 	}
-	int v4 = *(_DWORD*)(*((_DWORD*)pl + 514) + 748);
+	int v4 = *(_DWORD*)((_DWORD)(plr->playerUnit) + 748);
 	if (*(_DWORD*)(v4 + 280))
 		nox_xxx_shopCancelSession_510DC0(*(_DWORD**)(v4 + 280));
 	*(_DWORD*)(v4 + 280) = 0;
-	sub_510E20((unsigned __int8)pl[2064]);
-	sub_4FF990(1 << pl[2064]);
+	sub_510E20(plr->playerInd);
+	sub_4FF990(1 << plr->playerInd);
 	if (!nox_common_gameFlags_check_40A5C0(2))
-		*((_DWORD*)pl + 523) = 0;
+		plr->active = 0;
+
+	char* pl = plr;
 	sub_56F4F0((int*)pl + 1146);
 	sub_56F4F0((int*)pl + 1148);
 	sub_56F4F0((int*)pl + 1149);
@@ -9284,10 +9286,10 @@ void nox_xxx_playerForceDisconnect_4DE7C0(int ind) {
 
 	char buf[3];
 	buf[0] = 46;
-	*(_WORD*)(&buf[1]) = nox_xxx_netGetUnitCodeServ_578AC0(*((_DWORD**)pl + 514));
+	*(_WORD*)(&buf[1]) = nox_xxx_netGetUnitCodeServ_578AC0(plr->playerUnit);
 	nox_xxx_netSendPacket0_4E5420(ind | 0x80, buf, 3, 0, 0);
-	nox_xxx_delayedDeleteObject_4E5CC0(*((_DWORD*)pl + 514));
-	*((_DWORD*)pl + 514) = 0;
+	nox_xxx_delayedDeleteObject_4E5CC0(plr->playerUnit);
+	plr->playerUnit = 0;
 	for (int i = nox_xxx_getFirstPlayerUnit_4DA7C0(); i; i = nox_xxx_getNextPlayerUnit_4DA7F0(i)) {
 		int v7 = *(_DWORD*)(i + 748);
 		*(_BYTE*)(ind + v7 + 452) = 0;
