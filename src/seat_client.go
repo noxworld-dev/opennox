@@ -93,12 +93,6 @@ func setMouseBounds(rect image.Rectangle) {
 	inpHandlerS.SetMouseBounds(rect)
 }
 
-func isMousePressed() bool {
-	return inpHandlerS.IsMousePressed(seat.MouseButtonLeft) ||
-		inpHandlerS.IsMousePressed(seat.MouseButtonRight) ||
-		inpHandlerS.IsMousePressed(seat.MouseButtonMiddle)
-}
-
 func keymodShift() bool {
 	return inpHandlerS.KeyModShift()
 }

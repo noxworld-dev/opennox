@@ -181,15 +181,13 @@ func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_A(a4 *CtrlEventBinding) 
 					c.nox_ctrlevent_action_42E670(client.CCAction, nil) // regular attack?
 				}
 			case keybind.EventMoveForward:
-				if isMousePressed() {
-					v5 := 1
-					if memmap.Uint8(0x5D4594, 754064)&0x8 != 0 {
-						v5 = 3
-					}
-					var buf [4]byte
-					binary.LittleEndian.PutUint32(buf[:], uint32(v5))
-					c.nox_ctrlevent_action_42E670(client.CCMoveForward, &buf)
+				v5 := 1
+				if memmap.Uint8(0x5D4594, 754064)&0x8 != 0 {
+					v5 = 3
 				}
+				var buf [4]byte
+				binary.LittleEndian.PutUint32(buf[:], uint32(v5))
+				c.nox_ctrlevent_action_42E670(client.CCMoveForward, &buf)
 			case keybind.EventMoveBackward, keybind.EventMoveLeft, keybind.EventMoveRight:
 				var code client.CtrlCode
 				switch k {

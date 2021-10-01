@@ -61,8 +61,6 @@ func keymodShift() bool { return false }
 
 func processInput() {}
 
-func isMousePressed() bool { return false }
-
 func clientDraw() bool { return true }
 
 func drawAndPresent() {}
