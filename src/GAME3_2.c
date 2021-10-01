@@ -9245,117 +9245,97 @@ void  sub_4DE790(int a1) {
 }
 
 //----- (004DE7C0) --------------------------------------------------------
-char*  nox_xxx_playerForceDisconnect_4DE7C0(int a1) {
-	int v1;               // edi
-	char* v2;             // esi
-	int* v3;              // eax
-	int v4;               // ebp
-	int v5;               // eax
-	int i;                // eax
-	int v7;               // ecx
-	int v8;               // eax
-	char* result;         // eax
-	unsigned __int8* v11; // eax
-	int v12;              // eax
-	int v13;              // eax
-	unsigned __int8* v14; // eax
-
-	v1 = a1;
-	v2 = nox_common_playerInfoFromNum_417090(a1);
+void nox_xxx_playerForceDisconnect_4DE7C0(int ind) {
+	char* pl = nox_common_playerInfoFromNum_417090(ind);
 #ifdef NOX_CGO
-	nox_script_callByEvent_cgo(31, v2, 0); // player leave
+	nox_script_callByEvent_cgo(31, pl, 0); // player leave
 #endif // NOX_CGO
-	if (sub_4D12A0(v1))
-		sub_4D1250(v1);
-	if (*((_DWORD*)v2 + 517)) {
-		v3 = sub_425A70(*((_DWORD*)v2 + 517));
+	if (sub_4D12A0(ind))
+		sub_4D1250(ind);
+	if (*((_DWORD*)pl + 517)) {
+		int* v3 = sub_425A70(*((_DWORD*)pl + 517));
 		if (v3)
-			sub_425B60(v3, v1);
+			sub_425B60(v3, ind);
 	}
-	v4 = *(_DWORD*)(*((_DWORD*)v2 + 514) + 748);
+	int v4 = *(_DWORD*)(*((_DWORD*)pl + 514) + 748);
 	if (*(_DWORD*)(v4 + 280))
 		nox_xxx_shopCancelSession_510DC0(*(_DWORD**)(v4 + 280));
 	*(_DWORD*)(v4 + 280) = 0;
-	sub_510E20((unsigned __int8)v2[2064]);
-	sub_4FF990(1 << v2[2064]);
+	sub_510E20((unsigned __int8)pl[2064]);
+	sub_4FF990(1 << pl[2064]);
 	if (!nox_common_gameFlags_check_40A5C0(2))
-		*((_DWORD*)v2 + 523) = 0;
-	sub_56F4F0((int*)v2 + 1146);
-	sub_56F4F0((int*)v2 + 1148);
-	sub_56F4F0((int*)v2 + 1149);
-	sub_56F4F0((int*)v2 + 1150);
-	sub_56F4F0((int*)v2 + 1151);
-	sub_56F4F0((int*)v2 + 1152);
-	sub_56F4F0((int*)v2 + 1153);
-	sub_56F4F0((int*)v2 + 1154);
-	sub_56F4F0((int*)v2 + 1155);
-	sub_56F4F0((int*)v2 + 1156);
-	sub_56F4F0((int*)v2 + 1157);
-	sub_56F4F0((int*)v2 + 1158);
-	sub_56F4F0((int*)v2 + 1159);
-	sub_56F4F0((int*)v2 + 1147);
-	sub_56F4F0((int*)v2 + 1160);
-	sub_56F4F0((int*)v2 + 1161);
-	LOBYTE(a1) = 46;
-	*(_WORD*)((char*)&a1 + 1) = nox_xxx_netGetUnitCodeServ_578AC0(*((_DWORD**)v2 + 514));
-	v5 = v1;
-	LOBYTE(v5) = v1 | 0x80;
-	nox_xxx_netSendPacket0_4E5420(v5, &a1, 3, 0, 0);
-	nox_xxx_delayedDeleteObject_4E5CC0(*((_DWORD*)v2 + 514));
-	*((_DWORD*)v2 + 514) = 0;
-	for (i = nox_xxx_getFirstPlayerUnit_4DA7C0(); i; i = nox_xxx_getNextPlayerUnit_4DA7F0(i)) {
-		v7 = *(_DWORD*)(i + 748);
-		*(_BYTE*)(v1 + v7 + 452) = 0;
-		*(_DWORD*)(v7 + 4 * v1 + 324) = 0;
-		*(_BYTE*)(v1 + v7 + 484) = 0;
-		*(_BYTE*)(v1 + v7 + 516) = 0;
+		*((_DWORD*)pl + 523) = 0;
+	sub_56F4F0((int*)pl + 1146);
+	sub_56F4F0((int*)pl + 1148);
+	sub_56F4F0((int*)pl + 1149);
+	sub_56F4F0((int*)pl + 1150);
+	sub_56F4F0((int*)pl + 1151);
+	sub_56F4F0((int*)pl + 1152);
+	sub_56F4F0((int*)pl + 1153);
+	sub_56F4F0((int*)pl + 1154);
+	sub_56F4F0((int*)pl + 1155);
+	sub_56F4F0((int*)pl + 1156);
+	sub_56F4F0((int*)pl + 1157);
+	sub_56F4F0((int*)pl + 1158);
+	sub_56F4F0((int*)pl + 1159);
+	sub_56F4F0((int*)pl + 1147);
+	sub_56F4F0((int*)pl + 1160);
+	sub_56F4F0((int*)pl + 1161);
+
+	char buf[3];
+	buf[0] = 46;
+	*(_WORD*)(&buf[1]) = nox_xxx_netGetUnitCodeServ_578AC0(*((_DWORD**)pl + 514));
+	nox_xxx_netSendPacket0_4E5420(ind | 0x80, buf, 3, 0, 0);
+	nox_xxx_delayedDeleteObject_4E5CC0(*((_DWORD*)pl + 514));
+	*((_DWORD*)pl + 514) = 0;
+	for (int i = nox_xxx_getFirstPlayerUnit_4DA7C0(); i; i = nox_xxx_getNextPlayerUnit_4DA7F0(i)) {
+		int v7 = *(_DWORD*)(i + 748);
+		*(_BYTE*)(ind + v7 + 452) = 0;
+		*(_DWORD*)(v7 + 4 * ind + 324) = 0;
+		*(_BYTE*)(ind + v7 + 484) = 0;
+		*(_BYTE*)(ind + v7 + 516) = 0;
 	}
-	v8 = nox_xxx_gamePlayIsAnyPlayers_40A8A0();
-	if (v8) {
-		if (nox_common_gameFlags_check_40A5C0(1024) && !nox_xxx_serverIsClosing_446180() && sub_40A770() == 1)
+	if (nox_xxx_gamePlayIsAnyPlayers_40A8A0()) {
+		if (nox_common_gameFlags_check_40A5C0(1024) && !nox_xxx_serverIsClosing_446180() && sub_40A770() == 1) {
 			sub_5095E0();
+		}
 	} else {
 		sub_40A1F0(0);
 		nox_xxx_playerForceSendLessons_416E50(1);
 		sub_417D00();
 		sub_40A970();
 	}
-	sub_4E55F0(v1);
-	nox_xxx_playerResetImportantCtr_4E4F40(v1);
-	sub_4E4F30(v1);
+	sub_4E55F0(ind);
+	nox_xxx_playerResetImportantCtr_4E4F40(ind);
+	sub_4E4F30(ind);
 	if (nox_xxx_check_flag_aaa_43AF70() == 1) {
 		sub_4161E0();
 		sub_416690();
 	}
-	result = (char*)nox_common_gameFlags_check_40A5C0(4096);
-	if (result) {
-		if (sub_4E9010() == 1) {
-			v11 = sub_4E8E50();
-			result = nox_xxx_mapLoad_4D2450((char*)v11);
-		} else if (nox_server_questMaybeWarp_4E8F60()) {
-			sub_4D60B0();
-			sub_4D76E0(1);
-			v12 = nox_game_getQuestStage_4E3CC0();
-			v13 = nox_server_questNextStageThreshold_4D74F0(v12);
-			nox_game_setQuestStage_4E3CD0(v13 - 1);
-			v14 = sub_4E8E50();
-			result = nox_xxx_mapLoad_4D2450((char*)v14);
-		} else {
-			result = (char*)nox_xxx_getFirstPlayerUnit_4DA7C0();
-			if (result) {
-				while (!*(_DWORD*)(*((_DWORD*)result + 187) + 312)) {
-					result = (char*)nox_xxx_getNextPlayerUnit_4DA7F0((int)result);
-					if (!result)
-						return result;
-				}
-				result = (char*)sub_4E8E60();
+	if (!nox_common_gameFlags_check_40A5C0(4096)) {
+		return;
+	}
+	if (sub_4E9010() == 1) {
+		nox_xxx_mapLoad_4D2450(sub_4E8E50());
+	} else if (nox_server_questMaybeWarp_4E8F60()) {
+		sub_4D60B0();
+		sub_4D76E0(1);
+		int v12 = nox_game_getQuestStage_4E3CC0();
+		int v13 = nox_server_questNextStageThreshold_4D74F0(v12);
+		nox_game_setQuestStage_4E3CD0(v13 - 1);
+		nox_xxx_mapLoad_4D2450(sub_4E8E50());
+	} else {
+		char* result = nox_xxx_getFirstPlayerUnit_4DA7C0();
+		if (result) {
+			while (!*(_DWORD*)(*((_DWORD*)result + 187) + 312)) {
+				result = (char*)nox_xxx_getNextPlayerUnit_4DA7F0((int)result);
+				if (!result)
+					return;
 			}
+			result = (char*)sub_4E8E60();
 		}
 	}
-	return result;
 }
-// 4DE9A4: variable 'v8' is possibly undefined
-// 4DE9E1: variable 'v9' is possibly undefined
 
 //----- (004DEAB0) --------------------------------------------------------
 #ifndef NOX_CGO

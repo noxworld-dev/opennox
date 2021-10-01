@@ -368,7 +368,7 @@ _DWORD* sub_4DE410(int a1);
 int sub_4DE4D0(char a1);
 char nox_xxx_playerDisconnFinish_4DE530(int a1, char a2);
 void sub_4DE790(int a1);
-char* nox_xxx_playerForceDisconnect_4DE7C0(int a1);
+void nox_xxx_playerForceDisconnect_4DE7C0(int a1);
 char* nox_xxx_playerCallDisconnect_4DEAB0(int a1, char a2);
 void nox_xxx_playerDisconnByPlrID_4DEB00(int a1);
 int nox_xxx_netAddPlayerHandler_4DEBC0(int port);
