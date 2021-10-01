@@ -28,6 +28,8 @@ import (
 	"strings"
 	"unsafe"
 
+	"github.com/spf13/viper"
+
 	"nox/v1/client/input/keybind"
 	"nox/v1/common/alloc"
 	"nox/v1/common/datapath"
@@ -54,18 +56,55 @@ var gameex = struct {
 	Log: log.New("gameex"),
 }
 
+func gameexDefaults() {
+	viper.SetDefault(configKeyGameExAutoShield, true)
+	viper.SetDefault(configKeyGameExGreatSwordBlock, false)
+	viper.SetDefault(configKeyGameExWarWeaponScroll, true)
+	viper.SetDefault(configKeyGameExBerserkShieldBlock, false)
+}
+
+const (
+	configKeyGameExAutoShield         = "extensions.warrior.auto_shield"
+	configKeyGameExGreatSwordBlock    = "extensions.warrior.greatsword_block"
+	configKeyGameExWarWeaponScroll    = "extensions.warrior.weapon_scroll"
+	configKeyGameExBerserkShieldBlock = "extensions.warrior.berserk_shield_block"
+)
+
+func gameexLoadConfig() {
+	for _, f := range []struct {
+		Key  string
+		Flag int
+	}{
+		{Key: configKeyGameExAutoShield, Flag: 0x2},
+		{Key: configKeyGameExGreatSwordBlock, Flag: 0x4},
+		{Key: configKeyGameExWarWeaponScroll, Flag: 0x8},
+		{Key: configKeyGameExBerserkShieldBlock, Flag: 0x10},
+	} {
+		if viper.GetBool(f.Key) {
+			C.gameex_flags |= C.uint(f.Flag)
+		} else {
+			C.gameex_flags &^= C.uint(f.Flag)
+		}
+	}
+}
+
 func gameexReadConfig(path string) error {
+	defer func() {
+		gameexDefaults()
+		gameexLoadConfig()
+	}()
 	path = datapath.Path(path)
 	gameex.configPath = path
-	gameex.Log.Println("reading config", path)
 	f, err := fs.Open(path)
 	if os.IsNotExist(err) {
 		gameex.Log.Println("no config file")
 		return nil
 	} else if err != nil {
+		gameex.Log.Println(err)
 		return err
 	}
 	defer f.Close()
+	gameex.Log.Println("reading config", path)
 
 	sc := bufio.NewScanner(f)
 	for sc.Scan() {
@@ -82,44 +121,40 @@ func gameexReadConfig(path string) error {
 		val := strings.TrimSpace(sub[1])
 		switch key {
 		case "AUTO_SHIELD":
-			v, err := strconv.ParseBool(val)
-			if err != nil {
-				return err
-			}
-			if v {
-				C.gameex_flags |= 0x2
-			} else {
-				C.gameex_flags &^= 0x2
+			if !viper.IsSet(configKeyGameExAutoShield) {
+				v, err := strconv.ParseBool(val)
+				if err != nil {
+					return err
+				}
+				viper.Set(configKeyGameExAutoShield, v)
+				writeConfigLater()
 			}
 		case "GREAT_SWORD_BLOKING_WALK", "GREAT_SWORD_BLOCKING_WALK":
-			v, err := strconv.ParseBool(val)
-			if err != nil {
-				return err
-			}
-			if v {
-				C.gameex_flags |= 0x4
-			} else {
-				C.gameex_flags &^= 0x4
+			if !viper.IsSet(configKeyGameExGreatSwordBlock) {
+				v, err := strconv.ParseBool(val)
+				if err != nil {
+					return err
+				}
+				viper.Set(configKeyGameExGreatSwordBlock, v)
+				writeConfigLater()
 			}
 		case "MOUSE_KEYBOARD_ROLL":
-			v, err := strconv.ParseBool(val)
-			if err != nil {
-				return err
-			}
-			if v {
-				C.gameex_flags |= 0x8
-			} else {
-				C.gameex_flags &^= 0x8
+			if !viper.IsSet(configKeyGameExWarWeaponScroll) {
+				v, err := strconv.ParseBool(val)
+				if err != nil {
+					return err
+				}
+				viper.Set(configKeyGameExWarWeaponScroll, v)
+				writeConfigLater()
 			}
 		case "BERSERKER_SHIED_BLOCK", "BERSERKER_SHIELD_BLOCK":
-			v, err := strconv.ParseBool(val)
-			if err != nil {
-				return err
-			}
-			if v {
-				C.gameex_flags |= 0x10
-			} else {
-				C.gameex_flags &^= 0x10
+			if !viper.IsSet(configKeyGameExBerserkShieldBlock) {
+				v, err := strconv.ParseBool(val)
+				if err != nil {
+					return err
+				}
+				viper.Set(configKeyGameExBerserkShieldBlock, v)
+				writeConfigLater()
 			}
 		case "EXTENSION_MESSAGES":
 			v, err := strconv.ParseBool(val)
