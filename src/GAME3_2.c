@@ -9263,8 +9263,11 @@ void nox_xxx_playerForceDisconnect_4DE7C0(int ind) {
 	*(_DWORD*)(v4 + 280) = 0;
 	sub_510E20(plr->playerInd);
 	sub_4FF990(1 << plr->playerInd);
+
+#ifndef NOX_SERVER
 	if (!nox_common_gameFlags_check_40A5C0(2))
-		plr->active = 0;
+#endif // NOX_SERVER
+	{ plr->active = 0; }
 
 	char* pl = plr;
 	sub_56F4F0((int*)pl + 1146);
