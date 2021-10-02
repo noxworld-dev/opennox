@@ -41,7 +41,6 @@ import (
 	"encoding/binary"
 	"errors"
 	"net"
-	"os"
 	"unsafe"
 
 	"github.com/noxworld-dev/nat"
@@ -58,9 +57,14 @@ const (
 	NOX_NET_STRUCT_MAX = C.NOX_NET_STRUCT_MAX
 )
 
+func init() {
+	configBoolPtr("network.xor", "NOX_NET_NO_XOR", true, &noxNetNoXor)
+	configHiddenBoolPtr("debug.network", "NOX_DEBUG_NET", &debugNet)
+}
+
 var (
-	noxNetNoXor = os.Getenv("NOX_NET_NO_XOR") == "true"
-	debugNet    = os.Getenv("NOX_DEBUG_NET") == "true"
+	noxNetNoXor bool
+	debugNet    bool
 	netLog      = log.New("network")
 )
 

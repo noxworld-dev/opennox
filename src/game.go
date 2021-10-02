@@ -74,7 +74,6 @@ import (
 	"errors"
 	"fmt"
 	"math"
-	"os"
 	"strconv"
 	"strings"
 	"sync"
@@ -92,9 +91,13 @@ import (
 )
 
 var (
-	noXwis  = os.Getenv("NOX_XWIS") == "false"
+	noXwis  = true
 	gameLog = log.New("game")
 )
+
+func init() {
+	configBoolPtr("network.xwis.register", "NOX_XWIS", true, &noXwis)
+}
 
 var (
 	nox_game_playState_811372 int

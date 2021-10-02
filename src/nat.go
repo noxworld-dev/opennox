@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"os"
 
 	"nox/v1/common/env"
 	"nox/v1/common/log"
@@ -12,12 +11,13 @@ import (
 
 var (
 	gameNAT func()
-	useNAT  = os.Getenv("NOX_NET_NAT") != "false"
+	useNAT  = true
 )
 
 func init() {
 	nat.Log = log.New("nat")
 	nat.LogUPNP = log.New("nat-upnp")
+	configBoolPtr("network.port_forward", "NOX_NET_NAT", true, &useNAT)
 }
 
 func gameStartNAT(port, hport int) error {
