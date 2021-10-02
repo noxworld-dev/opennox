@@ -11,6 +11,7 @@ require (
 	github.com/spf13/cobra v1.1.3
 	github.com/spf13/viper v1.8.1
 	github.com/stretchr/testify v1.7.0
+	github.com/szhublox/opennoxcontrol v0.0.0-20211002165725-d658169cd601
 	github.com/timshannon/go-openal v0.0.0-20170220204755-e0ed4c67cffe
 	github.com/veandco/go-sdl2 v0.4.5
 	github.com/yuin/gopher-lua v0.0.0-20200816102855-ee81675732da

@@ -17,11 +17,15 @@ import (
 
 var soloAllowMP = os.Getenv("NOX_SOLO_MP") == "true"
 
-func nox_common_scanAllMaps_4D07F0() error {
-	C.nox_common_list_clear_425760(&C.nox_common_maplist)
-	list, err := maps.Scan(datapath.Path(maps.Dir), &maps.ScanOptions{
+func scanMaps() (maps.MapList, error) {
+	return maps.Scan(datapath.Path(maps.Dir), &maps.ScanOptions{
 		Solo: soloAllowMP,
 	})
+}
+
+func nox_common_scanAllMaps_4D07F0() error {
+	C.nox_common_list_clear_425760(&C.nox_common_maplist)
+	list, err := scanMaps()
 	if err != nil && len(list) == 0 {
 		return err
 	}
