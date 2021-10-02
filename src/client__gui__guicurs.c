@@ -23,7 +23,7 @@ extern unsigned int nox_frame_xxx_2598000;
 extern int nox_client_mouseCursorType;
 
 //----- (00477A30) --------------------------------------------------------
-int  nox_video_cursorDrawImpl_477A30(int a1, int a2, int a3) {
+void nox_video_cursorDrawImpl_477A30(int a1, int a2, int a3) {
 	int v3;       // edi
 	int v4;       // ebp
 	int v5;       // esi
@@ -37,7 +37,6 @@ int  nox_video_cursorDrawImpl_477A30(int a1, int a2, int a3) {
 	__int16* v13; // eax
 	int v15;      // esi
 	int v16;      // ebx
-	int result;   // eax
 	int v18;      // [esp+10h] [ebp-Ch]
 	float2 v19;   // [esp+14h] [ebp-8h]
 
@@ -152,10 +151,8 @@ int  nox_video_cursorDrawImpl_477A30(int a1, int a2, int a3) {
 			nox_video_drawAnimatedImageOrCursorAt_4BE6D0(*getMemIntPtr(0x5D4594, 1097220), v3, v4);
 			break;
 		}
-		result = v18;
 		dword_5d4594_3798728 = 0;
 		nox_xxx_cursorTypePrev_587000_151528 = nox_client_mouseCursorType;
 		*getMemU32Ptr(0x973F18, 68) = v18;
 	}
-	return result;
 }
