@@ -818,16 +818,16 @@ func writeConfigHotkeys(w io.Writer) error {
 			if !k.IsValid() {
 				continue
 			}
-			_, err = fmt.Fprintf(w, "%s ", k.String())
-			if err != nil {
-				return err
-			}
 			if !first {
 				if _, err = io.WriteString(w, "+ "); err != nil {
 					return err
 				}
 			}
 			first = false
+			_, err = fmt.Fprintf(w, "%s ", k.String())
+			if err != nil {
+				return err
+			}
 		}
 		if _, err = io.WriteString(w, "= "); err != nil {
 			return err
@@ -835,16 +835,16 @@ func writeConfigHotkeys(w io.Writer) error {
 		first = true
 		for _, k := range it.events {
 			if b := keyBinding.EventByCode(k); b != nil && b.Name != "" {
-				_, err = fmt.Fprintf(w, "%s ", b.Name)
-				if err != nil {
-					return err
-				}
 				if !first {
 					if _, err = io.WriteString(w, "+ "); err != nil {
 						return err
 					}
 				}
 				first = false
+				_, err = fmt.Fprintf(w, "%s ", b.Name)
+				if err != nil {
+					return err
+				}
 			}
 		}
 		if _, err = io.WriteString(w, "\n"); err != nil {
