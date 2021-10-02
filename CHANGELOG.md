@@ -1,5 +1,13 @@
 # Changelog
 
+## v1.8.2
+
+- Write `opennox.yml` config with all extended options.
+- Allow changing game data dir via the `opennox.yml` config.
+- Fix: Player names being stuck as online in dedicated server.
+- Fix: Mouse movement on low sensitivity settings.
+- Fix: Assigning keyboard keys instead of mouse for movement.
+
 ## v1.8.1
 
 - Fix: Back walls rendering in high-resolution mode.
