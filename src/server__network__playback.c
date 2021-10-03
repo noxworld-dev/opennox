@@ -1,3 +1,5 @@
+//+build none
+
 #include "common__random.h"
 #include "client__system__parsecmd.h"
 #include "common__strman.h"
@@ -15,10 +17,10 @@
 #include "GAME3_2.h"
 #include "GAME3_3.h"
 #include "GAME5_2.h"
-extern uint32_t dword_5d4594_1548736;
-extern uint32_t dword_5d4594_1548732;
 extern unsigned int nox_frame_xxx_2598000;
 
+uint32_t dword_5d4594_1548732 = 0;
+uint32_t dword_5d4594_1548736 = 0;
 int nox_xxx_replayFile_587000_197428 = -1;
 int nox_xxx_replayWriteFile_587000_197424 = -1;
 
@@ -42,21 +44,18 @@ void nox_xxx_replayStopSave_4D33B0() {
 }
 
 //----- (004D33E0) --------------------------------------------------------
-int  nox_xxx_replaySaveConsole_4D33E0(void* a1, int a2) {
-	int result; // eax
-
-	result = nox_xxx_replayWriteFile_587000_197424;
+void nox_xxx_replaySaveConsole_4D33E0(void* a1, int a2) {
 	if (nox_xxx_replayWriteFile_587000_197424 != -1 && a1 && a2 >= 1) {
 		_write(nox_xxx_replayWriteFile_587000_197424, &nox_frame_xxx_2598000, 4u);
 		_write(nox_xxx_replayWriteFile_587000_197424, getMemAt(0x587000, 197432), 1u);
 		_write(nox_xxx_replayWriteFile_587000_197424, &a2, 4u);
-		result = _write(nox_xxx_replayWriteFile_587000_197424, a1, 2 * a2);
+		_write(nox_xxx_replayWriteFile_587000_197424, a1, 2 * a2);
 	}
-	return result;
 }
 
 //----- (004D3450) --------------------------------------------------------
-void nox_xxx_replayWriteMSgMB_4D3450(int a1, void* a2, unsigned int a3) {
+void nox_xxx_replayWriteMSgMB_4D3450(nox_playerInfo* pl, void* a2, unsigned int a3) {
+	int a1 = pl;
 	if (nox_xxx_replayWriteFile_587000_197424 != -1) {
 		_write(nox_xxx_replayWriteFile_587000_197424, &nox_frame_xxx_2598000, 4u);
 		_write(nox_xxx_replayWriteFile_587000_197424, getMemAt(0x587000, 197433), 1u);
@@ -136,7 +135,7 @@ int nox_xxx_replayStartReadingOrSaving_4D38D0() {
 }
 
 //----- (004D39B0) --------------------------------------------------------
-void nox_xxx_replayWriteSomeInt_4D39B0() {
+void nox_xxx_replayWriteFrame_4D39B0() {
 	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_REPLAY_WRITE)) {
 		if (nox_xxx_replayWriteFile_587000_197424 != -1) {
 			_write(nox_xxx_replayWriteFile_587000_197424, &nox_frame_xxx_2598000, 4u);

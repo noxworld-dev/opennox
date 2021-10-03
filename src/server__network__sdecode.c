@@ -137,7 +137,7 @@ int nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned char* operat
 	data = operationId;
 	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_REPLAY_WRITE)) {
 		v5 = nox_common_playerInfoFromNum_417090(a1);
-		nox_xxx_replayWriteMSgMB_4D3450((int)v5, operationId, a3);
+		nox_xxx_replayWriteMSgMB_4D3450(v5, operationId, a3);
 	}
 	switch (*operationId) {
 	case 0x20u:

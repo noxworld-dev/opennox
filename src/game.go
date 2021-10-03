@@ -656,7 +656,7 @@ func nox_xxx_gameTick_4D2580_server() bool {
 	C.sub_5524C0()
 	C.nox_xxx_netMaybeSendAll_552460()
 	if getEngineFlag(NOX_ENGINE_FLAG_REPLAY_READ) {
-		nox_xxx_replayTickMB_4D3580_net_playback(1)
+		nox_xxx_replayTickMB_4D3580_net_playback(true)
 	}
 	if getEngineFlag(NOX_ENGINE_FLAG_LOG_BAND) {
 		if v0-memmap.Uint64(0x5D4594, 1548684) > 1000 {
@@ -1307,7 +1307,7 @@ func nox_xxx_netlist_4DEB50() {
 		return
 	}
 	if getEngineFlag(NOX_ENGINE_FLAG_REPLAY_READ) {
-		nox_xxx_replayTickMB_4D3580_net_playback(0)
+		nox_xxx_replayTickMB_4D3580_net_playback(false)
 		C.nox_netlist_resetByInd_40ED10(31, 0)
 	} else if !isDedicatedServer {
 		buf := nox_netlist_copyPacketList_40ED60(31, 0)
@@ -1318,6 +1318,12 @@ func nox_xxx_netlist_4DEB50() {
 		}
 		C.nox_netlist_resetByInd_40ED10(31, 0)
 	}
+}
+
+func nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(ind int, data []byte) int {
+	cdata, cfree := alloc.Bytes(uintptr(len(data)))
+	defer cfree()
+	return int(C.nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(C.int(ind), (*C.uchar)(unsafe.Pointer(&cdata[0])), C.int(len(data))))
 }
 
 var (
