@@ -1238,7 +1238,8 @@ int sub_40AA60(int a1) {
 }
 
 //----- (0040AA70) --------------------------------------------------------
-int sub_40AA70(int a1) {
+int sub_40AA70(nox_playerInfo* pl) {
+	int a1 = pl;
 	char* v1;   // edi
 	int result; // eax
 	int v3;     // eax
@@ -9032,7 +9033,8 @@ char* nox_xxx_sendAllClientStatus_4175C0(int a1) {
 }
 
 //----- (00417630) --------------------------------------------------------
-int nox_xxx_netReportPlayerStatus_417630(int a1) {
+int nox_xxx_netReportPlayerStatus_417630(nox_playerInfo* pl) {
+	int a1 = pl;
 	short v1;   // cx
 	int v2;     // edx
 	char v4[7]; // [esp+0h] [ebp-8h]

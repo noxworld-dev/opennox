@@ -109,6 +109,28 @@ func WStrLenN(s *C.wchar_t, max int) int {
 	return n
 }
 
+func WStrLenBytes(s []byte) int {
+	if s == nil {
+		return 0
+	}
+	n := 0
+	for len(s) >= 2 && s[0] != 0 && s[1] != 0 {
+		s = s[2:]
+		n++
+	}
+	return n
+}
+
+func WStrCopy(p *C.wchar_t, max int, src string) int {
+	dst := unsafe.Slice((*uint16)(unsafe.Pointer(p)), max)
+	val := utf16.Encode([]rune(src))
+	n := copy(dst, val)
+	if n < len(dst) {
+		dst[n] = 0
+	}
+	return n
+}
+
 func GoString(s *C.char) string {
 	return C.GoString(s)
 }
@@ -166,6 +188,15 @@ func GoWStringN(s *C.wchar_t, max int) string {
 
 func GoWStringSlice(arr []uint16) string {
 	return string(utf16.Decode(arr))
+}
+
+func GoWStringBytes(arr []byte) string {
+	n := WStrLenBytes(arr)
+	if n == 0 {
+		return ""
+	}
+	warr := unsafe.Slice((*uint16)(unsafe.Pointer(&arr[0])), n)
+	return GoWStringSlice(warr)
 }
 
 func CWString(s string) (*C.wchar_t, func()) {

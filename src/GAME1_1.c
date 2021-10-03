@@ -3374,7 +3374,7 @@ int sub_41D650() {
 }
 
 //----- (0041D670) --------------------------------------------------------
-int sub_41D670(int a1) {
+int sub_41D670(char* a1) {
 	int v1;      // eax
 	short v3;    // [esp+2h] [ebp-4Ah]
 	char v4[72]; // [esp+4h] [ebp-48h]
@@ -8971,7 +8971,7 @@ wchar_t* sub_425AD0(int a1, wchar_t* a2) {
 }
 
 //----- (00425B30) --------------------------------------------------------
-void sub_425B30(int a1, int a2) {
+void sub_425B30(void* a1, int a2) {
 	uint32_t* v2; // eax
 	uint32_t* v3; // esi
 
@@ -8979,7 +8979,7 @@ void sub_425B30(int a1, int a2) {
 	v3 = v2;
 	v2[3] = a2;
 	sub_425770(v2);
-	nox_common_list_append_4258E0(a1 + 40, v3);
+	nox_common_list_append_4258E0((int)a1 + 40, v3);
 }
 
 //----- (00425B60) --------------------------------------------------------
@@ -9177,7 +9177,8 @@ int sub_425ED0(int a1, char a2) {
 }
 
 //----- (00425F10) --------------------------------------------------------
-int sub_425F10(int a1) {
+void sub_425F10(nox_playerInfo* pl) {
+	int a1 = pl;
 	int result;  // eax
 	int v2;      // ebx
 	int v3;      // ecx
@@ -9241,12 +9242,10 @@ int sub_425F10(int a1) {
 					result = v12;
 					*getMemU8Ptr(0x5D4594, 600145 + v6) = 1;
 					*(uint32_t*)(v2 + 4648) = v12;
-					return result;
 				}
 			}
 		}
 	}
-	return result;
 }
 
 //----- (00426150) --------------------------------------------------------

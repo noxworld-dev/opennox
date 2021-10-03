@@ -25,38 +25,38 @@ func init() {
 }
 
 const (
-	GameHost            = GameFlag(0x1)
-	GameFlag2           = GameFlag(0x2)
-	GameFlag3           = GameFlag(0x4)
-	GameFlag4           = GameFlag(0x8)
-	GameModeKOTR        = GameFlag(0x10)
-	GameModeCTF         = GameFlag(0x20)
-	GameModeFlagBall    = GameFlag(0x40)
-	GameModeChat        = GameFlag(0x80)
-	GameModeArena       = GameFlag(0x100)
-	GameModeSolo10      = GameFlag(0x200)
-	GameModeElimination = GameFlag(0x400)
-	GameModeSolo12      = GameFlag(0x800)
-	GameModeQuest       = GameFlag(0x1000)
-	GameOnline          = GameFlag(0x2000)
-	GameFlag15          = GameFlag(0x4000)
-	GameFlag16          = GameFlag(0x8000)
-	GameNotQuest        = GameFlag(0x10000)
-	GameFlag18          = GameFlag(0x20000)
-	GamePause           = GameFlag(0x40000)
-	GameFlag20          = GameFlag(0x80000)
-	GameFlag21          = GameFlag(0x100000)
-	GameFlag22          = GameFlag(0x200000)
-	GameFlag23          = GameFlag(0x400000)
-	GameFlag24          = GameFlag(0x800000)
-	GameFlag25          = GameFlag(0x1000000)
-	GameFlag26          = GameFlag(0x2000000)
-	GameSuddenDeath     = GameFlag(0x4000000)
-	GameFlag28          = GameFlag(0x8000000)
-	GameFlag29          = GameFlag(0x10000000)
-	GameFlag30          = GameFlag(0x20000000)
-	GameFlag31          = GameFlag(0x40000000)
-	GameFlag32          = GameFlag(0x80000000)
+	GameHost            = GameFlag(0x1)        // 1
+	GameFlag2           = GameFlag(0x2)        // 2
+	GameFlag3           = GameFlag(0x4)        // 4
+	GameFlag4           = GameFlag(0x8)        // 8
+	GameModeKOTR        = GameFlag(0x10)       // 16
+	GameModeCTF         = GameFlag(0x20)       // 32
+	GameModeFlagBall    = GameFlag(0x40)       // 64
+	GameModeChat        = GameFlag(0x80)       // 128
+	GameModeArena       = GameFlag(0x100)      // 256
+	GameModeSolo10      = GameFlag(0x200)      // 512
+	GameModeElimination = GameFlag(0x400)      // 1024
+	GameModeSolo12      = GameFlag(0x800)      // 2048
+	GameModeQuest       = GameFlag(0x1000)     // 4096
+	GameOnline          = GameFlag(0x2000)     // 8192
+	GameFlag15          = GameFlag(0x4000)     // 16384
+	GameFlag16          = GameFlag(0x8000)     // 32768
+	GameNotQuest        = GameFlag(0x10000)    // 65536
+	GameFlag18          = GameFlag(0x20000)    // 131072
+	GamePause           = GameFlag(0x40000)    // 262144
+	GameFlag20          = GameFlag(0x80000)    // 524288
+	GameFlag21          = GameFlag(0x100000)   // 1048576
+	GameFlag22          = GameFlag(0x200000)   // 2097152
+	GameFlag23          = GameFlag(0x400000)   // 4194304
+	GameFlag24          = GameFlag(0x800000)   // 8388608
+	GameFlag25          = GameFlag(0x1000000)  // 16777216
+	GameFlag26          = GameFlag(0x2000000)  // 33554432
+	GameSuddenDeath     = GameFlag(0x4000000)  // 67108864
+	GameFlag28          = GameFlag(0x8000000)  // 134217728
+	GameFlag29          = GameFlag(0x10000000) // 268435456
+	GameFlag30          = GameFlag(0x20000000) // 536870912
+	GameFlag31          = GameFlag(0x40000000) // 1073741824
+	GameFlag32          = GameFlag(0x80000000) // 2147483648
 )
 
 const (

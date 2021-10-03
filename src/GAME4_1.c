@@ -253,7 +253,8 @@ void nox_server_checkVictory_509A60() {
 // 509BEA: variable 'v0' is possibly undefined
 
 //----- (00509C30) --------------------------------------------------------
-void sub_509C30(int a1) {
+void sub_509C30(nox_playerInfo* pl) {
+	int a1 = pl;
 	char* v1; // edx
 
 	if (!dword_5d4594_1599688) {

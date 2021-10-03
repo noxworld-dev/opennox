@@ -577,7 +577,7 @@ func nox_server_xxxInitPlayerUnits_4FC6D0() {
 	if len(getPlayerUnits()) == 0 {
 		return
 	}
-	if noxflags.HasGame(4096) {
+	if noxflags.HasGame(noxflags.GameModeQuest) {
 		if nox_game_getQuestStage_4E3CC0() == 1 {
 			C.nox_game_sendQuestStage_4D6960(255)
 			C.sub_4D7440(1)

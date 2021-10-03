@@ -479,7 +479,7 @@ typedef struct nox_object_t {
 	uint32_t field_5;        // 5, 20
 	uint16_t field_6_0;      // 6, 24
 	uint16_t field_6_2;      // 6, 26
-	uint32_t field_7;        // 7, 28
+	uint32_t field_7;        // 7, 28 // TODO: float?
 	uint32_t field_8;        // 8, 32
 	uint32_t field_9;        // 9, 36
 	unsigned int extent;     // 10, 40
@@ -1539,9 +1539,9 @@ _Static_assert(sizeof(nox_draw_viewport_t) == 52, "wrong size of nox_draw_viewpo
 
 #pragma pack(push,1)
 typedef struct {
-	wchar_t name[25]; // 2185 // TODO: size is a guess
-	uint32_t field_2235;
-	uint32_t field_2239;
+	wchar_t name[25]; // 2185 (+0) // TODO: size is a guess
+	uint32_t field_2235; // 2235 (+50)
+	uint32_t field_2239; // 2239 (+54)
 	uint32_t field_2243;
 	uint32_t field_2247;
 	unsigned char playerClass; // 562, 2251
@@ -1551,10 +1551,11 @@ typedef struct {
 	uint32_t field_2264;
 	uint32_t field_2268;
 	uint16_t field_2272;
-	wchar_t name_suff[4]; // 2274
+	wchar_t name_suff[4]; // 2274 (+89)
 } nox_playerInfo2;
 #pragma pack(pop)
 _Static_assert(sizeof(nox_playerInfo2) == 97, "wrong size of nox_playerInfo2 structure!");
+_Static_assert(offsetof(nox_playerInfo2, name_suff) == 89, "wrong offset of nox_playerInfo2.name_suff field!");
 
 #pragma pack(push,1)
 typedef struct nox_playerInfo {

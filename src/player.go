@@ -1,10 +1,19 @@
 package nox
 
 /*
+#include "GAME1.h"
+#include "GAME1_1.h"
+#include "GAME1_2.h"
+#include "GAME2.h"
+#include "GAME2_1.h"
 #include "GAME3_2.h"
 #include "GAME3_3.h"
+#include "GAME4_1.h"
+#include "common__net_list.h"
 #include "defs.h"
 extern unsigned int nox_gameDisableMapDraw_5d4594_2650672;
+extern unsigned int dword_5d4594_1046492;
+extern unsigned int dword_5d4594_2650652;
 extern nox_object_t* nox_xxx_host_player_unit_3843628;
 void nox_xxx_WideScreenDo_515240(bool enable);
 static void nox_xxx_netSendLineMessage_go(nox_object_t* a1, wchar_t* str) {
@@ -16,11 +25,15 @@ static void nox_xxx_printToAll_4D9FD0_go(int a1, wchar_t* str) {
 */
 import "C"
 import (
+	"encoding/binary"
 	"fmt"
+	"math"
 	"unsafe"
 
 	"nox/v1/common/alloc"
+	noxflags "nox/v1/common/flags"
 	"nox/v1/common/memmap"
+	"nox/v1/common/noxnet"
 	"nox/v1/common/player"
 	"nox/v1/common/types"
 	"nox/v1/server/script"
@@ -77,12 +90,16 @@ func nox_common_playerInfoNew_416F60(id C.int) *C.nox_playerInfo {
 	return newPlayerInfo(int(id)).C()
 }
 
-//export nox_common_playerInfoResetInd_417000
-func nox_common_playerInfoResetInd_417000(ind C.int) *C.nox_playerInfo {
+func playerResetInd(ind int) *Player {
 	p := &noxPlayers[ind]
 	p.Reset()
 	p.playerInd = C.uchar(ind)
-	return p.C()
+	return p
+}
+
+//export nox_common_playerInfoResetInd_417000
+func nox_common_playerInfoResetInd_417000(ind C.int) *C.nox_playerInfo {
+	return playerResetInd(int(ind)).C()
 }
 
 //export nox_common_playerInfoGetByID_417040
@@ -98,6 +115,11 @@ func nox_common_playerInfoFromNum_417090(ind C.int) *C.nox_playerInfo {
 //export nox_common_playerInfoFromNumRaw
 func nox_common_playerInfoFromNumRaw(ind C.int) *C.nox_playerInfo {
 	return noxPlayers[ind].C()
+}
+
+//export nox_xxx_playerNew_4DD320
+func nox_xxx_playerNew_4DD320(ind C.int, data *C.uchar) C.int {
+	return C.int(newPlayer(int(ind), unsafe.Slice((*byte)(unsafe.Pointer(data)), 153)))
 }
 
 func newPlayerInfo(id int) *Player {
@@ -139,10 +161,6 @@ func getPlayerClass() player.Class {
 	return player.Class(memmap.Uint8(0x85B3FC, 12254))
 }
 
-func newPlayer(ind int, data []byte) int {
-	return int(C.nox_xxx_playerNew_4DD320(C.int(ind), (*C.uchar)(unsafe.Pointer(&data[0]))))
-}
-
 func asPlayer(p *C.nox_playerInfo) *Player {
 	return (*Player)(p)
 }
@@ -173,6 +191,43 @@ func HostPlayer() *Player {
 
 var _ noxObject = (*Player)(nil) // proxies Unit
 
+type PlayerInfo C.nox_playerInfo2
+
+func (p *PlayerInfo) field(off uintptr) unsafe.Pointer {
+	return unsafe.Pointer(uintptr(unsafe.Pointer(p)) + off)
+}
+
+func (p *PlayerInfo) PlayerClass() player.Class {
+	if p == nil {
+		return 0
+	}
+	return player.Class(p.playerClass)
+}
+
+func (p *PlayerInfo) Name() string {
+	return GoWString(&p.name[0])
+}
+
+func (p *PlayerInfo) SetNameSuff(v string) {
+	WStrCopy((*C.wchar_t)(p.field(89)), 4, v)
+}
+
+func (p *PlayerInfo) Field2235() uint32 {
+	return *(*uint32)(p.field(50))
+}
+
+func (p *PlayerInfo) Field2239() uint32 {
+	return *(*uint32)(p.field(54))
+}
+
+func (p *PlayerInfo) SetField2235(v uint32) {
+	*(*uint32)(p.field(50)) = v
+}
+
+func (p *PlayerInfo) SetField2239(v uint32) {
+	*(*uint32)(p.field(54)) = v
+}
+
 type Player C.nox_playerInfo
 
 func (p *Player) field(off uintptr) unsafe.Pointer {
@@ -202,16 +257,31 @@ func (p *Player) SetPos(pos types.Pointf) {
 }
 
 func (p *Player) OrigName() string {
-	info := p.infoField()
-	return GoWString(&info.name[0])
+	return p.Info().Name()
+}
+
+func (p *Player) SetName(v string) {
+	WStrCopy(&p.name_final[0], 30, v) // TODO: size is a wild guess
 }
 
 func (p *Player) Name() string {
-	return GoWString(&p.name_final[0])
+	return GoWStringN(&p.name_final[0], 30) // TODO: size is a wild guess
 }
 
 func (p *Player) Serial() string {
 	return GoStringN(&p.serial[0], 22)
+}
+
+func (p *Player) SetSerial(v string) {
+	StrCopy(&p.serial[0], 22, v)
+}
+
+func (p *Player) Field2096() string {
+	return GoStringN(&p.field_2096[0], 12)
+}
+
+func (p *Player) SetField2096(v string) {
+	StrCopy(&p.field_2096[0], 12, v)
 }
 
 func (p *Player) String() string {
@@ -294,16 +364,18 @@ func (p *Player) UnitC() *Unit {
 	return asUnitC(p.playerUnit)
 }
 
-func (p *Player) infoField() *C.nox_playerInfo2 {
-	return (*C.nox_playerInfo2)(p.field(2185)) // inaccessible due to alignment issues
+func (p *Player) Info() *PlayerInfo {
+	if p == nil {
+		return nil
+	}
+	return (*PlayerInfo)(p.field(2185)) // inaccessible due to alignment issues
 }
 
 func (p *Player) PlayerClass() player.Class {
 	if p == nil {
 		return 0
 	}
-	info := p.infoField()
-	return player.Class(info.playerClass)
+	return p.Info().PlayerClass()
 }
 
 func (p *Player) Disconnect(v int) {
@@ -387,4 +459,259 @@ func hasPlayerUnits() bool {
 		}
 	}
 	return false
+}
+
+func nox_xxx_netNewPlayerMakePacket_4DDA90(buf []byte, pl *Player) {
+	buf[0] = byte(noxnet.MSG_NEW_PLAYER)
+	binary.LittleEndian.PutUint16(buf[1:], uint16(pl.NetCode()))
+	binary.LittleEndian.PutUint16(buf[100:], uint16(pl.field_2136))
+	binary.LittleEndian.PutUint16(buf[102:], uint16(pl.field_2140))
+	binary.LittleEndian.PutUint32(buf[104:], uint32(pl.field_0))
+	binary.LittleEndian.PutUint32(buf[108:], uint32(pl.field_4))
+	buf[116] = byte(pl.field_2152)
+	buf[117] = byte(pl.field_2156)
+	buf[118] = byte(bool2int(pl.field_3676 == 3))
+	binary.LittleEndian.PutUint32(buf[112:], uint32(pl.field_3680)&0x423)
+	StrCopyBytes(buf[119:], pl.Field2096())
+	*(*PlayerInfo)(unsafe.Pointer(&buf[3])) = *pl.Info()
+}
+
+func sub_422140(pl *Player) {
+	if pl != nil {
+		pl.field_3660 = 0xDEADFACE
+		pl.field_3664 = 0xDEADFACE
+	}
+}
+
+func sub_459D70() int {
+	var v0 uint32
+	if C.dword_5d4594_1046492 != 0 {
+		v0 = math.MaxInt32
+	} else {
+		v0 = 0
+	}
+	v0 &= 0xFFFFFFFE
+	return int(v0 + 2)
+}
+
+func nox_xxx_playerCheckName_4DDA00(pl *Player) {
+	for i := 2; ; i++ {
+		ok := true
+		for _, pl2 := range getPlayers() {
+			if pl.Index() == pl2.Index() {
+				continue
+			}
+			if pl.Name() == pl2.Name() {
+				ok = false
+				break
+			}
+		}
+		if ok {
+			return
+		}
+		pl.Info().SetNameSuff(fmt.Sprintf(" %d", i))
+		pl.SetName(fmt.Sprintf("%s %d", pl.OrigName(), i))
+	}
+}
+
+func sub_4E4F30(a1 int) {
+	*memmap.PtrUint16(0x5D4594, 1565524+2*uintptr(a1)) = 0
+}
+
+func newPlayer(ind int, data []byte) int {
+	v2 := data[152]
+	data[152] &= 0x7F
+	v3 := v2 >> 7
+	if ind != 31 {
+		if !noxflags.HasGame(noxflags.GameModeQuest) && v3 == 1 {
+			return 0
+		}
+		if noxflags.HasGame(noxflags.GameModeQuest) && v3 == 0 {
+			return 0
+		}
+	}
+	v5 := sub_416640()
+	C.nox_netlist_resetByInd_40ED10(C.int(ind), 1)
+	C.nox_xxx_playerResetImportantCtr_4E4F40(C.int(ind))
+	sub_4E4F30(ind)
+
+	var ptyp string
+	if data[67] != 0 {
+		ptyp = "PlayerFemale"
+	} else if memmap.Uint32(0x5D4594, 1563280) != 0 {
+		ptyp = "Player"
+	} else {
+		ptyp = "NewPlayer"
+	}
+	punit := newObjectByTypeID(ptyp).AsUnit()
+	if punit == nil {
+		return 0
+	}
+	if ind != 31 {
+		if v5[100] != 0 {
+			if (1<<data[66])&v5[100] != 0 {
+				return 0
+			}
+		}
+	}
+	pl := playerResetInd(ind)
+	if int8(v5[102]) >= 0 {
+		pl.field_10 = C.ushort(binary.LittleEndian.Uint32(data[97:]) / 2)
+		pl.field_12 = C.ushort(binary.LittleEndian.Uint32(data[101:]) / 2)
+	} else {
+		v9 := binary.LittleEndian.Uint32(data[97:])
+		if nox_win_width >= int(v9) {
+			pl.field_10 = C.ushort(v9 / 2)
+			pl.field_12 = C.ushort(binary.LittleEndian.Uint32(data[101:]) / 2)
+		} else {
+			pl.field_10 = C.ushort(nox_win_width / 2)
+			pl.field_12 = C.ushort(nox_win_height / 2)
+		}
+	}
+	pl.SetSerial(GoStringS(data[105:128]))
+	pl.field_2135 = C.uchar(data[152])
+	WStrCopy(&pl.field_2072[0], 10, GoWStringBytes(data[142:152]))
+	pl.SetField2096(GoStringS(data[128:138]))
+	pl.field_2068 = C.uint(binary.LittleEndian.Uint32(data[138:]))
+	if pl.field_2068 != 0 {
+		v12 := unsafe.Pointer(C.sub_425A70(C.int(pl.field_2068)))
+		if v12 == nil {
+			v12 = unsafe.Pointer(C.sub_425AD0(C.int(pl.field_2068), &pl.field_2072[0]))
+		}
+		C.sub_425B30(v12, C.int(ind))
+	}
+	pl.frame_3596 = C.uint(gameFrame())
+	pl.field_3676 = 2
+	pl.field_3680 = 0
+	info := pl.Info()
+	_ = data[:97]
+	*info = *(*PlayerInfo)(unsafe.Pointer(&data[0])) // TODO: set fields individually
+	pl.Info().SetNameSuff("")
+	pl.SetName(pl.OrigName())
+	nox_xxx_playerCheckName_4DDA00(pl)
+	C.nox_xxx_playerInitColors_461460(pl.C())
+	pl.playerUnit = punit.CObj()
+	pl.field_2152 = 0
+	pl.netCode = punit.field_9
+	pl.field_2156 = C.uint(C.nox_xxx_scavengerTreasureMax_4D1600())
+	yyy := punit.ptrYyy()
+	xxx := punit.ptrXxx()
+	*(**Player)(unsafe.Add(yyy, 276)) = pl
+	pl.field_4584 = C.uint(protectUint16(*(*uint16)(unsafe.Add(xxx, 0))))
+	pl.field_4592 = C.uint(protectUint16(*(*uint16)(unsafe.Add(xxx, 4))))
+	pl.field_4596 = C.uint(protectUint16(*(*uint16)(unsafe.Add(yyy, 4))))
+	pl.field_4600 = C.uint(protectUint16(*(*uint16)(unsafe.Add(yyy, 8))))
+	pl.field_4604 = C.uint(protectFloat32(*(*float32)(unsafe.Pointer(&punit.field_7))))
+	pl.field_4608 = C.uint(protectFloat32(float32(punit.float_30)))
+	pl.field_4612 = C.uint(protectInt(int(*(*uint32)(&punit.field_85))))
+	pl.field_4616 = C.uint(protectInt(int(pl.PlayerClass())))
+	pl.field_4620 = C.uint(protectUint32(pl.Info().Field2235()))
+	pl.field_4624 = C.uint(protectUint32(pl.Info().Field2239()))
+	pl.field_4628 = C.uint(protectUint32(protectWStr(pl.OrigName())))
+	pl.field_4632 = C.uint(protectInt(0))
+	pl.field_4636 = C.uint(protectInt(0))
+	pl.field_4588 = C.uint(protectInt(int(pl.field_2164)))
+	pl.field_4640 = C.uint(protectInt(0))
+	pl.field_4644 = C.uint(protectInt(int(pl.field_3684))) // level
+	pl.field_4648 = -1
+	pl.field_4700 = 1
+	if C.dword_5d4594_2650652 != 0 {
+		C.sub_41D670(internCStr(pl.Field2096()))
+	}
+	C.nox_xxx_netNotifyRate_4D7F10(C.int(ind))
+	if noxflags.HasGame(noxflags.GameModeQuest) {
+		pl.GoObserver(false, true)
+	} else if noxflags.HasGame(512) {
+		C.nox_xxx_netReportPlayerStatus_417630(pl.C())
+	} else if pl.Index() == 31 && getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) {
+		pl.GoObserver(false, true)
+	} else if noxflags.HasGame(128) {
+		if C.sub_40A740() != 0 {
+			if C.sub_40AA70(pl.C()) == 0 {
+				pl.GoObserver(false, true)
+			}
+		} else if C.nox_xxx_CheckGameplayFlags_417DA0(4) != 0 {
+			C.sub_4DF3C0(pl.C())
+		}
+	} else if !noxflags.HasGame(noxflags.GameModeSolo12) {
+		pl.GoObserver(true, true)
+	}
+	C.nox_xxx_servSendSettings_4DDB40(punit.CObj())
+	if pl.Index() == 31 {
+		C.nox_xxx_host_player_unit_3843628 = punit.CObj()
+	}
+	var v30 [132]byte
+	nox_xxx_netNewPlayerMakePacket_4DDA90(v30[:], pl)
+	nox_xxx_netSendPacket_4E5030(ind|0x80, v30[:129], 0, 0, 0)
+	pl.field_3676 = 2
+	if C.nox_xxx_check_flag_aaa_43AF70() == 1 && !noxflags.HasGame(128) {
+		C.sub_425F10(pl.C())
+	}
+	C.nox_xxx_createAt_4DAA50(punit.CObj(), 0, 2944.0, 2944.0)
+	C.nox_xxx_unitsNewAddToList_4DAC00()
+	var p28 types.Pointf
+	if noxflags.HasGame(noxflags.GameModeQuest) {
+		if p, ok := sub_4E8210(punit); !ok {
+			p28 = nox_xxx_mapFindPlayerStart_4F7AB0(punit)
+		} else {
+			p28 = p
+		}
+	} else {
+		p28 = nox_xxx_mapFindPlayerStart_4F7AB0(punit)
+	}
+	punit.SetPos(p28)
+	sub_422140(pl)
+	if ind != 31 {
+		if sub_459D70() == 2 {
+			v24 := nox_xxx_cliGamedataGet_416590(1)
+			C.nox_xxx_netGuiGameSettings_4DD9B0(1, unsafe.Pointer(&v24[0]), C.int(pl.Index()))
+		} else {
+			v29, v29free := alloc.Bytes(60)
+			defer v29free()
+			C.sub_459AA0(unsafe.Pointer(&v29[0]))
+			C.nox_xxx_netGuiGameSettings_4DD9B0(1, unsafe.Pointer(&v29[0]), C.int(pl.Index()))
+		}
+	}
+	if noxflags.HasGame(0xC000) {
+		if (pl.field_3680 & 1) == 0 {
+			C.sub_509C30(pl.C())
+		}
+	}
+	if !noxflags.HasGame(noxflags.GameModeSolo12) {
+		if noxflags.HasGame(noxflags.GameModeQuest) {
+			C.nox_game_sendQuestStage_4D6960(C.int(ind))
+			return int(punit.field_9)
+		}
+		var buf [3]byte
+		buf[0] = byte(noxnet.MSG_FADE_BEGIN)
+		buf[1] = 1
+		buf[2] = 1
+		nox_xxx_netSendPacket_4E5030(ind, buf[:], 0, 0, 0)
+	}
+	callOnPlayerJoin(pl)
+	return int(punit.field_9)
+}
+
+func sub_4E8210(u *Unit) (types.Pointf, bool) {
+	var (
+		max uint32
+		v2  unsafe.Pointer
+	)
+	for _, u2 := range getPlayerUnits() {
+		ptr := u2.ptrYyy()
+		ptr2 := *(*unsafe.Pointer)(unsafe.Add(ptr, 308))
+		if ptr2 == nil {
+			continue
+		}
+		if val := **(**uint32)(unsafe.Add(ptr2, 700)); val > max {
+			max = val
+			v2 = ptr2
+		}
+	}
+	if v2 == nil {
+		return types.Pointf{}, false
+	}
+	*(*unsafe.Pointer)(unsafe.Pointer(uintptr(u.ptrYyy()) + 308)) = v2
+	out := sub_4ED970(60.0, asPointf(unsafe.Add(v2, 7*8)))
+	return out, true
 }

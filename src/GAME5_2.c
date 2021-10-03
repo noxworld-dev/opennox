@@ -2510,7 +2510,7 @@ uint32_t* sub_56F3B0() {
 
 //----- (0056F400) --------------------------------------------------------
 int nox_xxx_protectionCreateInt_56F400(int a1) {
-	if (nox_xxx_protectionCreateStructForInt_56F280(*(int*)&dword_5d4594_2516356, a1)) {
+	if (nox_xxx_protectionCreateStructForInt_56F280(dword_5d4594_2516356, a1)) {
 		return (dword_5d4594_2516356)++;
 	}
 	nullsub_31(1);
@@ -2519,8 +2519,8 @@ int nox_xxx_protectionCreateInt_56F400(int a1) {
 // 560840: using guessed type void  nullsub_31(uint32_t);
 
 //----- (0056F440) --------------------------------------------------------
-int nox_xxx_protectionCreateFloat_56F440(int a1) {
-	if (nox_xxx_protectionCreateStructForFloat_56F480(*(int*)&dword_5d4594_2516356, a1)) {
+int nox_xxx_protectionCreateFloat_56F440(float a1) {
+	if (nox_xxx_protectionCreateStructForFloat_56F480(dword_5d4594_2516356, a1)) {
 		return (dword_5d4594_2516356)++;
 	}
 	nullsub_31(1);
@@ -2529,7 +2529,8 @@ int nox_xxx_protectionCreateFloat_56F440(int a1) {
 // 560840: using guessed type void  nullsub_31(uint32_t);
 
 //----- (0056F480) --------------------------------------------------------
-int nox_xxx_protectionCreateStructForFloat_56F480(int a1, int a2) {
+int nox_xxx_protectionCreateStructForFloat_56F480(int a1, float val) {
+	int a2 = *(int*)&val;
 	uint32_t* v2; // eax
 	int v3;       // ecx
 	int v4;       // ecx

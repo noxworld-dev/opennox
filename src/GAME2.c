@@ -5146,7 +5146,8 @@ int sub_459A40(char* a1) {
 }
 
 //----- (00459AA0) --------------------------------------------------------
-char* sub_459AA0(int a1) {
+char* sub_459AA0(void* a1p) {
+	int a1 = a1p;
 	int v1;            // eax
 	const wchar_t* v2; // eax
 	const wchar_t* v3; // eax
