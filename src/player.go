@@ -5,7 +5,6 @@ package nox
 #include "GAME3_3.h"
 #include "defs.h"
 extern unsigned int nox_gameDisableMapDraw_5d4594_2650672;
-extern nox_playerInfo nox_playerinfo_arr[NOX_PLAYERINFO_MAX];
 extern nox_object_t* nox_xxx_host_player_unit_3843628;
 void nox_xxx_WideScreenDo_515240(bool enable);
 static void nox_xxx_netSendLineMessage_go(nox_object_t* a1, wchar_t* str) {
@@ -20,13 +19,108 @@ import (
 	"fmt"
 	"unsafe"
 
+	"nox/v1/common/alloc"
 	"nox/v1/common/memmap"
 	"nox/v1/common/player"
 	"nox/v1/common/types"
 	"nox/v1/server/script"
 )
 
-const NOX_PLAYERINFO_MAX = C.NOX_PLAYERINFO_MAX
+const NOX_PLAYERINFO_MAX = int(C.NOX_PLAYERINFO_MAX)
+
+var noxPlayers []Player
+
+func init() {
+	p, _ := alloc.Calloc(NOX_PLAYERINFO_MAX, unsafe.Sizeof(Player{}))
+	noxPlayers = unsafe.Slice((*Player)(p), NOX_PLAYERINFO_MAX)
+}
+
+//export nox_xxx_cliResetAllPlayers_416E30
+func nox_xxx_cliResetAllPlayers_416E30() {
+	for i := range noxPlayers {
+		noxPlayers[i] = Player{}
+	}
+}
+
+//export nox_common_playerInfoGetFirst_416EA0
+func nox_common_playerInfoGetFirst_416EA0() *C.nox_playerInfo {
+	for i := range noxPlayers {
+		p := &noxPlayers[i]
+		if p.IsActive() {
+			return p.C()
+		}
+	}
+	return nil
+}
+
+//export nox_common_playerInfoGetNext_416EE0
+func nox_common_playerInfoGetNext_416EE0(it *C.nox_playerInfo) *C.nox_playerInfo {
+	if it == nil {
+		return nil
+	}
+	for i := range noxPlayers[it.playerInd+1:] {
+		p := &noxPlayers[i]
+		if p.IsActive() {
+			return p.C()
+		}
+	}
+	return nil
+}
+
+//export nox_common_playerInfoCount_416F40
+func nox_common_playerInfoCount_416F40() C.int {
+	return C.int(cntPlayers())
+}
+
+//export nox_common_playerInfoNew_416F60
+func nox_common_playerInfoNew_416F60(id C.int) *C.nox_playerInfo {
+	return newPlayerInfo(int(id)).C()
+}
+
+//export nox_common_playerInfoResetInd_417000
+func nox_common_playerInfoResetInd_417000(ind C.int) *C.nox_playerInfo {
+	p := &noxPlayers[ind]
+	p.Reset()
+	p.playerInd = C.uchar(ind)
+	return p.C()
+}
+
+//export nox_common_playerInfoGetByID_417040
+func nox_common_playerInfoGetByID_417040(id C.int) *C.nox_playerInfo {
+	return getPlayerByID(int(id)).C()
+}
+
+//export nox_common_playerInfoFromNum_417090
+func nox_common_playerInfoFromNum_417090(ind C.int) *C.nox_playerInfo {
+	return getPlayerByInd(int(ind)).C()
+}
+
+//export nox_common_playerInfoFromNumRaw
+func nox_common_playerInfoFromNumRaw(ind C.int) *C.nox_playerInfo {
+	return noxPlayers[ind].C()
+}
+
+func newPlayerInfo(id int) *Player {
+	if p := getPlayerByID(id); p != nil {
+		return p
+	}
+	for i := range noxPlayers {
+		p := &noxPlayers[i]
+		if !p.IsActive() {
+			p.Reset()
+			p.playerInd = C.uchar(i)
+			p.netCode = C.uint(id)
+			return p
+		}
+	}
+	return nil
+}
+
+func (p *Player) Reset() { // nox_common_playerInfoReset_416FD0
+	*p = Player{}
+	p.active = 1
+	p.field_3648 = 4
+}
 
 //export nox_xxx_playerDisconnByPlrID_4DEB00
 func nox_xxx_playerDisconnByPlrID_4DEB00(id C.int) {
@@ -222,9 +316,8 @@ func (p *Player) GoObserver(notify, keepPlayer bool) bool {
 	return C.nox_xxx_playerGoObserver_4E6860(p.C(), C.int(bool2int(notify)), C.int(bool2int(keepPlayer))) != 0
 }
 
-func cntPlayers() (n int) { // nox_common_playerInfoCount_416F40
-	for i := 0; i < NOX_PLAYERINFO_MAX; i++ {
-		p := asPlayer(&C.nox_playerinfo_arr[i])
+func cntPlayers() (n int) {
+	for _, p := range noxPlayers {
 		if p.IsActive() {
 			n++
 		}
@@ -233,16 +326,16 @@ func cntPlayers() (n int) { // nox_common_playerInfoCount_416F40
 }
 
 func getAllPlayerStructs() (out []*Player) {
-	for i := 0; i < NOX_PLAYERINFO_MAX; i++ {
-		p := asPlayer(&C.nox_playerinfo_arr[i])
+	for i := range noxPlayers {
+		p := &noxPlayers[i]
 		out = append(out, p)
 	}
 	return out
 }
 
 func getPlayers() (out []*Player) {
-	for i := 0; i < NOX_PLAYERINFO_MAX; i++ {
-		p := asPlayer(&C.nox_playerinfo_arr[i])
+	for i := range noxPlayers {
+		p := &noxPlayers[i]
 		if p.IsActive() {
 			out = append(out, p)
 		}
@@ -259,11 +352,11 @@ func getPlayerUnits() (out []*Unit) {
 	return out
 }
 
-func getPlayerByInd(i int) *Player { // nox_common_playerInfoFromNum_417090
-	if i < 0 || i >= NOX_PLAYERINFO_MAX {
+func getPlayerByInd(i int) *Player {
+	if i < 0 || i >= len(noxPlayers) {
 		return nil
 	}
-	p := asPlayer(&C.nox_playerinfo_arr[i])
+	p := &noxPlayers[i]
 	if !p.IsActive() {
 		return nil
 	}
@@ -271,9 +364,9 @@ func getPlayerByInd(i int) *Player { // nox_common_playerInfoFromNum_417090
 	return p
 }
 
-func getPlayerByID(id int) *Player { // nox_common_playerInfoGetByID_417040
-	for i := 0; i < NOX_PLAYERINFO_MAX; i++ {
-		p := asPlayer(&C.nox_playerinfo_arr[i])
+func getPlayerByID(id int) *Player {
+	for i := range noxPlayers {
+		p := &noxPlayers[i]
 		if p.IsActive() && int(p.netCode) == id {
 			return p
 		}
@@ -282,8 +375,7 @@ func getPlayerByID(id int) *Player { // nox_common_playerInfoGetByID_417040
 }
 
 func hasPlayerUnits() bool {
-	for i := 0; i < NOX_PLAYERINFO_MAX; i++ {
-		p := asPlayer(&C.nox_playerinfo_arr[i])
+	for _, p := range noxPlayers {
 		if p.UnitC() != nil {
 			return true
 		}

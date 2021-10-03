@@ -970,7 +970,7 @@ func nox_xxx_cliSetupSession_437190() {
 		C.sub_40D380()
 	}
 	C.sub_473960()
-	C.nox_xxx_cliResetAllPlayers_416E30()
+	nox_xxx_cliResetAllPlayers_416E30()
 	C.sub_455EE0()
 	C.sub_456240()
 	C.sub_48D800()

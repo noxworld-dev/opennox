@@ -482,6 +482,7 @@ void nox_common_playerInfoReset_416FD0(nox_playerInfo* p);
 nox_playerInfo* nox_common_playerInfoResetInd_417000(int i);
 nox_playerInfo* nox_common_playerInfoGetByID_417040(int a1);
 nox_playerInfo* nox_common_playerInfoFromNum_417090(int i);
+nox_playerInfo* nox_common_playerInfoFromNumRaw(int i);
 char* nox_xxx_playerByName_4170D0(wchar_t* a1);
 wchar_t* sub_417120(int a1);
 int nox_xxx_netMarkMinimapObject_417190(int a1, int a2, int a3);

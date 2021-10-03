@@ -164,7 +164,9 @@ extern int table_27168_cnt;
 
 extern table_28760_t table_28760[];
 
+#ifndef NOX_CGO
 nox_playerInfo nox_playerinfo_arr[NOX_PLAYERINFO_MAX] = {0};
+#endif // NOX_CGO
 
 void nox_common_setEngineFlag(const nox_engine_flag flags) { nox_common_engineFlags |= flags; }
 
@@ -8595,10 +8597,10 @@ void nox_ticks_maybe_sleep_416DD0() {
 		nox_platform_sleep(ms);
 	}
 }
-#endif // NOX_CGO
 
 //----- (00416E30) --------------------------------------------------------
 void nox_xxx_cliResetAllPlayers_416E30() { memset(nox_playerinfo_arr, 0, NOX_PLAYERINFO_MAX * sizeof(nox_playerInfo)); }
+#endif // NOX_CGO
 
 //----- (00416E50) --------------------------------------------------------
 char* nox_xxx_playerForceSendLessons_416E50(int a1) {
@@ -8619,6 +8621,7 @@ char* nox_xxx_playerForceSendLessons_416E50(int a1) {
 	return result;
 }
 
+#ifndef NOX_CGO
 //----- (00416EA0) --------------------------------------------------------
 nox_playerInfo* nox_common_playerInfoGetFirst_416EA0() {
 	for (int i = 0; i < NOX_PLAYERINFO_MAX; i++) {
@@ -8708,6 +8711,12 @@ nox_playerInfo* nox_common_playerInfoFromNum_417090(int i) {
 	return p;
 }
 
+//----- (00417090) --------------------------------------------------------
+nox_playerInfo* nox_common_playerInfoFromNumRaw(int i) {
+	return &nox_playerinfo_arr[i];
+}
+#endif // NOX_CGO
+
 //----- (004170D0) --------------------------------------------------------
 char* nox_xxx_playerByName_4170D0(wchar_t* a1) {
 	char* v1; // esi
@@ -8753,14 +8762,15 @@ int nox_xxx_netMarkMinimapObject_417190(int a1, int a2, int a3) {
 	int v10;           // ecx
 
 	v3 = 0;
-	if (!(a1 >= 0 && a1 < 32 && a2)) {
+	if (!(a1 >= 0 && a1 < NOX_PLAYERINFO_MAX && a2)) {
 		return v3;
 	}
-	v4 = nox_playerinfo_arr[a1].field_4580;
-	v5 = &nox_playerinfo_arr[a1];
+	nox_playerInfo* pl = nox_common_playerInfoFromNumRaw(a1);
+	v4 = pl->field_4580;
+	v5 = pl;
 	if (v4) {
 		if (v4[1] == a2) {
-			v6 = nox_playerinfo_arr[a1].field_4580;
+			v6 = pl->field_4580;
 			*v6 |= a3;
 			return 1;
 		}
@@ -8804,8 +8814,9 @@ int sub_417270(int a1) {
 	int v3;     // ecx
 
 	result = 0;
-	if (a1 >= 0 && a1 < 32) {
-		v2 = nox_playerinfo_arr[a1].field_4580;
+	if (a1 >= 0 && a1 < NOX_PLAYERINFO_MAX) {
+		nox_playerInfo* pl = nox_common_playerInfoFromNumRaw(a1);
+		v2 = pl->field_4580;
 		if (v2) {
 			v3 = *(uint32_t*)(v2 + 8);
 			for (result = 1; v3 != v2; ++result) {
@@ -8822,11 +8833,12 @@ int sub_4172C0(int a1) {
 	int v2;     // ecx
 
 	result = 0;
-	if (a1 >= 0 && a1 < 32) {
-		v2 = nox_playerinfo_arr[a1].field_4580;
+	if (a1 >= 0 && a1 < NOX_PLAYERINFO_MAX) {
+		nox_playerInfo* pl = nox_common_playerInfoFromNumRaw(a1);
+		v2 = pl->field_4580;
 		if (v2) {
 			result = *(uint32_t*)(v2 + 4);
-			nox_playerinfo_arr[a1].field_4580 = *(uint32_t*)(v2 + 8);
+			pl->field_4580 = *(uint32_t*)(v2 + 8);
 		}
 	}
 	return result;
@@ -8843,17 +8855,18 @@ int nox_xxx_netUnmarkMinimapObj_417300(int a1, int a2, int a3) {
 	int v9;            // eax
 
 	result = 0;
-	if (a1 >= 0 && a1 < 32) {
+	if (a1 >= 0 && a1 < NOX_PLAYERINFO_MAX) {
 		if (a2) {
-			v4 = &nox_playerinfo_arr[a1];
-			v5 = nox_playerinfo_arr[a1].field_4580;
+			nox_playerInfo* pl = nox_common_playerInfoFromNumRaw(a1);
+			v4 = pl;
+			v5 = pl->field_4580;
 			if (v5) {
 				while (1) {
 					v6 = v5[2];
 					if (v5[1] == a2) {
 						break;
 					}
-					if (v6 != nox_playerinfo_arr[a1].field_4580) {
+					if (v6 != pl->field_4580) {
 						v5 = (uint32_t*)v5[2];
 						if (v6) {
 							continue;
@@ -8895,13 +8908,14 @@ int nox_xxx_playerMapTracksObj_4173D0(int a1, int a2) {
 	int v3;     // ecx
 
 	result = 0;
-	if (a1 >= 0 && a1 < 32) {
+	if (a1 >= 0 && a1 < NOX_PLAYERINFO_MAX) {
 		if (a2) {
-			v3 = nox_playerinfo_arr[a1].field_4580;
+			nox_playerInfo* pl = nox_common_playerInfoFromNumRaw(a1);
+			v3 = pl->field_4580;
 			if (v3) {
 				while (*(uint32_t*)(v3 + 4) != a2) {
 					v3 = *(uint32_t*)(v3 + 8);
-					if (v3 == nox_playerinfo_arr[a1].field_4580 || !v3) {
+					if (v3 == pl->field_4580 || !v3) {
 						return result;
 					}
 				}
