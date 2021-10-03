@@ -5,8 +5,6 @@ extern unsigned int nox_common_engineFlags;
 */
 import "C"
 import (
-	"encoding/binary"
-
 	"nox/v1/common/platform"
 	"nox/v1/common/prand"
 )
@@ -82,23 +80,6 @@ func toggleEngineFlag(f EngineFlags) {
 	} else {
 		setEngineFlag(f)
 	}
-}
-
-//export nox_xxx_replayWriteRndCounter_415F30
-func nox_xxx_replayWriteRndCounter_415F30(fd C.int) C.int {
-	i := noxRndCounter1.Index()
-	var buf [4]byte
-	binary.LittleEndian.PutUint32(buf[:], uint32(i))
-	return C.int(fdWrite(int(fd), buf[:]))
-}
-
-//export nox_xxx_replayReadeRndCounter_415F50
-func nox_xxx_replayReadeRndCounter_415F50(fd C.int) C.int {
-	var buf [4]byte
-	n := fdRead(int(fd), buf[:])
-	i := int(binary.LittleEndian.Uint32(buf[:]))
-	noxRndCounter1.Reset(i)
-	return C.int(n)
 }
 
 //export nox_common_initRandom_415F70

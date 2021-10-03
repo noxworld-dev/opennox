@@ -3557,7 +3557,8 @@ int nox_xxx_playerGoObserver_4E6860(nox_playerInfo* pl, int a2, int a3) {
 // 4E69DB: variable 'v11' is possibly undefined
 
 //----- (004E6AA0) --------------------------------------------------------
-void nox_xxx_playerLeaveObserver_0_4E6AA0(int a1) {
+void nox_xxx_playerLeaveObserver_0_4E6AA0(nox_playerInfo* pl) {
+	int a1 = pl;
 	int v1;      // esi
 	int v2;      // edx
 	int v3;      // eax

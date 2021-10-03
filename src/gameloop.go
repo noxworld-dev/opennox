@@ -354,7 +354,7 @@ mainloop:
 		noxflags.UnsetGame(noxflags.GameFlag24 | noxflags.GameFlag21)
 		sub_43F140(300)
 		C.sub_43D990()
-		nox_xxx_replayWriteSomeInt_4D39B0()
+		nox_xxx_replayWriteFrame_4D39B0()
 		if noxflags.HasGame(noxflags.GameHost) {
 			C.nox_xxx_servResetPlayers_4D23C0()
 		}
@@ -846,9 +846,9 @@ func CONNECT_RESULT_OK() {
 		}()
 	}
 	mainloopConnectResultOK = true
-	if nox_xxx_replayStartReadingOrSaving_4D38D0() == 1 {
+	if err := nox_xxx_replayStartReadingOrSaving_4D38D0(); err != nil {
 		if debugMainloop {
-			log.Println("nox_xxx_replayStartReadingOrSaving_4D38D0 exit")
+			log.Println("nox_xxx_replayStartReadingOrSaving_4D38D0:", err)
 		}
 		cmainLoop()
 		return

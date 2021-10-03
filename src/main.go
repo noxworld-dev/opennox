@@ -153,6 +153,8 @@ func RunArgs(args []string) (gerr error) {
 		fAutoServer = flags.Bool("autosrv", isDedicatedServer, "automatically start the server")
 		fAutoQuest  = flags.Bool("autoquest", false, "automatically start the quest game")
 		fAutoExec   = flags.String("autoexec", "load estate", "run the specified command at server startup")
+		fRecord     = flags.String("record", "", "record the game to a given file")
+		fReplay     = flags.String("replay", "", "replay game recording from a given file")
 	)
 	if err := flags.Parse(args[1:]); err != nil {
 		return err
@@ -329,6 +331,15 @@ func RunArgs(args []string) (gerr error) {
 	}
 	if *fNoSoft {
 		setEngineFlag(NOX_ENGINE_DISABLE_SOFT_LIGHTS)
+	}
+	if fname := *fRecord; fname != "" {
+		if err := nox_xxx_replayStartSave_4D3370(fname); err != nil {
+			return err
+		}
+	} else if fname = *fReplay; fname != "" {
+		if err := nox_xxx_replayFileOpen_4D34C0(fname); err != nil {
+			return err
+		}
 	}
 	// C.nox_common_readSKU_fromRegistry_4D78C0()
 	// C.fesetround(C.FE_TOWARDZERO)

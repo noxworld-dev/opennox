@@ -476,7 +476,7 @@ MAINLOOP_EXIT:
 	nox_common_gameFlags_unset_40A540(9437184);
 	sub_43F140(300);
 	sub_43D990();
-	nox_xxx_replayWriteSomeInt_4D39B0();
+	nox_xxx_replayWriteFrame_4D39B0();
 	if (nox_common_gameFlags_check_40A5C0(1)) {
 		nox_xxx_servResetPlayers_4D23C0();
 	}
