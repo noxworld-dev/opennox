@@ -25,6 +25,7 @@
 #include "common__random.h"
 #include "common__strman.h"
 #include "common__system__gamedisk.h"
+#include "server__network__playback.h"
 #include "input_common.h"
 #include "thing.h"
 

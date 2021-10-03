@@ -22,10 +22,10 @@
 #include "common__system__team.h"
 #include "defs.h"
 #include "operators.h"
-#include "server__network__mapsend.h"
 
 #include "common/fs/nox_fs.h"
 #include "server__network__mapsend.h"
+#include "server__network__playback.h"
 #include "server__system__trade.h"
 
 #ifdef NOX_CGO

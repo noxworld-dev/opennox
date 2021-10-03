@@ -4,6 +4,7 @@
 #include "client__gui__gadgets__listbox.h"
 #include "client__system__ctrlevnt.h"
 #include "client__system__parsecmd.h"
+#include "server__network__playback.h"
 #include "common__strman.h"
 #include "common__telnet__telnetd.h"
 
