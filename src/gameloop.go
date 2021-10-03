@@ -1002,14 +1002,15 @@ func nox_xxx_cliSetupSession_437190() {
 func nox_xxx_mapLoad_40A380() {
 	C.nox_xxx_set3512_40A340(0)
 	nox_xxx_setMapCRC_40A360(0)
-	nox_xxx_gameSetMapPath_409D70(C.GoString((*C.char)(memmap.PtrOff(0x5D4594, 3608))))
+	name := GoString((*C.char)(memmap.PtrOff(0x5D4594, 3608)))
+	nox_xxx_gameSetMapPath_409D70(name)
 	noxflags.SetGame(noxflags.GameHost | noxflags.GameFlag2)
 	noxflags.UnsetGame(137212) // TODO
 	C.nox_server_gameSettingsUpdated = 1
 }
 
 func nox_xxx_gameSetMapPath_409D70(path string) {
-	log.Println("set map path:", path)
+	log.Printf("set map path: %q", path)
 	C.nox_xxx_gameSetMapPath_409D70(internCStr(path))
 }
 

@@ -5478,7 +5478,7 @@ char* nox_xxx_collideExit_4E9090(int a1, int a2, int a3) {
 											sub_4D76E0(1);
 											sub_4D60B0();
 										}
-										result = nox_xxx_mapLoad_4D2450(v10);
+										nox_xxx_mapLoad_4D2450(v10);
 									}
 									return result;
 								}

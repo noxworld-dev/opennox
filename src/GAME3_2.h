@@ -69,7 +69,7 @@ void nox_xxx_unknown_libname_11_4D1650();
 int nox_xxx_servNewSession_4D1660();
 int nox_xxx_servInitialMapLoad_4D17F0();
 int nox_xxx_servResetPlayers_4D23C0();
-char* nox_xxx_mapLoad_4D2450(char* a1);
+void nox_xxx_mapLoad_4D2450(char* a1);
 char* sub_4D2FF0();
 char* nox_xxx_netReportAllLatency_4D3050();
 int nox_xxx_servEndSession_4D3200();
