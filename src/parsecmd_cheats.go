@@ -195,7 +195,7 @@ func noxCheatGold(c *parsecmd.Console, tokens []string) bool {
 }
 
 func serverCheatInvincible(enable bool) {
-	if noxflags.HasGame(noxflags.GameModeSolo12) {
+	if noxflags.HasGame(noxflags.GameModeCoop) {
 		if enable {
 			setEngineFlag(NOX_ENGINE_FLAG_ADMIN | NOX_ENGINE_FLAG_GODMODE)
 		} else {
@@ -205,7 +205,7 @@ func serverCheatInvincible(enable bool) {
 }
 
 func serverCheatSage(enable bool) {
-	if noxflags.HasGame(noxflags.GameModeSolo12) {
+	if noxflags.HasGame(noxflags.GameModeCoop) {
 		for _, p := range getPlayers() {
 			serverSetAllBeastScrolls(p, enable)
 			serverSetAllSpells(p, enable)
@@ -215,7 +215,7 @@ func serverCheatSage(enable bool) {
 }
 
 func serverCheatScrolls(enable bool) {
-	if noxflags.HasGame(noxflags.GameModeSolo12) {
+	if noxflags.HasGame(noxflags.GameModeCoop) {
 		for _, p := range getPlayers() {
 			serverSetAllBeastScrolls(p, enable)
 		}
@@ -223,7 +223,7 @@ func serverCheatScrolls(enable bool) {
 }
 
 func serverCheatSpells(enable bool) {
-	if noxflags.HasGame(noxflags.GameModeSolo12) {
+	if noxflags.HasGame(noxflags.GameModeCoop) {
 		for _, p := range getPlayers() {
 			serverSetAllSpells(p, enable)
 			serverSetAllWarriorAbilities(p, enable)
@@ -248,7 +248,7 @@ func noxCheatUnsetGod(c *parsecmd.Console, tokens []string) bool {
 }
 
 func serverCheatGod(enable bool) {
-	if noxflags.HasGame(noxflags.GameModeSolo12) {
+	if noxflags.HasGame(noxflags.GameModeCoop) {
 		serverCheatInvincible(enable)
 		serverCheatSage(enable)
 	}

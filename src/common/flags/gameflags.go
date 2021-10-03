@@ -36,7 +36,7 @@ const (
 	GameModeArena       = GameFlag(0x100)      // 256
 	GameModeSolo10      = GameFlag(0x200)      // 512
 	GameModeElimination = GameFlag(0x400)      // 1024
-	GameModeSolo12      = GameFlag(0x800)      // 2048
+	GameModeCoop        = GameFlag(0x800)      // 2048
 	GameModeQuest       = GameFlag(0x1000)     // 4096
 	GameOnline          = GameFlag(0x2000)     // 8192
 	GameFlag15          = GameFlag(0x4000)     // 16384
@@ -61,6 +61,8 @@ const (
 
 const (
 	GameServerSettings = GameFlag(0x7FFF0)
+	GameModeMask       = GameModeKOTR | GameModeCTF | GameModeFlagBall |
+		GameModeChat | GameModeArena | GameModeSolo10 | GameModeElimination | GameModeQuest // 0x17F0, 6128
 )
 
 var (
@@ -133,7 +135,11 @@ func (f GameFlag) MarshalJSON() ([]byte, error) {
 	return json.Marshal(f.SplitString())
 }
 
-func (f GameFlag) Mode() string {
+func (f GameFlag) Mode() GameFlag {
+	return f & GameModeMask
+}
+
+func (f GameFlag) ModeString() string {
 	for _, f2 := range f.Split() {
 		switch f2 {
 		case GameModeKOTR:
@@ -179,8 +185,8 @@ func (f GameFlag) String() string {
 		return "Solo10"
 	case GameModeElimination:
 		return "Elimination"
-	case GameModeSolo12:
-		return "Solo12"
+	case GameModeCoop:
+		return "Coop"
 	case GameModeQuest:
 		return "Quest"
 	case GameOnline:

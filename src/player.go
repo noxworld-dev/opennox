@@ -705,7 +705,7 @@ func newPlayer(ind int, opts *PlayerOpts) int {
 		} else if C.nox_xxx_CheckGameplayFlags_417DA0(4) != 0 {
 			C.sub_4DF3C0(pl.C())
 		}
-	} else if !noxflags.HasGame(noxflags.GameModeSolo12) {
+	} else if !noxflags.HasGame(noxflags.GameModeCoop) {
 		pl.GoObserver(true, true)
 	}
 	C.nox_xxx_servSendSettings_4DDB40(punit.CObj())
@@ -749,7 +749,7 @@ func newPlayer(ind int, opts *PlayerOpts) int {
 			C.sub_509C30(pl.C())
 		}
 	}
-	if !noxflags.HasGame(noxflags.GameModeSolo12) {
+	if !noxflags.HasGame(noxflags.GameModeCoop) {
 		if noxflags.HasGame(noxflags.GameModeQuest) {
 			C.nox_game_sendQuestStage_4D6960(C.int(ind))
 			return int(punit.field_9)

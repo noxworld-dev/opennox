@@ -244,7 +244,7 @@ func RunArgs(args []string) (gerr error) {
 	})
 	noxflags.OnGameSet(func(f noxflags.GameFlag) {
 		log.Printf("game flag set: %v", f)
-		C.nox_xxx_guiChatShowHide_445730(C.int(bool2int((noxflags.GetGame() & 0x17F0) != noxflags.GameModeChat)))
+		C.nox_xxx_guiChatShowHide_445730(C.int(bool2int(noxflags.GetGame().Mode() != noxflags.GameModeChat)))
 		if f.Has(noxflags.GameSuddenDeath) && noxflags.HasGame(noxflags.GameHost) {
 			C.nox_xxx_netPrintLineToAll_4DA390(C.CString("Settings.c:SuddenDeathStart"))
 		}

@@ -232,7 +232,7 @@ void nox_client_xxx_switchChatMap_43B510() {
 		v2 = &v7[strlen(v7) + 1];
 		*(uint32_t*)--v2 = *getMemU32Ptr(0x587000, 90856);
 		v2[4] = 0;
-		if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_REPLAY_WRITE | NOX_ENGINE_FLAG_REPLAY_READ)) {
+		if (!nox_common_getEngineFlag(/*NOX_ENGINE_FLAG_REPLAY_WRITE |*/ NOX_ENGINE_FLAG_REPLAY_READ)) {
 			nox_xxx_gameSetMapPath_409D70(v7);
 		}
 		nox_common_gameFlags_unset_40A540(55280);

@@ -67,7 +67,7 @@ func getGameInfo(ctx context.Context) (*gameInfoResp, error) {
 			Name: getServerName(),
 			Map:  strings.ToLower(getServerMap()),
 			Vers: Version,
-			Mode: noxflags.GetGame().Mode(),
+			Mode: noxflags.GetGame().ModeString(),
 		}
 		if noxflags.HasGame(noxflags.GameModeQuest) {
 			v.Quest = &gameInfoQuest{Stage: nox_game_getQuestStage_4E3CC0()}

@@ -5,6 +5,7 @@ package nox
 #include "GAME1_2.h"
 #include "GAME1_1.h"
 #include "GAME1_3.h"
+#include "GAME2.h"
 #include "GAME2_1.h"
 #include "GAME2_2.h"
 #include "GAME3_2.h"
@@ -18,6 +19,7 @@ package nox
 #include "common__system__team.h"
 #include "server__system__server.h"
 #include "server__script__script.h"
+#include "common__magic__speltree.h"
 #include "common__net_list.h"
 #include "common__crypt.h"
 #include "common__log.h"
@@ -395,7 +397,7 @@ func nox_xxx_servNewSession_4D1660() error {
 		return errors.New("nox_xxx_monsterList_517520 failed")
 	}
 	C.sub_416920()
-	if !noxflags.HasGame(noxflags.GameModeSolo12) {
+	if !noxflags.HasGame(noxflags.GameModeCoop) {
 		ind, nport, err := nox_xxx_netAddPlayerHandler_4DEBC0(getServerPort())
 		*memmap.PtrInt32(0x5D4594, 1548516) = int32(ind)
 		if err != nil {
@@ -461,7 +463,7 @@ func nox_xxx_servEndSession_4D3200() {
 	C.sub_416950()
 	C.nox_xxx_freeGameObjectClass_4E3420()
 	C.nox_xxx_freeObjectTypes_4E2A20()
-	if !noxflags.HasGame(noxflags.GameModeSolo12) {
+	if !noxflags.HasGame(noxflags.GameModeCoop) {
 		nox_server_netCloseHandler_4DEC60(int(memmap.Uint32(0x5D4594, 1548516)))
 		if !noxflags.HasGame(noxflags.GameFlag26) {
 			C.nox_xxx_networkLog_close_413D00()
@@ -478,21 +480,20 @@ func sub_4D3C30() {
 	C.sub_502DF0()
 }
 
-func nox_server_loadMapFile_4CF5F0(a1 string, a2 int) bool {
-	gameLog.Printf("loading map %q", a1)
+func nox_server_loadMapFile_4CF5F0(mname string, noCrypt bool) bool {
+	gameLog.Printf("loading map %q", mname)
 	C.sub_481410()
 	C.nox_xxx_unitsNewAddToList_4DAC00()
 	C.nox_xxx_waypoint_5799C0()
-	mname := a1
-	if a1 == "" {
+	if mname == "" {
 		return false
 	}
-	if strings.ToLower(a1) == "#return" {
+	if strings.ToLower(mname) == "#return" {
 		mname = GoStringP(memmap.PtrOff(0x5D4594, 1523080))
-	} else if strings.HasPrefix(a1, "#") {
+	} else if strings.HasPrefix(mname, "#") {
 		v3 := datapath.Path()
 		C.sub_4D39F0(internCStr(v3))
-		v13 := a1[1:]
+		v13 := mname[1:]
 		if i := strings.IndexByte(mname, '.'); i > 0 {
 			v13 = v3[:i]
 		}
@@ -525,7 +526,7 @@ func nox_server_loadMapFile_4CF5F0(a1 string, a2 int) bool {
 	v8 := getServerMap()
 	C.nox_common_checkMapFile_4CFE10(internCStr(v8))
 	var err error
-	if a2 != 0 {
+	if noCrypt {
 		err = cryptFileOpen(fname, 1, -1)
 	} else {
 		err = cryptFileOpen(fname, 1, crypt.MapKey)
@@ -554,7 +555,7 @@ func nox_server_loadMapFile_4CF5F0(a1 string, a2 int) bool {
 	C.nox_xxx_scriptRunFirst_507290()
 	nox_xxx_cryptClose_4269F0()
 	if !noxflags.HasGame(0x200000) {
-		C.nox_xxx_mapReadSetFlags_4CF990()
+		nox_xxx_mapReadSetFlags_4CF990()
 		if C.nox_xxx_check_flag_aaa_43AF70() == 1 {
 			C.sub_416690()
 		}
@@ -661,4 +662,151 @@ func switchMap(fname string) {
 	}
 	mname = strings.ToLower(mname)
 	nox_xxx_gameSetMapPath_409D70(mname)
+}
+
+func sub_4CFC90(a1 unsafe.Pointer) int {
+	v1 := *(*uint32)(unsafe.Pointer(uintptr(a1) + 1392))
+	if v1&4 != 0 {
+		return 256
+	}
+	if v1&0x20 != 0 {
+		return 1024
+	}
+	if v1&8 != 0 {
+		return 32
+	}
+	if v1&0x10 != 0 {
+		return 16
+	}
+	if v1&0x40 != 0 {
+		return 64
+	}
+	if v1&0x2 != 0 {
+		return 4096
+	}
+	return 128
+}
+
+func sub_4CFF50(v int) int {
+	out := 0
+	if v&1 != 0 {
+		out |= 512
+	}
+	if v&2 != 0 {
+		out |= 0x1000
+	}
+	if v&4 != 0 {
+		out |= 0x100
+	}
+	if v&0x20 != 0 {
+		out |= 0x400
+	}
+	if v&8 != 0 {
+		out |= 0x20
+	}
+	if v&0x10 != 0 {
+		out |= 0x10
+	}
+	if v&0x40 != 0 {
+		out |= 0x40
+	}
+	if v < 0 {
+		out |= 0x80
+	}
+	return out
+}
+
+func nox_xxx_mapGetTypeMB_4CFFA0(a1 unsafe.Pointer) int {
+	val := *(*int32)(unsafe.Pointer(uintptr(a1) + 1392))
+	return sub_4CFF50(int(val))
+}
+
+func nox_xxx_mapReadSetFlags_4CF990() {
+	v0 := unsafe.Slice((*byte)(unsafe.Pointer(C.sub_4165B0())), 58)
+	if noxflags.HasGame(noxflags.GameModeElimination) && (memmap.Int32(0x973F18, 3800) < 0 || (v0[53]&4 == 0)) {
+		C.nox_xxx_ruleSetNoRespawn_40A5E0(0)
+	}
+	C.sub_455C10()
+	C.sub_456050()
+	if noxflags.HasGame(noxflags.GameModeQuest) && memmap.Int32(0x973F18, 3800) < 0 {
+		C.sub_4D6B10(1)
+		C.sub_419030(1)
+	}
+	mapname := getServerMap()
+	gameLog.Printf("checking map flags for %q", filepath.Base(mapname))
+	if C.nox_common_checkMapFile_4CFE10(internCStr(mapname)) == 0 {
+		if !noxflags.HasGame(noxflags.GameModeSolo10) {
+			noxflags.UnsetGame(noxflags.GameModeMask)
+			noxflags.SetGame(noxflags.GameModeArena)
+			C.sub_4D0D90(1)
+		}
+		return
+	}
+	mapType := nox_xxx_mapGetTypeMB_4CFFA0(memmap.PtrOff(0x973F18, 2408))
+	vv := memmap.Int32(0x973F18, 3800)
+	if vv&1 != 0 {
+		gameLog.Println("setting coop mode")
+		noxflags.UnsetGame(noxflags.GameModeMask)
+		C.nox_xxx_createCoopTeam_417E10()
+		noxflags.SetGame(noxflags.GameModeCoop)
+	} else if vv&2 != 0 {
+		gameLog.Println("setting quest mode")
+		isChat := noxflags.HasGame(noxflags.GameModeChat)
+		noxflags.UnsetGame(noxflags.GameModeMask)
+		noxflags.SetGame(noxflags.GameModeQuest)
+		if isChat {
+			C.nox_server_setupQuestGame_4D6C70()
+		}
+	} else if vv >= 0 {
+		f52 := (*uint16)(unsafe.Pointer(uintptr(unsafe.Pointer(&v0[0])) + 52))
+		if int(*f52)&mapType == 0 {
+			*f52 = uint16(sub_4CFC90(memmap.PtrOff(0x973F18, 2408)) | int(*f52)&0xE80F)
+		}
+		if v0[52]&0x10 == 0 {
+			C.nox_xxx_mapFindCrown_4CFC30()
+		}
+		mode := noxflags.GameFlag(*f52)
+		if mode.Has(noxflags.GameModeCTF) {
+			gameLog.Println("setting CTF mode")
+			if C.nox_xxx_mapInfoSetCapflag_417EA0() != 0 {
+				noxflags.UnsetGame(noxflags.GameModeMask)
+				noxflags.SetGame(noxflags.GameModeCTF)
+			}
+		} else if mode.Has(noxflags.GameModeFlagBall) {
+			gameLog.Println("setting flagball mode")
+			if C.nox_xxx_mapInfoSetFlagball_417F30() != 0 {
+				noxflags.UnsetGame(noxflags.GameModeMask)
+				noxflags.SetGame(noxflags.GameModeFlagBall)
+				C.nox_xxx_spellDisable_424BB0(132)
+			}
+		} else if mode.Has(noxflags.GameModeKOTR) {
+			gameLog.Println("setting KOTR mode")
+			if C.nox_xxx_mapInfoSetKotr_4180D0() != 0 {
+				noxflags.UnsetGame(noxflags.GameModeMask)
+				noxflags.SetGame(noxflags.GameModeKOTR)
+			}
+		} else if mode.Has(noxflags.GameModeElimination) {
+			gameLog.Println("setting elimination mode")
+			if !noxflags.HasGame(noxflags.GameModeElimination) {
+				C.nox_xxx_ruleSetNoRespawn_40A5E0(1)
+			}
+			noxflags.UnsetGame(noxflags.GameModeMask)
+			noxflags.SetGame(noxflags.GameModeElimination)
+		} else {
+			gameLog.Println("setting arena mode")
+			noxflags.UnsetGame(noxflags.GameModeMask)
+			noxflags.SetGame(noxflags.GameModeArena)
+		}
+	} else {
+		gameLog.Println("setting chat mode")
+		C.sub_40A1F0(0)
+		noxflags.UnsetGame(noxflags.GameModeMask)
+		noxflags.SetGame(noxflags.GameModeChat)
+		if C.nox_xxx_getTeamCounter_417DD0() != 0 {
+			C.nox_xxx_teamAssignFlags_418640()
+			if C.nox_xxx_CheckGameplayFlags_417DA0(2) == 0 && !noxflags.HasGame(0x8000) {
+				C.nox_xxx_toggleAllTeamFlags_418690(1)
+			}
+		}
+	}
 }
