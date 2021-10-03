@@ -139,8 +139,8 @@ func getPlayerClass() player.Class {
 	return player.Class(memmap.Uint8(0x85B3FC, 12254))
 }
 
-func newPlayer(ind int, data unsafe.Pointer) unsafe.Pointer {
-	return unsafe.Pointer(C.nox_xxx_playerNew_4DD320(C.int(ind), data))
+func newPlayer(ind int, data []byte) int {
+	return int(C.nox_xxx_playerNew_4DD320(C.int(ind), (*C.uchar)(unsafe.Pointer(&data[0]))))
 }
 
 func asPlayer(p *C.nox_playerInfo) *Player {
