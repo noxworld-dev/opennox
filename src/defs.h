@@ -1542,15 +1542,26 @@ typedef struct {
 	wchar_t name[25]; // 2185 (+0) // TODO: size is a guess
 	uint32_t field_2235; // 2235 (+50)
 	uint32_t field_2239; // 2239 (+54)
-	uint32_t field_2243;
-	uint32_t field_2247;
-	unsigned char playerClass; // 562, 2251
-	uint32_t field_2252;
-	uint32_t field_2256;
-	uint32_t field_2260;
-	uint32_t field_2264;
-	uint32_t field_2268;
-	uint16_t field_2272;
+	uint32_t field_2243; // 2243 (+58)
+	uint32_t field_2247; // 2247 (+62)
+	unsigned char playerClass; // 562, 2251 (+66)
+	unsigned char isFemale; // 562, 2252 (+67)
+	uint16_t field_2253; // 2253 (+68)
+	uint8_t field_2255; // 2255 (+70)
+	uint16_t field_2256; // 2256 (+71)
+	uint8_t field_2258; // 2258 (+73)
+	uint16_t field_2259; // 2259 (+74)
+	uint8_t field_2261; // 2261 (+76)
+	uint16_t field_2262; // 2262 (+77)
+	uint8_t field_2264; // 2264 (+79)
+	uint16_t field_2265; // 2265 (+80)
+	uint8_t field_2267; // 2267 (+82)
+	uint8_t field_2268; // 2268 (+83)
+	uint8_t field_2269; // 2269 (+84)
+	uint8_t field_2270; // 2270 (+85)
+	uint8_t field_2271; // 2271 (+86)
+	uint8_t field_2272; // 2272 (+87)
+	uint8_t field_2273; // 2273 (+88)
 	wchar_t name_suff[4]; // 2274 (+89)
 } nox_playerInfo2;
 #pragma pack(pop)

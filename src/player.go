@@ -25,6 +25,7 @@ static void nox_xxx_printToAll_4D9FD0_go(int a1, wchar_t* str) {
 */
 import "C"
 import (
+	"encoding"
 	"encoding/binary"
 	"fmt"
 	"math"
@@ -119,7 +120,7 @@ func nox_common_playerInfoFromNumRaw(ind C.int) *C.nox_playerInfo {
 
 //export nox_xxx_playerNew_4DD320
 func nox_xxx_playerNew_4DD320(ind C.int, data *C.uchar) C.int {
-	return C.int(newPlayer(int(ind), unsafe.Slice((*byte)(unsafe.Pointer(data)), 153)))
+	return C.int(newPlayerFromPacket(int(ind), unsafe.Slice((*byte)(unsafe.Pointer(data)), 153)))
 }
 
 func newPlayerInfo(id int) *Player {
@@ -204,8 +205,19 @@ func (p *PlayerInfo) PlayerClass() player.Class {
 	return player.Class(p.playerClass)
 }
 
+func (p *PlayerInfo) IsFemale() bool {
+	if p == nil {
+		return false
+	}
+	return p.isFemale != 0
+}
+
 func (p *PlayerInfo) Name() string {
 	return GoWString(&p.name[0])
+}
+
+func (p *PlayerInfo) SetName(v string) {
+	WStrCopy(&p.name[0], 25, v)
 }
 
 func (p *PlayerInfo) SetNameSuff(v string) {
@@ -226,6 +238,14 @@ func (p *PlayerInfo) SetField2235(v uint32) {
 
 func (p *PlayerInfo) SetField2239(v uint32) {
 	*(*uint32)(p.field(54)) = v
+}
+
+func (p *PlayerInfo) SetField2256(v uint16) {
+	*(*uint16)(p.field(71)) = v
+}
+
+func (p *PlayerInfo) SetField2262(v uint16) {
+	*(*uint16)(p.field(77)) = v
 }
 
 type Player C.nox_playerInfo
@@ -518,9 +538,63 @@ func sub_4E4F30(a1 int) {
 	*memmap.PtrUint16(0x5D4594, 1565524+2*uintptr(a1)) = 0
 }
 
-func newPlayer(ind int, data []byte) int {
-	v2 := data[152]
-	data[152] &= 0x7F
+var (
+	_ encoding.BinaryMarshaler   = &PlayerOpts{}
+	_ encoding.BinaryUnmarshaler = &PlayerOpts{}
+)
+
+type PlayerOpts struct {
+	Info      PlayerInfo
+	Screen    types.Size
+	Serial    string
+	Field2096 string
+	Field2068 int
+	Field2072 string
+	Byte152   byte
+}
+
+func (p *PlayerOpts) UnmarshalBinary(data []byte) error {
+	*p = PlayerOpts{}
+	if len(data) < 153 {
+		return fmt.Errorf("cannot unmarshal player opts: message too short: %d < %d", len(data), 153)
+	}
+	p.Info = *(*PlayerInfo)(unsafe.Pointer(&data[0])) // TODO: set fields individually
+	p.Screen = types.Size{
+		W: int(binary.LittleEndian.Uint32(data[97:101])),
+		H: int(binary.LittleEndian.Uint32(data[101:105])),
+	}
+	p.Serial = GoStringS(data[105:128])
+	p.Field2096 = GoStringS(data[128:138])
+	p.Field2068 = int(binary.LittleEndian.Uint32(data[138:142]))
+	p.Field2072 = GoWStringBytes(data[142:152])
+	p.Byte152 = data[152]
+	return nil
+}
+
+func (p *PlayerOpts) MarshalBinary() ([]byte, error) {
+	data := make([]byte, 153)
+	*(*PlayerInfo)(unsafe.Pointer(&data[0])) = p.Info // TODO: set fields individually
+	binary.LittleEndian.PutUint32(data[97:101], uint32(p.Screen.W))
+	binary.LittleEndian.PutUint32(data[101:105], uint32(p.Screen.H))
+	StrCopyBytes(data[105:128], p.Serial)
+	StrCopyBytes(data[128:138], p.Field2096)
+	binary.LittleEndian.PutUint32(data[138:142], uint32(p.Field2068))
+	WStrCopyBytes(data[142:152], p.Field2072)
+	data[152] = p.Byte152
+	return data, nil
+}
+
+func newPlayerFromPacket(ind int, data []byte) int {
+	var opts PlayerOpts
+	if err := opts.UnmarshalBinary(data); err != nil {
+		panic(err)
+	}
+	return newPlayer(ind, &opts)
+}
+
+func newPlayer(ind int, opts *PlayerOpts) int {
+	v2 := opts.Byte152
+	opts.Byte152 &= 0x7F
 	v3 := v2 >> 7
 	if ind != 31 {
 		if !noxflags.HasGame(noxflags.GameModeQuest) && v3 == 1 {
@@ -536,7 +610,7 @@ func newPlayer(ind int, data []byte) int {
 	sub_4E4F30(ind)
 
 	var ptyp string
-	if data[67] != 0 {
+	if opts.Info.IsFemale() {
 		ptyp = "PlayerFemale"
 	} else if memmap.Uint32(0x5D4594, 1563280) != 0 {
 		ptyp = "Player"
@@ -549,30 +623,29 @@ func newPlayer(ind int, data []byte) int {
 	}
 	if ind != 31 {
 		if v5[100] != 0 {
-			if (1<<data[66])&v5[100] != 0 {
+			if (1<<opts.Info.PlayerClass())&v5[100] != 0 {
 				return 0
 			}
 		}
 	}
 	pl := playerResetInd(ind)
 	if int8(v5[102]) >= 0 {
-		pl.field_10 = C.ushort(binary.LittleEndian.Uint32(data[97:]) / 2)
-		pl.field_12 = C.ushort(binary.LittleEndian.Uint32(data[101:]) / 2)
+		pl.field_10 = C.ushort(opts.Screen.W / 2)
+		pl.field_12 = C.ushort(opts.Screen.H / 2)
 	} else {
-		v9 := binary.LittleEndian.Uint32(data[97:])
-		if nox_win_width >= int(v9) {
-			pl.field_10 = C.ushort(v9 / 2)
-			pl.field_12 = C.ushort(binary.LittleEndian.Uint32(data[101:]) / 2)
+		if nox_win_width >= opts.Screen.W {
+			pl.field_10 = C.ushort(opts.Screen.W / 2)
+			pl.field_12 = C.ushort(opts.Screen.H / 2)
 		} else {
 			pl.field_10 = C.ushort(nox_win_width / 2)
 			pl.field_12 = C.ushort(nox_win_height / 2)
 		}
 	}
-	pl.SetSerial(GoStringS(data[105:128]))
-	pl.field_2135 = C.uchar(data[152])
-	WStrCopy(&pl.field_2072[0], 10, GoWStringBytes(data[142:152]))
-	pl.SetField2096(GoStringS(data[128:138]))
-	pl.field_2068 = C.uint(binary.LittleEndian.Uint32(data[138:]))
+	pl.SetSerial(opts.Serial)
+	pl.field_2135 = C.uchar(opts.Byte152)
+	WStrCopy(&pl.field_2072[0], 10, opts.Field2072)
+	pl.SetField2096(opts.Field2096)
+	pl.field_2068 = C.uint(opts.Field2068)
 	if pl.field_2068 != 0 {
 		v12 := unsafe.Pointer(C.sub_425A70(C.int(pl.field_2068)))
 		if v12 == nil {
@@ -584,9 +657,8 @@ func newPlayer(ind int, data []byte) int {
 	pl.field_3676 = 2
 	pl.field_3680 = 0
 	info := pl.Info()
-	_ = data[:97]
-	*info = *(*PlayerInfo)(unsafe.Pointer(&data[0])) // TODO: set fields individually
-	pl.Info().SetNameSuff("")
+	*info = opts.Info
+	info.SetNameSuff("")
 	pl.SetName(pl.OrigName())
 	nox_xxx_playerCheckName_4DDA00(pl)
 	C.nox_xxx_playerInitColors_461460(pl.C())

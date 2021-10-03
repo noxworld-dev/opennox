@@ -67,6 +67,7 @@ import (
 	"nox/v1/common/log"
 	"nox/v1/common/memmap"
 	"nox/v1/common/platform"
+	"nox/v1/common/serial"
 )
 
 var (
@@ -469,53 +470,65 @@ func CONNECT_OR_HOST() {
 		}()
 	}
 	mode := videoGetGameMode()
-	var info *C.char = C.nox_xxx_getHostInfoPtr_431770()
-	infos := unsafe.Slice((*byte)(unsafe.Pointer(info)), int(unsafe.Sizeof(C.nox_playerInfo2{})))
-
-	C.nox_wcscpy((*C.wchar_t)(unsafe.Pointer(&infos[0])), (*C.wchar_t)(memmap.PtrOff(0x85B3FC, 12204)))
-	infos[66] = byte(getPlayerClass())
-	infos[67] = memmap.Uint8(0x85B3FC, 12255)
-	*(*uint16)(unsafe.Pointer(&infos[68])) = memmap.Uint16(0x85B3FC, 12187)
-	infos[70] = memmap.Uint8(0x85B3FC, 12189)
-	*(*uint16)(unsafe.Pointer(&infos[71])) = memmap.Uint16(0x85B3FC, 12184)
-	infos[73] = memmap.Uint8(0x85B3FC, 12186)
-	*(*uint16)(unsafe.Pointer(&infos[74])) = memmap.Uint16(0x85B3FC, 12190)
-	infos[76] = memmap.Uint8(0x85B3FC, 12192)
-	*(*uint16)(unsafe.Pointer(&infos[77])) = memmap.Uint16(0x85B3FC, 12193)
-	infos[79] = memmap.Uint8(0x85B3FC, 12195)
-	*(*uint16)(unsafe.Pointer(&infos[80])) = memmap.Uint16(0x85B3FC, 12196)
-	infos[82] = memmap.Uint8(0x85B3FC, 12198)
-	infos[83] = memmap.Uint8(0x85B3FC, 12199)
-	infos[84] = memmap.Uint8(0x85B3FC, 12200)
-	infos[85] = memmap.Uint8(0x85B3FC, 12201)
-	infos[86] = memmap.Uint8(0x85B3FC, 12202)
-	infos[87] = memmap.Uint8(0x85B3FC, 12203)
-
-	Datas, freeDatas := alloc.Bytes(1024)
-	defer freeDatas()
+	info := (*PlayerInfo)(unsafe.Pointer(C.nox_xxx_getHostInfoPtr_431770()))
+	name := GoWString((*C.wchar_t)(memmap.PtrOff(0x85B3FC, 12204)))
+	info.SetName(name)
+	info.playerClass = C.uchar(getPlayerClass())
+	info.isFemale = C.uchar(memmap.Uint8(0x85B3FC, 12255))
+	info.field_2253 = C.ushort(memmap.Uint16(0x85B3FC, 12187))
+	info.field_2255 = C.uchar(memmap.Uint8(0x85B3FC, 12189))
+	info.SetField2256(memmap.Uint16(0x85B3FC, 12184))
+	info.field_2258 = C.uchar(memmap.Uint8(0x85B3FC, 12186))
+	info.field_2259 = C.ushort(memmap.Uint16(0x85B3FC, 12190))
+	info.field_2261 = C.uchar(memmap.Uint8(0x85B3FC, 12192))
+	info.SetField2262(memmap.Uint16(0x85B3FC, 12193))
+	info.field_2264 = C.uchar(memmap.Uint8(0x85B3FC, 12195))
+	info.field_2265 = C.ushort(memmap.Uint16(0x85B3FC, 12196))
+	info.field_2267 = C.uchar(memmap.Uint8(0x85B3FC, 12198))
+	info.field_2268 = C.uchar(memmap.Uint8(0x85B3FC, 12199))
+	info.field_2269 = C.uchar(memmap.Uint8(0x85B3FC, 12200))
+	info.field_2270 = C.uchar(memmap.Uint8(0x85B3FC, 12201))
+	info.field_2271 = C.uchar(memmap.Uint8(0x85B3FC, 12202))
+	info.field_2272 = C.uchar(memmap.Uint8(0x85B3FC, 12203))
 
 	C.sub_48D740()
-	*(*uint32)(unsafe.Pointer(&Datas[97])) = uint32(mode.W)
-	*(*uint32)(unsafe.Pointer(&Datas[101])) = uint32(mode.H)
-	C.nox_xxx_regGetSerial_420120((*C.uchar)(unsafe.Pointer(&Datas[105])))
-	if C.nox_xxx_check_flag_aaa_43AF70() == 0 {
-		C.nox_common_getInstallPath_40E0D0((*C.char)(unsafe.Pointer(&Datas[105])), internCStr("SOFTWARE\\Westwood\\Nox"), 0)
+
+	var popts PlayerOpts
+	popts.Screen = mode
+	if s, ok := serial.Serial(); ok {
+		popts.Serial = s
 	}
-	Datas[152] = byte(bool2int(!nox_xxx_checkHasSoloMaps()))
+	popts.Byte152 = byte(bool2int(!nox_xxx_checkHasSoloMaps()))
 	if memmap.Uint8(0x85B3FC, 10980)&4 != 0 {
-		Datas[152] |= 0x80
+		popts.Byte152 |= 0x80
 	}
-	s1 := C.GoString((*C.char)(memmap.PtrOff(0x85B3FC, 10395)))
-	StrCopyBytes(Datas[142:], s1)
-	s2 := C.GoString(C.sub_41FA40())
-	StrCopyBytes(Datas[128:], s2)
-	*(*uint32)(unsafe.Pointer(&Datas[138])) = uint32(C.dword_5d4594_2660032)
-	copy(Datas, infos[:97])
+	popts.Field2072 = GoString((*C.char)(memmap.PtrOff(0x85B3FC, 10395)))
+	popts.Field2096 = GoString(C.sub_41FA40())
+	popts.Field2068 = int(C.dword_5d4594_2660032)
+	popts.Info = *info
 
 	if noxflags.HasGame(noxflags.GameHost) {
-		C.nox_xxx_replay_4D3860(unsafe.Pointer(&Datas[0]))
+		if getEngineFlag(NOX_ENGINE_FLAG_REPLAY_WRITE) || getEngineFlag(NOX_ENGINE_FLAG_REPLAY_READ) {
+			data, err := popts.MarshalBinary()
+			if err != nil {
+				panic(err)
+			}
+			cdata, cfree := alloc.Bytes(uintptr(len(data)))
+			defer cfree()
+			copy(cdata, data)
+			C.nox_xxx_replay_4D3860(unsafe.Pointer(&cdata[0]))
+		} else if getEngineFlag(NOX_ENGINE_FLAG_REPLAY_READ) {
+			cdata, cfree := alloc.Bytes(153)
+			defer cfree()
+			C.nox_xxx_replay_4D3860(unsafe.Pointer(&cdata[0]))
+			if err := popts.UnmarshalBinary(cdata); err != nil {
+				log.Println(err)
+				CONNECT_RESULT_FAIL(err)
+				return
+			}
+		}
 		if !isDedicatedServer {
-			*memmap.PtrInt32(0x85319C, 0) = int32(newPlayer(31, Datas))
+			*memmap.PtrInt32(0x85319C, 0) = int32(newPlayer(31, &popts))
 		}
 		C.nox_client_setVersion_409AE0(NOX_CLIENT_VERS_CODE)
 		if !isDedicatedServer {
@@ -525,7 +538,7 @@ func CONNECT_OR_HOST() {
 	} else {
 		host := clientGetServerHost()
 		port := clientGetServerPort()
-		if err := CONNECT_SERVER(host, port, Datas[:153]); err != nil {
+		if err := CONNECT_SERVER(host, port, &popts); err != nil {
 			log.Println(err)
 			CONNECT_RESULT_FAIL(err)
 			return
@@ -560,9 +573,9 @@ func (e *connectFailErr) Unwrap() error {
 	return e.Err
 }
 
-func CONNECT_SERVER(host string, port int, data []byte) error {
+func CONNECT_SERVER(host string, port int, opts *PlayerOpts) error {
 	if debugMainloop {
-		log.Println("CONNECT_SERVER", host, port, len(data))
+		log.Println("CONNECT_SERVER", host, port)
 		defer func() {
 			log.Printf("CONNECT_SERVER exit (%s -> %s)\n", caller(1), caller(2))
 		}()
@@ -582,7 +595,7 @@ func CONNECT_SERVER(host string, port int, data []byte) error {
 	*memmap.PtrUint32(0x5D4594, 815700) = uint32(ind)
 
 	if debugMainloop {
-		log.Println("NET_CONNECT", ind, host, port, len(data))
+		log.Println("NET_CONNECT", ind, host, port)
 	}
 	ns := getNetStructByInd(ind)
 	if ns == nil {
@@ -660,7 +673,7 @@ func CONNECT_SERVER(host string, port int, data []byte) error {
 	id, retries, flags, counter := ind, 60, 6, 0
 	for {
 		if debugMainloop {
-			log.Println("NET_CONNECT_WAIT_LOOP", id, v11, retries, flags, counter, len(data))
+			log.Println("NET_CONNECT_WAIT_LOOP", id, v11, retries, flags, counter)
 		}
 		ns := getNetStructByInd(id)
 		if ns == nil {
@@ -695,14 +708,17 @@ func CONNECT_SERVER(host string, port int, data []byte) error {
 	}
 
 	if debugMainloop {
-		log.Println("NET_CONNECT_WAIT_THEN_OK", id, len(data))
+		log.Println("NET_CONNECT_WAIT_THEN_OK", id)
 	}
-	data = data[:153]
 
 	ns = getNetStructByInd(id)
 	if C.dword_5d4594_3844304 != 0 && ns.ID() >= 0 {
 		vs := unsafe.Slice((*byte)(memmap.PtrOff(0x5D4594, 2512892)), 1024)
 		copy(vs, make([]byte, 1024))
+		data, err := opts.MarshalBinary()
+		if err != nil {
+			return err
+		}
 		vs = vs[:3+len(data)]
 
 		vs[0] = 31

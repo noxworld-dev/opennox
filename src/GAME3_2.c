@@ -2439,11 +2439,11 @@ void nox_xxx_replay_4D3860(void* a1) {
 	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_REPLAY_WRITE) &&
 		(*(int*)&nox_xxx_replayWriteFile_587000_197424 != -1)) {
 		nox_xxx_replayWriteRndCounter_415F30(*(int*)&nox_xxx_replayWriteFile_587000_197424);
-		_write(*(int*)&nox_xxx_replayWriteFile_587000_197424, a1, 0x99u);
+		_write(*(int*)&nox_xxx_replayWriteFile_587000_197424, a1, 153);
 	} else if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_REPLAY_READ)) {
 		if (*(int*)&nox_xxx_replayFile_587000_197428 != -1) {
 			nox_xxx_replayReadeRndCounter_415F50(*(int*)&nox_xxx_replayFile_587000_197428);
-			_read(*(int*)&nox_xxx_replayFile_587000_197428, a1, 0x99u);
+			_read(*(int*)&nox_xxx_replayFile_587000_197428, a1, 153);
 		}
 	}
 }
