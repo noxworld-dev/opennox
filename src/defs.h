@@ -1540,11 +1540,10 @@ _Static_assert(sizeof(nox_draw_viewport_t) == 52, "wrong size of nox_draw_viewpo
 #pragma pack(push,1)
 typedef struct {
 	wchar_t name[25]; // 2185 // TODO: size is a guess
-	uint8_t data_2235[5];
-	uint32_t field_2240;
-	uint32_t field_2244;
-	uint16_t field_2248; // 562, 2248
-	uint8_t field_2250; // 562, 2250
+	uint32_t field_2235;
+	uint32_t field_2239;
+	uint32_t field_2243;
+	uint32_t field_2247;
 	unsigned char playerClass; // 562, 2251
 	uint32_t field_2252;
 	uint32_t field_2256;
@@ -1561,10 +1560,19 @@ _Static_assert(sizeof(nox_playerInfo2) == 97, "wrong size of nox_playerInfo2 str
 typedef struct nox_playerInfo {
 	uint32_t field_0; // 0, 0
 	uint32_t field_4; // 1, 4
-	uint32_t data_8[98];
+	uint16_t field_8; // 2, 8
+	uint16_t field_10; // 2, 10
+	uint16_t field_12; // 3, 12
+	uint16_t field_14; // 3, 14
+	uint32_t data_16[96];
 	uint32_t data_400[100];
-	uint32_t data_800[100];
-	uint32_t data_1200[100];
+	uint32_t data_800[50];
+	uint32_t data_1000[25];
+	uint32_t data_1100[25];
+	uint32_t data_1200[25];
+	uint32_t data_1300[25];
+	uint32_t data_1400[25];
+	uint32_t data_1500[25];
 	uint32_t data_1600[100];
 	uint32_t data_2000[8];
 	uint32_t data_2032[4];
@@ -1574,25 +1582,28 @@ typedef struct nox_playerInfo {
 	unsigned char playerInd;  // 516, 2064
 	uint8_t field_2064_1;     // 516, 2065
 	uint16_t field_2064_2;    // 516, 2066
-	uint32_t field_2068;      // 517
+	uint32_t field_2068;      // 517, 2068
 	wchar_t field_2072[10];   // 518, 2072
 	unsigned int active;      // 523, 2092
 	char field_2096[12]; // 524, 2096
 	uint32_t field_2108; // 527, 2108
 	char serial[22];   // 528, 2112
-	uint8_t data_2134[2];
+	uint8_t field_2134;
+	uint8_t field_2135;
 	uint32_t field_2136; // 534, 2136
 	uint32_t field_2140; // 535, 2140
 	uint32_t field_2144; // 536, 2144
 	uint32_t field_2148; // 537, 2148
 	uint32_t field_2152; // 538, 2152
 	uint32_t field_2156; // 539, 2156
-	uint8_t data_2148[25];
+	uint32_t field_2160; // 540, 2160
+	uint32_t field_2164; // 541, 2164
+	uint8_t data_2168[17];
 	nox_playerInfo2 info; // 2185
 	uint16_t field_2282;
 	uint32_t data_2284[4];
 	uint32_t data_2300[13];
-	wchar_t name_full[30]; // 2352 is wchar_t buf // TODO: size is a wild guess
+	wchar_t name_full[30]; // 2352 // TODO: size is a wild guess
 	uint32_t data_2412[97];
 	uint32_t data_2800[100];
 	uint32_t data_3200[50];
@@ -1611,21 +1622,51 @@ typedef struct nox_playerInfo {
 	uint32_t field_3664;
 	uint32_t field_3668;
 	uint32_t field_3672;
-	uint8_t field_3676;
+	uint8_t field_3676; // 3676, TODO: status?
 	uint8_t field_3676_1;
 	uint16_t field_3676_2;
 	uint32_t field_3680; // 920, 3680
-	uint32_t data_3684[3];
+	uint8_t field_3684; // 921, 3684 // TODO: level?
+	uint8_t field_3685;
+	uint16_t field_3686;
+	uint32_t data_3688[2];
 	unsigned int spell_lvl[NOX_SPELLS_MAX]; // 3696
 	unsigned int beast_scroll_lvl[41];      // 4244
 	uint32_t data_4408[23];
 	uint32_t data_4500[20];
-	uint32_t field_4580;
-	uint32_t data_4584[4];
-	uint32_t data_4600[25];
-	_DWORD field_4700;
+	uint32_t field_4580; // 1145, 4580
+	uint32_t field_4584; // 1146, 4584
+	uint32_t field_4588; // 1147, 4588
+	uint32_t field_4592; // 1148, 4592
+	uint32_t field_4596; // 1149, 4596
+	uint32_t field_4600; // 1150, 4600
+	uint32_t field_4604; // 1151, 4604
+	uint32_t field_4608; // 1152, 4608
+	uint32_t field_4612; // 1153, 4612
+	uint32_t field_4616; // 1154, 4616
+	uint32_t field_4620; // 1155, 4620
+	uint32_t field_4624; // 1156, 4624
+	uint32_t field_4628; // 1157, 4628
+	uint32_t field_4632; // 1158, 4632
+	uint32_t field_4636; // 1159, 4636
+	uint32_t field_4640; // 1160, 4640
+	uint32_t field_4644; // 1161, 4644
+	int field_4648; // 1162, 4648
+	uint32_t field_4652; // 1163, 4652
+	uint32_t field_4656; // 1164, 4656
+	uint32_t field_4660; // 1165, 4660
+	uint32_t field_4664; // 1166, 4664
+	uint32_t field_4668; // 1167, 4668
+	uint32_t field_4672; // 1168, 4672
+	uint32_t field_4676; // 1169, 4676
+	uint32_t field_4680; // 1170, 4680
+	uint32_t field_4684; // 1171, 4684
+	uint32_t field_4688; // 1172, 4688
+	uint32_t field_4692; // 1173, 4692
+	uint32_t field_4696; // 1174, 4696
+	uint32_t field_4700; // 1175, 4700
 	wchar_t name_final[30]; // 4704, server-approved player name // TODO: size is a wild guess
-	_DWORD data_4764[9];
+	uint32_t data_4764[9];
 	uint32_t data_4800[7];
 } nox_playerInfo;
 #pragma pack(pop)

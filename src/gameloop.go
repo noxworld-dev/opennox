@@ -515,7 +515,7 @@ func CONNECT_OR_HOST() {
 	if noxflags.HasGame(noxflags.GameHost) {
 		C.nox_xxx_replay_4D3860(unsafe.Pointer(&Datas[0]))
 		if !isDedicatedServer {
-			*memmap.PtrPtr(0x85319C, 0) = newPlayer(31, unsafe.Pointer(&Datas[0]))
+			*memmap.PtrInt32(0x85319C, 0) = int32(newPlayer(31, Datas))
 		}
 		C.nox_client_setVersion_409AE0(NOX_CLIENT_VERS_CODE)
 		if !isDedicatedServer {

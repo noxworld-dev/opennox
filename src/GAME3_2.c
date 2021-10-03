@@ -8914,9 +8914,9 @@ void nox_xxx____setargv_15_4DD310() { *getMemU32Ptr(0x5D4594, 1563280) = 1; }
 #ifdef NOX_CGO
 void nox_script_callByEvent_cgo(int eventCode, int a1, int a2);
 #endif // NOX_CGO
-uint32_t* nox_xxx_playerNew_4DD320(int ind, void* data) {
-	unsigned char v2 = *(uint8_t*)((int)data + 152);
-	*(uint8_t*)((int)data + 152) &= 0x7F;
+int nox_xxx_playerNew_4DD320(int ind, unsigned char* data) {
+	unsigned char v2 = data[152];
+	data[152] &= 0x7F;
 	int v3 = v2 >> 7;
 	if (ind != 31) {
 		if (!nox_common_gameFlags_check_40A5C0(4096) && v3 == 1) {
@@ -8932,7 +8932,7 @@ uint32_t* nox_xxx_playerNew_4DD320(int ind, void* data) {
 	sub_4E4F30(ind);
 
 	const char* ptyp;
-	if (*(uint8_t*)((int)data + 67)) {
+	if (data[67]) {
 		ptyp = "PlayerFemale";
 	} else if (*getMemU32Ptr(0x5D4594, 1563280)) {
 		ptyp = "Player";
@@ -8945,106 +8945,102 @@ uint32_t* nox_xxx_playerNew_4DD320(int ind, void* data) {
 	}
 	if (ind != 31) {
 		if (v5[100]) {
-			if ((unsigned char)(1 << *(uint8_t*)((int)data + 66)) & (unsigned char)v5[100]) {
+			if ((unsigned char)(1 << data[66]) & (unsigned char)v5[100]) {
 				return 0;
 			}
 		}
 	}
-	nox_playerInfo* pinfo = nox_common_playerInfoResetInd_417000(ind);
-	pinfo->playerInd = ind;
-
-	char* v8 = pinfo;
+	nox_playerInfo* pl = nox_common_playerInfoResetInd_417000(ind);
 	if ((int)v5[102] >= 0) {
-		*((uint16_t*)v8 + 5) = *(uint32_t*)((int)data + 97) >> 1;
-		*((uint16_t*)v8 + 6) = *(uint32_t*)((int)data + 101) >> 1;
+		pl->field_10 = *(uint32_t*)(&data[97]) >> 1;
+		pl->field_12 = *(uint32_t*)(&data[101]) >> 1;
 	} else {
-		unsigned int v9 = *(uint32_t*)((int)data + 97);
+		unsigned int v9 = *(uint32_t*)(&data[97]);
 		if (nox_win_width >= (int)v9) {
-			*((uint16_t*)v8 + 5) = v9 >> 1;
-			*((uint16_t*)v8 + 6) = *(uint32_t*)((int)data + 101) >> 1;
+			pl->field_10 = v9 >> 1;
+			pl->field_12 = *(uint32_t*)(&data[101]) >> 1;
 		} else {
-			*((uint16_t*)v8 + 5) = nox_win_width / 2;
-			*((uint16_t*)v8 + 6) = nox_win_height / 2;
+			pl->field_10 = nox_win_width / 2;
+			pl->field_12 = nox_win_height / 2;
 		}
 	}
-	strcpy(v8 + 2112, (const char*)((int)data + 105));
-	v8[2135] = *(uint8_t*)((int)data + 152);
-	nox_swprintf(pinfo->field_2072, L"%S", (int)data + 142);
-	strcpy(pinfo->field_2096, (const char*)((int)data + 128));
-	int v11 = *(uint32_t*)((int)data + 138);
-	*((uint32_t*)v8 + 517) = v11;
-	if (v11) {
-		void* v12 = sub_425A70(v11);
+	strcpy(pl->serial, &data[105]);
+	pl->field_2135 = data[152];
+	nox_swprintf(pl->field_2072, L"%S", &data[142]);
+	strcpy(pl->field_2096, &data[128]);
+	pl->field_2068 = *(uint32_t*)(&data[138]);
+	if (pl->field_2068) {
+		void* v12 = sub_425A70(pl->field_2068);
 		if (!v12) {
-			v12 = sub_425AD0(*((uint32_t*)v8 + 517), (wchar_t*)v8 + 1036);
+			v12 = sub_425AD0(pl->field_2068, pl->field_2072);
 		}
 		sub_425B30(v12, ind);
 	}
-	*((uint32_t*)v8 + 899) = nox_frame_xxx_2598000;
-	v8[3676] = 2;
-	*((uint32_t*)v8 + 920) = 0;
-	memcpy(v8 + 2185, data, 97);
-	nox_wcscpy((wchar_t*)v8 + 2352, (const wchar_t*)(v8 + 2185));
-	*((uint16_t*)v8 + 1137) = 0;
-	nox_xxx_playerCheckName_4DDA00(pinfo);
-	nox_xxx_playerInitColors_461460(pinfo);
-	pinfo->playerUnit = punit;
-	*((uint32_t*)v8 + 538) = 0;
-	pinfo->netCode = punit->field_9;
-	*((uint32_t*)v8 + 539) = nox_xxx_scavengerTreasureMax_4D1600();
+	pl->frame_3596 = nox_frame_xxx_2598000;
+	pl->field_3676 = 2;
+	pl->field_3680 = 0;
+	memcpy(&pl->info, &data[0], 97);
+	nox_wcscpy(pl->name_full, pl->info.name);
+	pl->info.name_suff[0] = 0;
+	nox_xxx_playerCheckName_4DDA00(pl);
+	nox_xxx_playerInitColors_461460(pl);
+	pl->playerUnit = punit;
+	pl->field_2152 = 0;
+	pl->netCode = punit->field_9;
+	pl->field_2156 = nox_xxx_scavengerTreasureMax_4D1600();
 	int v15 = punit->field_187;
-	*(uint32_t*)(v15 + 276) = pinfo;
-	*((uint32_t*)v8 + 1146) = nox_xxx_protectionCreateInt_56F400(*(unsigned short*)((int)punit->field_139 + 0));
-	*((uint32_t*)v8 + 1148) = nox_xxx_protectionCreateInt_56F400(*(unsigned short*)((int)punit->field_139 + 4));
-	*((uint32_t*)v8 + 1149) = nox_xxx_protectionCreateInt_56F400(*(unsigned short*)(v15 + 4));
-	*((uint32_t*)v8 + 1150) = nox_xxx_protectionCreateInt_56F400(*(unsigned short*)(v15 + 8));
-	*((uint32_t*)v8 + 1151) = nox_xxx_protectionCreateFloat_56F440(*(uint32_t*)(&punit->field_7));
-	*((uint32_t*)v8 + 1152) = nox_xxx_protectionCreateFloat_56F440(*(uint32_t*)(&punit->float_30));
-	*((uint32_t*)v8 + 1153) = nox_xxx_protectionCreateInt_56F400(*(uint32_t*)(&punit->field_85));
-	*((uint32_t*)v8 + 1154) = nox_xxx_protectionCreateInt_56F400((unsigned char)v8[2251]);
-	*((uint32_t*)v8 + 1155) = nox_xxx_protectionCreateInt_56F400(*(uint32_t*)(v8 + 2235));
-	*((uint32_t*)v8 + 1156) = nox_xxx_protectionCreateInt_56F400(*(uint32_t*)(v8 + 2239));
-	int v20 = nox_wcslen((const wchar_t*)(v8 + 2185));
-	int v21 = nox_xxx_protectionStringCRCLen_56FAE0((int*)(v8 + 2185), 2 * v20);
-	*((uint32_t*)v8 + 1157) = nox_xxx_protectionCreateInt_56F400(v21);
-	*((uint32_t*)v8 + 1158) = nox_xxx_protectionCreateInt_56F400(0);
-	*((uint32_t*)v8 + 1159) = nox_xxx_protectionCreateInt_56F400(0);
-	*((uint32_t*)v8 + 1147) = nox_xxx_protectionCreateInt_56F400(*((uint32_t*)v8 + 541));
-	*((uint32_t*)v8 + 1160) = nox_xxx_protectionCreateInt_56F400(0);
-	*((uint32_t*)v8 + 1161) = nox_xxx_protectionCreateInt_56F400(v8[3684]); // level
-	*((uint32_t*)v8 + 1162) = -1;
-	*((uint32_t*)v8 + 1175) = 1;
+	*(uint32_t*)(v15 + 276) = pl;
+	pl->field_4584 = nox_xxx_protectionCreateInt_56F400(*(unsigned short*)((int)punit->field_139 + 0));
+	pl->field_4592 = nox_xxx_protectionCreateInt_56F400(*(unsigned short*)((int)punit->field_139 + 4));
+	pl->field_4596 = nox_xxx_protectionCreateInt_56F400(*(unsigned short*)(v15 + 4));
+	pl->field_4600 = nox_xxx_protectionCreateInt_56F400(*(unsigned short*)(v15 + 8));
+	pl->field_4604 = nox_xxx_protectionCreateFloat_56F440(*(uint32_t*)(&punit->field_7));
+	pl->field_4608 = nox_xxx_protectionCreateFloat_56F440(*(uint32_t*)(&punit->float_30));
+	pl->field_4612 = nox_xxx_protectionCreateInt_56F400(*(uint32_t*)(&punit->field_85));
+	pl->field_4616 = nox_xxx_protectionCreateInt_56F400(pl->info.playerClass);
+	pl->field_4620 = nox_xxx_protectionCreateInt_56F400(pl->info.field_2235);
+	pl->field_4624 = nox_xxx_protectionCreateInt_56F400(pl->info.field_2239);
+	int v20 = nox_wcslen(pl->info.name);
+	int v21 = nox_xxx_protectionStringCRCLen_56FAE0(pl->info.name, 2 * v20);
+	pl->field_4628 = nox_xxx_protectionCreateInt_56F400(v21);
+	pl->field_4632 = nox_xxx_protectionCreateInt_56F400(0);
+	pl->field_4636 = nox_xxx_protectionCreateInt_56F400(0);
+	pl->field_4588 = nox_xxx_protectionCreateInt_56F400(pl->field_2164);
+	pl->field_4640 = nox_xxx_protectionCreateInt_56F400(0);
+	pl->field_4644 = nox_xxx_protectionCreateInt_56F400(pl->field_3684); // level
+	pl->field_4648 = -1;
+	pl->field_4700 = 1;
 	if (dword_5d4594_2650652) {
-		sub_41D670(pinfo->field_2096);
+		sub_41D670(pl->field_2096);
 	}
 	nox_xxx_netNotifyRate_4D7F10(ind);
 	if (nox_common_gameFlags_check_40A5C0(4096)) {
-		nox_xxx_playerGoObserver_4E6860(pinfo, 0, 1);
+		nox_xxx_playerGoObserver_4E6860(pl, 0, 1);
 	} else if (nox_common_gameFlags_check_40A5C0(512)) {
-		nox_xxx_netReportPlayerStatus_417630(pinfo);
-	} else if (pinfo->playerInd == 31 && nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
-		nox_xxx_playerGoObserver_4E6860(pinfo, 0, 1);
+		nox_xxx_netReportPlayerStatus_417630(pl);
+	} else if (pl->playerInd == 31 && nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
+		nox_xxx_playerGoObserver_4E6860(pl, 0, 1);
 	} else if (nox_common_gameFlags_check_40A5C0(128)) {
 		if (sub_40A740()) {
-			if (!sub_40AA70(pinfo)) {
-				nox_xxx_playerGoObserver_4E6860(pinfo, 0, 1);
+			if (!sub_40AA70(pl)) {
+				nox_xxx_playerGoObserver_4E6860(pl, 0, 1);
 			}
 		} else if (nox_xxx_CheckGameplayFlags_417DA0(4)) {
-			sub_4DF3C0(pinfo);
+			sub_4DF3C0(pl);
 		}
 	} else if (!nox_common_gameFlags_check_40A5C0(2048)) {
-		nox_xxx_playerGoObserver_4E6860(pinfo, 1, 1);
+		nox_xxx_playerGoObserver_4E6860(pl, 1, 1);
 	}
 	nox_xxx_servSendSettings_4DDB40(punit);
-	if (pinfo->playerInd == 31) {
+	if (pl->playerInd == 31) {
 		nox_xxx_host_player_unit_3843628 = punit;
 	}
 	char v30[132];
-	nox_xxx_netNewPlayerMakePacket_4DDA90(v30, pinfo);
+	nox_xxx_netNewPlayerMakePacket_4DDA90(v30, pl);
 	nox_xxx_netSendPacket0_4E5420(ind | 0x80, v30, 129, 0, 0);
-	v8[3676] = 2;
+	pl->field_3676 = 2;
 	if (nox_xxx_check_flag_aaa_43AF70() == 1 && !nox_common_gameFlags_check_40A5C0(128)) {
-		sub_425F10(pinfo);
+		sub_425F10(pl);
 	}
 	nox_xxx_createAt_4DAA50(punit, 0, 2944.0, 2944.0);
 	nox_xxx_unitsNewAddToList_4DAC00();
@@ -9057,21 +9053,20 @@ uint32_t* nox_xxx_playerNew_4DD320(int ind, void* data) {
 		nox_xxx_mapFindPlayerStart_4F7AB0(&v28, punit);
 	}
 	nox_xxx_unitMove_4E7010(punit, &v28);
-	sub_422140(pinfo);
+	sub_422140(pl);
 	if (ind != 31) {
 		if (sub_459D70() == 2) {
-			int v26 = pinfo->playerInd;
 			char* v24 = nox_xxx_cliGamedataGet_416590(1);
-			nox_xxx_netGuiGameSettings_4DD9B0(1, v24, v26);
+			nox_xxx_netGuiGameSettings_4DD9B0(1, v24, pl->playerInd);
 		} else {
 			char v29[60];
-			sub_459AA0((int)v29);
-			nox_xxx_netGuiGameSettings_4DD9B0(1, v29, pinfo->playerInd);
+			sub_459AA0(v29);
+			nox_xxx_netGuiGameSettings_4DD9B0(1, v29, pl->playerInd);
 		}
 	}
 	if (nox_common_gameFlags_check_40A5C0(49152)) {
-		if (!(v8[3680] & 1)) {
-			sub_509C30(pinfo);
+		if ((pl->field_3680 & 1) == 0) {
+			sub_509C30(pl);
 		}
 	}
 	if (!nox_common_gameFlags_check_40A5C0(2048)) {
@@ -9079,13 +9074,14 @@ uint32_t* nox_xxx_playerNew_4DD320(int ind, void* data) {
 			nox_game_sendQuestStage_4D6960(ind);
 			return punit->field_9;
 		}
-		char v27b[3];
-		*(unsigned short*)(&v27b[0]) = 484;
+		unsigned char v27b[3];
+		v27b[0] = 0xE4; // MSG_FADE_BEGIN
+		v27b[1] = 1;
 		v27b[2] = 1;
 		nox_xxx_netSendPacket0_4E5420(ind, v27b, 3, 0, 0);
 	}
 #ifdef NOX_CGO
-	nox_script_callByEvent_cgo(30, pinfo, 0); // player join
+	nox_script_callByEvent_cgo(30, pl, 0); // player join
 #endif                                        // NOX_CGO
 	return punit->field_9;
 }
