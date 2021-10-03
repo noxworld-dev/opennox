@@ -284,45 +284,41 @@ int nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 	char* v206;             // eax
 	char* v207;             // esi
 	int v208;               // eax
-	int v209;               // eax
-	int v210;               // esi
-	char* v211;             // ebx
-	wchar_t* v212;          // ebx
-	wchar_t* v213;          // eax
-	int v214;               // eax
-	int v215;               // esi
-	char* v216;             // ebx
-	wchar_t* v217;          // eax
-	uint32_t* v218;         // eax
-	int v219;               // edi
-	wchar_t* v220;          // eax
-	unsigned int v221;      // eax
-	int v222;               // eax
-	int v223;               // esi
-	int v224;               // eax
-	int v225;               // eax
-	int v226;               // eax
-	int v227;               // esi
-	int v228;               // ebx
-	int v229;               // ecx
-	int v230;               // edi
-	int v231;               // ebx
-	uint32_t* v232;         // esi
-	char v233;              // al
-	int v234;               // esi
-	int v235;               // eax
-	int v236;               // eax
-	int v237;               // esi
-	uint32_t* v238;         // eax
-	int v239;               // ebx
-	int v240;               // edi
-	int v241;               // esi
-	int v242;               // edi
-	int v243;               // edi
-	int v244;               // ebx
-	int v245;               // eax
-	uint32_t* v246;         // esi
-	char v247;              // al
+	wchar_t* v213;            // eax
+	int v214;                 // eax
+	int v215;                 // esi
+	char* v216;               // ebx
+	wchar_t* v217;            // eax
+	uint32_t* v218;             // eax
+	int v219;                 // edi
+	wchar_t* v220;            // eax
+	unsigned int v221;        // eax
+	int v222;                 // eax
+	int v223;                 // esi
+	int v224;                 // eax
+	int v225;                 // eax
+	int v226;                 // eax
+	int v227;                 // esi
+	int v228;                 // ebx
+	int v229;                 // ecx
+	int v230;                 // edi
+	int v231;                 // ebx
+	uint32_t* v232;             // esi
+	char v233;                // al
+	int v234;                 // esi
+	int v235;                 // eax
+	int v236;                 // eax
+	int v237;                 // esi
+	uint32_t* v238;             // eax
+	int v239;                 // ebx
+	int v240;                 // edi
+	int v241;                 // esi
+	int v242;                 // edi
+	int v243;                 // edi
+	int v244;                 // ebx
+	int v245;                 // eax
+	uint32_t* v246;             // esi
+	char v247;                // al
 	short v248;             // ax
 	int v249;               // esi
 	bool v250;              // zf
@@ -470,14 +466,13 @@ int nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 	wchar_t v396[64];       // [esp+840h] [ebp-F10h]
 	wchar_t v397[100];      // [esp+8C0h] [ebp-E90h]
 	wchar_t v398[128];      // [esp+988h] [ebp-DC8h]
-	wchar_t v399[100];      // [esp+A88h] [ebp-CC8h]
-	wchar_t v400[256];      // [esp+B50h] [ebp-C00h]
-	wchar_t v401[128];      // [esp+D50h] [ebp-A00h]
-	wchar_t v402[128];      // [esp+E50h] [ebp-900h]
-	wchar_t v403[256];      // [esp+F50h] [ebp-800h]
-	wchar_t v404[256];      // [esp+1150h] [ebp-600h]
-	wchar_t v405[256];      // [esp+1350h] [ebp-400h]
-	wchar_t v406[256];      // [esp+1550h] [ebp-200h]
+	wchar_t v400[256];        // [esp+B50h] [ebp-C00h]
+	wchar_t v401[128];        // [esp+D50h] [ebp-A00h]
+	wchar_t v402[128];        // [esp+E50h] [ebp-900h]
+	wchar_t v403[256];        // [esp+F50h] [ebp-800h]
+	wchar_t v404[256];        // [esp+1150h] [ebp-600h]
+	wchar_t v405[256];        // [esp+1350h] [ebp-400h]
+	wchar_t v406[256];        // [esp+1550h] [ebp-200h]
 
 	if (sz) {
 		// dhexdump((uint8_t*)data, sz);
@@ -599,45 +594,43 @@ int nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 			nox_xxx_cliSetSettingsAcquired_4169D0(0);
 			data += 7;
 			break;
-		case 45:
-			v209 = nox_xxx_netClearHighBit_578B30(*(uint16_t*)(data + 1));
-			v210 = v209;
-			v360 = v209;
-			v211 = nox_common_playerInfoNew_416F60(v209);
-			if (v211) {
-				if (!nox_common_gameFlags_check_40A5C0(1)) {
-					*((uint32_t*)v211 + 515) = v210;
-					*((uint32_t*)v211 + 534) = *(short*)(data + 100);
-					*((uint32_t*)v211 + 535) = *(unsigned short*)(data + 102);
-					*(uint32_t*)v211 = *(uint32_t*)(data + 104);
-					*((uint32_t*)v211 + 1) = *(uint32_t*)(data + 108);
-					*((uint32_t*)v211 + 538) = *(unsigned char*)(data + 116);
-					*((uint32_t*)v211 + 539) = *(unsigned char*)(data + 117);
-					strcpy(v211 + 2096, (const char*)(data + 119));
-					*((uint32_t*)v211 + 920) |= *(uint32_t*)(data + 112);
-					memcpy(v211 + 2185, (const void*)(data + 3), 0x61u);
-					nox_swprintf((wchar_t*)v211 + 2352, L"%s%s", v211 + 2185, v211 + 2274);
-					if (dword_5d4594_2650652) {
-						*((uint32_t*)v211 + 527) = 0;
-						sub_41D670((int)(v211 + 2096));
-					}
-					nox_xxx_playerInitColors_461460((int)v211);
-					v210 = v360;
-				}
-				v212 = (wchar_t*)(v211 + 4704);
-				sub_457140(v210, v212);
-				sub_455920((int)v212);
-				v213 = nox_strman_loadString_40F1D0("PlayerJoined", 0, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c",
-													4661);
-				nox_swprintf(v399, v213, v212);
-				if (nox_xxx_gameGetPlayState_4356B0() == 3) {
-					nox_xxx_printCentered_445490(v399);
-				}
-				if (v210 == *getMemU32Ptr(0x85319C, 0) && nox_wcscmp((const wchar_t*)getMemAt(0x85B3FC, 12204), v212)) {
-					dword_5d4594_1200832 = 1;
-				}
-				OnLibraryNotice_263(v211);
+		case 45:; // MSG_NEW_PLAYER
+			int playerID = nox_xxx_netClearHighBit_578B30(*(uint16_t*)(data + 1));
+			nox_playerInfo* pl = nox_common_playerInfoNew_416F60(playerID);
+			if (!pl) {
+				data += 129;
+				break;
 			}
+			if (!nox_common_gameFlags_check_40A5C0(1)) {
+				pl->netCode = playerID;
+				pl->field_2136 = *(short*)(data + 100);
+				pl->field_2140 = *(unsigned short*)(data + 102);
+				pl->field_0 = *(uint32_t*)(data + 104);
+				pl->field_4 = *(uint32_t*)(data + 108);
+				pl->field_2152 = *(unsigned char*)(data + 116);
+				pl->field_2156 = *(unsigned char*)(data + 117);
+				strcpy(pl->field_2096, (const char*)(data + 119));
+				pl->field_3680 |= *(uint32_t*)(data + 112);
+				memcpy(&pl->info, (const void*)(data + 3), 97);
+				nox_swprintf(pl->name_full, L"%s%s", pl->info.name, pl->info.name_suff);
+				if (dword_5d4594_2650652) {
+					pl->field_2108 = 0;
+					sub_41D670(pl->field_2096);
+				}
+				nox_xxx_playerInitColors_461460(pl);
+			}
+			sub_457140(playerID, pl->name_final);
+			sub_455920(pl->name_final);
+			v213 = nox_strman_loadString_40F1D0("PlayerJoined", 0, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 4661);
+			wchar_t fnameBuf[100];
+			nox_swprintf(fnameBuf, v213, pl->name_final);
+			if (nox_xxx_gameGetPlayState_4356B0() == 3) {
+				nox_xxx_printCentered_445490(fnameBuf);
+			}
+			if (playerID == *getMemU32Ptr(0x85319C, 0) && nox_wcscmp(getMemAt(0x85B3FC, 12204), pl->name_final)) {
+				dword_5d4594_1200832 = 1;
+			}
+			OnLibraryNotice_263(pl);
 			data += 129;
 			break;
 		case 46:

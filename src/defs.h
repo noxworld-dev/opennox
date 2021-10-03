@@ -1536,9 +1536,32 @@ _Static_assert(sizeof(nox_draw_viewport_t) == 52, "wrong size of nox_draw_viewpo
 
 #define NOX_SPELLS_MAX 137
 #define NOX_PLAYERINFO_MAX 32
+
+#pragma pack(push,1)
+typedef struct {
+	wchar_t name[25]; // 2185 // TODO: size is a guess
+	uint8_t data_2235[5];
+	uint32_t field_2240;
+	uint32_t field_2244;
+	uint16_t field_2248; // 562, 2248
+	uint8_t field_2250; // 562, 2250
+	unsigned char playerClass; // 562, 2251
+	uint32_t field_2252;
+	uint32_t field_2256;
+	uint32_t field_2260;
+	uint32_t field_2264;
+	uint32_t field_2268;
+	uint16_t field_2272;
+	wchar_t name_suff[4]; // 2274
+} nox_playerInfo2;
+#pragma pack(pop)
+_Static_assert(sizeof(nox_playerInfo2) == 97, "wrong size of nox_playerInfo2 structure!");
+
 #pragma pack(push,1)
 typedef struct nox_playerInfo {
-	uint32_t data_0[100];
+	uint32_t field_0; // 0, 0
+	uint32_t field_4; // 1, 4
+	uint32_t data_8[98];
 	uint32_t data_400[100];
 	uint32_t data_800[100];
 	uint32_t data_1200[100];
@@ -1554,22 +1577,23 @@ typedef struct nox_playerInfo {
 	uint32_t field_2068;      // 517
 	wchar_t field_2072[10];   // 518, 2072
 	unsigned int active;      // 523, 2092
-	char field_2096[16];      // 524, 2096
-	char serial[22];   // 2112
-	uint8_t data_2134[51];
-	wchar_t orig_name[25]; // 2185 // TODO: size is a guess
-	uint8_t data_2235[5];
-	uint32_t field_2240;
-	uint32_t field_2244;
-	uint16_t field_2248; // 562, 2248
-	uint8_t field_2250;  // 562, 2250
-	uint8_t playerClass; // 562, 2251
-	uint32_t field_2252;
-	uint32_t field_2256;
-	uint32_t data_2260[5];
-	uint32_t data_2280[5];
-	uint32_t data_2300[25]; // 2352 is wchar_t buf
-	uint32_t data_2400[100];
+	char field_2096[12]; // 524, 2096
+	uint32_t field_2108; // 527, 2108
+	char serial[22];   // 528, 2112
+	uint8_t data_2134[2];
+	uint32_t field_2136; // 534, 2136
+	uint32_t field_2140; // 535, 2140
+	uint32_t field_2144; // 536, 2144
+	uint32_t field_2148; // 537, 2148
+	uint32_t field_2152; // 538, 2152
+	uint32_t field_2156; // 539, 2156
+	uint8_t data_2148[25];
+	nox_playerInfo2 info; // 2185
+	uint16_t field_2282;
+	uint32_t data_2284[4];
+	uint32_t data_2300[13];
+	wchar_t name_full[30]; // 2352 is wchar_t buf // TODO: size is a wild guess
+	uint32_t data_2412[97];
 	uint32_t data_2800[100];
 	uint32_t data_3200[50];
 	uint32_t data_3400[25];
@@ -1590,7 +1614,7 @@ typedef struct nox_playerInfo {
 	uint8_t field_3676;
 	uint8_t field_3676_1;
 	uint16_t field_3676_2;
-	uint32_t field_3680;
+	uint32_t field_3680; // 920, 3680
 	uint32_t data_3684[3];
 	unsigned int spell_lvl[NOX_SPELLS_MAX]; // 3696
 	unsigned int beast_scroll_lvl[41];      // 4244
@@ -1598,11 +1622,16 @@ typedef struct nox_playerInfo {
 	uint32_t data_4500[20];
 	uint32_t field_4580;
 	uint32_t data_4584[4];
-	uint32_t data_4600[50]; // 4704 is wchar_t buf (server-approved player name)
+	uint32_t data_4600[25];
+	_DWORD field_4700;
+	wchar_t name_final[30]; // 4704, server-approved player name // TODO: size is a wild guess
+	_DWORD data_4764[9];
 	uint32_t data_4800[7];
 } nox_playerInfo;
 #pragma pack(pop)
 _Static_assert(sizeof(nox_playerInfo) == 4828, "wrong size of nox_playerInfo structure!");
+_Static_assert(offsetof(nox_playerInfo, info) == 2185, "wrong offset of nox_playerInfo.info field!");
+_Static_assert(offsetof(nox_playerInfo, name_full) == 2352, "wrong offset of nox_playerInfo.name_full field!");
 _Static_assert(offsetof(nox_playerInfo, frame_3596) == 3596, "wrong offset of nox_playerInfo.frame_3596 field!");
 _Static_assert(offsetof(nox_playerInfo, field_4580) == 4580, "wrong offset of nox_playerInfo.field_4580 field!");
 

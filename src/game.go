@@ -1039,6 +1039,7 @@ func nox_xxx_mapExitAndCheckNext_4D1860_server() bool {
 		if !noxflags.HasGame(512) {
 			v18 := k.ptrYyy()
 			v18 = *(*unsafe.Pointer)(unsafe.Add(v18, 276))
+			// TODO: these look like offsets to the Player struct
 			*(*uint32)(unsafe.Add(v18, 2136)) = 0
 			*(*uint32)(unsafe.Add(v18, 2140)) = 0
 			*(*uint32)(unsafe.Add(v18, 2144)) = gameFrame()

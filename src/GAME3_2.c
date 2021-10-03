@@ -9133,49 +9133,40 @@ int nox_xxx_netGuiGameSettings_4DD9B0(char a1, const void* a2, int a3) {
 }
 
 //----- (004DDA00) --------------------------------------------------------
-char* nox_xxx_playerCheckName_4DDA00(int a1) {
-	int i;        // ebx
-	char* result; // eax
-	int v3;       // esi
-
-	for (i = 2;; ++i) {
-		result = nox_common_playerInfoGetFirst_416EA0();
-		v3 = (int)result;
-		if (!result) {
-			break;
-		}
-		while (*(uint8_t*)(a1 + 2064) == *(uint8_t*)(v3 + 2064) ||
-			   nox_wcscmp((const wchar_t*)(a1 + 4704), (const wchar_t*)(v3 + 4704))) {
-			result = nox_common_playerInfoGetNext_416EE0(v3);
-			v3 = (int)result;
-			if (!result) {
-				return result;
+void nox_xxx_playerCheckName_4DDA00(nox_playerInfo* pl) {
+	for (int i = 2;; i++) {
+		bool ok = true;
+		for (nox_playerInfo* pl2 = nox_common_playerInfoGetFirst_416EA0(); pl2; pl2 = nox_common_playerInfoGetNext_416EE0(pl2)) {
+			if (pl->playerInd == pl2->playerInd) {
+				continue;
+			}
+			if (nox_wcscmp(pl->name_final, pl2->name_final) == 0) {
+				ok = false;
+				break;
 			}
 		}
-		nox_swprintf((wchar_t*)(a1 + 2274), L" %d", i);
-		nox_swprintf((wchar_t*)(a1 + 4704), L"%s%s", a1 + 2185, a1 + 2274);
+		if (ok) {
+			return;
+		}
+		nox_swprintf(pl->info.name_suff, L" %d", i);
+		nox_swprintf(pl->name_final, L"%s%s", pl->info.name, pl->info.name_suff);
 	}
-	return result;
 }
 
 //----- (004DDA90) --------------------------------------------------------
-unsigned int nox_xxx_netNewPlayerMakePacket_4DDA90(int a1, int a2) {
-	unsigned int result; // eax
-
-	*(uint8_t*)a1 = 45;
-	*(uint16_t*)(a1 + 1) = *(uint16_t*)(a2 + 2060);
-	*(uint16_t*)(a1 + 100) = *(uint16_t*)(a2 + 2136);
-	*(uint16_t*)(a1 + 102) = *(uint16_t*)(a2 + 2140);
-	*(uint32_t*)(a1 + 104) = *(uint32_t*)a2;
-	*(uint32_t*)(a1 + 108) = *(uint32_t*)(a2 + 4);
-	*(uint8_t*)(a1 + 116) = *(uint8_t*)(a2 + 2152);
-	*(uint8_t*)(a1 + 117) = *(uint8_t*)(a2 + 2156);
-	*(uint8_t*)(a1 + 118) = *(uint8_t*)(a2 + 3676) == 3;
-	*(uint32_t*)(a1 + 112) = *(uint32_t*)(a2 + 3680) & 0x423;
-	result = strlen((const char*)(a2 + 2096)) + 1;
-	memcpy((void*)(a1 + 119), (const void*)(a2 + 2096), result);
-	memcpy((void*)(a1 + 3), (const void*)(a2 + 2185), 0x61u);
-	return result;
+void nox_xxx_netNewPlayerMakePacket_4DDA90(unsigned char* buf, nox_playerInfo* pl) {
+	buf[0] = 45; // MSG_NEW_PLAYER
+	*(uint16_t*)(&buf[1]) = pl->netCode;
+	*(uint16_t*)(&buf[100]) = pl->field_2136;
+	*(uint16_t*)(&buf[102]) = pl->field_2140;
+	*(uint32_t*)(&buf[104]) = pl->field_0;
+	*(uint32_t*)(&buf[108]) = pl->field_4;
+	buf[116] = pl->field_2152;
+	buf[117] = pl->field_2156;
+	buf[118] = pl->field_3676 == 3;
+	*(uint32_t*)(&buf[112]) = pl->field_3680 & 0x423;
+	memcpy(&buf[119], pl->field_2096, strlen(pl->field_2096) + 1);
+	memcpy(&buf[3], &pl->info, 91);
 }
 
 //----- (004DDB40) --------------------------------------------------------
