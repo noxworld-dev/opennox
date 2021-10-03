@@ -202,11 +202,12 @@ func (p *Player) SetPos(pos types.Pointf) {
 }
 
 func (p *Player) OrigName() string {
-	return GoWStringP(p.field(2185)) // &p.orig_name[0], inaccessible due to alignment issues
+	info := p.infoField()
+	return GoWString(&info.name[0])
 }
 
 func (p *Player) Name() string {
-	return GoWStringP(p.field(4704))
+	return GoWString(&p.name_final[0])
 }
 
 func (p *Player) Serial() string {
@@ -293,11 +294,16 @@ func (p *Player) UnitC() *Unit {
 	return asUnitC(p.playerUnit)
 }
 
+func (p *Player) infoField() *C.nox_playerInfo2 {
+	return (*C.nox_playerInfo2)(p.field(2185)) // inaccessible due to alignment issues
+}
+
 func (p *Player) PlayerClass() player.Class {
 	if p == nil {
 		return 0
 	}
-	return player.Class(p.playerClass)
+	info := p.infoField()
+	return player.Class(info.playerClass)
 }
 
 func (p *Player) Disconnect(v int) {
