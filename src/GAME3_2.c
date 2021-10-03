@@ -8911,9 +8911,7 @@ char* nox_xxx_gameServerReadyMB_4DD180(int a1) {
 void nox_xxx____setargv_15_4DD310() { *getMemU32Ptr(0x5D4594, 1563280) = 1; }
 
 //----- (004DD320) --------------------------------------------------------
-#ifdef NOX_CGO
-void nox_script_callByEvent_cgo(int eventCode, int a1, int a2);
-#endif // NOX_CGO
+#ifndef NOX_CGO
 int nox_xxx_playerNew_4DD320(int ind, unsigned char* data) {
 	unsigned char v2 = data[152];
 	data[152] &= 0x7F;
@@ -8994,8 +8992,8 @@ int nox_xxx_playerNew_4DD320(int ind, unsigned char* data) {
 	pl->field_4592 = nox_xxx_protectionCreateInt_56F400(*(unsigned short*)((int)punit->field_139 + 4));
 	pl->field_4596 = nox_xxx_protectionCreateInt_56F400(*(unsigned short*)(v15 + 4));
 	pl->field_4600 = nox_xxx_protectionCreateInt_56F400(*(unsigned short*)(v15 + 8));
-	pl->field_4604 = nox_xxx_protectionCreateFloat_56F440(*(uint32_t*)(&punit->field_7));
-	pl->field_4608 = nox_xxx_protectionCreateFloat_56F440(*(uint32_t*)(&punit->float_30));
+	pl->field_4604 = nox_xxx_protectionCreateFloat_56F440(*(float*)(&punit->field_7));
+	pl->field_4608 = nox_xxx_protectionCreateFloat_56F440(*(float*)(&punit->float_30));
 	pl->field_4612 = nox_xxx_protectionCreateInt_56F400(*(uint32_t*)(&punit->field_85));
 	pl->field_4616 = nox_xxx_protectionCreateInt_56F400(pl->info.playerClass);
 	pl->field_4620 = nox_xxx_protectionCreateInt_56F400(pl->info.field_2235);
@@ -9080,11 +9078,9 @@ int nox_xxx_playerNew_4DD320(int ind, unsigned char* data) {
 		v27b[2] = 1;
 		nox_xxx_netSendPacket0_4E5420(ind, v27b, 3, 0, 0);
 	}
-#ifdef NOX_CGO
-	nox_script_callByEvent_cgo(30, pl, 0); // player join
-#endif                                        // NOX_CGO
 	return punit->field_9;
 }
+#endif // NOX_CGO
 
 //----- (004DD9B0) --------------------------------------------------------
 int nox_xxx_netGuiGameSettings_4DD9B0(char a1, const void* a2, int a3) {
@@ -9134,7 +9130,8 @@ void nox_xxx_netNewPlayerMakePacket_4DDA90(unsigned char* buf, nox_playerInfo* p
 }
 
 //----- (004DDB40) --------------------------------------------------------
-uint32_t* nox_xxx_servSendSettings_4DDB40(uint32_t* a1) {
+void nox_xxx_servSendSettings_4DDB40(nox_object_t* punit) {
+	uint32_t* a1 = punit;
 	int v1;       // ebx
 	int v2;       // eax
 	char* v3;     // ebp
@@ -9178,7 +9175,7 @@ uint32_t* nox_xxx_servSendSettings_4DDB40(uint32_t* a1) {
 	*(uint32_t*)&v5[117] = nox_frame_xxx_2598000;
 	nox_xxx_netSendSock_552640(*(unsigned char*)(*(uint32_t*)(v1 + 276) + 2064) + 1, &v5[80], 41,
 							   NOX_NET_SEND_NO_LOCK | NOX_NET_SEND_FLAG2);
-	return sub_4DDE10(*(unsigned char*)(*(uint32_t*)(v1 + 276) + 2064), *(uint32_t*)(v1 + 276));
+	sub_4DDE10(*(unsigned char*)(*(uint32_t*)(v1 + 276) + 2064), *(uint32_t*)(v1 + 276));
 }
 
 //----- (004DDDC0) --------------------------------------------------------
@@ -9596,6 +9593,9 @@ void sub_4DE790(int a1) {
 }
 
 //----- (004DE7C0) --------------------------------------------------------
+#ifdef NOX_CGO
+void nox_script_callByEvent_cgo(int eventCode, void* a1, void* a2);
+#endif // NOX_CGO
 void nox_xxx_playerForceDisconnect_4DE7C0(int ind) {
 	nox_playerInfo* plr = nox_common_playerInfoFromNum_417090(ind);
 #ifdef NOX_CGO
@@ -9965,7 +9965,8 @@ int nox_xxx_netSendSimpleObject2_4DF360(int a1, int a2) {
 }
 
 //----- (004DF3C0) --------------------------------------------------------
-void sub_4DF3C0(int a1) {
+void sub_4DF3C0(nox_playerInfo* pl) {
+	int a1 = pl;
 	int v1;   // edi
 	char* v2; // eax
 	char* v3; // ebx

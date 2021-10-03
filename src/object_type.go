@@ -15,7 +15,7 @@ import (
 	"nox/v1/server/script"
 )
 
-func getObjectTypeByID(id string) *ObjectType {
+func getObjectTypeByID(id string) *ObjectType { // nox_xxx_objectTypeByID_4E3830
 	cstr := CString(id)
 	defer StrFree(cstr)
 	p := C.nox_xxx_objectTypeByID_4E3830(cstr)
@@ -48,6 +48,18 @@ func getObjectTypes() (out []*ObjectType) {
 		out = append(out, typ)
 	}
 	return
+}
+
+func newObjectByTypeID(id string) *Object { // nox_xxx_newObjectByTypeID_4E3810
+	typ := getObjectTypeByID(id)
+	if typ == nil {
+		return nil
+	}
+	cobj := C.nox_xxx_newObjectWithType_4E3470(typ.C())
+	if cobj == nil {
+		return nil
+	}
+	return asObjectC(cobj)
 }
 
 type ObjectType C.nox_objectType_t

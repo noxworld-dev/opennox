@@ -604,7 +604,8 @@ int sub_461440(int a1) {
 int sub_461450() { return *getMemU32Ptr(0x5D4594, 1049688); }
 
 //----- (00461460) --------------------------------------------------------
-int nox_xxx_playerInitColors_461460(int a1) {
+void nox_xxx_playerInitColors_461460(nox_playerInfo* pl) {
+	int a1 = pl;
 	int v1;     // eax
 	char v2;    // cl
 	char v3;    // dl
@@ -617,7 +618,6 @@ int nox_xxx_playerInitColors_461460(int a1) {
 	int v10;    // eax
 	char v11;   // cl
 	char v12;   // dl
-	int result; // eax
 
 	v1 = nox_color_rgb_4344A0(*(uint8_t*)(a1 + 2253), *(uint8_t*)(a1 + 2254), *(uint8_t*)(a1 + 2255));
 	v2 = *(uint8_t*)(a1 + 2257);
@@ -636,9 +636,7 @@ int nox_xxx_playerInitColors_461460(int a1) {
 	v12 = *(uint8_t*)(a1 + 2265);
 	*(uint32_t*)(a1 + 2304) = v10;
 	*(uint32_t*)(a1 + 2308) = nox_color_rgb_4344A0(v12, v11, *(uint8_t*)(a1 + 2267));
-	result = *getMemU32Ptr(0x5D4594, 2523948);
 	*(uint32_t*)(a1 + 2312) = *getMemU32Ptr(0x5D4594, 2523948);
-	return result;
 }
 
 //----- (00461520) --------------------------------------------------------

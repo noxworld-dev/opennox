@@ -113,53 +113,53 @@ func (ev noxEventType) String() string {
 }
 
 //export nox_script_callByEvent_cgo
-func nox_script_callByEvent_cgo(event C.int, a1, a2 C.int) {
+func nox_script_callByEvent_cgo(event C.int, a1, a2 unsafe.Pointer) {
 	ev := noxEventType(event)
 	switch ev {
 	case noxEventCollide, noxEventMonsterCollide, noxEventMonsterHearEnemy:
 		// too frequent, don't log for now
 	case noxEventTriggerActivated:
-		obj := asObject(unsafe.Pointer(uintptr(a1)))
-		trig := asObject(unsafe.Pointer(uintptr(a2)))
+		obj := asObject(a1)
+		trig := asObject(a2)
 		callOnTriggerActivated(trig, obj)
 	case noxEventTriggerDeactivated:
-		trig := asObject(unsafe.Pointer(uintptr(a2)))
+		trig := asObject(a2)
 		callOnTriggerDeactivated(trig)
 	case noxEventMonsterDone:
-		obj := asUnit(unsafe.Pointer(uintptr(a2)))
+		obj := asUnit(a2)
 		callOnMonsterDone(obj)
 	case noxEventMonsterFightStart:
-		targ := asUnit(unsafe.Pointer(uintptr(a1)))
-		obj := asUnit(unsafe.Pointer(uintptr(a2)))
+		targ := asUnit(a1)
+		obj := asUnit(a2)
 		callOnMonsterAttack(obj, targ)
 	case noxEventMonsterSeeEnemy:
-		targ := asUnit(unsafe.Pointer(uintptr(a1)))
-		obj := asUnit(unsafe.Pointer(uintptr(a2)))
+		targ := asUnit(a1)
+		obj := asUnit(a2)
 		// TODO: inverse order?
 		callOnMonsterSeeEnemy(obj, targ)
 	case noxEventMonsterLostEnemy:
-		targ := asUnit(unsafe.Pointer(uintptr(a1)))
-		obj := asUnit(unsafe.Pointer(uintptr(a2)))
+		targ := asUnit(a1)
+		obj := asUnit(a2)
 		// TODO: inverse order?
 		callOnMonsterLostEnemy(obj, targ)
 	case noxEventPolygonPlayerEnter:
-		obj := asUnit(unsafe.Pointer(uintptr(a1)))
+		obj := asUnit(a1)
 		scriptLog.Printf("secret YYY: %s", obj)
 		callOnPolygonPlayerEnter(obj)
 	case noxEventPolygonEnterYYY:
-		v1 := asUnit(unsafe.Pointer(uintptr(a1)))
+		v1 := asUnit(a1)
 		scriptLog.Printf("polygon YYY: %s", v1)
 	case noxEventMonsterIdle:
-		obj := asUnit(unsafe.Pointer(uintptr(a2)))
+		obj := asUnit(a2)
 		callOnMonsterIdle(obj)
 	case noxEventMonsterDead:
-		obj := asUnit(unsafe.Pointer(uintptr(a2)))
+		obj := asUnit(a2)
 		callOnMonsterDead(obj)
 	case noxEventPlayerJoin:
-		p := asPlayer((*C.nox_playerInfo)(unsafe.Pointer(uintptr(a1))))
+		p := asPlayer((*C.nox_playerInfo)(a1))
 		callOnPlayerJoin(p)
 	case noxEventPlayerLeave:
-		p := asPlayer((*C.nox_playerInfo)(unsafe.Pointer(uintptr(a1))))
+		p := asPlayer((*C.nox_playerInfo)(a1))
 		callOnPlayerLeave(p)
 	default:
 		scriptLog.Printf("event: %s (%x, %x)", ev, uintptr(a1), uintptr(a2))

@@ -470,7 +470,7 @@ func CONNECT_OR_HOST() {
 	}
 	mode := videoGetGameMode()
 	var info *C.char = C.nox_xxx_getHostInfoPtr_431770()
-	infos := unsafe.Slice((*byte)(unsafe.Pointer(info)), 97)
+	infos := unsafe.Slice((*byte)(unsafe.Pointer(info)), int(unsafe.Sizeof(C.nox_playerInfo2{})))
 
 	C.nox_wcscpy((*C.wchar_t)(unsafe.Pointer(&infos[0])), (*C.wchar_t)(memmap.PtrOff(0x85B3FC, 12204)))
 	infos[66] = byte(getPlayerClass())

@@ -29,7 +29,7 @@ int sub_4613B0();
 int sub_461400();
 int sub_461440(int a1);
 int sub_461450();
-int nox_xxx_playerInitColors_461460(int a1);
+void nox_xxx_playerInitColors_461460(nox_playerInfo* pl);
 char* sub_461520();
 int nox_xxx_clientSetAltWeapon_461550(int a1);
 int sub_4615C0();

@@ -245,7 +245,7 @@ var (
 		{Token: "exec", HelpID: "exechelp", Flags: parsecmd.Server, LegacyFunc: wrapCommandC(nox_cmd_exec)},
 		{Token: "execrul", HelpID: "execrulhelp", Flags: parsecmd.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_exec_rul)},
 		{Token: "exit", HelpID: "exithelp", Flags: parsecmd.ClientServer, Func: func(c *parsecmd.Console, tokens []string) bool {
-			if noxflags.HasGame(4096) && noxflags.HasGame(1) {
+			if noxflags.HasGame(noxflags.GameModeQuest) && noxflags.HasGame(1) {
 				C.sub_4D6B10(0)
 			}
 			if noxflags.HasGame(0x2000000) {

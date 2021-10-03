@@ -366,11 +366,11 @@ func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_A(a4 *CtrlEventBinding) 
 			case keybind.EventToggleGUI:
 				c.nox_ctrlevent_action_42E670(client.CCToggleGUI, nil)
 			case keybind.EventAutoSave:
-				if noxflags.HasGame(2048) && !nox_xxx_guiCursor_477600() {
+				if noxflags.HasGame(noxflags.GameModeSolo12) && !nox_xxx_guiCursor_477600() {
 					c.nox_ctrlevent_action_42E670(client.CCAutoSave, nil)
 				}
 			case keybind.EventAutoLoad:
-				if noxflags.HasGame(2048) && !nox_xxx_guiCursor_477600() {
+				if noxflags.HasGame(noxflags.GameModeSolo12) && !nox_xxx_guiCursor_477600() {
 					c.nox_ctrlevent_action_42E670(client.CCAutoLoad, nil)
 				}
 			case keybind.EventScreenShot:
@@ -600,7 +600,7 @@ func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_B() {
 			}
 			ce.active = false
 		case client.CCAutoSave:
-			if noxflags.HasGame(2048) {
+			if noxflags.HasGame(noxflags.GameModeSolo12) {
 				if C.nox_xxx_game_4DCCB0() != 0 {
 					clientPlaySoundSpecial(921, 100)
 					C.sub_4DB130(internCStr(common.SaveAuto))
@@ -611,7 +611,7 @@ func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_B() {
 			}
 			ce.active = false
 		case client.CCAutoLoad:
-			if noxflags.HasGame(2048) {
+			if noxflags.HasGame(noxflags.GameModeSolo12) {
 				if C.nox_xxx_game_4DCCB0() != 0 {
 					clientPlaySoundSpecial(921, 100)
 					C.sub_413A00(1)

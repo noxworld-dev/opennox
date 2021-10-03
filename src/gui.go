@@ -146,7 +146,7 @@ func (d *WindowData) Text() string {
 
 func (d *WindowData) SetText(s string) {
 	n := len(d.text)
-	CWStringCopyTo(&d.text[0], n, s)
+	WStrCopy(&d.text[0], n, s)
 	d.text[n-1] = 0
 }
 
@@ -267,7 +267,7 @@ func (d *WindowData) SetTooltip(sm *strman.StringManager, s string) {
 	if CWLen(s) > n && sm != nil {
 		s = sm.GetStringInFile("TooltipTooLong", "C:\\NoxPost\\src\\Client\\Gui\\GameWin\\gamewin.c")
 	}
-	CWStringCopyTo(&d.tooltip[0], n, s)
+	WStrCopy(&d.tooltip[0], n, s)
 	d.tooltip[n-1] = 0
 }
 

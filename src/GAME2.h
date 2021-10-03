@@ -210,7 +210,7 @@ int sub_459700();
 int* nox_xxx_guiServerOptionsHide_4597E0(int a1);
 char* sub_459870();
 int sub_459A40(char* a1);
-char* sub_459AA0(int a1);
+char* sub_459AA0(void* a1);
 int sub_459C30();
 int sub_459D50(int a1);
 int sub_459D60();
