@@ -767,8 +767,9 @@ int nox_xxx_mapValidateMB_4CF470(char* a1, int a2) {
 	return v2;
 }
 
+#ifndef NOX_CGO
 //----- (004CF990) --------------------------------------------------------
-char nox_xxx_mapReadSetFlags_4CF990() {
+void nox_xxx_mapReadSetFlags_4CF990() {
 	char* v0;          // esi
 	char* v1;          // eax
 	unsigned short v2; // ax
@@ -861,10 +862,8 @@ char nox_xxx_mapReadSetFlags_4CF990() {
 			LOBYTE(v3) = sub_4D0D90(1);
 		}
 	}
-	return v3;
 }
-// 4CFAF1: variable 'v2' is possibly undefined
-// 4CFB53: variable 'v3' is possibly undefined
+#endif // NOX_CGO
 
 //----- (004CFC30) --------------------------------------------------------
 void nox_xxx_mapFindCrown_4CFC30() {
@@ -1032,7 +1031,7 @@ int sub_4CFF50(int a1) {
 }
 
 //----- (004CFFA0) --------------------------------------------------------
-int nox_xxx_mapGetTypeMB_4CFFA0(int a1) { return sub_4CFF50(*(uint32_t*)(a1 + 1392)); }
+int nox_xxx_mapGetTypeMB_4CFFA0(void* a1) { return sub_4CFF50(*(uint32_t*)((int)a1 + 1392)); }
 
 //----- (004CFFC0) --------------------------------------------------------
 int sub_4CFFC0(int a1) { return sub_4CFF50(*(uint32_t*)(a1 + 28)); }

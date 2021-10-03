@@ -200,7 +200,7 @@ func startServer() bool {
 	} else {
 		noxflags.UnsetGame(noxflags.GameNotQuest)
 	}
-	noxflags.UnsetGame(noxflags.GameModeSolo12)
+	noxflags.UnsetGame(noxflags.GameModeCoop)
 	C.sub_461440(0)
 	C.sub_4D6F40(0)
 	C.sub_4D6F90(0)
@@ -273,6 +273,7 @@ var srvReg struct {
 //export nox_xxx_serverHost_43B4D0
 func nox_xxx_serverHost_43B4D0() {
 	isHost := C.nox_game_createOrJoin_815048 != 0
+	gameLog.Println("host:", isHost)
 	if isHost {
 		// host
 		C.nox_client_xxx_switchChatMap_43B510()
@@ -452,7 +453,7 @@ func initGameSession435CC0() error {
 	vp.field_12 = 0
 	v1 := C.nox_video_getCutSize_4766D0()
 	nox_draw_setCutSize_476700(v1, 0)
-	if noxflags.HasGame(noxflags.GameModeSolo12) {
+	if noxflags.HasGame(noxflags.GameModeCoop) {
 		C.sub_41CC00((*C.char)(memmap.PtrOff(0x85B3FC, 10984)))
 	} else if nox_xxx_isQuest_4D6F50() || C.sub_4D6F70() != 0 {
 		if nox_xxx_isQuest_4D6F50() || C.sub_4D6F70() != 0 {
@@ -664,7 +665,7 @@ func nox_xxx_gameTick_4D2580_server() bool {
 			*memmap.PtrUint64(0x5D4594, 1548684) = v0
 		}
 	}
-	if !noxflags.HasGame(noxflags.GameModeSolo12) {
+	if !noxflags.HasGame(noxflags.GameModeCoop) {
 		C.nox_telnet_tick_578FC0()
 	}
 	if noxflags.HasGame(8) {
@@ -970,14 +971,14 @@ func nox_xxx_mapExitAndCheckNext_4D1860_server() bool {
 	for _, obj := range getObjectsUpdatable2() {
 		obj.SetFlags16(obj.Flags16() | 0x80000000)
 	}
-	if noxflags.HasGame(noxflags.GameModeSolo12) {
+	if noxflags.HasGame(noxflags.GameModeCoop) {
 		C.nox_xxx_spellEnableAll_424BD0()
 		C.sub_4537F0()
 	}
 	var v6 bool
 	if C.nox_xxx_gameIsSwitchToSolo_4DB240() != 0 {
 		v5 := nox_xxx_mapFilenameGetSolo_4DB260()
-		v6 = nox_server_loadMapFile_4CF5F0(v5, 0)
+		v6 = nox_server_loadMapFile_4CF5F0(v5, false)
 	} else {
 		v7p := unsafe.Pointer(C.sub_4165B0())
 		v7 := unsafe.Slice((*byte)(v7p), 58)
@@ -996,7 +997,7 @@ func nox_xxx_mapExitAndCheckNext_4D1860_server() bool {
 			C.sub_4537F0()
 		}
 		v10 := nox_server_currentMapGetFilename_409B30()
-		v6 = nox_server_loadMapFile_4CF5F0(v10, 0)
+		v6 = nox_server_loadMapFile_4CF5F0(v10, false)
 		if noxflags.HasGame(noxflags.GameOnline) && !noxflags.HasGame(128) {
 			v13 := 0
 			if C.nox_xxx_gamePlayIsAnyPlayers_40A8A0() != 0 {
@@ -1018,7 +1019,7 @@ func nox_xxx_mapExitAndCheckNext_4D1860_server() bool {
 		*memmap.PtrUint32(0x5D4594, 1548520) = 1
 		return false
 	}
-	if !noxflags.HasGame(noxflags.GameModeSolo12) {
+	if !noxflags.HasGame(noxflags.GameModeCoop) {
 		C.nox_xxx_netMapSendPrepair_519EB0_net_mapsend()
 	}
 	C.nox_xxx_unitsNewAddToList_4DAC00()
@@ -1194,12 +1195,12 @@ func nox_xxx_mapExitAndCheckNext_4D1860_server() bool {
 	if noxflags.HasGame(noxflags.GameModeQuest) {
 		nox_server_questMapNextLevel()
 	}
-	if noxflags.HasGame(noxflags.GameModeSolo12) && C.nox_xxx_mapLoadRequired_4DCC80() == 0 {
+	if noxflags.HasGame(noxflags.GameModeCoop) && C.nox_xxx_mapLoadRequired_4DCC80() == 0 {
 		C.sub_4DB130(internCStr(common.SaveAuto))
 		C.sub_4DB170(1, 0, 30)
 	}
 	nox_xxx_mapLoadOrSaveMB_4DCC70(0)
-	if noxflags.HasGame(noxflags.GameModeSolo12) {
+	if noxflags.HasGame(noxflags.GameModeCoop) {
 		sub_413980(30)
 	}
 	if noxflags.HasGame(noxflags.GameModeQuest) {

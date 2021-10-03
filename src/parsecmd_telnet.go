@@ -22,7 +22,7 @@ func cmdTelnetOff(c *parsecmd.Console, tokens []string) bool {
 	if len(tokens) != 0 {
 		return false
 	}
-	if noxflags.HasGame(noxflags.GameModeSolo12) {
+	if noxflags.HasGame(noxflags.GameModeCoop) {
 		return true
 	}
 	C.nox_telnet_stop_579830()
@@ -36,7 +36,7 @@ func cmdTelnetOn(c *parsecmd.Console, tokens []string) bool {
 	if n > 1 {
 		return false
 	}
-	if noxflags.HasGame(noxflags.GameModeSolo12) {
+	if noxflags.HasGame(noxflags.GameModeCoop) {
 		return true
 	}
 	if n == 0 {
