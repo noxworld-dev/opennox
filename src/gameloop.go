@@ -61,7 +61,6 @@ import (
 	"time"
 	"unsafe"
 
-	"nox/v1/common/alloc"
 	"nox/v1/common/env"
 	noxflags "nox/v1/common/flags"
 	"nox/v1/common/log"
@@ -355,7 +354,7 @@ mainloop:
 		noxflags.UnsetGame(noxflags.GameFlag24 | noxflags.GameFlag21)
 		sub_43F140(300)
 		C.sub_43D990()
-		C.nox_xxx_replayWriteSomeInt_4D39B0()
+		nox_xxx_replayWriteSomeInt_4D39B0()
 		if noxflags.HasGame(noxflags.GameHost) {
 			C.nox_xxx_servResetPlayers_4D23C0()
 		}
@@ -508,24 +507,10 @@ func CONNECT_OR_HOST() {
 	popts.Info = *info
 
 	if noxflags.HasGame(noxflags.GameHost) {
-		if getEngineFlag(NOX_ENGINE_FLAG_REPLAY_WRITE) || getEngineFlag(NOX_ENGINE_FLAG_REPLAY_READ) {
-			data, err := popts.MarshalBinary()
-			if err != nil {
-				panic(err)
-			}
-			cdata, cfree := alloc.Bytes(uintptr(len(data)))
-			defer cfree()
-			copy(cdata, data)
-			C.nox_xxx_replay_4D3860(unsafe.Pointer(&cdata[0]))
-		} else if getEngineFlag(NOX_ENGINE_FLAG_REPLAY_READ) {
-			cdata, cfree := alloc.Bytes(153)
-			defer cfree()
-			C.nox_xxx_replay_4D3860(unsafe.Pointer(&cdata[0]))
-			if err := popts.UnmarshalBinary(cdata); err != nil {
-				log.Println(err)
-				CONNECT_RESULT_FAIL(err)
-				return
-			}
+		if err := nox_xxx_replay_4D3860(&popts); err != nil {
+			log.Println(err)
+			CONNECT_RESULT_FAIL(err)
+			return
 		}
 		if !isDedicatedServer {
 			*memmap.PtrInt32(0x85319C, 0) = int32(newPlayer(31, &popts))
@@ -861,7 +846,7 @@ func CONNECT_RESULT_OK() {
 		}()
 	}
 	mainloopConnectResultOK = true
-	if C.nox_xxx_replayStartReadingOrSaving_4D38D0() == 1 {
+	if nox_xxx_replayStartReadingOrSaving_4D38D0() == 1 {
 		if debugMainloop {
 			log.Println("nox_xxx_replayStartReadingOrSaving_4D38D0 exit")
 		}

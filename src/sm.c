@@ -20,6 +20,7 @@
 #include "client__network__netclint.h"
 #include "client__video__draw_common.h"
 #include "common/fs/nox_fs.h"
+#include "server__network__playback.h"
 #include "thing.h"
 
 void cmain_loop(int);

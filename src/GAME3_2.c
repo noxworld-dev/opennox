@@ -117,9 +117,7 @@ extern uint32_t dword_5d4594_2649712;
 extern uint32_t dword_5d4594_3835396;
 extern uint32_t dword_5d4594_1523024;
 extern uint32_t dword_5d4594_1523028;
-extern uint32_t nox_xxx_replayFile_587000_197428;
 extern uint32_t dword_5d4594_1548476;
-extern uint32_t nox_xxx_replayWriteFile_587000_197424;
 extern uint32_t dword_5d4594_2650652;
 extern int nox_win_width;
 extern int nox_win_height;
@@ -2350,136 +2348,6 @@ void nox_xxx_unused_4D3330() {
 		nox_xxx_networkLog_printf_413D30("Failed to create channel, exiting game.");
 		nox_xxx_setContinueMenuOrHost_43DDD0(0);
 		nox_game_exit_xxx_43DE60();
-	}
-}
-
-//----- (004D3370) --------------------------------------------------------
-int nox_xxx_replayStartSave_4D3370(char* a1) {
-	nox_xxx_replayWriteFile_587000_197424 = _open(a1, 33537, 384);
-	if (*(int*)&nox_xxx_replayWriteFile_587000_197424 == -1) {
-		return 0;
-	}
-	nox_common_setEngineFlag(NOX_ENGINE_FLAG_REPLAY_WRITE);
-	return 1;
-}
-
-//----- (004D33B0) --------------------------------------------------------
-void nox_xxx_replayStopSave_4D33B0() {
-	if (*(int*)&nox_xxx_replayWriteFile_587000_197424 != -1) {
-		_close(*(int*)&nox_xxx_replayWriteFile_587000_197424);
-	}
-	nox_xxx_replayWriteFile_587000_197424 = -1;
-	nox_common_resetEngineFlag(NOX_ENGINE_FLAG_REPLAY_WRITE);
-}
-
-//----- (004D33E0) --------------------------------------------------------
-int nox_xxx_replaySaveConsole_4D33E0(void* a1, int a2) {
-	int result; // eax
-
-	result = nox_xxx_replayWriteFile_587000_197424;
-	if (*(int*)&nox_xxx_replayWriteFile_587000_197424 != -1 && a1 && a2 >= 1) {
-		_write(*(int*)&nox_xxx_replayWriteFile_587000_197424, &nox_frame_xxx_2598000, 4u);
-		_write(*(int*)&nox_xxx_replayWriteFile_587000_197424, getMemAt(0x587000, 197432), 1u);
-		_write(*(int*)&nox_xxx_replayWriteFile_587000_197424, &a2, 4u);
-		result = _write(*(int*)&nox_xxx_replayWriteFile_587000_197424, a1, 2 * a2);
-	}
-	return result;
-}
-
-//----- (004D3450) --------------------------------------------------------
-int nox_xxx_replayWriteMSgMB_4D3450(int a1, void* a2, unsigned int a3) {
-	int result; // eax
-
-	result = nox_xxx_replayWriteFile_587000_197424;
-	if (*(int*)&nox_xxx_replayWriteFile_587000_197424 != -1) {
-		_write(*(int*)&nox_xxx_replayWriteFile_587000_197424, &nox_frame_xxx_2598000, 4u);
-		_write(*(int*)&nox_xxx_replayWriteFile_587000_197424, getMemAt(0x587000, 197433), 1u);
-		_write(*(int*)&nox_xxx_replayWriteFile_587000_197424, (const void*)(a1 + 2064), 1u);
-		_write(*(int*)&nox_xxx_replayWriteFile_587000_197424, &a3, 4u);
-		result = _write(*(int*)&nox_xxx_replayWriteFile_587000_197424, a2, a3);
-	}
-	return result;
-}
-
-//----- (004D34C0) --------------------------------------------------------
-int nox_xxx_replayFileOpen_4D34C0(char* a1) {
-	char* v2; // eax
-
-	nox_xxx_replayFile_587000_197428 = _open(a1, 0x8000);
-	if (*(int*)&nox_xxx_replayFile_587000_197428 == -1) {
-		return 0;
-	}
-	dword_5d4594_1548732 = 0;
-	dword_5d4594_1548736 = 0;
-	*getMemU32Ptr(0x5D4594, 1548728) = 0;
-	*getMemU8Ptr(0x5D4594, 1548724) = 0;
-	nox_common_setEngineFlag(NOX_ENGINE_FLAG_REPLAY_READ);
-	v2 = nox_common_playerInfoGetByID_417040(255);
-	nox_xxx_playerGoObserver_4E6860((int)v2, 0, 1);
-	return 1;
-}
-
-//----- (004D3530) --------------------------------------------------------
-void nox_xxx_replayStopReadMB_4D3530() {
-	char* v0; // eax
-
-	if (*(int*)&nox_xxx_replayFile_587000_197428 != -1) {
-		_close(*(int*)&nox_xxx_replayFile_587000_197428);
-	}
-	nox_xxx_replayFile_587000_197428 = -1;
-	dword_5d4594_1548732 = 0;
-	dword_5d4594_1548736 = 0;
-	nox_common_resetEngineFlag(NOX_ENGINE_FLAG_REPLAY_READ);
-	v0 = nox_common_playerInfoGetByID_417040(255);
-	nox_xxx_playerLeaveObserver_0_4E6AA0((int)v0);
-}
-
-//----- (004D3860) --------------------------------------------------------
-void nox_xxx_replay_4D3860(void* a1) {
-	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_REPLAY_WRITE) &&
-		(*(int*)&nox_xxx_replayWriteFile_587000_197424 != -1)) {
-		nox_xxx_replayWriteRndCounter_415F30(*(int*)&nox_xxx_replayWriteFile_587000_197424);
-		_write(*(int*)&nox_xxx_replayWriteFile_587000_197424, a1, 153);
-	} else if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_REPLAY_READ)) {
-		if (*(int*)&nox_xxx_replayFile_587000_197428 != -1) {
-			nox_xxx_replayReadeRndCounter_415F50(*(int*)&nox_xxx_replayFile_587000_197428);
-			_read(*(int*)&nox_xxx_replayFile_587000_197428, a1, 153);
-		}
-	}
-}
-
-//----- (004D38D0) --------------------------------------------------------
-int nox_xxx_replayStartReadingOrSaving_4D38D0() {
-	int result; // eax
-	int v2;     // [esp+0h] [ebp-4h]
-
-	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_REPLAY_WRITE) && *(int*)&nox_xxx_replayWriteFile_587000_197424 != -1) {
-		_write(*(int*)&nox_xxx_replayWriteFile_587000_197424, &nox_frame_xxx_2598000, 4u);
-		_write(*(int*)&nox_xxx_replayWriteFile_587000_197424, getMemAt(0x587000, 197434), 1u);
-		*getMemU32Ptr(0x5D4594, 1549764) = nox_server_currentMapGetFilename_409B30();
-		*getMemU8Ptr(0x5D4594, 1548725) = strlen(*(const char**)getMemAt(0x5D4594, 1549764)) + 1;
-		_write(*(int*)&nox_xxx_replayWriteFile_587000_197424, getMemAt(0x5D4594, 1548725), 1u);
-		_write(*(int*)&nox_xxx_replayWriteFile_587000_197424, *(const void**)getMemAt(0x5D4594, 1549764),
-			   getMemByte(0x5D4594, 1548725));
-		v2 = NOX_CLIENT_VERS_CODE;
-		_write(*(int*)&nox_xxx_replayWriteFile_587000_197424, &v2, 4u);
-		result = 0;
-	} else if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_REPLAY_READ) &&
-			   *(int*)&nox_xxx_replayFile_587000_197428 != -1) {
-		result = nox_xxx_replayTickMB_4D3580_net_playback(0);
-	} else {
-		result = 0;
-	}
-	return result;
-}
-
-//----- (004D39B0) --------------------------------------------------------
-void nox_xxx_replayWriteSomeInt_4D39B0() {
-	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_REPLAY_WRITE)) {
-		if (*(int*)&nox_xxx_replayWriteFile_587000_197424 != -1) {
-			_write(*(int*)&nox_xxx_replayWriteFile_587000_197424, &nox_frame_xxx_2598000, 4u);
-			_write(*(int*)&nox_xxx_replayWriteFile_587000_197424, getMemAt(0x587000, 197435), 1u);
-		}
 	}
 }
 
