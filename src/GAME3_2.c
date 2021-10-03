@@ -70,7 +70,7 @@ extern uint32_t dword_5d4594_3835372;
 extern uint32_t dword_5d4594_1556144;
 extern uint32_t dword_5d4594_1523040;
 extern uint32_t dword_5d4594_1563276;
-extern uint32_t dword_5d4594_1548664;
+extern uint32_t nox_server_switchToWP_1548664;
 extern uint32_t dword_5d4594_3835392;
 extern uint32_t nox_server_sendMotd_108752;
 extern uint32_t dword_5d4594_1563084;
@@ -2189,8 +2189,9 @@ int nox_xxx_servResetPlayers_4D23C0() {
 	return 1;
 }
 
+#ifndef NOX_CGO
 //----- (004D2450) --------------------------------------------------------
-char* nox_xxx_mapLoad_4D2450(char* a1) {
+void nox_xxx_mapLoad_4D2450(char* a1) {
 	char* v1;      // eax
 	char v3[1024]; // [esp+4h] [ebp-DB8h]
 	char v4[1024]; // [esp+404h] [ebp-9B8h]
@@ -2208,15 +2209,16 @@ char* nox_xxx_mapLoad_4D2450(char* a1) {
 	if (v1) {
 		*v1 = 0;
 		strcpy((char*)getMemAt(0x5D4594, 1548536), v1 + 1);
-		dword_5d4594_1548664 = 1;
+		nox_server_switchToWP_1548664 = 1;
 	} else {
-		dword_5d4594_1548664 = 0;
+		nox_server_switchToWP_1548664 = 0;
 	}
 	if (sub_51A130()) {
 		nox_xxx_mapSendCancelAll_5198B0(0);
 	}
-	return nox_xxx_gameSetMapPath_409D70(v3);
+	nox_xxx_gameSetMapPath_409D70(v3);
 }
+#endif // NOX_CGO
 
 //----- (004D2FF0) --------------------------------------------------------
 char* sub_4D2FF0() {

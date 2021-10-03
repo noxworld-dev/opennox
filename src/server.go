@@ -30,6 +30,8 @@ extern unsigned int dword_5d4594_2650652;
 extern unsigned int nox_xxx_questFlag_1556148;
 extern unsigned int dword_5d4594_2649712;
 extern unsigned int dword_5d4594_825768;
+extern unsigned int dword_5d4594_1548524;
+extern unsigned int nox_server_switchToWP_1548664;
 extern nox_object_t* nox_xxx_host_player_unit_3843628;
 
 void nox_xxx_abilUpdateMB_4FBEE0();
@@ -75,8 +77,9 @@ import (
 )
 
 var (
-	noxServerPort int = common.GamePort
-	noxServer         = server.New()
+	noxServerPort   int = common.GamePort
+	noxServer           = server.New()
+	mapSwitchWPName string
 )
 
 //export nox_server_ResetObjectGIDs_4E3C70
@@ -276,14 +279,10 @@ func switchQuestIfRequested4D6FD0() {
 	} else {
 		mapFile = C.GoString(C.nox_xxx_getQuestMapFile_4D0F60())
 	}
-	mapLoad4D2450(mapFile)
+	switchMap(mapFile)
 	C.sub_4DCE80(nil)
 	nox_game_setQuestStage_4E3CD0(0)
 	C.sub_4169F0()
-}
-
-func mapLoad4D2450(file string) {
-	C.nox_xxx_mapLoad_4D2450(internCStr(file))
 }
 
 func sub_416640() []byte {
@@ -480,6 +479,7 @@ func sub_4D3C30() {
 }
 
 func nox_server_loadMapFile_4CF5F0(a1 string, a2 int) bool {
+	gameLog.Printf("loading map %q", a1)
 	C.sub_481410()
 	C.nox_xxx_unitsNewAddToList_4DAC00()
 	C.nox_xxx_waypoint_5799C0()
@@ -626,4 +626,39 @@ func nox_server_xxxInitPlayerUnits_4FC6D0() {
 			}
 		}
 	}
+}
+
+//export nox_xxx_mapLoad_4D2450
+func nox_xxx_mapLoad_4D2450(a1 *C.char) {
+	switchMap(GoString(a1))
+}
+
+func switchMap(fname string) {
+	gameLog.Printf("switch map: %q", fname)
+	ptr2408 := unsafe.Slice((*byte)(memmap.PtrOff(0x973F18, 2408)), 1464)
+
+	var v5 [1464]byte
+	copy(v5[:], ptr2408)
+
+	name := fname
+	if ext := filepath.Ext(fname); ext != "" {
+		name = strings.TrimSuffix(name, ext)
+	}
+	name = strings.ToLower(name)
+	C.nox_common_checkMapFile_4CFE10(internCStr(name))
+	C.sub_4CFDF0(C.int(memmap.Uint32(0x973F18, 3800)))
+	copy(ptr2408, v5[:])
+	C.dword_5d4594_1548524 = 1
+	mname := fname
+	if i := strings.IndexByte(fname, ':'); i >= 0 {
+		mapSwitchWPName = mname[i+1:]
+		mname = mname[:i]
+	} else {
+		mapSwitchWPName = ""
+	}
+	if C.sub_51A130() != 0 {
+		C.nox_xxx_mapSendCancelAll_5198B0(0)
+	}
+	mname = strings.ToLower(mname)
+	nox_xxx_gameSetMapPath_409D70(mname)
 }

@@ -48,7 +48,6 @@ extern uint32_t dword_5d4594_1556144;
 extern uint32_t dword_5d4594_2386164;
 extern uint32_t dword_5d4594_1569660;
 extern uint32_t dword_5d4594_1568300;
-extern uint32_t dword_5d4594_1548664;
 extern uint32_t dword_5d4594_1548480;
 extern uint32_t dword_5d4594_528260;
 extern uint32_t dword_5d4594_1548704;
@@ -87,6 +86,7 @@ void nullsub_21(void) {}
 void nullsub_25(uint32_t a1) {}
 
 #ifndef NOX_CGO
+uint32_t nox_server_switchToWP_1548664 = 0;
 unsigned int nox_server_lastObjectScriptID = 1000000000;
 unsigned int nox_server_firstObjectScriptID = 1000000000;
 
@@ -2542,7 +2542,7 @@ int nox_xxx_mapExitAndCheckNext_4D1860_server() {
 	sub_43F1A0();
 	nox_common_gameFlags_unset_40A540(0x8000000);
 	sub_4FC580(1);
-	if (dword_5d4594_1548664) {
+	if (nox_server_switchToWP_1548664) {
 		v43 = nox_xxx_waypointByName_579E30((const char*)getMemAt(0x5D4594, 1548536));
 		if (v43) {
 			v44 = nox_xxx_getFirstPlayerUnit_4DA7C0();
@@ -2555,7 +2555,7 @@ int nox_xxx_mapExitAndCheckNext_4D1860_server() {
 			}
 		}
 	}
-	dword_5d4594_1548664 = 0;
+	nox_server_switchToWP_1548664 = 0;
 	if (sub_4DCC00() == 1) {
 		for (m = nox_xxx_getFirstPlayerUnit_4DA7C0(); m; m = nox_xxx_getNextPlayerUnit_4DA7F0(m)) {
 			for (n = *(uint32_t*)(m + 516); n; n = *(uint32_t*)(n + 512)) {

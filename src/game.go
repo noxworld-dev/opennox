@@ -40,7 +40,7 @@ extern unsigned int nox_xxx_xxxRenderGUI_587000_80832;
 extern unsigned int dword_5d4594_1548524;
 extern unsigned int dword_5d4594_2650652;
 extern void* dword_5d4594_1548532;
-extern unsigned int dword_5d4594_1548664;
+extern unsigned int nox_server_switchToWP_1548664;
 extern unsigned int dword_5d4594_1548704;
 extern unsigned int dword_5d4594_1556144;
 extern unsigned int dword_5d4594_1563064;
@@ -776,7 +776,7 @@ func nox_xxx_gameTick_4D2580_server_D() {
 			C.nox_xxx_gameSetNoMPFlag_4DB230(1)
 			C.nox_xxx_gameSetSoloSavePath_4DB270(internCStr(v31))
 		}
-		mapLoad4D2450(v30)
+		switchMap(v30)
 	}
 	C.sub_4DB170(0, C.int(v28), 0)
 }
@@ -1137,15 +1137,18 @@ func nox_xxx_mapExitAndCheckNext_4D1860_server() bool {
 	sub_43F1A0()
 	noxflags.UnsetGame(0x8000000)
 	C.sub_4FC580(1)
-	if C.dword_5d4594_1548664 != 0 {
-		if wp := getWaypointByID(GoStringP(memmap.PtrOff(0x5D4594, 1548536))); wp != nil {
+	if mapSwitchWPName != "" {
+		if wp := getWaypointByID(mapSwitchWPName); wp != nil {
+			gameLog.Printf("moving player to waypoint: %q", mapSwitchWPName)
 			wpos := wp.Pos()
 			for _, u := range getPlayerUnits() {
 				u.SetPos(wpos)
 			}
+		} else {
+			gameLog.Printf("cannot find map waypoint %q!", mapSwitchWPName)
 		}
 	}
-	C.dword_5d4594_1548664 = 0
+	mapSwitchWPName = ""
 	if sub_4DCC00() {
 		for _, m := range getPlayerUnits() {
 			for _, np := range m.GetOwned516() {
