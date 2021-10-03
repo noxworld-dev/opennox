@@ -91,12 +91,12 @@ import (
 )
 
 var (
-	noXwis  = true
+	useXWIS = true
 	gameLog = log.New("game")
 )
 
 func init() {
-	configBoolPtr("network.xwis.register", "NOX_XWIS", true, &noXwis)
+	configBoolPtr("network.xwis.register", "NOX_XWIS", true, &useXWIS)
 }
 
 var (
@@ -323,7 +323,7 @@ func (v xwisInfoShort) XWIS() xwis.GameInfo {
 }
 
 func maybeRegisterGameOnline() {
-	if noXwis || env.IsE2E() {
+	if !useXWIS || env.IsE2E() {
 		return
 	}
 	info := getGameInfoXWIS()
