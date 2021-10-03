@@ -117,6 +117,19 @@ func GoStringP(s unsafe.Pointer) string {
 	return GoString((*C.char)(s))
 }
 
+func GoStringN(s *C.char, n int) string {
+	return GoStringNP(unsafe.Pointer(s), n)
+}
+
+func GoStringNP(s unsafe.Pointer, n int) string {
+	b := unsafe.Slice((*byte)(s), n)
+	i := bytes.IndexByte(b, 0)
+	if i < 0 {
+		return string(b)
+	}
+	return string(b[:n])
+}
+
 func GoStringS(s []byte) string {
 	return string(s[:StrLenBytes(s)])
 }

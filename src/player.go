@@ -108,11 +108,15 @@ func (p *Player) SetPos(pos types.Pointf) {
 }
 
 func (p *Player) OrigName() string {
-	return GoWStringP(p.field(2185))
+	return GoWStringP(p.field(2185)) // &p.orig_name[0], inaccessible due to alignment issues
 }
 
 func (p *Player) Name() string {
 	return GoWStringP(p.field(4704))
+}
+
+func (p *Player) Serial() string {
+	return GoStringN(&p.serial[0], 22)
 }
 
 func (p *Player) String() string {

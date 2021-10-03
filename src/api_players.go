@@ -12,6 +12,7 @@ type debugPlayerInfo struct {
 	NetCode  int          `json:"net_code"`
 	Name     string       `json:"name"`
 	OrigName string       `json:"orig_name"`
+	Serial   string `json:"serial"`
 	Active   bool         `json:"active"`
 	Class    player.Class `json:"class"`
 	Unit     *debugObject `json:"unit"`
@@ -28,6 +29,7 @@ func (p *Player) dump() *debugPlayerInfo {
 		NetCode:  p.NetCode(),
 		Name:     p.Name(),
 		OrigName: p.OrigName(),
+		Serial:   p.Serial(),
 		Active:   p.IsActive(),
 		Class:    p.PlayerClass(),
 		Unit:     p.UnitC().AsObject().dump(),
