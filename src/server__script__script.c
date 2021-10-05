@@ -504,33 +504,45 @@ void nox_script_callByIndex_507310(int index, void* a2, void* a3) {
 			sa1 = nox_script_nextInt(&data);
 			sa2 = nox_script_nextInt(&data);
 			if (sa1) {
-				sa2 = nox_script_arr_xxx_1599636[1].field_24[sa2];
-				sa2 = nox_script_arr_xxx_1599636[1].field_28[sa2];
+				if (nox_script_arr_xxx_1599636[1].field_24 && nox_script_arr_xxx_1599636[1].field_28) {
+					sa2 = nox_script_arr_xxx_1599636[1].field_24[sa2];
+					sa2 = nox_script_arr_xxx_1599636[1].field_28[sa2];
+				} else {
+					sa2 = 0;
+				}
 				nox_script_push(sa2);
 			} else if (sa2 < 0) {
 				sa2 = -sa2;
 				sa2 = nox_script_arr_xxx_1599636[0].field_24[sa2];
 				sa2 = *(unsigned int*)(*(unsigned int*)((int)a3 + 760) + 4 * sa2);
 				nox_script_push(sa2);
-			} else {
+			} else if (script->field_24 && script->field_28) {
 				sa2 = script->field_24[sa2];
 				sa2 = script->field_28[sa2];
 				nox_script_push(sa2);
+			} else {
+				nox_script_push(0); // soft fail
 			}
 			continue;
 		case 1: // get xxx float
 			sa1 = nox_script_nextInt(&data);
 			sa2 = nox_script_nextInt(&data);
 			if (sa1) {
-				sa2 = nox_script_arr_xxx_1599636[1].field_24[sa2];
-				sf1 = *(float*)(&nox_script_arr_xxx_1599636[1].field_28[sa2]);
+				if (nox_script_arr_xxx_1599636[1].field_24 && nox_script_arr_xxx_1599636[1].field_28) {
+					sa2 = nox_script_arr_xxx_1599636[1].field_24[sa2];
+					sf1 = *(float*)(&nox_script_arr_xxx_1599636[1].field_28[sa2]);
+				} else {
+					sf1 = 0;
+				}
 			} else if (sa2 < 0) {
 				sa2 = -sa2;
 				sa2 = nox_script_arr_xxx_1599636[0].field_24[sa2];
 				sf1 = *(float*)(*(unsigned int*)((int)a3 + 760) + 4 * sa2);
-			} else {
+			} else if (script->field_24 && script->field_28) {
 				sa2 = script->field_24[sa2];
 				sf1 = *(float*)((unsigned int)(script->field_28) + 4 * sa2);
+			} else {
+				sf1 = 0;
 			}
 			nox_script_pushf(sf1);
 			continue;
@@ -544,9 +556,11 @@ void nox_script_callByIndex_507310(int index, void* a2, void* a3) {
 				sa2 = -sa2;
 				sa3 = nox_script_arr_xxx_1599636[0].field_20[sa2];
 				sa4 = -nox_script_arr_xxx_1599636[0].field_24[sa2];
-			} else {
+			} else if (script->field_20 && script->field_24) {
 				sa3 = script->field_20[sa2];
 				sa4 = script->field_24[sa2];
+			} else {
+				sa3 = 0; sa4 = 0; // soft fail
 			}
 			if (sa3 > 1)
 				nox_script_push(sa3);
@@ -644,10 +658,12 @@ void nox_script_callByIndex_507310(int index, void* a2, void* a3) {
 			sa1 = nox_script_pop();
 			sa2 = nox_script_pop();
 			if (nox_script_pop()) {
-				nox_script_arr_xxx_1599636[1].field_28[sa2] = sa1;
+				if (nox_script_arr_xxx_1599636[1].field_28) {
+					nox_script_arr_xxx_1599636[1].field_28[sa2] = sa1;
+				}
 			} else if (sa2 < 0) {
                 *(unsigned int*)(*(unsigned int*)((int)a3 + 760) - 4 * sa2) = sa1;
-			} else {
+			} else if (script->field_28) {
 				script->field_28[sa2] = sa1;
 			}
 			nox_script_push(sa1);
@@ -656,10 +672,12 @@ void nox_script_callByIndex_507310(int index, void* a2, void* a3) {
 			sf1 = nox_script_popf();
 			sa2 = nox_script_pop();
 			if (nox_script_pop()) {
-				*(float*)(&nox_script_arr_xxx_1599636[1].field_28[sa2]) = sf1;
+				if (nox_script_arr_xxx_1599636[1].field_28) {
+					*(float*)(&nox_script_arr_xxx_1599636[1].field_28[sa2]) = sf1;
+				}
 			} else if (sa2 < 0) {
 				*(float*)(*(unsigned int*)((int)a3 + 760) - 4 * sa2) = sf1;
-			} else {
+			} else if (script->field_28) {
 				*(float*)(&script->field_28[sa2]) = sf1;
 			}
 			nox_script_pushf(sf1);
@@ -668,84 +686,121 @@ void nox_script_callByIndex_507310(int index, void* a2, void* a3) {
 			sa1 = nox_script_pop();
 			sa2 = nox_script_pop();
 			if (nox_script_pop()) {
-				nox_script_arr_xxx_1599636[1].field_28[sa2] *= sa1;
-				nox_script_push(nox_script_arr_xxx_1599636[1].field_28[sa2]);
+				if (nox_script_arr_xxx_1599636[1].field_28) {
+					nox_script_arr_xxx_1599636[1].field_28[sa2] *= sa1;
+					nox_script_push(nox_script_arr_xxx_1599636[1].field_28[sa2]);
+				} else {
+					nox_script_push(0); // soft fail
+				}
 			} else if (sa2 < 0) {
 				*(unsigned int*)(*(unsigned int*)((int)a3 + 760) - 4 * sa2) *= sa1;
 				nox_script_push(*(unsigned int*)(*(unsigned int*)((int)a3 + 760) - 4 * sa2));
-			} else {
+			} else if (script->field_28) {
 				script->field_28[sa2] *= sa1;
 				nox_script_push(script->field_28[sa2]);
+			} else {
+				nox_script_push(0); // soft fail
 			}
 			continue;
 		case 26: // mult xxx float
 			sf1 = nox_script_popf();
 			sa1 = nox_script_pop();
 			if (nox_script_pop()) {
-				*(float*)(&nox_script_arr_xxx_1599636[1].field_28[sa1]) *= sf1;
-				nox_script_pushf(*(float*)(&nox_script_arr_xxx_1599636[1].field_28[sa1]));
+				if (nox_script_arr_xxx_1599636[1].field_28) {
+					*(float*)(&nox_script_arr_xxx_1599636[1].field_28[sa1]) *= sf1;
+					nox_script_pushf(*(float*)(&nox_script_arr_xxx_1599636[1].field_28[sa1]));
+				} else {
+					nox_script_pushf(0); // soft fail
+				}
 			} else if (sa1 < 0) {
 				*(float*)(*(unsigned int *) ((int)a3 + 760) - 4 * sa1) *= sf1;
 				nox_script_pushf(*(float*)(*(unsigned int *) ((int)a3 + 760) - 4 * sa1));
-			} else {
+			} else if (script->field_28) {
 				*(float*)(&script->field_28[sa1]) *= sf1;
 				nox_script_pushf(*(float*)(&script->field_28[sa1]));
+			} else {
+				nox_script_pushf(0); // soft fail
 			}
 			continue;
 		case 27: // div xxx int
 			sa1 = nox_script_pop();
 			sa2 = nox_script_pop();
 			if (nox_script_pop()) {
-				nox_script_arr_xxx_1599636[1].field_28[sa2] /= sa1;
-				nox_script_push(nox_script_arr_xxx_1599636[1].field_28[sa2]);
+				if (nox_script_arr_xxx_1599636[1].field_28) {
+					nox_script_arr_xxx_1599636[1].field_28[sa2] /= sa1;
+					nox_script_push(nox_script_arr_xxx_1599636[1].field_28[sa2]);
+				} else {
+					nox_script_push(0); // soft fail
+				}
 			} else if (sa2 < 0) {
 				*(unsigned int*)(*(unsigned int*)((int)a3 + 760) - 4 * sa2) /= sa1;
 				nox_script_push(*(unsigned int*)(*(unsigned int*)((int)a3 + 760) - 4 * sa2));
-			} else {
+			} else if (script->field_28) {
 				script->field_28[sa2] /= sa1;
 				nox_script_push(script->field_28[sa2]);
+			} else {
+				nox_script_push(0); // soft fail
 			}
 			continue;
 		case 28: // div xxx float
 			sf1 = nox_script_popf();
 			sa1 = nox_script_pop();
 			if (nox_script_pop()) {
-				*(float*)(&nox_script_arr_xxx_1599636[1].field_28[sa1]) /= sf1;
-				nox_script_pushf(*(float*)(&nox_script_arr_xxx_1599636[1].field_28[sa1]));
+				if (nox_script_arr_xxx_1599636[1].field_28) {
+					*(float*)(&nox_script_arr_xxx_1599636[1].field_28[sa1]) /= sf1;
+					nox_script_pushf(*(float*)(&nox_script_arr_xxx_1599636[1].field_28[sa1]));
+				} else {
+					nox_script_pushf(0); // soft fail
+				}
 			} else if (sa1 < 0) {
 				*(float*)(*(unsigned int*)((int)a3 + 760) - 4 * sa1) /= sf1;
 				nox_script_pushf(*(float*)(*(unsigned int*)((int)a3 + 760) - 4 * sa1));
-			} else {
+			} else if (script->field_28) {
 				*(float*)(&script->field_28[sa1]) /= sf1;
 				nox_script_pushf(*(float*)(script->field_28[sa1]));
+			} else {
+				nox_script_pushf(0); // soft fail
 			}
 			continue;
 		case 29: // add xxx int
 			sa1 = nox_script_pop();
 			sa2 = nox_script_pop();
 			if (nox_script_pop()) {
-				nox_script_arr_xxx_1599636[1].field_28[sa2] += sa1;
-				nox_script_push(nox_script_arr_xxx_1599636[1].field_28[sa2]);
+				if (nox_script_arr_xxx_1599636[1].field_28) {
+					nox_script_arr_xxx_1599636[1].field_28[sa2] += sa1;
+					nox_script_push(nox_script_arr_xxx_1599636[1].field_28[sa2]);
+				} else {
+					nox_script_push(0); // soft fail
+				}
 			} else if (sa2 < 0) {
 				*(unsigned int*)(*(unsigned int*)((int)a3 + 760) - 4 * sa2) += sa1;
 				nox_script_push(*(unsigned int*)(*(unsigned int*)((int)a3 + 760) - 4 * sa2));
-			} else {
+			} else if (script->field_28) {
 				script->field_28[sa2] += sa1;
 				nox_script_push(script->field_28[sa2]);
+			} else {
+				nox_script_push(0); // soft fail
 			}
 			continue;
 		case 30: // add xxx float
 			sf1 = nox_script_popf();
 			sa1 = nox_script_pop();
 			if (nox_script_pop()) {
-				*(float*)(&nox_script_arr_xxx_1599636[1].field_28[sa1]) += sf1;
-				nox_script_pushf(*(float*)(&nox_script_arr_xxx_1599636[1].field_28[sa1]));
+				if (nox_script_arr_xxx_1599636[1].field_28) {
+					*(float*)(&nox_script_arr_xxx_1599636[1].field_28[sa1]) += sf1;
+					nox_script_pushf(*(float*)(&nox_script_arr_xxx_1599636[1].field_28[sa1]));
+				} else {
+					nox_script_pushf(0); // soft fail
+
+				}
 			} else if (sa1 < 0) {
 				*(float*)(*(unsigned int*)((int)a3 + 760) - 4 * sa1) += sf1;
 				nox_script_pushf(*(float*)(*(unsigned int*)((int)a3 + 760) - 4 * sa1));
-			} else {
+			} else if (script->field_28) {
 				*(float*)(&script->field_28[sa1]) += sf1;
 				nox_script_pushf(*(float*)(&script->field_28[sa1]));
+			} else {
+				nox_script_pushf(0); // soft fail
 			}
 			continue;
 		case 31: // cat xxx string
@@ -753,7 +808,11 @@ void nox_script_callByIndex_507310(int index, void* a2, void* a3) {
 			sa2 = nox_script_pop();
 			sa3 = nox_script_pop();
 			if (sa3) {
-				sa4 = nox_script_arr_xxx_1599636[1].field_28[sa2];
+				if (nox_script_arr_xxx_1599636[1].field_28) {
+					sa4 = nox_script_arr_xxx_1599636[1].field_28[sa2];
+				} else {
+					sa4 = 0;
+				}
 			} else if (sa2 < 0) {
 				sa4 = *(unsigned int*)(*(unsigned int*)((int)a3 + 760) - 4 * sa2);
 			} else {
@@ -762,10 +821,12 @@ void nox_script_callByIndex_507310(int index, void* a2, void* a3) {
 			nox_sprintf(buf, "%s%s", nox_script_getString_512E40(sa4), nox_script_getString_512E40(sa1));
 			sa4 = nox_script_addString_512E40(buf);
 			if (sa3) {
-				nox_script_arr_xxx_1599636[1].field_28[sa2] = sa4;
+				if (nox_script_arr_xxx_1599636[1].field_28) {
+					nox_script_arr_xxx_1599636[1].field_28[sa2] = sa4;
+				}
 			} else if (sa2 < 0) {
 				*(unsigned int *) (*(unsigned int *) ((int)a3 + 760) - 4 * sa2) = sa4;
-			} else {
+			} else if (script->field_28) {
 				script->field_28[sa2] = sa4;
 			}
 			nox_script_push(sa4);
@@ -774,42 +835,60 @@ void nox_script_callByIndex_507310(int index, void* a2, void* a3) {
 			sa1 = nox_script_pop();
 			sa2 = nox_script_pop();
 			if (nox_script_pop()) {
-				nox_script_arr_xxx_1599636[1].field_28[sa2] -= sa1;
-				nox_script_push(nox_script_arr_xxx_1599636[1].field_28[sa2]);
+				if (nox_script_arr_xxx_1599636[1].field_28) {
+					nox_script_arr_xxx_1599636[1].field_28[sa2] -= sa1;
+					nox_script_push(nox_script_arr_xxx_1599636[1].field_28[sa2]);
+				} else {
+					nox_script_push(0); // soft fail
+				}
 			} else if (sa2 < 0) {
 				*(unsigned int*)(*(unsigned int*)((int)a3 + 760) - 4 * sa2) -= sa1;
 				nox_script_push(*(unsigned int*)(*(unsigned int*)((int)a3 + 760) - 4 * sa2));
-			} else {
+			} else if (script->field_28) {
 				script->field_28[sa2] -= sa1;
 				nox_script_push(script->field_28[sa2]);
+			} else {
+				nox_script_push(0); // soft fail
 			}
 			continue;
 		case 33: // sub xxx float
 			sf1 = nox_script_popf();
 			sa1 = nox_script_pop();
 			if (nox_script_pop()) {
-				*(float*)(&nox_script_arr_xxx_1599636[1].field_28[sa1]) -= sf1;
-				nox_script_pushf(*(float*)(&nox_script_arr_xxx_1599636[1].field_28[sa1]));
+				if (nox_script_arr_xxx_1599636[1].field_28) {
+					*(float*)(&nox_script_arr_xxx_1599636[1].field_28[sa1]) -= sf1;
+					nox_script_pushf(*(float*)(&nox_script_arr_xxx_1599636[1].field_28[sa1]));
+				} else {
+					nox_script_pushf(0); // soft fail
+				}
 			} else if (sa1 < 0) {
 				*(float*)(*(unsigned int*)((int)a3 + 760) - 4 * sa1) -= sf1;
 				nox_script_push(*(unsigned int*)(*(unsigned int*)((int)a3 + 760) - 4 * sa1));
-			} else {
+			} else if (script->field_28) {
 				*(float*)(&script->field_28[sa1]) -= sf1;
 				nox_script_pushf(*(float*)((unsigned int)(script->field_28) + 4 * sa1));
+			} else {
+				nox_script_pushf(0); // soft fail
 			}
 			continue;
 		case 34: // mod xxx int
 			sa1 = nox_script_pop();
 			sa2 = nox_script_pop();
 			if (nox_script_pop()) {
-				nox_script_arr_xxx_1599636[1].field_28[sa2] %= sa1;
-				nox_script_push(nox_script_arr_xxx_1599636[1].field_28[sa2]);
+				if (nox_script_arr_xxx_1599636[1].field_28) {
+					nox_script_arr_xxx_1599636[1].field_28[sa2] %= sa1;
+					nox_script_push(nox_script_arr_xxx_1599636[1].field_28[sa2]);
+				} else {
+					nox_script_push(0); // soft fail
+				}
 			} else if (sa2 < 0) {
 				*(unsigned int*)(*(unsigned int*)((int)a3 + 760) - 4 * sa2) %= sa1;
 				nox_script_push(*(unsigned int*)(*(unsigned int*)((int)a3 + 760) - 4 * sa2));
-			} else {
+			} else if (script->field_28) {
 				script->field_28[sa2] %= sa1;
 				nox_script_push(script->field_28[sa2]);
+			} else {
+				nox_script_push(0); // soft fail
 			}
 			continue;
 		case 35: // equal int
@@ -942,70 +1021,100 @@ void nox_script_callByIndex_507310(int index, void* a2, void* a3) {
 			sa1 = nox_script_pop();
 			sa2 = nox_script_pop();
 			if (nox_script_pop()) {
-				nox_script_arr_xxx_1599636[1].field_28[sa2] <<= sa1;
-				nox_script_push(nox_script_arr_xxx_1599636[1].field_28[sa2]);
+				if (nox_script_arr_xxx_1599636[1].field_28) {
+					nox_script_arr_xxx_1599636[1].field_28[sa2] <<= sa1;
+					nox_script_push(nox_script_arr_xxx_1599636[1].field_28[sa2]);
+				} else {
+					nox_script_push(0); // soft fail
+				}
 			} else if (sa2 < 0) {
 				*(unsigned int*)(*(unsigned int*)((int)a3 + 760) - 4 * sa2) <<= sa1;
 				nox_script_push(*(unsigned int*)(*(unsigned int*)((int)a3 + 760) - 4 * sa2));
-			} else {
+			} else if (script->field_28) {
 				script->field_28[sa2] <<= sa1;
 				nox_script_push(script->field_28[sa2]);
+			} else {
+				nox_script_push(0); // soft fail
 			}
 			continue;
 		case 58: // right shift xxx int
 			sa1 = nox_script_pop();
 			sa2 = nox_script_pop();
 			if (nox_script_pop()) {
-				nox_script_arr_xxx_1599636[1].field_28[sa2] >>= sa1;
-				nox_script_push(nox_script_arr_xxx_1599636[1].field_28[sa2]);
+				if (nox_script_arr_xxx_1599636[1].field_28) {
+					nox_script_arr_xxx_1599636[1].field_28[sa2] >>= sa1;
+					nox_script_push(nox_script_arr_xxx_1599636[1].field_28[sa2]);
+				} else {
+					nox_script_push(0); // soft fail
+				}
 			} else if (sa2 < 0) {
 				*(unsigned int*)(*(unsigned int*)((int)a3 + 760) - 4 * sa2) >>= sa1;
 				nox_script_push(*(unsigned int*)(*(unsigned int*)((int)a3 + 760) - 4 * sa2));
-			} else {
+			} else if (script->field_28) {
 				script->field_28[sa2] >>= sa1;
 				nox_script_push(script->field_28[sa2]);
+			} else {
+				nox_script_push(0); // soft fail
 			}
 			continue;
 		case 59: // bit mult xxx int
 			sa1 = nox_script_pop();
 			sa2 = nox_script_pop();
 			if (nox_script_pop()) {
-				nox_script_arr_xxx_1599636[1].field_28[sa2] &= sa1;
-				nox_script_push(nox_script_arr_xxx_1599636[1].field_28[sa2]);
+				if (nox_script_arr_xxx_1599636[1].field_28) {
+					nox_script_arr_xxx_1599636[1].field_28[sa2] &= sa1;
+					nox_script_push(nox_script_arr_xxx_1599636[1].field_28[sa2]);
+				} else {
+					nox_script_push(0); // soft fail
+				}
 			} else if (sa2 < 0) {
 				*(unsigned int*)(*(unsigned int*)((int)a3 + 760) - 4 * sa2) &= sa1;
 				nox_script_push(*(unsigned int*)(*(unsigned int*)((int)a3 + 760) - 4 * sa2));
-			} else {
+			} else if (script->field_28) {
 				script->field_28[sa2] &= sa1;
 				nox_script_push(script->field_28[sa2]);
+			} else {
+				nox_script_push(0); // soft fail
 			}
 			continue;
 		case 60: // bit or xxx int
 			sa1 = nox_script_pop();
 			sa2 = nox_script_pop();
 			if (nox_script_pop()) {
-				nox_script_arr_xxx_1599636[1].field_28[sa2] |= sa1;
-				nox_script_push(nox_script_arr_xxx_1599636[1].field_28[sa2]);
+				if (nox_script_arr_xxx_1599636[1].field_28) {
+					nox_script_arr_xxx_1599636[1].field_28[sa2] |= sa1;
+					nox_script_push(nox_script_arr_xxx_1599636[1].field_28[sa2]);
+				} else {
+					nox_script_push(0); // soft fail
+				}
 			} else if (sa2 < 0) {
 				*(unsigned int*)(*(unsigned int*)((int)a3 + 760) - 4 * sa2) |= sa1;
 				nox_script_push(*(unsigned int*)(*(unsigned int*)((int)a3 + 760) - 4 * sa2));
-			} else {
+			} else if (script->field_28) {
 				script->field_28[sa2] |= sa1;
 				nox_script_push(script->field_28[sa2]);
+			} else {
+				nox_script_push(0); // soft fail
 			}
 			continue;
 		case 61: // bit xor xxx int
 			sa1 = nox_script_pop();
 			sa2 = nox_script_pop();
 			if (nox_script_pop()) {
-				nox_script_arr_xxx_1599636[1].field_28[sa2] ^= sa1;
-				nox_script_push(nox_script_arr_xxx_1599636[1].field_28[sa2]);
+				if (nox_script_arr_xxx_1599636[1].field_28) {
+					nox_script_arr_xxx_1599636[1].field_28[sa2] ^= sa1;
+					nox_script_push(nox_script_arr_xxx_1599636[1].field_28[sa2]);
+				} else {
+					nox_script_push(0); // soft fail
+				}
 			} else if (sa2 < 0) {
 				*(unsigned int*)(*(unsigned int*)((int)a3 + 760) - 4 * sa2) ^= sa1;
 				nox_script_push(*(unsigned int*)(*(unsigned int*)((int)a3 + 760) - 4 * sa2));
-			} else {
+			} else if (script->field_28) {
 				script->field_28[sa2] ^= sa1;
 				nox_script_push(script->field_28[sa2]);
+			} else {
+				nox_script_push(0); // soft fail
 			}
 			continue;
 		case 62: // not int
@@ -1033,11 +1142,17 @@ void nox_script_callByIndex_507310(int index, void* a2, void* a3) {
 			if (sa1 < 0 || sa1 >= sa4)
 				sa5 = 1;
 			if (sa3) {
-				sa4 = nox_script_arr_xxx_1599636[1].field_28[sa1 + sa2];
+				if (nox_script_arr_xxx_1599636[1].field_28) {
+					sa4 = nox_script_arr_xxx_1599636[1].field_28[sa1 + sa2];
+				} else {
+					sa4 = 0;
+				}
 			} else if (sa2 < 0) {
 				sa4 = *(unsigned int*)(*(unsigned int*)((int)a3 + 760) + 4 * (sa2 - sa1));
-			} else {
+			} else if (script->field_28) {
 				sa4 = script->field_28[sa1 + sa2];
+			} else {
+				sa4 = 0; // soft fail
 			}
 			nox_script_push(sa4);
 			if (sa5) {
@@ -1053,11 +1168,17 @@ void nox_script_callByIndex_507310(int index, void* a2, void* a3) {
 			if (sa1 < 0 || sa1 > sa4)
 				sa5 = 1;
 			if (sa3) {
-				sf1 = *(float*)(&nox_script_arr_xxx_1599636[1].field_28[sa1 + sa2]);
+				if (nox_script_arr_xxx_1599636[1].field_28) {
+					sf1 = *(float*)(&nox_script_arr_xxx_1599636[1].field_28[sa1 + sa2]);
+				} else {
+					sf1 = 0;
+				}
 			} else if (sa2 < 0) {
 				sf1 = *(float *) (*(unsigned int *) ((int) a3 + 760) + 4 * (sa2 - sa1));
-			} else {
+			} else if (script->field_28) {
 				sf1 = *(float *) (&script->field_28[sa1 + sa2]);
+			} else {
+				sf1 = 0; // soft fail
 			}
 			nox_script_pushf(sf1);
 			if (sa5) {
