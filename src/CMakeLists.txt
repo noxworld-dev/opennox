@@ -370,6 +370,7 @@ set (
     server__script__script.c
     server__script__builtin.c
     server__script__panic.c
+    server__script__activator.c
     server__script__file.c
     server__xfer__savegame__savegame.c
 

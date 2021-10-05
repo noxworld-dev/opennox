@@ -38,6 +38,7 @@
 #include "common__crypt.h"
 #include "common__magic__speltree.h"
 #include "server__script__script.h"
+#include "server__script__activator.h"
 
 extern uint32_t nox_xxx_respawnAllow_587000_205200;
 extern uint32_t dword_5d4594_1567960;

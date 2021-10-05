@@ -11,9 +11,6 @@ void nox_script_callOnEvent(char* event, void* a1, void* a2);
 void nox_script_callOnEvent(const char* event, void* a1, void* a2);
 #endif // NOX_CGO
 int nox_script_indexByEvent(const char* a1);
-void nox_script_activatorRun_51ADF0();
-void nox_script_activatorResolveObjs_51B0C0();
-void nox_script_activator_append(nox_script_activator_t* act);
 
 int nox_xxx_xferReadScriptHandler_4F5580(int a1, char* a2);
 unsigned char* nox_xxx_scriptCallByEventBlock_502490(int* a1, int a2, int a3, int eventCode);

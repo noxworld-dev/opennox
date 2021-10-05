@@ -12,8 +12,8 @@
 #include "server__script__builtin.h"
 #include "server__script__internal.h"
 #include "server__script__script.h"
+#include "server__script__activator.h"
 
-extern nox_script_activator_t* nox_script_activatedList_2487236;
 extern unsigned int dword_5d4594_1599628;
 extern unsigned int nox_frame_xxx_2598000;
 
@@ -243,13 +243,13 @@ int nox_server_mapRWScriptData_504F90() {
 	nox_xxx_fileReadWrite_426AC0_file3_fread(nox_script_arr_xxx_1599636[1].field_28,
 											 4 * nox_script_arr_xxx_1599636[1].field_16);
 	if (nox_xxx_cryptGetXxx()) {
-		result = nox_script_activator_Load_51AF80();
+		result = nox_script_activatorLoad_51AF80();
 		if (!result) {
 			return result;
 		}
 		return 1;
 	}
-	result = nox_script_xxx_Save_51AEA0();
+	result = nox_script_activatorSave_51AEA0();
 	if (result) {
 		return 1;
 	}
@@ -1437,24 +1437,6 @@ int sub_508CB0(unsigned int* a1, int a2) {
 	return result;
 }
 
-//----- (0051ADF0) --------------------------------------------------------
-void nox_script_activatorRun_51ADF0() {
-	for (nox_script_activator_t* it = nox_script_activatedList_2487236; it;) {
-		if (it->frame > nox_frame_xxx_2598000) {
-			it = it->next;
-		} else {
-			int callback = it->callback;
-			nox_object_t* caller = it->caller;
-			nox_object_t* trigger = it->trigger;
-			if (nox_script_arr_xxx_1599636[callback].size_28) {
-				nox_script_push(it->arg);
-			}
-			it = nox_script_activatorDoneNext_51AD90(it);
-			nox_script_callByIndex_507310(callback, caller, trigger);
-		}
-	}
-}
-
 #ifndef NOX_CGO
 //----- (00511B60) --------------------------------------------------------
 nox_object_t* nox_server_scriptValToObjectPtr_511B60(int val) {
@@ -1498,21 +1480,7 @@ nox_object_t* nox_server_scriptValToObjectPtr_511B60(int val) {
 	}
 	return 0;
 }
-#endif // NOX_CGO
 
-//----- (0051B0C0) --------------------------------------------------------
-void nox_script_activatorResolveObjs_51B0C0() {
-	for (nox_script_activator_t* it = nox_script_activatedList_2487236; it; it = it->next) {
-		if (it->trigger) {
-			it->trigger = nox_server_scriptValToObjectPtr_511B60(it->trigger);
-		}
-		if (it->caller) {
-			it->caller = nox_server_scriptValToObjectPtr_511B60(it->caller);
-		}
-	};
-}
-
-#ifndef NOX_CGO
 void nox_script_callOnEvent(const char* event, void* a1, void* a2) {
 	int n = strlen(event);
 	for (int i = 0; i < nox_script_count_xxx_1599640; i++) {
