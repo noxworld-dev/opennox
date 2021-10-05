@@ -4,7 +4,6 @@ import (
 	"errors"
 	"fmt"
 	"math"
-	"unsafe"
 )
 
 func (r *Runtime) newFunc(def *FuncDef) *Func {
@@ -107,7 +106,7 @@ func (f *Func) getArrBool(i, j int) bool {
 	return f.vars[i][j] != 0
 }
 
-func (f *Func) Call(caller, trigger unsafe.Pointer, args ...interface{}) (gerr error) {
+func (f *Func) Call(caller, trigger Object, args ...interface{}) (gerr error) {
 	if f == nil {
 		return &Error{Err: errors.New("nil function")}
 	}
@@ -138,6 +137,8 @@ func (f *Func) Call(caller, trigger unsafe.Pointer, args ...interface{}) (gerr e
 		}
 		for i := 0; i < f.def.Args; i++ {
 			switch v := args[i].(type) {
+			case nil:
+				f.setArrInt(i, 0, 0)
 			case int:
 				f.setArrInt(i, 0, int32(v))
 			case bool:
@@ -146,6 +147,8 @@ func (f *Func) Call(caller, trigger unsafe.Pointer, args ...interface{}) (gerr e
 				f.setArrFloat(i, 0, v)
 			case string:
 				f.setArrString(i, 0, v)
+			case Object:
+				f.setArrInt(i, 0, int32(v.NoxScriptID()))
 			default:
 				return fmt.Errorf("unsupported argument type: %T", args[i])
 			}
@@ -169,11 +172,6 @@ func (f *Func) Call(caller, trigger unsafe.Pointer, args ...interface{}) (gerr e
 		code = code[1:]
 		return v
 	}
-	// TODO: remove this hack once type of "trigger" is clear
-	getA3Field := func(field int, i int) unsafe.Pointer {
-		p := *(*unsafe.Pointer)(unsafe.Add(trigger, field))
-		return unsafe.Add(p, 4*i)
-	}
 	for {
 		switch op := nextInt(); op {
 		case 0x00, 0x03: // int var or string var
@@ -185,7 +183,7 @@ func (f *Func) Call(caller, trigger unsafe.Pointer, args ...interface{}) (gerr e
 			} else if vari < 0 {
 				// TODO: remember those -2 and -1 (self and other)? are they related?
 				off := r.funcs[0].def.Vars[-vari].Offs
-				val = *(*int32)(getA3Field(760, off))
+				val = trigger.GetNoxScriptVal(off)
 			} else {
 				val = f.getArrInt(vari, 0)
 			}
@@ -199,7 +197,7 @@ func (f *Func) Call(caller, trigger unsafe.Pointer, args ...interface{}) (gerr e
 				val = r.funcs[1].getArrFloat(vari, 0)
 			} else if vari < 0 {
 				off := r.funcs[0].def.Vars[-vari].Offs
-				val = *(*float32)(getA3Field(760, off))
+				val = math.Float32frombits(uint32(trigger.GetNoxScriptVal(off)))
 			} else {
 				val = f.getArrFloat(vari, 0)
 			}
@@ -303,7 +301,7 @@ func (f *Func) Call(caller, trigger unsafe.Pointer, args ...interface{}) (gerr e
 			if isGlobal {
 				r.funcs[1].setPtrInt(ptr, rhs)
 			} else if ptr < 0 {
-				*(*int32)(getA3Field(760, -ptr)) = rhs
+				trigger.SetNoxScriptVal(-ptr, rhs)
 			} else {
 				f.setPtrInt(ptr, rhs)
 			}
@@ -316,7 +314,7 @@ func (f *Func) Call(caller, trigger unsafe.Pointer, args ...interface{}) (gerr e
 			if isGlobal {
 				r.funcs[1].setPtrFloat(ptr, rhs)
 			} else if ptr < 0 {
-				*(*float32)(getA3Field(760, -ptr)) = rhs
+				trigger.SetNoxScriptVal(-ptr, int32(math.Float32bits(rhs)))
 			} else {
 				f.setPtrFloat(ptr, rhs)
 			}
@@ -331,7 +329,7 @@ func (f *Func) Call(caller, trigger unsafe.Pointer, args ...interface{}) (gerr e
 			if isGlobal {
 				v = r.funcs[1].getPtrInt(ptr)
 			} else if ptr < 0 {
-				v = *(*int32)(getA3Field(760, -ptr))
+				v = trigger.GetNoxScriptVal(-ptr)
 			} else {
 				v = f.getPtrInt(ptr)
 			}
@@ -360,7 +358,7 @@ func (f *Func) Call(caller, trigger unsafe.Pointer, args ...interface{}) (gerr e
 			if isGlobal {
 				r.funcs[1].setPtrInt(ptr, v)
 			} else if ptr < 0 {
-				*(*int32)(getA3Field(760, -ptr)) = v
+				trigger.SetNoxScriptVal(-ptr, v)
 			} else {
 				f.setPtrInt(ptr, v)
 			}
@@ -374,7 +372,7 @@ func (f *Func) Call(caller, trigger unsafe.Pointer, args ...interface{}) (gerr e
 			if isGlobal {
 				v = r.funcs[1].getPtrFloat(ptr)
 			} else if ptr < 0 {
-				v = *(*float32)(getA3Field(760, -ptr))
+				v = math.Float32frombits(uint32(trigger.GetNoxScriptVal(-ptr)))
 			} else {
 				v = f.getPtrFloat(ptr)
 			}
@@ -391,7 +389,7 @@ func (f *Func) Call(caller, trigger unsafe.Pointer, args ...interface{}) (gerr e
 			if isGlobal {
 				r.funcs[1].setPtrFloat(ptr, v)
 			} else if ptr < 0 {
-				*(*float32)(getA3Field(760, -ptr)) = v
+				trigger.SetNoxScriptVal(-ptr, int32(math.Float32bits(v)))
 			} else {
 				f.setPtrFloat(ptr, v)
 			}
@@ -405,7 +403,7 @@ func (f *Func) Call(caller, trigger unsafe.Pointer, args ...interface{}) (gerr e
 			if isGlobal {
 				sid = r.funcs[1].getPtrInt(ptr)
 			} else if ptr < 0 {
-				sid = *(*int32)(getA3Field(760, -ptr))
+				sid = trigger.GetNoxScriptVal(-ptr)
 			} else {
 				sid = f.getPtrInt(ptr)
 			}
@@ -414,7 +412,7 @@ func (f *Func) Call(caller, trigger unsafe.Pointer, args ...interface{}) (gerr e
 			if isGlobal {
 				r.funcs[1].setPtrInt(ptr, sid)
 			} else if ptr < 0 {
-				*(*int32)(getA3Field(760, -ptr)) = sid
+				trigger.SetNoxScriptVal(-ptr, sid)
 			} else {
 				f.setPtrInt(ptr, sid)
 			}
@@ -518,7 +516,7 @@ func (f *Func) Call(caller, trigger unsafe.Pointer, args ...interface{}) (gerr e
 			if isGlobal {
 				val = r.funcs[1].getArrInt(vari, i)
 			} else if vari < 0 {
-				val = *(*int32)(getA3Field(760, vari-i))
+				val = trigger.GetNoxScriptVal(vari - i)
 			} else {
 				val = f.getArrInt(vari, i)
 			}
@@ -536,7 +534,7 @@ func (f *Func) Call(caller, trigger unsafe.Pointer, args ...interface{}) (gerr e
 			if isGlobal {
 				val = r.funcs[1].getArrFloat(vari, i)
 			} else if vari < 0 {
-				val = *(*float32)(getA3Field(760, vari-i))
+				val = math.Float32frombits(uint32(trigger.GetNoxScriptVal(vari - i)))
 			} else {
 				val = f.getArrFloat(vari, i)
 			}
