@@ -3003,7 +3003,7 @@ void nox_xxx_delayedDeleteObject_4E5CC0(nox_object_t* obj) {
 int nox_xxx_unitDeleteFinish_4E5E80(uint32_t* a1) {
 	nox_xxx_unitTransferSlaves_4EC4B0((int)a1);
 	nox_xxx_unitClearOwner_4EC300((int)a1);
-	sub_51AE60((int)a1);
+	nox_script_activatorClearObj_51AE60(a1);
 	nox_xxx_decay_5116F0((int)a1);
 	nox_xxx_dropAllItems_4EDA40(a1);
 	nox_xxx_servFinalizeDelObject_4DADE0((int)a1);

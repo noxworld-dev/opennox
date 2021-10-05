@@ -32,7 +32,6 @@
 // TODO: move somewhere else
 int nox_xxx_netSendChat_528AC0(int a1, wchar_t* a2, wchar_t a3);
 
-extern void* nox_script_activatedList_2487236;
 extern unsigned int dword_5d4594_2386836;
 extern unsigned int nox_xxx_wallSounds_2386840;
 extern unsigned int nox_gameDisableMapDraw_5d4594_2650672;
@@ -61,37 +60,22 @@ void nox_script_resetBuiltin() {
 }
 
 //----- (0051ACA0) --------------------------------------------------------
-void nox_xxx_frameTimer_51ACA0(int a1, int a2, int a3) {
-	uint32_t* v3; // esi
-	int result;   // eax
-	int v5;       // eax
-	int i;        // ecx
-
-	v3 = nox_xxx_scriptActivatorNew_51AD40();
-	if (!v3) {
+void nox_xxx_frameTimer_51ACA0(int df, int callback, int arg) {
+	nox_script_activator_t* act = nox_xxx_scriptActivatorNew_51AD40();
+	if (!act) {
 		nox_script_push(0);
 		return;
 	}
-	*v3 = a1 + nox_frame_xxx_2598000;
-	v3[1] = a2;
-	v3[2] = a3;
-	v5 = nox_xxx_getTimerHandle_51AD20();
-	v3[3] = v5;
-	v3[4] = 0;
-	v3[5] = 0;
-	v3[6] = 0;
-	nox_script_push(v5);
-	result = nox_script_activatedList_2487236;
-	if (nox_script_activatedList_2487236) {
-		for (i = *(uint32_t*)((char*)nox_script_activatedList_2487236 + 24); i; i = *(uint32_t*)(i + 24)) {
-			result = i;
-		}
-		*(uint32_t*)(result + 24) = v3;
-		v3[7] = result;
-	} else {
-		nox_script_activatedList_2487236 = v3;
-		v3[7] = 0;
-	}
+	act->frame = nox_frame_xxx_2598000 + df;
+	act->callback = callback;
+	act->arg = arg;
+	int id = nox_xxx_getTimerHandle_51AD20();
+	act->id = id;
+	act->trigger = 0;
+	act->caller = 0;
+	act->next = 0;
+	nox_script_push(id);
+	nox_script_activator_append(act);
 }
 
 //----- (005165D0) --------------------------------------------------------
@@ -119,7 +103,7 @@ void sub_511E60() {
 		dword_5d4594_2386836 = nox_xxx_getNameId_4E3AA0("Mover");
 	}
 	nox_script_freeEverything_5058F0();
-	sub_51AC60();
+	nox_script_xxx_activatorCancelAll_51AC60();
 	*getMemU32Ptr(0x5D4594, 2386844) = 0;
 	dword_5d4594_2386848 = 0;
 	dword_5d4594_2386852 = 0;
@@ -1831,7 +1815,7 @@ int nox_script_CancelTimer_5141F0() {
 	int v1; // eax
 
 	v0 = nox_script_pop();
-	v1 = sub_51AD60(v0);
+	v1 = nox_script_activatorCancel_51AD60(v0);
 	nox_script_push(v1 != 0);
 	return 0;
 }

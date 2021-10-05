@@ -789,7 +789,7 @@ void sub_4DBA30(int a1) {
 						v5 = v26;
 					} while (v26);
 				}
-				sub_51B0C0();
+				nox_script_activatorResolveObjs_51B0C0();
 				sub_516FC0();
 				if (dword_5d4594_1563096) {
 					v16 = nox_server_getFirstObject_4DA790();
@@ -2716,7 +2716,7 @@ int nox_xxx_gameTick_4D2580_server_B(long long ticks) {
 		}
 		nox_xxx_spellBookReact_4FCB70();
 		nox_xxx_abilUpdateMB_4FBEE0();
-		nox_xxx_scriptLeverReact_51ADF0();
+		nox_script_activatorRun_51ADF0();
 		nox_xxx_voteUptate_506F30();
 		nox_xxx_unitsUpdateDeletedList_4E5E20();
 	}
