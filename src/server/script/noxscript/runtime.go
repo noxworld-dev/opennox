@@ -4,8 +4,20 @@ import (
 	"io"
 	"math"
 	"strings"
-	"unsafe"
 )
+
+type ObjID int
+
+const (
+	CallerID  = ObjID(-1)
+	TriggerID = ObjID(-2)
+)
+
+type Object interface {
+	NoxScriptID() ObjID
+	GetNoxScriptVal(ind int) int32
+	SetNoxScriptVal(ind int, val int32)
+}
 
 func NewRuntime() *Runtime {
 	return new(Runtime)
@@ -29,8 +41,8 @@ type Runtime struct {
 	panicsMemhack bool
 
 	// set during the call
-	caller  unsafe.Pointer
-	trigger unsafe.Pointer
+	caller  Object
+	trigger Object
 }
 
 func (r *Runtime) Reset() {
@@ -88,6 +100,18 @@ func (r *Runtime) PushBool(v bool) {
 	}
 }
 
+func (r *Runtime) PushObjectID(v ObjID) {
+	r.PushInt32(int32(v))
+}
+
+func (r *Runtime) PushObject(v Object) {
+	var id ObjID
+	if v != nil {
+		id = v.NoxScriptID()
+	}
+	r.PushInt32(int32(id))
+}
+
 func (r *Runtime) PopUint32() uint32 {
 	return uint32(r.PopInt32())
 }
@@ -112,6 +136,10 @@ func (r *Runtime) PopFloat32() float32 {
 
 func (r *Runtime) PopBool() bool {
 	return r.PopUint32() != 0
+}
+
+func (r *Runtime) PopObjectID() ObjID {
+	return ObjID(r.PopUint32())
 }
 
 func (r *Runtime) stackTop() int {
@@ -189,11 +217,11 @@ func (r *Runtime) IndexByName(name string) int {
 	return -1
 }
 
-func (r *Runtime) GetCaller() unsafe.Pointer {
+func (r *Runtime) GetCaller() Object {
 	return r.caller
 }
 
-func (r *Runtime) GetTrigger() unsafe.Pointer {
+func (r *Runtime) GetTrigger() Object {
 	return r.trigger
 }
 
@@ -205,10 +233,10 @@ func (r *Runtime) CallFirst(isSwitchToSolo bool) error {
 	}
 	// TODO: check, var index might be wrong; also, is it okay to override it this way?
 	copy(sc.vars[0][:4], []int32{
-		-2, // self
-		-1, // other
-		1,  // true
-		0,  // false
+		int32(TriggerID), // self
+		int32(CallerID),  // other
+		1,                // true
+		0,                // false
 	})
 	if isSwitchToSolo {
 		return nil
@@ -216,14 +244,14 @@ func (r *Runtime) CallFirst(isSwitchToSolo bool) error {
 	return sc.Call(nil, nil)
 }
 
-func (r *Runtime) CallByName(name string, caller, trigger unsafe.Pointer, args ...interface{}) error {
+func (r *Runtime) CallByName(name string, caller, trigger Object, args ...interface{}) error {
 	if f := r.FuncByName(name); f != nil {
 		return f.Call(caller, trigger, args...)
 	}
 	return &ErrNoFunc{Func: name}
 }
 
-func (r *Runtime) CallByPrefix(pref string, caller, trigger unsafe.Pointer, args ...interface{}) error {
+func (r *Runtime) CallByPrefix(pref string, caller, trigger Object, args ...interface{}) error {
 	list := r.FuncByPref(pref)
 	if len(list) == 0 {
 		return &ErrNoFunc{Func: pref}
