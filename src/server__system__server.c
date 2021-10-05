@@ -3,6 +3,7 @@
 
 #include "server__script__script.h"
 #include "server__system__server.h"
+#include "server__script__activator.h"
 
 #include "GAME1.h"
 #include "GAME1_1.h"

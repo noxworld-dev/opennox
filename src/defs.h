@@ -1744,19 +1744,6 @@ typedef enum {
 	NOX_ENGINE_FLAG_PAUSE = 1u << 31u,
 } nox_engine_flag;
 
-typedef struct nox_script_activator_t nox_script_activator_t;
-typedef struct nox_script_activator_t {
-	unsigned int frame; // 0, 0
-	unsigned int callback; // 1, 4
-	unsigned int arg; // 2, 8
-	int id; // 3, 12
-	nox_object_t* trigger; // 4, 16
-	nox_object_t* caller; // 5, 20
-	nox_script_activator_t* next; // 6, 24
-	nox_script_activator_t* prev; // 7, 28
-} nox_script_activator_t;
-_Static_assert(sizeof(nox_script_activator_t) == 32, "wrong size of nox_script_activator_t structure!");
-
 #pragma pack(push, 1)
 typedef struct nox_gui_server_ent_t {
 	uint32_t field_0;             // 0, 0

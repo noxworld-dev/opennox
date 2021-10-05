@@ -28,6 +28,7 @@
 #include "server__script__internal.h"
 #include "server__script__panic.h"
 #include "server__script__script.h"
+#include "server__script__activator.h"
 
 // TODO: move somewhere else
 int nox_xxx_netSendChat_528AC0(int a1, wchar_t* a2, wchar_t a3);
@@ -59,25 +60,6 @@ void nox_script_resetBuiltin() {
 	dword_5d4594_3821636 = 0;
 }
 
-//----- (0051ACA0) --------------------------------------------------------
-void nox_xxx_frameTimer_51ACA0(int df, int callback, int arg) {
-	nox_script_activator_t* act = nox_xxx_scriptActivatorNew_51AD40();
-	if (!act) {
-		nox_script_push(0);
-		return;
-	}
-	act->frame = nox_frame_xxx_2598000 + df;
-	act->callback = callback;
-	act->arg = arg;
-	int id = nox_xxx_getTimerHandle_51AD20();
-	act->id = id;
-	act->trigger = 0;
-	act->caller = 0;
-	act->next = 0;
-	nox_script_push(id);
-	nox_script_activator_append(act);
-}
-
 //----- (005165D0) --------------------------------------------------------
 int sub_5165D0() {
 	*getMemU32Ptr(0x5D4594, 2386828) = nox_script_pop() - 1;
@@ -103,7 +85,7 @@ void sub_511E60() {
 		dword_5d4594_2386836 = nox_xxx_getNameId_4E3AA0("Mover");
 	}
 	nox_script_freeEverything_5058F0();
-	nox_script_xxx_activatorCancelAll_51AC60();
+	nox_script_activatorCancelAll_51AC60();
 	*getMemU32Ptr(0x5D4594, 2386844) = 0;
 	dword_5d4594_2386848 = 0;
 	dword_5d4594_2386852 = 0;
@@ -274,7 +256,7 @@ int nox_script_secondTimer_512320() {
 
 	v0 = nox_script_pop();
 	v1 = nox_script_pop();
-	nox_xxx_frameTimer_51ACA0(v1 * nox_gameFPS, v0, 0);
+	nox_script_activatorTimer_51ACA0(v1 * nox_gameFPS, v0, 0);
 	return 0;
 }
 
@@ -285,7 +267,7 @@ int nox_script_frameTimer_512350() {
 
 	v0 = nox_script_pop();
 	v1 = nox_script_pop();
-	nox_xxx_frameTimer_51ACA0(v1, v0, 0);
+	nox_script_activatorTimer_51ACA0(v1, v0, 0);
 	return 0;
 }
 
@@ -867,7 +849,7 @@ int nox_script_timerSecSpecial_512DE0() {
 	v0 = nox_script_pop();
 	v1 = nox_script_pop();
 	v2 = nox_script_pop();
-	nox_xxx_frameTimer_51ACA0(v2 * nox_gameFPS, v0, v1);
+	nox_script_activatorTimer_51ACA0(v2 * nox_gameFPS, v0, v1);
 	return 0;
 }
 
@@ -880,7 +862,7 @@ int nox_script_specialTimer_512E10() {
 	v0 = nox_script_pop();
 	v1 = nox_script_pop();
 	v2 = nox_script_pop();
-	nox_xxx_frameTimer_51ACA0(v2, v0, v1);
+	nox_script_activatorTimer_51ACA0(v2, v0, v1);
 	return 0;
 }
 

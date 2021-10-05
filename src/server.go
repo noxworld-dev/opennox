@@ -19,6 +19,7 @@ package nox
 #include "common__system__team.h"
 #include "server__system__server.h"
 #include "server__script__script.h"
+#include "server__script__activator.h"
 #include "common__magic__speltree.h"
 #include "common__net_list.h"
 #include "common__crypt.h"
