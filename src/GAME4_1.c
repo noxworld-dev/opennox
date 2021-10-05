@@ -80,8 +80,8 @@ extern nox_server_xxx nox_server_xxx_1599716[NOX_SERVER_XXX_SIZE * NOX_SERVER_XX
 extern unsigned int nox_gameFPS;
 extern unsigned int nox_frame_xxx_2598000;
 
-void* nox_script_activatedList_2487236 = 0;
-void* nox_script_activatorsFreeList_2487240 = 0;
+nox_script_activator_t* nox_script_activatedList_2487236 = 0;
+nox_script_activator_t* nox_script_activatorsFreeList_2487240 = 0;
 uint32_t nox_xxx_wallSounds_2386840 = 0;
 
 //----- (005098A0) --------------------------------------------------------
@@ -8652,16 +8652,13 @@ int nox_xxx_playerCmd_51AC30(int a1) {
 int nox_xxx_playerCmdGet_51AC40(int a1) { return *getMemU32Ptr(0x5D4594, 2388804 + 4 * a1) == 0; }
 
 //----- (0051AC60) --------------------------------------------------------
-void sub_51AC60() {
-	int v0; // ecx
-	int i;  // eax
-
-	v0 = nox_script_activatedList_2487236;
-	if (nox_script_activatedList_2487236) {
-		for (i = *(uint32_t*)((char*)nox_script_activatedList_2487236 + 24); i; i = *(uint32_t*)(i + 24)) {
-			v0 = i;
-		}
-		*(uint32_t*)(v0 + 24) = nox_script_activatorsFreeList_2487240;
+void nox_script_xxx_activatorCancelAll_51AC60() {
+	nox_script_activator_t* last = 0;
+	for (nox_script_activator_t* it = nox_script_activatedList_2487236; it; it = it->next) {
+		last = it;
+	}
+	if (last) {
+		last->next = nox_script_activatorsFreeList_2487240;
 		nox_script_activatorsFreeList_2487240 = nox_script_activatedList_2487236;
 		nox_script_activatedList_2487236 = 0;
 	}
@@ -8680,183 +8677,147 @@ int nox_xxx_getTimerHandle_51AD20() {
 }
 
 //----- (0051AD40) --------------------------------------------------------
-void* nox_xxx_scriptActivatorNew_51AD40() {
-	void* result; // eax
-
-	result = *(void**)&nox_script_activatorsFreeList_2487240;
-	if (!nox_script_activatorsFreeList_2487240) {
-		return calloc(1, 32);
+nox_script_activator_t* nox_xxx_scriptActivatorNew_51AD40() {
+	nox_script_activator_t* act = nox_script_activatorsFreeList_2487240;
+	if (act) {
+		nox_script_activatorsFreeList_2487240 = nox_script_activatorsFreeList_2487240->next;
+		return act;
 	}
-	nox_script_activatorsFreeList_2487240 = *(uint32_t*)((char*)nox_script_activatorsFreeList_2487240 + 24);
-	return result;
+	return calloc(1, sizeof(nox_script_activator_t));
 }
 
 //----- (0051AD60) --------------------------------------------------------
-int sub_51AD60(int a1) {
-	int v1; // eax
-
-	v1 = nox_script_activatedList_2487236;
-	if (!nox_script_activatedList_2487236) {
-		return 0;
-	}
-	while (*(uint32_t*)(v1 + 12) != a1) {
-		v1 = *(uint32_t*)(v1 + 24);
-		if (!v1) {
-			return 0;
-		}
-	}
-	nox_xxx_scriptAct_51AD90(v1);
-	return 1;
-}
-
-//----- (0051AD90) --------------------------------------------------------
-int nox_xxx_scriptAct_51AD90(int a1) {
-	int v1;       // edx
-	uint32_t* v2; // ecx
-	int v3;       // esi
-	int result;   // eax
-
-	v1 = *(uint32_t*)(a1 + 24);
-	v2 = (uint32_t*)(a1 + 24);
-	if (v1) {
-		*(uint32_t*)(v1 + 28) = *(uint32_t*)(a1 + 28);
-	}
-	v3 = *(uint32_t*)(a1 + 28);
-	if (v3) {
-		*(uint32_t*)(v3 + 24) = *v2;
-	}
-	if (a1 == nox_script_activatedList_2487236) {
-		nox_script_activatedList_2487236 = *v2;
-	}
-	result = *v2;
-	*v2 = nox_script_activatorsFreeList_2487240;
-	nox_script_activatorsFreeList_2487240 = a1;
-	*(uint32_t*)(a1 + 28) = 0;
-	return result;
-}
-
-//----- (0051AE60) --------------------------------------------------------
-uint32_t* sub_51AE60(int a1) {
-	uint32_t* result; // eax
-
-	result = *(uint32_t**)&nox_script_activatedList_2487236;
-	if (nox_script_activatedList_2487236) {
-		do {
-			if (result[4] == a1) {
-				result = (uint32_t*)nox_xxx_scriptAct_51AD90((int)result);
-			} else {
-				if (result[5] == a1) {
-					result[5] = 0;
-				}
-				result = (uint32_t*)result[6];
-			}
-		} while (result);
-	}
-	return result;
-}
-
-//----- (0051AEA0) --------------------------------------------------------
-int sub_51AEA0() {
-	int v0; // eax
-	int j;  // esi
-	int v2; // eax
-	int v3; // eax
-	int v5; // [esp+8h] [ebp-Ch]
-	int i;  // [esp+Ch] [ebp-8h]
-	int v7; // [esp+10h] [ebp-4h]
-
-	v7 = 1;
-	nox_xxx_fileReadWrite_426AC0_file3_fread(&v7, 2u);
-	nox_xxx_fileReadWrite_426AC0_file3_fread(&nox_frame_xxx_2598000, 4u);
-	v0 = nox_script_activatedList_2487236;
-	for (i = 0; v0; v0 = *(uint32_t*)(v0 + 24)) {
-		++i;
-	}
-	nox_xxx_fileReadWrite_426AC0_file3_fread(&i, 4u);
-	for (j = nox_script_activatedList_2487236; j; j = *(uint32_t*)(j + 24)) {
-		nox_xxx_fileReadWrite_426AC0_file3_fread((uint8_t*)j, 4u);
-		nox_xxx_fileReadWrite_426AC0_file3_fread((uint8_t*)(j + 4), 4u);
-		nox_xxx_fileReadWrite_426AC0_file3_fread((uint8_t*)(j + 8), 4u);
-		v2 = *(uint32_t*)(j + 16);
-		if (v2) {
-			v5 = *(uint32_t*)(v2 + 44);
-		} else {
-			v5 = 0;
-		}
-		nox_xxx_fileReadWrite_426AC0_file3_fread(&v5, 4u);
-		v3 = *(uint32_t*)(j + 20);
-		if (v3) {
-			v5 = *(uint32_t*)(v3 + 44);
-		} else {
-			v5 = 0;
-		}
-		nox_xxx_fileReadWrite_426AC0_file3_fread(&v5, 4u);
-	}
-	return 1;
-}
-
-//----- (0051AF80) --------------------------------------------------------
-int sub_51AF80() {
-	int v0;          // ebx
-	uint32_t* v1;    // eax
-	uint32_t* v2;    // esi
-	int v3;          // eax
-	int i;           // ecx
-	int v6;          // [esp+Ch] [ebp-20h]
-	unsigned int v7; // [esp+10h] [ebp-1Ch]
-	int v8;          // [esp+14h] [ebp-18h]
-	int v9;          // [esp+18h] [ebp-14h]
-	int v10;         // [esp+1Ch] [ebp-10h]
-	int v11;         // [esp+20h] [ebp-Ch]
-	int v12;         // [esp+24h] [ebp-8h]
-	int v13;         // [esp+28h] [ebp-4h]
-
-	v6 = 1;
-	nox_xxx_fileReadWrite_426AC0_file3_fread(&v6, 2u);
-	if ((short)v6 <= 1 && (short)v6 > 0) {
-		nox_xxx_fileReadWrite_426AC0_file3_fread(&v8, 4u);
-		nox_xxx_fileReadWrite_426AC0_file3_fread(&v7, 4u);
-		v0 = 0;
-		if (v7 <= 0) {
+int nox_script_activatorCancel_51AD60(int id) {
+	for (nox_script_activator_t* it = nox_script_activatedList_2487236; it; it = it->next) {
+		if (it->id == id) {
+			nox_script_activatorDoneNext_51AD90(it);
 			return 1;
-		}
-		while (1) {
-			nox_xxx_fileReadWrite_426AC0_file3_fread(&v9, 4u);
-			nox_xxx_fileReadWrite_426AC0_file3_fread(&v10, 4u);
-			nox_xxx_fileReadWrite_426AC0_file3_fread(&v11, 4u);
-			nox_xxx_fileReadWrite_426AC0_file3_fread(&v12, 4u);
-			nox_xxx_fileReadWrite_426AC0_file3_fread(&v13, 4u);
-			v1 = nox_xxx_scriptActivatorNew_51AD40();
-			v2 = v1;
-			if (!v1) {
-				break;
-			}
-			*v1 = v9 + nox_frame_xxx_2598000 - v8;
-			v1[1] = v10;
-			v1[2] = v11;
-			v1[3] = nox_xxx_getTimerHandle_51AD20();
-			v2[4] = 0;
-			v2[5] = 0;
-			v2[4] = v12;
-			v2[5] = v13;
-			v2[6] = 0;
-			v3 = nox_script_activatedList_2487236;
-			if (nox_script_activatedList_2487236) {
-				for (i = *(uint32_t*)((char*)nox_script_activatedList_2487236 + 24); i; i = *(uint32_t*)(i + 24)) {
-					v3 = i;
-				}
-				*(uint32_t*)(v3 + 24) = v2;
-				v2[7] = v3;
-			} else {
-				nox_script_activatedList_2487236 = v2;
-				v2[7] = 0;
-			}
-			if (++v0 >= v7) {
-				return 1;
-			}
 		}
 	}
 	return 0;
+}
+
+//----- (0051AD90) --------------------------------------------------------
+nox_script_activator_t* nox_script_activatorDoneNext_51AD90(nox_script_activator_t* act) {
+	nox_script_activator_t* next = act->next;
+	if (next) {
+		next->prev = act->prev;
+	}
+
+	nox_script_activator_t* v3 = act->prev;
+	if (v3) {
+		v3->next = act->next;
+	}
+
+	if (act == nox_script_activatedList_2487236) {
+		nox_script_activatedList_2487236 = act->next;
+	}
+
+	nox_script_activator_t* out = act->next;
+
+	act->next = nox_script_activatorsFreeList_2487240;
+	nox_script_activatorsFreeList_2487240 = act;
+
+	act->prev = 0;
+	return out;
+}
+
+//----- (0051AE60) --------------------------------------------------------
+void nox_script_activatorClearObj_51AE60(nox_object_t* obj) {
+	for (nox_script_activator_t* it = nox_script_activatedList_2487236; it;) {
+		if (it->trigger == obj) {
+			it = nox_script_activatorDoneNext_51AD90(it);
+		} else {
+			if (it->caller == obj) {
+				it->caller = 0;
+			}
+			it = it->next;
+		}
+	}
+}
+
+//----- (0051AEA0) --------------------------------------------------------
+int nox_script_xxx_Save_51AEA0() {
+	int v7 = 1;
+	nox_xxx_fileReadWrite_426AC0_file3_fread(&v7, 2u);
+	nox_xxx_fileReadWrite_426AC0_file3_fread(&nox_frame_xxx_2598000, 4u);
+
+	int cnt = 0;
+	for (nox_script_activator_t* it = nox_script_activatedList_2487236; it; it = it->next) {
+		cnt++;
+	}
+	nox_xxx_fileReadWrite_426AC0_file3_fread(&cnt, 4u);
+	for (nox_script_activator_t* it = nox_script_activatedList_2487236; it; it = it->next) {
+		nox_xxx_fileReadWrite_426AC0_file3_fread(&it->frame, 4u);
+		nox_xxx_fileReadWrite_426AC0_file3_fread(&it->callback, 4u);
+		nox_xxx_fileReadWrite_426AC0_file3_fread(&it->arg, 4u);
+		nox_object_t* obj = it->trigger;
+		int oid = 0;
+		if (obj) {
+			oid = obj->script_id;
+		}
+		nox_xxx_fileReadWrite_426AC0_file3_fread(&oid, 4u);
+		obj = it->caller;
+		oid = 0;
+		if (obj) {
+			oid = obj->script_id;
+		}
+		nox_xxx_fileReadWrite_426AC0_file3_fread(&oid, 4u);
+	}
+	return 1;
+}
+
+void nox_script_activator_append(nox_script_activator_t* act) {
+	nox_script_activator_t* last = 0;
+	for (nox_script_activator_t* it = nox_script_activatedList_2487236; it; it = it->next) {
+		last = it;
+	}
+	if (last) {
+		last->next = act;
+		act->prev = last;
+	} else {
+		nox_script_activatedList_2487236 = act;
+		act->prev = 0;
+	}
+}
+
+//----- (0051AF80) --------------------------------------------------------
+int nox_script_activator_Load_51AF80() {
+	int vers = 1;
+	nox_xxx_fileReadWrite_426AC0_file3_fread(&vers, 2u);
+	if (vers > 1 || vers <= 0) {
+		return 0;
+	}
+	int saveFrame = 0;
+	unsigned int cnt = 0;
+	nox_xxx_fileReadWrite_426AC0_file3_fread(&saveFrame, 4u);
+	nox_xxx_fileReadWrite_426AC0_file3_fread(&cnt, 4u);
+	for (int i = 0; i < cnt; i++) {
+		int frame;
+		int callback;
+		int arg;
+		int trigger;
+		int caller;
+		nox_xxx_fileReadWrite_426AC0_file3_fread(&frame, 4u);
+		nox_xxx_fileReadWrite_426AC0_file3_fread(&callback, 4u);
+		nox_xxx_fileReadWrite_426AC0_file3_fread(&arg, 4u);
+		nox_xxx_fileReadWrite_426AC0_file3_fread(&trigger, 4u);
+		nox_xxx_fileReadWrite_426AC0_file3_fread(&caller, 4u);
+
+		nox_script_activator_t* act = nox_xxx_scriptActivatorNew_51AD40();
+		if (!act) {
+			return 0;
+		}
+		act->frame = nox_frame_xxx_2598000 + (frame - saveFrame);
+		act->callback = callback;
+		act->arg = arg;
+		act->id = nox_xxx_getTimerHandle_51AD20();
+		act->trigger = trigger;
+		act->caller = caller;
+		act->next = 0;
+		nox_script_activator_append(act);
+	}
+	return 1;
 }
 
 //----- (0051B810) --------------------------------------------------------
