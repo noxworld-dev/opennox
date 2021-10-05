@@ -1,3 +1,5 @@
+//+build none
+
 #include "defs.h"
 #include "server__script__internal.h"
 #include "server__script__script.h"

@@ -187,7 +187,7 @@ func nox_xxx_gameTick_4D2580_server_B(ticks uint64) bool {
 		}
 		nox_xxx_spellBookReact_4FCB70()
 		C.nox_xxx_abilUpdateMB_4FBEE0()
-		C.nox_script_activatorRun_51ADF0()
+		nox_script_activatorRun_51ADF0()
 		scriptTick()
 		C.nox_xxx_voteUptate_506F30()
 		C.nox_xxx_unitsUpdateDeletedList_4E5E20()
