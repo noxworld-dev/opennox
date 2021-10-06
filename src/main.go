@@ -183,6 +183,12 @@ func runNox(args []string) (gerr error) {
 		datapath.Set(path)
 	} else if path = viper.GetString(configNoxDataPath); path != "" {
 		datapath.Set(path)
+		if filepath.IsAbs(path) && strings.HasPrefix(path, filepath.Dir(viper.ConfigFileUsed())) {
+			if rel, err := filepath.Rel(filepath.Dir(viper.ConfigFileUsed()), path); err == nil {
+				viper.Set(configNoxDataPath, rel)
+				writeConfigLater()
+			}
+		}
 	} else {
 		path = datapath.Find()
 		if path == "" {
@@ -191,6 +197,11 @@ func runNox(args []string) (gerr error) {
 			return err
 		}
 		datapath.Set(path)
+		if filepath.IsAbs(path) && strings.HasPrefix(path, filepath.Dir(viper.ConfigFileUsed())) {
+			if rel, err := filepath.Rel(filepath.Dir(viper.ConfigFileUsed()), path); err == nil {
+				path = rel
+			}
+		}
 		viper.Set(configNoxDataPath, path)
 		writeConfigLater()
 	}
