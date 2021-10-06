@@ -2,24 +2,23 @@ package main
 
 import (
 	"context"
-	"os"
 
 	octl "github.com/szhublox/opennoxcontrol"
 )
 
 func init() {
-	allowCmds := os.Getenv("NOX_SERVER_HTTP_ALLOWS_CMDS") == "true"
-	allowMapChange := os.Getenv("NOX_SERVER_HTTP_ALLOWS_MAP_CHANGE") == "true"
-	game := &gameControlHTTP{
-		// enforce these flags from our side as well
-		allowCmds:      allowCmds,
-		allowMapChange: allowMapChange,
-	}
-	srv := octl.NewControlPanel(game, &octl.Options{
-		AllowMapChange: allowMapChange,
-		AllowCommands:  allowCmds,
+	var opts octl.Options
+	configBoolPtr("server.control.allow_cmds", "NOX_SERVER_HTTP_ALLOWS_CMDS", false, &opts.AllowCommands)
+	configBoolPtr("server.control.allow_map_change", "NOX_SERVER_HTTP_ALLOWS_MAP_CHANGE", false, &opts.AllowMapChange)
+	registerOnConfigRead(func() {
+		game := &gameControlHTTP{
+			// enforce these flags from our side as well
+			allowCmds:      opts.AllowCommands,
+			allowMapChange: opts.AllowMapChange,
+		}
+		srv := octl.NewControlPanel(game, &opts)
+		gameMux.Handle("/", srv)
 	})
-	gameMux.Handle("/", srv)
 }
 
 type gameControlHTTP struct {
