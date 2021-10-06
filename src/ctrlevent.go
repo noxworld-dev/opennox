@@ -43,8 +43,13 @@ import (
 )
 
 var (
-	ctrlEvent = new(CtrlEventHandler)
+	ctrlEvent           = new(CtrlEventHandler)
+	allowEmotionsInSolo = true
 )
+
+func init() {
+	configBoolPtr("game.extensions.solo_allow_emotes", "", true, &allowEmotionsInSolo)
+}
 
 const ctrlEventCap = 128
 
@@ -106,7 +111,7 @@ func (c *CtrlEventHandler) Reset() {
 
 func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0(mpos types.Point, a4 *CtrlEventBinding) {
 	c.ticks = uint32(platformTicks())
-	if noxflags.HasGame(noxflags.GameHost) && noxflags.HasGame(0x2000) {
+	if noxflags.HasGame(noxflags.GameHost) && noxflags.HasGame(noxflags.GameOnline) {
 		c.ticks += nox_ctrlevent_add_ticks_42E630()
 	}
 	if !noxflags.HasGame(noxflags.GameHost) {
@@ -327,24 +332,24 @@ func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_A(a4 *CtrlEventBinding) 
 			case keybind.EventToggleServerMenu:
 				c.nox_ctrlevent_action_42E670(client.CCServerOptions, nil)
 			case keybind.EventTaunt:
-				if noxflags.HasGame(0x2000) && nox_xxx_checkKeybTimeout_4160F0(0x15, gameFPS()) {
+				if (allowEmotionsInSolo || noxflags.HasGame(noxflags.GameOnline)) && nox_xxx_checkKeybTimeout_4160F0(0x15, gameFPS()) {
 					nox_xxx_setKeybTimeout_4160D0(21)
 					c.nox_ctrlevent_action_42E670(client.CCTaunt, nil)
 				}
 			case keybind.EventLaugh:
-				if noxflags.HasGame(0x2000) && nox_xxx_checkKeybTimeout_4160F0(0x14, 2*gameFPS()) {
+				if (allowEmotionsInSolo || noxflags.HasGame(noxflags.GameOnline)) && nox_xxx_checkKeybTimeout_4160F0(0x14, 2*gameFPS()) {
 					nox_xxx_setKeybTimeout_4160D0(20)
 					c.nox_ctrlevent_action_42E670(client.CCLaugh, nil)
 				}
 			case keybind.EventPoint:
-				if noxflags.HasGame(0x2000) && nox_xxx_checkKeybTimeout_4160F0(0x16, gameFPS()) {
+				if (allowEmotionsInSolo || noxflags.HasGame(noxflags.GameOnline)) && nox_xxx_checkKeybTimeout_4160F0(0x16, gameFPS()) {
 					nox_xxx_setKeybTimeout_4160D0(22)
 					c.nox_ctrlevent_action_42E670(client.CCPoint, nil)
 				}
 			case keybind.EventInvertSpellTarget:
 				c.nox_ctrlevent_action_42E670(client.CCInvertSpellTarget, nil)
 			case keybind.EventToggleRank:
-				if noxflags.HasGame(0x2000) {
+				if noxflags.HasGame(noxflags.GameOnline) {
 					c.nox_ctrlevent_action_42E670(client.CCToggleRank, nil)
 				}
 			case keybind.EventToggleNetstat:
@@ -544,7 +549,7 @@ func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_B() {
 			C.nox_client_buildTrap_45E040()
 			ce.active = false
 		case client.CCServerOptions:
-			if !(noxflags.HasGame(8) || !noxflags.HasGame(0x2000)) {
+			if !(noxflags.HasGame(8) || !noxflags.HasGame(noxflags.GameOnline)) {
 				C.nox_xxx_guiServerOptsLoad_457500()
 			}
 			ce.active = false

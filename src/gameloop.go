@@ -860,7 +860,7 @@ func CONNECT_RESULT_OK() {
 	if getEngineFlag(NOX_ENGINE_FLAG_GAMELOOP_MEMDUMP) {
 		C.nox_xxx_gameLoopMemDump_413E30()
 	}
-	if noxflags.HasGame(noxflags.GameServerXxx) && noxflags.HasGame(noxflags.GameHost) && C.sub_43AF40() != 0 {
+	if noxflags.HasGame(noxflags.GameOnline) && noxflags.HasGame(noxflags.GameHost) && C.sub_43AF40() != 0 {
 		C.sub_43AA70()
 	}
 	C.sub_43F1A0()
@@ -875,7 +875,7 @@ func mainloopMaybeSwitchMapXXX() {
 	if C.nox_client_gui_flag_815132 != 0 {
 		return
 	}
-	if !noxflags.HasGame(noxflags.GameServerXxx) {
+	if !noxflags.HasGame(noxflags.GameOnline) {
 		return
 	}
 	if C.nox_server_gameDoSwitchMap_40A680() != 0 {

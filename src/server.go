@@ -191,7 +191,7 @@ func nox_xxx_gameTick_4D2580_server_B(ticks uint64) bool {
 		C.nox_xxx_protectUnitDefUpdateMB_4E3C20()
 		nox_xxx_setKeybTimeout_4160D0(16)
 	}
-	if noxflags.HasGame(noxflags.GameServerXxx) && C.nox_xxx_check_flag_aaa_43AF70() == 1 && !noxflags.HasGame(noxflags.GameModeChat) && nox_xxx_checkKeybTimeout_4160F0(0xF, 60*gameFPS()) {
+	if noxflags.HasGame(noxflags.GameOnline) && C.nox_xxx_check_flag_aaa_43AF70() == 1 && !noxflags.HasGame(noxflags.GameModeChat) && nox_xxx_checkKeybTimeout_4160F0(0xF, 60*gameFPS()) {
 		C.nox_xxx_net_4263C0()
 		nox_xxx_setKeybTimeout_4160D0(15)
 	}
@@ -614,7 +614,7 @@ func nox_server_xxxInitPlayerUnits_4FC6D0() {
 	} else {
 		nox_xxx_netMsgFadeBegin_4D9800(true, true)
 	}
-	if noxflags.HasGame(0x2000) && !noxflags.HasGame(128) {
+	if noxflags.HasGame(noxflags.GameOnline) && !noxflags.HasGame(128) {
 		for _, u := range getPlayerUnits() {
 			v3 := u.ptrYyy()
 			v7 := asPlayer(*(**C.nox_playerInfo)(unsafe.Pointer(uintptr(v3) + 276)))

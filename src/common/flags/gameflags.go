@@ -38,7 +38,7 @@ const (
 	GameModeElimination = GameFlag(0x400)
 	GameModeSolo12      = GameFlag(0x800)
 	GameModeQuest       = GameFlag(0x1000)
-	GameServerXxx       = GameFlag(0x2000)
+	GameOnline          = GameFlag(0x2000)
 	GameFlag15          = GameFlag(0x4000)
 	GameFlag16          = GameFlag(0x8000)
 	GameNotQuest        = GameFlag(0x10000)
@@ -183,8 +183,8 @@ func (f GameFlag) String() string {
 		return "Solo12"
 	case GameModeQuest:
 		return "Quest"
-	case GameServerXxx:
-		return "ServerXxx"
+	case GameOnline:
+		return "Online"
 	case GameFlag15:
 		return "Flag15"
 	case GameFlag16:

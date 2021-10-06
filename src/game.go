@@ -188,7 +188,7 @@ func startServer() bool {
 	C.nox_game_createOrJoin_815048 = 1
 	setEngineFlag(NOX_ENGINE_FLAG_ADMIN)
 	resetEngineFlag(NOX_ENGINE_FLAG_GODMODE)
-	noxflags.SetGame(noxflags.GameServerXxx)
+	noxflags.SetGame(noxflags.GameOnline)
 	if !isServerQuest {
 		noxflags.SetGame(noxflags.GameNotQuest)
 	} else {
@@ -885,7 +885,7 @@ func nox_xxx_mapExitAndCheckNext_4D1860_server() bool {
 	} else {
 		v7p := unsafe.Pointer(C.sub_4165B0())
 		v7 := asByteSlice(v7p, 58)
-		if noxflags.HasGame(0x2000) {
+		if noxflags.HasGame(noxflags.GameOnline) {
 			if v7[57] == 0 {
 				v63, freeV63 := alloc.Bytes(60)
 				defer freeV63()
@@ -901,7 +901,7 @@ func nox_xxx_mapExitAndCheckNext_4D1860_server() bool {
 		}
 		v10 := nox_server_currentMapGetFilename_409B30()
 		v6 = nox_server_loadMapFile_4CF5F0(v10, 0)
-		if noxflags.HasGame(0x2000) && !noxflags.HasGame(128) {
+		if noxflags.HasGame(noxflags.GameOnline) && !noxflags.HasGame(128) {
 			v13 := 0
 			if C.nox_xxx_gamePlayIsAnyPlayers_40A8A0() != 0 {
 				v12 := noxflags.GetGame()

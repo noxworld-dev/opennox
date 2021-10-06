@@ -318,7 +318,7 @@ func sub_4CBBF0() {
 }
 
 func nox_client_processInput_4308A0(h *input.Handler) {
-	if noxflags.HasGame(0x2000) && !noxflags.HasGame(4096) && h.SeqDelay() > 2700 {
+	if noxflags.HasGame(noxflags.GameOnline) && !noxflags.HasGame(4096) && h.SeqDelay() > 2700 {
 		if !noxflags.HasGame(1) {
 			C.nox_xxx_netServerCmd_440950(0, (*C.wchar_t)(memmap.PtrOff(0x587000, 80784)))
 			return
