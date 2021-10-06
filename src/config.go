@@ -62,6 +62,17 @@ func writeConfigLater() {
 	configDirty = true
 }
 
+func configStrPtr(key, env string, def string, ptr *string) {
+	viper.SetDefault(key, def)
+	if env != "" {
+		viper.BindEnv(key, env)
+	}
+	*ptr = viper.GetString(key)
+	registerOnConfigRead(func() {
+		*ptr = viper.GetString(key)
+	})
+}
+
 func configBoolPtr(key, env string, def bool, ptr *bool) {
 	viper.SetDefault(key, def)
 	if env != "" {

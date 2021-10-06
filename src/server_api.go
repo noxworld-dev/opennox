@@ -27,6 +27,13 @@ func init() {
 	gameMux.HandleFunc(pref+"/map", handleChangeMap)
 	gameMux.HandleFunc(pref+"/cmd", handleRunCmd)
 	gameMux.HandleFunc(pref+"/lua", handleRunLUA)
+	var token string
+	configStrPtr("server.api_token", "NOX_API_TOKEN", "", &token)
+	registerOnConfigRead(func() {
+		if token != "" {
+			apiTokens[token] = struct{}{}
+		}
+	})
 }
 
 type gameInfoPlayers struct {
