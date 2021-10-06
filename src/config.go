@@ -90,6 +90,9 @@ func readConfig(path string) error {
 		}
 	}()
 	if path != "" {
+		if abs, err := filepath.Abs(path); err == nil {
+			path = abs
+		}
 		viper.SetConfigFile(path)
 		configPath = path
 	}

@@ -49,6 +49,9 @@ func Path(path ...string) string {
 
 // Set the Nox data dir.
 func Set(dir string) {
+	if abs, err := filepath.Abs(dir); err == nil {
+		dir = abs
+	}
 	datadir = dir
 	Log.Printf("setting data dir to: %q", dir)
 }
