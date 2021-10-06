@@ -323,7 +323,7 @@ func (v xwisInfoShort) XWIS() xwis.GameInfo {
 }
 
 func maybeRegisterGameOnline() {
-	if !useXWIS || env.IsE2E() {
+	if !useXWIS || !noxflags.HasGame(noxflags.GameOnline) || env.IsE2E() {
 		return
 	}
 	info := getGameInfoXWIS()

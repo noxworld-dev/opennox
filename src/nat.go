@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"nox/v1/common/env"
+	noxflags "nox/v1/common/flags"
 	"nox/v1/common/log"
 
 	"github.com/noxworld-dev/nat"
@@ -21,7 +22,7 @@ func init() {
 }
 
 func gameStartNAT(port, hport int) error {
-	if !useNAT || env.IsE2E() {
+	if !useNAT || !noxflags.HasGame(noxflags.GameOnline) || env.IsE2E() {
 		return nil
 	}
 	ctx, cancel := context.WithCancel(context.Background())
