@@ -1051,7 +1051,7 @@ func nox_xxx_mapExitAndCheckNext_4D1860_server() bool {
 	C.dword_5d4594_1548664 = 0
 	if sub_4DCC00() {
 		for _, m := range getPlayerUnits() {
-			for _, np := range m.Get516() {
+			for _, np := range m.GetOwned516() {
 				if C.nox_xxx_isUnit_4E5B50(np.CObj()) != 0 {
 					n := np.AsUnit()
 					v48 := n.ptrYyy()

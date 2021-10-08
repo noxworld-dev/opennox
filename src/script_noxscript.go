@@ -63,7 +63,7 @@ func nox_server_scriptValToObjectPtr(val int) *Object {
 			C.nox_xxx_scriptPrepareFoundUnit_511D70(obj.CObj())
 			return obj
 		}
-		for sub := obj.FirstXxx(); sub != nil; sub = sub.NextXxx() {
+		for sub := obj.FirstItem(); sub != nil; sub = sub.NextItem() {
 			if (sub.field_4&0x20) == 0 && sub.ScriptID() == val {
 				C.nox_xxx_scriptPrepareFoundUnit_511D70(sub.CObj())
 				return sub

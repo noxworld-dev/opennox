@@ -203,7 +203,7 @@ func (obj *Object) findByID(id string) *Object {
 	if obj.equalID(id) {
 		return obj
 	}
-	for p := obj.FirstXxx(); p != nil; p = p.NextXxx() {
+	for p := obj.FirstItem(); p != nil; p = p.NextItem() {
 		if p.equalID(id) {
 			return p
 		}
@@ -223,33 +223,33 @@ func (obj *Object) Next() *Object {
 	return asObject(unsafe.Pointer(obj.field_111))
 }
 
-func (obj *Object) FirstXxx() *Object {
+func (obj *Object) FirstItem() *Object {
 	return asObject(unsafe.Pointer(obj.field_126))
 }
 
-func (obj *Object) NextXxx() *Object {
+func (obj *Object) NextItem() *Object {
 	return asObject(unsafe.Pointer(obj.field_124))
 }
 
-func (obj *Object) GetXxx() []*Object {
+func (obj *Object) Inventory() []*Object {
 	var out []*Object
-	for p := obj.FirstXxx(); p != nil; p = p.NextXxx() {
+	for p := obj.FirstItem(); p != nil; p = p.NextItem() {
 		out = append(out, p)
 	}
 	return out
 }
 
-func (obj *Object) Next512() *Object {
+func (obj *Object) NextOwned512() *Object {
 	return asObject(unsafe.Pointer(obj.field_128))
 }
 
-func (obj *Object) First516() *Object {
+func (obj *Object) FirstOwned516() *Object {
 	return asObject(unsafe.Pointer(obj.field_129))
 }
 
-func (obj *Object) Get516() []*Object {
+func (obj *Object) GetOwned516() []*Object {
 	var out []*Object
-	for p := obj.First516(); p != nil; p = p.Next512() {
+	for p := obj.FirstOwned516(); p != nil; p = p.NextOwned512() {
 		out = append(out, p)
 	}
 	return out
