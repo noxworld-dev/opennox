@@ -11,10 +11,9 @@ extern unsigned int dword_5d4594_2618912;
 import "C"
 import (
 	"context"
-	"os"
-	"path/filepath"
 	"strings"
 
+	"nox/v1/common/datapath"
 	"nox/v1/common/log"
 	"nox/v1/common/maps"
 )
@@ -30,9 +29,10 @@ var (
 )
 
 func init() {
-	wd, _ := os.Getwd()
-	mapsend.srv = maps.NewServer(filepath.Join(wd, maps.Dir))
-	mapsend.srv.RegisterOnMux(gameMux)
+	registerOnConfigRead(func() {
+		mapsend.srv = maps.NewServer(datapath.Path(maps.Dir))
+		mapsend.srv.RegisterOnMux(gameMux)
+	})
 }
 
 func mapDownloading() bool {
