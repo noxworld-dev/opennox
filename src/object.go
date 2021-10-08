@@ -184,6 +184,13 @@ func (obj *Object) Class() object.Class {
 	return object.Class(obj.obj_class)
 }
 
+func (obj *Object) ArmorClass() object.ArmorClass {
+	if !obj.Class().Has(object.ClassArmor) {
+		return 0
+	}
+	return object.ArmorClass(obj.field_3)
+}
+
 func (obj *Object) Flags16() uint32 {
 	return uint32(obj.field_4)
 }

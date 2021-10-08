@@ -64,6 +64,13 @@ func (t *ObjectType) Class() object.Class {
 	return object.Class(t.obj_class)
 }
 
+func (t *ObjectType) ArmorClass() object.ArmorClass {
+	if !t.Class().Has(object.ClassArmor) {
+		return 0
+	}
+	return object.ArmorClass(t.field_7)
+}
+
 func (t *ObjectType) String() string {
 	return fmt.Sprintf("ObjectType(%d,%q)", t.Ind(), t.ID())
 }
