@@ -1164,6 +1164,7 @@ func nox_xxx_mapTraceRay_535250_00(a1 *[4]float32, a4 byte) bool {
 	a1p, a1Free := alloc.Malloc(16)
 	defer a1Free()
 	a1c := (*[4]float32)(a1p)
+	*a1c = *a1
 	res := C.nox_xxx_mapTraceRay_535250((*C.float4)(unsafe.Pointer(a1c)), nil, nil, C.char(a4)) != 0
 	*a1 = *a1c
 	return res
