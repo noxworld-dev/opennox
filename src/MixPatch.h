@@ -22,8 +22,8 @@ void OnLibraryNotice_420(DWORD arg1, DWORD arg2, DWORD arg3, DWORD arg4);
 int MixRecvFromReplacer(nox_socket_t s, char* buf, int len, struct nox_net_sockaddr* from); // idb
 void OnLibraryNotice_stub(int a1, ...);
 
-void  sub_980523(_DWORD* a1);
-_DWORD*  sub_9805EB(_DWORD* a1);
+void sub_980523(nox_object_t* a1);
+nox_object_t* sub_9805EB(nox_object_t* a1);
 
 int mix_recvfrom(nox_socket_t s, char* buf, int len, struct nox_net_sockaddr* from);
 

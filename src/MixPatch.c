@@ -1,6 +1,7 @@
 #include "MixPatch.h"
 #include "GameEx.h"
 #include "GAME1.h"
+#include "GAME3_3.h"
 
 #ifndef NOX_CGO
 __int16 asc_9800B0[] = {
@@ -35,38 +36,29 @@ void OnLibraryNotice_stub(int a1, ...) {
 }
 #endif // NOX_CGO
 
-void  sub_980523(_DWORD* a1) {
-	_DWORD* i; // esi
-	int v2;    // eax
-
-	if (!a1)
+void sub_980523(nox_object_t* unit) {
+	if (!unit)
 		return;
-	for (i = *(_DWORD**)(a1 + 126); i; i = (_DWORD*)i[124]) {
-		if (i[2] & 0x2000000) {
-			v2 = i[4];
-			if (v2 & 0x100) {
-				if (nox_xxx_unitArmorInventoryEquipFlags_415C70((int)i) & 0x3000000)
-					*(_DWORD*)(*(_DWORD*)(*(_DWORD*)(a1 + 187) + 276) + 2500) = i;
+	for (nox_object_t* it = unit->field_126; it; it = it->field_124) {
+		if ((it->obj_class & 0x2000000) && (it->field_4 & 0x100)) {
+			if (nox_xxx_unitArmorInventoryEquipFlags_415C70(it) & 0x3000000) {
+				// TODO: it appears that it reuses some other field; this might make the game unstable
+				*(_DWORD*)(*(_DWORD*)(((_DWORD)unit->field_187) + 276) + 2500) = it;
 			}
 		}
 	}
 }
 
-_DWORD*  sub_9805EB(_DWORD* a1) {
-	_DWORD* v1 = 0; // esi
-
-	if (!a1)
-		goto LABEL_6;
-	v1 = *(_DWORD**)(a1 + 126);
-	if (!v1)
-		goto LABEL_6;
-	while (!(v1[2] & 0x2000000) || (unsigned __int8)v1[4] != 16) {
-	LABEL_6:
-		v1 = (_DWORD*)v1[124];
-		if (!v1)
-			return 0;
+nox_object_t* sub_9805EB(nox_object_t* unit) {
+	if (!unit) {
+		return 0;
 	}
-	return (int)v1;
+	for (nox_object_t* it = unit->field_126; it; it = it->field_124) {
+		if ((it->obj_class & 0x2000000) && (it->field_4 == 16)) {
+			return it;
+		}
+	}
+	return 0;
 }
 
 int mix_recvfrom(nox_socket_t s, char* buf, int len, struct nox_net_sockaddr* from) {
