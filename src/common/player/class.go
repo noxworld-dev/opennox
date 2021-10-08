@@ -1,5 +1,11 @@
 package player
 
+import "encoding/json"
+
+var (
+	_ json.Marshaler = Class(0)
+)
+
 const (
 	Warrior  = Class(0)
 	Wizard   = Class(1)
@@ -19,4 +25,8 @@ func (c Class) String() string {
 	default:
 		return "unknown"
 	}
+}
+
+func (c Class) MarshalJSON() ([]byte, error) {
+	return json.Marshal(c.String())
 }

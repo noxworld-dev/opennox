@@ -39,6 +39,17 @@ func getObjectTypeByInd(ind int) *ObjectType {
 	return asObjectType(unsafe.Pointer(p))
 }
 
+func getObjectTypes() (out []*ObjectType) {
+	for i := 0; i < int(C.nox_xxx_unitDefGetCount_4E3AC0()); i++ {
+		typ := getObjectTypeByInd(i)
+		if typ == nil {
+			continue
+		}
+		out = append(out, typ)
+	}
+	return
+}
+
 type ObjectType C.nox_objectType_t
 
 func asObjectType(p unsafe.Pointer) *ObjectType {
