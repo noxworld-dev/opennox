@@ -8265,6 +8265,14 @@ int  sub_49EAB0(int a1) {
 	return result;
 }
 
+#ifdef NOX_CGO
+int nox_particle_rad(void* p);
+#else // NOX_CGO
+int nox_particle_rad(void* p) {
+	return *((int*)p);
+}
+#endif // NOX_CGO
+
 //----- (0049ED80) --------------------------------------------------------
 int  sub_49ED80(unsigned __int8 a1, int a2) {
 	int result; // eax
@@ -8318,7 +8326,7 @@ int  sub_49ED80(unsigned __int8 a1, int a2) {
 			}
 			v5 = sub_4B0680(0, a1);
 			v27 = 0;
-			v24 = *v5 >> 2;
+			v24 = nox_particle_rad(v5) >> 2;
 			if (v3 <= v4) {
 				v26 = 2 * v3;
 				v12 = 2 * (v3 - v4);
