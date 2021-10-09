@@ -11229,14 +11229,107 @@ int  sub_487D60(int a1) {
 }
 
 //----- (00487D70) --------------------------------------------------------
+int  nox_xxx_wndEditProc_487D70_key(_DWORD* a1, int v4, int a3, int a4) {
+	switch (a3) {
+	case 1:
+	case 58:
+	case 59:
+	case 60:
+	case 61:
+	case 62:
+	case 63:
+	case 64:
+	case 65:
+	case 66:
+	case 67:
+	case 68:
+	case 87:
+	case 88:
+	case 199:
+	case 201:
+	case 207:
+	case 209:
+		return 0;
+	case 14:
+	case 211:
+		if (a3 != 14 && (nox_strman_get_lang_code() == 6 || nox_strman_get_lang_code() == 8)) {
+			break;
+		}
+		if (a4 != 2)
+			return 1;
+		if (!*(_WORD*)(v4 + 1054)) {
+			__int16 v6 = *(_WORD*)(v4 + 1052);
+			if (!v6)
+				return 1;
+			unsigned __int16 v7 = v6 - 1;
+			*(_WORD*)(v4 + 1052) = v7;
+			*(_WORD*)(v4 + 2 * v7) = 0;
+			return 1;
+		}
+		break;
+	case 15:
+	case 205:
+	case 208:
+		if (a4 != 2)
+			return 1;
+		nox_xxx_wndRetNULL_46A8A0();
+		return 1;
+	case 28:
+	case 156:
+		if (a4 != 2 || *(_DWORD*)(v4 + 1044))
+			return 1;
+		nox_window_call_field_94(a1[13], 16415, (int)a1, 0);
+		return 1;
+	case 200:
+	case 203:
+		if (a4 != 2)
+			return 1;
+		nox_xxx_wndRetNULL_0_46A8B0();
+		return 1;
+	default:
+		break;
+	}
+	if (nox_strman_get_lang_code() == 6 || nox_strman_get_lang_code() == 8) {
+		if (!*(_DWORD*)(v4 + 1036) && !*(_DWORD*)(v4 + 1032) && !*(_DWORD*)(v4 + 1028)) {
+			wchar_t* v8 = nox_input_getStringBuffer_57011C();
+			nox_wcscpy((wchar_t*)(v4 + 512), (const wchar_t*)v8);
+			nox_input_freeStringBuffer_57011C(v8);
+			*(_WORD*)(v4 + 1054) = nox_wcslen((const wchar_t*)(v4 + 512));
+			if (0) // if (!nox_xxx_string_5702B4(*(_DWORD***)&dword_5d4594_1193348))
+				return 1;
+			//nox_xxx_string_570392(*(_DWORD***)&dword_5d4594_1193348);
+			nox_window_set_hidden(*(_DWORD*)(v4 + 1048), 1);
+			return 1;
+		}
+	}
+	unsigned __int16 v9 = nox_input_scanCodeToAlpha_47F950(a3);
+	if (!v9 || a4 != 2)
+		return 1;
+	int v10 = 0;
+	if (*(_DWORD*)(v4 + 1028)) {
+		v10 = iswdigit(v9);
+		if (!v10)
+			return 1;
+	} else if (*(_DWORD*)(v4 + 1032)) {
+		v10 = iswalnum(v9);
+		if (!v10)
+			return 1;
+	}
+	int v11 = *(unsigned __int16*)(v4 + 1052);
+	if ((unsigned __int16)v11 >= *(__int16*)(v4 + 1040) - 1)
+		return 1;
+	*(_WORD*)(v4 + 2 * v11) = v9;
+	*(_WORD*)(v4 + 2 * (unsigned __int16)++*(_WORD*)(v4 + 1052)) = 0;
+	return 1;
+}
 int  nox_xxx_wndEditProc_487D70(_DWORD* a1, int a2, int a3, int a4) {
 	int v4;              // esi
-	int result;          // eax
-	__int16 v6;          // ax
-	unsigned __int16 v7; // ax
-	unsigned __int16 v9; // di
-	int v10;             // eax
-	int v11;             // eax
+//	int result;          // eax
+//	__int16 v6;          // ax
+//	unsigned __int16 v7; // ax
+//	unsigned __int16 v9; // di
+//	int v10;             // eax
+//	int v11;             // eax
 	int v12;             // eax
 	int v13;             // eax
 	int v14;             // eax
@@ -11276,96 +11369,7 @@ int  nox_xxx_wndEditProc_487D70(_DWORD* a1, int a2, int a3, int a4) {
 		}
 		return 1;
 	case 21:
-		switch (a3) {
-		case 1:
-		case 58:
-		case 59:
-		case 60:
-		case 61:
-		case 62:
-		case 63:
-		case 64:
-		case 65:
-		case 66:
-		case 67:
-		case 68:
-		case 87:
-		case 88:
-		case 199:
-		case 201:
-		case 207:
-		case 209:
-			return 0;
-		case 14:
-		case 211:
-			if (a3 != 14 && (nox_strman_get_lang_code() == 6 || nox_strman_get_lang_code() == 8)) {
-				break;
-			}
-			if (a4 != 2)
-				return 1;
-			if (!*(_WORD*)(v4 + 1054)) {
-				v6 = *(_WORD*)(v4 + 1052);
-				if (!v6)
-					return 1;
-				v7 = v6 - 1;
-				*(_WORD*)(v4 + 1052) = v7;
-				*(_WORD*)(v4 + 2 * v7) = 0;
-				return 1;
-			}
-			break;
-		case 15:
-		case 205:
-		case 208:
-			if (a4 != 2)
-				return 1;
-			nox_xxx_wndRetNULL_46A8A0();
-			return 1;
-		case 28:
-		case 156:
-			if (a4 != 2 || *(_DWORD*)(v4 + 1044))
-				return 1;
-			nox_window_call_field_94(a1[13], 16415, (int)a1, 0);
-			return 1;
-		case 200:
-		case 203:
-			if (a4 != 2)
-				return 1;
-			nox_xxx_wndRetNULL_0_46A8B0();
-			return 1;
-		default:
-			break;
-		}
-		if (nox_strman_get_lang_code() == 6 || nox_strman_get_lang_code() == 8) {
-			if (!*(_DWORD*)(v4 + 1036) && !*(_DWORD*)(v4 + 1032) && !*(_DWORD*)(v4 + 1028)) {
-				wchar_t* v8 = nox_input_getStringBuffer_57011C();
-				nox_wcscpy((wchar_t*)(v4 + 512), (const wchar_t*)v8);
-				nox_input_freeStringBuffer_57011C(v8);
-				*(_WORD*)(v4 + 1054) = nox_wcslen((const wchar_t*)(v4 + 512));
-				if (0) // if (!nox_xxx_string_5702B4(*(_DWORD***)&dword_5d4594_1193348))
-					return 1;
-				//nox_xxx_string_570392(*(_DWORD***)&dword_5d4594_1193348);
-				nox_window_set_hidden(*(_DWORD*)(v4 + 1048), 1);
-				return 1;
-			}
-		}
-		v9 = nox_input_scanCodeToAlpha_47F950(a3);
-		if (!v9 || a4 != 2)
-			return 1;
-		if (*(_DWORD*)(v4 + 1028)) {
-			v10 = iswdigit(v9);
-			if (!v10)
-				return 1;
-		} else if (*(_DWORD*)(v4 + 1032)) {
-			v10 = iswalnum(v9);
-			if (!v10)
-				return 1;
-		}
-		v11 = *(unsigned __int16*)(v4 + 1052);
-		if ((unsigned __int16)v11 >= *(__int16*)(v4 + 1040) - 1)
-			return 1;
-		*(_WORD*)(v4 + 2 * v11) = v9;
-		*(_WORD*)(v4 + 2 * (unsigned __int16)++*(_WORD*)(v4 + 1052)) = 0;
-		return 1;
+		return nox_xxx_wndEditProc_487D70_key(a1, v4, a3, a4);
 	default:
 		return 0;
 	}
