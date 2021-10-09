@@ -2,7 +2,9 @@ package main
 
 /*
 #include "defs.h"
-extern nox_render_data_t* ptr_5D4594_3799572;
+#include "client__video__draw_common.h"
+#include "GAME1_2.h"
+extern unsigned int nox_client_renderGlow_805852;
 */
 import "C"
 import (
@@ -12,105 +14,94 @@ import (
 
 	"nox/v1/common/alloc"
 	"nox/v1/common/alloc/handles"
+	"nox/v1/common/types"
 )
 
-var (
-	particlesHead *Particle
-	particles     = make(map[unsafe.Pointer]*Particle)
-)
-
-type Particle struct {
-	rad    int       // 0, 0
-	mul1   int       // 1, 4
-	mul2   int       // 2, 8
-	cnt    int       // 4, 16
-	colorR int       // 12, 48
-	colorG int       // 13, 52
-	colorB int       // 14, 56
-	data   []byte    // 16, 64
-	prev   *Particle // 17, 68
-	next   *Particle // 18, 72
-	hnd    unsafe.Pointer
+func (r *NoxRender) initParticles() {
+	r.particles.byOpts = make(map[particleOpt]*Particle)
+	r.particles.byHandle = make(map[unsafe.Pointer]*Particle)
 }
 
-func sub_4B0650() {
-	particlesHead = nil
-}
-
-func sub_4B0660() {
-	for it := particlesHead; it != nil; it = particlesHead {
-		sub_4B07D0(it)
+func (r *NoxRender) freeParticles() {
+	for _, it := range r.particles.byOpts {
+		it.maybeFree()
 	}
 }
 
-func sub_4B07D0(p *Particle) {
-	p.cnt--
-	if p.cnt < 0 {
-		if v2 := p.prev; v2 != nil {
-			v2.next = p.next
-		}
-		if v3 := p.next; v3 != nil {
-			v3.prev = p.prev
-		}
-		if p == particlesHead {
-			particlesHead = p.next
-		}
+func (r *NoxRender) asParticle(p unsafe.Pointer) *Particle {
+	return r.particles.byHandle[p]
+}
+
+type particleOpt struct {
+	rad    int // 0, 0
+	mul1   int // 1, 4
+	mul2   int // 2, 8
+	colorR int // 12, 48
+	colorG int // 13, 52
+	colorB int // 14, 56
+}
+
+// Particle represents a particle prototype that can be drawn multiple times at different positions.
+type Particle struct {
+	r    *NoxRender
+	hnd  unsafe.Pointer
+	opt  particleOpt
+	refs int    // 4, 16
+	data []byte // 16, 64
+}
+
+func (p *Particle) C() unsafe.Pointer {
+	if p.hnd == nil {
+		p.hnd = handles.NewPtr()
+		p.r.particles.byHandle[p.hnd] = p
+	}
+	return p.hnd
+}
+
+func (p *Particle) maybeFree() {
+	p.refs--
+	if p.refs < 0 {
 		alloc.FreeBytes(p.data)
-		delete(particles, p.hnd)
+		p.data = nil
+		delete(p.r.particles.byOpts, p.opt)
+		delete(p.r.particles.byHandle, p.hnd)
+		p.r = nil
 		p.hnd = nil
 	}
 }
 
 //export sub_4B0680
 func sub_4B0680(a1, a2 C.uchar) unsafe.Pointer {
-	p := sub4B0680(int(a1), int(a2))
-	if p.hnd == nil {
-		p.hnd = handles.NewPtr()
-		particles[p.hnd] = p
-	}
-	return p.hnd
+	return noxrend.newParticle(int(a1), int(a2)).C()
 }
 
-func sub4B0680(mul1, mul2 int) *Particle {
-	rad := int(C.ptr_5D4594_3799572.field_262)
-	var p *Particle
-	if particlesHead != nil {
-		var last *Particle
-		for it := particlesHead; it != nil; it = it.next {
-			last = it
-			if it.rad == rad && it.mul1 == mul1 && it.mul2 == mul2 && it.colorR == int(C.ptr_5D4594_3799572.field_54) &&
-				it.colorG == int(C.ptr_5D4594_3799572.field_55) && it.colorB == int(C.ptr_5D4594_3799572.field_56) {
-				it.cnt++
-				return it
-			}
-		}
-		p = new(Particle)
-		last.next = p
-		p.prev = last
-	} else {
-		particlesHead = new(Particle)
-		p = particlesHead
-		particlesHead.prev = nil
+func (r *NoxRender) newParticle(mul1, mul2 int) *Particle {
+	rad := int(r.p.field_262)
+	opt := particleOpt{
+		rad:    rad,
+		mul1:   mul1,
+		mul2:   mul2,
+		colorR: int(r.p.field_54),
+		colorG: int(r.p.field_55),
+		colorB: int(r.p.field_56),
 	}
-	p.rad = rad
-	p.mul1 = mul1
-	p.mul2 = mul2
-	p.cnt = 0
-	p.colorR = int(C.ptr_5D4594_3799572.field_54)
-	p.colorG = int(C.ptr_5D4594_3799572.field_55)
-	p.colorB = int(C.ptr_5D4594_3799572.field_56)
-	p.next = nil
+	if p := r.particles.byOpts[opt]; p != nil {
+		p.refs++
+		return p
+	}
+	p := &Particle{r: r, opt: opt}
+	r.particles.byOpts[opt] = p
 	p.genImage()
 	return p
 }
 
 func (p *Particle) genImage() {
-	rr := p.rad
+	rr := p.opt.rad
 	size := 2*(22*rr*(rr+1)/7+6*rr) + 17
 	p.data, _ = alloc.Bytes(uintptr(size))
 	data := p.data
-	mul1 := p.mul1
-	mul2 := p.mul2
+	mul1 := p.opt.mul1
+	mul2 := p.opt.mul2
 
 	binary.LittleEndian.PutUint32(data[:4], 2*uint32(rr))
 	data = data[4:]
@@ -122,18 +113,18 @@ func (p *Particle) genImage() {
 	data = data[4:]
 	data = data[1:] // skip
 
-	c1R := uint32((mul1*p.colorR)&0xffff) >> 8
-	c1G := uint32((mul1*p.colorG)&0xffff) >> 8
-	c1B := uint32((mul1*p.colorB)&0xffff) >> 8
+	c1R := uint32((mul1*p.opt.colorR)&0xffff) >> 8
+	c1G := uint32((mul1*p.opt.colorG)&0xffff) >> 8
+	c1B := uint32((mul1*p.opt.colorB)&0xffff) >> 8
 	c3R := c1R << 16
 	c4R := c1R << 16
-	c2R := int(((((uint32)(mul2*p.colorR)>>8)&0xFF)-c1R)<<16) / rr
+	c2R := int(((((uint32)(mul2*p.opt.colorR)>>8)&0xFF)-c1R)<<16) / rr
 	c3G := c1G << 16
 	c4G := c1G << 16
-	c2G := int(((((uint32)(mul2*p.colorG)>>8)&0xFF)-c1G)<<16) / rr
+	c2G := int(((((uint32)(mul2*p.opt.colorG)>>8)&0xFF)-c1G)<<16) / rr
 	c3B := c1B << 16
 	c4B := c1B << 16
-	c2B := int(((((uint32)(mul2*p.colorB)>>8)&0xFF)-c1B)<<16) / rr
+	c2B := int(((((uint32)(mul2*p.opt.colorB)>>8)&0xFF)-c1B)<<16) / rr
 	if rr == 0 {
 		return
 	}
@@ -187,5 +178,21 @@ func (p *Particle) genImage() {
 			c4R += uint32(c2R)
 			c4B += uint32(c2B)
 		}
+	}
+}
+
+func (p *Particle) DrawAt(pos types.Point) {
+	img := NewRawImage(8, p.data)
+	p.r.DrawImageAt(img, pos)
+}
+
+//export sub_4B6720
+func sub_4B6720(a1 *C.int2, a2, a3 C.int, a4 C.char) {
+	if C.nox_client_renderGlow_805852 != 0 {
+		C.sub_434040(a2)
+		C.sub_434080(a3 + 4)
+		pos := types.Point{X: int(a1.field_0), Y: int(a1.field_4)}
+		p := noxrend.newParticle(0, int(32*byte(a4)))
+		p.DrawAt(pos)
 	}
 }

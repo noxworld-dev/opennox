@@ -10859,6 +10859,7 @@ int sub_4B64C0() {
 // 4B66DF: variable 'v7' is possibly undefined
 // 4B66DF: variable 'v6' is possibly undefined
 
+#ifndef NOX_CGO
 //----- (004B6720) --------------------------------------------------------
 void  sub_4B6720(int2* a1, int a2, int a3, char a4) {
 	int* v4; // eax
@@ -10870,6 +10871,7 @@ void  sub_4B6720(int2* a1, int a2, int a3, char a4) {
 		nox_video_drawImageAt2_4B0820((int)v4, a1->field_0, a1->field_4);
 	}
 }
+#endif // NOX_CGO
 
 //----- (004B6880) --------------------------------------------------------
 int  sub_4B6880(_DWORD* a1, int a2, int a3, int a4) {
