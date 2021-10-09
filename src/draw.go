@@ -308,6 +308,11 @@ type NoxRender struct {
 	draw4  drawOpFunc
 	draw5  drawOpFunc
 	draw6  drawOpFunc
+
+	particles struct {
+		byOpts   map[particleOpt]*Particle
+		byHandle map[unsafe.Pointer]*Particle
+	}
 }
 
 func newNoxRenderData() (*C.nox_render_data_t, func()) {
@@ -1627,9 +1632,8 @@ func (r *NoxRender) nox_client_drawXxx_4C7C80(pix []byte, pos types.Point, width
 
 //export nox_video_drawImageAt2_4B0820
 func nox_video_drawImageAt2_4B0820(a1 unsafe.Pointer, x, y C.int) {
-	pix := particles[a1].data
-	img := NewRawImage(8, pix)
-	noxrend.DrawImageAt(img, types.Point{X: int(x), Y: int(y)})
+	p := noxrend.asParticle(a1)
+	p.DrawAt(types.Point{X: int(x), Y: int(y)})
 }
 
 func (r *NoxRender) nox_client_drawImg_bbb_4C7860(img *Image, pos types.Point) {
