@@ -293,7 +293,6 @@ _DWORD nox_xxx_wizardMaximumMana_587000_312820 = 0x3f800000; // 1f?
 _DWORD dword_5d4594_1046532 = 0;
 _DWORD dword_5d4594_3798828 = 0;
 _DWORD dword_5d4594_1309728 = 0;
-_DWORD dword_5d4594_1312460 = 0;
 _DWORD dword_5d4594_1309836 = 0;
 _DWORD dword_5d4594_1320992 = 0;
 _DWORD dword_5d4594_1599476 = 0;

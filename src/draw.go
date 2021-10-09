@@ -1627,9 +1627,7 @@ func (r *NoxRender) nox_client_drawXxx_4C7C80(pix []byte, pos types.Point, width
 
 //export nox_video_drawImageAt2_4B0820
 func nox_video_drawImageAt2_4B0820(a1 unsafe.Pointer, x, y C.int) {
-	ptr := *(*unsafe.Pointer)(unsafe.Pointer(uintptr(a1) + 64))
-	sz := *(*uint32)(unsafe.Pointer(uintptr(a1) + 12))
-	pix := asByteSlice(ptr, int(sz))
+	pix := particles[a1].data
 	img := NewRawImage(8, pix)
 	noxrend.DrawImageAt(img, types.Point{X: int(x), Y: int(y)})
 }

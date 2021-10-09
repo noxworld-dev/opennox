@@ -228,7 +228,7 @@ int sub_4B02D0();
 void sub_4B0610(int a1);
 int sub_4B0650();
 void sub_4B0660();
-int* sub_4B0680(unsigned __int8 a1, unsigned __int8 a2);
+void* sub_4B0680(unsigned __int8 a1, unsigned __int8 a2);
 int sub_4B07D0(LPVOID lpMem);
 void nox_video_drawImageAt2_4B0820(void* a1, int x, int y);
 int sub_4B0870(int* a1);

@@ -305,9 +305,7 @@ func drawInitAll(sz types.Size, flags int) error {
 	if res := C.nox_client_initFade2_44D9A0(); res == 0 {
 		return errors.New("nox_client_initFade2_44D9A0 failed")
 	}
-	if res := C.sub_4B0650(); res == 0 {
-		return errors.New("sub_4B0650 failed")
-	}
+	sub_4B0650()
 	if res := C.nox_video_initLineDrawingFuncs_49E3F0(); res == 0 {
 		return errors.New("nox_video_initLineDrawingFuncs_49E3F0 failed")
 	}
@@ -1076,7 +1074,7 @@ func sub_444C50() {
 		nox_free_pixbuffers_486110()
 		C.sub_433C20()
 		C.nox_client_initFade_44D9D0()
-		C.sub_4B0660()
+		sub_4B0660()
 		C.sub_4AF950()
 		sub_4AE540()
 		C.nox_xxx_FontDestroy_43F2E0()

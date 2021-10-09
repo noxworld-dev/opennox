@@ -121,7 +121,6 @@ extern _DWORD dword_5d4594_1307744;
 extern void* dword_587000_122852;
 extern _DWORD dword_5d4594_1309828;
 extern _DWORD dword_5d4594_1309836;
-extern _DWORD dword_5d4594_1312460;
 extern _DWORD dword_5d4594_1309728;
 extern _DWORD dword_5d4594_1309732;
 extern _QWORD qword_581450_9552;
@@ -174,6 +173,10 @@ extern int nox_win_depth_game;
 extern int nox_win_depth_menu;
 extern unsigned int nox_frame_xxx_2598000;
 extern char nox_savegame_name_1307752[9];
+
+#ifndef NOX_CGO
+_DWORD dword_5d4594_1312460 = 0;
+#endif // NOX_CGO
 
 extern nox_render_data_t* ptr_5D4594_3799572;
 
@@ -7873,6 +7876,7 @@ void  sub_4B0610(int a1) {
 	}
 }
 
+#ifndef NOX_CGO
 //----- (004B0650) --------------------------------------------------------
 int sub_4B0650() {
 	dword_5d4594_1312460 = 0;
@@ -7887,7 +7891,7 @@ void sub_4B0660() {
 }
 
 //----- (004B0680) --------------------------------------------------------
-int*  sub_4B0680(unsigned __int8 a1, unsigned __int8 a2) {
+void*  sub_4B0680(unsigned __int8 a1, unsigned __int8 a2) {
 	int* result;        // eax
 	unsigned __int8 v3; // bl
 	int v4;             // edi
@@ -7960,7 +7964,6 @@ int  sub_4B07D0(LPVOID lpMem) {
 }
 
 //----- (004B0820) --------------------------------------------------------
-#ifndef NOX_CGO
 void nox_video_drawImageAt2_4B0820(void* a1, int x, int y) {
 	nox_video_bag_image_t img;
 	img.typ = 8;
