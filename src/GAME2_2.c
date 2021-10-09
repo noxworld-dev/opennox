@@ -11254,17 +11254,17 @@ int  nox_xxx_wndEditProc_487D70(_DWORD* a1, int a2, int a3, int a4) {
 		v15 = a1[11];
 		if (v15 & 0x100)
 			nox_window_call_field_94(a1[13], 0x4000, (int)a1, 0);
-		goto LABEL_41;
+		return 1;
 	case 17:
 		v12 = a1[11];
-		if (!(v12 & 0x100))
-			goto LABEL_41;
+		if (!(v12 & 0x100)) {
+			return 1;
+		}
 		v16 = a1[13];
 		a1[9] |= 2u;
 		nox_window_call_field_94(v16, 16389, (int)a1, 0);
 		nox_xxx_windowFocus_46B500((int)a1);
-		result = 1;
-		break;
+		return 1;
 	case 18:
 		v13 = a1[11];
 		if (v13 & 0x100) {
@@ -11273,12 +11273,8 @@ int  nox_xxx_wndEditProc_487D70(_DWORD* a1, int a2, int a3, int a4) {
 			v17 = a1[13];
 			a1[9] = v14;
 			nox_window_call_field_94(v17, 16390, (int)a1, 0);
-			result = 1;
-		} else {
-		LABEL_41:
-			result = 1;
 		}
-		break;
+		return 1;
 	case 21:
 		switch (a3) {
 		case 1:
@@ -11299,92 +11295,80 @@ int  nox_xxx_wndEditProc_487D70(_DWORD* a1, int a2, int a3, int a4) {
 		case 201:
 		case 207:
 		case 209:
-			goto LABEL_42;
+			return 0;
 		case 14:
 		case 211:
-			if (a3 == 14)
-				goto LABEL_13;
-			if (nox_strman_get_lang_code() == 6)
-				goto LABEL_19;
-			if (nox_strman_get_lang_code() == 8)
-				goto LABEL_17;
-		LABEL_13:
+			if (a3 != 14 && (nox_strman_get_lang_code() == 6 || nox_strman_get_lang_code() == 8)) {
+				break;
+			}
 			if (a4 != 2)
-				goto LABEL_41;
+				return 1;
 			if (!*(_WORD*)(v4 + 1054)) {
 				v6 = *(_WORD*)(v4 + 1052);
 				if (!v6)
-					goto LABEL_41;
+					return 1;
 				v7 = v6 - 1;
 				*(_WORD*)(v4 + 1052) = v7;
 				*(_WORD*)(v4 + 2 * v7) = 0;
 				return 1;
 			}
-		LABEL_17:
-			if (nox_strman_get_lang_code() != 6 && nox_strman_get_lang_code() != 8)
-				goto LABEL_24;
-		LABEL_19:
+			break;
+		case 15:
+		case 205:
+		case 208:
+			if (a4 != 2)
+				return 1;
+			nox_xxx_wndRetNULL_46A8A0();
+			return 1;
+		case 28:
+		case 156:
+			if (a4 != 2 || *(_DWORD*)(v4 + 1044))
+				return 1;
+			nox_window_call_field_94(a1[13], 16415, (int)a1, 0);
+			return 1;
+		case 200:
+		case 203:
+			if (a4 != 2)
+				return 1;
+			nox_xxx_wndRetNULL_0_46A8B0();
+			return 1;
+		default:
+			break;
+		}
+		if (nox_strman_get_lang_code() == 6 || nox_strman_get_lang_code() == 8) {
 			if (!*(_DWORD*)(v4 + 1036) && !*(_DWORD*)(v4 + 1032) && !*(_DWORD*)(v4 + 1028)) {
 				wchar_t* v8 = nox_input_getStringBuffer_57011C();
 				nox_wcscpy((wchar_t*)(v4 + 512), (const wchar_t*)v8);
 				nox_input_freeStringBuffer_57011C(v8);
 				*(_WORD*)(v4 + 1054) = nox_wcslen((const wchar_t*)(v4 + 512));
 				if (0) // if (!nox_xxx_string_5702B4(*(_DWORD***)&dword_5d4594_1193348))
-					goto LABEL_41;
+					return 1;
 				//nox_xxx_string_570392(*(_DWORD***)&dword_5d4594_1193348);
 				nox_window_set_hidden(*(_DWORD*)(v4 + 1048), 1);
 				return 1;
 			}
-		LABEL_24:
-			v9 = nox_input_scanCodeToAlpha_47F950(a3);
-			if (!v9 || a4 != 2)
-				goto LABEL_41;
-			if (*(_DWORD*)(v4 + 1028)) {
-				v10 = iswdigit(v9);
-			} else {
-				if (!*(_DWORD*)(v4 + 1032))
-					goto LABEL_32;
-				v10 = iswalnum(v9);
-			}
+		}
+		v9 = nox_input_scanCodeToAlpha_47F950(a3);
+		if (!v9 || a4 != 2)
+			return 1;
+		if (*(_DWORD*)(v4 + 1028)) {
+			v10 = iswdigit(v9);
 			if (!v10)
 				return 1;
-		LABEL_32:
-			v11 = *(unsigned __int16*)(v4 + 1052);
-			if ((unsigned __int16)v11 >= *(__int16*)(v4 + 1040) - 1)
-				goto LABEL_41;
-			*(_WORD*)(v4 + 2 * v11) = v9;
-			*(_WORD*)(v4 + 2 * (unsigned __int16)++*(_WORD*)(v4 + 1052)) = 0;
-			result = 1;
-			break;
-		case 15:
-		case 205:
-		case 208:
-			if (a4 != 2)
-				goto LABEL_41;
-			nox_xxx_wndRetNULL_46A8A0();
-			return 1;
-		case 28:
-		case 156:
-			if (a4 != 2 || *(_DWORD*)(v4 + 1044))
-				goto LABEL_41;
-			nox_window_call_field_94(a1[13], 16415, (int)a1, 0);
-			return 1;
-		case 200:
-		case 203:
-			if (a4 != 2)
-				goto LABEL_41;
-			nox_xxx_wndRetNULL_0_46A8B0();
-			return 1;
-		default:
-			goto LABEL_17;
+		} else if (*(_DWORD*)(v4 + 1032)) {
+			v10 = iswalnum(v9);
+			if (!v10)
+				return 1;
 		}
-		break;
+		v11 = *(unsigned __int16*)(v4 + 1052);
+		if ((unsigned __int16)v11 >= *(__int16*)(v4 + 1040) - 1)
+			return 1;
+		*(_WORD*)(v4 + 2 * v11) = v9;
+		*(_WORD*)(v4 + 2 * (unsigned __int16)++*(_WORD*)(v4 + 1052)) = 0;
+		return 1;
 	default:
-	LABEL_42:
-		result = 0;
-		break;
+		return 0;
 	}
-	return result;
 }
 
 //----- (00488160) --------------------------------------------------------
