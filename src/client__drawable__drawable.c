@@ -15,7 +15,7 @@
 #include "client__draw__glowdraw.h"
 #include "client__draw__glyphdraw.h"
 #include "client__draw__harpoondraw.h"
-#include "client__draw__litning.h"
+#include "client__draw__lightning.h"
 #include "client__draw__lvupdraw.h"
 #include "client__draw__magicdrw.h"
 #include "client__draw__maidendraw.h"

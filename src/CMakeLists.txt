@@ -213,7 +213,7 @@ set (
     client__draw__glowdraw.c
     client__draw__glyphdraw.c
     client__draw__harpoondraw.c
-    client__draw__litning.c
+    client__draw__lightning.c
     client__draw__lvupdraw.c
     client__draw__magicdrw.c
     client__draw__maidendraw.c

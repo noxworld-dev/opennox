@@ -1,4 +1,4 @@
-#include "client__draw__litning.h"
+#include "client__draw__lightning.h"
 #include "common__random.h"
 
 #include "GAME1.h"
@@ -69,12 +69,12 @@ int  nox_xxx_drawLightningStep_4BB070(int a1, int a2) {
 		}
 		LOWORD(v24) = v15 *
 						  nox_common_randomIntMinMax_415FF0(-dword_5d4594_1316476, *(int*)&dword_5d4594_1316476,
-									 "C:\\NoxPost\\src\\Client\\Draw\\Litning.c", 193) /
+									 "C:\\NoxPost\\src\\Client\\Draw\\lightning.c", 193) /
 						  v14 +
 					  (((__int16)a1 + (__int16)a2) >> 1);
 		HIWORD(v24) = v15 *
 						  nox_common_randomIntMinMax_415FF0(-dword_5d4594_1316476, *(int*)&dword_5d4594_1316476,
-									 "C:\\NoxPost\\src\\Client\\Draw\\Litning.c", 196) /
+									 "C:\\NoxPost\\src\\Client\\Draw\\lightning.c", 196) /
 						  v14 +
 					  ((SHIWORD(a1) + SHIWORD(a2)) >> 1);
 		nox_xxx_drawLightningStep_4BB070(a1, v24);
