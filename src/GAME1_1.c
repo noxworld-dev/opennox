@@ -7751,6 +7751,8 @@ int  nox_xxx_updateSpellRelated_424830(int a1, int a2) {
 
 //----- (00424880) --------------------------------------------------------
 int  nox_xxx_enchantByName_424880(const char* a1) {
+	if (!a1)
+		return -1;
 	const char* v1;      // ecx
 	int v2;              // ebp
 	unsigned __int8* v3; // edi
