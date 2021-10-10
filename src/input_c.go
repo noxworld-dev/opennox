@@ -829,6 +829,11 @@ func nox_xxx_cursorUpdate_46B740(inp *input.Handler) {
 func nox_input_scanCodeToAlpha_47F950(r C.ushort) C.ushort {
 	return C.ushort(nox_input_scanCodeToAlpha(inpHandlerS, keybind.Key(r)))
 }
+
+var (
+	dword_5d4594_1193140 bool
+)
+
 func nox_input_scanCodeToAlpha(inp *input.Handler, r keybind.Key) uint16 {
 	if r > 0xFF {
 		return uint16(r)
@@ -849,11 +854,13 @@ func nox_input_scanCodeToAlpha(inp *input.Handler, r keybind.Key) uint16 {
 	}
 	// TODO: extract character tables; once it's done we could properly support UTF-8 input
 	if r == keybind.Key(memmap.Uint8(0x5D4594, 1193144)) {
-		*memmap.PtrUint32(0x5D4594, 1193140) = uint32(bool2int(inp.IsPressed(r)))
+		dword_5d4594_1193140 = inp.IsPressed(r)
 		return 0
-	} else if memmap.Uint32(0x5D4594, 1193140) != 0 {
+	}
+	if dword_5d4594_1193140 {
 		return memmap.Uint16(0x5D4594, 1191576+6*uintptr(r))
-	} else if memmap.Uint32(0x5D4594, 1193136) != 0 || C.dword_5d4594_1193132 != 0 && C.iswalpha_go(C.wchar_t(memmap.Uint16(0x5D4594, 1191572+6*uintptr(r)))) {
+	}
+	if memmap.Uint32(0x5D4594, 1193136) != 0 || C.dword_5d4594_1193132 != 0 && C.iswalpha_go(C.wchar_t(memmap.Uint16(0x5D4594, 1191572+6*uintptr(r)))) {
 		if scrollLockStatus {
 			return uint16(asc_9800B0[3*int(r)+264])
 		}
