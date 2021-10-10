@@ -345,7 +345,7 @@ func get_obj_5D4594_754104_switch() bool {
 func nox_xxx_initKeyboard_47FB10() {
 	// On non-IME languages, Nox uses this input for text input. This sets up
 	// current SHIFT state and the mapping from DIK code => wide character.
-	C.dword_5d4594_1193132 = C.uint(bool2int(keymodShift()))
+	dword_5d4594_1193132 = keymodShift()
 	nox_xxx_keyboard_47DBD0()
 }
 
@@ -837,6 +837,7 @@ type inputCharMap struct {
 }
 
 var (
+	dword_5d4594_1193132 bool
 	dword_5d4594_1193136 bool
 	dword_5d4594_1193140 bool
 	noxInputMap          map[keybind.Key]inputCharMap
@@ -865,7 +866,7 @@ func nox_input_scanCodeToAlpha(inp *input.Handler, r keybind.Key) uint16 {
 	if r == keybind.KeyCaps {
 		if !inp.GetKeyFlag(r) {
 			if inp.IsPressed(r) {
-				C.dword_5d4594_1193132 = 1 - C.dword_5d4594_1193132 // TODO: is it correct type-wise?
+				dword_5d4594_1193132 = !dword_5d4594_1193132
 			}
 			inp.SetKeyFlag(r, true)
 		}
@@ -879,7 +880,7 @@ func nox_input_scanCodeToAlpha(inp *input.Handler, r keybind.Key) uint16 {
 	if dword_5d4594_1193140 {
 		return str2u16(noxInputMap[r].ext)
 	}
-	if dword_5d4594_1193136 || C.dword_5d4594_1193132 != 0 && C.iswalpha_go(C.wchar_t(str2u16(noxInputMap[r].lower))) {
+	if dword_5d4594_1193136 || dword_5d4594_1193132 && C.iswalpha_go(C.wchar_t(str2u16(noxInputMap[r].lower))) {
 		if scrollLockStatus {
 			return uint16(asc_9800B0[3*int(r)+264])
 		}

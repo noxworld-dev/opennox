@@ -21,7 +21,6 @@
 extern __int16 asc_9800B0[526];
 
 extern nox_ctrlevent_key_t* dword_5d4594_754056;
-extern _DWORD dword_5d4594_1193132;
 extern int obj_5D4594_754104_switch;
 extern unsigned int nox_frame_xxx_2598000;
 
@@ -43,6 +42,10 @@ nox_point nox_mouse_max = {NOX_DEFAULT_WIDTH - 1, NOX_DEFAULT_HEIGHT - 1};
 #else
 nox_point nox_mouse_max = {639, 478}; // ugly hack for MSVC
 #endif
+
+#ifndef NOX_CGO
+_DWORD dword_5d4594_1193132 = 0;
+#endif // NOX_CGO
 
 nox_keyboard_btn_t nox_input_arr_789276[256];
 nox_keyboard_btn_t nox_input_arr_787228[256];
