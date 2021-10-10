@@ -840,6 +840,7 @@ var (
 	dword_5d4594_1193132 bool
 	dword_5d4594_1193136 bool
 	dword_5d4594_1193140 bool
+	dword_5d4594_1193144 keybind.Key
 	noxInputMap          map[keybind.Key]inputCharMap
 )
 
@@ -873,7 +874,7 @@ func nox_input_scanCodeToAlpha(inp *input.Handler, r keybind.Key) uint16 {
 		return 0
 	}
 	// TODO: extract character tables; once it's done we could properly support UTF-8 input
-	if r == keybind.Key(memmap.Uint8(0x5D4594, 1193144)) {
+	if r == dword_5d4594_1193144 {
 		dword_5d4594_1193140 = inp.IsPressed(r)
 		return 0
 	}
@@ -897,23 +898,23 @@ func nox_xxx_keyboard_47DBD0() {
 	for k, v := range noxInputMapGeneric {
 		noxInputMap[k] = v
 	}
-	*memmap.PtrUint8(0x5D4594, 1193144) = 0
+	dword_5d4594_1193144 = 0
 	var m map[keybind.Key]inputCharMap
 	switch strMan.Lang() {
 	case 0, 4, 6, 7, 8, 9:
 		m = noxInputMapLang0
 	case 1:
 		m = noxInputMapLang1
-		*memmap.PtrInt8(0x5D4594, 1193144) = -72
+		dword_5d4594_1193144 = 0xb8
 	case 2:
 		m = noxInputMapLang2
-		*memmap.PtrInt8(0x5D4594, 1193144) = -72
+		dword_5d4594_1193144 = 0xb8
 	case 3:
 		m = noxInputMapLang3
-		*memmap.PtrInt8(0x5D4594, 1193144) = -72
+		dword_5d4594_1193144 = 0xb8
 	case 5:
 		m = noxInputMapLang5
-		*memmap.PtrInt8(0x5D4594, 1193144) = -72
+		dword_5d4594_1193144 = 0xb8
 	}
 	for k, v := range m {
 		noxInputMap[k] = v
