@@ -39,14 +39,14 @@ extern _DWORD dword_5d4594_2488648;
 extern _DWORD dword_5d4594_3835360;
 extern _DWORD dword_5d4594_2488728;
 extern _DWORD dword_5d4594_2488644;
-extern _DWORD dword_5d4594_2487856;
+extern _DWORD nox_xxx_lightningBounceOfBounceTarget_5d4594_2487856;
 extern _DWORD dword_5d4594_2489436;
 extern _DWORD dword_5d4594_2488724;
 extern _DWORD dword_5d4594_2489160;
 extern _DWORD dword_5d4594_2487992;
 extern _DWORD dword_5d4594_2488720;
 extern _DWORD dword_5d4594_2487932;
-extern _DWORD dword_5d4594_2487900;
+extern _DWORD nox_xxx_lightningOwner_5d4594_2487900;
 extern _DWORD dword_587000_261388;
 extern _DWORD dword_5d4594_2487948;
 extern _DWORD dword_5d4594_2488640;
@@ -59,8 +59,8 @@ extern _DWORD dword_5d4594_2489432;
 extern _DWORD nox_xxx_lightningClosestTargetDistance_5d4594_2487912;
 extern _DWORD dword_5d4594_2487980;
 extern _DWORD dword_5d4594_3835356;
-extern _DWORD dword_5d4594_2487852;
-extern _DWORD dword_5d4594_2487848;
+extern _DWORD nox_xxx_lightningSecondBounceTarget_5d4594_2487852;
+extern _DWORD nox_xxx_lightningFirstBounceTarget_5d4594_2487848;
 extern _DWORD nox_xxx_warriorMaxMana_587000_312788;
 extern _DWORD nox_xxx_warriorMaxHealth_587000_312784;
 extern _DWORD dword_5d4594_2487984;
@@ -94,7 +94,7 @@ int  nox_xxx_onFrameLightning_52F8A0(float a1) {
 	int v5;              // eax
 	int v6;              // edi
 	int v7;              // ecx
-	int v8;              // edx
+	int owner;              // edx
 	int spellLevel;              // ebx
 	int v10;             // eax
 	int v11;             // ecx
@@ -105,7 +105,7 @@ int  nox_xxx_onFrameLightning_52F8A0(float a1) {
 	int v16;             // ecx
 	int v17;             // ecx
 	int v18;             // ecx
-	int v19;             // eax
+	int secondBounceTarget;             // eax
 	int v20;             // ebx
 	_DWORD* v21;         // edi
 	_DWORD* j;           // ebp
@@ -121,12 +121,12 @@ int  nox_xxx_onFrameLightning_52F8A0(float a1) {
 	int i;               // edi
 	int v33;             // eax
 	int v34;             // edi
-	float v35;           // [esp+0h] [ebp-20h]
-	float v36;           // [esp+0h] [ebp-20h]
-	float v37;           // [esp+0h] [ebp-20h]
-	float v38;           // [esp+0h] [ebp-20h]
+	float range1;           // [esp+0h] [ebp-20h]
+	float range2;           // [esp+0h] [ebp-20h]
+	float range3;           // [esp+0h] [ebp-20h]
+	float range4;           // [esp+0h] [ebp-20h]
 	float lightningSearchTime;           // [esp+8h] [ebp-18h]
-	float v40;           // [esp+1Ch] [ebp-4h]
+	float range5;           // [esp+1Ch] [ebp-4h]
 	float lightningRange;           // [esp+24h] [ebp+4h]
 	float damage;           // [esp+24h] [ebp+4h]
 
@@ -165,13 +165,13 @@ int  nox_xxx_onFrameLightning_52F8A0(float a1) {
 	*(_DWORD*)(source + 108) = 0;
 	nox_xxx_lightningTarget_5d4594_2487908 = 0;
 	nox_xxx_lightningTargetArrayIndex_5d4594_2487904 = 0;
-	v8 = *(_DWORD*)(source + 16);
+	owner = *(_DWORD*)(source + 16);
 	*getMemU32Ptr(0x5D4594, 2487844) = 0;
 	spellLevel = *getMemU32Ptr(0x587000, 260380 + 4 * v7);
-	dword_5d4594_2487848 = 0;
-	dword_5d4594_2487900 = v8;
-	dword_5d4594_2487852 = 0;
-	dword_5d4594_2487856 = 0;
+	nox_xxx_lightningFirstBounceTarget_5d4594_2487848 = 0;
+	nox_xxx_lightningOwner_5d4594_2487900 = owner;
+	nox_xxx_lightningSecondBounceTarget_5d4594_2487852 = 0;
+	nox_xxx_lightningBounceOfBounceTarget_5d4594_2487856 = 0;
 	*getMemU32Ptr(0x5D4594, 2487860) = 0;
 	v10 = *(_DWORD*)(source + 16);
 	if (!(*(_BYTE*)(v10 + 8) & 4) || (v11 = *(_DWORD*)(v10 + 748), (v12 = *(_DWORD*)(v11 + 288)) == 0) ||
@@ -179,7 +179,7 @@ int  nox_xxx_onFrameLightning_52F8A0(float a1) {
 			 ? (target = nox_xxx_lightningTarget_5d4594_2487908)
 			 : (target = v12, nox_xxx_lightningTarget_5d4594_2487908 = v12),
 		 !target)) {
-		*(float*)&dword_5d4594_2487912 = lightningRange * lightningRange;
+		*(float*)&nox_xxx_lightningClosestTargetDistance_5d4594_2487912 = lightningRange * lightningRange;
 		nox_xxx_unitsGetInCircle_517F90((float2*)(source + 28), lightningRange, nox_xxx_lightningCanAttackCheck_52FF10, *(_DWORD*)(source + 16));
 		target = nox_xxx_lightningTarget_5d4594_2487908;
 		if (!nox_xxx_lightningTarget_5d4594_2487908) {
@@ -199,89 +199,115 @@ int  nox_xxx_onFrameLightning_52F8A0(float a1) {
 			return 0;
 		}
 	}
+	// Should be 0
 	index = nox_xxx_lightningTargetArrayIndex_5d4594_2487904;
+	//ARRAY! First member of 2487844 is the target itself...
 	*getMemU32Ptr(0x5D4594, 2487844 + 4 * nox_xxx_lightningTargetArrayIndex_5d4594_2487904) = target;
+
 	nox_xxx_lightningTargetArrayIndex_5d4594_2487904 = index + 1;
+
+	// Second level of magic allows ONE jump from main target
 	if (spellLevel > 1) {
 		nox_xxx_lightningTarget_5d4594_2487908 = 0;
-		*(float*)&dword_5d4594_2487912 = lightningRange * lightningRange;
-		v35 = lightningRange * 0.94999999;
-		nox_xxx_unitsGetInCircle_517F90((float2*)(*getMemU32Ptr(0x5D4594, 2487844) + 56), v35, nox_xxx_lightningCanAttackCheck_52FF10, *getMemIntPtr(0x5D4594, 2487844));
+		*(float*)&nox_xxx_lightningClosestTargetDistance_5d4594_2487912 = lightningRange * lightningRange;
+		range1 = lightningRange * 0.94999999;
+		nox_xxx_unitsGetInCircle_517F90((float2*)(*getMemU32Ptr(0x5D4594, 2487844) + 56), range1, nox_xxx_lightningCanAttackCheck_52FF10, *getMemIntPtr(0x5D4594, 2487844));
 		if (nox_xxx_lightningTarget_5d4594_2487908) {
 			v15 = nox_xxx_lightningTargetArrayIndex_5d4594_2487904;
+			// THIS SETS nox_xxx_lightningFirstBounceTarget_5d4594_2487848!!!
+			// Second member of  2487844 is the first bounce target from main target
 			*getMemU32Ptr(0x5D4594, 2487844 + 4 * nox_xxx_lightningTargetArrayIndex_5d4594_2487904) = nox_xxx_lightningTarget_5d4594_2487908;
 			nox_xxx_lightningTargetArrayIndex_5d4594_2487904 = v15 + 1;
 		}
 	}
+
+	// Third level of magic allows TWO jump from main target
 	if (spellLevel > 2) {
 		nox_xxx_lightningTarget_5d4594_2487908 = 0;
-		*(float*)&dword_5d4594_2487912 = lightningRange * lightningRange;
-		v36 = lightningRange * 0.89999998;
-		nox_xxx_unitsGetInCircle_517F90((float2*)(*getMemU32Ptr(0x5D4594, 2487844) + 56), v36, nox_xxx_lightningCanAttackCheck_52FF10, *getMemIntPtr(0x5D4594, 2487844));
+		*(float*)&nox_xxx_lightningClosestTargetDistance_5d4594_2487912 = lightningRange * lightningRange;
+		range2 = lightningRange * 0.89999998;
+		nox_xxx_unitsGetInCircle_517F90((float2*)(*getMemU32Ptr(0x5D4594, 2487844) + 56), range2, nox_xxx_lightningCanAttackCheck_52FF10, *getMemIntPtr(0x5D4594, 2487844));
 		if (nox_xxx_lightningTarget_5d4594_2487908) {
 			v16 = nox_xxx_lightningTargetArrayIndex_5d4594_2487904;
+			// THIS SETS nox_xxx_lightningSecondBounceTarget_5d4594_2487852!!!
+			// Since the range is less than the first bounce target check, it always sets third member
+			// Third member of  2487844 is the second bounce target from main target
 			*getMemU32Ptr(0x5D4594, 2487844 + 4 * nox_xxx_lightningTargetArrayIndex_5d4594_2487904) = nox_xxx_lightningTarget_5d4594_2487908;
 			nox_xxx_lightningTargetArrayIndex_5d4594_2487904 = v16 + 1;
 		}
 	}
-	if (dword_5d4594_2487848) {
+
+	if (nox_xxx_lightningFirstBounceTarget_5d4594_2487848) {
+		// Fourth level of magic allows TWO jump from main target and ONE from secondary target
+		// OR one jump from main target and one jump from secondary target
 		if (spellLevel > 3) {
 			nox_xxx_lightningTarget_5d4594_2487908 = 0;
-			*(float*)&dword_5d4594_2487912 = lightningRange * lightningRange;
-			v37 = lightningRange * 0.85000002;
-			nox_xxx_unitsGetInCircle_517F90((float2*)(dword_5d4594_2487848 + 56), v37, nox_xxx_lightningCanAttackCheck_52FF10, *(int*)&dword_5d4594_2487848);
+			*(float*)&nox_xxx_lightningClosestTargetDistance_5d4594_2487912 = lightningRange * lightningRange;
+			range3 = lightningRange * 0.85000002;
+			nox_xxx_unitsGetInCircle_517F90((float2*)(nox_xxx_lightningFirstBounceTarget_5d4594_2487848 + 56), range3, nox_xxx_lightningCanAttackCheck_52FF10, *(int*)&nox_xxx_lightningFirstBounceTarget_5d4594_2487848);
 			if (nox_xxx_lightningTarget_5d4594_2487908) {
 				v17 = nox_xxx_lightningTargetArrayIndex_5d4594_2487904;
+				// THIS SETS nox_xxx_lightningSecondBounceTarget_5d4594_2487852
+				// OR nox_xxx_lightningBounceOfBounceTarget_5d4594_2487856, if we have a second bounce already!!!
+				// third member of 2487844 is the second bounce target.
 				*getMemU32Ptr(0x5D4594, 2487844 + 4 * nox_xxx_lightningTargetArrayIndex_5d4594_2487904) = nox_xxx_lightningTarget_5d4594_2487908;
 				nox_xxx_lightningTargetArrayIndex_5d4594_2487904 = v17 + 1;
 			}
 		}
 	}
-	if (dword_5d4594_2487852) {
+	if (nox_xxx_lightningSecondBounceTarget_5d4594_2487852) {
 		if (spellLevel > 4) {
+			// FIFTH level of magic allows TWO jump from main target and ONE from EACH secondary target
+			// OR one jump from main target and TWO consecutive jumps!!!
 			nox_xxx_lightningTarget_5d4594_2487908 = 0;
-			v40 = lightningRange * lightningRange;
-			*(float*)&dword_5d4594_2487912 = v40 * v40;
-			v38 = lightningRange * 0.80000001;
-			nox_xxx_unitsGetInCircle_517F90((float2*)(dword_5d4594_2487852 + 56), v38, nox_xxx_lightningCanAttackCheck_52FF10, *(int*)&dword_5d4594_2487852);
+			range5 = lightningRange * lightningRange; // Is this intentional???
+			*(float*)&nox_xxx_lightningClosestTargetDistance_5d4594_2487912 = lightningRange * lightningRange;
+			range4 = lightningRange * 0.80000001;
+			nox_xxx_unitsGetInCircle_517F90((float2*)(nox_xxx_lightningSecondBounceTarget_5d4594_2487852 + 56), range4, nox_xxx_lightningCanAttackCheck_52FF10, *(int*)&nox_xxx_lightningSecondBounceTarget_5d4594_2487852);
 			if (nox_xxx_lightningTarget_5d4594_2487908) {
 				v18 = nox_xxx_lightningTargetArrayIndex_5d4594_2487904;
+				// THIS SETS 2487860 OR 2487856
 				*getMemU32Ptr(0x5D4594, 2487844 + 4 * nox_xxx_lightningTargetArrayIndex_5d4594_2487904) = nox_xxx_lightningTarget_5d4594_2487908;
 				nox_xxx_lightningTargetArrayIndex_5d4594_2487904 = v18 + 1;
 			}
 		}
 	}
+
 	nox_xxx_lightningSpellDuration_52FFD0(source, *(_DWORD*)(source + 16), *getMemIntPtr(0x5D4594, 2487844));
 
-	if (spellLevel > 1 && dword_5d4594_2487848)
-		nox_xxx_lightningSpellDuration_52FFD0(source, *getMemIntPtr(0x5D4594, 2487844), *(int*)&dword_5d4594_2487848);
-	v19 = dword_5d4594_2487852;
-	if (spellLevel > 2 && dword_5d4594_2487852) {
-		nox_xxx_lightningSpellDuration_52FFD0(source, *getMemIntPtr(0x5D4594, 2487844), *(int*)&dword_5d4594_2487852);
-		v19 = dword_5d4594_2487852;
+	if (spellLevel > 1 && nox_xxx_lightningFirstBounceTarget_5d4594_2487848)
+		nox_xxx_lightningSpellDuration_52FFD0(source, *getMemIntPtr(0x5D4594, 2487844), *(int*)&nox_xxx_lightningFirstBounceTarget_5d4594_2487848);
+
+	secondBounceTarget = nox_xxx_lightningSecondBounceTarget_5d4594_2487852;
+	if (spellLevel > 2 && nox_xxx_lightningSecondBounceTarget_5d4594_2487852) {
+		nox_xxx_lightningSpellDuration_52FFD0(source, *getMemIntPtr(0x5D4594, 2487844), *(int*)&nox_xxx_lightningSecondBounceTarget_5d4594_2487852);
+		secondBounceTarget = nox_xxx_lightningSecondBounceTarget_5d4594_2487852;
 	}
 
-		if (spellLevel > 3 && dword_5d4594_2487856) {
-		if (dword_5d4594_2487848) {
-			nox_xxx_lightningSpellDuration_52FFD0(source, *(int*)&dword_5d4594_2487848, *(int*)&dword_5d4594_2487856);
+	if (spellLevel > 3 && nox_xxx_lightningBounceOfBounceTarget_5d4594_2487856) {
+		if (nox_xxx_lightningFirstBounceTarget_5d4594_2487848) {
+			nox_xxx_lightningSpellDuration_52FFD0(source, *(int*)&nox_xxx_lightningFirstBounceTarget_5d4594_2487848, *(int*)&nox_xxx_lightningBounceOfBounceTarget_5d4594_2487856);
 		LABEL_54:
-			v19 = dword_5d4594_2487852;
+			secondBounceTarget = nox_xxx_lightningSecondBounceTarget_5d4594_2487852;
 			goto LABEL_55;
 		}
-		if (v19) {
-			nox_xxx_lightningSpellDuration_52FFD0(source, v19, *(int*)&dword_5d4594_2487856);
+		if (secondBounceTarget) {
+			nox_xxx_lightningSpellDuration_52FFD0(source, secondBounceTarget, *(int*)&nox_xxx_lightningBounceOfBounceTarget_5d4594_2487856);
 			goto LABEL_54;
 		}
 	}
 LABEL_55:
 	if (spellLevel > 4) {
+		// This is the fourth jump!!!
 		if (*getMemU32Ptr(0x5D4594, 2487860)) {
-			if (v19 || (v19 = dword_5d4594_2487848) != 0)
-				nox_xxx_lightningSpellDuration_52FFD0(source, v19, *getMemIntPtr(0x5D4594, 2487860));
+			if (secondBounceTarget || (secondBounceTarget = nox_xxx_lightningFirstBounceTarget_5d4594_2487848) != 0)
+				nox_xxx_lightningSpellDuration_52FFD0(source, secondBounceTarget, *getMemIntPtr(0x5D4594, 2487860));
 		}
 	}
+	// No main target
 	if (!*getMemU32Ptr(0x5D4594, 2487844))
 		return 0;
+
 	damage = nox_xxx_gamedataGetFloat_419D40("LightningDamage") + *(float*)(source + 76);
 	v20 = nox_float2int(damage);
 	*(float*)(source + 76) = damage - (double)v20;
@@ -349,7 +375,7 @@ LABEL_55:
 
 //----- (0052FF10) --------------------------------------------------------
 void  nox_xxx_lightningCanAttackCheck_52FF10(int target, int source) {
-	int v2;              // eax
+	int owner;              // eax
 	int v3;              // ecx
 	int index;              // eax
 	unsigned __int8* targetPointer; // ecx
@@ -357,15 +383,16 @@ void  nox_xxx_lightningCanAttackCheck_52FF10(int target, int source) {
 	double yDistance;           // st6
 	double distance;           // st5
 
-	if (*(_DWORD*)(target + 8) & 0x20006) {
-		v2 = dword_5d4594_2487900;
-		if (dword_5d4594_2487900) {
-			if (!nox_xxx_unitIsEnemyTo_5330C0(*(int*)&dword_5d4594_2487900, target))
+	if (*(_DWORD*)(target + 8) & 0x20006) { //Type check
+		//Checks if the target is an enemy of the owner, if not, stop
+		owner = nox_xxx_lightningOwner_5d4594_2487900;
+		if (nox_xxx_lightningOwner_5d4594_2487900) {
+			if (!nox_xxx_unitIsEnemyTo_5330C0(*(int*)&nox_xxx_lightningOwner_5d4594_2487900, target))
 				return;
-			v2 = dword_5d4594_2487900;
+			owner = nox_xxx_lightningOwner_5d4594_2487900;
 		}
 		if (!(*(_BYTE*)(target + 8) & 2) || (v3 = *(_DWORD*)(target + 12), (v3 & 0x8000) == 0)) {
-			if (!(*(_DWORD*)(target + 16) & 0x8020) && target != source && target != v2) {
+			if (!(*(_DWORD*)(target + 16) & 0x8020) && target != source && target != owner) {
 				index = 0;
 				if (*(int*)&nox_xxx_lightningTargetArrayIndex_5d4594_2487904 <= 0) {
 				LABEL_14:
