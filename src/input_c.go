@@ -345,7 +345,7 @@ func get_obj_5D4594_754104_switch() bool {
 func nox_xxx_initKeyboard_47FB10() {
 	// On non-IME languages, Nox uses this input for text input. This sets up
 	// current SHIFT state and the mapping from DIK code => wide character.
-	dword_5d4594_1193132 = keymodShift()
+	inputCapsState = keymodShift()
 	nox_xxx_keyboard_47DBD0()
 }
 
@@ -837,11 +837,11 @@ type inputCharMap struct {
 }
 
 var (
-	dword_5d4594_1193132 bool
-	dword_5d4594_1193136 bool
-	dword_5d4594_1193140 bool
-	dword_5d4594_1193144 keybind.Key
-	noxInputMap          map[keybind.Key]inputCharMap
+	inputCapsState  bool
+	inputShiftState bool
+	inputModState   bool
+	inputModKey     keybind.Key
+	noxInputMap     map[keybind.Key]inputCharMap
 )
 
 func str2u16(s string) uint16 {
@@ -861,27 +861,27 @@ func nox_input_scanCodeToAlpha(inp *input.Handler, r keybind.Key) uint16 {
 	}
 	scrollLockStatus := inp.KeyModAlt() // TODO: why it uses RALT?
 	if r == keybind.KeyLShift || r == keybind.KeyRShift {
-		dword_5d4594_1193136 = inp.IsPressed(r)
+		inputShiftState = inp.IsPressed(r)
 		return 0
 	}
 	if r == keybind.KeyCaps {
 		if !inp.GetKeyFlag(r) {
 			if inp.IsPressed(r) {
-				dword_5d4594_1193132 = !dword_5d4594_1193132
+				inputCapsState = !inputCapsState
 			}
 			inp.SetKeyFlag(r, true)
 		}
 		return 0
 	}
 	// TODO: extract character tables; once it's done we could properly support UTF-8 input
-	if r == dword_5d4594_1193144 {
-		dword_5d4594_1193140 = inp.IsPressed(r)
+	if r == inputModKey {
+		inputModState = inp.IsPressed(r)
 		return 0
 	}
-	if dword_5d4594_1193140 {
+	if inputModState {
 		return str2u16(noxInputMap[r].ext)
 	}
-	if dword_5d4594_1193136 || dword_5d4594_1193132 && C.iswalpha_go(C.wchar_t(str2u16(noxInputMap[r].lower))) {
+	if inputShiftState || inputCapsState && bool(C.iswalpha_go(C.wchar_t(str2u16(noxInputMap[r].lower)))) {
 		if scrollLockStatus {
 			return uint16(asc_9800B0[3*int(r)+264])
 		}
@@ -898,23 +898,23 @@ func nox_xxx_keyboard_47DBD0() {
 	for k, v := range noxInputMapGeneric {
 		noxInputMap[k] = v
 	}
-	dword_5d4594_1193144 = 0
+	inputModKey = 0
 	var m map[keybind.Key]inputCharMap
 	switch strMan.Lang() {
 	case 0, 4, 6, 7, 8, 9:
 		m = noxInputMapLang0
 	case 1:
 		m = noxInputMapLang1
-		dword_5d4594_1193144 = 0xb8
+		inputModKey = 0xb8
 	case 2:
 		m = noxInputMapLang2
-		dword_5d4594_1193144 = 0xb8
+		inputModKey = 0xb8
 	case 3:
 		m = noxInputMapLang3
-		dword_5d4594_1193144 = 0xb8
+		inputModKey = 0xb8
 	case 5:
 		m = noxInputMapLang5
-		dword_5d4594_1193144 = 0xb8
+		inputModKey = 0xb8
 	}
 	for k, v := range m {
 		noxInputMap[k] = v
