@@ -50,7 +50,7 @@ extern _DWORD dword_5d4594_3835352;
 extern _DWORD dword_5d4594_2487620;
 extern _DWORD dword_5d4594_2487708;
 extern _DWORD dword_5d4594_2487552;
-extern _DWORD dword_5d4594_2487880;
+extern _DWORD nox_xxx_energyBoltTarget_5d4594_2487880;
 extern _DWORD nox_xxx_warriorMaxMana_587000_312788;
 extern _DWORD dword_5d4594_2487532;
 extern _DWORD nox_xxx_warriorMaxHealth_587000_312784;
@@ -12037,14 +12037,14 @@ int  nox_xxx_spellEnergyBoltTick_52E850(float a1) {
 		if (*(_DWORD*)(v1 + 48))
 			goto LABEL_32;
 		*getMemU32Ptr(0x5D4594, 2487832) = 0;
-		dword_5d4594_2487880 = 0;
+		nox_xxx_energyBoltTarget_5d4594_2487880 = 0;
 		v14 = *(_DWORD*)(v1 + 16);
 		*getMemU32Ptr(0x5D4594, 2487868) = *(_DWORD*)(v14 + 56);
 		v15 = *(_DWORD*)(v14 + 60);
 		*(float*)&dword_5d4594_2487884 = v31 * v31;
 		*getMemU32Ptr(0x5D4594, 2487872) = v15;
-		nox_xxx_unitsGetInCircle_517F90((float2*)(*(_DWORD*)(v1 + 16) + 56), v31, sub_52EC60, *(_DWORD*)(v1 + 16));
-		*(_DWORD*)(v1 + 48) = dword_5d4594_2487880;
+		nox_xxx_unitsGetInCircle_517F90((float2*)(*(_DWORD*)(v1 + 16) + 56), v31, nox_xxx_spellEnergyBoltSetTarget_52EC60, *(_DWORD*)(v1 + 16));
+		*(_DWORD*)(v1 + 48) = nox_xxx_energyBoltTarget_5d4594_2487880;
 	LABEL_31:
 		if (!*(_DWORD*)(v1 + 48)) {
 			if (*(_DWORD*)(v1 + 36)) {
@@ -12083,7 +12083,7 @@ int  nox_xxx_spellEnergyBoltTick_52E850(float a1) {
 			nox_xxx_aud_501960(32, *(_DWORD*)(v1 + 16), 0, 0);
 			nox_xxx_aud_501960(32, *(_DWORD*)(v1 + 48), 0, 0);
 		}
-		v28 = nox_xxx_gamedataGetFloat_419D40("LightningSearchTime");
+		v28 = nox_xxx_gamedataGetFloat_419D40("LightningSearchTime"); 
 		*(_DWORD*)(v1 + 68) = nox_frame_xxx_2598000 + nox_float2int(v28);
 		v24 = *(_DWORD*)(v1 + 16);
 		if (*(_BYTE*)(v24 + 8) & 4) {
@@ -12104,48 +12104,48 @@ int  nox_xxx_spellEnergyBoltTick_52E850(float a1) {
 	v29.field_0 = *(float*)(v1 + 28);
 	*getMemU32Ptr(0x5D4594, 2487868) = v29.field_0;
 	*getMemU32Ptr(0x5D4594, 2487872) = v4;
-	dword_5d4594_2487880 = 0;
+	nox_xxx_energyBoltTarget_5d4594_2487880 = 0;
 	*(float*)&dword_5d4594_2487884 = v31 * v31;
 	*getMemU32Ptr(0x5D4594, 2487832) = 1;
 	v5 = *(_DWORD*)(v1 + 16);
 	v29.field_4 = v4;
-	nox_xxx_unitsGetInCircle_517F90(&v29, v31, sub_52EC60, v5);
-	if (dword_5d4594_2487880) {
-		v6 = (void(**)(_DWORD, _DWORD, _DWORD, int, int))(dword_5d4594_2487880 + 716);
+	nox_xxx_unitsGetInCircle_517F90(&v29, v31, nox_xxx_spellEnergyBoltSetTarget_52EC60, v5);
+	if (nox_xxx_energyBoltTarget_5d4594_2487880) {
+		v6 = (void(**)(_DWORD, _DWORD, _DWORD, int, int))(nox_xxx_energyBoltTarget_5d4594_2487880 + 716);
 		v27 = nox_xxx_gamedataGetFloat_419D40("EnergyBoltGlyphDamage");
 		v7 = nox_float2int(v27);
-		(*v6)(dword_5d4594_2487880, *(_DWORD*)(v1 + 12), 0, v7, 17);
-		v26 = dword_5d4594_2487880;
+		(*v6)(nox_xxx_energyBoltTarget_5d4594_2487880, *(_DWORD*)(v1 + 12), 0, v7, 17);
+		v26 = nox_xxx_energyBoltTarget_5d4594_2487880;
 		v8 = nox_xxx_spellGetAud44_424800(24, 0);
 		nox_xxx_aud_501960(v8, v26, 0, 0);
-		nox_xxx_netSendPointFx_522FF0(130, (float2*)(dword_5d4594_2487880 + 56));
+		nox_xxx_netSendPointFx_522FF0(130, (float2*)(nox_xxx_energyBoltTarget_5d4594_2487880 + 56));
 	}
 	return 1;
 }
 
 //----- (0052EC60) --------------------------------------------------------
-void  sub_52EC60(int a1, int a2) {
+void  nox_xxx_spellEnergyBoltSetTarget_52EC60(int target, int source) {
 	int v2;    // eax
 	int v3;    // eax
 	double v4; // st7
 	double v5; // st6
 	double v6; // st5
 
-	v2 = *(_DWORD*)(a1 + 8);
+	v2 = *(_DWORD*)(target + 8);
 	if (v2 & 0x20006) {
-		if (!(*(_DWORD*)(a1 + 16) & 0x8020) && a1 != a2) {
-			if (!(v2 & 2) || (v3 = *(_DWORD*)(a1 + 12), (v3 & 0x8000) == 0)) {
-				if (!a2 || nox_xxx_unitIsEnemyTo_5330C0(a2, a1) && (*getMemU32Ptr(0x5D4594, 2487832) ||
+		if (!(*(_DWORD*)(target + 16) & 0x8020) && target != source) {
+			if (!(v2 & 2) || (v3 = *(_DWORD*)(target + 12), (v3 & 0x8000) == 0)) {
+				if (!source || nox_xxx_unitIsEnemyTo_5330C0(source, target) && (*getMemU32Ptr(0x5D4594, 2487832) ||
 												  nox_server_testTwoPointsAndDirection_4E6E50(
-													  (float2*)(a2 + 56), *(__int16*)(a2 + 124), (float2*)(a1 + 56)) &
+													  (float2*)(source + 56), *(__int16*)(source + 124), (float2*)(target + 56)) &
 														  1 &&
-													  nox_xxx_unitCanInteractWith_5370E0(a2, a1, 0))) {
-					v4 = *(float*)(a1 + 56) - *getMemFloatPtr(0x5D4594, 2487868);
-					v5 = *(float*)(a1 + 60) - *getMemFloatPtr(0x5D4594, 2487872);
+													  nox_xxx_unitCanInteractWith_5370E0(source, target, 0))) {
+					v4 = *(float*)(target + 56) - *getMemFloatPtr(0x5D4594, 2487868);
+					v5 = *(float*)(target + 60) - *getMemFloatPtr(0x5D4594, 2487872);
 					v6 = v5 * v5 + v4 * v4;
 					if (v6 < *(float*)&dword_5d4594_2487884) {
 						*(float*)&dword_5d4594_2487884 = v6;
-						dword_5d4594_2487880 = a1;
+						nox_xxx_energyBoltTarget_5d4594_2487880 = target;
 					}
 				}
 			}
