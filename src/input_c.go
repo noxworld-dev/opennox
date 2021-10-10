@@ -45,6 +45,7 @@ import (
 	"image"
 	"math"
 	"sync"
+	"unicode"
 	"unsafe"
 
 	"nox/v1/client/input"
@@ -881,7 +882,7 @@ func nox_input_scanCodeToAlpha(inp *input.Handler, r keybind.Key) uint16 {
 	if inputModState {
 		return str2u16(noxInputMap[r].ext)
 	}
-	if inputShiftState || inputCapsState && bool(C.iswalpha_go(C.wchar_t(str2u16(noxInputMap[r].lower)))) {
+	if inputShiftState || inputCapsState && iswalpha(str2u16(noxInputMap[r].lower)) {
 		if scrollLockStatus {
 			return str2u16(noxInputMapLangX[r].upper)
 		}
@@ -891,6 +892,19 @@ func nox_input_scanCodeToAlpha(inp *input.Handler, r keybind.Key) uint16 {
 		return str2u16(noxInputMapLangX[r].lower)
 	}
 	return str2u16(noxInputMap[r].lower)
+}
+
+func iswalpha(b uint16) bool {
+	// check only for the range we care about in this file
+	if b >= 192 {
+		return false
+	}
+	switch b {
+	case 170, 181, 186:
+		return false
+	default:
+		return unicode.IsLetter(rune(b))
+	}
 }
 
 func nox_xxx_keyboard_47DBD0() {
