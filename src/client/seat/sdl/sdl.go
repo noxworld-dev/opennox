@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"os"
+	"strings"
 
 	"github.com/go-gl/gl/v3.3-core/gl"
 	"github.com/veandco/go-sdl2/sdl"
@@ -66,6 +67,7 @@ type Window struct {
 	win      *sdl.Window
 	prevPos  types.Point
 	prevSz   types.Size
+	textInp  bool
 	mode     seat.ScreenMode
 	rel      bool
 	mpos     types.Point
@@ -97,6 +99,10 @@ func (win *Window) OnInput(fnc func(ev seat.InputEvent)) {
 }
 
 func (win *Window) SetTextInput(enable bool) {
+	if win.textInp == enable {
+		return
+	}
+	win.textInp = enable
 	if enable {
 		sdl.StartTextInput()
 	} else {
@@ -451,12 +457,27 @@ func (win *Window) processTextEditingEvent(ev *sdl.TextEditingEvent) {
 }
 
 func (win *Window) processTextInputEvent(ev *sdl.TextInputEvent) {
+	text := ev.GetText()
+	if sdl.GetModState()&sdl.KMOD_CTRL != 0 && len(text) == 1 && strings.ToLower(text) == "v" {
+		return // ignore "V" from Ctrl-V
+	}
 	win.inputEvent(&seat.TextInputEvent{
-		Text: ev.GetText(),
+		Text: text,
 	})
 }
 
 func (win *Window) processKeyboardEvent(ev *sdl.KeyboardEvent) {
+	if win.textInp && ev.State == sdl.PRESSED && sdl.GetModState()&sdl.KMOD_CTRL != 0 && ev.Keysym.Scancode == sdl.SCANCODE_V {
+		text, err := sdl.GetClipboardText()
+		if err != nil {
+			Log.Printf("cannot get clipboard text: %v", err)
+			return
+		}
+		win.inputEvent(&seat.TextInputEvent{
+			Text: text,
+		})
+		return
+	}
 	key := scanCodeToKeyNum[ev.Keysym.Scancode]
 	win.inputEvent(&seat.KeyboardEvent{
 		Key:     key,
