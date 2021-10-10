@@ -74,7 +74,6 @@ void sub_4C94D0();
 void sub_4C96A0();
 void sub_4C97F0();
 void sub_4C9970();
-void sub_4C9B20();
 void  nox_xxx_cliLight16_469140(nox_drawable* dr, nox_draw_viewport_t* vp);
 void nox_xxx_clientDrawAll_436100_draw_A();
 void nox_xxx_clientDrawAll_436100_draw_B();
@@ -1369,7 +1368,7 @@ func (r *NoxRender) drawImage16(img *Image, pos types.Point) { // nox_client_xxx
 		}
 		r.nox_client_drawImg_aaa_4C79F0(img, pos)
 	case 8:
-		r.draw27 = drawOpC(func() { C.sub_4C9B20() })
+		r.draw27 = r.pixBlendPremult
 		r.nox_client_drawImg_aaa_4C79F0(img, pos)
 	}
 }
@@ -1761,6 +1760,56 @@ func (r *NoxRender) sub_4C86B0(dst, src []byte, _ byte, sz int) (_, _ []byte) { 
 		binary.LittleEndian.PutUint16(dst, c)
 		dst = dst[2:]
 		src = src[2:]
+	}
+	return dst, src
+}
+
+// SADD8 is a saturating 8-bit addition.
+func SADD8(x, y byte) byte {
+	z := uint16(x) + uint16(y)
+	if z > 0xff {
+		return 0xff
+	}
+	return byte(z)
+}
+
+func (r *NoxRender) pixBlendPremult(dst, src []byte, _ byte, sz int) (_, _ []byte) { // sub_4C9B20
+	if sz < 0 {
+		panic("negative size")
+	}
+	_ = dst[2*sz:]
+	_ = src[2*sz:]
+	const (
+		rshift = 7 // -10+3
+		gshift = 2 // -5+3
+		bshift = 3 // -0+3
+
+		rmask = 0x7c00
+		gmask = 0x03e0
+		bmask = 0x001f
+	)
+	for i := 0; i < sz; i++ {
+		c1 := binary.LittleEndian.Uint16(dst)
+		c2 := binary.LittleEndian.Uint16(src)
+		cr := (c1 & rmask) >> rshift
+		cg := (c1 & gmask) >> gshift
+		cb := (c1 & bmask) << bshift
+		crb := ((c2>>8)&0xF8 | 7) + cr
+		cgb := ((c2>>3)&0xFC | 3) + cg
+		rbb := ((c2<<3)&0xF8 | 7) + cb
+		if crb > 0xff {
+			crb = 0xff
+		}
+		if cgb > 0xff {
+			cgb = 0xff
+		}
+		if rbb > 0xff {
+			rbb = 0xff
+		}
+		c := r.colors.R[crb] | r.colors.G[cgb] | r.colors.B[rbb]
+		binary.LittleEndian.PutUint16(dst, c)
+		src = src[2:]
+		dst = dst[2:]
 	}
 	return dst, src
 }

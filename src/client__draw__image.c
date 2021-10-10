@@ -1124,7 +1124,6 @@ void  sub_4C5EB0(nox_video_bag_image_t* img, int x, int y) {
 		}
 	}
 }
-#endif // NOX_CGO
 
 //----- (004C9B20) --------------------------------------------------------
 void sub_4C9B20() {
@@ -1160,6 +1159,7 @@ void sub_4C9B20() {
 	nox_video_cur_pixdata_3799444 = v0;
 	nox_draw_sprite_dstPtr_3799540 = v1;
 }
+#endif // NOX_CGO
 
 //----- (004C8EC0) --------------------------------------------------------
 void sub_4C8EC0() {
