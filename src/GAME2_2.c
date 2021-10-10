@@ -317,7 +317,8 @@ int  sub_476160(const void* a1, const void* a2) {
 }
 
 //----- (004761B0) --------------------------------------------------------
-int  sub_4761B0(int a1) {
+int  sub_4761B0(nox_drawable* a1p) {
+	int a1 = a1p;
 	int result; // eax
 	int v2;     // edx
 	int v3;     // ecx

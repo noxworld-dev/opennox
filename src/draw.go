@@ -1066,14 +1066,26 @@ func nox_client_drawBackWalls(vp *Viewport) {
 	nox_backWalls = nox_backWalls[:0]
 }
 
+func sub_476160(a1, a2 *Drawable) bool {
+	var v1 int
+	if *(*int8)(a1.field(112)) >= 0 {
+		v1 = a1.Pos().Y + int(*(*int16)(a1.field(104)))
+	} else {
+		v1 = int(C.sub_4761B0(a1.C()))
+	}
+	var v2 int
+	if *(*int8)(a2.field(112)) >= 0 {
+		v2 = a2.Pos().Y + int(*(*int16)(a2.field(104)))
+	} else {
+		v2 = int(C.sub_4761B0(a2.C()))
+	}
+	return v1-v2 < 0
+}
+
 func nox_xxx_drawAllMB_475810_draw_E(vp *Viewport) {
-	tmp, tmpFree := alloc.Pointers(2)
-	defer tmpFree()
 	sort.Slice(nox_drawable_list_1, func(i, j int) bool {
 		a, b := nox_drawable_list_1[i], nox_drawable_list_1[j]
-		pa, pb := unsafe.Pointer(a.C()), unsafe.Pointer(b.C())
-		tmp[0], tmp[1] = pa, pb
-		return C.sub_476160(unsafe.Pointer(&tmp[0]), unsafe.Pointer(&tmp[1])) < 0
+		return sub_476160(a, b)
 	})
 	sort.Slice(nox_wallsYyy, func(i, j int) bool {
 		a, b := nox_wallsYyy[i], nox_wallsYyy[j]
