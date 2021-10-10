@@ -1228,7 +1228,7 @@ var noxMemmap = []struct {
 	{0x5D4594, 2487880, 4, "nox_xxx_energyBoltTarget_5d4594_2487880"},                    // 0x833BDC
 	{0x5D4594, 2487884, 4, "dword_5d4594_2487884"},                    // 0x833BE0
 	{0x5D4594, 2487900, 4, "dword_5d4594_2487900"},                    // 0x833BF0
-	{0x5D4594, 2487904, 4, "dword_5d4594_2487904"},                    // 0x833BF4
+	{0x5D4594, 2487904, 4, "nox_xxx_lightningTargetArrayIndex_5d4594_2487904"},                    // 0x833BF4
 	{0x5D4594, 2487908, 4, "nox_xxx_lightningTarget_5d4594_2487908"},                    // 0x833BF8
 	{0x5D4594, 2487912, 4, "nox_xxx_lightningClosestTargetDistance_5d4594_2487912"},                    // 0x833BFC
 	{0x5D4594, 2487932, 4, "dword_5d4594_2487932"},                    // 0x833C10
