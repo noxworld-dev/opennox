@@ -39,6 +39,9 @@ jobs:
           sudo apt-get update -m
           sudo apt-get install -y build-essential ccache cmake gcc gcc-multilib libsdl2-dev libsdl2-dev:i386 libopenal-dev:i386 libsdl2-2.0-0:i386 libopenal1:i386
 
+      - name: Check GCC version
+        run: gcc -v
+
       - name: Install Go dependencies
         run: cd ./src && go mod download
 
@@ -84,6 +87,9 @@ jobs:
           sudo dpkg --add-architecture i386
           sudo apt-get update -m
           sudo apt-get install -y build-essential curl rsync zip unzip ccache cmake gcc gcc-multilib gcc-mingw-w64 libsdl2-dev libsdl2-dev:i386 libopenal-dev:i386 libsdl2-2.0-0:i386 libopenal1:i386
+
+      - name: Check GCC version
+        run: gcc -v
 
       - name: Install SDL MinGW package
         run: |
