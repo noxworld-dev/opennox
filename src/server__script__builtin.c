@@ -1063,12 +1063,11 @@ int nox_script_enchant_5132E0() {
 	int v3;      // edi
 	float v5;    // [esp+Ch] [ebp-54h]
 	int v6[2];   // [esp+18h] [ebp-48h]
-	char v8[64]; // [esp+20h] [ebp-40h]
 
 	v5 = nox_script_popf();
 	v0 = nox_script_pop();
 	v1 = nox_script_pop();
-	strcpy(v8, nox_script_getString_512E40(v0));
+	const char* v8 = nox_script_getString_512E40(v0);
 	v2 = nox_xxx_enchantByName_424880(v8);
 	if (v2 != -1) {
 		v3 = nox_server_scriptValToObjectPtr_511B60(v1);
@@ -1089,12 +1088,11 @@ int nox_script_groupEnchant_5133B0() {
 	unsigned __int8* v3; // eax
 	float v5;            // [esp+Ch] [ebp-54h]
 	int v6[2];           // [esp+18h] [ebp-48h]
-	char v7[64];         // [esp+20h] [ebp-40h]
 
 	v5 = nox_script_popf();
 	v0 = nox_script_pop();
 	v1 = nox_script_pop();
-	strcpy(v7, nox_script_getString_512E40(v0));
+	const char* v7 = nox_script_getString_512E40(v0);
 	v2 = nox_xxx_enchantByName_424880(v7);
 	if (v2 != -1) {
 		v6[0] = v2;
@@ -1122,8 +1120,8 @@ int nox_script_objectGet_513490() {
 	int v0;      // eax
 	char v2[76]; // [esp+4h] [ebp-4Ch]
 
-	strcpy(v2, nox_script_getString_512E40(nox_script_pop()));
-	strcat(v2, nox_script_builtin_buf_xxx);
+	strncpy(v2, nox_script_getString_512E40(nox_script_pop()), sizeof(v2)-1);
+	strncat(v2, nox_script_builtin_buf_xxx, sizeof(v2)-1);
 	v0 = nox_xxx_getObjectByScrName_4DA4F0(v2);
 	if (v0)
 		nox_script_push(*(_DWORD*)(v0 + 44));
@@ -1492,11 +1490,10 @@ int nox_script_TestBuffs_513C70() {
 	int v4;      // eax
 	int v5;      // eax
 	int result;  // eax
-	char v7[64]; // [esp+Ch] [ebp-40h]
 
 	v0 = nox_script_pop();
 	v1 = nox_script_pop();
-	strcpy(v7, nox_script_getString_512E40(v0));
+	const char* v7 = nox_script_getString_512E40(v0);
 	v2 = nox_xxx_enchantByName_424880(v7);
 	v3 = v2;
 	if (v2 != -1 && (v4 = nox_server_scriptValToObjectPtr_511B60(v1)) != 0) {
@@ -1516,11 +1513,10 @@ int nox_script_cancelBuff_513D00() {
 	int v1;      // ebx
 	int v2;      // esi
 	int v3;      // eax
-	char v5[64]; // [esp+Ch] [ebp-40h]
 
 	v0 = nox_script_pop();
 	v1 = nox_script_pop();
-	strcpy(v5, nox_script_getString_512E40(v0));
+	const char* v5 = nox_script_getString_512E40(v0);
 	v2 = nox_xxx_enchantByName_424880(v5);
 	if (v2 != -1) {
 		v3 = nox_server_scriptValToObjectPtr_511B60(v1);
@@ -1825,7 +1821,7 @@ int nox_script_Effect_514210() {
 	v15 = nox_script_popf();
 	v14 = nox_script_popf();
 	v1 = nox_script_getString_512E40(nox_script_pop());
-	strcpy(v20, "MSG_FX_");
+	strncpy(v20, "MSG_FX_", sizeof(v20)-1);
 	v17.field_0 = (double)nox_script_builtinGetF40() + v14;
 	v17.field_4 = (double)nox_script_builtinGetF44() + v15;
 	v2 = v1;
@@ -2166,8 +2162,8 @@ int nox_script_Waypoint_514800() {
 	int* v0;     // eax
 	char v2[76]; // [esp+4h] [ebp-4Ch]
 
-	strcpy(v2, nox_script_getString_512E40(nox_script_pop()));
-	strcat(v2, nox_script_builtin_buf_xxx);
+	strncpy(v2, nox_script_getString_512E40(nox_script_pop()), sizeof(v2)-1);
+	strncat(v2, nox_script_builtin_buf_xxx, sizeof(v2)-1);
 	v0 = (int*)nox_xxx_waypointByName_579E30(v2);
 	if (v0)
 		nox_script_push(*v0);
@@ -2181,8 +2177,8 @@ int nox_script_GetWaypointGroup_5148A0() {
 	int v0;      // eax
 	char v2[76]; // [esp+4h] [ebp-4Ch]
 
-	strcpy(v2, nox_script_getString_512E40(nox_script_pop()));
-	strcat(v2, nox_script_builtin_buf_xxx);
+	strncpy(v2, nox_script_getString_512E40(nox_script_pop()), sizeof(v2)-1);
+	strncat(v2, nox_script_builtin_buf_xxx, sizeof(v2)-1);
 	v0 = nox_server_scriptGetMapGroupByName_57C280(v2, 1);
 	if (v0)
 		nox_script_push(*(_DWORD*)(v0 + 4));
@@ -2196,8 +2192,8 @@ int nox_script_GetObjectGroup_514940() {
 	int v0;      // eax
 	char v2[76]; // [esp+4h] [ebp-4Ch]
 
-	strcpy(v2, nox_script_getString_512E40(nox_script_pop()));
-	strcat(v2, nox_script_builtin_buf_xxx);
+	strncpy(v2, nox_script_getString_512E40(nox_script_pop()), sizeof(v2)-1);
+	strncat(v2, nox_script_builtin_buf_xxx, sizeof(v2)-1);
 	v0 = nox_server_scriptGetMapGroupByName_57C280(v2, 0);
 	if (v0)
 		nox_script_push(*(_DWORD*)(v0 + 4));
@@ -2211,8 +2207,8 @@ int nox_script_GetWallGroup_5149E0() {
 	int v0; // eax
 	char v2[76];
 
-	strcpy(v2, nox_script_getString_512E40(nox_script_pop()));
-	strcat(v2, nox_script_builtin_buf_xxx);
+	strncpy(v2, nox_script_getString_512E40(nox_script_pop()), sizeof(v2)-1);
+	strncat(v2, nox_script_builtin_buf_xxx, sizeof(v2)-1);
 	v0 = nox_server_scriptGetMapGroupByName_57C280(v2, 2);
 	if (v0)
 		nox_script_push(*(_DWORD*)(v0 + 4));
