@@ -39,7 +39,6 @@ extern _DWORD dword_5d4594_2488648;
 extern _DWORD dword_5d4594_3835360;
 extern _DWORD dword_5d4594_2488728;
 extern _DWORD dword_5d4594_2488644;
-extern _DWORD nox_xxx_lightningBounceOfBounceTarget_5d4594_2487856;
 extern _DWORD dword_5d4594_2489436;
 extern _DWORD dword_5d4594_2488724;
 extern _DWORD dword_5d4594_2489160;
@@ -59,8 +58,6 @@ extern _DWORD dword_5d4594_2489432;
 extern _DWORD nox_xxx_lightningClosestTargetDistance_5d4594_2487912;
 extern _DWORD dword_5d4594_2487980;
 extern _DWORD dword_5d4594_3835356;
-extern _DWORD nox_xxx_lightningSecondBounceTarget_5d4594_2487852;
-extern _DWORD nox_xxx_lightningFirstBounceTarget_5d4594_2487848;
 extern _DWORD nox_xxx_warriorMaxMana_587000_312788;
 extern _DWORD nox_xxx_warriorMaxHealth_587000_312784;
 extern _DWORD dword_5d4594_2487984;
@@ -168,10 +165,10 @@ int  nox_xxx_onFrameLightning_52F8A0(float a1) {
 	owner = *(_DWORD*)(source + 16);
 	*getMemU32Ptr(0x5D4594, 2487844) = 0;
 	spellLevel = *getMemU32Ptr(0x587000, 260380 + 4 * v7);
-	nox_xxx_lightningFirstBounceTarget_5d4594_2487848 = 0;
+	*getMemU32Ptr(0x5D4594, 2487848) = 0;
 	nox_xxx_lightningOwner_5d4594_2487900 = owner;
-	nox_xxx_lightningSecondBounceTarget_5d4594_2487852 = 0;
-	nox_xxx_lightningBounceOfBounceTarget_5d4594_2487856 = 0;
+	*getMemU32Ptr(0x5D4594, 2487852) = 0;
+	*getMemU32Ptr(0x5D4594, 2487856) = 0;
 	*getMemU32Ptr(0x5D4594, 2487860) = 0;
 	v10 = *(_DWORD*)(source + 16);
 	if (!(*(_BYTE*)(v10 + 8) & 4) || (v11 = *(_DWORD*)(v10 + 748), (v12 = *(_DWORD*)(v11 + 288)) == 0) ||
@@ -205,7 +202,6 @@ int  nox_xxx_onFrameLightning_52F8A0(float a1) {
 	*getMemU32Ptr(0x5D4594, 2487844 + 4 * nox_xxx_lightningTargetArrayIndex_5d4594_2487904) = target;
 
 	nox_xxx_lightningTargetArrayIndex_5d4594_2487904 = index + 1;
-
 	// Second level of magic allows ONE jump from main target
 	if (spellLevel > 1) {
 		nox_xxx_lightningTarget_5d4594_2487908 = 0;
@@ -214,7 +210,7 @@ int  nox_xxx_onFrameLightning_52F8A0(float a1) {
 		nox_xxx_unitsGetInCircle_517F90((float2*)(*getMemU32Ptr(0x5D4594, 2487844) + 56), range1, nox_xxx_lightningCanAttackCheck_52FF10, *getMemIntPtr(0x5D4594, 2487844));
 		if (nox_xxx_lightningTarget_5d4594_2487908) {
 			v15 = nox_xxx_lightningTargetArrayIndex_5d4594_2487904;
-			// THIS SETS nox_xxx_lightningFirstBounceTarget_5d4594_2487848!!!
+			// THIS SETS *getMemU32Ptr(0x5D4594, 2487848)!!!
 			// Second member of  2487844 is the first bounce target from main target
 			*getMemU32Ptr(0x5D4594, 2487844 + 4 * nox_xxx_lightningTargetArrayIndex_5d4594_2487904) = nox_xxx_lightningTarget_5d4594_2487908;
 			nox_xxx_lightningTargetArrayIndex_5d4594_2487904 = v15 + 1;
@@ -229,7 +225,7 @@ int  nox_xxx_onFrameLightning_52F8A0(float a1) {
 		nox_xxx_unitsGetInCircle_517F90((float2*)(*getMemU32Ptr(0x5D4594, 2487844) + 56), range2, nox_xxx_lightningCanAttackCheck_52FF10, *getMemIntPtr(0x5D4594, 2487844));
 		if (nox_xxx_lightningTarget_5d4594_2487908) {
 			v16 = nox_xxx_lightningTargetArrayIndex_5d4594_2487904;
-			// THIS SETS nox_xxx_lightningSecondBounceTarget_5d4594_2487852!!!
+			// THIS SETS *getMemU32Ptr(0x5D4594, 2487852)!!!
 			// Since the range is less than the first bounce target check, it always sets third member
 			// Third member of  2487844 is the second bounce target from main target
 			*getMemU32Ptr(0x5D4594, 2487844 + 4 * nox_xxx_lightningTargetArrayIndex_5d4594_2487904) = nox_xxx_lightningTarget_5d4594_2487908;
@@ -237,25 +233,25 @@ int  nox_xxx_onFrameLightning_52F8A0(float a1) {
 		}
 	}
 
-	if (nox_xxx_lightningFirstBounceTarget_5d4594_2487848) {
+	if (*getMemU32Ptr(0x5D4594, 2487848)) {
 		// Fourth level of magic allows TWO jump from main target and ONE from secondary target
 		// OR one jump from main target and one jump from secondary target
 		if (spellLevel > 3) {
 			nox_xxx_lightningTarget_5d4594_2487908 = 0;
 			*(float*)&nox_xxx_lightningClosestTargetDistance_5d4594_2487912 = lightningRange * lightningRange;
 			range3 = lightningRange * 0.85000002;
-			nox_xxx_unitsGetInCircle_517F90((float2*)(nox_xxx_lightningFirstBounceTarget_5d4594_2487848 + 56), range3, nox_xxx_lightningCanAttackCheck_52FF10, *(int*)&nox_xxx_lightningFirstBounceTarget_5d4594_2487848);
+			nox_xxx_unitsGetInCircle_517F90((float2*)(*getMemU32Ptr(0x5D4594, 2487848) + 56), range3, nox_xxx_lightningCanAttackCheck_52FF10, *(int*)&*getMemU32Ptr(0x5D4594, 2487848));
 			if (nox_xxx_lightningTarget_5d4594_2487908) {
 				v17 = nox_xxx_lightningTargetArrayIndex_5d4594_2487904;
-				// THIS SETS nox_xxx_lightningSecondBounceTarget_5d4594_2487852
-				// OR nox_xxx_lightningBounceOfBounceTarget_5d4594_2487856, if we have a second bounce already!!!
+				// THIS SETS *getMemU32Ptr(0x5D4594, 2487852)
+				// OR *getMemU32Ptr(0x5D4594, 2487856), if we have a second bounce already!!!
 				// third member of 2487844 is the second bounce target.
 				*getMemU32Ptr(0x5D4594, 2487844 + 4 * nox_xxx_lightningTargetArrayIndex_5d4594_2487904) = nox_xxx_lightningTarget_5d4594_2487908;
 				nox_xxx_lightningTargetArrayIndex_5d4594_2487904 = v17 + 1;
 			}
 		}
 	}
-	if (nox_xxx_lightningSecondBounceTarget_5d4594_2487852) {
+	if (*getMemU32Ptr(0x5D4594, 2487852)) {
 		if (spellLevel > 4) {
 			// FIFTH level of magic allows TWO jump from main target and ONE from EACH secondary target
 			// OR one jump from main target and TWO consecutive jumps!!!
@@ -263,7 +259,7 @@ int  nox_xxx_onFrameLightning_52F8A0(float a1) {
 			range5 = lightningRange * lightningRange; // Is this intentional???
 			*(float*)&nox_xxx_lightningClosestTargetDistance_5d4594_2487912 = lightningRange * lightningRange;
 			range4 = lightningRange * 0.80000001;
-			nox_xxx_unitsGetInCircle_517F90((float2*)(nox_xxx_lightningSecondBounceTarget_5d4594_2487852 + 56), range4, nox_xxx_lightningCanAttackCheck_52FF10, *(int*)&nox_xxx_lightningSecondBounceTarget_5d4594_2487852);
+			nox_xxx_unitsGetInCircle_517F90((float2*)(*getMemU32Ptr(0x5D4594, 2487852) + 56), range4, nox_xxx_lightningCanAttackCheck_52FF10, *(int*)&*getMemU32Ptr(0x5D4594, 2487852));
 			if (nox_xxx_lightningTarget_5d4594_2487908) {
 				v18 = nox_xxx_lightningTargetArrayIndex_5d4594_2487904;
 				// THIS SETS 2487860 OR 2487856
@@ -275,32 +271,33 @@ int  nox_xxx_onFrameLightning_52F8A0(float a1) {
 
 	nox_xxx_lightningSpellDuration_52FFD0(source, *(_DWORD*)(source + 16), *getMemIntPtr(0x5D4594, 2487844));
 
-	if (spellLevel > 1 && nox_xxx_lightningFirstBounceTarget_5d4594_2487848)
-		nox_xxx_lightningSpellDuration_52FFD0(source, *getMemIntPtr(0x5D4594, 2487844), *(int*)&nox_xxx_lightningFirstBounceTarget_5d4594_2487848);
-
-	secondBounceTarget = nox_xxx_lightningSecondBounceTarget_5d4594_2487852;
-	if (spellLevel > 2 && nox_xxx_lightningSecondBounceTarget_5d4594_2487852) {
-		nox_xxx_lightningSpellDuration_52FFD0(source, *getMemIntPtr(0x5D4594, 2487844), *(int*)&nox_xxx_lightningSecondBounceTarget_5d4594_2487852);
-		secondBounceTarget = nox_xxx_lightningSecondBounceTarget_5d4594_2487852;
+	if (spellLevel > 1 && *getMemU32Ptr(0x5D4594, 2487848)) {
+		nox_xxx_lightningSpellDuration_52FFD0(source, *getMemIntPtr(0x5D4594, 2487844), *getMemU32Ptr(0x5D4594, 2487848));
 	}
 
-	if (spellLevel > 3 && nox_xxx_lightningBounceOfBounceTarget_5d4594_2487856) {
-		if (nox_xxx_lightningFirstBounceTarget_5d4594_2487848) {
-			nox_xxx_lightningSpellDuration_52FFD0(source, *(int*)&nox_xxx_lightningFirstBounceTarget_5d4594_2487848, *(int*)&nox_xxx_lightningBounceOfBounceTarget_5d4594_2487856);
+	secondBounceTarget = *getMemU32Ptr(0x5D4594, 2487852);
+	if (spellLevel > 2 && *getMemU32Ptr(0x5D4594, 2487852)) {
+		nox_xxx_lightningSpellDuration_52FFD0(source, *getMemIntPtr(0x5D4594, 2487844), *getMemU32Ptr(0x5D4594, 2487852));
+		secondBounceTarget = *getMemU32Ptr(0x5D4594, 2487852);
+	}
+
+	if (spellLevel > 3 && *getMemU32Ptr(0x5D4594, 2487856)) {
+		if (*getMemU32Ptr(0x5D4594, 2487848)) {
+			nox_xxx_lightningSpellDuration_52FFD0(source, *getMemU32Ptr(0x5D4594, 2487848), *getMemU32Ptr(0x5D4594, 2487856));
 		LABEL_54:
-			secondBounceTarget = nox_xxx_lightningSecondBounceTarget_5d4594_2487852;
+			secondBounceTarget = *getMemU32Ptr(0x5D4594, 2487852);
 			goto LABEL_55;
 		}
 		if (secondBounceTarget) {
-			nox_xxx_lightningSpellDuration_52FFD0(source, secondBounceTarget, *(int*)&nox_xxx_lightningBounceOfBounceTarget_5d4594_2487856);
+			nox_xxx_lightningSpellDuration_52FFD0(source, secondBounceTarget, *getMemU32Ptr(0x5D4594, 2487856));
 			goto LABEL_54;
 		}
 	}
-LABEL_55:
+	LABEL_55:
 	if (spellLevel > 4) {
 		// This is the fourth jump!!!
 		if (*getMemU32Ptr(0x5D4594, 2487860)) {
-			if (secondBounceTarget || (secondBounceTarget = nox_xxx_lightningFirstBounceTarget_5d4594_2487848) != 0)
+			if (secondBounceTarget || (secondBounceTarget = *getMemU32Ptr(0x5D4594, 2487848)) != 0)
 				nox_xxx_lightningSpellDuration_52FFD0(source, secondBounceTarget, *getMemIntPtr(0x5D4594, 2487860));
 		}
 	}
@@ -378,7 +375,7 @@ void  nox_xxx_lightningCanAttackCheck_52FF10(int target, int source) {
 	int owner;              // eax
 	int v3;              // ecx
 	int index;              // eax
-	unsigned __int8* targetPointer; // ecx
+	unsigned __int8* ptrTargetFromArray; // ecx
 	double xDistance;           // st7
 	double yDistance;           // st6
 	double distance;           // st5
@@ -409,7 +406,7 @@ void  nox_xxx_lightningCanAttackCheck_52FF10(int target, int source) {
 					ptrTargetFromArray = getMemAt(0x5D4594, 2487844);
 					while (*(_DWORD*)ptrTargetFromArray != target) {
 						++index;
-						targetPointer += 4;
+						ptrTargetFromArray += 4;
 						if (index >= *(int*)&nox_xxx_lightningTargetArrayIndex_5d4594_2487904)
 							goto LABEL_14;
 					}
@@ -419,25 +416,25 @@ void  nox_xxx_lightningCanAttackCheck_52FF10(int target, int source) {
 	}
 }
 //----- (0052FFD0) --------------------------------------------------------
-_DWORD*  nox_xxx_lightningSpellDuration_52FFD0(int a1, int a2, int a3) {
+_DWORD*  nox_xxx_lightningSpellDuration_52FFD0(int source, int from, int to) {
 	_DWORD* result; // eax
 	int v4;         // ecx
 	int v5;         // ecx
 
 	result = nox_xxx_newSpellDuration_4FE950();
 	if (result) {
-		result[12] = a3;
-		result[4] = a2;
+		result[12] = to;
+		result[4] = from;
 		result[1] = 7;
 		result[27] = 0;
 		result[26] = 0;
-		v4 = *(_DWORD*)(a1 + 108);
+		v4 = *(_DWORD*)(source + 108);
 		result[28] = 0;
 		result[29] = v4;
-		v5 = *(_DWORD*)(a1 + 108);
+		v5 = *(_DWORD*)(source + 108);
 		if (v5)
 			*(_DWORD*)(v5 + 112) = result;
-		*(_DWORD*)(a1 + 108) = result;
+		*(_DWORD*)(source + 108) = result;
 	}
 	return result;
 }
