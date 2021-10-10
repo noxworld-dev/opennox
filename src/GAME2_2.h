@@ -8,7 +8,7 @@ int sub_475F10(nox_draw_viewport_t* a1p);
 int sub_475FE0(nox_draw_viewport_t* a1p);
 int sub_476080(unsigned __int8* a1);
 int sub_476160(const void* a1, const void* a2);
-int sub_4761B0(int a1);
+int sub_4761B0(nox_drawable* a1p);
 int sub_476240(const void* a1, const void* a2);
 void sub_476270(nox_draw_viewport_t* a1p);
 int sub_4765F0(nox_draw_viewport_t* a1p);
