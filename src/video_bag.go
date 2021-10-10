@@ -42,7 +42,7 @@ func asImageP(p unsafe.Pointer) *Image {
 }
 
 func NewRawImage(typ int, data []byte) *Image {
-	return &Image{typ: typ, raw: data}
+	return &Image{typ: typ, raw: data, nocgo: true}
 }
 
 type Image struct {
@@ -51,6 +51,7 @@ type Image struct {
 	bag       *bag.ImageRec
 	raw       []byte
 	override  []byte
+	nocgo     bool
 	cdata     []byte
 	cfree     func()
 	field_1_0 uint16
@@ -73,6 +74,9 @@ func (img *Image) String() string {
 func (img *Image) C() *C.nox_video_bag_image_t {
 	if img == nil {
 		return nil
+	}
+	if img.nocgo {
+		panic("image not allowed in cgo context")
 	}
 	if img.h == nil {
 		img.h = handles.NewPtr()

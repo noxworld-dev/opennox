@@ -45,6 +45,7 @@ type particleOpt struct {
 type Particle struct {
 	r    *NoxRender
 	hnd  unsafe.Pointer
+	img  *Image
 	opt  particleOpt
 	data []byte // 16, 64
 }
@@ -64,6 +65,9 @@ func (p *Particle) Free() {
 	delete(p.r.particles.byHandle, p.hnd)
 	p.r = nil
 	p.hnd = nil
+	if p.img != nil && p.img.cfree != nil {
+		p.img.cfree()
+	}
 }
 
 //export sub_4B0680
@@ -92,6 +96,7 @@ func (r *NoxRender) newParticle(mul1, mul2 int) *Particle {
 	p := &Particle{r: r, opt: opt}
 	r.particles.byOpts[opt] = p
 	p.genImage()
+	p.img = NewRawImage(8, p.data)
 	return p
 }
 
@@ -182,8 +187,7 @@ func (p *Particle) genImage() {
 }
 
 func (p *Particle) DrawAt(pos types.Point) {
-	img := NewRawImage(8, p.data)
-	p.r.DrawImageAt(img, pos)
+	p.r.DrawImageAt(p.img, pos)
 }
 
 //export sub_4B6720
