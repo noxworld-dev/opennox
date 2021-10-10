@@ -106,10 +106,6 @@ func setMouseBounds(rect image.Rectangle) {
 	inpHandlerS.SetMouseBounds(rect)
 }
 
-func keymodShift() bool {
-	return inpHandlerS.KeyModShift()
-}
-
 func setKeyFlag(key keybind.Key, val bool) {
 	inpHandlerS.SetKeyFlag(key, val)
 }
@@ -130,7 +126,7 @@ func newSeat(sz types.Size) (seat.Seat, error) {
 	}
 	noxRendererS = r
 
-	inp := input.New(s, input.CheckerFunc(get_obj_5D4594_754104_switch))
+	inp := input.New(s, input.CheckerFunc(get_obj_5D4594_754104_switch), strMan.Lang())
 	inpHandlerS = inp
 
 	inp.OnQuit(mainloopStop)

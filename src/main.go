@@ -213,6 +213,9 @@ func runNox(args []string) (gerr error) {
 	isServer = *fAutoServer
 	isServerQuest = *fAutoQuest
 	serverExec = strings.Split(*fAutoExec, ";")
+	if err := strmanReadFile("nox.str"); err != nil {
+		return fmt.Errorf("failed to load strings file: %w", err)
+	}
 	if !*fServer && !*fNoDraw {
 		err := InitSeat(types.Size{W: noxDefaultWidth, H: noxDefaultHeight})
 		if err != nil {
@@ -345,10 +348,6 @@ func runNox(args []string) (gerr error) {
 	*memmap.PtrUint32(0x852978, 16) = gameFPS() / 2
 	C.nox_binfile_reset_4093A0()
 	C.nox_ensure_thing_bin()
-	// should be .csf but it works anyway
-	if err := strmanReadFile("nox.str"); err != nil {
-		return fmt.Errorf("failed to load strings file: %w", err)
-	}
 	if err := nox_common_scanAllMaps_4D07F0(); err != nil {
 		return fmt.Errorf("cannot find maps: %w", err)
 	}

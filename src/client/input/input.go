@@ -30,9 +30,10 @@ type Sequencer interface {
 var _ Sequencer = (*Handler)(nil)
 
 type Handler struct {
-	inp                seat.Input
-	m                  *mouseHandler
-	k                  *keyboardHandler
+	inp seat.Input
+	m   *mouseHandler
+	k   *keyboardHandler
+	textHandler
 	inputSeq           uint
 	nox_input_seq      uint
 	nox_input_seq_prev uint
@@ -40,10 +41,11 @@ type Handler struct {
 }
 
 // New creates a new input handler.
-func New(inp seat.Input, chk Checker) *Handler {
+func New(inp seat.Input, chk Checker, lang int) *Handler {
 	h := &Handler{inp: inp}
 	h.m = newMouseHandler(h, chk)
 	h.k = newKeyboardHandler(h, chk)
+	h.SetLanguage(lang)
 	inp.OnInput(h.InputEvent)
 	return h
 }
