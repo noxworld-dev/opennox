@@ -837,6 +837,7 @@ type inputCharMap struct {
 }
 
 var (
+	dword_5d4594_1193136 bool
 	dword_5d4594_1193140 bool
 	noxInputMap          map[keybind.Key]inputCharMap
 )
@@ -858,7 +859,7 @@ func nox_input_scanCodeToAlpha(inp *input.Handler, r keybind.Key) uint16 {
 	}
 	scrollLockStatus := inp.KeyModAlt() // TODO: why it uses RALT?
 	if r == keybind.KeyLShift || r == keybind.KeyRShift {
-		*memmap.PtrUint32(0x5D4594, 1193136) = uint32(bool2int(inp.IsPressed(r)))
+		dword_5d4594_1193136 = inp.IsPressed(r)
 		return 0
 	}
 	if r == keybind.KeyCaps {
@@ -878,7 +879,7 @@ func nox_input_scanCodeToAlpha(inp *input.Handler, r keybind.Key) uint16 {
 	if dword_5d4594_1193140 {
 		return str2u16(noxInputMap[r].ext)
 	}
-	if memmap.Uint32(0x5D4594, 1193136) != 0 || C.dword_5d4594_1193132 != 0 && C.iswalpha_go(C.wchar_t(str2u16(noxInputMap[r].lower))) {
+	if dword_5d4594_1193136 || C.dword_5d4594_1193132 != 0 && C.iswalpha_go(C.wchar_t(str2u16(noxInputMap[r].lower))) {
 		if scrollLockStatus {
 			return uint16(asc_9800B0[3*int(r)+264])
 		}
