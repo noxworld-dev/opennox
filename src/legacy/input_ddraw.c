@@ -290,11 +290,11 @@ void nox_xxx_initKeyboard_47FB10() {
 	}
 	else if ( *(_DWORD *)getMemAt(0x5D4594, 1193140) )
 	{
-	  result = *(_WORD *)getMemAt(0x5D4594, 6 * (unsigned __int8)a1 + 1191576);
+	  result = *(_WORD *)getMemAt(0x5D4594, 1191572 + 6*(unsigned __int8)a1 + 4);
 	}
 	else if ( *(_DWORD *)getMemAt(0x5D4594, 1193136)
 	   || *(_DWORD *)&dword_5d4594_1193132
-	   && iswalpha(*(_WORD *)getMemAt(0x5D4594, 6 * (unsigned __int8)a1 + 1191572)) )
+	   && iswalpha(*(_WORD *)getMemAt(0x5D4594, 1191572 + 6*(unsigned __int8)a1)) )
 	{
 
 	if (scrollLockStatus)
@@ -303,7 +303,7 @@ void nox_xxx_initKeyboard_47FB10() {
 	}
 	else
 	{
-	  result = *(_WORD *)getMemAt(0x5D4594, 6 * (unsigned __int8)a1 + 1191574);
+	  result = *(_WORD *)getMemAt(0x5D4594, 1191572 + 6*(unsigned __int8)a1 + 2);
 	}
 	}
 	else
@@ -314,7 +314,7 @@ void nox_xxx_initKeyboard_47FB10() {
 	}
 	else
 	{
-		result = *(_WORD *)getMemAt(0x5D4594, 6 * (unsigned __int8)a1 + 1191572);
+		result = *(_WORD *)getMemAt(0x5D4594, 1191572 + 6*(unsigned __int8)a1);
 	}
 	}
 	return result;

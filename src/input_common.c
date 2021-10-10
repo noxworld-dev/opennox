@@ -247,20 +247,20 @@ unsigned short nox_input_scanCodeToAlpha_47F950(unsigned short a1) {
 			*getMemU32Ptr(0x5D4594, 1193140) = nox_input_keyboardGetKeyState_430970(a1) == 2;
 			result = 0;
 		} else if (*getMemU32Ptr(0x5D4594, 1193140)) {
-			result = *getMemU16Ptr(0x5D4594, 1191576 + 6 * (unsigned __int8)a1);
+			result = *getMemU16Ptr(0x5D4594, 1191572 + 6*(unsigned __int8)a1 + 4);
 		} else if (*getMemU32Ptr(0x5D4594, 1193136) ||
-				   dword_5d4594_1193132 && iswalpha(*getMemU16Ptr(0x5D4594, 1191572 + 6 * (unsigned __int8)a1))) {
+				   dword_5d4594_1193132 && iswalpha(*getMemU16Ptr(0x5D4594, 1191572 + 6*(unsigned __int8)a1))) {
 
 			if (scrollLockStatus) {
 				result = asc_9800B0[3 * (unsigned __int8)a1 + 264];
 			} else {
-				result = *getMemU16Ptr(0x5D4594, 1191574 + 6 * (unsigned __int8)a1);
+				result = *getMemU16Ptr(0x5D4594, 1191572 + 6*(unsigned __int8)a1 + 2);
 			}
 		} else {
 			if (scrollLockStatus) {
 				result = asc_9800B0[3 * (unsigned __int8)a1];
 			} else {
-				result = *getMemU16Ptr(0x5D4594, 1191572 + 6 * (unsigned __int8)a1);
+				result = *getMemU16Ptr(0x5D4594, 1191572 + 6*(unsigned __int8)a1);
 			}
 		}
 		return result;
