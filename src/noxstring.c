@@ -141,6 +141,9 @@ int nox_vsnwprintf(wchar_t* buffer, size_t count, const wchar_t* format, va_list
 		case '%':
 			EMIT('%');
 			break;
+		case '!':
+			EMIT('!');
+			break;
 		default:
 			_dprintf("Unhandled format character: '%c'", ch);
 			abort();
@@ -268,6 +271,9 @@ int nox_vsnprintf(char* buffer, size_t count, const char* format, va_list ap) {
 		} break;
 		case '%':
 			EMIT('%');
+			break;
+		case '!':
+			EMIT('!');
 			break;
 		default:
 			_dprintf("Unhandled format character: '%c'", ch);
