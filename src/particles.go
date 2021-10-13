@@ -24,7 +24,7 @@ func (r *NoxRender) initParticles() {
 
 func (r *NoxRender) freeParticles() {
 	for _, it := range r.particles.byOpts {
-		it.maybeFree()
+		it.Free()
 	}
 }
 
@@ -46,7 +46,6 @@ type Particle struct {
 	r    *NoxRender
 	hnd  unsafe.Pointer
 	opt  particleOpt
-	refs int    // 4, 16
 	data []byte // 16, 64
 }
 
@@ -58,16 +57,13 @@ func (p *Particle) C() unsafe.Pointer {
 	return p.hnd
 }
 
-func (p *Particle) maybeFree() {
-	p.refs--
-	if p.refs < 0 {
-		alloc.FreeBytes(p.data)
-		p.data = nil
-		delete(p.r.particles.byOpts, p.opt)
-		delete(p.r.particles.byHandle, p.hnd)
-		p.r = nil
-		p.hnd = nil
-	}
+func (p *Particle) Free() {
+	alloc.FreeBytes(p.data)
+	p.data = nil
+	delete(p.r.particles.byOpts, p.opt)
+	delete(p.r.particles.byHandle, p.hnd)
+	p.r = nil
+	p.hnd = nil
 }
 
 //export sub_4B0680
@@ -86,7 +82,6 @@ func (r *NoxRender) newParticle(mul1, mul2 int) *Particle {
 		colorB: int(r.p.field_56),
 	}
 	if p := r.particles.byOpts[opt]; p != nil {
-		p.refs++
 		return p
 	}
 	p := &Particle{r: r, opt: opt}
