@@ -7932,104 +7932,60 @@ LABEL_9:
 }
 
 //----- (00474BE0) --------------------------------------------------------
-int  sub_474BE0(_DWORD* a1, int* a2, int a3, int a4, int a5, int a6, int a7, int a8) {
-	int* v8;    // ebp
-	int v9;     // esi
-	int v10;    // eax
-	int v11;    // edx
-	int v12;    // edi
-	int v13;    // eax
-	int v14;    // ecx
-	int v15;    // eax
-	int v16;    // edi
-	int v17;    // ebx
-	int v18;    // eax
-	int v19;    // ecx
-	int v20;    // eax
-	int v21;    // ecx
-	int v22;    // eax
-	int v23;    // eax
-	int result; // eax
-	float v25;  // [esp+0h] [ebp-2Ch]
-	float v26;  // [esp+0h] [ebp-2Ch]
-	float v27;  // [esp+0h] [ebp-2Ch]
-	float v28;  // [esp+0h] [ebp-2Ch]
-	int i;      // [esp+14h] [ebp-18h]
-	int2 v30;   // [esp+1Ch] [ebp-10h]
-	int2 v31;   // [esp+24h] [ebp-8h]
-	float v32;  // [esp+34h] [ebp+8h]
+void nox_client_drawXxxProtect_474BE0(nox_draw_viewport_t* vp, nox_point* pos, nox_drawable* dr, int phase, int eff, int cl1, int cl2, bool back) {
+	int a3 = dr;
+	for (int i = 0; i < 2; ++i) {
+		// Calculates positions of two points on a (possibly inclined) orbit.
+		// These two points are use to drop a tiny vector, where the head is the particle, and the line is a tail.
+		int ph1 = phase + 128 * i;
+		ph1 += (unsigned __int8)(10 * ((unsigned char)nox_frame_xxx_2598000 + *(_BYTE*)((int)a3 + 128)));
+		while (ph1 >= 256) {
+			ph1 -= 256;
+		}
 
-	v8 = a2;
-	v9 = a8;
-	for (i = 0; i < 2; ++i) {
-		if (i) {
-			v9 += 128;
-			if (v9 < 256)
-				goto LABEL_7;
+		int ph2 = ph1 - 6; // determines how long is the tail
+		if (ph2 < 0) {
+			ph2 += 256;
+		}
+
+		float rad = 0.70709997;
+		if (eff == 0) {
+			rad = 1.0;
+		}
+
+		nox_point part;
+		part.x = (double)pos->x + 2*rad * (double)(*getMemIntPtr(0x587000, 192088 + 8 * ph1));
+		part.y = (double)pos->y + 2*rad * (double)(*getMemIntPtr(0x587000, 192092 + 8 * ph1));
+
+		nox_point tail;
+		tail.x = (double)pos->x + 2*rad * (double)(*getMemIntPtr(0x587000, 192088 + 8 * ph2));
+		tail.y = (double)pos->y + 2*rad * (double)(*getMemIntPtr(0x587000, 192092 + 8 * ph2));
+
+		bool draw = false;
+		if (back) {
+			draw = part.y < pos->y;
 		} else {
-			v9 = a4 + (unsigned __int8)(10 * ((unsigned char)nox_frame_xxx_2598000 + *(_BYTE*)(a3 + 128)));
-			if (v9 < 256)
-				goto LABEL_7;
+			draw = part.y >= pos->y;
 		}
-		v9 -= 256;
-	LABEL_7:
-		v32 = 0.70709997;
-		if (!a5)
-			v32 = 1.0;
-		v25 = (double)(2 * *getMemIntPtr(0x587000, 192088 + 8 * v9)) * v32 + (double)*v8;
-		v10 = nox_float2int(v25);
-		v11 = *getMemIntPtr(0x587000, 192092 + 8 * v9);
-		v30.field_0 = v10;
-		v26 = (double)(2 * v11) * v32 + (double)v8[1];
-		v30.field_4 = nox_float2int(v26);
-		v12 = v9 - 6 + (v9 - 6 < 0 ? 0x100 : 0);
-		v27 = (double)(2 * *getMemIntPtr(0x587000, 192088 + 8 * v12)) * v32 + (double)*v8;
-		v13 = nox_float2int(v27);
-		v14 = *getMemIntPtr(0x587000, 192092 + 8 * v12);
-		v31.field_0 = v13;
-		v28 = (double)(2 * v14) * v32 + (double)v8[1];
-		v15 = nox_float2int(v28);
-		v16 = v30.field_4;
-		v17 = v15;
-		v18 = v8[1];
-		v19 = 0;
-		v31.field_4 = v17;
-		if (v30.field_4 >= v18)
-			goto LABEL_25;
-		if (a8 == 1)
-			v19 = 1;
-		if (v30.field_4 >= v18) {
-		LABEL_25:
-			if (!a8)
-				goto LABEL_24;
+		if (!draw) {
+			continue;
 		}
-		if (v19) {
-		LABEL_24:
-			if (a5 == 1) {
-				v20 = *v8;
-				v21 = v30.field_0;
-				goto LABEL_19;
-			}
-			if (a5 == 2) {
-				v20 = v30.field_0;
-				v21 = *v8;
-			LABEL_19:
-				v22 = 35 * (v20 - v21) / (2 * *getMemU32Ptr(0x587000, 192088));
-				v16 = v22 + v30.field_4;
-				v17 += v22;
-			}
-			v23 = *(__int16*)(a3 + 104);
-			v30.field_4 = -20 - v23 + v16;
-			v31.field_4 = -20 - v23 + v17;
-			sub_474DD0(a1, &v30, &v31, a6, a7);
+
+		int dy = 0;
+		if (eff == 1) {
+			dy = 35 * (pos->x - part.x) / (2 * *getMemIntPtr(0x587000, 192088));
+		} else if (eff == 2) {
+			dy = 35 * (part.x - pos->x) / (2 * *getMemIntPtr(0x587000, 192088));
 		}
-		result = i + 1;
+		dy -= 20 + (int)*(__int16*)((int)a3 + 104);
+		part.y += dy;
+		tail.y += dy;
+		nox_client_drawXxxProtectParticle_474DD0(vp, &part, &tail, cl1, cl2);
 	}
-	return result;
 }
 
 //----- (00474DD0) --------------------------------------------------------
-int  sub_474DD0(_DWORD* a1, int2* a2, int2* a3, int a4, int a5) {
+int  nox_client_drawXxxProtectParticle_474DD0(_DWORD* a1, int2* a2, int2* a3, int a4, int a5) {
 	int2 xLeft; // [esp+8h] [ebp-8h]
 
 	sub_4739E0(a1, a2, &xLeft);
