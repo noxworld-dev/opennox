@@ -1,4 +1,5 @@
-//+build !server
+//go:build !server
+// +build !server
 
 package main
 
@@ -33,6 +34,7 @@ import (
 	"nox/v1/common/datapath"
 	"nox/v1/common/maps"
 	"nox/v1/common/memmap"
+	"nox/v1/common/types"
 )
 
 func drawAndPresent() {
@@ -259,11 +261,10 @@ func generateMouseSparks(inp *input.Handler) {
 			for i := explosionSparks; i > 0; i-- {
 				v12 := randomIntMinMax(0, 255)
 				v13 := randomIntMinMax(6, 12)
-				v14 := v13 * int(memmap.Int32(0x587000, 192088+8*uintptr(v12)))
-				v15 := v13*int(memmap.Int32(0x587000, 192092+8*uintptr(v12)))/16 - 6
+				pos := sincosTable16[v12].Mul(v13).Div(16).Add(types.Point{Y: -6})
 				v24 := randomIntMinMax(2, 5)
 				v16 := randomIntMinMax(2, 5)
-				C.nox_client_newScreenParticle_431540(4, C.int(v14/16+mpos.X), C.int(mpos.Y+v15), C.int(v14/16), C.int(v15), 1, C.char(v16), C.char(v24), 2, 1)
+				C.nox_client_newScreenParticle_431540(4, C.int(pos.X+mpos.X), C.int(pos.Y+mpos.Y), C.int(pos.X), C.int(pos.Y), 1, C.char(v16), C.char(v24), 2, 1)
 			}
 		}
 	} else {

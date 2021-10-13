@@ -115,6 +115,13 @@ func (vp *Viewport) C() *C.nox_draw_viewport_t {
 	return (*C.nox_draw_viewport_t)(unsafe.Pointer(vp))
 }
 
+func (vp *Viewport) toScreenPos(pos types.Point) types.Point { // sub_4739E0
+	return pos.Add(types.Point{
+		X: int(vp.x1) - int(vp.field_4),
+		Y: int(vp.y1) - int(vp.field_5),
+	})
+}
+
 func nox_xxx_guiFontHeightMB_43F320(a1 int) int {
 	return int(C.nox_xxx_guiFontHeightMB_43F320(C.int(a1)))
 }
@@ -325,6 +332,14 @@ func NewNoxRender() *NoxRender {
 	return r
 }
 
+func (r *NoxRender) shouldDrawGlow() bool {
+	return C.nox_client_renderGlow_805852 != 0
+}
+
+func (r *NoxRender) Frame() uint32 {
+	return gameFrame()
+}
+
 func (r *NoxRender) SetData(p *C.nox_render_data_t) {
 	r.p = p
 }
@@ -358,12 +373,60 @@ func (r *NoxRender) SetColor2(a1 uint32) { // nox_client_drawSetColor_434460
 	r.p.field_61 = C.uint(a1)
 }
 
+func (r *NoxRender) sub434080(a1 int) { // sub_434080
+	r.p.field_262 = C.uint(a1)
+}
+
 func (r *NoxRender) GetLightColor() NoxLight { // sub_434A10
 	return NoxLight{
 		R: int(r.p.field_62),
 		G: int(r.p.field_63),
 		B: int(r.p.field_64),
 	}
+}
+
+func (r *NoxRender) sub49EFA0(pos types.Point) { // sub_49EFA0
+	C.sub_49EFA0(C.int(pos.X), C.int(pos.Y))
+}
+
+func (r *NoxRender) DrawPoint(pos types.Point, rad int) { // nox_xxx_drawPointMB_499B70
+	switch rad {
+	case 0, 1:
+		r.sub49EFA0(pos)
+	case 2:
+		r.DrawRectFilledOpaque(pos.X, pos.Y, 2, 2)
+	case 3:
+		r.sub49EFA0(pos.Add(types.Point{Y: -1}))
+		r.DrawRectFilledOpaque(pos.X-1, pos.Y, 3, 1)
+		r.sub49EFA0(pos.Add(types.Point{Y: +1}))
+	case 4:
+		r.DrawRectFilledOpaque(pos.X, pos.Y-1, 2, 1)
+		r.DrawRectFilledOpaque(pos.X-1, pos.Y, 4, 2)
+		r.DrawRectFilledOpaque(pos.X, pos.Y+2, 2, 1)
+	case 5:
+		r.DrawRectFilledOpaque(pos.X-1, pos.Y-2, 3, 1)
+		r.DrawRectFilledOpaque(pos.X-2, pos.Y-1, 5, 3)
+		r.DrawRectFilledOpaque(pos.X-1, pos.Y+2, 3, 1)
+	case 6:
+		r.DrawRectFilledOpaque(pos.X, pos.Y-2, 2, 1)
+		r.DrawRectFilledOpaque(pos.X-1, pos.Y-1, 4, 1)
+		r.DrawRectFilledOpaque(pos.X-2, pos.Y, 6, 2)
+		r.DrawRectFilledOpaque(pos.X-1, pos.Y+2, 4, 1)
+		r.DrawRectFilledOpaque(pos.X, pos.Y+3, 2, 1)
+	default:
+		C.sub_4B0BC0(C.int(pos.X), C.int(pos.Y), C.int(rad/2))
+	}
+}
+
+func (r *NoxRender) nox_client_drawAddPoint_49F500(pos types.Point) {
+	C.nox_client_drawAddPoint_49F500(C.int(pos.X), C.int(pos.Y))
+}
+
+func (r *NoxRender) DrawLineFromPoints(arr ...types.Point) { // nox_client_drawLineFromPoints_49E4B0
+	for _, p := range arr {
+		r.nox_client_drawAddPoint_49F500(p)
+	}
+	C.nox_client_drawLineFromPoints_49E4B0()
 }
 
 func (r *NoxRender) DrawRectFilledOpaque(x, y, w, h int) { // nox_client_drawRectFilledOpaque_49CE30

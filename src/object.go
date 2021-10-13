@@ -26,6 +26,13 @@ func asPointf(p unsafe.Pointer) types.Pointf {
 		Y: float32(cp.field_4),
 	}
 }
+func asPoint(p unsafe.Pointer) types.Point {
+	cp := (*C.nox_point)(p)
+	return types.Point{
+		X: int(cp.x),
+		Y: int(cp.y),
+	}
+}
 func asObject(p unsafe.Pointer) *Object {
 	return (*Object)(p)
 }

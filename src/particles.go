@@ -4,7 +4,6 @@ package main
 #include "defs.h"
 #include "client__video__draw_common.h"
 #include "GAME1_2.h"
-extern unsigned int nox_client_renderGlow_805852;
 */
 import "C"
 import (
@@ -192,11 +191,151 @@ func (p *Particle) DrawAt(pos types.Point) {
 
 //export sub_4B6720
 func sub_4B6720(a1 *C.int2, a2, a3 C.int, a4 C.char) {
-	if C.nox_client_renderGlow_805852 != 0 {
-		C.sub_434040(a2)
-		C.sub_434080(a3 + 4)
-		pos := types.Point{X: int(a1.field_0), Y: int(a1.field_4)}
-		p := noxrend.newParticle(0, int(32*byte(a4)))
-		p.DrawAt(pos)
+	noxrend.DrawGlow(asPoint(unsafe.Pointer(a1)), uint32(a2), int(a3), byte(a4))
+}
+
+func (r *NoxRender) DrawGlow(pos types.Point, cl uint32, a3 int, a4 byte) { // sub_4B6720
+	if !r.shouldDrawGlow() {
+		return
 	}
+	C.sub_434040(C.int(cl))
+	r.sub434080(a3 + 4)
+	p := r.newParticle(0, int(32*byte(a4)))
+	p.DrawAt(pos)
+}
+
+//export nox_client_drawXxxProtect_474BE0
+func nox_client_drawXxxProtect_474BE0(vp *C.nox_draw_viewport_t, pos *C.nox_point, dr *C.nox_drawable, phase, eff C.int, cl1, cl2 C.int, back C.bool) {
+	opts := ProtectEffect{
+		Cnt:       2,
+		Height:    20,
+		Speed:     10,
+		Phase:     int(phase),
+		Radius:    1.0,
+		TailLeng:  6,
+		GlowColor: uint32(cl1),
+		TailColor: uint32(cl2),
+	}
+	switch eff {
+	case 1:
+		opts.Radius = 0.70709997
+		opts.Angle = +35
+	case 2:
+		opts.Radius = 0.70709997
+		opts.Angle = -35
+	}
+	noxrend.drawProtectEffect(asViewport(vp), asPoint(unsafe.Pointer(pos)), asDrawable(dr), opts, bool(back))
+}
+
+type ProtectEffect struct {
+	Cnt       int
+	Height    int
+	Speed     int
+	Radius    float32
+	Angle     int
+	Phase     int
+	TailLeng  int
+	GlowColor uint32
+	TailColor uint32
+}
+
+func intAngle(val, min, max int) int {
+	sz := max - min
+	for val < min {
+		val += sz
+	}
+	for val >= max {
+		val -= sz
+	}
+	return val
+}
+
+func (r *NoxRender) drawProtectEffect(vp *Viewport, pos types.Point, dr *Drawable, opts ProtectEffect, back bool) { // nox_client_drawXxxProtect
+	frame := r.Frame()
+	phi := opts.Phase + opts.Speed*int(byte(frame)+*(*byte)(dr.field(128)))
+	for i := 0; i < opts.Cnt; i++ {
+		// Calculate positions of two points on a (possibly inclined) orbit.
+		// These two points are used to draw a tiny vector, where the head is the particle, and the line is a tail.
+		ph1 := phi + (256/opts.Cnt)*i
+		ph2 := ph1 - opts.TailLeng
+
+		ph1 = intAngle(ph1, 0, 256)
+		ph2 = intAngle(ph2, 0, 256)
+
+		rad := opts.Radius
+		part := types.Point{
+			X: int(2 * rad * float32(sincosTable16[ph1].X)),
+			Y: int(2 * rad * float32(sincosTable16[ph1].Y)),
+		}
+
+		draw := false
+		if back {
+			draw = part.Y < pos.Y
+		} else {
+			draw = part.Y >= pos.Y
+		}
+		if !draw {
+			continue
+		}
+		tail := types.Point{
+			X: int(2 * rad * float32(sincosTable16[ph2].X)),
+			Y: int(2 * rad * float32(sincosTable16[ph2].Y)),
+		}
+		part = part.Add(pos)
+		tail = tail.Add(pos)
+
+		dy := opts.Angle * (pos.X - part.X) / (2 * sincosTable16[0].X)
+		dy -= opts.Height + int(*(*int16)(dr.field(104)))
+		part.Y += dy
+		tail.Y += dy
+		r.drawProtectParticle(vp, part, tail, opts.GlowColor, opts.TailColor)
+	}
+}
+
+func (r *NoxRender) drawProtectParticle(vp *Viewport, part, tail types.Point, partCl, tailCl uint32) { // nox_client_drawXxxProtectParticle_474DD0
+	part = vp.toScreenPos(part)
+	tail = vp.toScreenPos(tail)
+
+	r.DrawGlow(part, partCl, 10, 12)
+	r.SetColor2(tailCl)
+	r.DrawPoint(part, 3)
+
+	r.SetColor2(tailCl)
+	r.DrawLineFromPoints(part, tail)
+}
+
+// sincosTable16 assumes circle radius of 16, and expects an angle in range [0,256).
+var sincosTable16 = []types.Point{
+	{16, 0}, {16, 0}, {16, 1}, {16, 1}, {16, 2}, {16, 2}, {16, 2}, {16, 3},
+	{16, 3}, {16, 4}, {16, 4}, {15, 4}, {15, 5}, {15, 5}, {15, 5}, {15, 6},
+	{15, 6}, {15, 6}, {14, 7}, {14, 7}, {14, 8}, {14, 8}, {14, 8}, {14, 9},
+	{13, 9}, {13, 9}, {13, 10}, {13, 10}, {12, 10}, {12, 10}, {12, 11}, {12, 11},
+	{11, 11}, {11, 12}, {11, 12}, {10, 12}, {10, 12}, {10, 13}, {10, 13}, {9, 13},
+	{9, 13}, {9, 14}, {8, 14}, {8, 14}, {8, 14}, {7, 14}, {7, 14}, {6, 15},
+	{6, 15}, {6, 15}, {5, 15}, {5, 15}, {5, 15}, {4, 15}, {4, 16}, {4, 16},
+	{3, 16}, {3, 16}, {2, 16}, {2, 16}, {2, 16}, {1, 16}, {1, 16}, {0, 16},
+	{0, 16}, {0, 16}, {0, 16}, {0, 16}, {-1, 16}, {-1, 16}, {-1, 16}, {-2, 16},
+	{-2, 16}, {-3, 16}, {-3, 16}, {-3, 15}, {-4, 15}, {-4, 15}, {-4, 15}, {-5, 15},
+	{-5, 15}, {-5, 15}, {-6, 14}, {-6, 14}, {-7, 14}, {-7, 14}, {-7, 14}, {-8, 14},
+	{-8, 13}, {-8, 13}, {-9, 13}, {-9, 13}, {-9, 12}, {-9, 12}, {-10, 12}, {-10, 12},
+	{-10, 11}, {-11, 11}, {-11, 11}, {-11, 10}, {-11, 10}, {-12, 10}, {-12, 10}, {-12, 9},
+	{-12, 9}, {-13, 9}, {-13, 8}, {-13, 8}, {-13, 8}, {-13, 7}, {-13, 7}, {-14, 6},
+	{-14, 6}, {-14, 6}, {-14, 5}, {-14, 5}, {-14, 5}, {-14, 4}, {-15, 4}, {-15, 4},
+	{-15, 3}, {-15, 3}, {-15, 2}, {-15, 2}, {-15, 2}, {-15, 1}, {-15, 1}, {-15, 0},
+	{-15, 0}, {-15, 0}, {-15, 0}, {-15, 0}, {-15, -1}, {-15, -1}, {-15, -1}, {-15, -2},
+	{-15, -2}, {-15, -3}, {-15, -3}, {-14, -3}, {-14, -4}, {-14, -4}, {-14, -4}, {-14, -5},
+	{-14, -5}, {-14, -5}, {-13, -6}, {-13, -6}, {-13, -7}, {-13, -7}, {-13, -7}, {-13, -8},
+	{-12, -8}, {-12, -8}, {-12, -9}, {-12, -9}, {-11, -9}, {-11, -9}, {-11, -10}, {-11, -10},
+	{-10, -10}, {-10, -11}, {-10, -11}, {-9, -11}, {-9, -11}, {-9, -12}, {-9, -12}, {-8, -12},
+	{-8, -12}, {-8, -13}, {-7, -13}, {-7, -13}, {-7, -13}, {-6, -13}, {-6, -13}, {-5, -14},
+	{-5, -14}, {-5, -14}, {-4, -14}, {-4, -14}, {-4, -14}, {-3, -14}, {-3, -15}, {-3, -15},
+	{-2, -15}, {-2, -15}, {-1, -15}, {-1, -15}, {-1, -15}, {0, -15}, {0, -15}, {0, -15},
+	{0, -15}, {0, -15}, {1, -15}, {1, -15}, {2, -15}, {2, -15}, {2, -15}, {3, -15},
+	{3, -15}, {4, -15}, {4, -15}, {4, -14}, {5, -14}, {5, -14}, {5, -14}, {6, -14},
+	{6, -14}, {6, -14}, {7, -13}, {7, -13}, {8, -13}, {8, -13}, {8, -13}, {9, -13},
+	{9, -12}, {9, -12}, {10, -12}, {10, -12}, {10, -11}, {10, -11}, {11, -11}, {11, -11},
+	{11, -10}, {12, -10}, {12, -10}, {12, -9}, {12, -9}, {13, -9}, {13, -9}, {13, -8},
+	{13, -8}, {14, -8}, {14, -7}, {14, -7}, {14, -7}, {14, -6}, {14, -6}, {15, -5},
+	{15, -5}, {15, -5}, {15, -4}, {15, -4}, {15, -4}, {15, -3}, {16, -3}, {16, -3},
+	{16, -2}, {16, -2}, {16, -1}, {16, -1}, {16, -1}, {16, 0}, {16, 0}, {16, 0},
 }

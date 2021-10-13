@@ -7931,6 +7931,7 @@ LABEL_9:
 	return 0;
 }
 
+#ifndef NOX_CGO
 //----- (00474BE0) --------------------------------------------------------
 void nox_client_drawXxxProtect_474BE0(nox_draw_viewport_t* vp, nox_point* pos, nox_drawable* dr, int phase, int eff, int cl1, int cl2, bool back) {
 	int a3 = dr;
@@ -7999,7 +8000,6 @@ int  nox_client_drawXxxProtectParticle_474DD0(_DWORD* a1, int2* a2, int2* a3, in
 	return nox_client_drawLineFromPoints_49E4B0();
 }
 
-#ifndef NOX_CGO
 //----- (004754C0) --------------------------------------------------------
 void nox_xxx_drawList1096512_Append_4754C0(void* p) {
 	if (nox_client_wallsYyy_cnt_1096516 < 256) {
