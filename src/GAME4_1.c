@@ -5513,7 +5513,10 @@ int  sub_513280(int a1, int* a2) {
 }
 
 //----- (00513390) --------------------------------------------------------
-__int16  nox_xxx_enchantUnit_513390(int a1, int* a2) { return nox_xxx_buffApplyTo_4FF380(a1, *a2, a2[1], 5); }
+__int16  nox_xxx_enchantUnit_513390(int a1, int* a2) {
+	nox_xxx_buffApplyTo_4FF380(a1, *a2, a2[1], 5);
+	return 0;
+}
 
 //----- (00514110) --------------------------------------------------------
 void nox_xxx_monsterWalkTo_514110(nox_object_t* obj, float x, float y) {

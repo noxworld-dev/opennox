@@ -135,7 +135,7 @@ char* nox_xxx_netStartDurationRaySpell_4FF130(int a1);
 int sub_4FF2D0(int a1, int a2);
 void sub_4FF310(int a1);
 BOOL nox_xxx_testUnitBuffs_4FF350(int a1, char a2);
-__int16 nox_xxx_buffApplyTo_4FF380(nox_object_t* unit, int a2, __int16 a3, char a4);
+void nox_xxx_buffApplyTo_4FF380(nox_object_t* unit, int a2, __int16 a3, char a4);
 int nox_xxx_unitGetBuffTimer_4FF550(int a1, int a2);
 char nox_xxx_buffGetPower_4FF570(int a1, int a2);
 int nox_xxx_unitClearBuffs_4FF580(int a1);

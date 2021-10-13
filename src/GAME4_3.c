@@ -6913,7 +6913,7 @@ __int16  nox_xxx_warcryStunMonsters_539B90(int a1, int a2) {
 		result = a1;
 		if (a1) {
 			if (*(_BYTE*)(a1 + 8) & 2 && *(_DWORD*)(a1 + 12) & 0x20000 && !(*(_DWORD*)(a1 + 16) & 0x8020))
-				result = nox_xxx_buffApplyTo_4FF380(a1, 5, 90, 3);
+				nox_xxx_buffApplyTo_4FF380(a1, 5, 90, 3);
 		}
 	}
 	return result;

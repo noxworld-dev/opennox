@@ -1411,7 +1411,7 @@ __int16  nox_xxx_playerRespawn_4F7EF0(int a1) {
 			}
 			v1 = (char*)nox_common_gameFlags_check_40A5C0(0x2000);
 			if (v1)
-				LOWORD(v1) = nox_xxx_buffApplyTo_4FF380(a1, 23, 5 * (_WORD)nox_gameFPS, 5);
+				nox_xxx_buffApplyTo_4FF380(a1, 23, 5 * (_WORD)nox_gameFPS, 5);
 		}
 	}
 	return (__int16)v1;
@@ -5789,7 +5789,7 @@ BOOL  nox_xxx_testUnitBuffs_4FF350(int a1, char a2) {
 }
 
 //----- (004FF380) --------------------------------------------------------
-__int16  nox_xxx_buffApplyTo_4FF380(nox_object_t* unit, int a2, __int16 a3, char a4) {
+void nox_xxx_buffApplyTo_4FF380(nox_object_t* unit, int a2, __int16 a3, char a4) {
 	int a1 = unit;
 	int v4; // eax
 	int v5; // eax
@@ -5837,7 +5837,6 @@ __int16  nox_xxx_buffApplyTo_4FF380(nox_object_t* unit, int a2, __int16 a3, char
 			}
 		}
 	}
-	return v4;
 }
 
 //----- (004FF550) --------------------------------------------------------
