@@ -259,6 +259,11 @@ func sub_43AF30() uint32 {
 	return uint32(C.dword_5d4594_815052)
 }
 
+//export nox_xxx_set_god_4EF500
+func nox_xxx_set_god_4EF500(v C.int) {
+	serverCheatGod(v != 0)
+}
+
 var srvReg struct {
 	cur xwisInfoShort
 	srv *discover.RegServer

@@ -783,6 +783,7 @@ int nox_cmd_set_save_debug(int tokInd, int tokCnt, wchar_t** tokens) {
 	return 1;
 }
 
+#ifndef NOX_CGO
 //----- (00442410) --------------------------------------------------------
 int nox_cmd_set_god(int tokInd, int tokCnt, wchar_t** tokens) {
 	if (!nox_common_gameFlags_check_40A5C0(4096)) {
@@ -801,6 +802,7 @@ int nox_cmd_unset_god(int tokInd, int tokCnt, wchar_t** tokens) {
 	nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, s);
 	return 1;
 }
+#endif // NOX_CGO
 //----- (00442480) --------------------------------------------------------
 int nox_cmd_set_sage(int tokInd, int tokCnt, wchar_t** tokens) {
 	if (!nox_common_gameFlags_check_40A5C0(4096)) {

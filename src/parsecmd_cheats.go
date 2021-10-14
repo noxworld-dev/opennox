@@ -4,6 +4,7 @@ import (
 	"strconv"
 
 	"nox/v1/client/system/parsecmd"
+	noxflags "nox/v1/common/flags"
 )
 
 func init() {
@@ -64,6 +65,40 @@ func init() {
 			Flags:  parsecmd.Server | parsecmd.Cheat,
 			Func:   noxCheatGold,
 		},
+		&parsecmd.Command{
+			Token:  "god",
+			HelpID: "setgodhelp",
+			Flags:  parsecmd.Server | parsecmd.Cheat,
+			Func: func(c *parsecmd.Console, tokens []string) bool {
+				return noxCmdSetBool(c, tokens, func(enable bool) {
+					serverCheatInvincible(enable)
+					if enable {
+						str := strMan.GetStringInFile("godset", "parsecmd.c")
+						c.Printf(parsecmd.ColorLightYellow, str)
+					} else {
+						str := strMan.GetStringInFile("godunset", "parsecmd.c")
+						c.Printf(parsecmd.ColorLightYellow, str)
+					}
+				})
+			},
+		},
+	)
+	// legacy cheats from set and unset categories
+	noxCmdSet.Sub = append(noxCmdSet.Sub,
+		&parsecmd.Command{
+			Token:  "god",
+			HelpID: "setgodhelp",
+			Flags:  parsecmd.Server | parsecmd.Cheat,
+			Func:   noxCheatSetGod,
+		},
+	)
+	noxCmdUnSet.Sub = append(noxCmdUnSet.Sub,
+		&parsecmd.Command{
+			Token:  "god",
+			HelpID: "unsetgodhelp",
+			Flags:  parsecmd.Server,
+			Func:   noxCheatUnsetGod,
+		},
 	)
 }
 
@@ -81,6 +116,43 @@ func noxCheatGold(c *parsecmd.Console, tokens []string) bool {
 	}
 	c.Printf(parsecmd.ColorLightYellow, "added %d gold to all players", v)
 	return true
+}
+
+func serverCheatInvincible(enable bool) {
+	if noxflags.HasGame(noxflags.GameModeSolo12) {
+		if enable {
+			setEngineFlag(NOX_ENGINE_FLAG_ADMIN | NOX_ENGINE_FLAG_GODMODE)
+		} else {
+			resetEngineFlag(NOX_ENGINE_FLAG_ADMIN | NOX_ENGINE_FLAG_GODMODE)
+		}
+	}
+}
+
+func noxCheatSetGod(c *parsecmd.Console, tokens []string) bool {
+	if !noxflags.HasGame(noxflags.GameModeQuest) {
+		serverCheatGod(true)
+		str := strMan.GetStringInFile("godset", "parsecmd.c")
+		c.Printf(parsecmd.ColorRed, str)
+	}
+	return true
+}
+
+func noxCheatUnsetGod(c *parsecmd.Console, tokens []string) bool {
+	serverCheatGod(false)
+	str := strMan.GetStringInFile("godunset", "parsecmd.c")
+	c.Printf(parsecmd.ColorRed, str)
+	return true
+}
+
+func serverCheatGod(enable bool) {
+	if noxflags.HasGame(noxflags.GameModeSolo12) {
+		serverCheatInvincible(enable)
+		for _, p := range getPlayers() {
+			nox_xxx_spellAwardAll1_4EFD80(p)
+			nox_xxx_spellAwardAll2_4EFC80(p)
+			nox_xxx_spellAwardAll3_4EFE10(p)
+		}
+	}
 }
 
 func noxCmdSetBool(c *parsecmd.Console, tokens []string, fnc func(v bool)) bool {

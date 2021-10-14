@@ -25,8 +25,6 @@ int nox_cmd_show_mmx(int, int, wchar_t**);
 int nox_cmd_load(int, int, wchar_t**);
 int nox_cmd_set_obs(int, int, wchar_t**);
 int nox_cmd_set_save_debug(int, int, wchar_t**);
-int nox_cmd_set_god(int, int, wchar_t**);
-int nox_cmd_unset_god(int, int, wchar_t**);
 int nox_cmd_set_sage(int, int, wchar_t**);
 int nox_cmd_unset_sage(int, int, wchar_t**);
 int nox_cmd_set_cycle(int, int, wchar_t**);
@@ -180,7 +178,6 @@ var (
 		{Token: "armor", HelpID: "setarmorhelp", Flags: parsecmd.Server, LegacyFunc: wrapCommandC(nox_cmd_set_armor)},
 		{Token: "cycle", HelpID: "setcyclehelp", Flags: parsecmd.Server, LegacyFunc: wrapCommandC(nox_cmd_set_cycle)},
 		{Token: "frameratelimiter", HelpID: "setfrhelp", Flags: parsecmd.Server | parsecmd.Cheat, LegacyFunc: wrapCommandC(nox_cmd_set_fr)},
-		{Token: "god", HelpID: "setgodhelp", Flags: parsecmd.Server | parsecmd.Cheat, LegacyFunc: wrapCommandC(nox_cmd_set_god)},
 		{Token: "lessons", HelpID: "setlessonshelp", Flags: parsecmd.Server, LegacyFunc: wrapCommandC(nox_cmd_set_lessons)},
 		{Token: "monsters", HelpID: "setmnstrshelp", Flags: parsecmd.Server | parsecmd.Cheat, LegacyFunc: wrapCommandC(nox_cmd_set_mnstrs)},
 		{Token: "name", HelpID: "setnamehelp", Flags: parsecmd.Server, LegacyFunc: wrapCommandC(nox_cmd_set_name)},
@@ -207,6 +204,11 @@ var (
 		{Token: "team", HelpID: "officialonly", Flags: parsecmd.Server | parsecmd.Cheat | parsecmd.FlagDedicated, LegacyFunc: wrapCommandC(nox_cmd_offonly1)},
 		{Token: "mode", HelpID: "officialonly", Flags: parsecmd.Server | parsecmd.Cheat | parsecmd.FlagDedicated, LegacyFunc: wrapCommandC(nox_cmd_offonly2)},
 	}}
+	noxCmdUnSet = &parsecmd.Command{Token: "unset", HelpID: "unsethelp", Flags: parsecmd.ClientServer, Sub: []*parsecmd.Command{
+		{Token: "frameratelimiter", HelpID: "unsetfrhelp", Flags: parsecmd.Server, LegacyFunc: wrapCommandC(nox_cmd_unset_fr)},
+		{Token: "netdebug", HelpID: "unsetnetdebug", Flags: parsecmd.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_unset_net_debug)},
+		{Token: "sage", HelpID: "unsetsagehelp", Flags: parsecmd.Server, LegacyFunc: wrapCommandC(nox_cmd_unset_sage)},
+	}}
 	noxCmdShow = &parsecmd.Command{Token: "show", HelpID: "showhelp", Flags: parsecmd.ClientServer, Sub: []*parsecmd.Command{
 		{Token: "bindings", HelpID: "showbindingshelp", Flags: parsecmd.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_show_bindings)},
 		{Token: "game", HelpID: "showgamehelp", Flags: parsecmd.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_show_game)},
@@ -232,6 +234,7 @@ var (
 	noxCommands = []*parsecmd.Command{
 		noxCmdList,
 		noxCmdSet,
+		noxCmdUnSet,
 		noxCmdShow,
 		noxCmdCheat,
 		{Token: "allow", HelpID: "allowhelp", Flags: parsecmd.Server, Sub: []*parsecmd.Command{
@@ -280,12 +283,6 @@ var (
 		}},
 		{Token: "say", HelpID: "sayhelp", Flags: parsecmd.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_say)},
 		{Token: "sysop", HelpID: "nohelp", Flags: parsecmd.ClientServer | parsecmd.NoHelp, LegacyFunc: wrapCommandC(nox_cmd_sysop)},
-		{Token: "unset", HelpID: "unsethelp", Flags: parsecmd.ClientServer, Sub: []*parsecmd.Command{
-			{Token: "god", HelpID: "unsetgodhelp", Flags: parsecmd.Server, LegacyFunc: wrapCommandC(nox_cmd_unset_god)},
-			{Token: "frameratelimiter", HelpID: "unsetfrhelp", Flags: parsecmd.Server, LegacyFunc: wrapCommandC(nox_cmd_unset_fr)},
-			{Token: "netdebug", HelpID: "unsetnetdebug", Flags: parsecmd.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_unset_net_debug)},
-			{Token: "sage", HelpID: "unsetsagehelp", Flags: parsecmd.Server, LegacyFunc: wrapCommandC(nox_cmd_unset_sage)},
-		}},
 		{Token: "unmute", HelpID: "unmutehelp", Flags: parsecmd.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_unmute)},
 		{Token: "unbind", HelpID: "unbindHelp", Flags: parsecmd.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_unbind)},
 		{Token: "unlock", HelpID: "unlockhelp", Flags: parsecmd.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_unlock)},
@@ -336,12 +333,6 @@ func nox_cmd_set_obs(i C.int, n C.int, arr **C.wchar_t) C.int {
 }
 func nox_cmd_set_save_debug(i C.int, n C.int, arr **C.wchar_t) C.int {
 	return C.nox_cmd_set_save_debug(i, n, arr)
-}
-func nox_cmd_set_god(i C.int, n C.int, arr **C.wchar_t) C.int {
-	return C.nox_cmd_set_god(i, n, arr)
-}
-func nox_cmd_unset_god(i C.int, n C.int, arr **C.wchar_t) C.int {
-	return C.nox_cmd_unset_god(i, n, arr)
 }
 func nox_cmd_set_sage(i C.int, n C.int, arr **C.wchar_t) C.int {
 	return C.nox_cmd_set_sage(i, n, arr)

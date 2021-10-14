@@ -9363,6 +9363,7 @@ void  sub_4EF410(int a1, unsigned __int8 a2) {
 		sub_57AF30(a1, 0);
 }
 
+#ifndef NOX_CGO
 //----- (004EF500) --------------------------------------------------------
 void nox_xxx_set_god_4EF500(int a1) {
 	if (nox_common_gameFlags_check_40A5C0(2048)) {
@@ -9373,13 +9374,14 @@ void nox_xxx_set_god_4EF500(int a1) {
 		}
 		char* result = nox_common_playerInfoGetFirst_416EA0();
 		for (int i = (int)result; result; i = (int)result) {
-			nox_xxx_spellAdward_4EFD80(i);
-			nox_xxx_spellAdward_4EFC80(i);
-			nox_xxx_spellAdward_4EFE10(i);
+			nox_xxx_spellAwardAll1_4EFD80(i);
+			nox_xxx_spellAwardAll2_4EFC80(i);
+			nox_xxx_spellAwardAll3_4EFE10(i);
 			result = nox_common_playerInfoGetNext_416EE0(i);
 		}
 	}
 }
+#endif // NOX_CGO
 
 //----- (004EF580) --------------------------------------------------------
 char nox_xxx_getRespawnWeaponFlags_4EF580() {
@@ -9622,7 +9624,8 @@ int  nox_xxx_netSendPlayerRespawn_4EFC30(int a1, char a2) {
 }
 
 //----- (004EFC80) --------------------------------------------------------
-int  nox_xxx_spellAdward_4EFC80(int a1) {
+int  nox_xxx_spellAwardAll2_4EFC80(nox_playerInfo* a1p) {
+	int a1 = a1p;
 	int v1;     // edi
 	_DWORD* v2; // ebx
 	char v3;    // al
@@ -9656,7 +9659,8 @@ int  nox_xxx_spellAdward_4EFC80(int a1) {
 }
 
 //----- (004EFD80) --------------------------------------------------------
-int  nox_xxx_spellAdward_4EFD80(int a1) {
+int  nox_xxx_spellAwardAll1_4EFD80(nox_playerInfo* a1p) {
+	int a1 = a1p;
 	int v1;     // esi
 	_DWORD* v2; // ebx
 
@@ -9680,7 +9684,8 @@ int  nox_xxx_spellAdward_4EFD80(int a1) {
 }
 
 //----- (004EFE10) --------------------------------------------------------
-char  nox_xxx_spellAdward_4EFE10(int a1) {
+char  nox_xxx_spellAwardAll3_4EFE10(nox_playerInfo* a1p) {
+	int a1 = a1p;
 	char result; // al
 	int v2;      // esi
 	_DWORD* v3;  // ebx
@@ -9716,10 +9721,10 @@ char  nox_xxx_unitInitPlayer_4EFE80(int a1) {
 	v2 = sub_4FA6D0(a1);
 	nox_xxx_playerSubGold_4FA5D0(a1, v2);
 	sub_4EF140(a1);
-	nox_xxx_spellAdward_4EFD80(*(_DWORD*)(v1 + 276));
-	nox_xxx_spellAdward_4EFC80(*(_DWORD*)(v1 + 276));
+	nox_xxx_spellAwardAll1_4EFD80(*(_DWORD*)(v1 + 276));
+	nox_xxx_spellAwardAll2_4EFC80(*(_DWORD*)(v1 + 276));
 	nox_xxx_plrReadVals_4EEDC0(a1, 0);
-	nox_xxx_spellAdward_4EFE10(*(_DWORD*)(v1 + 276));
+	nox_xxx_spellAwardAll3_4EFE10(*(_DWORD*)(v1 + 276));
 	if (nox_common_gameFlags_check_40A5C0(4096)) {
 		v4 = nox_xxx_gamedataGetFloat_419D40("QuestGameStartingExtraLives");
 		*(_DWORD*)(v1 + 320) = nox_float2int(v4);
@@ -9736,12 +9741,12 @@ int  sub_4EFF10(int a1) {
 	int result;          // eax
 
 	v1 = *(_DWORD*)(a1 + 748);
-	nox_xxx_spellAdward_4EFD80(*(_DWORD*)(v1 + 276));
-	nox_xxx_spellAdward_4EFC80(*(_DWORD*)(v1 + 276));
+	nox_xxx_spellAwardAll1_4EFD80(*(_DWORD*)(v1 + 276));
+	nox_xxx_spellAwardAll2_4EFC80(*(_DWORD*)(v1 + 276));
 	*(_BYTE*)(*(_DWORD*)(v1 + 276) + 3684) = 1;
 	nox_xxx_playerCancelAbils_4FC180(a1);
 	nox_xxx_plrReadVals_4EEDC0(a1, 0);
-	nox_xxx_spellAdward_4EFE10(*(_DWORD*)(v1 + 276));
+	nox_xxx_spellAwardAll3_4EFE10(*(_DWORD*)(v1 + 276));
 	v2 = *(_WORD*)(v1 + 8);
 	v3 = *(_DWORD*)(v1 + 276);
 	*(_WORD*)(v1 + 4) = v2;
