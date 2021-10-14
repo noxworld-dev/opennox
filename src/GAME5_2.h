@@ -125,7 +125,7 @@ int nox_xxx_protect_56FBF0(int a1, nox_object_t* item);
 int nox_xxx_protect_56FC50(int a1, const nox_object_t* object);
 int sub_56FCB0(int a1, int a2);
 int nox_xxx_playerAwardSpellProtection_56FCE0(int a1, int a2, int a3);
-int sub_56FD50(int a1, int a2, int a3);
+int sub_56FD50(int a1, void* a2, int a3);
 void nox_xxx_cryptXor_56FDD0(char key, unsigned char* p, int n);
 void nox_xxx_cryptXorDst_56FE00(char key, unsigned char* src, int n, unsigned char* dst);
 double nox_xxx_unkDoubleSmth_56FE30();

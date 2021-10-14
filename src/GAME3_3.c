@@ -9623,8 +9623,9 @@ int  nox_xxx_netSendPlayerRespawn_4EFC30(int a1, char a2) {
 	return nox_xxx_netSendPacket1_4E5390(255, (int)v3, 9, 0, 0);
 }
 
+#ifndef NOX_CGO
 //----- (004EFC80) --------------------------------------------------------
-int  nox_xxx_spellAwardAll2_4EFC80(nox_playerInfo* a1p) {
+void nox_xxx_spellAwardAll2_4EFC80(nox_playerInfo* a1p) {
 	int a1 = a1p;
 	int v1;     // edi
 	_DWORD* v2; // ebx
@@ -9655,11 +9656,11 @@ int  nox_xxx_spellAwardAll2_4EFC80(nox_playerInfo* a1p) {
 			}
 		}
 	}
-	return sub_56FD50(*(_DWORD*)(a1 + 4636), a1 + 3696, 137);
+	sub_56FD50(*(_DWORD*)(a1 + 4636), a1 + 3696, 137);
 }
 
 //----- (004EFD80) --------------------------------------------------------
-int  nox_xxx_spellAwardAll1_4EFD80(nox_playerInfo* a1p) {
+void nox_xxx_spellAwardAll1_4EFD80(nox_playerInfo* a1p) {
 	int a1 = a1p;
 	int v1;     // esi
 	_DWORD* v2; // ebx
@@ -9680,36 +9681,34 @@ int  nox_xxx_spellAwardAll1_4EFD80(nox_playerInfo* a1p) {
 			++v2;
 		} while (v1 < 41);
 	}
-	return sub_56FD50(*(_DWORD*)(a1 + 4640), a1 + 4244, 41);
+	sub_56FD50(*(_DWORD*)(a1 + 4640), a1 + 4244, 41);
 }
 
 //----- (004EFE10) --------------------------------------------------------
-char  nox_xxx_spellAwardAll3_4EFE10(nox_playerInfo* a1p) {
+void nox_xxx_spellAwardAll3_4EFE10(nox_playerInfo* a1p) {
 	int a1 = a1p;
-	char result; // al
 	int v2;      // esi
 	_DWORD* v3;  // ebx
 
-	result = *(_BYTE*)(a1 + 2251);
-	if (!result) {
+	if (!*(_BYTE*)(a1 + 2251)) {
 		v2 = 1;
 		v3 = (_DWORD*)(a1 + 3700);
 		if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ADMIN)) {
 			do {
 				*v3 = 5;
-				result = nox_xxx_playerAwardSpellProtection_56FCE0(*(_DWORD*)(a1 + 4636), v2++, 5);
+				nox_xxx_playerAwardSpellProtection_56FCE0(*(_DWORD*)(a1 + 4636), v2++, 5);
 				++v3;
 			} while (v2 < 6);
 		} else {
 			do {
 				*v3 = 0;
-				result = nox_xxx_playerAwardSpellProtection_56FCE0(*(_DWORD*)(a1 + 4636), v2++, 0);
+				nox_xxx_playerAwardSpellProtection_56FCE0(*(_DWORD*)(a1 + 4636), v2++, 0);
 				++v3;
 			} while (v2 < 6);
 		}
 	}
-	return result;
 }
+#endif // NOX_CGO
 
 //----- (004EFE80) --------------------------------------------------------
 char  nox_xxx_unitInitPlayer_4EFE80(int a1) {

@@ -131,7 +131,8 @@ int  nox_xxx_playerSpell_4FB2A0_magic_plyrspel(int a1) {
 }
 
 //----- (004FB550) --------------------------------------------------------
-int  nox_xxx_spellGrantToPlayer_4FB550_magic_plyrspel(int a1, int a2, int a3, int a4, int a5) {
+int  nox_xxx_spellGrantToPlayer_4FB550_magic_plyrspel(nox_object_t* a1p, int a2, int a3, int a4, int a5) {
+	int a1 = a1p;
 	int v5;      // ebp
 	int v6;      // esi
 	int v7;      // ebx

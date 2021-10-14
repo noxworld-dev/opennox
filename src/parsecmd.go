@@ -25,8 +25,6 @@ int nox_cmd_show_mmx(int, int, wchar_t**);
 int nox_cmd_load(int, int, wchar_t**);
 int nox_cmd_set_obs(int, int, wchar_t**);
 int nox_cmd_set_save_debug(int, int, wchar_t**);
-int nox_cmd_set_sage(int, int, wchar_t**);
-int nox_cmd_unset_sage(int, int, wchar_t**);
 int nox_cmd_set_cycle(int, int, wchar_t**);
 int nox_cmd_set_weapons(int, int, wchar_t**);
 int nox_cmd_set_staffs(int, int, wchar_t**);
@@ -191,7 +189,6 @@ var (
 			{Token: "T1", HelpID: "setqualT1help", Flags: parsecmd.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_set_qual_t1)},
 			{Token: "LAN", HelpID: "setqualLANhelp", Flags: parsecmd.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_set_qual_lan)},
 		}},
-		{Token: "sage", HelpID: "setsagehelp", Flags: parsecmd.Server | parsecmd.Cheat, LegacyFunc: wrapCommandC(nox_cmd_set_sage)},
 		{Token: "savedebugcmd", HelpID: "setsavedebughelp", Flags: parsecmd.Server, LegacyFunc: wrapCommandC(nox_cmd_set_save_debug)},
 		{Token: "spell", HelpID: "setspellhelp", Flags: parsecmd.Server, LegacyFunc: wrapCommandC(nox_cmd_set_spell)},
 		{Token: "spellpoints", HelpID: "setspellptshelp", Flags: parsecmd.Server | parsecmd.Cheat, LegacyFunc: wrapCommandC(nox_cmd_set_spellpts)},
@@ -207,7 +204,6 @@ var (
 	noxCmdUnSet = &parsecmd.Command{Token: "unset", HelpID: "unsethelp", Flags: parsecmd.ClientServer, Sub: []*parsecmd.Command{
 		{Token: "frameratelimiter", HelpID: "unsetfrhelp", Flags: parsecmd.Server, LegacyFunc: wrapCommandC(nox_cmd_unset_fr)},
 		{Token: "netdebug", HelpID: "unsetnetdebug", Flags: parsecmd.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_unset_net_debug)},
-		{Token: "sage", HelpID: "unsetsagehelp", Flags: parsecmd.Server, LegacyFunc: wrapCommandC(nox_cmd_unset_sage)},
 	}}
 	noxCmdShow = &parsecmd.Command{Token: "show", HelpID: "showhelp", Flags: parsecmd.ClientServer, Sub: []*parsecmd.Command{
 		{Token: "bindings", HelpID: "showbindingshelp", Flags: parsecmd.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_show_bindings)},
@@ -333,12 +329,6 @@ func nox_cmd_set_obs(i C.int, n C.int, arr **C.wchar_t) C.int {
 }
 func nox_cmd_set_save_debug(i C.int, n C.int, arr **C.wchar_t) C.int {
 	return C.nox_cmd_set_save_debug(i, n, arr)
-}
-func nox_cmd_set_sage(i C.int, n C.int, arr **C.wchar_t) C.int {
-	return C.nox_cmd_set_sage(i, n, arr)
-}
-func nox_cmd_unset_sage(i C.int, n C.int, arr **C.wchar_t) C.int {
-	return C.nox_cmd_unset_sage(i, n, arr)
 }
 func nox_cmd_set_cycle(i C.int, n C.int, arr **C.wchar_t) C.int {
 	return C.nox_cmd_set_cycle(i, n, arr)

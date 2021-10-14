@@ -82,6 +82,57 @@ func init() {
 				})
 			},
 		},
+		&parsecmd.Command{
+			Token:  "sage",
+			HelpID: "setsagehelp",
+			Flags:  parsecmd.Server | parsecmd.Cheat,
+			Func: func(c *parsecmd.Console, tokens []string) bool {
+				return noxCmdSetBool(c, tokens, func(enable bool) {
+					serverCheatSage(enable)
+					if enable {
+						str := strMan.GetStringInFile("sageset", "parsecmd.c")
+						c.Printf(parsecmd.ColorLightYellow, str)
+					} else {
+						str := strMan.GetStringInFile("sageunset", "parsecmd.c")
+						c.Printf(parsecmd.ColorLightYellow, str)
+					}
+				})
+			},
+		},
+		&parsecmd.Command{
+			Token:  "spells",
+			HelpID: "setsagehelp",
+			Flags:  parsecmd.Server | parsecmd.Cheat,
+			Func: func(c *parsecmd.Console, tokens []string) bool {
+				return noxCmdSetBool(c, tokens, func(enable bool) {
+					serverCheatSpells(enable)
+					if enable {
+						str := strMan.GetStringInFile("sageset", "parsecmd.c")
+						c.Printf(parsecmd.ColorLightYellow, str)
+					} else {
+						str := strMan.GetStringInFile("sageunset", "parsecmd.c")
+						c.Printf(parsecmd.ColorLightYellow, str)
+					}
+				})
+			},
+		},
+		&parsecmd.Command{
+			Token:  "scrolls",
+			HelpID: "setsagehelp",
+			Flags:  parsecmd.Server | parsecmd.Cheat,
+			Func: func(c *parsecmd.Console, tokens []string) bool {
+				return noxCmdSetBool(c, tokens, func(enable bool) {
+					serverCheatScrolls(enable)
+					if enable {
+						str := strMan.GetStringInFile("sageset", "parsecmd.c")
+						c.Printf(parsecmd.ColorLightYellow, str)
+					} else {
+						str := strMan.GetStringInFile("sageunset", "parsecmd.c")
+						c.Printf(parsecmd.ColorLightYellow, str)
+					}
+				})
+			},
+		},
 	)
 	// legacy cheats from set and unset categories
 	noxCmdSet.Sub = append(noxCmdSet.Sub,
@@ -128,6 +179,33 @@ func serverCheatInvincible(enable bool) {
 	}
 }
 
+func serverCheatSage(enable bool) {
+	if noxflags.HasGame(noxflags.GameModeSolo12) {
+		for _, p := range getPlayers() {
+			serverSetAllBeastScrolls(p, enable)
+			serverSetAllSpells(p, enable)
+			serverSetAllWarriorAbilities(p, enable)
+		}
+	}
+}
+
+func serverCheatScrolls(enable bool) {
+	if noxflags.HasGame(noxflags.GameModeSolo12) {
+		for _, p := range getPlayers() {
+			serverSetAllBeastScrolls(p, enable)
+		}
+	}
+}
+
+func serverCheatSpells(enable bool) {
+	if noxflags.HasGame(noxflags.GameModeSolo12) {
+		for _, p := range getPlayers() {
+			serverSetAllSpells(p, enable)
+			serverSetAllWarriorAbilities(p, enable)
+		}
+	}
+}
+
 func noxCheatSetGod(c *parsecmd.Console, tokens []string) bool {
 	if !noxflags.HasGame(noxflags.GameModeQuest) {
 		serverCheatGod(true)
@@ -147,11 +225,7 @@ func noxCheatUnsetGod(c *parsecmd.Console, tokens []string) bool {
 func serverCheatGod(enable bool) {
 	if noxflags.HasGame(noxflags.GameModeSolo12) {
 		serverCheatInvincible(enable)
-		for _, p := range getPlayers() {
-			nox_xxx_spellAwardAll1_4EFD80(p)
-			nox_xxx_spellAwardAll2_4EFC80(p)
-			nox_xxx_spellAwardAll3_4EFE10(p)
-		}
+		serverCheatSage(enable)
 	}
 }
 

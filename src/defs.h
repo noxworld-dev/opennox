@@ -1622,6 +1622,7 @@ typedef struct nox_draw_viewport_t {
 } nox_draw_viewport_t;
 _Static_assert(sizeof(nox_draw_viewport_t) == 52, "wrong size of nox_draw_viewport_t structure!");
 
+#define NOX_SPELLS_MAX 137
 #define NOX_PLAYERINFO_MAX 32
 typedef struct nox_playerInfo {
 	_DWORD data_0[100];
@@ -1675,11 +1676,10 @@ typedef struct nox_playerInfo {
 	_BYTE field_3676_1;
 	_WORD field_3676_2;
 	_DWORD field_3680;
-	_DWORD data_3684[4];
-	_DWORD data_3700[25];
-	_DWORD data_3800[50];
-	_DWORD data_4000[100];
-	_DWORD data_4400[25];
+	_DWORD data_3684[3];
+	unsigned int spell_lvl[NOX_SPELLS_MAX]; // 3696
+	unsigned int beast_scroll_lvl[41]; // 4244
+	_DWORD data_4408[23];
 	_DWORD data_4500[20];
 	_DWORD field_4580;
 	_DWORD data_4584[4];
@@ -1690,7 +1690,6 @@ _Static_assert(sizeof(nox_playerInfo) == 4828, "wrong size of nox_playerInfo str
 _Static_assert(offsetof(nox_playerInfo, frame_3596) == 3596, "wrong offset of nox_playerInfo.frame_3596 field!");
 _Static_assert(offsetof(nox_playerInfo, field_4580) == 4580, "wrong offset of nox_playerInfo.field_4580 field!");
 
-#define NOX_SPELLS_MAX 137
 typedef struct nox_spell_t {
 	wchar_t* title; // 0, 0
 	wchar_t* desc; // 1, 4
