@@ -98,6 +98,14 @@ func SpellDefs() []*SpellDef {
 	return out
 }
 
+func SpellIDs() []string {
+	out := make([]string, 0, noxSpellsMax)
+	for i := 1; i < noxSpellsMax; i++ {
+		out = append(out, things.SpellIDByIndex(i))
+	}
+	return out
+}
+
 type SpellDef C.nox_spell_t
 
 func (s *SpellDef) Title() string {
@@ -126,4 +134,11 @@ func (s *SpellDef) ManaCost() int {
 
 func (s *SpellDef) BasePrice() int {
 	return int(s.price)
+}
+
+func (s *SpellDef) Phonemes() (out []things.Phoneme) {
+	for i := 0; i < int(s.phonemes_cnt); i++ {
+		out = append(out, things.Phoneme(i))
+	}
+	return out
 }
