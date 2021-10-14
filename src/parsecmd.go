@@ -2,7 +2,7 @@ package main
 
 /*
 #include <stddef.h>
-extern unsigned int dword_5d4594_823684;
+extern unsigned int nox_client_consoleIsServer_823684;
 extern int nox_cheat_allowall;
 extern int nox_cheat_charmall;
 
@@ -129,81 +129,6 @@ func consolePrintf(typ parsecmd.Color, format string, args ...interface{}) int {
 	return int(res)
 }
 
-func consoleParseToken(c *parsecmd.Console, tokInd int, tokens []string, cmds []*parsecmd.Command, a5 int) bool {
-	if tokInd >= len(tokens) || len(cmds) == 0 {
-		return false
-	}
-
-	var cmd *parsecmd.Command
-	for i, cur := range cmds {
-		tok := tokens[tokInd]
-		if cur.Flags.Has(parsecmd.Secret) {
-			tok = parsecmd.EncodeSecret(tok)
-		}
-		if tok == cur.Token {
-			cmd = cmds[i]
-			break
-		}
-	}
-	if cmd == nil {
-		return false
-	}
-	if !getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) && !parseCmd.Cheats() && cmd.Flags.Has(parsecmd.Cheat) {
-		return false
-	}
-	if C.dword_5d4594_823684 != 0 {
-		if !cmd.Flags.Has(parsecmd.Server) {
-			s := c.Strings().GetString("parsecmd.c:clientonly")
-			c.Printf(parsecmd.ColorRed, s)
-			return true
-		}
-	} else {
-		if !cmd.Flags.Has(parsecmd.Client) {
-			s := c.Strings().GetString("parsecmd.c:serveronly")
-			c.Printf(parsecmd.ColorRed, s)
-			return true
-		}
-	}
-	if cmd.Flags.Has(parsecmd.Flag0x20) && !getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) {
-		return true
-	}
-	var res bool
-	if len(cmd.Sub) != 0 { // have sub-commands
-		if tokInd+1 >= len(tokens) {
-			// not enough tokens - print help
-			var help string
-			if cmd.HelpID != "" {
-				help = c.Strings().GetStringInFile(cmd.HelpID, "parsecmd.c")
-			} else {
-				help = cmd.Help
-			}
-			c.Printf(parsecmd.ColorRed, help)
-			return true
-		}
-		// continue parsing the sub command
-		res = consoleParseToken(c, tokInd+1, tokens, cmd.Sub, a5)
-	} else {
-		// call console command handler, let it parse the rest
-		if cmd.Func != nil {
-			res = cmd.Func(c, tokens[tokInd+1:])
-		} else {
-			res = cmd.LegacyFunc(c, tokInd+1, tokens)
-		}
-	}
-	if !res {
-		// command failed - print help
-		var help string
-		if cmd.HelpID != "" {
-			help = c.Strings().GetStringInFile(cmd.HelpID, "parsecmd.c")
-		} else {
-			help = cmd.Help
-		}
-		c.Printf(parsecmd.ColorRed, help)
-		return true
-	}
-	return res
-}
-
 //export nox_xxx_consoleLoadTokens_444440
 func nox_xxx_consoleLoadTokens_444440() {
 	consoleLoadTokens(parseCmd, parseCmd.Commands())
@@ -226,6 +151,7 @@ func consoleLoadTokens(c *parsecmd.Console, cmds []*parsecmd.Command) {
 
 func wrapCommandC(cfnc func(C.int, C.int, **C.wchar_t) C.int) parsecmd.CommandLegacyFunc {
 	return func(c *parsecmd.Console, tokInd int, tokens []string) bool {
+		C.nox_client_consoleIsServer_823684 = C.uint(bool2int(!c.IsClient()))
 		ctokens, free := CWStrSlice(tokens)
 		defer free()
 		var ptr **C.wchar_t
@@ -278,8 +204,8 @@ var (
 		{Token: "time", HelpID: "settimehelp", Flags: parsecmd.Server, LegacyFunc: wrapCommandC(nox_cmd_set_time)},
 		{Token: "weapon", HelpID: "setweaponhelp", Flags: parsecmd.Server, LegacyFunc: wrapCommandC(nox_cmd_set_weapon)},
 		{Token: "weapons", HelpID: "setweaponshelp", Flags: parsecmd.Server | parsecmd.Cheat, LegacyFunc: wrapCommandC(nox_cmd_set_weapons)},
-		{Token: "team", HelpID: "officialonly", Flags: parsecmd.Server | parsecmd.Cheat | parsecmd.Flag0x20, LegacyFunc: wrapCommandC(nox_cmd_offonly1)},
-		{Token: "mode", HelpID: "officialonly", Flags: parsecmd.Server | parsecmd.Cheat | parsecmd.Flag0x20, LegacyFunc: wrapCommandC(nox_cmd_offonly2)},
+		{Token: "team", HelpID: "officialonly", Flags: parsecmd.Server | parsecmd.Cheat | parsecmd.FlagDedicated, LegacyFunc: wrapCommandC(nox_cmd_offonly1)},
+		{Token: "mode", HelpID: "officialonly", Flags: parsecmd.Server | parsecmd.Cheat | parsecmd.FlagDedicated, LegacyFunc: wrapCommandC(nox_cmd_offonly2)},
 	}}
 	noxCmdShow = &parsecmd.Command{Token: "show", HelpID: "showhelp", Flags: parsecmd.ClientServer, Sub: []*parsecmd.Command{
 		{Token: "bindings", HelpID: "showbindingshelp", Flags: parsecmd.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_show_bindings)},

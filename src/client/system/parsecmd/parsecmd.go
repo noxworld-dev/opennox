@@ -34,8 +34,8 @@ const (
 	NoHelp  = Flags(1 << 3)
 	Flag0x8 = Flags(1 << 4)
 	// Cheat marks a command as a cheat, thus requiring enabling cheats first.
-	Cheat    = Flags(1 << 5)
-	Flag0x20 = Flags(1 << 6)
+	Cheat         = Flags(1 << 5)
+	FlagDedicated = Flags(1 << 6)
 	// Secret flag is used when the command token should be encrypted.
 	Secret = Flags(1 << 7)
 )

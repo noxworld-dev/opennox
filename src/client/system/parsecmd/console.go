@@ -41,10 +41,12 @@ func NewConsole(p Printer, sm *strman.StringManager) *Console {
 
 // Console handles console commands.
 type Console struct {
-	p      Printer
-	sm     *strman.StringManager
-	cmds   []*Command
-	cheats bool
+	p          Printer
+	sm         *strman.StringManager
+	cmds       []*Command
+	cheats     bool
+	isClient   bool
+	isHeadless bool
 }
 
 // Printf exposes underlying Printer.
@@ -57,6 +59,26 @@ func (cn *Console) Printf(cl Color, format string, args ...interface{}) {
 // Strings exposes the underlying string manager.
 func (cn *Console) Strings() *strman.StringManager {
 	return cn.sm
+}
+
+// IsClient checks if it's a client-side console.
+func (cn *Console) IsClient() bool {
+	return cn.isClient
+}
+
+// SetIsClient switches the console to either server or client mode.
+func (cn *Console) SetIsClient(v bool) {
+	cn.isClient = v
+}
+
+// IsHeadless checks if it's a dedicated server console.
+func (cn *Console) IsHeadless() bool {
+	return cn.isHeadless
+}
+
+// SetIsHeadless switches the console to a dedicated server mode or back.
+func (cn *Console) SetIsHeadless(v bool) {
+	cn.isHeadless = v
 }
 
 func (cn *Console) registerBuiltin() {
@@ -152,4 +174,80 @@ func (cn *Console) Register(c *Command) {
 // Commands lists already registered console commands.
 func (cn *Console) Commands() []*Command {
 	return cn.cmds
+}
+
+// ParseToken matches the first token against a list of commands.
+func (cn *Console) ParseToken(tokInd int, tokens []string, cmds []*Command) bool {
+	if tokInd >= len(tokens) || len(cmds) == 0 {
+		return false
+	}
+
+	var cmd *Command
+	for i, cur := range cmds {
+		tok := tokens[tokInd]
+		if cur.Flags.Has(Secret) {
+			tok = EncodeSecret(tok)
+		}
+		if tok == cur.Token {
+			cmd = cmds[i]
+			break
+		}
+	}
+	if cmd == nil {
+		return false
+	}
+	if !cn.IsHeadless() && !cn.Cheats() && cmd.Flags.Has(Cheat) {
+		return false
+	}
+	if !cn.IsClient() {
+		if !cmd.Flags.Has(Server) {
+			s := cn.Strings().GetString("parsecmd.c:clientonly")
+			cn.Printf(ColorRed, s)
+			return true
+		}
+	} else {
+		if !cmd.Flags.Has(Client) {
+			s := cn.Strings().GetString("parsecmd.c:serveronly")
+			cn.Printf(ColorRed, s)
+			return true
+		}
+	}
+	if cmd.Flags.Has(FlagDedicated) && !cn.IsHeadless() {
+		return true
+	}
+	var res bool
+	if len(cmd.Sub) != 0 { // have sub-commands
+		if tokInd+1 >= len(tokens) {
+			// not enough tokens - print help
+			var help string
+			if cmd.HelpID != "" {
+				help = cn.Strings().GetStringInFile(cmd.HelpID, "parsecmd.c")
+			} else {
+				help = cmd.Help
+			}
+			cn.Printf(ColorRed, help)
+			return true
+		}
+		// continue parsing the sub command
+		res = cn.ParseToken(tokInd+1, tokens, cmd.Sub)
+	} else {
+		// call console command handler, let it parse the rest
+		if cmd.Func != nil {
+			res = cmd.Func(cn, tokens[tokInd+1:])
+		} else {
+			res = cmd.LegacyFunc(cn, tokInd+1, tokens)
+		}
+	}
+	if !res {
+		// command failed - print help
+		var help string
+		if cmd.HelpID != "" {
+			help = cn.Strings().GetStringInFile(cmd.HelpID, "parsecmd.c")
+		} else {
+			help = cmd.Help
+		}
+		cn.Printf(ColorRed, help)
+		return true
+	}
+	return res
 }

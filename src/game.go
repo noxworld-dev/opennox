@@ -46,7 +46,6 @@ extern unsigned int dword_5d4594_1556144;
 extern unsigned int dword_5d4594_1563064;
 extern unsigned int dword_5d4594_251744;
 extern unsigned int dword_5d4594_815052;
-extern unsigned int dword_5d4594_823684;
 extern unsigned int dword_5d4594_823696;
 extern void* nox_client_consoleCurCmd_823700;
 extern nox_draw_viewport_t nox_draw_viewport;
@@ -489,13 +488,14 @@ func parseServerCmdWith(c *parsecmd.Console, cmd string, flag int) bool {
 	cmdTextC, cmdFree := CWString(cmd)
 	defer cmdFree()
 	C.nox_client_consoleCurCmd_823700 = unsafe.Pointer(cmdTextC)
-	if noxflags.HasGame(1) {
-		C.dword_5d4594_823684 = 1
+	if noxflags.HasGame(noxflags.GameHost) {
+		c.SetIsClient(false)
 		*memmap.PtrUint32(0x5D4594, 823688) = 0
 	} else {
-		C.dword_5d4594_823684 = 0
+		c.SetIsClient(true)
 		*memmap.PtrUint32(0x5D4594, 823688) = 1
 	}
+	c.SetIsHeadless(getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING))
 	if C.dword_5d4594_823696 != 0 {
 		C.sub_4409D0(cmdTextC)
 		C.dword_5d4594_823696 = 0
@@ -540,7 +540,7 @@ func parseServerCmdWith(c *parsecmd.Console, cmd string, flag int) bool {
 	}
 	res := false
 	if len(tokens) > 0 {
-		res = consoleParseToken(c, 0, tokens, c.Commands(), flag)
+		res = c.ParseToken(0, tokens, c.Commands())
 		if !res {
 			help := strMan.GetStringInFile("typehelp", "C:\\NoxPost\\src\\Client\\System\\parsecmd.c")
 			consolePrintf(parsecmd.ColorRed, help)

@@ -39,8 +39,9 @@ void* nox_client_consoleCurCmd_823700 = 0;
 nox_playerInfo* nox_console_playerWhoSent_823692 = 0;
 
 int nox_xxx_consoleTokenPairs_823708 = 0;
-unsigned int dword_5d4594_823684 = 0;
+unsigned int nox_client_consoleIsServer_823684 = 0;
 
+#ifndef NOX_CGO
 enum {
 	NOX_CONSOLE_SECRET = 0x40,
 };
@@ -55,7 +56,6 @@ typedef struct nox_cmd_t {
 	int(*fnc)(int tokInd, int tokCnt, wchar_t** tokens);
 } nox_cmd_t;
 
-#ifndef NOX_CGO
 #ifdef NOX_DEBUG
 int nox_cheats_disabled = 0;
 #else
@@ -1411,7 +1411,7 @@ int nox_cmd_list_users(int tokInd, int tokCnt, wchar_t** tokens) {
 	for (i = nox_common_playerInfoGetFirst_416EA0(); i; i = nox_common_playerInfoGetNext_416EE0((int)i)) {
 		v5[0] = 0;
 		nox_wcscat(v5, (const wchar_t*)i + 2352);
-		if (dword_5d4594_823684 && i[3680] & 4) {
+		if (nox_client_consoleIsServer_823684 && i[3680] & 4) {
 			nox_wcscat(v5, L", ");
 			v2 = nox_strman_loadString_40F1D0("SysMuted", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c",
 									   3851);
@@ -1463,7 +1463,7 @@ int nox_cmd_unmute(int tokInd, int tokCnt, wchar_t** tokens) {
 	if (tokCnt < 2 || tokCnt > 3)
 		return 0;
 	v3 = &tokens[tokInd];
-	if (!dword_5d4594_823684) {
+	if (!nox_client_consoleIsServer_823684) {
 		v5 = sub_57A0F0(*v3);
 	} else {
 		if (_nox_wcsicmp(tokens[tokInd], *(const wchar_t**)getMemAt(0x587000, 94496))) {
@@ -1522,7 +1522,7 @@ int nox_cmd_mute(int tokInd, int tokCnt, wchar_t** tokens) {
 	if (tokCnt < 2 || tokCnt > 3)
 		return 0;
 	v3 = &tokens[tokInd];
-	if (!dword_5d4594_823684) {
+	if (!nox_client_consoleIsServer_823684) {
 		v5 = sub_57A080(*v3);
 	} else {
 		if (_nox_wcsicmp(tokens[tokInd], *(const wchar_t**)getMemAt(0x587000, 94496))) {
@@ -1644,7 +1644,7 @@ int nox_xxx_consoleParseToken_443A20(int tokInd, int tokCnt, wchar_t** tokens, n
 	if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) && nox_cheats_disabled && (cmd->flags & 0x10)) {
 		return 0;
 	}
-	if (dword_5d4594_823684) {
+	if (nox_client_consoleIsServer_823684) {
 		if (!(cmd->flags & 0x1)) {
 			wchar_t* s = nox_strman_loadString_40F1D0("clientonly", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c",
 										4091);
@@ -1725,10 +1725,10 @@ int nox_server_parseCmdText_443C80(wchar_t* cmdText, int a2) {
 	nox_client_consoleCurCmd_823700 = cmdText;
 	memset(getMemAt(0x5D4594, 820276), 0, 0x800u);
 	if (nox_common_gameFlags_check_40A5C0(1)) {
-		dword_5d4594_823684 = 1;
+		nox_client_consoleIsServer_823684 = 1;
 		*getMemU32Ptr(0x5D4594, 823688) = 0;
 	} else {
-		dword_5d4594_823684 = 0;
+		nox_client_consoleIsServer_823684 = 0;
 		*getMemU32Ptr(0x5D4594, 823688) = 1;
 	}
 	if (dword_5d4594_823696) {
