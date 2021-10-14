@@ -426,7 +426,7 @@ func sub_4443B0(a1 keybind.Key) {
 	}
 	if str := GoWString(C.sub_444410(C.int(a1))); str != "" {
 		consolePrintf(parsecmd.ColorWhite, "> %s\n", str)
-		nox_server_parseCmdText_443C80(str, 0)
+		parseServerCmd(str, 0)
 		sub_4309B0(C.uchar(a1), 1)
 	}
 }

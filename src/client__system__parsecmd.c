@@ -29,11 +29,12 @@
 extern _DWORD dword_5d4594_823696;
 extern _DWORD dword_5d4594_1563664;
 extern _DWORD nox_xxx_xxxRenderGUI_587000_80832;
-extern _DWORD dword_5d4594_823700;
 extern _DWORD nox_server_connectionType_3596;
 extern _DWORD dword_5d4594_805836;
 extern _DWORD nox_client_renderGUI_80828;
 extern _DWORD dword_5d4594_2650652;
+
+void* nox_client_consoleCurCmd_823700 = 0;
 
 nox_playerInfo* nox_console_playerWhoSent_823692 = 0;
 
@@ -767,9 +768,9 @@ int nox_cmd_set_obs(int tokInd, int tokCnt, wchar_t** tokens) {
 	nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, s);
 	if (nox_common_gameFlags_check_40A5C0(1)) {
 		char* v2 = nox_common_playerInfoGetByID_417040(*getMemIntPtr(0x85319C, 0));
-		nox_xxx_serverHandleClientConsole_443E90((int)v2, 0, *(wchar_t**)&dword_5d4594_823700);
+		nox_xxx_serverHandleClientConsole_443E90((int)v2, 0, *(wchar_t**)&nox_client_consoleCurCmd_823700);
 	} else {
-		nox_xxx_netServerCmd_440950(0, *(wchar_t**)&dword_5d4594_823700);
+		nox_xxx_netServerCmd_440950(0, *(wchar_t**)&nox_client_consoleCurCmd_823700);
 	}
 	return 1;
 }
@@ -1550,12 +1551,12 @@ int nox_cmd_exec(int tokInd, int tokCnt, wchar_t** tokens) {
 	if (tokCnt != 2)
 		return 0;
 	if (!nox_common_gameFlags_check_40A5C0(1)) {
-		int v4 = dword_5d4594_823700;
+		int v4 = nox_client_consoleCurCmd_823700;
 		wchar_t* s =
 			nox_strman_loadString_40F1D0("RemoteExec", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3979);
 		nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, s, v4);
 	}
-	nox_xxx_netServerCmd_440950(1, *(wchar_t**)&dword_5d4594_823700);
+	nox_xxx_netServerCmd_440950(1, *(wchar_t**)&nox_client_consoleCurCmd_823700);
 	return 1;
 }
 
@@ -1584,7 +1585,7 @@ int nox_cmd_sysop(int tokInd, int tokCnt, wchar_t** tokens) {
 		nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v2);
 	} else {
 		if (tokCnt > 1 && *getMemU32Ptr(0x5D4594, 823688)) {
-			v4 = nox_wcsstr(*(const wchar_t**)&dword_5d4594_823700, L" ");
+			v4 = nox_wcsstr(*(const wchar_t**)&nox_client_consoleCurCmd_823700, L" ");
 			if (v4)
 				nox_xxx_netServerCmd_440950(2, v4);
 		}
@@ -1711,16 +1712,17 @@ wchar_t* nox_xxx_consoleTokenFindByAlias_443E40(wchar_t* s) {
 	return *getMemU32Ptr(0x5D4594, 816500 + 8*ind);
 }
 
+#ifndef NOX_CGO
 //----- (00443C80) --------------------------------------------------------
 int nox_server_parseCmdText_443C80(wchar_t* cmdText, int a2) {
 	// !!! If the command is bigger than 31 symbol (w/0 \0), game will crash because of stack corruption (bug
 	// persists in original image)
 
 	if (!cmdText) {
-		dword_5d4594_823700 = 0;
+		nox_client_consoleCurCmd_823700 = 0;
 		return 0;
 	}
-	dword_5d4594_823700 = cmdText;
+	nox_client_consoleCurCmd_823700 = cmdText;
 	memset(getMemAt(0x5D4594, 820276), 0, 0x800u);
 	if (nox_common_gameFlags_check_40A5C0(1)) {
 		dword_5d4594_823684 = 1;
@@ -1780,9 +1782,10 @@ int nox_server_parseCmdText_443C80(wchar_t* cmdText, int a2) {
 			nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, help);
 		}
 	}
-	dword_5d4594_823700 = 0;
+	nox_client_consoleCurCmd_823700 = 0;
 	return res;
 }
+#endif // NOX_CGO
 
 //----- (00443E90) --------------------------------------------------------
 int nox_xxx_serverHandleClientConsole_443E90(nox_playerInfo* pl, char a2, wchar_t* a3) {
@@ -2087,7 +2090,7 @@ int nox_cmd_broadcast(int tokInd, int tokCnt, wchar_t** tokens) {
 int nox_cmd_say(int tokInd, int tokCnt, wchar_t** tokens) {
 	if (tokCnt == 1)
 		return 0;
-	nox_xxx_cmdSayDo_46A4B0((wchar_t*)(dword_5d4594_823700 + 8), 0);
+	nox_xxx_cmdSayDo_46A4B0((wchar_t*)((int)nox_client_consoleCurCmd_823700 + 8), 0);
 	return 1;
 }
 

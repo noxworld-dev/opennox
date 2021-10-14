@@ -121,16 +121,6 @@ func cheatCharmAll(v bool) {
 
 var parseCmd = parsecmd.NewConsole(consolePrinter{}, strMan)
 
-//export nox_xxx_consoleParseToken_443A20
-func nox_xxx_consoleParseToken_443A20(tokInd C.int, tokCnt C.int, tokens **C.wchar_t, a5 C.int) C.int {
-	toks := GoWStrSliceN(tokens, int(tokCnt))
-	ok := consoleParseToken(parseCmd, int(tokInd), toks, parseCmd.Commands(), int(a5))
-	if ok {
-		return 1
-	}
-	return 0
-}
-
 func consolePrintf(typ parsecmd.Color, format string, args ...interface{}) int {
 	str := fmt.Sprintf(format, args...)
 	cstr, free := CWString(str)
