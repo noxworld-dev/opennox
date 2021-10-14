@@ -55,10 +55,12 @@ func (c *AllocClass) UPtr() unsafe.Pointer {
 }
 
 type allocClass struct {
-	name string
-	size uintptr
-	cnt  int
-	c    *AllocClass
+	name      string
+	size      uintptr
+	cnt       int
+	c         *AllocClass
+	free      func()
+	itemsFree func()
 }
 
 func (al *allocClass) String() string {
@@ -75,12 +77,13 @@ func New(name string, size uintptr, cnt int) *AllocClass {
 	if cnt <= 0 {
 		panic("count not specified")
 	}
-	p := (*C.nox_alloc_class)(C.calloc(1, C.uint(unsafe.Sizeof(C.nox_alloc_class{}))))
+	ptr, free := alloc.Malloc(unsafe.Sizeof(C.nox_alloc_class{}))
+	p := (*C.nox_alloc_class)(ptr)
 	i := copy(asByteSlice(unsafe.Pointer(&p.name[0]), int(C.ALLOC_CLASS_NAME_MAX)), name)
 	p.name[i] = 0
 
 	isize := size + unsafe.Sizeof(C.nox_alloc_hdr{})
-	arrp := C.calloc(C.uint(cnt), C.uint(isize))
+	arrp, arrFree := alloc.Calloc(cnt, isize)
 	p.items = arrp
 
 	for i := 0; i < cnt; i++ {
@@ -101,10 +104,12 @@ func New(name string, size uintptr, cnt int) *AllocClass {
 	p.field_31 = 0
 
 	al := &allocClass{
-		name: name,
-		size: size,
-		cnt:  cnt,
-		c:    asClass(p),
+		name:      name,
+		size:      size,
+		cnt:       cnt,
+		c:         asClass(p),
+		free:      free,
+		itemsFree: arrFree,
 	}
 	allocClasses[p] = al
 	return asClass(p)
@@ -126,10 +131,10 @@ func (c *AllocClass) Free() {
 	if c.can_grow != 0 {
 		C.nox_free_alloc_class_dynamic(c.C())
 	}
-	if _, ok := allocClasses[c.C()]; ok {
+	if al, ok := allocClasses[c.C()]; ok {
 		delete(allocClasses, c.C())
-		C.free(unsafe.Pointer(c.items))
-		C.free(unsafe.Pointer(c))
+		al.itemsFree()
+		al.free()
 	}
 }
 

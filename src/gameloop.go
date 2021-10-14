@@ -1049,7 +1049,9 @@ func sub_435EB0() {
 }
 
 func nox_xxx_printCentered_445490(str string) {
-	C.nox_xxx_printCentered_445490(internWStr(str))
+	wstr, free := CWString(str)
+	defer free()
+	C.nox_xxx_printCentered_445490(wstr)
 }
 
 func nox_xxx_gameChangeMap_43DEB0() int {

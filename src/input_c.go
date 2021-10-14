@@ -160,7 +160,8 @@ func nox_input_disableTextEdit_5700F6() {
 
 //export nox_input_getStringBuffer_57011C
 func nox_input_getStringBuffer_57011C() *C.wchar_t {
-	return CWString(getTextEditBuf())
+	p, _ := CWString(getTextEditBuf())
+	return p
 }
 
 //export nox_input_freeStringBuffer_57011C

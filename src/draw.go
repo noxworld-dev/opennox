@@ -592,8 +592,8 @@ func (r *NoxRender) DrawStringWrapped(font unsafe.Pointer, s string, x, y, maxW,
 }
 
 func (r *NoxRender) GetStringSize(a1 int, a2 string, a5 int) types.Size { // nox_xxx_drawGetStringSize_43F840
-	sp := CWString(a2)
-	defer WStrFree(sp)
+	sp, freeS := CWString(a2)
+	defer freeS()
 	pp, freeP := alloc.Malloc(unsafe.Sizeof(C.nox_point{}))
 	defer freeP()
 	p := (*C.nox_point)(pp)

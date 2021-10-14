@@ -133,9 +133,9 @@ func nox_xxx_consoleParseToken_443A20(tokInd C.int, tokCnt C.int, tokens **C.wch
 
 func consolePrintf(typ parsecmd.Color, format string, args ...interface{}) int {
 	str := fmt.Sprintf(format, args...)
-	cstr := CWString(str)
+	cstr, free := CWString(str)
+	defer free()
 	res := C.nox_gui_console_Print_450B90(C.uchar(typ), cstr)
-	WStrFree(cstr)
 	return int(res)
 }
 
@@ -236,8 +236,8 @@ func consoleLoadTokens(c *parsecmd.Console, cmds []*parsecmd.Command) {
 
 func wrapCommandC(cfnc func(C.int, C.int, **C.wchar_t) C.int) parsecmd.CommandLegacyFunc {
 	return func(c *parsecmd.Console, tokInd int, tokens []string) bool {
-		ctokens := CWStrSlice(tokens)
-		defer WStrSliceFree(ctokens)
+		ctokens, free := CWStrSlice(tokens)
+		defer free()
 		var ptr **C.wchar_t
 		if len(ctokens) > 0 {
 			ptr = &ctokens[0]

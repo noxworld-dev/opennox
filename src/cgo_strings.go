@@ -10,6 +10,8 @@ import (
 	"reflect"
 	"unicode/utf16"
 	"unsafe"
+
+	"nox/v1/common/alloc"
 )
 
 func StrFree(s *C.char) {
@@ -22,13 +24,6 @@ func BytesFree(s unsafe.Pointer) {
 
 func WStrFree(s *C.wchar_t) {
 	C.free(unsafe.Pointer(s))
-}
-
-func WStrSliceFree(arr []*C.wchar_t) {
-	for _, p := range arr {
-		WStrFree(p)
-	}
-	C.free(unsafe.Pointer(&arr[0]))
 }
 
 func CStringArray(arr []string) []*C.char {
@@ -217,11 +212,11 @@ func GoWStringSlice(arr []uint16) string {
 	return string(utf16.Decode(arr))
 }
 
-func CWString(s string) *C.wchar_t {
+func CWString(s string) (*C.wchar_t, func()) {
 	buf := utf16.Encode([]rune(s))
-	ptr := C.calloc(C.uint(len(buf)+1), 2)
+	ptr, free := alloc.Calloc(len(buf)+1, 2)
 	copy(asU16Slice(ptr, len(buf)), buf)
-	return (*C.wchar_t)(ptr)
+	return (*C.wchar_t)(ptr), free
 }
 
 func CWLen(s string) int {
@@ -254,11 +249,16 @@ func GoWStrSliceN(arr **C.wchar_t, n int) []string {
 	return out
 }
 
-func CWStrSlice(arr []string) []*C.wchar_t {
-	ptr := C.calloc(C.uint(len(arr)+1), C.uint(ptrSize))
+func CWStrSlice(arr []string) ([]*C.wchar_t, func()) {
+	ptr, freeList := alloc.Calloc(len(arr)+1, ptrSize)
 	out := asWStrSlice(ptr, len(arr))
 	for i, s := range arr {
-		out[i] = CWString(s)
+		out[i], _ = CWString(s)
 	}
-	return out
+	return out, func() {
+		for _, p := range out {
+			WStrFree(p)
+		}
+		freeList()
+	}
 }

@@ -259,7 +259,9 @@ func gameexOnKeyboardPress(kcode keybind.Key) {
 			for i := 0; i < 5; i++ {
 				wstr := GoWStringSlice(wndEntryNames[i][:])
 				id := uint(1520 + i)
-				a2b.Func94(16397, uintptr(unsafe.Pointer(internWStr(wstr))), math.MaxUint32)
+				wstrC, freeStr := CWString(wstr)
+				a2b.Func94(16397, uintptr(unsafe.Pointer(wstrC)), math.MaxUint32)
+				freeStr()
 				if uint32(C.getFlagValueFromFlagIndex(C.int(id)-1519))&uint32(C.gameex_flags) != 0 {
 					v14 := modifyWndPntr.ChildByID(id)
 					v14.DrawData().field_0 |= 0x4

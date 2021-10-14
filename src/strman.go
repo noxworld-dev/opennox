@@ -44,7 +44,7 @@ func internWStr(s string) *C.wchar_t {
 	if ok {
 		return p
 	}
-	p = CWString(s)
+	p, _ = CWString(s)
 	strManW[s] = p
 	return p
 }

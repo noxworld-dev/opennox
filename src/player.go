@@ -62,8 +62,8 @@ func CinemaPlayers(cinema bool) {
 }
 
 func PrintToPlayers(text string) {
-	cstr := CWString(text)
-	defer WStrFree(cstr)
+	cstr, free := CWString(text)
+	defer free()
 	C.nox_xxx_printToAll_4D9FD0_go(0, cstr)
 }
 
@@ -125,8 +125,8 @@ func (p *Player) IsHost() bool {
 }
 
 func (p *Player) Print(text string) {
-	cstr := CWString(text)
-	defer WStrFree(cstr)
+	cstr, free := CWString(text)
+	defer free()
 	C.nox_xxx_netSendLineMessage_go(p.UnitC().CObj(), cstr)
 }
 

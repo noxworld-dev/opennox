@@ -466,7 +466,9 @@ func initGameSession435CC0() error {
 }
 
 func nox_server_parseCmdText_443C80(cmd string, flag int) int {
-	return int(C.nox_server_parseCmdText_443C80(internWStr(cmd), C.int(flag)))
+	wstr, free := CWString(cmd)
+	defer free()
+	return int(C.nox_server_parseCmdText_443C80(wstr, C.int(flag)))
 }
 
 func serverCmd(cmd string) {

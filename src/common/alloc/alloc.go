@@ -80,13 +80,13 @@ func Realloc(ptr unsafe.Pointer, size uintptr) unsafe.Pointer {
 	return ptr
 }
 
-func Calloc(num, size uintptr) (unsafe.Pointer, func()) {
-	if num*size == 0 {
+func Calloc(num int, size uintptr) (unsafe.Pointer, func()) {
+	if uintptr(num)*size == 0 {
 		panic("zero alloc")
 	}
 	ptr := C.calloc(C.uint(num), C.uint(size))
 	allocMu.Lock()
-	allocs[ptr] = num * size
+	allocs[ptr] = uintptr(num) * size
 	allocMu.Unlock()
 	return ptr, func() {
 		Free(ptr)
