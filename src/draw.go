@@ -357,6 +357,29 @@ func (r *NoxRender) IsAlphaEnabled() bool {
 	return r.p.field_13 != 0
 }
 
+func (r *NoxRender) SetAlphaEnabled(enabled bool) { // nox_client_drawEnableAlpha_434560
+	if enabled != r.IsAlphaEnabled() {
+		r.p.field_13 = C.uint(bool2int(enabled))
+	}
+}
+
+func (r *NoxRender) SetAlpha(v byte) { // nox_client_drawSetAlpha_434580
+	if byte(r.p.field_259) != v {
+		r.p.field_259 = C.uint(v)
+		v2 := uint64(v) | (uint64(v) << 16)
+		v2 &= 0xffffffff
+		v2 <<= 16
+		v2 = (v2 & 0xffffffff00000000) | uint64(v) | (v2 & 0xffffffff)
+		v2 <<= 16
+		r.p.field_260 = C.uint(uint32(v) | uint32(v2))
+		r.p.field_261 = C.uint(v2 >> 32)
+	}
+}
+
+func (r *NoxRender) setField17(v int) { // 	nox_xxx_draw_434600
+	r.p.field_17 = C.uint(v)
+}
+
 func (r *NoxRender) SelectColor(a1 uint32) { // nox_xxx_drawSelectColor_434350
 	r.p.field_58 = C.uint(a1)
 }
@@ -600,15 +623,15 @@ func nox_xxx_drawString_43FAF0(font unsafe.Pointer, sp *C.wchar_t, x, y, a5, a6 
 
 //export nox_video_drawAnimatedImageOrCursorAt_4BE6D0
 func nox_video_drawAnimatedImageOrCursorAt_4BE6D0(a1, a2, a3 C.int) {
-	nox_video_drawAnimatedImageOrCursorAt(asImageRefP(unsafe.Pointer(uintptr(a1))), types.Point{X: int(a2), Y: int(a3)})
+	noxrend.nox_video_drawAnimatedImageOrCursorAt(asImageRefP(unsafe.Pointer(uintptr(a1))), types.Point{X: int(a2), Y: int(a3)})
 }
 
-func nox_video_drawAnimatedImageOrCursorAt(ref *noxImageRef, pos types.Point) {
+func (r *NoxRender) nox_video_drawAnimatedImageOrCursorAt(ref *noxImageRef, pos types.Point) {
 	if v3 := asImageP(unsafe.Pointer(uintptr(C.sub_4BE640(C.int(uintptr(unsafe.Pointer(ref.C()))), 0)))); v3 != nil {
 		if C.dword_5d4594_3798728 != 0 {
-			noxDrawCursor(v3, pos)
+			r.noxDrawCursor(v3, pos)
 		} else {
-			noxrend.DrawImageAt(v3, pos)
+			r.DrawImageAt(v3, pos)
 		}
 	}
 }
@@ -1219,7 +1242,7 @@ LOOP:
 		if dr.Flags70()&0x40 != 0 {
 			C.nox_xxx_drawShinySpot_4C4F40(vp.C(), dr.C())
 		}
-		C.nox_xxx_drawEffectsMB_474E60(vp.C(), dr.C())
+		drawCreatureFrontEffects(noxrend, vp, dr)
 		C.sub_495BB0(dr.C(), vp.C())
 		if dr.field_120 == 0 && dr.field_122 == 0 {
 			dr.field_85 = C.uint(gameFrame())
@@ -1260,7 +1283,7 @@ func sub_475F10(vp *Viewport) {
 			if dr.Flags70()&0x40 != 0 {
 				C.nox_xxx_drawShinySpot_4C4F40(vp.C(), dr.C())
 			}
-			C.nox_xxx_drawEffectsMB_474E60(vp.C(), dr.C())
+			drawCreatureFrontEffects(noxrend, vp, dr)
 			C.sub_495BB0(dr.C(), vp.C())
 			if getEngineFlag(NOX_ENGINE_FLAG_ENABLE_SHOW_EXTENTS) {
 				C.nox_thing_debug_draw(vp.C(), dr.C())
@@ -1305,7 +1328,7 @@ func sub_4745F0(cvp *C.nox_draw_viewport_t) {
 		if dr.Flags70()&0x40 != 0 {
 			C.nox_xxx_drawShinySpot_4C4F40(vp.C(), dr.C())
 		}
-		C.nox_xxx_drawEffectsMB_474E60(vp.C(), dr.C())
+		drawCreatureFrontEffects(noxrend, vp, dr)
 		C.sub_495BB0(dr.C(), vp.C())
 		if getEngineFlag(NOX_ENGINE_FLAG_ENABLE_SHOW_EXTENTS) {
 			C.nox_thing_debug_draw(vp.C(), dr.C())
@@ -1396,7 +1419,7 @@ func (r *NoxRender) drawImage16(img *Image, pos types.Point) { // nox_client_xxx
 	case 3, 4, 5, 6:
 		r.draw5 = drawOpC(func() { C.sub_4C96A0() })
 		r.draw6 = func(dst, src []byte, op byte, val int) (_, _ []byte) { return dst, src }
-		if r.p.field_13 == 0 {
+		if !r.IsAlphaEnabled() {
 			if r.p.field_14 != 0 {
 				r.draw5 = drawOpC(func() { C.sub_4C9970() })
 				r.draw27 = r.sub_4C86B0
@@ -1942,9 +1965,15 @@ var (
 	drawLightBlueBubbleParticle uint32
 	drawRedBubbleParticle       uint32
 	drawOrangeBubbleParticle    uint32
+	drawYellowBubbleParticle    uint32
+	drawGreenBubbleParticle     uint32
+	drawWhiteSpark              uint32
+	drawColorXxxLoaded1096552   bool
+	drawColorXxx1096452         uint32
+	drawColorXxx1096436         uint32
 )
 
-func sub_499F60(p uint32, pos types.Point, a4 int16, a5, a6, a7, a8, a9 int, a10 int) {
+func sub_499F60(p uint32, pos types.Point, a4 int, a5, a6, a7, a8, a9 int, a10 int) {
 	C.sub_499F60(C.int(p), C.int(pos.X), C.int(pos.Y), C.short(a4), C.char(a5), C.char(a6), C.char(a7), C.char(a8), C.char(a9), C.int(a10))
 }
 
@@ -2030,6 +2059,127 @@ func drawCreatureBackEffects(r *NoxRender, vp *Viewport, dr *Drawable) { // nox_
 		switch *(*byte)(dr.field(297)) {
 		case 0, 1, 2:
 			C.nox_xxx_drawShield_499810(vp.C(), dr.C())
+		}
+	}
+}
+
+func drawCreatureFrontEffects(r *NoxRender, vp *Viewport, dr *Drawable) { // nox_xxx_drawEffectsMB_474E60
+	if dr.CheckFlag31(0) && C.sub_474B40(dr.C()) == 0 {
+		return
+	}
+	if dr.CheckFlag31(22) {
+		if drawWhiteSpark == 0 {
+			drawWhiteSpark = nox_xxx_getTTByNameSpriteMB_44CFC0("WhiteSpark")
+		}
+		pos := dr.Pos()
+		C.nox_xxx_drawEnergyBolt_499710(C.int(pos.X), C.int(pos.Y), C.short(*(*int16)(dr.field(104))), C.int(drawWhiteSpark))
+	}
+	if dr.CheckFlag31(3) || dr.CheckFlag31(5) || dr.CheckFlag31(29) || dr.CheckFlag31(28) {
+		pos := vp.toScreenPos(dr.Pos())
+		v5 := 5 - int(*(*int16)(dr.field(106))) - int(*(*int16)(dr.field(104))) - int(dr.Field25())
+		v6 := *(*byte)(dr.field(112))
+		pos.Y += v5
+		if v6&0x4 != 0 && *(*uint32)(dr.field(276)) == 6 {
+			v8 := 8 * uintptr(*(*byte)(dr.field(297)))
+			pos.X += int(memmap.Int32(0x587000, 149432+v8))
+			pos.Y += int(memmap.Int32(0x587000, 149436+v8))
+		}
+		if dr.CheckFlag31(29) {
+			r.setField17(1)
+			C.sub_433E40(C.int(memmap.Uint32(0x85B3FC, 980)))
+		}
+		r.nox_video_drawAnimatedImageOrCursorAt(asImageRefP(*memmap.PtrPtr(0x5D4594, 1096456)), pos.Add(types.Point{X: -64, Y: -64}))
+		r.setField17(0)
+	}
+	if dr.CheckFlag31(4) && !nox_xxx_checkGameFlagPause_413A50() {
+		v11 := int(*(*float32)(dr.field(48)))
+		v44 := int(dr.Field25() * 0.5)
+		if drawYellowBubbleParticle == 0 {
+			drawYellowBubbleParticle = nox_xxx_getTTByNameSpriteMB_44CFC0("YellowBubbleParticle")
+		}
+		pos := dr.Pos()
+		for v12 := 0; v12 < 2; v12++ {
+			v40 := randomIntMinMax(3, 5)
+			v36 := randomIntMinMax(3, 6)
+			v34 := randomIntMinMax(1, 2)
+			v32 := randomIntMinMax(0, v44)
+			pos2 := types.Point{
+				X: randomIntMinMax(-v11, v11),
+				Y: randomIntMinMax(-v11, v11),
+			}
+			sub_499F60(drawYellowBubbleParticle, pos.Add(pos2), v32, v34, v36, -5, 0, 0, v40)
+		}
+	}
+	if dr.CheckFlag31(21) && !nox_xxx_checkGameFlagPause_413A50() {
+		if drawGreenBubbleParticle == 0 {
+			drawGreenBubbleParticle = nox_xxx_getTTByNameSpriteMB_44CFC0("GreenBubbleParticle")
+		}
+		pos := dr.Pos()
+		v41 := randomIntMinMax(2, 3)
+		v37 := randomIntMinMax(3, 6)
+		v35 := randomIntMinMax(2, 4)
+		v29 := int(dr.Field25()) + 12
+		v14 := int(dr.Field25())
+		v33 := randomIntMinMax(v14+8, v29)
+		pos2 := types.Point{
+			X: randomIntMinMax(-6, 6),
+			Y: randomIntMinMax(-10, 10),
+		}
+		sub_499F60(drawGreenBubbleParticle, pos.Add(pos2), v33, v35, v37, 1, 0, 0, v41)
+	}
+	if dr.CheckFlag31(13) && !nox_xxx_checkGameFlagPause_413A50() {
+		if !drawColorXxxLoaded1096552 {
+			drawColorXxx1096452 = noxcolor.ExtendColor16(noxcolor.RGBColor(255, 0, 255))
+			drawColorXxx1096436 = noxcolor.ExtendColor16(noxcolor.RGBColor(255, 180, 255))
+			drawColorXxxLoaded1096552 = true
+		}
+		pos := vp.toScreenPos(dr.Pos())
+
+		for v16 := 0; v16 < 10; v16++ {
+			v17 := randomIntMinMax(1, 2)
+			v38 := int(*(*float32)(dr.field(48)))
+			v18 := int(*(*float32)(dr.field(48)))
+			v20 := int(dr.Field25())
+			pos2 := pos.Add(types.Point{
+				X: randomIntMinMax(-v18, v38),
+				Y: randomIntMinMax(-10-v20, 0) + int(*(*int16)(dr.field(104))),
+			})
+			v22 := randomIntMinMax(3, 4)
+			r.DrawGlow(pos2, drawColorXxx1096452, v17+v22, v17+2)
+			r.SetColor2(drawColorXxx1096436)
+			r.DrawPoint(pos2, v17)
+		}
+	}
+	if dr.CheckFlag31(17) {
+		r.drawProtectEffectDefault(vp, dr.Pos(), dr, 0, 0, memmap.Uint32(0x85B3FC, 940), memmap.Uint32(0x5D4594, 2589776), false)
+	}
+	if dr.CheckFlag31(18) {
+		r.drawProtectEffectDefault(vp, dr.Pos(), dr, 85, 1, memmap.Uint32(0x8531A0, 2572), memmap.Uint32(0x852978, 24), false)
+	}
+	if dr.CheckFlag31(20) {
+		r.drawProtectEffectDefault(vp, dr.Pos(), dr, 170, 2, memmap.Uint32(0x85B3FC, 980), memmap.Uint32(0x5D4594, 2523948), false)
+	}
+	if dr.CheckFlag31(26) {
+		pos := vp.toScreenPos(dr.Pos())
+		v23 := *(*uint32)(dr.field(276))
+		v24 := -90 - int(*(*int16)(dr.field(104)))
+		pos.X -= 64
+		pos.Y += v24
+		if v23 == 6 {
+			v26 := 8 * uintptr(*(*byte)(dr.field(297)))
+			pos.X += int(memmap.Int32(0x587000, 149504+v26))
+			pos.Y += int(memmap.Int32(0x587000, 149508+v26))
+		}
+		r.SetAlphaEnabled(true)
+		r.SetAlpha(0x80)
+		r.nox_video_drawAnimatedImageOrCursorAt(asImageRefP(*memmap.PtrPtr(0x5D4594, 1096460)), pos)
+		r.SetAlphaEnabled(false)
+	}
+	if dr.CheckFlag31(27) {
+		switch *(*byte)(dr.field(297)) {
+		default:
+			C.nox_xxx_drawShield_499810(vp.C(), dr.C())
+		case 0, 1, 2:
 		}
 	}
 }

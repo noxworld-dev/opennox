@@ -145,7 +145,7 @@ func mapDownloadLoop(first bool) (bool, error) {
 	}
 
 	DrawGUI()
-	nox_client_drawCursorAndTooltips_477830(inp)
+	nox_client_drawCursorAndTooltips_477830(noxrend, inp)
 	// C.nox_xxx_directDrawBlitMB_48A220() // does nothing
 	nox_video_callCopyBackBuffer_4AD170()
 
@@ -166,7 +166,7 @@ func mainloopDrawAndPresent(inp *input.Handler) {
 	}
 	DrawSparks()
 	if !getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) || getEngineFlag(NOX_ENGINE_FLAG_9) || C.nox_client_gui_flag_815132 != 0 {
-		nox_client_drawCursorAndTooltips_477830(inp) // Draw cursor
+		nox_client_drawCursorAndTooltips_477830(noxrend, inp) // Draw cursor
 	}
 	C.nox_client_procFade_44D9F0(1)
 	maybeScreenshot()

@@ -497,7 +497,7 @@ func drawGeneral_4B0340(a1 int) error {
 		if sub_4338D0() == 0 {
 			return errors.New("sub_4338D0 failed")
 		}
-		noxDrawCursor(v11, vpos)
+		noxrend.noxDrawCursor(v11, vpos)
 	}
 	C.sub_43E910(0)
 	C.sub_43DBE0()
@@ -732,12 +732,12 @@ func nox_video_initPixbufferRows_486230(sz types.Size) {
 
 //export sub_48B3F0
 func sub_48B3F0(a1 unsafe.Pointer, a2, a3 C.int) C.int {
-	return C.int(noxDrawCursor(asImageP(a1), types.Point{X: int(a2), Y: int(a3)}))
+	return C.int(noxrend.noxDrawCursor(asImageP(a1), types.Point{X: int(a2), Y: int(a3)}))
 }
 
-func noxDrawCursor(a1 *Image, pos types.Point) int {
+func (r *NoxRender) noxDrawCursor(a1 *Image, pos types.Point) int {
 	if C.dword_5d4594_1193672 != 0 && a1 != nil {
-		noxrend.DrawImageAt(a1, pos)
+		r.DrawImageAt(a1, pos)
 	}
 	return 1
 }
@@ -854,7 +854,7 @@ func sub_48B680(a1 int) {
 	}
 }
 
-func nox_video_cursorDrawImpl_477A30(inp *input.Handler, pos types.Point) {
+func nox_video_cursorDrawImpl_477A30(r *NoxRender, inp *input.Handler, pos types.Point) {
 	v18 := memmap.Uint32(0x973F18, 68)
 	pos = pos.Sub(types.Point{X: 64, Y: 64})
 	*memmap.PtrUint32(0x973F18, 68) = 0
@@ -864,10 +864,10 @@ func nox_video_cursorDrawImpl_477A30(inp *input.Handler, pos types.Point) {
 	if gameFrame()&1 != 0 {
 		*memmap.PtrUint32(0x5D4594, 1097288)++
 	}
-	noxrend.SetTextColor(memmap.Uint32(0x5D4594, 2589772))
+	r.SetTextColor(memmap.Uint32(0x5D4594, 2589772))
 	fh := nox_xxx_guiFontHeightMB_43F320(0)
 	if C.nox_xxx_guiSpell_460650() != 0 || C.sub_4611A0() != 0 {
-		nox_video_drawAnimatedImageOrCursorAt(noxCursors.Target, pos)
+		r.nox_video_drawAnimatedImageOrCursorAt(noxCursors.Target, pos)
 		C.dword_5d4594_3798728 = 0
 		C.nox_xxx_cursorTypePrev_587000_151528 = 5
 		*memmap.PtrUint32(0x973F18, 68) = v18
@@ -880,46 +880,46 @@ func nox_video_cursorDrawImpl_477A30(inp *input.Handler, pos types.Point) {
 	switch typ := int(C.nox_client_mouseCursorType); typ {
 	case 1:
 		str := strMan.GetStringInFile("GRAB", "C:\\NoxPost\\src\\Client\\Gui\\guicurs.c")
-		noxrend.DrawString(nil, str, pos.Add(types.Point{X: 54, Y: 64 - fh}))
-		nox_video_drawAnimatedImageOrCursorAt(noxCursors.Grab, pos)
+		r.DrawString(nil, str, pos.Add(types.Point{X: 54, Y: 64 - fh}))
+		r.nox_video_drawAnimatedImageOrCursorAt(noxCursors.Grab, pos)
 	case 2:
 		str := strMan.GetStringInFile("PICKUP", "C:\\NoxPost\\src\\Client\\Gui\\guicurs.c")
-		noxrend.DrawString(nil, str, pos.Add(types.Point{X: 49, Y: 64 + fh}))
-		nox_video_drawAnimatedImageOrCursorAt(noxCursors.Pickup, pos)
+		r.DrawString(nil, str, pos.Add(types.Point{X: 49, Y: 64 + fh}))
+		r.nox_video_drawAnimatedImageOrCursorAt(noxCursors.Pickup, pos)
 		dword_5d4594_1097208 = -2 * fh
 	case 3:
 		str := strMan.GetStringInFile("SHOPKEEPER", "C:\\NoxPost\\src\\Client\\Gui\\guicurs.c")
-		noxrend.DrawString(nil, str, pos.Add(types.Point{X: 39, Y: 64 - fh}))
-		nox_video_drawAnimatedImageOrCursorAt(noxCursors.Trade, pos)
+		r.DrawString(nil, str, pos.Add(types.Point{X: 39, Y: 64 - fh}))
+		r.nox_video_drawAnimatedImageOrCursorAt(noxCursors.Trade, pos)
 	case 4:
 		str := strMan.GetStringInFile("TALK", "C:\\NoxPost\\src\\Client\\Gui\\guicurs.c")
-		noxrend.DrawString(nil, str, pos.Add(types.Point{X: 49, Y: 64 - fh}))
-		nox_video_drawAnimatedImageOrCursorAt(noxCursors.Talk, pos)
+		r.DrawString(nil, str, pos.Add(types.Point{X: 49, Y: 64 - fh}))
+		r.nox_video_drawAnimatedImageOrCursorAt(noxCursors.Talk, pos)
 	case 6, 7:
 		str := strMan.GetStringInFile("IDENTIFY", "C:\\NoxPost\\src\\Client\\Gui\\guicurs.c")
-		noxrend.DrawString(nil, str, pos.Add(types.Point{X: 49, Y: +88}))
+		r.DrawString(nil, str, pos.Add(types.Point{X: 49, Y: +88}))
 		if typ == 6 {
-			nox_video_drawAnimatedImageOrCursorAt(noxCursors.Identify, pos)
+			r.nox_video_drawAnimatedImageOrCursorAt(noxCursors.Identify, pos)
 		} else {
-			nox_video_drawAnimatedImageOrCursorAt(noxCursors.IdentifyNo, pos)
+			r.nox_video_drawAnimatedImageOrCursorAt(noxCursors.IdentifyNo, pos)
 		}
 	case 8:
 		str := strMan.GetStringInFile("REPAIR", "C:\\NoxPost\\src\\Client\\Gui\\guicurs.c")
-		noxrend.DrawString(nil, str, pos.Add(types.Point{X: 49, Y: 64 - fh}))
-		nox_video_drawAnimatedImageOrCursorAt(noxCursors.Repair, pos)
+		r.DrawString(nil, str, pos.Add(types.Point{X: 49, Y: 64 - fh}))
+		r.nox_video_drawAnimatedImageOrCursorAt(noxCursors.Repair, pos)
 		dword_5d4594_1097208 = 2*fh + 4
 	case 9:
-		nox_video_drawAnimatedImageOrCursorAt(noxCursors.CreateGame, pos)
+		r.nox_video_drawAnimatedImageOrCursorAt(noxCursors.CreateGame, pos)
 	case 10:
-		nox_video_drawAnimatedImageOrCursorAt(noxCursors.Busy, pos)
+		r.nox_video_drawAnimatedImageOrCursorAt(noxCursors.Busy, pos)
 	case 11:
-		nox_video_drawAnimatedImageOrCursorAt(noxCursors.Buy, pos)
+		r.nox_video_drawAnimatedImageOrCursorAt(noxCursors.Buy, pos)
 	case 12:
-		nox_video_drawAnimatedImageOrCursorAt(noxCursors.Sell, pos)
+		r.nox_video_drawAnimatedImageOrCursorAt(noxCursors.Sell, pos)
 	case 13:
 		str := strMan.GetStringInFile("USE", "C:\\NoxPost\\src\\Client\\Gui\\guicurs.c")
-		noxrend.DrawString(nil, str, pos.Add(types.Point{X: 54, Y: 64 + fh}))
-		nox_video_drawAnimatedImageOrCursorAt(noxCursors.Use, pos)
+		r.DrawString(nil, str, pos.Add(types.Point{X: 54, Y: 64 + fh}))
+		r.nox_video_drawAnimatedImageOrCursorAt(noxCursors.Use, pos)
 		dword_5d4594_1097208 = -2 * fh
 	case 14:
 		mpos := inp.GetMousePos()
@@ -944,13 +944,13 @@ func nox_video_cursorDrawImpl_477A30(inp *input.Handler, pos types.Point) {
 		C.sub_4BE710(C.int(uintptr(unsafe.Pointer(noxCursors.Move.C()))), C.int(pos.X), C.int(pos.Y), C.int(v15))
 		C.sub_4345F0(0)
 	case 15:
-		nox_video_drawAnimatedImageOrCursorAt(noxCursors.PickupFar, pos)
+		r.nox_video_drawAnimatedImageOrCursorAt(noxCursors.PickupFar, pos)
 		dword_5d4594_1097208 = -2 * fh
 	case 16:
-		nox_video_drawAnimatedImageOrCursorAt(noxCursors.Caution, pos)
+		r.nox_video_drawAnimatedImageOrCursorAt(noxCursors.Caution, pos)
 		dword_5d4594_1097208 = -fh
 	default:
-		nox_video_drawAnimatedImageOrCursorAt(noxCursors.Select, pos)
+		r.nox_video_drawAnimatedImageOrCursorAt(noxCursors.Select, pos)
 	}
 	C.dword_5d4594_3798728 = 0
 	C.nox_xxx_cursorTypePrev_587000_151528 = C.nox_client_mouseCursorType
@@ -989,7 +989,7 @@ func nox_xxx_cursorResetDraggedItem_4776A0() {
 	nox_client_itemDragnDrop_1097188 = nil
 }
 
-func nox_client_drawCursorAndTooltips_477830(inp *input.Handler) {
+func nox_client_drawCursorAndTooltips_477830(r *NoxRender, inp *input.Handler) {
 	if noxCursors.Select == nil {
 		nox_xxx_cursorLoadAll_477710()
 	}
@@ -1016,18 +1016,18 @@ func nox_client_drawCursorAndTooltips_477830(inp *input.Handler) {
 		if pl == nil || pl.PlayerClass() != player.Warrior {
 			v2 := C.nox_xxx_spellIcon_424A90(C.int(nox_client_spellDragnDrop_1097192)) // Spell icon
 			if v2 != nil {
-				noxrend.DrawImageAt(asImageP(unsafe.Pointer(v2)), mpos.Sub(types.Point{X: 15, Y: 15}))
+				r.DrawImageAt(asImageP(unsafe.Pointer(v2)), mpos.Sub(types.Point{X: 15, Y: 15}))
 			}
 		} else {
 			v2 := C.nox_xxx_spellGetAbilityIcon_425310(C.int(nox_client_spellDragnDrop_1097192), 0) // Ability icon
 			if v2 != nil {
-				noxrend.DrawImageAt(asImageP(unsafe.Pointer(v2)), mpos.Sub(types.Point{X: 15, Y: 15}))
+				r.DrawImageAt(asImageP(unsafe.Pointer(v2)), mpos.Sub(types.Point{X: 15, Y: 15}))
 			}
 		}
 	}
-	nox_video_cursorDrawImpl_477A30(inp, mpos)
+	nox_video_cursorDrawImpl_477A30(r, inp, mpos)
 	if str := GoWStringP(memmap.PtrOff(0x5D4594, 1096676)); str != "" && C.nox_client_showTooltips_80840 == 1 {
-		sz := noxrend.GetStringSize(0, str, 0)
+		sz := r.GetStringSize(0, str, 0)
 		px := mpos.X - dword_5d4594_1097204
 		py := mpos.Y - dword_5d4594_1097208
 		sz.W += 4
@@ -1044,9 +1044,9 @@ func nox_client_drawCursorAndTooltips_477830(inp *input.Handler) {
 		if py < 0 {
 			py = 0
 		}
-		noxrend.DrawRectFilledAlpha(px, py, sz.W, sz.H)
-		noxrend.SetTextColor(memmap.Uint32(0x5D4594, 2589772))
-		noxrend.DrawStringWrapped(nil, str, px+2, py+2, 0, 0)
+		r.DrawRectFilledAlpha(px, py, sz.W, sz.H)
+		r.SetTextColor(memmap.Uint32(0x5D4594, 2589772))
+		r.DrawStringWrapped(nil, str, px+2, py+2, 0, 0)
 		if C.dword_5d4594_3799468 != 0 {
 			vp := getViewport()
 			if px < int(vp.x1) || px+sz.W > int(vp.x2) || py < int(vp.y1) || py+sz.H > int(vp.y2) {

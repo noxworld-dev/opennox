@@ -191,10 +191,10 @@ func (p *Particle) DrawAt(pos types.Point) {
 
 //export sub_4B6720
 func sub_4B6720(a1 *C.int2, a2, a3 C.int, a4 C.char) {
-	noxrend.DrawGlow(asPoint(unsafe.Pointer(a1)), uint32(a2), int(a3), byte(a4))
+	noxrend.DrawGlow(asPoint(unsafe.Pointer(a1)), uint32(a2), int(a3), int(a4))
 }
 
-func (r *NoxRender) DrawGlow(pos types.Point, cl uint32, a3 int, a4 byte) { // sub_4B6720
+func (r *NoxRender) DrawGlow(pos types.Point, cl uint32, a3 int, a4 int) { // sub_4B6720
 	if !r.shouldDrawGlow() {
 		return
 	}
@@ -202,11 +202,6 @@ func (r *NoxRender) DrawGlow(pos types.Point, cl uint32, a3 int, a4 byte) { // s
 	r.sub434080(a3 + 4)
 	p := r.newParticle(0, int(32*byte(a4)))
 	p.DrawAt(pos)
-}
-
-//export nox_client_drawXxxProtect_474BE0
-func nox_client_drawXxxProtect_474BE0(vp *C.nox_draw_viewport_t, pos *C.nox_point, dr *C.nox_drawable, phase, eff C.int, cl1, cl2 C.int, back C.bool) {
-	noxrend.drawProtectEffectDefault(asViewport(vp), asPoint(unsafe.Pointer(pos)), asDrawable(dr), int(phase), int(eff), uint32(cl1), uint32(cl2), bool(back))
 }
 
 func (r *NoxRender) drawProtectEffectDefault(vp *Viewport, pos types.Point, dr *Drawable, phase, eff int, cl1, cl2 uint32, back bool) { // nox_client_drawXxxProtect_474BE0

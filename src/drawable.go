@@ -76,6 +76,10 @@ func (s *Drawable) SetPos(p types.Point) {
 	s.pos.y = C.int(p.Y)
 }
 
+func (s *Drawable) Field25() float32 {
+	return float32(s.field_25)
+}
+
 func (s *Drawable) Flags28() uint {
 	return uint(s.flags28)
 }
