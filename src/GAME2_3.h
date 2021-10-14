@@ -127,7 +127,7 @@ _QWORD sub_499290(int a1);
 BOOL sub_4992B0(int a1, int a2);
 int nox_xxx_loadReflSheild_499360();
 int sub_499450();
-int nox_xxx_drawShield_499810(int a1, int a2);
+int nox_xxx_drawShield_499810(nox_draw_viewport_t* vp, nox_drawable* dr);
 _DWORD* nox_xxx_fxDrawTurnUndead_499880(__int16* a1);
 void nox_xxx_drawPointMB_499B70(int xLeft, int yTop, int a3);
 void nox_xxx_bookRewardCli_499CF0(int* a1, int a2, int a3);

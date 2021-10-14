@@ -291,7 +291,7 @@ int sub_473A40();
 int sub_473B30_free();
 void nox_xxx_drawWalls_473C10(nox_draw_viewport_t* vp, void* data);
 void sub_4745F0(nox_draw_viewport_t* vp);
-int sub_474B40(int a1);
+int sub_474B40(nox_drawable* dr);
 void nox_client_drawXxxProtect_474BE0(nox_draw_viewport_t* vp, nox_point* pos, nox_drawable* dr, int phase, int eff, int cl1, int cl2, bool back);
 int nox_client_drawXxxProtectParticle_474DD0(_DWORD* a1, int2* a2, int2* a3, int a4, int a5);
 void nox_xxx_drawList1096512_Append_4754C0(void* a1);

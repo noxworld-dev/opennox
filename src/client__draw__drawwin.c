@@ -13,6 +13,7 @@
 #include "client__video__draw_common.h"
 #include "client__draw__fx.h"
 
+#ifndef NOX_CGO
 //----- (004746C0) --------------------------------------------------------
 int  nox_xxx_drawHasteAndRunParticles_4746C0(nox_draw_viewport_t* vp, nox_drawable* dr) {
 	int a2 = dr;
@@ -115,6 +116,7 @@ int  nox_xxx_drawHasteAndRunParticles_4746C0(nox_draw_viewport_t* vp, nox_drawab
 		result = 0;
 	return result;
 }
+#endif // NOX_CGO
 
 //----- (00474E60) --------------------------------------------------------
 int  nox_xxx_drawEffectsMB_474E60(nox_draw_viewport_t* vp, nox_drawable* dr) {

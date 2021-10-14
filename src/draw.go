@@ -1208,7 +1208,7 @@ LOOP:
 				continue
 			}
 		}
-		C.nox_xxx_drawHasteAndRunParticles_4746C0(vp.C(), dr.C())
+		drawCreatureBackEffects(noxrend, vp, dr)
 		if dr.DrawFunc(vp) == 0 {
 			continue
 		}
@@ -1253,7 +1253,7 @@ func sub_475FE0(vp *Viewport) {
 
 func sub_475F10(vp *Viewport) {
 	for _, dr := range nox_drawable_list_3 {
-		C.nox_xxx_drawHasteAndRunParticles_4746C0(vp.C(), dr.C())
+		drawCreatureBackEffects(noxrend, vp, dr)
 		if C.nox_xxx_client_4984B0_drawable(dr.C()) != 0 {
 			dr.field_121 = 1
 			dr.DrawFunc(vp)
@@ -1296,7 +1296,7 @@ func nox_client_maybeDrawFrontWalls(vp *Viewport) { // nox_client_maybeDrawFront
 func sub_4745F0(cvp *C.nox_draw_viewport_t) {
 	vp := asViewport(cvp)
 	for _, dr := range nox_drawable_list_2 {
-		C.nox_xxx_drawHasteAndRunParticles_4746C0(vp.C(), dr.C())
+		drawCreatureBackEffects(noxrend, vp, dr)
 		if C.nox_xxx_client_4984B0_drawable(dr.C()) == 0 {
 			continue
 		}
@@ -1935,4 +1935,101 @@ func (r *NoxRender) SetColorMode(mode noxcolor.Mode) {
 		r.colors.B[i] = mode.RGB(0, 0, byte(i)).Color16()
 	}
 	r.colors.mode = mode
+}
+
+var (
+	drawWhiteBubbleParticle     uint32
+	drawLightBlueBubbleParticle uint32
+	drawRedBubbleParticle       uint32
+	drawOrangeBubbleParticle    uint32
+)
+
+func sub_499F60(p uint32, pos types.Point, a4 int16, a5, a6, a7, a8, a9 int, a10 int) {
+	C.sub_499F60(C.int(p), C.int(pos.X), C.int(pos.Y), C.short(a4), C.char(a5), C.char(a6), C.char(a7), C.char(a8), C.char(a9), C.int(a10))
+}
+
+func drawCreatureBackEffects(r *NoxRender, vp *Viewport, dr *Drawable) { // nox_xxx_drawHasteAndRunParticles_4746C0
+	if dr.CheckFlag31(0) && C.sub_474B40(dr.C()) == 0 {
+		return
+	}
+	if dr.CheckFlag31(14) {
+		pos := vp.toScreenPos(dr.Pos())
+		r.DrawGlow(pos, memmap.Uint32(0x85B3FC, 980), 30, 31)
+	}
+	if dr.CheckFlag31(9) && !nox_xxx_checkGameFlagPause_413A50() { // Haste effect
+		if drawWhiteBubbleParticle == 0 {
+			drawWhiteBubbleParticle = nox_xxx_getTTByNameSpriteMB_44CFC0("WhiteBubbleParticle")
+			drawLightBlueBubbleParticle = nox_xxx_getTTByNameSpriteMB_44CFC0("LightBlueBubbleParticle")
+		}
+		pos := dr.Pos()
+		v2 := 0
+		if dr.Pos() != dr.Point8() {
+			v2 = 2
+		}
+		for ; v2 > 0; v2-- {
+			v22 := randomIntMinMax(3, 5)
+			v18 := randomIntMinMax(3, 6)
+			v14 := randomIntMinMax(2, 4)
+			pos2 := types.Point{
+				X: randomIntMinMax(-10, 10),
+				Y: randomIntMinMax(-10, 10) + int(*(*int16)(dr.field(104))),
+			}
+			sub_499F60(drawWhiteBubbleParticle, pos.Add(pos2), 1, v14, v18, 0, 0, 0, v22)
+
+			v23 := randomIntMinMax(3, 5)
+			v19 := randomIntMinMax(3, 6)
+			v15 := randomIntMinMax(2, 4)
+			pos3 := types.Point{
+				X: randomIntMinMax(-10, 10),
+				Y: randomIntMinMax(-10, 10) + int(*(*int16)(dr.field(104))),
+			}
+			sub_499F60(drawLightBlueBubbleParticle, pos.Add(pos3), 1, v15, v19, 0, 0, 0, v23)
+		}
+	}
+	if dr.CheckFlag31(8) && !nox_xxx_checkGameFlagPause_413A50() { // Run effect
+		if drawRedBubbleParticle == 0 {
+			drawRedBubbleParticle = nox_xxx_getTTByNameSpriteMB_44CFC0("RedBubbleParticle")
+			drawOrangeBubbleParticle = nox_xxx_getTTByNameSpriteMB_44CFC0("OrangeBubbleParticle")
+		}
+		pos := dr.Pos()
+		v5 := 1
+		if dr.Pos() != dr.Point8() {
+			v5 = 2
+		}
+		for ; v5 > 0; v5-- {
+			v24 := randomIntMinMax(3, 5)
+			v20 := randomIntMinMax(3, 6)
+			v16 := randomIntMinMax(2, 4)
+			pos2 := types.Point{
+				X: randomIntMinMax(-10, 10),
+				Y: randomIntMinMax(-10, 10) + int(*(*int16)(dr.field(104))),
+			}
+			sub_499F60(drawRedBubbleParticle, pos.Add(pos2), 1, v16, v20, 0, 0, 0, v24)
+
+			v25 := randomIntMinMax(3, 5)
+			v21 := randomIntMinMax(3, 6)
+			v17 := randomIntMinMax(2, 4)
+			pos3 := types.Point{
+				X: randomIntMinMax(-10, 10),
+				Y: randomIntMinMax(-10, 10) + int(*(*int16)(dr.field(104))),
+			}
+			sub_499F60(drawOrangeBubbleParticle, pos.Add(pos3), 1, v17, v21, 0, 0, 0, v25)
+		}
+	}
+	// Protection effects
+	if dr.CheckFlag31(17) {
+		r.drawProtectEffectDefault(vp, dr.Pos(), dr, 0, 0, memmap.Uint32(0x85B3FC, 940), memmap.Uint32(0x5D4594, 2589776), true)
+	}
+	if dr.CheckFlag31(18) {
+		r.drawProtectEffectDefault(vp, dr.Pos(), dr, 85, 1, memmap.Uint32(0x8531A0, 2572), memmap.Uint32(0x852978, 24), true)
+	}
+	if dr.CheckFlag31(20) {
+		r.drawProtectEffectDefault(vp, dr.Pos(), dr, 170, 2, memmap.Uint32(0x85B3FC, 980), memmap.Uint32(0x5D4594, 2523948), true)
+	}
+	if dr.CheckFlag31(27) { // Shield effects
+		switch *(*byte)(dr.field(297)) {
+		case 0, 1, 2:
+			C.nox_xxx_drawShield_499810(vp.C(), dr.C())
+		}
+	}
 }

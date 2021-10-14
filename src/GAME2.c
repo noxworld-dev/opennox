@@ -267,7 +267,7 @@ int  nox_get_thing_pretty_image(int i) {
 }
 
 //----- (0044CFC0) --------------------------------------------------------
-int  nox_xxx_getTTByNameSpriteMB_44CFC0(CHAR* a1) { return nox_xxx_getvalByName2Imp_44CFD0(a1); }
+int  nox_xxx_getTTByNameSpriteMB_44CFC0(char* a1) { return nox_xxx_getvalByName2Imp_44CFD0(a1); }
 
 //----- (0044CFD0) --------------------------------------------------------
 int  nox_xxx_getvalByName2Imp_44CFD0(CHAR* a1) {

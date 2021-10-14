@@ -7900,7 +7900,8 @@ void sub_4745F0(nox_draw_viewport_t* vp) {
 #endif // NOX_CGO
 
 //----- (00474B40) --------------------------------------------------------
-int  sub_474B40(int a1) {
+int  sub_474B40(nox_drawable* dr) {
+	int a1 = dr;
 	_DWORD* v1; // edi
 	_DWORD* v2; // eax
 	int v3;     // eax

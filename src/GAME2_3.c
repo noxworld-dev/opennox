@@ -5083,7 +5083,9 @@ int sub_499450() {
 }
 
 //----- (00499810) --------------------------------------------------------
-int  nox_xxx_drawShield_499810(int a1, int a2) {
+int  nox_xxx_drawShield_499810(nox_draw_viewport_t* vp, nox_drawable* dr) {
+	int a1 = vp;
+	int a2 = dr;
 	int v3; // [esp-4h] [ebp-8h]
 
 	*(_DWORD*)(*getMemU32Ptr(0x5D4594, 1217468 + 4 * *(unsigned __int8*)(a2 + 297)) + 12) =

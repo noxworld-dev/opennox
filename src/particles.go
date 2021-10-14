@@ -206,15 +206,19 @@ func (r *NoxRender) DrawGlow(pos types.Point, cl uint32, a3 int, a4 byte) { // s
 
 //export nox_client_drawXxxProtect_474BE0
 func nox_client_drawXxxProtect_474BE0(vp *C.nox_draw_viewport_t, pos *C.nox_point, dr *C.nox_drawable, phase, eff C.int, cl1, cl2 C.int, back C.bool) {
+	noxrend.drawProtectEffectDefault(asViewport(vp), asPoint(unsafe.Pointer(pos)), asDrawable(dr), int(phase), int(eff), uint32(cl1), uint32(cl2), bool(back))
+}
+
+func (r *NoxRender) drawProtectEffectDefault(vp *Viewport, pos types.Point, dr *Drawable, phase, eff int, cl1, cl2 uint32, back bool) { // nox_client_drawXxxProtect_474BE0
 	opts := ProtectEffect{
 		Cnt:       2,
 		Height:    20,
 		Speed:     10,
-		Phase:     int(phase),
+		Phase:     phase,
 		Radius:    1.0,
 		TailLeng:  6,
-		GlowColor: uint32(cl1),
-		TailColor: uint32(cl2),
+		GlowColor: cl1,
+		TailColor: cl2,
 	}
 	switch eff {
 	case 1:
@@ -224,7 +228,7 @@ func nox_client_drawXxxProtect_474BE0(vp *C.nox_draw_viewport_t, pos *C.nox_poin
 		opts.Radius = 0.70709997
 		opts.Angle = -35
 	}
-	noxrend.drawProtectEffect(asViewport(vp), asPoint(unsafe.Pointer(pos)), asDrawable(dr), opts, bool(back))
+	r.drawProtectEffect(vp, pos, dr, opts, back)
 }
 
 type ProtectEffect struct {
