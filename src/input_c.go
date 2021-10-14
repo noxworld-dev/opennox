@@ -55,6 +55,48 @@ import (
 	"nox/v1/common/types"
 )
 
+var (
+	inputKeyTimeoutsOld = make(map[byte]uint32)
+	inputKeyTimeoutsNew = make(map[keybind.Event]uint32)
+)
+
+//export nox_xxx_setKeybTimeout_4160D0
+func nox_xxx_setKeybTimeout_4160D0(key C.int) C.int {
+	inputSetKeyTimeoutLegacy(byte(key))
+	return key
+}
+
+//export nox_xxx_checkKeybTimeout_4160F0
+func nox_xxx_checkKeybTimeout_4160F0(key C.uchar, dt C.uint) C.bool {
+	return C.bool(inputKeyCheckTimeoutLegacy(byte(key), uint32(dt)))
+}
+
+//export sub_416120
+func sub_416120(key C.uchar) C.bool {
+	return inputKeyTimeoutsOld[byte(key)] != gameFrame()
+}
+
+//export sub_416170
+func sub_416170(key C.int) C.int {
+	delete(inputKeyTimeoutsOld, byte(key))
+	return key
+}
+
+//export sub_416150
+func sub_416150(key, ts C.int) C.int {
+	if ts == 0 {
+		delete(inputKeyTimeoutsOld, byte(key))
+	} else {
+		inputKeyTimeoutsOld[byte(key)] = uint32(ts)
+	}
+	return key
+}
+
+func inputClearKeyTimeouts() {
+	inputKeyTimeoutsOld = make(map[byte]uint32)
+	inputKeyTimeoutsNew = make(map[keybind.Event]uint32)
+}
+
 func nox_client_getCursorType_477620() int {
 	return int(C.nox_client_mouseCursorType)
 }
@@ -71,14 +113,20 @@ func nox_xxx_guiSpellTest_45D9C0() bool {
 	return memmap.Uint32(0x5D4594, 1047916) != 0
 }
 
-func nox_xxx_checkKeybTimeout_4160F0(key byte, dt uint32) bool {
-	return key < 0x18 && gameFrame()-memmap.Uint32(0x5D4594, 371268+4*uintptr(key)) > dt
+func inputKeyCheckTimeoutLegacy(key byte, dt uint32) bool {
+	return int(gameFrame())-int(inputKeyTimeoutsOld[key]) > int(dt)
 }
 
-func nox_xxx_setKeybTimeout_4160D0(key byte) {
-	if key < 0x18 {
-		*memmap.PtrUint32(0x5D4594, 371268+4*uintptr(key)) = gameFrame()
-	}
+func inputSetKeyTimeoutLegacy(key byte) {
+	inputKeyTimeoutsOld[key] = gameFrame()
+}
+
+func inputKeyCheckTimeout(ev keybind.Event, dt uint32) bool {
+	return int(gameFrame())-int(inputKeyTimeoutsNew[ev]) > int(dt)
+}
+
+func inputSetKeyTimeout(ev keybind.Event) {
+	inputKeyTimeoutsNew[ev] = gameFrame()
 }
 
 func nox_xxx_guiCursor_477600() bool {

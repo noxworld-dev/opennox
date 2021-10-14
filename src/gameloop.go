@@ -383,7 +383,7 @@ mainloop:
 		if noxflags.HasGame(noxflags.GameFlag2) {
 			nox_xxx_cliSetupSession_437190()
 		}
-		C.nox_xxx_clear18hDD_416190()
+		inputClearKeyTimeouts()
 		if getEngineFlag(NOX_ENGINE_FLAG_GAMELOOP_MEMDUMP) {
 			C.nox_xxx_gameLoopMemDump_413E30()
 		}
@@ -766,7 +766,7 @@ func CONNECT_RESULT_FAIL(err error) {
 	if noxflags.HasGame(noxflags.GameFlag2) {
 		nox_xxx_cliSetupSession_437190()
 	}
-	C.nox_xxx_clear18hDD_416190()
+	inputClearKeyTimeouts()
 	if getEngineFlag(NOX_ENGINE_FLAG_GAMELOOP_MEMDUMP) {
 		C.nox_xxx_gameLoopMemDump_413E30()
 	}

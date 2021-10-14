@@ -697,7 +697,7 @@ func nox_xxx_gameTick_4D2580_server_A(v2 bool) {
 	*memmap.PtrUint32(0x5D4594, 1548676) = 0
 	*memmap.PtrUint32(0x5D4594, 1548680) = 0
 	C.dword_5d4594_1548524 = 1
-	C.sub_416170(12)
+	sub_416170(12)
 	noxflags.UnsetGame(8)
 	for _, u := range getPlayerUnits() {
 		u.dropAllItems()
@@ -809,7 +809,7 @@ func nox_xxx_gameTick_4D2580_server_C() bool {
 		} else {
 			C.sub_426060()
 			C.sub_41D6C0()
-			nox_xxx_setKeybTimeout_4160D0(15)
+			inputSetKeyTimeoutLegacy(15)
 		}
 	}
 	C.nox_xxx_guiServerOptionsHide_4597E0(0)

@@ -7684,6 +7684,7 @@ int  sub_415EC0(char* a1) {
 	return result;
 }
 
+#ifndef NOX_CGO
 //----- (004160D0) --------------------------------------------------------
 int  nox_xxx_setKeybTimeout_4160D0(int a1) {
 	int result; // eax
@@ -7697,12 +7698,12 @@ int  nox_xxx_setKeybTimeout_4160D0(int a1) {
 }
 
 //----- (004160F0) --------------------------------------------------------
-BOOL  nox_xxx_checkKeybTimeout_4160F0(unsigned __int8 a1, unsigned int a2) {
+bool nox_xxx_checkKeybTimeout_4160F0(unsigned __int8 a1, unsigned int a2) {
 	return a1 < 0x18u && nox_frame_xxx_2598000 - *getMemU32Ptr(0x5D4594, 371268 + 4 * a1) > a2;
 }
 
 //----- (00416120) --------------------------------------------------------
-BOOL  sub_416120(unsigned __int8 a1) {
+bool sub_416120(unsigned __int8 a1) {
 	return a1 < 0x18u && nox_frame_xxx_2598000 != *getMemU32Ptr(0x5D4594, 371268 + 4 * a1);
 }
 
@@ -7741,6 +7742,7 @@ int nox_xxx_clear18hDD_416190() {
 
 //----- (004161B0) --------------------------------------------------------
 BOOL  sub_4161B0(unsigned __int8 a1) { return a1 < 0x18u && !*getMemU32Ptr(0x5D4594, 371268 + 4 * a1); }
+#endif // NOX_CGO
 
 //----- (004161E0) --------------------------------------------------------
 int sub_4161E0() {

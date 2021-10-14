@@ -187,13 +187,13 @@ func nox_xxx_gameTick_4D2580_server_B(ticks uint64) bool {
 	}
 	updateRemotePlayers()
 	C.nox_xxx_unitsNewAddToList_4DAC00()
-	if nox_xxx_checkKeybTimeout_4160F0(0x10, 10*gameFPS()) {
+	if inputKeyCheckTimeoutLegacy(0x10, 10*gameFPS()) {
 		C.nox_xxx_protectUnitDefUpdateMB_4E3C20()
-		nox_xxx_setKeybTimeout_4160D0(16)
+		inputSetKeyTimeoutLegacy(16)
 	}
-	if noxflags.HasGame(noxflags.GameOnline) && C.nox_xxx_check_flag_aaa_43AF70() == 1 && !noxflags.HasGame(noxflags.GameModeChat) && nox_xxx_checkKeybTimeout_4160F0(0xF, 60*gameFPS()) {
+	if noxflags.HasGame(noxflags.GameOnline) && C.nox_xxx_check_flag_aaa_43AF70() == 1 && !noxflags.HasGame(noxflags.GameModeChat) && inputKeyCheckTimeoutLegacy(0xF, 60*gameFPS()) {
 		C.nox_xxx_net_4263C0()
-		nox_xxx_setKeybTimeout_4160D0(15)
+		inputSetKeyTimeoutLegacy(15)
 	}
 	return true
 }

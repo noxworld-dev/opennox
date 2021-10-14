@@ -363,7 +363,7 @@ func runNox(args []string) (gerr error) {
 	if C.nox_profiled_805856 == 0 {
 		detectBestVideoSettings()
 	}
-	C.nox_xxx_clear18hDD_416190()
+	inputClearKeyTimeouts()
 	noxCommonInitRandom()
 	C.nox_xxx_loadLook_415D50()
 	C.nox_xxx_loadModifyers_4158C0()
