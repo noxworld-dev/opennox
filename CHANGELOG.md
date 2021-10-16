@@ -1,5 +1,25 @@
 # Changelog
 
+## v1.8.4
+
+- Better performance for particle effects.
+- Allow using emotes in campaign.
+- New `cheat sage` command that gives all spells and scrolls, but doesn't make you invincible.
+- New `cheat spells` command that only gives all spells for your class.
+- New `cheat scrolls` command that only gives all best scrolls.
+- New `cheat god` (as opposed to `set god`) that only makes you invincible, but won't give any spells.
+- Fix: Set time limit for new key bindings to prevent the same action from executing to fast.
+- Fix: Lightning spells were not hitting multiple targets as they should.
+- Fix: Controlled creatures disappearing on map switch.
+- Fix: Effects from Protection spells were played incorrectly.
+- Fix: Random "you cannot wear this" messages when switching equipment.
+- Fix: Allow really large amount of gold in `cheat gold`.
+- Fix: Announcing Solo games to online lobby.
+- Fix: Using relative paths in config.
+- Fix: Better protection from potential memory leaks.
+- Fix: Crash when reading maps that use the new Panic's script compiler.
+- Fix: Multiple other crashes.
+
 ## v1.8.3
 
 - Integrated the new (simple) server control panel. 
