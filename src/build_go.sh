@@ -13,8 +13,8 @@ NOX_LDFLAGS="-X 'main.Commit=$GIT_SHA' -X 'main.Version=$VERSION'"
 NOX_GCFLAGS="-trimpath=$(pwd)"
 NOX_ASMFLAGS="-trimpath=$(pwd)"
 
-go build -v -ldflags="${NOX_LDFLAGS}" -gcflags="${NOX_GCFLAGS}" -asmflags="${NOX_ASMFLAGS}" -o opennox
-go build -v -ldflags="${NOX_LDFLAGS}" -gcflags="${NOX_GCFLAGS}" -asmflags="${NOX_ASMFLAGS}" -tags highres -o opennox-hd
-go build -v -ldflags="${NOX_LDFLAGS}" -gcflags="${NOX_GCFLAGS}" -asmflags="${NOX_ASMFLAGS}" -tags server -o opennox-server
+go build -v -ldflags="${NOX_LDFLAGS}" -gcflags="${NOX_GCFLAGS}" -asmflags="${NOX_ASMFLAGS}" -o opennox ./cmd/opennox
+go build -v -ldflags="${NOX_LDFLAGS}" -gcflags="${NOX_GCFLAGS}" -asmflags="${NOX_ASMFLAGS}" -tags highres -o opennox-hd ./cmd/opennox
+go build -v -ldflags="${NOX_LDFLAGS}" -gcflags="${NOX_GCFLAGS}" -asmflags="${NOX_ASMFLAGS}" -tags server -o opennox-server ./cmd/opennox
 go build -v -ldflags="${NOX_LDFLAGS}" -gcflags="${NOX_GCFLAGS}" -asmflags="${NOX_ASMFLAGS}" -o noxtools ./cmd/noxtools
 echo "Build complete: $VERSION ($GIT_SHA)"

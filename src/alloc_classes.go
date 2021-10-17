@@ -1,4 +1,4 @@
-package main
+package nox
 
 /*
 #include "common/alloc/classes/alloc_class.h"

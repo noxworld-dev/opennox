@@ -1,6 +1,7 @@
-//+build windows,!server
+//go:build windows && !server
+// +build windows,!server
 
-package main
+package nox
 
 import (
 	glog "log"

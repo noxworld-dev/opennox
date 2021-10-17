@@ -1,4 +1,4 @@
-package main
+package nox
 
 /*
 int map_download_finish();

@@ -1,6 +1,7 @@
-//+build highres
+//go:build highres
+// +build highres
 
-package main
+package nox
 
 /*
 #cgo CFLAGS: -DNOX_HIGH_RES

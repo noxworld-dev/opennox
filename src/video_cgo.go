@@ -1,4 +1,4 @@
-package main
+package nox
 
 /*
 #include "client__video__draw_common.h"

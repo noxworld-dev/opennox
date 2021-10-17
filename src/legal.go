@@ -1,4 +1,4 @@
-package main
+package nox
 
 /*
 #include "client__gui__window.h"

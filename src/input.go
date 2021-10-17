@@ -1,4 +1,4 @@
-package main
+package nox
 
 import (
 	"nox/v1/client/input/keybind"

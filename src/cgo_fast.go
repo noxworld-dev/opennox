@@ -1,6 +1,7 @@
-//+build !safe
+//go:build !safe
+// +build !safe
 
-package main
+package nox
 
 // only import C, but do nothing; cgo_safe defines NOX_CGO_MEMMAP instead
 

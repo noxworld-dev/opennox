@@ -1,4 +1,4 @@
-package main
+package nox
 
 /*
 extern unsigned char byte_581450[23472];

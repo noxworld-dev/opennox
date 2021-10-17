@@ -1,7 +1,7 @@
 //go:build !server
 // +build !server
 
-package main
+package nox
 
 /*
 #include "GAME1.h"

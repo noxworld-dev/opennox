@@ -1,4 +1,4 @@
-package main
+package nox
 
 /*
 extern unsigned int nox_common_engineFlags;

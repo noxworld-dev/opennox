@@ -1,4 +1,4 @@
-package main
+package nox
 
 var byte_5D4594_3804364 [40]uint32
 

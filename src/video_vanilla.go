@@ -1,6 +1,7 @@
-//+build !highres
+//go:build !highres
+// +build !highres
 
-package main
+package nox
 
 const (
 	NOX_CLIENT_VERS_CODE = 0x0001039A

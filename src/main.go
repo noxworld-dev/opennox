@@ -1,4 +1,4 @@
-package main
+package nox
 
 /*
 #include "GAME1.h"
@@ -86,17 +86,6 @@ var (
 // Nox only works on 32bit
 var _ = [1]struct{}{}[unsafe.Sizeof(int(0))-4]
 
-func main() {
-	if err := runNox(os.Args); err != nil && err != flag.ErrHelp {
-		if code, ok := err.(ErrExit); ok {
-			os.Exit(int(code))
-		} else {
-			fmt.Fprintln(os.Stderr, err)
-			os.Exit(1)
-		}
-	}
-}
-
 func writeLogsToDir() error {
 	dir := filepath.Dir(os.Args[0])
 	dir = filepath.Join(dir, "logs")
@@ -110,7 +99,7 @@ func writeLogsToDir() error {
 	return log.WriteToFile(filepath.Join(dir, name))
 }
 
-func runNox(args []string) (gerr error) {
+func RunArgs(args []string) (gerr error) {
 	defer func() {
 		switch r := recover().(type) {
 		case ErrExit:

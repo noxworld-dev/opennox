@@ -1,6 +1,7 @@
-//+build !server
+//go:build !server
+// +build !server
 
-package main
+package nox
 
 /*
 #include "GAME2_1.h"

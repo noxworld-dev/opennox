@@ -1,6 +1,7 @@
-//+build linux
+//go:build linux
+// +build linux
 
-package main
+package nox
 
 /*
 #include <sys/ioctl.h>

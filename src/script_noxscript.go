@@ -1,4 +1,4 @@
-package main
+package nox
 
 /*
 #include "server__script__script.h"

@@ -1,4 +1,4 @@
-package main
+package nox
 
 /*
 #include "GAME1_2.h"

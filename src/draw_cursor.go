@@ -1,4 +1,4 @@
-package main
+package nox
 
 var noxCursors struct {
 	Select     *noxImageRef

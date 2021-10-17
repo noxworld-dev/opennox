@@ -1,6 +1,7 @@
-//+build safe
+//go:build safe
+// +build safe
 
-package main
+package nox
 
 /*
 #cgo CFLAGS: -g -O0 -DNOX_CGO_MEMMAP
@@ -19,9 +20,10 @@ typedef unsigned int uintptr_t;
 */
 import "C"
 import (
+	"unsafe"
+
 	"nox/v1/common/alloc"
 	"nox/v1/common/memmap"
-	"unsafe"
 )
 
 func init() {

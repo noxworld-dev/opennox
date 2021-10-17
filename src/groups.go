@@ -1,4 +1,4 @@
-package main
+package nox
 
 /*
 int  nox_server_scriptGetGroupId_57C2D0(int** a1);
