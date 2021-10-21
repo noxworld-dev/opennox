@@ -186,7 +186,7 @@ void nox_xxx_crypt_426C90() {
 	if (!dword_973f18_3872) {
 		if (dword_5d4594_740004) {
 			v2 = (void*)nox_fs_ftell(nox_file_3);
-			*getMemU32Ptr(0x5D4594, 740008 + 4 * dword_5d4594_740072) = v2;
+			*getMemU32Ptr(0x5D4594, 740008 + 4*dword_5d4594_740072) = v2;
 			v5 = v2;
 			nox_xxx_cryptXor_56FDD0(126, &v5, 4);
 			nox_fs_fwrite(nox_file_3, &v5, 4);
@@ -195,7 +195,7 @@ void nox_xxx_crypt_426C90() {
 			*getMemU32Ptr(0x5D4594, 740040 + 4 * dword_5d4594_740072) = nox_binfile_yyy_409110(nox_file_3);
 			v3 = nox_binfile_ftell_426A50();
 			v4 = dword_5d4594_740072;
-			*getMemU32Ptr(0x5D4594, 740008 + 4 * dword_5d4594_740072) = v3;
+			*getMemU32Ptr(0x5D4594, 740008 + 4*dword_5d4594_740072) = v3;
 			dword_5d4594_740072 = v4 + 1;
 		}
 	}
@@ -218,7 +218,7 @@ void nox_xxx_crypt_426D40() {
 	}
 	if (dword_5d4594_740004) {
 		v1 = nox_fs_ftell(nox_file_3);
-		v2 = *getMemU32Ptr(0x5D4594, 740008 + 4 * dword_5d4594_740072);
+		v2 = *getMemU32Ptr(0x5D4594, 740008 + 4*dword_5d4594_740072);
 		v3 = (void*)(v1 - v2 - 4);
 		nox_fs_fseek_start(nox_file_3, v2);
 		v6 = v3;
@@ -227,8 +227,8 @@ void nox_xxx_crypt_426D40() {
 		nox_fs_fseek_start(nox_file_3, v1);
 	} else {
 		v5 = nox_binfile_ftell_426A50();
-		v3 = (void*)(v5 - *getMemU32Ptr(0x5D4594, 740008 + 4 * dword_5d4594_740072));
-		nox_binfile_kkk_409190(nox_file_3, v5 - *getMemU32Ptr(0x5D4594, 740008 + 4 * dword_5d4594_740072),
+		v3 = (void*)(v5 - *getMemU32Ptr(0x5D4594, 740008 + 4*dword_5d4594_740072));
+		nox_binfile_kkk_409190(nox_file_3, v5 - *getMemU32Ptr(0x5D4594, 740008 + 4*dword_5d4594_740072),
 							   *getMemU32Ptr(0x5D4594, 740040 + 4 * dword_5d4594_740072));
 	}
 }
