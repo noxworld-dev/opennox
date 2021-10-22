@@ -1,6 +1,7 @@
 package crypt
 
 import (
+	"errors"
 	"io"
 
 	"golang.org/x/crypto/blowfish"
@@ -12,15 +13,14 @@ func NewReader(r io.Reader, key int) (*Reader, error) {
 	if err != nil {
 		return nil, err
 	}
-	return &Reader{
-		r: r,
-		c: c,
-		i: -1,
-	}, nil
+	rd := &Reader{c: c}
+	rd.Reset(r)
+	return rd, nil
 }
 
 type Reader struct {
 	r   io.Reader
+	s   io.Seeker
 	c   *blowfish.Cipher
 	buf [Block]byte
 	i   int
@@ -28,6 +28,7 @@ type Reader struct {
 
 func (r *Reader) Reset(s io.Reader) {
 	r.r = s
+	r.s, _ = s.(io.Seeker)
 	r.i = -1
 }
 
@@ -94,4 +95,32 @@ func (r *Reader) ReadAligned(p []byte) (int, error) {
 	}
 	n = copy(p, b[:])
 	return n, nil
+}
+
+func (r *Reader) Seek(off int64, whence int) (int64, error) {
+	if r.s == nil {
+		return 0, errors.New("reader cannot seek")
+	}
+	if whence == io.SeekCurrent {
+		off -= int64(r.Buffered())
+	}
+	cur, err := r.s.Seek(off, whence)
+	r.i = -1
+	if err != nil {
+		return 0, err
+	}
+	rem := cur % Block
+	if rem == 0 {
+		return cur, nil
+	}
+	_, err = r.s.Seek(-rem, io.SeekCurrent)
+	if err != nil {
+		return 0, err
+	}
+	err = r.readNext()
+	if err != nil {
+		return 0, err
+	}
+	r.i = int(rem)
+	return cur, nil
 }
