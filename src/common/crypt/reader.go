@@ -2,48 +2,26 @@ package crypt
 
 import (
 	"io"
+
+	"golang.org/x/crypto/blowfish"
 )
-
-// Encode a buffer with a given key.
-func Encode(p []byte, key int) error {
-	return crypt(p, key, false)
-}
-
-// Decode a buffer with a given key.
-func Decode(p []byte, key int) error {
-	return crypt(p, key, true)
-}
-
-func crypt(p []byte, key int, reverse bool) error {
-	if len(p)%Block != 0 {
-		return errInvalidSize
-	}
-	e, err := newCoder(key, reverse)
-	if err != nil {
-		return err
-	}
-	for i := 0; i < len(p); i += Block {
-		e.EncodeBlock(p[i : i+Block])
-	}
-	return nil
-}
 
 // NewReader creates a decoder with a given key and byte stream.
 func NewReader(r io.Reader, key int) (*Reader, error) {
-	e, err := newCoder(key, true)
+	c, err := NewCipher(key)
 	if err != nil {
 		return nil, err
 	}
 	return &Reader{
 		r: r,
-		e: e,
+		c: c,
 		i: -1,
 	}, nil
 }
 
 type Reader struct {
 	r   io.Reader
-	e   *coder
+	c   *blowfish.Cipher
 	buf [Block]byte
 	i   int
 }
@@ -66,7 +44,7 @@ func (r *Reader) readNext() error {
 		return err
 	}
 	r.i = 0
-	r.e.EncodeBlock(r.buf[:])
+	r.c.Decrypt(r.buf[:], r.buf[:])
 	return nil
 }
 

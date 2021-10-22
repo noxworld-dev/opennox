@@ -1,42 +1,26 @@
 package crypt
 
-import (
-	"testing"
-)
+import "testing"
 
-func keyEqual(t *testing.T, exp, got []uint32) {
-	for i := range exp {
-		if exp[i] != got[i] {
-			t.Fatalf("%d: %08x != %08x", i, got[i], exp[i])
-		}
-	}
-}
+func TestEncode(t *testing.T) {
+	const (
+		key     = ThingBin
+		encoded = "\x2c\xc3\x70\x31\x5e\xda\x12\x3c"
+		decoded = "ROLF\x01\x00\x00\x00"
+	)
 
-func TestKey7(t *testing.T) {
-	e, err := newCoder(7, false)
+	buf := []byte(encoded)
+	err := Decode(buf, key)
 	if err != nil {
 		t.Fatal(err)
+	} else if string(buf) != decoded {
+		t.Fatalf("unexpected data: %q", buf)
 	}
-	keyEqual(t, keyA7[:], e.keyA[:])
-}
 
-var keyA7 = keyA{
-	2685602555,
-	2224177424,
-	3818581036,
-	1597590766,
-	303927664,
-	3835289578,
-	2664370356,
-	2353741922,
-	2165690199,
-	3446265359,
-	2487671745,
-	3325016349,
-	945526154,
-	216152034,
-	3995240103,
-	3355199544,
-	1756156406,
-	1470639093,
+	err = Encode(buf, key)
+	if err != nil {
+		t.Fatal(err)
+	} else if string(buf) != encoded {
+		t.Fatalf("unexpected data: %q", buf)
+	}
 }
