@@ -5,6 +5,8 @@ import (
 	"io/ioutil"
 	"strings"
 	"testing"
+
+	"github.com/stretchr/testify/require"
 )
 
 func TestReader(t *testing.T) {
@@ -15,30 +17,18 @@ func TestReader(t *testing.T) {
 	)
 
 	r, err := NewReader(strings.NewReader(encoded), key)
-	if err != nil {
-		t.Fatal(err)
-	}
+	require.NoError(t, err)
 	out, err := ioutil.ReadAll(r)
-	if err != nil {
-		t.Fatal(err)
-	} else if string(out) != decoded {
-		t.Fatalf("unexpected data: %q (%x)", out, out)
-	}
+	require.NoError(t, err)
+	require.Equal(t, decoded, string(out))
 
 	for i := 1; i < len(encoded); i++ {
 		r, err = NewReader(strings.NewReader(encoded), key)
-		if err != nil {
-			t.Fatal(err)
-		}
+		require.NoError(t, err)
 		_, err = r.Seek(int64(i), io.SeekCurrent)
-		if err != nil {
-			t.Fatal(err)
-		}
+		require.NoError(t, err)
 		out, err = ioutil.ReadAll(r)
-		if err != nil {
-			t.Fatal(err)
-		} else if string(out) != decoded[i:] {
-			t.Fatalf("unexpected data: %q (%x)", out, out)
-		}
+		require.NoError(t, err)
+		require.Equal(t, decoded[i:], string(out))
 	}
 }

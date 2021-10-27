@@ -1,6 +1,10 @@
 package crypt
 
-import "testing"
+import (
+	"testing"
+
+	"github.com/stretchr/testify/require"
+)
 
 func TestEncode(t *testing.T) {
 	const (
@@ -11,16 +15,10 @@ func TestEncode(t *testing.T) {
 
 	buf := []byte(encoded)
 	err := Decode(buf, key)
-	if err != nil {
-		t.Fatal(err)
-	} else if string(buf) != decoded {
-		t.Fatalf("unexpected data: %q", buf)
-	}
+	require.NoError(t, err)
+	require.Equal(t, decoded, string(buf))
 
 	err = Encode(buf, key)
-	if err != nil {
-		t.Fatal(err)
-	} else if string(buf) != encoded {
-		t.Fatalf("unexpected data: %q", buf)
-	}
+	require.NoError(t, err)
+	require.Equal(t, encoded, string(buf))
 }
