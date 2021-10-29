@@ -527,13 +527,14 @@ int __usercall copyServerMatchData(char* a1) {
 		++v3;
 		cntr++;
 	} while (v4);
+	void* info = sub_416630();
 	a1[34] = *getMemU32Ptr(0x5D4594, 371620);
 	a1[35] = *getMemU32Ptr(0x5D4594, 373872) + 1;
-	a1[36] = *getMemU32Ptr(0x5D4594, 371616);
+	a1[36] = *(_DWORD*)info;
 	*((_WORD*)a1 + 20) = *getMemU32Ptr(0x5D4594, 371621);
 	*((_WORD*)a1 + 21) = *getMemU32Ptr(0x5D4594, 371623);
 	a1[44] = *getMemU32Ptr(0x5D4594, 371618);
-	a1[45] = *getMemU32Ptr(0x5D4594, 371616);
+	a1[45] = *(_DWORD*)info;
 	a1[37] = sub_409F40(2);
 	// a1[38] = MEMACCESS(0x5D5331); // serverRuleFlags + 1
 	a1[38] = dword_5d4594_3484 >> 8;
