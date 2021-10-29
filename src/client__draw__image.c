@@ -2461,7 +2461,7 @@ void  nox_client_xxxDraw16_4C7440(nox_video_bag_image_t* img, int x, int y) {
 	int v4; // eax
 	int v5; // ecx
 #if 0
-    if (img->typ & 0xff != 8)
+    if ((img->typ & 0xff) != 8)
     {
         _dprintf("%x %x %x", img, x, y);
         _dprintf("\t%d", img->typ & 0xff);

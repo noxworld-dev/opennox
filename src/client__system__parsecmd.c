@@ -406,7 +406,7 @@ int nox_cmd_list_weapons(int tokInd, int tokCnt, wchar_t** tokens) {
 	wchar_t* allow = nox_strman_loadString_40F1D0("allowed", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1460);
 	wchar_t* disallow = nox_strman_loadString_40F1D0("disallowed", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1461);
 	for (nox_objectType_t* typ = nox_xxx_getFirstObjectType_4E3B30(); typ; typ = nox_xxx_objectType_next_4E3B40(typ)) {
-		if (typ->obj_class & 0x1000000 == 0) {
+		if ((typ->obj_class & 0x1000000) == 0) {
 			continue;
 		}
 		int v3 = sub_415910(typ->id);

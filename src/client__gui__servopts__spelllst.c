@@ -33,14 +33,14 @@ int  nox_xxx_guiSpelllistLoad_453850(int a1) {
 			continue;
 		}
 		int flags = nox_xxx_spellFlags_424A70(i);
-		if (flags & 0x15000 != 0) {
+		if ((flags & 0x15000) != 0) {
 			continue;
 		}
 		if (flags & 0x1000000 || flags & 0x2000000 && flags & 0x4000000) {
 			wchar_t* v7 = nox_strman_loadString_40F1D0("Common", 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\spelllst.c", 307);
 			nox_wcscpy(wbuf, v7);
 		} else {
-			if (flags & 0x6000000 == 0) {
+			if ((flags & 0x6000000) == 0) {
 				continue;
 			}
 			wbuf[0] = 0;
