@@ -369,28 +369,27 @@ int  sub_4580E0(int a1) {
 }
 
 //----- (00458230) --------------------------------------------------------
-void nox_client_guiserv_updateMapList_458230(int a1, char* name, bool a3) {
+void nox_client_guiserv_updateMapList_458230(int mode, char* current, bool a3) {
 	char v19[58];
 	char v20[58];
 	wchar_t v21[100];
 
 	nox_window_call_field_94(*(int*)&dword_5d4594_1046496, 16399, 0, 0);
-	int v3 = a1;
 	int v18 = -1;
-	*getMemU32Ptr(0x5D4594, 1046552) = a1;
+	*getMemU32Ptr(0x5D4594, 1046552) = mode;
 	int v17 = 0;
 	for (nox_map_list_item* it = nox_common_maplist_first_4D09B0(); it; it = nox_common_maplist_next_4D09C0(it)) {
 		if (!it->field_6) {
 			continue;
 		}
-		if (sub_4CFFC0(it) & v3 == 0) {
+		if ((sub_4CFFC0(it) & mode) == 0) {
 			continue;
 		}
 		strcpy(v19, it->name);
 		memcpy(v20, v19, 0x38u);
 		*(_WORD*)&v20[56] = *(_WORD*)&v19[56];
-		sub_57A1E0((int*)v19, 0, 0, 1, a1);
-		sub_57A1E0((int*)v20, "user.rul", 0, 3, a1);
+		sub_57A1E0((int*)v19, 0, 0, 1, mode);
+		sub_57A1E0((int*)v20, "user.rul", 0, 3, mode);
 		int v6 = -1;
 		for (int i = 0; i < 20; i += 4) {
 			if (*(_DWORD*)&v19[i + 24] != *(_DWORD*)&v20[i + 24]) {
@@ -412,12 +411,11 @@ void nox_client_guiserv_updateMapList_458230(int a1, char* name, bool a3) {
 		wchar_t* v9 = nox_strman_loadString_40F1D0("RecPlayers", 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c", 823);
 		nox_swprintf(v21, v9, it->name, v15, v16);
 		nox_window_call_field_94(*(int*)&dword_5d4594_1046496, 16397, v21, v6);
-		if (!_strcmpi(name, it->name)) {
+		if (_strcmpi(current, it->name) == 0) {
 			v18 = v17;
 			nox_window_call_field_94(*(int*)&dword_5d4594_1046496, 16403, v17, 0);
 			nox_window_call_field_94(*(int*)&dword_5d4594_1046496, 16412, v17, 0);
 		}
-		v3 = a1;
 		++v17;
 	}
 	if (v18 < 0) {
@@ -441,7 +439,7 @@ void nox_client_guiserv_updateMapList_458230(int a1, char* name, bool a3) {
 			strcpy(v11, v14);
 		}
 	}
-	sub_57A1E0((int*)v11, "user.rul", 0, 7, v3);
+	sub_57A1E0((int*)v11, "user.rul", 0, 7, mode);
 	sub_459880((int)v11);
 }
 //----- (004585D0) --------------------------------------------------------
