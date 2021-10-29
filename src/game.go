@@ -296,12 +296,19 @@ type xwisInfoShort struct {
 	Name       string
 	Map        string
 	Flags      xwis.GameFlags
+	Access     xwis.Access
 	Players    int
 	MaxPlayers int
 	Level      int
 }
 
 func getGameInfoXWIS() xwisInfoShort {
+	var access xwis.Access
+	if acc := sub_416640(); acc[100]&0x20 != 0 {
+		access = xwis.AccessPrivate
+	} else if acc[100]&0x10 != 0 {
+		access = xwis.AccessClosed
+	}
 	return xwisInfoShort{
 		Name:       getServerName(),
 		Map:        getServerMap(),
@@ -309,6 +316,7 @@ func getGameInfoXWIS() xwisInfoShort {
 		Players:    getServerCurPlayers(),
 		MaxPlayers: getServerMaxPlayers(),
 		Level:      nox_game_getQuestStage_4E3CC0(),
+		Access:     access,
 	}
 }
 
@@ -323,6 +331,7 @@ func (v xwisInfoShort) XWIS() xwis.GameInfo {
 		Map:        v.Map,
 		Resolution: xwis.Res1024x768,
 		Flags:      v.Flags,
+		Access:     v.Access,
 		Players:    v.Players,
 		MaxPlayers: v.MaxPlayers,
 	}

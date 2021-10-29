@@ -3,6 +3,8 @@ package nox
 import (
 	"context"
 
+	"github.com/noxworld-dev/xwis"
+
 	"nox/v1/common/discover"
 )
 
@@ -24,6 +26,13 @@ func discoverAndPingServers(port int, ts uint32, data []byte) {
 		if xwisIsQuest(l.Game) {
 			level = g.FragLimit
 		}
+		var status byte
+		switch g.Access {
+		case xwis.AccessClosed:
+			status |= 0x10
+		case xwis.AccessPrivate:
+			status |= 0x20
+		}
 		// TODO: more fields
 		onLobbyServer(&LobbyServerInfo{
 			Addr:       g.Addr,
@@ -33,6 +42,7 @@ func discoverAndPingServers(port int, ts uint32, data []byte) {
 			Players:    g.Players,
 			MaxPlayers: g.MaxPlayers,
 			Flags:      uint16(g.Flags) | uint16(g.MapType),
+			Status:     status,
 			Ping:       -1, // we have no idea - it comes from a central server
 			Level:      uint16(level),
 		})
