@@ -227,7 +227,7 @@ void nox_server_checkVictory_509A60() {
 		return;
 	}
 	for (char* v3 = nox_xxx_TeamGet_418B10(); v3; v3 = nox_xxx_TeamNext_418B60(v3)) {
-		if (*((_DWORD*)v3 + 13) >= v2) {
+		if (*((int*)v3 + 13) >= v2) {
 			nox_xxx_setGameFlags_40A4D0(8);
 			nox_xxx_netSendDMTeamWinner_4D8BF0(v3, 0);
 			return;
@@ -235,7 +235,7 @@ void nox_server_checkVictory_509A60() {
 	}
 	for (int v4 = nox_xxx_getFirstPlayerUnit_4DA7C0(); v4; v4 = nox_xxx_getNextPlayerUnit_4DA7F0(v4)) {
 		int v5 = *(_DWORD*)(*(_DWORD*)(v4 + 748) + 276);
-		if (!(*(_BYTE*)(v5 + 3680) & 1) && *(_DWORD*)(v5 + 2136) >= v2) {
+		if (!(*(_BYTE*)(v5 + 3680) & 1) && *(int*)(v5 + 2136) >= v2) {
 			nox_xxx_setGameFlags_40A4D0(8);
 			nox_xxx_netSendDMWinner_4D8B90(v4, 0);
 			break;
