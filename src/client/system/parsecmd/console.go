@@ -95,6 +95,15 @@ func (cn *Console) registerBuiltin() {
 	cn.Register(&Command{Token: "ques", HelpID: "helphelp", Flags: ClientServer, LegacyFunc: (*Console).help})
 }
 
+func (cn *Console) HelpString(cmd *Command) string {
+	if cmd.HelpID != "" {
+		if help, ok := cn.sm.GetVariantInFile(cmd.HelpID, "parsecmd.c"); ok {
+			return help.Str
+		}
+	}
+	return cmd.Help
+}
+
 func (cn *Console) help(_ int, tokens []string) bool {
 	if len(tokens) != 1 {
 		return cn.helpOne(1, tokens, cn.cmds)
@@ -120,13 +129,7 @@ func (cn *Console) helpOne(ind int, tokens []string, cmds []*Command) bool {
 		return false
 	}
 	if len(cmd.Sub) == 0 {
-		var help string
-		if cmd.HelpID != "" {
-			help = cn.sm.GetStringInFile(cmd.HelpID, "parsecmd.c")
-		} else {
-			help = cmd.Help
-		}
-		cn.p.Printf(ColorRed, help)
+		cn.p.Printf(ColorRed, cn.HelpString(cmd))
 		return true
 	}
 	if ind+1 >= len(tokens) {
@@ -142,13 +145,7 @@ func (cn *Console) helpOne(ind int, tokens []string, cmds []*Command) bool {
 func (cn *Console) helpList(cmds []*Command) {
 	for _, cmd := range cmds {
 		if !cmd.Flags.Has(NoHelp) && (cn.Cheats() || !cmd.Flags.Has(Cheat)) {
-			var help string
-			if cmd.HelpID != "" {
-				help = cn.sm.GetStringInFile(cmd.HelpID, "parsecmd.c")
-			} else {
-				help = cmd.Help
-			}
-			cn.p.Printf(ColorRed, "\t%s -\t%s", cmd.Token2, help)
+			cn.p.Printf(ColorRed, "\t%s -\t%s", cmd.Token2, cn.HelpString(cmd))
 		}
 	}
 }
@@ -219,13 +216,7 @@ func (cn *Console) ParseToken(tokInd int, tokens []string, cmds []*Command) bool
 	if len(cmd.Sub) != 0 { // have sub-commands
 		if tokInd+1 >= len(tokens) {
 			// not enough tokens - print help
-			var help string
-			if cmd.HelpID != "" {
-				help = cn.Strings().GetStringInFile(cmd.HelpID, "parsecmd.c")
-			} else {
-				help = cmd.Help
-			}
-			cn.Printf(ColorRed, help)
+			cn.Printf(ColorRed, cn.HelpString(cmd))
 			return true
 		}
 		// continue parsing the sub command
@@ -240,13 +231,7 @@ func (cn *Console) ParseToken(tokInd int, tokens []string, cmds []*Command) bool
 	}
 	if !res {
 		// command failed - print help
-		var help string
-		if cmd.HelpID != "" {
-			help = cn.Strings().GetStringInFile(cmd.HelpID, "parsecmd.c")
-		} else {
-			help = cmd.Help
-		}
-		cn.Printf(ColorRed, help)
+		cn.Printf(ColorRed, cn.HelpString(cmd))
 		return true
 	}
 	return res
