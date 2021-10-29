@@ -8938,7 +8938,6 @@ int nox_xxx_mapInfoSetCapflag_417EA0() {
 bool sub_417EC0() {
 	int i; // eax
 
-	sub_416640();
 	dword_5d4594_526276 = 0;
 	for (i = nox_server_getFirstObject_4DA790(); i; i = nox_server_getNextObject_4DA7A0(i)) {
 		if (*(_DWORD*)(i + 8) & 0x10000000)

@@ -609,7 +609,6 @@ int  sub_4CF060(int a1, unsigned int a2, int* a3, int a4) {
 	if (a2 != 16391) {
 		if (a2 != 23 && a2 == 16387) {
 			v4 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1523024, a4);
-			sub_416640();
 			if (!v4)
 				return 0;
 			if ((unsigned __int16)a3 == 1)
@@ -8948,7 +8947,6 @@ int  nox_xxx_netPlayerIncomingServ_4DDF60(int a1) {
 	int k;                // esi
 	int v13;              // [esp+Ch] [ebp+4h]
 
-	sub_416640();
 	v1 = a1;
 	v2 = nox_common_playerInfoFromNum_417090(a1);
 	if (!v2) {
