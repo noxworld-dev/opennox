@@ -10,12 +10,22 @@ import (
 	"math"
 	"strings"
 
+	"github.com/spf13/viper"
+
 	"nox/v1/common/types"
 )
 
 const (
 	guiIDMenuExt = 380
+
+	configVideoWidth  = "video.size.width"
+	configVideoHeight = "video.size.height"
 )
+
+func init() {
+	viper.SetDefault(configVideoWidth, 1024)
+	viper.SetDefault(configVideoHeight, 768)
+}
 
 var (
 	guiOptionsRes = types.Size{
@@ -76,6 +86,9 @@ func nox_gui_menu_proc_ext(cid C.int) C.int {
 	opts := getResolutionOptions()
 	if id >= guiIDMenuExt && id < guiIDMenuExt+len(opts) {
 		guiOptionsRes = opts[id-guiIDMenuExt]
+		viper.Set(configVideoWidth, guiOptionsRes.W)
+		viper.Set(configVideoHeight, guiOptionsRes.H)
+		writeConfigLater()
 	}
 	clientPlaySoundSpecial(921, 100)
 	return 1

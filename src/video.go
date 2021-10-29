@@ -98,15 +98,12 @@ func videoResizeView(mode types.Size) {
 	videoSetWindowSize(mode)
 }
 
-func videoApplyConfigVideoMode(mode types.Size) {
+func videoApplyConfigVideoMode() {
 	if env.IsE2E() {
-		videoSetGameMode(types.Size{W: 1024, H: 768})
 		changeWindowedOrFullscreen()
 		return
 	}
 	if !getEngineFlag(NOX_ENGINE_FLAG_ENABLE_WINDOWED_MODE) {
-		videoSetGameMode(mode)
-
 		// FIXME: this will cause the game to change its window size to whatever set in nox.cfg right at the
 		// start! this is different from original game where window is only resized after joining the game
 		changeWindowedOrFullscreen()

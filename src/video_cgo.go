@@ -253,10 +253,7 @@ func videoSetGameMode(mode types.Size) {
 
 //export nox_common_parsecfg_videomode_apply
 func nox_common_parsecfg_videomode_apply(w, h, d C.int) {
-	videoApplyConfigVideoMode(types.Size{
-		W: int(w),
-		H: int(h),
-	})
+	videoApplyConfigVideoMode()
 }
 
 func nox_video_setBackBufferCopyFunc_4AD100() error {

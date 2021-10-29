@@ -344,11 +344,16 @@ func RunArgs(args []string) (gerr error) {
 	if C.nox_common_readcfgfile(C.CString("nox.cfg"), 0) == 0 {
 		return fmt.Errorf("failed to load config file")
 	}
+	if env.IsE2E() {
+		videoSetGameMode(types.Size{W: 1024, H: 768})
+	} else {
+		videoSetGameMode(types.Size{
+			W: viper.GetInt(configVideoWidth),
+			H: viper.GetInt(configVideoHeight),
+		})
+	}
 	if err := gameexReadConfig("game_ex.cfg"); err != nil {
 		return fmt.Errorf("failed to load gameex config file: %w", err)
-	}
-	if C.nox_profiled_805856 == 0 {
-		detectBestVideoSettings()
 	}
 	inputClearKeyTimeouts()
 	noxCommonInitRandom()
