@@ -174,96 +174,73 @@ int sub_5099B0() {
 }
 
 //----- (00509A60) --------------------------------------------------------
-char sub_509A60() {
-	char* v0;   // eax
-	__int16 v1; // ax
-	int v2;     // edi
-	char* v3;   // esi
-	int v4;     // esi
-	int v5;     // eax
-	char* v6;   // edi
-	__int16 v7; // ax
-	int v8;     // ebp
-	int v9;     // ebx
-	int i;      // esi
-	int v11;    // eax
-
+void nox_server_checkVictory_509A60() {
 	if (nox_common_gameFlags_check_40A5C0(1024)) {
-		v6 = 0;
-		v7 = nox_common_gameFlags_getVal_40A5B0();
-		LOWORD(v0) = nox_xxx_servGamedataGet_40A020(v7);
-		v8 = (unsigned __int16)v0;
-		if ((int)(unsigned __int16)v0 >= 1) {
-			v9 = 0;
-			for (i = nox_xxx_getFirstPlayerUnit_4DA7C0(); i; i = nox_xxx_getNextPlayerUnit_4DA7F0(i)) {
-				v11 = *(_DWORD*)(*(_DWORD*)(i + 748) + 276);
-				if (!(*(_BYTE*)(v11 + 3680) & 1) && *(_DWORD*)(v11 + 2140) < v8) {
-					v0 = (char*)nox_xxx_servObjectHasTeam_419130(i + 48);
-					if (v0) {
-						if (v6) {
-							v0 = nox_xxx_clientGetTeamColor_418AB0(*(unsigned __int8*)(i + 52));
-							if (v6 != v0)
-								return (char)v0;
-						} else {
-							v6 = nox_xxx_clientGetTeamColor_418AB0(*(unsigned __int8*)(i + 52));
+		char* v6 = 0;
+		__int16 v7 = nox_common_gameFlags_getVal_40A5B0();
+		unsigned __int16 v0 = nox_xxx_servGamedataGet_40A020(v7);
+		int v8 = v0;
+		if (v8 < 1) {
+			return;
+		}
+		int v9 = 0;
+		for (int i = nox_xxx_getFirstPlayerUnit_4DA7C0(); i; i = nox_xxx_getNextPlayerUnit_4DA7F0(i)) {
+			int v11 = *(_DWORD*)(*(_DWORD*)(i + 748) + 276);
+			if (!(*(_BYTE*)(v11 + 3680) & 1) && *(_DWORD*)(v11 + 2140) < v8) {
+				if (nox_xxx_servObjectHasTeam_419130(i + 48)) {
+					char* v0 = nox_xxx_clientGetTeamColor_418AB0(*(unsigned __int8*)(i + 52));
+					if (v6) {
+						if (v6 != v0) {
+							return;
 						}
 					} else {
-						if (v9 || v6)
-							return (char)v0;
-						v9 = i;
+						v6 = v0;
 					}
-				}
-			}
-			v0 = nox_xxx_gamePlayIsAnyPlayers_40A8A0();
-			if (v0) {
-				nox_xxx_setGameFlags_40A4D0(8);
-				if (v6) {
-					LOBYTE(v0) = nox_xxx_netSendDMTeamWinner_4D8BF0((int)v6, 0);
-				} else if (v9) {
-					LOBYTE(v0) = nox_xxx_netSendDMWinner_4D8B90(v9, 0);
 				} else {
-					LOBYTE(v0) = nox_xxx_netSendDMWinner_4D8B90(0, 0);
+					if (v9 || v6) {
+						return;
+					}
+					v9 = i;
 				}
 			}
 		}
-	} else {
-		v0 = (char*)nox_common_gameFlags_check_40A5C0(512);
-		if (!v0) {
-			v1 = nox_common_gameFlags_getVal_40A5B0();
-			LOWORD(v0) = nox_xxx_servGamedataGet_40A020(v1);
-			v2 = (unsigned __int16)v0;
-			if ((_WORD)v0) {
-				v3 = nox_xxx_TeamGet_418B10();
-				if (v3) {
-					while (*((_DWORD*)v3 + 13) < v2) {
-						v3 = nox_xxx_TeamNext_418B60((int)v3);
-						if (!v3)
-							goto LABEL_7;
-					}
-					nox_xxx_setGameFlags_40A4D0(8);
-					LOBYTE(v0) = nox_xxx_netSendDMTeamWinner_4D8BF0((int)v3, 0);
-				} else {
-				LABEL_7:
-					v0 = (char*)nox_xxx_getFirstPlayerUnit_4DA7C0();
-					v4 = (int)v0;
-					if (v0) {
-						while (1) {
-							v5 = *(_DWORD*)(*(_DWORD*)(v4 + 748) + 276);
-							if (!(*(_BYTE*)(v5 + 3680) & 1) && *(_DWORD*)(v5 + 2136) >= v2)
-								break;
-							v0 = (char*)nox_xxx_getNextPlayerUnit_4DA7F0(v4);
-							v4 = (int)v0;
-							if (!v0)
-								return (char)v0;
-						}
-						nox_xxx_setGameFlags_40A4D0(8);
-						LOBYTE(v0) = nox_xxx_netSendDMWinner_4D8B90(v4, 0);
-					}
-				}
-			}
+		if (!nox_xxx_gamePlayIsAnyPlayers_40A8A0()) {
+			return;
+		}
+		nox_xxx_setGameFlags_40A4D0(8);
+		if (v6) {
+			nox_xxx_netSendDMTeamWinner_4D8BF0((int)v6, 0);
+		} else if (v9) {
+			nox_xxx_netSendDMWinner_4D8B90(v9, 0);
+		} else {
+			nox_xxx_netSendDMWinner_4D8B90(0, 0);
+		}
+		return;
+	}
+	if (nox_common_gameFlags_check_40A5C0(512)) {
+		return;
+	}
+	__int16 v1 = nox_common_gameFlags_getVal_40A5B0();
+	unsigned __int16 v0a = nox_xxx_servGamedataGet_40A020(v1);
+	int v2 = v0a;
+	if (!v0a) {
+		return;
+	}
+	for (char* v3 = nox_xxx_TeamGet_418B10(); v3; v3 = nox_xxx_TeamNext_418B60(v3)) {
+		if (*((_DWORD*)v3 + 13) >= v2) {
+			nox_xxx_setGameFlags_40A4D0(8);
+			nox_xxx_netSendDMTeamWinner_4D8BF0(v3, 0);
+			return;
 		}
 	}
-	return (char)v0;
+	for (int v4 = nox_xxx_getFirstPlayerUnit_4DA7C0(); v4; v4 = nox_xxx_getNextPlayerUnit_4DA7F0(v4)) {
+		int v5 = *(_DWORD*)(*(_DWORD*)(v4 + 748) + 276);
+		if (!(*(_BYTE*)(v5 + 3680) & 1) && *(_DWORD*)(v5 + 2136) >= v2) {
+			nox_xxx_setGameFlags_40A4D0(8);
+			nox_xxx_netSendDMWinner_4D8B90(v4, 0);
+			break;
+		}
+	}
 }
 // 509BEA: variable 'v0' is possibly undefined
 

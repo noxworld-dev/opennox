@@ -1870,7 +1870,7 @@ int  sub_51A920(int a1) {
 }
 
 //----- (0051B100) --------------------------------------------------------
-char nox_xxx_updateUnits_51B100() {
+void nox_xxx_updateUnits_51B100() {
 	int i;                    // esi
 	int v1;                   // edi
 	int v2;                   // esi
@@ -2173,7 +2173,7 @@ char nox_xxx_updateUnits_51B100() {
 		}
 	}
 	nox_xxx_decay_511750();
-	return sub_509A60();
+	nox_server_checkVictory_509A60();
 }
 // 51B5E7: variable 'v60' is possibly undefined
 

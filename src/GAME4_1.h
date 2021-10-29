@@ -6,7 +6,7 @@
 
 int sub_5098A0();
 int sub_5099B0();
-char sub_509A60();
+void nox_server_checkVictory_509A60();
 void sub_509C30(int a1);
 int* sub_509CB0();
 int sub_509CF0(const char* a1, char a2, int a3);
