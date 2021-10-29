@@ -194,6 +194,35 @@ func NewCheckbox(par *Window, id uint, px, py, w, h int, text string) *Window {
 	return win
 }
 
+func NewRadioButton(par *Window, id uint, px, py, w, h int, group int, text string) *Window {
+	draw, dfree := tempDrawData()
+	defer dfree()
+
+	*draw = *par.DrawData()
+
+	draw.win = par.C()
+	draw.style = C.int(gui.StyleRadioButton | gui.StyleMouseTrack)
+	draw.SetTextColor(noxcolor.RGBColor(240, 180, 42))
+	draw.SetText(text)
+	draw.SetBackgroundImage(nox_xxx_gLoadImg("UIRadio"))
+	draw.SetSelectedImage(nox_xxx_gLoadImg("UIRadioLit"))
+	draw.SetDisabledImage(nox_xxx_gLoadImg("UIRadio"))
+	draw.SetEnabledImage(nil)
+	draw.SetHighlightImage(nil)
+	draw.SetGroup(group)
+	status := gui.StatusEnabled | gui.StatusToggle | gui.StatusImage | gui.StatusSmoothText | gui.StatusNoFocus
+
+	rdata, rfree := alloc.Calloc(1, unsafe.Sizeof(radioButtonData{}))
+	defer rfree()
+
+	win := newRadioButton(par, status, px, py, w, h, draw, (*radioButtonData)(rdata))
+	win.SetID(id)
+	if par != nil {
+		par.Func94(22, uintptr(id), 0)
+	}
+	return win
+}
+
 func newButtonOrCheckbox(parent *Window, status gui.StatusFlags, px, py, w, h int, draw *WindowData) *Window {
 	st := draw.StyleFlags()
 	if st.IsPushButton() {

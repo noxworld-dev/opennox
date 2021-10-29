@@ -1117,6 +1117,7 @@ table_28760_t table_28760[] = {
 };
 int table_28760_cnt = sizeof(table_28760) / sizeof(table_28760_t);
 
+#ifndef NOX_CGO
 nox_video_mode nox_video_modes[7] = {
 	{640, 480, 0, L"640x480"},
 	{800, 600, 1, L"800x600"},
@@ -1127,6 +1128,7 @@ nox_video_mode nox_video_modes[7] = {
 	{3840, 2160, 6, L"3840x2160"},
 };
 int nox_video_modes_cnt = sizeof(nox_video_modes) / sizeof(nox_video_mode);
+#endif // NOX_CGO
 
 #define NOX_VERSION_STRING "1.2b"
 char nox_version_string_180[7] = NOX_VERSION_STRING;

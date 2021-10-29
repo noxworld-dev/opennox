@@ -6996,6 +6996,7 @@ int sub_43B340() {
 	return result;
 }
 
+#ifndef NOX_CGO
 //----- (0043B360) --------------------------------------------------------
 int nox_xxx_cliDrawConnectedLoop_43B360() { // client connecting draw handler
 	char* v0;            // ebx
@@ -7027,7 +7028,6 @@ int nox_xxx_cliDrawConnectedLoop_43B360() { // client connecting draw handler
 	return 1;
 }
 
-#ifndef NOX_CGO
 //----- (0043B440) --------------------------------------------------------
 int nox_client_createSockAndJoin_43B440() {
 	if (dword_587000_87404 == 1)

@@ -28,6 +28,7 @@ package nox
 
 extern unsigned int nox_game_loop_xxx_805872;
 extern unsigned int dword_5d4594_2660032;
+extern unsigned int dword_5d4594_814624;
 extern unsigned int dword_5d4594_815704;
 extern unsigned int dword_5d4594_815708;
 extern unsigned int dword_5d4594_3844304;
@@ -1124,5 +1125,33 @@ func nox_xxx_gameChangeMap_43DEB0() int {
 	if noxflags.HasGame(0x900000) {
 		noxflags.UnsetGame(0x900000)
 	}
+	return 1
+}
+
+//export nox_xxx_cliDrawConnectedLoop_43B360
+func nox_xxx_cliDrawConnectedLoop_43B360() C.int {
+	noxflags.SetGame(4)
+	noxflags.UnsetGame(1)
+	v0 := GoStringP(unsafe.Pointer(uintptr(C.dword_5d4594_814624 + 12)))
+	if v0 == "" {
+		clientSetServerHost("localhost")
+	} else {
+		v1 := clientGetServerPort()
+		v5 := fmt.Sprintf("%s:%d", v0, v1)
+		C.nox_xxx_copyServerIPAndPort_431790(internCStr(v5))
+		clientSetServerHost(v0)
+	}
+	C.nox_common_writecfgfile(internCStr("nox.cfg"))
+	v2 := *(*int8)(unsafe.Pointer(uintptr(C.dword_5d4594_814624 + 102)))
+	if v2 >= 0 {
+		videoSetMaxSize(noxVideoMax)
+	} else if res, ok := videoModeByID(byte(v2) & 0x7F); ok {
+		videoSetMaxSize(res)
+	} else {
+		videoSetMaxSize(noxVideoMax)
+	}
+	C.sub_44A400()
+	C.nox_client_guiXxx_43A9D0()
+	C.nox_client_guiXxxDestroy_4A24A0()
 	return 1
 }

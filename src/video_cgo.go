@@ -47,6 +47,7 @@ BOOL nox_xxx___cfltcvt_init_430CC0();
 import "C"
 import (
 	"errors"
+	"fmt"
 	"unsafe"
 
 	"nox/v1/client/input"
@@ -174,6 +175,21 @@ func nox_video_setGammaSetting_434B30(a1 C.int) C.int {
 	}
 	nox_video_gammaValue = v
 	return C.int(v)
+}
+
+//export sub_43BE50_get_video_mode_id
+func sub_43BE50_get_video_mode_id() C.int {
+	return C.int(videoModeID())
+}
+
+//export get_video_mode_string
+func get_video_mode_string(cid C.int) *C.wchar_t {
+	id := int(cid)
+	if id < 0 || id >= len(noxVideoModes) {
+		return internWStr("custom")
+	}
+	mode := noxVideoModes[id]
+	return internWStr(fmt.Sprintf("%dx%d", mode.W, mode.H))
 }
 
 //export nox_getBackbufWidth

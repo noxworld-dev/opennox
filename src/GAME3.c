@@ -52,8 +52,6 @@ extern unsigned char byte_5D4594_3804364[160];
 
 extern _DWORD dword_5d4594_3798688;
 extern _DWORD dword_5d4594_1307792;
-extern _DWORD nox_xxx_normalWndHeight_587000_172876;
-extern _DWORD nox_xxx_normalWndWidth_587000_172872;
 extern _DWORD dword_5d4594_1313788;
 extern _DWORD dword_5d4594_1308136;
 extern _DWORD nox_xxx_normalWndBits_587000_172880;
@@ -175,6 +173,8 @@ extern unsigned int nox_frame_xxx_2598000;
 extern char nox_savegame_name_1307752[9];
 
 #ifndef NOX_CGO
+_DWORD nox_xxx_normalWndWidth_587000_172872 = 640;
+_DWORD nox_xxx_normalWndHeight_587000_172876 = 480;
 _DWORD dword_5d4594_1312460 = 0;
 #endif // NOX_CGO
 
@@ -4088,6 +4088,9 @@ int sub_4AAA10() {
 	return 1;
 }
 
+#ifdef NOX_CGO
+void nox_video_setMenuOptions(nox_window* root);
+#endif // NOX_CGO
 //----- (004AAA70) --------------------------------------------------------
 _DWORD* sub_4AAA70() {
 	_DWORD* v0;     // eax
@@ -4096,12 +4099,14 @@ _DWORD* sub_4AAA70() {
 	_DWORD* result; // eax
 	int v6;         // [esp-4h] [ebp-10h]
 	int v7;         // [esp-4h] [ebp-10h]
-	int v8;         // [esp+0h] [ebp-Ch]
-	int v9;         // [esp+4h] [ebp-8h]
-	int v10;        // [esp+8h] [ebp-4h]
 
+#ifdef NOX_CGO
+	nox_video_setMenuOptions(dword_5d4594_1309720);
+#else // NOX_CGO
+	int v8;
+	int v9;
+	int v10;
 	nox_xxx_gameGetScreenBoundaries_43BEB0_get_video_mode(&v8, &v10, &v9);
-	v9 = nox_xxx_normalWndBits_587000_172880;
 #ifdef NOX_HIGH_RES
 	if (v10 == 768 || v10 == 720)
 		v6 = 321;
@@ -4119,13 +4124,15 @@ _DWORD* sub_4AAA70() {
 #endif // NOX_HIGH_RES
 	v0 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1309720, v6);
 	nox_window_call_field_94((int)v0, 16392, 1, 0);
+#endif // NOX_CGO
 	// TODO: This is original handling of 8/16bit and windowed/fullscreen.
 	//       However, windowed/fullscreen switch is not present in options.wnd, thus it's not visible in the menu,
 	//       even though the code for it exists here.
 	//       So currently we just pretend that 8/16bit switch actually corresponds to windowed/fullscreen.
 	//       Later we should refactor it to inject those switches.
 #if 0
-	if (v9 == 8) {
+	int v9a = nox_xxx_normalWndBits_587000_172880;
+	if (v9a == 8) {
 		v1 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1309720, 331);
 	} else {
 		v1 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1309720, 332);
@@ -4183,6 +4190,9 @@ LABEL_22:
 	return result;
 }
 
+#ifdef NOX_CGO
+int nox_gui_menu_proc_ext(int id);
+#endif // NOX_CGO
 //----- (004AABE0) --------------------------------------------------------
 int  sub_4AABE0(int a1, int a2, int* a3, int a4) {
 	int v4;                                     // eax
@@ -4209,6 +4219,11 @@ int  sub_4AABE0(int a1, int a2, int* a3, int a4) {
 		break;
 	case 16391:
 		v4 = nox_xxx_wndGetID_46B0A0(a3);
+#ifdef NOX_CGO
+		if (v4 >= 380) {
+			return nox_gui_menu_proc_ext(v4);
+		}
+#endif // NOX_CGO
 		if (v4 > 341) {
 			if (v4 > 363) {
 				if (v4 == 2099)
@@ -4253,6 +4268,7 @@ int  sub_4AABE0(int a1, int a2, int* a3, int a4) {
 			case 314:
 				nox_video_setCutSize_4766A0(100);
 				break;
+#ifndef NOX_CGO
 #ifdef NOX_HIGH_RES
 			case 321:
 				nox_xxx_normalWndHeight_587000_172876 = 1280;
@@ -4280,6 +4296,7 @@ int  sub_4AABE0(int a1, int a2, int* a3, int a4) {
 				nox_xxx_normalWndWidth_587000_172872 = 768;
 				break;
 #endif // NOX_HIGH_RES
+#endif // NOX_CGO
 			case 332:
 				nox_xxx_normalWndBits_587000_172880 = 16;
 			case 333:
@@ -5764,9 +5781,6 @@ int nox_game_initOptionsInGame_4ADAD0() {
 	char* v29;        // [esp-8h] [ebp-14h]
 	char* v30;        // [esp-8h] [ebp-14h]
 	int v31;          // [esp-8h] [ebp-14h]
-	int v32;          // [esp+0h] [ebp-Ch]
-	int v33;          // [esp+4h] [ebp-8h]
-	int v34;          // [esp+8h] [ebp-4h]
 
 	dword_5d4594_1309820 = nox_new_window_from_file("Options.wnd", nox_xxx_windowOptionsProc_4ADF30);
 	if (!dword_5d4594_1309820) {
@@ -5826,6 +5840,13 @@ int nox_game_initOptionsInGame_4ADAD0() {
 	else
 		v15 = v14 & 0xFFFFFFFB;
 	*(_DWORD*)(dword_5d4594_1309832 + 36) = v15;
+
+#ifdef NOX_CGO
+	nox_video_setMenuOptions(dword_5d4594_1309820);
+#else // NOX_CGO
+	int v32;          // [esp+0h] [ebp-Ch]
+	int v33;          // [esp+4h] [ebp-8h]
+	int v34;          // [esp+8h] [ebp-4h]
 	nox_xxx_gameGetScreenBoundaries_43BEB0_get_video_mode(&v32, &v34, &v33);
 #ifdef NOX_HIGH_RES
 	if (v34 == 768 || v34 == 720)
@@ -5844,6 +5865,7 @@ int nox_game_initOptionsInGame_4ADAD0() {
 #endif // NOX_HIGH_RES
 	v16 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1309820, v31);
 	nox_window_call_field_94((int)v16, 16392, 1, 0);
+#endif // NOX_CGO
 	if (nox_video_getFullScreen())
 		v17 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1309820, 333);
 	else

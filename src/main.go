@@ -39,8 +39,6 @@ extern unsigned int dword_5d4594_805988;
 extern int nox_video_bag_var_2650640;
 
 extern nox_gui_animation* nox_wnd_xxx_1309740;
-extern int nox_xxx_normalWndHeight_587000_172876;
-extern int nox_xxx_normalWndWidth_587000_172872;
 */
 import "C"
 import (
@@ -454,10 +452,7 @@ func change_windowed_fullscreen() {
 func sub_4AA9C0() C.int {
 	C.sub_44D8F0()
 	if !env.IsE2E() {
-		videoUpdateGameMode(types.Size{
-			W: int(C.nox_xxx_normalWndHeight_587000_172876),
-			H: int(C.nox_xxx_normalWndWidth_587000_172872),
-		})
+		videoUpdateGameMode(guiOptionsRes)
 	}
 	C.nox_common_writecfgfile(internCStr("nox.cfg"))
 	C.nox_wnd_xxx_1309740.state = C.nox_gui_anim_state(NOX_GUI_ANIM_OUT)

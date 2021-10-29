@@ -18,6 +18,7 @@ int nox_game_getStateCode_43BE10();
 int sub_43BE30();
 int sub_43BE40(int a1);
 int sub_43BE50_get_video_mode_id();
+wchar_t* get_video_mode_string(int v1);
 nox_video_mode* sub_43BE80_video_mode_by_id(int a1);
 void nox_xxx_gameGetScreenBoundaries_43BEB0_get_video_mode(int* w, int* h, int* d);
 void nox_xxx_gameResizeScreen_43BEF0_set_video_mode(int w, int h, int d);

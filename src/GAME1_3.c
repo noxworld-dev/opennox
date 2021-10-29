@@ -320,6 +320,7 @@ int  sub_43BE40(int a1) {
 	return result;
 }
 
+#ifndef NOX_CGO
 //----- (0043BE50) --------------------------------------------------------
 int sub_43BE50_get_video_mode_id() {
 	for (int i = 0; i < nox_video_modes_cnt; i++) {
@@ -328,6 +329,9 @@ int sub_43BE50_get_video_mode_id() {
 			return m->id;
 	}
 	return nox_video_modes_cnt;
+}
+wchar_t* get_video_mode_string(int v1) {
+	return ((v1 >= 0 && v1 < nox_video_modes_cnt) ? nox_video_modes[v1].title : L"custom");
 }
 
 //----- (0043BE80) --------------------------------------------------------
@@ -341,7 +345,6 @@ nox_video_mode*  sub_43BE80_video_mode_by_id(int a1) {
 }
 
 //----- (0043BEB0) --------------------------------------------------------
-#ifndef NOX_CGO
 void  nox_xxx_gameGetScreenBoundaries_43BEB0_get_video_mode(int* w, int* h, int* d) {
 	if (w)
 		*w = nox_win_width_game;

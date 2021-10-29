@@ -657,7 +657,7 @@ int  sub_4394D0(int a1) {
 		nox_window_call_field_94(*(int*)&dword_5d4594_815004, 16397, (int)getMemAt(0x587000, 89860), -1);
 		v13 = nox_strman_loadString_40F1D0("Resolution", 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 831);
 		nox_window_call_field_94(*(int*)&dword_5d4594_815004, 16397, (int)v13, 14);
-		int rstr = ((v1 >= 0 && v1 < nox_video_modes_cnt) ? nox_video_modes[v1].title : L"custom");
+		int rstr = get_video_mode_string(v1);
 		nox_window_call_field_94(*(int*)&dword_5d4594_815004, 16397, rstr, -1);
 		nox_window_call_field_94(*(int*)&dword_5d4594_815004, 16397, (int)getMemAt(0x587000, 89916), -1);
 		v14 = nox_strman_loadString_40F1D0("DisabledSpells", 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 836);

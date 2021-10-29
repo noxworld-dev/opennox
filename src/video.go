@@ -23,7 +23,53 @@ var (
 		W: noxMaxWidth,
 		H: noxMaxHeight,
 	}
+	noxVideoModes = []types.Size{
+		{640, 480},
+		{800, 600},
+		{1024, 768},
+		{1280, 720},
+		{1920, 1080},
+		{2560, 1440},
+		{3840, 2160},
+	}
 )
+
+func videoModeID() int {
+	mode := videoGetGameMode()
+	for i, res := range noxVideoModes {
+		if mode == res {
+			return i
+		}
+	}
+	for i, res := range noxVideoModes {
+		if mode.W == res.W {
+			return i
+		}
+	}
+	for i, res := range noxVideoModes {
+		if mode.H == res.H {
+			return i
+		}
+	}
+	area := mode.W * mode.H
+	min := 0
+	ind := -1
+	for i, res := range noxVideoModes {
+		area2 := res.W * res.H
+		if ind == -1 || abs(area-area2) < min {
+			ind = i
+			min = abs(area - area2)
+		}
+	}
+	return ind
+}
+
+func videoModeByID(code byte) (types.Size, bool) {
+	if int(code) >= len(noxVideoModes) {
+		return types.Size{}, false
+	}
+	return noxVideoModes[code], true
+}
 
 func videoGetMenuMode() types.Size {
 	return noxVideoModeMenu

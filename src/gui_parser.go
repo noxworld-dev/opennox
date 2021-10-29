@@ -450,7 +450,7 @@ var parseWindowFuncs = []struct {
 	}},
 	{"GROUP", func(_ *guiParser, draw *WindowData, buf string) bool {
 		v, _ := gui.ParseNextIntField(buf)
-		draw.group = C.int(v)
+		draw.SetGroup(v)
 		return true
 	}},
 	{"BACKGROUNDCOLOR", makeColorParseFunc((*WindowData).SetBackgroundColor)},

@@ -116,6 +116,10 @@ func (d *WindowData) Group() int {
 	return int(d.group)
 }
 
+func (d *WindowData) SetGroup(v int) {
+	d.group = C.int(v)
+}
+
 func (d *WindowData) StyleFlags() gui.StyleFlags {
 	return gui.StyleFlags(d.style)
 }
