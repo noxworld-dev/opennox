@@ -78,7 +78,7 @@ func New(name string, size uintptr, cnt int) *AllocClass {
 	p.items = arrp
 
 	for i := 0; i < cnt; i++ {
-		h := (*C.nox_alloc_hdr)(unsafe.Pointer(uintptr(arrp) + isize*uintptr(i)))
+		h := (*C.nox_alloc_hdr)(unsafe.Add(arrp, isize*uintptr(i)))
 		h.expires = 0
 		h.next = p.first_free
 		p.first_free = h

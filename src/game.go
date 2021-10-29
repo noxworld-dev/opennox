@@ -1029,7 +1029,7 @@ func nox_xxx_mapExitAndCheckNext_4D1860_server() bool {
 				if C.nox_xxx_CheckGameplayFlags_417DA0(2) == 0 && !noxflags.HasGame(0x8000) {
 					v17 := unsafe.Pointer(C.nox_xxx_clientGetTeamColor_418AB0(C.int(k.team())))
 					if v17 != nil {
-						v61 = sub_4ED970(50.0, asPointf(unsafe.Pointer(*(*uintptr)(unsafe.Pointer(uintptr(v17) + 72))+56)))
+						v61 = sub_4ED970(50.0, asPointf(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v17, 72)), 56)))
 					}
 				}
 			}
@@ -1037,10 +1037,10 @@ func nox_xxx_mapExitAndCheckNext_4D1860_server() bool {
 		k.SetPos(v61)
 		if !noxflags.HasGame(512) {
 			v18 := k.ptrYyy()
-			v18 = *(*unsafe.Pointer)(unsafe.Pointer(uintptr(v18) + 276))
-			*(*uint32)(unsafe.Pointer(uintptr(v18) + 2136)) = 0
-			*(*uint32)(unsafe.Pointer(uintptr(v18) + 2140)) = 0
-			*(*uint32)(unsafe.Pointer(uintptr(v18) + 2144)) = gameFrame()
+			v18 = *(*unsafe.Pointer)(unsafe.Add(v18, 276))
+			*(*uint32)(unsafe.Add(v18, 2136)) = 0
+			*(*uint32)(unsafe.Add(v18, 2140)) = 0
+			*(*uint32)(unsafe.Add(v18, 2144)) = gameFrame()
 			C.nox_xxx_netReportLesson_4D8EF0(k.CObj())
 		}
 	}
@@ -1095,7 +1095,7 @@ func nox_xxx_mapExitAndCheckNext_4D1860_server() bool {
 	for l := C.nox_xxx_getDebugData_57C3E0(); l != nil; l = C.nox_xxx_nextDebugObject_57C3F0(l) {
 		switch str := GoString((*C.char)(l)); str {
 		case "spring":
-			str2 := GoString((*C.char)(unsafe.Pointer(uintptr(l) + 80)))
+			str2 := GoString((*C.char)(unsafe.Add(l, 80)))
 			str2 = strings.TrimSpace(str2)
 			if sub := strings.Fields(str2); len(sub) >= 2 {
 				v28, _ := strconv.Atoi(sub[0])
@@ -1107,7 +1107,7 @@ func nox_xxx_mapExitAndCheckNext_4D1860_server() bool {
 				}
 			}
 		case "SentryGlobe":
-			str2 := GoString((*C.char)(unsafe.Pointer(uintptr(l) + 80)))
+			str2 := GoString((*C.char)(unsafe.Add(l, 80)))
 			str2 = strings.TrimSpace(str2)
 			if sub := strings.Fields(str2); len(sub) >= 3 {
 				v34, _ := strconv.Atoi(sub[0])
@@ -1152,13 +1152,13 @@ func nox_xxx_mapExitAndCheckNext_4D1860_server() bool {
 					v48 := n.ptrYyy()
 					v61 := sub_4ED970(50.0, m.Pos())
 					n.SetPos(v61)
-					*(*uint32)(unsafe.Pointer(uintptr(v48) + 388)) = 0
+					*(*uint32)(unsafe.Add(v48, 388)) = 0
 					n.clearActionStack()
 					n.field_130 = 0
-					*(*uint32)(unsafe.Pointer(uintptr(v48) + 1196)) = 0
-					*(*uint32)(unsafe.Pointer(uintptr(v48) + 1216)) = 0
-					*(*byte)(unsafe.Pointer(uintptr(v48) + 1129)) = 0
-					*(*int32)(unsafe.Pointer(uintptr(v48) + 0)) = -559023410
+					*(*uint32)(unsafe.Add(v48, 1196)) = 0
+					*(*uint32)(unsafe.Add(v48, 1216)) = 0
+					*(*byte)(unsafe.Add(v48, 1129)) = 0
+					*(*int32)(unsafe.Add(v48, 0)) = -559023410
 					v49p := n.monsterPushAction(3) // follow?
 					if v49p != nil {
 						v49 := unsafe.Slice((*float32)(v49p), 4)
@@ -1168,7 +1168,7 @@ func nox_xxx_mapExitAndCheckNext_4D1860_server() bool {
 						*(*unsafe.Pointer)(unsafe.Pointer(&v49[3])) = unsafe.Pointer(m.CObj())
 					}
 					if n.Class().Has(2) && n.field_3&0x30 != 0 {
-						C.nox_xxx_setNPCColor_4E4A90(n.CObj(), 0, C.int(*(*uintptr)(unsafe.Pointer(uintptr(v48) + 748))+2076))
+						C.nox_xxx_setNPCColor_4E4A90(n.CObj(), 0, C.int(*(*uintptr)(unsafe.Add(v48, 748))+2076))
 					}
 				} else if m.Class().Has(1) && C.sub_4E5B80(m.CObj()) != 0 {
 					C.sub_4E81D0(m.CObj())

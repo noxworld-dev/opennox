@@ -589,9 +589,9 @@ func nox_server_xxxInitPlayerUnits_4FC6D0() {
 				fname := datapath.Path("save", "_temp_.dat")
 				for _, u := range getPlayerUnits() {
 					v3 := u.ptrYyy()
-					v4 := asPlayer(*(**C.nox_playerInfo)(unsafe.Pointer(uintptr(v3) + 276)))
+					v4 := asPlayer(*(**C.nox_playerInfo)(unsafe.Add(v3, 276)))
 					pi := v4.Index()
-					if *(*uint32)(v4.field(4792)) == 1 && *(*uint32)(unsafe.Pointer(uintptr(v3) + 552)) == 0 &&
+					if *(*uint32)(v4.field(4792)) == 1 && *(*uint32)(unsafe.Add(v3, 552)) == 0 &&
 						nox_xxx_playerSaveToFile_41A140(fname, pi) {
 						v5 := C.sub_419EE0(C.char(pi))
 						C.nox_xxx_sendGauntlet_4DCF80(C.int(pi), 1)
@@ -617,7 +617,7 @@ func nox_server_xxxInitPlayerUnits_4FC6D0() {
 	if noxflags.HasGame(noxflags.GameOnline) && !noxflags.HasGame(128) {
 		for _, u := range getPlayerUnits() {
 			v3 := u.ptrYyy()
-			v7 := asPlayer(*(**C.nox_playerInfo)(unsafe.Pointer(uintptr(v3) + 276)))
+			v7 := asPlayer(*(**C.nox_playerInfo)(unsafe.Add(v3, 276)))
 			if v7.Index() != 31 && v7.field_3680&1 == 0 {
 				C.nox_xxx_buffApplyTo_4FF380(u.CObj(), 23, 0, 5)
 			}

@@ -14,7 +14,7 @@ func PtrArrLen(p unsafe.Pointer) int {
 	n := 0
 	for *ptr != nil {
 		n++
-		ptr = (*unsafe.Pointer)(unsafe.Pointer(uintptr(unsafe.Pointer(ptr)) + ptrSize))
+		ptr = (*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(ptr), ptrSize))
 	}
 	return n
 }

@@ -133,7 +133,7 @@ func (obj *Object) CObj() *nox_object_t {
 }
 
 func (obj *Object) field(dp uintptr) unsafe.Pointer {
-	return unsafe.Pointer(uintptr(unsafe.Pointer(obj)) + dp)
+	return unsafe.Add(unsafe.Pointer(obj), dp)
 }
 
 func (obj *Object) ID() string {

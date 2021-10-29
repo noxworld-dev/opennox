@@ -223,7 +223,7 @@ func clientOnLobbyServer(info *LobbyServerInfo) int {
 	srv := (*C.nox_gui_server_ent_t)(srvP)
 	// see https://github.com/golang/go/issues/7560
 	field := func(off uintptr) unsafe.Pointer {
-		return unsafe.Pointer(uintptr(unsafe.Pointer(srv)) + off)
+		return unsafe.Add(unsafe.Pointer(srv), off)
 	}
 	srv.field_11_0 = C.short(info.Field_11_0)
 	srv.field_11_2 = C.short(info.Field_11_2)

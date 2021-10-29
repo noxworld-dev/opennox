@@ -171,8 +171,8 @@ func (f *Func) Call(caller, trigger unsafe.Pointer, args ...interface{}) (gerr e
 	}
 	// TODO: remove this hack once type of "trigger" is clear
 	getA3Field := func(field int, i int) unsafe.Pointer {
-		p := *(*unsafe.Pointer)(unsafe.Pointer(uintptr(trigger) + uintptr(field)))
-		return unsafe.Pointer(uintptr(p) + uintptr(4*i))
+		p := *(*unsafe.Pointer)(unsafe.Add(trigger, field))
+		return unsafe.Add(p, 4*i)
 	}
 	for {
 		switch op := nextInt(); op {

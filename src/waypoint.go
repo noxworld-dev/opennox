@@ -70,7 +70,7 @@ func (w *Waypoint) C() unsafe.Pointer {
 }
 
 func (w *Waypoint) field(dp uintptr) unsafe.Pointer {
-	return unsafe.Pointer(uintptr(unsafe.Pointer(w)) + dp)
+	return unsafe.Add(unsafe.Pointer(w), dp)
 }
 
 func (w *Waypoint) Next() *Waypoint {

@@ -38,25 +38,25 @@ func (g *mapGroup) Type() int {
 }
 
 func (g *mapGroup) ID() string {
-	return GoString((*C.char)(unsafe.Pointer(uintptr(g.C()) + 8)))
+	return GoString((*C.char)(unsafe.Add(g.C(), 8)))
 }
 
 func (g *mapGroup) Next() *mapGroup {
 	if g == nil {
 		return nil
 	}
-	p := *(*unsafe.Pointer)(unsafe.Pointer(uintptr(unsafe.Pointer(g)) + 88))
+	p := *(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(g), 88))
 	return (*mapGroup)(p)
 }
 
 func (g *mapGroup) FirstItem() *mapGroupItem {
-	return *(**mapGroupItem)(unsafe.Pointer(uintptr(g.C()) + 21*4))
+	return *(**mapGroupItem)(unsafe.Add(g.C(), 21*4))
 }
 
 type mapGroupItem [0]byte
 
 func (it *mapGroupItem) Next() *mapGroupItem {
-	return *(**mapGroupItem)(unsafe.Pointer(uintptr(unsafe.Pointer(it)) + 8))
+	return *(**mapGroupItem)(unsafe.Add(unsafe.Pointer(it), 8))
 }
 
 func (it *mapGroupItem) Payload() unsafe.Pointer {

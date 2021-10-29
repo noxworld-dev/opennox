@@ -82,7 +82,7 @@ var _ noxObject = (*Player)(nil) // proxies Unit
 type Player C.nox_playerInfo
 
 func (p *Player) field(off uintptr) unsafe.Pointer {
-	return unsafe.Pointer(uintptr(unsafe.Pointer(p)) + off)
+	return unsafe.Add(unsafe.Pointer(p), off)
 }
 
 func (p *Player) Pos() types.Pointf {

@@ -42,7 +42,7 @@ func (s *Drawable) C() *C.nox_drawable {
 }
 
 func (s *Drawable) field(dp uintptr) unsafe.Pointer {
-	return unsafe.Pointer(uintptr(unsafe.Pointer(s)) + dp)
+	return unsafe.Add(unsafe.Pointer(s), dp)
 }
 
 func (s *Drawable) Ext() *drawableExt {

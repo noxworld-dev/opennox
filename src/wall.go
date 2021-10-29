@@ -69,8 +69,8 @@ func getWallGroupByID(id string) *script.WallGroup {
 	for wp := g.FirstItem(); wp != nil; wp = wp.Next() {
 		p := wp.Payload()
 		if wl := getWallAtGrid(types.Point{
-			X: int(*(*C.int)(unsafe.Pointer(uintptr(p) + 0))),
-			Y: int(*(*C.int)(unsafe.Pointer(uintptr(p) + 4))),
+			X: int(*(*C.int)(unsafe.Add(p, 0))),
+			Y: int(*(*C.int)(unsafe.Add(p, 4))),
 		}); wl != nil {
 			list = append(list, wl)
 		}
@@ -85,7 +85,7 @@ func (w *Wall) C() unsafe.Pointer {
 }
 
 func (w *Wall) field(dp uintptr) unsafe.Pointer {
-	return unsafe.Pointer(uintptr(w.C()) + dp)
+	return unsafe.Add(w.C(), dp)
 }
 
 func (w *Wall) String() string {
@@ -118,7 +118,7 @@ func (w *Wall) Pos() types.Pointf {
 // IsEnabled checks if the wall is closed.
 func (w *Wall) IsEnabled() bool {
 	v2 := *(*unsafe.Pointer)(w.field(28))
-	v3 := *(*byte)(unsafe.Pointer(uintptr(v2) + 21))
+	v3 := *(*byte)(unsafe.Add(v2, 21))
 	return v3 == 1 || v3 == 2
 }
 

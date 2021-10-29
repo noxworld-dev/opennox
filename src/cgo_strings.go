@@ -41,7 +41,7 @@ func StrLen(s *C.char) int {
 	n := 0
 	for *s != 0 {
 		n++
-		s = (*C.char)(unsafe.Pointer(uintptr(unsafe.Pointer(s)) + 1))
+		s = (*C.char)(unsafe.Add(unsafe.Pointer(s), 1))
 	}
 	return n
 }
@@ -88,7 +88,7 @@ func WStrLen(s *C.wchar_t) int {
 	}
 	n := 0
 	for *s != 0 {
-		s = (*C.wchar_t)(unsafe.Pointer(uintptr(unsafe.Pointer(s)) + 2))
+		s = (*C.wchar_t)(unsafe.Add(unsafe.Pointer(s), 2))
 		n++
 	}
 	return n
@@ -100,7 +100,7 @@ func WStrLenN(s *C.wchar_t, max int) int {
 	}
 	n := 0
 	for *s != 0 {
-		s = (*C.wchar_t)(unsafe.Pointer(uintptr(unsafe.Pointer(s)) + 2))
+		s = (*C.wchar_t)(unsafe.Add(unsafe.Pointer(s), 2))
 		if n == max {
 			return n
 		}

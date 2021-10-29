@@ -552,7 +552,7 @@ func nox_xxx_cursorUpdate_46B740_sprites(inp *input.Handler, v63 bool, v66 []int
 		if sprite.Flags28()&0x80000000 == 0 || C.nox_xxx_cursorGetDraggedItem_477680() != nil {
 			if v54 < 125*125 {
 				if p := *memmap.PtrPtr(0x8531A0, 2576); p != nil {
-					v57 := *(*uintptr)(unsafe.Pointer(uintptr(p) + 3680))
+					v57 := *(*uintptr)(unsafe.Add(p, 3680))
 					if v57&0x200 == 0 && C.sub_478030() == 0 {
 						if sprite.Flags28()&2 != 0 && sprite.Flags70()&0x10 != 0 {
 							nox_client_setCursorType_477610(4)

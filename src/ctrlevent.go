@@ -217,7 +217,7 @@ func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_A(a4 *CtrlEventBinding) 
 			case keybind.EventChat:
 				c.nox_ctrlevent_action_42E670(client.CCChat, nil)
 			case keybind.EventTeamChat:
-				if *(*byte)(unsafe.Pointer(uintptr(v2) + 3680))&0x1 == 0 {
+				if *(*byte)(unsafe.Add(v2, 3680))&0x1 == 0 {
 					c.nox_ctrlevent_action_42E670(client.CCTeamChat, nil)
 				}
 			case keybind.EventToggleBook:
@@ -717,7 +717,7 @@ func (c *CtrlEventHandler) nox_ctrlevent_action_42E670(code client.CtrlCode, dat
 }
 
 func (c *CtrlEventHandler) nox_ctrlevent_action_42E780(code client.CtrlCode, data *[4]byte) {
-	if p := *memmap.PtrPtr(0x852978, 8); p != nil && *(*byte)(unsafe.Pointer(uintptr(p) + 120))&2 == 0 {
+	if p := *memmap.PtrPtr(0x852978, 8); p != nil && *(*byte)(unsafe.Add(p, 120))&2 == 0 {
 		if !nox_xxx_checkGameFlagPause_413A50() {
 			c.nox_ctrlevent_action_42E670(code, data)
 		}
@@ -726,13 +726,13 @@ func (c *CtrlEventHandler) nox_ctrlevent_action_42E780(code client.CtrlCode, dat
 
 func nox_ctrlevent_add_ticks_42E630() uint32 {
 	v0 := C.sub_416640()
-	switch *(*uint32)(unsafe.Pointer(uintptr(v0) + 66)) {
+	switch *(*uint32)(unsafe.Add(v0, 66)) {
 	case 1:
 		return uint32(C.sub_554290())
 	case 2:
 		return uint32(C.sub_554300())
 	case 3:
-		return *(*uint32)(unsafe.Pointer(uintptr(v0) + 70))
+		return *(*uint32)(unsafe.Add(v0, 70))
 	}
 	return 0
 }

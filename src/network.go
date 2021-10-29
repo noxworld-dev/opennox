@@ -453,7 +453,7 @@ func clientSendInput(a1 int, a2 uint16, a3 uint16) bool {
 	}
 	v6 := a3
 	if v3 != nil {
-		v6 = uint16(*(*uint32)(unsafe.Pointer(uintptr(v3) + 16)))
+		v6 = uint16(*(*uint32)(unsafe.Add(v3, 16)))
 	}
 	if a2 == memmap.Uint16(0x5D4594, 815768) && v6 == memmap.Uint16(0x5D4594, 815770) {
 		return true
@@ -695,14 +695,14 @@ func nox_xxx_makeNewNetStruct(arg *netStructOpt) *netStruct {
 	ns.data_1_base = (*C.char)(unsafe.Pointer(&data1[0]))
 	ns.data_1_xxx = (*C.char)(unsafe.Pointer(&data1[0]))
 	ns.data_1_yyy = (*C.char)(unsafe.Pointer(&data1[0]))
-	ns.data_1_end = (*C.char)(unsafe.Pointer(uintptr(unsafe.Pointer(&data1[0])) + uintptr(len(data1))))
+	ns.data_1_end = (*C.char)(unsafe.Add(unsafe.Pointer(&data1[0]), len(data1)))
 
 	data2, _ := alloc.Bytes(uintptr(arg.datasize) + 2)
 	data2[0] = 0xff
 	ns.data_2_base = (*C.char)(unsafe.Pointer(&data2[0]))
 	ns.data_2_xxx = (*C.char)(unsafe.Pointer(&data2[2]))
 	ns.data_2_yyy = (*C.char)(unsafe.Pointer(&data2[2]))
-	ns.data_2_end = (*C.char)(unsafe.Pointer(uintptr(unsafe.Pointer(&data2[0])) + uintptr(len(data2))))
+	ns.data_2_end = (*C.char)(unsafe.Add(unsafe.Pointer(&data2[0]), len(data2)))
 
 	ns.field_20 = C.uint(arg.field4)
 	if arg.funcxxx != nil {

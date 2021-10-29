@@ -1132,7 +1132,7 @@ func nox_xxx_gameChangeMap_43DEB0() int {
 func nox_xxx_cliDrawConnectedLoop_43B360() C.int {
 	noxflags.SetGame(4)
 	noxflags.UnsetGame(1)
-	v0 := GoStringP(unsafe.Pointer(uintptr(C.dword_5d4594_814624 + 12)))
+	v0 := GoStringP(unsafe.Add(unsafe.Pointer(uintptr(C.dword_5d4594_814624)), 12))
 	if v0 == "" {
 		clientSetServerHost("localhost")
 	} else {
@@ -1142,7 +1142,7 @@ func nox_xxx_cliDrawConnectedLoop_43B360() C.int {
 		clientSetServerHost(v0)
 	}
 	C.nox_common_writecfgfile(internCStr("nox.cfg"))
-	v2 := *(*int8)(unsafe.Pointer(uintptr(C.dword_5d4594_814624 + 102)))
+	v2 := *(*int8)(unsafe.Add(unsafe.Pointer(uintptr(C.dword_5d4594_814624)), 102))
 	if v2 >= 0 {
 		videoSetMaxSize(noxVideoMax)
 	} else if res, ok := videoModeByID(byte(v2) & 0x7F); ok {

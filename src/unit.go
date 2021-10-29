@@ -101,8 +101,8 @@ func (u *Unit) Health() (cur, max int) {
 	if p == nil {
 		return
 	}
-	cur = int(*(*uint16)(unsafe.Pointer(uintptr(p) + 0)))
-	max = int(*(*uint16)(unsafe.Pointer(uintptr(p) + 4)))
+	cur = int(*(*uint16)(unsafe.Add(p, 0)))
+	max = int(*(*uint16)(unsafe.Add(p, 4)))
 	return
 }
 
@@ -142,7 +142,7 @@ func (u *Unit) SetMaxHealth(v int) {
 	}
 	// TODO: verify it works in MP
 	// TODO: if it's the player, we need to adjust GUI health bars
-	*(*uint16)(unsafe.Pointer(uintptr(p) + 4)) = uint16(v)
+	*(*uint16)(unsafe.Add(p, 4)) = uint16(v)
 	u.SetHealth(v)
 }
 
@@ -155,8 +155,8 @@ func (u *Unit) Mana() (cur, max int) {
 		return
 	}
 	// TODO: +6 is similar, what's the difference?
-	cur = int(*(*uint16)(unsafe.Pointer(uintptr(p) + 4)))
-	max = int(*(*uint16)(unsafe.Pointer(uintptr(p) + 8)))
+	cur = int(*(*uint16)(unsafe.Add(p, 4)))
+	max = int(*(*uint16)(unsafe.Add(p, 8)))
 	return
 }
 
@@ -174,11 +174,11 @@ func (u *Unit) SetMana(v int) {
 	if _, max := u.Mana(); v > max {
 		v = max
 	}
-	cur := int(*(*uint16)(unsafe.Pointer(uintptr(p) + 4)))
-	*(*uint16)(unsafe.Pointer(uintptr(p) + 6)) = uint16(cur)
-	*(*uint16)(unsafe.Pointer(uintptr(p) + 4)) = uint16(v)
-	pt := *(*unsafe.Pointer)(unsafe.Pointer(uintptr(p) + 276))
-	C.nox_xxx_protectMana_56F9E0(*(*C.int)(unsafe.Pointer(uintptr(pt) + 4596)), C.short(v-cur))
+	cur := int(*(*uint16)(unsafe.Add(p, 4)))
+	*(*uint16)(unsafe.Add(p, 6)) = uint16(cur)
+	*(*uint16)(unsafe.Add(p, 4)) = uint16(v)
+	pt := *(*unsafe.Pointer)(unsafe.Add(p, 276))
+	C.nox_xxx_protectMana_56F9E0(*(*C.int)(unsafe.Add(pt, 4596)), C.short(v-cur))
 }
 
 func (u *Unit) SetMaxMana(v int) {
@@ -192,7 +192,7 @@ func (u *Unit) SetMaxMana(v int) {
 	if p == nil {
 		return
 	}
-	*(*uint16)(unsafe.Pointer(uintptr(p) + 8)) = uint16(v)
+	*(*uint16)(unsafe.Add(p, 8)) = uint16(v)
 	u.SetMana(v)
 }
 

@@ -521,7 +521,7 @@ func (r *NoxRender) DrawStringWrapped(font unsafe.Pointer, s string, x, y, maxW,
 	if s == "" {
 		return
 	}
-	dy := int(*(*uint32)(unsafe.Pointer(uintptr(font) + 28)))
+	dy := int(*(*uint32)(unsafe.Add(font, 28)))
 	C.dword_5d4594_816460 = C.uint(x)
 	str := []rune(s)
 
