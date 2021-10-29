@@ -609,7 +609,6 @@ int  sub_4CF060(int a1, unsigned int a2, int* a3, int a4) {
 	if (a2 != 16391) {
 		if (a2 != 23 && a2 == 16387) {
 			v4 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1523024, a4);
-			sub_416630();
 			sub_416640();
 			if (!v4)
 				return 0;

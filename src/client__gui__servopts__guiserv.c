@@ -709,7 +709,6 @@ int  nox_xxx_guiServerOptionsProcPre_4585D0(int a1, unsigned int a2, int a3, int
 	if (a2 != 16387)
 		return 1;
 	v4 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1046492, a4);
-	sub_416630();
 	v5 = sub_4165B0();
 	if (!v4)
 		return 0;
@@ -757,7 +756,6 @@ int  sub_459880(int a1) {
 	int v5;          // ecx
 	unsigned int v6; // ecx
 
-	sub_416630();
 	v1 = *(_WORD*)(a1 + 52);
 	if (v1 & 0x20) {
 		if (!*(_BYTE*)(a1 + 57) && nox_common_gameFlags_check_40A5C0(1)) {
