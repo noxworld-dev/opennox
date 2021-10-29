@@ -691,7 +691,7 @@ func nox_xxx_gameTick_4D2580_server_A(v2 bool) {
 				C.sub_40DF90()
 				C.sub_4264D0()
 			}
-			if asByteSlice(unsafe.Pointer(C.sub_4165B0()), 58)[57] == 0 {
+			if unsafe.Slice((*byte)(unsafe.Pointer(C.sub_4165B0())), 58)[57] == 0 {
 				C.sub_41D650()
 			}
 		}
@@ -737,7 +737,7 @@ func nox_xxx_gameTick_4D2580_server_A(v2 bool) {
 }
 
 func nox_xxx_cliGamedataGet_416590() []byte {
-	return asByteSlice(unsafe.Pointer(C.nox_xxx_cliGamedataGet_416590(0)), 58)
+	return unsafe.Slice((*byte)(unsafe.Pointer(C.nox_xxx_cliGamedataGet_416590(0))), 58)
 }
 
 func nox_xxx_gameTick_4D2580_server_D() {
@@ -979,7 +979,7 @@ func nox_xxx_mapExitAndCheckNext_4D1860_server() bool {
 		v6 = nox_server_loadMapFile_4CF5F0(v5, 0)
 	} else {
 		v7p := unsafe.Pointer(C.sub_4165B0())
-		v7 := asByteSlice(v7p, 58)
+		v7 := unsafe.Slice((*byte)(v7p), 58)
 		if noxflags.HasGame(noxflags.GameOnline) {
 			if v7[57] == 0 {
 				v63, freeV63 := alloc.Bytes(60)
@@ -1112,7 +1112,7 @@ func nox_xxx_mapExitAndCheckNext_4D1860_server() bool {
 			if sub := strings.Fields(str2); len(sub) >= 3 {
 				v34, _ := strconv.Atoi(sub[0])
 				if v35 := getObjectByInd(v34).AsUnit(); v35 != nil {
-					v36 := asF32Slice(v35.ptrYyy(), 3)
+					v36 := unsafe.Slice((*float32)(v35.ptrYyy()), 3)
 					v38, _ := strconv.ParseFloat(sub[1], 64)
 					v36[0] = float32(v38 * memmap.Float64(0x581450, 10008))
 					v36[1] = v36[0]
@@ -1161,7 +1161,7 @@ func nox_xxx_mapExitAndCheckNext_4D1860_server() bool {
 					*(*int32)(unsafe.Pointer(uintptr(v48) + 0)) = -559023410
 					v49p := n.monsterPushAction(3) // follow?
 					if v49p != nil {
-						v49 := asF32Slice(v49p, 4)
+						v49 := unsafe.Slice((*float32)(v49p), 4)
 						p := m.Pos()
 						v49[1] = p.X
 						v49[2] = p.Y
@@ -1306,7 +1306,7 @@ func nox_xxx_netlist_4DEB50() {
 	} else if !isDedicatedServer {
 		buf := nox_netlist_copyPacketList_40ED60(31, 0)
 		if len(buf) != 0 {
-			dst := asByteSlice(unsafe.Pointer(&C.nox_net_lists_buf[0]), netListsBufSize)
+			dst := unsafe.Slice((*byte)(unsafe.Pointer(&C.nox_net_lists_buf[0])), netListsBufSize)
 			n := copy(dst, buf)
 			C.nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(31, &C.nox_net_lists_buf[0], C.int(n))
 		}

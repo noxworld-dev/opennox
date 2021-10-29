@@ -671,7 +671,7 @@ func sub_49FC20(a1, a2, a3, a4 *C.int) int {
 func sub_440900() {
 	val := uint32(C.ptr_5D4594_3799572.field_58)
 	for y := 0; y < nox_pixbuffer_size.H; y++ {
-		row := asU32Slice(nox_pixbuffer_main_rows[y], nox_backbuffer_width32*8)
+		row := unsafe.Slice((*uint32)(nox_pixbuffer_main_rows[y]), nox_backbuffer_width32*8)
 		for x := 0; x < nox_backbuffer_width32*8; x++ {
 			row[x] = val
 		}

@@ -271,7 +271,7 @@ func nox_xxx_gLoadAnim(name string) *noxImageRef {
 func nox_video_bagFree_42F4D0() {
 	for _, p := range nox_images_arr1_787156 {
 		if p.field_25_1 == 2 {
-			ptr := asPtrSlice(unsafe.Pointer(uintptr(p.field_24)), 2)
+			ptr := unsafe.Slice((*unsafe.Pointer)(unsafe.Pointer(uintptr(p.field_24))), 2)
 			alloc.Free(ptr[1])
 			alloc.Free(unsafe.Pointer(uintptr(p.field_24)))
 		}

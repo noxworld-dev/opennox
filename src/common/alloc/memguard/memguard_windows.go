@@ -1,9 +1,9 @@
-//+build windows
+//go:build windows
+// +build windows
 
 package memguard
 
 import (
-	"reflect"
 	"unsafe"
 
 	"golang.org/x/sys/windows"
@@ -19,12 +19,7 @@ func newPage(size int) ([]byte, func()) {
 	if err != nil {
 		panic(err)
 	}
-	var b []byte
-	h := (*reflect.SliceHeader)(unsafe.Pointer(&b))
-	h.Data = addr
-	h.Len = size
-	h.Cap = size
-
+	b := unsafe.Slice((*byte)(unsafe.Pointer(addr)), size)
 	return b, func() {
 		if err := windows.VirtualFree(addr, 0, windows.MEM_RELEASE); err != nil {
 			panic(err)

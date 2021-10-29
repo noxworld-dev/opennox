@@ -7,7 +7,6 @@ package nox
 import "C"
 import (
 	"bytes"
-	"reflect"
 	"unicode/utf16"
 	"unsafe"
 
@@ -35,62 +34,6 @@ func CStringArray(arr []string) []*C.char {
 	return out[:len(arr):len(arr)]
 }
 
-func asByteSlice(p unsafe.Pointer, sz int) (out []byte) {
-	*(*reflect.SliceHeader)(unsafe.Pointer(&out)) = reflect.SliceHeader{
-		Data: uintptr(p),
-		Len:  sz, Cap: sz,
-	}
-	return
-}
-
-func asU16Slice(p unsafe.Pointer, sz int) (out []uint16) {
-	*(*reflect.SliceHeader)(unsafe.Pointer(&out)) = reflect.SliceHeader{
-		Data: uintptr(p),
-		Len:  sz, Cap: sz,
-	}
-	return
-}
-
-func asU32Slice(p unsafe.Pointer, sz int) (out []uint32) {
-	*(*reflect.SliceHeader)(unsafe.Pointer(&out)) = reflect.SliceHeader{
-		Data: uintptr(p),
-		Len:  sz, Cap: sz,
-	}
-	return
-}
-
-func asI32Slice(p unsafe.Pointer, sz int) (out []int32) {
-	*(*reflect.SliceHeader)(unsafe.Pointer(&out)) = reflect.SliceHeader{
-		Data: uintptr(p),
-		Len:  sz, Cap: sz,
-	}
-	return
-}
-
-func asF32Slice(p unsafe.Pointer, sz int) (out []float32) {
-	*(*reflect.SliceHeader)(unsafe.Pointer(&out)) = reflect.SliceHeader{
-		Data: uintptr(p),
-		Len:  sz, Cap: sz,
-	}
-	return
-}
-
-func asWStr(p unsafe.Pointer, sz int) (out []C.wchar_t) {
-	*(*reflect.SliceHeader)(unsafe.Pointer(&out)) = reflect.SliceHeader{
-		Data: uintptr(p),
-		Len:  sz, Cap: sz,
-	}
-	return
-}
-
-func asWStrSlice(p unsafe.Pointer, sz int) (out []*C.wchar_t) {
-	*(*reflect.SliceHeader)(unsafe.Pointer(&out)) = reflect.SliceHeader{
-		Data: uintptr(p),
-		Len:  sz, Cap: sz,
-	}
-	return
-}
-
 func StrLen(s *C.char) int {
 	if s == nil {
 		return 0
@@ -112,12 +55,12 @@ func StrLenBytes(s []byte) int {
 }
 
 func StrCopy(dst *C.char, max int, src string) int {
-	d := asByteSlice(unsafe.Pointer(dst), max)
+	d := unsafe.Slice((*byte)(unsafe.Pointer(dst)), max)
 	return StrCopyBytes(d, src)
 }
 
 func StrNCopy(dst *C.char, max int, src string) int {
-	d := asByteSlice(unsafe.Pointer(dst), max)
+	d := unsafe.Slice((*byte)(unsafe.Pointer(dst)), max)
 	return StrNCopyBytes(d, src)
 }
 
@@ -195,7 +138,7 @@ func GoWString(s *C.wchar_t) string {
 	if n == 0 {
 		return ""
 	}
-	arr := asU16Slice(unsafe.Pointer(s), n)
+	arr := unsafe.Slice((*uint16)(unsafe.Pointer(s)), n)
 	return GoWStringSlice(arr)
 }
 
@@ -204,7 +147,7 @@ func GoWStringN(s *C.wchar_t, max int) string {
 	if n == 0 {
 		return ""
 	}
-	arr := asU16Slice(unsafe.Pointer(s), n)
+	arr := unsafe.Slice((*uint16)(unsafe.Pointer(s)), n)
 	return GoWStringSlice(arr)
 }
 
@@ -215,7 +158,7 @@ func GoWStringSlice(arr []uint16) string {
 func CWString(s string) (*C.wchar_t, func()) {
 	buf := utf16.Encode([]rune(s))
 	ptr, free := alloc.Calloc(len(buf)+1, 2)
-	copy(asU16Slice(ptr, len(buf)), buf)
+	copy(unsafe.Slice((*uint16)(ptr), len(buf)), buf)
 	return (*C.wchar_t)(ptr), free
 }
 
@@ -224,7 +167,7 @@ func CWLen(s string) int {
 }
 
 func CWStringCopyTo(dst *C.wchar_t, dstSz int, src string) {
-	str := asU16Slice(unsafe.Pointer(dst), dstSz)
+	str := unsafe.Slice((*uint16)(unsafe.Pointer(dst)), dstSz)
 	if len(src) == 0 {
 		str[0] = 0
 		return
@@ -243,7 +186,7 @@ func GoWStrSliceN(arr **C.wchar_t, n int) []string {
 		return nil
 	}
 	out := make([]string, 0, n)
-	for _, c := range asWStrSlice(unsafe.Pointer(arr), n) {
+	for _, c := range unsafe.Slice((**C.wchar_t)(unsafe.Pointer(arr)), n) {
 		out = append(out, GoWString(c))
 	}
 	return out
@@ -251,7 +194,7 @@ func GoWStrSliceN(arr **C.wchar_t, n int) []string {
 
 func CWStrSlice(arr []string) ([]*C.wchar_t, func()) {
 	ptr, freeList := alloc.Calloc(len(arr)+1, ptrSize)
-	out := asWStrSlice(ptr, len(arr))
+	out := unsafe.Slice((**C.wchar_t)(ptr), len(arr))
 	for i, s := range arr {
 		out[i], _ = CWString(s)
 	}

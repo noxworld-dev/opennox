@@ -176,7 +176,7 @@ func (ns *netStruct) Data1() []byte {
 	if sz < 0 {
 		panic("negative size")
 	}
-	return asByteSlice(unsafe.Pointer(ns.data_1_base), sz)
+	return unsafe.Slice((*byte)(unsafe.Pointer(ns.data_1_base)), sz)
 }
 
 func (ns *netStruct) Data2() []byte {
@@ -187,7 +187,7 @@ func (ns *netStruct) Data2() []byte {
 	if sz < 0 {
 		panic("negative size")
 	}
-	return asByteSlice(unsafe.Pointer(ns.data_2_base), sz)
+	return unsafe.Slice((*byte)(unsafe.Pointer(ns.data_2_base)), sz)
 }
 
 func (ns *netStruct) Data2xxx() []byte {
@@ -198,7 +198,7 @@ func (ns *netStruct) Data2xxx() []byte {
 	if sz < 0 {
 		panic("negative size")
 	}
-	return asByteSlice(unsafe.Pointer(ns.data_2_xxx), sz)
+	return unsafe.Slice((*byte)(unsafe.Pointer(ns.data_2_xxx)), sz)
 }
 
 func clientSetServerHost(host string) {
@@ -233,7 +233,7 @@ func nox_xxx_cryptXor_56FDD0(key C.char, p *C.uchar, n C.int) {
 	if p == nil || n == 0 || noxNetNoXor {
 		return
 	}
-	buf := asByteSlice(unsafe.Pointer(p), int(n))
+	buf := unsafe.Slice((*byte)(unsafe.Pointer(p)), int(n))
 	netCryptXor(byte(key), buf)
 }
 
@@ -242,8 +242,8 @@ func nox_xxx_cryptXorDst_56FE00(key C.char, src *C.uchar, n C.int, dst *C.uchar)
 	if src == nil || dst == nil || n == 0 {
 		return
 	}
-	sbuf := asByteSlice(unsafe.Pointer(src), int(n))
-	dbuf := asByteSlice(unsafe.Pointer(dst), int(n))
+	sbuf := unsafe.Slice((*byte)(unsafe.Pointer(src)), int(n))
+	dbuf := unsafe.Slice((*byte)(unsafe.Pointer(dst)), int(n))
 	nox_xxx_cryptXorDst(byte(key), sbuf, dbuf)
 }
 
@@ -285,7 +285,7 @@ func nox_xxx_setMapCRC_40A360(crc C.int) {
 
 //export noxOnCliPacketDebug
 func noxOnCliPacketDebug(op C.int, data *C.uchar, sz C.int) {
-	buf := asByteSlice(unsafe.Pointer(data), int(sz))
+	buf := unsafe.Slice((*byte)(unsafe.Pointer(data)), int(sz))
 	if debugNet && sz != 0 {
 		op := noxnet.Op(op)
 		netLog.Printf("CLIENT: op=%d (%s) [%d:%d]\n%02x %x", int(op), op.String(), int(sz)-1, op.Len(), buf[0], buf[1:])
@@ -294,7 +294,7 @@ func noxOnCliPacketDebug(op C.int, data *C.uchar, sz C.int) {
 
 //export noxOnSrvPacketDebug
 func noxOnSrvPacketDebug(op C.int, data *C.uchar, sz C.int) {
-	buf := asByteSlice(unsafe.Pointer(data), int(sz))
+	buf := unsafe.Slice((*byte)(unsafe.Pointer(data)), int(sz))
 	if debugNet && sz != 0 {
 		op := noxnet.Op(op)
 		netLog.Printf("SERVER: op=%d (%s) [%d:%d]\n%02x %x", int(op), op.String(), int(sz)-1, op.Len(), buf[0], buf[1:])
@@ -312,7 +312,7 @@ func convSendToServerErr(n int, err error) C.int {
 
 //export nox_client_sendToServer_555010
 func nox_client_sendToServer_555010(addr C.uint, port C.uint16_t, cbuf *C.char, sz C.int) C.int {
-	buf := asByteSlice(unsafe.Pointer(cbuf), int(sz))
+	buf := unsafe.Slice((*byte)(unsafe.Pointer(cbuf)), int(sz))
 	n, err := sendToServer(int2ip(uint32(addr)), int(port), buf)
 	return convSendToServerErr(n, err)
 }
@@ -347,7 +347,7 @@ func nox_client_joinGame() error {
 	}
 	wstr := memmap.PtrOff(0x85B3FC, 12204)
 	if n := WStrLen((*C.wchar_t)(wstr)); n != 0 {
-		copy(buf[4:54], asByteSlice(wstr, n*2))
+		copy(buf[4:54], unsafe.Slice((*byte)(wstr), n*2))
 	}
 	buf[54] = memmap.Uint8(0x85B3FC, 12254)
 	buf[55] = memmap.Uint8(0x85B3FC, 12256)
@@ -369,7 +369,7 @@ func nox_client_joinGame() error {
 
 //export sub_5550D0
 func sub_5550D0(addr C.int, port C.uint16_t, cdata *C.char) C.int {
-	buf := asByteSlice(unsafe.Pointer(cdata), 22)
+	buf := unsafe.Slice((*byte)(unsafe.Pointer(cdata)), 22)
 	n, err := sendXXX_5550D0(int2ip(uint32(addr)), int(port), buf)
 	return convSendToServerErr(n, err)
 }
@@ -511,7 +511,7 @@ func (l *NetList) get() []byte { // nox_netlist_get_420A90
 		l.first = item.next
 	}
 
-	buf := asByteSlice(unsafe.Pointer(item.buf), sz)
+	buf := unsafe.Slice((*byte)(unsafe.Pointer(item.buf)), sz)
 	l.freeItem(item)
 	return buf
 }
@@ -903,8 +903,8 @@ func sub_555130(a1 int, buf []byte) (int, error) {
 	if v5p == nil {
 		return -1, errors.New("cannot alloc gqueue")
 	}
-	v5 := asU32Slice(v5p, 5)
-	v5b := asByteSlice(v5p, 22+len(buf))
+	v5 := unsafe.Slice((*uint32)(v5p), 5)
+	v5b := unsafe.Slice((*byte)(v5p), 22+len(buf))
 	v5[0] = uint32(uintptr(ns.field_29))
 	ns.field_29 = v5p
 
@@ -938,14 +938,14 @@ func nox_xxx_netSend_5552D0(ind int, a2 byte, a3 bool) int {
 		return -3
 	}
 	for it := unsafe.Pointer(ns.field_29); it != nil; it = *(*unsafe.Pointer)(it) {
-		gb := asByteSlice(it, 22)
-		gi := asU32Slice(it, 5)
+		gb := unsafe.Slice((*byte)(it), 22)
+		gi := unsafe.Slice((*uint32)(it), 5)
 		if a3 {
 			if gb[21] == a2 {
 				sz := int(gi[4])
 				gi[3] = 0
 				gi[1] = uint32(C.dword_5d4594_2495920) + 2000
-				gb := asByteSlice(it, 22+sz)
+				gb := unsafe.Slice((*byte)(it), 22+sz)
 				ip, port := ns.Addr()
 				if _, err := nox_xxx_sendto_551F90(ns.Socket(), gb[20:20+sz], ip, port); err != nil {
 					netLog.Println(err)
@@ -956,7 +956,7 @@ func nox_xxx_netSend_5552D0(ind int, a2 byte, a3 bool) int {
 			sz := int(gi[4])
 			gi[3] = 0
 			gi[1] = uint32(C.dword_5d4594_2495920) + 2000
-			gb := asByteSlice(it, 22+sz)
+			gb := unsafe.Slice((*byte)(it), 22+sz)
 			ip, port := ns.Addr()
 			if _, err := nox_xxx_sendto_551F90(ns.Socket(), gb[20:20+sz], ip, port); err != nil {
 				netLog.Println(err)

@@ -287,7 +287,7 @@ func mapLoad4D2450(file string) {
 
 func sub_416640() []byte {
 	// TODO: size is a guess
-	return asByteSlice(memmap.PtrOff(0x5D4594, 371516), 168)
+	return unsafe.Slice((*byte)(memmap.PtrOff(0x5D4594, 371516)), 168)
 }
 
 func updateRemotePlayers() {

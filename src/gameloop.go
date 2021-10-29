@@ -445,7 +445,7 @@ func CONNECT_OR_HOST() {
 	}
 	mode := videoGetGameMode()
 	var info *C.char = C.nox_xxx_getHostInfoPtr_431770()
-	infos := asByteSlice(unsafe.Pointer(info), 97)
+	infos := unsafe.Slice((*byte)(unsafe.Pointer(info)), 97)
 
 	C.nox_wcscpy((*C.wchar_t)(unsafe.Pointer(&infos[0])), (*C.wchar_t)(memmap.PtrOff(0x85B3FC, 12204)))
 	infos[66] = byte(getPlayerClass())
@@ -676,7 +676,7 @@ func CONNECT_SERVER(host string, port int, data []byte) error {
 
 	ns = getNetStructByInd(id)
 	if C.dword_5d4594_3844304 != 0 && ns.ID() >= 0 {
-		vs := asByteSlice(memmap.PtrOff(0x5D4594, 2512892), 1024)
+		vs := unsafe.Slice((*byte)(memmap.PtrOff(0x5D4594, 2512892)), 1024)
 		copy(vs, make([]byte, 1024))
 		vs = vs[:3+len(data)]
 

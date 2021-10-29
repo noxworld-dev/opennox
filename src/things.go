@@ -33,7 +33,7 @@ func nox_thing_read_IMAG_415700(f *C.nox_memfile, buf *C.char) C.int {
 
 func nox_thing_read_IMAG_one_42F660(f *C.nox_memfile, cbuf *C.char) error {
 	pbuf := unsafe.Pointer(cbuf)
-	buf := asByteSlice(pbuf, 256*1024)
+	buf := unsafe.Slice((*byte)(pbuf), 256*1024)
 
 	refP, _ := alloc.Malloc(unsafe.Sizeof(C.nox_things_imageRef_t{}))
 	ref := (*C.nox_things_imageRef_t)(refP)
@@ -47,7 +47,7 @@ func nox_thing_read_IMAG_one_42F660(f *C.nox_memfile, cbuf *C.char) error {
 	}
 
 	name := readString8()
-	copy(asByteSlice(unsafe.Pointer(&ref.name[0]), len(ref.name)), name)
+	copy(unsafe.Slice((*byte)(unsafe.Pointer(&ref.name[0])), len(ref.name)), name)
 	ref.name[len(name)] = 0
 
 	kind := C.nox_memfile_read_i8(f)
@@ -60,7 +60,7 @@ func nox_thing_read_IMAG_one_42F660(f *C.nox_memfile, cbuf *C.char) error {
 			typ := C.nox_memfile_read_u8(f)
 			name2 := readString8()
 			if nox_xxx_loadImage_47A8C0(byte(typ), name2) != nil {
-				copy(asByteSlice(unsafe.Pointer(&ref.name2[0]), len(ref.name2)), name2)
+				copy(unsafe.Slice((*byte)(unsafe.Pointer(&ref.name2[0])), len(ref.name2)), name2)
 				ref.name2[len(name2)] = 0
 				ref.field_25_0 = C.char(typ)
 			} else {
@@ -73,7 +73,7 @@ func nox_thing_read_IMAG_one_42F660(f *C.nox_memfile, cbuf *C.char) error {
 		sz := C.nox_memfile_read_u8(f)
 		arr, _ := alloc.Pointers(int(sz))
 		pt, _ := alloc.Uints32(4)
-		ptb := asByteSlice(unsafe.Pointer(&pt[0]), 16)
+		ptb := unsafe.Slice((*byte)(unsafe.Pointer(&pt[0])), 16)
 		pt[0] = 0
 		pt[1] = uint32(uintptr(unsafe.Pointer(&arr[0])))
 		ptb[8] = byte(sz)

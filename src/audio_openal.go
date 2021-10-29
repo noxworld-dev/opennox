@@ -939,7 +939,7 @@ func AIL_load_sample_buffer(h C.HSAMPLE, num C.uint32_t, buf unsafe.Pointer, sz 
 	if sz == 0 {
 		sb.buf = nil
 	} else {
-		sb.buf = asByteSlice(buf, int(sz))
+		sb.buf = unsafe.Slice((*byte)(buf), int(sz))
 	}
 	sb.pos = 0
 	s.Play()

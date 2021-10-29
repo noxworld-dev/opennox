@@ -952,14 +952,14 @@ func nox_xxx_playerSaveInput_51A960(a1 C.int, a2 *C.uchar) C.int {
 	if pl != nil && *(*byte)(pl.field(3680))&0x10 == 0 {
 		return C.int(v3) + 1
 	}
-	a2s := asByteSlice(unsafe.Pointer(a2), int(v3)+1)
+	a2s := unsafe.Slice((*byte)(unsafe.Pointer(a2)), int(v3)+1)
 	var buf [3072]byte
 	v5 := uint32(sub_51AAA0(a2s[1:], buf[:]))
 	v6 := memmap.Uint32(0x5D4594, 2388804+4*uintptr(a1))
 	if v6+v5 < 128 {
 		*memmap.PtrUint32(0x5D4594, 2388804+4*uintptr(a1)) = v6 + v5
 		tsz := int(24 * v5)
-		copy(asByteSlice(memmap.PtrOff(0x5D4594, 2388932+24*(uintptr(v6)+(uintptr(a1)<<7))), tsz), buf[:tsz])
+		copy(unsafe.Slice((*byte)(memmap.PtrOff(0x5D4594, 2388932+24*(uintptr(v6)+(uintptr(a1)<<7)))), tsz), buf[:tsz])
 	}
 	C.sub_51AA20(a1)
 	return C.int(v3) + 1

@@ -430,7 +430,7 @@ func nox_net_send(fd C.nox_socket_t, buffer unsafe.Pointer, length C.uint) C.int
 		s.setErrno(123456, errors.New("no socket")) // TODO
 		return -1
 	}
-	buf := asByteSlice(buffer, int(length))
+	buf := unsafe.Slice((*byte)(buffer), int(length))
 	n, err := s.Write(buf)
 	if err != nil {
 		return -1
@@ -451,7 +451,7 @@ func nox_net_recv(fd C.nox_socket_t, buffer unsafe.Pointer, length C.uint) C.int
 		s.setErrno(123456, err) // TODO
 		return -1
 	}
-	buf := asByteSlice(buffer, int(length))
+	buf := unsafe.Slice((*byte)(buffer), int(length))
 	n, err := s.c.Read(buf)
 	if err != nil {
 		netLog.Println(err)
@@ -468,7 +468,7 @@ func nox_net_sendto(fd C.nox_socket_t, buffer unsafe.Pointer, length C.uint, add
 		s.setErrno(123456, errors.New("no socket")) // TODO
 		return -1
 	}
-	buf := asByteSlice(buffer, int(length))
+	buf := unsafe.Slice((*byte)(buffer), int(length))
 	var (
 		n   int
 		err error
@@ -501,7 +501,7 @@ func nox_net_recvfrom(fd C.nox_socket_t, buffer unsafe.Pointer, length C.uint, a
 		s.setErrno(123456, err) // TODO
 		return -1
 	}
-	buf := asByteSlice(buffer, int(length))
+	buf := unsafe.Slice((*byte)(buffer), int(length))
 	n, src, err := s.pc.ReadFrom(buf)
 	if err != nil {
 		netLog.Println(err)

@@ -9,7 +9,7 @@ import (
 //export nox_itoa
 func nox_itoa(val C.int, s *C.char, radix C.int) *C.char {
 	str := strconv.FormatInt(int64(val), int(radix))
-	buf := asByteSlice(unsafe.Pointer(s), len(str)+1)
+	buf := unsafe.Slice((*byte)(unsafe.Pointer(s)), len(str)+1)
 	i := copy(buf, str)
 	buf[i] = 0
 	return s
@@ -18,7 +18,7 @@ func nox_itoa(val C.int, s *C.char, radix C.int) *C.char {
 //export nox_utoa
 func nox_utoa(val C.int, s *C.char, radix C.int) *C.char {
 	str := strconv.FormatUint(uint64(val), int(radix))
-	buf := asByteSlice(unsafe.Pointer(s), len(str)+1)
+	buf := unsafe.Slice((*byte)(unsafe.Pointer(s)), len(str)+1)
 	i := copy(buf, str)
 	buf[i] = 0
 	return s

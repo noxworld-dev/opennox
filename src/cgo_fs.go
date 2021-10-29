@@ -215,14 +215,14 @@ func nox_fs_fsize(f *C.FILE) C.long {
 //export nox_fs_fread
 func nox_fs_fread(f *C.FILE, dst unsafe.Pointer, sz C.int) C.int {
 	fp := fileByHandle(f)
-	n, _ := fp.Read(asByteSlice(dst, int(sz)))
+	n, _ := fp.Read(unsafe.Slice((*byte)(dst), int(sz)))
 	return C.int(n)
 }
 
 //export nox_fs_fwrite
 func nox_fs_fwrite(f *C.FILE, dst unsafe.Pointer, sz C.int) C.int {
 	fp := fileByHandle(f)
-	n, _ := fp.Write(asByteSlice(dst, int(sz)))
+	n, _ := fp.Write(unsafe.Slice((*byte)(dst), int(sz)))
 	return C.int(n)
 }
 
@@ -331,7 +331,7 @@ func nox_fs_fscan_char2(f *C.FILE, p *C.char) C.int {
 	if err != nil {
 		return -1
 	}
-	b := asByteSlice(unsafe.Pointer(p), 2)
+	b := unsafe.Slice((*byte)(unsafe.Pointer(p)), 2)
 	b[0] = s[0]
 	if len(s) > 1 {
 		b[1] = s[1]

@@ -13,7 +13,6 @@ import "C"
 
 import (
 	"fmt"
-	"reflect"
 	"time"
 	"unsafe"
 
@@ -24,14 +23,6 @@ import (
 //export alloc_nox_platform_get_ticks
 func alloc_nox_platform_get_ticks() C.uint {
 	return C.uint(platform.Ticks() / time.Millisecond)
-}
-
-func asByteSlice(p unsafe.Pointer, sz int) (out []byte) {
-	*(*reflect.SliceHeader)(unsafe.Pointer(&out)) = reflect.SliceHeader{
-		Data: uintptr(p),
-		Len:  sz, Cap: sz,
-	}
-	return
 }
 
 var allocClasses = make(map[*C.nox_alloc_class]*allocClass)
@@ -79,7 +70,7 @@ func New(name string, size uintptr, cnt int) *AllocClass {
 	}
 	ptr, free := alloc.Malloc(unsafe.Sizeof(C.nox_alloc_class{}))
 	p := (*C.nox_alloc_class)(ptr)
-	i := copy(asByteSlice(unsafe.Pointer(&p.name[0]), int(C.ALLOC_CLASS_NAME_MAX)), name)
+	i := copy(unsafe.Slice((*byte)(unsafe.Pointer(&p.name[0])), int(C.ALLOC_CLASS_NAME_MAX)), name)
 	p.name[i] = 0
 
 	isize := size + unsafe.Sizeof(C.nox_alloc_hdr{})

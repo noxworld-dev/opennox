@@ -249,7 +249,7 @@ func clientOnLobbyServer(info *LobbyServerInfo) int {
 	*(*uint16)(field(105)) = info.Field_26_1 // field_26_1
 	*(*uint16)(field(107)) = info.Field_26_3 // field_26_3
 	StrCopy(&srv.map_name[0], 9, info.Map)
-	copy(asByteSlice(unsafe.Pointer(&srv.field_33_3[0]), 20), info.Field_33_3[:])
+	copy(unsafe.Slice((*byte)(unsafe.Pointer(&srv.field_33_3[0])), 20), info.Field_33_3[:])
 	*(*uint32)(field(155)) = info.Field_38_3 // field_38_3
 	*(*uint32)(field(159)) = info.Field_39_3 // field_39_3
 	*(*uint16)(field(163)) = info.Flags      // flags

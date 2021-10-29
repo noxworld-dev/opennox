@@ -224,7 +224,7 @@ func sub_4338D0() int {
 	C.dword_975240 = (*[0]byte)(C.sub_435280)
 	C.dword_975380 = (*[0]byte)(C.sub_434E80)
 	copy(byte_5D4594_3804364[:], byte_581450_9176[:])
-	copy(asU32Slice(unsafe.Pointer(&C.byte_5D4594_3804364[0]), 40), byte_581450_9176[:])
+	copy(unsafe.Slice((*uint32)(unsafe.Pointer(&C.byte_5D4594_3804364[0])), 40), byte_581450_9176[:])
 	ptr := C.ptr_5D4594_3799572
 	ptr.field_13 = 0
 	ptr.field_14 = 0
@@ -939,7 +939,7 @@ func sub_4814F0(a1 *C.nox_point) C.int {
 	v10 := int(memmap.Int32(0x8529A0, uintptr(1020+4*((v4b-v4)>>8))))
 
 	for i := 0; i < lightGrid; i++ {
-		v6 := asU32Slice(unsafe.Pointer(&C.nox_arr_84EB20[280*int(a1.x)+12*i+4]), 3)
+		v6 := unsafe.Slice((*uint32)(unsafe.Pointer(&C.nox_arr_84EB20[280*int(a1.x)+12*i+4])), 3)
 		v6[0] = uint32(int32(v2))
 		v6[1] = uint32(int32(v3))
 		v6[2] = uint32(int32(v4))
@@ -963,7 +963,7 @@ func sub_4695E0(a1, a2 C.int, a3p *C.int, a4, a5 C.int) {
 	if a5 != 0 {
 		v5 = -int(a4)
 	}
-	a3 := asI32Slice(unsafe.Pointer(a3p), 3)
+	a3 := unsafe.Slice((*int32)(unsafe.Pointer(a3p)), 3)
 	v6 := sub_4C1C60(v5, int(a3[0])) << 8
 	v7 := sub_4C1C60(v5, int(a3[1])) << 8
 	v8 := sub_4C1C60(v5, int(a3[2])) << 8

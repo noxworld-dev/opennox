@@ -6,7 +6,6 @@ package alloc
 */
 import "C"
 import (
-	"reflect"
 	"sync"
 	"unsafe"
 )
@@ -31,38 +30,22 @@ func Malloc(size uintptr) (unsafe.Pointer, func()) {
 
 func Bytes(size uintptr) (out []byte, _ func()) {
 	ptr, free := Malloc(size)
-	h := (*reflect.SliceHeader)(unsafe.Pointer(&out))
-	h.Data = uintptr(ptr)
-	h.Len = int(size)
-	h.Cap = int(size)
-	return out, free
+	return unsafe.Slice((*byte)(ptr), size), free
 }
 
 func Uints16(size uintptr) (out []uint16, _ func()) {
 	ptr, free := Malloc(size * 2)
-	h := (*reflect.SliceHeader)(unsafe.Pointer(&out))
-	h.Data = uintptr(ptr)
-	h.Len = int(size)
-	h.Cap = int(size)
-	return out, free
+	return unsafe.Slice((*uint16)(ptr), size), free
 }
 
 func Uints32(size uintptr) (out []uint32, _ func()) {
 	ptr, free := Malloc(size * 4)
-	h := (*reflect.SliceHeader)(unsafe.Pointer(&out))
-	h.Data = uintptr(ptr)
-	h.Len = int(size)
-	h.Cap = int(size)
-	return out, free
+	return unsafe.Slice((*uint32)(ptr), size), free
 }
 
 func Pointers(size int) (out []unsafe.Pointer, _ func()) {
 	ptr, free := Malloc(uintptr(size) * unsafe.Sizeof(unsafe.Pointer(nil)))
-	h := (*reflect.SliceHeader)(unsafe.Pointer(&out))
-	h.Data = uintptr(ptr)
-	h.Len = size
-	h.Cap = size
-	return out, free
+	return unsafe.Slice((*unsafe.Pointer)(ptr), size), free
 }
 
 func Realloc(ptr unsafe.Pointer, size uintptr) unsafe.Pointer {

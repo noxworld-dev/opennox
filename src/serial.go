@@ -13,7 +13,7 @@ func nox_xxx_regGetSerial_420120(dst *C.uchar) C.int {
 	if !ok {
 		return 0
 	}
-	out := asByteSlice(unsafe.Pointer(dst), len(s)+1)
+	out := unsafe.Slice((*byte)(unsafe.Pointer(dst)), len(s)+1)
 	n := copy(out, s)
 	out[n] = 0
 	return 1

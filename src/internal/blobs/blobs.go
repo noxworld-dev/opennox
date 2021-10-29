@@ -20,7 +20,7 @@ var (
 	reDataC = regexp.MustCompile(`unsigned\s+char\s+byte_([A-Fa-f\d]+)\[(\d+)\]\s*=\s*`)
 	reExtC  = regexp.MustCompile(`extern\s+unsigned\s+char\s+byte_([A-Fa-f\d]+)\[(\d+)\]\s*;\n`)
 	reMapC  = regexp.MustCompile(`[ \t]*case 0x([A-Fa-f\d]+):\s+if\s+\(off\+size\s*<=\s*sizeof\(byte_([A-Fa-f\d]+)\)\)\s*\{?\s*return\s+&byte_([A-Fa-f\d]+)\[off\]\s*;(?:\s*\})?\n`)
-	reMapG1 = regexp.MustCompile(`[ \t]*memmap\.RegisterBlobData\(0x([A-Fa-f\d]+), "byte_([A-Fa-f\d]+)", asByteSlice\(unsafe\.Pointer\(&C\.byte_([A-Fa-f\d]+)\[0\]\), int\(unsafe\.Sizeof\(C\.byte_([A-Fa-f\d]+)\)\)\)\)\n`)
+	reMapG1 = regexp.MustCompile(`[ \t]*memmap\.RegisterBlobData\(0x([A-Fa-f\d]+), "byte_([A-Fa-f\d]+)", unsafe\.Slice\(\(\*byte\)\(unsafe\.Pointer\(&C\.byte_([A-Fa-f\d]+)\[0\]\)\), int\(unsafe\.Sizeof\(C\.byte_([A-Fa-f\d]+)\)\)\)\)\n`)
 	reMapG2 = regexp.MustCompile(`[ \t]*memmap\.RegisterBlob\(0x([A-Fa-f\d]+), "byte_([A-Fa-f\d]+)", (\d+)\)\n`)
 )
 
@@ -335,7 +335,7 @@ func (b *Blobs) writeMemmapGo1() error {
 		return err
 	}
 	for _, b := range b.mapg1.blobs2 {
-		_, err = fmt.Fprintf(bw, "\tmemmap.RegisterBlobData(0x%[1]X, \"byte_%[1]X\", asByteSlice(unsafe.Pointer(&C.byte_%[1]X[0]), int(unsafe.Sizeof(C.byte_%[1]X))))\n", b.Blob, b.Size)
+		_, err = fmt.Fprintf(bw, "\tmemmap.RegisterBlobData(0x%[1]X, \"byte_%[1]X\", unsafe.Slice((*byte)(unsafe.Pointer(&C.byte_%[1]X[0])), int(unsafe.Sizeof(C.byte_%[1]X))))\n", b.Blob, b.Size)
 		if err != nil {
 			return err
 		}
