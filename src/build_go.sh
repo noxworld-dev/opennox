@@ -9,7 +9,7 @@ VERSION="$(git name-rev --tags --name-only $(git rev-parse HEAD))"
 if [ "$VERSION" = "undefined" ]; then
   VERSION="v1.8.x"
 fi
-NOX_LDFLAGS="-X 'main.Commit=$GIT_SHA' -X 'main.Version=$VERSION'"
+NOX_LDFLAGS="-X 'nox/v1.Commit=$GIT_SHA' -X 'nox/v1.Version=$VERSION'"
 NOX_GCFLAGS="-trimpath=$(pwd)"
 NOX_ASMFLAGS="-trimpath=$(pwd)"
 
