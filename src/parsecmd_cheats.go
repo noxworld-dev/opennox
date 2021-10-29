@@ -11,20 +11,26 @@ func init() {
 	noxCmdCheat.Sub = append(noxCmdCheat.Sub,
 		&parsecmd.Command{
 			Token:  "health",
-			HelpID: "cheathealth",
+			HelpID: "cheathealthhelp",
 			Help:   "sets health for the player",
 			Flags:  parsecmd.Server | parsecmd.Cheat,
 			Func: func(c *parsecmd.Console, tokens []string) bool {
-				return noxCmdSetPlayerUnitParam(c, tokens, "health", (*Unit).SetMaxHealth)
+				return noxCmdSetPlayerUnitParam(c, tokens, "health", (*Unit).SetMaxHealth, func(u *Unit) {
+					_, max := u.Health()
+					u.SetHealth(max)
+				})
 			},
 		},
 		&parsecmd.Command{
 			Token:  "mana",
-			HelpID: "cheatmana",
+			HelpID: "cheatmanahelp",
 			Help:   "sets mana for the player",
 			Flags:  parsecmd.Server | parsecmd.Cheat,
 			Func: func(c *parsecmd.Console, tokens []string) bool {
-				return noxCmdSetPlayerUnitParam(c, tokens, "mana", (*Unit).SetMaxMana)
+				return noxCmdSetPlayerUnitParam(c, tokens, "mana", (*Unit).SetMaxMana, func(u *Unit) {
+					_, max := u.Mana()
+					u.SetMana(max)
+				})
 			},
 		},
 		&parsecmd.Command{
@@ -250,9 +256,20 @@ func noxCmdSetBool(c *parsecmd.Console, tokens []string, fnc func(v bool)) bool 
 	return true
 }
 
-func noxCmdSetPlayerUnitParam(c *parsecmd.Console, tokens []string, param string, fnc func(u *Unit, v int)) bool {
-	if len(tokens) == 0 || len(tokens) > 2 {
+func noxCmdSetPlayerUnitParam(c *parsecmd.Console, tokens []string, param string, fnc func(u *Unit, v int), def func(u *Unit)) bool {
+	if len(tokens) > 2 {
 		return false
+	}
+	if len(tokens) == 0 {
+		p := HostPlayer()
+		u := p.UnitC()
+		if u == nil {
+			c.Printf(parsecmd.ColorLightRed, "player %q doesn't have a unit", p.Name())
+			return true
+		}
+		def(u)
+		c.Printf(parsecmd.ColorLightYellow, "set %q player %s to max", p.Name(), param)
+		return true
 	}
 	var p *Player
 	if len(tokens) == 1 {
