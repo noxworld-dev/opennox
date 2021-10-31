@@ -20,8 +20,6 @@ extern "C" {
 
 #define __fastcall
 #define __stdcall
-#define WINAPI
-#define WINAPIV
 
 #define MAX_PATH 260
 #define INFINITE ((DWORD)-1)
@@ -221,7 +219,7 @@ struct compat_stat {
 	DWORD st_ctime;
 };
 
-int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd);
+int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd);
 
 enum {
 	FILE_ATTRIBUTE_DIRECTORY = 0x10,
@@ -303,46 +301,46 @@ enum {
 #define _write write
 #define _close close
 
-BOOL WINAPI CloseHandle(HANDLE hObject);
-DWORD WINAPI GetLastError();
-void WINAPI GetLocalTime(LPSYSTEMTIME lpSystemTime);
-HANDLE WINAPI FindFirstFileA(LPCSTR lpFileName, LPWIN32_FIND_DATAA lpFindFileData);
-BOOL WINAPI FindNextFileA(HANDLE hFindFile, LPWIN32_FIND_DATAA lpFindFileData);
-BOOL WINAPI FindClose(HANDLE hFindFile);
-int WINAPI GetDateFormatA(LCID Locale, DWORD dwFlags, const SYSTEMTIME* lpDate, LPCSTR lpFormat, LPSTR lpDateStr,
+BOOL CloseHandle(HANDLE hObject);
+DWORD GetLastError();
+void GetLocalTime(LPSYSTEMTIME lpSystemTime);
+HANDLE FindFirstFileA(LPCSTR lpFileName, LPWIN32_FIND_DATAA lpFindFileData);
+BOOL FindNextFileA(HANDLE hFindFile, LPWIN32_FIND_DATAA lpFindFileData);
+BOOL FindClose(HANDLE hFindFile);
+int GetDateFormatA(LCID Locale, DWORD dwFlags, const SYSTEMTIME* lpDate, LPCSTR lpFormat, LPSTR lpDateStr,
 						  int cchDate);
-LSTATUS WINAPI RegOpenKeyExA(HKEY hKey, LPCSTR lpSubKey, DWORD ulOptions, REGSAM samDesired, PHKEY phkResult);
-LSTATUS WINAPI RegQueryValueExA(HKEY hKey, LPCSTR lpValueName, LPDWORD lpReserved, LPDWORD lpType, LPBYTE lpData,
+LSTATUS RegOpenKeyExA(HKEY hKey, LPCSTR lpSubKey, DWORD ulOptions, REGSAM samDesired, PHKEY phkResult);
+LSTATUS RegQueryValueExA(HKEY hKey, LPCSTR lpValueName, LPDWORD lpReserved, LPDWORD lpType, LPBYTE lpData,
 								LPDWORD lpcbData);
-LSTATUS WINAPI RegSetValueExA(HKEY, LPCSTR lpValueName, DWORD Reserved, DWORD dwType, const BYTE* lpData, DWORD cbData);
-LSTATUS WINAPI RegCloseKey(HKEY hKey);
-int WINAPI MulDiv(int nNumber, int nNumerator, int nDenominator);
-LSTATUS WINAPI RegCreateKeyExA(HKEY hKey, LPCSTR lpSubKey, DWORD Reserved, LPSTR lpClass, DWORD dwOptions,
+LSTATUS RegSetValueExA(HKEY, LPCSTR lpValueName, DWORD Reserved, DWORD dwType, const BYTE* lpData, DWORD cbData);
+LSTATUS RegCloseKey(HKEY hKey);
+int MulDiv(int nNumber, int nNumerator, int nDenominator);
+LSTATUS RegCreateKeyExA(HKEY hKey, LPCSTR lpSubKey, DWORD Reserved, LPSTR lpClass, DWORD dwOptions,
 							   REGSAM samDesired, const LPSECURITY_ATTRIBUTES lpSecurityAttributes, PHKEY phkResult,
 							   LPDWORD lpdwDisposition);
-void WINAPI GlobalMemoryStatus(LPMEMORYSTATUS lpBuffer);
-BOOL WINAPI QueryPerformanceCounter(LARGE_INTEGER* lpPerformanceCount);
-BOOL WINAPI QueryPerformanceFrequency(LARGE_INTEGER* lpFrequency);
-BOOL WINAPI HeapDestroy(HANDLE hHeap);
-BOOL WINAPI GetVersionExA(LPOSVERSIONINFOA lpVersionInformation);
-void WINAPI OutputDebugStringA(LPCSTR lpOutputString);
-HINSTANCE WINAPI ShellExecuteA(HWND hwnd, LPCSTR lpOperation, LPCSTR lpFile, LPCSTR lpParameters, LPCSTR lpDirectory,
+void GlobalMemoryStatus(LPMEMORYSTATUS lpBuffer);
+BOOL QueryPerformanceCounter(LARGE_INTEGER* lpPerformanceCount);
+BOOL QueryPerformanceFrequency(LARGE_INTEGER* lpFrequency);
+BOOL HeapDestroy(HANDLE hHeap);
+BOOL GetVersionExA(LPOSVERSIONINFOA lpVersionInformation);
+void OutputDebugStringA(LPCSTR lpOutputString);
+HINSTANCE ShellExecuteA(HWND hwnd, LPCSTR lpOperation, LPCSTR lpFile, LPCSTR lpParameters, LPCSTR lpDirectory,
 							   INT nShowCmd);
-int WINAPI GetTimeFormatA(LCID Locale, DWORD dwFlags, const SYSTEMTIME* lpTime, LPCSTR lpFormat, LPSTR lpTimeStr,
+int GetTimeFormatA(LCID Locale, DWORD dwFlags, const SYSTEMTIME* lpTime, LPCSTR lpFormat, LPSTR lpTimeStr,
 						  int cchTime);
-BOOL WINAPI SystemTimeToFileTime(const SYSTEMTIME* lpSystemTime, LPFILETIME lpFileTime);
-LONG WINAPI CompareFileTime(const FILETIME* lpFileTime1, const FILETIME* lpFileTime2);
-HANDLE WINAPI CreateMutexA(LPSECURITY_ATTRIBUTES lpSecurityAttributes, BOOL bInitialOwner, LPCSTR lpName);
-BOOL WINAPI ReleaseMutex(HANDLE hMutex);
-BOOL WINAPI SetEvent(HANDLE hEvent);
-DWORD WINAPI WaitForSingleObject(HANDLE hHandle, DWORD dwMilliseconds);
-int WINAPI WideCharToMultiByte(UINT CodePage, DWORD dwFlags, LPCWSTR lpWideCharStr, int cchWideChar,
+BOOL SystemTimeToFileTime(const SYSTEMTIME* lpSystemTime, LPFILETIME lpFileTime);
+LONG CompareFileTime(const FILETIME* lpFileTime1, const FILETIME* lpFileTime2);
+HANDLE CreateMutexA(LPSECURITY_ATTRIBUTES lpSecurityAttributes, BOOL bInitialOwner, LPCSTR lpName);
+BOOL ReleaseMutex(HANDLE hMutex);
+BOOL SetEvent(HANDLE hEvent);
+DWORD WaitForSingleObject(HANDLE hHandle, DWORD dwMilliseconds);
+int WideCharToMultiByte(UINT CodePage, DWORD dwFlags, LPCWSTR lpWideCharStr, int cchWideChar,
 							   LPSTR lpMultiByteStr, int cbMultiByte, LPCCH lpDefaultChar, LPBOOL lpUsedDefaultChar);
 
 LONG InterlockedExchange(volatile LONG* Target, LONG Value);
 LONG InterlockedDecrement(volatile LONG* Addend);
 LONG InterlockedIncrement(volatile LONG* Addend);
-int WINAPI MessageBoxA(HWND hWnd, LPCSTR lpText, LPCSTR lpCaption, UINT uType);
+int MessageBoxA(HWND hWnd, LPCSTR lpText, LPCSTR lpCaption, UINT uType);
 
 unsigned int _control87(unsigned int new_, unsigned int mask);
 unsigned int _controlfp(unsigned int new_, unsigned int mask);
@@ -363,18 +361,18 @@ static inline unsigned int _rotl(unsigned int value, int shift) {
 		return value;
 	return (value << c) | (value >> (32 - c));
 }
-static inline BOOL WINAPI CopyRect(LPRECT lprcDst, const RECT* lprcSrc) {
+static inline BOOL CopyRect(LPRECT lprcDst, const RECT* lprcSrc) {
 	*lprcDst = *lprcSrc;
 	return true;
 }
-static inline BOOL WINAPI SetRect(LPRECT lprc, int xLeft, int yTop, int xRight, int yBottom) {
+static inline BOOL SetRect(LPRECT lprc, int xLeft, int yTop, int xRight, int yBottom) {
 	lprc->left = xLeft;
 	lprc->top = yTop;
 	lprc->right = xRight;
 	lprc->bottom = yBottom;
 	return true;
 }
-static inline BOOL WINAPI IsRectEmpty(const RECT* lprc) {
+static inline BOOL IsRectEmpty(const RECT* lprc) {
 	return lprc->right <= lprc->left || lprc->bottom <= lprc->top;
 }
 

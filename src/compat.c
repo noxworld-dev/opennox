@@ -100,10 +100,10 @@ static inline void* lookup_handle(unsigned int type, HANDLE h) {
 	return handles[(WORD)h];
 }
 
-void WINAPI OutputDebugStringA(LPCSTR lpOutputString) { fprintf(stderr, "%s", lpOutputString); }
+void OutputDebugStringA(LPCSTR lpOutputString) { fprintf(stderr, "%s", lpOutputString); }
 
 // Memory functions
-BOOL WINAPI HeapDestroy(HANDLE hHeap) {
+BOOL HeapDestroy(HANDLE hHeap) {
 	abort();
 	return 0;
 }
@@ -258,7 +258,7 @@ void _splitpath(const char* path, char* drive, char* dir, char* fname, char* ext
 }
 
 // Misc functions
-BOOL WINAPI CloseHandle(HANDLE hObject) {
+BOOL CloseHandle(HANDLE hObject) {
 	switch ((DWORD)hObject >> 16) {
 	case 0:
 		close((WORD)hObject);
@@ -281,9 +281,9 @@ BOOL WINAPI CloseHandle(HANDLE hObject) {
 	return true;
 }
 
-DWORD WINAPI GetLastError() { return last_error; }
+DWORD GetLastError() { return last_error; }
 
-BOOL WINAPI GetVersionExA(LPOSVERSIONINFOA lpVersionInformation) {
+BOOL GetVersionExA(LPOSVERSIONINFOA lpVersionInformation) {
 	lpVersionInformation->dwOSVersionInfoSize = sizeof(OSVERSIONINFOA);
 	lpVersionInformation->dwMajorVersion = 5;
 	lpVersionInformation->dwMinorVersion = 1;
@@ -296,23 +296,23 @@ LONG InterlockedDecrement(volatile LONG* Addend) { return __sync_fetch_and_sub(A
 
 LONG InterlockedIncrement(volatile LONG* Addend) { return __sync_fetch_and_add(Addend, 1); }
 
-int WINAPI MessageBoxA(HWND hWnd, LPCSTR lpText, LPCSTR lpCaption, UINT uType) {
+int MessageBoxA(HWND hWnd, LPCSTR lpText, LPCSTR lpCaption, UINT uType) {
 	abort();
 	return 0;
 }
 
-int WINAPI MulDiv(int nNumber, int nNumerator, int nDenominator) {
+int MulDiv(int nNumber, int nNumerator, int nDenominator) {
 	abort();
 	return 0;
 }
 
-HINSTANCE WINAPI ShellExecuteA(HWND hwnd, LPCSTR lpOperation, LPCSTR lpFile, LPCSTR lpParameters, LPCSTR lpDirectory,
+HINSTANCE ShellExecuteA(HWND hwnd, LPCSTR lpOperation, LPCSTR lpFile, LPCSTR lpParameters, LPCSTR lpDirectory,
 							   INT nShowCmd) {
 	abort();
 	return 0;
 }
 
-int WINAPI WideCharToMultiByte(UINT CodePage, DWORD dwFlags, LPCWSTR lpWideCharStr, int cchWideChar,
+int WideCharToMultiByte(UINT CodePage, DWORD dwFlags, LPCWSTR lpWideCharStr, int cchWideChar,
 							   LPSTR lpMultiByteStr, int cbMultiByte, LPCCH lpDefaultChar, LPBOOL lpUsedDefaultChar) {
 	abort();
 	return 0;
@@ -346,7 +346,7 @@ void build_server_info(void* arg) {
 // Time functions
 // compatGetDateFormatA(Locale=2048, dwFlags=1, lpDate=0x1708c6a4, lpFormat=0x00000000, lpDateStr="nox.str:Warrior",
 // cchDate=256) at compat.c:1001
-int WINAPI GetDateFormatA(LCID Locale, DWORD dwFlags, const SYSTEMTIME* lpDate, LPCSTR lpFormat, LPSTR lpDateStr,
+int GetDateFormatA(LCID Locale, DWORD dwFlags, const SYSTEMTIME* lpDate, LPCSTR lpFormat, LPSTR lpDateStr,
 						  int cchDate) {
 	if (Locale != 0x800 || dwFlags != 1 || lpFormat)
 		abort();
@@ -355,7 +355,7 @@ int WINAPI GetDateFormatA(LCID Locale, DWORD dwFlags, const SYSTEMTIME* lpDate, 
 	return snprintf(lpDateStr, cchDate, "%d/%d/%02d", lpDate->wMonth, lpDate->wDay, lpDate->wYear % 100);
 }
 
-int WINAPI GetTimeFormatA(LCID Locale, DWORD dwFlags, const SYSTEMTIME* lpTime, LPCSTR lpFormat, LPSTR lpTimeStr,
+int GetTimeFormatA(LCID Locale, DWORD dwFlags, const SYSTEMTIME* lpTime, LPCSTR lpFormat, LPSTR lpTimeStr,
 						  int cchTime) {
 	if (Locale != 0x800 || dwFlags != 14 || lpFormat)
 		abort();
@@ -364,7 +364,7 @@ int WINAPI GetTimeFormatA(LCID Locale, DWORD dwFlags, const SYSTEMTIME* lpTime, 
 	return snprintf(lpTimeStr, cchTime, "%02d:%02d", lpTime->wHour, lpTime->wMinute);
 }
 
-BOOL WINAPI SystemTimeToFileTime(const SYSTEMTIME* lpSystemTime, LPFILETIME lpFileTime) {
+BOOL SystemTimeToFileTime(const SYSTEMTIME* lpSystemTime, LPFILETIME lpFileTime) {
 	QWORD t;
 	struct tm tm;
 
@@ -385,7 +385,7 @@ BOOL WINAPI SystemTimeToFileTime(const SYSTEMTIME* lpSystemTime, LPFILETIME lpFi
 	return 0;
 }
 
-LONG WINAPI CompareFileTime(const FILETIME* lpFileTime1, const FILETIME* lpFileTime2) {
+LONG CompareFileTime(const FILETIME* lpFileTime1, const FILETIME* lpFileTime2) {
 	if (lpFileTime1->dwHighDateTime != lpFileTime2->dwHighDateTime)
 		return (LONG)lpFileTime1->dwHighDateTime - (LONG)lpFileTime2->dwHighDateTime;
 	if (lpFileTime1->dwLowDateTime != lpFileTime2->dwLowDateTime)
@@ -393,7 +393,7 @@ LONG WINAPI CompareFileTime(const FILETIME* lpFileTime1, const FILETIME* lpFileT
 	return 0;
 }
 
-void WINAPI GetLocalTime(LPSYSTEMTIME lpSystemTime) {
+void GetLocalTime(LPSYSTEMTIME lpSystemTime) {
 	time_t t;
 	struct tm* tm;
 
@@ -410,7 +410,7 @@ void WINAPI GetLocalTime(LPSYSTEMTIME lpSystemTime) {
 	lpSystemTime->wMilliseconds = 0;
 }
 
-BOOL WINAPI QueryPerformanceCounter(LARGE_INTEGER* lpPerformanceCount) {
+BOOL QueryPerformanceCounter(LARGE_INTEGER* lpPerformanceCount) {
 	struct timeval tv;
 
 	gettimeofday(&tv, NULL);
@@ -418,7 +418,7 @@ BOOL WINAPI QueryPerformanceCounter(LARGE_INTEGER* lpPerformanceCount) {
 	return true;
 }
 
-BOOL WINAPI QueryPerformanceFrequency(LARGE_INTEGER* lpFrequency) {
+BOOL QueryPerformanceFrequency(LARGE_INTEGER* lpFrequency) {
 	lpFrequency->QuadPart = 1000000;
 	return true;
 }
@@ -445,7 +445,7 @@ static void fill_find_data(const char* path, LPWIN32_FIND_DATAA lpFindFileData) 
 	// lpFindFileData->cFileName);
 }
 
-HANDLE WINAPI FindFirstFileA(LPCSTR lpFileName, LPWIN32_FIND_DATAA lpFindFileData) {
+HANDLE FindFirstFileA(LPCSTR lpFileName, LPWIN32_FIND_DATAA lpFindFileData) {
 	char* converted = nox_fs_normalize(lpFileName);
 	int len = strlen(converted);
 	struct _FIND_FILE* ff = calloc(sizeof(*ff), 1);
@@ -466,7 +466,7 @@ HANDLE WINAPI FindFirstFileA(LPCSTR lpFileName, LPWIN32_FIND_DATAA lpFindFileDat
 	return (HANDLE)ff;
 }
 
-BOOL WINAPI FindNextFileA(HANDLE hFindFile, LPWIN32_FIND_DATAA lpFindFileData) {
+BOOL FindNextFileA(HANDLE hFindFile, LPWIN32_FIND_DATAA lpFindFileData) {
 	struct _FIND_FILE* ff = (struct _FIND_FILE*)hFindFile;
 
 	if (ff->idx >= ff->globbuf.gl_pathc) {
@@ -478,7 +478,7 @@ BOOL WINAPI FindNextFileA(HANDLE hFindFile, LPWIN32_FIND_DATAA lpFindFileData) {
 	return true;
 }
 
-BOOL WINAPI FindClose(HANDLE hFindFile) {
+BOOL FindClose(HANDLE hFindFile) {
 	struct _FIND_FILE* ff = (struct _FIND_FILE*)hFindFile;
 
 	globfree(&ff->globbuf);
@@ -549,14 +549,14 @@ int _stat(const char* path, struct _stat* buffer) {
 }
 
 // Registry functions
-LSTATUS WINAPI RegCreateKeyExA(HKEY hKey, LPCSTR lpSubKey, DWORD Reserved, LPSTR lpClass, DWORD dwOptions,
+LSTATUS RegCreateKeyExA(HKEY hKey, LPCSTR lpSubKey, DWORD Reserved, LPSTR lpClass, DWORD dwOptions,
 							   REGSAM samDesired, const LPSECURITY_ATTRIBUTES lpSecurityAttributes, PHKEY phkResult,
 							   LPDWORD lpdwDisposition) {
 	abort();
 	return 0;
 }
 
-LSTATUS WINAPI RegOpenKeyExA(HKEY hKey, LPCSTR lpSubKey, DWORD ulOptions, REGSAM samDesired, PHKEY phkResult) {
+LSTATUS RegOpenKeyExA(HKEY hKey, LPCSTR lpSubKey, DWORD ulOptions, REGSAM samDesired, PHKEY phkResult) {
 	HKEY hkResult;
 	const char* root;
 
@@ -572,7 +572,7 @@ LSTATUS WINAPI RegOpenKeyExA(HKEY hKey, LPCSTR lpSubKey, DWORD ulOptions, REGSAM
 	return 0;
 }
 
-LSTATUS WINAPI RegQueryValueExA(HKEY hKey, LPCSTR lpValueName, LPDWORD lpReserved, LPDWORD lpType, LPBYTE lpData,
+LSTATUS RegQueryValueExA(HKEY hKey, LPCSTR lpValueName, LPDWORD lpReserved, LPDWORD lpType, LPBYTE lpData,
 								LPDWORD lpcbData) {
 	_dprintf("%s: key=\"%s\", value=\"%s\"", __FUNCTION__, hKey->path, lpValueName);
 
@@ -588,13 +588,13 @@ LSTATUS WINAPI RegQueryValueExA(HKEY hKey, LPCSTR lpValueName, LPDWORD lpReserve
 	return 3;
 }
 
-LSTATUS WINAPI RegSetValueExA(HKEY hKey, LPCSTR lpValueName, DWORD Reserved, DWORD dwType, const BYTE* lpData,
+LSTATUS RegSetValueExA(HKEY hKey, LPCSTR lpValueName, DWORD Reserved, DWORD dwType, const BYTE* lpData,
 							  DWORD cbData) {
 	abort();
 	return 0;
 }
 
-LSTATUS WINAPI RegCloseKey(HKEY hKey) {
+LSTATUS RegCloseKey(HKEY hKey) {
 	free(hKey->path);
 	free(hKey);
 	return 0;
@@ -602,7 +602,7 @@ LSTATUS WINAPI RegCloseKey(HKEY hKey) {
 
 // Synchronization functions
 
-HANDLE WINAPI CreateMutexA(LPSECURITY_ATTRIBUTES lpSecurityAttributes, BOOL bInitialOwner, LPCSTR lpName) {
+HANDLE CreateMutexA(LPSECURITY_ATTRIBUTES lpSecurityAttributes, BOOL bInitialOwner, LPCSTR lpName) {
 	pthread_mutex_t* m = malloc(sizeof(pthread_mutex_t));
 	pthread_mutexattr_t attr;
 
@@ -617,7 +617,7 @@ HANDLE WINAPI CreateMutexA(LPSECURITY_ATTRIBUTES lpSecurityAttributes, BOOL bIni
 	return new_handle(HANDLE_MUTEX, m);
 }
 
-BOOL WINAPI ReleaseMutex(HANDLE hMutex) {
+BOOL ReleaseMutex(HANDLE hMutex) {
 	pthread_mutex_t* m = lookup_handle(HANDLE_MUTEX, hMutex);
 	if (m == NULL)
 		return false;
@@ -625,7 +625,7 @@ BOOL WINAPI ReleaseMutex(HANDLE hMutex) {
 	return true;
 }
 
-BOOL WINAPI SetEvent(HANDLE hEvent) {
+BOOL SetEvent(HANDLE hEvent) {
 	abort();
 	return 0;
 }
@@ -635,7 +635,7 @@ BOOL WINAPI SetEvent(HANDLE hEvent) {
 int pthread_timedjoin_np(void*, void*, void*);
 #endif
 
-DWORD WINAPI WaitForSingleObject(HANDLE hHandle, DWORD dwMilliseconds) {
+DWORD WaitForSingleObject(HANDLE hHandle, DWORD dwMilliseconds) {
 	DWORD result = (DWORD)-1;
 	struct timespec tv;
 
