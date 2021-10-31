@@ -134,8 +134,8 @@ func (ns *netStruct) FreeXxx() {
 	}
 	alloc.Free(unsafe.Pointer(ns.data_1_base))
 	alloc.Free(unsafe.Pointer(ns.data_2_base))
-	C.CloseHandle(ns.mutex_yyy)
-	C.CloseHandle(ns.mutex_xxx)
+	C.CloseHandle(C.HANDLE(ns.mutex_yyy))
+	C.CloseHandle(C.HANDLE(ns.mutex_xxx))
 	alloc.Free(unsafe.Pointer(ns.C()))
 }
 
@@ -674,13 +674,13 @@ func nox_xxx_makeNewNetStruct(arg *netStructOpt) *netStruct {
 	if my == zeroHandle {
 		panic("cannot create mutex")
 	}
-	ns.mutex_yyy = my
+	ns.mutex_yyy = unsafe.Pointer(my)
 
 	mx := C.CreateMutexA(nil, 0, nil)
 	if mx == zeroHandle {
 		panic("cannot create mutex")
 	}
-	ns.mutex_xxx = mx
+	ns.mutex_xxx = unsafe.Pointer(mx)
 	if arg.data3size > 0 {
 		p, _ := alloc.Bytes(uintptr(arg.data3size))
 		ns.data_3 = unsafe.Pointer(&p[0])
@@ -847,7 +847,7 @@ func nox_xxx_netSendSock_552640(id int, buf []byte, flags int) (int, error) {
 		if n+1 > len(d2x) {
 			return -7, errors.New("buffer too short")
 		}
-		v14 := int32(C.WaitForSingleObject(ns2.mutex_yyy, 0x3E8))
+		v14 := int32(C.WaitForSingleObject(C.HANDLE(ns2.mutex_yyy), 0x3E8))
 		if v14 == -1 || v14 == 258 {
 			return -16, errors.New("cannot wait for object")
 		}
@@ -861,13 +861,13 @@ func nox_xxx_netSendSock_552640(id int, buf []byte, flags int) (int, error) {
 			}
 			sub_553F40(n+2, 1)
 			nox_xxx_netCountData_554030(n+2, i)
-			C.ReleaseMutex(ns2.mutex_yyy)
+			C.ReleaseMutex(C.HANDLE(ns2.mutex_yyy))
 			return n2, nil
 		}
 		copy(d2x[:n], buf)
 		ns2.data_2_xxx = (*C.char)(unsafe.Pointer(&d2x[n]))
-		if C.ReleaseMutex(ns2.mutex_yyy) == 0 {
-			C.ReleaseMutex(ns2.mutex_yyy)
+		if C.ReleaseMutex(C.HANDLE(ns2.mutex_yyy)) == 0 {
+			C.ReleaseMutex(C.HANDLE(ns2.mutex_yyy))
 		}
 	}
 	return n, nil

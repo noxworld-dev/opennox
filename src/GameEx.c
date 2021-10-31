@@ -368,7 +368,7 @@ LABEL_37:
 // 10001290: could not find valid save-restore pair for ebp
 
 //----- (10001670) --------------------------------------------------------
-const char* __usercall SomeStringSearcher(const char* result, const char* a2, char* a3) {
+const char* SomeStringSearcher(const char* result, const char* a2, char* a3) {
 	char* v3;       // edi
 	const char* v4; // esi
 	char* v5;       // eax
@@ -504,7 +504,7 @@ void DestroyNoxWindow() {
 #endif // NOX_CGO
 
 //----- (10001B40) --------------------------------------------------------
-int __usercall copyServerMatchData(char* a1) {
+int copyServerMatchData(char* a1) {
 	char* v1;   // eax
 	char v2;    // cl
 	char* v3;   // eax
@@ -553,7 +553,7 @@ int __usercall copyServerMatchData(char* a1) {
 char  getPlayerClassFromObjPtr(int a1) { return *(_BYTE*)(*(_DWORD*)(*(_DWORD*)(a1 + 748) + 276) + 2251); }
 
 //----- (10001C50) --------------------------------------------------------
-int __usercall playerInfoStructsToVector(smallPlayerStructVector* vector) {
+int playerInfoStructsToVector(smallPlayerStructVector* vector) {
 	char* result; // eax
 	char* v7;     // esi
 	// char v8; // [esp+10h] [ebp-24h]
@@ -598,7 +598,7 @@ char  playerInfoStructParser_0(char* a1) {
 }
 
 //----- (10001E10) --------------------------------------------------------
-char __usercall playerInfoStructParser_1(int a1, int a2, int* a3) {
+char playerInfoStructParser_1(int a1, int a2, int* a3) {
 	char* v3;   // eax
 	char* v4;   // eax
 	_DWORD* v6; // eax
@@ -718,7 +718,7 @@ char  playerDropATrap(int playerObj) {
 
 //----- (100020F0) --------------------------------------------------------
 #ifndef NOX_CGO
-HANDLE __usercall GameIpParser(int a1, int a2, int a3) {
+HANDLE GameIpParser(int a1, int a2, int a3) {
 	HANDLE result;                 // eax MAPDST
 	DWORD fileSize;                // esi MAPDST
 	unsigned int fileBufferSize;   // ebp
@@ -778,7 +778,7 @@ HANDLE __usercall GameIpParser(int a1, int a2, int a3) {
 }
 
 //----- (10002240) --------------------------------------------------------
-unsigned int __usercall pingAllServersInGameIp(int ebx0, int edi0, int a1, int a2, int a3) {
+unsigned int pingAllServersInGameIp(int ebx0, int edi0, int a1, int a2, int a3) {
 	int* it;
 	int* end = da_end(gameIps);
 
@@ -791,7 +791,7 @@ unsigned int __usercall pingAllServersInGameIp(int ebx0, int edi0, int a1, int a
 // 10012BE4: using guessed type int vectorEnd;
 
 //----- (10002300) --------------------------------------------------------
-signed int __usercall inputNewIp_(int a1, int ebx0, int a2, int a3, int a4) {
+signed int inputNewIp_(int a1, int ebx0, int a2, int a3, int a4) {
 	unsigned int v6; // [esp+10h] [ebp-2Ch]
 	int v7;          // [esp+14h] [ebp-28h]
 	LPCWSTR pSrc;    // [esp+18h] [ebp-24h]

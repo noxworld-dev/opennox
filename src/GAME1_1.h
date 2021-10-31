@@ -2,7 +2,7 @@
 #define NOX_PORT_GAME1_1
 
 #include "defs.h"
-
+#include "common__savegame.h"
 
 char sub_4187A0();
 int sub_4187E0();

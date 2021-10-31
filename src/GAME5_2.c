@@ -7545,13 +7545,13 @@ int  sub_57F2A0(float2* a1, int a2, int a3) {
 
 #if 0
 //----- (0057FA20) --------------------------------------------------------
-int __usercall sub_57FA20@<eax > (int a1@<ebp > )
+int sub_57FA20@<eax > (int a1@<ebp > )
 {
     return sub_40E3D0((int*)(a1 - 16));
 }
 
 //----- (0057FA28) --------------------------------------------------------
-int __usercall sub_57FA28@<eax > (int a1@<ebp > )
+int sub_57FA28@<eax > (int a1@<ebp > )
 {
     return sub_40E3D0((int*)(a1 - 20));
 }
@@ -7563,13 +7563,13 @@ int  SEH_40E260(int a1, int a2, int a3, int a4)
 }
 
 //----- (0057FA40) --------------------------------------------------------
-int __usercall sub_57FA40@<eax > (int a1@<ebp > )
+int sub_57FA40@<eax > (int a1@<ebp > )
 {
     return sub_40E3D0((int*)(a1 - 16));
 }
 
 //----- (0057FA48) --------------------------------------------------------
-int __usercall sub_57FA48@<eax > (int a1@<ebp > )
+int sub_57FA48@<eax > (int a1@<ebp > )
 {
     return sub_40E3D0((int*)(a1 - 20));
 }
@@ -7581,55 +7581,55 @@ int  SEH_40E320(int a1, int a2, int a3, int a4)
 }
 
 //----- (0057FB20) --------------------------------------------------------
-void __usercall sub_57FB20@<eax > (int a1@<ebp > )
+void sub_57FB20@<eax > (int a1@<ebp > )
 {
     operator_delete(*(LPVOID*)(a1 - 16));
 }
 
 //----- (0057FB2B) --------------------------------------------------------
-void __usercall sub_57FB2B@<eax > (int a1@<ebp > )
+void sub_57FB2B@<eax > (int a1@<ebp > )
 {
     operator_delete(*(LPVOID*)(a1 + 4));
 }
 
 //----- (0057FB36) --------------------------------------------------------
-void __usercall sub_57FB36@<eax > (int a1@<ebp > )
+void sub_57FB36@<eax > (int a1@<ebp > )
 {
     operator_delete(*(LPVOID*)(a1 + 4));
 }
 
 //----- (0057FB41) --------------------------------------------------------
-void __usercall sub_57FB41@<eax > (int a1@<ebp > )
+void sub_57FB41@<eax > (int a1@<ebp > )
 {
     operator_delete(*(LPVOID*)(a1 + 4));
 }
 
 //----- (0057FB57) --------------------------------------------------------
-void __usercall sub_57FB57@<eax > (int a1@<ebp > )
+void sub_57FB57@<eax > (int a1@<ebp > )
 {
     operator_delete(*(LPVOID*)(a1 - 16));
 }
 
 //----- (0057FB62) --------------------------------------------------------
-void __usercall sub_57FB62@<eax > (int a1@<ebp > )
+void sub_57FB62@<eax > (int a1@<ebp > )
 {
     operator_delete(*(LPVOID*)(a1 - 16));
 }
 
 //----- (0057FB6D) --------------------------------------------------------
-void __usercall sub_57FB6D@<eax > (int a1@<ebp > )
+void sub_57FB6D@<eax > (int a1@<ebp > )
 {
     operator_delete(*(LPVOID*)(a1 - 16));
 }
 
 //----- (0057FBB0) --------------------------------------------------------
-int __usercall sub_57FBB0@<eax > (int a1@<ebp > )
+int sub_57FBB0@<eax > (int a1@<ebp > )
 {
     return sub_5562D0(*(_DWORD * *)(a1 - 16));
 }
 
 //----- (0057FBB8) --------------------------------------------------------
-int __usercall sub_57FBB8@<eax > (int a1@<ebp > )
+int sub_57FBB8@<eax > (int a1@<ebp > )
 {
     return sub_559AB0(*(_DWORD*)(a1 - 16) + 40);
 }
@@ -7641,13 +7641,13 @@ int  SEH_556500(int a1, int a2, int a3, int a4)
 }
 
 //----- (0057FBD0) --------------------------------------------------------
-int __usercall sub_57FBD0@<eax > (int a1@<ebp > )
+int sub_57FBD0@<eax > (int a1@<ebp > )
 {
     return sub_5562D0(*(_DWORD * *)(a1 - 16));
 }
 
 //----- (0057FBD8) --------------------------------------------------------
-int __usercall sub_57FBD8@<eax > (int a1@<ebp > )
+int sub_57FBD8@<eax > (int a1@<ebp > )
 {
     return sub_559AB0(*(_DWORD*)(a1 - 16) + 40);
 }
@@ -7659,13 +7659,13 @@ int  SEH_556570(int a1, int a2, int a3, int a4)
 }
 
 //----- (0057FBF0) --------------------------------------------------------
-int __usercall sub_57FBF0@<eax > (int a1@<ebp > )
+int sub_57FBF0@<eax > (int a1@<ebp > )
 {
     return sub_5562D0(*(_DWORD * *)(a1 - 16));
 }
 
 //----- (0057FBF8) --------------------------------------------------------
-int __usercall sub_57FBF8@<eax > (int a1@<ebp > )
+int sub_57FBF8@<eax > (int a1@<ebp > )
 {
     return sub_559AB0(*(_DWORD*)(a1 - 16) + 40);
 }
@@ -7677,7 +7677,7 @@ int  SEH_5565E0(int a1, int a2, int a3, int a4)
 }
 
 //----- (0057FC50) --------------------------------------------------------
-int __usercall sub_57FC50@<eax > (int a1@<ebp > )
+int sub_57FC50@<eax > (int a1@<ebp > )
 {
     return sub_559AE0(*(_DWORD*)(a1 - 16) + 4);
 }
@@ -7690,7 +7690,7 @@ int  SEH_557C70(int a1, int a2, int a3, int a4)
 }
 
 //----- (0057FC90) --------------------------------------------------------
-wstring* __usercall sub_57FC90@<eax > (int a1@<ebp > )
+wstring* sub_57FC90@<eax > (int a1@<ebp > )
 {
     return sub_57211C(*(HIMC * *)(a1 - 16));
 }
@@ -7702,7 +7702,7 @@ int  SEH_5704C0(int a1, int a2, int a3, int a4)
 }
 
 //----- (0057FCB0) --------------------------------------------------------
-wstring* __usercall sub_57FCB0@<eax > (int a1@<ebp > )
+wstring* sub_57FCB0@<eax > (int a1@<ebp > )
 {
     return sub_57211C(*(HIMC * *)(a1 - 16));
 }
@@ -7726,7 +7726,7 @@ int  SEH_570B90(int a1, int a2, int a3, int a4)
 }
 
 //----- (0057FD00) --------------------------------------------------------
-wstring* __usercall sub_57FD00@<eax > (int a1@<ebp > )
+wstring* sub_57FD00@<eax > (int a1@<ebp > )
 {
     return sub_570CE0((int*)(a1 - 36));
 }
@@ -7738,25 +7738,25 @@ int  SEH_571810(int a1, int a2, int a3, int a4)
 }
 
 //----- (0057FD13) --------------------------------------------------------
-int* __usercall sub_57FD13@<eax > (int a1@<ebp > )
+int* sub_57FD13@<eax > (int a1@<ebp > )
 {
     return sub_573DE0((int*)(a1 - 48));
 }
 
 //----- (0057FD1C) --------------------------------------------------------
-int* __usercall sub_57FD1C@<eax > (int a1@<ebp > )
+int* sub_57FD1C@<eax > (int a1@<ebp > )
 {
     return sub_573DE0((int*)(a1 - 28));
 }
 
 //----- (0057FD25) --------------------------------------------------------
-int* __usercall sub_57FD25@<eax > (int a1@<ebp > )
+int* sub_57FD25@<eax > (int a1@<ebp > )
 {
     return sub_573DE0((int*)(a1 - 92));
 }
 
 //----- (0057FD2E) --------------------------------------------------------
-int* __usercall sub_57FD2E@<eax > (int a1@<ebp > )
+int* sub_57FD2E@<eax > (int a1@<ebp > )
 {
     return sub_573DE0((int*)(a1 - 116));
 }
@@ -7768,19 +7768,19 @@ int  SEH_571C0E(int a1, int a2, int a3, int a4)
 }
 
 //----- (0057FD41) --------------------------------------------------------
-wstring* __usercall sub_57FD41@<eax > (int a1@<ebp > )
+wstring* sub_57FD41@<eax > (int a1@<ebp > )
 {
     return sub_570CE0((int*)(*(_DWORD*)(a1 - 32) + 8));
 }
 
 //----- (0057FD4D) --------------------------------------------------------
-wstring* __usercall sub_57FD4D@<eax > (int a1@<ebp > )
+wstring* sub_57FD4D@<eax > (int a1@<ebp > )
 {
     return sub_570CE0((int*)(*(_DWORD*)(a1 - 32) + 24));
 }
 
 //----- (0057FD59) --------------------------------------------------------
-wstring* __usercall sub_57FD59@<eax > (int a1@<ebp > )
+wstring* sub_57FD59@<eax > (int a1@<ebp > )
 {
     return sub_570CE0((int*)(*(_DWORD*)(a1 - 32) + 40));
 }
@@ -7792,19 +7792,19 @@ int  SEH_572045(int a1, int a2, int a3, int a4)
 }
 
 //----- (0057FD6F) --------------------------------------------------------
-wstring* __usercall sub_57FD6F@<eax > (int a1@<ebp > )
+wstring* sub_57FD6F@<eax > (int a1@<ebp > )
 {
     return sub_570CE0((int*)(*(_DWORD*)(a1 - 16) + 8));
 }
 
 //----- (0057FD7B) --------------------------------------------------------
-wstring* __usercall sub_57FD7B@<eax > (int a1@<ebp > )
+wstring* sub_57FD7B@<eax > (int a1@<ebp > )
 {
     return sub_570CE0((int*)(*(_DWORD*)(a1 - 16) + 24));
 }
 
 //----- (0057FD87) --------------------------------------------------------
-wstring* __usercall sub_57FD87@<eax > (int a1@<ebp > )
+wstring* sub_57FD87@<eax > (int a1@<ebp > )
 {
     return sub_570CE0((int*)(*(_DWORD*)(a1 - 16) + 40));
 }
@@ -7816,13 +7816,13 @@ int  SEH_57211C(int a1, int a2, int a3, int a4)
 }
 
 //----- (0057FD9D) --------------------------------------------------------
-BOOL __usercall sub_57FD9D@<eax > (int a1@<ebp > )
+BOOL sub_57FD9D@<eax > (int a1@<ebp > )
 {
     return sub_574EC0(a1 - 20);
 }
 
 //----- (0057FDA6) --------------------------------------------------------
-wstring* __usercall sub_57FDA6@<eax > (int a1@<ebp > )
+wstring* sub_57FDA6@<eax > (int a1@<ebp > )
 {
     return sub_570CE0((int*)(a1 - 40));
 }
@@ -7834,13 +7834,13 @@ int  SEH_57222A(int a1, int a2, int a3, int a4)
 }
 
 //----- (0057FDB9) --------------------------------------------------------
-BOOL __usercall sub_57FDB9@<eax > (int a1@<ebp > )
+BOOL sub_57FDB9@<eax > (int a1@<ebp > )
 {
     return sub_574EC0(a1 - 20);
 }
 
 //----- (0057FDC2) --------------------------------------------------------
-wstring* __usercall sub_57FDC2@<eax > (int a1@<ebp > )
+wstring* sub_57FDC2@<eax > (int a1@<ebp > )
 {
     return sub_570CE0((int*)(a1 - 40));
 }
@@ -7852,13 +7852,13 @@ int  SEH_572333(int a1, int a2, int a3, int a4)
 }
 
 //----- (0057FDD5) --------------------------------------------------------
-BOOL __usercall sub_57FDD5@<eax > (int a1@<ebp > )
+BOOL sub_57FDD5@<eax > (int a1@<ebp > )
 {
     return sub_574EC0(a1 - 20);
 }
 
 //----- (0057FDDE) --------------------------------------------------------
-wstring* __usercall sub_57FDDE@<eax > (int a1@<ebp > )
+wstring* sub_57FDDE@<eax > (int a1@<ebp > )
 {
     return sub_570CE0((int*)(a1 - 304));
 }
@@ -7870,7 +7870,7 @@ int  SEH_572442(int a1, int a2, int a3, int a4)
 }
 
 //----- (0057FE07) --------------------------------------------------------
-BOOL __usercall sub_57FE07@<eax > (int a1@<ebp > )
+BOOL sub_57FE07@<eax > (int a1@<ebp > )
 {
     return sub_574EC0(a1 - 20);
 }
@@ -7882,13 +7882,13 @@ int  SEH_572A06(int a1, int a2, int a3, int a4)
 }
 
 //----- (0057FE1A) --------------------------------------------------------
-int* __usercall sub_57FE1A@<eax > (int a1@<ebp > )
+int* sub_57FE1A@<eax > (int a1@<ebp > )
 {
     return sub_574660((int*)(a1 - 36));
 }
 
 //----- (0057FE23) --------------------------------------------------------
-int* __usercall sub_57FE23@<eax > (int a1@<ebp > )
+int* sub_57FE23@<eax > (int a1@<ebp > )
 {
     return sub_574660((int*)(a1 - 60));
 }
@@ -7900,13 +7900,13 @@ int  SEH_572BD6(int a1, int a2, int a3, int a4)
 }
 
 //----- (0057FE36) --------------------------------------------------------
-BOOL __usercall sub_57FE36@<eax > (int a1@<ebp > )
+BOOL sub_57FE36@<eax > (int a1@<ebp > )
 {
     return sub_574EC0(a1 - 20);
 }
 
 //----- (0057FE3F) --------------------------------------------------------
-int** __usercall sub_57FE3F@<eax > (int a1@<ebp > )
+int** sub_57FE3F@<eax > (int a1@<ebp > )
 {
     return sub_5705D0((int**)(a1 - 60));
 }
@@ -7918,13 +7918,13 @@ int  SEH_573153(int a1, int a2, int a3, int a4)
 }
 
 //----- (0057FE52) --------------------------------------------------------
-BOOL __usercall sub_57FE52@<eax > (int a1@<ebp > )
+BOOL sub_57FE52@<eax > (int a1@<ebp > )
 {
     return sub_574EC0(a1 - 20);
 }
 
 //----- (0057FE5B) --------------------------------------------------------
-int** __usercall sub_57FE5B@<eax > (int a1@<ebp > )
+int** sub_57FE5B@<eax > (int a1@<ebp > )
 {
     return sub_5705D0((int**)(a1 - 60));
 }
@@ -7936,19 +7936,19 @@ int  SEH_57330C(int a1, int a2, int a3, int a4)
 }
 
 //----- (0057FE6E) --------------------------------------------------------
-LPVOID* __usercall sub_57FE6E@<eax > (int a1@<ebp > )
+LPVOID* sub_57FE6E@<eax > (int a1@<ebp > )
 {
     return sub_574930((LPVOID*)(a1 - 32));
 }
 
 //----- (0057FE77) --------------------------------------------------------
-wstring* __usercall sub_57FE77@<eax > (int a1@<ebp > )
+wstring* sub_57FE77@<eax > (int a1@<ebp > )
 {
     return sub_570CE0((int*)(a1 - 60));
 }
 
 //----- (0057FE80) --------------------------------------------------------
-wstring* __usercall sub_57FE80@<eax > (int a1@<ebp > )
+wstring* sub_57FE80@<eax > (int a1@<ebp > )
 {
     return sub_570CE0((int*)(a1 - 92));
 }
@@ -7960,7 +7960,7 @@ int  SEH_573401(int a1, int a2, int a3, int a4)
 }
 
 //----- (0057FE93) --------------------------------------------------------
-BOOL __usercall sub_57FE93@<eax > (int a1@<ebp > )
+BOOL sub_57FE93@<eax > (int a1@<ebp > )
 {
     return sub_574EC0(a1 - 20);
 }
@@ -7972,7 +7972,7 @@ int  SEH_57366C(int a1, int a2, int a3, int a4)
 }
 
 //----- (0057FEA6) --------------------------------------------------------
-BOOL __usercall sub_57FEA6@<eax > (int a1@<ebp > )
+BOOL sub_57FEA6@<eax > (int a1@<ebp > )
 {
     return sub_574EC0(a1 - 20);
 }
@@ -7984,7 +7984,7 @@ int  SEH_57381A(int a1, int a2, int a3, int a4)
 }
 
 //----- (0057FEB9) --------------------------------------------------------
-BOOL __usercall sub_57FEB9@<eax > (int a1@<ebp > )
+BOOL sub_57FEB9@<eax > (int a1@<ebp > )
 {
     return sub_574EC0(a1 - 20);
 }
@@ -7996,7 +7996,7 @@ int  SEH_57390B(int a1, int a2, int a3, int a4)
 }
 
 //----- (0057FECC) --------------------------------------------------------
-BOOL __usercall sub_57FECC@<eax > (int a1@<ebp > )
+BOOL sub_57FECC@<eax > (int a1@<ebp > )
 {
     return sub_574EC0(a1 - 20);
 }
@@ -8008,7 +8008,7 @@ int  SEH_5739D2(int a1, int a2, int a3, int a4)
 }
 
 //----- (0057FEE0) --------------------------------------------------------
-void __usercall sub_57FEE0(int a1@<ebp > )
+void sub_57FEE0(int a1@<ebp > )
 {
     std___Lockit__destructor_Lockit((std___Lockit*)(a1 - 16));
 }
@@ -8021,7 +8021,7 @@ int  SEH_574410(int a1, int a2, int a3, int a4)
 }
 
 //----- (0057FF00) --------------------------------------------------------
-void __usercall sub_57FF00(int a1@<ebp > )
+void sub_57FF00(int a1@<ebp > )
 {
     std___Lockit__destructor_Lockit((std___Lockit*)(a1 - 24));
 }
@@ -8034,7 +8034,7 @@ int  SEH_5755F0(int a1, int a2, int a3, int a4)
 }
 
 //----- (0057FF20) --------------------------------------------------------
-void __usercall sub_57FF20(int a1@<ebp > )
+void sub_57FF20(int a1@<ebp > )
 {
     std___Lockit__destructor_Lockit((std___Lockit*)(a1 - 16));
 }
@@ -8047,7 +8047,7 @@ int  SEH_575E60(int a1, int a2, int a3, int a4)
 }
 
 //----- (0057FF40) --------------------------------------------------------
-void __usercall sub_57FF40(int a1@<ebp > )
+void sub_57FF40(int a1@<ebp > )
 {
     std___Lockit__destructor_Lockit((std___Lockit*)(a1 - 32));
 }
@@ -8060,7 +8060,7 @@ int  SEH_576A20(int a1, int a2, int a3, int a4)
 }
 
 //----- (0057FF80) --------------------------------------------------------
-void __usercall sub_57FF80(int a1@<ebp > )
+void sub_57FF80(int a1@<ebp > )
 {
     std___Lockit__destructor_Lockit((std___Lockit*)(a1 - 16));
 }
@@ -8073,7 +8073,7 @@ int  SEH_576DA0(int a1, int a2, int a3, int a4)
 }
 
 //----- (0057FFC0) --------------------------------------------------------
-void __usercall sub_57FFC0(int a1@<ebp > )
+void sub_57FFC0(int a1@<ebp > )
 {
     std___Lockit__destructor_Lockit((std___Lockit*)(a1 - 16));
 }
@@ -8086,7 +8086,7 @@ int  SEH_577060(int a1, int a2, int a3, int a4)
 }
 
 //----- (0057FFE0) --------------------------------------------------------
-void __usercall sub_57FFE0(int a1@<ebp > )
+void sub_57FFE0(int a1@<ebp > )
 {
     std___Lockit__destructor_Lockit((std___Lockit*)(a1 - 16));
 }
@@ -8105,7 +8105,7 @@ int  SEH_577760(int a1, int a2, int a3, int a4)
 }
 
 //----- (00580050) --------------------------------------------------------
-void __usercall sub_580050(int a1@<ebp > )
+void sub_580050(int a1@<ebp > )
 {
     std___Lockit__destructor_Lockit((std___Lockit*)(a1 - 24));
 }
@@ -8118,7 +8118,7 @@ int  SEH_577F90(int a1, int a2, int a3, int a4)
 }
 
 //----- (00580070) --------------------------------------------------------
-void __usercall sub_580070(int a1@<ebp > )
+void sub_580070(int a1@<ebp > )
 {
     std___Lockit__destructor_Lockit((std___Lockit*)(a1 - 16));
 }
@@ -8131,7 +8131,7 @@ int  SEH_578240(int a1, int a2, int a3, int a4)
 }
 
 //----- (00580090) --------------------------------------------------------
-void __usercall sub_580090(int a1@<ebp > )
+void sub_580090(int a1@<ebp > )
 {
     std___Lockit__destructor_Lockit((std___Lockit*)(a1 - 16));
 }
@@ -8156,19 +8156,19 @@ int  SEH_578810(int a1, int a2, int a3, int a4)
 }
 
 //----- (005800D8) --------------------------------------------------------
-int __usercall sub_5800D8@<eax > (int a1@<ebp > )
+int sub_5800D8@<eax > (int a1@<ebp > )
 {
     return sub_57DF70((LPVOID*)(*(_DWORD*)(a1 - 16) + 8));
 }
 
 //----- (005800F5) --------------------------------------------------------
-int __usercall sub_5800F5@<eax > (int a1@<ebp > )
+int sub_5800F5@<eax > (int a1@<ebp > )
 {
     return sub_57DF70((LPVOID*)(*(_DWORD*)(a1 - 16) + 8));
 }
 
 //----- (0058010A) --------------------------------------------------------
-int __usercall sub_58010A@<eax > (int a1@<ebp > )
+int sub_58010A@<eax > (int a1@<ebp > )
 {
     return nullsub_71(a1 - 40);
 }
@@ -8181,7 +8181,7 @@ int  SEH_57D1C0(int a1, int a2, int a3, int a4)
 }
 
 //----- (00580120) --------------------------------------------------------
-void __usercall sub_580120@<eax > (int a1@<ebp > )
+void sub_580120@<eax > (int a1@<ebp > )
 {
     sub_57DDC0(*(LPVOID * *)(a1 - 16));
 }
@@ -8193,7 +8193,7 @@ int  SEH_57DF00(int a1, int a2, int a3, int a4)
 }
 
 //----- (00580132) --------------------------------------------------------
-void __usercall sub_580132@<eax > (int a1@<ebp > )
+void sub_580132@<eax > (int a1@<ebp > )
 {
     sub_57DDC0(*(LPVOID * *)(a1 - 16));
 }
@@ -8205,7 +8205,7 @@ int  SEH_57DF70(int a1, int a2, int a3, int a4)
 }
 
 //----- (00580144) --------------------------------------------------------
-void __usercall sub_580144@<eax > (int a1@<ebp > )
+void sub_580144@<eax > (int a1@<ebp > )
 {
     sub_57DDC0(*(LPVOID * *)(a1 - 16));
 }
@@ -8217,7 +8217,7 @@ int  SEH_57E8A0(int a1, int a2, int a3, int a4)
 }
 
 //----- (00580156) --------------------------------------------------------
-void __usercall sub_580156@<eax > (int a1@<ebp > )
+void sub_580156@<eax > (int a1@<ebp > )
 {
     sub_57DDC0(*(LPVOID * *)(a1 - 16));
 }
@@ -8229,7 +8229,7 @@ int  SEH_57E910(int a1, int a2, int a3, int a4)
 }
 
 //----- (0058017A) --------------------------------------------------------
-int __usercall sub_58017A@<eax > (int a1@<ebp > )
+int sub_58017A@<eax > (int a1@<ebp > )
 {
     return sub_57DD70(*(LPVOID * *)(a1 - 16));
 }

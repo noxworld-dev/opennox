@@ -2,10 +2,6 @@
 #ifndef NOX_PORT_CLIENT_VIDEO_DRAW_COMMON_H
 #define NOX_PORT_CLIENT_VIDEO_DRAW_COMMON_H
 
-#ifdef _WIN32
-#include <windows.h>
-#endif
-
 #ifdef __EMSCRIPTEN__
 #include <emscripten/emscripten.h>
 #include <emscripten/html5.h>

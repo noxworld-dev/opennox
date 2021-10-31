@@ -2,7 +2,7 @@
 #define NOX_PORT_GAME2_1
 
 #include "defs.h"
-
+#include "common__savegame.h"
 
 BOOL sub_460D40();
 int sub_460D50();

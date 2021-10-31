@@ -3,6 +3,7 @@
 
 #include "static_assert.h"
 #include "defs.h"
+#include "common__savegame.h"
 
 #ifndef NOX_CGO
 

@@ -4,15 +4,21 @@
 #include <stdint.h>
 #include "defs.h"
 
+#ifdef _WIN32
+#include <windows.h>
+#else
+#include "windows_compat.h"
+#endif
+
 #ifdef _MSC_VER
 #pragma pack(push, 1)
 #endif
 typedef struct {
-	WORD wFormatTag;
-	WORD nChannels;
-	DWORD nSamplesPerSec;
-	DWORD nAvgBytesPerSec;
-	WORD nBlockAlign;
+	uint16_t wFormatTag;
+	uint16_t nChannels;
+	uint32_t nSamplesPerSec;
+	uint32_t nAvgBytesPerSec;
+	uint16_t nBlockAlign;
 }
 #ifndef _MSC_VER
 __attribute__((packed))
@@ -21,13 +27,13 @@ WAVEFORMAT2,
 	*LPWAVEFORMAT2;
 
 typedef struct {
-	WORD wFormatTag;
-	WORD nChannels;
-	DWORD nSamplesPerSec;
-	DWORD nAvgBytesPerSec;
-	WORD nBlockAlign;
-	WORD wBitsPerSample;
-	WORD cbSize;
+	uint16_t wFormatTag;
+	uint16_t nChannels;
+	uint32_t nSamplesPerSec;
+	uint32_t nAvgBytesPerSec;
+	uint16_t nBlockAlign;
+	uint16_t wBitsPerSample;
+	uint16_t cbSize;
 }
 #ifndef _MSC_VER
 __attribute__((packed))
@@ -36,11 +42,11 @@ WAVEFORMATEX2;
 
 typedef struct {
 	WAVEFORMATEX2 wfx;
-	WORD wID;
-	DWORD fdwFlags;
-	WORD nBlockSize;
-	WORD nFramesPerBlock;
-	WORD nCodecDelay;
+	uint16_t wID;
+	uint32_t fdwFlags;
+	uint16_t nBlockSize;
+	uint16_t nFramesPerBlock;
+	uint16_t nCodecDelay;
 }
 #ifndef _MSC_VER
 __attribute__((packed))
