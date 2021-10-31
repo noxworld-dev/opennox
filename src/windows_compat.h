@@ -23,8 +23,6 @@ extern "C" {
 #define WINAPI
 #define WINAPIV
 
-#define FALSE (0)
-#define TRUE (1)
 #define MAX_PATH 260
 #define INFINITE ((DWORD)-1)
 
@@ -367,14 +365,14 @@ static inline unsigned int _rotl(unsigned int value, int shift) {
 }
 static inline BOOL WINAPI CopyRect(LPRECT lprcDst, const RECT* lprcSrc) {
 	*lprcDst = *lprcSrc;
-	return TRUE;
+	return true;
 }
 static inline BOOL WINAPI SetRect(LPRECT lprc, int xLeft, int yTop, int xRight, int yBottom) {
 	lprc->left = xLeft;
 	lprc->top = yTop;
 	lprc->right = xRight;
 	lprc->bottom = yBottom;
-	return TRUE;
+	return true;
 }
 static inline BOOL WINAPI IsRectEmpty(const RECT* lprc) {
 	return lprc->right <= lprc->left || lprc->bottom <= lprc->top;

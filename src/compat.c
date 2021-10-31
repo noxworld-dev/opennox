@@ -275,10 +275,10 @@ BOOL WINAPI CloseHandle(HANDLE hObject) {
 		break;
 	default:
 		abort();
-		return FALSE;
+		return false;
 	}
 
-	return TRUE;
+	return true;
 }
 
 DWORD WINAPI GetLastError() { return last_error; }
@@ -287,7 +287,7 @@ BOOL WINAPI GetVersionExA(LPOSVERSIONINFOA lpVersionInformation) {
 	lpVersionInformation->dwOSVersionInfoSize = sizeof(OSVERSIONINFOA);
 	lpVersionInformation->dwMajorVersion = 5;
 	lpVersionInformation->dwMinorVersion = 1;
-	return TRUE;
+	return true;
 }
 
 LONG InterlockedExchange(volatile LONG* Target, LONG Value) { return __sync_lock_test_and_set(Target, Value); }
@@ -415,12 +415,12 @@ BOOL WINAPI QueryPerformanceCounter(LARGE_INTEGER* lpPerformanceCount) {
 
 	gettimeofday(&tv, NULL);
 	lpPerformanceCount->QuadPart = (QWORD)tv.tv_sec * 1000000 + tv.tv_usec;
-	return TRUE;
+	return true;
 }
 
 BOOL WINAPI QueryPerformanceFrequency(LARGE_INTEGER* lpFrequency) {
 	lpFrequency->QuadPart = 1000000;
-	return TRUE;
+	return true;
 }
 
 struct _FIND_FILE {
@@ -471,11 +471,11 @@ BOOL WINAPI FindNextFileA(HANDLE hFindFile, LPWIN32_FIND_DATAA lpFindFileData) {
 
 	if (ff->idx >= ff->globbuf.gl_pathc) {
 		last_error = ERROR_NO_MORE_FILES;
-		return FALSE;
+		return false;
 	}
 
 	fill_find_data(ff->globbuf.gl_pathv[ff->idx++], lpFindFileData);
-	return TRUE;
+	return true;
 }
 
 BOOL WINAPI FindClose(HANDLE hFindFile) {
@@ -483,7 +483,7 @@ BOOL WINAPI FindClose(HANDLE hFindFile) {
 
 	globfree(&ff->globbuf);
 	free(ff);
-	return TRUE;
+	return true;
 }
 
 int _open(const char* filename, int oflag, ...) {
@@ -620,9 +620,9 @@ HANDLE WINAPI CreateMutexA(LPSECURITY_ATTRIBUTES lpSecurityAttributes, BOOL bIni
 BOOL WINAPI ReleaseMutex(HANDLE hMutex) {
 	pthread_mutex_t* m = lookup_handle(HANDLE_MUTEX, hMutex);
 	if (m == NULL)
-		return FALSE;
+		return false;
 	pthread_mutex_unlock(m);
-	return TRUE;
+	return true;
 }
 
 BOOL WINAPI SetEvent(HANDLE hEvent) {
