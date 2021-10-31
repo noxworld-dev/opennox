@@ -1,5 +1,15 @@
 # Changelog
 
+## v1.8.5
+
+- Add more resolution options for both regular and HD version.
+- Move screen resolution to `opennox.yml` config.
+- Fix: Instant victory if player commits a suicide in Arena.
+- Fix: Properly propagate closed and private game flags to XWIS.
+- Fix: It was possible to join closed games.
+- Fix: Map filtering by game type.
+- Fix: `cheat health` and `cheat mana` now work properly without arguments.
+
 ## v1.8.4
 
 - Better performance for particle effects.
