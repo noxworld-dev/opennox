@@ -1638,6 +1638,7 @@ int sub_554D10() {
 	return 0;
 }
 
+#ifndef NOX_CGO
 //----- (00554D70) --------------------------------------------------------
 int  sub_554D70(char a1) {
 	int result;           // eax
@@ -1734,6 +1735,7 @@ int sub_554FF0() {
 	sub_554D70(1);
 	return 1;
 }
+#endif // NOX_CGO
 
 //----- (00555000) --------------------------------------------------------
 void nox_client_setOnLobbyServer_555000(int (*fnc)(const char*, uint16_t, const char*, const char*)) {

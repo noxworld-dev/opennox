@@ -367,14 +367,19 @@ func sub_554D70(conn net.PacketConn, sock *Socket, csock nox_socket_t, a1 byte) 
 						buf[2] = 18
 						sendToServer(fromIP, fromPort, buf[:8])
 					}
-					// TODO: This code is disabled because it causes issues with players reconnecting to the server.
+				case 19:
+					errcode := ConnectError(buf[3])
+					if errcode != ErrDupSerial {
+						if C.sub_43B6D0() != 0 {
+							nox_client_setConnError_43AFA0(errcode)
+						}
+						break
+					}
+					// TODO: Code above is disabled because it causes issues with players reconnecting to the server.
 					//       For some reason the player record gets stuck in the server's player list, so this check fails.
-
-				//case 19:
-				//	if C.sub_43B6D0() != 0 {
-				//		nox_client_setConnError_43AFA0(int(buf[3]))
-				//	}
-				case 19, 20:
+					gameLog.Printf("connect error: %d (%s, ignored)", errcode, errcode.Name())
+					fallthrough
+				case 20:
 					if C.sub_43B6D0() != 0 && C.sub_43AF80() == 3 {
 						sub_43AF90(7)
 					}
@@ -423,8 +428,62 @@ func sub_41E2F0() int { return int(C.dword_5d4594_527988) }
 
 func sub_420100() int { return int(memmap.Uint32(0x587000, 60072) >> 8) }
 
-func nox_client_setConnError_43AFA0(a1 int) {
-	C.nox_client_connError_814552 = C.uint(a1)
+type ConnectError int
+
+func (e ConnectError) Name() string {
+	switch e {
+	case ErrLowPing:
+		return "ErrLowPing"
+	case ErrHighPing:
+		return "ErrHighPing"
+	case ErrLowLevel:
+		return "ErrLowLevel"
+	case ErrHighLevel:
+		return "ErrHighLevel"
+	case ErrClosed:
+		return "ErrClosed"
+	case ErrBanned:
+		return "ErrBanned"
+	case ErrWrongPassword:
+		return "ErrWrongPassword"
+	case ErrIllegalClass:
+		return "ErrIllegalClass"
+	case ErrTimeOut:
+		return "ErrTimeOut"
+	case ErrFindFailed:
+		return "ErrFindFailed"
+	case ErrNeedRefresh:
+		return "ErrNeedRefresh"
+	case ErrFull:
+		return "ErrFull"
+	case ErrDupSerial:
+		return "ErrDupSerial"
+	case ErrWrongVer:
+		return "ErrWrongVer"
+	}
+	return fmt.Sprintf("ConnectError(%d)", int(e))
+}
+
+const (
+	ErrLowPing = ConnectError(iota)
+	ErrHighPing
+	ErrLowLevel
+	ErrHighLevel
+	ErrClosed
+	ErrBanned
+	ErrWrongPassword
+	ErrIllegalClass
+	ErrTimeOut
+	ErrFindFailed
+	ErrNeedRefresh
+	ErrFull
+	ErrDupSerial
+	ErrWrongVer
+)
+
+func nox_client_setConnError_43AFA0(err ConnectError) {
+	gameLog.Printf("connect error: %d (%s)", err, err.Name())
+	C.nox_client_connError_814552 = C.uint(err)
 	sub_43AF90(2)
 }
 
@@ -435,7 +494,7 @@ func sub_41E0D0() C.int {
 		switch C.sub_41DCC0(C.int(v1)) {
 		case 5:
 			if C.dword_5d4594_2660652 == 0x8004006E {
-				nox_client_setConnError_43AFA0(11)
+				nox_client_setConnError_43AFA0(ErrFull)
 			}
 		case 10:
 			C.sub_43ACC0()
