@@ -100,7 +100,7 @@ static inline void* lookup_handle(unsigned int type, HANDLE h) {
 	return handles[(WORD)h];
 }
 
-VOID WINAPI OutputDebugStringA(LPCSTR lpOutputString) { fprintf(stderr, "%s", lpOutputString); }
+void WINAPI OutputDebugStringA(LPCSTR lpOutputString) { fprintf(stderr, "%s", lpOutputString); }
 
 // Memory functions
 BOOL WINAPI HeapDestroy(HANDLE hHeap) {
@@ -393,7 +393,7 @@ LONG WINAPI CompareFileTime(const FILETIME* lpFileTime1, const FILETIME* lpFileT
 	return 0;
 }
 
-VOID WINAPI GetLocalTime(LPSYSTEMTIME lpSystemTime) {
+void WINAPI GetLocalTime(LPSYSTEMTIME lpSystemTime) {
 	time_t t;
 	struct tm* tm;
 

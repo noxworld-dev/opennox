@@ -33,8 +33,6 @@ extern "C" {
 #define __int32 int
 #define __int64 long long
 
-#define VOID void
-
 typedef unsigned char BYTE;
 typedef char CHAR;
 typedef wchar_t WCHAR;
@@ -309,7 +307,7 @@ enum {
 
 BOOL WINAPI CloseHandle(HANDLE hObject);
 DWORD WINAPI GetLastError();
-VOID WINAPI GetLocalTime(LPSYSTEMTIME lpSystemTime);
+void WINAPI GetLocalTime(LPSYSTEMTIME lpSystemTime);
 HANDLE WINAPI FindFirstFileA(LPCSTR lpFileName, LPWIN32_FIND_DATAA lpFindFileData);
 BOOL WINAPI FindNextFileA(HANDLE hFindFile, LPWIN32_FIND_DATAA lpFindFileData);
 BOOL WINAPI FindClose(HANDLE hFindFile);
@@ -324,12 +322,12 @@ int WINAPI MulDiv(int nNumber, int nNumerator, int nDenominator);
 LSTATUS WINAPI RegCreateKeyExA(HKEY hKey, LPCSTR lpSubKey, DWORD Reserved, LPSTR lpClass, DWORD dwOptions,
 							   REGSAM samDesired, const LPSECURITY_ATTRIBUTES lpSecurityAttributes, PHKEY phkResult,
 							   LPDWORD lpdwDisposition);
-VOID WINAPI GlobalMemoryStatus(LPMEMORYSTATUS lpBuffer);
+void WINAPI GlobalMemoryStatus(LPMEMORYSTATUS lpBuffer);
 BOOL WINAPI QueryPerformanceCounter(LARGE_INTEGER* lpPerformanceCount);
 BOOL WINAPI QueryPerformanceFrequency(LARGE_INTEGER* lpFrequency);
 BOOL WINAPI HeapDestroy(HANDLE hHeap);
 BOOL WINAPI GetVersionExA(LPOSVERSIONINFOA lpVersionInformation);
-VOID WINAPI OutputDebugStringA(LPCSTR lpOutputString);
+void WINAPI OutputDebugStringA(LPCSTR lpOutputString);
 HINSTANCE WINAPI ShellExecuteA(HWND hwnd, LPCSTR lpOperation, LPCSTR lpFile, LPCSTR lpParameters, LPCSTR lpDirectory,
 							   INT nShowCmd);
 int WINAPI GetTimeFormatA(LCID Locale, DWORD dwFlags, const SYSTEMTIME* lpTime, LPCSTR lpFormat, LPSTR lpTimeStr,
