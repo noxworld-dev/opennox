@@ -5,3 +5,4 @@ IndentWidth: 4
 ContinuationIndentWidth: 4
 UseTab: ForContinuationAndIndentation
 PointerAlignment: Left
+BreakBeforeBraces: Attach

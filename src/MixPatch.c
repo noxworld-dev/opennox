@@ -31,7 +31,8 @@ short asc_9800B0[] = {
 
 void init_data_mix() { GameEx_DllMain(1); }
 
-void OnLibraryNotice_stub(int a1, ...) { /* TODO: STUB */ }
+void OnLibraryNotice_stub(int a1, ...) { /* TODO: STUB */
+}
 #endif // NOX_CGO
 
 void sub_980523(nox_object_t* unit) {
