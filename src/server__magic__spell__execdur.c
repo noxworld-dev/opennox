@@ -23,11 +23,13 @@ int  sub_530A30_spell_execdur(int a1) {
 
 	v1 = a1;
 	v2 = 0;
-	if (!*(uint32_t*)(a1 + 48))
+	if (!*(uint32_t*)(a1 + 48)) {
 		*(uint32_t*)(a1 + 48) = *(uint32_t*)(a1 + 16);
+}
 	v3 = *(uint32_t*)(v1 + 16);
-	if (*(uint8_t*)(v3 + 8) & 4)
+	if (*(uint8_t*)(v3 + 8) & 4) {
 		v2 = *(uint32_t*)(v3 + 748);
+}
 	if (nox_xxx_mapTileAllowTeleport_411A90((float2*)(v1 + 52))) {
 		v4 = nox_strman_loadString_40F1D0("UnseenTarget", 0, "C:\\NoxPost\\src\\Server\\Magic\\Spell\\ExecDur.c",
 								   2912);

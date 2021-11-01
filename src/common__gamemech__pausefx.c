@@ -21,10 +21,11 @@ void  sub_57AF30(int a1, int a2) {
 		return;
 	}
 	v2 = a1;
-	if (a1)
+	if (a1) {
 		dword_5d4594_2523780 = a1;
-	else
+	} else {
 		v2 = dword_5d4594_2523780;
+}
 	if (a2) {
 		if (a2 != 1) {
 			v3 = *(uint32_t**)&dword_5d4594_2523776;
@@ -63,8 +64,9 @@ void  sub_57AF30(int a1, int a2) {
 	}
 	if (v2) {
 		v5 = *(uint32_t*)(v2 + 748);
-		if (nox_xxx_playerSetState_4FA020((uint32_t*)v2, 30) == 1)
+		if (nox_xxx_playerSetState_4FA020((uint32_t*)v2, 30) == 1) {
 			*(uint8_t*)(v5 + 236) = 4;
+}
 	}
 	if (a2) {
 		*getMemU32Ptr(0x5D4594, 2523796) = 0;

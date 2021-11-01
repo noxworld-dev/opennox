@@ -184,8 +184,9 @@ int  nox_xxx_makeLightningParticles_4999D0(int a1, int2* a2, int2* a3) {
 				}
 				LODWORD(v6) = nox_common_randomIntMinMax_415FF0(8, 100, "C:\\NoxPost\\src\\client\\Draw\\Fx.c", 439);
 				v17 = (int2*)((char*)v17 + v6);
-				if ((int)v17 > v7)
+				if ((int)v17 > v7) {
 					break;
+}
 				v3 = a2;
 				v4 = v14;
 				v5 = v15;
@@ -217,10 +218,11 @@ int  nox_xxx_draw_499E70(int a1, int a2, int a3, int a4, int a5, int a6, int a7)
 		}
 		v9 = nox_common_randomIntMinMax_415FF0(2, 5, "C:\\NoxPost\\src\\client\\Draw\\Fx.c", 568);
 		v10 = nox_common_randomIntMinMax_415FF0(-40, -20, "C:\\NoxPost\\src\\client\\Draw\\Fx.c", 571);
-		if (a7 == 1)
+		if (a7 == 1) {
 			v11 = nox_common_randomIntMinMax_415FF0(-20, 0, "C:\\NoxPost\\src\\client\\Draw\\Fx.c", 573);
-		else
+		} else {
 			v11 = nox_common_randomIntMinMax_415FF0(0, 20, "C:\\NoxPost\\src\\client\\Draw\\Fx.c", 575);
+}
 		nox_client_newScreenParticle_431540(a1, v8, v7, v11, v10, 1, v9, 0, 0, 1);
 		result = --v13;
 	} while (v13);

@@ -57,8 +57,9 @@ int  nox_script_readWriteYyy_542380(FILE* f1, FILE* f2, int a3) {
 		case 0u:
 			v6 = nox_script_readInt_542B70(f1);
 			v7 = nox_script_readInt_542B70(f1);
-			if (v6 && a3 && v7 >= 4)
+			if (v6 && a3 && v7 >= 4) {
 				v7 = v7 + dword_5d4594_2489420 - 4;
+}
 			nox_script_writeInt_542BB0(0, f2);
 			nox_script_writeInt_542BB0(v6, f2);
 			nox_script_writeInt_542BB0(v7, f2);
@@ -66,8 +67,9 @@ int  nox_script_readWriteYyy_542380(FILE* f1, FILE* f2, int a3) {
 		case 1u:
 			v6 = nox_script_readInt_542B70(f1);
 			v7 = nox_script_readInt_542B70(f1);
-			if (v6 && a3 && v7 >= 4)
+			if (v6 && a3 && v7 >= 4) {
 				v7 = v7 + dword_5d4594_2489420 - 4;
+}
 			nox_script_writeInt_542BB0(1, f2);
 			nox_script_writeInt_542BB0(v6, f2);
 			nox_script_writeInt_542BB0(v7, f2);
@@ -75,8 +77,9 @@ int  nox_script_readWriteYyy_542380(FILE* f1, FILE* f2, int a3) {
 		case 2u:
 			v6 = nox_script_readInt_542B70(f1);
 			v7 = nox_script_readInt_542B70(f1);
-			if (v6 && a3 && v7 >= 4)
+			if (v6 && a3 && v7 >= 4) {
 				v7 = v7 + dword_5d4594_2489420 - 4;
+}
 			nox_script_writeInt_542BB0(2, f2);
 			nox_script_writeInt_542BB0(v6, f2);
 			nox_script_writeInt_542BB0(v7, f2);
@@ -84,8 +87,9 @@ int  nox_script_readWriteYyy_542380(FILE* f1, FILE* f2, int a3) {
 		case 3u:
 			v8 = nox_script_readInt_542B70(f1);
 			v9 = (unsigned int)nox_script_readInt_542B70(f1);
-			if (v8 && a3)
+			if (v8 && a3) {
 				v9 += dword_5d4594_2489424;
+}
 			nox_script_writeInt_542BB0(3, f2);
 			nox_script_writeInt_542BB0(v8, f2);
 			nox_script_writeInt_542BB0(v9, f2);
@@ -102,8 +106,9 @@ int  nox_script_readWriteYyy_542380(FILE* f1, FILE* f2, int a3) {
 			break;
 		case 6u:
 			v11 = (unsigned int)nox_script_readInt_542B70(f1);
-			if (a3)
+			if (a3) {
 				v11 += dword_5d4594_2489424;
+}
 			nox_script_writeInt_542BB0(6, f2);
 			nox_script_writeInt_542BB0(v11, f2);
 			break;
@@ -322,8 +327,9 @@ int  nox_script_readWriteYyy_542380(FILE* f1, FILE* f2, int a3) {
 			break;
 		case 0x46u:
 			v15 = nox_script_readInt_542B70(f1);
-			if (a3)
+			if (a3) {
 				v15 = v15 + dword_5d4594_2489428 - 2;
+}
 			nox_script_writeInt_542BB0(70, f2);
 			nox_script_writeInt_542BB0(v15, f2);
 			break;
@@ -614,15 +620,19 @@ size_t  nox_script_readWriteWww_5417C0(FILE* a1, FILE* a2, FILE* a3) {
 
 //----- (00541670) --------------------------------------------------------
 int nox_script_readWriteZzz_541670(const char* path, const char* path2, const char* dst) {
-	if (!path)
+	if (!path) {
 		return 0;
-	if (!path2)
+}
+	if (!path2) {
 		return 0;
-	if (!dst)
+}
+	if (!dst) {
 		return 0;
+}
 	FILE* f1 = nox_fs_open(path);
-	if (!f1)
+	if (!f1) {
 		return 0;
+}
 	FILE* f2 = nox_fs_open(path2);
 	if (!f2) {
 		nox_fs_close(f1);

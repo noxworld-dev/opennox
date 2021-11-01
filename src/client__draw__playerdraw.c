@@ -69,26 +69,31 @@ int  nox_thing_player_draw(uint32_t* a1, nox_drawable* dr) {
 	v29 = 0;
 	v3 = nox_common_playerInfoGetByID_417040(v26);
 	v32 = v3;
-	if (!v3)
+	if (!v3) {
 		return 1;
-	if (*getMemU32Ptr(0x8531A0, 2576) && *(uint8_t*)(*getMemU32Ptr(0x8531A0, 2576) + 3680) & 1)
+}
+	if (*getMemU32Ptr(0x8531A0, 2576) && *(uint8_t*)(*getMemU32Ptr(0x8531A0, 2576) + 3680) & 1) {
 		v30 = 1;
+}
 	if (*getMemU32Ptr(0x85319C, 0) == dr->field_32) {
 		v4 = nox_xxx_objGetTeamByNetCode_418C80(*getMemIntPtr(0x85319C, 0));
-		if (!v4)
+		if (!v4) {
 			goto LABEL_15;
+}
 		v5 = nox_xxx_clientGetTeamColor_418AB0(*((unsigned char*)v4 + 4));
 		goto LABEL_14;
 	}
-	if (v3[3680] & 1)
+	if (v3[3680] & 1) {
 		return 1;
+}
 	v6 = nox_xxx_objGetTeamByNetCode_418C80(*getMemIntPtr(0x85319C, 0));
 	if (v6) {
 		v7 = nox_xxx_objGetTeamByNetCode_418C80(dr->field_32);
 		v8 = v7;
 		if (v7) {
-			if (nox_xxx_servCompareTeams_419150((int)v6, (int)v7))
+			if (nox_xxx_servCompareTeams_419150((int)v6, (int)v7)) {
 				v31 = 1;
+}
 			v5 = nox_xxx_clientGetTeamColor_418AB0(*((unsigned char*)v8 + 4));
 			LABEL_14:
 			v29 = v5;
@@ -121,8 +126,9 @@ int  nox_thing_player_draw(uint32_t* a1, nox_drawable* dr) {
 		while (*v15 != 1) {
 			++v14;
 			v15 += 6;
-			if (v14 >= 27)
+			if (v14 >= 27) {
 				goto LABEL_23;
+}
 		}
 		memcpy(v11 + 108, &v3[24 * v14 + 2328], 0x14u);
 		v11 = *(uint32_t**)&dword_5d4594_1313792;
@@ -148,10 +154,11 @@ int  nox_thing_player_draw(uint32_t* a1, nox_drawable* dr) {
 				do {
 					int a2 = 0;
 					sub_434480(*v17, (int)&v33, &a2, (int)&a1);
-					if ((unsigned char)a2 >= 0x9Bu)
+					if ((unsigned char)a2 >= 0x9Bu) {
 					LOBYTE(a2) = -1;
-					else
+					} else {
 					LOBYTE(a2) = a2 + 100;
+}
 					*v17 = nox_color_rgb_4344A0(v33, a2, a1);
 					++v17;
 				} while ((int)v17 < (int)getMemAt(0x973A20, 536));
@@ -185,8 +192,9 @@ int  nox_thing_player_draw(uint32_t* a1, nox_drawable* dr) {
 	nox_xxx_drawPlayer_4341D0(5, *(int*)&dword_5d4594_3798684);
 	nox_xxx_drawPlayer_4341D0(6, *(int*)&dword_5d4594_3798688);
 	v18 = sub_4B8FA0(dr, &v28, &v27);
-	if (!v18)
+	if (!v18) {
 		return 0;
+}
 	nox_xxx_drawObject_4C4770_draw(v10, dr, v18);
 
 	// A player in Nox has a 32-bit integer field that contains bits for each
@@ -226,8 +234,9 @@ int  nox_thing_player_draw(uint32_t* a1, nox_drawable* dr) {
 			if (v35) {
 				if (v29) {
 					v23 = (int*)nox_xxx_materialGetTeamColor_418D50((int)v29);
-					if (v23)
+					if (v23) {
 						nox_xxx_drawSetTextColor_434390(*v23);
+}
 				}
 			}
 			nox_xxx_drawString_43F6E0(0, v21, v22, a2);
@@ -270,12 +279,13 @@ int  nox_thing_player_draw(uint32_t* a1, nox_drawable* dr) {
 			*(uint32_t*)(dword_5d4594_1313800 + 16) = v10[1] - v10[5] + dr->pos.y - 50;
 			(*(void(**)(int*, uint32_t))(dword_5d4594_1313800 + 300))(v36, dword_5d4594_1313800);
 		}
-		do
+		do {
 			nox_xxx_drawPlayer_4341D0(v12++, *getMemIntPtr(0x5D4594, 2523948));
-		while (v12 < 6);
+		} while (v12 < 6);
 		if (dr != *getMemU32Ptr(0x852978, 8) && nox_xxx_playerGet_470A90()) {
-			if (nox_common_gameFlags_check_40A5C0(4096))
+			if (nox_common_gameFlags_check_40A5C0(4096)) {
 				nox_xxx_drawOtherPlayerHP_4B8EB0(v10, dr, (unsigned char)v3[2282], (*((uint32_t*)v3 + 920) >> 10) & 1);
+}
 		}
 	}
 	return 1;
@@ -338,22 +348,26 @@ bool  nox_things_player_draw_parse(nox_thing* obj, nox_memfile* f, char* attr_va
 	v21 = v3;
 	*v3 = 14524;
 	v7 = nox_memfile_read_u32(f);
-	if (v7 == 0x454E4420) // 'END '
+	if (v7 == 0x454E4420) { // 'END '
 		return 0;
+}
 	LABEL_3:
 	v22 = nox_memfile_read_u8(f);
 	nox_memfile_read(a3, 1u, v22, f);
 	*((uint8_t*)a3 + v22) = 0;
 	v10 = sub_44BB20((const char*)a3);
-	if (v10 < 0)
+	if (v10 < 0) {
 		return 0;
+}
 	v11 = (int)&v5[66 * v10 + 1];
-	if (!nox_xxx_loadVectorAnimated_44B8B0(v11, f))
+	if (!nox_xxx_loadVectorAnimated_44B8B0(v11, f)) {
 		return 0;
+}
 	while (1) {
 		v13 = nox_memfile_read_u32(f);
-		if (v13 == 0x454E4420) // 'END '
+		if (v13 == 0x454E4420) { // 'END '
 			break;
+}
 		if (v13 == 0x53544154) { // STAT
 			v5 = v21;
 			goto LABEL_3;
@@ -370,8 +384,9 @@ bool  nox_things_player_draw_parse(nox_thing* obj, nox_memfile* f, char* attr_va
 			v17 = nox_xxx_parse_Armor_44BA60((const char*)a3);
 			if (v17 < 0) {
 				v19 = sub_44BAC0((const char*)a3);
-				if (v19 < 0)
+				if (v19 < 0) {
 					return 0;
+}
 				v20 = calloc(1u, 0x28u);
 				*(uint32_t*)(v11 + 4 * v19 + 156) = v20;
 				v16 = sub_44B940(v20, *(short*)(v11 + 40), f);
@@ -381,8 +396,9 @@ bool  nox_things_player_draw_parse(nox_thing* obj, nox_memfile* f, char* attr_va
 				v16 = sub_44B940(v18, *(short*)(v11 + 40), f);
 			}
 		}
-		if (!v16)
+		if (!v16) {
 			return 0;
+}
 	}
 	obj->draw_func = &nox_thing_player_draw;
 	obj->field_5c = v21;

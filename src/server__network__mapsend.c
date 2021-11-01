@@ -82,10 +82,11 @@ void  nox_xxx_netSendMap_5199F0_net_mapsend(unsigned char* a1) {
 				*((uint16_t*)a1 + 1) = 1;
 			} else {
 				v9 = (nox_platform_get_ticks() - *((uint64_t*)a1 + 5)) / (unsigned long long)1000;
-				if (v9)
+				if (v9) {
 					v10 = *((uint32_t*)a1 + 3) / v9;
-				else
+				} else {
 					v10 = *((uint32_t*)a1 + 3);
+}
 				v11 = nox_common_playerInfoFromNum_417090(*a1);
 				if (v11) {
 					v12 = nox_strman_loadString_40F1D0("downloaddone", 0,
@@ -93,11 +94,13 @@ void  nox_xxx_netSendMap_5199F0_net_mapsend(unsigned char* a1) {
 					nox_swprintf(v20, v12, *((uint32_t*)a1 + 6), *((uint32_t*)a1 + 4) - 1, v10, v9, v11 + 4704);
 					nox_gui_console_Print_450B90(NOX_CONSOLE_RED, (int)v20);
 				}
-				if (*((uint16_t*)a1 + 2) == 1 && *((uint32_t*)a1 + 2))
+				if (*((uint16_t*)a1 + 2) == 1 && *((uint32_t*)a1 + 2)) {
 					free(*((void**)a1 + 2));
+}
 				v13 = dword_5d4594_2388648;
-				if (dword_5d4594_2388648)
+				if (dword_5d4594_2388648) {
 					v13 = --dword_5d4594_2388648;
+}
 				v16 = v13;
 				v14 = nox_strman_loadString_40F1D0("InProgress", 0,
 											"C:\\NoxPost\\src\\Server\\Network\\mapsend.c", 315);
@@ -123,8 +126,9 @@ void  nox_xxx_netSendMapAbort_519C80_net_mapsend(unsigned char* a1, unsigned cha
 		v5[0] = -70;
 		v5[1] = a2;
 		nox_xxx_netSendSock_552640(v2 + 1, v5, 2, NOX_NET_SEND_NO_LOCK | NOX_NET_SEND_FLAG2);
-		if (dword_5d4594_2388648)
+		if (dword_5d4594_2388648) {
 			--dword_5d4594_2388648;
+}
 		v4 = *a1;
 		v3 = nox_strman_loadString_40F1D0("downloadaborted", 0, "C:\\NoxPost\\src\\Server\\Network\\mapsend.c", 350);
 		nox_swprintf(v6, v3, v4, a2);
@@ -141,12 +145,13 @@ char*  nox_xxx_netMapSend_519D20(int a1) {
 	v1 = getMemAt(0x5D4594, 2387148 + 48 * a1);
 	++dword_5d4594_2388648;
 	if (*((uint16_t*)v1 + 1)) {
-		if (*((uint16_t*)v1 + 1) == 1)
+		if (*((uint16_t*)v1 + 1) == 1) {
 			v2 = nox_strman_loadString_40F1D0("Sending", 0, "C:\\NoxPost\\src\\Server\\Network\\mapsend.c",
 									   392);
-		else
+		} else {
 			v2 = nox_strman_loadString_40F1D0("BadState", 0, "C:\\NoxPost\\src\\Server\\Network\\mapsend.c",
 									   397);
+}
 		result = (char*)nox_gui_console_Print_450B90(NOX_CONSOLE_RED, (int)v2);
 	} else {
 		++*getMemU16Ptr(0x5D4594, 2388636);
@@ -173,12 +178,14 @@ int  nox_xxx_netMapSendCancelMap_519DE0_net_mapsend(int a1) {
 	*((uint16_t*)v1 + 1) = 0;
 	nullsub_27(v1);
 	++*getMemU16Ptr(0x5D4594, 2388638);
-	if (*((uint16_t*)v1 + 2) == 1 && *((uint32_t*)v1 + 2))
+	if (*((uint16_t*)v1 + 2) == 1 && *((uint32_t*)v1 + 2)) {
 		free(*((void**)v1 + 2));
+}
 	nox_xxx_netMapSendClear_519830((int)v1, a1);
 	result = dword_5d4594_2388648;
-	if (dword_5d4594_2388648)
+	if (dword_5d4594_2388648) {
 		result = --dword_5d4594_2388648;
+}
 	if (v2) {
 		v4 = nox_strman_loadString_40F1D0("downloadcancelled", 0, "C:\\NoxPost\\src\\Server\\Network\\mapsend.c", 428);
 		result = nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v4, v2 + 4704);

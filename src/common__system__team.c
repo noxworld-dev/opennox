@@ -48,11 +48,13 @@ int nox_xxx_createCoopTeam_417E10() {
 
 	nox_xxx_setGameFlags_40A4D0(512);
 	v0 = nox_xxx_clientGetTeamColor_418AB0(1);
-	if (!v0)
+	if (!v0) {
 		v0 = nox_xxx_teamCreate_4186D0(1);
+}
 	v1 = nox_xxx_objGetTeamByNetCode_418C80(*getMemIntPtr(0x85319C, 0));
-	if (v1)
+	if (v1) {
 		nox_xxx_createAtImpl_4191D0(v0[57], (int)v1, 0, *getMemIntPtr(0x85319C, 0), 0);
+}
 	if (v0) {
 		v2 = nox_strman_loadString_40F1D0("COOP", 0, "C:\\NoxPost\\src\\common\\System\\team.c", 405);
 		sub_418800((wchar_t*)v0, v2, 0);
@@ -84,8 +86,9 @@ char*  nox_xxx_teamCreate_4186D0(char a1) {
 		*((uint32_t*)v7 + 11) = 0;
 		*((uint32_t*)v7 + 15) = 0;
 		v7[58] = v4;
-		if (!a1)
+		if (!a1) {
 			v6 = sub_4187A0();
+}
 		v7[57] = v6;
 		v7[56] = v4;
 		*((uint32_t*)v7 + 16) = 1;
@@ -114,9 +117,10 @@ wchar_t*  sub_418C20(int a1) {
 	while (*(uint32_t*)v2 != a1) {
 		v2 += 16;
 		++v1;
-		if ((int)v2 >= (int)getMemAt(0x587000, 54760))
+		if ((int)v2 >= (int)getMemAt(0x587000, 54760)) {
 			return nox_strman_loadString_40F1D0("NoTeam", 0, "C:\\NoxPost\\src\\common\\System\\team.c",
 										 1365);
+}
 	}
 	return *(wchar_t**)getMemAt(0x587000, 54596 + 16 * v1);
 }
@@ -155,24 +159,27 @@ void nox_xxx_createAtImpl_4191D0(unsigned char a1, int a2, int a3, int a4, int a
 	v6 = nox_xxx_clientGetTeamColor_418AB0(a1);
 	if (v6) {
 		result = (char*)nox_xxx_teamCompare2_419180(a2, a1);
-		if (result)
+		if (result) {
 			return;
+}
 	} else {
 		v6 = nox_xxx_teamCreate_4186D0(a1);
 	}
 	*(uint8_t*)(a2 + 4) = v6[57];
 	*(uint32_t*)a2 = *((uint32_t*)v6 + 11);
 	*((uint32_t*)v6 + 11) = a2;
-	if (a4 == *getMemU32Ptr(0x85319C, 0))
+	if (a4 == *getMemU32Ptr(0x85319C, 0)) {
 		sub_455E70(v6[57]);
+}
 	if (nox_common_gameFlags_check_40A5C0(1)) {
 		if (nox_common_gameFlags_check_40A5C0(0x2000)) {
 			v7 = nox_server_getObjectFromNetCode_4ECCB0(a4);
 			v8 = nox_common_playerInfoGetByID_417040(a4);
 			v23 = v8;
 			if (v8) {
-				if (nox_common_gameFlags_check_40A5C0(0x8000))
+				if (nox_common_gameFlags_check_40A5C0(0x8000)) {
 					sub_425ED0((int)v8, 1);
+}
 				if (v7 && *(uint8_t*)(v7 + 8) & 4) {
 					if (a5 == 1 && !nox_xxx_CheckGameplayFlags_417DA0(2) && nox_common_gameFlags_check_40A5C0(128)) {
 						sub_4ED970(50.0, (float2*)(*((uint32_t*)v6 + 18) + 56), &v21);
@@ -232,15 +239,17 @@ void nox_xxx_createAtImpl_4191D0(unsigned char a1, int a2, int a3, int a4, int a
 	while (*((uint32_t*)v18 + 9) != a4) {
 		result = (char*)nox_xxx_getNextPlayerUnit_4DA7F0((int)v18);
 		v18 = result;
-		if (!result)
+		if (!result) {
 			return;
+}
 	}
 	v19 = *((uint32_t*)v18 + 187);
 	sub_4D97E0(*(unsigned char*)(*(uint32_t*)(v19 + 276) + 2064));
 	sub_4E8110(*(unsigned char*)(*(uint32_t*)(v19 + 276) + 2064));
 	result = nox_xxx_monsterMarkUpdate_4E8020((int)v18);
 	for (i = *((uint32_t*)v18 + 129); i; i = *(uint32_t*)(i + 512)) {
-		if (*(uint8_t*)(i + 8) & 6)
+		if (*(uint8_t*)(i + 8) & 6) {
 			result = nox_xxx_monsterMarkUpdate_4E8020(i);
+}
 	}
 }

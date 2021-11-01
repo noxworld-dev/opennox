@@ -284,8 +284,9 @@ int  nox_xxx_drawBandwith_436970(int a1) {
 	nox_client_drawBorderLines_49CC70(0, v1, nox_win_width, 31);
 	v3 = *getMemU32Ptr(0x5D4594, 812452);
 	*getMemU32Ptr(0x5D4594, 811940 + 4 * *getMemU32Ptr(0x5D4594, 812452)) = a1 / 4;
-	if (a1 / 4 > 30)
+	if (a1 / 4 > 30) {
 		*getMemU32Ptr(0x5D4594, 811940 + 4 * v3) = 30;
+}
 	v4 = (v3 + 1) % 128;
 	*getMemU32Ptr(0x5D4594, 812452) = (v3 + 1) % 128;
 	v5 = 0;
@@ -358,8 +359,9 @@ int  sub_436AA0(int a1) {
 		if (v10 >= 10) {
 			v12 = v10 < 20;
 			v11 = *getMemU32Ptr(0x5D4594, 2589772);
-			if (!v12)
+			if (!v12) {
 				v11 = *getMemU32Ptr(0x8531A0, 2572);
+}
 		} else {
 			v11 = *getMemU32Ptr(0x85B3FC, 940);
 		}
@@ -401,12 +403,14 @@ int nox_xxx_drawTimingMB_436C40() {
 	v1 = *getMemU32Ptr(0x5D4594, 813996);
 	v2 = 30 * *getMemU32Ptr(0x5D4594, 811928) / 0x64u;
 	*getMemU32Ptr(0x5D4594, 812972 + 4 * *getMemU32Ptr(0x5D4594, 813996)) = v2;
-	if (v2 > 30)
+	if (v2 > 30) {
 		*getMemU32Ptr(0x5D4594, 812972 + 4 * v1) = 30;
+}
 	v3 = 30 * *getMemU32Ptr(0x5D4594, 811936) / 0x64u;
 	*getMemU32Ptr(0x5D4594, 813484 + 4 * v1) = v3;
-	if (v3 > 30)
+	if (v3 > 30) {
 		*getMemU32Ptr(0x5D4594, 813484 + 4 * v1) = 30;
+}
 	v4 = (v1 + 1) % 128;
 	*getMemU32Ptr(0x5D4594, 813996) = (v1 + 1) % 128;
 	v12 = 127;
@@ -429,8 +433,9 @@ int nox_xxx_drawTimingMB_436C40() {
 		v9 = v12 == 1;
 		v4 = (v4 + 1) % 128;
 		--v12;
-		if (v9)
+		if (v9) {
 			break;
+}
 		v5 = v13;
 	}
 	return result;
@@ -466,8 +471,9 @@ int  nox_xxx_drawPing_436DF0(int a1) {
 	v3 = *getMemU32Ptr(0x5D4594, 814512);
 	v4 = 30 * a1 / 500;
 	*getMemU32Ptr(0x5D4594, 814000 + 4 * *getMemU32Ptr(0x5D4594, 814512)) = v4;
-	if (v4 > 30)
+	if (v4 > 30) {
 		*getMemU32Ptr(0x5D4594, 814000 + 4 * v3) = 30;
+}
 	v5 = (v3 + 1) % 128;
 	*getMemU32Ptr(0x5D4594, 814512) = (v3 + 1) % 128;
 	v15 = 127;
@@ -478,8 +484,9 @@ int  nox_xxx_drawPing_436DF0(int a1) {
 		if (v8 >= 100) {
 			v10 = v8 < 350;
 			v9 = *getMemU32Ptr(0x5D4594, 2589772);
-			if (!v10)
+			if (!v10) {
 				v9 = *getMemU32Ptr(0x85B3FC, 940);
+}
 		} else {
 			v9 = *getMemU32Ptr(0x8531A0, 2572);
 		}

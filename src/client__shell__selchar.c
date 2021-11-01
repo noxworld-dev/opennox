@@ -41,8 +41,9 @@ int nox_game_showSelChar_4A4DB0() {
 	uint32_t* v9;  // eax
 
 	nox_client_setCursorType_477610(0);
-	if (sub_4D6F30())
+	if (sub_4D6F30()) {
 		sub_4D6F90(1);
+}
 	nox_game_addStateCode_43BDD0(500);
 	sub_4A1BE0(1);
 	result = nox_new_window_from_file("SelChar.wnd", nox_xxx_windowSelCharProc_4A5710);
@@ -87,10 +88,11 @@ int nox_game_showSelChar_4A4DB0() {
 			nox_xxx_findAutosaves_4A5150();
 			sub_4A19F0("OptsBack.wnd:Back");
 			nox_xxx_wndRetNULL_46A8A0();
-			if (nox_common_gameFlags_check_40A5C0(0x2000))
+			if (nox_common_gameFlags_check_40A5C0(0x2000)) {
 				nox_xxx_setAdminFlag();
-			else
+			} else {
 				nox_xxx_clearAdminFlag();
+}
 			if (nox_common_gameFlags_check_40A5C0(0x2000000)) {
 				v9 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1307764, 502);
 				nox_window_call_field_94(*(int*)&dword_5d4594_1307764, 16391, (int)v9, 0);
@@ -150,12 +152,14 @@ int nox_xxx_findAutosaves_4A5150() {
 		v7 = FindFirstFileA("*.plr", &FindFileData);
 		v8 = v7;
 		if (v7 != (HANDLE)-1) {
-			if (!(FindFileData.dwFileAttributes & 0x10))
+			if (!(FindFileData.dwFileAttributes & 0x10)) {
 				v0 = 1;
+}
 			if (FindNextFileA(v7, &FindFileData)) {
 				do {
-					if (!(FindFileData.dwFileAttributes & 0x10))
+					if (!(FindFileData.dwFileAttributes & 0x10)) {
 						++v0;
+}
 				} while (FindNextFileA(v8, &FindFileData));
 			}
 			FindClose(v8);
@@ -167,8 +171,9 @@ int nox_xxx_findAutosaves_4A5150() {
 			if (!(FindFileData.dwFileAttributes & 0x10)) {
 				nox_sprintf(PathName, "%s%s", v32, FindFileData.cFileName);
 				sub_41A000(PathName, *(uint8_t**)&dword_5d4594_1307780);
-				if (sub_4A5690(*(uint8_t**)&dword_5d4594_1307780) == 1)
+				if (sub_4A5690(*(uint8_t**)&dword_5d4594_1307780) == 1) {
 					v9 = 1;
+}
 			}
 			if (FindNextFileA(v10, &FindFileData)) {
 				v11 = sizeof(nox_savegame_xxx) * v9;
@@ -200,8 +205,9 @@ int nox_xxx_findAutosaves_4A5150() {
 				if (*(uint8_t*)(v12 + dword_5d4594_1307780) & 4) {
 					// save game text
 					v15 = *(unsigned char*)(v12 + dword_5d4594_1307780 + 1277);
-					if (v15 < 1)
+					if (v15 < 1) {
 						v15 = 1;
+}
 					nox_wcscat(v30, L" - ");
 					v16 = nox_strman_loadString_40F1D0("Noxworld.c:Stage", 0,
 												"C:\\NoxPost\\src\\client\\shell\\selchar.c", 298);
@@ -211,12 +217,13 @@ int nox_xxx_findAutosaves_4A5150() {
 				}
 				nox_window_call_field_94(*(int*)&dword_5d4594_1307744, 16397, (int)getMemAt(0x587000, 170708), 14);
 				nox_window_call_field_94(*(int*)&dword_5d4594_1307768, 16397, (int)v30, 14);
-				if (*(uint8_t*)(v12 + dword_5d4594_1307780) & 4)
+				if (*(uint8_t*)(v12 + dword_5d4594_1307780) & 4) {
 					v25 = nox_strman_loadString_40F1D0("Noxworld.c:Quest", 0,
 												"C:\\NoxPost\\src\\client\\shell\\selchar.c", 316);
-				else
+				} else {
 					v25 = nox_strman_loadString_40F1D0("Multiplayer", 0,
 												"C:\\NoxPost\\src\\client\\shell\\selchar.c", 325);
+}
 				nox_window_call_field_94(*(int*)&dword_5d4594_1307776, 16397, (int)v25, 14);
 				v12 += sizeof(nox_savegame_xxx);
 				--v13;
@@ -230,10 +237,11 @@ int nox_xxx_findAutosaves_4A5150() {
 			v19 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1307764, 502);
 			nox_xxx_wnd_46ABB0((int)v19, 1);
 			v20 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1307764, 501);
-			if ((nox_xxx_isQuest_4D6F50() || sub_4D6F70()) && sub_4DC7D0() >= 14)
+			if ((nox_xxx_isQuest_4D6F50() || sub_4D6F70()) && sub_4DC7D0() >= 14) {
 				nox_xxx_wnd_46ABB0((int)v20, 0);
-			else
+			} else {
 				nox_xxx_wnd_46ABB0((int)v20, 1);
+}
 		} else {
 			v21 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1307764, 503);
 			nox_xxx_wnd_46ABB0((int)v21, 0);
@@ -295,8 +303,9 @@ int  nox_xxx_windowSelCharProc_4A5710(int a1, unsigned int a2, int* a3, int a4) 
 			v7 = *(uint32_t*)(dword_5d4594_1307776 + 32);
 			v8 = *(uint32_t*)(v7 + 48);
 			if (v8 != -1) {
-				if (!strlen((const char*)(dword_5d4594_1307780 + sizeof(nox_savegame_xxx) * v8 + 4)))
+				if (!strlen((const char*)(dword_5d4594_1307780 + sizeof(nox_savegame_xxx) * v8 + 4))) {
 					goto LABEL_38;
+}
 				nox_savegame_nameFromPath_4DC970((char*)(dword_5d4594_1307780 + sizeof(nox_savegame_xxx) * v8 + 4), v20);
 				if ((!nox_common_gameFlags_check_40A5C0(2048) || sub_4DC100((int)v20, (int)getMemAt(0x587000, 171268))) &&
 					sub_41A000((char*)(dword_5d4594_1307780 + sizeof(nox_savegame_xxx) * *(uint32_t*)(v7 + 48) + 4), v23)) {
@@ -344,8 +353,9 @@ int  nox_xxx_windowSelCharProc_4A5710(int a1, unsigned int a2, int* a3, int a4) 
 			goto LABEL_40;
 		case 503:
 			v5 = *(uint32_t*)(*(uint32_t*)(dword_5d4594_1307776 + 32) + 48);
-			if (v5 == -1)
+			if (v5 == -1) {
 				goto LABEL_40;
+}
 			*getMemU32Ptr(0x5D4594, 1307772) = *(uint32_t*)(*(uint32_t*)(dword_5d4594_1307776 + 32) + 48);
 			nox_savegame_nameFromPath_4DC970((char*)(dword_5d4594_1307780 + sizeof(nox_savegame_xxx) * v5 + 4), nox_savegame_name_1307752);
 			if (nox_common_gameFlags_check_40A5C0(2048) && !strcmp(nox_savegame_name_1307752, "AUTOSAVE")) {

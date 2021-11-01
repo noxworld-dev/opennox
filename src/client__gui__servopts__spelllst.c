@@ -67,8 +67,9 @@ int  nox_xxx_guiSpelllistLoad_453850(int a1) {
 	nox_window_call_field_94(*(int*)&dword_5d4594_1045508, 16409, (int)v10, 0);
 	sub_454040(getMemAt(0x5D4594, 1045488));
 	sub_454120();
-	if (!nox_common_gameFlags_check_40A5C0(1) || nox_common_gameFlags_check_40A5C0(49152))
+	if (!nox_common_gameFlags_check_40A5C0(1) || nox_common_gameFlags_check_40A5C0(49152)) {
 		sub_46AD20(*(uint32_t**)&dword_5d4594_1045484, 1115, 1133, 0);
+}
 	return dword_5d4594_1045484;
 }
 
@@ -104,8 +105,9 @@ int  sub_453C00(int a1, int a2, int* a3, int a4) {
 		}
 		return 0;
 	}
-	if (a2 != 16391)
+	if (a2 != 16391) {
 		return 0;
+}
 	v3 = a3;
 	v4 = nox_xxx_wndGetID_46B0A0(a3);
 	v21 = v4;
@@ -127,8 +129,9 @@ int  sub_453C00(int a1, int a2, int* a3, int a4) {
 					v8 = nox_xxx_spellByTitle_424960((wchar_t*)(*((uint32_t*)v5 + 6) + v7 + 4));
 					if (v8) {
 						if (v21 == 1115) {
-							if (!nox_common_gameFlags_check_40A5C0(64) && !(v20[52] & 0x40) || v8 != 132)
+							if (!nox_common_gameFlags_check_40A5C0(64) && !(v20[52] & 0x40) || v8 != 132) {
 								sub_453FA0((int)getMemAt(0x5D4594, 1045488), v8, 1);
+}
 						} else {
 							sub_453FA0((int)getMemAt(0x5D4594, 1045488), v8, 0);
 						}
@@ -140,8 +143,9 @@ int  sub_453C00(int a1, int a2, int* a3, int a4) {
 		}
 		if (dword_5d4594_2650652) {
 			sub_57A1E0(v19, 0, 0, 4, 6128);
-			for (i = 0; i < 5; ++i)
+			for (i = 0; i < 5; ++i) {
 				*getMemU32Ptr(0x5D4594, 1045488 + i * 4) &= v19[i + 6];
+}
 		}
 		sub_454120();
 		goto LABEL_19;
@@ -162,11 +166,13 @@ int  sub_453C00(int a1, int a2, int* a3, int a4) {
 		v11 = *(uint32_t*)(dword_5d4594_1045480 + 32);
 		v12 = (wchar_t*)(*(uint32_t*)(v11 + 24) + 524 * (sub_4A4800(*(uint32_t*)(dword_5d4594_1045480 + 32)) + v4 - 1120) +
 						 4);
-		if (!v12)
+		if (!v12) {
 			goto LABEL_19;
+}
 		v13 = nox_xxx_spellByTitle_424960(v12);
-		if (!v13)
+		if (!v13) {
 			goto LABEL_19;
+}
 		if (!dword_5d4594_2650652 || (sub_57A1E0(v19, 0, 0, 4, 6128), sub_454000((int)&v19[6], v13))) {
 			v15 = sub_4165B0();
 			if ((nox_common_gameFlags_check_40A5C0(64) || v15[52] & 0x40) && v13 == 132) {
@@ -178,10 +184,11 @@ int  sub_453C00(int a1, int a2, int* a3, int a4) {
 				nox_xxx_dialogMsgBoxCreate_449A10(*(int*)&dword_5d4594_1045484, (int)v16, (int)v18, 33, 0, 0);
 				sub_44A360(1);
 			} else {
-				if (v3[9] & 4)
+				if (v3[9] & 4) {
 					sub_453FA0((int)getMemAt(0x5D4594, 1045488), v13, 0);
-				else
+				} else {
 					sub_453FA0((int)getMemAt(0x5D4594, 1045488), v13, 1);
+}
 			LABEL_19:
 				sub_459D50(1);
 			}

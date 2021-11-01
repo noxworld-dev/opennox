@@ -110,8 +110,9 @@ int nox_script_panic_memhack_write_7510AC() {
 }
 
 bool nox_script_panic_memhack_call(int fi, int* ret) {
-	if (!nox_script_panic_memhack_is_enabled)
+	if (!nox_script_panic_memhack_is_enabled) {
 		return false;
+}
 	if (fi == 185) {
 		*ret = nox_script_panic_memhack_sub_751090();
 		return true;

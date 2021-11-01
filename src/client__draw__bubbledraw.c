@@ -26,8 +26,9 @@ int  nox_thing_bubble_draw(uint32_t* a1, nox_drawable* dr) {
 
 	int a2 = dr;
 
-	if (*(uint8_t*)(a2 + 441) == 3)
+	if (*(uint8_t*)(a2 + 441) == 3) {
 		goto LABEL_29;
+}
 	v2 = *(uint32_t*)(a2 + 356);
 	if (v2 && v2 <= nox_frame_xxx_2598000) {
 		*(uint8_t*)(a2 + 441) = 3;
@@ -49,8 +50,9 @@ int  nox_thing_bubble_draw(uint32_t* a1, nox_drawable* dr) {
 	sub_4B6720(&xLeft, *(uint32_t*)(a2 + 432), v5, v5 + 3);
 	nox_client_drawSetColor_434460(*(uint32_t*)(a2 + 436));
 	nox_xxx_drawPointMB_499B70(xLeft.field_0, xLeft.field_4, *(unsigned char*)(a2 + 440) >> 1);
-	if ((unsigned char)nox_frame_xxx_2598000 & 3)
+	if ((unsigned char)nox_frame_xxx_2598000 & 3) {
 		*(uint16_t*)(a2 + 104) += *(char*)(a2 + 446);
+}
 	v6 = *(uint8_t*)(a2 + 442);
 	if (v6) {
 		v7 = v6 - 1;
@@ -60,16 +62,18 @@ int  nox_thing_bubble_draw(uint32_t* a1, nox_drawable* dr) {
 			if (v8 == 1) {
 				v9 = *(uint8_t*)(a2 + 440) + 1;
 				*(uint8_t*)(a2 + 440) = v9;
-				if (v9 >= 5u)
+				if (v9 >= 5u) {
 					*(uint8_t*)(a2 + 441) = 2;
+}
 			} else {
 				v13 = v8 == 2;
 				v14 = *(uint8_t*)(a2 + 440);
 				if (v13) {
 					v15 = v14 - 1;
 					*(uint8_t*)(a2 + 440) = v15;
-					if (!v15)
+					if (!v15) {
 						*(uint8_t*)(a2 + 441) = 1;
+}
 				} else {
 					v16 = v14 - 1;
 					*(uint8_t*)(a2 + 440) = v16;
@@ -92,8 +96,9 @@ int  nox_thing_bubble_draw(uint32_t* a1, nox_drawable* dr) {
 			*(uint8_t*)(a2 + 445) = v12;
 		}
 	}
-	if ((short)*(uint16_t*)(a2 + 104) >= 0)
+	if ((short)*(uint16_t*)(a2 + 104) >= 0) {
 		return 1;
+}
 	nox_xxx_spriteDeleteStatic_45A4E0_drawable(dr);
 	return 0;
 }

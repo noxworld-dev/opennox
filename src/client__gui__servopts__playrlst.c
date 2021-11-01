@@ -34,10 +34,12 @@ int  nox_xxx_guiServerPlayersLoad_456270(int a1) {
 	uint32_t* v16;  // [esp+14h] [ebp+4h]
 
 	v1 = nox_strman_get_lang_code();
-	if (nox_xxx_guiFontHeightMB_43F320(0) > 10)
+	if (nox_xxx_guiFontHeightMB_43F320(0) > 10) {
 		v1 = 2;
-	if (dword_5d4594_1045684)
+}
+	if (dword_5d4594_1045684) {
 		return 0;
+}
 	dword_5d4594_1045684 = nox_new_window_from_file(*(const char**)getMemAt(0x587000, 129048 + 4 * v1), sub_4567C0);
 	dword_5d4594_1045688 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1045684, 10507);
 	dword_5d4594_1045692 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1045684, 10509);
@@ -117,8 +119,9 @@ int  sub_4567C0(int a1, int a2, int* a3, int a4) {
 	wchar_t v30[56]; // [esp+Ch] [ebp-70h]
 
 	if (a2 != 16391) {
-		if (a2 != 16400)
+		if (a2 != 16400) {
 			return 0;
+}
 		if (nox_xxx_wndGetID_46B0A0(a3) == 10502) {
 			v3 = sub_4165B0();
 			if (nox_window_call_field_94((int)a3, 16404, 0, 0) < 0) {
@@ -128,15 +131,18 @@ int  sub_4567C0(int a1, int a2, int* a3, int a4) {
 				nox_xxx_wnd_46ABB0(*(int*)&dword_5d4594_1045688, 0);
 				nox_xxx_wnd_46ABB0(*(int*)&dword_5d4594_1045692, 0);
 			} else {
-				if (nox_common_gameFlags_check_40A5C0(1))
+				if (nox_common_gameFlags_check_40A5C0(1)) {
 					nox_xxx_wnd_46ABB0(*(int*)&dword_5d4594_1045692, 1);
-				if (nox_common_gameFlags_check_40A5C0(128) || !*getMemU32Ptr(0x5D4594, 1045696))
+}
+				if (nox_common_gameFlags_check_40A5C0(128) || !*getMemU32Ptr(0x5D4594, 1045696)) {
 					nox_xxx_wnd_46ABB0(*(int*)&dword_5d4594_1045688, 1);
-				else
+				} else {
 					nox_xxx_wnd_46ABB0(*(int*)&dword_5d4594_1045688, 0);
+}
 			}
-			if (nox_common_gameFlags_check_40A5C0(1) && nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING))
+			if (nox_common_gameFlags_check_40A5C0(1) && nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
 				nox_xxx_wnd_46ABB0(*(int*)&dword_5d4594_1045688, 0);
+}
 		}
 	}
 	v4 = nox_xxx_wndGetID_46B0A0(a3);
@@ -176,8 +182,9 @@ int  sub_4567C0(int a1, int a2, int* a3, int a4) {
 		}
 		return 0;
 	}
-	if (v4 != 10503)
+	if (v4 != 10503) {
 		return 0;
+}
 	v5 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1045684, 10502);
 	v6 = nox_window_call_field_94((int)v5, 16404, 0, 0);
 	if (v6 >= 0) {
@@ -197,10 +204,11 @@ int  sub_4567C0(int a1, int a2, int* a3, int a4) {
 						v15 = nox_xxx_objGetTeamByNetCode_418C80(*((uint32_t*)v13 + 515));
 						v16 = (int)v15;
 						if (v15) {
-							if (nox_xxx_servObjectHasTeam_419130((int)v15))
+							if (nox_xxx_servObjectHasTeam_419130((int)v15)) {
 								sub_4196D0(v16, (int)v29, *((uint32_t*)v14 + 515), 1);
-							else
+							} else {
 								nox_xxx_createAtImpl_4191D0(v29[57], v16, 1, *((uint32_t*)v14 + 515), 1);
+}
 						}
 					}
 				}
@@ -235,12 +243,13 @@ int  sub_457010(int a1, wchar_t* a2) {
 		if (nox_common_gameFlags_check_40A5C0(96) || v2[52] & 0x60) {
 			v6 = *(uint8_t*)(a1 + 57);
 			if (v6 < 3u) {
-				if (v6 == 1)
+				if (v6 == 1) {
 					v8 = nox_strman_loadString_40F1D0("RedFlag", 0,
 											   "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\playrlst.c", 778);
-				else
+				} else {
 					v8 = nox_strman_loadString_40F1D0("BlueFlag", 0,
 											   "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\playrlst.c", 782);
+}
 				nox_wcscat(v9, v8);
 			}
 		}
@@ -281,12 +290,13 @@ char*  sub_457230(wchar_t* a1) {
 			if (nox_common_gameFlags_check_40A5C0(96) || v1[52] & 0x60) {
 				v5 = v4[57];
 				if ((unsigned char)v5 < 3u) {
-					if (v5 == 1)
+					if (v5 == 1) {
 						v7 = nox_strman_loadString_40F1D0("RedFlag", 0,
 												   "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\playrlst.c", 893);
-					else
+					} else {
 						v7 = nox_strman_loadString_40F1D0("BlueFlag", 0,
 												   "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\playrlst.c", 897);
+}
 					nox_wcscat(v8, v7);
 				}
 			}

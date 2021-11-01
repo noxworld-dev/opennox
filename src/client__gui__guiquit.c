@@ -76,8 +76,9 @@ int  nox_xxx_menuGameOnButton_445840(uint32_t* a1, int a2, int* a3, int a4) {
 	wchar_t* v22; // [esp-18h] [ebp-18h]
 	wchar_t* v23; // [esp-18h] [ebp-18h]
 
-	if (a2 != 16391)
+	if (a2 != 16391) {
 		return 0;
+}
 	v3 = nox_xxx_wndGetID_46B0A0(a3);
 	nox_xxx_clientPlaySoundSpecial_452D80(766, 100);
 	switch (v3) {
@@ -121,12 +122,14 @@ int  nox_xxx_menuGameOnButton_445840(uint32_t* a1, int a2, int* a3, int a4) {
 		break;
 	case 9003:
 		sub_445C40();
-		if (nox_common_gameFlags_check_40A5C0(2048))
+		if (nox_common_gameFlags_check_40A5C0(2048)) {
 			nox_savegame_sub_46D580();
-		else
+		} else {
 			nox_xxx_netSavePlayer_41CE00();
-		if (sub_43C6E0())
+}
+		if (sub_43C6E0()) {
 			goto LABEL_27;
+}
 		sub_43CF70();
 		v12 = a3[9];
 		LOBYTE(v12) = v12 & 0xFD;
@@ -182,10 +185,11 @@ int  nox_xxx_menuGameOnButton_445840(uint32_t* a1, int a2, int* a3, int a4) {
 		break;
 	case 9009:
 		sub_445C40();
-		if (nox_common_gameFlags_check_40A5C0(4096))
+		if (nox_common_gameFlags_check_40A5C0(4096)) {
 			sub_48CB10(4);
-		else
+		} else {
 			sub_48CB10(0);
+}
 		v6 = a3[9];
 		LOBYTE(v6) = v6 & 0xFD;
 		a3[9] = v6;
@@ -287,10 +291,11 @@ void sub_445C40() {
 						v13 = nox_xxx_wndGetChildByID_46B0C0(nox_wnd_quitMenu_825760, 9009);
 						nox_window_set_hidden((int)v13, 0);
 						sub_46AEE0((int)v13, (int)getMemAt(0x5D4594, 825772));
-						if (nox_common_gameFlags_check_40A5C0(49152) || !nox_xxx_getTeamCounter_417DD0())
+						if (nox_common_gameFlags_check_40A5C0(49152) || !nox_xxx_getTeamCounter_417DD0()) {
 							nox_xxx_wnd_46ABB0((int)v13, 0);
-						else
+						} else {
 							nox_xxx_wnd_46ABB0((int)v13, 1);
+}
 						v14 = nox_xxx_wndGetChildByID_46B0C0(nox_wnd_quitMenu_825760, 9004);
 						nox_window_setPos_46A9B0(v14, v13[4], v13[5] + 45);
 						sub_46AB20(nox_wnd_quitMenu_825760, 220, 330);
@@ -338,8 +343,9 @@ void sub_446190() {
 		sub_41E300(9);
 		nox_xxx____setargv_4_44B000();
 	} else if (nox_xxx_isQuest_4D6F50()) {
-		if (sub_4D6F30())
+		if (sub_4D6F30()) {
 			nox_game_checkStateMenu_43C2F0();
+}
 		sub_4D70B0();
 		sub_4D6F40(0);
 		sub_4D6F90(0);
@@ -348,8 +354,9 @@ void sub_446190() {
 		dword_5d4594_825752 = 0;
 		dword_5d4594_825768 = nox_frame_xxx_2598000;
 		if (nox_common_gameFlags_check_40A5C0(1)) {
-			if (nox_xxx_check_flag_aaa_43AF70() == 1 && nox_common_gameFlags_check_40A5C0(49152))
+			if (nox_xxx_check_flag_aaa_43AF70() == 1 && nox_common_gameFlags_check_40A5C0(49152)) {
 				sub_416150(15, 0);
+}
 			sub_509CB0();
 		}
 		if (nox_common_gameFlags_check_40A5C0(1)) {

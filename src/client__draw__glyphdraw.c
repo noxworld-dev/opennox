@@ -17,8 +17,9 @@ int  nox_thing_glyph_draw(int* a1, nox_drawable* dr) {
 
 	uint32_t* a2 = dr;
 
-	if (!nox_common_gameFlags_check_40A5C0(2) || !*getMemU32Ptr(0x852978, 8))
+	if (!nox_common_gameFlags_check_40A5C0(2) || !*getMemU32Ptr(0x852978, 8)) {
 		goto LABEL_10;
+}
 	if (a2[30] & 0x40000000) {
 		LOBYTE(a2) = -1;
 		LABEL_10:

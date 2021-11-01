@@ -20,10 +20,11 @@ uint32_t*  nox_xxx_wolApiError_41D1D0(int a1) {
 
 	v1 = nox_strman_loadString_40F1D0("WolApiError", 0, "C:\\NoxPost\\src\\common\\WolAPI\\wol.c", 41);
 	if (*(int*)&dword_5d4594_2660652 > -2147221247) {
-		if (dword_5d4594_2660652)
+		if (dword_5d4594_2660652) {
 			v2 = nox_strman_loadString_40F1D0("UnknownError", 0, "C:\\NoxPost\\src\\common\\WolAPI\\wol.c", 123);
-		else
+		} else {
 			v2 = nox_strman_loadString_40F1D0("Internalerror", 0, "C:\\NoxPost\\src\\common\\WolAPI\\wol.c", 117);
+}
 		v6 = (unsigned char*)v2;
 	} else if (*(int*)&dword_5d4594_2660652 >= -2147221248) {
 		v6 = getMemAt(0x85B3FC, 10436);
@@ -105,9 +106,10 @@ uint32_t*  nox_xxx_wolApiError_41D1D0(int a1) {
 		nox_xxx_setContinueMenuOrHost_43DDD0(0);
 		nox_game_exit_xxx_43DE60();
 	}
-	if (a1)
+	if (a1) {
 		result = sub_44AFB0((int)v1, (int)v6, *(int*)&dword_5d4594_2660652);
-	else
+	} else {
 		result = nox_xxx_dialogMsgBoxCreate_449A10(0, (int)v1, (int)v6, 33, 0, 0);
+}
 	return result;
 }

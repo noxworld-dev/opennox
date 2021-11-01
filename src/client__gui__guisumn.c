@@ -106,8 +106,9 @@ void nox_xxx_wndSummonCreateList_4C2560(int2* a1) {
 		if (v1 != (char**)getMemAt(0x587000, 184352)) {
 			v2 = nox_strman_loadString_40F1D0(*v1, 0, "C:\\NoxPost\\src\\Client\\Gui\\guisumn.c", 588);
 			nox_xxx_drawGetStringSize_43F840(0, v2, &v12, &v13, nox_win_width);
-			if (nox_xxx_screenWidth_587000_184452 < v12)
+			if (nox_xxx_screenWidth_587000_184452 < v12) {
 				nox_xxx_screenWidth_587000_184452 = v12;
+}
 		}
 		++v1;
 	} while ((int)v1 < (int)getMemAt(0x587000, 184368));
@@ -120,8 +121,9 @@ void nox_xxx_wndSummonCreateList_4C2560(int2* a1) {
 	if (v4) {
 		v5 = 0;
 	} else {
-		if (nox_xxx_screenWidth_587000_184452 + v5 < nox_win_width)
+		if (nox_xxx_screenWidth_587000_184452 + v5 < nox_win_width) {
 			goto LABEL_11;
+}
 		v5 = nox_win_width - nox_xxx_screenWidth_587000_184452 - 1;
 	}
 	v12 = v5;
@@ -168,8 +170,9 @@ int  sub_4C27F0(uint32_t* a1) {
 	int v11;              // [esp+4h] [ebp-8h]
 	int v12;              // [esp+8h] [ebp-4h]
 
-	if (!dword_5d4594_1321208)
+	if (!dword_5d4594_1321208) {
 		dword_5d4594_1321208 = nox_xxx_getNameId_4E3AA0("CarnivorousPlant");
+}
 	if (dword_5d4594_1321204 || (result = 1, a1[8] != 1)) {
 		v2 = nox_strman_loadString_40F1D0(*(char**)getMemAt(0x587000, 184344 + 4 * a1[8]), 0,
 								   "C:\\NoxPost\\src\\Client\\Gui\\guisumn.c", 446);

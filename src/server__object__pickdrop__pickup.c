@@ -26,8 +26,9 @@ int  nox_xxx_pickupGold_4F3A60_obj_pickup(int a1, int a2, int a3) {
 		result = 1;
 	} else {
 		v6 = nox_xxx_pickupDefault_4F31E0(a1, a2, a3);
-		if (v6)
+		if (v6) {
 			nox_xxx_aud_501960(307, a1, 0, 0);
+}
 		result = v6;
 	}
 	return result;

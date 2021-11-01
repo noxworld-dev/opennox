@@ -40,8 +40,9 @@ int  nox_thing_vortex_draw(int* a1, nox_drawable* dr) {
 	v4 = xLeft.field_4 - *(short*)(a2 + 104);
 	v5 = xLeft.field_0 <= *a1;
 	xLeft.field_4 -= *(short*)(a2 + 104);
-	if (v5 || xLeft.field_0 >= a1[2] || v4 <= a1[1] || v4 >= a1[3])
+	if (v5 || xLeft.field_0 >= a1[2] || v4 <= a1[1] || v4 >= a1[3]) {
 		goto LABEL_22;
+}
 	if (a2a.field_4 >= *(int*)(a2 + 444)) {
 		sub_4B6720(&xLeft, *(uint32_t*)(a2 + 432), 3, 5);
 		nox_client_drawSetColor_434460(*(uint32_t*)(a2 + 436));
@@ -65,10 +66,11 @@ int  nox_thing_vortex_draw(int* a1, nox_drawable* dr) {
 	sub_4739E0(a1, &a2a, &xLeft);
 	xLeft.field_4 -= *(short*)(a2 + 104);
 	nox_client_drawAddPoint_49F500(xLeft.field_0, xLeft.field_4);
-	if (a2a.field_4 >= *(int*)(a2 + 444))
+	if (a2a.field_4 >= *(int*)(a2 + 444)) {
 		nox_client_drawSetColor_434460(*(uint32_t*)(a2 + 436));
-	else
+	} else {
 		nox_client_drawSetColor_434460(*(int*)&dword_5d4594_1313816);
+}
 	nox_client_drawLineFromPoints_49E4B0();
 	*(uint8_t*)(a2 + 448) += *(uint8_t*)(a2 + 449);
 	*(uint16_t*)(a2 + 104) += *(unsigned char*)(a2 + 451);

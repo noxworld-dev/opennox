@@ -30,12 +30,14 @@ int  sub_4CD690(uint32_t* a1, int a2) {
 	short v23; // [esp+4h] [ebp-4h]
 	int v24;     // [esp+Ch] [ebp+4h]
 
-	if (!*getMemU32Ptr(0x5D4594, 1522976))
+	if (!*getMemU32Ptr(0x5D4594, 1522976)) {
 		*getMemU32Ptr(0x5D4594, 1522976) = nox_xxx_getTTByNameSpriteMB_44CFC0("DrainManaOrb");
+}
 	if (nox_common_randomIntMinMax_415FF0(0, 100, "C:\\NoxPost\\src\\client\\Drawable\\Update\\drainup.c", 20) < 50) {
 		if (*(uint8_t*)(a2 + 432)) {
-			if (a2 == -432)
+			if (a2 == -432) {
 				return 1;
+}
 			if (nox_xxx_netTestHighBit_578B70(*(uint32_t*)(a2 + 437))) {
 				v5 = nox_xxx_netClearHighBit_578B30(*(uint32_t*)(a2 + 437));
 				v6 = nox_xxx_netSpriteByCodeStatic_45A720(v5);
@@ -52,15 +54,17 @@ int  sub_4CD690(uint32_t* a1, int a2) {
 				v10 = nox_xxx_netSpriteByCodeDynamic_45A6F0(v11);
 			}
 			v12 = v10;
-			if (!v8 || !v10)
+			if (!v8 || !v10) {
 				return 1;
+}
 			v2 = v10[3] + nox_common_randomIntMinMax_415FF0(-20, 20, "C:\\NoxPost\\src\\client\\Drawable\\Update\\drainup.c", 61);
 			v3 = v12[4] + nox_common_randomIntMinMax_415FF0(-20, 20, "C:\\NoxPost\\src\\client\\Drawable\\Update\\drainup.c", 62);
 			v4 = v8[4];
 			v22 = v8[3];
 		} else {
-			if (a2 == -432)
+			if (a2 == -432) {
 				return 1;
+}
 			v2 = *(unsigned short*)(a2 + 441) +
 				 nox_common_randomIntMinMax_415FF0(-20, 20, "C:\\NoxPost\\src\\client\\Drawable\\Update\\drainup.c", 31);
 			v3 = *(unsigned short*)(a2 + 443) +
@@ -76,14 +80,18 @@ int  sub_4CD690(uint32_t* a1, int a2) {
 		v24 = *(short*)(a2 + 104);
 		v17 = v2 + v15;
 		v18 = v3 + v13[1] - v16 - v24;
-		if (v17 < 0)
+		if (v17 < 0) {
 			v2 = v13[4] + v14 + 1;
-		if (v18 < 0)
+}
+		if (v18 < 0) {
 			v3 = v16 - v24 + v13[1] + 1;
-		if (v17 >= v13[8])
+}
+		if (v17 >= v13[8]) {
 			v2 = v13[2] + v13[4] - 1;
-		if (v18 >= v13[9])
+}
+		if (v18 >= v13[9]) {
 			v3 = v13[3] - v24 + v16 - 1;
+}
 		v19 = nox_xxx_spriteLoadAdd_45A360_drawable(*getMemIntPtr(0x5D4594, 1522976), v2, v3);
 		if (v19) {
 			v20 = nox_common_randomIntMinMax_415FF0(6, 12, "C:\\NoxPost\\src\\client\\Drawable\\Update\\drainup.c", 93);

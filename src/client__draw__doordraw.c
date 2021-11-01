@@ -29,8 +29,9 @@ int  nox_thing_door_draw(uint32_t* a1, nox_drawable* dr) {
 	int2 a3;   // [esp+Ch] [ebp-8h]
 
 	nox_xxx_drawObject_4C4770_draw(a1, dr, *(uint32_t*)(*(uint32_t*)((char*)dr->field_76 + 4) + 4 * dr->field_74_4));
-	if (!nox_common_gameFlags_check_40A5C0(4096) || dr->field_108_1 != 1)
+	if (!nox_common_gameFlags_check_40A5C0(4096) || dr->field_108_1 != 1) {
 		return 1;
+}
 	if (!dr->field_109) {
 		dr->field_110 = nox_xxx_gLoadImg_42F970("DoorLockSilverSW");
 		dr->field_109 = nox_xxx_gLoadImg_42F970("DoorLockSilverSE");
@@ -52,40 +53,44 @@ int  nox_thing_door_draw(uint32_t* a1, nox_drawable* dr) {
 		v12 = a3.field_4 - 20;
 		a3.field_0 -= 15;
 		a3.field_4 -= 20;
-		if (v7 == 1)
+		if (v7 == 1) {
 			nox_client_drawImageAt_47D2C0(dr->field_110, a3.field_0, v12);
-		else
+		} else {
 			nox_client_drawImageAt_47D2C0(dr->field_111, a3.field_0, v12);
+}
 		return 1;
 	} else if (v6 == 8) {
 		v9 = dr->field_108_2;
 		v13 = a3.field_4 - 20;
 		a3.field_0 += 15;
 		a3.field_4 -= 20;
-		if (v9 == 1)
+		if (v9 == 1) {
 			nox_client_drawImageAt_47D2C0(dr->field_109, a3.field_0, v13);
-		else
+		} else {
 			nox_client_drawImageAt_47D2C0(dr->field_112, a3.field_0, v13);
+}
 		return 1;
 	} else if (v6 == 16) {
 		v10 = dr->field_108_2;
 		v14 = a3.field_4 + 2;
 		a3.field_0 += 8;
 		a3.field_4 += 2;
-		if (v10 == 1)
+		if (v10 == 1) {
 			nox_client_drawImageAt_47D2C0(dr->field_110, a3.field_0, v14);
-		else
+		} else {
 			nox_client_drawImageAt_47D2C0(dr->field_111, a3.field_0, v14);
+}
 		return 1;
 	} else {
 		v11 = dr->field_108_2;
 		v15 = a3.field_4 + 2;
 		a3.field_0 -= 8;
 		a3.field_4 += 2;
-		if (v11 == 1)
+		if (v11 == 1) {
 			nox_client_drawImageAt_47D2C0(dr->field_109, a3.field_0, v15);
-		else
+		} else {
 			nox_client_drawImageAt_47D2C0(dr->field_112, a3.field_0, v15);
+}
 		return 1;
 	}
 }

@@ -23,8 +23,9 @@ void  sub_4CCEA0(uint32_t* a1, int a2) {
 	float2 v17; // [esp+Ch] [ebp-8h]
 	int v18;    // [esp+18h] [ebp+4h]
 
-	if (!*getMemU32Ptr(0x5D4594, 1522964))
+	if (!*getMemU32Ptr(0x5D4594, 1522964)) {
 		*getMemU32Ptr(0x5D4594, 1522964) = nox_xxx_getTTByNameSpriteMB_44CFC0("Spark");
+}
 	v2 = a1;
 	v3 = a1[4] - a1[9];
 	v4 = a1[3] - a1[8];
@@ -46,8 +47,9 @@ void  sub_4CCEA0(uint32_t* a1, int a2) {
 				v17.field_4 = (double)-v15;
 				v13 = nox_common_randomIntMinMax_415FF0(-25, 25, "C:\\NoxPost\\src\\client\\Drawable\\Update\\Fireball.c", 63);
 				v14 = nox_xxx_math_509ED0(&v17) + v13;
-				if (v14 < 0)
+				if (v14 < 0) {
 					v14 += (unsigned int)(255 - v14) >> 8 << 8;
+}
 				*(uint8_t*)(v12 + 299) = v14;
 				*(uint32_t*)(v12 + 440) =
 					a2 * nox_common_randomIntMinMax_415FF0(100, 300, "C:\\NoxPost\\src\\client\\Drawable\\Update\\Fireball.c", 74);
@@ -61,8 +63,9 @@ void  sub_4CCEA0(uint32_t* a1, int a2) {
 				nox_xxx_sprite_45A110_drawable((uint32_t*)v12);
 			}
 			--v16;
-			if (!v16)
+			if (!v16) {
 				break;
+}
 			v3 = v15;
 			v4 = v18;
 		}

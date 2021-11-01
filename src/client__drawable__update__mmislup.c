@@ -52,8 +52,9 @@ int  nox_xxx_updDrawMagicMissile_4CD9E0(int a1, uint32_t* a2) {
 				*(uint8_t*)(v10 + 296) = nox_common_randomIntMinMax_415FF0(0, 6, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\mmislup.c", 65);
 				nox_xxx_sprite_45A110_drawable((uint32_t*)v10);
 			}
-			if (++v16 >= *getMemIntPtr(0x587000, 190108))
+			if (++v16 >= *getMemIntPtr(0x587000, 190108)) {
 				break;
+}
 			v3 = v14;
 		}
 	}

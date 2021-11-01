@@ -48,8 +48,9 @@ void nox_video_cursorDrawImpl_477A30(int a1, int a2, int a3) {
 	dword_5d4594_3798728 = 1;
 	dword_5d4594_1097212 = a2 - 64;
 	dword_5d4594_1097216 = a3 - 64;
-	if ((unsigned char)nox_frame_xxx_2598000 & 1)
+	if ((unsigned char)nox_frame_xxx_2598000 & 1) {
 		++*getMemU32Ptr(0x5D4594, 1097288);
+}
 	nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 2589772));
 	v5 = nox_xxx_guiFontHeightMB_43F320(0);
 	if (nox_xxx_guiSpell_460650() || sub_4611A0()) {
@@ -130,10 +131,11 @@ void nox_video_cursorDrawImpl_477A30(int a1, int a2, int a3) {
 			v16 = nox_xxx_spriteGetMB_476F80();
 			if (v16) {
 				sub_48B680(1);
-				if (!(*(uint8_t*)(v16 + 112) & 6) || sub_495A80(*(uint32_t*)(v16 + 128)))
+				if (!(*(uint8_t*)(v16 + 112) & 6) || sub_495A80(*(uint32_t*)(v16 + 128))) {
 					sub_48B800(*getMemIntPtr(0x85B3FC, 980));
-				else
+				} else {
 					sub_48B800(*getMemIntPtr(0x85B3FC, 940));
+}
 			} else {
 				sub_48B680(0);
 			}

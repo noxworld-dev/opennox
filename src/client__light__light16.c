@@ -113,8 +113,9 @@ signed int  sub_485880(uint32_t* a1, int* a2, int a3, signed int a4, char* a5) {
 				dword_5d4594_1193176 = v12 * v15 + v14;
 				v23 = 23 - v12;
 			}
-			if (v16 <= a4)
+			if (v16 <= a4) {
 				goto LABEL_18;
+}
 			v23 = a4;
 			while (1) {
 				v16 = v23;
@@ -127,15 +128,18 @@ signed int  sub_485880(uint32_t* a1, int* a2, int a3, signed int a4, char* a5) {
 					dword_5d4594_1193184 = v21;
 					sub_485AE0(v23 - v17, v15);
 				}
-				if (*(int*)&dword_5d4594_1193184 >= v20)
+				if (*(int*)&dword_5d4594_1193184 >= v20) {
 					dword_5d4594_1193184 -= v22;
+}
 				result = a4 - v23;
 				a4 -= v23;
-				if (a4 <= 0)
+				if (a4 <= 0) {
 					break;
+}
 				v23 = 23;
-				if (result < 23)
+				if (result < 23) {
 					v23 = result;
+}
 				v18 = *a2 + 1;
 				v19 = v18;
 				*a2 = v18;
@@ -236,10 +240,11 @@ void  sub_484F90(int a1) {
 			}
 			*(float*)&v44 = v3;
 			if (a5 > (double)*(float*)&dword_587000_154968) {
-				if (a5 <= 31.0)
+				if (a5 <= 31.0) {
 					v37 = a5;
-				else
+				} else {
 					v37 = 31.0;
+}
 				v4 = *(uint32_t*)(v1 + 16);
 				v5 = *(uint32_t*)(v1 + 168);
 				v6 = *(uint32_t*)(v1 + 12) - dword_5d4594_2650676;
@@ -265,8 +270,9 @@ void  sub_484F90(int a1) {
 					}
 					v30 = ((double)v42 - *(float*)&v44) * 0.043478262 + 0.5;
 					v10 = nox_float2int(v30);
-					if (v10 < 0)
+					if (v10 < 0) {
 						v10 = 0;
+}
 					v31 = ((double)v42 + *(float*)&v44) * 0.043478262 + 0.5;
 					v11 = nox_float2int(v31);
 					v35.field_0 = v11;
@@ -296,13 +302,15 @@ void  sub_484F90(int a1) {
 											 1.0);
 										if (v19 > *getMemFloatPtr(0x587000, 154996)) {
 											v20 = v19 - *getMemFloatPtr(0x587000, 154996);
-											if (*(uint32_t*)(v1 + 172))
+											if (*(uint32_t*)(v1 + 172)) {
 												v21 = (double)*v16 - v20;
-											else
+											} else {
 												v21 = v20 + (double)*v16;
+}
 											if (v21 >= 0.0) {
-												if (v21 > 31.0)
+												if (v21 > 31.0) {
 													v21 = 31.0;
+}
 											} else {
 												v21 = 0.0;
 											}
@@ -421,14 +429,16 @@ char*  sub_485740(uint32_t* a1) {
 	char* result; // eax
 	int v10;      // [esp+10h] [ebp-4h]
 
-	if (nox_common_getEngineFlag(NOX_ENGINE_DISABLE_SOFT_LIGHTS))
+	if (nox_common_getEngineFlag(NOX_ENGINE_DISABLE_SOFT_LIGHTS)) {
 		return (char*)getMemAt(0x587000, 155000);
+}
 	v1 = *a1 - dword_5d4594_2650676;
 	v2 = a1[1] - dword_5d4594_2650680;
 	v3 = v1 / 23;
 	v4 = v2 / 23;
-	if (v1 / 23 < 0 || v4 < 0 || v3 > 56 || v4 > 44)
+	if (v1 / 23 < 0 || v4 < 0 || v3 > 56 || v4 > 44) {
 		return (char*)getMemAt(0x587000, 155000);
+}
 	v5 = v1 % 23;
 	v10 = v2 % 23;
 	v6 = 5 * v3 + v4 + 40 * v3;
@@ -451,8 +461,9 @@ short  sub_484B70(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8
 	int v8; // eax
 
 	v8 = sub_47D380(a7, a8);
-	if (v8)
+	if (v8) {
 		nox_client_drawImageAt_47D2C0(a1, a2, a3);
+}
 	return v8;
 }
 
@@ -551,16 +562,18 @@ int  sub_4697C0(int* a1, int* a2, int2* a3, signed int a4, int* a5) {
 	v6 = a2;
 	v7 = *a1 + a1[1];
 	v18 = *a1 + a1[1];
-	if (*a1 < *a2)
+	if (*a1 < *a2) {
 		result = *a2;
+}
 	if (v7 > a2[1] + *a2) {
 		v18 = a2[1] + *a2;
 		v7 = a2[1] + *a2;
 	}
 	if (v7 - result > 1) {
 		v23 = *getMemU32Ptr(0x587000, 142308);
-		if ((unsigned int)a4 <= *getMemIntPtr(0x587000, 142308))
+		if ((unsigned int)a4 <= *getMemIntPtr(0x587000, 142308)) {
 			v23 = a4;
+}
 		v21 = (a4 >> 16) * (a4 >> 16);
 		v8 = 23 * result - a3->field_4;
 		v24 = 23 * result - a3->field_4;
@@ -585,8 +598,9 @@ int  sub_4697C0(int* a1, int* a2, int2* a3, signed int a4, int* a5) {
 							v12 = dword_587000_142316;
 						}
 						v14 += 23;
-						if (++v15 >= *v22)
+						if (++v15 >= *v22) {
 							break;
+}
 					}
 					v8 = v24;
 					v10 = v22;
@@ -597,8 +611,9 @@ int  sub_4697C0(int* a1, int* a2, int2* a3, signed int a4, int* a5) {
 				++v10;
 				v24 = v8;
 				v22 = v10;
-				if (v9 >= v18)
+				if (v9 >= v18) {
 					break;
+}
 			}
 		}
 	}
@@ -892,10 +907,11 @@ int nox_xxx___cfltcvt_init_430CC0() {
 #ifndef NOX_CGO
 //----- (00430BA0) --------------------------------------------------------
 int nox_video_initFloorBuffer_430BA0() {
-	if (dword_5d4594_3801780 == 1)
+	if (dword_5d4594_3801780 == 1) {
 		nox_xxx___cfltcvt_init_430CC0();
-	else
+	} else {
 		sub_430D60();
+}
 	if (!nox_xxx_tileInitBuf_430DB0(nox_backbuffer_width, nox_backbuffer_height)) {
 		printf("VideoInit: error initializing floor buffer\n");
 		return 0;

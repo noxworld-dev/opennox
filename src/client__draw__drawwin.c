@@ -44,8 +44,9 @@ int  nox_xxx_drawHasteAndRunParticles_4746C0(nox_draw_viewport_t* vp, nox_drawab
 	int v25;    // [esp-8h] [ebp-18h]
 	int2 v26;   // [esp+8h] [ebp-8h]
 
-	if (nox_xxx_spriteCheckFlag31_4356C0(dr, 0) && !sub_474B40(dr))
+	if (nox_xxx_spriteCheckFlag31_4356C0(dr, 0) && !sub_474B40(dr)) {
 		goto LABEL_37;
+}
 	if (nox_xxx_spriteCheckFlag31_4356C0(dr, 14)) {
 		sub_4739E0(vp, (int2*)(a2 + 12), &v26);
 		sub_4B6720(&v26, *getMemIntPtr(0x85B3FC, 980), 30, 31);
@@ -55,10 +56,11 @@ int  nox_xxx_drawHasteAndRunParticles_4746C0(nox_draw_viewport_t* vp, nox_drawab
 			*getMemU32Ptr(0x5D4594, 1096524) = nox_xxx_getTTByNameSpriteMB_44CFC0("WhiteBubbleParticle");
 			*getMemU32Ptr(0x5D4594, 1096528) = nox_xxx_getTTByNameSpriteMB_44CFC0("LightBlueBubbleParticle");
 		}
-		if (*(uint32_t*)(a2 + 12) != *(uint32_t*)(a2 + 32) || *(uint32_t*)(a2 + 16) != *(uint32_t*)(a2 + 36))
+		if (*(uint32_t*)(a2 + 12) != *(uint32_t*)(a2 + 32) || *(uint32_t*)(a2 + 16) != *(uint32_t*)(a2 + 36)) {
 			v2 = 2;
-		else
+		} else {
 			v2 = 0;
+}
 		if (v2 > 0) {
 			do {
 				v22 = nox_common_randomIntMinMax_415FF0(3, 5, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1055);
@@ -84,8 +86,9 @@ int  nox_xxx_drawHasteAndRunParticles_4746C0(nox_draw_viewport_t* vp, nox_drawab
 			*getMemU32Ptr(0x5D4594, 1096532) = nox_xxx_getTTByNameSpriteMB_44CFC0("RedBubbleParticle");
 			*getMemU32Ptr(0x5D4594, 1096536) = nox_xxx_getTTByNameSpriteMB_44CFC0("OrangeBubbleParticle");
 		}
-		if (*(uint32_t*)(a2 + 12) != *(uint32_t*)(a2 + 32) || (v5 = 1, *(uint32_t*)(a2 + 16) != *(uint32_t*)(a2 + 36)))
+		if (*(uint32_t*)(a2 + 12) != *(uint32_t*)(a2 + 32) || (v5 = 1, *(uint32_t*)(a2 + 16) != *(uint32_t*)(a2 + 36))) {
 			v5 = 2;
+}
 		do {
 			v24 = nox_common_randomIntMinMax_415FF0(3, 5, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1108);
 			v20 = nox_common_randomIntMinMax_415FF0(3, 6, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1104);
@@ -104,17 +107,21 @@ int  nox_xxx_drawHasteAndRunParticles_4746C0(nox_draw_viewport_t* vp, nox_drawab
 			--v5;
 		} while (v5);
 	}
-	if (nox_xxx_spriteCheckFlag31_4356C0(dr, 17))
+	if (nox_xxx_spriteCheckFlag31_4356C0(dr, 17)) {
 		nox_client_drawXxxProtect_474BE0(vp, &dr->pos, dr, 0, 0, *getMemIntPtr(0x85B3FC, 940), *getMemIntPtr(0x5D4594, 2589776), 1);
-	if (nox_xxx_spriteCheckFlag31_4356C0(dr, 18))
+}
+	if (nox_xxx_spriteCheckFlag31_4356C0(dr, 18)) {
 		nox_client_drawXxxProtect_474BE0(vp, &dr->pos, dr, 85, 1, *getMemIntPtr(0x8531A0, 2572), *getMemIntPtr(0x852978, 24), 1);
-	if (nox_xxx_spriteCheckFlag31_4356C0(dr, 20))
+}
+	if (nox_xxx_spriteCheckFlag31_4356C0(dr, 20)) {
 		nox_client_drawXxxProtect_474BE0(vp, &dr->pos, dr, 170, 2, *getMemIntPtr(0x85B3FC, 980), *getMemIntPtr(0x5D4594, 2523948), 1);
-	if (nox_xxx_spriteCheckFlag31_4356C0(dr, 27) && ((v8 = *(uint8_t*)(a2 + 297)) == 0 || v8 == 1 || v8 == 2))
+}
+	if (nox_xxx_spriteCheckFlag31_4356C0(dr, 27) && ((v8 = *(uint8_t*)(a2 + 297)) == 0 || v8 == 1 || v8 == 2)) {
 		result = nox_xxx_drawShield_499810(vp, dr);
-	else
+	} else {
 	LABEL_37:
 		result = 0;
+}
 	return result;
 }
 
@@ -164,8 +171,9 @@ int  nox_xxx_drawEffectsMB_474E60(nox_draw_viewport_t* vp, nox_drawable* dr) {
 	int v44;     // [esp+2Ch] [ebp+8h]
 
 	int a2 = dr;
-	if (nox_xxx_spriteCheckFlag31_4356C0(dr, 0) && !sub_474B40(dr))
+	if (nox_xxx_spriteCheckFlag31_4356C0(dr, 0) && !sub_474B40(dr)) {
 		goto LABEL_54;
+}
 	if (nox_xxx_spriteCheckFlag31_4356C0(dr, 22)) {
 		v3 = *getMemU32Ptr(0x5D4594, 1096540);
 		if (!*getMemU32Ptr(0x5D4594, 1096540)) {
@@ -202,8 +210,9 @@ int  nox_xxx_drawEffectsMB_474E60(nox_draw_viewport_t* vp, nox_drawable* dr) {
 		v11 = nox_float2int(*(float*)(a2 + 48));
 		v39 = *(float*)(a2 + 100) * 0.5;
 		v44 = nox_float2int(v39);
-		if (!*getMemU32Ptr(0x5D4594, 1096544))
+		if (!*getMemU32Ptr(0x5D4594, 1096544)) {
 			*getMemU32Ptr(0x5D4594, 1096544) = nox_xxx_getTTByNameSpriteMB_44CFC0("YellowBubbleParticle");
+}
 		v12 = 2;
 		do {
 			v40 = nox_common_randomIntMinMax_415FF0(3, 5, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1307);
@@ -218,8 +227,9 @@ int  nox_xxx_drawEffectsMB_474E60(nox_draw_viewport_t* vp, nox_drawable* dr) {
 		v4 = vp;
 	}
 	if (nox_xxx_spriteCheckFlag31_4356C0(dr, 21) && !nox_xxx_checkGameFlagPause_413A50()) {
-		if (!*getMemU32Ptr(0x5D4594, 1096548))
+		if (!*getMemU32Ptr(0x5D4594, 1096548)) {
 			*getMemU32Ptr(0x5D4594, 1096548) = nox_xxx_getTTByNameSpriteMB_44CFC0("GreenBubbleParticle");
+}
 		v41 = nox_common_randomIntMinMax_415FF0(2, 3, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1335);
 		v37 = nox_common_randomIntMinMax_415FF0(3, 6, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1331);
 		v35 = nox_common_randomIntMinMax_415FF0(2, 4, "C:\\NoxPost\\src\\Client\\Draw\\Drawwin.c", 1330);
@@ -254,12 +264,15 @@ int  nox_xxx_drawEffectsMB_474E60(nox_draw_viewport_t* vp, nox_drawable* dr) {
 			--v16;
 		} while (v16);
 	}
-	if (nox_xxx_spriteCheckFlag31_4356C0(dr, 17))
+	if (nox_xxx_spriteCheckFlag31_4356C0(dr, 17)) {
 		nox_client_drawXxxProtect_474BE0(v4, (int*)(a2 + 12), dr, 0, 0, *getMemIntPtr(0x85B3FC, 940), *getMemIntPtr(0x5D4594, 2589776), 0);
-	if (nox_xxx_spriteCheckFlag31_4356C0(dr, 18))
+}
+	if (nox_xxx_spriteCheckFlag31_4356C0(dr, 18)) {
 		nox_client_drawXxxProtect_474BE0(v4, (int*)(a2 + 12), dr, 85, 1, *getMemIntPtr(0x8531A0, 2572), *getMemIntPtr(0x852978, 24), 0);
-	if (nox_xxx_spriteCheckFlag31_4356C0(dr, 20))
+}
+	if (nox_xxx_spriteCheckFlag31_4356C0(dr, 20)) {
 		nox_client_drawXxxProtect_474BE0(v4, (int*)(a2 + 12), dr, 170, 2, *getMemIntPtr(0x85B3FC, 980), *getMemIntPtr(0x5D4594, 2523948), 0);
+}
 	if (nox_xxx_spriteCheckFlag31_4356C0(dr, 26)) {
 		sub_4739E0(v4, (int2*)(a2 + 12), &xLeft);
 		v23 = *(uint32_t*)(a2 + 276);
@@ -277,10 +290,11 @@ int  nox_xxx_drawEffectsMB_474E60(nox_draw_viewport_t* vp, nox_drawable* dr) {
 		nox_video_drawAnimatedImageOrCursorAt_4BE6D0(*getMemIntPtr(0x5D4594, 1096460), xLeft.field_0, xLeft.field_4);
 		nox_client_drawEnableAlpha_434560(0);
 	}
-	if (nox_xxx_spriteCheckFlag31_4356C0(dr, 27) && (v27 = *(uint8_t*)(a2 + 297)) != 0 && v27 != 1 && v27 != 2)
+	if (nox_xxx_spriteCheckFlag31_4356C0(dr, 27) && (v27 = *(uint8_t*)(a2 + 297)) != 0 && v27 != 1 && v27 != 2) {
 		result = nox_xxx_drawShield_499810((int)v4, dr);
-	else
+	} else {
 	LABEL_54:
 		result = 0;
+}
 	return result;
 }

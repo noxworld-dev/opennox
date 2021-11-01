@@ -63,10 +63,11 @@ void  sub_46AD20(unsigned int* a1, int a2, int a3, int a4) {
 void  nox_client_wndListXxxAdd_46A920(nox_window* win) {
 	win->next = 0;
 	win->prev = nox_win_xxx1_last;
-	if (nox_win_xxx1_last)
+	if (nox_win_xxx1_last) {
 		nox_win_xxx1_last->next = win;
-	else
+	} else {
 		nox_win_xxx1_first = win;
+}
 	nox_win_xxx1_last = win;
 }
 
@@ -114,8 +115,9 @@ int  nox_window_setPos_46A9B0(nox_window* win, int a2, int a3) {
 	int v4; // esi
 	int v5; // ecx
 
-	if (!a1)
+	if (!a1) {
 		return -2;
+}
 	v4 = a1[2];
 	a1[4] = a2;
 	v5 = a3 + a1[3];
@@ -133,8 +135,9 @@ int  nox_xxx_wndShowModalMB_46A8C0(nox_window* win) {
 	int v2;     // eax
 	int v3;     // eax
 
-	if (!a1)
+	if (!a1) {
 		return -2;
+}
 	v2 = nox_win_xxx1_last;
 	if (nox_win_xxx1_last == a1) {
 	LABEL_6:
@@ -148,8 +151,9 @@ int  nox_xxx_wndShowModalMB_46A8C0(nox_window* win) {
 	} else {
 		while (v2) {
 			v2 = *(unsigned int*)(v2 + 388);
-			if (v2 == a1)
+			if (v2 == a1) {
 				goto LABEL_6;
+}
 		}
 		result = -3;
 	}
@@ -173,17 +177,22 @@ void  sub_46AC60(nox_window* a1p) {
 	int v2; // esi
 
 	if (*(unsigned char*)(a1 + 4) & 0x80) {
-		if (*(unsigned int*)(a1 + 60))
+		if (*(unsigned int*)(a1 + 60)) {
 			sub_42FAE0(*(unsigned int*)(a1 + 60));
-		if (*(unsigned int*)(a1 + 84))
+}
+		if (*(unsigned int*)(a1 + 84)) {
 			sub_42FAE0(*(unsigned int*)(a1 + 84));
-		if (*(unsigned int*)(a1 + 68))
+}
+		if (*(unsigned int*)(a1 + 68)) {
 			sub_42FAE0(*(unsigned int*)(a1 + 68));
-		if (*(unsigned int**)(a1 + 92))
+}
+		if (*(unsigned int**)(a1 + 92)) {
 			sub_42FAE0(*(unsigned int*)(a1 + 92));
+}
 		v2 = *(unsigned int*)(a1 + 76);
-		if (v2)
+		if (v2) {
 			sub_42FAE0(v2);
+}
 	}
 }
 
@@ -212,23 +221,29 @@ int  nox_xxx_windowDestroyMB_46C4E0(nox_window* a1p) {
 	unsigned int* v3; // eax
 	unsigned int* v4; // edi
 
-	if (!a1)
+	if (!a1) {
 		return -2;
+}
 	v2 = a1[1];
 	if (!(v2 & 0x800)) {
 		v2 |= 0x800u;
 		a1[1] = v2;
 		sub_46AC60((int)a1);
-		if (nox_win_unk3 == a1)
+		if (nox_win_unk3 == a1) {
 			nox_xxx_wndClearCaptureMain_46ADE0((int)a1);
-		if (nox_win_cur_focused == a1)
+}
+		if (nox_win_cur_focused == a1) {
 			nox_xxx_windowFocus_46B500(0);
-		if (nox_win_1064912 && a1 == nox_win_1064912->win)
+}
+		if (nox_win_1064912 && a1 == nox_win_1064912->win) {
 			nox_xxx_wnd_46C6E0(nox_win_1064912->win);
-		if (nox_win_activeWindow_1064900 == a1)
+}
+		if (nox_win_activeWindow_1064900 == a1) {
 			nox_win_activeWindow_1064900 = 0;
-		if (nox_win_1064916 == a1)
+}
+		if (nox_win_1064916 == a1) {
 			nox_win_1064916 = 0;
+}
 		v3 = (unsigned int*)a1[100];
 		if (v3) {
 			do {
@@ -237,10 +252,11 @@ int  nox_xxx_windowDestroyMB_46C4E0(nox_window* a1p) {
 				v3 = v4;
 			} while (v4);
 		}
-		if (a1[99])
+		if (a1[99]) {
 			sub_46B180(a1);
-		else
+		} else {
 			nox_client_wndListXxxRemove_46A960((int)a1);
+}
 		a1[98] = 0;
 		a1[97] = dword_5d4594_1064896;
 		dword_5d4594_1064896 = a1;
@@ -263,8 +279,9 @@ int nox_gui_getWindowOffs_46AA20(nox_window* win, unsigned int* px, unsigned int
 
 //----- (0046AA60) --------------------------------------------------------
 int  nox_client_wndGetPosition_46AA60(nox_window* win, unsigned int* px, unsigned int* py) {
-	if (!win)
+	if (!win) {
 		return -2;
+}
 
 	*px = win->off_x;
 	*py = win->off_y;
@@ -292,8 +309,9 @@ bool  nox_xxx_wndPointInWnd_46AAB0(unsigned int* a1, int a2, int a3) {
 int  sub_46AB20(unsigned int* a1, int a2, int a3) {
 	int v4; // esi
 
-	if (!a1)
+	if (!a1) {
 		return -2;
+}
 	a1[6] = a2 + a1[4];
 	v4 = a3 + a1[5];
 	a1[2] = a2;
@@ -321,24 +339,28 @@ int  nox_xxx_wnd_46ABB0(int a1, int a2) {
 	unsigned int v4; // ecx
 	int v5;          // esi
 
-	if (!a1)
+	if (!a1) {
 		return -2;
+}
 	v3 = *(unsigned int*)(a1 + 4);
-	if (a2)
+	if (a2) {
 		v4 = v3 | 8;
-	else
+	} else {
 		v4 = v3 & 0xFFFFFFF7;
+}
 	v5 = *(unsigned int*)(a1 + 400);
-	for (*(unsigned int*)(a1 + 4) = v4; v5; v5 = *(unsigned int*)(v5 + 388))
+	for (*(unsigned int*)(a1 + 4) = v4; v5; v5 = *(unsigned int*)(v5 + 388)) {
 		nox_xxx_wnd_46ABB0(v5, a2);
+}
 	return 0;
 }
 
 #ifndef NOX_CGO
 //----- (0046AC00) --------------------------------------------------------
 int  nox_window_set_hidden(nox_window* win, int hidden) {
-	if (!win)
+	if (!win) {
 		return -2;
+}
 
 	if (!hidden) {
 		win->flags &= ~NOX_WIN_HIDDEN;
@@ -350,8 +372,9 @@ int  nox_window_set_hidden(nox_window* win, int hidden) {
 	}
 
 	if (dword_5d4594_3799468) {
-		if (!(win->flags & NOX_WIN_HIDDEN))
+		if (!(win->flags & NOX_WIN_HIDDEN)) {
 			dword_5d4594_3799524 = 1;
+}
 	}
 	win->flags |= NOX_WIN_HIDDEN;
 	return 0;
@@ -362,18 +385,20 @@ int  wndIsShown_nox_xxx_wndIsShown_46ACC0(nox_window* win) {
 	int a1 = win;
 	int result; // eax
 
-	if (a1)
+	if (a1) {
 		result = (*(unsigned int*)(a1 + 4) >> 4) & 1;
-	else
+	} else {
 		result = 1;
+}
 	return result;
 }
 
 //----- (0046AFE0) --------------------------------------------------------
 int  nox_xxx_wndSetRectColor2MB_46AFE0(nox_window* win, int a2) {
 	int a1 = win;
-	if (!a1)
+	if (!a1) {
 		return -2;
+}
 	*(unsigned int*)(a1 + 56) = a2;
 	return 0;
 }
@@ -385,16 +410,18 @@ void nox_gui_winSetFunc96_46B070(nox_window* win, void* fnc) {
 
 //----- (0046B080) --------------------------------------------------------
 int  nox_xxx_wndSetID_46B080(nox_window* win, int id) {
-	if (!win)
+	if (!win) {
 		return -2;
+}
 	win->id = id;
 	return 0;
 }
 
 //----- (0046B0A0) --------------------------------------------------------
 int  nox_xxx_wndGetID_46B0A0(nox_window* win) {
-	if (!win)
+	if (!win) {
 		return -2;
+}
 	return win->id;
 }
 
@@ -402,17 +429,20 @@ int  nox_xxx_wndGetID_46B0A0(nox_window* win) {
 nox_window*  nox_xxx_wndGetChildByID_46B0C0(nox_window* root, int id) {
 	nox_window* cur = root;
 	if (!root) {
-		if (!nox_win_xxx1_last)
+		if (!nox_win_xxx1_last) {
 			return 0;
+}
 		cur = nox_win_xxx1_last;
 	}
 	for (; cur; cur = cur->prev) {
-		if (cur->id == id)
+		if (cur->id == id) {
 			return cur;
+}
 		if (cur->field_100) {
 			nox_window* res = nox_xxx_wndGetChildByID_46B0C0(cur->field_100, id);
-			if (res)
+			if (res) {
 				return res;
+}
 		}
 	}
 	return 0;
@@ -423,26 +453,30 @@ int nox_client_wndListXxxLast_46B110() { return nox_win_xxx1_last; }
 
 //----- (0046B200) --------------------------------------------------------
 void  nox_window_set_ptrs_97(nox_window* win, nox_window* a2) {
-	if (!a2)
+	if (!a2) {
 		return;
+}
 
 	win->next = 0;
 	nox_window* v2 = a2->field_100;
 	win->prev = v2;
-	if (v2)
+	if (v2) {
 		v2->next = win;
+}
 	a2->field_100 = win;
 	win->parent = a2;
 }
 
 //----- (0046B120) --------------------------------------------------------
 int  sub_46B120(nox_window* win, nox_window* a2) {
-	if (!win)
+	if (!win) {
 		return -2;
-	if (win->parent)
+}
+	if (win->parent) {
 		sub_46B180(win);
-	else
+	} else {
 		nox_client_wndListXxxRemove_46A960(win);
+}
 	if (a2) {
 		nox_window_set_ptrs_97(win, a2);
 	} else {
@@ -576,16 +610,19 @@ void  sub_4AA030(nox_window* win, nox_window_data* data) {
 				v6 = v2[8];
 				v7 = 0;
 				v8 = 0;
-				if (*(unsigned int*)(v6 + 12))
+				if (*(unsigned int*)(v6 + 12)) {
 					v7 = *(unsigned int*)(*(unsigned int*)(*(unsigned int*)(v6 + 36) + 400) + 12);
-				if (*((unsigned short*)v2 + 54))
+}
+				if (*((unsigned short*)v2 + 54)) {
 					v8 = 4;
+}
 				sub_4A9E90((int)a1 - 3, v16 - v8 - 3, v2[2] - v7 + 3, v2[3] + 6);
 				goto LABEL_25;
 			}
 			if (v4 > 4096) {
-				if (v4 == 0x2000)
+				if (v4 == 0x2000) {
 					goto LABEL_24;
+}
 			} else {
 				switch (v4) {
 					case 4096:
@@ -623,26 +660,32 @@ void  sub_4AA030(nox_window* win, nox_window_data* data) {
 		}
 		LABEL_26:
 		v17 = ++v5;
-		if (v5 >= 0x20)
+		if (v5 >= 0x20) {
 			break;
+}
 	}
 }
 
 //----- (0046C370) --------------------------------------------------------
 #ifndef NOX_CGO
 int  nox_window_draw_recursive(nox_window* win) {
-	if (!win)
+	if (!win) {
 		return -2;
-	if (win->flags & NOX_WIN_HIDDEN)
+}
+	if (win->flags & NOX_WIN_HIDDEN) {
 		return 0;
+}
 
-	if (win->draw_func)
+	if (win->draw_func) {
 		win->draw_func(win, &win->draw_data);
-	if ((win->flags & 0x1000) == 0x1000)
+}
+	if ((win->flags & 0x1000) == 0x1000) {
 		sub_4AA030(win, &win->draw_data);
+}
 
-	for (nox_window* i = win->field_100; i; i = i->prev)
+	for (nox_window* i = win->field_100; i; i = i->prev) {
 		nox_window_draw_recursive(i);
+}
 	return 0;
 }
 
@@ -688,10 +731,11 @@ int  nox_xxx_wndDrawFnDefault_46B370(int a1, int* a2) {
 		xLeft += *(unsigned int*)(a1 + 96);
 		v3 = v2 + yTop;
 		yTop = v3;
-		if (*(unsigned char*)(a1 + 36) & 2)
+		if (*(unsigned char*)(a1 + 36) & 2) {
 			nox_client_drawImageAt_47D2C0(a2[10], xLeft, v3);
-		else
+		} else {
 			nox_client_drawImageAt_47D2C0(a2[6], xLeft, v3);
+}
 		result = 1;
 	}
 	return result;
@@ -711,12 +755,14 @@ nox_window*  nox_window_new(nox_window* a1, int flags, int x, int y, int w, int 
 		al = nox_new_alloc_class("Window", sizeof(nox_window), 576);
 		nox_alloc_window = al;
 	}
-	if (!al)
+	if (!al) {
 		return 0;
+}
 
 	nox_window* win = (nox_window*)nox_alloc_class_new_obj_zero(al);
-	if (!win)
+	if (!win) {
 		return 0;
+}
 
 	if (a1) {
 		nox_window_set_ptrs_97(win, a1);
@@ -766,24 +812,28 @@ int sub_46C5D0() {
 
 //----- (0046B430) --------------------------------------------------------
 int  nox_window_set_all_funcs(nox_window* win, int (*a2)(int, int, int, int), int (*draw)(nox_window*, void*), void* a4) {
-	if (!win)
+	if (!win) {
 		return -2;
-	if (a2)
+}
+	if (a2) {
 		win->field_93 = a2;
-	else
+	} else {
 		win->field_93 = nox_xxx_wndDefaultProc_0_46B330;
-	if (draw)
+}
+	if (draw) {
 		win->draw_func = draw;
-	else
+	} else {
 		win->draw_func = nox_xxx_wndDrawFnDefault_46B370;
+}
 	win->tooltip_func = a4;
 	return 0;
 }
 
 //----- (0046B490) --------------------------------------------------------
 int  nox_window_call_field_94(nox_window* win, int a2, int a3, int a4) {
-	if (!win)
+	if (!win) {
 		return 0;
+}
 //	if (a2 & 0x4000)
 //		printf("win event 94: id=%d, ev=0x4000 | %d, a1=%d, a2=%d\n", win->id, a2 - 0x4000, a3, a4);
 //	else
@@ -793,8 +843,9 @@ int  nox_window_call_field_94(nox_window* win, int a2, int a3, int a4) {
 
 //----- (0046B4C0) --------------------------------------------------------
 int  nox_window_call_field_93(nox_window* win, int a2, int a3, int a4) {
-	if (!win)
+	if (!win) {
 		return 0;
+}
 //	if (a2 & 0x4000)
 //		printf("win event 93: id=%d, ev=0x4000 | %d, a1=%d, a2=%d\n", win->id, a2 - 0x4000, a3, a4);
 //	else
@@ -808,12 +859,14 @@ nox_window* nox_xxx_wndGetFocus_46B4F0() { return nox_win_cur_focused; }
 //----- (0046B500) --------------------------------------------------------
 int  nox_xxx_windowFocus_46B500(nox_window* win) {
 	if (win) {
-		if (win->flags & 0x400)
+		if (win->flags & 0x400) {
 			return 0;
+}
 	}
 	if (nox_win_cur_focused) {
-		if (nox_win_cur_focused != win)
+		if (nox_win_cur_focused != win) {
 			nox_window_call_field_94(nox_win_cur_focused, 23, 0, 0);
+}
 	}
 	nox_win_cur_focused = win;
 	if (!win) {
@@ -824,10 +877,12 @@ int  nox_xxx_windowFocus_46B500(nox_window* win) {
 		nox_window* cur = win;
 		while (1) {
 			cur = cur->parent;
-			if (!cur)
+			if (!cur) {
 				break;
-			if (nox_window_call_field_94(cur, 23, 1, 0))
+}
+			if (nox_window_call_field_94(cur, 23, 1, 0)) {
 				return 0;
+}
 		}
 		nox_win_cur_focused = 0;
 	}
@@ -839,8 +894,9 @@ int  nox_xxx_windowFocus_46B500(nox_window* win) {
 int  nox_xxx_wnd_46AD60(int a1, int a2) {
 	int result; // eax
 
-	if (!a1)
+	if (!a1) {
 		return -2;
+}
 	result = *(unsigned int*)(a1 + 4);
 	*(unsigned int*)(a1 + 4) = a2 | result;
 	return result;
@@ -850,8 +906,9 @@ int  nox_xxx_wnd_46AD60(int a1, int a2) {
 int  nox_xxx_wndClearFlag_46AD80(int a1, int a2) {
 	int result; // eax
 
-	if (!a1)
+	if (!a1) {
 		return -2;
+}
 	result = *(unsigned int*)(a1 + 4);
 	*(unsigned int*)(a1 + 4) = result & ~a2;
 	return result;
@@ -861,26 +918,29 @@ int  nox_xxx_wndClearFlag_46AD80(int a1, int a2) {
 int  nox_xxx_wndGetFlags_46ADA0(int a1) {
 	int result; // eax
 
-	if (a1)
+	if (a1) {
 		result = *(unsigned int*)(a1 + 4);
-	else
+	} else {
 		result = -2;
+}
 	return result;
 }
 
 #ifndef NOX_CGO
 //----- (0046ADC0) --------------------------------------------------------
 int  nox_xxx_wndSetCaptureMain_46ADC0(nox_window* a1) {
-	if (nox_win_unk3)
+	if (nox_win_unk3) {
 		return -4;
+}
 	nox_win_unk3 = a1;
 	return 0;
 }
 
 //----- (0046ADE0) --------------------------------------------------------
 int  nox_xxx_wndClearCaptureMain_46ADE0(nox_window* a1) {
-	if (a1 == nox_win_unk3)
+	if (a1 == nox_win_unk3) {
 		nox_win_unk3 = 0;
+}
 	return 0;
 }
 
@@ -927,16 +987,21 @@ void sub_46C200() {
 	if (!v1) {
 		do {
 			v2 = *(unsigned int*)(v0 + 388);
-			if (nox_win_unk3 == v0)
+			if (nox_win_unk3 == v0) {
 				nox_xxx_wndClearCaptureMain_46ADE0(v0);
-			if (nox_win_cur_focused == v0)
+}
+			if (nox_win_cur_focused == v0) {
 				nox_xxx_windowFocus_46B500(0);
-			if (nox_win_1064912 && v0 == nox_win_1064912->win)
+}
+			if (nox_win_1064912 && v0 == nox_win_1064912->win) {
 				nox_xxx_wnd_46C6E0(nox_win_1064912->win);
-			if (nox_win_activeWindow_1064900 == v0)
+}
+			if (nox_win_activeWindow_1064900 == v0) {
 				nox_win_activeWindow_1064900 = 0;
-			if (nox_win_1064916 == v0)
+}
+			if (nox_win_1064916 == v0) {
 				nox_win_1064916 = 0;
+}
 			nox_window_call_field_94(v0, 2, 0, 0);
 			nox_alloc_class_free_obj(nox_alloc_window, v0);
 			v0 = v2;
@@ -947,13 +1012,16 @@ void sub_46C200() {
 
 //----- (0046C690) --------------------------------------------------------
 int  sub_46C690(int a1) {
-	if (!a1)
+	if (!a1) {
 		return -2;
-	if (*(unsigned int*)(a1 + 396))
+}
+	if (*(unsigned int*)(a1 + 396)) {
 		return -3;
+}
 	nox_window_ref* v2 = malloc(sizeof(nox_window_ref));
-	if (!v2)
+	if (!v2) {
 		return -1;
+}
 	v2->win = a1;
 	v2->next = nox_win_1064912;
 	nox_win_1064912 = v2;
@@ -964,10 +1032,12 @@ int  sub_46C690(int a1) {
 int  nox_xxx_wnd_46C6E0(nox_window* a1) {
 	int v2; // esi
 
-	if (!a1)
+	if (!a1) {
 		return -2;
-	if (!nox_win_1064912 || nox_win_1064912->win != a1)
+}
+	if (!nox_win_1064912 || nox_win_1064912->win != a1) {
 		return -1;
+}
 	v2 = nox_win_1064912->next;
 	free(nox_win_1064912);
 	nox_win_1064912 = v2;
@@ -979,37 +1049,44 @@ int  sub_46B240(int a1) {
 	int result; // eax
 
 	result = a1;
-	if (a1)
+	if (a1) {
 		result = *(unsigned int*)(a1 + 396);
+}
 	return result;
 }
 
 //----- (0046B250) --------------------------------------------------------
 int  nox_window_is_child(nox_window* a1, nox_window* a2) {
-	if (!a1)
+	if (!a1) {
 		return 0;
-	if (!a2)
+}
+	if (!a2) {
 		return 0;
+}
 
 	nox_window* cur = a2;
 	while (1) {
 		cur = cur->parent;
-		if (a1 == cur)
+		if (a1 == cur) {
 			break;
-		if (!cur)
+}
+		if (!cur) {
 			return 0;
+}
 	}
 	return 1;
 }
 
 //----- (0046B280) --------------------------------------------------------
 int  nox_xxx_wnd_46B280(int a1, int a2) {
-	if (!a1)
+	if (!a1) {
 		return -2;
-	if (a2)
+}
+	if (a2) {
 		*(unsigned int*)(a1 + 52) = a2;
-	else
+	} else {
 		*(unsigned int*)(a1 + 52) = a1;
+}
 	return 0;
 }
 
@@ -1018,59 +1095,69 @@ int  sub_46B2B0(int a1) {
 	int result; // eax
 
 	result = a1;
-	if (a1)
+	if (a1) {
 		result = *(unsigned int*)(a1 + 52);
+}
 	return result;
 }
 
 #ifndef NOX_CGO
 //----- (0046B2C0) --------------------------------------------------------
 int  nox_xxx_wndSetProc_46B2C0(int a1, int (*a2)(int, int, int, int)) {
-	if (!a1)
+	if (!a1) {
 		return -2;
-	if (a2)
+}
+	if (a2) {
 		*(unsigned int*)(a1 + 376) = a2;
-	else
+	} else {
 		*(unsigned int*)(a1 + 376) = nox_xxx_wndDefaultProc_46B2F0;
+}
 	return 0;
 }
 
 //----- (0046B300) --------------------------------------------------------
 int  nox_xxx_wndSetWindowProc_46B300(int a1, int (*a2)(int, int, int, int)) {
-	if (!a1)
+	if (!a1) {
 		return -2;
-	if (a2)
+}
+	if (a2) {
 		*(unsigned int*)(a1 + 372) = a2;
-	else
+	} else {
 		*(unsigned int*)(a1 + 372) = nox_xxx_wndDefaultProc_0_46B330;
+}
 	return 0;
 }
 
 //----- (0046B340) --------------------------------------------------------
 int  nox_xxx_wndSetDrawFn_46B340(int a1, int (*a2)(int, int)) {
-	if (!a1)
+	if (!a1) {
 		return -2;
-	if (a2)
+}
+	if (a2) {
 		*(unsigned int*)(a1 + 380) = a2;
-	else
+	} else {
 		*(unsigned int*)(a1 + 380) = nox_xxx_wndDrawFnDefault_46B370;
+}
 	return 0;
 }
 
 //----- (0046B580) --------------------------------------------------------
 int  sub_46B580(int a1) {
-	if (!a1)
+	if (!a1) {
 		return -2;
-	if (!(*(unsigned char*)(a1 + 4) & 0x10))
+}
+	if (!(*(unsigned char*)(a1 + 4) & 0x10)) {
 		nox_xxx_wndDrawFnDefault_46B370(a1, (int*)(a1 + 36));
+}
 	return 0;
 }
 #endif // NOX_CGO
 
 //----- (0046B5B0) --------------------------------------------------------
 nox_window* nox_client_inWindowByPos_46B5B0(nox_window* root, int x, int y) {
-	if (!root)
+	if (!root) {
 		return 0;
+}
 
 	nox_window* cur = root;
 	LOOP:

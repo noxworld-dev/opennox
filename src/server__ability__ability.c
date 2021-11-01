@@ -20,8 +20,9 @@ int  nox_xxx_netAbilityReport_4D8060(int a1, int a2, int a3) {
 		LOBYTE(a1) = -51;
 		BYTE1(a1) = a2;
 		BYTE2(a1) = *(uint8_t*)(*(uint32_t*)(v4 + 276) + 4 * a2 + 3696);
-		if (a3)
+		if (a3) {
 			BYTE2(a1) |= 0x80u;
+}
 		result = nox_xxx_netSendPacket1_4E5390(*(unsigned char*)(*(uint32_t*)(v4 + 276) + 2064), (int)&a1, 3, 0, 1);
 	}
 	return result;
@@ -47,8 +48,9 @@ int  nox_xxx_abilityRewardServ_4FB9C0_ability(int a1, int a2, int a3) {
 	int result;   // eax
 	wchar_t* v10; // eax
 
-	if (!(*(uint8_t*)(a1 + 8) & 4))
+	if (!(*(uint8_t*)(a1 + 8) & 4)) {
 		return 0;
+}
 	if (a2 <= 0 || a2 >= 6) {
 		v10 =
 			nox_strman_loadString_40F1D0("AwardAbilityError", 0, "C:\\NoxPost\\src\\Server\\Ability\\Ability.c", 108);
@@ -65,16 +67,18 @@ int  nox_xxx_abilityRewardServ_4FB9C0_ability(int a1, int a2, int a3) {
 	} else {
 		*v6 = 5;
 		v7 = (uint32_t*)(*(uint32_t*)(v3 + 276) + 4 * a2 + 3696);
-		if (*v7 > 5)
+		if (*v7 > 5) {
 			*v7 = 5;
+}
 		nox_xxx_playerAwardSpellProtection_56FCE0(*(uint32_t*)(*(uint32_t*)(v3 + 276) + 4636), a2, *(uint32_t*)(*(uint32_t*)(v3 + 276) + 4 * a2 + 3696));
 		nox_xxx_netAbilityReport_4D8060(a1, a2, a3);
 		if (nox_common_gameFlags_check_40A5C0(4096)) {
 			nox_xxx_netSendRewardNotify_4FAD50(a1, 2, a1, a2);
 			if (!sub_419E60(a1)) {
 				for (i = nox_xxx_getFirstPlayerUnit_4DA7C0(); i; i = nox_xxx_getNextPlayerUnit_4DA7F0(i)) {
-					if (i != a1)
+					if (i != a1) {
 						nox_xxx_netSendRewardNotify_4FAD50(i, 2, a1, a2);
+}
 				}
 			}
 		}

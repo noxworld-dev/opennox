@@ -55,21 +55,24 @@ int  nox_xxx_replayTickMB_4D3580_net_playback(int a1) {
 		nox_game_exit_xxx_43DE60();
 		return v1;
 	}
-	if (nox_frame_xxx_2598000 == *getMemU32Ptr(0x5D4594, 1548728))
+	if (nox_frame_xxx_2598000 == *getMemU32Ptr(0x5D4594, 1548728)) {
 		return v1;
+}
 	while (1) {
 		switch (getMemByte(0x5D4594, 1548724)) {
 			case 1u:
-				if (a1 == 1)
+				if (a1 == 1) {
 					return v1;
+}
 				_read(*(int *) &nox_xxx_replayFile_587000_197428, &v9, 1u);
 				_read(*(int *) &nox_xxx_replayFile_587000_197428, &v5, 4u);
 				_read(*(int *) &nox_xxx_replayFile_587000_197428, getMemAt(0x5D4594, 1548740), v5);
 				nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode((unsigned char) v9, getMemAt(0x5D4594, 1548740), v5);
 				break;
 			case 2u:
-				if (a1 == 1)
+				if (a1 == 1) {
 					return v1;
+}
 				_read(*(int *) &nox_xxx_replayFile_587000_197428, &v6, 1u);
 				_read(*(int *) &nox_xxx_replayFile_587000_197428, v10, (unsigned char) v6);
 				nox_xxx_gameSetMapPath_409D70(v10);
@@ -93,8 +96,9 @@ int  nox_xxx_replayTickMB_4D3580_net_playback(int a1) {
 				}
 				break;
 			case 4u:
-				if (a1 == 1)
+				if (a1 == 1) {
 					return v1;
+}
 				nox_xxx_setContinueMenuOrHost_43DDD0(0);
 				nox_game_exit_xxx_43DE60();
 				break;
@@ -109,10 +113,12 @@ int  nox_xxx_replayTickMB_4D3580_net_playback(int a1) {
 			dword_5d4594_1548736 = 0;
 			return v1;
 		}
-		if (v1)
+		if (v1) {
 			break;
-		if (nox_frame_xxx_2598000 == *getMemU32Ptr(0x5D4594, 1548728))
+}
+		if (nox_frame_xxx_2598000 == *getMemU32Ptr(0x5D4594, 1548728)) {
 			return v1;
+}
 	}
 	nox_xxx_replayStopReadMB_4D3530();
 	nox_xxx_setContinueMenuOrHost_43DDD0(0);

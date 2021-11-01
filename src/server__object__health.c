@@ -13,8 +13,9 @@ double  nox_xxx_unitGiveXP_4EF270(int a1, float a2) {
 	double v4; // st7
 	float v5;  // [esp+Ch] [ebp+8h]
 
-	if (*(float*)(a1 + 28) >= (double)a2)
+	if (*(float*)(a1 + 28) >= (double)a2) {
 		return 0.0;
+}
 	v3 = *(uint32_t*)(a1 + 748);
 	v4 = (a2 - *(float*)(a1 + 28)) * *getMemFloatPtr(0x587000, 206148) + 1.0;
 	v5 = v4;
@@ -54,8 +55,9 @@ void  nox_xxx_soloMonsterKillReward_4EE500_obj_health(int a1) {
 	v5 = 0;
 	if (v2 != v4) {
 		while (v2 != v4) {
-			if (v5)
+			if (v5) {
 				break;
+}
 			if (*(uint8_t *) (v2 + 8) & 2) {
 				v3 = nox_xxx_creatureIsMonitored_500CC0(v4, v2);
 				v5 = 1;

@@ -211,8 +211,9 @@ int sub_4A75C0() {
 	char v24[16];         // [esp+4h] [ebp-510h]
 	char v25[sizeof(nox_savegame_xxx)];       // [esp+14h] [ebp-500h]
 
-	if (nox_common_gameFlags_check_40A5C0(2048))
+	if (nox_common_gameFlags_check_40A5C0(2048)) {
 		nox_savegame_rm_4DBE10("WORKING", 0);
+}
 	memset(v25, 0, 0x4FCu);
 	*(uint16_t*)&v25[1276] = 0;
 	v0 = (wchar_t*)nox_window_call_field_94(*(int*)&dword_5d4594_1308152, 16413, 0, 0);
@@ -303,15 +304,17 @@ int sub_4A75C0() {
 		for (i = 0; i < 100; ++i) {
 			nox_sprintf(v24, "%.6s%2.2d.plr", &v25[1224], i);
 			v20 = nox_fs_open(v24);
-			if (!v20)
+			if (!v20) {
 				break;
+}
 			nox_fs_close(v20);
 		}
 	}
 	v21 = nox_fs_root();
 	nox_fs_set_workdir(v21);
-	if (i > 99)
+	if (i > 99) {
 		return 0;
+}
 	strcat(&v25[4], v24);
 	if (nox_common_gameFlags_check_40A5C0(2048)) {
 		if (v25[1274] == 0) {

@@ -44,7 +44,8 @@ void  nox_video_drawCursorSelectCircle_4773C0(nox_draw_viewport_t* a1p) {
 		v3 = a1;
 	LABEL_15:
 		v5 = *(uint32_t*)((uint32_t)dword_5d4594_1096640 + 112);
-		if (!(v5 & 0x200))
+		if (!(v5 & 0x200)) {
 			nox_video_drawCursorSelectCircle2_477470(a1, (int)v3, *(int*)&dword_5d4594_1096640);
+}
 	}
 }

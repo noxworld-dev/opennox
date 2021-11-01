@@ -6,8 +6,9 @@
 
 //----- (004BCC20) --------------------------------------------------------
 int  nox_thing_static_draw(uint32_t* a1, nox_drawable* dr) {
-	if (!(dr->flags28 & 0x40000) || dr->flags30 & 0x1000000)
+	if (!(dr->flags28 & 0x40000) || dr->flags30 & 0x1000000) {
 		nox_xxx_drawObject_4C4770_draw(a1, dr, *(uint32_t*)((char*)dr->field_76 + 4));
+}
 	return 1;
 }
 
@@ -25,8 +26,9 @@ bool  nox_things_static_draw_parse(nox_thing* obj, nox_memfile* f, char* attr_va
 	unsigned char v11; // [esp+Ch] [ebp+8h]
 
 	uint32_t* data = calloc(1u, 8u);
-	if (!data)
+	if (!data) {
 		return 0;
+}
 
 	data[0] = 8;
 	v6 = a3;

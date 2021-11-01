@@ -129,8 +129,9 @@ int  nox_client_drawXxx_444AC0(int w, int h, int depth, int flags) {
 	}
 	v8 = w & 0xFFFFFFE0;
 	if (!(v7 & 4)) {
-		if (!nox_video_resetRenderer_48A040(v8, h, depth))
+		if (!nox_video_resetRenderer_48A040(v8, h, depth)) {
 			return 0;
+}
 #ifndef NOX_CGO
 		cpuid_5d4594_3801804 = nox_xxx_testCPUID2_444D90();
 #endif // NOX_CGO
@@ -155,8 +156,9 @@ int  nox_client_drawXxx_444AC0(int w, int h, int depth, int flags) {
 	}
 	v10 = v9 - 1;
 	if (v10) {
-		if (v10 != 1)
+		if (v10 != 1) {
 			return 0;
+}
 		nox_video_pixmode_3799624 = 2;
 	} else {
 		nox_video_pixmode_3799624 = 1;
@@ -330,8 +332,9 @@ int nox_video_initCursorDrawVars_48B1F0() {
 		return 1;
 	}
 	nox_video_cursorDrawIsThreaded = 1;
-	if (nox_video_renderTargetFlags & 4)
+	if (nox_video_renderTargetFlags & 4) {
 		return 1;
+}
 	*getMemU32Ptr(0x5D4594, 1193640) = 0;
 	*getMemU32Ptr(0x5D4594, 1193628) = 0;
 	dword_5d4594_1193648 = 0;
@@ -429,8 +432,9 @@ int sdl_drawCursorThreaded(int a1) {
 		rect_to_sdl(r3, &src);
 		rect_to_sdl(&v4, &dst);
 
-		if (SDL_BlitScaled(g_cursor_surf, &src, g_backbuffer1, &dst))
+		if (SDL_BlitScaled(g_cursor_surf, &src, g_backbuffer1, &dst)) {
 			return 0;
+}
 
 		*r1 = v4;
 	}
@@ -636,20 +640,22 @@ void sub_48C110() {
 
 //----- (004AD100) --------------------------------------------------------
 int nox_video_setBackBufferCopyFunc_4AD100() {
-	if (nox_video_renderTargetFlags & 0x40)
+	if (nox_video_renderTargetFlags & 0x40) {
 		g_copy_backbuffer_ptr = nox_video_copyBackBuffer2_4AD180;
-	else
+	} else {
 		nox_video_setBackBufferCopyFunc2_4AD150();
+}
 	*getMemU32Ptr(0x973A20, 496) = 0;
 	return 1;
 }
 
 //----- (004AD150) --------------------------------------------------------
 void nox_video_setBackBufferCopyFunc2_4AD150() {
-	if (nox_video_renderTargetFlags & 0x20)
+	if (nox_video_renderTargetFlags & 0x20) {
 		g_copy_backbuffer_ptr = nox_video_copyBackBuffer_4AD2A0;
-	else
+	} else {
 		g_copy_backbuffer_ptr = nox_video_copyBackBuffer3_4AD1E0;
+}
 }
 
 void nox_video_callCopyBackBuffer_4AD170(void) { g_copy_backbuffer_ptr(); }
@@ -780,8 +786,9 @@ int  sub_48B3F0(void* a1p, int a2, int a3) {
 		if (a1 && a1 != dword_5d4594_1193624) {
 			dword_5d4594_1193624 = a1;
 			nox_video_lockSurface_48A670(g_cursor_surf);
-			for (i = 0; i < 512; i += 4)
+			for (i = 0; i < 512; i += 4) {
 				sub_49D1C0(*(uint32_t*)(i + (uint32_t)dword_5d4594_1193704), *getMemIntPtr(0x5D4594, 1193592), 128);
+}
 			a3 = 0;
 			a2 = 0;
 			if (sub_48C0C0(a1, &a2, &a3)) {
@@ -828,8 +835,9 @@ bool nox_xxx_makeFillerColor_48BDE0() {
 int sub_48C060() {
 	if (g_cursor_surf && g_cursor_surf_pixels) {
 		dword_5d4594_1193704 = malloc(512);
-		if (!dword_5d4594_1193704)
+		if (!dword_5d4594_1193704) {
 			return 0;
+}
 		int v1 = g_cursor_surf_pixels;
 
 		for (int v2 = 0; v2 < 512; v2 += 4) {
@@ -923,8 +931,9 @@ int sub_4338D0() {
 	if (result) {
 		result = sub_434DA0();
 		if (result) {
-			if (!dword_5d4594_823772)
+			if (!dword_5d4594_823772) {
 				sub_4353C0();
+}
 			*getMemU32Ptr(0x5D4594, 809596) = 0;
 			dword_5d4594_808568 = 0;
 			dword_5d4594_810628 = 0;
@@ -1173,8 +1182,9 @@ int  nox_video_setGammaSetting_434B30(int a1) {
 
 	result = a1;
 	if (a1 >= 1) {
-		if (a1 > 10)
+		if (a1 > 10) {
 			result = 10;
+}
 		nox_video_gammaValue = result;
 	} else {
 		result = 1;
@@ -1202,11 +1212,12 @@ int sub_434B60() {
 	v3 = &v14[512];
 	v13 = 0;
 	do {
-		if (v0 == 1)
+		if (v0 == 1) {
 			LOWORD(v4) = (uint16_t)v2 << 8;
-		else
+		} else {
 			v4 = (long long)(pow((double)v13 * 0.00392156862745098, 1.0 / ((double)(v0 - 1) * 0.1666666666666667 + 1.0)) *
 						   65535.0);
+}
 		*((uint16_t*)v3 + 256) = v4;
 		*(uint16_t*)v3 = v4;
 		*((uint16_t*)v3 - 256) = v4;
@@ -1360,8 +1371,9 @@ unsigned char*  sub_48C200(void* a1p, int a2, int a3) {
 		dword_5d4594_1193576 = v6;
 		dword_5d4594_1193516 = result;
 		v11 = dword_6F7C34;
-		if (!ptr_5D4594_3799572->field_15)
+		if (!ptr_5D4594_3799572->field_15) {
 			v11 = dword_6F7C40;
+}
 		v21 = v11;
 		v12 = v6;
 		v13 = v6 - 1;
@@ -1443,8 +1455,9 @@ unsigned char*  sub_48C320(void* a1p, int a2, int a3) {
 		dword_5d4594_1193576 = v6;
 		dword_5d4594_1193516 = result;
 		v10 = dword_6F7C34;
-		if (!ptr_5D4594_3799572->field_15)
+		if (!ptr_5D4594_3799572->field_15) {
 			v10 = dword_6F7C40;
+}
 		v19 = v10;
 		v11 = v6;
 		v12 = v6 - 1;

@@ -22,8 +22,9 @@ int  nox_xxx_updDrawSparkleTrail_4CDBF0(int a1, uint32_t* a2) {
 	v2 = a2;
 	v10 = a2[3] - a2[8];
 	v11 = a2[4] - a2[9];
-	if (!*getMemU32Ptr(0x5D4594, 1522996))
+	if (!*getMemU32Ptr(0x5D4594, 1522996)) {
 		*getMemU32Ptr(0x5D4594, 1522996) = nox_xxx_getTTByNameSpriteMB_44CFC0("BlueSpark");
+}
 	v8 = 0;
 	v12 = 0;
 	v9 = 5;

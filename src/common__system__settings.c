@@ -18,8 +18,9 @@ void  sub_409FB0_settings(short a1, unsigned short a2) {
 	v2 = sub_409A70(a1);
 	v3 = a2;
 	if (*getMemU16Ptr(0x5D4594, 3488 + 2 * v2) != a2) {
-		if (a2 > 0x3E7u)
+		if (a2 > 0x3E7u) {
 			v3 = 999;
+}
 		*getMemU16Ptr(0x5D4594, 3488 + 2 * v2) = v3;
 		nox_server_gameSettingsUpdated = 1;
 		if (nox_client_isConnected_43C700()) {

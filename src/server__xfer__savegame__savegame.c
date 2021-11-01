@@ -63,14 +63,17 @@ int  nox_xxx_saveMakePlayerLocation_4DB600(int a1) {
 	int v8;     // esi
 
 	v1 = nox_common_playerInfoFromNum_417090(31);
-	if (!v1)
+	if (!v1) {
 		return 0;
+}
 	v2 = (float*)*((uint32_t*)v1 + 514);
-	if (!v2)
+	if (!v2) {
 		return 0;
+}
 	v3 = nox_xxx_newObjectByTypeID_4E3810("SaveGameLocation");
-	if (!v3)
+	if (!v3) {
 		return 0;
+}
 	v4 = v2[14];
 	v5 = v2[15];
 	if (a1) {
@@ -85,8 +88,9 @@ int  nox_xxx_saveMakePlayerLocation_4DB600(int a1) {
 	if (v7) {
 		do {
 			v8 = *(uint32_t*)(v7 + 512);
-			if (*(uint8_t*)(v7 + 16) & 4)
+			if (*(uint8_t*)(v7 + 16) & 4) {
 				nox_xxx_unitSetOwner_4EC290((int)v3, v7);
+}
 			v7 = v8;
 		} while (v8);
 	}
@@ -105,14 +109,16 @@ void nox_xxx_monstersAllBelongToHost_4DB6A0() {
 	v0 = nox_common_playerInfoFromNum_417090(31);
 	v1 = v0;
 	if (v0 && *((uint32_t*)v0 + 514)) {
-		if (!*getMemU32Ptr(0x5D4594, 1563124))
+		if (!*getMemU32Ptr(0x5D4594, 1563124)) {
 			*getMemU32Ptr(0x5D4594, 1563124) = nox_xxx_getNameId_4E3AA0("SaveGameLocation");
+}
 		v2 = nox_server_getFirstObject_4DA790();
 		if (v2) {
 			while (*(unsigned short*)(v2 + 4) != *getMemU32Ptr(0x5D4594, 1563124)) {
 				v2 = nox_server_getNextObject_4DA7A0(v2);
-				if (!v2)
+				if (!v2) {
 					return;
+}
 			}
 			v3 = *(uint32_t*)(v2 + 516);
 			if (v3) {
@@ -146,8 +152,9 @@ void sub_4DB9C0() {
 	if (v0) {
 		do {
 			v1 = nox_server_getNextObject_4DA7A0(v0);
-			if (nox_xxx_isUnit_4E5B50(v0))
+			if (nox_xxx_isUnit_4E5B50(v0)) {
 				nox_xxx_delayedDeleteObject_4E5CC0(v0);
+}
 			v0 = v1;
 		} while (v1);
 	}
@@ -155,8 +162,9 @@ void sub_4DB9C0() {
 	if (obj) {
 		do {
 			nox_object_t* v3 = nox_xxx_getNextUpdatable2Object_4DA850(obj);
-			if (sub_4E5B80(obj))
+			if (sub_4E5B80(obj)) {
 				nox_xxx_delayedDeleteObject_4E5CC0(obj);
+}
 			obj = v3;
 		} while (obj);
 	}
@@ -183,31 +191,40 @@ int  nox_xxx_saveDoAutosaveMB_4DB370_savegame(const char* a1) {
 	nox_xxx_quickBarClose_4606B0();
 	v1 = nox_common_playerInfoFromNum_417090(31);
 	v2 = v1;
-	if (!v1)
+	if (!v1) {
 		return 0;
+}
 	v3 = *((uint32_t*)v1 + 514);
-	if (!v3)
+	if (!v3) {
 		return 0;
-	if (!a1)
+}
+	if (!a1) {
 		return 0;
+}
 	v4 = *(uint32_t*)(v3 + 16);
-	if ((v4 & 0x8000) != 0)
+	if ((v4 & 0x8000) != 0) {
 		return 0;
-	if (!nox_xxx_saveMakeFolder_0_4DB1D0())
+}
+	if (!nox_xxx_saveMakeFolder_0_4DB1D0()) {
 		return 0;
-	if (!nox_xxx_saveMakeFolder_4DB540(getMemAt(0x587000, 199176)))
+}
+	if (!nox_xxx_saveMakeFolder_4DB540(getMemAt(0x587000, 199176))) {
 		return 0;
+}
 	v5 = nox_xxx_mapGetMapName_409B40();
-	if (!sub_4DB5A0((int)getMemAt(0x587000, 199184), (int)v5))
+	if (!sub_4DB5A0((int)getMemAt(0x587000, 199184), (int)v5)) {
 		return 0;
-	if (!nox_xxx_saveMakePlayerLocation_4DB600(dword_5d4594_1563084))
+}
+	if (!nox_xxx_saveMakePlayerLocation_4DB600(dword_5d4594_1563084)) {
 		return 0;
+}
 	v13 = nox_xxx_mapGetMapName_409B40();
 	v12 = nox_xxx_mapGetMapName_409B40();
 	v6 = nox_fs_root();
 	nox_sprintf(v15, "%s\\Save\\%s\\%s\\%s.map", v6, getMemAt(0x587000, 199192), v12, v13);
-	if (!nox_xxx_mapSaveMap_51E010(v15, 0))
+	if (!nox_xxx_mapSaveMap_51E010(v15, 0)) {
 		return 0;
+}
 	nox_xxx_monstersAllBelongToHost_4DB6A0();
 	v7 = nox_fs_root();
 	nox_sprintf(v14, "%s\\Save\\%s\\Player.plr", v7, getMemAt(0x587000, 199224));
@@ -219,16 +236,19 @@ int  nox_xxx_saveDoAutosaveMB_4DB370_savegame(const char* a1) {
 		*getMemU32Ptr(0x85B3FC, 10980) = v9;
 	}
 	*getMemU8Ptr(0x85B3FC, 12257) = sub_450750();
-	if (!nox_xxx_playerSaveToFile_41A140(v14, (unsigned char)v2[2064]))
+	if (!nox_xxx_playerSaveToFile_41A140(v14, (unsigned char)v2[2064])) {
 		return 0;
-	if (!nox_xxx_mapSavePlayerDataMB_41A230(v14))
+}
+	if (!nox_xxx_mapSavePlayerDataMB_41A230(v14)) {
 		return 0;
+}
 	if (strcmp(a1, "WORKING")) {
 		v10 = nox_strman_loadString_40F1D0("AutoSaveComplete", 0,
 									"C:\\NoxPost\\src\\Server\\Xfer\\SaveGame\\SaveGame.c", 661);
 		nox_xxx_printToAll_4D9FD0(0, v10);
-		if (!sub_4DC100((int)getMemAt(0x587000, 199332), (int)a1))
+		if (!sub_4DC100((int)getMemAt(0x587000, 199332), (int)a1)) {
 			return 0;
+}
 	}
 	dword_5d4594_1563092 = 0;
 	dword_5d4594_1563088 = 0;
@@ -248,8 +268,9 @@ char*  nox_xxx_soloLoadGame_4DB7E0_savegame(const char* a1) {
 	char FileName[1024]; // [esp+20h] [ebp-400h]
 
 	v1 = nox_common_playerInfoFromNum_417090(31);
-	if (!a1)
+	if (!a1) {
 		return 0;
+}
 	if (!nox_common_gameFlags_check_40A5C0(2) || (result = (char*)sub_4738D0()) != 0) {
 		sub_4DB9C0();
 		if (!strcmp(a1, "WORKING") || (result = (char*)sub_4DC100((int)a1, (int)getMemAt(0x587000, 199416))) != 0) {

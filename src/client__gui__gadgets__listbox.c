@@ -29,27 +29,33 @@ nox_window*  nox_gui_newScrollListBox_4A4310(int a1, int a2, int a3, int a4, int
 	unsigned int v26; // [esp+180h] [ebp+8h]
 
 	v21 = 0;
-	if (a8[1] < nox_xxx_guiFontHeightMB_43F320(*(uint32_t*)(a7 + 200)))
+	if (a8[1] < nox_xxx_guiFontHeightMB_43F320(*(uint32_t*)(a7 + 200))) {
 		a8[1] = nox_xxx_guiFontHeightMB_43F320(*(uint32_t*)(a7 + 200));
-	if (*(uint16_t*)(a7 + 72))
+}
+	if (*(uint16_t*)(a7 + 72)) {
 		v21 = 1;
-	if (!(*(uint8_t*)(a7 + 8) & 0x20))
+}
+	if (!(*(uint8_t*)(a7 + 8) & 0x20)) {
 		return 0;
+}
 	v8 = nox_window_new(a1, a2, a3, a4, a5, a6, nox_xxx_wndListboxProcPre_4A30D0);
 	nox_xxx_wndListboxInit_4A3C00((int)v8, (int)a8);
 	if (v8) {
-		if (!*(uint32_t*)(a7 + 16))
+		if (!*(uint32_t*)(a7 + 16)) {
 			*(uint32_t*)(a7 + 16) = v8;
+}
 		nox_gui_windowCopyDrawData_46AF80((int)v8, (const void*)a7);
 		v9 = malloc(524 * *a8);
 		*((uint32_t*)a8 + 6) = v9;
-		if (!v9)
+		if (!v9) {
 			return 0;
+}
 		memset(v9, 0, 524 * *a8);
 		v10 = a6;
 		a8[26] = a6;
-		if (v21)
+		if (v21) {
 			a8[26] -= nox_xxx_guiFontHeightMB_43F320(*(uint32_t*)(a7 + 200));
+}
 		v11 = *((uint32_t*)a8 + 4);
 		a8[27] = 0;
 		*((uint32_t*)a8 + 12) = -1;

@@ -486,8 +486,9 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 	unsigned char* end = data + sz;
 	v364 = 0;
 	sub_470A80();
-	if (data >= data + sz)
+	if (data >= data + sz) {
 		return 1;
+}
 	while (data < end) {
 #ifdef NOX_CGO
 		unsigned char* old = data;
@@ -505,21 +506,24 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 				*getMemU32Ptr(0x5D4594, 1200800) = nox_frame_xxx_2598000;
 				v364 = nox_frame_xxx_2598000;
 				*getMemU32Ptr(0x5D4594, 1200808) = (unsigned short)nox_frame_xxx_2598000 >> 14;
-				if (*getMemU32Ptr(0x8531A0, 2576))
+				if (*getMemU32Ptr(0x8531A0, 2576)) {
 					nox_xxx_playerUnsetStatus_417530(*getMemIntPtr(0x8531A0, 2576), 64);
+}
 				sub_43C650();
 				data += 5;
 				break;
 			} else if (op != 39) {
 				v14 = *(unsigned short*)(v373 + 1);
-				if ((unsigned short)v14 < (unsigned int)(*getMemU32Ptr(0x5D4594, 1200800) + sub_43C790()))
+				if ((unsigned short)v14 < (unsigned int)(*getMemU32Ptr(0x5D4594, 1200800) + sub_43C790())) {
 					nox_frame_xxx_2598000 = v14;
+}
 				data += 5;
 				break;
 			}
 			v373 = data;
-			if (*getMemU32Ptr(0x8531A0, 2576) && *(uint8_t*)(*getMemU32Ptr(0x8531A0, 2576) + 3680) & 0x40)
+			if (*getMemU32Ptr(0x8531A0, 2576) && *(uint8_t*)(*getMemU32Ptr(0x8531A0, 2576) + 3680) & 0x40) {
 				return 1;
+}
 			v10 = nox_frame_xxx_2598000;
 			v11 = *(uint16_t*)(data + 1);
 			v12 = v11 + (nox_frame_xxx_2598000 & 0xFFFF0000);
@@ -527,14 +531,16 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 			if (v13 != *getMemU32Ptr(0x5D4594, 1200808)) {
 				if (v13 == ((getMemByte(0x5D4594, 1200808) + 1) & 3)) {
 					*getMemU32Ptr(0x5D4594, 1200808) = v13;
-					if (!v13)
+					if (!v13) {
 						v12 += 0x10000;
+}
 				} else {
 					v9 = 0;
 				}
 			}
-			if (v12 < nox_frame_xxx_2598000)
+			if (v12 < nox_frame_xxx_2598000) {
 				v9 = 0;
+}
 			if (!nox_common_gameFlags_check_40A5C0(1) && v9 == 1) {
 				nox_frame_xxx_2598000 = v12;
 				*getMemU32Ptr(0x5D4594, 1200800) = v12;
@@ -545,8 +551,9 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 				++*getMemU32Ptr(0x85B3FC, 120);
 				return 1;
 			}
-			if (nox_frame_xxx_2598000 > (unsigned int)(v10 + 1))
+			if (nox_frame_xxx_2598000 > (unsigned int)(v10 + 1)) {
 				dword_5d4594_2618900 += nox_frame_xxx_2598000 - v10;
+}
 			sub_43C650();
 			data += 3;
 			break;
@@ -559,8 +566,9 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 				nox_xxx_mapSetCrcMB_409B10(*(uint32_t*)(data + 33));
 				if (!nox_common_gameFlags_check_40A5C0(1)) {
 					nox_common_gameFlags_unset_40A540(8);
-					if (dword_5d4594_2650652)
+					if (dword_5d4594_2650652) {
 						sub_41D6C0();
+}
 				}
 				nox_xxx_setGameFlags_40A4D0(0x800000);
 				dword_5d4594_1200804 = nox_frame_xxx_2598000;
@@ -580,8 +588,9 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 				*((uint32_t*)v43 + 517) = *(uint32_t*)(data + 3);
 				*getMemU32Ptr(0x8531A0, 2576) = v43;
 			}
-			if (!nox_common_gameFlags_check_40A5C0(1))
+			if (!nox_common_gameFlags_check_40A5C0(1)) {
 				sub_57B920(getMemAt(0x5D4594, 1198020));
+}
 			dword_5d4594_1200804 = 0;
 			dword_5d4594_2618900 = 0;
 			*getMemU32Ptr(0x85B3FC, 120) = 0;
@@ -621,10 +630,12 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 				v213 = nox_strman_loadString_40F1D0("PlayerJoined", 0,
 											 "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 4661);
 				nox_swprintf(v399, v213, v212);
-				if (nox_xxx_gameGetPlayState_4356B0() == 3)
+				if (nox_xxx_gameGetPlayState_4356B0() == 3) {
 					nox_xxx_printCentered_445490(v399);
-				if (v210 == *getMemU32Ptr(0x85319C, 0) && nox_wcscmp((const wchar_t*)getMemAt(0x85B3FC, 12204), v212))
+}
+				if (v210 == *getMemU32Ptr(0x85319C, 0) && nox_wcscmp((const wchar_t*)getMemAt(0x85B3FC, 12204), v212)) {
 					dword_5d4594_1200832 = 1;
+}
 				OnLibraryNotice_263(v211);
 			}
 			data += 129;
@@ -644,23 +655,26 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 					v218 = nox_xxx_objGetTeamByNetCode_418C80(v215);
 					v219 = (int)v218;
 					OnLibraryNotice_264(v216 + 4704);
-					if (v218 && nox_xxx_servObjectHasTeam_419130((int)v218))
+					if (v218 && nox_xxx_servObjectHasTeam_419130((int)v218)) {
 						nox_xxx_netChangeTeamMb_419570(v219, v215);
+}
 				} else {
 					v220 = nox_strman_loadString_40F1D0("UnknownLeft", 0,
 												 "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 4757);
 					nox_swprintf(v397, v220);
 				}
-				if (nox_xxx_gameGetPlayState_4356B0() == 3)
+				if (nox_xxx_gameGetPlayState_4356B0() == 3) {
 					nox_xxx_printCentered_445490(v397);
+}
 			}
 			data += 3;
 			break;
 		case 47:
 			nox_xxx_netClearHighBit_578B30(*(uint16_t*)(data + 1));
 			if (nox_client_isConnected_43C700()) {
-				if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ADDITIONAL_NETWORK_TEST))
+				if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ADDITIONAL_NETWORK_TEST)) {
 					nox_xxx_netTestHighBit_578B70(*(unsigned short*)(data + 1));
+}
 				LODWORD(v5) = nox_xxx_spriteCreate_48E970(*(unsigned short*)(data + 3), *(unsigned short*)(data + 1),
 										 *(unsigned short*)(data + 5), *(unsigned short*)(data + 7));
 				if ((uint32_t)v5) {
@@ -676,8 +690,9 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 				data += 11;
 				break;
 			}
-			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ADDITIONAL_NETWORK_TEST))
+			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ADDITIONAL_NETWORK_TEST)) {
 				nox_xxx_netTestHighBit_578B70(*(unsigned short*)(data + 1));
+}
 			if (*(uint16_t*)(data + 3) || *(uint16_t*)(data + 1)) {
 				LODWORD(v5) = nox_xxx_spriteCreate_48E970(*(unsigned short*)(data + 3), *(unsigned short*)(data + 1),
 										 *(unsigned short*)(data + 5), *(unsigned short*)(data + 7));
@@ -687,8 +702,9 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 					nox_xxx_spriteSetFrameMB_45AB80(v5, *(unsigned char*)(data + 10));
 					LOBYTE(v5) = (*(uint8_t*)(data + 9) >> 4) & 7;
 					*(uint8_t*)(v29 + 297) = v5;
-					if ((unsigned char)v5 > 3u)
+					if ((unsigned char)v5 > 3u) {
 						*(uint8_t*)(v29 + 297) = v5 + 1;
+}
 					v30 = *(uint8_t*)(data + 9) & 0xF;
 					*(uint8_t*)(data + 9) = v30;
 					if (*(uint32_t*)(v29 + 276) != v30) {
@@ -698,8 +714,9 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 					}
 				}
 				k = *getMemU32Ptr(0x85319C, 0);
-				if (*(unsigned short*)(data + 1) == *getMemU32Ptr(0x85319C, 0) && sub_416120(9u))
+				if (*(unsigned short*)(data + 1) == *getMemU32Ptr(0x85319C, 0) && sub_416120(9u)) {
 					nox_xxx_cliUpdateCameraPos_435600(*(unsigned short*)(data + 5), *(unsigned short*)(data + 7));
+}
 			} else {
 				nox_xxx_cliUpdateCameraPos_435600(*(unsigned short*)(data + 5), *(unsigned short*)(data + 7));
 				nox_xxx_setKeybTimeout_4160D0(9);
@@ -713,8 +730,9 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 				data += 3;
 				break;
 			}
-			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ADDITIONAL_NETWORK_TEST))
+			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ADDITIONAL_NETWORK_TEST)) {
 				nox_xxx_netTestHighBit_578B70(*(unsigned short*)(data + 1));
+}
 			LODWORD(v5) = nox_xxx_netTestHighBit_578B70(*(unsigned short*)(data + 1)) ? nox_xxx_netSpriteByCodeStatic_45A720(v45) : nox_xxx_netSpriteByCodeDynamic_45A6F0(v45);
 			v46 = v5;
 			if (!(uint32_t)v5) {
@@ -732,8 +750,9 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 			}
 			v48 = nox_xxx_netTestHighBit_578B70(*(unsigned short*)(data + 1));
 			v331 = v46;
-			if (!v48)
+			if (!v48) {
 				goto LABEL_210;
+}
 			nox_xxx_cliDestroyObj_45A9A0(v46);
 			data += 3;
 			break;
@@ -744,8 +763,9 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 				data += 3;
 				break;
 			}
-			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ADDITIONAL_NETWORK_TEST))
+			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ADDITIONAL_NETWORK_TEST)) {
 				nox_xxx_netTestHighBit_578B70(*(unsigned short*)(data + 1));
+}
 			LODWORD(v5) = nox_xxx_netTestHighBit_578B70(*(unsigned short*)(data + 1)) ? nox_xxx_netSpriteByCodeStatic_45A720(v50) : nox_xxx_netSpriteByCodeDynamic_45A6F0(v50);
 			v51 = v5;
 			if (!(uint32_t)v5) {
@@ -774,8 +794,9 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 				data += 3;
 				break;
 			}
-			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG))
+			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG)) {
 				nox_xxx_netTestHighBit_578B70(*(unsigned short*)(data + 1));
+}
 			LODWORD(v5) = nox_xxx_netTestHighBit_578B70(*(unsigned short*)(data + 1)) ? nox_xxx_netSpriteByCodeStatic_45A720(v55) : nox_xxx_netSpriteByCodeDynamic_45A6F0(v55);
 			v51 = v5;
 			if (!(uint32_t)v5) {
@@ -787,19 +808,21 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 			*(uint32_t*)(v5 + 480) = 1;
 			*(uint32_t*)(v5 + 488) = 1;
 			if (nox_client_fadeObjects_80836) {
-				if ((uint32_t)v5 != *getMemU32Ptr(0x852978, 8))
+				if ((uint32_t)v5 != *getMemU32Ptr(0x852978, 8)) {
 					nox_xxx_spriteTransparentDecay_49B950((uint32_t*)v5, (int)nox_gameFPS);
+}
 			} else if (*(int(**)(int*, int))(v5 + 300) != nox_thing_animate_draw ||
 					   (v56 = *(uint32_t*)(v5 + 304)) == 0 || *(uint32_t*)(v56 + 12) != 1) {
 				if (v51 != *getMemU32Ptr(0x852978, 8)) {
 					v53 = nox_xxx_netTestHighBit_578B70(*(unsigned short*)(data + 1));
 				LABEL_208:
 					v331 = v51;
-					if (v53)
+					if (v53) {
 						nox_xxx_cliDestroyObj_45A9A0(v51);
-					else
+					} else {
 					LABEL_210:
 						nox_xxx_spriteDeleteStatic_45A4E0_drawable(v331);
+}
 				}
 			}
 			data += 3;
@@ -807,34 +830,40 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 		case 52:
 			v57 = nox_xxx_netClearHighBit_578B30(*(uint16_t*)(data + 1));
 			v58 = v57;
-			if (nox_client_isConnected_43C700())
+			if (nox_client_isConnected_43C700()) {
 				nox_xxx_cliAddObjFriend_4959F0(v58);
+}
 			data += 3;
 			break;
 		case 53:
 			v59 = nox_xxx_netClearHighBit_578B30(*(uint16_t*)(data + 1));
 			v60 = v59;
-			if (nox_client_isConnected_43C700())
+			if (nox_client_isConnected_43C700()) {
 				sub_495A20(v60);
+}
 			data += 3;
 			break;
 		case 54:
-			if (nox_client_isConnected_43C700())
+			if (nox_client_isConnected_43C700()) {
 				sub_4959B0();
+}
 			++data;
 			break;
 		case 55:
 			v62 = nox_xxx_netClearHighBit_578B30(*(uint16_t*)(data + 1));
 			v63 = v62;
 			if (nox_client_isConnected_43C700()) {
-				if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG))
+				if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG)) {
 					nox_xxx_netTestHighBit_578B70(*(unsigned short*)(data + 1));
-				if (nox_xxx_netTestHighBit_578B70(*(unsigned short*)(data + 1)))
+}
+				if (nox_xxx_netTestHighBit_578B70(*(unsigned short*)(data + 1))) {
 					LODWORD(v5) = nox_xxx_netSpriteByCodeStatic_45A720(v63);
-				else
+				} else {
 					LODWORD(v5) = nox_xxx_netSpriteByCodeDynamic_45A6F0(v63);
-				if ((uint32_t)v5)
+}
+				if ((uint32_t)v5) {
 					*(uint32_t*)(v5 + 120) |= 0x1000000u;
+}
 			}
 			data += 3;
 			break;
@@ -842,15 +871,18 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 			v64 = nox_xxx_netClearHighBit_578B30(*(uint16_t*)(data + 1));
 			v65 = v64;
 			if (nox_client_isConnected_43C700()) {
-				if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG))
+				if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG)) {
 					nox_xxx_netTestHighBit_578B70(*(unsigned short*)(data + 1));
-				if (nox_xxx_netTestHighBit_578B70(*(unsigned short*)(data + 1)))
+}
+				if (nox_xxx_netTestHighBit_578B70(*(unsigned short*)(data + 1))) {
 					LODWORD(v5) = nox_xxx_netSpriteByCodeStatic_45A720(v65);
-				else
+				} else {
 					LODWORD(v5) = nox_xxx_netSpriteByCodeDynamic_45A6F0(v65);
+}
 				if ((uint32_t)v5) {
-					if (*(uint32_t*)(v5 + 112) & 0x40000)
+					if (*(uint32_t*)(v5 + 112) & 0x40000) {
 						*(uint32_t*)(v5 + 300) = 0;
+}
 					*(uint32_t*)(v5 + 120) &= 0xFEFFFFFF;
 				}
 			}
@@ -859,17 +891,20 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 		case 57:
 			v16 = nox_xxx_netClearHighBit_578B30(*(uint16_t*)(data + 1));
 			v17 = v16;
-			if (!nox_client_isConnected_43C700())
+			if (!nox_client_isConnected_43C700()) {
 				goto LABEL_764;
+}
 			LODWORD(v5) = nox_xxx_netTestHighBit_578B70(*(unsigned short*)(data + 1)) ? nox_xxx_netSpriteByCodeStatic_45A720(v17) : nox_xxx_netSpriteByCodeDynamic_45A6F0(v17);
-			if (!(uint32_t)v5)
+			if (!(uint32_t)v5) {
 				goto LABEL_764;
+}
 			nox_xxx_spriteSetFrameMB_45AB80(v5, *(unsigned char*)(data + 3));
 			data += 4;
 			break;
 		case 58:
-			if (nox_client_isConnected_43C700() && !nox_common_gameFlags_check_40A5C0(1))
+			if (nox_client_isConnected_43C700() && !nox_common_gameFlags_check_40A5C0(1)) {
 				nox_xxx_wallDestroyedByWallid_410520(*(uint16_t*)(data + 1));
+}
 			data += 3;
 			break;
 		case 59:
@@ -905,13 +940,15 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 			data += 3;
 			break;
 		case 61:
-			if (!nox_client_isConnected_43C700())
+			if (!nox_client_isConnected_43C700()) {
 				goto LABEL_916;
+}
 			LODWORD(v5) = nox_server_getWallAtGrid_410580(*(unsigned char*)(data + 4), *(unsigned char*)(data + 5));
 			if (!(uint32_t)v5) {
 				LODWORD(v5) = nox_xxx_wallCreateAt_410250(*(unsigned char*)(data + 4), *(unsigned char*)(data + 5));
-				if (!(uint32_t)v5)
+				if (!(uint32_t)v5) {
 					goto LABEL_916;
+}
 			}
 			v66 = *(uint8_t*)(data + 1);
 			data += 6;
@@ -923,59 +960,71 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 			if (nox_client_isConnected_43C700()) {
 				LODWORD(v5) =
 					nox_server_getWallAtGrid_410580(*(unsigned char*)(data + 1), *(unsigned char*)(data + 2));
-				if ((uint32_t)v5)
+				if ((uint32_t)v5) {
 					nox_xxx_mapDelWallAtPt_410430(*(unsigned char*)(v5 + 5), *(unsigned char*)(v5 + 6));
+}
 			}
 			data += 3;
 			break;
 		case 65:
 			nox_xxx_netClearHighBit_578B30(*(uint16_t*)(data + 1));
-			if (!nox_client_isConnected_43C700())
+			if (!nox_client_isConnected_43C700()) {
 				goto LABEL_764;
-			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG))
+}
+			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG)) {
 				nox_xxx_netTestHighBit_578B70(*(unsigned short*)(data + 1));
-			if (!nox_xxx_unitSpriteCheckAlly_4951F0(*(unsigned short*)(data + 1)))
+}
+			if (!nox_xxx_unitSpriteCheckAlly_4951F0(*(unsigned short*)(data + 1))) {
 				goto LABEL_764;
+}
 			sub_495150(*(unsigned short*)(data + 1), 2 * *(unsigned char*)(data + 3));
 			data += 4;
 			break;
 		case 66:
 			nox_xxx_netClearHighBit_578B30(*(uint16_t*)(data + 1));
-			if (nox_client_isConnected_43C700() && nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG))
+			if (nox_client_isConnected_43C700() && nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG)) {
 				nox_xxx_netTestHighBit_578B70(*(unsigned short*)(data + 1));
+}
 			nox_xxx_cliAddHealthChange_49A650(*(unsigned short*)(data + 1), *(uint16_t*)(data + 3));
 			data += 5;
 			break;
 		case 67:
-			if (nox_client_isConnected_43C700())
+			if (nox_client_isConnected_43C700()) {
 				sub_470CB0(*(short*)(data + 1));
+}
 			data += 3;
 			break;
 		case 68:
 			v92 = nox_xxx_netClearHighBit_578B30(*(uint16_t*)(data + 1));
 			v93 = v92;
-			if (!nox_client_isConnected_43C700())
+			if (!nox_client_isConnected_43C700()) {
 				goto LABEL_1149;
-			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG))
+}
+			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG)) {
 				nox_xxx_netTestHighBit_578B70(*(unsigned short*)(data + 1));
+}
 			sub_4675E0(v93, *(uint16_t*)(data + 3), *(uint16_t*)(data + 5));
 			data += 7;
 			break;
 		case 69:
 			v96 = nox_xxx_netClearHighBit_578B30(*(uint16_t*)(data + 1));
 			v97 = v96;
-			if (!nox_client_isConnected_43C700())
+			if (!nox_client_isConnected_43C700()) {
 				goto LABEL_1163;
-			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG))
+}
+			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG)) {
 				nox_xxx_netTestHighBit_578B70(*(unsigned short*)(data + 1));
-			if (v97 != *getMemU32Ptr(0x85319C, 0))
+}
+			if (v97 != *getMemU32Ptr(0x85319C, 0)) {
 				goto LABEL_1163;
+}
 			nox_xxx_cliSetMana_470D10(*(unsigned short*)(data + 3));
 			data += 5;
 			break;
 		case 71:
-			if (!nox_client_isConnected_43C700())
+			if (!nox_client_isConnected_43C700()) {
 				goto LABEL_966;
+}
 			sub_470D20(*(unsigned char*)(data + 1), *getMemIntPtr(0x587000, 157092));
 			data += 2;
 			break;
@@ -984,8 +1033,9 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 			v99 = *getMemU32Ptr(0x8531A0, 2576);
 			v100 = v98;
 			if (nox_client_isConnected_43C700()) {
-				if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG))
+				if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG)) {
 					nox_xxx_netTestHighBit_578B70(*(unsigned short*)(data + 1));
+}
 				if (v100 == *getMemU32Ptr(0x85319C, 0)) {
 					v101 = nox_common_gameFlags_check_40A5C0(1);
 					if (!v101 && v99) {
@@ -1004,43 +1054,50 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 			data += 14;
 			break;
 		case 73:
-			if (!nox_client_isConnected_43C700())
+			if (!nox_client_isConnected_43C700()) {
 				goto LABEL_1163;
+}
 			sub_467450(*(uint32_t*)(data + 1));
 			data += 5;
 			break;
 		case 74:
 			v102 = *(uint32_t*)(data + 1);
-			if (!nox_client_isConnected_43C700())
+			if (!nox_client_isConnected_43C700()) {
 				goto LABEL_1163;
+}
 			sub_467490(v102);
 			data += 5;
 			break;
 		case 75:
 			v103 = nox_xxx_netClearHighBit_578B30(*(uint16_t*)(data + 1));
 			v104 = v103;
-			if (!nox_client_isConnected_43C700())
+			if (!nox_client_isConnected_43C700()) {
 				goto LABEL_1163;
-			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG))
+}
+			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG)) {
 				nox_xxx_netTestHighBit_578B70(*(unsigned short*)(data + 1));
+}
 			*(uint32_t*)v381 = 0;
 			*(uint16_t*)&v381[16] = -1;
 			*(uint32_t*)&v381[4] = 0;
 			*(uint16_t*)&v381[18] = -1;
 			*(uint32_t*)&v381[8] = 0;
 			*(uint32_t*)&v381[12] = 0;
-			if (nox_xxx_spritePickup_461660(v104, *(unsigned short*)(data + 3), v381))
+			if (nox_xxx_spritePickup_461660(v104, *(unsigned short*)(data + 3), v381)) {
 				goto LABEL_1163;
+}
 			nox_xxx_send2ServInvenFail_461630(v104);
 			data += 5;
 			break;
 		case 76:
 			v105 = nox_xxx_netClearHighBit_578B30(*(uint16_t*)(data + 1));
 			v106 = v105;
-			if (!nox_client_isConnected_43C700())
+			if (!nox_client_isConnected_43C700()) {
 				goto LABEL_735;
-			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG))
+}
+			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG)) {
 				nox_xxx_netTestHighBit_578B70(*(unsigned short*)(data + 1));
+}
 			v107 = 0;
 			v108 = v385;
 			do {
@@ -1049,18 +1106,21 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 			} while (v107 < 4);
 			*(uint16_t*)&v385[16] = -1;
 			*(uint16_t*)&v385[18] = -1;
-			if (nox_xxx_spritePickup_461660(v106, *(unsigned short*)(data + 3), v385))
+			if (nox_xxx_spritePickup_461660(v106, *(unsigned short*)(data + 3), v385)) {
 				goto LABEL_735;
+}
 			nox_xxx_send2ServInvenFail_461630(v106);
 			data += 9;
 			break;
 		case 77:
 			v109 = nox_xxx_netClearHighBit_578B30(*(uint16_t*)(data + 1));
 			v110 = v109;
-			if (!nox_client_isConnected_43C700())
+			if (!nox_client_isConnected_43C700()) {
 				goto LABEL_1163;
-			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG))
+}
+			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG)) {
 				nox_xxx_netTestHighBit_578B70(*(unsigned short*)(data + 1));
+}
 			sub_461A80(v110);
 			data += 5;
 			break;
@@ -1109,8 +1169,9 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 		case 81:
 		case 82:
 			LODWORD(v5) = nox_client_isConnected_43C700();
-			if (!(uint32_t)v5)
+			if (!(uint32_t)v5) {
 				goto LABEL_437;
+}
 			LOWORD(v5) = *(uint16_t*)(data + 1);
 			v116 = *(uint32_t*)(data + 3);
 			v117 = v5;
@@ -1127,8 +1188,9 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 			break;
 		case 83:
 		case 84:
-			if (!nox_client_isConnected_43C700())
+			if (!nox_client_isConnected_43C700()) {
 				goto LABEL_1149;
+}
 			sub_417B80(*(uint8_t*)data, *(unsigned short*)(data + 1), *(uint32_t*)(data + 3));
 			data += 7;
 			break;
@@ -1136,8 +1198,9 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 			v140 = nox_xxx_netClearHighBit_578B30(*(uint16_t*)(data + 1));
 			v141 = v140;
 			if (nox_client_isConnected_43C700()) {
-				if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG))
+				if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG)) {
 					nox_xxx_netTestHighBit_578B70(*(unsigned short*)(data + 1));
+}
 				v142 = nox_common_playerInfoGetByID_417040(v141);
 				if (v142) {
 					if (!nox_common_gameFlags_check_40A5C0(1) &&
@@ -1170,14 +1233,17 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 				data += 8;
 				break;
 			}
-			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG))
+			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG)) {
 				nox_xxx_netTestHighBit_578B70(*(unsigned short*)(data + 1));
+}
 			nox_xxx_clientPlaySoundSpecial_452D80(309, 100);
-			if (!nox_common_gameFlags_check_40A5C0(1))
+			if (!nox_common_gameFlags_check_40A5C0(1)) {
 				nox_xxx_setGameFlags_40A4D0(8);
+}
 			nox_xxx_initTime_435570();
-			if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING))
+			if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
 				sub_470510();
+}
 			v145 = nox_xxx_objGetTeamByNetCode_418C80(*getMemIntPtr(0x85319C, 0));
 			if (v145 && nox_xxx_teamCompare2_419180((int)v145, *(uint8_t*)(data + 1))) {
 				v146 = nox_strman_loadString_40F1D0("TeamWon", 0,
@@ -1215,11 +1281,13 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 				nox_swprintf(v393, v173);
 			}
 			nox_xxx_clientPlaySoundSpecial_452D80(309, 100);
-			if (!nox_common_gameFlags_check_40A5C0(1))
+			if (!nox_common_gameFlags_check_40A5C0(1)) {
 				nox_xxx_setGameFlags_40A4D0(8);
+}
 			nox_xxx_initTime_435570();
-			if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING))
+			if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
 				sub_470510();
+}
 			v174 = nox_xxx_objGetTeamByNetCode_418C80(*getMemIntPtr(0x85319C, 0));
 			if (v172) {
 				v175 = nox_strman_loadString_40F1D0("CTF_Victory", 0,
@@ -1262,10 +1330,12 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 				nox_swprintf(v391, v151);
 			}
 			nox_xxx_clientPlaySoundSpecial_452D80(309, 100);
-			if (!nox_common_gameFlags_check_40A5C0(1))
+			if (!nox_common_gameFlags_check_40A5C0(1)) {
 				nox_xxx_setGameFlags_40A4D0(8);
-			if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING))
+}
+			if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
 				sub_470510();
+}
 			nox_xxx_initTime_435570();
 			if (*(uint16_t*)(data + 1)) {
 				v152 = nox_xxx_netClearHighBit_578B30(*(uint16_t*)(data + 1));
@@ -1275,10 +1345,12 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 			v154 = nox_common_playerInfoGetByID_417040(v372);
 			if (!nox_common_gameFlags_check_40A5C0(1024)) {
 				if (*(uint16_t*)(data + 1)) {
-					if (!v154)
+					if (!v154) {
 						goto LABEL_559;
-					if (!*(uint8_t*)(data + 3))
+}
+					if (!*(uint8_t*)(data + 3)) {
 						sub_4947E0((int)v154);
+}
 					if (v153 != *getMemU32Ptr(0x85319C, 0)) {
 						v159 = nox_strman_loadString_40F1D0("DM_Loss", 0,
 													 "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 3899);
@@ -1324,8 +1396,9 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 					v158 = nox_strman_loadString_40F1D0("HL_Victory", 0,
 												 "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 3863);
 					nox_swprintf(v392, v158, v154 + 4704);
-					if (!*(uint8_t*)(data + 3))
+					if (!*(uint8_t*)(data + 3)) {
 						sub_4947E0((int)v154);
+}
 				}
 				nox_wcscat(v389, v392);
 				v150 = 1;
@@ -1354,11 +1427,13 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 				nox_swprintf(v394, v161);
 			}
 			nox_xxx_clientPlaySoundSpecial_452D80(309, 100);
-			if (!nox_common_gameFlags_check_40A5C0(1))
+			if (!nox_common_gameFlags_check_40A5C0(1)) {
 				nox_xxx_setGameFlags_40A4D0(8);
+}
 			nox_xxx_initTime_435570();
-			if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING))
+			if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
 				sub_470510();
+}
 			v162 = nox_xxx_objGetTeamByNetCode_418C80(*getMemIntPtr(0x85319C, 0));
 			if (nox_common_gameFlags_check_40A5C0(1024)) {
 				if (!v160) {
@@ -1389,8 +1464,9 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 					nox_wcscat(v390, v396);
 					v164 = 1;
 				}
-				if (!*(uint8_t*)(data + 3))
+				if (!*(uint8_t*)(data + 3)) {
 					goto LABEL_584;
+}
 			} else {
 				if (!v160) {
 					v168 = nox_strman_loadString_40F1D0("DM_Tie", 0,
@@ -1428,22 +1504,27 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 		case 90:
 			v132 = nox_xxx_netClearHighBit_578B30(*(uint16_t*)(data + 1));
 			v133 = v132;
-			if (!nox_client_isConnected_43C700())
+			if (!nox_client_isConnected_43C700()) {
 				goto LABEL_1149;
-			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG))
+}
+			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG)) {
 				nox_xxx_netTestHighBit_578B70(*(unsigned short*)(data + 1));
+}
 			LODWORD(v5) = nox_xxx_netTestHighBit_578B70(*(unsigned short*)(data + 1)) ? nox_xxx_netSpriteByCodeStatic_45A720(v133) : nox_xxx_netSpriteByCodeDynamic_45A6F0(v133);
 			v134 = v5;
-			if (!(uint32_t)v5)
+			if (!(uint32_t)v5) {
 				goto LABEL_1149;
+}
 			LODWORD(v5) = nox_xxx_spriteCheckFlag31_4356C0(v5, 15);
 			HIDWORD(v5) = *(uint32_t*)(data + 3);
 			v135 = v5;
 			*(uint32_t*)(v134 + 124) = HIDWORD(v5);
-			if (v134 == *getMemU32Ptr(0x852978, 8))
+			if (v134 == *getMemU32Ptr(0x852978, 8)) {
 				sub_467410(*(uint32_t*)(data + 3));
-			if (v135 != 1 || nox_xxx_spriteCheckFlag31_4356C0(v134, 15) || v134 == *getMemU32Ptr(0x852978, 8) && sub_467430() & 8)
+}
+			if (v135 != 1 || nox_xxx_spriteCheckFlag31_4356C0(v134, 15) || v134 == *getMemU32Ptr(0x852978, 8) && sub_467430() & 8) {
 				goto LABEL_1149;
+}
 			nox_thing* v136 = nox_get_thing(*(uint32_t*)(v134 + 108));
 			nox_xxx_spriteChangeIntensity_484D70_light_intensity(v134 + 136, v136->light_intensity);
 			data += 7;
@@ -1464,10 +1545,12 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 		case 92:
 			v88 = nox_xxx_netClearHighBit_578B30(*(uint16_t*)(data + 1));
 			v89 = v88;
-			if (!nox_client_isConnected_43C700())
+			if (!nox_client_isConnected_43C700()) {
 				goto LABEL_902;
-			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG))
+}
+			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG)) {
 				nox_xxx_netTestHighBit_578B70(*(unsigned short*)(data + 1));
+}
 			LODWORD(v5) = nox_xxx_netTestHighBit_578B70(*(unsigned short*)(data + 1)) ? nox_xxx_netSpriteByCodeStatic_45A720(v89) : nox_xxx_netSpriteByCodeDynamic_45A6F0(v89);
 			if ((uint32_t)v5) {
 				nox_xxx_spriteChangeLightColor_484BE0((uint32_t*)(v5 + 136), *(unsigned char*)(data + 3), *(unsigned char*)(data + 4),
@@ -1481,13 +1564,16 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 		case 93:
 			v84 = nox_xxx_netClearHighBit_578B30(*(uint16_t*)(data + 1));
 			v85 = v84;
-			if (!nox_client_isConnected_43C700())
+			if (!nox_client_isConnected_43C700()) {
 				goto LABEL_948;
-			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG))
+}
+			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG)) {
 				nox_xxx_netTestHighBit_578B70(*(unsigned short*)(data + 1));
+}
 			LODWORD(v5) = nox_xxx_netTestHighBit_578B70(*(unsigned short*)(data + 1)) ? nox_xxx_netSpriteByCodeStatic_45A720(v85) : nox_xxx_netSpriteByCodeDynamic_45A6F0(v85);
-			if (!(uint32_t)v5)
+			if (!(uint32_t)v5) {
 				goto LABEL_948;
+}
 			nox_xxx_spriteChangeIntensity_484D70_light_intensity(v5 + 136, *(float*)(data + 3));
 			data += 7;
 			break;
@@ -1520,8 +1606,9 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 			v120 = nox_xxx_netClearHighBit_578B30(*(uint16_t*)(data + 1));
 			v121 = v120;
 			if (nox_client_isConnected_43C700()) {
-				if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG))
+				if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG)) {
 					nox_xxx_netTestHighBit_578B70(*(unsigned short*)(data + 1));
+}
 				sub_462040(v121);
 			}
 			data += 3;
@@ -1530,8 +1617,9 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 			v122 = nox_xxx_netClearHighBit_578B30(*(uint16_t*)(data + 1));
 			v123 = v122;
 			if (nox_client_isConnected_43C700()) {
-				if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG))
+				if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG)) {
 					nox_xxx_netTestHighBit_578B70(*(unsigned short*)(data + 1));
+}
 				sub_4624D0(v123);
 			}
 			data += 3;
@@ -1539,8 +1627,9 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 		case 100:
 			v182 = nox_xxx_netClearHighBit_578B30(*(uint16_t*)(data + 1));
 			v183 = v182;
-			if (!nox_client_isConnected_43C700())
+			if (!nox_client_isConnected_43C700()) {
 				goto LABEL_638;
+}
 			sub_467930(v183, *(unsigned char*)(data + 3), *(unsigned char*)(data + 4));
 			data += 5;
 			break;
@@ -1548,12 +1637,14 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 			v71 = nox_xxx_netClearHighBit_578B30(*(uint16_t*)(data + 1));
 			v72 = v71;
 			if (nox_client_isConnected_43C700()) {
-				if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG))
+				if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG)) {
 					nox_xxx_netTestHighBit_578B70(*(unsigned short*)(data + 1));
-				if (nox_xxx_netTestHighBit_578B70(*(unsigned short*)(data + 1)))
+}
+				if (nox_xxx_netTestHighBit_578B70(*(unsigned short*)(data + 1))) {
 					LODWORD(v5) = nox_xxx_netSpriteByCodeStatic_45A720(v72);
-				else
+				} else {
 					LODWORD(v5) = nox_xxx_netSpriteByCodeDynamic_45A6F0(v72);
+}
 				v73 = (uint32_t*)v5;
 				if ((uint32_t)v5) {
 					v74 = *(uint32_t*)(v5 + 280);
@@ -1562,8 +1653,9 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 					if (k & 0x20000) {
 						if (!(v74 & 0x400)) {
 							HIDWORD(v5) = v73[70] & 0x400;
-							if (HIDWORD(v5) == 1024)
+							if (HIDWORD(v5) == 1024) {
 								sub_4BC720((int)v73);
+}
 						}
 						v75 = v73[70];
 						if (v75 & 0x800) {
@@ -1588,12 +1680,14 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 			v77 = nox_xxx_netClearHighBit_578B30(*(uint16_t*)(data + 1));
 			v78 = v77;
 			if (nox_client_isConnected_43C700()) {
-				if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG))
+				if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG)) {
 					nox_xxx_netTestHighBit_578B70(*(unsigned short*)(data + 1));
-				if (nox_xxx_netTestHighBit_578B70(*(unsigned short*)(data + 1)))
+}
+				if (nox_xxx_netTestHighBit_578B70(*(unsigned short*)(data + 1))) {
 					LODWORD(v5) = nox_xxx_netSpriteByCodeStatic_45A720(v78);
-				else
+				} else {
 					LODWORD(v5) = nox_xxx_netSpriteByCodeDynamic_45A6F0(v78);
+}
 				if ((uint32_t)v5) {
 					v79 = v5 + 432;
 					if ((uint32_t)v5 != (uint32_t)-432) {
@@ -1613,10 +1707,12 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 		case 104:
 			v82 = nox_xxx_netClearHighBit_578B30(*(uint16_t*)(data + 1));
 			v83 = v82;
-			if (!nox_client_isConnected_43C700())
+			if (!nox_client_isConnected_43C700()) {
 				goto LABEL_1057;
-			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG))
+}
+			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG)) {
 				nox_xxx_netTestHighBit_578B70(*(unsigned short*)(data + 1));
+}
 			if (v83 == *getMemU32Ptr(0x85319C, 0)) {
 				LOBYTE(k) = *(uint8_t*)(data + 7);
 				sub_467470(k, *(float*)(data + 3));
@@ -1664,8 +1760,9 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 			break;
 		case 106:
 			v119 = nox_common_playerInfoGetByID_417040(*(unsigned short*)(data + 1));
-			if (!v119)
+			if (!v119) {
 				goto LABEL_1070;
+}
 			if (!nox_common_gameFlags_check_40A5C0(1)) {
 				nox_xxx_playerUnsetStatus_417530((int)v119, 1059);
 				nox_xxx_netNeedTimestampStatus_4174F0((int)v119, *(uint32_t*)(data + 3) & 0x423);
@@ -1687,32 +1784,38 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 		case 107:
 			v69 = nox_xxx_netClearHighBit_578B30(*(uint16_t*)(data + 1));
 			v70 = v69;
-			if (!nox_client_isConnected_43C700())
+			if (!nox_client_isConnected_43C700()) {
 				goto LABEL_948;
-			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG))
+}
+			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG)) {
 				nox_xxx_netTestHighBit_578B70(*(unsigned short*)(data + 1));
+}
 			LODWORD(v5) = nox_xxx_netTestHighBit_578B70(*(unsigned short*)(data + 1)) ? nox_xxx_netSpriteByCodeStatic_45A720(v70) : nox_xxx_netSpriteByCodeDynamic_45A6F0(v70);
-			if (!(uint32_t)v5)
+			if (!(uint32_t)v5) {
 				goto LABEL_948;
+}
 			nox_xxx_spriteSetFrameMB_45AB80(v5, *(uint32_t*)(data + 3));
 			data += 7;
 			break;
 		case 108:
 			v184 = nox_xxx_netClearHighBit_578B30(*(uint16_t*)(data + 1));
 			v185 = v184;
-			if (!nox_client_isConnected_43C700())
+			if (!nox_client_isConnected_43C700()) {
 				goto LABEL_638;
+}
 			v186 = *(uint16_t*)(data + 3);
 			v187 = v186;
 			v186 &= 0x7FFFu;
 			*(uint16_t*)(data + 3) = v186;
 			nox_xxx_cliSummonCreat_4C2E50(*(unsigned short*)(data + 1), v186, v187 & 0x8000);
-			if (nox_xxx_netTestHighBit_578B70(*(unsigned short*)(data + 1)))
+			if (nox_xxx_netTestHighBit_578B70(*(unsigned short*)(data + 1))) {
 				v188 = nox_xxx_netSpriteByCodeStatic_45A720(v185);
-			else
+			} else {
 				v188 = nox_xxx_netSpriteByCodeDynamic_45A6F0(v185);
-			if (v188 || (v188 = nox_xxx_spriteCreate_48E970(*(unsigned short*)(data + 3), v185, 0, 0)) != 0)
+}
+			if (v188 || (v188 = nox_xxx_spriteCreate_48E970(*(unsigned short*)(data + 3), v185, 0, 0)) != 0) {
 				sub_459DD0((int)v188, 1);
+}
 			sub_495060(*(unsigned short*)(data + 1), 0, 0);
 			data += 5;
 			break;
@@ -1730,21 +1833,24 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 			nox_xxx_cliSummonOnDieOrBanish_4C3140(v191, (void*)(v192 & 0x8000));
 			sub_4950C0(*(unsigned short*)(data + 1));
 			v337 = v190;
-			if (!nox_xxx_netTestHighBit_578B70(*(unsigned short*)(data + 1)))
+			if (!nox_xxx_netTestHighBit_578B70(*(unsigned short*)(data + 1))) {
 				goto LABEL_642;
+}
 			LODWORD(v5) = nox_xxx_netSpriteByCodeStatic_45A720(v190);
 			goto LABEL_643;
 		case 110:
-			if (!nox_client_isConnected_43C700())
+			if (!nox_client_isConnected_43C700()) {
 				goto LABEL_1163;
+}
 			sub_467440(*(uint32_t*)(data + 1));
 			data += 5;
 			break;
 		case 111:
 			v139 = 0;
 			if (nox_client_isConnected_43C700()) {
-				if (*(uint8_t*)(data + 3) & 0x80)
+				if (*(uint8_t*)(data + 3) & 0x80) {
 					v139 = 1;
+}
 				nox_xxx_netSpellRewardCli_45CFE0(*(unsigned char*)(data + 1), *(unsigned char*)(data + 2), *(uint8_t*)(data + 3) & 0x7F, v139);
 			}
 			data += 4;
@@ -1761,10 +1867,11 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 			v236 = nox_xxx_netClearHighBit_578B30(*(uint16_t*)(data + 8));
 			v237 = v236;
 			if (nox_client_isConnected_43C700()) {
-				if (nox_xxx_netTestHighBit_578B70(*(unsigned short*)(data + 8)))
+				if (nox_xxx_netTestHighBit_578B70(*(unsigned short*)(data + 8))) {
 					v238 = nox_xxx_netSpriteByCodeStatic_45A720(v237);
-				else
+				} else {
 					v238 = nox_xxx_netSpriteByCodeDynamic_45A6F0(v237);
+}
 				HIWORD(k) = 0;
 				v382[0] = (int)v238;
 				LOWORD(k) = *(uint16_t*)(data + 2);
@@ -1803,8 +1910,9 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 		case 140:
 		case 141:
 		case 142:
-			if (!nox_client_isConnected_43C700())
+			if (!nox_client_isConnected_43C700()) {
 				goto LABEL_732;
+}
 			nox_xxx_netDrawRays_49BDD0((unsigned char*)data);
 			HIWORD(k) = 0;
 			v379.field_0 = *(unsigned short*)(data + 1);
@@ -1831,35 +1939,41 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 			data += 12;
 			break;
 		case 0x7Fu:
-			if (nox_client_isConnected_43C700())
+			if (nox_client_isConnected_43C700()) {
 				sub_4B7EE0(*(uint16_t*)(data + 1));
+}
 			data += 3;
 			break;
 		case 0x80u:
-			if (nox_client_isConnected_43C700())
+			if (nox_client_isConnected_43C700()) {
 				nox_xxx_fxShield_4B8090(*(unsigned short*)(data + 1), *(unsigned char*)(data + 3));
+}
 			goto LABEL_764;
 		case 0x81u:
-			if (!nox_client_isConnected_43C700())
+			if (!nox_client_isConnected_43C700()) {
 				goto LABEL_797;
+}
 			nox_xxx_makePointFxCli_499610(*(int*)&dword_5d4594_1200776, 50, 1000, 30, *(short*)(data + 1), *(short*)(data + 3));
 			data += 5;
 			break;
 		case 0x82u:
-			if (!nox_client_isConnected_43C700())
+			if (!nox_client_isConnected_43C700()) {
 				goto LABEL_797;
+}
 			nox_xxx_makePointFxCli_499610(*getMemIntPtr(0x5D4594, 1200780), 25, 500, 25, *(short*)(data + 1), *(short*)(data + 3));
 			data += 5;
 			break;
 		case 0x83u:
-			if (!nox_client_isConnected_43C700())
+			if (!nox_client_isConnected_43C700()) {
 				goto LABEL_797;
+}
 			nox_xxx_makePointFxCli_499610(*getMemIntPtr(0x5D4594, 1200784), 25, 500, 25, *(short*)(data + 1), *(short*)(data + 3));
 			data += 5;
 			break;
 		case 0x84u:
-			if (nox_client_isConnected_43C700())
+			if (nox_client_isConnected_43C700()) {
 				nox_xxx_makePointFxCli_499610(*(int*)&dword_5d4594_1200796, 25, 500, 25, *(short*)(data + 1), *(short*)(data + 3));
+}
 		LABEL_797:
 			data += 5;
 			break;
@@ -1947,8 +2061,9 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 					v258 = *(short*)(data + 3) + 2;
 				LABEL_858:
 					LODWORD(v5) = nox_xxx_spriteLoadAdd_45A360_drawable(v257, *(short*)(data + 1), v258);
-					if (!(uint32_t)v5)
+					if (!(uint32_t)v5) {
 						goto LABEL_868;
+}
 					nox_xxx_sprite_45A110_drawable((uint32_t*)v5);
 					data += 5;
 					break;
@@ -1959,8 +2074,9 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 					v253 = v252 >> 2;
 					for (i = v252 >> 2;; v253 = i) {
 						v254 = v253 + nox_common_randomIntMinMax_415FF0(0, v252, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 5536);
-						if (v254 > (int)v252)
+						if (v254 > (int)v252) {
 							v254 = v252;
+}
 						v255 = nox_common_randomIntMinMax_415FF0(0, 255, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 5541);
 						LODWORD(v5) = nox_xxx_spriteLoadAdd_45A360_drawable(
 							*getMemIntPtr(0x5D4594, 1200784),
@@ -1981,8 +2097,9 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 								nox_common_randomIntMinMax_415FF0(4, 10, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 5568);
 							nox_xxx_sprite_45A110_drawable((uint32_t*)v256);
 						}
-						if (!--v357)
+						if (!--v357) {
 							break;
+}
 					}
 					data += 5;
 					break;
@@ -1997,8 +2114,9 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 		case 0x8Fu:
 		case 0x90u:
 		case 0x91u:
-			if (nox_client_isConnected_43C700())
+			if (nox_client_isConnected_43C700()) {
 				nox_xxx_netDrawRays_49BDD0((unsigned char*)data);
+}
 		LABEL_735:
 			data += 9;
 			break;
@@ -2008,14 +2126,16 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 				*getMemU32Ptr(0x5D4594, 1200856) = nox_xxx_getTTByNameSpriteMB_44CFC0("MediumFireBoom");
 				*getMemU32Ptr(0x5D4594, 1197380) = nox_xxx_getTTByNameSpriteMB_44CFC0("FireBoom");
 			}
-			if (!nox_client_isConnected_43C700())
+			if (!nox_client_isConnected_43C700()) {
 				goto LABEL_916;
+}
 			v378.field_0 = *(short*)(data + 1);
 			v378.field_4 = *(short*)(data + 3);
 			sub_49A150(&v378, *getMemIntPtr(0x5D4594, 1200852), *(uint8_t*)(data + 5));
 			v235 = *getMemU32Ptr(0x5D4594, 1197380);
-			if (*(uint8_t*)(data + 5) <= 0xAAu)
+			if (*(uint8_t*)(data + 5) <= 0xAAu) {
 				v235 = *getMemU32Ptr(0x5D4594, 1200856);
+}
 			LODWORD(v5) = nox_xxx_spriteLoadAdd_45A360_drawable(v235, *(short*)(data + 1), *(short*)(data + 3));
 			goto LABEL_829;
 		case 0x94u:
@@ -2076,16 +2196,18 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 														 *(uint32_t*)(*getMemU32Ptr(0x852978, 8) + 16)) *
 															(*(unsigned short*)(data + 7) -
 															 *(uint32_t*)(*getMemU32Ptr(0x852978, 8) + 16)))));
-						if (v226 < 600)
+						if (v226 < 600) {
 							nox_xxx_clientPlaySoundSpecial_452D80(297, 100 * (600 - v226) / 600);
+}
 					}
 				}
 				if (!nox_xxx_checkGameFlagPause_413A50()) {
 					v227 = *(unsigned short*)(data + 5) - *(unsigned short*)(data + 1);
 					v228 = *(unsigned short*)(data + 7) - *(unsigned short*)(data + 3);
 					v229 = nox_double2int(sqrt((double)(v227 * v227 + v228 * v228)));
-					if (!v229)
+					if (!v229) {
 						v229 = 1;
+}
 					v230 = *(unsigned short*)(data + 5) - 4 * v227 / v229;
 					v231 = *(unsigned short*)(data + 7) - 4 * v228 / v229;
 					LODWORD(v5) = nox_xxx_spriteLoadAdd_45A360_drawable(*(int*)&dword_5d4594_1200796, v230, v231);
@@ -2113,8 +2235,9 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 			break;
 		case 0x96u:
 			if (nox_client_isConnected_43C700()) {
-				if (!*getMemU32Ptr(0x5D4594, 1200860))
+				if (!*getMemU32Ptr(0x5D4594, 1200860)) {
 					*getMemU32Ptr(0x5D4594, 1200860) = nox_xxx_getTTByNameSpriteMB_44CFC0("BlueSpark");
+}
 				v239 = 5;
 				do {
 					LODWORD(v5) =
@@ -2143,13 +2266,15 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 			data += 5;
 			break;
 		case 0x97u:
-			if (nox_client_isConnected_43C700())
+			if (nox_client_isConnected_43C700()) {
 				sub_4355B0(*(unsigned char*)(data + 1) / 3);
+}
 			data += 2;
 			break;
 		case 0x98u:
-			if (!*getMemU32Ptr(0x5D4594, 1200844))
+			if (!*getMemU32Ptr(0x5D4594, 1200844)) {
 				*getMemU32Ptr(0x5D4594, 1200844) = nox_xxx_getTTByNameSpriteMB_44CFC0("GreenZap");
+}
 			if (nox_client_isConnected_43C700()) {
 				LODWORD(v5) =
 					nox_xxx_spriteLoadAdd_45A360_drawable(*getMemIntPtr(0x5D4594, 1200844),
@@ -2168,15 +2293,17 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 			data += 11;
 			break;
 		case 0x9Au:
-			if (nox_client_isConnected_43C700())
+			if (nox_client_isConnected_43C700()) {
 				nox_xxx____setargv_11_473920();
+}
 			data += 5;
 			break;
 		case 0x9Bu:
 		case 0x9Cu:
 		case 0x9Du:
-			if (nox_client_isConnected_43C700())
+			if (nox_client_isConnected_43C700()) {
 				nox_xxx_mapGenClientText_4A9D00((unsigned char*)data);
+}
 			data += 3;
 			break;
 		case 0x9Eu:
@@ -2189,8 +2316,9 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 			case 5u:
 			case 6u:
 			case 7u:
-				if (nox_client_isConnected_43C700())
+				if (nox_client_isConnected_43C700()) {
 					nox_xxx_clientAddRayEffect_49C160(data);
+}
 				goto LABEL_1070;
 			case 8u:
 			case 9u:
@@ -2199,8 +2327,9 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 			case 0xCu:
 			case 0xDu:
 			case 0xEu:
-				if (!nox_client_isConnected_43C700())
+				if (!nox_client_isConnected_43C700()) {
 					goto LABEL_1070;
+}
 				nox_xxx_clientRemoveRayEffect_49C450(data);
 				data += 7;
 				break;
@@ -2229,14 +2358,16 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 			data += 6;
 			break;
 		case 0xA0u:
-			if (!nox_client_isConnected_43C700())
+			if (!nox_client_isConnected_43C700()) {
 				goto LABEL_1163;
+}
 			nox_xxx_fxDrawTurnUndead_499880((short*)(data + 1));
 			data += 5;
 			break;
 		case 0xA1u:
-			if (!nox_client_isConnected_43C700())
+			if (!nox_client_isConnected_43C700()) {
 				goto LABEL_916;
+}
 			if (!*getMemU32Ptr(0x5D4594, 1200864)) {
 				*getMemU32Ptr(0x5D4594, 1200864) = nox_xxx_getTTByNameSpriteMB_44CFC0("ArrowTrap1Smoke");
 				*getMemU32Ptr(0x5D4594, 1200868) = nox_xxx_getTTByNameSpriteMB_44CFC0("ArrowTrap2Smoke");
@@ -2264,14 +2395,16 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 			break;
 		case 0xA2u:
 			if (nox_client_isConnected_43C700()) {
-				if (!*getMemU32Ptr(0x5D4594, 1200848))
+				if (!*getMemU32Ptr(0x5D4594, 1200848)) {
 					*getMemU32Ptr(0x5D4594, 1200848) = nox_xxx_getTTByNameSpriteMB_44CFC0("HealOrb");
+}
 				v221 = *(unsigned short*)(data + 9);
 				k = v221 & 0xFFFC;
-				if (k <= 28)
+				if (k <= 28) {
 					v222 = v221 >> 2;
-				else
+				} else {
 					v222 = 7;
+}
 				v223 = v222 + 1;
 				if (v222 + 1 > 0) {
 					do {
@@ -2288,24 +2421,29 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 			break;
 		case 0xA4u:
 			v15 = (unsigned char*)(nox_xxx_netCliProcUpdateStream_494A60((unsigned char*)(data + 1), a1, v384) + data + 1);
-			if ((unsigned int)v15 >= end)
+			if ((unsigned int)v15 >= end) {
 				return 1;
+}
 			while (1) {
 				LODWORD(v5) = nox_xxx_netCliUpdateStream2_494C30(v15, a1, v384);
-				if ((int)v5 <= 0)
+				if ((int)v5 <= 0) {
 					break;
+}
 				v15 += v5;
-				if ((unsigned int)v15 >= end)
+				if ((unsigned int)v15 >= end) {
 					return 1;
+}
 			}
-			if ((int)v5 < 0)
+			if ((int)v5 < 0) {
 				LODWORD(v5) = -(int)v5;
+}
 			data = (unsigned int)&v15[v5];
 			break;
 		case 0xA6u:
 		case 0xA7u:
-			if (!nox_client_isConnected_43C700())
+			if (!nox_client_isConnected_43C700()) {
 				goto LABEL_651;
+}
 			v338 = *(char*)(data + 1);
 			v321 = (*(unsigned short*)(data + 2) >> 9) & 0x7E;
 			v317 = *(uint16_t*)(data + 2) & 0x3FF;
@@ -2346,10 +2484,12 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 				}
 				v202 = 2;
 			}
-			if (!nox_client_isConnected_43C700())
+			if (!nox_client_isConnected_43C700()) {
 				goto LABEL_693;
-			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG))
+}
+			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG)) {
 				nox_xxx_netTestHighBit_578B70(*(unsigned short*)(data + 1));
+}
 			if (*(uint8_t*)(data + 3) & 0x10) {
 				if (nox_xxx_gameGetPlayState_4356B0() == 3) {
 					nox_wcscpy((wchar_t*)getMemAt(0x5D4594, 1200068), (const wchar_t*)getMemAt(0x5D4594, 1197384));
@@ -2374,10 +2514,11 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 						}
 					} else {
 						nox_xxx_createTextBubble_48D880(data, (wchar_t*)getMemAt(0x5D4594, 1197384));
-						if (nox_xxx_netTestHighBit_578B70(*(unsigned short*)(data + 1)))
+						if (nox_xxx_netTestHighBit_578B70(*(unsigned short*)(data + 1))) {
 							LODWORD(v5) = nox_xxx_netSpriteByCodeStatic_45A720(v199);
-						else
+						} else {
 							LODWORD(v5) = nox_xxx_netSpriteByCodeDynamic_45A6F0(v199);
+}
 						if ((uint32_t)v5) {
 							v322 = *(unsigned short*)(data + 1);
 							v208 = nox_get_thing_pretty_name(*(uint32_t*)(v5 + 108));
@@ -2403,10 +2544,11 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 			if (nox_client_isConnected_43C700()) {
 				char v366[5];
 				v366[0] = -85;
-				if (nox_common_gameFlags_check_40A5C0(1))
+				if (nox_common_gameFlags_check_40A5C0(1)) {
 					*(uint32_t*)&v366[1] = *(uint32_t*)(data + 1);
-				else
+				} else {
 					*(uint32_t*)&v366[1] = v364;
+}
 				nox_netlist_addToMsgListCli_40EBC0(a1, 0, v366, 5);
 			}
 			data += n;
@@ -2436,8 +2578,9 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 					nox_client_setVersion_409AE0(*(uint32_t*)(data + 5));
 					nox_xxx_servSetPlrLimit_409F80(*(unsigned char*)(data + 17));
 					v35 = nox_xxx_cliGamedataGet_416590(0);
-					if (v35[56] != *(uint8_t*)(data + 19) || *((uint16_t*)v35 + 27) != *(unsigned char*)(data + 18))
+					if (v35[56] != *(uint8_t*)(data + 19) || *((uint16_t*)v35 + 27) != *(unsigned char*)(data + 18)) {
 						dword_5d4594_1200768 = 1;
+}
 					*((uint16_t*)v35 + 27) = *(unsigned char*)(data + 18);
 					v35[56] = *(uint8_t*)(data + 19);
 					if ((signed char)*(uint8_t*)(data + 9) >= 0) {
@@ -2445,20 +2588,23 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 						strcpy(v35, nox_xxx_mapGetMapName_409B40());
 					}
 					if (v355 || !nox_common_gameFlags_check_40A5C0(32)) {
-						if (!nox_common_gameFlags_check_40A5C0(32))
+						if (!nox_common_gameFlags_check_40A5C0(32)) {
 							sub_455C10();
+}
 					} else {
 						sub_455A50(2);
 					}
 					if (v360 || !nox_common_gameFlags_check_40A5C0(64)) {
-						if (!nox_common_gameFlags_check_40A5C0(64))
+						if (!nox_common_gameFlags_check_40A5C0(64)) {
 							sub_456050();
+}
 					} else {
 						sub_455F60();
 					}
 					if (v363 == 1 && !nox_common_gameFlags_check_40A5C0(4096)) {
-						for (j = nox_common_playerInfoGetFirst_416EA0(); j; j = nox_common_playerInfoGetNext_416EE0((int)j))
+						for (j = nox_common_playerInfoGetFirst_416EA0(); j; j = nox_common_playerInfoGetNext_416EE0((int)j)) {
 							nox_xxx_cliPlayerRespawn_417680((int)j, 255);
+}
 					}
 					if (!nox_common_gameFlags_check_40A5C0(0x20000) && nox_xxx_gameGetPlayState_4356B0() == 3) {
 						nox_xxx_setContinueMenuOrHost_43DDD0(0);
@@ -2472,8 +2618,9 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 			if (!nox_common_gameFlags_check_40A5C0(1)) {
 				v37 = nox_xxx_cliGamedataGet_416590(0);
 				strncpy(v37 + 9, (const char*)(data + 1), 0xFu);
-				if (memcmp(getMemAt(0x5D4594, 1200732), (const void*)(data + 17), 0x14u))
+				if (memcmp(getMemAt(0x5D4594, 1200732), (const void*)(data + 17), 0x14u)) {
 					dword_5d4594_1200768 = 1;
+}
 				if (*getMemU32Ptr(0x5D4594, 1200752) != *(uint32_t*)(data + 37) ||
 					*getMemU32Ptr(0x5D4594, 1200756) != *(uint32_t*)(data + 41)) {
 					dword_5d4594_1200768 = 1;
@@ -2503,12 +2650,14 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 			LOBYTE(v40) = v39[52];
 			int v4b = *(uint8_t*)(data + 54);
 			memcpy(v39, (const void*)(data + 2), 0x3Au);
-			if (((v40 >> 5) & 1) != ((v4b >> 5) & 1))
+			if (((v40 >> 5) & 1) != ((v4b >> 5) & 1)) {
 				sub_4573A0();
+}
 			if (!sub_4169C0()) {
 				if (!sub_459DA0()) {
-					if (*(uint8_t*)(data + 1) == 1)
+					if (*(uint8_t*)(data + 1) == 1) {
 						sub_4165F0(1, 0);
+}
 					if (nox_common_gameFlags_check_40A5C0(128)) {
 						if (dword_5d4594_1200832) {
 							v330 = *getMemU32Ptr(0x8531A0, 2576) + 4704;
@@ -2518,8 +2667,9 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 							nox_xxx_printCentered_445490(v401);
 							dword_5d4594_1200832 = 0;
 						}
-						if (nox_server_sanctuaryHelp_54276)
+						if (nox_server_sanctuaryHelp_54276) {
 							nox_xxx_cliShowHelpGui_49C560();
+}
 					}
 				}
 				nox_xxx_cliSetSettingsAcquired_4169D0(1);
@@ -2532,8 +2682,9 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 			v19 = v18;
 			if (nox_client_isConnected_43C700()) {
 				LODWORD(v5) = nox_xxx_netTestHighBit_578B70(*(unsigned short*)(data + 1)) ? nox_xxx_netSpriteByCodeStatic_45A720(v19) : nox_xxx_netSpriteByCodeDynamic_45A6F0(v19);
-				if ((uint32_t)v5)
+				if ((uint32_t)v5) {
 					*(uint8_t*)(v5 + 299) = *(uint8_t*)(data + 3);
+}
 			}
 			data += 4;
 			break;
@@ -2548,8 +2699,9 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 					v328 = (double)(16 * *(unsigned char*)(data + 3) / 10);
 					nox_xxx_spriteChangeIntensity_484D70_light_intensity(v22 + 136, v328);
 					nox_xxx_spriteSetFrameMB_45AB80(v22, 8 * *(unsigned char*)(data + 3) / 50);
-					if (*(uint32_t*)(v22 + 308) == 8)
+					if (*(uint32_t*)(v22 + 308) == 8) {
 						*(uint32_t*)(v22 + 308) = 7;
+}
 				}
 			}
 			data += 4;
@@ -2613,12 +2765,13 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 			break;
 		case 0xBDu:
 			if (nox_client_isConnected_43C700()) {
-				if (*(uint8_t*)(data + 1) == 1)
+				if (*(uint8_t*)(data + 1) == 1) {
 					v290 = nox_strman_loadString_40F1D0("sysopAccess", 0,
 												 "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 6351);
-				else
+				} else {
 					v290 = nox_strman_loadString_40F1D0("invalidPass", 0,
 												 "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 6356);
+}
 				nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v290);
 			}
 			data += 2;
@@ -2689,8 +2842,9 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 			break;
 		case 0xC3u:
 			nox_xxx_netClearHighBit_578B30(*(uint16_t*)(data + 1));
-			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ADDITIONAL_NETWORK_TEST))
+			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ADDITIONAL_NETWORK_TEST)) {
 				nox_xxx_netTestHighBit_578B70(*(unsigned short*)(data + 1));
+}
 			if (*(uint16_t*)(data + 3) || *(uint16_t*)(data + 1)) {
 				v27 = nox_xxx_spriteCreate_48E970(*(unsigned short*)(data + 3), *(unsigned short*)(data + 1),
 								 *(unsigned short*)(data + 5), *(unsigned short*)(data + 7));
@@ -2699,8 +2853,9 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 					nox_xxx_spriteSetFrameMB_45AB80((int)v27, *(unsigned char*)(data + 10));
 					v28 = (*(uint8_t*)(data + 9) >> 4) & 7;
 					*((uint8_t*)v27 + 297) = v28;
-					if (v28 > 3u)
+					if (v28 > 3u) {
 						*((uint8_t*)v27 + 297) = v28 + 1;
+}
 					if (v27[69] != *(unsigned char*)(data + 11)) {
 						v27[79] = nox_frame_xxx_2598000;
 						k = *(unsigned char*)(data + 11);
@@ -2708,8 +2863,9 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 					}
 				}
 				HIDWORD(v5) = *(unsigned short*)(data + 1);
-				if (WORD2(v5) == *getMemU32Ptr(0x85319C, 0) && sub_416120(8u))
+				if (WORD2(v5) == *getMemU32Ptr(0x85319C, 0) && sub_416120(8u)) {
 					nox_xxx_cliUpdateCameraPos_435600(*(unsigned short*)(data + 5), *(unsigned short*)(data + 7));
+}
 				data += 12;
 			} else {
 				nox_xxx_cliUpdateCameraPos_435600(*(unsigned short*)(data + 5), *(unsigned short*)(data + 7));
@@ -2720,8 +2876,9 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 		case 0xC4u:
 			switch (*(unsigned char*)(data + 1)) {
 			case 0u:
-				if (!nox_client_isConnected_43C700())
+				if (!nox_client_isConnected_43C700()) {
 					goto LABEL_888;
+}
 				memcpy(v386, (const void*)(data + 18), 2 * *(unsigned char*)(data + 15));
 				v386[*(unsigned char*)(data + 15)] = 0;
 				if (*(uint8_t*)(data + 17)) {
@@ -2731,19 +2888,22 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 				v272 = nox_xxx_clientGetTeamColor_418AB0(*(uint32_t*)(data + 2));
 				if (!v272) {
 					v272 = nox_xxx_teamCreate_4186D0(*(uint8_t*)(data + 2));
-					if (!v272)
+					if (!v272) {
 						goto LABEL_888;
+}
 				}
 				sub_418800((wchar_t*)v272, v386, 0);
 				sub_418830((int)v272, *(uint32_t*)(data + 6));
 				nox_xxx_netChangeTeamID_419090((int)v272, *(uint32_t*)(data + 10));
 				v272[56] = *(uint8_t*)(data + 16);
 				sub_457230(v386);
-				if (!(*(uint8_t*)(data + 14) & 1))
+				if (!(*(uint8_t*)(data + 14) & 1)) {
 					goto LABEL_888;
+}
 				v273 = nox_xxx_objGetTeamByNetCode_418C80(*getMemIntPtr(0x85319C, 0));
-				if (!v273)
+				if (!v273) {
 					goto LABEL_888;
+}
 				if (nox_common_gameFlags_check_40A5C0(1)) {
 					nox_xxx_createAtImpl_4191D0(v272[57], (int)v273, 1, *getMemIntPtr(0x85319C, 0), 1);
 					HIDWORD(v5) = *(unsigned char*)(data + 15);
@@ -2759,12 +2919,14 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 				v274 = nox_xxx_netClearHighBit_578B30(*(uint16_t*)(data + 6));
 				v275 = v274;
 				if (nox_client_isConnected_43C700()) {
-					if (nox_xxx_netTestHighBit_578B70(*(unsigned short*)(data + 6)))
+					if (nox_xxx_netTestHighBit_578B70(*(unsigned short*)(data + 6))) {
 						LODWORD(v5) = nox_xxx_netSpriteByCodeStatic_45A720(v275);
-					else
+					} else {
 						LODWORD(v5) = nox_xxx_netSpriteByCodeDynamic_45A6F0(v275);
-					if (!(uint32_t)v5)
+}
+					if (!(uint32_t)v5) {
 						LODWORD(v5) = nox_xxx_spriteCreate_48E970(*(unsigned short*)(data + 8), v275, 0, 0);
+}
 					v276 = v5 + 24;
 					if ((uint32_t)v5 != (uint32_t)-24) {
 						LODWORD(v5) = nox_xxx_clientGetTeamColor_418AB0(*(uint32_t*)(data + 2));
@@ -2793,8 +2955,9 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 						LODWORD(v5) = nox_xxx_clientGetTeamColor_418AB0(*(uint32_t*)(data + 2));
 						v279 = v5;
 						if ((uint32_t)v5) {
-							if (sub_4196D0((int)v278, v5, *(unsigned short*)(data + 6), 0))
+							if (sub_4196D0((int)v278, v5, *(unsigned short*)(data + 6), 0)) {
 								sub_4571A0(*(unsigned short*)(data + 6), *(unsigned char*)(v279 + 57));
+}
 						}
 					}
 				}
@@ -2802,16 +2965,18 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 			case 4u:
 				if (nox_client_isConnected_43C700()) {
 					LODWORD(v5) = nox_xxx_clientGetTeamColor_418AB0(*(uint32_t*)(data + 2));
-					if ((uint32_t)v5)
+					if ((uint32_t)v5) {
 						nox_xxx_teamRenameMB_418CD0((wchar_t*)v5, (wchar_t*)(data + 6));
+}
 				}
 				data += 46;
 				break;
 			case 5u:
 				if (nox_client_isConnected_43C700()) {
 					LODWORD(v5) = nox_xxx_clientGetTeamColor_418AB0(*(uint32_t*)(data + 2));
-					if ((uint32_t)v5)
+					if ((uint32_t)v5) {
 						sub_418D80(v5);
+}
 				}
 				goto LABEL_916;
 			case 6u:
@@ -2842,15 +3007,17 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 				}
 				break;
 			case 9u:
-				if (nox_client_isConnected_43C700())
+				if (nox_client_isConnected_43C700()) {
 					sub_417D00();
+}
 				data += 2;
 				break;
 			case 0xCu:
 				if (nox_client_isConnected_43C700()) {
 					LODWORD(v5) = nox_common_playerInfoGetByID_417040(*(unsigned short*)(data + 2));
-					if ((uint32_t)v5)
+					if ((uint32_t)v5) {
 						*(uint8_t*)(v5 + 2282) = *(uint8_t*)(data + 4);
+}
 				}
 				data += 5;
 				break;
@@ -2874,28 +3041,33 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 		case 0xC9u:
 			switch (*(unsigned char*)(data + 1)) {
 			case 1u:
-				if (nox_client_isConnected_43C700())
+				if (nox_client_isConnected_43C700()) {
 					sub_4C1590();
+}
 				data += 2;
 				break;
 			case 2u:
-				if (nox_client_isConnected_43C700())
+				if (nox_client_isConnected_43C700()) {
 					sub_479280();
+}
 				data += 2;
 				break;
 			case 3u:
-				if (nox_client_isConnected_43C700())
+				if (nox_client_isConnected_43C700()) {
 					sub_4C1BC0(data);
+}
 				data += 3;
 				break;
 			case 4u:
-				if (nox_client_isConnected_43C700())
+				if (nox_client_isConnected_43C700()) {
 					nox_xxx_tradeClientAddItem_4C1790(data);
+}
 				data += 15;
 				break;
 			case 5u:
-				if (!nox_client_isConnected_43C700())
+				if (!nox_client_isConnected_43C700()) {
 					goto LABEL_1133;
+}
 				sub_4C15D0(data);
 				data += 4;
 				break;
@@ -2908,45 +3080,53 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 				data += 14;
 				break;
 			case 7u:
-				if (nox_client_isConnected_43C700())
+				if (nox_client_isConnected_43C700()) {
 					nox_xxx_prepareP2PTrade_4C1BF0();
+}
 				data += 2;
 				break;
 			case 8u:
-				if (nox_client_isConnected_43C700())
+				if (nox_client_isConnected_43C700()) {
 					sub_479300(*(unsigned short*)(data + 2), *(unsigned short*)(data + 4), *(uint32_t*)(data + 6),
 							   *(uint32_t*)(data + 10), data + 14);
+}
 				data += 18;
 				break;
 			case 9u:
-				if (!nox_client_isConnected_43C700())
+				if (!nox_client_isConnected_43C700()) {
 					goto LABEL_1133;
+}
 				sub_479480(*(unsigned short*)(data + 2));
 				data += 4;
 				break;
 			case 0xCu:
-				if (nox_client_isConnected_43C700())
+				if (nox_client_isConnected_43C700()) {
 					nox_xxx_netP2PStartTrade_4C1320(data);
+}
 				data += 52;
 				break;
 			case 0xDu:
-				if (nox_client_isConnected_43C700())
+				if (nox_client_isConnected_43C700()) {
 					nox_xxx_cliStartShopDlg_478FD0((const wchar_t*)(data + 4), (char*)(data + 54), *(unsigned short*)(data + 2));
+}
 				data += 86;
 				break;
 			case 0x1Bu:
-				if (!nox_client_isConnected_43C700())
+				if (!nox_client_isConnected_43C700()) {
 					goto LABEL_1133;
+}
 				sub_479520(*(unsigned short*)(data + 2));
 				data += 4;
 				break;
 			case 0x1Du:
-				if (nox_client_isConnected_43C700())
+				if (nox_client_isConnected_43C700()) {
 					sub_4795E0(*(unsigned short*)(data + 2), *(uint32_t*)(data + 4));
+}
 				goto LABEL_1057;
 			case 0x1Fu:
-				if (!nox_client_isConnected_43C700())
+				if (!nox_client_isConnected_43C700()) {
 					goto LABEL_1057;
+}
 				sub_479740(*(unsigned short*)(data + 2), *(uint32_t*)(data + 4));
 				data += 8;
 				break;
@@ -2956,21 +3136,24 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 			break;
 		case 0xCAu:
 			if (nox_client_isConnected_43C700()) {
-				if (*(short*)(data + 1) == -8531)
+				if (*(short*)(data + 1) == -8531) {
 					sub_48E940();
-				else
+				} else {
 					sub_48E8E0(*(unsigned short*)(data + 1));
+}
 			}
 			data += 3;
 			break;
 		case 0xCBu:
-			if (nox_client_isConnected_43C700())
+			if (nox_client_isConnected_43C700()) {
 				sub_445450();
+}
 			++data;
 			break;
 		case 0xCCu:
-			if (nox_client_isConnected_43C700())
+			if (nox_client_isConnected_43C700()) {
 				sub_48D5A0(data);
+}
 			k = *(unsigned char*)(data + 3);
 			data += k + 4;
 			break;
@@ -2979,20 +3162,23 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 			if (nox_client_isConnected_43C700()) {
 				v87 = *(uint8_t*)(data + 2);
 				LOBYTE(v370) = *(uint8_t*)(data + 2) & 0x7F;
-				if (v87 < 0)
+				if (v87 < 0) {
 					v86 = 1;
+}
 				nox_xxx_netAbilityRewardCli_4611E0(*(unsigned char*)(data + 1), (unsigned char)v370, (char*)v86);
 			}
 			data += 3;
 			break;
 		case 0xCEu:
-			if (nox_client_isConnected_43C700())
+			if (nox_client_isConnected_43C700()) {
 				sub_461090(*(unsigned char*)(data + 1), *(unsigned char*)(data + 2));
+}
 			data += 3;
 			break;
 		case 0xCFu:
-			if (nox_client_isConnected_43C700())
+			if (nox_client_isConnected_43C700()) {
 				sub_461120(*(unsigned char*)(data + 1), *(unsigned char*)(data + 2));
+}
 			data += 3;
 			break;
 		case 0xD0u:
@@ -3000,30 +3186,34 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 				if (nox_client_isConnected_43C700()) {
 					sub_479D30((wchar_t*)(data + 34), *(uint32_t*)(data + 98), (char*)(data + 2), (const char*)(data + 102),
 							   *(uint8_t*)(data + 134));
-					if (*getMemU32Ptr(0x8531A0, 2576))
+					if (*getMemU32Ptr(0x8531A0, 2576)) {
 						nox_xxx_netNeedTimestampStatus_4174F0(*getMemIntPtr(0x8531A0, 2576), 512);
+}
 				}
 				data += 135;
 			} else if (*(uint8_t*)(data + 1) == 4) {
 				if (nox_client_isConnected_43C700()) {
 					sub_47A1F0();
-					if (*getMemU32Ptr(0x8531A0, 2576))
+					if (*getMemU32Ptr(0x8531A0, 2576)) {
 						nox_xxx_playerUnsetStatus_417530(*getMemIntPtr(0x8531A0, 2576), 512);
+}
 				}
 			LABEL_966:
 				data += 2;
 			}
 			break;
 		case 0xD1u:
-			if (nox_client_isConnected_43C700())
+			if (nox_client_isConnected_43C700()) {
 				nox_xxx_netGuideRewardCli_45D140(*(unsigned char*)(data + 1), *(uint8_t*)(data + 2) & 0x7F);
+}
 			data += 3;
 			break;
 		case 0xD2u:
 			v281 = nox_xxx_netClearHighBit_578B30(*(uint16_t*)(data + 1));
 			v282 = v281;
-			if (!nox_client_isConnected_43C700())
+			if (!nox_client_isConnected_43C700()) {
 				goto LABEL_948;
+}
 			if (nox_xxx_netTestHighBit_578B70(*(unsigned short*)(data + 1))) {
 				v283 = nox_xxx_netClearHighBit_578B30(*(uint16_t*)(data + 1));
 				LODWORD(v5) = nox_xxx_netSpriteByCodeStatic_45A720(v283);
@@ -3044,8 +3234,9 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 			data += 7;
 			break;
 		case 0xD3u:
-			if (!nox_client_isConnected_43C700())
+			if (!nox_client_isConnected_43C700()) {
 				goto LABEL_112;
+}
 			if ((unsigned int)(nox_frame_xxx_2598000 - *(uint32_t*)(data + 9)) >= 0x1E) {
 				v359 = -44;
 				nox_xxx_netClientSend2_4E53C0(31, &v359, 1, 0, 1);
@@ -3066,30 +3257,34 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 			switch (*(uint8_t*)(data + 1)) {
 			case 1:
 				if (nox_client_isConnected_43C700()) {
-					if (v296)
+					if (v296) {
 						nox_xxx_journalEntryAdd_427490(v296, (char*)(data + 2), *(uint16_t*)(data + 66));
+}
 					nox_xxx_cliBuildJournalString_469BC0();
 				}
 				data += 68;
 				break;
 			case 2:
 				if (nox_client_isConnected_43C700()) {
-					if (v296)
+					if (v296) {
 						nox_xxx_journalEntryRemove_427590(v296, (const char*)(data + 2));
+}
 					nox_xxx_cliBuildJournalString_469BC0();
 				}
 				data += 68;
 				break;
 			case 3:
-				if (nox_client_isConnected_43C700() && v296)
+				if (nox_client_isConnected_43C700() && v296) {
 					nox_xxx_journalUpdateEntry_4276B0(v296, (const char*)(data + 2), *(uint16_t*)(data + 66));
+}
 				data += 68;
 				break;
 			}
 			break;
 		case 0xD6u:
-			if (nox_client_isConnected_43C700())
+			if (nox_client_isConnected_43C700()) {
 				nox_client_lockScreenBriefing_450160(*(unsigned char*)(data + 1), *(unsigned char*)(data + 2), 0);
+}
 			data += 3;
 			break;
 		case 0xD7u:
@@ -3121,8 +3316,9 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 			v137 = nox_xxx_netClearHighBit_578B30(*(uint16_t*)(data + 1));
 			v138 = v137;
 			if (nox_client_isConnected_43C700()) {
-				if (nox_xxx_unitSpriteCheckAlly_4951F0(v138))
+				if (nox_xxx_unitSpriteCheckAlly_4951F0(v138)) {
 					sub_4950F0(v138, *(uint8_t*)(data + 3));
+}
 				nox_npc_set_328(v138, *(unsigned char*)(data + 3));
 				data += 4;
 			} else {
@@ -3134,12 +3330,14 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 			v193 = nox_xxx_netClearHighBit_578B30(*(uint16_t*)(data + 1));
 			v194 = v193;
 			if (nox_client_isConnected_43C700()) {
-				if (nox_xxx_netTestHighBit_578B70(*(unsigned short*)(data + 1)))
+				if (nox_xxx_netTestHighBit_578B70(*(unsigned short*)(data + 1))) {
 					v195 = nox_xxx_netSpriteByCodeStatic_45A720(v194);
-				else
+				} else {
 					v195 = nox_xxx_netSpriteByCodeDynamic_45A6F0(v194);
-				if (v195 || (v195 = nox_xxx_spriteCreate_48E970(*(unsigned short*)(data + 3), v194, 0, 0)) != 0)
+}
+				if (v195 || (v195 = nox_xxx_spriteCreate_48E970(*(unsigned short*)(data + 3), v194, 0, 0)) != 0) {
 					sub_459DD0((int)v195, 1);
+}
 				sub_495060(v194, 0, 0);
 			}
 		LABEL_638:
@@ -3154,23 +3352,27 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 			}
 			sub_4950C0(*(unsigned short*)(data + 1));
 			v337 = v197;
-			if (nox_xxx_netTestHighBit_578B70(*(unsigned short*)(data + 1)))
+			if (nox_xxx_netTestHighBit_578B70(*(unsigned short*)(data + 1))) {
 				LODWORD(v5) = nox_xxx_netSpriteByCodeStatic_45A720(v197);
-			else
+			} else {
 			LABEL_642:
 				LODWORD(v5) = nox_xxx_netSpriteByCodeDynamic_45A6F0(v337);
+}
 		LABEL_643:
-			if ((uint32_t)v5)
+			if ((uint32_t)v5) {
 				nox_xxx_cliRemoveHealthbar_459E30(v5, 1);
+}
 			data += 3;
 			break;
 		case 0xDDu:
 			v90 = nox_xxx_netClearHighBit_578B30(*(uint16_t*)(data + 1));
 			v91 = v90;
-			if (!nox_client_isConnected_43C700())
+			if (!nox_client_isConnected_43C700()) {
 				goto LABEL_1149;
-			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG))
+}
+			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG)) {
 				nox_xxx_netTestHighBit_578B70(*(unsigned short*)(data + 1));
+}
 			if (v91 == *getMemU32Ptr(0x85319C, 0)) {
 				nox_xxx_cliSetTotalHealth_470C80(*(unsigned short*)(data + 3), *(unsigned short*)(data + 5));
 				data += 7;
@@ -3185,12 +3387,15 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 		case 0xDEu:
 			v94 = nox_xxx_netClearHighBit_578B30(*(uint16_t*)(data + 1));
 			v95 = v94;
-			if (!nox_client_isConnected_43C700())
+			if (!nox_client_isConnected_43C700()) {
 				goto LABEL_948;
-			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG))
+}
+			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG)) {
 				nox_xxx_netTestHighBit_578B70(*(unsigned short*)(data + 1));
-			if (v95 != *getMemU32Ptr(0x85319C, 0))
+}
+			if (v95 != *getMemU32Ptr(0x85319C, 0)) {
 				goto LABEL_948;
+}
 			nox_xxx_cliSetManaAndMax_470CE0(*(unsigned short*)(data + 3), *(unsigned short*)(data + 5));
 			data += 7;
 			break;
@@ -3201,12 +3406,14 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 		case 0xE0u:
 			v291 = nox_xxx_netClearHighBit_578B30(*(uint16_t*)(data + 1));
 			v292 = v291;
-			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG))
+			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG)) {
 				nox_xxx_netTestHighBit_578B70(*(unsigned short*)(data + 1));
-			if (*(uint16_t*)(data + 1))
+}
+			if (*(uint16_t*)(data + 1)) {
 				sub_467750(v292, *(uint8_t*)(data + 3));
-			else
+			} else {
 				sub_467750(0, *(uint8_t*)(data + 3));
+}
 			data += 4;
 			break;
 		case 0xE1u:
@@ -3217,8 +3424,9 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 		case 0xE2u:
 			v294 = nox_xxx_netClearHighBit_578B30(*(uint16_t*)(data + 1));
 			v295 = v294;
-			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG))
+			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG)) {
 				nox_xxx_netTestHighBit_578B70(*(unsigned short*)(data + 1));
+}
 			LODWORD(v5) = sub_478080(v295);
 			if ((uint32_t)v5 || (LODWORD(v5) = sub_4676D0(v295), (uint32_t)v5) ||
 				(!nox_xxx_netTestHighBit_578B70(*(unsigned short*)(data + 1)) ? (LODWORD(v5) = nox_xxx_netSpriteByCodeDynamic_45A6F0(v295))
@@ -3247,18 +3455,21 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 			data += 3;
 			break;
 		case 0xE5u:
-			if (nox_client_isConnected_43C700())
+			if (nox_client_isConnected_43C700()) {
 				sub_43D9B0(*(unsigned char*)(data + 1), *(unsigned char*)(data + 2));
+}
 			data += 3;
 			break;
 		case 0xE6u:
-			if (nox_client_isConnected_43C700())
+			if (nox_client_isConnected_43C700()) {
 				sub_43DA80();
+}
 			data += 3;
 			break;
 		case 0xE7u:
-			if (nox_client_isConnected_43C700())
+			if (nox_client_isConnected_43C700()) {
 				sub_43DAD0();
+}
 			data += 3;
 			break;
 		case 0xE8u:
@@ -3271,8 +3482,9 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 						sub_478000();
 					}
 					v112 = nox_xxx_netSpriteByCodeDynamic_45A6F0(*(unsigned short*)(data + 1));
-					if (v112)
+					if (v112) {
 						nox_xxx_cliRemoveHealthbar_459E30((int)v112, 3);
+}
 					if (!nox_common_gameFlags_check_40A5C0(4096)) {
 						v111[1] = 0;
 						LODWORD(v5) = v111 + 582;
@@ -3309,13 +3521,15 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 			if (nox_client_isConnected_43C700()) {
 				if (nox_common_gameFlags_check_40A5C0(0x2000)) {
 					k = *(unsigned short*)(data + 1);
-					if ((unsigned short)k == *getMemU32Ptr(0x85319C, 0))
+					if ((unsigned short)k == *getMemU32Ptr(0x85319C, 0)) {
 						sub_45A670(*(uint32_t*)(data + 3));
+}
 				}
 				if (*(uint8_t*)(data + 8) & 1) {
 					LODWORD(v5) = nox_common_playerInfoGetByID_417040(*(unsigned short*)(data + 1));
-					if ((uint32_t)v5)
+					if ((uint32_t)v5) {
 						nox_xxx_cliPlayerRespawn_417680(v5, *(uint8_t*)(data + 7));
+}
 				}
 			}
 			data += 9;
@@ -3401,25 +3615,29 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 					nox_xxx_clientPlaySoundSpecial_452D80(1008, 100);
 					v299 = nox_common_playerInfoGetByID_417040(*(unsigned short*)(data + 2));
 					if (v299) {
-						if (!nox_common_gameFlags_check_40A5C0(1))
+						if (!nox_common_gameFlags_check_40A5C0(1)) {
 							*((uint32_t*)v299 + 1198) = 1;
+}
 					}
 				}
 				data += 4;
 				break;
 			case 2u:
-				if (nox_client_isConnected_43C700() == 1)
+				if (nox_client_isConnected_43C700() == 1) {
 					sub_49B4B0((unsigned short*)data);
+}
 				data += 14;
 				break;
 			case 4u:
 				if (nox_client_isConnected_43C700()) {
 					v300 = nox_common_playerInfoGetByID_417040(*(unsigned short*)(data + 3));
-					if (v300)
+					if (v300) {
 						v300[4816] = *(uint8_t*)(data + 2);
+}
 					HIDWORD(v5) = *(unsigned short*)(data + 3);
-					if (WORD2(v5) == *getMemU32Ptr(0x85319C, 0))
+					if (WORD2(v5) == *getMemU32Ptr(0x85319C, 0)) {
 						sub_463420(*(unsigned char*)(data + 2));
+}
 				}
 				data += 5;
 				break;
@@ -3437,34 +3655,39 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 				data += 16;
 				break;
 			case 0xCu:
-				if (nox_client_isConnected_43C700())
+				if (nox_client_isConnected_43C700()) {
 					nox_xxx_clientQuestWinScreen_450770(data);
+}
 				nox_client_gui_flag_1556112 = 0;
 				data += 90;
 				break;
 			case 0xDu:
-				if (nox_client_isConnected_43C700())
+				if (nox_client_isConnected_43C700()) {
 					nox_client_showQuestBriefing2_450980(data, *(uint8_t*)(data + 4) & 1);
+}
 				nox_client_gui_flag_1556112 = 0;
 				data += 69;
 				break;
 			case 0xEu: // quest start briefing
-				if (nox_client_isConnected_43C700())
+				if (nox_client_isConnected_43C700()) {
 					nox_client_showQuestBriefing_450A30(data, 1);
+}
 				nox_client_gui_flag_1556112 = 0;
 				data += 69;
 				break;
 			case 0xFu:
 				if (nox_client_isConnected_43C700()) {
 					LODWORD(v5) = nox_xxx_netSpriteByCodeStatic_45A720(*(unsigned short*)(data + 2));
-					if ((uint32_t)v5)
+					if ((uint32_t)v5) {
 						*(uint8_t*)(v5 + 432) = 0;
+}
 				}
 				data += 4;
 				break;
 			case 0x10u:
-				if (!*getMemU32Ptr(0x5D4594, 1200904))
+				if (!*getMemU32Ptr(0x5D4594, 1200904)) {
 					*getMemU32Ptr(0x5D4594, 1200904) = nox_xxx_getTTByNameSpriteMB_44CFC0("GreenZap");
+}
 				if (nox_client_isConnected_43C700()) {
 					v301 = nox_xxx_spriteLoadAdd_45A360_drawable(*getMemIntPtr(0x5D4594, 1200904), *(unsigned short*)(data + 6),
 											   *(unsigned short*)(data + 8));
@@ -3476,18 +3699,21 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 				}
 				goto LABEL_1130;
 			case 0x11u:
-				if (nox_client_isConnected_43C700())
+				if (nox_client_isConnected_43C700()) {
 					sub_45D320(*(unsigned short*)(data + 2));
+}
 				goto LABEL_1133;
 			case 0x12u:
-				if (!nox_client_isConnected_43C700())
+				if (!nox_client_isConnected_43C700()) {
 					goto LABEL_1133;
+}
 				nox_xxx_clientQuestDisableAbility_45D4A0(*(unsigned short*)(data + 2));
 				data += 4;
 				break;
 			case 0x13u:
-				if (!nox_client_isConnected_43C700())
+				if (!nox_client_isConnected_43C700()) {
 					goto LABEL_1133;
+}
 				sub_45D400(*(unsigned short*)(data + 2));
 				data += 4;
 				break;
@@ -3513,22 +3739,25 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 			case 0x16u:
 				if (nox_client_isConnected_43C700()) {
 					LODWORD(v5) = nox_common_playerInfoGetByID_417040(*(unsigned short*)(data + 3));
-					if ((uint32_t)v5)
+					if ((uint32_t)v5) {
 						*(uint8_t*)(v5 + 4824) = *(uint8_t*)(data + 2);
+}
 				}
 				data += 5;
 				break;
 			case 0x17u:
 				if (nox_client_isConnected_43C700()) {
 					LODWORD(v5) = nox_common_playerInfoGetByID_417040(*(unsigned short*)(data + 3));
-					if ((uint32_t)v5)
+					if ((uint32_t)v5) {
 						*(uint8_t*)(v5 + 4825) = *(uint8_t*)(data + 2);
+}
 				}
 				data += 5;
 				break;
 			case 0x18u:
-				if (nox_client_isConnected_43C700() == 1)
+				if (nox_client_isConnected_43C700() == 1) {
 					sub_4BFBB0((uint32_t*)*(unsigned char*)(data + 2));
+}
 				data += 3;
 				break;
 			case 0x19u:
@@ -3538,8 +3767,9 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 				}
 				v302 = (uint32_t*)nox_xxx_spriteLoadAdd_45A360_drawable(*getMemIntPtr(0x5D4594, 1200912), *(short*)(data + 2),
 													*(short*)(data + 4));
-				if (v302)
+				if (v302) {
 					nox_xxx_sprite_45A110_drawable(v302);
+}
 				if (nox_client_isConnected_43C700()) {
 					v380.field_0 = *(short*)(data + 2);
 					v380.field_4 = *(short*)(data + 4);
@@ -3547,13 +3777,15 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 				}
 				goto LABEL_1149;
 			case 0x1Au:
-				if (nox_client_isConnected_43C700())
+				if (nox_client_isConnected_43C700()) {
 					nox_xxx_makePointFxCli_499610(*getMemIntPtr(0x5D4594, 1200788), 25, 500, 25, *(short*)(data + 2), *(short*)(data + 4));
+}
 				data += 6;
 				break;
 			case 0x1Cu:
-				if (nox_client_isConnected_43C700())
+				if (nox_client_isConnected_43C700()) {
 					sub_41D1A0(*(unsigned char*)(data + 2));
+}
 				data += 3;
 				break;
 			case 0x1Du:
@@ -3584,8 +3816,9 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 				goto LABEL_1163;
 			case 0x1Fu:
 				v306 = nox_common_playerInfoGetByID_417040(*(unsigned short*)(data + 3));
-				if (!nox_client_isConnected_43C700() || !v306)
+				if (!nox_client_isConnected_43C700() || !v306) {
 					goto LABEL_1163;
+}
 				if (v306 == *(char**)getMemAt(0x8531A0, 2576)) {
 					v350 = nox_xxx_guiCreatureGetName_427240(*(unsigned char*)(data + 2));
 					v307 = nox_strman_loadString_40F1D0("PlyrGide.c:AwardGuide", 0,
@@ -3602,8 +3835,9 @@ int  nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 				break;
 			case 0x20u:
 				v309 = nox_common_playerInfoGetByID_417040(*(unsigned short*)(data + 3));
-				if (!nox_client_isConnected_43C700() || !v309)
+				if (!nox_client_isConnected_43C700() || !v309) {
 					goto LABEL_1163;
+}
 				if (v309 == *(char**)getMemAt(0x8531A0, 2576)) {
 					v352 = nox_xxx_abilityGetName_0_425260(*(unsigned char*)(data + 2));
 					v310 = nox_strman_loadString_40F1D0("ComAblty.c:AwardAbility", 0,

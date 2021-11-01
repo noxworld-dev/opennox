@@ -11,8 +11,9 @@ uint32_t*  nox_xxx_updDrawAddRndSpark_4CDFA0(int a1, uint32_t* a2) {
 	uint32_t* v3;     // ebp
 	uint32_t* v4;     // esi
 
-	if (!*getMemU32Ptr(0x5D4594, 1523008))
+	if (!*getMemU32Ptr(0x5D4594, 1523008)) {
 		*getMemU32Ptr(0x5D4594, 1523008) = nox_xxx_getTTByNameSpriteMB_44CFC0("DeathBallSpark");
+}
 	result = a2;
 	if ((int)a2 > 0) {
 		v3 = a2;
@@ -50,8 +51,9 @@ int  nox_xxx_updDrawDBallCharge_4CE0C0(int a1, int a2) {
 	char v10;       // [esp-14h] [ebp-1Ch]
 	short v11[4]; // [esp+0h] [ebp-8h]
 
-	if (!*getMemU32Ptr(0x5D4594, 1523012))
+	if (!*getMemU32Ptr(0x5D4594, 1523012)) {
 		*getMemU32Ptr(0x5D4594, 1523012) = nox_xxx_getTTByNameSpriteMB_44CFC0("CharmOrb");
+}
 	v2 = 10;
 	v3 = *(uint16_t*)(a2 + 16);
 	v11[0] = *(uint16_t*)(a2 + 12);

@@ -141,10 +141,11 @@ int  nox_xxx_bookDrawList_45BD40(int a1) {
 	dword_5d4594_1046656 = v3 + 2;
 	nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 1046880));
 	nox_client_drawImageAt_47D2C0(*getMemIntPtr(0x5D4594, 1046856), v1, v2);
-	if (dword_5d4594_1046872)
+	if (dword_5d4594_1046872) {
 		nox_client_drawImageAt_47D2C0(*getMemIntPtr(0x5D4594, 1046660), v1, v2);
-	else
+	} else {
 		nox_client_drawImageAt_47D2C0(*getMemIntPtr(0x5D4594, 1046644), v1, v2);
+}
 	if (dword_5d4594_1046868 == 3) {
 		nox_video_drawAnimatedImageOrCursorAt_4BE6D0(*(int*)&dword_5d4594_1046928, v1, v2);
 		goto LABEL_75;
@@ -166,8 +167,9 @@ int  nox_xxx_bookDrawList_45BD40(int a1) {
 		if (2 * *(uint32_t*)WideCharStr > 0) {
 			while (1) {
 				v8 = v5 + 2 * *(uint32_t*)WideCharStr * v4;
-				if (v8 >= *getMemIntPtr(0x5D4594, 1047508) - dword_5d4594_1047512)
+				if (v8 >= *getMemIntPtr(0x5D4594, 1047508) - dword_5d4594_1047512) {
 					break;
+}
 				if (v5 == *(uint32_t*)WideCharStr) {
 					v6 = v66 + 199;
 					v7 = v67 + 19;
@@ -175,16 +177,18 @@ int  nox_xxx_bookDrawList_45BD40(int a1) {
 				nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 1046880));
 				v9 = *(uint8_t*)(dword_5d4594_1047516 + 2251);
 				if (dword_5d4594_1046868 == 1) {
-					if (v9 == 2 && !nox_xxx_spellIsEnabled_424B70(*getMemU32Ptr(0x5D4594, 1046960 + 4 * v8) + 74))
+					if (v9 == 2 && !nox_xxx_spellIsEnabled_424B70(*getMemU32Ptr(0x5D4594, 1046960 + 4 * v8) + 74)) {
 						nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 1046884));
+}
 					v10 = (unsigned short*)nox_xxx_guiCreatureGetName_427240(*getMemU32Ptr(0x5D4594, 1046960 + 4 * v8));
 					nox_xxx_drawGetStringSize_43F840(0, v10, &v65, 0, 128);
 					v62 = v7;
 					v60 = v6 - v65 / 2;
 					v11 = (short*)nox_xxx_guiCreatureGetName_427240(*getMemU32Ptr(0x5D4594, 1046960 + 4 * v8));
 				} else if (v9) {
-					if (!nox_xxx_spellIsEnabled_424B70(*getMemU32Ptr(0x5D4594, 1046960 + 4 * v8)))
+					if (!nox_xxx_spellIsEnabled_424B70(*getMemU32Ptr(0x5D4594, 1046960 + 4 * v8))) {
 						nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 1046884));
+}
 					v13 = (unsigned short*)nox_xxx_spellTitle_424930(*getMemU32Ptr(0x5D4594, 1046960 + 4 * v8));
 					nox_xxx_drawGetStringSize_43F840(0, v13, &v65, 0, 128);
 					v62 = v7;
@@ -199,8 +203,9 @@ int  nox_xxx_bookDrawList_45BD40(int a1) {
 				}
 				nox_xxx_drawString_43F6E0(0, v11, v60, v62);
 				v7 += dword_5d4594_1046656;
-				if (++v5 >= 2 * *(uint32_t*)WideCharStr)
+				if (++v5 >= 2 * *(uint32_t*)WideCharStr) {
 					break;
+}
 				v4 = dword_5d4594_1046936;
 			}
 		}
@@ -247,10 +252,11 @@ int  nox_xxx_bookDrawList_45BD40(int a1) {
 		v23 = v14 + v3 + 2;
 		v24 = (unsigned short*)nox_xxx_guiCreatureGetName_427240(*getMemU32Ptr(0x5D4594, 1046960 + 4 * dword_5d4594_1046932));
 		nox_xxx_bookGetStringSize_43FA80(0, v24, &v70, &v68, 108);
-		if (v68 <= v3)
+		if (v68 <= v3) {
 			v25 = (108 - v70) / 2 + v66 + 24;
-		else
+		} else {
 			v25 = v66 + 24;
+}
 		v55 = v25;
 		v26 = (uint16_t*)nox_xxx_guiCreatureGetName_427240(*getMemU32Ptr(0x5D4594, 1046960 + 4 * dword_5d4594_1046932));
 		nox_xxx_bookDrawString_43FA80_43FD80(0, v26, v55, v23, 128, 0);
@@ -272,10 +278,11 @@ int  nox_xxx_bookDrawList_45BD40(int a1) {
 			sub_425450(*getMemU32Ptr(0x5D4594, 1046960 + 4 * dword_5d4594_1046932));
 			v33 = (unsigned short*)nox_xxx_abilityGetName_0_425260(*getMemU32Ptr(0x5D4594, 1046960 + 4 * dword_5d4594_1046932));
 			nox_xxx_bookGetStringSize_43FA80(0, v33, &v70, &v68, 108);
-			if (v68 <= v3)
+			if (v68 <= v3) {
 				v34 = (108 - v70) / 2 + v66 + 24;
-			else
+			} else {
 				v34 = v66 + 24;
+}
 			v58 = v67 + 53;
 			v56 = v34;
 			v35 = (uint16_t*)nox_xxx_abilityGetName_0_425260(*getMemU32Ptr(0x5D4594, 1046960 + 4 * dword_5d4594_1046932));
@@ -283,24 +290,27 @@ int  nox_xxx_bookDrawList_45BD40(int a1) {
 			v36 = (unsigned short*)sub_4252F0(*getMemU32Ptr(0x5D4594, 1046960 + 4 * dword_5d4594_1046932));
 			v29 = v36;
 			v30 = v67 + 52;
-			if (!v36)
+			if (!v36) {
 				goto LABEL_75;
+}
 			nox_xxx_drawGetStringSize_43F840(0, v36, 0, WideCharStr, 92);
 			v31 = *(uint32_t*)WideCharStr;
 			v32 = v66 + 153;
 		LABEL_53:
 			v37 = (141 - v31) / 2 + v67 + 17;
-			if (v37 > v30)
+			if (v37 > v30) {
 				goto LABEL_73;
+}
 			goto LABEL_74;
 		}
 		v38 = nox_xxx_spellFlags_424A70(*getMemU32Ptr(0x5D4594, 1046960 + 4 * dword_5d4594_1046932));
 		v39 = (unsigned short*)nox_xxx_spellTitle_424930(*getMemU32Ptr(0x5D4594, 1046960 + 4 * dword_5d4594_1046932));
 		nox_xxx_bookGetStringSize_43FA80(0, v39, &v65, &v68, 108);
-		if (v68 <= v3)
+		if (v68 <= v3) {
 			v40 = (108 - v65) / 2 + v66 + 24;
-		else
+		} else {
 			v40 = v66 + 24;
+}
 		v41 = v67 + 53;
 		v59 = v67 + 53;
 		v57 = v40;
@@ -362,9 +372,10 @@ int  nox_xxx_bookDrawList_45BD40(int a1) {
 			nox_xxx_drawGetStringSize_43F840(0, v53, 0, WideCharStr, 92);
 			v32 = v66 + 153;
 			v37 = (141 - *(uint32_t*)WideCharStr) / 2 + v67 + 17;
-			if (v37 > v30)
+			if (v37 > v30) {
 			LABEL_73:
 				v37 = v30;
+}
 		LABEL_74:
 			nox_xxx_drawString_43FAF0(0, v29, v32, v37, 92, 0);
 			goto LABEL_75;
@@ -429,8 +440,9 @@ int  nox_xxx_bookDrawFn_45C7D0(uint32_t* a1) {
 	int v25;    // [esp+8h] [ebp-4h]
 
 	v1 = dword_5d4594_1046652 != 0 ? 3 : 0;
-	if (!dword_5d4594_1047520)
+	if (!dword_5d4594_1047520) {
 		return 1;
+}
 	if (dword_5d4594_1046648 &&
 		nox_xxx_bookGet_430B40_get_mouse_prev_seq() - dword_5d4594_1046648 < (unsigned int)(2 * nox_gameFPS)) {
 		return 1;
@@ -464,10 +476,11 @@ int  nox_xxx_bookDrawFn_45C7D0(uint32_t* a1) {
 	} while (v6);
 	v22 = v24;
 	v21 = v25;
-	if (dword_5d4594_1046652 == 1)
+	if (dword_5d4594_1046652 == 1) {
 		v9 = nox_xxx_spellGetAbilityIcon_425310(*(int*)&dword_5d4594_1047524, 0);
-	else
+	} else {
 		v9 = nox_xxx_spellIcon_424A90(*(int*)&dword_5d4594_1047524);
+}
 	nox_client_drawImageAt_47D2C0(v9, v21, v22);
 	*(float*)&dword_5d4594_1046636 = *(float*)&dword_5d4594_1046636 + obj_5d4594_1046620.field_0;
 	*(float*)&dword_5d4594_1046640 = *(float*)&dword_5d4594_1046640 + obj_5d4594_1046620.field_4;
@@ -489,10 +502,11 @@ int  nox_xxx_bookDrawFn_45C7D0(uint32_t* a1) {
 					*getMemFloatPtr(0x5D4594, 1046696 + 8 * v10) - *getMemFloatPtr(0x5D4594, 1046688 + 8 * v10);
 				nox_xxx_utilNormalizeVector_509F20(&obj_5d4594_1046620);
 				if (nox_win_width < 1000) {
-					if (nox_win_width < 750)
+					if (nox_win_width < 750) {
 						v11 = 6.0;
-					else
+					} else {
 						v11 = 8.0;
+}
 				} else {
 					v11 = 10.0;
 				}

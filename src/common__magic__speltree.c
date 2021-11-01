@@ -161,16 +161,18 @@ void* nox_xxx_spellGetDefArrayPtr_424820() { return *(void**)&dword_587000_66120
 
 //----- (00424870) --------------------------------------------------------
 char* nox_xxx_spellNameByN_424870(int ind) {
-	if (ind < 0 || ind >= NOX_SPELLS_MAX)
+	if (ind < 0 || ind >= NOX_SPELLS_MAX) {
 		return 0;
+}
 	return nox_spell_ids[ind];
 }
 
 //----- (004243F0) --------------------------------------------------------
 int  nox_xxx_spellNameToN_4243F0(const char* id) {
 	for (int i = 0; i < NOX_SPELLS_MAX && nox_spell_ids[i]; i++) {
-		if (strcmp(nox_spell_ids[i], id) == 0)
+		if (strcmp(nox_spell_ids[i], id) == 0) {
 			return i;
+}
 	}
 	return 0;
 }
@@ -211,8 +213,9 @@ int  nox_xxx_spellLoadSpells_424460(nox_memfile* f, void* a2) {
 	*((uint8_t*)a2 + v33) = 0;
 	v4 = nox_xxx_spellNameToN_4243F0((const char*)a2);
 	v41 = v4;
-	if (!v4)
+	if (!v4) {
 		return 0;
+}
 	nox_spell_t* sp = &nox_spells_arr_588124[v4];
 	v40 = 0;
 	v39 = 0;
@@ -225,8 +228,9 @@ int  nox_xxx_spellLoadSpells_424460(nox_memfile* f, void* a2) {
 	if ((int)v9 > 0) {
 		do {
 			v12 = nox_memfile_read_u8(f);
-			if (v12 >= 9)
+			if (v12 >= 9) {
 				return 0;
+}
 			v44[v40++] = v12;
 			v13 = (int**)&v10[v12 + 1];
 			if (*v13) {
@@ -234,8 +238,9 @@ int  nox_xxx_spellLoadSpells_424460(nox_memfile* f, void* a2) {
 			} else {
 				v14 = (int*)calloc(1u, 0x28u);
 				*v13 = v14;
-				if (!v14)
+				if (!v14) {
 					return 0;
+}
 				*v14 = 0;
 				v10 = *v13;
 				v4 = v41;
@@ -254,8 +259,9 @@ int  nox_xxx_spellLoadSpells_424460(nox_memfile* f, void* a2) {
 		v43[v34] = 0;
 		v16 = -1;
 	}
-	if (nox_common_gameFlags_check_40A5C0(2))
+	if (nox_common_gameFlags_check_40A5C0(2)) {
 		sp->icon = nox_xxx_readImgMB_42FAA0(v16, v39, v43);
+}
 	v20 = nox_memfile_read_i32(f);
 	sp->icon_enabled = 0;
 	v43[0] = getMemByte(0x5D4594, 599128);
@@ -267,8 +273,9 @@ int  nox_xxx_spellLoadSpells_424460(nox_memfile* f, void* a2) {
 		v43[v35] = 0;
 		v20 = -1;
 	}
-	if (nox_common_gameFlags_check_40A5C0(2))
+	if (nox_common_gameFlags_check_40A5C0(2)) {
 		sp->icon_enabled = nox_xxx_readImgMB_42FAA0(v20, v39, v43);
+}
 	v24 = nox_memfile_read_i32(f);
 	sp->flags = v24;
 	v36 = nox_memfile_read_u8(f);
@@ -310,14 +317,16 @@ void* sub_421430() {
 	v0 = getMemAt(0x5D4594, 552476);
 	for (int i = 0; i < 255; i++) {
 		if (*((uint32_t*)v0 - 27)) {
-			if (*getMemU32Ptr(0x5D4594, 588076))
+			if (*getMemU32Ptr(0x5D4594, 588076)) {
 				free(*((void**)v0 - 27));
+}
 			*((uint32_t*)v0 - 27) = 0;
 		}
 		result = *(void**)v0;
 		if (*(uint32_t*)v0) {
-			if (*getMemU32Ptr(0x5D4594, 588076))
+			if (*getMemU32Ptr(0x5D4594, 588076)) {
 				free(*(void**)v0);
+}
 			*(uint32_t*)v0 = 0;
 		}
 		*((uint16_t*)v0 + 10) = 0;
@@ -333,8 +342,9 @@ void* sub_421430() {
 
 //----- (00424800) --------------------------------------------------------
 void* nox_xxx_spellGetAud44_424800(int ind, int a2) {
-	if (ind <= 0 || ind >= NOX_SPELLS_MAX)
+	if (ind <= 0 || ind >= NOX_SPELLS_MAX) {
 		return 0;
+}
 	nox_spell_t* sp = &nox_spells_arr_588124[ind];
 	switch (a2) {
 	case 0:
@@ -349,11 +359,13 @@ void* nox_xxx_spellGetAud44_424800(int ind, int a2) {
 
 //----- (00424930) --------------------------------------------------------
 wchar_t* nox_xxx_spellTitle_424930(int ind) {
-	if (ind <= 0 || ind >= NOX_SPELLS_MAX)
+	if (ind <= 0 || ind >= NOX_SPELLS_MAX) {
 		return 0;
+}
 	nox_spell_t* sp = &nox_spells_arr_588124[ind];
-	if (!sp->valid)
+	if (!sp->valid) {
 		return 0;
+}
 	return sp->title;
 }
 
@@ -361,16 +373,18 @@ wchar_t* nox_xxx_spellTitle_424930(int ind) {
 int  nox_xxx_spellByTitle_424960(wchar_t* title) {
 	for (int i = 1; i < NOX_SPELLS_MAX; i++) {
 		nox_spell_t* sp = &nox_spells_arr_588124[i];
-		if (nox_wcscmp(sp->title, title) == 0)
+		if (nox_wcscmp(sp->title, title) == 0) {
 			return i;
+}
 	}
 	return 0;
 }
 
 //----- (004249A0) --------------------------------------------------------
 int  nox_xxx_spellManaCost_4249A0(int ind, int a2) {
-	if (ind <= 0 || ind >= NOX_SPELLS_MAX)
+	if (ind <= 0 || ind >= NOX_SPELLS_MAX) {
 		return 0;
+}
 
 	if (a2 == 2) {
 		switch (ind) {
@@ -388,48 +402,54 @@ int  nox_xxx_spellManaCost_4249A0(int ind, int a2) {
 
 //----- (00424A20) --------------------------------------------------------
 char* nox_xxx_spellPhonemes_424A20(int ind) {
-	if (ind <= 0 || ind >= NOX_SPELLS_MAX)
+	if (ind <= 0 || ind >= NOX_SPELLS_MAX) {
 		return 0;
+}
 	nox_spell_t* sp = &nox_spells_arr_588124[ind];
 	return sp->phonemes;
 }
 
 //----- (00424A30) --------------------------------------------------------
 wchar_t* nox_xxx_spellDescription_424A30(int ind) {
-	if (ind <= 0 || ind >= NOX_SPELLS_MAX)
+	if (ind <= 0 || ind >= NOX_SPELLS_MAX) {
 		return 0;
+}
 	nox_spell_t* sp = &nox_spells_arr_588124[ind];
 	return sp->desc;
 }
 
 //----- (00424A50) --------------------------------------------------------
 bool nox_xxx_spellHasFlags_424A50(int ind, int flags) {
-	if (ind <= 0 || ind >= NOX_SPELLS_MAX)
+	if (ind <= 0 || ind >= NOX_SPELLS_MAX) {
 		return 0;
+}
 	nox_spell_t* sp = &nox_spells_arr_588124[ind];
 	return (sp->flags & flags) != 0;
 }
 
 //----- (00424A70) --------------------------------------------------------
 unsigned int nox_xxx_spellFlags_424A70(int ind) {
-	if (ind <= 0 || ind >= NOX_SPELLS_MAX)
+	if (ind <= 0 || ind >= NOX_SPELLS_MAX) {
 		return 0;
+}
 	nox_spell_t* sp = &nox_spells_arr_588124[ind];
 	return sp->flags;
 }
 
 //----- (00424A90) --------------------------------------------------------
 void* nox_xxx_spellIcon_424A90(int ind) {
-	if (ind <= 0 || ind >= NOX_SPELLS_MAX)
+	if (ind <= 0 || ind >= NOX_SPELLS_MAX) {
 		return 0;
+}
 	nox_spell_t* sp = &nox_spells_arr_588124[ind];
 	return sp->icon;
 }
 
 //----- (00424AB0) --------------------------------------------------------
 void* nox_xxx_spellIconHighlight_424AB0(int ind) {
-	if (ind <= 0 || ind >= NOX_SPELLS_MAX)
+	if (ind <= 0 || ind >= NOX_SPELLS_MAX) {
 		return 0;
+}
 	nox_spell_t* sp = &nox_spells_arr_588124[ind];
 	return sp->icon_enabled;
 }
@@ -438,8 +458,9 @@ void* nox_xxx_spellIconHighlight_424AB0(int ind) {
 int nox_xxx_spellFirstValid_424AD0() {
 	for (int i = 1; i < NOX_SPELLS_MAX; i++) {
 		nox_spell_t* sp = &nox_spells_arr_588124[i];
-		if (sp->valid)
+		if (sp->valid) {
 			return i;
+}
 	}
 	return 0;
 }
@@ -447,36 +468,41 @@ int nox_xxx_spellFirstValid_424AD0() {
 //----- (00424AF0) --------------------------------------------------------
 int nox_xxx_spellNextValid_424AF0(int ind) {
 	ind++;
-	if (ind <= 0 || ind >= NOX_SPELLS_MAX)
+	if (ind <= 0 || ind >= NOX_SPELLS_MAX) {
 		return 0;
+}
 	for (int i = ind; i < NOX_SPELLS_MAX; i++) {
 		nox_spell_t* sp = &nox_spells_arr_588124[i];
-		if (sp->valid)
+		if (sp->valid) {
 			return i;
+}
 	}
 	return 0;
 }
 
 //----- (00424B50) --------------------------------------------------------
 bool nox_xxx_spellIsValid_424B50(int ind) {
-	if (ind <= 0 || ind >= NOX_SPELLS_MAX)
+	if (ind <= 0 || ind >= NOX_SPELLS_MAX) {
 		return 0;
+}
 	nox_spell_t* sp = &nox_spells_arr_588124[ind];
 	return sp->valid;
 }
 
 //----- (00424B70) --------------------------------------------------------
 bool nox_xxx_spellIsEnabled_424B70(int ind) {
-	if (ind <= 0 || ind >= NOX_SPELLS_MAX)
+	if (ind <= 0 || ind >= NOX_SPELLS_MAX) {
 		return 0;
+}
 	nox_spell_t* sp = &nox_spells_arr_588124[ind];
 	return sp->enabled;
 }
 
 //----- (00424B90) --------------------------------------------------------
 bool nox_xxx_spellEnable_424B90(int ind) {
-	if (ind <= 0 || ind >= NOX_SPELLS_MAX)
+	if (ind <= 0 || ind >= NOX_SPELLS_MAX) {
 		return 0;
+}
 	nox_spell_t* sp = &nox_spells_arr_588124[ind];
 	sp->enabled = 1;
 	return 1;
@@ -484,8 +510,9 @@ bool nox_xxx_spellEnable_424B90(int ind) {
 
 //----- (00424BB0) --------------------------------------------------------
 bool nox_xxx_spellDisable_424BB0(int ind) {
-	if (ind <= 0 || ind >= NOX_SPELLS_MAX)
+	if (ind <= 0 || ind >= NOX_SPELLS_MAX) {
 		return 0;
+}
 	nox_spell_t* sp = &nox_spells_arr_588124[ind];
 	sp->enabled = 0;
 	return 1;
@@ -493,8 +520,9 @@ bool nox_xxx_spellDisable_424BB0(int ind) {
 
 //----- (00424BF0) --------------------------------------------------------
 bool nox_xxx_spellCanUseInTrap_424BF0(int ind) {
-	if (ind <= 0 || ind >= NOX_SPELLS_MAX)
+	if (ind <= 0 || ind >= NOX_SPELLS_MAX) {
 		return 0;
+}
 	if (nox_common_gameFlags_check_40A5C0(4096) && ind == 4) {
 		return 0;
 	}
@@ -504,12 +532,14 @@ bool nox_xxx_spellCanUseInTrap_424BF0(int ind) {
 
 //----- (00424C40) --------------------------------------------------------
 int nox_xxx_spellPrice_424C40(int ind) {
-	if (ind <= 0 || ind >= NOX_SPELLS_MAX)
+	if (ind <= 0 || ind >= NOX_SPELLS_MAX) {
 		return 0;
+}
 	nox_spell_t* sp = &nox_spells_arr_588124[ind];
 	double price = sp->price;
-	if (nox_common_gameFlags_check_40A5C0(4096))
+	if (nox_common_gameFlags_check_40A5C0(4096)) {
 		price *= nox_xxx_gamedataGetFloat_419D40("QuestSpellWorthMultiplier");
+}
 	return (int)price;
 }
 

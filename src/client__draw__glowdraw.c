@@ -43,8 +43,9 @@ int  sub_4B6770(int* a1, nox_drawable* dr, int a3, int a4) {
 	v7 = *(uint32_t*)(a2 + 448) - nox_frame_xxx_2598000;
 	v16 = *(uint32_t*)(a2 + 448) - v5;
 	v18 = v7;
-	if (v7 == v6)
+	if (v7 == v6) {
 		v18 = --v7;
+}
 	if (v7 > 0) {
 		v9 = *a1;
 		v10 = a1[1];
@@ -74,10 +75,11 @@ int  sub_4B6770(int* a1, nox_drawable* dr, int a3, int a4) {
 int  nox_thing_magic_sparkle_draw(int* a1, nox_drawable* dr) {
 	int result; // eax
 
-	if (nox_common_randomIntMinMax_415FF0(0, 10, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 317) >= 5)
+	if (nox_common_randomIntMinMax_415FF0(0, 10, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 317) >= 5) {
 		result = sub_4B6770(a1, dr, *getMemIntPtr(0x5D4594, 2523948), *(int*)&dword_5d4594_1313540);
-	else
+	} else {
 		result = sub_4B6770(a1, dr, *(int*)&dword_5d4594_1313540, *(int*)&dword_5d4594_1313536);
+}
 	return result;
 }
 
@@ -142,10 +144,11 @@ LABEL_7:
 int  nox_thing_pixie_dust_draw(int* a1, nox_drawable* dr) {
 	int result; // eax
 
-	if (nox_common_randomIntMinMax_415FF0(0, 10, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 554) >= 5)
+	if (nox_common_randomIntMinMax_415FF0(0, 10, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 554) >= 5) {
 		result = sub_4B6770(a1, dr, *getMemIntPtr(0x5D4594, 2523948), *(int*)&dword_5d4594_1313564);
-	else
+	} else {
 		result = sub_4B6770(a1, dr, *(int*)&dword_5d4594_1313564, *getMemIntPtr(0x5D4594, 1313560));
+}
 	return result;
 }
 
@@ -231,8 +234,9 @@ int  nox_thing_rain_orb_draw(uint32_t* a1, nox_drawable* dr) {
 		v17 = *getMemU32Ptr(0x5D4594, 1313588);
 		v18 = *(uint32_t*)(a2 + 108);
 		xLeft.field_4 = v15 + v16 - v3;
-		if (v18 != dword_5d4594_1313692)
+		if (v18 != dword_5d4594_1313692) {
 			v17 = dword_5d4594_1313536;
+}
 		sub_4B6720(&xLeft, v17, *(unsigned char*)(a2 + 442), 5);
 		v19 = *(short*)(a2 + 104) - *(short*)(a2 + 440);
 		nox_client_drawSetColor_434460(v17);
@@ -266,8 +270,9 @@ int  nox_thing_rain_orb_draw(uint32_t* a1, nox_drawable* dr) {
 		v10 = nox_float2int(v21);
 		v11 = *getMemU32Ptr(0x5D4594, 1313700);
 		v23[1] = v10;
-		if (v2[27] != dword_5d4594_1313692)
+		if (v2[27] != dword_5d4594_1313692) {
 			v11 = *getMemU32Ptr(0x5D4594, 1313704);
+}
 		v12 = nox_common_randomIntMinMax_415FF0(6, 8, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 793);
 		sub_499490(v11, v23, 0, 0, v12, 1);
 		nox_xxx_spriteDeleteStatic_45A4E0_drawable(dr);
@@ -327,8 +332,9 @@ int  nox_thing_particle_draw(int a1, nox_drawable* dr) {
 	a2[3] = v2[20] >> 16;
 	a2[4] = v2[21] >> 16;
 	v3 = (void(*)(uint32_t*))v2[31];
-	if (v3)
+	if (v3) {
 		v3(v2);
+}
 	return 1;
 }
 

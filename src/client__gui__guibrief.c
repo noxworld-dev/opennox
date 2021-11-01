@@ -49,10 +49,11 @@ wchar_t* sub_44E410() {
 	for (i = 1;; ++i) {
 		while (1) {
 			if (v0) {
-				if (v0 == 1)
+				if (v0 == 1) {
 					v3 = v1 ? (v1 != 1) + 2 : 4;
-				else
+				} else {
 					v3 = v0 + 3;
+}
 			} else {
 				v3 = 1;
 			}
@@ -69,13 +70,15 @@ wchar_t* sub_44E410() {
 			*getMemU32Ptr(0x5D4594, 831320 + v4) =
 				nox_strman_loadString_40F1D0(v8, getMemAt(0x5D4594, 831324 + v4), "C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c", 1227);
 			*getMemU32Ptr(0x5D4594, 831328 + v4) = v3;
-			if (v1 >= 3)
+			if (v1 >= 3) {
 				break;
+}
 			v0 = v7;
 		}
 		v7 = i;
-		if (i >= 11)
+		if (i >= 11) {
 			break;
+}
 		v0 = i;
 		v1 = 0;
 	}
@@ -179,10 +182,11 @@ int  sub_44E8E0(int a1, int a2) {
 		v10 = *((uint32_t*)v6 - 1) + v2 - 320;
 		if (*(uint32_t*)v7) {
 			++v43;
-			if (v9 == *getMemU32Ptr(0x8531A0, 2576))
+			if (v9 == *getMemU32Ptr(0x8531A0, 2576)) {
 				v47 = *((unsigned short*)v7 + 5);
-			else
+			} else {
 				v45 += *((unsigned short*)v7 + 5);
+}
 			nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x852978, 12));
 			nox_swprintf(&v55[1], L"%d) %s", v42 + 1, *(uint32_t*)v7 + 4704);
 			v11 = *(uint32_t*)(a2 + 200);
@@ -190,8 +194,9 @@ int  sub_44E8E0(int a1, int a2) {
 			nox_xxx_drawGetStringSize_43F840(v11, &v55[1], &v44, &v53, 0);
 			while (v10 + v44 >= v46) {
 				v12 = nox_wcslen(&v55[1]);
-				if (v12 <= 5)
+				if (v12 <= 5) {
 					break;
+}
 				v55[v12] = 0;
 				nox_xxx_drawGetStringSize_43F840(*(uint32_t*)(a2 + 200), &v55[1], &v44, &v53, 0);
 			}
@@ -238,8 +243,9 @@ int  sub_44E8E0(int a1, int a2) {
 		v7 += 16;
 		++v42;
 		v48 = v6;
-		if ((int)v6 >= (int)getMemAt(0x587000, 123012))
+		if ((int)v6 >= (int)getMemAt(0x587000, 123012)) {
 			break;
+}
 		v2 = v51;
 		v3 = v52;
 	}
@@ -266,8 +272,9 @@ int  sub_44E8E0(int a1, int a2) {
 		if (v45) {
 			v28 =
 				nox_strman_loadString_40F1D0("GeneralPrint:SecretsFoundByFriends", 0, "C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c", 606);
-			if (v28)
+			if (v28) {
 				nox_swprintf(v56, v28, v27);
+}
 		} else {
 			v29 =
 				nox_strman_loadString_40F1D0("GeneralPrint:SecretsNoneFoundByFriends", 0, "C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c", 612);
@@ -282,8 +289,9 @@ int  sub_44E8E0(int a1, int a2) {
 	nox_xxx_drawString_43F6E0(*(uint32_t*)(a2 + 200), (short*)v57, v30, v31);
 	result = nox_frame_xxx_2598000 / 0x1Eu;
 	if (nox_frame_xxx_2598000 % 0x1Eu) {
-		if (dword_587000_122956 != 1)
+		if (dword_587000_122956 != 1) {
 			return result;
+}
 	} else {
 		result = 1;
 		if (dword_587000_122956 == 1) {
@@ -333,8 +341,9 @@ int  sub_44F0F0(int a1, int a2) {
 	}
 	result = nox_frame_xxx_2598000 / 0x1Eu;
 	if (nox_frame_xxx_2598000 % 0x1Eu) {
-		if (nox_xxx_aSpellphoneme_3_587000_123008 != 1)
+		if (nox_xxx_aSpellphoneme_3_587000_123008 != 1) {
 			return result;
+}
 	} else {
 		result = 1;
 		if (nox_xxx_aSpellphoneme_3_587000_123008 == 1) {
@@ -606,8 +615,9 @@ int  sub_44F300(int a1, int a2) {
 	nox_xxx_drawString_43F6E0(*(int*)&dword_5d4594_832484, (short*)v22, v34.field_0, v34.field_4);
 	result = nox_frame_xxx_2598000 / 0x1Eu;
 	if (nox_frame_xxx_2598000 % 0x1Eu) {
-		if (*getMemU32Ptr(0x587000, 123012) != 1)
+		if (*getMemU32Ptr(0x587000, 123012) != 1) {
 			return result;
+}
 	} else {
 		result = 1;
 		if (*getMemU32Ptr(0x587000, 123012) == 1) {
@@ -662,16 +672,19 @@ int  nox_xxx_clientQuestWinScreen_450770(int a1) {
 		v4 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&nox_wnd_briefing_831232, 1010);
 		v5 = nox_strman_loadString_40F1D0("GUIBrief.c:GeneratorsDestroyed", 0, "C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c", 1656);
 		nox_xxx_drawGetStringSize_43F840(v4[59], v5, &a1, 0, 0);
-		if (a1 > *(int*)&dword_5d4594_832476)
+		if (a1 > *(int*)&dword_5d4594_832476) {
 			dword_5d4594_832476 = a1;
+}
 		v6 = nox_strman_loadString_40F1D0("GUIBrief.c:Kills", 0, "C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c", 1660);
 		nox_xxx_drawGetStringSize_43F840(v4[59], v6, &a1, 0, 0);
-		if (a1 > *(int*)&dword_5d4594_832476)
+		if (a1 > *(int*)&dword_5d4594_832476) {
 			dword_5d4594_832476 = a1;
+}
 		v7 = nox_strman_loadString_40F1D0("GUIBrief.c:numSecretsFound", 0, "C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c", 1664);
 		nox_xxx_drawGetStringSize_43F840(v4[59], v7, &a1, 0, 0);
-		if (a1 > *(int*)&dword_5d4594_832476)
+		if (a1 > *(int*)&dword_5d4594_832476) {
 			dword_5d4594_832476 = a1;
+}
 		v8 = nox_strman_loadString_40F1D0("GUIBrief.c:TotalScore", 0, "C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c", 1668);
 		nox_xxx_drawGetStringSize_43F840(v4[59], v8, &a1, 0, 0);
 		v9 = dword_5d4594_832476;
@@ -679,8 +692,9 @@ int  nox_xxx_clientQuestWinScreen_450770(int a1) {
 			v9 = a1;
 			dword_5d4594_832476 = a1;
 		}
-		if (v9 > 85)
+		if (v9 > 85) {
 			dword_5d4594_832476 = 85;
+}
 	}
 	return nox_client_lockScreenBriefing_450160(254, 1, 1);
 }
@@ -704,11 +718,13 @@ int  nox_client_showQuestBriefing2_450980(int a1, int a2) {
 		sub_450AF0((int)getMemAt(0x5D4594, 832544));
 	}
 	nox_gui_setQuestStage_450B00(*(unsigned short*)(a1 + 2));
-	if (*(uint8_t*)(a1 + 4) & 2)
+	if (*(uint8_t*)(a1 + 4) & 2) {
 		dword_5d4594_832480 = 1;
+}
 	result = a2;
-	if (a2)
+	if (a2) {
 		result = nox_client_lockScreenBriefing_450160(254, 1, 2);
+}
 	return result;
 }
 
@@ -732,7 +748,8 @@ int  nox_client_showQuestBriefing_450A30(int a1, int a2) {
 	}
 	nox_gui_setQuestStage_450B00(*(unsigned short*)(a1 + 2));
 	result = a2;
-	if (a2)
+	if (a2) {
 		result = nox_client_lockScreenBriefing_450160(254, 1, 4);
+}
 	return result;
 }

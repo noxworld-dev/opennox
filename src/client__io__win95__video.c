@@ -30,8 +30,9 @@ int sub_430F00_screenshot() {
 	v4 = nox_pixbuffer_3798780;
 	for (int v5 = nox_backbuffer_height; v5 > 0; v5--) {
 		for (int v7 = 0; v7 < nox_backbuffer_width; v7++) {
-			if (v7 != 0 && (v7 % 60) == 0)
+			if (v7 != 0 && (v7 % 60) == 0) {
 				nox_fs_fprintf(file, "\n");
+}
 			nox_fs_fprintf(file, "%d %d %d ", getMemByte(0x973F18, 5288 + 3 * *(unsigned char*)(v7 + v4)),
 					getMemByte(0x973F18, 5289 + 3 * *(unsigned char*)(v7 + v4)),
 					getMemByte(0x973F18, 5290 + 3 * *(unsigned char*)(v7 + v4)));

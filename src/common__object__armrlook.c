@@ -11,19 +11,22 @@ wchar_t*  sub_415B60(int a1) {
 	int v4;             // esi
 
 	v1 = 0;
-	if (!*getMemU32Ptr(0x587000, 34848))
+	if (!*getMemU32Ptr(0x587000, 34848)) {
 		return nox_strman_loadString_40F1D0("result:ERROR", 0, "C:\\NoxPost\\src\\common\\Object\\ArmrLook.c",
 									 263);
+}
 	HIWORD(v2) = 0;
 	for (i = getMemAt(0x587000, 34848);; i += 24) {
 		LOWORD(v2) = *(uint16_t*)(a1 + 4);
-		if (v2 == *((uint32_t*)i + 2))
+		if (v2 == *((uint32_t*)i + 2)) {
 			break;
+}
 		v4 = *((uint32_t*)i + 6);
 		++v1;
-		if (!v4)
+		if (!v4) {
 			return nox_strman_loadString_40F1D0("result:ERROR", 0, "C:\\NoxPost\\src\\common\\Object\\ArmrLook.c",
 										 263);
+}
 	}
 	return nox_strman_loadString_40F1D0(*(char**)getMemAt(0x587000, 34852 + 24 * v1), 0,
 								 "C:\\NoxPost\\src\\common\\Object\\ArmrLook.c", 261);

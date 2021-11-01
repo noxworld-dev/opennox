@@ -78,8 +78,9 @@ const char*  sub_446AE0_wol_chat(int a1) {
 		if (sub_41F9E0((int)v3)) {
 			result = (const char*)nox_strman_loadString_40F1D0("cantignore", 0,
 														"C:\\NoxPost\\src\\client\\shell\\WolApi\\wolchat.c", 293);
-			if (result)
+			if (result) {
 				result = (const char*)sub_447310(0, (int)result);
+}
 		} else if (sub_427880(v2)) {
 			sub_427850((int)v3);
 			sub_41F980(v2, 0);
@@ -104,11 +105,13 @@ void  sub_446F80_wol_chat(wchar_t* a1) {
 	char* v7;       // eax
 	wchar_t* v8;    // eax
 
-	if (!a1)
+	if (!a1) {
 		return;
+}
 	v1 = *a1;
-	if (!*a1 || v1 == 10 || v1 == 13)
+	if (!*a1 || v1 == 10 || v1 == 13) {
 		return;
+}
 	if (sub_41EC00()) {
 		if (sub_446C90()) {
 			v2 = (int*)nox_window_call_field_94(*(int*)&dword_5d4594_829488, 16404, 0, 0);
@@ -117,8 +120,9 @@ void  sub_446F80_wol_chat(wchar_t* a1) {
 				v5 = sub_446F40(i);
 				v6 = v5;
 				if (v5) {
-					if (sub_41F860(v5, a1))
+					if (sub_41F860(v5, a1)) {
 						sub_4471A0(v6, (int)a1, 1, 1);
+}
 				}
 				i = v3[1];
 			}
@@ -133,8 +137,9 @@ void  sub_446F80_wol_chat(wchar_t* a1) {
 	}
 	v8 = nox_strman_loadString_40F1D0("NotJoined", 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolchat.c",
 							   1076);
-	if (v8)
+	if (v8) {
 		sub_447310(0, (int)v8);
+}
 }
 
 //----- (00447090) --------------------------------------------------------
@@ -148,11 +153,13 @@ void  sub_447090_wol_chat(wchar_t* a1) {
 	char* v7;       // eax
 	wchar_t* v8;    // eax
 
-	if (!a1)
+	if (!a1) {
 		return;
+}
 	v1 = *a1;
-	if (!*a1 || v1 == 10 || v1 == 13)
+	if (!*a1 || v1 == 10 || v1 == 13) {
 		return;
+}
 	if (sub_41EC00()) {
 		if (sub_446C90()) {
 			v2 = (int*)nox_window_call_field_94(*(int*)&dword_5d4594_829488, 16404, 0, 0);
@@ -161,8 +168,9 @@ void  sub_447090_wol_chat(wchar_t* a1) {
 				v5 = sub_446F40(i);
 				v6 = v5;
 				if (v5) {
-					if (sub_41F8F0(v5, a1))
+					if (sub_41F8F0(v5, a1)) {
 						sub_447250(v6, (int)a1, 1, 1);
+}
 				}
 				i = v3[1];
 			}
@@ -177,8 +185,9 @@ void  sub_447090_wol_chat(wchar_t* a1) {
 	}
 	v8 = nox_strman_loadString_40F1D0("NotJoined", 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolchat.c",
 							   1123);
-	if (v8)
+	if (v8) {
 		sub_447310(0, (int)v8);
+}
 }
 
 //----- (00447470) --------------------------------------------------------
@@ -350,10 +359,11 @@ int nox_game_showWolChat_447620() {
 			*(uint32_t*)(*(uint32_t*)(dword_5d4594_829508 + 400) + 8) = 16;
 			*(uint32_t*)(*(uint32_t*)(dword_5d4594_829508 + 400) + 12) = 46;
 			sub_41F370(0);
-			if (nox_common_gameFlags_check_40A5C0(0x2000000))
+			if (nox_common_gameFlags_check_40A5C0(0x2000000)) {
 				sub_448450();
-			else
+			} else {
 				sub_41F3A0(-99999, 1);
+}
 			result = 1;
 		}
 	}

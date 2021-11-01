@@ -75,8 +75,9 @@ int  sub_4A24C0(int a1) {
 
 	v1 = nox_xxx_wndGetChildByID_46B0C0(nox_win_main_bg, 99);
 	result = nox_window_set_hidden((int)v1, a1);
-	if (!a1)
+	if (!a1) {
 		result = sub_43E8C0(1);
+}
 	return result;
 }
 
@@ -159,8 +160,9 @@ int  nox_xxx_windowMainMenuProc_4A1DC0(int a1, int a2, int* a3, int a4) {
 	if (a2 == 16389) {
 		nox_xxx_clientPlaySoundSpecial_452D80(920, 100);
 	} else {
-		if (a2 != 16391)
+		if (a2 != 16391) {
 			return 0;
+}
 		if (nox_wnd_xxx_1307308->state != NOX_GUI_ANIM_IN_DONE && !nox_common_gameFlags_check_40A5C0(0x2000000)) {
 		LABEL_32:
 			nox_xxx_clientPlaySoundSpecial_452D80(921, 100);
@@ -218,8 +220,9 @@ int  nox_xxx_windowMainMenuProc_4A1DC0(int a1, int a2, int* a3, int a4) {
 				sub_4D6F90(0);
 				nox_xxx_setQuest_4D6F60(0);
 				sub_4D6F80(0);
-				if (!sub_473670())
+				if (!sub_473670()) {
 					nox_client_toggleMap_473610();
+}
 				nox_xxx_cliShowHideTubes_470AA0(0);
 				nox_xxx_cliSetMinimapZoom_472520(2300);
 				if (!nox_xxx_parseGamedataBinPre_4D1630()) {
@@ -229,8 +232,9 @@ int  nox_xxx_windowMainMenuProc_4A1DC0(int a1, int a2, int* a3, int a4) {
 				}
 				goto LABEL_26;
 			case 121:
-				if (!nox_game_setMovieFile_4CB230("Intro.vqa", v10))
+				if (!nox_game_setMovieFile_4CB230("Intro.vqa", v10)) {
 					goto LABEL_32;
+}
 				sub_4A1D40();
 				sub_4B0300(v10);
 				sub_4B0640(nox_game_switchStates_43C0A0);
@@ -268,8 +272,9 @@ int  nox_xxx_windowMainMenuProc_4A1DC0(int a1, int a2, int* a3, int a4) {
 				nox_game_setQuestStage_4E3CD0(0);
 				sub_4D7440(0);
 				nox_xxx_cliSetMinimapZoom_472520(2300);
-				if (!sub_473670())
+				if (!sub_473670()) {
 					nox_client_toggleMap_473610();
+}
 				sub_461440(0);
 				if (!nox_xxx_parseGamedataBinPre_4D1630()) {
 					nox_xxx_setContinueMenuOrHost_43DDD0(0);
@@ -328,17 +333,19 @@ int  sub_4A22A0(int a1, int* a2) {
 		v3 = v2 + yTop;
 		LOBYTE(v2) = *(uint8_t*)(a1 + 36);
 		yTop = v3;
-		if (v2 & 2)
+		if (v2 & 2) {
 			nox_client_drawImageAt_47D2C0(a2[10], xLeft, v3);
-		else
+		} else {
 			nox_client_drawImageAt_47D2C0(a2[6], xLeft, v3);
+}
 	}
 	if (*getMemU32Ptr(0x587000, 168836)) {
 		v4 = getMemAt(0x587000, 168868);
 		do {
 			v5 = *((uint32_t*)v4 + 2);
-			if (v5)
+			if (v5) {
 				*((uint32_t*)v4 + 2) = v5 - 1;
+}
 			v6 = *((uint32_t*)v4 + 1);
 			if (v6) {
 				*((uint32_t*)v4 + 1) = v6 - 1;
@@ -368,8 +375,9 @@ int  sub_4A22A0(int a1, int* a2) {
 	if (*getMemU32Ptr(0x587000, 168832)) {
 		v10 = getMemAt(0x587000, 168872);
 		do {
-			if (!*((uint32_t*)v10 - 6) && !*(uint32_t*)v10)
+			if (!*((uint32_t*)v10 - 6) && !*(uint32_t*)v10) {
 				nox_client_drawImageAt_47D2C0(*((uint32_t*)v10 - 9), *((uint32_t*)v10 - 8), *((uint32_t*)v10 - 7));
+}
 			v11 = *((uint32_t*)v10 + 2);
 			v10 += 48;
 		} while (v11);

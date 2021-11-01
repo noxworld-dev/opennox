@@ -11,8 +11,9 @@ int  nox_xxx_updDrawTeleportWake_4CD8D0(int a1, int a2) {
 	int v4; // eax
 	int v5; // esi
 
-	if (!*getMemU32Ptr(0x5D4594, 1522980))
+	if (!*getMemU32Ptr(0x5D4594, 1522980)) {
 		*getMemU32Ptr(0x5D4594, 1522980) = nox_xxx_getTTByNameSpriteMB_44CFC0("BlueSpark");
+}
 	v2 = *(uint32_t*)(a2 + 12) + nox_common_randomIntMinMax_415FF0(-5, 5, "C:\\NoxPost\\src\\client\\Drawable\\Update\\telwake.c", 32);
 	v3 = nox_common_randomIntMinMax_415FF0(-5, 5, "C:\\NoxPost\\src\\client\\Drawable\\Update\\telwake.c", 33);
 	v4 = nox_xxx_spriteLoadAdd_45A360_drawable(*getMemIntPtr(0x5D4594, 1522980), v2, *(uint32_t*)(a2 + 16) + v3);

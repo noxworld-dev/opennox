@@ -31,8 +31,9 @@ int  sub_4CE200(int a1, int a2, int a3, int a4) {
 			v8 = *(uint32_t*)(a2 + 16) + v6 * *getMemIntPtr(0x587000, 192092 + 8 * v5) / 16;
 			v9 = nox_common_randomIntMinMax_415FF0(0, 10, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\cloud.c", 46) < 3;
 			v10 = *getMemU32Ptr(0x5D4594, 1523020);
-			if (!v9)
+			if (!v9) {
 				v10 = *getMemU32Ptr(0x5D4594, 1523016);
+}
 			v11 = nox_xxx_spriteLoadAdd_45A360_drawable(v10, v7, v8);
 			v12 = v11;
 			if (v11) {

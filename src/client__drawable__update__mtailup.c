@@ -42,8 +42,9 @@ void  nox_xxx_updDrawMagic_4CDD80(int a1, uint32_t* a2) {
 	}
 	v13 = a2[3] - a2[8];
 	v14 = a2[4] - a2[9];
-	if (!*getMemU32Ptr(0x5D4594, 1523004))
+	if (!*getMemU32Ptr(0x5D4594, 1523004)) {
 		*getMemU32Ptr(0x5D4594, 1523004) = nox_xxx_getTTByNameSpriteMB_44CFC0("BlueSpark");
+}
 	v6 = 0;
 	v7 = 0;
 	v15 = 4;

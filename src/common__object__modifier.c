@@ -105,8 +105,9 @@ wchar_t*  sub_413480(char a1) {
 	while (a1 != *v2) {
 		v2 += 20;
 		++v1;
-		if ((int)v2 >= (int)getMemAt(0x587000, 27452))
+		if ((int)v2 >= (int)getMemAt(0x587000, 27452)) {
 			return 0;
+}
 	}
 	return nox_strman_loadString_40F1D0(*(char**)getMemAt(0x587000, 27344 + 20 * v1), 0,
 								 "C:\\NoxPost\\src\\common\\Object\\Modifier.c", 2087);

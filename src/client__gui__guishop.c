@@ -46,10 +46,12 @@ void sub_478730(int* a1) {
 
 	v1 = (*a1 - *getMemU32Ptr(0x5D4594, 1098380)) / 50;
 	v2 = (a1[1] - *getMemU32Ptr(0x5D4594, 1098384) + dword_5d4594_1107036) / 50;
-	if (v1 >= 6)
+	if (v1 >= 6) {
 		v1 = 5;
-	if (v2 >= 10)
+}
+	if (v2 >= 10) {
 		v2 = 9;
+}
 	v3 = v2 + 10 * v1;
 	result = *(uint32_t**)getMemAt(0x5D4594, 1098640 + 140 * v3);
 	v5 = getMemAt(0x5D4594, 1098636 + 140 * v3);
@@ -59,15 +61,17 @@ void sub_478730(int* a1) {
 	v6 = sub_4674A0();
 	v7 = *((uint32_t*)v5 + 34);
 	v8 = *((uint32_t*)v5 + 1);
-	if (v6 < v8 * *((uint32_t*)v5 + 34))
+	if (v6 < v8 * *((uint32_t*)v5 + 34)) {
 		v8 = v6 / v7;
+}
 	if (!v8) {
 		sub_479520(v7 - v6);
 		return;
 	}
 	v9 = 0;
-	if (*(uint32_t*)(*(uint32_t*)v5 + 112) & 0x13001000)
+	if (*(uint32_t*)(*(uint32_t*)v5 + 112) & 0x13001000) {
 		v9 = (const void*)(*(uint32_t*)v5 + 432);
+}
 	sub_4C05F0(1, *((uint32_t*)v5 + 34));
 	v14 = *(uint32_t*)(*(uint32_t*)v5 + 108);
 	v13 = *(uint32_t*)&v5[4 * *((uint32_t*)v5 + 1) + 4];
@@ -171,10 +175,11 @@ int  nox_xxx_cliStartShopDlg_478FD0(const wchar_t* a1, char* a2, int a3) {
 	*getMemU32Ptr(0x5D4594, 1098612) = nox_client_renderGUI_80828;
 	nox_client_renderGUI_80828 = 0;
 	sub_467BB0();
-	if (a1)
+	if (a1) {
 		nox_wcscpy((wchar_t*)getMemAt(0x5D4594, 1097300), a1);
-	else
+	} else {
 		nox_wcscpy((wchar_t*)getMemAt(0x5D4594, 1097300), (const wchar_t*)getMemAt(0x5D4594, 1107044));
+}
 	sub_46AEE0((int)v3, (int)getMemAt(0x5D4594, 1097300));
 	if (strlen(a2)) {
 		dword_5d4594_1098604 =
@@ -184,8 +189,9 @@ int  nox_xxx_cliStartShopDlg_478FD0(const wchar_t* a1, char* a2, int a3) {
 		*getMemU32Ptr(0x5D4594, 1098608) = 0;
 	}
 	nox_xxx_getShopPic_4790F0(a3);
-	if (*getMemU32Ptr(0x5D4594, 1098608))
+	if (*getMemU32Ptr(0x5D4594, 1098608)) {
 		nox_xxx_playDialogFile_44D900(*getMemIntPtr(0x5D4594, 1098608), 100);
+}
 	dword_5d4594_1107036 = 0;
 	return nox_window_call_field_94(*(int*)&dword_5d4594_1098580, 16394, *(int*)&dword_5d4594_1098592, 0);
 }
@@ -219,8 +225,9 @@ int  sub_4795E0(int a1, int a2) {
 		result = sub_4676D0(a1);
 		v5 = result;
 		if (result) {
-			if (*(uint32_t*)(result + 112) & 0x13001000)
+			if (*(uint32_t*)(result + 112) & 0x13001000) {
 				v2 = (const void*)(result + 432);
+}
 			sub_4C05F0(1, a2);
 			v10 = sub_467700(a1);
 			v9 = *(uint32_t*)(v5 + 108);
@@ -250,8 +257,9 @@ void  sub_479740(int a1, unsigned int a2) {
 		v4 = sub_4676D0(a1);
 		v5 = v4;
 		if (v4) {
-			if (*(uint32_t*)(v4 + 112) & 0x13001000)
+			if (*(uint32_t*)(v4 + 112) & 0x13001000) {
 				v2 = (const void*)(v4 + 432);
+}
 			sub_4C05F0(1, a2);
 			if (a2 > v10) {
 				sub_479520(a2 - v10);

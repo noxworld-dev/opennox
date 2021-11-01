@@ -110,8 +110,9 @@ int nox_xxx_guiHealthManaInit_4714E0() {
 	wchar_t* v14;        // eax
 	char v15[32];        // [esp+4h] [ebp-20h]
 
-	if (!*getMemU32Ptr(0x8531A0, 2576))
+	if (!*getMemU32Ptr(0x8531A0, 2576)) {
 		return 0;
+}
 	dword_5d4594_1096288 = nox_xxx_guiFontPtrByName_43F360("small");
 	dword_5d4594_1096264 = 0;
 	dword_5d4594_1096256 = 0;
@@ -152,8 +153,9 @@ int nox_xxx_guiHealthManaInit_4714E0() {
 	if (t4) {
 		nox_drawable_link_thing(getMemAt(0x5D4594, 1091388), t4->field_1c);
 		*getMemU32Ptr(0x5D4594, 1091368) = getMemAt(0x5D4594, 1091388);
-		if (true) // TODO: byte_5D4594 != (unsigned char*)-1091388
+		if (true) { // TODO: byte_5D4594 != (unsigned char*)-1091388
 			*getMemU32Ptr(0x5D4594, 1091508) |= 0x40000000u;
+}
 	} else {
 		*getMemU32Ptr(0x5D4594, 1091368) = 0;
 	}
@@ -177,8 +179,9 @@ int nox_xxx_guiHealthManaInit_4714E0() {
 		if (t7) {
 			nox_drawable_link_thing(getMemAt(0x5D4594, 1090852), t7->field_1c);
 			*getMemU32Ptr(0x5D4594, 1090832) = getMemAt(0x5D4594, 1090852);
-			if (true) // TODO: byte_5D4594 != (unsigned char*)-1090852
+			if (true) { // TODO: byte_5D4594 != (unsigned char*)-1090852
 				*getMemU32Ptr(0x5D4594, 1090972) |= 0x40000000u;
+}
 		} else {
 			*getMemU32Ptr(0x5D4594, 1090832) = 0;
 		}
@@ -295,14 +298,16 @@ int  nox_xxx_guiHealthManaTubeDraw_471D10(int xLeft) {
 				if (v7[2]) {
 					v8 = *(v7 - 1) >> 4;
 					if (v8 >= 125 - v6) {
-						if (dword_5d4594_1096264)
+						if (dword_5d4594_1096264) {
 							nox_client_drawSetColor_434460(*((uint32_t*)v20 + 3));
-						else
+						} else {
 							nox_client_drawSetColor_434460(v7[3]);
-						if (*v7 <= 2)
+}
+						if (*v7 <= 2) {
 							nox_client_drawRectFilledOpaque_49CE30(xLeft + *(v7 - 2), yTop + v8, *v7, *v7);
-						else
+						} else {
 							sub_4720C0(xLeft + *(v7 - 2), yTop + v8);
+}
 						*(v7 - 1) -= v7[1];
 					} else {
 						v7[2] = 0;
@@ -318,23 +323,26 @@ int  nox_xxx_guiHealthManaTubeDraw_471D10(int xLeft) {
 				do {
 					if (!*((uint32_t*)v9 + 2)) {
 						v11 = nox_common_randomIntMinMax_415FF0(1, 100, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c", 668);
-						if (v11 >= 80)
+						if (v11 >= 80) {
 							*(uint32_t*)v9 = (v11 >= 95) + 2;
-						else
+						} else {
 							*(uint32_t*)v9 = 1;
+}
 						v12 = nox_common_randomIntMinMax_415FF0(0, 14, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c", 676);
 						v13 = *(uint32_t*)v9;
 						*((uint32_t*)v9 - 2) = v12;
-						if (v13 + v12 > 15)
+						if (v13 + v12 > 15) {
 							*((uint32_t*)v9 - 2) = 15 - v13;
+}
 						*((uint32_t*)v9 - 1) = 16 * (125 - v13);
 						*((uint32_t*)v9 + 1) = nox_common_randomIntMinMax_415FF0(4, 48, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c", 684);
 						*((uint32_t*)v9 + 2) = 1;
 						LOBYTE(v19) = nox_common_randomIntMinMax_415FF0(0, 64, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c", 688);
-						if (v18)
+						if (v18) {
 							v14 = nox_color_rgb_4344A0(v19, v19, 255);
-						else
+						} else {
 							v14 = nox_color_rgb_4344A0(255, v19, v19);
+}
 						*((uint32_t*)v9 + 3) = v14;
 					}
 					v9 += 24;

@@ -52,14 +52,16 @@ wchar_t*  nox_xxx_clientAskInfoMb_4BF050(nox_drawable* a1p) {
 	*getMemU16Ptr(0x5D4594, 1317000) = 0;
 	nox_wcscpy((wchar_t*)getMemAt(0x5D4594, 1317000), (const wchar_t*)getMemAt(0x5D4594, 1319048));
 	v1 = (int*)a1;
-	if (!a1)
+	if (!a1) {
 		return (wchar_t*)getMemAt(0x5D4594, 1317000);
+}
 	v2 = *((uint32_t*)a1 + 28);
 	if (!(v2 & 0x13001000)) {
 		if (!(v2 & 0x100)) {
 			result = (wchar_t*)nox_get_thing_pretty_name(*((uint32_t*)a1 + 27));
-			if (result)
+			if (result) {
 				return result;
+}
 			return (wchar_t*)getMemAt(0x5D4594, 1317000);
 		}
 		v18 = *((uint32_t*)a1 + 29);
@@ -100,8 +102,9 @@ wchar_t*  nox_xxx_clientAskInfoMb_4BF050(nox_drawable* a1p) {
 				v1[108] = 41;
 				goto LABEL_93;
 			}
-			if (v24 == 41)
+			if (v24 == 41) {
 				return (wchar_t*)getMemAt(0x5D4594, 1317000);
+}
 			if (nox_strman_get_lang_code() == 3 || nox_strman_get_lang_code() == 5) {
 				v27 = nox_strman_loadString_40F1D0("LoreScroll", 0, "C:\\NoxPost\\src\\client\\Gui\\ToolTip.c",
 											313);
@@ -125,8 +128,9 @@ wchar_t*  nox_xxx_clientAskInfoMb_4BF050(nox_drawable* a1p) {
 				v1[108] = 6;
 				goto LABEL_93;
 			}
-			if (v29 == 6)
+			if (v29 == 6) {
 				return (wchar_t*)getMemAt(0x5D4594, 1317000);
+}
 			if (nox_strman_get_lang_code() == 6) {
 				v30 = (const wchar_t*)nox_xxx_abilityGetName_0_425260(v1[108]);
 				nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), v30);
@@ -144,8 +148,9 @@ wchar_t*  nox_xxx_clientAskInfoMb_4BF050(nox_drawable* a1p) {
 			nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), v32);
 		} else {
 			result = (wchar_t*)nox_get_thing_pretty_name(v1[27]);
-			if (result)
+			if (result) {
 				return result;
+}
 		}
 	LABEL_93:
 		if ((uint8_t)a1 != (uint8_t)-13) {
@@ -158,24 +163,27 @@ wchar_t*  nox_xxx_clientAskInfoMb_4BF050(nox_drawable* a1p) {
 	v34 = 0;
 	v35 = 0;
 	a1 = 0;
-	if (v2 & 0x11001000)
+	if (v2 & 0x11001000) {
 		v4 = nox_xxx_getProjectileClassById_413250(v1[27]);
-	else
+	} else {
 		v4 = nox_xxx_equipClothFindDefByTT_413270(v1[27]);
+}
 	if (v4) {
 		v7 = v1[28] & 0x1000000;
 		if (!v7 || v7 == 0x1000000 && !(v1[29] & 0x7800000)) {
 			v8 = v1[108];
 			if (v8) {
 				v9 = *(const wchar_t**)(v8 + 8);
-				if (v9)
+				if (v9) {
 					v3 = v9;
+}
 			}
 			v10 = v1[109];
 			if (v10) {
 				v11 = *(wchar_t**)(v10 + 8);
-				if (v11)
+				if (v11) {
 					v34 = v11;
+}
 			}
 		}
 		v12 = (const wchar_t*)v4[2];
@@ -183,14 +191,16 @@ wchar_t*  nox_xxx_clientAskInfoMb_4BF050(nox_drawable* a1p) {
 			v13 = v1[110];
 			if (v13) {
 				v14 = *(wchar_t**)(v13 + 8);
-				if (v14)
+				if (v14) {
 					v35 = v14;
+}
 			}
 			v15 = v1[111];
 			if (v15) {
 				v16 = *(wchar_t**)(v15 + 12);
-				if (v16)
+				if (v16) {
 					a1 = v16;
+}
 			}
 		}
 		switch (nox_strman_get_lang_code()) {
@@ -209,8 +219,9 @@ wchar_t*  nox_xxx_clientAskInfoMb_4BF050(nox_drawable* a1p) {
 				nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), v34);
 				nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), L" ");
 			}
-			if (!v3)
+			if (!v3) {
 				return (wchar_t*)getMemAt(0x5D4594, 1317000);
+}
 			nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), L" ");
 			nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), v3);
 			result = (wchar_t*)getMemAt(0x5D4594, 1317000);
@@ -229,8 +240,9 @@ wchar_t*  nox_xxx_clientAskInfoMb_4BF050(nox_drawable* a1p) {
 				nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), L" ");
 				nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), v35);
 			}
-			if (!a1)
+			if (!a1) {
 				return (wchar_t*)getMemAt(0x5D4594, 1317000);
+}
 			nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), L" ");
 			goto LABEL_67;
 		case 5:
@@ -247,8 +259,9 @@ wchar_t*  nox_xxx_clientAskInfoMb_4BF050(nox_drawable* a1p) {
 				nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), L" ");
 				nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), v35);
 			}
-			if (!a1)
+			if (!a1) {
 				return (wchar_t*)getMemAt(0x5D4594, 1317000);
+}
 			nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), L" ");
 			nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), a1);
 			result = (wchar_t*)getMemAt(0x5D4594, 1317000);
@@ -287,8 +300,9 @@ wchar_t*  nox_xxx_clientAskInfoMb_4BF050(nox_drawable* a1p) {
 				nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), L" ");
 				nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), v35);
 			}
-			if (!a1)
+			if (!a1) {
 				return (wchar_t*)getMemAt(0x5D4594, 1317000);
+}
 			nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), L" ");
 		LABEL_67:
 			nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), a1);

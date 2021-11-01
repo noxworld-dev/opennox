@@ -41,8 +41,9 @@ int  nox_xxx_updDrawManabombCharge_4CCAC0(int a1, uint32_t* a2) {
 	v18 = v2 >> 4;
 	for (i = v2 >> 2;; v4 = i) {
 		v5 = v4 + nox_common_randomIntMinMax_415FF0(0, v2, "C:\\NoxPost\\src\\client\\Drawable\\Update\\ManaBomb.c", 63);
-		if (v5 > (int)v2)
+		if (v5 > (int)v2) {
 			v5 = v2;
+}
 		v6 = nox_common_randomIntMinMax_415FF0(0, 255, "C:\\NoxPost\\src\\client\\Drawable\\Update\\ManaBomb.c", 68);
 		v7 = nox_xxx_spriteLoadAdd_45A360_drawable(*getMemIntPtr(0x5D4594, 1522960), v3[3] + v5 * *getMemIntPtr(0x587000, 192088 + 8 * v6) / 16,
 								 v3[4] + v5 * *getMemIntPtr(0x587000, 192092 + 8 * v6) / 16);
@@ -59,8 +60,9 @@ int  nox_xxx_updDrawManabombCharge_4CCAC0(int a1, uint32_t* a2) {
 			*(uint8_t*)(v8 + 296) = nox_common_randomIntMinMax_415FF0(2, 8, "C:\\NoxPost\\src\\client\\Drawable\\Update\\ManaBomb.c", 94);
 			nox_xxx_sprite_45A110_drawable((uint32_t*)v8);
 		}
-		if (!--v19)
+		if (!--v19) {
 			break;
+}
 	}
 	if ((unsigned char)nox_frame_xxx_2598000 & 1) {
 		if ((unsigned int)(nox_frame_xxx_2598000 - v3[80]) < 0xA) {

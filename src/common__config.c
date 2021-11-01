@@ -101,195 +101,247 @@ LABEL_2:
 		if (!v1) {
 			continue;
 		}
-		if (!strcmp(v1, "---"))
+		if (!strcmp(v1, "---")) {
 			return 1;
+}
 		if (!strcmp(v1, "Version")) {
 			v2 = (char*)sub_432AD0(getMemIntPtr(0x587000, 81284));
-			if (!v2)
+			if (!v2) {
 				return 0;
+}
 		} else if (!strcmp(v1, "VideoMode")) {
 			v2 = (char*)nox_common_parsecfg_videomode();
-			if (!v2)
+			if (!v2) {
 				return 0;
+}
 		} else if (!strcmp(v1, "VideoSize")) {
 			v2 = (char*)nox_common_parsecfg_videosize();
-			if (!v2)
+			if (!v2) {
 				return 0;
+}
 		} else if (!strcmp(v1, "Gamma")) {
 			v2 = (char*)sub_432C00();
-			if (!v2)
+			if (!v2) {
 				return 0;
+}
 		} else if (!strcmp(v1, "FXVolume")) {
 			v2 = (char*)sub_432CB0(0);
-			if (!v2)
+			if (!v2) {
 				return 0;
+}
 		} else if (!strcmp(v1, "DialogVolume")) {
 			v2 = (char*)sub_432CB0(1);
-			if (!v2)
+			if (!v2) {
 				return 0;
+}
 		} else if (!strcmp(v1, "MusicVolume")) {
 			v2 = (char*)sub_432CB0(2);
-			if (!v2)
+			if (!v2) {
 				return 0;
+}
 		} else if (!strcmp(v1, "LastServer")) {
 			v2 = (char*)sub_431FC0();
-			if (!v2)
+			if (!v2) {
 				return 0;
+}
 		} else if (!strcmp(v1, "ServerName")) {
 			v2 = (char*)sub_432010();
-			if (!v2)
+			if (!v2) {
 				return 0;
+}
 		} else if (!strcmp(v1, "UnlockSurface")) {
 			v2 = (char*)sub_4320B0();
-			if (!v2)
+			if (!v2) {
 				return 0;
+}
 		} else if (!strcmp(v1, "SoftShadowEdge")) {
 			v2 = (char*)sub_432100();
-			if (!v2)
+			if (!v2) {
 				return 0;
+}
 		} else if (!strcmp(v1, "DrawFrontWalls")) {
 			v2 = (char*)sub_432150();
-			if (!v2)
+			if (!v2) {
 				return 0;
+}
 		} else if (!strcmp(v1, "TranslucentFrontWalls")) {
 			v2 = (char*)sub_4321A0();
-			if (!v2)
+			if (!v2) {
 				return 0;
+}
 		} else if (!strcmp(v1, "HighResFrontWalls")) {
 			v2 = (char*)sub_4321F0();
-			if (!v2)
+			if (!v2) {
 				return 0;
+}
 		} else if (!strcmp(v1, "HighResFloors")) {
 			v2 = (char*)sub_432240();
-			if (!v2)
+			if (!v2) {
 				return 0;
+}
 		} else if (!strcmp(v1, "LockHighResFloors")) {
 			v2 = (char*)sub_432290();
-			if (!v2)
+			if (!v2) {
 				return 0;
+}
 		} else if (!strcmp(v1, "TexturedFloors")) {
 			v2 = (char*)sub_4322E0();
-			if (!v2)
+			if (!v2) {
 				return 0;
+}
 		} else if (!strcmp(v1, "TranslucentConsole")) {
 			v2 = (char*)sub_432340();
-			if (!v2)
+			if (!v2) {
 				return 0;
+}
 		} else if (!strcmp(v1, "RenderGlow")) {
 			v2 = (char*)sub_432390();
-			if (!v2)
+			if (!v2) {
 				return 0;
+}
 		} else if (!strcmp(v1, "RenderGUI")) {
 			v2 = (char*)sub_4323E0();
-			if (!v2)
+			if (!v2) {
 				return 0;
+}
 		} else if (!strcmp(v1, "FadeObjects")) {
 			v2 = (char*)sub_432430();
-			if (!v2)
+			if (!v2) {
 				return 0;
+}
 		} else if (!strcmp(v1, "TrackData")) {
 			v2 = (char*)sub_433190();
-			if (!v2)
+			if (!v2) {
 				return 0;
+}
 		} else if (!strcmp(v1, "RenderBubbles")) {
 			v2 = (char*)sub_432480();
-			if (!v2)
+			if (!v2) {
 				return 0;
+}
 		} else if (!strcmp(v1, "SysopPassword")) {
 			v2 = (char*)sub_4324D0();
-			if (!v2)
+			if (!v2) {
 				return 0;
+}
 		} else if (!strcmp(v1, "ServerPassword")) {
 			v2 = (char*)sub_432520();
-			if (!v2)
+			if (!v2) {
 				return 0;
+}
 		} else if (!strcmp(v1, "Profiled")) {
 			v2 = (char*)sub_432590();
-			if (!v2)
+			if (!v2) {
 				return 0;
+}
 		} else if (!strcmp(v1, "SanctuaryHelp")) {
 			v2 = (char*)sub_432620();
-			if (!v2)
+			if (!v2) {
 				return 0;
+}
 		} else if (!strcmp(v1, "MaxPacketLossPct")) {
 			v2 = (char*)sub_4325D0();
-			if (!v2)
+			if (!v2) {
 				return 0;
+}
 		} else if (!strcmp(v1, "SendMessageOfTheDay")) {
 			v2 = (char*)sub_432A90();
-			if (!v2)
+			if (!v2) {
 				return 0;
+}
 		} else if (!strcmp(v1, "InternetUpdateRate")) {
 			v2 = (char*)sub_432DF0();
-			if (!v2)
+			if (!v2) {
 				return 0;
+}
 		} else if (!strcmp(v1, "ConnectionType")) {
 			v2 = (char*)sub_433050();
-			if (!v2)
+			if (!v2) {
 				return 0;
+}
 		} else if (!strcmp(v1, "MapCycle")) {
 			v2 = (char*)sub_432C30();
-			if (!v2)
+			if (!v2) {
 				return 0;
+}
 		} else if (!strcmp(v1, "LANFilters")) {
 			v2 = sub_432E50(0);
-			if (!v2)
+			if (!v2) {
 				return 0;
+}
 		} else if (!strcmp(v1, "INETFilters")) {
 			v2 = sub_432E50(1);
-			if (!v2)
+			if (!v2) {
 				return 0;
+}
 		} else if (!strcmp(v1, "LessonLimit")) {
-			if (!sub_432D10())
+			if (!sub_432D10()) {
 				return 0;
+}
 		} else if (!strcmp(v1, "TimeLimit")) {
-			if (!sub_432D80())
+			if (!sub_432D80()) {
 				return 0;
+}
 		} else if (!strcmp(v1, "PlayerSkeletons")) {
-			if (!sub_4327C0())
+			if (!sub_4327C0()) {
 				return 0;
+}
 		} else if (!strcmp(v1, "BroadcastGestures")) {
-			if (!sub_432810())
+			if (!sub_432810()) {
 				return 0;
+}
 		} else if (!strcmp(v1, "LatencyCompensation")) {
-			if (!sub_432970())
+			if (!sub_432970()) {
 				return 0;
+}
 		} else if (!strcmp(v1, "Closed")) {
-			if (!sub_432860())
+			if (!sub_432860()) {
 				return 0;
+}
 		} else if (!strcmp(v1, "Private")) {
-			if (!sub_4328C0())
+			if (!sub_4328C0()) {
 				return 0;
+}
 		} else if (!strcmp(v1, "AudioThreshold")) {
-			if (!sub_433130())
+			if (!sub_433130()) {
 				return 0;
+}
 		} else if (!strcmp(v1, "MaxPlayers")) {
-			if (!sub_4330C0())
+			if (!sub_4330C0()) {
 				return 0;
+}
 		} else if (!strcmp(v1, "RestrictedClasses")) {
-			if (!sub_432920())
+			if (!sub_432920()) {
 				return 0;
+}
 		} else if (!strcmp(v1, "RestrictedPing")) {
-			if (!sub_4329D0())
+			if (!sub_4329D0()) {
 				return 0;
+}
 		} else if (!strcmp(v1, "LimitMaxRes")) {
-			if (!sub_432A30())
+			if (!sub_432A30()) {
 				return 0;
+}
 		} else if (!strcmp(v1, "ItemRespawn")) {
-			if (!sub_432660())
+			if (!sub_432660()) {
 				return 0;
+}
 		} else if (!strcmp(v1, "CamperAlarm")) {
-			if (!sub_4326B0())
+			if (!sub_4326B0()) {
 				return 0;
+}
 		} else if (!strcmp(v1, "MinKickVotes")) {
-			if (!sub_432700())
+			if (!sub_432700()) {
 				return 0;
+}
 		} else if (!strcmp(v1, "ResetQuestMinVotes")) {
-			if (!sub_432740())
+			if (!sub_432740()) {
 				return 0;
+}
 		} else if (!strcmp(v1, "KickQuestPlayerMinVotes")) {
-			if (!sub_432780())
+			if (!sub_432780()) {
 				return 0;
+}
 		} else if (!strcmp(v1, "Fullscreen")) {
 			const char* token;
 			strtok(NULL, " \r\t\n");
@@ -306,8 +358,9 @@ LABEL_2:
 			const char* token;
 			strtok(NULL, " \r\t\n");
 			token = strtok(NULL, " \r\t\n");
-			if (token)
+			if (token) {
 				nox_video_setGamma(atof(token));
+}
 		} else if (!strcmp(v1, "Stretched")) {
 			const char* token;
 			strtok(NULL, " \r\t\n");
@@ -322,8 +375,9 @@ LABEL_2:
 			const char* token;
 			strtok(NULL, " \r\t\n");
 			token = strtok(NULL, " \r\t\n");
-			if (token)
+			if (token) {
 				nox_input_setSensitivity(atof(token));
+}
 		} else {
 			v3 = *(const char**)getMemAt(0x587000, 81168);
 			v4 = 0;
@@ -333,12 +387,14 @@ LABEL_2:
 					v3 = (const char*)*((uint32_t*)v5 + 2);
 					v5 += 8;
 					++v4;
-					if (!v3)
+					if (!v3) {
 						goto LABEL_2;
+}
 				}
 				v2 = (char*)sub_432C70(*getMemU32Ptr(0x587000, 81172 + 8 * v4));
-				if (!v2)
+				if (!v2) {
 					return 0;
+}
 			}
 		}
 	}
@@ -351,10 +407,11 @@ int sub_431FC0() {
 
 	strtok(0, " \r\t\n");
 	v0 = strtok(0, " \r\t\n");
-	if (v0)
+	if (v0) {
 		strncpy((char*)getMemAt(0x5D4594, 806060), v0, 0x16u);
-	else
+	} else {
 		*getMemU8Ptr(0x5D4594, 806060) = getMemByte(0x5D4594, 807272);
+}
 	return 1;
 }
 
@@ -371,14 +428,16 @@ int sub_432010() {
 	v0 = strtok(0, " \r\t\n");
 	v1 = v0;
 	if (v0) {
-		if (*getMemU32Ptr(0x587000, 81284) == 0x10000 && !_strcmpi(v0, "NoxWorld"))
+		if (*getMemU32Ptr(0x587000, 81284) == 0x10000 && !_strcmpi(v0, "NoxWorld")) {
 			v1 = "User_Game";
+}
 		strncpy(v5, v1, 0x3Fu);
 		v3 = v5;
 		if (v5[0]) {
 			do {
-				if (*v3 == 95)
+				if (*v3 == 95) {
 					*v3 = 32;
+}
 				v4 = *++v3;
 			} while (v4);
 		}
@@ -400,14 +459,16 @@ int sub_4320B0() {
 
 	strtok(0, " \r\t\n");
 	v0 = strtok(0, " \r\t\n");
-	if (!v0)
+	if (!v0) {
 		return 1;
+}
 	v1 = atoi(v0);
 	nox_video_dxUnlockSurface = v1;
 	v2 = v1 == 0;
 	result = 1;
-	if (!v2)
+	if (!v2) {
 		nox_video_dxUnlockSurface = 1;
+}
 	return result;
 }
 
@@ -438,14 +499,16 @@ int sub_432150() {
 
 	strtok(0, " \r\t\n");
 	v0 = strtok(0, " \r\t\n");
-	if (!v0)
+	if (!v0) {
 		return 1;
+}
 	v1 = atoi(v0);
 	nox_client_drawFrontWalls_80812 = v1;
 	v2 = v1 == 0;
 	result = 1;
-	if (!v2)
+	if (!v2) {
 		nox_client_drawFrontWalls_80812 = 1;
+}
 	return result;
 }
 
@@ -458,14 +521,16 @@ int sub_4321A0() {
 
 	strtok(0, " \r\t\n");
 	v0 = strtok(0, " \r\t\n");
-	if (!v0)
+	if (!v0) {
 		return 1;
+}
 	v1 = atoi(v0);
 	nox_client_translucentFrontWalls_805844 = v1;
 	v2 = v1 == 0;
 	result = 1;
-	if (!v2)
+	if (!v2) {
 		nox_client_translucentFrontWalls_805844 = 1;
+}
 	return result;
 }
 
@@ -478,14 +543,16 @@ int sub_4321F0() {
 
 	strtok(0, " \r\t\n");
 	v0 = strtok(0, " \r\t\n");
-	if (!v0)
+	if (!v0) {
 		return 1;
+}
 	v1 = atoi(v0);
 	nox_client_highResFrontWalls_80820 = v1;
 	v2 = v1 == 0;
 	result = 1;
-	if (!v2)
+	if (!v2) {
 		nox_client_highResFrontWalls_80820 = 1;
+}
 	return result;
 }
 
@@ -498,14 +565,16 @@ int sub_432240() {
 
 	strtok(0, " \r\t\n");
 	v0 = strtok(0, " \r\t\n");
-	if (!v0)
+	if (!v0) {
 		return 1;
+}
 	v1 = atoi(v0);
 	nox_client_highResFloors_154952 = v1;
 	v2 = v1 == 0;
 	result = 1;
-	if (!v2)
+	if (!v2) {
 		nox_client_highResFloors_154952 = 1;
+}
 	return result;
 }
 
@@ -518,14 +587,16 @@ int sub_432290() {
 
 	strtok(0, " \r\t\n");
 	v0 = strtok(0, " \r\t\n");
-	if (!v0)
+	if (!v0) {
 		return 1;
+}
 	v1 = atoi(v0);
 	nox_client_lockHighResFloors_1193152 = v1;
 	v2 = v1 == 0;
 	result = 1;
-	if (!v2)
+	if (!v2) {
 		nox_client_lockHighResFloors_1193152 = 1;
+}
 	return result;
 }
 
@@ -554,14 +625,16 @@ int sub_432340() {
 
 	strtok(0, " \r\t\n");
 	v0 = strtok(0, " \r\t\n");
-	if (!v0)
+	if (!v0) {
 		return 1;
+}
 	v1 = atoi(v0);
 	nox_gui_console_translucent = v1;
 	v2 = v1 == 0;
 	result = 1;
-	if (!v2)
+	if (!v2) {
 		nox_gui_console_translucent = 1;
+}
 	return result;
 }
 
@@ -574,14 +647,16 @@ int sub_432390() {
 
 	strtok(0, " \r\t\n");
 	v0 = strtok(0, " \r\t\n");
-	if (!v0)
+	if (!v0) {
 		return 1;
+}
 	v1 = atoi(v0);
 	nox_client_renderGlow_805852 = v1;
 	v2 = v1 == 0;
 	result = 1;
-	if (!v2)
+	if (!v2) {
 		nox_client_renderGlow_805852 = 1;
+}
 	return result;
 }
 
@@ -594,14 +669,16 @@ int sub_4323E0() {
 
 	strtok(0, " \r\t\n");
 	v0 = strtok(0, " \r\t\n");
-	if (!v0)
+	if (!v0) {
 		return 1;
+}
 	v1 = atoi(v0);
 	nox_client_renderGUI_80828 = v1;
 	v2 = v1 == 0;
 	result = 1;
-	if (!v2)
+	if (!v2) {
 		nox_client_renderGUI_80828 = 1;
+}
 	return result;
 }
 
@@ -614,14 +691,16 @@ int sub_432430() {
 
 	strtok(0, " \r\t\n");
 	v0 = strtok(0, " \r\t\n");
-	if (!v0)
+	if (!v0) {
 		return 1;
+}
 	v1 = atoi(v0);
 	nox_client_fadeObjects_80836 = v1;
 	v2 = v1 == 0;
 	result = 1;
-	if (!v2)
+	if (!v2) {
 		nox_client_fadeObjects_80836 = 1;
+}
 	return result;
 }
 
@@ -634,14 +713,16 @@ int sub_432480() {
 
 	strtok(0, " \r\t\n");
 	v0 = strtok(0, " \r\t\n");
-	if (!v0)
+	if (!v0) {
 		return 1;
+}
 	v1 = atoi(v0);
 	nox_client_renderBubbles_80844 = v1;
 	v2 = v1 == 0;
 	result = 1;
-	if (!v2)
+	if (!v2) {
 		nox_client_renderBubbles_80844 = 1;
+}
 	return result;
 }
 
@@ -686,8 +767,9 @@ int sub_432590() {
 
 	strtok(0, " \r\t\n");
 	v0 = strtok(0, " \r\t\n");
-	if (v0)
+	if (v0) {
 		nox_profiled_805856 = atoi(v0) != 0;
+}
 	return 1;
 }
 
@@ -710,8 +792,9 @@ int sub_432620() {
 
 	strtok(0, " \r\t\n");
 	v0 = strtok(0, " \r\t\n");
-	if (v0)
+	if (v0) {
 		nox_server_sanctuaryHelp_54276 = atoi(v0) != 0;
+}
 	return 1;
 }
 
@@ -753,8 +836,9 @@ int sub_432700() {
 
 	strtok(0, " \r\t\n");
 	v0 = strtok(0, " \r\t\n");
-	if (v0)
+	if (v0) {
 		*getMemU32Ptr(0x587000, 229980) = atoi(v0);
+}
 	return 1;
 }
 
@@ -764,8 +848,9 @@ int sub_432740() {
 
 	strtok(0, " \r\t\n");
 	v0 = strtok(0, " \r\t\n");
-	if (v0)
+	if (v0) {
 		nox_server_resetQuestMinVotes_229988 = atoi(v0);
+}
 	return 1;
 }
 
@@ -775,8 +860,9 @@ int sub_432780() {
 
 	strtok(0, " \r\t\n");
 	v0 = strtok(0, " \r\t\n");
-	if (v0)
+	if (v0) {
 		nox_server_kickQuestPlayerMinVotes_229992 = atoi(v0);
+}
 	return 1;
 }
 
@@ -878,8 +964,9 @@ int sub_432970() {
 		v1 = sub_416640();
 		*(uint32_t*)(v1 + 66) = atoi(v0);
 		v2 = strtok(0, " \r\t\n");
-		if (v2)
+		if (v2) {
 			*(uint32_t*)(v1 + 70) = atoi(v2);
+}
 	}
 	return 1;
 }
@@ -896,8 +983,9 @@ int sub_4329D0() {
 		v1 = sub_416640();
 		*(uint16_t*)(v1 + 105) = atoi(v0);
 		v2 = strtok(0, " \r\t\n");
-		if (v2)
+		if (v2) {
 			*(uint16_t*)(v1 + 107) = atoi(v2);
+}
 	}
 	return 1;
 }
@@ -930,8 +1018,9 @@ int sub_432A90() {
 
 	strtok(0, " \r\t\n");
 	v0 = strtok(0, " \r\t\n");
-	if (v0)
+	if (v0) {
 		nox_server_sendMotd_108752 = atoi(v0) != 0;
+}
 	return 1;
 }
 
@@ -981,11 +1070,13 @@ int nox_common_parsecfg_videomode() {
 	v6 = v5;
 #ifndef NOX_CGO
 	if (v5 == 8) {
-		if (!nox_video_bagexists_4300D0(0))
+		if (!nox_video_bagexists_4300D0(0)) {
 			v6 = 16;
+}
 	} else if (v5 == 16) {
-		if (!nox_video_bagexists_4300D0(1))
+		if (!nox_video_bagexists_4300D0(1)) {
 			v6 = 8;
+}
 	} else {
 		v6 = nox_video_bagexists_4300D0(1) ? 16 : 8;
 	}
@@ -1060,8 +1151,9 @@ int  sub_432CB0(int a1) {
 	v1 = strtok(0, " \r\t\n");
 	v2 = atoi(v1);
 	if ((v2 & 0x80000000) == 0) {
-		if (v2 > 0x4000)
+		if (v2 > 0x4000) {
 			v2 = 0x4000;
+}
 		sub_486670(v2, a1);
 		result = 1;
 	} else {
@@ -1080,11 +1172,13 @@ int sub_432D10() {
 
 	strtok(0, " \r\t\n");
 	v0 = strtok(0, " \r\t\n");
-	if (!v0)
+	if (!v0) {
 		return 1;
+}
 	v1 = strtok(v0, ",\r\n");
-	if (!v1)
+	if (!v1) {
 		return 1;
+}
 	v2 = getMemAt(0x587000, 81224);
 	do {
 		v3 = atoi(v1);
@@ -1104,11 +1198,13 @@ int sub_432D80() {
 
 	strtok(0, " \r\t\n");
 	v0 = strtok(0, " \r\t\n");
-	if (!v0)
+	if (!v0) {
 		return 1;
+}
 	v1 = strtok(v0, ",\r\n");
-	if (!v1)
+	if (!v1) {
 		return 1;
+}
 	v2 = getMemAt(0x587000, 81224);
 	do {
 		v3 = atoi(v1);
@@ -1129,8 +1225,9 @@ int sub_432DF0() {
 	if (v0) {
 		v1 = atoi(v0);
 		nox_xxx_rateUpdate_40A6D0(v1);
-		if (nox_xxx_rateGet_40A6C0() <= 0 || nox_xxx_rateGet_40A6C0() > 3)
+		if (nox_xxx_rateGet_40A6C0() <= 0 || nox_xxx_rateGet_40A6C0() > 3) {
 			nox_xxx_rateUpdate_40A6D0(1);
+}
 	}
 	return 1;
 }
@@ -1145,8 +1242,9 @@ char*  sub_432E50(int a1) {
 
 	strtok(0, " \r\t\n");
 	v1 = strtok(0, " \r\t\n");
-	if (!v1)
+	if (!v1) {
 		return (char*)1;
+}
 	result = strtok(v1, ",\r\n");
 	if (result) {
 		v3 = atoi(result);
@@ -1181,10 +1279,11 @@ char*  sub_432E50(int a1) {
 											if (result) {
 												v5[9] = *result == 49;
 												v4 = strtok(0, ",\r\n");
-												if (v4)
+												if (v4) {
 													v5[10] = *v4 == 49;
-												else
+												} else {
 													v5[10] = 0;
+}
 												sub_489FF0(a1, v3, v5);
 												return (char*)1;
 											}
@@ -1215,11 +1314,13 @@ int sub_433050() {
 		if (*getMemU32Ptr(0x587000, 81248)) {
 			for (i = getMemAt(0x587000, 81248); *((uint32_t*)i + 1) != v1; i += 8) {
 				v3 = *((uint32_t*)i + 2);
-				if (!v3)
+				if (!v3) {
 					return 1;
+}
 			}
-			if (v1 < 0 && v1 > 4)
+			if (v1 < 0 && v1 > 4) {
 				v1 = 4;
+}
 			nox_server_connectionType_3596 = v1;
 		}
 	}
@@ -1234,14 +1335,16 @@ int sub_4330C0() {
 
 	strtok(0, " \r\t\n");
 	v0 = strtok(0, " \r\t\n");
-	if (!v0)
+	if (!v0) {
 		return 1;
+}
 	v1 = sub_416640();
 	v2 = atoi(v0);
 	v1[104] = v2;
 	if ((unsigned char)v2 <= 0x20u) {
-		if ((unsigned char)v2 < 1u)
+		if ((unsigned char)v2 < 1u) {
 			v1[104] = 1;
+}
 	} else {
 		v1[104] = 32;
 	}
@@ -1265,8 +1368,9 @@ int sub_433130() {
 			*(uint32_t*)(v1 + 74) = 100;
 			return 1;
 		}
-		if (v2 < 0)
+		if (v2 < 0) {
 			*(uint32_t*)(v1 + 74) = 0;
+}
 	}
 	return 1;
 }
@@ -1279,8 +1383,9 @@ int sub_433190() {
 	v2 = 0;
 	strtok(0, " \r\t\n");
 	v0 = strtok(0, " \r\t\n");
-	if (v0)
+	if (v0) {
 		v2 = atoi(v0);
+}
 	sub_578DE0(v2);
 	return 1;
 }
@@ -1293,19 +1398,22 @@ int  nox_common_skipcfgfile_4331E0(FILE* a1, int a2) {
 	v2 = 0;
 	if (a2) {
 		while (nox_fs_fgets(a1, (char*)getMemAt(0x5D4594, 806084), 1024)) {
-			if (!strncmp("---", (const char*)getMemAt(0x5D4594, 806084), 3u))
+			if (!strncmp("---", (const char*)getMemAt(0x5D4594, 806084), 3u)) {
 				goto LABEL_6;
+}
 		}
 		result = 1;
 	} else {
 	LABEL_6:
 		do {
 			do {
-				if (!nox_fs_fgets(a1, (char*)getMemAt(0x5D4594, 806084), 1024))
+				if (!nox_fs_fgets(a1, (char*)getMemAt(0x5D4594, 806084), 1024)) {
 					return v2;
+}
 			} while (getMemByte(0x5D4594, 806084) == 35);
-			if (!strncmp("---", (const char*)getMemAt(0x5D4594, 806084), 3u))
+			if (!strncmp("---", (const char*)getMemAt(0x5D4594, 806084), 3u)) {
 				return 1;
+}
 		} while (nox_client_parseConfigHotkeysLine_42CF50((const char*)getMemAt(0x5D4594, 806084)));
 		result = 0;
 	}
@@ -1362,20 +1470,23 @@ int  sub_4332E0(FILE* a1) {
 	// nox_fs_fprintf(a1, "Gamma = %d\n", *(uint32_t *)getMemAt(0x587000, 80852));
 	nox_fs_fprintf(a1, "Gamma2 = %f\n", nox_video_getGamma());
 	nox_fs_fprintf(a1, "InputSensitivity = %f\n", nox_input_getSensitivity());
-	if (sub_453070() == 1)
+	if (sub_453070() == 1) {
 		v3 = *(uint32_t*)((uint32_t)dword_587000_127004 + 4) >> 16;
-	else
+	} else {
 		v3 = 0;
+}
 	nox_fs_fprintf(a1, "FXVolume = %d\n", v3);
-	if (sub_44D990() == 1)
+	if (sub_44D990() == 1) {
 		v4 = *(uint32_t*)((uint32_t)dword_587000_122852 + 4) >> 16;
-	else
+	} else {
 		v4 = 0;
+}
 	nox_fs_fprintf(a1, "DialogVolume = %d\n", v4);
-	if (sub_43DC30() == 1)
+	if (sub_43DC30() == 1) {
 		v5 = *(uint32_t*)((uint32_t)dword_587000_93164 + 4) >> 16;
-	else
+	} else {
 		v5 = 0;
+}
 	nox_fs_fprintf(a1, "MusicVolume = %d\n", v5);
 	nox_fs_fprintf(a1, "LastServer = %s\n", getMemAt(0x5D4594, 806060));
 	v6 = sub_433890();
@@ -1506,8 +1617,9 @@ char* sub_433890() {
 	v1 = getMemAt(0x5D4594, 807108);
 	if (getMemByte(0x5D4594, 807108)) {
 		do {
-			if (*v1 == 32)
+			if (*v1 == 32) {
 				*v1 = 95;
+}
 			v2 = *++v1;
 		} while (v2);
 	}

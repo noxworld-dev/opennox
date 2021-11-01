@@ -118,31 +118,36 @@ wchar_t*  sub_47A020(char* a1) {
 	v10 = result;
 	if (result) {
 		while (1) {
-			if (!v3)
+			if (!v3) {
 				v3 = result;
+}
 			v6 = nox_wcslen(v3);
 			nox_xxx_drawGetStringSize_43F840(*(uint32_t*)(v2 + 236), v3, (int*)&a1, 0, 0);
 			v7 = v6;
 			if ((int)a1 > v9) {
 				while (1) {
 					v6 = v7;
-					if (!v7)
+					if (!v7) {
 						break;
+}
 					v8 = &v3[v7];
 					while (*v8 != 32) {
 						--v6;
 						--v8;
-						if (!v6)
+						if (!v6) {
 							goto LABEL_15;
+}
 					}
-					if (!v6)
+					if (!v6) {
 						break;
+}
 					v7 = v6 - 1;
 					nox_wcsncpy((wchar_t*)getMemAt(0x5D4594, 1115324), v3, v6);
 					*getMemU16Ptr(0x5D4594, 1115324 + 2 * v6) = 0;
 					nox_xxx_drawGetStringSize_43F840(*(uint32_t*)(v2 + 236), getMemU16Ptr(0x5D4594, 1115324), (int*)&a1, 0, 0);
-					if ((int)a1 <= v9)
+					if ((int)a1 <= v9) {
 						goto LABEL_16;
+}
 				}
 			LABEL_15:
 				v6 = sub_43F9E0(*(uint32_t*)(v2 + 236), v3, v9);
@@ -151,11 +156,13 @@ wchar_t*  sub_47A020(char* a1) {
 			nox_wcsncpy((wchar_t*)getMemAt(0x5D4594, 1115324), v3, v6);
 			v3 += v6;
 			*getMemU16Ptr(0x5D4594, 1115324 + 2 * v6) = 0;
-			if (*v3 == 32)
+			if (*v3 == 32) {
 				++v3;
+}
 			result = (wchar_t*)*v12;
-			if (v11 >= (int)result)
+			if (v11 >= (int)result) {
 				break;
+}
 			nox_window_call_field_94(v2, 16397, (int)getMemAt(0x5D4594, 1115324), -1);
 			if (nox_wcslen(v3)) {
 				result = v10;
@@ -165,8 +172,9 @@ wchar_t*  sub_47A020(char* a1) {
 				v3 = result;
 			}
 			++v11;
-			if (!result)
+			if (!result) {
 				break;
+}
 			result = v10;
 		}
 	}

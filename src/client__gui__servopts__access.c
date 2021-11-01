@@ -44,13 +44,15 @@ int sub_454640() {
 	nox_xxx_drawGetStringSize_43F840(v1[59], v3, &v9, 0, 0);
 	v4 = nox_strman_loadString_40F1D0("WIZARD", 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\access.c", 89);
 	nox_xxx_drawGetStringSize_43F840(v1[59], v4, &v10, 0, 0);
-	if (v10 > v9)
+	if (v10 > v9) {
 		v9 = v10;
+}
 	v5 = nox_strman_loadString_40F1D0("CONJURER", 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\access.c", 94);
 	nox_xxx_drawGetStringSize_43F840(v1[59], v5, &v10, 0, 0);
 	v6 = v9;
-	if (v10 > v9)
+	if (v10 > v9) {
 		v6 = v10;
+}
 	v7 = v6 + 7;
 	v9 = v7;
 	v1[2] = v7;
@@ -93,8 +95,9 @@ int* sub_454740() {
 		nox_window_call_field_94(*(int*)&dword_5d4594_1045588, 16414, (int)WideCharStr, 0);
 	}
 	v3 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1045516, 10124);
-	if ((int)v0[102] < 0)
+	if ((int)v0[102] < 0) {
 		v3[9] |= 4u;
+}
 	if (v0[100] & 0x20) {
 		nox_xxx_wnd_46ABB0(*(int*)&dword_5d4594_1045556, 1);
 		*(uint32_t*)(*getMemU32Ptr(0x5D4594, 1045524) + 36) |= 4u;
@@ -148,8 +151,9 @@ int* sub_454740() {
 	_itow((unsigned char)v0[104], WideCharStr, 10);
 	nox_window_call_field_94(*getMemIntPtr(0x5D4594, 1045592), 16414, (int)WideCharStr, 0);
 	for (i = nox_common_playerInfoGetFirst_416EA0(); i; i = nox_common_playerInfoGetNext_416EE0((int)i)) {
-		if (i[2064] != 31 || !nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING))
+		if (i[2064] != 31 || !nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
 			sub_455920((int)(i + 4704));
+}
 	}
 	return sub_455800();
 }

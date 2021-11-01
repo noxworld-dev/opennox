@@ -25,8 +25,9 @@ int  nox_thing_boulder_draw(int* a1, nox_drawable* dr) {
 				LABEL_8:
 				v5 = *(uint32_t*)(a2 + 440) + 1;
 				*(uint32_t*)(a2 + 440) = v5;
-				if (v5 >= 0x10)
+				if (v5 >= 0x10) {
 					*(uint32_t*)(a2 + 440) = 0;
+}
 				goto LABEL_17;
 			}
 			*(uint32_t*)(a2 + 444) = 16;
@@ -38,10 +39,11 @@ int  nox_thing_boulder_draw(int* a1, nox_drawable* dr) {
 			*(uint32_t*)(a2 + 444) = 0;
 		}
 		v6 = *(uint32_t*)(a2 + 440);
-		if (v6)
+		if (v6) {
 			*(uint32_t*)(a2 + 440) = v6 - 1;
-		else
+		} else {
 			*(uint32_t*)(a2 + 440) = 15;
+}
 		LABEL_17:
 		*(uint32_t*)(a2 + 432) = *(uint32_t*)(a2 + 12);
 		*(uint32_t*)(a2 + 436) = *(uint32_t*)(a2 + 16);

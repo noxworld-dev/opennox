@@ -29,8 +29,9 @@ void sub_413520_gamedisk() {
 		if (!v1) {
 			sub_4137C0();
 			sub_44D8F0();
-			if (nox_common_gameFlags_check_40A5C0(2048))
+			if (nox_common_gameFlags_check_40A5C0(2048)) {
 				sub_4137A0();
+}
 			v8 = sub_413760;
 			v7 = sub_413780;
 			v6 = 35;

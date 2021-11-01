@@ -27,8 +27,9 @@ int  nox_thing_debug_draw(nox_draw_viewport_t* vp, nox_drawable* dr) {
 	int v20;   // [esp+28h] [ebp-8h]
 
 	v2 = *getMemU32Ptr(0x8531A0, 2572);
-	if (dr->field_72 >= nox_frame_xxx_2598000)
+	if (dr->field_72 >= nox_frame_xxx_2598000) {
 		v2 = *getMemU32Ptr(0x5D4594, 2589772);
+}
 	nox_client_drawSetColor_434460(v2);
 	nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 2523948));
 	v3 = dr->pos.y;

@@ -26,20 +26,24 @@ int  nox_xxx_gui_4AD320(int a1) {
 	uint32_t* v10; // eax
 
 	v1 = nox_strman_get_lang_code();
-	if (nox_xxx_guiFontHeightMB_43F320(0) > 10)
+	if (nox_xxx_guiFontHeightMB_43F320(0) > 10) {
 		v1 = 2;
-	if (dword_5d4594_1309812)
+}
+	if (dword_5d4594_1309812) {
 		return 0;
-	if (nox_xxx_check_flag_aaa_43AF70() == 1)
+}
+	if (nox_xxx_check_flag_aaa_43AF70() == 1) {
 		v3 = nox_new_window_from_file(*(const char**)getMemAt(0x587000, 173596 + 4 * v1), nox_xxx_windowServerOptionsGeneralProc_4AD5D0);
-	else
+	} else {
 		v3 = nox_new_window_from_file(*(const char**)getMemAt(0x587000, 173556 + 4 * v1), nox_xxx_windowServerOptionsGeneralProc_4AD5D0);
+}
 	dword_5d4594_1309812 = v3;
 	sub_46B120(v3, a1);
 	nox_xxx_wndSetDrawFn_46B340(*(int*)&dword_5d4594_1309812, sub_4AD570);
 	v4 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1309812, 10306);
-	if (nox_common_gameFlags_check_40A5C0(1056))
+	if (nox_common_gameFlags_check_40A5C0(1056)) {
 		nox_xxx_wnd_46ABB0((int)v4, 0);
+}
 	nox_xxx_wndRetNULL_46A8A0();
 	sub_4AD840();
 	if (nox_xxx_check_flag_aaa_43AF70() == 1) {
@@ -88,14 +92,16 @@ int sub_4AD4B0() {
 	do {
 		v5 = nox_strman_loadString_40F1D0(*v4, 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\general.c", 92);
 		nox_xxx_drawGetStringSize_43F840(v1[59], v5, &v9, 0, 0);
-		if (v9 > v3)
+		if (v9 > v3) {
 			v3 = v9;
+}
 		++v4;
 	} while ((int)v4 < (int)getMemAt(0x587000, 173556));
 	result = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1309812, 10316)->width;
 	v7 = v3 + 7;
-	if (v7 <= result)
+	if (v7 <= result) {
 		v7 = result;
+}
 	v8 = v1[6];
 	v1[2] = v7;
 	v1[4] = v8 - v7;
@@ -120,8 +126,9 @@ int sub_4AD840() {
 		if (nox_server_doPlayersAutoRespawn_40A5F0()) {
 			v1 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1309812, 10301);
 			v1[9] |= 4u;
-			if (nox_common_gameFlags_check_40A5C0(1024))
+			if (nox_common_gameFlags_check_40A5C0(1024)) {
 				nox_xxx_wnd_46ABB0((int)v1, 0);
+}
 		}
 		if (nox_server_sendMotd_108752) {
 			v2 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1309812, 10302);

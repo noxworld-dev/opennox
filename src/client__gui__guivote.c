@@ -84,10 +84,11 @@ uint32_t*  sub_48CB10(int a1) {
 		nox_window_call_field_94(*(int*)&dword_5d4594_1197320, 16397, (int)v11, 4);
 		v12 = nox_strman_loadString_40F1D0("WindowDir:No", 0, "C:\\NoxPost\\src\\client\\Gui\\GUIVote.c", 498);
 		nox_window_call_field_94(*(int*)&dword_5d4594_1197320, 16397, (int)v12, 4);
-		if (dword_5d4594_1197332 == 1)
+		if (dword_5d4594_1197332 == 1) {
 			nox_window_call_field_94(*(int*)&dword_5d4594_1197320, 16403, 0, 0);
-		else
+		} else {
 			nox_window_call_field_94(*(int*)&dword_5d4594_1197320, 16403, 1, 0);
+}
 		return (uint32_t*)nox_xxx_wndShowModalMB_46A8C0(*(int*)&dword_5d4594_1197312);
 	case 0:
 	case 1:
@@ -114,8 +115,9 @@ uint32_t*  sub_48CB10(int a1) {
 								if (dword_5d4594_1197324 > 0) {
 									v20 = (const wchar_t*)getMemAt(0x5D4594, 1193720);
 									do {
-										if (!nox_wcscmp(v20, (const wchar_t*)i + 2352))
+										if (!nox_wcscmp(v20, (const wchar_t*)i + 2352)) {
 											nox_window_call_field_94(*(int*)&dword_5d4594_1197316, 16405, v25, 0);
+}
 										++v19;
 										v20 += 28;
 									} while (v19 < *(int*)&dword_5d4594_1197324);
@@ -135,8 +137,9 @@ uint32_t*  sub_48CB10(int a1) {
 					if (dword_5d4594_1197324 > 0) {
 						v23 = (const wchar_t*)getMemAt(0x5D4594, 1193720);
 						do {
-							if (!nox_wcscmp(v23, (const wchar_t*)j + 2352))
+							if (!nox_wcscmp(v23, (const wchar_t*)j + 2352)) {
 								nox_window_call_field_94(*(int*)&dword_5d4594_1197316, 16405, v25, 0);
+}
 							++v22;
 							v23 += 28;
 						} while (v22 < *(int*)&dword_5d4594_1197324);

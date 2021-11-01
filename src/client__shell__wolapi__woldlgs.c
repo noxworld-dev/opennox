@@ -30,12 +30,15 @@ extern int nox_win_height;
 int sub_448730_wol_dialogs() {
 	int result; // eax
 
-	if (dword_5d4594_830112)
+	if (dword_5d4594_830112) {
 		return 0;
-	if (dword_5d4594_830116)
+}
+	if (dword_5d4594_830116) {
 		return 0;
-	if (dword_5d4594_830120)
+}
+	if (dword_5d4594_830120) {
 		return 0;
+}
 	result = nox_new_window_from_file("wolfind.wnd", sub_4489C0_wol_dialogs);
 	dword_5d4594_830124 = result;
 	if (result) {
@@ -95,10 +98,11 @@ int  sub_4489C0_wol_dialogs(int a1, int a2, int* a3, int a4) {
 			nox_window_call_field_94(*(int*)&dword_5d4594_830148, 16385, *getMemIntPtr(0x5D4594, 830176), 0);
 			nox_xxx_wnd_46ABB0(*(int*)&dword_5d4594_830152, 0);
 			nox_xxx_wnd_46ABB0(*getMemIntPtr(0x5D4594, 830156), 1);
-			if (dword_5d4594_830204)
+			if (dword_5d4594_830204) {
 				nox_xxx_wnd_46ABB0(*(int*)&dword_5d4594_830148, 0);
-			else
+			} else {
 				nox_xxx_wnd_46ABB0(*(int*)&dword_5d4594_830148, 1);
+}
 			dword_587000_111668 = 1;
 			result = 0;
 			break;
@@ -111,10 +115,11 @@ int  sub_4489C0_wol_dialogs(int a1, int a2, int* a3, int a4) {
 			nox_xxx_wnd_46ABB0(*(int*)&dword_5d4594_830152, 1);
 			nox_xxx_wnd_46ABB0(*getMemIntPtr(0x5D4594, 830156), 0);
 			dword_587000_111668 = 0;
-			if (dword_5d4594_830208)
+			if (dword_5d4594_830208) {
 				nox_xxx_wnd_46ABB0(*(int*)&dword_5d4594_830148, 0);
-			else
+			} else {
 				nox_xxx_wnd_46ABB0(*(int*)&dword_5d4594_830148, 1);
+}
 			result = 0;
 			break;
 		case 1936:
@@ -247,8 +252,9 @@ void  sub_4490C0_wol_dialogs(int a1) {
 	v6 = nox_strman_loadString_40F1D0("findsuccess", 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c",
 							   639);
 	nox_window_call_field_94(*(int*)&dword_5d4594_830140, 16385, (int)v6, 0);
-	if (!v1)
+	if (!v1) {
 		sub_4491B0_wol_dialogs();
+}
 }
 
 //----- (004491B0) --------------------------------------------------------
@@ -338,8 +344,9 @@ int  sub_4497D0_wol_dialogs(int a1, int a2, int* a3, int a4) {
 				if (v10 >= 0) {
 					v11 = sub_4200F0();
 					for (i = sub_4205B0(v11); i; i = (const char*)sub_4206B0((int)i)) {
-						if (!v10)
+						if (!v10) {
 							break;
+}
 						--v10;
 					}
 					sub_4207D0((int)i);

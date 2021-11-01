@@ -35,14 +35,16 @@ int  nox_thing_spider_spit_draw(uint32_t* a1, nox_drawable* dr) {
 	v8 = *a1 + v6 - v3;
 	v9 = v5 + *a1 - v3;
 	v10 = v16 + v14 - a1[5] - v12;
-	if (v5 - v6 >= 0)
+	if (v5 - v6 >= 0) {
 		v15 = v5 - v6;
-	else
+	} else {
 		v15 = v6 - v5;
-	if (v13 - v14 >= 0)
+}
+	if (v13 - v14 >= 0) {
 		v17 = v13 - v14;
-	else
+	} else {
 		v17 = v14 - v13;
+}
 	nox_client_drawSetColor_434460(*getMemIntPtr(0x85B3FC, 956));
 	if (v15 <= v17) {
 		nox_client_drawAddPoint_49F500(v9 + 1, v7);

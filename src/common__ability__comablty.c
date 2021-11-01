@@ -34,8 +34,9 @@ int  nox_thing_read_ABIL_rec_424F00(nox_memfile* f, void* a2) {
 	nox_memfile_read(a2, 1, v28, f);
 	*((uint8_t*)a2 + v28) = 0;
 	v3 = nox_xxx_abilityNameToN_424D80((const char*)a2);
-	if (!v3)
+	if (!v3) {
 		return 0;
+}
 	v5 = getMemAt(0x5D4594, 599132 + 52 * v3);
 	*((uint32_t*)v5 + 9) = nox_memfile_read_i8(f);
 	v7 = nox_memfile_read_i32(f);
@@ -49,8 +50,9 @@ int  nox_thing_read_ABIL_rec_424F00(nox_memfile* f, void* a2) {
 		v35[v29] = 0;
 		v7 = -1;
 	}
-	if (nox_common_gameFlags_check_40A5C0(2))
+	if (nox_common_gameFlags_check_40A5C0(2)) {
 		*((uint32_t*)v5 + 2) = nox_xxx_readImgMB_42FAA0(v7, v34, v35);
+}
 	v11 = nox_memfile_read_i32(f);
 	*((uint32_t*)v5 + 3) = 0;
 	v35[0] = getMemByte(0x5D4594, 599448);
@@ -62,8 +64,9 @@ int  nox_thing_read_ABIL_rec_424F00(nox_memfile* f, void* a2) {
 		v35[v30] = 0;
 		v11 = -1;
 	}
-	if (nox_common_gameFlags_check_40A5C0(2))
+	if (nox_common_gameFlags_check_40A5C0(2)) {
 		*((uint32_t*)v5 + 3) = nox_xxx_readImgMB_42FAA0(v11, v34, v35);
+}
 	v15 = nox_memfile_read_i32(f);
 	*((uint32_t*)v5 + 4) = 0;
 	v35[0] = getMemByte(0x5D4594, 599452);
@@ -75,8 +78,9 @@ int  nox_thing_read_ABIL_rec_424F00(nox_memfile* f, void* a2) {
 		v35[v31] = 0;
 		v15 = -1;
 	}
-	if (nox_common_gameFlags_check_40A5C0(2))
+	if (nox_common_gameFlags_check_40A5C0(2)) {
 		*((uint32_t*)v5 + 4) = nox_xxx_readImgMB_42FAA0(v15, v34, v35);
+}
 	v32 = nox_memfile_read_u8(f);
 	nox_memfile_read(v35, 1, v32, f);
 	v35[v32] = 0;

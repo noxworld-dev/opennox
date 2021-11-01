@@ -33,16 +33,18 @@ int  nox_thing_cond_animate_draw(unsigned int* a1, struct nox_drawable* dr) {
 	if (v7) {
 		v8 = v7 - 2;
 		if (v8) {
-			if (v8 != 1)
+			if (v8 != 1) {
 				return 0;
+}
 			v10 = dr->field_77;
 		} else {
 			v10 = nox_common_randomIntMinMax_415FF0(0, v4, "C:\\NoxPost\\src\\client\\Draw\\CAniDraw.c", 57);
 		}
 	} else {
 		v10 = (nox_frame_xxx_2598000 + dr->field_32) / (unsigned int)(v5 + 1);
-		if (v10 >= v4)
+		if (v10 >= v4) {
 			v10 %= v4;
+}
 	}
 	nox_xxx_drawObject_4C4770_draw(a1, dr, *(unsigned int*)(v3 + 4 * v10));
 	return 1;
@@ -96,8 +98,9 @@ bool  nox_things_cond_animate_draw_parse(nox_thing* obj, nox_memfile* f, char* a
 		v20[8] = get_animation_kind_id_44B4C0(v6);
 		v14 = malloc(4 * *v7);
 		*v20 = v14;
-		if (!v14)
+		if (!v14) {
 			break;
+}
 		v28 = 0;
 		if (*v7) {
 			do {

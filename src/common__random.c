@@ -1064,8 +1064,9 @@ int nox_common_randomInt_415FA0(int a1, int a2) {
 	result = a2;
 	v3 = nox_rnd_counter1_371260;
 	if (a2 - a1 != -1) {
-		if (++nox_rnd_counter1_371260 >= 4096)
+		if (++nox_rnd_counter1_371260 >= 4096) {
 			nox_rnd_counter1_371260 = 0;
+}
 		result = a1 + nox_rnd_table_37892[v3] % (a2 - a1 + 1);
 	}
 	return result;
@@ -1074,8 +1075,9 @@ int nox_common_randomInt_415FA0(int a1, int a2) {
 //----- (00415FF0) --------------------------------------------------------
 int nox_common_randomIntMinMax_415FF0(int min, int max, const char* file, int line) {
 	int v4 = (*(int*)&nox_rnd_counter2_371264)++;
-	if (*(int*)&nox_rnd_counter2_371264 >= 4096)
+	if (*(int*)&nox_rnd_counter2_371264 >= 4096) {
 		*(int*)&nox_rnd_counter2_371264 = 0;
+}
 	return min + nox_rnd_table_37892[v4] % (max - min + 1);
 }
 
@@ -1086,10 +1088,12 @@ double nox_common_randomFloat_416030(float a1, float a2) {
 
 	v2 = a2 - a1;
 	v3 = nox_rnd_counter1_371260;
-	if (v2 == 0.0)
+	if (v2 == 0.0) {
 		return a2;
-	if (++nox_rnd_counter1_371260 >= 4096)
+}
+	if (++nox_rnd_counter1_371260 >= 4096) {
 		nox_rnd_counter1_371260 = 0;
+}
 	return v2 * ((double)nox_rnd_table_37892[v3] * 0.000030518509) + a1;
 }
 
@@ -1098,7 +1102,8 @@ double nox_common_randomFloatXxx_416090(float a1, float a2) {
 	int v2; // ecx
 
 	v2 = (nox_rnd_counter2_371264)++;
-	if (*(int*)&nox_rnd_counter2_371264 >= 4096)
+	if (*(int*)&nox_rnd_counter2_371264 >= 4096) {
 		nox_rnd_counter2_371264 = 0;
+}
 	return (a2 - a1) * ((double)nox_rnd_table_37892[v2] * 0.000030518509) + a1;
 }

@@ -16,8 +16,9 @@ int sub_455C30() {
 	wchar_t* v2; // esi
 	wchar_t* v3; // eax
 
-	if (dword_5d4594_1045604)
+	if (dword_5d4594_1045604) {
 		return 1;
+}
 	result = nox_new_window_from_file("GUI_CTF.wnd", 0);
 	dword_5d4594_1045604 = result;
 	if (result) {
@@ -27,8 +28,9 @@ int sub_455C30() {
 			nox_window_set_all_funcs(v2, 0, sub_455CD0, 0);
 			v3 = nox_strman_loadString_40F1D0("FlagHomeTT", 0, "C:\\NoxPost\\src\\client\\Gui\\GUI_CTF.c", 201);
 			nox_xxx_wndWddSetTooltip_46B000(v2 + 18, v3);
-			if (++v1 > 8826)
+			if (++v1 > 8826) {
 				break;
+}
 			result = dword_5d4594_1045604;
 		}
 		sub_455A00(0);
@@ -54,8 +56,9 @@ void  sub_455D80(unsigned char a1, char a2) {
 					v4 = nox_strman_loadString_40F1D0("YourFlagCarriedTT", 0,
 											   "C:\\NoxPost\\src\\client\\Gui\\GUI_CTF.c", 234);
 				} else {
-					if (a2 != 2)
+					if (a2 != 2) {
 						return;
+}
 					v4 = nox_strman_loadString_40F1D0("FlagAwayTT", 0,
 											   "C:\\NoxPost\\src\\client\\Gui\\GUI_CTF.c", 238);
 				}
@@ -68,8 +71,9 @@ void  sub_455D80(unsigned char a1, char a2) {
 				v4 = nox_strman_loadString_40F1D0("TheirFlagCarriedTT", 0, "C:\\NoxPost\\src\\client\\Gui\\GUI_CTF.c",
 										   252);
 			} else {
-				if (a2 != 2)
+				if (a2 != 2) {
 					return;
+}
 				v4 = nox_strman_loadString_40F1D0("FlagAwayTT", 0, "C:\\NoxPost\\src\\client\\Gui\\GUI_CTF.c",
 										   256);
 			}

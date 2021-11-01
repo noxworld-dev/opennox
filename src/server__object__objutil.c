@@ -19,10 +19,11 @@ wchar_t*  nox_xxx_itemGetName_4E77E0_obj_util(int a1) {
 	v1 = *(uint32_t*)(a1 + 8);
 	if (v1 & 0x13001000) {
 		v2 = *(uint32_t**)(a1 + 692);
-		if (v1 & 0x11001000)
+		if (v1 & 0x11001000) {
 			v3 = nox_xxx_getProjectileClassById_413250(*(unsigned short*)(a1 + 4));
-		else
+		} else {
 			v3 = nox_xxx_equipClothFindDefByTT_413270(*(unsigned short*)(a1 + 4));
+}
 		v4 = v3;
 		if (!v3) {
 			v12 = nox_xxx_getUnitName_4E39D0(a1);
@@ -44,8 +45,9 @@ wchar_t*  nox_xxx_itemGetName_4E77E0_obj_util(int a1) {
 				nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1565660), L" ");
 			}
 		}
-		if (v4[2])
+		if (v4[2]) {
 			nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1565660), (const wchar_t*)v4[2]);
+}
 		v9 = v2[2];
 		if (v9 && *(uint32_t*)(v9 + 8)) {
 			nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1565660), L" ");

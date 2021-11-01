@@ -31,8 +31,9 @@ int  sub_4B5770_wol_locale(int a1) {
 	nox_xxx_windowFocus_46B500(*(int*)&dword_5d4594_1312480);
 	dword_5d4594_1312484 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1312480, 1981);
 	sub_4B5990();
-	for (i = 0; i < *(int*)&dword_5d4594_1312472; ++i)
+	for (i = 0; i < *(int*)&dword_5d4594_1312472; ++i) {
 		nox_window_call_field_94(*(int*)&dword_5d4594_1312484, 16397, *(uint32_t*)(dword_5d4594_1312476 + 4 * i), -1);
+}
 	v2 =
 		nox_strman_loadString_40F1D0("Other", 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\locale.c", 213);
 	nox_window_call_field_94(*(int*)&dword_5d4594_1312484, 16397, (int)v2, -1);
@@ -70,13 +71,15 @@ wchar_t*  sub_4B5A30_wol_locale(wchar_t* a1) {
 	v1 = 0;
 	memset(v6, 0xFFu, sizeof(v6));
 	v2 = v6;
-	if (*(int*)&dword_5d4594_1312472 <= 0)
+	if (*(int*)&dword_5d4594_1312472 <= 0) {
 		return (wchar_t*)v6;
+}
 	v3 = (char**)getMemAt(0x587000, 174360);
 	do {
 		v4 = nox_strman_loadString_40F1D0(*v3, 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\locale.c", 101);
-		if (nox_wcscmp(v4, (const wchar_t*)v2) < 0 && nox_wcscmp(v4, a1) > 0)
+		if (nox_wcscmp(v4, (const wchar_t*)v2) < 0 && nox_wcscmp(v4, a1) > 0) {
 			v2 = (short*)v4;
+}
 		++v1;
 		v3 += 2;
 	} while (v1 < *(int*)&dword_5d4594_1312472);
@@ -101,12 +104,14 @@ int  sub_4B5B70_wol_locale(wchar_t* a1) {
 		v2 = (char**)getMemAt(0x587000, 174360);
 		while (1) {
 			v3 = nox_strman_loadString_40F1D0(*v2, 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\locale.c", 71);
-			if (!nox_wcscmp(a1, v3))
+			if (!nox_wcscmp(a1, v3)) {
 				break;
+}
 			++v1;
 			v2 += 2;
-			if (v1 >= *(int*)&dword_5d4594_1312472)
+			if (v1 >= *(int*)&dword_5d4594_1312472) {
 				goto LABEL_5;
+}
 		}
 		result = *getMemU32Ptr(0x587000, 174364 + 8 * v1);
 	}

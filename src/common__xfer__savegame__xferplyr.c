@@ -55,10 +55,11 @@ int  nox_xxx_savePlayerMB_41C8F0(char* a1, unsigned int a2) {
 		} while (v8);
 	}
 	nox_binfile_close_408D90(nox_file_2);
-	if (nox_common_gameFlags_check_40A5C0(4096))
+	if (nox_common_gameFlags_check_40A5C0(4096)) {
 		*getMemU8Ptr(0x85B3FC, 12257) = sub_465DF0();
-	else
+	} else {
 		*getMemU8Ptr(0x85B3FC, 12257) = 0;
+}
 	if (nox_xxx_mapSavePlayerDataMB_41A230((char*)getMemAt(0x85B3FC, 10984))) {
 		v9 = nox_strman_loadString_40F1D0("CharacterSaved", 0,
 								   "C:\\NoxPost\\src\\common\\Xfer\\SaveGame\\XferPlyr.c", 3420);

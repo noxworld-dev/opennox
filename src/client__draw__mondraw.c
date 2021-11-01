@@ -144,10 +144,12 @@ int  nox_thing_monster_draw(int* a1, nox_drawable* dr) {
 	}
 	v7 = 48 * *(uint32_t*)(v2 + 276);
 	v8 = v7 + v3 + 4;
-	if (!*(uint16_t*)(v7 + v3 + 44))
+	if (!*(uint16_t*)(v7 + v3 + 44)) {
 		return 1;
-	if (*(uint32_t*)(v2 + 108) != v6)
+}
+	if (*(uint32_t*)(v2 + 108) != v6) {
 		goto LABEL_22;
+}
 	if (nox_common_gameFlags_check_40A5C0(0x200000)) {
 		v10 = 0;
 		v11 = 0;
@@ -173,8 +175,9 @@ int  nox_thing_monster_draw(int* a1, nox_drawable* dr) {
 		nox_xxx_draw_434600(0);
 		goto LABEL_24;
 	}
-	if (v10 * v10 + v11 * v11 < 40000)
+	if (v10 * v10 + v11 * v11 < 40000) {
 		goto LABEL_21;
+}
 	v12 = a1;
 	LABEL_24:
 	if (nox_xxx_unitSpriteCheckAlly_4951F0(*(uint32_t*)(v2 + 128))) {
@@ -184,16 +187,18 @@ int  nox_thing_monster_draw(int* a1, nox_drawable* dr) {
 		sub_495180(*(uint32_t*)(v2 + 128), &v22, &v21, &a2);
 		nox_xxx_spriteDrawMonsterHP_4BC080(v12, v2, v22, v21, a2);
 	}
-	if (!nox_xxx_CheckGameplayFlags_417DA0(4) && (!*getMemU32Ptr(0x852978, 8) || !nox_xxx_servObjectHasTeam_419130(*getMemU32Ptr(0x852978, 8) + 24)))
+	if (!nox_xxx_CheckGameplayFlags_417DA0(4) && (!*getMemU32Ptr(0x852978, 8) || !nox_xxx_servObjectHasTeam_419130(*getMemU32Ptr(0x852978, 8) + 24))) {
 		goto LABEL_45;
+}
 	if (!nox_common_gameFlags_check_40A5C0(1)) {
 		v15 = *getMemU32Ptr(0x852978, 8) + 24;
 		LABEL_34:
 		if (v15) {
 			v16 = 0;
 			v17 = nox_xxx_clientGetTeamColor_418AB0(*(unsigned char*)(v15 + 4));
-			if (v17 && sub_495A80(*(uint32_t*)(v2 + 128)))
+			if (v17 && sub_495A80(*(uint32_t*)(v2 + 128))) {
 				v16 = 1;
+}
 			if ((!nox_common_gameFlags_check_40A5C0(4096) || !(*(uint8_t*)(v2 + 112) & 2) ||
 			     !(*(uint8_t*)(v2 + 116) & 8)) &&
 			    v16) {
@@ -201,8 +206,9 @@ int  nox_thing_monster_draw(int* a1, nox_drawable* dr) {
 				v19 = *v12 + *(uint32_t*)(v2 + 12) - v12[4];
 				v20 = *(uint32_t*)(v2 + 16) + v12[1] - *(short*)(v2 + 104) - a1[5] -
 				      2 * nox_float2int(*(float*)(v2 + 100));
-				if (v18)
+				if (v18) {
 					nox_client_drawSetColor_434460(*v18);
+}
 				sub_4B0BC0(v19, v20, 3);
 			}
 		}
@@ -232,8 +238,9 @@ bool  nox_things_monster_draw_parse(nox_thing* obj, nox_memfile* f, char* attr_v
 	*v2 = 772;
 	while (1) {
 		v4 = nox_memfile_read_u32(f);
-		if (v4 == 0x454E4420) // 'END '
+		if (v4 == 0x454E4420) { // 'END '
 			break;
+}
 		v6 = nox_memfile_read_u8(f);
 		if (v6 < 0x10u) {
 			unsigned char n;
@@ -243,8 +250,9 @@ bool  nox_things_monster_draw_parse(nox_thing* obj, nox_memfile* f, char* attr_v
 			nox_memfile_skip(f, n);
 			v9 = (int)&v2[12 * v6 + 1];
 			if (nox_xxx_loadVectorAnimated_44B8B0(v9, f)) {
-				if (nox_xxx_loadVectorAnimated_44BC50(v9, f))
+				if (nox_xxx_loadVectorAnimated_44BC50(v9, f)) {
 					continue;
+}
 			}
 		}
 		return 0;

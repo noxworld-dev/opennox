@@ -52,10 +52,11 @@ int  nox_xxx_wndParseDataField_4A10A0(void** out, const char* typ, char* buf) {
 		memset(getMemAt(0x5D4594, 1305836), 0, 0x420u);
 		*getMemU16Ptr(0x5D4594, 1306876) = atoi(strtok(buf, " \t\n\r"));
 		char* v12 = strtok(0, " \t\n\r");
-		if (v12)
+		if (v12) {
 			*getMemU16Ptr(0x5D4594, 1306878) = atoi(v12);
-		else
+		} else {
 			*getMemU16Ptr(0x5D4594, 1306878) = -1;
+}
 		char* v13 = strtok(0, " \t\n\r");
 		if (v13) {
 			*getMemU32Ptr(0x5D4594, 1306860) = atoi(v13) != 0;

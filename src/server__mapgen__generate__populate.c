@@ -29,8 +29,9 @@ float*  nox_xxx_mapgen_522AD0(float* a1, int a2) {
 	float2 v15; // [esp+2Ch] [ebp-8h]
 
 	v2 = *(uint32_t*)(a2 + 60);
-	if (*((uint8_t*)a1 + v2 + 216))
+	if (*((uint8_t*)a1 + v2 + 216)) {
 		return 0;
+}
 	switch (v2) {
 	case 0:
 		a1a.field_0 = a1[7] * 0.5 + a1[9] + 1.0;
@@ -104,21 +105,25 @@ int sub_5259E0() { return dword_5d4594_2487576; }
 int  sub_527D50(int a1, char* a2) {
 	char* v3; // eax
 
-	if (!a1)
+	if (!a1) {
 		return 0;
-	if (!a2)
+}
+	if (!a2) {
 		return 0;
+}
 	v3 = (char*)nox_xxx_getUnitName_4E39D0(a1);
-	if (*(int(**)(int))(nox_xxx_objectTypeByID_4E3B60(v3) + 212) != nox_xxx_XFerExit_4F4B90)
+	if (*(int(**)(int))(nox_xxx_objectTypeByID_4E3B60(v3) + 212) != nox_xxx_XFerExit_4F4B90) {
 		return 0;
+}
 	strncpy(*(char**)(a1 + 700), a2, 0x50u);
 	return 1;
 }
 
 //----- (00522A40) --------------------------------------------------------
 int  nox_xxx_mapGenMakeExit_522A40(int a1) {
-	if (!*(uint32_t*)(a1 + 472))
+	if (!*(uint32_t*)(a1 + 472)) {
 		return 1;
+}
 	for (int v2 = sub_5259E0(); v2; v2 = *(uint32_t*)(v2 + 68)) {
 		if (*(uint32_t*)v2 != 1) {
 			continue;
@@ -170,14 +175,16 @@ void  nox_xxx_mapGenFinishPopulate_5228B0_mapgen_populate(int a1) {
 	sub_5259D0();
 	for (i = sub_4D42C0(); i; i = *(uint32_t*)(i + 64)) {
 		nox_xxx_mapGenSetFlags_5235F0(157);
-		if (*(uint32_t*)(i + 372) && !(*(uint8_t*)(i + 52) & 2))
+		if (*(uint32_t*)(i + 372) && !(*(uint8_t*)(i + 52) & 2)) {
 			nox_xxx_mapgen_522340(a1, i);
+}
 		if (*(uint32_t*)(a1 + 60)) {
 			for (j = *(uint32_t*)(i + 368); j; j = *(uint32_t*)(j + 24)) {
-				if (*(uint32_t*)j)
+				if (*(uint32_t*)j) {
 					nox_xxx_tileGetDefByName_51D4D0("CrystalBlue");
-				else
+				} else {
 					nox_xxx_tileGetDefByName_51D4D0("CrystalRed");
+}
 				sub_5245A0(a1, (float*)(j + 4), (long long)((*(float*)(j + 12) - *(float*)(j + 4) + 0.5) * 0.030743772),
 						   (long long)((*(float*)(j + 16) - *(float*)(j + 8) + 0.5) * 0.030743772));
 			}

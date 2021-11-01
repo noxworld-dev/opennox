@@ -197,18 +197,22 @@ int nox_telnet_listen_578E10() {
 
 //----- (00579700) --------------------------------------------------------
 int nox_telnet_checkLine_579700(nox_telnet_sock_t* cur) {
-	if (!cur)
+	if (!cur) {
 		return 0;
+}
 	int v1 = cur->field_1028;
 	int v2 = cur->field_1030;
-	if (v1 == v2)
+	if (v1 == v2) {
 		return 0;
+}
 	while (cur->data[v1] != '\n') {
 		++v1;
-		if (v1 == 1024)
+		if (v1 == 1024) {
 			v1 = 0;
-		if (v1 == v2)
+}
+		if (v1 == v2) {
 			return 0;
+}
 	}
 	return 1;
 }
@@ -216,8 +220,9 @@ int nox_telnet_checkLine_579700(nox_telnet_sock_t* cur) {
 //----- (005793B0) --------------------------------------------------------
 char* nox_telnet_recv_5793B0(nox_telnet_sock_t* cur, int ind) {
 	unsigned int argp = 0;
-	if (nox_net_recv_available(cur->sock, &argp) == -1 || (int)(argp + cur->field_1032) > 1024)
+	if (nox_net_recv_available(cur->sock, &argp) == -1 || (int)(argp + cur->field_1032) > 1024) {
 		return 0;
+}
 	int res = nox_net_recv(cur->sock, nox_telnet_recv_buf, sizeof(nox_telnet_recv_buf));
 	if (res != -1) {
 		int n = res;

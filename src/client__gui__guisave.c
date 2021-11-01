@@ -51,8 +51,9 @@ int nox_savegame_sub_46C730() {
 	nox_window_set_hidden((int)v2, 1);
 	for (i = 500; i <= 512; ++i) {
 		v4 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1082856, i);
-		if (v4)
+		if (v4) {
 			nox_xxx_wnd_46AD60((int)v4, 1024);
+}
 	}
 	v5 = nox_strman_loadString_40F1D0("SaveGUISave", 0, "C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 341);
 	sub_46AEE0(*getMemIntPtr(0x5D4594, 1082872), (int)v5);
@@ -110,10 +111,11 @@ int nox_savegame_sub_46C920(uint32_t* a1, int a2, int* a3, int a4) {
 			nox_xxx_dialogMsgBoxCreate_449A10(*(int*)&dword_5d4594_1082856, (int)v11, (int)v13, 56, sub_46CC70, sub_46CC90);
 			return 0;
 		}
-		if (v8)
+		if (v8) {
 			nox_sprintf(v14, "SAVE%04d", v8);
-		else
+		} else {
 			strcpy(v14, "AUTOSAVE");
+}
 		sub_4DB130(v14);
 		sub_4DB170(1, 0, 0);
 		sub_46D6F0();
@@ -167,8 +169,9 @@ int nox_savegame_sub_46CBD0() {
 		v1 = nox_strman_loadString_40F1D0("SaveErrorTitle", 0, "C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 74);
 		nox_xxx_dialogMsgBoxCreate_449A10(0, (int)v1, (int)v2, 33, 0, 0);
 	}
-	if (sub_450560())
+	if (sub_450560()) {
 		sub_4505B0();
+}
 	sub_44A400();
 	return sub_46D6F0();
 }
@@ -200,12 +203,14 @@ int nox_savegame_sub_46CE40(int a1, int a2, int a3, nox_savegame_xxx* sarr) {
 	nox_sprintf(&v45, "%sAUTOSAVE\\Player.plr", &PathName);
 
 	int v4 = 0;
-	if (sub_41A000(&v45, &sarr[0]))
+	if (sub_41A000(&v45, &sarr[0])) {
 		v4 = 1;
+}
 	for (int i = 1; i < NOX_SAVEGAME_XXX_MAX; i++) {
 		nox_sprintf(&v45, "%sSAVE%04d\\Player.plr", &PathName, i);
-		if (sub_41A000(&v45, &sarr[i]))
+		if (sub_41A000(&v45, &sarr[i])) {
 			++v4;
+}
 	};
 	v9 = 0;
 	v40 = 0;
@@ -339,8 +344,9 @@ int nox_savegame_sub_46CE40(int a1, int a2, int a3, nox_savegame_xxx* sarr) {
 			}
 		}
 		v40 = ++v9;
-		if (v9 >= NOX_SAVEGAME_XXX_MAX)
+		if (v9 >= NOX_SAVEGAME_XXX_MAX) {
 			break;
+}
 	}
 	v22 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1082856, 503);
 	if (v4 <= 0) {
@@ -354,8 +360,9 @@ int nox_savegame_sub_46CE40(int a1, int a2, int a3, nox_savegame_xxx* sarr) {
 		nox_xxx_wnd_46ABB0((int)v23, 1);
 	}
 	int ind = nox_savegame_findLatestSave_46CDC0(sarr);
-	if (ind == -1)
+	if (ind == -1) {
 		return -1;
+}
 	nox_window_call_field_94(a1, 16403, ind, 0);
 	nox_window_call_field_94(a2, 16403, ind, 0);
 	return nox_window_call_field_94(a3, 16403, ind, 0);

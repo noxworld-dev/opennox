@@ -24,23 +24,27 @@ void  sub_41F620(int a1) {
 	if (dword_5d4594_531648) {
 		while (1) {
 			v3 = (uint32_t*)v1[5];
-			if (!_strcmpi((const char*)(*v1 + 36), (const char*)(a1 + 36)))
+			if (!_strcmpi((const char*)(*v1 + 36), (const char*)(a1 + 36))) {
 				break;
+}
 			++v2;
 			v1 = v3;
-			if (!v3)
+			if (!v3) {
 				return;
+}
 		}
 		v4 = v1[6];
-		if (v4)
+		if (v4) {
 			*(uint32_t*)(v4 + 20) = v1[5];
-		else
+		} else {
 			dword_5d4594_531648 = v1[5];
+}
 		v5 = v1[5];
-		if (v5)
+		if (v5) {
 			*(uint32_t*)(v5 + 24) = v1[6];
-		else
+		} else {
 			dword_5d4594_531652 = v1[6];
+}
 		if (sub_41E2F0() == 7) {
 			v6 = sub_446C70();
 			sub_448620(v2);

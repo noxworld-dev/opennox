@@ -54,8 +54,9 @@ int  nox_thing_undead_killer_draw(int* a1, nox_drawable* dr) {
 		v15.field_4 = *(uint32_t*)(a2 + 16) + v6 - v7;
 		v9 = sub_48C690(v5, v11, v12, v8);
 		v10 = 8 - v9 / 40;
-		if (v10 < 0)
+		if (v10 < 0) {
 			v10 = 1;
+}
 		sub_4B6720(&v15, *getMemIntPtr(0x5D4594, 1313732), v10, 12);
 		result = 1;
 	} else {

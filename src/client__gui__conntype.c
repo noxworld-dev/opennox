@@ -63,14 +63,16 @@ uint32_t* sub_49C910() {
 	do {
 		v5 = nox_strman_loadString_40F1D0(*v2, 0, "C:\\NoxPost\\src\\client\\Gui\\conntype.c", 53);
 		nox_xxx_drawGetStringSize_43F840(*((uint32_t*)v1 + 59), v5, &v11, 0, 0);
-		if (v11 > v4)
+		if (v11 > v4) {
 			v4 = v11;
+}
 		++v2;
 	} while ((int)v2 < (int)getMemAt(0x587000, 164944));
 	v6 = v4 + 7;
 	nox_xxx_drawGetStringSize_43F840(*((uint32_t*)v1 + 59), v1 + 54, &v12, 0, 0);
-	if (v6 <= v12)
+	if (v6 <= v12) {
 		v6 = v12;
+}
 	v7 = *((uint32_t*)v1 + 4);
 	*((uint32_t*)v1 + 2) = v6;
 	*((uint32_t*)v1 + 6) = v7 + v6;

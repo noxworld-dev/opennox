@@ -38,8 +38,9 @@ wchar_t*  sub_41DAC0(int a1) {
 			nox_strman_loadString_40F1D0("unknownerror", 0, "C:\\NoxPost\\src\\common\\WolAPI\\wolstate.c", 200);
 		break;
 	}
-	if (result)
+	if (result) {
 		result = (wchar_t*)sub_447310(0, (int)result);
+}
 	return result;
 }
 

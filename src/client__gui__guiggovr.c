@@ -75,8 +75,9 @@ int sub_49B6E0() {
 		if (!result) {
 			v1 = *getMemU32Ptr(0x5D4594, 1303456) + 30 * nox_gameFPS -
 				 nox_frame_xxx_2598000;
-			if (v1 < 0)
+			if (v1 < 0) {
 				v1 = 0;
+}
 			if (*getMemU32Ptr(0x8531A0, 2576) && *(uint8_t*)(*getMemU32Ptr(0x8531A0, 2576) + 2064) == 31) {
 				nox_wcscpy((wchar_t*)getMemAt(0x5D4594, 1301852), (const wchar_t*)getMemAt(0x5D4594, 1303464));
 			} else {

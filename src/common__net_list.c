@@ -21,15 +21,17 @@ nox_net_lists_buf_t nox_net_lists_buf_arr[3][NOX_PLAYERINFO_MAX] = {0};
 
 //----- (00420BC0) --------------------------------------------------------
 int nox_netlist_count_420BC0(nox_net_list_t* p) {
-	if (!p)
+	if (!p) {
 		return 0;
+}
 	return p->count; //_fileno(p);
 }
 
 //----- (00420BD0) --------------------------------------------------------
 int nox_netlist_size_420BD0(nox_net_list_t* p) {
-	if (!p)
+	if (!p) {
 		return 0;
+}
 	return p->size;
 }
 
@@ -56,11 +58,13 @@ int  nox_netlist_sizeByInd2_40F0D0(int ind) {
 //----- (00420890) --------------------------------------------------------
 nox_net_list_t*  nox_netlist_newMsgList_420890(int cnt) {
 	nox_net_list_t* p = malloc(sizeof(nox_net_list_t));
-	if (!p)
+	if (!p) {
 		return 0;
+}
 	nox_alloc_class* aclass = nox_new_alloc_class("CreateMsgList", sizeof(nox_net_list_item_t), cnt);
-	if (!aclass)
+	if (!aclass) {
 		return 0;
+}
 	p->first = 0;
 	p->last = 0;
 	p->field_2 = 0;
@@ -107,11 +111,13 @@ void nox_netlist_free_40EA70() {
 bool  nox_netlist_checkSizes_40EAC0(int ind1, int ind2, int sz) {
 	if (ind2 == 1) {
 		int psz = nox_netlist_sizeByInd_40E9F0(ind1, 1);
-		if (psz + sz + nox_netlist_sizeByInd_40E9F0(ind1, 2) > NOX_NETBUF_MAX_SIZE)
+		if (psz + sz + nox_netlist_sizeByInd_40E9F0(ind1, 2) > NOX_NETBUF_MAX_SIZE) {
 			return 0;
+}
 	} else {
-		if (sz + nox_netlist_sizeByInd_40E9F0(ind1, ind2) > NOX_NETBUF_MAX_SIZE)
+		if (sz + nox_netlist_sizeByInd_40E9F0(ind1, ind2) > NOX_NETBUF_MAX_SIZE) {
 			return 0;
+}
 	}
 	return nox_netlist_count_420BC0(nox_net_lists[ind2][ind1]) < NOX_NETBUF_MAX_PACKETS;
 }
@@ -120,8 +126,9 @@ bool  nox_netlist_checkSizes_40EAC0(int ind1, int ind2, int sz) {
 bool  nox_netlist_checkSizesExt_40EB60(int ind1, int ind2, int sz, int sz2) {
 	nox_net_list_t* p = nox_net_lists[ind2][ind1];
 	int psz = nox_netlist_size_420BD0(p);
-	if (sz + psz + sz2 > NOX_NETBUF_MAX_SIZE)
+	if (sz + psz + sz2 > NOX_NETBUF_MAX_SIZE) {
 		return 0;
+}
 	return nox_netlist_count_420BC0(p) < NOX_NETBUF_MAX_PACKETS;
 }
 
@@ -145,25 +152,28 @@ int  nox_netlist_add_420940(nox_net_list_t* list, int buf, int sz, bool append) 
 	// _dprintf("len %d: %08X %08X", sz, ((unsigned int*)buf)[0], ((unsigned int*)buf)[1]);
 
 	nox_net_list_item_t* item = nox_alloc_class_new_obj_zero(list->alloc);
-	if (!item)
+	if (!item) {
 		return 0;
+}
 	item->buf = buf;
 	item->size = sz;
 	if (append) {
 		item->prev = list->last;
 		item->next = 0;
-		if (list->last)
+		if (list->last) {
 			list->last->next = item;
-		else
+		} else {
 			list->first = item;
+}
 		list->last = item;
 	} else {
 		item->prev = 0;
 		item->next = list->first;
-		if (list->first)
+		if (list->first) {
 			list->first->prev = item;
-		else
+		} else {
 			list->last = item;
+}
 		list->first = item;
 	}
 	list->count++;
@@ -174,13 +184,16 @@ int  nox_netlist_add_420940(nox_net_list_t* list, int buf, int sz, bool append) 
 //----- (0040EBC0) --------------------------------------------------------
 int  nox_netlist_addToMsgListCli_40EBC0(int ind1, int ind2, unsigned char* buf, int sz) {
 	nox_net_list_t* p = nox_net_lists[ind2][ind1];
-	if (sz <= 0)
+	if (sz <= 0) {
 		return 1;
-	if (!nox_netlist_checkSizes_40EAC0(ind1, ind2, sz))
+}
+	if (!nox_netlist_checkSizes_40EAC0(ind1, ind2, sz)) {
 		return 0;
+}
 	unsigned char* out = nox_netlist_sendByInd_40EC30(ind1, ind2, buf, sz);
-	if (!out)
+	if (!out) {
 		return 0;
+}
 	nox_netlist_add_420940(p, out, sz, 1);
 	return 1;
 }
@@ -188,13 +201,16 @@ int  nox_netlist_addToMsgListCli_40EBC0(int ind1, int ind2, unsigned char* buf, 
 //----- (0040ECA0) --------------------------------------------------------
 int  nox_netlist_clientSend_0_40ECA0(int ind1, int ind2, unsigned char* buf, int sz, int sz2) {
 	nox_net_list_t* p = nox_net_lists[ind2][ind1];
-	if (sz <= 0)
+	if (sz <= 0) {
 		return 1;
-	if (!nox_netlist_checkSizesExt_40EB60(ind1, ind2, sz, sz2))
+}
+	if (!nox_netlist_checkSizesExt_40EB60(ind1, ind2, sz, sz2)) {
 		return 0;
+}
 	unsigned char* out = nox_netlist_sendByInd_40EC30(ind1, ind2, buf, sz);
-	if (!out)
+	if (!out) {
 		return 0;
+}
 	nox_netlist_add_420940(p, out, sz, 1);
 	return 1;
 }
@@ -268,16 +284,18 @@ unsigned int*  nox_netlist_get_420A90(nox_net_list_t* list, unsigned int* outSz)
 	list->size -= item->size;
 
 	nox_net_list_item_t* next = item->next;
-	if (next)
+	if (next) {
 		next->prev = item->prev;
-	else
+	} else {
 		list->last = item->prev;
+}
 
 	nox_net_list_item_t* prev = item->prev;
-	if (prev)
+	if (prev) {
 		prev->next = item->next;
-	else
+	} else {
 		list->first = item->next;
+}
 
 	unsigned char* buf = item->buf;
 	nox_netlist_free_item_4209C0(list, item);
@@ -313,8 +331,9 @@ unsigned char*  nox_netlist_getInd_40EEB0(int ind1, int ind2, unsigned int* outS
 
 //----- (0040EEF0) --------------------------------------------------------
 bool sub_40EEF0(int ind, int a2) {
-	if ((unsigned int)(a2 + nox_netlist_size_420BD0(nox_net_lists[2][ind])) > NOX_NETBUF_MAX_SIZE)
+	if ((unsigned int)(a2 + nox_netlist_size_420BD0(nox_net_lists[2][ind])) > NOX_NETBUF_MAX_SIZE) {
 		return 0;
+}
 	return nox_netlist_count_420BC0(nox_net_lists[2][ind]) < NOX_NETBUF_MAX_PACKETS;
 }
 
@@ -325,8 +344,9 @@ unsigned char*  nox_netlist_getByInd2_40F080(int ind, unsigned int* outSz) {
 
 //----- (004209E0) --------------------------------------------------------
 void nox_netlist_findAndFreeBuf_4209E0(nox_net_list_t* list, unsigned char* buf) {
-	if (!list->first)
+	if (!list->first) {
 		return;
+}
 
 	nox_net_list_item_t* item = 0;
 	for (nox_net_list_item_t* p = list->first; p; p = p->next) {
@@ -342,16 +362,18 @@ void nox_netlist_findAndFreeBuf_4209E0(nox_net_list_t* list, unsigned char* buf)
 	list->size -= item->size;
 
 	nox_net_list_item_t* next = item->next;
-	if (next)
+	if (next) {
 		next->prev = item->prev;
-	else
+	} else {
 		list->last = item->prev;
+}
 
 	nox_net_list_item_t* prev = item->prev;
-	if (prev)
+	if (prev) {
 		prev->next = item->next;
-	else
+	} else {
 		list->first = item->next;
+}
 
 	nox_netlist_free_item_4209C0(list, item);
 }
@@ -389,8 +411,9 @@ void sub_420A60(nox_net_list_t* list, int(* fnc)(unsigned int, int), int a3) {
 		return;
 	}
 	for (nox_net_list_item_t* p = list->first; p; p = p->next) {
-		if (fnc(p->buf, a3))
+		if (fnc(p->buf, a3)) {
 			break;
+}
 	}
 }
 
@@ -403,8 +426,9 @@ void  nox_netlist_forEach2_40F0F0(int ind, int(* fnc)(unsigned int, int), int a3
 
 //----- (0040EF40) --------------------------------------------------------
 bool nox_netlist_addToMsgListSrv_40EF40(int ind, unsigned char* buf, int sz) {
-	if (sz <= 0)
+	if (sz <= 0) {
 		return 1;
+}
 	// If there are too many updates, then we may run out of space in a single
 	// packet. Instead of fragmenting, we can instead send additional packets.
 	unsigned char* out;
@@ -420,10 +444,11 @@ bool nox_netlist_addToMsgListSrv_40EF40(int ind, unsigned char* buf, int sz) {
 		len2 = list->first->next->size;
 
 		// Flush old data to network.
-		if (ind == 31)
+		if (ind == 31) {
 			nox_netlist_receiveCli_494E90(ind);
-		else
+		} else {
 			nox_xxx_netSendReadPacket_5528B0(*((uint32_t*)nox_common_playerInfoFromNum_417090(ind) + 516) + 1, 0);
+}
 
 		// Set buffer length and re-queue updates.
 		p->cur = len1 + len2;
@@ -433,8 +458,9 @@ bool nox_netlist_addToMsgListSrv_40EF40(int ind, unsigned char* buf, int sz) {
 		// Retry original allocation.
 		out = nox_xxx_netlistAdd_40EFA0(ind, buf, sz);
 	}
-	if (!out)
+	if (!out) {
 		return 0;
+}
 	nox_netlist_add_420940(list, out, sz, 1);
 	return 1;
 }

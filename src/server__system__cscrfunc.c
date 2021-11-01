@@ -17,10 +17,11 @@ int  nox_xxx_netSendChat_528AC0(int a1, wchar_t* a2, wchar_t a3) {
 
 	v11[0] = -88;
 	v11[3] = 0;
-	if (nox_xxx_cliCanTalkMB_4100F0((short*)a2))
+	if (nox_xxx_cliCanTalkMB_4100F0((short*)a2)) {
 		v3 = v11[3] | 2;
-	else
+	} else {
 		v3 = v11[3] | 4;
+}
 	v11[3] = v3;
 	v4 = nox_xxx_netGetUnitCodeServ_578AC0((uint32_t*)a1);
 	v5 = *(float*)(a1 + 56);

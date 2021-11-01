@@ -17,8 +17,9 @@ int  nox_xxx_netReportGuideAward_4D8000(int a1, char a2, char a3, int a4) {
 		BYTE1(a1) = a2;
 		LOBYTE(a1) = -47;
 		BYTE2(a1) = a3;
-		if (a4)
+		if (a4) {
 			BYTE2(a1) = a3 | 0x80;
+}
 		result = nox_xxx_netSendPacket1_4E5390(*(unsigned char*)(*(uint32_t*)(v5 + 276) + 2064), (int)&a1, 3, 0, 1);
 	}
 	return result;
@@ -42,8 +43,9 @@ int  nox_xxx_awardBeastGuide_4FAE80_magic_plyrgide(int a1, int a2, int a3) {
 	unsigned char* v17; // [esp+10h] [ebp+4h]
 
 	v3 = a1;
-	if (!(*(uint8_t*)(a1 + 8) & 4))
+	if (!(*(uint8_t*)(a1 + 8) & 4)) {
 		return 0;
+}
 	if (a2 <= 0 || a2 >= 41) {
 		v16 = nox_strman_loadString_40F1D0("AwardGuideError", 0, "C:\\NoxPost\\src\\Server\\Magic\\PlyrGide.c", 39);
 		nox_xxx_netSendLineMessage_4D9EB0(a1, v16);
@@ -53,8 +55,9 @@ int  nox_xxx_awardBeastGuide_4FAE80_magic_plyrgide(int a1, int a2, int a3) {
 	v5 = *(uint32_t*)(v4 + 276);
 	v6 = *(uint32_t*)(v5 + 4 * a2 + 4244);
 	v7 = (uint32_t*)(v5 + 4 * a2 + 4244);
-	if (v6)
+	if (v6) {
 		return 0;
+}
 	*v7 = 1;
 	nox_xxx_playerAwardSpellProtection_56FCE0(*(uint32_t*)(*(uint32_t*)(v4 + 276) + 4640), a2, *(uint32_t*)(*(uint32_t*)(v4 + 276) + 4 * a2 + 4244));
 	if (a3) {
@@ -89,8 +92,9 @@ int  nox_xxx_awardBeastGuide_4FAE80_magic_plyrgide(int a1, int a2, int a3) {
 		for (i = nox_common_playerInfoGetFirst_416EA0(); i; i = nox_common_playerInfoGetNext_416EE0((int)i)) {
 			v14 = *((uint32_t*)i + 514);
 			if (v14 != v3) {
-				if (v14)
+				if (v14) {
 					nox_xxx_netSendRewardNotify_4FAD50(v14, 1, v3, a2);
+}
 			}
 		}
 	}

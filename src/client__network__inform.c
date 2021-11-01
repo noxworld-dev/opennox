@@ -96,8 +96,9 @@ int  nox_client_handlePacketInform_4C9BF0(int a1) {
 		return 6;
 	case 3u:
 		v13 = nox_common_playerInfoGetByID_417040(*(uint32_t*)(a1 + 2));
-		if (!v13)
+		if (!v13) {
 			return 6;
+}
 		v51 = (int)(v13 + 4704);
 		v14 = nox_strman_loadString_40F1D0("netserv.c:PlayerTimeout", 0, "C:\\NoxPost\\src\\client\\Network\\inform.c", 147);
 		nox_swprintf(v62, v14, v51);
@@ -105,16 +106,18 @@ int  nox_client_handlePacketInform_4C9BF0(int a1) {
 		return 6;
 	case 4u:
 		v15 = nox_common_playerInfoGetByID_417040(*(uint32_t*)(a1 + 2));
-		if (!v15)
+		if (!v15) {
 			return 6;
+}
 		v52 = (int)(v15 + 4704);
 		v16 = nox_strman_loadString_40F1D0("objcoll.c:FlagRetrieveNotice", 0, "C:\\NoxPost\\src\\client\\Network\\inform.c", 164);
 		nox_swprintf(v62, v16, v52);
 		goto LABEL_22;
 	case 5u:
 		v18 = nox_common_playerInfoGetByID_417040(*(uint32_t*)(a1 + 2));
-		if (!v18)
+		if (!v18) {
 			return 10;
+}
 		v54 = sub_418C20(*(uint32_t*)(a1 + 6));
 		v19 = nox_strman_loadString_40F1D0("objcoll.c:FlagCaptureNotice", 0, "C:\\NoxPost\\src\\client\\Network\\inform.c", 196);
 		nox_swprintf(v62, v19, v18 + 4704, v54);
@@ -123,8 +126,9 @@ int  nox_client_handlePacketInform_4C9BF0(int a1) {
 		return 10;
 	case 6u:
 		v20 = nox_common_playerInfoGetByID_417040(*(uint32_t*)(a1 + 2));
-		if (!v20)
+		if (!v20) {
 			return 10;
+}
 		v55 = sub_418C20(*(uint32_t*)(a1 + 6));
 		v21 = nox_strman_loadString_40F1D0("objcoll.c:FlagPickupNotice", 0, "C:\\NoxPost\\src\\client\\Network\\inform.c", 213);
 		nox_swprintf(v62, v21, v20 + 4704, v55);
@@ -162,8 +166,9 @@ int  nox_client_handlePacketInform_4C9BF0(int a1) {
 			}
 			return 10;
 		}
-		if (!v38)
+		if (!v38) {
 			return 10;
+}
 		v46 = (int)(v39 + 4704);
 		v40 = nox_strman_loadString_40F1D0("objcoll.c:FlagBallNotice", 0, "C:\\NoxPost\\src\\client\\Network\\inform.c", 365);
 		nox_swprintf(v62, v40, v46, v38);
@@ -173,8 +178,9 @@ int  nox_client_handlePacketInform_4C9BF0(int a1) {
 		v34 = nox_common_playerInfoGetByID_417040(*(uint32_t*)(a1 + 2));
 		v35 = nox_xxx_clientGetTeamColor_418AB0(*(uint32_t*)(a1 + 6));
 		if (v35) {
-			if (!v34)
+			if (!v34) {
 				return 10;
+}
 			v61 = v35;
 			v36 = nox_strman_loadString_40F1D0("pickup.c:PickUpTeamCrown", 0, "C:\\NoxPost\\src\\client\\Network\\inform.c",
 										334);
@@ -182,8 +188,9 @@ int  nox_client_handlePacketInform_4C9BF0(int a1) {
 			nox_xxx_printCentered_445490(v62);
 			result = 10;
 		} else {
-			if (!v34)
+			if (!v34) {
 				return 10;
+}
 			v37 = nox_strman_loadString_40F1D0("pickup.c:PickUpCrown", 0, "C:\\NoxPost\\src\\client\\Network\\inform.c",
 										343);
 			nox_swprintf(v62, v37, v34 + 4704);
@@ -214,8 +221,9 @@ int  nox_client_handlePacketInform_4C9BF0(int a1) {
 	case 0xCu:
 		v11 = nox_strman_loadString_40F1D0("Netserv.c:InObservationMode", 0, "C:\\NoxPost\\src\\client\\Network\\inform.c", 128);
 		nox_xxx_printCentered_445490(v11);
-		if (!*(uint32_t*)(a1 + 2))
+		if (!*(uint32_t*)(a1 + 2)) {
 			return 6;
+}
 		v12 = nox_strman_loadString_40F1D0("Netserv.c:PressJump", 0, "C:\\NoxPost\\src\\client\\Network\\inform.c", 132);
 		nox_xxx_printCentered_445490(v12);
 		return 6;
@@ -254,8 +262,9 @@ int  nox_client_handlePacketInform_4C9BF0(int a1) {
 		return 11;
 	case 0xFu:
 		v42 = strlen((const char*)(a1 + 3)) + 1;
-		if (nox_xxx_gameGetPlayState_4356B0() != 3)
+		if (nox_xxx_gameGetPlayState_4356B0() != 3) {
 			goto LABEL_57;
+}
 		if (*(uint8_t*)(a1 + 2)) {
 			v47 = nox_strman_loadString_40F1D0((char*)(a1 + 3), 0, "C:\\NoxPost\\src\\client\\Network\\inform.c", 397);
 			v43 = nox_strman_loadString_40F1D0("use.c:SignSays", 0, "C:\\NoxPost\\src\\client\\Network\\inform.c",
@@ -283,8 +292,9 @@ int  nox_client_handlePacketInform_4C9BF0(int a1) {
 		return 2;
 	case 0x12u:
 		v24 = nox_common_playerInfoGetByID_417040(*(uint32_t*)(a1 + 2));
-		if (!v24)
+		if (!v24) {
 			return 6;
+}
 		v57 = (int)(v24 + 4704);
 		v25 = nox_strman_loadString_40F1D0("objcoll.c:PlayerExited", 0, "C:\\NoxPost\\src\\client\\Network\\inform.c", 247);
 		nox_swprintf(v62, v25, v57);
@@ -302,8 +312,9 @@ int  nox_client_handlePacketInform_4C9BF0(int a1) {
 		return 6;
 	case 0x14u:
 		v7 = nox_common_playerInfoGetByID_417040(*(uint32_t*)(a1 + 2));
-		if (!v7)
+		if (!v7) {
 			return 6;
+}
 		v48 = (int)(v7 + 4704);
 		v8 = nox_strman_loadString_40F1D0("GeneralPrint:SecretFoundOther", 0, "C:\\NoxPost\\src\\client\\Network\\inform.c", 90);
 		nox_swprintf(v62, v8, v48);

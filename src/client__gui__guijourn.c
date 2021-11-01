@@ -90,8 +90,9 @@ void  nox_xxx_guiDrawJournal_469D40(int xLeft, int yTop, int a3) {
 		nox_client_drawRectFilledOpaque_49CE30(xLeft, yTop, 260, 150);
 		v5 = *(uint32_t*)(v3 + 3644);
 		if (v5) {
-			for (i = *(uint32_t*)(v5 + 64); i; i = *(uint32_t*)(i + 64))
+			for (i = *(uint32_t*)(v5 + 64); i; i = *(uint32_t*)(i + 64)) {
 				v5 = i;
+}
 			v14 = nox_xxx_guiFontHeightMB_43F320(0);
 			do {
 				HIWORD(v7) = 0;
@@ -136,8 +137,9 @@ void  nox_xxx_guiDrawJournal_469D40(int xLeft, int yTop, int a3) {
 					nox_xxx_drawString_43FAF0(0, &v17, xLeft + 10, v4, 240, 0);
 				}
 				v4 = v13 + v14;
-				if (v13 + v14 > yTop + 150)
+				if (v13 + v14 > yTop + 150) {
 					break;
+}
 				v5 = *(uint32_t*)(v5 + 68);
 			} while (v5);
 		}

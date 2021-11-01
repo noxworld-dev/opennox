@@ -90,10 +90,12 @@ int  sub_4CBF60(int a1, unsigned int a2, int a3, int a4) {
 		}
 	} else {
 		if (a2 != 16391) {
-			if (a2 == 23)
+			if (a2 == 23) {
 				return 1;
-			if (a2 != 0x4000)
+}
+			if (a2 != 0x4000) {
 				return nox_xxx_wndListboxProcPre_4A30D0(a1, a2, (wchar_t*)a3, a4);
+}
 		}
 		if ((uint32_t*)a3 == nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1522604, 921) ||
 			(uint32_t*)a3 == nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1522604, 922)) {

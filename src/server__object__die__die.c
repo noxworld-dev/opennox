@@ -28,47 +28,53 @@ void  nox_xxx_dieArmor_54E170_obj_die(int a1) {
 		v3 = nox_xxx_equipClothFindDefByTT_413270(*(unsigned short*)(a1 + 4));
 		if (v3) {
 			v4 = *(uint16_t*)(v3[2] + 2 * nox_wcslen((const wchar_t*)v3[2]) - 2);
-			if (v4 == 83 || v4 == 115)
+			if (v4 == 83 || v4 == 115) {
 				v2 = 1;
+}
 		}
 	}
 	v5 = *(uint32_t*)(a1 + 492);
-	if (v5)
+	if (v5) {
 		v10 = (float2*)(v5 + 56);
-	else
+	} else {
 		v10 = (float2*)(a1 + 56);
+}
 	v6 = *(uint16_t*)(v1 + 24);
 	if (v6 & 0x10) {
-		if (v2)
+		if (v2) {
 			v7 = nox_strman_loadString_40F1D0("ArmorDieMetalPlural", 0, "C:\\NoxPost\\src\\Server\\Object\\die\\Die.c",
 									   1536);
-		else
+		} else {
 			v7 = nox_strman_loadString_40F1D0("ArmorDieMetal", 0, "C:\\NoxPost\\src\\Server\\Object\\die\\Die.c",
 									   1538);
+}
 		v8 = 806;
 	} else if (v6 & 8) {
-		if (v2)
+		if (v2) {
 			v7 = nox_strman_loadString_40F1D0("ArmorDieWoodPlural", 0, "C:\\NoxPost\\src\\Server\\Object\\die\\Die.c",
 									   1547);
-		else
+		} else {
 			v7 = nox_strman_loadString_40F1D0("ArmorDieWood", 0, "C:\\NoxPost\\src\\Server\\Object\\die\\Die.c",
 									   1549);
+}
 		v8 = 812;
 	} else if (v6 & 4) {
-		if (v2)
+		if (v2) {
 			v7 = nox_strman_loadString_40F1D0("ArmorDieHidePlural", 0, "C:\\NoxPost\\src\\Server\\Object\\die\\Die.c",
 									   1558);
-		else
+		} else {
 			v7 = nox_strman_loadString_40F1D0("ArmorDieHide", 0, "C:\\NoxPost\\src\\Server\\Object\\die\\Die.c",
 									   1560);
+}
 		v8 = 809;
 	} else if (v6 & 2) {
-		if (v2)
+		if (v2) {
 			v7 = nox_strman_loadString_40F1D0("ArmorDieClothPlural", 0, "C:\\NoxPost\\src\\Server\\Object\\die\\Die.c",
 									   1569);
-		else
+		} else {
 			v7 = nox_strman_loadString_40F1D0("ArmorDieCloth", 0, "C:\\NoxPost\\src\\Server\\Object\\die\\Die.c",
 									   1571);
+}
 		v8 = 815;
 	} else {
 		v8 = (int)v10;
@@ -95,8 +101,9 @@ void  nox_xxx_dieWeapon_54E370_obj_die(int a1) {
 
 	v1 = *(uint32_t*)(a1 + 492);
 	v2 = (float2*)(v1 + 56);
-	if (!v1)
+	if (!v1) {
 		v2 = (float2*)(a1 + 56);
+}
 	v3 = *(uint16_t*)(a1 + 24);
 	if (v3 & 0x10) {
 		v7 = nox_xxx_itemGetName_4E77E0_obj_util(a1);

@@ -13,20 +13,23 @@ wchar_t*  sub_4E39F0_obj_db(const char** a1) {
 	unsigned char* i;  // edx
 
 	v1 = *a1;
-	if (!*a1)
+	if (!*a1) {
 		v1 = (const char*)nox_xxx_getUnitName_4E39D0((int)a1);
+}
 	v2 = strrchr(v1, 58);
-	if (v2)
+	if (v2) {
 		v3 = v2 + 1;
-	else
+	} else {
 		v3 = v1;
+}
 	v4 = v3;
 	strcpy((char*)getMemAt(0x5D4594, 1563460), "NPC:");
 	v5 = *v3;
 	v6 = getMemAt(0x5D4594, 1563460 + strlen((const char*)getMemAt(0x5D4594, 1563460)));
 	for (i = (unsigned char*)(v4 + 1); v5; ++i) {
-		if (v5 != 95)
+		if (v5 != 95) {
 			*v6++ = v5;
+}
 		v5 = *i;
 	}
 	*v6 = 0;

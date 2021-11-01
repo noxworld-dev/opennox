@@ -19,11 +19,13 @@ char* nox_asctime_413B00() {
 
 //----- (00413B20) --------------------------------------------------------
 int  nox_xxx_log_open_413B20(FILE** f, const char* path) {
-	if (!path)
+	if (!path) {
 		return 0;
+}
 	*f = nox_fs_create_rw(path);
-	if (!f)
+	if (!f) {
 		return 0;
+}
 	nox_fs_fprintf(*f, "Log opened: %s", nox_asctime_413B00());
 	nox_fs_flush(*f);
 	return 1;
@@ -54,10 +56,12 @@ void nox_xxx_log_4_printf_413B70(char* fmt, ...) {
 	va_list va;
 	va_start(va, fmt);
 	nox_vsprintf(nox_log_buf, fmt, va);
-	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_LOG_TO_FILE))
+	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_LOG_TO_FILE)) {
 		nox_fs_fputs_sync(nox_file_log_4, nox_log_buf);
-	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_LOG_TO_CONSOLE))
+}
+	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_LOG_TO_CONSOLE)) {
 		nox_gui_console_Printf_450C00(NOX_CONSOLE_GREEN, L"%S", nox_log_buf);
+}
 }
 
 //----- (00413C00) --------------------------------------------------------
@@ -87,8 +91,9 @@ void nox_xxx_bandLog_printf_413C80(char* fmt, ...) {
 
 	va_start(va, fmt);
 	nox_vsprintf(nox_log_buf, fmt, va);
-	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_LOG_BAND))
+	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_LOG_BAND)) {
 		nox_fs_fputs_sync(nox_file_band_log, nox_log_buf);
+}
 }
 
 //----- (00413D30) --------------------------------------------------------
@@ -117,8 +122,9 @@ void nox_xxx_networkLog_printf_413D30(char* fmt, ...) {
 //----- (00413CC0) --------------------------------------------------------
 void nox_xxx_networkLog_init_413CC0() {
 	nox_file_net_log = nox_fs_append_text("network.log");
-	if (nox_file_net_log)
+	if (nox_file_net_log) {
 		nox_xxx_networkLog_printf_413D30("StartLog%c%s", 240, "1.0");
+}
 }
 
 //----- (00413D00) --------------------------------------------------------

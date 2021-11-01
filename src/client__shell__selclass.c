@@ -21,16 +21,19 @@ int  sub_4A4A20(int a1, int a2, int* a3, int a4) {
 	wchar_t* v9; // eax
 
 	if (a2 != 16389) {
-		if (a2 != 16391)
+		if (a2 != 16391) {
 			return 0;
+}
 		v4 = nox_xxx_wndGetID_46B0A0(a3);
 		if (v4 >= 601) {
-			if (v4 <= 603)
+			if (v4 <= 603) {
 				return 1;
+}
 			if (v4 == 610) {
 				if (nox_common_gameFlags_check_40A5C0(0x2000) && !nox_common_gameFlags_check_40A5C0(4096)) {
-					if (nox_xxx_isQuest_4D6F50() || (v5 = sub_4D6F70()) != 0)
+					if (nox_xxx_isQuest_4D6F50() || (v5 = sub_4D6F70()) != 0) {
 						v5 = 1;
+}
 					sub_4A4B70(v5);
 				}
 				sub_4A4970();
@@ -73,9 +76,9 @@ void*  sub_4A4B70(int a1) {
 	result = (void*)*(unsigned char*)(dword_5d4594_1307724 + 66);
 	v3 = *(uint8_t**)getMemAt(0x587000, 170156 + 4 * (uint32_t)result);
 	if (*v3) {
-		do
+		do {
 			result = (void*)++v1;
-		while (v3[4 * v1 + v1]);
+		} while (v3[4 * v1 + v1]);
 		if (v1) {
 			v4 = 0;
 			v9 = nox_common_randomIntMinMax_415FF0(0, v1 - 1, "C:\\NoxPost\\src\\client\\shell\\SelClass.c", 195);
@@ -87,10 +90,11 @@ void*  sub_4A4B70(int a1) {
 					v6 = 0;
 					v7 = 5;
 					do {
-						if (a1 == 1)
+						if (a1 == 1) {
 							nox_xxx_book_45DBE0((void*)2, 0, v6);
-						else
+						} else {
 							nox_xxx_book_45DBE0((void*)2, (unsigned char)v3[4 * v9 + v6 + v9], v6);
+}
 						++v6;
 						--v7;
 					} while (v7);
@@ -103,10 +107,11 @@ void*  sub_4A4B70(int a1) {
 				nox_xxx_clientUpdateButtonRow_45E110(0);
 				v5 = 5;
 				do {
-					if (a1 == 1)
+					if (a1 == 1) {
 						result = nox_xxx_book_45DBE0((void*)3, 0, v4);
-					else
+					} else {
 						result = nox_xxx_book_45DBE0((void*)3, (unsigned char)v3[4 * v9 + v4 + v9], v4);
+}
 					++v4;
 					--v5;
 				} while (v5);

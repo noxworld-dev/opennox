@@ -43,10 +43,11 @@ int sub_468170_wol_prog() {
 		v7 = 0;
 		v1 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1064192, 1804);
 		sub_41E590(&v6, &v5, &v8, &v7);
-		if (v6)
+		if (v6) {
 			v2 = 100 * v6 / v5;
-		else
+		} else {
 			v2 = 0;
+}
 		nox_window_call_field_94((int)v1, 16416, v2, 0);
 		v3 = nox_strman_loadString_40F1D0("byteprogress", 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolprog.c",
 								   226);
@@ -69,8 +70,9 @@ void sub_4682B0_wol_prog() {
 		v0 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1064192, 1805);
 		v1 = nox_strman_loadString_40F1D0("PatchComplete", 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolprog.c",
 								   250);
-		if (v1)
+		if (v1) {
 			nox_window_call_field_94((int)v0, 16385, (int)v1, 0);
+}
 	}
 	if (!sub_41E540()) {
 		v3 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1064192, 1806);

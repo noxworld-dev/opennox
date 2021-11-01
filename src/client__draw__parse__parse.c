@@ -51,8 +51,9 @@ void*  nox_xxx_spriteLoadStaticRandomData_44C000(char* attr_value, nox_memfile* 
 
 //----- (0044BFA0) --------------------------------------------------------
 int  nox_xxx_spriteLoadVectoAnimatedImpl_44BFA0(int a1, nox_memfile* f) {
-	if (!nox_xxx_loadVectorAnimated_44B8B0(a1, f))
+	if (!nox_xxx_loadVectorAnimated_44B8B0(a1, f)) {
 		return 0;
+}
 
 	return nox_xxx_loadVectorAnimated_44BC50(a1, f);
 }
@@ -95,8 +96,9 @@ int  nox_xxx_loadVectorAnimated_44BC50(int a1, nox_memfile* f) {
 		v3 = a1;
 		v4 = malloc(4 * *(short*)(a1 + 40));
 		*(uint32_t*)(v13 + a1 + 4) = v4;
-		if (!v4)
+		if (!v4) {
 			break;
+}
 		v5 = 0;
 		if (*(uint16_t*)(a1 + 40) > 0) {
 			do {
@@ -116,23 +118,29 @@ int  nox_xxx_loadVectorAnimated_44BC50(int a1, nox_memfile* f) {
 		}
 		v2 += 4;
 		v14 = v2;
-		if (v2 >= 32)
+		if (v2 >= 32) {
 			return 1;
+}
 	}
 	return 0;
 }
 
 //----- (0044B4C0) --------------------------------------------------------
 int  get_animation_kind_id_44B4C0(const char* a1) {
-	if (!strcmp(a1, "OneShot"))
+	if (!strcmp(a1, "OneShot")) {
 		return 0;
-	if (!strcmp(a1, "OneShotRemove"))
+}
+	if (!strcmp(a1, "OneShotRemove")) {
 		return 1;
-	if (!strcmp(a1, "Loop"))
+}
+	if (!strcmp(a1, "Loop")) {
 		return 2;
-	if (!strcmp(a1, "LoopAndFade"))
+}
+	if (!strcmp(a1, "LoopAndFade")) {
 		return 3;
-	if (!strcmp(a1, "Random"))
+}
+	if (!strcmp(a1, "Random")) {
 		return 4;
+}
 	return strcmp(a1, "Slave") != 0 ? 0 : 5;
 }

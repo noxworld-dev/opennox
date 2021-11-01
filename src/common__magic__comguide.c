@@ -23,14 +23,16 @@ int nox_xxx_loadGuides_427070() {
 	v0 = (char**)getMemAt(0x587000, 70504);
 	for (i = getMemAt(0x5D4594, 740108);; i += 28) {
 		v2 = sub_44D330(*v0);
-		if (!v2)
+		if (!v2) {
 			break;
+}
 		nox_sprintf(v13, "creature:%s", *v0);
 		*((uint32_t*)i - 1) = nox_strman_loadString_40F1D0(v13, 0, "C:\\NoxPost\\src\\common\\Magic\\ComGuide.c", 57);
-		if (!strcmp(*(const char**)v2, "Bomber"))
+		if (!strcmp(*(const char**)v2, "Bomber")) {
 			*(uint32_t*)i = 0;
-		else
+		} else {
 			*(uint32_t*)i = nox_xxx_getTTByNameSpriteMB_44CFC0(*v0);
+}
 		nox_sprintf(v13, "creature_desc:%s", *v0);
 		v3 = nox_strman_loadString_40F1D0(v13, 0, "C:\\NoxPost\\src\\common\\Magic\\ComGuide.c", 65);
 		v4 = *getMemU32Ptr(0x587000, 71248);
@@ -61,8 +63,9 @@ int nox_xxx_loadGuides_427070() {
 			i[20] = 4;
 		}
 		++v0;
-		if ((int)v0 >= (int)getMemAt(0x587000, 70664))
+		if ((int)v0 >= (int)getMemAt(0x587000, 70664)) {
 			return 1;
+}
 	}
 	return 0;
 }

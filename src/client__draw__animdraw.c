@@ -23,28 +23,33 @@ int  nox_thing_animate_draw(unsigned int* a1, struct nox_drawable* dr) {
 	case 0:
 		v3 = (nox_frame_xxx_2598000 - dr->field_79) / ((unsigned int)*(unsigned char*)(v2 + 9) + 1);
 		v7 = *(unsigned char*)(v2 + 8);
-		if (v3 >= v7)
+		if (v3 >= v7) {
 			v3 = v7 - 1;
+}
 		goto LABEL_12;
 	case 1:
 		v3 = (nox_frame_xxx_2598000 - dr->field_79) / ((unsigned int)*(unsigned char*)(v2 + 9) + 1);
-		if (v3 < *(unsigned char*)(v2 + 8))
+		if (v3 < *(unsigned char*)(v2 + 8)) {
 			goto LABEL_12;
+}
 		nox_xxx_spriteDeleteStatic_45A4E0_drawable(dr);
 		return 0;
 	case 2:
-		if (dr->flags30 & 0x1000000)
+		if (dr->flags30 & 0x1000000) {
 			goto LABEL_9;
-		if (!(dr->flags28 & 0x10000000))
+}
+		if (!(dr->flags28 & 0x10000000)) {
 			goto LABEL_8;
+}
 		if (nox_common_gameFlags_check_40A5C0(32)) {
 		LABEL_9:
 			v3 = (nox_frame_xxx_2598000 + dr->field_32) /
 				 ((unsigned int)*(unsigned char*)(v2 + 9) + 1);
 			goto LABEL_10;
 		}
-		if (dr->flags28 & 0x10000000)
+		if (dr->flags28 & 0x10000000) {
 			goto LABEL_14;
+}
 	LABEL_8:
 		v3 = 0;
 		goto LABEL_12;
@@ -56,12 +61,14 @@ int  nox_thing_animate_draw(unsigned int* a1, struct nox_drawable* dr) {
 			nox_client_drawSetAlpha_434580(-56 - 200 * v3 / v6);
 		LABEL_10:
 			v4 = *(unsigned char*)(v2 + 8);
-			if (v3 >= v4)
+			if (v3 >= v4) {
 				v3 %= v4;
+}
 		LABEL_12:
 			nox_xxx_drawObject_4C4770_draw(a1, dr, *(unsigned int*)(*(unsigned int*)(v2 + 4) + 4 * v3));
-			if (*(unsigned int*)(v2 + 12) == 3)
+			if (*(unsigned int*)(v2 + 12) == 3) {
 				nox_client_drawEnableAlpha_434560(0);
+}
 		LABEL_14:
 			result = 1;
 		} else {
@@ -99,12 +106,14 @@ int  nox_thing_animate_state_draw(uint32_t* a1, nox_drawable* dr) {
 		v4 = ((unsigned char)v2 >> 2) & 2;
 	}
 	v5 = 48 * v4 + v3 + 4;
-	if (*(uint32_t*)(v5 + 44) == 2)
+	if (*(uint32_t*)(v5 + 44) == 2) {
 		dr->field_79 = nox_frame_xxx_2598000;
-	if (*(uint16_t*)(v5 + 40))
+}
+	if (*(uint16_t*)(v5 + 40)) {
 		result = sub_4BC6B0(a1, dr, v5);
-	else
+	} else {
 		result = 1;
+}
 	return result;
 }
 
@@ -139,8 +148,9 @@ bool  nox_things_animate_draw_parse(nox_thing* obj, nox_memfile* f, char* attr_v
 	v5[3] = get_animation_kind_id_44B4C0(a3);
 	result = (int)malloc(4 * *((unsigned char*)v5 + 8));
 	v5[1] = result;
-	if (!result)
+	if (!result) {
 		return 0;
+}
 
 	v13 = 0;
 	v22 = 0;

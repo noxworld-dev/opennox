@@ -1206,11 +1206,13 @@ int  nox_client_parseConfigHotkeysLine_42CF50(char* a1) {
 		while (_strcmpi(v4, *v6)) {
 			++v6;
 			++v5;
-			if ((int)v6 >= (int)getMemAt(0x587000, 73668))
+			if ((int)v6 >= (int)getMemAt(0x587000, 73668)) {
 				goto LABEL_9;
+}
 		}
-		if (v5 < 4)
+		if (v5 < 4) {
 			goto LABEL_10;
+}
 	LABEL_9:
 		v5 = 0;
 	LABEL_10:
@@ -1232,8 +1234,9 @@ int  nox_client_parseConfigHotkeysLine_42CF50(char* a1) {
 			}
 		}
 		v16 = strtok(0, " \r\t\n");
-		if (!v16)
+		if (!v16) {
 			break;
+}
 		v2 = v16;
 	}
 	v3[17] = 0;
@@ -1256,14 +1259,16 @@ int  nox_client_parseConfigHotkeysLine_42CF50(char* a1) {
 				}
 			}
 			v11 = strtok(0, " \r\t\n");
-			if (!v11)
+			if (!v11) {
 				break;
+}
 		}
 	}
 	v3[18] = 0;
 	v3[19] = dword_5d4594_754056;
-	if (dword_5d4594_754056)
+	if (dword_5d4594_754056) {
 		dword_5d4594_754056->field_18 = v3;
+}
 	dword_5d4594_754056 = v3;
 	return 1;
 }
@@ -1285,8 +1290,9 @@ void nox_client_writeConfigHotkeys_42CDF0(FILE* a1) {
 	result = dword_5d4594_754056;
 	v4 = dword_5d4594_754056;
 	if (dword_5d4594_754056) {
-		for (result = dword_5d4594_754056->field_19; result; result = (uint32_t*)result[19])
+		for (result = dword_5d4594_754056->field_19; result; result = (uint32_t*)result[19]) {
 			v4 = result;
+}
 		for (; v4; v4 = (uint32_t*)v4[18]) {
 			v5 = 0;
 			if (v4[8] > 0) {
@@ -1296,8 +1302,9 @@ void nox_client_writeConfigHotkeys_42CDF0(FILE* a1) {
 					if (name) {
 						nox_fs_fprintf(v2, "%s ", name);
 					}
-					if (v5 != v4[8] - 1)
+					if (v5 != v4[8] - 1) {
 						nox_fs_fprintf(v2, "+ ");
+}
 					++v5;
 					v11++;
 				} while (v5 < v4[8]);
@@ -1311,8 +1318,9 @@ void nox_client_writeConfigHotkeys_42CDF0(FILE* a1) {
 					if (name) {
 						nox_fs_fprintf(v2, "%s ", name);
 					}
-					if (v8 != v4[17] - 1)
+					if (v8 != v4[17] - 1) {
 						nox_fs_fprintf(v2, "+ ");
+}
 					++v8;
 					v12++;
 				} while (v8 < v4[17]);
@@ -1407,8 +1415,9 @@ int  sub_51AAA0(int a1, int a2, int a3) {
 	v3 = 0;
 	v4 = 0;
 	v9 = 0;
-	if (a2 <= 0)
+	if (a2 <= 0) {
 		return 0;
+}
 	v5 = (uint32_t*)(a3 + 12);
 	do {
 		v6 = *(unsigned char*)(a1 + v4);
@@ -1443,8 +1452,9 @@ int  nox_xxx_playerSaveInput_51A960(int a1, unsigned char* a2) {
 	v2 = nox_common_playerInfoFromNum_417090(a1);
 	v3 = *a2;
 	v7 = *a2;
-	if (v2 && !(v2[3680] & 0x10))
+	if (v2 && !(v2[3680] & 0x10)) {
 		return v3 + 1;
+}
 	v5 = sub_51AAA0((int)(a2 + 1), v3, (int)v8);
 	v6 = *getMemU32Ptr(0x5D4594, 2388804 + 4 * a1);
 	if (v6 + v5 < 128) {

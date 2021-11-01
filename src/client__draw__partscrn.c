@@ -32,8 +32,9 @@ int nox_client_screenParticleDraw_489700(void* a1p, nox_screenParticle* p) {
 			if (p->field_40[2] == 1) {
 				uint8_t v5 = p->field_40[0] + 1;
 				p->field_40[0] = v5;
-				if (v5 >= 4u)
+				if (v5 >= 4u) {
 					p->field_40[2] = 2;
+}
 			} else {
 				char v6 = p->field_40[0] - 1;
 				p->field_40[0] = v6;

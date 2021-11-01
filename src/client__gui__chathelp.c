@@ -28,8 +28,9 @@ uint32_t* nox_xxx_cliShowHelpGui_49C560() {
 	char* v8;       // [esp-4h] [ebp-8h]
 
 	v0 = nox_strman_get_lang_code();
-	if (nox_xxx_guiFontHeightMB_43F320(0) > 10)
+	if (nox_xxx_guiFontHeightMB_43F320(0) > 10) {
 		v0 = 2;
+}
 	result = nox_new_window_from_file(*(const char**)getMemAt(0x587000, 164512 + 4 * v0), nox_xxx_wnd_49C760);
 	dword_5d4594_1305680 = result;
 	if (result) {
@@ -60,12 +61,14 @@ uint32_t* nox_xxx_cliShowHelpGui_49C560() {
 		nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1304656), (const wchar_t*)getMemAt(0x5D4594, 1304400));
 		nox_window_call_field_94((int)v2, 16385, (int)getMemAt(0x5D4594, 1304656), 0);
 		if (nox_common_gameFlags_check_40A5C0(1)) {
-			if (!sub_459DA0())
+			if (!sub_459DA0()) {
 				nox_xxx_guiServerOptsLoad_457500();
+}
 			sub_459D80(1);
 		}
-		if (nox_common_gameFlags_check_40A5C0(4096) || (result = (uint32_t*)nox_xxx_isQuest_4D6F50()) != 0)
+		if (nox_common_gameFlags_check_40A5C0(4096) || (result = (uint32_t*)nox_xxx_isQuest_4D6F50()) != 0) {
 			result = (uint32_t*)sub_49C7A0();
+}
 	}
 	return result;
 }

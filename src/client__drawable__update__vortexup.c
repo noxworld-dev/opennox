@@ -32,8 +32,9 @@ int  nox_xxx_updDrawVortexSource_4CC950(int a1, int a2) {
 		*(uint8_t*)(v6 + 448) = v5;
 		*(uint16_t*)(a2 + 104) = 0;
 		*(uint8_t*)(v6 + 449) = nox_common_randomIntMinMax_415FF0(2, 3, "C:\\NoxPost\\src\\client\\Drawable\\Update\\VortexUp.c", 74);
-		if (nox_common_randomIntMinMax_415FF0(0, 100, "C:\\NoxPost\\src\\client\\Drawable\\Update\\VortexUp.c", 75) > 50)
+		if (nox_common_randomIntMinMax_415FF0(0, 100, "C:\\NoxPost\\src\\client\\Drawable\\Update\\VortexUp.c", 75) > 50) {
 			*(uint8_t*)(v7 + 449) = -*(uint8_t*)(v7 + 449);
+}
 		*(uint8_t*)(v7 + 451) = 1;
 		*(uint8_t*)(v7 + 450) = 50;
 		*(uint32_t*)(v7 + 440) = *(uint32_t*)(a2 + 12);

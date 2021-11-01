@@ -144,8 +144,9 @@ void nox_strman_free_410020() {
 		}
 		free(nox_string_str_arr);
 	}
-	if (string_entries)
+	if (string_entries) {
 		free(string_entries);
+}
 
 	nox_missing_string* v4 = missing_strings;
 	while (v4) {
@@ -233,8 +234,9 @@ char sub_40F640(FILE* a1, char* a2, char* a3, unsigned char* a4, int cnt) {
 				v7 = 0;
 				break;
 		}
-		if (iswspace(v9))
+		if (iswspace(v9)) {
 			v9 = 32;
+}
 		*v8++ = v9;
 		cnt--;
 	}
@@ -253,10 +255,12 @@ char sub_40F640(FILE* a1, char* a2, char* a3, unsigned char* a4, int cnt) {
 				v11 = v12;
 			}
 		}
-		if (v11 == 10)
+		if (v11 == 10) {
 			break;
-		if (v11 == -1)
+}
+		if (v11 == -1) {
 			break;
+}
 		if (!v14 && !iswspace(v11) && v11 != 61) {
 			v14 = 1;
 		}
@@ -307,8 +311,9 @@ int nox_strman_read_str_header_40F4E0(FILE* file) {
 //----- (0040F7A0) --------------------------------------------------------
 int strman_read_csf_header_40F7A0(const char* path) {
 	FILE* file = nox_fs_open(path);
-	if (!file)
+	if (!file) {
 		return 0;
+}
 	int ok = 0;
 	unsigned int buf[6];
 	if (nox_binfile_fread2_40ADD0((char*)buf, 24, 1, file) == 1 && buf[0] == 0x43534620) { // "CSF "
@@ -368,12 +373,14 @@ wchar_t* sub_40FE00(wchar_t* a1, char* a2) {
 	v4 = strman_buf_3;
 	v5 = *a2;
 	v6 = a2 + 1;
-	if (!*a2)
+	if (!*a2) {
 		goto LABEL_26;
+}
 	do {
 		if ((char)v5 >= 97 && (char)v5 <= 122 || (char)v5 >= 65 && (char)v5 <= 90) {
-			if (!v3)
+			if (!v3) {
 				v3 = (char*)v4;
+}
 			*v4 = v5;
 			++v4;
 			goto LABEL_23;
@@ -389,10 +396,12 @@ wchar_t* sub_40FE00(wchar_t* a1, char* a2) {
 		}
 		if (v5 == 37) {
 			for (i = *v6++; i; ++v6) {
-				if ((char)i >= 97 && (char)i <= 122)
+				if ((char)i >= 97 && (char)i <= 122) {
 					break;
-				if ((char)i >= 65 && (char)i <= 90)
+}
+				if ((char)i >= 65 && (char)i <= 90) {
 					break;
+}
 				*v4 = i;
 				i = *v6;
 				++v4;
@@ -403,8 +412,9 @@ wchar_t* sub_40FE00(wchar_t* a1, char* a2) {
 		LABEL_23:
 		v5 = *v6++;
 	} while (v5);
-	if (v3)
+	if (v3) {
 		sub_40FFE0(v3, (char*)v4 - 1);
+}
 	LABEL_26:
 	*v4 = 0;
 	v8 = strman_buf_3;
@@ -422,8 +432,9 @@ wchar_t* sub_40FE00(wchar_t* a1, char* a2) {
 			}
 			LABEL_40:
 			v9 = *++v8;
-			if (!v9)
+			if (!v9) {
 				goto LABEL_41;
+}
 		}
 		v2 = 0;
 		switch (v9) {
@@ -487,8 +498,9 @@ void sub_40FB60(wchar_t* a1) {
 				v2 = result;
 				v4 = 0;
 			} else {
-				if (v2 == ' ')
+				if (v2 == ' ') {
 					--v1;
+}
 				*v1 = result;
 				v2 = result;
 				v4 = 1;
@@ -498,8 +510,9 @@ void sub_40FB60(wchar_t* a1) {
 		++a1;
 		result = *a1;
 	}
-	if (v2 == ' ')
+	if (v2 == ' ') {
 		--v1;
+}
 	*v1 = 0;
 }
 
@@ -514,14 +527,16 @@ int nox_strman_read_str_strings_40FBE0(FILE* file) {
 	int v11 = 0;
 	do {
 		LABEL_2:
-		if (!nox_fs_fgets(file, file_buffer, sizeof(file_buffer)))
+		if (!nox_fs_fgets(file, file_buffer, sizeof(file_buffer))) {
 			return 1;
+}
 		sub_40F5C0(file_buffer);
 	} while (*(unsigned short*)file_buffer == 0x2F2F || !file_buffer[0]);
 	strcpy((char*)(string_entries[v1].data), (const char*)file_buffer);
 	int sz = strlen((const char*)file_buffer);
-	if (sz > dword_5d4594_251480)
+	if (sz > dword_5d4594_251480) {
 		dword_5d4594_251480 = sz;
+}
 	string_entries[v1].field_50 = v0;
 	v3 = 0;
 	int v4 = v0;
@@ -569,8 +584,9 @@ int nox_strman_read_csf_strings_40F830(const char* path) {
 	int v19;              // [esp+1Ch] [ebp-1Ch]
 
 	FILE* file = nox_fs_open(path);
-	if (!file)
+	if (!file) {
 		return 0;
+}
 
 	char hbuf[20];
 	if (nox_binfile_fread2_40ADD0(hbuf, 20, 1, file) != 1) {
@@ -600,8 +616,9 @@ int nox_strman_read_csf_strings_40F830(const char* path) {
 		}
 		file_buffer[sz] = 0;
 		strcpy(string_entries[i].data, file_buffer);
-		if (sz > dword_5d4594_251480)
+		if (sz > dword_5d4594_251480) {
 			dword_5d4594_251480 = sz;
+}
 		v7 = v18;
 		v19 = 0;
 		*(unsigned char*)(&string_entries[i].data[49]) = v17;
@@ -671,12 +688,14 @@ int nox_strman_read_csf_strings_40F830(const char* path) {
 
 //----- (0040F300) --------------------------------------------------------
 int nox_strman_readfile(const char* path) {
-	if (nox_strman_complete)
+	if (nox_strman_complete) {
 		return 1;
+}
 	nox_strman_complete = 1;
 	dword_5d4594_251480 = 0;
-	if (!path || !path[0])
+	if (!path || !path[0]) {
 		return 0;
+}
 
 	// copy path to a buffer
 	char cpath[1024] = {0}; // CSF file path
@@ -694,8 +713,9 @@ int nox_strman_readfile(const char* path) {
 	bool isCSF = false;
 	if (dword_5d4594_251484 == 0) {
 		// ignore legacy, read CSF directly
-		if (!strman_read_csf_header_40F7A0(cpath))
+		if (!strman_read_csf_header_40F7A0(cpath)) {
 			return 0;
+}
 		isCSF = true;
 	} else {
 		// open legacy ".str" file first
@@ -709,22 +729,27 @@ int nox_strman_readfile(const char* path) {
 			isCSF = false;
 		} else {
 			// try reading CSF
-			if (!strman_read_csf_header_40F7A0(cpath))
+			if (!strman_read_csf_header_40F7A0(cpath)) {
 				return 0;
+}
 			isCSF = true;
 		}
 	}
-	if (!nox_string_str_cnt || !string_entries_cnt)
+	if (!nox_string_str_cnt || !string_entries_cnt) {
 		return 0;
+}
 	string_entries = (nox_string_entry*)calloc(string_entries_cnt, sizeof(nox_string_entry));
-	if (!string_entries)
+	if (!string_entries) {
 		return 0;
+}
 	nox_string_wstr_arr = calloc(nox_string_str_cnt, sizeof(wchar_t*));
-	if (!nox_string_wstr_arr)
+	if (!nox_string_wstr_arr) {
 		return 0;
+}
 	nox_string_str_arr = calloc(nox_string_str_cnt, sizeof(char*));
-	if (!nox_string_str_arr)
+	if (!nox_string_str_arr) {
 		return 0;
+}
 	if (isCSF) {
 		nox_strman_read_csf_strings_40F830(cpath);
 	} else {

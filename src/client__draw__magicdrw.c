@@ -113,8 +113,9 @@ int  nox_thing_magic_missle_tail_link_draw(uint32_t* a1, nox_drawable* dr) {
 	if (v5 > 0) {
 		v6 = (v5 << 6) / (int)(nox_gameFPS / 3u);
 		v13 = nox_gameFPS / 3u;
-		if (v6 >= 64)
+		if (v6 >= 64) {
 			v6 = 63;
+}
 		v7 = *getMemU32Ptr(0x5D4594, 1312756 + 4 * v6);
 		v8 = v2 + 136;
 		nox_xxx_spriteChangeLightColor_484BE0((uint32_t*)(v2 + 136), 255, 128, 50);
@@ -160,8 +161,9 @@ int  nox_thing_magic_tail_link_draw(uint32_t* a1, nox_drawable* dr) {
 	if (v5 >= 0 && !v6) {
 		v8 = v5 << 6;
 		v7 = (unsigned int)(v5 << 6) / nox_gameFPS;
-		if ((int)(v8 / nox_gameFPS) >= 64)
+		if ((int)(v8 / nox_gameFPS) >= 64) {
 			v7 = 63;
+}
 		v9 = *getMemU32Ptr(0x5D4594, 1312500 + 4 * v7);
 		v10 = v2 + 136;
 		nox_xxx_spriteChangeLightColor_484BE0((uint32_t*)(v2 + 136), 128, 128, 255);

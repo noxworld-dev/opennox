@@ -81,8 +81,9 @@ int  nox_thing_arrow_tail_link_draw(uint32_t* a1, nox_drawable* dr) {
 	if (*(uint32_t*)(a2 + 356) - nox_frame_xxx_2598000 > 0) {
 		v7 = ((*(uint32_t*)(a2 + 356) - nox_frame_xxx_2598000) << 6) /
 		     (int)(nox_gameFPS / 3u);
-		if (v7 >= 64)
+		if (v7 >= 64) {
 			v7 = 63;
+}
 		nox_client_drawSetColor_434460(*getMemU32Ptr(0x5D4594, 1313012 + 4 * v7));
 		nox_client_drawEnableAlpha_434560(1);
 		nox_client_drawSetAlpha_434580(0x80u);
@@ -113,8 +114,9 @@ int  nox_thing_weak_arrow_tail_link_draw(uint32_t* a1, nox_drawable* dr) {
 	if (*(uint32_t*)(a2 + 356) - nox_frame_xxx_2598000 > 0) {
 		v7 = ((*(uint32_t*)(a2 + 356) - nox_frame_xxx_2598000) << 6) /
 		     (int)(nox_gameFPS / 3u);
-		if (v7 >= 64)
+		if (v7 >= 64) {
 			v7 = 63;
+}
 		nox_client_drawSetColor_434460(*getMemU32Ptr(0x5D4594, 1313268 + 4 * v7));
 		nox_client_drawEnableAlpha_434560(1);
 		nox_client_drawSetAlpha_434580(0x80u);

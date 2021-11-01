@@ -71,8 +71,9 @@ void nox_gui_gamemode_load_457410() {
 	}
 	for (int i = 0; i < nox_gui_gamemode_cnt; i++) {
 		nox_gui_gamemode* p = &nox_gui_gamemodes[i];
-		if (!p->name)
+		if (!p->name) {
 			break;
+}
 		p->title = nox_strman_loadString_40F1D0(p->name, 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c", 212);
 	}
 	nox_gui_gamemode_loaded_1046548 = 1;
@@ -82,8 +83,9 @@ void nox_gui_gamemode_load_457410() {
 wchar_t* nox_xxx_guiServerOptionsGetGametypeName_4573C0(short mode) {
 	mode &= 0x17F0;
 
-	if (!nox_gui_gamemode_loaded_1046548)
+	if (!nox_gui_gamemode_loaded_1046548) {
 		nox_gui_gamemode_load_457410();
+}
 
 	for (int i = 0; i < nox_gui_gamemode_cnt; i++) {
 		nox_gui_gamemode* p = &nox_gui_gamemodes[i];
@@ -109,13 +111,15 @@ void sub_457A10() {
 	int cnt = 0;
 	for (int i = 0; i < nox_gui_gamemode_cnt; i++) {
 		nox_gui_gamemode* p = &nox_gui_gamemodes[i];
-		if (p->hide)
+		if (p->hide) {
 			continue;
+}
 		cnt++;
 		int w = 0;
 		nox_xxx_drawGetStringSize_43F840(v1[59], p->title, &w, 0, 0);
-		if (w > max)
+		if (w > max) {
 			max = w;
+}
 	}
 	v3 = cnt * (nox_xxx_guiFontHeightMB_43F320(v0[59]) + 1);
 	v1[7] = v1[5] + v3 + 2;
@@ -184,12 +188,14 @@ int nox_xxx_guiServerOptsLoad_457500() {
 		}
 		if (nox_common_gameFlags_check_40A5C0(1)) {
 			sub_459D50(1);
-			if (dword_587000_129656)
+			if (dword_587000_129656) {
 				nox_common_list_clear_425760(getMemAt(0x5D4594, 1045956));
+}
 		}
 		v1 = nox_strman_get_lang_code();
-		if (nox_xxx_guiFontHeightMB_43F320(0) > 10)
+		if (nox_xxx_guiFontHeightMB_43F320(0) > 10) {
 			v1 = 2;
+}
 		dword_5d4594_1046492 = nox_new_window_from_file(*(const char**)getMemAt(0x587000, 129760 + 4 * v1), nox_xxx_guiServerOptionsProcPre_4585D0);
 		sub_43FE20(100);
 		nox_window_setPos_46A9B0(*(uint32_t**)&dword_5d4594_1046492, nox_win_width - *(uint32_t*)(dword_5d4594_1046492 + 8) - 10, 0);
@@ -241,8 +247,9 @@ int nox_xxx_guiServerOptsLoad_457500() {
 		v8 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1046492, 10160);
 		v8[9] |= 4u;
 		v9 = sub_4165D0(0);
-		if (nox_common_gameFlags_check_40A5C0(1))
+		if (nox_common_gameFlags_check_40A5C0(1)) {
 			sub_4161E0();
+}
 		nox_gui_gamemode_load_457410();
 		sub_457B60((int)v9);
 		sub_457A10();
@@ -276,12 +283,13 @@ int nox_xxx_guiServerOptsLoad_457500() {
 int  nox_xxx_options_457AA0(int a1, uint8_t* a2) {
 	wchar_t* v2; // eax
 
-	if (*a2 & 4)
+	if (*a2 & 4) {
 		v2 = nox_strman_loadString_40F1D0("AutoAssignOnTT", 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c",
 								   446);
-	else
+	} else {
 		v2 = nox_strman_loadString_40F1D0("AutoAssignOffTT", 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c",
 								   450);
+}
 	nox_xxx_cursorSetTooltip_4776B0(v2);
 	return 1;
 }
@@ -290,12 +298,13 @@ int  nox_xxx_options_457AA0(int a1, uint8_t* a2) {
 int  nox_xxx_options_457B00(int a1, uint8_t* a2) {
 	wchar_t* v2; // eax
 
-	if (*a2 & 4)
+	if (*a2 & 4) {
 		v2 = nox_strman_loadString_40F1D0("TeamDamageOnTT", 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c",
 								   465);
-	else
+	} else {
 		v2 = nox_strman_loadString_40F1D0("TeamDamageOffTT", 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c",
 								   469);
+}
 	nox_xxx_cursorSetTooltip_4776B0(v2);
 	return 1;
 }
@@ -355,12 +364,13 @@ int  sub_4580E0(int a1) {
 		v4 = nox_strman_loadString_40F1D0("GameTypeIs", 0, (const char*)getMemAt(0x587000, 131072), 743);
 		nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1046096), v4, v10);
 	}
-	if (nox_common_gameFlags_check_40A5C0(1))
+	if (nox_common_gameFlags_check_40A5C0(1)) {
 		v5 = nox_strman_loadString_40F1D0("GoMessage", 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c",
 								   748);
-	else
+	} else {
 		v5 = nox_strman_loadString_40F1D0("OptsMessage", 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c",
 								   752);
+}
 	nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1046224), v5);
 	v6 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1046492, 10121);
 	nox_window_call_field_94((int)v6, 16385, (int)getMemAt(0x5D4594, 1045968), -1);
@@ -500,8 +510,9 @@ int  nox_xxx_guiServerOptionsProcPre_4585D0(int a1, unsigned int a2, int a3, int
 						v33 = *((uint16_t*)v29 + 26) & 0x17F0;
 						*((uint16_t*)v29 + 26) &= 0xE80Fu;
 						*((uint16_t*)v29 + 26) |= sub_459650(v32);
-						if (v33 != (*((uint16_t*)v29 + 26) & 0x17F0))
+						if (v33 != (*((uint16_t*)v29 + 26) & 0x17F0)) {
 							nox_client_guiserv_updateMapList_458230(*((unsigned short*)v29 + 26), (char*)getMemAt(0x5D4594, 1046556), 1);
+}
 						nox_window_set_hidden(a3, 1);
 						nox_xxx_wndClearCaptureMain_46ADE0(a3);
 						*((uint16_t*)v29 + 27) = nox_xxx_servGamedataGet_40A020(*((uint16_t*)v29 + 26));
@@ -598,8 +609,9 @@ int  nox_xxx_guiServerOptionsProcPre_4585D0(int a1, unsigned int a2, int a3, int
 		case 10146:
 			v25 = sub_4165B0();
 			if (nox_common_gameFlags_check_40A5C0(128)) {
-				if ((int)v25[53] < 0)
+				if ((int)v25[53] < 0) {
 					sub_419030(1);
+}
 				*((uint16_t*)v25 + 26) &= 0x3FFFu;
 			}
 			goto LABEL_58;
@@ -652,8 +664,9 @@ int  nox_xxx_guiServerOptionsProcPre_4585D0(int a1, unsigned int a2, int a3, int
 				dword_5d4594_1046540 = 0;
 			}
 			sub_46ACE0(*(uint32_t**)&dword_5d4594_1046492, 10161, 10163, 1);
-			if (nox_common_gameFlags_check_40A5C0(1))
+			if (nox_common_gameFlags_check_40A5C0(1)) {
 				sub_46ACE0(*(uint32_t**)&dword_5d4594_1046492, 10141, 10141, 0);
+}
 			v17 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1046492, 10196);
 			nox_window_set_hidden((int)v17, 1);
 			nox_window_set_hidden(*(int*)&dword_5d4594_1046524, 0);
@@ -675,10 +688,11 @@ int  nox_xxx_guiServerOptionsProcPre_4585D0(int a1, unsigned int a2, int a3, int
 				result = 1;
 			} else {
 				nox_xxx_wndGuiTeamCreate_4185B0();
-				if (nox_xxx_CheckGameplayFlags_417DA0(2))
+				if (nox_xxx_CheckGameplayFlags_417DA0(2)) {
 					sub_4181F0(0);
-				else
+				} else {
 					nox_xxx_toggleAllTeamFlags_418690(1);
+}
 				sub_46AD20(*(uint32_t**)&dword_5d4594_1046508, 10331, 10333, 1);
 				result = 1;
 			}
@@ -696,24 +710,28 @@ int  nox_xxx_guiServerOptionsProcPre_4585D0(int a1, unsigned int a2, int a3, int
 			sub_4181F0(1);
 			return 1;
 		case 10333:
-			if (nox_xxx_CheckGameplayFlags_417DA0(1))
+			if (nox_xxx_CheckGameplayFlags_417DA0(1)) {
 				nox_xxx_UnsetGameplayFlags_417D70(1);
-			else
+			} else {
 				nox_xxx_SetGameplayFlag_417D50(1);
+}
 			return 1;
 		default:
 			return 1;
 		}
 		return result;
 	}
-	if (a2 == 23)
+	if (a2 == 23) {
 		return 0;
-	if (a2 != 16387)
+}
+	if (a2 != 16387) {
 		return 1;
+}
 	v4 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1046492, a4);
 	v5 = sub_4165B0();
-	if (!v4)
+	if (!v4) {
 		return 0;
+}
 	if ((unsigned short)a3 == 1) {
 		if (a4 == 10101) {
 			v4[26] = *getMemU32Ptr(0x5D4594, 2523948);
@@ -723,11 +741,13 @@ int  nox_xxx_guiServerOptionsProcPre_4585D0(int a1, unsigned int a2, int a3, int
 	}
 	v7 = nox_window_call_field_94((int)v4, 16413, 0, 0);
 	nox_sprintf(v41, "%S", v7);
-	if (!v41[0]) // TODO: was if (!v41 || ...
+	if (!v41[0]) { // TODO: was if (!v41 || ...
 		return 1;
+}
 	v8 = atoi(v41);
-	if (v8 < 0)
+	if (v8 < 0) {
 		v8 = 0;
+}
 	if (a4 == 10101) {
 		v4[26] = nox_color_rgb_4344A0(230, 165, 65);
 		strcpy(v5 + 9, v41);
@@ -739,8 +759,9 @@ int  nox_xxx_guiServerOptionsProcPre_4585D0(int a1, unsigned int a2, int a3, int
 		sub_459D50(1);
 		return 1;
 	}
-	if (a4 != 10135)
+	if (a4 != 10135) {
 		return 1;
+}
 	if (v8 > 255) {
 		LOBYTE(v8) = -1;
 		_itow(255, WideCharStr, 10);
@@ -793,10 +814,11 @@ int  sub_459880(int a1) {
 	}
 	v4 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1046492, 10122);
 	v5 = v4[9];
-	if (*(uint8_t*)(a1 + 57))
+	if (*(uint8_t*)(a1 + 57)) {
 		v6 = v5 | 4;
-	else
+	} else {
 		v6 = v5 & 0xFFFFFFFB;
+}
 	v4[9] = v6;
 	sub_453F70((const void*)(a1 + 24));
 	sub_4535E0((int*)(a1 + 44));
@@ -813,10 +835,11 @@ int sub_459CD0() {
 
 	result = dword_5d4594_1046492;
 	if (dword_5d4594_1046492) {
-		if (sub_40A740() || nox_common_gameFlags_check_40A5C0(0x8000))
+		if (sub_40A740() || nox_common_gameFlags_check_40A5C0(0x8000)) {
 			v1 = sub_417DE0();
-		else
+		} else {
 			v1 = nox_xxx_getTeamCounter_417DD0();
+}
 		v4 = v1;
 		v2 = nox_strman_loadString_40F1D0("NumTeamsMsg", 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c",
 								   2071);

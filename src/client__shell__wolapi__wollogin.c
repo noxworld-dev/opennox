@@ -55,12 +55,14 @@ int nox_game_showWolLogin_44A560() {
 		nox_game_addStateCode_43BDD0(1700);
 		result = nox_new_window_from_file("wolapi.wnd", sub_44AB30);
 		dword_5d4594_830248 = result;
-		if (!result)
+		if (!result) {
 			return result;
+}
 		result = nox_gui_makeAnimation_43C5B0((uint32_t*)result, 0, 0, 0, -480, 0, 20, 0, -40);
 		nox_wnd_xxx_830244 = result;
-		if (!result)
+		if (!result) {
 			return result;
+}
 		nox_wnd_xxx_830244->field_0 = 1700;
 		nox_wnd_xxx_830244->field_12 = sub_44AA40;
 		nox_wnd_xxx_830244->fnc_done_out = sub_44AA70;
@@ -72,8 +74,9 @@ int nox_game_showWolLogin_44A560() {
 	for (i = 0; i < 128; ++i) {
 		sub_41FB90(i, &v16, &v17);
 		nox_swprintf(v19, L"%S", v16);
-		if (!v19[0])
+		if (!v19[0]) {
 			nox_swprintf(v19, L" ");
+}
 		nox_window_call_field_94(*(int*)&dword_5d4594_830264, 16397, (int)v19, -1);
 	}
 	v2 = sub_41FC40();

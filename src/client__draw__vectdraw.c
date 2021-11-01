@@ -16,8 +16,9 @@ int  sub_4BC5D0(nox_drawable* dr, int a2) {
 	case 0:
 		result = (nox_frame_xxx_2598000 - a1[79]) / (unsigned int)(*(short*)(a2 + 42) + 1);
 		v4 = *(short*)(a2 + 40);
-		if (result >= v4)
+		if (result >= v4) {
 			result = v4 - 1;
+}
 		break;
 	case 1:
 		result = (nox_frame_xxx_2598000 - a1[79]) / (unsigned int)(*(short*)(a2 + 42) + 1);
@@ -29,8 +30,9 @@ int  sub_4BC5D0(nox_drawable* dr, int a2) {
 	case 2:
 		result = (nox_frame_xxx_2598000 + a1[32]) / (unsigned int)(*(short*)(a2 + 42) + 1);
 		v3 = *(short*)(a2 + 40);
-		if (result >= v3)
+		if (result >= v3) {
 			result %= v3;
+}
 		break;
 	case 4:
 		result = nox_common_randomIntMinMax_415FF0(0, *(short*)(a2 + 40) - 1, "C:\\NoxPost\\src\\Client\\Draw\\vectdraw.c", 19);

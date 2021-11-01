@@ -40,8 +40,9 @@ int sub_4C09D0() {
 
 	v0 = nox_new_window_from_file("Trade.wnd", sub_4C0C90);
 	dword_5d4594_1320940 = v0;
-	if (!v0)
+	if (!v0) {
 		return 0;
+}
 	nox_window_set_all_funcs(v0, sub_4C0630, sub_4C0D00, 0);
 	v2 = nox_strman_loadString_40F1D0("TradeMain", 0, "C:\\NoxPost\\src\\client\\Gui\\GUITrade.c", 692);
 	nox_xxx_wndWddSetTooltip_46B000((wchar_t*)(dword_5d4594_1320940 + 36), v2);
@@ -142,8 +143,9 @@ int  sub_4C15D0(int a1) {
 			} while (v4 < 2);
 			v3 += 140;
 			++v2;
-			if ((int)v3 < (int)getMemAt(0x5D4594, 1319564))
+			if ((int)v3 < (int)getMemAt(0x5D4594, 1319564)) {
 				continue;
+}
 			break;
 		}
 		v7 = 0;
@@ -161,8 +163,9 @@ int  sub_4C15D0(int a1) {
 			} while (v9 < 2);
 			v8 += 140;
 			++v7;
-			if ((int)v8 < (int)getMemAt(0x5D4594, 1320588))
+			if ((int)v8 < (int)getMemAt(0x5D4594, 1320588)) {
 				continue;
+}
 			break;
 		}
 		v11 = nox_strman_loadString_40F1D0("TradeGUIItemNotFound", 0, "C:\\NoxPost\\src\\client\\Gui\\GUITrade.c", 1141);

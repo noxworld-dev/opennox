@@ -172,8 +172,9 @@ bool  nox_parse_thing_zsize(nox_thing* obj, nox_memfile* f, char* attr_value) {
 	int min = 0;
 	int max = 0;
 	sscanf(attr_value, "%d %d", &min, &max);
-	if (max < min)
+	if (max < min) {
 		max = min;
+}
 	obj->zsize_min = (double)min;
 	obj->zsize_max = (double)max;
 	return 1;
@@ -206,8 +207,9 @@ bool  nox_parse_thing_light_color(nox_thing* obj, nox_memfile* f, char* attr_val
 	int r;
 	int g;
 	int b;
-	if (sscanf(attr_value, "%d %d %d", &r, &g, &b) != 3)
+	if (sscanf(attr_value, "%d %d %d", &r, &g, &b) != 3) {
 		return 0;
+}
 	obj->field_f = 2;
 	obj->light_color_r = (r <= 255 ? r : 255);
 	obj->light_color_g = (g <= 255 ? g : 255);
@@ -218,10 +220,12 @@ bool  nox_parse_thing_light_color(nox_thing* obj, nox_memfile* f, char* attr_val
 //----- (0044B2D0) --------------------------------------------------------
 bool  nox_parse_thing_light_dir(nox_thing* obj, nox_memfile* f, char* attr_value) {
 	int deg = 0;
-	if (sscanf(attr_value, "%d", &deg) != 1)
+	if (sscanf(attr_value, "%d", &deg) != 1) {
 		return 0;
-	if (deg < 0 || deg >= 360)
+}
+	if (deg < 0 || deg >= 360) {
 		return 0;
+}
 	obj->light_dir = (long long)((double)deg * *getMemDoublePtr(0x581450, 9560) * *(double*)&qword_581450_9552 +
 							   *(double*)&qword_581450_9544);
 	obj->field_10 = 0;
@@ -231,10 +235,12 @@ bool  nox_parse_thing_light_dir(nox_thing* obj, nox_memfile* f, char* attr_value
 //----- (0044B330) --------------------------------------------------------
 bool  nox_parse_thing_light_penumbra(nox_thing* obj, nox_memfile* f, char* attr_value) {
 	int deg = 0;
-	if (sscanf(attr_value, "%d", &deg) != 1)
+	if (sscanf(attr_value, "%d", &deg) != 1) {
 		return 0;
-	if (deg < 0 || deg >= 180)
+}
+	if (deg < 0 || deg >= 180) {
 		return 0;
+}
 	obj->light_penumbra = (long long)((double)deg * *getMemDoublePtr(0x581450, 9560) * *(double*)&qword_581450_9552 +
 									*(double*)&qword_581450_9544);
 	return 1;
@@ -261,15 +267,17 @@ bool  nox_parse_thing_client_update(nox_thing* obj, nox_memfile* f, char* attr_v
 	if (*getMemU32Ptr(0x587000, 175072)) {
 		v6 = getMemAt(0x587000, 175072);
 		do {
-			if (!strcmp(v4, v3))
+			if (!strcmp(v4, v3)) {
 				break;
+}
 			v4 = (const char*)*((uint32_t*)v6 + 2);
 			v6 += 8;
 			++v5;
 		} while (v4);
 	}
-	if (!*getMemU32Ptr(0x587000, 175072 + 8 * v5))
+	if (!*getMemU32Ptr(0x587000, 175072 + 8 * v5)) {
 		return 0;
+}
 	obj->client_update = *getMemU32Ptr(0x587000, 175076 + 8 * v5);
 	return 1;
 }
@@ -369,8 +377,9 @@ int sub_485CF0() {
 	void** v1; // esi
 
 	v0 = 0;
-	if (*(int*)&dword_5d4594_251568 <= 0)
+	if (*(int*)&dword_5d4594_251568 <= 0) {
 		return 1;
+}
 	v1 = (void**)getMemAt(0x85B3FC, 32516);
 	do {
 		if (*v1) {
@@ -389,8 +398,9 @@ int sub_485F30() {
 	void** v1; // esi
 
 	v0 = 0;
-	if (*(int*)&dword_5d4594_251572 <= 0)
+	if (*(int*)&dword_5d4594_251572 <= 0) {
 		return 1;
+}
 	v1 = (void**)getMemAt(0x85B3FC, 28676);
 	do {
 		if (*v1) {
@@ -445,16 +455,19 @@ size_t nox_xxx_spriteDefByAlphabetAlloc_44CCD0() {
 
 //----- (0044CD60) --------------------------------------------------------
 void  nox_xxx_spriteDefByAlphabetAdd_0_44CD60(nox_thing* a1, int a2) {
-	if (!a1)
+	if (!a1) {
 		return;
+}
 
 	int v2 = nox_xxx_keyFirstLetterNumberCli_44CD30(a1->name);
-	if (v2 < 0)
+	if (v2 < 0) {
 		return;
+}
 
 	int v3 = *getMemU32Ptr(0x5D4594, 830296 + 4 * v2);
-	if (!v3)
+	if (!v3) {
 		return;
+}
 
 	int v4 = *getMemU32Ptr(0x5D4594, 830724 + 4 * v2);
 	*(uint32_t*)(v3 + 8 * v4) = a1;
@@ -472,8 +485,9 @@ void nox_xxx_spriteDefByAlphabetSort_44CDB0() {
 
 	for (i = 0; i < 108; i += 4) {
 		v1 = *getMemU32Ptr(0x5D4594, 830616 + i);
-		if (v1 > 1)
+		if (v1 > 1) {
 			qsort(*(void**)getMemAt(0x5D4594, 830296 + i), v1, 8u, nox_xxx_spriteDefByAlphabetCompare_44CDE0);
+}
 	}
 }
 
@@ -490,8 +504,9 @@ char* nox_xxx_equipWeapon_4131A0() {
 				result = (char*)nox_xxx_getNameId_4E3AA0(*(char**)i);
 			} else {
 				result = (char*)nox_common_gameFlags_check_40A5C0(2);
-				if (!result)
+				if (!result) {
 					return result;
+}
 				result = (char*)nox_xxx_getTTByNameSpriteMB_44CFC0(*(char**)i);
 			}
 			*(uint32_t*)(i + 4) = result;
@@ -501,8 +516,9 @@ char* nox_xxx_equipWeapon_4131A0() {
 				result = (char*)nox_xxx_getNameId_4E3AA0(*(char**)j);
 			} else {
 				result = (char*)nox_common_gameFlags_check_40A5C0(2);
-				if (!result)
+				if (!result) {
 					return result;
+}
 				result = (char*)nox_xxx_getTTByNameSpriteMB_44CFC0(*(char**)j);
 			}
 			*(uint32_t*)(j + 4) = result;
@@ -548,10 +564,11 @@ void nox_xxx_equipWeapon_4157C0() {
 		if (*getMemU32Ptr(0x587000, 33064)) {
 			v0 = getMemAt(0x587000, 33064);
 			do {
-				if (nox_common_gameFlags_check_40A5C0(2097153))
+				if (nox_common_gameFlags_check_40A5C0(2097153)) {
 					v1 = nox_xxx_getNameId_4E3AA0(*(char**)v0);
-				else
+				} else {
 					v1 = nox_xxx_getTTByNameSpriteMB_44CFC0(*(char**)v0);
+}
 				*((uint32_t*)v0 + 1) = v1;
 				v2 = *((uint32_t*)v0 + 3);
 				v0 += 12;
@@ -568,13 +585,15 @@ int nox_get_things_count() { return nox_things_count; }
 int sub_42BF10() {
 	int v1; // eax
 
-	if (dword_5d4594_741676)
+	if (dword_5d4594_741676) {
 		return 1;
+}
 	if (nox_common_gameFlags_check_40A5C0(2097153)) {
 		v1 = nox_xxx_unitDefGetCount_4E3AC0();
 	} else {
-		if (!nox_common_gameFlags_check_40A5C0(2))
+		if (!nox_common_gameFlags_check_40A5C0(2)) {
 			return 0;
+}
 		v1 = nox_get_things_count();
 	}
 	dword_5d4594_741680 = v1;
@@ -742,8 +761,9 @@ void sub_44C620_free() {
 
 	v0 = (void**)getMemAt(0x5D4594, 830296);
 	do {
-		if (*v0)
+		if (*v0) {
 			free(*v0);
+}
 		*v0 = 0;
 		++v0;
 	} while ((int)v0 < (int)getMemAt(0x5D4594, 830404));
@@ -757,8 +777,9 @@ void nox_xxx_unitDefByAlphabetFree_4E2B30() {
 	v0 = (void**)getMemAt(0x5D4594, 1563348);
 	do {
 		result = *v0;
-		if (*v0)
+		if (*v0) {
 			free(*v0);
+}
 		*v0 = 0;
 		++v0;
 	} while ((int)v0 < (int)getMemAt(0x5D4594, 1563456));
@@ -778,27 +799,34 @@ int nox_xxx_freeObjectTypes_4E2A20() {
 	nox_objectType_t* next = 0;
 	for (nox_objectType_t* typ = nox_xxx_objectTypes_head_1563660; typ; typ = next) {
 		next = typ->next;
-		if (typ->id)
+		if (typ->id) {
 			free(typ->id);
-		if (typ->field_34)
+}
+		if (typ->field_34) {
 			free(typ->field_34);
-		if (typ->field_36)
+}
+		if (typ->field_36) {
 			free(typ->field_36);
-		if (typ->field_41)
+}
+		if (typ->field_41) {
 			free(typ->field_41);
-		if (typ->field_44)
+}
+		if (typ->field_44) {
 			free(typ->field_44);
+}
 		void* v2 = typ->field_48;
 		if (v2) {
 			if (typ->obj_class & 0x2) {
 				void* v3 = *(void**)((uint32_t)v2 + 476);
-				if (v3)
+				if (v3) {
 					free(v3);
+}
 			}
 			free(typ->field_48);
 		}
-		if (typ->field_51)
+		if (typ->field_51) {
 			free(typ->field_51);
+}
 		free(typ);
 	}
 	nox_xxx_objectTypes_head_1563660 = 0;
@@ -830,8 +858,9 @@ char*  nox_xxx_unitDefByAlphabetAdd_4E3080(char* a1) {
 	result = a1;
 	if (a1) {
 		result = (char*)nox_xxx_keyFirstLetterNumber_4E30A0(a1);
-		if ((int)result >= 0)
+		if ((int)result >= 0) {
 			++*getMemU32Ptr(0x5D4594, 1563668 + 4 * (uint32_t)result);
+}
 	}
 	return result;
 }
@@ -897,8 +926,9 @@ void sub_4E29D0() {
 
 	for (i = 0; i < 108; i += 4) {
 		v1 = *getMemU32Ptr(0x5D4594, 1563668 + i);
-		if (v1 > 1)
+		if (v1 > 1) {
 			qsort(*(void**)getMemAt(0x5D4594, 1563348 + i), v1, 4u, sub_4E2A00);
+}
 	}
 }
 
@@ -927,8 +957,9 @@ const char* sub_4F0640() {
 		do {
 			v2 = *v0;
 			v3 = *(char**)v1;
-			if (v2 == 35)
+			if (v2 == 35) {
 				++v3;
+}
 			*((uint32_t*)v1 + 1) = nox_xxx_getNameId_4E3AA0(v3);
 			v0 = (char*)*((uint32_t*)v1 + 5);
 			v1 += 20;
@@ -988,8 +1019,9 @@ int  nox_read_things_alternative_4E2B60(void) {
 	int i;               // [esp+0h] [ebp-8h]
 	void* v21;           // [esp+4h] [ebp-4h]
 
-	if (nox_xxx_objectTypes_head_1563660)
+	if (nox_xxx_objectTypes_head_1563660) {
 		nox_xxx_freeObjectTypes_4E2A20();
+}
 	sub_4E3010();
 	dword_5d4594_1563664 = 0;
 	v1 = malloc(0x40000u);
@@ -997,8 +1029,9 @@ int  nox_read_things_alternative_4E2B60(void) {
 	v21 = v1;
 
 	nox_memfile* things = nox_open_thing_bin();
-	if (!things)
+	if (!things) {
 		return 0;
+}
 	nox_memfile_seek_40AD10(things, 0, 0);
 	while (nox_memfile_read(&i, 4u, 1, things)) {
 		switch (i) {
@@ -1152,8 +1185,9 @@ int  nox_read_things_alternative_4E2B60(void) {
 	nox_xxx_equipArmor_415AB0();
 	nox_xxx_equipWeapon_4157C0();
 	sub_4F0640();
-	if (!sub_42BF10())
+	if (!sub_42BF10()) {
 		return 0;
+}
 	return 1;
 }
 
@@ -1165,11 +1199,13 @@ void*  nox_xxx_draw_44C780(int a1) {
 
 	for (i = 0; i < 32; i += 4) {
 		v2 = i;
-		if (i >= 16)
+		if (i >= 16) {
 			v2 = i + 4;
+}
 		result = *(void**)(v2 + a1);
-		if (result)
+		if (result) {
 			free(result);
+}
 	}
 	return result;
 }
@@ -1225,8 +1261,9 @@ void  nox_xxx_draw_44C650_free(void* lpMem, void* draw) {
 		nox_parse_thing_draw_funcs_t* item = NULL;
 		for (int i = 0; i < nox_parse_thing_draw_funcs_cnt; i++) {
 			nox_parse_thing_draw_funcs_t* cur = &nox_parse_thing_draw_funcs[i];
-			if (!cur->name)
+			if (!cur->name) {
 				break;
+}
 			if (cur->draw == draw) {
 				item = cur;
 				break;
@@ -1255,8 +1292,9 @@ void  nox_xxx_draw_44C650_free(void* lpMem, void* draw) {
 			v7 = (void**)((char*)lpMem + 4);
 			v8 = 5;
 			do {
-				if (*v7)
+				if (*v7) {
 					free(*v7);
+}
 				++v7;
 				--v8;
 			} while (v8);
@@ -1301,10 +1339,12 @@ void nox_things_free_44C580() {
 	if (nox_things_head) {
 		nox_thing* cur = nox_things_head;
 		while (cur) {
-			if (cur->name)
+			if (cur->name) {
 				free(cur->name);
-			if (cur->field_5c)
+}
+			if (cur->field_5c) {
 				nox_xxx_draw_44C650_free(cur->field_5c, cur->draw_func);
+}
 			nox_thing* next = cur->next;
 			free(cur);
 			cur = next;
@@ -1317,6 +1357,7 @@ void nox_things_free_44C580() {
 	}
 	nox_things_count = 0;
 	sub_44C620_free();
-	if (!nox_common_gameFlags_check_40A5C0(1))
+	if (!nox_common_gameFlags_check_40A5C0(1)) {
 		nox_xxx_free_42BF80();
+}
 }

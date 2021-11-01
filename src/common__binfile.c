@@ -487,12 +487,14 @@ void nox_binfile_xxx_409560() {
 
 //----- (00408D40) --------------------------------------------------------
 int  nox_binfile_cryptSet_408D40(FILE* f, int key) {
-	if (nox_binfile_cryptEnabled_409A60())
+	if (nox_binfile_cryptEnabled_409A60()) {
 		return 0;
-	if (key == -1)
+}
+	if (key == -1) {
 		nox_binfile_cryptSetKey_409580(0, 0);
-	else
+	} else {
 		nox_binfile_cryptSetKey_409580(&dword_587000_3744[7 * key], 56);
+}
 	return 1;
 }
 
@@ -508,8 +510,9 @@ FILE*  nox_binfile_open_408CC0(const char* path, int mode) {
 	}
 	nox_binfile_mode = mode;
 
-	if (!f)
+	if (!f) {
 		return 0;
+}
 
 	nox_binfile_buf1 = 0;
 	nox_binfile_offs = 0;
@@ -575,11 +578,13 @@ unsigned char*  nox_binfile_lll_409860(unsigned char* a1, unsigned char* a2, uns
 
 //----- (004097C0) --------------------------------------------------------
 void nox_binfile_iii_4097C0(uint8_t* src, size_t sz, uint8_t* dest) {
-	if (src == NULL)
+	if (src == NULL) {
 		return;
+}
 
-	if (sz == 0)
+	if (sz == 0) {
 		return;
+}
 
 	uint8_t* move_dest = dest != NULL ? dest : src;
 
@@ -594,11 +599,13 @@ void nox_binfile_iii_4097C0(uint8_t* src, size_t sz, uint8_t* dest) {
 		}
 
 		size_t copied_bytes = 8 * whole_words;
-		if (copied_bytes < sz)
+		if (copied_bytes < sz) {
 			memmove(move_dest, src, sz - copied_bytes);
+}
 	} else {
-		if (src != move_dest)
+		if (src != move_dest) {
 			memmove(move_dest, src, sz);
+}
 	}
 }
 
@@ -636,11 +643,13 @@ int  nox_binfile_mmm_4099C0(unsigned char* a1, signed int a2, unsigned char* a3)
 	int result; // eax
 
 	v3 = a1;
-	if (!a1 || !a2)
+	if (!a1 || !a2) {
 		return 0;
+}
 	v4 = a3;
-	if (!a3)
+	if (!a3) {
 		v4 = a1;
+}
 	if (nox_binfile_doCrypt) {
 		v5 = a2 / 8;
 		if (a2 / 8 > 0) {
@@ -654,12 +663,14 @@ int  nox_binfile_mmm_4099C0(unsigned char* a1, signed int a2, unsigned char* a3)
 			v5 = a2 / 8;
 		}
 		v7 = 8 * v5;
-		if (8 * v5 < a2)
+		if (8 * v5 < a2) {
 			memmove((unsigned int)v4, v3, a2 - v7);
+}
 		result = v7;
 	} else {
-		if (v4 != a1)
+		if (v4 != a1) {
 			memmove((unsigned int)v4, a1, a2);
+}
 		result = a2;
 	}
 	return result;
@@ -668,8 +679,9 @@ int  nox_binfile_mmm_4099C0(unsigned char* a1, signed int a2, unsigned char* a3)
 //----- (0040ADD0) --------------------------------------------------------
 int nox_binfile_fread2_40ADD0(char* buf, size_t size, size_t count, FILE* file) {
 	int left = count * size;
-	if (dword_5d4594_3612)
+	if (dword_5d4594_3612) {
 		return nox_fs_fread(file, buf, size*count)/size;
+}
 	dword_5d4594_3612 = 1;
 	if (left == 0) {
 		dword_5d4594_3612 = 0;
@@ -681,17 +693,20 @@ int nox_binfile_fread2_40ADD0(char* buf, size_t size, size_t count, FILE* file) 
 		// this looks like a hack for old PCs to process sounds while reading files from CD
 		//sub_4312C0();
 		size_t n = left;
-		if (left > 204800)
+		if (left > 204800) {
 			n = 204800;
+}
 		result = nox_fs_fread(file, buf, n);
-		if (result < 0)
+		if (result < 0) {
 			break;
+}
 		total += result;
 		if (result == n) {
 			left -= result;
 			buf += result;
-			if (left > 0)
+			if (left > 0) {
 				continue;
+}
 		}
 		result = total / size;
 		break;
@@ -717,13 +732,15 @@ int  nox_binfile_fread_408E40(char* a1, int a2, int a3, FILE* a4) {
 	v6 = 0;
 	v7 = 0;
 	v14 = a3 * a2;
-	if (a2 == 0 || !a3)
+	if (a2 == 0 || !a3) {
 		return 0;
+}
 	v9 = nox_binfile_offs & 7;
 	if (v9) {
 		v4 = 8 - v9;
-		if (v5 < 8 - v9)
+		if (v5 < 8 - v9) {
 			v4 = v5;
+}
 		nox_binfile_mmm_4099C0(&nox_binfile_buf2, 8, &nox_binfile_buf1);
 		memcpy(a1, ((char*)&nox_binfile_buf1) + (nox_binfile_offs & 7), v4);
 		v7 = a3;
@@ -765,11 +782,13 @@ int  nox_binfile_skip2nextboundary_408FE0(char* a1, int a2, int a3, FILE* a4) {
 	signed int result; // eax
 	char v5[8];        // [esp+4h] [ebp-8h]
 
-	if (nox_binfile_offs & 7)
+	if (nox_binfile_offs & 7) {
 		nox_binfile_fread_408E40(v5, 8 - (nox_binfile_offs & 7), 1, a4);
+}
 	result = nox_binfile_fread_408E40(v5, 8, 1, a4);
-	if (result == 1)
+	if (result == 1) {
 		memcpy(a1, v5, a3 * a2);
+}
 	return result;
 }
 
@@ -789,8 +808,9 @@ int  nox_binfile_fseek_409050(FILE* a1, int a2, int a3) {
 	}
 	v3 = a2;
 	if (a3 == SEEK_CUR) {
-		if (!a2)
+		if (!a2) {
 			return 0;
+}
 		v3 = nox_binfile_offs - nox_fs_ftell(a1) + a2;
 	}
 	nox_fs_fseek(a1, v3, a3);
@@ -850,8 +870,9 @@ size_t  nox_binfile_zzz_409200(char* a1, int a2, int a3, FILE* a4) {
 	v6 = 0;
 	v7 = -1;
 	v21 = a3 * a2;
-	if (!a2 || !v4) // TODO: byte_5D4594 == (unsigned char*)-1288 || ...
+	if (!a2 || !v4) { // TODO: byte_5D4594 == (unsigned char*)-1288 || ...
 		return 0;
+}
 	v8 = nox_binfile_offs & 7;
 	if (nox_binfile_offs & 7) {
 		if (v5 >= 8 - v8) {
@@ -917,8 +938,9 @@ int  nox_binfile_ooo_409520(FILE* f) {
 
 //----- (00409190) --------------------------------------------------------
 void nox_binfile_kkk_409190(FILE* file, int data, int file_offset) {
-	if (file_offset < 0)
+	if (file_offset < 0) {
 		return;
+}
 
 	nox_fs_fseek_start(file, file_offset);
 

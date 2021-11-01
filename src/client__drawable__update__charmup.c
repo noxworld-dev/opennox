@@ -32,12 +32,14 @@ void  sub_4CD150(int a1, uint32_t* a2, int a3, int a4) {
 	int v27;     // [esp+28h] [ebp+10h]
 
 	v4 = nox_common_randomIntMinMax_415FF0(0, 100, "C:\\NoxPost\\src\\client\\Drawable\\Update\\charmup.c", 16);
-	if (v4 >= 50)
+	if (v4 >= 50) {
 		return;
+}
 	LOBYTE(v4) = *(uint8_t*)(a3 + 432);
 	if (!(uint8_t)v4) {
-		if (a3 == -432)
+		if (a3 == -432) {
 			return;
+}
 		if (a4) {
 			v5 = *(unsigned short*)(a3 + 441) +
 				 nox_common_randomIntMinMax_415FF0(-20, 20, "C:\\NoxPost\\src\\client\\Drawable\\Update\\charmup.c", 28);
@@ -55,8 +57,9 @@ void  sub_4CD150(int a1, uint32_t* a2, int a3, int a4) {
 		}
 		goto LABEL_19;
 	}
-	if (a3 == -432)
+	if (a3 == -432) {
 		return;
+}
 	if (nox_xxx_netTestHighBit_578B70(*(uint32_t*)(a3 + 437))) {
 		v11 = nox_xxx_netClearHighBit_578B30(*(uint32_t*)(a3 + 437));
 		v12 = nox_xxx_netSpriteByCodeStatic_45A720(v11);
@@ -73,8 +76,9 @@ void  sub_4CD150(int a1, uint32_t* a2, int a3, int a4) {
 		v4 = nox_xxx_netSpriteByCodeDynamic_45A6F0(v16);
 	}
 	v17 = v4;
-	if (!v14 || !v4)
+	if (!v14 || !v4) {
 		return;
+}
 	if (!a4) {
 		v5 = v14[3] + nox_common_randomIntMinMax_415FF0(-20, 20, "C:\\NoxPost\\src\\client\\Drawable\\Update\\charmup.c", 80);
 		v19 = nox_common_randomIntMinMax_415FF0(-20, 20, "C:\\NoxPost\\src\\client\\Drawable\\Update\\charmup.c", 81);
@@ -95,14 +99,18 @@ LABEL_20:
 	v27 = *(short*)(a3 + 104);
 	v26 = a2[5];
 	v21 = v8 + a2[1] - v26 - v27;
-	if (v20 < 0)
+	if (v20 < 0) {
 		v5 = a2[4] + *a2 + 1;
-	if (v21 < 0)
+}
+	if (v21 < 0) {
 		v8 = a2[1] + v26 - v27 + 1;
-	if (v20 >= a2[8])
+}
+	if (v20 >= a2[8]) {
 		v5 = a2[2] + a2[4] - 1;
-	if (v21 >= a2[9])
+}
+	if (v21 >= a2[9]) {
 		v8 = a2[3] - v27 + v26 - 1;
+}
 	v4 = nox_xxx_spriteLoadAdd_45A360_drawable(a1, v5, v8);
 	v22 = v4;
 	if (v4) {

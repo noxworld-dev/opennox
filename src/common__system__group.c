@@ -22,8 +22,9 @@ int  nox_server_scriptGetGroupId_57C2D0(int** a1) {
 			}
 			v1 = (int**)nox_server_scriptGetGroup_57C0A0(*v1[21]);
 			v2 = *(uint8_t*)v1;
-			if (!*(uint8_t*)v1)
+			if (!*(uint8_t*)v1) {
 				return *(unsigned char*)v1;
+}
 		}
 	}
 	return *(unsigned char*)v1;

@@ -28,8 +28,9 @@ int nox_xxx_WorkerHurt_44D810() {
 		*(unsigned int*)&dword_5d4594_831084 = 0;
 		*(unsigned int*)&dword_5d4594_831076 = 1;
 		nox_strman_loadString_40F1D0("Con03B.scr:WorkerHurt", &v1, "C:\\NoxPost\\src\\client\\Audio\\AudDiag.c", 279);
-		if (v1)
+		if (v1) {
 			nox_xxx_playDialogFile_44D900(v1, 0);
+}
 	}
 	return 1;
 }

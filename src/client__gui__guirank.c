@@ -33,11 +33,13 @@ extern unsigned int nox_frame_xxx_2598000;
 wchar_t*  sub_46DC60(int a1, unsigned char a2, int a3) {
 	wchar_t* result; // eax
 
-	if (a3)
+	if (a3) {
 		return (wchar_t*)sub_46DC00(a1, a2, a3);
+}
 	result = nox_strman_loadString_40F1D0("InternalError", 0, "C:\\NoxPost\\src\\client\\Gui\\guirank.c", 1050);
-	if (result)
+	if (result) {
 		result = (wchar_t*)sub_46DC00(a1, a2, (int)result);
+}
 	return result;
 }
 
@@ -142,18 +144,21 @@ int nox_xxx_guiDrawRank_46E870() {
 	v37 = nox_win_width;
 	v9 = nox_strman_loadString_40F1D0("Warrior", 0, "C:\\NoxPost\\src\\client\\Gui\\guirank.c", 1668);
 	nox_xxx_drawGetStringSize_43F840(0, v9, &v42, &v43, v37);
-	if (v42 > v41)
+	if (v42 > v41) {
 		v41 = v42;
+}
 	v38 = nox_win_width;
 	v10 = nox_strman_loadString_40F1D0("Wizard", 0, "C:\\NoxPost\\src\\client\\Gui\\guirank.c", 1671);
 	nox_xxx_drawGetStringSize_43F840(0, v10, &v42, &v43, v38);
-	if (v42 > v41)
+	if (v42 > v41) {
 		v41 = v42;
+}
 	v39 = nox_win_width;
 	v11 = nox_strman_loadString_40F1D0("Conjurer", 0, "C:\\NoxPost\\src\\client\\Gui\\guirank.c", 1674);
 	nox_xxx_drawGetStringSize_43F840(0, v11, &v42, &v43, v39);
-	if (v42 > v41)
+	if (v42 > v41) {
 		v41 = v42;
+}
 	v40 = nox_win_width;
 	v12 = nox_strman_loadString_40F1D0("LivesHeading", 0, "C:\\NoxPost\\src\\client\\Gui\\guirank.c", 1677);
 	nox_xxx_drawGetStringSize_43F840(0, v12, &v42, &v43, v40);
@@ -317,12 +322,14 @@ int  sub_46F080(int a1, int a2) {
 	v35 = 0;
 	if (!nox_common_gameFlags_check_40A5C0(8) && dword_587000_145668 != 6) {
 		dword_5d4594_1090120 = dword_587000_145668 - 1;
-		if (*(int*)&dword_587000_145668 - 1 < 0)
+		if (*(int*)&dword_587000_145668 - 1 < 0) {
 			dword_5d4594_1090120 = 5;
+}
 		sub_4703F0();
 		dword_587000_145668 = 6;
-		if (!dword_5d4594_1090120)
+		if (!dword_5d4594_1090120) {
 			return 1;
+}
 	}
 	nox_client_wndGetPosition_46AA60((uint32_t*)a1, &xLeft, &yTop);
 	v4 = nox_xxx_cliGamedataGet_416590(0);
@@ -334,8 +341,9 @@ int  sub_46F080(int a1, int a2) {
 	}
 	v34 = v6;
 	if ((signed char)*(uint8_t*)(a1 + 4) >= 0) {
-		if (*(uint32_t*)(a2 + 20) != 0x80000000)
+		if (*(uint32_t*)(a2 + 20) != 0x80000000) {
 			nox_client_drawRectFilledAlpha_49CF10(xLeft, yTop, *(uint32_t*)(a1 + 8), *(uint32_t*)(a1 + 12));
+}
 	} else {
 		nox_client_drawImageAt_47D2C0(*(uint32_t*)(a2 + 24), xLeft, yTop);
 	}
@@ -355,8 +363,9 @@ int  sub_46F080(int a1, int a2) {
 		}
 		if (*getMemU32Ptr(0x8531A0, 2576)) {
 			v8 = *(uint32_t*)(*getMemU32Ptr(0x8531A0, 2576) + 3680);
-			if (!(v8 & 1) || v8 & 0x20)
+			if (!(v8 & 1) || v8 & 0x20) {
 				v33 = 1;
+}
 		}
 		v9 = dword_5d4594_1090120;
 		if (getMemByte(0x5D4594, 1090116) && (dword_5d4594_1090120 == 2 || dword_5d4594_1090120 == 3)) {
@@ -399,10 +408,11 @@ int  sub_46F080(int a1, int a2) {
 			sub_46F8F0(0, 0);
 			v9 = dword_5d4594_1090120;
 			if (dword_5d4594_1090120 == 4) {
-				if (getMemByte(0x5D4594, 1090117) <= 3u)
+				if (getMemByte(0x5D4594, 1090117) <= 3u) {
 					LOBYTE(a2) = getMemByte(0x5D4594, 1090117);
-				else
+				} else {
 					LOBYTE(a2) = 3;
+}
 			} else {
 				LOBYTE(a2) = getMemByte(0x5D4594, 1090117);
 			}
@@ -411,23 +421,27 @@ int  sub_46F080(int a1, int a2) {
 				do {
 					v15 = 0;
 					v16 = v32 >> 4;
-					if (v32 == 16)
+					if (v32 == 16) {
 						sub_46F8F0(1, v36);
+}
 					if (nox_common_gameFlags_check_40A5C0(1024) && v34 > 0 &&
-						*getMemIntPtr(0x5D4594, 1084196 + 80 * v32) >= v34)
+						*getMemIntPtr(0x5D4594, 1084196 + 80 * v32) >= v34) {
 						v15 = 1;
+}
 					v17 = 80 * v32;
 					v18 = *getMemU32Ptr(0x5D4594, 1084208 + v17);
 					if (!(v18 & 1) || v18 & 0x20 || v15) {
 						if (*getMemIntPtr(0x5D4594, 1084184 + 80 * v32) == -1) {
 							v40 = 3;
-							if (v18 & 0x20 || v15)
+							if (v18 & 0x20 || v15) {
 								v40 = 2;
+}
 						} else {
 							v19 = sub_46FE60(*getMemU32Ptr(0x5D4594, 1084184 + 80 * v32));
 							v40 = sub_46FEB0(v19);
-							if (getMemByte(0x5D4594, 1084208 + 80 * v32) & 0x20 || v15)
+							if (getMemByte(0x5D4594, 1084208 + 80 * v32) & 0x20 || v15) {
 								v40 -= 2;
+}
 						}
 					} else {
 						v40 = 9;
@@ -441,18 +455,20 @@ int  sub_46F080(int a1, int a2) {
 							   getMemAt(0x5D4594, 1084132 + v17));
 					sub_46DC30(*getMemU32Ptr(0x5D4594, 1090076 + 4 * v16), v40, (wchar_t*)getMemAt(0x587000, 146624),
 							   *getMemU32Ptr(0x5D4594, 1084056 + 4 * getMemByte(0x5D4594, 1084188 + 80 * v32)));
-					if (dword_5d4594_1090120 != 5 || *getMemU32Ptr(0x5D4594, 1084196 + 80 * v32) > 0)
+					if (dword_5d4594_1090120 != 5 || *getMemU32Ptr(0x5D4594, 1084196 + 80 * v32) > 0) {
 						sub_46DC30(*getMemU32Ptr(0x5D4594, 1090084 + 4 * v16), v40, (wchar_t*)getMemAt(0x587000, 146632),
 								   *getMemU32Ptr(0x5D4594, 1084196 + 80 * v32));
-					else
+					} else {
 						sub_46DC30(*getMemU32Ptr(0x5D4594, 1090084 + 4 * v16), v40, (wchar_t*)getMemAt(0x587000, 146640));
+}
 					sub_46DC30(*getMemU32Ptr(0x5D4594, 1090092 + 4 * v16), v40, (wchar_t*)getMemAt(0x587000, 146648),
 							   *getMemU32Ptr(0x5D4594, 1084200 + 80 * v32));
 					if (dword_5d4594_1090120 == 5) {
 						v20 = nox_common_playerInfoGetByID_417040(*getMemU32Ptr(0x5D4594, 1084192 + 80 * v32));
-						if (v20)
+						if (v20) {
 							sub_46DC30(*getMemU32Ptr(0x5D4594, 1090068 + 4 * v16), v40, (wchar_t*)getMemAt(0x587000, 146656),
 									   v20 + 2096);
+}
 					} else {
 						v21 = sub_46FB50(*getMemU32Ptr(0x5D4594, 1084204 + 80 * v32), &v37);
 						sub_46DC60(*getMemU32Ptr(0x5D4594, 1090068 + 4 * v16), v37, (int)v21);
@@ -529,8 +545,9 @@ int  sub_46F080(int a1, int a2) {
 			break;
 		}
 		if (v33) {
-			if (wndIsShown_nox_xxx_wndIsShown_46ACC0(*(int*)&dword_5d4594_1090100))
+			if (wndIsShown_nox_xxx_wndIsShown_46ACC0(*(int*)&dword_5d4594_1090100)) {
 				nox_window_set_hidden(*(int*)&dword_5d4594_1090100, 0);
+}
 			nox_window_call_field_94(*(int*)&dword_5d4594_1090100, 16385, (int)getMemAt(0x5D4594, 1086692), 0);
 		} else if (!wndIsShown_nox_xxx_wndIsShown_46ACC0(*(int*)&dword_5d4594_1090100)) {
 			nox_window_set_hidden(*(int*)&dword_5d4594_1090100, 1);
@@ -539,8 +556,9 @@ int  sub_46F080(int a1, int a2) {
 		sub_46FC50();
 		sub_46FD80();
 	}
-	if ((int)dword_587000_145672 >= 0)
+	if ((int)dword_587000_145672 >= 0) {
 		sub_46FAE0();
+}
 	return 1;
 }
 
@@ -567,25 +585,28 @@ wchar_t*  sub_46F8F0(int a1, int a2) {
 	v3 = nox_strman_loadString_40F1D0("player", 0, "C:\\NoxPost\\src\\client\\Gui\\guirank.c", 189);
 	sub_46DC60(*getMemU32Ptr(0x5D4594, 1090060 + 4 * a1), 9u, (int)v3);
 	sub_46DC60(*getMemU32Ptr(0x5D4594, 1090068 + 4 * a1), 9u, (int)getMemAt(0x587000, 147188));
-	if (dword_5d4594_1090120 == 1)
+	if (dword_5d4594_1090120 == 1) {
 		v6 = nox_strman_loadString_40F1D0("LivesHeading", 0, "C:\\NoxPost\\src\\client\\Gui\\guirank.c", 193);
-	else
+	} else {
 		v6 = nox_strman_loadString_40F1D0("class", 0, "C:\\NoxPost\\src\\client\\Gui\\guirank.c", 195);
+}
 	sub_46DC60(*getMemU32Ptr(0x5D4594, 1090076 + 4 * a1), 9u, (int)v6);
 	if (dword_5d4594_1090120 == 5) {
 		v7 = nox_strman_loadString_40F1D0("rank", 0, "C:\\NoxPost\\src\\client\\Gui\\guirank.c", 199);
 		sub_46DC60(*getMemU32Ptr(0x5D4594, 1090084 + 4 * a1), 9u, (int)v7);
 	} else {
-		if (dword_5d4594_1090120 == 1)
+		if (dword_5d4594_1090120 == 1) {
 			v8 = nox_strman_loadString_40F1D0("HealthHeading", 0, "C:\\NoxPost\\src\\client\\Gui\\guirank.c", 201);
-		else
+		} else {
 			v8 = nox_strman_loadString_40F1D0("score", 0, "C:\\NoxPost\\src\\client\\Gui\\guirank.c", 203);
+}
 		sub_46DC60(*getMemU32Ptr(0x5D4594, 1090084 + 4 * a1), 9u, (int)v8);
 	}
-	if (dword_5d4594_1090120 == 1)
+	if (dword_5d4594_1090120 == 1) {
 		v4 = nox_strman_loadString_40F1D0("class", 0, "C:\\NoxPost\\src\\client\\Gui\\guirank.c", 207);
-	else
+	} else {
 		v4 = nox_strman_loadString_40F1D0("ping", 0, "C:\\NoxPost\\src\\client\\Gui\\guirank.c", 209);
+}
 	return sub_46DC60(*getMemU32Ptr(0x5D4594, 1090092 + 4 * a1), 9u, (int)v4);
 }
 
@@ -644,8 +665,9 @@ char sub_46FC50() {
 						 (v0 = nox_common_gameFlags_getVal_40A5B0(), sub_40A180(v0)))) {
 		if (!nox_common_gameFlags_check_40A5C0(1) || sub_40A300() ||
 			(v1 = nox_common_gameFlags_getVal_40A5B0(), LOBYTE(v2) = sub_40A180(v1), (uint8_t)v2)) {
-			if (wndIsShown_nox_xxx_wndIsShown_46ACC0(*(int*)&dword_5d4594_1090108))
+			if (wndIsShown_nox_xxx_wndIsShown_46ACC0(*(int*)&dword_5d4594_1090108)) {
 				nox_window_set_hidden(*(int*)&dword_5d4594_1090108, 0);
+}
 			v3 = sub_40A230();
 			v7 = v3 % 60000 / 1000;
 			v6 = v3 / 60000;
@@ -655,8 +677,9 @@ char sub_46FC50() {
 		}
 	} else {
 		v2 = wndIsShown_nox_xxx_wndIsShown_46ACC0(*(int*)&dword_5d4594_1090108);
-		if (!v2)
+		if (!v2) {
 			LOBYTE(v2) = nox_window_set_hidden(*(int*)&dword_5d4594_1090108, 1);
+}
 	}
 	return v2;
 }
@@ -671,11 +694,13 @@ int sub_46FD80() {
 
 	if (nox_common_gameFlags_check_40A5C0(4224)) {
 		result = wndIsShown_nox_xxx_wndIsShown_46ACC0(*(int*)&dword_5d4594_1090112);
-		if (!result)
+		if (!result) {
 			result = nox_window_set_hidden(*(int*)&dword_5d4594_1090112, 1);
+}
 	} else {
-		if (wndIsShown_nox_xxx_wndIsShown_46ACC0(*(int*)&dword_5d4594_1090112))
+		if (wndIsShown_nox_xxx_wndIsShown_46ACC0(*(int*)&dword_5d4594_1090112)) {
 			nox_window_set_hidden(*(int*)&dword_5d4594_1090112, 0);
+}
 		if (nox_common_gameFlags_check_40A5C0(1)) {
 			v1 = nox_common_gameFlags_getVal_40A5B0();
 			v2 = (unsigned short)nox_xxx_servGamedataGet_40A020(v1);

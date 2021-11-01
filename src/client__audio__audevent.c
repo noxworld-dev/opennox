@@ -41,10 +41,11 @@ int  sub_451CF0(uint32_t* a1) {
 		--a1[108];
 		result = sub_4BD710(a1[v9 + 10]);
 	} else if (v3 & 1) {
-		if (*(uint32_t*)(v1 + 60) && (v4 = a1[109] + 1, a1[109] = v4, v4 >= *(int*)(v1 + 60)))
+		if (*(uint32_t*)(v1 + 60) && (v4 = a1[109] + 1, a1[109] = v4, v4 >= *(int*)(v1 + 60))) {
 			result = 0;
-		else
+		} else {
 			result = sub_451CA0(a1);
+}
 	}
 	return result;
 }
@@ -62,8 +63,9 @@ int  sub_451DC0(int a1) {
 	result = *(uint32_t*)(a1 + 168);
 	v3 = v1[1];
 	if (result) {
-		if (v1[17] < 0x21u)
+		if (v1[17] < 0x21u) {
 			return result;
+}
 		sub_451F90(a1);
 	}
 	if (v3 & 4) {
@@ -118,8 +120,9 @@ int  sub_451E80(int a1) {
 	}
 	v7 = *(uint32_t*)(a1 + 568) - 1;
 	*(uint32_t*)(a1 + 568) = v7;
-	if (!(v2 & 2))
+	if (!(v2 & 2)) {
 		return *(uint32_t*)(a1 + 4 * v7 + 440);
+}
 	v8 = nox_common_randomIntMinMax_415FF0(0, v7, "C:\\NoxPost\\src\\client\\Audio\\AudEvent.c", 431);
 	v9 = *(uint32_t*)(a1 + 4 * v8 + 440);
 	v10 = v8;
@@ -143,8 +146,9 @@ int  sub_452580(uint32_t* a1) {
 	int v5;     // eax
 
 	v1 = a1[9];
-	if (!*(uint32_t*)(v1 + 192))
+	if (!*(uint32_t*)(v1 + 192)) {
 		return 0;
+}
 	v3 = a1[75];
 	a1[109] = 0;
 	result = sub_452810(*(uint32_t*)(v1 + 48) + v3, 0);
@@ -162,8 +166,9 @@ int  sub_452580(uint32_t* a1) {
 		if (*(uint8_t*)(v1 + 4) & 8) {
 			v5 = nox_common_randomIntMinMax_415FF0(*(uint32_t*)(v1 + 68), *(uint32_t*)(v1 + 72), "C:\\NoxPost\\src\\client\\Audio\\AudEvent.c",
 							1497);
-			if (v5 > 33)
+			if (v5 > 33) {
 				sub_452690((int)a1, v5, 1);
+}
 		}
 		result = 1;
 	}

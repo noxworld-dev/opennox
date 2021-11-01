@@ -86,35 +86,40 @@ int  sub_4BA230(int a1, int a2, int a3, int a4, int a5) {
 	for (i = 0; i < 3; ++i) {
 		result = dword_5d4594_1316408;
 		v10 = 0;
-		if (*(int*)&dword_5d4594_1316408 + 1 <= 0)
+		if (*(int*)&dword_5d4594_1316408 + 1 <= 0) {
 			continue;
+}
 		do {
 			v11 = 28 * (30 * i + v10);
 			v12 = *getMemU32Ptr(0x5D4594, 1313900 + v11) + *getMemU32Ptr(0x5D4594, 1313896 + v11);
 			*getMemU32Ptr(0x5D4594, 1313896 + v11) = v12;
 			if (v12 < 256) {
-				if (v12 >= 0)
+				if (v12 >= 0) {
 					goto LABEL_14;
+}
 				v13 = v12 + 255;
 			} else {
 				v13 = v12 - 256;
 			}
 			*getMemU32Ptr(0x5D4594, 1313896 + v11) = v13;
 		LABEL_14:
-			if (!v10)
+			if (!v10) {
 				*getMemU32Ptr(0x5D4594, 1313896 + 840 * i) = a1;
+}
 			v14 = *getMemU32Ptr(0x5D4594, 1313904 + v11) + *getMemU32Ptr(0x5D4594, 1313900 + v11);
 			*getMemU32Ptr(0x5D4594, 1313900 + v11) = v14;
 			if (i == 1) {
 				if (v14 <= 10) {
-					if (v14 < -10)
+					if (v14 < -10) {
 						*getMemU32Ptr(0x5D4594, 1314740 + 28 * v10) = -10;
+}
 				} else {
 					*getMemU32Ptr(0x5D4594, 1314740 + 28 * v10) = 10;
 				}
 			} else if (v14 <= 25) {
-				if (v14 < -25)
+				if (v14 < -25) {
 					*getMemU32Ptr(0x5D4594, 1313900 + v11) = -25;
+}
 			} else {
 				*getMemU32Ptr(0x5D4594, 1313900 + v11) = 25;
 			}
@@ -125,8 +130,9 @@ int  sub_4BA230(int a1, int a2, int a3, int a4, int a5) {
 					nox_common_randomIntMinMax_415FF0(10, 90, "C:\\NoxPost\\src\\client\\Draw\\Plasma.c", 378);
 				*getMemU32Ptr(0x5D4594, 1313904 + v11) =
 					nox_common_randomIntMinMax_415FF0(4, 8, "C:\\NoxPost\\src\\client\\Draw\\Plasma.c", 382);
-				if (nox_common_randomIntMinMax_415FF0(0, 1, "C:\\NoxPost\\src\\client\\Draw\\Plasma.c", 385))
+				if (nox_common_randomIntMinMax_415FF0(0, 1, "C:\\NoxPost\\src\\client\\Draw\\Plasma.c", 385)) {
 					*getMemU32Ptr(0x5D4594, 1313904 + v11) = -*getMemU32Ptr(0x5D4594, 1313904 + v11);
+}
 				if (i == 1) {
 					*getMemU32Ptr(0x5D4594, 1314732 + 28 * v10) =
 						nox_common_randomIntMinMax_415FF0(40, 50, "C:\\NoxPost\\src\\client\\Draw\\Plasma.c", 392);
@@ -176,10 +182,11 @@ int  sub_4BA230(int a1, int a2, int a3, int a4, int a5) {
 				sub_4BE800(*getMemU32Ptr(0x5D4594, 1313828 + 4 * j));
 				sub_4BE810(1, *getMemU32Ptr(0x5D4594, 1313828 + 4 * j), *getMemU32Ptr(0x5D4594, 1313844 + 4 * j),
 						   getMemByte(0x5D4594, 1313840 + j));
-				if (j == 1)
+				if (j == 1) {
 					sub_4BEAD0(&a1a, &a2a, &a3a, &a4a, 8, 1);
-				else
+				} else {
 					sub_4BEAD0(&a1a, &a2a, &a3a, &a4a, 8, 0);
+}
 				result = dword_5d4594_1316408;
 				++v5;
 				v17 += 28;
@@ -199,8 +206,9 @@ char  sub_4BA8B0(int* a1, int* a2, int* a3) {
 
 	v3 = *a3;
 	v4 = nox_draw_getViewport_437250();
-	if (!*getMemU32Ptr(0x5D4594, 1316416))
+	if (!*getMemU32Ptr(0x5D4594, 1316416)) {
 		*getMemU32Ptr(0x5D4594, 1316416) = nox_xxx_getTTByNameSpriteMB_44CFC0("CyanSpark");
+}
 	v6 = 28 * (dword_5d4594_1316412 + 30 * v3);
 	v5 = dword_5d4594_1316412 + 1;
 	*getMemU32Ptr(0x5D4594, 1313884 + v6) = *a1;
@@ -211,9 +219,10 @@ char  sub_4BA8B0(int* a1, int* a2, int* a3) {
 	dword_5d4594_1316412 = v5;
 	if ((unsigned char)nox_frame_xxx_2598000 & 4) {
 		v6 = nox_common_randomIntMinMax_415FF0(0, 10, "C:\\NoxPost\\src\\client\\Draw\\Plasma.c", 135);
-		if (v6 > 5)
+		if (v6 > 5) {
 			LOBYTE(v6) = nox_xxx_drawEnergyBolt_499710(*a2 + *((uint32_t*)v4 + 4) - *(uint32_t*)v4,
 									a2[1] + *((uint32_t*)v4 + 5) - *((uint32_t*)v4 + 1), 8, *getMemIntPtr(0x5D4594, 1316416));
+}
 	}
 	return v6;
 }

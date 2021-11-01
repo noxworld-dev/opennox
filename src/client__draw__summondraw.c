@@ -45,25 +45,29 @@ int  nox_thing_summon_effect_draw(int* a1, nox_drawable* dr) {
 	v7 = nox_frame_xxx_2598000 - v2[79];
 	v8 = *((unsigned short*)v2 + 218);
 	if (v7 < (unsigned int)(unsigned short)v8) {
-		if (v7 >= v8 - 1)
+		if (v7 >= v8 - 1) {
 			nox_xxx_makePointFxCli_499610(v6, 50, 1000, 30, v2[3], v2[4]);
+}
 		nox_thing_animate_draw(a1, dr);
 		v10 = 0;
 		v11 = getMemAt(0x587000, 192092);
 		do {
-			if (v10 >= *(unsigned char*)(v5 + 8))
+			if (v10 >= *(unsigned char*)(v5 + 8)) {
 			v10 = 0;
+}
 			v12 = (v10 + nox_frame_xxx_2598000 + v2[32]) / ((unsigned int)*(unsigned char*)(v5 + 9) + 1);
 			v2[77] = v12;
-			if (v12 >= *(unsigned char*)(v5 + 8))
+			if (v12 >= *(unsigned char*)(v5 + 8)) {
 			v2[77] = v12 % *(unsigned char*)(v5 + 8);
+}
 			*(uint32_t*)(v5 + 12) = 5;
 			v13 = v15 + 2 * *((uint32_t*)v11 - 1);
 			v2[3] = v13;
 			v14 = v17 + 2 * *(uint32_t*)v11;
 			v2[4] = v14;
-			if (v13 >= 0 && v13 < 5888 && v14 >= 0 && v14 < 5888)
+			if (v13 >= 0 && v13 < 5888 && v14 >= 0 && v14 < 5888) {
 				nox_thing_animate_draw(a1, dr);
+}
 			v11 += 80;
 			++v10;
 		} while ((int)v11 < (int)getMemAt(0x587000, 194140));
