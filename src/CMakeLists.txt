@@ -175,7 +175,7 @@ set (
     GAME5.c
     GAME5_2.c
     GAME_data.c
-    GAME_data_init.c
+    main/GAME_data_init.c
     cdrom.c
     input.c
     input_common.c

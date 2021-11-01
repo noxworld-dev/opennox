@@ -3,6 +3,21 @@
 #endif
 #include <math.h>
 
+#ifdef NOX_CGO
+void nox_xxx_unknown_libname_86_57F634() {}
+void nullsub_45() {}
+void nullsub_46() {}
+void nullsub_47() {}
+void nullsub_48() {}
+void nullsub_62() {}
+void nullsub_65() {}
+void nullsub_66() {}
+void nullsub_67() {}
+void nullsub_68() {}
+void nullsub_69() {}
+void nullsub_70() {}
+#endif // NOX_CGO
+
 #include "GAME1.h"
 #include "GAME1_1.h"
 #include "GAME1_2.h"

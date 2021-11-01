@@ -6,7 +6,7 @@
 
 #include "GAME1.h"
 #include "GAME1_3.h"
-#include "GAME_data_init.h"
+#include "main/GAME_data_init.h"
 #include "client__gui__window.h"
 #include "client__video__draw_common.h"
 #include "input.h"

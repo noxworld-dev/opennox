@@ -8,7 +8,6 @@ package nox
 #include "GAME2_2.h"
 #include "GAME3_2.h"
 #include "GAME5.h"
-#include "GAME_data_init.h"
 #include "common__config.h"
 #include "thing.h"
 #include "common__net_list.h"
@@ -197,7 +196,7 @@ func RunArgs(args []string) (gerr error) {
 	if err := os.Chdir(datapath.Path()); err != nil {
 		return err
 	}
-	C.init_data()
+	initBlobData()
 	isServer = *fAutoServer
 	isServerQuest = *fAutoQuest
 	serverExec = strings.Split(*fAutoExec, ";")

@@ -17,8 +17,6 @@
 #include "GAME4_3.h"
 #include "GAME5.h"
 #include "GAME5_2.h"
-#include "GAME_data.h"
-#include "GAME_data_init.h"
 #include "common__random.h"
 #include "server__ability__ability.h"
 #include "server__magic__plyrgide.h"

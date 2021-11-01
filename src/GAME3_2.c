@@ -27,8 +27,6 @@
 #include "GAME4_3.h"
 #include "GAME5.h"
 #include "GAME5_2.h"
-#include "GAME_data.h"
-#include "GAME_data_init.h"
 #include "client__system__parsecmd.h"
 #include "common__log.h"
 #include "common__net_list.h"
