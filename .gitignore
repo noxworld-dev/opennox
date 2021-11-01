@@ -8,8 +8,8 @@ logs/
 *.exe
 *.wasm
 *.png
-*.dat
-*.dat.gz
+src/*.dat
+src/*.dat.gz
 
 # For IntelliJ IDE
 src/.idea

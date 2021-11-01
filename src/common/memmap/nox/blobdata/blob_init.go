@@ -5,6 +5,7 @@ import (
 )
 
 func Init(p *Ptrs) {
+	initData()
 	*memmap.PtrPtr(0x587000, 28620) = p.Ptr_nox_xxx_parseWeapColor_411C40
 	*memmap.PtrPtr(0x587000, 0x6FD4) = p.Ptr_nox_xxx_parseWeapColor_411C40
 	*memmap.PtrPtr(0x587000, 0x6FDC) = p.Ptr_nox_xxx_parseWeapColor_411C40
