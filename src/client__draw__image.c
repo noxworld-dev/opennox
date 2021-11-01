@@ -3,7 +3,6 @@
 
 #include "defs.h"
 #include "memmap.h"
-#include "operators.h"
 
 int4* nox_xxx_utilRect_49F930(int4* a1, int4* a2, int4* a3);
 
@@ -33,6 +32,7 @@ unsigned char* nox_draw_colors_b_3804664 = 0;
 #else
 #include "windows_compat.h"
 #endif
+#include "operators.h"
 
 int nox_draw_sprite_offsY_3799556 = 0;
 int nox_draw_sprite_offsX_3799560 = 0;
@@ -43,6 +43,7 @@ void (*func_type6_3799488)(void) = 0;
 extern void* (*nox_video_getImagePixdata_func)(nox_video_bag_image_t*);
 #else  // NOX_CGO
 void* nox_video_getImagePixdata_func(nox_video_bag_image_t*);
+#include "operators.h"
 #endif // NOX_CGO
 
 #ifndef NOX_CGO
