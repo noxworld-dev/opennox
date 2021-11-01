@@ -40,7 +40,11 @@ void nox_video_setScaled(int v) {
 	g_scaled = v;
 }
 //----- (00401C70) --------------------------------------------------------
+#ifdef _WIN32
+int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd) {
+#else // _WIN32
 int WinMain(char* lpCmdLine) {
+#endif // _WIN32
 	char* v4; // edi
 	int v7;   // esi
 #ifdef __EMSCRIPTEN__

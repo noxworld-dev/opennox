@@ -59,5 +59,9 @@ extern int main(int argc, char* argv[])
 		sprintf(cmdline + strlen(cmdline), " %s", argv[i]);
 #endif // __EMSCRIPTEN__
 
+#ifdef _WIN32
+	return WinMain(NULL, NULL, cmdline, 0);
+#else // _WIN32
 	return WinMain(cmdline);
+#endif // _WIN32
 }
