@@ -4,11 +4,11 @@
 #include "common__net_list.h"
 
 //----- (00528AC0) --------------------------------------------------------
-int  nox_xxx_netSendChat_528AC0(int a1, wchar_t* a2, wchar_t a3) {
+int nox_xxx_netSendChat_528AC0(int a1, wchar_t* a2, wchar_t a3) {
 	char v3;       // al
-	short v4;    // ax
+	short v4;      // ax
 	double v5;     // st7
-	long long v6;    // rax
+	long long v6;  // rax
 	double v7;     // st7
 	int v8;        // edi
 	int result;    // eax
@@ -21,7 +21,7 @@ int  nox_xxx_netSendChat_528AC0(int a1, wchar_t* a2, wchar_t a3) {
 		v3 = v11[3] | 2;
 	} else {
 		v3 = v11[3] | 4;
-}
+	}
 	v11[3] = v3;
 	v4 = nox_xxx_netGetUnitCodeServ_578AC0((uint32_t*)a1);
 	v5 = *(float*)(a1 + 56);
@@ -42,7 +42,7 @@ int  nox_xxx_netSendChat_528AC0(int a1, wchar_t* a2, wchar_t a3) {
 	result = nox_xxx_getFirstPlayerUnit_4DA7C0();
 	for (i = result; result; i = result) {
 		nox_netlist_addToMsgListCli_40EBC0(*(unsigned char*)(*(uint32_t*)(*(uint32_t*)(i + 748) + 276) + 2064), 1, v11,
-				   v8 * (unsigned char)v11[8] + 11);
+										   v8 * (unsigned char)v11[8] + 11);
 		result = nox_xxx_getNextPlayerUnit_4DA7F0(i);
 	}
 	return result;

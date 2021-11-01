@@ -7,10 +7,21 @@
 #include <emscripten/html5.h>
 #endif
 
+#include "GAME1.h"
+#include "GAME1_1.h"
+#include "GAME1_3.h"
+#include "GAME2.h"
+#include "GAME2_2.h"
+#include "GAME2_3.h"
+#include "GAME3.h"
+#include "GAME3_3.h"
+#include "GAME4.h"
+#include "GAME4_1.h"
+#include "GAME5_2.h"
 #include "cdrom.h"
-#include "client__drawable__drawdb.h"
 #include "client__draw__fx.h"
 #include "client__draw__image.h"
+#include "client__drawable__drawdb.h"
 #include "client__gui__guiinv.h"
 #include "client__gui__guimeter.h"
 #include "client__gui__guishop.h"
@@ -26,19 +37,8 @@
 #include "common__config.h"
 #include "common__magic__speltree.h"
 #include "defs.h"
-#include "GAME1_1.h"
-#include "GAME1_3.h"
-#include "GAME1.h"
-#include "GAME2_2.h"
-#include "GAME2_3.h"
-#include "GAME2.h"
-#include "GAME3_3.h"
-#include "GAME3.h"
-#include "GAME4_1.h"
-#include "GAME4.h"
-#include "GAME5_2.h"
-#include "input_common.h"
 #include "input.h"
+#include "input_common.h"
 #include "movie.h"
 #include "server__network__mapsend.h"
 #include "server__script__builtin.h"
@@ -84,7 +84,7 @@ extern int nox_backbuffer_pitch_3801808;
 extern uint32_t cpuid_5d4594_3801804;
 #ifndef NOX_CGO
 extern void* (*nox_video_getImagePixdata_func)(nox_video_bag_image_t*);
-#else // NOX_CGO
+#else  // NOX_CGO
 void* nox_video_getImagePixdata_func(nox_video_bag_image_t*);
 #endif // NOX_CGO
 extern uint32_t dword_5d4594_810640;
@@ -109,7 +109,7 @@ extern uint32_t dword_974854;
 
 extern int g_scaled;
 
-void  sub_48B1D0_free_surface(SDL_Surface** a1);
+void sub_48B1D0_free_surface(SDL_Surface** a1);
 #ifndef IGNORE_EXTERNS
 
 extern unsigned char byte_5D4594_3804364[160];
@@ -179,7 +179,7 @@ void nox_video_setScaled(int v);
 #ifndef NOX_CGO
 #ifdef USE_SDL
 SDL_Window* nox_video_getWindow_401FD0();
-#else // !USE_SDL
+#else  // !USE_SDL
 HWND nox_video_getWindow_401FD0();
 #endif // USE_SDL
 #endif // NOX_CGO

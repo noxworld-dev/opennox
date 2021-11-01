@@ -17,7 +17,7 @@ enum {
 #ifndef NOX_CGO
 const wchar_t* nox_strman_loadString_40F1D0(const char* name, char** strOut, const char* srcFile, int srcLine);
 int nox_strman_readfile(const char* path);
-#else // NOX_CGO
+#else  // NOX_CGO
 wchar_t* nox_strman_loadString_40F1D0(char* name, char** strOut, char* srcFile, int srcLine);
 int nox_strman_readfile(char* path);
 #endif // NOX_CGO

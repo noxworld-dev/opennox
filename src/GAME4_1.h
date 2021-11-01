@@ -3,7 +3,6 @@
 
 #include "defs.h"
 
-
 int sub_5098A0();
 int sub_5099B0();
 void nox_server_checkVictory_509A60();
@@ -304,12 +303,12 @@ int sub_51D8D0(int a1);
 int sub_51D8F0(float2* a1);
 int sub_51D9C0(int a1, int a2, int a3, int a4, int a5);
 
-void* nox_xxx_pathFind_50BA00(int a1, int a2, float* a3, float* a4, int(* a5)(int, int, int), int a6);
-void sub_517B70(float2* a1, void(* a2)(uint32_t, int), int a3);
-void nox_xxx_getUnitsInRect_517C10(float4* a1, void(* a2)(float*, int), int a3);
-void nox_xxx_getUnitsInRectAdvImpl_517DC0(float4* a1, void(* a2)(int, int), int a3);
-void nox_xxx_getUnitsInRectAdv_517ED0(float4* a1, void(* a2)(float*, int), int a3);
-int* nox_xxx_secretWallCheckUnits_517F00(float* a1, int(* a2)(int*, int), int a3);
-void nox_xxx_unused_5182D0(float* a1, float a2, void(* a3)(int, int), int a4);
+void* nox_xxx_pathFind_50BA00(int a1, int a2, float* a3, float* a4, int (*a5)(int, int, int), int a6);
+void sub_517B70(float2* a1, void (*a2)(uint32_t, int), int a3);
+void nox_xxx_getUnitsInRect_517C10(float4* a1, void (*a2)(float*, int), int a3);
+void nox_xxx_getUnitsInRectAdvImpl_517DC0(float4* a1, void (*a2)(int, int), int a3);
+void nox_xxx_getUnitsInRectAdv_517ED0(float4* a1, void (*a2)(float*, int), int a3);
+int* nox_xxx_secretWallCheckUnits_517F00(float* a1, int (*a2)(int*, int), int a3);
+void nox_xxx_unused_5182D0(float* a1, float a2, void (*a3)(int, int), int a4);
 
 #endif // NOX_PORT_GAME4_1

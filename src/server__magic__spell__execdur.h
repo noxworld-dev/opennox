@@ -3,6 +3,6 @@
 
 #include "defs.h"
 
-int  sub_530A30_spell_execdur(int a1);
+int sub_530A30_spell_execdur(int a1);
 
 #endif // NOX_PORT_SERVER_MAGIC_SPELL_EXECDUR

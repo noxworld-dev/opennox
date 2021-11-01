@@ -1,14 +1,14 @@
 #include "cdrom.h"
 
 #if 1
-int  sub_423CC0(int a1) { return 0; }
+int sub_423CC0(int a1) { return 0; }
 
 int sub_423C60() { return 0; }
 
 unsigned char sub_423EC0() { return 0; }
 #else
 //----- (00423CC0) --------------------------------------------------------
-int  sub_423CC0(int a1) {
+int sub_423CC0(int a1) {
 	int result; // eax
 
 	if (*getMemU32Ptr(0x5D4594, 588112) && a1 == 1)
@@ -64,20 +64,21 @@ int sub_423C60() {
 	*getMemU32Ptr(0x5D4594, 588100) = 4;
 	*getMemU32Ptr(0x5D4594, 588104) = 0;
 	*getMemU32Ptr(0x5D4594, 588096) = 0;
-	return mciSendCommandA(*(MCIDEVICEID*)getMemAt(0x5D4594, 588108), 0x814u, 0x101u, (uintptr_t)getMemAt(0x5D4594, 588092)) == 0;
+	return mciSendCommandA(*(MCIDEVICEID*)getMemAt(0x5D4594, 588108), 0x814u, 0x101u,
+						   (uintptr_t)getMemAt(0x5D4594, 588092)) == 0;
 }
 
 //----- (00423CF0) --------------------------------------------------------
 int nox_xxx_noxCDinDriver_423CF0() {
-	char* v0;                    // ebp
-	int result;                  // eax
-	uint32_t* v2;                  // ecx
-	unsigned char* v3;         // edx
-	int v4;                      // [esp+10h] [ebp-1A0h]
-	int v5;                      // [esp+14h] [ebp-19Ch]
-	int v6;                      // [esp+18h] [ebp-198h]
+	char* v0;                       // ebp
+	int result;                     // eax
+	uint32_t* v2;                   // ecx
+	unsigned char* v3;              // edx
+	int v4;                         // [esp+10h] [ebp-1A0h]
+	int v5;                         // [esp+14h] [ebp-19Ch]
+	int v6;                         // [esp+18h] [ebp-198h]
 	uint8_t SectorsPerCluster[144]; // [esp+1Ch] [ebp-194h]
-	char Buffer[260];            // [esp+ACh] [ebp-104h]
+	char Buffer[260];               // [esp+ACh] [ebp-104h]
 
 	getMemByte(0x5D4594, 588116) = 0;
 	if (!GetLogicalDriveStringsA(0x104u, Buffer))
@@ -135,12 +136,12 @@ LABEL_23:
 unsigned char sub_423EC0() { return getMemByte(0x5D4594, 588116); }
 
 //----- (00423ED0) --------------------------------------------------------
-int  sub_423ED0(const char* lpRootPathName, uint32_t SectorsPerCluster) {
+int sub_423ED0(const char* lpRootPathName, uint32_t SectorsPerCluster) {
 	uint32_t v2;                     // esi
-	const char* v3;               // edi
-	int result;                  // eax
+	const char* v3;                  // edi
+	int result;                      // eax
 	uint32_t v5;                     // eax
-	bool v6;                      // zf
+	bool v6;                         // zf
 	uint32_t NumberOfFreeClusters;   // [esp+8h] [ebp-10h]
 	uint32_t TotalNumberOfClusters;  // [esp+Ch] [ebp-Ch]
 	uint32_t FileSystemFlags;        // [esp+10h] [ebp-8h]

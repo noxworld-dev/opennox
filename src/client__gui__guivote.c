@@ -4,8 +4,8 @@
 
 #include "GAME1.h"
 #include "GAME1_1.h"
-#include "GAME2_1.h"
 #include "GAME1_3.h"
+#include "GAME2_1.h"
 extern uint32_t dword_5d4594_1197308;
 extern uint32_t dword_5d4594_1197332;
 extern uint32_t dword_5d4594_1197316;
@@ -14,25 +14,25 @@ extern uint32_t dword_5d4594_1197324;
 extern uint32_t dword_5d4594_1197312;
 
 //----- (0048CB10) --------------------------------------------------------
-uint32_t*  sub_48CB10(int a1) {
-	uint32_t* result;     // eax
+uint32_t* sub_48CB10(int a1) {
+	uint32_t* result;   // eax
 	wchar_t* v2;        // eax
-	uint32_t* v3;         // esi
+	uint32_t* v3;       // esi
 	wchar_t* v4;        // eax
 	wchar_t* v5;        // eax
 	wchar_t* v6;        // eax
 	wchar_t* v7;        // eax
 	wchar_t* v8;        // eax
-	uint32_t* v9;         // esi
+	uint32_t* v9;       // esi
 	wchar_t* v10;       // eax
 	wchar_t* v11;       // eax
 	wchar_t* v12;       // eax
-	uint32_t* v13;        // esi
+	uint32_t* v13;      // esi
 	wchar_t* v14;       // eax
-	uint32_t* v15;        // eax
+	uint32_t* v15;      // eax
 	char* v16;          // ebx
 	char* i;            // ebp
-	uint32_t* v18;        // eax
+	uint32_t* v18;      // eax
 	int v19;            // esi
 	const wchar_t* v20; // ebx
 	char* j;            // ebp
@@ -51,8 +51,8 @@ uint32_t*  sub_48CB10(int a1) {
 	switch (a1) {
 	case 4:
 		if (*getMemU32Ptr(0x8531A0, 2576) && !*(uint32_t*)(*getMemU32Ptr(0x8531A0, 2576) + 4792)) {
-			v24 =
-				nox_strman_loadString_40F1D0("GUIVote.c:NotAllowedVote", 0, "C:\\NoxPost\\src\\client\\Gui\\GUIVote.c", 452);
+			v24 = nox_strman_loadString_40F1D0("GUIVote.c:NotAllowedVote", 0,
+											   "C:\\NoxPost\\src\\client\\Gui\\GUIVote.c", 452);
 			v2 = nox_strman_loadString_40F1D0("guiquit.c:Vote", 0, "C:\\NoxPost\\src\\client\\Gui\\GUIVote.c", 451);
 			return nox_xxx_dialogMsgBoxCreate_449A10(0, (int)v2, (int)v24, 33, 0, 0);
 		}
@@ -88,7 +88,7 @@ uint32_t*  sub_48CB10(int a1) {
 			nox_window_call_field_94(*(int*)&dword_5d4594_1197320, 16403, 0, 0);
 		} else {
 			nox_window_call_field_94(*(int*)&dword_5d4594_1197320, 16403, 1, 0);
-}
+		}
 		return (uint32_t*)nox_xxx_wndShowModalMB_46A8C0(*(int*)&dword_5d4594_1197312);
 	case 0:
 	case 1:
@@ -117,7 +117,7 @@ uint32_t*  sub_48CB10(int a1) {
 									do {
 										if (!nox_wcscmp(v20, (const wchar_t*)i + 2352)) {
 											nox_window_call_field_94(*(int*)&dword_5d4594_1197316, 16405, v25, 0);
-}
+										}
 										++v19;
 										v20 += 28;
 									} while (v19 < *(int*)&dword_5d4594_1197324);
@@ -139,7 +139,7 @@ uint32_t*  sub_48CB10(int a1) {
 						do {
 							if (!nox_wcscmp(v23, (const wchar_t*)j + 2352)) {
 								nox_window_call_field_94(*(int*)&dword_5d4594_1197316, 16405, v25, 0);
-}
+							}
 							++v22;
 							v23 += 28;
 						} while (v22 < *(int*)&dword_5d4594_1197324);

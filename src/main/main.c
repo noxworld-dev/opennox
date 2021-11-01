@@ -51,7 +51,7 @@ extern int main(int argc, char* argv[])
 		fprintf(stderr, "Failed to enter Nox directory.\n");
 		return 1;
 	}
-#else // !__EMSCRIPTEN__
+#else  // !__EMSCRIPTEN__
 	nox_fs_set_progname(argv[0]);
 	strcpy(cmdline, argv[0]);
 
@@ -61,7 +61,7 @@ extern int main(int argc, char* argv[])
 
 #ifdef _WIN32
 	return WinMain(NULL, NULL, cmdline, 0);
-#else // _WIN32
+#else  // _WIN32
 	return WinMain(cmdline);
 #endif // _WIN32
 }

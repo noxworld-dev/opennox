@@ -3,7 +3,6 @@
 
 #include "defs.h"
 
-
 int sub_48C4D0();
 int sub_48C560();
 void sub_48C580(pixel8888* a1, int num);
@@ -150,9 +149,9 @@ int nox_xxx_sprite_49A9B0_drawable(nox_drawable* dr);
 void nox_xxx_sprite_49AA00_drawable(nox_drawable* dr);
 void nox_xxx_updateSpritePosition_49AA90(nox_drawable* dr, int a2, int a3);
 #ifndef NOX_CGO
-void nox_xxx_forEachSprite_49AB00(int4* a1, void(* fnc)(nox_drawable*, int), int a3);
-#else // NOX_CGO
-void  nox_xxx_forEachSprite_49AB00(int4*, void*, int);
+void nox_xxx_forEachSprite_49AB00(int4* a1, void (*fnc)(nox_drawable*, int), int a3);
+#else  // NOX_CGO
+void nox_xxx_forEachSprite_49AB00(int4*, void*, int);
 #endif // NOX_CGO
 nox_drawable* nox_drawable_find_49ABF0(nox_point* pt, int r);
 int sub_49AD20(uint32_t* a1, int a2);
@@ -301,14 +300,16 @@ void nox_gui_resetWidgetData_4A0D10();
 int nox_gui_parseFont_4A0D40(int* out, FILE* f, char* buf);
 int nox_xxx_guiParse_4A1780(int a1, FILE* a2, char* a3);
 #ifndef NOX_CGO
-nox_window*  nox_new_window_from_file(const char* name, int (*fnc)(int, int, int, int));
+nox_window* nox_new_window_from_file(const char* name, int (*fnc)(int, int, int, int));
 void nox_gui_resetWidgetData_4A0D10();
 int nox_gui_parseFont_4A0D40(int* out, FILE* f, char* buf);
-nox_window*  nox_gui_parseWindowRoot_4A0D80(FILE* f, char* buf, int (*fnc)(int, int, int, int));
-nox_window*  nox_gui_parseWindowOrWidget_4A1440(const char* typ, int id, int a3, int px, int py, int w, int h, nox_window_data* drawData, void* data, int (*fnc)(int, int, int, int));
-nox_window*  nox_gui_parseWidget_4A1510(const char* typ, nox_window* parent, int a3, int px, int py, int w, int h, uint32_t* drawData, void* data);
-int  nox_xxx_guiParse_4A1780(int a1, FILE* a2, char* a3);
-#else // NOX_CGO
+nox_window* nox_gui_parseWindowRoot_4A0D80(FILE* f, char* buf, int (*fnc)(int, int, int, int));
+nox_window* nox_gui_parseWindowOrWidget_4A1440(const char* typ, int id, int a3, int px, int py, int w, int h,
+											   nox_window_data* drawData, void* data, int (*fnc)(int, int, int, int));
+nox_window* nox_gui_parseWidget_4A1510(const char* typ, nox_window* parent, int a3, int px, int py, int w, int h,
+									   uint32_t* drawData, void* data);
+int nox_xxx_guiParse_4A1780(int a1, FILE* a2, char* a3);
+#else  // NOX_CGO
 nox_window* nox_new_window_from_file(char* cname, void* fnc);
 #endif // NOX_CGO
 

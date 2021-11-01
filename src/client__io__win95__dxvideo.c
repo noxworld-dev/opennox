@@ -35,31 +35,32 @@ int nox_video_recreateRenderTarget_47FD70() {
 	if (nox_video_dxFullScreen) {
 		if (nox_video_dxUnlockSurface) {
 			flags = 0x20;
-}
+		}
 	} else {
 		flags = 0x10;
 	}
 	if (dword_5d4594_805860) {
 		flags |= 0x18u;
-}
+	}
 	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_LOCK_VIDEO_RESOLUTION) && nox_video_dxFullScreen) {
 		flags &= 0xFFFFFFDF;
-}
+	}
 	if (!nox_enable_threads) {
 		flags |= 0x100u;
-}
+	}
 	if (*getMemU32Ptr(0x5D4594, 805864)) {
 		flags |= 0x200u;
-}
+	}
 	nox_xxx_setSomeFunc_48A210(sub_47FCE0);
 	v1 = nox_client_getCursorType_477620();
 	nox_client_setCursorType_477610(0);
 	v2 = sub_48B3E0(0);
 	int depth = nox_video_16bit != 0 ? 16 : 8;
 	if (!nox_xxx_GfxInit_444930(nox_win_width, nox_win_height, depth, flags)) {
-		wchar_t* v9 = nox_strman_loadString_40F1D0("result:ERROR", 0, "C:\\NoxPost\\src\\Client\\Io\\Win95\\dxvideo.c", 213);
-		wchar_t* v4 =
-			nox_strman_loadString_40F1D0("gfxDdraw.c:DXWarning", 0, "C:\\NoxPost\\src\\Client\\Io\\Win95\\dxvideo.c", 213);
+		wchar_t* v9 =
+			nox_strman_loadString_40F1D0("result:ERROR", 0, "C:\\NoxPost\\src\\Client\\Io\\Win95\\dxvideo.c", 213);
+		wchar_t* v4 = nox_strman_loadString_40F1D0("gfxDdraw.c:DXWarning", 0,
+												   "C:\\NoxPost\\src\\Client\\Io\\Win95\\dxvideo.c", 213);
 		nullsub_4(0, v4, v9, 1);
 		return 0;
 	}

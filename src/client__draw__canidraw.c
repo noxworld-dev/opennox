@@ -1,13 +1,13 @@
 #include "client__draw__canidraw.h"
-#include "client__draw__parse__parse.h"
-#include "common__random.h"
 #include "GAME1_2.h"
 #include "GAME3_1.h"
+#include "client__draw__parse__parse.h"
+#include "common__random.h"
 #include "operators.h"
 
 extern unsigned int nox_frame_xxx_2598000;
 //----- (004BC930) --------------------------------------------------------
-int  nox_thing_cond_animate_draw(unsigned int* a1, struct nox_drawable* dr) {
+int nox_thing_cond_animate_draw(unsigned int* a1, struct nox_drawable* dr) {
 	int v2;         // eax
 	int v3;         // edi
 	int v4;         // ecx
@@ -35,7 +35,7 @@ int  nox_thing_cond_animate_draw(unsigned int* a1, struct nox_drawable* dr) {
 		if (v8) {
 			if (v8 != 1) {
 				return 0;
-}
+			}
 			v10 = dr->field_77;
 		} else {
 			v10 = nox_common_randomIntMinMax_415FF0(0, v4, "C:\\NoxPost\\src\\client\\Draw\\CAniDraw.c", 57);
@@ -44,32 +44,32 @@ int  nox_thing_cond_animate_draw(unsigned int* a1, struct nox_drawable* dr) {
 		v10 = (nox_frame_xxx_2598000 + dr->field_32) / (unsigned int)(v5 + 1);
 		if (v10 >= v4) {
 			v10 %= v4;
-}
+		}
 	}
 	nox_xxx_drawObject_4C4770_draw(a1, dr, *(unsigned int*)(v3 + 4 * v10));
 	return 1;
 }
 
 //----- (0044B560) --------------------------------------------------------
-bool  nox_things_cond_animate_draw_parse(nox_thing* obj, nox_memfile* f, char* attr_value) {
-	uint32_t* v3;           // eax
-	uint8_t* v6;            // edi
-	unsigned char* v7;  // ebp
-	unsigned char v9;   // cl
-	unsigned char v11;  // cl
-	uint32_t* v13;          // ebx
-	void* v14;            // eax
-	int v16;              // ecx
-	char v18;             // cl
-	uint32_t* v20;          // [esp+10h] [ebp-18h]
-	const char* v21;      // [esp+18h] [ebp-10h]
-	int v22;              // [esp+1Ch] [ebp-Ch]
-	int v23;              // [esp+20h] [ebp-8h]
-	uint32_t* v24;          // [esp+24h] [ebp-4h]
-	unsigned char v25;  // [esp+30h] [ebp+8h]
-	unsigned char v26;  // [esp+30h] [ebp+8h]
-	unsigned char v27;  // [esp+30h] [ebp+8h]
-	int v28;              // [esp+34h] [ebp+Ch]
+bool nox_things_cond_animate_draw_parse(nox_thing* obj, nox_memfile* f, char* attr_value) {
+	uint32_t* v3;      // eax
+	uint8_t* v6;       // edi
+	unsigned char* v7; // ebp
+	unsigned char v9;  // cl
+	unsigned char v11; // cl
+	uint32_t* v13;     // ebx
+	void* v14;         // eax
+	int v16;           // ecx
+	char v18;          // cl
+	uint32_t* v20;     // [esp+10h] [ebp-18h]
+	const char* v21;   // [esp+18h] [ebp-10h]
+	int v22;           // [esp+1Ch] [ebp-Ch]
+	int v23;           // [esp+20h] [ebp-8h]
+	uint32_t* v24;     // [esp+24h] [ebp-4h]
+	unsigned char v25; // [esp+30h] [ebp+8h]
+	unsigned char v26; // [esp+30h] [ebp+8h]
+	unsigned char v27; // [esp+30h] [ebp+8h]
+	int v28;           // [esp+34h] [ebp+Ch]
 
 	v3 = calloc(1u, 0x38u);
 	*v3 = 16;
@@ -100,7 +100,7 @@ bool  nox_things_cond_animate_draw_parse(nox_thing* obj, nox_memfile* f, char* a
 		*v20 = v14;
 		if (!v14) {
 			break;
-}
+		}
 		v28 = 0;
 		if (*v7) {
 			do {

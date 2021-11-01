@@ -1,8 +1,8 @@
 #ifndef NOX_PORT_GAME2_1
 #define NOX_PORT_GAME2_1
 
-#include "defs.h"
 #include "common__savegame.h"
+#include "defs.h"
 
 int sub_460D40();
 int sub_460D50();
@@ -292,7 +292,8 @@ int sub_473B30_free();
 void nox_xxx_drawWalls_473C10(nox_draw_viewport_t* vp, void* data);
 void sub_4745F0(nox_draw_viewport_t* vp);
 int sub_474B40(nox_drawable* dr);
-void nox_client_drawXxxProtect_474BE0(nox_draw_viewport_t* vp, nox_point* pos, nox_drawable* dr, int phase, int eff, int cl1, int cl2, bool back);
+void nox_client_drawXxxProtect_474BE0(nox_draw_viewport_t* vp, nox_point* pos, nox_drawable* dr, int phase, int eff,
+									  int cl1, int cl2, bool back);
 int nox_client_drawXxxProtectParticle_474DD0(uint32_t* a1, int2* a2, int2* a3, int a4, int a5);
 void nox_xxx_drawList1096512_Append_4754C0(void* a1);
 void sub_4754F0(nox_draw_viewport_t* a1p);
@@ -302,6 +303,5 @@ int nox_xxx_sprite_475740_drawable(nox_drawable* dr);
 int nox_xxx_sprite_4757A0_drawable(nox_drawable* dr);
 int sub_4757D0_drawable(nox_drawable* dr);
 void nox_xxx_drawAllMB_475810_draw(nox_draw_viewport_t* vp);
-
 
 #endif // NOX_PORT_GAME2_1

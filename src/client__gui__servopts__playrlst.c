@@ -2,44 +2,44 @@
 #include "client__gui__window.h"
 #include "common__strman.h"
 
-#include "common__system__team.h"
 #include "GAME1.h"
-#include "GAME1_2.h"
 #include "GAME1_1.h"
+#include "GAME1_2.h"
 #include "GAME1_3.h"
 #include "GAME2.h"
 #include "GAME2_1.h"
 #include "GAME2_3.h"
 #include "GAME3.h"
+#include "common__system__team.h"
 extern uint32_t dword_5d4594_1045692;
 extern uint32_t dword_5d4594_1045688;
 extern uint32_t dword_5d4594_1045684;
 
 //----- (00456270) --------------------------------------------------------
-int  nox_xxx_guiServerPlayersLoad_456270(int a1) {
-	int v1;       // esi
-	uint32_t* v3;   // edi
-	uint32_t* v4;   // ebx
-	char* v5;     // ebp
-	uint32_t* v6;   // esi
-	uint32_t* v7;   // edi
-	uint32_t* v8;   // esi
-	uint32_t* v9;   // esi
-	wchar_t* v10; // eax
-	uint32_t* v11;  // [esp+4h] [ebp-Ch]
-	uint32_t* v12;  // [esp+4h] [ebp-Ch]
-	char* v13;    // [esp+8h] [ebp-8h]
-	uint32_t* v14;  // [esp+Ch] [ebp-4h]
-	uint32_t* v15;  // [esp+14h] [ebp+4h]
-	uint32_t* v16;  // [esp+14h] [ebp+4h]
+int nox_xxx_guiServerPlayersLoad_456270(int a1) {
+	int v1;        // esi
+	uint32_t* v3;  // edi
+	uint32_t* v4;  // ebx
+	char* v5;      // ebp
+	uint32_t* v6;  // esi
+	uint32_t* v7;  // edi
+	uint32_t* v8;  // esi
+	uint32_t* v9;  // esi
+	wchar_t* v10;  // eax
+	uint32_t* v11; // [esp+4h] [ebp-Ch]
+	uint32_t* v12; // [esp+4h] [ebp-Ch]
+	char* v13;     // [esp+8h] [ebp-8h]
+	uint32_t* v14; // [esp+Ch] [ebp-4h]
+	uint32_t* v15; // [esp+14h] [ebp+4h]
+	uint32_t* v16; // [esp+14h] [ebp+4h]
 
 	v1 = nox_strman_get_lang_code();
 	if (nox_xxx_guiFontHeightMB_43F320(0) > 10) {
 		v1 = 2;
-}
+	}
 	if (dword_5d4594_1045684) {
 		return 0;
-}
+	}
 	dword_5d4594_1045684 = nox_new_window_from_file(*(const char**)getMemAt(0x587000, 129048 + 4 * v1), sub_4567C0);
 	dword_5d4594_1045688 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1045684, 10507);
 	dword_5d4594_1045692 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1045684, 10509);
@@ -81,20 +81,19 @@ int  nox_xxx_guiServerPlayersLoad_456270(int a1) {
 	sub_456500();
 	v9 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1045684, 10504);
 	if (nox_common_gameFlags_check_40A5C0(128)) {
-		v10 = nox_strman_loadString_40F1D0("Title1", 0,
-									"C:\\NoxPost\\src\\client\\Gui\\ServOpts\\playrlst.c", 631);
+		v10 = nox_strman_loadString_40F1D0("Title1", 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\playrlst.c", 631);
 		nox_window_call_field_94((int)v9, 16385, (int)v10, -1);
 	}
 	return dword_5d4594_1045684;
 }
 
 //----- (004567C0) --------------------------------------------------------
-int  sub_4567C0(int a1, int a2, int* a3, int a4) {
+int sub_4567C0(int a1, int a2, int* a3, int a4) {
 	char* v3;        // esi
 	int v4;          // esi
-	uint32_t* v5;      // eax
+	uint32_t* v5;    // eax
 	int v6;          // eax
-	uint32_t* v7;      // eax
+	uint32_t* v7;    // eax
 	int v8;          // ebx
 	int* v9;         // eax
 	int* v10;        // ebp
@@ -102,15 +101,15 @@ int  sub_4567C0(int a1, int a2, int* a3, int a4) {
 	wchar_t* v12;    // eax
 	char* v13;       // eax
 	char* v14;       // esi
-	uint32_t* v15;     // eax
+	uint32_t* v15;   // eax
 	int v16;         // edi
-	uint32_t* v17;     // eax
-	uint32_t* v18;     // eax
-	uint32_t* v20;     // eax
+	uint32_t* v17;   // eax
+	uint32_t* v18;   // eax
+	uint32_t* v20;   // eax
 	int v21;         // eax
 	char* v22;       // esi
 	wchar_t* v23;    // edi
-	uint32_t* v24;     // eax
+	uint32_t* v24;   // eax
 	int v25;         // eax
 	char* v26;       // eax
 	wchar_t* v27;    // eax
@@ -121,7 +120,7 @@ int  sub_4567C0(int a1, int a2, int* a3, int a4) {
 	if (a2 != 16391) {
 		if (a2 != 16400) {
 			return 0;
-}
+		}
 		if (nox_xxx_wndGetID_46B0A0(a3) == 10502) {
 			v3 = sub_4165B0();
 			if (nox_window_call_field_94((int)a3, 16404, 0, 0) < 0) {
@@ -133,26 +132,26 @@ int  sub_4567C0(int a1, int a2, int* a3, int a4) {
 			} else {
 				if (nox_common_gameFlags_check_40A5C0(1)) {
 					nox_xxx_wnd_46ABB0(*(int*)&dword_5d4594_1045692, 1);
-}
+				}
 				if (nox_common_gameFlags_check_40A5C0(128) || !*getMemU32Ptr(0x5D4594, 1045696)) {
 					nox_xxx_wnd_46ABB0(*(int*)&dword_5d4594_1045688, 1);
 				} else {
 					nox_xxx_wnd_46ABB0(*(int*)&dword_5d4594_1045688, 0);
-}
+				}
 			}
-			if (nox_common_gameFlags_check_40A5C0(1) && nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
+			if (nox_common_gameFlags_check_40A5C0(1) &&
+				nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
 				nox_xxx_wnd_46ABB0(*(int*)&dword_5d4594_1045688, 0);
-}
+			}
 		}
 	}
 	v4 = nox_xxx_wndGetID_46B0A0(a3);
 	nox_xxx_clientPlaySoundSpecial_452D80(766, 100);
 	if (v4 > 10507) {
 		if (v4 == 10509) {
-			v28 = nox_strman_loadString_40F1D0("NewName", 0,
-										"C:\\NoxPost\\src\\client\\Gui\\ServOpts\\playrlst.c", 504);
-			v27 = nox_strman_loadString_40F1D0("Rename", 0,
-										"C:\\NoxPost\\src\\client\\Gui\\ServOpts\\playrlst.c", 504);
+			v28 =
+				nox_strman_loadString_40F1D0("NewName", 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\playrlst.c", 504);
+			v27 = nox_strman_loadString_40F1D0("Rename", 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\playrlst.c", 504);
 			nox_xxx_dialogMsgBoxCreate_449A10(*(int*)&dword_5d4594_1045684, (int)v27, (int)v28, 163, 0, 0);
 		}
 		return 0;
@@ -184,7 +183,7 @@ int  sub_4567C0(int a1, int a2, int* a3, int a4) {
 	}
 	if (v4 != 10503) {
 		return 0;
-}
+	}
 	v5 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1045684, 10502);
 	v6 = nox_window_call_field_94((int)v5, 16404, 0, 0);
 	if (v6 >= 0) {
@@ -208,7 +207,7 @@ int  sub_4567C0(int a1, int a2, int* a3, int a4) {
 								sub_4196D0(v16, (int)v29, *((uint32_t*)v14 + 515), 1);
 							} else {
 								nox_xxx_createAtImpl_4191D0(v29[57], v16, 1, *((uint32_t*)v14 + 515), 1);
-}
+							}
 						}
 					}
 				}
@@ -224,15 +223,15 @@ int  sub_4567C0(int a1, int a2, int* a3, int a4) {
 }
 
 //----- (00457010) --------------------------------------------------------
-int  sub_457010(int a1, wchar_t* a2) {
-	char* v2;           // ebp
-	int result;         // eax
-	uint32_t* v4;         // esi
-	int v5;             // edi
+int sub_457010(int a1, wchar_t* a2) {
+	char* v2;         // ebp
+	int result;       // eax
+	uint32_t* v4;     // esi
+	int v5;           // edi
 	unsigned char v6; // al
 	unsigned char v7; // al
-	wchar_t* v8;        // [esp-20h] [ebp-94h]
-	wchar_t v9[56];     // [esp+4h] [ebp-70h]
+	wchar_t* v8;      // [esp-20h] [ebp-94h]
+	wchar_t v9[56];   // [esp+4h] [ebp-70h]
 
 	v2 = sub_4165B0();
 	result = dword_5d4594_1045684;
@@ -245,11 +244,11 @@ int  sub_457010(int a1, wchar_t* a2) {
 			if (v6 < 3u) {
 				if (v6 == 1) {
 					v8 = nox_strman_loadString_40F1D0("RedFlag", 0,
-											   "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\playrlst.c", 778);
+													  "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\playrlst.c", 778);
 				} else {
 					v8 = nox_strman_loadString_40F1D0("BlueFlag", 0,
-											   "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\playrlst.c", 782);
-}
+													  "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\playrlst.c", 782);
+				}
 				nox_wcscat(v9, v8);
 			}
 		}
@@ -263,13 +262,13 @@ int  sub_457010(int a1, wchar_t* a2) {
 }
 
 //----- (00457230) --------------------------------------------------------
-char*  sub_457230(wchar_t* a1) {
+char* sub_457230(wchar_t* a1) {
 	char* v1;       // ebp
 	char* result;   // eax
-	uint32_t* v3;     // esi
+	uint32_t* v3;   // esi
 	char* v4;       // edi
 	char v5;        // al
-	uint32_t* v6;     // eax
+	uint32_t* v6;   // eax
 	wchar_t* v7;    // [esp-14h] [ebp-94h]
 	wchar_t v8[56]; // [esp+10h] [ebp-70h]
 
@@ -292,11 +291,11 @@ char*  sub_457230(wchar_t* a1) {
 				if ((unsigned char)v5 < 3u) {
 					if (v5 == 1) {
 						v7 = nox_strman_loadString_40F1D0("RedFlag", 0,
-												   "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\playrlst.c", 893);
+														  "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\playrlst.c", 893);
 					} else {
 						v7 = nox_strman_loadString_40F1D0("BlueFlag", 0,
-												   "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\playrlst.c", 897);
-}
+														  "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\playrlst.c", 897);
+					}
 					nox_wcscat(v8, v7);
 				}
 			}

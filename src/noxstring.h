@@ -1,7 +1,7 @@
 #ifndef NOX_STRING_H
 #define NOX_STRING_H
-#include <stdarg.h>
 #include "nox_wchar.h"
+#include <stdarg.h>
 
 int _nox_wcsicmp(const wchar_t* string1, const wchar_t* string2);
 int nox_wsprintfA(char* lpBuffer, const char* lpFmt, ...);

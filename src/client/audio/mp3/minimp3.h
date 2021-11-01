@@ -279,9 +279,9 @@ static int hdr_padding(const uint8_t* h) { return HDR_TEST_PADDING(h) ? (HDR_IS_
 static const L12_subband_alloc_t* L12_subband_alloc_table(const uint8_t* hdr, L12_scale_info* sci) {
 	const L12_subband_alloc_t* alloc;
 	int mode = HDR_GET_STEREO_MODE(hdr);
-	int nbands, stereo_bands = (mode == MODE_MONO)
-								   ? 0
-								   : (mode == MODE_JOINT_STEREO) ? (HDR_GET_STEREO_MODE_EXT(hdr) << 2) + 4 : 32;
+	int nbands, stereo_bands = (mode == MODE_MONO)           ? 0
+							   : (mode == MODE_JOINT_STEREO) ? (HDR_GET_STEREO_MODE_EXT(hdr) << 2) + 4
+															 : 32;
 
 	if (HDR_IS_LAYER_1(hdr)) {
 		static const L12_subband_alloc_t g_alloc_L1[] = {{76, 4, 32}};

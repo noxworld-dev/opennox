@@ -1,11 +1,5 @@
 #include "server__network__sdecode.h"
 
-#include "client__network__cdecode.h"
-#include "client__system__parsecmd.h"
-#include "common__system__team.h"
-#include "common__net_list.h"
-#include "common__strman.h"
-#include "client__gui__guicon.h"
 #include "GAME1.h"
 #include "GAME1_1.h"
 #include "GAME1_3.h"
@@ -16,17 +10,23 @@
 #include "GAME4_3.h"
 #include "GAME5.h"
 #include "GAME5_2.h"
-#include "client__gui__window.h"
-#include "client__system__ctrlevnt.h"
-#include "common__magic__speltree.h"
-#include "defs.h"
-#include "server__network__mapsend.h"
 #include "MixPatch.h"
+#include "client__gui__guicon.h"
+#include "client__gui__window.h"
+#include "client__network__cdecode.h"
+#include "client__system__ctrlevnt.h"
+#include "client__system__parsecmd.h"
+#include "common__magic__speltree.h"
+#include "common__net_list.h"
+#include "common__strman.h"
+#include "common__system__team.h"
+#include "defs.h"
 #include "operators.h"
-
-#include "server__system__trade.h"
 #include "server__network__mapsend.h"
+
 #include "common/fs/nox_fs.h"
+#include "server__network__mapsend.h"
+#include "server__system__trade.h"
 
 #ifdef NOX_CGO
 void noxOnSrvPacketDebug(int op, unsigned char* data, int sz);
@@ -34,96 +34,96 @@ void noxOnSrvPacketDebug(int op, unsigned char* data, int sz);
 
 extern unsigned int nox_frame_xxx_2598000;
 //----- (0051BAD0) --------------------------------------------------------
-int  nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned char* operationId, signed int a3) {
-	unsigned char* data;                   // esi
-	char* v5;                              // eax
-	char* v6;                              // eax
-	int v7;                                // edx
-	int v8;                                // ebx
-	int unit;                                // ebp
-	int* v10;                              // edi
-	char* v11;                             // ecx
-	unsigned short v12;                  // ax
-	int v13;                               // ecx
-	int v14;                               // ecx
-	int v15;                               // edi
-	int v16;                               // eax
-	int v17;                               // edi
-	int v18;                               // eax
-	int v19;                               // edi
-	int v20;                               // eax
-	unsigned short v21;                  // dx
-	int v22;                               // edi
-	int v23;                               // ebx
-	int v24;                               // edi
-	int v26;                               // edi
-	int v27;                               // eax
-	int v28;                               // edi
-	int v29;                               // eax
-	void( * v30)(int, int, uint32_t); // ecx
-	int v31;                               // edi
-	int v32;                               // eax
-	int v33;                              // edi
-	int v34;                               // edi
-	int v35;                               // eax
-	int* v36;                              // edi
-	int v37;                               // ebx
-	uint32_t* v38;                           // eax
-	int v39;                               // ecx
-	int v40;                               // ebx
-	int v41;                               // eax
-	wchar_t* v42;                          // eax
-	wchar_t* v43;                          // eax
-	int v44;                               // eax
-	int v45;                               // edi
-	char* v49;                             // ebp
-	int v51;                               // eax
-	char* v52;                             // eax
-	int v53;                               // edi
-	char* v54;                             // eax
-	char* v55;                             // edi
-	int v56;                               // eax
-	int v57;                               // eax
-	int v58;                               // edi
-	int v59;                               // eax
-	int v60;                               // ebx
-	int v61;                               // edi
-	unsigned char v62;                   // al
-	uint32_t* v63;                           // eax
-	int v64;                               // eax
-	int v65;                               // eax
-	int v66;                               // eax
-	int v67;                               // edi
-	int* v68;                              // edi
-	int v69;                               // eax
-	int v70;                               // edi
-	int v71;                               // eax
-	uint32_t* v72;                           // eax
-	int v73;                               // eax
-	int v74;                               // eax
-	int v75;                               // eax
-	int v76;                               // eax
-	int v77;                               // eax
-	int v78;                               // eax
-	unsigned char v79;                   // al
-	int v80;                               // eax
-	int v81;                               // ecx
-	unsigned int v82;                      // [esp-8h] [ebp-65Ch]
-	float v83;                             // [esp+0h] [ebp-654h]
-	float v84;                             // [esp+4h] [ebp-650h]
-	int v85;                               // [esp+18h] [ebp-63Ch]
-	char* v86;                             // [esp+1Ch] [ebp-638h]
-	char v87[2];                           // [esp+22h] [ebp-632h]
-	char v88[4];                           // [esp+24h] [ebp-630h]
-	char* v89;                             // [esp+28h] [ebp-62Ch]
-	char v90[6];                           // [esp+2Ch] [ebp-628h]
-	unsigned char* v91;                  // [esp+34h] [ebp-620h]
-	char v92[5];                           // [esp+38h] [ebp-61Ch]
-	int v93;                               // [esp+40h] [ebp-614h]
-	float2 v94;                            // [esp+44h] [ebp-610h]
-	float2 v96;                            // [esp+4Ch] [ebp-608h]
-	wchar_t v97[256];                      // [esp+54h] [ebp-600h]
-	char FileName[1024];                   // [esp+254h] [ebp-400h]
+int nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned char* operationId, signed int a3) {
+	unsigned char* data;             // esi
+	char* v5;                        // eax
+	char* v6;                        // eax
+	int v7;                          // edx
+	int v8;                          // ebx
+	int unit;                        // ebp
+	int* v10;                        // edi
+	char* v11;                       // ecx
+	unsigned short v12;              // ax
+	int v13;                         // ecx
+	int v14;                         // ecx
+	int v15;                         // edi
+	int v16;                         // eax
+	int v17;                         // edi
+	int v18;                         // eax
+	int v19;                         // edi
+	int v20;                         // eax
+	unsigned short v21;              // dx
+	int v22;                         // edi
+	int v23;                         // ebx
+	int v24;                         // edi
+	int v26;                         // edi
+	int v27;                         // eax
+	int v28;                         // edi
+	int v29;                         // eax
+	void (*v30)(int, int, uint32_t); // ecx
+	int v31;                         // edi
+	int v32;                         // eax
+	int v33;                         // edi
+	int v34;                         // edi
+	int v35;                         // eax
+	int* v36;                        // edi
+	int v37;                         // ebx
+	uint32_t* v38;                   // eax
+	int v39;                         // ecx
+	int v40;                         // ebx
+	int v41;                         // eax
+	wchar_t* v42;                    // eax
+	wchar_t* v43;                    // eax
+	int v44;                         // eax
+	int v45;                         // edi
+	char* v49;                       // ebp
+	int v51;                         // eax
+	char* v52;                       // eax
+	int v53;                         // edi
+	char* v54;                       // eax
+	char* v55;                       // edi
+	int v56;                         // eax
+	int v57;                         // eax
+	int v58;                         // edi
+	int v59;                         // eax
+	int v60;                         // ebx
+	int v61;                         // edi
+	unsigned char v62;               // al
+	uint32_t* v63;                   // eax
+	int v64;                         // eax
+	int v65;                         // eax
+	int v66;                         // eax
+	int v67;                         // edi
+	int* v68;                        // edi
+	int v69;                         // eax
+	int v70;                         // edi
+	int v71;                         // eax
+	uint32_t* v72;                   // eax
+	int v73;                         // eax
+	int v74;                         // eax
+	int v75;                         // eax
+	int v76;                         // eax
+	int v77;                         // eax
+	int v78;                         // eax
+	unsigned char v79;               // al
+	int v80;                         // eax
+	int v81;                         // ecx
+	unsigned int v82;                // [esp-8h] [ebp-65Ch]
+	float v83;                       // [esp+0h] [ebp-654h]
+	float v84;                       // [esp+4h] [ebp-650h]
+	int v85;                         // [esp+18h] [ebp-63Ch]
+	char* v86;                       // [esp+1Ch] [ebp-638h]
+	char v87[2];                     // [esp+22h] [ebp-632h]
+	char v88[4];                     // [esp+24h] [ebp-630h]
+	char* v89;                       // [esp+28h] [ebp-62Ch]
+	char v90[6];                     // [esp+2Ch] [ebp-628h]
+	unsigned char* v91;              // [esp+34h] [ebp-620h]
+	char v92[5];                     // [esp+38h] [ebp-61Ch]
+	int v93;                         // [esp+40h] [ebp-614h]
+	float2 v94;                      // [esp+44h] [ebp-610h]
+	float2 v96;                      // [esp+4Ch] [ebp-608h]
+	wchar_t v97[256];                // [esp+54h] [ebp-600h]
+	char FileName[1024];             // [esp+254h] [ebp-400h]
 
 	if (a3) {
 		//	OutputDebugStringA("S -> ");
@@ -143,7 +143,7 @@ int  nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned char* opera
 	case 0x20u:
 		if (!nox_xxx_playerNew_4DD320(a1, (int)(operationId + 1))) {
 			nox_xxx_netStructReadPackets_5545B0(a1 + 1);
-}
+		}
 		return 1;
 	case 0x22u:
 		nox_xxx_playerForceDisconnect_4DE7C0(a1);
@@ -158,12 +158,12 @@ int  nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned char* opera
 	v89 = v6;
 	if (!v6) {
 		return 1;
-}
+	}
 	v93 = *((uint32_t*)v6 + 514);
 	unit = v93;
 	if (!v93) {
 		return 1;
-}
+	}
 	v10 = *(int**)(v93 + 748);
 	v85 = *(uint32_t*)(v93 + 748);
 	if (operationId >= v91) {
@@ -197,7 +197,7 @@ int  nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned char* opera
 			v19 = nox_xxx_packetDynamicUnitCode_578B40(*(unsigned short*)(data + 1));
 			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG)) {
 				nox_xxx_netTestHighBit_578B70(*(unsigned short*)(data + 1));
-}
+			}
 			v7 = *(uint32_t*)(v85 + 276);
 			if (!(*(uint8_t*)(v7 + 3680) & 3) && !*(uint32_t*)(v85 + 280) && !*(uint32_t*)(v85 + 284) &&
 				!(*(uint8_t*)(unit + 16) & 2)) {
@@ -216,17 +216,19 @@ int  nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned char* opera
 			v22 = nox_xxx_packetDynamicUnitCode_578B40(*(unsigned short*)(data + 1));
 			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG)) {
 				nox_xxx_netTestHighBit_578B70(*(unsigned short*)(data + 1));
-}
+			}
 			if (!nox_xxx_gameGet_4DB1B0()) {
 				v7 = *(uint32_t*)(v85 + 276);
-				if (!((*(uint8_t*)(v7 + 3680) & 3) || (*(uint32_t*)(v85 + 280)) || (*(uint32_t*)(v85 + 284)) || (*(uint8_t*)(unit + 16) & 2))) {
+				if (!((*(uint8_t*)(v7 + 3680) & 3) || (*(uint32_t*)(v85 + 280)) || (*(uint32_t*)(v85 + 284)) ||
+					  (*(uint8_t*)(unit + 16) & 2))) {
 					v23 = nox_server_getObjectFromNetCode_4ECCB0(v22);
 					if (v23) {
 						v24 = 0;
-						for (int i = nox_xxx_inventoryGetFirst_4E7980(unit); i; i = nox_xxx_inventoryGetNext_4E7990(i)) {
-							v24 += *(unsigned char *) (i + 488);
-}
-						if (v24 + *(unsigned char *) (v23 + 488) <= *(unsigned short *) (unit + 490)) {
+						for (int i = nox_xxx_inventoryGetFirst_4E7980(unit); i;
+							 i = nox_xxx_inventoryGetNext_4E7990(i)) {
+							v24 += *(unsigned char*)(i + 488);
+						}
+						if (v24 + *(unsigned char*)(v23 + 488) <= *(unsigned short*)(unit + 490)) {
 							// nox_xxx_inventoryServPlace_4F36F0(unit, v23, 1, 1);
 							OnLibraryNotice_420(unit, v23, unit, v23);
 						} else {
@@ -243,10 +245,10 @@ int  nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned char* opera
 			v26 = nox_xxx_packetDynamicUnitCode_578B40(*(unsigned short*)(data + 1));
 			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG)) {
 				nox_xxx_netTestHighBit_578B70(*(unsigned short*)(data + 1));
-}
+			}
 			if (!nox_xxx_gameGet_4DB1B0()) {
-				v7 = *(uint32_t *) (v85 + 276);
-				if (!(*(uint8_t *) (v7 + 3680) & 3)) {
+				v7 = *(uint32_t*)(v85 + 276);
+				if (!(*(uint8_t*)(v7 + 3680) & 3)) {
 					v27 = nox_xxx_equipedItemByCode_4F7920(unit, v26);
 					if (v27) {
 						nox_xxx_useByNetCode_53F8E0(unit, v27);
@@ -260,13 +262,13 @@ int  nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned char* opera
 			v15 = nox_xxx_packetDynamicUnitCode_578B40(*(unsigned short*)(data + 1));
 			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG)) {
 				nox_xxx_netTestHighBit_578B70(*(unsigned short*)(data + 1));
-}
+			}
 			if (!nox_xxx_gameGet_4DB1B0()) {
 				v7 = v85;
-				if (!(*(uint8_t *) (*(uint32_t *) (v85 + 276) + 3680) & 3)) {
+				if (!(*(uint8_t*)(*(uint32_t*)(v85 + 276) + 3680) & 3)) {
 					v16 = nox_xxx_equipedItemByCode_4F7920(unit, v15);
 					if (v16) {
-						nox_xxx_playerTryEquip_4F2F70((uint32_t *) unit, v16);
+						nox_xxx_playerTryEquip_4F2F70((uint32_t*)unit, v16);
 					}
 				}
 			}
@@ -277,14 +279,14 @@ int  nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned char* opera
 			v17 = nox_xxx_packetDynamicUnitCode_578B40(*(unsigned short*)(data + 1));
 			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG)) {
 				nox_xxx_netTestHighBit_578B70(*(unsigned short*)(data + 1));
-}
+			}
 			if (!(*(uint8_t*)(*(uint32_t*)(v85 + 276) + 3680) & 3)) {
 				v18 = nox_xxx_equipedItemByCode_4F7920(unit, v17);
 				if (v18) {
 					v7 = v85;
-					if (!(*(uint8_t *) (v85 + 88) == 1 && *(uint32_t *) (v18 + 8) & 0x1000000 &&
-						  *(uint8_t *) (v18 + 12) & 8)) {
-						nox_xxx_playerTryDequip_4F2FB0((uint32_t *) unit, (const nox_object_t*)v18);
+					if (!(*(uint8_t*)(v85 + 88) == 1 && *(uint32_t*)(v18 + 8) & 0x1000000 &&
+						  *(uint8_t*)(v18 + 12) & 8)) {
+						nox_xxx_playerTryDequip_4F2FB0((uint32_t*)unit, (const nox_object_t*)v18);
 					}
 				}
 			}
@@ -295,14 +297,14 @@ int  nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned char* opera
 			v31 = nox_xxx_packetDynamicUnitCode_578B40(*(unsigned short*)(data + 1));
 			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG)) {
 				nox_xxx_netTestHighBit_578B70(*(unsigned short*)(data + 1));
-}
+			}
 			v7 = v85;
 			if (!(*(uint8_t*)(*(uint32_t*)(v85 + 276) + 3680) & 1)) {
 				if (*(uint16_t*)(data + 1)) {
 					v32 = nox_server_getObjectFromNetCode_4ECCB0(v31);
 					if (v32) {
 						nox_xxx_orderUnit_533900(unit, v32, data[3]);
-}
+					}
 				} else {
 					nox_xxx_orderUnit_533900(unit, 0, data[3]);
 				}
@@ -324,7 +326,7 @@ int  nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned char* opera
 				v35 = *(uint32_t*)(unit + 16);
 				if (v35 & 0x4000) {
 					v34 = 0;
-}
+				}
 			}
 			if (!nox_common_gameFlags_check_40A5C0(128) && v34) {
 				v36 = (int*)(data + 1);
@@ -334,18 +336,20 @@ int  nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned char* opera
 				while (v39) {
 					if (*v38) {
 						++v37;
-}
+					}
 					++v38;
 					--v39;
 				}
 				if ((v37 != 1 || !nox_xxx_spellHasFlags_424A50(*v36, 32) || !*(uint32_t*)(v85 + 288) ||
-					 nox_xxx_unitIsEnemyTo_5330C0(unit, *(uint32_t*)(v85 + 288)) || nox_common_gameFlags_check_40A5C0(4096)) &&
+					 nox_xxx_unitIsEnemyTo_5330C0(unit, *(uint32_t*)(v85 + 288)) ||
+					 nox_common_gameFlags_check_40A5C0(4096)) &&
 					!nox_xxx_spellByBookInsert_4FE340(unit, (int*)(data + 1), v37, 3, data[21]) && v37 == 1) {
 					v40 = 5;
 					while (v40) {
 						if (*v36) {
-							nox_xxx_netReportSpellStat_4D9630(*(unsigned char*)(*(uint32_t*)(v85 + 276) + 2064), *v36, 0);
-}
+							nox_xxx_netReportSpellStat_4D9630(*(unsigned char*)(*(uint32_t*)(v85 + 276) + 2064), *v36,
+															  0);
+						}
 						++v36;
 						--v40;
 					}
@@ -359,7 +363,7 @@ int  nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned char* opera
 			v33 = (*(uint8_t*)(*(uint32_t*)(v85 + 276) + 3680) & 3) == 0;
 			if (!nox_common_gameFlags_check_40A5C0(128) && v33) {
 				nox_xxx_playerExecuteAbil_4FBB70(unit, data[1]);
-}
+			}
 			v10 = (int*)v85;
 			data += 2;
 			break;
@@ -367,16 +371,16 @@ int  nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned char* opera
 			v28 = nox_xxx_packetDynamicUnitCode_578B40(*(unsigned short*)(data + 1));
 			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG)) {
 				nox_xxx_netTestHighBit_578B70(*(unsigned short*)(data + 1));
-}
+			}
 			v7 = v85;
 			if (!(*(uint8_t*)(*(uint32_t*)(v85 + 276) + 3680) & 3) && !*(uint32_t*)(v85 + 280) &&
 				!*(uint32_t*)(v85 + 284)) {
 				v29 = nox_server_getObjectFromNetCode_4ECCB0(v28);
 				if (v29) {
-					v30 = *(void(**)(int, int, uint32_t))(v29 + 696);
+					v30 = *(void (**)(int, int, uint32_t))(v29 + 696);
 					if (v30) {
 						v30(v29, unit, 0);
-}
+					}
 				}
 			}
 			v10 = (int*)v85;
@@ -401,29 +405,32 @@ int  nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned char* opera
 			v45 = v44 * data[8] + 11;
 			if (!nox_xxx_giant_57A190(v8)) {
 				if (!(data[3] & 1)) {
-					for (char* j = nox_common_playerInfoGetFirst_416EA0(); j; j = nox_common_playerInfoGetNext_416EE0((int) j)) {
+					for (char* j = nox_common_playerInfoGetFirst_416EA0(); j;
+						 j = nox_common_playerInfoGetNext_416EE0((int)j)) {
 						if (nox_common_gameFlags_check_40A5C0(2) && j[2064] == 31) {
-							nox_xxx_netOnPacketRecvCli_48EA70(31, (unsigned int) data, v45);
+							nox_xxx_netOnPacketRecvCli_48EA70(31, (unsigned int)data, v45);
 						} else {
-							nox_xxx_netSendSock_552640((unsigned char) j[2064] + 1, data, v45, 0);
-							nox_xxx_netSendReadPacket_5528B0((unsigned char) j[2064] + 1, 1);
+							nox_xxx_netSendSock_552640((unsigned char)j[2064] + 1, data, v45, 0);
+							nox_xxx_netSendReadPacket_5528B0((unsigned char)j[2064] + 1, 1);
 						}
 					}
 				} else {
-					uint32_t* v47 = nox_xxx_objGetTeamByNetCode_418C80(*(unsigned short *) (data + 1));
+					uint32_t* v47 = nox_xxx_objGetTeamByNetCode_418C80(*(unsigned short*)(data + 1));
 					if (v47) {
-						if (nox_xxx_servObjectHasTeam_419130((int) v47)) {
-							v86 = nox_xxx_clientGetTeamColor_418AB0(*((unsigned char *) v47 + 4));
+						if (nox_xxx_servObjectHasTeam_419130((int)v47)) {
+							v86 = nox_xxx_clientGetTeamColor_418AB0(*((unsigned char*)v47 + 4));
 							if (v86) {
-								for (int j = nox_xxx_getFirstPlayerUnit_4DA7C0(); j; j = nox_xxx_getNextPlayerUnit_4DA7F0(j)) {
-									v49 = nox_common_playerInfoGetByID_417040(*(uint32_t *) (j + 36));
+								for (int j = nox_xxx_getFirstPlayerUnit_4DA7C0(); j;
+									 j = nox_xxx_getNextPlayerUnit_4DA7F0(j)) {
+									v49 = nox_common_playerInfoGetByID_417040(*(uint32_t*)(j + 36));
 									if (v49 && nox_xxx_teamCompare2_419180(j + 48, v86[57])) {
 										if (nox_common_gameFlags_check_40A5C0(2) &&
-											*(uint32_t *) (j + 36) == *getMemU32Ptr(0x85319C, 0)) {
-											nox_xxx_netOnPacketRecvCli_48EA70((unsigned char) v49[2064], (unsigned int) data, v45);
+											*(uint32_t*)(j + 36) == *getMemU32Ptr(0x85319C, 0)) {
+											nox_xxx_netOnPacketRecvCli_48EA70((unsigned char)v49[2064],
+																			  (unsigned int)data, v45);
 										} else {
-											nox_xxx_netSendSock_552640((unsigned char) v49[2064] + 1, data, v45, 0);
-											nox_xxx_netSendReadPacket_5528B0((unsigned char) v49[2064] + 1, 1);
+											nox_xxx_netSendSock_552640((unsigned char)v49[2064] + 1, data, v45, 0);
+											nox_xxx_netSendReadPacket_5528B0((unsigned char)v49[2064] + 1, 1);
 										}
 									}
 								}
@@ -467,7 +474,7 @@ int  nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned char* opera
 			v51 = *(uint32_t*)(v8 + 2056);
 			if (v51) {
 				nox_xxx_netChangeTeamMb_419570(v51 + 48, *(uint32_t*)(v8 + 2060));
-}
+			}
 			nox_xxx_netMapSend_519D20(*(unsigned char*)(v8 + 2064));
 			++data;
 			break;
@@ -489,7 +496,7 @@ int  nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned char* opera
 				if (!sub_4D12A0(*(unsigned char*)(v8 + 2064))) {
 					sub_4D1210(*(unsigned char*)(v8 + 2064));
 					v43 = nox_strman_loadString_40F1D0("sysopAccessGranted", 0,
-												"C:\\NoxPost\\src\\Server\\Network\\sdecode.c", 735);
+													   "C:\\NoxPost\\src\\Server\\Network\\sdecode.c", 735);
 					nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v43, v8 + 4704);
 				}
 			}
@@ -518,7 +525,7 @@ int  nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned char* opera
 				nox_sprintf(FileName, "%s\\Save\\_temp_.dat", v52);
 				if (nox_xxx_playerSaveToFile_41A140(FileName, *(unsigned char*)(v8 + 2064))) {
 					sub_41CFA0(FileName, *(unsigned char*)(v8 + 2064));
-}
+				}
 				nox_fs_remove(FileName);
 				data += 3;
 			}
@@ -587,7 +594,7 @@ int  nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned char* opera
 					v54 = nox_xxx_clientGetTeamColor_418AB0(*(uint32_t*)(data + 2));
 					if (v54) {
 						sub_4196D0(v53 + 48, (int)v54, *((unsigned short*)data + 3), 1);
-}
+					}
 				}
 				v10 = (int*)v85;
 				data += 10;
@@ -620,7 +627,7 @@ int  nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned char* opera
 			v58 = nox_xxx_packetDynamicUnitCode_578B40(*(unsigned short*)(data + 1));
 			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG)) {
 				nox_xxx_netTestHighBit_578B70(*(unsigned short*)(data + 1));
-}
+			}
 			if (*(uint16_t*)(data + 1)) {
 				v59 = nox_server_getObjectFromNetCode_4ECCB0(v58);
 				sub_53AB90(unit, v59);
@@ -634,7 +641,7 @@ int  nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned char* opera
 			v60 = nox_xxx_packetDynamicUnitCode_578B40(*(unsigned short*)(data + 1));
 			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG)) {
 				nox_xxx_netTestHighBit_578B70(*(unsigned short*)(data + 1));
-}
+			}
 			v61 = nox_xxx_equipedItemByCode_4F7920(unit, v60);
 			if (v61 || (v61 = sub_510DE0(unit, v60)) != 0 || (v61 = nox_server_getObjectFromNetCode_4ECCB0(v60)) != 0) {
 				v88[0] = -30;
@@ -678,7 +685,7 @@ int  nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned char* opera
 				if (nox_common_gameFlags_check_40A5C0(4096)) {
 					c1 = 3;
 				}
-				sub_506870(c1, unit, (wchar_t *) data + 1);
+				sub_506870(c1, unit, (wchar_t*)data + 1);
 				data += 52;
 				break;
 			case 1u:
@@ -690,7 +697,7 @@ int  nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned char* opera
 				if (nox_common_gameFlags_check_40A5C0(4096)) {
 					c2 = 3;
 				}
-				sub_506C90(c2, unit, (wchar_t *) data + 1);
+				sub_506C90(c2, unit, (wchar_t*)data + 1);
 				data += 52;
 				break;
 			case 3u:
@@ -714,21 +721,21 @@ int  nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned char* opera
 			case 0xEu:
 				if (v10[70]) {
 					sub_50F3A0((uint32_t*)v10[70]);
-}
+				}
 				data += 2;
 				break;
 			case 0xFu:
 				v67 = nox_xxx_packetDynamicUnitCode_578B40(*((unsigned short*)data + 1));
 				if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG)) {
 					nox_xxx_netTestHighBit_578B70(*((unsigned short*)data + 1));
-}
+				}
 				v68 = (int*)nox_xxx_equipedItemByCode_4F7920(unit, v67);
 				if (v68) {
 					v69 = *(uint32_t*)(v85 + 280);
 					if (v69) {
 						if (nox_xxx_tradeP2PAddOffer2_50F820_trade(v69, unit, *(float*)&v68) == 1) {
 							sub_4ED0C0(unit, v68);
-}
+						}
 					}
 				}
 				v10 = (int*)v85;
@@ -738,7 +745,7 @@ int  nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned char* opera
 				v70 = nox_xxx_packetDynamicUnitCode_578B40(*((unsigned short*)data + 1));
 				if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG)) {
 					nox_xxx_netTestHighBit_578B70(*((unsigned short*)data + 1));
-}
+				}
 				v71 = *(uint32_t*)(v85 + 280);
 				if (v71) {
 					nox_xxx_tradeP2PAddOfferMB_50FE20(v71, v70);
@@ -750,13 +757,13 @@ int  nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned char* opera
 				v66 = v10[70];
 				if (v66) {
 					nox_xxx_tradeAccept_50F5A0(v66, unit);
-}
+				}
 				data += 2;
 				break;
 			case 0x12u:
 				if (v10[70]) {
 					nox_xxx_shopExit_50F4C0((uint32_t*)v10[70]);
-}
+				}
 				data += 2;
 				break;
 			case 0x15u:
@@ -766,7 +773,7 @@ int  nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned char* opera
 					if (v65) {
 						if (*(uint8_t*)(v65 + 12) & 8) {
 							nox_xxx_servShopStart_50EF10_trade(unit, v65);
-}
+						}
 					}
 				}
 				data += 4;
@@ -775,14 +782,14 @@ int  nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned char* opera
 				v72 = (uint32_t*)v10[70];
 				if (v72) {
 					sub_5100C0_trade(unit, v72, *((unsigned short*)data + 1));
-}
+				}
 				data += 4;
 				break;
 			case 0x17u:
 				v73 = v10[70];
 				if (v73) {
 					sub_510640_trade(unit, v73, *((unsigned short*)data + 1), (float*)data[4]);
-}
+				}
 				data += 5;
 				break;
 			case 0x18u:
@@ -839,7 +846,7 @@ int  nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned char* opera
 			} else {
 				if (v79 != 27) {
 					break;
-}
+				}
 				sub_4DD0B0(unit);
 			}
 			data += 2;

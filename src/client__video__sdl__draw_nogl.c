@@ -16,20 +16,19 @@ void nox_video_free_renderer_48A120() {
 	SDL_DestroyRenderer(g_ddraw);
 }
 
-SDL_Surface*  nox_video_createSurface_48A600(int width, int height, int caps) {
+SDL_Surface* nox_video_createSurface_48A600(int width, int height, int caps) {
 	SDL_Surface* pSurface = SDL_CreateRGBSurfaceWithFormat(0, width, height, 16, g_format);
 
 	return pSurface;
 }
 
-int  nox_video_getSurfaceData_48A720(SDL_Surface* surf, int* outPitch, void** outPixels) {
+int nox_video_getSurfaceData_48A720(SDL_Surface* surf, int* outPitch, void** outPixels) {
 	if (outPitch)
 		*outPitch = surf->pitch;
 	if (outPixels)
 		*outPixels = surf->pixels;
 	return 0;
 }
-
 
 static void set_viewport(float srcw, float srch) {
 	float ratio = srcw / srch, offx = 0, offy = 0;
@@ -68,16 +67,16 @@ static void set_viewport(float srcw, float srch) {
 	vpx = offx;
 	vpy = offy;
 
-	//glViewport(vpx, vpy, vpw, vph);
+	// glViewport(vpx, vpy, vpw, vph);
 }
 
 void sdl_present() {
 	if (g_backbuffer1) {
 		SDL_Rect srcrect;
 		SDL_Rect dstrect;
-		//SDL_Rect currrect;
-		//int res;
-		//int isRectDifferent = 0;
+		// SDL_Rect currrect;
+		// int res;
+		// int isRectDifferent = 0;
 
 		dstrect.x = 0;
 		dstrect.y = 0;
@@ -89,7 +88,7 @@ void sdl_present() {
 
 		set_viewport(g_backbuffer1->w, g_backbuffer1->h);
 
-		SDL_Texture* tex = SDL_CreateTextureFromSurface(g_ddraw, g_backbuffer1); //Maybe find a way to get the buffer
+		SDL_Texture* tex = SDL_CreateTextureFromSurface(g_ddraw, g_backbuffer1); // Maybe find a way to get the buffer
 
 		SDL_RenderCopy(g_ddraw, tex, &srcrect, &dstrect);
 		SDL_RenderPresent(g_ddraw);
@@ -136,8 +135,6 @@ void nox_video_drop_renderer() {
 	g_present_ticks = 0;
 }
 
-
-
 //----- (0048A3D0) --------------------------------------------------------
 int nox_video_setBackBufSizes_48A3D0() {
 	dword_5d4594_3801780 = 2;
@@ -160,25 +157,24 @@ int nox_video_setBackBufSizes_48A3D0() {
 	return 1;
 }
 
-
 #ifdef NOX_PLAY_MOVIES
 int PlayMovie(char* filename);
 #endif // NOX_PLAY_MOVIES
 
 //----- (004B0340) --------------------------------------------------------
-int  nox_client_drawGeneral_4B0340(int a1) // draw general
+int nox_client_drawGeneral_4B0340(int a1) // draw general
 {
-	int v1;             // esi
-	int v2;              // ebp
-	int v3;              // edi
-	int v4;              // ebx
-	int result;          // eax
-	int v7;              // [esp+10h] [ebp-44h]
-	int v8;              // [esp+14h] [ebp-40h]
-	int v9;              // [esp+18h] [ebp-3Ch]
-	int v10;             // [esp+1Ch] [ebp-38h]
-	int v11;             // [esp+20h] [ebp-34h]
-	int v12;             // [esp+24h] [ebp-30h]
+	int v1;     // esi
+	int v2;     // ebp
+	int v3;     // edi
+	int v4;     // ebx
+	int result; // eax
+	int v7;     // [esp+10h] [ebp-44h]
+	int v8;     // [esp+14h] [ebp-40h]
+	int v9;     // [esp+18h] [ebp-3Ch]
+	int v10;    // [esp+1Ch] [ebp-38h]
+	int v11;    // [esp+20h] [ebp-34h]
+	int v12;    // [esp+24h] [ebp-30h]
 
 	dword_5d4594_1311936 = 1;
 	*getMemU32Ptr(0x5D4594, 1311932) = a1;
@@ -207,16 +203,16 @@ int  nox_client_drawGeneral_4B0340(int a1) // draw general
 
 // FIXME: play movies
 #if 0
-	#ifdef __linux__
+#ifdef __linux__
 			;
 			if (nox_enable_audio) { // TODO: disable audio in movies instead
 				char* path = nox_fs_normalize(&byte_5D4594[1311940]);
 				PlayMovie(path);
 				free(path);
 			}
-	#else
+#else
 			//PlayMovie(&byte_5D4594[1311940]);
-	#endif
+#endif
 #endif
 
 		if (!v2) {
@@ -266,7 +262,7 @@ int  nox_client_drawGeneral_4B0340(int a1) // draw general
 }
 
 //----- (0048A040) --------------------------------------------------------
-int  nox_video_resetRenderer_48A040(int width, int height, int depth) {
+int nox_video_resetRenderer_48A040(int width, int height, int depth) {
 	g_backbuffer_count = 2;
 	dword_6F7BB0 = 0;
 

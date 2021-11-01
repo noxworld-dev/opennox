@@ -6,25 +6,24 @@
 #include "GAME3.h"
 #include "client__draw__fx.h"
 #include "client__video__draw_common.h"
-#include "client__draw__fx.h"
 
 extern unsigned int nox_frame_xxx_2598000;
 //----- (004B7A80) --------------------------------------------------------
-int  nox_thing_undead_killer_draw(int* a1, nox_drawable* dr) {
-	int result;     // eax
+int nox_thing_undead_killer_draw(int* a1, nox_drawable* dr) {
+	int result;   // eax
 	short v3;     // dx
-	int v4;         // eax
-	int v5;         // ecx
-	int v6;         // ebx
-	int v7;         // edi
-	int v8;         // eax
-	int v9;         // eax
-	int v10;        // eax
-	int v11;        // [esp-18h] [ebp-28h]
-	int v12;        // [esp-14h] [ebp-24h]
-	char v13;       // [esp-Ch] [ebp-1Ch]
+	int v4;       // eax
+	int v5;       // ecx
+	int v6;       // ebx
+	int v7;       // edi
+	int v8;       // eax
+	int v9;       // eax
+	int v10;      // eax
+	int v11;      // [esp-18h] [ebp-28h]
+	int v12;      // [esp-14h] [ebp-24h]
+	char v13;     // [esp-Ch] [ebp-1Ch]
 	short v14[4]; // [esp+0h] [ebp-10h]
-	int2 v15;       // [esp+8h] [ebp-8h]
+	int2 v15;     // [esp+8h] [ebp-8h]
 
 	int a2 = dr;
 
@@ -38,8 +37,10 @@ int  nox_thing_undead_killer_draw(int* a1, nox_drawable* dr) {
 			v3 = *(uint16_t*)(a2 + 328);
 			v14[0] = *(uint16_t*)(a2 + 324);
 			v14[1] = v3;
-			v14[2] = *(uint16_t*)(a2 + 12) + nox_common_randomIntMinMax_415FF0(-5, 5, "C:\\NoxPost\\src\\client\\Draw\\UDedDraw.c", 60);
-			v14[3] = *(uint16_t*)(a2 + 16) + nox_common_randomIntMinMax_415FF0(-5, 5, "C:\\NoxPost\\src\\client\\Draw\\UDedDraw.c", 61);
+			v14[2] = *(uint16_t*)(a2 + 12) +
+					 nox_common_randomIntMinMax_415FF0(-5, 5, "C:\\NoxPost\\src\\client\\Draw\\UDedDraw.c", 60);
+			v14[3] = *(uint16_t*)(a2 + 16) +
+					 nox_common_randomIntMinMax_415FF0(-5, 5, "C:\\NoxPost\\src\\client\\Draw\\UDedDraw.c", 61);
 			v13 = nox_common_randomIntMinMax_415FF0(6, 10, "C:\\NoxPost\\src\\client\\Draw\\UDedDraw.c", 66);
 			v4 = nox_common_randomIntMinMax_415FF0(-5, 5, "C:\\NoxPost\\src\\client\\Draw\\UDedDraw.c", 65);
 			sub_499490(*getMemIntPtr(0x5D4594, 1313736), v14, 0, v4, v13, 0);
@@ -56,7 +57,7 @@ int  nox_thing_undead_killer_draw(int* a1, nox_drawable* dr) {
 		v10 = 8 - v9 / 40;
 		if (v10 < 0) {
 			v10 = 1;
-}
+		}
 		sub_4B6720(&v15, *getMemIntPtr(0x5D4594, 1313732), v10, 12);
 		result = 1;
 	} else {

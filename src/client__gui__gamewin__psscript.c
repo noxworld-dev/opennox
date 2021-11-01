@@ -4,14 +4,14 @@
 #include "common__strman.h"
 
 //----- (004A0800) --------------------------------------------------------
-int  nox_gui_parseWindowTooltip_4A0800(nox_window_data* data, char* buf) {
+int nox_gui_parseWindowTooltip_4A0800(nox_window_data* data, char* buf) {
 	wchar_t* str = nox_strman_loadString_40F1D0(buf, 0, "C:\\NoxPost\\src\\Client\\Gui\\GameWin\\psscript.c", 267);
 	nox_xxx_wndWddSetTooltip_46B000(data, str);
 	return 1;
 }
 
 //----- (004A0A90) --------------------------------------------------------
-int  nox_gui_parseWindowText_4A0A90(nox_window_data* data, char* buf) {
+int nox_gui_parseWindowText_4A0A90(nox_window_data* data, char* buf) {
 	wchar_t* str;
 	if (!strcmp(buf, "Options.wnd:8BitColor")) {
 		str = L"\tWindowed";
@@ -27,7 +27,7 @@ int  nox_gui_parseWindowText_4A0A90(nox_window_data* data, char* buf) {
 
 //----- (004A10A0) --------------------------------------------------------
 #ifndef NOX_CGO
-int  nox_xxx_wndParseDataField_4A10A0(void** out, const char* typ, char* buf) {
+int nox_xxx_wndParseDataField_4A10A0(void** out, const char* typ, char* buf) {
 	if (!strcmp(typ, "VERTSLIDER") || !strcmp(typ, "HORZSLIDER")) {
 		*getMemU32Ptr(0x5D4594, 1305820) = 0;
 		*getMemU32Ptr(0x5D4594, 1305824) = 0;
@@ -56,7 +56,7 @@ int  nox_xxx_wndParseDataField_4A10A0(void** out, const char* typ, char* buf) {
 			*getMemU16Ptr(0x5D4594, 1306878) = atoi(v12);
 		} else {
 			*getMemU16Ptr(0x5D4594, 1306878) = -1;
-}
+		}
 		char* v13 = strtok(0, " \t\n\r");
 		if (v13) {
 			*getMemU32Ptr(0x5D4594, 1306860) = atoi(v13) != 0;

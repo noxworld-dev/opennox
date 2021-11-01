@@ -2,8 +2,8 @@
 #include "client__system__ctrlevnt.h"
 
 #include "GAME3.h"
-#include "common__strman.h"
 #include "client__gui__window.h"
+#include "common__strman.h"
 extern nox_window* dword_5d4594_1522620;
 extern nox_window* dword_5d4594_1522624;
 extern nox_window* dword_5d4594_1522628;
@@ -45,11 +45,10 @@ char* sub_4CBD30() {
 			nox_client_parseConfigHotkeysLine_42CF50(v12);
 		}
 	}
-	v8 = nox_strman_loadString_40F1D0("bindevent:ToggleQuitMenu", 0, "C:\\NoxPost\\src\\Client\\shell\\InputCfg\\inputcfg.c",
-							   192);
+	v8 = nox_strman_loadString_40F1D0("bindevent:ToggleQuitMenu", 0,
+									  "C:\\NoxPost\\src\\Client\\shell\\InputCfg\\inputcfg.c", 192);
 	v9 = nox_xxx_bindevent_bindNameByTitle_42EA40(v8);
-	v10 = nox_strman_loadString_40F1D0("keybind:Esc", 0, "C:\\NoxPost\\src\\Client\\shell\\InputCfg\\inputcfg.c",
-								193);
+	v10 = nox_strman_loadString_40F1D0("keybind:Esc", 0, "C:\\NoxPost\\src\\Client\\shell\\InputCfg\\inputcfg.c", 193);
 	result = nox_xxx_keybind_nameByTitle_42E960(v10);
 	if (result) {
 		nox_sprintf(v12, "%s = %s", result, v9);
@@ -59,7 +58,7 @@ char* sub_4CBD30() {
 }
 
 //----- (004CBF60) --------------------------------------------------------
-int  sub_4CBF60(int a1, unsigned int a2, int a3, int a4) {
+int sub_4CBF60(int a1, unsigned int a2, int a3, int a4) {
 	int v5;      // eax
 	wchar_t* v6; // eax
 	int v7;      // esi
@@ -80,7 +79,7 @@ int  sub_4CBF60(int a1, unsigned int a2, int a3, int a4) {
 				dword_5d4594_1522632 = a3;
 				v9 = nox_window_call_field_94(*(int*)&dword_5d4594_1522620, 16406, *(uint32_t*)(v5 + 48), 0);
 				v6 = nox_strman_loadString_40F1D0("InputCfg.wnd:PressKey", 0,
-										   "C:\\NoxPost\\src\\Client\\shell\\InputCfg\\inputcfg.c", 424);
+												  "C:\\NoxPost\\src\\Client\\shell\\InputCfg\\inputcfg.c", 424);
 				nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1522636), L"%s\n'%s'", v6, v9);
 				nox_xxx_wndShowModalMB_46A8C0(*(int*)&dword_5d4594_1522612);
 				nox_xxx_windowFocus_46B500(*(int*)&dword_5d4594_1522612);
@@ -92,10 +91,10 @@ int  sub_4CBF60(int a1, unsigned int a2, int a3, int a4) {
 		if (a2 != 16391) {
 			if (a2 == 23) {
 				return 1;
-}
+			}
 			if (a2 != 0x4000) {
 				return nox_xxx_wndListboxProcPre_4A30D0(a1, a2, (wchar_t*)a3, a4);
-}
+			}
 		}
 		if ((uint32_t*)a3 == nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1522604, 921) ||
 			(uint32_t*)a3 == nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1522604, 922)) {

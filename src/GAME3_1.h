@@ -3,7 +3,6 @@
 
 #include "defs.h"
 
-
 int sub_4B9470(const char** a1);
 int sub_4B94E0(nox_drawable* dr);
 uint32_t* sub_4B95D0(nox_drawable* dr);
@@ -94,7 +93,8 @@ int nox_gui_itemAmount_init_4BFEF0();
 int sub_4C0030(int a1);
 int sub_4C01C0(int a1, int a2, int* a3, int a4);
 void nox_gui_itemAmount_free_4C03E0();
-int nox_gui_itemAmountDialog_4C0430(wchar_t* title, int x, int y, int a4, int a5, const void* a6, int a7, int a8, void* accept, void* cancel);
+int nox_gui_itemAmountDialog_4C0430(wchar_t* title, int x, int y, int a4, int a5, const void* a6, int a7, int a8,
+									void* accept, void* cancel);
 int sub_4C0560(int a1, int a2);
 int sub_4C05F0(int a1, int a2);
 int nox_xxx_func_4C0610();
@@ -256,6 +256,5 @@ int sub_4CD0C0(int a1, uint32_t* a2);
 int sub_4CD0F0(int a1, uint32_t* a2);
 int sub_4CD120(int a1, uint32_t* a2);
 int sub_4CD400(uint32_t* a1, int a2);
-
 
 #endif // NOX_PORT_GAME3_1

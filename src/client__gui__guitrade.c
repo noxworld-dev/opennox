@@ -16,33 +16,33 @@ extern int nox_win_height;
 
 //----- (004C09D0) --------------------------------------------------------
 int sub_4C09D0() {
-	uint32_t* v0;           // eax
-	wchar_t* v2;          // eax
-	wchar_t* v3;          // esi
-	wchar_t* v4;          // eax
-	wchar_t* v5;          // esi
-	wchar_t* v6;          // eax
-	uint32_t* v7;           // eax
-	uint32_t* v8;           // eax
-	wchar_t* v9;          // esi
-	wchar_t* v10;         // eax
-	wchar_t* v11;         // esi
-	wchar_t* v12;         // eax
-	wchar_t* v13;         // esi
-	wchar_t* v14;         // eax
+	uint32_t* v0;       // eax
+	wchar_t* v2;        // eax
+	wchar_t* v3;        // esi
+	wchar_t* v4;        // eax
+	wchar_t* v5;        // esi
+	wchar_t* v6;        // eax
+	uint32_t* v7;       // eax
+	uint32_t* v8;       // eax
+	wchar_t* v9;        // esi
+	wchar_t* v10;       // eax
+	wchar_t* v11;       // esi
+	wchar_t* v12;       // eax
+	wchar_t* v13;       // esi
+	wchar_t* v14;       // eax
 	unsigned char* v15; // edx
 	unsigned char* v16; // eax
-	int v17;              // ecx
+	int v17;            // ecx
 	unsigned char* v18; // edx
 	unsigned char* v19; // eax
-	int v20;              // ecx
-	wchar_t* v21;         // eax
+	int v20;            // ecx
+	wchar_t* v21;       // eax
 
 	v0 = nox_new_window_from_file("Trade.wnd", sub_4C0C90);
 	dword_5d4594_1320940 = v0;
 	if (!v0) {
 		return 0;
-}
+	}
 	nox_window_set_all_funcs(v0, sub_4C0630, sub_4C0D00, 0);
 	v2 = nox_strman_loadString_40F1D0("TradeMain", 0, "C:\\NoxPost\\src\\client\\Gui\\GUITrade.c", 692);
 	nox_xxx_wndWddSetTooltip_46B000((wchar_t*)(dword_5d4594_1320940 + 36), v2);
@@ -111,18 +111,18 @@ int sub_4C09D0() {
 }
 
 //----- (004C15D0) --------------------------------------------------------
-int  sub_4C15D0(int a1) {
-	int result;           // eax
-	int v2;               // ebp
+int sub_4C15D0(int a1) {
+	int result;         // eax
+	int v2;             // ebp
 	unsigned char* v3;  // ebx
-	int v4;               // esi
-	int v5;               // edi
+	int v4;             // esi
+	int v5;             // edi
 	unsigned char* v6;  // esi
-	int v7;               // ebp
+	int v7;             // ebp
 	unsigned char* v8;  // ebx
-	int v9;               // esi
-	int v10;              // edi
-	wchar_t* v11;         // eax
+	int v9;             // esi
+	int v10;            // edi
+	wchar_t* v11;       // eax
 	unsigned char* v12; // [esp+8h] [ebp-4h]
 
 	result = dword_5d4594_1320964;
@@ -145,7 +145,7 @@ int  sub_4C15D0(int a1) {
 			++v2;
 			if ((int)v3 < (int)getMemAt(0x5D4594, 1319564)) {
 				continue;
-}
+			}
 			break;
 		}
 		v7 = 0;
@@ -165,10 +165,11 @@ int  sub_4C15D0(int a1) {
 			++v7;
 			if ((int)v8 < (int)getMemAt(0x5D4594, 1320588)) {
 				continue;
-}
+			}
 			break;
 		}
-		v11 = nox_strman_loadString_40F1D0("TradeGUIItemNotFound", 0, "C:\\NoxPost\\src\\client\\Gui\\GUITrade.c", 1141);
+		v11 =
+			nox_strman_loadString_40F1D0("TradeGUIItemNotFound", 0, "C:\\NoxPost\\src\\client\\Gui\\GUITrade.c", 1141);
 		nox_xxx_printCentered_445490(v11);
 	LABEL_17:
 		v6 = v12;

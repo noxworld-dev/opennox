@@ -68,18 +68,18 @@ char* sub_4C3620() {
 
 //----- (004C3760) --------------------------------------------------------
 int sub_4C3760() {
-	int result;   // eax
-	uint32_t** v1;  // eax
-	uint32_t* v2;   // esi
-	uint32_t* v3;   // esi
-	int v4;       // esi
-	int v5;       // edi
-	uint32_t* v6;   // eax
-	int v7;       // eax
-	uint32_t* v8;   // eax
-	uint32_t* v9;   // eax
-	uint32_t* v10;  // esi
-	wchar_t* v11; // eax
+	int result;    // eax
+	uint32_t** v1; // eax
+	uint32_t* v2;  // esi
+	uint32_t* v3;  // esi
+	int v4;        // esi
+	int v5;        // edi
+	uint32_t* v6;  // eax
+	int v7;        // eax
+	uint32_t* v8;  // eax
+	uint32_t* v9;  // eax
+	uint32_t* v10; // esi
+	wchar_t* v11;  // eax
 
 	result = nox_new_window_from_file("InputCfg.wnd", sub_4C3A90);
 	dword_5d4594_1321228 = result;
@@ -121,15 +121,15 @@ int sub_4C3760() {
 			v8 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1321228, v7 + 971);
 			nox_window_call_field_94((int)v8, 16392, 1, 0);
 			nox_window_setPos_46A9B0(*(uint32_t**)&dword_5d4594_1321228,
-							   (nox_win_width - *(uint32_t*)(dword_5d4594_1321228 + 8)) / 2, 0);
+									 (nox_win_width - *(uint32_t*)(dword_5d4594_1321228 + 8)) / 2, 0);
 			dword_5d4594_1321232 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1321228, 980);
 			sub_46B120(*(uint32_t**)&dword_5d4594_1321232, 0);
 			nox_xxx_wndSetProc_46B2C0(*(int*)&dword_5d4594_1321232, sub_4C3A90);
 			nox_xxx_wndSetWindowProc_46B300(*(int*)&dword_5d4594_1321232, sub_4C3EB0);
 			nox_window_set_hidden(*(int*)&dword_5d4594_1321232, 1);
 			nox_window_setPos_46A9B0(*(uint32_t**)&dword_5d4594_1321232,
-							   (nox_win_width - *(uint32_t*)(dword_5d4594_1321232 + 8)) / 2,
-							   *(uint32_t*)(dword_5d4594_1321232 + 20));
+									 (nox_win_width - *(uint32_t*)(dword_5d4594_1321232 + 8)) / 2,
+									 *(uint32_t*)(dword_5d4594_1321232 + 20));
 			v9 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1321232, 981);
 			sub_46AEE0((int)v9, (int)getMemAt(0x5D4594, 1321256));
 			v10 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1321228, 932);
@@ -146,7 +146,7 @@ int sub_4C3760() {
 }
 
 //----- (004C3CD0) --------------------------------------------------------
-int  sub_4C3CD0(int a1, unsigned int a2, int a3, int a4) {
+int sub_4C3CD0(int a1, unsigned int a2, int a3, int a4) {
 	int v5;      // eax
 	wchar_t* v6; // eax
 	int v7;      // esi
@@ -166,8 +166,8 @@ int  sub_4C3CD0(int a1, unsigned int a2, int a3, int a4) {
 			if ((int)*(uint32_t*)(v5 + 48) >= 0) {
 				dword_5d4594_1321252 = a3;
 				v9 = nox_window_call_field_94(*(int*)&dword_5d4594_1321240, 16406, *(uint32_t*)(v5 + 48), 0);
-				v6 = nox_strman_loadString_40F1D0("InputCfg.wnd:PressKey", 0, "C:\\NoxPost\\src\\client\\Gui\\GuiInput.c",
-										   436);
+				v6 = nox_strman_loadString_40F1D0("InputCfg.wnd:PressKey", 0,
+												  "C:\\NoxPost\\src\\client\\Gui\\GuiInput.c", 436);
 				nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1321256), L"%s\n'%s'", v6, v9);
 				nox_xxx_wndShowModalMB_46A8C0(*(int*)&dword_5d4594_1321232);
 				nox_xxx_windowFocus_46B500(*(int*)&dword_5d4594_1321232);
@@ -179,10 +179,10 @@ int  sub_4C3CD0(int a1, unsigned int a2, int a3, int a4) {
 		if (a2 != 16391) {
 			if (a2 == 23) {
 				return 1;
-}
+			}
 			if (a2 != 0x4000) {
 				return nox_xxx_wndListboxProcPre_4A30D0(a1, a2, (wchar_t*)a3, a4);
-}
+			}
 		}
 		if ((uint32_t*)a3 == nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1321228, 921) ||
 			(uint32_t*)a3 == nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1321228, 922)) {

@@ -4,14 +4,13 @@
 #include <emscripten/emscripten.h>
 #endif
 
-#include "common__system__team.h"
-#include "common__random.h"
 #include "common__net_list.h"
+#include "common__random.h"
+#include "common__system__team.h"
 
-#include "common/fs/nox_fs.h"
 #include "GAME1.h"
-#include "GAME1_2.h"
 #include "GAME1_1.h"
+#include "GAME1_2.h"
 #include "GAME1_3.h"
 #include "GAME2_3.h"
 #include "GAME3_2.h"
@@ -20,6 +19,7 @@
 #include "client__gui__window.h"
 #include "client__network__netclint.h"
 #include "client__video__draw_common.h"
+#include "common/fs/nox_fs.h"
 #include "thing.h"
 
 void cmain_loop(int);
@@ -96,8 +96,8 @@ void CONNECT_WAIT_LOOP(sm_args_t* args);
 void CONNECT_WAIT_THEN(sm_args_t* args);
 void CONNECT_RESULT(sm_args_t* args);
 
-#define GOTO_(state)                                                                                              \
-	{                                                                                                               \
+#define GOTO_(state)                                                                                                   \
+	{                                                                                                                  \
 		mainloop_enter = state;                                                                                        \
 		mainloop_enter_args = args;                                                                                    \
 		printf("goto %s\n", #state);                                                                                   \
@@ -105,77 +105,75 @@ void CONNECT_RESULT(sm_args_t* args);
 	}
 
 #define GOTO_CONNECT_PREPARE()                                                                                         \
-	{                                                                                                               \
-		GOTO_(CONNECT_PREPARE);                                                                                     \
-	}
+	{ GOTO_(CONNECT_PREPARE); }
 
 #define GOTO_CONNECT_SERVER(hostname_, port_, data_)                                                                   \
-	{                                                                                                               \
+	{                                                                                                                  \
 		args->connect_server.hostname = hostname_;                                                                     \
 		args->connect_server.port = port_;                                                                             \
 		memmove(args->connect_server.data, data_, sizeof(args->connect_server.data));                                  \
-		GOTO_(CONNECT_SERVER);                                                                                      \
+		GOTO_(CONNECT_SERVER);                                                                                         \
 	}
 
 #define GOTO_NET_CONNECT(id_, hostname_, port_, data_)                                                                 \
-	{                                                                                                               \
+	{                                                                                                                  \
 		args->net_connect.id = id_;                                                                                    \
 		args->net_connect.hostname = hostname_;                                                                        \
 		args->net_connect.port = port_;                                                                                \
 		memmove(args->net_connect.data, data_, sizeof(args->net_connect.data));                                        \
-		GOTO_(NET_CONNECT);                                                                                         \
+		GOTO_(NET_CONNECT);                                                                                            \
 	}
 
 #define GOTO_NET_CONNECT_WAIT_LOOP(data_, id_, val_, retries_, flags_)                                                 \
-	{                                                                                                               \
+	{                                                                                                                  \
 		memmove(args->net_connect_wait_loop.data, data_, sizeof(args->net_connect_wait_loop.data));                    \
 		args->net_connect_wait_loop.id = id_;                                                                          \
 		args->net_connect_wait_loop.val = val_;                                                                        \
 		args->net_connect_wait_loop.retries = retries_;                                                                \
 		args->net_connect_wait_loop.flags = flags_;                                                                    \
 		args->net_connect_wait_loop.counter = 0;                                                                       \
-		GOTO_(NET_CONNECT_WAIT_LOOP);                                                                               \
+		GOTO_(NET_CONNECT_WAIT_LOOP);                                                                                  \
 	}
 
 #define GOTO_NET_CONNECT_WAIT_THEN(data_, id_, result_)                                                                \
-	{                                                                                                               \
+	{                                                                                                                  \
 		memmove(args->net_connect_wait_then.data, data_, sizeof(args->net_connect_wait_then.data));                    \
 		args->net_connect_wait_then.id = id_;                                                                          \
 		args->net_connect_wait_then.result = result_;                                                                  \
-		GOTO_(NET_CONNECT_WAIT_THEN);                                                                               \
+		GOTO_(NET_CONNECT_WAIT_THEN);                                                                                  \
 	}
 
 #define GOTO_NET_CONNECT_THEN(result_)                                                                                 \
-	{                                                                                                               \
+	{                                                                                                                  \
 		args->net_connect_then.result = result_;                                                                       \
-		GOTO_(NET_CONNECT_THEN);                                                                                    \
+		GOTO_(NET_CONNECT_THEN);                                                                                       \
 	}
 
 #define GOTO_CONNECT_WAIT_LOOP(timeout_)                                                                               \
-	{                                                                                                               \
+	{                                                                                                                  \
 		args->connect_wait_loop.timeout = timeout_;                                                                    \
-		GOTO_(CONNECT_WAIT_LOOP);                                                                                   \
+		GOTO_(CONNECT_WAIT_LOOP);                                                                                      \
 	}
 
 #define GOTO_CONNECT_WAIT_THEN(result_)                                                                                \
-	{                                                                                                               \
+	{                                                                                                                  \
 		args->connect_wait_then.result = result_;                                                                      \
-		GOTO_(CONNECT_WAIT_THEN);                                                                                   \
+		GOTO_(CONNECT_WAIT_THEN);                                                                                      \
 	}
 
 #define GOTO_CONNECT_RESULT(result_)                                                                                   \
-	{                                                                                                               \
+	{                                                                                                                  \
 		args->connect_result.result = result_;                                                                         \
-		GOTO_(CONNECT_RESULT);                                                                                      \
+		GOTO_(CONNECT_RESULT);                                                                                         \
 	}
 
 void CONNECT_PREPARE(sm_args_t* args) {
-	char* v1;            // ebx
-	unsigned short v3; // ax
-	int v4;              // [esp+Ch] [ebp-A8h]
-	int v5;              // [esp+10h] [ebp-A4h]
-	int v6;              // [esp+14h] [ebp-A0h]
-	uint8_t Data[1024];     // [esp+18h] [ebp-9Ch]
+	char* v1;           // ebx
+	unsigned short v3;  // ax
+	int v4;             // [esp+Ch] [ebp-A8h]
+	int v5;             // [esp+10h] [ebp-A4h]
+	int v6;             // [esp+14h] [ebp-A0h]
+	uint8_t Data[1024]; // [esp+18h] [ebp-9Ch]
 
 	nox_xxx_gameGetScreenBoundaries_43BEB0_get_video_mode(&v5, &v4, &v6);
 	v1 = nox_xxx_getHostInfoPtr_431770();
@@ -202,7 +200,7 @@ void CONNECT_PREPARE(sm_args_t* args) {
 	*(uint32_t*)&Data[101] = v4;
 	nox_xxx_regGetSerial_420120(&Data[105]);
 	if (!nox_xxx_check_flag_aaa_43AF70()) {
-		nox_common_getInstallPath_40E0D0((int) &Data[105], "SOFTWARE\\Westwood\\Nox", 0);
+		nox_common_getInstallPath_40E0D0((int)&Data[105], "SOFTWARE\\Westwood\\Nox", 0);
 	}
 	Data[152] = !nox_xxx_checkHasSoloMaps_40ABD0();
 	if (getMemByte(0x85B3FC, 10980) & 4) {
@@ -227,7 +225,7 @@ void CONNECT_PREPARE(sm_args_t* args) {
 }
 
 void CONNECT_SERVER(sm_args_t* args) {
-	int v4;      // eax
+	int v4; // eax
 
 	const char* cp = args->connect_server.hostname;
 	int hostshort = args->connect_server.port;
@@ -247,14 +245,14 @@ void CONNECT_SERVER(sm_args_t* args) {
 }
 
 void NET_CONNECT(sm_args_t* args) {
-	int v7;                 // eax
-	unsigned int v8;        // ebx
-	struct hostent* v9;     // eax
-	int v10;                // esi
-	char v11;               // al
-	char v12;               // [esp+12h] [ebp-1B2h]
-	struct nox_net_sockaddr_in name;   // [esp+14h] [ebp-1B0h]
-	int v15;                // [esp+28h] [ebp-19Ch]
+	int v7;                          // eax
+	unsigned int v8;                 // ebx
+	struct hostent* v9;              // eax
+	int v10;                         // esi
+	char v11;                        // al
+	char v12;                        // [esp+12h] [ebp-1B2h]
+	struct nox_net_sockaddr_in name; // [esp+14h] [ebp-1B0h]
+	int v15;                         // [esp+28h] [ebp-19Ch]
 
 	int a1 = args->net_connect.id;
 	const char* cp = args->net_connect.hostname;
@@ -359,7 +357,7 @@ void NET_CONNECT_WAIT_THEN(sm_args_t* args) {
 		*getMemU8Ptr(0x5D4594, 2512893) = ns->data_2_base[1];
 		*getMemU8Ptr(0x5D4594, 2512894) = 32;
 		if (a4) {
-			memcpy(getMemAt(0x5D4594, 2512895), (const void *) a4, a5);
+			memcpy(getMemAt(0x5D4594, 2512895), (const void*)a4, a5);
 		}
 		nox_xxx_netSendSock_552640(a1, getMemAt(0x5D4594, 2512892), a5 + 3, NOX_NET_SEND_NO_LOCK | NOX_NET_SEND_FLAG2);
 	}

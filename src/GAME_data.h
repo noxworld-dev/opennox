@@ -3,7 +3,4 @@
 
 #include "defs.h"
 
-
-
-
 #endif // NOX_PORT_GAME_DATA

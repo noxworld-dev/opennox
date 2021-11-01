@@ -8,14 +8,14 @@
 #include "common__strman.h"
 
 //----- (004EF270) --------------------------------------------------------
-double  nox_xxx_unitGiveXP_4EF270(int a1, float a2) {
+double nox_xxx_unitGiveXP_4EF270(int a1, float a2) {
 	int v3;    // ecx
 	double v4; // st7
 	float v5;  // [esp+Ch] [ebp+8h]
 
 	if (*(float*)(a1 + 28) >= (double)a2) {
 		return 0.0;
-}
+	}
 	v3 = *(uint32_t*)(a1 + 748);
 	v4 = (a2 - *(float*)(a1 + 28)) * *getMemFloatPtr(0x587000, 206148) + 1.0;
 	v5 = v4;
@@ -27,7 +27,7 @@ double  nox_xxx_unitGiveXP_4EF270(int a1, float a2) {
 }
 
 //----- (004EE500) --------------------------------------------------------
-void  nox_xxx_soloMonsterKillReward_4EE500_obj_health(int a1) {
+void nox_xxx_soloMonsterKillReward_4EE500_obj_health(int a1) {
 	int v1;      // ebx
 	int v2;      // esi
 	int v3;      // ebp
@@ -57,12 +57,12 @@ void  nox_xxx_soloMonsterKillReward_4EE500_obj_health(int a1) {
 		while (v2 != v4) {
 			if (v5) {
 				break;
-}
-			if (*(uint8_t *) (v2 + 8) & 2) {
+			}
+			if (*(uint8_t*)(v2 + 8) & 2) {
 				v3 = nox_xxx_creatureIsMonitored_500CC0(v4, v2);
 				v5 = 1;
 			}
-			v2 = *(uint32_t *) (v2 + 508);
+			v2 = *(uint32_t*)(v2 + 508);
 		}
 		if (!v3) {
 			return;
@@ -71,8 +71,7 @@ void  nox_xxx_soloMonsterKillReward_4EE500_obj_health(int a1) {
 	}
 	v6 = nox_xxx_unitGiveXP_4EF270(v4, *(float*)(v1 + 28));
 	if (v6 > 0.0) {
-		v7 = nox_strman_loadString_40F1D0("gainpoints", 0,
-								   "C:\\NoxPost\\src\\Server\\Object\\health.c", 172);
+		v7 = nox_strman_loadString_40F1D0("gainpoints", 0, "C:\\NoxPost\\src\\Server\\Object\\health.c", 172);
 		nox_xxx_netSendLineMessage_4D9EB0(v4, v7, (unsigned int)(long long)v6);
 	}
 	return;

@@ -3,7 +3,6 @@
 
 #include "defs.h"
 
-
 int nox_server_handler_PlayerDamage_4E17B0(int a1, int a2, int a3, int a4, int a5);
 void nox_xxx_playerDecrementHPMana_4E20F0(int a1, int a2, float a3);
 void nox_xxx_playerDamageItems_4E2180(int a1, int a2, int a3, int a4, float a5);
@@ -405,6 +404,6 @@ int nox_xxx_XFerGlyph_4F5890(int a1);
 int nox_xxx_XFerInvLight_4F5AA0(int* a1);
 int nox_xxx_XFerSentry_4F5E50(int a1);
 
-void sub_4E5F00(int(* a1)(int, int), int a2);
+void sub_4E5F00(int (*a1)(int, int), int a2);
 
 #endif // NOX_PORT_GAME3_3

@@ -1,12 +1,12 @@
 #include <stdio.h>
 
-#include "client__drawable__drawdb.h"
-#include "client__drawable__drawable.h"
 #include "client__draw__debugdraw.h"
+#include "client__drawable__drawable.h"
+#include "client__drawable__drawdb.h"
 
 #include "GAME1.h"
-#include "GAME1_2.h"
 #include "GAME1_1.h"
+#include "GAME1_2.h"
 #include "GAME2.h"
 #include "GAME2_1.h"
 #include "GAME2_2.h"
@@ -17,8 +17,8 @@
 #include "client__gui__window.h"
 #include "client__video__draw_common.h"
 #include "common__strman.h"
-#include "thing.h"
 #include "operators.h"
+#include "thing.h"
 
 extern int nox_things_count;
 extern nox_thing* nox_things_head;
@@ -36,27 +36,27 @@ extern uint32_t dword_5d4594_741680;
 nox_objectType_t* nox_xxx_objectTypes_head_1563660 = 0;
 extern uint32_t dword_5d4594_1563664;
 
-bool  nox_parse_thing_flags(nox_thing* obj, nox_memfile* f, const char* attr_value);
-bool  nox_parse_thing_class(nox_thing* obj, nox_memfile* f, const char* attr_value);
-bool  nox_parse_thing_subclass(nox_thing* obj, nox_memfile* f, const char* attr_value);
-bool  nox_parse_thing_extent(nox_thing* obj, nox_memfile* f, char* attr_value);
-bool  nox_parse_thing_light_intensity(nox_thing* obj, nox_memfile* f, char* attr_value);
-bool  nox_parse_thing_draw(nox_thing* obj, nox_memfile* f, char* attr_value);
-bool  nox_parse_thing_z(nox_thing* obj, nox_memfile* f, char* attr_value);
-bool  nox_parse_thing_zsize(nox_thing* obj, nox_memfile* f, char* attr_value);
-bool  nox_parse_thing_size(nox_thing* obj, nox_memfile* f, char* attr_value);
-bool  nox_parse_thing_menu_icon(nox_thing* obj, nox_memfile* f, char* attr_value);
-bool  nox_parse_thing_light_color(nox_thing* obj, nox_memfile* f, char* attr_value);
-bool  nox_parse_thing_light_dir(nox_thing* obj, nox_memfile* f, char* attr_value);
-bool  nox_parse_thing_light_penumbra(nox_thing* obj, nox_memfile* f, char* attr_value);
-bool  nox_parse_thing_audio_loop(nox_thing* obj, nox_memfile* f, char* attr_value);
-bool  nox_parse_thing_client_update(nox_thing* obj, nox_memfile* f, char* attr_value);
-bool  nox_parse_thing_lifetime(nox_thing* obj, nox_memfile* f, char* attr_value);
-bool  nox_parse_thing_weight(nox_thing* obj, nox_memfile* f, char* attr_value);
-bool  nox_parse_thing_pretty_name(nox_thing* obj, nox_memfile* f, char* attr_value);
-bool  nox_parse_thing_desc(nox_thing* obj, nox_memfile* f, char* attr_value);
-bool  nox_parse_thing_pretty_image(nox_thing* obj, nox_memfile* f, char* attr_value);
-bool  nox_parse_thing_health(nox_thing* obj, nox_memfile* f, char* attr_value);
+bool nox_parse_thing_flags(nox_thing* obj, nox_memfile* f, const char* attr_value);
+bool nox_parse_thing_class(nox_thing* obj, nox_memfile* f, const char* attr_value);
+bool nox_parse_thing_subclass(nox_thing* obj, nox_memfile* f, const char* attr_value);
+bool nox_parse_thing_extent(nox_thing* obj, nox_memfile* f, char* attr_value);
+bool nox_parse_thing_light_intensity(nox_thing* obj, nox_memfile* f, char* attr_value);
+bool nox_parse_thing_draw(nox_thing* obj, nox_memfile* f, char* attr_value);
+bool nox_parse_thing_z(nox_thing* obj, nox_memfile* f, char* attr_value);
+bool nox_parse_thing_zsize(nox_thing* obj, nox_memfile* f, char* attr_value);
+bool nox_parse_thing_size(nox_thing* obj, nox_memfile* f, char* attr_value);
+bool nox_parse_thing_menu_icon(nox_thing* obj, nox_memfile* f, char* attr_value);
+bool nox_parse_thing_light_color(nox_thing* obj, nox_memfile* f, char* attr_value);
+bool nox_parse_thing_light_dir(nox_thing* obj, nox_memfile* f, char* attr_value);
+bool nox_parse_thing_light_penumbra(nox_thing* obj, nox_memfile* f, char* attr_value);
+bool nox_parse_thing_audio_loop(nox_thing* obj, nox_memfile* f, char* attr_value);
+bool nox_parse_thing_client_update(nox_thing* obj, nox_memfile* f, char* attr_value);
+bool nox_parse_thing_lifetime(nox_thing* obj, nox_memfile* f, char* attr_value);
+bool nox_parse_thing_weight(nox_thing* obj, nox_memfile* f, char* attr_value);
+bool nox_parse_thing_pretty_name(nox_thing* obj, nox_memfile* f, char* attr_value);
+bool nox_parse_thing_desc(nox_thing* obj, nox_memfile* f, char* attr_value);
+bool nox_parse_thing_pretty_image(nox_thing* obj, nox_memfile* f, char* attr_value);
+bool nox_parse_thing_health(nox_thing* obj, nox_memfile* f, char* attr_value);
 
 nox_parse_thing_funcs_t nox_parse_thing_funcs[] = {
 	{"FLAGS", &nox_parse_thing_flags},
@@ -84,28 +84,30 @@ nox_parse_thing_funcs_t nox_parse_thing_funcs[] = {
 int nox_parse_thing_funcs_cnt = sizeof(nox_parse_thing_funcs) / sizeof(nox_parse_thing_funcs_t);
 
 //----- (0044B160) --------------------------------------------------------
-bool  nox_parse_thing_flags(nox_thing* obj, nox_memfile* f, const char* attr_value) {
+bool nox_parse_thing_flags(nox_thing* obj, nox_memfile* f, const char* attr_value) {
 	obj->flags = 0;
-	set_bitmask_flags_from_plus_separated_names_423930(attr_value, &obj->flags, (const char**)getMemAt(0x587000, 114076));
+	set_bitmask_flags_from_plus_separated_names_423930(attr_value, &obj->flags,
+													   (const char**)getMemAt(0x587000, 114076));
 	return 1;
 }
 
 //----- (0044B190) --------------------------------------------------------
-bool  nox_parse_thing_class(nox_thing* obj, nox_memfile* f, const char* attr_value) {
+bool nox_parse_thing_class(nox_thing* obj, nox_memfile* f, const char* attr_value) {
 	obj->pri_class = 0;
-	set_bitmask_flags_from_plus_separated_names_423930(attr_value, &obj->pri_class, (const char**)getMemAt(0x587000, 114208));
+	set_bitmask_flags_from_plus_separated_names_423930(attr_value, &obj->pri_class,
+													   (const char**)getMemAt(0x587000, 114208));
 	return 1;
 }
 
 //----- (0044B1C0) --------------------------------------------------------
-bool  nox_parse_thing_subclass(nox_thing* obj, nox_memfile* f, const char* attr_value) {
+bool nox_parse_thing_subclass(nox_thing* obj, nox_memfile* f, const char* attr_value) {
 	obj->sub_class = 0;
 	set_bitmask_flags_from_plus_separated_names_multiple_423A10(attr_value, &obj->sub_class);
 	return 1;
 }
 
 //----- (0044B1F0) --------------------------------------------------------
-bool  nox_parse_thing_extent(nox_thing* obj, nox_memfile* f, char* attr_value) {
+bool nox_parse_thing_extent(nox_thing* obj, nox_memfile* f, char* attr_value) {
 	nox_shape s;
 	bool res = nox_parse_shape(&s, attr_value);
 	obj->shape_kind = s.kind;
@@ -116,13 +118,13 @@ bool  nox_parse_thing_extent(nox_thing* obj, nox_memfile* f, char* attr_value) {
 }
 
 //----- (0044B230) --------------------------------------------------------
-bool  nox_parse_thing_light_intensity(nox_thing* obj, nox_memfile* f, char* attr_value) {
+bool nox_parse_thing_light_intensity(nox_thing* obj, nox_memfile* f, char* attr_value) {
 	sscanf(attr_value, "%f", &obj->light_intensity);
 	return 1;
 }
 
 //----- (0044C200) --------------------------------------------------------
-bool  nox_parse_thing_draw(nox_thing* obj, nox_memfile* f, char* attr_value) {
+bool nox_parse_thing_draw(nox_thing* obj, nox_memfile* f, char* attr_value) {
 	const uint8_t read_len = nox_memfile_read_u8(f);
 
 	char read_str[256];
@@ -160,7 +162,7 @@ bool  nox_parse_thing_draw(nox_thing* obj, nox_memfile* f, char* attr_value) {
 }
 
 //----- (0044C2F0) --------------------------------------------------------
-bool  nox_parse_thing_z(nox_thing* obj, nox_memfile* f, char* attr_value) {
+bool nox_parse_thing_z(nox_thing* obj, nox_memfile* f, char* attr_value) {
 	int z = 0;
 	sscanf(attr_value, "%d", &z);
 	obj->z = z;
@@ -168,20 +170,20 @@ bool  nox_parse_thing_z(nox_thing* obj, nox_memfile* f, char* attr_value) {
 }
 
 //----- (0044C320) --------------------------------------------------------
-bool  nox_parse_thing_zsize(nox_thing* obj, nox_memfile* f, char* attr_value) {
+bool nox_parse_thing_zsize(nox_thing* obj, nox_memfile* f, char* attr_value) {
 	int min = 0;
 	int max = 0;
 	sscanf(attr_value, "%d %d", &min, &max);
 	if (max < min) {
 		max = min;
-}
+	}
 	obj->zsize_min = (double)min;
 	obj->zsize_max = (double)max;
 	return 1;
 }
 
 //----- (0044C370) --------------------------------------------------------
-bool  nox_parse_thing_size(nox_thing* obj, nox_memfile* f, char* attr_value) {
+bool nox_parse_thing_size(nox_thing* obj, nox_memfile* f, char* attr_value) {
 	int w = 0;
 	int h = 0;
 	sscanf(attr_value, "%d %d", &w, &h);
@@ -191,10 +193,11 @@ bool  nox_parse_thing_size(nox_thing* obj, nox_memfile* f, char* attr_value) {
 }
 
 //----- (0044C3B0) --------------------------------------------------------
-bool  nox_parse_thing_menu_icon(nox_thing* obj, nox_memfile* f, char* attr_value) {
+bool nox_parse_thing_menu_icon(nox_thing* obj, nox_memfile* f, char* attr_value) {
 	obj->menuicon = nox_memfile_read_u32(f);
 	if (obj->menuicon == -1) {
-		// TODO: This branch doesnt seem to ever be taken. The meaning is not clear. Is this reading (and dropping) a string?
+		// TODO: This branch doesnt seem to ever be taken. The meaning is not clear. Is this reading (and dropping) a
+		// string?
 		nox_memfile_skip(f, 1);
 		int n = nox_memfile_read_u8(f);
 		nox_memfile_skip(f, n);
@@ -203,13 +206,13 @@ bool  nox_parse_thing_menu_icon(nox_thing* obj, nox_memfile* f, char* attr_value
 }
 
 //----- (0044B250) --------------------------------------------------------
-bool  nox_parse_thing_light_color(nox_thing* obj, nox_memfile* f, char* attr_value) {
+bool nox_parse_thing_light_color(nox_thing* obj, nox_memfile* f, char* attr_value) {
 	int r;
 	int g;
 	int b;
 	if (sscanf(attr_value, "%d %d %d", &r, &g, &b) != 3) {
 		return 0;
-}
+	}
 	obj->field_f = 2;
 	obj->light_color_r = (r <= 255 ? r : 255);
 	obj->light_color_g = (g <= 255 ? g : 255);
@@ -218,47 +221,47 @@ bool  nox_parse_thing_light_color(nox_thing* obj, nox_memfile* f, char* attr_val
 }
 
 //----- (0044B2D0) --------------------------------------------------------
-bool  nox_parse_thing_light_dir(nox_thing* obj, nox_memfile* f, char* attr_value) {
+bool nox_parse_thing_light_dir(nox_thing* obj, nox_memfile* f, char* attr_value) {
 	int deg = 0;
 	if (sscanf(attr_value, "%d", &deg) != 1) {
 		return 0;
-}
+	}
 	if (deg < 0 || deg >= 360) {
 		return 0;
-}
+	}
 	obj->light_dir = (long long)((double)deg * *getMemDoublePtr(0x581450, 9560) * *(double*)&qword_581450_9552 +
-							   *(double*)&qword_581450_9544);
+								 *(double*)&qword_581450_9544);
 	obj->field_10 = 0;
 	return 1;
 }
 
 //----- (0044B330) --------------------------------------------------------
-bool  nox_parse_thing_light_penumbra(nox_thing* obj, nox_memfile* f, char* attr_value) {
+bool nox_parse_thing_light_penumbra(nox_thing* obj, nox_memfile* f, char* attr_value) {
 	int deg = 0;
 	if (sscanf(attr_value, "%d", &deg) != 1) {
 		return 0;
-}
+	}
 	if (deg < 0 || deg >= 180) {
 		return 0;
-}
+	}
 	obj->light_penumbra = (long long)((double)deg * *getMemDoublePtr(0x581450, 9560) * *(double*)&qword_581450_9552 +
-									*(double*)&qword_581450_9544);
+									  *(double*)&qword_581450_9544);
 	return 1;
 }
 
 // 44C200: using guessed type char var_100[256];
 
 //----- (0044C3F0) --------------------------------------------------------
-bool  nox_parse_thing_audio_loop(nox_thing* obj, nox_memfile* f, char* attr_value) {
+bool nox_parse_thing_audio_loop(nox_thing* obj, nox_memfile* f, char* attr_value) {
 	obj->audio_loop = nox_xxx_utilFindSound_40AF50(attr_value);
 	return 1;
 }
 
 //----- (004B5C40) --------------------------------------------------------
-bool  nox_parse_thing_client_update(nox_thing* obj, nox_memfile* f, char* attr_value) {
-	char* v3;            // eax
-	const char* v4;      // ecx
-	int v5;              // ebp
+bool nox_parse_thing_client_update(nox_thing* obj, nox_memfile* f, char* attr_value) {
+	char* v3;          // eax
+	const char* v4;    // ecx
+	int v5;            // ebp
 	unsigned char* v6; // edi
 
 	v3 = strtok(attr_value, " \t\n\r");
@@ -269,7 +272,7 @@ bool  nox_parse_thing_client_update(nox_thing* obj, nox_memfile* f, char* attr_v
 		do {
 			if (!strcmp(v4, v3)) {
 				break;
-}
+			}
 			v4 = (const char*)*((uint32_t*)v6 + 2);
 			v6 += 8;
 			++v5;
@@ -277,13 +280,13 @@ bool  nox_parse_thing_client_update(nox_thing* obj, nox_memfile* f, char* attr_v
 	}
 	if (!*getMemU32Ptr(0x587000, 175072 + 8 * v5)) {
 		return 0;
-}
+	}
 	obj->client_update = *getMemU32Ptr(0x587000, 175076 + 8 * v5);
 	return 1;
 }
 
 //----- (0044C410) --------------------------------------------------------
-bool  nox_parse_thing_lifetime(nox_thing* obj, nox_memfile* f, char* attr_value) {
+bool nox_parse_thing_lifetime(nox_thing* obj, nox_memfile* f, char* attr_value) {
 	int v = 0;
 	sscanf(attr_value, "%d", &v);
 	obj->lifetime = v;
@@ -291,7 +294,7 @@ bool  nox_parse_thing_lifetime(nox_thing* obj, nox_memfile* f, char* attr_value)
 }
 
 //----- (0044C440) --------------------------------------------------------
-bool  nox_parse_thing_weight(nox_thing* obj, nox_memfile* f, char* attr_value) {
+bool nox_parse_thing_weight(nox_thing* obj, nox_memfile* f, char* attr_value) {
 	int v = 0;
 	sscanf(attr_value, "%d", &v);
 	obj->weight = (uint8_t)v;
@@ -300,19 +303,20 @@ bool  nox_parse_thing_weight(nox_thing* obj, nox_memfile* f, char* attr_value) {
 }
 
 //----- (0044C480) --------------------------------------------------------
-bool  nox_parse_thing_pretty_name(nox_thing* obj, nox_memfile* f, char* attr_value) {
-	obj->pretty_name = nox_strman_loadString_40F1D0(attr_value, 0, "C:\\NoxPost\\src\\Client\\Drawable\\drawdb.c", 1396);
+bool nox_parse_thing_pretty_name(nox_thing* obj, nox_memfile* f, char* attr_value) {
+	obj->pretty_name =
+		nox_strman_loadString_40F1D0(attr_value, 0, "C:\\NoxPost\\src\\Client\\Drawable\\drawdb.c", 1396);
 	return 1;
 }
 
 //----- (0044C4B0) --------------------------------------------------------
-bool  nox_parse_thing_desc(nox_thing* obj, nox_memfile* f, char* attr_value) {
+bool nox_parse_thing_desc(nox_thing* obj, nox_memfile* f, char* attr_value) {
 	obj->desc = nox_strman_loadString_40F1D0(attr_value, 0, "C:\\NoxPost\\src\\Client\\Drawable\\drawdb.c", 1403);
 	return 1;
 }
 
 //----- (0044C500) --------------------------------------------------------
-bool  nox_parse_thing_pretty_image(nox_thing* obj, nox_memfile* f, char* attr_value) {
+bool nox_parse_thing_pretty_image(nox_thing* obj, nox_memfile* f, char* attr_value) {
 	char v10[128];
 
 	const uint32_t known_idx = nox_memfile_read_u32(f);
@@ -330,13 +334,13 @@ bool  nox_parse_thing_pretty_image(nox_thing* obj, nox_memfile* f, char* attr_va
 }
 
 //----- (0044C4E0) --------------------------------------------------------
-bool  nox_parse_thing_health(nox_thing* obj, nox_memfile* f, char* attr_value) {
+bool nox_parse_thing_health(nox_thing* obj, nox_memfile* f, char* attr_value) {
 	obj->health = atoi(attr_value);
 	return 1;
 }
 
 //----- (0044CE00) --------------------------------------------------------
-int  nox_parse_thing(nox_memfile* thing_file, char* scratch_buffer, nox_thing* thing) {
+int nox_parse_thing(nox_memfile* thing_file, char* scratch_buffer, nox_thing* thing) {
 	unsigned char entry_len;
 	while ((entry_len = nox_memfile_read_u8(thing_file))) {
 		nox_memfile_read(scratch_buffer, 1u, entry_len, thing_file);
@@ -373,13 +377,13 @@ int nox_xxx_spriteDefByAlphabetClear_44CCA0() {
 
 //----- (00485CF0) --------------------------------------------------------
 int sub_485CF0() {
-	int v0;     // edi
+	int v0;    // edi
 	void** v1; // esi
 
 	v0 = 0;
 	if (*(int*)&dword_5d4594_251568 <= 0) {
 		return 1;
-}
+	}
 	v1 = (void**)getMemAt(0x85B3FC, 32516);
 	do {
 		if (*v1) {
@@ -394,13 +398,13 @@ int sub_485CF0() {
 
 //----- (00485F30) --------------------------------------------------------
 int sub_485F30() {
-	int v0;     // edi
+	int v0;    // edi
 	void** v1; // esi
 
 	v0 = 0;
 	if (*(int*)&dword_5d4594_251572 <= 0) {
 		return 1;
-}
+	}
 	v1 = (void**)getMemAt(0x85B3FC, 28676);
 	do {
 		if (*v1) {
@@ -415,9 +419,9 @@ int sub_485F30() {
 
 //----- (0046A360) --------------------------------------------------------
 int sub_46A360() {
-	int i;               // ebx
-	int v1;              // edx
-	int v2;              // esi
+	int i;             // ebx
+	int v1;            // edx
+	int v2;            // esi
 	unsigned char* v3; // edi
 
 	for (i = 0; i < 986560; i += 12332) {
@@ -454,20 +458,20 @@ size_t nox_xxx_spriteDefByAlphabetAlloc_44CCD0() {
 }
 
 //----- (0044CD60) --------------------------------------------------------
-void  nox_xxx_spriteDefByAlphabetAdd_0_44CD60(nox_thing* a1, int a2) {
+void nox_xxx_spriteDefByAlphabetAdd_0_44CD60(nox_thing* a1, int a2) {
 	if (!a1) {
 		return;
-}
+	}
 
 	int v2 = nox_xxx_keyFirstLetterNumberCli_44CD30(a1->name);
 	if (v2 < 0) {
 		return;
-}
+	}
 
 	int v3 = *getMemU32Ptr(0x5D4594, 830296 + 4 * v2);
 	if (!v3) {
 		return;
-}
+	}
 
 	int v4 = *getMemU32Ptr(0x5D4594, 830724 + 4 * v2);
 	*(uint32_t*)(v3 + 8 * v4) = a1;
@@ -476,7 +480,9 @@ void  nox_xxx_spriteDefByAlphabetAdd_0_44CD60(nox_thing* a1, int a2) {
 }
 
 //----- (0044CDE0) --------------------------------------------------------
-int  nox_xxx_spriteDefByAlphabetCompare_44CDE0(const void* a1, const void* a2) { return _strcmpi(**(const char***)a1, **(const char***)a2); }
+int nox_xxx_spriteDefByAlphabetCompare_44CDE0(const void* a1, const void* a2) {
+	return _strcmpi(**(const char***)a1, **(const char***)a2);
+}
 
 //----- (0044CDB0) --------------------------------------------------------
 void nox_xxx_spriteDefByAlphabetSort_44CDB0() {
@@ -487,7 +493,7 @@ void nox_xxx_spriteDefByAlphabetSort_44CDB0() {
 		v1 = *getMemU32Ptr(0x5D4594, 830616 + i);
 		if (v1 > 1) {
 			qsort(*(void**)getMemAt(0x5D4594, 830296 + i), v1, 8u, nox_xxx_spriteDefByAlphabetCompare_44CDE0);
-}
+		}
 	}
 }
 
@@ -506,7 +512,7 @@ char* nox_xxx_equipWeapon_4131A0() {
 				result = (char*)nox_common_gameFlags_check_40A5C0(2);
 				if (!result) {
 					return result;
-}
+				}
 				result = (char*)nox_xxx_getTTByNameSpriteMB_44CFC0(*(char**)i);
 			}
 			*(uint32_t*)(i + 4) = result;
@@ -518,7 +524,7 @@ char* nox_xxx_equipWeapon_4131A0() {
 				result = (char*)nox_common_gameFlags_check_40A5C0(2);
 				if (!result) {
 					return result;
-}
+				}
 				result = (char*)nox_xxx_getTTByNameSpriteMB_44CFC0(*(char**)j);
 			}
 			*(uint32_t*)(j + 4) = result;
@@ -531,8 +537,8 @@ char* nox_xxx_equipWeapon_4131A0() {
 //----- (00415AB0) --------------------------------------------------------
 void nox_xxx_equipArmor_415AB0() {
 	unsigned char* v0; // esi
-	int v1;              // eax
-	int v2;              // eax
+	int v1;            // eax
+	int v2;            // eax
 
 	if (*getMemU32Ptr(0x5D4594, 371252) != 1) {
 		if (*getMemU32Ptr(0x587000, 34848)) {
@@ -557,8 +563,8 @@ void nox_xxx_equipArmor_415AB0() {
 //----- (004157C0) --------------------------------------------------------
 void nox_xxx_equipWeapon_4157C0() {
 	unsigned char* v0; // esi
-	int v1;              // eax
-	int v2;              // eax
+	int v1;            // eax
+	int v2;            // eax
 
 	if (*getMemU32Ptr(0x5D4594, 371244) != 1) {
 		if (*getMemU32Ptr(0x587000, 33064)) {
@@ -568,7 +574,7 @@ void nox_xxx_equipWeapon_4157C0() {
 					v1 = nox_xxx_getNameId_4E3AA0(*(char**)v0);
 				} else {
 					v1 = nox_xxx_getTTByNameSpriteMB_44CFC0(*(char**)v0);
-}
+				}
 				*((uint32_t*)v0 + 1) = v1;
 				v2 = *((uint32_t*)v0 + 3);
 				v0 += 12;
@@ -587,13 +593,13 @@ int sub_42BF10() {
 
 	if (dword_5d4594_741676) {
 		return 1;
-}
+	}
 	if (nox_common_gameFlags_check_40A5C0(2097153)) {
 		v1 = nox_xxx_unitDefGetCount_4E3AC0();
 	} else {
 		if (!nox_common_gameFlags_check_40A5C0(2)) {
 			return 0;
-}
+		}
 		v1 = nox_get_things_count();
 	}
 	dword_5d4594_741680 = v1;
@@ -606,7 +612,7 @@ int sub_42BF10() {
 }
 
 //----- (0044C840) --------------------------------------------------------
-void*  nox_xxx_parseThingBinClient_44C840_read_things(void) {
+void* nox_xxx_parseThingBinClient_44C840_read_things(void) {
 	char* scratch_buffer = (char*)malloc(256 * 1024);
 	nox_xxx_spriteDefByAlphabetClear_44CCA0();
 	nox_things_free_44C580();
@@ -719,8 +725,8 @@ void*  nox_xxx_parseThingBinClient_44C840_read_things(void) {
 					*((uint32_t*)v15 + 1) = v16;
 					*((uint16_t*)v15 + 4) = cur_name_len_plus_one;
 					v15[10] = v17;
-					cur->pretty_name = nox_strman_loadString_40F1D0((char*)getMemAt(0x5D4594, 830404), 0,
-															 "C:\\NoxPost\\src\\Client\\Drawable\\drawdb.c", 1926);
+					cur->pretty_name = nox_strman_loadString_40F1D0(
+						(char*)getMemAt(0x5D4594, 830404), 0, "C:\\NoxPost\\src\\Client\\Drawable\\drawdb.c", 1926);
 				}
 				// if not loaded, set cur->desc = load_string "thing.db:${cur->name}Description"
 				if (!cur->desc) {
@@ -740,7 +746,7 @@ void*  nox_xxx_parseThingBinClient_44C840_read_things(void) {
 					*((uint32_t*)v25 + 1) = v26;
 					*((uint32_t*)v25 + 2) = v24;
 					cur->desc = nox_strman_loadString_40F1D0((char*)getMemAt(0x5D4594, 830404), 0,
-													  "C:\\NoxPost\\src\\Client\\Drawable\\drawdb.c", 1933);
+															 "C:\\NoxPost\\src\\Client\\Drawable\\drawdb.c", 1933);
 				}
 			}
 			cur = cur->next;
@@ -763,7 +769,7 @@ void sub_44C620_free() {
 	do {
 		if (*v0) {
 			free(*v0);
-}
+		}
 		*v0 = 0;
 		++v0;
 	} while ((int)v0 < (int)getMemAt(0x5D4594, 830404));
@@ -779,7 +785,7 @@ void nox_xxx_unitDefByAlphabetFree_4E2B30() {
 		result = *v0;
 		if (*v0) {
 			free(*v0);
-}
+		}
 		*v0 = 0;
 		++v0;
 	} while ((int)v0 < (int)getMemAt(0x5D4594, 1563456));
@@ -801,32 +807,32 @@ int nox_xxx_freeObjectTypes_4E2A20() {
 		next = typ->next;
 		if (typ->id) {
 			free(typ->id);
-}
+		}
 		if (typ->field_34) {
 			free(typ->field_34);
-}
+		}
 		if (typ->field_36) {
 			free(typ->field_36);
-}
+		}
 		if (typ->field_41) {
 			free(typ->field_41);
-}
+		}
 		if (typ->field_44) {
 			free(typ->field_44);
-}
+		}
 		void* v2 = typ->field_48;
 		if (v2) {
 			if (typ->obj_class & 0x2) {
 				void* v3 = *(void**)((uint32_t)v2 + 476);
 				if (v3) {
 					free(v3);
-}
+				}
 			}
 			free(typ->field_48);
 		}
 		if (typ->field_51) {
 			free(typ->field_51);
-}
+		}
 		free(typ);
 	}
 	nox_xxx_objectTypes_head_1563660 = 0;
@@ -852,7 +858,7 @@ int sub_4E3010() {
 }
 
 //----- (004E3080) --------------------------------------------------------
-char*  nox_xxx_unitDefByAlphabetAdd_4E3080(char* a1) {
+char* nox_xxx_unitDefByAlphabetAdd_4E3080(char* a1) {
 	char* result; // eax
 
 	result = a1;
@@ -860,7 +866,7 @@ char*  nox_xxx_unitDefByAlphabetAdd_4E3080(char* a1) {
 		result = (char*)nox_xxx_keyFirstLetterNumber_4E30A0(a1);
 		if ((int)result >= 0) {
 			++*getMemU32Ptr(0x5D4594, 1563668 + 4 * (uint32_t)result);
-}
+		}
 	}
 	return result;
 }
@@ -879,7 +885,8 @@ int nox_xxx_objectTypes_allFit_4E3110() {
 			}
 		} else if (shape->kind == NOX_SHAPE_BOX) {
 			nox_shape_box_calc(shape);
-			if (shape->box_right_top - shape->box_left_bottom_2 >= 85.0 || shape->box_right_top_2 - shape->box_left_bottom >= 85.0) {
+			if (shape->box_right_top - shape->box_left_bottom_2 >= 85.0 ||
+				shape->box_right_top_2 - shape->box_left_bottom >= 85.0) {
 				ret = 0;
 			}
 		}
@@ -890,18 +897,18 @@ int nox_xxx_objectTypes_allFit_4E3110() {
 //----- (004E3040) --------------------------------------------------------
 void nox_xxx_unitDefByAlphabetInit_4E3040() {
 	for (int i = 0; i < 27; i++) {
-		int cnt = *getMemU32Ptr(0x5D4594, 1563668 + 4*i);
+		int cnt = *getMemU32Ptr(0x5D4594, 1563668 + 4 * i);
 		if (cnt) {
-			*getMemU32Ptr(0x5D4594, 1563348 + 4*i) = calloc(1u, 4 * cnt);
+			*getMemU32Ptr(0x5D4594, 1563348 + 4 * i) = calloc(1u, 4 * cnt);
 		} else {
-			*getMemU32Ptr(0x5D4594, 1563348 + 4*i) = 0;
+			*getMemU32Ptr(0x5D4594, 1563348 + 4 * i) = 0;
 		}
-		*getMemU32Ptr(0x5D4594, 1563776 + 4*i) = 0;
+		*getMemU32Ptr(0x5D4594, 1563776 + 4 * i) = 0;
 	}
 }
 
 //----- (004E30D0) --------------------------------------------------------
-void  nox_xxx_objectTypeAddToNameInd_4E30D0(int a1) {
+void nox_xxx_objectTypeAddToNameInd_4E30D0(int a1) {
 	int v1; // eax
 	int v2; // ecx
 
@@ -916,7 +923,7 @@ void  nox_xxx_objectTypeAddToNameInd_4E30D0(int a1) {
 }
 
 //----- (004E2A00) --------------------------------------------------------
-int  sub_4E2A00(const void* a1, const void* a2) {
+int sub_4E2A00(const void* a1, const void* a2) {
 	return _strcmpi(*(const char**)(*(uint32_t*)a1 + 4), *(const char**)(*(uint32_t*)a2 + 4));
 }
 //----- (004E29D0) --------------------------------------------------------
@@ -928,28 +935,28 @@ void sub_4E29D0() {
 		v1 = *getMemU32Ptr(0x5D4594, 1563668 + i);
 		if (v1 > 1) {
 			qsort(*(void**)getMemAt(0x5D4594, 1563348 + i), v1, 4u, sub_4E2A00);
-}
+		}
 	}
 }
 
 //----- (004F0640) --------------------------------------------------------
 const char* sub_4F0640() {
-	char* v0;             // eax
+	char* v0;           // eax
 	unsigned char* v1;  // esi
-	char v2;              // cl
-	char* v3;             // eax
-	const char* v4;       // eax
+	char v2;            // cl
+	char* v3;           // eax
+	const char* v4;     // eax
 	unsigned char* v5;  // esi
-	int v6;               // eax
-	const char* v7;       // eax
+	int v6;             // eax
+	const char* v7;     // eax
 	unsigned char* v8;  // esi
-	int v9;               // eax
-	const char* v10;      // eax
+	int v9;             // eax
+	const char* v10;    // eax
 	unsigned char* v11; // esi
-	int v12;              // eax
-	const char* result;   // eax
+	int v12;            // eax
+	const char* result; // eax
 	unsigned char* v14; // esi
-	int v15;              // eax
+	int v15;            // eax
 
 	v0 = *(char**)getMemAt(0x587000, 208180);
 	if (*getMemU32Ptr(0x587000, 208180)) {
@@ -959,7 +966,7 @@ const char* sub_4F0640() {
 			v3 = *(char**)v1;
 			if (v2 == 35) {
 				++v3;
-}
+			}
 			*((uint32_t*)v1 + 1) = nox_xxx_getNameId_4E3AA0(v3);
 			v0 = (char*)*((uint32_t*)v1 + 5);
 			v1 += 20;
@@ -1009,19 +1016,19 @@ const char* sub_4F0640() {
 }
 
 //----- (004E2B60) --------------------------------------------------------
-int  nox_read_things_alternative_4E2B60(void) {
-	void* v1;            // eax
-	void* v3;            // edi
-	void* result;        // eax
-	int v17;             // ecx
-	int v18;             // esi
-	int v19;             // eax
-	int i;               // [esp+0h] [ebp-8h]
-	void* v21;           // [esp+4h] [ebp-4h]
+int nox_read_things_alternative_4E2B60(void) {
+	void* v1;     // eax
+	void* v3;     // edi
+	void* result; // eax
+	int v17;      // ecx
+	int v18;      // esi
+	int v19;      // eax
+	int i;        // [esp+0h] [ebp-8h]
+	void* v21;    // [esp+4h] [ebp-4h]
 
 	if (nox_xxx_objectTypes_head_1563660) {
 		nox_xxx_freeObjectTypes_4E2A20();
-}
+	}
 	sub_4E3010();
 	dword_5d4594_1563664 = 0;
 	v1 = malloc(0x40000u);
@@ -1031,7 +1038,7 @@ int  nox_read_things_alternative_4E2B60(void) {
 	nox_memfile* things = nox_open_thing_bin();
 	if (!things) {
 		return 0;
-}
+	}
 	nox_memfile_seek_40AD10(things, 0, 0);
 	while (nox_memfile_read(&i, 4u, 1, things)) {
 		switch (i) {
@@ -1069,7 +1076,7 @@ int  nox_read_things_alternative_4E2B60(void) {
 			nox_thing_read_image_415240(things);
 			break;
 		case 0x54484E47: // THNG
-			{
+		{
 			nox_objectType_t* typ = calloc(1, sizeof(nox_objectType_t));
 			if (!typ) {
 				nox_memfile_free(things);
@@ -1112,7 +1119,8 @@ int  nox_read_things_alternative_4E2B60(void) {
 			} else {
 				typ->field_13 = 0.5f;
 			}
-			if (!strcmp(typ->id, "Boulder") || !strcmp(typ->id, "RollingBoulder") || !strcmp(typ->id, "BoulderIndestructible")) {
+			if (!strcmp(typ->id, "Boulder") || !strcmp(typ->id, "RollingBoulder") ||
+				!strcmp(typ->id, "BoulderIndestructible")) {
 				typ->field_13 = 0.01f;
 				typ->field_14 = 100.0f;
 			}
@@ -1148,7 +1156,7 @@ int  nox_read_things_alternative_4E2B60(void) {
 			nox_xxx_unitDefByAlphabetAdd_4E3080(typ->id);
 			v3 = v21;
 			break;
-			}
+		}
 		}
 	}
 	*getMemU32Ptr(0x85B3FC, 960) = 1;
@@ -1187,12 +1195,12 @@ int  nox_read_things_alternative_4E2B60(void) {
 	sub_4F0640();
 	if (!sub_42BF10()) {
 		return 0;
-}
+	}
 	return 1;
 }
 
 //----- (0044C780) --------------------------------------------------------
-void*  nox_xxx_draw_44C780(int a1) {
+void* nox_xxx_draw_44C780(int a1) {
 	int i;        // esi
 	int v2;       // eax
 	void* result; // eax
@@ -1201,23 +1209,23 @@ void*  nox_xxx_draw_44C780(int a1) {
 		v2 = i;
 		if (i >= 16) {
 			v2 = i + 4;
-}
+		}
 		result = *(void**)(v2 + a1);
 		if (result) {
 			free(result);
-}
+		}
 	}
 	return result;
 }
 
 //----- (0044C7B0) --------------------------------------------------------
-void*  sub_44C7B0(int a1) {
+void* sub_44C7B0(int a1) {
 	void** v1;    // ebx
-	int v2;        // ebp
+	int v2;       // ebp
 	void** v3;    // esi
-	int v4;        // edi
+	int v4;       // edi
 	void** v5;    // esi
-	int v6;        // edi
+	int v6;       // edi
 	void* result; // eax
 
 	v1 = (void**)(a1 + 52);
@@ -1255,7 +1263,7 @@ void*  sub_44C7B0(int a1) {
 }
 
 //----- (0044C650) --------------------------------------------------------
-void  nox_xxx_draw_44C650_free(void* lpMem, void* draw) {
+void nox_xxx_draw_44C650_free(void* lpMem, void* draw) {
 	int kind = 0;
 	if (*(uint32_t*)nox_parse_thing_draw_funcs) {
 		nox_parse_thing_draw_funcs_t* item = NULL;
@@ -1263,7 +1271,7 @@ void  nox_xxx_draw_44C650_free(void* lpMem, void* draw) {
 			nox_parse_thing_draw_funcs_t* cur = &nox_parse_thing_draw_funcs[i];
 			if (!cur->name) {
 				break;
-}
+			}
 			if (cur->draw == draw) {
 				item = cur;
 				break;
@@ -1281,56 +1289,56 @@ void  nox_xxx_draw_44C650_free(void* lpMem, void* draw) {
 	int v12 = 0;
 
 	switch (kind) {
-		case 2:
-		case 3:
-			if (*((uint32_t*)lpMem + 1)) {
-				free(*((void**)lpMem + 1));
+	case 2:
+	case 3:
+		if (*((uint32_t*)lpMem + 1)) {
+			free(*((void**)lpMem + 1));
+		}
+		free(lpMem);
+		break;
+	case 4:
+		v7 = (void**)((char*)lpMem + 4);
+		v8 = 5;
+		do {
+			if (*v7) {
+				free(*v7);
 			}
-			free(lpMem);
-			break;
-		case 4:
-			v7 = (void**)((char*)lpMem + 4);
-			v8 = 5;
-			do {
-				if (*v7) {
-					free(*v7);
-}
-				++v7;
-				--v8;
-			} while (v8);
-			free(lpMem);
-			break;
-		case 5:
-			nox_xxx_draw_44C780((int)lpMem + 4);
-			free(lpMem);
-			break;
-		case 6:
-			sub_44C7B0((int)lpMem);
-			free(lpMem);
-			break;
-		case 7:
-			v9 = (char*)lpMem + 8;
-			v10 = 16;
-			do {
-				nox_xxx_draw_44C780((int)v9);
-				v9 += 48;
-				--v10;
-			} while (v10);
-			free(lpMem);
-			break;
-		case 8:
-			v11 = (char*)lpMem + 8;
-			v12 = 3;
-			do {
-				nox_xxx_draw_44C780((int)v11);
-				v11 += 48;
-				--v12;
-			} while (v12);
-			free(lpMem);
-			break;
-		default:
-			free(lpMem);
-			break;
+			++v7;
+			--v8;
+		} while (v8);
+		free(lpMem);
+		break;
+	case 5:
+		nox_xxx_draw_44C780((int)lpMem + 4);
+		free(lpMem);
+		break;
+	case 6:
+		sub_44C7B0((int)lpMem);
+		free(lpMem);
+		break;
+	case 7:
+		v9 = (char*)lpMem + 8;
+		v10 = 16;
+		do {
+			nox_xxx_draw_44C780((int)v9);
+			v9 += 48;
+			--v10;
+		} while (v10);
+		free(lpMem);
+		break;
+	case 8:
+		v11 = (char*)lpMem + 8;
+		v12 = 3;
+		do {
+			nox_xxx_draw_44C780((int)v11);
+			v11 += 48;
+			--v12;
+		} while (v12);
+		free(lpMem);
+		break;
+	default:
+		free(lpMem);
+		break;
 	}
 }
 
@@ -1341,10 +1349,10 @@ void nox_things_free_44C580() {
 		while (cur) {
 			if (cur->name) {
 				free(cur->name);
-}
+			}
 			if (cur->field_5c) {
 				nox_xxx_draw_44C650_free(cur->field_5c, cur->draw_func);
-}
+			}
 			nox_thing* next = cur->next;
 			free(cur);
 			cur = next;
@@ -1359,5 +1367,5 @@ void nox_things_free_44C580() {
 	sub_44C620_free();
 	if (!nox_common_gameFlags_check_40A5C0(1)) {
 		nox_xxx_free_42BF80();
-}
+	}
 }

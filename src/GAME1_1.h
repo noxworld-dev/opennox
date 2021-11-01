@@ -1,8 +1,8 @@
 #ifndef NOX_PORT_GAME1_1
 #define NOX_PORT_GAME1_1
 
-#include "defs.h"
 #include "common__savegame.h"
+#include "defs.h"
 
 char sub_4187A0();
 int sub_4187E0();
@@ -415,9 +415,10 @@ int sub_427980(float4* a1, float4* a2);
 int sub_427C80(int4* a1, int4* a2);
 int sub_427DF0(int a1, int* a2, float a3);
 
-int sub_420B70(uint32_t* a1, uint32_t* a2, int(* a3)(uint32_t, int), int a4);
-int sub_426600(int a1, void(* a2)(uint32_t, uint32_t));
-int sub_426F40(int a1, const char* a2, uint32_t* a3, int(* a4)(int));
-void  set_bitmask_flags_from_plus_separated_names_423930(const char* input, uint32_t* bitmask, const char** allowed_names);
+int sub_420B70(uint32_t* a1, uint32_t* a2, int (*a3)(uint32_t, int), int a4);
+int sub_426600(int a1, void (*a2)(uint32_t, uint32_t));
+int sub_426F40(int a1, const char* a2, uint32_t* a3, int (*a4)(int));
+void set_bitmask_flags_from_plus_separated_names_423930(const char* input, uint32_t* bitmask,
+														const char** allowed_names);
 
 #endif // NOX_PORT_GAME1_1

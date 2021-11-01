@@ -3,7 +3,6 @@
 
 #include "defs.h"
 
-
 int nox_xxx_updDrawDBall_4CDF80(int a1, int a2);
 int sub_4CE0A0(int a1, int a2);
 int nox_xxx_updDrawCloud_4CE1D0(int a1, int a2);
@@ -446,6 +445,5 @@ int nox_xxx_damageArmor_4E1500(int a1, int a2, int a3, int a4, int a5);
 void nox_xxx_playerDamageWeapon_4E1560(int a1, int a2, int a3, int a4, float a5, int a6);
 int nox_xxx_itemDestroyed_4E1650(int a1, uint32_t* a2, unsigned short a3, unsigned short a4);
 void nox_xxx_equipDamage_4E16D0(int a1, int a2, int a3, int a4, float a5, int a6);
-
 
 #endif // NOX_PORT_GAME3_2

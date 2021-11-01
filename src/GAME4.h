@@ -3,7 +3,6 @@
 
 #include "defs.h"
 
-
 int nox_xxx_XFerSpellReward_4F5F30(int* a1);
 int nox_xxx_XFerAbilityReward_4F6240(int* a1);
 int nox_xxx_XFerFieldGuide_4F6390(int* a1);
@@ -297,7 +296,9 @@ void sub_509120(uint32_t* a1, int a2, const char* a3);
 int sub_5095E0();
 int sub_5096F0();
 
-int  nox_xxx_spellDurationBased_4FEBA0(int a1, int a2, uint32_t* a3, int a4, uint32_t* a5, int a6, int(* a7)(uint16_t*), int a8, int a9, int a10);
-void  nox_server_scriptExecuteFnForEachGroupObj_502670(unsigned char* groupPtr, int expectedType, void(* a3)(int, int), int a4);
+int nox_xxx_spellDurationBased_4FEBA0(int a1, int a2, uint32_t* a3, int a4, uint32_t* a5, int a6, int (*a7)(uint16_t*),
+									  int a8, int a9, int a10);
+void nox_server_scriptExecuteFnForEachGroupObj_502670(unsigned char* groupPtr, int expectedType, void (*a3)(int, int),
+													  int a4);
 
 #endif // NOX_PORT_GAME4

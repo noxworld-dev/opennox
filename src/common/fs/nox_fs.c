@@ -1,10 +1,10 @@
 //+build none
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
 #include <ctype.h>
 #include <errno.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 #include "nox_fs.h"
 
@@ -14,12 +14,10 @@
 #include <sys/stat.h>
 #endif // _WIN32
 
-char __nox_fs_root[NOX_FILEPATH_MAX+1] = {0};
+char __nox_fs_root[NOX_FILEPATH_MAX + 1] = {0};
 
 //----- (00409E10) --------------------------------------------------------
-const char* nox_fs_root() {
-	return __nox_fs_root;
-}
+const char* nox_fs_root() { return __nox_fs_root; }
 
 //----- (00409E20) --------------------------------------------------------
 void nox_fs_set_root(const char* wd) {
@@ -39,8 +37,8 @@ char* dos_to_unix_recurse_paths(char* currentPath, char* unparsedPath) {
 	}
 
 	// Extract the current token from the unparsed string
-	char dirOrig[NOX_FILEPATH_MAX] = { 0 };
-	char dirLower[NOX_FILEPATH_MAX] = { 0 };
+	char dirOrig[NOX_FILEPATH_MAX] = {0};
+	char dirLower[NOX_FILEPATH_MAX] = {0};
 	char* unparsedLeft = unparsedPath;
 	char* token = strchr(unparsedLeft, '/');
 	if (token != NULL) {
@@ -71,7 +69,7 @@ char* dos_to_unix_recurse_paths(char* currentPath, char* unparsedPath) {
 	DIR* d = opendir(currentPath[0] == 0 ? "/" : currentPath);
 	if (!d) {
 		printf("Opendir errno: %d\n", errno);
-		//abort();
+		// abort();
 		// If we couldn't open the directory, just assume it's correct - this might be access errors in root paths
 		char temp[NOX_FILEPATH_MAX];
 		sprintf(temp, "%s/%s", currentPath, dirOrig);
@@ -80,8 +78,8 @@ char* dos_to_unix_recurse_paths(char* currentPath, char* unparsedPath) {
 	}
 
 	struct dirent* dir;
-	char foundExactCase[NOX_FILEPATH_MAX] = { 0 };
-	char foundAnyCase[NOX_FILEPATH_MAX] = { 0 };
+	char foundExactCase[NOX_FILEPATH_MAX] = {0};
+	char foundAnyCase[NOX_FILEPATH_MAX] = {0};
 
 	while ((dir = readdir(d)) != NULL) {
 		int i;
@@ -102,7 +100,7 @@ char* dos_to_unix_recurse_paths(char* currentPath, char* unparsedPath) {
 		}
 
 		// And then we try to match whatever left, by lowercasing whatever we got
-		char buf[NOX_FILEPATH_MAX] = { 0 };
+		char buf[NOX_FILEPATH_MAX] = {0};
 		for (i = 0; dir->d_name[i]; i++) {
 			buf[i] = tolower(dir->d_name[i]);
 		}
@@ -131,7 +129,8 @@ char* dos_to_unix_recurse_paths(char* currentPath, char* unparsedPath) {
 		sprintf(temp, "%s/%s", currentPath, foundAnyCase);
 		strcpy(currentPath, temp);
 #ifdef DOS2UNIX_LOGGING
-		printf("dos2unix: file %s not found in lower or exact case, returning any other found case %s\n", dirOrig, foundAnyCase);
+		printf("dos2unix: file %s not found in lower or exact case, returning any other found case %s\n", dirOrig,
+			   foundAnyCase);
 #endif
 		return dos_to_unix_recurse_paths(currentPath, unparsedLeft);
 	}
@@ -157,14 +156,14 @@ char* dos_to_unix_recurse_paths(char* currentPath, char* unparsedPath) {
 char* nox_fs_normalize(const char* path) {
 	int i, len = strlen(path);
 
-	//printf("dos2unix: accessing file %s\n", path);
+	// printf("dos2unix: accessing file %s\n", path);
 
 	if (path[0] == 'C' && path[1] == ':')
 		path += 2;
 
 	// Let's first convert relative paths into full paths
 	char cwd[NOX_FILEPATH_MAX];
-	getcwd(cwd, NOX_FILEPATH_MAX-1);
+	getcwd(cwd, NOX_FILEPATH_MAX - 1);
 	bool isInCwd = false;
 
 	char* str = calloc(len + strlen(cwd) + 10, 1);
@@ -292,9 +291,7 @@ char* nox_fs_normalize(const char* path) {
 #endif // _WIN32
 
 char* progname = "nox";
-void nox_fs_set_progname(const char* name) {
-	progname = name;
-}
+void nox_fs_set_progname(const char* name) { progname = name; }
 void nox_fs_progname(char* dst, int max) {
 	strcpy(dst, progname);
 
@@ -314,7 +311,7 @@ bool nox_fs_workdir(char* dst, int max) {
 		}
 	}
 	return true;
-#else // _WIN32
+#else  // _WIN32
 	return GetCurrentDirectoryA(max, dst);
 #endif // _WIN32
 }
@@ -326,7 +323,7 @@ bool nox_fs_set_workdir(const char* path) {
 	// printf("%s: %s = %08x\n", __FUNCTION__, converted, (int)result);
 	free(converted);
 	return res == 0;
-#else // _WIN32
+#else  // _WIN32
 	return SetCurrentDirectoryA(path);
 #endif // _WIN32
 }
@@ -336,7 +333,7 @@ bool nox_fs_mkdir(const char* path) {
 	char* converted = nox_fs_normalize(path);
 	int res = mkdir(converted, 0777);
 	free(converted);
-#else // _WIN32
+#else  // _WIN32
 	int res = _mkdir(path);
 #endif // _WIN32
 	if (res != 0 && errno == EEXIST) {
@@ -351,7 +348,7 @@ bool nox_fs_remove(const char* path) {
 	int res = unlink(converted);
 	free(converted);
 	return res == 0;
-#else // _WIN32
+#else  // _WIN32
 	return _unlink(path);
 #endif // _WIN32
 }
@@ -362,7 +359,7 @@ bool nox_fs_remove_dir(const char* path) {
 	int res = rmdir(converted);
 	free(converted);
 	return res == 0;
-#else // _WIN32
+#else  // _WIN32
 	return RemoveDirectoryA(path);
 #endif // _WIN32
 }
@@ -374,38 +371,24 @@ FILE* __nox_fs_fopen(const char* path, const char* mode) {
 	// printf("%s: %s = %08x\n", __FUNCTION__, converted, (int)result);
 	free(converted);
 	return f;
-#else // _WIN32
+#else  // _WIN32
 	return fopen(path, mode);
 #endif // _WIN32
 }
 
-FILE* nox_fs_open(const char* path) {
-	return __nox_fs_fopen(path, "rb");
-}
+FILE* nox_fs_open(const char* path) { return __nox_fs_fopen(path, "rb"); }
 
-FILE* nox_fs_open_text(const char* path) {
-	return __nox_fs_fopen(path, "r");
-}
+FILE* nox_fs_open_text(const char* path) { return __nox_fs_fopen(path, "r"); }
 
-FILE* nox_fs_create(const char* path) {
-	return __nox_fs_fopen(path, "wb");
-}
+FILE* nox_fs_create(const char* path) { return __nox_fs_fopen(path, "wb"); }
 
-FILE* nox_fs_create_text(const char* path) {
-	return __nox_fs_fopen(path, "w");
-}
+FILE* nox_fs_create_text(const char* path) { return __nox_fs_fopen(path, "w"); }
 
-FILE* nox_fs_open_rw(const char* path) {
-	return __nox_fs_fopen(path, "r+b");
-}
+FILE* nox_fs_open_rw(const char* path) { return __nox_fs_fopen(path, "r+b"); }
 
-FILE* nox_fs_create_rw(const char* path) {
-	return __nox_fs_fopen(path, "w+b");
-}
+FILE* nox_fs_create_rw(const char* path) { return __nox_fs_fopen(path, "w+b"); }
 
-FILE* nox_fs_append_text(const char* path) {
-	return __nox_fs_fopen(path, "w");
-}
+FILE* nox_fs_append_text(const char* path) { return __nox_fs_fopen(path, "w"); }
 
 bool nox_fs_copy(const char* src, const char* dst) {
 #ifndef _WIN32
@@ -433,26 +416,18 @@ bool nox_fs_copy(const char* src, const char* dst) {
 	fclose(rfd);
 	fclose(wfd);
 	return 1;
-#else // _WIN32
+#else  // _WIN32
 	return CopyFileA(src, dst, 0);
 #endif // _WIN32
 }
 
-int nox_fs_fread(FILE* f, void* dst, int sz) {
-	return fread(dst, 1, sz, f);
-}
+int nox_fs_fread(FILE* f, void* dst, int sz) { return fread(dst, 1, sz, f); }
 
-int nox_fs_fwrite(FILE* f, void* dst, int sz) {
-	return fwrite(dst, 1, sz, f);
-}
+int nox_fs_fwrite(FILE* f, void* dst, int sz) { return fwrite(dst, 1, sz, f); }
 
-int nox_fs_fseek(FILE* f, long off, int mode) {
-	return fseek(f, off, mode);
-}
+int nox_fs_fseek(FILE* f, long off, int mode) { return fseek(f, off, mode); }
 
-long nox_fs_ftell(FILE* f) {
-	return ftell(f);
-}
+long nox_fs_ftell(FILE* f) { return ftell(f); }
 
 long nox_fs_fsize(FILE* f) {
 	long cur = ftell(f);
@@ -462,13 +437,9 @@ long nox_fs_fsize(FILE* f) {
 	return size;
 }
 
-void nox_fs_close(FILE* f) {
-	fclose(f);
-}
+void nox_fs_close(FILE* f) { fclose(f); }
 
-void nox_fs_flush(FILE* f) {
-	fflush(f);
-}
+void nox_fs_flush(FILE* f) { fflush(f); }
 
 bool nox_fs_move(const char* src, const char* dst) {
 	printf("%s\n", __FUNCTION__);
@@ -488,17 +459,11 @@ bool nox_fs_fgets(FILE* stream, char* str, int size) {
 	return out;
 }
 
-int nox_fs_fgetc(FILE* f) {
-	return fgetc(f);
-}
+int nox_fs_fgetc(FILE* f) { return fgetc(f); }
 
-int nox_fs_fputs(FILE* f, const char* str) {
-	return fputs(str, f);
-}
+int nox_fs_fputs(FILE* f, const char* str) { return fputs(str, f); }
 
-bool nox_fs_feof(FILE* f) {
-	return feof(f) != 0;
-}
+bool nox_fs_feof(FILE* f) { return feof(f) != 0; }
 
 //----- (00413BD0) --------------------------------------------------------
 int nox_fs_fputs_sync(FILE* f, const char* str) {

@@ -1,10 +1,10 @@
 #include "client__system__npcinfo.h"
 
-#include "common__random.h"
 #include "GAME4.h"
+#include "common__random.h"
 
 //----- (0049A4B0) --------------------------------------------------------
-int  nox_xxx_spriteNPCInfo_49A4B0(uint32_t* a1, int a2, int a3) {
+int nox_xxx_spriteNPCInfo_49A4B0(uint32_t* a1, int a2, int a3) {
 	int result; // eax
 	int v4;     // ecx
 
@@ -19,7 +19,7 @@ int  nox_xxx_spriteNPCInfo_49A4B0(uint32_t* a1, int a2, int a3) {
 		if (!(a2 & 0xFFFFFFFC)) {
 			if (!result || !a1[77]) {
 				result = nox_common_randomIntMinMax_415FF0(23, 24, "C:\\NoxPost\\src\\client\\System\\NPCInfo.c", 286);
-}
+			}
 			goto LABEL_12;
 		}
 		result = sub_4FA280(a2 & 0xFFFFFFFC);
@@ -39,7 +39,7 @@ int  nox_xxx_spriteNPCInfo_49A4B0(uint32_t* a1, int a2, int a3) {
 		} else {
 			if (!(a3 & 0x3000000)) {
 				goto LABEL_22;
-}
+			}
 			result = 40;
 		}
 		break;

@@ -3,7 +3,6 @@
 
 #include "defs.h"
 
-
 void nullsub_2();
 int sub_42CC50(void** this);
 void nullsub_33(uint32_t a1, uint32_t a2, uint32_t a3);

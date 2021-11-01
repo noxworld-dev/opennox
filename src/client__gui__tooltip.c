@@ -11,12 +11,12 @@
 #include "operators.h"
 
 //----- (004BF050) --------------------------------------------------------
-wchar_t*  nox_xxx_clientAskInfoMb_4BF050(nox_drawable* a1p) {
+wchar_t* nox_xxx_clientAskInfoMb_4BF050(nox_drawable* a1p) {
 	wchar_t* a1 = a1p;
 	int* v1;            // esi
 	int v2;             // eax
 	const wchar_t* v3;  // ebx
-	uint32_t* v4;         // eax
+	uint32_t* v4;       // eax
 	wchar_t* v5;        // eax
 	wchar_t* result;    // eax
 	int v7;             // edx
@@ -54,14 +54,14 @@ wchar_t*  nox_xxx_clientAskInfoMb_4BF050(nox_drawable* a1p) {
 	v1 = (int*)a1;
 	if (!a1) {
 		return (wchar_t*)getMemAt(0x5D4594, 1317000);
-}
+	}
 	v2 = *((uint32_t*)a1 + 28);
 	if (!(v2 & 0x13001000)) {
 		if (!(v2 & 0x100)) {
 			result = (wchar_t*)nox_get_thing_pretty_name(*((uint32_t*)a1 + 27));
 			if (result) {
 				return result;
-}
+			}
 			return (wchar_t*)getMemAt(0x5D4594, 1317000);
 		}
 		v18 = *((uint32_t*)a1 + 29);
@@ -77,8 +77,7 @@ wchar_t*  nox_xxx_clientAskInfoMb_4BF050(nox_drawable* a1p) {
 			}
 			if (v19 != 137) {
 				if (nox_strman_get_lang_code() != 6) {
-					v22 = nox_strman_loadString_40F1D0("BookOf", 0,
-												"C:\\NoxPost\\src\\client\\Gui\\ToolTip.c", 292);
+					v22 = nox_strman_loadString_40F1D0("BookOf", 0, "C:\\NoxPost\\src\\client\\Gui\\ToolTip.c", 292);
 					nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1317000), L"%s ", v22);
 					v23 = (const wchar_t*)nox_xxx_spellTitle_424930(v1[108]);
 					nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), v23);
@@ -87,8 +86,7 @@ wchar_t*  nox_xxx_clientAskInfoMb_4BF050(nox_drawable* a1p) {
 				v20 = (const wchar_t*)nox_xxx_spellTitle_424930(v1[108]);
 				nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), v20);
 				nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), L" ");
-				v21 = nox_strman_loadString_40F1D0("BookOf", 0, "C:\\NoxPost\\src\\client\\Gui\\ToolTip.c",
-											288);
+				v21 = nox_strman_loadString_40F1D0("BookOf", 0, "C:\\NoxPost\\src\\client\\Gui\\ToolTip.c", 288);
 				goto LABEL_90;
 			}
 			return (wchar_t*)getMemAt(0x5D4594, 1317000);
@@ -104,10 +102,9 @@ wchar_t*  nox_xxx_clientAskInfoMb_4BF050(nox_drawable* a1p) {
 			}
 			if (v24 == 41) {
 				return (wchar_t*)getMemAt(0x5D4594, 1317000);
-}
+			}
 			if (nox_strman_get_lang_code() == 3 || nox_strman_get_lang_code() == 5) {
-				v27 = nox_strman_loadString_40F1D0("LoreScroll", 0, "C:\\NoxPost\\src\\client\\Gui\\ToolTip.c",
-											313);
+				v27 = nox_strman_loadString_40F1D0("LoreScroll", 0, "C:\\NoxPost\\src\\client\\Gui\\ToolTip.c", 313);
 				nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), v27);
 				nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), L" ");
 				v28 = (const wchar_t*)nox_xxx_guiCreatureGetName_427240(v1[108]);
@@ -115,8 +112,7 @@ wchar_t*  nox_xxx_clientAskInfoMb_4BF050(nox_drawable* a1p) {
 			} else {
 				v25 = nox_xxx_guiCreatureGetName_427240(v1[108]);
 				nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1317000), L"%s ", v25);
-				v26 = nox_strman_loadString_40F1D0("LoreScroll", 0, "C:\\NoxPost\\src\\client\\Gui\\ToolTip.c",
-											320);
+				v26 = nox_strman_loadString_40F1D0("LoreScroll", 0, "C:\\NoxPost\\src\\client\\Gui\\ToolTip.c", 320);
 				nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), v26);
 			}
 		} else if (v18 & 4) {
@@ -130,19 +126,17 @@ wchar_t*  nox_xxx_clientAskInfoMb_4BF050(nox_drawable* a1p) {
 			}
 			if (v29 == 6) {
 				return (wchar_t*)getMemAt(0x5D4594, 1317000);
-}
+			}
 			if (nox_strman_get_lang_code() == 6) {
 				v30 = (const wchar_t*)nox_xxx_abilityGetName_0_425260(v1[108]);
 				nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), v30);
 				nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), L" ");
-				v21 = nox_strman_loadString_40F1D0("BookOf", 0, "C:\\NoxPost\\src\\client\\Gui\\ToolTip.c",
-											342);
+				v21 = nox_strman_loadString_40F1D0("BookOf", 0, "C:\\NoxPost\\src\\client\\Gui\\ToolTip.c", 342);
 			LABEL_90:
 				nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), v21);
 				goto LABEL_93;
 			}
-			v31 =
-				nox_strman_loadString_40F1D0("BookOf", 0, "C:\\NoxPost\\src\\client\\Gui\\ToolTip.c", 346);
+			v31 = nox_strman_loadString_40F1D0("BookOf", 0, "C:\\NoxPost\\src\\client\\Gui\\ToolTip.c", 346);
 			nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1317000), L"%s ", v31);
 			v32 = (const wchar_t*)nox_xxx_abilityGetName_0_425260(v1[108]);
 			nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), v32);
@@ -150,7 +144,7 @@ wchar_t*  nox_xxx_clientAskInfoMb_4BF050(nox_drawable* a1p) {
 			result = (wchar_t*)nox_get_thing_pretty_name(v1[27]);
 			if (result) {
 				return result;
-}
+			}
 		}
 	LABEL_93:
 		if ((uint8_t)a1 != (uint8_t)-13) {
@@ -167,7 +161,7 @@ wchar_t*  nox_xxx_clientAskInfoMb_4BF050(nox_drawable* a1p) {
 		v4 = nox_xxx_getProjectileClassById_413250(v1[27]);
 	} else {
 		v4 = nox_xxx_equipClothFindDefByTT_413270(v1[27]);
-}
+	}
 	if (v4) {
 		v7 = v1[28] & 0x1000000;
 		if (!v7 || v7 == 0x1000000 && !(v1[29] & 0x7800000)) {
@@ -176,14 +170,14 @@ wchar_t*  nox_xxx_clientAskInfoMb_4BF050(nox_drawable* a1p) {
 				v9 = *(const wchar_t**)(v8 + 8);
 				if (v9) {
 					v3 = v9;
-}
+				}
 			}
 			v10 = v1[109];
 			if (v10) {
 				v11 = *(wchar_t**)(v10 + 8);
 				if (v11) {
 					v34 = v11;
-}
+				}
 			}
 		}
 		v12 = (const wchar_t*)v4[2];
@@ -193,14 +187,14 @@ wchar_t*  nox_xxx_clientAskInfoMb_4BF050(nox_drawable* a1p) {
 				v14 = *(wchar_t**)(v13 + 8);
 				if (v14) {
 					v35 = v14;
-}
+				}
 			}
 			v15 = v1[111];
 			if (v15) {
 				v16 = *(wchar_t**)(v15 + 12);
 				if (v16) {
 					a1 = v16;
-}
+				}
 			}
 		}
 		switch (nox_strman_get_lang_code()) {
@@ -221,7 +215,7 @@ wchar_t*  nox_xxx_clientAskInfoMb_4BF050(nox_drawable* a1p) {
 			}
 			if (!v3) {
 				return (wchar_t*)getMemAt(0x5D4594, 1317000);
-}
+			}
 			nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), L" ");
 			nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), v3);
 			result = (wchar_t*)getMemAt(0x5D4594, 1317000);
@@ -242,7 +236,7 @@ wchar_t*  nox_xxx_clientAskInfoMb_4BF050(nox_drawable* a1p) {
 			}
 			if (!a1) {
 				return (wchar_t*)getMemAt(0x5D4594, 1317000);
-}
+			}
 			nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), L" ");
 			goto LABEL_67;
 		case 5:
@@ -261,7 +255,7 @@ wchar_t*  nox_xxx_clientAskInfoMb_4BF050(nox_drawable* a1p) {
 			}
 			if (!a1) {
 				return (wchar_t*)getMemAt(0x5D4594, 1317000);
-}
+			}
 			nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), L" ");
 			nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), a1);
 			result = (wchar_t*)getMemAt(0x5D4594, 1317000);
@@ -302,7 +296,7 @@ wchar_t*  nox_xxx_clientAskInfoMb_4BF050(nox_drawable* a1p) {
 			}
 			if (!a1) {
 				return (wchar_t*)getMemAt(0x5D4594, 1317000);
-}
+			}
 			nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), L" ");
 		LABEL_67:
 			nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1317000), a1);

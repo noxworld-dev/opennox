@@ -1,6 +1,7 @@
+#include "GAME_data_init.h"
 #include "GAME1.h"
-#include "GAME1_2.h"
 #include "GAME1_1.h"
+#include "GAME1_2.h"
 #include "GAME1_3.h"
 #include "GAME2.h"
 #include "GAME2_1.h"
@@ -14,7 +15,6 @@
 #include "GAME4_3.h"
 #include "GAME5.h"
 #include "GAME5_2.h"
-#include "GAME_data_init.h"
 #include "client__shell__wolapi__wolchat.h"
 #include "client__system__parsecmd.h"
 #include "common__object__modifier.h"
@@ -27,9 +27,9 @@
 
 #include "client__draw__animdraw.h"
 #include "client__draw__canidraw.h"
-#include "client__draw__vectdraw.h"
 #include "client__draw__slavedraw.h"
 #include "client__draw__staticdraw.h"
+#include "client__draw__vectdraw.h"
 #include "client__drawable__update__dball.h"
 #include "client__drawable__update__drainup.h"
 #include "client__drawable__update__healup.h"
@@ -40,9 +40,9 @@
 #include "client__drawable__update__telwake.h"
 #include "client__drawable__update__vortexup.h"
 
+#include "MixPatch.h"
 #include "defs.h"
 #include "server__script__script.h"
-#include "MixPatch.h"
 
 void nox_xxx_unknown_libname_86_57F634() {}
 void nullsub_45() {}
@@ -82,7 +82,6 @@ void init_data() {
 #if 0
 	*(void**)getMemAt(0x587000, 32600) = getMemAt(0x5D4594, 338468);
 #endif
-
 
 #if 0
     * (void**)getMemAt(0x581450, 4) = &sub_401F81;

@@ -3,7 +3,6 @@
 
 #include "defs.h"
 
-
 int sub_475F10(nox_draw_viewport_t* a1p);
 int sub_475FE0(nox_draw_viewport_t* a1p);
 int sub_476080(unsigned char* a1);
@@ -129,7 +128,8 @@ void sub_480860(uint16_t* a1, uint16_t* a2, int a3, int* a4, int* a5);
 int sub_480950(int* a1, int* a2, int a3, int a4, int a5);
 void sub_480BE0(uint32_t* a1, int* a2, int a3, int a4, int a5);
 uint16_t* sub_480EB0(uint16_t* a1, short* a2, int a3);
-int* nox_xxx_someEdgeProcessing_480EF0(int a1, int a2, int a3, int* a4, int* a5, int a6, int a7, int a8, int a9, int a10);
+int* nox_xxx_someEdgeProcessing_480EF0(int a1, int a2, int a3, int* a4, int* a5, int a6, int a7, int a8, int a9,
+									   int a10);
 void sub_481410();
 int nox_xxx_tileSetDrawFn_481420();
 int sub_4814F0(nox_point* a1);
@@ -287,6 +287,6 @@ void sub_48C170(int4* a1, int4* a2);
 char sub_48C420();
 short sub_48C480();
 
-int nox_xxx_unused_487A70(uint32_t* a1, int(* a2)(char*));
+int nox_xxx_unused_487A70(uint32_t* a1, int (*a2)(char*));
 
 #endif // NOX_PORT_GAME2_2

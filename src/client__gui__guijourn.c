@@ -40,19 +40,19 @@ void nox_xxx_cliBuildJournalString_469BC0() {
 				if (v6) {
 					if (v6 == 4) {
 						v8 = nox_strman_loadString_40F1D0("Journal:HintLabel", 0,
-												   "C:\\NoxPost\\src\\client\\Gui\\GUIJourn.c", 64);
+														  "C:\\NoxPost\\src\\client\\Gui\\GUIJourn.c", 64);
 						nox_wcscpy(v14, v8);
 					} else {
 						v14[0] = 0;
 					}
 				} else {
 					v9 = nox_strman_loadString_40F1D0("Journal:CompletedLabel", 0,
-											   "C:\\NoxPost\\src\\client\\Gui\\GUIJourn.c", 60);
+													  "C:\\NoxPost\\src\\client\\Gui\\GUIJourn.c", 60);
 					nox_wcscpy(v14, v9);
 				}
 			} else {
 				v10 = nox_strman_loadString_40F1D0("Journal:QuestLabel", 0, "C:\\NoxPost\\src\\client\\Gui\\GUIJourn.c",
-											56);
+												   56);
 				nox_wcscpy(v14, v10);
 			}
 			nox_wcscat(v14, L" ");
@@ -66,7 +66,7 @@ void nox_xxx_cliBuildJournalString_469BC0() {
 }
 
 //----- (00469D40) --------------------------------------------------------
-void  nox_xxx_guiDrawJournal_469D40(int xLeft, int yTop, int a3) {
+void nox_xxx_guiDrawJournal_469D40(int xLeft, int yTop, int a3) {
 	int v3;            // esi
 	int v4;            // ebp
 	int v5;            // ebx
@@ -92,7 +92,7 @@ void  nox_xxx_guiDrawJournal_469D40(int xLeft, int yTop, int a3) {
 		if (v5) {
 			for (i = *(uint32_t*)(v5 + 64); i; i = *(uint32_t*)(i + 64)) {
 				v5 = i;
-}
+			}
 			v14 = nox_xxx_guiFontHeightMB_43F320(0);
 			do {
 				HIWORD(v7) = 0;
@@ -106,19 +106,19 @@ void  nox_xxx_guiDrawJournal_469D40(int xLeft, int yTop, int a3) {
 				case 2:
 					v8 = *getMemU32Ptr(0x85B3FC, 940);
 					v9 = nox_strman_loadString_40F1D0("Journal:QuestLabel", 0,
-											   "C:\\NoxPost\\src\\client\\Gui\\GUIJourn.c", 135);
+													  "C:\\NoxPost\\src\\client\\Gui\\GUIJourn.c", 135);
 					nox_wcscpy(v17, v9);
 					break;
 				case 4:
 					v8 = *getMemU32Ptr(0x85B3FC, 956);
 					v10 = nox_strman_loadString_40F1D0("Journal:CompletedLabel", 0,
-												"C:\\NoxPost\\src\\client\\Gui\\GUIJourn.c", 140);
+													   "C:\\NoxPost\\src\\client\\Gui\\GUIJourn.c", 140);
 					nox_wcscpy(v17, v10);
 					break;
 				case 8:
 					v8 = *getMemU32Ptr(0x5D4594, 2589772);
 					v11 = nox_strman_loadString_40F1D0("Journal:HintLabel", 0,
-												"C:\\NoxPost\\src\\client\\Gui\\GUIJourn.c", 145);
+													   "C:\\NoxPost\\src\\client\\Gui\\GUIJourn.c", 145);
 					nox_wcscpy(v17, v11);
 					break;
 				default:
@@ -139,7 +139,7 @@ void  nox_xxx_guiDrawJournal_469D40(int xLeft, int yTop, int a3) {
 				v4 = v13 + v14;
 				if (v13 + v14 > yTop + 150) {
 					break;
-}
+				}
 				v5 = *(uint32_t*)(v5 + 68);
 			} while (v5);
 		}

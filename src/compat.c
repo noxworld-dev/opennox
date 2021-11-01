@@ -1,9 +1,20 @@
 #ifndef _WIN32
 
+#include "GAME1.h"
+#include "GAME1_1.h"
+#include "GAME1_3.h"
+#include "GAME2.h"
+#include "GAME2_2.h"
+#include "GAME2_3.h"
+#include "GAME3.h"
+#include "GAME3_3.h"
+#include "GAME4.h"
+#include "GAME4_1.h"
+#include "GAME5_2.h"
 #include "cdrom.h"
-#include "client__drawable__drawdb.h"
 #include "client__draw__fx.h"
 #include "client__draw__image.h"
+#include "client__drawable__drawdb.h"
 #include "client__gui__guiinv.h"
 #include "client__gui__guimeter.h"
 #include "client__gui__guishop.h"
@@ -19,19 +30,8 @@
 #include "common__config.h"
 #include "common__magic__speltree.h"
 #include "defs.h"
-#include "GAME1_1.h"
-#include "GAME1_3.h"
-#include "GAME1.h"
-#include "GAME2_2.h"
-#include "GAME2_3.h"
-#include "GAME2.h"
-#include "GAME3_3.h"
-#include "GAME3.h"
-#include "GAME4_1.h"
-#include "GAME4.h"
-#include "GAME5_2.h"
-#include "input_common.h"
 #include "input.h"
+#include "input_common.h"
 #include "movie.h"
 #include "server__network__mapsend.h"
 #include "server__script__builtin.h"
@@ -41,16 +41,16 @@
 #include "win.h"
 
 #include <ctype.h>
+#include <errno.h>
 #include <fcntl.h>
 #include <fenv.h>
 #include <glob.h>
 #include <stdio.h>
 #include <sys/ioctl.h>
 #include <sys/time.h>
+#include <time.h>
 #include <unistd.h>
 #include <wctype.h>
-#include <errno.h>
-#include <time.h>
 
 #include "common/fs/nox_fs.h"
 
@@ -122,28 +122,28 @@ unsigned int _controlfp(unsigned int new_, unsigned int mask) {
 }
 
 typedef struct {
-    void(* start_address)(void*);
-    void* arglist;
+	void (*start_address)(void*);
+	void* arglist;
 } thread_arg_wrapper;
 
 // thread_start_wrapper correctly converts WinAPI callback function signature to pthread callback signature.
 void* thread_start_wrapper(void* arglist) {
-    thread_arg_wrapper* arg = arglist;
-    arglist = arg->arglist;
-    void(* start_address)(void*) = arg->start_address;
-    free(arg);
-    start_address(arglist);
-    return 0;
+	thread_arg_wrapper* arg = arglist;
+	arglist = arg->arglist;
+	void (*start_address)(void*) = arg->start_address;
+	free(arg);
+	start_address(arglist);
+	return 0;
 }
 
-uintptr_t _beginthread(void(* start_address)(void*), unsigned int stack_size, void* arglist) {
+uintptr_t _beginthread(void (*start_address)(void*), unsigned int stack_size, void* arglist) {
 #ifdef __EMSCRIPTEN__
 	fprintf(stderr, "%s: unsupported\n");
 	while (1) {
 	}
 #endif
 	printf("thread start\n");
-    thread_arg_wrapper* arg = (thread_arg_wrapper*)malloc(sizeof(thread_arg_wrapper));
+	thread_arg_wrapper* arg = (thread_arg_wrapper*)malloc(sizeof(thread_arg_wrapper));
 	arg->start_address = start_address;
 	arg->arglist = arglist;
 
@@ -173,22 +173,14 @@ char* _strrev(char* str) {
 }
 
 #ifndef NOX_CGO
-char* _itoa(int val, char* s, int radix) {
-	return SDL_itoa(val, s, radix);
-}
+char* _itoa(int val, char* s, int radix) { return SDL_itoa(val, s, radix); }
 
-char* _utoa(unsigned int val, char* s, int radix) {
-	return SDL_uitoa(val, s, radix);
-}
-#else // NOX_CGO
+char* _utoa(unsigned int val, char* s, int radix) { return SDL_uitoa(val, s, radix); }
+#else  // NOX_CGO
 char* nox_itoa(int val, char* s, int radix);
 char* nox_utoa(int val, char* s, int radix);
-char* _itoa(int val, char* s, int radix) {
-	return nox_itoa(val, s, radix);
-}
-char* _utoa(unsigned int val, char* s, int radix) {
-	return nox_utoa(val, s, radix);
-}
+char* _itoa(int val, char* s, int radix) { return nox_itoa(val, s, radix); }
+char* _utoa(unsigned int val, char* s, int radix) { return nox_utoa(val, s, radix); }
 #endif // NOX_CGO
 
 wchar_t* _itow(int val, wchar_t* s, int radix) {
@@ -302,14 +294,14 @@ int MulDiv(int nNumber, int nNumerator, int nDenominator) {
 	return 0;
 }
 
-HINSTANCE ShellExecuteA(HWND hwnd, const char* lpOperation, const char* lpFile, const char* lpParameters, const char* lpDirectory,
-							   int nShowCmd) {
+HINSTANCE ShellExecuteA(HWND hwnd, const char* lpOperation, const char* lpFile, const char* lpParameters,
+						const char* lpDirectory, int nShowCmd) {
 	abort();
 	return 0;
 }
 
 int WideCharToMultiByte(unsigned int CodePage, uint32_t dwFlags, const wchar_t* lpWideCharStr, int cchWideChar,
-							   char* lpMultiByteStr, int cbMultiByte, const char* lpDefaultChar, int* lpUsedDefaultChar) {
+						char* lpMultiByteStr, int cbMultiByte, const char* lpDefaultChar, int* lpUsedDefaultChar) {
 	abort();
 	return 0;
 }
@@ -343,7 +335,7 @@ void build_server_info(void* arg) {
 // compatGetDateFormatA(Locale=2048, dwFlags=1, lpDate=0x1708c6a4, lpFormat=0x00000000, lpDateStr="nox.str:Warrior",
 // cchDate=256) at compat.c:1001
 int GetDateFormatA(LCID Locale, uint32_t dwFlags, const SYSTEMTIME* lpDate, const char* lpFormat, char* lpDateStr,
-						  int cchDate) {
+				   int cchDate) {
 	if (Locale != 0x800 || dwFlags != 1 || lpFormat)
 		abort();
 
@@ -352,7 +344,7 @@ int GetDateFormatA(LCID Locale, uint32_t dwFlags, const SYSTEMTIME* lpDate, cons
 }
 
 int GetTimeFormatA(LCID Locale, uint32_t dwFlags, const SYSTEMTIME* lpTime, const char* lpFormat, char* lpTimeStr,
-						  int cchTime) {
+				   int cchTime) {
 	if (Locale != 0x800 || dwFlags != 14 || lpFormat)
 		abort();
 
@@ -546,8 +538,8 @@ int _stat(const char* path, struct _stat* buffer) {
 
 // Registry functions
 int RegCreateKeyExA(HKEY hKey, const char* lpSubKey, uint32_t Reserved, char* lpClass, uint32_t dwOptions,
-							   REGSAM samDesired, const LPSECURITY_ATTRIBUTES lpSecurityAttributes, PHKEY phkResult,
-							   uint32_t* lpdwDisposition) {
+					REGSAM samDesired, const LPSECURITY_ATTRIBUTES lpSecurityAttributes, PHKEY phkResult,
+					uint32_t* lpdwDisposition) {
 	abort();
 	return 0;
 }
@@ -569,7 +561,7 @@ int RegOpenKeyExA(HKEY hKey, const char* lpSubKey, uint32_t ulOptions, REGSAM sa
 }
 
 int RegQueryValueExA(HKEY hKey, const char* lpValueName, uint32_t* lpReserved, uint32_t* lpType, uint8_t* lpData,
-								uint32_t* lpcbData) {
+					 uint32_t* lpcbData) {
 	_dprintf("%s: key=\"%s\", value=\"%s\"", __FUNCTION__, hKey->path, lpValueName);
 
 	if (strcmp(hKey->path, "HKEY_LOCAL_MACHINE\\SOFTWARE\\Westwood\\Nox") == 0 && strcmp(lpValueName, "Serial") == 0) {
@@ -585,7 +577,7 @@ int RegQueryValueExA(HKEY hKey, const char* lpValueName, uint32_t* lpReserved, u
 }
 
 int RegSetValueExA(HKEY hKey, const char* lpValueName, uint32_t Reserved, uint32_t dwType, const uint8_t* lpData,
-							  uint32_t cbData) {
+				   uint32_t cbData) {
 	abort();
 	return 0;
 }

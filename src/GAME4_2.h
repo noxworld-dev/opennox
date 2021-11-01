@@ -3,7 +3,6 @@
 
 #include "defs.h"
 
-
 int sub_51DA70(int a1, int a2, int a3, int a4, int a5);
 void sub_51DD50(int a1, int a2, int a3, int a4);
 int sub_51DE30(uint32_t* a1, uint32_t* a2, uint32_t* a3);
@@ -340,6 +339,5 @@ int sub_52F670(int a1);
 char nox_xxx_unitShield_52F690(int a1, int a2);
 void nox_xxx_unitShieldReduceDamage_52F710(int a1, int* a2, int a3, int a4);
 int nox_xxx_onStartLightning_52F820(int a1);
-
 
 #endif // NOX_PORT_GAME4_2

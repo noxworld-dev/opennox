@@ -1,30 +1,30 @@
 #include "client__draw__mgendraw.h"
-#include "common__random.h"
 #include "GAME3_1.h"
+#include "common__random.h"
 #include "operators.h"
 
 extern unsigned int nox_frame_xxx_2598000;
 //----- (004BC750) --------------------------------------------------------
-int  nox_thing_monster_gen_draw(int* a1, nox_drawable* dr) {
-	int v2;               // esi
-	int v3;               // eax
-	int v4;               // edi
-	int v5;               // eax
-	int v6;               // ebx
-	int v7;               // eax
-	int v8;               // ecx
-	unsigned int v9;      // ecx
-	int v10;              // ebp
-	int v11;              // ebp
-	int v12;              // ecx
-	int v13;              // eax
-	signed int v14;       // ecx
-	signed int v15;       // eax
-	int v16;              // eax
-	int v17;              // eax
-	int result;           // eax
+int nox_thing_monster_gen_draw(int* a1, nox_drawable* dr) {
+	int v2;             // esi
+	int v3;             // eax
+	int v4;             // edi
+	int v5;             // eax
+	int v6;             // ebx
+	int v7;             // eax
+	int v8;             // ecx
+	unsigned int v9;    // ecx
+	int v10;            // ebp
+	int v11;            // ebp
+	int v12;            // ecx
+	int v13;            // eax
+	signed int v14;     // ecx
+	signed int v15;     // eax
+	int v16;            // eax
+	int v17;            // eax
+	int result;         // eax
 	unsigned char* v19; // [esp+10h] [ebp-8h]
-	int v20;              // [esp+14h] [ebp-4h]
+	int v20;            // [esp+14h] [ebp-4h]
 	unsigned char* v21; // [esp+20h] [ebp+8h]
 
 	v2 = dr;
@@ -46,11 +46,10 @@ int  nox_thing_monster_gen_draw(int* a1, nox_drawable* dr) {
 		v7 = v5 + v4 + 29;
 		goto LABEL_12;
 	case 2:
-		v7 = (nox_frame_xxx_2598000 + *(unsigned int*)(v2 + 128)) /
-			 ((unsigned int)*(unsigned char*)(v5 + v4 + 29) + 1);
+		v7 = (nox_frame_xxx_2598000 + *(unsigned int*)(v2 + 128)) / ((unsigned int)*(unsigned char*)(v5 + v4 + 29) + 1);
 		if (v7 >= v6) {
 			v7 %= v6;
-}
+		}
 		goto LABEL_12;
 	case 4:
 		v7 = nox_common_randomIntMinMax_415FF0(0, v6, "C:\\NoxPost\\src\\client\\Draw\\MGenDraw.c", 86);
@@ -70,10 +69,10 @@ int  nox_thing_monster_gen_draw(int* a1, nox_drawable* dr) {
 			v7 = ((*v21 + 1) * (unsigned int)*v19 - v10) / ((unsigned int)*v21 + 1);
 			if (v7 >= v6) {
 				v7 = v6 - 1;
-}
+			}
 			if (v7 < 0) {
 				v7 = 0;
-}
+			}
 			v11 = v10 - 1;
 			*(unsigned int*)(v2 + 432) = v11;
 			if (!v11) {
@@ -86,12 +85,12 @@ int  nox_thing_monster_gen_draw(int* a1, nox_drawable* dr) {
 		v13 = *(unsigned int*)(v2 + 280);
 		if (!(v13 & 0xC00)) {
 			v14 = *(unsigned char*)(v4 + 28);
-			v15 = (nox_frame_xxx_2598000 + *(unsigned int*)(v2 + 128)) /
-				  ((unsigned int)*(unsigned char*)(v4 + 33) + 1);
+			v15 = (nox_frame_xxx_2598000 + *(unsigned int*)(v2 + 128)) / ((unsigned int)*(unsigned char*)(v4 + 33) + 1);
 			if (v15 >= v14) {
 				v15 %= v14;
-}
-			nox_xxx_drawObject_4C4770_draw(a1, (unsigned char*)v2, *(unsigned int*)(*(unsigned int*)(v4 + 20) + 4 * v15));
+			}
+			nox_xxx_drawObject_4C4770_draw(a1, (unsigned char*)v2,
+										   *(unsigned int*)(*(unsigned int*)(v4 + 20) + 4 * v15));
 		}
 		v16 = *(unsigned int*)(v2 + 280);
 		if (v16 & 0x800) {

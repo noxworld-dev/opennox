@@ -2,7 +2,6 @@
 #define IGNORE_EXTERNS
 #include "client__video__draw_common.h"
 #undef IGNORE_EXTERNS
-#include "mutexes.h"
 #include "GAME1_2.h"
 #include "GAME1_3.h"
 #include "GAME2.h"
@@ -10,9 +9,10 @@
 #include "GAME2_3.h"
 #include "GAME3.h"
 #include "GAME5_2.h"
+#include "mutexes.h"
 #include "operators.h"
 
-unsigned char byte_5D4594_3804364[160] = { 0 };
+unsigned char byte_5D4594_3804364[160] = {0};
 
 #ifndef NOX_CGO
 void* nox_backbuffer_pix = 0;
@@ -49,7 +49,7 @@ void (*dword_975240)(uint32_t, uint32_t*, uint32_t*, uint32_t*);
 int (*dword_975380)(uint32_t, uint32_t, uint32_t);
 #ifndef NOX_CGO
 void (*nox_color_rgb_func)(uint8_t, uint8_t, uint8_t, uint32_t*);
-#else // NOX_CGO
+#else  // NOX_CGO
 void nox_color_rgb_func(uint8_t r, uint8_t g, uint8_t b, uint32_t* p);
 int nox_color_rgb_func_get();
 void nox_color_rgb_func_set(int mode);
@@ -84,23 +84,23 @@ int g_rotate;
 int g_rotated;
 float draw_gamma = 1.0f;
 
-SDL_Surface*  nox_video_createSurface_48A600(int w, int h, int a4);
-int  nox_video_getSurfaceData_48A720(SDL_Surface* surf, int* outPitch, void** outPixels);
-void  nox_video_lockSurface_48A670(SDL_Surface* a1);
-void  nox_video_unlockSurface_48A6B0(SDL_Surface* a1);
+SDL_Surface* nox_video_createSurface_48A600(int w, int h, int a4);
+int nox_video_getSurfaceData_48A720(SDL_Surface* surf, int* outPitch, void** outPixels);
+void nox_video_lockSurface_48A670(SDL_Surface* a1);
+void nox_video_unlockSurface_48A6B0(SDL_Surface* a1);
 
 void sdl_present();
 int sdl_drawCursorThreaded(int);
 int create_surfaces(int width, int height);
 
 //----- (00444AC0) --------------------------------------------------------
-int  nox_client_drawXxx_444AC0(int w, int h, int depth, int flags) {
-	int v5;             // eax
-	bool v6;            // zf
+int nox_client_drawXxx_444AC0(int w, int h, int depth, int flags) {
+	int v5;               // eax
+	bool v6;              // zf
 	unsigned char v7 = 0; // al
-	int v8;             // esi
-	int v9;             // eax
-	int v10;            // eax
+	int v8;               // esi
+	int v9;               // eax
+	int v10;              // eax
 
 	nox_mutex_init(getMemAt(0x973F18, 168));
 	*getMemU32Ptr(0x5D4594, 823780) = 1;
@@ -112,10 +112,10 @@ int  nox_client_drawXxx_444AC0(int w, int h, int depth, int flags) {
 
 #ifdef __EMSCRIPTEN__
 	v5 = nox_client_winVerGetMajor_48C870(0); // Check Windows version
-#else // !__EMSCRIPTEN__
+#else                                         // !__EMSCRIPTEN__
 #ifdef USE_SDL
 	v5 = 5; // Force always WINNT, forces always using unlocked DX surfaces
-#else // !USE_SDL
+#else  // !USE_SDL
 	v5 = nox_client_winVerGetMajor_48C870(0); // Check Windows version
 #endif // USE_SDL
 #endif // __EMSCRIPTEN__
@@ -131,7 +131,7 @@ int  nox_client_drawXxx_444AC0(int w, int h, int depth, int flags) {
 	if (!(v7 & 4)) {
 		if (!nox_video_resetRenderer_48A040(v8, h, depth)) {
 			return 0;
-}
+		}
 #ifndef NOX_CGO
 		cpuid_5d4594_3801804 = nox_xxx_testCPUID2_444D90();
 #endif // NOX_CGO
@@ -158,7 +158,7 @@ int  nox_client_drawXxx_444AC0(int w, int h, int depth, int flags) {
 	if (v10) {
 		if (v10 != 1) {
 			return 0;
-}
+		}
 		nox_video_pixmode_3799624 = 2;
 	} else {
 		nox_video_pixmode_3799624 = 1;
@@ -257,7 +257,6 @@ void change_windowed_fullscreen() {
 	}
 }
 
-
 //----- (0048A190) --------------------------------------------------------
 void nox_video_setBackBufferPtrs_48A190() {
 	dword_6F7B9C = 1;
@@ -265,12 +264,12 @@ void nox_video_setBackBufferPtrs_48A190() {
 	nox_backbuffer_pix = nox_backbuffer1_pix;
 }
 
-void  nox_video_lockSurface_48A670(SDL_Surface* a1) { SDL_LockSurface(a1); }
+void nox_video_lockSurface_48A670(SDL_Surface* a1) { SDL_LockSurface(a1); }
 
-void  nox_video_unlockSurface_48A6B0(SDL_Surface* a1) { SDL_UnlockSurface(a1); }
+void nox_video_unlockSurface_48A6B0(SDL_Surface* a1) { SDL_UnlockSurface(a1); }
 
 //----- (0048A9C0) --------------------------------------------------------
-void  nox_video_minimizeOrMaximize_48A9C0(int a1) {
+void nox_video_minimizeOrMaximize_48A9C0(int a1) {
 	if (dword_6F7BB0) {
 		nox_mutex_lock(getMemAt(0x973F18, 168));
 		if (!dword_974854) {
@@ -292,7 +291,7 @@ void  nox_video_minimizeOrMaximize_48A9C0(int a1) {
 	}
 }
 
-void  sub_48B1D0_free_surface(SDL_Surface** a1) {
+void sub_48B1D0_free_surface(SDL_Surface** a1) {
 	if (*a1) {
 		SDL_FreeSurface(*a1);
 		*a1 = NULL;
@@ -300,21 +299,19 @@ void  sub_48B1D0_free_surface(SDL_Surface** a1) {
 }
 
 //----- (0048A220) --------------------------------------------------------
-void  nox_xxx_directDrawBlitMB_48A220() {
-
-}
+void nox_xxx_directDrawBlitMB_48A220() {}
 
 //----- (0048A7F0) --------------------------------------------------------
 void sub_48A7F0() {
-    //SDL_SetRenderDrawColor(g_ddraw, 0, 0, 0, SDL_ALPHA_OPAQUE);
-    //SDL_RenderClear(g_ddraw);
-    //SDL_RenderPresent(g_ddraw);
+	// SDL_SetRenderDrawColor(g_ddraw, 0, 0, 0, SDL_ALPHA_OPAQUE);
+	// SDL_RenderClear(g_ddraw);
+	// SDL_RenderPresent(g_ddraw);
 }
 
 //----- (0048A820) --------------------------------------------------------
-void  sub_48A820(unsigned int uFlags) {
-	//uint32_t width = nox_backbuffer_width;
-	//uint32_t height = nox_backbuffer_height;
+void sub_48A820(unsigned int uFlags) {
+	// uint32_t width = nox_backbuffer_width;
+	// uint32_t height = nox_backbuffer_height;
 
 	// SDL_SetWindowSize(nox_video_getWindow_401FD0(), width, height);
 	// SDL_SetWindowGrab(nox_video_getWindow_401FD0(), SDL_TRUE);
@@ -334,7 +331,7 @@ int nox_video_initCursorDrawVars_48B1F0() {
 	nox_video_cursorDrawIsThreaded = 1;
 	if (nox_video_renderTargetFlags & 4) {
 		return 1;
-}
+	}
 	*getMemU32Ptr(0x5D4594, 1193640) = 0;
 	*getMemU32Ptr(0x5D4594, 1193628) = 0;
 	dword_5d4594_1193648 = 0;
@@ -434,7 +431,7 @@ int sdl_drawCursorThreaded(int a1) {
 
 		if (SDL_BlitScaled(g_cursor_surf, &src, g_backbuffer1, &dst)) {
 			return 0;
-}
+		}
 
 		*r1 = v4;
 	}
@@ -446,9 +443,9 @@ int sdl_drawCursorThreaded(int a1) {
 #endif // NOX_CGO
 
 //----- (004340A0) --------------------------------------------------------
-void  sub_4340A0(int a1, int a2, int a3, int a4) {
+void sub_4340A0(int a1, int a2, int a3, int a4) {
 	unsigned long long v4; // rax
-	int v5;              // esi
+	int v5;                // esi
 	unsigned long long v6; // rax
 	unsigned long long v7; // rax
 
@@ -484,7 +481,7 @@ void  sub_4340A0(int a1, int a2, int a3, int a4) {
 }
 
 //----- (004347F0) --------------------------------------------------------
-int  sub_4347F0(char* a1, int a2) {
+int sub_4347F0(char* a1, int a2) {
 	if (a2 <= 256) {
 		sub_435120(getMemAt(0x973F18, 3880), a1);
 		sub_4353F0();
@@ -507,7 +504,7 @@ int sub_434FB0() {
 }
 
 //----- (004352E0) --------------------------------------------------------
-void  sub_4352E0() {
+void sub_4352E0() {
 	// FIXME gamma control
 }
 
@@ -518,9 +515,7 @@ HDC sub_444F90() {
 }
 
 //----- (00444FC0) --------------------------------------------------------
-void  sub_444FC0(HDC a1) {
-	abort();
-}
+void sub_444FC0(HDC a1) { abort(); }
 
 //----- (004353C0) --------------------------------------------------------
 void sub_4353C0() {
@@ -558,7 +553,7 @@ void sub_433C20_freeColorTables() {
 		nox_draw_colors_b_3804664 = 0;
 	}
 }
-#else // NOX_CGO
+#else  // NOX_CGO
 void sub_433C20_freeColorTables();
 #endif // NOX_CGO
 
@@ -582,7 +577,7 @@ void sub_433C20() {
 
 //----- (00444930) --------------------------------------------------------
 #ifndef NOX_CGO
-int  nox_xxx_GfxInit_444930(int w, int h, int depth, int flags) {
+int nox_xxx_GfxInit_444930(int w, int h, int depth, int flags) {
 	dword_5d4594_823776 = 0;
 	ptr_5D4594_3799572 = &obj_5D4594_3799660;
 	int result = nox_client_drawInitAll_4449D0(w, h, depth, flags);
@@ -644,7 +639,7 @@ int nox_video_setBackBufferCopyFunc_4AD100() {
 		g_copy_backbuffer_ptr = nox_video_copyBackBuffer2_4AD180;
 	} else {
 		nox_video_setBackBufferCopyFunc2_4AD150();
-}
+	}
 	*getMemU32Ptr(0x973A20, 496) = 0;
 	return 1;
 }
@@ -655,15 +650,13 @@ void nox_video_setBackBufferCopyFunc2_4AD150() {
 		g_copy_backbuffer_ptr = nox_video_copyBackBuffer_4AD2A0;
 	} else {
 		g_copy_backbuffer_ptr = nox_video_copyBackBuffer3_4AD1E0;
-}
+	}
 }
 
 void nox_video_callCopyBackBuffer_4AD170(void) { g_copy_backbuffer_ptr(); }
 
 //----- (004AD180) --------------------------------------------------------
-void nox_video_copyBackBuffer2_4AD180() {
-	abort();
-}
+void nox_video_copyBackBuffer2_4AD180() { abort(); }
 
 //----- (004AD1E0) --------------------------------------------------------
 void nox_video_copyBackBuffer3_4AD1E0() {
@@ -723,8 +716,9 @@ int nox_video_initPixbuffer_486090() {
 	if (result) {
 		result = nox_video_initPixbufferRows_486230();
 		if (result) {
-			if (!(nox_video_renderTargetFlags & 0x40) || (result = sub_48A5D0(), (g_surface_973C88 = result) != 0) &&
-															 (result = sub_48A5D0(), (g_surface_973C60 = result) != 0)) {
+			if (!(nox_video_renderTargetFlags & 0x40) ||
+				(result = sub_48A5D0(), (g_surface_973C88 = result) != 0) &&
+					(result = sub_48A5D0(), (g_surface_973C60 = result) != 0)) {
 				result = 1;
 			}
 		}
@@ -744,8 +738,7 @@ int sub_48A5E0() {
 
 //----- (0048BF70) --------------------------------------------------------
 int nox_video_createCursorSurface_48BF70() {
-	g_cursor_surf =
-		nox_video_createSurface_48A600(128, 128, DDSCAPS_OFFSCREENPLAIN | DDSCAPS_SYSTEMMEMORY);
+	g_cursor_surf = nox_video_createSurface_48A600(128, 128, DDSCAPS_OFFSCREENPLAIN | DDSCAPS_SYSTEMMEMORY);
 	if (!g_cursor_surf) {
 		return 0;
 	}
@@ -761,8 +754,7 @@ int nox_video_createCursorSurface_48BF70() {
 	rect.field_8 = 128;
 	rect.field_C = 128;
 	sub_48C170(&rect, &rect);
-	g_cursor_surf_6F7C48 =
-		nox_video_createSurface_48A600(rect.field_8, rect.field_C, DDSCAPS_VIDEOMEMORY);
+	g_cursor_surf_6F7C48 = nox_video_createSurface_48A600(rect.field_8, rect.field_C, DDSCAPS_VIDEOMEMORY);
 	if (!g_cursor_surf_6F7C48) {
 		return 0;
 	}
@@ -773,7 +765,7 @@ int nox_video_createCursorSurface_48BF70() {
 }
 
 //----- (0048B3F0) --------------------------------------------------------
-int  sub_48B3F0(void* a1p, int a2, int a3) {
+int sub_48B3F0(void* a1p, int a2, int a3) {
 	int a1 = a1p;
 	int i; // esi
 
@@ -788,7 +780,7 @@ int  sub_48B3F0(void* a1p, int a2, int a3) {
 			nox_video_lockSurface_48A670(g_cursor_surf);
 			for (i = 0; i < 512; i += 4) {
 				sub_49D1C0(*(uint32_t*)(i + (uint32_t)dword_5d4594_1193704), *getMemIntPtr(0x5D4594, 1193592), 128);
-}
+			}
 			a3 = 0;
 			a2 = 0;
 			if (sub_48C0C0(a1, &a2, &a3)) {
@@ -837,7 +829,7 @@ int sub_48C060() {
 		dword_5d4594_1193704 = malloc(512);
 		if (!dword_5d4594_1193704) {
 			return 0;
-}
+		}
 		int v1 = g_cursor_surf_pixels;
 
 		for (int v2 = 0; v2 < 512; v2 += 4) {
@@ -871,14 +863,14 @@ void nox_video_stopCursorDrawThread_48B350() {
 
 //----- (004338D0) --------------------------------------------------------
 int sub_4338D0() {
-	int result;          // eax
-	pixel888 v2[256];    // [esp+Ch] [ebp-300h]
+	int result;       // eax
+	pixel888 v2[256]; // [esp+Ch] [ebp-300h]
 
 	switch (nox_video_pixmode_3799624) {
 	case 0:
 #ifndef NOX_CGO
 		nox_color_rgb_func = nox_color_func_435180;
-#else // NOX_CGO
+#else  // NOX_CGO
 		nox_color_rgb_func_set(0);
 #endif // NOX_CGO
 		dword_975240 = sub_435240;
@@ -888,7 +880,7 @@ int sub_4338D0() {
 	case 1:
 #ifndef NOX_CGO
 		nox_color_rgb_func = nox_color_rgba5551ext_4351C0;
-#else // NOX_CGO
+#else  // NOX_CGO
 		nox_color_rgb_func_set(1);
 #endif // NOX_CGO
 		dword_975240 = sub_435280;
@@ -898,7 +890,7 @@ int sub_4338D0() {
 	case 2:
 #ifndef NOX_CGO
 		nox_color_rgb_func = nox_color_rgb565ext_435200;
-#else // NOX_CGO
+#else  // NOX_CGO
 		nox_color_rgb_func_set(2);
 #endif // NOX_CGO
 		dword_975240 = sub_435280;
@@ -933,7 +925,7 @@ int sub_4338D0() {
 		if (result) {
 			if (!dword_5d4594_823772) {
 				sub_4353C0();
-}
+			}
 			*getMemU32Ptr(0x5D4594, 809596) = 0;
 			dword_5d4594_808568 = 0;
 			dword_5d4594_810628 = 0;
@@ -975,11 +967,11 @@ int sub_4338D0() {
 #endif // NOX_CGO
 
 //----- (00433CD0) --------------------------------------------------------
-int  sub_433CD0(uint8_t a1, uint8_t a2, uint8_t a3) {
+int sub_433CD0(uint8_t a1, uint8_t a2, uint8_t a3) {
 	long long v5;          // rax
 	unsigned long long v6; // rax
 	unsigned long long v7; // rax
-	int result;          // eax
+	int result;            // eax
 
 	ptr_5D4594_3799572->field_24 = a1;
 	ptr_5D4594_3799572->field_25 = a2;
@@ -1007,7 +999,7 @@ int  sub_433CD0(uint8_t a1, uint8_t a2, uint8_t a3) {
 }
 
 //----- (00433E40) --------------------------------------------------------
-int  sub_433E40(int a1) {
+int sub_433E40(int a1) {
 	int v2; // [esp+0h] [ebp-8h]
 	int v3; // [esp+4h] [ebp-4h]
 
@@ -1016,7 +1008,7 @@ int  sub_433E40(int a1) {
 }
 
 //----- (00433ED0) --------------------------------------------------------
-void  sub_433ED0(int a1) {
+void sub_433ED0(int a1) {
 	int v2; // [esp+0h] [ebp-8h]
 	int v3; // [esp+4h] [ebp-4h]
 
@@ -1025,7 +1017,7 @@ void  sub_433ED0(int a1) {
 }
 
 //----- (00434040) --------------------------------------------------------
-int  sub_434040(int a1) {
+int sub_434040(int a1) {
 	int v2; // [esp+0h] [ebp-8h]
 	int v3; // [esp+4h] [ebp-4h]
 
@@ -1034,16 +1026,16 @@ int  sub_434040(int a1) {
 }
 
 //----- (004341D0) --------------------------------------------------------
-int  nox_xxx_drawPlayer_4341D0(int a1, int a2) {
-	int result;          // eax
-	int v3;              // edi
-	int v4;              // esi
-	int v5;              // ecx
+int nox_xxx_drawPlayer_4341D0(int a1, int a2) {
+	int result;            // eax
+	int v3;                // edi
+	int v4;                // esi
+	int v5;                // ecx
 	unsigned long long v6; // rax
 	unsigned long long v7; // rax
 	long long v8;          // kr10_8
 	unsigned long long v9; // rax
-	int v10;             // [esp+8h] [ebp-4h]
+	int v10;               // [esp+8h] [ebp-4h]
 
 	result = a1;
 	if (a1 >= 0 && a1 < 16) {
@@ -1101,7 +1093,7 @@ void nox_set_color_rgb_434430(int r, int g, int b) {
 }
 
 //----- (00434480) --------------------------------------------------------
-void  sub_434480(int a1, int* a2, int* a3, int* a4) { dword_975240(a1, a2, a3, a4); }
+void sub_434480(int a1, int* a2, int* a3, int* a4) { dword_975240(a1, a2, a3, a4); }
 
 //----- (004344A0) --------------------------------------------------------
 #ifndef NOX_CGO
@@ -1118,10 +1110,10 @@ uint32_t nox_color_rgb_4344A0(int r, int g, int b) {
 #endif // NOX_CGO
 
 //----- (00434AA0) --------------------------------------------------------
-int  sub_434AA0(int a1, int a2, int a3) { return dword_975380(a1, a2, a3); }
+int sub_434AA0(int a1, int a2, int a3) { return dword_975380(a1, a2, a3); }
 
 //----- (00434AC0) --------------------------------------------------------
-int  sub_434AC0(int a1) {
+int sub_434AC0(int a1) {
 	int v2; // [esp+0h] [ebp-8h]
 	int v3; // [esp+4h] [ebp-4h]
 
@@ -1168,23 +1160,19 @@ void updateGamma(int value) {
 	draw_gamma += modificator;
 }
 
-float nox_video_getGamma() {
-	return draw_gamma;
-}
+float nox_video_getGamma() { return draw_gamma; }
 
-void nox_video_setGamma(float v) {
-	draw_gamma = v;
-}
+void nox_video_setGamma(float v) { draw_gamma = v; }
 
 //----- (00434B30) --------------------------------------------------------
-int  nox_video_setGammaSetting_434B30(int a1) {
+int nox_video_setGammaSetting_434B30(int a1) {
 	int result; // eax
 
 	result = a1;
 	if (a1 >= 1) {
 		if (a1 > 10) {
 			result = 10;
-}
+		}
 		nox_video_gammaValue = result;
 	} else {
 		result = 1;
@@ -1197,12 +1185,12 @@ int  nox_video_setGammaSetting_434B30(int a1) {
 
 //----- (00434B60) --------------------------------------------------------
 int sub_434B60() {
-	int v0;              // ebp
-	pixel888* v1;        // edi
-	int v2;              // ebx
-	char* v3;            // esi
-	long long v4;          // rax
-	int v13;             // [esp+10h] [ebp-90Ch]
+	int v0;       // ebp
+	pixel888* v1; // edi
+	int v2;       // ebx
+	char* v3;     // esi
+	long long v4; // rax
+	int v13;      // [esp+10h] [ebp-90Ch]
 	char v14[1536];
 	pixel888 v19[256]; // [esp+61Ch] [ebp-300h]
 
@@ -1215,9 +1203,10 @@ int sub_434B60() {
 		if (v0 == 1) {
 			LOWORD(v4) = (uint16_t)v2 << 8;
 		} else {
-			v4 = (long long)(pow((double)v13 * 0.00392156862745098, 1.0 / ((double)(v0 - 1) * 0.1666666666666667 + 1.0)) *
-						   65535.0);
-}
+			v4 = (long long)(pow((double)v13 * 0.00392156862745098,
+								 1.0 / ((double)(v0 - 1) * 0.1666666666666667 + 1.0)) *
+							 65535.0);
+		}
 		*((uint16_t*)v3 + 256) = v4;
 		*(uint16_t*)v3 = v4;
 		*((uint16_t*)v3 - 256) = v4;
@@ -1235,7 +1224,7 @@ int sub_434B60() {
 #ifndef NOX_CGO
 //----- (00434CC0) --------------------------------------------------------
 int nox_draw_initColorTables_434CC0() {
-	int v0 = 0;       // edi
+	int v0 = 0;   // edi
 	void* result; // eax
 	int i;        // esi
 
@@ -1272,7 +1261,7 @@ int nox_draw_initColorTables_434CC0() {
 #endif // NOX_CGO
 
 //----- (004B0300) --------------------------------------------------------
-int  sub_4B0300(char* a1) {
+int sub_4B0300(char* a1) {
 	int result; // eax
 
 	result = *getMemU32Ptr(0x5D4594, 1311928);
@@ -1300,7 +1289,7 @@ void sub_4B05D0() {
 }
 
 //----- (004B0640) --------------------------------------------------------
-int  sub_4B0640(int (*a1)(void)) {
+int sub_4B0640(int (*a1)(void)) {
 	int result; // eax
 
 	result = a1;
@@ -1310,7 +1299,7 @@ int  sub_4B0640(int (*a1)(void)) {
 
 #ifndef NOX_CGO
 //----- (0048B5D0) --------------------------------------------------------
-int  nox_video_waitVBlankAndDrawCursorFromThread_48B5D0(int a1, int a2) {
+int nox_video_waitVBlankAndDrawCursorFromThread_48B5D0(int a1, int a2) {
 	if (!*getMemU32Ptr(0x5D4594, 1193708) && nox_video_drawCursorThreadOk && dword_5d4594_823776 &&
 		nox_video_cursorDrawIsThreaded && dword_5d4594_1193672 && *getMemU32Ptr(0x5D4594, 1193108) &&
 		nox_video_bag_ready) {
@@ -1327,29 +1316,29 @@ int  nox_video_waitVBlankAndDrawCursorFromThread_48B5D0(int a1, int a2) {
 #endif // NOX_CGO
 
 //----- (0048C200) --------------------------------------------------------
-unsigned char*  sub_48C200(void* a1p, int a2, int a3) {
+unsigned char* sub_48C200(void* a1p, int a2, int a3) {
 	int a1 = a1p;
 	unsigned char* result; // eax
-	int v4;                  // ebp
+	int v4;                // ebp
 	unsigned char* v5;     // eax
-	int v6;                  // ecx
-	int v7;                  // edi
-	int v8;                  // edx
-	int v9;                  // ebx
-	int v10;                 // esi
-	void (*v11)(void);       // edi
-	int v12;                 // edi
-	int v13;                 // ecx
-	int v14;                 // ebx
-	int v15;                 // edi
-	int v16;                 // esi
-	int v17;                 // ecx
+	int v6;                // ecx
+	int v7;                // edi
+	int v8;                // edx
+	int v9;                // ebx
+	int v10;               // esi
+	void (*v11)(void);     // edi
+	int v12;               // edi
+	int v13;               // ecx
+	int v14;               // ebx
+	int v15;               // edi
+	int v16;               // esi
+	int v17;               // ecx
 	unsigned char* v18;    // eax
-	int v19;                 // edx
-	int v20;                 // ecx
-	void (*v21)(void);       // [esp+14h] [ebp+4h]
-	int v22;                 // [esp+18h] [ebp+8h]
-	int v23;                 // [esp+1Ch] [ebp+Ch]
+	int v19;               // edx
+	int v20;               // ecx
+	void (*v21)(void);     // [esp+14h] [ebp+4h]
+	int v22;               // [esp+18h] [ebp+8h]
+	int v23;               // [esp+1Ch] [ebp+Ch]
 
 	result = nox_video_getImagePixdata_func(a1);
 	dword_5d4594_1193516 = result;
@@ -1373,7 +1362,7 @@ unsigned char*  sub_48C200(void* a1p, int a2, int a3) {
 		v11 = dword_6F7C34;
 		if (!ptr_5D4594_3799572->field_15) {
 			v11 = dword_6F7C40;
-}
+		}
 		v21 = v11;
 		v12 = v6;
 		v13 = v6 - 1;
@@ -1385,7 +1374,8 @@ unsigned char*  sub_48C200(void* a1p, int a2, int a3) {
 				v14 += 4;
 				v15 = v4;
 				v16 = v23 + *(uint32_t*)(v14 + (uint32_t)dword_5d4594_1193704 - 4);
-				for (dword_5d4594_1193584 = v23 + *(uint32_t*)(v14 + (uint32_t)dword_5d4594_1193704 - 4); v15 > 0; v15 -= v19) {
+				for (dword_5d4594_1193584 = v23 + *(uint32_t*)(v14 + (uint32_t)dword_5d4594_1193704 - 4); v15 > 0;
+					 v15 -= v19) {
 					v17 = *result;
 					v18 = result + 1;
 					*getMemU32Ptr(0x5D4594, 1193588) = v17;
@@ -1415,26 +1405,26 @@ unsigned char*  sub_48C200(void* a1p, int a2, int a3) {
 }
 
 //----- (0048C320) --------------------------------------------------------
-unsigned char*  sub_48C320(void* a1p, int a2, int a3) {
+unsigned char* sub_48C320(void* a1p, int a2, int a3) {
 	int a1 = a1p;
 	unsigned char* result; // eax
-	int v4;                  // edi
+	int v4;                // edi
 	unsigned char* v5;     // eax
-	int v6;                  // ecx
-	int v7;                  // esi
-	int v8;                  // ebx
-	int v9;                  // ebp
-	void (*v10)(void);       // esi
-	int v11;                 // esi
-	int v12;                 // ecx
-	int v13;                 // ebp
-	int v14;                 // esi
-	int v15;                 // ecx
+	int v6;                // ecx
+	int v7;                // esi
+	int v8;                // ebx
+	int v9;                // ebp
+	void (*v10)(void);     // esi
+	int v11;               // esi
+	int v12;               // ecx
+	int v13;               // ebp
+	int v14;               // esi
+	int v15;               // ecx
 	unsigned char* v16;    // eax
-	int v17;                 // edx
-	int v18;                 // ecx
-	void (*v19)(void);       // [esp+14h] [ebp+4h]
-	int v20;                 // [esp+18h] [ebp+8h]
+	int v17;               // edx
+	int v18;               // ecx
+	void (*v19)(void);     // [esp+14h] [ebp+4h]
+	int v20;               // [esp+18h] [ebp+8h]
 
 	result = nox_video_getImagePixdata_func(a1);
 	dword_5d4594_1193516 = result;
@@ -1457,7 +1447,7 @@ unsigned char*  sub_48C320(void* a1p, int a2, int a3) {
 		v10 = dword_6F7C34;
 		if (!ptr_5D4594_3799572->field_15) {
 			v10 = dword_6F7C40;
-}
+		}
 		v19 = v10;
 		v11 = v6;
 		v12 = v6 - 1;
@@ -1467,7 +1457,8 @@ unsigned char*  sub_48C320(void* a1p, int a2, int a3) {
 			do {
 				v13 += 4;
 				v14 = v4;
-				for (dword_5d4594_1193584 = v8 + *(uint32_t*)((uint32_t)dword_5d4594_1193704 + v13 - 4); v14 > 0; v14 -= v17) {
+				for (dword_5d4594_1193584 = v8 + *(uint32_t*)((uint32_t)dword_5d4594_1193704 + v13 - 4); v14 > 0;
+					 v14 -= v17) {
 					v15 = *result;
 					v16 = result + 1;
 					*getMemU32Ptr(0x5D4594, 1193588) = v15;
@@ -1500,7 +1491,6 @@ void sub_48A290_call_present() {
 	sdl_present();
 	++g_present_ticks;
 }
-
 
 void nox_video_showMovieFrame(SDL_Surface* surf) {
 	SDL_SetSurfaceBlendMode(g_backbuffer1, SDL_BLENDMODE_NONE);

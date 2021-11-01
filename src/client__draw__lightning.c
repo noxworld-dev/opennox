@@ -27,33 +27,33 @@ extern uint32_t dword_5d4594_1316492;
 void sub_49F5A0() { *getMemU32Ptr(0x973A20, 536) = 0; }
 
 //----- (004BB070) --------------------------------------------------------
-int  nox_xxx_drawLightningStep_4BB070(int a1, int a2) {
-	int v2;             // eax
-	bool v3;            // zf
-	int v4;             // esi
-	int v5;             // edi
-	int v6;             // ebx
-	int v7;             // ebp
+int nox_xxx_drawLightningStep_4BB070(int a1, int a2) {
+	int v2;           // eax
+	bool v3;          // zf
+	int v4;           // esi
+	int v5;           // edi
+	int v6;           // ebx
+	int v7;           // ebp
 	unsigned char v8; // al
-	int v9;             // ecx
-	int v10;            // eax
-	int v11;            // ecx
-	int v12;            // eax
-	int v14;            // edi
-	int v15;            // esi
-	int v16;            // eax
-	int v17;            // [esp+10h] [ebp-14h]
-	int v18;            // [esp+10h] [ebp-14h]
-	int v19;            // [esp+14h] [ebp-10h]
-	int v20;            // [esp+14h] [ebp-10h]
-	int v21;            // [esp+18h] [ebp-Ch]
-	int v22;            // [esp+18h] [ebp-Ch]
-	int v23;            // [esp+20h] [ebp-4h]
-	int v24;            // [esp+20h] [ebp-4h]
-	int v25;            // [esp+28h] [ebp+4h]
-	int v26;            // [esp+28h] [ebp+4h]
-	int v27;            // [esp+2Ch] [ebp+8h]
-	int v28;            // [esp+2Ch] [ebp+8h]
+	int v9;           // ecx
+	int v10;          // eax
+	int v11;          // ecx
+	int v12;          // eax
+	int v14;          // edi
+	int v15;          // esi
+	int v16;          // eax
+	int v17;          // [esp+10h] [ebp-14h]
+	int v18;          // [esp+10h] [ebp-14h]
+	int v19;          // [esp+14h] [ebp-10h]
+	int v20;          // [esp+14h] [ebp-10h]
+	int v21;          // [esp+18h] [ebp-Ch]
+	int v22;          // [esp+18h] [ebp-Ch]
+	int v23;          // [esp+20h] [ebp-4h]
+	int v24;          // [esp+20h] [ebp-4h]
+	int v25;          // [esp+28h] [ebp+4h]
+	int v26;          // [esp+28h] [ebp+4h]
+	int v27;          // [esp+2Ch] [ebp+8h]
+	int v28;          // [esp+2Ch] [ebp+8h]
 
 	v2 = dword_5d4594_1316492 + 1;
 	v3 = dword_5d4594_1316492 + 1 == dword_5d4594_1316448;
@@ -72,12 +72,12 @@ int  nox_xxx_drawLightningStep_4BB070(int a1, int a2) {
 		}
 		LOWORD(v24) = v15 *
 						  nox_common_randomIntMinMax_415FF0(-dword_5d4594_1316476, *(int*)&dword_5d4594_1316476,
-									 "C:\\NoxPost\\src\\Client\\Draw\\lightning.c", 193) /
+															"C:\\NoxPost\\src\\Client\\Draw\\lightning.c", 193) /
 						  v14 +
 					  (((short)a1 + (short)a2) >> 1);
 		HIWORD(v24) = v15 *
 						  nox_common_randomIntMinMax_415FF0(-dword_5d4594_1316476, *(int*)&dword_5d4594_1316476,
-									 "C:\\NoxPost\\src\\Client\\Draw\\lightning.c", 196) /
+															"C:\\NoxPost\\src\\Client\\Draw\\lightning.c", 196) /
 						  v14 +
 					  ((SHIWORD(a1) + SHIWORD(a2)) >> 1);
 		nox_xxx_drawLightningStep_4BB070(a1, v24);
@@ -113,7 +113,7 @@ int  nox_xxx_drawLightningStep_4BB070(int a1, int a2) {
 	nox_client_drawLineFromPoints_49E4B0();
 	if (!v23) {
 		return --dword_5d4594_1316492;
-}
+	}
 	v8 = getMemByte(0x5D4594, 1316420);
 	v25 = 1;
 	if ((getMemByte(0x5D4594, 1316420) & 0xFEu) > 2) {
@@ -126,11 +126,11 @@ int  nox_xxx_drawLightningStep_4BB070(int a1, int a2) {
 			v9 = v5 - v7;
 			if (v5 - v7 < 0) {
 				v9 = v7 - v5;
-}
+			}
 			v10 = v4 - v6;
 			if (v4 - v6 < 0) {
 				v10 = v6 - v4;
-}
+			}
 			if (v9 <= v10) {
 				nox_client_drawAddPoint_49F500(v19, v6);
 				nox_client_drawAddPoint_49F500(v21, v4);
@@ -150,7 +150,7 @@ int  nox_xxx_drawLightningStep_4BB070(int a1, int a2) {
 	v26 = 1;
 	if ((v8 & 0xFEu) <= 2) {
 		return --dword_5d4594_1316492;
-}
+	}
 	v20 = v7 - 1;
 	v18 = v5 - 1;
 	v22 = v4 - 1;
@@ -160,11 +160,11 @@ int  nox_xxx_drawLightningStep_4BB070(int a1, int a2) {
 		v11 = v5 - v7;
 		if (v5 - v7 < 0) {
 			v11 = v7 - v5;
-}
+		}
 		v12 = v4 - v6;
 		if (v4 - v6 < 0) {
 			v12 = v6 - v4;
-}
+		}
 		if (v11 <= v12) {
 			nox_client_drawAddPoint_49F500(v20, v6);
 			nox_client_drawAddPoint_49F500(v18, v4);
@@ -183,23 +183,23 @@ int  nox_xxx_drawLightningStep_4BB070(int a1, int a2) {
 }
 
 //----- (004BAE60) --------------------------------------------------------
-int  nox_xxx_lightningProc2_4BAE60(int2* a1, int2* a2, int a3, short* a4, int a5, int a6, int a7) {
-	int2* v7;    // ebx
-	int2* v8;    // ebp
-	int v9;      // esi
-	int v10;     // eax
-	int v11;     // eax
+int nox_xxx_lightningProc2_4BAE60(int2* a1, int2* a2, int a3, short* a4, int a5, int a6, int a7) {
+	int2* v7;      // ebx
+	int2* v8;      // ebp
+	int v9;        // esi
+	int v10;       // eax
+	int v11;       // eax
 	long long v12; // rax
-	int v13;     // eax
-	int v14;     // edi
-	int v15;     // ebx
-	int v16;     // eax
-	int v17;     // edx
-	int v18;     // esi
-	int v19;     // ecx
-	int result;  // eax
-	int2* v21;   // [esp+14h] [ebp+4h]
-	int2* v22;   // [esp+18h] [ebp+8h]
+	int v13;       // eax
+	int v14;       // edi
+	int v15;       // ebx
+	int v16;       // eax
+	int v17;       // edx
+	int v18;       // esi
+	int v19;       // ecx
+	int result;    // eax
+	int2* v21;     // [esp+14h] [ebp+4h]
+	int2* v22;     // [esp+18h] [ebp+8h]
 
 	v7 = a2;
 	v8 = a1;
@@ -207,13 +207,13 @@ int  nox_xxx_lightningProc2_4BAE60(int2* a1, int2* a2, int a3, short* a4, int a5
 		v9 = a1->field_0 - a2->field_0;
 	} else {
 		v9 = a2->field_0 - a1->field_0;
-}
+	}
 	v10 = a2->field_4;
 	if (a1->field_4 - v10 >= 0) {
 		v11 = a1->field_4 - v10;
 	} else {
 		v11 = v10 - a1->field_4;
-}
+	}
 	v12 = (long long)sqrt((double)(v9 * v9 + v11 * v11));
 	if ((int)v12 >= 512) {
 		dword_5d4594_1316476 = *getMemU32Ptr(0x587000, 178204);
@@ -248,18 +248,18 @@ int  nox_xxx_lightningProc2_4BAE60(int2* a1, int2* a2, int a3, short* a4, int a5
 		v16 = a1->field_0 - a2->field_0;
 		if (v16 < 0) {
 			v16 = v15 - v14;
-}
+		}
 		v17 = a1->field_4;
 		v18 = a2->field_4;
 		v19 = a1->field_4 - v18;
 		if (v19 < 0) {
 			v19 = v18 - v17;
-}
+		}
 		if (v16 <= v19) {
 			*getMemU32Ptr(0x5D4594, 1316500) = (v17 >= v18) + 2;
 		} else {
 			*getMemU32Ptr(0x5D4594, 1316500) = v14 >= v15;
-}
+		}
 		v7 = a2;
 	}
 	LOWORD(v22) = a1->field_0;
@@ -287,24 +287,24 @@ int  nox_xxx_lightningProc2_4BAE60(int2* a1, int2* a2, int a3, short* a4, int a5
 }
 
 //----- (004BAC80) --------------------------------------------------------
-int  nox_thing_lightning_draw(int* a1, nox_drawable* dr) {
-	int v2;              // ebx
-	int v3;              // edi
-	int v4;              // ebp
-	int v5;              // ecx
+int nox_thing_lightning_draw(int* a1, nox_drawable* dr) {
+	int v2;            // ebx
+	int v3;            // edi
+	int v4;            // ebp
+	int v5;            // ecx
 	unsigned short v6; // ax
-	uint32_t* v7;          // eax
-	uint32_t* v8;          // edi
-	uint32_t* v9;          // eax
-	int v10;             // esi
-	int v11;             // ecx
-	int v12;             // ebx
-	int v13;             // edx
-	int2 a2a;            // [esp+10h] [ebp-20h]
-	int2 a1a;            // [esp+18h] [ebp-18h]
-	int2 a3;             // [esp+20h] [ebp-10h]
-	int2 v18;            // [esp+28h] [ebp-8h]
-	int v19;             // [esp+34h] [ebp+4h]
+	uint32_t* v7;      // eax
+	uint32_t* v8;      // edi
+	uint32_t* v9;      // eax
+	int v10;           // esi
+	int v11;           // ecx
+	int v12;           // ebx
+	int v13;           // edx
+	int2 a2a;          // [esp+10h] [ebp-20h]
+	int2 a1a;          // [esp+18h] [ebp-18h]
+	int2 a3;           // [esp+20h] [ebp-10h]
+	int2 v18;          // [esp+28h] [ebp-8h]
+	int v19;           // [esp+34h] [ebp+4h]
 
 	int a2 = dr;
 
@@ -328,13 +328,13 @@ int  nox_thing_lightning_draw(int* a1, nox_drawable* dr) {
 			v7 = nox_xxx_netSpriteByCodeStatic_45A720(*(uint32_t*)(a2 + 437));
 		} else {
 			v7 = nox_xxx_netSpriteByCodeDynamic_45A6F0(*(uint32_t*)(a2 + 437));
-}
+		}
 		v8 = v7;
 		if (nox_xxx_netTestHighBit_578B70(*(uint32_t*)(a2 + 441))) {
 			v9 = nox_xxx_netSpriteByCodeStatic_45A720(*(uint32_t*)(a2 + 441));
 		} else {
 			v9 = nox_xxx_netSpriteByCodeDynamic_45A6F0(*(uint32_t*)(a2 + 441));
-}
+		}
 		if (!(v8 && v9)) {
 			return 1;
 		}
@@ -357,30 +357,30 @@ int  nox_thing_lightning_draw(int* a1, nox_drawable* dr) {
 	nox_xxx_lightningProc2_4BAE60(&a1a, &a2a, 2, 0, 1, 1, 1);
 	if (!nox_xxx_checkGameFlagPause_413A50()) {
 		nox_xxx_makeLightningParticles_4999D0(*getMemIntPtr(0x5D4594, 1316520), &v18, &a3);
-}
+	}
 	return 1;
 }
 
 //----- (004BB3F0) --------------------------------------------------------
-int  nox_thing_chain_lightning_bolt_draw(int* a1, nox_drawable* dr) {
+int nox_thing_chain_lightning_bolt_draw(int* a1, nox_drawable* dr) {
 	unsigned short v2; // ax
-	int v3;              // ebx
-	int v4;              // edi
-	int v5;              // ebp
-	int v6;              // edx
-	int v7;              // ecx
+	int v3;            // ebx
+	int v4;            // edi
+	int v5;            // ebp
+	int v6;            // edx
+	int v7;            // ecx
 	unsigned short v8; // ax
-	uint32_t* v9;          // eax
-	uint32_t* v10;         // edi
-	uint32_t* v11;         // eax
-	int v12;             // esi
-	int v13;             // ecx
-	int v14;             // ebx
-	int v15;             // edx
-	int2 a2a;            // [esp+10h] [ebp-20h]
-	int2 a1a;            // [esp+18h] [ebp-18h]
-	int2 v19;            // [esp+20h] [ebp-10h]
-	int2 a3;             // [esp+28h] [ebp-8h]
+	uint32_t* v9;      // eax
+	uint32_t* v10;     // edi
+	uint32_t* v11;     // eax
+	int v12;           // esi
+	int v13;           // ecx
+	int v14;           // ebx
+	int v15;           // edx
+	int2 a2a;          // [esp+10h] [ebp-20h]
+	int2 a1a;          // [esp+18h] [ebp-18h]
+	int2 v19;          // [esp+20h] [ebp-10h]
+	int2 a3;           // [esp+28h] [ebp-8h]
 
 	int a2 = dr;
 
@@ -405,13 +405,13 @@ int  nox_thing_chain_lightning_bolt_draw(int* a1, nox_drawable* dr) {
 			v9 = nox_xxx_netSpriteByCodeStatic_45A720(*(uint32_t*)(a2 + 437));
 		} else {
 			v9 = nox_xxx_netSpriteByCodeDynamic_45A6F0(*(uint32_t*)(a2 + 437));
-}
+		}
 		v10 = v9;
 		if (nox_xxx_netTestHighBit_578B70(*(uint32_t*)(a2 + 441))) {
 			v11 = nox_xxx_netSpriteByCodeStatic_45A720(*(uint32_t*)(a2 + 441));
 		} else {
 			v11 = nox_xxx_netSpriteByCodeDynamic_45A6F0(*(uint32_t*)(a2 + 441));
-}
+		}
 		if (!(v10 && v11)) {
 			return 1;
 		}
@@ -434,32 +434,32 @@ int  nox_thing_chain_lightning_bolt_draw(int* a1, nox_drawable* dr) {
 	nox_xxx_lightningProc2_4BAE60(&a1a, &a2a, 2, 0, 1, 1, 1);
 	if (!nox_xxx_checkGameFlagPause_413A50()) {
 		nox_xxx_makeLightningParticles_4999D0(*getMemIntPtr(0x5D4594, 1316520), &v19, &a3);
-}
+	}
 	return 1;
 }
 
 //----- (004BB5D0) --------------------------------------------------------
-int  nox_thing_energy_bolt_draw(int* a1, nox_drawable* dr) {
-	int v2;              // esi
-	bool v3;             // zf
-	int v4;              // ebp
-	int v5;              // edi
-	int v6;              // ebx
-	int v7;              // ecx
+int nox_thing_energy_bolt_draw(int* a1, nox_drawable* dr) {
+	int v2;            // esi
+	bool v3;           // zf
+	int v4;            // ebp
+	int v5;            // edi
+	int v6;            // ebx
+	int v7;            // ecx
 	unsigned short v8; // ax
-	uint32_t* v9;          // eax
-	uint32_t* v10;         // edi
-	uint32_t* v11;         // eax
-	int v12;             // esi
-	int v13;             // edx
-	int v14;             // ebp
-	int v15;             // ecx
-	int2 a2a;            // [esp+10h] [ebp-20h]
-	int2 a1a;            // [esp+18h] [ebp-18h]
-	int2 a3;             // [esp+20h] [ebp-10h]
-	int2 v20;            // [esp+28h] [ebp-8h]
-	int v21;             // [esp+34h] [ebp+4h]
-	char v22;            // [esp+38h] [ebp+8h]
+	uint32_t* v9;      // eax
+	uint32_t* v10;     // edi
+	uint32_t* v11;     // eax
+	int v12;           // esi
+	int v13;           // edx
+	int v14;           // ebp
+	int v15;           // ecx
+	int2 a2a;          // [esp+10h] [ebp-20h]
+	int2 a1a;          // [esp+18h] [ebp-18h]
+	int2 a3;           // [esp+20h] [ebp-10h]
+	int2 v20;          // [esp+28h] [ebp-8h]
+	int v21;           // [esp+34h] [ebp+4h]
+	char v22;          // [esp+38h] [ebp+8h]
 
 	int a2 = dr;
 
@@ -486,13 +486,13 @@ int  nox_thing_energy_bolt_draw(int* a1, nox_drawable* dr) {
 			v9 = nox_xxx_netSpriteByCodeStatic_45A720(*(uint32_t*)(v2 + 437));
 		} else {
 			v9 = nox_xxx_netSpriteByCodeDynamic_45A6F0(*(uint32_t*)(v2 + 437));
-}
+		}
 		v10 = v9;
 		if (nox_xxx_netTestHighBit_578B70(*(uint32_t*)(v2 + 441))) {
 			v11 = nox_xxx_netSpriteByCodeStatic_45A720(*(uint32_t*)(v2 + 441));
 		} else {
 			v11 = nox_xxx_netSpriteByCodeDynamic_45A6F0(*(uint32_t*)(v2 + 441));
-}
+		}
 		if (!(v10 && v11)) {
 			return 1;
 		}
@@ -513,31 +513,31 @@ int  nox_thing_energy_bolt_draw(int* a1, nox_drawable* dr) {
 	nox_xxx_lightningProc2_4BAE60(&a1a, &a2a, 2, 0, 0, 0, 1);
 	if (!nox_xxx_checkGameFlagPause_413A50()) {
 		nox_xxx_makeLightningParticles_4999D0(*getMemIntPtr(0x5D4594, 1316524), &v20, &a3);
-}
+	}
 	return 1;
 }
 
 //----- (004BB7B0) --------------------------------------------------------
-int  nox_thing_green_bolt_draw(int* a1, nox_drawable* dr) {
-	int v2;              // eax
-	int v3;              // eax
-	int v5;              // ebx
-	int v6;              // edi
-	int v7;              // ebp
-	int v8;              // ecx
+int nox_thing_green_bolt_draw(int* a1, nox_drawable* dr) {
+	int v2;            // eax
+	int v3;            // eax
+	int v5;            // ebx
+	int v6;            // edi
+	int v7;            // ebp
+	int v8;            // ecx
 	unsigned short v9; // ax
-	uint32_t* v10;         // eax
-	uint32_t* v11;         // edi
-	uint32_t* v12;         // eax
-	int v13;             // esi
-	int v14;             // edx
-	int v15;             // ebx
-	int v16;             // ecx
-	int2 a2a;            // [esp+10h] [ebp-20h]
-	int2 a1a;            // [esp+18h] [ebp-18h]
-	int2 a3;             // [esp+20h] [ebp-10h]
-	int2 v20;            // [esp+28h] [ebp-8h]
-	int v21;             // [esp+34h] [ebp+4h]
+	uint32_t* v10;     // eax
+	uint32_t* v11;     // edi
+	uint32_t* v12;     // eax
+	int v13;           // esi
+	int v14;           // edx
+	int v15;           // ebx
+	int v16;           // ecx
+	int2 a2a;          // [esp+10h] [ebp-20h]
+	int2 a1a;          // [esp+18h] [ebp-18h]
+	int2 a3;           // [esp+20h] [ebp-10h]
+	int2 v20;          // [esp+28h] [ebp-8h]
+	int v21;           // [esp+34h] [ebp+4h]
 
 	int a2 = dr;
 
@@ -546,16 +546,16 @@ int  nox_thing_green_bolt_draw(int* a1, nox_drawable* dr) {
 			v10 = nox_xxx_netSpriteByCodeStatic_45A720(*(uint32_t*)(a2 + 437));
 		} else {
 			v10 = nox_xxx_netSpriteByCodeDynamic_45A6F0(*(uint32_t*)(a2 + 437));
-}
+		}
 		v11 = v10;
 		if (nox_xxx_netTestHighBit_578B70(*(uint32_t*)(a2 + 441))) {
 			v12 = nox_xxx_netSpriteByCodeStatic_45A720(*(uint32_t*)(a2 + 441));
 		} else {
 			v12 = nox_xxx_netSpriteByCodeDynamic_45A6F0(*(uint32_t*)(a2 + 441));
-}
+		}
 		if (!v11 || !v12) {
 			return 1;
-}
+		}
 		v13 = *a1;
 		v14 = a1[4];
 		a1a.field_0 = v11[3] + *a1 - v14;
@@ -599,6 +599,6 @@ int  nox_thing_green_bolt_draw(int* a1, nox_drawable* dr) {
 	nox_xxx_lightningProc2_4BAE60(&a1a, &a2a, 2, 0, 1, 1, 1);
 	if (!nox_xxx_checkGameFlagPause_413A50()) {
 		nox_xxx_makeLightningParticles_4999D0(*getMemIntPtr(0x5D4594, 1316528), &v20, &a3);
-}
+	}
 	return 1;
 }

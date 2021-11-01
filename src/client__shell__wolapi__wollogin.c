@@ -1,6 +1,6 @@
 #include "GAME1.h"
-#include "GAME1_2.h"
 #include "GAME1_1.h"
+#include "GAME1_2.h"
 #include "GAME1_3.h"
 #include "GAME2_1.h"
 #include "GAME2_3.h"
@@ -24,21 +24,21 @@ int nox_game_showWolLogin_44A560() {
 	int result;       // eax
 	int i;            // esi
 	int v2;           // esi
-	uint32_t* v3;       // eax
-	uint32_t* v4;       // eax
-	uint32_t* v5;       // esi
-	uint32_t* v6;       // ebp
-	uint32_t* v7;       // ebx
-	uint32_t* v8;       // edi
+	uint32_t* v3;     // eax
+	uint32_t* v4;     // eax
+	uint32_t* v5;     // esi
+	uint32_t* v6;     // ebp
+	uint32_t* v7;     // ebx
+	uint32_t* v8;     // edi
 	char* v9;         // eax
 	wchar_t* v10;     // eax
 	wchar_t* v11;     // eax
-	uint32_t* v12;      // esi
+	uint32_t* v12;    // esi
 	int v13;          // eax
-	uint32_t* v14;      // eax
+	uint32_t* v14;    // eax
 	wchar_t* v15;     // [esp-10h] [ebp-ECh]
-	uint8_t* v16;       // [esp+8h] [ebp-D4h]
-	uint8_t* v17;       // [esp+Ch] [ebp-D0h]
+	uint8_t* v16;     // [esp+8h] [ebp-D4h]
+	uint8_t* v17;     // [esp+Ch] [ebp-D0h]
 	char* v18;        // [esp+10h] [ebp-CCh]
 	wchar_t v19[100]; // [esp+14h] [ebp-C8h]
 
@@ -57,12 +57,12 @@ int nox_game_showWolLogin_44A560() {
 		dword_5d4594_830248 = result;
 		if (!result) {
 			return result;
-}
+		}
 		result = nox_gui_makeAnimation_43C5B0((uint32_t*)result, 0, 0, 0, -480, 0, 20, 0, -40);
 		nox_wnd_xxx_830244 = result;
 		if (!result) {
 			return result;
-}
+		}
 		nox_wnd_xxx_830244->field_0 = 1700;
 		nox_wnd_xxx_830244->field_12 = sub_44AA40;
 		nox_wnd_xxx_830244->fnc_done_out = sub_44AA70;
@@ -76,7 +76,7 @@ int nox_game_showWolLogin_44A560() {
 		nox_swprintf(v19, L"%S", v16);
 		if (!v19[0]) {
 			nox_swprintf(v19, L" ");
-}
+		}
 		nox_window_call_field_94(*(int*)&dword_5d4594_830264, 16397, (int)v19, -1);
 	}
 	v2 = sub_41FC40();
@@ -124,7 +124,7 @@ int nox_game_showWolLogin_44A560() {
 		if (nox_common_gameFlags_check_40A5C0(0x2000000)) {
 			if (dword_5d4594_830272 == 1) {
 				v10 = nox_strman_loadString_40F1D0("woldisc.c:LostConnection", 0,
-											"C:\\NoxPost\\src\\client\\shell\\WolApi\\wollogin.c", 485);
+												   "C:\\NoxPost\\src\\client\\shell\\WolApi\\wollogin.c", 485);
 				nox_xxx_networkLog_printf_413D30("%S", v10);
 			} else {
 				nox_xxx_networkLog_printf_413D30("InitWolApiMenu: Quitting due to all players left");
@@ -133,10 +133,8 @@ int nox_game_showWolLogin_44A560() {
 			nox_game_exit_xxx_43DE60();
 			return 0;
 		}
-		v15 = nox_strman_loadString_40F1D0("Discon", 0,
-									"C:\\NoxPost\\src\\client\\shell\\WolApi\\wollogin.c", 495);
-		v11 = nox_strman_loadString_40F1D0("Notice", 0,
-									"C:\\NoxPost\\src\\client\\shell\\WolApi\\wollogin.c", 495);
+		v15 = nox_strman_loadString_40F1D0("Discon", 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\wollogin.c", 495);
+		v11 = nox_strman_loadString_40F1D0("Notice", 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\wollogin.c", 495);
 		nox_xxx_dialogMsgBoxCreate_449A10(*(int*)&dword_5d4594_830248, (int)v11, (int)v15, 33, 0, 0);
 		sub_44A4B0();
 		dword_5d4594_830272 = 0;

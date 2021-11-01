@@ -6,16 +6,16 @@
 #include "GAME3_1.h"
 
 //----- (00451CF0) --------------------------------------------------------
-int  sub_451CF0(uint32_t* a1) {
-	int v1;     // ecx
-	int result; // eax
-	int v3;     // edx
-	int v4;     // edi
-	int v5;     // eax
-	int v6;     // edi
-	int v7;     // ecx
+int sub_451CF0(uint32_t* a1) {
+	int v1;       // ecx
+	int result;   // eax
+	int v3;       // edx
+	int v4;       // edi
+	int v5;       // eax
+	int v6;       // edi
+	int v7;       // ecx
 	uint32_t* v8; // eax
-	int v9;     // eax
+	int v9;       // eax
 
 	v1 = a1[9];
 	result = a1[108];
@@ -45,19 +45,19 @@ int  sub_451CF0(uint32_t* a1) {
 			result = 0;
 		} else {
 			result = sub_451CA0(a1);
-}
+		}
 	}
 	return result;
 }
 
 //----- (00451DC0) --------------------------------------------------------
-int  sub_451DC0(int a1) {
+int sub_451DC0(int a1) {
 	uint32_t* v1; // esi
-	int result; // eax
-	int v3;     // ebx
-	int i;      // edi
-	int v5;     // eax
-	int v6;     // eax
+	int result;   // eax
+	int v3;       // ebx
+	int i;        // edi
+	int v5;       // eax
+	int v6;       // eax
 
 	v1 = *(uint32_t**)(a1 + 36);
 	result = *(uint32_t*)(a1 + 168);
@@ -65,7 +65,7 @@ int  sub_451DC0(int a1) {
 	if (result) {
 		if (v1[17] < 0x21u) {
 			return result;
-}
+		}
 		sub_451F90(a1);
 	}
 	if (v3 & 4) {
@@ -89,17 +89,17 @@ int  sub_451DC0(int a1) {
 }
 
 //----- (00451E80) --------------------------------------------------------
-int  sub_451E80(int a1) {
-	int v1;      // eax
-	int v2;      // ebx
-	int v3;      // eax
-	int v4;      // ecx
-	int v5;      // edx
-	int v6;      // eax
-	int v7;      // edx
-	int v8;      // eax
-	int v9;      // edi
-	int v10;     // ecx
+int sub_451E80(int a1) {
+	int v1;        // eax
+	int v2;        // ebx
+	int v3;        // eax
+	int v4;        // ecx
+	int v5;        // edx
+	int v6;        // eax
+	int v7;        // edx
+	int v8;        // eax
+	int v9;        // edi
+	int v10;       // ecx
 	uint32_t* v11; // eax
 
 	v1 = *(uint32_t*)(a1 + 36);
@@ -122,7 +122,7 @@ int  sub_451E80(int a1) {
 	*(uint32_t*)(a1 + 568) = v7;
 	if (!(v2 & 2)) {
 		return *(uint32_t*)(a1 + 4 * v7 + 440);
-}
+	}
 	v8 = nox_common_randomIntMinMax_415FF0(0, v7, "C:\\NoxPost\\src\\client\\Audio\\AudEvent.c", 431);
 	v9 = *(uint32_t*)(a1 + 4 * v8 + 440);
 	v10 = v8;
@@ -138,7 +138,7 @@ int  sub_451E80(int a1) {
 }
 
 //----- (00452580) --------------------------------------------------------
-int  sub_452580(uint32_t* a1) {
+int sub_452580(uint32_t* a1) {
 	int v1;     // edi
 	int result; // eax
 	int v3;     // eax
@@ -148,13 +148,14 @@ int  sub_452580(uint32_t* a1) {
 	v1 = a1[9];
 	if (!*(uint32_t*)(v1 + 192)) {
 		return 0;
-}
+	}
 	v3 = a1[75];
 	a1[109] = 0;
 	result = sub_452810(*(uint32_t*)(v1 + 48) + v3, 0);
 	a1[44] = result;
 	if (result) {
-		v4 = nox_common_randomIntMinMax_415FF0(*(uint32_t*)(v1 + 76), *(uint32_t*)(v1 + 80), "C:\\NoxPost\\src\\client\\Audio\\AudEvent.c", 1482);
+		v4 = nox_common_randomIntMinMax_415FF0(*(uint32_t*)(v1 + 76), *(uint32_t*)(v1 + 80),
+											   "C:\\NoxPost\\src\\client\\Audio\\AudEvent.c", 1482);
 		sub_486320((uint32_t*)(a1[44] + 48), v4 + 100);
 		sub_4BDB20(a1[44]);
 		*(uint32_t*)(a1[44] + 152) = a1;
@@ -164,11 +165,11 @@ int  sub_452580(uint32_t* a1) {
 		a1[7] = 1;
 		*(uint32_t*)(a1[44] + 112) = a1 + 46;
 		if (*(uint8_t*)(v1 + 4) & 8) {
-			v5 = nox_common_randomIntMinMax_415FF0(*(uint32_t*)(v1 + 68), *(uint32_t*)(v1 + 72), "C:\\NoxPost\\src\\client\\Audio\\AudEvent.c",
-							1497);
+			v5 = nox_common_randomIntMinMax_415FF0(*(uint32_t*)(v1 + 68), *(uint32_t*)(v1 + 72),
+												   "C:\\NoxPost\\src\\client\\Audio\\AudEvent.c", 1497);
 			if (v5 > 33) {
 				sub_452690((int)a1, v5, 1);
-}
+			}
 		}
 		result = 1;
 	}
@@ -176,9 +177,9 @@ int  sub_452580(uint32_t* a1) {
 }
 
 //----- (00452770) --------------------------------------------------------
-int  sub_452770(uint32_t* a1) {
-	uint32_t* v1;      // esi
-	uint32_t* v2;      // ebx
+int sub_452770(uint32_t* a1) {
+	uint32_t* v1;    // esi
+	uint32_t* v2;    // ebx
 	int v4;          // eax
 	unsigned int v5; // eax
 
@@ -191,7 +192,8 @@ int  sub_452770(uint32_t* a1) {
 	sub_4BDB90(a1, 0);
 	v4 = v1[9];
 	if (!(*(uint8_t*)(v4 + 4) & 8) || v2 || v1[142]) {
-		v5 = nox_common_randomIntMinMax_415FF0(*(uint32_t*)(v4 + 68), *(uint32_t*)(v4 + 72), "C:\\NoxPost\\src\\client\\Audio\\AudEvent.c", 706);
+		v5 = nox_common_randomIntMinMax_415FF0(*(uint32_t*)(v4 + 68), *(uint32_t*)(v4 + 72),
+											   "C:\\NoxPost\\src\\client\\Audio\\AudEvent.c", 706);
 		if (v5 < 0x21) {
 			sub_4BDB90(a1, v2);
 			return 0;

@@ -1,6 +1,6 @@
 #include "client__draw__debugdraw.h"
-#include "GAME1_2.h"
 #include "GAME1_1.h"
+#include "GAME1_2.h"
 #include "GAME1_3.h"
 #include "GAME2.h"
 #include "GAME2_3.h"
@@ -8,7 +8,7 @@
 
 extern unsigned int nox_frame_xxx_2598000;
 //----- (004BCC90) --------------------------------------------------------
-int  nox_thing_debug_draw(nox_draw_viewport_t* vp, nox_drawable* dr) {
+int nox_thing_debug_draw(nox_draw_viewport_t* vp, nox_drawable* dr) {
 	uint32_t* a1 = vp;
 	int v2;    // edi
 	int v3;    // ebx
@@ -29,7 +29,7 @@ int  nox_thing_debug_draw(nox_draw_viewport_t* vp, nox_drawable* dr) {
 	v2 = *getMemU32Ptr(0x8531A0, 2572);
 	if (dr->field_72 >= nox_frame_xxx_2598000) {
 		v2 = *getMemU32Ptr(0x5D4594, 2589772);
-}
+	}
 	nox_client_drawSetColor_434460(v2);
 	nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 2523948));
 	v3 = dr->pos.y;
@@ -43,25 +43,27 @@ int  nox_thing_debug_draw(nox_draw_viewport_t* vp, nox_drawable* dr) {
 			sub_4BD010(dr, &a2a, v2);
 			nox_client_drawAddPoint_49F500(a2a.field_0, a2a.field_4);
 			nox_xxx_rasterPointRel_49F570(*getMemU32Ptr(0x587000, 179880 + 8 * dr->field_74_2),
-			           *getMemU32Ptr(0x587000, 179884 + 8 * dr->field_74_2));
+										  *getMemU32Ptr(0x587000, 179884 + 8 * dr->field_74_2));
 			nox_client_drawLineFromPoints_49E4B0();
 			nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1316540), L"%d", dr->field_32);
 			nox_xxx_drawString_43F6E0(0, getMemI16Ptr(0x5D4594, 1316540), a2a.field_0, a2a.field_4 - 10);
 			nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1316540), L"%S", nox_get_thing_name(dr->field_27));
 			nox_xxx_drawString_43F6E0(0, getMemI16Ptr(0x5D4594, 1316540), a2a.field_0, a2a.field_4);
-			nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1316540), L"%S", *getMemU32Ptr(0x587000, 178920 + 4 * dr->field_69));
+			nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1316540), L"%S",
+						 *getMemU32Ptr(0x587000, 178920 + 4 * dr->field_69));
 			nox_xxx_drawString_43F6E0(0, getMemI16Ptr(0x5D4594, 1316540), a2a.field_0, a2a.field_4 + 10);
 		} else if (v5 & 0x4) {
 			sub_4BD010(dr, &a2a, v2);
 			nox_client_drawAddPoint_49F500(a2a.field_0, a2a.field_4);
 			nox_xxx_rasterPointRel_49F570(*getMemU32Ptr(0x587000, 179880 + 8 * dr->field_74_2),
-			           *getMemU32Ptr(0x587000, 179884 + 8 * dr->field_74_2));
+										  *getMemU32Ptr(0x587000, 179884 + 8 * dr->field_74_2));
 			nox_client_drawLineFromPoints_49E4B0();
 			nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1316540), L"%d", dr->field_32);
 			nox_xxx_drawString_43F6E0(0, getMemI16Ptr(0x5D4594, 1316540), a2a.field_0, a2a.field_4 - 10);
 			nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1316540), L"%S", nox_get_thing_name(dr->field_27));
 			nox_xxx_drawString_43F6E0(0, getMemI16Ptr(0x5D4594, 1316540), a2a.field_0, a2a.field_4);
-			nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1316540), L"%S", *getMemU32Ptr(0x587000, 178696 + 4 * dr->field_69));
+			nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1316540), L"%S",
+						 *getMemU32Ptr(0x587000, 178696 + 4 * dr->field_69));
 			nox_xxx_drawString_43F6E0(0, getMemI16Ptr(0x5D4594, 1316540), a2a.field_0, a2a.field_4 + 10);
 		} else {
 			sub_4BD010(dr, &a2a, v2);

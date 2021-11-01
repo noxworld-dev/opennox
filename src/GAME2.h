@@ -3,7 +3,6 @@
 
 #include "defs.h"
 
-
 char* nox_xxx_spriteDefByAlphabetAdd_44CD10(char* a1);
 int nox_xxx_keyFirstLetterNumberCli_44CD30(char* a1);
 char* nox_get_thing_name(int i);

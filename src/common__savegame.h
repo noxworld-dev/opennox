@@ -12,7 +12,7 @@
 #include "static_assert.h"
 
 #define NOX_SAVEGAME_XXX_MAX 14
-#pragma pack(push,1)
+#pragma pack(push, 1)
 typedef struct nox_savegame_xxx {
 	uint32_t field_0;
 	uint8_t field_4[1024];

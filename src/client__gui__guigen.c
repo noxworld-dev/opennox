@@ -12,27 +12,28 @@ extern int nox_win_width;
 extern int nox_win_height;
 
 //----- (004A9D00) --------------------------------------------------------
-short  nox_xxx_mapGenClientText_4A9D00(unsigned char* a1) {
+short nox_xxx_mapGenClientText_4A9D00(unsigned char* a1) {
 	unsigned char* v1; // ebx
-	int v2;              // eax
-	int v3;              // edi
-	int v4;              // esi
-	wchar_t* v5;         // eax
-	int v6;              // kr00_4
-	int v7;              // esi
+	int v2;            // eax
+	int v3;            // edi
+	int v4;            // esi
+	wchar_t* v5;       // eax
+	int v6;            // kr00_4
+	int v7;            // esi
 
 	v1 = a1;
 	v2 = *(unsigned short*)(a1 + 1);
 	if ((unsigned short)v2 == *getMemU32Ptr(0x5D4594, 1309668)) {
 		return v2;
-}
+	}
 	*getMemU32Ptr(0x5D4594, 1309668) = *(unsigned short*)(a1 + 1);
 	nox_xxx_clientPlaySoundSpecial_452D80(897, 50);
 	sub_430B50(0, 0, nox_win_width - 1, nox_win_height - 1);
 	sub_440900();
 	v3 = nox_win_height / 2 - 120;
 	v4 = nox_win_width / 2 - 160;
-	nox_client_drawImageAt_47D2C0(*getMemU32Ptr(0x5D4594, 1309644 + 4 * (*getMemU32Ptr(0x5D4594, 1309672) % 4)), v4, v3);
+	nox_client_drawImageAt_47D2C0(*getMemU32Ptr(0x5D4594, 1309644 + 4 * (*getMemU32Ptr(0x5D4594, 1309672) % 4)), v4,
+								  v3);
 	nox_client_drawImageAt_47D2C0(*getMemU32Ptr(0x5D4594, 1309516 + 4 * *getMemU32Ptr(0x5D4594, 1309672)), v4, v3);
 	switch (*v1) {
 	case 0x9Bu:
@@ -55,7 +56,7 @@ short  nox_xxx_mapGenClientText_4A9D00(unsigned char* a1) {
 	sub_43F730(0, *(short**)getMemAt(0x5D4594, 1309660), v6 / 2, v7);
 	if (++*getMemU32Ptr(0x5D4594, 1309672) >= 32) {
 		*getMemU32Ptr(0x5D4594, 1309672) = 0;
-}
+	}
 #ifndef NOX_CGO
 	nox_xxx_directDrawBlitMB_48A220();
 #endif // NOX_CGO

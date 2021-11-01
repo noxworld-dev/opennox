@@ -17,14 +17,15 @@ void nox_xxx_wndWddSetTooltip_46B000(nox_window_data* data, wchar_t* str) {
 		return;
 	}
 	if (nox_wcslen(str) >= 64) {
-		str = nox_strman_loadString_40F1D0("TooltipTooLong", 0, "C:\\NoxPost\\src\\Client\\Gui\\GameWin\\gamewin.c", 1004);
+		str = nox_strman_loadString_40F1D0("TooltipTooLong", 0, "C:\\NoxPost\\src\\Client\\Gui\\GameWin\\gamewin.c",
+										   1004);
 	}
 	nox_wcscpy(data->tooltip, str);
 }
 #endif // NOX_CGO
 
 //----- (0046C140) --------------------------------------------------------
-void  nox_xxx_clientPickup_46C140(nox_drawable* a1p) {
+void nox_xxx_clientPickup_46C140(nox_drawable* a1p) {
 	int a1 = a1p;
 	int v2;      // eax
 	wchar_t* v3; // eax
@@ -45,7 +46,7 @@ void  nox_xxx_clientPickup_46C140(nox_drawable* a1p) {
 		} else {
 			nox_xxx_clientPlaySoundSpecial_452D80(925, 100);
 			v3 = nox_strman_loadString_40F1D0("pickup.c:CarryingTooMuch", 0,
-									   "C:\\NoxPost\\src\\Client\\Gui\\GameWin\\gamewin.c", 83);
+											  "C:\\NoxPost\\src\\Client\\Gui\\GameWin\\gamewin.c", 83);
 			nox_xxx_printCentered_445490(v3);
 		}
 	}

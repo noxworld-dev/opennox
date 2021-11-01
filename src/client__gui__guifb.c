@@ -7,11 +7,11 @@ extern uint32_t dword_5d4594_1045636;
 
 //----- (00456140) --------------------------------------------------------
 void sub_456140(unsigned char a1) {
-	int v2;          // esi
-	wchar_t* v3;     // eax
-	wchar_t* v4;     // eax
-	wchar_t* v5;     // eax
-	wchar_t* v6;     // eax
+	int v2;      // esi
+	wchar_t* v3; // eax
+	wchar_t* v4; // eax
+	wchar_t* v5; // eax
+	wchar_t* v6; // eax
 
 	*getMemU8Ptr(0x5D4594, 1045644) = a1;
 	v2 = dword_5d4594_1045636 + 36;

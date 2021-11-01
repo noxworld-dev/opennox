@@ -522,10 +522,10 @@ int nox_xxx_wndGuiTeamCreate_4185B0();
 int nox_xxx_teamAssignFlags_418640();
 char* nox_xxx_toggleAllTeamFlags_418690(int a1);
 
-int sub_40E260(int(*** a1)(uint32_t, void*, int*), int a2, int a3, int a4);
-int sub_40E320(int(*** a1)(uint32_t, void*, int*), int a2, int a3);
-int nox_xxx_wallForeachFn_410640(void(* a1)(int, int), int a2);
-int sub_410670(void(* a1)(int, int), int a2);
-char sub_414690(unsigned int* a1, void(* a2)(char*));
+int sub_40E260(int (***a1)(uint32_t, void*, int*), int a2, int a3, int a4);
+int sub_40E320(int (***a1)(uint32_t, void*, int*), int a2, int a3);
+int nox_xxx_wallForeachFn_410640(void (*a1)(int, int), int a2);
+int sub_410670(void (*a1)(int, int), int a2);
+char sub_414690(unsigned int* a1, void (*a2)(char*));
 
 #endif // NOX_PORT_GAME1

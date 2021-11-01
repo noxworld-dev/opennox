@@ -3,7 +3,7 @@
 
 #include "defs.h"
 
-int  nox_xxx_gui_4AD320(int a1);
+int nox_xxx_gui_4AD320(int a1);
 int sub_4AD4B0();
 int sub_4AD840();
 

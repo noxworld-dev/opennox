@@ -1,8 +1,8 @@
 #ifndef NOX_NET_H
 #define NOX_NET_H
 
-#include <stdint.h>
 #include <stdbool.h>
+#include <stdint.h>
 
 typedef int32_t nox_socket_t;
 

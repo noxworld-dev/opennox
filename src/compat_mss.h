@@ -61,10 +61,10 @@ typedef struct {
 	uint32_t nSamplesPerSec;
 	uint32_t nAvgBytesPerSec;
 	uint16_t nBlockAlign;
-} *NOX_WAVEFORMAT;
+} * NOX_WAVEFORMAT;
 
-typedef void(*AILTIMERCB)(uint32_t user);
-typedef void(*AILSAMPLECB)(HSAMPLE sample);
+typedef void (*AILTIMERCB)(uint32_t user);
+typedef void (*AILSAMPLECB)(HSAMPLE sample);
 
 HSAMPLE AIL_allocate_sample_handle(HDIGDRIVER dig);
 void AIL_close_stream(HSTREAM stream);

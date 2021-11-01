@@ -1,5 +1,5 @@
 #define DG_DYNARR_IMPLEMENTATION
-#include "memmap.h"
+#include "GameEx.h"
 #include "GAME1.h"
 #include "GAME1_1.h"
 #include "GAME1_3.h"
@@ -10,10 +10,10 @@
 #include "GAME3_3.h"
 #include "GAME4.h"
 #include "GAME5_2.h"
-#include "GameEx.h"
 #include "client__gui__guimsg.h"
 #include "client__gui__window.h"
 #include "common/fs/nox_fs.h"
+#include "memmap.h"
 
 #include "client__shell__noxworld.h"
 #include "common__config.h"
@@ -132,9 +132,9 @@ keyCodeStruct keycodeArray[] = {
 };
 int keycodeArraySize = sizeof(keycodeArray) / sizeof(keyCodeStruct);
 unsigned char functionalKeyCodes[] = {2u, 3u, 4u, 5u, 6u, 156u, 0u};
-char* EndOfKeyCodeArray = 0;                          // weak
-void* modifyWndPntr = 0;    // weak
-#endif // NOX_CGO
+char* EndOfKeyCodeArray = 0; // weak
+void* modifyWndPntr = 0;     // weak
+#endif                       // NOX_CGO
 
 int DefaultPacket[4] = {171901697, 1, 347, 44391266}; // weak
 wchar_t wndEntryNames[5][35] = {
@@ -174,7 +174,7 @@ int GameEx_DllMain(uint32_t fdwReason) {
 // 10012BCC: using guessed type char isLoaded;
 
 //----- (10001230) --------------------------------------------------------
-unsigned char  KeyCodeMatcher(char* a1) {
+unsigned char KeyCodeMatcher(char* a1) {
 	int v1;   // ecx
 	char* v2; // edi
 	char* v3; // esi
@@ -213,7 +213,7 @@ unsigned char  KeyCodeMatcher(char* a1) {
 }
 
 //----- (10001290) --------------------------------------------------------
-void  GameExCfgSaver() {
+void GameExCfgSaver() {
 	int result;         // eax
 	void* v1;           // esi
 	const char* v2;     // eax
@@ -248,12 +248,12 @@ void  GameExCfgSaver() {
 	if (result == 0) {
 		return;
 	}
-	nox_fs_fwrite(v1, "AUTO_SHIELD = ",  0xE);
+	nox_fs_fwrite(v1, "AUTO_SHIELD = ", 0xE);
 	v2 = "1\r\n";
 	if (!((gameex_flags >> 1) & 1))
 		v2 = "0\r\n";
 	nox_fs_fwrite(v1, v2, 3);
-	nox_fs_fwrite(v1, "GREAT_SWORD_BLOKING_WALK = ",  0x1B);
+	nox_fs_fwrite(v1, "GREAT_SWORD_BLOKING_WALK = ", 0x1B);
 	v3 = "1\r\n";
 	if (!((gameex_flags >> 2) & 1))
 		v3 = "0\r\n";
@@ -379,7 +379,7 @@ const char* SomeStringSearcher(const char* result, const char* a2, char* a3) {
 	v4 = a2;
 	if (result && a2) {
 		v5 = strstr(result, a2);
-		if(!v5)
+		if (!v5)
 			return result;
 
 		for (result = &v5[strlen(v4)]; *result == 32 || *result == 61; ++result)
@@ -400,7 +400,7 @@ char GameExCfgLoader() {
 	HANDLE v0;   // eax
 	void* v1;    // ebp
 	char result; // al
-	uint32_t v3;    // edi
+	uint32_t v3; // edi
 	char* v4;    // esi
 	// uint32_t NumberOfBytesRead; // [esp+4h] [ebp-18h]
 	char v6[32]; // [esp+8h] [ebp-6h]
@@ -413,7 +413,7 @@ char GameExCfgLoader() {
 	v3 = nox_fs_fsize(v0);
 	if (v3) {
 		v4 = (char*)malloc(v3 + 1);
-		if (nox_fs_fread(v1, v4,  v3) == v3) {
+		if (nox_fs_fread(v1, v4, v3) == v3) {
 			SomeStringSearcher(v4, "AUTO_SHIELD", (char*)&v6);
 			if ((uint8_t)*v6 == 48)
 				gameex_flags &= 0xFFFFFFFD;
@@ -475,7 +475,7 @@ char GameExCfgLoader() {
 #endif // NOX_CGO
 
 //----- (10001A20) --------------------------------------------------------
-int  gameex_sendPacket(char* buf, int len, int smth) {
+int gameex_sendPacket(char* buf, int len, int smth) {
 	if (!buf || !len || *getMemU32Ptr(0x5D4594, 815700) >= NOX_NET_STRUCT_MAX) {
 		return 0;
 	}
@@ -488,8 +488,8 @@ int  gameex_sendPacket(char* buf, int len, int smth) {
 }
 
 //----- (10001AD0) --------------------------------------------------------
-void  gameex_makeExtensionPacket(int ptr, short opcode, bool needsPlayer) {
-	*(uint16_t*)(ptr + 0) = 0xF13A;  // extension packet code
+void gameex_makeExtensionPacket(int ptr, short opcode, bool needsPlayer) {
+	*(uint16_t*)(ptr + 0) = 0xF13A; // extension packet code
 	*(uint16_t*)(ptr + 2) = opcode;
 	if (needsPlayer)
 		*(uint32_t*)(ptr + 4) = (*getMemU32Ptr(0x85319C, 0)); // playerNetCode
@@ -551,7 +551,7 @@ int copyServerMatchData(char* a1) {
 }
 
 //----- (10001C20) --------------------------------------------------------
-char  getPlayerClassFromObjPtr(int a1) { return *(uint8_t*)(*(uint32_t*)(*(uint32_t*)(a1 + 748) + 276) + 2251); }
+char getPlayerClassFromObjPtr(int a1) { return *(uint8_t*)(*(uint32_t*)(*(uint32_t*)(a1 + 748) + 276) + 2251); }
 
 //----- (10001C50) --------------------------------------------------------
 int playerInfoStructsToVector(smallPlayerStructVector* vector) {
@@ -576,7 +576,7 @@ int playerInfoStructsToVector(smallPlayerStructVector* vector) {
 }
 
 //----- (10001D40) --------------------------------------------------------
-char  playerInfoStructParser_0(char* a1) {
+char playerInfoStructParser_0(char* a1) {
 	char* v1;  // esi
 	char pDst; // [esp+10h] [ebp-18h]
 
@@ -600,10 +600,10 @@ char  playerInfoStructParser_0(char* a1) {
 
 //----- (10001E10) --------------------------------------------------------
 char playerInfoStructParser_1(int a1, int a2, int* a3) {
-	char* v3;   // eax
-	char* v4;   // eax
+	char* v3;     // eax
+	char* v4;     // eax
 	uint32_t* v6; // eax
-	char pDst;  // [esp+Ch] [ebp-18h]
+	char pDst;    // [esp+Ch] [ebp-18h]
 
 	if (a1 == -2)
 		return 0;
@@ -628,7 +628,7 @@ char playerInfoStructParser_1(int a1, int a2, int* a3) {
 }
 
 //----- (10001EE0) --------------------------------------------------------
-char  mix_MouseKeyboardWeaponRoll(int playerObj, char a2) {
+char mix_MouseKeyboardWeaponRoll(int playerObj, char a2) {
 	int v2;        // esi
 	signed int v4; // edi
 	int i;         // esi MAPDST
@@ -653,10 +653,12 @@ char  mix_MouseKeyboardWeaponRoll(int playerObj, char a2) {
 					break;
 				weapFlags = nox_xxx_weaponInventoryEquipFlags_415820(next); // weaponEquipFlags
 				if (weapFlags && weapFlags != 2) {
-					if (nox_xxx_playerClassCanUseItem_57B3D0(next, *(uint8_t*)(*(uint32_t*)(*(uint32_t*)(playerObj + 748) + 276) + 2251))) {
+					if (nox_xxx_playerClassCanUseItem_57B3D0(
+							next, *(uint8_t*)(*(uint32_t*)(*(uint32_t*)(playerObj + 748) + 276) + 2251))) {
 						v11 = nox_xxx_playerCheckStrength_4F3180(playerObj, next);
 						if (v11) {
-							if (nox_xxx_playerTryDequip_4F2FB0((uint32_t*)playerObj, (const nox_object_t*)cur) && nox_xxx_playerTryEquip_4F2F70((uint32_t*)playerObj, next)) {
+							if (nox_xxx_playerTryDequip_4F2FB0((uint32_t*)playerObj, (const nox_object_t*)cur) &&
+								nox_xxx_playerTryEquip_4F2F70((uint32_t*)playerObj, next)) {
 								v16 = 1;
 							}
 							return v16;
@@ -668,7 +670,8 @@ char  mix_MouseKeyboardWeaponRoll(int playerObj, char a2) {
 			for (i = *(uint32_t*)(playerObj + 504); i; i = *(uint32_t*)(i + 496)) {
 				v6 = nox_xxx_weaponInventoryEquipFlags_415820(i); // weaponEquipFlags
 				if (v6 && v6 != 2) {
-					if (nox_xxx_playerClassCanUseItem_57B3D0(i, *(uint8_t*)(*(uint32_t*)(*(uint32_t*)(playerObj + 0x2EC) + 0x114) + 0x8CB))) {
+					if (nox_xxx_playerClassCanUseItem_57B3D0(
+							i, *(uint8_t*)(*(uint32_t*)(*(uint32_t*)(playerObj + 0x2EC) + 0x114) + 0x8CB))) {
 						v8 = nox_xxx_playerCheckStrength_4F3180(playerObj, i);
 						if (v8) {
 							if (nox_xxx_playerTryEquip_4F2F70((uint32_t*)playerObj, i)) {
@@ -689,12 +692,12 @@ playerCheckStrength
 */
 
 //----- (10002030) --------------------------------------------------------
-char  playerDropATrap(int playerObj) {
-	int v2;   // eax
-	int i;    // esi
+char playerDropATrap(int playerObj) {
+	int v2; // eax
+	int i;  // esi
 	// int v5; // [esp+10h] [ebp-14h]
-	char v7;   // [esp+18h] [ebp-Ch]
-	char v8;   // [esp+1Fh] [ebp-5h]
+	char v7; // [esp+18h] [ebp-Ch]
+	char v8; // [esp+1Fh] [ebp-5h]
 	float pos[2] = {0};
 
 	v7 = 17;
@@ -704,7 +707,8 @@ char  playerDropATrap(int playerObj) {
 	v2 = *(uint32_t*)(*(uint32_t*)(playerObj + 0x2EC) + 0x114);
 	pos[0] = *(float*)(v2 + 0xE30);
 	pos[1] = *(float*)(v2 + 0xE34);
-	if (!(*(uint8_t*)(*(uint32_t*)(*(uint32_t*)(playerObj + 0x2EC) + 0x114) + 0xE60) & 3) // check playerGameStatus/isObs
+	if (!(*(uint8_t*)(*(uint32_t*)(*(uint32_t*)(playerObj + 0x2EC) + 0x114) + 0xE60) &
+		  3) // check playerGameStatus/isObs
 		&& *(uint8_t*)(*(uint32_t*)(playerObj + 0x2EC) + 0x58) != 1) {
 		for (i = *(uint32_t*)(playerObj + 0x1F8); i; i = *(uint32_t*)(i + 0x1F0)) {
 			if (*(uint8_t*)(i + 0xA) == v7) // check if something from *(byte*)(unit+0xA)=17
@@ -721,12 +725,12 @@ char  playerDropATrap(int playerObj) {
 #ifndef NOX_CGO
 void* GameIpParser(int a1, int a2, int a3) {
 	HANDLE result;                 // eax MAPDST
-	uint32_t fileSize;                // esi MAPDST
+	uint32_t fileSize;             // esi MAPDST
 	unsigned int fileBufferSize;   // ebp
 	unsigned int fileBufferOffset; // esi
 	unsigned int v9;               // ecx
 	char currentFileBufferPntr;    // al
-	uint32_t NumberOfBytesRead;       // [esp+4h] [ebp-28h]
+	uint32_t NumberOfBytesRead;    // [esp+4h] [ebp-28h]
 	void* fileBuffer;              // [esp+8h] [ebp-24h]
 	char cp[20];                   // [esp+14h] [ebp-18h]
 
@@ -785,7 +789,7 @@ unsigned int pingAllServersInGameIp(int ebx0, int edi0, int a1, int a2, int a3) 
 
 	for (it = da_begin(gameIps), end = da_end(gameIps); it != end; ++it) {
 		nox_client_sendToServer_555010(*it, a1, (char*)a2,
-				   a3); // Вызывает какую-то функцию которая создаёт структуру сокета и отпр 16 байт
+									   a3); // Вызывает какую-то функцию которая создаёт структуру сокета и отпр 16 байт
 	}
 	return end;
 }
@@ -793,10 +797,10 @@ unsigned int pingAllServersInGameIp(int ebx0, int edi0, int a1, int a2, int a3) 
 
 //----- (10002300) --------------------------------------------------------
 signed int inputNewIp_(int a1, int ebx0, int a2, int a3, int a4) {
-	unsigned int v6; // [esp+10h] [ebp-2Ch]
-	int v7;          // [esp+14h] [ebp-28h]
-	const wchar_t* pSrc;    // [esp+18h] [ebp-24h]
-	char pDst[28];   // [esp+1Ch] [ebp-20h]
+	unsigned int v6;     // [esp+10h] [ebp-2Ch]
+	int v7;              // [esp+14h] [ebp-28h]
+	const wchar_t* pSrc; // [esp+18h] [ebp-24h]
+	char pDst[28];       // [esp+1Ch] [ebp-20h]
 
 	v7 = nox_xxx_wndGetID_46B0A0((int*)a4);
 	pSrc = (const wchar_t*)sub_449E60(-88);
@@ -847,10 +851,10 @@ int startInvalidIpChecker() {
 }
 
 //----- (100024A0) --------------------------------------------------------
-int  modifyWndInputHandler(int a1, int a2, int a3, int a4) {
+int modifyWndInputHandler(int a1, int a2, int a3, int a4) {
 	unsigned int v4; // eax
 	int result;      // eax
-	uint32_t* v6;      // edi
+	uint32_t* v6;    // edi
 
 	if (a2 != 16391)
 		return 0;
@@ -918,38 +922,38 @@ int  modifyWndInputHandler(int a1, int a2, int a3, int a4) {
 //----- (10002680) --------------------------------------------------------
 int MixRecvFromReplacer(nox_socket_t s, char* buf, int len, struct nox_net_sockaddr* from) {
 	uint32_t* v8; // esi
-	char v9;    // al
-	int v10;    // esi
-	int v11;    // edx
-	//uint32_t *v12; // esi
+	char v9;      // al
+	int v10;      // esi
+	int v11;      // edx
+	// uint32_t *v12; // esi
 	char* v13; // edi
 	// int v14; // eax
 	// unsigned int v15; // esi
 	// int *v16; // eax
 	// int v17; // eax
-	char* v18;            // eax
-	char v19;             // cl
-	char* v20;            // eax
-	char* v21;            // edx
-	char v22;             // cl
-	int v23;              // edx
-	int v24;              // eax
-	int v25;              // ecx
-	char* v26;            // edi
-	char* v27;            // eax
-	char v28;             // cl
-	unsigned int v29;     // kr00_4
-	char* v30;            // edx
-	unsigned int v31;     // ecx
+	char* v18;          // eax
+	char v19;           // cl
+	char* v20;          // eax
+	char* v21;          // edx
+	char v22;           // cl
+	int v23;            // edx
+	int v24;            // eax
+	int v25;            // ecx
+	char* v26;          // edi
+	char* v27;          // eax
+	char v28;           // cl
+	unsigned int v29;   // kr00_4
+	char* v30;          // edx
+	unsigned int v31;   // ecx
 	unsigned char* v32; // esi
-	char v33;             // bl
-	uint32_t* v35;          // eax
-	char v36;             // [esp+17h] [ebp-CDh]
+	char v33;           // bl
+	uint32_t* v35;      // eax
+	char v36;           // [esp+17h] [ebp-CDh]
 	// int a1[2]; // [esp+1Ch] [ebp-C8h]
 	struct nox_net_sockaddr* to; // [esp+24h] [ebp-C0h]
-	int v39;             // [esp+28h] [ebp-BCh]
+	int v39;                     // [esp+28h] [ebp-BCh]
 	// int a2[2]; // [esp+34h] [ebp-B0h]
-	int v43[6];                // [esp+3Ch] [ebp-A8h]
+	int v43[6];              // [esp+3Ch] [ebp-A8h]
 	unsigned char v44[0x80]; // [esp+54h] [ebp-90h]
 	// int v45; // [esp+E0h] [ebp-4h]
 
@@ -1097,21 +1101,15 @@ int MixRecvFromReplacer(nox_socket_t s, char* buf, int len, struct nox_net_socka
 // 1000EF00: using guessed type int DefaultPacket[4];
 
 //----- (10002C30) --------------------------------------------------------
-void OnLibraryNotice_256() {
-
-}
+void OnLibraryNotice_256() {}
 void OnLibraryNotice_258() {
 	// is called from exe from here: 0x980650
 	someSwitch = 1;
 }
-void OnLibraryNotice_259(uint32_t arg1) {
-
-}
+void OnLibraryNotice_259(uint32_t arg1) {}
 
 #ifndef NOX_CGO
-void OnLibraryNotice_257() {
-	nox_xxx_host_player_unit_3843628 = 0;
-}
+void OnLibraryNotice_257() { nox_xxx_host_player_unit_3843628 = 0; }
 
 void OnLibraryNotice_260(uint32_t arg1, uint32_t arg2, uint32_t arg3) {
 	// pings all servers from game_ip.txt
@@ -1136,18 +1134,12 @@ void OnLibraryNotice_261() {
 	}
 	memcpy(serverData, v24, sizeof(serverData));
 }
-void OnLibraryNotice_262(uint32_t arg1) {
-
-}
-void OnLibraryNotice_263(uint32_t arg1) {
-	nox_common_gameFlags_check_40A5C0(1);
-}
-void OnLibraryNotice_264(uint32_t arg1) {
-	nox_common_gameFlags_check_40A5C0(1);
-}
+void OnLibraryNotice_262(uint32_t arg1) {}
+void OnLibraryNotice_263(uint32_t arg1) { nox_common_gameFlags_check_40A5C0(1); }
+void OnLibraryNotice_264(uint32_t arg1) { nox_common_gameFlags_check_40A5C0(1); }
 #ifdef NOX_CGO
 bool gameexSomeWeirdCheckFixmePlease();
-#else // NOX_CGO
+#else  // NOX_CGO
 bool gameexSomeWeirdCheckFixmePlease() {
 	return (((uint32_t)dword_5d4594_1064896 >> 8) | ((unsigned int)nox_win_activeWindow_1064900 << 24)) == 0;
 }
@@ -1155,7 +1147,7 @@ bool gameexSomeWeirdCheckFixmePlease() {
 void OnLibraryNotice_265(unsigned int arg1, unsigned int arg2, int arg3) {
 	// toggles weapons by mouse wheel
 	// autoshield is actually implemented in appendix of nox_xxx_playerDequipWeapon_53A140
-	//a2a = (*(uint32_t*)(vaArg3 + 4) >> 7) & 1;
+	// a2a = (*(uint32_t*)(vaArg3 + 4) >> 7) & 1;
 	char a2a = arg3 > 0; // scroll weapons back or forth
 	if (arg2 == 2 && gameexSomeWeirdCheckFixmePlease()) {
 		if ((gameex_flags >> 3) & 1) {
@@ -1188,7 +1180,8 @@ void OnKeyboardEvent(nox_keyboard_btn_t* ev) {
 			if (dword_5d4594_1064868 || nox_win_unk3)
 				return;
 			if (nox_common_gameFlags_check_40A5C0(1)) { // isServer
-				if (nox_xxx_host_player_unit_3843628 && mix_MouseKeyboardWeaponRoll(nox_xxx_host_player_unit_3843628, v8))
+				if (nox_xxx_host_player_unit_3843628 &&
+					mix_MouseKeyboardWeaponRoll(nox_xxx_host_player_unit_3843628, v8))
 					nox_xxx_clientPlaySoundSpecial_452D80(895, 100);
 			} else {
 				char buf[10];
@@ -1271,7 +1264,7 @@ void OnLibraryNotice_418() {
 		memset(inputNewIpMsgBox, 0, 0x200u);
 		*(uint32_t*)&inputNewIpMsgBox[376] = inputNewIp_;
 		nox_xxx_dialogMsgBoxCreate_449A10((int)inputNewIpMsgBox, (int)L"Ip Address", (int)L"Enter address", 163,
-							(int (*)(void))startInvalidIpChecker, 0);
+										  (int (*)(void))startInvalidIpChecker, 0);
 	}
 }
 #endif // NOX_CGO
@@ -1296,7 +1289,8 @@ void OnLibraryNotice_420(uint32_t arg1, uint32_t arg2, uint32_t arg3, uint32_t a
 		return;
 	}
 ifIsWarrior:
-	nox_xxx_netPriMsgToPlayer_4DA2C0(v23, (const char*)getMemAt(0x587000, 215732), 0); // 0x5BBAB4 = pickup.c:ObjectEquipClassFail
+	nox_xxx_netPriMsgToPlayer_4DA2C0(v23, (const char*)getMemAt(0x587000, 215732),
+									 0); // 0x5BBAB4 = pickup.c:ObjectEquipClassFail
 	nox_xxx_aud_501960(925, v23, 2, *(uint32_t*)(v23 + 36));
 }
 

@@ -40,8 +40,8 @@
 #include "client__draw__vortexdraw.h"
 #include "client__draw__weapondraw.h"
 
-#include "common__random.h"
 #include "GAME2.h"
+#include "common__random.h"
 
 extern nox_alloc_class* nox_alloc_drawable;
 extern nox_drawable* nox_drawable_head_unk1;
@@ -135,7 +135,7 @@ void* nox_xxx_spriteFromCache_45A330_drawable() {
 }
 
 //----- (0045A240) --------------------------------------------------------
-nox_drawable*  nox_new_drawable_for_thing(int i) {
+nox_drawable* nox_new_drawable_for_thing(int i) {
 	int v4; // eax
 
 	nox_drawable* v1 = (nox_drawable*)nox_alloc_class_new_obj_zero(nox_alloc_drawable);
@@ -150,11 +150,11 @@ nox_drawable*  nox_new_drawable_for_thing(int i) {
 		return 0;
 	}
 
-	int( * draw_fnc)(unsigned int*, nox_drawable*);
+	int (*draw_fnc)(unsigned int*, nox_drawable*);
 	draw_fnc = v1->draw_func;
 	if (draw_fnc == nox_thing_static_random_draw) {
 		v4 = nox_common_randomIntMinMax_415FF0(0, *(unsigned char*)((char*)v1->field_76 + 8) - 1,
-						"C:\\NoxPost\\src\\Client\\Drawable\\drawable.c", 401);
+											   "C:\\NoxPost\\src\\Client\\Drawable\\drawable.c", 401);
 		nox_xxx_spriteSetFrameMB_45AB80(v1, v4);
 	} else if (draw_fnc == nox_thing_red_spark_draw || draw_fnc == nox_thing_blue_spark_draw ||
 			   draw_fnc == nox_thing_yellow_spark_draw || draw_fnc == nox_thing_green_spark_draw ||

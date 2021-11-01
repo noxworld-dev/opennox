@@ -3,7 +3,6 @@
 
 #include "defs.h"
 
-
 int nox_xxx_onFrameLightning_52F8A0(float a1);
 void nox_xxx_lightningCanAttackCheck_52FF10(int a1, int a2);
 uint32_t* nox_xxx_lightningSpellDuration_52FFD0(int a1, int a2, int a3);
@@ -414,6 +413,5 @@ void nox_xxx_createReleasedSoul_544E60(int a1);
 int sub_544F70(int a1);
 void nox_xxx_mobActionDead2_544EC0(int a1);
 unsigned char* nox_xxx_mobActionReportComplete_544FF0(int a1);
-
 
 #endif // NOX_PORT_GAME4_3

@@ -12,7 +12,7 @@ extern int nox_win_width;
 extern int nox_win_height;
 
 //----- (0048C9F0) --------------------------------------------------------
-int  sub_48C9F0(int* a1) {
+int sub_48C9F0(int* a1) {
 	int* v1;     // esi
 	wchar_t* v2; // eax
 	int v4;      // [esp+4h] [ebp-4h]

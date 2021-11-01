@@ -3,6 +3,6 @@
 
 #include "defs.h"
 
-void  sub_57AF30(int a1, int a2);
+void sub_57AF30(int a1, int a2);
 
 #endif // NOX_PORT_COMMON_GAMEMECH_PAUSEFX

@@ -1,15 +1,15 @@
 #include "client__draw__mondraw.h"
-#include "client__draw__parse__parse.h"
-#include "common__random.h"
 #include "GAME1.h"
-#include "GAME1_2.h"
 #include "GAME1_1.h"
+#include "GAME1_2.h"
 #include "GAME2.h"
 #include "GAME2_3.h"
 #include "GAME3.h"
 #include "GAME3_1.h"
+#include "client__draw__parse__parse.h"
 #include "client__gui__window.h"
 #include "client__video__draw_common.h"
+#include "common__random.h"
 #include "operators.h"
 
 extern int nox_backbuffer_depth;
@@ -17,7 +17,7 @@ extern unsigned int nox_gameFPS;
 extern unsigned int nox_frame_xxx_2598000;
 
 //----- (004BC490) --------------------------------------------------------
-char  sub_4BC490(int a1) {
+char sub_4BC490(int a1) {
 	int v1;          // eax
 	unsigned int v2; // ecx
 	int v3;          // eax
@@ -28,7 +28,8 @@ char  sub_4BC490(int a1) {
 	int v8;          // eax
 
 	LOBYTE(v1) = (unsigned char)nox_frame_xxx_2598000;
-	if (!((unsigned char)nox_frame_xxx_2598000 & 3) && *(uint32_t*)(a1 + 276) == 8 && *(uint32_t*)(a1 + 116) & 0x40000) {
+	if (!((unsigned char)nox_frame_xxx_2598000 & 3) && *(uint32_t*)(a1 + 276) == 8 &&
+		*(uint32_t*)(a1 + 116) & 0x40000) {
 		v2 = *(uint32_t*)(a1 + 308);
 		v3 = *(uint32_t*)(a1 + 308);
 		if (v3) {
@@ -94,7 +95,7 @@ char  sub_4BC490(int a1) {
 }
 
 //----- (004BC180) --------------------------------------------------------
-int  nox_thing_monster_draw(int* a1, nox_drawable* dr) {
+int nox_thing_monster_draw(int* a1, nox_drawable* dr) {
 	int v2;    // esi
 	int v3;    // edi
 	char v4;   // cl
@@ -127,8 +128,7 @@ int  nox_thing_monster_draw(int* a1, nox_drawable* dr) {
 		if (*(uint8_t*)(v2 + 297) != v4) {
 			v5 = *(uint32_t*)(v2 + 276);
 			if (v5 != 1 && v5 != 3 && v5 != 5) {
-				if ((unsigned int)(nox_frame_xxx_2598000 - *(uint32_t*)(v2 + 436)) >=
-				    (int)nox_gameFPS >> 2) {
+				if ((unsigned int)(nox_frame_xxx_2598000 - *(uint32_t*)(v2 + 436)) >= (int)nox_gameFPS >> 2) {
 					*(uint32_t*)(v2 + 436) = nox_frame_xxx_2598000;
 					*(uint8_t*)(v2 + 432) = *(uint8_t*)(v2 + 297);
 				} else {
@@ -146,10 +146,10 @@ int  nox_thing_monster_draw(int* a1, nox_drawable* dr) {
 	v8 = v7 + v3 + 4;
 	if (!*(uint16_t*)(v7 + v3 + 44)) {
 		return 1;
-}
+	}
 	if (*(uint32_t*)(v2 + 108) != v6) {
 		goto LABEL_22;
-}
+	}
 	if (nox_common_gameFlags_check_40A5C0(0x200000)) {
 		v10 = 0;
 		v11 = 0;
@@ -162,13 +162,13 @@ int  nox_thing_monster_draw(int* a1, nox_drawable* dr) {
 		sub_433E40(*getMemIntPtr(0x8531A0, 2572));
 #ifdef NOX_CGO
 		LOBYTE(a2) = -1;
-#else // NOX_CGO
+#else  // NOX_CGO
 		LOBYTE(a2) = nox_backbuffer_depth >= 16 ? -1 : -128;
 #endif // NOX_CGO
-		LABEL_21:
+	LABEL_21:
 		nox_client_drawEnableAlpha_434560(1);
 		nox_client_drawSetAlpha_434580(a2);
-		LABEL_22:
+	LABEL_22:
 		sub_4BC490(v2);
 		v12 = a1;
 		v23 = sub_4BC6B0(a1, v2, v8);
@@ -177,9 +177,9 @@ int  nox_thing_monster_draw(int* a1, nox_drawable* dr) {
 	}
 	if (v10 * v10 + v11 * v11 < 40000) {
 		goto LABEL_21;
-}
+	}
 	v12 = a1;
-	LABEL_24:
+LABEL_24:
 	if (nox_xxx_unitSpriteCheckAlly_4951F0(*(uint32_t*)(v2 + 128))) {
 		v22 = 0;
 		v21 = 0;
@@ -187,28 +187,29 @@ int  nox_thing_monster_draw(int* a1, nox_drawable* dr) {
 		sub_495180(*(uint32_t*)(v2 + 128), &v22, &v21, &a2);
 		nox_xxx_spriteDrawMonsterHP_4BC080(v12, v2, v22, v21, a2);
 	}
-	if (!nox_xxx_CheckGameplayFlags_417DA0(4) && (!*getMemU32Ptr(0x852978, 8) || !nox_xxx_servObjectHasTeam_419130(*getMemU32Ptr(0x852978, 8) + 24))) {
+	if (!nox_xxx_CheckGameplayFlags_417DA0(4) &&
+		(!*getMemU32Ptr(0x852978, 8) || !nox_xxx_servObjectHasTeam_419130(*getMemU32Ptr(0x852978, 8) + 24))) {
 		goto LABEL_45;
-}
+	}
 	if (!nox_common_gameFlags_check_40A5C0(1)) {
 		v15 = *getMemU32Ptr(0x852978, 8) + 24;
-		LABEL_34:
+	LABEL_34:
 		if (v15) {
 			v16 = 0;
 			v17 = nox_xxx_clientGetTeamColor_418AB0(*(unsigned char*)(v15 + 4));
 			if (v17 && sub_495A80(*(uint32_t*)(v2 + 128))) {
 				v16 = 1;
-}
+			}
 			if ((!nox_common_gameFlags_check_40A5C0(4096) || !(*(uint8_t*)(v2 + 112) & 2) ||
-			     !(*(uint8_t*)(v2 + 116) & 8)) &&
-			    v16) {
+				 !(*(uint8_t*)(v2 + 116) & 8)) &&
+				v16) {
 				v18 = (int*)nox_xxx_materialGetTeamColor_418D50((int)v17);
 				v19 = *v12 + *(uint32_t*)(v2 + 12) - v12[4];
 				v20 = *(uint32_t*)(v2 + 16) + v12[1] - *(short*)(v2 + 104) - a1[5] -
-				      2 * nox_float2int(*(float*)(v2 + 100));
+					  2 * nox_float2int(*(float*)(v2 + 100));
 				if (v18) {
 					nox_client_drawSetColor_434460(*v18);
-}
+				}
 				sub_4B0BC0(v19, v20, 3);
 			}
 		}
@@ -222,17 +223,17 @@ int  nox_thing_monster_draw(int* a1, nox_drawable* dr) {
 			goto LABEL_34;
 		}
 	}
-	LABEL_45:
+LABEL_45:
 	nox_client_drawEnableAlpha_434560(0);
 	return v23;
 }
 
 //----- (0044BB80) --------------------------------------------------------
-bool  nox_things_monster_draw_parse(nox_thing* obj, nox_memfile* f, char* attr_value) {
-	uint32_t* v2;          // ebx
-	int v4;              // ecx
-	unsigned char v6;  // cl
-	int v9;              // edi
+bool nox_things_monster_draw_parse(nox_thing* obj, nox_memfile* f, char* attr_value) {
+	uint32_t* v2;     // ebx
+	int v4;           // ecx
+	unsigned char v6; // cl
+	int v9;           // edi
 
 	v2 = calloc(1u, 0x304u);
 	*v2 = 772;
@@ -240,7 +241,7 @@ bool  nox_things_monster_draw_parse(nox_thing* obj, nox_memfile* f, char* attr_v
 		v4 = nox_memfile_read_u32(f);
 		if (v4 == 0x454E4420) { // 'END '
 			break;
-}
+		}
 		v6 = nox_memfile_read_u8(f);
 		if (v6 < 0x10u) {
 			unsigned char n;
@@ -252,7 +253,7 @@ bool  nox_things_monster_draw_parse(nox_thing* obj, nox_memfile* f, char* attr_v
 			if (nox_xxx_loadVectorAnimated_44B8B0(v9, f)) {
 				if (nox_xxx_loadVectorAnimated_44BC50(v9, f)) {
 					continue;
-}
+				}
 			}
 		}
 		return 0;

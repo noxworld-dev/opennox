@@ -25,7 +25,6 @@
 #include "GAME2.h"
 #include "GAME2_2.h"
 
-
 SDL_GLContext g_ddraw;
 extern uint32_t g_present_ticks;
 GLuint g_texture, g_program, g_tex_coord_buffer, g_tex_coord_attr, g_gamma_uniform, g_matrix_uniform, g_sampler_uniform;
@@ -34,8 +33,6 @@ unsigned int g_tex_coord_itemsize, g_tex_coord_numitems;
 
 SDL_Surface* g_frontbuffer1;
 
-
-
 static void glCheckError() {
 #if 0
     GLenum error = glGetError();
@@ -43,8 +40,6 @@ static void glCheckError() {
         abort();
 #endif
 }
-
-
 
 //----- (0048A120) --------------------------------------------------------
 void nox_video_free_renderer_48A120() {
@@ -62,20 +57,19 @@ void nox_video_free_renderer_48A120() {
 	sub_48AA40();
 }
 
-SDL_Surface*  nox_video_createSurface_48A600(int width, int height, int caps) {
+SDL_Surface* nox_video_createSurface_48A600(int width, int height, int caps) {
 	SDL_Surface* pSurface = SDL_CreateRGBSurfaceWithFormat(0, width, height, 16, g_format);
 
 	return pSurface;
 }
 
-int  nox_video_getSurfaceData_48A720(SDL_Surface* surf, int* outPitch, void** outPixels) {
+int nox_video_getSurfaceData_48A720(SDL_Surface* surf, int* outPitch, void** outPixels) {
 	if (outPitch)
 		*outPitch = surf->pitch;
 	if (outPixels)
 		*outPixels = surf->pixels;
 	return 0;
 }
-
 
 static void set_viewport(float srcw, float srch) {
 	float ratio = srcw / srch, offx = 0, offy = 0;
@@ -160,8 +154,7 @@ void sdl_present() {
 			}
 		}
 		if (g_scaled && g_frontbuffer1 == 0) {
-			g_frontbuffer1 =
-				nox_video_createSurface_48A600(dstrect.w, dstrect.h, DDSCAPS_OFFSCREENPLAIN);
+			g_frontbuffer1 = nox_video_createSurface_48A600(dstrect.w, dstrect.h, DDSCAPS_OFFSCREENPLAIN);
 			SDL_SetSurfaceBlendMode(g_backbuffer1, SDL_BLENDMODE_NONE);
 			SDL_SetSurfaceBlendMode(g_frontbuffer1, SDL_BLENDMODE_NONE);
 		}
@@ -303,7 +296,7 @@ int nox_video_init_renderer_48B000() {
 	SDL_GL_SetSwapInterval(1);
 
 #ifdef _WIN32
-    GLenum err = glewInit();
+	GLenum err = glewInit();
 	if (GLEW_OK != err) {
 		/* Problem: glewInit failed, something is seriously wrong. */
 		_dprintf("Error: %s\n", glewGetErrorString(err));
@@ -391,8 +384,6 @@ int nox_video_init_renderer_48B000() {
 	return 1;
 }
 
-
-
 //----- (0048A3D0) --------------------------------------------------------
 int nox_video_setBackBufSizes_48A3D0() {
 	dword_5d4594_3801780 = 2;
@@ -420,25 +411,24 @@ int nox_video_setBackBufSizes_48A3D0() {
 	return 0;
 }
 
-
 #ifdef NOX_PLAY_MOVIES
 int PlayMovie(char* filename);
 #endif // NOX_PLAY_MOVIES
 
 //----- (004B0340) --------------------------------------------------------
-int  nox_client_drawGeneral_4B0340(int a1) // draw general
+int nox_client_drawGeneral_4B0340(int a1) // draw general
 {
-	int v1;             // esi
-	int v2;              // ebp
-	int v3;              // edi
-	int v4;              // ebx
-	int result;          // eax
-	int v7 = 0;              // [esp+10h] [ebp-44h]
-	int v8 = 0;              // [esp+14h] [ebp-40h]
-	int v9;              // [esp+18h] [ebp-3Ch]
-	int v10;             // [esp+1Ch] [ebp-38h]
-	int v11;             // [esp+20h] [ebp-34h]
-	int v12;             // [esp+24h] [ebp-30h]
+	int v1;     // esi
+	int v2;     // ebp
+	int v3;     // edi
+	int v4;     // ebx
+	int result; // eax
+	int v7 = 0; // [esp+10h] [ebp-44h]
+	int v8 = 0; // [esp+14h] [ebp-40h]
+	int v9;     // [esp+18h] [ebp-3Ch]
+	int v10;    // [esp+1Ch] [ebp-38h]
+	int v11;    // [esp+20h] [ebp-34h]
+	int v12;    // [esp+24h] [ebp-30h]
 
 	dword_5d4594_1311936 = 1;
 	*getMemU32Ptr(0x5D4594, 1311932) = a1;
@@ -472,7 +462,7 @@ int  nox_client_drawGeneral_4B0340(int a1) // draw general
 			PlayMovie(path);
 			free(path);
 		}
-#else // __linux__
+#else  // __linux__
 		PlayMovie(getMemAt(0x5D4594, 1311940));
 #endif // __linux__
 #endif // NOX_PLAY_MOVIES
@@ -524,7 +514,7 @@ int  nox_client_drawGeneral_4B0340(int a1) // draw general
 }
 
 //----- (0048A040) --------------------------------------------------------
-int  nox_video_resetRenderer_48A040(int a2, int a3, int a4) {
+int nox_video_resetRenderer_48A040(int a2, int a3, int a4) {
 	int result; // eax
 
 	g_backbuffer_count = 2;
@@ -547,7 +537,6 @@ int  nox_video_resetRenderer_48A040(int a2, int a3, int a4) {
 			return result;
 
 		create_surfaces(a2, a3);
-
 	}
 	dword_6F7BB0 = 1;
 	sub_48A820(1u);

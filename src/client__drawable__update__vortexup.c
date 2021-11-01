@@ -1,12 +1,12 @@
 #include "client__drawable__update__vortexup.h"
 
-#include "common__random.h"
 #include "GAME2.h"
 #include "GAME2_3.h"
 #include "client__video__draw_common.h"
+#include "common__random.h"
 
 //----- (004CC950) --------------------------------------------------------
-int  nox_xxx_updDrawVortexSource_4CC950(int a1, int a2) {
+int nox_xxx_updDrawVortexSource_4CC950(int a1, int a2) {
 	int v2;  // ebp
 	int v3;  // esi
 	int v4;  // eax
@@ -25,16 +25,19 @@ int  nox_xxx_updDrawVortexSource_4CC950(int a1, int a2) {
 	v9 = *getMemU32Ptr(0x5D4594, 1522948);
 	v4 = nox_common_randomIntMinMax_415FF0(0, 255, "C:\\NoxPost\\src\\client\\Drawable\\Update\\VortexUp.c", 54);
 	v5 = v4;
-	v6 = nox_xxx_spriteLoadAdd_45A360_drawable(v3, *(uint32_t*)(a2 + 12) + 50 * *getMemIntPtr(0x587000, 192088 + 8 * v4) / 16,
-							 *(uint32_t*)(a2 + 16) + 50 * *getMemIntPtr(0x587000, 192092 + 8 * v4) / 16);
+	v6 = nox_xxx_spriteLoadAdd_45A360_drawable(
+		v3, *(uint32_t*)(a2 + 12) + 50 * *getMemIntPtr(0x587000, 192088 + 8 * v4) / 16,
+		*(uint32_t*)(a2 + 16) + 50 * *getMemIntPtr(0x587000, 192092 + 8 * v4) / 16);
 	v7 = v6;
 	if (v6) {
 		*(uint8_t*)(v6 + 448) = v5;
 		*(uint16_t*)(a2 + 104) = 0;
-		*(uint8_t*)(v6 + 449) = nox_common_randomIntMinMax_415FF0(2, 3, "C:\\NoxPost\\src\\client\\Drawable\\Update\\VortexUp.c", 74);
-		if (nox_common_randomIntMinMax_415FF0(0, 100, "C:\\NoxPost\\src\\client\\Drawable\\Update\\VortexUp.c", 75) > 50) {
+		*(uint8_t*)(v6 + 449) =
+			nox_common_randomIntMinMax_415FF0(2, 3, "C:\\NoxPost\\src\\client\\Drawable\\Update\\VortexUp.c", 74);
+		if (nox_common_randomIntMinMax_415FF0(0, 100, "C:\\NoxPost\\src\\client\\Drawable\\Update\\VortexUp.c", 75) >
+			50) {
 			*(uint8_t*)(v7 + 449) = -*(uint8_t*)(v7 + 449);
-}
+		}
 		*(uint8_t*)(v7 + 451) = 1;
 		*(uint8_t*)(v7 + 450) = 50;
 		*(uint32_t*)(v7 + 440) = *(uint32_t*)(a2 + 12);

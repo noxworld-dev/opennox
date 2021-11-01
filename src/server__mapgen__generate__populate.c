@@ -14,24 +14,24 @@ extern uint32_t dword_5d4594_1550916;
 int sub_4D42C0() { return dword_5d4594_1550916; }
 
 //----- (00522AD0) --------------------------------------------------------
-float*  nox_xxx_mapgen_522AD0(float* a1, int a2) {
-	int v2;     // eax
-	double v4;  // st7
-	double v5;  // st7
-	float* v6;  // ebx
-	double v7;  // st7
-	float a3;   // [esp+0h] [ebp-34h]
-	float a4;   // [esp+4h] [ebp-30h]
-	int2 a2a;   // [esp+14h] [ebp-20h]
-	float2 a1a; // [esp+1Ch] [ebp-18h]
-	float v13 = 0;  // [esp+24h] [ebp-10h]
-	float v14 = 0;  // [esp+28h] [ebp-Ch]
-	float2 v15; // [esp+2Ch] [ebp-8h]
+float* nox_xxx_mapgen_522AD0(float* a1, int a2) {
+	int v2;        // eax
+	double v4;     // st7
+	double v5;     // st7
+	float* v6;     // ebx
+	double v7;     // st7
+	float a3;      // [esp+0h] [ebp-34h]
+	float a4;      // [esp+4h] [ebp-30h]
+	int2 a2a;      // [esp+14h] [ebp-20h]
+	float2 a1a;    // [esp+1Ch] [ebp-18h]
+	float v13 = 0; // [esp+24h] [ebp-10h]
+	float v14 = 0; // [esp+28h] [ebp-Ch]
+	float2 v15;    // [esp+2Ch] [ebp-8h]
 
 	v2 = *(uint32_t*)(a2 + 60);
 	if (*((uint8_t*)a1 + v2 + 216)) {
 		return 0;
-}
+	}
 	switch (v2) {
 	case 0:
 		a1a.field_0 = a1[7] * 0.5 + a1[9] + 1.0;
@@ -102,28 +102,28 @@ float*  nox_xxx_mapgen_522AD0(float* a1, int a2) {
 int sub_5259E0() { return dword_5d4594_2487576; }
 
 //----- (00527D50) --------------------------------------------------------
-int  sub_527D50(int a1, char* a2) {
+int sub_527D50(int a1, char* a2) {
 	char* v3; // eax
 
 	if (!a1) {
 		return 0;
-}
+	}
 	if (!a2) {
 		return 0;
-}
+	}
 	v3 = (char*)nox_xxx_getUnitName_4E39D0(a1);
-	if (*(int(**)(int))(nox_xxx_objectTypeByID_4E3B60(v3) + 212) != nox_xxx_XFerExit_4F4B90) {
+	if (*(int (**)(int))(nox_xxx_objectTypeByID_4E3B60(v3) + 212) != nox_xxx_XFerExit_4F4B90) {
 		return 0;
-}
+	}
 	strncpy(*(char**)(a1 + 700), a2, 0x50u);
 	return 1;
 }
 
 //----- (00522A40) --------------------------------------------------------
-int  nox_xxx_mapGenMakeExit_522A40(int a1) {
+int nox_xxx_mapGenMakeExit_522A40(int a1) {
 	if (!*(uint32_t*)(a1 + 472)) {
 		return 1;
-}
+	}
 	for (int v2 = sub_5259E0(); v2; v2 = *(uint32_t*)(v2 + 68)) {
 		if (*(uint32_t*)v2 != 1) {
 			continue;
@@ -150,7 +150,7 @@ double sub_5259D0() { return *(float*)&dword_5d4594_2487580; }
 void sub_526A90() { free(*(void**)&dword_5d4594_2487672); }
 
 //----- (005228B0) --------------------------------------------------------
-void  nox_xxx_mapGenFinishPopulate_5228B0_mapgen_populate(int a1) {
+void nox_xxx_mapGenFinishPopulate_5228B0_mapgen_populate(int a1) {
 	wchar_t* v1; // eax
 	wchar_t* v2; // eax
 	wchar_t* v3; // eax
@@ -162,14 +162,11 @@ void  nox_xxx_mapGenFinishPopulate_5228B0_mapgen_populate(int a1) {
 
 	nox_xxx_mapGenSetFlags_5235F0(157);
 	if (!nox_xxx_mapGenMakeExit_522A40(a1)) {
-		v1 = nox_strman_loadString_40F1D0("NoExit", 0,
-								   "C:\\NoxPost\\src\\Server\\MapGen\\Generate\\populate.c", 848);
+		v1 = nox_strman_loadString_40F1D0("NoExit", 0, "C:\\NoxPost\\src\\Server\\MapGen\\Generate\\populate.c", 848);
 		nox_xxx_printToAll_4D9FD0(0, v1);
-		v2 = nox_strman_loadString_40F1D0("NoExit", 0,
-								   "C:\\NoxPost\\src\\Server\\MapGen\\Generate\\populate.c", 849);
+		v2 = nox_strman_loadString_40F1D0("NoExit", 0, "C:\\NoxPost\\src\\Server\\MapGen\\Generate\\populate.c", 849);
 		nox_xxx_printToAll_4D9FD0(0, v2);
-		v3 = nox_strman_loadString_40F1D0("NoExit", 0,
-								   "C:\\NoxPost\\src\\Server\\MapGen\\Generate\\populate.c", 850);
+		v3 = nox_strman_loadString_40F1D0("NoExit", 0, "C:\\NoxPost\\src\\Server\\MapGen\\Generate\\populate.c", 850);
 		nox_xxx_printToAll_4D9FD0(0, v3);
 	}
 	sub_5259D0();
@@ -177,14 +174,14 @@ void  nox_xxx_mapGenFinishPopulate_5228B0_mapgen_populate(int a1) {
 		nox_xxx_mapGenSetFlags_5235F0(157);
 		if (*(uint32_t*)(i + 372) && !(*(uint8_t*)(i + 52) & 2)) {
 			nox_xxx_mapgen_522340(a1, i);
-}
+		}
 		if (*(uint32_t*)(a1 + 60)) {
 			for (j = *(uint32_t*)(i + 368); j; j = *(uint32_t*)(j + 24)) {
 				if (*(uint32_t*)j) {
 					nox_xxx_tileGetDefByName_51D4D0("CrystalBlue");
 				} else {
 					nox_xxx_tileGetDefByName_51D4D0("CrystalRed");
-}
+				}
 				sub_5245A0(a1, (float*)(j + 4), (long long)((*(float*)(j + 12) - *(float*)(j + 4) + 0.5) * 0.030743772),
 						   (long long)((*(float*)(j + 16) - *(float*)(j + 8) + 0.5) * 0.030743772));
 			}

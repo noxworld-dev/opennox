@@ -1,28 +1,28 @@
 #include "client__draw__glyphdraw.h"
-#include "client__draw__animdraw.h"
 #include "GAME1.h"
 #include "GAME1_2.h"
+#include "client__draw__animdraw.h"
 #include "client__video__draw_common.h"
 #include "operators.h"
 
 extern int nox_backbuffer_depth;
 
 //----- (004B9C70) --------------------------------------------------------
-int  nox_thing_glyph_draw(int* a1, nox_drawable* dr) {
-	char v3;    // cl
-	int v4;     // ecx
-	int v5;     // eax
-	int v6;     // eax
-	int v7;     // esi
+int nox_thing_glyph_draw(int* a1, nox_drawable* dr) {
+	char v3; // cl
+	int v4;  // ecx
+	int v5;  // eax
+	int v6;  // eax
+	int v7;  // esi
 
 	uint32_t* a2 = dr;
 
 	if (!nox_common_gameFlags_check_40A5C0(2) || !*getMemU32Ptr(0x852978, 8)) {
 		goto LABEL_10;
-}
+	}
 	if (a2[30] & 0x40000000) {
 		LOBYTE(a2) = -1;
-		LABEL_10:
+	LABEL_10:
 		nox_client_drawEnableAlpha_434560(1);
 		nox_client_drawSetAlpha_434580((unsigned char)a2);
 		v7 = nox_thing_animate_draw(a1, dr);
@@ -35,10 +35,10 @@ int  nox_thing_glyph_draw(int* a1, nox_drawable* dr) {
 		sub_433E40(*getMemIntPtr(0x8531A0, 2572));
 #ifdef NOX_CGO
 		v3 = -1;
-#else // NOX_CGO
+#else  // NOX_CGO
 		v3 = nox_backbuffer_depth >= 16 ? -1 : -128;
 #endif // NOX_CGO
-		LABEL_9:
+	LABEL_9:
 		LOBYTE(a2) = v3;
 		goto LABEL_10;
 	}

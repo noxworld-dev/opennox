@@ -3,8 +3,6 @@
 
 #include "defs.h"
 
-
 void init_data();
-
 
 #endif // NOX_PORT_GAME_DATA_INIT

@@ -1,12 +1,12 @@
-#include "common__random.h"
 #include "GAME1.h"
 #include "GAME5.h"
 #include "GAME5_2.h"
-#include "defs.h"
 #include "MixPatch.h"
+#include "common__random.h"
+#include "defs.h"
 
 //----- (00552020) --------------------------------------------------------
-int  nox_xxx_netRecv_552020(nox_socket_t s, char* buf, int len, struct nox_net_sockaddr_in* from) {
+int nox_xxx_netRecv_552020(nox_socket_t s, char* buf, int len, struct nox_net_sockaddr_in* from) {
 	int n = mix_recvfrom(s, buf, len, from);
 	if (n != -1) {
 		nox_net_struct_t* ns = nox_xxx_netStructByAddr_551E60(from);

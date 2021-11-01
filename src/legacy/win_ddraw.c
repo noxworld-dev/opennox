@@ -2,11 +2,21 @@
 #include <emscripten/emscripten.h>
 #endif
 
-#include "input.h"
+#include "GAME1.h"
+#include "GAME1_1.h"
+#include "GAME1_3.h"
+#include "GAME2.h"
+#include "GAME2_2.h"
+#include "GAME2_3.h"
+#include "GAME3.h"
+#include "GAME3_3.h"
+#include "GAME4.h"
+#include "GAME4_1.h"
+#include "GAME5_2.h"
 #include "cdrom.h"
-#include "client__drawable__drawdb.h"
 #include "client__draw__fx.h"
 #include "client__draw__image.h"
+#include "client__drawable__drawdb.h"
 #include "client__gui__guiinv.h"
 #include "client__gui__guimeter.h"
 #include "client__gui__guishop.h"
@@ -22,19 +32,8 @@
 #include "common__config.h"
 #include "common__magic__speltree.h"
 #include "defs.h"
-#include "GAME1_1.h"
-#include "GAME1_3.h"
-#include "GAME1.h"
-#include "GAME2_2.h"
-#include "GAME2_3.h"
-#include "GAME2.h"
-#include "GAME3_3.h"
-#include "GAME3.h"
-#include "GAME4_1.h"
-#include "GAME4.h"
-#include "GAME5_2.h"
-#include "input_common.h"
 #include "input.h"
+#include "input_common.h"
 #include "legacy/client__video__ddraw__draw_ddraw.h"
 #include "legacy/input_ddraw.h"
 #include "legacy/mmx.h"
@@ -162,15 +161,13 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 HWND nox_video_getWindow_401FD0() { return g_hwnd; }
 
 //----- (00401FE0) --------------------------------------------------------
-void  sub_401FE0(LPCSTR lpString) {
+void sub_401FE0(LPCSTR lpString) {
 	if (lpString)
 		SetWindowTextA(g_hwnd, lpString);
 }
 
 //----- (0047D8A0) --------------------------------------------------------
-void nox_xxx_showWindow_47D8A0() {
-	ShowWindow(nox_video_getWindow_401FD0(), SW_RESTORE);
-}
+void nox_xxx_showWindow_47D8A0() { ShowWindow(nox_video_getWindow_401FD0(), SW_RESTORE); }
 
 //----- (00444FF0) --------------------------------------------------------
 int __stdcall nox_xxx_windowProc_444FF0(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam) {
@@ -286,7 +283,7 @@ int __stdcall nox_xxx_windowProc_444FF0(HWND hWnd, UINT Msg, WPARAM wParam, LPAR
 }
 
 //----- (004147E0) --------------------------------------------------------
-BOOL  sub_4147E0(HWND hWnd) {
+BOOL sub_4147E0(HWND hWnd) {
 	// Trigger expiration time check.
 	return PostMessageA(hWnd, 3024u, (WPARAM)getMemAt(0x5D4594, 338464), *(LPARAM*)getMemAt(0x587000, 32580));
 }

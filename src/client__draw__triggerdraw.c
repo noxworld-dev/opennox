@@ -1,10 +1,10 @@
 #include "client__draw__triggerdraw.h"
-#include "GAME1_2.h"
 #include "GAME1_1.h"
+#include "GAME1_2.h"
 #include "GAME2_3.h"
 
 //----- (004BB9D0) --------------------------------------------------------
-int  nox_thing_trigger_draw(uint32_t* a1, nox_drawable* dr) {
+int nox_thing_trigger_draw(uint32_t* a1, nox_drawable* dr) {
 	int v2 = *a1 - a1[4];
 	int v3 = a1[1] - a1[5];
 

@@ -3,7 +3,6 @@
 
 #include "defs.h"
 
-
 void sub_4A19D0();
 int sub_4A1A40(int a1);
 int sub_4A1A60();
@@ -96,10 +95,12 @@ int nox_xxx_wndCheckBoxProc_4A8C00(int a1, int a2, int a3, int a4);
 int nox_xxx_wndCheckBoxInit_4A8E60(int a1);
 int nox_xxx_wndDrawCheckBoxNoImg_4A8EA0(int a1, int a2);
 int nox_xxx_wndDrawCheckBox_4A9050(uint32_t* a1, int a2);
-nox_window* nox_gui_newButtonOrCheckbox_4A91A0(nox_window* parent, int a2, int a3, int a4, int a5, int a6, nox_window_data* draw);
+nox_window* nox_gui_newButtonOrCheckbox_4A91A0(nox_window* parent, int a2, int a3, int a4, int a5, int a6,
+											   nox_window_data* draw);
 int nox_xxx_wndButtonProcPre_4A9250(int a1, int a2, wchar_t* a3, int a4);
 int nox_xxx_wndCheckboxProcMB_4A92C0(int a1, int a2, wchar_t* a3, int a4);
-nox_window* nox_gui_newRadioButton_4A9330(nox_window* parent, int a2, int a3, int a4, int a5, int a6, nox_window_data* draw, nox_radioButton_data* data);
+nox_window* nox_gui_newRadioButton_4A9330(nox_window* parent, int a2, int a3, int a4, int a5, int a6,
+										  nox_window_data* draw, nox_radioButton_data* data);
 int nox_xxx_wndRadioButtonProcPre_4A93C0(int a1, int a2, wchar_t* a3, int a4);
 int nox_xxx_loadDefColor_4A94A0();
 FILE* nox_xxx_loadPal_4A96C0_video_read_palette(char* a1);
@@ -269,7 +270,8 @@ int sub_4B6970(uint32_t* a1, nox_drawable* dr, int a3, int a4);
 short sub_4B69F0(int a1);
 int sub_4B6B80(int* a1, nox_drawable* dr, int a3);
 int sub_4B71A0(uint32_t* a1, int a2);
-uint32_t* nox_xxx_netHandleSummonPacket_4B7C40(short a1, unsigned short* a2, unsigned short a3, unsigned char a4, short a5);
+uint32_t* nox_xxx_netHandleSummonPacket_4B7C40(short a1, unsigned short* a2, unsigned short a3, unsigned char a4,
+											   short a5);
 void sub_4B7EE0(short a1);
 int nox_xxx_spriteShieldLoad_4B7F90();
 uint32_t* nox_xxx_fxShield_4B8090(unsigned int a1, int a2);
@@ -282,6 +284,6 @@ uint32_t* sub_4B8E10(uint32_t* a1, char* a2);
 void nox_xxx_drawOtherPlayerHP_4B8EB0(uint32_t* a1, nox_drawable* dr, unsigned short a3, char a4);
 int sub_4B8FA0(nox_drawable* dr, int* a2, int* a3);
 
-uint32_t* nox_xxx_partfxSwitch_4AF690(uint32_t* a1, void(* a2)(uint32_t*, uint32_t*, int));
+uint32_t* nox_xxx_partfxSwitch_4AF690(uint32_t* a1, void (*a2)(uint32_t*, uint32_t*, int));
 
 #endif // NOX_PORT_GAME3

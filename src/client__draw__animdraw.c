@@ -1,16 +1,16 @@
 #include "client__draw__animdraw.h"
-#include "client__draw__parse__parse.h"
-#include "common__random.h"
 #include "GAME1.h"
 #include "GAME1_2.h"
 #include "GAME2.h"
 #include "GAME3_1.h"
+#include "client__draw__parse__parse.h"
+#include "common__random.h"
 #include "operators.h"
 
 extern unsigned int nox_frame_xxx_2598000;
 
 //----- (004BBD60) --------------------------------------------------------
-int  nox_thing_animate_draw(unsigned int* a1, struct nox_drawable* dr) {
+int nox_thing_animate_draw(unsigned int* a1, struct nox_drawable* dr) {
 	int v2;     // edi
 	int v3;     // esi
 	int v4;     // ecx
@@ -25,31 +25,30 @@ int  nox_thing_animate_draw(unsigned int* a1, struct nox_drawable* dr) {
 		v7 = *(unsigned char*)(v2 + 8);
 		if (v3 >= v7) {
 			v3 = v7 - 1;
-}
+		}
 		goto LABEL_12;
 	case 1:
 		v3 = (nox_frame_xxx_2598000 - dr->field_79) / ((unsigned int)*(unsigned char*)(v2 + 9) + 1);
 		if (v3 < *(unsigned char*)(v2 + 8)) {
 			goto LABEL_12;
-}
+		}
 		nox_xxx_spriteDeleteStatic_45A4E0_drawable(dr);
 		return 0;
 	case 2:
 		if (dr->flags30 & 0x1000000) {
 			goto LABEL_9;
-}
+		}
 		if (!(dr->flags28 & 0x10000000)) {
 			goto LABEL_8;
-}
+		}
 		if (nox_common_gameFlags_check_40A5C0(32)) {
 		LABEL_9:
-			v3 = (nox_frame_xxx_2598000 + dr->field_32) /
-				 ((unsigned int)*(unsigned char*)(v2 + 9) + 1);
+			v3 = (nox_frame_xxx_2598000 + dr->field_32) / ((unsigned int)*(unsigned char*)(v2 + 9) + 1);
 			goto LABEL_10;
 		}
 		if (dr->flags28 & 0x10000000) {
 			goto LABEL_14;
-}
+		}
 	LABEL_8:
 		v3 = 0;
 		goto LABEL_12;
@@ -63,12 +62,12 @@ int  nox_thing_animate_draw(unsigned int* a1, struct nox_drawable* dr) {
 			v4 = *(unsigned char*)(v2 + 8);
 			if (v3 >= v4) {
 				v3 %= v4;
-}
+			}
 		LABEL_12:
 			nox_xxx_drawObject_4C4770_draw(a1, dr, *(unsigned int*)(*(unsigned int*)(v2 + 4) + 4 * v3));
 			if (*(unsigned int*)(v2 + 12) == 3) {
 				nox_client_drawEnableAlpha_434560(0);
-}
+			}
 		LABEL_14:
 			result = 1;
 		} else {
@@ -77,7 +76,8 @@ int  nox_thing_animate_draw(unsigned int* a1, struct nox_drawable* dr) {
 		}
 		return result;
 	case 4:
-		v3 = nox_common_randomIntMinMax_415FF0(0, *(unsigned char*)(v2 + 8) - 1, "C:\\NoxPost\\src\\Client\\Draw\\animdraw.c", 24);
+		v3 = nox_common_randomIntMinMax_415FF0(0, *(unsigned char*)(v2 + 8) - 1,
+											   "C:\\NoxPost\\src\\Client\\Draw\\animdraw.c", 24);
 		goto LABEL_12;
 	case 5:
 		v3 = dr->field_77;
@@ -88,7 +88,7 @@ int  nox_thing_animate_draw(unsigned int* a1, struct nox_drawable* dr) {
 }
 
 //----- (004BBF10) --------------------------------------------------------
-int  nox_thing_animate_state_draw(uint32_t* a1, nox_drawable* dr) {
+int nox_thing_animate_state_draw(uint32_t* a1, nox_drawable* dr) {
 	int v2;     // eax
 	int v3;     // edx
 	int v4;     // eax
@@ -108,31 +108,31 @@ int  nox_thing_animate_state_draw(uint32_t* a1, nox_drawable* dr) {
 	v5 = 48 * v4 + v3 + 4;
 	if (*(uint32_t*)(v5 + 44) == 2) {
 		dr->field_79 = nox_frame_xxx_2598000;
-}
+	}
 	if (*(uint16_t*)(v5 + 40)) {
 		result = sub_4BC6B0(a1, dr, v5);
 	} else {
 		result = 1;
-}
+	}
 	return result;
 }
 
 //----- (0044B390) --------------------------------------------------------
-bool  nox_things_animate_draw_parse(nox_thing* obj, nox_memfile* f, char* attr_value) {
+bool nox_things_animate_draw_parse(nox_thing* obj, nox_memfile* f, char* attr_value) {
 	uint8_t* a3 = attr_value;
-	uint32_t* v3;          // eax
-	uint32_t* v5;          // edi
-	uint8_t* v6;           // ebx
-	char v8;             // cl
-	char v10;            // cl
-	int result;          // eax
-	int v13;             // ebp
-	int v15;             // ecx
-	char v17;            // cl
-	const char* v19;     // [esp+14h] [ebp-4h]
+	uint32_t* v3;      // eax
+	uint32_t* v5;      // edi
+	uint8_t* v6;       // ebx
+	char v8;           // cl
+	char v10;          // cl
+	int result;        // eax
+	int v13;           // ebp
+	int v15;           // ecx
+	char v17;          // cl
+	const char* v19;   // [esp+14h] [ebp-4h]
 	unsigned char v20; // [esp+20h] [ebp+8h]
 	unsigned char v21; // [esp+20h] [ebp+8h]
-	int v22;             // [esp+24h] [ebp+Ch]
+	int v22;           // [esp+24h] [ebp+Ch]
 
 	v3 = calloc(1u, 0x10u);
 	v5 = v3;
@@ -150,7 +150,7 @@ bool  nox_things_animate_draw_parse(nox_thing* obj, nox_memfile* f, char* attr_v
 	v5[1] = result;
 	if (!result) {
 		return 0;
-}
+	}
 
 	v13 = 0;
 	v22 = 0;
@@ -177,15 +177,15 @@ bool  nox_things_animate_draw_parse(nox_thing* obj, nox_memfile* f, char* attr_v
 }
 
 //----- (0044BE90) --------------------------------------------------------
-int  sub_44BE90(int a1, nox_memfile* f) {
-	int v2;              // esi
-	int result;          // eax
-	int v4;              // ebx
-	int v6;              // ebp
-	char v8;             // dl
-	int v10;             // esi
-	const char* v11;     // [esp+4h] [ebp-88h]
-	char v12[128];       // [esp+Ch] [ebp-80h]
+int sub_44BE90(int a1, nox_memfile* f) {
+	int v2;          // esi
+	int result;      // eax
+	int v4;          // ebx
+	int v6;          // ebp
+	char v8;         // dl
+	int v10;         // esi
+	const char* v11; // [esp+4h] [ebp-88h]
+	char v12[128];   // [esp+Ch] [ebp-80h]
 
 	v2 = a1;
 	result = (int)malloc(4 * *(short*)(a1 + 40));
@@ -213,7 +213,7 @@ int  sub_44BE90(int a1, nox_memfile* f) {
 }
 
 //----- (0044BD90) --------------------------------------------------------
-bool  nox_things_animate_state_draw_parse(nox_thing* obj, nox_memfile* f, char* attr_value) {
+bool nox_things_animate_state_draw_parse(nox_thing* obj, nox_memfile* f, char* attr_value) {
 	const size_t data_sz = 0x94u;
 	uint32_t* draw_cb_data = calloc(1u, data_sz);
 	draw_cb_data[0] = data_sz;

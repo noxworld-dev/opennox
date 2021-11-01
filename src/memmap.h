@@ -9,13 +9,13 @@ extern void* mem_getPtrSize(uintptr_t base, uintptr_t off, uintptr_t size);
 // specific
 #define MEM_FUNC_PTR(T, NAME) extern T* NAME(uintptr_t base, uintptr_t off);
 MEM_FUNC_PTR(uint8_t, mem_getU8Ptr)
-MEM_FUNC_PTR( int8_t, mem_getI8Ptr)
+MEM_FUNC_PTR(int8_t, mem_getI8Ptr)
 MEM_FUNC_PTR(uint16_t, mem_getU16Ptr)
-MEM_FUNC_PTR( int16_t, mem_getI16Ptr)
+MEM_FUNC_PTR(int16_t, mem_getI16Ptr)
 MEM_FUNC_PTR(uint32_t, mem_getU32Ptr)
-MEM_FUNC_PTR( int32_t, mem_getI32Ptr)
+MEM_FUNC_PTR(int32_t, mem_getI32Ptr)
 MEM_FUNC_PTR(uint64_t, mem_getU64Ptr)
-MEM_FUNC_PTR( int64_t, mem_getI64Ptr)
+MEM_FUNC_PTR(int64_t, mem_getI64Ptr)
 MEM_FUNC_PTR(float, mem_getFloatPtr)
 MEM_FUNC_PTR(double, mem_getDoublePtr)
 

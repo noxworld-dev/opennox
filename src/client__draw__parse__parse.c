@@ -3,18 +3,18 @@
 #include "operators.h"
 
 //----- (0044C000) --------------------------------------------------------
-void*  nox_xxx_spriteLoadStaticRandomData_44C000(char* attr_value, nox_memfile* f) {
-	uint32_t* v2;          // eax
-	uint32_t* v4;          // ebp
-	void* result;        // eax
-	int v7;              // edi
-	uint8_t* v8;           // ebx
-	int v10;             // ecx
-	char v12;            // cl
-	const char* v13;     // [esp+Ch] [ebp-4h]
+void* nox_xxx_spriteLoadStaticRandomData_44C000(char* attr_value, nox_memfile* f) {
+	uint32_t* v2;      // eax
+	uint32_t* v4;      // ebp
+	void* result;      // eax
+	int v7;            // edi
+	uint8_t* v8;       // ebx
+	int v10;           // ecx
+	char v12;          // cl
+	const char* v13;   // [esp+Ch] [ebp-4h]
 	unsigned char v14; // [esp+14h] [ebp+4h]
 	unsigned char v15; // [esp+18h] [ebp+8h]
-	int v16;             // [esp+18h] [ebp+8h]
+	int v16;           // [esp+18h] [ebp+8h]
 
 	v2 = calloc(1u, 0xCu);
 	v4 = v2;
@@ -50,16 +50,16 @@ void*  nox_xxx_spriteLoadStaticRandomData_44C000(char* attr_value, nox_memfile* 
 }
 
 //----- (0044BFA0) --------------------------------------------------------
-int  nox_xxx_spriteLoadVectoAnimatedImpl_44BFA0(int a1, nox_memfile* f) {
+int nox_xxx_spriteLoadVectoAnimatedImpl_44BFA0(int a1, nox_memfile* f) {
 	if (!nox_xxx_loadVectorAnimated_44B8B0(a1, f)) {
 		return 0;
-}
+	}
 
 	return nox_xxx_loadVectorAnimated_44BC50(a1, f);
 }
 
 //----- (0044B8B0) --------------------------------------------------------
-int  nox_xxx_loadVectorAnimated_44B8B0(int a1, nox_memfile* f) {
+int nox_xxx_loadVectorAnimated_44B8B0(int a1, nox_memfile* f) {
 	*(uint16_t*)(a1 + 40) = nox_memfile_read_u8(f);
 
 	*(uint16_t*)(a1 + 42) = nox_memfile_read_u8(f);
@@ -76,18 +76,18 @@ int  nox_xxx_loadVectorAnimated_44B8B0(int a1, nox_memfile* f) {
 }
 
 //----- (0044BC50) --------------------------------------------------------
-int  nox_xxx_loadVectorAnimated_44BC50(int a1, nox_memfile* f) {
-	int v2;               // ebp
-	int v3;               // esi
-	void* v4;             // eax
-	int v5;               // ebx
-	int v7;               // ebp
-	char v9;              // dl
-	int v11;              // esi
-	int v13;              // [esp+10h] [ebp-90h]
-	int v14;              // [esp+14h] [ebp-8Ch]
-	const char* v15;      // [esp+1Ch] [ebp-84h]
-	char v16[128];        // [esp+20h] [ebp-80h]
+int nox_xxx_loadVectorAnimated_44BC50(int a1, nox_memfile* f) {
+	int v2;          // ebp
+	int v3;          // esi
+	void* v4;        // eax
+	int v5;          // ebx
+	int v7;          // ebp
+	char v9;         // dl
+	int v11;         // esi
+	int v13;         // [esp+10h] [ebp-90h]
+	int v14;         // [esp+14h] [ebp-8Ch]
+	const char* v15; // [esp+1Ch] [ebp-84h]
+	char v16[128];   // [esp+20h] [ebp-80h]
 
 	v2 = 0;
 	v14 = 0;
@@ -98,7 +98,7 @@ int  nox_xxx_loadVectorAnimated_44BC50(int a1, nox_memfile* f) {
 		*(uint32_t*)(v13 + a1 + 4) = v4;
 		if (!v4) {
 			break;
-}
+		}
 		v5 = 0;
 		if (*(uint16_t*)(a1 + 40) > 0) {
 			do {
@@ -120,27 +120,27 @@ int  nox_xxx_loadVectorAnimated_44BC50(int a1, nox_memfile* f) {
 		v14 = v2;
 		if (v2 >= 32) {
 			return 1;
-}
+		}
 	}
 	return 0;
 }
 
 //----- (0044B4C0) --------------------------------------------------------
-int  get_animation_kind_id_44B4C0(const char* a1) {
+int get_animation_kind_id_44B4C0(const char* a1) {
 	if (!strcmp(a1, "OneShot")) {
 		return 0;
-}
+	}
 	if (!strcmp(a1, "OneShotRemove")) {
 		return 1;
-}
+	}
 	if (!strcmp(a1, "Loop")) {
 		return 2;
-}
+	}
 	if (!strcmp(a1, "LoopAndFade")) {
 		return 3;
-}
+	}
 	if (!strcmp(a1, "Random")) {
 		return 4;
-}
+	}
 	return strcmp(a1, "Slave") != 0 ? 0 : 5;
 }

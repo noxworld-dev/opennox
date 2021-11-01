@@ -1,15 +1,15 @@
 #include "client__draw__playerdraw.h"
-#include "client__drawable__drawable.h"
-#include "client__draw__parse__parse.h"
 #include "GAME1.h"
-#include "GAME1_2.h"
 #include "GAME1_1.h"
+#include "GAME1_2.h"
 #include "GAME1_3.h"
 #include "GAME2.h"
 #include "GAME2_1.h"
 #include "GAME2_3.h"
 #include "GAME3.h"
 #include "GAME3_1.h"
+#include "client__draw__parse__parse.h"
+#include "client__drawable__drawable.h"
 #include "client__gui__window.h"
 #include "client__video__draw_common.h"
 #include "operators.h"
@@ -28,40 +28,40 @@ extern uint32_t dword_5d4594_3798688;
 extern unsigned int nox_frame_xxx_2598000;
 
 //----- (004B8270) --------------------------------------------------------
-int  nox_thing_player_draw(uint32_t* a1, nox_drawable* dr) {
-	char* v3;           // esi
-	uint32_t* v4;         // eax
-	char* v5;           // eax
-	uint32_t* v6;         // edi
-	uint32_t* v7;         // eax
-	uint32_t* v8;         // ebp
+int nox_thing_player_draw(uint32_t* a1, nox_drawable* dr) {
+	char* v3;         // esi
+	uint32_t* v4;     // eax
+	char* v5;         // eax
+	uint32_t* v6;     // edi
+	uint32_t* v7;     // eax
+	uint32_t* v8;     // ebp
 	unsigned char v9; // al
-	int* v10;           // ebp
-	uint32_t* v11;        // eax
-	int v12;            // edi
-	int v13;            // eax
-	int v14;            // ecx
-	uint32_t* v15;        // edx
-	int v16;            // eax
-	int* v17;           // edi
-	int v18;            // eax
-	char v20;           // al
+	int* v10;         // ebp
+	uint32_t* v11;    // eax
+	int v12;          // edi
+	int v13;          // eax
+	int v14;          // ecx
+	uint32_t* v15;    // edx
+	int v16;          // eax
+	int* v17;         // edi
+	int v18;          // eax
+	char v20;         // al
 	short* v21;       // edi
-	int v22;            // esi
-	int* v23;           // eax
-	int v24;            // eax
-	int v25;            // eax
-	int v26;            // [esp-4h] [ebp-6Ch]
-	int v27;            // [esp+10h] [ebp-58h]
-	int v28;            // [esp+14h] [ebp-54h]
-	char* v29;          // [esp+18h] [ebp-50h]
-	int v30;            // [esp+1Ch] [ebp-4Ch]
-	int v31;            // [esp+20h] [ebp-48h]
-	char* v32;          // [esp+24h] [ebp-44h]
-	int v33;            // [esp+28h] [ebp-40h]
-	int v34;            // [esp+2Ch] [ebp-3Ch]
-	int v35;           // [esp+30h] [ebp-38h]
-	int v36[13];        // [esp+34h] [ebp-34h]
+	int v22;          // esi
+	int* v23;         // eax
+	int v24;          // eax
+	int v25;          // eax
+	int v26;          // [esp-4h] [ebp-6Ch]
+	int v27;          // [esp+10h] [ebp-58h]
+	int v28;          // [esp+14h] [ebp-54h]
+	char* v29;        // [esp+18h] [ebp-50h]
+	int v30;          // [esp+1Ch] [ebp-4Ch]
+	int v31;          // [esp+20h] [ebp-48h]
+	char* v32;        // [esp+24h] [ebp-44h]
+	int v33;          // [esp+28h] [ebp-40h]
+	int v34;          // [esp+2Ch] [ebp-3Ch]
+	int v35;          // [esp+30h] [ebp-38h]
+	int v36[13];      // [esp+34h] [ebp-34h]
 
 	v26 = dr->field_32;
 	v31 = 0;
@@ -71,21 +71,21 @@ int  nox_thing_player_draw(uint32_t* a1, nox_drawable* dr) {
 	v32 = v3;
 	if (!v3) {
 		return 1;
-}
+	}
 	if (*getMemU32Ptr(0x8531A0, 2576) && *(uint8_t*)(*getMemU32Ptr(0x8531A0, 2576) + 3680) & 1) {
 		v30 = 1;
-}
+	}
 	if (*getMemU32Ptr(0x85319C, 0) == dr->field_32) {
 		v4 = nox_xxx_objGetTeamByNetCode_418C80(*getMemIntPtr(0x85319C, 0));
 		if (!v4) {
 			goto LABEL_15;
-}
+		}
 		v5 = nox_xxx_clientGetTeamColor_418AB0(*((unsigned char*)v4 + 4));
 		goto LABEL_14;
 	}
 	if (v3[3680] & 1) {
 		return 1;
-}
+	}
 	v6 = nox_xxx_objGetTeamByNetCode_418C80(*getMemIntPtr(0x85319C, 0));
 	if (v6) {
 		v7 = nox_xxx_objGetTeamByNetCode_418C80(dr->field_32);
@@ -93,19 +93,19 @@ int  nox_thing_player_draw(uint32_t* a1, nox_drawable* dr) {
 		if (v7) {
 			if (nox_xxx_servCompareTeams_419150((int)v6, (int)v7)) {
 				v31 = 1;
-}
+			}
 			v5 = nox_xxx_clientGetTeamColor_418AB0(*((unsigned char*)v8 + 4));
-			LABEL_14:
+		LABEL_14:
 			v29 = v5;
 			goto LABEL_15;
 		}
 	}
-	LABEL_15:
+LABEL_15:
 	v9 = nox_xxx_getTeamCounter_417DD0();
 	v10 = (int*)a1;
 	v35 = v9 != 0;
 	if (!(v3[4] & 1)) {
-		LABEL_24:
+	LABEL_24:
 		v12 = 0;
 		goto LABEL_25;
 	}
@@ -119,8 +119,8 @@ int  nox_thing_player_draw(uint32_t* a1, nox_drawable* dr) {
 	v36[9] = nox_win_height;
 	v36[4] = 0;
 	v36[5] = 0;
-	if (dword_5d4594_1313792 || (v13 = nox_xxx_getTTByNameSpriteMB_44CFC0("Flag"), v11 = nox_new_drawable_for_thing(v13),
-		(dword_5d4594_1313792 = v11) != 0)) {
+	if (dword_5d4594_1313792 || (v13 = nox_xxx_getTTByNameSpriteMB_44CFC0("Flag"),
+								 v11 = nox_new_drawable_for_thing(v13), (dword_5d4594_1313792 = v11) != 0)) {
 		v14 = 0;
 		v15 = v3 + 2324;
 		while (*v15 != 1) {
@@ -128,18 +128,18 @@ int  nox_thing_player_draw(uint32_t* a1, nox_drawable* dr) {
 			v15 += 6;
 			if (v14 >= 27) {
 				goto LABEL_23;
-}
+			}
 		}
 		memcpy(v11 + 108, &v3[24 * v14 + 2328], 0x14u);
 		v11 = *(uint32_t**)&dword_5d4594_1313792;
 		v3 = v32;
-		LABEL_23:
+	LABEL_23:
 		v11[3] = dr->pos.x - v10[4] + *v10 + 15;
 		*(uint32_t*)(dword_5d4594_1313792 + 16) = v10[1] - v10[5] + dr->pos.y - 25;
-		(*(void(**)(int*, uint32_t))(dword_5d4594_1313792 + 300))(v36, dword_5d4594_1313792);
+		(*(void (**)(int*, uint32_t))(dword_5d4594_1313792 + 300))(v36, dword_5d4594_1313792);
 		goto LABEL_24;
 	}
-	LABEL_25:
+LABEL_25:
 	if (!nox_xxx_spriteCheckFlag31_4356C0(dr, 23)) {
 		if (!nox_xxx_spriteCheckFlag31_4356C0(dr, 25)) {
 			*getMemU32Ptr(0x973A20, 512) = *((uint32_t*)v3 + 574);
@@ -155,10 +155,10 @@ int  nox_thing_player_draw(uint32_t* a1, nox_drawable* dr) {
 					int a2 = 0;
 					sub_434480(*v17, (int)&v33, &a2, (int)&a1);
 					if ((unsigned char)a2 >= 0x9Bu) {
-					LOBYTE(a2) = -1;
+						LOBYTE(a2) = -1;
 					} else {
-					LOBYTE(a2) = a2 + 100;
-}
+						LOBYTE(a2) = a2 + 100;
+					}
 					*v17 = nox_color_rgb_4344A0(v33, a2, a1);
 					++v17;
 				} while ((int)v17 < (int)getMemAt(0x973A20, 536));
@@ -169,7 +169,7 @@ int  nox_thing_player_draw(uint32_t* a1, nox_drawable* dr) {
 		goto LABEL_29;
 	}
 	if (!((unsigned char)nox_frame_xxx_2598000 & 1)) {
-		LABEL_29:
+	LABEL_29:
 		*getMemU32Ptr(0x973A20, 512) = *getMemU32Ptr(0x85B3FC, 980);
 		dword_5d4594_3798672 = *getMemU32Ptr(0x85B3FC, 980);
 		dword_5d4594_3798676 = *getMemU32Ptr(0x85B3FC, 980);
@@ -184,7 +184,7 @@ int  nox_thing_player_draw(uint32_t* a1, nox_drawable* dr) {
 	dword_5d4594_3798680 = *getMemU32Ptr(0x5D4594, 2523948);
 	dword_5d4594_3798684 = *getMemU32Ptr(0x5D4594, 2523948);
 	dword_5d4594_3798688 = *getMemU32Ptr(0x5D4594, 2523948);
-	LABEL_37:
+LABEL_37:
 	nox_xxx_drawPlayer_4341D0(1, *getMemIntPtr(0x973A20, 512));
 	nox_xxx_drawPlayer_4341D0(2, *(int*)&dword_5d4594_3798672);
 	nox_xxx_drawPlayer_4341D0(3, *(int*)&dword_5d4594_3798676);
@@ -194,7 +194,7 @@ int  nox_thing_player_draw(uint32_t* a1, nox_drawable* dr) {
 	v18 = sub_4B8FA0(dr, &v28, &v27);
 	if (!v18) {
 		return 0;
-}
+	}
 	nox_xxx_drawObject_4C4770_draw(v10, dr, v18);
 
 	// A player in Nox has a 32-bit integer field that contains bits for each
@@ -221,7 +221,7 @@ int  nox_thing_player_draw(uint32_t* a1, nox_drawable* dr) {
 	}
 
 	if (v30 || !nox_xxx_spriteCheckFlag31_4356C0(dr, 0) || dr->field_32 == *getMemU32Ptr(0x85319C, 0) ||
-	    *getMemU32Ptr(0x852978, 8) && (nox_xxx_spriteCheckFlag31_4356C0(*getMemIntPtr(0x852978, 8), 21) || v31)) {
+		*getMemU32Ptr(0x852978, 8) && (nox_xxx_spriteCheckFlag31_4356C0(*getMemIntPtr(0x852978, 8), 21) || v31)) {
 		a1 = nox_color_rgb_4344A0(155, 155, 155);
 		if (!sub_48D830(dr) && !nox_common_gameFlags_check_40A5C0(2048)) {
 			v21 = (short*)(v3 + 4704);
@@ -236,7 +236,7 @@ int  nox_thing_player_draw(uint32_t* a1, nox_drawable* dr) {
 					v23 = (int*)nox_xxx_materialGetTeamColor_418D50((int)v29);
 					if (v23) {
 						nox_xxx_drawSetTextColor_434390(*v23);
-}
+					}
 				}
 			}
 			nox_xxx_drawString_43F6E0(0, v21, v22, a2);
@@ -259,7 +259,7 @@ int  nox_thing_player_draw(uint32_t* a1, nox_drawable* dr) {
 			}
 			*(uint32_t*)(dword_5d4594_1313796 + 12) = *v10 + dr->pos.x - v10[4];
 			*(uint32_t*)(dword_5d4594_1313796 + 16) = v10[1] - v10[5] + dr->pos.y - 50;
-			(*(void(**)(int*, uint32_t))(dword_5d4594_1313796 + 300))(v36, dword_5d4594_1313796);
+			(*(void (**)(int*, uint32_t))(dword_5d4594_1313796 + 300))(v36, dword_5d4594_1313796);
 		}
 		if (nox_xxx_spriteCheckFlag31_4356C0(dr, 30)) {
 			v36[2] = nox_win_width;
@@ -277,7 +277,7 @@ int  nox_thing_player_draw(uint32_t* a1, nox_drawable* dr) {
 			}
 			*(uint32_t*)(dword_5d4594_1313800 + 12) = *v10 + dr->pos.x - v10[4];
 			*(uint32_t*)(dword_5d4594_1313800 + 16) = v10[1] - v10[5] + dr->pos.y - 50;
-			(*(void(**)(int*, uint32_t))(dword_5d4594_1313800 + 300))(v36, dword_5d4594_1313800);
+			(*(void (**)(int*, uint32_t))(dword_5d4594_1313800 + 300))(v36, dword_5d4594_1313800);
 		}
 		do {
 			nox_xxx_drawPlayer_4341D0(v12++, *getMemIntPtr(0x5D4594, 2523948));
@@ -285,14 +285,14 @@ int  nox_thing_player_draw(uint32_t* a1, nox_drawable* dr) {
 		if (dr != *getMemU32Ptr(0x852978, 8) && nox_xxx_playerGet_470A90()) {
 			if (nox_common_gameFlags_check_40A5C0(4096)) {
 				nox_xxx_drawOtherPlayerHP_4B8EB0(v10, dr, (unsigned char)v3[2282], (*((uint32_t*)v3 + 920) >> 10) & 1);
-}
+			}
 		}
 	}
 	return 1;
 }
 
 //----- (004B9790) --------------------------------------------------------
-int  nox_thing_player_waypoint_draw(int a1, nox_drawable* dr) {
+int nox_thing_player_waypoint_draw(int a1, nox_drawable* dr) {
 	int v2; // esi
 	int v3; // ebp
 	int v4; // ebx
@@ -302,8 +302,8 @@ int  nox_thing_player_waypoint_draw(int a1, nox_drawable* dr) {
 	int a2 = dr;
 
 	v2 = *getMemU32Ptr(0x85B3FC, 940);
-	nox_xxx_spriteDrawCircleMB_4C32A0(*(uint32_t*)(a2 + 12) - *(uint32_t*)(a1 + 16), *(uint32_t*)(a2 + 16) - *(uint32_t*)(a1 + 20), 10,
-	           *getMemIntPtr(0x85B3FC, 940));
+	nox_xxx_spriteDrawCircleMB_4C32A0(*(uint32_t*)(a2 + 12) - *(uint32_t*)(a1 + 16),
+									  *(uint32_t*)(a2 + 16) - *(uint32_t*)(a1 + 20), 10, *getMemIntPtr(0x85B3FC, 940));
 	v3 = *(uint32_t*)(a2 + 16) - *(uint32_t*)(a1 + 20);
 	v4 = *(uint32_t*)(a2 + 12) - *(uint32_t*)(a1 + 16);
 	v5 = (unsigned char)(2 * (unsigned char)nox_frame_xxx_2598000);
@@ -312,9 +312,9 @@ int  nox_thing_player_waypoint_draw(int a1, nox_drawable* dr) {
 	v7 = 5;
 	do {
 		nox_client_drawAddPoint_49F500(v4 + 10 * *getMemIntPtr(0x587000, 192088 + 8 * v5) / 16,
-		                               v3 + 10 * *getMemIntPtr(0x587000, 192092 + 8 * v5) / 16);
+									   v3 + 10 * *getMemIntPtr(0x587000, 192092 + 8 * v5) / 16);
 		nox_client_drawAddPoint_49F500(v4 + 10 * *getMemIntPtr(0x587000, 192088 + 8 * ((v5 + 102) % 256)) / 16,
-		                               v3 + 10 * *getMemIntPtr(0x587000, 192092 + 8 * ((v5 + 102) % 256)) / 16);
+									   v3 + 10 * *getMemIntPtr(0x587000, 192092 + 8 * ((v5 + 102) % 256)) / 16);
 		nox_client_drawLineFromPoints_49E4B0();
 		v5 = (v5 + 102) % 256;
 		--v7;
@@ -324,22 +324,22 @@ int  nox_thing_player_waypoint_draw(int a1, nox_drawable* dr) {
 }
 
 //----- (0044B700) --------------------------------------------------------
-bool  nox_things_player_draw_parse(nox_thing* obj, nox_memfile* f, char* attr_value) {
+bool nox_things_player_draw_parse(nox_thing* obj, nox_memfile* f, char* attr_value) {
 	uint8_t* a3 = attr_value;
-	uint32_t* v3;          // eax
-	uint32_t* v5;          // ebx
-	int v7;              // ecx
-	int v10;             // eax
-	int v11;             // ebx
-	int v13;             // ecx
-	uint32_t* v14;         // eax
-	int v15;             // ecx
-	int v16;             // eax
-	int v17;             // esi
-	uint32_t* v18;         // eax
-	int v19;             // esi
-	uint32_t* v20;         // eax
-	uint32_t* v21;         // [esp+10h] [ebp-4h]
+	uint32_t* v3;      // eax
+	uint32_t* v5;      // ebx
+	int v7;            // ecx
+	int v10;           // eax
+	int v11;           // ebx
+	int v13;           // ecx
+	uint32_t* v14;     // eax
+	int v15;           // ecx
+	int v16;           // eax
+	int v17;           // esi
+	uint32_t* v18;     // eax
+	int v19;           // esi
+	uint32_t* v20;     // eax
+	uint32_t* v21;     // [esp+10h] [ebp-4h]
 	unsigned char v22; // [esp+1Ch] [ebp+8h]
 	unsigned char v23; // [esp+1Ch] [ebp+8h]
 
@@ -350,24 +350,24 @@ bool  nox_things_player_draw_parse(nox_thing* obj, nox_memfile* f, char* attr_va
 	v7 = nox_memfile_read_u32(f);
 	if (v7 == 0x454E4420) { // 'END '
 		return 0;
-}
-	LABEL_3:
+	}
+LABEL_3:
 	v22 = nox_memfile_read_u8(f);
 	nox_memfile_read(a3, 1u, v22, f);
 	*((uint8_t*)a3 + v22) = 0;
 	v10 = sub_44BB20((const char*)a3);
 	if (v10 < 0) {
 		return 0;
-}
+	}
 	v11 = (int)&v5[66 * v10 + 1];
 	if (!nox_xxx_loadVectorAnimated_44B8B0(v11, f)) {
 		return 0;
-}
+	}
 	while (1) {
 		v13 = nox_memfile_read_u32(f);
 		if (v13 == 0x454E4420) { // 'END '
 			break;
-}
+		}
 		if (v13 == 0x53544154) { // STAT
 			v5 = v21;
 			goto LABEL_3;
@@ -386,7 +386,7 @@ bool  nox_things_player_draw_parse(nox_thing* obj, nox_memfile* f, char* attr_va
 				v19 = sub_44BAC0((const char*)a3);
 				if (v19 < 0) {
 					return 0;
-}
+				}
 				v20 = calloc(1u, 0x28u);
 				*(uint32_t*)(v11 + 4 * v19 + 156) = v20;
 				v16 = sub_44B940(v20, *(short*)(v11 + 40), f);
@@ -398,7 +398,7 @@ bool  nox_things_player_draw_parse(nox_thing* obj, nox_memfile* f, char* attr_va
 		}
 		if (!v16) {
 			return 0;
-}
+		}
 	}
 	obj->draw_func = &nox_thing_player_draw;
 	obj->field_5c = v21;

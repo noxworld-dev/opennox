@@ -5,7 +5,7 @@
 #include "operators.h"
 
 //----- (004BBB30) --------------------------------------------------------
-int  nox_thing_pressure_plate_draw(uint32_t* a1, nox_drawable* dr) {
+int nox_thing_pressure_plate_draw(uint32_t* a1, nox_drawable* dr) {
 	int v2;    // esi
 	int v4;    // ebp
 	int v5;    // edi
@@ -27,7 +27,7 @@ int  nox_thing_pressure_plate_draw(uint32_t* a1, nox_drawable* dr) {
 
 	v2 = dr;
 	if (!*(uint8_t*)(v2 + 432) && !*(uint8_t*)(v2 + 433) && !*(uint8_t*)(v2 + 434) && !*(uint8_t*)(v2 + 435) &&
-	    !*(uint8_t*)(v2 + 436) && !*(uint8_t*)(v2 + 437)) {
+		!*(uint8_t*)(v2 + 436) && !*(uint8_t*)(v2 + 437)) {
 		return 1;
 	}
 	v4 = a1[1] - a1[5];

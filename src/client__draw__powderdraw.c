@@ -3,7 +3,7 @@
 #include "GAME2_3.h"
 
 //----- (004B9ED0) --------------------------------------------------------
-int  nox_thing_black_powder_draw(uint32_t* a1, nox_drawable* dr) {
+int nox_thing_black_powder_draw(uint32_t* a1, nox_drawable* dr) {
 	int v2; // esi
 	int v3; // edi
 

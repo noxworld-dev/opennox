@@ -4,11 +4,11 @@
 #include "memfile.h"
 #include "nox_net.h"
 #include <ctype.h>
+#include <stdbool.h>
+#include <stdint.h>
 #include <stdlib.h>
 #include <string.h>
 #include <wctype.h>
-#include <stdbool.h>
-#include <stdint.h>
 
 #define NO_MOVIE 1
 #define NO_WOLAPI 1
@@ -33,15 +33,15 @@
 
 #define USE_SDL 1
 
-#include "memmap.h"
 #include "common/platform/platform.h"
+#include "memmap.h"
 
-#include "static_assert.h"
 #include "nox_wchar.h"
 #include "noxstring.h"
+#include "static_assert.h"
 
-#include "common/alloc/classes/alloc_class.h"
 #include "client__gui__window.h"
+#include "common/alloc/classes/alloc_class.h"
 
 // '...' differs in levels of indirection from '... *'
 #pragma warning(disable : 4047)
@@ -343,12 +343,12 @@ _Static_assert(sizeof(struc_36) == 28, "wrong size of struc_36 structure!");
 
 #ifndef NOX_CGO
 typedef struct {
-	char* data; // 0, 0
-	uint32_t field_1; // 1, 4
+	char* data;            // 0, 0
+	uint32_t field_1;      // 1, 4
 	unsigned int bag_offs; // 2, 8
-	int size;      // 3, 12; sizeof decompressed data
-	int size_comp; // 4, 16; sizeof compressed data
-	uint32_t field_5; // 5, 20
+	int size;              // 3, 12; sizeof decompressed data
+	int size_comp;         // 4, 16; sizeof compressed data
+	uint32_t field_5;      // 5, 20
 	int field_6;
 	void* field_7;
 	void* field_8;
@@ -356,15 +356,15 @@ typedef struct {
 _Static_assert(sizeof(nox_video_bag_section_t) == 36, "wrong size of nox_video_bag_section_t structure!");
 
 typedef struct nox_video_bag_image_t {
-	int offset; // 0, 0
+	int offset;         // 0, 0
 	uint16_t field_1_0; // 1, 4
 	uint16_t field_1_1; // 1, 6
-	uint16_t sect_ind; // 2, 8
-	uint16_t typ; // 2, 10
+	uint16_t sect_ind;  // 2, 8
+	uint16_t typ;       // 2, 10
 } nox_video_bag_image_t;
 _Static_assert(sizeof(nox_video_bag_image_t) == 12, "wrong size of nox_video_bag_image_t structure!");
 static int nox_video_bag_image_type(nox_video_bag_image_t* img) { return img->typ; }
-#else // NOX_CGO
+#else  // NOX_CGO
 typedef struct nox_video_bag_image_t nox_video_bag_image_t;
 int nox_video_bag_image_type(nox_video_bag_image_t* img);
 #endif // NOX_CGO
@@ -373,289 +373,289 @@ typedef struct nox_thing nox_thing;
 typedef struct nox_drawable nox_drawable;
 
 typedef struct nox_thing {
-	char* name;                                      // 0, 0x0
-	wchar_t* pretty_name;                            // 1, 0x4, 4
-	wchar_t* desc;                                   // 2, 0x8, 8
-	uint8_t hwidth;                                    // 3, 0xc, 12
-	uint8_t hheight;                                   // 3, 0xd, 13
-	uint8_t weight;                                    // 3, 0xe, 14
-	uint8_t field_f;                                   // 3, 0xf, 15
-	uint32_t field_10;                                 // 4, 0x10, 16
-	uint16_t shape_kind;                                // 5, 0x14, 20
-	uint16_t z;                                         // 5, 0x16, 22
-	uint16_t light_dir;                                 // 6, 0x18, 24
-	uint16_t light_penumbra;                            // 6, 0x1a, 26
-	int field_1c;                                    // 7, 0x1c, 28, ID? index?
-	unsigned int pri_class;                          // 8, 0x20, 32
-	uint32_t sub_class;                                // 9, 0x24, 36
-	int flags;                                       // 10, 0x28, 40
-	float light_intensity;                           // 11, 0x2c, 44
-	int light_color_r;                               // 12, 0x30, 48
-	int light_color_g;                               // 13, 0x34, 52
-	int light_color_b;                               // 14, 0x38, 56
-	uint32_t field_3c;                                 // 15, 0x3c
-	float shape_r;                                   // 16, 0x40
-	float zsize_min;                                 // 17, 0x44, 68
-	float zsize_max;                                 // 18, 0x48, 72
-	float shape_w;                                   // 19, 0x4c
-	float shape_h;                                   // 20, 0x50
-	uint32_t field_54;                                 // 21, 0x54
-	int(* draw_func)(uint32_t*, nox_drawable*); // 22, 0x58, 88, same as nox_drawable->draw_func
-	void* field_5c;                                  // 23, 0x5c, 92
-	uint32_t field_60;                                 // 24, 0x60
-	uint32_t client_update;                            // 25, 0x64, 100
-	uint32_t audio_loop;                               // 26, 0x68, 104
-	nox_thing* next;                                 // 27, 0x6c, 108
-	uint32_t pretty_image;                             // 28, 0x70, 112
-	uint32_t menuicon;                                 // 29, 0x74, 116
-	int lifetime;                                    // 30, 0x78, 120
-	uint16_t health;                                    // 31, 0x7c, 124
-	uint16_t field_7e;                                  // 31, 0x7e, 126
+	char* name;                                 // 0, 0x0
+	wchar_t* pretty_name;                       // 1, 0x4, 4
+	wchar_t* desc;                              // 2, 0x8, 8
+	uint8_t hwidth;                             // 3, 0xc, 12
+	uint8_t hheight;                            // 3, 0xd, 13
+	uint8_t weight;                             // 3, 0xe, 14
+	uint8_t field_f;                            // 3, 0xf, 15
+	uint32_t field_10;                          // 4, 0x10, 16
+	uint16_t shape_kind;                        // 5, 0x14, 20
+	uint16_t z;                                 // 5, 0x16, 22
+	uint16_t light_dir;                         // 6, 0x18, 24
+	uint16_t light_penumbra;                    // 6, 0x1a, 26
+	int field_1c;                               // 7, 0x1c, 28, ID? index?
+	unsigned int pri_class;                     // 8, 0x20, 32
+	uint32_t sub_class;                         // 9, 0x24, 36
+	int flags;                                  // 10, 0x28, 40
+	float light_intensity;                      // 11, 0x2c, 44
+	int light_color_r;                          // 12, 0x30, 48
+	int light_color_g;                          // 13, 0x34, 52
+	int light_color_b;                          // 14, 0x38, 56
+	uint32_t field_3c;                          // 15, 0x3c
+	float shape_r;                              // 16, 0x40
+	float zsize_min;                            // 17, 0x44, 68
+	float zsize_max;                            // 18, 0x48, 72
+	float shape_w;                              // 19, 0x4c
+	float shape_h;                              // 20, 0x50
+	uint32_t field_54;                          // 21, 0x54
+	int (*draw_func)(uint32_t*, nox_drawable*); // 22, 0x58, 88, same as nox_drawable->draw_func
+	void* field_5c;                             // 23, 0x5c, 92
+	uint32_t field_60;                          // 24, 0x60
+	uint32_t client_update;                     // 25, 0x64, 100
+	uint32_t audio_loop;                        // 26, 0x68, 104
+	nox_thing* next;                            // 27, 0x6c, 108
+	uint32_t pretty_image;                      // 28, 0x70, 112
+	uint32_t menuicon;                          // 29, 0x74, 116
+	int lifetime;                               // 30, 0x78, 120
+	uint16_t health;                            // 31, 0x7c, 124
+	uint16_t field_7e;                          // 31, 0x7e, 126
 } nox_thing;
 _Static_assert(sizeof(nox_thing) == 128, "wrong size of nox_thing structure!");
 
 typedef struct nox_objectType_t nox_objectType_t;
 typedef struct nox_objectType_t {
-	unsigned short ind; // 0, 0
+	unsigned short ind;       // 0, 0
 	unsigned short field_0_1; // 0, 2
-	const char* id; // 1, 4
-	uint32_t field_2; // 2, 8
-	uint32_t field_3; // 3, 12
-	unsigned int field_4; // 4, 16
-	uint16_t field_5_0; // 5, 20
-	uint16_t field_5_1; // 5, 22
-	unsigned int obj_class; // 6, 24
-	uint32_t field_7; // 7, 28
-	unsigned int field_8; // 8, 32, TODO: some flags? subclass?
-	uint32_t field_9; // 9, 36
-	uint16_t field_10; // 10, 40
-	uint16_t field_10_1; // 10, 42
-	uint32_t field_11; // 11, 44
-	uint32_t field_12; // 12, 48
-	float field_13; // 13, 52
-	float field_14; // 14, 56
-	nox_shape shape; // 15, 60
-	uint32_t field_28; // 28, 112
-	float field_29; // 29, 116
-	uint8_t field_30_0; // 30, 120
-	uint8_t field_30_1; // 30, 121
-	uint16_t field_30_2; // 30, 122
-	float field_31; // 31, 124
-	float field_32; // 32, 128
-	uint32_t field_33; // 33, 132
-	void* field_34; // 34, 136, TODO: data, *[20]byte
-	uint32_t field_35; // 35, 140
-	void* field_36; // 36, 144, TODO: data
-	int   field_36_size; // 37, 148
-	void* func_damage; // 38, 152
-	void* func_damage_sound; // 39, 156
-	uint32_t field_40; // 40, 160
-	void* field_41; // 41, 164, TODO: data
-	uint32_t field_42; // 42, 168
-	uint32_t field_43; // 43, 172
-	void* field_44; // 44, 176, TODO: data
-	int   field_44_size; // 45, 180
-	uint32_t field_46; // 46, 184
-	uint32_t field_47; // 47, 188
-	void* field_48; // 48, 192, TODO: data
-	int   field_48_size; // 49, 196
-	uint32_t field_50; // 50, 200
-	void* field_51; // 51, 204, TODO: data
-	int   field_51_size; // 52, 208
-	void* func_xfer; // 53, 212
-	void (*func_new)(void*); // 54, 216
-	nox_objectType_t* next; // 55, 220
+	const char* id;           // 1, 4
+	uint32_t field_2;         // 2, 8
+	uint32_t field_3;         // 3, 12
+	unsigned int field_4;     // 4, 16
+	uint16_t field_5_0;       // 5, 20
+	uint16_t field_5_1;       // 5, 22
+	unsigned int obj_class;   // 6, 24
+	uint32_t field_7;         // 7, 28
+	unsigned int field_8;     // 8, 32, TODO: some flags? subclass?
+	uint32_t field_9;         // 9, 36
+	uint16_t field_10;        // 10, 40
+	uint16_t field_10_1;      // 10, 42
+	uint32_t field_11;        // 11, 44
+	uint32_t field_12;        // 12, 48
+	float field_13;           // 13, 52
+	float field_14;           // 14, 56
+	nox_shape shape;          // 15, 60
+	uint32_t field_28;        // 28, 112
+	float field_29;           // 29, 116
+	uint8_t field_30_0;       // 30, 120
+	uint8_t field_30_1;       // 30, 121
+	uint16_t field_30_2;      // 30, 122
+	float field_31;           // 31, 124
+	float field_32;           // 32, 128
+	uint32_t field_33;        // 33, 132
+	void* field_34;           // 34, 136, TODO: data, *[20]byte
+	uint32_t field_35;        // 35, 140
+	void* field_36;           // 36, 144, TODO: data
+	int field_36_size;        // 37, 148
+	void* func_damage;        // 38, 152
+	void* func_damage_sound;  // 39, 156
+	uint32_t field_40;        // 40, 160
+	void* field_41;           // 41, 164, TODO: data
+	uint32_t field_42;        // 42, 168
+	uint32_t field_43;        // 43, 172
+	void* field_44;           // 44, 176, TODO: data
+	int field_44_size;        // 45, 180
+	uint32_t field_46;        // 46, 184
+	uint32_t field_47;        // 47, 188
+	void* field_48;           // 48, 192, TODO: data
+	int field_48_size;        // 49, 196
+	uint32_t field_50;        // 50, 200
+	void* field_51;           // 51, 204, TODO: data
+	int field_51_size;        // 52, 208
+	void* func_xfer;          // 53, 212
+	void (*func_new)(void*);  // 54, 216
+	nox_objectType_t* next;   // 55, 220
 } nox_objectType_t;
 _Static_assert(sizeof(nox_objectType_t) == 224, "wrong size of nox_objectType_t structure!");
 
 typedef struct nox_object_t nox_object_t;
 typedef struct nox_object_t {
-	const char* id; // 0, 0
-	unsigned short typ_ind; // 1, 4
-	uint16_t field_1_2; // 1, 6
-	unsigned int obj_class; // 2, 8 -- Bitmask: 0x2 is owned monster, 0x4 is player
-	uint32_t field_3; // 3, 12, // TODO: some flags?
-	unsigned int field_4; // 4, 16, // TODO: some flags?
-	uint32_t field_5; // 5, 20
-	uint16_t field_6_0; // 6, 24
-	uint16_t field_6_2; // 6, 26
-	uint32_t field_7; // 7, 28
-	uint32_t field_8; // 8, 32
-	uint32_t field_9; // 9, 36
-	unsigned int extent; // 10, 40
-	int script_id; // 11, 44
-	uint32_t field_12; // 12, 48
-	uint32_t field_13; // 13, 52, // TODO: first byte is team?
-	float x; // 14, 56
-	float y; // 15, 60
-	float new_x; // 16, 64
-	float new_y; // 17, 68
-	uint32_t field_18; // 18, 72
-	uint32_t field_19; // 19, 76
-	float vel_x; // 20, 80
-	float vel_y; // 21, 84
-	float force_x; // 22, 88
-	float force_y; // 23, 92
-	float float_24; // 24, 96, // TODO: something related to acceleration/direction
-	float float_25; // 25, 100, // TODO: something related to acceleration/direction
-	uint32_t field_26; // 26, 104
-	uint32_t field_27; // 27, 108
-	float float_28; // 28, 112, // TODO: damping/drag?
-	uint32_t field_29; // 29, 116
-	float float_30; // 30, 120
-	uint16_t field_31_0; // 31, 124, // TODO: 124 is set to value of 126 in at least 51B100
-	uint16_t field_31_1; // 31, 126, // TODO: 126 accessed as word in at least 51B100, probably direction
-	uint32_t field_32; // 32, 128
-	uint32_t field_33; // 33, 132
-	uint32_t field_34; // 34, 136
-	uint32_t field_35; // 35, 140
-	uint32_t field_36; // 36, 144
-	uint32_t field_37; // 37, 148
-	int field_38; // 38, 152
-	uint32_t field_39; // 39, 156
-	uint32_t field_40; // 40, 160
-	uint32_t field_41; // 41, 164
-	uint32_t field_42; // 42, 168
-	nox_shape shape; // 43, 172
-	uint32_t field_56; // 56, 224
-	uint32_t field_57; // 57, 228
-	uint32_t field_58; // 58, 232
-	uint32_t field_59; // 59, 236
-	uint32_t field_60; // 60, 240
-	uint32_t field_61; // 61, 244
-	uint32_t field_62; // 62, 248
-	uint32_t field_63; // 63, 252
-	uint32_t field_64; // 64, 256
-	uint32_t field_65; // 65, 260
-	uint32_t field_66; // 66, 264
-	uint32_t field_67; // 67, 268
-	uint32_t field_68; // 68, 272
-	uint32_t field_69; // 69, 276
-	uint32_t field_70; // 70, 280
-	uint32_t field_71; // 71, 284
-	uint32_t field_72; // 72, 288
-	uint32_t field_73; // 73, 292
-	uint32_t field_74; // 74, 296
-	uint32_t field_75; // 75, 300
-	uint32_t field_76; // 76, 304
-	uint32_t field_77; // 77, 308
-	uint32_t field_78; // 78, 312
-	uint32_t field_79; // 79, 316
-	uint32_t field_80; // 80, 320
-	uint32_t field_81; // 81, 324
-	uint32_t field_82; // 82, 328
-	uint32_t field_83; // 83, 332
-	uint32_t field_84; // 84, 336
-	uint32_t field_85; // 85, 340
-	uint32_t field_86; // 86, 344
-	uint32_t field_87; // 87, 348
-	uint32_t field_88; // 88, 352
-	uint32_t field_89; // 89, 356
-	uint32_t field_90; // 90, 360
-	uint32_t field_91; // 91, 364
-	uint32_t field_92; // 92, 368
-	uint32_t field_93; // 93, 372
-	uint32_t field_94; // 94, 376
-	uint32_t field_95; // 95, 380
-	uint32_t field_96; // 96, 384
-	uint32_t field_97; // 97, 388
-	uint32_t field_98; // 98, 392
-	uint32_t field_99; // 99, 396
-	uint32_t field_100; // 100, 400
-	uint32_t field_101; // 101, 404
-	uint32_t field_102; // 102, 408
-	uint32_t field_103; // 103, 412
-	uint32_t field_104; // 104, 416
-	uint32_t field_105; // 105, 420
-	uint32_t field_106; // 106, 424
-	uint32_t field_107; // 107, 428
-	uint32_t field_108; // 108, 432
-	uint32_t field_109; // 109, 436
-	uint32_t field_110; // 110, 440
-	void* field_111; // 111, 444
-	uint32_t field_112; // 112, 448
-	uint32_t field_113; // 113, 452
-	uint32_t field_114; // 114, 456
-	uint32_t field_115; // 115, 460
-	uint32_t field_116; // 116, 464
-	uint32_t field_117; // 117, 468
-	uint32_t field_118; // 118, 472
-	uint32_t field_119; // 119, 476
-	uint32_t field_120; // 120, 480
-	uint32_t field_121; // 121, 484
-	uint8_t field_122_0; // 122, 488
-	uint8_t field_122_1; // 122, 489
-	uint16_t field_122_2; // 122, 490
-	uint32_t field_123; // 123, 492 // Also health data, possibly same as 556, see 4E4560
+	const char* id;          // 0, 0
+	unsigned short typ_ind;  // 1, 4
+	uint16_t field_1_2;      // 1, 6
+	unsigned int obj_class;  // 2, 8 -- Bitmask: 0x2 is owned monster, 0x4 is player
+	uint32_t field_3;        // 3, 12, // TODO: some flags?
+	unsigned int field_4;    // 4, 16, // TODO: some flags?
+	uint32_t field_5;        // 5, 20
+	uint16_t field_6_0;      // 6, 24
+	uint16_t field_6_2;      // 6, 26
+	uint32_t field_7;        // 7, 28
+	uint32_t field_8;        // 8, 32
+	uint32_t field_9;        // 9, 36
+	unsigned int extent;     // 10, 40
+	int script_id;           // 11, 44
+	uint32_t field_12;       // 12, 48
+	uint32_t field_13;       // 13, 52, // TODO: first byte is team?
+	float x;                 // 14, 56
+	float y;                 // 15, 60
+	float new_x;             // 16, 64
+	float new_y;             // 17, 68
+	uint32_t field_18;       // 18, 72
+	uint32_t field_19;       // 19, 76
+	float vel_x;             // 20, 80
+	float vel_y;             // 21, 84
+	float force_x;           // 22, 88
+	float force_y;           // 23, 92
+	float float_24;          // 24, 96, // TODO: something related to acceleration/direction
+	float float_25;          // 25, 100, // TODO: something related to acceleration/direction
+	uint32_t field_26;       // 26, 104
+	uint32_t field_27;       // 27, 108
+	float float_28;          // 28, 112, // TODO: damping/drag?
+	uint32_t field_29;       // 29, 116
+	float float_30;          // 30, 120
+	uint16_t field_31_0;     // 31, 124, // TODO: 124 is set to value of 126 in at least 51B100
+	uint16_t field_31_1;     // 31, 126, // TODO: 126 accessed as word in at least 51B100, probably direction
+	uint32_t field_32;       // 32, 128
+	uint32_t field_33;       // 33, 132
+	uint32_t field_34;       // 34, 136
+	uint32_t field_35;       // 35, 140
+	uint32_t field_36;       // 36, 144
+	uint32_t field_37;       // 37, 148
+	int field_38;            // 38, 152
+	uint32_t field_39;       // 39, 156
+	uint32_t field_40;       // 40, 160
+	uint32_t field_41;       // 41, 164
+	uint32_t field_42;       // 42, 168
+	nox_shape shape;         // 43, 172
+	uint32_t field_56;       // 56, 224
+	uint32_t field_57;       // 57, 228
+	uint32_t field_58;       // 58, 232
+	uint32_t field_59;       // 59, 236
+	uint32_t field_60;       // 60, 240
+	uint32_t field_61;       // 61, 244
+	uint32_t field_62;       // 62, 248
+	uint32_t field_63;       // 63, 252
+	uint32_t field_64;       // 64, 256
+	uint32_t field_65;       // 65, 260
+	uint32_t field_66;       // 66, 264
+	uint32_t field_67;       // 67, 268
+	uint32_t field_68;       // 68, 272
+	uint32_t field_69;       // 69, 276
+	uint32_t field_70;       // 70, 280
+	uint32_t field_71;       // 71, 284
+	uint32_t field_72;       // 72, 288
+	uint32_t field_73;       // 73, 292
+	uint32_t field_74;       // 74, 296
+	uint32_t field_75;       // 75, 300
+	uint32_t field_76;       // 76, 304
+	uint32_t field_77;       // 77, 308
+	uint32_t field_78;       // 78, 312
+	uint32_t field_79;       // 79, 316
+	uint32_t field_80;       // 80, 320
+	uint32_t field_81;       // 81, 324
+	uint32_t field_82;       // 82, 328
+	uint32_t field_83;       // 83, 332
+	uint32_t field_84;       // 84, 336
+	uint32_t field_85;       // 85, 340
+	uint32_t field_86;       // 86, 344
+	uint32_t field_87;       // 87, 348
+	uint32_t field_88;       // 88, 352
+	uint32_t field_89;       // 89, 356
+	uint32_t field_90;       // 90, 360
+	uint32_t field_91;       // 91, 364
+	uint32_t field_92;       // 92, 368
+	uint32_t field_93;       // 93, 372
+	uint32_t field_94;       // 94, 376
+	uint32_t field_95;       // 95, 380
+	uint32_t field_96;       // 96, 384
+	uint32_t field_97;       // 97, 388
+	uint32_t field_98;       // 98, 392
+	uint32_t field_99;       // 99, 396
+	uint32_t field_100;      // 100, 400
+	uint32_t field_101;      // 101, 404
+	uint32_t field_102;      // 102, 408
+	uint32_t field_103;      // 103, 412
+	uint32_t field_104;      // 104, 416
+	uint32_t field_105;      // 105, 420
+	uint32_t field_106;      // 106, 424
+	uint32_t field_107;      // 107, 428
+	uint32_t field_108;      // 108, 432
+	uint32_t field_109;      // 109, 436
+	uint32_t field_110;      // 110, 440
+	void* field_111;         // 111, 444
+	uint32_t field_112;      // 112, 448
+	uint32_t field_113;      // 113, 452
+	uint32_t field_114;      // 114, 456
+	uint32_t field_115;      // 115, 460
+	uint32_t field_116;      // 116, 464
+	uint32_t field_117;      // 117, 468
+	uint32_t field_118;      // 118, 472
+	uint32_t field_119;      // 119, 476
+	uint32_t field_120;      // 120, 480
+	uint32_t field_121;      // 121, 484
+	uint8_t field_122_0;     // 122, 488
+	uint8_t field_122_1;     // 122, 489
+	uint16_t field_122_2;    // 122, 490
+	uint32_t field_123;      // 123, 492 // Also health data, possibly same as 556, see 4E4560
 	nox_object_t* field_124; // 124, 496, TODO: next item
-	void* field_125; // 125, 500, TODO: a nox_object_t*? see 4ED0C0
+	void* field_125;         // 125, 500, TODO: a nox_object_t*? see 4ED0C0
 	nox_object_t* field_126; // 126, 504, TODO: first item
-	uint32_t field_127; // 127, 508
-	void* field_128; // 128, 512
-	void* field_129; // 129, 516
-	uint32_t field_130; // 130, 520
-	uint32_t field_131; // 131, 524
-	uint32_t field_132; // 132, 528
-	uint32_t field_133; // 133, 532
-	uint32_t field_134; // 134, 536
-	uint32_t field_135; // 135, 540, TODO: 541 accessed as byte
-	float float_136; // 136, 544, TODO: current speed?
-	float float_137; // 137, 548
-	float float_138; // 138, 552
-	void* field_139; // 139, 556, TODO: data, *[20]byte, related to health and damage
-	uint32_t field_140; // 140, 560
-	uint32_t field_141; // 141, 564
-	uint32_t field_142; // 142, 568
-	uint32_t field_143; // 143, 572
-	uint32_t field_144; // 144, 576
-	uint32_t field_145; // 145, 580
-	uint32_t field_146; // 146, 584
-	uint32_t field_147; // 147, 588
-	uint32_t field_148; // 148, 592
-	uint32_t field_149; // 149, 596
-	uint32_t field_150; // 150, 600
-	uint32_t field_151; // 151, 604
-	uint32_t field_152; // 152, 608
-	uint32_t field_153; // 153, 612
-	uint32_t field_154; // 154, 616
-	uint32_t field_155; // 155, 620
-	uint32_t field_156; // 156, 624
-	uint32_t field_157; // 157, 628
-	uint32_t field_158; // 158, 632
-	uint32_t field_159; // 159, 636
-	uint32_t field_160; // 160, 640
-	uint32_t field_161; // 161, 644
-	uint32_t field_162; // 162, 648
-	uint32_t field_163; // 163, 652
-	uint32_t field_164; // 164, 656
-	uint32_t field_165; // 165, 660
-	uint32_t field_166; // 166, 664
-	uint32_t field_167; // 167, 668
-	uint32_t field_168; // 168, 672
-	uint32_t field_169; // 169, 676
-	uint32_t field_170; // 170, 680
-	uint32_t field_171; // 171, 684
-	uint32_t field_172; // 172, 688
-	void* field_173; // 173, 692, // TODO: struct pointer; struct at least 8 bytes wide. see 4F3030.
-	uint32_t field_174; // 174, 696
-	void* field_175; // 175, 700, // TODO: data
-	void* func_xfer; // 176, 704
-	uint32_t field_177; // 177, 708
-	uint32_t field_178; // 178, 712
-	void* func_damage; // 179, 716
+	uint32_t field_127;      // 127, 508
+	void* field_128;         // 128, 512
+	void* field_129;         // 129, 516
+	uint32_t field_130;      // 130, 520
+	uint32_t field_131;      // 131, 524
+	uint32_t field_132;      // 132, 528
+	uint32_t field_133;      // 133, 532
+	uint32_t field_134;      // 134, 536
+	uint32_t field_135;      // 135, 540, TODO: 541 accessed as byte
+	float float_136;         // 136, 544, TODO: current speed?
+	float float_137;         // 137, 548
+	float float_138;         // 138, 552
+	void* field_139;         // 139, 556, TODO: data, *[20]byte, related to health and damage
+	uint32_t field_140;      // 140, 560
+	uint32_t field_141;      // 141, 564
+	uint32_t field_142;      // 142, 568
+	uint32_t field_143;      // 143, 572
+	uint32_t field_144;      // 144, 576
+	uint32_t field_145;      // 145, 580
+	uint32_t field_146;      // 146, 584
+	uint32_t field_147;      // 147, 588
+	uint32_t field_148;      // 148, 592
+	uint32_t field_149;      // 149, 596
+	uint32_t field_150;      // 150, 600
+	uint32_t field_151;      // 151, 604
+	uint32_t field_152;      // 152, 608
+	uint32_t field_153;      // 153, 612
+	uint32_t field_154;      // 154, 616
+	uint32_t field_155;      // 155, 620
+	uint32_t field_156;      // 156, 624
+	uint32_t field_157;      // 157, 628
+	uint32_t field_158;      // 158, 632
+	uint32_t field_159;      // 159, 636
+	uint32_t field_160;      // 160, 640
+	uint32_t field_161;      // 161, 644
+	uint32_t field_162;      // 162, 648
+	uint32_t field_163;      // 163, 652
+	uint32_t field_164;      // 164, 656
+	uint32_t field_165;      // 165, 660
+	uint32_t field_166;      // 166, 664
+	uint32_t field_167;      // 167, 668
+	uint32_t field_168;      // 168, 672
+	uint32_t field_169;      // 169, 676
+	uint32_t field_170;      // 170, 680
+	uint32_t field_171;      // 171, 684
+	uint32_t field_172;      // 172, 688
+	void* field_173;         // 173, 692, // TODO: struct pointer; struct at least 8 bytes wide. see 4F3030.
+	uint32_t field_174;      // 174, 696
+	void* field_175;         // 175, 700, // TODO: data
+	void* func_xfer;         // 176, 704
+	uint32_t field_177;      // 177, 708
+	uint32_t field_178;      // 178, 712
+	void* func_damage;       // 179, 716
 	void* func_damage_sound; // 180, 720
 	uint32_t deleteOverride; // 181, 724 // deletion override function (see 004EE5E0)
-	uint32_t field_182; // 182, 728
-	uint32_t field_183; // 183, 732
-	void* field_184; // 184, 736, // TODO: data
-	uint32_t field_185; // 185, 740
-	uint32_t field_186; // 186, 744 // TODO: (void(**)(int))
-	void* field_187; // 187, 748, // Mana data, source 4EEBF0
-	uint32_t field_188; // 188, 752
-	uint32_t field_189; // 189, 756
-	uint32_t field_190; // 190, 760
-	uint32_t field_191; // 191, 764
-	int field_192; // 192, 768
+	uint32_t field_182;      // 182, 728
+	uint32_t field_183;      // 183, 732
+	void* field_184;         // 184, 736, // TODO: data
+	uint32_t field_185;      // 185, 740
+	uint32_t field_186;      // 186, 744 // TODO: (void(**)(int))
+	void* field_187;         // 187, 748, // Mana data, source 4EEBF0
+	uint32_t field_188;      // 188, 752
+	uint32_t field_189;      // 189, 756
+	uint32_t field_190;      // 190, 760
+	uint32_t field_191;      // 191, 764
+	int field_192;           // 192, 768
 } nox_object_t;
 _Static_assert(sizeof(nox_object_t) == 772, "wrong size of nox_object_t structure!");
 
@@ -684,9 +684,9 @@ _Static_assert(sizeof(nox_net_struct_arg_t) == 40, "wrong size of nox_net_struct
 
 #define NOX_NET_STRUCT_MAX 128
 typedef struct nox_net_struct_t {
-	nox_socket_t sock; // 0, 0
+	nox_socket_t sock;               // 0, 0
 	struct nox_net_sockaddr_in addr; // 1, 4
-	int id; // 5, 20
+	int id;                          // 5, 20
 	uint32_t field_6;
 	uint32_t field_7;
 
@@ -705,53 +705,53 @@ typedef struct nox_net_struct_t {
 	uint32_t field_18;
 	uint32_t field_19; // 76
 	uint32_t field_20;
-	uint32_t field_21; // 84
-	uint32_t field_22; // 88
-	uint32_t field_23; // 92
-	uint32_t field_24; // 96
-	uint32_t field_25; // 100
-	uint32_t field_26; // 104
-	uint32_t field_27; // 108
-	uint8_t field_28_0; // 112
-	char field_28_1; // 113
+	uint32_t field_21;   // 84
+	uint32_t field_22;   // 88
+	uint32_t field_23;   // 92
+	uint32_t field_24;   // 96
+	uint32_t field_25;   // 100
+	uint32_t field_26;   // 104
+	uint32_t field_27;   // 108
+	uint8_t field_28_0;  // 112
+	char field_28_1;     // 113
 	uint16_t field_28_2; // 114
-	void* field_29; // 116
-	void* data_3; // 30, 120
-	void* mutex_xxx; // 31, 124
-	void* mutex_yyy; // 32, 128
+	void* field_29;      // 116
+	void* data_3;        // 30, 120
+	void* mutex_xxx;     // 31, 124
+	void* mutex_yyy;     // 32, 128
 	uint32_t field_33;
-	uint32_t field_34; // 136
+	uint32_t field_34;                                // 136
 	int (*func_xxx)(unsigned int, char*, int, void*); // 35, 140, func(i, data_2_xxx, sz, data_3)
 	int (*func_yyy)(unsigned int, char*, int, void*); // 36, 144, last arg is data_3
-	uint8_t xor_key; // 37, 148
-	uint8_t field_37_1; // 37, 149
-	uint16_t field_37_2; // 37, 150
-	uint32_t field_38;  // 152
-	uint8_t data_39[4]; // 156
-	uint32_t field_40;  // 160
+	uint8_t xor_key;                                  // 37, 148
+	uint8_t field_37_1;                               // 37, 149
+	uint16_t field_37_2;                              // 37, 150
+	uint32_t field_38;                                // 152
+	uint8_t data_39[4];                               // 156
+	uint32_t field_40;                                // 160
 } nox_net_struct_t;
 _Static_assert(sizeof(struct nox_net_sockaddr) == 16, "wrong size of nox_net_sockaddr structure!");
 _Static_assert(sizeof(struct nox_net_sockaddr_in) == 16, "wrong size of nox_net_sockaddr_in structure!");
 _Static_assert(sizeof(nox_net_struct_t) == 164, "wrong size of nox_net_struct_t structure!");
 
 typedef struct nox_net_struct2_t {
-	uint32_t field_0; // 0, 0
-	uint8_t field_1_0; // 1, 4
-	uint8_t field_1_1; // 1, 5
+	uint32_t field_0;   // 0, 0
+	uint8_t field_1_0;  // 1, 4
+	uint8_t field_1_1;  // 1, 5
 	uint16_t field_1_2; // 1, 6
 	// TODO: check usages, looks like it reuses sin_zero for something else
 	struct nox_net_sockaddr_in addr; // 2, 8
-	uint32_t field_6[10]; // 6, 24
-	uint32_t ticks; // 16, 64
+	uint32_t field_6[10];            // 6, 24
+	uint32_t ticks;                  // 16, 64
 } nox_net_struct2_t;
 _Static_assert(sizeof(nox_net_struct2_t) == 68, "wrong size of nox_net_struct2_t structure!");
 
 typedef struct nox_things_imageRef_t {
-	char name[32]; // 0, 0
-	char name2[64]; // 8, 32
-	int field_24; // 24, 96; void* when field_25_1 == 2
-	char field_25_0; // 25, 100
-	char field_25_1; // 25, 101
+	char name[32];    // 0, 0
+	char name2[64];   // 8, 32
+	int field_24;     // 24, 96; void* when field_25_1 == 2
+	char field_25_0;  // 25, 100
+	char field_25_1;  // 25, 101
 	short field_25_2; // 25, 102
 } nox_things_imageRef_t;
 _Static_assert(sizeof(nox_things_imageRef_t) == 104, "wrong size of nox_things_imageRef_t structure!");
@@ -803,7 +803,7 @@ typedef struct {
 _Static_assert(sizeof(nox_staticText_data) == 12, "wrong size of nox_staticText_data structure!");
 
 typedef struct nox_window_yyy {
-	nox_window* win; // 0
+	nox_window* win;  // 0
 	uint32_t field_1; // 4
 	uint32_t field_2; // 8
 	uint32_t color_1; // 12
@@ -818,37 +818,37 @@ typedef struct {
 _Static_assert(sizeof(nox_parseWindowFunc) == 8, "wrong size of nox_parseWindowFunc structure!");
 
 typedef struct nox_drawable {
-	uint32_t field_0;        // 0, 0
-	uint32_t field_1;        // 1, 4
-	uint32_t field_2;        // 2, 8
-	nox_point pos;         // 3, 12
-	uint32_t field_5;        // 5, 20
-	uint32_t field_6;        // 6, 24
-	uint32_t field_7;        // 7, 28
-	uint32_t field_8;        // 8, 32
-	uint32_t field_9;        // 9, 36
-	uint32_t field_10;       // 10, 40
-	nox_shape shape;       // 11, 44
-	float field_24;        // 24, 96
-	float field_25;        // 25, 100
-	uint32_t field_26;       // 26, 104
-	uint32_t field_27;       // 27, 108, thing ID?
-	unsigned int flags28;  // 28, 112
-	unsigned int flags29;  // 29, 116
-	unsigned int flags30;  // 30, 120
-	unsigned int flags31;  // 31, 124
-	uint32_t field_32;       // 32, 128, npc ID?
-	uint32_t field_33;       // 33, 132
-	uint32_t field_34;       // 34, 136
+	uint32_t field_0;     // 0, 0
+	uint32_t field_1;     // 1, 4
+	uint32_t field_2;     // 2, 8
+	nox_point pos;        // 3, 12
+	uint32_t field_5;     // 5, 20
+	uint32_t field_6;     // 6, 24
+	uint32_t field_7;     // 7, 28
+	uint32_t field_8;     // 8, 32
+	uint32_t field_9;     // 9, 36
+	uint32_t field_10;    // 10, 40
+	nox_shape shape;      // 11, 44
+	float field_24;       // 24, 96
+	float field_25;       // 25, 100
+	uint32_t field_26;    // 26, 104
+	uint32_t field_27;    // 27, 108, thing ID?
+	unsigned int flags28; // 28, 112
+	unsigned int flags29; // 29, 116
+	unsigned int flags30; // 30, 120
+	unsigned int flags31; // 31, 124
+	uint32_t field_32;    // 32, 128, npc ID?
+	uint32_t field_33;    // 33, 132
+	uint32_t field_34;    // 34, 136
 	uint32_t field_35;
 	uint32_t field_36;
 	uint32_t field_37;
-	uint32_t field_38;  // 38, 152
-	uint32_t field_39;  // 39, 156
-	uint32_t field_40;  // 40, 160
+	uint32_t field_38;   // 38, 152
+	uint32_t field_39;   // 39, 156
+	uint32_t field_40;   // 40, 160
 	uint16_t field_41_0; // 41, 164
 	uint16_t field_41_1; // 41, 165
-	uint32_t field_42;  // 42, 168
+	uint32_t field_42;   // 42, 168
 	uint32_t field_43;
 	uint32_t field_44;
 	uint32_t data_45[5];
@@ -858,19 +858,19 @@ typedef struct nox_drawable {
 	uint32_t field_66;
 	uint32_t field_67;
 	uint32_t field_68;
-	uint32_t field_69; // 69, 276
-	unsigned int flags70; // 70, 280
-	uint32_t field_71; // 71, 284
-	uint32_t field_72; // 72, 288
-	uint16_t field_73_1; // 73, 292
-	uint16_t field_73_2; // 73, 294
-	uint8_t field_74_1;                                // 74, 296
-	uint8_t field_74_2;                                // 74, 297
-	uint8_t field_74_3;                                // 74, 298
-	uint8_t field_74_4;                                // 74, 299
-	int(* draw_func)(uint32_t*, nox_drawable*); // 75, 300, same as nox_thing->draw_func
-	void* field_76;                                  // 76, 304
-	uint32_t field_77;                                 // 77, 308
+	uint32_t field_69;                          // 69, 276
+	unsigned int flags70;                       // 70, 280
+	uint32_t field_71;                          // 71, 284
+	uint32_t field_72;                          // 72, 288
+	uint16_t field_73_1;                        // 73, 292
+	uint16_t field_73_2;                        // 73, 294
+	uint8_t field_74_1;                         // 74, 296
+	uint8_t field_74_2;                         // 74, 297
+	uint8_t field_74_3;                         // 74, 298
+	uint8_t field_74_4;                         // 74, 299
+	int (*draw_func)(uint32_t*, nox_drawable*); // 75, 300, same as nox_thing->draw_func
+	void* field_76;                             // 76, 304
+	uint32_t field_77;                          // 77, 308
 	uint32_t field_78;
 	uint32_t field_79; // 79, 316
 	uint32_t field_80; // 80, 320
@@ -895,19 +895,19 @@ typedef struct nox_drawable {
 	nox_drawable** field_99; // 99, 396
 	nox_drawable* field_100; // 100, 400
 	nox_drawable* field_101; // 101, 404
-	uint32_t field_102; // 102, 408
-	uint32_t field_103; // 103, 412
+	uint32_t field_102;      // 102, 408
+	uint32_t field_103;      // 103, 412
 	nox_drawable* field_104; // 104, 416
 	nox_drawable* field_105; // 105, 420
-	uint32_t field_106; // 106, 424
-	uint32_t field_107; // 107, 428
-	uint8_t field_108_1; // 108, 432
-	uint8_t field_108_2; // 108, 433
-	uint16_t field_108_3; // 108, 434
-	uint32_t field_109;  // 109, 436, SE?
-	uint32_t field_110;  // 110, 440, SW?
-	uint32_t field_111;  // 111, 444, SW?
-	uint32_t field_112;  // 112, 448, SE?
+	uint32_t field_106;      // 106, 424
+	uint32_t field_107;      // 107, 428
+	uint8_t field_108_1;     // 108, 432
+	uint8_t field_108_2;     // 108, 433
+	uint16_t field_108_3;    // 108, 434
+	uint32_t field_109;      // 109, 436, SE?
+	uint32_t field_110;      // 110, 440, SW?
+	uint32_t field_111;      // 111, 444, SW?
+	uint32_t field_112;      // 112, 448, SE?
 	uint32_t field_113;
 	uint32_t field_114;
 	uint32_t field_115;
@@ -931,7 +931,7 @@ _Static_assert(sizeof(nox_drawable) == 512, "wrong size of nox_drawable structur
 // 37 = (sizeof(nox_obj_1050020_t)/4)
 #define NOX_OBJ_1050020_ROW_COUNT 21
 #define NOX_OBJ_1050020_COL_COUNT 4
-#define NOX_OBJ_1050020_MAX (NOX_OBJ_1050020_ROW_COUNT*NOX_OBJ_1050020_COL_COUNT)
+#define NOX_OBJ_1050020_MAX (NOX_OBJ_1050020_ROW_COUNT * NOX_OBJ_1050020_COL_COUNT)
 typedef struct nox_obj_1050020_t {
 	nox_drawable* field_0;
 	uint32_t field_4;
@@ -991,30 +991,30 @@ _Static_assert(sizeof(obj_412ae0_t) == 144, "wrong size of obj_412ae0_t structur
 typedef struct table_26792_t {
 	const char* name;
 	void* fnc;
-	int(* parse_fnc)(const char*, char*, obj_412ae0_t*);
+	int (*parse_fnc)(const char*, char*, obj_412ae0_t*);
 } table_26792_t;
 
 typedef struct table_27008_t {
 	const char* name;
 	void* fnc;
-	int(* parse_fnc)(const char*, char*, obj_412ae0_t*);
+	int (*parse_fnc)(const char*, char*, obj_412ae0_t*);
 } table_27008_t;
 
 typedef struct table_27104_t {
 	const char* name;
 	void* fnc;
-	int(* parse_fnc)(const char*, char*, obj_412ae0_t*);
+	int (*parse_fnc)(const char*, char*, obj_412ae0_t*);
 } table_27104_t;
 
 typedef struct table_27168_t {
 	const char* name;
 	void* fnc;
-	int(* parse_fnc)(const char*, char*, obj_412ae0_t*);
+	int (*parse_fnc)(const char*, char*, obj_412ae0_t*);
 } table_27168_t;
 
 typedef struct table_28760_t {
 	const char* name;
-	int(* parse_fnc)(const char*, char*, obj_412ae0_t*);
+	int (*parse_fnc)(const char*, char*, obj_412ae0_t*);
 } table_28760_t;
 
 typedef struct nox_ctrlevent_code_info_t {
@@ -1091,7 +1091,7 @@ typedef struct nox_parse_thing_draw_funcs_t {
 	const char* name;
 	void* draw;
 	unsigned int kind;
-	bool(* parse_fnc)(nox_thing*, nox_memfile*, char*);
+	bool (*parse_fnc)(nox_thing*, nox_memfile*, char*);
 } nox_parse_thing_draw_funcs_t;
 
 typedef struct nox_video_mode {
@@ -1101,18 +1101,9 @@ typedef struct nox_video_mode {
 	wchar_t* title;
 } nox_video_mode;
 
-enum {
-	NOX_MOUSE_LEFT = 0,
-	NOX_MOUSE_RIGHT = 1,
-	NOX_MOUSE_MIDDLE = 2
-};
+enum { NOX_MOUSE_LEFT = 0, NOX_MOUSE_RIGHT = 1, NOX_MOUSE_MIDDLE = 2 };
 
-enum {
-	NOX_MOUSE_DOWN = 1,
-	NOX_MOUSE_DRAG_END = 2,
-	NOX_MOUSE_UP = 3,
-	NOX_MOUSE_PRESSED = 4
-};
+enum { NOX_MOUSE_DOWN = 1, NOX_MOUSE_DRAG_END = 2, NOX_MOUSE_UP = 3, NOX_MOUSE_PRESSED = 4 };
 
 int nox_mouse_state(int btn, int st);
 
@@ -1125,7 +1116,7 @@ _Static_assert(sizeof(nox_mouse_btn_t) == 12, "wrong size of nox_mouse_btn_t str
 
 typedef struct nox_mouse_state_t {
 	nox_point pos; // 0
-	int wheel; // 8
+	int wheel;     // 8
 
 	nox_point dpos; // 12
 
@@ -1144,109 +1135,109 @@ _Static_assert(sizeof(nox_keyboard_btn_t) == 8, "wrong size of nox_keyboard_btn_
 
 #define NOX_CTRLEVENT_XXX_MAX 128
 typedef struct nox_ctrlevent_xxx_t {
-	long long tick; // 0
+	long long tick;          // 0
 	nox_ctrlevent_code code; // 8
-	uint32_t  data; // 12
-	int     active; // 16
-	uint32_t  paddding; // 20
+	uint32_t data;           // 12
+	int active;              // 16
+	uint32_t paddding;       // 20
 } nox_ctrlevent_xxx_t;
 _Static_assert(sizeof(nox_ctrlevent_xxx_t) == 24, "wrong size of nox_ctrlevent_xxx_t structure!");
 
 typedef struct nox_render_data_t {
-	int flag_0; // 0, 0
-	nox_rect clip; // 1, 4
-	nox_rect rect2; // 5, 20; is usually set to [0,w-1] as opposed to clip, which is [0,w]
-	uint32_t field_9; // 9, 36
-	uint32_t field_10; // 10, 40
-	uint32_t field_11; // 11, 44
-	uint32_t field_12; // 12, 48
-	uint32_t field_13; // 13, 52
-	uint32_t field_14; // 14, 56
-	uint32_t field_15; // 15, 60
-	uint32_t field_16; // 16, 64
-	uint32_t field_17; // 17, 68
-	uint32_t field_18; // 18, 72
-	uint32_t field_19; // 19, 76
-	uint32_t field_20; // 20, 80
-	uint32_t field_21; // 21, 84
-	uint32_t field_22; // 22, 88
-	uint32_t field_23; // 23, 92
-	uint32_t field_24; // 24, 96
-	uint32_t field_25; // 25, 100
-	uint32_t field_26; // 26, 104
-	uint32_t field_27; // 27, 108
-	uint32_t field_28; // 28, 112
-	uint32_t field_29; // 29, 116
-	uint32_t field_30; // 30, 120
-	uint32_t field_31; // 31, 124
-	uint32_t field_32; // 32, 128
-	uint32_t field_33; // 33, 132
-	uint32_t field_34; // 34, 136
-	uint32_t field_35; // 35, 140
-	uint32_t field_36; // 36, 144
-	uint32_t field_37; // 37, 148
-	uint32_t field_38; // 38, 152
-	uint32_t field_39; // 39, 156
-	uint32_t field_40; // 40, 160
-	uint32_t field_41; // 41, 164
-	uint32_t field_42; // 42, 168
-	uint32_t field_43; // 43, 172
-	uint32_t field_44; // 44, 176
-	uint32_t field_45; // 45, 180
-	uint32_t field_46; // 46, 184
-	uint32_t field_47; // 47, 188
-	uint32_t field_48; // 48, 192
-	uint32_t field_49; // 49, 196
-	uint32_t field_50; // 50, 200
-	uint32_t field_51; // 51, 204
-	uint32_t field_52; // 52, 208
-	uint32_t field_53; // 53, 212
-	uint32_t field_54; // 54, 216
-	uint32_t field_55; // 55, 220
-	uint32_t field_56; // 56, 224
-	uint32_t field_57; // 57, 228
-	uint32_t field_58; // 58, 232
-	uint32_t field_59; // 59, 236
-	uint32_t field_60; // 60, 240
-	uint32_t field_61; // 61, 244
-	uint32_t field_62; // 62, 248
-	uint32_t field_63; // 63, 252
-	uint32_t field_64; // 64, 256
-	uint32_t field_65; // 65, 260
-	uint32_t field_66; // 66, 264
-	uint32_t field_67; // 67, 268
-	uint32_t field_68; // 68, 272
-	uint32_t field_69; // 69, 276
-	uint32_t field_70; // 70, 280
-	uint32_t field_71; // 71, 284
-	uint32_t field_72; // 72, 288
-	uint32_t field_73; // 73, 292
-	uint32_t field_74; // 74, 296
-	uint32_t field_75; // 75, 300
-	uint32_t field_76; // 76, 304
-	uint32_t field_77; // 77, 308
-	uint32_t field_78; // 78, 312
-	uint32_t field_79; // 79, 316
-	uint32_t field_80; // 80, 320
-	uint32_t field_81; // 81, 324
-	uint32_t field_82; // 82, 328
-	uint32_t field_83; // 83, 332
-	uint32_t field_84; // 84, 336
-	uint32_t field_85; // 85, 340
-	uint32_t field_86; // 86, 344
-	uint32_t field_87; // 87, 348
-	uint32_t field_88; // 88, 352
-	uint32_t field_89; // 89, 356
-	uint32_t field_90; // 90, 360
-	uint32_t field_91; // 91, 364
-	uint32_t field_92; // 92, 368
-	uint32_t field_93; // 93, 372
-	uint32_t field_94; // 94, 376
-	uint32_t field_95; // 95, 380
-	uint32_t field_96; // 96, 384
-	uint32_t field_97; // 97, 388
-	uint32_t field_98; // 98, 392
-	uint32_t field_99; // 99, 396
+	int flag_0;         // 0, 0
+	nox_rect clip;      // 1, 4
+	nox_rect rect2;     // 5, 20; is usually set to [0,w-1] as opposed to clip, which is [0,w]
+	uint32_t field_9;   // 9, 36
+	uint32_t field_10;  // 10, 40
+	uint32_t field_11;  // 11, 44
+	uint32_t field_12;  // 12, 48
+	uint32_t field_13;  // 13, 52
+	uint32_t field_14;  // 14, 56
+	uint32_t field_15;  // 15, 60
+	uint32_t field_16;  // 16, 64
+	uint32_t field_17;  // 17, 68
+	uint32_t field_18;  // 18, 72
+	uint32_t field_19;  // 19, 76
+	uint32_t field_20;  // 20, 80
+	uint32_t field_21;  // 21, 84
+	uint32_t field_22;  // 22, 88
+	uint32_t field_23;  // 23, 92
+	uint32_t field_24;  // 24, 96
+	uint32_t field_25;  // 25, 100
+	uint32_t field_26;  // 26, 104
+	uint32_t field_27;  // 27, 108
+	uint32_t field_28;  // 28, 112
+	uint32_t field_29;  // 29, 116
+	uint32_t field_30;  // 30, 120
+	uint32_t field_31;  // 31, 124
+	uint32_t field_32;  // 32, 128
+	uint32_t field_33;  // 33, 132
+	uint32_t field_34;  // 34, 136
+	uint32_t field_35;  // 35, 140
+	uint32_t field_36;  // 36, 144
+	uint32_t field_37;  // 37, 148
+	uint32_t field_38;  // 38, 152
+	uint32_t field_39;  // 39, 156
+	uint32_t field_40;  // 40, 160
+	uint32_t field_41;  // 41, 164
+	uint32_t field_42;  // 42, 168
+	uint32_t field_43;  // 43, 172
+	uint32_t field_44;  // 44, 176
+	uint32_t field_45;  // 45, 180
+	uint32_t field_46;  // 46, 184
+	uint32_t field_47;  // 47, 188
+	uint32_t field_48;  // 48, 192
+	uint32_t field_49;  // 49, 196
+	uint32_t field_50;  // 50, 200
+	uint32_t field_51;  // 51, 204
+	uint32_t field_52;  // 52, 208
+	uint32_t field_53;  // 53, 212
+	uint32_t field_54;  // 54, 216
+	uint32_t field_55;  // 55, 220
+	uint32_t field_56;  // 56, 224
+	uint32_t field_57;  // 57, 228
+	uint32_t field_58;  // 58, 232
+	uint32_t field_59;  // 59, 236
+	uint32_t field_60;  // 60, 240
+	uint32_t field_61;  // 61, 244
+	uint32_t field_62;  // 62, 248
+	uint32_t field_63;  // 63, 252
+	uint32_t field_64;  // 64, 256
+	uint32_t field_65;  // 65, 260
+	uint32_t field_66;  // 66, 264
+	uint32_t field_67;  // 67, 268
+	uint32_t field_68;  // 68, 272
+	uint32_t field_69;  // 69, 276
+	uint32_t field_70;  // 70, 280
+	uint32_t field_71;  // 71, 284
+	uint32_t field_72;  // 72, 288
+	uint32_t field_73;  // 73, 292
+	uint32_t field_74;  // 74, 296
+	uint32_t field_75;  // 75, 300
+	uint32_t field_76;  // 76, 304
+	uint32_t field_77;  // 77, 308
+	uint32_t field_78;  // 78, 312
+	uint32_t field_79;  // 79, 316
+	uint32_t field_80;  // 80, 320
+	uint32_t field_81;  // 81, 324
+	uint32_t field_82;  // 82, 328
+	uint32_t field_83;  // 83, 332
+	uint32_t field_84;  // 84, 336
+	uint32_t field_85;  // 85, 340
+	uint32_t field_86;  // 86, 344
+	uint32_t field_87;  // 87, 348
+	uint32_t field_88;  // 88, 352
+	uint32_t field_89;  // 89, 356
+	uint32_t field_90;  // 90, 360
+	uint32_t field_91;  // 91, 364
+	uint32_t field_92;  // 92, 368
+	uint32_t field_93;  // 93, 372
+	uint32_t field_94;  // 94, 376
+	uint32_t field_95;  // 95, 380
+	uint32_t field_96;  // 96, 384
+	uint32_t field_97;  // 97, 388
+	uint32_t field_98;  // 98, 392
+	uint32_t field_99;  // 99, 396
 	uint32_t field_100; // 100, 400
 	uint32_t field_101; // 101, 404
 	uint32_t field_102; // 102, 408
@@ -1420,19 +1411,19 @@ typedef struct {
 } obj_5D4594_754088_t;
 
 typedef struct {
-	uint8_t field_0;   // 0, 0
-	uint8_t field_0_1; // 0, 1
+	uint8_t field_0;    // 0, 0
+	uint8_t field_0_1;  // 0, 1
 	uint16_t field_0_2; // 0, 2
-	int field_1;     // 1, 4
-	int field_2;     // 2, 8
-	int field_3;     // 3, 12
-	int field_4;     // 4, 16
-	void* field_5;   // 5, 20
-	int field_6;     // 6, 24
-	int field_7;     // 7, 28
-	int field_8;     // 8, 32
-	int field_9;     // 9, 36
-	void* field_10;  // 10, 40
+	int field_1;        // 1, 4
+	int field_2;        // 2, 8
+	int field_3;        // 3, 12
+	int field_4;        // 4, 16
+	void* field_5;      // 5, 20
+	int field_6;        // 6, 24
+	int field_7;        // 7, 28
+	int field_8;        // 8, 32
+	int field_9;        // 9, 36
+	void* field_10;     // 10, 40
 } obj_5D4594_2650668_t;
 _Static_assert(sizeof(obj_5D4594_2650668_t) == 44, "wrong size of obj_5D4594_2650668_t structure!");
 
@@ -1462,18 +1453,18 @@ typedef struct {
 typedef struct nox_screenParticle nox_screenParticle;
 typedef struct nox_screenParticle {
 	int (*draw_fnc)(void*, nox_screenParticle*); // 0, 0
-	uint32_t field_4; // 1, 4
-	uint32_t field_8; // 2, 8
-	uint32_t field_12; // 3, 12, color
-	uint32_t field_16; // 4, 16, vx
-	uint32_t field_20; // 5, 20, vy
-	uint32_t field_24; // 6, 24, x
-	uint32_t field_28; // 7, 28, y
-	uint32_t field_32; // 8, 32
-	uint32_t field_36; // 9, 36
-	uint8_t field_40[4]; // 10, 40
-	nox_screenParticle* field_44; // 11, 44, next
-	nox_screenParticle* field_48; // 12, 48, prev
+	uint32_t field_4;                            // 1, 4
+	uint32_t field_8;                            // 2, 8
+	uint32_t field_12;                           // 3, 12, color
+	uint32_t field_16;                           // 4, 16, vx
+	uint32_t field_20;                           // 5, 20, vy
+	uint32_t field_24;                           // 6, 24, x
+	uint32_t field_28;                           // 7, 28, y
+	uint32_t field_32;                           // 8, 32
+	uint32_t field_36;                           // 9, 36
+	uint8_t field_40[4];                         // 10, 40
+	nox_screenParticle* field_44;                // 11, 44, next
+	nox_screenParticle* field_48;                // 12, 48, prev
 } nox_screenParticle;
 _Static_assert(sizeof(nox_screenParticle) == 52, "wrong size of nox_screenParticle structure!");
 
@@ -1486,23 +1477,23 @@ typedef enum {
 
 typedef struct nox_gui_animation nox_gui_animation;
 typedef struct nox_gui_animation {
-	uint32_t field_0; // 0, 0
-	nox_window* win; // 1, 4
-	int x2; // 2, 8
-	int y2; // 3, 12
-	int x1; // 4, 16
-	int y1; // 5, 20
-	int out_dx; // 6, 24
-	int out_dy; // 7, 28
-	int in_dx; // 8, 32
-	int in_dy; // 9, 36
-	nox_gui_animation* next; // 10, 40
-	nox_gui_animation* prev; // 11, 44
-	int (*field_12)(void); // 12, 48
-	int (*field_13)(void); // 13, 52
+	uint32_t field_0;          // 0, 0
+	nox_window* win;           // 1, 4
+	int x2;                    // 2, 8
+	int y2;                    // 3, 12
+	int x1;                    // 4, 16
+	int y1;                    // 5, 20
+	int out_dx;                // 6, 24
+	int out_dy;                // 7, 28
+	int in_dx;                 // 8, 32
+	int in_dy;                 // 9, 36
+	nox_gui_animation* next;   // 10, 40
+	nox_gui_animation* prev;   // 11, 44
+	int (*field_12)(void);     // 12, 48
+	int (*field_13)(void);     // 13, 52
 	int (*fnc_done_out)(void); // 14, 56
 	void (*fnc_done_in)(void); // 15, 60
-	nox_gui_anim_state state; // 16, 64
+	nox_gui_anim_state state;  // 16, 64
 } nox_gui_animation;
 _Static_assert(sizeof(nox_gui_animation) == 68, "wrong size of nox_gui_animation structure!");
 
@@ -1516,30 +1507,30 @@ _Static_assert(sizeof(nox_list_item_t) == 12, "wrong size of nox_list_item_t str
 
 typedef struct nox_map_list_item nox_map_list_item;
 typedef struct nox_map_list_item {
-	nox_list_item_t list; // 0, 0
-	char name[12]; // 3, 12
-	int field_6; // 6, 24
-	uint32_t field_7; // 7, 28
+	nox_list_item_t list;    // 0, 0
+	char name[12];           // 3, 12
+	int field_6;             // 6, 24
+	uint32_t field_7;        // 7, 28
 	unsigned char field_8_0; // 8, 32
 	unsigned char field_8_1; // 8, 33
-	uint16_t field_8_2; // 8, 34
+	uint16_t field_8_2;      // 8, 34
 } nox_map_list_item;
 _Static_assert(sizeof(nox_map_list_item) == 36, "wrong size of nox_map_list_item structure!");
 
 typedef struct nox_draw_viewport_t {
-	int x1; // 0, 0
-	int y1; // 1, 4
-	int x2; // 2, 8
-	int y2; // 3, 12
-	int field_4; // 4, 16
-	int field_5; // 5, 20
-	int field_6; // 6, 24
-	int field_7; // 7, 28
-	int width;  // 8, 32
-	int height; // 9, 36
+	int x1;            // 0, 0
+	int y1;            // 1, 4
+	int x2;            // 2, 8
+	int y2;            // 3, 12
+	int field_4;       // 4, 16
+	int field_5;       // 5, 20
+	int field_6;       // 6, 24
+	int field_7;       // 7, 28
+	int width;         // 8, 32
+	int height;        // 9, 36
 	uint32_t field_10; // 10, 40
 	uint32_t field_11; // 11, 44
-	int field_12; // 12, 48
+	int field_12;      // 12, 48
 } nox_draw_viewport_t;
 _Static_assert(sizeof(nox_draw_viewport_t) == 52, "wrong size of nox_draw_viewport_t structure!");
 
@@ -1555,20 +1546,20 @@ typedef struct nox_playerInfo {
 	uint32_t data_2032[4];
 	uint32_t data_2048[2];
 	nox_object_t* playerUnit; // 514, 2056
-	unsigned int netCode; // 515, 2060
-	unsigned char playerInd; // 516, 2064
-	uint8_t field_2064_1; // 516, 2065
-	uint16_t field_2064_2; // 516, 2066
-	uint32_t field_2068; // 517
-	wchar_t field_2072[10]; // 518, 2072
-	unsigned int active; // 523, 2092
-	char field_2096[16]; // 524, 2096
-	uint32_t data_2112[22]; // 2112 is a string buf, 2185 is wchar_t buf
+	unsigned int netCode;     // 515, 2060
+	unsigned char playerInd;  // 516, 2064
+	uint8_t field_2064_1;     // 516, 2065
+	uint16_t field_2064_2;    // 516, 2066
+	uint32_t field_2068;      // 517
+	wchar_t field_2072[10];   // 518, 2072
+	unsigned int active;      // 523, 2092
+	char field_2096[16];      // 524, 2096
+	uint32_t data_2112[22];   // 2112 is a string buf, 2185 is wchar_t buf
 	uint32_t data_2200[10];
 	uint32_t field_2240;
 	uint32_t field_2244;
 	uint16_t field_2248; // 562, 2248
-	uint8_t field_2250; // 562, 2250
+	uint8_t field_2250;  // 562, 2250
 	uint8_t playerClass; // 562, 2251
 	uint32_t field_2252;
 	uint32_t field_2256;
@@ -1599,7 +1590,7 @@ typedef struct nox_playerInfo {
 	uint32_t field_3680;
 	uint32_t data_3684[3];
 	unsigned int spell_lvl[NOX_SPELLS_MAX]; // 3696
-	unsigned int beast_scroll_lvl[41]; // 4244
+	unsigned int beast_scroll_lvl[41];      // 4244
 	uint32_t data_4408[23];
 	uint32_t data_4500[20];
 	uint32_t field_4580;
@@ -1612,23 +1603,23 @@ _Static_assert(offsetof(nox_playerInfo, frame_3596) == 3596, "wrong offset of no
 _Static_assert(offsetof(nox_playerInfo, field_4580) == 4580, "wrong offset of nox_playerInfo.field_4580 field!");
 
 typedef struct nox_spell_t {
-	wchar_t* title; // 0, 0
-	wchar_t* desc; // 1, 4
-	void* icon; // 2, 8
-	void* icon_enabled; // 3, 12
-	unsigned int flags; // 4, 16
-	unsigned int enabled; // 5, 20
-	unsigned int valid; // 6, 24
-	char phonemes[32]; // 7, 28
-	uint8_t field_15_0; // 15, 60
-	uint8_t phonemes_cnt; // 15, 61
+	wchar_t* title;          // 0, 0
+	wchar_t* desc;           // 1, 4
+	void* icon;              // 2, 8
+	void* icon_enabled;      // 3, 12
+	unsigned int flags;      // 4, 16
+	unsigned int enabled;    // 5, 20
+	unsigned int valid;      // 6, 24
+	char phonemes[32];       // 7, 28
+	uint8_t field_15_0;      // 15, 60
+	uint8_t phonemes_cnt;    // 15, 61
 	unsigned char mana_cost; // 15, 62
-	uint8_t field_15_3; // 15, 63
-	unsigned short price; // 16, 64
-	uint16_t field_16_1; // 16, 66
-	void* cast_sound; // 17, 68
-	void* on_sound; // 18, 72
-	void* off_sound; // 19, 76
+	uint8_t field_15_3;      // 15, 63
+	unsigned short price;    // 16, 64
+	uint16_t field_16_1;     // 16, 66
+	void* cast_sound;        // 17, 68
+	void* on_sound;          // 18, 72
+	void* off_sound;         // 19, 76
 } nox_spell_t;
 _Static_assert(sizeof(nox_spell_t) == 80, "wrong size of nox_spell_t structure!");
 
@@ -1667,48 +1658,48 @@ typedef enum {
 	NOX_ENGINE_FLAG_PAUSE = 1u << 31u,
 } nox_engine_flag;
 
-#pragma pack(push,1)
+#pragma pack(push, 1)
 typedef struct nox_gui_server_ent_t {
-	uint32_t field_0; // 0, 0
-	uint32_t field_1; // 1, 4
-	int sort_key; // 2, 8
-	char addr[16]; // 3, 12
-	int field_7; // 7, 28
-	uint32_t field_8; // 8, 32
-	uint32_t field_9; // 9, 36, TODO: server index?
-	uint32_t field_10; // 10, 40
-	short field_11_0; // 11, 44
-	short field_11_2; // 11, 46
-	uint32_t field_12; // 12, 48
-	uint32_t field_13; // 13, 52
-	uint32_t field_14; // 14, 56
-	uint32_t field_15; // 15, 60
-	uint32_t field_16; // 16, 64
-	uint32_t field_17; // 17, 68
-	uint32_t field_18; // 18, 72
-	uint32_t field_19; // 19, 76
-	uint32_t field_20; // 20, 80
-	uint32_t field_21; // 21, 84
-	uint32_t field_22; // 22, 88
-	uint32_t field_23; // 23, 92
-	int ping; // 24, 96
-	unsigned char status; // 25, 100
-	uint8_t field_25_1; // 25, 101
-	uint8_t field_25_2; // 25, 102
-	unsigned char players; // 25, 103
-	unsigned char max_players; // 26, 104
-	uint16_t field_26_1; // 26, 105
-	uint16_t field_26_3; // 26, 107
-	unsigned short port; // 27, 109
-	char map_name[9]; // 27, 111
-	char server_name[15]; // 30, 120
+	uint32_t field_0;             // 0, 0
+	uint32_t field_1;             // 1, 4
+	int sort_key;                 // 2, 8
+	char addr[16];                // 3, 12
+	int field_7;                  // 7, 28
+	uint32_t field_8;             // 8, 32
+	uint32_t field_9;             // 9, 36, TODO: server index?
+	uint32_t field_10;            // 10, 40
+	short field_11_0;             // 11, 44
+	short field_11_2;             // 11, 46
+	uint32_t field_12;            // 12, 48
+	uint32_t field_13;            // 13, 52
+	uint32_t field_14;            // 14, 56
+	uint32_t field_15;            // 15, 60
+	uint32_t field_16;            // 16, 64
+	uint32_t field_17;            // 17, 68
+	uint32_t field_18;            // 18, 72
+	uint32_t field_19;            // 19, 76
+	uint32_t field_20;            // 20, 80
+	uint32_t field_21;            // 21, 84
+	uint32_t field_22;            // 22, 88
+	uint32_t field_23;            // 23, 92
+	int ping;                     // 24, 96
+	unsigned char status;         // 25, 100
+	uint8_t field_25_1;           // 25, 101
+	uint8_t field_25_2;           // 25, 102
+	unsigned char players;        // 25, 103
+	unsigned char max_players;    // 26, 104
+	uint16_t field_26_1;          // 26, 105
+	uint16_t field_26_3;          // 26, 107
+	unsigned short port;          // 27, 109
+	char map_name[9];             // 27, 111
+	char server_name[15];         // 30, 120
 	unsigned char field_33_3[20]; // 33, 135, TODO: [20]byte
-	uint32_t field_38_3; // 38, 155
-	uint32_t field_39_3; // 39, 159
-	unsigned short flags; // 40, 163
-	unsigned short quest_level; // 41, 165
-	uint8_t field_41_3; // 41, 167
-	uint8_t field_42; // 42, 168
+	uint32_t field_38_3;          // 38, 155
+	uint32_t field_39_3;          // 39, 159
+	unsigned short flags;         // 40, 163
+	unsigned short quest_level;   // 41, 165
+	uint8_t field_41_3;           // 41, 167
+	uint8_t field_42;             // 42, 168
 } nox_gui_server_ent_t;
 #pragma pack(pop)
 _Static_assert(sizeof(nox_gui_server_ent_t) == 169, "wrong size of nox_gui_server_ent_t structure!");

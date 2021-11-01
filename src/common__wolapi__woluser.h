@@ -3,6 +3,6 @@
 
 #include "defs.h"
 
-void  sub_41F620(int a1);
+void sub_41F620(int a1);
 
 #endif // NOX_PORT_COMMON_WOLAPI_WOLUSER

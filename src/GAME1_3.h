@@ -36,7 +36,8 @@ int sub_43C510(int a1);
 nox_gui_animation* nox_gui_findAnimationForDest_43C520(int a1);
 nox_gui_animation* nox_gui_newAnimation_43C540();
 void nox_gui_freeAnimation_43C570(nox_gui_animation* p);
-nox_gui_animation* nox_gui_makeAnimation_43C5B0(nox_window* win, int x1, int y1, int x2, int y2, int in_dx, int in_dy, int out_dx, int out_dy);
+nox_gui_animation* nox_gui_makeAnimation_43C5B0(nox_window* win, int x1, int y1, int x2, int y2, int in_dx, int in_dy,
+												int out_dx, int out_dy);
 int sub_43C650();
 int sub_43C6E0();
 int nox_client_isConnected_43C700();
@@ -101,10 +102,10 @@ void nox_xxx_setFrameLimit_43DDE0(int a1);
 int nox_return_1_43DE10();
 #ifdef NOX_CGO
 void nox_game_SetCliDrawFunc(void* a1);
-int  sub_43DE40(void* a1);
-#else // NOX_CGO
+int sub_43DE40(void* a1);
+#else  // NOX_CGO
 void nox_game_SetCliDrawFunc(int (*fnc)(void));
-int  sub_43DE40(int (*a1)(void));
+int sub_43DE40(int (*a1)(void));
 #endif // NOX_CGO
 void nox_game_exit_xxx_43DE60();
 uint32_t* nox_xxx_gui_43E1A0(int a1);
@@ -299,6 +300,7 @@ int sub_44BB20(const char* a1);
 
 int nox_xxx_setGameState_43DDF0(int (*a1)(void));
 void sub_446AD0(int (*fnc)(void));
-uint32_t* nox_xxx_dialogMsgBoxCreate_449A10(nox_window* win, wchar_t* a2, wchar_t* text, int a4, void (*a5)(void), void (*a6)(void));
+uint32_t* nox_xxx_dialogMsgBoxCreate_449A10(nox_window* win, wchar_t* a2, wchar_t* text, int a4, void (*a5)(void),
+											void (*a6)(void));
 
 #endif // NOX_PORT_GAME1_3

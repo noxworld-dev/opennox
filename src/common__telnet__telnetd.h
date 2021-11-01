@@ -5,8 +5,8 @@
 #include "defs.h"
 #endif // __EMSCRIPTEN__
 
-#include <stddef.h>
 #include <stdbool.h>
+#include <stddef.h>
 
 void nox_telnet_tick_578FC0();
 bool nox_telnet_isActive_579740();

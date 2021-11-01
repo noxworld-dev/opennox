@@ -18,9 +18,7 @@ HSAMPLE AIL_allocate_sample_handle(HDIGDRIVER dig) {
 	return sample;
 }
 
-void AIL_release_sample_handle(HSAMPLE S) {
-	free(S);
-}
+void AIL_release_sample_handle(HSAMPLE S) { free(S); }
 
 HSTREAM AIL_open_stream(HDIGDRIVER dig, char* filename, int32_t stream_mem) {
 	HSTREAM stream = 0;
@@ -28,9 +26,7 @@ HSTREAM AIL_open_stream(HDIGDRIVER dig, char* filename, int32_t stream_mem) {
 	return stream;
 }
 
-void AIL_close_stream(HSTREAM stream) {
-	free(stream);
-}
+void AIL_close_stream(HSTREAM stream) { free(stream); }
 
 HTIMER AIL_register_timer(AILTIMERCB fn) {
 	HTIMER timer = 0;
@@ -38,9 +34,7 @@ HTIMER AIL_register_timer(AILTIMERCB fn) {
 	return timer;
 }
 
-void AIL_release_timer_handle(HTIMER timer) {
-	free(timer);
-}
+void AIL_release_timer_handle(HTIMER timer) { free(timer); }
 
 void AIL_digital_configuration(HDIGDRIVER dig, int32_t* rate, int32_t* format, char* string) {}
 
@@ -110,6 +104,4 @@ int32_t AIL_stream_status(HSTREAM stream) { return 2; }
 
 void AIL_waveOutClose(HDIGDRIVER drvr) {}
 
-int32_t AIL_waveOutOpen(HDIGDRIVER* pdrvr, int32_t wDeviceID, NOX_WAVEFORMAT lpFormat) {
-	return 0;
-}
+int32_t AIL_waveOutOpen(HDIGDRIVER* pdrvr, int32_t wDeviceID, NOX_WAVEFORMAT lpFormat) { return 0; }

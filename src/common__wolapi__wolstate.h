@@ -3,7 +3,7 @@
 
 #include "defs.h"
 
-wchar_t*  sub_41DAC0(int a1);
+wchar_t* sub_41DAC0(int a1);
 int sub_41DDB0();
 
 #endif // NOX_PORT_COMMON_WOLAPI_WOLSTATE

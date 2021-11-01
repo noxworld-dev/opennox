@@ -3,8 +3,8 @@
 #include "client__io__win95__video.h"
 #include "common__strman.h"
 
-#include "common/fs/nox_fs.h"
 #include "client__io__console.h"
+#include "common/fs/nox_fs.h"
 
 extern uint8_t* nox_pixbuffer_3798780;
 extern int nox_backbuffer_pitch_3801808;
@@ -32,10 +32,10 @@ int sub_430F00_screenshot() {
 		for (int v7 = 0; v7 < nox_backbuffer_width; v7++) {
 			if (v7 != 0 && (v7 % 60) == 0) {
 				nox_fs_fprintf(file, "\n");
-}
+			}
 			nox_fs_fprintf(file, "%d %d %d ", getMemByte(0x973F18, 5288 + 3 * *(unsigned char*)(v7 + v4)),
-					getMemByte(0x973F18, 5289 + 3 * *(unsigned char*)(v7 + v4)),
-					getMemByte(0x973F18, 5290 + 3 * *(unsigned char*)(v7 + v4)));
+						   getMemByte(0x973F18, 5289 + 3 * *(unsigned char*)(v7 + v4)),
+						   getMemByte(0x973F18, 5290 + 3 * *(unsigned char*)(v7 + v4)));
 		}
 		v4 += nox_backbuffer_pitch_3801808;
 	}

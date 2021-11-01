@@ -9,8 +9,8 @@
 #include "GAME2_2.h"
 #include "GAME3_1.h"
 #include "GAME3_3.h"
-#include "input_common.h"
 #include "client__gui__gamewin__gamewin.h"
+#include "input_common.h"
 #include "operators.h"
 
 extern uint32_t dword_5d4594_1321196;
@@ -29,12 +29,12 @@ extern int nox_win_height;
 
 //----- (004C1D80) --------------------------------------------------------
 int nox_xxx_guiSummonCreatureLoad_4C1D80() {
-	wchar_t* v0;         // eax
-	uint32_t* v1;          // esi
-	char* v2;            // eax
-	uint32_t* v3;          // eax
-	uint32_t* v4;          // eax
-	int v5;              // edx
+	wchar_t* v0;       // eax
+	uint32_t* v1;      // esi
+	char* v2;          // eax
+	uint32_t* v3;      // eax
+	uint32_t* v4;      // eax
+	int v5;            // edx
 	unsigned char* v6; // eax
 
 	*getMemU32Ptr(0x5D4594, 1321004) = 0;
@@ -44,7 +44,8 @@ int nox_xxx_guiSummonCreatureLoad_4C1D80() {
 	dword_5d4594_1321032 = nox_window_new(0, 8, nox_win_width - 95, -145, 87, 115, 0);
 	nox_window_set_all_funcs(*(uint32_t**)&dword_5d4594_1321032, sub_4C2BD0, sub_4C24A0, 0);
 	dword_5d4594_1321036 = nox_window_new(*(int*)&dword_5d4594_1321032, 136, 5, 38, 76, 76, 0);
-	nox_window_set_all_funcs(*(uint32_t**)&dword_5d4594_1321036, nox_xxx_wndSummonProc_4C2B10, nox_xxx_guiDrawSummonBox_4C1FE0, sub_4C2C20);
+	nox_window_set_all_funcs(*(uint32_t**)&dword_5d4594_1321036, nox_xxx_wndSummonProc_4C2B10,
+							 nox_xxx_guiDrawSummonBox_4C1FE0, sub_4C2C20);
 	v0 = nox_strman_loadString_40F1D0("ToolTipSummon", 0, "C:\\NoxPost\\src\\Client\\Gui\\guisumn.c", 818);
 	nox_xxx_wndWddSetTooltip_46B000((wchar_t*)(dword_5d4594_1321036 + 36), v0);
 	*getMemU32Ptr(0x5D4594, 1320996) = nox_xxx_gLoadImg_42F970("CreatureCageBottom");
@@ -87,18 +88,18 @@ int nox_xxx_guiSummonCreatureLoad_4C1D80() {
 
 //----- (004C2560) --------------------------------------------------------
 void nox_xxx_wndSummonCreateList_4C2560(int2* a1) {
-	char** v1;            // esi
+	char** v1;          // esi
 	unsigned short* v2; // eax
-	int v3;               // esi
-	bool v4;              // sf
-	int v5;               // ecx
-	int v6;               // edi
-	int v7;               // eax
-	int v8;               // edi
-	int i;                // ebp
-	uint32_t* v10;          // ebx
-	int v12;              // [esp+10h] [ebp-8h]
-	int v13;              // [esp+14h] [ebp-4h]
+	int v3;             // esi
+	bool v4;            // sf
+	int v5;             // ecx
+	int v6;             // edi
+	int v7;             // eax
+	int v8;             // edi
+	int i;              // ebp
+	uint32_t* v10;      // ebx
+	int v12;            // [esp+10h] [ebp-8h]
+	int v13;            // [esp+14h] [ebp-4h]
 
 	nox_xxx_screenWidth_587000_184452 = 0;
 	v1 = (char**)getMemAt(0x587000, 184344);
@@ -108,7 +109,7 @@ void nox_xxx_wndSummonCreateList_4C2560(int2* a1) {
 			nox_xxx_drawGetStringSize_43F840(0, v2, &v12, &v13, nox_win_width);
 			if (nox_xxx_screenWidth_587000_184452 < v12) {
 				nox_xxx_screenWidth_587000_184452 = v12;
-}
+			}
 		}
 		++v1;
 	} while ((int)v1 < (int)getMemAt(0x587000, 184368));
@@ -123,7 +124,7 @@ void nox_xxx_wndSummonCreateList_4C2560(int2* a1) {
 	} else {
 		if (nox_xxx_screenWidth_587000_184452 + v5 < nox_win_width) {
 			goto LABEL_11;
-}
+		}
 		v5 = nox_win_width - nox_xxx_screenWidth_587000_184452 - 1;
 	}
 	v12 = v5;
@@ -147,7 +148,8 @@ LABEL_16:
 	v8 = 0;
 	for (i = 0; i < 6; ++i) {
 		if (i != 2) {
-			v10 = nox_window_new(*(int*)&dword_5d4594_1321044, 8, 0, v8, *(int*)&nox_xxx_screenWidth_587000_184452, v3 + 1, 0);
+			v10 = nox_window_new(*(int*)&dword_5d4594_1321044, 8, 0, v8, *(int*)&nox_xxx_screenWidth_587000_184452,
+								 v3 + 1, 0);
 			nox_window_set_all_funcs(v10, nox_xxx_clientOrderCreature_4C2A60, sub_4C27F0, 0);
 			v10[8] = i;
 			v8 += v3 + 2;
@@ -157,25 +159,25 @@ LABEL_16:
 }
 
 //----- (004C27F0) --------------------------------------------------------
-int  sub_4C27F0(uint32_t* a1) {
-	int result;           // eax
+int sub_4C27F0(uint32_t* a1) {
+	int result;         // eax
 	unsigned short* v2; // edi
-	int v4;               // esi
-	int v5;               // ebx
-	int v6;               // edx
-	int v7;               // ebx
-	int v8;               // [esp-18h] [ebp-24h]
+	int v4;             // esi
+	int v5;             // ebx
+	int v6;             // edx
+	int v7;             // ebx
+	int v8;             // [esp-18h] [ebp-24h]
 	short* v9;          // [esp-14h] [ebp-20h]
-	int v10;              // [esp+0h] [ebp-Ch]
-	int v11;              // [esp+4h] [ebp-8h]
-	int v12;              // [esp+8h] [ebp-4h]
+	int v10;            // [esp+0h] [ebp-Ch]
+	int v11;            // [esp+4h] [ebp-8h]
+	int v12;            // [esp+8h] [ebp-4h]
 
 	if (!dword_5d4594_1321208) {
 		dword_5d4594_1321208 = nox_xxx_getNameId_4E3AA0("CarnivorousPlant");
-}
+	}
 	if (dword_5d4594_1321204 || (result = 1, a1[8] != 1)) {
 		v2 = nox_strman_loadString_40F1D0(*(char**)getMemAt(0x587000, 184344 + 4 * a1[8]), 0,
-								   "C:\\NoxPost\\src\\Client\\Gui\\guisumn.c", 446);
+										  "C:\\NoxPost\\src\\Client\\Gui\\guisumn.c", 446);
 		nox_client_wndGetPosition_46AA60(a1, &v11, &v10);
 		nox_xxx_drawGetStringSize_43F840(0, v2, &v12, 0, 0);
 		nox_point mpos = nox_client_getMousePos_4309F0();
@@ -192,12 +194,14 @@ int  sub_4C27F0(uint32_t* a1) {
 		}
 		if (dword_5d4594_1321204) {
 			if (sub_4C2DD0(*(int*)&dword_5d4594_1321204)) {
-				sub_4C2A00(v11 + v4, v10 + 3, *getMemIntPtr(0x5D4594, 2523948), *getMemIntPtr(0x85B3FC, 952), (short*)v2);
+				sub_4C2A00(v11 + v4, v10 + 3, *getMemIntPtr(0x5D4594, 2523948), *getMemIntPtr(0x85B3FC, 952),
+						   (short*)v2);
 				return 1;
 			}
 			v5 = a1[8];
 			if (v5 != 4 && v5 != 5) {
-				sub_4C2A00(v11 + v4, v10 + 3, *getMemIntPtr(0x5D4594, 2523948), *getMemIntPtr(0x85B3FC, 952), (short*)v2);
+				sub_4C2A00(v11 + v4, v10 + 3, *getMemIntPtr(0x5D4594, 2523948), *getMemIntPtr(0x85B3FC, 952),
+						   (short*)v2);
 				return 1;
 			}
 			v6 = *getMemU32Ptr(0x85B3FC, 956);

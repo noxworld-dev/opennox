@@ -10,7 +10,7 @@ extern uint32_t dword_5d4594_1045468;
 extern uint32_t dword_5d4594_1045464;
 
 //----- (004530C0) --------------------------------------------------------
-int  nox_xxx_guiObjlistLoad_4530C0(int a1, int a2) {
+int nox_xxx_guiObjlistLoad_4530C0(int a1, int a2) {
 	int v2;          // edi
 	wchar_t* v3;     // eax
 	int v4;          // esi
@@ -20,8 +20,8 @@ int  nox_xxx_guiObjlistLoad_4530C0(int a1, int a2) {
 	int v8;          // esi
 	int v9;          // ebx
 	int v10;         // eax
-	uint32_t* v11;     // eax
-	uint32_t* v12;     // eax
+	uint32_t* v11;   // eax
+	uint32_t* v12;   // eax
 	wchar_t v14[66]; // [esp+Ch] [ebp-84h]
 
 	v2 = 0;
@@ -34,8 +34,7 @@ int  nox_xxx_guiObjlistLoad_4530C0(int a1, int a2) {
 	nox_window_call_field_94(*(int*)&dword_5d4594_1045464, 16399, 0, 0);
 	if (a2 == 0x1000000) {
 		dword_5d4594_1045460 = 0;
-		v7 = nox_strman_loadString_40F1D0("Weapons", 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\objlst.c",
-								   321);
+		v7 = nox_strman_loadString_40F1D0("Weapons", 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\objlst.c", 321);
 		nox_wcscpy(v14, v7);
 		v8 = 4;
 		v9 = 25;
@@ -51,7 +50,7 @@ int  nox_xxx_guiObjlistLoad_4530C0(int a1, int a2) {
 	} else if (a2 == 0x2000000) {
 		dword_5d4594_1045460 = 1;
 		v3 = nox_strman_loadString_40F1D0("servopts.wnd:Armor", 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\objlst.c",
-								   308);
+										  308);
 		nox_wcscpy(v14, v3);
 		v4 = 1;
 		v5 = 26;
@@ -74,6 +73,6 @@ int  nox_xxx_guiObjlistLoad_4530C0(int a1, int a2) {
 	sub_453750();
 	if (!nox_common_gameFlags_check_40A5C0(1) || nox_common_gameFlags_check_40A5C0(49152)) {
 		sub_46AD20(*(uint32_t**)&dword_5d4594_1045468, 1515, 1533, 0);
-}
+	}
 	return dword_5d4594_1045468;
 }

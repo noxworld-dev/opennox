@@ -3,8 +3,8 @@
 #include "client__draw__glowdraw.h"
 #include "common__random.h"
 
-#include "GAME1_2.h"
 #include "GAME1_1.h"
+#include "GAME1_2.h"
 #include "GAME2.h"
 #include "GAME2_3.h"
 #include "GAME3.h"
@@ -18,7 +18,7 @@ extern uint32_t dword_5d4594_1313540;
 extern unsigned int nox_frame_xxx_2598000;
 
 //----- (004B6770) --------------------------------------------------------
-int  sub_4B6770(int* a1, nox_drawable* dr, int a3, int a4) {
+int sub_4B6770(int* a1, nox_drawable* dr, int a3, int a4) {
 	int a2 = dr;
 
 	int v4;     // edx
@@ -45,7 +45,7 @@ int  sub_4B6770(int* a1, nox_drawable* dr, int a3, int a4) {
 	v18 = v7;
 	if (v7 == v6) {
 		v18 = --v7;
-}
+	}
 	if (v7 > 0) {
 		v9 = *a1;
 		v10 = a1[1];
@@ -55,7 +55,8 @@ int  sub_4B6770(int* a1, nox_drawable* dr, int a3, int a4) {
 		v13 = v10 + v12;
 		xLeft.field_4 = v13;
 		if (v11 - 10 >= v9 && v13 - 10 >= v10 && v11 + 10 < a1[2] && v13 + 10 < a1[3]) {
-			v14 = v18 * nox_common_randomIntMinMax_415FF0(0, 4, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 213) / v16;
+			v14 =
+				v18 * nox_common_randomIntMinMax_415FF0(0, 4, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 213) / v16;
 			v15 = v14;
 			if (v14) {
 				sub_4B6720(&xLeft, a4, 2 * v14 + 1, v14 + 1);
@@ -72,32 +73,32 @@ int  sub_4B6770(int* a1, nox_drawable* dr, int a3, int a4) {
 }
 
 //----- (004B6B00) --------------------------------------------------------
-int  nox_thing_magic_sparkle_draw(int* a1, nox_drawable* dr) {
+int nox_thing_magic_sparkle_draw(int* a1, nox_drawable* dr) {
 	int result; // eax
 
 	if (nox_common_randomIntMinMax_415FF0(0, 10, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 317) >= 5) {
 		result = sub_4B6770(a1, dr, *getMemIntPtr(0x5D4594, 2523948), *(int*)&dword_5d4594_1313540);
 	} else {
 		result = sub_4B6770(a1, dr, *(int*)&dword_5d4594_1313540, *(int*)&dword_5d4594_1313536);
-}
+	}
 	return result;
 }
 
 //----- (004B6E80) --------------------------------------------------------
-int  nox_thing_pixie_draw(int* a1, nox_drawable* dr) {
-	bool v2;     // cc
-	short v3;  // ax
-	short v4;  // ax
-	int v5;      // edx
-	int v6;      // edi
-	int v7;      // ecx
-	int v8;      // eax
-	int v9;      // edi
-	int v10;     // esi
-	int v11;     // ebx
-	int v12;     // ebp
+int nox_thing_pixie_draw(int* a1, nox_drawable* dr) {
+	bool v2;       // cc
+	short v3;      // ax
+	short v4;      // ax
+	int v5;        // edx
+	int v6;        // edi
+	int v7;        // ecx
+	int v8;        // eax
+	int v9;        // edi
+	int v10;       // esi
+	int v11;       // ebx
+	int v12;       // ebp
 	long long v13; // rax
-	int2 v15;    // [esp+10h] [ebp-8h]
+	int2 v15;      // [esp+10h] [ebp-8h]
 
 	int a2 = dr;
 
@@ -141,19 +142,19 @@ LABEL_7:
 }
 
 //----- (004B6FE0) --------------------------------------------------------
-int  nox_thing_pixie_dust_draw(int* a1, nox_drawable* dr) {
+int nox_thing_pixie_dust_draw(int* a1, nox_drawable* dr) {
 	int result; // eax
 
 	if (nox_common_randomIntMinMax_415FF0(0, 10, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 554) >= 5) {
 		result = sub_4B6770(a1, dr, *getMemIntPtr(0x5D4594, 2523948), *(int*)&dword_5d4594_1313564);
 	} else {
 		result = sub_4B6770(a1, dr, *(int*)&dword_5d4594_1313564, *getMemIntPtr(0x5D4594, 1313560));
-}
+	}
 	return result;
 }
 
 //----- (004B7060) --------------------------------------------------------
-int  nox_thing_blue_rain_spark_draw(uint32_t* a1, nox_drawable* dr) {
+int nox_thing_blue_rain_spark_draw(uint32_t* a1, nox_drawable* dr) {
 	int result; // eax
 	int v3;     // eax
 	int v4;     // eax
@@ -174,15 +175,20 @@ int  nox_thing_blue_rain_spark_draw(uint32_t* a1, nox_drawable* dr) {
 			if (v4 != -432) {
 				*(uint32_t*)(v4 + 432) = *(uint32_t*)(a2 + 12) << 12;
 				*(uint32_t*)(v4 + 436) = *(uint32_t*)(a2 + 16) << 12;
-				*(uint8_t*)(v4 + 299) = nox_common_randomIntMinMax_415FF0(0, 255, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 605);
-				*(uint32_t*)(v5 + 440) = nox_common_randomIntMinMax_415FF0(1, 1611, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 608);
-				*(uint32_t*)(v5 + 448) = nox_frame_xxx_2598000 +
-									   nox_common_randomIntMinMax_415FF0(10, 96, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 611);
+				*(uint8_t*)(v4 + 299) =
+					nox_common_randomIntMinMax_415FF0(0, 255, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 605);
+				*(uint32_t*)(v5 + 440) =
+					nox_common_randomIntMinMax_415FF0(1, 1611, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 608);
+				*(uint32_t*)(v5 + 448) =
+					nox_frame_xxx_2598000 +
+					nox_common_randomIntMinMax_415FF0(10, 96, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 611);
 				*(uint32_t*)(v5 + 444) = nox_frame_xxx_2598000;
 			}
-			*(uint16_t*)(v5 + 104) = nox_common_randomIntMinMax_415FF0(5, 15, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 618);
+			*(uint16_t*)(v5 + 104) =
+				nox_common_randomIntMinMax_415FF0(5, 15, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 618);
 			*(uint16_t*)(v5 + 106) = 0;
-			*(uint8_t*)(v5 + 296) = nox_common_randomIntMinMax_415FF0(0, 8, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 620);
+			*(uint8_t*)(v5 + 296) =
+				nox_common_randomIntMinMax_415FF0(0, 8, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 620);
 			nox_xxx_sprite_45A110_drawable((uint32_t*)v5);
 		}
 		nox_xxx_spriteDeleteStatic_45A4E0_drawable(dr);
@@ -192,31 +198,31 @@ int  nox_thing_blue_rain_spark_draw(uint32_t* a1, nox_drawable* dr) {
 }
 
 //----- (004B7310) --------------------------------------------------------
-int  nox_thing_rain_orb_draw(uint32_t* a1, nox_drawable* dr) {
-	int* v2;        // esi
+int nox_thing_rain_orb_draw(uint32_t* a1, nox_drawable* dr) {
+	int* v2;      // esi
 	short v3;     // cx
-	int v4;         // edi
-	int v5;         // eax
+	int v4;       // edi
+	int v5;       // eax
 	short v6;     // bp
-	int v7;         // ebx
+	int v7;       // ebx
 	short v8;     // ax
-	double v9;      // st7
+	double v9;    // st7
 	short v10;    // ax
-	int v11;        // edi
-	char v12;       // al
-	int result;     // eax
-	int v14;        // ebx
-	int v15;        // edi
-	int v16;        // edx
-	int v17;        // ebx
-	int v18;        // eax
-	int v19;        // edi
-	float v20;      // [esp+0h] [ebp-2Ch]
-	float v21;      // [esp+0h] [ebp-2Ch]
-	int2 xLeft;     // [esp+14h] [ebp-18h]
+	int v11;      // edi
+	char v12;     // al
+	int result;   // eax
+	int v14;      // ebx
+	int v15;      // edi
+	int v16;      // edx
+	int v17;      // ebx
+	int v18;      // eax
+	int v19;      // edi
+	float v20;    // [esp+0h] [ebp-2Ch]
+	float v21;    // [esp+0h] [ebp-2Ch]
+	int2 xLeft;   // [esp+14h] [ebp-18h]
 	short v23[4]; // [esp+1Ch] [ebp-10h]
-	float2 v24;     // [esp+24h] [ebp-8h]
-	int v25;        // [esp+34h] [ebp+8h]
+	float2 v24;   // [esp+24h] [ebp-8h]
+	int v25;      // [esp+34h] [ebp+8h]
 
 	int a2 = dr;
 
@@ -236,7 +242,7 @@ int  nox_thing_rain_orb_draw(uint32_t* a1, nox_drawable* dr) {
 		xLeft.field_4 = v15 + v16 - v3;
 		if (v18 != dword_5d4594_1313692) {
 			v17 = dword_5d4594_1313536;
-}
+		}
 		sub_4B6720(&xLeft, v17, *(unsigned char*)(a2 + 442), 5);
 		v19 = *(short*)(a2 + 104) - *(short*)(a2 + 440);
 		nox_client_drawSetColor_434460(v17);
@@ -272,7 +278,7 @@ int  nox_thing_rain_orb_draw(uint32_t* a1, nox_drawable* dr) {
 		v23[1] = v10;
 		if (v2[27] != dword_5d4594_1313692) {
 			v11 = *getMemU32Ptr(0x5D4594, 1313704);
-}
+		}
 		v12 = nox_common_randomIntMinMax_415FF0(6, 8, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 793);
 		sub_499490(v11, v23, 0, 0, v12, 1);
 		nox_xxx_spriteDeleteStatic_45A4E0_drawable(dr);
@@ -282,64 +288,64 @@ int  nox_thing_rain_orb_draw(uint32_t* a1, nox_drawable* dr) {
 }
 
 //----- (004B6A60) --------------------------------------------------------
-int  nox_thing_red_spark_draw(uint32_t* a1, nox_drawable* dr) {
+int nox_thing_red_spark_draw(uint32_t* a1, nox_drawable* dr) {
 	return sub_4B6970(a1, dr, *(int*)&dword_5d4594_1313532, *getMemIntPtr(0x5D4594, 1313528));
 }
 
 //----- (004B6A80) --------------------------------------------------------
-int  nox_thing_blue_spark_draw(uint32_t* a1, nox_drawable* dr) {
+int nox_thing_blue_spark_draw(uint32_t* a1, nox_drawable* dr) {
 	return sub_4B6970(a1, dr, *(int*)&dword_5d4594_1313540, *(int*)&dword_5d4594_1313536);
 }
 
 //----- (004B6AA0) --------------------------------------------------------
-int  nox_thing_cyan_spark_draw(uint32_t* a1, nox_drawable* dr) {
+int nox_thing_cyan_spark_draw(uint32_t* a1, nox_drawable* dr) {
 	return sub_4B6970(a1, dr, *getMemIntPtr(0x5D4594, 1313548), *getMemIntPtr(0x5D4594, 1313544));
 }
 
 //----- (004B6AC0) --------------------------------------------------------
-int  nox_thing_green_spark_draw(uint32_t* a1, nox_drawable* dr) {
+int nox_thing_green_spark_draw(uint32_t* a1, nox_drawable* dr) {
 	return sub_4B6970(a1, dr, *getMemIntPtr(0x5D4594, 1313584), *getMemIntPtr(0x5D4594, 1313580));
 }
 
 //----- (004B6AE0) --------------------------------------------------------
-int  nox_thing_yellow_spark_draw(uint32_t* a1, nox_drawable* dr) {
+int nox_thing_yellow_spark_draw(uint32_t* a1, nox_drawable* dr) {
 	return sub_4B6970(a1, dr, *(int*)&dword_5d4594_1313532, *getMemIntPtr(0x5D4594, 1313576));
 }
 
 //----- (004B6E40) --------------------------------------------------------
-int  nox_thing_violet_spark_draw(uint32_t* a1, nox_drawable* dr) {
+int nox_thing_violet_spark_draw(uint32_t* a1, nox_drawable* dr) {
 	return sub_4B6970(a1, dr, *getMemIntPtr(0x5D4594, 1313556), *getMemIntPtr(0x5D4594, 1313552));
 }
 
 //----- (004B6E60) --------------------------------------------------------
-int  nox_thing_death_ball_spark_draw(uint32_t* a1, nox_drawable* dr) {
+int nox_thing_death_ball_spark_draw(uint32_t* a1, nox_drawable* dr) {
 	return sub_4B6970(a1, dr, *getMemIntPtr(0x5D4594, 1313572), *getMemIntPtr(0x5D4594, 1313568));
 }
 
 //----- (004B7040) --------------------------------------------------------
-int  nox_thing_white_spark_draw(uint32_t* a1, nox_drawable* dr) {
+int nox_thing_white_spark_draw(uint32_t* a1, nox_drawable* dr) {
 	return sub_4B6970(a1, dr, *getMemIntPtr(0x5D4594, 2523948), *(int*)&dword_5d4594_1313540);
 }
 
 //----- (004AFE80) --------------------------------------------------------
-int  nox_thing_particle_draw(int a1, nox_drawable* dr) {
-	uint32_t* v2;                  // eax
-	void( * v3)(uint32_t*); // ecx
+int nox_thing_particle_draw(int a1, nox_drawable* dr) {
+	uint32_t* v2;          // eax
+	void (*v3)(uint32_t*); // ecx
 
 	uint32_t* a2 = dr;
 
 	v2 = (uint32_t*)a2[108];
 	a2[3] = v2[20] >> 16;
 	a2[4] = v2[21] >> 16;
-	v3 = (void(*)(uint32_t*))v2[31];
+	v3 = (void (*)(uint32_t*))v2[31];
 	if (v3) {
 		v3(v2);
-}
+	}
 	return 1;
 }
 
 //----- (004B6B60) --------------------------------------------------------
-int  nox_thing_glow_orb_draw(int* a1, nox_drawable* dr) { return sub_4B6B80(a1, dr, 0); }
+int nox_thing_glow_orb_draw(int* a1, nox_drawable* dr) { return sub_4B6B80(a1, dr, 0); }
 
 //----- (004B6E20) --------------------------------------------------------
-int  nox_thing_glow_orb_move_draw(int* a1, nox_drawable* dr) { return sub_4B6B80(a1, dr, 1); }
+int nox_thing_glow_orb_move_draw(int* a1, nox_drawable* dr) { return sub_4B6B80(a1, dr, 1); }

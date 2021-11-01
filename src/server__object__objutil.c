@@ -3,11 +3,11 @@
 #include "common__strman.h"
 
 //----- (004E77E0) --------------------------------------------------------
-wchar_t*  nox_xxx_itemGetName_4E77E0_obj_util(int a1) {
+wchar_t* nox_xxx_itemGetName_4E77E0_obj_util(int a1) {
 	int v1;            // eax
-	uint32_t* v2;        // edi
-	uint32_t* v3;        // eax
-	uint32_t* v4;        // ebx
+	uint32_t* v2;      // edi
+	uint32_t* v3;      // eax
+	uint32_t* v4;      // ebx
 	wchar_t* v5;       // eax
 	int v7;            // eax
 	const wchar_t* v8; // eax
@@ -23,12 +23,11 @@ wchar_t*  nox_xxx_itemGetName_4E77E0_obj_util(int a1) {
 			v3 = nox_xxx_getProjectileClassById_413250(*(unsigned short*)(a1 + 4));
 		} else {
 			v3 = nox_xxx_equipClothFindDefByTT_413270(*(unsigned short*)(a1 + 4));
-}
+		}
 		v4 = v3;
 		if (!v3) {
 			v12 = nox_xxx_getUnitName_4E39D0(a1);
-			v5 = nox_strman_loadString_40F1D0("NoInfo", 0, "C:\\NoxPost\\src\\Server\\Object\\objutil.c",
-									   983);
+			v5 = nox_strman_loadString_40F1D0("NoInfo", 0, "C:\\NoxPost\\src\\Server\\Object\\objutil.c", 983);
 			nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1565660), v5, v12);
 			return (wchar_t*)getMemAt(0x5D4594, 1565660);
 		}
@@ -47,7 +46,7 @@ wchar_t*  nox_xxx_itemGetName_4E77E0_obj_util(int a1) {
 		}
 		if (v4[2]) {
 			nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1565660), (const wchar_t*)v4[2]);
-}
+		}
 		v9 = v2[2];
 		if (v9 && *(uint32_t*)(v9 + 8)) {
 			nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1565660), L" ");
@@ -60,8 +59,7 @@ wchar_t*  nox_xxx_itemGetName_4E77E0_obj_util(int a1) {
 			return (wchar_t*)getMemAt(0x5D4594, 1565660);
 		}
 	} else {
-		v11 =
-			nox_strman_loadString_40F1D0("NoDescription", 0, "C:\\NoxPost\\src\\Server\\Object\\objutil.c", 1032);
+		v11 = nox_strman_loadString_40F1D0("NoDescription", 0, "C:\\NoxPost\\src\\Server\\Object\\objutil.c", 1032);
 		nox_wcscpy((wchar_t*)getMemAt(0x5D4594, 1565660), v11);
 	}
 	return (wchar_t*)getMemAt(0x5D4594, 1565660);

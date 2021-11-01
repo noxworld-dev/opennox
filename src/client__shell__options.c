@@ -1,7 +1,7 @@
 #include "client__shell__options.h"
 
-#include "common__strman.h"
 #include "GAME2.h"
+#include "common__strman.h"
 
 //----- (004AA650) --------------------------------------------------------
 void sub_4AA650() {
@@ -14,6 +14,6 @@ void sub_4AA650() {
 		*getMemU32Ptr(0x5D4594, 1309744) %= 3;
 		if (v3) {
 			/*(void*)*/ nox_xxx_playDialogFile_44D900((int)v3, 100);
-}
+		}
 	}
 }

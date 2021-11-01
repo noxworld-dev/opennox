@@ -1,7 +1,7 @@
 #include "client__shell__wolapi__woldlgs.h"
 #include "GAME1.h"
-#include "GAME1_2.h"
 #include "GAME1_1.h"
+#include "GAME1_2.h"
 #include "GAME1_3.h"
 #include "GAME2.h"
 #include "GAME2_1.h"
@@ -32,13 +32,13 @@ int sub_448730_wol_dialogs() {
 
 	if (dword_5d4594_830112) {
 		return 0;
-}
+	}
 	if (dword_5d4594_830116) {
 		return 0;
-}
+	}
 	if (dword_5d4594_830120) {
 		return 0;
-}
+	}
 	result = nox_new_window_from_file("wolfind.wnd", sub_4489C0_wol_dialogs);
 	dword_5d4594_830124 = result;
 	if (result) {
@@ -58,14 +58,22 @@ int sub_448730_wol_dialogs() {
 		*getMemU32Ptr(0x5D4594, 830144) = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_830124, 1939);
 		dword_5d4594_830148 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_830124, 1936);
 		nox_xxx_windowFocus_46B500(*(int*)&dword_5d4594_830132);
-		*getMemU32Ptr(0x5D4594, 830160) = nox_strman_loadString_40F1D0("WolFind.wnd:Title", 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c", 579);
-		*getMemU32Ptr(0x5D4594, 830164) = nox_strman_loadString_40F1D0("WolFind.wnd:pageTitle", 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c", 580);
-		*getMemU32Ptr(0x5D4594, 830168) = nox_strman_loadString_40F1D0("WolFind.wnd:Loc", 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c", 581);
-		*getMemU32Ptr(0x5D4594, 830172) = nox_strman_loadString_40F1D0("WolFind.wnd:Msg", 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c", 582);
-		*getMemU32Ptr(0x5D4594, 830176) = nox_strman_loadString_40F1D0("WolFind.wnd:GoFind", 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c", 583);
-		*getMemU32Ptr(0x5D4594, 830180) = nox_strman_loadString_40F1D0("WolFind.wnd:GoPage", 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c", 584);
-		*getMemU32Ptr(0x5D4594, 830184) = nox_strman_loadString_40F1D0("searching", 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c", 585);
-		*getMemU32Ptr(0x5D4594, 830188) = nox_strman_loadString_40F1D0("paging", 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c", 586);
+		*getMemU32Ptr(0x5D4594, 830160) = nox_strman_loadString_40F1D0(
+			"WolFind.wnd:Title", 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c", 579);
+		*getMemU32Ptr(0x5D4594, 830164) = nox_strman_loadString_40F1D0(
+			"WolFind.wnd:pageTitle", 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c", 580);
+		*getMemU32Ptr(0x5D4594, 830168) = nox_strman_loadString_40F1D0(
+			"WolFind.wnd:Loc", 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c", 581);
+		*getMemU32Ptr(0x5D4594, 830172) = nox_strman_loadString_40F1D0(
+			"WolFind.wnd:Msg", 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c", 582);
+		*getMemU32Ptr(0x5D4594, 830176) = nox_strman_loadString_40F1D0(
+			"WolFind.wnd:GoFind", 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c", 583);
+		*getMemU32Ptr(0x5D4594, 830180) = nox_strman_loadString_40F1D0(
+			"WolFind.wnd:GoPage", 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c", 584);
+		*getMemU32Ptr(0x5D4594, 830184) =
+			nox_strman_loadString_40F1D0("searching", 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c", 585);
+		*getMemU32Ptr(0x5D4594, 830188) =
+			nox_strman_loadString_40F1D0("paging", 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c", 586);
 		dword_587000_111668 = 1;
 		dword_5d4594_830116 = 1;
 		sub_46B120(*(uint32_t**)&dword_5d4594_830124, 0);
@@ -79,7 +87,7 @@ int sub_448730_wol_dialogs() {
 }
 
 //----- (004489C0) --------------------------------------------------------
-int  sub_4489C0_wol_dialogs(int a1, int a2, int* a3, int a4) {
+int sub_4489C0_wol_dialogs(int a1, int a2, int* a3, int a4) {
 	wchar_t* v4;       // esi
 	const wchar_t* v5; // eax
 	int result;        // eax
@@ -102,7 +110,7 @@ int  sub_4489C0_wol_dialogs(int a1, int a2, int* a3, int a4) {
 				nox_xxx_wnd_46ABB0(*(int*)&dword_5d4594_830148, 0);
 			} else {
 				nox_xxx_wnd_46ABB0(*(int*)&dword_5d4594_830148, 1);
-}
+			}
 			dword_587000_111668 = 1;
 			result = 0;
 			break;
@@ -119,7 +127,7 @@ int  sub_4489C0_wol_dialogs(int a1, int a2, int* a3, int a4) {
 				nox_xxx_wnd_46ABB0(*(int*)&dword_5d4594_830148, 0);
 			} else {
 				nox_xxx_wnd_46ABB0(*(int*)&dword_5d4594_830148, 1);
-}
+			}
 			result = 0;
 			break;
 		case 1936:
@@ -141,7 +149,7 @@ int  sub_4489C0_wol_dialogs(int a1, int a2, int* a3, int a4) {
 		if (v5) {
 			if (!nox_wcscmp(v4, v5)) {
 				v7 = nox_strman_loadString_40F1D0("alreadyinchannel", 0,
-										   "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c", 327);
+												  "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c", 327);
 			} else {
 				nox_xxx_wnd_46C6E0(*(int*)&dword_5d4594_830124);
 				nox_xxx_windowDestroyMB_46C4E0(*(uint32_t**)&dword_5d4594_830124);
@@ -151,7 +159,7 @@ int  sub_4489C0_wol_dialogs(int a1, int a2, int* a3, int a4) {
 				sub_40D380();
 				sub_446A20_wol_chat(v4);
 				v7 = nox_strman_loadString_40F1D0("changedchannel", 0,
-										   "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c", 321);
+												  "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c", 321);
 			}
 			nox_window_call_field_94(*(int*)&dword_5d4594_830140, 16385, (int)v7, 0);
 			result = 0;
@@ -168,7 +176,7 @@ int  sub_4489C0_wol_dialogs(int a1, int a2, int* a3, int a4) {
 
 //----- (00448CF0) --------------------------------------------------------
 int sub_448CF0_wol_dialogs() {
-	uint16_t* v0;    // esi
+	uint16_t* v0; // esi
 	int result;   // eax
 	wchar_t* v2;  // eax
 	int v3;       // eax
@@ -188,15 +196,13 @@ int sub_448CF0_wol_dialogs() {
 			nox_xxx_setKeybTimeout_4160D0(18);
 			return nox_xxx_wnd_46ABB0(*(int*)&dword_5d4594_830148, 0);
 		}
-		v2 = nox_strman_loadString_40F1D0("InvalidUser", 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c",
-								   234);
+		v2 = nox_strman_loadString_40F1D0("InvalidUser", 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c", 234);
 		return nox_window_call_field_94(*(int*)&dword_5d4594_830140, 16385, (int)v2, 0);
 	}
 	v3 = nox_window_call_field_94(*(int*)&dword_5d4594_830132, 16413, 0, 0);
 	nox_sprintf(v8, "%S", v3);
 	if (!v0 || !*v0) {
-		v2 = nox_strman_loadString_40F1D0("InvalidUser", 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c",
-								   267);
+		v2 = nox_strman_loadString_40F1D0("InvalidUser", 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c", 267);
 		return nox_window_call_field_94(*(int*)&dword_5d4594_830140, 16385, (int)v2, 0);
 	}
 	if (v8[0]) // TODO: &v5 != (int*)-112 && ...
@@ -211,18 +217,18 @@ int sub_448CF0_wol_dialogs() {
 		result = nox_window_call_field_94(*(int*)&dword_5d4594_830132, 16414, (int)getMemAt(0x5D4594, 830212), 0);
 	} else {
 		v4 = nox_strman_loadString_40F1D0("InvalidMessage", 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c",
-								   264);
+										  264);
 		result = nox_window_call_field_94(*(int*)&dword_5d4594_830140, 16385, (int)v4, 0);
 	}
 	return result;
 }
 
 //----- (004490C0) --------------------------------------------------------
-void  sub_4490C0_wol_dialogs(int a1) {
+void sub_4490C0_wol_dialogs(int a1) {
 	int v1;         // ebp
 	char* v3;       // ebx
 	const char* v4; // esi
-	uint32_t* v5;     // eax
+	uint32_t* v5;   // eax
 	wchar_t* v6;    // eax
 
 	v1 = 0;
@@ -249,12 +255,11 @@ void  sub_4490C0_wol_dialogs(int a1) {
 			}
 		} while (*(uint32_t*)(a1 + 48));
 	}
-	v6 = nox_strman_loadString_40F1D0("findsuccess", 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c",
-							   639);
+	v6 = nox_strman_loadString_40F1D0("findsuccess", 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c", 639);
 	nox_window_call_field_94(*(int*)&dword_5d4594_830140, 16385, (int)v6, 0);
 	if (!v1) {
 		sub_4491B0_wol_dialogs();
-}
+	}
 }
 
 //----- (004491B0) --------------------------------------------------------
@@ -268,8 +273,7 @@ int sub_4491B0_wol_dialogs() {
 	}
 	result = dword_5d4594_830116;
 	if (dword_5d4594_830116) {
-		v1 = nox_strman_loadString_40F1D0("usernoton", 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c",
-								   660);
+		v1 = nox_strman_loadString_40F1D0("usernoton", 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c", 660);
 		result = nox_window_call_field_94(*(int*)&dword_5d4594_830140, 16385, (int)v1, 0);
 	}
 	return result;
@@ -282,8 +286,7 @@ int sub_449200_wol_dialogs() {
 
 	result = dword_5d4594_830116;
 	if (dword_5d4594_830116) {
-		v1 = nox_strman_loadString_40F1D0("pagesuccess", 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c",
-								   669);
+		v1 = nox_strman_loadString_40F1D0("pagesuccess", 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c", 669);
 		result = nox_window_call_field_94(*(int*)&dword_5d4594_830140, 16385, (int)v1, 0);
 	}
 	return result;
@@ -296,22 +299,21 @@ int sub_449240_wol_dialogs() {
 
 	result = dword_5d4594_830116;
 	if (dword_5d4594_830116) {
-		v1 = nox_strman_loadString_40F1D0("usernoton", 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c",
-								   678);
+		v1 = nox_strman_loadString_40F1D0("usernoton", 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c", 678);
 		result = nox_window_call_field_94(*(int*)&dword_5d4594_830140, 16385, (int)v1, 0);
 	}
 	return result;
 }
 
 //----- (004497D0) --------------------------------------------------------
-int  sub_4497D0_wol_dialogs(int a1, int a2, int* a3, int a4) {
-	uint32_t* v3;    // esi
+int sub_4497D0_wol_dialogs(int a1, int a2, int* a3, int a4) {
+	uint32_t* v3;  // esi
 	int v4;        // eax
 	int result;    // eax
 	int v6;        // eax
 	int v7;        // eax
 	int v8;        // edi
-	uint32_t* v9;    // eax
+	uint32_t* v9;  // eax
 	int v10;       // esi
 	int v11;       // eax
 	const char* i; // eax
@@ -346,7 +348,7 @@ int  sub_4497D0_wol_dialogs(int a1, int a2, int* a3, int a4) {
 					for (i = sub_4205B0(v11); i; i = (const char*)sub_4206B0((int)i)) {
 						if (!v10) {
 							break;
-}
+						}
 						--v10;
 					}
 					sub_4207D0((int)i);
@@ -362,9 +364,9 @@ int  sub_4497D0_wol_dialogs(int a1, int a2, int* a3, int a4) {
 				dword_5d4594_830108 = 0;
 				if (v8) {
 					v15 = nox_strman_loadString_40F1D0("Noxworld.c:ConChatServ", 0,
-												"C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c", 175);
+													   "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c", 175);
 					v14 = nox_strman_loadString_40F1D0("wolchat.c:PleaseWait", 0,
-												"C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c", 174);
+													   "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c", 174);
 					nox_xxx_dialogMsgBoxCreate_449A10(0, (int)v14, (int)v15, 288, 0, 0);
 					sub_44A4B0();
 					nox_xxx_clientPlaySoundSpecial_452D80(921, 100);

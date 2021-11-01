@@ -3,9 +3,9 @@
 
 //----- (004158C0) --------------------------------------------------------
 char** nox_xxx_loadModifyers_4158C0() {
-	char** result;       // eax
+	char** result;     // eax
 	unsigned char* v1; // esi
-	int v2;              // ecx
+	int v2;            // ecx
 
 	result = *(char***)getMemAt(0x5D4594, 371248);
 	if (!*getMemU32Ptr(0x5D4594, 371248)) {

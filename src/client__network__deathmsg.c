@@ -5,7 +5,7 @@
 #include "GAME1.h"
 
 //----- (004952E0) --------------------------------------------------------
-int  sub_4952E0(uint16_t* a1) {
+int sub_4952E0(uint16_t* a1) {
 	char* v1;        // eax
 	wchar_t* v2;     // eax
 	char* v3;        // eax
@@ -21,7 +21,8 @@ int  sub_4952E0(uint16_t* a1) {
 
 	if (a1[1] && (v1 = nox_common_playerInfoGetByID_417040((unsigned short)a1[1])) != 0) {
 		v8 = (int)(v1 + 4704);
-		v2 = nox_strman_loadString_40F1D0("die.c:LocalizeAttacker", 0, "C:\\NoxPost\\src\\client\\Network\\deathmsg.c", 48);
+		v2 = nox_strman_loadString_40F1D0("die.c:LocalizeAttacker", 0, "C:\\NoxPost\\src\\client\\Network\\deathmsg.c",
+										  48);
 		nox_swprintf(v13, v2, v8);
 		if (a1[2]) {
 			v3 = nox_common_playerInfoGetByID_417040((unsigned short)a1[2]);
@@ -31,16 +32,18 @@ int  sub_4952E0(uint16_t* a1) {
 			}
 		}
 	} else {
-		v9 = nox_strman_loadString_40F1D0("die.c:AttackerNasty", 0, "C:\\NoxPost\\src\\client\\Network\\deathmsg.c", 65);
-		v4 = nox_strman_loadString_40F1D0("die.c:LocalizeAttacker", 0, "C:\\NoxPost\\src\\client\\Network\\deathmsg.c", 64);
+		v9 =
+			nox_strman_loadString_40F1D0("die.c:AttackerNasty", 0, "C:\\NoxPost\\src\\client\\Network\\deathmsg.c", 65);
+		v4 = nox_strman_loadString_40F1D0("die.c:LocalizeAttacker", 0, "C:\\NoxPost\\src\\client\\Network\\deathmsg.c",
+										  64);
 		nox_swprintf(v13, v4, v9);
 	}
 	if (a1[3]) {
 		v5 = nox_common_playerInfoGetByID_417040((unsigned short)a1[3]);
 		if (v5) {
 			v10 = (int)(v5 + 4704);
-			v6 = nox_strman_loadString_40F1D0("die.c:LocalizeVictim", 0, "C:\\NoxPost\\src\\client\\Network\\deathmsg.c",
-									   72);
+			v6 = nox_strman_loadString_40F1D0("die.c:LocalizeVictim", 0,
+											  "C:\\NoxPost\\src\\client\\Network\\deathmsg.c", 72);
 			nox_swprintf(v11, v6, v10);
 		}
 	}

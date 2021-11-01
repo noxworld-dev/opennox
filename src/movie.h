@@ -231,8 +231,10 @@ short sub_5649DA(int a1, uint8_t* a2, uint32_t* a3, int a4, int a5, int a6);
 int* sub_564AC0(int a1, unsigned short* a2, int* a3, int a4, int a5, int a6);
 int* sub_564E60(int a1, uint16_t* a2, int* a3, unsigned int a4, int a5, int a6);
 unsigned int sub_564FB0(int a1, unsigned char* a2, int* a3, unsigned int a4, int a5, int a6);
-char  sub_558AA0(uint32_t * a1, uint32_t * a2, unsigned int a3, unsigned int a4, signed int a5, signed int a6, int a7, int a8, char a9);
-void  sub_559030(int a1, int a2, unsigned int a3, unsigned int a4, int a5, int a6, int a7, int a8, int a9, int a10, int a11, int a12);
-int  sub_555520(void* a1);
+char sub_558AA0(uint32_t* a1, uint32_t* a2, unsigned int a3, unsigned int a4, signed int a5, signed int a6, int a7,
+				int a8, char a9);
+void sub_559030(int a1, int a2, unsigned int a3, unsigned int a4, int a5, int a6, int a7, int a8, int a9, int a10,
+				int a11, int a12);
+int sub_555520(void* a1);
 
 #endif // NOX_PORT_MOVIE

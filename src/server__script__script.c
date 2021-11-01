@@ -1,16 +1,16 @@
-#include <string.h>
 #include <stdbool.h>
+#include <string.h>
 
-#include "server__script__script.h"
-#include "server__script__builtin.h"
-#include "server__script__internal.h"
-#include "common/fs/nox_fs.h"
 #include "GAME1.h"
 #include "GAME1_1.h"
 #include "GAME3_2.h"
 #include "GAME4.h"
 #include "GAME4_1.h"
+#include "common/fs/nox_fs.h"
 #include "operators.h"
+#include "server__script__builtin.h"
+#include "server__script__internal.h"
+#include "server__script__script.h"
 
 extern void* nox_script_activatedList_2487236;
 extern unsigned int dword_5d4594_1599628;
@@ -44,9 +44,7 @@ void nox_script_push(int val) {
 		nox_script_stack_top++;
 	}
 }
-void nox_script_pushf(float val) {
-	nox_script_push(*((int*)&val));
-}
+void nox_script_pushf(float val) { nox_script_push(*((int*)&val)); }
 
 //----- (00507250) --------------------------------------------------------
 int nox_script_pop() {
@@ -76,10 +74,10 @@ double nox_script_nextFloat(float** p) {
 }
 
 //----- (005071D0) --------------------------------------------------------
-int  nox_script_indexByEvent(const char* a1) {
+int nox_script_indexByEvent(const char* a1) {
 	if (nox_script_count_xxx_1599640 <= 0) {
 		return -1;
-}
+	}
 	for (int i = 0; i < nox_script_count_xxx_1599640; i++) {
 		if (!strcmp(nox_script_arr_xxx_1599636[i].field_0, a1)) {
 			return i;
@@ -88,19 +86,15 @@ int  nox_script_indexByEvent(const char* a1) {
 	return -1;
 }
 
-void* nox_script_get_caller() {
-	return nox_script_caller_3821964;
-}
+void* nox_script_get_caller() { return nox_script_caller_3821964; }
 
-void* nox_script_get_trigger() {
-	return nox_script_trigger_3821968;
-}
+void* nox_script_get_trigger() { return nox_script_trigger_3821968; }
 
 //----- (00512E40) --------------------------------------------------------
 int nox_script_addString_512E40(char* s) {
 	if (nox_script_strings_cnt >= 1024) {
 		return nox_script_strings_cnt - 1;
-}
+	}
 	char* cstr = _strdup(s);
 	int i = nox_script_strings_cnt;
 	nox_script_strings[i] = cstr;
@@ -111,24 +105,18 @@ int nox_script_addString_512E40(char* s) {
 const char* nox_script_getString_512E40(int i) {
 	if (i < 0 || i >= nox_script_strings_cnt) {
 		return 0;
-}
+	}
 	return nox_script_strings[i];
 }
 
-const char* nox_script_getField36(int i) {
-	return nox_script_arr_xxx_1599636[i].field_36;
-}
+const char* nox_script_getField36(int i) { return nox_script_arr_xxx_1599636[i].field_36; }
 
-unsigned int nox_script_getField40(int i) {
-	return nox_script_arr_xxx_1599636[i].field_40;
-}
+unsigned int nox_script_getField40(int i) { return nox_script_arr_xxx_1599636[i].field_40; }
 
-unsigned int nox_script_getField44(int i) {
-	return nox_script_arr_xxx_1599636[i].field_44;
-}
+unsigned int nox_script_getField44(int i) { return nox_script_arr_xxx_1599636[i].field_44; }
 
 //----- (004F5580) --------------------------------------------------------
-int  nox_xxx_xferReadScriptHandler_4F5580(int a1, char* a2) {
+int nox_xxx_xferReadScriptHandler_4F5580(int a1, char* a2) {
 	bool v3;       // zf
 	int v4;        // eax
 	size_t v5;     // [esp+Ch] [ebp-408h]
@@ -139,12 +127,12 @@ int  nox_xxx_xferReadScriptHandler_4F5580(int a1, char* a2) {
 	nox_xxx_fileReadWrite_426AC0_file3_fread(&v6, 2u);
 	if ((short)v6 > 1) {
 		return 0;
-}
+	}
 	if (*getMemU32Ptr(0x973F18, 3872) == 1) {
 		nox_xxx_fileReadWrite_426AC0_file3_fread(&v5, 4u);
 		if (v5 >= 0x400) {
 			return 0;
-}
+		}
 		nox_xxx_fileReadWrite_426AC0_file3_fread(v7, v5);
 		v3 = v5 == 0;
 		v7[v5] = 0;
@@ -153,7 +141,7 @@ int  nox_xxx_xferReadScriptHandler_4F5580(int a1, char* a2) {
 				strcpy(a2, v7);
 			} else {
 				*(unsigned int*)(a1 + 4) = nox_script_indexByEvent(v7);
-}
+			}
 		}
 	} else {
 		if (nox_common_gameFlags_check_40A5C0(0x600000)) {
@@ -168,7 +156,8 @@ int  nox_xxx_xferReadScriptHandler_4F5580(int a1, char* a2) {
 			if (v4 != -1) {
 				v5 = strlen(nox_script_arr_xxx_1599636[v4].field_0);
 				nox_xxx_fileReadWrite_426AC0_file3_fread(&v5, 4u);
-				nox_xxx_fileReadWrite_426AC0_file3_fread(nox_script_arr_xxx_1599636[*(unsigned int*)(a1 + 4)].field_0, v5);
+				nox_xxx_fileReadWrite_426AC0_file3_fread(nox_script_arr_xxx_1599636[*(unsigned int*)(a1 + 4)].field_0,
+														 v5);
 				goto LABEL_16;
 			}
 		}
@@ -185,7 +174,7 @@ LABEL_16:
 #ifdef NOX_CGO
 void nox_script_callByEvent_cgo(int eventCode, int a1, int a2);
 #endif // NOX_CGO
-unsigned char*  nox_xxx_scriptCallByEventBlock_502490(int* a1, int a2, int a3, int eventCode) {
+unsigned char* nox_xxx_scriptCallByEventBlock_502490(int* a1, int a2, int a3, int eventCode) {
 #ifdef NOX_CGO
 	nox_script_callByEvent_cgo(eventCode, a2, a3);
 #endif // NOX_CGO
@@ -193,12 +182,12 @@ unsigned char*  nox_xxx_scriptCallByEventBlock_502490(int* a1, int a2, int a3, i
 	int v3 = a1[0];
 	if (*a1 & 1) {
 		return 0;
-}
+	}
 
 	int v4 = a1[1];
 	if (v4 == -1) {
 		return 0;
-}
+	}
 
 	if (v3 & 2) {
 		LOBYTE(v3) = v3 | 1;
@@ -224,8 +213,9 @@ unsigned char*  nox_xxx_scriptCallByEventBlock_502490(int* a1, int a2, int a3, i
 
 	sub_5025E0(a1, a2, a3);
 	if (*getMemU32Ptr(0x5D4594, 1599468) > 0) {
-		nox_xxx_scriptCallByEventBlock_502490(*(int**)getMemAt(0x5D4594, 1599084), *getMemIntPtr(0x5D4594, 1599088), *getMemIntPtr(0x5D4594, 1599092), 0);
-}
+		nox_xxx_scriptCallByEventBlock_502490(*(int**)getMemAt(0x5D4594, 1599084), *getMemIntPtr(0x5D4594, 1599088),
+											  *getMemIntPtr(0x5D4594, 1599092), 0);
+	}
 	return getMemAt(0x5D4594, 1599076);
 }
 
@@ -239,27 +229,29 @@ int nox_server_mapRWScriptData_504F90() {
 	nox_xxx_fileReadWrite_426AC0_file3_fread(&v2, 2u);
 	if ((short)v2 > 1) {
 		return 0;
-}
+	}
 	v1 = 0;
-	if (nox_script_arr_xxx_1599636 && nox_common_gameFlags_check_40A5C0(1) && !nox_common_gameFlags_check_40A5C0(0x400000)) {
+	if (nox_script_arr_xxx_1599636 && nox_common_gameFlags_check_40A5C0(1) &&
+		!nox_common_gameFlags_check_40A5C0(0x400000)) {
 		v1 = 1;
-}
+	}
 	nox_xxx_fileReadWrite_426AC0_file3_fread(&v1, 1u);
 	if (!v1) {
 		return 1;
-}
-	nox_xxx_fileReadWrite_426AC0_file3_fread(nox_script_arr_xxx_1599636[1].field_28, 4 * nox_script_arr_xxx_1599636[1].field_16);
+	}
+	nox_xxx_fileReadWrite_426AC0_file3_fread(nox_script_arr_xxx_1599636[1].field_28,
+											 4 * nox_script_arr_xxx_1599636[1].field_16);
 	if (*getMemU32Ptr(0x973F18, 3872)) {
 		result = sub_51AF80();
 		if (!result) {
 			return result;
-}
+		}
 		return 1;
 	}
 	result = sub_51AEA0();
 	if (result) {
 		return 1;
-}
+	}
 	return result;
 }
 
@@ -289,7 +281,7 @@ int nox_script_ncobj_parse_505360() {
 	FILE* f = nox_fs_open("nc.obj");
 	if (!f) {
 		return 0;
-}
+	}
 	if (!nox_script_ncobj_readStringExpect_505870(f, "SCRIPT03")) {
 		nox_fs_close(f);
 		return 0;
@@ -318,7 +310,7 @@ int nox_script_ncobj_parse_505360() {
 	nox_script_count_xxx_1599640 = nox_script_ncobj_readInt_505800(f);
 	if (nox_script_count_xxx_1599640 < 0) {
 		nox_script_count_xxx_1599640 = 0;
-}
+	}
 	if (nox_script_count_xxx_1599640) {
 		nox_script_arr_xxx_1599636 = calloc(1, sizeof(nox_script_xxx_t) * nox_script_count_xxx_1599640);
 	}
@@ -387,7 +379,7 @@ int nox_script_ncobj_parse_505360() {
 		int cntY = nox_script_ncobj_readInt_505800(f);
 		if (ind == 0) {
 			cntY++;
-}
+		}
 		cur->field_12 = cntY;
 		nox_script_ncobj_readInt_505800(f);
 		if (cntY) {
@@ -491,7 +483,7 @@ void nox_xxx_scriptRunFirst_507290() {
 		*(unsigned int*)(f28 + 12) = 0;
 		if (!nox_xxx_gameIsSwitchToSolo_4DB240()) {
 			nox_script_callByIndex_507310(1, 0, 0);
-}
+		}
 	}
 }
 
@@ -579,11 +571,12 @@ void nox_script_callByIndex_507310(int index, void* a2, void* a3) {
 				sa3 = script->field_20[sa2];
 				sa4 = script->field_24[sa2];
 			} else {
-				sa3 = 0; sa4 = 0; // soft fail
+				sa3 = 0;
+				sa4 = 0; // soft fail
 			}
 			if (sa3 > 1) {
 				nox_script_push(sa3);
-}
+			}
 			nox_script_push(sa1);
 			nox_script_push(sa4);
 			continue;
@@ -667,13 +660,13 @@ void nox_script_callByIndex_507310(int index, void* a2, void* a3) {
 			sa1 = nox_script_nextInt(&data);
 			if (nox_script_pop()) {
 				data = (unsigned int)(script->data) + 4 * sa1;
-}
+			}
 			continue;
 		case 21: // jump if not
 			sa1 = nox_script_nextInt(&data);
 			if (!nox_script_pop()) {
 				data = (unsigned int)(script->data) + 4 * sa1;
-}
+			}
 			continue;
 		case 22:
 		case 24: // set xxx int
@@ -684,7 +677,7 @@ void nox_script_callByIndex_507310(int index, void* a2, void* a3) {
 					nox_script_arr_xxx_1599636[1].field_28[sa2] = sa1;
 				}
 			} else if (sa2 < 0) {
-                *(unsigned int*)(*(unsigned int*)((int)a3 + 760) - 4 * sa2) = sa1;
+				*(unsigned int*)(*(unsigned int*)((int)a3 + 760) - 4 * sa2) = sa1;
 			} else if (script->field_28) {
 				script->field_28[sa2] = sa1;
 			}
@@ -735,8 +728,8 @@ void nox_script_callByIndex_507310(int index, void* a2, void* a3) {
 					nox_script_pushf(0); // soft fail
 				}
 			} else if (sa1 < 0) {
-				*(float*)(*(unsigned int *) ((int)a3 + 760) - 4 * sa1) *= sf1;
-				nox_script_pushf(*(float*)(*(unsigned int *) ((int)a3 + 760) - 4 * sa1));
+				*(float*)(*(unsigned int*)((int)a3 + 760) - 4 * sa1) *= sf1;
+				nox_script_pushf(*(float*)(*(unsigned int*)((int)a3 + 760) - 4 * sa1));
 			} else if (script->field_28) {
 				*(float*)(&script->field_28[sa1]) *= sf1;
 				nox_script_pushf(*(float*)(&script->field_28[sa1]));
@@ -813,7 +806,6 @@ void nox_script_callByIndex_507310(int index, void* a2, void* a3) {
 					nox_script_pushf(*(float*)(&nox_script_arr_xxx_1599636[1].field_28[sa1]));
 				} else {
 					nox_script_pushf(0); // soft fail
-
 				}
 			} else if (sa1 < 0) {
 				*(float*)(*(unsigned int*)((int)a3 + 760) - 4 * sa1) += sf1;
@@ -847,7 +839,7 @@ void nox_script_callByIndex_507310(int index, void* a2, void* a3) {
 					nox_script_arr_xxx_1599636[1].field_28[sa2] = sa4;
 				}
 			} else if (sa2 < 0) {
-				*(unsigned int *) (*(unsigned int *) ((int)a3 + 760) - 4 * sa2) = sa4;
+				*(unsigned int*)(*(unsigned int*)((int)a3 + 760) - 4 * sa2) = sa4;
 			} else if (script->field_28) {
 				script->field_28[sa2] = sa4;
 			}
@@ -956,7 +948,7 @@ void nox_script_callByIndex_507310(int index, void* a2, void* a3) {
 				nox_script_push(-(sa3 < 0) - ((sa3 < 0) - 1) < 0);
 			} else {
 				nox_script_push(0);
-}
+			}
 			continue;
 		case 43: // > int
 			sa1 = nox_script_pop();
@@ -976,7 +968,7 @@ void nox_script_callByIndex_507310(int index, void* a2, void* a3) {
 				nox_script_push(-(sa3 < 0) - ((sa3 < 0) - 1) > 0);
 			} else {
 				nox_script_push(0);
-}
+			}
 			continue;
 		case 46: // <= int
 			sa1 = nox_script_pop();
@@ -996,7 +988,7 @@ void nox_script_callByIndex_507310(int index, void* a2, void* a3) {
 				nox_script_push(-(sa3 < 0) - ((sa3 < 0) - 1) <= 0);
 			} else {
 				nox_script_push(1);
-}
+			}
 			continue;
 		case 49: // >= int
 			sa1 = nox_script_pop();
@@ -1016,7 +1008,7 @@ void nox_script_callByIndex_507310(int index, void* a2, void* a3) {
 				nox_script_push(-(sa3 < 0) - ((sa3 < 0) - 1) >= 0);
 			} else {
 				nox_script_push(1);
-}
+			}
 			continue;
 		case 52: // not equal int
 			sa1 = nox_script_pop();
@@ -1167,7 +1159,7 @@ void nox_script_callByIndex_507310(int index, void* a2, void* a3) {
 			sa5 = 0;
 			if (sa1 < 0 || sa1 >= sa4) {
 				sa5 = 1;
-}
+			}
 			if (sa3) {
 				if (nox_script_arr_xxx_1599636[1].field_28) {
 					sa4 = nox_script_arr_xxx_1599636[1].field_28[sa1 + sa2];
@@ -1194,7 +1186,7 @@ void nox_script_callByIndex_507310(int index, void* a2, void* a3) {
 			sa5 = 0;
 			if (sa1 < 0 || sa1 > sa4) {
 				sa5 = 1;
-}
+			}
 			if (sa3) {
 				if (nox_script_arr_xxx_1599636[1].field_28) {
 					sf1 = *(float*)(&nox_script_arr_xxx_1599636[1].field_28[sa1 + sa2]);
@@ -1202,9 +1194,9 @@ void nox_script_callByIndex_507310(int index, void* a2, void* a3) {
 					sf1 = 0;
 				}
 			} else if (sa2 < 0) {
-				sf1 = *(float *) (*(unsigned int *) ((int) a3 + 760) + 4 * (sa2 - sa1));
+				sf1 = *(float*)(*(unsigned int*)((int)a3 + 760) + 4 * (sa2 - sa1));
 			} else if (script->field_28) {
-				sf1 = *(float *) (&script->field_28[sa1 + sa2]);
+				sf1 = *(float*)(&script->field_28[sa1 + sa2]);
 			} else {
 				sf1 = 0; // soft fail
 			}
@@ -1221,13 +1213,13 @@ void nox_script_callByIndex_507310(int index, void* a2, void* a3) {
 			sa5 = 0;
 			if (sa1 < 0 || sa1 > sa4) {
 				sa5 = 1;
-}
+			}
 			nox_script_push(sa3);
 			if (sa2 < 0) {
 				nox_script_push(sa2 - sa1);
 			} else {
 				nox_script_push(sa2 + sa1);
-}
+			}
 			if (sa5) {
 				break;
 			}
@@ -1271,25 +1263,25 @@ void nox_script_callByIndex_507310(int index, void* a2, void* a3) {
 }
 
 //----- (00508CB0) --------------------------------------------------------
-int  sub_508CB0(unsigned int* a1, int a2) {
-	int v2;     // edi
-	int result; // eax
-	int v4;     // ecx
+int sub_508CB0(unsigned int* a1, int a2) {
+	int v2;           // edi
+	int result;       // eax
+	int v4;           // ecx
 	unsigned int* v5; // esi
 	unsigned int* v6; // esi
-	int v7;     // esi
+	int v7;           // esi
 	unsigned int* v8; // esi
 
 	v2 = a1[189];
 	if (!v2) {
 		return 0;
-}
+	}
 	if (a2 == 14) {
 		if (nox_common_gameFlags_check_40A5C0(0x600000)) {
 			result = v2;
 		} else {
 			result = nox_script_arr_xxx_1599636[a1[192]].field_0;
-}
+		}
 		return result;
 	}
 	v4 = a1[2];
@@ -1302,7 +1294,7 @@ int  sub_508CB0(unsigned int* a1, int a2) {
 						result = v2 + 384;
 					} else {
 						result = nox_script_arr_xxx_1599636[v5[8]].field_0;
-}
+					}
 					return result;
 				}
 				return 0;
@@ -1311,7 +1303,7 @@ int  sub_508CB0(unsigned int* a1, int a2) {
 				result = v2 + 256;
 			} else {
 				result = nox_script_arr_xxx_1599636[v5[6]].field_0;
-}
+			}
 		} else if (nox_common_gameFlags_check_40A5C0(0x600000)) {
 			result = v2 + 512;
 		} else {
@@ -1325,70 +1317,70 @@ int  sub_508CB0(unsigned int* a1, int a2) {
 				result = v2 + 640;
 			} else {
 				result = nox_script_arr_xxx_1599636[v6[309]].field_0;
-}
+			}
 			break;
 		case 4:
 			if (nox_common_gameFlags_check_40A5C0(0x600000)) {
 				result = v2 + 768;
 			} else {
 				result = nox_script_arr_xxx_1599636[v6[307]].field_0;
-}
+			}
 			break;
 		case 5:
 			if (nox_common_gameFlags_check_40A5C0(0x600000)) {
 				result = v2 + 896;
 			} else {
 				result = nox_script_arr_xxx_1599636[v6[317]].field_0;
-}
+			}
 			break;
 		case 6:
 			if (nox_common_gameFlags_check_40A5C0(0x600000)) {
 				result = v2 + 1024;
 			} else {
 				result = nox_script_arr_xxx_1599636[v6[311]].field_0;
-}
+			}
 			break;
 		case 7:
 			if (nox_common_gameFlags_check_40A5C0(0x600000)) {
 				result = v2 + 1152;
 			} else {
 				result = nox_script_arr_xxx_1599636[v6[313]].field_0;
-}
+			}
 			break;
 		case 8:
 			if (nox_common_gameFlags_check_40A5C0(0x600000)) {
 				result = v2 + 1280;
 			} else {
 				result = nox_script_arr_xxx_1599636[v6[315]].field_0;
-}
+			}
 			break;
 		case 9:
 			if (nox_common_gameFlags_check_40A5C0(0x600000)) {
 				result = v2 + 1408;
 			} else {
 				result = nox_script_arr_xxx_1599636[v6[319]].field_0;
-}
+			}
 			break;
 		case 10:
 			if (nox_common_gameFlags_check_40A5C0(0x600000)) {
 				result = v2 + 1536;
 			} else {
 				result = nox_script_arr_xxx_1599636[v6[321]].field_0;
-}
+			}
 			break;
 		case 11:
 			if (nox_common_gameFlags_check_40A5C0(0x600000)) {
 				result = v2 + 1664;
 			} else {
 				result = nox_script_arr_xxx_1599636[v6[323]].field_0;
-}
+			}
 			break;
 		case 13:
 			if (nox_common_gameFlags_check_40A5C0(0x600000)) {
 				result = v2 + 1792;
 			} else {
 				result = nox_script_arr_xxx_1599636[v6[325]].field_0;
-}
+			}
 			break;
 		default:
 			return 0;
@@ -1397,16 +1389,16 @@ int  sub_508CB0(unsigned int* a1, int a2) {
 		v7 = a1[175];
 		if (a2 != 12) {
 			return 0;
-}
+		}
 		if (nox_common_gameFlags_check_40A5C0(0x600000)) {
 			result = v2 + 128;
 		} else {
 			result = nox_script_arr_xxx_1599636[*(unsigned int*)(v7 + 4)].field_0;
-}
+		}
 	} else {
 		if (!(v4 & 0x20000)) {
 			return 0;
-}
+		}
 		v8 = (unsigned int*)a1[187];
 		switch (a2) {
 		case 15:
@@ -1414,28 +1406,28 @@ int  sub_508CB0(unsigned int* a1, int a2) {
 				result = v2 + 1920;
 			} else {
 				result = nox_script_arr_xxx_1599636[v8[13]].field_0;
-}
+			}
 			break;
 		case 16:
 			if (nox_common_gameFlags_check_40A5C0(0x600000)) {
 				result = v2 + 2048;
 			} else {
 				result = nox_script_arr_xxx_1599636[v8[15]].field_0;
-}
+			}
 			break;
 		case 17:
 			if (nox_common_gameFlags_check_40A5C0(0x600000)) {
 				result = v2 + 2304;
 			} else {
 				result = nox_script_arr_xxx_1599636[v8[17]].field_0;
-}
+			}
 			break;
 		case 18:
 			if (nox_common_gameFlags_check_40A5C0(0x600000)) {
 				result = v2 + 2176;
 			} else {
 				result = nox_script_arr_xxx_1599636[v8[19]].field_0;
-}
+			}
 			break;
 		default:
 			return 0;
@@ -1447,9 +1439,9 @@ int  sub_508CB0(unsigned int* a1, int a2) {
 //----- (0051ADF0) --------------------------------------------------------
 void nox_xxx_scriptLeverReact_51ADF0() {
 	uint32_t* v0; // esi
-	int v1;     // edi
-	int v2;     // ebx
-	int v3;     // ebp
+	int v1;       // edi
+	int v2;       // ebx
+	int v3;       // ebp
 
 	v0 = *(uint32_t**)&nox_script_activatedList_2487236;
 	if (nox_script_activatedList_2487236) {
@@ -1477,20 +1469,20 @@ nox_object_t* nox_server_scriptValToObjectPtr_511B60(int val) {
 		nox_object_t* obj = nox_script_get_caller();
 		if (!obj || (obj->field_4 & 0x20) != 0) {
 			return 0;
-}
+		}
 		return obj;
 	}
 	if (val == -2) {
 		nox_object_t* obj = nox_script_get_trigger();
 		if (!obj || (obj->field_4 & 0x20) != 0) {
 			return 0;
-}
+		}
 		return obj;
 	}
 	nox_object_t* obj1 = nox_xxx_script_511C50(val);
 	if (obj1) {
 		return obj1;
-}
+	}
 
 	for (nox_object_t* obj = nox_server_getFirstObject_4DA790(); obj; obj = nox_server_getNextObject_4DA7A0(obj)) {
 		if ((obj->field_4 & 0x20) == 0 && obj->script_id == val) {
@@ -1504,7 +1496,8 @@ nox_object_t* nox_server_scriptValToObjectPtr_511B60(int val) {
 			}
 		}
 	}
-	for (nox_object_t* obj = nox_server_getFirstObjectUninited_4DA870(); obj; obj = nox_server_getNextObjectUninited_4DA880(obj)) {
+	for (nox_object_t* obj = nox_server_getFirstObjectUninited_4DA870(); obj;
+		 obj = nox_server_getNextObjectUninited_4DA880(obj)) {
 		if ((obj->field_4 & 0x20) == 0 && obj->script_id == val) {
 			nox_xxx_scriptPrepareFoundUnit_511D70(obj);
 			return obj;
@@ -1523,10 +1516,10 @@ void sub_51B0C0() {
 		do {
 			if (v0[4]) {
 				v0[4] = nox_server_scriptValToObjectPtr_511B60(v0[4]);
-}
+			}
 			if (v0[5]) {
 				v0[5] = nox_server_scriptValToObjectPtr_511B60(v0[5]);
-}
+			}
 			v0 = (int*)v0[6];
 		} while (v0);
 	}
@@ -1538,7 +1531,7 @@ void nox_script_callOnEvent(const char* event, void* a1, void* a2) {
 	for (int i = 0; i < nox_script_count_xxx_1599640; i++) {
 		if (!strncmp(event, nox_script_arr_xxx_1599636[i].field_0, n)) {
 			nox_script_callByIndex_507310(i, a1, a2);
-}
+		}
 	}
 }
 #endif // NOX_CGO

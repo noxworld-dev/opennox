@@ -2,9 +2,6 @@
 
 #include "client__system__gameloop.h"
 
-#include "common__strman.h"
-#include "common__random.h"
-#include "common__system__gamedisk.h"
 #include "GAME1.h"
 #include "GAME1_2.h"
 #include "GAME1_3.h"
@@ -16,17 +13,20 @@
 #include "GAME3_1.h"
 #include "GAME3_2.h"
 #include "GAME5_2.h"
+#include "client__gui__guimsg.h"
 #include "client__gui__window.h"
+#include "client__io__console.h"
 #include "client__system__ctrlevnt.h"
 #include "client__video__draw_common.h"
-#include "common__config.h"
-#include "input_common.h"
-#include "thing.h"
-#include "client__gui__guimsg.h"
-#include "client__io__console.h"
 #include "common__binfile.h"
+#include "common__config.h"
 #include "common__log.h"
 #include "common__net_list.h"
+#include "common__random.h"
+#include "common__strman.h"
+#include "common__system__gamedisk.h"
+#include "input_common.h"
+#include "thing.h"
 
 extern uint32_t nox_client_gui_flag_1556112;
 extern uint32_t nox_game_loop_xxx_805872;
@@ -80,7 +80,8 @@ int nox_xxx_gameChangeMap_43DEB0() {
 			sub_43F1A0();
 			if (!v5) {
 				char* v13 = nox_server_currentMapGetFilename_409B30();
-				wchar_t* v6 = nox_strman_loadString_40F1D0("MapLoadError", 0, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 318);
+				wchar_t* v6 = nox_strman_loadString_40F1D0("MapLoadError", 0,
+														   "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 318);
 				sub_4516C0(v6, v13);
 				nox_xxx_spriteLoadError_4356E0();
 				return 0;
@@ -89,13 +90,15 @@ int nox_xxx_gameChangeMap_43DEB0() {
 				nox_xxx_gameServerReadyMB_4DD180(31);
 			} else {
 				nox_xxx_netSendClientReady_43C9F0();
-}
+			}
 			nox_xxx_gameSetCliConnected_43C720(1);
 			if ((int)*getMemU32Ptr(0x973F18, 3800) < 0) {
-				wchar_t* v7 = nox_strman_loadString_40F1D0("cdecode.c:EnterChat", 0, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 338);
+				wchar_t* v7 = nox_strman_loadString_40F1D0("cdecode.c:EnterChat", 0,
+														   "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 338);
 				nox_xxx_printCentered_445490(v7);
 				char* v14 = sub_42E8E0(8, 1);
-				wchar_t* v8 = nox_strman_loadString_40F1D0("cdecode.c:KeyToChat", 0, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 339);
+				wchar_t* v8 = nox_strman_loadString_40F1D0("cdecode.c:KeyToChat", 0,
+														   "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 339);
 				wchar_t buf[128];
 				nox_swprintf(buf, v8, v14);
 				nox_xxx_printCentered_445490(buf);
@@ -112,8 +115,10 @@ int nox_xxx_gameChangeMap_43DEB0() {
 					nox_common_gameFlags_unset_40A540(9437184);
 					sub_477530(1);
 					nox_xxx_gui_43E1A0(1);
-					wchar_t* v12 = nox_strman_loadString_40F1D0("OverwriteReadOnly", 0, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 298);
-					wchar_t* v10 = nox_strman_loadString_40F1D0("Warning", 0, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 297);
+					wchar_t* v12 = nox_strman_loadString_40F1D0("OverwriteReadOnly", 0,
+																"C:\\NoxPost\\src\\Client\\System\\gameloop.c", 298);
+					wchar_t* v10 =
+						nox_strman_loadString_40F1D0("Warning", 0, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 297);
 					nox_xxx_dialogMsgBoxCreate_449A10(0, v10, (int)v12, 24, sub_43E230, sub_43E200);
 				}
 			} else {
@@ -149,7 +154,7 @@ int map_download_finish() {
 		nox_xxx_gameGetScreenBoundaries_43BEB0_get_video_mode(&v3, &v5, &v4);
 		if (!v3) {
 			nox_xxx_gameResizeScreen_43BEF0_set_video_mode(NOX_DEFAULT_WIDTH, NOX_DEFAULT_HEIGHT, v4);
-}
+		}
 		result = nox_xxx_mapDownloadOK_587000_173332;
 	}
 
@@ -173,12 +178,12 @@ int map_download_finish() {
 		nox_xxx_gameServerReadyMB_4DD180(31);
 	} else {
 		nox_xxx_netSendClientReady_43C9F0();
-}
+	}
 	nox_xxx_gameSetCliConnected_43C720(1);
 
 	if (nox_common_gameFlags_check_40A5C0(9437184)) {
 		nox_common_gameFlags_unset_40A540(9437184);
-}
+	}
 	return 1;
 }
 
@@ -191,7 +196,7 @@ void cleanup() {
 	printf("%s\n", __FUNCTION__);
 	if (nox_common_gameFlags_check_40A5C0(0x2000000)) {
 		nox_xxx_networkLog_close_413D00();
-}
+	}
 	nox_common_writecfgfile("nox.cfg");
 	nox_xxx_freeScreenParticles_4314D0();
 	sub_413960();
@@ -241,21 +246,21 @@ void mainloop() {
 		return;
 	}
 	unsigned char* v0; // eax
-	int v6;              // eax
-	int v7;              // esi
-	int v9;              // edi
-	int v10;             // eax
-	int v12;             // esi
-	int v13;             // eax
-	int v14;             // kr00_4
-	int v15;             // esi
-	char v16;            // al
-	int v21;             // [esp-10h] [ebp-68h]
-	char v22;            // [esp-8h] [ebp-60h]
-	char v23;            // [esp-4h] [ebp-5Ch]
-	char v24;            // [esp-4h] [ebp-5Ch]
-	int* v25;            // [esp+4h] [ebp-54h]
-	int v28[10];         // [esp+24h] [ebp-34h]
+	int v6;            // eax
+	int v7;            // esi
+	int v9;            // edi
+	int v10;           // eax
+	int v12;           // esi
+	int v13;           // eax
+	int v14;           // kr00_4
+	int v15;           // esi
+	char v16;          // al
+	int v21;           // [esp-10h] [ebp-68h]
+	char v22;          // [esp-8h] [ebp-60h]
+	char v23;          // [esp-4h] [ebp-5Ch]
+	char v24;          // [esp-4h] [ebp-5Ch]
+	int* v25;          // [esp+4h] [ebp-54h]
+	int v28[10];       // [esp+24h] [ebp-34h]
 
 	if (nox_xxx_gameDownloadInProgress_587000_173328) {
 		int ret = map_download_loop(0);
@@ -368,13 +373,18 @@ void mainloop() {
 					*getMemU32Ptr(0x5D4594, 816416) = 1;
 					nox_xxx_clientPlaySoundSpecial_452D80(924, 100);
 					for (int i = explosion_sparks; i > 0; i--) {
-						v12 = nox_common_randomIntMinMax_415FF0(0, 255, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 620);
-						v13 = nox_common_randomIntMinMax_415FF0(6, 12, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 621);
+						v12 = nox_common_randomIntMinMax_415FF0(0, 255, "C:\\NoxPost\\src\\Client\\System\\gameloop.c",
+																620);
+						v13 = nox_common_randomIntMinMax_415FF0(6, 12, "C:\\NoxPost\\src\\Client\\System\\gameloop.c",
+																621);
 						v14 = v13 * *getMemIntPtr(0x587000, 192088 + 8 * v12);
 						v15 = v13 * *getMemIntPtr(0x587000, 192092 + 8 * v12) / 16 - 6;
-						v24 = nox_common_randomIntMinMax_415FF0(2, 5, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 633);
-						v16 = nox_common_randomIntMinMax_415FF0(2, 5, "C:\\NoxPost\\src\\Client\\System\\gameloop.c", 632);
-						nox_client_newScreenParticle_431540(4, v14 / 16 + mouse->pos.x, mouse->pos.y + v15, v14 / 16, v15, 1, v16, v24, 2, 1);
+						v24 = nox_common_randomIntMinMax_415FF0(2, 5, "C:\\NoxPost\\src\\Client\\System\\gameloop.c",
+																633);
+						v16 = nox_common_randomIntMinMax_415FF0(2, 5, "C:\\NoxPost\\src\\Client\\System\\gameloop.c",
+																632);
+						nox_client_newScreenParticle_431540(4, v14 / 16 + mouse->pos.x, mouse->pos.y + v15, v14 / 16,
+															v15, 1, v16, v24, 2, 1);
 					}
 				}
 			} else {
@@ -386,7 +396,7 @@ void mainloop() {
 		sub_437180();
 		if (!nox_client_gui_flag_1556112) {
 			nox_gui_draw(); // Draw game windows
-}
+		}
 		if (nox_client_gui_flag_815132) {
 			v28[0] = 0;
 			v28[1] = 0;
@@ -399,14 +409,16 @@ void mainloop() {
 			v25 = nox_draw_getViewport_437250();
 			nox_client_screenParticlesDraw_431720(v25);
 		}
-		if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) || nox_common_getEngineFlag(NOX_ENGINE_FLAG_9) || nox_client_gui_flag_815132) {
+		if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) ||
+			nox_common_getEngineFlag(NOX_ENGINE_FLAG_9) || nox_client_gui_flag_815132) {
 			nox_client_drawCursorAndTooltips_477830(); // Draw cursor
 		}
 		nox_client_procFade_44D9F0(1);
 		if (!sub_409F40(4096)) { // CheckRuleFlags and smth
 			nox_xxx_screenshot_46D830();
 		}
-		if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) || nox_common_getEngineFlag(NOX_ENGINE_FLAG_9) || nox_client_gui_flag_815132) {
+		if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) ||
+			nox_common_getEngineFlag(NOX_ENGINE_FLAG_9) || nox_client_gui_flag_815132) {
 			nox_xxx_directDrawBlitMB_48A220();
 			nox_video_callCopyBackBuffer_4AD170();
 			sub_48A290_call_present();
@@ -430,7 +442,8 @@ void mainloop() {
 	goto MAINLOOP_WAIT;
 MAINLOOP_WAIT:
 	if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_SLEEP)) {
-		while (!nox_ticks_should_update_416CD0()) {}
+		while (!nox_ticks_should_update_416CD0()) {
+		}
 	} else {
 		int ms = nox_ticks_until_next_416D00();
 		*getMemU32Ptr(0x5D4594, 816404) = ms;

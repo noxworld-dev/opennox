@@ -4,13 +4,13 @@
 #include <emscripten/emscripten.h>
 #endif
 
-#include "win.h"
-#include "input.h"
 #include "GAME1.h"
 #include "GAME1_3.h"
 #include "GAME_data_init.h"
 #include "client__gui__window.h"
 #include "client__video__draw_common.h"
+#include "input.h"
+#include "win.h"
 
 #include <SDL2/SDL.h>
 
@@ -27,24 +27,16 @@ extern int nox_win_width;
 extern int nox_win_height;
 
 #ifndef NOX_CGO
-int nox_video_getFullScreen() {
-	return g_fullscreen;
-}
-void nox_video_setFullScreen(int v) {
-	g_fullscreen = v;
-}
-int nox_video_getScaled() {
-	return g_scaled;
-}
-void nox_video_setScaled(int v) {
-	g_scaled = v;
-}
+int nox_video_getFullScreen() { return g_fullscreen; }
+void nox_video_setFullScreen(int v) { g_fullscreen = v; }
+int nox_video_getScaled() { return g_scaled; }
+void nox_video_setScaled(int v) { g_scaled = v; }
 //----- (00401C70) --------------------------------------------------------
 #ifdef _WIN32
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd) {
-#else // _WIN32
+#else         // _WIN32
 int WinMain(char* lpCmdLine) {
-#endif // _WIN32
+#endif        // _WIN32
 	char* v4; // edi
 	int v7;   // esi
 #ifdef __EMSCRIPTEN__
@@ -134,17 +126,13 @@ int WinMain(char* lpCmdLine) {
 SDL_Window* nox_video_getWindow_401FD0() { return g_window; }
 
 //----- (00401FE0) --------------------------------------------------------
-void  nox_video_setWinTitle_401FE0(char* s) {
+void nox_video_setWinTitle_401FE0(char* s) {
 	if (s)
 		SDL_SetWindowTitle(g_window, s);
 }
 
 //----- (0047D8A0) --------------------------------------------------------
-void nox_xxx_showWindow_47D8A0() {
-	SDL_RestoreWindow(g_window);
-}
+void nox_xxx_showWindow_47D8A0() { SDL_RestoreWindow(g_window); }
 
 //----- (004147E0) --------------------------------------------------------
-int  sub_4147E0(void* hWnd) {
-	return 0;
-}
+int sub_4147E0(void* hWnd) { return 0; }

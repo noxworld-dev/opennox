@@ -1,15 +1,15 @@
 //+build none
 
+#include "common__strman.h"
+#include "common/fs/nox_fs.h"
+#include "common__binfile.h"
+#include "common__random.h"
+#include "noxstring.h"
 #include <stdbool.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <stdio.h>
 #include <wctype.h>
-#include "common__strman.h"
-#include "common__random.h"
-#include "common__binfile.h"
-#include "noxstring.h"
-#include "common/fs/nox_fs.h"
 
 #ifdef _MSC_VER // not _WIN32, because mingw has it
 #define strncasecmp _strnicmp
@@ -35,22 +35,14 @@ typedef struct nox_string_entry {
 } nox_string_entry;
 
 nox_strman_lang_t nox_strman_lang[] = {
-	{"US", "us", "e", NOX_LANG_US},
-	{"UK", "uk", "e", NOX_LANG_UK},
-	{"German", "ge", "g", NOX_LANG_GE},
-	{"French", "fr", "f", NOX_LANG_FR},
-	{"Spanish", "sp", "s", NOX_LANG_SP},
-	{"Italian", "it", "i", NOX_LANG_IT},
-	{"Japanese", "ja", "j", NOX_LANG_JA},
-	{"Korean", "ko", "k", NOX_LANG_KO},
-	{"Jabberwocky", "jb", "e", NOX_LANG_UNK},
+	{"US", "us", "e", NOX_LANG_US},       {"UK", "uk", "e", NOX_LANG_UK},      {"German", "ge", "g", NOX_LANG_GE},
+	{"French", "fr", "f", NOX_LANG_FR},   {"Spanish", "sp", "s", NOX_LANG_SP}, {"Italian", "it", "i", NOX_LANG_IT},
+	{"Japanese", "ja", "j", NOX_LANG_JA}, {"Korean", "ko", "k", NOX_LANG_KO},  {"Jabberwocky", "jb", "e", NOX_LANG_UNK},
 };
 int nox_strman_lang_cnt = sizeof(nox_strman_lang) / sizeof(nox_strman_lang_t);
 
 nox_strman_lang_t nox_strman_lang_cur = {"Unknown", 0, 0, NOX_LANG_UNK};
-int nox_strman_get_lang_code() {
-	return nox_strman_lang_cur.code;
-}
+int nox_strman_get_lang_code() { return nox_strman_lang_cur.code; }
 
 nox_missing_string* missing_strings = 0;
 nox_string_entry* string_entries = 0;
@@ -73,9 +65,7 @@ char strman_buf_2[4096] = {0}; // TODO: size is a guess
 char strman_buf_3[8192] = {0}; // TODO: size is a guess
 
 //----- (00410150) --------------------------------------------------------
-void nox_xxx____setargv_1_410150() {
-	dword_5d4594_251516 = 1;
-}
+void nox_xxx____setargv_1_410150() { dword_5d4594_251516 = 1; }
 
 //----- (0040F1D0) --------------------------------------------------------
 const wchar_t* nox_strman_loadString_40F1D0(const char* name, char** strOut, const char* srcFile, int srcLine) {
@@ -102,7 +92,7 @@ const wchar_t* nox_strman_loadString_40F1D0(const char* name, char** strOut, con
 		fullStringName = nox_strman_name_buf;
 	}
 	const nox_string_entry* entry =
-			bsearch(fullStringName, string_entries, string_entries_cnt, sizeof(nox_string_entry), strcasecmp);
+		bsearch(fullStringName, string_entries, string_entries_cnt, sizeof(nox_string_entry), strcasecmp);
 	if (!entry) {
 		nox_missing_string* v12 = (nox_missing_string*)malloc(sizeof(nox_missing_string));
 		nox_swprintf(v12->data, L"MISSING:'%S'", fullStringName, srcFilename, srcLine);
@@ -146,7 +136,7 @@ void nox_strman_free_410020() {
 	}
 	if (string_entries) {
 		free(string_entries);
-}
+	}
 
 	nox_missing_string* v4 = missing_strings;
 	while (v4) {
@@ -189,15 +179,15 @@ void sub_40F5C0(unsigned char* buf) {
 
 //----- (0040F640) --------------------------------------------------------
 char sub_40F640(FILE* a1, char* a2, char* a3, unsigned char* a4, int cnt) {
-	char* v6;   // ebp
-	bool v7;    // esi
-	char* v8;   // edi
-	char v9;    // bl
+	char* v6;           // ebp
+	bool v7;            // esi
+	char* v8;           // edi
+	char v9;            // bl
 	unsigned char* v10; // esi
-	char v11;   // bl
-	char v12;   // al
-	int v14;    // [esp+10h] [ebp-8h]
-	int v15;    // [esp+14h] [ebp-4h]
+	char v11;           // bl
+	char v12;           // al
+	int v14;            // [esp+10h] [ebp-8h]
+	int v15;            // [esp+14h] [ebp-4h]
 
 	v6 = a2;
 	v7 = 0;
@@ -218,29 +208,29 @@ char sub_40F640(FILE* a1, char* a2, char* a3, unsigned char* a4, int cnt) {
 			}
 		}
 		switch ((unsigned char)v9) {
-			case 0xff:
-				return v5;
-			case 10:
-				v7 = 0;
-				v9 = 32;
-				break;
-			case 92:
-				v7 = !v7;
-				break;
-			default:
-				if (v9 == 34 && !v7) {
-					goto LABEL_18;
-				}
-				v7 = 0;
-				break;
+		case 0xff:
+			return v5;
+		case 10:
+			v7 = 0;
+			v9 = 32;
+			break;
+		case 92:
+			v7 = !v7;
+			break;
+		default:
+			if (v9 == 34 && !v7) {
+				goto LABEL_18;
+			}
+			v7 = 0;
+			break;
 		}
 		if (iswspace(v9)) {
 			v9 = 32;
-}
+		}
 		*v8++ = v9;
 		cnt--;
 	}
-	LABEL_18:
+LABEL_18:
 	v10 = a4;
 	*v8 = 0;
 	while (1) {
@@ -257,10 +247,10 @@ char sub_40F640(FILE* a1, char* a2, char* a3, unsigned char* a4, int cnt) {
 		}
 		if (v11 == 10) {
 			break;
-}
+		}
 		if (v11 == -1) {
 			break;
-}
+		}
 		if (!v14 && !iswspace(v11) && v11 != 61) {
 			v14 = 1;
 		}
@@ -313,7 +303,7 @@ int strman_read_csf_header_40F7A0(const char* path) {
 	FILE* file = nox_fs_open(path);
 	if (!file) {
 		return 0;
-}
+	}
 	int ok = 0;
 	unsigned int buf[6];
 	if (nox_binfile_fread2_40ADD0((char*)buf, 24, 1, file) == 1 && buf[0] == 0x43534620) { // "CSF "
@@ -354,15 +344,15 @@ void sub_40FFE0(char* a1, char* a2) {
 
 //----- (0040FE00) --------------------------------------------------------
 wchar_t* sub_40FE00(wchar_t* a1, char* a2) {
-	int v2;              // ebp
-	char* v3;            // ecx
+	int v2;            // ebp
+	char* v3;          // ecx
 	unsigned char* v4; // esi
 	unsigned char v5;  // bl
 	unsigned char* v6; // edi
 	unsigned char i;   // al
 	unsigned char* v8; // edi
 	unsigned char v9;  // cl
-	wchar_t* result;       // eax
+	wchar_t* result;   // eax
 
 	v2 = 0;
 	if (!dword_5d4594_251516) {
@@ -375,12 +365,12 @@ wchar_t* sub_40FE00(wchar_t* a1, char* a2) {
 	v6 = a2 + 1;
 	if (!*a2) {
 		goto LABEL_26;
-}
+	}
 	do {
 		if ((char)v5 >= 97 && (char)v5 <= 122 || (char)v5 >= 65 && (char)v5 <= 90) {
 			if (!v3) {
 				v3 = (char*)v4;
-}
+			}
 			*v4 = v5;
 			++v4;
 			goto LABEL_23;
@@ -398,10 +388,10 @@ wchar_t* sub_40FE00(wchar_t* a1, char* a2) {
 			for (i = *v6++; i; ++v6) {
 				if ((char)i >= 97 && (char)i <= 122) {
 					break;
-}
+				}
 				if ((char)i >= 65 && (char)i <= 90) {
 					break;
-}
+				}
 				*v4 = i;
 				i = *v6;
 				++v4;
@@ -409,16 +399,16 @@ wchar_t* sub_40FE00(wchar_t* a1, char* a2) {
 			*v4 = i;
 			++v4;
 		}
-		LABEL_23:
+	LABEL_23:
 		v5 = *v6++;
 	} while (v5);
 	if (v3) {
 		sub_40FFE0(v3, (char*)v4 - 1);
-}
-	LABEL_26:
+	}
+LABEL_26:
 	*v4 = 0;
 	v8 = strman_buf_3;
-	LABEL_28:
+LABEL_28:
 	v9 = *v8;
 	result = a1;
 	if (*v8) {
@@ -426,49 +416,49 @@ wchar_t* sub_40FE00(wchar_t* a1, char* a2) {
 			if (v9 == 92) {
 				v2 = 1;
 			} else {
-				LABEL_38:
+			LABEL_38:
 				*result = v9;
 				++result;
 			}
-			LABEL_40:
+		LABEL_40:
 			v9 = *++v8;
 			if (!v9) {
 				goto LABEL_41;
-}
+			}
 		}
 		v2 = 0;
 		switch (v9) {
-			case 0u:
-				return result;
-			case 34u:
-				*result = 34;
-				++result;
-				goto LABEL_40;
-			case 39u:
-				*result = 39;
-				++result;
-				goto LABEL_40;
-			case 63u:
-				*result = 63;
-				++result;
-				goto LABEL_40;
-			case 92u:
-				*result = 92;
-				++result;
-				goto LABEL_40;
-			case 110u:
-				*result = 10;
-				++result;
-				goto LABEL_40;
-			case 116u:
-				*result = 9;
-				++result;
-				goto LABEL_40;
-			default:
-				goto LABEL_38;
+		case 0u:
+			return result;
+		case 34u:
+			*result = 34;
+			++result;
+			goto LABEL_40;
+		case 39u:
+			*result = 39;
+			++result;
+			goto LABEL_40;
+		case 63u:
+			*result = 63;
+			++result;
+			goto LABEL_40;
+		case 92u:
+			*result = 92;
+			++result;
+			goto LABEL_40;
+		case 110u:
+			*result = 10;
+			++result;
+			goto LABEL_40;
+		case 116u:
+			*result = 9;
+			++result;
+			goto LABEL_40;
+		default:
+			goto LABEL_38;
 		}
 	} else {
-		LABEL_41:
+	LABEL_41:
 		*result = 0;
 	}
 	return result;
@@ -500,7 +490,7 @@ void sub_40FB60(wchar_t* a1) {
 			} else {
 				if (v2 == ' ') {
 					--v1;
-}
+				}
 				*v1 = result;
 				v2 = result;
 				v4 = 1;
@@ -512,31 +502,31 @@ void sub_40FB60(wchar_t* a1) {
 	}
 	if (v2 == ' ') {
 		--v1;
-}
+	}
 	*v1 = 0;
 }
 
 //----- (0040FBE0) --------------------------------------------------------
 int nox_strman_read_str_strings_40FBE0(FILE* file) {
-	int v3;          // ebx
-	int v8;          // eax
+	int v3; // ebx
+	int v8; // eax
 
 	int v0 = 0;
 	int v1 = 0;
 	int v10 = 0;
 	int v11 = 0;
 	do {
-		LABEL_2:
+	LABEL_2:
 		if (!nox_fs_fgets(file, file_buffer, sizeof(file_buffer))) {
 			return 1;
-}
+		}
 		sub_40F5C0(file_buffer);
 	} while (*(unsigned short*)file_buffer == 0x2F2F || !file_buffer[0]);
 	strcpy((char*)(string_entries[v1].data), (const char*)file_buffer);
 	int sz = strlen((const char*)file_buffer);
 	if (sz > dword_5d4594_251480) {
 		dword_5d4594_251480 = sz;
-}
+	}
 	string_entries[v1].field_50 = v0;
 	v3 = 0;
 	int v4 = v0;
@@ -575,18 +565,18 @@ int nox_strman_read_str_strings_40FBE0(FILE* file) {
 
 //----- (0040F830) --------------------------------------------------------
 int nox_strman_read_csf_strings_40F830(const char* path) {
-	int v7;               // ecx
-	int v8;               // eax
-	int v11;              // ecx
+	int v7;             // ecx
+	int v8;             // eax
+	int v11;            // ecx
 	unsigned char* v12; // eax
-	size_t v13;           // eax
-	int v16;              // [esp+10h] [ebp-28h]
-	int v19;              // [esp+1Ch] [ebp-1Ch]
+	size_t v13;         // eax
+	int v16;            // [esp+10h] [ebp-28h]
+	int v19;            // [esp+1Ch] [ebp-1Ch]
 
 	FILE* file = nox_fs_open(path);
 	if (!file) {
 		return 0;
-}
+	}
 
 	char hbuf[20];
 	if (nox_binfile_fread2_40ADD0(hbuf, 20, 1, file) != 1) {
@@ -618,7 +608,7 @@ int nox_strman_read_csf_strings_40F830(const char* path) {
 		strcpy(string_entries[i].data, file_buffer);
 		if (sz > dword_5d4594_251480) {
 			dword_5d4594_251480 = sz;
-}
+		}
 		v7 = v18;
 		v19 = 0;
 		*(unsigned char*)(&string_entries[i].data[49]) = v17;
@@ -690,12 +680,12 @@ int nox_strman_read_csf_strings_40F830(const char* path) {
 int nox_strman_readfile(const char* path) {
 	if (nox_strman_complete) {
 		return 1;
-}
+	}
 	nox_strman_complete = 1;
 	dword_5d4594_251480 = 0;
 	if (!path || !path[0]) {
 		return 0;
-}
+	}
 
 	// copy path to a buffer
 	char cpath[1024] = {0}; // CSF file path
@@ -715,7 +705,7 @@ int nox_strman_readfile(const char* path) {
 		// ignore legacy, read CSF directly
 		if (!strman_read_csf_header_40F7A0(cpath)) {
 			return 0;
-}
+		}
 		isCSF = true;
 	} else {
 		// open legacy ".str" file first
@@ -731,25 +721,25 @@ int nox_strman_readfile(const char* path) {
 			// try reading CSF
 			if (!strman_read_csf_header_40F7A0(cpath)) {
 				return 0;
-}
+			}
 			isCSF = true;
 		}
 	}
 	if (!nox_string_str_cnt || !string_entries_cnt) {
 		return 0;
-}
+	}
 	string_entries = (nox_string_entry*)calloc(string_entries_cnt, sizeof(nox_string_entry));
 	if (!string_entries) {
 		return 0;
-}
+	}
 	nox_string_wstr_arr = calloc(nox_string_str_cnt, sizeof(wchar_t*));
 	if (!nox_string_wstr_arr) {
 		return 0;
-}
+	}
 	nox_string_str_arr = calloc(nox_string_str_cnt, sizeof(char*));
 	if (!nox_string_str_arr) {
 		return 0;
-}
+	}
 	if (isCSF) {
 		nox_strman_read_csf_strings_40F830(cpath);
 	} else {

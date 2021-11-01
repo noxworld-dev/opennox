@@ -1,15 +1,15 @@
 #include "GAME1_2.h"
 #include "client__gui__window.h"
-#include "input.h"
 #include "common/fs/nox_fs.h"
 #include "common__strman.h"
+#include "input.h"
 extern uint32_t dword_5d4594_823776;
 
 FILE* nox_file_log = 0;
 
 //----- (00451610) --------------------------------------------------------
 int sub_451610() {
-	int result;          // eax
+	int result;        // eax
 	unsigned char* v1; // ecx
 
 	result = *getMemU32Ptr(0x5D4594, 835876);
@@ -26,8 +26,8 @@ int sub_451610() {
 unsigned char* sub_451630() {
 	unsigned char* v1;     // ecx
 	unsigned char* result; // eax
-	wchar_t* v3;             // [esp-Ch] [ebp-Ch]
-	wchar_t* v4;             // [esp-8h] [ebp-8h]
+	wchar_t* v3;           // [esp-Ch] [ebp-Ch]
+	wchar_t* v4;           // [esp-8h] [ebp-8h]
 
 	nox_file_log = nox_fs_create_text("log");
 	if (!nox_file_log) {
@@ -56,7 +56,7 @@ void sub_4516C0(wchar_t* a1, ...) {
 	va_start(va, a1);
 	if (!nox_file_log) {
 		sub_451630();
-}
+	}
 	sub_451610();
 	v1 = nox_strman_loadString_40F1D0("FatalErrorHeader", 0, (int)"C:\\NoxPost\\src\\Client\\Io\\Console.c", 314);
 	nox_swprintf(getMemU16Ptr(0x5D4594, 833752), v1);
@@ -69,7 +69,7 @@ void sub_4516C0(wchar_t* a1, ...) {
 	nox_fs_close(nox_file_log);
 	if (*(unsigned int*)&dword_5d4594_823776) {
 		nox_xxx_freeFloorBuffer_430EF0();
-}
+	}
 	nox_input_pollEvents_4453A0();
 	nox_input_pollEvents_4453A0();
 	nox_exit(0);
@@ -85,7 +85,7 @@ wchar_t* sub_4517A0(wchar_t* a1, ...) {
 	va_start(va, a1);
 	if (!nox_file_log) {
 		sub_451630();
-}
+	}
 	v1 = (wchar_t*)sub_451610();
 	v2 = nox_strman_loadString_40F1D0("WarningHeader", 0, "C:\\NoxPost\\src\\Client\\Io\\Console.c", 355);
 	nox_swprintf((wchar_t*)getMemAt(0x5D4594, 833752), v2);
@@ -105,7 +105,7 @@ wchar_t* nox_xxx_unused_4515B0(wchar_t* a1, ...) {
 	va_start(va, a1);
 	if (!nox_file_log) {
 		sub_451630();
-}
+	}
 	v1 = (wchar_t*)sub_451610();
 	nox_swprintf((wchar_t*)getMemAt(0x5D4594, 833752), a1, va);
 	nox_fs_fprintf(nox_file_log, "%S", getMemAt(0x5D4594, 833752));

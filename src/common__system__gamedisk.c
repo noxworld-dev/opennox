@@ -12,13 +12,13 @@ extern uint32_t nox_game_cdState_251700;
 
 //----- (00413520) --------------------------------------------------------
 void sub_413520_gamedisk() {
-	int v1;              // eax
-	wchar_t* v2;         // eax
-	long long v3;          // rax
-	wchar_t* v5;         // [esp-10h] [ebp-1Ch]
-	int v6;              // [esp-Ch] [ebp-18h]
-	void (*v7)();         // [esp-8h] [ebp-14h]
-	void (*v8)();         // [esp-4h] [ebp-10h]
+	int v1;       // eax
+	wchar_t* v2;  // eax
+	long long v3; // rax
+	wchar_t* v5;  // [esp-10h] [ebp-1Ch]
+	int v6;       // [esp-Ch] [ebp-18h]
+	void (*v7)(); // [esp-8h] [ebp-14h]
+	void (*v8)(); // [esp-4h] [ebp-10h]
 
 	switch (nox_game_cdState_251700) {
 	case 1:
@@ -31,14 +31,12 @@ void sub_413520_gamedisk() {
 			sub_44D8F0();
 			if (nox_common_gameFlags_check_40A5C0(2048)) {
 				sub_4137A0();
-}
+			}
 			v8 = sub_413760;
 			v7 = sub_413780;
 			v6 = 35;
-			v5 = nox_strman_loadString_40F1D0("CDFailText", 0, "C:\\NoxPost\\src\\common\\System\\gamedisk.c",
-									   200);
-			v2 = nox_strman_loadString_40F1D0("CDFailTitle", 0, "C:\\NoxPost\\src\\common\\System\\gamedisk.c",
-									   199);
+			v5 = nox_strman_loadString_40F1D0("CDFailText", 0, "C:\\NoxPost\\src\\common\\System\\gamedisk.c", 200);
+			v2 = nox_strman_loadString_40F1D0("CDFailTitle", 0, "C:\\NoxPost\\src\\common\\System\\gamedisk.c", 199);
 			goto LABEL_9;
 		}
 		if (v1 == 1 && nox_common_gameFlags_check_40A5C0(2048)) {
@@ -48,10 +46,8 @@ void sub_413520_gamedisk() {
 			v8 = sub_413760;
 			v7 = sub_413780;
 			v6 = 35;
-			v5 = nox_strman_loadString_40F1D0("BuddyText", 0, "C:\\NoxPost\\src\\common\\System\\gamedisk.c",
-									   219);
-			v2 = nox_strman_loadString_40F1D0("BuddyTitle", 0, "C:\\NoxPost\\src\\common\\System\\gamedisk.c",
-									   218);
+			v5 = nox_strman_loadString_40F1D0("BuddyText", 0, "C:\\NoxPost\\src\\common\\System\\gamedisk.c", 219);
+			v2 = nox_strman_loadString_40F1D0("BuddyTitle", 0, "C:\\NoxPost\\src\\common\\System\\gamedisk.c", 218);
 			goto LABEL_9;
 		}
 		sub_4137E0();

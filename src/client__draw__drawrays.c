@@ -6,27 +6,27 @@
 extern uint32_t dword_5d4594_1304328;
 
 //----- (0049BDD0) --------------------------------------------------------
-int  nox_xxx_netDrawRays_49BDD0(unsigned char* a1) {
-	int result;          // eax
+int nox_xxx_netDrawRays_49BDD0(unsigned char* a1) {
+	int result;        // eax
 	unsigned char* v2; // esi
 	unsigned char* v3; // edi
-	int v4;              // ebx
-	int v5;              // ebp
-	int v6;              // eax
-	int v7;              // ecx
-	int v8;              // eax
-	int v9;              // eax
-	int v10;             // eax
-	int v11;             // ecx
-	int v12;             // [esp-Ch] [ebp-28h]
-	int v13;             // [esp-Ch] [ebp-28h]
-	int v14;             // [esp-Ch] [ebp-28h]
-	int v15;             // [esp-Ch] [ebp-28h]
-	char v16;            // [esp+10h] [ebp-Ch]
-	char v17;            // [esp+10h] [ebp-Ch]
-	char v18;            // [esp+10h] [ebp-Ch]
-	uint16_t v19[4];         // [esp+14h] [ebp-8h]
-	int v20;             // [esp+20h] [ebp+4h]
+	int v4;            // ebx
+	int v5;            // ebp
+	int v6;            // eax
+	int v7;            // ecx
+	int v8;            // eax
+	int v9;            // eax
+	int v10;           // eax
+	int v11;           // ecx
+	int v12;           // [esp-Ch] [ebp-28h]
+	int v13;           // [esp-Ch] [ebp-28h]
+	int v14;           // [esp-Ch] [ebp-28h]
+	int v15;           // [esp-Ch] [ebp-28h]
+	char v16;          // [esp+10h] [ebp-Ch]
+	char v17;          // [esp+10h] [ebp-Ch]
+	char v18;          // [esp+10h] [ebp-Ch]
+	uint16_t v19[4];   // [esp+14h] [ebp-8h]
+	int v20;           // [esp+20h] [ebp+4h]
 
 	result = *getMemU32Ptr(0x5D4594, 1304308);
 	if (*getMemIntPtr(0x5D4594, 1304308) < 96) {

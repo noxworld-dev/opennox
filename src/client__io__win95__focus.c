@@ -11,7 +11,7 @@ extern obj_5D4594_754088_t* ptr_5D4594_754092;
 extern int ptr_5D4594_754092_cnt;
 
 //----- (0042EBB0) --------------------------------------------------------
-void  sub_42EBB0(unsigned int a1, void (*fnc)(int), int field_4, const char* name) {
+void sub_42EBB0(unsigned int a1, void (*fnc)(int), int field_4, const char* name) {
 	wchar_t* v6; // eax
 	wchar_t* v8; // eax
 
@@ -20,8 +20,7 @@ void  sub_42EBB0(unsigned int a1, void (*fnc)(int), int field_4, const char* nam
 			(obj_5D4594_754088_t*)realloc(ptr_5D4594_754088, sizeof(obj_5D4594_754088_t) * (ptr_5D4594_754088_cnt + 1));
 		ptr_5D4594_754088 = arr;
 		if (!arr) {
-			v6 = nox_strman_loadString_40F1D0("MallocFailed", 0, "C:\\NoxPost\\src\\Client\\Io\\Win95\\focus.c",
-									   37);
+			v6 = nox_strman_loadString_40F1D0("MallocFailed", 0, "C:\\NoxPost\\src\\Client\\Io\\Win95\\focus.c", 37);
 			sub_4516C0(v6);
 			nox_exit(-1);
 		}
@@ -34,8 +33,7 @@ void  sub_42EBB0(unsigned int a1, void (*fnc)(int), int field_4, const char* nam
 			realloc(ptr_5D4594_754092, sizeof(obj_5D4594_754088_t) * (ptr_5D4594_754092_cnt + 1));
 		ptr_5D4594_754092 = arr;
 		if (!arr) {
-			v8 = nox_strman_loadString_40F1D0("MallocFailed", 0, "C:\\NoxPost\\src\\Client\\Io\\Win95\\focus.c",
-									   52);
+			v8 = nox_strman_loadString_40F1D0("MallocFailed", 0, "C:\\NoxPost\\src\\Client\\Io\\Win95\\focus.c", 52);
 			sub_4516C0(v8);
 			nox_exit(-1);
 		}

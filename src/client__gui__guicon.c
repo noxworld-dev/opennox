@@ -1,11 +1,11 @@
 #include "client__gui__guicon.h"
 #include "client__gui__window.h"
 
-#include "common__telnet__telnetd.h"
-#include "client__system__parsecmd.h"
-#include "client__system__ctrlevnt.h"
 #include "client__gui__gadgets__listbox.h"
+#include "client__system__ctrlevnt.h"
+#include "client__system__parsecmd.h"
 #include "common__strman.h"
+#include "common__telnet__telnetd.h"
 
 #include "GAME1.h"
 #include "GAME1_2.h"
@@ -33,9 +33,7 @@ void nox_gui_console_Enable_450BE0() { nox_gui_console_enabled = 1; }
 void nox_gui_console_Disable_450BF0() { nox_gui_console_enabled = 0; }
 
 //----- (00450B70) --------------------------------------------------------
-int nox_gui_console_Clear_450B70() {
-	return nox_window_call_field_94(nox_gui_console_scrollbox, 16399, 0, 0);
-}
+int nox_gui_console_Clear_450B70() { return nox_window_call_field_94(nox_gui_console_scrollbox, 16399, 0, 0); }
 
 //----- (00451410) --------------------------------------------------------
 int nox_gui_console_flagXxx_451410() {
@@ -63,10 +61,10 @@ void nox_gui_console_Unlock_450B50() {
 int nox_gui_console_Print_450B90(unsigned char cl, wchar_t* str) {
 	if (nox_gui_console_enabled) {
 		nox_window_call_field_94(nox_gui_console_scrollbox, 16397, str, cl);
-}
+	}
 	if (nox_telnet_isActive_579740()) {
 		nox_telnet_broadcast_579750(str);
-}
+	}
 	return 1;
 }
 
@@ -79,7 +77,7 @@ void nox_gui_console_PrintOrError_450C30(unsigned char cl, wchar_t* str) {
 	str = nox_strman_loadString_40F1D0("InternalError", 0, "C:\\NoxPost\\src\\Client\\Gui\\guicon.c", 97);
 	if (str) {
 		nox_gui_console_Print_450B90(cl, str);
-}
+	}
 }
 
 //----- (00450C00) --------------------------------------------------------
@@ -97,11 +95,13 @@ int nox_gui_console_Enter_450FD0() {
 		wchar_t* line = nox_window_call_field_94(nox_gui_console_input, 16413, 0, 0);
 		if (nox_gui_console_wantsPass && nox_gui_console_password[0]) {
 			if (_nox_wcsicmp(line, nox_gui_console_password)) {
-				wchar_t* v4 = nox_strman_loadString_40F1D0("INVALIDPASSWORD", 0, "C:\\NoxPost\\src\\Client\\Gui\\guicon.c", 124);
+				wchar_t* v4 =
+					nox_strman_loadString_40F1D0("INVALIDPASSWORD", 0, "C:\\NoxPost\\src\\Client\\Gui\\guicon.c", 124);
 				nox_gui_console_PrintOrError_450C30(NOX_CONSOLE_WHITE, v4);
 			} else {
 				nox_gui_console_wantsPass = 0;
-				wchar_t* v3 = nox_strman_loadString_40F1D0("ConsoleUnlocked", 0, "C:\\NoxPost\\src\\Client\\Gui\\guicon.c", 121);
+				wchar_t* v3 =
+					nox_strman_loadString_40F1D0("ConsoleUnlocked", 0, "C:\\NoxPost\\src\\Client\\Gui\\guicon.c", 121);
 				nox_gui_console_PrintOrError_450C30(NOX_CONSOLE_RED, (int)v3);
 			}
 			nox_window_call_field_94(nox_gui_console_input, 16414, (int)getMemAt(0x5D4594, 833744), 0);
@@ -137,7 +137,8 @@ void nox_client_toggleConsole_451350() {
 		nox_xxx_windowFocus_46B500(nox_gui_console_input);
 		if (nox_gui_console_locked) {
 			nox_gui_console_Clear_450B70();
-			wchar_t* v1 = nox_strman_loadString_40F1D0("ENTERPASSWORD", 0, "C:\\NoxPost\\src\\Client\\Gui\\guicon.c", 459);
+			wchar_t* v1 =
+				nox_strman_loadString_40F1D0("ENTERPASSWORD", 0, "C:\\NoxPost\\src\\Client\\Gui\\guicon.c", 459);
 			nox_gui_console_Printf_450C00(NOX_CONSOLE_WHITE, v1);
 			nox_gui_console_wantsPass = 1;
 		}
@@ -146,21 +147,21 @@ void nox_client_toggleConsole_451350() {
 
 //----- (00450F40) --------------------------------------------------------
 #ifdef NOX_CGO
-int  nox_xxx_consoleEditProc_450F40(void* a1, int a2, int a3, int a4);
-#else // NOX_CGO
-int  nox_xxx_consoleEditProc_450F40(uint32_t* a1, int a2, int a3, int a4) {
+int nox_xxx_consoleEditProc_450F40(void* a1, int a2, int a3, int a4);
+#else  // NOX_CGO
+int nox_xxx_consoleEditProc_450F40(uint32_t* a1, int a2, int a3, int a4) {
 	uint32_t* v4; // eax
 
 	if (a2 != 21) {
 		return nox_xxx_wndEditProc_487D70(a1, a2, a3, a4);
-}
+	}
 	v4 = nox_xxx_getBindKeysBuf_42CD70();
 	if (v4) {
 		while (v4[9] != 11 || a3 != *v4) {
 			v4 = (uint32_t*)v4[19];
 			if (!v4) {
 				goto LABEL_6;
-}
+			}
 		}
 		if (a4 == 2) {
 			nox_client_toggleConsole_451350();
@@ -172,11 +173,11 @@ LABEL_6:
 	if (a3 == 1) {
 		if (a4 == 2) {
 			nox_xxx_consoleEsc_49B7A0();
-}
+		}
 	} else {
 		if (a3 != 28) {
 			return nox_xxx_wndEditProc_487D70(a1, a2, a3, a4);
-}
+		}
 		if (a4 == 2) {
 			nox_gui_console_Enter_450FD0();
 			return 1;
@@ -190,7 +191,7 @@ LABEL_6:
 int nox_xxx_consoleWndFn_450E80() { return 0; }
 
 //----- (00450E90) --------------------------------------------------------
-int  nox_xxx_consoleWndFn_450E90(int a1, int a2) {
+int nox_xxx_consoleWndFn_450E90(int a1, int a2) {
 	int xLeft; // [esp+4h] [ebp-8h]
 	int yTop;  // [esp+8h] [ebp-4h]
 
@@ -239,8 +240,9 @@ nox_window* nox_gui_console_Create_450C70(int win_width, int win_height) {
 	*(uint32_t*)&scrollData[8] = 1;
 	*(uint32_t*)&scrollData[12] = 1;
 	*(uint32_t*)&scrollData[16] = 0;
-	nox_gui_console_scrollbox = nox_gui_newScrollListBox_4A4310(nox_gui_console_win, 1152, 0, 0, *getMemIntPtr(0x5D4594, 833704),
-									 *getMemU32Ptr(0x5D4594, 833708) - 20, drawData, scrollData);
+	nox_gui_console_scrollbox =
+		nox_gui_newScrollListBox_4A4310(nox_gui_console_win, 1152, 0, 0, *getMemIntPtr(0x5D4594, 833704),
+										*getMemU32Ptr(0x5D4594, 833708) - 20, drawData, scrollData);
 	*(uint32_t*)&drawData[44] = v0;
 	*(uint32_t*)&drawData[28] = v0;
 	*(uint32_t*)&drawData[36] = v0;
@@ -258,7 +260,8 @@ nox_window* nox_gui_console_Create_450C70(int win_width, int win_height) {
 
 	nox_wcscpy((wchar_t*)&drawData[72], (const wchar_t*)getMemAt(0x5D4594, 833740));
 	*(uint32_t*)&drawData[8] = 128;
-	nox_gui_console_input = nox_gui_newEntryField_488500(nox_gui_console_win, 16393, 0, *getMemU32Ptr(0x5D4594, 833708) - 20,
+	nox_gui_console_input =
+		nox_gui_newEntryField_488500(nox_gui_console_win, 16393, 0, *getMemU32Ptr(0x5D4594, 833708) - 20,
 									 *getMemIntPtr(0x5D4594, 833704), 20, drawData, inpData);
 	nox_xxx_wndSetWindowProc_46B300(nox_gui_console_input, nox_xxx_consoleEditProc_450F40);
 	nox_gui_console_locked = 0;
@@ -331,10 +334,10 @@ void nox_gui_console_reloadColors_451100() {
 int nox_gui_console_Hide_4512B0() {
 	if (wndIsShown_nox_xxx_wndIsShown_46ACC0(nox_gui_console_win)) {
 		return 0;
-}
+	}
 	if (nox_xxx_wndGetFocus_46B4F0() == nox_gui_console_input) {
 		nox_xxx_windowFocus_46B500(0);
-}
+	}
 	nox_window_set_hidden(nox_gui_console_win, 1);
 	nox_gui_console_win->flags &= 0xFFFFFFF7;
 	nox_gui_console_input->flags &= 0xFFFFFFF7;

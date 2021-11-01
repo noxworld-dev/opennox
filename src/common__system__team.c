@@ -1,15 +1,15 @@
 #include "common__system__team.h"
 // FIXME
-#include "client__gui__guimsg.h"
-#include "client__gui__guicon.h"
-#include "client__gui__servopts__guiserv.h"
 #include "GAME1.h"
 #include "GAME1_1.h"
 #include "GAME2.h"
 #include "GAME3_2.h"
 #include "GAME3_3.h"
-#include "operators.h"
+#include "client__gui__guicon.h"
+#include "client__gui__guimsg.h"
+#include "client__gui__servopts__guiserv.h"
 #include "common__strman.h"
+#include "operators.h"
 
 extern uint32_t dword_5d4594_527660;
 
@@ -30,7 +30,8 @@ int sub_417C60() {
 	if (!*getMemU32Ptr(0x5D4594, 526288)) {
 		v1 = getMemAt(0x587000, 54596);
 		do {
-			*(uint32_t*)v1 = nox_strman_loadString_40F1D0(*((char**)v1 - 1), 0, "C:\\NoxPost\\src\\common\\System\\team.c", 233);
+			*(uint32_t*)v1 =
+				nox_strman_loadString_40F1D0(*((char**)v1 - 1), 0, "C:\\NoxPost\\src\\common\\System\\team.c", 233);
 			v1 += 16;
 		} while ((int)v1 < (int)getMemAt(0x587000, 54756));
 		*getMemU32Ptr(0x5D4594, 526288) = 1;
@@ -42,19 +43,19 @@ int sub_417C60() {
 
 //----- (00417E10) --------------------------------------------------------
 int nox_xxx_createCoopTeam_417E10() {
-	char* v0;    // esi
-	uint32_t* v1;  // eax
-	wchar_t* v2; // eax
+	char* v0;     // esi
+	uint32_t* v1; // eax
+	wchar_t* v2;  // eax
 
 	nox_xxx_setGameFlags_40A4D0(512);
 	v0 = nox_xxx_clientGetTeamColor_418AB0(1);
 	if (!v0) {
 		v0 = nox_xxx_teamCreate_4186D0(1);
-}
+	}
 	v1 = nox_xxx_objGetTeamByNetCode_418C80(*getMemIntPtr(0x85319C, 0));
 	if (v1) {
 		nox_xxx_createAtImpl_4191D0(v0[57], (int)v1, 0, *getMemIntPtr(0x85319C, 0), 0);
-}
+	}
 	if (v0) {
 		v2 = nox_strman_loadString_40F1D0("COOP", 0, "C:\\NoxPost\\src\\common\\System\\team.c", 405);
 		sub_418800((wchar_t*)v0, v2, 0);
@@ -63,15 +64,15 @@ int nox_xxx_createCoopTeam_417E10() {
 }
 
 //----- (004186D0) --------------------------------------------------------
-char*  nox_xxx_teamCreate_4186D0(char a1) {
-	wchar_t* v1;         // eax
-	char* result;        // eax
+char* nox_xxx_teamCreate_4186D0(char a1) {
+	wchar_t* v1;       // eax
+	char* result;      // eax
 	unsigned char v3;  // al
 	unsigned char v4;  // bl
-	int v5;              // esi
-	char v6;             // al
+	int v5;            // esi
+	char v6;           // al
 	unsigned char* v7; // esi
-	wchar_t* v8;         // eax
+	wchar_t* v8;       // eax
 
 	if (getMemByte(0x5D4594, 526280) < 0x10u) {
 		v3 = sub_4187E0();
@@ -88,7 +89,7 @@ char*  nox_xxx_teamCreate_4186D0(char a1) {
 		v7[58] = v4;
 		if (!a1) {
 			v6 = sub_4187A0();
-}
+		}
 		v7[57] = v6;
 		v7[56] = v4;
 		*((uint32_t*)v7 + 16) = 1;
@@ -108,8 +109,8 @@ char*  nox_xxx_teamCreate_4186D0(char a1) {
 }
 
 //----- (00418C20) --------------------------------------------------------
-wchar_t*  sub_418C20(int a1) {
-	int v1;              // ecx
+wchar_t* sub_418C20(int a1) {
+	int v1;            // ecx
 	unsigned char* v2; // eax
 
 	v1 = 0;
@@ -118,9 +119,8 @@ wchar_t*  sub_418C20(int a1) {
 		v2 += 16;
 		++v1;
 		if ((int)v2 >= (int)getMemAt(0x587000, 54760)) {
-			return nox_strman_loadString_40F1D0("NoTeam", 0, "C:\\NoxPost\\src\\common\\System\\team.c",
-										 1365);
-}
+			return nox_strman_loadString_40F1D0("NoTeam", 0, "C:\\NoxPost\\src\\common\\System\\team.c", 1365);
+		}
 	}
 	return *(wchar_t**)getMemAt(0x587000, 54596 + 16 * v1);
 }
@@ -134,9 +134,9 @@ void nox_xxx_createAtImpl_4191D0(unsigned char a1, int a2, int a3, int a4, int a
 	char* v9;         // ebp
 	wchar_t* v10;     // eax
 	wchar_t* v11;     // eax
-	short v12;      // dx
+	short v12;        // dx
 	int v13;          // eax
-	uint32_t* v14;      // eax
+	uint32_t* v14;    // eax
 	char* v15;        // ebx
 	wchar_t* v16;     // eax
 	wchar_t* v17;     // eax
@@ -144,7 +144,7 @@ void nox_xxx_createAtImpl_4191D0(unsigned char a1, int a2, int a3, int a4, int a
 	int v19;          // edi
 	int i;            // esi
 	int v21[3];       // [esp+0h] [ebp-110h] // FIXME: 10 bytes
-	short v22;      // [esp+8h] [ebp-108h]
+	short v22;        // [esp+8h] [ebp-108h]
 	char* v23;        // [esp+Ch] [ebp-104h]
 	wchar_t v24[128]; // [esp+10h] [ebp-100h]
 
@@ -161,7 +161,7 @@ void nox_xxx_createAtImpl_4191D0(unsigned char a1, int a2, int a3, int a4, int a
 		result = (char*)nox_xxx_teamCompare2_419180(a2, a1);
 		if (result) {
 			return;
-}
+		}
 	} else {
 		v6 = nox_xxx_teamCreate_4186D0(a1);
 	}
@@ -170,7 +170,7 @@ void nox_xxx_createAtImpl_4191D0(unsigned char a1, int a2, int a3, int a4, int a
 	*((uint32_t*)v6 + 11) = a2;
 	if (a4 == *getMemU32Ptr(0x85319C, 0)) {
 		sub_455E70(v6[57]);
-}
+	}
 	if (nox_common_gameFlags_check_40A5C0(1)) {
 		if (nox_common_gameFlags_check_40A5C0(0x2000)) {
 			v7 = nox_server_getObjectFromNetCode_4ECCB0(a4);
@@ -179,7 +179,7 @@ void nox_xxx_createAtImpl_4191D0(unsigned char a1, int a2, int a3, int a4, int a
 			if (v8) {
 				if (nox_common_gameFlags_check_40A5C0(0x8000)) {
 					sub_425ED0((int)v8, 1);
-}
+				}
 				if (v7 && *(uint8_t*)(v7 + 8) & 4) {
 					if (a5 == 1 && !nox_xxx_CheckGameplayFlags_417DA0(2) && nox_common_gameFlags_check_40A5C0(128)) {
 						sub_4ED970(50.0, (float2*)(*((uint32_t*)v6 + 18) + 56), &v21);
@@ -189,11 +189,11 @@ void nox_xxx_createAtImpl_4191D0(unsigned char a1, int a2, int a3, int a4, int a
 					if (v9) {
 						if (nox_common_gameFlags_check_40A5C0(4096)) {
 							v10 = nox_strman_loadString_40F1D0("GeneralPrint:PlayerJoinQuest", 0,
-														"C:\\NoxPost\\src\\common\\System\\team.c", 1848);
+															   "C:\\NoxPost\\src\\common\\System\\team.c", 1848);
 							nox_swprintf(v24, v10, v9 + 4704);
 						} else {
 							v11 = nox_strman_loadString_40F1D0("NewMember", 0,
-														"C:\\NoxPost\\src\\common\\System\\team.c", 1850);
+															   "C:\\NoxPost\\src\\common\\System\\team.c", 1850);
 							nox_swprintf(v24, v11, v9 + 4704, v6);
 						}
 						nox_xxx_printCentered_445490(v24);
@@ -219,11 +219,11 @@ void nox_xxx_createAtImpl_4191D0(unsigned char a1, int a2, int a3, int a4, int a
 			if (v15) {
 				if (nox_common_gameFlags_check_40A5C0(4096)) {
 					v16 = nox_strman_loadString_40F1D0("GeneralPrint:PlayerJoinQuest", 0,
-												"C:\\NoxPost\\src\\common\\System\\team.c", 1889);
+													   "C:\\NoxPost\\src\\common\\System\\team.c", 1889);
 					nox_swprintf(v24, v16, v15 + 4704);
 				} else {
-					v17 = nox_strman_loadString_40F1D0("NewMember", 0,
-												"C:\\NoxPost\\src\\common\\System\\team.c", 1891);
+					v17 =
+						nox_strman_loadString_40F1D0("NewMember", 0, "C:\\NoxPost\\src\\common\\System\\team.c", 1891);
 					nox_swprintf(v24, v17, v15 + 4704, v6);
 				}
 				nox_xxx_printCentered_445490(v24);
@@ -241,7 +241,7 @@ void nox_xxx_createAtImpl_4191D0(unsigned char a1, int a2, int a3, int a4, int a
 		v18 = result;
 		if (!result) {
 			return;
-}
+		}
 	}
 	v19 = *((uint32_t*)v18 + 187);
 	sub_4D97E0(*(unsigned char*)(*(uint32_t*)(v19 + 276) + 2064));
@@ -250,6 +250,6 @@ void nox_xxx_createAtImpl_4191D0(unsigned char a1, int a2, int a3, int a4, int a
 	for (i = *((uint32_t*)v18 + 129); i; i = *(uint32_t*)(i + 512)) {
 		if (*(uint8_t*)(i + 8) & 6) {
 			result = nox_xxx_monsterMarkUpdate_4E8020(i);
-}
+		}
 	}
 }

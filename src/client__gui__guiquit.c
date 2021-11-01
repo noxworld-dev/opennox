@@ -3,8 +3,8 @@
 #include "common__strman.h"
 
 #include "GAME1.h"
-#include "GAME1_2.h"
 #include "GAME1_1.h"
+#include "GAME1_2.h"
 #include "GAME1_3.h"
 #include "GAME2.h"
 #include "GAME2_1.h"
@@ -13,12 +13,11 @@
 #include "GAME3_2.h"
 #include "GAME3_3.h"
 #include "GAME4_1.h"
-#include "client__gui__servopts__guiserv.h"
-#include "common__log.h"
-#include "client__system__parsecmd.h"
 #include "client__gui__guisave.h"
 #include "client__gui__guivote.h"
 #include "client__gui__servopts__guiserv.h"
+#include "client__system__parsecmd.h"
+#include "common__log.h"
 #include "operators.h"
 
 extern uint32_t dword_5d4594_825764;
@@ -42,7 +41,7 @@ int nox_xxx_wndLoadQuitMenu_445790() {
 	nox_wnd_quitMenu_825760->off_x = (nox_win_width - nox_wnd_quitMenu_825760->width) / 2;
 	nox_wnd_quitMenu_825760->end_x = nox_wnd_quitMenu_825760->off_x + nox_wnd_quitMenu_825760->width;
 	if (nox_win_height > 768) {
-		nox_wnd_quitMenu_825760->off_y = (nox_win_height - nox_wnd_quitMenu_825760->height - nox_win_height/3) / 2;
+		nox_wnd_quitMenu_825760->off_y = (nox_win_height - nox_wnd_quitMenu_825760->height - nox_win_height / 3) / 2;
 		nox_wnd_quitMenu_825760->end_y = nox_wnd_quitMenu_825760->off_y + nox_wnd_quitMenu_825760->height;
 	}
 	sub_445C40();
@@ -54,31 +53,31 @@ int nox_xxx_wndLoadQuitMenu_445790() {
 }
 
 //----- (00445840) --------------------------------------------------------
-int  nox_xxx_menuGameOnButton_445840(uint32_t* a1, int a2, int* a3, int a4) {
-	int v3;       // esi
-	int v4;       // eax
-	int result;   // eax
-	int v6;       // eax
-	int v7;       // eax
-	char* v8;     // eax
-	int v9;       // eax
-	int v10;      // eax
-	int v12;      // eax
-	wchar_t* v13; // eax
-	int v14;      // eax
-	wchar_t* v15; // eax
-	int v16;      // eax
-	int v17;      // eax
-	int v18;      // ecx
-	uint32_t* v19;  // eax
-	int v20;      // eax
-	int v21;      // eax
-	wchar_t* v22; // [esp-18h] [ebp-18h]
-	wchar_t* v23; // [esp-18h] [ebp-18h]
+int nox_xxx_menuGameOnButton_445840(uint32_t* a1, int a2, int* a3, int a4) {
+	int v3;        // esi
+	int v4;        // eax
+	int result;    // eax
+	int v6;        // eax
+	int v7;        // eax
+	char* v8;      // eax
+	int v9;        // eax
+	int v10;       // eax
+	int v12;       // eax
+	wchar_t* v13;  // eax
+	int v14;       // eax
+	wchar_t* v15;  // eax
+	int v16;       // eax
+	int v17;       // eax
+	int v18;       // ecx
+	uint32_t* v19; // eax
+	int v20;       // eax
+	int v21;       // eax
+	wchar_t* v22;  // [esp-18h] [ebp-18h]
+	wchar_t* v23;  // [esp-18h] [ebp-18h]
 
 	if (a2 != 16391) {
 		return 0;
-}
+	}
 	v3 = nox_xxx_wndGetID_46B0A0(a3);
 	nox_xxx_clientPlaySoundSpecial_452D80(766, 100);
 	switch (v3) {
@@ -92,8 +91,8 @@ int  nox_xxx_menuGameOnButton_445840(uint32_t* a1, int a2, int* a3, int a4) {
 			a3[9] = v17;
 			result = 0;
 		} else {
-			v23 =
-				nox_strman_loadString_40F1D0("GUIQuit.c:ReallyLoadMessage", 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 199);
+			v23 = nox_strman_loadString_40F1D0("GUIQuit.c:ReallyLoadMessage", 0,
+											   "C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 199);
 			v15 =
 				nox_strman_loadString_40F1D0("SelChar.c:LoadLabel", 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 198);
 			nox_xxx_dialogMsgBoxCreate_449A10(0, (int)v15, (int)v23, 56, sub_445B40, sub_445BA0);
@@ -126,10 +125,10 @@ int  nox_xxx_menuGameOnButton_445840(uint32_t* a1, int a2, int* a3, int a4) {
 			nox_savegame_sub_46D580();
 		} else {
 			nox_xxx_netSavePlayer_41CE00();
-}
+		}
 		if (sub_43C6E0()) {
 			goto LABEL_27;
-}
+		}
 		sub_43CF70();
 		v12 = a3[9];
 		LOBYTE(v12) = v12 & 0xFD;
@@ -138,9 +137,12 @@ int  nox_xxx_menuGameOnButton_445840(uint32_t* a1, int a2, int* a3, int a4) {
 		break;
 	case 9004:
 		nox_xxx_wndClearCaptureMain_46ADE0(nox_wnd_quitMenu_825760);
-		v22 = nox_strman_loadString_40F1D0("GUIQuit.c:ReallyQuitMessage", 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 185);
-		v13 = nox_strman_loadString_40F1D0("GUIQuit.c:ReallyQuitTitle", 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 184);
-		nox_xxx_dialogMsgBoxCreate_449A10(nox_wnd_quitMenu_825760, (int)v13, (int)v22, 56, nox_xxx_quitDialogYes_445B20, nox_xxx_quitDialogNo_445B30);
+		v22 = nox_strman_loadString_40F1D0("GUIQuit.c:ReallyQuitMessage", 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c",
+										   185);
+		v13 = nox_strman_loadString_40F1D0("GUIQuit.c:ReallyQuitTitle", 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c",
+										   184);
+		nox_xxx_dialogMsgBoxCreate_449A10(nox_wnd_quitMenu_825760, (int)v13, (int)v22, 56, nox_xxx_quitDialogYes_445B20,
+										  nox_xxx_quitDialogNo_445B30);
 		v14 = a3[9];
 		LOBYTE(v14) = v14 & 0xFD;
 		a3[9] = v14;
@@ -189,7 +191,7 @@ int  nox_xxx_menuGameOnButton_445840(uint32_t* a1, int a2, int* a3, int a4) {
 			sub_48CB10(4);
 		} else {
 			sub_48CB10(0);
-}
+		}
 		v6 = a3[9];
 		LOBYTE(v6) = v6 & 0xFD;
 		a3[9] = v6;
@@ -214,8 +216,10 @@ void* sub_445B40() {
 	sub_413A00(0);
 	result = sub_4DB790("AUTOSAVE");
 	if (!result) {
-		v2 = nox_strman_loadString_40F1D0("GUISave.c:SaveErrorTitle", 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 88);
-		v1 = nox_strman_loadString_40F1D0("GUISave.c:SaveErrorTitle", 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 87);
+		v2 =
+			nox_strman_loadString_40F1D0("GUISave.c:SaveErrorTitle", 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 88);
+		v1 =
+			nox_strman_loadString_40F1D0("GUISave.c:SaveErrorTitle", 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 87);
 		result = nox_xxx_dialogMsgBoxCreate_449A10(0, (int)v1, (int)v2, 33, 0, 0);
 	}
 	return result;
@@ -223,28 +227,28 @@ void* sub_445B40() {
 
 //----- (00445C40) --------------------------------------------------------
 void sub_445C40() {
-	int result;   // eax
-	uint32_t* v1;   // eax
-	uint32_t* v2;   // eax
-	uint32_t* v3;   // eax
-	uint32_t* v4;   // eax
-	uint32_t* v5;   // eax
-	uint32_t* v6;   // esi
-	uint32_t* v7;   // eax
-	uint32_t* v8;   // eax
-	uint32_t* v9;   // eax
-	uint32_t* v10;  // eax
-	uint32_t* v11;  // esi
-	uint32_t* v12;  // eax
-	uint32_t* v13;  // esi
-	uint32_t* v14;  // eax
-	uint32_t* v15;  // eax
-	uint32_t* v16;  // eax
-	uint32_t* v17;  // eax
-	uint32_t* v18;  // eax
-	uint32_t* v19;  // eax
-	wchar_t* v20; // [esp-4h] [ebp-8h]
-	wchar_t* v21; // [esp-4h] [ebp-8h]
+	int result;    // eax
+	uint32_t* v1;  // eax
+	uint32_t* v2;  // eax
+	uint32_t* v3;  // eax
+	uint32_t* v4;  // eax
+	uint32_t* v5;  // eax
+	uint32_t* v6;  // esi
+	uint32_t* v7;  // eax
+	uint32_t* v8;  // eax
+	uint32_t* v9;  // eax
+	uint32_t* v10; // eax
+	uint32_t* v11; // esi
+	uint32_t* v12; // eax
+	uint32_t* v13; // esi
+	uint32_t* v14; // eax
+	uint32_t* v15; // eax
+	uint32_t* v16; // eax
+	uint32_t* v17; // eax
+	uint32_t* v18; // eax
+	uint32_t* v19; // eax
+	wchar_t* v20;  // [esp-4h] [ebp-8h]
+	wchar_t* v21;  // [esp-4h] [ebp-8h]
 
 	if (nox_xxx_wndGetFlags_46ADA0(nox_wnd_quitMenu_825760) & 0x10) {
 		if (!*getMemU32Ptr(0x852978, 8) || !nox_common_gameFlags_check_40A5C0(2048) ||
@@ -257,7 +261,7 @@ void sub_445C40() {
 					nox_xxx_wndSetCaptureMain_46ADC0(nox_wnd_quitMenu_825760);
 					if (nox_common_gameFlags_check_40A5C0(2048)) {
 						v20 = nox_strman_loadString_40F1D0("SoloSaveLabel", 0,
-													"C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 396);
+														   "C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 396);
 						v1 = nox_xxx_wndGetChildByID_46B0C0(nox_wnd_quitMenu_825760, 9003);
 						sub_46AEE0((int)v1, (int)v20);
 						v2 = nox_xxx_wndGetChildByID_46B0C0(nox_wnd_quitMenu_825760, 9001);
@@ -276,7 +280,7 @@ void sub_445C40() {
 						sub_46AB20(nox_wnd_quitMenu_825760, 220, 285);
 					} else {
 						v21 = nox_strman_loadString_40F1D0("MultiplayerSaveLabel", 0,
-													"C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 427);
+														   "C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 427);
 						v8 = nox_xxx_wndGetChildByID_46B0C0(nox_wnd_quitMenu_825760, 9003);
 						sub_46AEE0((int)v8, (int)v21);
 						v9 = nox_xxx_wndGetChildByID_46B0C0(nox_wnd_quitMenu_825760, 9001);
@@ -295,7 +299,7 @@ void sub_445C40() {
 							nox_xxx_wnd_46ABB0((int)v13, 0);
 						} else {
 							nox_xxx_wnd_46ABB0((int)v13, 1);
-}
+						}
 						v14 = nox_xxx_wndGetChildByID_46B0C0(nox_wnd_quitMenu_825760, 9004);
 						nox_window_setPos_46A9B0(v14, v13[4], v13[5] + 45);
 						sub_46AB20(nox_wnd_quitMenu_825760, 220, 330);
@@ -345,7 +349,7 @@ void sub_446190() {
 	} else if (nox_xxx_isQuest_4D6F50()) {
 		if (sub_4D6F30()) {
 			nox_game_checkStateMenu_43C2F0();
-}
+		}
 		sub_4D70B0();
 		sub_4D6F40(0);
 		sub_4D6F90(0);
@@ -356,7 +360,7 @@ void sub_446190() {
 		if (nox_common_gameFlags_check_40A5C0(1)) {
 			if (nox_xxx_check_flag_aaa_43AF70() == 1 && nox_common_gameFlags_check_40A5C0(49152)) {
 				sub_416150(15, 0);
-}
+			}
 			sub_509CB0();
 		}
 		if (nox_common_gameFlags_check_40A5C0(1)) {
@@ -365,10 +369,9 @@ void sub_446190() {
 			if (dword_5d4594_825752 > 0) {
 				v4 = -57;
 				nox_xxx_netSendPacket0_4E5420(159, &v4, 1, 0, 1);
-				v3 = nox_strman_loadString_40F1D0("ShuttingDown", 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c",
-										   737);
+				v3 = nox_strman_loadString_40F1D0("ShuttingDown", 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 737);
 				v2 = nox_strman_loadString_40F1D0("Wolchat.c:PleaseWait", 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c",
-										   736);
+												  736);
 				nox_xxx_dialogMsgBoxCreate_449A10(0, (int)v2, (int)v3, 0, 0, 0);
 				sub_44A360(1);
 				goto LABEL_20;

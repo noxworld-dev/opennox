@@ -1,7 +1,7 @@
-#include "input.h"
-#include "client__gui__window.h"
 #include "movie.h"
+#include "client__gui__window.h"
 #include "common/fs/nox_fs.h"
+#include "input.h"
 
 #ifndef NOX_CGO
 #include <SDL2/SDL.h>
@@ -22,7 +22,7 @@ unsigned short int rgb888Toargb1555(int red, int green, int blue) {
 
 SDL_Surface* movieSurface = NULL;
 
-int  nox_video_getSurfaceData_48A720(SDL_Surface* surf, int* outPitch, void** outPixels);
+int nox_video_getSurfaceData_48A720(SDL_Surface* surf, int* outPitch, void** outPixels);
 void nox_video_showMovieFrame(SDL_Surface* surf);
 void DrawMovieFrame(uint8_t* frame, unsigned long cx, unsigned long cy) {
 	void* pixels = 0;
@@ -52,9 +52,9 @@ extern int PlayMovieCallback(uint8_t* frame, unsigned long cx, unsigned long cy)
 	return result;
 }
 
-void  sub_555430(void** a1) { return; }
+void sub_555430(void** a1) { return; }
 
-char  sub_555500(char a1) { return 0; }
+char sub_555500(char a1) { return 0; }
 #else
 
 // getMemByte(0x5D4594, 2513944)
@@ -63,7 +63,7 @@ LPDIRECTSOUND g_dsound;
 LPDIRECTSOUNDBUFFER g_dsound_buffer;
 
 //----- (00555430) --------------------------------------------------------
-void  sub_555430(HWND* a1) {
+void sub_555430(HWND* a1) {
 	HWND v2; // edi
 
 	if (!a1) {
@@ -93,7 +93,7 @@ void  sub_555430(HWND* a1) {
 }
 
 //----- (00555500) --------------------------------------------------------
-char  sub_555500(char a1) {
+char sub_555500(char a1) {
 	char result; // al
 
 	result = a1;
@@ -105,7 +105,7 @@ char  sub_555500(char a1) {
 int sub_555510() { return *getMemU32Ptr(0x5D4594, 2513940) | (char)getMemByte(0x5D4594, 2513936); }
 
 //----- (00555520) --------------------------------------------------------
-signed int  sub_555520(HWND a1) {
+signed int sub_555520(HWND a1) {
 	HRESULT v1;        // ebx
 	signed int result; // eax
 
@@ -138,7 +138,7 @@ signed int  sub_555520(HWND a1) {
 // 5813EC: using guessed type uint32_t AIL_lock();
 
 //----- (005555D0) --------------------------------------------------------
-void  sub_5555D0() {
+void sub_5555D0() {
 	if (g_dsound_buffer) {
 		g_dsound_buffer->lpVtbl->Stop(g_dsound_buffer);
 		g_dsound_buffer->lpVtbl->Release(g_dsound_buffer);
@@ -155,38 +155,38 @@ void  sub_5555D0() {
 // 5813EC: using guessed type uint32_t AIL_lock();
 
 //----- (00555620) --------------------------------------------------------
-int*  sub_555620(uint32_t* a1) {
-	uint32_t* v1;  // esi
-	void* v2;    // edi
-	int v3;      // ebx
-	int v4;      // ecx
-	void* v5;    // ebp
-	int* result; // eax
-	int* v7;     // edi
-	void* v8;    // edi
-	void* v9;    // edi
-	void* v10;   // eax
-	void* v11;   // eax
-	void* v12;   // eax
-	void* v13;   // eax
-	void* v14;   // eax
-	void* v15;   // eax
-	void* v16;   // eax
-	void* v17;   // eax
-	void* v18;   // eax
-	void* v19;   // eax
-	void* v20;   // eax
-	void* v21;   // eax
-	void* v22;   // eax
-	void* v23;   // eax
-	void* v24;   // eax
-	void* v25;   // eax
-	int* v26;    // esi
-	int* v27;    // eax
-	int* v28;    // eax
-	int* v29;    // esi
-	int* v30;    // eax
-	int v31;     // [esp+24h] [ebp+4h]
+int* sub_555620(uint32_t* a1) {
+	uint32_t* v1; // esi
+	void* v2;     // edi
+	int v3;       // ebx
+	int v4;       // ecx
+	void* v5;     // ebp
+	int* result;  // eax
+	int* v7;      // edi
+	void* v8;     // edi
+	void* v9;     // edi
+	void* v10;    // eax
+	void* v11;    // eax
+	void* v12;    // eax
+	void* v13;    // eax
+	void* v14;    // eax
+	void* v15;    // eax
+	void* v16;    // eax
+	void* v17;    // eax
+	void* v18;    // eax
+	void* v19;    // eax
+	void* v20;    // eax
+	void* v21;    // eax
+	void* v22;    // eax
+	void* v23;    // eax
+	void* v24;    // eax
+	void* v25;    // eax
+	int* v26;     // esi
+	int* v27;     // eax
+	int* v28;     // eax
+	int* v29;     // esi
+	int* v30;     // eax
+	int v31;      // [esp+24h] [ebp+4h]
 
 	v1 = a1;
 	v2 = *(void**)getMemAt(0x5D4594, 2515916);
@@ -196,8 +196,8 @@ int*  sub_555620(uint32_t* a1) {
 	result = *(int**)getMemAt(0x5D4594, 2515920);
 	v31 = a1[8];
 	if (v3 != *getMemU32Ptr(0x5D4594, 2513960) || v5 != *(void**)getMemAt(0x5D4594, 2513952) ||
-		v4 != *getMemU32Ptr(0x5D4594, 2513956) || !*getMemU32Ptr(0x5D4594, 2515916) || !*getMemU32Ptr(0x5D4594, 2515920) ||
-		!*getMemU32Ptr(0x5D4594, 2515928) || !*getMemU32Ptr(0x5D4594, 2515924)) {
+		v4 != *getMemU32Ptr(0x5D4594, 2513956) || !*getMemU32Ptr(0x5D4594, 2515916) ||
+		!*getMemU32Ptr(0x5D4594, 2515920) || !*getMemU32Ptr(0x5D4594, 2515928) || !*getMemU32Ptr(0x5D4594, 2515924)) {
 		*getMemU32Ptr(0x5D4594, 2513952) = 0;
 		*getMemU32Ptr(0x5D4594, 2513956) = 0;
 		*getMemU32Ptr(0x5D4594, 2513960) = 0;
@@ -358,7 +358,7 @@ int sub_555A40() {
 }
 
 //----- (00555AE0) --------------------------------------------------------
-uint32_t*  sub_555AE0(int a1, int a2, int a3, uint32_t* a4, uint32_t* a5, uint32_t* a6) {
+uint32_t* sub_555AE0(int a1, int a2, int a3, uint32_t* a4, uint32_t* a5, uint32_t* a6) {
 	uint32_t* result; // eax
 
 	*a6 = a3;
@@ -415,7 +415,7 @@ uint32_t*  sub_555AE0(int a1, int a2, int a3, uint32_t* a4, uint32_t* a5, uint32
 }
 
 //----- (00555C10) --------------------------------------------------------
-int  sub_555C10(uint32_t* a1, uint32_t* a2, uint32_t* a3) {
+int sub_555C10(uint32_t* a1, uint32_t* a2, uint32_t* a3) {
 	int result; // eax
 
 	*a1 = *getMemU32Ptr(0x5D4594, 2513952);
@@ -426,13 +426,13 @@ int  sub_555C10(uint32_t* a1, uint32_t* a2, uint32_t* a3) {
 }
 
 //----- (00555C40) --------------------------------------------------------
-int  nox_xxx_VQA_Test_555C40(uint32_t* a1) {
+int nox_xxx_VQA_Test_555C40(uint32_t* a1) {
 	const char* v1;   // ebp
 	int v2;           // ebx
 	int v3;           // esi
 	int v4;           // edi
-	uint8_t* v5;        // eax
-	uint8_t* v6;        // eax
+	uint8_t* v5;      // eax
+	uint8_t* v6;      // eax
 	int v7;           // eax
 	void* v8;         // esi
 	int v10;          // eax
@@ -441,7 +441,7 @@ int  nox_xxx_VQA_Test_555C40(uint32_t* a1) {
 	int v13;          // ebp
 	int v14;          // ebx
 	int v15;          // esi
-	int v16;         // edi
+	int v16;          // edi
 	bool v17;         // zf
 	void* v18;        // esi
 	int v19;          // [esp-14h] [ebp-40h]
@@ -449,7 +449,7 @@ int  nox_xxx_VQA_Test_555C40(uint32_t* a1) {
 	int v21;          // [esp+10h] [ebp-1Ch]
 	unsigned int v22; // [esp+14h] [ebp-18h]
 	unsigned int v23; // [esp+18h] [ebp-14h]
-	uint8_t* v24;       // [esp+1Ch] [ebp-10h]
+	uint8_t* v24;     // [esp+1Ch] [ebp-10h]
 	int v25;          // [esp+28h] [ebp-4h]
 
 	v1 = (const char*)a1[10];
@@ -539,7 +539,8 @@ int  nox_xxx_VQA_Test_555C40(uint32_t* a1) {
 				sub_558260(*(int**)getMemAt(0x5D4594, 2513964), *getMemIntPtr(0x5D4594, 2513980), v14,
 						   *getMemIntPtr(0x587000, 293376));
 			else
-				sub_558230(*(int**)getMemAt(0x5D4594, 2513964), *getMemIntPtr(0x5D4594, 2513976), *getMemIntPtr(0x587000, 293376));
+				sub_558230(*(int**)getMemAt(0x5D4594, 2513964), *getMemIntPtr(0x5D4594, 2513976),
+						   *getMemIntPtr(0x587000, 293376));
 		}
 	}
 	do {
@@ -591,8 +592,8 @@ uint32_t* sub_556050() {
 	uint32_t* result; // eax
 	uint32_t* v6;     // esi
 	uint32_t* v7;     // edi
-	int v8;         // edx
-	int v9;         // eax
+	int v8;           // edx
+	int v9;           // eax
 	uint32_t* v10;    // eax
 	uint32_t* v11;    // eax
 
@@ -630,18 +631,20 @@ uint32_t* sub_556050() {
 		if (!result) {
 			v6 = *(uint32_t**)getMemAt(0x5D4594, 2513968);
 			v7 = *(uint32_t**)getMemAt(0x5D4594, 2515928);
-			if (*(uint32_t*)(*getMemU32Ptr(0x5D4594, 2513968) + 32) && *(uint32_t*)(*getMemU32Ptr(0x5D4594, 2515928) + 32)) {
+			if (*(uint32_t*)(*getMemU32Ptr(0x5D4594, 2513968) + 32) &&
+				*(uint32_t*)(*getMemU32Ptr(0x5D4594, 2515928) + 32)) {
 				v8 = *(uint32_t*)(*getMemU32Ptr(0x5D4594, 2515928) + 8);
 				if (*(uint32_t*)(*getMemU32Ptr(0x5D4594, 2515928) + 8) <= *(int*)(*getMemU32Ptr(0x5D4594, 2513968) + 8))
 					v8 = *(uint32_t*)(*getMemU32Ptr(0x5D4594, 2513968) + 8);
 				v9 = *(uint32_t*)(*getMemU32Ptr(0x5D4594, 2515928) + 4);
 				if (v9 <= *(int*)(*getMemU32Ptr(0x5D4594, 2513968) + 4))
 					v9 = *(uint32_t*)(*getMemU32Ptr(0x5D4594, 2513968) + 4);
-				result = (uint32_t*)sub_556890(*(uint32_t**)getMemAt(0x5D4594, 2513968), *getMemIntPtr(0x5D4594, 2515928),
-											 *(uint32_t*)(*getMemU32Ptr(0x5D4594, 2513968) + 16),
-											 *(uint32_t*)(*getMemU32Ptr(0x5D4594, 2513968) + 20),
-											 *(uint32_t*)(*getMemU32Ptr(0x5D4594, 2515928) + 16),
-											 *(uint32_t*)(*getMemU32Ptr(0x5D4594, 2515928) + 20), v9, v8, 0);
+				result =
+					(uint32_t*)sub_556890(*(uint32_t**)getMemAt(0x5D4594, 2513968), *getMemIntPtr(0x5D4594, 2515928),
+										  *(uint32_t*)(*getMemU32Ptr(0x5D4594, 2513968) + 16),
+										  *(uint32_t*)(*getMemU32Ptr(0x5D4594, 2513968) + 20),
+										  *(uint32_t*)(*getMemU32Ptr(0x5D4594, 2515928) + 16),
+										  *(uint32_t*)(*getMemU32Ptr(0x5D4594, 2515928) + 20), v9, v8, 0);
 			} else {
 				if (sub_556710(*(uint32_t**)(*getMemU32Ptr(0x5D4594, 2513968) + 28))) {
 					v10 = (uint32_t*)v6[7];
@@ -665,7 +668,7 @@ uint32_t* sub_556050() {
 //----- (00556240) --------------------------------------------------------
 int sub_556240(uint32_t** this) {
 	uint32_t** v1; // esi
-	int result;  // eax
+	int result;    // eax
 	uint32_t* v3;  // eax
 
 	v1 = this;
@@ -680,7 +683,7 @@ int sub_556240(uint32_t** this) {
 }
 
 //----- (00556280) --------------------------------------------------------
-int  sub_556280(int a1) {
+int sub_556280(int a1) {
 	int result; // eax
 
 	result = a1 >> 3;
@@ -689,7 +692,7 @@ int  sub_556280(int a1) {
 }
 
 //----- (005562A0) --------------------------------------------------------
-int  sub_5562A0(int a1) { return (getMemByte(0x5D4594, 2513992 + (a1 >> 3)) & (unsigned char)(1 << (a1 & 7))) != 0; }
+int sub_5562A0(int a1) { return (getMemByte(0x5D4594, 2513992 + (a1 >> 3)) & (unsigned char)(1 << (a1 & 7))) != 0; }
 
 //----- (005562C0) --------------------------------------------------------
 void* sub_5562C0(void* this) { return this; }
@@ -759,10 +762,10 @@ void sub_5562F0(uint32_t* this, uint32_t* a2, int a3, int a4, int a5, int a6) {
 //----- (005563A0) --------------------------------------------------------
 int sub_5563A0(uint32_t* this, int a2, char a3) {
 	uint32_t* v3; // esi
-	int v4;     // eax
-	int v5;     // ecx
-	int* v6;    // edi
-	int result; // eax
+	int v4;       // eax
+	int v5;       // ecx
+	int* v6;      // edi
+	int result;   // eax
 
 	v3 = this;
 	memset(this + 14, 0, 0x6Cu);
@@ -780,13 +783,13 @@ int sub_5563A0(uint32_t* this, int a2, char a3) {
 	if (v3[1] == 320)
 		v3[40] |= 0x200000u;
 	if (a2) {
-		(*(void(**)(int, uint32_t*))(*(uint32_t*)a2 + 88))(a2, v3 + 14);
+		(*(void (**)(int, uint32_t*))(*(uint32_t*)a2 + 88))(a2, v3 + 14);
 		v6 = v3 + 13;
 		v3[41] = 1;
 		v3[13] = a2;
 	} else {
 		v6 = v3 + 13;
-		(*(void(**)(uint32_t, uint32_t*, uint32_t*, uint32_t))(**(uint32_t**)getMemAt(0x5D4594, 2515908) + 24))(
+		(*(void (**)(uint32_t, uint32_t*, uint32_t*, uint32_t))(**(uint32_t**)getMemAt(0x5D4594, 2515908) + 24))(
 			*getMemU32Ptr(0x5D4594, 2515908), v3 + 14, v3 + 13, 0);
 		v3[41] = 0;
 	}
@@ -805,7 +808,7 @@ int sub_5563A0(uint32_t* this, int a2, char a3) {
 //----- (00556470) --------------------------------------------------------
 void* sub_556470(uint32_t* this, void* a2, int a3, int a4, int a5, char a6, int a7) {
 	void* result; // eax
-	uint32_t* v8;   // esi
+	uint32_t* v8; // esi
 	int v9;       // edx
 
 	result = a2;
@@ -875,21 +878,21 @@ void* sub_5565E0(void* this, void* a2, int a3, char a4, int a5) {
 //----- (00556650) --------------------------------------------------------
 int sub_556650(uint32_t* this) {
 	uint32_t* v1; // esi
-	int v2;     // ecx
+	int v2;       // ecx
 
 	v1 = this;
 	if (this[8] && this[13]) {
 		if (this[9]) {
 			do {
-				if ((*(int(**)(uint32_t, uint32_t))(*(uint32_t*)v1[13] + 128))(v1[13], 0) == -2005532222) {
+				if ((*(int (**)(uint32_t, uint32_t))(*(uint32_t*)v1[13] + 128))(v1[13], 0) == -2005532222) {
 					if (*getMemU32Ptr(0x5D4594, 2515948))
-						(*(void (**)(void)) getMemAt(0x5D4594, 2515948))();
+						(*(void (**)(void))getMemAt(0x5D4594, 2515948))();
 					sub_556C10(getMemAt(0x5D4594, 2514012));
 				}
 			} while (v1[9]);
 		}
 		if (!v1[41])
-			(*(void(**)(uint32_t))(*(uint32_t*)v1[13] + 8))(v1[13]);
+			(*(void (**)(uint32_t))(*(uint32_t*)v1[13] + 8))(v1[13]);
 		sub_556B20(getMemAt(0x5D4594, 2514012), v1[13]);
 	}
 	if (v1)
@@ -903,12 +906,12 @@ int sub_556650(uint32_t* this) {
 //----- (00556710) --------------------------------------------------------
 int sub_556710(uint32_t* this) {
 	uint32_t* v1; // esi
-	int v2;     // edi
-	int result; // eax
-	int v4;     // eax
-	int v5;     // eax
-	int v6;     // ecx
-	int v7;     // edi
+	int v2;       // edi
+	int result;   // eax
+	int v4;       // eax
+	int v5;       // eax
+	int v6;       // ecx
+	int v7;       // edi
 
 	v1 = this;
 	v2 = 0;
@@ -925,7 +928,7 @@ int sub_556710(uint32_t* this) {
 			} else {
 				if (v1[13]) {
 					while (v2 < 2) {
-						v5 = (*(int(**)(uint32_t, uint32_t, uint32_t*, int, uint32_t))(*(uint32_t*)v1[13] + 100))(
+						v5 = (*(int (**)(uint32_t, uint32_t, uint32_t*, int, uint32_t))(*(uint32_t*)v1[13] + 100))(
 							v1[13], 0, v1 + 14, 1, 0);
 						if (v5 != -2005532222) {
 							if (v5) {
@@ -944,7 +947,7 @@ int sub_556710(uint32_t* this) {
 							return result;
 						}
 						if (*getMemU32Ptr(0x5D4594, 2515948))
-							(*(void (**)(void)) getMemAt(0x5D4594, 2515948))();
+							(*(void (**)(void))getMemAt(0x5D4594, 2515948))();
 						sub_556C10(getMemAt(0x5D4594, 2514012));
 						++v2;
 						if (v1[9])
@@ -970,9 +973,9 @@ int sub_556710(uint32_t* this) {
 //----- (00556820) --------------------------------------------------------
 int sub_556820(uint32_t* this) {
 	uint32_t* v1; // esi
-	int v2;     // eax
-	int result; // eax
-	int v4;     // edx
+	int v2;       // eax
+	int result;   // eax
+	int v4;       // edx
 
 	v1 = this;
 	v2 = this[9];
@@ -983,7 +986,7 @@ int sub_556820(uint32_t* this) {
 		return 1;
 	}
 	nullsub_31(this);
-	if ((*(int(**)(uint32_t, uint32_t))(*(uint32_t*)v1[13] + 128))(v1[13], 0)) {
+	if ((*(int (**)(uint32_t, uint32_t))(*(uint32_t*)v1[13] + 128))(v1[13], 0)) {
 		nullsub_31(v1);
 		result = 0;
 	} else {
@@ -1016,18 +1019,19 @@ int sub_556890(uint32_t* this, int a2, int a3, int a4, int a5, int a6, int a7, i
 	v13[1] = a6;
 	v13[2] = a7 + a5;
 	v13[3] = a8 + a6;
-	return (*(int(**)(uint32_t, int*, uint32_t, int*, int, uint32_t))(**(uint32_t**)(*(uint32_t*)(a2 + 28) + 52) + 20))(
+	return (
+		*(int (**)(uint32_t, int*, uint32_t, int*, int, uint32_t))(**(uint32_t**)(*(uint32_t*)(a2 + 28) + 52) + 20))(
 		*(uint32_t*)(*(uint32_t*)(a2 + 28) + 52), v13, *(uint32_t*)(v10 + 52), v12, v9 | 0x1000200, 0);
 }
 
 //----- (00556920) --------------------------------------------------------
-void  sub_556920(int* a1, char a2) {
+void sub_556920(int* a1, char a2) {
 	int v2;           // eax
 	int v3;           // edi
 	int v4;           // edx
 	signed int v5;    // esi
 	int v6;           // ebx
-	short v7;       // cx
+	short v7;         // cx
 	int v8;           // eax
 	int v9;           // ecx
 	char v10;         // bl
@@ -1078,13 +1082,13 @@ void  sub_556920(int* a1, char a2) {
 uint32_t* nox_xxx_unknown_libname_13_5569A0() { return sub_556AC0(getMemAt(0x5D4594, 2514012)); }
 
 //----- (005569B0) --------------------------------------------------------
-int  sub_5569B0(HWND a1) {
+int sub_5569B0(HWND a1) {
 	int v1; // eax
 
 	*getMemU32Ptr(0x5D4594, 2515892) = a1;
-	v1 = (*(int(**)(uint32_t, int, unsigned char*, unsigned char*, uint32_t))(
-		**(uint32_t**)getMemAt(0x5D4594, 2515908) + 20))(*getMemU32Ptr(0x5D4594, 2515908), 68, getMemAt(0x5D4594, 2514100),
-												 getMemAt(0x5D4594, 2515896), 0);
+	v1 = (*(int (**)(uint32_t, int, unsigned char*, unsigned char*,
+					 uint32_t))(**(uint32_t**)getMemAt(0x5D4594, 2515908) + 20))(
+		*getMemU32Ptr(0x5D4594, 2515908), 68, getMemAt(0x5D4594, 2514100), getMemAt(0x5D4594, 2515896), 0);
 	sub_556C60(v1, 0);
 	*getMemU32Ptr(0x5D4594, 2515904) = 0;
 	return 1;
@@ -1105,14 +1109,14 @@ int sub_5569F0() {
 int nox_xxx_unknown_libname_14_556A10() { return sub_556B80(getMemIntPtr(0x5D4594, 2514012)); }
 
 //----- (00556A20) --------------------------------------------------------
-char*  sub_556A20(char* a1) {
-	char* result;        // eax
-	int v2;              // ebp
+char* sub_556A20(char* a1) {
+	char* result;      // eax
+	int v2;            // ebp
 	unsigned char* v3; // ecx
 	unsigned char v4;  // dl
-	char* v5;            // eax
+	char* v5;          // eax
 	unsigned char v6;  // dl
-	char v7;             // dl
+	char v7;           // dl
 
 	result = a1;
 	if (a1) {
@@ -1133,12 +1137,12 @@ char*  sub_556A20(char* a1) {
 					*(v3 - 3) = v7;
 				} while ((int)v3 < (int)getMemAt(0x5D4594, 2515125));
 				if (!*getMemU32Ptr(0x5D4594, 2515904)) {
-					(*(void(**)(int, uint32_t))(*(uint32_t*)v2 + 124))(v2, *getMemU32Ptr(0x5D4594, 2515896));
+					(*(void (**)(int, uint32_t))(*(uint32_t*)v2 + 124))(v2, *getMemU32Ptr(0x5D4594, 2515896));
 					*getMemU32Ptr(0x5D4594, 2515904) = 1;
 				}
-				result = (char*)(*(int(**)(uint32_t, uint32_t, uint32_t, int, unsigned char*))(
-					**(uint32_t**)getMemAt(0x5D4594, 2515896) + 24))(*getMemU32Ptr(0x5D4594, 2515896), 0, 0, 256,
-															 getMemAt(0x5D4594, 2514100));
+				result = (char*)(*(int (**)(uint32_t, uint32_t, uint32_t, int,
+											unsigned char*))(**(uint32_t**)getMemAt(0x5D4594, 2515896) + 24))(
+					*getMemU32Ptr(0x5D4594, 2515896), 0, 0, 256, getMemAt(0x5D4594, 2514100));
 			}
 		}
 	}
@@ -1156,7 +1160,7 @@ uint32_t* sub_556AC0(uint32_t* this) {
 //----- (00556AE0) --------------------------------------------------------
 int sub_556AE0(uint32_t* this, int a2) {
 	uint32_t* v2; // esi
-	int result; // eax
+	int result;   // eax
 	uint32_t* i;  // ecx
 
 	v2 = this;
@@ -1173,8 +1177,8 @@ int sub_556AE0(uint32_t* this, int a2) {
 
 //----- (00556B20) --------------------------------------------------------
 int sub_556B20(uint32_t* this, int a2) {
-	int result; // eax
-	uint32_t* i;  // edx
+	int result;  // eax
+	uint32_t* i; // edx
 
 	result = 0;
 	for (i = this + 1; *i != a2; ++i) {
@@ -1187,7 +1191,7 @@ int sub_556B20(uint32_t* this, int a2) {
 
 //----- (00556B50) --------------------------------------------------------
 int sub_556B50(uint32_t* this, int a2) {
-	int v2;    // eax
+	int v2;      // eax
 	uint32_t* i; // ecx
 
 	v2 = 0;
@@ -1211,7 +1215,7 @@ int sub_556B80(int* this) {
 		if (*i) {
 			v5[0] = 108;
 			v5[1] = 4097;
-			(*(void(**)(int, int*))(*(uint32_t*)v3 + 88))(v3, v5);
+			(*(void (**)(int, int*))(*(uint32_t*)v3 + 88))(v3, v5);
 			if (v5[26] & 0x200)
 				break;
 		}
@@ -1227,16 +1231,16 @@ int sub_556B80(int* this) {
 
 //----- (00556C10) --------------------------------------------------------
 char* sub_556C10(uint32_t* this) {
-	uint32_t* v1;   // ebx
+	uint32_t* v1; // ebx
 	char* result; // eax
 	int v3;       // edi
-	uint32_t* i;    // esi
+	uint32_t* i;  // esi
 
 	v1 = this;
 	result = (char*)this[21];
 	if (result) {
 		v3 = 0;
-		for (i = this + 1; !*i || !(*(int(**)(uint32_t))(*(uint32_t*)*i + 108))(*i); ++i) {
+		for (i = this + 1; !*i || !(*(int (**)(uint32_t))(*(uint32_t*)*i + 108))(*i); ++i) {
 			if (++v3 >= 20) {
 				*v1 = 1;
 				return sub_556A20((char*)getMemAt(0x5D4594, 2515124));
@@ -1244,13 +1248,13 @@ char* sub_556C10(uint32_t* this) {
 		}
 		result = *(char**)getMemAt(0x5D4594, 2515912);
 		if (*getMemU32Ptr(0x5D4594, 2515912))
-			result = (char*)(*(int (**)(void)) getMemAt(0x5D4594, 2515912))();
+			result = (char*)(*(int (**)(void))getMemAt(0x5D4594, 2515912))();
 	}
 	return result;
 }
 
 //----- (00556C60) --------------------------------------------------------
-int  sub_556C60(int a1, int a2) {
+int sub_556C60(int a1, int a2) {
 	int result; // eax
 	char Text;  // [esp+0h] [ebp-100h]
 
@@ -1259,7 +1263,8 @@ int  sub_556C60(int a1, int a2) {
 			if (a1 > 0) {
 			LABEL_116:
 				sprintf(&Text, "Unrecognised Direct Draw result code: %d", (unsigned short)a1);
-				return MessageBoxA(*(HWND*)getMemAt(0x5D4594, 2515892), &Text, (const char*)getMemAt(0x587000, 300280), 0x30u);
+				return MessageBoxA(*(HWND*)getMemAt(0x5D4594, 2515892), &Text, (const char*)getMemAt(0x587000, 300280),
+								   0x30u);
 			}
 			if (a1) {
 				switch (a1 + 2005532103) {
@@ -1609,21 +1614,26 @@ int  sub_556C60(int a1, int a2) {
 										   (const char*)getMemAt(0x587000, 300280), 0x30u);
 					if (a1 > -2147024882) {
 						if (a1 == -2147024809)
-							return MessageBoxA(*(HWND*)getMemAt(0x5D4594, 2515892), (const char*)getMemAt(0x587000, 300064),
+							return MessageBoxA(*(HWND*)getMemAt(0x5D4594, 2515892),
+											   (const char*)getMemAt(0x587000, 300064),
 											   (const char*)getMemAt(0x587000, 300280), 0x30u);
 						if (a1 == -2005532667)
-							return MessageBoxA(*(HWND*)getMemAt(0x5D4594, 2515892), (const char*)getMemAt(0x587000, 300132),
+							return MessageBoxA(*(HWND*)getMemAt(0x5D4594, 2515892),
+											   (const char*)getMemAt(0x587000, 300132),
 											   (const char*)getMemAt(0x587000, 300280), 0x30u);
 					} else {
 						switch (a1) {
 						case -2147024882:
-							return MessageBoxA(*(HWND*)getMemAt(0x5D4594, 2515892), (const char*)getMemAt(0x587000, 300168),
+							return MessageBoxA(*(HWND*)getMemAt(0x5D4594, 2515892),
+											   (const char*)getMemAt(0x587000, 300168),
 											   (const char*)getMemAt(0x587000, 300280), 0x30u);
 						case -2147467263:
-							return MessageBoxA(*(HWND*)getMemAt(0x5D4594, 2515892), (const char*)getMemAt(0x587000, 300236),
+							return MessageBoxA(*(HWND*)getMemAt(0x5D4594, 2515892),
+											   (const char*)getMemAt(0x587000, 300236),
 											   (const char*)getMemAt(0x587000, 300280), 0x30u);
 						case -2147467259:
-							return MessageBoxA(*(HWND*)getMemAt(0x5D4594, 2515892), (const char*)getMemAt(0x587000, 300260),
+							return MessageBoxA(*(HWND*)getMemAt(0x5D4594, 2515892),
+											   (const char*)getMemAt(0x587000, 300260),
 											   (const char*)getMemAt(0x587000, 300280), 0x30u);
 						}
 					}
@@ -1661,20 +1671,20 @@ int  sub_556C60(int a1, int a2) {
 
 //----- (00557C70) --------------------------------------------------------
 uint8_t* sub_557C70(uint8_t* this, const char* a2, int a3, int a4, int a5, int a6, int a7, int a8, int a9) {
-	uint8_t* v9;    // ebp
-	uint32_t* v10;  // edi
-	int v11;      // eax
-	int v12;      // eax
-	int v13;      // eax
-	int v14;      // eax
-	int v15;      // edx
-	int v16;      // eax
-	bool v17;     // zf
-	int v18;      // eax
-	int v19;      // eax
-	int v20;      // eax
-	char v21;     // al
-	char v23[17]; // [esp+13h] [ebp-11h]
+	uint8_t* v9;   // ebp
+	uint32_t* v10; // edi
+	int v11;       // eax
+	int v12;       // eax
+	int v13;       // eax
+	int v14;       // eax
+	int v15;       // edx
+	int v16;       // eax
+	bool v17;      // zf
+	int v18;       // eax
+	int v19;       // eax
+	int v20;       // eax
+	char v21;      // al
+	char v23[17];  // [esp+13h] [ebp-11h]
 
 	v9 = this;
 	*(uint32_t*)&v23[1] = this;
@@ -1912,11 +1922,11 @@ char* sub_5581B0(char* this) { return sub_55A780(this + 712); }
 
 //----- (005581C0) --------------------------------------------------------
 char sub_5581C0(uint32_t* this) {
-	uint32_t* v1;            // esi
+	uint32_t* v1;        // esi
 	unsigned short** v2; // edi
-	char result;           // al
+	char result;         // al
 	unsigned short* v4;  // eax
-	int v5;                // ecx
+	int v5;              // ecx
 
 	v1 = this;
 	v2 = (unsigned short**)(this + 177);
@@ -1975,7 +1985,7 @@ void sub_5582C0(int* this, int a2) {
 
 //----- (00558300) --------------------------------------------------------
 int sub_558300() {
-	int result;       // eax
+	int result;        // eax
 	struct tagMSG Msg; // [esp+10h] [ebp-1Ch]
 
 	for (result = PeekMessageA(&Msg, 0, 0, 0, 0); result; result = PeekMessageA(&Msg, 0, 0, 0, 0)) {
@@ -2001,7 +2011,7 @@ int sub_558370(int* this, int a2) {
 	char v11;        // [esp+13h] [ebp-21h]
 	int v12;         // [esp+14h] [ebp-20h]
 	int v13;         // [esp+18h] [ebp-1Ch]
-	uint32_t v14;       // [esp+1Ch] [ebp-18h]
+	uint32_t v14;    // [esp+1Ch] [ebp-18h]
 	char v15;        // [esp+20h] [ebp-14h]
 	char v16;        // [esp+24h] [ebp-10h]
 	char v17;        // [esp+28h] [ebp-Ch]
@@ -2151,7 +2161,7 @@ int sub_558790(uint32_t* this, int a2) {
 
 //----- (005587A0) --------------------------------------------------------
 unsigned short* sub_5587A0(uint32_t* this, unsigned short* a2, unsigned int a3) {
-	uint32_t* v3;               // esi
+	uint32_t* v3;           // esi
 	unsigned short* result; // eax
 
 	v3 = this;
@@ -2174,7 +2184,7 @@ int sub_5587F0(uint32_t* this) { return this[376]; }
 //----- (00558820) --------------------------------------------------------
 int sub_558820(char* this, int a2, char* a3, signed int a4) {
 	char* v4;      // esi
-	int result;   // eax
+	int result;    // eax
 	char v6;       // al
 	signed int v7; // edi
 	char* v8;      // esi
@@ -2234,15 +2244,13 @@ int sub_558820(char* this, int a2, char* a3, signed int a4) {
 }
 
 //----- (00558970) --------------------------------------------------------
-int  sub_558970(int a1, int a2, char* a3, signed int a4) { return sub_558820(*(char**)(a1 + 172), a2, a3, a4); }
+int sub_558970(int a1, int a2, char* a3, signed int a4) { return sub_558820(*(char**)(a1 + 172), a2, a3, a4); }
 
 //----- (00558990) --------------------------------------------------------
-int  sub_558990(int a1, int a2, void* a3, unsigned int a4) {
-	return sub_558090(*(uint32_t**)(a1 + 172), a2, a3, a4);
-}
+int sub_558990(int a1, int a2, void* a3, unsigned int a4) { return sub_558090(*(uint32_t**)(a1 + 172), a2, a3, a4); }
 
 //----- (005589B0) --------------------------------------------------------
-uint32_t*  sub_5589B0(int a1, int a2, uint32_t* lpMem, size_t a4) {
+uint32_t* sub_5589B0(int a1, int a2, uint32_t* lpMem, size_t a4) {
 	uint32_t* result; // eax
 
 	switch (a2) {
@@ -2269,9 +2277,9 @@ uint32_t*  sub_5589B0(int a1, int a2, uint32_t* lpMem, size_t a4) {
 }
 
 //----- (00558A20) --------------------------------------------------------
-int  sub_558A20(int a1, int a2, void* a3, unsigned int a4) {
-	uint8_t* v4;  // esi
-	int result; // eax
+int sub_558A20(int a1, int a2, void* a3, unsigned int a4) {
+	uint8_t* v4; // esi
+	int result;  // eax
 
 	v4 = *(uint8_t**)(a1 + 172);
 	switch (a2) {
@@ -2300,8 +2308,8 @@ int  sub_558A20(int a1, int a2, void* a3, unsigned int a4) {
 // 558800: using guessed type int sub_558800(uint32_t);
 // 558810: using guessed type int sub_558810(uint32_t);
 
-char  sub_558AA0(uint32_t* a1, uint32_t* a2, unsigned int a3, unsigned int a4, signed int a5, signed int a6, int a7,
-						int a8, char a9) {
+char sub_558AA0(uint32_t* a1, uint32_t* a2, unsigned int a3, unsigned int a4, signed int a5, signed int a6, int a7,
+				int a8, char a9) {
 	abort();
 	return 0;
 }
@@ -2537,8 +2545,8 @@ char  sub_558AA0(uint32_t * a1, uint32_t * a2, unsigned int a3, unsigned int a4,
 }
 #endif
 
-void  sub_559030(int a1, int a2, unsigned int a3, unsigned int a4, int a5, int a6, int a7, int a8, int a9,
-						int a10, int a11, int a12) {
+void sub_559030(int a1, int a2, unsigned int a3, unsigned int a4, int a5, int a6, int a7, int a8, int a9, int a10,
+				int a11, int a12) {
 	abort();
 }
 
@@ -2697,13 +2705,13 @@ uint8_t* sub_559AD0(uint8_t* this) {
 
 //----- (00559AF0) --------------------------------------------------------
 char sub_559AF0(char* this, const char* lpFileName, int a3) {
-	char* v3;             // ebx
-	FILE* v4;             // eax
-	char result;          // al
-	unsigned int v6;      // eax
-	char* v7;             // edi
-	const char* v8;       // esi
-	char v9;              // cl
+	char* v3;        // ebx
+	FILE* v4;        // eax
+	char result;     // al
+	unsigned int v6; // eax
+	char* v7;        // edi
+	const char* v8;  // esi
+	char v9;         // cl
 
 	v3 = this;
 	if (a3)
@@ -2784,17 +2792,17 @@ int sub_559C30(uint8_t* this) {
 }
 
 //----- (00559C40) --------------------------------------------------------
-int  sub_559C40(int a1) {
+int sub_559C40(int a1) {
 	unsigned char* v1; // esi
-	int result;          // eax
-	unsigned int v3;     // ebx
-	unsigned int v4;     // eax
-	unsigned int v5;     // ecx
-	int v6;              // ecx
+	int result;        // eax
+	unsigned int v3;   // ebx
+	unsigned int v4;   // eax
+	unsigned int v5;   // ecx
+	int v6;            // ecx
 	unsigned short v7; // cx
-	unsigned int v8;     // eax
-	unsigned int v9;     // ett
-	unsigned int v10;    // ecx
+	unsigned int v8;   // eax
+	unsigned int v9;   // ett
+	unsigned int v10;  // ecx
 
 	v1 = getMemAt(0x5D4594, 2515988 + 200 * *(uint32_t*)(a1 + 52));
 	if (getMemByte(0x5D4594, 2516024 + 200 * *(uint32_t*)(a1 + 52)) & 1)
@@ -2829,8 +2837,8 @@ int  sub_559C40(int a1) {
 // 55A740: using guessed type int  sub_55A740(uint32_t);
 
 //----- (00559D00) --------------------------------------------------------
-int  sub_559D00(int a1, unsigned int a2, int a3) {
-	uint32_t* v3;                       // esi
+int sub_559D00(int a1, unsigned int a2, int a3) {
+	uint32_t* v3;                     // esi
 	unsigned int v4;                  // ebp
 	struct _RTL_CRITICAL_SECTION* v5; // ebx
 	int v6;                           // edx
@@ -2855,7 +2863,7 @@ int  sub_559D00(int a1, unsigned int a2, int a3) {
 	v14 = *(uint32_t*)(a1 + 56);
 	v16 = v6;
 	v9 = *(uint32_t*)(a3 + 92) * v7;
-	if (!v8 || (*(int(**)(int, unsigned int*, int*))(*(uint32_t*)v8 + 16))(v8, &a2, &v15))
+	if (!v8 || (*(int (**)(int, unsigned int*, int*))(*(uint32_t*)v8 + 16))(v8, &a2, &v15))
 		goto LABEL_10;
 	if (v16) {
 		v10 = a2;
@@ -2882,7 +2890,7 @@ LABEL_10:
 }
 
 //----- (00559DB0) --------------------------------------------------------
-int  sub_559DB0(uintptr_t dwUser, int a2, int a3, int a4) {
+int sub_559DB0(uintptr_t dwUser, int a2, int a3, int a4) {
 	int result; // eax
 
 	result = -1;
@@ -2920,16 +2928,16 @@ int  sub_559DB0(uintptr_t dwUser, int a2, int a3, int a4) {
 // 55A740: using guessed type int  sub_55A740(uint32_t);
 
 //----- (00559E80) --------------------------------------------------------
-int  sub_559E80(uintptr_t dwUser, int a2, int a3) {
+int sub_559E80(uintptr_t dwUser, int a2, int a3) {
 	int v3;                    // eax
-	unsigned char* v4;       // ecx
-	unsigned char* v5;       // esi
+	unsigned char* v4;         // ecx
+	unsigned char* v5;         // esi
 	int v6;                    // eax
 	int v7;                    // edx
 	unsigned int v8;           // ecx
 	MMRESULT v9;               // eax
-	short v10;               // dx
-	unsigned short v11;      // ax
+	short v10;                 // dx
+	unsigned short v11;        // ax
 	int result;                // eax
 	WAVEFORMATEX waveFormat;   // [esp+18h] [ebp-98h]
 	DSBUFFERDESC dsBufferDesc; // [esp+2Ch] [ebp-84h]
@@ -2957,9 +2965,8 @@ int  sub_559E80(uintptr_t dwUser, int a2, int a3) {
 	if (v6 == -1) {
 		v7 = *(uint32_t*)(dwUser + 112);
 		v8 = *(unsigned short*)(dwUser + 14);
-		*((uint16_t*)v5 + 4) = v7 == (unsigned short)v8
-								? *(uint16_t*)a2
-								: (unsigned short)(v7 * (unsigned int)*(unsigned short*)a2 / v8);
+		*((uint16_t*)v5 + 4) =
+			v7 == (unsigned short)v8 ? *(uint16_t*)a2 : (unsigned short)(v7 * (unsigned int)*(unsigned short*)a2 / v8);
 	} else {
 		*((uint16_t*)v5 + 4) = v6;
 	}
@@ -3012,7 +3019,7 @@ int  sub_559E80(uintptr_t dwUser, int a2, int a3) {
 // 5813EC: using guessed type uint32_t AIL_lock();
 
 //----- (0055A0C0) --------------------------------------------------------
-int  sub_55A0C0(int a1) {
+int sub_55A0C0(int a1) {
 	unsigned char* v1; // esi
 
 	v1 = getMemAt(0x5D4594, 2515988 + 200 * *(uint32_t*)(a1 + 52));
@@ -3029,24 +3036,24 @@ int  sub_55A0C0(int a1) {
 }
 
 //----- (0055A130) --------------------------------------------------------
-int  sub_55A130(int a1) {
-	unsigned char* v1;                             // esi
+int sub_55A130(int a1) {
+	unsigned char* v1;                               // esi
 	int v2;                                          // eax
 	LPDIRECTSOUNDBUFFER v3;                          // eax
 	int result;                                      // eax
 	LPDIRECTSOUNDBUFFER v5;                          // eax
 	LPDIRECTSOUNDBUFFER* v6;                         // ebx
-	unsigned short v7;                             // ax
-	short v8;                                      // dx
+	unsigned short v7;                               // ax
+	short v8;                                        // dx
 	int v9;                                          // ecx
-	unsigned short v10;                            // ax
+	unsigned short v10;                              // ax
 	LPDIRECTSOUNDBUFFER v11;                         // eax
 	struct _RTL_CRITICAL_SECTION* lpCriticalSection; // [esp+30h] [ebp-4h]
 
 	v1 = getMemAt(0x5D4594, 2515988 + 200 * *(uint32_t*)(a1 + 52));
 	v2 = *getMemU32Ptr(0x5D4594, 2516024 + 200 * *(uint32_t*)(a1 + 52));
 	if (v2 & 1 && (LOBYTE(v2) = v2 & 0xFE, *((uint32_t*)v1 + 9) = v2, (v3 = *((uint32_t*)v1 + 38)) != 0)) {
-		(*(void(**)(int, uint32_t, uint32_t, int))(*(uint32_t*)v3 + 48))(v3, 0, 0, 1);
+		(*(void (**)(int, uint32_t, uint32_t, int))(*(uint32_t*)v3 + 48))(v3, 0, 0, 1);
 		result = -1;
 	} else {
 		lpCriticalSection = (struct _RTL_CRITICAL_SECTION*)(v1 + 172);
@@ -3083,8 +3090,8 @@ int  sub_55A130(int a1) {
 		g_dsound->lpVtbl->CreateSoundBuffer(g_dsound, (LPCDSBUFFERDESC)(v1 + 96), (LPDIRECTSOUNDBUFFER*)(v1 + 152), 0);
 		AIL_unlock();
 		if (*v6) {
-			(*(void(**)(uint32_t)) getMemAt(0x5D4594, 2515980))(a1);
-			(*(void(**)(uint32_t)) getMemAt(0x5D4594, 2515980))(a1);
+			(*(void (**)(uint32_t))getMemAt(0x5D4594, 2515980))(a1);
+			(*(void (**)(uint32_t))getMemAt(0x5D4594, 2515980))(a1);
 			v11 = *v6;
 			*((uint32_t*)v1 + 16) = 0;
 			*((uint32_t*)v1 + 42) = 0;
@@ -3108,10 +3115,10 @@ int  sub_55A130(int a1) {
 // 5813EC: using guessed type uint32_t AIL_lock();
 
 //----- (0055A2E0) --------------------------------------------------------
-int  sub_55A2E0(int a1, int a2, int a3) {
+int sub_55A2E0(int a1, int a2, int a3) {
 	unsigned char* v3; // edi
-	int v4;              // esi
-	int v5;              // eax
+	int v4;            // esi
+	int v5;            // eax
 
 	v3 = getMemAt(0x5D4594, 2515988 + 200 * *(uint32_t*)(a1 + 52));
 	if (!a2)
@@ -3137,16 +3144,16 @@ int  sub_55A2E0(int a1, int a2, int a3) {
 // 5813EC: using guessed type uint32_t AIL_lock();
 
 //----- (0055A360) --------------------------------------------------------
-int  sub_55A360(int a1) {
+int sub_55A360(int a1) {
 	unsigned char* v1; // esi
-	int v2;              // eax
+	int v2;            // eax
 
 	v1 = getMemAt(0x5D4594, 2515988 + 200 * *(uint32_t*)(a1 + 52));
 	nox_mutex_lock(v1 + 172);
 	if (*(uint32_t*)v1) {
 		v2 = *((uint32_t*)v1 + 38);
 		if (v2)
-			(*(void(**)(uint32_t))(*(uint32_t*)v2 + 72))(*((uint32_t*)v1 + 38));
+			(*(void (**)(uint32_t))(*(uint32_t*)v2 + 72))(*((uint32_t*)v1 + 38));
 	}
 	*((uint32_t*)v1 + 9) |= 1u;
 	nox_mutex_unlock(v1 + 172);
@@ -3154,22 +3161,22 @@ int  sub_55A360(int a1) {
 }
 
 //----- (0055A3B0) --------------------------------------------------------
-int  sub_55A3B0(int a1) {
+int sub_55A3B0(int a1) {
 	int v1;     // eax
 	int result; // eax
 
 	if (!*getMemU32Ptr(0x5D4594, 2515988 + 200 * *(uint32_t*)(a1 + 52)) ||
 		(v1 = *getMemU32Ptr(0x5D4594, 2516140 + 200 * *(uint32_t*)(a1 + 52))) == 0 ||
-		(result = (*(int(**)(int, uint32_t, uint32_t, int))(*(uint32_t*)v1 + 48))(v1, 0, 0, 1)) != 0) {
+		(result = (*(int (**)(int, uint32_t, uint32_t, int))(*(uint32_t*)v1 + 48))(v1, 0, 0, 1)) != 0) {
 		result = -13;
 	}
 	return result;
 }
 
 //----- (0055A3F0) --------------------------------------------------------
-int  sub_55A3F0(int a1) {
+int sub_55A3F0(int a1) {
 	unsigned char* v1; // esi
-	int v2;              // eax
+	int v2;            // eax
 
 	v1 = getMemAt(0x5D4594, 2515988 + 200 * *(uint32_t*)(a1 + 52));
 	if (!*getMemU32Ptr(0x5D4594, 2516140 + 200 * *(uint32_t*)(a1 + 52)))
@@ -3177,8 +3184,8 @@ int  sub_55A3F0(int a1) {
 	nox_mutex_lock(v1 + 172);
 	v2 = *((uint32_t*)v1 + 38);
 	if (v2) {
-		(*(void(**)(uint32_t))(*(uint32_t*)v2 + 72))(*((uint32_t*)v1 + 38));
-		(*(void(**)(uint32_t))(**((uint32_t**)v1 + 38) + 8))(*((uint32_t*)v1 + 38));
+		(*(void (**)(uint32_t))(*(uint32_t*)v2 + 72))(*((uint32_t*)v1 + 38));
+		(*(void (**)(uint32_t))(**((uint32_t**)v1 + 38) + 8))(*((uint32_t*)v1 + 38));
 		*((uint32_t*)v1 + 38) = 0;
 	}
 	*((uint32_t*)v1 + 15) = 0;
@@ -3191,8 +3198,8 @@ int  sub_55A3F0(int a1) {
 
 //----- (0055A470) --------------------------------------------------------
 void fptc(unsigned int uTimerID, unsigned int uMsg, uint32_t dwUser, uint32_t dw1, uint32_t dw2) {
-	uint32_t v5;                              // ebp
-	unsigned char* v6;                   // esi
+	uint32_t v5;                           // ebp
+	unsigned char* v6;                     // esi
 	int v7;                                // eax
 	int v8;                                // edi
 	unsigned int v9;                       // eax
@@ -3201,7 +3208,7 @@ void fptc(unsigned int uTimerID, unsigned int uMsg, uint32_t dwUser, uint32_t dw
 	int v12;                               // [esp+28h] [ebp-14h]
 	int v13;                               // [esp+2Ch] [ebp-10h]
 	int v14;                               // [esp+30h] [ebp-Ch]
-	volatile int* lpAddend;               // [esp+34h] [ebp-8h]
+	volatile int* lpAddend;                // [esp+34h] [ebp-8h]
 	int v16;                               // [esp+38h] [ebp-4h]
 	struct _RTL_CRITICAL_SECTION* dwUsera; // [esp+48h] [ebp+Ch]
 
@@ -3215,37 +3222,38 @@ void fptc(unsigned int uTimerID, unsigned int uMsg, uint32_t dwUser, uint32_t dw
 	nox_mutex_lock(v6 + 172);
 	v7 = *((uint32_t*)v6 + 38);
 	if (!v7 || *((uint32_t*)v6 + 23) != uTimerID ||
-		((*(void(**)(int, int*))(*(uint32_t*)v7 + 36))(v7, &v13), !(v13 & 5))) {
+		((*(void (**)(int, int*))(*(uint32_t*)v7 + 36))(v7, &v13), !(v13 & 5))) {
 		nox_mutex_unlock(dwUsera);
 	LABEL_20:
 		InterlockedDecrement((volatile int*)v6 + 49);
 		return;
 	}
 	v8 = 0;
-	if ((*(int(**)(uint32_t, int*, int*))(**((uint32_t**)v6 + 38) + 16))(*((uint32_t*)v6 + 38), &v14, &v16) ==
+	if ((*(int (**)(uint32_t, int*, int*))(**((uint32_t**)v6 + 38) + 16))(*((uint32_t*)v6 + 38), &v14, &v16) ==
 		-2005401450) {
-		(*(void(**)(uint32_t))(**((uint32_t**)v6 + 38) + 80))(*((uint32_t*)v6 + 38));
-		(*(void(**)(uint32_t))(**((uint32_t**)v6 + 38) + 72))(*((uint32_t*)v6 + 38));
+		(*(void (**)(uint32_t))(**((uint32_t**)v6 + 38) + 80))(*((uint32_t*)v6 + 38));
+		(*(void (**)(uint32_t))(**((uint32_t**)v6 + 38) + 72))(*((uint32_t*)v6 + 38));
 		v8 = 1;
 		v12 = 1;
-		(*(void(**)(uint32_t, uint32_t))(**((uint32_t**)v6 + 38) + 52))(*((uint32_t*)v6 + 38), 0);
+		(*(void (**)(uint32_t, uint32_t))(**((uint32_t**)v6 + 38) + 52))(*((uint32_t*)v6 + 38), 0);
 		*((uint32_t*)v6 + 41) = 0;
 		*((uint32_t*)v6 + 42) = 0;
 	}
 	v9 = *((uint32_t*)v6 + 42);
 	if (v14 < v9 || (unsigned int)v14 >= *((uint32_t*)v6 + 39) >> 1 && !v9 || v8) {
-		(*(void(**)(uint32_t, uint32_t)) getMemAt(0x5D4594, 2515984))(v5, *(uint32_t*)&v6[4 * *((uint32_t*)v6 + 16) + 76]);
+		(*(void (**)(uint32_t, uint32_t))getMemAt(0x5D4594, 2515984))(v5,
+																	  *(uint32_t*)&v6[4 * *((uint32_t*)v6 + 16) + 76]);
 		v10 = *((uint32_t*)v6 + 16);
 		v11 = v10 + 1;
 		++*((uint32_t*)v6 + 40);
 		if (v10 + 1 >= 2)
 			v11 = 0;
 		*(uint32_t*)&v6[4 * v10 + 68] = 0;
-		(*(void(**)(uint32_t)) getMemAt(0x5D4594, 2515980))(v5);
+		(*(void (**)(uint32_t))getMemAt(0x5D4594, 2515980))(v5);
 		if (*(uint32_t*)&v6[4 * v11 + 68])
 			*((uint32_t*)v6 + 16) = v11;
 		if (v12)
-			(*(void(**)(uint32_t, uint32_t, uint32_t, int))(**((uint32_t**)v6 + 38) + 48))(*((uint32_t*)v6 + 38), 0, 0,
+			(*(void (**)(uint32_t, uint32_t, uint32_t, int))(**((uint32_t**)v6 + 38) + 48))(*((uint32_t*)v6 + 38), 0, 0,
 																							1);
 	}
 	nox_mutex_unlock(dwUsera);
@@ -3253,30 +3261,30 @@ void fptc(unsigned int uTimerID, unsigned int uMsg, uint32_t dwUser, uint32_t dw
 }
 
 //----- (0055A610) --------------------------------------------------------
-int  sub_55A610(char* a1) {
+int sub_55A610(char* a1) {
 	unsigned char* v1; // ebx
-	int result;          // eax
-	int v3;              // ecx
-	int v4;              // esi
-	int v5;              // ebp
-	unsigned int v6;     // ecx
-	unsigned int v7;     // eax
-	char* v8;            // esi
-	char* v9;            // edi
-	char* v10;           // esi
-	char* v11;           // edi
-	char* v12;           // edi
-	char* v13;           // esi
-	char v14;            // cl
-	char v15;            // al
-	unsigned int v16;    // ecx
-	int v17;             // eax
-	unsigned int v18;    // eax
-	unsigned int v19;    // ecx
-	unsigned int v20;    // [esp+28h] [ebp-10h]
-	void* v21;           // [esp+2Ch] [ebp-Ch]
-	int v22;             // [esp+30h] [ebp-8h]
-	int v23;             // [esp+34h] [ebp-4h]
+	int result;        // eax
+	int v3;            // ecx
+	int v4;            // esi
+	int v5;            // ebp
+	unsigned int v6;   // ecx
+	unsigned int v7;   // eax
+	char* v8;          // esi
+	char* v9;          // edi
+	char* v10;         // esi
+	char* v11;         // edi
+	char* v12;         // edi
+	char* v13;         // esi
+	char v14;          // cl
+	char v15;          // al
+	unsigned int v16;  // ecx
+	int v17;           // eax
+	unsigned int v18;  // eax
+	unsigned int v19;  // ecx
+	unsigned int v20;  // [esp+28h] [ebp-10h]
+	void* v21;         // [esp+2Ch] [ebp-Ch]
+	int v22;           // [esp+30h] [ebp-8h]
+	int v23;           // [esp+34h] [ebp-4h]
 
 	v1 = getMemAt(0x5D4594, 2515988 + 200 * *((uint32_t*)a1 + 13));
 	result = *getMemU32Ptr(0x5D4594, 2516140 + 200 * *((uint32_t*)a1 + 13));
@@ -3285,8 +3293,8 @@ int  sub_55A610(char* a1) {
 	v3 = *((uint32_t*)a1 + 39);
 	v4 = *(uint32_t*)result;
 	v23 = *((uint32_t*)v1 + 42);
-	if ((*(int(**)(int, int, int, void**, unsigned int*, char**, int*, uint32_t))(v4 + 44))(
-			result, v23, v3, &v21, &v20, &a1, &v22, 0)) {
+	if ((*(int (**)(int, int, int, void**, unsigned int*, char**, int*, uint32_t))(v4 + 44))(result, v23, v3, &v21,
+																							 &v20, &a1, &v22, 0)) {
 		return 0;
 	}
 	v5 = *((uint32_t*)v1 + 15);
@@ -3319,8 +3327,8 @@ int  sub_55A610(char* a1) {
 	v14 = v7;
 LABEL_10:
 	memcpy(v12, v13, v14 & 3);
-	(*(void(**)(uint32_t, void*, unsigned int, char*, int))(**((uint32_t**)v1 + 38) + 76))(*((uint32_t*)v1 + 38),
-																								v21, v20, a1, v22);
+	(*(void (**)(uint32_t, void*, unsigned int, char*, int))(**((uint32_t**)v1 + 38) + 76))(*((uint32_t*)v1 + 38), v21,
+																							v20, a1, v22);
 	v17 = v23;
 	*((uint32_t*)v1 + 41) = v23;
 	v18 = *(uint32_t*)&v1[4 * v5 + 84] + v17;
@@ -3335,13 +3343,13 @@ LABEL_10:
 int sub_55A750() { return 1; }
 
 //----- (0055A760) --------------------------------------------------------
-void  sub_55A760(void* a1) { memcpy(a1, getMemAt(0x587000, 300360), 0x88u); }
+void sub_55A760(void* a1) { memcpy(a1, getMemAt(0x587000, 300360), 0x88u); }
 
 //----- (0055A780) --------------------------------------------------------
-char*  sub_55A780(char* a1) { return sub_556A20(a1); }
+char* sub_55A780(char* a1) { return sub_556A20(a1); }
 
 //----- (0055A790) --------------------------------------------------------
-int  sub_55A790(int a1) {
+int sub_55A790(int a1) {
 	int result; // eax
 
 	for (result = 0; result < 768; ++result)
@@ -3350,34 +3358,34 @@ int  sub_55A790(int a1) {
 }
 
 //----- (0055A7B0) --------------------------------------------------------
-int  sub_55A7B0(int a1, int a2, uint32_t* a3) {
-	uint32_t* v3;                                  // esi
-	bool v4;                                     // zf
-	int result;                                  // eax
-	int( * v6)(uint32_t, int, uint32_t, int); // eax
-	uint16_t* v7;                                   // eax
-	uint16_t* v8;                                   // ebx
-	int v9;                                      // eax
-	int( * *v10)(int, int, char*, int);   // ebp
-	const char* v11;                             // esi
-	signed int v12;                              // ecx
-	int v13;                                     // edx
-	int v14;                                     // eax
-	uint16_t* v15;                                  // esi
-	int v16;                                     // eax
-	int v17;                                     // eax
-	int v18;                                     // eax
-	int v19;                                     // eax
-	int v20;                                     // eax
-	char v21;                                    // al
-	int v22;                                     // eax
-	int v23;                                     // eax
-	int v24;                                     // edx
-	int v25;                                     // eax
-	int v26;                                     // edx
-	int v27;                                     // eax
-	int v28;                                     // eax
-	unsigned char v29[8];                      // [esp+10h] [ebp-8h]
+int sub_55A7B0(int a1, int a2, uint32_t* a3) {
+	uint32_t* v3;                            // esi
+	bool v4;                                 // zf
+	int result;                              // eax
+	int (*v6)(uint32_t, int, uint32_t, int); // eax
+	uint16_t* v7;                            // eax
+	uint16_t* v8;                            // ebx
+	int v9;                                  // eax
+	int (**v10)(int, int, char*, int);       // ebp
+	const char* v11;                         // esi
+	signed int v12;                          // ecx
+	int v13;                                 // edx
+	int v14;                                 // eax
+	uint16_t* v15;                           // esi
+	int v16;                                 // eax
+	int v17;                                 // eax
+	int v18;                                 // eax
+	int v19;                                 // eax
+	int v20;                                 // eax
+	char v21;                                // al
+	int v22;                                 // eax
+	int v23;                                 // eax
+	int v24;                                 // edx
+	int v25;                                 // eax
+	int v26;                                 // edx
+	int v27;                                 // eax
+	int v28;                                 // eax
+	unsigned char v29[8];                    // [esp+10h] [ebp-8h]
 
 	v3 = (uint32_t*)a2;
 	v4 = a2 == 0;
@@ -3388,12 +3396,12 @@ int  sub_55A7B0(int a1, int a2, uint32_t* a3) {
 		return -15;
 	if (!v3[14])
 		return -16;
-	v6 = (int(*)(uint32_t, int, uint32_t, int))v3[1];
+	v6 = (int (*)(uint32_t, int, uint32_t, int))v3[1];
 	if (v6) {
 		v9 = v6(0, 2, 0, 2012);
 		v8 = (uint16_t*)v9;
 		if (v9) {
-			((void(*)(int, int, int, int))v3[1])(v9, 4, v9, 2012);
+			((void (*)(int, int, int, int))v3[1])(v9, 4, v9, 2012);
 			goto LABEL_12;
 		}
 		return -8;
@@ -3404,7 +3412,7 @@ int  sub_55A7B0(int a1, int a2, uint32_t* a3) {
 		return -8;
 	sub_562770((int)v7, 4, v7, 2012);
 LABEL_12:
-	v10 = (int(**)(int, int, char*, int))(v8 + 32);
+	v10 = (int (**)(int, int, char*, int))(v8 + 32);
 	memset(v8, 0, 0x7DCu);
 	*((uint32_t*)v8 + 12) = 2012;
 	memcpy(v8 + 32, v3, 0x88u);
@@ -3414,8 +3422,8 @@ LABEL_12:
 		*v10 = sub_562930;
 	v11 = (const char*)a1;
 	if ((*v10)((int)v8, 3, (char*)a1, 0)) {
-		(*((void(**)(uint16_t*, int, uint16_t*, int))v8 + 17))(v8, 5, v8, 2012);
-		(*((void(**)(uint16_t*, int, uint16_t*, uint32_t))v8 + 17))(v8, 3, v8, 0);
+		(*((void (**)(uint16_t*, int, uint16_t*, int))v8 + 17))(v8, 5, v8, 2012);
+		(*((void (**)(uint16_t*, int, uint16_t*, uint32_t))v8 + 17))(v8, 3, v8, 0);
 		return -3;
 	}
 	v12 = strlen(v11) - 31;
@@ -3555,7 +3563,7 @@ LABEL_12:
 		*((uint32_t*)v8 + 495) |= 0x40000000u;
 		sub_560860((int)(v8 + 1000));
 	} else if (*((uint32_t*)v8 + 22)) {
-		(*((void(**)(uint16_t*, int, uint32_t, uint32_t))v8 + 22))(v8, 1, 0, 0);
+		(*((void (**)(uint16_t*, int, uint32_t, uint32_t))v8 + 22))(v8, 1, 0, 0);
 	}
 	v22 = *((uint32_t*)v8 + 33);
 	if (v22 & 0x20) {
@@ -3563,7 +3571,7 @@ LABEL_12:
 			if ((*v10)((int)v8, 9, (char*)&a2, 0))
 				a2 = 0;
 			*((uint32_t*)v8 + 446) = sub_55BA80((int)v8, a2);
-			(*((void(**)(uint16_t*, int, int*, uint32_t))v8 + 17))(v8, 6, &a1, 0);
+			(*((void (**)(uint16_t*, int, int*, uint32_t))v8 + 17))(v8, 6, &a1, 0);
 			v23 = a1;
 			if (a1 < 0) {
 				v24 = (a2 <= 0) - 1;
@@ -3573,12 +3581,12 @@ LABEL_12:
 			if (*((uint32_t*)v8 + 446) > v23)
 				*((uint32_t*)v8 + 446) = v23;
 			if (*((uint32_t*)v8 + 446) > 0) {
-				v25 = (*((int(**)(uint16_t*, int, uint32_t, uint32_t))v8 + 17))(v8, 2, 0, *((uint32_t*)v8 + 446));
+				v25 = (*((int (**)(uint16_t*, int, uint32_t, uint32_t))v8 + 17))(v8, 2, 0, *((uint32_t*)v8 + 446));
 				*((uint32_t*)v8 + 445) = v25;
 				if (!v25)
 					goto LABEL_95;
-				(*((void(**)(uint16_t*, int, uint32_t, uint32_t))v8 + 17))(v8, 4, *((uint32_t*)v8 + 445),
-																		   *((uint32_t*)v8 + 446));
+				(*((void (**)(uint16_t*, int, uint32_t, uint32_t))v8 + 17))(v8, 4, *((uint32_t*)v8 + 445),
+																			*((uint32_t*)v8 + 446));
 				v26 = *((uint32_t*)v8 + 446) + *((uint32_t*)v8 + 12);
 				*((uint32_t*)v8 + 85) |= 4u;
 				*((uint32_t*)v8 + 12) = v26;
@@ -3611,7 +3619,7 @@ LABEL_12:
 }
 
 //----- (0055AE50) --------------------------------------------------------
-int  sub_55AE50(int a1) {
+int sub_55AE50(int a1) {
 	int v1; // eax
 
 	if (*(uint8_t*)(a1 + 132) & 1) {
@@ -3626,40 +3634,40 @@ int  sub_55AE50(int a1) {
 	if (*(uint8_t*)(a1 + 336) & 0x20) {
 		v1 = *(uint32_t*)(a1 + 344);
 		if (v1) {
-			(*(void(**)(int, int, int, int))(a1 + 68))(a1, 5, v1, *(uint32_t*)(a1 + 348) * *(uint32_t*)(a1 + 352));
-			(*(void(**)(int, int, uint32_t, uint32_t))(a1 + 68))(a1, 3, *(uint32_t*)(a1 + 344), 0);
+			(*(void (**)(int, int, int, int))(a1 + 68))(a1, 5, v1, *(uint32_t*)(a1 + 348) * *(uint32_t*)(a1 + 352));
+			(*(void (**)(int, int, uint32_t, uint32_t))(a1 + 68))(a1, 3, *(uint32_t*)(a1 + 344), 0);
 		}
 	}
 	sub_562120(a1);
-	(*(void(**)(int, int, uint32_t, uint32_t))(a1 + 64))(a1, 4, 0, 0);
-	(*(void(**)(int, int, int, int))(a1 + 68))(a1, 5, a1, 2012);
-	return (*(int(**)(int, int, int, uint32_t))(a1 + 68))(a1, 3, a1, 0);
+	(*(void (**)(int, int, uint32_t, uint32_t))(a1 + 64))(a1, 4, 0, 0);
+	(*(void (**)(int, int, int, int))(a1 + 68))(a1, 5, a1, 2012);
+	return (*(int (**)(int, int, int, uint32_t))(a1 + 68))(a1, 3, a1, 0);
 }
 
 //----- (0055AEF0) --------------------------------------------------------
-int  sub_55AEF0(int a1, int a2, char a3) {
-	int v3;                 // edi
-	int v4;                 // eax
-	int( * v5)(int); // eax
-	int v6;                 // eax
-	int v7;                 // edx
-	int v8;                 // eax
-	int v9;                 // eax
-	int v10;                // eax
-	int v11;                // eax
-	int v12;                // eax
-	int v13;                // eax
-	int v14;                // eax
-	int v15;                // eax
-	int v16;                // eax
-	int v17;                // eax
-	int v18;                // eax
-	int v19;                // eax
-	int v20;                // eax
-	int v21;                // eax
-	int v22;                // eax
-	int v23;                // eax
-	int v24;                // eax
+int sub_55AEF0(int a1, int a2, char a3) {
+	int v3;         // edi
+	int v4;         // eax
+	int (*v5)(int); // eax
+	int v6;         // eax
+	int v7;         // edx
+	int v8;         // eax
+	int v9;         // eax
+	int v10;        // eax
+	int v11;        // eax
+	int v12;        // eax
+	int v13;        // eax
+	int v14;        // eax
+	int v15;        // eax
+	int v16;        // eax
+	int v17;        // eax
+	int v18;        // eax
+	int v19;        // eax
+	int v20;        // eax
+	int v21;        // eax
+	int v22;        // eax
+	int v23;        // eax
+	int v24;        // eax
 
 	v3 = -1;
 	if (!(*(uint8_t*)(a1 + 336) & 8)) {
@@ -3676,7 +3684,7 @@ int  sub_55AEF0(int a1, int a2, char a3) {
 		LOBYTE(v4) = v4 | 8;
 		*(uint32_t*)(a1 + 336) = v4;
 	}
-	v5 = *(int(**)(int))(a1 + 84);
+	v5 = *(int (**)(int))(a1 + 84);
 	if (v5)
 		v6 = v5(a1);
 	else
@@ -3771,7 +3779,7 @@ int  sub_55AEF0(int a1, int a2, char a3) {
 			}
 			*(uint32_t*)(a1 + 420) = v15;
 		LABEL_50:
-			v16 = (*(int(**)(int))(a1 + 1916))(a1);
+			v16 = (*(int (**)(int))(a1 + 1916))(a1);
 			v3 = v16;
 			if (v16 == -1) {
 				if (!(*(uint8_t*)(a1 + 420) & 8))
@@ -3815,7 +3823,7 @@ int  sub_55AEF0(int a1, int a2, char a3) {
 		goto LABEL_80;
 	}
 	*(uint32_t*)(a1 + 420) |= 0x14u;
-	v21 = (*(int(**)(int))(a1 + 1916))(a1);
+	v21 = (*(int (**)(int))(a1 + 1916))(a1);
 	v3 = v21;
 	if (v21 != -1) {
 		if (v21 != -9)
@@ -3853,7 +3861,7 @@ LABEL_80:
 }
 
 //----- (0055B2D0) --------------------------------------------------------
-int  sub_55B2D0(int a1, int a2) {
+int sub_55B2D0(int a1, int a2) {
 	int v2;  // esi
 	int v3;  // ebp
 	char v4; // bl
@@ -3911,7 +3919,7 @@ int  sub_55B2D0(int a1, int a2) {
 }
 
 //----- (0055B430) --------------------------------------------------------
-int  sub_55B430(int a1, int a2, int a3) {
+int sub_55B430(int a1, int a2, int a3) {
 	if (a2)
 		*(uint32_t*)(a1 + 1924) = a2;
 	else
@@ -3925,7 +3933,7 @@ int  sub_55B430(int a1, int a2, int a3) {
 // 560840: using guessed type void  nullsub_31(uint32_t);
 
 //----- (0055B470) --------------------------------------------------------
-int  sub_55B470(int a1, int a2, unsigned int a3, unsigned int a4, unsigned int a5, int a6, int a7) {
+int sub_55B470(int a1, int a2, unsigned int a3, unsigned int a4, unsigned int a5, int a6, int a7) {
 	int v7;           // ecx
 	char v8;          // al
 	int v9;           // ebx
@@ -4038,11 +4046,11 @@ LABEL_33:
 }
 
 //----- (0055B690) --------------------------------------------------------
-int  sub_55B690(int a1, int a2, int a3, int a4) {
-	int v4;              // edx
+int sub_55B690(int a1, int a2, int a3, int a4) {
+	int v4;            // edx
 	unsigned short v5; // ax
-	int v6;              // ecx
-	int result;          // eax
+	int v6;            // ecx
+	int result;        // eax
 
 	if (a2 >= *(unsigned short*)(a1 + 1812) || a2 < 0 || *(uint8_t*)(a1 + 132) & 1 && !*(uint16_t*)(a1 + 1812))
 		return -23;
@@ -4057,7 +4065,7 @@ int  sub_55B690(int a1, int a2, int a3, int a4) {
 }
 
 //----- (0055B710) --------------------------------------------------------
-int  sub_55B710(int a1, int a2, int a3, int a4, int a5) {
+int sub_55B710(int a1, int a2, int a3, int a4, int a5) {
 	int v5;     // edx
 	int v6;     // edi
 	int result; // eax
@@ -4116,10 +4124,10 @@ int  sub_55B710(int a1, int a2, int a3, int a4, int a5) {
 }
 
 //----- (0055B820) --------------------------------------------------------
-uint32_t*  sub_55B820(int a1) {
+uint32_t* sub_55B820(int a1) {
 	unsigned short v1; // dx
-	int v2;              // esi
-	unsigned int v3;     // esi
+	int v2;            // esi
+	unsigned int v3;   // esi
 
 	v1 = *(uint16_t*)(a1 + 236);
 	*(uint32_t*)(a1 + 20) = 0;
@@ -4151,7 +4159,7 @@ uint32_t*  sub_55B820(int a1) {
 }
 
 //----- (0055B8D0) --------------------------------------------------------
-uint32_t*  sub_55B8D0(uint32_t* a1) {
+uint32_t* sub_55B8D0(uint32_t* a1) {
 	uint32_t* result; // eax
 
 	result = a1;
@@ -4162,7 +4170,7 @@ uint32_t*  sub_55B8D0(uint32_t* a1) {
 }
 
 //----- (0055B8F0) --------------------------------------------------------
-int  sub_55B8F0(int a1, int a2) {
+int sub_55B8F0(int a1, int a2) {
 	int result; // eax
 
 	result = -1;
@@ -4174,7 +4182,7 @@ int  sub_55B8F0(int a1, int a2) {
 }
 
 //----- (0055B930) --------------------------------------------------------
-int  sub_55B930(unsigned char* a1, uint32_t* a2, uint32_t* a3, uint32_t* a4) {
+int sub_55B930(unsigned char* a1, uint32_t* a2, uint32_t* a3, uint32_t* a4) {
 	int result; // eax
 
 	*a2 = a1[242];
@@ -4185,21 +4193,21 @@ int  sub_55B930(unsigned char* a1, uint32_t* a2, uint32_t* a3, uint32_t* a4) {
 }
 
 //----- (0055B970) --------------------------------------------------------
-int  sub_55B970(int a1) {
-	void( * v1)(int, int, uint32_t, uint32_t); // eax
-	uint32_t* v2;                                   // esi
-	int v3;                                       // ecx
-	int v4;                                       // eax
-	int v5;                                       // eax
-	int v6;                                       // eax
-	int v7;                                       // eax
-	int v8;                                       // eax
-	int result;                                   // eax
-	int v10;                                      // ecx
-	int v11;                                      // edx
-	int v12;                                      // edx
+int sub_55B970(int a1) {
+	void (*v1)(int, int, uint32_t, uint32_t); // eax
+	uint32_t* v2;                             // esi
+	int v3;                                   // ecx
+	int v4;                                   // eax
+	int v5;                                   // eax
+	int v6;                                   // eax
+	int v7;                                   // eax
+	int v8;                                   // eax
+	int result;                               // eax
+	int v10;                                  // ecx
+	int v11;                                  // edx
+	int v12;                                  // edx
 
-	v1 = *(void(**)(int, int, uint32_t, uint32_t))(a1 + 72);
+	v1 = *(void (**)(int, int, uint32_t, uint32_t))(a1 + 72);
 	v2 = *(uint32_t**)(a1 + 1756);
 	if (v1) {
 		v3 = v2[5];
@@ -4211,7 +4219,7 @@ int  sub_55B970(int a1) {
 		}
 		v5 = v2[5];
 		if (v5 & 0x200) {
-			(*(void(**)(int, int, uint32_t, uint32_t))(a1 + 72))(a1, 5, v2[7], *(uint32_t*)(a1 + 288));
+			(*(void (**)(int, int, uint32_t, uint32_t))(a1 + 72))(a1, 5, v2[7], *(uint32_t*)(a1 + 288));
 			v6 = v2[5];
 			BYTE1(v6) &= 0xFDu;
 			v2[5] = v6;
@@ -4224,7 +4232,7 @@ int  sub_55B970(int a1) {
 			v2[5] = v8;
 		}
 	}
-	result = (*(int(**)(int))(a1 + 1920))(a1);
+	result = (*(int (**)(int))(a1 + 1920))(a1);
 	*(uint32_t*)(a1 + 1760) = v2[7];
 	v10 = *(uint32_t*)(a1 + 420);
 	if (v10 & 8) {
@@ -4244,9 +4252,9 @@ int  sub_55B970(int a1) {
 }
 
 //----- (0055BA50) --------------------------------------------------------
-int  sub_55BA50(int a1) {
-	int result; // eax
-	int v2;     // edx
+int sub_55BA50(int a1) {
+	int result;   // eax
+	int v2;       // edx
 	uint32_t* v3; // ecx
 
 	result = 0;
@@ -4264,20 +4272,20 @@ int  sub_55BA50(int a1) {
 }
 
 //----- (0055BA80) --------------------------------------------------------
-int  sub_55BA80(int a1, int a2) {
-	int v2;               // edi
-	int result;           // eax
+int sub_55BA80(int a1, int a2) {
+	int v2;             // edi
+	int result;         // eax
 	unsigned short* v4; // ebx
-	int v5;               // eax
-	int v6;               // ecx
-	int v7;               // edx
-	int v8;               // esi
-	int v9;               // ecx
-	int v10;              // ecx
-	int v11;              // edx
-	int v12;              // ecx
-	int v13;              // [esp+4h] [ebp-4h]
-	int v14;              // [esp+Ch] [ebp+4h]
+	int v5;             // eax
+	int v6;             // ecx
+	int v7;             // edx
+	int v8;             // esi
+	int v9;             // ecx
+	int v10;            // ecx
+	int v11;            // edx
+	int v12;            // ecx
+	int v13;            // [esp+4h] [ebp-4h]
+	int v14;            // [esp+Ch] [ebp+4h]
 
 	v2 = a1;
 	result = 0;
@@ -4317,22 +4325,22 @@ int  sub_55BA80(int a1, int a2) {
 }
 
 //----- (0055BB30) --------------------------------------------------------
-int  sub_55BB30(int a1) {
-	int v1;     // ebx
-	int v2;     // edx
-	int v3;     // edi
+int sub_55BB30(int a1) {
+	int v1;   // ebx
+	int v2;   // edx
+	int v3;   // edi
 	short v4; // bx
-	int v5;     // eax
-	int v6;     // esi
-	int v7;     // edx
-	int v8;     // ecx
-	int v9;     // ebx
-	char v11;   // [esp+4h] [ebp-14h]
-	char v12;   // [esp+8h] [ebp-10h]
-	int v13;    // [esp+Ch] [ebp-Ch]
-	int i;      // [esp+10h] [ebp-8h]
+	int v5;   // eax
+	int v6;   // esi
+	int v7;   // edx
+	int v8;   // ecx
+	int v9;   // ebx
+	char v11; // [esp+4h] [ebp-14h]
+	char v12; // [esp+8h] [ebp-10h]
+	int v13;  // [esp+Ch] [ebp-Ch]
+	int i;    // [esp+10h] [ebp-8h]
 	short j;  // [esp+14h] [ebp-4h]
-	char v16;   // [esp+1Ch] [ebp+4h]
+	char v16; // [esp+1Ch] [ebp+4h]
 
 	v1 = 0;
 	*getMemU32Ptr(0x5D4594, 2516188) = operator_new(0x1FFFCu);
@@ -4396,8 +4404,8 @@ int sub_55BC60() {
 }
 
 //----- (0055BC80) --------------------------------------------------------
-unsigned short*  sub_55BC80(unsigned short* a1, int a2) {
-	int v2;                   // ecx
+unsigned short* sub_55BC80(unsigned short* a1, int a2) {
+	int v2;                 // ecx
 	unsigned short* result; // eax
 	unsigned short v4;      // dx
 
@@ -4415,65 +4423,65 @@ unsigned short*  sub_55BC80(unsigned short* a1, int a2) {
 }
 
 //----- (0055BCB0) --------------------------------------------------------
-char*  sub_55BCB0(int a1, unsigned short* a2, char* a3, int a4, int a5, int a6) {
-	unsigned int v6;       // edi
-	char* result;          // eax
+char* sub_55BCB0(int a1, unsigned short* a2, char* a3, int a4, int a5, int a6) {
+	unsigned int v6;     // edi
+	char* result;        // eax
 	unsigned short* v8;  // ebx
-	char* v9;              // ebp
-	char* v10;             // ecx
-	int v11;               // eax
-	int v12;               // esi
-	int v13;               // eax
-	unsigned int v14;      // esi
-	int* v15;              // eax
-	int v16;               // ecx
-	int* v17;              // eax
-	char* v18;             // edx
-	unsigned int v19;      // edi
-	int v20;               // ecx
-	uint32_t* v21;           // edx
-	unsigned int v22;      // edi
+	char* v9;            // ebp
+	char* v10;           // ecx
+	int v11;             // eax
+	int v12;             // esi
+	int v13;             // eax
+	unsigned int v14;    // esi
+	int* v15;            // eax
+	int v16;             // ecx
+	int* v17;            // eax
+	char* v18;           // edx
+	unsigned int v19;    // edi
+	int v20;             // ecx
+	uint32_t* v21;       // edx
+	unsigned int v22;    // edi
 	unsigned short v23;  // ax
-	unsigned int v24;      // edx
-	int v25;               // eax
-	unsigned int v26;      // ecx
+	unsigned int v24;    // edx
+	int v25;             // eax
+	unsigned int v26;    // ecx
 	short* v27;          // edi
-	char* v28;             // ebx
+	char* v28;           // ebx
 	short v29;           // cx
-	char* v30;             // eax
-	unsigned int v31;      // edx
-	int v32;               // esi
-	uint16_t* v33;            // eax
-	char* v34;             // ebx
-	char* v35;             // edx
-	int v36;               // edi
-	int v37;               // edi
-	unsigned int v38;      // ebx
-	uint32_t* v39;           // edx
+	char* v30;           // eax
+	unsigned int v31;    // edx
+	int v32;             // esi
+	uint16_t* v33;       // eax
+	char* v34;           // ebx
+	char* v35;           // edx
+	int v36;             // edi
+	int v37;             // edi
+	unsigned int v38;    // ebx
+	uint32_t* v39;       // edx
 	unsigned short* v40; // eax
-	int v41;               // esi
+	int v41;             // esi
 	unsigned short v42;  // cx
 	unsigned short v43;  // bp
 	unsigned short* v44; // eax
 	unsigned short v45;  // cx
 	unsigned short v46;  // bp
-	int v47;               // edi
+	int v47;             // edi
 	unsigned short v48;  // cx
-	int v49;               // edx
-	int v50;               // eax
-	uint32_t* v51;           // ecx
-	char* v52;             // [esp+Ch] [ebp-Ch]
-	char* v53;             // [esp+10h] [ebp-8h]
-	char* v54;             // [esp+14h] [ebp-4h]
-	int v55;               // [esp+20h] [ebp+8h]
+	int v49;             // edx
+	int v50;             // eax
+	uint32_t* v51;       // ecx
+	char* v52;           // [esp+Ch] [ebp-Ch]
+	char* v53;           // [esp+10h] [ebp-8h]
+	char* v54;           // [esp+14h] [ebp-4h]
+	int v55;             // [esp+20h] [ebp+8h]
 	unsigned short* v56; // [esp+24h] [ebp+Ch]
-	int v57;               // [esp+24h] [ebp+Ch]
-	int v58;               // [esp+24h] [ebp+Ch]
-	char* v59;             // [esp+2Ch] [ebp+14h]
-	int v60;               // [esp+2Ch] [ebp+14h]
-	int v61;               // [esp+2Ch] [ebp+14h]
-	unsigned int v62;      // [esp+2Ch] [ebp+14h]
-	unsigned int v63;      // [esp+30h] [ebp+18h]
+	int v57;             // [esp+24h] [ebp+Ch]
+	int v58;             // [esp+24h] [ebp+Ch]
+	char* v59;           // [esp+2Ch] [ebp+14h]
+	int v60;             // [esp+2Ch] [ebp+14h]
+	int v61;             // [esp+2Ch] [ebp+14h]
+	unsigned int v62;    // [esp+2Ch] [ebp+14h]
+	unsigned int v63;    // [esp+30h] [ebp+18h]
 
 	v6 = 2 * a6;
 	result = a3;
@@ -4677,65 +4685,65 @@ char*  sub_55BCB0(int a1, unsigned short* a2, char* a3, int a4, int a5, int a6) 
 }
 
 //----- (0055C050) --------------------------------------------------------
-int*  sub_55C050(int a1, unsigned short* a2, int* a3, int a4, int a5, int a6) {
-	unsigned int v6;       // edi
-	int* result;           // eax
+int* sub_55C050(int a1, unsigned short* a2, int* a3, int a4, int a5, int a6) {
+	unsigned int v6;     // edi
+	int* result;         // eax
 	unsigned short* v8;  // ebx
-	int* v9;               // ebp
-	int* v10;              // ecx
-	int v11;               // eax
-	int v12;               // esi
-	int v13;               // eax
-	unsigned int v14;      // esi
-	int* v15;              // eax
-	int v16;               // ecx
-	int* v17;              // eax
-	int* v18;              // edx
-	unsigned int v19;      // edi
-	int v20;               // ecx
-	uint32_t* v21;           // edx
-	unsigned int v22;      // edi
+	int* v9;             // ebp
+	int* v10;            // ecx
+	int v11;             // eax
+	int v12;             // esi
+	int v13;             // eax
+	unsigned int v14;    // esi
+	int* v15;            // eax
+	int v16;             // ecx
+	int* v17;            // eax
+	int* v18;            // edx
+	unsigned int v19;    // edi
+	int v20;             // ecx
+	uint32_t* v21;       // edx
+	unsigned int v22;    // edi
 	unsigned short v23;  // cx
-	unsigned int v24;      // edx
-	int v25;               // ecx
+	unsigned int v24;    // edx
+	int v25;             // ecx
 	short* v26;          // edi
-	int* v27;              // ebx
-	int v28;               // ebp
+	int* v27;            // ebx
+	int v28;             // ebp
 	short v29;           // cx
-	int* v30;              // eax
-	unsigned int v31;      // edx
-	bool v32;              // zf
-	int v33;               // esi
-	uint16_t* v34;            // eax
-	int* v35;              // ebx
-	int* v36;              // edx
-	int v37;               // edi
-	int v38;               // edi
-	int v39;               // esi
+	int* v30;            // eax
+	unsigned int v31;    // edx
+	bool v32;            // zf
+	int v33;             // esi
+	uint16_t* v34;       // eax
+	int* v35;            // ebx
+	int* v36;            // edx
+	int v37;             // edi
+	int v38;             // edi
+	int v39;             // esi
 	unsigned short* v40; // eax
-	int* v41;              // edx
+	int* v41;            // edx
 	unsigned short v42;  // cx
 	unsigned short v43;  // bx
 	unsigned short* v44; // eax
 	unsigned short v45;  // cx
 	unsigned short v46;  // bx
-	int v47;               // edi
+	int v47;             // edi
 	unsigned short v48;  // cx
-	int v49;               // edx
-	int v50;               // eax
-	int* v51;              // ecx
-	int* v52;              // [esp+Ch] [ebp-Ch]
-	int* v53;              // [esp+10h] [ebp-8h]
-	int* v54;              // [esp+14h] [ebp-4h]
-	int v55;               // [esp+20h] [ebp+8h]
-	int v56;               // [esp+24h] [ebp+Ch]
-	int v57;               // [esp+24h] [ebp+Ch]
-	int v58;               // [esp+24h] [ebp+Ch]
-	int v59;               // [esp+24h] [ebp+Ch]
-	int* v60;              // [esp+2Ch] [ebp+14h]
-	unsigned int v61;      // [esp+2Ch] [ebp+14h]
-	unsigned int v62;      // [esp+2Ch] [ebp+14h]
-	int v63;               // [esp+30h] [ebp+18h]
+	int v49;             // edx
+	int v50;             // eax
+	int* v51;            // ecx
+	int* v52;            // [esp+Ch] [ebp-Ch]
+	int* v53;            // [esp+10h] [ebp-8h]
+	int* v54;            // [esp+14h] [ebp-4h]
+	int v55;             // [esp+20h] [ebp+8h]
+	int v56;             // [esp+24h] [ebp+Ch]
+	int v57;             // [esp+24h] [ebp+Ch]
+	int v58;             // [esp+24h] [ebp+Ch]
+	int v59;             // [esp+24h] [ebp+Ch]
+	int* v60;            // [esp+2Ch] [ebp+14h]
+	unsigned int v61;    // [esp+2Ch] [ebp+14h]
+	unsigned int v62;    // [esp+2Ch] [ebp+14h]
+	int v63;             // [esp+30h] [ebp+18h]
 
 	v6 = 2 * a6;
 	result = a3;
@@ -4932,28 +4940,28 @@ int*  sub_55C050(int a1, unsigned short* a2, int* a3, int a4, int a5, int a6) {
 }
 
 //----- (0055C3F0) --------------------------------------------------------
-int*  sub_55C3F0(int a1, uint16_t* a2, int* a3, unsigned int a4, int a5, int a6) {
-	int* v6;               // edx
-	int v7;                // ebp
-	int v8;                // ecx
-	uint16_t* v9;             // esi
-	int* result;           // eax
-	int v11;               // ecx
-	uint16_t* v12;            // eax
-	int v13;               // ebx
-	int* v14;              // esi
-	int v15;               // edi
+int* sub_55C3F0(int a1, uint16_t* a2, int* a3, unsigned int a4, int a5, int a6) {
+	int* v6;             // edx
+	int v7;              // ebp
+	int v8;              // ecx
+	uint16_t* v9;        // esi
+	int* result;         // eax
+	int v11;             // ecx
+	uint16_t* v12;       // eax
+	int v13;             // ebx
+	int* v14;            // esi
+	int v15;             // edi
 	unsigned short* v16; // eax
-	int v17;               // esi
+	int v17;             // esi
 	unsigned short v18;  // cx
 	unsigned short v19;  // bx
 	unsigned short* v20; // eax
 	unsigned short v21;  // cx
 	unsigned short v22;  // bx
-	int* v23;              // [esp+8h] [ebp-4h]
-	int v24;               // [esp+18h] [ebp+Ch]
-	int* v25;              // [esp+20h] [ebp+14h]
-	int* v26;              // [esp+24h] [ebp+18h]
+	int* v23;            // [esp+8h] [ebp-4h]
+	int v24;             // [esp+18h] [ebp+Ch]
+	int* v25;            // [esp+20h] [ebp+14h]
+	int* v26;            // [esp+24h] [ebp+18h]
 
 	v6 = a3;
 	v7 = 2 * a6;
@@ -5025,72 +5033,72 @@ int*  sub_55C3F0(int a1, uint16_t* a2, int* a3, unsigned int a4, int a5, int a6)
 }
 
 //----- (0055C530) --------------------------------------------------------
-unsigned int  sub_55C530(int a1, uint16_t* a2, int* a3, unsigned int a4, int a5, int a6) {
-	unsigned int v6;       // ebx
-	int v7;                // ecx
-	int* v8;               // esi
-	uint16_t* v9;             // edi
-	unsigned int result;   // eax
-	unsigned int v11;      // ecx
+unsigned int sub_55C530(int a1, uint16_t* a2, int* a3, unsigned int a4, int a5, int a6) {
+	unsigned int v6;     // ebx
+	int v7;              // ecx
+	int* v8;             // esi
+	uint16_t* v9;        // edi
+	unsigned int result; // eax
+	unsigned int v11;    // ecx
 	unsigned char* v12;  // edi
-	int v13;               // ecx
-	int* v14;              // edi
+	int v13;             // ecx
+	int* v14;            // edi
 	unsigned short* v15; // ecx
-	unsigned int v16;      // ebx
-	int v17;               // eax
+	unsigned int v16;    // ebx
+	int v17;             // eax
 	unsigned short v18;  // dx
 	unsigned short v19;  // bp
 	unsigned short* v20; // ecx
 	unsigned short v21;  // dx
 	unsigned short v22;  // bp
 	unsigned char* v23;  // ecx
-	int v24;               // ebx
-	int* v25;              // edx
+	int v24;             // ebx
+	int* v25;            // edx
 	unsigned short* v26; // eax
-	int v27;               // edi
+	int v27;             // edi
 	unsigned short v28;  // cx
 	unsigned short v29;  // bp
 	unsigned short* v30; // eax
 	unsigned short v31;  // cx
 	unsigned short v32;  // bp
-	int v33;               // edx
+	int v33;             // edx
 	unsigned short* v34; // eax
-	int v35;               // edx
+	int v35;             // edx
 	unsigned short v36;  // cx
 	unsigned short v37;  // bp
 	unsigned short* v38; // eax
 	unsigned short v39;  // cx
 	unsigned short v40;  // bp
-	int v41;               // ebx
+	int v41;             // ebx
 	short* v42;          // eax
-	int* v43;              // ebp
+	int* v43;            // ebp
 	short v44;           // dx
-	int* v45;              // ecx
-	int v46;               // edi
-	int v47;               // edx
-	int* v48;              // ecx
-	int v49;               // eax
-	int* v50;              // ecx
-	int* v51;              // edi
-	int v52;               // ebp
-	int v53;               // eax
-	uint32_t* v54;           // edi
-	int v55;               // ebp
-	uint16_t* v56;            // eax
-	int v57;               // ebp
-	int* v58;              // edx
-	int v59;               // edi
-	int* v60;              // [esp+Ch] [ebp-Ch]
-	int* v61;              // [esp+10h] [ebp-8h]
-	unsigned int v62;      // [esp+14h] [ebp-4h]
-	int v63;               // [esp+20h] [ebp+8h]
-	unsigned int v64;      // [esp+24h] [ebp+Ch]
-	int v65;               // [esp+24h] [ebp+Ch]
-	int v66;               // [esp+24h] [ebp+Ch]
-	int v67;               // [esp+24h] [ebp+Ch]
-	int v68;               // [esp+2Ch] [ebp+14h]
-	unsigned int v69;      // [esp+2Ch] [ebp+14h]
-	int v70;               // [esp+30h] [ebp+18h]
+	int* v45;            // ecx
+	int v46;             // edi
+	int v47;             // edx
+	int* v48;            // ecx
+	int v49;             // eax
+	int* v50;            // ecx
+	int* v51;            // edi
+	int v52;             // ebp
+	int v53;             // eax
+	uint32_t* v54;       // edi
+	int v55;             // ebp
+	uint16_t* v56;       // eax
+	int v57;             // ebp
+	int* v58;            // edx
+	int v59;             // edi
+	int* v60;            // [esp+Ch] [ebp-Ch]
+	int* v61;            // [esp+10h] [ebp-8h]
+	unsigned int v62;    // [esp+14h] [ebp-4h]
+	int v63;             // [esp+20h] [ebp+8h]
+	unsigned int v64;    // [esp+24h] [ebp+Ch]
+	int v65;             // [esp+24h] [ebp+Ch]
+	int v66;             // [esp+24h] [ebp+Ch]
+	int v67;             // [esp+24h] [ebp+Ch]
+	int v68;             // [esp+2Ch] [ebp+14h]
+	unsigned int v69;    // [esp+2Ch] [ebp+14h]
+	int v70;             // [esp+30h] [ebp+18h]
 
 	v6 = 2 * a6;
 	v7 = 2 * a6 * a5;
@@ -5331,26 +5339,26 @@ uint32_t nox_xxx_unknown_libname_15_55C920() { return sub_55C900((uint32_t*)getM
 uint32_t sub_55C930() { return 3 * sub_55C900((uint32_t*)getMemAt(0x5D4594, 2516192)) / 0x32; }
 
 //----- (0055C950) --------------------------------------------------------
-short  sub_55C950(int a1, uint8_t* a2, int* a3, int a4, int a5, int a6) {
+short sub_55C950(int a1, uint8_t* a2, int* a3, int a4, int a5, int a6) {
 	uint8_t* v6;  // esi
-	int* v7;    // edi
-	int v8;     // ecx
-	int v9;     // ebx
-	int* v10;   // ebx
-	int v11;    // edx
-	int v12;    // edx
-	int v13;    // edx
-	int v14;    // ebx
-	int v15;    // eax
-	int v16;    // edx
-	int v17;    // ebx
-	int v18;    // ebx
-	int v19;    // ebx
-	int* v21;   // [esp+8h] [ebp-10h]
-	int v22;    // [esp+Ch] [ebp-Ch]
-	int* v23;   // [esp+10h] [ebp-8h]
+	int* v7;      // edi
+	int v8;       // ecx
+	int v9;       // ebx
+	int* v10;     // ebx
+	int v11;      // edx
+	int v12;      // edx
+	int v13;      // edx
+	int v14;      // ebx
+	int v15;      // eax
+	int v16;      // edx
+	int v17;      // ebx
+	int v18;      // ebx
+	int v19;      // ebx
+	int* v21;     // [esp+8h] [ebp-10h]
+	int v22;      // [esp+Ch] [ebp-Ch]
+	int* v23;     // [esp+10h] [ebp-8h]
 	uint8_t* v24; // [esp+14h] [ebp-4h]
-	int v25;    // [esp+34h] [ebp+1Ch]
+	int v25;      // [esp+34h] [ebp+1Ch]
 
 	v25 = 2 * a6;
 	v22 = v25;
@@ -5416,21 +5424,21 @@ short  sub_55C950(int a1, uint8_t* a2, int* a3, int a4, int a5, int a6) {
 }
 
 //----- (0055CA59) --------------------------------------------------------
-short  sub_55CA59(int a1, uint8_t* a2, int* a3, int a4, int a5, int a6) {
+short sub_55CA59(int a1, uint8_t* a2, int* a3, int a4, int a5, int a6) {
 	uint8_t* v6;  // esi
-	int* v7;    // edi
-	int v8;     // ecx
-	int v9;     // ebx
-	int* v10;   // ebx
-	int v11;    // edx
-	int v12;    // eax
-	int v13;    // edx
-	int v14;    // ebx
-	int v15;    // ebx
-	int v17;    // [esp+Ch] [ebp-Ch]
-	int* v18;   // [esp+10h] [ebp-8h]
+	int* v7;      // edi
+	int v8;       // ecx
+	int v9;       // ebx
+	int* v10;     // ebx
+	int v11;      // edx
+	int v12;      // eax
+	int v13;      // edx
+	int v14;      // ebx
+	int v15;      // ebx
+	int v17;      // [esp+Ch] [ebp-Ch]
+	int* v18;     // [esp+10h] [ebp-8h]
 	uint8_t* v19; // [esp+14h] [ebp-4h]
-	int v20;    // [esp+34h] [ebp+1Ch]
+	int v20;      // [esp+34h] [ebp+1Ch]
 
 	v20 = 2 * a6;
 	v17 = v20;
@@ -5483,28 +5491,28 @@ short  sub_55CA59(int a1, uint8_t* a2, int* a3, int a4, int a5, int a6) {
 }
 
 //----- (0055CB20) --------------------------------------------------------
-int  sub_55CB20(int a1, char a2) {
-	int v2;                                              // esi
-	int v3;                                              // ebp
-	char v4;                                             // al
-	int v5;                                              // ecx
-	int v6;                                              // ebx
-	int v7;                                              // eax
-	int v8;                                              // ebx
-	int v9;                                              // edi
-	int v10;                                             // eax
-	uint32_t* v11;                                         // ecx
-	int v12;                                             // edi
-	int v13;                                             // edi
-	int( * v14)(uint32_t*, int, void*, signed int); // eax
-	int result;                                          // eax
-	int v16;                                             // eax
-	uint32_t* i;                                           // [esp+10h] [ebp-14h]
-	int v18;                                             // [esp+14h] [ebp-10h]
-	int v19;                                             // [esp+18h] [ebp-Ch]
-	int v20;                                             // [esp+1Ch] [ebp-8h]
-	int v21;                                             // [esp+20h] [ebp-4h]
-	char v22;                                            // [esp+28h] [ebp+4h]
+int sub_55CB20(int a1, char a2) {
+	int v2;                                        // esi
+	int v3;                                        // ebp
+	char v4;                                       // al
+	int v5;                                        // ecx
+	int v6;                                        // ebx
+	int v7;                                        // eax
+	int v8;                                        // ebx
+	int v9;                                        // edi
+	int v10;                                       // eax
+	uint32_t* v11;                                 // ecx
+	int v12;                                       // edi
+	int v13;                                       // edi
+	int (*v14)(uint32_t*, int, void*, signed int); // eax
+	int result;                                    // eax
+	int v16;                                       // eax
+	uint32_t* i;                                   // [esp+10h] [ebp-14h]
+	int v18;                                       // [esp+14h] [ebp-10h]
+	int v19;                                       // [esp+18h] [ebp-Ch]
+	int v20;                                       // [esp+1Ch] [ebp-8h]
+	int v21;                                       // [esp+20h] [ebp-4h]
+	char v22;                                      // [esp+28h] [ebp+4h]
 
 	v2 = a1;
 	v3 = 0;
@@ -5540,7 +5548,7 @@ int  sub_55CB20(int a1, char a2) {
 			v11 = (uint32_t*)(v5 + 4 * v9);
 			for (i = v11;; v11 = i) {
 				if (v9 >= *(int*)(v2 + 16) - 1) {
-					if ((*(int(**)(int, int, int*, uint32_t))(v2 + 64))(v2, 9, &v19, 0))
+					if ((*(int (**)(int, int, int*, uint32_t))(v2 + 64))(v2, 9, &v19, 0))
 						break;
 					v10 = *(uint32_t*)(v2 + 300);
 					v8 += v19 - 2 * (*(uint32_t*)(v18 + 4 * v10) & 0xFFFFFFF);
@@ -5569,16 +5577,16 @@ int  sub_55CB20(int a1, char a2) {
 			v12 = 2 * (*(uint32_t*)(v5 + 4 * v6 + 4) & 0xFFFFFFF);
 			goto LABEL_32;
 		}
-		if (!(*(int(**)(int, int, int*, uint32_t))(v2 + 64))(v2, 9, &v19, 0)) {
+		if (!(*(int (**)(int, int, int*, uint32_t))(v2 + 64))(v2, 9, &v19, 0)) {
 			v12 = v19;
 		LABEL_32:
 			v13 = v12 - v3;
 			if (v13 > 0) {
-				v14 = *(int(**)(uint32_t*, int, void*, signed int))(v2 + 64);
+				v14 = *(int (**)(uint32_t*, int, void*, signed int))(v2 + 64);
 				if (v14 != sub_562A90)
 					v14((uint32_t*)v2, 7, 0, v3);
-				if ((*(int(**)(int, int, int, int))(v2 + 64))(
-						v2, 5, *(uint32_t*)(v2 + 1780) + *(uint32_t*)(v2 + 1796), v13)) {
+				if ((*(int (**)(int, int, int, int))(v2 + 64))(v2, 5, *(uint32_t*)(v2 + 1780) + *(uint32_t*)(v2 + 1796),
+															   v13)) {
 					return -4;
 				}
 				*(uint32_t*)(v2 + 1792) += v13;
@@ -5604,10 +5612,10 @@ LABEL_40:
 }
 
 //----- (0055CDB0) --------------------------------------------------------
-int  sub_55CDB0(int a1, char a2) {
+int sub_55CDB0(int a1, char a2) {
 	int v2;           // esi
 	int v3;           // eax
-	uint32_t* v4;       // edx
+	uint32_t* v4;     // edx
 	int v5;           // ecx
 	int v6;           // ebp
 	int v7;           // edi
@@ -5636,7 +5644,7 @@ int  sub_55CDB0(int a1, char a2) {
 	int v30;          // eax
 	int v31;          // eax
 	int v32;          // eax
-	uint32_t* v33;      // eax
+	uint32_t* v33;    // eax
 	int v34;          // edx
 	int v35;          // eax
 	int v36;          // eax
@@ -5644,10 +5652,10 @@ int  sub_55CDB0(int a1, char a2) {
 	int v38;          // ecx
 	int v39;          // eax
 	int v40;          // eax
-	uint32_t* v41;      // ecx
+	uint32_t* v41;    // ecx
 	char v42;         // [esp+13h] [ebp-5h]
 	int v43;          // [esp+14h] [ebp-4h]
-	uint32_t* v44;      // [esp+1Ch] [ebp+4h]
+	uint32_t* v44;    // [esp+1Ch] [ebp+4h]
 
 	v2 = a1;
 	v3 = *(uint32_t*)(a1 + 132);
@@ -5719,7 +5727,7 @@ int  sub_55CDB0(int a1, char a2) {
 		while (1) {
 			while (1) {
 				if (!(*(uint8_t*)(v2 + 336) & 1)) {
-					if ((*(int(**)(int, int, int, int))(v2 + 64))(v2, 5, v2 + 408, 8))
+					if ((*(int (**)(int, int, int, int))(v2 + 64))(v2, 5, v2 + 408, 8))
 						return -2;
 					*getMemU32Ptr(0x5D4594, 2516196) =
 						((*(uint32_t*)(v2 + 412) & 0xFF00 | (*(uint32_t*)(v2 + 412) << 16)) << 8) |
@@ -5869,7 +5877,7 @@ int  sub_55CDB0(int a1, char a2) {
 					LABEL_152:
 						v37 = *getMemU32Ptr(0x5D4594, 2516196) + 1;
 						LOBYTE(v37) = (getMemByte(0x5D4594, 2516196) + 1) & 0xFE;
-						if ((*(int(**)(int, int, int, int))(v2 + 64))(v2, 7, 1, v37))
+						if ((*(int (**)(int, int, int, int))(v2 + 64))(v2, 7, 1, v37))
 							return -6;
 						if (v43) {
 						LABEL_159:
@@ -6030,7 +6038,7 @@ int  sub_55CDB0(int a1, char a2) {
 }
 
 //----- (0055D6F0) --------------------------------------------------------
-int  sub_55D6F0(int a1) {
+int sub_55D6F0(int a1) {
 	int i;      // edi
 	int result; // eax
 
@@ -6046,8 +6054,8 @@ int  sub_55D6F0(int a1) {
 }
 
 //----- (0055D740) --------------------------------------------------------
-unsigned int  sub_55D740(int a1, int a2) {
-	uint32_t* v2;          // edx
+unsigned int sub_55D740(int a1, int a2) {
+	uint32_t* v2;        // edx
 	unsigned int v3;     // ecx
 	unsigned int result; // eax
 
@@ -6066,7 +6074,7 @@ unsigned int  sub_55D740(int a1, int a2) {
 }
 
 //----- (0055D770) --------------------------------------------------------
-int  sub_55D770(int a1, int a2, int a3) {
+int sub_55D770(int a1, int a2, int a3) {
 	int v3;           // edi
 	int v4;           // edx
 	int v5;           // eax
@@ -6091,7 +6099,7 @@ int  sub_55D770(int a1, int a2, int a3) {
 	if (v9 >= *v6)
 		v9 = 0;
 	v6[1] = v9;
-	if ((*(int(**)(int, int, int, unsigned int))(v3 + 64))(v3, 5, v13, (a2 + 1) & 0xFFFFFFFE))
+	if ((*(int (**)(int, int, int, unsigned int))(v3 + 64))(v3, 5, v13, (a2 + 1) & 0xFFFFFFFE))
 		return -4;
 	v11 = *(uint32_t*)(v3 + 368);
 	v12 = *(uint32_t*)(v11 + 20);
@@ -6101,8 +6109,8 @@ int  sub_55D770(int a1, int a2, int a3) {
 }
 
 //----- (0055D800) --------------------------------------------------------
-unsigned int  sub_55D800(int a1, int a2) {
-	uint32_t* v2;          // edx
+unsigned int sub_55D800(int a1, int a2) {
+	uint32_t* v2;        // edx
 	unsigned int v3;     // ecx
 	unsigned int result; // eax
 
@@ -6121,7 +6129,7 @@ unsigned int  sub_55D800(int a1, int a2) {
 }
 
 //----- (0055D830) --------------------------------------------------------
-int  sub_55D830(int a1, int a2, int a3) {
+int sub_55D830(int a1, int a2, int a3) {
 	int v3;           // edi
 	int v4;           // edx
 	int v5;           // eax
@@ -6146,7 +6154,7 @@ int  sub_55D830(int a1, int a2, int a3) {
 	if (v9 >= *v6)
 		v9 = 0;
 	v6[1] = v9;
-	if ((*(int(**)(int, int, int, unsigned int))(v3 + 64))(v3, 5, v13, (a2 + 1) & 0xFFFFFFFE))
+	if ((*(int (**)(int, int, int, unsigned int))(v3 + 64))(v3, 5, v13, (a2 + 1) & 0xFFFFFFFE))
 		return -4;
 	v11 = *(uint32_t*)(v3 + 368);
 	v12 = *(uint32_t*)(v11 + 20);
@@ -6156,10 +6164,10 @@ int  sub_55D830(int a1, int a2, int a3) {
 }
 
 //----- (0055D8C0) --------------------------------------------------------
-char  sub_55D8C0(int a1, int a2) {
-	int v3;               // eax
+char sub_55D8C0(int a1, int a2) {
+	int v3;             // eax
 	unsigned short* v4; // edx
-	int v5;               // ecx
+	int v5;             // ecx
 
 	if (!a2)
 		return 1;
@@ -6183,17 +6191,17 @@ char  sub_55D8C0(int a1, int a2) {
 }
 
 //----- (0055D910) --------------------------------------------------------
-int  sub_55D910(int a1, int a2, int a3) {
-	int v3;      // esi
-	int v4;      // edx
-	int v5;      // eax
-	int v6;      // ebx
-	int v7;      // edi
-	int v8;      // ecx
-	int v9;      // eax
+int sub_55D910(int a1, int a2, int a3) {
+	int v3;        // esi
+	int v4;        // edx
+	int v5;        // eax
+	int v6;        // ebx
+	int v7;        // edi
+	int v8;        // ecx
+	int v9;        // eax
 	uint32_t* v10; // ecx
-	int v12;     // [esp+Ch] [ebp-8h]
-	int v13;     // [esp+10h] [ebp-4h]
+	int v12;       // [esp+Ch] [ebp-8h]
+	int v13;       // [esp+10h] [ebp-4h]
 
 	v3 = a1;
 	v4 = -1;
@@ -6251,7 +6259,7 @@ int  sub_55D910(int a1, int a2, int a3) {
 	}
 	if (v7 < 0)
 		return v12;
-	if ((*(int(**)(int, int, uint32_t, int))(v3 + 64))(
+	if ((*(int (**)(int, int, uint32_t, int))(v3 + 64))(
 			v3, 7, 0, 2 * (*(uint32_t*)(*(uint32_t*)(v3 + 1892) + 4 * v7) & 0xFFFFFFF))) {
 		return -6;
 	}
@@ -6267,11 +6275,11 @@ int  sub_55D910(int a1, int a2, int a3) {
 }
 
 //----- (0055DA90) --------------------------------------------------------
-int  sub_55DA90(int a1, int a2, uint32_t* a3, uint32_t* a4) {
-	int v4;               // edx
-	int v5;               // ebx
-	int v6;               // ecx
-	int result;           // eax
+int sub_55DA90(int a1, int a2, uint32_t* a3, uint32_t* a4) {
+	int v4;             // edx
+	int v5;             // ebx
+	int v6;             // ecx
+	int result;         // eax
 	unsigned short* v8; // esi
 
 	v4 = 1;
@@ -6303,37 +6311,37 @@ int  sub_55DA90(int a1, int a2, uint32_t* a3, uint32_t* a4) {
 }
 
 //----- (0055DB20) --------------------------------------------------------
-int  sub_55DB20(uint32_t* a1, int a2, int a3, char a4, char a5, char* a6) {
-	uint32_t* v6;           // esi
-	int v7;               // ebp
-	int v8;               // eax
-	int v9;               // ebx
-	int v10;              // ecx
-	int v11;              // eax
-	int v12;              // eax
-	int v13;              // eax
-	int v14;              // ecx
-	int v15;              // eax
-	int v16;              // ebp
+int sub_55DB20(uint32_t* a1, int a2, int a3, char a4, char a5, char* a6) {
+	uint32_t* v6;       // esi
+	int v7;             // ebp
+	int v8;             // eax
+	int v9;             // ebx
+	int v10;            // ecx
+	int v11;            // eax
+	int v12;            // eax
+	int v13;            // eax
+	int v14;            // ecx
+	int v15;            // eax
+	int v16;            // ebp
 	unsigned short v17; // ax
-	int v18;              // edi
-	int v19;              // eax
-	int v20;              // ecx
-	int v21;              // edx
-	int v22;              // ecx
-	int v23;              // eax
-	int v24;              // eax
-	int result;           // eax
-	bool v26;             // zf
-	int v27;              // edi
-	int v28;              // ebp
-	bool v29;             // cc
-	int v30;              // [esp+10h] [ebp-Ch]
-	int v31;              // [esp+14h] [ebp-8h]
-	int v32;              // [esp+18h] [ebp-4h]
-	char v33;             // [esp+20h] [ebp+4h]
-	int v34;              // [esp+28h] [ebp+Ch]
-	int v35;              // [esp+34h] [ebp+18h]
+	int v18;            // edi
+	int v19;            // eax
+	int v20;            // ecx
+	int v21;            // edx
+	int v22;            // ecx
+	int v23;            // eax
+	int v24;            // eax
+	int result;         // eax
+	bool v26;           // zf
+	int v27;            // edi
+	int v28;            // ebp
+	bool v29;           // cc
+	int v30;            // [esp+10h] [ebp-Ch]
+	int v31;            // [esp+14h] [ebp-8h]
+	int v32;            // [esp+18h] [ebp-4h]
+	char v33;           // [esp+20h] [ebp+4h]
+	int v34;            // [esp+28h] [ebp+Ch]
+	int v35;            // [esp+34h] [ebp+18h]
 
 	v6 = a1;
 	v32 = 0;
@@ -6458,7 +6466,7 @@ int  sub_55DB20(uint32_t* a1, int a2, int a3, char a4, char a5, char* a6) {
 			result = -1;
 		return result;
 	}
-	if (((int(*)(uint32_t*, int, uint32_t, int))v6[16])(v6, 7, 0, 2 * (*(uint32_t*)(v6[473] + 4 * v9) & 0xFFFFFFF)))
+	if (((int (*)(uint32_t*, int, uint32_t, int))v6[16])(v6, 7, 0, 2 * (*(uint32_t*)(v6[473] + 4 * v9) & 0xFFFFFFF)))
 		return -6;
 	result = -1;
 	v26 = v32 == 0;
@@ -6509,7 +6517,7 @@ int  sub_55DB20(uint32_t* a1, int a2, int a3, char a4, char a5, char* a6) {
 }
 
 //----- (0055DF50) --------------------------------------------------------
-int  sub_55DF50(int a1, int a2, int a3) {
+int sub_55DF50(int a1, int a2, int a3) {
 	int v3;     // edi
 	char v4;    // bl
 	int v5;     // eax
@@ -6524,13 +6532,12 @@ int  sub_55DF50(int a1, int a2, int a3) {
 		if (v6 + *(uint32_t*)(a1 + 1788) <= 2 * (*(uint32_t*)(v5 + 4 * *(uint32_t*)(a1 + 300)) & 0xFFFFFFF))
 			v4 = 1;
 		*(uint32_t*)(a1 + 1796) = 0;
-	} else if ((*(int(**)(int, int, uint32_t, int))(a1 + 64))(a1, 7, 0,
-																   2 * (*(uint32_t*)(v5 + 4 * a2) & 0xFFFFFFF))) {
+	} else if ((*(int (**)(int, int, uint32_t, int))(a1 + 64))(a1, 7, 0, 2 * (*(uint32_t*)(v5 + 4 * a2) & 0xFFFFFFF))) {
 		return -6;
 	}
 	if (a2 > 0 && (!(a3 & 0x10) || !(*(uint8_t*)(a1 + 234) & 0x10)) && (v3 = sub_55CB20(a1, a3 | 6), v3 != -1) || !v4 ||
-		(v7 = (*(int(**)(int, int, uint32_t, int))(a1 + 64))(a1, 8, 0,
-																  *(uint32_t*)(a1 + 1788) + *(uint32_t*)(a1 + 1792)) == 0,
+		(v7 = (*(int (**)(int, int, uint32_t, int))(a1 + 64))(a1, 8, 0,
+															  *(uint32_t*)(a1 + 1788) + *(uint32_t*)(a1 + 1792)) == 0,
 		 result = -6, v7)) {
 		result = v3;
 	}
@@ -6538,7 +6545,7 @@ int  sub_55DF50(int a1, int a2, int a3) {
 }
 
 //----- (0055E030) --------------------------------------------------------
-int  sub_55E030(int a1, int a2) {
+int sub_55E030(int a1, int a2) {
 	int result; // eax
 	char v3;    // al
 	char v4;    // [esp+Bh] [ebp-1h]
@@ -6546,7 +6553,8 @@ int  sub_55E030(int a1, int a2) {
 	v4 = 0;
 	if (*(uint8_t*)(*(uint32_t*)(a1 + 368) + 20) & 1)
 		return -9;
-	if (a2 >= *(int*)(a1 + 284) || !*(uint32_t*)(a1 + 1892) || *(uint8_t*)(a1 + 132) & 1 && !(*(uint8_t*)(a1 + 234) & 8))
+	if (a2 >= *(int*)(a1 + 284) || !*(uint32_t*)(a1 + 1892) ||
+		*(uint8_t*)(a1 + 132) & 1 && !(*(uint8_t*)(a1 + 234) & 8))
 		return -6;
 	if (*(uint8_t*)(a1 + 264) || sub_55D8C0(a1, a2) || (result = sub_55D910(a1, a2, 1), result == -1))
 		result = sub_55DB20((uint32_t*)a1, a2, *(unsigned char*)(a1 + 245), 0, 0, &v4);
@@ -6561,7 +6569,7 @@ int  sub_55E030(int a1, int a2) {
 }
 
 //----- (0055E100) --------------------------------------------------------
-int  sub_55E100(int a1, int a2, char a3) {
+int sub_55E100(int a1, int a2, char a3) {
 	int v3;           // esi
 	unsigned int v4;  // ebp
 	unsigned int* v5; // edi
@@ -6580,7 +6588,7 @@ int  sub_55E100(int a1, int a2, char a3) {
 	if (!v12)
 		return -1;
 	while (1) {
-		if ((*(int(**)(int, int, unsigned int*, int))(v3 + 64))(v3, 5, v5, 8))
+		if ((*(int (**)(int, int, unsigned int*, int))(v3 + 64))(v3, 5, v5, 8))
 			return -2;
 		v6 = ((v5[1] & 0xFF00 | (v5[1] << 16)) << 8) | (((v5[1] >> 16) | v5[1] & 0xFF0000) >> 8);
 		v4 += ((v6 + 1) & 0xFFFFFFFE) + 8;
@@ -6692,31 +6700,31 @@ int  sub_55E100(int a1, int a2, char a3) {
 		goto LABEL_57;
 	}
 LABEL_56:
-	if (!(*(int(**)(int, int, int, unsigned int))(v3 + 64))(v3, 7, 1, (v6 + 1) & 0xFFFFFFFE))
+	if (!(*(int (**)(int, int, int, unsigned int))(v3 + 64))(v3, 7, 1, (v6 + 1) & 0xFFFFFFFE))
 		goto LABEL_57;
 	return -6;
 }
 
 //----- (0055E3D0) --------------------------------------------------------
-int  sub_55E3D0(int a1, int a2) {
+int sub_55E3D0(int a1, int a2) {
 	int v2; // eax
 	int v3; // eax
 
 	v2 = a2 + 1;
 	LOBYTE(v2) = (a2 + 1) & 0xFE;
-	v3 = -((*(int(**)(int, int, int, int))(a1 + 64))(a1, 5, a1 + 274, v2) != 0);
+	v3 = -((*(int (**)(int, int, int, int))(a1 + 64))(a1, 5, a1 + 274, v2) != 0);
 	LOBYTE(v3) = v3 & 0xFD;
 	return v3 - 1;
 }
 
 //----- (0055E400) --------------------------------------------------------
-int  sub_55E400(int a1) {
-	int result;            // eax
-	int v2;                // edi
-	int v3;                // eax
+int sub_55E400(int a1) {
+	int result;          // eax
+	int v2;              // edi
+	int v3;              // eax
 	unsigned char v4[8]; // [esp+8h] [ebp-8h]
 
-	if ((*(int(**)(int, int, unsigned char*, int))(a1 + 64))(a1, 5, v4, 8))
+	if ((*(int (**)(int, int, unsigned char*, int))(a1 + 64))(a1, 5, v4, 8))
 		return -2;
 	if (*(uint32_t*)v4 != 1213090124)
 		return -4;
@@ -6726,13 +6734,13 @@ int  sub_55E400(int a1) {
 	if (!*(uint16_t*)(a1 + 1812))
 		goto LABEL_19;
 	v2 = 4 * *(unsigned short*)(a1 + 1812);
-	v3 = (*(int(**)(int, int, uint32_t, int))(a1 + 68))(a1, 2, 0, 4 * *(unsigned short*)(a1 + 1812));
+	v3 = (*(int (**)(int, int, uint32_t, int))(a1 + 68))(a1, 2, 0, 4 * *(unsigned short*)(a1 + 1812));
 	*(uint32_t*)(a1 + 1820) = v3;
 	if (!v3)
 		return -8;
-	(*(void(**)(int, int, int, int))(a1 + 68))(a1, 4, v3, v2);
+	(*(void (**)(int, int, int, int))(a1 + 68))(a1, 4, v3, v2);
 	*(uint32_t*)(a1 + 48) += v2;
-	if ((*(int(**)(int, int, unsigned char*, int))(a1 + 64))(a1, 5, v4, 8))
+	if ((*(int (**)(int, int, unsigned char*, int))(a1 + 64))(a1, 5, v4, 8))
 		return -2;
 	if (*(uint32_t*)v4 != 1145981260)
 		return -4;
@@ -6746,44 +6754,44 @@ int  sub_55E400(int a1) {
 }
 
 //----- (0055E550) --------------------------------------------------------
-int  sub_55E550(int a1, int a2) {
+int sub_55E550(int a1, int a2) {
 	int v2; // eax
 	int v3; // eax
 
 	v2 = a2 + 1;
 	LOBYTE(v2) = (a2 + 1) & 0xFE;
-	v3 = -((*(int(**)(int, int, int, int))(a1 + 64))(a1, 5, a1 + 1812, v2) != 0);
+	v3 = -((*(int (**)(int, int, int, int))(a1 + 64))(a1, 5, a1 + 1812, v2) != 0);
 	LOBYTE(v3) = v3 & 0xFD;
 	return v3 - 1;
 }
 
 //----- (0055E580) --------------------------------------------------------
-int  sub_55E580(int a1, int a2) {
+int sub_55E580(int a1, int a2) {
 	int v2; // eax
 	int v3; // eax
 
 	v2 = a2 + 1;
 	LOBYTE(v2) = (a2 + 1) & 0xFE;
-	v3 = -((*(int(**)(int, int, uint32_t, int))(a1 + 64))(a1, 5, *(uint32_t*)(a1 + 1820), v2) != 0);
+	v3 = -((*(int (**)(int, int, uint32_t, int))(a1 + 64))(a1, 5, *(uint32_t*)(a1 + 1820), v2) != 0);
 	LOBYTE(v3) = v3 & 0xFD;
 	return v3 - 1;
 }
 
 //----- (0055E5B0) --------------------------------------------------------
-int  sub_55E5B0(int a1) {
-	int result;             // eax
-	int v2;                 // eax
-	int v3;                 // edi
-	int v4;                 // eax
-	int v5;                 // edi
-	int v6;                 // edi
-	int v7;                 // eax
-	unsigned int v8;        // ebx
-	int v9;                 // eax
-	int v10;                // edi
+int sub_55E5B0(int a1) {
+	int result;           // eax
+	int v2;               // eax
+	int v3;               // edi
+	int v4;               // eax
+	int v5;               // edi
+	int v6;               // edi
+	int v7;               // eax
+	unsigned int v8;      // ebx
+	int v9;               // eax
+	int v10;              // edi
 	unsigned char v11[8]; // [esp+Ch] [ebp-8h]
 
-	if ((*(int(**)(int, int, unsigned char*, int))(a1 + 64))(a1, 5, v11, 8))
+	if ((*(int (**)(int, int, unsigned char*, int))(a1 + 64))(a1, 5, v11, 8))
 		return -2;
 	if (*(uint32_t*)v11 != 1212368461)
 		return -4;
@@ -6793,13 +6801,13 @@ int  sub_55E5B0(int a1) {
 	v2 = *(uint32_t*)(a1 + 1824);
 	if (v2) {
 		v3 = 24 * v2;
-		v4 = (*(int(**)(int, int, uint32_t, int))(a1 + 68))(a1, 2, 0, 24 * v2);
+		v4 = (*(int (**)(int, int, uint32_t, int))(a1 + 68))(a1, 2, 0, 24 * v2);
 		*(uint32_t*)(a1 + 1840) = v4;
 		if (!v4)
 			return -8;
-		(*(void(**)(int, int, int, int))(a1 + 68))(a1, 4, v4, v3);
+		(*(void (**)(int, int, int, int))(a1 + 68))(a1, 4, v4, v3);
 		*(uint32_t*)(a1 + 48) += v3;
-		if ((*(int(**)(int, int, unsigned char*, int))(a1 + 64))(a1, 5, v11, 8))
+		if ((*(int (**)(int, int, unsigned char*, int))(a1 + 64))(a1, 5, v11, 8))
 			return -2;
 		if (*(uint32_t*)v11 != 1145259597)
 			return -4;
@@ -6811,13 +6819,13 @@ int  sub_55E5B0(int a1) {
 	if (!v5)
 		goto LABEL_34;
 	v6 = 16 * v5;
-	v7 = (*(int(**)(int, int, uint32_t, int))(a1 + 68))(a1, 2, 0, v6);
+	v7 = (*(int (**)(int, int, uint32_t, int))(a1 + 68))(a1, 2, 0, v6);
 	*(uint32_t*)(a1 + 1844) = v7;
 	if (!v7)
 		return -8;
-	(*(void(**)(int, int, int, int))(a1 + 68))(a1, 4, v7, v6);
+	(*(void (**)(int, int, int, int))(a1 + 68))(a1, 4, v7, v6);
 	*(uint32_t*)(a1 + 48) += v6;
-	if ((*(int(**)(int, int, unsigned char*, int))(a1 + 64))(a1, 5, v11, 8))
+	if ((*(int (**)(int, int, unsigned char*, int))(a1 + 64))(a1, 5, v11, 8))
 		return -2;
 	if (*(uint32_t*)v11 != 1413695053)
 		return -4;
@@ -6828,11 +6836,11 @@ LABEL_34:
 	v8 = *(uint32_t*)(a1 + 1828);
 	if (!v8)
 		return -1;
-	v9 = (*(int(**)(int, int, uint32_t, unsigned int))(a1 + 68))(a1, 2, 0, 12 * v8);
+	v9 = (*(int (**)(int, int, uint32_t, unsigned int))(a1 + 68))(a1, 2, 0, 12 * v8);
 	*(uint32_t*)(a1 + 1848) = v9;
 	if (!v9)
 		return -8;
-	(*(void(**)(int, int, int, unsigned int))(a1 + 68))(a1, 4, v9, 12 * v8);
+	(*(void (**)(int, int, int, unsigned int))(a1 + 68))(a1, 4, v9, 12 * v8);
 	v10 = 0;
 	*(uint32_t*)(a1 + 48) += 12 * v8;
 	while (1) {
@@ -6846,53 +6854,53 @@ LABEL_34:
 }
 
 //----- (0055E820) --------------------------------------------------------
-int  sub_55E820(int a1, int a2) {
+int sub_55E820(int a1, int a2) {
 	int v2; // eax
 	int v3; // eax
 
 	v2 = a2 + 1;
 	LOBYTE(v2) = (a2 + 1) & 0xFE;
-	v3 = -((*(int(**)(int, int, int, int))(a1 + 64))(a1, 5, a1 + 1824, v2) != 0);
+	v3 = -((*(int (**)(int, int, int, int))(a1 + 64))(a1, 5, a1 + 1824, v2) != 0);
 	LOBYTE(v3) = v3 & 0xFD;
 	return v3 - 1;
 }
 
 //----- (0055E850) --------------------------------------------------------
-int  sub_55E850(int a1, int a2) {
+int sub_55E850(int a1, int a2) {
 	int v2; // eax
 	int v3; // eax
 
 	v2 = a2 + 1;
 	LOBYTE(v2) = (a2 + 1) & 0xFE;
-	v3 = -((*(int(**)(int, int, uint32_t, int))(a1 + 64))(a1, 5, *(uint32_t*)(a1 + 1840), v2) != 0);
+	v3 = -((*(int (**)(int, int, uint32_t, int))(a1 + 64))(a1, 5, *(uint32_t*)(a1 + 1840), v2) != 0);
 	LOBYTE(v3) = v3 & 0xFD;
 	return v3 - 1;
 }
 
 //----- (0055E880) --------------------------------------------------------
-int  sub_55E880(int a1, int a2) {
+int sub_55E880(int a1, int a2) {
 	int v2; // eax
 	int v3; // eax
 
 	v2 = a2 + 1;
 	LOBYTE(v2) = (a2 + 1) & 0xFE;
-	v3 = -((*(int(**)(int, int, uint32_t, int))(a1 + 64))(a1, 5, *(uint32_t*)(a1 + 1844), v2) != 0);
+	v3 = -((*(int (**)(int, int, uint32_t, int))(a1 + 64))(a1, 5, *(uint32_t*)(a1 + 1844), v2) != 0);
 	LOBYTE(v3) = v3 & 0xFD;
 	return v3 - 1;
 }
 
 //----- (0055E8B0) --------------------------------------------------------
-int  sub_55E8B0(int a1) {
-	int result;            // eax
-	int v2;                // eax
-	int v3;                // edi
-	int v4;                // eax
-	unsigned int v5;       // ebx
-	int v6;                // eax
-	int v7;                // edi
+int sub_55E8B0(int a1) {
+	int result;          // eax
+	int v2;              // eax
+	int v3;              // edi
+	int v4;              // eax
+	unsigned int v5;     // ebx
+	int v6;              // eax
+	int v7;              // edi
 	unsigned char v8[8]; // [esp+Ch] [ebp-8h]
 
-	if ((*(int(**)(int, int, unsigned char*, int))(a1 + 64))(a1, 5, v8, 8))
+	if ((*(int (**)(int, int, unsigned char*, int))(a1 + 64))(a1, 5, v8, 8))
 		return -2;
 	if (*(uint32_t*)v8 != 1212371789)
 		return -4;
@@ -6903,13 +6911,13 @@ int  sub_55E8B0(int a1) {
 	if (!v2)
 		goto LABEL_25;
 	v3 = 16 * v2;
-	v4 = (*(int(**)(int, int, uint32_t, int))(a1 + 68))(a1, 2, 0, 16 * v2);
+	v4 = (*(int (**)(int, int, uint32_t, int))(a1 + 68))(a1, 2, 0, 16 * v2);
 	*(uint32_t*)(a1 + 1860) = v4;
 	if (!v4)
 		return -8;
-	(*(void(**)(int, int, int, int))(a1 + 68))(a1, 4, v4, v3);
+	(*(void (**)(int, int, int, int))(a1 + 68))(a1, 4, v4, v3);
 	*(uint32_t*)(a1 + 48) += v3;
-	if ((*(int(**)(int, int, unsigned char*, int))(a1 + 64))(a1, 5, v8, 8))
+	if ((*(int (**)(int, int, unsigned char*, int))(a1 + 64))(a1, 5, v8, 8))
 		return -2;
 	if (*(uint32_t*)v8 != 1413698381)
 		return -4;
@@ -6920,11 +6928,11 @@ LABEL_25:
 	v5 = *(uint32_t*)(a1 + 1852);
 	if (!v5)
 		return -1;
-	v6 = (*(int(**)(int, int, uint32_t, unsigned int))(a1 + 68))(a1, 2, 0, 12 * v5);
+	v6 = (*(int (**)(int, int, uint32_t, unsigned int))(a1 + 68))(a1, 2, 0, 12 * v5);
 	*(uint32_t*)(a1 + 1864) = v6;
 	if (!v6)
 		return -8;
-	(*(void(**)(int, int, int, unsigned int))(a1 + 68))(a1, 4, v6, 12 * v5);
+	(*(void (**)(int, int, int, unsigned int))(a1 + 68))(a1, 4, v6, 12 * v5);
 	v7 = 0;
 	*(uint32_t*)(a1 + 48) += 12 * v5;
 	while (1) {
@@ -6938,32 +6946,32 @@ LABEL_25:
 }
 
 //----- (0055EA60) --------------------------------------------------------
-int  sub_55EA60(int a1, int a2) {
+int sub_55EA60(int a1, int a2) {
 	int v2; // eax
 	int v3; // eax
 
 	v2 = a2 + 1;
 	LOBYTE(v2) = (a2 + 1) & 0xFE;
-	v3 = -((*(int(**)(int, int, int, int))(a1 + 64))(a1, 5, a1 + 1852, v2) != 0);
+	v3 = -((*(int (**)(int, int, int, int))(a1 + 64))(a1, 5, a1 + 1852, v2) != 0);
 	LOBYTE(v3) = v3 & 0xFD;
 	return v3 - 1;
 }
 
 //----- (0055EA90) --------------------------------------------------------
-int  sub_55EA90(int a1, int a2) {
+int sub_55EA90(int a1, int a2) {
 	int v2; // eax
 	int v3; // eax
 
 	v2 = a2 + 1;
 	LOBYTE(v2) = (a2 + 1) & 0xFE;
-	v3 = -((*(int(**)(int, int, uint32_t, int))(a1 + 64))(a1, 5, *(uint32_t*)(a1 + 1860), v2) != 0);
+	v3 = -((*(int (**)(int, int, uint32_t, int))(a1 + 64))(a1, 5, *(uint32_t*)(a1 + 1860), v2) != 0);
 	LOBYTE(v3) = v3 & 0xFD;
 	return v3 - 1;
 }
 
 //----- (0055EAC0) --------------------------------------------------------
-int  sub_55EAC0(uint32_t* a1, int a2) {
-	uint32_t* v2;       // esi
+int sub_55EAC0(uint32_t* a1, int a2) {
+	uint32_t* v2;     // esi
 	int v3;           // ecx
 	int* v4;          // eax
 	int v5;           // ebp
@@ -6991,19 +6999,19 @@ int  sub_55EAC0(uint32_t* a1, int a2) {
 		v9 = (signed int*)(v5 + 12 * a2);
 		*v9 = v6;
 		v9[1] = 0;
-		v10 = ((int(*)(uint32_t*, int, uint32_t, int))v2[17])(v2, 2, 0, 12 * v6);
+		v10 = ((int (*)(uint32_t*, int, uint32_t, int))v2[17])(v2, 2, 0, 12 * v6);
 		v16 = v10;
 		if (!v10)
 			return -8;
-		((void(*)(uint32_t*, int, int, int))v2[17])(v2, 4, v10, 12 * v7);
+		((void (*)(uint32_t*, int, int, int))v2[17])(v2, 4, v10, 12 * v7);
 		v2[12] += v8;
 		v12 = v7 * ((v15 + 1) & 0xFFFFFFFE);
 		v9[2] = v16;
-		v13 = ((int(*)(uint32_t*, int, uint32_t, unsigned int))v2[17])(v2, 2, 0, v7 * ((v15 + 1) & 0xFFFFFFFE));
+		v13 = ((int (*)(uint32_t*, int, uint32_t, unsigned int))v2[17])(v2, 2, 0, v7 * ((v15 + 1) & 0xFFFFFFFE));
 		v17 = v13;
 		if (!v13)
 			return -8;
-		((void(*)(uint32_t*, int, int, unsigned int))v2[17])(v2, 4, v13, v12);
+		((void (*)(uint32_t*, int, int, unsigned int))v2[17])(v2, 4, v13, v12);
 		v2[12] += v12;
 		if (v7 > 0) {
 			v14 = 0;
@@ -7020,7 +7028,7 @@ int  sub_55EAC0(uint32_t* a1, int a2) {
 }
 
 //----- (0055EBD0) --------------------------------------------------------
-unsigned int  sub_55EBD0(int a1, int a2, int a3, unsigned int a4) {
+unsigned int sub_55EBD0(int a1, int a2, int a3, unsigned int a4) {
 	unsigned int v5; // esi
 
 	if (!a4)
@@ -7032,10 +7040,10 @@ unsigned int  sub_55EBD0(int a1, int a2, int a3, unsigned int a4) {
 }
 
 //----- (0055EC10) --------------------------------------------------------
-char  sub_55EC10(int a1, int a2, unsigned int a3) {
+char sub_55EC10(int a1, int a2, unsigned int a3) {
 	unsigned int v3;   // edx
 	int v4;            // ebx
-	uint16_t* i;          // ebp
+	uint16_t* i;       // ebp
 	int v6;            // esi
 	unsigned int* v7;  // edi
 	unsigned int v8;   // ecx
@@ -7090,11 +7098,11 @@ char  sub_55EC10(int a1, int a2, unsigned int a3) {
 }
 
 //----- (0055ECE0) --------------------------------------------------------
-int  sub_55ECE0(uint32_t* a1, int a2) {
-	uint32_t* v2;      // esi
+int sub_55ECE0(uint32_t* a1, int a2) {
+	uint32_t* v2;    // esi
 	int v3;          // ebx
 	int v4;          // ebp
-	uint32_t* v5;      // ebp
+	uint32_t* v5;    // ebp
 	int v6;          // eax
 	unsigned int v8; // edi
 	int v9;          // eax
@@ -7111,19 +7119,19 @@ int  sub_55ECE0(uint32_t* a1, int a2) {
 		v5 = (uint32_t*)(v4 + 12 * a2);
 		*v5 = v3;
 		v5[1] = 0;
-		v6 = ((int(*)(uint32_t*, int, uint32_t, int))v2[17])(v2, 2, 0, 12 * v3);
+		v6 = ((int (*)(uint32_t*, int, uint32_t, int))v2[17])(v2, 2, 0, 12 * v3);
 		v12 = v6;
 		if (!v6)
 			return -8;
-		((void(*)(uint32_t*, int, int, int))v2[17])(v2, 4, v6, 12 * v3);
+		((void (*)(uint32_t*, int, int, int))v2[17])(v2, 4, v6, 12 * v3);
 		v2[12] += 12 * v3;
 		v5[2] = v12;
 		v8 = v3 * ((v11 + 1) & 0xFFFFFFFE);
-		v9 = ((int(*)(uint32_t*, int, uint32_t, unsigned int))v2[17])(v2, 2, 0, v3 * ((v11 + 1) & 0xFFFFFFFE));
+		v9 = ((int (*)(uint32_t*, int, uint32_t, unsigned int))v2[17])(v2, 2, 0, v3 * ((v11 + 1) & 0xFFFFFFFE));
 		v13 = v9;
 		if (!v9)
 			return -8;
-		((void(*)(uint32_t*, int, int, unsigned int))v2[17])(v2, 4, v9, v8);
+		((void (*)(uint32_t*, int, int, unsigned int))v2[17])(v2, 4, v9, v8);
 		v2[12] += v8;
 		v10 = 0;
 		do {
@@ -7138,14 +7146,14 @@ int  sub_55ECE0(uint32_t* a1, int a2) {
 }
 
 //----- (0055EDD0) --------------------------------------------------------
-int  sub_55EDD0(int a1, int a2, uint32_t* a3, uint32_t* a4) {
-	int v4;               // edx
-	int v5;               // ebx
-	int v6;               // ecx
-	int result;           // eax
+int sub_55EDD0(int a1, int a2, uint32_t* a3, uint32_t* a4) {
+	int v4;             // edx
+	int v5;             // ebx
+	int v6;             // ecx
+	int result;         // eax
 	unsigned short* v8; // esi
-	int v9;               // ecx
-	int v10;              // edx
+	int v9;             // ecx
+	int v10;            // edx
 
 	v4 = 1;
 	v5 = *(uint32_t*)(a1 + 1876);
@@ -7179,13 +7187,13 @@ int  sub_55EDD0(int a1, int a2, uint32_t* a3, uint32_t* a4) {
 }
 
 //----- (0055EE60) --------------------------------------------------------
-int  sub_55EE60(int a1) {
-	int result;            // eax
-	int v2;                // edi
-	int v3;                // eax
+int sub_55EE60(int a1) {
+	int result;          // eax
+	int v2;              // edi
+	int v3;              // eax
 	unsigned char v4[8]; // [esp+8h] [ebp-8h]
 
-	if ((*(int(**)(int, int, unsigned char*, int))(a1 + 64))(a1, 5, v4, 8))
+	if ((*(int (**)(int, int, unsigned char*, int))(a1 + 64))(a1, 5, v4, 8))
 		return -2;
 	if (*(uint32_t*)v4 != 1213090115)
 		return -4;
@@ -7195,13 +7203,13 @@ int  sub_55EE60(int a1) {
 	if (*(uint8_t*)(a1 + 245) || !*(uint16_t*)(a1 + 1868))
 		goto LABEL_20;
 	v2 = 6 * *(unsigned short*)(a1 + 1868);
-	v3 = (*(int(**)(int, int, uint32_t, int))(a1 + 68))(a1, 2, 0, v2);
+	v3 = (*(int (**)(int, int, uint32_t, int))(a1 + 68))(a1, 2, 0, v2);
 	*(uint32_t*)(a1 + 1876) = v3;
 	if (!v3)
 		return -8;
-	(*(void(**)(int, int, int, int))(a1 + 68))(a1, 4, v3, v2);
+	(*(void (**)(int, int, int, int))(a1 + 68))(a1, 4, v3, v2);
 	*(uint32_t*)(a1 + 48) += v2;
-	if ((*(int(**)(int, int, unsigned char*, int))(a1 + 64))(a1, 5, v4, 8))
+	if ((*(int (**)(int, int, unsigned char*, int))(a1 + 64))(a1, 5, v4, 8))
 		return -2;
 	if (*(uint32_t*)v4 != 1145981251)
 		return -4;
@@ -7215,37 +7223,37 @@ int  sub_55EE60(int a1) {
 }
 
 //----- (0055EFC0) --------------------------------------------------------
-int  sub_55EFC0(int a1, int a2) {
+int sub_55EFC0(int a1, int a2) {
 	int v2; // eax
 	int v3; // eax
 
 	v2 = a2 + 1;
 	LOBYTE(v2) = (a2 + 1) & 0xFE;
-	v3 = -((*(int(**)(int, int, int, int))(a1 + 64))(a1, 5, a1 + 1868, v2) != 0);
+	v3 = -((*(int (**)(int, int, int, int))(a1 + 64))(a1, 5, a1 + 1868, v2) != 0);
 	LOBYTE(v3) = v3 & 0xFD;
 	return v3 - 1;
 }
 
 //----- (0055EFF0) --------------------------------------------------------
-int  sub_55EFF0(int a1, int a2) {
+int sub_55EFF0(int a1, int a2) {
 	int v2; // eax
 	int v3; // eax
 
 	v2 = a2 + 1;
 	LOBYTE(v2) = (a2 + 1) & 0xFE;
-	v3 = -((*(int(**)(int, int, uint32_t, int))(a1 + 64))(a1, 5, *(uint32_t*)(a1 + 1876), v2) != 0);
+	v3 = -((*(int (**)(int, int, uint32_t, int))(a1 + 64))(a1, 5, *(uint32_t*)(a1 + 1876), v2) != 0);
 	LOBYTE(v3) = v3 & 0xFD;
 	return v3 - 1;
 }
 
 //----- (0055F020) --------------------------------------------------------
-int  sub_55F020(int a1) {
-	int result;            // eax
-	int v2;                // edi
-	int v3;                // eax
+int sub_55F020(int a1) {
+	int result;          // eax
+	int v2;              // edi
+	int v3;              // eax
 	unsigned char v4[8]; // [esp+8h] [ebp-8h]
 
-	if ((*(int(**)(int, int, unsigned char*, int))(a1 + 64))(a1, 5, v4, 8))
+	if ((*(int (**)(int, int, unsigned char*, int))(a1 + 64))(a1, 5, v4, 8))
 		return -2;
 	if (*(uint32_t*)v4 != 1213090128)
 		return -4;
@@ -7255,13 +7263,13 @@ int  sub_55F020(int a1) {
 	if (!*(uint16_t*)(a1 + 1880))
 		goto LABEL_19;
 	v2 = 2 * *(unsigned short*)(a1 + 1880);
-	v3 = (*(int(**)(int, int, uint32_t, int))(a1 + 68))(a1, 2, 0, 2 * *(unsigned short*)(a1 + 1880));
+	v3 = (*(int (**)(int, int, uint32_t, int))(a1 + 68))(a1, 2, 0, 2 * *(unsigned short*)(a1 + 1880));
 	*(uint32_t*)(a1 + 1888) = v3;
 	if (!v3)
 		return -8;
-	(*(void(**)(int, int, int, int))(a1 + 68))(a1, 4, v3, v2);
+	(*(void (**)(int, int, int, int))(a1 + 68))(a1, 4, v3, v2);
 	*(uint32_t*)(a1 + 48) += v2;
-	if ((*(int(**)(int, int, unsigned char*, int))(a1 + 64))(a1, 5, v4, 8))
+	if ((*(int (**)(int, int, unsigned char*, int))(a1 + 64))(a1, 5, v4, 8))
 		return -2;
 	if (*(uint32_t*)v4 != 1145981264)
 		return -4;
@@ -7275,52 +7283,52 @@ int  sub_55F020(int a1) {
 }
 
 //----- (0055F170) --------------------------------------------------------
-int  sub_55F170(int a1, int a2) {
+int sub_55F170(int a1, int a2) {
 	int v2; // eax
 	int v3; // eax
 
 	v2 = a2 + 1;
 	LOBYTE(v2) = (a2 + 1) & 0xFE;
-	v3 = -((*(int(**)(int, int, int, int))(a1 + 64))(a1, 5, a1 + 1880, v2) != 0);
+	v3 = -((*(int (**)(int, int, int, int))(a1 + 64))(a1, 5, a1 + 1880, v2) != 0);
 	LOBYTE(v3) = v3 & 0xFD;
 	return v3 - 1;
 }
 
 //----- (0055F1A0) --------------------------------------------------------
-int  sub_55F1A0(int a1, int a2) {
+int sub_55F1A0(int a1, int a2) {
 	int v2; // eax
 	int v3; // eax
 
 	v2 = a2 + 1;
 	LOBYTE(v2) = (a2 + 1) & 0xFE;
-	v3 = -((*(int(**)(int, int, uint32_t, int))(a1 + 64))(a1, 5, *(uint32_t*)(a1 + 1888), v2) != 0);
+	v3 = -((*(int (**)(int, int, uint32_t, int))(a1 + 64))(a1, 5, *(uint32_t*)(a1 + 1888), v2) != 0);
 	LOBYTE(v3) = v3 & 0xFD;
 	return v3 - 1;
 }
 
 //----- (0055F1D0) --------------------------------------------------------
-int  sub_55F1D0(int a1, int a2) {
+int sub_55F1D0(int a1, int a2) {
 	int v2; // ecx
 
 	v2 = *(uint32_t*)(a1 + 1892);
 	if (v2) {
-		if ((*(int(**)(int, int, int, unsigned int))(a1 + 64))(a1, 5, v2, (a2 + 1) & 0xFFFFFFFE))
+		if ((*(int (**)(int, int, int, unsigned int))(a1 + 64))(a1, 5, v2, (a2 + 1) & 0xFFFFFFFE))
 			return -4;
-	} else if ((*(int(**)(int, int, int, unsigned int))(a1 + 64))(a1, 7, 1, (a2 + 1) & 0xFFFFFFFE)) {
+	} else if ((*(int (**)(int, int, int, unsigned int))(a1 + 64))(a1, 7, 1, (a2 + 1) & 0xFFFFFFFE)) {
 		return -6;
 	}
 	return -1;
 }
 
 //----- (0055F220) --------------------------------------------------------
-int  sub_55F220(int a1, int a2) {
-	int v2;     // eax
+int sub_55F220(int a1, int a2) {
+	int v2;       // eax
 	uint32_t* v3; // esi
 
 	v2 = a2 + 1;
 	LOBYTE(v2) = (a2 + 1) & 0xFE;
 	v3 = *(uint32_t**)(a1 + 356);
-	if ((*(int(**)(int, int, uint32_t, int))(a1 + 64))(a1, 5, *v3, v2))
+	if ((*(int (**)(int, int, uint32_t, int))(a1 + 64))(a1, 5, *v3, v2))
 		return -4;
 	*(uint32_t*)(a1 + 372) = 0;
 	v3[4] = 0;
@@ -7332,18 +7340,18 @@ int  sub_55F220(int a1, int a2) {
 }
 
 //----- (0055F280) --------------------------------------------------------
-int  sub_55F280(int a1, int a2) {
-	int v2;     // eax
+int sub_55F280(int a1, int a2) {
+	int v2;       // eax
 	uint32_t* v3; // ebp
-	int v4;     // edi
-	int v5;     // ebx
+	int v4;       // edi
+	int v5;       // ebx
 
 	v2 = a2 + 1;
 	LOBYTE(v2) = (a2 + 1) & 0xFE;
 	v3 = *(uint32_t**)(a1 + 356);
 	v4 = *(uint32_t*)(a1 + 1896) - v2;
 	v5 = v4 + *v3;
-	if ((*(int(**)(int, int, int, int))(a1 + 64))(a1, 5, v4 + *v3, v2))
+	if ((*(int (**)(int, int, int, int))(a1 + 64))(a1, 5, v4 + *v3, v2))
 		return -4;
 	*(uint32_t*)(a1 + 372) = 0;
 	v3[3] = 10;
@@ -7356,17 +7364,17 @@ int  sub_55F280(int a1, int a2) {
 }
 
 //----- (0055F300) --------------------------------------------------------
-int  sub_55F300(int a1, int a2) {
+int sub_55F300(int a1, int a2) {
 	uint32_t* v2; // edi
-	int v4;     // eax
-	int v5;     // ebp
-	int v6;     // ecx
+	int v4;       // eax
+	int v5;       // ebp
+	int v6;       // ecx
 
 	v2 = *(uint32_t**)(a1 + 356);
 	if (!*(uint8_t*)(a1 + 245) && !*(uint32_t*)(a1 + 376))
 		*(uint32_t*)(a1 + 380) = sub_55F3F0(a1, *(uint32_t*)(a1 + 384));
-	if ((*(int(**)(int, int, int, unsigned int))(a1 + 64))(a1, 5, *(uint32_t*)(a1 + 376) + *v2,
-																  (a2 + 1) & 0xFFFFFFFE)) {
+	if ((*(int (**)(int, int, int, unsigned int))(a1 + 64))(a1, 5, *(uint32_t*)(a1 + 376) + *v2,
+															(a2 + 1) & 0xFFFFFFFE)) {
 		return -4;
 	}
 	v4 = a2 + *(uint32_t*)(a1 + 376);
@@ -7395,9 +7403,9 @@ int  sub_55F300(int a1, int a2) {
 }
 
 //----- (0055F3F0) --------------------------------------------------------
-int  sub_55F3F0(int a1, int a2) {
-	int v2;              // eax
-	int v3;              // ecx
+int sub_55F3F0(int a1, int a2) {
+	int v2;            // eax
+	int v3;            // ecx
 	unsigned short* i; // edx
 
 	v2 = *(unsigned short*)(a1 + 1868);
@@ -7412,8 +7420,8 @@ int  sub_55F3F0(int a1, int a2) {
 }
 
 //----- (0055F440) --------------------------------------------------------
-int  sub_55F440(int a1, int a2) {
-	uint32_t* v2;      // ebx
+int sub_55F440(int a1, int a2) {
+	uint32_t* v2;    // ebx
 	unsigned int v3; // edi
 	int v4;          // ebp
 	int v5;          // eax
@@ -7438,7 +7446,7 @@ int  sub_55F440(int a1, int a2) {
 		else
 			v2[4] = *(uint32_t*)(a1 + 1896) - *(uint32_t*)(a1 + 380);
 	}
-	if ((*(int(**)(int, int, int, unsigned int))(a1 + 64))(a1, 5, *(uint32_t*)(a1 + 376) + v2[4] + *v2, v3))
+	if ((*(int (**)(int, int, int, unsigned int))(a1 + 64))(a1, 5, *(uint32_t*)(a1 + 376) + v2[4] + *v2, v3))
 		return -4;
 	v7 = *(uint32_t*)(a1 + 372);
 	v8 = a2 + *(uint32_t*)(a1 + 376);
@@ -7468,7 +7476,7 @@ int  sub_55F440(int a1, int a2) {
 }
 
 //----- (0055F570) --------------------------------------------------------
-int  sub_55F570(int a1, unsigned int a2) {
+int sub_55F570(int a1, unsigned int a2) {
 	int v2;          // ebx
 	unsigned int v3; // eax
 	unsigned int v5; // edx
@@ -7476,7 +7484,7 @@ int  sub_55F570(int a1, unsigned int a2) {
 	v2 = *(uint32_t*)(a1 + 368);
 	v3 = a2 + 1;
 	LOBYTE(v3) = (a2 + 1) & 0xFE;
-	if ((*(int(**)(int, int, uint32_t, unsigned int))(a1 + 64))(a1, 5, *(uint32_t*)(v2 + 8), v3))
+	if ((*(int (**)(int, int, uint32_t, unsigned int))(a1 + 64))(a1, 5, *(uint32_t*)(v2 + 8), v3))
 		return -4;
 	v5 = *(uint32_t*)(v2 + 20) & 0xFFFFFFF7;
 	*(uint32_t*)(v2 + 36) = 0;
@@ -7491,7 +7499,7 @@ int  sub_55F570(int a1, unsigned int a2) {
 }
 
 //----- (0055F600) --------------------------------------------------------
-int  sub_55F600(int a1, int a2) {
+int sub_55F600(int a1, int a2) {
 	int v2;         // eax
 	int v3;         // ebx
 	int v4;         // esi
@@ -7506,7 +7514,7 @@ int  sub_55F600(int a1, int a2) {
 	LOBYTE(v2) = (a2 + 1) & 0xFE;
 	v4 = *(uint32_t*)(a1 + 1904) - v2;
 	v5 = v4 + *(uint32_t*)(v3 + 8);
-	if ((*(int(**)(int, int, int, int))(a1 + 64))(a1, 5, v4 + *(uint32_t*)(v3 + 8), v2))
+	if ((*(int (**)(int, int, int, int))(a1 + 64))(a1, 5, v4 + *(uint32_t*)(v3 + 8), v2))
 		return -4;
 	v7 = *(uint32_t*)(v3 + 20) | 8;
 	*(uint32_t*)(v3 + 36) = v4;
@@ -7530,12 +7538,12 @@ int  sub_55F600(int a1, int a2) {
 }
 
 //----- (0055F6D0) --------------------------------------------------------
-int  sub_55F6D0(int a1, int a2) {
+int sub_55F6D0(int a1, int a2) {
 	uint32_t* v2; // esi
-	int v4;     // eax
+	int v4;       // eax
 
 	v2 = *(uint32_t**)(a1 + 368);
-	if ((*(int(**)(int, int, uint32_t, unsigned int))(a1 + 64))(a1, 5, *v2, (a2 + 1) & 0xFFFFFFFE))
+	if ((*(int (**)(int, int, uint32_t, unsigned int))(a1 + 64))(a1, 5, *v2, (a2 + 1) & 0xFFFFFFFE))
 		return -4;
 	v4 = v2[5];
 	v2[8] = 0;
@@ -7545,19 +7553,19 @@ int  sub_55F6D0(int a1, int a2) {
 }
 
 //----- (0055F710) --------------------------------------------------------
-int  sub_55F710(int a1, int a2) {
-	int v2;     // eax
+int sub_55F710(int a1, int a2) {
+	int v2;       // eax
 	uint32_t* v3; // ebp
-	int v4;     // edi
-	int v5;     // ebx
-	int v7;     // ecx
+	int v4;       // edi
+	int v5;       // ebx
+	int v7;       // ecx
 
 	v2 = a2 + 1;
 	LOBYTE(v2) = (a2 + 1) & 0xFE;
 	v3 = *(uint32_t**)(a1 + 368);
 	v4 = *(uint32_t*)(a1 + 1900) - v2;
 	v5 = v4 + *v3;
-	if ((*(int(**)(int, int, int, int))(a1 + 64))(a1, 5, v4 + *v3, v2))
+	if ((*(int (**)(int, int, int, int))(a1 + 64))(a1, 5, v4 + *v3, v2))
 		return -4;
 	v7 = v3[5];
 	v3[8] = v4;
@@ -7568,7 +7576,7 @@ int  sub_55F710(int a1, int a2) {
 }
 
 //----- (0055F780) --------------------------------------------------------
-int  sub_55F780(int a1, unsigned int a2) {
+int sub_55F780(int a1, unsigned int a2) {
 	unsigned int v2; // eax
 	int v3;          // ecx
 	int result;      // eax
@@ -7579,13 +7587,13 @@ int  sub_55F780(int a1, unsigned int a2) {
 	LOBYTE(v2) = (a2 + 1) & 0xFE;
 	if (*(uint8_t*)(a1 + 132) & 1 && (v3 = *(uint32_t*)(a1 + 1932)) != 0) {
 		if (v2 <= *(int*)(a1 + 1972) || *(uint32_t*)(a1 + 1936)) {
-			if ((*(int(**)(int, int, uint32_t, unsigned int))(a1 + 64))(a1, 5, *(uint32_t*)(a1 + 1960), v2)) {
+			if ((*(int (**)(int, int, uint32_t, unsigned int))(a1 + 64))(a1, 5, *(uint32_t*)(a1 + 1960), v2)) {
 				result = -4;
 			} else {
 				*(uint32_t*)(a1 + 1968) = a2;
 				result = -1;
 			}
-		} else if ((*(int(**)(int, int, int, unsigned int))(a1 + 64))(a1, 5, v3, v2)) {
+		} else if ((*(int (**)(int, int, int, unsigned int))(a1 + 64))(a1, 5, v3, v2)) {
 			result = -4;
 		} else {
 			v5 = 0;
@@ -7598,7 +7606,7 @@ int  sub_55F780(int a1, unsigned int a2) {
 			result = -1;
 		}
 	} else {
-		v6 = -((*(int(**)(int, int, int, unsigned int))(a1 + 64))(a1, 7, 1, v2) != 0);
+		v6 = -((*(int (**)(int, int, int, unsigned int))(a1 + 64))(a1, 7, 1, v2) != 0);
 		LOBYTE(v6) = v6 & 0xFB;
 		result = v6 - 1;
 	}
@@ -7606,33 +7614,32 @@ int  sub_55F780(int a1, unsigned int a2) {
 }
 
 //----- (0055F860) --------------------------------------------------------
-int  sub_55F860(int a1, int a2) {
+int sub_55F860(int a1, int a2) {
 	int v2;          // esi
 	unsigned int v3; // edi
 	int result;      // eax
 	unsigned int v5; // eax
 	int v6;          // edi
-	uint16_t* v7;       // ebx
+	uint16_t* v7;    // ebx
 	int v8;          // ecx
-	long long v9;      // rax
-	uint16_t* v10;      // ebx
+	long long v9;    // rax
+	uint16_t* v10;   // ebx
 	int v11;         // eax
 
 	v2 = a1;
 	v3 = (a2 + 1) & 0xFFFFFFFE;
 	if (*(uint8_t*)(a1 + 132) & 1 && *(uint32_t*)(a1 + 1932)) {
-		if ((*(int(**)(int, int, int*, int))(a1 + 64))(a1, 5, &a1, 4))
+		if ((*(int (**)(int, int, int*, int))(a1 + 64))(a1, 5, &a1, 4))
 			return -4;
 		v5 = *(uint32_t*)(v2 + 1972);
 		v6 = v3 - 4;
 		if ((unsigned short)a1 <= v5 || *(uint32_t*)(v2 + 1936)) {
 			if ((uint16_t)a1 == HIWORD(a1)) {
-				if ((*(int(**)(int, int, uint32_t, int))(v2 + 64))(v2, 5, *(uint32_t*)(v2 + 1960), v6))
+				if ((*(int (**)(int, int, uint32_t, int))(v2 + 64))(v2, 5, *(uint32_t*)(v2 + 1960), v6))
 					return -4;
 			} else {
 				v10 = (uint16_t*)(v5 + *(uint32_t*)(v2 + 1960) - v6);
-				if ((*(int(**)(int, int, unsigned int, int))(v2 + 64))(v2, 5, v5 + *(uint32_t*)(v2 + 1960) - v6,
-																			  v6))
+				if ((*(int (**)(int, int, unsigned int, int))(v2 + 64))(v2, 5, v5 + *(uint32_t*)(v2 + 1960) - v6, v6))
 					return -4;
 				sub_562E30(v10, *(char**)(v2 + 1960), (unsigned short)a1);
 			}
@@ -7640,11 +7647,11 @@ int  sub_55F860(int a1, int a2) {
 			*(uint32_t*)(v2 + 1968) = (unsigned short)a1;
 		} else {
 			if ((uint16_t)a1 == HIWORD(a1)) {
-				if ((*(int(**)(int, int, uint32_t, int))(v2 + 64))(v2, 5, *(uint32_t*)(v2 + 1932), v6))
+				if ((*(int (**)(int, int, uint32_t, int))(v2 + 64))(v2, 5, *(uint32_t*)(v2 + 1932), v6))
 					return -4;
 			} else {
 				v7 = (uint16_t*)(*(uint32_t*)(v2 + 1932) + *(uint32_t*)(v2 + 152) - v6);
-				if ((*(int(**)(int, int, uint16_t*, int))(v2 + 64))(v2, 5, v7, v6))
+				if ((*(int (**)(int, int, uint16_t*, int))(v2 + 64))(v2, 5, v7, v6))
 					return -4;
 				sub_562E30(v7, *(char**)(v2 + 1932), (unsigned short)a1);
 			}
@@ -7659,7 +7666,7 @@ int  sub_55F860(int a1, int a2) {
 			result = -1;
 		}
 	} else {
-		v11 = -((*(int(**)(int, int, int, unsigned int))(a1 + 64))(a1, 7, 1, (a2 + 1) & 0xFFFFFFFE) != 0);
+		v11 = -((*(int (**)(int, int, int, unsigned int))(a1 + 64))(a1, 7, 1, (a2 + 1) & 0xFFFFFFFE) != 0);
 		LOBYTE(v11) = v11 & 0xFB;
 		result = v11 - 1;
 	}
@@ -7667,17 +7674,17 @@ int  sub_55F860(int a1, int a2) {
 }
 
 //----- (0055FA20) --------------------------------------------------------
-int  sub_55FA20(int a1, int a2) {
-	int v2;                // eax
-	int v3;                // edi
-	unsigned int v4;       // ecx
-	unsigned int v5;       // ebp
+int sub_55FA20(int a1, int a2) {
+	int v2;              // eax
+	int v3;              // edi
+	unsigned int v4;     // ecx
+	unsigned int v5;     // ebp
 	unsigned short* v6;  // esi
-	int result;            // eax
-	int v8;                // eax
-	unsigned int i;        // ecx
+	int result;          // eax
+	int v8;              // eax
+	unsigned int i;      // ecx
 	unsigned short* v10; // esi
-	int v11;               // eax
+	int v11;             // eax
 
 	v2 = a2 + 1;
 	LOBYTE(v2) = (a2 + 1) & 0xFE;
@@ -7686,7 +7693,7 @@ int  sub_55FA20(int a1, int a2) {
 		v5 = a2 * (*(unsigned char*)(a1 + 63) >> 2);
 		if (v5 <= v4 || *(uint32_t*)(a1 + 1936)) {
 			v10 = (unsigned short*)(v4 + *(uint32_t*)(a1 + 1960) - v2);
-			if ((*(int(**)(int, int, unsigned int, int))(a1 + 64))(a1, 5, v4 + *(uint32_t*)(a1 + 1960) - v2, v2)) {
+			if ((*(int (**)(int, int, unsigned int, int))(a1 + 64))(a1, 5, v4 + *(uint32_t*)(a1 + 1960) - v2, v2)) {
 				result = -4;
 			} else {
 				sub_560881(v10, *(uint16_t**)(a1 + 1960), *(unsigned char*)(a1 + 63), *(unsigned char*)(a1 + 62), v5,
@@ -7696,7 +7703,7 @@ int  sub_55FA20(int a1, int a2) {
 			}
 		} else {
 			v6 = (unsigned short*)(v3 + *(uint32_t*)(a1 + 152) - v2);
-			if ((*(int(**)(int, int, int, int))(a1 + 64))(a1, 5, v3 + *(uint32_t*)(a1 + 152) - v2, v2)) {
+			if ((*(int (**)(int, int, int, int))(a1 + 64))(a1, 5, v3 + *(uint32_t*)(a1 + 152) - v2, v2)) {
 				result = -4;
 			} else {
 				sub_560881(v6, *(uint16_t**)(a1 + 1932), *(unsigned char*)(a1 + 63), *(unsigned char*)(a1 + 62), v5,
@@ -7714,7 +7721,7 @@ int  sub_55FA20(int a1, int a2) {
 			}
 		}
 	} else {
-		v11 = -((*(int(**)(int, int, int, int))(a1 + 64))(a1, 7, 1, v2) != 0);
+		v11 = -((*(int (**)(int, int, int, int))(a1 + 64))(a1, 7, 1, v2) != 0);
 		LOBYTE(v11) = v11 & 0xFB;
 		result = v11 - 1;
 	}
@@ -7722,18 +7729,18 @@ int  sub_55FA20(int a1, int a2) {
 }
 
 //----- (0055FBA0) --------------------------------------------------------
-int  sub_55FBA0(int a1, int a2) {
-	unsigned int v2;        // eax
-	int result;             // eax
+int sub_55FBA0(int a1, int a2) {
+	unsigned int v2;      // eax
+	int result;           // eax
 	short v4;             // ax
 	short v5;             // dx
-	int v6;                 // eax
+	int v6;               // eax
 	unsigned char v7[12]; // [esp+4h] [ebp-Ch]
 
 	v2 = a2 + 1;
 	LOBYTE(v2) = (a2 + 1) & 0xFE;
 	if (*(uint8_t*)(a1 + 132) & 1 && *(uint32_t*)(a1 + 1932)) {
-		if (v2 > 0xC || (*(int(**)(int, int, unsigned char*, unsigned int))(a1 + 64))(a1, 5, v7, v2)) {
+		if (v2 > 0xC || (*(int (**)(int, int, unsigned char*, unsigned int))(a1 + 64))(a1, 5, v7, v2)) {
 			result = -4;
 		} else {
 			v4 = *(uint16_t*)v7;
@@ -7747,7 +7754,7 @@ int  sub_55FBA0(int a1, int a2) {
 			result = -1;
 		}
 	} else {
-		v6 = -((*(int(**)(int, int, int, unsigned int))(a1 + 64))(a1, 7, 1, v2) != 0);
+		v6 = -((*(int (**)(int, int, int, unsigned int))(a1 + 64))(a1, 7, 1, v2) != 0);
 		LOBYTE(v6) = v6 & 0xFB;
 		result = v6 - 1;
 	}
@@ -7755,7 +7762,7 @@ int  sub_55FBA0(int a1, int a2) {
 }
 
 //----- (0055FC40) --------------------------------------------------------
-int  sub_55FC40(int a1) {
+int sub_55FC40(int a1) {
 	int result; // eax
 
 	result = -1;
@@ -7764,7 +7771,7 @@ int  sub_55FC40(int a1) {
 }
 
 //----- (0055FC50) --------------------------------------------------------
-int  sub_55FC50(int a1) {
+int sub_55FC50(int a1) {
 	int v1;     // eax
 	int v2;     // edx
 	int v3;     // ecx
@@ -7852,29 +7859,29 @@ int  sub_55FC50(int a1) {
 // 560850: using guessed type int sub_560850();
 
 //----- (0055FE20) --------------------------------------------------------
-int  sub_55FE20(int a1, int a2) {
-	int v2;      // esi
-	int v3;      // ebp
-	int v4;      // eax
-	int v5;      // ebx
-	int* v6;     // eax
-	int v7;      // ecx
-	int v8;      // eax
+int sub_55FE20(int a1, int a2) {
+	int v2;        // esi
+	int v3;        // ebp
+	int v4;        // eax
+	int v5;        // ebx
+	int* v6;       // eax
+	int v7;        // ecx
+	int v8;        // eax
 	uint32_t* v9;  // edi
-	bool v10;    // zf
-	int result;  // eax
-	int v12;     // ebp
-	int v13;     // ebx
-	int* v14;    // eax
-	int v15;     // ecx
-	int v16;     // eax
+	bool v10;      // zf
+	int result;    // eax
+	int v12;       // ebp
+	int v13;       // ebx
+	int* v14;      // eax
+	int v15;       // ecx
+	int v16;       // eax
 	uint32_t* v17; // edi
-	int v18;     // [esp+10h] [ebp-8h]
-	int v19;     // [esp+10h] [ebp-8h]
-	int v20;     // [esp+14h] [ebp-4h]
-	int v21;     // [esp+14h] [ebp-4h]
-	int v22;     // [esp+1Ch] [ebp+4h]
-	int v23;     // [esp+1Ch] [ebp+4h]
+	int v18;       // [esp+10h] [ebp-8h]
+	int v19;       // [esp+10h] [ebp-8h]
+	int v20;       // [esp+14h] [ebp-4h]
+	int v21;       // [esp+14h] [ebp-4h]
+	int v22;       // [esp+1Ch] [ebp+4h]
+	int v23;       // [esp+1Ch] [ebp+4h]
 
 	v2 = a1;
 	v3 = 0;
@@ -7892,7 +7899,7 @@ int  sub_55FE20(int a1, int a2) {
 				v18 = v8;
 				do {
 					if (v9[1] == a2)
-						(*(void(**)(int, int, uint32_t, uint32_t))(v2 + 72))(v2, v5, *(v9 - 1), *v9);
+						(*(void (**)(int, int, uint32_t, uint32_t))(v2 + 72))(v2, v5, *(v9 - 1), *v9);
 					v9 += 3;
 					--v18;
 				} while (v18);
@@ -7918,7 +7925,7 @@ int  sub_55FE20(int a1, int a2) {
 				v21 = v16;
 				do {
 					if (v17[1] == a2)
-						(*(void(**)(int, int, uint32_t, uint32_t))(v2 + 72))(v2, v13, *(v17 - 1), *v17);
+						(*(void (**)(int, int, uint32_t, uint32_t))(v2 + 72))(v2, v13, *(v17 - 1), *v17);
 					v17 += 3;
 					--v21;
 				} while (v21);
@@ -7934,28 +7941,28 @@ int  sub_55FE20(int a1, int a2) {
 }
 
 //----- (0055FF30) --------------------------------------------------------
-char  sub_55FF30(int a1, int* a2) {
-	int v2;                                      // esi
-	int* v3;                                     // ebx
-	int v4;                                      // eax
-	int( * v5)(int, int, uint32_t, uint32_t); // eax
-	int v6;                                      // ecx
-	int v7;                                      // edx
-	int v8;                                      // edi
-	int v9;                                      // ebp
-	int v10;                                     // eax
-	int v11;                                     // ebx
-	int v13;                                     // [esp-8h] [ebp-1Ch]
-	int v14;                                     // [esp+Ch] [ebp-8h]
-	int v15;                                     // [esp+10h] [ebp-4h]
-	int v16;                                     // [esp+18h] [ebp+4h]
+char sub_55FF30(int a1, int* a2) {
+	int v2;                                  // esi
+	int* v3;                                 // ebx
+	int v4;                                  // eax
+	int (*v5)(int, int, uint32_t, uint32_t); // eax
+	int v6;                                  // ecx
+	int v7;                                  // edx
+	int v8;                                  // edi
+	int v9;                                  // ebp
+	int v10;                                 // eax
+	int v11;                                 // ebx
+	int v13;                                 // [esp-8h] [ebp-1Ch]
+	int v14;                                 // [esp+Ch] [ebp-8h]
+	int v15;                                 // [esp+10h] [ebp-4h]
+	int v16;                                 // [esp+18h] [ebp+4h]
 
 	v2 = a1;
 	v3 = (int*)a2[1];
 	LOBYTE(v4) = *(uint8_t*)(a1 + 420);
 	v16 = a2[1];
 	if (!(v4 & 2)) {
-		if ((v5 = *(int(**)(int, int, uint32_t, uint32_t))(v2 + 72)) != 0 && (v4 = v5(v2, 6, 0, 0)) != 0 ||
+		if ((v5 = *(int (**)(int, int, uint32_t, uint32_t))(v2 + 72)) != 0 && (v4 = v5(v2, 6, 0, 0)) != 0 ||
 			(v4 = *(uint32_t*)(v2 + 424)) != 0) {
 			v6 = *(uint32_t*)(v2 + 1732);
 			v7 = *(uint32_t*)(v2 + 1736);
@@ -7974,25 +7981,25 @@ char  sub_55FF30(int a1, int* a2) {
 			if (*(uint32_t*)(v2 + 72) && v10 & 8) {
 				LOBYTE(v10) = v10 & 0xF7;
 				*(uint32_t*)(v16 + 12) = v10;
-				(*(void(**)(int, int, int, uint32_t))(v2 + 72))(v2, 3, v11, *(uint32_t*)(v16 + 20));
+				(*(void (**)(int, int, int, uint32_t))(v2 + 72))(v2, 3, v11, *(uint32_t*)(v16 + 20));
 				v7 = v14;
 				v6 = v15;
 			}
 			v13 = *(uint32_t*)(v2 + 428);
 			if (a2[5] & 0x20)
-				(*(void(**)(int, int, int, int, int, int))(v2 + 1928))(v11, v9, v8, v6, v7, v13);
+				(*(void (**)(int, int, int, int, int, int))(v2 + 1928))(v11, v9, v8, v6, v7, v13);
 			else
-				(*(void(**)(int, int, int, int, int, int))(v2 + 1924))(v11, v9, v8, v6, v7, v13);
+				(*(void (**)(int, int, int, int, int, int))(v2 + 1924))(v11, v9, v8, v6, v7, v13);
 			v4 = *(uint32_t*)(v2 + 72);
 			if (v4)
-				LOBYTE(v4) = ((int(*)(int, int, uint32_t, uint32_t))v4)(v2, 7, 0, 0);
+				LOBYTE(v4) = ((int (*)(int, int, uint32_t, uint32_t))v4)(v2, 7, 0, 0);
 		}
 	}
 	return v4;
 }
 
 //----- (00560030) --------------------------------------------------------
-int  sub_560030(int a1) {
+int sub_560030(int a1) {
 	int result; // eax
 	int v2;     // eax
 
@@ -8009,35 +8016,35 @@ int  sub_560030(int a1) {
 }
 
 //----- (00560080) --------------------------------------------------------
-int  sub_560080(int a1) {
-	int v1;                                        // ebx
-	int v2;                                        // ebp
-	int v3;                                        // edi
-	int v4;                                        // esi
-	char v5;                                       // al
-	int v6;                                        // eax
-	int v7;                                        // eax
-	int result;                                    // eax
-	int v9;                                        // eax
-	signed int v10;                                // ecx
-	int v11;                                       // eax
-	int v12;                                       // eax
-	signed int v13;                                // ecx
-	int v14;                                       // eax
-	int v15;                                       // eax
-	int v16;                                       // eax
-	void( * v17)(int, int, uint32_t, uint32_t); // eax
-	int v18;                                       // ecx
-	int v19;                                       // eax
-	int v20;                                       // eax
-	int v21;                                       // eax
-	int v22;                                       // eax
-	int v23;                                       // eax
-	int( * v24)(uint32_t, uint32_t);            // eax
-	int v25;                                       // eax
-	char v26;                                      // al
-	signed int v27;                                // [esp+10h] [ebp-4h]
-	int v28;                                       // [esp+18h] [ebp+4h]
+int sub_560080(int a1) {
+	int v1;                                    // ebx
+	int v2;                                    // ebp
+	int v3;                                    // edi
+	int v4;                                    // esi
+	char v5;                                   // al
+	int v6;                                    // eax
+	int v7;                                    // eax
+	int result;                                // eax
+	int v9;                                    // eax
+	signed int v10;                            // ecx
+	int v11;                                   // eax
+	int v12;                                   // eax
+	signed int v13;                            // ecx
+	int v14;                                   // eax
+	int v15;                                   // eax
+	int v16;                                   // eax
+	void (*v17)(int, int, uint32_t, uint32_t); // eax
+	int v18;                                   // ecx
+	int v19;                                   // eax
+	int v20;                                   // eax
+	int v21;                                   // eax
+	int v22;                                   // eax
+	int v23;                                   // eax
+	int (*v24)(uint32_t, uint32_t);            // eax
+	int v25;                                   // eax
+	char v26;                                  // al
+	signed int v27;                            // [esp+10h] [ebp-4h]
+	int v28;                                   // [esp+18h] [ebp+4h]
 
 	v1 = a1;
 	v2 = *(uint32_t*)(a1 + 416);
@@ -8087,7 +8094,7 @@ int  sub_560080(int a1) {
 								*(uint32_t*)(v1 + 448) = *(uint32_t*)(v2 + 40);
 								*(uint32_t*)(v1 + 420) = v16;
 							}
-							v17 = *(void(**)(int, int, uint32_t, uint32_t))(v1 + 72);
+							v17 = *(void (**)(int, int, uint32_t, uint32_t))(v1 + 72);
 							if (v17) {
 								v18 = *(uint32_t*)(v2 + 20);
 								if (v18 & 0x100) {
@@ -8098,8 +8105,8 @@ int  sub_560080(int a1) {
 								}
 								v20 = *(uint32_t*)(v2 + 20);
 								if (v20 & 0x200) {
-									(*(void(**)(int, int, uint32_t, uint32_t))(v1 + 72))(v1, 5, *(uint32_t*)(v2 + 28),
-																							*(uint32_t*)(v1 + 288));
+									(*(void (**)(int, int, uint32_t, uint32_t))(v1 + 72))(v1, 5, *(uint32_t*)(v2 + 28),
+																						  *(uint32_t*)(v1 + 288));
 									v21 = *(uint32_t*)(v2 + 20);
 									BYTE1(v21) &= 0xFDu;
 									*(uint32_t*)(v2 + 20) = v21;
@@ -8112,7 +8119,7 @@ int  sub_560080(int a1) {
 									*(uint32_t*)(v2 + 20) = v23;
 								}
 							}
-							v24 = *(int(**)(uint32_t, uint32_t))(v1 + 76);
+							v24 = *(int (**)(uint32_t, uint32_t))(v1 + 76);
 							if (v24 && v24(0, *(uint32_t*)(v2 + 28)))
 								return -2;
 							v25 = *(uint32_t*)(v2 + 20);
@@ -8174,7 +8181,7 @@ int  sub_560080(int a1) {
 }
 
 //----- (005603B0) --------------------------------------------------------
-signed int  sub_5603B0(int a1, int a2, int a3, int a4, int a5) {
+signed int sub_5603B0(int a1, int a2, int a3, int a4, int a5) {
 	int v5;            // ebp
 	signed int v6;     // esi
 	int v7;            // edi
@@ -8260,7 +8267,7 @@ signed int  sub_5603B0(int a1, int a2, int a3, int a4, int a5) {
 }
 
 //----- (00560560) --------------------------------------------------------
-int  sub_560560(uint32_t* a1) {
+int sub_560560(uint32_t* a1) {
 	int v1;     // ebx
 	int v2;     // ecx
 	int v3;     // edi
@@ -8284,13 +8291,13 @@ int  sub_560560(uint32_t* a1) {
 }
 
 //----- (005605C0) --------------------------------------------------------
-int  sub_5605C0(int a1) {
+int sub_5605C0(int a1) {
 	*(uint32_t*)(a1 + 1744) = *(uint32_t*)(*(uint32_t*)(a1 + 416) + 28);
 	return -1;
 }
 
 //----- (005605E0) --------------------------------------------------------
-int  sub_5605E0(int a1) {
+int sub_5605E0(int a1) {
 	int result; // eax
 
 	result = *(uint32_t*)(*(uint32_t*)(a1 + 416) + 16);
@@ -8300,7 +8307,7 @@ int  sub_5605E0(int a1) {
 }
 
 //----- (00560600) --------------------------------------------------------
-char  sub_560600(int a1) {
+char sub_560600(int a1) {
 	int v1;   // esi
 	int v2;   // eax
 	int v3;   // edi
@@ -8331,7 +8338,7 @@ char  sub_560600(int a1) {
 		}
 		if (*(uint8_t*)(v1 + 20) & 8) {
 			*(uint32_t*)(v1 + 40) = sub_562C9B((unsigned char*)(*(uint32_t*)(v1 + 8) + *(uint32_t*)(v1 + 36)),
-											 *(char**)(v1 + 8), *(uint32_t*)(a1 + 1904));
+											   *(char**)(v1 + 8), *(uint32_t*)(a1 + 1904));
 			v7 = *(uint32_t*)(v1 + 20);
 			LOBYTE(v7) = v7 & 0xF7;
 			*(uint32_t*)(v1 + 20) = v7;
@@ -8355,18 +8362,18 @@ char  sub_560600(int a1) {
 }
 
 //----- (005606D0) --------------------------------------------------------
-int  sub_5606D0(uint32_t* a1) {
-	int* v1;                                           // edi
-	void( * v2)(uint32_t*, int, int, int);        // eax
-	int v3;                                            // eax
-	void( * v4)(uint32_t*, int, uint32_t*, uint32_t); // eax
-	int( * v5)(uint32_t*, int);                   // eax
-	int result;                                        // eax
+int sub_5606D0(uint32_t* a1) {
+	int* v1;                                         // edi
+	void (*v2)(uint32_t*, int, int, int);            // eax
+	int v3;                                          // eax
+	void (*v4)(uint32_t*, int, uint32_t*, uint32_t); // eax
+	int (*v5)(uint32_t*, int);                       // eax
+	int result;                                      // eax
 
 	v1 = (int*)a1[439];
 	if (v1[5] & 4 || a1[105] & 1) {
 		if (v1[5] & 4) {
-			v2 = (void(*)(uint32_t*, int, int, int))a1[18];
+			v2 = (void (*)(uint32_t*, int, int, int))a1[18];
 			if (v2)
 				v2(a1, 2, v1[2], v1[10]);
 		} else {
@@ -8374,14 +8381,14 @@ int  sub_5606D0(uint32_t* a1) {
 			if (v3 & 1) {
 				LOBYTE(v3) = v3 & 0xFE;
 				a1[105] = v3;
-				v4 = (void(*)(uint32_t*, int, uint32_t*, uint32_t))a1[18];
+				v4 = (void (*)(uint32_t*, int, uint32_t*, uint32_t))a1[18];
 				if (v4)
 					v4(a1, 2, a1 + 113, a1[112]);
 			}
 		}
 	}
 	sub_55FF30((int)a1, v1);
-	v5 = (int(*)(uint32_t*, int))a1[19];
+	v5 = (int (*)(uint32_t*, int))a1[19];
 	if (v5 && v5(a1, v1[7]))
 		result = -2;
 	else
@@ -8390,7 +8397,7 @@ int  sub_5606D0(uint32_t* a1) {
 }
 
 //----- (00560760) --------------------------------------------------------
-int  sub_560760(int a1) {
+int sub_560760(int a1) {
 	int result; // eax
 	int v2;     // edi
 
@@ -8408,18 +8415,18 @@ int  sub_560760(int a1) {
 }
 
 //----- (005607B0) --------------------------------------------------------
-int  sub_5607B0(uint32_t* a1) {
-	uint32_t* v1;                                        // edi
-	void( * v2)(uint32_t*, int, uint32_t, uint32_t);  // eax
-	int v3;                                            // eax
-	void( * v4)(uint32_t*, int, uint32_t*, uint32_t); // eax
-	int( * v5)(uint32_t*, uint32_t);                // eax
-	int result;                                        // eax
+int sub_5607B0(uint32_t* a1) {
+	uint32_t* v1;                                    // edi
+	void (*v2)(uint32_t*, int, uint32_t, uint32_t);  // eax
+	int v3;                                          // eax
+	void (*v4)(uint32_t*, int, uint32_t*, uint32_t); // eax
+	int (*v5)(uint32_t*, uint32_t);                  // eax
+	int result;                                      // eax
 
 	v1 = (uint32_t*)a1[439];
 	if (v1[5] & 4 || a1[105] & 1) {
 		if (v1[5] & 4) {
-			v2 = (void(*)(uint32_t*, int, uint32_t, uint32_t))a1[18];
+			v2 = (void (*)(uint32_t*, int, uint32_t, uint32_t))a1[18];
 			if (v2)
 				v2(a1, 2, v1[2], v1[10]);
 		} else {
@@ -8427,13 +8434,13 @@ int  sub_5607B0(uint32_t* a1) {
 			if (v3 & 1) {
 				LOBYTE(v3) = v3 & 0xFE;
 				a1[105] = v3;
-				v4 = (void(*)(uint32_t*, int, uint32_t*, uint32_t))a1[18];
+				v4 = (void (*)(uint32_t*, int, uint32_t*, uint32_t))a1[18];
 				if (v4)
 					v4(a1, 2, a1 + 113, a1[112]);
 			}
 		}
 	}
-	v5 = (int(*)(uint32_t*, uint32_t))a1[19];
+	v5 = (int (*)(uint32_t*, uint32_t))a1[19];
 	if (v5 && v5(a1, v1[7]))
 		result = -2;
 	else
@@ -8446,7 +8453,7 @@ int sub_560850() { return -1; }
 // 560850: using guessed type int sub_560850();
 
 //----- (00560860) --------------------------------------------------------
-int  sub_560860(int a1) {
+int sub_560860(int a1) {
 	int result; // eax
 
 	result = a1;
@@ -8458,48 +8465,48 @@ int  sub_560860(int a1) {
 }
 
 //----- (00560881) --------------------------------------------------------
-void  sub_560881(unsigned short* a1, uint16_t* a2, short a3, short a4, unsigned int a5, int a6) {
-	int v6;                // eax
-	int v7;                // edx
+void sub_560881(unsigned short* a1, uint16_t* a2, short a3, short a4, unsigned int a5, int a6) {
+	int v6;              // eax
+	int v7;              // edx
 	unsigned short* v8;  // esi
-	uint16_t* v9;             // edi
-	signed int v10;        // ebp
-	int v11;               // ebx
-	bool v12;              // zf
-	bool k;                // cc
-	unsigned int v14;      // ecx
-	unsigned int v15;      // ecx
-	unsigned int v16;      // ecx
-	unsigned int v17;      // ecx
-	int v18;               // eax
-	int v19;               // edx
+	uint16_t* v9;        // edi
+	signed int v10;      // ebp
+	int v11;             // ebx
+	bool v12;            // zf
+	bool k;              // cc
+	unsigned int v14;    // ecx
+	unsigned int v15;    // ecx
+	unsigned int v16;    // ecx
+	unsigned int v17;    // ecx
+	int v18;             // eax
+	int v19;             // edx
 	unsigned short* v20; // esi
-	uint16_t* v21;            // edi
-	unsigned int v22;      // ebp
-	signed int v23;        // ebp
-	int v24;               // ebx
-	bool v25;              // zf
-	bool i;                // cc
-	unsigned int v27;      // ecx
-	unsigned int v28;      // ecx
-	unsigned int v29;      // ecx
-	unsigned int v30;      // ecx
-	uint16_t* v31;            // edi
+	uint16_t* v21;       // edi
+	unsigned int v22;    // ebp
+	signed int v23;      // ebp
+	int v24;             // ebx
+	bool v25;            // zf
+	bool i;              // cc
+	unsigned int v27;    // ecx
+	unsigned int v28;    // ecx
+	unsigned int v29;    // ecx
+	unsigned int v30;    // ecx
+	uint16_t* v31;       // edi
 	unsigned short* v32; // esi
-	int v33;               // eax
-	int v34;               // edx
-	unsigned int v35;      // ebp
-	signed int v36;        // ebp
-	int v37;               // ebx
-	bool v38;              // zf
-	bool j;                // cc
-	unsigned int v40;      // ecx
-	unsigned int v41;      // ecx
-	unsigned int v42;      // ecx
-	unsigned int v43;      // ecx
-	unsigned int v44;      // [esp-14h] [ebp-20h]
-	unsigned int v45;      // [esp-14h] [ebp-20h]
-	unsigned int v46;      // [esp-14h] [ebp-20h]
+	int v33;             // eax
+	int v34;             // edx
+	unsigned int v35;    // ebp
+	signed int v36;      // ebp
+	int v37;             // ebx
+	bool v38;            // zf
+	bool j;              // cc
+	unsigned int v40;    // ecx
+	unsigned int v41;    // ecx
+	unsigned int v42;    // ecx
+	unsigned int v43;    // ecx
+	unsigned int v44;    // [esp-14h] [ebp-20h]
+	unsigned int v45;    // [esp-14h] [ebp-20h]
+	unsigned int v46;    // [esp-14h] [ebp-20h]
 
 	if (a3 != 8 && a3 == 16) {
 		if (a4 == 2) {
@@ -9042,11 +9049,11 @@ void  sub_560881(unsigned short* a1, uint16_t* a2, short a3, short a4, unsigned 
 }
 
 //----- (00561430) --------------------------------------------------------
-int  sub_561430(int a1) {
-	int result;             // eax
+int sub_561430(int a1) {
+	int result;           // eax
 	unsigned char v2;     // cl
 	unsigned char v3;     // dl
-	int v4;                 // eax
+	int v4;               // eax
 	unsigned char v5[16]; // [esp+4h] [ebp-10h]
 
 	if (!*(uint32_t*)(a1 + 1932))
@@ -9062,7 +9069,7 @@ int  sub_561430(int a1) {
 	v5[3] = v3;
 	*(uint32_t*)&v5[8] = sub_561760;
 	*(uint32_t*)&v5[12] = sub_5618B0;
-	result = (*(int(**)(int, int, unsigned char*, int))(a1 + 88))(a1, 2, v5, 16);
+	result = (*(int (**)(int, int, unsigned char*, int))(a1 + 88))(a1, 2, v5, 16);
 	if (result >= 0 || result == -1) {
 		v4 = *(uint32_t*)(a1 + 1980);
 		if (v4 >= 0)
@@ -9073,12 +9080,12 @@ int  sub_561430(int a1) {
 }
 
 //----- (005614E0) --------------------------------------------------------
-int  sub_5614E0(int a1) {
+int sub_5614E0(int a1) {
 	int result; // eax
 
 	if (*(uint8_t*)(a1 + 1980) & 0x40)
 		sub_561590(a1);
-	(*(void(**)(int, int, uint32_t, uint32_t))(a1 + 88))(a1, 3, 0, 0);
+	(*(void (**)(int, int, uint32_t, uint32_t))(a1 + 88))(a1, 3, 0, 0);
 	result = *(uint32_t*)(a1 + 1980);
 	if ((*(uint32_t*)(a1 + 1980) & 0x80000000) == 1) {
 		result &= 0x7FFFFFFFu;
@@ -9088,10 +9095,10 @@ int  sub_5614E0(int a1) {
 }
 
 //----- (00561530) --------------------------------------------------------
-int  sub_561530(int a1) {
+int sub_561530(int a1) {
 	int result; // eax
 
-	(*(void(**)(int, int, uint32_t, uint32_t))(a1 + 88))(a1, 4, 0, 0);
+	(*(void (**)(int, int, uint32_t, uint32_t))(a1 + 88))(a1, 4, 0, 0);
 	result = *(uint32_t*)(a1 + 1980);
 	LOBYTE(result) = result | 0x40;
 	*(uint32_t*)(a1 + 1980) = result;
@@ -9099,10 +9106,10 @@ int  sub_561530(int a1) {
 }
 
 //----- (00561560) --------------------------------------------------------
-char  sub_561560(int a1) {
+char sub_561560(int a1) {
 	int v1; // eax
 
-	(*(void(**)(int, int, uint32_t, uint32_t))(a1 + 88))(a1, 6, 0, 0);
+	(*(void (**)(int, int, uint32_t, uint32_t))(a1 + 88))(a1, 6, 0, 0);
 	v1 = *(uint32_t*)(a1 + 1980);
 	LOBYTE(v1) = v1 & 0xBF;
 	*(uint32_t*)(a1 + 1980) = v1;
@@ -9110,10 +9117,10 @@ char  sub_561560(int a1) {
 }
 
 //----- (00561590) --------------------------------------------------------
-char  sub_561590(int a1) {
+char sub_561590(int a1) {
 	int v1; // eax
 
-	(*(void(**)(int, int, uint32_t, uint32_t))(a1 + 88))(a1, 7, 0, 0);
+	(*(void (**)(int, int, uint32_t, uint32_t))(a1 + 88))(a1, 7, 0, 0);
 	v1 = *(uint32_t*)(a1 + 1980);
 	LOBYTE(v1) = v1 & 0xBF;
 	*(uint32_t*)(a1 + 1980) = v1;
@@ -9121,7 +9128,7 @@ char  sub_561590(int a1) {
 }
 
 //----- (005615C0) --------------------------------------------------------
-int  sub_5615C0(int a1) {
+int sub_5615C0(int a1) {
 	int v1;           // ebx
 	int v2;           // ebp
 	int v3;           // eax
@@ -9196,7 +9203,7 @@ int  sub_5615C0(int a1) {
 }
 
 //----- (00561760) --------------------------------------------------------
-int  sub_561760(int a1) {
+int sub_561760(int a1) {
 	int v1;           // ebx
 	int v2;           // edi
 	int v4;           // edx
@@ -9266,21 +9273,21 @@ int  sub_561760(int a1) {
 	}
 	if (v2 > 0) {
 		if (v8 == 1) {
-			(*(void(**)(int, int, uint32_t, int))(a1 + 88))(a1, 5, *(uint32_t*)(a1 + 1976), v2);
+			(*(void (**)(int, int, uint32_t, int))(a1 + 88))(a1, 5, *(uint32_t*)(a1 + 1976), v2);
 			return v2;
 		}
-		(*(void(**)(int, int, int, int))(a1 + 88))(a1, 5, v6 + *(uint32_t*)(a1 + 1932), v2);
+		(*(void (**)(int, int, int, int))(a1 + 88))(a1, 5, v6 + *(uint32_t*)(a1 + 1932), v2);
 	}
 	return v2;
 }
 
 //----- (005618B0) --------------------------------------------------------
-int  sub_5618B0(uint32_t* a1, int a2) {
+int sub_5618B0(uint32_t* a1, int a2) {
 	int result;      // eax
 	int v3;          // ecx
 	int v4;          // edx
-	short v5;      // si
-	uint16_t* v6;       // edx
+	short v5;        // si
+	uint16_t* v6;    // edx
 	unsigned int v7; // ecx
 	unsigned int v8; // ebx
 
@@ -9316,52 +9323,52 @@ int  sub_5618B0(uint32_t* a1, int a2) {
 }
 
 //----- (00561980) --------------------------------------------------------
-int  sub_561980(int a1) {
-	int v1;              // esi
-	uint32_t* v2;          // ebx
-	int v4;              // eax
-	char v5;             // cl
-	unsigned int v6;     // eax
-	unsigned int v7;     // ecx
-	int v8;              // ecx
-	int v9;              // eax
-	int v10;             // edi
-	int v11;             // eax
-	int v12;             // eax
-	int v13;             // eax
-	int v14;             // eax
-	uint32_t* v15;         // ebp
-	int v16;             // eax
-	int v17;             // ebx
-	uint32_t* v18;         // ebx
-	unsigned int v19;    // ecx
-	unsigned int v20;    // eax
-	int v21;             // eax
-	int v22;             // eax
-	uint32_t* v23;         // ebp
-	int v24;             // edx
-	int v25;             // eax
-	int v26;             // edi
-	int v27;             // edx
+int sub_561980(int a1) {
+	int v1;            // esi
+	uint32_t* v2;      // ebx
+	int v4;            // eax
+	char v5;           // cl
+	unsigned int v6;   // eax
+	unsigned int v7;   // ecx
+	int v8;            // ecx
+	int v9;            // eax
+	int v10;           // edi
+	int v11;           // eax
+	int v12;           // eax
+	int v13;           // eax
+	int v14;           // eax
+	uint32_t* v15;     // ebp
+	int v16;           // eax
+	int v17;           // ebx
+	uint32_t* v18;     // ebx
+	unsigned int v19;  // ecx
+	unsigned int v20;  // eax
+	int v21;           // eax
+	int v22;           // eax
+	uint32_t* v23;     // ebp
+	int v24;           // edx
+	int v25;           // eax
+	int v26;           // edi
+	int v27;           // edx
 	short v28;         // ax
-	int v29;             // ecx
+	int v29;           // ecx
 	unsigned char v30; // cl
-	int v31;             // edx
-	int v32;             // ecx
-	int v33;             // eax
-	int v34;             // eax
-	int v35;             // eax
-	int v36;             // eax
-	unsigned int v37;    // eax
-	int v38;             // eax
-	int v39;             // eax
-	int v40;             // eax
-	int v41;             // [esp-4h] [ebp-1Ch]
-	int v42;             // [esp-4h] [ebp-1Ch]
-	int v43;             // [esp+10h] [ebp-8h]
-	int v44;             // [esp+14h] [ebp-4h]
-	int v45;             // [esp+1Ch] [ebp+4h]
-	int v46;             // [esp+1Ch] [ebp+4h]
+	int v31;           // edx
+	int v32;           // ecx
+	int v33;           // eax
+	int v34;           // eax
+	int v35;           // eax
+	int v36;           // eax
+	unsigned int v37;  // eax
+	int v38;           // eax
+	int v39;           // eax
+	int v40;           // eax
+	int v41;           // [esp-4h] [ebp-1Ch]
+	int v42;           // [esp-4h] [ebp-1Ch]
+	int v43;           // [esp+10h] [ebp-8h]
+	int v44;           // [esp+14h] [ebp-4h]
+	int v45;           // [esp+1Ch] [ebp+4h]
+	int v46;           // [esp+1Ch] [ebp+4h]
 
 	v1 = a1;
 	v2 = 0;
@@ -9413,22 +9420,22 @@ int  sub_561980(int a1) {
 	v12 = *(uint32_t*)(a1 + 266) + 16;
 	LOBYTE(v12) = v12 & 0xFC;
 	*(uint32_t*)(a1 + 1896) = v12;
-	v13 = (*(int(**)(int, int, uint32_t, int))(a1 + 68))(a1, 2, 0, v41);
+	v13 = (*(int (**)(int, int, uint32_t, int))(a1 + 68))(a1, 2, 0, v41);
 	*(uint32_t*)(a1 + 1776) = v13;
 	if (!v13) {
 		sub_562120(a1);
 		return -8;
 	}
-	(*(void(**)(int, int, int, uint32_t))(a1 + 68))(a1, 4, v13, *(uint32_t*)(a1 + 1908));
+	(*(void (**)(int, int, int, uint32_t))(a1 + 68))(a1, 4, v13, *(uint32_t*)(a1 + 1908));
 	*(uint32_t*)(a1 + 48) += *(uint32_t*)(a1 + 1908);
 	v45 = 0;
 	if (*(uint32_t*)(v1 + 140) > 0) {
 		while (1) {
-			v14 = (*(int(**)(int, int, uint32_t, int))(v1 + 68))(v1, 2, 0, *(uint32_t*)(v1 + 1896) + 24);
+			v14 = (*(int (**)(int, int, uint32_t, int))(v1 + 68))(v1, 2, 0, *(uint32_t*)(v1 + 1896) + 24);
 			v15 = (uint32_t*)v14;
 			if (!v14)
 				goto LABEL_75;
-			(*(void(**)(int, int, int, int))(v1 + 68))(v1, 4, v14, *(uint32_t*)(v1 + 1896) + 24);
+			(*(void (**)(int, int, int, int))(v1 + 68))(v1, 4, v14, *(uint32_t*)(v1 + 1896) + 24);
 			*(uint32_t*)(v1 + 48) += *(uint32_t*)(v1 + 1896) + 24;
 			memset(v15, 0, 0x18u);
 			*v15 = v15 + 6;
@@ -9472,23 +9479,23 @@ int  sub_561980(int a1) {
 	LOBYTE(v21) = v21 & 0xFC;
 	*(uint32_t*)(v1 + 340) |= 2u;
 	*(uint32_t*)(v1 + 1900) = v21;
-	v22 = (*(int(**)(int, int, uint32_t, int))(v1 + 68))(v1, 2, 0, v42);
+	v22 = (*(int (**)(int, int, uint32_t, int))(v1 + 68))(v1, 2, 0, v42);
 	*(uint32_t*)(v1 + 1768) = v22;
 	if (!v22) {
 		sub_562120(v1);
 		return -8;
 	}
-	(*(void(**)(int, int, int, uint32_t))(v1 + 68))(v1, 4, v22, *(uint32_t*)(v1 + 1912));
+	(*(void (**)(int, int, int, uint32_t))(v1 + 68))(v1, 4, v22, *(uint32_t*)(v1 + 1912));
 	*(uint32_t*)(v1 + 48) += *(uint32_t*)(v1 + 1912);
 	v46 = 0;
 	if (*(uint32_t*)(v1 + 136) > 0) {
 		while (1) {
-			v23 = (uint32_t*)(*(int(**)(int, int, uint32_t, int))(v1 + 68))(
+			v23 = (uint32_t*)(*(int (**)(int, int, uint32_t, int))(v1 + 68))(
 				v1, 2, 0, *(uint32_t*)(v1 + 1904) + *(uint32_t*)(v1 + 1900) + 44);
 			if (!v23)
 				goto LABEL_75;
-			(*(void(**)(int, int, uint32_t*, int))(v1 + 68))(v1, 4, v23,
-																  *(uint32_t*)(v1 + 1904) + *(uint32_t*)(v1 + 1900) + 44);
+			(*(void (**)(int, int, uint32_t*, int))(v1 + 68))(v1, 4, v23,
+															  *(uint32_t*)(v1 + 1904) + *(uint32_t*)(v1 + 1900) + 44);
 			*(uint32_t*)(v1 + 48) += *(uint32_t*)(v1 + 1904) + *(uint32_t*)(v1 + 1900) + 44;
 			memset(v23, 0, 0x2Cu);
 			*v23 = v23 + 11;
@@ -9552,70 +9559,70 @@ int  sub_561980(int a1) {
 			if (v32) {
 				*(uint32_t*)(v1 + 1932) = v32;
 			} else {
-				v33 = (*(int(**)(int, int, uint32_t, uint32_t))(v1 + 68))(v1, 2, 0, *(uint32_t*)(v1 + 152));
+				v33 = (*(int (**)(int, int, uint32_t, uint32_t))(v1 + 68))(v1, 2, 0, *(uint32_t*)(v1 + 152));
 				*(uint32_t*)(v1 + 1932) = v33;
 				if (!v33) {
 					sub_562120(v1);
 					return -8;
 				}
-				(*(void(**)(int, int, int, uint32_t))(v1 + 68))(v1, 4, v33, *(uint32_t*)(v1 + 152));
+				(*(void (**)(int, int, int, uint32_t))(v1 + 68))(v1, 4, v33, *(uint32_t*)(v1 + 152));
 				*(uint32_t*)(v1 + 48) += *(uint32_t*)(v1 + 152);
 			}
 			v34 = *(uint32_t*)(v1 + 152) / *(uint32_t*)(v1 + 156);
 			*(uint32_t*)(v1 + 1948) = v34;
-			v35 = (*(int(**)(int, int, uint32_t, int))(v1 + 68))(v1, 2, 0, v34);
+			v35 = (*(int (**)(int, int, uint32_t, int))(v1 + 68))(v1, 2, 0, v34);
 			*(uint32_t*)(v1 + 1940) = v35;
 			if (!v35) {
 				sub_562120(v1);
 				return -8;
 			}
-			(*(void(**)(int, int, int, uint32_t))(v1 + 68))(v1, 4, v35, *(uint32_t*)(v1 + 1948));
+			(*(void (**)(int, int, int, uint32_t))(v1 + 68))(v1, 4, v35, *(uint32_t*)(v1 + 1948));
 			*(uint32_t*)(v1 + 48) += *(uint32_t*)(v1 + 1948);
 			memset(*(void**)(v1 + 1940), 0, *(uint32_t*)(v1 + 1948));
-			v36 = (*(int(**)(int, int, uint32_t, int))(v1 + 68))(v1, 2, 0, 2 * *(uint32_t*)(v1 + 1948));
+			v36 = (*(int (**)(int, int, uint32_t, int))(v1 + 68))(v1, 2, 0, 2 * *(uint32_t*)(v1 + 1948));
 			*(uint32_t*)(v1 + 1944) = v36;
 			if (!v36) {
 				sub_562120(v1);
 				return -8;
 			}
-			(*(void(**)(int, int, int, int))(v1 + 68))(v1, 4, v36, 2 * *(uint32_t*)(v1 + 1948));
+			(*(void (**)(int, int, int, int))(v1 + 68))(v1, 4, v36, 2 * *(uint32_t*)(v1 + 1948));
 			*(uint32_t*)(v1 + 48) += 2 * *(uint32_t*)(v1 + 1948);
 			memset(*(void**)(v1 + 1944), 0, 2 * *(uint32_t*)(v1 + 1948));
 			v37 = 2 * (*(uint32_t*)(v1 + 1996) / (unsigned int)*(unsigned char*)(v1 + 244)) + 100;
 			*(uint32_t*)(v1 + 1972) = v37;
-			v38 = (*(int(**)(int, int, uint32_t, unsigned int))(v1 + 68))(v1, 2, 0, v37);
+			v38 = (*(int (**)(int, int, uint32_t, unsigned int))(v1 + 68))(v1, 2, 0, v37);
 			*(uint32_t*)(v1 + 1960) = v38;
 			if (!v38) {
 				sub_562120(v1);
 				return -8;
 			}
-			(*(void(**)(int, int, int, uint32_t))(v1 + 68))(v1, 4, v38, *(uint32_t*)(v1 + 1972));
+			(*(void (**)(int, int, int, uint32_t))(v1 + 68))(v1, 4, v38, *(uint32_t*)(v1 + 1972));
 			*(uint32_t*)(v1 + 48) += *(uint32_t*)(v1 + 1972);
-			v39 = (*(int(**)(int, int, uint32_t, uint32_t))(v1 + 68))(v1, 2, 0, *(uint32_t*)(v1 + 156));
+			v39 = (*(int (**)(int, int, uint32_t, uint32_t))(v1 + 68))(v1, 2, 0, *(uint32_t*)(v1 + 156));
 			*(uint32_t*)(v1 + 1976) = v39;
 			if (!v39) {
 				sub_562120(v1);
 				return -8;
 			}
-			(*(void(**)(int, int, int, uint32_t))(v1 + 68))(v1, 4, v39, *(uint32_t*)(v1 + 156));
+			(*(void (**)(int, int, int, uint32_t))(v1 + 68))(v1, 4, v39, *(uint32_t*)(v1 + 156));
 			memset(*(void**)(v1 + 1976), 0, *(uint32_t*)(v1 + 156));
 			*(uint32_t*)(v1 + 48) += *(uint32_t*)(v1 + 156);
 		}
 	}
-	v40 = (*(int(**)(int, int, uint32_t, int))(v1 + 68))(v1, 2, 0, 4 * *(unsigned short*)(v1 + 236));
+	v40 = (*(int (**)(int, int, uint32_t, int))(v1 + 68))(v1, 2, 0, 4 * *(unsigned short*)(v1 + 236));
 	*(uint32_t*)(v1 + 1892) = v40;
 	if (!v40) {
 	LABEL_75:
 		sub_562120(v1);
 		return -8;
 	}
-	(*(void(**)(int, int, int, int))(v1 + 68))(v1, 4, v40, 4 * *(unsigned short*)(v1 + 236));
+	(*(void (**)(int, int, int, int))(v1 + 68))(v1, 4, v40, 4 * *(unsigned short*)(v1 + 236));
 	*(uint32_t*)(v1 + 48) += 4 * *(unsigned short*)(v1 + 236);
 	return -1;
 }
 
 //----- (00562120) --------------------------------------------------------
-int  sub_562120(int a1) {
+int sub_562120(int a1) {
 	int v1;     // esi
 	int v2;     // eax
 	int v3;     // eax
@@ -9668,40 +9675,40 @@ int  sub_562120(int a1) {
 	v1 = a1;
 	v2 = *(uint32_t*)(a1 + 1780);
 	if (v2) {
-		(*(void(**)(int, int, int, uint32_t))(a1 + 68))(a1, 5, v2, *(uint32_t*)(a1 + 1784));
-		(*(void(**)(int, int, uint32_t, uint32_t))(a1 + 68))(a1, 3, *(uint32_t*)(a1 + 1780), 0);
+		(*(void (**)(int, int, int, uint32_t))(a1 + 68))(a1, 5, v2, *(uint32_t*)(a1 + 1784));
+		(*(void (**)(int, int, uint32_t, uint32_t))(a1 + 68))(a1, 3, *(uint32_t*)(a1 + 1780), 0);
 	}
 	v3 = *(uint32_t*)(a1 + 1892);
 	if (v3) {
-		(*(void(**)(int, int, int, int))(a1 + 68))(a1, 5, v3, 4 * *(unsigned short*)(a1 + 236));
-		(*(void(**)(int, int, uint32_t, uint32_t))(a1 + 68))(a1, 3, *(uint32_t*)(a1 + 1892), 0);
+		(*(void (**)(int, int, int, int))(a1 + 68))(a1, 5, v3, 4 * *(unsigned short*)(a1 + 236));
+		(*(void (**)(int, int, uint32_t, uint32_t))(a1 + 68))(a1, 3, *(uint32_t*)(a1 + 1892), 0);
 	}
 	if (!*(uint32_t*)(a1 + 148)) {
 		v4 = *(uint32_t*)(a1 + 1932);
 		if (v4) {
-			(*(void(**)(int, int, int, uint32_t))(a1 + 68))(a1, 5, v4, *(uint32_t*)(a1 + 152));
-			(*(void(**)(int, int, uint32_t, uint32_t))(a1 + 68))(a1, 3, *(uint32_t*)(a1 + 1932), 0);
+			(*(void (**)(int, int, int, uint32_t))(a1 + 68))(a1, 5, v4, *(uint32_t*)(a1 + 152));
+			(*(void (**)(int, int, uint32_t, uint32_t))(a1 + 68))(a1, 3, *(uint32_t*)(a1 + 1932), 0);
 		}
 	}
 	v5 = *(uint32_t*)(a1 + 1940);
 	if (v5) {
-		(*(void(**)(int, int, int, uint32_t))(a1 + 68))(a1, 5, v5, *(uint32_t*)(a1 + 1948));
-		(*(void(**)(int, int, uint32_t, uint32_t))(a1 + 68))(a1, 3, *(uint32_t*)(a1 + 1940), 0);
+		(*(void (**)(int, int, int, uint32_t))(a1 + 68))(a1, 5, v5, *(uint32_t*)(a1 + 1948));
+		(*(void (**)(int, int, uint32_t, uint32_t))(a1 + 68))(a1, 3, *(uint32_t*)(a1 + 1940), 0);
 	}
 	v6 = *(uint32_t*)(a1 + 1944);
 	if (v6) {
-		(*(void(**)(int, int, int, int))(a1 + 68))(a1, 5, v6, 2 * *(uint32_t*)(a1 + 1948));
-		(*(void(**)(int, int, uint32_t, uint32_t))(a1 + 68))(a1, 3, *(uint32_t*)(a1 + 1944), 0);
+		(*(void (**)(int, int, int, int))(a1 + 68))(a1, 5, v6, 2 * *(uint32_t*)(a1 + 1948));
+		(*(void (**)(int, int, uint32_t, uint32_t))(a1 + 68))(a1, 3, *(uint32_t*)(a1 + 1944), 0);
 	}
 	v7 = *(uint32_t*)(a1 + 1960);
 	if (v7) {
-		(*(void(**)(int, int, int, uint32_t))(a1 + 68))(a1, 5, v7, *(uint32_t*)(a1 + 1972));
-		(*(void(**)(int, int, uint32_t, uint32_t))(a1 + 68))(a1, 3, *(uint32_t*)(a1 + 1960), 0);
+		(*(void (**)(int, int, int, uint32_t))(a1 + 68))(a1, 5, v7, *(uint32_t*)(a1 + 1972));
+		(*(void (**)(int, int, uint32_t, uint32_t))(a1 + 68))(a1, 3, *(uint32_t*)(a1 + 1960), 0);
 	}
 	v8 = *(uint32_t*)(a1 + 1976);
 	if (v8) {
-		(*(void(**)(int, int, int, uint32_t))(a1 + 68))(a1, 5, v8, *(uint32_t*)(a1 + 156));
-		(*(void(**)(int, int, uint32_t, uint32_t))(a1 + 68))(a1, 3, *(uint32_t*)(a1 + 1976), 0);
+		(*(void (**)(int, int, int, uint32_t))(a1 + 68))(a1, 5, v8, *(uint32_t*)(a1 + 156));
+		(*(void (**)(int, int, uint32_t, uint32_t))(a1 + 68))(a1, 3, *(uint32_t*)(a1 + 1976), 0);
 	}
 	v9 = 0;
 	for (i = *(uint32_t*)(a1 + 1764); v9 < *(int*)(a1 + 136); i = v11) {
@@ -9712,15 +9719,15 @@ int  sub_562120(int a1) {
 		v13 = *(uint32_t*)(a1 + 1904) + 4;
 		*(uint32_t*)(a1 + 1904) = v13;
 		*(uint32_t*)(a1 + 1900) = v12;
-		(*(void(**)(int, int, int, int))(a1 + 68))(a1, 5, i, v12 + v13 + 44);
-		(*(void(**)(int, int, int, uint32_t))(a1 + 68))(a1, 3, i, 0);
+		(*(void (**)(int, int, int, int))(a1 + 68))(a1, 5, i, v12 + v13 + 44);
+		(*(void (**)(int, int, int, uint32_t))(a1 + 68))(a1, 3, i, 0);
 		++v9;
 	}
 	if (*(uint8_t*)(a1 + 340) & 2) {
 		v14 = *(uint32_t*)(a1 + 1768);
 		if (v14) {
-			(*(void(**)(int, int, int, uint32_t))(a1 + 68))(a1, 5, v14, *(uint32_t*)(a1 + 1912));
-			(*(void(**)(int, int, uint32_t, uint32_t))(a1 + 68))(a1, 3, *(uint32_t*)(a1 + 1768), 0);
+			(*(void (**)(int, int, int, uint32_t))(a1 + 68))(a1, 5, v14, *(uint32_t*)(a1 + 1912));
+			(*(void (**)(int, int, uint32_t, uint32_t))(a1 + 68))(a1, 3, *(uint32_t*)(a1 + 1768), 0);
 			*(uint32_t*)(a1 + 1768) = 0;
 		}
 	}
@@ -9731,27 +9738,27 @@ int  sub_562120(int a1) {
 		v17 = *(uint32_t*)(v15 + 4);
 		v18 = *(uint32_t*)(a1 + 1896) + 4;
 		*(uint32_t*)(a1 + 1896) = v18;
-		(*(void(**)(int, int, int, int))(a1 + 68))(a1, 5, v15, v18 + 24);
-		(*(void(**)(int, int, int, uint32_t))(a1 + 68))(a1, 3, v15, 0);
+		(*(void (**)(int, int, int, int))(a1 + 68))(a1, 5, v15, v18 + 24);
+		(*(void (**)(int, int, int, uint32_t))(a1 + 68))(a1, 3, v15, 0);
 		++j;
 	}
 	if (*(uint8_t*)(a1 + 340) & 1) {
 		v19 = *(uint32_t*)(a1 + 1776);
 		if (v19) {
-			(*(void(**)(int, int, int, uint32_t))(a1 + 68))(a1, 5, v19, *(uint32_t*)(a1 + 1908));
-			(*(void(**)(int, int, uint32_t, uint32_t))(a1 + 68))(a1, 3, *(uint32_t*)(a1 + 1776), 0);
+			(*(void (**)(int, int, int, uint32_t))(a1 + 68))(a1, 5, v19, *(uint32_t*)(a1 + 1908));
+			(*(void (**)(int, int, uint32_t, uint32_t))(a1 + 68))(a1, 3, *(uint32_t*)(a1 + 1776), 0);
 			*(uint32_t*)(a1 + 1776) = 0;
 		}
 	}
 	v20 = *(uint32_t*)(a1 + 1888);
 	if (v20) {
-		(*(void(**)(int, int, int, int))(a1 + 68))(a1, 5, v20, 2 * *(unsigned short*)(a1 + 1880));
-		(*(void(**)(int, int, uint32_t, uint32_t))(a1 + 68))(a1, 3, *(uint32_t*)(a1 + 1888), 0);
+		(*(void (**)(int, int, int, int))(a1 + 68))(a1, 5, v20, 2 * *(unsigned short*)(a1 + 1880));
+		(*(void (**)(int, int, uint32_t, uint32_t))(a1 + 68))(a1, 3, *(uint32_t*)(a1 + 1888), 0);
 	}
 	v21 = *(uint32_t*)(a1 + 1876);
 	if (v21) {
-		(*(void(**)(int, int, int, int))(a1 + 68))(a1, 5, v21, 6 * *(unsigned short*)(a1 + 1868));
-		(*(void(**)(int, int, uint32_t, uint32_t))(a1 + 68))(a1, 3, *(uint32_t*)(a1 + 1876), 0);
+		(*(void (**)(int, int, int, int))(a1 + 68))(a1, 5, v21, 6 * *(unsigned short*)(a1 + 1868));
+		(*(void (**)(int, int, uint32_t, uint32_t))(a1 + 68))(a1, 3, *(uint32_t*)(a1 + 1876), 0);
 	}
 	v22 = *(uint32_t*)(a1 + 1852);
 	v45 = *(uint32_t*)(a1 + 1852);
@@ -9766,13 +9773,13 @@ int  sub_562120(int a1) {
 			v26 = *v24;
 			v27 = *v25;
 			if (*v25) {
-				(*(void(**)(int, int, int, unsigned int))(v1 + 68))(
+				(*(void (**)(int, int, int, unsigned int))(v1 + 68))(
 					v1, 5, v27, v26 * ((*(uint32_t*)(*(uint32_t*)(v1 + 1860) + v47 + 4) + 1) & 0xFFFFFFFE));
-				(*(void(**)(int, int, int, uint32_t))(v1 + 68))(v1, 3, v27, 0);
+				(*(void (**)(int, int, int, uint32_t))(v1 + 68))(v1, 3, v27, 0);
 			}
 			if (v25) {
-				(*(void(**)(int, int, int*, int))(v1 + 68))(v1, 5, v25, 12 * v26);
-				(*(void(**)(int, int, int*, uint32_t))(v1 + 68))(v1, 3, v25, 0);
+				(*(void (**)(int, int, int*, int))(v1 + 68))(v1, 5, v25, 12 * v26);
+				(*(void (**)(int, int, int*, uint32_t))(v1 + 68))(v1, 3, v25, 0);
 			}
 			v23 = v41 + 12;
 			v28 = v43 == 1;
@@ -9784,13 +9791,13 @@ int  sub_562120(int a1) {
 	}
 	v29 = *(uint32_t*)(v1 + 1864);
 	if (v29) {
-		(*(void(**)(int, int, int, int))(v1 + 68))(v1, 5, v29, 12 * v22);
-		(*(void(**)(int, int, uint32_t, uint32_t))(v1 + 68))(v1, 3, *(uint32_t*)(v1 + 1864), 0);
+		(*(void (**)(int, int, int, int))(v1 + 68))(v1, 5, v29, 12 * v22);
+		(*(void (**)(int, int, uint32_t, uint32_t))(v1 + 68))(v1, 3, *(uint32_t*)(v1 + 1864), 0);
 	}
 	v30 = *(uint32_t*)(v1 + 1860);
 	if (v30) {
-		(*(void(**)(int, int, int, int))(v1 + 68))(v1, 5, v30, 16 * v22);
-		(*(void(**)(int, int, uint32_t, uint32_t))(v1 + 68))(v1, 3, *(uint32_t*)(v1 + 1860), 0);
+		(*(void (**)(int, int, int, int))(v1 + 68))(v1, 5, v30, 16 * v22);
+		(*(void (**)(int, int, uint32_t, uint32_t))(v1 + 68))(v1, 3, *(uint32_t*)(v1 + 1860), 0);
 	}
 	v31 = *(uint32_t*)(v1 + 1828);
 	v46 = *(uint32_t*)(v1 + 1828);
@@ -9805,13 +9812,13 @@ int  sub_562120(int a1) {
 			v35 = *v33;
 			v36 = *v34;
 			if (*v34) {
-				(*(void(**)(int, int, int, unsigned int))(v1 + 68))(
+				(*(void (**)(int, int, int, unsigned int))(v1 + 68))(
 					v1, 5, v36, v35 * ((*(uint32_t*)(*(uint32_t*)(v1 + 1844) + v48 + 8) + 1) & 0xFFFFFFFE));
-				(*(void(**)(int, int, int, uint32_t))(v1 + 68))(v1, 3, v36, 0);
+				(*(void (**)(int, int, int, uint32_t))(v1 + 68))(v1, 3, v36, 0);
 			}
 			if (v34) {
-				(*(void(**)(int, int, int*, int))(v1 + 68))(v1, 5, v34, 12 * v35);
-				(*(void(**)(int, int, int*, uint32_t))(v1 + 68))(v1, 3, v34, 0);
+				(*(void (**)(int, int, int*, int))(v1 + 68))(v1, 5, v34, 12 * v35);
+				(*(void (**)(int, int, int*, uint32_t))(v1 + 68))(v1, 3, v34, 0);
 			}
 			v32 = v44 + 12;
 			v28 = v42 == 1;
@@ -9823,29 +9830,29 @@ int  sub_562120(int a1) {
 	}
 	v37 = *(uint32_t*)(v1 + 1848);
 	if (v37) {
-		(*(void(**)(int, int, int, int))(v1 + 68))(v1, 5, v37, 12 * v31);
-		(*(void(**)(int, int, uint32_t, uint32_t))(v1 + 68))(v1, 3, *(uint32_t*)(v1 + 1848), 0);
+		(*(void (**)(int, int, int, int))(v1 + 68))(v1, 5, v37, 12 * v31);
+		(*(void (**)(int, int, uint32_t, uint32_t))(v1 + 68))(v1, 3, *(uint32_t*)(v1 + 1848), 0);
 	}
 	v38 = *(uint32_t*)(v1 + 1844);
 	if (v38) {
-		(*(void(**)(int, int, int, int))(v1 + 68))(v1, 5, v38, 16 * v31);
-		(*(void(**)(int, int, uint32_t, uint32_t))(v1 + 68))(v1, 3, *(uint32_t*)(v1 + 1844), 0);
+		(*(void (**)(int, int, int, int))(v1 + 68))(v1, 5, v38, 16 * v31);
+		(*(void (**)(int, int, uint32_t, uint32_t))(v1 + 68))(v1, 3, *(uint32_t*)(v1 + 1844), 0);
 	}
 	v39 = *(uint32_t*)(v1 + 1840);
 	if (v39) {
-		(*(void(**)(int, int, int, int))(v1 + 68))(v1, 5, v39, 24 * *(uint32_t*)(v1 + 1824));
-		(*(void(**)(int, int, uint32_t, uint32_t))(v1 + 68))(v1, 3, *(uint32_t*)(v1 + 1840), 0);
+		(*(void (**)(int, int, int, int))(v1 + 68))(v1, 5, v39, 24 * *(uint32_t*)(v1 + 1824));
+		(*(void (**)(int, int, uint32_t, uint32_t))(v1 + 68))(v1, 3, *(uint32_t*)(v1 + 1840), 0);
 	}
 	result = *(uint32_t*)(v1 + 1820);
 	if (result) {
-		(*(void(**)(int, int, int, int))(v1 + 68))(v1, 5, result, 4 * *(unsigned short*)(v1 + 1812));
-		result = (*(int(**)(int, int, uint32_t, uint32_t))(v1 + 68))(v1, 3, *(uint32_t*)(v1 + 1820), 0);
+		(*(void (**)(int, int, int, int))(v1 + 68))(v1, 5, result, 4 * *(unsigned short*)(v1 + 1812));
+		result = (*(int (**)(int, int, uint32_t, uint32_t))(v1 + 68))(v1, 3, *(uint32_t*)(v1 + 1820), 0);
 	}
 	return result;
 }
 
 //----- (00562640) --------------------------------------------------------
-int  sub_562640(int a1) {
+int sub_562640(int a1) {
 	int v1;           // esi
 	unsigned int v2;  // ebp
 	int v3;           // eax
@@ -9876,12 +9883,12 @@ LABEL_6:
 			v6 = v2 * v11;
 			if (v5 == 1 || v5 == 4)
 				v6 *= 2;
-			v7 = (*(int(**)(int, int, uint32_t, unsigned int))(v1 + 68))(v1, 2, 0, v6);
+			v7 = (*(int (**)(int, int, uint32_t, unsigned int))(v1 + 68))(v1, 2, 0, v6);
 			v4 = (void*)v7;
 			if (!v7)
 				return -8;
 			*(uint32_t*)(v1 + 48) += v6;
-			(*(void(**)(int, int, int, unsigned int))(v1 + 68))(v1, 4, v7, v6);
+			(*(void (**)(int, int, int, unsigned int))(v1 + 68))(v1, 4, v7, v6);
 			memset(v4, 0, v6);
 			*(uint32_t*)(v1 + 344) = v4;
 			*(uint32_t*)(v1 + 352) = v11;
@@ -9904,7 +9911,7 @@ LABEL_6:
 }
 
 //----- (00562770) --------------------------------------------------------
-void*  sub_562770(int a1, int a2, void* lpMem, int a4) {
+void* sub_562770(int a1, int a2, void* lpMem, int a4) {
 	void* result; // eax
 
 	switch (a2) {
@@ -9931,24 +9938,24 @@ void*  sub_562770(int a1, int a2, void* lpMem, int a4) {
 }
 
 //----- (005627E0) --------------------------------------------------------
-short  sub_5627E0(int a1, uint32_t* a2, uint32_t* a3) {
-	int v3;                // ecx
-	int v4;                // ebx
+short sub_5627E0(int a1, uint32_t* a2, uint32_t* a3) {
+	int v3;              // ecx
+	int v4;              // ebx
 	unsigned short* v5;  // esi
-	int v6;                // ebp
-	uint32_t* v7;            // edi
-	int v8;                // eax
-	int v9;                // ecx
-	int v10;               // ecx
+	int v6;              // ebp
+	uint32_t* v7;        // edi
+	int v8;              // eax
+	int v9;              // ecx
+	int v10;             // ecx
 	unsigned short* i;   // esi
-	uint16_t* v12;            // ebx
-	uint16_t* v13;            // ecx
-	int v14;               // esi
-	uint16_t* v15;            // edx
-	int v16;               // esi
-	uint16_t* v17;            // edx
+	uint16_t* v12;       // ebx
+	uint16_t* v13;       // ecx
+	int v14;             // esi
+	uint16_t* v15;       // edx
+	int v16;             // esi
+	uint16_t* v17;       // edx
 	unsigned short* v19; // [esp+14h] [ebp+4h]
-	int v20;               // [esp+14h] [ebp+4h]
+	int v20;             // [esp+14h] [ebp+4h]
 
 	v3 = a1;
 	v4 = *(unsigned char*)(a1 + 245);
@@ -10036,7 +10043,7 @@ short  sub_5627E0(int a1, uint32_t* a2, uint32_t* a3) {
 }
 
 //----- (00562930) --------------------------------------------------------
-int  sub_562930(int a1, int a2, char* a3, int a4) {
+int sub_562930(int a1, int a2, char* a3, int a4) {
 	int result; // eax
 	int v5;     // esi
 	int v6;     // edi
@@ -10092,7 +10099,7 @@ int  sub_562930(int a1, int a2, char* a3, int a4) {
 }
 
 //----- (00562A90) --------------------------------------------------------
-int  sub_562A90(uint32_t* a1, int a2, void* a3, signed int a4) {
+int sub_562A90(uint32_t* a1, int a2, void* a3, signed int a4) {
 	int result; // eax
 	int v5;     // edi
 	int v6;     // esi
@@ -10135,7 +10142,7 @@ int  sub_562A90(uint32_t* a1, int a2, void* a3, signed int a4) {
 }
 
 //----- (00562B60) --------------------------------------------------------
-unsigned int  sub_562B60(int a1, int a2) {
+unsigned int sub_562B60(int a1, int a2) {
 	unsigned int result; // eax
 
 	*(uint32_t*)(a1 + 328) = 0;
@@ -10145,7 +10152,7 @@ unsigned int  sub_562B60(int a1, int a2) {
 }
 
 //----- (00562B90) --------------------------------------------------------
-int  sub_562B90(int a1, int a2) {
+int sub_562B90(int a1, int a2) {
 	int result; // eax
 
 	result = a1;
@@ -10154,25 +10161,25 @@ int  sub_562B90(int a1, int a2) {
 }
 
 //----- (00562BA0) --------------------------------------------------------
-unsigned int  sub_562BA0(int a1) {
-	return (unsigned int)(60 * (*(int(**)(int))(a1 + 80))(a1)) / *(uint32_t*)(a1 + 120) + *(uint32_t*)(a1 + 328);
+unsigned int sub_562BA0(int a1) {
+	return (unsigned int)(60 * (*(int (**)(int))(a1 + 80))(a1)) / *(uint32_t*)(a1 + 120) + *(uint32_t*)(a1 + 328);
 }
 
 //----- (00562BD0) --------------------------------------------------------
-int  sub_562BD0(uint8_t* a1, char* a2, int a3) {
-	char* v3;           // edi
-	uint8_t* v4;          // ebx
-	int v5;             // eax
+int sub_562BD0(uint8_t* a1, char* a2, int a3) {
+	char* v3;         // edi
+	uint8_t* v4;      // ebx
+	int v5;           // eax
 	unsigned char v6; // al
-	uint16_t* v7;          // esi
-	unsigned int v8;    // ecx
-	unsigned int v9;    // ecx
-	unsigned int v10;   // ecx
-	unsigned int v11;   // ecx
-	char v12;           // al
-	char* v13;          // eax
-	char* v15;          // [esp+Ch] [ebp-Ch]
-	unsigned int v16;   // [esp+10h] [ebp-8h]
+	uint16_t* v7;     // esi
+	unsigned int v8;  // ecx
+	unsigned int v9;  // ecx
+	unsigned int v10; // ecx
+	unsigned int v11; // ecx
+	char v12;         // al
+	char* v13;        // eax
+	char* v15;        // [esp+Ch] [ebp-Ch]
+	unsigned int v16; // [esp+10h] [ebp-8h]
 
 	v3 = a2;
 	v15 = &a2[a3];
@@ -10234,29 +10241,29 @@ int  sub_562BD0(uint8_t* a1, char* a2, int a3) {
 }
 
 //----- (00562C9B) --------------------------------------------------------
-int  sub_562C9B(unsigned char* a1, char* a2, int a3) {
-	char* v3;             // edi
+int sub_562C9B(unsigned char* a1, char* a2, int a3) {
+	char* v3;           // edi
 	unsigned char* v4;  // ebx
-	unsigned int v5;      // eax
-	uint16_t* v6;            // esi
-	unsigned int v7;      // ecx
-	unsigned int v8;      // ecx
-	unsigned int v9;      // ecx
-	unsigned int v10;     // ecx
-	char v11;             // al
-	char* v12;            // eax
+	unsigned int v5;    // eax
+	uint16_t* v6;       // esi
+	unsigned int v7;    // ecx
+	unsigned int v8;    // ecx
+	unsigned int v9;    // ecx
+	unsigned int v10;   // ecx
+	char v11;           // al
+	char* v12;          // eax
 	unsigned char* v14; // ebx
-	unsigned int v15;     // eax
-	uint16_t* v16;           // esi
-	unsigned int v17;     // ecx
-	unsigned int v18;     // ecx
-	unsigned int v19;     // ecx
-	unsigned int v20;     // ecx
-	char v21;             // al
-	char* v22;            // [esp+Ch] [ebp-Ch]
-	char* v23;            // [esp+Ch] [ebp-Ch]
-	unsigned int v24;     // [esp+10h] [ebp-8h]
-	unsigned int v25;     // [esp+10h] [ebp-8h]
+	unsigned int v15;   // eax
+	uint16_t* v16;      // esi
+	unsigned int v17;   // ecx
+	unsigned int v18;   // ecx
+	unsigned int v19;   // ecx
+	unsigned int v20;   // ecx
+	char v21;           // al
+	char* v22;          // [esp+Ch] [ebp-Ch]
+	char* v23;          // [esp+Ch] [ebp-Ch]
+	unsigned int v24;   // [esp+10h] [ebp-8h]
+	unsigned int v25;   // [esp+10h] [ebp-8h]
 
 	v3 = a2;
 	if (*a1) {
@@ -10368,7 +10375,7 @@ int  sub_562C9B(unsigned char* a1, char* a2, int a3) {
 	return v3 - a2;
 }
 
-int  sub_562E30(uint16_t* a1, char* a2, int a3) {
+int sub_562E30(uint16_t* a1, char* a2, int a3) {
 	abort();
 	return 0;
 }
@@ -10619,68 +10626,68 @@ int  sub_562E30(uint16_t * a1, char* a2, int a3)
 // 562EDC: variable 'v20' is possibly undefined
 #endif
 //----- (00563020) --------------------------------------------------------
-unsigned int  sub_563020(int a1, unsigned short* a2, uint8_t* a3, unsigned int a4, int a5, int a6) {
-	unsigned int result;   // eax
-	uint8_t* v7;             // esi
-	int v8;                // ebx
+unsigned int sub_563020(int a1, unsigned short* a2, uint8_t* a3, unsigned int a4, int a5, int a6) {
+	unsigned int result; // eax
+	uint8_t* v7;         // esi
+	int v8;              // ebx
 	unsigned short v9;   // dx
 	unsigned short v10;  // ax
-	int v11;               // ecx
-	int v12;               // eax
-	unsigned int v13;      // ecx
-	char v14;              // bp
-	int v15;               // eax
-	unsigned int v16;      // ecx
+	int v11;             // ecx
+	int v12;             // eax
+	unsigned int v13;    // ecx
+	char v14;            // bp
+	int v15;             // eax
+	unsigned int v16;    // ecx
 	unsigned short v17;  // dx
-	int v18;               // edi
-	int v19;               // eax
-	uint8_t* v20;            // ecx
-	int v21;               // ebp
-	int v22;               // edx
-	int v23;               // eax
-	unsigned int v24;      // ecx
-	char v25;              // bp
-	int v26;               // eax
-	unsigned int v27;      // ecx
-	uint8_t* v28;            // eax
-	int v29;               // ebp
-	int v30;               // ecx
-	unsigned int v31;      // eax
+	int v18;             // edi
+	int v19;             // eax
+	uint8_t* v20;        // ecx
+	int v21;             // ebp
+	int v22;             // edx
+	int v23;             // eax
+	unsigned int v24;    // ecx
+	char v25;            // bp
+	int v26;             // eax
+	unsigned int v27;    // ecx
+	uint8_t* v28;        // eax
+	int v29;             // ebp
+	int v30;             // ecx
+	unsigned int v31;    // eax
 	unsigned short* v32; // ebp
-	unsigned int v33;      // ecx
-	unsigned int v34;      // eax
+	unsigned int v33;    // ecx
+	unsigned int v34;    // eax
 	unsigned short v35;  // dx
-	char v36;              // cl
-	int v37;               // ebp
-	int v38;               // edi
-	int v39;               // esi
-	int v40;               // eax
-	int v41;               // esi
-	int v42;               // edi
-	int v43;               // ecx
-	int v44;               // esi
-	int v45;               // eax
-	bool v46;              // zf
-	int v47;               // edi
-	int v48;               // esi
-	int v49;               // eax
-	uint8_t* v50;            // eax
-	int v51;               // edi
-	int v52;               // edx
-	uint8_t* v53;            // edx
-	int v54;               // edi
-	int v55;               // eax
-	int v56;               // [esp+4h] [ebp-Ch]
-	int v57;               // [esp+4h] [ebp-Ch]
-	unsigned int v58;      // [esp+4h] [ebp-Ch]
-	uint8_t* v59;            // [esp+8h] [ebp-8h]
-	unsigned int v60;      // [esp+Ch] [ebp-4h]
-	unsigned int v61;      // [esp+1Ch] [ebp+Ch]
-	int v62;               // [esp+24h] [ebp+14h]
-	int v63;               // [esp+24h] [ebp+14h]
-	int v64;               // [esp+24h] [ebp+14h]
-	int v65;               // [esp+24h] [ebp+14h]
-	unsigned int v66;      // [esp+24h] [ebp+14h]
+	char v36;            // cl
+	int v37;             // ebp
+	int v38;             // edi
+	int v39;             // esi
+	int v40;             // eax
+	int v41;             // esi
+	int v42;             // edi
+	int v43;             // ecx
+	int v44;             // esi
+	int v45;             // eax
+	bool v46;            // zf
+	int v47;             // edi
+	int v48;             // esi
+	int v49;             // eax
+	uint8_t* v50;        // eax
+	int v51;             // edi
+	int v52;             // edx
+	uint8_t* v53;        // edx
+	int v54;             // edi
+	int v55;             // eax
+	int v56;             // [esp+4h] [ebp-Ch]
+	int v57;             // [esp+4h] [ebp-Ch]
+	unsigned int v58;    // [esp+4h] [ebp-Ch]
+	uint8_t* v59;        // [esp+8h] [ebp-8h]
+	unsigned int v60;    // [esp+Ch] [ebp-4h]
+	unsigned int v61;    // [esp+1Ch] [ebp+Ch]
+	int v62;             // [esp+24h] [ebp+14h]
+	int v63;             // [esp+24h] [ebp+14h]
+	int v64;             // [esp+24h] [ebp+14h]
+	int v65;             // [esp+24h] [ebp+14h]
+	unsigned int v66;    // [esp+24h] [ebp+14h]
 
 	result = a5 * a4;
 	v7 = a3;
@@ -10942,65 +10949,65 @@ unsigned int  sub_563020(int a1, unsigned short* a2, uint8_t* a3, unsigned int a
 }
 
 //----- (00563470) --------------------------------------------------------
-unsigned int  sub_563470(int a1, unsigned short* a2, uint8_t* a3, unsigned int a4, int a5, int a6) {
-	unsigned int result;  // eax
-	unsigned short* v7; // ebp
-	uint8_t* v8;            // esi
-	int v9;               // ebx
-	unsigned short v10; // dx
-	unsigned short v11; // ax
-	int v12;              // ecx
-	int v13;              // eax
-	unsigned int v14;     // ecx
-	char v15;             // bp
-	int v16;              // eax
-	unsigned int v17;     // ecx
-	unsigned short v18; // dx
-	int v19;              // edi
-	int v20;              // ecx
-	uint8_t* v21;           // eax
-	int v22;              // ebp
-	int v23;              // ecx
-	unsigned int v24;     // ecx
-	char v25;             // bp
-	int v26;              // eax
-	unsigned int v27;     // ecx
-	uint8_t* v28;           // eax
-	int v29;              // edx
-	int v30;              // ebp
-	int v31;              // ecx
-	int v32;              // eax
-	unsigned int v33;     // eax
-	int v34;              // ebp
-	int v35;              // edi
-	unsigned short v36; // dx
-	char v37;             // cl
-	int v38;              // esi
-	int v39;              // eax
-	int v40;              // ecx
-	int v41;              // esi
-	int v42;              // esi
-	int v43;              // eax
-	bool v44;             // zf
-	int v45;              // edi
-	int v46;              // esi
-	int v47;              // eax
-	uint8_t* v48;           // eax
-	int v49;              // edi
-	int v50;              // ecx
-	uint8_t* v51;           // edx
-	int v52;              // edi
-	int v53;              // eax
-	int v54;              // [esp+8h] [ebp-Ch]
-	int v55;              // [esp+8h] [ebp-Ch]
-	unsigned int v56;     // [esp+8h] [ebp-Ch]
-	uint8_t* v57;           // [esp+Ch] [ebp-8h]
-	unsigned int v58;     // [esp+10h] [ebp-4h]
-	unsigned int v59;     // [esp+20h] [ebp+Ch]
-	int v60;              // [esp+28h] [ebp+14h]
-	int v61;              // [esp+28h] [ebp+14h]
-	int v62;              // [esp+28h] [ebp+14h]
-	unsigned int v63;     // [esp+28h] [ebp+14h]
+unsigned int sub_563470(int a1, unsigned short* a2, uint8_t* a3, unsigned int a4, int a5, int a6) {
+	unsigned int result; // eax
+	unsigned short* v7;  // ebp
+	uint8_t* v8;         // esi
+	int v9;              // ebx
+	unsigned short v10;  // dx
+	unsigned short v11;  // ax
+	int v12;             // ecx
+	int v13;             // eax
+	unsigned int v14;    // ecx
+	char v15;            // bp
+	int v16;             // eax
+	unsigned int v17;    // ecx
+	unsigned short v18;  // dx
+	int v19;             // edi
+	int v20;             // ecx
+	uint8_t* v21;        // eax
+	int v22;             // ebp
+	int v23;             // ecx
+	unsigned int v24;    // ecx
+	char v25;            // bp
+	int v26;             // eax
+	unsigned int v27;    // ecx
+	uint8_t* v28;        // eax
+	int v29;             // edx
+	int v30;             // ebp
+	int v31;             // ecx
+	int v32;             // eax
+	unsigned int v33;    // eax
+	int v34;             // ebp
+	int v35;             // edi
+	unsigned short v36;  // dx
+	char v37;            // cl
+	int v38;             // esi
+	int v39;             // eax
+	int v40;             // ecx
+	int v41;             // esi
+	int v42;             // esi
+	int v43;             // eax
+	bool v44;            // zf
+	int v45;             // edi
+	int v46;             // esi
+	int v47;             // eax
+	uint8_t* v48;        // eax
+	int v49;             // edi
+	int v50;             // ecx
+	uint8_t* v51;        // edx
+	int v52;             // edi
+	int v53;             // eax
+	int v54;             // [esp+8h] [ebp-Ch]
+	int v55;             // [esp+8h] [ebp-Ch]
+	unsigned int v56;    // [esp+8h] [ebp-Ch]
+	uint8_t* v57;        // [esp+Ch] [ebp-8h]
+	unsigned int v58;    // [esp+10h] [ebp-4h]
+	unsigned int v59;    // [esp+20h] [ebp+Ch]
+	int v60;             // [esp+28h] [ebp+14h]
+	int v61;             // [esp+28h] [ebp+14h]
+	int v62;             // [esp+28h] [ebp+14h]
+	unsigned int v63;    // [esp+28h] [ebp+14h]
 
 	result = a5 * a4;
 	v7 = a2;
@@ -11234,68 +11241,68 @@ unsigned int  sub_563470(int a1, unsigned short* a2, uint8_t* a3, unsigned int a
 }
 
 //----- (00563880) --------------------------------------------------------
-unsigned int  sub_563880(int a1, unsigned short* a2, uint8_t* a3, unsigned int a4, int a5, int a6) {
-	unsigned int result;   // eax
-	uint8_t* v7;             // esi
-	int v8;                // ebx
+unsigned int sub_563880(int a1, unsigned short* a2, uint8_t* a3, unsigned int a4, int a5, int a6) {
+	unsigned int result; // eax
+	uint8_t* v7;         // esi
+	int v8;              // ebx
 	unsigned short v9;   // dx
 	unsigned short v10;  // ax
-	int v11;               // ecx
-	int v12;               // eax
-	unsigned int v13;      // ecx
-	char v14;              // bp
-	int v15;               // eax
-	unsigned int v16;      // ecx
+	int v11;             // ecx
+	int v12;             // eax
+	unsigned int v13;    // ecx
+	char v14;            // bp
+	int v15;             // eax
+	unsigned int v16;    // ecx
 	unsigned short v17;  // dx
-	int v18;               // edi
-	int v19;               // ecx
-	uint8_t* v20;            // eax
-	int v21;               // ebp
-	int v22;               // edx
-	unsigned int v23;      // ecx
-	char v24;              // bp
-	int v25;               // eax
-	unsigned int v26;      // ecx
-	char* v27;             // eax
-	int v28;               // ebp
-	int v29;               // ecx
-	char v30;              // dl
-	int v31;               // eax
-	unsigned int v32;      // eax
+	int v18;             // edi
+	int v19;             // ecx
+	uint8_t* v20;        // eax
+	int v21;             // ebp
+	int v22;             // edx
+	unsigned int v23;    // ecx
+	char v24;            // bp
+	int v25;             // eax
+	unsigned int v26;    // ecx
+	char* v27;           // eax
+	int v28;             // ebp
+	int v29;             // ecx
+	char v30;            // dl
+	int v31;             // eax
+	unsigned int v32;    // eax
 	unsigned short* v33; // ebp
-	unsigned int v34;      // ecx
-	unsigned int v35;      // eax
+	unsigned int v34;    // ecx
+	unsigned int v35;    // eax
 	unsigned short v36;  // dx
-	char v37;              // cl
-	int v38;               // edi
+	char v37;            // cl
+	int v38;             // edi
 	short v39;           // ax
-	int v40;               // esi
-	int v41;               // esi
-	int v42;               // ecx
+	int v40;             // esi
+	int v41;             // esi
+	int v42;             // ecx
 	short v43;           // ax
-	int v44;               // esi
-	bool v45;              // zf
-	int v46;               // edi
+	int v44;             // esi
+	bool v45;            // zf
+	int v46;             // edi
 	short v47;           // ax
-	int v48;               // esi
-	uint8_t* v49;            // eax
-	int v50;               // edi
-	int v51;               // edx
-	char* v52;             // edx
-	int v53;               // edi
-	int v54;               // eax
-	char v55;              // cl
-	int v56;               // [esp+4h] [ebp-Ch]
-	int v57;               // [esp+4h] [ebp-Ch]
-	unsigned int v58;      // [esp+4h] [ebp-Ch]
-	uint8_t* v59;            // [esp+8h] [ebp-8h]
-	unsigned int v60;      // [esp+Ch] [ebp-4h]
-	unsigned int v61;      // [esp+1Ch] [ebp+Ch]
-	int v62;               // [esp+24h] [ebp+14h]
-	int v63;               // [esp+24h] [ebp+14h]
-	int v64;               // [esp+24h] [ebp+14h]
-	int v65;               // [esp+24h] [ebp+14h]
-	unsigned int v66;      // [esp+24h] [ebp+14h]
+	int v48;             // esi
+	uint8_t* v49;        // eax
+	int v50;             // edi
+	int v51;             // edx
+	char* v52;           // edx
+	int v53;             // edi
+	int v54;             // eax
+	char v55;            // cl
+	int v56;             // [esp+4h] [ebp-Ch]
+	int v57;             // [esp+4h] [ebp-Ch]
+	unsigned int v58;    // [esp+4h] [ebp-Ch]
+	uint8_t* v59;        // [esp+8h] [ebp-8h]
+	unsigned int v60;    // [esp+Ch] [ebp-4h]
+	unsigned int v61;    // [esp+1Ch] [ebp+Ch]
+	int v62;             // [esp+24h] [ebp+14h]
+	int v63;             // [esp+24h] [ebp+14h]
+	int v64;             // [esp+24h] [ebp+14h]
+	int v65;             // [esp+24h] [ebp+14h]
+	unsigned int v66;    // [esp+24h] [ebp+14h]
 
 	result = a5 * a4;
 	v7 = a3;
@@ -11552,68 +11559,68 @@ unsigned int  sub_563880(int a1, unsigned short* a2, uint8_t* a3, unsigned int a
 }
 
 //----- (00563C90) --------------------------------------------------------
-unsigned int  sub_563C90(int a1, unsigned short* a2, uint8_t* a3, unsigned int a4, int a5, int a6) {
-	unsigned int result;   // eax
-	uint8_t* v7;             // esi
-	int v8;                // ebx
+unsigned int sub_563C90(int a1, unsigned short* a2, uint8_t* a3, unsigned int a4, int a5, int a6) {
+	unsigned int result; // eax
+	uint8_t* v7;         // esi
+	int v8;              // ebx
 	unsigned short v9;   // dx
 	unsigned short v10;  // ax
-	int v11;               // ecx
-	int v12;               // eax
-	unsigned int v13;      // ecx
-	char v14;              // bp
-	int v15;               // eax
-	unsigned int v16;      // ecx
+	int v11;             // ecx
+	int v12;             // eax
+	unsigned int v13;    // ecx
+	char v14;            // bp
+	int v15;             // eax
+	unsigned int v16;    // ecx
 	unsigned short v17;  // dx
-	int v18;               // edi
-	int v19;               // ecx
-	uint8_t* v20;            // ecx
-	int v21;               // ebp
-	int v22;               // edx
-	unsigned int v23;      // ecx
-	char v24;              // bp
-	int v25;               // eax
-	unsigned int v26;      // ecx
-	uint8_t* v27;            // eax
-	int v28;               // ebp
-	int v29;               // ecx
-	int v30;               // eax
-	unsigned int v31;      // eax
+	int v18;             // edi
+	int v19;             // ecx
+	uint8_t* v20;        // ecx
+	int v21;             // ebp
+	int v22;             // edx
+	unsigned int v23;    // ecx
+	char v24;            // bp
+	int v25;             // eax
+	unsigned int v26;    // ecx
+	uint8_t* v27;        // eax
+	int v28;             // ebp
+	int v29;             // ecx
+	int v30;             // eax
+	unsigned int v31;    // eax
 	unsigned short* v32; // ebp
-	unsigned int v33;      // ecx
-	unsigned int v34;      // eax
+	unsigned int v33;    // ecx
+	unsigned int v34;    // eax
 	unsigned short v35;  // dx
-	char v36;              // cl
-	int v37;               // ebp
-	int v38;               // edi
-	int v39;               // esi
-	int v40;               // eax
-	int v41;               // esi
-	int v42;               // edi
-	int v43;               // ecx
-	int v44;               // esi
-	int v45;               // eax
-	bool v46;              // zf
-	int v47;               // edi
-	int v48;               // esi
-	int v49;               // eax
-	int v50;               // edi
-	uint8_t* v51;            // eax
-	int v52;               // edx
-	int v53;               // edi
-	uint8_t* v54;            // edx
-	int v55;               // eax
-	int v56;               // [esp+4h] [ebp-Ch]
-	int v57;               // [esp+4h] [ebp-Ch]
-	unsigned int v58;      // [esp+4h] [ebp-Ch]
-	unsigned int v59;      // [esp+8h] [ebp-8h]
-	unsigned int v60;      // [esp+Ch] [ebp-4h]
-	unsigned int v61;      // [esp+1Ch] [ebp+Ch]
-	int v62;               // [esp+24h] [ebp+14h]
-	int v63;               // [esp+24h] [ebp+14h]
-	int v64;               // [esp+24h] [ebp+14h]
-	int v65;               // [esp+24h] [ebp+14h]
-	unsigned int v66;      // [esp+24h] [ebp+14h]
+	char v36;            // cl
+	int v37;             // ebp
+	int v38;             // edi
+	int v39;             // esi
+	int v40;             // eax
+	int v41;             // esi
+	int v42;             // edi
+	int v43;             // ecx
+	int v44;             // esi
+	int v45;             // eax
+	bool v46;            // zf
+	int v47;             // edi
+	int v48;             // esi
+	int v49;             // eax
+	int v50;             // edi
+	uint8_t* v51;        // eax
+	int v52;             // edx
+	int v53;             // edi
+	uint8_t* v54;        // edx
+	int v55;             // eax
+	int v56;             // [esp+4h] [ebp-Ch]
+	int v57;             // [esp+4h] [ebp-Ch]
+	unsigned int v58;    // [esp+4h] [ebp-Ch]
+	unsigned int v59;    // [esp+8h] [ebp-8h]
+	unsigned int v60;    // [esp+Ch] [ebp-4h]
+	unsigned int v61;    // [esp+1Ch] [ebp+Ch]
+	int v62;             // [esp+24h] [ebp+14h]
+	int v63;             // [esp+24h] [ebp+14h]
+	int v64;             // [esp+24h] [ebp+14h]
+	int v65;             // [esp+24h] [ebp+14h]
+	unsigned int v66;    // [esp+24h] [ebp+14h]
 
 	result = a5 * a4;
 	v7 = a3;
@@ -11874,66 +11881,66 @@ unsigned int  sub_563C90(int a1, unsigned short* a2, uint8_t* a3, unsigned int a
 }
 
 //----- (005640C0) --------------------------------------------------------
-unsigned int  sub_5640C0(int a1, unsigned short* a2, uint8_t* a3, unsigned int a4, int a5, int a6) {
-	unsigned int result;  // eax
-	unsigned short* v7; // ebp
-	uint8_t* v8;            // esi
-	int v9;               // ebx
-	unsigned short v10; // dx
-	int v11;              // eax
-	int v12;              // ecx
-	int v13;              // eax
-	unsigned int v14;     // ebp
-	int v15;              // eax
-	uint8_t* v16;           // edi
-	unsigned short v17; // dx
-	int v18;              // edi
-	int v19;              // ecx
-	uint8_t* v20;           // eax
-	int v21;              // ebp
-	int v22;              // ecx
-	unsigned int v23;     // ecx
-	char v24;             // bp
-	int v25;              // eax
-	unsigned int v26;     // ecx
-	uint8_t* v27;           // eax
-	int v28;              // edx
-	int v29;              // ebp
-	int v30;              // ecx
-	int v31;              // eax
-	unsigned int v32;     // eax
-	int v33;              // ebp
-	int v34;              // edi
-	unsigned short v35; // dx
-	char v36;             // cl
-	int v37;              // esi
-	int v38;              // eax
-	int v39;              // edi
-	int v40;              // ecx
-	int v41;              // esi
-	int v42;              // esi
-	int v43;              // eax
-	bool v44;             // zf
-	int v45;              // edi
-	int v46;              // esi
-	int v47;              // ecx
-	int v48;              // edi
-	uint8_t* v49;           // eax
-	int v50;              // ecx
-	int v51;              // edi
-	uint8_t* v52;           // eax
-	int v53;              // ecx
-	int v54;              // [esp+8h] [ebp-10h]
-	int v55;              // [esp+8h] [ebp-10h]
-	unsigned int v56;     // [esp+8h] [ebp-10h]
-	uint8_t* v57;           // [esp+Ch] [ebp-Ch]
-	char v58;             // [esp+10h] [ebp-8h]
-	unsigned int v59;     // [esp+14h] [ebp-4h]
-	unsigned int v60;     // [esp+24h] [ebp+Ch]
-	int v61;              // [esp+2Ch] [ebp+14h]
-	int v62;              // [esp+2Ch] [ebp+14h]
-	int v63;              // [esp+2Ch] [ebp+14h]
-	unsigned int v64;     // [esp+2Ch] [ebp+14h]
+unsigned int sub_5640C0(int a1, unsigned short* a2, uint8_t* a3, unsigned int a4, int a5, int a6) {
+	unsigned int result; // eax
+	unsigned short* v7;  // ebp
+	uint8_t* v8;         // esi
+	int v9;              // ebx
+	unsigned short v10;  // dx
+	int v11;             // eax
+	int v12;             // ecx
+	int v13;             // eax
+	unsigned int v14;    // ebp
+	int v15;             // eax
+	uint8_t* v16;        // edi
+	unsigned short v17;  // dx
+	int v18;             // edi
+	int v19;             // ecx
+	uint8_t* v20;        // eax
+	int v21;             // ebp
+	int v22;             // ecx
+	unsigned int v23;    // ecx
+	char v24;            // bp
+	int v25;             // eax
+	unsigned int v26;    // ecx
+	uint8_t* v27;        // eax
+	int v28;             // edx
+	int v29;             // ebp
+	int v30;             // ecx
+	int v31;             // eax
+	unsigned int v32;    // eax
+	int v33;             // ebp
+	int v34;             // edi
+	unsigned short v35;  // dx
+	char v36;            // cl
+	int v37;             // esi
+	int v38;             // eax
+	int v39;             // edi
+	int v40;             // ecx
+	int v41;             // esi
+	int v42;             // esi
+	int v43;             // eax
+	bool v44;            // zf
+	int v45;             // edi
+	int v46;             // esi
+	int v47;             // ecx
+	int v48;             // edi
+	uint8_t* v49;        // eax
+	int v50;             // ecx
+	int v51;             // edi
+	uint8_t* v52;        // eax
+	int v53;             // ecx
+	int v54;             // [esp+8h] [ebp-10h]
+	int v55;             // [esp+8h] [ebp-10h]
+	unsigned int v56;    // [esp+8h] [ebp-10h]
+	uint8_t* v57;        // [esp+Ch] [ebp-Ch]
+	char v58;            // [esp+10h] [ebp-8h]
+	unsigned int v59;    // [esp+14h] [ebp-4h]
+	unsigned int v60;    // [esp+24h] [ebp+Ch]
+	int v61;             // [esp+2Ch] [ebp+14h]
+	int v62;             // [esp+2Ch] [ebp+14h]
+	int v63;             // [esp+2Ch] [ebp+14h]
+	unsigned int v64;    // [esp+2Ch] [ebp+14h]
 
 	result = a5 * a4;
 	v7 = a2;
@@ -12170,16 +12177,16 @@ unsigned int  sub_5640C0(int a1, unsigned short* a2, uint8_t* a3, unsigned int a
 }
 
 //----- (005644B0) --------------------------------------------------------
-short  sub_5644B0(int a1, uint8_t* a2, int* a3, int a4, int a5, int a6) {
+short sub_5644B0(int a1, uint8_t* a2, int* a3, int a4, int a5, int a6) {
 	uint8_t* v6;  // esi
-	int* v7;    // edi
-	int v8;     // ecx
-	int v9;     // ebx
-	int* v10;   // ebx
-	int v11;    // eax
-	int v12;    // edx
-	int v14;    // [esp+8h] [ebp-Ch]
-	int* v15;   // [esp+Ch] [ebp-8h]
+	int* v7;      // edi
+	int v8;       // ecx
+	int v9;       // ebx
+	int* v10;     // ebx
+	int v11;      // eax
+	int v12;      // edx
+	int v14;      // [esp+8h] [ebp-Ch]
+	int* v15;     // [esp+Ch] [ebp-8h]
 	uint8_t* v16; // [esp+10h] [ebp-4h]
 
 	v14 = 2 * a6;
@@ -12226,16 +12233,16 @@ short  sub_5644B0(int a1, uint8_t* a2, int* a3, int a4, int a5, int a6) {
 }
 
 //----- (00564546) --------------------------------------------------------
-short  sub_564546(int a1, uint8_t* a2, uint32_t* a3, int a4, int a5, int a6) {
+short sub_564546(int a1, uint8_t* a2, uint32_t* a3, int a4, int a5, int a6) {
 	uint8_t* v6;   // esi
 	uint32_t* v7;  // edi
-	int v8;      // ecx
-	int v9;      // ebx
+	int v8;        // ecx
+	int v9;        // ebx
 	uint32_t* v10; // ebx
-	int v11;     // edx
-	int v12;     // eax
-	int v13;     // edx
-	int v15;     // [esp+8h] [ebp-Ch]
+	int v11;       // edx
+	int v12;       // eax
+	int v13;       // edx
+	int v15;       // [esp+8h] [ebp-Ch]
 	uint32_t* v16; // [esp+Ch] [ebp-8h]
 	uint8_t* v17;  // [esp+10h] [ebp-4h]
 
@@ -12288,17 +12295,17 @@ short  sub_564546(int a1, uint8_t* a2, uint32_t* a3, int a4, int a5, int a6) {
 }
 
 //----- (00564604) --------------------------------------------------------
-short  sub_564604(int a1, uint8_t* a2, uint16_t* a3, int a4, int a5, int a6) {
-	uint8_t* v6;      // esi
-	uint16_t* v7;      // edi
-	int v8;         // ecx
-	int v9;         // ebx
-	uint8_t* v10;     // ebx
-	short v11;    // ax
-	short result; // ax
-	int v13;        // [esp+8h] [ebp-Ch]
-	uint16_t* v14;     // [esp+Ch] [ebp-8h]
-	uint8_t* v15;     // [esp+10h] [ebp-4h]
+short sub_564604(int a1, uint8_t* a2, uint16_t* a3, int a4, int a5, int a6) {
+	uint8_t* v6;   // esi
+	uint16_t* v7;  // edi
+	int v8;        // ecx
+	int v9;        // ebx
+	uint8_t* v10;  // ebx
+	short v11;     // ax
+	short result;  // ax
+	int v13;       // [esp+8h] [ebp-Ch]
+	uint16_t* v14; // [esp+Ch] [ebp-8h]
+	uint8_t* v15;  // [esp+10h] [ebp-4h]
 
 	v13 = a6;
 	v6 = a2;
@@ -12345,17 +12352,17 @@ short  sub_564604(int a1, uint8_t* a2, uint16_t* a3, int a4, int a5, int a6) {
 }
 
 //----- (0056469E) --------------------------------------------------------
-short  sub_56469E(int a1, uint8_t* a2, uint16_t* a3, int a4, int a5, int a6) {
-	uint8_t* v6;      // esi
-	uint16_t* v7;      // edi
-	int v8;         // ecx
-	int v9;         // ebx
-	uint8_t* v10;     // ebx
-	short v11;    // ax
-	short result; // ax
-	int v13;        // [esp+8h] [ebp-Ch]
-	uint16_t* v14;     // [esp+Ch] [ebp-8h]
-	uint8_t* v15;     // [esp+10h] [ebp-4h]
+short sub_56469E(int a1, uint8_t* a2, uint16_t* a3, int a4, int a5, int a6) {
+	uint8_t* v6;   // esi
+	uint16_t* v7;  // edi
+	int v8;        // ecx
+	int v9;        // ebx
+	uint8_t* v10;  // ebx
+	short v11;     // ax
+	short result;  // ax
+	int v13;       // [esp+8h] [ebp-Ch]
+	uint16_t* v14; // [esp+Ch] [ebp-8h]
+	uint8_t* v15;  // [esp+10h] [ebp-4h]
 
 	v13 = a6;
 	v6 = a2;
@@ -12402,26 +12409,26 @@ short  sub_56469E(int a1, uint8_t* a2, uint16_t* a3, int a4, int a5, int a6) {
 }
 
 //----- (00564738) --------------------------------------------------------
-short  sub_564738(int a1, uint8_t* a2, int* a3, int a4, int a5, int a6) {
+short sub_564738(int a1, uint8_t* a2, int* a3, int a4, int a5, int a6) {
 	uint8_t* v6;  // esi
-	int* v7;    // edi
-	int v8;     // ecx
-	int v9;     // ebx
-	int* v10;   // ebx
-	int v11;    // edx
-	int v12;    // edx
-	int v13;    // edx
-	int v14;    // ebx
-	int v15;    // eax
-	int v16;    // edx
-	int v17;    // ebx
-	int v18;    // ebx
-	int v19;    // ebx
-	int* v21;   // [esp+8h] [ebp-10h]
-	int v22;    // [esp+Ch] [ebp-Ch]
-	int* v23;   // [esp+10h] [ebp-8h]
+	int* v7;      // edi
+	int v8;       // ecx
+	int v9;       // ebx
+	int* v10;     // ebx
+	int v11;      // edx
+	int v12;      // edx
+	int v13;      // edx
+	int v14;      // ebx
+	int v15;      // eax
+	int v16;      // edx
+	int v17;      // ebx
+	int v18;      // ebx
+	int v19;      // ebx
+	int* v21;     // [esp+8h] [ebp-10h]
+	int v22;      // [esp+Ch] [ebp-Ch]
+	int* v23;     // [esp+10h] [ebp-8h]
 	uint8_t* v24; // [esp+14h] [ebp-4h]
-	int v25;    // [esp+34h] [ebp+1Ch]
+	int v25;      // [esp+34h] [ebp+1Ch]
 
 	v25 = 2 * a6;
 	v22 = v25;
@@ -12487,19 +12494,19 @@ short  sub_564738(int a1, uint8_t* a2, int* a3, int a4, int a5, int a6) {
 }
 
 //----- (00564834) --------------------------------------------------------
-short  sub_564834(int a1, uint8_t* a2, int* a3, int a4, int a5, int a6) {
+short sub_564834(int a1, uint8_t* a2, int* a3, int a4, int a5, int a6) {
 	uint8_t* v6;  // esi
-	int* v7;    // edi
-	int v8;     // ecx
-	int v9;     // ebx
-	int* v10;   // ebx
-	int v11;    // edx
-	int v12;    // eax
-	int v13;    // edx
-	int v15;    // [esp+Ch] [ebp-Ch]
-	int* v16;   // [esp+10h] [ebp-8h]
+	int* v7;      // edi
+	int v8;       // ecx
+	int v9;       // ebx
+	int* v10;     // ebx
+	int v11;      // edx
+	int v12;      // eax
+	int v13;      // edx
+	int v15;      // [esp+Ch] [ebp-Ch]
+	int* v16;     // [esp+10h] [ebp-8h]
 	uint8_t* v17; // [esp+14h] [ebp-4h]
-	int v18;    // [esp+34h] [ebp+1Ch]
+	int v18;      // [esp+34h] [ebp+1Ch]
 
 	v18 = 2 * a6;
 	v15 = 2 * v18;
@@ -12550,14 +12557,14 @@ short  sub_564834(int a1, uint8_t* a2, int* a3, int a4, int a5, int a6) {
 }
 
 //----- (005648E4) --------------------------------------------------------
-short  sub_5648E4(int a1, uint8_t* a2, uint32_t* a3, int a4, int a5, int a6) {
+short sub_5648E4(int a1, uint8_t* a2, uint32_t* a3, int a4, int a5, int a6) {
 	uint8_t* v6;   // esi
 	uint32_t* v7;  // edi
-	int v8;      // ecx
-	int v9;      // ebx
+	int v8;        // ecx
+	int v9;        // ebx
 	uint32_t* v10; // ebx
-	int v11;     // eax
-	int v13;     // [esp+8h] [ebp-Ch]
+	int v11;       // eax
+	int v13;       // [esp+8h] [ebp-Ch]
 	uint32_t* v14; // [esp+Ch] [ebp-8h]
 	uint8_t* v15;  // [esp+10h] [ebp-4h]
 
@@ -12616,18 +12623,18 @@ short  sub_5648E4(int a1, uint8_t* a2, uint32_t* a3, int a4, int a5, int a6) {
 }
 
 //----- (005649DA) --------------------------------------------------------
-short  sub_5649DA(int a1, uint8_t* a2, uint32_t* a3, int a4, int a5, int a6) {
+short sub_5649DA(int a1, uint8_t* a2, uint32_t* a3, int a4, int a5, int a6) {
 	uint8_t* v6;   // esi
 	uint32_t* v7;  // edi
-	int v8;      // ecx
-	int v9;      // ebx
+	int v8;        // ecx
+	int v9;        // ebx
 	uint32_t* v10; // ebx
-	int v11;     // edx
-	int v12;     // edx
-	int v13;     // eax
-	int v14;     // ebx
-	int v15;     // ebx
-	int v17;     // [esp+8h] [ebp-Ch]
+	int v11;       // edx
+	int v12;       // edx
+	int v13;       // eax
+	int v14;       // ebx
+	int v15;       // ebx
+	int v17;       // [esp+8h] [ebp-Ch]
 	uint32_t* v18; // [esp+Ch] [ebp-8h]
 	uint8_t* v19;  // [esp+10h] [ebp-4h]
 
@@ -12690,65 +12697,65 @@ short  sub_5649DA(int a1, uint8_t* a2, uint32_t* a3, int a4, int a5, int a6) {
 }
 
 //----- (00564AC0) --------------------------------------------------------
-int*  sub_564AC0(int a1, unsigned short* a2, int* a3, int a4, int a5, int a6) {
-	unsigned int v6;       // edi
-	int* result;           // eax
+int* sub_564AC0(int a1, unsigned short* a2, int* a3, int a4, int a5, int a6) {
+	unsigned int v6;     // edi
+	int* result;         // eax
 	unsigned short* v8;  // ebx
-	int* v9;               // ebp
-	int* v10;              // ecx
-	int v11;               // eax
-	int v12;               // esi
-	int v13;               // eax
-	unsigned int v14;      // esi
-	int* v15;              // eax
-	int v16;               // ecx
-	int* v17;              // eax
-	int* v18;              // edx
-	unsigned int v19;      // edi
-	int v20;               // ecx
-	uint32_t* v21;           // edx
-	unsigned int v22;      // edi
-	unsigned int v23;      // edx
+	int* v9;             // ebp
+	int* v10;            // ecx
+	int v11;             // eax
+	int v12;             // esi
+	int v13;             // eax
+	unsigned int v14;    // esi
+	int* v15;            // eax
+	int v16;             // ecx
+	int* v17;            // eax
+	int* v18;            // edx
+	unsigned int v19;    // edi
+	int v20;             // ecx
+	uint32_t* v21;       // edx
+	unsigned int v22;    // edi
+	unsigned int v23;    // edx
 	unsigned short v24;  // cx
-	int v25;               // eax
-	unsigned int v26;      // ecx
+	int v25;             // eax
+	unsigned int v26;    // ecx
 	short* v27;          // edi
-	int* v28;              // ebx
-	int v29;               // ebp
+	int* v28;            // ebx
+	int v29;             // ebp
 	short v30;           // cx
-	int* v31;              // eax
-	unsigned int v32;      // edx
-	bool v33;              // zf
-	int v34;               // esi
-	uint16_t* v35;            // eax
-	int* v36;              // ebx
-	int* v37;              // edx
-	int v38;               // edi
-	int v39;               // edi
-	int v40;               // esi
+	int* v31;            // eax
+	unsigned int v32;    // edx
+	bool v33;            // zf
+	int v34;             // esi
+	uint16_t* v35;       // eax
+	int* v36;            // ebx
+	int* v37;            // edx
+	int v38;             // edi
+	int v39;             // edi
+	int v40;             // esi
 	unsigned short* v41; // eax
-	int* v42;              // edx
+	int* v42;            // edx
 	unsigned short v43;  // cx
 	unsigned short v44;  // bx
 	unsigned short* v45; // eax
 	unsigned short v46;  // cx
 	unsigned short v47;  // bx
-	int v48;               // edi
-	int v49;               // edx
-	int v50;               // eax
-	int* v51;              // ecx
-	int* v52;              // [esp+Ch] [ebp-Ch]
-	int* v53;              // [esp+10h] [ebp-8h]
-	int* v54;              // [esp+14h] [ebp-4h]
-	int v55;               // [esp+20h] [ebp+8h]
-	int v56;               // [esp+24h] [ebp+Ch]
-	int v57;               // [esp+24h] [ebp+Ch]
-	int v58;               // [esp+24h] [ebp+Ch]
-	int* v59;              // [esp+2Ch] [ebp+14h]
-	int v60;               // [esp+2Ch] [ebp+14h]
-	unsigned int v61;      // [esp+2Ch] [ebp+14h]
-	unsigned int v62;      // [esp+2Ch] [ebp+14h]
-	unsigned int v63;      // [esp+30h] [ebp+18h]
+	int v48;             // edi
+	int v49;             // edx
+	int v50;             // eax
+	int* v51;            // ecx
+	int* v52;            // [esp+Ch] [ebp-Ch]
+	int* v53;            // [esp+10h] [ebp-8h]
+	int* v54;            // [esp+14h] [ebp-4h]
+	int v55;             // [esp+20h] [ebp+8h]
+	int v56;             // [esp+24h] [ebp+Ch]
+	int v57;             // [esp+24h] [ebp+Ch]
+	int v58;             // [esp+24h] [ebp+Ch]
+	int* v59;            // [esp+2Ch] [ebp+14h]
+	int v60;             // [esp+2Ch] [ebp+14h]
+	unsigned int v61;    // [esp+2Ch] [ebp+14h]
+	unsigned int v62;    // [esp+2Ch] [ebp+14h]
+	unsigned int v63;    // [esp+30h] [ebp+18h]
 
 	v6 = 2 * a6;
 	result = a3;
@@ -12959,28 +12966,28 @@ int*  sub_564AC0(int a1, unsigned short* a2, int* a3, int a4, int a5, int a6) {
 }
 
 //----- (00564E60) --------------------------------------------------------
-int*  sub_564E60(int a1, uint16_t* a2, int* a3, unsigned int a4, int a5, int a6) {
-	int* v6;               // edx
-	int v7;                // ebp
-	uint16_t* v8;             // esi
-	int* result;           // eax
-	int* v10;              // edi
-	int v11;               // ecx
-	uint16_t* v12;            // eax
-	int v13;               // ebx
-	int* v14;              // esi
-	int v15;               // edi
+int* sub_564E60(int a1, uint16_t* a2, int* a3, unsigned int a4, int a5, int a6) {
+	int* v6;             // edx
+	int v7;              // ebp
+	uint16_t* v8;        // esi
+	int* result;         // eax
+	int* v10;            // edi
+	int v11;             // ecx
+	uint16_t* v12;       // eax
+	int v13;             // ebx
+	int* v14;            // esi
+	int v15;             // edi
 	unsigned short* v16; // eax
-	int v17;               // esi
+	int v17;             // esi
 	unsigned short v18;  // cx
 	unsigned short v19;  // bx
 	unsigned short* v20; // eax
 	unsigned short v21;  // cx
 	unsigned short v22;  // bx
-	int* v23;              // [esp+Ch] [ebp-4h]
-	int v24;               // [esp+1Ch] [ebp+Ch]
-	int* v25;              // [esp+24h] [ebp+14h]
-	int* v26;              // [esp+28h] [ebp+18h]
+	int* v23;            // [esp+Ch] [ebp-4h]
+	int v24;             // [esp+1Ch] [ebp+Ch]
+	int* v25;            // [esp+24h] [ebp+14h]
+	int* v26;            // [esp+28h] [ebp+18h]
 
 	v6 = a3;
 	v7 = 2 * a6;
@@ -13052,70 +13059,70 @@ int*  sub_564E60(int a1, uint16_t* a2, int* a3, unsigned int a4, int a5, int a6)
 }
 
 //----- (00564FB0) --------------------------------------------------------
-unsigned int  sub_564FB0(int a1, unsigned char* a2, int* a3, unsigned int a4, int a5, int a6) {
-	int v6;                // ebp
-	int* v7;               // ebx
+unsigned int sub_564FB0(int a1, unsigned char* a2, int* a3, unsigned int a4, int a5, int a6) {
+	int v6;              // ebp
+	int* v7;             // ebx
 	unsigned char* v8;   // esi
-	unsigned int result;   // eax
+	unsigned int result; // eax
 	short v10;           // ax
 	short v11;           // cx
-	unsigned int v12;      // ecx
-	int* v13;              // edi
+	unsigned int v12;    // ecx
+	int* v13;            // edi
 	unsigned short* v14; // ecx
-	int v15;               // eax
-	int v16;               // esi
+	int v15;             // eax
+	int v16;             // esi
 	unsigned short v17;  // dx
 	unsigned short v18;  // bp
 	unsigned short* v19; // ecx
 	unsigned short v20;  // dx
 	unsigned short v21;  // bp
 	unsigned char* v22;  // ecx
-	int* v23;              // edx
+	int* v23;            // edx
 	unsigned short* v24; // eax
-	int v25;               // edi
+	int v25;             // edi
 	unsigned short v26;  // cx
 	unsigned short v27;  // bp
 	unsigned short* v28; // eax
 	unsigned short v29;  // cx
 	unsigned short v30;  // bp
-	int v31;               // edx
+	int v31;             // edx
 	unsigned short* v32; // eax
-	int v33;               // edx
+	int v33;             // edx
 	unsigned short v34;  // cx
 	unsigned short v35;  // di
 	unsigned short* v36; // eax
 	unsigned short v37;  // cx
 	unsigned short v38;  // di
-	int v39;               // ebp
+	int v39;             // ebp
 	short* v40;          // eax
-	int* v41;              // edi
+	int* v41;            // edi
 	short v42;           // dx
-	int* v43;              // ecx
-	int v44;               // esi
-	int v45;               // edx
-	int* v46;              // ecx
-	int v47;               // eax
-	int* v48;              // ecx
-	int* v49;              // esi
-	int v50;               // edi
-	int v51;               // eax
-	uint32_t* v52;           // esi
-	int v53;               // edi
-	uint16_t* v54;            // eax
-	int v55;               // edi
-	int* v56;              // edx
-	int v57;               // esi
-	int* v58;              // [esp+Ch] [ebp-Ch]
-	int* v59;              // [esp+10h] [ebp-8h]
-	unsigned int v60;      // [esp+14h] [ebp-4h]
-	int v61;               // [esp+20h] [ebp+8h]
-	unsigned int v62;      // [esp+24h] [ebp+Ch]
-	int v63;               // [esp+24h] [ebp+Ch]
-	int v64;               // [esp+24h] [ebp+Ch]
-	int v65;               // [esp+24h] [ebp+Ch]
-	int v66;               // [esp+2Ch] [ebp+14h]
-	unsigned int v67;      // [esp+2Ch] [ebp+14h]
-	unsigned int v68;      // [esp+30h] [ebp+18h]
+	int* v43;            // ecx
+	int v44;             // esi
+	int v45;             // edx
+	int* v46;            // ecx
+	int v47;             // eax
+	int* v48;            // ecx
+	int* v49;            // esi
+	int v50;             // edi
+	int v51;             // eax
+	uint32_t* v52;       // esi
+	int v53;             // edi
+	uint16_t* v54;       // eax
+	int v55;             // edi
+	int* v56;            // edx
+	int v57;             // esi
+	int* v58;            // [esp+Ch] [ebp-Ch]
+	int* v59;            // [esp+10h] [ebp-8h]
+	unsigned int v60;    // [esp+14h] [ebp-4h]
+	int v61;             // [esp+20h] [ebp+8h]
+	unsigned int v62;    // [esp+24h] [ebp+Ch]
+	int v63;             // [esp+24h] [ebp+Ch]
+	int v64;             // [esp+24h] [ebp+Ch]
+	int v65;             // [esp+24h] [ebp+Ch]
+	int v66;             // [esp+2Ch] [ebp+14h]
+	unsigned int v67;    // [esp+2Ch] [ebp+14h]
+	unsigned int v68;    // [esp+30h] [ebp+18h]
 
 	v6 = 2 * a6;
 	v7 = a3;
@@ -13325,5 +13332,5 @@ void* sub_55C8D0() { return sub_55C8E0(); }
 
 int sub_559AE0(uint8_t* this) { return sub_559C30(this); }
 
-uint32_t  sub_55A740() { return sub_55C930(); }
+uint32_t sub_55A740() { return sub_55C930(); }
 #endif

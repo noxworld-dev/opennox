@@ -3,6 +3,6 @@
 
 #include "defs.h"
 
-void  nox_xxx_soloMonsterKillReward_4EE500_obj_health(int a1);
+void nox_xxx_soloMonsterKillReward_4EE500_obj_health(int a1);
 
 #endif // NOX_PORT_SERVER_OBJECT_HEALTH

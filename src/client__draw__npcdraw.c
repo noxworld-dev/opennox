@@ -1,13 +1,13 @@
 #include "client__draw__npcdraw.h"
-#include "client__draw__vectdraw.h"
-#include "client__drawable__drawable.h"
-#include "client__system__npcinfo.h"
 #include "GAME1.h"
 #include "GAME1_2.h"
 #include "GAME2.h"
 #include "GAME2_3.h"
 #include "GAME3.h"
 #include "GAME3_1.h"
+#include "client__draw__vectdraw.h"
+#include "client__drawable__drawable.h"
+#include "client__system__npcinfo.h"
 #include "client__video__draw_common.h"
 #include "operators.h"
 
@@ -16,41 +16,41 @@ extern uint32_t dword_5d4594_1313800;
 extern unsigned int nox_frame_xxx_2598000;
 
 //----- (004B9050) --------------------------------------------------------
-int  nox_thing_npc_draw(int* a1, nox_drawable* dr) {
-	int v2;                           // eax
-	int v4;                           // edi
-	int* v5;                          // ebp
-	int v6;                           // eax
-	int v7;                           // esi
-	int v8;                           // eax
-	int v9;                           // esi
-	int v10;                          // eax
-	int v11;                          // esi
-	int v12;                          // esi
-	int* v13;                         // ebx
-	int v14;                          // eax
-	int v15;                          // eax
-	int* v16;                         // ebx
-	int v17;                          // esi
-	int v18;                          // eax
-	int v19;                          // ebp
-	int v20;                          // ebx
-	int* v21;                         // esi
-	char v22;                         // al
-	int v23;                          // eax
-	void( * *v24)(char*, int); // ebx
-	char* v25;                        // eax
-	int v26;                          // eax
-	void( * *v27)(char*, int); // ebx
-	char* v28;                        // eax
-	int i;                            // esi
-	int v30;                          // [esp-4h] [ebp-24h]
-	int v31;                          // [esp-4h] [ebp-24h]
-	int v32;                          // [esp-4h] [ebp-24h]
-	int* v33;                         // [esp+10h] [ebp-10h]
-	int v34;                          // [esp+14h] [ebp-Ch]
-	int v35;                          // [esp+18h] [ebp-8h]
-	int v36;                          // [esp+1Ch] [ebp-4h]
+int nox_thing_npc_draw(int* a1, nox_drawable* dr) {
+	int v2;                   // eax
+	int v4;                   // edi
+	int* v5;                  // ebp
+	int v6;                   // eax
+	int v7;                   // esi
+	int v8;                   // eax
+	int v9;                   // esi
+	int v10;                  // eax
+	int v11;                  // esi
+	int v12;                  // esi
+	int* v13;                 // ebx
+	int v14;                  // eax
+	int v15;                  // eax
+	int* v16;                 // ebx
+	int v17;                  // esi
+	int v18;                  // eax
+	int v19;                  // ebp
+	int v20;                  // ebx
+	int* v21;                 // esi
+	char v22;                 // al
+	int v23;                  // eax
+	void (**v24)(char*, int); // ebx
+	char* v25;                // eax
+	int v26;                  // eax
+	void (**v27)(char*, int); // ebx
+	char* v28;                // eax
+	int i;                    // esi
+	int v30;                  // [esp-4h] [ebp-24h]
+	int v31;                  // [esp-4h] [ebp-24h]
+	int v32;                  // [esp-4h] [ebp-24h]
+	int* v33;                 // [esp+10h] [ebp-10h]
+	int v34;                  // [esp+14h] [ebp-Ch]
+	int v35;                  // [esp+18h] [ebp-8h]
+	int v36;                  // [esp+1Ch] [ebp-4h]
 
 	int a2 = dr;
 
@@ -58,7 +58,7 @@ int  nox_thing_npc_draw(int* a1, nox_drawable* dr) {
 		v2 = *(uint32_t*)(sub_44D330((char*)getMemAt(0x587000, 177440)) + 92) + 4;
 		if (*(uint16_t*)(v2 + 40)) {
 			nox_xxx_drawObject_4C4770_draw(a1, (unsigned char*)a2,
-				**(uint32_t**)(*(uint32_t*)(v2 + 48) + 4 * *(unsigned char*)(a2 + 297) + 4));
+										   **(uint32_t**)(*(uint32_t*)(v2 + 48) + 4 * *(unsigned char*)(a2 + 297) + 4));
 			return 1;
 		}
 	} else {
@@ -97,10 +97,10 @@ int  nox_thing_npc_draw(int* a1, nox_drawable* dr) {
 				do {
 					sub_434480(*v13, (int)&v35, (int)&a2, (int)&v34);
 					if ((unsigned char)a2 >= 0x9Bu) {
-					LOBYTE(a2) = -1;
+						LOBYTE(a2) = -1;
 					} else {
-					LOBYTE(a2) = a2 + 100;
-}
+						LOBYTE(a2) = a2 + 100;
+					}
 					++v12;
 					v14 = nox_color_rgb_4344A0(v35, a2, v34);
 					nox_xxx_drawPlayer_4341D0(v12, v14);
@@ -122,7 +122,7 @@ int  nox_thing_npc_draw(int* a1, nox_drawable* dr) {
 				v20 = sub_4BC5D0((uint32_t*)v4, v36 + 264 * v18 + 4);
 				if (v20 < 0) {
 					return 0;
-}
+				}
 				v21 = a1;
 				nox_xxx_drawObject_4C4770_draw(
 					a1, (unsigned char*)v4,
@@ -144,7 +144,7 @@ int  nox_thing_npc_draw(int* a1, nox_drawable* dr) {
 					*(uint32_t*)(dword_5d4594_1313796 + 12) = *v21 + *(uint32_t*)(v4 + 12) - v21[4];
 					*(uint32_t*)(dword_5d4594_1313796 + 16) = v21[1] - v21[5] + *(uint32_t*)(v4 + 16) - 50;
 					v31 = dword_5d4594_1313796;
-					v24 = (void(**)(char*, int))(dword_5d4594_1313796 + 300);
+					v24 = (void (**)(char*, int))(dword_5d4594_1313796 + 300);
 					v25 = nox_draw_getViewport_437250();
 					(*v24)(v25, v31);
 				}
@@ -157,7 +157,7 @@ int  nox_thing_npc_draw(int* a1, nox_drawable* dr) {
 					*(uint32_t*)(dword_5d4594_1313800 + 12) = *v21 + *(uint32_t*)(v4 + 12) - v21[4];
 					*(uint32_t*)(dword_5d4594_1313800 + 16) = v21[1] - v21[5] + *(uint32_t*)(v4 + 16) - 50;
 					v32 = dword_5d4594_1313800;
-					v27 = (void(**)(char*, int))(dword_5d4594_1313800 + 300);
+					v27 = (void (**)(char*, int))(dword_5d4594_1313800 + 300);
 					v28 = nox_draw_getViewport_437250();
 					(*v27)(v28, v32);
 				}
@@ -170,7 +170,7 @@ int  nox_thing_npc_draw(int* a1, nox_drawable* dr) {
 				}
 				for (i = 0; i < 6; ++i) {
 					nox_xxx_drawPlayer_4341D0(i, *getMemIntPtr(0x5D4594, 2523948));
-}
+				}
 			}
 		}
 	}

@@ -14,13 +14,13 @@ bool nox_script_panic_memhack_check(int fnc) {
 	// it usually triggers on a2=973231
 	// 0x587000 + 245900 + 3892924 -> 0x979748 -> 0x5D4594 + 3821996 + 8 -> nox_script_stack[2]
 
-	unsigned int off = 0x587000 + 245900 + 4*fnc;
+	unsigned int off = 0x587000 + 245900 + 4 * fnc;
 	int stack_off = off - (0x5D4594 + 3821996);
 
-	if (stack_off < 0 || stack_off+4 > 4096 || stack_off%4 != 0) {
+	if (stack_off < 0 || stack_off + 4 > 4096 || stack_off % 4 != 0) {
 		return false; // disallow other type of hacks
 	}
-	int stack_ind = stack_off/4;
+	int stack_ind = stack_off / 4;
 	// function address we need to jump to
 	// basically points to the following uint32 on the stack
 	if (nox_script_stack_at(stack_ind) != 0x97974c) {
@@ -31,7 +31,7 @@ bool nox_script_panic_memhack_check(int fnc) {
 	unsigned char stack_exp[] = {
 		0x56, // push   esi
 		// -> 0x5D4594 + 1558936 + 356 (safe location in a string buffer?)
-		0xbe, 0x90, 0x10, 0x75, 0x00,             // mov    esi,0x751090
+		0xbe, 0x90, 0x10, 0x75, 0x00, // mov    esi,0x751090
 		// inject two functions there, see in replaced functions
 		0xc7, 0x06, 0x68, 0x50, 0x72, 0x50,       // mov    uint32_t PTR [esi],0x50725068
 		0xc7, 0x46, 0x04, 0x00, 0x68, 0x30, 0x72, // mov    uint32_t PTR [esi+0x4],0x72306800
@@ -47,22 +47,22 @@ bool nox_script_panic_memhack_check(int fnc) {
 		0xc7, 0x46, 0x2c, 0x83, 0xc4, 0x04, 0x5e, // mov    uint32_t PTR [esi+0x2c],0x5e04c483
 		0xc7, 0x46, 0x30, 0xc3, 0x90, 0x90, 0x90, // mov    uint32_t PTR [esi+0x30],0x909090c3
 		// override opcode 185 from nox_script_builtin_516850 to new func 1
-		0x89, 0x35, 0x70, 0x33, 0x5c, 0x00,       // mov    uint32_t PTR ds:0x5c3370,esi
+		0x89, 0x35, 0x70, 0x33, 0x5c, 0x00, // mov    uint32_t PTR ds:0x5c3370,esi
 		// override opcode 89 from nox_script_fn59_513F20 to new func 2
-		0xc7, 0x5, 0xf0, 0x31, 0x5c, 0x00, 0xac,  // mov    uint32_t PTR ds:0x5c31f0,0x7510ac
-		0x10, 0x75, 0x00,                         //
-		0x5e,                                     // pop    esi
-		0xc3,                                     // ret
-		0x90, 0x90                                // nop x2
+		0xc7, 0x5, 0xf0, 0x31, 0x5c, 0x00, 0xac, // mov    uint32_t PTR ds:0x5c31f0,0x7510ac
+		0x10, 0x75, 0x00,                        //
+		0x5e,                                    // pop    esi
+		0xc3,                                    // ret
+		0x90, 0x90                               // nop x2
 	};
-	int hack_len = sizeof(stack_exp)/4;
+	int hack_len = sizeof(stack_exp) / 4;
 	if (stack_ind + hack_len >= 1024) {
 		return false; // we expect all items of the hack to fit
 	}
 	// check that the exploit code is exactly the one we expect
 	unsigned int* stack_dword = stack_exp;
 	for (int i = 0; i < hack_len; i++) {
-		if (stack_dword[i] != nox_script_stack_at(stack_ind+i)) {
+		if (stack_dword[i] != nox_script_stack_at(stack_ind + i)) {
 			return false;
 		}
 	}
@@ -112,7 +112,7 @@ int nox_script_panic_memhack_write_7510AC() {
 bool nox_script_panic_memhack_call(int fi, int* ret) {
 	if (!nox_script_panic_memhack_is_enabled) {
 		return false;
-}
+	}
 	if (fi == 185) {
 		*ret = nox_script_panic_memhack_sub_751090();
 		return true;

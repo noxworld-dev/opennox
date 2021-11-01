@@ -10,8 +10,8 @@ extern "C" {
 #include <netdb.h>
 #include <pthread.h>
 #include <stdarg.h>
-#include <stdint.h>
 #include <stdbool.h>
+#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -258,26 +258,27 @@ HANDLE FindFirstFileA(const char* lpFileName, LPWIN32_FIND_DATAA lpFindFileData)
 int FindNextFileA(HANDLE hFindFile, LPWIN32_FIND_DATAA lpFindFileData);
 int FindClose(HANDLE hFindFile);
 int GetDateFormatA(LCID Locale, uint32_t dwFlags, const SYSTEMTIME* lpDate, const char* lpFormat, char* lpDateStr,
-						  int cchDate);
+				   int cchDate);
 int RegOpenKeyExA(HKEY hKey, const char* lpSubKey, uint32_t ulOptions, REGSAM samDesired, PHKEY phkResult);
 int RegQueryValueExA(HKEY hKey, const char* lpValueName, uint32_t* lpReserved, uint32_t* lpType, uint8_t* lpData,
-								uint32_t* lpcbData);
-int RegSetValueExA(HKEY, const char* lpValueName, uint32_t Reserved, uint32_t dwType, const uint8_t* lpData, uint32_t cbData);
+					 uint32_t* lpcbData);
+int RegSetValueExA(HKEY, const char* lpValueName, uint32_t Reserved, uint32_t dwType, const uint8_t* lpData,
+				   uint32_t cbData);
 int RegCloseKey(HKEY hKey);
 int MulDiv(int nNumber, int nNumerator, int nDenominator);
 int RegCreateKeyExA(HKEY hKey, const char* lpSubKey, uint32_t Reserved, char* lpClass, uint32_t dwOptions,
-							   REGSAM samDesired, const LPSECURITY_ATTRIBUTES lpSecurityAttributes, PHKEY phkResult,
-							   uint32_t* lpdwDisposition);
+					REGSAM samDesired, const LPSECURITY_ATTRIBUTES lpSecurityAttributes, PHKEY phkResult,
+					uint32_t* lpdwDisposition);
 void GlobalMemoryStatus(LPMEMORYSTATUS lpBuffer);
 int QueryPerformanceCounter(LARGE_INTEGER* lpPerformanceCount);
 int QueryPerformanceFrequency(LARGE_INTEGER* lpFrequency);
 int HeapDestroy(HANDLE hHeap);
 int GetVersionExA(LPOSVERSIONINFOA lpVersionInformation);
 void OutputDebugStringA(const char* lpOutputString);
-HINSTANCE ShellExecuteA(HWND hwnd, const char* lpOperation, const char* lpFile, const char* lpParameters, const char* lpDirectory,
-							   int nShowCmd);
+HINSTANCE ShellExecuteA(HWND hwnd, const char* lpOperation, const char* lpFile, const char* lpParameters,
+						const char* lpDirectory, int nShowCmd);
 int GetTimeFormatA(LCID Locale, uint32_t dwFlags, const SYSTEMTIME* lpTime, const char* lpFormat, char* lpTimeStr,
-						  int cchTime);
+				   int cchTime);
 int SystemTimeToFileTime(const SYSTEMTIME* lpSystemTime, LPFILETIME lpFileTime);
 int CompareFileTime(const FILETIME* lpFileTime1, const FILETIME* lpFileTime2);
 HANDLE CreateMutexA(LPSECURITY_ATTRIBUTES lpSecurityAttributes, int bInitialOwner, const char* lpName);
@@ -285,7 +286,7 @@ int ReleaseMutex(HANDLE hMutex);
 int SetEvent(HANDLE hEvent);
 uint32_t WaitForSingleObject(HANDLE hHandle, uint32_t dwMilliseconds);
 int WideCharToMultiByte(unsigned int CodePage, uint32_t dwFlags, const wchar_t* lpWideCharStr, int cchWideChar,
-							   char* lpMultiByteStr, int cbMultiByte, const char* lpDefaultChar, int* lpUsedDefaultChar);
+						char* lpMultiByteStr, int cbMultiByte, const char* lpDefaultChar, int* lpUsedDefaultChar);
 
 int InterlockedExchange(volatile int* Target, int Value);
 int InterlockedDecrement(volatile int* Addend);
@@ -294,7 +295,7 @@ int MessageBoxA(HWND hWnd, const char* lpText, const char* lpCaption, unsigned i
 
 unsigned int _control87(unsigned int new_, unsigned int mask);
 unsigned int _controlfp(unsigned int new_, unsigned int mask);
-uintptr_t _beginthread(void(* start_address)(void*), unsigned int stack_size, void* arglist);
+uintptr_t _beginthread(void (*start_address)(void*), unsigned int stack_size, void* arglist);
 char* _strrev(char* str);
 char* _itoa(int val, char* s, int radix);
 wchar_t* _itow(int val, wchar_t* s, int radix);
@@ -322,9 +323,7 @@ static inline int SetRect(LPRECT lprc, int xLeft, int yTop, int xRight, int yBot
 	lprc->bottom = yBottom;
 	return true;
 }
-static inline int IsRectEmpty(const RECT* lprc) {
-	return lprc->right <= lprc->left || lprc->bottom <= lprc->top;
-}
+static inline int IsRectEmpty(const RECT* lprc) { return lprc->right <= lprc->left || lprc->bottom <= lprc->top; }
 
 #ifdef __cplusplus
 }

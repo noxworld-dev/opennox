@@ -1,14 +1,14 @@
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <stdio.h>
 
-#include "alloc_class.h"
 #include "../../platform/platform.h"
+#include "alloc_class.h"
 
 #define ALLOC_DEAD_CHAR 0xAC
 
 //----- (00414130) --------------------------------------------------------
-void  nox_free_alloc_class_dynamic(nox_alloc_class* p) {
+void nox_free_alloc_class_dynamic(nox_alloc_class* p) {
 	if (!p)
 		return;
 
@@ -37,7 +37,7 @@ void  nox_free_alloc_class_dynamic(nox_alloc_class* p) {
 
 #ifndef NOX_CGO
 //----- (00413FE0) --------------------------------------------------------
-nox_alloc_class*  nox_new_alloc_class(const char* name, int size, int cnt) {
+nox_alloc_class* nox_new_alloc_class(const char* name, int size, int cnt) {
 	nox_alloc_class* p = (nox_alloc_class*)calloc(1, sizeof(nox_alloc_class));
 	if (!p)
 		return 0;
@@ -79,7 +79,7 @@ nox_alloc_class*  nox_new_alloc_class(const char* name, int size, int cnt) {
 }
 
 //----- (004140D0) --------------------------------------------------------
-nox_alloc_class*  nox_new_alloc_class_dynamic(const char* name, int size, int cnt) {
+nox_alloc_class* nox_new_alloc_class_dynamic(const char* name, int size, int cnt) {
 	nox_alloc_class* p = nox_new_alloc_class(name, size, cnt);
 	if (!p)
 		return 0;
@@ -88,7 +88,7 @@ nox_alloc_class*  nox_new_alloc_class_dynamic(const char* name, int size, int cn
 }
 
 //----- (00414100) --------------------------------------------------------
-void  nox_free_alloc_class(nox_alloc_class* p) {
+void nox_free_alloc_class(nox_alloc_class* p) {
 	if (!p)
 		return;
 	if (p->can_grow)
@@ -179,7 +179,7 @@ void* nox_alloc_class_new_obj(nox_alloc_class* al) {
 
 #ifndef NOX_CGO
 //----- (004142F0) --------------------------------------------------------
-void*  nox_alloc_class_new_obj_zero(nox_alloc_class* al) {
+void* nox_alloc_class_new_obj_zero(nox_alloc_class* al) {
 	void* data = (void*)nox_alloc_class_new_obj(al);
 	if (!data)
 		return 0;
@@ -189,7 +189,7 @@ void*  nox_alloc_class_new_obj_zero(nox_alloc_class* al) {
 #endif // NOX_CGO
 
 //----- (004144D0) --------------------------------------------------------
-void  nox_alloc_class_yyy_4144D0(nox_alloc_class* al) {
+void nox_alloc_class_yyy_4144D0(nox_alloc_class* al) {
 	if (!al)
 		return;
 
@@ -238,7 +238,7 @@ void nox_alloc_class_zzz_4143D0(nox_alloc_class* al, void* obj) {
 }
 
 //----- (00414330) --------------------------------------------------------
-void  nox_alloc_class_free_obj(nox_alloc_class* al, void* obj) {
+void nox_alloc_class_free_obj(nox_alloc_class* al, void* obj) {
 	if (!obj)
 		return;
 
@@ -266,7 +266,7 @@ void  nox_alloc_class_free_obj(nox_alloc_class* al, void* obj) {
 }
 
 //----- (00414400) --------------------------------------------------------
-void  nox_alloc_class_xxx_414400(nox_alloc_class* al, void* obj) {
+void nox_alloc_class_xxx_414400(nox_alloc_class* al, void* obj) {
 	if (!obj)
 		return;
 

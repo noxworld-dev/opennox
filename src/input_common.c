@@ -1,21 +1,21 @@
 //+build none
 
-#include "input.h"
+#include "input_common.h"
 #include "GAME1.h"
 #include "GAME1_3.h"
 #include "GAME2_1.h"
 #include "GAME2_2.h"
+#include "MixPatch.h"
 #include "client__gui__window.h"
 #include "client__io__win95__focus.h"
 #include "client__system__ctrlevnt.h"
 #include "defs.h"
-#include "input_common.h"
+#include "input.h"
 #include "server__script__builtin.h"
-#include "MixPatch.h"
 
-#include "client__system__parsecmd.h"
-#include "client__system__ctrlevnt.h"
 #include "client__gui__window.h"
+#include "client__system__ctrlevnt.h"
+#include "client__system__parsecmd.h"
 
 extern short asc_9800B0[526];
 
@@ -72,15 +72,13 @@ void nox_xxx_freeKeyboard_430210() {
 	*getMemU32Ptr(0x5D4594, 805808) = 0;
 }
 
-int nox_mouse_state(int btn, int st) {
-	return 4*(btn+1) + st;
-}
+int nox_mouse_state(int btn, int st) { return 4 * (btn + 1) + st; }
 
 //----- (00430230) --------------------------------------------------------
 void nox_client_mouseBtnStateReset(int ind) {
 	nox_mouse_btn_t* cur = &nox_mouse.btn[ind];
 	nox_mouse_btn_t* prev = &nox_mouse_prev.btn[ind];
-	int btn = 4*(ind+1);
+	int btn = 4 * (ind + 1);
 
 	if (cur->pressed && (prev->state == btn + NOX_MOUSE_DOWN || prev->state == btn + NOX_MOUSE_PRESSED)) {
 		cur->state = btn + NOX_MOUSE_PRESSED;
@@ -97,7 +95,7 @@ void nox_client_mouseBtnStateApply(nox_mouse_state_t* evt, nox_point pos, int in
 	nox_mouse_btn_t* ev = &evt->btn[ind];
 	nox_mouse_btn_t* cur = &nox_mouse.btn[ind];
 	nox_point prevPos = nox_mouse_prev_btn[ind];
-	int btn = 4*(ind+1);
+	int btn = 4 * (ind + 1);
 
 	if (ev->seq == 0) {
 		nox_client_mouseBtnStateReset(ind);
@@ -115,7 +113,7 @@ void nox_client_mouseBtnStateApply(nox_mouse_state_t* evt, nox_point pos, int in
 			cur->seq = nox_mouse_prev_seq;
 		}
 	} else {
-		if (((int)nox_mouse_prev_seq - cur->seq) >= 15 || (dx*dx + dy*dy >= 100)) {
+		if (((int)nox_mouse_prev_seq - cur->seq) >= 15 || (dx * dx + dy * dy >= 100)) {
 			cur->state = btn + NOX_MOUSE_DRAG_END;
 		} else {
 			cur->state = btn + NOX_MOUSE_UP;
@@ -126,10 +124,10 @@ void nox_client_mouseBtnStateApply(nox_mouse_state_t* evt, nox_point pos, int in
 }
 void nox_client_mouseBtnStateFinal(nox_point pos, int ind) {
 	nox_mouse_btn_t* cur = &nox_mouse.btn[ind];
-	int btn = 4*(ind+1);
+	int btn = 4 * (ind + 1);
 
 	if (cur->state == btn + NOX_MOUSE_DOWN) {
-		nox_mouse_prev_btn[ind]= pos;
+		nox_mouse_prev_btn[ind] = pos;
 	}
 }
 void nox_client_processMouseEvents_4302A0(int evNum, int a2) {
@@ -189,7 +187,7 @@ void nox_client_processMouseEvents_4302A0(int evNum, int a2) {
 
 //----- (004306A0) --------------------------------------------------------
 int nox_readingMouseBuffer = 0;
-void  nox_client_readMouseBuffer_4306A0(int a1) {
+void nox_client_readMouseBuffer_4306A0(int a1) {
 	if (nox_readingMouseBuffer) {
 		return;
 	}
@@ -249,20 +247,20 @@ unsigned short nox_input_scanCodeToAlpha_47F950(unsigned short a1) {
 			*getMemU32Ptr(0x5D4594, 1193140) = nox_input_keyboardGetKeyState_430970(a1) == 2;
 			result = 0;
 		} else if (*getMemU32Ptr(0x5D4594, 1193140)) {
-			result = *getMemU16Ptr(0x5D4594, 1191572 + 6*(unsigned char)a1 + 4);
+			result = *getMemU16Ptr(0x5D4594, 1191572 + 6 * (unsigned char)a1 + 4);
 		} else if (*getMemU32Ptr(0x5D4594, 1193136) ||
-				   dword_5d4594_1193132 && iswalpha(*getMemU16Ptr(0x5D4594, 1191572 + 6*(unsigned char)a1))) {
+				   dword_5d4594_1193132 && iswalpha(*getMemU16Ptr(0x5D4594, 1191572 + 6 * (unsigned char)a1))) {
 
 			if (scrollLockStatus) {
 				result = asc_9800B0[3 * (unsigned char)a1 + 264];
 			} else {
-				result = *getMemU16Ptr(0x5D4594, 1191572 + 6*(unsigned char)a1 + 2);
+				result = *getMemU16Ptr(0x5D4594, 1191572 + 6 * (unsigned char)a1 + 2);
 			}
 		} else {
 			if (scrollLockStatus) {
 				result = asc_9800B0[3 * (unsigned char)a1];
 			} else {
-				result = *getMemU16Ptr(0x5D4594, 1191572 + 6*(unsigned char)a1);
+				result = *getMemU16Ptr(0x5D4594, 1191572 + 6 * (unsigned char)a1);
 			}
 		}
 		return result;
@@ -318,7 +316,8 @@ int sub_4307D0() {
 	if (obj_5D4594_754104_switch == 1)
 		return 0;
 	int v0 = 0;
-	for (v0 = 0; nox_input_arr_787228[v0].code; v0++) {}
+	for (v0 = 0; nox_input_arr_787228[v0].code; v0++) {
+	}
 	int li = -1;
 	for (int i = 0; i < 256; i++) {
 		nox_keyboard_btn_t* cur = &nox_input_arr_789276[i];
@@ -333,7 +332,7 @@ int sub_4307D0() {
 	nox_input_arr_787228[v0].code = li;
 	nox_input_arr_787228[v0].state = 2;
 	nox_input_arr_787228[v0].field_2 = 0;
-	nox_input_arr_787228[v0+1].code = 0;
+	nox_input_arr_787228[v0 + 1].code = 0;
 	for (int i = 0; i < 256; i++) {
 		nox_input_arr_789276[i].seq = nox_mouse_prev_seq;
 	}
@@ -363,7 +362,7 @@ unsigned char nox_input_keyboardGetKeyState_430970(unsigned char i) { return nox
 int nox_input_keyboardGetKeySeq_430990(unsigned char i) { return nox_input_arr_789276[i].seq; }
 
 //----- (004308A0) --------------------------------------------------------
-int  nox_client_processMouseInput_4308A0(int a1) {
+int nox_client_processMouseInput_4308A0(int a1) {
 	nox_client_readMouseBuffer_4306A0(a1);
 	nox_xxx_getKeyFromKeyboard_430710();
 	if (nox_input_arr_787228[0].code) {
@@ -379,15 +378,14 @@ int  nox_client_processMouseInput_4308A0(int a1) {
 			return 1;
 		}
 		if (*getMemU32Ptr(0x8531A0, 2576))
-			nox_xxx_serverHandleClientConsole_443E90(*getMemIntPtr(0x8531A0, 2576), 0, (wchar_t*)getMemAt(0x587000, 80792));
+			nox_xxx_serverHandleClientConsole_443E90(*getMemIntPtr(0x8531A0, 2576), 0,
+													 (wchar_t*)getMemAt(0x587000, 80792));
 	}
 	return 1;
 }
 
 //----- (004309B0) --------------------------------------------------------
-void sub_4309B0(unsigned char i, unsigned char v) {
-	nox_input_arr_789276[i].field_2 = v;
-}
+void sub_4309B0(unsigned char i, unsigned char v) { nox_input_arr_789276[i].field_2 = v; }
 
 //----- (004309F0) --------------------------------------------------------
 nox_point nox_client_getMousePos_4309F0() { return nox_mouse.pos; }
@@ -432,21 +430,21 @@ void nox_xxx_setMouseBounds_430A70(int x_min, int x_max, int y_min, int y_max) {
 
 //----- (0042D220) --------------------------------------------------------
 void nox_xxx_input_42D220() {
-	int v0;      // ebx
-	int v2;      // esi
-	int* v3;     // edi
-	int v4;      // ebx
-	int v10;     // edx
+	int v0;        // ebx
+	int v2;        // esi
+	int* v3;       // edi
+	int v4;        // ebx
+	int v10;       // edx
 	uint32_t* v11; // ebp
-	int v12;     // esi
-	int v13;     // edx
-	int v14;     // eax
+	int v12;       // esi
+	int v13;       // edx
+	int v14;       // eax
 	uint32_t* v15; // ecx
-	int v16;     // ecx
-	int i;       // eax
-	int v19;     // [esp+10h] [ebp-Ch]
-	int v20;     // [esp+10h] [ebp-Ch]
-	int v21;     // [esp+14h] [ebp-8h]
+	int v16;       // ecx
+	int i;         // eax
+	int v19;       // [esp+10h] [ebp-Ch]
+	int v20;       // [esp+10h] [ebp-Ch]
+	int v21;       // [esp+14h] [ebp-8h]
 
 	v0 = 0;
 	v21 = 0;
@@ -460,7 +458,8 @@ void nox_xxx_input_42D220() {
 				while (1) {
 					v4 = *v3;
 					if (!(*v3 & 0xFFFF0000)) {
-						if (nox_xxx_wndGetFocus_46B4F0() || sub_46A4A0() || nox_input_keyboardGetKeyState_430970(v4) == 1) {
+						if (nox_xxx_wndGetFocus_46B4F0() || sub_46A4A0() ||
+							nox_input_keyboardGetKeyState_430970(v4) == 1) {
 							break;
 						}
 						if (sub_430950(v4) == 1) {
@@ -470,7 +469,8 @@ void nox_xxx_input_42D220() {
 						if (v4 == 65536) {
 							int btn = NOX_MOUSE_LEFT;
 							int state = mouse->btn[btn].state;
-							if (state != nox_mouse_state(btn, NOX_MOUSE_DOWN) && state != nox_mouse_state(btn, NOX_MOUSE_PRESSED)) {
+							if (state != nox_mouse_state(btn, NOX_MOUSE_DOWN) &&
+								state != nox_mouse_state(btn, NOX_MOUSE_PRESSED)) {
 								break;
 							}
 							if (state == nox_mouse_state(btn, NOX_MOUSE_PRESSED) && *(uint32_t*)(v2 + 36) == 1) {
@@ -479,7 +479,8 @@ void nox_xxx_input_42D220() {
 						} else if (v4 == 65537) {
 							int btn = NOX_MOUSE_MIDDLE;
 							int state = mouse->btn[btn].state;
-							if (state != nox_mouse_state(btn, NOX_MOUSE_DOWN) && state != nox_mouse_state(btn, NOX_MOUSE_PRESSED)) {
+							if (state != nox_mouse_state(btn, NOX_MOUSE_DOWN) &&
+								state != nox_mouse_state(btn, NOX_MOUSE_PRESSED)) {
 								break;
 							}
 							if (state == nox_mouse_state(btn, NOX_MOUSE_PRESSED) && *(uint32_t*)(v2 + 36) == 1) {
@@ -488,7 +489,8 @@ void nox_xxx_input_42D220() {
 						} else if (v4 == 65538) {
 							int btn = NOX_MOUSE_RIGHT;
 							int state = mouse->btn[NOX_MOUSE_RIGHT].state;
-							if (state != nox_mouse_state(btn, NOX_MOUSE_DOWN) && state != nox_mouse_state(btn, NOX_MOUSE_PRESSED)) {
+							if (state != nox_mouse_state(btn, NOX_MOUSE_DOWN) &&
+								state != nox_mouse_state(btn, NOX_MOUSE_PRESSED)) {
 								break;
 							}
 							if (state == nox_mouse_state(btn, NOX_MOUSE_PRESSED) && *(uint32_t*)(v2 + 36) == 1) {
@@ -503,7 +505,8 @@ void nox_xxx_input_42D220() {
 								break;
 							}
 						}
-					} else if (v4 & 0x20000 && (getMemByte(0x5D4594, 750956) || !((1 << v4) & *getMemU32Ptr(0x5D4594, 747844)))) {
+					} else if (v4 & 0x20000 &&
+							   (getMemByte(0x5D4594, 750956) || !((1 << v4) & *getMemU32Ptr(0x5D4594, 747844)))) {
 						break;
 					}
 					++v3;
@@ -526,7 +529,7 @@ void nox_xxx_input_42D220() {
 		}
 	}
 	if (v0) {
-		for ( ;v0; v0 = *(uint32_t*)(v0 + 80)) {
+		for (; v0; v0 = *(uint32_t*)(v0 + 80)) {
 			if (!*(uint8_t*)(v0 + 88)) {
 				continue;
 			}

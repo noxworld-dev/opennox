@@ -3,7 +3,7 @@
 
 #include "defs.h"
 
-int  nox_xxx_spellLoadSpells_424460(nox_memfile* f, void* a2);
+int nox_xxx_spellLoadSpells_424460(nox_memfile* f, void* a2);
 
 void* sub_421430();
 int nox_xxx_spellNameToN_4243F0(const char* id);

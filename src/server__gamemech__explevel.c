@@ -1,20 +1,20 @@
 #include "server__gamemech__explevel.h"
 
-#include "common__gamemech__pausefx.h"
 #include "GAME1.h"
 #include "GAME1_1.h"
 #include "GAME3_2.h"
 #include "GAME3_3.h"
 #include "GAME4.h"
 #include "GAME5_2.h"
+#include "common__gamemech__pausefx.h"
 #include "common__strman.h"
 extern uint32_t dword_5d4594_2516328;
 extern uint32_t dword_5d4594_2516348;
 
 //----- (0056F980) --------------------------------------------------------
-uint32_t*  sub_56F980(int a1, unsigned char a2) {
+uint32_t* sub_56F980(int a1, unsigned char a2) {
 	uint32_t* result; // eax
-	int v3;         // ecx
+	int v3;           // ecx
 
 	result = (uint32_t*)a1;
 	if (a1 >= 657757279) {
@@ -31,7 +31,7 @@ uint32_t*  sub_56F980(int a1, unsigned char a2) {
 }
 
 //----- (004EF2E0) --------------------------------------------------------
-void  sub_4EF2E0_exp_level(int a1) {
+void sub_4EF2E0_exp_level(int a1) {
 	int v1;      // esi
 	wchar_t* v2; // eax
 
@@ -45,15 +45,14 @@ void  sub_4EF2E0_exp_level(int a1) {
 			sub_57AF30(a1, 0);
 		} else {
 			nox_xxx_aud_501960(902, a1, 2, *(uint32_t*)(a1 + 36));
-			v2 = nox_strman_loadString_40F1D0("LevelUP", 0, "C:\\NoxPost\\src\\Server\\GameMech\\explevel.c",
-									   253);
+			v2 = nox_strman_loadString_40F1D0("LevelUP", 0, "C:\\NoxPost\\src\\Server\\GameMech\\explevel.c", 253);
 			nox_xxx_netSendLineMessage_4D9EB0(a1, v2);
 		}
 	}
 }
 
 //----- (004EF3A0) --------------------------------------------------------
-void  nox_xxx_plyrGiveExp_4EF3A0_exp_level(int a1, float a2) {
+void nox_xxx_plyrGiveExp_4EF3A0_exp_level(int a1, float a2) {
 	int v2;      // ecx
 	wchar_t* v3; // eax
 

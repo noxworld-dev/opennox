@@ -1,6 +1,6 @@
 //+build none
 
-//Translation layer between Microsoft Sound System to OpenAL
+// Translation layer between Microsoft Sound System to OpenAL
 
 #ifdef __APPLE__
 #include <OpenAL/al.h>
@@ -16,9 +16,9 @@
 #define MINIMP3_IMPLEMENTATION
 #include "client/audio/mp3/minimp3.h"
 
+#include "common/fs/nox_fs.h"
 #include "compat_mss.h"
 #include "noxstring.h"
-#include "common/fs/nox_fs.h"
 
 struct _DIG_DRIVER {
 	ALCdevice* device;
@@ -365,7 +365,7 @@ static void stream_find_data(HSTREAM stream) {
 			stream->chunk_size = size;
 			break;
 		}
-		nox_fs_fseek_cur(stream->file,  size);
+		nox_fs_fseek_cur(stream->file, size);
 	}
 }
 
@@ -453,11 +453,11 @@ static void stream_adpcm_seek(HSTREAM stream, unsigned int position) {
 			break;
 		chunk_blocks = stream->chunk_size / block_size;
 		if (blocks < chunk_blocks) {
-			nox_fs_fseek_cur(stream->file,  blocks * block_size);
+			nox_fs_fseek_cur(stream->file, blocks * block_size);
 			stream->adpcm.position += blocks * samples_per_block;
 			break;
 		} else {
-			nox_fs_fseek_cur(stream->file,  stream->chunk_size);
+			nox_fs_fseek_cur(stream->file, stream->chunk_size);
 			stream->adpcm.position += chunk_blocks * samples_per_block;
 		}
 	}

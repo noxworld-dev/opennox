@@ -3,6 +3,6 @@
 
 #include "defs.h"
 
-int  nox_xxx_updDrawSparkleTrail_4CDBF0(int a1, uint32_t* a2);
+int nox_xxx_updDrawSparkleTrail_4CDBF0(int a1, uint32_t* a2);
 
 #endif // NOX_PORT_CLIENT_DRAWABLE_UPDATE_SPARKLUP

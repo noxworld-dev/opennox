@@ -1,10 +1,10 @@
+#include "server__network__mapsend.h"
 #include "GAME1.h"
 #include "GAME4_1.h"
 #include "GAME5.h"
 #include "GAME5_2.h"
-#include "client__gui__window.h"
-#include "server__network__mapsend.h"
 #include "client__gui__guicon.h"
+#include "client__gui__window.h"
 #include "common/fs/nox_fs.h"
 #include "common__binfile.h"
 #include "common__strman.h"
@@ -14,10 +14,10 @@ extern uint32_t dword_5d4594_2388640;
 extern uint32_t dword_5d4594_2388648;
 
 //----- (005199F0) --------------------------------------------------------
-void  nox_xxx_netSendMap_5199F0_net_mapsend(unsigned char* a1) {
+void nox_xxx_netSendMap_5199F0_net_mapsend(unsigned char* a1) {
 	char* v1;         // eax
 	wchar_t* v2;      // eax
-	uint16_t* v3;        // ebp
+	uint16_t* v3;     // ebp
 	unsigned int v4;  // eax
 	int v5;           // esi
 	int v6;           // edi
@@ -41,8 +41,8 @@ void  nox_xxx_netSendMap_5199F0_net_mapsend(unsigned char* a1) {
 			v1 = nox_common_playerInfoFromNum_417090(*a1);
 			if (v1) {
 				v15 = (int)(v1 + 4704);
-				v2 = nox_strman_loadString_40F1D0("Downloadingmap", 0,
-										   "C:\\NoxPost\\src\\Server\\Network\\mapsend.c", 231);
+				v2 = nox_strman_loadString_40F1D0("Downloadingmap", 0, "C:\\NoxPost\\src\\Server\\Network\\mapsend.c",
+												  231);
 				nox_swprintf(v20, v2, getMemAt(0x5D4594, 2387068), v15);
 				nox_gui_console_Print_450B90(NOX_CONSOLE_RED, (int)v20);
 			}
@@ -86,24 +86,24 @@ void  nox_xxx_netSendMap_5199F0_net_mapsend(unsigned char* a1) {
 					v10 = *((uint32_t*)a1 + 3) / v9;
 				} else {
 					v10 = *((uint32_t*)a1 + 3);
-}
+				}
 				v11 = nox_common_playerInfoFromNum_417090(*a1);
 				if (v11) {
 					v12 = nox_strman_loadString_40F1D0("downloaddone", 0,
-												"C:\\NoxPost\\src\\Server\\Network\\mapsend.c", 299);
+													   "C:\\NoxPost\\src\\Server\\Network\\mapsend.c", 299);
 					nox_swprintf(v20, v12, *((uint32_t*)a1 + 6), *((uint32_t*)a1 + 4) - 1, v10, v9, v11 + 4704);
 					nox_gui_console_Print_450B90(NOX_CONSOLE_RED, (int)v20);
 				}
 				if (*((uint16_t*)a1 + 2) == 1 && *((uint32_t*)a1 + 2)) {
 					free(*((void**)a1 + 2));
-}
+				}
 				v13 = dword_5d4594_2388648;
 				if (dword_5d4594_2388648) {
 					v13 = --dword_5d4594_2388648;
-}
+				}
 				v16 = v13;
-				v14 = nox_strman_loadString_40F1D0("InProgress", 0,
-											"C:\\NoxPost\\src\\Server\\Network\\mapsend.c", 315);
+				v14 =
+					nox_strman_loadString_40F1D0("InProgress", 0, "C:\\NoxPost\\src\\Server\\Network\\mapsend.c", 315);
 				nox_swprintf(v20, v14, v16);
 				nox_gui_console_Print_450B90(NOX_CONSOLE_RED, (int)v20);
 				nox_xxx_netMapSendClear_519830((int)a1, *a1);
@@ -114,7 +114,7 @@ void  nox_xxx_netSendMap_5199F0_net_mapsend(unsigned char* a1) {
 // 519AFD: variable 'v18' is possibly undefined
 
 //----- (00519C80) --------------------------------------------------------
-void  nox_xxx_netSendMapAbort_519C80_net_mapsend(unsigned char* a1, unsigned char a2) {
+void nox_xxx_netSendMapAbort_519C80_net_mapsend(unsigned char* a1, unsigned char a2) {
 	int v2;          // ecx
 	wchar_t* v3;     // eax
 	int v4;          // [esp-Ch] [ebp-114h]
@@ -128,7 +128,7 @@ void  nox_xxx_netSendMapAbort_519C80_net_mapsend(unsigned char* a1, unsigned cha
 		nox_xxx_netSendSock_552640(v2 + 1, v5, 2, NOX_NET_SEND_NO_LOCK | NOX_NET_SEND_FLAG2);
 		if (dword_5d4594_2388648) {
 			--dword_5d4594_2388648;
-}
+		}
 		v4 = *a1;
 		v3 = nox_strman_loadString_40F1D0("downloadaborted", 0, "C:\\NoxPost\\src\\Server\\Network\\mapsend.c", 350);
 		nox_swprintf(v6, v3, v4, a2);
@@ -137,21 +137,19 @@ void  nox_xxx_netSendMapAbort_519C80_net_mapsend(unsigned char* a1, unsigned cha
 }
 
 //----- (00519D20) --------------------------------------------------------
-char*  nox_xxx_netMapSend_519D20(int a1) {
+char* nox_xxx_netMapSend_519D20(int a1) {
 	unsigned char* v1; // esi
-	wchar_t* v2;         // eax
-	char* result;        // eax
+	wchar_t* v2;       // eax
+	char* result;      // eax
 
 	v1 = getMemAt(0x5D4594, 2387148 + 48 * a1);
 	++dword_5d4594_2388648;
 	if (*((uint16_t*)v1 + 1)) {
 		if (*((uint16_t*)v1 + 1) == 1) {
-			v2 = nox_strman_loadString_40F1D0("Sending", 0, "C:\\NoxPost\\src\\Server\\Network\\mapsend.c",
-									   392);
+			v2 = nox_strman_loadString_40F1D0("Sending", 0, "C:\\NoxPost\\src\\Server\\Network\\mapsend.c", 392);
 		} else {
-			v2 = nox_strman_loadString_40F1D0("BadState", 0, "C:\\NoxPost\\src\\Server\\Network\\mapsend.c",
-									   397);
-}
+			v2 = nox_strman_loadString_40F1D0("BadState", 0, "C:\\NoxPost\\src\\Server\\Network\\mapsend.c", 397);
+		}
 		result = (char*)nox_gui_console_Print_450B90(NOX_CONSOLE_RED, (int)v2);
 	} else {
 		++*getMemU16Ptr(0x5D4594, 2388636);
@@ -167,11 +165,11 @@ char*  nox_xxx_netMapSend_519D20(int a1) {
 }
 
 //----- (00519DE0) --------------------------------------------------------
-int  nox_xxx_netMapSendCancelMap_519DE0_net_mapsend(int a1) {
+int nox_xxx_netMapSendCancelMap_519DE0_net_mapsend(int a1) {
 	unsigned char* v1; // esi
-	char* v2;            // ebx
-	int result;          // eax
-	wchar_t* v4;         // eax
+	char* v2;          // ebx
+	int result;        // eax
+	wchar_t* v4;       // eax
 
 	v1 = getMemAt(0x5D4594, 2387148 + 48 * a1);
 	v2 = nox_common_playerInfoFromNum_417090(a1);
@@ -180,12 +178,12 @@ int  nox_xxx_netMapSendCancelMap_519DE0_net_mapsend(int a1) {
 	++*getMemU16Ptr(0x5D4594, 2388638);
 	if (*((uint16_t*)v1 + 2) == 1 && *((uint32_t*)v1 + 2)) {
 		free(*((void**)v1 + 2));
-}
+	}
 	nox_xxx_netMapSendClear_519830((int)v1, a1);
 	result = dword_5d4594_2388648;
 	if (dword_5d4594_2388648) {
 		result = --dword_5d4594_2388648;
-}
+	}
 	if (v2) {
 		v4 = nox_strman_loadString_40F1D0("downloadcancelled", 0, "C:\\NoxPost\\src\\Server\\Network\\mapsend.c", 428);
 		result = nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v4, v2 + 4704);
@@ -196,18 +194,18 @@ int  nox_xxx_netMapSendCancelMap_519DE0_net_mapsend(int a1) {
 
 //----- (00519EB0) --------------------------------------------------------
 int nox_xxx_netMapSendPrepair_519EB0_net_mapsend() {
-	char* v0;            // eax
+	char* v0;          // eax
 	unsigned char* v1; // ebx
-	void* v2;            // eax
-	const void* v3;      // esi
-	unsigned int v4;     // kr00_4
-	wchar_t* v5;         // eax
-	char* v6;            // edi
+	void* v2;          // eax
+	const void* v3;    // esi
+	unsigned int v4;   // kr00_4
+	wchar_t* v5;       // eax
+	char* v6;          // edi
 	unsigned char v7;  // cl
-	FILE* v8;            // ebx
-	wchar_t* v10;        // eax
-	const char* v11;     // [esp+10h] [ebp-104h]
-	char v12[256];       // [esp+14h] [ebp-100h]
+	FILE* v8;          // ebx
+	wchar_t* v10;      // eax
+	const char* v11;   // [esp+10h] [ebp-104h]
+	char v12[256];     // [esp+14h] [ebp-100h]
 
 	v0 = nox_server_currentMapGetFilename_409B30();
 	v11 = v0;
@@ -223,8 +221,8 @@ int nox_xxx_netMapSendPrepair_519EB0_net_mapsend() {
 					*((uint16_t*)v1 - 2) = 1;
 					memcpy(v2, v3, v4);
 					*((uint32_t*)v1 + 1) = *getMemU32Ptr(0x5D4594, 2388644);
-					v5 = nox_strman_loadString_40F1D0("ForceCopy", 0,
-											   "C:\\NoxPost\\src\\Server\\Network\\mapsend.c", 478);
+					v5 = nox_strman_loadString_40F1D0("ForceCopy", 0, "C:\\NoxPost\\src\\Server\\Network\\mapsend.c",
+													  478);
 					nox_gui_console_Print_450B90(NOX_CONSOLE_RED, (int)v5);
 				} else {
 					nox_xxx_netSendMapAbort_519C80_net_mapsend(v1 - 8, 1u);

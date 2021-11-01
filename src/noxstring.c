@@ -1,9 +1,9 @@
+#include "noxstring.h"
+#include <ctype.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <stdio.h>
-#include <ctype.h>
 #include <wctype.h>
-#include "noxstring.h"
 
 #ifdef _WIN32
 #include <windows.h>
@@ -329,9 +329,12 @@ wchar_t* nox_wcschr(wchar_t* nox_wcs, wchar_t wc) {
 }
 
 int nox_wcscmp(const wchar_t* s1, const wchar_t* s2) {
-	if (s1 == s2) return 0;
-	if (!s1) return -1;
-	if (!s2) return +1;
+	if (s1 == s2)
+		return 0;
+	if (!s1)
+		return -1;
+	if (!s2)
+		return +1;
 	size_t result;
 	for (result = 0; s1[result] && s1[result] == s2[result]; result++)
 		;
@@ -460,9 +463,7 @@ int nox_swprintf(wchar_t* str, const wchar_t* fmt, ...) {
 	return len;
 }
 
-int nox_vswprintf(wchar_t* str, const wchar_t* fmt, va_list ap) {
-	return nox_vsnwprintf(str, 0x3fffffff, fmt, ap);
-}
+int nox_vswprintf(wchar_t* str, const wchar_t* fmt, va_list ap) { return nox_vsnwprintf(str, 0x3fffffff, fmt, ap); }
 
 void _dprintf(const char* fmt, ...) {
 	char buf[1024];

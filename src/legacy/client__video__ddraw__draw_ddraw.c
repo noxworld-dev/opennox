@@ -4,10 +4,22 @@
 // variables used here.
 #ifdef USE_DDRAW
 
+#include "legacy/client__video__ddraw__draw_ddraw.h"
+#include "GAME1.h"
+#include "GAME1_1.h"
+#include "GAME1_3.h"
+#include "GAME2.h"
+#include "GAME2_2.h"
+#include "GAME2_3.h"
+#include "GAME3.h"
+#include "GAME3_3.h"
+#include "GAME4.h"
+#include "GAME4_1.h"
+#include "GAME5_2.h"
 #include "cdrom.h"
-#include "client__drawable__drawdb.h"
 #include "client__draw__fx.h"
 #include "client__draw__image.h"
+#include "client__drawable__drawdb.h"
 #include "client__gui__guiinv.h"
 #include "client__gui__guimeter.h"
 #include "client__gui__guishop.h"
@@ -23,20 +35,8 @@
 #include "common__config.h"
 #include "common__magic__speltree.h"
 #include "defs.h"
-#include "GAME1_1.h"
-#include "GAME1_3.h"
-#include "GAME1.h"
-#include "GAME2_2.h"
-#include "GAME2_3.h"
-#include "GAME2.h"
-#include "GAME3_3.h"
-#include "GAME3.h"
-#include "GAME4_1.h"
-#include "GAME4.h"
-#include "GAME5_2.h"
-#include "input_common.h"
 #include "input.h"
-#include "legacy/client__video__ddraw__draw_ddraw.h"
+#include "input_common.h"
 #include "legacy/input_ddraw.h"
 #include "legacy/mmx.h"
 #include "legacy/win_ddraw.h"
@@ -47,7 +47,6 @@
 #include "server__xfer__savegame__savegame.h"
 #include "thing.h"
 #include "win.h"
-#include "client__video__draw_common.h"
 
 unsigned char byte_5D4594_3804364[160] = {0};
 
@@ -68,22 +67,22 @@ int nox_video_gammaValue = 0;
 extern HANDLE* nox_video_cursorDrawThreadHandle;
 int (*func_5d4594_1311924)(void) = 0;
 
-void  sub_435380(LPDIRECTDRAWGAMMACONTROL* a1);
-void  sub_4353A0(LPDIRECTDRAWPALETTE* a1);
-LPDIRECTDRAWSURFACE  sub_48A600(int a1, int a2, int a3, int a4);
-void  sub_48A670(LPDIRECTDRAWSURFACE a1);
-void  sub_48A6B0(LPDIRECTDRAWSURFACE a1);
-LPVOID  sub_48A6C0(LPDIRECTDRAWSURFACE a1);
-int  sub_48A720(LPDIRECTDRAWSURFACE a1, _DWORD* a2, _DWORD* a3, _DWORD* a4, int* a5);
-void  sub_48A7B0(LPDIRECTDRAWSURFACE a1);
+void sub_435380(LPDIRECTDRAWGAMMACONTROL* a1);
+void sub_4353A0(LPDIRECTDRAWPALETTE* a1);
+LPDIRECTDRAWSURFACE sub_48A600(int a1, int a2, int a3, int a4);
+void sub_48A670(LPDIRECTDRAWSURFACE a1);
+void sub_48A6B0(LPDIRECTDRAWSURFACE a1);
+LPVOID sub_48A6C0(LPDIRECTDRAWSURFACE a1);
+int sub_48A720(LPDIRECTDRAWSURFACE a1, _DWORD* a2, _DWORD* a3, _DWORD* a4, int* a5);
+void sub_48A7B0(LPDIRECTDRAWSURFACE a1);
 int __stdcall sub_48AE80(LPDIRECTDRAWSURFACE a1, LPDDSURFACEDESC a2, LPVOID a3);
 BOOL __stdcall Callback(GUID*, LPSTR, LPSTR, LPVOID); // idb
-int  sub_48B140(LPDIRECTDRAW a1, const IID* a2, int* a3);
-void  sub_48B190(LPDIRECTDRAWCLIPPER* a1);
-void  sub_48B1B0(LPDIRECTDRAW* a1);
-void  sub_48B1D0(LPDIRECTDRAWSURFACE* a1);
-int  sub_48AD40(HWND a1, int a2, int a3, int a4);
-int  nox_xxx_initWindowed1_48AED0(HWND a1, int a2, int a3);
+int sub_48B140(LPDIRECTDRAW a1, const IID* a2, int* a3);
+void sub_48B190(LPDIRECTDRAWCLIPPER* a1);
+void sub_48B1B0(LPDIRECTDRAW* a1);
+void sub_48B1D0(LPDIRECTDRAWSURFACE* a1);
+int sub_48AD40(HWND a1, int a2, int a3, int a4);
+int nox_xxx_initWindowed1_48AED0(HWND a1, int a2, int a3);
 
 HWND windowHandle_dword_973FE0;
 
@@ -125,7 +124,7 @@ void (*nox_color_rgb_func)(uint8_t, uint8_t, uint8_t, uint32_t*);
 void (*g_copy_backbuffer_ptr)();
 
 //----- (0048A040) --------------------------------------------------------
-int  sub_48A040(HWND a1, int a2, int a3, int a4) {
+int sub_48A040(HWND a1, int a2, int a3, int a4) {
 	int result; // eax
 
 	g_backbuffer_count = 2;
@@ -204,7 +203,7 @@ char sub_48A190() {
 }
 
 //----- (0048A220) --------------------------------------------------------
-void  nox_xxx_directDrawBlitMB_48A220() {
+void nox_xxx_directDrawBlitMB_48A220() {
 	HRESULT i; // eax
 
 	if (g_ddraw && !dword_974854 && dword_973C64 && (!dword_973C70 || nox_xxx_directDrawBlitImpl_48A2A0())) {
@@ -268,7 +267,7 @@ LABEL_22:
 }
 
 //----- (0048A600) --------------------------------------------------------
-LPDIRECTDRAWSURFACE  sub_48A600(int a1, int a2, int a3, int a4) {
+LPDIRECTDRAWSURFACE sub_48A600(int a1, int a2, int a3, int a4) {
 	LPDIRECTDRAWSURFACE result; // eax
 	DDSURFACEDESC v5;           // [esp+4h] [ebp-6Ch]
 	LPDIRECTDRAWSURFACE surf;
@@ -285,7 +284,7 @@ LPDIRECTDRAWSURFACE  sub_48A600(int a1, int a2, int a3, int a4) {
 }
 
 //----- (0048A670) --------------------------------------------------------
-void  sub_48A670(LPDIRECTDRAWSURFACE a1) {
+void sub_48A670(LPDIRECTDRAWSURFACE a1) {
 	DDSURFACEDESC v3; // [esp+4h] [ebp-6Ch]
 
 	memset(&v3, 0, sizeof(v3));
@@ -294,10 +293,10 @@ void  sub_48A670(LPDIRECTDRAWSURFACE a1) {
 }
 
 //----- (0048A6B0) --------------------------------------------------------
-void  sub_48A6B0(LPDIRECTDRAWSURFACE a1) { a1->lpVtbl->Unlock(a1, 0); }
+void sub_48A6B0(LPDIRECTDRAWSURFACE a1) { a1->lpVtbl->Unlock(a1, 0); }
 
 //----- (0048A6C0) --------------------------------------------------------
-LPVOID  sub_48A6C0(LPDIRECTDRAWSURFACE a1) {
+LPVOID sub_48A6C0(LPDIRECTDRAWSURFACE a1) {
 	DDSURFACEDESC v3; // [esp+8h] [ebp-6Ch]
 
 	memset(&v3, 0, sizeof(v3));
@@ -309,7 +308,7 @@ LPVOID  sub_48A6C0(LPDIRECTDRAWSURFACE a1) {
 }
 
 //----- (0048A720) --------------------------------------------------------
-int  sub_48A720(LPDIRECTDRAWSURFACE a1, _DWORD* a2, _DWORD* a3, _DWORD* a4, int* a5) {
+int sub_48A720(LPDIRECTDRAWSURFACE a1, _DWORD* a2, _DWORD* a3, _DWORD* a4, int* a5) {
 	IDirectDrawSurfaceVtbl* v5; // eax
 	int v6;                     // edi
 	DDSURFACEDESC v8;           // [esp+Ch] [ebp-6Ch]
@@ -332,7 +331,7 @@ int  sub_48A720(LPDIRECTDRAWSURFACE a1, _DWORD* a2, _DWORD* a3, _DWORD* a4, int*
 }
 
 //----- (0048A7B0) --------------------------------------------------------
-void  sub_48A7B0(LPDIRECTDRAWSURFACE a1) {
+void sub_48A7B0(LPDIRECTDRAWSURFACE a1) {
 	DDBLTFX v2; // [esp+0h] [ebp-64h]
 
 	if (a1) {
@@ -350,7 +349,7 @@ void sub_48A7F0() {
 }
 
 //----- (0048A820) --------------------------------------------------------
-void  sub_48A820(UINT uFlags) {
+void sub_48A820(UINT uFlags) {
 	HCURSOR result; // eax
 	int v2;         // ebp
 	int v3;         // eax
@@ -412,7 +411,7 @@ void  sub_48A820(UINT uFlags) {
 }
 
 //----- (0048A9C0) --------------------------------------------------------
-void  sub_48A9C0(int a1) {
+void sub_48A9C0(int a1) {
 	if (dword_6F7BB0) {
 		nox_mutex_lock(getMemAt(0x5D4594, 3799596));
 		if (!dword_974854) {
@@ -456,8 +455,9 @@ void sub_48AA40() {
 }
 
 //----- (0048AAF0) --------------------------------------------------------
-void  sub_48AAF0() {
-	if (g_ddraw && !dword_974854 && (!g_frontbuffer->lpVtbl->IsLost(g_frontbuffer) || nox_xxx_directDrawBlitImpl_48A2A0())) {
+void sub_48AAF0() {
+	if (g_ddraw && !dword_974854 &&
+		(!g_frontbuffer->lpVtbl->IsLost(g_frontbuffer) || nox_xxx_directDrawBlitImpl_48A2A0())) {
 		sub_48BE50(1);
 		sub_48B5D0(0, 0);
 		g_frontbuffer->lpVtbl->Flip(g_frontbuffer, 0, DDFLIP_WAIT);
@@ -466,7 +466,7 @@ void  sub_48AAF0() {
 }
 
 //----- (0048AB50) --------------------------------------------------------
-void  sub_48AB50() {
+void sub_48AB50() {
 	int v0; // eax
 
 	if (g_ddraw) {
@@ -485,12 +485,13 @@ void  sub_48AB50() {
 }
 
 //----- (0048ABC0) --------------------------------------------------------
-void  sub_48ABC0() {
+void sub_48ABC0() {
 	POINT Point;     // [esp+4h] [ebp-28h]
 	RECT rectClient; // [esp+Ch] [ebp-20h]
 	RECT rc;         // [esp+1Ch] [ebp-10h]
 
-	if (!dword_974854 && g_ddraw && (!g_frontbuffer->lpVtbl->IsLost(g_frontbuffer) || nox_xxx_directDrawBlitImpl_48A2A0())) {
+	if (!dword_974854 && g_ddraw &&
+		(!g_frontbuffer->lpVtbl->IsLost(g_frontbuffer) || nox_xxx_directDrawBlitImpl_48A2A0())) {
 		if (IsWindow(windowHandle_dword_973FE0)) {
 			Point.x = 0;
 			Point.y = 0;
@@ -534,7 +535,7 @@ int sub_48ACC0() {
 }
 
 //----- (0048AD40) --------------------------------------------------------
-signed int  sub_48AD40(HWND a1, int a2, int a3, int a4) {
+signed int sub_48AD40(HWND a1, int a2, int a3, int a4) {
 	int v5;           // [esp+2Ch] [ebp-70h]
 	DDSURFACEDESC v6; // [esp+30h] [ebp-6Ch]
 
@@ -579,7 +580,7 @@ int __stdcall sub_48AE80(LPDIRECTDRAWSURFACE a1, LPDDSURFACEDESC a2, LPVOID a3) 
 }
 
 //----- (0048AED0) --------------------------------------------------------
-int  nox_xxx_initWindowed1_48AED0(HWND a1, int a2, int a3) {
+int nox_xxx_initWindowed1_48AED0(HWND a1, int a2, int a3) {
 	char v3;    // al
 	HDC v4;     // esi
 	int v5;     // edi
@@ -596,7 +597,8 @@ int  nox_xxx_initWindowed1_48AED0(HWND a1, int a2, int a3) {
 				return 0;
 			}
 		} else if (nox_backbuffer_depth == 16 && v5 != 16) {
-			nox_xxx_msgError_48C940("16 bit color windowed mode requires you switch your desktop to High Color (65536 colors)");
+			nox_xxx_msgError_48C940(
+				"16 bit color windowed mode requires you switch your desktop to High Color (65536 colors)");
 			return 0;
 		}
 	}
@@ -664,7 +666,7 @@ BOOL __stdcall Callback(GUID* lpGUID, LPSTR a2, LPSTR a3, LPVOID a4) {
 }
 
 //----- (0048B140) --------------------------------------------------------
-int  sub_48B140(LPDIRECTDRAW a1, const IID* a2, int* a3) {
+int sub_48B140(LPDIRECTDRAW a1, const IID* a2, int* a3) {
 	LPVOID pvObj;
 	int result; // eax
 
@@ -681,7 +683,7 @@ int  sub_48B140(LPDIRECTDRAW a1, const IID* a2, int* a3) {
 }
 
 //----- (0048B190) --------------------------------------------------------
-void  sub_48B190(LPDIRECTDRAWCLIPPER* a1) {
+void sub_48B190(LPDIRECTDRAWCLIPPER* a1) {
 	if (*a1) {
 		(*a1)->lpVtbl->Release(*a1);
 		*a1 = 0;
@@ -689,7 +691,7 @@ void  sub_48B190(LPDIRECTDRAWCLIPPER* a1) {
 }
 
 //----- (0048B1B0) --------------------------------------------------------
-void  sub_48B1B0(LPDIRECTDRAW* a1) {
+void sub_48B1B0(LPDIRECTDRAW* a1) {
 	if (*a1) {
 		(*a1)->lpVtbl->Release(*a1);
 		*a1 = 0;
@@ -697,7 +699,7 @@ void  sub_48B1B0(LPDIRECTDRAW* a1) {
 }
 
 //----- (0048B1D0) --------------------------------------------------------
-void  sub_48B1D0(LPDIRECTDRAWSURFACE* a1) {
+void sub_48B1D0(LPDIRECTDRAWSURFACE* a1) {
 	if (*a1) {
 		(*a1)->lpVtbl->Release(*a1);
 		*a1 = 0;
@@ -1044,7 +1046,7 @@ int sub_434FB0() {
 }
 
 //----- (004352E0) --------------------------------------------------------
-void  sub_4352E0() {
+void sub_4352E0() {
 	DDCAPS v0; // [esp+4h] [ebp-2F8h]
 	DDCAPS v1; // [esp+180h] [ebp-17Ch]
 
@@ -1082,7 +1084,7 @@ HDC sub_444F90() {
 }
 
 //----- (00444FC0) --------------------------------------------------------
-void  sub_444FC0(HDC a1) {
+void sub_444FC0(HDC a1) {
 	DebugBreak();
 
 #if 0
@@ -1206,7 +1208,7 @@ void sub_433C20() {
 }
 
 //----- (00444930) --------------------------------------------------------
-int  nox_xxx_GfxInit_444930(HWND wnd, int w, int h, int depth, int flags) {
+int nox_xxx_GfxInit_444930(HWND wnd, int w, int h, int depth, int flags) {
 	dword_5d4594_823776 = 0;
 	ptr_5D4594_3799572 = &obj_5D4594_3799660;
 	int result = nox_client_drawInitAll_4449D0(wnd, w, h, depth, flags);
@@ -1306,7 +1308,7 @@ int nox_video_initPixbuffer_486090() {
 		result = nox_video_initPixbufferRows_486230();
 		if (result) {
 			if (!(nox_video_renderTargetFlags & 0x40) || (result = sub_48A5D0(), (dword_973C88 = result) != 0) &&
-														 (result = sub_48A5D0(), (dword_973C60 = result) != 0)) {
+															 (result = sub_48A5D0(), (dword_973C60 = result) != 0)) {
 				result = 1;
 			}
 		}
@@ -1409,7 +1411,7 @@ int sub_48A3D0() {
 	if (!(nox_video_renderTargetFlags & 4)) {
 		if (nox_video_renderTargetFlags & 0x10) {
 			nox_xxx_msgError_48C940("Unsupported windowed video mode detected\r\n\r\nPlease change your desktop to 16 "
-					   "bit color");
+									"bit color");
 			return 0;
 		}
 		nox_xxx_msgError_48C940("Unsupported video mode\r\n\r\nPlease select either 16 bit color or 256 colors");
@@ -1436,7 +1438,7 @@ int nox_video_createCursorSurface_48BF70() {
 			a1.field_C = 128;
 			sub_48C170(&a1, &a1);
 			dword_6F7C48 =
-					sub_48A600(a1.field_8, a1.field_C, DDSD_CAPS | DDSD_WIDTH | DDSD_HEIGHT, DDSCAPS_VIDEOMEMORY);
+				sub_48A600(a1.field_8, a1.field_C, DDSD_CAPS | DDSD_WIDTH | DDSD_HEIGHT, DDSCAPS_VIDEOMEMORY);
 			if (dword_6F7C48) {
 				if (sub_48A720(dword_6F7C48, &v2, &v1, 0, &dword_6F7C78))
 					result = 0;
@@ -1498,7 +1500,7 @@ void nox_video_stopCursorDrawThread_48B350() {
 }
 
 //----- (00435380) --------------------------------------------------------
-void  sub_435380(LPDIRECTDRAWGAMMACONTROL* a1) {
+void sub_435380(LPDIRECTDRAWGAMMACONTROL* a1) {
 	if (*a1) {
 		(*a1)->lpVtbl->Release(*a1);
 		*a1 = 0;
@@ -1506,7 +1508,7 @@ void  sub_435380(LPDIRECTDRAWGAMMACONTROL* a1) {
 }
 
 //----- (004353A0) --------------------------------------------------------
-void  sub_4353A0(LPDIRECTDRAWPALETTE* a1) {
+void sub_4353A0(LPDIRECTDRAWPALETTE* a1) {
 	if (*a1) {
 		(*a1)->lpVtbl->Release(*a1);
 		*a1 = 0;
@@ -1515,28 +1517,28 @@ void  sub_4353A0(LPDIRECTDRAWPALETTE* a1) {
 
 //----- (004338D0) --------------------------------------------------------
 int sub_4338D0() {
-	int result;          // eax
-	pixel888 v2[256];    // [esp+Ch] [ebp-300h]
+	int result;       // eax
+	pixel888 v2[256]; // [esp+Ch] [ebp-300h]
 
 	switch (nox_video_pixmode_3799624) {
-		case 0:
-			nox_color_rgb_func = nox_color_func_435180;
-			dword_975240 = sub_435240;
-			dword_975380 = sub_434E80;
-			memcpy(byte_5D4594_3804364, byte_581450_9176, sizeof(byte_581450_9176));
-			break;
-		case 1:
-			nox_color_rgb_func = nox_color_rgba5551ext_4351C0;
-			dword_975240 = sub_435280;
-			dword_975380 = sub_434E80;
-			memcpy(byte_5D4594_3804364, byte_581450_9176, sizeof(byte_581450_9176));
-			break;
-		case 2:
-			nox_color_rgb_func = nox_color_rgb565ext_435200;
-			dword_975240 = sub_435280;
-			dword_975380 = sub_434EC0;
-			memcpy(byte_5D4594_3804364, byte_581450_9336, sizeof(byte_581450_9336));
-			break;
+	case 0:
+		nox_color_rgb_func = nox_color_func_435180;
+		dword_975240 = sub_435240;
+		dword_975380 = sub_434E80;
+		memcpy(byte_5D4594_3804364, byte_581450_9176, sizeof(byte_581450_9176));
+		break;
+	case 1:
+		nox_color_rgb_func = nox_color_rgba5551ext_4351C0;
+		dword_975240 = sub_435280;
+		dword_975380 = sub_434E80;
+		memcpy(byte_5D4594_3804364, byte_581450_9176, sizeof(byte_581450_9176));
+		break;
+	case 2:
+		nox_color_rgb_func = nox_color_rgb565ext_435200;
+		dword_975240 = sub_435280;
+		dword_975380 = sub_434EC0;
+		memcpy(byte_5D4594_3804364, byte_581450_9336, sizeof(byte_581450_9336));
+		break;
 	}
 	ptr_5D4594_3799572->data[13] = 0;
 	ptr_5D4594_3799572->data[14] = 0;
@@ -1606,12 +1608,12 @@ int sub_4338D0() {
 
 //----- (00434B60) --------------------------------------------------------
 BOOL sub_434B60() {
-	int v0;              // ebp
-	pixel888* v1;        // edi
-	int v2;              // ebx
-	char* v3;            // esi
-	__int64 v4;          // rax
-	int v13;             // [esp+10h] [ebp-90Ch]
+	int v0;       // ebp
+	pixel888* v1; // edi
+	int v2;       // ebx
+	char* v3;     // esi
+	__int64 v4;   // rax
+	int v13;      // [esp+10h] [ebp-90Ch]
 	char v14[1536];
 	pixel888 v19[256]; // [esp+61Ch] [ebp-300h]
 
@@ -1619,7 +1621,7 @@ BOOL sub_434B60() {
 	v1 = v19;
 	if (nox_video_gammaValue < 1) {
 		v0 = 1;
-		LABEL_5:
+	LABEL_5:
 		nox_video_gammaValue = v0;
 		goto LABEL_6;
 	}
@@ -1627,7 +1629,7 @@ BOOL sub_434B60() {
 		v0 = 10;
 		goto LABEL_5;
 	}
-	LABEL_6:
+LABEL_6:
 	v2 = 0;
 	v3 = &v14[512];
 	v13 = 0;
@@ -1647,9 +1649,9 @@ BOOL sub_434B60() {
 	unsigned __int8* v5; // eax
 	int v6;              // ecx
 	int v7;              // edi
-    char v8;             // dl
-    int v9;              // ecx
-    char v10;            // dl
+	char v8;             // dl
+	int v9;              // ecx
+	char v10;            // dl
 	int v11;             // ecx
 	if (nox_video_pixmode_3799624)
 		return g_ddraw_gamma_control && !g_ddraw_gamma_control->lpVtbl->SetGammaRamp(g_ddraw_gamma_control, 0, &v14);
@@ -1681,19 +1683,19 @@ int PlayMovie(char* filename);
 #endif // NOX_PLAY_MOVIES
 
 //----- (004B0340) --------------------------------------------------------
-int  nox_client_drawGeneral_4B0340(int a1) // draw general
+int nox_client_drawGeneral_4B0340(int a1) // draw general
 {
-	BOOL v1;             // esi
-	int v2;              // ebp
-	int v3;              // edi
-	int v4;              // ebx
-	int result;          // eax
-	int v7;              // [esp+10h] [ebp-44h]
-	int v8;              // [esp+14h] [ebp-40h]
-	int v9;              // [esp+18h] [ebp-3Ch]
-	int v10;             // [esp+1Ch] [ebp-38h]
-	int v11;             // [esp+20h] [ebp-34h]
-	int v12;             // [esp+24h] [ebp-30h]
+	BOOL v1;    // esi
+	int v2;     // ebp
+	int v3;     // edi
+	int v4;     // ebx
+	int result; // eax
+	int v7;     // [esp+10h] [ebp-44h]
+	int v8;     // [esp+14h] [ebp-40h]
+	int v9;     // [esp+18h] [ebp-3Ch]
+	int v10;    // [esp+1Ch] [ebp-38h]
+	int v11;    // [esp+20h] [ebp-34h]
+	int v12;    // [esp+24h] [ebp-30h]
 
 	dword_5d4594_1311936 = 1;
 	*getMemU32Ptr(0x5D4594, 1311932) = a1;
@@ -1714,10 +1716,10 @@ int  nox_client_drawGeneral_4B0340(int a1) // draw general
 	if (dword_5d4594_3801780) {
 		v3 = a1;
 		v4 = a1;
-		LABEL_13:
+	LABEL_13:
 #ifdef NOX_PLAY_MOVIES
 		unsigned __int8* v6; // esi
-        int v13[11];         // [esp+28h] [ebp-2Ch]
+		int v13[11];         // [esp+28h] [ebp-2Ch]
 		v13[1] = *getMemU32Ptr(0x5D4594, 823784);
 		v13[0] = windowHandle_dword_973FE0;
 		v13[4] = g_backbuffer1;
@@ -1761,7 +1763,7 @@ int  nox_client_drawGeneral_4B0340(int a1) // draw general
 		sub_43DBE0();
 		acquireMouse_sub_47D8C0();
 		sub_48B3E0(v12);
-		LABEL_23:
+	LABEL_23:
 		sub_4B05D0();
 		return 1;
 	}
@@ -1789,7 +1791,7 @@ int  nox_client_drawGeneral_4B0340(int a1) // draw general
 // 4B0536: variable 'v7' is possibly undefined
 
 //----- (0048B5D0) --------------------------------------------------------
-int  nox_video_waitVBlankAndDrawCursorFromThread_48B5D0(int a1, int a2) {
+int nox_video_waitVBlankAndDrawCursorFromThread_48B5D0(int a1, int a2) {
 	int result; // eax
 	int v3;     // esi
 
