@@ -23,6 +23,20 @@
 #include <SDL2/SDL.h>
 #endif // NOX_CGO
 
+#include "DG_dynarr.h"
+
+typedef struct keyCodeStruct {
+	unsigned char keyCode;
+	char keyName[12];
+} keyCodeStruct;
+
+typedef struct smallPlayerStruct {
+	char string[18];
+} smallPlayerStruct;
+
+DA_TYPEDEF(smallPlayerStruct, smallPlayerStructVector);
+DA_TYPEDEF(int, intArray);
+
 extern int nox_win_width_game;
 extern int nox_win_height_game;
 extern int dword_5d4594_3484;

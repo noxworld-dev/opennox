@@ -1,20 +1,5 @@
-#include "DG_dynarr.h"
-#include "defs.h"
-
-typedef struct keyCodeStruct {
-	unsigned char keyCode;
-	char keyName[12];
-} keyCodeStruct;
-
-typedef struct smallPlayerStruct {
-	char string[18];
-} smallPlayerStruct;
-
-DA_TYPEDEF(smallPlayerStruct, smallPlayerStructVector);
-DA_TYPEDEF(int, intArray);
-
-//-------------------------------------------------------------------------
-// Function declarations
+#ifndef NOX_GAMEEX_H
+#define NOX_GAMEEX_H
 
 unsigned char KeyCodeMatcher(char* a1);
 void GameExCfgSaver();
@@ -23,7 +8,6 @@ char GameExCfgLoader();
 void DestroyNoxWindow();
 int copyServerMatchData(char* a1);
 char getPlayerClassFromObjPtr(int a1);
-int playerInfoStructsToVector(smallPlayerStructVector* vector);
 char playerInfoStructParser_0(char* a1); // idb
 char playerInfoStructParser_1(int a1, int a2, int* a3);
 char mix_MouseKeyboardWeaponRoll(int playerObj, char a2); // idb
@@ -36,3 +20,5 @@ unsigned int invalidIpChecker(unsigned int interval, void* param);
 int startInvalidIpChecker();
 int modifyWndInputHandler(int a1, int a2, int a3, int a4);
 int getFlagValueFromFlagIndex(signed int a1);
+
+#endif // NOX_GAMEEX_H
