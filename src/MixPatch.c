@@ -4,7 +4,7 @@
 #include "GAME3_3.h"
 
 #ifndef NOX_CGO
-__int16 asc_9800B0[] = {
+short asc_9800B0[] = {
 	0,   0,   0,   0,   0,   0,   49,  33,  0,   50,  64,  0,   51,  35,  0,   52,  36,  0,   53,  37,  0,   54,  94,
 	0,   55,  38,  0,   56,  42,  0,   57,  40,  0,   48,  41,  0,   45,  95,  0,   61,  43,  0,   8,   8,   0,   9,
 	9,   0,   233, 201, 0,   246, 214, 0,   243, 211, 0,   234, 202, 0,   229, 197, 0,   237, 205, 0,   227, 195, 0,
@@ -29,7 +29,7 @@ __int16 asc_9800B0[] = {
 	57,  0,   45,  45,  0,   52,  52,  0,   53,  53,  0,   54,  54,  0,   43,  43,  0,   49,  49,  0,   50,  50,  0,
 	51,  51,  0,   48,  48,  0,   46,  46,  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0};
 
-void init_data_mix() { GameEx_DllMain(NULL, 1, NULL); }
+void init_data_mix() { GameEx_DllMain(1); }
 
 void OnLibraryNotice_stub(int a1, ...) {
 	/* TODO: STUB */
@@ -43,7 +43,7 @@ void sub_980523(nox_object_t* unit) {
 		if ((it->obj_class & 0x2000000) && (it->field_4 & 0x100)) {
 			if (nox_xxx_unitArmorInventoryEquipFlags_415C70(it) & 0x3000000) {
 				// TODO: it appears that it reuses some other field; this might make the game unstable
-				*(_DWORD*)(*(_DWORD*)(((_DWORD)unit->field_187) + 276) + 2500) = it;
+				*(uint32_t*)(*(uint32_t*)(((uint32_t)unit->field_187) + 276) + 2500) = it;
 			}
 		}
 	}
@@ -63,7 +63,7 @@ nox_object_t* sub_9805EB(nox_object_t* unit) {
 
 int mix_recvfrom(nox_socket_t s, char* buf, int len, struct nox_net_sockaddr* from) {
 	int result = nox_net_recvfrom(s, buf, len, from);
-	if (*(_WORD*)buf != 0xF13A) { // extension packet code
+	if (*(uint16_t*)buf != 0xF13A) { // extension packet code
 		return result;
 	}
 	return MixRecvFromReplacer(s, buf, len, from);

@@ -25,23 +25,23 @@ int  nox_xxx_updDrawVortexSource_4CC950(int a1, int a2) {
 	v9 = *getMemU32Ptr(0x5D4594, 1522948);
 	v4 = nox_common_randomIntMinMax_415FF0(0, 255, "C:\\NoxPost\\src\\client\\Drawable\\Update\\VortexUp.c", 54);
 	v5 = v4;
-	v6 = nox_xxx_spriteLoadAdd_45A360_drawable(v3, *(_DWORD*)(a2 + 12) + 50 * *getMemIntPtr(0x587000, 192088 + 8 * v4) / 16,
-							 *(_DWORD*)(a2 + 16) + 50 * *getMemIntPtr(0x587000, 192092 + 8 * v4) / 16);
+	v6 = nox_xxx_spriteLoadAdd_45A360_drawable(v3, *(uint32_t*)(a2 + 12) + 50 * *getMemIntPtr(0x587000, 192088 + 8 * v4) / 16,
+							 *(uint32_t*)(a2 + 16) + 50 * *getMemIntPtr(0x587000, 192092 + 8 * v4) / 16);
 	v7 = v6;
 	if (v6) {
-		*(_BYTE*)(v6 + 448) = v5;
-		*(_WORD*)(a2 + 104) = 0;
-		*(_BYTE*)(v6 + 449) = nox_common_randomIntMinMax_415FF0(2, 3, "C:\\NoxPost\\src\\client\\Drawable\\Update\\VortexUp.c", 74);
+		*(uint8_t*)(v6 + 448) = v5;
+		*(uint16_t*)(a2 + 104) = 0;
+		*(uint8_t*)(v6 + 449) = nox_common_randomIntMinMax_415FF0(2, 3, "C:\\NoxPost\\src\\client\\Drawable\\Update\\VortexUp.c", 74);
 		if (nox_common_randomIntMinMax_415FF0(0, 100, "C:\\NoxPost\\src\\client\\Drawable\\Update\\VortexUp.c", 75) > 50)
-			*(_BYTE*)(v7 + 449) = -*(_BYTE*)(v7 + 449);
-		*(_BYTE*)(v7 + 451) = 1;
-		*(_BYTE*)(v7 + 450) = 50;
-		*(_DWORD*)(v7 + 440) = *(_DWORD*)(a2 + 12);
-		*(_DWORD*)(v7 + 444) = *(_DWORD*)(a2 + 16);
-		*(_DWORD*)(v7 + 432) = v2;
-		*(_DWORD*)(v7 + 436) = v9;
-		nox_xxx_sprite_45A110_drawable((_DWORD*)v7);
-		nox_xxx_spriteToSightDestroyList_49BAB0_drawable((_DWORD*)v7);
+			*(uint8_t*)(v7 + 449) = -*(uint8_t*)(v7 + 449);
+		*(uint8_t*)(v7 + 451) = 1;
+		*(uint8_t*)(v7 + 450) = 50;
+		*(uint32_t*)(v7 + 440) = *(uint32_t*)(a2 + 12);
+		*(uint32_t*)(v7 + 444) = *(uint32_t*)(a2 + 16);
+		*(uint32_t*)(v7 + 432) = v2;
+		*(uint32_t*)(v7 + 436) = v9;
+		nox_xxx_sprite_45A110_drawable((uint32_t*)v7);
+		nox_xxx_spriteToSightDestroyList_49BAB0_drawable((uint32_t*)v7);
 	}
 	return 1;
 }

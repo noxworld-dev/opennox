@@ -1,6 +1,7 @@
 #include "client__draw__mgendraw.h"
 #include "common__random.h"
 #include "GAME3_1.h"
+#include "operators.h"
 
 extern unsigned int nox_frame_xxx_2598000;
 //----- (004BC750) --------------------------------------------------------
@@ -22,9 +23,9 @@ int  nox_thing_monster_gen_draw(int* a1, nox_drawable* dr) {
 	int v16;              // eax
 	int v17;              // eax
 	int result;           // eax
-	unsigned __int8* v19; // [esp+10h] [ebp-8h]
+	unsigned char* v19; // [esp+10h] [ebp-8h]
 	int v20;              // [esp+14h] [ebp-4h]
-	unsigned __int8* v21; // [esp+20h] [ebp+8h]
+	unsigned char* v21; // [esp+20h] [ebp+8h]
 
 	v2 = dr;
 	v3 = dr->flags70;
@@ -36,9 +37,9 @@ int  nox_thing_monster_gen_draw(int* a1, nox_drawable* dr) {
 	} else {
 		v5 = (dr->flags70 & 0xC00) != 0 ? 3 : 0;
 	}
-	v6 = *(unsigned __int8*)(v5 + v4 + 24);
-	v19 = (unsigned __int8*)(v5 + v4 + 24);
-	v21 = (unsigned __int8*)(v5 + v4 + 29);
+	v6 = *(unsigned char*)(v5 + v4 + 24);
+	v19 = (unsigned char*)(v5 + v4 + 24);
+	v21 = (unsigned char*)(v5 + v4 + 29);
 	v20 = *(unsigned int*)(v4 + 4 * v5 + 4);
 	switch (*(unsigned int*)(v4 + 4 * v5 + 36)) {
 	case 0:
@@ -46,7 +47,7 @@ int  nox_thing_monster_gen_draw(int* a1, nox_drawable* dr) {
 		goto LABEL_12;
 	case 2:
 		v7 = (nox_frame_xxx_2598000 + *(unsigned int*)(v2 + 128)) /
-			 ((unsigned int)*(unsigned __int8*)(v5 + v4 + 29) + 1);
+			 ((unsigned int)*(unsigned char*)(v5 + v4 + 29) + 1);
 		if (v7 >= v6)
 			v7 %= v6;
 		goto LABEL_12;
@@ -78,15 +79,15 @@ int  nox_thing_monster_gen_draw(int* a1, nox_drawable* dr) {
 				*(unsigned int*)(v2 + 280) = v12;
 			}
 		}
-		nox_xxx_drawObject_4C4770_draw(a1, (unsigned __int8*)v2, *(unsigned int*)(v20 + 4 * v7));
+		nox_xxx_drawObject_4C4770_draw(a1, (unsigned char*)v2, *(unsigned int*)(v20 + 4 * v7));
 		v13 = *(unsigned int*)(v2 + 280);
 		if (!(v13 & 0xC00)) {
-			v14 = *(unsigned __int8*)(v4 + 28);
+			v14 = *(unsigned char*)(v4 + 28);
 			v15 = (nox_frame_xxx_2598000 + *(unsigned int*)(v2 + 128)) /
-				  ((unsigned int)*(unsigned __int8*)(v4 + 33) + 1);
+				  ((unsigned int)*(unsigned char*)(v4 + 33) + 1);
 			if (v15 >= v14)
 				v15 %= v14;
-			nox_xxx_drawObject_4C4770_draw(a1, (unsigned __int8*)v2, *(unsigned int*)(*(unsigned int*)(v4 + 20) + 4 * v15));
+			nox_xxx_drawObject_4C4770_draw(a1, (unsigned char*)v2, *(unsigned int*)(*(unsigned int*)(v4 + 20) + 4 * v15));
 		}
 		v16 = *(unsigned int*)(v2 + 280);
 		if (v16 & 0x800) {

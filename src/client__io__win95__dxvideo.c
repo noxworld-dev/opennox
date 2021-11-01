@@ -1,5 +1,6 @@
 #include "client__io__win95__dxvideo.h"
 #include "client__video__draw_common.h"
+#include "common__strman.h"
 
 #include "GAME1.h"
 #include "GAME1_2.h"
@@ -8,12 +9,11 @@
 #include "GAME2_3.h"
 #include "GAME5_2.h"
 #include "client__gui__window.h"
-#include "legacy/input_ddraw.h"
 
-extern _DWORD dword_5d4594_805860;
+extern uint32_t dword_5d4594_805860;
 extern int nox_video_16bit;
 extern int nox_backbuffer_pitch_3801808;
-extern _DWORD dword_5d4594_3801780;
+extern uint32_t dword_5d4594_3801780;
 extern int nox_enable_threads;
 
 extern int nox_win_width;

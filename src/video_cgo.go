@@ -42,7 +42,7 @@ extern int nox_win_height;
 extern unsigned char** nox_pixbuffer_rows_3798776;
 extern unsigned char* nox_pixbuffer_3798788;
 int nox_video_initFloorBuffer_430BA0();
-BOOL nox_xxx___cfltcvt_init_430CC0();
+int nox_xxx___cfltcvt_init_430CC0();
 */
 import "C"
 import (
@@ -817,7 +817,7 @@ func nox_draw_setCutSize_476700(cutPerc C.int, a2 C.int) {
 func nox_client_drawXxx_444AC0(w, h int, flags int) error {
 	//int v5;             // eax
 	//bool v6;            // zf
-	//unsigned __int8 v7 = 0; // al
+	//unsigned char v7 = 0; // al
 	//int v8;             // esi
 	//int v9;             // eax
 	//int v10;            // eax

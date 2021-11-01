@@ -17,7 +17,6 @@
 #include "GAME2_2.h"
 #include "client__gui__window.h"
 #include "defs.h"
-#include "legacy/input_ddraw.h"
 #include "server__script__builtin.h"
 #include "MixPatch.h"
 
@@ -30,7 +29,7 @@ float nox_input_getSensitivity() {
 }
 
 #include "sdl2_scancode_to_dinput.h"
-extern _DWORD dword_5d4594_1193132;
+extern uint32_t dword_5d4594_1193132;
 extern int g_textinput;
 
 SDL_GameController *gpad = NULL;
@@ -64,11 +63,11 @@ struct mouse_event {
 
 static int seqnum;
 static struct keyboard_event keyboard_event_queue[256];
-static DWORD keyboard_event_ridx;
-static DWORD keyboard_event_widx;
+static uint32_t keyboard_event_ridx;
+static uint32_t keyboard_event_widx;
 static struct mouse_event mouse_event_queue[256];
-DWORD mouse_event_ridx = 0;
-DWORD mouse_event_widx = 0;
+uint32_t mouse_event_ridx = 0;
+uint32_t mouse_event_widx = 0;
 
 struct finger_state {
 	SDL_FingerID id;
@@ -704,11 +703,11 @@ int unacquireMouse_sub_47D8B0() {
 }
 
 typedef struct DIDEVICEOBJECTDATA {
-	DWORD dwOfs;
-	DWORD dwData;
-	DWORD dwTimeStamp;
-	DWORD dwSequence;
-	UINT_PTR uAppData;
+	uint32_t dwOfs;
+	uint32_t dwData;
+	uint32_t dwTimeStamp;
+	uint32_t dwSequence;
+	uintptr_t uAppData;
 } DIDEVICEOBJECTDATA, *LPDIDEVICEOBJECTDATA;
 
 // get mouse data

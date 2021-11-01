@@ -24,15 +24,15 @@
 
 void cmain_loop(int);
 // defined in GAME1.c
-extern _DWORD nox_game_loop_xxx_805872;
-extern _DWORD dword_5d4594_2660032;
-extern _DWORD dword_5d4594_815704;
-extern _DWORD dword_5d4594_815708;
-extern _DWORD dword_5d4594_3844304;
-extern _DWORD dword_5d4594_2649712;
+extern uint32_t nox_game_loop_xxx_805872;
+extern uint32_t dword_5d4594_2660032;
+extern uint32_t dword_5d4594_815704;
+extern uint32_t dword_5d4594_815708;
+extern uint32_t dword_5d4594_3844304;
+extern uint32_t dword_5d4594_2649712;
 extern void (*mainloop_enter)(void*);
 extern void* mainloop_enter_args;
-extern BOOL mainloop_exit_path;
+extern int mainloop_exit_path;
 extern int g_v20, g_v21;
 extern int g_argc2;
 extern char** g_argv2;
@@ -41,20 +41,20 @@ extern nox_net_struct_t* nox_net_struct_arr[NOX_NET_STRUCT_MAX];
 
 typedef union {
 	struct {
-		BYTE data[153];
+		uint8_t data[153];
 		const char* hostname;
-		WORD port;
+		uint16_t port;
 	} connect_server;
 
 	struct {
-		BYTE data[153];
+		uint8_t data[153];
 		unsigned int id;
 		const char* hostname;
-		WORD port;
+		uint16_t port;
 	} net_connect;
 
 	struct {
-		BYTE data[153];
+		uint8_t data[153];
 		unsigned int id;
 		char val;
 		unsigned int retries;
@@ -63,7 +63,7 @@ typedef union {
 	} net_connect_wait_loop;
 
 	struct {
-		BYTE data[153];
+		uint8_t data[153];
 		unsigned int id;
 		int result;
 	} net_connect_wait_then;
@@ -73,7 +73,7 @@ typedef union {
 	} net_connect_then;
 
 	struct {
-		ULONGLONG timeout;
+		unsigned long long timeout;
 	} connect_wait_loop;
 
 	struct {
@@ -171,25 +171,25 @@ void CONNECT_RESULT(sm_args_t* args);
 
 void CONNECT_PREPARE(sm_args_t* args) {
 	char* v1;            // ebx
-	unsigned __int16 v3; // ax
+	unsigned short v3; // ax
 	int v4;              // [esp+Ch] [ebp-A8h]
 	int v5;              // [esp+10h] [ebp-A4h]
 	int v6;              // [esp+14h] [ebp-A0h]
-	BYTE Data[1024];     // [esp+18h] [ebp-9Ch]
+	uint8_t Data[1024];     // [esp+18h] [ebp-9Ch]
 
 	nox_xxx_gameGetScreenBoundaries_43BEB0_get_video_mode(&v5, &v4, &v6);
 	v1 = nox_xxx_getHostInfoPtr_431770();
 	nox_wcscpy((wchar_t*)v1, (const wchar_t*)getMemAt(0x85B3FC, 12204));
 	v1[66] = getMemByte(0x85B3FC, 12254);
-	*(_WORD*)(v1 + 71) = *getMemU16Ptr(0x85B3FC, 12184);
+	*(uint16_t*)(v1 + 71) = *getMemU16Ptr(0x85B3FC, 12184);
 	v1[73] = getMemByte(0x85B3FC, 12186);
-	*((_WORD*)v1 + 34) = *getMemU16Ptr(0x85B3FC, 12187);
+	*((uint16_t*)v1 + 34) = *getMemU16Ptr(0x85B3FC, 12187);
 	v1[70] = getMemByte(0x85B3FC, 12189);
-	*((_WORD*)v1 + 37) = *getMemU16Ptr(0x85B3FC, 12190);
+	*((uint16_t*)v1 + 37) = *getMemU16Ptr(0x85B3FC, 12190);
 	v1[76] = getMemByte(0x85B3FC, 12192);
-	*(_WORD*)(v1 + 77) = *getMemU16Ptr(0x85B3FC, 12193);
+	*(uint16_t*)(v1 + 77) = *getMemU16Ptr(0x85B3FC, 12193);
 	v1[79] = getMemByte(0x85B3FC, 12195);
-	*((_WORD*)v1 + 40) = *getMemU16Ptr(0x85B3FC, 12196);
+	*((uint16_t*)v1 + 40) = *getMemU16Ptr(0x85B3FC, 12196);
 	v1[82] = getMemByte(0x85B3FC, 12198);
 	v1[83] = getMemByte(0x85B3FC, 12199);
 	v1[84] = getMemByte(0x85B3FC, 12200);
@@ -198,8 +198,8 @@ void CONNECT_PREPARE(sm_args_t* args) {
 	v1[87] = getMemByte(0x85B3FC, 12203);
 	v1[67] = getMemByte(0x85B3FC, 12255);
 	sub_48D740();
-	*(_DWORD*)&Data[97] = v5;
-	*(_DWORD*)&Data[101] = v4;
+	*(uint32_t*)&Data[97] = v5;
+	*(uint32_t*)&Data[101] = v4;
 	nox_xxx_regGetSerial_420120(&Data[105]);
 	if (!nox_xxx_check_flag_aaa_43AF70()) {
 		nox_common_getInstallPath_40E0D0((int) &Data[105], "SOFTWARE\\Westwood\\Nox", 0);
@@ -210,7 +210,7 @@ void CONNECT_PREPARE(sm_args_t* args) {
 	}
 	strcpy((char*)&Data[142], (const char*)getMemAt(0x85B3FC, 10395));
 	strcpy((char*)&Data[128], sub_41FA40());
-	*(_DWORD*)&Data[138] = dword_5d4594_2660032;
+	*(uint32_t*)&Data[138] = dword_5d4594_2660032;
 	memcpy(Data, v1, 0x61u);
 
 	if (nox_common_gameFlags_check_40A5C0(1)) {
@@ -241,7 +241,7 @@ void CONNECT_SERVER(sm_args_t* args) {
 	nox_xxx_allocNetGQueue_5520B0(200, 1024);
 	narg.func_yyy = nox_xxx_netHandleCliPacket_43C860;
 	v4 = nox_xxx_netPreStructToFull_5546F0(&narg);
-	*(_DWORD*)getMemAt(0x5D4594, 815700) = v4;
+	*(uint32_t*)getMemAt(0x5D4594, 815700) = v4;
 
 	GOTO_NET_CONNECT(v4, cp, hostshort, args->connect_server.data);
 }
@@ -282,13 +282,13 @@ void NET_CONNECT(sm_args_t* args) {
 		nox_net_stop();
 		GOTO_NET_CONNECT_THEN(-22);
 	}
-	if ((unsigned __int8)*cp < '0' || (unsigned __int8)*cp > '9') {
+	if ((unsigned char)*cp < '0' || (unsigned char)*cp > '9') {
 		v9 = gethostbyname(cp);
 		if (!v9) {
 			nox_net_stop();
 			GOTO_NET_CONNECT_THEN(-4);
 		}
-		v8 = **(_DWORD**)v9->h_addr_list;
+		v8 = **(uint32_t**)v9->h_addr_list;
 	} else {
 		v8 = inet_addr(cp);
 	}

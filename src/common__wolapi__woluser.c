@@ -5,24 +5,25 @@
 #include "GAME2.h"
 #include "client__gui__window.h"
 #include "client__video__draw_common.h"
-extern _DWORD dword_5d4594_531652;
-extern _DWORD dword_5d4594_531648;
+#include "common__strman.h"
+extern uint32_t dword_5d4594_531652;
+extern uint32_t dword_5d4594_531648;
 
 //----- (0041F620) --------------------------------------------------------
 void  sub_41F620(int a1) {
-	_DWORD* v1;  // esi
+	uint32_t* v1;  // esi
 	int v2;      // ebp
-	_DWORD* v3;  // edi
+	uint32_t* v3;  // edi
 	int v4;      // eax
 	int v5;      // eax
 	int v6;      // edi
 	wchar_t* v7; // eax
 
-	v1 = *(_DWORD**)&dword_5d4594_531648;
+	v1 = *(uint32_t**)&dword_5d4594_531648;
 	v2 = 0;
 	if (dword_5d4594_531648) {
 		while (1) {
-			v3 = (_DWORD*)v1[5];
+			v3 = (uint32_t*)v1[5];
 			if (!_strcmpi((const char*)(*v1 + 36), (const char*)(a1 + 36)))
 				break;
 			++v2;
@@ -32,12 +33,12 @@ void  sub_41F620(int a1) {
 		}
 		v4 = v1[6];
 		if (v4)
-			*(_DWORD*)(v4 + 20) = v1[5];
+			*(uint32_t*)(v4 + 20) = v1[5];
 		else
 			dword_5d4594_531648 = v1[5];
 		v5 = v1[5];
 		if (v5)
-			*(_DWORD*)(v5 + 24) = v1[6];
+			*(uint32_t*)(v5 + 24) = v1[6];
 		else
 			dword_5d4594_531652 = v1[6];
 		if (sub_41E2F0() == 7) {

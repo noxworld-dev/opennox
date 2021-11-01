@@ -154,6 +154,6 @@ func AIL_stream_status(s C.HSTREAM) C.int32_t { return 2 }
 func AIL_waveOutClose(drvr C.HDIGDRIVER) {}
 
 //export AIL_waveOutOpen
-func AIL_waveOutOpen(pdrvr *C.HDIGDRIVER, lphWaveOut *C.LPHWAVEOUT, wDeviceID C.int32_t, lpFormat C.LPWAVEFORMAT) C.int32_t {
+func AIL_waveOutOpen(pdrvr *C.HDIGDRIVER, wDeviceID C.int32_t, lpFormat C.NOX_WAVEFORMAT) C.int32_t {
 	return 0
 }

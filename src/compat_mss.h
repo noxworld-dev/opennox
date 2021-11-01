@@ -2,13 +2,6 @@
 #define COMPAT_MSS_H
 
 #include <stdint.h>
-#include "defs.h"
-
-#ifdef _WIN32
-#include <windows.h>
-#else
-#include "windows_compat.h"
-#endif
 
 #ifdef _MSC_VER
 #pragma pack(push, 1)
@@ -62,6 +55,14 @@ typedef struct _SAMPLE* HSAMPLE;
 typedef struct _STREAM* HSTREAM;
 typedef struct _TIMER* HTIMER;
 
+typedef struct {
+	uint16_t wFormatTag;
+	uint16_t nChannels;
+	uint32_t nSamplesPerSec;
+	uint32_t nAvgBytesPerSec;
+	uint16_t nBlockAlign;
+} *NOX_WAVEFORMAT;
+
 typedef void(*AILTIMERCB)(uint32_t user);
 typedef void(*AILSAMPLECB)(HSAMPLE sample);
 
@@ -105,6 +106,6 @@ void AIL_stop_timer(HTIMER timer);
 int32_t AIL_stream_position(HSTREAM stream);
 int32_t AIL_stream_status(HSTREAM stream);
 void AIL_waveOutClose(HDIGDRIVER drvr);
-int32_t AIL_waveOutOpen(HDIGDRIVER* drvr, LPHWAVEOUT* lphWaveOut, int32_t wDeviceID, LPWAVEFORMAT lpFormat);
+int32_t AIL_waveOutOpen(HDIGDRIVER* drvr, int32_t wDeviceID, NOX_WAVEFORMAT lpFormat);
 
 #endif // COMPAT_MSS_H

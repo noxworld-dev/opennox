@@ -1,3 +1,5 @@
+#include <math.h>
+
 #include "client__draw__lightning.h"
 #include "common__random.h"
 
@@ -9,16 +11,17 @@
 #include "client__draw__fx.h"
 #include "client__gui__window.h"
 #include "client__video__draw_common.h"
+#include "operators.h"
 
-extern _DWORD dword_5d4594_1316452;
-extern _DWORD dword_5d4594_1316448;
-extern _DWORD dword_5d4594_1316456;
-extern _DWORD nox_xxx_lightningSteps_587000_178216;
-extern _DWORD dword_5d4594_1316484;
-extern _DWORD dword_5d4594_1316472;
-extern _DWORD dword_5d4594_1316436;
-extern _DWORD dword_5d4594_1316476;
-extern _DWORD dword_5d4594_1316492;
+extern uint32_t dword_5d4594_1316452;
+extern uint32_t dword_5d4594_1316448;
+extern uint32_t dword_5d4594_1316456;
+extern uint32_t nox_xxx_lightningSteps_587000_178216;
+extern uint32_t dword_5d4594_1316484;
+extern uint32_t dword_5d4594_1316472;
+extern uint32_t dword_5d4594_1316436;
+extern uint32_t dword_5d4594_1316476;
+extern uint32_t dword_5d4594_1316492;
 
 //----- (0049F5A0) --------------------------------------------------------
 void sub_49F5A0() { *getMemU32Ptr(0x973A20, 536) = 0; }
@@ -31,7 +34,7 @@ int  nox_xxx_drawLightningStep_4BB070(int a1, int a2) {
 	int v5;             // edi
 	int v6;             // ebx
 	int v7;             // ebp
-	unsigned __int8 v8; // al
+	unsigned char v8; // al
 	int v9;             // ecx
 	int v10;            // eax
 	int v11;            // ecx
@@ -71,7 +74,7 @@ int  nox_xxx_drawLightningStep_4BB070(int a1, int a2) {
 						  nox_common_randomIntMinMax_415FF0(-dword_5d4594_1316476, *(int*)&dword_5d4594_1316476,
 									 "C:\\NoxPost\\src\\Client\\Draw\\lightning.c", 193) /
 						  v14 +
-					  (((__int16)a1 + (__int16)a2) >> 1);
+					  (((short)a1 + (short)a2) >> 1);
 		HIWORD(v24) = v15 *
 						  nox_common_randomIntMinMax_415FF0(-dword_5d4594_1316476, *(int*)&dword_5d4594_1316476,
 									 "C:\\NoxPost\\src\\Client\\Draw\\lightning.c", 196) /
@@ -86,22 +89,22 @@ int  nox_xxx_drawLightningStep_4BB070(int a1, int a2) {
 		sub_434040(*getMemIntPtr(0x5D4594, 1316440));
 		sub_434080(12);
 		v4 = SHIWORD(a1);
-		v5 = (__int16)a1;
-		nox_client_drawAddPoint_49F500((__int16)a1, SHIWORD(a1));
+		v5 = (short)a1;
+		nox_client_drawAddPoint_49F500((short)a1, SHIWORD(a1));
 		v6 = SHIWORD(a2);
-		v7 = (__int16)a2;
-		nox_client_drawAddPoint_49F500((__int16)a2, SHIWORD(a2));
+		v7 = (short)a2;
+		nox_client_drawAddPoint_49F500((short)a2, SHIWORD(a2));
 		sub_49E4F0(v23);
 		v23 = 1;
 	} else {
 		sub_434040(*(int*)&dword_5d4594_1316472);
 		sub_434080(3);
 		v4 = SHIWORD(a1);
-		v5 = (__int16)a1;
-		nox_client_drawAddPoint_49F500((__int16)a1, SHIWORD(a1));
+		v5 = (short)a1;
+		nox_client_drawAddPoint_49F500((short)a1, SHIWORD(a1));
 		v6 = SHIWORD(a2);
-		v7 = (__int16)a2;
-		nox_client_drawAddPoint_49F500((__int16)a2, SHIWORD(a2));
+		v7 = (short)a2;
+		nox_client_drawAddPoint_49F500((short)a2, SHIWORD(a2));
 		sub_49E4F0(32);
 	}
 	nox_client_drawSetColor_434460(*(int*)&dword_5d4594_1316472);
@@ -174,13 +177,13 @@ int  nox_xxx_drawLightningStep_4BB070(int a1, int a2) {
 }
 
 //----- (004BAE60) --------------------------------------------------------
-int  nox_xxx_lightningProc2_4BAE60(int2* a1, int2* a2, int a3, __int16* a4, int a5, int a6, int a7) {
+int  nox_xxx_lightningProc2_4BAE60(int2* a1, int2* a2, int a3, short* a4, int a5, int a6, int a7) {
 	int2* v7;    // ebx
 	int2* v8;    // ebp
 	int v9;      // esi
 	int v10;     // eax
 	int v11;     // eax
-	__int64 v12; // rax
+	long long v12; // rax
 	int v13;     // eax
 	int v14;     // edi
 	int v15;     // ebx
@@ -203,29 +206,29 @@ int  nox_xxx_lightningProc2_4BAE60(int2* a1, int2* a2, int a3, __int16* a4, int 
 		v11 = a1->field_4 - v10;
 	else
 		v11 = v10 - a1->field_4;
-	v12 = (__int64)sqrt((double)(v9 * v9 + v11 * v11));
+	v12 = (long long)sqrt((double)(v9 * v9 + v11 * v11));
 	if ((int)v12 >= 512) {
 		dword_5d4594_1316476 = *getMemU32Ptr(0x587000, 178204);
 		dword_5d4594_1316448 = nox_xxx_lightningSteps_587000_178216;
 	} else {
-		*(_DWORD*)&dword_5d4594_1316476 =
+		*(uint32_t*)&dword_5d4594_1316476 =
 			*getMemU32Ptr(0x587000, 178208) +
 			(int)v12 * (*getMemU32Ptr(0x587000, 178204) - *getMemU32Ptr(0x587000, 178208)) / 512;
 		bool v13p = 0;
 		if ((int)v12 < 64) {
-			v13 = *(_DWORD*)&nox_xxx_lightningSteps_587000_178216 - 3;
+			v13 = *(uint32_t*)&nox_xxx_lightningSteps_587000_178216 - 3;
 		} else if ((int)v12 < 128) {
-			v13 = *(_DWORD*)&nox_xxx_lightningSteps_587000_178216 - 2;
+			v13 = *(uint32_t*)&nox_xxx_lightningSteps_587000_178216 - 2;
 		} else if ((int)v12 < 256) {
-			v13 = *(_DWORD*)&nox_xxx_lightningSteps_587000_178216 - 1;
+			v13 = *(uint32_t*)&nox_xxx_lightningSteps_587000_178216 - 1;
 		} else {
-			v13 = *(_DWORD*)&nox_xxx_lightningSteps_587000_178216;
+			v13 = *(uint32_t*)&nox_xxx_lightningSteps_587000_178216;
 			v13p = 1;
 		}
 		if (v13 >= 1 || v13p) {
-			*(_DWORD*)&dword_5d4594_1316448 = v13;
+			*(uint32_t*)&dword_5d4594_1316448 = v13;
 		} else {
-			*(_DWORD*)&dword_5d4594_1316448 = 1;
+			*(uint32_t*)&dword_5d4594_1316448 = 1;
 		}
 	}
 	*getMemU32Ptr(0x5D4594, 1316532) = a3;
@@ -278,10 +281,10 @@ int  nox_thing_lightning_draw(int* a1, nox_drawable* dr) {
 	int v3;              // edi
 	int v4;              // ebp
 	int v5;              // ecx
-	unsigned __int16 v6; // ax
-	_DWORD* v7;          // eax
-	_DWORD* v8;          // edi
-	_DWORD* v9;          // eax
+	unsigned short v6; // ax
+	uint32_t* v7;          // eax
+	uint32_t* v8;          // edi
+	uint32_t* v9;          // eax
 	int v10;             // esi
 	int v11;             // ecx
 	int v12;             // ebx
@@ -294,31 +297,31 @@ int  nox_thing_lightning_draw(int* a1, nox_drawable* dr) {
 
 	int a2 = dr;
 
-	if (!*(_BYTE*)(a2 + 432)) {
+	if (!*(uint8_t*)(a2 + 432)) {
 		v2 = *a1;
 		v3 = a1[4];
 		v4 = a1[5];
 		v5 = *a1;
 		v19 = a1[1];
-		v18.field_0 = *(unsigned __int16*)(a2 + 437);
+		v18.field_0 = *(unsigned short*)(a2 + 437);
 		a1a.field_0 = v18.field_0 + v5 - v3;
-		v6 = *(_WORD*)(a2 + 441);
-		v18.field_4 = *(unsigned __int16*)(a2 + 439);
+		v6 = *(uint16_t*)(a2 + 441);
+		v18.field_4 = *(unsigned short*)(a2 + 439);
 		a1a.field_4 = v19 - v4 + v18.field_4 - 20;
 		a3.field_0 = v6;
 		a2a.field_0 = v2 + v6 - v3;
-		a3.field_4 = *(unsigned __int16*)(a2 + 443);
+		a3.field_4 = *(unsigned short*)(a2 + 443);
 		a2a.field_4 = a3.field_4 - v4 + v19 - 20;
 	} else {
-		if (nox_xxx_netTestHighBit_578B70(*(_DWORD*)(a2 + 437)))
-			v7 = nox_xxx_netSpriteByCodeStatic_45A720(*(_DWORD*)(a2 + 437));
+		if (nox_xxx_netTestHighBit_578B70(*(uint32_t*)(a2 + 437)))
+			v7 = nox_xxx_netSpriteByCodeStatic_45A720(*(uint32_t*)(a2 + 437));
 		else
-			v7 = nox_xxx_netSpriteByCodeDynamic_45A6F0(*(_DWORD*)(a2 + 437));
+			v7 = nox_xxx_netSpriteByCodeDynamic_45A6F0(*(uint32_t*)(a2 + 437));
 		v8 = v7;
-		if (nox_xxx_netTestHighBit_578B70(*(_DWORD*)(a2 + 441)))
-			v9 = nox_xxx_netSpriteByCodeStatic_45A720(*(_DWORD*)(a2 + 441));
+		if (nox_xxx_netTestHighBit_578B70(*(uint32_t*)(a2 + 441)))
+			v9 = nox_xxx_netSpriteByCodeStatic_45A720(*(uint32_t*)(a2 + 441));
 		else
-			v9 = nox_xxx_netSpriteByCodeDynamic_45A6F0(*(_DWORD*)(a2 + 441));
+			v9 = nox_xxx_netSpriteByCodeDynamic_45A6F0(*(uint32_t*)(a2 + 441));
 		if (!(v8 && v9)) {
 			return 1;
 		}
@@ -346,16 +349,16 @@ int  nox_thing_lightning_draw(int* a1, nox_drawable* dr) {
 
 //----- (004BB3F0) --------------------------------------------------------
 int  nox_thing_chain_lightning_bolt_draw(int* a1, nox_drawable* dr) {
-	unsigned __int16 v2; // ax
+	unsigned short v2; // ax
 	int v3;              // ebx
 	int v4;              // edi
 	int v5;              // ebp
 	int v6;              // edx
 	int v7;              // ecx
-	unsigned __int16 v8; // ax
-	_DWORD* v9;          // eax
-	_DWORD* v10;         // edi
-	_DWORD* v11;         // eax
+	unsigned short v8; // ax
+	uint32_t* v9;          // eax
+	uint32_t* v10;         // edi
+	uint32_t* v11;         // eax
 	int v12;             // esi
 	int v13;             // ecx
 	int v14;             // ebx
@@ -367,8 +370,8 @@ int  nox_thing_chain_lightning_bolt_draw(int* a1, nox_drawable* dr) {
 
 	int a2 = dr;
 
-	if (!*(_BYTE*)(a2 + 432)) {
-		v2 = *(_WORD*)(a2 + 437);
+	if (!*(uint8_t*)(a2 + 432)) {
+		v2 = *(uint16_t*)(a2 + 437);
 		v3 = *a1;
 		v4 = a1[4];
 		v5 = a1[5];
@@ -376,23 +379,23 @@ int  nox_thing_chain_lightning_bolt_draw(int* a1, nox_drawable* dr) {
 		v7 = v2 + *a1 - v4;
 		v19.field_0 = v2;
 		a1a.field_0 = v7;
-		LOWORD(v7) = *(_WORD*)(a2 + 439);
-		a2a.field_0 = v3 + *(unsigned __int16*)(a2 + 441) - v4;
-		v19.field_4 = (unsigned __int16)v7;
-		v8 = *(_WORD*)(a2 + 443);
-		a1a.field_4 = v6 - v5 + (unsigned __int16)v7 - 20;
+		LOWORD(v7) = *(uint16_t*)(a2 + 439);
+		a2a.field_0 = v3 + *(unsigned short*)(a2 + 441) - v4;
+		v19.field_4 = (unsigned short)v7;
+		v8 = *(uint16_t*)(a2 + 443);
+		a1a.field_4 = v6 - v5 + (unsigned short)v7 - 20;
 		a3.field_0 = v8;
 		a2a.field_4 = v8 - v5 + v6 - 20;
 	} else {
-		if (nox_xxx_netTestHighBit_578B70(*(_DWORD*)(a2 + 437)))
-			v9 = nox_xxx_netSpriteByCodeStatic_45A720(*(_DWORD*)(a2 + 437));
+		if (nox_xxx_netTestHighBit_578B70(*(uint32_t*)(a2 + 437)))
+			v9 = nox_xxx_netSpriteByCodeStatic_45A720(*(uint32_t*)(a2 + 437));
 		else
-			v9 = nox_xxx_netSpriteByCodeDynamic_45A6F0(*(_DWORD*)(a2 + 437));
+			v9 = nox_xxx_netSpriteByCodeDynamic_45A6F0(*(uint32_t*)(a2 + 437));
 		v10 = v9;
-		if (nox_xxx_netTestHighBit_578B70(*(_DWORD*)(a2 + 441)))
-			v11 = nox_xxx_netSpriteByCodeStatic_45A720(*(_DWORD*)(a2 + 441));
+		if (nox_xxx_netTestHighBit_578B70(*(uint32_t*)(a2 + 441)))
+			v11 = nox_xxx_netSpriteByCodeStatic_45A720(*(uint32_t*)(a2 + 441));
 		else
-			v11 = nox_xxx_netSpriteByCodeDynamic_45A6F0(*(_DWORD*)(a2 + 441));
+			v11 = nox_xxx_netSpriteByCodeDynamic_45A6F0(*(uint32_t*)(a2 + 441));
 		if (!(v10 && v11)) {
 			return 1;
 		}
@@ -426,10 +429,10 @@ int  nox_thing_energy_bolt_draw(int* a1, nox_drawable* dr) {
 	int v5;              // edi
 	int v6;              // ebx
 	int v7;              // ecx
-	unsigned __int16 v8; // ax
-	_DWORD* v9;          // eax
-	_DWORD* v10;         // edi
-	_DWORD* v11;         // eax
+	unsigned short v8; // ax
+	uint32_t* v9;          // eax
+	uint32_t* v10;         // edi
+	uint32_t* v11;         // eax
 	int v12;             // esi
 	int v13;             // edx
 	int v14;             // ebp
@@ -444,33 +447,33 @@ int  nox_thing_energy_bolt_draw(int* a1, nox_drawable* dr) {
 	int a2 = dr;
 
 	v2 = a2;
-	v3 = *(_BYTE*)(a2 + 432) == 0;
-	v22 = *(_BYTE*)(a2 + 433);
+	v3 = *(uint8_t*)(a2 + 432) == 0;
+	v22 = *(uint8_t*)(a2 + 433);
 	if (v3) {
 		v4 = *a1;
 		v5 = a1[4];
 		v6 = a1[5];
 		v7 = *a1;
 		v21 = a1[1];
-		v20.field_0 = *(unsigned __int16*)(v2 + 437);
+		v20.field_0 = *(unsigned short*)(v2 + 437);
 		a1a.field_0 = v20.field_0 + v7 - v5;
-		v8 = *(_WORD*)(v2 + 441);
-		v20.field_4 = *(unsigned __int16*)(v2 + 439);
+		v8 = *(uint16_t*)(v2 + 441);
+		v20.field_4 = *(unsigned short*)(v2 + 439);
 		a1a.field_4 = v21 - v6 + v20.field_4 - 20;
 		a3.field_0 = v8;
 		a2a.field_0 = v4 + v8 - v5;
-		a3.field_4 = *(unsigned __int16*)(v2 + 443);
+		a3.field_4 = *(unsigned short*)(v2 + 443);
 		a2a.field_4 = a3.field_4 - v6 + v21 - 20;
 	} else {
-		if (nox_xxx_netTestHighBit_578B70(*(_DWORD*)(v2 + 437)))
-			v9 = nox_xxx_netSpriteByCodeStatic_45A720(*(_DWORD*)(v2 + 437));
+		if (nox_xxx_netTestHighBit_578B70(*(uint32_t*)(v2 + 437)))
+			v9 = nox_xxx_netSpriteByCodeStatic_45A720(*(uint32_t*)(v2 + 437));
 		else
-			v9 = nox_xxx_netSpriteByCodeDynamic_45A6F0(*(_DWORD*)(v2 + 437));
+			v9 = nox_xxx_netSpriteByCodeDynamic_45A6F0(*(uint32_t*)(v2 + 437));
 		v10 = v9;
-		if (nox_xxx_netTestHighBit_578B70(*(_DWORD*)(v2 + 441)))
-			v11 = nox_xxx_netSpriteByCodeStatic_45A720(*(_DWORD*)(v2 + 441));
+		if (nox_xxx_netTestHighBit_578B70(*(uint32_t*)(v2 + 441)))
+			v11 = nox_xxx_netSpriteByCodeStatic_45A720(*(uint32_t*)(v2 + 441));
 		else
-			v11 = nox_xxx_netSpriteByCodeDynamic_45A6F0(*(_DWORD*)(v2 + 441));
+			v11 = nox_xxx_netSpriteByCodeDynamic_45A6F0(*(uint32_t*)(v2 + 441));
 		if (!(v10 && v11)) {
 			return 1;
 		}
@@ -502,10 +505,10 @@ int  nox_thing_green_bolt_draw(int* a1, nox_drawable* dr) {
 	int v6;              // edi
 	int v7;              // ebp
 	int v8;              // ecx
-	unsigned __int16 v9; // ax
-	_DWORD* v10;         // eax
-	_DWORD* v11;         // edi
-	_DWORD* v12;         // eax
+	unsigned short v9; // ax
+	uint32_t* v10;         // eax
+	uint32_t* v11;         // edi
+	uint32_t* v12;         // eax
 	int v13;             // esi
 	int v14;             // edx
 	int v15;             // ebx
@@ -518,16 +521,16 @@ int  nox_thing_green_bolt_draw(int* a1, nox_drawable* dr) {
 
 	int a2 = dr;
 
-	if (*(_BYTE*)(a2 + 432)) {
-		if (nox_xxx_netTestHighBit_578B70(*(_DWORD*)(a2 + 437)))
-			v10 = nox_xxx_netSpriteByCodeStatic_45A720(*(_DWORD*)(a2 + 437));
+	if (*(uint8_t*)(a2 + 432)) {
+		if (nox_xxx_netTestHighBit_578B70(*(uint32_t*)(a2 + 437)))
+			v10 = nox_xxx_netSpriteByCodeStatic_45A720(*(uint32_t*)(a2 + 437));
 		else
-			v10 = nox_xxx_netSpriteByCodeDynamic_45A6F0(*(_DWORD*)(a2 + 437));
+			v10 = nox_xxx_netSpriteByCodeDynamic_45A6F0(*(uint32_t*)(a2 + 437));
 		v11 = v10;
-		if (nox_xxx_netTestHighBit_578B70(*(_DWORD*)(a2 + 441)))
-			v12 = nox_xxx_netSpriteByCodeStatic_45A720(*(_DWORD*)(a2 + 441));
+		if (nox_xxx_netTestHighBit_578B70(*(uint32_t*)(a2 + 441)))
+			v12 = nox_xxx_netSpriteByCodeStatic_45A720(*(uint32_t*)(a2 + 441));
 		else
-			v12 = nox_xxx_netSpriteByCodeDynamic_45A6F0(*(_DWORD*)(a2 + 441));
+			v12 = nox_xxx_netSpriteByCodeDynamic_45A6F0(*(uint32_t*)(a2 + 441));
 		if (!v11 || !v12)
 			return 1;
 		v13 = *a1;
@@ -541,10 +544,10 @@ int  nox_thing_green_bolt_draw(int* a1, nox_drawable* dr) {
 		a2a.field_4 = v12[4] - v15 + v16 - 20;
 		a3 = *(int2*)(v12 + 3);
 	} else {
-		v2 = *(_DWORD*)(a2 + 433);
+		v2 = *(uint32_t*)(a2 + 433);
 		if (v2) {
 			v3 = v2 - 1;
-			*(_DWORD*)(a2 + 433) = v3;
+			*(uint32_t*)(a2 + 433) = v3;
 			if (!v3) {
 				nox_xxx_spriteDeleteStatic_45A4E0_drawable(dr);
 				return 0;
@@ -555,14 +558,14 @@ int  nox_thing_green_bolt_draw(int* a1, nox_drawable* dr) {
 		v7 = a1[5];
 		v8 = *a1;
 		v21 = a1[1];
-		v20.field_0 = *(unsigned __int16*)(a2 + 437);
+		v20.field_0 = *(unsigned short*)(a2 + 437);
 		a1a.field_0 = v20.field_0 + v8 - v6;
-		v9 = *(_WORD*)(a2 + 441);
-		v20.field_4 = *(unsigned __int16*)(a2 + 439);
+		v9 = *(uint16_t*)(a2 + 441);
+		v20.field_4 = *(unsigned short*)(a2 + 439);
 		a1a.field_4 = v21 - v7 + v20.field_4 - 20;
 		a3.field_0 = v9;
 		a2a.field_0 = v5 + v9 - v6;
-		a3.field_4 = *(unsigned __int16*)(a2 + 443);
+		a3.field_4 = *(unsigned short*)(a2 + 443);
 		a2a.field_4 = a3.field_4 - v7 + v21 - 20;
 	}
 	dword_5d4594_1316452 = *getMemU32Ptr(0x5D4594, 1316444);

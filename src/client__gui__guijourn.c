@@ -3,6 +3,8 @@
 #include "GAME1_2.h"
 #include "GAME1_3.h"
 #include "GAME2_3.h"
+#include "common__strman.h"
+#include "operators.h"
 
 //----- (00469BC0) --------------------------------------------------------
 void nox_xxx_cliBuildJournalString_469BC0() {
@@ -25,13 +27,13 @@ void nox_xxx_cliBuildJournalString_469BC0() {
 	v0 = *getMemU32Ptr(0x8531A0, 2576);
 	if (*getMemU32Ptr(0x8531A0, 2576)) {
 		v1 = nox_xxx_guiFontHeightMB_43F320(0);
-		v2 = *(_DWORD*)(v0 + 3644);
+		v2 = *(uint32_t*)(v0 + 3644);
 		v11 = v1;
 		for (i = -v1; v2; i += v11 + v12) {
 			strcpy(v13, "Journal:");
 			HIWORD(v4) = 0;
 			strcat(&v13, (const char*)v2);
-			LOWORD(v4) = *(_WORD*)(v2 + 72);
+			LOWORD(v4) = *(uint16_t*)(v2 + 72);
 			v5 = v4 - 2;
 			if (v5) {
 				v6 = v5 - 2;
@@ -57,7 +59,7 @@ void nox_xxx_cliBuildJournalString_469BC0() {
 			v7 = nox_strman_loadString_40F1D0((char*)&v13, 0, "C:\\NoxPost\\src\\client\\Gui\\GUIJourn.c", 74);
 			nox_wcscat(v14, v7);
 			nox_xxx_drawGetStringSize_43F840(0, v14, 0, &v12, 240);
-			v2 = *(_DWORD*)(v2 + 64);
+			v2 = *(uint32_t*)(v2 + 64);
 		}
 		*getMemU32Ptr(0x5D4594, 1064848) = i <= 0 ? 0 : i;
 	}
@@ -86,16 +88,16 @@ void  nox_xxx_guiDrawJournal_469D40(int xLeft, int yTop, int a3) {
 	if (*getMemU32Ptr(0x8531A0, 2576)) {
 		nox_client_drawSetColor_434460(*getMemIntPtr(0x85B3FC, 952));
 		nox_client_drawRectFilledOpaque_49CE30(xLeft, yTop, 260, 150);
-		v5 = *(_DWORD*)(v3 + 3644);
+		v5 = *(uint32_t*)(v3 + 3644);
 		if (v5) {
-			for (i = *(_DWORD*)(v5 + 64); i; i = *(_DWORD*)(i + 64))
+			for (i = *(uint32_t*)(v5 + 64); i; i = *(uint32_t*)(i + 64))
 				v5 = i;
 			v14 = nox_xxx_guiFontHeightMB_43F320(0);
 			do {
 				HIWORD(v7) = 0;
 				strcpy(v16, "Journal:");
 				strcat(v16, (const char*)v5);
-				LOWORD(v7) = *(_WORD*)(v5 + 72);
+				LOWORD(v7) = *(uint16_t*)(v5 + 72);
 				switch (v7) {
 				case 1:
 					v8 = *getMemU32Ptr(0x5D4594, 2523948);
@@ -136,7 +138,7 @@ void  nox_xxx_guiDrawJournal_469D40(int xLeft, int yTop, int a3) {
 				v4 = v13 + v14;
 				if (v13 + v14 > yTop + 150)
 					break;
-				v5 = *(_DWORD*)(v5 + 68);
+				v5 = *(uint32_t*)(v5 + 68);
 			} while (v5);
 		}
 	}

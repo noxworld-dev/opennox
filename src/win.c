@@ -11,16 +11,15 @@
 #include "GAME_data_init.h"
 #include "client__gui__window.h"
 #include "client__video__draw_common.h"
-#include "legacy/win_ddraw.h"
 
 #include <SDL2/SDL.h>
 
 SDL_Window* g_window;
 int g_scaled = 0;
 int g_fullscreen = -4; // -4 means "unset"
-extern _DWORD dword_5d4594_371712;
-extern _DWORD dword_5d4594_805860;
-extern _DWORD dword_5d4594_823776;
+extern uint32_t dword_5d4594_371712;
+extern uint32_t dword_5d4594_805860;
+extern uint32_t dword_5d4594_823776;
 extern int nox_video_dxFullScreen;
 
 // FIXME: w&h are set to 0 at initialization (but window will be resized a moment later)
@@ -41,7 +40,7 @@ void nox_video_setScaled(int v) {
 	g_scaled = v;
 }
 //----- (00401C70) --------------------------------------------------------
-int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd) {
+int WinMain(char* lpCmdLine) {
 	char* v4; // edi
 	int v7;   // esi
 #ifdef __EMSCRIPTEN__
@@ -59,11 +58,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	for (v4 = strtok(lpCmdLine, " \t"); v4; v4 = strtok(0, " \t")) {
 		if (!strcmp("-window", v4)) {
-			*(_DWORD*)&nox_video_dxFullScreen = 0;
+			*(uint32_t*)&nox_video_dxFullScreen = 0;
 			dword_5d4594_805860 = 0;
 			g_fullscreen = -2;
 		} else if (!strcmp("-swindow", v4)) {
-			*(_DWORD*)&nox_video_dxFullScreen = 0;
+			*(uint32_t*)&nox_video_dxFullScreen = 0;
 			dword_5d4594_805860 = 1;
 			g_fullscreen = -3;
 		} else if (!strcmp("-fullscreen", v4)) {
@@ -142,6 +141,6 @@ void nox_xxx_showWindow_47D8A0() {
 }
 
 //----- (004147E0) --------------------------------------------------------
-BOOL  sub_4147E0(HWND hWnd) {
+int  sub_4147E0(void* hWnd) {
 	return 0;
 }

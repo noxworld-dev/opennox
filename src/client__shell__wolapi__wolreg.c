@@ -1,19 +1,20 @@
 #include "GAME1_2.h"
 #include "GAME2_1.h"
-extern _DWORD dword_5d4594_1064300;
-extern _DWORD dword_5d4594_1064820;
-extern _DWORD dword_5d4594_1064296;
-extern _DWORD dword_5d4594_1064816;
+#include "common__strman.h"
+extern uint32_t dword_5d4594_1064300;
+extern uint32_t dword_5d4594_1064820;
+extern uint32_t dword_5d4594_1064296;
+extern uint32_t dword_5d4594_1064816;
 
 //----- (00468890) --------------------------------------------------------
-int  sub_468890_wol_reg(char* a1, char* a2, char* a3, _BYTE* a4, _BYTE* a5, wchar_t* a6) {
-	_DWORD* v6;   // eax
+int  sub_468890_wol_reg(char* a1, char* a2, char* a3, uint8_t* a4, uint8_t* a5, wchar_t* a6) {
+	uint32_t* v6;   // eax
 	int v7;       // eax
-	_DWORD* v8;   // eax
+	uint32_t* v8;   // eax
 	int v9;       // eax
-	_DWORD* v10;  // eax
+	uint32_t* v10;  // eax
 	int v11;      // eax
-	_DWORD* v12;  // eax
+	uint32_t* v12;  // eax
 	int v13;      // eax
 	char v14;     // al
 	wchar_t* v15; // eax
@@ -29,23 +30,23 @@ int  sub_468890_wol_reg(char* a1, char* a2, char* a3, _BYTE* a4, _BYTE* a5, wcha
 	wchar_t* v25; // [esp-4h] [ebp-60h]
 	char v26[80]; // [esp+Ch] [ebp-50h]
 
-	*a4 = (nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1064816, 1766)->draw_data.field_0 >> 2) & 1;
-	*a5 = (nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1064816, 1767)->draw_data.field_0 >> 2) & 1;
-	v6 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1064816, 1762);
+	*a4 = (nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1064816, 1766)->draw_data.field_0 >> 2) & 1;
+	*a5 = (nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1064816, 1767)->draw_data.field_0 >> 2) & 1;
+	v6 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1064816, 1762);
 	v7 = nox_window_call_field_94((int)v6, 16413, 0, 0);
 	nox_sprintf(a1, "%S", v7);
-	v8 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1064816, 1763);
+	v8 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1064816, 1763);
 	v9 = nox_window_call_field_94((int)v8, 16413, 0, 0);
 	nox_sprintf(a2, "%S", v9);
-	v10 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1064816, 1764);
+	v10 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1064816, 1764);
 	v11 = nox_window_call_field_94((int)v10, 16413, 0, 0);
 	nox_sprintf(v26, "%S", v11);
-	v12 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1064816, 1765);
+	v12 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1064816, 1765);
 	v13 = nox_window_call_field_94((int)v12, 16413, 0, 0);
 	nox_sprintf(a3, "%S", v13);
 	v14 = *a1;
 	if (*a1) {
-		if ((unsigned __int8)v14 < 0x31u || (unsigned __int8)v14 > 0x39u) {
+		if ((unsigned char)v14 < 0x31u || (unsigned char)v14 > 0x39u) {
 			if (strlen(a2) == 8) {
 				if (!strcmp(a2, v26)) {
 					if (!dword_5d4594_1064300 || *a3) {
@@ -95,13 +96,13 @@ int  sub_468890_wol_reg(char* a1, char* a2, char* a3, _BYTE* a4, _BYTE* a5, wcha
 
 //----- (00468BB0) --------------------------------------------------------
 int  sub_468BB0_wol_reg(int* a1, int* a2, int* a3, wchar_t* a4) {
-	_DWORD* v4;        // eax
+	uint32_t* v4;        // eax
 	const wchar_t* v5; // esi
-	_DWORD* v6;        // eax
+	uint32_t* v6;        // eax
 	const wchar_t* v7; // edi
-	_DWORD* v8;        // eax
+	uint32_t* v8;        // eax
 	const wchar_t* v9; // ebx
-	_DWORD* v10;       // eax
+	uint32_t* v10;       // eax
 	int v11;           // eax
 	wchar_t* v12;      // eax
 	int result;        // eax
@@ -112,13 +113,13 @@ int  sub_468BB0_wol_reg(int* a1, int* a2, int* a3, wchar_t* a4) {
 	wchar_t* v18;      // [esp-4h] [ebp-14h]
 
 	*a4 = 0;
-	v4 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1064816, 1758);
+	v4 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1064816, 1758);
 	v5 = (const wchar_t*)nox_window_call_field_94((int)v4, 16413, 0, 0);
-	v6 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1064816, 1759);
+	v6 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1064816, 1759);
 	v7 = (const wchar_t*)nox_window_call_field_94((int)v6, 16413, 0, 0);
-	v8 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1064816, 1760);
+	v8 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1064816, 1760);
 	v9 = (const wchar_t*)nox_window_call_field_94((int)v8, 16413, 0, 0);
-	v10 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1064816, 1761);
+	v10 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1064816, 1761);
 	v11 = nox_window_call_field_94((int)v10, 16413, 0, 0);
 	nox_sprintf((char*)getMemAt(0x5D4594, 1064196), "%S", v11);
 	if (v5 && v7 && nox_wcslen(v9) == 4) {

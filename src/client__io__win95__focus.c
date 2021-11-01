@@ -2,6 +2,7 @@
 
 #include "client__gui__window.h"
 #include "client__io__console.h"
+#include "common__strman.h"
 
 extern obj_5D4594_754088_t* ptr_5D4594_754088;
 extern int ptr_5D4594_754088_cnt;

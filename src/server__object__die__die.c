@@ -5,6 +5,7 @@
 #include "GAME3_2.h"
 #include "GAME3_3.h"
 #include "GAME4.h"
+#include "common__strman.h"
 
 // TODO: convert table_274080
 
@@ -12,10 +13,10 @@
 void  nox_xxx_dieArmor_54E170_obj_die(int a1) {
 	int v1;      // ebx
 	int v2;      // edi
-	_DWORD* v3;  // eax
-	__int16 v4;  // ax
+	uint32_t* v3;  // eax
+	short v4;  // ax
 	int v5;      // ebp
-	__int16 v6;  // ax
+	short v6;  // ax
 	wchar_t* v7; // esi
 	int v8;      // edi
 	wchar_t* v9; // eax
@@ -24,19 +25,19 @@ void  nox_xxx_dieArmor_54E170_obj_die(int a1) {
 	v1 = a1;
 	v2 = 0;
 	if (!nox_strman_get_lang_code() || nox_strman_get_lang_code() == 1) {
-		v3 = nox_xxx_equipClothFindDefByTT_413270(*(unsigned __int16*)(a1 + 4));
+		v3 = nox_xxx_equipClothFindDefByTT_413270(*(unsigned short*)(a1 + 4));
 		if (v3) {
-			v4 = *(_WORD*)(v3[2] + 2 * nox_wcslen((const wchar_t*)v3[2]) - 2);
+			v4 = *(uint16_t*)(v3[2] + 2 * nox_wcslen((const wchar_t*)v3[2]) - 2);
 			if (v4 == 83 || v4 == 115)
 				v2 = 1;
 		}
 	}
-	v5 = *(_DWORD*)(a1 + 492);
+	v5 = *(uint32_t*)(a1 + 492);
 	if (v5)
 		v10 = (float2*)(v5 + 56);
 	else
 		v10 = (float2*)(a1 + 56);
-	v6 = *(_WORD*)(v1 + 24);
+	v6 = *(uint16_t*)(v1 + 24);
 	if (v6 & 0x10) {
 		if (v2)
 			v7 = nox_strman_loadString_40F1D0("ArmorDieMetalPlural", 0, "C:\\NoxPost\\src\\Server\\Object\\die\\Die.c",
@@ -84,7 +85,7 @@ void  nox_xxx_dieArmor_54E170_obj_die(int a1) {
 void  nox_xxx_dieWeapon_54E370_obj_die(int a1) {
 	int v1;      // edi
 	float2* v2;  // ebx
-	__int16 v3;  // ax
+	short v3;  // ax
 	wchar_t* v4; // eax
 	wchar_t* v5; // eax
 	wchar_t* v6; // eax
@@ -92,11 +93,11 @@ void  nox_xxx_dieWeapon_54E370_obj_die(int a1) {
 	wchar_t* v8; // [esp-4h] [ebp-10h]
 	wchar_t* v9; // [esp-4h] [ebp-10h]
 
-	v1 = *(_DWORD*)(a1 + 492);
+	v1 = *(uint32_t*)(a1 + 492);
 	v2 = (float2*)(v1 + 56);
 	if (!v1)
 		v2 = (float2*)(a1 + 56);
-	v3 = *(_WORD*)(a1 + 24);
+	v3 = *(uint16_t*)(a1 + 24);
 	if (v3 & 0x10) {
 		v7 = nox_xxx_itemGetName_4E77E0_obj_util(a1);
 		v4 =

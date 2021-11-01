@@ -1,5 +1,6 @@
 #include "GAME1.h"
 #include "GAME3_3.h"
+#include "common__strman.h"
 
 //----- (004E39F0) --------------------------------------------------------
 wchar_t*  sub_4E39F0_obj_db(const char** a1) {
@@ -7,9 +8,9 @@ wchar_t*  sub_4E39F0_obj_db(const char** a1) {
 	char* v2;            // eax
 	const char* v3;      // eax
 	const char* v4;      // edx
-	unsigned __int8 v5;  // al
-	unsigned __int8* v6; // ecx
-	unsigned __int8* i;  // edx
+	unsigned char v5;  // al
+	unsigned char* v6; // ecx
+	unsigned char* i;  // edx
 
 	v1 = *a1;
 	if (!*a1)
@@ -23,7 +24,7 @@ wchar_t*  sub_4E39F0_obj_db(const char** a1) {
 	strcpy((char*)getMemAt(0x5D4594, 1563460), "NPC:");
 	v5 = *v3;
 	v6 = getMemAt(0x5D4594, 1563460 + strlen((const char*)getMemAt(0x5D4594, 1563460)));
-	for (i = (unsigned __int8*)(v4 + 1); v5; ++i) {
+	for (i = (unsigned char*)(v4 + 1); v5; ++i) {
 		if (v5 != 95)
 			*v6++ = v5;
 		v5 = *i;

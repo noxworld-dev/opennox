@@ -30,7 +30,7 @@ int nox_client_screenParticleDraw_489700(void* a1p, nox_screenParticle* p) {
 		p->field_40[1] = v4;
 		if (!v4) {
 			if (p->field_40[2] == 1) {
-				_BYTE v5 = p->field_40[0] + 1;
+				uint8_t v5 = p->field_40[0] + 1;
 				p->field_40[0] = v5;
 				if (v5 >= 4u)
 					p->field_40[2] = 2;
@@ -45,7 +45,7 @@ int nox_client_screenParticleDraw_489700(void* a1p, nox_screenParticle* p) {
 			p->field_40[1] = p->field_40[3];
 		}
 	}
-	if (*(_BYTE*)(&p->field_32) == 1 && nox_common_randomIntMinMax_415FF0(0, 10, "C:\\NoxPost\\src\\client\\Draw\\PartScrn.c", 105) >= 8) {
+	if (*(uint8_t*)(&p->field_32) == 1 && nox_common_randomIntMinMax_415FF0(0, 10, "C:\\NoxPost\\src\\client\\Draw\\PartScrn.c", 105) >= 8) {
 		v12 = nox_common_randomIntMinMax_415FF0(3, 5, "C:\\NoxPost\\src\\client\\Draw\\PartScrn.c", 115);
 		v11 = nox_common_randomIntMinMax_415FF0(2, 3, "C:\\NoxPost\\src\\client\\Draw\\PartScrn.c", 114);
 		v10 = xLeft.field_4;

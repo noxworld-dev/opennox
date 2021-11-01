@@ -17,8 +17,9 @@
 #include "common/fs/nox_fs.h"
 #include "common__system__settings.h"
 #include "client__video__draw_common.h"
+#include "operators.h"
 
-extern _DWORD dword_5d4594_1193156;
+extern uint32_t dword_5d4594_1193156;
 extern unsigned int nox_client_texturedFloors2_154960;
 extern int nox_win_width_game;
 extern int nox_win_height_game;
@@ -27,23 +28,23 @@ extern void* dword_587000_127004;
 extern void* dword_587000_122852;
 extern void* dword_587000_93164;
 extern unsigned int nox_video_dxUnlockSurface;
-extern _DWORD nox_client_drawFrontWalls_80812;
-extern _DWORD nox_client_translucentFrontWalls_805844;
-extern _DWORD nox_client_highResFrontWalls_80820;
-extern _DWORD nox_client_highResFloors_154952;
-extern _DWORD nox_client_lockHighResFloors_1193152;
-extern _DWORD nox_client_texturedFloors_154956;
+extern uint32_t nox_client_drawFrontWalls_80812;
+extern uint32_t nox_client_translucentFrontWalls_805844;
+extern uint32_t nox_client_highResFrontWalls_80820;
+extern uint32_t nox_client_highResFloors_154952;
+extern uint32_t nox_client_lockHighResFloors_1193152;
+extern uint32_t nox_client_texturedFloors_154956;
 extern unsigned int nox_gui_console_translucent;
-extern _DWORD nox_client_renderGlow_805852;
-extern _DWORD nox_client_renderGUI_80828;
-extern _DWORD nox_client_fadeObjects_80836;
-extern _DWORD nox_client_renderBubbles_80844;
-extern _DWORD nox_profiled_805856;
-extern _DWORD nox_server_sanctuaryHelp_54276;
-extern _DWORD nox_server_sendMotd_108752;
-extern _DWORD nox_server_connectionType_3596;
-extern _DWORD nox_server_resetQuestMinVotes_229988;
-extern _DWORD nox_server_kickQuestPlayerMinVotes_229992;
+extern uint32_t nox_client_renderGlow_805852;
+extern uint32_t nox_client_renderGUI_80828;
+extern uint32_t nox_client_fadeObjects_80836;
+extern uint32_t nox_client_renderBubbles_80844;
+extern uint32_t nox_profiled_805856;
+extern uint32_t nox_server_sanctuaryHelp_54276;
+extern uint32_t nox_server_sendMotd_108752;
+extern uint32_t nox_server_connectionType_3596;
+extern uint32_t nox_server_resetQuestMinVotes_229988;
+extern uint32_t nox_server_kickQuestPlayerMinVotes_229992;
 
 int g_scaled_cfg = 0;
 int g_fullscreen_cfg = 0;
@@ -86,7 +87,7 @@ int nox_common_parsecfg_all(FILE* a1) {
 	char* v2;            // eax
 	const char* v3;      // edi
 	int v4;              // edx
-	unsigned __int8* v5; // ebp
+	unsigned char* v5; // ebp
 
 	sub_486670(0x4000, 0);
 	sub_486670(0x4000, 1);
@@ -329,7 +330,7 @@ LABEL_2:
 			if (*getMemU32Ptr(0x587000, 81168)) {
 				v5 = getMemAt(0x587000, 81168);
 				while (strcmp(v1, v3)) {
-					v3 = (const char*)*((_DWORD*)v5 + 2);
+					v3 = (const char*)*((uint32_t*)v5 + 2);
 					v5 += 8;
 					++v4;
 					if (!v3)
@@ -670,7 +671,7 @@ int sub_432520() {
 	if (v1) {
 		nox_swprintf(v3, L"%S", v1);
 		nox_wcsncpy((wchar_t*)v0 + 39, v3, 8u);
-		*((_WORD*)v0 + 47) = 0;
+		*((uint16_t*)v0 + 47) = 0;
 	}
 	return 1;
 }
@@ -698,7 +699,7 @@ int sub_4325D0() {
 	v0 = strtok(0, " \r\t\n");
 	if (v0) {
 		*getMemU32Ptr(0x587000, 81280) = atoi(v0);
-		*getMemU32Ptr(0x587000, 292940) = (__int64)((double)*getMemIntPtr(0x587000, 81280) * 0.0099999998 * 10.0);
+		*getMemU32Ptr(0x587000, 292940) = (long long)((double)*getMemIntPtr(0x587000, 81280) * 0.0099999998 * 10.0);
 	}
 	return 1;
 }
@@ -788,7 +789,7 @@ int sub_4327C0() {
 	v0 = strtok(0, " \r\t\n");
 	if (v0) {
 		v1 = sub_416640();
-		*(_DWORD*)(v1 + 58) = atoi(v0) > 0;
+		*(uint32_t*)(v1 + 58) = atoi(v0) > 0;
 	}
 	return 1;
 }
@@ -802,7 +803,7 @@ int sub_432810() {
 	v0 = strtok(0, " \r\t\n");
 	if (v0) {
 		v1 = sub_416640();
-		*(_DWORD*)(v1 + 62) = atoi(v0) > 0;
+		*(uint32_t*)(v1 + 62) = atoi(v0) > 0;
 	}
 	return 1;
 }
@@ -875,10 +876,10 @@ int sub_432970() {
 	v0 = strtok(0, " \r\t\n");
 	if (v0) {
 		v1 = sub_416640();
-		*(_DWORD*)(v1 + 66) = atoi(v0);
+		*(uint32_t*)(v1 + 66) = atoi(v0);
 		v2 = strtok(0, " \r\t\n");
 		if (v2)
-			*(_DWORD*)(v1 + 70) = atoi(v2);
+			*(uint32_t*)(v1 + 70) = atoi(v2);
 	}
 	return 1;
 }
@@ -893,10 +894,10 @@ int sub_4329D0() {
 	v0 = strtok(0, " \r\t\n");
 	if (v0) {
 		v1 = sub_416640();
-		*(_WORD*)(v1 + 105) = atoi(v0);
+		*(uint16_t*)(v1 + 105) = atoi(v0);
 		v2 = strtok(0, " \r\t\n");
 		if (v2)
-			*(_WORD*)(v1 + 107) = atoi(v2);
+			*(uint16_t*)(v1 + 107) = atoi(v2);
 	}
 	return 1;
 }
@@ -1074,8 +1075,8 @@ int  sub_432CB0(int a1) {
 int sub_432D10() {
 	char* v0;            // eax
 	char* v1;            // eax
-	unsigned __int8* v2; // esi
-	unsigned __int16 v3; // ax
+	unsigned char* v2; // esi
+	unsigned short v3; // ax
 
 	strtok(0, " \r\t\n");
 	v0 = strtok(0, " \r\t\n");
@@ -1087,7 +1088,7 @@ int sub_432D10() {
 	v2 = getMemAt(0x587000, 81224);
 	do {
 		v3 = atoi(v1);
-		sub_409FB0_settings(*(_DWORD*)v2, v3);
+		sub_409FB0_settings(*(uint32_t*)v2, v3);
 		v2 += 4;
 		v1 = strtok(0, ",\r\n");
 	} while (v1);
@@ -1098,8 +1099,8 @@ int sub_432D10() {
 int sub_432D80() {
 	char* v0;            // eax
 	char* v1;            // eax
-	unsigned __int8* v2; // esi
-	unsigned __int8 v3;  // al
+	unsigned char* v2; // esi
+	unsigned char v3;  // al
 
 	strtok(0, " \r\t\n");
 	v0 = strtok(0, " \r\t\n");
@@ -1111,7 +1112,7 @@ int sub_432D80() {
 	v2 = getMemAt(0x587000, 81224);
 	do {
 		v3 = atoi(v1);
-		sub_40A040_settings(*(_DWORD*)v2, v3);
+		sub_40A040_settings(*(uint32_t*)v2, v3);
 		v2 += 4;
 		v1 = strtok(0, ",\r\n");
 	} while (v1);
@@ -1204,7 +1205,7 @@ char*  sub_432E50(int a1) {
 int sub_433050() {
 	char* v0;           // eax
 	int v1;             // eax
-	unsigned __int8* i; // ecx
+	unsigned char* i; // ecx
 	int v3;             // edx
 
 	strtok(0, " \r\t\n");
@@ -1212,8 +1213,8 @@ int sub_433050() {
 	if (v0) {
 		v1 = atoi(v0);
 		if (*getMemU32Ptr(0x587000, 81248)) {
-			for (i = getMemAt(0x587000, 81248); *((_DWORD*)i + 1) != v1; i += 8) {
-				v3 = *((_DWORD*)i + 2);
+			for (i = getMemAt(0x587000, 81248); *((uint32_t*)i + 1) != v1; i += 8) {
+				v3 = *((uint32_t*)i + 2);
 				if (!v3)
 					return 1;
 			}
@@ -1238,13 +1239,13 @@ int sub_4330C0() {
 	v1 = sub_416640();
 	v2 = atoi(v0);
 	v1[104] = v2;
-	if ((unsigned __int8)v2 <= 0x20u) {
-		if ((unsigned __int8)v2 < 1u)
+	if ((unsigned char)v2 <= 0x20u) {
+		if ((unsigned char)v2 < 1u)
 			v1[104] = 1;
 	} else {
 		v1[104] = 32;
 	}
-	nox_xxx_servSetPlrLimit_409F80((unsigned __int8)v1[104]);
+	nox_xxx_servSetPlrLimit_409F80((unsigned char)v1[104]);
 	return 1;
 }
 
@@ -1259,13 +1260,13 @@ int sub_433130() {
 	if (v0) {
 		v1 = sub_416640();
 		v2 = atoi(v0);
-		*(_DWORD*)(v1 + 74) = v2;
+		*(uint32_t*)(v1 + 74) = v2;
 		if (v2 > 100) {
-			*(_DWORD*)(v1 + 74) = 100;
+			*(uint32_t*)(v1 + 74) = 100;
 			return 1;
 		}
 		if (v2 < 0)
-			*(_DWORD*)(v1 + 74) = 0;
+			*(uint32_t*)(v1 + 74) = 0;
 	}
 	return 1;
 }
@@ -1334,22 +1335,22 @@ int  sub_4332E0(FILE* a1) {
 	int v4;               // eax
 	int v5;               // eax
 	char* v6;             // eax
-	unsigned __int8 v7;   // al
+	unsigned char v7;   // al
 	wchar_t* v8;          // eax
-	BOOL v9;              // eax
+	int v9;              // eax
 	int v10;              // eax
 	unsigned int v11;     // eax
 	unsigned int v12;     // ecx
 	int v13;              // eax
 	unsigned int v14;     // eax
-	BOOL v15;             // eax
+	int v15;             // eax
 	int v16;              // eax
 	int v17;              // eax
-	unsigned __int8* v18; // ebx
-	unsigned __int8* v19; // edi
+	unsigned char* v18; // ebx
+	unsigned char* v19; // edi
 	int v20;              // eax
 	int v21;              // eax
-	_DWORD* v23;          // [esp+8h] [ebp-4h]
+	uint32_t* v23;          // [esp+8h] [ebp-4h]
 
 	v1 = sub_416640();
 	nox_fs_fprintf(a1, "Version = %d\n", 65540);
@@ -1358,21 +1359,21 @@ int  sub_4332E0(FILE* a1) {
 	nox_fs_fprintf(a1, "Fullscreen = %d\n", g_fullscreen_cfg);
 	v2 = nox_video_getCutSize_4766D0();
 	nox_fs_fprintf(a1, "VideoSize = %d\n", v2);
-	// nox_fs_fprintf(a1, "Gamma = %d\n", *(_DWORD *)getMemAt(0x587000, 80852));
+	// nox_fs_fprintf(a1, "Gamma = %d\n", *(uint32_t *)getMemAt(0x587000, 80852));
 	nox_fs_fprintf(a1, "Gamma2 = %f\n", nox_video_getGamma());
 	nox_fs_fprintf(a1, "InputSensitivity = %f\n", nox_input_getSensitivity());
 	if (sub_453070() == 1)
-		v3 = *(_DWORD*)((_DWORD)dword_587000_127004 + 4) >> 16;
+		v3 = *(uint32_t*)((uint32_t)dword_587000_127004 + 4) >> 16;
 	else
 		v3 = 0;
 	nox_fs_fprintf(a1, "FXVolume = %d\n", v3);
 	if (sub_44D990() == 1)
-		v4 = *(_DWORD*)((_DWORD)dword_587000_122852 + 4) >> 16;
+		v4 = *(uint32_t*)((uint32_t)dword_587000_122852 + 4) >> 16;
 	else
 		v4 = 0;
 	nox_fs_fprintf(a1, "DialogVolume = %d\n", v4);
 	if (sub_43DC30() == 1)
-		v5 = *(_DWORD*)((_DWORD)dword_587000_93164 + 4) >> 16;
+		v5 = *(uint32_t*)((uint32_t)dword_587000_93164 + 4) >> 16;
 	else
 		v5 = 0;
 	nox_fs_fprintf(a1, "MusicVolume = %d\n", v5);
@@ -1410,19 +1411,19 @@ int  sub_4332E0(FILE* a1) {
 	sub_4337B0(a1);
 	nox_fs_fprintf(a1, "TimeLimit =");
 	sub_433820(a1);
-	nox_fs_fprintf(a1, "PlayerSkeletons = %d\n", *(_DWORD*)(v1 + 58));
-	nox_fs_fprintf(a1, "BroadcastGestures = %d\n", *(_DWORD*)(v1 + 62));
-	v11 = nox_fs_fprintf(a1, "LatencyCompensation = %d %d\n", *(_DWORD*)(v1 + 66), *(_DWORD*)(v1 + 70));
+	nox_fs_fprintf(a1, "PlayerSkeletons = %d\n", *(uint32_t*)(v1 + 58));
+	nox_fs_fprintf(a1, "BroadcastGestures = %d\n", *(uint32_t*)(v1 + 62));
+	v11 = nox_fs_fprintf(a1, "LatencyCompensation = %d %d\n", *(uint32_t*)(v1 + 66), *(uint32_t*)(v1 + 70));
 	LOBYTE(v11) = v1[100];
 	nox_fs_fprintf(a1, "Closed = %d\n", (v11 >> 4) & 1);
 	LOBYTE(v12) = v1[100];
 	nox_fs_fprintf(a1, "Private = %d\n", (v12 >> 5) & 1);
-	nox_fs_fprintf(a1, "AudioThreshold = %d\n", *(_DWORD*)(v1 + 74));
+	nox_fs_fprintf(a1, "AudioThreshold = %d\n", *(uint32_t*)(v1 + 74));
 	v13 = nox_xxx_servGetPlrLimit_409FA0();
 	nox_fs_fprintf(a1, "MaxPlayers = %d\n", v13);
 	nox_fs_fprintf(a1, "RestrictedClasses = %d\n", v1[100] & 7);
-	nox_fs_fprintf(a1, "RestrictedPing = %d %d\n", *(unsigned __int16*)(v1 + 105), *(unsigned __int16*)(v1 + 107));
-	nox_fs_fprintf(a1, "LimitMaxRes = %d\n", (unsigned __int8)v1[102] >> 7);
+	nox_fs_fprintf(a1, "RestrictedPing = %d %d\n", *(unsigned short*)(v1 + 105), *(unsigned short*)(v1 + 107));
+	nox_fs_fprintf(a1, "LimitMaxRes = %d\n", (unsigned char)v1[102] >> 7);
 	v14 = nox_xxx_getServerSubFlags_409E60();
 	nox_fs_fprintf(a1, "CamperAlarm = %d\n", (v14 >> 13) & 1);
 	v15 = sub_409F40(2);
@@ -1440,9 +1441,9 @@ int  sub_4332E0(FILE* a1) {
 		v18 = getMemAt(0x587000, 81168);
 		v19 = getMemAt(0x587000, 81168);
 		do {
-			v20 = sub_4D0DE0(*((_DWORD*)v19 + 1));
-			nox_fs_fprintf(a1, "%s = %d\n", *(_DWORD*)v18, v20);
-			v21 = *((_DWORD*)v19 + 2);
+			v20 = sub_4D0DE0(*((uint32_t*)v19 + 1));
+			nox_fs_fprintf(a1, "%s = %d\n", *(uint32_t*)v18, v20);
+			v21 = *((uint32_t*)v19 + 2);
 			v19 += 8;
 			v18 = v19;
 		} while (v21);
@@ -1452,10 +1453,10 @@ int  sub_4332E0(FILE* a1) {
 
 //----- (004337B0) --------------------------------------------------------
 int  sub_4337B0(FILE* a1) {
-	unsigned __int16 v1; // ax
+	unsigned short v1; // ax
 	int v2;              // eax
-	unsigned __int8* v3; // esi
-	unsigned __int16 v4; // ax
+	unsigned char* v3; // esi
+	unsigned short v4; // ax
 
 	v1 = nox_xxx_servGamedataGet_40A020(*getMemI16Ptr(0x587000, 81224));
 	nox_fs_fprintf(a1, " %d", v1);
@@ -1465,7 +1466,7 @@ int  sub_4337B0(FILE* a1) {
 		do {
 			v4 = nox_xxx_servGamedataGet_40A020(v2);
 			nox_fs_fprintf(a1, ",%d", v4);
-			v2 = *((_DWORD*)v3 + 1);
+			v2 = *((uint32_t*)v3 + 1);
 			v3 += 4;
 		} while (v2);
 	}
@@ -1474,10 +1475,10 @@ int  sub_4337B0(FILE* a1) {
 
 //----- (00433820) --------------------------------------------------------
 int  sub_433820(FILE* a1) {
-	unsigned __int8 v1;  // al
+	unsigned char v1;  // al
 	int v2;              // eax
-	unsigned __int8* v3; // esi
-	unsigned __int8 v4;  // al
+	unsigned char* v3; // esi
+	unsigned char v4;  // al
 
 	v1 = sub_40A180(*getMemI16Ptr(0x587000, 81224));
 	nox_fs_fprintf(a1, " %d", v1);
@@ -1487,7 +1488,7 @@ int  sub_433820(FILE* a1) {
 		do {
 			v4 = sub_40A180(v2);
 			nox_fs_fprintf(a1, ",%d", v4);
-			v2 = *((_DWORD*)v3 + 1);
+			v2 = *((uint32_t*)v3 + 1);
 			v3 += 4;
 		} while (v2);
 	}
@@ -1497,7 +1498,7 @@ int  sub_433820(FILE* a1) {
 //----- (00433890) --------------------------------------------------------
 char* sub_433890() {
 	char* v0;            // eax
-	unsigned __int8* v1; // eax
+	unsigned char* v1; // eax
 	char v2;             // cl
 
 	v0 = nox_xxx_serverOptionsGetServername_40A4C0();

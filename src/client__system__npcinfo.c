@@ -4,7 +4,7 @@
 #include "GAME4.h"
 
 //----- (0049A4B0) --------------------------------------------------------
-int  nox_xxx_spriteNPCInfo_49A4B0(_DWORD* a1, int a2, int a3) {
+int  nox_xxx_spriteNPCInfo_49A4B0(uint32_t* a1, int a2, int a3) {
 	int result; // eax
 	int v4;     // ecx
 

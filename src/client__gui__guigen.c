@@ -1,4 +1,5 @@
 #include "client__gui__guigen.h"
+#include "common__strman.h"
 
 #include "GAME1_2.h"
 #include "GAME1_3.h"
@@ -11,8 +12,8 @@ extern int nox_win_width;
 extern int nox_win_height;
 
 //----- (004A9D00) --------------------------------------------------------
-__int16  nox_xxx_mapGenClientText_4A9D00(unsigned __int8* a1) {
-	unsigned __int8* v1; // ebx
+short  nox_xxx_mapGenClientText_4A9D00(unsigned char* a1) {
+	unsigned char* v1; // ebx
 	int v2;              // eax
 	int v3;              // edi
 	int v4;              // esi
@@ -21,10 +22,10 @@ __int16  nox_xxx_mapGenClientText_4A9D00(unsigned __int8* a1) {
 	int v7;              // esi
 
 	v1 = a1;
-	v2 = *(unsigned __int16*)(a1 + 1);
-	if ((unsigned __int16)v2 == *getMemU32Ptr(0x5D4594, 1309668))
+	v2 = *(unsigned short*)(a1 + 1);
+	if ((unsigned short)v2 == *getMemU32Ptr(0x5D4594, 1309668))
 		return v2;
-	*getMemU32Ptr(0x5D4594, 1309668) = *(unsigned __int16*)(a1 + 1);
+	*getMemU32Ptr(0x5D4594, 1309668) = *(unsigned short*)(a1 + 1);
 	nox_xxx_clientPlaySoundSpecial_452D80(897, 50);
 	sub_430B50(0, 0, nox_win_width - 1, nox_win_height - 1);
 	sub_440900();
@@ -45,12 +46,12 @@ __int16  nox_xxx_mapGenClientText_4A9D00(unsigned __int8* a1) {
 		*getMemU32Ptr(0x5D4594, 1309660) = v5;
 		break;
 	}
-	nox_xxx_drawGetStringSize_43F840(0, *(unsigned __int16**)getMemAt(0x5D4594, 1309660), (int*)&a1, 0, 0);
-	v6 = nox_win_width - (_DWORD)a1;
+	nox_xxx_drawGetStringSize_43F840(0, *(unsigned short**)getMemAt(0x5D4594, 1309660), (int*)&a1, 0, 0);
+	v6 = nox_win_width - (uint32_t)a1;
 	v7 = nox_win_height / 2 - (2 * nox_xxx_guiFontHeightMB_43F320(0) + 70);
 	nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 2523948));
 	nox_xxx_drawSetColor_4343E0(*getMemIntPtr(0x852978, 4));
-	sub_43F730(0, *(__int16**)getMemAt(0x5D4594, 1309660), v6 / 2, v7);
+	sub_43F730(0, *(short**)getMemAt(0x5D4594, 1309660), v6 / 2, v7);
 	if (++*getMemU32Ptr(0x5D4594, 1309672) >= 32)
 		*getMemU32Ptr(0x5D4594, 1309672) = 0;
 #ifndef NOX_CGO

@@ -4,6 +4,6 @@
 #include "defs.h"
 
 int sub_49C820();
-_DWORD* sub_49C910();
+uint32_t* sub_49C910();
 
 #endif // NOX_PORT_CLIENT_GUI_CONNTYPE

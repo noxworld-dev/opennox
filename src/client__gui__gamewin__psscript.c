@@ -1,6 +1,7 @@
 #include "client__gui__gamewin__psscript.h"
 
 #include "client__gui__gamewin__gamewin.h"
+#include "common__strman.h"
 
 //----- (004A0800) --------------------------------------------------------
 int  nox_gui_parseWindowTooltip_4A0800(nox_window_data* data, char* buf) {

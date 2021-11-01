@@ -3,6 +3,6 @@
 
 #include "defs.h"
 
-int  nox_thing_black_powder_draw(_DWORD* a1, nox_drawable* dr);
+int  nox_thing_black_powder_draw(uint32_t* a1, nox_drawable* dr);
 
 #endif // NOX_PORT_CLIENT_DRAW_POWDERDRAW

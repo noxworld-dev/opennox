@@ -1,31 +1,32 @@
 #include "client__draw__parse__parse.h"
 #include "GAME1_2.h"
+#include "operators.h"
 
 //----- (0044C000) --------------------------------------------------------
 void*  nox_xxx_spriteLoadStaticRandomData_44C000(char* attr_value, nox_memfile* f) {
-	_DWORD* v2;          // eax
-	_DWORD* v4;          // ebp
+	uint32_t* v2;          // eax
+	uint32_t* v4;          // ebp
 	void* result;        // eax
 	int v7;              // edi
-	_BYTE* v8;           // ebx
+	uint8_t* v8;           // ebx
 	int v10;             // ecx
 	char v12;            // cl
 	const char* v13;     // [esp+Ch] [ebp-4h]
-	unsigned __int8 v14; // [esp+14h] [ebp+4h]
-	unsigned __int8 v15; // [esp+18h] [ebp+8h]
+	unsigned char v14; // [esp+14h] [ebp+4h]
+	unsigned char v15; // [esp+18h] [ebp+8h]
 	int v16;             // [esp+18h] [ebp+8h]
 
 	v2 = calloc(1u, 0xCu);
 	v4 = v2;
 	*v2 = 12;
 	v15 = nox_memfile_read_u8(f);
-	*((_BYTE*)v4 + 8) = v15;
+	*((uint8_t*)v4 + 8) = v15;
 	result = malloc(4 * v15);
 	v4[1] = result;
 	if (result) {
 		v7 = 0;
 		v16 = 0;
-		if (*((_BYTE*)v4 + 8)) {
+		if (*((uint8_t*)v4 + 8)) {
 			v8 = attr_value;
 			do {
 				v10 = nox_memfile_read_i32(f);
@@ -39,9 +40,9 @@ void*  nox_xxx_spriteLoadStaticRandomData_44C000(char* attr_value, nox_memfile* 
 					v8[v14] = 0;
 					v7 = v16;
 				}
-				*(_DWORD*)(v4[1] + 4 * v7++) = nox_xxx_readImgMB_42FAA0(v10, v13, v8);
+				*(uint32_t*)(v4[1] + 4 * v7++) = nox_xxx_readImgMB_42FAA0(v10, v13, v8);
 				v16 = v7;
-			} while (v7 < *((unsigned __int8*)v4 + 8));
+			} while (v7 < *((unsigned char*)v4 + 8));
 		}
 		result = v4;
 	}
@@ -58,9 +59,9 @@ int  nox_xxx_spriteLoadVectoAnimatedImpl_44BFA0(int a1, nox_memfile* f) {
 
 //----- (0044B8B0) --------------------------------------------------------
 int  nox_xxx_loadVectorAnimated_44B8B0(int a1, nox_memfile* f) {
-	*(_WORD*)(a1 + 40) = nox_memfile_read_u8(f);
+	*(uint16_t*)(a1 + 40) = nox_memfile_read_u8(f);
 
-	*(_WORD*)(a1 + 42) = nox_memfile_read_u8(f);
+	*(uint16_t*)(a1 + 42) = nox_memfile_read_u8(f);
 
 	const uint8_t anim_kind_length = nox_memfile_read_u8(f);
 
@@ -68,7 +69,7 @@ int  nox_xxx_loadVectorAnimated_44B8B0(int a1, nox_memfile* f) {
 	nox_memfile_read(animation_kind, 1u, anim_kind_length, f);
 	animation_kind[anim_kind_length] = 0;
 
-	*(_DWORD*)(a1 + 44) = get_animation_kind_id_44B4C0(animation_kind);
+	*(uint32_t*)(a1 + 44) = get_animation_kind_id_44B4C0(animation_kind);
 
 	return 1;
 }
@@ -92,12 +93,12 @@ int  nox_xxx_loadVectorAnimated_44BC50(int a1, nox_memfile* f) {
 	while (1) {
 		v13 = v2 >= 16 ? v2 + 4 : v2;
 		v3 = a1;
-		v4 = malloc(4 * *(__int16*)(a1 + 40));
-		*(_DWORD*)(v13 + a1 + 4) = v4;
+		v4 = malloc(4 * *(short*)(a1 + 40));
+		*(uint32_t*)(v13 + a1 + 4) = v4;
 		if (!v4)
 			break;
 		v5 = 0;
-		if (*(_WORD*)(a1 + 40) > 0) {
+		if (*(uint16_t*)(a1 + 40) > 0) {
 			do {
 				v7 = nox_memfile_read_i32(f);
 				v16[0] = getMemByte(0x5D4594, 830844);
@@ -109,8 +110,8 @@ int  nox_xxx_loadVectorAnimated_44BC50(int a1, nox_memfile* f) {
 					v16[v11] = 0;
 					v3 = a1;
 				}
-				*(_DWORD*)(*(_DWORD*)(v13 + v3 + 4) + 4 * ++v5 - 4) = nox_xxx_readImgMB_42FAA0(v7, v15, v16);
-			} while (v5 < *(__int16*)(v3 + 40));
+				*(uint32_t*)(*(uint32_t*)(v13 + v3 + 4) + 4 * ++v5 - 4) = nox_xxx_readImgMB_42FAA0(v7, v15, v16);
+			} while (v5 < *(short*)(v3 + 40));
 			v2 = v14;
 		}
 		v2 += 4;

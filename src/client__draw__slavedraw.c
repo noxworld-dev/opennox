@@ -5,7 +5,7 @@
 
 //----- (004BBD30) --------------------------------------------------------
 int  nox_thing_slave_draw(int* a1, nox_drawable* dr) {
-	nox_xxx_drawObject_4C4770_draw(a1, dr, *(_DWORD*)(*(_DWORD*)(*(_DWORD*)&dr->field_76 + 4) + 4 * dr->field_77));
+	nox_xxx_drawObject_4C4770_draw(a1, dr, *(uint32_t*)(*(uint32_t*)(*(uint32_t*)&dr->field_76 + 4) + 4 * dr->field_77));
 	if (nox_thing_slave_draw == nox_thing_static_random_draw) // AntiICFoptimization
 	{
 		return 0;

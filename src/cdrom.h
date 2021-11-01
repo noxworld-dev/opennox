@@ -4,10 +4,10 @@
 #include "defs.h"
 
 int sub_423BB0();
-BOOL sub_423C60();
-BOOL sub_423CC0(int a1);
+int sub_423C60();
+int sub_423CC0(int a1);
 int nox_xxx_noxCDinDriver_423CF0();
-unsigned __int8 sub_423EC0();
-BOOL sub_423ED0(LPCSTR lpRootPathName, DWORD SectorsPerCluster);
+unsigned char sub_423EC0();
+int sub_423ED0(const char* lpRootPathName, uint32_t SectorsPerCluster);
 
 #endif // NOX_PORT_CDROM

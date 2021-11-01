@@ -10,6 +10,7 @@
 #include "GAME3_2.h"
 #include "GAME4.h"
 #include "GAME4_1.h"
+#include "operators.h"
 
 extern void* nox_script_activatedList_2487236;
 extern unsigned int dword_5d4594_1599628;
@@ -133,7 +134,7 @@ int  nox_xxx_xferReadScriptHandler_4F5580(int a1, char* a2) {
 
 	v6 = 1;
 	nox_xxx_fileReadWrite_426AC0_file3_fread(&v6, 2u);
-	if ((__int16)v6 > 1)
+	if ((short)v6 > 1)
 		return 0;
 	if (*getMemU32Ptr(0x973F18, 3872) == 1) {
 		nox_xxx_fileReadWrite_426AC0_file3_fread(&v5, 4u);
@@ -169,7 +170,7 @@ int  nox_xxx_xferReadScriptHandler_4F5580(int a1, char* a2) {
 		nox_xxx_fileReadWrite_426AC0_file3_fread(&v5, 4u);
 	}
 LABEL_16:
-	nox_xxx_fileReadWrite_426AC0_file3_fread((_BYTE*)a1, 4u);
+	nox_xxx_fileReadWrite_426AC0_file3_fread((uint8_t*)a1, 4u);
 	return 1;
 }
 // 4F5580: using guessed type char var_400[1024];
@@ -178,7 +179,7 @@ LABEL_16:
 #ifdef NOX_CGO
 void nox_script_callByEvent_cgo(int eventCode, int a1, int a2);
 #endif // NOX_CGO
-unsigned __int8*  nox_xxx_scriptCallByEventBlock_502490(int* a1, int a2, int a3, int eventCode) {
+unsigned char*  nox_xxx_scriptCallByEventBlock_502490(int* a1, int a2, int a3, int eventCode) {
 #ifdef NOX_CGO
 	nox_script_callByEvent_cgo(eventCode, a2, a3);
 #endif // NOX_CGO
@@ -227,7 +228,7 @@ int nox_server_mapRWScriptData_504F90() {
 
 	v2 = 1;
 	nox_xxx_fileReadWrite_426AC0_file3_fread(&v2, 2u);
-	if ((__int16)v2 > 1)
+	if ((short)v2 > 1)
 		return 0;
 	v1 = 0;
 	if (nox_script_arr_xxx_1599636 && nox_common_gameFlags_check_40A5C0(1) && !nox_common_gameFlags_check_40A5C0(0x400000))
@@ -1395,16 +1396,16 @@ int  sub_508CB0(unsigned int* a1, int a2) {
 
 //----- (0051ADF0) --------------------------------------------------------
 void nox_xxx_scriptLeverReact_51ADF0() {
-	_DWORD* v0; // esi
+	uint32_t* v0; // esi
 	int v1;     // edi
 	int v2;     // ebx
 	int v3;     // ebp
 
-	v0 = *(_DWORD**)&nox_script_activatedList_2487236;
+	v0 = *(uint32_t**)&nox_script_activatedList_2487236;
 	if (nox_script_activatedList_2487236) {
 		do {
 			if (*v0 > nox_frame_xxx_2598000) {
-				v0 = (_DWORD*)v0[6];
+				v0 = (uint32_t*)v0[6];
 			} else {
 				v1 = v0[1];
 				v2 = v0[5];
@@ -1412,7 +1413,7 @@ void nox_xxx_scriptLeverReact_51ADF0() {
 				if (nox_script_arr_xxx_1599636[v1].size_28) {
 					nox_script_push(v0[2]);
 				}
-				v0 = (_DWORD*)nox_xxx_scriptAct_51AD90((int)v0);
+				v0 = (uint32_t*)nox_xxx_scriptAct_51AD90((int)v0);
 				nox_script_callByIndex_507310(v1, v2, v3);
 			}
 		} while (v0);

@@ -4,6 +4,8 @@
 
 #include "common/fs/nox_fs.h"
 #include "common__log.h"
+#include "common__strman.h"
+#include "common__binfile.h"
 #include "GAME1.h"
 #include "GAME1_1.h"
 #include "GAME2_1.h"
@@ -21,7 +23,7 @@ int  nox_xxx_savePlayerMB_41C8F0(char* a1, unsigned int a2) {
 	int v8;              // edi
 	wchar_t* v9;         // eax
 	wchar_t* v10;        // eax
-	CHAR PathName[1024]; // [esp+4h] [ebp-400h]
+	char PathName[1024]; // [esp+4h] [ebp-400h]
 
 	if (!nox_common_gameFlags_check_40A5C0(1) && a2 < 216) { // TODO: limit was *getMemIntPtr(0x587000, 55984) == 700, see #304
 		v2 = nox_strman_loadString_40F1D0("Wol.c:WolApierror", 0, "C:\\NoxPost\\src\\common\\Xfer\\SaveGame\\XferPlyr.c", 3341);
@@ -45,8 +47,8 @@ int  nox_xxx_savePlayerMB_41C8F0(char* a1, unsigned int a2) {
 		return 0;
 	}
 	v7 = a1;
-	if ((_WORD)a2) {
-		v8 = (unsigned __int16)a2;
+	if ((uint16_t)a2) {
+		v8 = (unsigned short)a2;
 		do {
 			nox_binfile_zzz_409200(v7++, 1, 1, nox_file_2);
 			--v8;

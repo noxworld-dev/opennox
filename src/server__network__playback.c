@@ -1,13 +1,20 @@
 #include "client__system__parsecmd.h"
 #include "server__network__sdecode.h"
+#include "common__strman.h"
+
+#ifdef _WIN32
+#include <io.h>
+#else
+#include "windows_compat.h"
+#endif
 
 #include "GAME1.h"
 #include "GAME1_3.h"
 #include "GAME3_2.h"
 #include "GAME5_2.h"
-extern _DWORD dword_5d4594_1548736;
-extern _DWORD dword_5d4594_1548732;
-extern _DWORD nox_xxx_replayFile_587000_197428;
+extern uint32_t dword_5d4594_1548736;
+extern uint32_t dword_5d4594_1548732;
+extern uint32_t nox_xxx_replayFile_587000_197428;
 extern unsigned int nox_frame_xxx_2598000;
 
 //----- (004D3580) --------------------------------------------------------
@@ -58,13 +65,13 @@ int  nox_xxx_replayTickMB_4D3580_net_playback(int a1) {
 				_read(*(int *) &nox_xxx_replayFile_587000_197428, &v9, 1u);
 				_read(*(int *) &nox_xxx_replayFile_587000_197428, &v5, 4u);
 				_read(*(int *) &nox_xxx_replayFile_587000_197428, getMemAt(0x5D4594, 1548740), v5);
-				nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode((unsigned __int8) v9, getMemAt(0x5D4594, 1548740), v5);
+				nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode((unsigned char) v9, getMemAt(0x5D4594, 1548740), v5);
 				break;
 			case 2u:
 				if (a1 == 1)
 					return v1;
 				_read(*(int *) &nox_xxx_replayFile_587000_197428, &v6, 1u);
-				_read(*(int *) &nox_xxx_replayFile_587000_197428, v10, (unsigned __int8) v6);
+				_read(*(int *) &nox_xxx_replayFile_587000_197428, v10, (unsigned char) v6);
 				nox_xxx_gameSetMapPath_409D70(v10);
 				_read(*(int *) &nox_xxx_replayFile_587000_197428, &v7, 4u);
 				if ((v7 & 0xFF0000) != 0x10000) {
@@ -112,4 +119,4 @@ int  nox_xxx_replayTickMB_4D3580_net_playback(int a1) {
 	nox_game_exit_xxx_43DE60();
 	return v1;
 }
-// 4514E0: using guessed type void  nullsub_4(_DWORD, _DWORD, _DWORD, _DWORD);
+// 4514E0: using guessed type void  nullsub_4(uint32_t, uint32_t, uint32_t, uint32_t);

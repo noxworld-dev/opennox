@@ -2,6 +2,7 @@
 #include "client__gui__window.h"
 
 #include "common__random.h"
+#include "common__strman.h"
 #include "GAME1.h"
 #include "GAME1_2.h"
 #include "GAME1_3.h"
@@ -13,22 +14,23 @@
 #include "client__video__draw_common.h"
 #include "client__gui__gamewin__gamewin.h"
 #include "client__gui__tooltip.h"
+#include "operators.h"
 
-extern _DWORD dword_5d4594_1090828;
-extern _DWORD dword_5d4594_1096272;
-extern _DWORD dword_5d4594_1090292;
-extern _DWORD dword_5d4594_1091364;
-extern _DWORD dword_5d4594_1096276;
-extern _DWORD dword_5d4594_1096264;
-extern _DWORD dword_5d4594_1096256;
-extern _DWORD dword_5d4594_1096280;
-extern _DWORD dword_5d4594_1096260;
-extern _DWORD dword_5d4594_1096284;
-extern _DWORD dword_5d4594_1096288;
-extern _DWORD dword_5d4594_1096252;
-extern _DWORD dword_5d4594_3799468;
-extern _DWORD nox_client_renderBubbles_80844;
-extern _DWORD dword_5d4594_1090276;
+extern uint32_t dword_5d4594_1090828;
+extern uint32_t dword_5d4594_1096272;
+extern uint32_t dword_5d4594_1090292;
+extern uint32_t dword_5d4594_1091364;
+extern uint32_t dword_5d4594_1096276;
+extern uint32_t dword_5d4594_1096264;
+extern uint32_t dword_5d4594_1096256;
+extern uint32_t dword_5d4594_1096280;
+extern uint32_t dword_5d4594_1096260;
+extern uint32_t dword_5d4594_1096284;
+extern uint32_t dword_5d4594_1096288;
+extern uint32_t dword_5d4594_1096252;
+extern uint32_t dword_5d4594_3799468;
+extern uint32_t nox_client_renderBubbles_80844;
+extern uint32_t dword_5d4594_1090276;
 extern int nox_win_width;
 extern int nox_win_height;
 extern nox_window_yyy nox_windows_arr_1093036[7];
@@ -95,15 +97,15 @@ int  sub_471160(int a1, int a2, int a3, int a4, int a5) {
 //----- (004714E0) --------------------------------------------------------
 int nox_xxx_guiHealthManaInit_4714E0() {
 	int v1;              // edi
-	unsigned __int8* v2; // esi
+	unsigned char* v2; // esi
 	wchar_t* v3;         // eax
 	wchar_t* v5;         // eax
 	wchar_t* v6;         // eax
-	_DWORD* v8;          // esi
+	uint32_t* v8;          // esi
 	char* v9;            // eax
 	wchar_t* v10;        // eax
 	wchar_t* v11;        // eax
-	_DWORD* v12;         // esi
+	uint32_t* v12;         // esi
 	char* v13;           // eax
 	wchar_t* v14;        // eax
 	char v15[32];        // [esp+4h] [ebp-20h]
@@ -127,7 +129,7 @@ int nox_xxx_guiHealthManaInit_4714E0() {
 	int v2i = 0;
 	do {
 		nox_sprintf(v15, "HealthMana%d", ++v1);
-		*(_DWORD*)v2 = nox_xxx_gLoadImg_42F970(v15);
+		*(uint32_t*)v2 = nox_xxx_gLoadImg_42F970(v15);
 		v2 += 4;
 		v2i++;
 	} while (v2i < 10);
@@ -141,41 +143,41 @@ int nox_xxx_guiHealthManaInit_4714E0() {
 	dword_5d4594_1090276 = nox_window_new(0, 136, nox_win_width - 91, nox_win_height - 201, 91, 201, 0);
 	nox_xxx_wndSetIcon_46AE60(*(int*)&dword_5d4594_1090276, *getMemIntPtr(0x5D4594, 1092996));
 	dword_5d4594_1091364 = nox_window_new(*(int*)&dword_5d4594_1090276, 8, 6, 166, 28, 30, 0);
-	nox_window_set_all_funcs(*(_DWORD**)&dword_5d4594_1091364, nox_xxx_guiBottleSlotProc_471B90, nox_xxx_guiBottleSlotDrawFn_471A80, 0);
+	nox_window_set_all_funcs(*(uint32_t**)&dword_5d4594_1091364, nox_xxx_guiBottleSlotProc_471B90, nox_xxx_guiBottleSlotDrawFn_471A80, 0);
 	v3 = nox_strman_loadString_40F1D0("CurePoisonSlotTT", 0, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c", 1029);
 	nox_xxx_wndWddSetTooltip_46B000((wchar_t*)(dword_5d4594_1091364 + 36), v3);
-	*(_DWORD*)(dword_5d4594_1091364 + 32) = 2;
+	*(uint32_t*)(dword_5d4594_1091364 + 32) = 2;
 	*getMemU16Ptr(0x5D4594, 1091384) = 0;
 	nox_thing* t4 = nox_get_thing(*(int*)&dword_5d4594_1096276);
 	if (t4) {
 		nox_drawable_link_thing(getMemAt(0x5D4594, 1091388), t4->field_1c);
 		*getMemU32Ptr(0x5D4594, 1091368) = getMemAt(0x5D4594, 1091388);
-		if (true) // TODO: byte_5D4594 != (unsigned __int8*)-1091388
+		if (true) // TODO: byte_5D4594 != (unsigned char*)-1091388
 			*getMemU32Ptr(0x5D4594, 1091508) |= 0x40000000u;
 	} else {
 		*getMemU32Ptr(0x5D4594, 1091368) = 0;
 	}
 	*getMemU32Ptr(0x5D4594, 1091380) = dword_5d4594_1096276;
 	dword_5d4594_1090292 = nox_window_new(*(int*)&dword_5d4594_1090276, 8, 34, 166, 28, 30, 0);
-	nox_window_set_all_funcs(*(_DWORD**)&dword_5d4594_1090292, nox_xxx_guiBottleSlotProc_471B90, nox_xxx_guiBottleSlotDrawFn_471A80, 0);
+	nox_window_set_all_funcs(*(uint32_t**)&dword_5d4594_1090292, nox_xxx_guiBottleSlotProc_471B90, nox_xxx_guiBottleSlotDrawFn_471A80, 0);
 	v5 = nox_strman_loadString_40F1D0("HealthSlotTT", 0, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c", 1060);
 	nox_xxx_wndWddSetTooltip_46B000((wchar_t*)(dword_5d4594_1090292 + 36), v5);
-	*(_DWORD*)(dword_5d4594_1090292 + 32) = 0;
+	*(uint32_t*)(dword_5d4594_1090292 + 32) = 0;
 	*getMemU16Ptr(0x5D4594, 1090312) = 0;
 	*getMemU32Ptr(0x5D4594, 1090296) = 0;
 	*getMemU32Ptr(0x5D4594, 1090308) = 0;
-	if (*(_BYTE*)(*getMemU32Ptr(0x8531A0, 2576) + 2251)) {
+	if (*(uint8_t*)(*getMemU32Ptr(0x8531A0, 2576) + 2251)) {
 		dword_5d4594_1090828 = nox_window_new(*(int*)&dword_5d4594_1090276, 8, 62, 166, 28, 30, 0);
-		nox_window_set_all_funcs(*(_DWORD**)&dword_5d4594_1090828, nox_xxx_guiBottleSlotProc_471B90, nox_xxx_guiBottleSlotDrawFn_471A80, 0);
+		nox_window_set_all_funcs(*(uint32_t**)&dword_5d4594_1090828, nox_xxx_guiBottleSlotProc_471B90, nox_xxx_guiBottleSlotDrawFn_471A80, 0);
 		v6 = nox_strman_loadString_40F1D0("ManaSlotTT", 0, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c", 1083);
 		nox_xxx_wndWddSetTooltip_46B000((wchar_t*)(dword_5d4594_1090828 + 36), v6);
-		*(_DWORD*)(dword_5d4594_1090828 + 32) = 1;
+		*(uint32_t*)(dword_5d4594_1090828 + 32) = 1;
 		*getMemU16Ptr(0x5D4594, 1090848) = 0;
 		nox_thing* t7 = nox_get_thing(*(int*)&dword_5d4594_1096272);
 		if (t7) {
 			nox_drawable_link_thing(getMemAt(0x5D4594, 1090852), t7->field_1c);
 			*getMemU32Ptr(0x5D4594, 1090832) = getMemAt(0x5D4594, 1090852);
-			if (true) // TODO: byte_5D4594 != (unsigned __int8*)-1090852
+			if (true) // TODO: byte_5D4594 != (unsigned char*)-1090852
 				*getMemU32Ptr(0x5D4594, 1090972) |= 0x40000000u;
 		} else {
 			*getMemU32Ptr(0x5D4594, 1090832) = 0;
@@ -237,15 +239,15 @@ int nox_xxx_guiHealthManaInit_4714E0() {
 
 //----- (00471D10) --------------------------------------------------------
 int  nox_xxx_guiHealthManaTubeDraw_471D10(int xLeft) {
-	_DWORD* v1;           // ebx
+	uint32_t* v1;           // ebx
 	int v2;               // esi
-	unsigned __int8* v3;  // edi
+	unsigned char* v3;  // edi
 	int v4;               // ecx
 	int result;           // eax
 	int v6;               // ebx
 	int* v7;              // edi
 	int v8;               // esi
-	unsigned __int8* v9;  // esi
+	unsigned char* v9;  // esi
 	int v10;              // edi
 	int v11;              // eax
 	int v12;              // eax
@@ -256,16 +258,16 @@ int  nox_xxx_guiHealthManaTubeDraw_471D10(int xLeft) {
 	int yTop;             // [esp+Ch] [ebp-14h]
 	int v18;              // [esp+10h] [ebp-10h]
 	int v19;              // [esp+14h] [ebp-Ch]
-	unsigned __int8* v20; // [esp+18h] [ebp-8h]
-	unsigned __int8* v21; // [esp+1Ch] [ebp-4h]
+	unsigned char* v20; // [esp+18h] [ebp-8h]
+	unsigned char* v21; // [esp+1Ch] [ebp-4h]
 
-	v1 = (_DWORD*)xLeft;
-	v18 = *(_DWORD*)(xLeft + 32);
+	v1 = (uint32_t*)xLeft;
+	v18 = *(uint32_t*)(xLeft + 32);
 	v2 = v18;
 	v3 = &nox_windows_arr_1093036[v18];
 	v20 = v3;
 	if (!v18 && dword_5d4594_1096264) {
-		nox_client_wndGetPosition_46AA60(*(_DWORD**)&dword_5d4594_1090276, &xLeft, &yTop);
+		nox_client_wndGetPosition_46AA60(*(uint32_t**)&dword_5d4594_1090276, &xLeft, &yTop);
 		nox_client_drawImageAt_47D2C0(*getMemIntPtr(0x5D4594, 1091900), xLeft, yTop);
 	}
 	nox_client_wndGetPosition_46AA60(v1, &xLeft, &yTop);
@@ -274,11 +276,11 @@ int  nox_xxx_guiHealthManaTubeDraw_471D10(int xLeft) {
 		nox_client_drawSetColor_434460(*getMemIntPtr(0x85B3FC, 952));
 		nox_client_drawRectFilledOpaque_49CE30(xLeft, yTop, 15, 125);
 	}
-	v4 = *((_DWORD*)v3 + 2);
+	v4 = *((uint32_t*)v3 + 2);
 	if (v4) {
-		v6 = 125 * *((_DWORD*)v3 + 1) / v4;
+		v6 = 125 * *((uint32_t*)v3 + 1) / v4;
 		nox_client_drawRectFilledAlpha_49CF10(xLeft, yTop, 15, 125 - v6);
-		nox_client_drawSetColor_434460(*((_DWORD*)v3 + 3));
+		nox_client_drawSetColor_434460(*((uint32_t*)v3 + 3));
 		nox_client_drawEnableAlpha_434560(1);
 		nox_client_drawRectFilledOpaque_49CE30(xLeft, yTop - v6 + 125, 15, v6);
 		nox_client_drawEnableAlpha_434560(0);
@@ -294,7 +296,7 @@ int  nox_xxx_guiHealthManaTubeDraw_471D10(int xLeft) {
 					v8 = *(v7 - 1) >> 4;
 					if (v8 >= 125 - v6) {
 						if (dword_5d4594_1096264)
-							nox_client_drawSetColor_434460(*((_DWORD*)v20 + 3));
+							nox_client_drawSetColor_434460(*((uint32_t*)v20 + 3));
 						else
 							nox_client_drawSetColor_434460(v7[3]);
 						if (*v7 <= 2)
@@ -314,26 +316,26 @@ int  nox_xxx_guiHealthManaTubeDraw_471D10(int xLeft) {
 				v9 = v21;
 				v10 = 64;
 				do {
-					if (!*((_DWORD*)v9 + 2)) {
+					if (!*((uint32_t*)v9 + 2)) {
 						v11 = nox_common_randomIntMinMax_415FF0(1, 100, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c", 668);
 						if (v11 >= 80)
-							*(_DWORD*)v9 = (v11 >= 95) + 2;
+							*(uint32_t*)v9 = (v11 >= 95) + 2;
 						else
-							*(_DWORD*)v9 = 1;
+							*(uint32_t*)v9 = 1;
 						v12 = nox_common_randomIntMinMax_415FF0(0, 14, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c", 676);
-						v13 = *(_DWORD*)v9;
-						*((_DWORD*)v9 - 2) = v12;
+						v13 = *(uint32_t*)v9;
+						*((uint32_t*)v9 - 2) = v12;
 						if (v13 + v12 > 15)
-							*((_DWORD*)v9 - 2) = 15 - v13;
-						*((_DWORD*)v9 - 1) = 16 * (125 - v13);
-						*((_DWORD*)v9 + 1) = nox_common_randomIntMinMax_415FF0(4, 48, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c", 684);
-						*((_DWORD*)v9 + 2) = 1;
+							*((uint32_t*)v9 - 2) = 15 - v13;
+						*((uint32_t*)v9 - 1) = 16 * (125 - v13);
+						*((uint32_t*)v9 + 1) = nox_common_randomIntMinMax_415FF0(4, 48, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c", 684);
+						*((uint32_t*)v9 + 2) = 1;
 						LOBYTE(v19) = nox_common_randomIntMinMax_415FF0(0, 64, "C:\\NoxPost\\src\\Client\\Gui\\guimeter.c", 688);
 						if (v18)
 							v14 = nox_color_rgb_4344A0(v19, v19, 255);
 						else
 							v14 = nox_color_rgb_4344A0(255, v19, v19);
-						*((_DWORD*)v9 + 3) = v14;
+						*((uint32_t*)v9 + 3) = v14;
 					}
 					v9 += 24;
 					--v10;

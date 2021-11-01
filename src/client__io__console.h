@@ -3,7 +3,7 @@
 
 #include "defs.h"
 
-unsigned __int8* sub_451630();
+unsigned char* sub_451630();
 void sub_4516C0(wchar_t* a1, ...);
 wchar_t* sub_4517A0(wchar_t* a1, ...);
 wchar_t* nox_xxx_unused_4515B0(wchar_t* a1, ...);

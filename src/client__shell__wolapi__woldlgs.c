@@ -8,20 +8,21 @@
 #include "GAME2_3.h"
 #include "client__gui__window.h"
 #include "client__shell__wolapi__wolchat.h"
+#include "common__strman.h"
 
-extern _DWORD dword_5d4594_830152;
-extern _DWORD dword_5d4594_830112;
-extern _DWORD dword_5d4594_830136;
-extern _DWORD dword_5d4594_830120;
-extern _DWORD dword_5d4594_830204;
-extern _DWORD dword_5d4594_830208;
-extern _DWORD dword_5d4594_830132;
-extern _DWORD dword_587000_111668;
-extern _DWORD dword_5d4594_830148;
-extern _DWORD dword_5d4594_830116;
-extern _DWORD dword_5d4594_830140;
-extern _DWORD dword_5d4594_830108;
-extern _DWORD dword_5d4594_830124;
+extern uint32_t dword_5d4594_830152;
+extern uint32_t dword_5d4594_830112;
+extern uint32_t dword_5d4594_830136;
+extern uint32_t dword_5d4594_830120;
+extern uint32_t dword_5d4594_830204;
+extern uint32_t dword_5d4594_830208;
+extern uint32_t dword_5d4594_830132;
+extern uint32_t dword_587000_111668;
+extern uint32_t dword_5d4594_830148;
+extern uint32_t dword_5d4594_830116;
+extern uint32_t dword_5d4594_830140;
+extern uint32_t dword_5d4594_830108;
+extern uint32_t dword_5d4594_830124;
 extern int nox_win_width;
 extern int nox_win_height;
 
@@ -38,21 +39,21 @@ int sub_448730_wol_dialogs() {
 	result = nox_new_window_from_file("wolfind.wnd", sub_4489C0_wol_dialogs);
 	dword_5d4594_830124 = result;
 	if (result) {
-		*(_DWORD*)(result + 56) = *getMemU32Ptr(0x85B3FC, 952);
-		*(_DWORD*)(dword_5d4594_830124 + 16) = (nox_win_width - *(_DWORD*)(dword_5d4594_830124 + 8)) / 2;
-		*(_DWORD*)(dword_5d4594_830124 + 24) =
-			*(_DWORD*)(dword_5d4594_830124 + 8) + *(_DWORD*)(dword_5d4594_830124 + 16);
-		*getMemU32Ptr(0x5D4594, 830128) = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_830124, 1933);
+		*(uint32_t*)(result + 56) = *getMemU32Ptr(0x85B3FC, 952);
+		*(uint32_t*)(dword_5d4594_830124 + 16) = (nox_win_width - *(uint32_t*)(dword_5d4594_830124 + 8)) / 2;
+		*(uint32_t*)(dword_5d4594_830124 + 24) =
+			*(uint32_t*)(dword_5d4594_830124 + 8) + *(uint32_t*)(dword_5d4594_830124 + 16);
+		*getMemU32Ptr(0x5D4594, 830128) = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_830124, 1933);
 		nox_xxx_wndSetWindowProc_46B300(*getMemIntPtr(0x5D4594, 830128), sub_448F00);
-		dword_5d4594_830136 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_830124, 1934);
-		dword_5d4594_830132 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_830124, 1935);
+		dword_5d4594_830136 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_830124, 1934);
+		dword_5d4594_830132 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_830124, 1935);
 		nox_xxx_wndSetWindowProc_46B300(*(int*)&dword_5d4594_830132, sub_448F60);
-		dword_5d4594_830152 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_830124, 1931);
-		*getMemU32Ptr(0x5D4594, 830156) = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_830124, 1932);
+		dword_5d4594_830152 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_830124, 1931);
+		*getMemU32Ptr(0x5D4594, 830156) = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_830124, 1932);
 		nox_xxx_wnd_46ABB0(*(int*)&dword_5d4594_830152, 0);
-		dword_5d4594_830140 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_830124, 1938);
-		*getMemU32Ptr(0x5D4594, 830144) = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_830124, 1939);
-		dword_5d4594_830148 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_830124, 1936);
+		dword_5d4594_830140 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_830124, 1938);
+		*getMemU32Ptr(0x5D4594, 830144) = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_830124, 1939);
+		dword_5d4594_830148 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_830124, 1936);
 		nox_xxx_windowFocus_46B500(*(int*)&dword_5d4594_830132);
 		*getMemU32Ptr(0x5D4594, 830160) = nox_strman_loadString_40F1D0("WolFind.wnd:Title", 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c", 579);
 		*getMemU32Ptr(0x5D4594, 830164) = nox_strman_loadString_40F1D0("WolFind.wnd:pageTitle", 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c", 580);
@@ -64,7 +65,7 @@ int sub_448730_wol_dialogs() {
 		*getMemU32Ptr(0x5D4594, 830188) = nox_strman_loadString_40F1D0("paging", 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c", 586);
 		dword_587000_111668 = 1;
 		dword_5d4594_830116 = 1;
-		sub_46B120(*(_DWORD**)&dword_5d4594_830124, 0);
+		sub_46B120(*(uint32_t**)&dword_5d4594_830124, 0);
 		nox_xxx_wndShowModalMB_46A8C0(*(int*)&dword_5d4594_830124);
 		sub_46C690(*(int*)&dword_5d4594_830124);
 		nox_xxx_windowFocus_46B500(*(int*)&dword_5d4594_830124);
@@ -121,7 +122,7 @@ int  sub_4489C0_wol_dialogs(int a1, int a2, int* a3, int a4) {
 			goto LABEL_24;
 		case 1937:
 			nox_xxx_wnd_46C6E0(*(int*)&dword_5d4594_830124);
-			nox_xxx_windowDestroyMB_46C4E0(*(_DWORD**)&dword_5d4594_830124);
+			nox_xxx_windowDestroyMB_46C4E0(*(uint32_t**)&dword_5d4594_830124);
 			sub_447600();
 			dword_5d4594_830116 = 0;
 			result = 0;
@@ -138,7 +139,7 @@ int  sub_4489C0_wol_dialogs(int a1, int a2, int* a3, int a4) {
 										   "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c", 327);
 			} else {
 				nox_xxx_wnd_46C6E0(*(int*)&dword_5d4594_830124);
-				nox_xxx_windowDestroyMB_46C4E0(*(_DWORD**)&dword_5d4594_830124);
+				nox_xxx_windowDestroyMB_46C4E0(*(uint32_t**)&dword_5d4594_830124);
 				sub_447600();
 				dword_5d4594_830116 = 0;
 				dword_5d4594_830124 = 0;
@@ -162,7 +163,7 @@ int  sub_4489C0_wol_dialogs(int a1, int a2, int* a3, int a4) {
 
 //----- (00448CF0) --------------------------------------------------------
 int sub_448CF0_wol_dialogs() {
-	_WORD* v0;    // esi
+	uint16_t* v0;    // esi
 	int result;   // eax
 	wchar_t* v2;  // eax
 	int v3;       // eax
@@ -171,7 +172,7 @@ int sub_448CF0_wol_dialogs() {
 	char v7[72];  // [esp+28h] [ebp-148h]
 	char v8[256]; // [esp+70h] [ebp-100h]
 
-	v0 = (_WORD*)nox_window_call_field_94(*getMemIntPtr(0x5D4594, 830128), 16413, 0, 0);
+	v0 = (uint16_t*)nox_window_call_field_94(*getMemIntPtr(0x5D4594, 830128), 16413, 0, 0);
 	if (dword_587000_111668) {
 		if (v0 && *v0) {
 			nox_sprintf(v7, "%S", v0);
@@ -216,7 +217,7 @@ void  sub_4490C0_wol_dialogs(int a1) {
 	int v1;         // ebp
 	char* v3;       // ebx
 	const char* v4; // esi
-	_DWORD* v5;     // eax
+	uint32_t* v5;     // eax
 	wchar_t* v6;    // eax
 
 	v1 = 0;
@@ -241,7 +242,7 @@ void  sub_4490C0_wol_dialogs(int a1) {
 				nox_window_call_field_94(*(int*)&dword_5d4594_830136, 16397, (int)v5, 9);
 				++v1;
 			}
-		} while (*(_DWORD*)(a1 + 48));
+		} while (*(uint32_t*)(a1 + 48));
 	}
 	v6 = nox_strman_loadString_40F1D0("findsuccess", 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\woldlgs.c",
 							   639);
@@ -298,13 +299,13 @@ int sub_449240_wol_dialogs() {
 
 //----- (004497D0) --------------------------------------------------------
 int  sub_4497D0_wol_dialogs(int a1, int a2, int* a3, int a4) {
-	_DWORD* v3;    // esi
+	uint32_t* v3;    // esi
 	int v4;        // eax
 	int result;    // eax
 	int v6;        // eax
 	int v7;        // eax
 	int v8;        // edi
-	_DWORD* v9;    // eax
+	uint32_t* v9;    // eax
 	int v10;       // esi
 	int v11;       // eax
 	const char* i; // eax
@@ -322,7 +323,7 @@ int  sub_4497D0_wol_dialogs(int a1, int a2, int* a3, int a4) {
 			if (v7) {
 				if (v7 == 1) {
 					nox_xxx_wnd_46C6E0(*(int*)&dword_5d4594_830108);
-					nox_xxx_windowDestroyMB_46C4E0(*(_DWORD**)&dword_5d4594_830108);
+					nox_xxx_windowDestroyMB_46C4E0(*(uint32_t**)&dword_5d4594_830108);
 					dword_5d4594_830108 = 0;
 					if (sub_41E2F0() != 7) {
 						sub_468020();
@@ -332,7 +333,7 @@ int  sub_4497D0_wol_dialogs(int a1, int a2, int* a3, int a4) {
 				}
 			} else {
 				v8 = 0;
-				v9 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_830108, 1961);
+				v9 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_830108, 1961);
 				v10 = nox_window_call_field_94((int)v9, 16404, 0, 0);
 				if (v10 >= 0) {
 					v11 = sub_4200F0();
@@ -350,7 +351,7 @@ int  sub_4497D0_wol_dialogs(int a1, int a2, int* a3, int a4) {
 					sub_41DA70(v13, 3);
 				}
 				nox_xxx_wnd_46C6E0(*(int*)&dword_5d4594_830108);
-				nox_xxx_windowDestroyMB_46C4E0(*(_DWORD**)&dword_5d4594_830108);
+				nox_xxx_windowDestroyMB_46C4E0(*(uint32_t**)&dword_5d4594_830108);
 				dword_5d4594_830108 = 0;
 				if (v8) {
 					v15 = nox_strman_loadString_40F1D0("Noxworld.c:ConChatServ", 0,
@@ -365,7 +366,7 @@ int  sub_4497D0_wol_dialogs(int a1, int a2, int* a3, int a4) {
 			}
 		} else {
 			nox_xxx_wnd_46C6E0(*getMemIntPtr(0x5D4594, 830096));
-			nox_xxx_windowDestroyMB_46C4E0(*(_DWORD**)getMemAt(0x5D4594, 830096));
+			nox_xxx_windowDestroyMB_46C4E0(*(uint32_t**)getMemAt(0x5D4594, 830096));
 			dword_5d4594_830112 = 0;
 			sub_447600();
 		}
@@ -373,7 +374,7 @@ int  sub_4497D0_wol_dialogs(int a1, int a2, int* a3, int a4) {
 		result = 1;
 	} else {
 		if (a2 == 16400 && nox_xxx_wndGetID_46B0A0(a3) == 1961) {
-			v3 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_830108, 1962);
+			v3 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_830108, 1962);
 			v4 = nox_window_call_field_94((int)a3, 16404, 0, 0);
 			nox_xxx_wnd_46ABB0((int)v3, v4 >= 0);
 		}

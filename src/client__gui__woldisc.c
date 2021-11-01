@@ -1,4 +1,5 @@
 #include "client__gui__woldisc.h"
+#include "common__strman.h"
 
 #include "GAME1.h"
 #include "GAME1_1.h"
@@ -8,7 +9,7 @@
 #include "client__gui__guimsg.h"
 #include "common__log.h"
 
-extern _DWORD dword_5d4594_830292;
+extern uint32_t dword_5d4594_830292;
 extern int nox_win_width;
 extern int nox_win_height;
 
@@ -29,7 +30,7 @@ void sub_44B010() {
 			nox_client_quit_4460C0();
 	} else if (nox_common_gameFlags_check_40A5C0(1)) {
 		dword_5d4594_830292 = nox_new_window_from_file("woldisc.wnd", sub_44B0F0);
-		nox_window_setPos_46A9B0(*(_DWORD**)&dword_5d4594_830292, nox_win_width / 2 - *(int*)(dword_5d4594_830292 + 24) / 2,
+		nox_window_setPos_46A9B0(*(uint32_t**)&dword_5d4594_830292, nox_win_width / 2 - *(int*)(dword_5d4594_830292 + 24) / 2,
 						   nox_win_height / 2 - *(int*)(dword_5d4594_830292 + 28) / 2);
 	} else {
 		v1 = nox_strman_loadString_40F1D0("LostConnection", 0, "C:\\NoxPost\\src\\client\\Gui\\woldisc.c", 100);

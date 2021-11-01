@@ -423,7 +423,7 @@ bool nox_netlist_addToMsgListSrv_40EF40(int ind, unsigned char* buf, int sz) {
 		if (ind == 31)
 			nox_netlist_receiveCli_494E90(ind);
 		else
-			nox_xxx_netSendReadPacket_5528B0(*((DWORD*)nox_common_playerInfoFromNum_417090(ind) + 516) + 1, 0);
+			nox_xxx_netSendReadPacket_5528B0(*((uint32_t*)nox_common_playerInfoFromNum_417090(ind) + 516) + 1, 0);
 
 		// Set buffer length and re-queue updates.
 		p->cur = len1 + len2;

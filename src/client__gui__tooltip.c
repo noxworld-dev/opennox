@@ -1,4 +1,5 @@
 #include "client__gui__tooltip.h"
+#include "common__strman.h"
 
 #include "GAME1.h"
 #include "GAME1_1.h"
@@ -7,6 +8,7 @@
 #include "GAME5_2.h"
 #include "client__gui__window.h"
 #include "common__magic__speltree.h"
+#include "operators.h"
 
 //----- (004BF050) --------------------------------------------------------
 wchar_t*  nox_xxx_clientAskInfoMb_4BF050(nox_drawable* a1p) {
@@ -14,7 +16,7 @@ wchar_t*  nox_xxx_clientAskInfoMb_4BF050(nox_drawable* a1p) {
 	int* v1;            // esi
 	int v2;             // eax
 	const wchar_t* v3;  // ebx
-	_DWORD* v4;         // eax
+	uint32_t* v4;         // eax
 	wchar_t* v5;        // eax
 	wchar_t* result;    // eax
 	int v7;             // edx
@@ -52,21 +54,21 @@ wchar_t*  nox_xxx_clientAskInfoMb_4BF050(nox_drawable* a1p) {
 	v1 = (int*)a1;
 	if (!a1)
 		return (wchar_t*)getMemAt(0x5D4594, 1317000);
-	v2 = *((_DWORD*)a1 + 28);
+	v2 = *((uint32_t*)a1 + 28);
 	if (!(v2 & 0x13001000)) {
 		if (!(v2 & 0x100)) {
-			result = (wchar_t*)nox_get_thing_pretty_name(*((_DWORD*)a1 + 27));
+			result = (wchar_t*)nox_get_thing_pretty_name(*((uint32_t*)a1 + 27));
 			if (result)
 				return result;
 			return (wchar_t*)getMemAt(0x5D4594, 1317000);
 		}
-		v18 = *((_DWORD*)a1 + 29);
+		v18 = *((uint32_t*)a1 + 29);
 		LOBYTE(a1) = -13;
 		if (v18 & 1) {
 			v19 = v1[108];
 			if (!v19) {
 				LOBYTE(a1) = -30;
-				*(_WORD*)((char*)&a1 + 1) = nox_xxx_netGetUnitCodeCli_578B00((int)v1);
+				*(uint16_t*)((char*)&a1 + 1) = nox_xxx_netGetUnitCodeCli_578B00((int)v1);
 				HIBYTE(a1) = 1;
 				v1[108] = 137;
 				goto LABEL_93;
@@ -93,7 +95,7 @@ wchar_t*  nox_xxx_clientAskInfoMb_4BF050(nox_drawable* a1p) {
 			v24 = v1[108];
 			if (!v24) {
 				LOBYTE(a1) = -30;
-				*(_WORD*)((char*)&a1 + 1) = nox_xxx_netGetUnitCodeCli_578B00((int)v1);
+				*(uint16_t*)((char*)&a1 + 1) = nox_xxx_netGetUnitCodeCli_578B00((int)v1);
 				HIBYTE(a1) = 2;
 				v1[108] = 41;
 				goto LABEL_93;
@@ -118,7 +120,7 @@ wchar_t*  nox_xxx_clientAskInfoMb_4BF050(nox_drawable* a1p) {
 			v29 = v1[108];
 			if (!v29) {
 				LOBYTE(a1) = -30;
-				*(_WORD*)((char*)&a1 + 1) = nox_xxx_netGetUnitCodeCli_578B00((int)v1);
+				*(uint16_t*)((char*)&a1 + 1) = nox_xxx_netGetUnitCodeCli_578B00((int)v1);
 				HIBYTE(a1) = 4;
 				v1[108] = 6;
 				goto LABEL_93;
@@ -146,7 +148,7 @@ wchar_t*  nox_xxx_clientAskInfoMb_4BF050(nox_drawable* a1p) {
 				return result;
 		}
 	LABEL_93:
-		if ((_BYTE)a1 != (_BYTE)-13) {
+		if ((uint8_t)a1 != (uint8_t)-13) {
 			nox_xxx_netClientSend2_4E53C0(31, &a1, 4, 0, 1);
 			return (wchar_t*)getMemAt(0x5D4594, 1317000);
 		}

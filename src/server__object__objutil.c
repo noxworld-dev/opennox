@@ -1,12 +1,13 @@
 #include "GAME1.h"
 #include "GAME3_3.h"
+#include "common__strman.h"
 
 //----- (004E77E0) --------------------------------------------------------
 wchar_t*  nox_xxx_itemGetName_4E77E0_obj_util(int a1) {
 	int v1;            // eax
-	_DWORD* v2;        // edi
-	_DWORD* v3;        // eax
-	_DWORD* v4;        // ebx
+	uint32_t* v2;        // edi
+	uint32_t* v3;        // eax
+	uint32_t* v4;        // ebx
 	wchar_t* v5;       // eax
 	int v7;            // eax
 	const wchar_t* v8; // eax
@@ -15,13 +16,13 @@ wchar_t*  nox_xxx_itemGetName_4E77E0_obj_util(int a1) {
 	wchar_t* v11;      // eax
 	int v12;           // [esp-4h] [ebp-10h]
 
-	v1 = *(_DWORD*)(a1 + 8);
+	v1 = *(uint32_t*)(a1 + 8);
 	if (v1 & 0x13001000) {
-		v2 = *(_DWORD**)(a1 + 692);
+		v2 = *(uint32_t**)(a1 + 692);
 		if (v1 & 0x11001000)
-			v3 = nox_xxx_getProjectileClassById_413250(*(unsigned __int16*)(a1 + 4));
+			v3 = nox_xxx_getProjectileClassById_413250(*(unsigned short*)(a1 + 4));
 		else
-			v3 = nox_xxx_equipClothFindDefByTT_413270(*(unsigned __int16*)(a1 + 4));
+			v3 = nox_xxx_equipClothFindDefByTT_413270(*(unsigned short*)(a1 + 4));
 		v4 = v3;
 		if (!v3) {
 			v12 = nox_xxx_getUnitName_4E39D0(a1);
@@ -31,7 +32,7 @@ wchar_t*  nox_xxx_itemGetName_4E77E0_obj_util(int a1) {
 			return (wchar_t*)getMemAt(0x5D4594, 1565660);
 		}
 		nox_wcscpy((wchar_t*)getMemAt(0x5D4594, 1565660), (const wchar_t*)getMemAt(0x5D4594, 1567732));
-		if (*v2 && *(_DWORD*)(*v2 + 8)) {
+		if (*v2 && *(uint32_t*)(*v2 + 8)) {
 			nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1565660), *(const wchar_t**)(*v2 + 8));
 			nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1565660), L" ");
 		}
@@ -46,12 +47,12 @@ wchar_t*  nox_xxx_itemGetName_4E77E0_obj_util(int a1) {
 		if (v4[2])
 			nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1565660), (const wchar_t*)v4[2]);
 		v9 = v2[2];
-		if (v9 && *(_DWORD*)(v9 + 8)) {
+		if (v9 && *(uint32_t*)(v9 + 8)) {
 			nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1565660), L" ");
 			nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1565660), *(const wchar_t**)(v2[2] + 8));
 		}
 		v10 = v2[3];
-		if (v10 && *(_DWORD*)(v10 + 12)) {
+		if (v10 && *(uint32_t*)(v10 + 12)) {
 			nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1565660), L" ");
 			nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1565660), *(const wchar_t**)(v2[3] + 12));
 			return (wchar_t*)getMemAt(0x5D4594, 1565660);

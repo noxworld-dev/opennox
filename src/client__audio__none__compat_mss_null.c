@@ -110,6 +110,6 @@ int32_t AIL_stream_status(HSTREAM stream) { return 2; }
 
 void AIL_waveOutClose(HDIGDRIVER drvr) {}
 
-int32_t AIL_waveOutOpen(HDIGDRIVER* pdrvr, LPHWAVEOUT* lphWaveOut, int32_t wDeviceID, LPWAVEFORMAT lpFormat) {
+int32_t AIL_waveOutOpen(HDIGDRIVER* pdrvr, int32_t wDeviceID, NOX_WAVEFORMAT lpFormat) {
 	return 0;
 }

@@ -2,6 +2,7 @@
 
 #include "client__system__gameloop.h"
 
+#include "common__strman.h"
 #include "common__random.h"
 #include "common__system__gamedisk.h"
 #include "GAME1.h"
@@ -20,7 +21,6 @@
 #include "client__video__draw_common.h"
 #include "common__config.h"
 #include "input_common.h"
-#include "legacy/input_ddraw.h"
 #include "thing.h"
 #include "client__gui__guimsg.h"
 #include "client__io__console.h"
@@ -28,13 +28,13 @@
 #include "common__log.h"
 #include "common__net_list.h"
 
-extern _DWORD nox_client_gui_flag_1556112;
-extern _DWORD nox_game_loop_xxx_805872;
-extern _DWORD nox_xxx_gameDownloadInProgress_587000_173328;
-extern _DWORD nox_xxx_mapDownloadOK_587000_173332;
-extern _DWORD dword_5d4594_2618912;
-extern _DWORD nox_gameDisableMapDraw_5d4594_2650672;
-extern _DWORD nox_client_gui_flag_815132;
+extern uint32_t nox_client_gui_flag_1556112;
+extern uint32_t nox_game_loop_xxx_805872;
+extern uint32_t nox_xxx_gameDownloadInProgress_587000_173328;
+extern uint32_t nox_xxx_mapDownloadOK_587000_173332;
+extern uint32_t dword_5d4594_2618912;
+extern uint32_t nox_gameDisableMapDraw_5d4594_2650672;
+extern uint32_t nox_client_gui_flag_815132;
 extern int nox_win_width;
 extern int nox_win_height;
 extern unsigned int nox_gameFPS;
@@ -42,13 +42,13 @@ extern unsigned int nox_frame_xxx_2598000;
 
 void cmain_loop(int);
 extern int g_v21;
-_DWORD nox_game_continueMenuOrHost_93200 = 0x1;
-_DWORD nox_continue_mainloop_93196 = 0x1;
+uint32_t nox_game_continueMenuOrHost_93200 = 0x1;
+uint32_t nox_continue_mainloop_93196 = 0x1;
 extern int (*func_5D4594_816388)(void);
 
 extern void (*mainloop_enter)(void*);
 extern void* mainloop_enter_args;
-extern BOOL mainloop_exit_path;
+extern int mainloop_exit_path;
 
 extern int (*nox_draw_unk1)(void);
 extern int (*func_5D4594_816392)(void);
@@ -220,8 +220,8 @@ void cleanup() {
 
 void mainloop() {
 #ifdef __EMSCRIPTEN__
-	DWORD cur_tick;
-	static DWORD last_tick;
+	uint32_t cur_tick;
+	static uint32_t last_tick;
 
 	// rate limit to < 40 fps
 	cur_tick = nox_platform_get_ticks();
@@ -235,7 +235,7 @@ void mainloop() {
 		mainloop_enter(mainloop_enter_args);
 		return;
 	}
-	unsigned __int8* v0; // eax
+	unsigned char* v0; // eax
 	int v6;              // eax
 	int v7;              // esi
 	int v9;              // edi
@@ -290,10 +290,10 @@ void mainloop() {
 	sub_430880(1);
 	nox_client_processMouseInput_4308A0(1);
 	nox_xxx_cursorUpdate_46B740();
-	v0 = (unsigned __int8*)nox_xxx_wndKeyGet_430940();
+	v0 = (unsigned char*)nox_xxx_wndKeyGet_430940();
 	for (dword_5d4594_2618912 = v0; *v0; dword_5d4594_2618912 = v0) {
 		nox_xxx_windowUpdateKeysMB_46B6B0(v0);
-		v0 = (unsigned __int8*)(dword_5d4594_2618912 + 8);
+		v0 = (unsigned char*)(dword_5d4594_2618912 + 8);
 	}
 	if (!nox_draw_unk1()) {
 		goto MAINLOOP_EXIT;

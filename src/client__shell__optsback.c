@@ -4,9 +4,10 @@
 #include "GAME2.h"
 #include "GAME3.h"
 #include "GAME3_2.h"
+#include "common__strman.h"
 #include "client__gui__window.h"
 #include "client__shell__noxworld.h"
-extern _DWORD dword_5d4594_1307292;
+extern uint32_t dword_5d4594_1307292;
 
 //----- (004A18E0) --------------------------------------------------------
 int  sub_4A18E0(int a1, int a2, int a3, int a4) {
@@ -45,10 +46,10 @@ int  sub_4A18E0(int a1, int a2, int a3, int a4) {
 }
 //----- (004A19F0) --------------------------------------------------------
 int  sub_4A19F0(char* a1) {
-	_DWORD* v1;  // esi
+	uint32_t* v1;  // esi
 	wchar_t* v2; // eax
 
-	v1 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1307292, 152);
+	v1 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1307292, 152);
 	v2 = nox_strman_loadString_40F1D0(a1, 0, "C:\\NoxPost\\src\\client\\shell\\OptsBack.c", 171);
 	return nox_window_call_field_94((int)v1, 16385, (int)v2, -1);
 }

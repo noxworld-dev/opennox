@@ -27,7 +27,7 @@
 
 
 SDL_GLContext g_ddraw;
-extern DWORD g_present_ticks;
+extern uint32_t g_present_ticks;
 GLuint g_texture, g_program, g_tex_coord_buffer, g_tex_coord_attr, g_gamma_uniform, g_matrix_uniform, g_sampler_uniform;
 
 unsigned int g_tex_coord_itemsize, g_tex_coord_numitems;
@@ -124,7 +124,7 @@ void sdl_present() {
 		SDL_Rect dstrect;
 		SDL_Rect currrect;
 		int res;
-		BOOL isRectDifferent = 0;
+		int isRectDifferent = 0;
 
 		dstrect.x = 0;
 		dstrect.y = 0;
@@ -242,7 +242,7 @@ void sdl_present() {
 
 int create_surfaces(int width, int height) {
 	int result = 0;
-	BYTE v3;
+	uint8_t v3;
 
 	v3 = nox_video_renderTargetFlags;
 
@@ -428,7 +428,7 @@ int PlayMovie(char* filename);
 //----- (004B0340) --------------------------------------------------------
 int  nox_client_drawGeneral_4B0340(int a1) // draw general
 {
-	BOOL v1;             // esi
+	int v1;             // esi
 	int v2;              // ebp
 	int v3;              // edi
 	int v4;              // ebx

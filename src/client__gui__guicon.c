@@ -5,6 +5,7 @@
 #include "client__system__parsecmd.h"
 #include "client__system__ctrlevnt.h"
 #include "client__gui__gadgets__listbox.h"
+#include "common__strman.h"
 
 #include "GAME1.h"
 #include "GAME1_2.h"
@@ -38,7 +39,7 @@ int nox_gui_console_Clear_450B70() {
 
 //----- (00451410) --------------------------------------------------------
 int nox_gui_console_flagXxx_451410() {
-	return ((unsigned __int8)~nox_xxx_wndGetFlags_46ADA0(nox_gui_console_win) >> 4) & 1;
+	return ((unsigned char)~nox_xxx_wndGetFlags_46ADA0(nox_gui_console_win) >> 4) & 1;
 }
 
 //----- (00450B20) --------------------------------------------------------
@@ -89,7 +90,7 @@ int nox_gui_console_Printf_450C00(unsigned char cl, wchar_t* fmt, ...) {
 
 //----- (00450FD0) --------------------------------------------------------
 int nox_gui_console_Enter_450FD0() {
-	if (!*(_DWORD*)((char*)nox_gui_console_input->field_8 + 1044)) {
+	if (!*(uint32_t*)((char*)nox_gui_console_input->field_8 + 1044)) {
 		wchar_t* line = nox_window_call_field_94(nox_gui_console_input, 16413, 0, 0);
 		if (nox_gui_console_wantsPass && nox_gui_console_password[0]) {
 			if (_nox_wcsicmp(line, nox_gui_console_password)) {
@@ -144,15 +145,15 @@ void nox_client_toggleConsole_451350() {
 #ifdef NOX_CGO
 int  nox_xxx_consoleEditProc_450F40(void* a1, int a2, int a3, int a4);
 #else // NOX_CGO
-int  nox_xxx_consoleEditProc_450F40(_DWORD* a1, int a2, int a3, int a4) {
-	_DWORD* v4; // eax
+int  nox_xxx_consoleEditProc_450F40(uint32_t* a1, int a2, int a3, int a4) {
+	uint32_t* v4; // eax
 
 	if (a2 != 21)
 		return nox_xxx_wndEditProc_487D70(a1, a2, a3, a4);
 	v4 = nox_xxx_getBindKeysBuf_42CD70();
 	if (v4) {
 		while (v4[9] != 11 || a3 != *v4) {
-			v4 = (_DWORD*)v4[19];
+			v4 = (uint32_t*)v4[19];
 			if (!v4)
 				goto LABEL_6;
 		}
@@ -186,18 +187,18 @@ int  nox_xxx_consoleWndFn_450E90(int a1, int a2) {
 	int xLeft; // [esp+4h] [ebp-8h]
 	int yTop;  // [esp+8h] [ebp-4h]
 
-	nox_client_wndGetPosition_46AA60((_DWORD*)a1, &xLeft, &yTop);
-	if (*(_BYTE*)(a1 + 4) & 0x80) {
-		nox_client_drawImageAt_47D2C0(*(_DWORD*)(a2 + 24), xLeft, yTop);
+	nox_client_wndGetPosition_46AA60((uint32_t*)a1, &xLeft, &yTop);
+	if (*(uint8_t*)(a1 + 4) & 0x80) {
+		nox_client_drawImageAt_47D2C0(*(uint32_t*)(a2 + 24), xLeft, yTop);
 		return 1;
 	}
-	if (*(_DWORD*)(a2 + 20) != 0x80000000) {
+	if (*(uint32_t*)(a2 + 20) != 0x80000000) {
 		if (nox_gui_console_translucent) {
-			nox_client_drawRectFilledAlpha_49CF10(xLeft, yTop, *(_DWORD*)(a1 + 8), *(_DWORD*)(a1 + 12));
+			nox_client_drawRectFilledAlpha_49CF10(xLeft, yTop, *(uint32_t*)(a1 + 8), *(uint32_t*)(a1 + 12));
 			return 1;
 		}
-		nox_client_drawSetColor_434460(*(_DWORD*)(a2 + 20));
-		nox_client_drawRectFilledOpaque_49CE30(xLeft, yTop, *(_DWORD*)(a1 + 8), *(_DWORD*)(a1 + 12));
+		nox_client_drawSetColor_434460(*(uint32_t*)(a2 + 20));
+		nox_client_drawRectFilledOpaque_49CE30(xLeft, yTop, *(uint32_t*)(a1 + 8), *(uint32_t*)(a1 + 12));
 	}
 	return 1;
 }
@@ -209,47 +210,47 @@ nox_window* nox_gui_console_Create_450C70(int win_width, int win_height) {
 	*getMemU32Ptr(0x5D4594, 833708) = win_height / 2;
 	nox_gui_console_win = nox_window_new(0, 56, 0, 0, win_width - 1, win_height / 2, 0);
 	nox_window_set_all_funcs(nox_gui_console_win, nox_xxx_consoleWndFn_450E80, nox_xxx_consoleWndFn_450E90, 0);
-	*(_DWORD*)((char*)nox_gui_console_win + 56) = *getMemU32Ptr(0x85B3FC, 952);
+	*(uint32_t*)((char*)nox_gui_console_win + 56) = *getMemU32Ptr(0x85B3FC, 952);
 
 	char drawData[332];
 	memset(drawData, 0, sizeof(drawData));
-	*(_DWORD*)&drawData[36] = 0x80000000;
-	*(_DWORD*)&drawData[52] = 0x80000000;
-	*(_DWORD*)&drawData[24] = 0;
-	*(_DWORD*)&drawData[48] = 0;
-	*(_DWORD*)&drawData[28] = v0;
-	*(_DWORD*)&drawData[68] = v0;
+	*(uint32_t*)&drawData[36] = 0x80000000;
+	*(uint32_t*)&drawData[52] = 0x80000000;
+	*(uint32_t*)&drawData[24] = 0;
+	*(uint32_t*)&drawData[48] = 0;
+	*(uint32_t*)&drawData[28] = v0;
+	*(uint32_t*)&drawData[68] = v0;
 	nox_wcsncpy((wchar_t*)&drawData[72], nox_xxx_getNoxVer_401020(), 0x40u);
-	*(_WORD*)&drawData[198] = 0;
-	*(_DWORD*)&drawData[8] = 32;
+	*(uint16_t*)&drawData[198] = 0;
+	*(uint32_t*)&drawData[8] = 32;
 
 	char scrollData[56];
 	memset(scrollData, 0, sizeof(scrollData));
-	*(_WORD*)&scrollData[2] = 0x0a;
-	*(_WORD*)&scrollData[0] = 0x80;
-	*(_DWORD*)&scrollData[4] = 1;
-	*(_DWORD*)&scrollData[8] = 1;
-	*(_DWORD*)&scrollData[12] = 1;
-	*(_DWORD*)&scrollData[16] = 0;
+	*(uint16_t*)&scrollData[2] = 0x0a;
+	*(uint16_t*)&scrollData[0] = 0x80;
+	*(uint32_t*)&scrollData[4] = 1;
+	*(uint32_t*)&scrollData[8] = 1;
+	*(uint32_t*)&scrollData[12] = 1;
+	*(uint32_t*)&scrollData[16] = 0;
 	nox_gui_console_scrollbox = nox_gui_newScrollListBox_4A4310(nox_gui_console_win, 1152, 0, 0, *getMemIntPtr(0x5D4594, 833704),
 									 *getMemU32Ptr(0x5D4594, 833708) - 20, drawData, scrollData);
-	*(_DWORD*)&drawData[44] = v0;
-	*(_DWORD*)&drawData[28] = v0;
-	*(_DWORD*)&drawData[36] = v0;
-	*(_DWORD*)&drawData[52] = v0;
-	*(_DWORD*)&drawData[68] = v0;
+	*(uint32_t*)&drawData[44] = v0;
+	*(uint32_t*)&drawData[28] = v0;
+	*(uint32_t*)&drawData[36] = v0;
+	*(uint32_t*)&drawData[52] = v0;
+	*(uint32_t*)&drawData[68] = v0;
 
-	unsigned __int8 inpData[1056];
-	*(_WORD*)&inpData[1042] = *getMemU16Ptr(0x5D4594, 833704);
+	unsigned char inpData[1056];
+	*(uint16_t*)&inpData[1042] = *getMemU16Ptr(0x5D4594, 833704);
 	nox_wcscpy(inpData, (const wchar_t*)getMemAt(0x5D4594, 833736));
-	*(_WORD*)&inpData[1040] = 128;
-	*(_DWORD*)&inpData[1024] = 0;
-	*(_DWORD*)&inpData[1028] = 0;
-	*(_DWORD*)&inpData[1032] = 0;
-	*(_DWORD*)&inpData[1036] = 0;
+	*(uint16_t*)&inpData[1040] = 128;
+	*(uint32_t*)&inpData[1024] = 0;
+	*(uint32_t*)&inpData[1028] = 0;
+	*(uint32_t*)&inpData[1032] = 0;
+	*(uint32_t*)&inpData[1036] = 0;
 
 	nox_wcscpy((wchar_t*)&drawData[72], (const wchar_t*)getMemAt(0x5D4594, 833740));
-	*(_DWORD*)&drawData[8] = 128;
+	*(uint32_t*)&drawData[8] = 128;
 	nox_gui_console_input = nox_gui_newEntryField_488500(nox_gui_console_win, 16393, 0, *getMemU32Ptr(0x5D4594, 833708) - 20,
 									 *getMemIntPtr(0x5D4594, 833704), 20, drawData, inpData);
 	nox_xxx_wndSetWindowProc_46B300(nox_gui_console_input, nox_xxx_consoleEditProc_450F40);
@@ -267,7 +268,7 @@ void nox_gui_console_reloadColors_451100() {
 		nox_gui_console_win->draw_data.bg_color = color2;
 	}
 	if (nox_gui_console_scrollbox) {
-		_DWORD* v1 = nox_gui_console_scrollbox->field_8;
+		uint32_t* v1 = nox_gui_console_scrollbox->field_8;
 		nox_gui_console_scrollbox->draw_data.bg_color = 0x80000000;
 		nox_gui_console_scrollbox->draw_data.dis_color = 0x80000000;
 		nox_gui_console_scrollbox->draw_data.en_color = color;
@@ -276,37 +277,37 @@ void nox_gui_console_reloadColors_451100() {
 		nox_gui_console_scrollbox->draw_data.text_color = color;
 		int v2 = v1[9];
 		if (v2) {
-			*(_DWORD*)(v2 + 56) = color2;
-			*(_DWORD*)(v1[9] + 80) = color2;
-			*(_DWORD*)(v1[9] + 64) = color;
-			*(_DWORD*)(v1[9] + 72) = color2;
-			*(_DWORD*)(v1[9] + 88) = color;
-			int v3 = *(_DWORD*)(v1[9] + 400);
+			*(uint32_t*)(v2 + 56) = color2;
+			*(uint32_t*)(v1[9] + 80) = color2;
+			*(uint32_t*)(v1[9] + 64) = color;
+			*(uint32_t*)(v1[9] + 72) = color2;
+			*(uint32_t*)(v1[9] + 88) = color;
+			int v3 = *(uint32_t*)(v1[9] + 400);
 			if (v3) {
-				*(_DWORD*)(v3 + 56) = color2;
-				*(_DWORD*)(*(_DWORD*)(v1[9] + 400) + 80) = color2;
-				*(_DWORD*)(*(_DWORD*)(v1[9] + 400) + 64) = color;
-				*(_DWORD*)(*(_DWORD*)(v1[9] + 400) + 72) = color2;
-				*(_DWORD*)(*(_DWORD*)(v1[9] + 400) + 88) = color2;
+				*(uint32_t*)(v3 + 56) = color2;
+				*(uint32_t*)(*(uint32_t*)(v1[9] + 400) + 80) = color2;
+				*(uint32_t*)(*(uint32_t*)(v1[9] + 400) + 64) = color;
+				*(uint32_t*)(*(uint32_t*)(v1[9] + 400) + 72) = color2;
+				*(uint32_t*)(*(uint32_t*)(v1[9] + 400) + 88) = color2;
 			}
 		}
 		int v4 = v1[7];
 		if (v4) {
-			*(_DWORD*)(v4 + 56) = color2;
-			*(_DWORD*)(v1[7] + 80) = color2;
-			*(_DWORD*)(v1[7] + 64) = color;
-			*(_DWORD*)(v1[7] + 72) = *getMemU32Ptr(0x5D4594, 2523948);
-			*(_DWORD*)(v1[7] + 88) = color;
-			*(_DWORD*)(v1[7] + 104) = color;
+			*(uint32_t*)(v4 + 56) = color2;
+			*(uint32_t*)(v1[7] + 80) = color2;
+			*(uint32_t*)(v1[7] + 64) = color;
+			*(uint32_t*)(v1[7] + 72) = *getMemU32Ptr(0x5D4594, 2523948);
+			*(uint32_t*)(v1[7] + 88) = color;
+			*(uint32_t*)(v1[7] + 104) = color;
 		}
 		int v5 = v1[8];
 		if (v5) {
-			*(_DWORD*)(v5 + 56) = color2;
-			*(_DWORD*)(v1[8] + 80) = color2;
-			*(_DWORD*)(v1[8] + 64) = color;
-			*(_DWORD*)(v1[8] + 72) = *getMemU32Ptr(0x5D4594, 2523948);
-			*(_DWORD*)(v1[8] + 88) = color;
-			*(_DWORD*)(v1[8] + 104) = color;
+			*(uint32_t*)(v5 + 56) = color2;
+			*(uint32_t*)(v1[8] + 80) = color2;
+			*(uint32_t*)(v1[8] + 64) = color;
+			*(uint32_t*)(v1[8] + 72) = *getMemU32Ptr(0x5D4594, 2523948);
+			*(uint32_t*)(v1[8] + 88) = color;
+			*(uint32_t*)(v1[8] + 104) = color;
 		}
 	}
 	if (nox_gui_console_input) {

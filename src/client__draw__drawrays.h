@@ -3,6 +3,6 @@
 
 #include "defs.h"
 
-int  nox_xxx_netDrawRays_49BDD0(unsigned __int8* a1);
+int  nox_xxx_netDrawRays_49BDD0(unsigned char* a1);
 
 #endif // NOX_PORT_CLIENT_DRAW_DRAWRAYS

@@ -16,7 +16,8 @@
 #define MINIMP3_IMPLEMENTATION
 #include "client/audio/mp3/minimp3.h"
 
-#include "defs.h"
+#include "compat_mss.h"
+#include "noxstring.h"
 #include "common/fs/nox_fs.h"
 
 struct _DIG_DRIVER {
@@ -359,7 +360,7 @@ static void stream_find_data(HSTREAM stream) {
 		unsigned int size;
 		if (nox_fs_fread(stream->file, tmp, 8) != 8)
 			break;
-		size = *(DWORD*)(tmp + 4);
+		size = *(uint32_t*)(tmp + 4);
 		if (memcmp(tmp, "data", 4) == 0) {
 			stream->chunk_size = size;
 			break;
@@ -529,14 +530,14 @@ HSTREAM AIL_open_stream(HDIGDRIVER dig, char* filename, int32_t stream_mem) {
 		goto error;
 
 	// XXX ignore file size?
-	file_size = *(DWORD*)(tmp + 4);
+	file_size = *(uint32_t*)(tmp + 4);
 
 	if (memcmp(tmp + 8, "WAVE", 4) != 0)
 		goto error;
 
 	if (nox_fs_fread(f, tmp, 8) != 8)
 		goto error;
-	size = *(DWORD*)(tmp + 4);
+	size = *(uint32_t*)(tmp + 4);
 
 	if (memcmp(tmp, "fmt ", 4) != 0)
 		goto error;
@@ -574,13 +575,13 @@ HSTREAM AIL_open_stream(HDIGDRIVER dig, char* filename, int32_t stream_mem) {
 			goto error;
 		if (memcmp(tmp, "fact", 4) != 0)
 			goto error;
-		size = *(DWORD*)(tmp + 4);
+		size = *(uint32_t*)(tmp + 4);
 		if (size != 4)
 			goto error;
 		if (nox_fs_fread(f, tmp, 4) != 4)
 			goto error;
 
-		stream->adpcm.samples = *(DWORD*)tmp;
+		stream->adpcm.samples = *(uint32_t*)tmp;
 	} else if (wf->wFormatTag == 0x55) // MP3
 	{
 		if (size < sizeof(MPEGLAYER3WAVEFORMAT2)) {
@@ -949,7 +950,7 @@ static void sample_work(HSAMPLE S) {
 }
 
 static void stream_work(HSTREAM stream) {
-	static WORD buffer[16 * 1024 * 3];
+	static uint16_t buffer[16 * 1024 * 3];
 	unsigned int channels = stream->stereo ? 2 : 1;
 	// We need to queue 100ms of audio data.
 	unsigned int min_samples = stream->playback_rate * channels / 10;
@@ -1007,7 +1008,7 @@ static Uint32 work_callback(Uint32 interval, void* param) {
 	return interval;
 }
 
-int32_t AIL_waveOutOpen(HDIGDRIVER* pdrvr, LPHWAVEOUT* lphWaveOut, int32_t wDeviceID, LPWAVEFORMAT lpFormat) {
+int32_t AIL_waveOutOpen(HDIGDRIVER* pdrvr, int32_t wDeviceID, NOX_WAVEFORMAT lpFormat) {
 	HDIGDRIVER dig = calloc(1, sizeof(*dig));
 	// fprintf(stderr, "%s\n", __FUNCTION__);
 	dig->device = alcOpenDevice(NULL);

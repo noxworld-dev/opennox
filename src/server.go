@@ -37,7 +37,7 @@ void nox_xxx_netlist_4DEB50();
 //void nox_xxx_scriptLeverReact_51ADF0();
 void nox_xxx_serverLoopSendMap_519990();
 void nox_xxx_unitsUpdateDeletedList_4E5E20();
-int  nox_xxx_updateServer_4D2DA0(__int64 a1);
+int  nox_xxx_updateServer_4D2DA0(long long a1);
 void nox_xxx_updateUnits_51B100();
 void nox_xxx_voteUptate_506F30();
 void sub_4E4170();

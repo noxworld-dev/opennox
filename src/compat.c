@@ -32,10 +32,6 @@
 #include "GAME5_2.h"
 #include "input_common.h"
 #include "input.h"
-#include "legacy/client__video__ddraw__draw_ddraw.h"
-#include "legacy/input_ddraw.h"
-#include "legacy/mmx.h"
-#include "legacy/win_ddraw.h"
 #include "movie.h"
 #include "server__network__mapsend.h"
 #include "server__script__builtin.h"
@@ -78,7 +74,7 @@ struct _REGKEY {
 	char* path;
 };
 
-DWORD last_error;
+uint32_t last_error;
 void* handles[1024];
 
 static inline HANDLE new_handle(unsigned int type, void* data) {
@@ -93,17 +89,17 @@ static inline HANDLE new_handle(unsigned int type, void* data) {
 }
 
 static inline void* lookup_handle(unsigned int type, HANDLE h) {
-	if (type != ((DWORD)h >> 16))
+	if (type != ((uint32_t)h >> 16))
 		return NULL;
-	if ((WORD)h >= 1024)
+	if ((uint16_t)h >= 1024)
 		return NULL;
-	return handles[(WORD)h];
+	return handles[(uint16_t)h];
 }
 
-void OutputDebugStringA(LPCSTR lpOutputString) { fprintf(stderr, "%s", lpOutputString); }
+void OutputDebugStringA(const char* lpOutputString) { fprintf(stderr, "%s", lpOutputString); }
 
 // Memory functions
-BOOL HeapDestroy(HANDLE hHeap) {
+int HeapDestroy(HANDLE hHeap) {
 	abort();
 	return 0;
 }
@@ -258,20 +254,20 @@ void _splitpath(const char* path, char* drive, char* dir, char* fname, char* ext
 }
 
 // Misc functions
-BOOL CloseHandle(HANDLE hObject) {
-	switch ((DWORD)hObject >> 16) {
+int CloseHandle(HANDLE hObject) {
+	switch ((uint32_t)hObject >> 16) {
 	case 0:
-		close((WORD)hObject);
+		close((uint16_t)hObject);
 		break;
 	case HANDLE_THREAD:
-		handles[(WORD)hObject] = NULL;
+		handles[(uint16_t)hObject] = NULL;
 		break;
 	case HANDLE_MUTEX: {
 		pthread_mutex_t* m = lookup_handle(HANDLE_MUTEX, hObject);
 		pthread_mutex_destroy(m);
 		free(m);
 	}
-		handles[(WORD)hObject] = NULL;
+		handles[(uint16_t)hObject] = NULL;
 		break;
 	default:
 		abort();
@@ -281,22 +277,22 @@ BOOL CloseHandle(HANDLE hObject) {
 	return true;
 }
 
-DWORD GetLastError() { return last_error; }
+uint32_t GetLastError() { return last_error; }
 
-BOOL GetVersionExA(LPOSVERSIONINFOA lpVersionInformation) {
+int GetVersionExA(LPOSVERSIONINFOA lpVersionInformation) {
 	lpVersionInformation->dwOSVersionInfoSize = sizeof(OSVERSIONINFOA);
 	lpVersionInformation->dwMajorVersion = 5;
 	lpVersionInformation->dwMinorVersion = 1;
 	return true;
 }
 
-LONG InterlockedExchange(volatile LONG* Target, LONG Value) { return __sync_lock_test_and_set(Target, Value); }
+int InterlockedExchange(volatile int* Target, int Value) { return __sync_lock_test_and_set(Target, Value); }
 
-LONG InterlockedDecrement(volatile LONG* Addend) { return __sync_fetch_and_sub(Addend, 1); }
+int InterlockedDecrement(volatile int* Addend) { return __sync_fetch_and_sub(Addend, 1); }
 
-LONG InterlockedIncrement(volatile LONG* Addend) { return __sync_fetch_and_add(Addend, 1); }
+int InterlockedIncrement(volatile int* Addend) { return __sync_fetch_and_add(Addend, 1); }
 
-int MessageBoxA(HWND hWnd, LPCSTR lpText, LPCSTR lpCaption, UINT uType) {
+int MessageBoxA(HWND hWnd, const char* lpText, const char* lpCaption, unsigned int uType) {
 	abort();
 	return 0;
 }
@@ -306,14 +302,14 @@ int MulDiv(int nNumber, int nNumerator, int nDenominator) {
 	return 0;
 }
 
-HINSTANCE ShellExecuteA(HWND hwnd, LPCSTR lpOperation, LPCSTR lpFile, LPCSTR lpParameters, LPCSTR lpDirectory,
-							   INT nShowCmd) {
+HINSTANCE ShellExecuteA(HWND hwnd, const char* lpOperation, const char* lpFile, const char* lpParameters, const char* lpDirectory,
+							   int nShowCmd) {
 	abort();
 	return 0;
 }
 
-int WideCharToMultiByte(UINT CodePage, DWORD dwFlags, LPCWSTR lpWideCharStr, int cchWideChar,
-							   LPSTR lpMultiByteStr, int cbMultiByte, LPCCH lpDefaultChar, LPBOOL lpUsedDefaultChar) {
+int WideCharToMultiByte(unsigned int CodePage, uint32_t dwFlags, const wchar_t* lpWideCharStr, int cchWideChar,
+							   char* lpMultiByteStr, int cbMultiByte, const char* lpDefaultChar, int* lpUsedDefaultChar) {
 	abort();
 	return 0;
 }
@@ -346,7 +342,7 @@ void build_server_info(void* arg) {
 // Time functions
 // compatGetDateFormatA(Locale=2048, dwFlags=1, lpDate=0x1708c6a4, lpFormat=0x00000000, lpDateStr="nox.str:Warrior",
 // cchDate=256) at compat.c:1001
-int GetDateFormatA(LCID Locale, DWORD dwFlags, const SYSTEMTIME* lpDate, LPCSTR lpFormat, LPSTR lpDateStr,
+int GetDateFormatA(LCID Locale, uint32_t dwFlags, const SYSTEMTIME* lpDate, const char* lpFormat, char* lpDateStr,
 						  int cchDate) {
 	if (Locale != 0x800 || dwFlags != 1 || lpFormat)
 		abort();
@@ -355,7 +351,7 @@ int GetDateFormatA(LCID Locale, DWORD dwFlags, const SYSTEMTIME* lpDate, LPCSTR 
 	return snprintf(lpDateStr, cchDate, "%d/%d/%02d", lpDate->wMonth, lpDate->wDay, lpDate->wYear % 100);
 }
 
-int GetTimeFormatA(LCID Locale, DWORD dwFlags, const SYSTEMTIME* lpTime, LPCSTR lpFormat, LPSTR lpTimeStr,
+int GetTimeFormatA(LCID Locale, uint32_t dwFlags, const SYSTEMTIME* lpTime, const char* lpFormat, char* lpTimeStr,
 						  int cchTime) {
 	if (Locale != 0x800 || dwFlags != 14 || lpFormat)
 		abort();
@@ -364,8 +360,8 @@ int GetTimeFormatA(LCID Locale, DWORD dwFlags, const SYSTEMTIME* lpTime, LPCSTR 
 	return snprintf(lpTimeStr, cchTime, "%02d:%02d", lpTime->wHour, lpTime->wMinute);
 }
 
-BOOL SystemTimeToFileTime(const SYSTEMTIME* lpSystemTime, LPFILETIME lpFileTime) {
-	QWORD t;
+int SystemTimeToFileTime(const SYSTEMTIME* lpSystemTime, LPFILETIME lpFileTime) {
+	uint64_t t;
 	struct tm tm;
 
 	tm.tm_sec = lpSystemTime->wSecond;
@@ -385,11 +381,11 @@ BOOL SystemTimeToFileTime(const SYSTEMTIME* lpSystemTime, LPFILETIME lpFileTime)
 	return 0;
 }
 
-LONG CompareFileTime(const FILETIME* lpFileTime1, const FILETIME* lpFileTime2) {
+int CompareFileTime(const FILETIME* lpFileTime1, const FILETIME* lpFileTime2) {
 	if (lpFileTime1->dwHighDateTime != lpFileTime2->dwHighDateTime)
-		return (LONG)lpFileTime1->dwHighDateTime - (LONG)lpFileTime2->dwHighDateTime;
+		return (int)lpFileTime1->dwHighDateTime - (int)lpFileTime2->dwHighDateTime;
 	if (lpFileTime1->dwLowDateTime != lpFileTime2->dwLowDateTime)
-		return (LONG)lpFileTime1->dwLowDateTime - (LONG)lpFileTime2->dwLowDateTime;
+		return (int)lpFileTime1->dwLowDateTime - (int)lpFileTime2->dwLowDateTime;
 	return 0;
 }
 
@@ -410,15 +406,15 @@ void GetLocalTime(LPSYSTEMTIME lpSystemTime) {
 	lpSystemTime->wMilliseconds = 0;
 }
 
-BOOL QueryPerformanceCounter(LARGE_INTEGER* lpPerformanceCount) {
+int QueryPerformanceCounter(LARGE_INTEGER* lpPerformanceCount) {
 	struct timeval tv;
 
 	gettimeofday(&tv, NULL);
-	lpPerformanceCount->QuadPart = (QWORD)tv.tv_sec * 1000000 + tv.tv_usec;
+	lpPerformanceCount->QuadPart = (uint64_t)tv.tv_sec * 1000000 + tv.tv_usec;
 	return true;
 }
 
-BOOL QueryPerformanceFrequency(LARGE_INTEGER* lpFrequency) {
+int QueryPerformanceFrequency(LARGE_INTEGER* lpFrequency) {
 	lpFrequency->QuadPart = 1000000;
 	return true;
 }
@@ -445,7 +441,7 @@ static void fill_find_data(const char* path, LPWIN32_FIND_DATAA lpFindFileData) 
 	// lpFindFileData->cFileName);
 }
 
-HANDLE FindFirstFileA(LPCSTR lpFileName, LPWIN32_FIND_DATAA lpFindFileData) {
+HANDLE FindFirstFileA(const char* lpFileName, LPWIN32_FIND_DATAA lpFindFileData) {
 	char* converted = nox_fs_normalize(lpFileName);
 	int len = strlen(converted);
 	struct _FIND_FILE* ff = calloc(sizeof(*ff), 1);
@@ -466,7 +462,7 @@ HANDLE FindFirstFileA(LPCSTR lpFileName, LPWIN32_FIND_DATAA lpFindFileData) {
 	return (HANDLE)ff;
 }
 
-BOOL FindNextFileA(HANDLE hFindFile, LPWIN32_FIND_DATAA lpFindFileData) {
+int FindNextFileA(HANDLE hFindFile, LPWIN32_FIND_DATAA lpFindFileData) {
 	struct _FIND_FILE* ff = (struct _FIND_FILE*)hFindFile;
 
 	if (ff->idx >= ff->globbuf.gl_pathc) {
@@ -478,7 +474,7 @@ BOOL FindNextFileA(HANDLE hFindFile, LPWIN32_FIND_DATAA lpFindFileData) {
 	return true;
 }
 
-BOOL FindClose(HANDLE hFindFile) {
+int FindClose(HANDLE hFindFile) {
 	struct _FIND_FILE* ff = (struct _FIND_FILE*)hFindFile;
 
 	globfree(&ff->globbuf);
@@ -549,14 +545,14 @@ int _stat(const char* path, struct _stat* buffer) {
 }
 
 // Registry functions
-LSTATUS RegCreateKeyExA(HKEY hKey, LPCSTR lpSubKey, DWORD Reserved, LPSTR lpClass, DWORD dwOptions,
+int RegCreateKeyExA(HKEY hKey, const char* lpSubKey, uint32_t Reserved, char* lpClass, uint32_t dwOptions,
 							   REGSAM samDesired, const LPSECURITY_ATTRIBUTES lpSecurityAttributes, PHKEY phkResult,
-							   LPDWORD lpdwDisposition) {
+							   uint32_t* lpdwDisposition) {
 	abort();
 	return 0;
 }
 
-LSTATUS RegOpenKeyExA(HKEY hKey, LPCSTR lpSubKey, DWORD ulOptions, REGSAM samDesired, PHKEY phkResult) {
+int RegOpenKeyExA(HKEY hKey, const char* lpSubKey, uint32_t ulOptions, REGSAM samDesired, PHKEY phkResult) {
 	HKEY hkResult;
 	const char* root;
 
@@ -572,8 +568,8 @@ LSTATUS RegOpenKeyExA(HKEY hKey, LPCSTR lpSubKey, DWORD ulOptions, REGSAM samDes
 	return 0;
 }
 
-LSTATUS RegQueryValueExA(HKEY hKey, LPCSTR lpValueName, LPDWORD lpReserved, LPDWORD lpType, LPBYTE lpData,
-								LPDWORD lpcbData) {
+int RegQueryValueExA(HKEY hKey, const char* lpValueName, uint32_t* lpReserved, uint32_t* lpType, uint8_t* lpData,
+								uint32_t* lpcbData) {
 	_dprintf("%s: key=\"%s\", value=\"%s\"", __FUNCTION__, hKey->path, lpValueName);
 
 	if (strcmp(hKey->path, "HKEY_LOCAL_MACHINE\\SOFTWARE\\Westwood\\Nox") == 0 && strcmp(lpValueName, "Serial") == 0) {
@@ -588,13 +584,13 @@ LSTATUS RegQueryValueExA(HKEY hKey, LPCSTR lpValueName, LPDWORD lpReserved, LPDW
 	return 3;
 }
 
-LSTATUS RegSetValueExA(HKEY hKey, LPCSTR lpValueName, DWORD Reserved, DWORD dwType, const BYTE* lpData,
-							  DWORD cbData) {
+int RegSetValueExA(HKEY hKey, const char* lpValueName, uint32_t Reserved, uint32_t dwType, const uint8_t* lpData,
+							  uint32_t cbData) {
 	abort();
 	return 0;
 }
 
-LSTATUS RegCloseKey(HKEY hKey) {
+int RegCloseKey(HKEY hKey) {
 	free(hKey->path);
 	free(hKey);
 	return 0;
@@ -602,7 +598,7 @@ LSTATUS RegCloseKey(HKEY hKey) {
 
 // Synchronization functions
 
-HANDLE CreateMutexA(LPSECURITY_ATTRIBUTES lpSecurityAttributes, BOOL bInitialOwner, LPCSTR lpName) {
+HANDLE CreateMutexA(LPSECURITY_ATTRIBUTES lpSecurityAttributes, int bInitialOwner, const char* lpName) {
 	pthread_mutex_t* m = malloc(sizeof(pthread_mutex_t));
 	pthread_mutexattr_t attr;
 
@@ -617,7 +613,7 @@ HANDLE CreateMutexA(LPSECURITY_ATTRIBUTES lpSecurityAttributes, BOOL bInitialOwn
 	return new_handle(HANDLE_MUTEX, m);
 }
 
-BOOL ReleaseMutex(HANDLE hMutex) {
+int ReleaseMutex(HANDLE hMutex) {
 	pthread_mutex_t* m = lookup_handle(HANDLE_MUTEX, hMutex);
 	if (m == NULL)
 		return false;
@@ -625,7 +621,7 @@ BOOL ReleaseMutex(HANDLE hMutex) {
 	return true;
 }
 
-BOOL SetEvent(HANDLE hEvent) {
+int SetEvent(HANDLE hEvent) {
 	abort();
 	return 0;
 }
@@ -635,8 +631,8 @@ BOOL SetEvent(HANDLE hEvent) {
 int pthread_timedjoin_np(void*, void*, void*);
 #endif
 
-DWORD WaitForSingleObject(HANDLE hHandle, DWORD dwMilliseconds) {
-	DWORD result = (DWORD)-1;
+uint32_t WaitForSingleObject(HANDLE hHandle, uint32_t dwMilliseconds) {
+	uint32_t result = (uint32_t)-1;
 	struct timespec tv;
 
 	clock_gettime(CLOCK_REALTIME, &tv);
@@ -647,7 +643,7 @@ DWORD WaitForSingleObject(HANDLE hHandle, DWORD dwMilliseconds) {
 		tv.tv_nsec -= 1000000000;
 	}
 
-	switch ((DWORD)hHandle >> 16) {
+	switch ((uint32_t)hHandle >> 16) {
 	case HANDLE_THREAD: {
 		pthread_t thr = lookup_handle(HANDLE_THREAD, hHandle);
 		result = 0;

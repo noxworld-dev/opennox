@@ -3,6 +3,7 @@
 
 #include "memmap.h"
 #include "defs.h"
+#include "operators.h"
 
 int4* nox_xxx_utilRect_49F930(int4* a1, int4* a2, int4* a3);
 
@@ -27,6 +28,13 @@ unsigned char* nox_draw_colors_g_3804656 = 0;
 unsigned char* nox_draw_colors_b_3804664 = 0;
 
 #ifndef NOX_CGO
+
+#ifdef _WIN32
+#include <windows.h>
+#else
+#include "windows_compat.h"
+#endif
+
 int nox_draw_sprite_offsY_3799556 = 0;
 int nox_draw_sprite_offsX_3799560 = 0;
 void (*func_type27_3799536)(void) = 0;
@@ -1055,7 +1063,7 @@ void  sub_4C5EB0(nox_video_bag_image_t* img, int x, int y) {
 	int v4; // eax
 
 	if (a1) {
-		switch (*(_BYTE*)(a1 + 10) & 0x3F) {
+		switch (*(uint8_t*)(a1 + 10) & 0x3F) {
 		case 2:
 		case 7:
 			func_type27_3799536 = sub_4C69A0;
@@ -1742,22 +1750,22 @@ void sub_4C80E0() {
 
 void nullsub_7(void) {}
 
-__int16 sub_4C82C0() {
+short sub_4C82C0() {
 	abort();
 	return 0;
 }
 
-__int16 sub_4C8570() {
+short sub_4C8570() {
 	abort();
 	return 0;
 }
 
-__int32 sub_4C8760() {
+int sub_4C8760() {
 	abort();
 	return 0;
 }
 
-__int16 sub_4C8C00() {
+short sub_4C8C00() {
 	abort();
 	return 0;
 }
@@ -2188,7 +2196,7 @@ void  nox_xxx_smthPlayerAnim_4C7670(nox_video_bag_image_t* img, int x, int y) {
 
 	v3 = 0;
 	if (a1) {
-		switch (*(_BYTE*)(a1 + 10) & 0x3F) {
+		switch (*(uint8_t*)(a1 + 10) & 0x3F) {
 		case 2:
 		case 7:
 			func_type27_3799536 = sub_4C80E0;

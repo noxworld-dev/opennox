@@ -1,6 +1,7 @@
 #include "client__gui__guimsg.h"
 #include "client__gui__guicon.h"
-extern _DWORD dword_5d4594_825736;
+#include "common__strman.h"
+extern uint32_t dword_5d4594_825736;
 
 extern unsigned int nox_gameFPS;
 extern unsigned int nox_frame_xxx_2598000;

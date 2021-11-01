@@ -1,21 +1,22 @@
 #include "common__wolapi__wol.h"
 #include "common__log.h"
+#include "common__strman.h"
 
 #include "GAME1.h"
 #include "GAME1_1.h"
 #include "GAME1_3.h"
 #include "client__gui__window.h"
-extern _DWORD dword_5d4594_2660652;
+extern uint32_t dword_5d4594_2660652;
 
 //----- (0041D1D0) --------------------------------------------------------
-_DWORD*  nox_xxx_wolApiError_41D1D0(int a1) {
+uint32_t*  nox_xxx_wolApiError_41D1D0(int a1) {
 	wchar_t* v1;         // edi
 	wchar_t* v2;         // eax
 	int v3;              // eax
 	int v4;              // esi
 	size_t v5;           // eax
-	unsigned __int8* v6; // esi
-	_DWORD* result;      // eax
+	unsigned char* v6; // esi
+	uint32_t* result;      // eax
 
 	v1 = nox_strman_loadString_40F1D0("WolApiError", 0, "C:\\NoxPost\\src\\common\\WolAPI\\wol.c", 41);
 	if (*(int*)&dword_5d4594_2660652 > -2147221247) {
@@ -23,7 +24,7 @@ _DWORD*  nox_xxx_wolApiError_41D1D0(int a1) {
 			v2 = nox_strman_loadString_40F1D0("UnknownError", 0, "C:\\NoxPost\\src\\common\\WolAPI\\wol.c", 123);
 		else
 			v2 = nox_strman_loadString_40F1D0("Internalerror", 0, "C:\\NoxPost\\src\\common\\WolAPI\\wol.c", 117);
-		v6 = (unsigned __int8*)v2;
+		v6 = (unsigned char*)v2;
 	} else if (*(int*)&dword_5d4594_2660652 >= -2147221248) {
 		v6 = getMemAt(0x85B3FC, 10436);
 	} else {
@@ -96,7 +97,7 @@ _DWORD*  nox_xxx_wolApiError_41D1D0(int a1) {
 										   "C:\\NoxPost\\src\\common\\WolAPI\\wol.c", 123);
 				break;
 		}
-		v6 = (unsigned __int8 *) v2;
+		v6 = (unsigned char *) v2;
 	}
 	sub_44A400();
 	if (nox_common_gameFlags_check_40A5C0(0x2000000)) {

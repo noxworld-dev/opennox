@@ -52,13 +52,13 @@ char* nox_xxx_bindevent_bindNameByKey(unsigned int key);
 unsigned int nox_xxx_bindevent_bindKeyByName(char* name);
 char*  nox_xxx_bindevent_bindNameByTitle_42EA40(wchar_t* title);
 void nox_xxx_clientControl_42D6B0(nox_mouse_state_t* mouse, int a4);
-void nox_ctrlevent_action_42E670(nox_ctrlevent_code code, _DWORD data);
-void nox_ctrlevent_action_42E780(nox_ctrlevent_code code, _DWORD data);
+void nox_ctrlevent_action_42E670(nox_ctrlevent_code code, uint32_t data);
+void nox_ctrlevent_action_42E780(nox_ctrlevent_code code, uint32_t data);
 int nox_ctrlevent_has_data_42D440(nox_ctrlevent_code code);
-unsigned __int8 nox_ctrlevent_data_size_42D450(nox_ctrlevent_code code);
+unsigned char nox_ctrlevent_data_size_42D450(nox_ctrlevent_code code);
 nox_ctrlevent_key_t* nox_xxx_getBindKeysBuf_42CD70();
 
-char* nox_xxx_netGetBuffSize_42CD50(_BYTE* a1);
+char* nox_xxx_netGetBuffSize_42CD50(uint8_t* a1);
 void sub_42CD90();
 void nox_client_writeConfigHotkeys_42CDF0(FILE* a1);
 int nox_client_parseConfigHotkeysLine_42CF50(char* a1);
@@ -67,7 +67,7 @@ int nox_xxx_keyCanPauseMode_42D4B0(nox_ctrlevent_code code);
 void nox_xxx_netBuf_42D510();
 void sub_42E8C0(int a1);
 wchar_t* sub_42E8E0(int a1, int a2);
-int nox_xxx_playerSaveInput_51A960(int a1, unsigned __int8* a2);
+int nox_xxx_playerSaveInput_51A960(int a1, unsigned char* a2);
 int sub_51AAA0(int a1, int a2, int a3);
 
 #endif // NOX_PORT_CLIENT_SYSTEM_CTRLEVNT

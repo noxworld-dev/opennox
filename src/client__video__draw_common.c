@@ -1,3 +1,4 @@
+#include <math.h>
 #define IGNORE_EXTERNS
 #include "client__video__draw_common.h"
 #undef IGNORE_EXTERNS
@@ -9,6 +10,7 @@
 #include "GAME2_3.h"
 #include "GAME3.h"
 #include "GAME5_2.h"
+#include "operators.h"
 
 unsigned char byte_5D4594_3804364[160] = { 0 };
 
@@ -26,25 +28,25 @@ int nox_video_allowCursorDrawThread = 0;
 int nox_video_drawCursorThreadOk = 0;
 int nox_video_pauseThreadedDrawCursor = 0;
 int nox_video_cursorDrawIsThreaded = 0;
-void (*dword_6F7C10)(_DWORD, _DWORD, _DWORD);
+void (*dword_6F7C10)(uint32_t, uint32_t, uint32_t);
 
-DWORD dword_974854;
-DWORD dword_973C70;
-DWORD dword_5ACFAC;
-DWORD dword_6F7B9C;
-DWORD dword_6F7BB0;
+uint32_t dword_974854;
+uint32_t dword_973C70;
+uint32_t dword_5ACFAC;
+uint32_t dword_6F7B9C;
+uint32_t dword_6F7BB0;
 #endif // NOX_CGO
 
-DWORD dword_973C64;
-__int16 (*dword_6F7C40)();
-__int16 (*dword_6F7C34)();
+uint32_t dword_973C64;
+short (*dword_6F7C40)();
+short (*dword_6F7C34)();
 
 int nox_video_renderTargetFlags = 0;
 int nox_video_windowsPlatformVersion = 0;
 int (*func_5d4594_1311924)(void) = 0;
 
-void (*dword_975240)(_DWORD, _DWORD*, _DWORD*, _DWORD*);
-int (*dword_975380)(_DWORD, _DWORD, _DWORD);
+void (*dword_975240)(uint32_t, uint32_t*, uint32_t*, uint32_t*);
+int (*dword_975380)(uint32_t, uint32_t, uint32_t);
 #ifndef NOX_CGO
 void (*nox_color_rgb_func)(uint8_t, uint8_t, uint8_t, uint32_t*);
 #else // NOX_CGO
@@ -54,12 +56,12 @@ void nox_color_rgb_func_set(int mode);
 #endif // NOX_CGO
 
 #ifndef NOX_CGO
-DWORD g_backbuffer_count;
-DWORD g_cursor_surf_pitch;
-BYTE* g_cursor_surf_pixels;
-BYTE* g_cursor_surf_pixels_6F7C78;
-_DWORD cpuid_5d4594_3801804 = 0; // always 0
-DWORD g_present_ticks;
+uint32_t g_backbuffer_count;
+uint32_t g_cursor_surf_pitch;
+uint8_t* g_cursor_surf_pixels;
+uint8_t* g_cursor_surf_pixels_6F7C78;
+uint32_t cpuid_5d4594_3801804 = 0; // always 0
+uint32_t g_present_ticks;
 void (*g_copy_backbuffer_ptr)();
 SDL_Surface* g_backbuffer1;
 SDL_Surface* g_cursor_surf_6F7C48;
@@ -95,7 +97,7 @@ int create_surfaces(int width, int height);
 int  nox_client_drawXxx_444AC0(int w, int h, int depth, int flags) {
 	int v5;             // eax
 	bool v6;            // zf
-	unsigned __int8 v7 = 0; // al
+	unsigned char v7 = 0; // al
 	int v8;             // esi
 	int v9;             // eax
 	int v10;            // eax
@@ -308,9 +310,9 @@ void sub_48A7F0() {
 }
 
 //----- (0048A820) --------------------------------------------------------
-void  sub_48A820(UINT uFlags) {
-	//DWORD width = nox_backbuffer_width;
-	//DWORD height = nox_backbuffer_height;
+void  sub_48A820(unsigned int uFlags) {
+	//uint32_t width = nox_backbuffer_width;
+	//uint32_t height = nox_backbuffer_height;
 
 	// SDL_SetWindowSize(nox_video_getWindow_401FD0(), width, height);
 	// SDL_SetWindowGrab(nox_video_getWindow_401FD0(), SDL_TRUE);
@@ -441,10 +443,10 @@ int sdl_drawCursorThreaded(int a1) {
 
 //----- (004340A0) --------------------------------------------------------
 void  sub_4340A0(int a1, int a2, int a3, int a4) {
-	unsigned __int64 v4; // rax
+	unsigned long long v4; // rax
 	int v5;              // esi
-	unsigned __int64 v6; // rax
-	unsigned __int64 v7; // rax
+	unsigned long long v6; // rax
+	unsigned long long v7; // rax
 
 	a2 = a2 & 0xFF;
 	a3 = a3 & 0xFF;
@@ -452,33 +454,33 @@ void  sub_4340A0(int a1, int a2, int a3, int a4) {
 
 	v4 = a1;
 	if (a1 >= 0 && a1 < 16) {
-		v5 = 48 * a1 + (_DWORD)(&ptr_5D4594_3799572->field_66);
-		*(_DWORD*)(v5 + 32) = (unsigned __int8)a4;
-		*(_DWORD*)(v5 + 24) = (unsigned __int8)a2;
-		*(_DWORD*)(v5 + 28) = (unsigned __int8)a3;
-		nox_color_rgb_func(a2, a3, a4, (DWORD*)(v5 + 40));
+		v5 = 48 * a1 + (uint32_t)(&ptr_5D4594_3799572->field_66);
+		*(uint32_t*)(v5 + 32) = (unsigned char)a4;
+		*(uint32_t*)(v5 + 24) = (unsigned char)a2;
+		*(uint32_t*)(v5 + 28) = (unsigned char)a3;
+		nox_color_rgb_func(a2, a3, a4, (uint32_t*)(v5 + 40));
 #ifndef NOX_CGO
 		LODWORD(v4) = cpuid_5d4594_3801804;
 		if (cpuid_5d4594_3801804) {
-			v6 = ((unsigned __int8)a2 | (((unsigned __int8)a2 | ((unsigned __int64)(unsigned __int8)a2 << 16)) << 16))
+			v6 = ((unsigned char)a2 | (((unsigned char)a2 | ((unsigned long long)(unsigned char)a2 << 16)) << 16))
 				 << 16;
-			*(_DWORD*)v5 = (unsigned __int8)a2 | (unsigned int)v6;
-			*(_DWORD*)(v5 + 4) = HIDWORD(v6);
-			v7 = ((unsigned __int8)a3 | (((unsigned __int8)a3 | ((unsigned __int64)(unsigned __int8)a3 << 16)) << 16))
+			*(uint32_t*)v5 = (unsigned char)a2 | (unsigned int)v6;
+			*(uint32_t*)(v5 + 4) = HIDWORD(v6);
+			v7 = ((unsigned char)a3 | (((unsigned char)a3 | ((unsigned long long)(unsigned char)a3 << 16)) << 16))
 				 << 16;
-			*(_DWORD*)(v5 + 8) = (unsigned __int8)a3 | (unsigned int)v7;
-			*(_DWORD*)(v5 + 12) = HIDWORD(v7);
-			v4 = ((unsigned __int8)a4 | (((unsigned __int8)a4 | ((unsigned __int64)(unsigned __int8)a4 << 16)) << 16))
+			*(uint32_t*)(v5 + 8) = (unsigned char)a3 | (unsigned int)v7;
+			*(uint32_t*)(v5 + 12) = HIDWORD(v7);
+			v4 = ((unsigned char)a4 | (((unsigned char)a4 | ((unsigned long long)(unsigned char)a4 << 16)) << 16))
 				 << 16;
-			LODWORD(v4) = (unsigned __int8)a4 | (unsigned int)v4;
-			*(_QWORD*)(v5 + 16) = v4;
+			LODWORD(v4) = (unsigned char)a4 | (unsigned int)v4;
+			*(uint64_t*)(v5 + 16) = v4;
 		}
 #endif // NOX_CGO
 	}
 }
 
 //----- (004347F0) --------------------------------------------------------
-BOOL  sub_4347F0(char* a1, int a2) {
+int  sub_4347F0(char* a1, int a2) {
 	if (a2 <= 256) {
 		sub_435120(getMemAt(0x973F18, 3880), a1);
 		sub_4353F0();
@@ -540,15 +542,15 @@ void sub_435550() {
 #ifndef NOX_CGO
 void sub_433C20_freeColorTables() {
 	if (nox_draw_colors_r_3804672) {
-		free(*(LPVOID*)&nox_draw_colors_r_3804672);
+		free(*(void**)&nox_draw_colors_r_3804672);
 		nox_draw_colors_r_3804672 = 0;
 	}
 	if (nox_draw_colors_g_3804656) {
-		free(*(LPVOID*)&nox_draw_colors_g_3804656);
+		free(*(void**)&nox_draw_colors_g_3804656);
 		nox_draw_colors_g_3804656 = 0;
 	}
 	if (nox_draw_colors_b_3804664) {
-		free(*(LPVOID*)&nox_draw_colors_b_3804664);
+		free(*(void**)&nox_draw_colors_b_3804664);
 		nox_draw_colors_b_3804664 = 0;
 	}
 }
@@ -562,11 +564,11 @@ void sub_433C20() {
 #endif // NOX_CGO
 
 	if (dword_5d4594_810640) {
-		free(*(LPVOID*)&dword_5d4594_810640);
+		free(*(void**)&dword_5d4594_810640);
 		dword_5d4594_810640 = 0;
 	}
 	if (dword_5d4594_3804668) {
-		free(*(LPVOID*)&dword_5d4594_3804668);
+		free(*(void**)&dword_5d4594_3804668);
 		dword_5d4594_3804668 = 0;
 	}
 	sub_433C20_freeColorTables();
@@ -667,10 +669,10 @@ void nox_video_copyBackBuffer3_4AD1E0() {
 		return;
 	}
 
-	_WORD* v1 = g_backbuffer1->pixels;
-	_WORD** v3 = nox_pixbuffer_rows_3798784;
+	uint16_t* v1 = g_backbuffer1->pixels;
+	uint16_t** v3 = nox_pixbuffer_rows_3798784;
 	for (int v2 = nox_backbuffer_height; v2 > 0; v2--) {
-		_WORD* v4 = *v3;
+		uint16_t* v4 = *v3;
 		for (int v5 = nox_backbuffer_width32; v5 > 0; v5--) {
 			for (int i = 0; i < 16; i++) {
 				*v1 = *v4 << 1;
@@ -679,8 +681,8 @@ void nox_video_copyBackBuffer3_4AD1E0() {
 			}
 		}
 		// memcpy(v1, v4, v5 * 32);
-		// v1 = (_DWORD *)((char *)v1 + v5 * 32);
-		v1 = (_WORD*)((char*)v1 + nox_backbuffer_pitchDiff);
+		// v1 = (uint32_t *)((char *)v1 + v5 * 32);
+		v1 = (uint16_t*)((char*)v1 + nox_backbuffer_pitchDiff);
 		++v3;
 	}
 	SDL_UnlockSurface(g_backbuffer1);
@@ -693,16 +695,16 @@ void nox_video_copyBackBuffer_4AD2A0() {
 	if (dword_973C70) {
 		return;
 	}
-	_DWORD* dst = nox_backbuffer_pix;
-	_DWORD** src = nox_pixbuffer_rows_3798784;
+	uint32_t* dst = nox_backbuffer_pix;
+	uint32_t** src = nox_pixbuffer_rows_3798784;
 	for (int y = 0; y < nox_backbuffer_height; y++) {
-		_DWORD* row = src[y];
+		uint32_t* row = src[y];
 		for (int x = 0; x < nox_backbuffer_width32; x++) {
 			memcpy(dst, row, 32);
 			row += 8;
 			dst += 8;
 		}
-		dst = (_DWORD*)((char*)dst + nox_backbuffer_pitchDiff);
+		dst = (uint32_t*)((char*)dst + nox_backbuffer_pitchDiff);
 	}
 	++*getMemU32Ptr(0x973A20, 496);
 }
@@ -779,7 +781,7 @@ int  sub_48B3F0(void* a1p, int a2, int a3) {
 			dword_5d4594_1193624 = a1;
 			nox_video_lockSurface_48A670(g_cursor_surf);
 			for (i = 0; i < 512; i += 4)
-				sub_49D1C0(*(_DWORD*)(i + (_DWORD)dword_5d4594_1193704), *getMemIntPtr(0x5D4594, 1193592), 128);
+				sub_49D1C0(*(uint32_t*)(i + (uint32_t)dword_5d4594_1193704), *getMemIntPtr(0x5D4594, 1193592), 128);
 			a3 = 0;
 			a2 = 0;
 			if (sub_48C0C0(a1, &a2, &a3)) {
@@ -816,7 +818,7 @@ bool nox_xxx_makeFillerColor_48BDE0() {
 	*getMemU32Ptr(0x5D4594, 1193592) = v0;
 	if (g_cursor_surf) {
 		// FIXME use SDL_MapRGB instead?
-		v0 = nox_video_pixmode_3799624 ? (unsigned __int16)v0 : (unsigned __int8)v0;
+		v0 = nox_video_pixmode_3799624 ? (unsigned short)v0 : (unsigned char)v0;
 		SDL_SetColorKey(g_cursor_surf, SDL_TRUE, v0);
 	}
 	return 1;
@@ -831,7 +833,7 @@ int sub_48C060() {
 		int v1 = g_cursor_surf_pixels;
 
 		for (int v2 = 0; v2 < 512; v2 += 4) {
-			*(_DWORD*)((_DWORD)dword_5d4594_1193704 + v2) = v1;
+			*(uint32_t*)((uint32_t)dword_5d4594_1193704 + v2) = v1;
 			v1 += g_cursor_surf_pitch;
 		}
 	}
@@ -853,7 +855,7 @@ void nox_video_stopCursorDrawThread_48B350() {
 	sub_48B1D0_free_surface(&g_cursor_surf_6F7C48);
 
 	if (dword_5d4594_1193704) {
-		free(*(LPVOID*)&dword_5d4594_1193704);
+		free(*(void**)&dword_5d4594_1193704);
 		dword_5d4594_1193704 = 0;
 	}
 	dword_5d4594_1193624 = 0;
@@ -964,10 +966,10 @@ int sub_4338D0() {
 #endif // NOX_CGO
 
 //----- (00433CD0) --------------------------------------------------------
-int  sub_433CD0(BYTE a1, BYTE a2, BYTE a3) {
-	__int64 v5;          // rax
-	unsigned __int64 v6; // rax
-	unsigned __int64 v7; // rax
+int  sub_433CD0(uint8_t a1, uint8_t a2, uint8_t a3) {
+	long long v5;          // rax
+	unsigned long long v6; // rax
+	unsigned long long v7; // rax
 	int result;          // eax
 
 	ptr_5D4594_3799572->field_24 = a1;
@@ -982,16 +984,16 @@ int  sub_433CD0(BYTE a1, BYTE a2, BYTE a3) {
 		v5 <<= 16;
 		ptr_5D4594_3799572->field_18 = a1 | (unsigned int)v5;
 		ptr_5D4594_3799572->field_19 = HIDWORD(v5);
-		v6 = (a2 | ((a2 | ((unsigned __int64)a2 << 16)) << 16)) << 16;
+		v6 = (a2 | ((a2 | ((unsigned long long)a2 << 16)) << 16)) << 16;
 		ptr_5D4594_3799572->field_20 = a2 | (unsigned int)v6;
 		ptr_5D4594_3799572->field_21 = HIDWORD(v6);
-		v7 = (a3 | ((a3 | ((unsigned __int64)a3 << 16)) << 16)) << 16;
+		v7 = (a3 | ((a3 | ((unsigned long long)a3 << 16)) << 16)) << 16;
 		ptr_5D4594_3799572->field_22 = a3 | (unsigned int)v7;
 		ptr_5D4594_3799572->field_23 = HIDWORD(v7);
 	}
 #endif // NOX_CGO
 	result = dword_975380(a1, a2, a3);
-	((_WORD*)(&ptr_5D4594_3799572->field_258))[1] = result;
+	((uint16_t*)(&ptr_5D4594_3799572->field_258))[1] = result;
 	return result;
 }
 
@@ -1028,40 +1030,40 @@ int  nox_xxx_drawPlayer_4341D0(int a1, int a2) {
 	int v3;              // edi
 	int v4;              // esi
 	int v5;              // ecx
-	unsigned __int64 v6; // rax
-	unsigned __int64 v7; // rax
-	__int64 v8;          // kr10_8
-	unsigned __int64 v9; // rax
+	unsigned long long v6; // rax
+	unsigned long long v7; // rax
+	long long v8;          // kr10_8
+	unsigned long long v9; // rax
 	int v10;             // [esp+8h] [ebp-4h]
 
 	result = a1;
 	if (a1 >= 0 && a1 < 16) {
 		v3 = a2;
-		v4 = 48 * a1 + (_DWORD)(&ptr_5D4594_3799572->field_66);
-		result = *(_DWORD*)(48 * a1 + (_DWORD)(&ptr_5D4594_3799572->field_76));
+		v4 = 48 * a1 + (uint32_t)(&ptr_5D4594_3799572->field_66);
+		result = *(uint32_t*)(48 * a1 + (uint32_t)(&ptr_5D4594_3799572->field_76));
 		if (a2 != result) {
 			dword_975240(a2, &a1, &a2, &v10);
-			*(_DWORD*)(v4 + 24) = (unsigned __int8)a1;
-			*(_DWORD*)(v4 + 28) = (unsigned __int8)a2;
-			v5 = (unsigned __int8)v10;
-			*(_DWORD*)(v4 + 40) = v3;
-			*(_DWORD*)(v4 + 32) = v5;
+			*(uint32_t*)(v4 + 24) = (unsigned char)a1;
+			*(uint32_t*)(v4 + 28) = (unsigned char)a2;
+			v5 = (unsigned char)v10;
+			*(uint32_t*)(v4 + 40) = v3;
+			*(uint32_t*)(v4 + 32) = v5;
 #ifndef NOX_CGO
 			result = cpuid_5d4594_3801804;
 			if (cpuid_5d4594_3801804) {
-				v6 = (unsigned __int64)((unsigned __int8)a1 | ((unsigned __int8)a1 << 16)) << 16;
-				LODWORD(v6) = (unsigned __int8)a1 | (unsigned int)v6;
-				*(_QWORD*)v4 = (unsigned __int8)a1 | (v6 << 16);
-				v7 = (unsigned __int64)((unsigned __int8)a2 | ((unsigned __int8)a2 << 16)) << 16;
-				LODWORD(v7) = (unsigned __int8)a2 | (unsigned int)v7;
-				*(_QWORD*)(v4 + 8) = (unsigned __int8)a2 | (v7 << 16);
-				v8 = (unsigned __int8)v10;
-				v9 = (unsigned __int64)((unsigned __int8)v10 | ((unsigned __int8)v10 << 16)) << 16;
-				LODWORD(v9) = (unsigned __int8)v10 | (unsigned int)v9;
+				v6 = (unsigned long long)((unsigned char)a1 | ((unsigned char)a1 << 16)) << 16;
+				LODWORD(v6) = (unsigned char)a1 | (unsigned int)v6;
+				*(uint64_t*)v4 = (unsigned char)a1 | (v6 << 16);
+				v7 = (unsigned long long)((unsigned char)a2 | ((unsigned char)a2 << 16)) << 16;
+				LODWORD(v7) = (unsigned char)a2 | (unsigned int)v7;
+				*(uint64_t*)(v4 + 8) = (unsigned char)a2 | (v7 << 16);
+				v8 = (unsigned char)v10;
+				v9 = (unsigned long long)((unsigned char)v10 | ((unsigned char)v10 << 16)) << 16;
+				LODWORD(v9) = (unsigned char)v10 | (unsigned int)v9;
 				v9 <<= 16;
-				result = (unsigned __int8)v10 | (unsigned int)v9;
-				*(_DWORD*)(v4 + 16) = result;
-				*(_DWORD*)(v4 + 20) = HIDWORD(v8) | HIDWORD(v9);
+				result = (unsigned char)v10 | (unsigned int)v9;
+				*(uint32_t*)(v4 + 16) = result;
+				*(uint32_t*)(v4 + 20) = HIDWORD(v8) | HIDWORD(v9);
 			}
 #endif // NOX_CGO
 		}
@@ -1184,12 +1186,12 @@ int  nox_video_setGammaSetting_434B30(int a1) {
 #endif // NOX_CGO
 
 //----- (00434B60) --------------------------------------------------------
-BOOL sub_434B60() {
+int sub_434B60() {
 	int v0;              // ebp
 	pixel888* v1;        // edi
 	int v2;              // ebx
 	char* v3;            // esi
-	__int64 v4;          // rax
+	long long v4;          // rax
 	int v13;             // [esp+10h] [ebp-90Ch]
 	char v14[1536];
 	pixel888 v19[256]; // [esp+61Ch] [ebp-300h]
@@ -1201,13 +1203,13 @@ BOOL sub_434B60() {
 	v13 = 0;
 	do {
 		if (v0 == 1)
-			LOWORD(v4) = (_WORD)v2 << 8;
+			LOWORD(v4) = (uint16_t)v2 << 8;
 		else
-			v4 = (__int64)(pow((double)v13 * 0.00392156862745098, 1.0 / ((double)(v0 - 1) * 0.1666666666666667 + 1.0)) *
+			v4 = (long long)(pow((double)v13 * 0.00392156862745098, 1.0 / ((double)(v0 - 1) * 0.1666666666666667 + 1.0)) *
 						   65535.0);
-		*((_WORD*)v3 + 256) = v4;
-		*(_WORD*)v3 = v4;
-		*((_WORD*)v3 - 256) = v4;
+		*((uint16_t*)v3 + 256) = v4;
+		*(uint16_t*)v3 = v4;
+		*((uint16_t*)v3 - 256) = v4;
 		++v2;
 		v3 += 2;
 		v13 = v2;
@@ -1246,9 +1248,9 @@ int nox_draw_initColorTables_434CC0() {
 		return 0;
 	}
 	for (i = 0; i < 256; ++i) {
-		*(_WORD*)(nox_draw_colors_r_3804672 + 2 * i) = nox_color_rgb_4344A0(i, 0, 0);
-		*(_WORD*)(nox_draw_colors_g_3804656 + 2 * i) = nox_color_rgb_4344A0(0, i, 0);
-		*(_WORD*)(nox_draw_colors_b_3804664 + 2 * i) = nox_color_rgb_4344A0(0, 0, i);
+		*(uint16_t*)(nox_draw_colors_r_3804672 + 2 * i) = nox_color_rgb_4344A0(i, 0, 0);
+		*(uint16_t*)(nox_draw_colors_g_3804656 + 2 * i) = nox_color_rgb_4344A0(0, i, 0);
+		*(uint16_t*)(nox_draw_colors_b_3804664 + 2 * i) = nox_color_rgb_4344A0(0, 0, i);
 	}
 	if (!dword_5d4594_3801780) {
 		nox_color_rgb_func = v0;
@@ -1314,11 +1316,11 @@ int  nox_video_waitVBlankAndDrawCursorFromThread_48B5D0(int a1, int a2) {
 #endif // NOX_CGO
 
 //----- (0048C200) --------------------------------------------------------
-unsigned __int8*  sub_48C200(void* a1p, int a2, int a3) {
+unsigned char*  sub_48C200(void* a1p, int a2, int a3) {
 	int a1 = a1p;
-	unsigned __int8* result; // eax
+	unsigned char* result; // eax
 	int v4;                  // ebp
-	unsigned __int8* v5;     // eax
+	unsigned char* v5;     // eax
 	int v6;                  // ecx
 	int v7;                  // edi
 	int v8;                  // edx
@@ -1331,7 +1333,7 @@ unsigned __int8*  sub_48C200(void* a1p, int a2, int a3) {
 	int v15;                 // edi
 	int v16;                 // esi
 	int v17;                 // ecx
-	unsigned __int8* v18;    // eax
+	unsigned char* v18;    // eax
 	int v19;                 // edx
 	int v20;                 // ecx
 	void (*v21)(void);       // [esp+14h] [ebp+4h]
@@ -1341,17 +1343,17 @@ unsigned __int8*  sub_48C200(void* a1p, int a2, int a3) {
 	result = nox_video_getImagePixdata_func(a1);
 	dword_5d4594_1193516 = result;
 	if (result) {
-		v4 = *(_DWORD*)result;
+		v4 = *(uint32_t*)result;
 		v5 = result + 4;
 		dword_5d4594_1193516 = v5;
-		v6 = *(_DWORD*)v5;
+		v6 = *(uint32_t*)v5;
 		v5 += 4;
 		dword_5d4594_1193516 = v5;
-		v7 = *(_DWORD*)v5;
+		v7 = *(uint32_t*)v5;
 		v5 += 4;
 		dword_5d4594_1193516 = v5;
 		v8 = v7 + a2;
-		v9 = *(_DWORD*)v5;
+		v9 = *(uint32_t*)v5;
 		result = v5 + 5;
 		v10 = v9 + a3;
 		dword_5d4594_1193568 = v4;
@@ -1370,8 +1372,8 @@ unsigned __int8*  sub_48C200(void* a1p, int a2, int a3) {
 			do {
 				v14 += 4;
 				v15 = v4;
-				v16 = v23 + *(_DWORD*)(v14 + (_DWORD)dword_5d4594_1193704 - 4);
-				for (dword_5d4594_1193584 = v23 + *(_DWORD*)(v14 + (_DWORD)dword_5d4594_1193704 - 4); v15 > 0; v15 -= v19) {
+				v16 = v23 + *(uint32_t*)(v14 + (uint32_t)dword_5d4594_1193704 - 4);
+				for (dword_5d4594_1193584 = v23 + *(uint32_t*)(v14 + (uint32_t)dword_5d4594_1193704 - 4); v15 > 0; v15 -= v19) {
 					v17 = *result;
 					v18 = result + 1;
 					*getMemU32Ptr(0x5D4594, 1193588) = v17;
@@ -1384,7 +1386,7 @@ unsigned __int8*  sub_48C200(void* a1p, int a2, int a3) {
 					if (v20) {
 						if (v20 == 1) {
 							v21();
-							result = *(unsigned __int8**)&dword_5d4594_1193516;
+							result = *(unsigned char**)&dword_5d4594_1193516;
 							v16 = dword_5d4594_1193584;
 							v19 = *getMemU32Ptr(0x5D4594, 1193520);
 						}
@@ -1401,11 +1403,11 @@ unsigned __int8*  sub_48C200(void* a1p, int a2, int a3) {
 }
 
 //----- (0048C320) --------------------------------------------------------
-unsigned __int8*  sub_48C320(void* a1p, int a2, int a3) {
+unsigned char*  sub_48C320(void* a1p, int a2, int a3) {
 	int a1 = a1p;
-	unsigned __int8* result; // eax
+	unsigned char* result; // eax
 	int v4;                  // edi
-	unsigned __int8* v5;     // eax
+	unsigned char* v5;     // eax
 	int v6;                  // ecx
 	int v7;                  // esi
 	int v8;                  // ebx
@@ -1416,7 +1418,7 @@ unsigned __int8*  sub_48C320(void* a1p, int a2, int a3) {
 	int v13;                 // ebp
 	int v14;                 // esi
 	int v15;                 // ecx
-	unsigned __int8* v16;    // eax
+	unsigned char* v16;    // eax
 	int v17;                 // edx
 	int v18;                 // ecx
 	void (*v19)(void);       // [esp+14h] [ebp+4h]
@@ -1425,17 +1427,17 @@ unsigned __int8*  sub_48C320(void* a1p, int a2, int a3) {
 	result = nox_video_getImagePixdata_func(a1);
 	dword_5d4594_1193516 = result;
 	if (result) {
-		v4 = *(_DWORD*)result;
+		v4 = *(uint32_t*)result;
 		v5 = result + 4;
 		dword_5d4594_1193516 = v5;
-		v6 = *(_DWORD*)v5;
+		v6 = *(uint32_t*)v5;
 		v5 += 4;
 		dword_5d4594_1193516 = v5;
-		v7 = *(_DWORD*)v5;
+		v7 = *(uint32_t*)v5;
 		v5 += 4;
 		dword_5d4594_1193516 = v5;
 		v8 = v7 + a2;
-		v9 = *(_DWORD*)v5;
+		v9 = *(uint32_t*)v5;
 		result = v5 + 5;
 		dword_5d4594_1193568 = v4;
 		dword_5d4594_1193576 = v6;
@@ -1452,7 +1454,7 @@ unsigned __int8*  sub_48C320(void* a1p, int a2, int a3) {
 			do {
 				v13 += 4;
 				v14 = v4;
-				for (dword_5d4594_1193584 = v8 + *(_DWORD*)((_DWORD)dword_5d4594_1193704 + v13 - 4); v14 > 0; v14 -= v17) {
+				for (dword_5d4594_1193584 = v8 + *(uint32_t*)((uint32_t)dword_5d4594_1193704 + v13 - 4); v14 > 0; v14 -= v17) {
 					v15 = *result;
 					v16 = result + 1;
 					*getMemU32Ptr(0x5D4594, 1193588) = v15;
@@ -1465,7 +1467,7 @@ unsigned __int8*  sub_48C320(void* a1p, int a2, int a3) {
 					if (v18) {
 						if (v18 == 1) {
 							v19();
-							result = *(unsigned __int8**)&dword_5d4594_1193516;
+							result = *(unsigned char**)&dword_5d4594_1193516;
 							v17 = *getMemU32Ptr(0x5D4594, 1193520);
 						}
 					} else {

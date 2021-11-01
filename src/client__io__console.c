@@ -1,20 +1,21 @@
 #include "GAME1_2.h"
 #include "client__gui__window.h"
-#include "legacy/input_ddraw.h"
+#include "input.h"
 #include "common/fs/nox_fs.h"
-extern _DWORD dword_5d4594_823776;
+#include "common__strman.h"
+extern uint32_t dword_5d4594_823776;
 
 FILE* nox_file_log = 0;
 
 //----- (00451610) --------------------------------------------------------
 int sub_451610() {
 	int result;          // eax
-	unsigned __int8* v1; // ecx
+	unsigned char* v1; // ecx
 
 	result = *getMemU32Ptr(0x5D4594, 835876);
 	v1 = getMemAt(0x5D4594, 835876);
 	do {
-		*(_DWORD*)v1 = *((_DWORD*)v1 - 1);
+		*(uint32_t*)v1 = *((uint32_t*)v1 - 1);
 		v1 -= 4;
 	} while ((int)v1 > (int)getMemAt(0x5D4594, 835800));
 	*getMemU32Ptr(0x5D4594, 835800) = result;
@@ -22,9 +23,9 @@ int sub_451610() {
 }
 
 //----- (00451630) --------------------------------------------------------
-unsigned __int8* sub_451630() {
-	unsigned __int8* v1;     // ecx
-	unsigned __int8* result; // eax
+unsigned char* sub_451630() {
+	unsigned char* v1;     // ecx
+	unsigned char* result; // eax
 	wchar_t* v3;             // [esp-Ch] [ebp-Ch]
 	wchar_t* v4;             // [esp-8h] [ebp-8h]
 
@@ -38,8 +39,8 @@ unsigned __int8* sub_451630() {
 	v1 = getMemAt(0x5D4594, 835880);
 	result = getMemAt(0x5D4594, 835800);
 	do {
-		*(_DWORD*)result = v1;
-		*(_WORD*)v1 = 0;
+		*(uint32_t*)result = v1;
+		*(uint16_t*)v1 = 0;
 		result += 4;
 		v1 += 200;
 	} while ((int)result < (int)getMemAt(0x5D4594, 835880));

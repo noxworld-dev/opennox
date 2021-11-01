@@ -5,8 +5,9 @@
 #include "GAME1_3.h"
 #include "GAME2_1.h"
 #include "client__gui__gamewin__gamewin.h"
+#include "common__strman.h"
 
-extern _DWORD dword_5d4594_825744;
+extern uint32_t dword_5d4594_825744;
 extern int nox_win_width;
 extern int nox_win_height;
 

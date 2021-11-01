@@ -5,20 +5,22 @@
 
 void init_data_mix();
 
-BOOL __stdcall GameEx_DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved);
+#ifndef NOX_CGO
+int GameEx_DllMain(uint32_t fdwReason);
+#endif // NOX_CGO
 void OnLibraryNotice_256();
 void OnLibraryNotice_257();
 void OnLibraryNotice_258();
-void OnLibraryNotice_259(DWORD arg1);
-void OnLibraryNotice_260(DWORD arg1, DWORD arg2, DWORD arg3);
+void OnLibraryNotice_259(uint32_t arg1);
+void OnLibraryNotice_260(uint32_t arg1, uint32_t arg2, uint32_t arg3);
 void OnLibraryNotice_261();
-void OnLibraryNotice_262(DWORD arg1);
-void OnLibraryNotice_263(DWORD arg1);
-void OnLibraryNotice_264(DWORD arg1);
+void OnLibraryNotice_262(uint32_t arg1);
+void OnLibraryNotice_263(uint32_t arg1);
+void OnLibraryNotice_264(uint32_t arg1);
 void OnLibraryNotice_265(unsigned int arg1, unsigned int arg2, int arg3);
 void OnKeyboardEvent(nox_keyboard_btn_t* ev);
 void OnLibraryNotice_418();
-void OnLibraryNotice_420(DWORD arg1, DWORD arg2, DWORD arg3, DWORD arg4);
+void OnLibraryNotice_420(uint32_t arg1, uint32_t arg2, uint32_t arg3, uint32_t arg4);
 int MixRecvFromReplacer(nox_socket_t s, char* buf, int len, struct nox_net_sockaddr* from); // idb
 void OnLibraryNotice_stub(int a1, ...);
 

@@ -1,3 +1,7 @@
+#include <float.h>
+#include <time.h>
+#include <math.h>
+
 #include "GAME1.h"
 #include "GAME1_2.h"
 #include "GAME1_1.h"
@@ -16,6 +20,8 @@
 #include "GAME5_2.h"
 #include "client__system__parsecmd.h"
 #include "common__random.h"
+#include "common__strman.h"
+#include "common__binfile.h"
 
 #include "client__gui__guiinv.h"
 #include "client__shell__mainmenu.h"
@@ -24,54 +30,53 @@
 
 #include "common/fs/nox_fs.h"
 #include "nox_net.h"
+#include "operators.h"
 #include "client__video__draw_common.h"
 #include "client__video__sdl__draw_nogl.h"
 #include "common__magic__speltree.h"
 #include "MixPatch.h"
 
-#include <float.h>
-#include <time.h>
 
-extern _DWORD dword_5d4594_2496988;
-extern _DWORD dword_5d4594_2516352;
-extern _DWORD dword_5d4594_2523888;
-extern _DWORD dword_5d4594_2496472;
-extern _DWORD dword_5d4594_2523904;
-extern _DWORD dword_5d4594_2516380;
-extern _DWORD dword_5d4594_2523804;
-extern _DWORD dword_5d4594_2516372;
-extern _DWORD dword_5d4594_2523764;
-extern _DWORD dword_5d4594_2513932;
-extern _DWORD dword_5d4594_2523760;
-extern _DWORD nox_xxx_warriorMaxSpeed_587000_312796;
-extern _DWORD nox_xxx_conjurerSpeed_587000_312812;
-extern _DWORD nox_xxx_wizardSpeed_587000_312828;
-extern _DWORD nox_xxx_wizardStrength_587000_312824;
-extern _DWORD nox_xxx_warriorMaxStrength_587000_312792;
-extern _DWORD dword_5d4594_2523776;
-extern _DWORD nox_xxx_conjurerStrength_587000_312808;
+extern uint32_t dword_5d4594_2496988;
+extern uint32_t dword_5d4594_2516352;
+extern uint32_t dword_5d4594_2523888;
+extern uint32_t dword_5d4594_2496472;
+extern uint32_t dword_5d4594_2523904;
+extern uint32_t dword_5d4594_2516380;
+extern uint32_t dword_5d4594_2523804;
+extern uint32_t dword_5d4594_2516372;
+extern uint32_t dword_5d4594_2523764;
+extern uint32_t dword_5d4594_2513932;
+extern uint32_t dword_5d4594_2523760;
+extern uint32_t nox_xxx_warriorMaxSpeed_587000_312796;
+extern uint32_t nox_xxx_conjurerSpeed_587000_312812;
+extern uint32_t nox_xxx_wizardSpeed_587000_312828;
+extern uint32_t nox_xxx_wizardStrength_587000_312824;
+extern uint32_t nox_xxx_warriorMaxStrength_587000_312792;
+extern uint32_t dword_5d4594_2523776;
+extern uint32_t nox_xxx_conjurerStrength_587000_312808;
 extern void* nox_alloc_groupInfo_2523892;
-extern _DWORD dword_5d4594_2516356;
-extern _DWORD dword_587000_311372;
+extern uint32_t dword_5d4594_2516356;
+extern uint32_t dword_587000_311372;
 extern void* nox_alloc_debugData_2523908;
 extern void* nox_alloc_itemGroupElem_2523896;
-extern _DWORD nox_xxx_warriorMaxMana_587000_312788;
-extern _DWORD nox_xxx_warriorMaxHealth_587000_312784;
-extern _DWORD nox_xxx_conjurerMaxHealth_587000_312800;
-extern _DWORD nox_xxx_wizardMaxHealth_587000_312816;
-extern _DWORD nox_xxx_conjurerMaxMana_587000_312804;
-extern _DWORD dword_5d4594_3844304;
-extern _DWORD nox_xxx_wizardMaximumMana_587000_312820;
-extern _QWORD qword_581450_9544;
-extern _DWORD dword_5d4594_2523780;
-extern _DWORD dword_5d4594_2495920;
-extern _DWORD dword_5d4594_2516344;
-extern _DWORD nox_server_mapGroupsHead_2523900;
-extern _DWORD dword_5d4594_2523756;
-extern _DWORD nox_xxx_waypointsHead_2523752;
-extern _DWORD dword_5d4594_2516328;
-extern _DWORD dword_5d4594_2516348;
-extern _DWORD dword_5d4594_2650652;
+extern uint32_t nox_xxx_warriorMaxMana_587000_312788;
+extern uint32_t nox_xxx_warriorMaxHealth_587000_312784;
+extern uint32_t nox_xxx_conjurerMaxHealth_587000_312800;
+extern uint32_t nox_xxx_wizardMaxHealth_587000_312816;
+extern uint32_t nox_xxx_conjurerMaxMana_587000_312804;
+extern uint32_t dword_5d4594_3844304;
+extern uint32_t nox_xxx_wizardMaximumMana_587000_312820;
+extern uint64_t qword_581450_9544;
+extern uint32_t dword_5d4594_2523780;
+extern uint32_t dword_5d4594_2495920;
+extern uint32_t dword_5d4594_2516344;
+extern uint32_t nox_server_mapGroupsHead_2523900;
+extern uint32_t dword_5d4594_2523756;
+extern uint32_t nox_xxx_waypointsHead_2523752;
+extern uint32_t dword_5d4594_2516328;
+extern uint32_t dword_5d4594_2516348;
+extern uint32_t dword_5d4594_2650652;
 extern nox_alloc_class* nox_alloc_gQueue_3844300;
 extern unsigned int nox_frame_xxx_2598000;
 
@@ -80,11 +85,11 @@ int (*nox_client_onLobbyServer_2513928)(const char*, uint16_t, const char*, cons
 nox_net_struct_t* nox_net_struct_arr[NOX_NET_STRUCT_MAX] = {0};
 nox_net_struct2_t nox_net_struct2_arr[NOX_NET_STRUCT_MAX] = {0};
 void* dword_5d4594_2523912 = 0;
-_DWORD dword_5d4594_3843632 = 0;
+uint32_t dword_5d4594_3843632 = 0;
 
 #ifndef NOX_CGO
-_DWORD dword_5d4594_2513916 = 0;
-_DWORD dword_5d4594_2513924 = 0;
+uint32_t dword_5d4594_2513916 = 0;
+uint32_t dword_5d4594_2513924 = 0;
 nox_socket_t nox_xxx_sockLocalBroadcast_2513920 = 0;
 #endif // NOX_CGO
 
@@ -101,7 +106,7 @@ int  nox_xxx_netSendReadPacket_5528B0(unsigned int a1, char a2) {
 	unsigned int v2;     // ecx
 	unsigned int v5;     // eax
 	int v7;              // edi
-	DWORD v10;           // eax
+	uint32_t v10;           // eax
 	int v11;             // eax
 	unsigned int v12;    // eax
 	char* v13;           // eax
@@ -143,13 +148,13 @@ int  nox_xxx_netSendReadPacket_5528B0(unsigned int a1, char a2) {
 			v11 = ns2->func_xxx(j, ns2->data_2_xxx, (int)(ns2->data_2_end) - (int)(ns2->data_2_xxx), ns2->data_3);
 			v7 = v11;
 			if (v11 > 0) {
-				v12 = v11 + (_DWORD)(ns2->data_2_xxx);
+				v12 = v11 + (uint32_t)(ns2->data_2_xxx);
 				if (v12 < ns2->data_2_end)
 					ns2->data_2_xxx = v12;
 			}
 		}
 		v13 = ns2->data_2_base;
-		v14 = (_DWORD)(ns2->data_2_xxx) - (_DWORD)v13;
+		v14 = (uint32_t)(ns2->data_2_xxx) - (uint32_t)v13;
 		if (v14 > 2) {
 			v7 = nox_xxx_sendto_551F90(ns->sock, v13, v14, &ns2->addr);
 			if (v7 == -1)
@@ -357,7 +362,7 @@ int  sub_552E70(unsigned int a1) {
 			int v8 = dword_5d4594_2495920;
 			ns2->field_22 = dword_5d4594_2495920;
 			ns2->field_23 = dword_5d4594_2495920;
-			*(_DWORD*)&v9[1] = v8;
+			*(uint32_t*)&v9[1] = v8;
 			nox_xxx_netSendSock_552640(v3, v9, 5, NOX_NET_SEND_FLAG2);
 		}
 	}
@@ -392,7 +397,7 @@ int  sub_552F20(unsigned int a1) {
 			int v8 = ns2->field_25 + 1;
 			ns2->field_25 = v8;
 			ns2->field_26 = dword_5d4594_2495920;
-			*(_DWORD*)&v9[1] = v8;
+			*(uint32_t*)&v9[1] = v8;
 			nox_xxx_netSendSock_552640(v3, v9, 256, NOX_NET_SEND_FLAG2);
 		}
 	}
@@ -506,11 +511,11 @@ int  nox_xxx_netBigSwitch_553210(unsigned int id, unsigned char* packet, int pac
 
 	unsigned char* packetEnd = &packet[packetSz];
 
-	unsigned __int8 v74[8];
-	*(_DWORD*)&v74[0] = *(_DWORD*)(a4 + 0);
-	*(_DWORD*)&v74[4] = *(_DWORD*)(a4 + 4);
-	int v75 = *(_DWORD*)(a4 + 8);
-	int v76 = *(_DWORD*)(a4 + 12);
+	unsigned char v74[8];
+	*(uint32_t*)&v74[0] = *(uint32_t*)(a4 + 0);
+	*(uint32_t*)&v74[4] = *(uint32_t*)(a4 + 4);
+	int v75 = *(uint32_t*)(a4 + 8);
+	int v76 = *(uint32_t*)(a4 + 12);
 
 	if (packetSz <= 2) {
 		return 0;
@@ -533,15 +538,15 @@ int  nox_xxx_netBigSwitch_553210(unsigned int id, unsigned char* packet, int pac
 			{
 			if (nox_common_gameFlags_check_40A5C0(1) && nox_common_gameFlags_check_40A5C0(8))
 				return 0;
-			*(_BYTE*)(out + 0) = 0;
-			*(_BYTE*)(out + 1) = p1;
+			*(uint8_t*)(out + 0) = 0;
+			*(uint8_t*)(out + 1) = p1;
 			if (ns1->field_21 >= nox_xxx_servGetPlrLimit_409FA0() + (unsigned int)getMemByte(0x5D4594, 2500076) - 1) {
-				*(_BYTE*)(out + 2) = 2;
+				*(uint8_t*)(out + 2) = 2;
 				return 3;
 			}
 			if (pid != -1) {
 				// pid in the request must be -1 (0xff); fail if it's not
-				*(_BYTE*)(out + 2) = 2;
+				*(uint8_t*)(out + 2) = 2;
 				return 3;
 			}
 			for (int i = 0; i < NOX_NET_STRUCT_MAX; i++) {
@@ -550,14 +555,14 @@ int  nox_xxx_netBigSwitch_553210(unsigned int id, unsigned char* packet, int pac
 					pid = i;
 					break;
 				}
-				if (*(_WORD*)&v74[2] == ns9->addr.sin_port && *(_DWORD*)&v74[4] == ns9->addr.sin_addr) {
-					printf("%d %d\n", *(_WORD*)&v74[2], *(_DWORD*)&v74[4]);
-					*(_BYTE*)(out + 2) = 4; // already joined?
+				if (*(uint16_t*)&v74[2] == ns9->addr.sin_port && *(uint32_t*)&v74[4] == ns9->addr.sin_addr) {
+					printf("%d %d\n", *(uint16_t*)&v74[2], *(uint32_t*)&v74[4]);
+					*(uint8_t*)(out + 2) = 4; // already joined?
 					return 3;
 				}
 			}
 			if (pid == -1) {
-				*(_BYTE*)(out + 2) = 2;
+				*(uint8_t*)(out + 2) = 2;
 				return 3;
 			}
 			nox_net_struct_arg_t narg;
@@ -568,15 +573,15 @@ int  nox_xxx_netBigSwitch_553210(unsigned int id, unsigned char* packet, int pac
 			nox_net_struct_arr[pid] = ns10;
 			if (!ns10) {
 				// cannot allocate - fail
-				*(_BYTE*)(out + 2) = 2;
+				*(uint8_t*)(out + 2) = 2;
 				return 3;
 			}
 			ns1->field_21++;
 			ns10->data_2_base[0] = id;
 			int v62 = ns10->data_2_base;
-			char v63 = *(_BYTE*)(v62 + 1);
+			char v63 = *(uint8_t*)(v62 + 1);
 			if (v63 == p1)
-				*(_BYTE*)(v62 + 1) = v63 + 1;
+				*(uint8_t*)(v62 + 1) = v63 + 1;
 			ns10->id = id;
 			ns10->sock = ns1->sock;
 			ns10->func_xxx = ns1->func_xxx;
@@ -590,15 +595,15 @@ int  nox_xxx_netBigSwitch_553210(unsigned int id, unsigned char* packet, int pac
 			ns10->xor_key = 0; // send this packet without xor encoding
 
 			int v66 = &ns10->addr;
-			*(_QWORD*)v66 = *(_QWORD*)v74;
-			*(_DWORD*)(v66 + 8) = v75;
-			*(_DWORD*)(v66 + 12) = v76;
+			*(uint64_t*)v66 = *(uint64_t*)v74;
+			*(uint32_t*)(v66 + 8) = v75;
+			*(uint32_t*)(v66 + 12) = v76;
 
-			*(_BYTE*)(out + 0) = 31;
-			*(_BYTE*)(out + 1) = p1;
-			*(_BYTE*)(out + 2) = 1;
-			*(_DWORD*)(out + 3) = pid;
-			*(_BYTE*)(out + 7) = key;
+			*(uint8_t*)(out + 0) = 31;
+			*(uint8_t*)(out + 1) = p1;
+			*(uint8_t*)(out + 2) = 1;
+			*(uint32_t*)(out + 3) = pid;
+			*(uint8_t*)(out + 7) = key;
 			char v67 = nox_xxx_netSendSock_552640(pid, out, 8, NOX_NET_SEND_NO_LOCK | NOX_NET_SEND_FLAG2);
 
 			ns10->xor_key = key;
@@ -609,13 +614,13 @@ int  nox_xxx_netBigSwitch_553210(unsigned int id, unsigned char* packet, int pac
 			}
 		case 1:
 			{
-			int v11 = *(_DWORD*)packetCur;
-			_BYTE* v12 = ns1->data_2_base;
-			_BYTE* v13 = packetCur + 4;
+			int v11 = *(uint32_t*)packetCur;
+			uint8_t* v12 = ns1->data_2_base;
+			uint8_t* v13 = packetCur + 4;
 			ns1->id = v11;
 			*v12 = v11;
 			packetCur = v13 + 1;
-			ns1->xor_key = (_BYTE)*v13;
+			ns1->xor_key = (uint8_t)*v13;
 			dword_5d4594_3844304 = 1;
 			if ((unsigned int)packetCur >= packetEnd) {
 				return 0;
@@ -644,9 +649,9 @@ int  nox_xxx_netBigSwitch_553210(unsigned int id, unsigned char* packet, int pac
 			}
 			break;
 		case 5:
-			*(_BYTE*)(out + 0) = ns1->xor_key;
-			*(_BYTE*)(out + 2) = 7;
-			*(_DWORD*)(out + 3) = *(_DWORD*)packetCur;
+			*(uint8_t*)(out + 0) = ns1->xor_key;
+			*(uint8_t*)(out + 2) = 7;
+			*(uint32_t*)(out + 3) = *(uint32_t*)packetCur;
 			return 7;
 		case 6:
 			{
@@ -656,20 +661,20 @@ int  nox_xxx_netBigSwitch_553210(unsigned int id, unsigned char* packet, int pac
 			}
 			nox_net_struct_t* ns2 = nox_net_struct_arr[pidb];
 			nox_net_struct_t* ns3 = nox_net_struct_arr[pid];
-			_BYTE a2b3 = 37;
+			uint8_t a2b3 = 37;
 			ns1->func_yyy(pid, &a2b3, 1, ns3->data_3);
 			int v18 = 0;
 			if (ns1->id == -1) {
-				*(_BYTE*)(out + 0) = ns2->id;
+				*(uint8_t*)(out + 0) = ns2->id;
 				v18 = ns2->data_2_base;
 			} else {
-				*(_BYTE*)(out + 0) = ns1->id;
+				*(uint8_t*)(out + 0) = ns1->id;
 				v18 = ns1->data_2_base;
 			}
-			*(_BYTE*)(out + 1) = *(_BYTE*)(v18 + 1);
-			*getMemU32Ptr(0x5D4594, 2508792 + 32 * pid) = *(_DWORD*)packetCur;
-			*(_BYTE*)(out + 2) = 8;
-			*(_DWORD*)(out + 3) = *(_DWORD*)packetCur;
+			*(uint8_t*)(out + 1) = *(uint8_t*)(v18 + 1);
+			*getMemU32Ptr(0x5D4594, 2508792 + 32 * pid) = *(uint32_t*)packetCur;
+			*(uint8_t*)(out + 2) = 8;
+			*(uint32_t*)(out + 3) = *(uint32_t*)packetCur;
 			return 7;
 			}
 		case 7:
@@ -685,8 +690,8 @@ int  nox_xxx_netBigSwitch_553210(unsigned int id, unsigned char* packet, int pac
 			int v32 = -1;
 			if (v31 >= 1)
 				v32 = 256000 / v31;
-			*(_BYTE*)(out + 0) = 35;
-			*(_DWORD*)(out + 1) = v32;
+			*(uint8_t*)(out + 0) = 35;
+			*(uint32_t*)(out + 1) = v32;
 			if (ns1->id == -1)
 				ns1->func_yyy(pid, out, 5, ns4->data_3);
 			else
@@ -700,27 +705,27 @@ int  nox_xxx_netBigSwitch_553210(unsigned int id, unsigned char* packet, int pac
 				abort();
 			}
 			nox_net_struct_t* ns5 = nox_net_struct_arr[pidb];
-			if (*(_DWORD*)packetCur != ns5->field_22)
+			if (*(uint32_t*)packetCur != ns5->field_22)
 				return 0;
 			ns5->field_24 = dword_5d4594_2495920 - ns5->field_23;
-			*(_BYTE*)(out + 0) = 36;
-			*(_DWORD*)(out + 1) = ns5->field_24;
+			*(uint8_t*)(out + 0) = 36;
+			*(uint32_t*)(out + 1) = ns5->field_24;
 			int v19 = 0;
 			if (ns1->id == -1)
 				v19 = ns5->data_3;
 			else
 				v19 = ns1->data_3;
 			ns1->func_yyy(pid, out, 5, v19);
-			*(_BYTE*)(out + 0) = ns1->data_2_base[0];
-			*(_BYTE*)(out + 1) = ns5->data_2_base[1];
-			*(_BYTE*)(out + 2) = 9;
-			*(_DWORD*)(out + 3) = dword_5d4594_2495920;
+			*(uint8_t*)(out + 0) = ns1->data_2_base[0];
+			*(uint8_t*)(out + 1) = ns5->data_2_base[1];
+			*(uint8_t*)(out + 2) = 9;
+			*(uint32_t*)(out + 3) = dword_5d4594_2495920;
 			return 7;
 			}
 		case 9:
 			{
 			int v21 = 32 * pid;
-			int v22 = *(_DWORD*)packetCur - *getMemU32Ptr(0x5D4594, 2508792 + 32 * pid);
+			int v22 = *(uint32_t*)packetCur - *getMemU32Ptr(0x5D4594, 2508792 + 32 * pid);
 			if (v22 <= 0 || v22 >= 1000)
 				return 0;
 			int v23 = *getMemU32Ptr(0x5D4594, 2508788 + 32 * pid);
@@ -730,9 +735,9 @@ int  nox_xxx_netBigSwitch_553210(unsigned int id, unsigned char* packet, int pac
 			int v26 = (v23 + 1) % 5;
 			int v27 = v26;
 			if (!v26) {
-				unsigned __int8* v28 = getMemAt(0x5D4594, 2508796 + v21);
+				unsigned char* v28 = getMemAt(0x5D4594, 2508796 + v21);
 				do {
-					int v29 = *(_DWORD*)v28;
+					int v29 = *(uint32_t*)v28;
 					v28 += 4;
 					v26 += v29;
 					--v25;
@@ -749,12 +754,12 @@ int  nox_xxx_netBigSwitch_553210(unsigned int id, unsigned char* packet, int pac
 			nox_net_struct_t* ns6 = nox_net_struct_arr[pid];
 			if (ns6->field_38 == 1)
 				return 0;
-			_BYTE a2b2 = 34;
+			uint8_t a2b2 = 34;
 			ns1->func_yyy(pid, &a2b2, 1, ns6->data_3);
 			memset(getMemAt(0x5D4594, 2508788 + 32 * id), 0, 0x20u);
 			int* v69 = nox_xxx_findPlayerID_5541D0(pid);
 			if (v69) {
-				sub_425920((_DWORD**)v69);
+				sub_425920((uint32_t**)v69);
 				free(v69);
 				--*getMemU8Ptr(0x5D4594, 2500076);
 			}
@@ -764,7 +769,7 @@ int  nox_xxx_netBigSwitch_553210(unsigned int id, unsigned char* packet, int pac
 		case 11:
 			{
 			nox_net_struct_t* ns7 = nox_net_struct_arr[pid];
-			_BYTE a2b = 33;
+			uint8_t a2b = 33;
 			ns1->func_yyy(pid, &a2b, 1, ns7->data_3);
 			sub_554A50(id);
 			return 0;
@@ -775,8 +780,8 @@ int  nox_xxx_netBigSwitch_553210(unsigned int id, unsigned char* packet, int pac
 			char* v78 = sub_416640();
 			nox_xxx_cliGamedataGet_416590(0);
 			bool a4a = 0;
-			*(_BYTE*)(out + 0) = 0;
-			*(_BYTE*)(out + 1) = p1;
+			*(uint8_t*)(out + 0) = 0;
+			*(uint8_t*)(out + 1) = p1;
 			// TODO: This code is disabled because it causes issues with players reconnecting to the server.
 			//       For some reason the player record gets stuck in the server's player list, so this check fails.
 
@@ -785,8 +790,8 @@ int  nox_xxx_netBigSwitch_553210(unsigned int id, unsigned char* packet, int pac
 //				while (v45) {
 //					if (v45[2135] == packet[98]) {
 //						if (!strcmp(v45 + 2112, (const char*)packet + 56)) {
-//							*(_BYTE*)(out + 2) = 19;
-//							*(_BYTE*)(out + 3) = 12;
+//							*(uint8_t*)(out + 2) = 19;
+//							*(uint8_t*)(out + 3) = 12;
 //							return 4;
 //						}
 //						v43 = 0;
@@ -794,30 +799,30 @@ int  nox_xxx_netBigSwitch_553210(unsigned int id, unsigned char* packet, int pac
 //					v45 = nox_common_playerInfoGetNext_416EE0((int)v45);
 //				}
 //			}
-			if (*((_DWORD*)packet + 20) != NOX_CLIENT_VERS_CODE) {
-				*(_BYTE*)(out + 2) = 19;
-				*(_BYTE*)(out + 3) = 13;
+			if (*((uint32_t*)packet + 20) != NOX_CLIENT_VERS_CODE) {
+				*(uint8_t*)(out + 2) = 19;
+				*(uint8_t*)(out + 3) = 13;
 				return 4;
 			}
 			if (ns1->field_21 >= (unsigned int)(nox_xxx_servGetPlrLimit_409FA0() - 1))
 				a4a = 1;
 			if (sub_40A740()) {
 				int v46 = nox_xxx_countObserverPlayers_425BF0();
-				if (!*((_DWORD*)packet + 21)) {
-					if (v46 >= (unsigned __int8)v78[53]) {
-						*(_BYTE*)(out + 2) = 19;
-						*(_BYTE*)(out + 3) = 11;
+				if (!*((uint32_t*)packet + 21)) {
+					if (v46 >= (unsigned char)v78[53]) {
+						*(uint8_t*)(out + 2) = 19;
+						*(uint8_t*)(out + 3) = 11;
 						return 4;
 					}
-				} else if (sub_418AE0(*((_DWORD*)packet + 21))) {
+				} else if (sub_418AE0(*((uint32_t*)packet + 21))) {
 					if (v46 > 0) {
 						v43 = 1;
 					}
 				} else {
-					if ((unsigned __int8)sub_417DE0() >= (unsigned __int8)v78[52]) {
-						if (v46 >= (unsigned __int8)v78[53]) {
-							*(_BYTE*)(out + 2) = 19;
-							*(_BYTE*)(out + 3) = 11;
+					if ((unsigned char)sub_417DE0() >= (unsigned char)v78[52]) {
+						if (v46 >= (unsigned char)v78[53]) {
+							*(uint8_t*)(out + 2) = 19;
+							*(uint8_t*)(out + 3) = 11;
 							return 4;
 						}
 					} else if (v46 > 0) {
@@ -826,19 +831,19 @@ int  nox_xxx_netBigSwitch_553210(unsigned int id, unsigned char* packet, int pac
 				}
 			}
 			if (a4a) {
-				if (!v43 || !*(_DWORD*)(v78 + 54)) {
-					*(_BYTE*)(out + 2) = 19;
-					*(_BYTE*)(out + 3) = 11;
+				if (!v43 || !*(uint32_t*)(v78 + 54)) {
+					*(uint8_t*)(out + 2) = 19;
+					*(uint8_t*)(out + 3) = 11;
 					return 4;
 				}
 				for (char* i = nox_xxx_firstReplaceablePlayer_425C40(); i; i = nox_xxx_nextReplaceablePlayer_425C70((int)i)) {
-					if (!nox_xxx_findPlayerID_5541D0((unsigned __int8)i[2064] + 1)) {
-						nox_xxx_playerCallDisconnect_4DEAB0((unsigned __int8)i[2064], 4);
-						_DWORD* v50 = malloc(0x10u);
-						v50[3] = (unsigned __int8)i[2064] + 1;
+					if (!nox_xxx_findPlayerID_5541D0((unsigned char)i[2064] + 1)) {
+						nox_xxx_playerCallDisconnect_4DEAB0((unsigned char)i[2064], 4);
+						uint32_t* v50 = malloc(0x10u);
+						v50[3] = (unsigned char)i[2064] + 1;
 						nox_common_list_append_4258E0((int)getMemAt(0x5D4594, 2495908), v50);
 						++*getMemU8Ptr(0x5D4594, 2500076);
-						*(_BYTE*)(out + 2) = 21;
+						*(uint8_t*)(out + 2) = 21;
 						return 3;
 					}
 				}
@@ -846,15 +851,15 @@ int  nox_xxx_netBigSwitch_553210(unsigned int id, unsigned char* packet, int pac
 			if (v78[100] & 0x10) {
 				int* v48 = sub_4168E0();
 				if (!v48) {
-					*(_BYTE*)(out + 2) = 19;
-					*(_BYTE*)(out + 3) = 4;
+					*(uint8_t*)(out + 2) = 19;
+					*(uint8_t*)(out + 3) = 4;
 					return 4;
 				}
 				while (_nox_wcsicmp((const wchar_t*)v48 + 6, (const wchar_t*)(packet + 4))) {
 					v48 = sub_4168F0(v48);
 					if (!v48) {
-						*(_BYTE*)(out + 2) = 19;
-						*(_BYTE*)(out + 3) = 4;
+						*(uint8_t*)(out + 2) = 19;
+						*(uint8_t*)(out + 3) = 4;
 						return 4;
 					}
 				}
@@ -862,83 +867,83 @@ int  nox_xxx_netBigSwitch_553210(unsigned int id, unsigned char* packet, int pac
 				for (int* j = sub_416900(); j; j = sub_416910(j)) {
 					if (!strcmp((const char*)j + 72, "0")) {
 						if (!_nox_wcsicmp((const wchar_t*)j + 6, (const wchar_t*)packet + 2)) {
-							*(_BYTE*)(out + 2) = 19;
-							*(_BYTE*)(out + 3) = 5;
+							*(uint8_t*)(out + 2) = 19;
+							*(uint8_t*)(out + 3) = 5;
 							return 4;
 						}
 					} else if (!_strcmpi((const char*)j + 72, (const char*)packet + 56)) {
-						*(_BYTE*)(out + 2) = 19;
-						*(_BYTE*)(out + 3) = 5;
+						*(uint8_t*)(out + 2) = 19;
+						*(uint8_t*)(out + 3) = 5;
 						return 4;
 					}
 				}
 			}
 			char* v35 = v78;
 			char v52 = v78[100];
-			if (v52 && (unsigned __int8)(1 << packet[54]) & (unsigned __int8)v52) {
-				*(_BYTE*)(out + 2) = 19;
-				*(_BYTE*)(out + 3) = 7;
+			if (v52 && (unsigned char)(1 << packet[54]) & (unsigned char)v52) {
+				*(uint8_t*)(out + 2) = 19;
+				*(uint8_t*)(out + 3) = 7;
 				return 4;
 			}
 			if (v52 & 0x20) {
-				*(_BYTE*)(out + 2) = 15;
+				*(uint8_t*)(out + 2) = 15;
 				return 3;
 			}
 			if (*(short*)(v78 + 105) == -1 && *(short*)(v35 + 107) == -1) {
-				*(_BYTE*)(out + 2) = 20; // OK
+				*(uint8_t*)(out + 2) = 20; // OK
 				return 3;
 			}
 			int id53 = sub_553D10();
 			if (id53 < 0) {
-				*(_BYTE*)(out + 2) = 20; // OK
+				*(uint8_t*)(out + 2) = 20; // OK
 				return 3;
 			}
 			nox_net_struct2_t* nx = &nox_net_struct2_arr[id53];
 			nx->field_0 = 1;
 			nx->field_1_1 = 0;
 			nx->field_1_0 = 0;
-			*(_QWORD*)(&nx->addr) = *(_QWORD*)v74;
-			*((_DWORD*)(&nx->addr) + 1) = v75;
-			*((_DWORD*)(&nx->addr) + 2) = v76;
+			*(uint64_t*)(&nx->addr) = *(uint64_t*)v74;
+			*((uint32_t*)(&nx->addr) + 1) = v75;
+			*((uint32_t*)(&nx->addr) + 2) = v76;
 			return nox_xxx_makePacketTime_552340(id53, out);
 			}
 		case 17:
 			{
 			char* v33 = sub_416640();
 			char* v35 = v33;
-			*(_BYTE*)(out + 0) = 0;
-			*(_BYTE*)(out + 1) = p1;
+			*(uint8_t*)(out + 0) = 0;
+			*(uint8_t*)(out + 1) = p1;
 			if (nox_wcscmp((const wchar_t*)(packet + 4), (const wchar_t*)v33 + 39)) {
-				*(_BYTE*)(out + 2) = 19;
-				*(_BYTE*)(out + 3) = 6;
+				*(uint8_t*)(out + 2) = 19;
+				*(uint8_t*)(out + 3) = 6;
 				return 4;
 			}
 			if (*(short*)(v35 + 105) == -1 && *(short*)(v35 + 107) == -1) {
-				*(_BYTE*)(out + 2) = 20;
+				*(uint8_t*)(out + 2) = 20;
 				return 3;
 			}
 			int id53 = sub_553D10();
 			if (id53 < 0) {
-				*(_BYTE*)(out + 2) = 20;
+				*(uint8_t*)(out + 2) = 20;
 				return 3;
 			}
 			nox_net_struct2_t* nx1 = &nox_net_struct2_arr[id53];
 			nx1->field_0 = 1;
 			nx1->field_1_1 = 0;
 			nx1->field_1_0 = 0;
-			*(_QWORD*)(&nx1->addr) = *(_QWORD*)v74;
-			*((_DWORD*)(&nx1->addr) + 1) = v75;
-			*((_DWORD*)(&nx1->addr) + 2) = v76;
+			*(uint64_t*)(&nx1->addr) = *(uint64_t*)v74;
+			*((uint32_t*)(&nx1->addr) + 1) = v75;
+			*((uint32_t*)(&nx1->addr) + 2) = v76;
 			return nox_xxx_makePacketTime_552340(id53, out);
 			}
 		case 18:
 			{
-			int v39 = nox_platform_get_ticks() - *((_DWORD*)packet + 1);
+			int v39 = nox_platform_get_ticks() - *((uint32_t*)packet + 1);
 			int id40 = sub_553D30((int)v74);
 			if (id40 < 0)
 				return 0;
 			nox_net_struct2_t* nx1 = &nox_net_struct2_arr[id40];
-			if (*((unsigned __int8*)packet + 3) != nx1->field_1_1)
+			if (*((unsigned char*)packet + 3) != nx1->field_1_1)
 				return 0;
 			nx1->field_6[nx1->field_1_1] = v39;
 			nx1->field_1_1++;
@@ -953,17 +958,17 @@ int  nox_xxx_netBigSwitch_553210(unsigned int id, unsigned char* packet, int pac
 				abort();
 			}
 			nox_net_struct_t* ns8 = nox_net_struct_arr[pidb];
-			_BYTE v14 = packetCur[0];
-			_BYTE v15 = ns8->field_28_1;
+			uint8_t v14 = packetCur[0];
+			uint8_t v15 = ns8->field_28_1;
 			packetCur = &packetCur[1];
-			_BYTE a4b = v14;
+			uint8_t a4b = v14;
 			printf("foo 0x%x 0x%x\n", v14, v15);
 			if (v14 != v15) {
 				sub_5551F0(pid, a4b, 1);
 				sub_555360(pid, a4b, 1);
 				ns8->field_28_1 = a4b;
-				*(_BYTE*)(out + 0) = 38;
-				*(_BYTE*)(out + 1) = ns8->field_28_1;
+				*(uint8_t*)(out + 0) = 38;
+				*(uint8_t*)(out + 1) = ns8->field_28_1;
 				ns1->func_yyy(pid, out, 2, ns8->data_3);
 			}
 			if ((unsigned int)packetCur >= packetEnd) {
@@ -990,7 +995,7 @@ int sub_553D10() {
 int  sub_553D30(int a1) {
 	for (int i = 0; i < NOX_NET_STRUCT_MAX; i++) {
 		nox_net_struct2_t* nx = &nox_net_struct2_arr[i];
-		if (nx->addr.sin_addr == *(_DWORD*)(a1 + 4) && nx->addr.sin_port == *(_WORD*)(a1 + 2))
+		if (nx->addr.sin_addr == *(uint32_t*)(a1 + 4) && nx->addr.sin_port == *(uint16_t*)(a1 + 2))
 			return i;
 	}
 	return -1;
@@ -1009,7 +1014,7 @@ int sub_553DA0() { return *getMemU32Ptr(0x5D4594, 2495948); }
 int sub_553DB0() { return *getMemU32Ptr(0x5D4594, 2495956); }
 
 //----- (00553DC0) --------------------------------------------------------
-__int64  sub_553DC0(int a1) {
+long long  sub_553DC0(int a1) {
 	int v1;          // eax
 	unsigned int v2; // ecx
 	int v3;          // edx
@@ -1022,7 +1027,7 @@ __int64  sub_553DC0(int a1) {
 		v1 = (v1 + 1) % 128;
 		--v3;
 	} while (v3);
-	return (__int64)((double)v2 / (128.0 / (double)a1));
+	return (long long)((double)v2 / (128.0 / (double)a1));
 }
 
 //----- (00553E10) --------------------------------------------------------
@@ -1078,8 +1083,8 @@ unsigned int  sub_553E90(int a1) {
 
 //----- (00553ED0) --------------------------------------------------------
 int  sub_553ED0(int a3) {
-	unsigned __int64 v1; // rax
-	__int64 v2;          // rdi
+	unsigned long long v1; // rax
+	long long v2;          // rdi
 	int v4;              // edi
 
 	v1 = nox_platform_get_ticks();
@@ -1145,24 +1150,24 @@ unsigned int  nox_server_makeServerInfoPacket_554040(const char* inBuf, int inSz
 	buf[3] = playerCount;
 	buf[4] = playerLimit;
 	buf[5] = v3[101] & 0xF;
-	buf[6] = ((unsigned __int8)v3[101]) >> 4;
-	*(_DWORD*)&buf[7] = *((_DWORD*)game + 11);
+	buf[6] = ((unsigned char)v3[101]) >> 4;
+	*(uint32_t*)&buf[7] = *((uint32_t*)game + 11);
 	strcpy(&buf[10], nox_xxx_mapGetMapName_409B40());
 	buf[19] = v3[102] | sub_43BE50_get_video_mode_id();
 	buf[20] = v3[100];
 	buf[21] = v3[100] & 0x10;
-	*(_DWORD*)&buf[24] = *((_DWORD*)v3 + 12);
+	*(uint32_t*)&buf[24] = *((uint32_t*)v3 + 12);
 	unsigned int gameFlags = nox_common_gameFlags_getVal_40A5B0();
 	if (nox_xxx_isQuest_4D6F50()) {
 		gameFlags = (gameFlags & 0xFFFFFF7Fu) | 0x1000u;
-		*(_WORD*)&buf[68] = nox_game_getQuestStage_4E3CC0();
+		*(uint16_t*)&buf[68] = nox_game_getQuestStage_4E3CC0();
 	}
-	*(_DWORD*)&buf[28] = gameFlags;
-	*(_DWORD*)&buf[32] = *((_DWORD*)game + 12);
-	*(_WORD*)&buf[36] = *(_WORD*)(v3 + 105);
-	*(_WORD*)&buf[38] = *(_WORD*)(v3 + 107);
-	*(_DWORD*)&buf[40] = *((_DWORD*)v3 + 11);
-	*(_DWORD*)&buf[44] = *(_DWORD*)(&inBuf[8]); // timestamp of the packet
+	*(uint32_t*)&buf[28] = gameFlags;
+	*(uint32_t*)&buf[32] = *((uint32_t*)game + 12);
+	*(uint16_t*)&buf[36] = *(uint16_t*)(v3 + 105);
+	*(uint16_t*)&buf[38] = *(uint16_t*)(v3 + 107);
+	*(uint32_t*)&buf[40] = *((uint32_t*)v3 + 11);
+	*(uint32_t*)&buf[44] = *(uint32_t*)(&inBuf[8]); // timestamp of the packet
 	memcpy(&buf[48], game + 24, 20);
 	memcpy(&out[0], buf, 72);
 	strcpy(&out[72], srvName);
@@ -1212,8 +1217,8 @@ unsigned int sub_554290() {
 	if (!v2)
 		goto LABEL_13;
 	do {
-		if (v2[2064] != 31 && sub_554240((unsigned __int8)v2[2064]) > 0) {
-			v3 = sub_554240((unsigned __int8)v2[2064]);
+		if (v2[2064] != 31 && sub_554240((unsigned char)v2[2064]) > 0) {
+			v3 = sub_554240((unsigned char)v2[2064]);
 			if (v3 < v0)
 				v0 = v3;
 			++v1;
@@ -1240,8 +1245,8 @@ int sub_554300() {
 	if (!v2)
 		goto LABEL_11;
 	do {
-		if (v2[2064] != 31 && (int)sub_554240((unsigned __int8)v2[2064]) > 0) {
-			v0 += sub_554240((unsigned __int8)v2[2064]);
+		if (v2[2064] != 31 && (int)sub_554240((unsigned char)v2[2064]) > 0) {
+			v0 += sub_554240((unsigned char)v2[2064]);
 			++v1;
 		}
 		v2 = nox_common_playerInfoGetNext_416EE0((int)v2);
@@ -1262,7 +1267,7 @@ int  sub_554240(int a1) {
 	if (a1 != 31)
 		return *getMemU32Ptr(0x5D4594, 2508848 + 32 * a1);
 	v1 = sub_416640();
-	switch (*(_DWORD*)(v1 + 66)) {
+	switch (*(uint32_t*)(v1 + 66)) {
 	case 1:
 		result = sub_554290();
 		break;
@@ -1270,7 +1275,7 @@ int  sub_554240(int a1) {
 		result = sub_554300();
 		break;
 	case 3:
-		result = *(_DWORD*)(v1 + 70);
+		result = *(uint32_t*)(v1 + 70);
 		break;
 	default:
 		result = 0;
@@ -1283,7 +1288,7 @@ int  sub_554240(int a1) {
 //----- (00554380) --------------------------------------------------------
 int nox_xxx_netInit_554380(nox_net_struct_arg_t* narg) {
 	int v2;                 // ebx
-	__int16 v9;             // cx
+	short v9;             // cx
 	struct hostent* v10;    // eax
 	uint16_t v11;            // [esp-4h] [ebp-1B8h]
 	uint16_t v12;            // [esp-4h] [ebp-1B8h]
@@ -1324,7 +1329,7 @@ int nox_xxx_netInit_554380(nox_net_struct_arg_t* narg) {
 	int port = narg->port;
 	if (port < 1024 || port > 0x10000)
 		narg->port = 18590;
-	v11 = (_WORD)(narg->port);
+	v11 = (uint16_t)(narg->port);
 
 	struct nox_net_sockaddr_in name;
 	name.sin_family = NOX_AF_INET;
@@ -1332,7 +1337,7 @@ int nox_xxx_netInit_554380(nox_net_struct_arg_t* narg) {
 	name.sin_addr = 0;
 	memset(name.sin_zero, 0, 8);
 
-	v9 = (_WORD)(narg->port);
+	v9 = (uint16_t)(narg->port);
 	name.sin_port = htons(v11);
 	name.sin_addr = 0;
 	*getMemU16Ptr(0x973F18, 44208) = v9;
@@ -1341,14 +1346,14 @@ int nox_xxx_netInit_554380(nox_net_struct_arg_t* narg) {
 			nox_net_stop();
 			return -1;
 		}
-		v12 = (_WORD)(narg->port) + 1;
+		v12 = (uint16_t)(narg->port) + 1;
 		++narg->port;
 		name.sin_port = htons(v12);
 	}
 	if (gethostname((char*)getMemAt(0x973F18, 44232), 128) != -1) {
 		v10 = gethostbyname((const char*)getMemAt(0x973F18, 44232));
 		if (v10) {
-			dword_5d4594_3843632 = **(_DWORD**)v10->h_addr_list;
+			dword_5d4594_3843632 = **(uint32_t**)v10->h_addr_list;
 			strcpy((char*)getMemAt(0x973F18, 44216), nox_net_ip2str(*(nox_net_in_addr*)&dword_5d4594_3843632));
 		}
 	}
@@ -1356,7 +1361,7 @@ int nox_xxx_netInit_554380(nox_net_struct_arg_t* narg) {
 }
 
 //----- (005545A0) --------------------------------------------------------
-__int16 sub_5545A0() { return *getMemU16Ptr(0x973F18, 44208); }
+short sub_5545A0() { return *getMemU16Ptr(0x973F18, 44208); }
 
 //----- (005545B0) --------------------------------------------------------
 int  nox_xxx_netStructReadPackets_5545B0(unsigned int a1) {
@@ -1468,13 +1473,13 @@ int  sub_554760(int a1, char* cp, int hostshort, int a4, int a5) {
 		nox_net_stop();
 		return -22;
 	}
-	if ((unsigned __int8)*cp < 0x30u || (unsigned __int8)*cp > 0x39u) {
+	if ((unsigned char)*cp < 0x30u || (unsigned char)*cp > 0x39u) {
 		v9 = gethostbyname(cp);
 		if (!v9) {
 			nox_net_stop();
 			return -4;
 		}
-		v8 = **(_DWORD**)v9->h_addr_list;
+		v8 = **(uint32_t**)v9->h_addr_list;
 	} else {
 		v8 = inet_addr(cp);
 	}
@@ -1555,12 +1560,12 @@ void  nox_xxx_lobbyMakePacket_554AA0(uint16_t hostshort, const char* payload, in
 	data[1] = 0;
 	data[2] = 12;
 	// data[3] = ???
-	*((_WORD*)&data[4]) = 0;
+	*((uint16_t*)&data[4]) = 0;
 	// data[6] = ???
 	// data[7] = ???
-	*((_DWORD*)&data[8]) = ticks;
+	*((uint32_t*)&data[8]) = ticks;
 	if (payload && payloadSz > 0) {
-		*((_WORD*)&data[4]) = payloadSz;
+		*((uint16_t*)&data[4]) = payloadSz;
 		memcpy(&data[12], payload, payloadSz);
 		dataSz += payloadSz;
 	}
@@ -1615,8 +1620,8 @@ int  nox_xxx_sendLobbyPacket_554C80(uint16_t hostshort, char* buf, int a3) {
 	memset(to.sin_zero, 0, 8);
 
 	int result = 0;
-	if (!buf || (unsigned __int16)a3 < 2u ||
-		(result = nox_net_sendto(nox_xxx_sockLocalBroadcast_2513920, buf, (unsigned __int16)a3, &to), v3 = result,
+	if (!buf || (unsigned short)a3 < 2u ||
+		(result = nox_net_sendto(nox_xxx_sockLocalBroadcast_2513920, buf, (unsigned short)a3, &to), v3 = result,
 		 result != -1)) {
 		result = v3;
 	}
@@ -1668,10 +1673,10 @@ int  sub_554D70(char a1) {
 		v2 = mix_recvfrom(nox_xxx_sockLocalBroadcast_2513920, buf, 256, &from);
 		if (v2 == -1)
 			break;
-		unsigned __int8 op = buf[2];
+		unsigned char op = buf[2];
 		if (op < 32) {
 			memcpy(in, &from, sizeof(struct nox_net_sockaddr));
-			if (op == 13 || nox_client_getServerAddr_43B300() == *(_DWORD*)&from.sa_data[2]) {
+			if (op == 13 || nox_client_getServerAddr_43B300() == *(uint32_t*)&from.sa_data[2]) {
 				switch (op) {
 				case 13:;
 					char* saddr = nox_net_ip2str(*(nox_net_in_addr*)&in[4]);
@@ -1700,7 +1705,7 @@ int  sub_554D70(char a1) {
 					break;
 				/*case 19:
 				  if ( sub_43B6D0() )
-					nox_client_setConnError_43AFA0((unsigned __int8)buf[3]);
+					nox_client_setConnError_43AFA0((unsigned char)buf[3]);
 				  break;*/
 				case 19:
 				case 20:
@@ -1776,7 +1781,7 @@ int  sub_5550D0(int a1, uint16_t hostshort, char* buf) {
 
 //----- (00555130) --------------------------------------------------------
 int  sub_555130(unsigned int a1, const void* a2, signed int a3) {
-	_DWORD* v5; // eax
+	uint32_t* v5; // eax
 
 	if (a3 > *getMemIntPtr(0x5D4594, 2512884))
 		return -1;
@@ -1793,11 +1798,11 @@ int  sub_555130(unsigned int a1, const void* a2, signed int a3) {
 	*v5 = ns->field_29;
 	ns->field_29 = v5;
 	v5[3] = 1;
-	*((_BYTE*)v5 + 20) = ns->data_2_base[0] | 0x80;
-	*((_BYTE*)v5 + 21) = ns->field_28_0++;
+	*((uint8_t*)v5 + 20) = ns->data_2_base[0] | 0x80;
+	*((uint8_t*)v5 + 21) = ns->field_28_0++;
 	v5[4] = a3 + 2;
 	memcpy((char*)v5 + 22, a2, a3);
-	return *((unsigned __int8*)v5 + 21);
+	return *((unsigned char*)v5 + 21);
 }
 
 //----- (005551F0) --------------------------------------------------------
@@ -1811,7 +1816,7 @@ int  sub_5551F0(unsigned int a1, char a2, int a3) {
 		return -3;
 	for (i = ns->field_29; i; i = (int*)*i) {
 		if (a3) {
-			if (*((_BYTE*)i + 21) == a2) {
+			if (*((uint8_t*)i + 21) == a2) {
 				i[3] = 1;
 				continue;
 			}
@@ -1824,7 +1829,7 @@ int  sub_5551F0(unsigned int a1, char a2, int a3) {
 }
 
 //----- (00555250) --------------------------------------------------------
-int  sub_555250(unsigned int a1, _DWORD* a2) {
+int  sub_555250(unsigned int a1, uint32_t* a2) {
 	int v3;     // eax
 	int v4;     // ecx
 	int result; // eax
@@ -1837,22 +1842,22 @@ int  sub_555250(unsigned int a1, _DWORD* a2) {
 	v3 = ns->field_29;
 	if (!v3)
 		return 0;
-	v4 = *(_DWORD*)(v3 + 16);
+	v4 = *(uint32_t*)(v3 + 16);
 	result = v3 + 22;
 	*a2 = v4;
-	dword_5d4594_2513932 = *(_DWORD*)(result - 22);
+	dword_5d4594_2513932 = *(uint32_t*)(result - 22);
 	return result;
 }
 
 //----- (00555290) --------------------------------------------------------
-int  sub_555290(unsigned int a1, _DWORD* a2) {
+int  sub_555290(unsigned int a1, uint32_t* a2) {
 	int result; // eax
 
 	if (!dword_5d4594_2513932 || a1 >= NOX_NET_STRUCT_MAX || !nox_net_struct_arr[a1])
 		return 0;
 	result = dword_5d4594_2513932 + 22;
-	*a2 = *(_DWORD*)(dword_5d4594_2513932 + 16);
-	dword_5d4594_2513932 = *(_DWORD*)(result - 22);
+	*a2 = *(uint32_t*)(dword_5d4594_2513932 + 16);
+	dword_5d4594_2513932 = *(uint32_t*)(result - 22);
 	return result;
 }
 
@@ -1868,7 +1873,7 @@ int  nox_xxx_netSend_5552D0(unsigned int a1, char a2, int a3) {
 		return -3;
 	for (i = ns->field_29; i; i = (int*)*i) {
 		if (a3) {
-			if (*((_BYTE*)i + 21) == a2)
+			if (*((uint8_t*)i + 21) == a2)
 				goto LABEL_10;
 		} else if (i[3]) {
 		LABEL_10:
@@ -1884,10 +1889,10 @@ int  nox_xxx_netSend_5552D0(unsigned int a1, char a2, int a3) {
 }
 
 //----- (00555360) --------------------------------------------------------
-int  sub_555360(unsigned int a1, unsigned __int8 a2, int a3) {
+int  sub_555360(unsigned int a1, unsigned char a2, int a3) {
 	char* v5;    // esi
-	_QWORD* v6;  // eax
-	_DWORD* v7;  // ecx
+	uint64_t* v6;  // eax
+	uint32_t* v7;  // ecx
 	char v8[24]; // [esp+4h] [ebp-18h]
 
 	if (a1 >= NOX_NET_STRUCT_MAX)
@@ -1895,29 +1900,29 @@ int  sub_555360(unsigned int a1, unsigned __int8 a2, int a3) {
 	nox_net_struct_t* ns = nox_net_struct_arr[a1];
 	if (!ns)
 		return -3;
-	*(_DWORD*)v8 = ns->field_29;
+	*(uint32_t*)v8 = ns->field_29;
 	v5 = v8;
-	while (*(_DWORD*)v5) {
+	while (*(uint32_t*)v5) {
 		if (a3) {
 			if (a3 == 1) {
 				if (a2 < 0x20u || a2 > 0xE0u) {
-					if (*(_BYTE*)(*(_DWORD*)v5 + 21) < (char)a2)
+					if (*(uint8_t*)(*(uint32_t*)v5 + 21) < (char)a2)
 						goto LABEL_17;
-				} else if (*(_BYTE*)(*(_DWORD*)v5 + 21) < a2) {
+				} else if (*(uint8_t*)(*(uint32_t*)v5 + 21) < a2) {
 					goto LABEL_17;
 				}
 			} else if (a3 == 2) {
 			LABEL_17:
-				v6 = *(_QWORD**)v5;
+				v6 = *(uint64_t**)v5;
 				v7 = ns->field_29;
-				if (*(_DWORD**)v5 == v7)
+				if (*(uint32_t**)v5 == v7)
 					ns->field_29 = *v7;
-				*(_DWORD*)v5 = **(_DWORD**)v5;
-				*(_DWORD*)v6 = 0;
+				*(uint32_t*)v5 = **(uint32_t**)v5;
+				*(uint32_t*)v6 = 0;
 				nox_alloc_class_free_obj(nox_alloc_gQueue_3844300, v6);
 				continue;
 			}
-		} else if (*(_BYTE*)(*(_DWORD*)v5 + 21) == a2) {
+		} else if (*(uint8_t*)(*(uint32_t*)v5 + 21) == a2) {
 			goto LABEL_17;
 		}
 		v5 = *(char**)v5;
@@ -1926,24 +1931,24 @@ int  sub_555360(unsigned int a1, unsigned __int8 a2, int a3) {
 }
 
 //----- (00565360) --------------------------------------------------------
-int*  sub_565360(int a1, _WORD* a2, int* a3, unsigned int a4, int a5, int a6) {
+int*  sub_565360(int a1, uint16_t* a2, int* a3, unsigned int a4, int a5, int a6) {
 	int* v6;               // edx
 	int v7;                // ebp
-	_WORD* v8;             // esi
+	uint16_t* v8;             // esi
 	int* result;           // eax
 	int* v10;              // edi
 	int v11;               // ecx
-	_WORD* v12;            // eax
+	uint16_t* v12;            // eax
 	int v13;               // ebx
 	int* v14;              // esi
 	int v15;               // edi
-	unsigned __int16* v16; // eax
+	unsigned short* v16; // eax
 	int v17;               // esi
-	unsigned __int16 v18;  // cx
-	unsigned __int16 v19;  // bx
-	unsigned __int16* v20; // eax
-	unsigned __int16 v21;  // cx
-	unsigned __int16 v22;  // bx
+	unsigned short v18;  // cx
+	unsigned short v19;  // bx
+	unsigned short* v20; // eax
+	unsigned short v21;  // cx
+	unsigned short v22;  // bx
 	int* v23;              // [esp+Ch] [ebp-4h]
 	int v24;               // [esp+1Ch] [ebp+Ch]
 	int* v25;              // [esp+24h] [ebp+14h]
@@ -1964,14 +1969,14 @@ int*  sub_565360(int a1, _WORD* a2, int* a3, unsigned int a4, int a5, int a6) {
 			v24 = (int)(v8 + 1);
 			if (*v8 & 0xE000) {
 				if (v11 == 0x2000) {
-					v12 = (_WORD*)(a1 + 16 * (*v8 & 0x1FFF));
+					v12 = (uint16_t*)(a1 + 16 * (*v8 & 0x1FFF));
 					v13 = 2;
 					do {
 						v14 = v6;
 						v15 = 4;
 						do {
 							if (*v12 != -32768)
-								*(_WORD*)v14 = *v12;
+								*(uint16_t*)v14 = *v12;
 							v14 = (int*)((char*)v14 + 2);
 							++v12;
 							--v15;
@@ -1986,7 +1991,7 @@ int*  sub_565360(int a1, _WORD* a2, int* a3, unsigned int a4, int a5, int a6) {
 					v6 += 2;
 				}
 			} else {
-				v16 = (unsigned __int16*)(a1 + 16 * (*v8 & 0x1FFF));
+				v16 = (unsigned short*)(a1 + 16 * (*v8 & 0x1FFF));
 				v17 = 2;
 				do {
 					v18 = v16[1];
@@ -2012,52 +2017,52 @@ int*  sub_565360(int a1, _WORD* a2, int* a3, unsigned int a4, int a5, int a6) {
 			}
 			if (v6 >= v23)
 				break;
-			v8 = (_WORD*)v24;
+			v8 = (uint16_t*)v24;
 		}
 	}
 	return result;
 }
 
 //----- (005654A0) --------------------------------------------------------
-unsigned int  sub_5654A0(int a1, unsigned __int8* a2, int* a3, unsigned int a4, int a5, int a6) {
+unsigned int  sub_5654A0(int a1, unsigned char* a2, int* a3, unsigned int a4, int a5, int a6) {
 	int v6;                // edi
 	int v7;                // ecx
 	int* v8;               // ebx
-	unsigned __int8* v9;   // esi
+	unsigned char* v9;   // esi
 	unsigned int result;   // eax
-	__int16 v11;           // ax
-	__int16 v12;           // cx
+	short v11;           // ax
+	short v12;           // cx
 	unsigned int v13;      // ecx
 	int* v14;              // edi
-	unsigned __int16* v15; // ecx
+	unsigned short* v15; // ecx
 	int v16;               // eax
 	int v17;               // esi
-	unsigned __int16 v18;  // dx
-	unsigned __int16 v19;  // bp
-	unsigned __int16* v20; // ecx
-	unsigned __int16 v21;  // dx
-	unsigned __int16 v22;  // bp
-	unsigned __int8* v23;  // ecx
+	unsigned short v18;  // dx
+	unsigned short v19;  // bp
+	unsigned short* v20; // ecx
+	unsigned short v21;  // dx
+	unsigned short v22;  // bp
+	unsigned char* v23;  // ecx
 	int* v24;              // edx
-	unsigned __int16* v25; // eax
+	unsigned short* v25; // eax
 	int v26;               // edi
-	unsigned __int16 v27;  // cx
-	unsigned __int16 v28;  // bp
-	unsigned __int16* v29; // eax
-	unsigned __int16 v30;  // cx
-	unsigned __int16 v31;  // bp
+	unsigned short v27;  // cx
+	unsigned short v28;  // bp
+	unsigned short* v29; // eax
+	unsigned short v30;  // cx
+	unsigned short v31;  // bp
 	int v32;               // edx
-	unsigned __int16* v33; // eax
+	unsigned short* v33; // eax
 	int v34;               // edx
-	unsigned __int16 v35;  // cx
-	unsigned __int16 v36;  // bp
-	unsigned __int16* v37; // eax
-	unsigned __int16 v38;  // cx
-	unsigned __int16 v39;  // bp
+	unsigned short v35;  // cx
+	unsigned short v36;  // bp
+	unsigned short* v37; // eax
+	unsigned short v38;  // cx
+	unsigned short v39;  // bp
 	int v40;               // ebp
-	__int16* v41;          // eax
+	short* v41;          // eax
 	int* v42;              // edi
-	__int16 v43;           // dx
+	short v43;           // dx
 	int* v44;              // ecx
 	int v45;               // esi
 	int v46;               // ebp
@@ -2067,9 +2072,9 @@ unsigned int  sub_5654A0(int a1, unsigned __int8* a2, int* a3, unsigned int a4, 
 	int* v50;              // esi
 	int v51;               // edi
 	int v52;               // eax
-	_DWORD* v53;           // esi
+	uint32_t* v53;           // esi
 	int v54;               // edi
-	_WORD* v55;            // eax
+	uint16_t* v55;            // eax
 	int v56;               // ebp
 	int* v57;              // edx
 	int v58;               // esi
@@ -2095,7 +2100,7 @@ unsigned int  sub_5654A0(int a1, unsigned __int8* a2, int* a3, unsigned int a4, 
 	v60 = &a3[2 * a4];
 	if ((unsigned int)a3 < result) {
 		do {
-			v11 = *(_WORD*)v9;
+			v11 = *(uint16_t*)v9;
 			v9 += 2;
 			v12 = v11;
 			result = v11 & 0x1FFF;
@@ -2104,14 +2109,14 @@ unsigned int  sub_5654A0(int a1, unsigned __int8* a2, int* a3, unsigned int a4, 
 			if (v13 > 0x6000) {
 				switch (v13) {
 				case 0x8000u:
-					v55 = (_WORD*)(a1 + 16 * (unsigned __int16)result);
+					v55 = (uint16_t*)(a1 + 16 * (unsigned short)result);
 					v56 = 2;
 					do {
 						v57 = v8;
 						v58 = 4;
 						do {
 							if (*v55 != -32768)
-								*(_WORD*)v57 = *v55;
+								*(uint16_t*)v57 = *v55;
 							v57 = (int*)((char*)v57 + 2);
 							++v55;
 							--v58;
@@ -2127,7 +2132,7 @@ unsigned int  sub_5654A0(int a1, unsigned __int8* a2, int* a3, unsigned int a4, 
 				case 0xC000u:
 					v40 = *v9;
 					v66 = (int)(v9 + 1);
-					v41 = (__int16*)(a1 + 16 * (unsigned __int16)result);
+					v41 = (short*)(a1 + 16 * (unsigned short)result);
 					v62 = 2;
 					do {
 						v42 = v8;
@@ -2139,7 +2144,7 @@ unsigned int  sub_5654A0(int a1, unsigned __int8* a2, int* a3, unsigned int a4, 
 								if (v40) {
 									v45 = v40;
 									do {
-										*(_WORD*)v44 = v43;
+										*(uint16_t*)v44 = v43;
 										v44 += 2;
 										--v45;
 									} while (v45);
@@ -2158,7 +2163,7 @@ unsigned int  sub_5654A0(int a1, unsigned __int8* a2, int* a3, unsigned int a4, 
 					goto LABEL_52;
 				}
 			} else if (v13 == 24576) {
-				v33 = (unsigned __int16*)(a1 + 16 * (unsigned __int16)result);
+				v33 = (unsigned short*)(a1 + 16 * (unsigned short)result);
 				v34 = 2;
 				do {
 					v35 = v33[1];
@@ -2176,14 +2181,14 @@ unsigned int  sub_5654A0(int a1, unsigned __int8* a2, int* a3, unsigned int a4, 
 				v8 = (int*)((char*)v8 + 8 - 2 * v6);
 			} else if (v13) {
 				if (v13 == 0x2000) {
-					v32 = (((unsigned __int16)result >> 7) & 0x3E) + 2;
-					if ((((unsigned __int16)result >> 7) & 0x3E) == -2) {
+					v32 = (((unsigned short)result >> 7) & 0x3E) + 2;
+					if ((((unsigned short)result >> 7) & 0x3E) == -2) {
 					LABEL_16:
-						result = (unsigned __int16)result;
+						result = (unsigned short)result;
 						v32 = *v9;
 						v66 = (int)(v9 + 1);
 					} else {
-						result = (unsigned __int8)result;
+						result = (unsigned char)result;
 					}
 					v46 = 2;
 					v47 = (int*)(a1 + 16 * result);
@@ -2218,12 +2223,12 @@ unsigned int  sub_5654A0(int a1, unsigned __int8* a2, int* a3, unsigned int a4, 
 					result = 2 * v6;
 					v8 = (int*)((char*)v8 + 8 * v32 - 2 * v6);
 				LABEL_52:
-					v9 = (unsigned __int8*)v66;
+					v9 = (unsigned char*)v66;
 					goto LABEL_53;
 				}
 				if (v13 == 0x4000) {
 					v14 = v8;
-					v15 = (unsigned __int16*)(a1 + 16 * *(v9 - 2));
+					v15 = (unsigned short*)(a1 + 16 * *(v9 - 2));
 					v63 = ((result >> 7) & 0x3E) + 2;
 					v16 = 2;
 					v17 = 4 * (v68 >> 2);
@@ -2240,14 +2245,14 @@ unsigned int  sub_5654A0(int a1, unsigned __int8* a2, int* a3, unsigned int a4, 
 						--v16;
 					} while (v16);
 					result = v63;
-					v23 = (unsigned __int8*)v66;
+					v23 = (unsigned char*)v66;
 					v8 += 2;
 					if (v63) {
 						v67 = v63;
 						do {
 							v24 = v8;
 							v64 = (int)(v23 + 1);
-							v25 = (unsigned __int16*)(a1 + 16 * *v23);
+							v25 = (unsigned short*)(a1 + 16 * *v23);
 							v26 = 2;
 							do {
 								v27 = v25[1];
@@ -2261,7 +2266,7 @@ unsigned int  sub_5654A0(int a1, unsigned __int8* a2, int* a3, unsigned int a4, 
 								v24 = (int*)((char*)v24 + v17);
 								--v26;
 							} while (v26);
-							v23 = (unsigned __int8*)v64;
+							v23 = (unsigned char*)v64;
 							v8 += 2;
 							result = --v67;
 						} while (v67);
@@ -2271,8 +2276,8 @@ unsigned int  sub_5654A0(int a1, unsigned __int8* a2, int* a3, unsigned int a4, 
 					goto LABEL_52;
 				}
 			} else {
-				result = (unsigned __int8)result;
-				v8 += 2 * (unsigned __int8)result;
+				result = (unsigned char)result;
+				v8 += 2 * (unsigned char)result;
 			}
 		LABEL_53:
 			if (v8 == v60) {
@@ -2326,7 +2331,7 @@ int sub_56F250() {
 
 //----- (0056F280) --------------------------------------------------------
 int  nox_xxx_protectionCreateStructForInt_56F280(int a1, int a2) {
-	_DWORD* v2; // eax
+	uint32_t* v2; // eax
 	int v3;     // ecx
 	int v4;     // ecx
 
@@ -2346,11 +2351,11 @@ int  nox_xxx_protectionCreateStructForInt_56F280(int a1, int a2) {
 }
 
 //----- (0056F2F0) --------------------------------------------------------
-int  sub_56F2F0(_DWORD* a1) {
+int  sub_56F2F0(uint32_t* a1) {
 	int v1;     // esi
-	__int16 v2; // di
+	short v2; // di
 	int result; // eax
-	__int16 i;  // ax
+	short i;  // ax
 	int v5;     // eax
 
 	v1 = dword_5d4594_2516344;
@@ -2359,16 +2364,16 @@ int  sub_56F2F0(_DWORD* a1) {
 		for (i = nox_common_randomInt_415FA0(0, *getMemU16Ptr(0x587000, 311204) - 1); v1; ++v2) {
 			if (v2 == i)
 				break;
-			v1 = *(_DWORD*)(v1 + 8);
+			v1 = *(uint32_t*)(v1 + 8);
 		}
-		a1[3] = *(_DWORD*)(v1 + 12);
+		a1[3] = *(uint32_t*)(v1 + 12);
 		if (!dword_5d4594_2516348)
 			nullsub_31(1);
 		a1[2] = v1;
-		*(_DWORD*)(v1 + 12) = a1;
+		*(uint32_t*)(v1 + 12) = a1;
 		v5 = a1[3];
 		if (v5) {
-			*(_DWORD*)(v5 + 8) = a1;
+			*(uint32_t*)(v5 + 8) = a1;
 			++*getMemU16Ptr(0x587000, 311204);
 		} else {
 			++*getMemU16Ptr(0x587000, 311204);
@@ -2383,17 +2388,17 @@ int  sub_56F2F0(_DWORD* a1) {
 	}
 	return result;
 }
-// 560840: using guessed type void  nullsub_31(_DWORD);
+// 560840: using guessed type void  nullsub_31(uint32_t);
 
 //----- (0056F3B0) --------------------------------------------------------
-_DWORD* sub_56F3B0() {
-	_DWORD* result; // eax
-	_DWORD* v1;     // esi
+uint32_t* sub_56F3B0() {
+	uint32_t* result; // eax
+	uint32_t* v1;     // esi
 
-	result = *(_DWORD**)&dword_5d4594_2516344;
+	result = *(uint32_t**)&dword_5d4594_2516344;
 	if (dword_5d4594_2516344) {
 		do {
-			v1 = (_DWORD*)result[2];
+			v1 = (uint32_t*)result[2];
 			free(result);
 			result = v1;
 		} while (v1);
@@ -2413,7 +2418,7 @@ int  nox_xxx_protectionCreateInt_56F400(int a1) {
 	nullsub_31(1);
 	return 0;
 }
-// 560840: using guessed type void  nullsub_31(_DWORD);
+// 560840: using guessed type void  nullsub_31(uint32_t);
 
 //----- (0056F440) --------------------------------------------------------
 int  nox_xxx_protectionCreateFloat_56F440(int a1) {
@@ -2422,11 +2427,11 @@ int  nox_xxx_protectionCreateFloat_56F440(int a1) {
 	nullsub_31(1);
 	return 0;
 }
-// 560840: using guessed type void  nullsub_31(_DWORD);
+// 560840: using guessed type void  nullsub_31(uint32_t);
 
 //----- (0056F480) --------------------------------------------------------
 int  nox_xxx_protectionCreateStructForFloat_56F480(int a1, int a2) {
-	_DWORD* v2; // eax
+	uint32_t* v2; // eax
 	int v3;     // ecx
 	int v4;     // ecx
 
@@ -2457,7 +2462,7 @@ int  sub_56F4F0(int* a1) {
 
 //----- (0056F510) --------------------------------------------------------
 int  sub_56F510(int a1) {
-	_DWORD* v1; // eax
+	uint32_t* v1; // eax
 	int v2;     // ecx
 	int v3;     // ecx
 	int v4;     // ecx
@@ -2468,12 +2473,12 @@ int  sub_56F510(int a1) {
 		return 0;
 	v2 = v1[3];
 	if (v2)
-		*(_DWORD*)(v2 + 8) = v1[2];
+		*(uint32_t*)(v2 + 8) = v1[2];
 	else
 		dword_5d4594_2516344 = v1[2];
 	v3 = v1[2];
 	if (v3)
-		*(_DWORD*)(v3 + 12) = v1[3];
+		*(uint32_t*)(v3 + 12) = v1[3];
 	else
 		dword_5d4594_2516352 = v1[3];
 	v4 = *v1 ^ dword_5d4594_2516328;
@@ -2486,13 +2491,13 @@ int  sub_56F510(int a1) {
 }
 
 //----- (0056F590) --------------------------------------------------------
-_DWORD*  sub_56F590(int a1) {
-	_DWORD* result; // eax
+uint32_t*  sub_56F590(int a1) {
+	uint32_t* result; // eax
 
-	result = *(_DWORD**)&dword_5d4594_2516344;
+	result = *(uint32_t**)&dword_5d4594_2516344;
 	if (dword_5d4594_2516344) {
 		while (*result != (a1 ^ dword_5d4594_2516348)) {
-			result = (_DWORD*)result[2];
+			result = (uint32_t*)result[2];
 			if (!result)
 				goto LABEL_4;
 		}
@@ -2503,7 +2508,7 @@ _DWORD*  sub_56F590(int a1) {
 	}
 	return result;
 }
-// 560840: using guessed type void  nullsub_31(_DWORD);
+// 560840: using guessed type void  nullsub_31(uint32_t);
 
 //----- (0056F5C0) --------------------------------------------------------
 int nox_xxx_protectData_56F5C0() {
@@ -2563,18 +2568,18 @@ int nox_xxx_protectData_56F5C0() {
 		nullsub_31(1);
 	return result;
 }
-// 560840: using guessed type void  nullsub_31(_DWORD);
+// 560840: using guessed type void  nullsub_31(uint32_t);
 
 //----- (0056F6F0) --------------------------------------------------------
-_DWORD*  sub_56F6F0(int a1) {
-	_DWORD* result; // eax
+uint32_t*  sub_56F6F0(int a1) {
+	uint32_t* result; // eax
 	int v2;         // ecx
 
-	result = *(_DWORD**)&dword_5d4594_2516344;
+	result = *(uint32_t**)&dword_5d4594_2516344;
 	v2 = 0;
 	if (dword_5d4594_2516344) {
 		while (v2 != a1) {
-			result = (_DWORD*)result[2];
+			result = (uint32_t*)result[2];
 			++v2;
 			if (!result)
 				goto LABEL_4;
@@ -2586,7 +2591,7 @@ _DWORD*  sub_56F6F0(int a1) {
 	}
 	return result;
 }
-// 560840: using guessed type void  nullsub_31(_DWORD);
+// 560840: using guessed type void  nullsub_31(uint32_t);
 
 //----- (0056F720) --------------------------------------------------------
 void  sub_56F720(int* a1, int* a2) {
@@ -2607,14 +2612,14 @@ void  sub_56F720(int* a1, int* a2) {
 	if (!dword_5d4594_2516348)
 		nullsub_31(1);
 }
-// 560840: using guessed type void  nullsub_31(_DWORD);
+// 560840: using guessed type void  nullsub_31(uint32_t);
 
 //----- (0056F780) --------------------------------------------------------
-_DWORD*  sub_56F780(int a1, int a2) {
-	_DWORD* result; // eax
+uint32_t*  sub_56F780(int a1, int a2) {
+	uint32_t* result; // eax
 	int v3;         // ecx
 
-	result = (_DWORD*)a1;
+	result = (uint32_t*)a1;
 	if (a1 >= 657757279) {
 		result = sub_56F590(a1);
 		if (result) {
@@ -2622,18 +2627,18 @@ _DWORD*  sub_56F780(int a1, int a2) {
 			v3 = a2 ^ dword_5d4594_2516348;
 			result[1] = a2 ^ dword_5d4594_2516348;
 			dword_5d4594_2516328 ^= v3;
-			result = (_DWORD*)nox_xxx_protectData_56F5C0();
+			result = (uint32_t*)nox_xxx_protectData_56F5C0();
 		}
 	}
 	return result;
 }
 
 //----- (0056F7D0) --------------------------------------------------------
-_DWORD*  nox_xxx_playerUpdateNetBuffs_56F7D0(int a1, int a2) {
-	_DWORD* result; // eax
+uint32_t*  nox_xxx_playerUpdateNetBuffs_56F7D0(int a1, int a2) {
+	uint32_t* result; // eax
 	int v3;         // ecx
 
-	result = (_DWORD*)a1;
+	result = (uint32_t*)a1;
 	if (a1 >= 657757279) {
 		result = sub_56F590(a1);
 		if (result) {
@@ -2641,18 +2646,18 @@ _DWORD*  nox_xxx_playerUpdateNetBuffs_56F7D0(int a1, int a2) {
 			v3 = a2 ^ dword_5d4594_2516348;
 			result[1] = a2 ^ dword_5d4594_2516348;
 			dword_5d4594_2516328 ^= v3;
-			result = (_DWORD*)nox_xxx_protectData_56F5C0();
+			result = (uint32_t*)nox_xxx_protectData_56F5C0();
 		}
 	}
 	return result;
 }
 
 //----- (0056F820) --------------------------------------------------------
-_DWORD*  sub_56F820(int a1, unsigned __int8 a2) {
-	_DWORD* result; // eax
+uint32_t*  sub_56F820(int a1, unsigned char a2) {
+	uint32_t* result; // eax
 	int v3;         // ecx
 
-	result = (_DWORD*)a1;
+	result = (uint32_t*)a1;
 	if (a1 >= 657757279) {
 		result = sub_56F590(a1);
 		if (result) {
@@ -2660,18 +2665,18 @@ _DWORD*  sub_56F820(int a1, unsigned __int8 a2) {
 			v3 = dword_5d4594_2516348 ^ a2;
 			result[1] = v3;
 			dword_5d4594_2516328 ^= v3;
-			result = (_DWORD*)nox_xxx_protectData_56F5C0();
+			result = (uint32_t*)nox_xxx_protectData_56F5C0();
 		}
 	}
 	return result;
 }
 
 //----- (0056F870) --------------------------------------------------------
-_DWORD*  nox_xxx_protectPlayerHPMana_56F870(int a1, unsigned __int16 a2) {
-	_DWORD* result; // eax
+uint32_t*  nox_xxx_protectPlayerHPMana_56F870(int a1, unsigned short a2) {
+	uint32_t* result; // eax
 	int v3;         // ecx
 
-	result = (_DWORD*)a1;
+	result = (uint32_t*)a1;
 	if (a1 >= 657757279) {
 		result = sub_56F590(a1);
 		if (result) {
@@ -2679,39 +2684,39 @@ _DWORD*  nox_xxx_protectPlayerHPMana_56F870(int a1, unsigned __int16 a2) {
 			v3 = dword_5d4594_2516348 ^ a2;
 			result[1] = v3;
 			dword_5d4594_2516328 ^= v3;
-			result = (_DWORD*)nox_xxx_protectData_56F5C0();
+			result = (uint32_t*)nox_xxx_protectData_56F5C0();
 		}
 	}
 	return result;
 }
 
 //----- (0056F8C0) --------------------------------------------------------
-_DWORD*  sub_56F8C0(int a1, float a2) {
-	_DWORD* result; // eax
-	_DWORD* v3;     // esi
+uint32_t*  sub_56F8C0(int a1, float a2) {
+	uint32_t* result; // eax
+	uint32_t* v3;     // esi
 	int v4;         // eax
 
-	result = (_DWORD*)a1;
+	result = (uint32_t*)a1;
 	if (a1 >= 657757279) {
 		result = sub_56F590(a1);
 		v3 = result;
 		if (result) {
 			dword_5d4594_2516328 ^= result[1];
-			v4 = dword_5d4594_2516348 ^ (unsigned __int64)(__int64)a2;
+			v4 = dword_5d4594_2516348 ^ (unsigned long long)(long long)a2;
 			v3[1] = v4;
 			dword_5d4594_2516328 ^= v4;
-			result = (_DWORD*)nox_xxx_protectData_56F5C0();
+			result = (uint32_t*)nox_xxx_protectData_56F5C0();
 		}
 	}
 	return result;
 }
 
 //----- (0056F920) --------------------------------------------------------
-_DWORD*  sub_56F920(int a1, int a2) {
-	_DWORD* result; // eax
+uint32_t*  sub_56F920(int a1, int a2) {
+	uint32_t* result; // eax
 	int v3;         // ecx
 
-	result = (_DWORD*)a1;
+	result = (uint32_t*)a1;
 	if (a1 >= 657757279) {
 		result = sub_56F590(a1);
 		if (result) {
@@ -2719,18 +2724,18 @@ _DWORD*  sub_56F920(int a1, int a2) {
 			v3 = dword_5d4594_2516348 ^ (a2 + (dword_5d4594_2516348 ^ result[1]));
 			result[1] = v3;
 			dword_5d4594_2516328 ^= v3;
-			result = (_DWORD*)nox_xxx_protectData_56F5C0();
+			result = (uint32_t*)nox_xxx_protectData_56F5C0();
 		}
 	}
 	return result;
 }
 
 //----- (0056F9E0) --------------------------------------------------------
-_DWORD*  nox_xxx_protectMana_56F9E0(int a1, __int16 a2) {
-	_DWORD* result; // eax
+uint32_t*  nox_xxx_protectMana_56F9E0(int a1, short a2) {
+	uint32_t* result; // eax
 	int v3;         // ecx
 
-	result = (_DWORD*)a1;
+	result = (uint32_t*)a1;
 	if (a1 >= 657757279) {
 		result = sub_56F590(a1);
 		if (result) {
@@ -2738,29 +2743,29 @@ _DWORD*  nox_xxx_protectMana_56F9E0(int a1, __int16 a2) {
 			v3 = dword_5d4594_2516348 ^ (a2 + (dword_5d4594_2516348 ^ result[1]));
 			result[1] = v3;
 			dword_5d4594_2516328 ^= v3;
-			result = (_DWORD*)nox_xxx_protectData_56F5C0();
+			result = (uint32_t*)nox_xxx_protectData_56F5C0();
 		}
 	}
 	return result;
 }
 
 //----- (0056FA40) --------------------------------------------------------
-_DWORD*  sub_56FA40(int a1, float a2) {
-	_DWORD* result; // eax
-	_DWORD* v3;     // esi
+uint32_t*  sub_56FA40(int a1, float a2) {
+	uint32_t* result; // eax
+	uint32_t* v3;     // esi
 	int v4;         // eax
 
-	result = (_DWORD*)a1;
+	result = (uint32_t*)a1;
 	if (a1 >= 657757279) {
 		result = sub_56F590(a1);
 		v3 = result;
 		if (result) {
 			dword_5d4594_2516328 ^= result[1];
 			v4 = dword_5d4594_2516348 ^
-				 (unsigned __int64)(__int64)((double)(unsigned int)(dword_5d4594_2516348 ^ result[1]) + a2);
+				 (unsigned long long)(long long)((double)(unsigned int)(dword_5d4594_2516348 ^ result[1]) + a2);
 			v3[1] = v4;
 			dword_5d4594_2516328 ^= v4;
-			result = (_DWORD*)nox_xxx_protectData_56F5C0();
+			result = (uint32_t*)nox_xxx_protectData_56F5C0();
 		}
 	}
 	return result;
@@ -2795,7 +2800,7 @@ int  nox_xxx_protectionStringCRCLen_56FAE0(int* a1, unsigned int a2) {
 
 //----- (0056FB00) --------------------------------------------------------
 int  sub_56FB00(int* a1, unsigned int a2, int a3) {
-	_DWORD* v3; // esi
+	uint32_t* v3; // esi
 
 	if (a3 >= 657757279) {
 		v3 = sub_56F590(a3);
@@ -2805,7 +2810,7 @@ int  sub_56FB00(int* a1, unsigned int a2, int a3) {
 	}
 	return 0;
 }
-// 560840: using guessed type void  nullsub_31(_DWORD);
+// 560840: using guessed type void  nullsub_31(uint32_t);
 
 //----- (0056FB60) --------------------------------------------------------
 int  sub_56FB60(nox_object_t* item) {
@@ -2820,7 +2825,7 @@ int  sub_56FB60(nox_object_t* item) {
 	result = 0;
 	if (item) {
 		v2 = sub_4E4C00(item);
-		v3 = (unsigned __int16)nox_xxx_unitGetHP_4EE780(item) ^ v2;
+		v3 = (unsigned short)nox_xxx_unitGetHP_4EE780(item) ^ v2;
 		v4 = sub_4E4C10(item) ^ v3;
 		v5 = (int*)sub_4E4C30(item);
 		v6 = sub_4E4C50(item);
@@ -2839,8 +2844,8 @@ int  sub_56FB60(nox_object_t* item) {
 //----- (0056FBF0) --------------------------------------------------------
 int  nox_xxx_protect_56FBF0(int a1, nox_object_t* item) {
 	int result; // eax
-	_DWORD* v3; // eax
-	_DWORD* v4; // esi
+	uint32_t* v3; // eax
+	uint32_t* v4; // esi
 	int v5;     // ecx
 
 	result = a1;
@@ -2859,14 +2864,14 @@ int  nox_xxx_protect_56FBF0(int a1, nox_object_t* item) {
 	}
 	return result;
 }
-// 560840: using guessed type void  nullsub_31(_DWORD);
+// 560840: using guessed type void  nullsub_31(uint32_t);
 
 //----- (0056FC50) --------------------------------------------------------
 int  nox_xxx_protect_56FC50(int a1, const nox_object_t* object) {
 	int* a2 = object;
 	int result; // eax
-	_DWORD* v3; // eax
-	_DWORD* v4; // esi
+	uint32_t* v3; // eax
+	uint32_t* v4; // esi
 	int v5;     // ecx
 
 	result = a1;
@@ -2885,7 +2890,7 @@ int  nox_xxx_protect_56FC50(int a1, const nox_object_t* object) {
 	}
 	return result;
 }
-// 560840: using guessed type void  nullsub_31(_DWORD);
+// 560840: using guessed type void  nullsub_31(uint32_t);
 
 //----- (0056FCB0) --------------------------------------------------------
 int  sub_56FCB0(int a1, int a2) {
@@ -2900,8 +2905,8 @@ int  sub_56FCB0(int a1, int a2) {
 //----- (0056FCE0) --------------------------------------------------------
 int  nox_xxx_playerAwardSpellProtection_56FCE0(int a1, int a2, int a3) {
 	int result; // eax
-	_DWORD* v4; // eax
-	_DWORD* v5; // esi
+	uint32_t* v4; // eax
+	uint32_t* v5; // esi
 
 	result = a1;
 	if (a1 >= 657757279) {
@@ -2918,16 +2923,16 @@ int  nox_xxx_playerAwardSpellProtection_56FCE0(int a1, int a2, int a3) {
 	}
 	return result;
 }
-// 560840: using guessed type void  nullsub_31(_DWORD);
+// 560840: using guessed type void  nullsub_31(uint32_t);
 
 //----- (0056FD50) --------------------------------------------------------
 int  sub_56FD50(int a1, void* a2p, int a3) {
 	int a2 = a2p;
 	int v3;     // ebp
-	_DWORD* v4; // eax
+	uint32_t* v4; // eax
 	int v5;     // esi
 	int* v6;    // edi
-	_DWORD* v8; // [esp+8h] [ebp+4h]
+	uint32_t* v8; // [esp+8h] [ebp+4h]
 
 	v3 = 0;
 	if (a1 >= 657757279) {
@@ -2950,7 +2955,7 @@ int  sub_56FD50(int a1, void* a2p, int a3) {
 	}
 	return 0;
 }
-// 560840: using guessed type void  nullsub_31(_DWORD);
+// 560840: using guessed type void  nullsub_31(uint32_t);
 
 //----- (0056FDD0) --------------------------------------------------------
 #ifndef NOX_CGO
@@ -2993,7 +2998,7 @@ double nox_xxx_unkDoubleSmth_56FE30() {
 //----- (0056FF00) --------------------------------------------------------
 void  sub_56FF00(int a1) {
 	int v1;              // eax
-	unsigned __int8* v2; // ecx
+	unsigned char* v2; // ecx
 	unsigned int v3;     // eax
 	int v4;              // esi
 
@@ -3019,13 +3024,13 @@ void  sub_56FF00(int a1) {
 
 //----- (0056FF80) --------------------------------------------------------
 int  sub_56FF80(int a1, int a2) {
-	__int64 v2; // rax
+	long long v2; // rax
 	int result; // eax
 
 	*getMemU32Ptr(0x5D4594, 2516376) = a2;
 	dword_5d4594_2516380 = a1;
 	dword_5d4594_2516372 = a2 - a1 + 1;
-	v2 = (__int64)(nox_xxx_unkDoubleSmth_56FE30() * (double)*(unsigned int*)&dword_5d4594_2516372);
+	v2 = (long long)(nox_xxx_unkDoubleSmth_56FE30() * (double)*(unsigned int*)&dword_5d4594_2516372);
 	if ((unsigned int)v2 < *(int*)&dword_5d4594_2516372)
 		result = dword_5d4594_2516380 + v2;
 	else
@@ -3056,16 +3061,16 @@ unsigned int  nox_xxx_netGetUnitCodeCli_578B00(int a1) {
 
 	if (!a1)
 		return 0;
-	result = *(_DWORD*)(a1 + 128);
+	result = *(uint32_t*)(a1 + 128);
 	if (result >= 0x8000)
 		return 0;
-	if (*(_DWORD*)(a1 + 112) & 0x20400000)
+	if (*(uint32_t*)(a1 + 112) & 0x20400000)
 		BYTE1(result) |= 0x80u;
 	return result;
 }
 
 //----- (00578B30) --------------------------------------------------------
-int  nox_xxx_netClearHighBit_578B30(__int16 a1) { return a1 & 0x7FFF; }
+int  nox_xxx_netClearHighBit_578B30(short a1) { return a1 & 0x7FFF; }
 
 //----- (00578B40) --------------------------------------------------------
 int  nox_xxx_packetDynamicUnitCode_578B40(int a1) {
@@ -3077,7 +3082,7 @@ int  nox_xxx_packetDynamicUnitCode_578B40(int a1) {
 		BYTE1(result) &= 0x7Fu;
 		v2 = nox_xxx_netGetUnitByExtent_4ED020(result);
 		if (v2)
-			result = *(_DWORD*)(v2 + 36);
+			result = *(uint32_t*)(v2 + 36);
 		else
 			result = 0;
 	}
@@ -3088,9 +3093,9 @@ int  nox_xxx_packetDynamicUnitCode_578B40(int a1) {
 unsigned int  nox_xxx_netTestHighBit_578B70(unsigned int a1) { return (a1 >> 15) & 1; }
 
 //----- (00578B80) --------------------------------------------------------
-_DWORD* sub_578B80() {
-	_DWORD* v0; // eax
-	_DWORD* v2; // esi
+uint32_t* sub_578B80() {
+	uint32_t* v0; // eax
+	uint32_t* v2; // esi
 	int v3;     // eax
 
 	v0 = operator_new(0x18u);
@@ -3104,7 +3109,7 @@ _DWORD* sub_578B80() {
 	v3 = 0;
 	do {
 		v3 += 2;
-		*(_WORD*)(v3 + v2[5] - 2) = -1;
+		*(uint16_t*)(v3 + v2[5] - 2) = -1;
 	} while (v3 < 0x10000);
 	return v2;
 }
@@ -3114,20 +3119,20 @@ _DWORD* sub_578B80() {
 unsigned int  sub_578BA0(unsigned int a1) { return (a1 >> 1) + a1 + 32; }
 
 //----- (00578BB0) --------------------------------------------------------
-int  sub_578BB0(void** a1, int a2, unsigned __int8* a3, int a4) { return sub_57D1C0(a1, a2, a3, a4); }
+int  sub_578BB0(void** a1, int a2, unsigned char* a3, int a4) { return sub_57D1C0(a1, a2, a3, a4); }
 
 //----- (00578BD0) --------------------------------------------------------
-void  sub_578BD0(LPVOID lpMem) {
+void  sub_578BD0(void* lpMem) {
 	if (lpMem) {
-		sub_57D150((LPVOID*)lpMem);
+		sub_57D150((void**)lpMem);
 		operator_delete(lpMem);
 	}
 }
 
 //----- (00578BF0) --------------------------------------------------------
-_DWORD* sub_578BF0() {
-	_DWORD* v0;     // eax
-	_DWORD* result; // eax
+uint32_t* sub_578BF0() {
+	uint32_t* v0;     // eax
+	uint32_t* result; // eax
 
 	v0 = operator_new(0x98u);
 	if (v0)
@@ -3139,7 +3144,7 @@ _DWORD* sub_578BF0() {
 // 5667CB: using guessed type void * operator_new(unsigned int);
 
 //----- (00578C10) --------------------------------------------------------
-int  nox_xxx_nxzDecompress_578C10(_DWORD* a1, _BYTE* a2, _DWORD* a3, unsigned int a4, _DWORD* a5) {
+int  nox_xxx_nxzDecompress_578C10(uint32_t* a1, uint8_t* a2, uint32_t* a3, unsigned int a4, uint32_t* a5) {
 	return nox_xxx_nxzDecompressImpl_57EA80(a1, a2, a3, a4, a5);
 }
 
@@ -3147,9 +3152,9 @@ int  nox_xxx_nxzDecompress_578C10(_DWORD* a1, _BYTE* a2, _DWORD* a3, unsigned in
 int  sub_578C30(int a1) { return sub_57EA60(a1); }
 
 //----- (00578C40) --------------------------------------------------------
-void  sub_578C40(LPVOID lpMem) {
+void  sub_578C40(void* lpMem) {
 	if (lpMem) {
-		sub_57EA00((LPVOID*)lpMem);
+		sub_57EA00((void**)lpMem);
 		operator_delete(lpMem);
 	}
 }
@@ -3176,7 +3181,7 @@ int  sub_578C90(int a1) {
 //----- (00578CD0) --------------------------------------------------------
 int sub_578CD0() {
 	int result;         // eax
-	unsigned __int8 v1; // dl
+	unsigned char v1; // dl
 	char* v2;           // edi
 	char v3[16];        // [esp+0h] [ebp-90h]
 	char v4[128];       // [esp+10h] [ebp-80h]
@@ -3186,7 +3191,7 @@ int sub_578CD0() {
 		v1 = getMemByte(0x587000, 311380);
 		strcpy(v3, *(const char**)getMemAt(0x587000, 29456 + 4 * dword_587000_311372));
 		v2 = &v3[strlen(v3)];
-		*(_DWORD*)v2 = *getMemU32Ptr(0x587000, 311376);
+		*(uint32_t*)v2 = *getMemU32Ptr(0x587000, 311376);
 		v2[4] = v1;
 		if (nox_game_setMovieFile_4CB230(v3, v4)) {
 			sub_4B0300(v4);
@@ -3233,20 +3238,20 @@ char  sub_578DE0(char a1) {
 }
 
 //----- (00578DF0) --------------------------------------------------------
-unsigned __int8 sub_578DF0() { return getMemByte(0x5D4594, 2516476); }
+unsigned char sub_578DF0() { return getMemByte(0x5D4594, 2516476); }
 
 //----- (00578E00) --------------------------------------------------------
 void sub_578E00() { dword_587000_311372 = -1; }
 
 //----- (00579860) --------------------------------------------------------
-LPVOID nox_xxx_waypointGetList_579860() { return *(LPVOID*)&nox_xxx_waypointsHead_2523752; }
+void* nox_xxx_waypointGetList_579860() { return *(void**)&nox_xxx_waypointsHead_2523752; }
 
 //----- (00579870) --------------------------------------------------------
 int  nox_xxx_waypointNext_579870(int a1) {
 	int result; // eax
 
 	if (a1)
-		result = *(_DWORD*)(a1 + 484);
+		result = *(uint32_t*)(a1 + 484);
 	else
 		result = 0;
 	return result;
@@ -3260,7 +3265,7 @@ int  sub_5798A0(int a1) {
 	int result; // eax
 
 	if (a1)
-		result = *(_DWORD*)(a1 + 484);
+		result = *(uint32_t*)(a1 + 484);
 	else
 		result = 0;
 	return result;
@@ -3268,24 +3273,24 @@ int  sub_5798A0(int a1) {
 
 //----- (005798C0) --------------------------------------------------------
 unsigned int nox_xxx_waypoint_5798C0() {
-	_DWORD* v0;          // ecx
+	uint32_t* v0;          // ecx
 	unsigned int result; // eax
 
-	v0 = *(_DWORD**)&nox_xxx_waypointsHead_2523752;
+	v0 = *(uint32_t**)&nox_xxx_waypointsHead_2523752;
 	result = 1;
 	if (nox_xxx_waypointsHead_2523752) {
 		do {
 			if (result <= *v0)
 				result = *v0 + 1;
-			v0 = (_DWORD*)v0[121];
+			v0 = (uint32_t*)v0[121];
 		} while (v0);
 	}
 	return result;
 }
 
 //----- (005798F0) --------------------------------------------------------
-_DWORD*  nox_xxx_waypointNew_5798F0(float a1, float a2) {
-	_DWORD* v2;      // esi
+uint32_t*  nox_xxx_waypointNew_5798F0(float a1, float a2) {
+	uint32_t* v2;      // esi
 	unsigned int v3; // eax
 	int v4;          // edx
 
@@ -3298,7 +3303,7 @@ _DWORD*  nox_xxx_waypointNew_5798F0(float a1, float a2) {
 	v2[120] = v4 | 1;
 	v2[121] = nox_xxx_waypointsHead_2523752;
 	if (nox_xxx_waypointsHead_2523752)
-		*(_DWORD*)(nox_xxx_waypointsHead_2523752 + 488) = v2;
+		*(uint32_t*)(nox_xxx_waypointsHead_2523752 + 488) = v2;
 	nox_xxx_waypointsHead_2523752 = v2;
 	if (nox_common_gameFlags_check_40A5C0(1))
 		nox_xxx_waypointMapRegister_5179B0((int)v2);
@@ -3311,11 +3316,11 @@ float*  nox_xxx_waypointNewNotMap_579970(int a1, float a2, float a3) {
 	int v4;        // ecx
 
 	result = (float*)calloc(1u, 0x204u);
-	*(_DWORD*)result = a1;
+	*(uint32_t*)result = a1;
 	result[3] = a3;
-	v4 = *((_DWORD*)result + 120) | 1;
+	v4 = *((uint32_t*)result + 120) | 1;
 	result[2] = a2;
-	*((_DWORD*)result + 120) = v4;
+	*((uint32_t*)result + 120) = v4;
 	result[121] = *(float*)&dword_5d4594_2523756;
 	dword_5d4594_2523756 = result;
 	return result;
@@ -3329,10 +3334,10 @@ char* nox_xxx_waypoint_5799C0() {
 	v0 = dword_5d4594_2523756;
 	if (dword_5d4594_2523756) {
 		do {
-			v1 = *(_DWORD*)(v0 + 484);
-			*(_DWORD*)(v0 + 484) = nox_xxx_waypointsHead_2523752;
+			v1 = *(uint32_t*)(v0 + 484);
+			*(uint32_t*)(v0 + 484) = nox_xxx_waypointsHead_2523752;
 			if (nox_xxx_waypointsHead_2523752)
-				*(_DWORD*)(nox_xxx_waypointsHead_2523752 + 488) = v0;
+				*(uint32_t*)(nox_xxx_waypointsHead_2523752 + 488) = v0;
 			nox_xxx_waypointsHead_2523752 = v0;
 			if (nox_common_gameFlags_check_40A5C0(1))
 				nox_xxx_waypointMapRegister_5179B0(v0);
@@ -3352,7 +3357,7 @@ char* sub_579A30() {
 	char v4;      // dl
 	char* j;      // eax
 	int v6;       // edi
-	_BYTE* v7;    // ecx
+	uint8_t* v7;    // ecx
 
 	result = (char*)nox_xxx_waypointGetList_579860();
 	for (i = result; result; i = result) {
@@ -3365,7 +3370,7 @@ char* sub_579A30() {
 				v3 += 8;
 				i[477] |= v4;
 				++v2;
-			} while (v2 < (unsigned __int8)i[476]);
+			} while (v2 < (unsigned char)i[476]);
 		}
 		for (j = (char*)nox_xxx_waypointGetList_579860(); j; j = (char*)nox_xxx_waypointNext_579870((int)j)) {
 			v6 = 0;
@@ -3376,7 +3381,7 @@ char* sub_579A30() {
 						i[477] |= *v7;
 					++v6;
 					v7 += 8;
-				} while (v6 < (unsigned __int8)j[476]);
+				} while (v6 < (unsigned char)j[476]);
 			}
 		}
 		result = (char*)nox_xxx_waypointNext_579870((int)i);
@@ -3395,7 +3400,7 @@ float*  sub_579AD0(float a1, float a2) {
 
 	v2 = nox_xxx_waypointsHead_2523752;
 	v3 = 0;
-	for (i = 100.0; v2; v2 = *(_DWORD*)(v2 + 484)) {
+	for (i = 100.0; v2; v2 = *(uint32_t*)(v2 + 484)) {
 		v4 = *(float*)(v2 + 8) - a1;
 		v5 = *(float*)(v2 + 12) - a2;
 		v6 = v5 * v5 + v4 * v4;
@@ -3408,21 +3413,21 @@ float*  sub_579AD0(float a1, float a2) {
 }
 
 //----- (00579B30) --------------------------------------------------------
-void  sub_579B30(LPVOID lpMem) {
+void  sub_579B30(void* lpMem) {
 	int i;      // ecx
 	int v2;     // eax
 	int v3;     // edx
-	LPVOID* v4; // esi
+	void** v4; // esi
 	int v5;     // esi
-	_DWORD* v6; // eax
+	uint32_t* v6; // eax
 	int v7;     // eax
 	int v8;     // eax
 
-	for (i = nox_xxx_waypointsHead_2523752; i; i = *(_DWORD*)(i + 484)) {
+	for (i = nox_xxx_waypointsHead_2523752; i; i = *(uint32_t*)(i + 484)) {
 		v2 = 0;
-		v3 = *(unsigned __int8*)(i + 476);
+		v3 = *(unsigned char*)(i + 476);
 		if (v3 > 0) {
-			v4 = (LPVOID*)(i + 92);
+			v4 = (void**)(i + 92);
 			while (*v4 != lpMem) {
 				++v2;
 				v4 += 2;
@@ -3431,40 +3436,40 @@ void  sub_579B30(LPVOID lpMem) {
 			}
 			v5 = v2;
 			if (v2 < v3 - 1) {
-				v6 = (_DWORD*)(i + 8 * v2 + 92);
+				v6 = (uint32_t*)(i + 8 * v2 + 92);
 				do {
 					++v5;
 					*v6 = v6[2];
 					v6[1] = v6[3];
 					v6 += 2;
-				} while (v5 < *(unsigned __int8*)(i + 476) - 1);
+				} while (v5 < *(unsigned char*)(i + 476) - 1);
 			}
-			--*(_BYTE*)(i + 476);
+			--*(uint8_t*)(i + 476);
 		}
 	LABEL_11:;
 	}
-	v7 = *((_DWORD*)lpMem + 121);
+	v7 = *((uint32_t*)lpMem + 121);
 	if (v7)
-		*(_DWORD*)(v7 + 488) = *((_DWORD*)lpMem + 122);
-	v8 = *((_DWORD*)lpMem + 122);
+		*(uint32_t*)(v7 + 488) = *((uint32_t*)lpMem + 122);
+	v8 = *((uint32_t*)lpMem + 122);
 	if (v8)
-		*(_DWORD*)(v8 + 484) = *((_DWORD*)lpMem + 121);
+		*(uint32_t*)(v8 + 484) = *((uint32_t*)lpMem + 121);
 	else
-		nox_xxx_waypointsHead_2523752 = *((_DWORD*)lpMem + 121);
+		nox_xxx_waypointsHead_2523752 = *((uint32_t*)lpMem + 121);
 	if (nox_common_gameFlags_check_40A5C0(1))
 		sub_517A70((int)lpMem);
 	free(lpMem);
 }
 
 //----- (00579C00) --------------------------------------------------------
-_DWORD* sub_579C00() {
-	_DWORD* result; // eax
-	_DWORD* v1;     // esi
+uint32_t* sub_579C00() {
+	uint32_t* result; // eax
+	uint32_t* v1;     // esi
 
-	result = *(_DWORD**)&nox_xxx_waypointsHead_2523752;
+	result = *(uint32_t**)&nox_xxx_waypointsHead_2523752;
 	if (nox_xxx_waypointsHead_2523752) {
 		do {
-			v1 = (_DWORD*)result[121];
+			v1 = (uint32_t*)result[121];
 			free(result);
 			result = v1;
 		} while (v1);
@@ -3476,14 +3481,14 @@ _DWORD* sub_579C00() {
 }
 
 //----- (00579C40) --------------------------------------------------------
-_DWORD*  nox_server_getWaypointById_579C40(int a1) {
-	_DWORD* result; // eax
+uint32_t*  nox_server_getWaypointById_579C40(int a1) {
+	uint32_t* result; // eax
 
-	result = *(_DWORD**)&nox_xxx_waypointsHead_2523752;
+	result = *(uint32_t**)&nox_xxx_waypointsHead_2523752;
 	if (!nox_xxx_waypointsHead_2523752)
 		return 0;
 	while (*result != a1) {
-		result = (_DWORD*)result[121];
+		result = (uint32_t*)result[121];
 		if (!result)
 			return 0;
 	}
@@ -3497,8 +3502,8 @@ int  sub_579C60(int a1) {
 	result = dword_5d4594_2523756;
 	if (!dword_5d4594_2523756)
 		return 0;
-	while (*(_DWORD*)(result + 4) != a1) {
-		result = *(_DWORD*)(result + 484);
+	while (*(uint32_t*)(result + 4) != a1) {
+		result = *(uint32_t*)(result + 484);
 		if (!result)
 			return 0;
 	}
@@ -3506,14 +3511,14 @@ int  sub_579C60(int a1) {
 }
 
 //----- (00579C80) --------------------------------------------------------
-_DWORD*  sub_579C80(int a1) {
-	_DWORD* result; // eax
+uint32_t*  sub_579C80(int a1) {
+	uint32_t* result; // eax
 
-	result = *(_DWORD**)&dword_5d4594_2523756;
+	result = *(uint32_t**)&dword_5d4594_2523756;
 	if (!dword_5d4594_2523756)
 		return 0;
 	while (*result != a1) {
-		result = (_DWORD*)result[121];
+		result = (uint32_t*)result[121];
 		if (!result)
 			return 0;
 	}
@@ -3522,30 +3527,30 @@ _DWORD*  sub_579C80(int a1) {
 
 //----- (00579CA0) --------------------------------------------------------
 int sub_579CA0() {
-	_DWORD* v0; // eax
-	_DWORD* v1; // esi
+	uint32_t* v0; // eax
+	uint32_t* v1; // esi
 	int v2;     // ebp
 	int* v3;    // ebx
 	int* v4;    // edi
 	int v5;     // eax
 
-	v0 = *(_DWORD**)&dword_5d4594_2523756;
+	v0 = *(uint32_t**)&dword_5d4594_2523756;
 	if (dword_5d4594_2523756) {
 		do {
 			v0[1] = *v0;
-			v0 = (_DWORD*)v0[121];
+			v0 = (uint32_t*)v0[121];
 		} while (v0);
-		v0 = *(_DWORD**)&dword_5d4594_2523756;
+		v0 = *(uint32_t**)&dword_5d4594_2523756;
 	}
 	v1 = v0;
 	if (!v0)
 		return 1;
 	while (1) {
 		v2 = 0;
-		if (*((_BYTE*)v1 + 476))
+		if (*((uint8_t*)v1 + 476))
 			break;
 	LABEL_9:
-		v1 = (_DWORD*)v1[121];
+		v1 = (uint32_t*)v1[121];
 		if (!v1)
 			return 1;
 	}
@@ -3559,7 +3564,7 @@ int sub_579CA0() {
 		++v2;
 		++v4;
 		v3 += 2;
-		if (v2 >= *((unsigned __int8*)v1 + 476))
+		if (v2 >= *((unsigned char*)v1 + 476))
 			goto LABEL_9;
 	}
 }
@@ -3594,7 +3599,7 @@ int sub_579D20() {
 	do {
 		v4 = 0;
 		v9 = 0;
-		if (*((_BYTE*)v3 + 476)) {
+		if (*((uint8_t*)v3 + 476)) {
 			v5 = (int*)(v3 + 23);
 			v6 = (int*)(v3 + 87);
 			do {
@@ -3606,9 +3611,9 @@ int sub_579D20() {
 				}
 				++v4;
 				++v6;
-			} while (v4 < *((unsigned __int8*)v3 + 476));
+			} while (v4 < *((unsigned char*)v3 + 476));
 		}
-		*((_BYTE*)v3 + 476) = v9;
+		*((uint8_t*)v3 + 476) = v9;
 		v3 = (unsigned int*)v3[121];
 	} while (v3);
 	return 1;
@@ -3616,13 +3621,13 @@ int sub_579D20() {
 
 //----- (00579DD0) --------------------------------------------------------
 void nox_xxx_waypointDeleteAll_579DD0() {
-	_DWORD* v0; // esi
-	_DWORD* v1; // edi
+	uint32_t* v0; // esi
+	uint32_t* v1; // edi
 
-	v0 = *(_DWORD**)&nox_xxx_waypointsHead_2523752;
+	v0 = *(uint32_t**)&nox_xxx_waypointsHead_2523752;
 	if (nox_xxx_waypointsHead_2523752) {
 		do {
-			v1 = (_DWORD*)v0[121];
+			v1 = (uint32_t*)v0[121];
 			if (nox_common_gameFlags_check_40A5C0(1))
 				sub_517A70((int)v0);
 			free(v0);
@@ -3646,8 +3651,8 @@ const char*  nox_xxx_waypointByName_579E30(const char* a1) {
 }
 
 //----- (00579E70) --------------------------------------------------------
-_DWORD* sub_579E70() {
-	_DWORD* result; // eax
+uint32_t* sub_579E70() {
+	uint32_t* result; // eax
 
 	result = calloc(1u, 0x204u);
 	if (result)
@@ -3657,25 +3662,25 @@ _DWORD* sub_579E70() {
 
 //----- (00579E90) --------------------------------------------------------
 void  sub_579E90(int a1) {
-	*(_DWORD*)(a1 + 480) |= 0x1000000u;
-	*(_DWORD*)(a1 + 484) = dword_5d4594_2523756;
+	*(uint32_t*)(a1 + 480) |= 0x1000000u;
+	*(uint32_t*)(a1 + 484) = dword_5d4594_2523756;
 	if (dword_5d4594_2523756)
-		*(_DWORD*)(dword_5d4594_2523756 + 488) = a1;
+		*(uint32_t*)(dword_5d4594_2523756 + 488) = a1;
 	dword_5d4594_2523756 = a1;
 	if (nox_common_gameFlags_check_40A5C0(1))
 		nox_xxx_waypointMapRegister_5179B0(a1);
 }
 
 //----- (00579EE0) --------------------------------------------------------
-BOOL  sub_579EE0(int a1, unsigned __int8 a2) { return (a2 & *(_BYTE*)(a1 + 477)) != 0; }
+int  sub_579EE0(int a1, unsigned char a2) { return (a2 & *(uint8_t*)(a1 + 477)) != 0; }
 
 //----- (00579F00) --------------------------------------------------------
-int  nox_xxx_waypoint_579F00(_DWORD* a1, int a2) {
+int  nox_xxx_waypoint_579F00(uint32_t* a1, int a2) {
 	int v2;     // ebp
 	int v3;     // esi
-	_BYTE* i;   // esi
+	uint8_t* i;   // esi
 	int v5;     // edi
-	LPVOID v6;  // esi
+	void* v6;  // esi
 	float* v7;  // edx
 	float v8;   // eax
 	float v9;   // ecx
@@ -3687,7 +3692,7 @@ int  nox_xxx_waypoint_579F00(_DWORD* a1, int a2) {
 		if (a2) {
 			v3 = nox_server_getFirstObject_4DA790();
 			if (v3) {
-				while (!(*(_DWORD*)(v3 + 8) & 0x10000000) || nox_xxx_servCompareTeams_419150(a2 + 48, v3 + 48)) {
+				while (!(*(uint32_t*)(v3 + 8) & 0x10000000) || nox_xxx_servCompareTeams_419150(a2 + 48, v3 + 48)) {
 					v3 = nox_server_getNextObject_4DA7A0(v3);
 					if (!v3)
 						goto LABEL_9;
@@ -3698,7 +3703,7 @@ int  nox_xxx_waypoint_579F00(_DWORD* a1, int a2) {
 	}
 LABEL_9:
 	dword_5d4594_2523760 = 0;
-	for (i = nox_xxx_waypointGetList_579860(); i; i = (_BYTE*)nox_xxx_waypointNext_579870((int)i)) {
+	for (i = nox_xxx_waypointGetList_579860(); i; i = (uint8_t*)nox_xxx_waypointNext_579870((int)i)) {
 		if (sub_579EE0((int)i, 0x80u) && i[480] & 1)
 			++dword_5d4594_2523760;
 	}
@@ -3711,7 +3716,7 @@ LABEL_9:
 	while (1) {
 		if (!sub_579EE0((int)v6, 0x80u))
 			goto LABEL_24;
-		if (!(*((_BYTE*)v6 + 480) & 1))
+		if (!(*((uint8_t*)v6 + 480) & 1))
 			goto LABEL_24;
 		if (nox_common_gameFlags_check_40A5C0(32)) {
 			if (v2) {
@@ -3733,12 +3738,12 @@ LABEL_9:
 			break;
 		--v5;
 	LABEL_24:
-		v6 = (LPVOID)nox_xxx_waypointNext_579870((int)v6);
+		v6 = (void*)nox_xxx_waypointNext_579870((int)v6);
 		if (!v6)
 			return 0;
 	}
-	*a1 = *((_DWORD*)v6 + 2);
-	a1[1] = *((_DWORD*)v6 + 3);
+	*a1 = *((uint32_t*)v6 + 2);
+	a1[1] = *((uint32_t*)v6 + 3);
 	return 1;
 }
 
@@ -3747,7 +3752,7 @@ int  nox_xxx_playerCanTalkMB_57A160(int a1) {
 	int result; // eax
 
 	if (a1 && nox_common_gameFlags_check_40A5C0(2))
-		result = (*(_DWORD*)(a1 + 3680) >> 3) & 1;
+		result = (*(uint32_t*)(a1 + 3680) >> 3) & 1;
 	else
 		result = 0;
 	return result;
@@ -3758,20 +3763,20 @@ int  nox_xxx_giant_57A190(int a1) {
 	int result; // eax
 
 	if (a1)
-		result = (*(_DWORD*)(a1 + 3680) >> 2) & 1;
+		result = (*(uint32_t*)(a1 + 3680) >> 2) & 1;
 	else
 		result = 0;
 	return result;
 }
 
 //----- (0057A1B0) --------------------------------------------------------
-char*  sub_57A1B0(__int16 a1) {
+char*  sub_57A1B0(short a1) {
 	int v1;              // ecx
-	unsigned __int8* v2; // eax
+	unsigned char* v2; // eax
 
 	v1 = 0;
 	v2 = getMemAt(0x587000, 312212);
-	while ((a1 & 0x17F0) != *(_DWORD*)v2) {
+	while ((a1 & 0x17F0) != *(uint32_t*)v2) {
 		v2 += 8;
 		++v1;
 		if ((int)v2 >= (int)getMemAt(0x587000, 312268))
@@ -3781,15 +3786,15 @@ char*  sub_57A1B0(__int16 a1) {
 }
 
 //----- (0057A1E0) --------------------------------------------------------
-char  sub_57A1E0(int* a1, const char* a2, int* a3, char a4, __int16 a5) {
+char  sub_57A1E0(int* a1, const char* a2, int* a3, char a4, short a5) {
 	int* v5;             // esi
 	int v6;              // ebx
-	unsigned __int8 v7;  // dl
+	unsigned char v7;  // dl
 	char* v8;            // edi
 	int v9;              // ecx
 	int v10;             // eax
 	char* v11;           // edi
-	unsigned __int8 v12; // cl
+	unsigned char v12; // cl
 	char result;         // al
 	char v14[256];       // [esp+14h] [ebp-200h]
 	char v15[256];       // [esp+114h] [ebp-100h]
@@ -3809,7 +3814,7 @@ char  sub_57A1E0(int* a1, const char* a2, int* a3, char a4, __int16 a5) {
 		v15[0] = 0;
 		strcpy(v14, "maps\\");
 		strncat(v14, (const char*)a1, 8u);
-		*(_WORD*)&v14[strlen(v14)] = *getMemU16Ptr(0x587000, 312376);
+		*(uint16_t*)&v14[strlen(v14)] = *getMemU16Ptr(0x587000, 312376);
 		if (a4 & 2) {
 			strcpy(v15, v14);
 			if (a2) {
@@ -3818,8 +3823,8 @@ char  sub_57A1E0(int* a1, const char* a2, int* a3, char a4, __int16 a5) {
 				v7 = getMemByte(0x587000, 312388);
 				v8 = &v15[strlen(v15) + 1];
 				v9 = *getMemU32Ptr(0x587000, 312384);
-				*(_DWORD*)--v8 = *getMemU32Ptr(0x587000, 312380);
-				*((_DWORD*)v8 + 1) = v9;
+				*(uint32_t*)--v8 = *getMemU32Ptr(0x587000, 312380);
+				*((uint32_t*)v8 + 1) = v9;
 				v8[8] = v7;
 			}
 			v10 = sub_57A3F0(v15, (int)a1, (int)a3, v6);
@@ -3831,7 +3836,7 @@ char  sub_57A1E0(int* a1, const char* a2, int* a3, char a4, __int16 a5) {
 			strncat(v14, (const char*)a1, 8u);
 			v11 = &v14[strlen(v14) + 1];
 			v12 = getMemByte(0x587000, 312396);
-			*(_DWORD*)--v11 = *getMemU32Ptr(0x587000, 312392);
+			*(uint32_t*)--v11 = *getMemU32Ptr(0x587000, 312392);
 			v11[4] = v12;
 			sub_57A3F0(v14, (int)a1, (int)v5, v6);
 		}
@@ -3877,14 +3882,14 @@ int  sub_57A3F0(char* a1, int a2, int a3, int a4) {
 
 //----- (0057A4D0) --------------------------------------------------------
 void sub_57A4D0(wchar_t* a1, int a2, int a3, int a4) {
-	unsigned __int8 v4;    // bl
+	unsigned char v4;    // bl
 	int v5;                // edi
 	const wchar_t* result; // eax
 	const wchar_t* v7;     // esi
 	int v8;                // ecx
 	const wchar_t* v9;     // eax
 	wchar_t* v10;          // esi
-	unsigned __int8 v11;   // [esp+10h] [ebp-284h]
+	unsigned char v11;   // [esp+10h] [ebp-284h]
 	int v12[32];           // [esp+14h] [ebp-280h]
 	wchar_t v13[256];      // [esp+94h] [ebp-200h]
 
@@ -3936,21 +3941,21 @@ void sub_57A4D0(wchar_t* a1, int a2, int a3, int a4) {
 // 57A4D0: using guessed type int var_280[32];
 
 //----- (0057A620) --------------------------------------------------------
-BOOL  sub_57A620(unsigned __int8 a1, const wchar_t** a2, int a3, int a4) {
+int  sub_57A620(unsigned char a1, const wchar_t** a2, int a3, int a4) {
 	const wchar_t** v4;    // ebp
-	unsigned __int8 v5;    // dl
+	unsigned char v5;    // dl
 	int v6;                // esi
-	unsigned __int16* v8;  // eax
+	unsigned short* v8;  // eax
 	int v9;                // eax
 	int v10;               // ebx
-	unsigned __int8 v11;   // cl
+	unsigned char v11;   // cl
 	int v12;               // eax
-	unsigned __int16* v13; // eax
+	unsigned short* v13; // eax
 	int v14;               // esi
 	int v15;               // ecx
 	char v16[100];         // [esp+10h] [ebp-64h]
-	unsigned __int8 v17;   // [esp+7Ch] [ebp+8h]
-	unsigned __int8 v18;   // [esp+7Ch] [ebp+8h]
+	unsigned char v17;   // [esp+7Ch] [ebp+8h]
+	unsigned char v18;   // [esp+7Ch] [ebp+8h]
 
 	v4 = a2;
 	nox_sprintf(v16, "%S", *a2);
@@ -3974,24 +3979,24 @@ BOOL  sub_57A620(unsigned __int8 a1, const wchar_t** a2, int a3, int a4) {
 			if (!nox_common_gameFlags_check_40A5C0(1))
 				return 0;
 			nox_sprintf(v16, "%S", v4[2]);
-			v13 = (unsigned __int16*)sub_415EC0(v16);
+			v13 = (unsigned short*)sub_415EC0(v16);
 			if (!v13)
 				return 0;
 			v14 = sub_415D10((char*)*v13);
 			if (!v14)
 				return 0;
 			if (_nox_wcsicmp(v4[3], L"off"))
-				v15 = v14 | *(_DWORD*)(a3 + 48);
+				v15 = v14 | *(uint32_t*)(a3 + 48);
 			else
-				v15 = ~v14 & *(_DWORD*)(a3 + 48);
-			*(_DWORD*)(a3 + 48) = v15;
+				v15 = ~v14 & *(uint32_t*)(a3 + 48);
+			*(uint32_t*)(a3 + 48) = v15;
 		} else {
 			if (a1 != 4)
 				return 0;
 			if (!nox_common_gameFlags_check_40A5C0(1))
 				return 0;
 			nox_sprintf(v16, "%S", v4[2]);
-			v8 = (unsigned __int16*)sub_415A30(v16);
+			v8 = (unsigned short*)sub_415A30(v16);
 			if (!v8)
 				return 0;
 			v9 = nox_xxx_ammoCheck_415880((char*)*v8);
@@ -4010,9 +4015,9 @@ BOOL  sub_57A620(unsigned __int8 a1, const wchar_t** a2, int a3, int a4) {
 				v18 = v11;
 			}
 			if (_nox_wcsicmp(v4[3], L"off"))
-				*(_BYTE*)(v18 + a3 + 43) |= v10;
+				*(uint8_t*)(v18 + a3 + 43) |= v10;
 			else
-				*(_BYTE*)(v18 + a3 + 43) &= ~(_BYTE)v10;
+				*(uint8_t*)(v18 + a3 + 43) &= ~(uint8_t)v10;
 		}
 	} else {
 		if (a1 != 4)
@@ -4042,18 +4047,18 @@ int  sub_57A950(char* a1) {
 
 	strcpy(v2, "maps\\");
 	strncat(v2, a1, (strlen(a1) - 4 < 256 ? strlen(a1) - 4 : 256));
-	*(_WORD*)&v2[strlen(v2)] = *getMemU16Ptr(0x587000, 312564);
+	*(uint16_t*)&v2[strlen(v2)] = *getMemU16Ptr(0x587000, 312564);
 	strcat(v2, a1);
 	return sub_4D0550(v2);
 }
 
 //----- (0057A9F0) --------------------------------------------------------
 int  sub_57A9F0(const char* a1, const char* a2) {
-	CHAR FileName[256]; // [esp+Ch] [ebp-100h]
+	char FileName[256]; // [esp+Ch] [ebp-100h]
 
 	strcpy(FileName, "maps\\");
 	strcat(FileName, a1);
-	*(_WORD*)&FileName[strlen(FileName)] = *getMemU16Ptr(0x587000, 312576);
+	*(uint16_t*)&FileName[strlen(FileName)] = *getMemU16Ptr(0x587000, 312576);
 	strcat(FileName, a2);
 	return remove(FileName);
 }
@@ -4079,14 +4084,14 @@ char  sub_57AAA0(const char* a1, char* a2, int* a3) {
 	char v20[36];       // [esp+2Ch] [ebp-260h]
 	char v21[24];       // [esp+50h] [ebp-23Ch]
 	char v22[36];       // [esp+68h] [ebp-224h]
-	CHAR v23[256];      // [esp+8Ch] [ebp-200h]
-	CHAR FileName[256]; // [esp+18Ch] [ebp-100h]
+	char v23[256];      // [esp+8Ch] [ebp-200h]
+	char FileName[256]; // [esp+18Ch] [ebp-100h]
 
 	LOBYTE(v3) = a2[52];
 	if ((char)v3 >= 0) {
 		strcpy(FileName, "maps\\");
 		strncat(FileName, a2, 8u);
-		*(_WORD*)&FileName[strlen(FileName)] = *getMemU16Ptr(0x587000, 312588);
+		*(uint16_t*)&FileName[strlen(FileName)] = *getMemU16Ptr(0x587000, 312588);
 		strcat(FileName, a1);
 #ifndef NOX_CGO
 		_chmod(FileName, 128);
@@ -4097,8 +4102,8 @@ char  sub_57AAA0(const char* a1, char* a2, int* a3) {
 			if (dword_5d4594_2650652) {
 				strcpy(v21, a2);
 				strcpy(v19, a2);
-				sub_57A1E0((int*)v21, 0, 0, 4, *((_WORD*)a2 + 26));
-				sub_57A1E0((int*)v19, 0, 0, 3, *((_WORD*)a2 + 26));
+				sub_57A1E0((int*)v21, 0, 0, 4, *((uint16_t*)a2 + 26));
+				sub_57A1E0((int*)v19, 0, 0, 3, *((uint16_t*)a2 + 26));
 			}
 			if (a3) {
 				for (i = nox_common_list_getFirstSafe_425890(a3); i; i = nox_common_list_getNextSafe_4258A0(i)) {
@@ -4106,7 +4111,7 @@ char  sub_57AAA0(const char* a1, char* a2, int* a3) {
 					nox_fs_fputs(v4, v23);
 				}
 			}
-			v6 = sub_57A1B0(*((_WORD*)a2 + 26));
+			v6 = sub_57A1B0(*((uint16_t*)a2 + 26));
 			nox_fs_fputs(v4, v6);
 			nox_fs_fputs(v4, "\n");
 			v7 = 1;
@@ -4125,7 +4130,7 @@ char  sub_57AAA0(const char* a1, char* a2, int* a3) {
 			v10 = 1;
 			v11 = 26;
 			do {
-				if (!(v10 & *((_DWORD*)a2 + 12))) {
+				if (!(v10 & *((uint32_t*)a2 + 12))) {
 					v12 = sub_415E40((char*)v10);
 					if (v12) {
 						nox_sprintf(v23, "%s %s \"%s\" %s\n", getMemAt(0x587000, 312648), getMemAt(0x587000, 312640), v12,
@@ -4141,7 +4146,7 @@ char  sub_57AAA0(const char* a1, char* a2, int* a3) {
 			v18 = 27;
 			v15 = a2 + 44;
 			do {
-				if (!((unsigned __int8)v13 & (unsigned __int8)*v15)) {
+				if (!((unsigned char)v13 & (unsigned char)*v15)) {
 					v16 = sub_4159B0((char*)v14);
 					if (v16) {
 						nox_sprintf(v23, "%s %s \"%s\" %s\n", getMemAt(0x587000, 312680), getMemAt(0x587000, 312672), v16,
@@ -4176,7 +4181,7 @@ int*  sub_57ADF0(int* a1) {
 	if (result) {
 		do {
 			v3 = nox_common_list_getNextSafe_4258A0(v2);
-			sub_425920((_DWORD**)v2);
+			sub_425920((uint32_t**)v2);
 			free(v2);
 			v2 = v3;
 		} while (v3);
@@ -4222,7 +4227,7 @@ int  nox_xxx_playerCheckSpellClass_57AEA0(int a1, int a2) {
 }
 
 //----- (0057AEE0) --------------------------------------------------------
-BOOL  sub_57AEE0(int a1, int a2) { return a1 < 75 || a1 > 114 || nox_xxx_countControlledCreatures_500D10(a2) <= 4; }
+int  sub_57AEE0(int a1, int a2) { return a1 < 75 || a1 > 114 || nox_xxx_countControlledCreatures_500D10(a2) <= 4; }
 
 //----- (0057AF20) --------------------------------------------------------
 int nox_xxx_get_57AF20() { return dword_5d4594_2523804; }
@@ -4230,20 +4235,20 @@ int nox_xxx_get_57AF20() { return dword_5d4594_2523804; }
 //----- (0057B0A0) --------------------------------------------------------
 void sub_57B0A0() {
 	int result; // eax
-	_DWORD* v1; // ecx
+	uint32_t* v1; // ecx
 
 	result = dword_5d4594_2523804;
 	if (!result) {
 		return;
 	}
-	v1 = *(_DWORD**)&dword_5d4594_2523780;
+	v1 = *(uint32_t**)&dword_5d4594_2523780;
 	if (dword_5d4594_2523780 && (!*getMemU32Ptr(0x5D4594, 2523772) || *getMemU32Ptr(0x5D4594, 2523772) == 1)) {
 		nox_xxx_netSendPointFx_522FF0(154, (float2*)(dword_5d4594_2523780 + 56));
-		v1 = *(_DWORD**)&dword_5d4594_2523780;
+		v1 = *(uint32_t**)&dword_5d4594_2523780;
 	}
 	if (dword_5d4594_2523776) {
 		nox_xxx_delayedDeleteObject_4E5CC0(*(int*)&dword_5d4594_2523776);
-		v1 = *(_DWORD**)&dword_5d4594_2523780;
+		v1 = *(uint32_t**)&dword_5d4594_2523780;
 	}
 	dword_5d4594_2523776 = 0;
 	if (v1)
@@ -4255,10 +4260,10 @@ void sub_57B0A0() {
 }
 
 //----- (0057B180) --------------------------------------------------------
-__int64 nox_xxx___Getcvt_57B180() { return *getMemU64Ptr(0x5D4594, 2523788); }
+long long nox_xxx___Getcvt_57B180() { return *getMemU64Ptr(0x5D4594, 2523788); }
 
 //----- (0057B190) --------------------------------------------------------
-int  sub_57B190(unsigned __int16 a1, unsigned __int16 a2) {
+int  sub_57B190(unsigned short a1, unsigned short a2) {
 	int result; // eax
 	double v3;  // st7
 	double v4;  // st6
@@ -4304,8 +4309,8 @@ float* sub_57B350() { return getMemFloatPtr(0x5D4594, 2523812); }
 float*  nox_xxx_plrGetMaxVarsPtr_57B360(int a1) { return getMemFloatPtr(0x5D4594, 2523828 + 16 * a1); }
 
 //----- (0057B370) --------------------------------------------------------
-char  sub_57B370(int a1, unsigned __int8 a2, int a3) {
-	_DWORD* v3;  // eax
+char  sub_57B370(int a1, unsigned char a2, int a3) {
+	uint32_t* v3;  // eax
 	char result; // al
 
 	if (!(a1 & 0x3001010))
@@ -4318,7 +4323,7 @@ char  sub_57B370(int a1, unsigned __int8 a2, int a3) {
 		v3 = nox_xxx_equipClothFindDefByTT_413270(a3);
 	LABEL_4:
 		if (v3)
-			result = *((_BYTE*)v3 + 62);
+			result = *((uint8_t*)v3 + 62);
 		else
 			result = 0;
 		return result;
@@ -4333,13 +4338,13 @@ char  sub_57B370(int a1, unsigned __int8 a2, int a3) {
 //----- (0057B3D0) --------------------------------------------------------
 int nox_cheat_allowall = 0;
 
-BOOL nox_xxx_playerClassCanUseItem_57B3D0(nox_object_t* item, char a2) {
+int nox_xxx_playerClassCanUseItem_57B3D0(nox_object_t* item, char a2) {
 	if (nox_cheat_allowall) {
 		return 1;
 	}
-	return ((unsigned __int8)(1 << a2) &
-			(unsigned __int8)sub_57B370(*(_DWORD*)&item->obj_class, *(_DWORD*)&item->field_3,
-			                            *(unsigned __int16*)&item->typ_ind)) != 0;
+	return ((unsigned char)(1 << a2) &
+			(unsigned char)sub_57B370(*(uint32_t*)&item->obj_class, *(uint32_t*)&item->field_3,
+			                            *(unsigned short*)&item->typ_ind)) != 0;
 }
 
 //----- (0057B400) --------------------------------------------------------
@@ -4353,16 +4358,16 @@ int  nox_xxx_client_57B400(int a1) {
 	}
 	if (!*getMemU32Ptr(0x8531A0, 2576))
 		return 0;
-	if (*(_DWORD*)(a1 + 108) != v1 || *(_BYTE*)(*getMemU32Ptr(0x8531A0, 2576) + 2251) == 1)
+	if (*(uint32_t*)(a1 + 108) != v1 || *(uint8_t*)(*getMemU32Ptr(0x8531A0, 2576) + 2251) == 1)
 		return 1;
 	return 0;
 }
 
 //----- (0057B450) --------------------------------------------------------
-BOOL  sub_57B450(nox_drawable* a1p) {
+int  sub_57B450(nox_drawable* a1p) {
 	int* a1 = a1p;
 	int v1;             // eax
-	unsigned __int8 v2; // bl
+	unsigned char v2; // bl
 
 	v1 = *getMemU32Ptr(0x5D4594, 2523880);
 	if (!*getMemU32Ptr(0x5D4594, 2523880)) {
@@ -4370,13 +4375,13 @@ BOOL  sub_57B450(nox_drawable* a1p) {
 		*getMemU32Ptr(0x5D4594, 2523880) = v1;
 	}
 	if (!a1 || !*getMemU32Ptr(0x852978, 8) || !*getMemU32Ptr(0x8531A0, 2576) ||
-		a1[27] == v1 && *(_BYTE*)(*getMemU32Ptr(0x8531A0, 2576) + 2251) != 1) {
+		a1[27] == v1 && *(uint8_t*)(*getMemU32Ptr(0x8531A0, 2576) + 2251) != 1) {
 		return 0;
 	}
 	if (nox_cheat_allowall)
 		return 1;
-	v2 = 1 << *(_BYTE*)(*getMemU32Ptr(0x8531A0, 2576) + 2251);
-	return (v2 & (unsigned __int8)sub_57B370(a1[28], a1[29], a1[27])) != 0;
+	v2 = 1 << *(uint8_t*)(*getMemU32Ptr(0x8531A0, 2576) + 2251);
+	return (v2 & (unsigned char)sub_57B370(a1[28], a1[29], a1[27])) != 0;
 }
 
 //----- (0057B4D0) --------------------------------------------------------
@@ -4416,26 +4421,26 @@ char  sub_57B500(int a1, int a2, char a3) {
 	v3 = nox_xxx_wall_4105E0(a1, a2);
 	if (!v3)
 		return -1;
-	v4 = *(_BYTE*)(v3 + 4);
+	v4 = *(uint8_t*)(v3 + 4);
 	if (v4 & 0x10) {
 		if (!(a3 & 0x10))
 			return -1;
-		v5 = *(_DWORD*)(v3 + 28);
+		v5 = *(uint32_t*)(v3 + 28);
 		if (!v5)
 			return -1;
-		v6 = *(_DWORD*)(v5 + 748);
+		v6 = *(uint32_t*)(v5 + 748);
 		if (a3 & 8) {
-			if (!*(_BYTE*)(v6 + 1))
+			if (!*(uint8_t*)(v6 + 1))
 				return -1;
 			if (dword_5d4594_2523888 && nox_xxx_doorGetSomeKey_4E8910(*getMemIntPtr(0x5D4594, 2523884), v5)) {
 				dword_5d4594_2523888 = 0;
 				return -1;
 			}
 		}
-		if (a3 >= 0 && *(_BYTE*)(v5 + 12) & 4)
+		if (a3 >= 0 && *(uint8_t*)(v5 + 12) & 4)
 			return -1;
-		v8 = *(_DWORD*)(v6 + 12);
-		if (v8 != *(_DWORD*)(v6 + 4))
+		v8 = *(uint32_t*)(v6 + 12);
+		if (v8 != *(uint32_t*)(v6 + 4))
 			return -1;
 		v9 = *getMemIntPtr(0x587000, 196184 + 8 * v8);
 		v10 = v9 < 0;
@@ -4460,9 +4465,9 @@ char  sub_57B500(int a1, int a2, char a3) {
 			return -1;
 		result = 0;
 	} else {
-		if (!(a3 & 0x40) && v4 & 0x40 || v4 & 4 && *(_BYTE*)(*(_DWORD*)(v3 + 28) + 22) > 0xBu)
+		if (!(a3 & 0x40) && v4 & 0x40 || v4 & 4 && *(uint8_t*)(*(uint32_t*)(v3 + 28) + 22) > 0xBu)
 			return -1;
-		result = *(_BYTE*)v3;
+		result = *(uint8_t*)v3;
 	}
 	return result;
 }
@@ -4483,12 +4488,12 @@ char  sub_57B630(int a1, int a2, int a3) {
 	if (a2 >= 0 && a2 < 256 && (a3 >= 0 || a3 < 256)) {
 		v3 = nox_xxx_wall_4105E0(a2, a3);
 		if (v3) {
-			v4 = *(_BYTE*)(v3 + 4);
+			v4 = *(uint8_t*)(v3 + 4);
 			if (v4 & 0x10) {
-				v5 = *(_DWORD*)(v3 + 28);
+				v5 = *(uint32_t*)(v3 + 28);
 				if (v5) {
-					v6 = *(_DWORD*)(v5 + 748);
-					v7 = *(_DWORD*)(v6 + 12);
+					v6 = *(uint32_t*)(v5 + 748);
+					v7 = *(uint32_t*)(v6 + 12);
 					if (v7 == *(int*)(v6 + 4)) {
 						v8 = *getMemIntPtr(0x587000, 196184 + 8 * v7);
 						v9 = v8 < 0;
@@ -4512,10 +4517,10 @@ char  sub_57B630(int a1, int a2, int a3) {
 								LABEL_21:
 									v11 = 0;
 								LABEL_22:
-									if (*(_DWORD*)(v5 + 508)) {
+									if (*(uint32_t*)(v5 + 508)) {
 										if (nox_common_randomInt_415FA0(0, 100) >= 50)
 											return v11;
-									} else if (*(_BYTE*)(v6 + 1) && !nox_xxx_doorGetSomeKey_4E8910(a1, v5)) {
+									} else if (*(uint8_t*)(v6 + 1) && !nox_xxx_doorGetSomeKey_4E8910(a1, v5)) {
 										return v11;
 									}
 									return -1;
@@ -4527,12 +4532,12 @@ char  sub_57B630(int a1, int a2, int a3) {
 							goto LABEL_21;
 					}
 				}
-			} else if (!(*(_DWORD*)(a1 + 16) & 0x4000) || !(v4 & 0x40)) {
+			} else if (!(*(uint32_t*)(a1 + 16) & 0x4000) || !(v4 & 0x40)) {
 				if (!(v4 & 4))
-					return *(_BYTE*)v3;
-				v13 = *(_DWORD*)(v3 + 28);
-				if (!(*(_BYTE*)(v13 + 20) & 2) && *(_BYTE*)(v13 + 22) <= 0xBu)
-					return *(_BYTE*)v3;
+					return *(uint8_t*)v3;
+				v13 = *(uint32_t*)(v3 + 28);
+				if (!(*(uint8_t*)(v13 + 20) & 2) && *(uint8_t*)(v13 + 22) <= 0xBu)
+					return *(uint8_t*)v3;
 			}
 		}
 	}
@@ -4576,9 +4581,9 @@ int  nox_xxx_collideReflect_57B810(float* a1, int a2) {
 	result = a2;
 	v3 = *(float*)a2;
 	if (a1[1] * *a1 <= 0.0) {
-		v4 = *(_DWORD*)(a2 + 4);
+		v4 = *(uint32_t*)(a2 + 4);
 		*(float*)(a2 + 4) = *(float*)a2;
-		*(_DWORD*)a2 = v4;
+		*(uint32_t*)a2 = v4;
 	} else {
 		*(float*)a2 = -*(float*)(a2 + 4);
 		*(float*)(a2 + 4) = -v3;
@@ -4587,8 +4592,8 @@ int  nox_xxx_collideReflect_57B810(float* a1, int a2) {
 }
 
 //----- (0057B850) --------------------------------------------------------
-BOOL  nox_xxx_map_57B850(float2* a1, float* a2, float2* a3) {
-	BOOL result; // eax
+int  nox_xxx_map_57B850(float2* a1, float* a2, float2* a3) {
+	int result; // eax
 	float v4;    // [esp+0h] [ebp-10h]
 	float v5;    // [esp+4h] [ebp-Ch]
 	float v6;    // [esp+8h] [ebp-8h]
@@ -4623,19 +4628,19 @@ char  sub_57B930(int a1, int a2, int a3, unsigned int a4) {
 	int v4; // eax
 	int v5; // edx
 
-	v4 = (unsigned __int8)a2;
-	v5 = (unsigned __int8)a2;
-	if ((unsigned __int8)a2 == 255 || !(_BYTE)a2) {
+	v4 = (unsigned char)a2;
+	v5 = (unsigned char)a2;
+	if ((unsigned char)a2 == 255 || !(uint8_t)a2) {
 		v4 = 1;
 		v5 = 1;
 	}
-	while (*(unsigned __int16*)(a1 + 8 * v4) != a2 || *(unsigned __int16*)(a1 + 8 * v4 + 2) != a3) {
+	while (*(unsigned short*)(a1 + 8 * v4) != a2 || *(unsigned short*)(a1 + 8 * v4 + 2) != a3) {
 		if (++v4 == 255)
 			v4 = 1;
 		if (v4 == v5)
 			goto LABEL_11;
 	}
-	if (*(_DWORD*)(a1 + 8 * v4 + 4) >= a4)
+	if (*(uint32_t*)(a1 + 8 * v4 + 4) >= a4)
 		return v4;
 LABEL_11:
 	LOBYTE(v4) = -1;
@@ -4647,14 +4652,14 @@ char  nox_xxx_cliGenerateAlias_57B9A0(int a1, int a2, int a3, unsigned int a4) {
 	int v4; // eax
 	int v5; // edx
 
-	v4 = (unsigned __int8)a2;
-	v5 = (unsigned __int8)a2;
-	if ((unsigned __int8)a2 == 255 || !(_BYTE)a2) {
+	v4 = (unsigned char)a2;
+	v5 = (unsigned char)a2;
+	if ((unsigned char)a2 == 255 || !(uint8_t)a2) {
 		v4 = 1;
 		v5 = 1;
 	}
-	while ((*(unsigned __int16*)(a1 + 8 * v4) != a2 || *(unsigned __int16*)(a1 + 8 * v4 + 2) != a3) &&
-		   *(_DWORD*)(a1 + 8 * v4 + 4) >= a4) {
+	while ((*(unsigned short*)(a1 + 8 * v4) != a2 || *(unsigned short*)(a1 + 8 * v4 + 2) != a3) &&
+		   *(uint32_t*)(a1 + 8 * v4 + 4) >= a4) {
 		if (++v4 == 255)
 			v4 = 1;
 		if (v4 == v5) {
@@ -4666,13 +4671,13 @@ char  nox_xxx_cliGenerateAlias_57B9A0(int a1, int a2, int a3, unsigned int a4) {
 }
 
 //----- (0057BA10) --------------------------------------------------------
-int  sub_57BA10(int a1, __int16 a2, __int16 a3, int a4) {
+int  sub_57BA10(int a1, short a2, short a3, int a4) {
 	int result; // eax
 
 	result = a1;
-	*(_WORD*)a1 = a2;
-	*(_WORD*)(a1 + 2) = a3;
-	*(_DWORD*)(a1 + 4) = a4;
+	*(uint16_t*)a1 = a2;
+	*(uint16_t*)(a1 + 2) = a3;
+	*(uint32_t*)(a1 + 4) = a4;
 	return result;
 }
 
@@ -4687,7 +4692,7 @@ int  sub_57BA30(int2* a1, int2* a2, int4* a3) {
 	int result; // eax
 	int v10;    // edx
 	int v11;    // edi
-	BOOL v12;   // [esp+10h] [ebp-4h]
+	int v12;   // [esp+10h] [ebp-4h]
 
 	v12 = 0;
 	while (1) {
@@ -4792,7 +4797,7 @@ int  nox_xxx_mapNxzDecompress_57BC50(char* a1, char* a2) {
 	char* v6;   // ebx
 	char* v7;   // eax
 	char* v8;   // ebp
-	_DWORD* v9; // edi
+	uint32_t* v9; // edi
 	FILE* v10;  // esi
 	size_t v12; // [esp+10h] [ebp-8h]
 	size_t v13; // [esp+14h] [ebp-4h]
@@ -4835,7 +4840,7 @@ int  nox_xxx_mapNxzDecompress_57BC50(char* a1, char* a2) {
 }
 
 //----- (0057BDD0) --------------------------------------------------------
-int  nox_xxx_mapFile_57BDD0(LPVOID lpMem, int a2) {
+int  nox_xxx_mapFile_57BDD0(void* lpMem, int a2) {
 	size_t v2;        // ebx
 	FILE* v3;         // eax
 	FILE* v4;         // esi
@@ -4876,7 +4881,7 @@ int  nox_xxx_mapFile_57BDD0(LPVOID lpMem, int a2) {
 		v11 = v9 - i;
 		if (v11 > 0x7A120)
 			v11 = 500000;
-		v2 += sub_578BB0(v8, (int)lpMema + v2, (unsigned __int8*)&v5[i], v11);
+		v2 += sub_578BB0(v8, (int)lpMema + v2, (unsigned char*)&v5[i], v11);
 		v9 = v15;
 	}
 	sub_578BD0(v8);
@@ -4893,10 +4898,10 @@ int  nox_xxx_mapFile_57BDD0(LPVOID lpMem, int a2) {
 }
 
 //----- (0057BF20) --------------------------------------------------------
-BOOL  sub_57BF20(int a1, int a2) { return a1 && a2; }
+int  sub_57BF20(int a1, int a2) { return a1 && a2; }
 
 //----- (0057BF40) --------------------------------------------------------
-BOOL  sub_57BF40(int a1, int a2) { return a1 && a2; }
+int  sub_57BF40(int a1, int a2) { return a1 && a2; }
 
 //----- (0057BF60) --------------------------------------------------------
 int sub_57BF60() { return 0; }
@@ -4912,7 +4917,7 @@ unsigned int sub_57BF80() {
 
 	v0 = 0;
 	for (i = nox_server_getFirstMapGroup_57C080(); i; i = nox_server_getNextMapGroup_57C090(i)) {
-		v2 = *(_DWORD*)(i + 4);
+		v2 = *(uint32_t*)(i + 4);
 		if (v2 >= v0)
 			v0 = v2 + 1;
 	}
@@ -4934,8 +4939,8 @@ int nox_xxx_allocGroupRelatedArrays_57BFB0() {
 //----- (0057C000) --------------------------------------------------------
 void sub_57C000() {
 	dword_5d4594_2523904 = 0;
-	nox_alloc_class_yyy_4144D0(*(_DWORD**)&nox_alloc_itemGroupElem_2523896);
-	nox_alloc_class_yyy_4144D0(*(_DWORD**)&nox_alloc_groupInfo_2523892);
+	nox_alloc_class_yyy_4144D0(*(uint32_t**)&nox_alloc_itemGroupElem_2523896);
+	nox_alloc_class_yyy_4144D0(*(uint32_t**)&nox_alloc_groupInfo_2523892);
 	nox_server_mapGroupsHead_2523900 = 0;
 }
 
@@ -4943,11 +4948,11 @@ void sub_57C000() {
 int sub_57C030() {
 	dword_5d4594_2523904 = 0;
 	if (nox_alloc_groupInfo_2523892) {
-		nox_free_alloc_class(*(LPVOID*)&nox_alloc_groupInfo_2523892);
+		nox_free_alloc_class(*(void**)&nox_alloc_groupInfo_2523892);
 		nox_alloc_groupInfo_2523892 = 0;
 	}
 	if (nox_alloc_itemGroupElem_2523896) {
-		nox_free_alloc_class(*(LPVOID*)&nox_alloc_itemGroupElem_2523896);
+		nox_free_alloc_class(*(void**)&nox_alloc_itemGroupElem_2523896);
 		nox_alloc_itemGroupElem_2523896 = 0;
 	}
 	nox_server_mapGroupsHead_2523900 = 0;
@@ -4962,7 +4967,7 @@ int  nox_server_getNextMapGroup_57C090(int a1) {
 	int result; // eax
 
 	if (a1)
-		result = *(_DWORD*)(a1 + 88);
+		result = *(uint32_t*)(a1 + 88);
 	else
 		result = 0;
 	return result;
@@ -4975,8 +4980,8 @@ int  nox_server_scriptGetGroup_57C0A0(int a1) {
 	result = nox_server_mapGroupsHead_2523900;
 	if (!nox_server_mapGroupsHead_2523900)
 		return 0;
-	while (*(_DWORD*)(result + 4) != a1) {
-		result = *(_DWORD*)(result + 88);
+	while (*(uint32_t*)(result + 4) != a1) {
+		result = *(uint32_t*)(result + 88);
 		if (!result)
 			return 0;
 	}
@@ -4992,16 +4997,16 @@ int  nox_server_mapLoadAddGroup_57C0C0(char* a1, int a2, char a3) {
 	result = (int)sub_57C330();
 	v4 = result;
 	if (result) {
-		*(_DWORD*)(result + 4) = a2;
-		*(_BYTE*)result = a3;
+		*(uint32_t*)(result + 4) = a2;
+		*(uint8_t*)result = a3;
 		strncpy((char*)(result + 8), a1, 0x4Cu);
-		*(_BYTE*)(v4 + 83) = 0;
-		*(_DWORD*)(v4 + 84) = 0;
+		*(uint8_t*)(v4 + 83) = 0;
+		*(uint32_t*)(v4 + 84) = 0;
 		v5 = nox_server_mapGroupsHead_2523900;
-		*(_DWORD*)(v4 + 92) = 0;
-		*(_DWORD*)(v4 + 88) = v5;
+		*(uint32_t*)(v4 + 92) = 0;
+		*(uint32_t*)(v4 + 88) = v5;
 		if (nox_server_mapGroupsHead_2523900)
-			*(_DWORD*)(nox_server_mapGroupsHead_2523900 + 92) = v4;
+			*(uint32_t*)(nox_server_mapGroupsHead_2523900 + 92) = v4;
 		nox_server_mapGroupsHead_2523900 = v4;
 		result = 1;
 	}
@@ -5009,7 +5014,7 @@ int  nox_server_mapLoadAddGroup_57C0C0(char* a1, int a2, char a3) {
 }
 
 //----- (0057C130) --------------------------------------------------------
-int  sub_57C130(_DWORD* a1, int a2) {
+int  sub_57C130(uint32_t* a1, int a2) {
 	int result; // eax
 	char* v3;   // esi
 	char v4;    // bl
@@ -5021,8 +5026,8 @@ int  sub_57C130(_DWORD* a1, int a2) {
 	v3 = *(char**)&nox_server_mapGroupsHead_2523900;
 	if (!nox_server_mapGroupsHead_2523900)
 		return 0;
-	while (*((_DWORD*)v3 + 1) != a2) {
-		v3 = (char*)*((_DWORD*)v3 + 22);
+	while (*((uint32_t*)v3 + 1) != a2) {
+		v3 = (char*)*((uint32_t*)v3 + 22);
 		if (!v3)
 			return 0;
 	}
@@ -5033,28 +5038,28 @@ int  sub_57C130(_DWORD* a1, int a2) {
 	if (result) {
 		if (v4 && v4 != 1 && v4 != 3) {
 			if (v4 != 2) {
-				nox_alloc_class_free_obj(*(unsigned int**)&nox_alloc_itemGroupElem_2523896, (_QWORD*)result);
+				nox_alloc_class_free_obj(*(unsigned int**)&nox_alloc_itemGroupElem_2523896, (uint64_t*)result);
 				return 0;
 			}
-			*(_DWORD*)result = *a1;
-			*(_DWORD*)(result + 4) = a1[1];
+			*(uint32_t*)result = *a1;
+			*(uint32_t*)(result + 4) = a1[1];
 		} else {
-			*(_DWORD*)result = *a1;
+			*(uint32_t*)result = *a1;
 		}
-		v5 = *((_DWORD*)v3 + 21);
-		*(_DWORD*)(result + 12) = 0;
-		*(_DWORD*)(result + 8) = v5;
-		v6 = *((_DWORD*)v3 + 21);
+		v5 = *((uint32_t*)v3 + 21);
+		*(uint32_t*)(result + 12) = 0;
+		*(uint32_t*)(result + 8) = v5;
+		v6 = *((uint32_t*)v3 + 21);
 		if (v6)
-			*(_DWORD*)(v6 + 12) = result;
-		*((_DWORD*)v3 + 21) = result;
+			*(uint32_t*)(v6 + 12) = result;
+		*((uint32_t*)v3 + 21) = result;
 		result = 1;
 	}
 	return result;
 }
 
 //----- (0057C1E0) --------------------------------------------------------
-int  sub_57C1E0(_DWORD* a1, int a2) {
+int  sub_57C1E0(uint32_t* a1, int a2) {
 	int v2;   // ebx
 	char* v3; // ebp
 	int i;    // esi
@@ -5065,23 +5070,23 @@ int  sub_57C1E0(_DWORD* a1, int a2) {
 	v3 = *(char**)&nox_server_mapGroupsHead_2523900;
 	if (!nox_server_mapGroupsHead_2523900)
 		return 0;
-	while (*(_DWORD*)(nox_server_mapGroupsHead_2523900 + 4) != a2)
+	while (*(uint32_t*)(nox_server_mapGroupsHead_2523900 + 4) != a2)
 		;
-	for (i = *(_DWORD*)(nox_server_mapGroupsHead_2523900 + 84); i; i = *(_DWORD*)(i + 8)) {
+	for (i = *(uint32_t*)(nox_server_mapGroupsHead_2523900 + 84); i; i = *(uint32_t*)(i + 8)) {
 		v5 = *v3;
 		if (*v3 && v5 != 1 && v5 != 3) {
-			if (v5 == 2 && *(_DWORD*)i == *a1 && *(_DWORD*)(i + 4) == a1[1]) {
+			if (v5 == 2 && *(uint32_t*)i == *a1 && *(uint32_t*)(i + 4) == a1[1]) {
 				v2 = 1;
 			LABEL_15:
-				if (*(_DWORD*)(i + 12))
-					*(_DWORD*)(i + 12) = *(_DWORD*)(i + 8);
-				v7 = *(_DWORD*)(i + 8);
+				if (*(uint32_t*)(i + 12))
+					*(uint32_t*)(i + 12) = *(uint32_t*)(i + 8);
+				v7 = *(uint32_t*)(i + 8);
 				if (v7)
-					*(_DWORD*)(v7 + 12) = *(_DWORD*)(i + 12);
-				sub_57C390((_QWORD*)i);
+					*(uint32_t*)(v7 + 12) = *(uint32_t*)(i + 12);
+				sub_57C390((uint64_t*)i);
 				continue;
 			}
-		} else if (*(_DWORD*)i == *a1) {
+		} else if (*(uint32_t*)i == *a1) {
 			v2 = 1;
 			goto LABEL_15;
 		}
@@ -5110,29 +5115,29 @@ void* sub_57C330() {
 
 	v0 = 0;
 	if (!nox_common_gameFlags_check_40A5C0(2097153) ||
-		(result = nox_alloc_class_new_obj_zero(*(_DWORD**)&nox_alloc_groupInfo_2523892), (v0 = result) != 0))
+		(result = nox_alloc_class_new_obj_zero(*(uint32_t**)&nox_alloc_groupInfo_2523892), (v0 = result) != 0))
 		result = v0;
 	return result;
 }
 
 //----- (0057C360) --------------------------------------------------------
-void* sub_57C360() { return nox_alloc_class_new_obj_zero(*(_DWORD**)&nox_alloc_itemGroupElem_2523896); }
+void* sub_57C360() { return nox_alloc_class_new_obj_zero(*(uint32_t**)&nox_alloc_itemGroupElem_2523896); }
 
 //----- (0057C370) --------------------------------------------------------
-void  sub_57C370(_QWORD* a1) { nox_alloc_class_free_obj(*(unsigned int**)&nox_alloc_groupInfo_2523892, a1); }
+void  sub_57C370(uint64_t* a1) { nox_alloc_class_free_obj(*(unsigned int**)&nox_alloc_groupInfo_2523892, a1); }
 
 //----- (0057C390) --------------------------------------------------------
-void  sub_57C390(_QWORD* a1) { nox_alloc_class_free_obj(*(unsigned int**)&nox_alloc_itemGroupElem_2523896, a1); }
+void  sub_57C390(uint64_t* a1) { nox_alloc_class_free_obj(*(unsigned int**)&nox_alloc_itemGroupElem_2523896, a1); }
 
 //----- (0057C3B0) --------------------------------------------------------
 int  nox_server_addNewMapGroup_57C3B0(int a1) {
 	int result; // eax
 
 	result = a1;
-	*(_DWORD*)(a1 + 92) = 0;
-	*(_DWORD*)(a1 + 88) = nox_server_mapGroupsHead_2523900;
+	*(uint32_t*)(a1 + 92) = 0;
+	*(uint32_t*)(a1 + 88) = nox_server_mapGroupsHead_2523900;
 	if (nox_server_mapGroupsHead_2523900)
-		*(_DWORD*)(nox_server_mapGroupsHead_2523900 + 92) = a1;
+		*(uint32_t*)(nox_server_mapGroupsHead_2523900 + 92) = a1;
 	nox_server_mapGroupsHead_2523900 = a1;
 	return result;
 }
@@ -5145,28 +5150,28 @@ void*  nox_xxx_nextDebugObject_57C3F0(void* a1) {
 	int result; // eax
 
 	if (a1)
-		result = *(_DWORD*)((_DWORD)a1 + 336);
+		result = *(uint32_t*)((uint32_t)a1 + 336);
 	else
 		result = 0;
 	return result;
 }
 
 //----- (0057C410) --------------------------------------------------------
-BOOL nox_xxx_allocDebugDataArray_57C410() {
+int nox_xxx_allocDebugDataArray_57C410() {
 	nox_alloc_debugData_2523908 = nox_new_alloc_class("DebugData", 344, 256);
 	return nox_alloc_debugData_2523908 != 0;
 }
 
 //----- (0057C440) --------------------------------------------------------
 void sub_57C440() {
-	nox_alloc_class_yyy_4144D0(*(_DWORD**)&nox_alloc_debugData_2523908);
+	nox_alloc_class_yyy_4144D0(*(uint32_t**)&nox_alloc_debugData_2523908);
 	dword_5d4594_2523912 = 0;
 }
 
 //----- (0057C460) --------------------------------------------------------
 int sub_57C460() {
 	if (nox_alloc_debugData_2523908) {
-		nox_free_alloc_class(*(LPVOID*)&nox_alloc_debugData_2523908);
+		nox_free_alloc_class(*(void**)&nox_alloc_debugData_2523908);
 		nox_alloc_debugData_2523908 = 0;
 	}
 	dword_5d4594_2523912 = 0;
@@ -5181,7 +5186,7 @@ int  sub_57C490(const char* a1) {
 	if (!dword_5d4594_2523912)
 		return 0;
 	while (strcmp(a1, (const char*)v1)) {
-		v1 = *(_DWORD*)(v1 + 336);
+		v1 = *(uint32_t*)(v1 + 336);
 		if (!v1)
 			return 0;
 	}
@@ -5192,15 +5197,15 @@ int  sub_57C490(const char* a1) {
 int  sub_57C500(const char* a1, const char* a2) {
 	char* v2; // edx
 
-	v2 = (char*)nox_alloc_class_new_obj_zero(*(_DWORD**)&nox_alloc_debugData_2523908);
+	v2 = (char*)nox_alloc_class_new_obj_zero(*(uint32_t**)&nox_alloc_debugData_2523908);
 	if (!v2)
 		return 0;
 	strcpy(v2, a1);
 	strcpy(v2 + 80, a2);
-	*((_DWORD*)v2 + 85) = 0;
-	*((_DWORD*)v2 + 84) = dword_5d4594_2523912;
+	*((uint32_t*)v2 + 85) = 0;
+	*((uint32_t*)v2 + 84) = dword_5d4594_2523912;
 	if (dword_5d4594_2523912)
-		*(_DWORD*)((_DWORD)dword_5d4594_2523912 + 340) = v2;
+		*(uint32_t*)((uint32_t)dword_5d4594_2523912 + 340) = v2;
 	dword_5d4594_2523912 = v2;
 	return 1;
 }
@@ -5214,19 +5219,19 @@ void  sub_57C5A0(const char* a1) {
 	v1 = dword_5d4594_2523912;
 	if (dword_5d4594_2523912) {
 		while (strcmp(a1, (const char*)v1)) {
-			v1 = *(_DWORD*)(v1 + 336);
+			v1 = *(uint32_t*)(v1 + 336);
 			if (!v1)
 				return;
 		}
-		v2 = *(_DWORD*)(v1 + 340);
+		v2 = *(uint32_t*)(v1 + 340);
 		if (v2)
-			*(_DWORD*)(v2 + 336) = *(_DWORD*)(v1 + 336);
+			*(uint32_t*)(v2 + 336) = *(uint32_t*)(v1 + 336);
 		else
-			dword_5d4594_2523912 = *(_DWORD*)(v1 + 336);
-		v3 = *(_DWORD*)(v1 + 336);
+			dword_5d4594_2523912 = *(uint32_t*)(v1 + 336);
+		v3 = *(uint32_t*)(v1 + 336);
 		if (v3)
-			*(_DWORD*)(v3 + 340) = *(_DWORD*)(v1 + 340);
-		nox_alloc_class_free_obj(*(unsigned int**)&nox_alloc_debugData_2523908, (_QWORD*)v1);
+			*(uint32_t*)(v3 + 340) = *(uint32_t*)(v1 + 340);
+		nox_alloc_class_free_obj(*(unsigned int**)&nox_alloc_debugData_2523908, (uint64_t*)v1);
 	}
 }
 
@@ -5339,7 +5344,7 @@ void  sub_57C790(float4* a1, float2* a2, float2* a3, float a4) {
 }
 
 //----- (0057C8A0) --------------------------------------------------------
-BOOL  nox_xxx_mathPointOnTheLine_57C8A0(float4* a1, float2* a2, float2* a3) {
+int  nox_xxx_mathPointOnTheLine_57C8A0(float4* a1, float2* a2, float2* a3) {
 	float4* v3; // ecx
 	float2* v4; // edx
 	double v5;  // st7
@@ -5411,8 +5416,8 @@ char  nox_xxx_mapTraceRayImpl_57C9A0(int a1, int a2, float* a3, float* a4, char 
 	float v28;           // [esp+38h] [ebp-8h]
 	float v29;           // [esp+3Ch] [ebp-4h]
 	char v30;            // [esp+44h] [ebp+4h]
-	unsigned __int8 v31; // [esp+44h] [ebp+4h]
-	unsigned __int8 v32; // [esp+48h] [ebp+8h]
+	unsigned char v31; // [esp+44h] [ebp+4h]
+	unsigned char v32; // [esp+48h] [ebp+8h]
 
 	v5 = a1;
 	if (a1 < 0 || a1 >= 256 || a2 < 0 || a2 >= 256)
@@ -5431,9 +5436,9 @@ char  nox_xxx_mapTraceRayImpl_57C9A0(int a1, int a2, float* a3, float* a4, char 
 	if (v31 == 255)
 		return 0;
 	v9 = v6 & 1 ? nox_xxx_wall_4105E0(v5, a2) : nox_server_getWallAtGrid_410580(v5, a2);
-	if (!v9 || v6 < 0 && *(_BYTE*)(v9 + 4) & 4 && *(_BYTE*)(*(_DWORD*)(v9 + 28) + 20) & 2)
+	if (!v9 || v6 < 0 && *(uint8_t*)(v9 + 4) & 4 && *(uint8_t*)(*(uint32_t*)(v9 + 28) + 20) & 2)
 		return 0;
-	v10 = *getMemU32Ptr(0x85B3FC, 43076 + 12332 * *(unsigned __int8*)(v9 + 1));
+	v10 = *getMemU32Ptr(0x85B3FC, 43076 + 12332 * *(unsigned char*)(v9 + 1));
 	if (v10 & 2 || v6 & 0x40 && !(v10 & 1))
 		return 0;
 	if (*a3 >= (double)a3[2]) {
@@ -5691,8 +5696,8 @@ int  sub_57CDB0(int2* a1, float* a2, float2* a3) {
 }
 
 //----- (0057D150) --------------------------------------------------------
-void __thiscall sub_57D150(LPVOID* this) {
-	LPVOID* v1; // esi
+void sub_57D150(void** this) {
+	void** v1; // esi
 
 	v1 = this;
 	operator_delete(this[5]);
@@ -5701,35 +5706,35 @@ void __thiscall sub_57D150(LPVOID* this) {
 }
 
 //----- (0057D1C0) --------------------------------------------------------
-int __thiscall sub_57D1C0(void** this, int a2, unsigned __int8* a3, int a4) {
+int sub_57D1C0(void** this, int a2, unsigned char* a3, int a4) {
 	void** v4;             // ebx
 	void* v5;              // ecx
 	int v6;                // eax
-	unsigned __int8* v7;   // esi
+	unsigned char* v7;   // esi
 	int v8;                // ecx
 	int v9;                // eax
 	int v10;               // edx
 	int v11;               // edi
 	int v12;               // ebp
-	_WORD* v13;            // ecx
+	uint16_t* v13;            // ecx
 	unsigned int v14;      // eax
 	int v15;               // esi
-	_WORD* v16;            // eax
+	uint16_t* v16;            // eax
 	int v17;               // ecx
 	int v18;               // eax
 	int v19;               // ebp
 	int v20;               // eax
-	unsigned __int8* i;    // eax
+	unsigned char* i;    // eax
 	int v22;               // ecx
 	int v23;               // ecx
 	int v24;               // eax
 	int v25;               // edx
 	int v26;               // eax
 	int v27;               // ecx
-	unsigned __int8* v28;  // eax
+	unsigned char* v28;  // eax
 	int v29;               // edx
 	int v30;               // eax
-	unsigned __int8 v31;   // cl
+	unsigned char v31;   // cl
 	int v32;               // eax
 	int v33;               // esi
 	int v34;               // esi
@@ -5737,9 +5742,9 @@ int __thiscall sub_57D1C0(void** this, int a2, unsigned __int8* a3, int a4) {
 	int v36;               // eax
 	int v37;               // esi
 	int v38;               // ecx
-	unsigned __int8* v39;  // edx
-	unsigned __int8* v40;  // edi
-	unsigned __int8* v41;  // eax
+	unsigned char* v39;  // edx
+	unsigned char* v40;  // edi
+	unsigned char* v41;  // eax
 	unsigned int v42;      // ecx
 	int v43;               // edx
 	int v44;               // eax
@@ -5748,18 +5753,18 @@ int __thiscall sub_57D1C0(void** this, int a2, unsigned __int8* a3, int a4) {
 	int v47;               // edi
 	int v48;               // eax
 	char* v49;             // edi
-	unsigned __int8* v50;  // esi
+	unsigned char* v50;  // esi
 	unsigned int v51;      // eax
 	char* v52;             // edi
-	unsigned __int8* v53;  // esi
+	unsigned char* v53;  // esi
 	char v54;              // cl
 	int v55;               // esi
 	int v56;               // ecx
 	int v57;               // ebp
-	unsigned __int8* v58;  // edx
+	unsigned char* v58;  // edx
 	int v59;               // ecx
 	int v60;               // esi
-	unsigned __int8* v61;  // eax
+	unsigned char* v61;  // eax
 	unsigned int v62;      // ebp
 	int v63;               // ecx
 	int v64;               // eax
@@ -5771,8 +5776,8 @@ int __thiscall sub_57D1C0(void** this, int a2, unsigned __int8* a3, int a4) {
 	int v70;               // eax
 	int v71;               // esi
 	int v72;               // ecx
-	unsigned __int8* v73;  // edi
-	unsigned __int8* v74;  // eax
+	unsigned char* v73;  // edi
+	unsigned char* v74;  // eax
 	unsigned int v75;      // ecx
 	int v76;               // edx
 	int v77;               // eax
@@ -5780,15 +5785,15 @@ int __thiscall sub_57D1C0(void** this, int a2, unsigned __int8* a3, int a4) {
 	int v79;               // edx
 	int v80;               // eax
 	char* v81;             // edi
-	unsigned __int8* v82;  // esi
+	unsigned char* v82;  // esi
 	unsigned int v83;      // eax
 	char* v84;             // edi
 	int v85;               // ebp
-	unsigned __int8* v86;  // edx
+	unsigned char* v86;  // edx
 	int v87;               // esi
 	int v88;               // ecx
-	unsigned __int8* v89;  // edi
-	unsigned __int8* v90;  // eax
+	unsigned char* v89;  // edi
+	unsigned char* v90;  // eax
 	unsigned int v91;      // ebp
 	int v92;               // ecx
 	int v93;               // eax
@@ -5799,13 +5804,13 @@ int __thiscall sub_57D1C0(void** this, int a2, unsigned __int8* a3, int a4) {
 	int v98;               // edi
 	signed int v99;        // ebp
 	int v100;              // eax
-	unsigned __int8* v101; // esi
+	unsigned char* v101; // esi
 	int v102;              // edi
 	int v103;              // edx
-	unsigned __int8* v104; // edi
+	unsigned char* v104; // edi
 	unsigned int v105;     // ecx
 	int v106;              // edi
-	unsigned __int8* v107; // edx
+	unsigned char* v107; // edx
 	int v108;              // ebp
 	signed int v110;       // [esp+10h] [ebp-5Ch]
 	int v111;              // [esp+14h] [ebp-58h]
@@ -5815,17 +5820,17 @@ int __thiscall sub_57D1C0(void** this, int a2, unsigned __int8* a3, int a4) {
 	int v115;              // [esp+18h] [ebp-54h]
 	int v116;              // [esp+18h] [ebp-54h]
 	int v117;              // [esp+1Ch] [ebp-50h]
-	unsigned __int8* v118; // [esp+20h] [ebp-4Ch]
+	unsigned char* v118; // [esp+20h] [ebp-4Ch]
 	int v119;              // [esp+24h] [ebp-48h]
 	int v120;              // [esp+24h] [ebp-48h]
 	int v121;              // [esp+24h] [ebp-48h]
-	unsigned __int16 v122; // [esp+24h] [ebp-48h]
+	unsigned short v122; // [esp+24h] [ebp-48h]
 	int v123;              // [esp+24h] [ebp-48h]
 	int v124;              // [esp+24h] [ebp-48h]
 	int v125;              // [esp+28h] [ebp-44h]
 	int v126;              // [esp+2Ch] [ebp-40h]
 	int v127;              // [esp+30h] [ebp-3Ch]
-	__int16 v128;          // [esp+34h] [ebp-38h]
+	short v128;          // [esp+34h] [ebp-38h]
 	int v129;              // [esp+38h] [ebp-34h]
 	int v130;              // [esp+38h] [ebp-34h]
 	int v131;              // [esp+38h] [ebp-34h]
@@ -5834,13 +5839,13 @@ int __thiscall sub_57D1C0(void** this, int a2, unsigned __int8* a3, int a4) {
 	int v134;              // [esp+40h] [ebp-2Ch]
 	int v135[10];          // [esp+44h] [ebp-28h]
 	int v136;              // [esp+70h] [ebp+4h]
-	unsigned __int8* v137; // [esp+70h] [ebp+4h]
-	unsigned __int8* v138; // [esp+78h] [ebp+Ch]
-	unsigned __int8* v139; // [esp+78h] [ebp+Ch]
-	unsigned __int8* v140; // [esp+78h] [ebp+Ch]
+	unsigned char* v137; // [esp+70h] [ebp+4h]
+	unsigned char* v138; // [esp+78h] [ebp+Ch]
+	unsigned char* v139; // [esp+78h] [ebp+Ch]
+	unsigned char* v140; // [esp+78h] [ebp+Ch]
 	int v141;              // [esp+78h] [ebp+Ch]
-	unsigned __int8* v142; // [esp+78h] [ebp+Ch]
-	unsigned __int8* v143; // [esp+78h] [ebp+Ch]
+	unsigned char* v142; // [esp+78h] [ebp+Ch]
+	unsigned char* v143; // [esp+78h] [ebp+Ch]
 
 	v4 = this;
 	v5 = this[2];
@@ -5887,9 +5892,9 @@ int __thiscall sub_57D1C0(void** this, int a2, unsigned __int8* a3, int a4) {
 			v17 = (unsigned int)v4[1] & 0xFFFF;
 			v117 = v17;
 			*v16 = v17;
-			if ((unsigned __int16)v15 == 0xFFFF || v15 == v17)
+			if ((unsigned short)v15 == 0xFFFF || v15 == v17)
 				goto LABEL_62;
-			v18 = (unsigned __int16)(v17 - v15);
+			v18 = (unsigned short)(v17 - v15);
 			v19 = v18;
 			if (v18 >= v111 - v11)
 				v19 = v111 - v11;
@@ -5911,14 +5916,14 @@ int __thiscall sub_57D1C0(void** this, int a2, unsigned __int8* a3, int a4) {
 						v12 = v18;
 						goto LABEL_24;
 					}
-					while (*((_BYTE*)*v4 + v23) == v138[v119 + v23]) {
+					while (*((uint8_t*)*v4 + v23) == v138[v119 + v23]) {
 						v18 = v112;
 						if (++v23 >= v112 + v15 - 0x10000)
 							goto LABEL_23;
 					}
 					v12 = v119 + v23;
 				} else {
-					while (*((_BYTE*)*v4 + v22) == v138[v22 - v15]) {
+					while (*((uint8_t*)*v4 + v22) == v138[v22 - v15]) {
 						if (++v22 >= 0x10000) {
 							v10 = v136;
 							goto LABEL_33;
@@ -5931,14 +5936,14 @@ int __thiscall sub_57D1C0(void** this, int a2, unsigned __int8* a3, int a4) {
 				v12 = 0;
 				if (v18 <= 0)
 					goto LABEL_23;
-				while (*((_BYTE*)*v4 + v15 + v12) == a3[v11 + v12]) {
+				while (*((uint8_t*)*v4 + v15 + v12) == a3[v11 + v12]) {
 					v18 = v112;
 					if (++v12 >= v112)
 						goto LABEL_23;
 				}
 			}
 		LABEL_24:
-			if ((unsigned __int16)(v15 + v12) == v117) {
+			if ((unsigned short)(v15 + v12) == v117) {
 				v20 = v111 + -v12 - v11;
 				if (521 - v12 < v20)
 					v20 = 521 - v12;
@@ -5956,9 +5961,9 @@ int __thiscall sub_57D1C0(void** this, int a2, unsigned __int8* a3, int a4) {
 				v114 = 521 - v12;
 				if (521 - v12 >= v11)
 					v114 = v11;
-				v24 = (unsigned __int16)((char*)v4[1] - v15);
+				v24 = (unsigned short)((char*)v4[1] - v15);
 				if (v114 >= v24 - v12)
-					v121 = (unsigned __int16)((char*)v4[1] - v15) - v12;
+					v121 = (unsigned short)((char*)v4[1] - v15) - v12;
 				else
 					v121 = v114;
 				v25 = 0x10000 - v24;
@@ -5972,7 +5977,7 @@ int __thiscall sub_57D1C0(void** this, int a2, unsigned __int8* a3, int a4) {
 						v122 = v15 - 1;
 						v139 = v138 - 1;
 						do {
-							if (*((_BYTE*)*v4 + v122) != *v139)
+							if (*((uint8_t*)*v4 + v122) != *v139)
 								break;
 							++v26;
 							--v122;
@@ -6001,7 +6006,7 @@ int __thiscall sub_57D1C0(void** this, int a2, unsigned __int8* a3, int a4) {
 						}
 						goto LABEL_62;
 					}
-					v25 = (unsigned __int16)((char*)v4[1] - v15) - v12;
+					v25 = (unsigned short)((char*)v4[1] - v15) - v12;
 				}
 				v114 = v25;
 				goto LABEL_53;
@@ -6014,8 +6019,8 @@ int __thiscall sub_57D1C0(void** this, int a2, unsigned __int8* a3, int a4) {
 					v4[1] = v133;
 					v137 = &a3[v127];
 					v55 = __ROL4__(v134 ^ a3[v127 + 5] ^ __ROL4__(a3[v127], 25), 5);
-					sub_57E4C0((_DWORD**)v135, (unsigned int)a3, v127, v110 - 4,
-							   (unsigned __int16)((_WORD)v133 - v128));
+					sub_57E4C0((uint32_t**)v135, (unsigned int)a3, v127, v110 - 4,
+							   (unsigned short)((uint16_t)v133 - v128));
 					v56 = &v118[-v127] - a3;
 					v57 = v110 - 2;
 					if (v110 - 2 >= v56 - 2)
@@ -6029,9 +6034,9 @@ int __thiscall sub_57D1C0(void** this, int a2, unsigned __int8* a3, int a4) {
 							v65 = 0;
 							v130 = (int)(v137 + 7);
 							while (1) {
-								*((_WORD*)v4[5] + ((unsigned int)(214013 * v64 + 2531011) >> 17)) = v65 + v59;
-								v66 = *(unsigned __int8*)(v130 + v65);
-								v67 = __ROL4__(*(unsigned __int8*)(v130 + v65++ - 5), 25);
+								*((uint16_t*)v4[5] + ((unsigned int)(214013 * v64 + 2531011) >> 17)) = v65 + v59;
+								v66 = *(unsigned char*)(v130 + v65);
+								v67 = __ROL4__(*(unsigned char*)(v130 + v65++ - 5), 25);
 								v64 = __ROL4__(v64 ^ v66 ^ v67, 5);
 								if (v65 >= v57)
 									break;
@@ -6067,7 +6072,7 @@ int __thiscall sub_57D1C0(void** this, int a2, unsigned __int8* a3, int a4) {
 					a3 += v69 + v127;
 					goto LABEL_143;
 				}
-				sub_57E4C0((_DWORD**)v135, (unsigned int)a3, v11, v12 - 4, (unsigned __int16)(v117 - v15));
+				sub_57E4C0((uint32_t**)v135, (unsigned int)a3, v11, v12 - 4, (unsigned short)(v117 - v15));
 				v36 = &v118[-v11] - a3 - 1;
 				if (v12 - 1 < v36)
 					v36 = v12 - 1;
@@ -6084,9 +6089,9 @@ int __thiscall sub_57D1C0(void** this, int a2, unsigned __int8* a3, int a4) {
 						v45 = (int)(v40 + 1);
 						if (v123 > 0) {
 							while (1) {
-								*((_WORD*)v4[5] + ((unsigned int)(214013 * v44 + 2531011) >> 17)) = v37 + v38;
-								v46 = v44 ^ *(unsigned __int8*)(v45 + 5 + v37) ^
-									  __ROL4__(*(unsigned __int8*)(v45 + v37), 25);
+								*((uint16_t*)v4[5] + ((unsigned int)(214013 * v44 + 2531011) >> 17)) = v37 + v38;
+								v46 = v44 ^ *(unsigned char*)(v45 + 5 + v37) ^
+									  __ROL4__(*(unsigned char*)(v45 + v37), 25);
 								++v37;
 								v44 = __ROL4__(v46, 5);
 								if (v37 >= v123)
@@ -6139,7 +6144,7 @@ int __thiscall sub_57D1C0(void** this, int a2, unsigned __int8* a3, int a4) {
 				goto LABEL_66;
 			if (v125) {
 				v115 = v11;
-				sub_57E4C0((_DWORD**)v135, (unsigned int)a3, v11, v12 - 4, (unsigned __int16)(v117 - v15));
+				sub_57E4C0((uint32_t**)v135, (unsigned int)a3, v11, v12 - 4, (unsigned short)(v117 - v15));
 				v70 = &v118[-v11] - a3 - 1;
 				if (v12 - 1 < v70)
 					v70 = v12 - 1;
@@ -6156,9 +6161,9 @@ int __thiscall sub_57D1C0(void** this, int a2, unsigned __int8* a3, int a4) {
 						v78 = (int)(v73 + 1);
 						if (v124 > 0) {
 							while (1) {
-								*((_WORD*)v4[5] + ((unsigned int)(214013 * v77 + 2531011) >> 17)) = v71 + v72;
-								v79 = v77 ^ *(unsigned __int8*)(v78 + 5 + v71) ^
-									  __ROL4__(*(unsigned __int8*)(v78 + v71), 25);
+								*((uint16_t*)v4[5] + ((unsigned int)(214013 * v77 + 2531011) >> 17)) = v71 + v72;
+								v79 = v77 ^ *(unsigned char*)(v78 + 5 + v71) ^
+									  __ROL4__(*(unsigned char*)(v78 + v71), 25);
 								++v71;
 								v77 = __ROL4__(v79, 5);
 								if (v71 >= v124)
@@ -6214,7 +6219,7 @@ int __thiscall sub_57D1C0(void** this, int a2, unsigned __int8* a3, int a4) {
 			v10 = __ROL4__(v10 ^ v34, 5);
 			v4[1] = v35 + 1;
 			v136 = v10;
-			*((_BYTE*)*v4 + (unsigned __int16)v35) = v31;
+			*((uint8_t*)*v4 + (unsigned short)v35) = v31;
 		}
 		v116 = v11;
 		if (v30 < 4) {
@@ -6224,11 +6229,11 @@ int __thiscall sub_57D1C0(void** this, int a2, unsigned __int8* a3, int a4) {
 				v102 = (unsigned int)v4[1] & 0xFFFF;
 				if (v102 + v100 <= 0x10000) {
 					v105 = v100;
-					v104 = (unsigned __int8*)*v4 + v102;
+					v104 = (unsigned char*)*v4 + v102;
 				} else {
 					v103 = 0x10000 - v102;
 					memcpy((char*)*v4 + v102, v101, 0x10000 - v102);
-					v104 = (unsigned __int8*)*v4;
+					v104 = (unsigned char*)*v4;
 					v105 = v100 - v103;
 					v101 += v103;
 				}
@@ -6236,10 +6241,10 @@ int __thiscall sub_57D1C0(void** this, int a2, unsigned __int8* a3, int a4) {
 				v4[1] = (char*)v4[1] + v100;
 				v11 = v111;
 			}
-			sub_57E3F0((_DWORD**)v135, (unsigned int)a3, v11);
+			sub_57E3F0((uint32_t**)v135, (unsigned int)a3, v11);
 			a3 += v11;
 		} else {
-			sub_57E4C0((_DWORD**)v135, (unsigned int)a3, v11, v110 - 4, (unsigned __int16)((char*)v4[1] - v128));
+			sub_57E4C0((uint32_t**)v135, (unsigned int)a3, v11, v110 - 4, (unsigned short)((char*)v4[1] - v128));
 			v85 = v110 - 1;
 			if (v110 - 1 >= &v118[-v11] - a3 - 1)
 				v85 = &v118[-v11] - a3 - 1;
@@ -6255,9 +6260,9 @@ int __thiscall sub_57D1C0(void** this, int a2, unsigned __int8* a3, int a4) {
 					v94 = (int)(v89 + 1);
 					v95 = __ROL4__(v93, 5);
 					while (1) {
-						*((_WORD*)v4[5] + ((unsigned int)(214013 * v95 + 2531011) >> 17)) = v87 + v88;
-						v96 = *(unsigned __int8*)(v94 + 5 + v87);
-						v97 = __ROL4__(*(unsigned __int8*)(v94 + v87++), 25);
+						*((uint16_t*)v4[5] + ((unsigned int)(214013 * v95 + 2531011) >> 17)) = v87 + v88;
+						v96 = *(unsigned char*)(v94 + 5 + v87);
+						v97 = __ROL4__(*(unsigned char*)(v94 + v87++), 25);
 						v95 = __ROL4__(v95 ^ v96 ^ v97, 5);
 						if (v87 >= v85)
 							break;
@@ -6314,9 +6319,9 @@ LABEL_144:
 			memcpy(*v4, &a3[0x10000 - v106], v111 - (0x10000 - v106));
 		}
 		v4[1] = (char*)v4[1] + v108;
-		sub_57E3F0((_DWORD**)v135, (unsigned int)v107, v108);
+		sub_57E3F0((uint32_t**)v135, (unsigned int)v107, v108);
 	}
-	return sub_57E7D0((_DWORD**)v135);
+	return sub_57E7D0((uint32_t**)v135);
 }
 // 57D736: variable 'v133' is possibly undefined
 // 57D739: variable 'v127' is possibly undefined
@@ -6324,11 +6329,11 @@ LABEL_144:
 // 57D764: variable 'v128' is possibly undefined
 
 //----- (0057DD70) --------------------------------------------------------
-void __thiscall sub_57DD70(LPVOID* this) { operator_delete(*this); }
+void sub_57DD70(void** this) { operator_delete(*this); }
 
 //----- (0057DD90) --------------------------------------------------------
-_DWORD* __thiscall sub_57DD90(_DWORD* this) {
-	_DWORD* v1; // esi
+uint32_t* sub_57DD90(uint32_t* this) {
+	uint32_t* v1; // esi
 	void* v2;   // eax
 
 	v1 = this;
@@ -6340,10 +6345,10 @@ _DWORD* __thiscall sub_57DD90(_DWORD* this) {
 // 5667CB: using guessed type void * operator_new(unsigned int);
 
 //----- (0057DDC0) --------------------------------------------------------
-void __thiscall sub_57DDC0(LPVOID* this) { operator_delete(*this); }
+void sub_57DDC0(void** this) { operator_delete(*this); }
 
 //----- (0057DDD0) --------------------------------------------------------
-int __thiscall sub_57DDD0(void** this) {
+int sub_57DDD0(void** this) {
 	int result; // eax
 
 	result = 0;
@@ -6374,23 +6379,23 @@ unsigned int  sub_57DDE0(int a1, int a2) {
 			do {
 				v6 = 4 * v5;
 				v10 = v5;
-				v12 = *(_DWORD*)(4 * v5 + v2);
+				v12 = *(uint32_t*)(4 * v5 + v2);
 				if (v5 > i) {
 					v7 = 4 * i;
 					do {
-						v8 = *(__int16*)(v6 - v7 + v2 + 2) - SHIWORD(v12);
+						v8 = *(short*)(v6 - v7 + v2 + 2) - SHIWORD(v12);
 						if (!v8)
-							v8 = *(__int16*)(v6 - v7 + v2) - (__int16)v12;
+							v8 = *(short*)(v6 - v7 + v2) - (short)v12;
 						if (v8 >= 0)
 							break;
-						*(_DWORD*)(v6 + v2) = *(_DWORD*)(v6 - v7 + v2);
+						*(uint32_t*)(v6 + v2) = *(uint32_t*)(v6 - v7 + v2);
 						v6 -= v7;
 						v10 -= i;
 					} while (v10 > i);
 					v5 = v11;
 				}
 				++v5;
-				*(_DWORD*)(v2 + 4 * v10) = v12;
+				*(uint32_t*)(v2 + 4 * v10) = v12;
 				v3 = a2;
 				v11 = v5;
 			} while (v5 <= a2);
@@ -6401,20 +6406,20 @@ unsigned int  sub_57DDE0(int a1, int a2) {
 }
 
 //----- (0057DEA0) --------------------------------------------------------
-int __thiscall sub_57DEA0(_DWORD* this, _WORD* a2) {
-	_WORD* v2;   // esi
+int sub_57DEA0(uint32_t* this, uint16_t* a2) {
+	uint16_t* v2;   // esi
 	int v3;      // ebx
 	int i;       // eax
-	__int16* v5; // edi
-	__int16 v6;  // dx
+	short* v5; // edi
+	short v6;  // dx
 
 	v2 = a2;
 	v3 = 0;
 	for (i = 0; i < 274; ++i) {
 		*v2 = i;
 		v2 += 2;
-		*(v2 - 1) = *(_WORD*)(*this + 2 * i);
-		v5 = (__int16*)(*this + 2 * i);
+		*(v2 - 1) = *(uint16_t*)(*this + 2 * i);
+		v5 = (short*)(*this + 2 * i);
 		v6 = *v5;
 		v3 += v6;
 		*v5 = v6 >> 1;
@@ -6424,16 +6429,16 @@ int __thiscall sub_57DEA0(_DWORD* this, _WORD* a2) {
 }
 
 //----- (0057DF00) --------------------------------------------------------
-_DWORD* __thiscall sub_57DF00(_DWORD* this) {
-	_DWORD* v1;          // ebx
-	unsigned __int8* v2; // eax
-	unsigned __int8* v3; // edi
-	_DWORD* result;      // eax
+uint32_t* sub_57DF00(uint32_t* this) {
+	uint32_t* v1;          // ebx
+	unsigned char* v2; // eax
+	unsigned char* v3; // edi
+	uint32_t* result;      // eax
 
 	v1 = this;
 	sub_57DD90(this);
 	v1[1] = 4096;
-	v2 = (unsigned __int8*)operator_new(0x448u);
+	v2 = (unsigned char*)operator_new(0x448u);
 	v3 = v2;
 	v1[2] = v2;
 	result = v1;
@@ -6443,8 +6448,8 @@ _DWORD* __thiscall sub_57DF00(_DWORD* this) {
 // 5667CB: using guessed type void * operator_new(unsigned int);
 
 //----- (0057DF70) --------------------------------------------------------
-void __thiscall sub_57DF70(LPVOID* this) {
-	LPVOID* v1; // esi
+void sub_57DF70(void** this) {
+	void** v1; // esi
 
 	v1 = this;
 	operator_delete(this[2]);
@@ -6452,8 +6457,8 @@ void __thiscall sub_57DF70(LPVOID* this) {
 }
 
 //----- (0057DFC0) --------------------------------------------------------
-int __thiscall sub_57DFC0(_DWORD* this, int* a2) {
-	_DWORD* v2;     // esi
+int sub_57DFC0(uint32_t* this, int* a2) {
+	uint32_t* v2;     // esi
 	int v3;         // eax
 	int v4;         // ecx
 	int v5;         // edi
@@ -6489,11 +6494,11 @@ int __thiscall sub_57DFC0(_DWORD* this, int* a2) {
 	int v35;        // edi
 	int result;     // eax
 	int v37;        // edx
-	__int16 v38;    // di
+	short v38;    // di
 	int v39;        // esi
 	char* v40;      // ecx
 	int v41;        // eax
-	__int16 v42;    // bp
+	short v42;    // bp
 	int* v43;       // [esp+10h] [ebp-46Ch]
 	int v44;        // [esp+10h] [ebp-46Ch]
 	int v45;        // [esp+10h] [ebp-46Ch]
@@ -6514,7 +6519,7 @@ int __thiscall sub_57DFC0(_DWORD* this, int* a2) {
 	char v60[1100]; // [esp+30h] [ebp-44Ch]
 
 	v2 = this;
-	*(_DWORD*)v60 = this;
+	*(uint32_t*)v60 = this;
 	v3 = sub_57DEA0(this, &v60[4]);
 	v4 = 0;
 	v5 = 0;
@@ -6543,7 +6548,7 @@ int __thiscall sub_57DFC0(_DWORD* this, int* a2) {
 				v7 += v11;
 				v12 = &v60[4 * v10 + 6];
 				do {
-					v8 += *(__int16*)v12;
+					v8 += *(short*)v12;
 					v12 += 4;
 					--v11;
 				} while (v11);
@@ -6591,7 +6596,7 @@ int __thiscall sub_57DFC0(_DWORD* this, int* a2) {
 		v18 = &v60[4 * v5 + 6];
 		v19 = 274 - v5;
 		do {
-			v17 += *(__int16*)v18;
+			v17 += *(short*)v18;
 			v18 += 4;
 			--v19;
 		} while (v19);
@@ -6607,7 +6612,7 @@ int __thiscall sub_57DFC0(_DWORD* this, int* a2) {
 				v15 += v23;
 				v24 = &v60[4 * v22 + 6];
 				do {
-					v16 += *(__int16*)v24;
+					v16 += *(short*)v24;
 					v24 += 4;
 					--v23;
 				} while (v23);
@@ -6669,11 +6674,11 @@ int __thiscall sub_57DFC0(_DWORD* this, int* a2) {
 			v39 = v33 << v34;
 			v40 = &v60[4 * v32 + 4];
 			do {
-				v41 = *(__int16*)v40;
+				v41 = *(short*)v40;
 				v40 += 4;
-				*(_WORD*)(*(_DWORD*)(*(_DWORD*)v60 + 8) + 4 * v41) = v38;
+				*(uint16_t*)(*(uint32_t*)(*(uint32_t*)v60 + 8) + 4 * v41) = v38;
 				v42 = v37++ | v39;
-				*(_WORD*)(*(_DWORD*)(*(_DWORD*)v60 + 8) + 4 * v41 + 2) = v42;
+				*(uint16_t*)(*(uint32_t*)(*(uint32_t*)v60 + 8) + 4 * v41 + 2) = v42;
 				result = v54;
 			} while (v37 < v54);
 			v35 = v57;
@@ -6691,30 +6696,30 @@ int __thiscall sub_57DFC0(_DWORD* this, int* a2) {
 }
 
 //----- (0057E2C0) --------------------------------------------------------
-int __thiscall sub_57E2C0(_DWORD** this) {
-	_DWORD** v1;         // esi
-	_DWORD* v2;          // edi
+int sub_57E2C0(uint32_t** this) {
+	uint32_t** v1;         // esi
+	uint32_t* v2;          // edi
 	unsigned int v3;     // ebp
 	int v4;              // eax
 	int v5;              // edx
-	unsigned __int16 v6; // bx
+	unsigned short v6; // bx
 	int v7;              // ebp
-	_DWORD* v8;          // edx
-	_BYTE* v9;           // ebx
+	uint32_t* v8;          // edx
+	uint8_t* v9;           // ebx
 	int v10;             // ecx
-	_DWORD* v11;         // eax
+	uint32_t* v11;         // eax
 	int v12;             // edi
 	char* v13;           // ebx
-	_DWORD* v14;         // edx
+	uint32_t* v14;         // edx
 	int v15;             // eax
 	char v16;            // cl
 	int v17;             // eax
 	int v18;             // ebp
 	unsigned int v19;    // ecx
 	int v20;             // ecx
-	_BYTE* v21;          // eax
+	uint8_t* v21;          // eax
 	unsigned int v22;    // ecx
-	_DWORD* v23;         // eax
+	uint32_t* v23;         // eax
 	int v24;             // ecx
 	int result;          // eax
 	int v26;             // [esp+10h] [ebp-44h]
@@ -6724,25 +6729,25 @@ int __thiscall sub_57E2C0(_DWORD** this) {
 	*this[2] = 2;
 	if ((int)--*this[2] <= 0)
 		sub_57E2C0(this);
-	++*((_WORD*)v1[1] + 272);
+	++*((uint16_t*)v1[1] + 272);
 	v2 = v1[6];
 	v3 = (unsigned int)v1[5];
 	v4 = (*v1)[2];
-	v5 = *(__int16*)(v4 + 1088);
-	v6 = *(_WORD*)(v4 + 1090);
-	v1[6] = (_DWORD*)((char*)v2 + v5);
-	v7 = (v6 << (32 - (_BYTE)v2 - v5)) | v3;
-	v1[5] = (_DWORD*)v7;
+	v5 = *(short*)(v4 + 1088);
+	v6 = *(uint16_t*)(v4 + 1090);
+	v1[6] = (uint32_t*)((char*)v2 + v5);
+	v7 = (v6 << (32 - (uint8_t)v2 - v5)) | v3;
+	v1[5] = (uint32_t*)v7;
 	if ((int)v2 + v5 >= 16) {
-		*(_BYTE*)v1[3] = HIBYTE(v7);
+		*(uint8_t*)v1[3] = HIBYTE(v7);
 		v8 = v1[5];
 		v9 = (char*)v1[3] + 1;
 		v1[3] = v9;
 		*v9 = BYTE2(v8);
 		v10 = (int)(v1[6] - 4);
-		v11 = (_DWORD*)((_DWORD)v1[5] << 16);
-		v1[3] = (_DWORD*)((char*)v1[3] + 1);
-		v1[6] = (_DWORD*)v10;
+		v11 = (uint32_t*)((uint32_t)v1[5] << 16);
+		v1[3] = (uint32_t*)((char*)v1[3] + 1);
+		v1[6] = (uint32_t*)v10;
 		v1[5] = v11;
 	}
 	sub_57DFC0(*v1, (int*)v27);
@@ -6751,26 +6756,26 @@ int __thiscall sub_57E2C0(_DWORD** this) {
 	v26 = 16;
 	do {
 		v14 = v1[6];
-		v15 = *(_DWORD*)v13 - v12;
-		v12 = *(_DWORD*)v13;
-		v16 = 32 - (_BYTE)v14 - ++v15;
+		v15 = *(uint32_t*)v13 - v12;
+		v12 = *(uint32_t*)v13;
+		v16 = 32 - (uint8_t)v14 - ++v15;
 		v17 = (int)v14 + v15;
 		v18 = 1 << v16;
 		v19 = (unsigned int)v1[5];
-		v1[6] = (_DWORD*)v17;
+		v1[6] = (uint32_t*)v17;
 		v20 = v18 | v19;
-		v1[5] = (_DWORD*)v20;
+		v1[5] = (uint32_t*)v20;
 		if (v17 >= 16) {
-			*(_BYTE*)v1[3] = HIBYTE(v20);
+			*(uint8_t*)v1[3] = HIBYTE(v20);
 			v21 = (char*)v1[3] + 1;
 			v22 = (unsigned int)v1[5] >> 16;
 			v1[3] = v21;
 			*v21 = v22;
 			v23 = v1[5];
 			v24 = (int)(v1[6] - 4);
-			v1[3] = (_DWORD*)((char*)v1[3] + 1);
-			v1[6] = (_DWORD*)v24;
-			v1[5] = (_DWORD*)((_DWORD)v23 << 16);
+			v1[3] = (uint32_t*)((char*)v1[3] + 1);
+			v1[6] = (uint32_t*)v24;
+			v1[5] = (uint32_t*)((uint32_t)v23 << 16);
 		}
 		v13 += 4;
 		result = --v26;
@@ -6779,24 +6784,24 @@ int __thiscall sub_57E2C0(_DWORD** this) {
 }
 
 //----- (0057E3F0) --------------------------------------------------------
-unsigned int __thiscall sub_57E3F0(_DWORD** this, unsigned int a2, int a3) {
-	unsigned __int8* v3;  // ebx
+unsigned int sub_57E3F0(uint32_t** this, unsigned int a2, int a3) {
+	unsigned char* v3;  // ebx
 	unsigned int result;  // eax
-	_DWORD** v5;          // esi
+	uint32_t** v5;          // esi
 	bool v6;              // cf
-	unsigned __int16 v7;  // di
+	unsigned short v7;  // di
 	int v8;               // eax
-	_DWORD* v9;           // edi
+	uint32_t* v9;           // edi
 	int v10;              // edx
-	unsigned __int16 v11; // bp
+	unsigned short v11; // bp
 	int v12;              // edx
-	_DWORD* v13;          // edx
-	_BYTE* v14;           // ebp
+	uint32_t* v13;          // edx
+	uint8_t* v14;           // ebp
 	int v15;              // ecx
-	_DWORD* v16;          // eax
+	uint32_t* v16;          // eax
 	unsigned int v17;     // [esp+Ch] [ebp+4h]
 
-	v3 = (unsigned __int8*)a2;
+	v3 = (unsigned char*)a2;
 	result = a2 + a3;
 	v5 = this;
 	v6 = a2 < a2 + a3;
@@ -6807,23 +6812,23 @@ unsigned int __thiscall sub_57E3F0(_DWORD** this, unsigned int a2, int a3) {
 			if ((int)--*v5[2] <= 0)
 				sub_57E2C0(v5);
 			v8 = v7;
-			++*((_WORD*)v5[1] + v7);
+			++*((uint16_t*)v5[1] + v7);
 			v9 = v5[6];
 			v10 = (*v5)[2];
-			v11 = *(_WORD*)(v10 + 4 * v8 + 2);
-			v12 = *(__int16*)(v10 + 4 * v8);
-			v5[5] = (_DWORD*)((v11 << (32 - (_BYTE)v9 - v12)) | (unsigned int)v5[5]);
-			v5[6] = (_DWORD*)((char*)v9 + v12);
+			v11 = *(uint16_t*)(v10 + 4 * v8 + 2);
+			v12 = *(short*)(v10 + 4 * v8);
+			v5[5] = (uint32_t*)((v11 << (32 - (uint8_t)v9 - v12)) | (unsigned int)v5[5]);
+			v5[6] = (uint32_t*)((char*)v9 + v12);
 			if ((int)v9 + v12 >= 16) {
-				*(_BYTE*)v5[3] = (unsigned int)v5[5] >> 24;
+				*(uint8_t*)v5[3] = (unsigned int)v5[5] >> 24;
 				v13 = v5[5];
 				v14 = (char*)v5[3] + 1;
 				v5[3] = v14;
 				*v14 = BYTE2(v13);
 				v15 = (int)(v5[6] - 4);
-				v16 = (_DWORD*)((_DWORD)v5[5] << 16);
-				v5[3] = (_DWORD*)((char*)v5[3] + 1);
-				v5[6] = (_DWORD*)v15;
+				v16 = (uint32_t*)((uint32_t)v5[5] << 16);
+				v5[3] = (uint32_t*)((char*)v5[3] + 1);
+				v5[6] = (uint32_t*)v15;
 				v5[5] = v16;
 			}
 			result = v17;
@@ -6834,55 +6839,55 @@ unsigned int __thiscall sub_57E3F0(_DWORD** this, unsigned int a2, int a3) {
 }
 
 //----- (0057E4C0) --------------------------------------------------------
-int __thiscall sub_57E4C0(_DWORD** this, unsigned int a2, int a3, unsigned int a4, unsigned int a5) {
-	_DWORD** v5;          // esi
-	unsigned __int16 v6;  // di
+int sub_57E4C0(uint32_t** this, unsigned int a2, int a3, unsigned int a4, unsigned int a5) {
+	uint32_t** v5;          // esi
+	unsigned short v6;  // di
 	int v7;               // eax
-	_DWORD* v8;           // edi
+	uint32_t* v8;           // edi
 	unsigned int v9;      // ebp
 	int v10;              // ecx
 	int v11;              // edx
-	unsigned __int16 v12; // bx
-	unsigned __int16 v13; // bp
+	unsigned short v12; // bx
+	unsigned short v13; // bp
 	unsigned int v14;     // ebx
 	int v15;              // edi
 	int v16;              // ecx
-	_DWORD* v17;          // edx
+	uint32_t* v17;          // edx
 	int v18;              // eax
 	int v19;              // ebp
 	unsigned int v20;     // edi
 	int v21;              // ecx
 	int v22;              // eax
-	unsigned __int8* v23; // ebx
-	unsigned __int16 v24; // bp
-	_DWORD* v25;          // edx
+	unsigned char* v23; // ebx
+	unsigned short v24; // bp
+	uint32_t* v25;          // edx
 	int v26;              // eax
 	unsigned int v27;     // edi
 	int v28;              // ebx
 	int v29;              // eax
-	_DWORD* v30;          // ecx
-	_BYTE* v31;           // ebx
+	uint32_t* v30;          // ecx
+	uint8_t* v31;           // ebx
 	int v32;              // ecx
-	_DWORD* v33;          // eax
+	uint32_t* v33;          // eax
 	int v34;              // edx
 	unsigned int v35;     // eax
-	_DWORD* v36;          // edi
+	uint32_t* v36;          // edi
 	unsigned int v37;     // ebp
 	int v38;              // edx
 	int v39;              // ebp
-	_DWORD* v40;          // edx
-	_BYTE* v41;           // ebp
+	uint32_t* v40;          // edx
+	uint8_t* v41;           // ebp
 	int v42;              // edx
-	_DWORD* v43;          // ecx
-	_DWORD* v44;          // edx
+	uint32_t* v43;          // ecx
+	uint32_t* v44;          // edx
 	int v45;              // edi
 	int result;           // eax
-	_DWORD* v47;          // edi
+	uint32_t* v47;          // edi
 	char v48;             // cl
 	int v49;              // edx
 	unsigned int v50;     // ecx
-	_DWORD* v51;          // edx
-	_BYTE* v52;           // ebx
+	uint32_t* v51;          // edx
+	uint8_t* v52;           // ebx
 	int v53;              // ecx
 
 	v5 = this;
@@ -6893,15 +6898,15 @@ int __thiscall sub_57E4C0(_DWORD** this, unsigned int a2, int a3, unsigned int a
 			v24 = *getMemU16Ptr(0x587000, 314640 + 12 * ((a4 - 38) >> 5)) + 4;
 			if ((int)--*v5[2] <= 0)
 				sub_57E2C0(v5);
-			++*((_WORD*)v5[1] + v24);
-			sub_57F160((int)v5, *(__int16*)((*v5)[2] + 4 * v24), *(unsigned __int16*)((*v5)[2] + 4 * v24 + 2));
+			++*((uint16_t*)v5[1] + v24);
+			sub_57F160((int)v5, *(short*)((*v5)[2] + 4 * v24), *(unsigned short*)((*v5)[2] + 4 * v24 + 2));
 			v25 = v5[6];
-			v26 = *((_DWORD*)v23 + 1) + 4;
+			v26 = *((uint32_t*)v23 + 1) + 4;
 			v27 = (unsigned int)v5[5];
-			v28 = (((_BYTE)a4 - 38) & 0x1F | (16 * *((unsigned __int16*)v23 + 4))) << (32 - (_BYTE)v25 - v26);
+			v28 = (((uint8_t)a4 - 38) & 0x1F | (16 * *((unsigned short*)v23 + 4))) << (32 - (uint8_t)v25 - v26);
 			v29 = (int)v25 + v26;
-			v5[6] = (_DWORD*)v29;
-			v5[5] = (_DWORD*)(v28 | v27);
+			v5[6] = (uint32_t*)v29;
+			v5[5] = (uint32_t*)(v28 | v27);
 			if (v29 >= 16)
 				goto LABEL_14;
 		} else {
@@ -6910,16 +6915,16 @@ int __thiscall sub_57E4C0(_DWORD** this, unsigned int a2, int a3, unsigned int a
 			v15 = *getMemU32Ptr(0x587000, 314644 + 12 * ((a4 - 8) >> 1));
 			if ((int)--*v5[2] <= 0)
 				sub_57E2C0(v5);
-			++*((_WORD*)v5[1] + v13);
+			++*((uint16_t*)v5[1] + v13);
 			v16 = (*v5)[2];
 			v17 = v5[6];
-			v18 = v15 + *(__int16*)(v16 + 4 * v13);
-			v19 = *(unsigned __int16*)(v16 + 4 * v13 + 2) << v15;
+			v18 = v15 + *(short*)(v16 + 4 * v13);
+			v19 = *(unsigned short*)(v16 + 4 * v13 + 2) << v15;
 			v20 = (unsigned int)v5[5];
-			v21 = 32 - (_DWORD)v17 - v18;
+			v21 = 32 - (uint32_t)v17 - v18;
 			v22 = (int)v17 + v18;
-			v5[6] = (_DWORD*)v22;
-			v5[5] = (_DWORD*)(((v14 | v19) << v21) | v20);
+			v5[6] = (uint32_t*)v22;
+			v5[5] = (uint32_t*)(((v14 | v19) << v21) | v20);
 			if (v22 >= 16)
 				goto LABEL_14;
 		}
@@ -6928,25 +6933,25 @@ int __thiscall sub_57E4C0(_DWORD** this, unsigned int a2, int a3, unsigned int a
 		if ((int)--*v5[2] <= 0)
 			sub_57E2C0(v5);
 		v7 = v6;
-		++*((_WORD*)v5[1] + v6);
+		++*((uint16_t*)v5[1] + v6);
 		v8 = v5[6];
 		v9 = (unsigned int)v5[5];
 		v10 = (*v5)[2];
-		v11 = *(__int16*)(v10 + 4 * v7);
-		v12 = *(_WORD*)(v10 + 4 * v7 + 2);
-		v5[6] = (_DWORD*)((char*)v8 + v11);
-		v5[5] = (_DWORD*)((v12 << (32 - (_BYTE)v8 - v11)) | v9);
+		v11 = *(short*)(v10 + 4 * v7);
+		v12 = *(uint16_t*)(v10 + 4 * v7 + 2);
+		v5[6] = (uint32_t*)((char*)v8 + v11);
+		v5[5] = (uint32_t*)((v12 << (32 - (uint8_t)v8 - v11)) | v9);
 		if ((int)v8 + v11 >= 16) {
 		LABEL_14:
-			*(_BYTE*)v5[3] = (unsigned int)v5[5] >> 24;
+			*(uint8_t*)v5[3] = (unsigned int)v5[5] >> 24;
 			v30 = v5[5];
 			v31 = (char*)v5[3] + 1;
 			v5[3] = v31;
 			*v31 = BYTE2(v30);
 			v32 = (int)(v5[6] - 4);
-			v33 = (_DWORD*)((_DWORD)v5[5] << 16);
-			v5[3] = (_DWORD*)((char*)v5[3] + 1);
-			v5[6] = (_DWORD*)v32;
+			v33 = (uint32_t*)((uint32_t)v5[5] << 16);
+			v5[3] = (uint32_t*)((char*)v5[3] + 1);
+			v5[6] = (uint32_t*)v32;
 			v5[5] = v33;
 			goto LABEL_15;
 		}
@@ -6956,12 +6961,12 @@ LABEL_15:
 	v35 = a5 & 0x1FF | (*getMemU16Ptr(0x587000, 314828 + 8 * (a5 >> 9)) << 9);
 	if (v34 <= 16) {
 		v47 = v5[6];
-		v48 = 32 - (_BYTE)v47 - v34;
+		v48 = 32 - (uint8_t)v47 - v34;
 		v49 = (int)v47 + v34;
 		result = v35 << v48;
 		v50 = (unsigned int)v5[5];
-		v5[6] = (_DWORD*)v49;
-		v5[5] = (_DWORD*)(result | v50);
+		v5[6] = (uint32_t*)v49;
+		v5[5] = (uint32_t*)(result | v50);
 		if (v49 < 16)
 			return result;
 		goto LABEL_21;
@@ -6969,95 +6974,95 @@ LABEL_15:
 	v36 = v5[6];
 	v37 = (unsigned int)v5[5];
 	v38 = *getMemU32Ptr(0x587000, 314824 + 8 * (a5 >> 9)) - 7;
-	v5[6] = (_DWORD*)((char*)v36 + v38);
-	v39 = (v35 >> 16 << (32 - (_BYTE)v36 - v38)) | v37;
-	v5[5] = (_DWORD*)v39;
+	v5[6] = (uint32_t*)((char*)v36 + v38);
+	v39 = (v35 >> 16 << (32 - (uint8_t)v36 - v38)) | v37;
+	v5[5] = (uint32_t*)v39;
 	if ((int)v36 + v38 >= 16) {
-		*(_BYTE*)v5[3] = HIBYTE(v39);
+		*(uint8_t*)v5[3] = HIBYTE(v39);
 		v40 = v5[5];
 		v41 = (char*)v5[3] + 1;
 		v5[3] = v41;
 		*v41 = BYTE2(v40);
 		v42 = (int)(v5[6] - 4);
-		v43 = (_DWORD*)((_DWORD)v5[5] << 16);
-		v5[3] = (_DWORD*)((char*)v5[3] + 1);
-		v5[6] = (_DWORD*)v42;
+		v43 = (uint32_t*)((uint32_t)v5[5] << 16);
+		v5[3] = (uint32_t*)((char*)v5[3] + 1);
+		v5[6] = (uint32_t*)v42;
 		v5[5] = v43;
 	}
 	v44 = v5[6];
-	v45 = ((unsigned __int16)v35 << (16 - (_BYTE)v44)) | (unsigned int)v5[5];
+	v45 = ((unsigned short)v35 << (16 - (uint8_t)v44)) | (unsigned int)v5[5];
 	result = (int)(v44 + 4);
-	v5[5] = (_DWORD*)v45;
+	v5[5] = (uint32_t*)v45;
 	v5[6] = v44 + 4;
 	if ((int)(v44 + 4) >= 16) {
 	LABEL_21:
-		*(_BYTE*)v5[3] = (unsigned int)v5[5] >> 24;
+		*(uint8_t*)v5[3] = (unsigned int)v5[5] >> 24;
 		v51 = v5[5];
 		v52 = (char*)v5[3] + 1;
 		v5[3] = v52;
 		*v52 = BYTE2(v51);
 		v53 = (int)(v5[6] - 4);
-		result = (_DWORD)v5[5] << 16;
-		v5[3] = (_DWORD*)((char*)v5[3] + 1);
-		v5[6] = (_DWORD*)v53;
-		v5[5] = (_DWORD*)result;
+		result = (uint32_t)v5[5] << 16;
+		v5[3] = (uint32_t*)((char*)v5[3] + 1);
+		v5[6] = (uint32_t*)v53;
+		v5[5] = (uint32_t*)result;
 	}
 	return result;
 }
 
 //----- (0057E7D0) --------------------------------------------------------
-int __thiscall sub_57E7D0(_DWORD** this) {
-	_DWORD** v1; // esi
-	_DWORD* v2;  // edi
+int sub_57E7D0(uint32_t** this) {
+	uint32_t** v1; // esi
+	uint32_t* v2;  // edi
 	int v3;      // edx
-	_DWORD* v4;  // ecx
-	_BYTE* v5;   // ebx
+	uint32_t* v4;  // ecx
+	uint8_t* v5;   // ebx
 	int v6;      // ecx
-	_DWORD* v7;  // eax
-	_DWORD* v8;  // edi
+	uint32_t* v7;  // eax
+	uint32_t* v8;  // edi
 	int v9;      // ebx
 
 	v1 = this;
 	if ((int)--*this[2] <= 0)
 		sub_57E2C0(this);
-	++*((_WORD*)v1[1] + 273);
+	++*((uint16_t*)v1[1] + 273);
 	v2 = v1[6];
-	v3 = *(__int16*)((*v1)[2] + 1092);
-	v1[5] = (_DWORD*)((*(unsigned __int16*)((*v1)[2] + 1094) << (32 - (_BYTE)v2 - v3)) | (unsigned int)v1[5]);
-	v1[6] = (_DWORD*)((char*)v2 + v3);
+	v3 = *(short*)((*v1)[2] + 1092);
+	v1[5] = (uint32_t*)((*(unsigned short*)((*v1)[2] + 1094) << (32 - (uint8_t)v2 - v3)) | (unsigned int)v1[5]);
+	v1[6] = (uint32_t*)((char*)v2 + v3);
 	if ((int)v2 + v3 >= 16) {
-		*(_BYTE*)v1[3] = (unsigned int)v1[5] >> 24;
+		*(uint8_t*)v1[3] = (unsigned int)v1[5] >> 24;
 		v4 = v1[5];
 		v5 = (char*)v1[3] + 1;
 		v1[3] = v5;
 		*v5 = BYTE2(v4);
 		v6 = (int)(v1[6] - 4);
-		v7 = (_DWORD*)((_DWORD)v1[5] << 16);
-		v1[3] = (_DWORD*)((char*)v1[3] + 1);
-		v1[6] = (_DWORD*)v6;
+		v7 = (uint32_t*)((uint32_t)v1[5] << 16);
+		v1[3] = (uint32_t*)((char*)v1[3] + 1);
+		v1[6] = (uint32_t*)v6;
 		v1[5] = v7;
 	}
 	if ((int)v1[6] > 0) {
 		do {
-			*(_BYTE*)v1[3] = (unsigned int)v1[5] >> 24;
+			*(uint8_t*)v1[3] = (unsigned int)v1[5] >> 24;
 			v8 = v1[5];
 			v9 = (int)(v1[6] - 2);
-			v1[3] = (_DWORD*)((char*)v1[3] + 1);
-			v1[6] = (_DWORD*)v9;
-			v1[5] = (_DWORD*)((_DWORD)v8 << 8);
+			v1[3] = (uint32_t*)((char*)v1[3] + 1);
+			v1[6] = (uint32_t*)v9;
+			v1[5] = (uint32_t*)((uint32_t)v8 << 8);
 		} while (v9 > 0);
 	}
 	return (char*)v1[3] - (char*)v1[4];
 }
 
 //----- (0057E8A0) --------------------------------------------------------
-_DWORD* __thiscall sub_57E8A0(_DWORD* this) {
-	_DWORD* v1;          // ebx
-	unsigned __int8* v2; // eax
+uint32_t* sub_57E8A0(uint32_t* this) {
+	uint32_t* v1;          // ebx
+	unsigned char* v2; // eax
 
 	v1 = this;
 	sub_57DD90(this);
-	v2 = (unsigned __int8*)operator_new(0x224u);
+	v2 = (unsigned char*)operator_new(0x224u);
 	v1[33] = v2;
 	memcpy(v2, getMemAt(0x587000, 315976), 0x224u);
 	memcpy(v1 + 1, getMemAt(0x587000, 315848), 0x80u);
@@ -7066,8 +7071,8 @@ _DWORD* __thiscall sub_57E8A0(_DWORD* this) {
 // 5667CB: using guessed type void * operator_new(unsigned int);
 
 //----- (0057E910) --------------------------------------------------------
-void __thiscall sub_57E910(LPVOID* this) {
-	LPVOID* v1; // esi
+void sub_57E910(void** this) {
+	void** v1; // esi
 
 	v1 = this;
 	operator_delete(this[33]);
@@ -7075,15 +7080,15 @@ void __thiscall sub_57E910(LPVOID* this) {
 }
 
 //----- (0057E970) --------------------------------------------------------
-int __thiscall sub_57E970(void** this) {
+int sub_57E970(void** this) {
 	memcpy(this[33], getMemAt(0x587000, 315976), 0x224u);
 	memcpy(this + 1, getMemAt(0x587000, 315848), 0x80u);
 	return sub_57DDD0(this);
 }
 
 //----- (0057E9A0) --------------------------------------------------------
-_DWORD* __thiscall sub_57E9A0(_DWORD* this) {
-	_DWORD* v1; // esi
+uint32_t* sub_57E9A0(uint32_t* this) {
+	uint32_t* v1; // esi
 
 	v1 = this;
 	*this = operator_new(0x10000u);
@@ -7096,10 +7101,10 @@ _DWORD* __thiscall sub_57E9A0(_DWORD* this) {
 // 5667CB: using guessed type void * operator_new(unsigned int);
 
 //----- (0057EA00) --------------------------------------------------------
-void __thiscall sub_57EA00(LPVOID* this) {
-	LPVOID* v1; // esi
-	LPVOID* v2; // ecx
-	LPVOID* v4; // [esp+4h] [ebp-10h]
+void sub_57EA00(void** this) {
+	void** v1; // esi
+	void** v2; // ecx
+	void** v4; // [esp+4h] [ebp-10h]
 
 	v1 = this;
 	v4 = this;
@@ -7111,17 +7116,17 @@ void __thiscall sub_57EA00(LPVOID* this) {
 }
 
 //----- (0057EA60) --------------------------------------------------------
-int __thiscall sub_57EA60(int this) {
-	*(_DWORD*)(this + 148) = 0;
-	*(_DWORD*)(this + 144) = 0;
-	*(_DWORD*)(this + 4) = 0;
+int sub_57EA60(int this) {
+	*(uint32_t*)(this + 148) = 0;
+	*(uint32_t*)(this + 144) = 0;
+	*(uint32_t*)(this + 4) = 0;
 	return sub_57E970((void**)(this + 8));
 }
 
 //----- (0057EA80) --------------------------------------------------------
-int __thiscall nox_xxx_nxzDecompressImpl_57EA80(_DWORD* this, _BYTE* a2, _DWORD* a3, unsigned int a4, _DWORD* a5) {
-	unsigned __int8* v5; // ebp
-	_DWORD* v6;          // ebx
+int nox_xxx_nxzDecompressImpl_57EA80(uint32_t* this, uint8_t* a2, uint32_t* a3, unsigned int a4, uint32_t* a5) {
+	unsigned char* v5; // ebp
+	uint32_t* v6;          // ebx
 	unsigned int v7;     // edx
 	int v8;              // esi
 	int v9;              // eax
@@ -7136,9 +7141,9 @@ int __thiscall nox_xxx_nxzDecompressImpl_57EA80(_DWORD* this, _BYTE* a2, _DWORD*
 	int v18;             // ecx
 	int v19;             // eax
 	char* v20;           // ecx
-	__int16 v21;         // si
+	short v21;         // si
 	int v22;             // edi
-	_DWORD* v23;         // edx
+	uint32_t* v23;         // edx
 	int v24;             // esi
 	int v25;             // ecx
 	int v26;             // eax
@@ -7160,7 +7165,7 @@ int __thiscall nox_xxx_nxzDecompressImpl_57EA80(_DWORD* this, _BYTE* a2, _DWORD*
 	int v42;             // edi
 	int v43;             // eax
 	int v44;             // edx
-	_BYTE* v45;          // edi
+	uint8_t* v45;          // edi
 	int v46;             // ebp
 	int v47;             // eax
 	int v48;             // ecx
@@ -7171,27 +7176,27 @@ int __thiscall nox_xxx_nxzDecompressImpl_57EA80(_DWORD* this, _BYTE* a2, _DWORD*
 	unsigned int v53;    // ecx
 	int v54;             // esi
 	int v55;             // edi
-	_BYTE* v56;          // ebp
+	uint8_t* v56;          // ebp
 	int v57;             // edi
 	int v58;             // edx
 	void* v59;           // edi
 	unsigned int v60;    // ecx
-	_BYTE* v61;          // esi
+	uint8_t* v61;          // esi
 	int v63;             // [esp+10h] [ebp-464h]
 	int i;               // [esp+10h] [ebp-464h]
 	int v65;             // [esp+10h] [ebp-464h]
 	int v66;             // [esp+14h] [ebp-460h]
 	int v67;             // [esp+14h] [ebp-460h]
-	_BYTE* v68;          // [esp+14h] [ebp-460h]
+	uint8_t* v68;          // [esp+14h] [ebp-460h]
 	unsigned int v69;    // [esp+18h] [ebp-45Ch]
 	int v70;             // [esp+1Ch] [ebp-458h]
 	int v71;             // [esp+1Ch] [ebp-458h]
-	_BYTE* v72;          // [esp+20h] [ebp-454h]
+	uint8_t* v72;          // [esp+20h] [ebp-454h]
 	unsigned int v73;    // [esp+24h] [ebp-450h]
-	_BYTE* v74;          // [esp+28h] [ebp-44Ch]
+	uint8_t* v74;          // [esp+28h] [ebp-44Ch]
 	char v75[1096];      // [esp+2Ch] [ebp-448h]
 
-	v5 = (unsigned __int8*)a4;
+	v5 = (unsigned char*)a4;
 	v6 = this;
 	v7 = a4 + *a5;
 	v74 = a2;
@@ -7223,7 +7228,7 @@ int __thiscall nox_xxx_nxzDecompressImpl_57EA80(_DWORD* this, _BYTE* a2, _DWORD*
 	LABEL_9:
 		v12 = v6[2 * v9 + 3];
 		if (!v12) {
-			v13 = *(__int16*)(v6[35] + 2 * v6[2 * v9 + 4]);
+			v13 = *(short*)(v6[35] + 2 * v6[2 * v9 + 4]);
 			goto LABEL_18;
 		}
 		v14 = v6[37];
@@ -7247,16 +7252,16 @@ int __thiscall nox_xxx_nxzDecompressImpl_57EA80(_DWORD* this, _BYTE* a2, _DWORD*
 		v17 = v15 + v6[2 * v9 + 4];
 		if (v17 >= 274)
 			return 0;
-		v13 = *(__int16*)(v6[35] + 2 * v17);
+		v13 = *(short*)(v6[35] + 2 * v17);
 	LABEL_18:
-		++*(_WORD*)(v6[2] + 2 * v13);
+		++*(uint16_t*)(v6[2] + 2 * v13);
 		// _dprintf("decompress: %d", v13);
 		if (v13 < 256) {
 			if (a2 < v72) {
 				*a2++ = v13;
 				v18 = v6[1];
 				v6[1] = v18 + 1;
-				*(_BYTE*)((unsigned __int16)v18 + *v6) = v13;
+				*(uint8_t*)((unsigned short)v18 + *v6) = v13;
 				goto LABEL_73;
 			}
 			return 0;
@@ -7266,9 +7271,9 @@ int __thiscall nox_xxx_nxzDecompressImpl_57EA80(_DWORD* this, _BYTE* a2, _DWORD*
 			v19 = 0;
 			v20 = v75;
 			do {
-				v21 = *(_WORD*)v20;
+				v21 = *(uint16_t*)v20;
 				v20 += 4;
-				*(_WORD*)(v19 + v6[35]) = v21;
+				*(uint16_t*)(v19 + v6[35]) = v21;
 				v19 += 2;
 			} while (v19 < 548);
 			v22 = 0;
@@ -7402,13 +7407,13 @@ int __thiscall nox_xxx_nxzDecompressImpl_57EA80(_DWORD* this, _BYTE* a2, _DWORD*
 			return 0;
 		v48 = v6[1] - v46;
 		if (v47 >= v46) {
-			v50 = (unsigned __int16)v48;
-			if ((unsigned __int16)v48 + v46 <= 0x10000) {
+			v50 = (unsigned short)v48;
+			if ((unsigned short)v48 + v46 <= 0x10000) {
 				v53 = v46;
 				v52 = (const void*)(*v6 + v50);
 			} else {
-				v51 = 0x10000 - (unsigned __int16)v48;
-				memcpy(a2, (const void*)(*v6 + (unsigned __int16)v48), 0x10000 - (unsigned __int16)v48);
+				v51 = 0x10000 - (unsigned short)v48;
+				memcpy(a2, (const void*)(*v6 + (unsigned short)v48), 0x10000 - (unsigned short)v48);
 				v52 = (const void*)*v6;
 				v53 = v46 - v51;
 				v45 = &a2[v51];
@@ -7424,7 +7429,7 @@ int __thiscall nox_xxx_nxzDecompressImpl_57EA80(_DWORD* this, _BYTE* a2, _DWORD*
 				} while (v54 < v55);
 			}
 		} else {
-			v49 = (unsigned __int16)v48;
+			v49 = (unsigned short)v48;
 			if (v49 + v47 <= 0x10000) {
 				memcpy(a2, (const void*)(*v6 + v49), v47);
 			} else {
@@ -7444,7 +7449,7 @@ int __thiscall nox_xxx_nxzDecompressImpl_57EA80(_DWORD* this, _BYTE* a2, _DWORD*
 			v60 = v47 - v58;
 			v61 = &a2[v58];
 		}
-		v5 = (unsigned __int8*)a4;
+		v5 = (unsigned char*)a4;
 		memcpy(v59, v61, v60);
 		v6[1] += v47;
 		a2 = v68;
@@ -7456,26 +7461,26 @@ int __thiscall nox_xxx_nxzDecompressImpl_57EA80(_DWORD* this, _BYTE* a2, _DWORD*
 	if (a3)
 		*a3 += v74 - a2;
 	if (a5)
-		*a5 += v73 - (_DWORD)v5;
+		*a5 += v73 - (uint32_t)v5;
 	return 1;
 }
 
 //----- (0057F160) --------------------------------------------------------
-_DWORD* __thiscall sub_57F160(int this, int a2, int a3) {
-	_DWORD* result; // eax
+uint32_t* sub_57F160(int this, int a2, int a3) {
+	uint32_t* result; // eax
 	int v4;         // edx
-	_BYTE* v5;      // ecx
+	uint8_t* v5;      // ecx
 	int v6;         // edx
 	int v7;         // ecx
 	int v8;         // edx
 
-	result = (_DWORD*)this;
-	v4 = *(_DWORD*)(this + 24);
-	*(_DWORD*)(this + 20) |= a3 << (32 - v4 - a2);
-	*(_DWORD*)(this + 24) = v4 + a2;
+	result = (uint32_t*)this;
+	v4 = *(uint32_t*)(this + 24);
+	*(uint32_t*)(this + 20) |= a3 << (32 - v4 - a2);
+	*(uint32_t*)(this + 24) = v4 + a2;
 	if (v4 + a2 >= 16) {
-		**(_BYTE**)(this + 12) = *(_DWORD*)(this + 20) >> 24;
-		v5 = (_BYTE*)(*(_DWORD*)(this + 12) + 1);
+		**(uint8_t**)(this + 12) = *(uint32_t*)(this + 20) >> 24;
+		v5 = (uint8_t*)(*(uint32_t*)(this + 12) + 1);
 		v6 = result[5] >> 16;
 		result[3] = v5;
 		*v5 = v6;
@@ -7495,12 +7500,12 @@ char  sub_57F1D0(float2* a1) {
 	double v3;          // st7
 	double v4;          // st6
 	double v5;          // st7
-	unsigned __int8 v7; // [esp+Ch] [ebp-4h]
+	unsigned char v7; // [esp+Ch] [ebp-4h]
 
 	v1 = 0;
 	v2 = nox_float2int(a1->field_0);
 	v7 = nox_float2int(a1->field_4) % 23;
-	v3 = (double)(unsigned __int8)(v2 % 23);
+	v3 = (double)(unsigned char)(v2 % 23);
 	if (v3 >= 11.5) {
 		v4 = (double)v7;
 		if (v4 >= 11.5)
@@ -7583,55 +7588,55 @@ int  SEH_40E320(int a1, int a2, int a3, int a4)
 //----- (0057FB20) --------------------------------------------------------
 void sub_57FB20@<eax > (int a1@<ebp > )
 {
-    operator_delete(*(LPVOID*)(a1 - 16));
+    operator_delete(*(void**)(a1 - 16));
 }
 
 //----- (0057FB2B) --------------------------------------------------------
 void sub_57FB2B@<eax > (int a1@<ebp > )
 {
-    operator_delete(*(LPVOID*)(a1 + 4));
+    operator_delete(*(void**)(a1 + 4));
 }
 
 //----- (0057FB36) --------------------------------------------------------
 void sub_57FB36@<eax > (int a1@<ebp > )
 {
-    operator_delete(*(LPVOID*)(a1 + 4));
+    operator_delete(*(void**)(a1 + 4));
 }
 
 //----- (0057FB41) --------------------------------------------------------
 void sub_57FB41@<eax > (int a1@<ebp > )
 {
-    operator_delete(*(LPVOID*)(a1 + 4));
+    operator_delete(*(void**)(a1 + 4));
 }
 
 //----- (0057FB57) --------------------------------------------------------
 void sub_57FB57@<eax > (int a1@<ebp > )
 {
-    operator_delete(*(LPVOID*)(a1 - 16));
+    operator_delete(*(void**)(a1 - 16));
 }
 
 //----- (0057FB62) --------------------------------------------------------
 void sub_57FB62@<eax > (int a1@<ebp > )
 {
-    operator_delete(*(LPVOID*)(a1 - 16));
+    operator_delete(*(void**)(a1 - 16));
 }
 
 //----- (0057FB6D) --------------------------------------------------------
 void sub_57FB6D@<eax > (int a1@<ebp > )
 {
-    operator_delete(*(LPVOID*)(a1 - 16));
+    operator_delete(*(void**)(a1 - 16));
 }
 
 //----- (0057FBB0) --------------------------------------------------------
 int sub_57FBB0@<eax > (int a1@<ebp > )
 {
-    return sub_5562D0(*(_DWORD * *)(a1 - 16));
+    return sub_5562D0(*(uint32_t * *)(a1 - 16));
 }
 
 //----- (0057FBB8) --------------------------------------------------------
 int sub_57FBB8@<eax > (int a1@<ebp > )
 {
-    return sub_559AB0(*(_DWORD*)(a1 - 16) + 40);
+    return sub_559AB0(*(uint32_t*)(a1 - 16) + 40);
 }
 
 //----- (0057FBC3) --------------------------------------------------------
@@ -7643,13 +7648,13 @@ int  SEH_556500(int a1, int a2, int a3, int a4)
 //----- (0057FBD0) --------------------------------------------------------
 int sub_57FBD0@<eax > (int a1@<ebp > )
 {
-    return sub_5562D0(*(_DWORD * *)(a1 - 16));
+    return sub_5562D0(*(uint32_t * *)(a1 - 16));
 }
 
 //----- (0057FBD8) --------------------------------------------------------
 int sub_57FBD8@<eax > (int a1@<ebp > )
 {
-    return sub_559AB0(*(_DWORD*)(a1 - 16) + 40);
+    return sub_559AB0(*(uint32_t*)(a1 - 16) + 40);
 }
 
 //----- (0057FBE3) --------------------------------------------------------
@@ -7661,13 +7666,13 @@ int  SEH_556570(int a1, int a2, int a3, int a4)
 //----- (0057FBF0) --------------------------------------------------------
 int sub_57FBF0@<eax > (int a1@<ebp > )
 {
-    return sub_5562D0(*(_DWORD * *)(a1 - 16));
+    return sub_5562D0(*(uint32_t * *)(a1 - 16));
 }
 
 //----- (0057FBF8) --------------------------------------------------------
 int sub_57FBF8@<eax > (int a1@<ebp > )
 {
-    return sub_559AB0(*(_DWORD*)(a1 - 16) + 40);
+    return sub_559AB0(*(uint32_t*)(a1 - 16) + 40);
 }
 
 //----- (0057FC03) --------------------------------------------------------
@@ -7679,9 +7684,9 @@ int  SEH_5565E0(int a1, int a2, int a3, int a4)
 //----- (0057FC50) --------------------------------------------------------
 int sub_57FC50@<eax > (int a1@<ebp > )
 {
-    return sub_559AE0(*(_DWORD*)(a1 - 16) + 4);
+    return sub_559AE0(*(uint32_t*)(a1 - 16) + 4);
 }
-// 559AE0: using guessed type int __thiscall sub_559AE0(_DWORD);
+// 559AE0: using guessed type int sub_559AE0(uint32_t);
 
 //----- (0057FC5B) --------------------------------------------------------
 int  SEH_557C70(int a1, int a2, int a3, int a4)
@@ -7770,19 +7775,19 @@ int  SEH_571C0E(int a1, int a2, int a3, int a4)
 //----- (0057FD41) --------------------------------------------------------
 wstring* sub_57FD41@<eax > (int a1@<ebp > )
 {
-    return sub_570CE0((int*)(*(_DWORD*)(a1 - 32) + 8));
+    return sub_570CE0((int*)(*(uint32_t*)(a1 - 32) + 8));
 }
 
 //----- (0057FD4D) --------------------------------------------------------
 wstring* sub_57FD4D@<eax > (int a1@<ebp > )
 {
-    return sub_570CE0((int*)(*(_DWORD*)(a1 - 32) + 24));
+    return sub_570CE0((int*)(*(uint32_t*)(a1 - 32) + 24));
 }
 
 //----- (0057FD59) --------------------------------------------------------
 wstring* sub_57FD59@<eax > (int a1@<ebp > )
 {
-    return sub_570CE0((int*)(*(_DWORD*)(a1 - 32) + 40));
+    return sub_570CE0((int*)(*(uint32_t*)(a1 - 32) + 40));
 }
 
 //----- (0057FD65) --------------------------------------------------------
@@ -7794,19 +7799,19 @@ int  SEH_572045(int a1, int a2, int a3, int a4)
 //----- (0057FD6F) --------------------------------------------------------
 wstring* sub_57FD6F@<eax > (int a1@<ebp > )
 {
-    return sub_570CE0((int*)(*(_DWORD*)(a1 - 16) + 8));
+    return sub_570CE0((int*)(*(uint32_t*)(a1 - 16) + 8));
 }
 
 //----- (0057FD7B) --------------------------------------------------------
 wstring* sub_57FD7B@<eax > (int a1@<ebp > )
 {
-    return sub_570CE0((int*)(*(_DWORD*)(a1 - 16) + 24));
+    return sub_570CE0((int*)(*(uint32_t*)(a1 - 16) + 24));
 }
 
 //----- (0057FD87) --------------------------------------------------------
 wstring* sub_57FD87@<eax > (int a1@<ebp > )
 {
-    return sub_570CE0((int*)(*(_DWORD*)(a1 - 16) + 40));
+    return sub_570CE0((int*)(*(uint32_t*)(a1 - 16) + 40));
 }
 
 //----- (0057FD93) --------------------------------------------------------
@@ -7816,7 +7821,7 @@ int  SEH_57211C(int a1, int a2, int a3, int a4)
 }
 
 //----- (0057FD9D) --------------------------------------------------------
-BOOL sub_57FD9D@<eax > (int a1@<ebp > )
+int sub_57FD9D@<eax > (int a1@<ebp > )
 {
     return sub_574EC0(a1 - 20);
 }
@@ -7834,7 +7839,7 @@ int  SEH_57222A(int a1, int a2, int a3, int a4)
 }
 
 //----- (0057FDB9) --------------------------------------------------------
-BOOL sub_57FDB9@<eax > (int a1@<ebp > )
+int sub_57FDB9@<eax > (int a1@<ebp > )
 {
     return sub_574EC0(a1 - 20);
 }
@@ -7852,7 +7857,7 @@ int  SEH_572333(int a1, int a2, int a3, int a4)
 }
 
 //----- (0057FDD5) --------------------------------------------------------
-BOOL sub_57FDD5@<eax > (int a1@<ebp > )
+int sub_57FDD5@<eax > (int a1@<ebp > )
 {
     return sub_574EC0(a1 - 20);
 }
@@ -7870,7 +7875,7 @@ int  SEH_572442(int a1, int a2, int a3, int a4)
 }
 
 //----- (0057FE07) --------------------------------------------------------
-BOOL sub_57FE07@<eax > (int a1@<ebp > )
+int sub_57FE07@<eax > (int a1@<ebp > )
 {
     return sub_574EC0(a1 - 20);
 }
@@ -7900,7 +7905,7 @@ int  SEH_572BD6(int a1, int a2, int a3, int a4)
 }
 
 //----- (0057FE36) --------------------------------------------------------
-BOOL sub_57FE36@<eax > (int a1@<ebp > )
+int sub_57FE36@<eax > (int a1@<ebp > )
 {
     return sub_574EC0(a1 - 20);
 }
@@ -7918,7 +7923,7 @@ int  SEH_573153(int a1, int a2, int a3, int a4)
 }
 
 //----- (0057FE52) --------------------------------------------------------
-BOOL sub_57FE52@<eax > (int a1@<ebp > )
+int sub_57FE52@<eax > (int a1@<ebp > )
 {
     return sub_574EC0(a1 - 20);
 }
@@ -7936,9 +7941,9 @@ int  SEH_57330C(int a1, int a2, int a3, int a4)
 }
 
 //----- (0057FE6E) --------------------------------------------------------
-LPVOID* sub_57FE6E@<eax > (int a1@<ebp > )
+void** sub_57FE6E@<eax > (int a1@<ebp > )
 {
-    return sub_574930((LPVOID*)(a1 - 32));
+    return sub_574930((void**)(a1 - 32));
 }
 
 //----- (0057FE77) --------------------------------------------------------
@@ -7960,7 +7965,7 @@ int  SEH_573401(int a1, int a2, int a3, int a4)
 }
 
 //----- (0057FE93) --------------------------------------------------------
-BOOL sub_57FE93@<eax > (int a1@<ebp > )
+int sub_57FE93@<eax > (int a1@<ebp > )
 {
     return sub_574EC0(a1 - 20);
 }
@@ -7972,7 +7977,7 @@ int  SEH_57366C(int a1, int a2, int a3, int a4)
 }
 
 //----- (0057FEA6) --------------------------------------------------------
-BOOL sub_57FEA6@<eax > (int a1@<ebp > )
+int sub_57FEA6@<eax > (int a1@<ebp > )
 {
     return sub_574EC0(a1 - 20);
 }
@@ -7984,7 +7989,7 @@ int  SEH_57381A(int a1, int a2, int a3, int a4)
 }
 
 //----- (0057FEB9) --------------------------------------------------------
-BOOL sub_57FEB9@<eax > (int a1@<ebp > )
+int sub_57FEB9@<eax > (int a1@<ebp > )
 {
     return sub_574EC0(a1 - 20);
 }
@@ -7996,7 +8001,7 @@ int  SEH_57390B(int a1, int a2, int a3, int a4)
 }
 
 //----- (0057FECC) --------------------------------------------------------
-BOOL sub_57FECC@<eax > (int a1@<ebp > )
+int sub_57FECC@<eax > (int a1@<ebp > )
 {
     return sub_574EC0(a1 - 20);
 }
@@ -8012,7 +8017,7 @@ void sub_57FEE0(int a1@<ebp > )
 {
     std___Lockit__destructor_Lockit((std___Lockit*)(a1 - 16));
 }
-// 57F713: using guessed type void __thiscall std___Lockit__destructor_Lockit(std___Lockit *__hidden this);
+// 57F713: using guessed type void std___Lockit__destructor_Lockit(std___Lockit *__hidden this);
 
 //----- (0057FEE9) --------------------------------------------------------
 int  SEH_574410(int a1, int a2, int a3, int a4)
@@ -8025,7 +8030,7 @@ void sub_57FF00(int a1@<ebp > )
 {
     std___Lockit__destructor_Lockit((std___Lockit*)(a1 - 24));
 }
-// 57F713: using guessed type void __thiscall std___Lockit__destructor_Lockit(std___Lockit *__hidden this);
+// 57F713: using guessed type void std___Lockit__destructor_Lockit(std___Lockit *__hidden this);
 
 //----- (0057FF09) --------------------------------------------------------
 int  SEH_5755F0(int a1, int a2, int a3, int a4)
@@ -8038,7 +8043,7 @@ void sub_57FF20(int a1@<ebp > )
 {
     std___Lockit__destructor_Lockit((std___Lockit*)(a1 - 16));
 }
-// 57F713: using guessed type void __thiscall std___Lockit__destructor_Lockit(std___Lockit *__hidden this);
+// 57F713: using guessed type void std___Lockit__destructor_Lockit(std___Lockit *__hidden this);
 
 //----- (0057FF29) --------------------------------------------------------
 int  SEH_575E60(int a1, int a2, int a3, int a4)
@@ -8051,7 +8056,7 @@ void sub_57FF40(int a1@<ebp > )
 {
     std___Lockit__destructor_Lockit((std___Lockit*)(a1 - 32));
 }
-// 57F713: using guessed type void __thiscall std___Lockit__destructor_Lockit(std___Lockit *__hidden this);
+// 57F713: using guessed type void std___Lockit__destructor_Lockit(std___Lockit *__hidden this);
 
 //----- (0057FF49) --------------------------------------------------------
 int  SEH_576A20(int a1, int a2, int a3, int a4)
@@ -8064,7 +8069,7 @@ void sub_57FF80(int a1@<ebp > )
 {
     std___Lockit__destructor_Lockit((std___Lockit*)(a1 - 16));
 }
-// 57F713: using guessed type void __thiscall std___Lockit__destructor_Lockit(std___Lockit *__hidden this);
+// 57F713: using guessed type void std___Lockit__destructor_Lockit(std___Lockit *__hidden this);
 
 //----- (0057FF89) --------------------------------------------------------
 int  SEH_576DA0(int a1, int a2, int a3, int a4)
@@ -8077,7 +8082,7 @@ void sub_57FFC0(int a1@<ebp > )
 {
     std___Lockit__destructor_Lockit((std___Lockit*)(a1 - 16));
 }
-// 57F713: using guessed type void __thiscall std___Lockit__destructor_Lockit(std___Lockit *__hidden this);
+// 57F713: using guessed type void std___Lockit__destructor_Lockit(std___Lockit *__hidden this);
 
 //----- (0057FFC9) --------------------------------------------------------
 int  SEH_577060(int a1, int a2, int a3, int a4)
@@ -8090,7 +8095,7 @@ void sub_57FFE0(int a1@<ebp > )
 {
     std___Lockit__destructor_Lockit((std___Lockit*)(a1 - 16));
 }
-// 57F713: using guessed type void __thiscall std___Lockit__destructor_Lockit(std___Lockit *__hidden this);
+// 57F713: using guessed type void std___Lockit__destructor_Lockit(std___Lockit *__hidden this);
 
 //----- (0057FFE9) --------------------------------------------------------
 int  SEH_577100(int a1, int a2, int a3, int a4)
@@ -8109,7 +8114,7 @@ void sub_580050(int a1@<ebp > )
 {
     std___Lockit__destructor_Lockit((std___Lockit*)(a1 - 24));
 }
-// 57F713: using guessed type void __thiscall std___Lockit__destructor_Lockit(std___Lockit *__hidden this);
+// 57F713: using guessed type void std___Lockit__destructor_Lockit(std___Lockit *__hidden this);
 
 //----- (00580059) --------------------------------------------------------
 int  SEH_577F90(int a1, int a2, int a3, int a4)
@@ -8122,7 +8127,7 @@ void sub_580070(int a1@<ebp > )
 {
     std___Lockit__destructor_Lockit((std___Lockit*)(a1 - 16));
 }
-// 57F713: using guessed type void __thiscall std___Lockit__destructor_Lockit(std___Lockit *__hidden this);
+// 57F713: using guessed type void std___Lockit__destructor_Lockit(std___Lockit *__hidden this);
 
 //----- (00580079) --------------------------------------------------------
 int  SEH_578240(int a1, int a2, int a3, int a4)
@@ -8135,7 +8140,7 @@ void sub_580090(int a1@<ebp > )
 {
     std___Lockit__destructor_Lockit((std___Lockit*)(a1 - 16));
 }
-// 57F713: using guessed type void __thiscall std___Lockit__destructor_Lockit(std___Lockit *__hidden this);
+// 57F713: using guessed type void std___Lockit__destructor_Lockit(std___Lockit *__hidden this);
 
 //----- (00580099) --------------------------------------------------------
 int  SEH_578370(int a1, int a2, int a3, int a4)
@@ -8158,13 +8163,13 @@ int  SEH_578810(int a1, int a2, int a3, int a4)
 //----- (005800D8) --------------------------------------------------------
 int sub_5800D8@<eax > (int a1@<ebp > )
 {
-    return sub_57DF70((LPVOID*)(*(_DWORD*)(a1 - 16) + 8));
+    return sub_57DF70((void**)(*(uint32_t*)(a1 - 16) + 8));
 }
 
 //----- (005800F5) --------------------------------------------------------
 int sub_5800F5@<eax > (int a1@<ebp > )
 {
-    return sub_57DF70((LPVOID*)(*(_DWORD*)(a1 - 16) + 8));
+    return sub_57DF70((void**)(*(uint32_t*)(a1 - 16) + 8));
 }
 
 //----- (0058010A) --------------------------------------------------------
@@ -8172,7 +8177,7 @@ int sub_58010A@<eax > (int a1@<ebp > )
 {
     return nullsub_71(a1 - 40);
 }
-// 57DD80: using guessed type int __thiscall nullsub_71(_DWORD);
+// 57DD80: using guessed type int nullsub_71(uint32_t);
 
 //----- (00580112) --------------------------------------------------------
 int  SEH_57D1C0(int a1, int a2, int a3, int a4)
@@ -8183,7 +8188,7 @@ int  SEH_57D1C0(int a1, int a2, int a3, int a4)
 //----- (00580120) --------------------------------------------------------
 void sub_580120@<eax > (int a1@<ebp > )
 {
-    sub_57DDC0(*(LPVOID * *)(a1 - 16));
+    sub_57DDC0(*(void* * *)(a1 - 16));
 }
 
 //----- (00580128) --------------------------------------------------------
@@ -8195,7 +8200,7 @@ int  SEH_57DF00(int a1, int a2, int a3, int a4)
 //----- (00580132) --------------------------------------------------------
 void sub_580132@<eax > (int a1@<ebp > )
 {
-    sub_57DDC0(*(LPVOID * *)(a1 - 16));
+    sub_57DDC0(*(void* * *)(a1 - 16));
 }
 
 //----- (0058013A) --------------------------------------------------------
@@ -8207,7 +8212,7 @@ int  SEH_57DF70(int a1, int a2, int a3, int a4)
 //----- (00580144) --------------------------------------------------------
 void sub_580144@<eax > (int a1@<ebp > )
 {
-    sub_57DDC0(*(LPVOID * *)(a1 - 16));
+    sub_57DDC0(*(void* * *)(a1 - 16));
 }
 
 //----- (0058014C) --------------------------------------------------------
@@ -8219,7 +8224,7 @@ int  SEH_57E8A0(int a1, int a2, int a3, int a4)
 //----- (00580156) --------------------------------------------------------
 void sub_580156@<eax > (int a1@<ebp > )
 {
-    sub_57DDC0(*(LPVOID * *)(a1 - 16));
+    sub_57DDC0(*(void* * *)(a1 - 16));
 }
 
 //----- (0058015E) --------------------------------------------------------
@@ -8231,7 +8236,7 @@ int  SEH_57E910(int a1, int a2, int a3, int a4)
 //----- (0058017A) --------------------------------------------------------
 int sub_58017A@<eax > (int a1@<ebp > )
 {
-    return sub_57DD70(*(LPVOID * *)(a1 - 16));
+    return sub_57DD70(*(void* * *)(a1 - 16));
 }
 
 //----- (00580182) --------------------------------------------------------
@@ -8245,15 +8250,15 @@ void nullsub_2() {}
 
 int sub_448640(void) { return sub_44A400(); }
 
-void nullsub_4(_DWORD a1, _DWORD a2, _DWORD a3, _DWORD a4) {}
+void nullsub_4(uint32_t a1, uint32_t a2, uint32_t a3, uint32_t a4) {}
 
-void nox_xxx_set_sage(_DWORD a1) {}
+void nox_xxx_set_sage(uint32_t a1) {}
 
 void nullsub_5(void) {}
 
-void nullsub_10(_DWORD a1) {}
+void nullsub_10(uint32_t a1) {}
 
-int __thiscall sub_42CC50(LPVOID* this) { return sub_42C770(this); }
+int sub_42CC50(void** this) { return sub_42C770(this); }
 
 void nox_xxx_j_resetNPCRenderData_49A2E0(void) { nox_alloc_npcs(); }
 
@@ -8286,24 +8291,24 @@ void  nox_alloc_npcs_2() { nox_alloc_npcs(); }
 int nullsub_8(int a1, int a2) {
 	return 0;
 }
-void nullsub_27(_DWORD a1) {}
-void nullsub_28(_DWORD a1) {}
-void nullsub_30(_DWORD a1) {}
+void nullsub_27(uint32_t a1) {}
+void nullsub_28(uint32_t a1) {}
+void nullsub_30(uint32_t a1) {}
 void nullsub_36(void) {}
 void nullsub_29(void) {}
-void nullsub_35(_DWORD a1, _DWORD a2) {}
-void nullsub_34(_DWORD a1, _DWORD a2, _DWORD a3) {}
+void nullsub_35(uint32_t a1, uint32_t a2) {}
+void nullsub_34(uint32_t a1, uint32_t a2, uint32_t a3) {}
 void nullsub_20(void) {}
-void nullsub_24(_DWORD a1) {}
-void nullsub_31(_DWORD a1) {}
+void nullsub_24(uint32_t a1) {}
+void nullsub_31(uint32_t a1) {}
 void nullsub_22(void) {}
 void nullsub_23(void) {}
-void nullsub_9(_DWORD a1) {}
-void nullsub_33(_DWORD a1, _DWORD a2, _DWORD a3) {}
-int __thiscall sub_558800(int (**this)(void)) { return this[385](); }
-int __thiscall sub_558810(int (**this)(void)) { return this[386](); }
+void nullsub_9(uint32_t a1) {}
+void nullsub_33(uint32_t a1, uint32_t a2, uint32_t a3) {}
+int sub_558800(int (**this)(void)) { return this[385](); }
+int sub_558810(int (**this)(void)) { return this[386](); }
 #ifndef NOX_CGO
-BOOL nox_xxx_testCPUID2_444D90() { return 0; }
+int nox_xxx_testCPUID2_444D90() { return 0; }
 #endif // NOX_CGO
 void nox_xxx_j_allocHitArray_511840(void) { nox_xxx_allocHitArray_5486D0(); }
 

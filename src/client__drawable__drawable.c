@@ -153,7 +153,7 @@ nox_drawable*  nox_new_drawable_for_thing(int i) {
 	int( * draw_fnc)(unsigned int*, nox_drawable*);
 	draw_fnc = v1->draw_func;
 	if (draw_fnc == nox_thing_static_random_draw) {
-		v4 = nox_common_randomIntMinMax_415FF0(0, *(unsigned __int8*)((char*)v1->field_76 + 8) - 1,
+		v4 = nox_common_randomIntMinMax_415FF0(0, *(unsigned char*)((char*)v1->field_76 + 8) - 1,
 						"C:\\NoxPost\\src\\Client\\Drawable\\drawable.c", 401);
 		nox_xxx_spriteSetFrameMB_45AB80(v1, v4);
 	} else if (draw_fnc == nox_thing_red_spark_draw || draw_fnc == nox_thing_blue_spark_draw ||

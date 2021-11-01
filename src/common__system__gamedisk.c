@@ -3,17 +3,18 @@
 #include "GAME2.h"
 #include "cdrom.h"
 #include "client__gui__window.h"
-extern _DWORD dword_5d4594_251728;
-extern _DWORD dword_5d4594_251704;
-extern _DWORD dword_5d4594_251712;
-extern _DWORD dword_5d4594_251708;
-extern _DWORD nox_game_cdState_251700;
+#include "common__strman.h"
+extern uint32_t dword_5d4594_251728;
+extern uint32_t dword_5d4594_251704;
+extern uint32_t dword_5d4594_251712;
+extern uint32_t dword_5d4594_251708;
+extern uint32_t nox_game_cdState_251700;
 
 //----- (00413520) --------------------------------------------------------
 void sub_413520_gamedisk() {
 	int v1;              // eax
 	wchar_t* v2;         // eax
-	__int64 v3;          // rax
+	long long v3;          // rax
 	wchar_t* v5;         // [esp-10h] [ebp-1Ch]
 	int v6;              // [esp-Ch] [ebp-18h]
 	void (*v7)();         // [esp-8h] [ebp-14h]

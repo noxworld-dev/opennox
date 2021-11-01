@@ -15,7 +15,7 @@ func init() {
 	// attach stdout/stderr to the console of the parent process
 	// this way we can keep building the main binary as GUI App,
 	// but still allow seeing console if started via cmd
-	const ATTACH_PARENT_PROCESS = ^uint32(0) // (DWORD)-1
+	const ATTACH_PARENT_PROCESS = ^uint32(0) // (uint32_t)-1
 	modkernel32 := syscall.NewLazyDLL("kernel32.dll")
 	procAttachConsole := modkernel32.NewProc("AttachConsole")
 

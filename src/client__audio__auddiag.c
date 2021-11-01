@@ -3,13 +3,14 @@
 #include "GAME1_3.h"
 #include "GAME2.h"
 #include "GAME2_2.h"
-extern _DWORD dword_5d4594_831076;
-extern _DWORD dword_5d4594_830972;
-extern _DWORD dword_5d4594_831092;
-extern _DWORD dword_5d4594_831084;
-extern _DWORD dword_587000_122848;
-extern _DWORD dword_5d4594_830864;
-extern _DWORD dword_5d4594_830872;
+#include "common__strman.h"
+extern uint32_t dword_5d4594_831076;
+extern uint32_t dword_5d4594_830972;
+extern uint32_t dword_5d4594_831092;
+extern uint32_t dword_5d4594_831084;
+extern uint32_t dword_587000_122848;
+extern uint32_t dword_5d4594_830864;
+extern uint32_t dword_5d4594_830872;
 
 //----- (0044D810) --------------------------------------------------------
 int nox_xxx_WorkerHurt_44D810() {

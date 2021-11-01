@@ -9,7 +9,7 @@
 extern unsigned int nox_frame_xxx_2598000;
 //----- (004BCC90) --------------------------------------------------------
 int  nox_thing_debug_draw(nox_draw_viewport_t* vp, nox_drawable* dr) {
-	_DWORD* a1 = vp;
+	uint32_t* a1 = vp;
 	int v2;    // edi
 	int v3;    // ebx
 	int v4;    // eax

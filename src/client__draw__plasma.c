@@ -11,14 +11,16 @@
 #include "client__video__draw_common.h"
 #include "input_common.h"
 #include "client__draw__fx.h"
-extern _DWORD dword_5d4594_1316412;
-extern _DWORD dword_5d4594_1316408;
+#include "operators.h"
+
+extern uint32_t dword_5d4594_1316412;
+extern uint32_t dword_5d4594_1316408;
 extern unsigned int nox_frame_xxx_2598000;
 
 //----- (004BA230) --------------------------------------------------------
 int  sub_4BA230(int a1, int a2, int a3, int a4, int a5) {
 	int v5;               // ebx
-	unsigned __int8* v6;  // eax
+	unsigned char* v6;  // eax
 	int v7;               // ecx
 	int i;                // ebp
 	int result;           // eax
@@ -29,7 +31,7 @@ int  sub_4BA230(int a1, int a2, int a3, int a4, int a5) {
 	int v14;              // eax
 	int v15;              // eax
 	int j;                // edi
-	unsigned __int8* v17; // esi
+	unsigned char* v17; // esi
 	int v18;              // eax
 	int v19;              // edx
 	int v20;              // eax
@@ -69,11 +71,11 @@ int  sub_4BA230(int a1, int a2, int a3, int a4, int a5) {
 		do {
 			v7 = 30;
 			do {
-				*((_DWORD*)v6 - 1) = 0;
-				*(_DWORD*)v6 = 0;
-				*((_DWORD*)v6 + 1) = 0;
-				*((_DWORD*)v6 + 2) = 0;
-				*((_DWORD*)v6 - 2) = 0;
+				*((uint32_t*)v6 - 1) = 0;
+				*(uint32_t*)v6 = 0;
+				*((uint32_t*)v6 + 1) = 0;
+				*((uint32_t*)v6 + 2) = 0;
+				*((uint32_t*)v6 - 2) = 0;
 				v6 += 28;
 				--v7;
 			} while (v7);
@@ -147,27 +149,27 @@ int  sub_4BA230(int a1, int a2, int a3, int a4, int a5) {
 		if (result > 0) {
 			v17 = getMemAt(0x5D4594, 1313896 + 840 * j);
 			do {
-				v36 = *((_DWORD*)v17 - 1);
-				v18 = *(_DWORD*)v17;
-				v19 = *((_DWORD*)v17 - 2);
-				a1a.field_0 = *((_DWORD*)v17 - 3);
+				v36 = *((uint32_t*)v17 - 1);
+				v18 = *(uint32_t*)v17;
+				v19 = *((uint32_t*)v17 - 2);
+				a1a.field_0 = *((uint32_t*)v17 - 3);
 				a1a.field_4 = v19;
 				v37 = (double)v36;
 				v28 = v37 * *getMemFloatPtr(0x587000, 194136 + 8 * v18);
 				v20 = nox_float2int(v28);
-				v21 = *(_DWORD*)v17;
+				v21 = *(uint32_t*)v17;
 				a3a.field_0 = v20;
 				v29 = v37 * *getMemFloatPtr(0x587000, 194140 + 8 * v21);
 				v22 = nox_float2int(v29);
-				v23 = *((_DWORD*)v17 + 4);
-				v24 = v37 * *getMemFloatPtr(0x587000, 194136 + 8 * *((_DWORD*)v17 + 7));
+				v23 = *((uint32_t*)v17 + 4);
+				v24 = v37 * *getMemFloatPtr(0x587000, 194136 + 8 * *((uint32_t*)v17 + 7));
 				a3a.field_4 = v22;
-				v25 = *((_DWORD*)v17 + 5);
+				v25 = *((uint32_t*)v17 + 5);
 				a2a.field_0 = v23;
 				a2a.field_4 = v25;
 				v30 = v24;
 				v26 = nox_float2int(v30);
-				v27 = *((_DWORD*)v17 + 7);
+				v27 = *((uint32_t*)v17 + 7);
 				a4a.field_0 = v26;
 				v31 = v37 * *getMemFloatPtr(0x587000, 194140 + 8 * v27);
 				a4a.field_4 = nox_float2int(v31);
@@ -210,8 +212,8 @@ char  sub_4BA8B0(int* a1, int* a2, int* a3) {
 	if ((unsigned char)nox_frame_xxx_2598000 & 4) {
 		v6 = nox_common_randomIntMinMax_415FF0(0, 10, "C:\\NoxPost\\src\\client\\Draw\\Plasma.c", 135);
 		if (v6 > 5)
-			LOBYTE(v6) = nox_xxx_drawEnergyBolt_499710(*a2 + *((_DWORD*)v4 + 4) - *(_DWORD*)v4,
-									a2[1] + *((_DWORD*)v4 + 5) - *((_DWORD*)v4 + 1), 8, *getMemIntPtr(0x5D4594, 1316416));
+			LOBYTE(v6) = nox_xxx_drawEnergyBolt_499710(*a2 + *((uint32_t*)v4 + 4) - *(uint32_t*)v4,
+									a2[1] + *((uint32_t*)v4 + 5) - *((uint32_t*)v4 + 1), 8, *getMemIntPtr(0x5D4594, 1316416));
 	}
 	return v6;
 }
@@ -219,7 +221,7 @@ char  sub_4BA8B0(int* a1, int* a2, int* a3) {
 //----- (004BA980) --------------------------------------------------------
 int  nox_thing_plasma_draw(int* a1, nox_drawable* dr) {
 	int v3;              // ebx
-	unsigned __int16 v4; // di
+	unsigned short v4; // di
 	int v5;              // ebp
 	int v6;              // ecx
 	int v7;              // edx
@@ -228,38 +230,38 @@ int  nox_thing_plasma_draw(int* a1, nox_drawable* dr) {
 	int* v10;            // edi
 	int* v11;            // ebx
 	int v12;             // eax
-	_DWORD* v13;         // eax
+	uint32_t* v13;         // eax
 	int v14;             // eax
-	_DWORD* v15;         // edi
+	uint32_t* v15;         // edi
 	int v16;             // eax
-	_DWORD* v17;         // eax
+	uint32_t* v17;         // eax
 	int v18;             // eax
-	_DWORD* v19;         // ebp
+	uint32_t* v19;         // ebp
 	int v20;             // eax
 	int v21;             // edx
 	int v22;             // ebx
 	int v23;             // ecx
 	float2 v25;          // [esp+4h] [ebp-8h]
-	unsigned __int8 v26; // [esp+14h] [ebp+8h]
+	unsigned char v26; // [esp+14h] [ebp+8h]
 
 	int a2 = dr;
 
 	nox_point mpos = nox_client_getMousePos_4309F0();
 	v3 = a2;
-	if (*(_BYTE*)(a2 + 432)) {
-		if (nox_xxx_netTestHighBit_578B70(*(_DWORD*)(a2 + 437))) {
-			v12 = nox_xxx_netClearHighBit_578B30(*(_DWORD*)(a2 + 437));
+	if (*(uint8_t*)(a2 + 432)) {
+		if (nox_xxx_netTestHighBit_578B70(*(uint32_t*)(a2 + 437))) {
+			v12 = nox_xxx_netClearHighBit_578B30(*(uint32_t*)(a2 + 437));
 			v13 = nox_xxx_netSpriteByCodeStatic_45A720(v12);
 		} else {
-			v14 = nox_xxx_netClearHighBit_578B30(*(_DWORD*)(a2 + 437));
+			v14 = nox_xxx_netClearHighBit_578B30(*(uint32_t*)(a2 + 437));
 			v13 = nox_xxx_netSpriteByCodeDynamic_45A6F0(v14);
 		}
 		v15 = v13;
-		if (nox_xxx_netTestHighBit_578B70(*(_DWORD*)(a2 + 441))) {
-			v16 = nox_xxx_netClearHighBit_578B30(*(_DWORD*)(a2 + 441));
+		if (nox_xxx_netTestHighBit_578B70(*(uint32_t*)(a2 + 441))) {
+			v16 = nox_xxx_netClearHighBit_578B30(*(uint32_t*)(a2 + 441));
 			v17 = nox_xxx_netSpriteByCodeStatic_45A720(v16);
 		} else {
-			v18 = nox_xxx_netClearHighBit_578B30(*(_DWORD*)(a2 + 441));
+			v18 = nox_xxx_netClearHighBit_578B30(*(uint32_t*)(a2 + 441));
 			v17 = nox_xxx_netSpriteByCodeDynamic_45A6F0(v18);
 		}
 		v19 = v17;
@@ -282,16 +284,16 @@ int  nox_thing_plasma_draw(int* a1, nox_drawable* dr) {
 		v25.field_4 = (double)mpos.y - (double)(int)a1;
 		v26 = nox_xxx_math_509ED0(&v25);
 	} else {
-		v4 = *(_WORD*)(a2 + 439);
-		v26 = *(_BYTE*)(a2 + 433);
+		v4 = *(uint16_t*)(a2 + 439);
+		v26 = *(uint8_t*)(a2 + 433);
 		v5 = a1[5];
 		v6 = a1[4];
 		v7 = *a1;
 		v8 = a1[1];
-		v9 = *a1 + *(unsigned __int16*)(v3 + 437) - v6;
+		v9 = *a1 + *(unsigned short*)(v3 + 437) - v6;
 		a1 = (int*)(v4 - v5 + v8 - 20);
-		v10 = (int*)(v7 + *(unsigned __int16*)(v3 + 441) - v6);
-		v11 = (int*)(*(unsigned __int16*)(v3 + 443) - v5 + v8 - 20);
+		v10 = (int*)(v7 + *(unsigned short*)(v3 + 441) - v6);
+		v11 = (int*)(*(unsigned short*)(v3 + 443) - v5 + v8 - 20);
 	}
 	sub_4BA230(v26, v9, (int)a1, (int)v10, (int)v11);
 	return 1;

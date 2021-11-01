@@ -2,6 +2,13 @@
 #include "client__system__parsecmd.h" // for nox_server_parseCmdText_443C80
 #include "GAME1.h"
 #include "common__log.h"
+#include "common__strman.h"
+#ifndef _WIN32
+#include <sys/socket.h>
+#include <arpa/inet.h>
+#else // _WIN32
+#include <winsock2.h>
+#endif // _WIN32
 extern unsigned int nox_frame_xxx_2598000;
 
 #define NOX_TELNET_SOCK_MAX 4
@@ -250,7 +257,7 @@ char* nox_telnet_recv_5793B0(nox_telnet_sock_t* cur, int ind) {
 			cur->field_1030 = 0;
 			int v15 = n - v14;
 			if (v15 > 0) {
-				memcpy(cur->data, nox_telnet_recv_buf, 4 * ((unsigned int)v15 >> 2) + (((_BYTE)n - (_BYTE)v13) & 3));
+				memcpy(cur->data, nox_telnet_recv_buf, 4 * ((unsigned int)v15 >> 2) + (((uint8_t)n - (uint8_t)v13) & 3));
 			}
 			cur->field_1030 = n - v13;
 		}

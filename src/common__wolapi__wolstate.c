@@ -5,7 +5,8 @@
 #include "GAME1_1.h"
 #include "GAME1_3.h"
 #include "GAME2_1.h"
-extern _DWORD dword_5d4594_2660652;
+#include "common__strman.h"
+extern uint32_t dword_5d4594_2660652;
 
 //----- (0041DAC0) --------------------------------------------------------
 wchar_t*  sub_41DAC0(int a1) {

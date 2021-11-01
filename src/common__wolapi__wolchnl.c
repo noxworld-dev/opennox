@@ -4,6 +4,7 @@
 #include "GAME1_1.h"
 #include "GAME1_3.h"
 #include "client__gui__window.h"
+#include "common__strman.h"
 
 //----- (0041F3A0) --------------------------------------------------------
 bool sub_41F3A0(int a1, int a2) {

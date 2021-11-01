@@ -25,23 +25,23 @@ int  nox_thing_blue_rain_draw(int a1, nox_drawable* dr) {
 	v3 = a2;
 	v9 = 2;
 	do {
-		v4 = *(_DWORD*)(v3 + 12) + nox_common_randomIntMinMax_415FF0(-10, 10, "C:\\NoxPost\\src\\client\\Draw\\PartRain.c", 42);
+		v4 = *(uint32_t*)(v3 + 12) + nox_common_randomIntMinMax_415FF0(-10, 10, "C:\\NoxPost\\src\\client\\Draw\\PartRain.c", 42);
 		v5 = nox_common_randomIntMinMax_415FF0(-10, 10, "C:\\NoxPost\\src\\client\\Draw\\PartRain.c", 43);
-		v6 = *(_DWORD*)(v3 + 16) + v5;
+		v6 = *(uint32_t*)(v3 + 16) + v5;
 		v7 = nox_xxx_spriteLoadAdd_45A360_drawable(*getMemIntPtr(0x5D4594, 1313716), v4, v6);
 		v8 = v7;
 		if (v7) {
-			*(_DWORD*)(v7 + 432) = v4 << 12;
-			*(_DWORD*)(v7 + 436) = v6 << 12;
-			*(_BYTE*)(v7 + 299) = 0;
-			*(_DWORD*)(v7 + 440) = 0;
-			*(_DWORD*)(v7 + 448) =
+			*(uint32_t*)(v7 + 432) = v4 << 12;
+			*(uint32_t*)(v7 + 436) = v6 << 12;
+			*(uint8_t*)(v7 + 299) = 0;
+			*(uint32_t*)(v7 + 440) = 0;
+			*(uint32_t*)(v7 + 448) =
 				nox_frame_xxx_2598000 + nox_common_randomIntMinMax_415FF0(90, 120, "C:\\NoxPost\\src\\client\\Draw\\PartRain.c", 63);
-			*(_DWORD*)(v8 + 444) = nox_frame_xxx_2598000;
-			*(_WORD*)(v8 + 106) = 0;
-			*(_BYTE*)(v8 + 296) = -5;
-			*(_WORD*)(v8 + 104) = v6 - *(_WORD*)(a1 + 20);
-			nox_xxx_sprite_45A110_drawable((_DWORD*)v8);
+			*(uint32_t*)(v8 + 444) = nox_frame_xxx_2598000;
+			*(uint16_t*)(v8 + 106) = 0;
+			*(uint8_t*)(v8 + 296) = -5;
+			*(uint16_t*)(v8 + 104) = v6 - *(uint16_t*)(a1 + 20);
+			nox_xxx_sprite_45A110_drawable((uint32_t*)v8);
 		}
 		--v9;
 	} while (v9);

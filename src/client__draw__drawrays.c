@@ -3,13 +3,13 @@
 
 #include "GAME2.h"
 #include "client__draw__fx.h"
-extern _DWORD dword_5d4594_1304328;
+extern uint32_t dword_5d4594_1304328;
 
 //----- (0049BDD0) --------------------------------------------------------
-int  nox_xxx_netDrawRays_49BDD0(unsigned __int8* a1) {
+int  nox_xxx_netDrawRays_49BDD0(unsigned char* a1) {
 	int result;          // eax
-	unsigned __int8* v2; // esi
-	unsigned __int8* v3; // edi
+	unsigned char* v2; // esi
+	unsigned char* v3; // edi
 	int v4;              // ebx
 	int v5;              // ebp
 	int v6;              // eax
@@ -25,7 +25,7 @@ int  nox_xxx_netDrawRays_49BDD0(unsigned __int8* a1) {
 	char v16;            // [esp+10h] [ebp-Ch]
 	char v17;            // [esp+10h] [ebp-Ch]
 	char v18;            // [esp+10h] [ebp-Ch]
-	WORD v19[4];         // [esp+14h] [ebp-8h]
+	uint16_t v19[4];         // [esp+14h] [ebp-8h]
 	int v20;             // [esp+20h] [ebp+4h]
 
 	result = *getMemU32Ptr(0x5D4594, 1304308);
@@ -43,9 +43,9 @@ int  nox_xxx_netDrawRays_49BDD0(unsigned __int8* a1) {
 		}
 		v2 = a1;
 		v3 = a1 + 1;
-		v4 = *(unsigned __int16*)(a1 + 1) + (*(unsigned __int16*)(a1 + 5) - *(unsigned __int16*)(a1 + 1)) / 2;
+		v4 = *(unsigned short*)(a1 + 1) + (*(unsigned short*)(a1 + 5) - *(unsigned short*)(a1 + 1)) / 2;
 		result = *a1 - 125;
-		v5 = *(unsigned __int16*)(a1 + 3) + (*(unsigned __int16*)(a1 + 7) - *(unsigned __int16*)(a1 + 3)) / 2;
+		v5 = *(unsigned short*)(a1 + 3) + (*(unsigned short*)(a1 + 7) - *(unsigned short*)(a1 + 3)) / 2;
 		switch (*a1) {
 		case 0x7Du:
 			v20 = *getMemU32Ptr(0x5D4594, 1304332);
@@ -76,9 +76,9 @@ int  nox_xxx_netDrawRays_49BDD0(unsigned __int8* a1) {
 				v6 = nox_common_randomIntMinMax_415FF0(-20, 20, "C:\\NoxPost\\src\\Client\\Draw\\drawrays.c", 106);
 				sub_499490(*getMemIntPtr(0x5D4594, 1304344), v3, v6, v12, v16, 0);
 			}
-			v7 = *(_DWORD*)v3;
-			*(_DWORD*)v19 = *(_DWORD*)(v2 + 5);
-			*(_DWORD*)&v19[2] = v7;
+			v7 = *(uint32_t*)v3;
+			*(uint32_t*)v19 = *(uint32_t*)(v2 + 5);
+			*(uint32_t*)&v19[2] = v7;
 			if (nox_common_randomIntMinMax_415FF0(0, 100, "C:\\NoxPost\\src\\Client\\Draw\\drawrays.c", 112) < 50) {
 				v13 = nox_common_randomIntMinMax_415FF0(-20, 20, "C:\\NoxPost\\src\\Client\\Draw\\drawrays.c", 115);
 				v8 = nox_common_randomIntMinMax_415FF0(-20, 20, "C:\\NoxPost\\src\\Client\\Draw\\drawrays.c", 114);
@@ -96,9 +96,9 @@ int  nox_xxx_netDrawRays_49BDD0(unsigned __int8* a1) {
 		LABEL_17:
 			result = nox_xxx_spriteLoadAdd_45A360_drawable(v20, v4, v5);
 			if (result) {
-				*(_BYTE*)(result + 432) = 0;
-				*(_DWORD*)(result + 437) = *(_DWORD*)v3;
-				*(_DWORD*)(result + 441) = *((_DWORD*)v3 + 1);
+				*(uint8_t*)(result + 432) = 0;
+				*(uint32_t*)(result + 437) = *(uint32_t*)v3;
+				*(uint32_t*)(result + 441) = *((uint32_t*)v3 + 1);
 				v11 = *getMemU32Ptr(0x5D4594, 1304308);
 				*getMemU32Ptr(0x5D4594, 1303540 + 4 * *getMemU32Ptr(0x5D4594, 1304308)) = result;
 				*getMemU32Ptr(0x5D4594, 1304308) = v11 + 1;

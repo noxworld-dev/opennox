@@ -1,5 +1,6 @@
 #include "client__shell__options.h"
 
+#include "common__strman.h"
 #include "GAME2.h"
 
 //----- (004AA650) --------------------------------------------------------

@@ -7,8 +7,8 @@
 extern unsigned int nox_gameFPS;
 extern unsigned int nox_frame_xxx_2598000;
 //----- (004CD9E0) --------------------------------------------------------
-int  nox_xxx_updDrawMagicMissile_4CD9E0(int a1, _DWORD* a2) {
-	_DWORD* v2;  // ebp
+int  nox_xxx_updDrawMagicMissile_4CD9E0(int a1, uint32_t* a2) {
+	uint32_t* v2;  // ebp
 	int v3;      // esi
 	int v4;      // edi
 	int v5;      // ebx
@@ -17,7 +17,7 @@ int  nox_xxx_updDrawMagicMissile_4CD9E0(int a1, _DWORD* a2) {
 	int v9;      // eax
 	int v10;     // esi
 	int v11;     // edx
-	_DWORD* v12; // esi
+	uint32_t* v12; // esi
 	int v14;     // [esp+8h] [ebp-8h]
 	int v15;     // [esp+Ch] [ebp-4h]
 	int v16;     // [esp+18h] [ebp+8h]
@@ -41,16 +41,16 @@ int  nox_xxx_updDrawMagicMissile_4CD9E0(int a1, _DWORD* a2) {
 			v9 = nox_xxx_spriteLoadAdd_45A360_drawable(*getMemIntPtr(0x5D4594, 1522984), v6, v8);
 			v10 = v9;
 			if (v9) {
-				*(_DWORD*)(v9 + 432) = v6 << 12;
-				*(_DWORD*)(v9 + 436) = v8 << 12;
-				*(_BYTE*)(v9 + 299) = nox_common_randomIntMinMax_415FF0(0, 255, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\mmislup.c", 52);
-				*(_DWORD*)(v10 + 440) = 0;
-				*(_DWORD*)(v10 + 448) = nox_frame_xxx_2598000 +
+				*(uint32_t*)(v9 + 432) = v6 << 12;
+				*(uint32_t*)(v9 + 436) = v8 << 12;
+				*(uint8_t*)(v9 + 299) = nox_common_randomIntMinMax_415FF0(0, 255, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\mmislup.c", 52);
+				*(uint32_t*)(v10 + 440) = 0;
+				*(uint32_t*)(v10 + 448) = nox_frame_xxx_2598000 +
 										nox_common_randomIntMinMax_415FF0(3, 10, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\mmislup.c", 59);
-				*(_DWORD*)(v10 + 444) = nox_frame_xxx_2598000;
-				*(_WORD*)(v10 + 104) = 20;
-				*(_BYTE*)(v10 + 296) = nox_common_randomIntMinMax_415FF0(0, 6, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\mmislup.c", 65);
-				nox_xxx_sprite_45A110_drawable((_DWORD*)v10);
+				*(uint32_t*)(v10 + 444) = nox_frame_xxx_2598000;
+				*(uint16_t*)(v10 + 104) = 20;
+				*(uint8_t*)(v10 + 296) = nox_common_randomIntMinMax_415FF0(0, 6, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\mmislup.c", 65);
+				nox_xxx_sprite_45A110_drawable((uint32_t*)v10);
 			}
 			if (++v16 >= *getMemIntPtr(0x587000, 190108))
 				break;
@@ -59,7 +59,7 @@ int  nox_xxx_updDrawMagicMissile_4CD9E0(int a1, _DWORD* a2) {
 	}
 	v11 = v2[108];
 	if ((v2[3] - v11) * (v2[3] - v11) + (v2[4] - v2[109]) * (v2[4] - v2[109]) > 200) {
-		v12 = (_DWORD*)nox_xxx_spriteLoadAdd_45A360_drawable(*getMemIntPtr(0x5D4594, 1522992), v11, v2[109]);
+		v12 = (uint32_t*)nox_xxx_spriteLoadAdd_45A360_drawable(*getMemIntPtr(0x5D4594, 1522992), v11, v2[109]);
 		v12[108] = v2[3];
 		v12[109] = v2[4];
 		nox_xxx_sprite_45A110_drawable(v12);

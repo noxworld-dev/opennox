@@ -5,9 +5,10 @@
 #include "GAME3_2.h"
 #include "client__gui__window.h"
 #include "client__video__draw_common.h"
+#include "operators.h"
 
 //----- (004BBF90) --------------------------------------------------------
-int nox_thing_maiden_draw(_DWORD* a1, nox_drawable* dr) {
+int nox_thing_maiden_draw(uint32_t* a1, nox_drawable* dr) {
 	if (!nox_common_gameFlags_check_40A5C0(0x200000)) {
 		char* v9 = nox_npc_by_id(dr->field_32);
 		if (!v9) {
@@ -39,9 +40,9 @@ int nox_thing_maiden_draw(_DWORD* a1, nox_drawable* dr) {
 			return nox_thing_monster_draw(a1, dr);
 		}
 	}
-	int v5 = *(_DWORD*)&v2->field_187;
+	int v5 = *(uint32_t*)&v2->field_187;
 	int v6 = 0;
-	_BYTE* v7 = (_BYTE*)(v5 + 2077);
+	uint8_t* v7 = (uint8_t*)(v5 + 2077);
 	int v8;
 	do {
 		LOBYTE(v3) = v7[1];

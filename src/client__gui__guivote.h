@@ -3,6 +3,6 @@
 
 #include "defs.h"
 
-_DWORD*  sub_48CB10(int a1);
+uint32_t*  sub_48CB10(int a1);
 
 #endif // NOX_PORT_CLIENT_GUI_GUIVOTE

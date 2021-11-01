@@ -10,10 +10,10 @@ extern unsigned int nox_frame_xxx_2598000;
 int  nox_thing_arrow_draw(int* a1, nox_drawable* dr) {
 	int v2;     // eax
 	int v3;     // edi
-	_DWORD* v4; // edi
+	uint32_t* v4; // edi
 	int v5;     // eax
 
-	_DWORD* a2 = dr;
+	uint32_t* a2 = dr;
 
 	v2 = *getMemU32Ptr(0x5D4594, 1313720);
 	if (!*getMemU32Ptr(0x5D4594, 1313720)) {
@@ -22,7 +22,7 @@ int  nox_thing_arrow_draw(int* a1, nox_drawable* dr) {
 	}
 	v3 = a2[81];
 	if ((a2[3] - v3) * (a2[3] - v3) + (a2[4] - a2[82]) * (a2[4] - a2[82]) > 200) {
-		v4 = (_DWORD*)nox_xxx_spriteLoadAdd_45A360_drawable(v2, v3, a2[82]);
+		v4 = (uint32_t*)nox_xxx_spriteLoadAdd_45A360_drawable(v2, v3, a2[82]);
 		v4[108] = a2[3];
 		v4[109] = a2[4];
 		nox_xxx_sprite_45A110_drawable(v4);
@@ -38,10 +38,10 @@ int  nox_thing_arrow_draw(int* a1, nox_drawable* dr) {
 int  nox_thing_weak_arrow_draw(int* a1, nox_drawable* dr) {
 	int v2;     // eax
 	int v3;     // edi
-	_DWORD* v4; // edi
+	uint32_t* v4; // edi
 	int v5;     // eax
 
-	_DWORD* a2 = dr;
+	uint32_t* a2 = dr;
 
 	v2 = *getMemU32Ptr(0x5D4594, 1313724);
 	if (!*getMemU32Ptr(0x5D4594, 1313724)) {
@@ -50,7 +50,7 @@ int  nox_thing_weak_arrow_draw(int* a1, nox_drawable* dr) {
 	}
 	v3 = a2[81];
 	if ((a2[3] - v3) * (a2[3] - v3) + (a2[4] - a2[82]) * (a2[4] - a2[82]) > 200) {
-		v4 = (_DWORD*)nox_xxx_spriteLoadAdd_45A360_drawable(v2, v3, a2[82]);
+		v4 = (uint32_t*)nox_xxx_spriteLoadAdd_45A360_drawable(v2, v3, a2[82]);
 		v4[108] = a2[3];
 		v4[109] = a2[4];
 		nox_xxx_sprite_45A110_drawable(v4);
@@ -63,7 +63,7 @@ int  nox_thing_weak_arrow_draw(int* a1, nox_drawable* dr) {
 }
 
 //----- (004B6050) --------------------------------------------------------
-int  nox_thing_arrow_tail_link_draw(_DWORD* a1, nox_drawable* dr) {
+int  nox_thing_arrow_tail_link_draw(uint32_t* a1, nox_drawable* dr) {
 	int v2; // ebp
 	int v3; // edi
 	int v4; // esi
@@ -73,13 +73,13 @@ int  nox_thing_arrow_tail_link_draw(_DWORD* a1, nox_drawable* dr) {
 
 	int a2 = dr;
 
-	v2 = *(_DWORD*)(a2 + 16);
-	v3 = *(_DWORD*)(a2 + 12) + *a1 - a1[4];
-	v4 = v2 + a1[1] - *(__int16*)(a2 + 106) - *(__int16*)(a2 + 104) - a1[5];
-	v5 = *(_DWORD*)(a2 + 436) - v2;
-	v6 = *(_DWORD*)(a2 + 432) + *a1 - a1[4];
-	if (*(_DWORD*)(a2 + 356) - nox_frame_xxx_2598000 > 0) {
-		v7 = ((*(_DWORD*)(a2 + 356) - nox_frame_xxx_2598000) << 6) /
+	v2 = *(uint32_t*)(a2 + 16);
+	v3 = *(uint32_t*)(a2 + 12) + *a1 - a1[4];
+	v4 = v2 + a1[1] - *(short*)(a2 + 106) - *(short*)(a2 + 104) - a1[5];
+	v5 = *(uint32_t*)(a2 + 436) - v2;
+	v6 = *(uint32_t*)(a2 + 432) + *a1 - a1[4];
+	if (*(uint32_t*)(a2 + 356) - nox_frame_xxx_2598000 > 0) {
+		v7 = ((*(uint32_t*)(a2 + 356) - nox_frame_xxx_2598000) << 6) /
 		     (int)(nox_gameFPS / 3u);
 		if (v7 >= 64)
 			v7 = 63;
@@ -95,7 +95,7 @@ int  nox_thing_arrow_tail_link_draw(_DWORD* a1, nox_drawable* dr) {
 }
 
 //----- (004B6120) --------------------------------------------------------
-int  nox_thing_weak_arrow_tail_link_draw(_DWORD* a1, nox_drawable* dr) {
+int  nox_thing_weak_arrow_tail_link_draw(uint32_t* a1, nox_drawable* dr) {
 	int v2; // ebp
 	int v3; // edi
 	int v4; // esi
@@ -105,13 +105,13 @@ int  nox_thing_weak_arrow_tail_link_draw(_DWORD* a1, nox_drawable* dr) {
 
 	int a2 = dr;
 
-	v2 = *(_DWORD*)(a2 + 16);
-	v3 = *(_DWORD*)(a2 + 12) + *a1 - a1[4];
-	v4 = v2 + a1[1] - *(__int16*)(a2 + 106) - *(__int16*)(a2 + 104) - a1[5];
-	v5 = *(_DWORD*)(a2 + 436) - v2;
-	v6 = *(_DWORD*)(a2 + 432) + *a1 - a1[4];
-	if (*(_DWORD*)(a2 + 356) - nox_frame_xxx_2598000 > 0) {
-		v7 = ((*(_DWORD*)(a2 + 356) - nox_frame_xxx_2598000) << 6) /
+	v2 = *(uint32_t*)(a2 + 16);
+	v3 = *(uint32_t*)(a2 + 12) + *a1 - a1[4];
+	v4 = v2 + a1[1] - *(short*)(a2 + 106) - *(short*)(a2 + 104) - a1[5];
+	v5 = *(uint32_t*)(a2 + 436) - v2;
+	v6 = *(uint32_t*)(a2 + 432) + *a1 - a1[4];
+	if (*(uint32_t*)(a2 + 356) - nox_frame_xxx_2598000 > 0) {
+		v7 = ((*(uint32_t*)(a2 + 356) - nox_frame_xxx_2598000) << 6) /
 		     (int)(nox_gameFPS / 3u);
 		if (v7 >= 64)
 			v7 = 63;

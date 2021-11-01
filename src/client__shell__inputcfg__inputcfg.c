@@ -2,13 +2,14 @@
 #include "client__system__ctrlevnt.h"
 
 #include "GAME3.h"
+#include "common__strman.h"
 #include "client__gui__window.h"
 extern nox_window* dword_5d4594_1522620;
 extern nox_window* dword_5d4594_1522624;
 extern nox_window* dword_5d4594_1522628;
-extern _DWORD dword_5d4594_1522632;
-extern _DWORD dword_5d4594_1522612;
-extern _DWORD dword_5d4594_1522604;
+extern uint32_t dword_5d4594_1522632;
+extern uint32_t dword_5d4594_1522612;
+extern uint32_t dword_5d4594_1522604;
 
 //----- (004CBD30) --------------------------------------------------------
 char* sub_4CBD30() {
@@ -26,9 +27,9 @@ char* sub_4CBD30() {
 	char* result;  // eax
 	char v12[256]; // [esp+8h] [ebp-100h]
 
-	v0 = *(_DWORD*)((_DWORD)dword_5d4594_1522620 + 32);
+	v0 = *(uint32_t*)((uint32_t)dword_5d4594_1522620 + 32);
 	sub_42CD90();
-	for (i = 0; i < *(__int16*)(v0 + 44); ++i) {
+	for (i = 0; i < *(short*)(v0 + 44); ++i) {
 		v2 = (wchar_t*)nox_window_call_field_94(*(int*)&dword_5d4594_1522620, 16406, i, 0);
 		v3 = nox_xxx_bindevent_bindNameByTitle_42EA40(v2);
 		v4 = (wchar_t*)nox_window_call_field_94(*(int*)&dword_5d4594_1522624, 16406, i, 0);
@@ -67,17 +68,17 @@ int  sub_4CBF60(int a1, unsigned int a2, int a3, int a4) {
 
 	if (a2 > 0x4007) {
 		if (a2 == 16393) {
-			v7 = *(_DWORD*)(a1 + 32);
+			v7 = *(uint32_t*)(a1 + 32);
 			nox_xxx_wndListboxProcPre_4A30D0(a1, 0x4009u, (wchar_t*)a3, a4);
 			v8 = sub_4A4800(v7);
 			nox_window_call_field_94(*(int*)&dword_5d4594_1522620, 16412, v8, 0);
 			nox_window_call_field_94(*(int*)&dword_5d4594_1522624, 16412, v8, 0);
 			nox_window_call_field_94(*(int*)&dword_5d4594_1522628, 16412, v8, 0);
 		} else if (a2 == 16400) {
-			v5 = *(_DWORD*)(a3 + 32);
-			if ((int)*(_DWORD*)(v5 + 48) >= 0) {
+			v5 = *(uint32_t*)(a3 + 32);
+			if ((int)*(uint32_t*)(v5 + 48) >= 0) {
 				dword_5d4594_1522632 = a3;
-				v9 = nox_window_call_field_94(*(int*)&dword_5d4594_1522620, 16406, *(_DWORD*)(v5 + 48), 0);
+				v9 = nox_window_call_field_94(*(int*)&dword_5d4594_1522620, 16406, *(uint32_t*)(v5 + 48), 0);
 				v6 = nox_strman_loadString_40F1D0("InputCfg.wnd:PressKey", 0,
 										   "C:\\NoxPost\\src\\Client\\shell\\InputCfg\\inputcfg.c", 424);
 				nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1522636), L"%s\n'%s'", v6, v9);
@@ -94,8 +95,8 @@ int  sub_4CBF60(int a1, unsigned int a2, int a3, int a4) {
 			if (a2 != 0x4000)
 				return nox_xxx_wndListboxProcPre_4A30D0(a1, a2, (wchar_t*)a3, a4);
 		}
-		if ((_DWORD*)a3 == nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1522604, 921) ||
-			(_DWORD*)a3 == nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1522604, 922)) {
+		if ((uint32_t*)a3 == nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1522604, 921) ||
+			(uint32_t*)a3 == nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1522604, 922)) {
 			nox_window_call_field_94(*(int*)&dword_5d4594_1522620, a2, a3, 0);
 			nox_window_call_field_94(*(int*)&dword_5d4594_1522624, a2, a3, 0);
 			nox_window_call_field_94(*(int*)&dword_5d4594_1522628, a2, a3, 0);

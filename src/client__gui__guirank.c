@@ -1,5 +1,6 @@
 #include "client__gui__guirank.h"
 #include "client__gui__window.h"
+#include "common__strman.h"
 
 #include "GAME1.h"
 #include "GAME1_2.h"
@@ -10,25 +11,26 @@
 #include "GAME2_2.h"
 #include "GAME2_3.h"
 #include "client__gui__gadgets__listbox.h"
+#include "operators.h"
 
-extern _DWORD dword_587000_145672;
-extern _DWORD dword_5d4594_1090108;
-extern _DWORD dword_5d4594_1090112;
-extern _DWORD dword_587000_145668;
-extern _DWORD dword_5d4594_1090040;
-extern _DWORD dword_587000_145664;
-extern _DWORD dword_5d4594_1090044;
-extern _DWORD dword_5d4594_1090100;
+extern uint32_t dword_587000_145672;
+extern uint32_t dword_5d4594_1090108;
+extern uint32_t dword_5d4594_1090112;
+extern uint32_t dword_587000_145668;
+extern uint32_t dword_5d4594_1090040;
+extern uint32_t dword_587000_145664;
+extern uint32_t dword_5d4594_1090044;
+extern uint32_t dword_5d4594_1090100;
 extern int dword_5d4594_3799524;
-extern _DWORD dword_5d4594_1090048;
-extern _DWORD dword_5d4594_1090120;
+extern uint32_t dword_5d4594_1090048;
+extern uint32_t dword_5d4594_1090120;
 extern int nox_win_width;
 extern int nox_win_height;
 extern unsigned int nox_gameFPS;
 extern unsigned int nox_frame_xxx_2598000;
 
 //----- (0046DC60) --------------------------------------------------------
-wchar_t*  sub_46DC60(int a1, unsigned __int8 a2, int a3) {
+wchar_t*  sub_46DC60(int a1, unsigned char a2, int a3) {
 	wchar_t* result; // eax
 
 	if (a3)
@@ -42,34 +44,34 @@ wchar_t*  sub_46DC60(int a1, unsigned __int8 a2, int a3) {
 //----- (0046E870) --------------------------------------------------------
 int nox_xxx_guiDrawRank_46E870() {
 	int v0;                // ebx
-	unsigned __int16* v1;  // eax
+	unsigned short* v1;  // eax
 	int v2;                // eax
-	unsigned __int16* v3;  // eax
-	unsigned __int16* v4;  // eax
+	unsigned short* v3;  // eax
+	unsigned short* v4;  // eax
 	int v5;                // eax
-	unsigned __int16* v6;  // eax
+	unsigned short* v6;  // eax
 	int v7;                // eax
-	unsigned __int16* v8;  // eax
-	unsigned __int16* v9;  // eax
-	unsigned __int16* v10; // eax
-	unsigned __int16* v11; // eax
-	unsigned __int16* v12; // eax
+	unsigned short* v8;  // eax
+	unsigned short* v9;  // eax
+	unsigned short* v10; // eax
+	unsigned short* v11; // eax
+	unsigned short* v12; // eax
 	int v13;               // eax
 	int v14;               // ecx
-	unsigned __int8* v15;  // eax
+	unsigned char* v15;  // eax
 	int v16;               // edi
 	int v17;               // esi
 	int v18;               // ebp
 	int v19;               // edi
 	int v20;               // ebx
-	_DWORD* v21;           // eax
+	uint32_t* v21;           // eax
 	int v22;               // edx
 	int v23;               // ecx
-	_DWORD* v24;           // eax
+	uint32_t* v24;           // eax
 	int v25;               // edx
-	_DWORD* v26;           // eax
+	uint32_t* v26;           // eax
 	int v27;               // edx
-	_DWORD* v28;           // eax
+	uint32_t* v28;           // eax
 	int v29;               // ecx
 	int v30;               // esi
 	int result;            // eax
@@ -164,91 +166,91 @@ int nox_xxx_guiDrawRank_46E870() {
 	*getMemU32Ptr(0x5D4594, 1084044) = v13 + 7;
 	v15 = getMemAt(0x5D4594, 1084036);
 	do {
-		v16 = *(_DWORD*)v15;
+		v16 = *(uint32_t*)v15;
 		v15 += 4;
 		v14 += v16;
 	} while ((int)v15 < (int)getMemAt(0x5D4594, 1084056));
 	dword_5d4594_1090040 = v14;
 	dword_5d4594_1090044 = 439 - v0;
 	dword_5d4594_1090048 = nox_window_new(0, 1560, 0, v0 + 40, 1, 1, 0);
-	nox_window_set_all_funcs(*(_DWORD**)&dword_5d4594_1090048, sub_46F060, sub_46F080, 0);
-	*(_DWORD*)(dword_5d4594_1090048 + 56) = 0x80000000;
-	*(_DWORD*)(dword_5d4594_1090048 + 64) = 0x80000000;
-	*(_DWORD*)(dword_5d4594_1090048 + 72) = 0x80000000;
-	*(_DWORD*)(dword_5d4594_1090048 + 80) = 0x80000000;
-	*(_DWORD*)(dword_5d4594_1090048 + 88) = 0x80000000;
+	nox_window_set_all_funcs(*(uint32_t**)&dword_5d4594_1090048, sub_46F060, sub_46F080, 0);
+	*(uint32_t*)(dword_5d4594_1090048 + 56) = 0x80000000;
+	*(uint32_t*)(dword_5d4594_1090048 + 64) = 0x80000000;
+	*(uint32_t*)(dword_5d4594_1090048 + 72) = 0x80000000;
+	*(uint32_t*)(dword_5d4594_1090048 + 80) = 0x80000000;
+	*(uint32_t*)(dword_5d4594_1090048 + 88) = 0x80000000;
 	memset(v49, 0, sizeof(v49));
 	nox_wcscpy((wchar_t*)&v49[72], (const wchar_t*)getMemAt(0x5D4594, 1090136));
-	*(_DWORD*)&v49[68] = *getMemU32Ptr(0x85B3FC, 940);
-	*(_DWORD*)&v49[20] = 0x80000000;
+	*(uint32_t*)&v49[68] = *getMemU32Ptr(0x85B3FC, 940);
+	*(uint32_t*)&v49[20] = 0x80000000;
 	memset(v48, 0, sizeof(v48));
-	*(_WORD*)&v48[6] = 0;
-	*(_DWORD*)&v48[12] = 0;
-	*(_DWORD*)&v48[16] = 0;
-	*(_DWORD*)&v49[28] = 0x80000000;
-	*(_DWORD*)&v49[36] = 0x80000000;
-	*(_DWORD*)&v49[44] = 0x80000000;
-	*(_DWORD*)&v49[52] = 0x80000000;
+	*(uint16_t*)&v48[6] = 0;
+	*(uint32_t*)&v48[12] = 0;
+	*(uint32_t*)&v48[16] = 0;
+	*(uint32_t*)&v49[28] = 0x80000000;
+	*(uint32_t*)&v49[36] = 0x80000000;
+	*(uint32_t*)&v49[44] = 0x80000000;
+	*(uint32_t*)&v49[52] = 0x80000000;
 	v17 = 0;
 	v47 = 3 * v0;
 	v18 = 3 * v0 + 1;
-	*(_DWORD*)&v49[8] = 32;
-	*(_DWORD*)&v48[2] = (unsigned __int16)(v0 + 1);
+	*(uint32_t*)&v49[8] = 32;
+	*(uint32_t*)&v48[2] = (unsigned short)(v0 + 1);
 	strcpy(v48, "@");
-	*(_DWORD*)&v48[8] = 1;
+	*(uint32_t*)&v48[8] = 1;
 	v19 = 2 * (v0 + 1);
 	v20 = 2 * v0;
 	do {
 		v21 = nox_gui_newScrollListBox_4A4310(*(int*)&dword_5d4594_1090048, 1088, v17 * dword_5d4594_1090040, v18,
-						 *(int*)&dword_5d4594_1090040, dword_5d4594_1090044 - v19, (int)v49, (__int16*)v48);
+						 *(int*)&dword_5d4594_1090040, dword_5d4594_1090044 - v19, (int)v49, (short*)v48);
 		v22 = *getMemU32Ptr(0x5D4594, 1084036);
 		v23 = dword_5d4594_1090044 - v19;
 		*getMemU32Ptr(0x5D4594, 1090052 + 4 * v17) = v21;
-		v24 = nox_gui_newScrollListBox_4A4310((int)v21, 1088, 0, v20, v22, v23, (int)v49, (__int16*)v48);
+		v24 = nox_gui_newScrollListBox_4A4310((int)v21, 1088, 0, v20, v22, v23, (int)v49, (short*)v48);
 		v25 = dword_5d4594_1090044;
 		*getMemU32Ptr(0x5D4594, 1090060 + 4 * v17) = v24;
 		v26 = nox_gui_newScrollListBox_4A4310(*getMemU32Ptr(0x5D4594, 1090052 + 4 * v17), 1088, *getMemIntPtr(0x5D4594, 1084036), v20,
-						 *getMemIntPtr(0x5D4594, 1084040), v25 - v19, (int)v49, (__int16*)v48);
+						 *getMemIntPtr(0x5D4594, 1084040), v25 - v19, (int)v49, (short*)v48);
 		v27 = dword_5d4594_1090044;
 		*getMemU32Ptr(0x5D4594, 1090068 + 4 * v17) = v26;
 		*getMemU32Ptr(0x5D4594, 1090076 + 4 * v17) = nox_gui_newScrollListBox_4A4310(
 			*getMemU32Ptr(0x5D4594, 1090052 + 4 * v17), 1088, *getMemU32Ptr(0x5D4594, 1084036) + *getMemU32Ptr(0x5D4594, 1084040),
-			v20, *getMemIntPtr(0x5D4594, 1084044), v27 - v19, (int)v49, (__int16*)v48);
+			v20, *getMemIntPtr(0x5D4594, 1084044), v27 - v19, (int)v49, (short*)v48);
 		v28 = nox_gui_newScrollListBox_4A4310(*getMemU32Ptr(0x5D4594, 1090052 + 4 * v17), 1088,
 						 *getMemU32Ptr(0x5D4594, 1084036) + *getMemU32Ptr(0x5D4594, 1084040) + *getMemU32Ptr(0x5D4594, 1084044), v20,
-						 *getMemIntPtr(0x5D4594, 1084048), dword_5d4594_1090044 - v19, (int)v49, (__int16*)v48);
+						 *getMemIntPtr(0x5D4594, 1084048), dword_5d4594_1090044 - v19, (int)v49, (short*)v48);
 		v29 = dword_5d4594_1090044;
 		*getMemU32Ptr(0x5D4594, 1090084 + 4 * v17) = v28;
 		*getMemU32Ptr(0x5D4594, 1090092 + 4 * v17) =
 			nox_gui_newScrollListBox_4A4310(*getMemU32Ptr(0x5D4594, 1090052 + 4 * v17), 1088,
 					   *getMemU32Ptr(0x5D4594, 1084036) + *getMemU32Ptr(0x5D4594, 1084040) + *getMemU32Ptr(0x5D4594, 1084048) +
 							   *getMemU32Ptr(0x5D4594, 1084044),
-					   v20, *getMemIntPtr(0x5D4594, 1084052), v29 - v19, (int)v49, (__int16*)v48);
+					   v20, *getMemIntPtr(0x5D4594, 1084052), v29 - v19, (int)v49, (short*)v48);
 		nox_xxx_wndSetProc_46B2C0(*getMemU32Ptr(0x5D4594, 1090052 + 4 * v17), nox_xxx_Proc_46F070);
-		sub_46B120(*(_DWORD**)getMemAt(0x5D4594, 1090060 + 4 * v17), *getMemU32Ptr(0x5D4594, 1090052 + 4 * v17));
-		sub_46B120(*(_DWORD**)getMemAt(0x5D4594, 1090068 + 4 * v17), *getMemU32Ptr(0x5D4594, 1090052 + 4 * v17));
-		sub_46B120(*(_DWORD**)getMemAt(0x5D4594, 1090076 + 4 * v17), *getMemU32Ptr(0x5D4594, 1090052 + 4 * v17));
-		sub_46B120(*(_DWORD**)getMemAt(0x5D4594, 1090084 + 4 * v17), *getMemU32Ptr(0x5D4594, 1090052 + 4 * v17));
-		sub_46B120(*(_DWORD**)getMemAt(0x5D4594, 1090092 + 4 * v17), *getMemU32Ptr(0x5D4594, 1090052 + 4 * v17));
+		sub_46B120(*(uint32_t**)getMemAt(0x5D4594, 1090060 + 4 * v17), *getMemU32Ptr(0x5D4594, 1090052 + 4 * v17));
+		sub_46B120(*(uint32_t**)getMemAt(0x5D4594, 1090068 + 4 * v17), *getMemU32Ptr(0x5D4594, 1090052 + 4 * v17));
+		sub_46B120(*(uint32_t**)getMemAt(0x5D4594, 1090076 + 4 * v17), *getMemU32Ptr(0x5D4594, 1090052 + 4 * v17));
+		sub_46B120(*(uint32_t**)getMemAt(0x5D4594, 1090084 + 4 * v17), *getMemU32Ptr(0x5D4594, 1090052 + 4 * v17));
+		sub_46B120(*(uint32_t**)getMemAt(0x5D4594, 1090092 + 4 * v17), *getMemU32Ptr(0x5D4594, 1090052 + 4 * v17));
 		++v17;
 	} while (v17 < 2);
-	*(_DWORD*)&v49[8] = 2048;
-	*(_DWORD*)&v49[68] = *getMemU32Ptr(0x5D4594, 2589772);
+	*(uint32_t*)&v49[8] = 2048;
+	*(uint32_t*)&v49[68] = *getMemU32Ptr(0x5D4594, 2589772);
 	v45[0] = nox_strman_loadString_40F1D0("yourrank", 0, "C:\\NoxPost\\src\\client\\Gui\\guirank.c", 1772);
 	v30 = v46 + 1;
 	v45[1] = 0;
 	v45[2] = 0;
 	dword_5d4594_1090100 =
 		nox_gui_newStaticText_489300(*(int*)&dword_5d4594_1090048, 1088, 0, v46, *(int*)&dword_5d4594_1090040, v46 + 1, v49, v45);
-	*(_DWORD*)&v49[68] = *getMemU32Ptr(0x5D4594, 2523948);
+	*(uint32_t*)&v49[68] = *getMemU32Ptr(0x5D4594, 2523948);
 	v45[0] = nox_strman_loadString_40F1D0("WindowDir:Empty", 0, "C:\\NoxPost\\src\\client\\Gui\\guirank.c", 1782);
 	dword_5d4594_1090112 =
 		nox_gui_newStaticText_489300(*(int*)&dword_5d4594_1090048, 1088, 0, v20, *(int*)&dword_5d4594_1090040, v30, v49, v45);
-	*(_DWORD*)&v49[68] = *getMemU32Ptr(0x85B3FC, 940);
+	*(uint32_t*)&v49[68] = *getMemU32Ptr(0x85B3FC, 940);
 	v45[0] = nox_strman_loadString_40F1D0("WindowDir:Empty", 0, "C:\\NoxPost\\src\\client\\Gui\\guirank.c", 1790);
 	dword_5d4594_1090108 =
 		nox_gui_newStaticText_489300(*(int*)&dword_5d4594_1090048, 1088, 0, v47, *(int*)&dword_5d4594_1090040, v30, v49, v45);
-	*(_DWORD*)&v49[68] = *getMemU32Ptr(0x8531A0, 2572);
+	*(uint32_t*)&v49[68] = *getMemU32Ptr(0x8531A0, 2572);
 	v45[0] = nox_strman_loadString_40F1D0("TeamPlayerRank", 0, "C:\\NoxPost\\src\\client\\Gui\\guirank.c", 1798);
 	*getMemU32Ptr(0x5D4594, 1090104) =
 		nox_gui_newStaticText_489300(*(int*)&dword_5d4594_1090048, 1088, 0, 0, *(int*)&dword_5d4594_1090040, v30, v49, v45);
@@ -274,21 +276,21 @@ wchar_t* sub_46F030() {
 int  sub_46F080(int a1, int a2) {
 	char* v2;            // ebp
 	char* v4;            // esi
-	__int16 v5;          // ax
+	short v5;          // ax
 	int v6;              // eax
-	_DWORD* v7;          // eax
+	uint32_t* v7;          // eax
 	int v8;              // eax
 	int v9;              // eax
 	wchar_t* v10;        // eax
 	wchar_t* v11;        // eax
-	unsigned __int8 v12; // bl
-	unsigned __int8 v13; // di
+	unsigned char v12; // bl
+	unsigned char v13; // di
 	int v14;             // esi
 	int v15;             // ebp
 	int v16;             // edi
 	int v17;             // esi
 	int v18;             // eax
-	unsigned __int8 v19; // al
+	unsigned char v19; // al
 	char* v20;           // eax
 	wchar_t* v21;        // eax
 	wchar_t* v22;        // edi
@@ -300,8 +302,8 @@ int  sub_46F080(int a1, int a2) {
 	int v28;             // [esp-10h] [ebp-34h]
 	int v29;             // [esp-10h] [ebp-34h]
 	int v30;             // [esp-10h] [ebp-34h]
-	unsigned __int8 v31; // [esp+4h] [ebp-20h]
-	unsigned __int8 v32; // [esp+4h] [ebp-20h]
+	unsigned char v31; // [esp+4h] [ebp-20h]
+	unsigned char v32; // [esp+4h] [ebp-20h]
 	int v33;             // [esp+8h] [ebp-1Ch]
 	int v34;             // [esp+Ch] [ebp-18h]
 	char* v35;           // [esp+10h] [ebp-14h]
@@ -309,7 +311,7 @@ int  sub_46F080(int a1, int a2) {
 	int v37;             // [esp+18h] [ebp-Ch]
 	int xLeft;           // [esp+1Ch] [ebp-8h]
 	int yTop;            // [esp+20h] [ebp-4h]
-	unsigned __int8 v40; // [esp+28h] [ebp+4h]
+	unsigned char v40; // [esp+28h] [ebp+4h]
 
 	v2 = 0;
 	v35 = 0;
@@ -322,20 +324,20 @@ int  sub_46F080(int a1, int a2) {
 		if (!dword_5d4594_1090120)
 			return 1;
 	}
-	nox_client_wndGetPosition_46AA60((_DWORD*)a1, &xLeft, &yTop);
+	nox_client_wndGetPosition_46AA60((uint32_t*)a1, &xLeft, &yTop);
 	v4 = nox_xxx_cliGamedataGet_416590(0);
 	if (nox_common_gameFlags_check_40A5C0(1)) {
 		v5 = nox_common_gameFlags_getVal_40A5B0();
-		v6 = (unsigned __int16)nox_xxx_servGamedataGet_40A020(v5);
+		v6 = (unsigned short)nox_xxx_servGamedataGet_40A020(v5);
 	} else {
-		v6 = *((unsigned __int16*)v4 + 27);
+		v6 = *((unsigned short*)v4 + 27);
 	}
 	v34 = v6;
-	if ((signed char)*(_BYTE*)(a1 + 4) >= 0) {
-		if (*(_DWORD*)(a2 + 20) != 0x80000000)
-			nox_client_drawRectFilledAlpha_49CF10(xLeft, yTop, *(_DWORD*)(a1 + 8), *(_DWORD*)(a1 + 12));
+	if ((signed char)*(uint8_t*)(a1 + 4) >= 0) {
+		if (*(uint32_t*)(a2 + 20) != 0x80000000)
+			nox_client_drawRectFilledAlpha_49CF10(xLeft, yTop, *(uint32_t*)(a1 + 8), *(uint32_t*)(a1 + 12));
 	} else {
-		nox_client_drawImageAt_47D2C0(*(_DWORD*)(a2 + 24), xLeft, yTop);
+		nox_client_drawImageAt_47D2C0(*(uint32_t*)(a2 + 24), xLeft, yTop);
 	}
 	if (dword_587000_145664 || nox_frame_xxx_2598000 >
 								   (unsigned int)(*getMemU32Ptr(0x5D4594, 1090124) + nox_gameFPS)) {
@@ -348,11 +350,11 @@ int  sub_46F080(int a1, int a2) {
 		dword_587000_145664 = 0;
 		v7 = nox_xxx_objGetTeamByNetCode_418C80(*getMemIntPtr(0x85319C, 0));
 		if (v7) {
-			v2 = nox_xxx_clientGetTeamColor_418AB0(*((unsigned __int8*)v7 + 4));
+			v2 = nox_xxx_clientGetTeamColor_418AB0(*((unsigned char*)v7 + 4));
 			v35 = v2;
 		}
 		if (*getMemU32Ptr(0x8531A0, 2576)) {
-			v8 = *(_DWORD*)(*getMemU32Ptr(0x8531A0, 2576) + 3680);
+			v8 = *(uint32_t*)(*getMemU32Ptr(0x8531A0, 2576) + 3680);
 			if (!(v8 & 1) || v8 & 0x20)
 				v33 = 1;
 		}
@@ -392,7 +394,7 @@ int  sub_46F080(int a1, int a2) {
 			sub_46DC30(*getMemIntPtr(0x5D4594, 1090092), v13, (wchar_t*)getMemAt(0x587000, 146612));
 			v9 = dword_5d4594_1090120;
 		}
-		v36 = *(__int16*)(*(_DWORD*)(*getMemU32Ptr(0x5D4594, 1090060) + 32) + 46);
+		v36 = *(short*)(*(uint32_t*)(*getMemU32Ptr(0x5D4594, 1090060) + 32) + 46);
 		if (getMemByte(0x5D4594, 1090117) && (v9 == 2 || v9 == 4 || v9 == 5)) {
 			sub_46F8F0(0, 0);
 			v9 = dword_5d4594_1090120;
@@ -405,7 +407,7 @@ int  sub_46F080(int a1, int a2) {
 				LOBYTE(a2) = getMemByte(0x5D4594, 1090117);
 			}
 			v32 = 0;
-			if ((_BYTE)a2) {
+			if ((uint8_t)a2) {
 				do {
 					v15 = 0;
 					v16 = v32 >> 4;
@@ -432,7 +434,7 @@ int  sub_46F080(int a1, int a2) {
 					}
 					if (*getMemU32Ptr(0x5D4594, 1084192 + 80 * v32) == *getMemU32Ptr(0x85319C, 0)) {
 						dword_587000_145672 =
-							*(__int16*)(*(_DWORD*)(*getMemU32Ptr(0x5D4594, 1090060 + 4 * v16) + 32) + 46);
+							*(short*)(*(uint32_t*)(*getMemU32Ptr(0x5D4594, 1090060 + 4 * v16) + 32) + 46);
 						*getMemU32Ptr(0x5D4594, 1088996) = v32 >> 4;
 					}
 					sub_46DC30(*getMemU32Ptr(0x5D4594, 1090060 + 4 * v16), v40, (wchar_t*)getMemAt(0x587000, 146616),
@@ -456,7 +458,7 @@ int  sub_46F080(int a1, int a2) {
 						sub_46DC60(*getMemU32Ptr(0x5D4594, 1090068 + 4 * v16), v37, (int)v21);
 					}
 					++v32;
-				} while (v32 < (unsigned __int8)a2);
+				} while (v32 < (unsigned char)a2);
 				v9 = dword_5d4594_1090120;
 				v2 = v35;
 			}
@@ -499,7 +501,7 @@ int  sub_46F080(int a1, int a2) {
 					nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1086692), L"%s %d", v23, v28);
 				} else {
 					v29 = getMemByte(0x5D4594, 1090118);
-					v27 = (unsigned __int8)sub_46FEE0();
+					v27 = (unsigned char)sub_46FEE0();
 					v24 = nox_strman_loadString_40F1D0("yourrank", 0,
 												"C:\\NoxPost\\src\\client\\Gui\\guirank.c", 1501);
 					nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1086692), L"%s %d / %d", v24, v27, v29);
@@ -509,7 +511,7 @@ int  sub_46F080(int a1, int a2) {
 		case 3:
 			if (v2) {
 				v33 = 1;
-				v25 = (unsigned __int8)sub_46FF70(*((_DWORD*)v2 + 13));
+				v25 = (unsigned char)sub_46FF70(*((uint32_t*)v2 + 13));
 			} else {
 				v25 = 0;
 			}
@@ -588,7 +590,7 @@ wchar_t*  sub_46F8F0(int a1, int a2) {
 }
 
 //----- (0046FB50) --------------------------------------------------------
-wchar_t*  sub_46FB50(int a1, _BYTE* a2) {
+wchar_t*  sub_46FB50(int a1, uint8_t* a2) {
 	wchar_t* v2;     // eax
 	wchar_t* result; // eax
 	wchar_t* v4;     // eax
@@ -630,8 +632,8 @@ wchar_t*  sub_46FB50(int a1, _BYTE* a2) {
 
 //----- (0046FC50) --------------------------------------------------------
 char sub_46FC50() {
-	__int16 v0;  // ax
-	__int16 v1;  // ax
+	short v0;  // ax
+	short v1;  // ax
 	int v2;      // eax
 	int v3;      // eax
 	wchar_t* v4; // eax
@@ -641,7 +643,7 @@ char sub_46FC50() {
 	if (sub_40A220() && (!nox_common_gameFlags_check_40A5C0(1) || sub_40A300() ||
 						 (v0 = nox_common_gameFlags_getVal_40A5B0(), sub_40A180(v0)))) {
 		if (!nox_common_gameFlags_check_40A5C0(1) || sub_40A300() ||
-			(v1 = nox_common_gameFlags_getVal_40A5B0(), LOBYTE(v2) = sub_40A180(v1), (_BYTE)v2)) {
+			(v1 = nox_common_gameFlags_getVal_40A5B0(), LOBYTE(v2) = sub_40A180(v1), (uint8_t)v2)) {
 			if (wndIsShown_nox_xxx_wndIsShown_46ACC0(*(int*)&dword_5d4594_1090108))
 				nox_window_set_hidden(*(int*)&dword_5d4594_1090108, 0);
 			v3 = sub_40A230();
@@ -662,7 +664,7 @@ char sub_46FC50() {
 //----- (0046FD80) --------------------------------------------------------
 int sub_46FD80() {
 	int result;  // eax
-	__int16 v1;  // ax
+	short v1;  // ax
 	int v2;      // eax
 	wchar_t* v3; // eax
 	int v4;      // [esp-4h] [ebp-4h]
@@ -676,9 +678,9 @@ int sub_46FD80() {
 			nox_window_set_hidden(*(int*)&dword_5d4594_1090112, 0);
 		if (nox_common_gameFlags_check_40A5C0(1)) {
 			v1 = nox_common_gameFlags_getVal_40A5B0();
-			v2 = (unsigned __int16)nox_xxx_servGamedataGet_40A020(v1);
+			v2 = (unsigned short)nox_xxx_servGamedataGet_40A020(v1);
 		} else {
-			v2 = *((unsigned __int16*)nox_xxx_cliGamedataGet_416590(0) + 27);
+			v2 = *((unsigned short*)nox_xxx_cliGamedataGet_416590(0) + 27);
 		}
 		v4 = v2;
 		v3 = nox_strman_loadString_40F1D0("LessonLimit", 0, "C:\\NoxPost\\src\\client\\Gui\\guirank.c", 390);

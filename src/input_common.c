@@ -10,7 +10,6 @@
 #include "client__system__ctrlevnt.h"
 #include "defs.h"
 #include "input_common.h"
-#include "legacy/input_ddraw.h"
 #include "server__script__builtin.h"
 #include "MixPatch.h"
 
@@ -18,7 +17,7 @@
 #include "client__system__ctrlevnt.h"
 #include "client__gui__window.h"
 
-extern __int16 asc_9800B0[526];
+extern short asc_9800B0[526];
 
 extern nox_ctrlevent_key_t* dword_5d4594_754056;
 extern int obj_5D4594_754104_switch;
@@ -32,8 +31,8 @@ int nox_input_buffer_cap = sizeof(nox_input_buffer) / sizeof(nox_mouse_state_t);
 
 nox_mouse_state_t nox_mouse = {0};
 nox_mouse_state_t nox_mouse_prev = {0};
-_DWORD nox_mouse_prev_seq = 0;
-_DWORD nox_mouse_prev_seq_2 = 0;
+uint32_t nox_mouse_prev_seq = 0;
+uint32_t nox_mouse_prev_seq_2 = 0;
 nox_point nox_mouse_prev_btn[3] = {0};
 
 nox_point nox_mouse_min = {0, 0};
@@ -44,7 +43,7 @@ nox_point nox_mouse_max = {639, 478}; // ugly hack for MSVC
 #endif
 
 #ifndef NOX_CGO
-_DWORD dword_5d4594_1193132 = 0;
+uint32_t dword_5d4594_1193132 = 0;
 #endif // NOX_CGO
 
 nox_keyboard_btn_t nox_input_arr_789276[256];
@@ -235,7 +234,7 @@ int nox_xxx_initInput_430190() {
 // SDLMODDED
 //----- (0047F950) --------------------------------------------------------
 unsigned short nox_input_scanCodeToAlpha_47F950(unsigned short a1) {
-	unsigned __int16 result; // ax
+	unsigned short result; // ax
 	int scrollLockStatus;
 
 	scrollLockStatus = nox_input_scrollLockState();
@@ -246,24 +245,24 @@ unsigned short nox_input_scanCodeToAlpha_47F950(unsigned short a1) {
 		return 0;
 	}
 	if (a1 != 58) {
-		if ((_BYTE)a1 == getMemByte(0x5D4594, 1193144)) {
+		if ((uint8_t)a1 == getMemByte(0x5D4594, 1193144)) {
 			*getMemU32Ptr(0x5D4594, 1193140) = nox_input_keyboardGetKeyState_430970(a1) == 2;
 			result = 0;
 		} else if (*getMemU32Ptr(0x5D4594, 1193140)) {
-			result = *getMemU16Ptr(0x5D4594, 1191572 + 6*(unsigned __int8)a1 + 4);
+			result = *getMemU16Ptr(0x5D4594, 1191572 + 6*(unsigned char)a1 + 4);
 		} else if (*getMemU32Ptr(0x5D4594, 1193136) ||
-				   dword_5d4594_1193132 && iswalpha(*getMemU16Ptr(0x5D4594, 1191572 + 6*(unsigned __int8)a1))) {
+				   dword_5d4594_1193132 && iswalpha(*getMemU16Ptr(0x5D4594, 1191572 + 6*(unsigned char)a1))) {
 
 			if (scrollLockStatus) {
-				result = asc_9800B0[3 * (unsigned __int8)a1 + 264];
+				result = asc_9800B0[3 * (unsigned char)a1 + 264];
 			} else {
-				result = *getMemU16Ptr(0x5D4594, 1191572 + 6*(unsigned __int8)a1 + 2);
+				result = *getMemU16Ptr(0x5D4594, 1191572 + 6*(unsigned char)a1 + 2);
 			}
 		} else {
 			if (scrollLockStatus) {
-				result = asc_9800B0[3 * (unsigned __int8)a1];
+				result = asc_9800B0[3 * (unsigned char)a1];
 			} else {
-				result = *getMemU16Ptr(0x5D4594, 1191572 + 6*(unsigned __int8)a1);
+				result = *getMemU16Ptr(0x5D4594, 1191572 + 6*(unsigned char)a1);
 			}
 		}
 		return result;
@@ -279,7 +278,7 @@ unsigned short nox_input_scanCodeToAlpha_47F950(unsigned short a1) {
 //----- (00430710) --------------------------------------------------------
 void nox_xxx_getKeyFromKeyboard_430710() {
 	nox_keyboard_btn_t* ev = &nox_input_arr_787228[0];
-	unsigned __int8 code;
+	unsigned char code;
 	do {
 		do {
 			nox_xxx_getKeyFromKeyboardImpl_47FA80(ev);
@@ -438,11 +437,11 @@ void nox_xxx_input_42D220() {
 	int* v3;     // edi
 	int v4;      // ebx
 	int v10;     // edx
-	_DWORD* v11; // ebp
+	uint32_t* v11; // ebp
 	int v12;     // esi
 	int v13;     // edx
 	int v14;     // eax
-	_DWORD* v15; // ecx
+	uint32_t* v15; // ecx
 	int v16;     // ecx
 	int i;       // eax
 	int v19;     // [esp+10h] [ebp-Ch]
@@ -456,7 +455,7 @@ void nox_xxx_input_42D220() {
 	if (v2) {
 		while (1) {
 			v19 = 0;
-			if (*(_DWORD*)(v2 + 32) > 0) {
+			if (*(uint32_t*)(v2 + 32) > 0) {
 				v3 = (int*)v2;
 				while (1) {
 					v4 = *v3;
@@ -474,7 +473,7 @@ void nox_xxx_input_42D220() {
 							if (state != nox_mouse_state(btn, NOX_MOUSE_DOWN) && state != nox_mouse_state(btn, NOX_MOUSE_PRESSED)) {
 								break;
 							}
-							if (state == nox_mouse_state(btn, NOX_MOUSE_PRESSED) && *(_DWORD*)(v2 + 36) == 1) {
+							if (state == nox_mouse_state(btn, NOX_MOUSE_PRESSED) && *(uint32_t*)(v2 + 36) == 1) {
 								break;
 							}
 						} else if (v4 == 65537) {
@@ -483,7 +482,7 @@ void nox_xxx_input_42D220() {
 							if (state != nox_mouse_state(btn, NOX_MOUSE_DOWN) && state != nox_mouse_state(btn, NOX_MOUSE_PRESSED)) {
 								break;
 							}
-							if (state == nox_mouse_state(btn, NOX_MOUSE_PRESSED) && *(_DWORD*)(v2 + 36) == 1) {
+							if (state == nox_mouse_state(btn, NOX_MOUSE_PRESSED) && *(uint32_t*)(v2 + 36) == 1) {
 								break;
 							}
 						} else if (v4 == 65538) {
@@ -492,7 +491,7 @@ void nox_xxx_input_42D220() {
 							if (state != nox_mouse_state(btn, NOX_MOUSE_DOWN) && state != nox_mouse_state(btn, NOX_MOUSE_PRESSED)) {
 								break;
 							}
-							if (state == nox_mouse_state(btn, NOX_MOUSE_PRESSED) && *(_DWORD*)(v2 + 36) == 1) {
+							if (state == nox_mouse_state(btn, NOX_MOUSE_PRESSED) && *(uint32_t*)(v2 + 36) == 1) {
 								break;
 							}
 						} else if (v4 == 65539) {
@@ -513,13 +512,13 @@ void nox_xxx_input_42D220() {
 					}
 				}
 			}
-			if (v19 == *(_DWORD*)(v2 + 32)) {
+			if (v19 == *(uint32_t*)(v2 + 32)) {
 				v10 = v21;
 				v21 = v2;
-				*(_DWORD*)(v2 + 80) = v10;
-				*(_BYTE*)(v2 + 88) = 1;
+				*(uint32_t*)(v2 + 80) = v10;
+				*(uint8_t*)(v2 + 88) = 1;
 			}
-			v2 = *(_DWORD*)(v2 + 76);
+			v2 = *(uint32_t*)(v2 + 76);
 			if (!v2) {
 				v0 = v21;
 				break;
@@ -527,29 +526,29 @@ void nox_xxx_input_42D220() {
 		}
 	}
 	if (v0) {
-		for ( ;v0; v0 = *(_DWORD*)(v0 + 80)) {
-			if (!*(_BYTE*)(v0 + 88)) {
+		for ( ;v0; v0 = *(uint32_t*)(v0 + 80)) {
+			if (!*(uint8_t*)(v0 + 88)) {
 				continue;
 			}
 			v20 = 0;
-			if (*(_DWORD*)(v0 + 32) <= 0) {
+			if (*(uint32_t*)(v0 + 32) <= 0) {
 				continue;
 			}
-			v11 = (_DWORD*)v0;
+			v11 = (uint32_t*)v0;
 			while (v20 < *(int*)(v0 + 32)) {
 				v12 = v21;
 				do {
-					if (*(_BYTE*)(v12 + 88) && v12 != v0) {
-						v13 = *(_DWORD*)(v12 + 32);
+					if (*(uint8_t*)(v12 + 88) && v12 != v0) {
+						v13 = *(uint32_t*)(v12 + 32);
 						v14 = 0;
 						if (v13 > 0) {
-							v15 = (_DWORD*)v12;
+							v15 = (uint32_t*)v12;
 							while (v14 >= v13) {
 								if (*v11 == *v15) {
 									if (*(int*)(v0 + 32) >= v13)
-										*(_BYTE*)(v12 + 88) = 0;
+										*(uint8_t*)(v12 + 88) = 0;
 									else
-										*(_BYTE*)(v0 + 88) = 0;
+										*(uint8_t*)(v0 + 88) = 0;
 									break;
 								}
 								++v14;
@@ -557,7 +556,7 @@ void nox_xxx_input_42D220() {
 							}
 						}
 					}
-					v12 = *(_DWORD*)(v12 + 80);
+					v12 = *(uint32_t*)(v12 + 80);
 				} while (v12);
 				++v11;
 				++v20;
@@ -566,11 +565,11 @@ void nox_xxx_input_42D220() {
 		v0 = v21;
 	}
 	v16 = 0;
-	for (i = v0; i; i = *(_DWORD*)(i + 80)) {
-		if (*(_BYTE*)(i + 88)) {
-			*(_DWORD*)(i + 84) = v16;
+	for (i = v0; i; i = *(uint32_t*)(i + 80)) {
+		if (*(uint8_t*)(i + 88)) {
+			*(uint32_t*)(i + 84) = v16;
 			v16 = i;
-			*(_DWORD*)(i + 92) = nox_frame_xxx_2598000;
+			*(uint32_t*)(i + 92) = nox_frame_xxx_2598000;
 		}
 	}
 	nox_xxx_clientControl_42D6B0(mouse, v16);

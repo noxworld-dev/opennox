@@ -8,7 +8,7 @@
 #include "client__gui__window.h"
 #include "client__video__draw_common.h"
 
-extern _DWORD dword_5d4594_1313804;
+extern uint32_t dword_5d4594_1313804;
 extern unsigned int nox_gameFPS;
 extern unsigned int nox_frame_xxx_2598000;
 
@@ -32,8 +32,8 @@ int  nox_thing_magic_draw(int* a1, nox_drawable* dr) {
 	}
 	v2 = *a1;
 	v3 = a1[1];
-	v4 = *a1 + *(_DWORD*)(a2 + 12) - a1[4];
-	v5 = *(_DWORD*)(a2 + 16) - *(__int16*)(a2 + 106) - *(__int16*)(a2 + 104) - a1[5];
+	v4 = *a1 + *(uint32_t*)(a2 + 12) - a1[4];
+	v5 = *(uint32_t*)(a2 + 16) - *(short*)(a2 + 106) - *(short*)(a2 + 104) - a1[5];
 	v10.field_0 = v4;
 	v6 = v3 + v5;
 	v10.field_4 = v6;
@@ -42,7 +42,7 @@ int  nox_thing_magic_draw(int* a1, nox_drawable* dr) {
 		sub_4B6720(&v10, *getMemIntPtr(0x5D4594, 1313808), 2 * v7 + 1, (v7 >> 1) + 3);
 		nox_client_drawSetColor_434460(*getMemIntPtr(0x5D4594, 2523948));
 		nox_client_drawRectFilledOpaque_49CE30(v10.field_0 - (v7 >> 1), v10.field_4 - (v7 >> 1), v7, v7);
-		nox_xxx_spriteChangeLightColor_484BE0((_DWORD*)(a2 + 136), 200, 200, 255);
+		nox_xxx_spriteChangeLightColor_484BE0((uint32_t*)(a2 + 136), 200, 200, 255);
 		v9 = nox_common_randomFloatXxx_416090(0.0, 100.0);
 		nox_xxx_spriteChangeIntensity_484D70_light_intensity(a2 + 136, v9);
 	}
@@ -69,8 +69,8 @@ int  nox_thing_magic_missle_draw(int* a1, nox_drawable* dr) {
 	}
 	v2 = *a1;
 	v3 = a1[1];
-	v4 = *a1 + *(_DWORD*)(a2 + 12) - a1[4];
-	v5 = *(_DWORD*)(a2 + 16) - *(__int16*)(a2 + 106) - *(__int16*)(a2 + 104) - a1[5];
+	v4 = *a1 + *(uint32_t*)(a2 + 12) - a1[4];
+	v5 = *(uint32_t*)(a2 + 16) - *(short*)(a2 + 106) - *(short*)(a2 + 104) - a1[5];
 	v10.field_0 = v4;
 	v6 = v3 + v5;
 	v10.field_4 = v6;
@@ -79,7 +79,7 @@ int  nox_thing_magic_missle_draw(int* a1, nox_drawable* dr) {
 		sub_4B6720(&v10, *getMemIntPtr(0x5D4594, 1313812), 2 * v7 + 1, (v7 >> 1) + 3);
 		nox_client_drawSetColor_434460(*getMemIntPtr(0x5D4594, 2523948));
 		nox_client_drawRectFilledOpaque_49CE30(v10.field_0 - (v7 >> 1), v10.field_4 - (v7 >> 1), v7, v7);
-		nox_xxx_spriteChangeLightColor_484BE0((_DWORD*)(a2 + 136), 255, 180, 50);
+		nox_xxx_spriteChangeLightColor_484BE0((uint32_t*)(a2 + 136), 255, 180, 50);
 		v9 = nox_common_randomFloatXxx_416090(0.0, 100.0);
 		nox_xxx_spriteChangeIntensity_484D70_light_intensity(a2 + 136, v9);
 	}
@@ -87,7 +87,7 @@ int  nox_thing_magic_missle_draw(int* a1, nox_drawable* dr) {
 }
 
 //----- (004B5F30) --------------------------------------------------------
-int  nox_thing_magic_missle_tail_link_draw(_DWORD* a1, nox_drawable* dr) {
+int  nox_thing_magic_missle_tail_link_draw(uint32_t* a1, nox_drawable* dr) {
 	int v2;         // ecx
 	int v3;         // edi
 	int v4;         // esi
@@ -104,11 +104,11 @@ int  nox_thing_magic_missle_tail_link_draw(_DWORD* a1, nox_drawable* dr) {
 	int a2 = dr;
 
 	v2 = a2;
-	v3 = *(_DWORD*)(a2 + 12) + *a1 - a1[4];
-	v4 = *(_DWORD*)(a2 + 16) + a1[1] - *(__int16*)(a2 + 106) - *(__int16*)(a2 + 104) - a1[5];
-	v12 = a1[1] - *(__int16*)(a2 + 106) - *(__int16*)(a2 + 104) - a1[5] + *(_DWORD*)(a2 + 436);
-	v5 = *(_DWORD*)(a2 + 356) - nox_frame_xxx_2598000;
-	v11 = *a1 - a1[4] + *(_DWORD*)(a2 + 432);
+	v3 = *(uint32_t*)(a2 + 12) + *a1 - a1[4];
+	v4 = *(uint32_t*)(a2 + 16) + a1[1] - *(short*)(a2 + 106) - *(short*)(a2 + 104) - a1[5];
+	v12 = a1[1] - *(short*)(a2 + 106) - *(short*)(a2 + 104) - a1[5] + *(uint32_t*)(a2 + 436);
+	v5 = *(uint32_t*)(a2 + 356) - nox_frame_xxx_2598000;
+	v11 = *a1 - a1[4] + *(uint32_t*)(a2 + 432);
 	v14 = v5;
 	if (v5 > 0) {
 		v6 = (v5 << 6) / (int)(nox_gameFPS / 3u);
@@ -117,7 +117,7 @@ int  nox_thing_magic_missle_tail_link_draw(_DWORD* a1, nox_drawable* dr) {
 			v6 = 63;
 		v7 = *getMemU32Ptr(0x5D4594, 1312756 + 4 * v6);
 		v8 = v2 + 136;
-		nox_xxx_spriteChangeLightColor_484BE0((_DWORD*)(v2 + 136), 255, 128, 50);
+		nox_xxx_spriteChangeLightColor_484BE0((uint32_t*)(v2 + 136), 255, 128, 50);
 		v10 = (double)v14 * 20.0 / (double)v13;
 		nox_xxx_spriteChangeIntensity_484D70_light_intensity(v8, v10);
 		nox_client_drawSetColor_434460(v7);
@@ -132,7 +132,7 @@ int  nox_thing_magic_missle_tail_link_draw(_DWORD* a1, nox_drawable* dr) {
 }
 
 //----- (004B5E10) --------------------------------------------------------
-int  nox_thing_magic_tail_link_draw(_DWORD* a1, nox_drawable* dr) {
+int  nox_thing_magic_tail_link_draw(uint32_t* a1, nox_drawable* dr) {
 	int v2;          // ecx
 	int v3;          // edi
 	int v4;          // esi
@@ -150,12 +150,12 @@ int  nox_thing_magic_tail_link_draw(_DWORD* a1, nox_drawable* dr) {
 	int a2 = dr;
 
 	v2 = a2;
-	v3 = *(_DWORD*)(a2 + 12) + *a1 - a1[4];
-	v4 = *(_DWORD*)(a2 + 16) + a1[1] - *(__int16*)(a2 + 106) - *(__int16*)(a2 + 104) - a1[5];
-	v13 = *a1 - a1[4] + *(_DWORD*)(a2 + 432);
-	v5 = *(_DWORD*)(a2 + 356) - nox_frame_xxx_2598000;
-	v6 = *(_DWORD*)(a2 + 356) == nox_frame_xxx_2598000;
-	v14 = a1[1] - *(__int16*)(a2 + 106) - *(__int16*)(a2 + 104) - a1[5] + *(_DWORD*)(a2 + 436);
+	v3 = *(uint32_t*)(a2 + 12) + *a1 - a1[4];
+	v4 = *(uint32_t*)(a2 + 16) + a1[1] - *(short*)(a2 + 106) - *(short*)(a2 + 104) - a1[5];
+	v13 = *a1 - a1[4] + *(uint32_t*)(a2 + 432);
+	v5 = *(uint32_t*)(a2 + 356) - nox_frame_xxx_2598000;
+	v6 = *(uint32_t*)(a2 + 356) == nox_frame_xxx_2598000;
+	v14 = a1[1] - *(short*)(a2 + 106) - *(short*)(a2 + 104) - a1[5] + *(uint32_t*)(a2 + 436);
 	v15 = v5;
 	if (v5 >= 0 && !v6) {
 		v8 = v5 << 6;
@@ -164,7 +164,7 @@ int  nox_thing_magic_tail_link_draw(_DWORD* a1, nox_drawable* dr) {
 			v7 = 63;
 		v9 = *getMemU32Ptr(0x5D4594, 1312500 + 4 * v7);
 		v10 = v2 + 136;
-		nox_xxx_spriteChangeLightColor_484BE0((_DWORD*)(v2 + 136), 128, 128, 255);
+		nox_xxx_spriteChangeLightColor_484BE0((uint32_t*)(v2 + 136), 128, 128, 255);
 		v12 = (double)v15 * 20.0 / (double)(int)nox_gameFPS;
 		nox_xxx_spriteChangeIntensity_484D70_light_intensity(v10, v12);
 		nox_client_drawSetColor_434460(v9);

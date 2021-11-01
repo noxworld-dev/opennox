@@ -22,11 +22,11 @@ int  nox_thing_weapon_animate_draw(int* a1, nox_drawable* dr) {
 int  nox_thing_spherical_shield_draw(int* a1, nox_drawable* dr) {
 	int v2;     // esi
 	int v3;     // eax
-	_DWORD* v4; // eax
+	uint32_t* v4; // eax
 	int v5;     // eax
 	int result; // eax
 
-	_DWORD* a2 = dr;
+	uint32_t* a2 = dr;
 
 	v2 = a2[108];
 	if (nox_xxx_netTestHighBit_578B70(a2[108])) {

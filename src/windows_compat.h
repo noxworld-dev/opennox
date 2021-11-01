@@ -11,6 +11,7 @@ extern "C" {
 #include <pthread.h>
 #include <stdarg.h>
 #include <stdint.h>
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -18,46 +19,10 @@ extern "C" {
 #include <sys/types.h>
 #include <unistd.h>
 
-#define __fastcall
-#define __stdcall
-
 #define MAX_PATH 260
-#define INFINITE ((DWORD)-1)
+#define INFINITE ((uint32_t)-1)
 
-#define __int8 char
-#define __int16 short
-#define __int32 int
-#define __int64 long long
-
-typedef unsigned char BYTE;
-typedef char CHAR;
-typedef wchar_t WCHAR;
-typedef unsigned short WORD;
-typedef int INT;
-typedef unsigned int DWORD;
-typedef unsigned int UINT;
-typedef int LONG;
-typedef unsigned int ULONG;
-typedef long long LONGLONG;
-typedef unsigned long long ULONGLONG;
-typedef uint64_t QWORD;
-typedef void* LPVOID;
-typedef DWORD DWORD_PTR;
-typedef intptr_t INT_PTR;
-typedef uintptr_t UINT_PTR;
-
-typedef int BOOL;
-typedef BOOL* LPBOOL;
-typedef BYTE* LPBYTE;
-typedef DWORD* LPDWORD;
-typedef LONG* PLONG;
-typedef const char* LPCCH;
-typedef const char* LPCSTR;
-typedef char* LPSTR;
-typedef const wchar_t* LPCWSTR;
-typedef wchar_t* LPWSTR;
-
-typedef int HANDLE;
+typedef void* HANDLE;
 typedef int HDC;
 typedef int HIMC;
 typedef void* HINSTANCE;
@@ -71,74 +36,59 @@ typedef int HRESULT;
 typedef int HWND;
 typedef int LCID;
 typedef int REGSAM;
-typedef INT_PTR LRESULT;
-typedef INT_PTR LSTATUS;
-typedef INT_PTR LPARAM;
-typedef UINT_PTR WPARAM;
-
-typedef struct _WAVEOUT* HWAVEOUT;
-typedef HWAVEOUT* LPHWAVEOUT;
-
-typedef struct {
-	WORD wFormatTag;
-	WORD nChannels;
-	DWORD nSamplesPerSec;
-	DWORD nAvgBytesPerSec;
-	WORD nBlockAlign;
-} WAVEFORMAT, *LPWAVEFORMAT;
 
 #pragma pack(push, 1)
 typedef struct {
-	WORD wFormatTag;
-	WORD nChannels;
-	DWORD nSamplesPerSec;
-	DWORD nAvgBytesPerSec;
-	WORD nBlockAlign;
-	WORD wBitsPerSample;
-	WORD cbSize;
+	uint16_t wFormatTag;
+	uint16_t nChannels;
+	uint32_t nSamplesPerSec;
+	uint32_t nAvgBytesPerSec;
+	uint16_t nBlockAlign;
+	uint16_t wBitsPerSample;
+	uint16_t cbSize;
 } WAVEFORMATEX;
 
 typedef struct {
 	WAVEFORMATEX wfx;
-	WORD wID;
-	DWORD fdwFlags;
-	WORD nBlockSize;
-	WORD nFramesPerBlock;
-	WORD nCodecDelay;
+	uint16_t wID;
+	uint32_t fdwFlags;
+	uint16_t nBlockSize;
+	uint16_t nFramesPerBlock;
+	uint16_t nCodecDelay;
 } MPEGLAYER3WAVEFORMAT;
 #pragma pack(pop)
 
 typedef struct _GUID {
-	DWORD Data1;
-	WORD Data2;
-	WORD Data3;
-	BYTE Data4[8];
+	uint32_t Data1;
+	uint16_t Data2;
+	uint16_t Data3;
+	uint8_t Data4[8];
 } GUID;
 typedef GUID IID;
 
 typedef struct _SYSTEMTIME {
-	WORD wYear;
-	WORD wMonth;
-	WORD wDayOfWeek;
-	WORD wDay;
-	WORD wHour;
-	WORD wMinute;
-	WORD wSecond;
-	WORD wMilliseconds;
+	uint16_t wYear;
+	uint16_t wMonth;
+	uint16_t wDayOfWeek;
+	uint16_t wDay;
+	uint16_t wHour;
+	uint16_t wMinute;
+	uint16_t wSecond;
+	uint16_t wMilliseconds;
 } SYSTEMTIME, *LPSYSTEMTIME;
 
 typedef struct _MEMORYSTATUS {
-	DWORD dwLength;
+	uint32_t dwLength;
 } MEMORYSTATUS, *LPMEMORYSTATUS;
 
 typedef union _LARGE_INTEGER {
-	QWORD QuadPart;
-	DWORD LowPart;
+	uint64_t QuadPart;
+	uint32_t LowPart;
 } LARGE_INTEGER, *PLARGE_INTEGER;
 
 typedef struct _FILETIME {
-	DWORD dwLowDateTime;
-	DWORD dwHighDateTime;
+	uint32_t dwLowDateTime;
+	uint32_t dwHighDateTime;
 } FILETIME, *LPFILETIME;
 
 typedef struct _SECURITY_ATTRIBUTES {
@@ -149,55 +99,55 @@ typedef struct _CRITICAL_SECTION {
 } CRITICAL_SECTION, *LPCRITICAL_SECTION;
 
 typedef struct _OSVERSIONINFOA {
-	DWORD dwOSVersionInfoSize;
-	DWORD dwMajorVersion;
-	DWORD dwMinorVersion;
-	DWORD dwBuildNumber;
-	DWORD dwPlatformId;
-	BYTE szCSDVersion[128];
+	uint32_t dwOSVersionInfoSize;
+	uint32_t dwMajorVersion;
+	uint32_t dwMinorVersion;
+	uint32_t dwBuildNumber;
+	uint32_t dwPlatformId;
+	uint8_t szCSDVersion[128];
 } OSVERSIONINFOA, *LPOSVERSIONINFOA;
 
 typedef struct _WIN32_FIND_DATAA {
-	DWORD dwFileAttributes;
+	uint32_t dwFileAttributes;
 	FILETIME ftCreationTime;
 	FILETIME ftLastAccessTime;
 	FILETIME ftLastWriteTime;
-	DWORD nFileSizeHigh;
-	DWORD nFileSizeLow;
-	DWORD dwReserved0;
-	DWORD dwReserved1;
-	CHAR cFileName[MAX_PATH];
-	CHAR cAlternateFileName[14];
+	uint32_t nFileSizeHigh;
+	uint32_t nFileSizeLow;
+	uint32_t dwReserved0;
+	uint32_t dwReserved1;
+	char cFileName[MAX_PATH];
+	char cAlternateFileName[14];
 } WIN32_FIND_DATAA, *LPWIN32_FIND_DATAA;
 
 typedef struct _OVERLAPPED {
 } OVERLAPPED, *LPOVERLAPPED;
 
 typedef struct _RECT {
-	LONG left;
-	LONG top;
-	LONG right;
-	LONG bottom;
+	int left;
+	int top;
+	int right;
+	int bottom;
 } RECT, *LPRECT;
 
 typedef struct _POINT {
-	LONG x;
-	LONG y;
+	int x;
+	int y;
 } POINT;
 
 typedef struct WSAData {
-	WORD wVersion;
-	WORD wHighVersion;
-	CHAR szDescription[257];
-	CHAR szSystemStatus[129];
-	WORD iMaxSockets;
-	WORD iMaxUdpDg;
-	LPVOID lpVendorInfo;
+	uint16_t wVersion;
+	uint16_t wHighVersion;
+	char szDescription[257];
+	char szSystemStatus[129];
+	uint16_t iMaxSockets;
+	uint16_t iMaxUdpDg;
+	void* lpVendorInfo;
 } WSADATA, *LPWSADATA;
 
 struct compatin_addr {
 	union {
-		DWORD S_addr;
+		uint32_t S_addr;
 	} S_un;
 };
 
@@ -206,20 +156,20 @@ struct compatin_addr {
 #undef st_atime
 #undef st_ctime
 struct compat_stat {
-	DWORD st_dev;
-	WORD st_ino;
-	WORD st_mode;
-	WORD st_nlink;
-	WORD st_uid;
-	WORD st_gid;
-	DWORD st_rdev;
-	DWORD st_size;
-	DWORD st_mtime;
-	DWORD st_atime;
-	DWORD st_ctime;
+	uint32_t st_dev;
+	uint16_t st_ino;
+	uint16_t st_mode;
+	uint16_t st_nlink;
+	uint16_t st_uid;
+	uint16_t st_gid;
+	uint32_t st_rdev;
+	uint32_t st_size;
+	uint32_t st_mtime;
+	uint32_t st_atime;
+	uint32_t st_ctime;
 };
 
-int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd);
+int WinMain(char* lpCmdLine);
 
 enum {
 	FILE_ATTRIBUTE_DIRECTORY = 0x10,
@@ -301,46 +251,46 @@ enum {
 #define _write write
 #define _close close
 
-BOOL CloseHandle(HANDLE hObject);
-DWORD GetLastError();
+int CloseHandle(HANDLE hObject);
+uint32_t GetLastError();
 void GetLocalTime(LPSYSTEMTIME lpSystemTime);
-HANDLE FindFirstFileA(LPCSTR lpFileName, LPWIN32_FIND_DATAA lpFindFileData);
-BOOL FindNextFileA(HANDLE hFindFile, LPWIN32_FIND_DATAA lpFindFileData);
-BOOL FindClose(HANDLE hFindFile);
-int GetDateFormatA(LCID Locale, DWORD dwFlags, const SYSTEMTIME* lpDate, LPCSTR lpFormat, LPSTR lpDateStr,
+HANDLE FindFirstFileA(const char* lpFileName, LPWIN32_FIND_DATAA lpFindFileData);
+int FindNextFileA(HANDLE hFindFile, LPWIN32_FIND_DATAA lpFindFileData);
+int FindClose(HANDLE hFindFile);
+int GetDateFormatA(LCID Locale, uint32_t dwFlags, const SYSTEMTIME* lpDate, const char* lpFormat, char* lpDateStr,
 						  int cchDate);
-LSTATUS RegOpenKeyExA(HKEY hKey, LPCSTR lpSubKey, DWORD ulOptions, REGSAM samDesired, PHKEY phkResult);
-LSTATUS RegQueryValueExA(HKEY hKey, LPCSTR lpValueName, LPDWORD lpReserved, LPDWORD lpType, LPBYTE lpData,
-								LPDWORD lpcbData);
-LSTATUS RegSetValueExA(HKEY, LPCSTR lpValueName, DWORD Reserved, DWORD dwType, const BYTE* lpData, DWORD cbData);
-LSTATUS RegCloseKey(HKEY hKey);
+int RegOpenKeyExA(HKEY hKey, const char* lpSubKey, uint32_t ulOptions, REGSAM samDesired, PHKEY phkResult);
+int RegQueryValueExA(HKEY hKey, const char* lpValueName, uint32_t* lpReserved, uint32_t* lpType, uint8_t* lpData,
+								uint32_t* lpcbData);
+int RegSetValueExA(HKEY, const char* lpValueName, uint32_t Reserved, uint32_t dwType, const uint8_t* lpData, uint32_t cbData);
+int RegCloseKey(HKEY hKey);
 int MulDiv(int nNumber, int nNumerator, int nDenominator);
-LSTATUS RegCreateKeyExA(HKEY hKey, LPCSTR lpSubKey, DWORD Reserved, LPSTR lpClass, DWORD dwOptions,
+int RegCreateKeyExA(HKEY hKey, const char* lpSubKey, uint32_t Reserved, char* lpClass, uint32_t dwOptions,
 							   REGSAM samDesired, const LPSECURITY_ATTRIBUTES lpSecurityAttributes, PHKEY phkResult,
-							   LPDWORD lpdwDisposition);
+							   uint32_t* lpdwDisposition);
 void GlobalMemoryStatus(LPMEMORYSTATUS lpBuffer);
-BOOL QueryPerformanceCounter(LARGE_INTEGER* lpPerformanceCount);
-BOOL QueryPerformanceFrequency(LARGE_INTEGER* lpFrequency);
-BOOL HeapDestroy(HANDLE hHeap);
-BOOL GetVersionExA(LPOSVERSIONINFOA lpVersionInformation);
-void OutputDebugStringA(LPCSTR lpOutputString);
-HINSTANCE ShellExecuteA(HWND hwnd, LPCSTR lpOperation, LPCSTR lpFile, LPCSTR lpParameters, LPCSTR lpDirectory,
-							   INT nShowCmd);
-int GetTimeFormatA(LCID Locale, DWORD dwFlags, const SYSTEMTIME* lpTime, LPCSTR lpFormat, LPSTR lpTimeStr,
+int QueryPerformanceCounter(LARGE_INTEGER* lpPerformanceCount);
+int QueryPerformanceFrequency(LARGE_INTEGER* lpFrequency);
+int HeapDestroy(HANDLE hHeap);
+int GetVersionExA(LPOSVERSIONINFOA lpVersionInformation);
+void OutputDebugStringA(const char* lpOutputString);
+HINSTANCE ShellExecuteA(HWND hwnd, const char* lpOperation, const char* lpFile, const char* lpParameters, const char* lpDirectory,
+							   int nShowCmd);
+int GetTimeFormatA(LCID Locale, uint32_t dwFlags, const SYSTEMTIME* lpTime, const char* lpFormat, char* lpTimeStr,
 						  int cchTime);
-BOOL SystemTimeToFileTime(const SYSTEMTIME* lpSystemTime, LPFILETIME lpFileTime);
-LONG CompareFileTime(const FILETIME* lpFileTime1, const FILETIME* lpFileTime2);
-HANDLE CreateMutexA(LPSECURITY_ATTRIBUTES lpSecurityAttributes, BOOL bInitialOwner, LPCSTR lpName);
-BOOL ReleaseMutex(HANDLE hMutex);
-BOOL SetEvent(HANDLE hEvent);
-DWORD WaitForSingleObject(HANDLE hHandle, DWORD dwMilliseconds);
-int WideCharToMultiByte(UINT CodePage, DWORD dwFlags, LPCWSTR lpWideCharStr, int cchWideChar,
-							   LPSTR lpMultiByteStr, int cbMultiByte, LPCCH lpDefaultChar, LPBOOL lpUsedDefaultChar);
+int SystemTimeToFileTime(const SYSTEMTIME* lpSystemTime, LPFILETIME lpFileTime);
+int CompareFileTime(const FILETIME* lpFileTime1, const FILETIME* lpFileTime2);
+HANDLE CreateMutexA(LPSECURITY_ATTRIBUTES lpSecurityAttributes, int bInitialOwner, const char* lpName);
+int ReleaseMutex(HANDLE hMutex);
+int SetEvent(HANDLE hEvent);
+uint32_t WaitForSingleObject(HANDLE hHandle, uint32_t dwMilliseconds);
+int WideCharToMultiByte(unsigned int CodePage, uint32_t dwFlags, const wchar_t* lpWideCharStr, int cchWideChar,
+							   char* lpMultiByteStr, int cbMultiByte, const char* lpDefaultChar, int* lpUsedDefaultChar);
 
-LONG InterlockedExchange(volatile LONG* Target, LONG Value);
-LONG InterlockedDecrement(volatile LONG* Addend);
-LONG InterlockedIncrement(volatile LONG* Addend);
-int MessageBoxA(HWND hWnd, LPCSTR lpText, LPCSTR lpCaption, UINT uType);
+int InterlockedExchange(volatile int* Target, int Value);
+int InterlockedDecrement(volatile int* Addend);
+int InterlockedIncrement(volatile int* Addend);
+int MessageBoxA(HWND hWnd, const char* lpText, const char* lpCaption, unsigned int uType);
 
 unsigned int _control87(unsigned int new_, unsigned int mask);
 unsigned int _controlfp(unsigned int new_, unsigned int mask);
@@ -361,18 +311,18 @@ static inline unsigned int _rotl(unsigned int value, int shift) {
 		return value;
 	return (value << c) | (value >> (32 - c));
 }
-static inline BOOL CopyRect(LPRECT lprcDst, const RECT* lprcSrc) {
+static inline int CopyRect(LPRECT lprcDst, const RECT* lprcSrc) {
 	*lprcDst = *lprcSrc;
 	return true;
 }
-static inline BOOL SetRect(LPRECT lprc, int xLeft, int yTop, int xRight, int yBottom) {
+static inline int SetRect(LPRECT lprc, int xLeft, int yTop, int xRight, int yBottom) {
 	lprc->left = xLeft;
 	lprc->top = yTop;
 	lprc->right = xRight;
 	lprc->bottom = yBottom;
 	return true;
 }
-static inline BOOL IsRectEmpty(const RECT* lprc) {
+static inline int IsRectEmpty(const RECT* lprc) {
 	return lprc->right <= lprc->left || lprc->bottom <= lprc->top;
 }
 

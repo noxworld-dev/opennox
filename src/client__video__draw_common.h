@@ -39,10 +39,6 @@
 #include "GAME5_2.h"
 #include "input_common.h"
 #include "input.h"
-#include "legacy/client__video__ddraw__draw_ddraw.h"
-#include "legacy/input_ddraw.h"
-#include "legacy/mmx.h"
-#include "legacy/win_ddraw.h"
 #include "movie.h"
 #include "server__network__mapsend.h"
 #include "server__script__builtin.h"
@@ -64,41 +60,41 @@ int nox_getBackbufHeight();
 extern unsigned char byte_581450_9176[160];
 extern unsigned char byte_581450_9336[160];
 
-extern _DWORD dword_5d4594_823772;
-extern _DWORD dword_5d4594_1193568;
-extern _DWORD dword_5d4594_1193576;
-extern _DWORD dword_5d4594_810628;
-extern _DWORD dword_5d4594_808564;
-extern _DWORD dword_5d4594_1311936;
-extern _DWORD dword_5d4594_1193672;
+extern uint32_t dword_5d4594_823772;
+extern uint32_t dword_5d4594_1193568;
+extern uint32_t dword_5d4594_1193576;
+extern uint32_t dword_5d4594_810628;
+extern uint32_t dword_5d4594_808564;
+extern uint32_t dword_5d4594_1311936;
+extern uint32_t dword_5d4594_1193672;
 extern void* dword_5d4594_1193624;
-extern _DWORD dword_5d4594_1193664;
-extern _DWORD dword_5d4594_1193524;
-extern _DWORD dword_5d4594_1193648;
-extern _DWORD dword_5d4594_3798728;
-extern _DWORD dword_5d4594_808568;
-extern _DWORD dword_5d4594_1193668;
-extern _DWORD nox_video_bag_ready;
-extern _DWORD dword_5d4594_823776;
-extern BYTE* nox_pixbuffer_3798780;
+extern uint32_t dword_5d4594_1193664;
+extern uint32_t dword_5d4594_1193524;
+extern uint32_t dword_5d4594_1193648;
+extern uint32_t dword_5d4594_3798728;
+extern uint32_t dword_5d4594_808568;
+extern uint32_t dword_5d4594_1193668;
+extern uint32_t nox_video_bag_ready;
+extern uint32_t dword_5d4594_823776;
+extern uint8_t* nox_pixbuffer_3798780;
 extern void* dword_5d4594_1193704;
-extern _DWORD dword_5d4594_3804668;
-extern _DWORD dword_5d4594_1193584;
+extern uint32_t dword_5d4594_3804668;
+extern uint32_t dword_5d4594_1193584;
 extern int nox_backbuffer_pitch_3801808;
-extern _DWORD cpuid_5d4594_3801804;
+extern uint32_t cpuid_5d4594_3801804;
 #ifndef NOX_CGO
 extern void* (*nox_video_getImagePixdata_func)(nox_video_bag_image_t*);
 #else // NOX_CGO
 void* nox_video_getImagePixdata_func(nox_video_bag_image_t*);
 #endif // NOX_CGO
-extern _DWORD dword_5d4594_810640;
-extern _DWORD dword_5d4594_1193516;
-extern _DWORD nox_video_pixmode_3799624;
-extern _DWORD dword_5d4594_3801780;
+extern uint32_t dword_5d4594_810640;
+extern uint32_t dword_5d4594_1193516;
+extern uint32_t nox_video_pixmode_3799624;
+extern uint32_t dword_5d4594_3801780;
 extern unsigned char* nox_draw_colors_r_3804672;
 extern unsigned char* nox_draw_colors_g_3804656;
 extern unsigned char* nox_draw_colors_b_3804664;
-extern BYTE** nox_pixbuffer_rows_3798784;
+extern uint8_t** nox_pixbuffer_rows_3798784;
 extern int nox_enable_audio;
 
 extern int nox_win_width;
@@ -109,7 +105,7 @@ extern nox_render_data_t obj_5D4594_3799660;
 extern nox_render_data_t obj_5D4594_3800716;
 
 extern HANDLE* nox_video_cursorDrawThreadHandle;
-extern DWORD dword_974854;
+extern uint32_t dword_974854;
 
 extern int g_scaled;
 
@@ -131,19 +127,19 @@ extern int nox_video_cursorDrawIsThreaded;
 extern int nox_video_gammaValue;
 extern int (*func_5d4594_1311924)(void);
 
-extern DWORD dword_973C70;
-extern DWORD g_backbuffer_count;
-extern DWORD dword_5ACFAC;
-extern DWORD dword_6F7B9C;
-extern DWORD dword_6F7BB0;
-extern DWORD g_cursor_surf_pitch;
-extern BYTE* g_cursor_surf_pixels;
-extern BYTE* g_cursor_surf_pixels_6F7C78;
-extern void (*dword_6F7C10)(_DWORD, _DWORD, _DWORD);
-extern __int16 (*dword_6F7C40)();
-extern __int16 (*dword_6F7C34)();
-extern void (*dword_975240)(_DWORD, _DWORD*, _DWORD*, _DWORD*);
-extern int (*dword_975380)(_DWORD, _DWORD, _DWORD);
+extern uint32_t dword_973C70;
+extern uint32_t g_backbuffer_count;
+extern uint32_t dword_5ACFAC;
+extern uint32_t dword_6F7B9C;
+extern uint32_t dword_6F7BB0;
+extern uint32_t g_cursor_surf_pitch;
+extern uint8_t* g_cursor_surf_pixels;
+extern uint8_t* g_cursor_surf_pixels_6F7C78;
+extern void (*dword_6F7C10)(uint32_t, uint32_t, uint32_t);
+extern short (*dword_6F7C40)();
+extern short (*dword_6F7C34)();
+extern void (*dword_975240)(uint32_t, uint32_t*, uint32_t*, uint32_t*);
+extern int (*dword_975380)(uint32_t, uint32_t, uint32_t);
 #ifndef NOX_CGO
 extern void (*nox_color_rgb_func)(uint8_t, uint8_t, uint8_t, uint32_t*);
 #endif // NOX_CGO
@@ -194,7 +190,7 @@ void updateGamma(int value);
 #endif
 int sub_4338D0();
 void sub_433C20();
-int sub_433CD0(BYTE a1, BYTE a2, BYTE a3);
+int sub_433CD0(uint8_t a1, uint8_t a2, uint8_t a3);
 int sub_433E40(int a1);
 void sub_433ED0(int a1);
 int sub_434040(int a1);
@@ -206,13 +202,13 @@ void nox_set_color_rgb_434400(int r, int g, int b);
 void nox_set_color_rgb_434430(int r, int g, int b);
 void sub_434480(int a1, int* a2, int* a3, int* a4);
 uint32_t nox_color_rgb_4344A0(int r, int g, int b);
-BOOL sub_4347F0(char* a1, int a2);
+int sub_4347F0(char* a1, int a2);
 int sub_4348C0();
 int sub_434AA0(int a1, int a2, int a3);
 int sub_434AC0(int a1);
 int nox_video_getGammaSetting_434B00();
 int nox_video_setGammaSetting_434B30(int a1);
-BOOL sub_434B60();
+int sub_434B60();
 int nox_draw_initColorTables_434CC0();
 int sub_434FB0();
 void sub_4352E0();
@@ -231,7 +227,7 @@ void nox_xxx_directDrawBlitMB_48A220();
 void sub_48A290_call_present();
 int sub_48A5E0();
 void sub_48A7F0();
-void sub_48A820(UINT uFlags);
+void sub_48A820(unsigned int uFlags);
 void nox_video_minimizeOrMaximize_48A9C0(int a1);
 void sub_48AA40();
 int nox_video_initCursorDrawVars_48B1F0();
@@ -242,8 +238,8 @@ bool nox_xxx_makeFillerColor_48BDE0();
 int nox_video_createCursorSurface_48BF70();
 int sub_48C060();
 void sub_48C110();
-unsigned __int8* sub_48C200(void* a1p, int a2, int a3);
-unsigned __int8* sub_48C320(void* a1p, int a2, int a3);
+unsigned char* sub_48C200(void* a1p, int a2, int a3);
+unsigned char* sub_48C320(void* a1p, int a2, int a3);
 int nox_video_setBackBufferCopyFunc_4AD100();
 void nox_video_setBackBufferCopyFunc2_4AD150();
 void nox_video_callCopyBackBuffer_4AD170(void);

@@ -3,6 +3,7 @@
 #include "common__random.h"
 #include "GAME1_2.h"
 #include "GAME3_1.h"
+#include "operators.h"
 
 extern unsigned int nox_frame_xxx_2598000;
 //----- (004BC930) --------------------------------------------------------
@@ -19,13 +20,13 @@ int  nox_thing_cond_animate_draw(unsigned int* a1, struct nox_drawable* dr) {
 	v2 = dr->field_76;
 	if (dr->flags30 & 0x1000000) {
 		v3 = *(unsigned int*)(v2 + 4);
-		v4 = *(unsigned __int8*)(v2 + 24);
-		v5 = *(unsigned __int8*)(v2 + 29);
+		v4 = *(unsigned char*)(v2 + 24);
+		v5 = *(unsigned char*)(v2 + 29);
 		v6 = *(unsigned int*)(v2 + 36);
 	} else {
 		v3 = *(unsigned int*)(v2 + 8);
-		v4 = *(unsigned __int8*)(v2 + 25);
-		v5 = *(unsigned __int8*)(v2 + 30);
+		v4 = *(unsigned char*)(v2 + 25);
+		v5 = *(unsigned char*)(v2 + 30);
 		v6 = *(unsigned int*)(v2 + 40);
 	}
 	v7 = v6 - 2;
@@ -49,23 +50,23 @@ int  nox_thing_cond_animate_draw(unsigned int* a1, struct nox_drawable* dr) {
 
 //----- (0044B560) --------------------------------------------------------
 bool  nox_things_cond_animate_draw_parse(nox_thing* obj, nox_memfile* f, char* attr_value) {
-	_DWORD* v3;           // eax
-	_BYTE* v6;            // edi
-	unsigned __int8* v7;  // ebp
-	unsigned __int8 v9;   // cl
-	unsigned __int8 v11;  // cl
-	_DWORD* v13;          // ebx
+	uint32_t* v3;           // eax
+	uint8_t* v6;            // edi
+	unsigned char* v7;  // ebp
+	unsigned char v9;   // cl
+	unsigned char v11;  // cl
+	uint32_t* v13;          // ebx
 	void* v14;            // eax
 	int v16;              // ecx
 	char v18;             // cl
-	_DWORD* v20;          // [esp+10h] [ebp-18h]
+	uint32_t* v20;          // [esp+10h] [ebp-18h]
 	const char* v21;      // [esp+18h] [ebp-10h]
 	int v22;              // [esp+1Ch] [ebp-Ch]
 	int v23;              // [esp+20h] [ebp-8h]
-	_DWORD* v24;          // [esp+24h] [ebp-4h]
-	unsigned __int8 v25;  // [esp+30h] [ebp+8h]
-	unsigned __int8 v26;  // [esp+30h] [ebp+8h]
-	unsigned __int8 v27;  // [esp+30h] [ebp+8h]
+	uint32_t* v24;          // [esp+24h] [ebp-4h]
+	unsigned char v25;  // [esp+30h] [ebp+8h]
+	unsigned char v26;  // [esp+30h] [ebp+8h]
+	unsigned char v27;  // [esp+30h] [ebp+8h]
 	int v28;              // [esp+34h] [ebp+Ch]
 
 	v3 = calloc(1u, 0x38u);
@@ -81,8 +82,8 @@ bool  nox_things_cond_animate_draw_parse(nox_thing* obj, nox_memfile* f, char* a
 	}
 	v6 = attr_value;
 	v20 = v3 + 1;
-	v7 = (unsigned __int8*)(v3 + 6);
-	v22 = -24 - (_DWORD)v3;
+	v7 = (unsigned char*)(v3 + 6);
+	v22 = -24 - (uint32_t)v3;
 	while (1) {
 		v9 = nox_memfile_read_u8(f);
 		*v7 = v9;
@@ -111,7 +112,7 @@ bool  nox_things_cond_animate_draw_parse(nox_thing* obj, nox_memfile* f, char* a
 					v6[v27] = 0;
 					v13 = v20;
 				}
-				*(_DWORD*)(*v13 + 4 * v28++) = nox_xxx_readImgMB_42FAA0(v16, v21, v6);
+				*(uint32_t*)(*v13 + 4 * v28++) = nox_xxx_readImgMB_42FAA0(v16, v21, v6);
 			} while (v28 < *v7);
 		}
 		++v7;

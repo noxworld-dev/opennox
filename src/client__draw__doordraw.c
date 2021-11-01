@@ -7,12 +7,13 @@
 #include "GAME3_1.h"
 #include "client__gui__window.h"
 #include "client__video__draw_common.h"
+#include "operators.h"
 
-extern _DWORD dword_5d4594_3807156;
+extern uint32_t dword_5d4594_3807156;
 
 //----- (004BC9E0) --------------------------------------------------------
-int  nox_thing_door_draw(_DWORD* a1, nox_drawable* dr) {
-	_BYTE* v2; // edi
+int  nox_thing_door_draw(uint32_t* a1, nox_drawable* dr) {
+	uint8_t* v2; // edi
 	int v3;    // eax
 	int v4;    // edx
 	int v5;    // ecx
@@ -27,7 +28,7 @@ int  nox_thing_door_draw(_DWORD* a1, nox_drawable* dr) {
 	int v15;   // [esp-4h] [ebp-18h]
 	int2 a3;   // [esp+Ch] [ebp-8h]
 
-	nox_xxx_drawObject_4C4770_draw(a1, dr, *(_DWORD*)(*(_DWORD*)((char*)dr->field_76 + 4) + 4 * dr->field_74_4));
+	nox_xxx_drawObject_4C4770_draw(a1, dr, *(uint32_t*)(*(uint32_t*)((char*)dr->field_76 + 4) + 4 * dr->field_74_4));
 	if (!nox_common_gameFlags_check_40A5C0(4096) || dr->field_108_1 != 1)
 		return 1;
 	if (!dr->field_109) {
@@ -39,7 +40,7 @@ int  nox_thing_door_draw(_DWORD* a1, nox_drawable* dr) {
 	sub_4739E0(a1, &dr->pos, &a3);
 	a3.field_0 -= 64;
 	a3.field_4 -= 79;
-	v2 = (_BYTE*)(*(int(**)(int2*)) & dword_5d4594_3807156)(&dr->pos);
+	v2 = (uint8_t*)(*(int(**)(int2*)) & dword_5d4594_3807156)(&dr->pos);
 	v3 = sub_4345F0(1);
 	LOBYTE(v4) = v2[8];
 	LOBYTE(v3) = v2[4];

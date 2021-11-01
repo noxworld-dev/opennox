@@ -9,16 +9,17 @@
 #include "client__gui__servopts__guiserv.h"
 #include "client__system__ctrlevnt.h"
 #include "client__gui__servopts__guiserv.h"
+#include "common__strman.h"
 
-extern _DWORD dword_5d4594_1305680;
+extern uint32_t dword_5d4594_1305680;
 extern int nox_win_width;
 extern int nox_win_height;
 
 //----- (0049C560) --------------------------------------------------------
-_DWORD* nox_xxx_cliShowHelpGui_49C560() {
+uint32_t* nox_xxx_cliShowHelpGui_49C560() {
 	int v0;         // esi
-	_DWORD* result; // eax
-	_DWORD* v2;     // esi
+	uint32_t* result; // eax
+	uint32_t* v2;     // esi
 	wchar_t* v3;    // eax
 	wchar_t* v4;    // eax
 	wchar_t* v5;    // eax
@@ -36,10 +37,10 @@ _DWORD* nox_xxx_cliShowHelpGui_49C560() {
 		nox_xxx_wndShowModalMB_46A8C0(*(int*)&dword_5d4594_1305680);
 		sub_46C690(*(int*)&dword_5d4594_1305680);
 		nox_xxx_windowFocus_46B500(*(int*)&dword_5d4594_1305680);
-		nox_window_setPos_46A9B0(*(_DWORD**)&dword_5d4594_1305680, (nox_win_width - *(int*)(dword_5d4594_1305680 + 8)) / 2,
+		nox_window_setPos_46A9B0(*(uint32_t**)&dword_5d4594_1305680, (nox_win_width - *(int*)(dword_5d4594_1305680 + 8)) / 2,
 						   (nox_win_height - *(int*)(dword_5d4594_1305680 + 12)) / 2);
 		if (nox_common_gameFlags_check_40A5C0(1)) {
-			v2 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1305680, 4102);
+			v2 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1305680, 4102);
 			v6 = sub_42E8E0(45, 1);
 			v3 = nox_strman_loadString_40F1D0("Sanchlp.wnd:Help", 0, "C:\\NoxPost\\src\\client\\Gui\\chathelp.c", 85);
 			nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1304656), v3, v6);
@@ -47,7 +48,7 @@ _DWORD* nox_xxx_cliShowHelpGui_49C560() {
 			v7 = sub_42E8E0(8, 1);
 			v4 = nox_strman_loadString_40F1D0("cdecode.c:KeyToChat", 0, "C:\\NoxPost\\src\\client\\Gui\\chathelp.c", 87);
 		} else {
-			v2 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1305680, 4102);
+			v2 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1305680, 4102);
 			v8 = sub_42E8E0(45, 1);
 			v5 = nox_strman_loadString_40F1D0("Sanchlp.wnd:ClientHelp", 0, "C:\\NoxPost\\src\\client\\Gui\\chathelp.c", 94);
 			nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1304656), v5, v8);
@@ -63,8 +64,8 @@ _DWORD* nox_xxx_cliShowHelpGui_49C560() {
 				nox_xxx_guiServerOptsLoad_457500();
 			sub_459D80(1);
 		}
-		if (nox_common_gameFlags_check_40A5C0(4096) || (result = (_DWORD*)nox_xxx_isQuest_4D6F50()) != 0)
-			result = (_DWORD*)sub_49C7A0();
+		if (nox_common_gameFlags_check_40A5C0(4096) || (result = (uint32_t*)nox_xxx_isQuest_4D6F50()) != 0)
+			result = (uint32_t*)sub_49C7A0();
 	}
 	return result;
 }

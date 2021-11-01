@@ -9,9 +9,10 @@
 #include "GAME3.h"
 #include "GAME3_1.h"
 #include "client__video__draw_common.h"
+#include "operators.h"
 
-extern _DWORD dword_5d4594_1313796;
-extern _DWORD dword_5d4594_1313800;
+extern uint32_t dword_5d4594_1313796;
+extern uint32_t dword_5d4594_1313800;
 extern unsigned int nox_frame_xxx_2598000;
 
 //----- (004B9050) --------------------------------------------------------
@@ -54,16 +55,16 @@ int  nox_thing_npc_draw(int* a1, nox_drawable* dr) {
 	int a2 = dr;
 
 	if (nox_common_gameFlags_check_40A5C0(0x200000)) {
-		v2 = *(_DWORD*)(sub_44D330((CHAR*)getMemAt(0x587000, 177440)) + 92) + 4;
-		if (*(_WORD*)(v2 + 40)) {
-			nox_xxx_drawObject_4C4770_draw(a1, (unsigned __int8*)a2,
-				**(_DWORD**)(*(_DWORD*)(v2 + 48) + 4 * *(unsigned __int8*)(a2 + 297) + 4));
+		v2 = *(uint32_t*)(sub_44D330((char*)getMemAt(0x587000, 177440)) + 92) + 4;
+		if (*(uint16_t*)(v2 + 40)) {
+			nox_xxx_drawObject_4C4770_draw(a1, (unsigned char*)a2,
+				**(uint32_t**)(*(uint32_t*)(v2 + 48) + 4 * *(unsigned char*)(a2 + 297) + 4));
 			return 1;
 		}
 	} else {
 		v4 = a2;
-		v30 = *(_DWORD*)(a2 + 128);
-		v36 = *(_DWORD*)(*getMemU32Ptr(0x852978, 8) + 304);
+		v30 = *(uint32_t*)(a2 + 128);
+		v36 = *(uint32_t*)(*getMemU32Ptr(0x852978, 8) + 304);
 		v5 = (int*)nox_npc_by_id(v30);
 		v33 = v5;
 		if (v36 && v5) {
@@ -95,7 +96,7 @@ int  nox_thing_npc_draw(int* a1, nox_drawable* dr) {
 				v13 = v5 + 2;
 				do {
 					sub_434480(*v13, (int)&v35, (int)&a2, (int)&v34);
-					if ((unsigned __int8)a2 >= 0x9Bu)
+					if ((unsigned char)a2 >= 0x9Bu)
 					LOBYTE(a2) = -1;
 					else
 					LOBYTE(a2) = a2 + 100;
@@ -114,18 +115,18 @@ int  nox_thing_npc_draw(int* a1, nox_drawable* dr) {
 					++v16;
 				} while (v17 < 6);
 			}
-			v18 = nox_xxx_spriteNPCInfo_49A4B0((_DWORD*)v4, v5[326], v5[327]);
+			v18 = nox_xxx_spriteNPCInfo_49A4B0((uint32_t*)v4, v5[326], v5[327]);
 			v19 = v36 + 264 * v18 + 4;
-			if (*(_WORD*)(v36 + 264 * v18 + 44)) {
-				v20 = sub_4BC5D0((_DWORD*)v4, v36 + 264 * v18 + 4);
+			if (*(uint16_t*)(v36 + 264 * v18 + 44)) {
+				v20 = sub_4BC5D0((uint32_t*)v4, v36 + 264 * v18 + 4);
 				if (v20 < 0)
 					return 0;
 				v21 = a1;
 				nox_xxx_drawObject_4C4770_draw(
-					a1, (unsigned __int8*)v4,
-					*(_DWORD*)(*(_DWORD*)(*(_DWORD*)(v19 + 48) + 4 * *(unsigned __int8*)(v4 + 297) + 4) + 4 * v20));
-				v22 = *(_BYTE*)(v4 + 297);
-				if (v22 != 1 && v22 && v22 != 2 && v22 != 3 && v22 != 6 || *(_DWORD*)(v4 + 276) == 37) {
+					a1, (unsigned char*)v4,
+					*(uint32_t*)(*(uint32_t*)(*(uint32_t*)(v19 + 48) + 4 * *(unsigned char*)(v4 + 297) + 4) + 4 * v20));
+				v22 = *(uint8_t*)(v4 + 297);
+				if (v22 != 1 && v22 && v22 != 2 && v22 != 3 && v22 != 6 || *(uint32_t*)(v4 + 276) == 37) {
 					sub_4B8960(v21, v4, v33[327], v33 + 170, v19, v20);
 					sub_4B8D40(v21, v4, v33[326], v33 + 8, v19, v20);
 				} else {
@@ -136,10 +137,10 @@ int  nox_thing_npc_draw(int* a1, nox_drawable* dr) {
 					if (!dword_5d4594_1313796) {
 						v23 = nox_xxx_getTTByNameSpriteMB_44CFC0("SpinningSkull");
 						dword_5d4594_1313796 = nox_new_drawable_for_thing(v23);
-						*(_DWORD*)(dword_5d4594_1313796 + 120) |= 0x1000000u;
+						*(uint32_t*)(dword_5d4594_1313796 + 120) |= 0x1000000u;
 					}
-					*(_DWORD*)(dword_5d4594_1313796 + 12) = *v21 + *(_DWORD*)(v4 + 12) - v21[4];
-					*(_DWORD*)(dword_5d4594_1313796 + 16) = v21[1] - v21[5] + *(_DWORD*)(v4 + 16) - 50;
+					*(uint32_t*)(dword_5d4594_1313796 + 12) = *v21 + *(uint32_t*)(v4 + 12) - v21[4];
+					*(uint32_t*)(dword_5d4594_1313796 + 16) = v21[1] - v21[5] + *(uint32_t*)(v4 + 16) - 50;
 					v31 = dword_5d4594_1313796;
 					v24 = (void(**)(char*, int))(dword_5d4594_1313796 + 300);
 					v25 = nox_draw_getViewport_437250();
@@ -149,21 +150,21 @@ int  nox_thing_npc_draw(int* a1, nox_drawable* dr) {
 					if (!dword_5d4594_1313800) {
 						v26 = nox_xxx_getTTByNameSpriteMB_44CFC0("SpinningCrown");
 						dword_5d4594_1313800 = nox_new_drawable_for_thing(v26);
-						*(_DWORD*)(dword_5d4594_1313800 + 120) |= 0x1000000u;
+						*(uint32_t*)(dword_5d4594_1313800 + 120) |= 0x1000000u;
 					}
-					*(_DWORD*)(dword_5d4594_1313800 + 12) = *v21 + *(_DWORD*)(v4 + 12) - v21[4];
-					*(_DWORD*)(dword_5d4594_1313800 + 16) = v21[1] - v21[5] + *(_DWORD*)(v4 + 16) - 50;
+					*(uint32_t*)(dword_5d4594_1313800 + 12) = *v21 + *(uint32_t*)(v4 + 12) - v21[4];
+					*(uint32_t*)(dword_5d4594_1313800 + 16) = v21[1] - v21[5] + *(uint32_t*)(v4 + 16) - 50;
 					v32 = dword_5d4594_1313800;
 					v27 = (void(**)(char*, int))(dword_5d4594_1313800 + 300);
 					v28 = nox_draw_getViewport_437250();
 					(*v27)(v28, v32);
 				}
-				if (nox_xxx_unitSpriteCheckAlly_4951F0(*(_DWORD*)(v4 + 128))) {
+				if (nox_xxx_unitSpriteCheckAlly_4951F0(*(uint32_t*)(v4 + 128))) {
 					v33 = 0;
 					a1 = 0;
 					LOBYTE(a2) = 0;
-					sub_495180(*(_DWORD*)(v4 + 128), &v33, &a1, &a2);
-					nox_xxx_spriteDrawMonsterHP_4BC080(v21, v4, (unsigned __int16)v33, (unsigned __int16)a1, a2);
+					sub_495180(*(uint32_t*)(v4 + 128), &v33, &a1, &a2);
+					nox_xxx_spriteDrawMonsterHP_4BC080(v21, v4, (unsigned short)v33, (unsigned short)a1, a2);
 				}
 				for (i = 0; i < 6; ++i)
 					nox_xxx_drawPlayer_4341D0(i, *getMemIntPtr(0x5D4594, 2523948));

@@ -1,5 +1,6 @@
 #include "common__wolapi__wolpatch.h"
 
+#include "common__strman.h"
 #include "client__gui__window.h"
 
 //----- (0041E5D0) --------------------------------------------------------

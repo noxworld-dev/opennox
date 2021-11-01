@@ -1421,7 +1421,7 @@ func (d *audioDriver) doWork() {
 }
 
 //export AIL_waveOutOpen
-func AIL_waveOutOpen(pdrvr *C.HDIGDRIVER, lphWaveOut *C.LPHWAVEOUT, wDeviceID C.int32_t, lpFormat C.LPWAVEFORMAT) C.int32_t {
+func AIL_waveOutOpen(pdrvr *C.HDIGDRIVER, wDeviceID C.int32_t, lpFormat C.NOX_WAVEFORMAT) C.int32_t {
 	if audioDebug {
 		audioLog.Println("AIL_waveOutOpen")
 	}

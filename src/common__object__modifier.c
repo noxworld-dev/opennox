@@ -1,5 +1,6 @@
 #include "cdrom.h"
 #include "client__gui__window.h"
+#include "common__strman.h"
 
 //----- (00411B90) --------------------------------------------------------
 int  nox_xxx_parseWeapDescription_411B90(const char* a1, char* a2, obj_412ae0_t* obj) {
@@ -97,7 +98,7 @@ int  nox_xxx_parseIdentifyDesc_412260_parse_ident_desc(const char* a1, char* a2,
 //----- (00413480) --------------------------------------------------------
 wchar_t*  sub_413480(char a1) {
 	int v1;              // ecx
-	unsigned __int8* v2; // eax
+	unsigned char* v2; // eax
 
 	v1 = 0;
 	v2 = getMemAt(0x587000, 27332);

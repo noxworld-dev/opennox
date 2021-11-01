@@ -11,12 +11,13 @@
 #include "GAME3_1.h"
 #include "GAME4_1.h"
 #include "input_common.h"
+#include "common__strman.h"
 
 extern int dword_5d4594_1097212;
 extern int dword_5d4594_1097216;
-extern _DWORD nox_xxx_cursorTypePrev_587000_151528;
-extern _DWORD dword_5d4594_1097208;
-extern _DWORD dword_5d4594_3798728;
+extern uint32_t nox_xxx_cursorTypePrev_587000_151528;
+extern uint32_t dword_5d4594_1097208;
+extern uint32_t dword_5d4594_3798728;
 extern int nox_win_width;
 extern int nox_win_height;
 extern unsigned int nox_frame_xxx_2598000;
@@ -28,13 +29,13 @@ void nox_video_cursorDrawImpl_477A30(int a1, int a2, int a3) {
 	int v4;       // ebp
 	int v5;       // esi
 	int v6;       // eax
-	__int16* v7;  // eax
-	__int16* v8;  // eax
-	__int16* v9;  // eax
-	__int16* v10; // eax
-	__int16* v11; // eax
-	__int16* v12; // eax
-	__int16* v13; // eax
+	short* v7;  // eax
+	short* v8;  // eax
+	short* v9;  // eax
+	short* v10; // eax
+	short* v11; // eax
+	short* v12; // eax
+	short* v13; // eax
 	int v15;      // esi
 	int v16;      // ebx
 	int v18;      // [esp+10h] [ebp-Ch]
@@ -64,39 +65,39 @@ void nox_video_cursorDrawImpl_477A30(int a1, int a2, int a3) {
 		}
 		switch (v6) {
 		case 1:
-			v10 = (__int16*)nox_strman_loadString_40F1D0("GRAB", 0,
+			v10 = (short*)nox_strman_loadString_40F1D0("GRAB", 0,
 												  "C:\\NoxPost\\src\\Client\\Gui\\guicurs.c", 199);
 			nox_xxx_drawString_43F6E0(0, v10, v3 + 54, a3 - v5);
 			nox_video_drawAnimatedImageOrCursorAt_4BE6D0(*getMemIntPtr(0x5D4594, 1097224), v3, v4);
 			break;
 		case 2:
-			v7 = (__int16*)nox_strman_loadString_40F1D0("PICKUP", 0,
+			v7 = (short*)nox_strman_loadString_40F1D0("PICKUP", 0,
 												 "C:\\NoxPost\\src\\Client\\Gui\\guicurs.c", 176);
 			nox_xxx_drawString_43F6E0(0, v7, v3 + 49, v5 + a3);
 			nox_video_drawAnimatedImageOrCursorAt_4BE6D0(*getMemIntPtr(0x5D4594, 1097228), v3, v4);
 			goto LABEL_16;
 		case 3:
-			v8 = (__int16*)nox_strman_loadString_40F1D0("SHOPKEEPER", 0,
+			v8 = (short*)nox_strman_loadString_40F1D0("SHOPKEEPER", 0,
 												 "C:\\NoxPost\\src\\Client\\Gui\\guicurs.c", 185);
 			nox_xxx_drawString_43F6E0(0, v8, v3 + 39, a3 - v5);
 			nox_video_drawAnimatedImageOrCursorAt_4BE6D0(*getMemIntPtr(0x5D4594, 1097232), v3, v4);
 			break;
 		case 4:
-			v9 = (__int16*)nox_strman_loadString_40F1D0("TALK", 0,
+			v9 = (short*)nox_strman_loadString_40F1D0("TALK", 0,
 												 "C:\\NoxPost\\src\\Client\\Gui\\guicurs.c", 192);
 			nox_xxx_drawString_43F6E0(0, v9, v3 + 49, a3 - v5);
 			nox_video_drawAnimatedImageOrCursorAt_4BE6D0(*getMemIntPtr(0x5D4594, 1097236), v3, v4);
 			break;
 		case 6:
 		case 7:
-			v11 = (__int16*)nox_strman_loadString_40F1D0("IDENTIFY", 0,
+			v11 = (short*)nox_strman_loadString_40F1D0("IDENTIFY", 0,
 												  "C:\\NoxPost\\src\\Client\\Gui\\guicurs.c", 207);
 			nox_xxx_drawString_43F6E0(0, v11, v3 + 49, v4 + 88);
 			nox_video_drawAnimatedImageOrCursorAt_4BE6D0(
 				*getMemU32Ptr(0x5D4594, 1097220 + 4 * nox_client_mouseCursorType), v3, v4);
 			break;
 		case 8:
-			v12 = (__int16*)nox_strman_loadString_40F1D0("REPAIR", 0,
+			v12 = (short*)nox_strman_loadString_40F1D0("REPAIR", 0,
 												  "C:\\NoxPost\\src\\Client\\Gui\\guicurs.c", 214);
 			nox_xxx_drawString_43F6E0(0, v12, v3 + 49, a3 - v5);
 			nox_video_drawAnimatedImageOrCursorAt_4BE6D0(*getMemIntPtr(0x5D4594, 1097252), v3, v4);
@@ -109,7 +110,7 @@ void nox_video_cursorDrawImpl_477A30(int a1, int a2, int a3) {
 			nox_video_drawAnimatedImageOrCursorAt_4BE6D0(*getMemU32Ptr(0x5D4594, 1097220 + 4 * v6), v3, v4);
 			break;
 		case 13:
-			v13 = (__int16*)nox_strman_loadString_40F1D0("USE", 0,
+			v13 = (short*)nox_strman_loadString_40F1D0("USE", 0,
 												  "C:\\NoxPost\\src\\Client\\Gui\\guicurs.c", 223);
 			nox_xxx_drawString_43F6E0(0, v13, v3 + 54, v5 + a3);
 			nox_video_drawAnimatedImageOrCursorAt_4BE6D0(*getMemIntPtr(0x5D4594, 1097272), v3, v4);
@@ -123,13 +124,13 @@ void nox_video_cursorDrawImpl_477A30(int a1, int a2, int a3) {
 			// _dprintf("cur %f %f %d", v19.field_0, v19.field_4, nox_xxx_math_509ED0(&v19));
 			v15 = nox_xxx_math_509ED0(&v19) / 8;
 			if (v19.field_4 * v19.field_4 + v19.field_0 * v19.field_0 > 10000.0 ||
-				*getMemU32Ptr(0x852978, 8) && *(_DWORD*)(*getMemU32Ptr(0x852978, 8) + 276) == 6) {
+				*getMemU32Ptr(0x852978, 8) && *(uint32_t*)(*getMemU32Ptr(0x852978, 8) + 276) == 6) {
 				v15 += 32;
 			}
 			v16 = nox_xxx_spriteGetMB_476F80();
 			if (v16) {
 				sub_48B680(1);
-				if (!(*(_BYTE*)(v16 + 112) & 6) || sub_495A80(*(_DWORD*)(v16 + 128)))
+				if (!(*(uint8_t*)(v16 + 112) & 6) || sub_495A80(*(uint32_t*)(v16 + 128)))
 					sub_48B800(*getMemIntPtr(0x85B3FC, 980));
 				else
 					sub_48B800(*getMemIntPtr(0x85B3FC, 940));

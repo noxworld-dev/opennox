@@ -12,7 +12,7 @@ extern unsigned int nox_frame_xxx_2598000;
 //----- (004B7A80) --------------------------------------------------------
 int  nox_thing_undead_killer_draw(int* a1, nox_drawable* dr) {
 	int result;     // eax
-	__int16 v3;     // dx
+	short v3;     // dx
 	int v4;         // eax
 	int v5;         // ecx
 	int v6;         // ebx
@@ -23,7 +23,7 @@ int  nox_thing_undead_killer_draw(int* a1, nox_drawable* dr) {
 	int v11;        // [esp-18h] [ebp-28h]
 	int v12;        // [esp-14h] [ebp-24h]
 	char v13;       // [esp-Ch] [ebp-1Ch]
-	__int16 v14[4]; // [esp+0h] [ebp-10h]
+	short v14[4]; // [esp+0h] [ebp-10h]
 	int2 v15;       // [esp+8h] [ebp-8h]
 
 	int a2 = dr;
@@ -33,25 +33,25 @@ int  nox_thing_undead_killer_draw(int* a1, nox_drawable* dr) {
 		*getMemU32Ptr(0x5D4594, 1313732) = nox_color_rgb_4344A0(100, 100, 255);
 		*getMemU32Ptr(0x5D4594, 1313728) = 1;
 	}
-	if ((unsigned int)(nox_frame_xxx_2598000 - *(_DWORD*)(a2 + 316)) <= 0x46) {
+	if ((unsigned int)(nox_frame_xxx_2598000 - *(uint32_t*)(a2 + 316)) <= 0x46) {
 		if (nox_common_randomIntMinMax_415FF0(0, 100, "C:\\NoxPost\\src\\client\\Draw\\UDedDraw.c", 54) > 85) {
-			v3 = *(_WORD*)(a2 + 328);
-			v14[0] = *(_WORD*)(a2 + 324);
+			v3 = *(uint16_t*)(a2 + 328);
+			v14[0] = *(uint16_t*)(a2 + 324);
 			v14[1] = v3;
-			v14[2] = *(_WORD*)(a2 + 12) + nox_common_randomIntMinMax_415FF0(-5, 5, "C:\\NoxPost\\src\\client\\Draw\\UDedDraw.c", 60);
-			v14[3] = *(_WORD*)(a2 + 16) + nox_common_randomIntMinMax_415FF0(-5, 5, "C:\\NoxPost\\src\\client\\Draw\\UDedDraw.c", 61);
+			v14[2] = *(uint16_t*)(a2 + 12) + nox_common_randomIntMinMax_415FF0(-5, 5, "C:\\NoxPost\\src\\client\\Draw\\UDedDraw.c", 60);
+			v14[3] = *(uint16_t*)(a2 + 16) + nox_common_randomIntMinMax_415FF0(-5, 5, "C:\\NoxPost\\src\\client\\Draw\\UDedDraw.c", 61);
 			v13 = nox_common_randomIntMinMax_415FF0(6, 10, "C:\\NoxPost\\src\\client\\Draw\\UDedDraw.c", 66);
 			v4 = nox_common_randomIntMinMax_415FF0(-5, 5, "C:\\NoxPost\\src\\client\\Draw\\UDedDraw.c", 65);
 			sub_499490(*getMemIntPtr(0x5D4594, 1313736), v14, 0, v4, v13, 0);
 		}
-		v5 = *(_DWORD*)(a2 + 12);
-		v6 = a1[1] - *(__int16*)(a2 + 106) - *(__int16*)(a2 + 104);
+		v5 = *(uint32_t*)(a2 + 12);
+		v6 = a1[1] - *(short*)(a2 + 106) - *(short*)(a2 + 104);
 		v7 = a1[5];
-		v8 = *(_DWORD*)(a2 + 328);
+		v8 = *(uint32_t*)(a2 + 328);
 		v15.field_0 = v5 + *a1 - a1[4];
-		v12 = *(_DWORD*)(a2 + 324);
-		v11 = *(_DWORD*)(a2 + 16);
-		v15.field_4 = *(_DWORD*)(a2 + 16) + v6 - v7;
+		v12 = *(uint32_t*)(a2 + 324);
+		v11 = *(uint32_t*)(a2 + 16);
+		v15.field_4 = *(uint32_t*)(a2 + 16) + v6 - v7;
 		v9 = sub_48C690(v5, v11, v12, v8);
 		v10 = 8 - v9 / 40;
 		if (v10 < 0)

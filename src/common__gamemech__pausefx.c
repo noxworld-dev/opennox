@@ -1,18 +1,19 @@
 #include "common__gamemech__pausefx.h"
 
+#include "common__strman.h"
 #include "GAME1.h"
 #include "GAME3_2.h"
 #include "GAME3_3.h"
 #include "GAME4.h"
 #include "GAME4_2.h"
-extern _DWORD dword_5d4594_2523804;
-extern _DWORD dword_5d4594_2523776;
-extern _DWORD dword_5d4594_2523780;
+extern uint32_t dword_5d4594_2523804;
+extern uint32_t dword_5d4594_2523776;
+extern uint32_t dword_5d4594_2523780;
 
 //----- (0057AF30) --------------------------------------------------------
 void  sub_57AF30(int a1, int a2) {
 	int v2;      // ecx
-	_DWORD* v3;  // eax
+	uint32_t* v3;  // eax
 	wchar_t* v4; // eax
 	int v5;      // esi
 
@@ -26,7 +27,7 @@ void  sub_57AF30(int a1, int a2) {
 		v2 = dword_5d4594_2523780;
 	if (a2) {
 		if (a2 != 1) {
-			v3 = *(_DWORD**)&dword_5d4594_2523776;
+			v3 = *(uint32_t**)&dword_5d4594_2523776;
 		} else {
 			v3 = nox_xxx_newObjectByTypeID_4E3810("OblivionUp");
 			v2 = dword_5d4594_2523780;
@@ -54,16 +55,16 @@ void  sub_57AF30(int a1, int a2) {
 		if (!v2) {
 			goto LABEL_29;
 		}
-		nox_xxx_aud_501960(902, v2, 2, *(_DWORD *) (v2 + 36));
+		nox_xxx_aud_501960(902, v2, 2, *(uint32_t *) (v2 + 36));
 		v4 = nox_strman_loadString_40F1D0("expLevel.c:LevelUP", 0,
 								   "C:\\NoxPost\\src\\common\\GameMech\\PauseFX.c", 109);
 		nox_xxx_netSendLineMessage_4D9EB0(*(int *) &dword_5d4594_2523780, v4);
 		v2 = dword_5d4594_2523780;
 	}
 	if (v2) {
-		v5 = *(_DWORD*)(v2 + 748);
-		if (nox_xxx_playerSetState_4FA020((_DWORD*)v2, 30) == 1)
-			*(_BYTE*)(v5 + 236) = 4;
+		v5 = *(uint32_t*)(v2 + 748);
+		if (nox_xxx_playerSetState_4FA020((uint32_t*)v2, 30) == 1)
+			*(uint8_t*)(v5 + 236) = 4;
 	}
 	if (a2) {
 		*getMemU32Ptr(0x5D4594, 2523796) = 0;

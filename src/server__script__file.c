@@ -683,9 +683,9 @@ int  sub_543110(const char* lpExistingFileName, int* a2) {
 	strcpy(NewFileName, (const char*)getMemAt(0x973F18, 42152));
 	v3 = *getMemU32Ptr(0x587000, 282616);
 	v4 = &NewFileName[strlen(NewFileName)];
-	*(_DWORD*)v4 = *getMemU32Ptr(0x587000, 282608);
-	*((_DWORD*)v4 + 1) = v2;
-	*((_DWORD*)v4 + 2) = v3;
+	*(uint32_t*)v4 = *getMemU32Ptr(0x587000, 282608);
+	*((uint32_t*)v4 + 1) = v2;
+	*((uint32_t*)v4 + 2) = v3;
 	nox_fs_copy(lpExistingFileName, NewFileName);
 	v6 = nox_fs_open(NewFileName);
 	if (!v6) {

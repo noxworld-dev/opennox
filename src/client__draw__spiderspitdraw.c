@@ -3,8 +3,8 @@
 #include "GAME2_3.h"
 
 //----- (004B9D70) --------------------------------------------------------
-int  nox_thing_spider_spit_draw(_DWORD* a1, nox_drawable* dr) {
-	_DWORD* v2; // eax
+int  nox_thing_spider_spit_draw(uint32_t* a1, nox_drawable* dr) {
+	uint32_t* v2; // eax
 	int v3;     // edi
 	int v4;     // ebp
 	int v5;     // edx
@@ -22,9 +22,9 @@ int  nox_thing_spider_spit_draw(_DWORD* a1, nox_drawable* dr) {
 
 	int a2 = dr;
 
-	v2 = (_DWORD*)a2;
+	v2 = (uint32_t*)a2;
 	v3 = a1[4];
-	v4 = *(__int16*)(a2 + 104);
+	v4 = *(short*)(a2 + 104);
 	v16 = a1[1];
 	v13 = v2[4];
 	v5 = v2[3];

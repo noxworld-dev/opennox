@@ -3,6 +3,7 @@
 #include "GAME1_3.h"
 #include "client__gui__window.h"
 #include "client__gui__guimsg.h"
+#include "common__strman.h"
 
 //----- (0043D0A0) --------------------------------------------------------
 void  nox_client_showConnError_43D0A0(int a1) {

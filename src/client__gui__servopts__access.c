@@ -1,35 +1,41 @@
 #include "client__gui__servopts__access.h"
 #include "client__gui__window.h"
+#include "common__strman.h"
+#ifdef _WIN32
+#include <windows.h>
+#else
+#include "windows_compat.h"
+#endif
 
 #include "GAME1.h"
 #include "GAME1_3.h"
 #include "GAME2.h"
 #include "GAME3_2.h"
-extern _DWORD dword_5d4594_1045596;
-extern _DWORD dword_5d4594_1045556;
-extern _DWORD dword_5d4594_1045520;
-extern _DWORD dword_5d4594_1045552;
-extern _DWORD dword_5d4594_1045584;
-extern _DWORD dword_5d4594_1045588;
-extern _DWORD dword_5d4594_1045532;
-extern _DWORD dword_5d4594_1045528;
-extern _DWORD dword_5d4594_1045516;
+extern uint32_t dword_5d4594_1045596;
+extern uint32_t dword_5d4594_1045556;
+extern uint32_t dword_5d4594_1045520;
+extern uint32_t dword_5d4594_1045552;
+extern uint32_t dword_5d4594_1045584;
+extern uint32_t dword_5d4594_1045588;
+extern uint32_t dword_5d4594_1045532;
+extern uint32_t dword_5d4594_1045528;
+extern uint32_t dword_5d4594_1045516;
 
 //----- (00454640) --------------------------------------------------------
 int sub_454640() {
-	_DWORD* v0;           // eax
-	_DWORD* v1;           // esi
+	uint32_t* v0;           // eax
+	uint32_t* v1;           // esi
 	int v2;               // eax
-	unsigned __int16* v3; // eax
-	unsigned __int16* v4; // eax
-	unsigned __int16* v5; // eax
+	unsigned short* v3; // eax
+	unsigned short* v4; // eax
+	unsigned short* v5; // eax
 	int v6;               // eax
 	int v7;               // eax
 	int result;           // eax
 	int v9;               // [esp+4h] [ebp-8h]
 	int v10;              // [esp+8h] [ebp-4h]
 
-	v0 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1045516, 10123);
+	v0 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1045516, 10123);
 	v1 = v0;
 	v2 = nox_xxx_guiFontHeightMB_43F320(v0[59]) + 1;
 	v1[7] = v1[5] + 4 * v2 + 2;
@@ -56,11 +62,11 @@ int sub_454640() {
 //----- (00454740) --------------------------------------------------------
 int* sub_454740() {
 	char* v0;              // esi
-	_DWORD* v1;            // edi
+	uint32_t* v1;            // edi
 	wchar_t* v2;           // eax
-	_DWORD* v3;            // eax
-	_DWORD* v4;            // eax
-	_DWORD* v5;            // eax
+	uint32_t* v3;            // eax
+	uint32_t* v4;            // eax
+	uint32_t* v5;            // eax
 	wchar_t* v6;           // eax
 	wchar_t* v7;           // eax
 	wchar_t* v8;           // eax
@@ -68,30 +74,30 @@ int* sub_454740() {
 	int v10;               // ecx
 	int v11;               // eax
 	char* i;               // esi
-	WCHAR WideCharStr[18]; // [esp+Ch] [ebp-24h]
+	wchar_t WideCharStr[18]; // [esp+Ch] [ebp-24h]
 
 	v0 = sub_416640();
-	v1 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1045516, 10136);
+	v1 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1045516, 10136);
 	v2 = nox_xxx_sysopGetPass_40A630();
 	nox_window_call_field_94((int)v1, 16414, (int)v2, 0);
 	if (*(short*)(v0 + 105) != -1) {
 		nox_xxx_wnd_46ABB0(*(int*)&dword_5d4594_1045584, 1);
-		*(_DWORD*)(*getMemU32Ptr(0x5D4594, 1045568) + 36) |= 4u;
-		_itow(*(unsigned __int16*)(v0 + 105), WideCharStr, 10);
+		*(uint32_t*)(*getMemU32Ptr(0x5D4594, 1045568) + 36) |= 4u;
+		_itow(*(unsigned short*)(v0 + 105), WideCharStr, 10);
 		nox_window_call_field_94(*(int*)&dword_5d4594_1045584, 16414, (int)WideCharStr, 0);
 	}
 	if (*(short*)(v0 + 107) != -1) {
 		nox_xxx_wnd_46ABB0(*(int*)&dword_5d4594_1045588, 1);
-		*(_DWORD*)(*getMemU32Ptr(0x5D4594, 1045572) + 36) |= 4u;
-		_itow(*(unsigned __int16*)(v0 + 107), WideCharStr, 10);
+		*(uint32_t*)(*getMemU32Ptr(0x5D4594, 1045572) + 36) |= 4u;
+		_itow(*(unsigned short*)(v0 + 107), WideCharStr, 10);
 		nox_window_call_field_94(*(int*)&dword_5d4594_1045588, 16414, (int)WideCharStr, 0);
 	}
-	v3 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1045516, 10124);
+	v3 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1045516, 10124);
 	if ((int)v0[102] < 0)
 		v3[9] |= 4u;
 	if (v0[100] & 0x20) {
 		nox_xxx_wnd_46ABB0(*(int*)&dword_5d4594_1045556, 1);
-		*(_DWORD*)(*getMemU32Ptr(0x5D4594, 1045524) + 36) |= 4u;
+		*(uint32_t*)(*getMemU32Ptr(0x5D4594, 1045524) + 36) |= 4u;
 	}
 	nox_window_call_field_94(*(int*)&dword_5d4594_1045556, 16414, (int)(v0 + 78), 0);
 	if (sub_4D6F30()) {
@@ -99,13 +105,13 @@ int* sub_454740() {
 	} else {
 		nox_xxx_wnd_46ABB0(*(int*)&dword_5d4594_1045520, 1);
 		if (v0[100] & 0x10) {
-			*(_DWORD*)(dword_5d4594_1045520 + 36) = 4;
+			*(uint32_t*)(dword_5d4594_1045520 + 36) = 4;
 		} else {
-			v4 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1045516, 10206);
+			v4 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1045516, 10206);
 			nox_xxx_wnd_46ABB0((int)v4, 0);
 		}
 	}
-	v5 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1045516, 10207);
+	v5 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1045516, 10207);
 	v5[9] |= 4u;
 	dword_5d4594_1045596 = dword_5d4594_1045528;
 	v6 =
@@ -124,22 +130,22 @@ int* sub_454740() {
 	v9 = v0[100];
 	if (v9) {
 		v10 = 0;
-		v11 = *(_DWORD*)(dword_5d4594_1045552 + 32);
+		v11 = *(uint32_t*)(dword_5d4594_1045552 + 32);
 		if (v9 & 1) {
-			**(_DWORD**)(v11 + 48) = 0;
+			**(uint32_t**)(v11 + 48) = 0;
 			v10 = 1;
-			*(_DWORD*)(*(_DWORD*)(v11 + 48) + 4) = -1;
+			*(uint32_t*)(*(uint32_t*)(v11 + 48) + 4) = -1;
 		}
 		if (v0[100] & 2) {
-			*(_DWORD*)(*(_DWORD*)(v11 + 48) + 4 * ++v10 - 4) = 1;
-			*(_DWORD*)(*(_DWORD*)(v11 + 48) + 4 * v10) = -1;
+			*(uint32_t*)(*(uint32_t*)(v11 + 48) + 4 * ++v10 - 4) = 1;
+			*(uint32_t*)(*(uint32_t*)(v11 + 48) + 4 * v10) = -1;
 		}
 		if (v0[100] & 4) {
-			*(_DWORD*)(*(_DWORD*)(v11 + 48) + 4 * v10) = 2;
-			*(_DWORD*)(*(_DWORD*)(v11 + 48) + 4 * v10 + 4) = -1;
+			*(uint32_t*)(*(uint32_t*)(v11 + 48) + 4 * v10) = 2;
+			*(uint32_t*)(*(uint32_t*)(v11 + 48) + 4 * v10 + 4) = -1;
 		}
 	}
-	_itow((unsigned __int8)v0[104], WideCharStr, 10);
+	_itow((unsigned char)v0[104], WideCharStr, 10);
 	nox_window_call_field_94(*getMemIntPtr(0x5D4594, 1045592), 16414, (int)WideCharStr, 0);
 	for (i = nox_common_playerInfoGetFirst_416EA0(); i; i = nox_common_playerInfoGetNext_416EE0((int)i)) {
 		if (i[2064] != 31 || !nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING))

@@ -13,29 +13,30 @@
 #include "GAME5_2.h"
 #include "client__video__draw_common.h"
 #include "client__io__win95__dxvideo.h"
+#include "operators.h"
 
-extern _DWORD dword_5d4594_3805492;
-extern _DWORD dword_5d4594_1193180;
-extern _DWORD dword_587000_142316;
-extern _DWORD dword_5d4594_1193176;
-extern _DWORD dword_587000_142328;
-extern _DWORD dword_587000_154968;
-extern _DWORD dword_5d4594_3805484;
-extern _DWORD dword_5d4594_1193184;
-extern _DWORD dword_5d4594_2650680;
-extern _DWORD dword_5d4594_805836;
-extern _DWORD dword_5d4594_3798800;
-extern _DWORD dword_5d4594_2650676;
-extern _DWORD dword_5d4594_3798808;
-extern _DWORD dword_5d4594_3807156;
-extern _DWORD dword_5d4594_3798836;
-extern _DWORD dword_5d4594_3798804;
-extern _DWORD dword_5d4594_3798820;
-extern _DWORD dword_5d4594_3798824;
-extern _DWORD dword_5d4594_3798840;
-extern _DWORD dword_5d4594_3801780;
-extern _DWORD dword_5d4594_3798796;
-extern _DWORD dword_5d4594_3798844;
+extern uint32_t dword_5d4594_3805492;
+extern uint32_t dword_5d4594_1193180;
+extern uint32_t dword_587000_142316;
+extern uint32_t dword_5d4594_1193176;
+extern uint32_t dword_587000_142328;
+extern uint32_t dword_587000_154968;
+extern uint32_t dword_5d4594_3805484;
+extern uint32_t dword_5d4594_1193184;
+extern uint32_t dword_5d4594_2650680;
+extern uint32_t dword_5d4594_805836;
+extern uint32_t dword_5d4594_3798800;
+extern uint32_t dword_5d4594_2650676;
+extern uint32_t dword_5d4594_3798808;
+extern uint32_t dword_5d4594_3807156;
+extern uint32_t dword_5d4594_3798836;
+extern uint32_t dword_5d4594_3798804;
+extern uint32_t dword_5d4594_3798820;
+extern uint32_t dword_5d4594_3798824;
+extern uint32_t dword_5d4594_3798840;
+extern uint32_t dword_5d4594_3801780;
+extern uint32_t dword_5d4594_3798796;
+extern uint32_t dword_5d4594_3798844;
 extern int nox_win_width;
 extern int nox_win_height;
 extern int nox_video_dxFullScreen;
@@ -47,10 +48,10 @@ extern unsigned char nox_arr_84EB20[280*57*4]; // TODO: the 4x factor is for hig
 #ifndef NOX_CGO
 nox_light_3 nox_arr2_853BC0[57*4][45*4] = {0}; // TODO: the 4x factor is for high-res; figure out what those values are
 
-_DWORD nox_xxx_useMMX_587000_80800 = 1;
+uint32_t nox_xxx_useMMX_587000_80800 = 1;
 
 //----- (00485880) --------------------------------------------------------
-signed int  sub_485880(_DWORD* a1, int* a2, int a3, signed int a4, char* a5) {
+signed int  sub_485880(uint32_t* a1, int* a2, int a3, signed int a4, char* a5) {
 	signed int result; // eax
 	int v6;            // esi
 	int v7;            // edi
@@ -92,8 +93,8 @@ signed int  sub_485880(_DWORD* a1, int* a2, int a3, signed int a4, char* a5) {
 			if ((unsigned int)&v9[a4] < *(int*)&dword_5d4594_3798844) {
 				memcpy(a5, v9, a4);
 			} else {
-				v10 = dword_5d4594_3798844 - (_DWORD)v9;
-				memcpy(a5, v9, dword_5d4594_3798844 - (_DWORD)v9);
+				v10 = dword_5d4594_3798844 - (uint32_t)v9;
+				memcpy(a5, v9, dword_5d4594_3798844 - (uint32_t)v9);
 				v11 = (void*)(dword_5d4594_1193180 + v10);
 				result = a4 - v10;
 				memcpy(v11, v8, result);
@@ -149,7 +150,7 @@ signed int  sub_485880(_DWORD* a1, int* a2, int a3, signed int a4, char* a5) {
 
 //----- (00481470) --------------------------------------------------------
 int  sub_481470(int2* a1) {
-	unsigned __int16 v1; // dx
+	unsigned short v1; // dx
 	int v2;              // eax
 	int v3;              // esi
 	int v4;              // ebx
@@ -190,7 +191,7 @@ void  sub_484F90(int a1) {
 	int v13;              // edx
 	int v14;              // esi
 	double v15;           // st7
-	unsigned __int8* v16; // ebp
+	unsigned char* v16; // ebp
 	int v17;              // edi
 	double v18;           // st6
 	double v19;           // st5
@@ -222,11 +223,11 @@ void  sub_484F90(int a1) {
 	int v45;              // [esp+54h] [ebp+4h]
 
 	v1 = a1;
-	if (sub_45A840((_DWORD*)a1) || *(_DWORD*)(a1 + 112) & 0x80000 && (v2 = *(_DWORD*)(a1 + 120), v2 & 0x1000000) &&
-									   v2 & 4 && *(_DWORD*)(a1 + 144) > 0) {
+	if (sub_45A840((uint32_t*)a1) || *(uint32_t*)(a1 + 112) & 0x80000 && (v2 = *(uint32_t*)(a1 + 120), v2 & 0x1000000) &&
+									   v2 & 4 && *(uint32_t*)(a1 + 144) > 0) {
 		if (!nox_xxx_get_57AF20() || a1 == *getMemU32Ptr(0x852978, 8) ||
 			*(int(**)(int*, int))(a1 + 300) == nox_thing_glow_orb_draw) {
-			if (*(_DWORD*)(a1 + 120) & 0x20000000 && dword_5d4594_3801780 == 1) {
+			if (*(uint32_t*)(a1 + 120) & 0x20000000 && dword_5d4594_3801780 == 1) {
 				a5 = nox_common_randomFloatXxx_416090(0.89999998, 1.1) * *(float*)(a1 + 140);
 				v3 = (double)sub_484C60(a5);
 			} else {
@@ -239,9 +240,9 @@ void  sub_484F90(int a1) {
 					v37 = a5;
 				else
 					v37 = 31.0;
-				v4 = *(_DWORD*)(v1 + 16);
-				v5 = *(_DWORD*)(v1 + 168);
-				v6 = *(_DWORD*)(v1 + 12) - dword_5d4594_2650676;
+				v4 = *(uint32_t*)(v1 + 16);
+				v5 = *(uint32_t*)(v1 + 168);
+				v6 = *(uint32_t*)(v1 + 12) - dword_5d4594_2650676;
 				v39 = a5 * a5;
 				v7 = v4 - dword_5d4594_2650680;
 				a4 = v6;
@@ -295,7 +296,7 @@ void  sub_484F90(int a1) {
 											 1.0);
 										if (v19 > *getMemFloatPtr(0x587000, 154996)) {
 											v20 = v19 - *getMemFloatPtr(0x587000, 154996);
-											if (*(_DWORD*)(v1 + 172))
+											if (*(uint32_t*)(v1 + 172))
 												v21 = (double)*v16 - v20;
 											else
 												v21 = v20 + (double)*v16;
@@ -308,7 +309,7 @@ void  sub_484F90(int a1) {
 											v12 = a2.field_4;
 											v13 = a1a.field_0;
 											v14 -= 23;
-											*v16 = (__int64)v21;
+											*v16 = (long long)v21;
 											v45 = v14;
 										} else {
 											v14 -= 23;
@@ -333,25 +334,25 @@ void  sub_484F90(int a1) {
 				} else {
 					a1a.field_0 = (v6 << 16) / 23;
 					a1a.field_4 = (v7 << 16) / 23;
-					v22 = (int)((__int64)*(float*)&v44 << 16) / 23;
+					v22 = (int)((long long)*(float*)&v44 << 16) / 23;
 					v23 = sub_4C1C60(
-						v22, 16 * *getMemU32Ptr(0x85B3FC, 12260 + 4 * ((unsigned __int16)(*(_WORD*)(v1 + 164) + 0x4000) >> 4)));
+						v22, 16 * *getMemU32Ptr(0x85B3FC, 12260 + 4 * ((unsigned short)(*(uint16_t*)(v1 + 164) + 0x4000) >> 4)));
 					v24 = sub_4C1C60(v22,
-									 16 * *getMemU32Ptr(0x85B3FC, 12260 + 4 * (*(unsigned __int16*)(v1 + 164) >> 4)));
+									 16 * *getMemU32Ptr(0x85B3FC, 12260 + 4 * (*(unsigned short*)(v1 + 164) >> 4)));
 					a3.field_0 = a1a.field_0 + v23;
-					LOWORD(v23) = *(_WORD*)(v1 + 164) + *(_WORD*)(v1 + 166);
+					LOWORD(v23) = *(uint16_t*)(v1 + 164) + *(uint16_t*)(v1 + 166);
 					a3.field_4 = a1a.field_4 + v24;
 					v25 = sub_4C1C60(
-						v22, 16 * *getMemU32Ptr(0x85B3FC, 12260 + 4 * ((unsigned __int16)(v23 + 0x4000) >> 4)));
-					v26 = sub_4C1C60(v22, 16 * *getMemU32Ptr(0x85B3FC, 12260 + 4 * ((unsigned __int16)v23 >> 4)));
-					LOWORD(v23) = *(_WORD*)(v1 + 164) - *(_WORD*)(v1 + 166);
+						v22, 16 * *getMemU32Ptr(0x85B3FC, 12260 + 4 * ((unsigned short)(v23 + 0x4000) >> 4)));
+					v26 = sub_4C1C60(v22, 16 * *getMemU32Ptr(0x85B3FC, 12260 + 4 * ((unsigned short)v23 >> 4)));
+					LOWORD(v23) = *(uint16_t*)(v1 + 164) - *(uint16_t*)(v1 + 166);
 					a2.field_4 = a1a.field_4 + v26;
 					a2.field_0 = a1a.field_0 + v25;
 					v27 = sub_4C1C60(
-						v22, 16 * *getMemU32Ptr(0x85B3FC, 12260 + 4 * ((unsigned __int16)(v23 + 0x4000) >> 4)));
+						v22, 16 * *getMemU32Ptr(0x85B3FC, 12260 + 4 * ((unsigned short)(v23 + 0x4000) >> 4)));
 					v35.field_4 =
 						a1a.field_4 +
-						sub_4C1C60(v22, 16 * *getMemU32Ptr(0x85B3FC, 12260 + 4 * ((unsigned __int16)v23 >> 4)));
+						sub_4C1C60(v22, 16 * *getMemU32Ptr(0x85B3FC, 12260 + 4 * ((unsigned short)v23 >> 4)));
 					v35.field_0 = a1a.field_0 + v27;
 					sub_4854D0(&a1a, &a2, &a3, (int)&a4, a5);
 					sub_4854D0(&a1a, &a3, &v35, (int)&a4, a5);
@@ -364,8 +365,8 @@ void  sub_484F90(int a1) {
 #ifndef NOX_CGO
 //----- (00484E60) --------------------------------------------------------
 void  sub_484E60(int a1) {
-	_DWORD* v1;         // esi
-	unsigned __int8 v2; // al
+	uint32_t* v1;         // esi
+	unsigned char v2; // al
 	int v3;             // edx
 	int v4;             // eax
 	int v5;             // eax
@@ -375,9 +376,9 @@ void  sub_484E60(int a1) {
 	int v9;             // [esp+Ch] [ebp-14h]
 	int4 v10;           // [esp+10h] [ebp-10h]
 
-	v1 = (_DWORD*)a1;
-	dword_5d4594_2650676 = 46 * ((*(_DWORD*)(a1 + 16) + 11) / 46 - 1) - 11;
-	dword_5d4594_2650680 = 46 * ((*(_DWORD*)(a1 + 20) + 11) / 46) - 57;
+	v1 = (uint32_t*)a1;
+	dword_5d4594_2650676 = 46 * ((*(uint32_t*)(a1 + 16) + 11) / 46 - 1) - 11;
+	dword_5d4594_2650680 = 46 * ((*(uint32_t*)(a1 + 20) + 11) / 46) - 57;
 	if (nox_common_getEngineFlag(NOX_ENGINE_DISABLE_SOFT_LIGHTS)) {
 		memset(getMemAt(0x8531A0, 0), 0x1Fu, 0xA04u);
 		*getMemU8Ptr(0x8531A0, 2564) = 31;
@@ -408,7 +409,7 @@ void  sub_484E60(int a1) {
 }
 
 //----- (00485740) --------------------------------------------------------
-char*  sub_485740(_DWORD* a1) {
+char*  sub_485740(uint32_t* a1) {
 	int v1;       // ecx
 	int v2;       // esi
 	int v3;       // ebx
@@ -446,7 +447,7 @@ char*  sub_485740(_DWORD* a1) {
 }
 
 //----- (00484B70) --------------------------------------------------------
-__int16  sub_484B70(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, int a9, int a10) {
+short  sub_484B70(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, int a9, int a10) {
 	int v8; // eax
 
 	v8 = sub_47D380(a7, a8);
@@ -476,7 +477,7 @@ int sub_430D60() {
 double sub_484BD0() { return *(float*)&dword_587000_154968; }
 
 //----- (004C1C70) --------------------------------------------------------
-int __fastcall sub_4C1C70(int a1, int a2) { return ((__int64)a1 << 16) / a2; }
+int sub_4C1C70(int a1, int a2) { return ((long long)a1 << 16) / a2; }
 
 #ifdef NOX_CGO
 void sub_4695E0(int a1, int a2, int* a3, int a4, int a5);
@@ -570,7 +571,7 @@ int  sub_4697C0(int* a1, int* a2, int2* a3, signed int a4, int* a5) {
 			v12 = dword_587000_142316;
 			v22 = v10;
 			for (i = v11;; v11 = i) {
-				v13 = *(int*)((char*)v10 + (_DWORD)v11);
+				v13 = *(int*)((char*)v10 + (uint32_t)v11);
 				v14 = 23 * v13 - a3->field_0;
 				v15 = v13;
 				if (v13 < *v10) {
@@ -667,7 +668,7 @@ void  nox_xxx_cliLight16_469140(nox_drawable* dr, nox_draw_viewport_t* vp) {
 	int v6;           // eax
 	int v7;           // ebx
 	unsigned int v16; // eax
-	__int16 v17;      // cx
+	short v17;      // cx
 	int v18;          // edi
 	int v19;          // ebx
 	int v20;          // eax
@@ -689,16 +690,16 @@ void  nox_xxx_cliLight16_469140(nox_drawable* dr, nox_draw_viewport_t* vp) {
 	int v45;          // [esp+6Ch] [ebp+4h]
 
 	v1 = arg0;
-	if (!(sub_45A840(arg0) || *(_DWORD*)(arg0 + 112) & 0x80000 && (v2 = *(_DWORD*)(arg0 + 120), v2 & 0x1000000) && *(_DWORD*)(arg0 + 144) > 0 && v2 & 4)) {
+	if (!(sub_45A840(arg0) || *(uint32_t*)(arg0 + 112) & 0x80000 && (v2 = *(uint32_t*)(arg0 + 120), v2 & 0x1000000) && *(uint32_t*)(arg0 + 144) > 0 && v2 & 4)) {
 		return;
 	}
 	if (!(!nox_xxx_get_57AF20() || arg0 == *getMemU32Ptr(0x852978, 8) || *(int(**)(int*, int))(arg0 + 300) == nox_thing_glow_orb_draw)) {
 		return;
 	}
-	v3 = *(_DWORD*)(arg0 + 148);
-	v4 = *(_DWORD*)(arg0 + 144);
-	if (*(_DWORD*)(arg0 + 120) & 0x20000000) {
-		v3 += nox_common_randomIntMinMax_415FF0(0, *(_DWORD*)(arg0 + 148) >> 18, "C:\\NoxPost\\src\\Client\\Light\\Light16.c", 267) << 16;
+	v3 = *(uint32_t*)(arg0 + 148);
+	v4 = *(uint32_t*)(arg0 + 144);
+	if (*(uint32_t*)(arg0 + 120) & 0x20000000) {
+		v3 += nox_common_randomIntMinMax_415FF0(0, *(uint32_t*)(arg0 + 148) >> 18, "C:\\NoxPost\\src\\Client\\Light\\Light16.c", 267) << 16;
 		v27 = (double)v3 * 0.000015258789;
 		v4 = sub_484C60(v27);
 	}
@@ -709,10 +710,10 @@ void  nox_xxx_cliLight16_469140(nox_drawable* dr, nox_draw_viewport_t* vp) {
 	if ((unsigned int)v3 > *getMemIntPtr(0x587000, 142320)) {
 		v33 = *getMemU32Ptr(0x587000, 142320);
 	}
-	v5 = *(_DWORD*)(arg0 + 12) - dword_5d4594_2650676;
-	v7 = *(_DWORD*)(arg0 + 16) - dword_5d4594_2650680;
+	v5 = *(uint32_t*)(arg0 + 12) - dword_5d4594_2650676;
+	v7 = *(uint32_t*)(arg0 + 16) - dword_5d4594_2650680;
 	v36 = (v3 >> 16) * (v3 >> 16);
-	v6 = *(_DWORD*)(arg0 + 168);
+	v6 = *(uint32_t*)(arg0 + 168);
 	a4.field_0 = v5;
 	a4.field_4 = v7;
 	if (v6 == 0xFFFF) {
@@ -750,7 +751,7 @@ void  nox_xxx_cliLight16_469140(nox_drawable* dr, nox_draw_viewport_t* vp) {
 					v16 = sub_4C1C70(v33 + v11, 66 * dist * *getMemU32Ptr(0x587000, 142324) / v36 + 0x10000);
 					v11 = dword_587000_142328;
 					if (v16 > v11) {
-						sub_4695E0(x, y, (int*)(v1 + 152), 8 * (v16 - dword_587000_142328), *(_DWORD*)(v1 + 172));
+						sub_4695E0(x, y, (int*)(v1 + 152), 8 * (v16 - dword_587000_142328), *(uint32_t*)(v1 + 172));
 					}
 					v5 = a4.field_0;
 					v7 = a4.field_4;
@@ -759,24 +760,24 @@ void  nox_xxx_cliLight16_469140(nox_drawable* dr, nox_draw_viewport_t* vp) {
 		}
 	} else {
 		a1.field_0 = (v5 << 16) / 23;
-		v17 = *(_WORD*)(arg0 + 164);
+		v17 = *(uint16_t*)(arg0 + 164);
 		v18 = v4 << 16;
 		a1.field_4 = (v7 << 16) / 23;
 		v19 = v18 / 23;
-		v20 = sub_4C1C60(v18 / 23, 16 * *getMemU32Ptr(0x85B3FC, 12260 + 4 * ((unsigned __int16)(v17 + 0x4000) >> 4)));
+		v20 = sub_4C1C60(v18 / 23, 16 * *getMemU32Ptr(0x85B3FC, 12260 + 4 * ((unsigned short)(v17 + 0x4000) >> 4)));
 		v21 = v18 / 23;
 		v22 = v20;
-		v23 = sub_4C1C60(v21, 16 * *getMemU32Ptr(0x85B3FC, 12260 + 4 * (*(unsigned __int16*)(arg0 + 164) >> 4)));
+		v23 = sub_4C1C60(v21, 16 * *getMemU32Ptr(0x85B3FC, 12260 + 4 * (*(unsigned short*)(arg0 + 164) >> 4)));
 		a3.field_0 = a1.field_0 + v22;
-		LOWORD(v22) = *(_WORD*)(arg0 + 164) + *(_WORD*)(arg0 + 166);
+		LOWORD(v22) = *(uint16_t*)(arg0 + 164) + *(uint16_t*)(arg0 + 166);
 		a3.field_4 = a1.field_4 + v23;
-		v44 = sub_4C1C60(v19, 16 * *getMemU32Ptr(0x85B3FC, 12260 + 4 * ((unsigned __int16)(v22 + 0x4000) >> 4)));
-		v24 = sub_4C1C60(v19, 16 * *getMemU32Ptr(0x85B3FC, 12260 + 4 * ((unsigned __int16)v22 >> 4)));
-		LOWORD(v22) = *(_WORD*)(v1 + 164) - *(_WORD*)(v1 + 166);
+		v44 = sub_4C1C60(v19, 16 * *getMemU32Ptr(0x85B3FC, 12260 + 4 * ((unsigned short)(v22 + 0x4000) >> 4)));
+		v24 = sub_4C1C60(v19, 16 * *getMemU32Ptr(0x85B3FC, 12260 + 4 * ((unsigned short)v22 >> 4)));
+		LOWORD(v22) = *(uint16_t*)(v1 + 164) - *(uint16_t*)(v1 + 166);
 		a2.field_0 = a1.field_0 + v44;
 		a2.field_4 = a1.field_4 + v24;
-		v45 = sub_4C1C60(v19, 16 * *getMemU32Ptr(0x85B3FC, 12260 + 4 * ((unsigned __int16)(v22 + 0x4000) >> 4)));
-		v25 = sub_4C1C60(v19, 16 * *getMemU32Ptr(0x85B3FC, 12260 + 4 * ((unsigned __int16)v22 >> 4)));
+		v45 = sub_4C1C60(v19, 16 * *getMemU32Ptr(0x85B3FC, 12260 + 4 * ((unsigned short)(v22 + 0x4000) >> 4)));
+		v25 = sub_4C1C60(v19, 16 * *getMemU32Ptr(0x85B3FC, 12260 + 4 * ((unsigned short)v22 >> 4)));
 		v26 = (int*)(v1 + 152);
 		v42.field_0 = a1.field_0 + v45;
 		v42.field_4 = a1.field_4 + v25;
@@ -789,7 +790,7 @@ void  nox_xxx_cliLight16_469140(nox_drawable* dr, nox_draw_viewport_t* vp) {
 //----- (00468F80) --------------------------------------------------------
 void  sub_468F80(nox_draw_viewport_t* vp) {
 	int a1 = vp;
-	_DWORD* v1;           // esi
+	uint32_t* v1;           // esi
 	int v5;               // ecx
 	int v6;               // eax
 	int v7;               // edx
@@ -807,9 +808,9 @@ void  sub_468F80(nox_draw_viewport_t* vp) {
 	int v21;              // [esp+28h] [ebp-8h]
 	int v22;              // [esp+2Ch] [ebp-4h]
 
-	v1 = (_DWORD*)a1;
-	dword_5d4594_2650676 = 46 * ((*(_DWORD*)(a1 + 16) + 11) / 46 - 1) - 11;
-	dword_5d4594_2650680 = 46 * ((*(_DWORD*)(a1 + 20) + 11) / 46) - 57;
+	v1 = (uint32_t*)a1;
+	dword_5d4594_2650676 = 46 * ((*(uint32_t*)(a1 + 16) + 11) / 46 - 1) - 11;
+	dword_5d4594_2650680 = 46 * ((*(uint32_t*)(a1 + 20) + 11) / 46) - 57;
 	if (nox_common_getEngineFlag(NOX_ENGINE_DISABLE_SOFT_LIGHTS)) {
 		for (int i = 0; i < 57*4; i++) {
 			for (int j = 0; j < 45*4; j++) {
@@ -860,7 +861,7 @@ void  sub_468F80(nox_draw_viewport_t* vp) {
 #endif // NOX_CGO
 
 //----- (00430CC0) --------------------------------------------------------
-BOOL nox_xxx___cfltcvt_init_430CC0() {
+int nox_xxx___cfltcvt_init_430CC0() {
 	*getMemU32Ptr(0x973F18, 7696) = 1;
 	*getMemU32Ptr(0x973F18, 7700) = nox_xxx_someEdgeProcessing_480EF0;
 	*getMemU32Ptr(0x973F18, 7720) = sub_4814F0;
@@ -872,7 +873,7 @@ BOOL nox_xxx___cfltcvt_init_430CC0() {
 	return 0;
 #else // NOX_CGO
 	*getMemU32Ptr(0x973F18, 7704) = sub_468F80;
-	BOOL result; // eax
+	int result; // eax
 	result = nox_xxx_testMMXSupport_430D40();
 	nox_xxx_useMMX_587000_80800 = result;
 	if (result) {
@@ -906,7 +907,7 @@ int nox_video_initFloorBuffer_430BA0() {
 int  nox_xxx_unused_431040(int a1, int a2, int a3) {
 	nox_win_width = a2;
 	nox_win_height = a3;
-	*(_DWORD*)&nox_video_dxFullScreen = 0;
+	*(uint32_t*)&nox_video_dxFullScreen = 0;
 	int result = nox_xxx_unused_4800F0();
 	if (!result) {
 		return 0;

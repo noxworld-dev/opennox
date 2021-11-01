@@ -1,5 +1,6 @@
 #include "client__gui__guiquit.h"
 #include "client__gui__window.h"
+#include "common__strman.h"
 
 #include "GAME1.h"
 #include "GAME1_2.h"
@@ -18,11 +19,12 @@
 #include "client__gui__guisave.h"
 #include "client__gui__guivote.h"
 #include "client__gui__servopts__guiserv.h"
+#include "operators.h"
 
-extern _DWORD dword_5d4594_825764;
-extern _DWORD dword_5d4594_825752;
-extern _DWORD dword_5d4594_825768;
-extern _DWORD dword_5d4594_2650652;
+extern uint32_t dword_5d4594_825764;
+extern uint32_t dword_5d4594_825752;
+extern uint32_t dword_5d4594_825768;
+extern uint32_t dword_5d4594_2650652;
 extern int nox_win_width;
 extern int nox_win_height;
 extern unsigned int nox_frame_xxx_2598000;
@@ -52,7 +54,7 @@ int nox_xxx_wndLoadQuitMenu_445790() {
 }
 
 //----- (00445840) --------------------------------------------------------
-int  nox_xxx_menuGameOnButton_445840(_DWORD* a1, int a2, int* a3, int a4) {
+int  nox_xxx_menuGameOnButton_445840(uint32_t* a1, int a2, int* a3, int a4) {
 	int v3;       // esi
 	int v4;       // eax
 	int result;   // eax
@@ -68,7 +70,7 @@ int  nox_xxx_menuGameOnButton_445840(_DWORD* a1, int a2, int* a3, int a4) {
 	int v16;      // eax
 	int v17;      // eax
 	int v18;      // ecx
-	_DWORD* v19;  // eax
+	uint32_t* v19;  // eax
 	int v20;      // eax
 	int v21;      // eax
 	wchar_t* v22; // [esp-18h] [ebp-18h]
@@ -101,7 +103,7 @@ int  nox_xxx_menuGameOnButton_445840(_DWORD* a1, int a2, int* a3, int a4) {
 		}
 		break;
 	case 9002:
-		v18 = *(_DWORD*)(*getMemU32Ptr(0x852978, 8) + 120);
+		v18 = *(uint32_t*)(*getMemU32Ptr(0x852978, 8) + 120);
 		if ((v18 & 0x8000) == 0) {
 			sub_445C40();
 			if (nox_common_gameFlags_check_40A5C0(2048)) {
@@ -218,31 +220,31 @@ void* sub_445B40() {
 //----- (00445C40) --------------------------------------------------------
 void sub_445C40() {
 	int result;   // eax
-	_DWORD* v1;   // eax
-	_DWORD* v2;   // eax
-	_DWORD* v3;   // eax
-	_DWORD* v4;   // eax
-	_DWORD* v5;   // eax
-	_DWORD* v6;   // esi
-	_DWORD* v7;   // eax
-	_DWORD* v8;   // eax
-	_DWORD* v9;   // eax
-	_DWORD* v10;  // eax
-	_DWORD* v11;  // esi
-	_DWORD* v12;  // eax
-	_DWORD* v13;  // esi
-	_DWORD* v14;  // eax
-	_DWORD* v15;  // eax
-	_DWORD* v16;  // eax
-	_DWORD* v17;  // eax
-	_DWORD* v18;  // eax
-	_DWORD* v19;  // eax
+	uint32_t* v1;   // eax
+	uint32_t* v2;   // eax
+	uint32_t* v3;   // eax
+	uint32_t* v4;   // eax
+	uint32_t* v5;   // eax
+	uint32_t* v6;   // esi
+	uint32_t* v7;   // eax
+	uint32_t* v8;   // eax
+	uint32_t* v9;   // eax
+	uint32_t* v10;  // eax
+	uint32_t* v11;  // esi
+	uint32_t* v12;  // eax
+	uint32_t* v13;  // esi
+	uint32_t* v14;  // eax
+	uint32_t* v15;  // eax
+	uint32_t* v16;  // eax
+	uint32_t* v17;  // eax
+	uint32_t* v18;  // eax
+	uint32_t* v19;  // eax
 	wchar_t* v20; // [esp-4h] [ebp-8h]
 	wchar_t* v21; // [esp-4h] [ebp-8h]
 
 	if (nox_xxx_wndGetFlags_46ADA0(nox_wnd_quitMenu_825760) & 0x10) {
 		if (!*getMemU32Ptr(0x852978, 8) || !nox_common_gameFlags_check_40A5C0(2048) ||
-			(result = *(_DWORD*)(*getMemU32Ptr(0x852978, 8) + 276), result != 2) && result != 1 && result != 51) {
+			(result = *(uint32_t*)(*getMemU32Ptr(0x852978, 8) + 276), result != 2) && result != 1 && result != 51) {
 			if (sub_45D9B0() != 1) {
 				if (nox_xxx_checkGameFlagPause_413A50() != 1) {
 					nox_xxx_clientPlaySoundSpecial_452D80(921, 100);

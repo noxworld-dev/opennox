@@ -16,6 +16,7 @@ package nox
 #include "common__object__armrlook.h"
 #include "common__object__weaplook.h"
 #include "common__log.h"
+#include "common__binfile.h"
 
 extern unsigned int dword_5d4594_805860;
 extern int nox_video_dxFullScreen;
@@ -508,7 +509,7 @@ func sub_4311B0() {
 	C.sub_44D8C0()
 	C.sub_451970()
 	if C.dword_5d4594_805980 != 0 {
-		C.sub_4869C0(C.LPVOID(unsafe.Pointer(uintptr(C.dword_5d4594_805980))))
+		C.sub_4869C0(unsafe.Pointer(uintptr(C.dword_5d4594_805980)))
 	}
 	C.dword_587000_81128 = nil
 	C.sub_431270()

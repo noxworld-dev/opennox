@@ -1,11 +1,14 @@
 #include "common__magic__speltree.h"
 
+#include "common__strman.h"
 #include "GAME1.h"
 #include "GAME1_2.h"
 #include "GAME1_1.h"
 #include "client__gui__window.h"
+#include "operators.h"
+
 void* dword_587000_66120 = 0;
-extern _DWORD nox_xxx_polygonNextIdx_587000_60352;
+extern uint32_t nox_xxx_polygonNextIdx_587000_60352;
 
 const char* nox_spell_ids[NOX_SPELLS_MAX+1] = {
     "SPELL_INVALID",						// 0
@@ -151,7 +154,7 @@ const char* nox_spell_ids[NOX_SPELLS_MAX+1] = {
 nox_spell_t nox_spells_arr_588124[NOX_SPELLS_MAX+1] = {0};
 
 //----- (00424850) --------------------------------------------------------
-BOOL  nox_xxx_isArgB8EqSome_424850(void* a1) { return a1 == *(void**)&dword_587000_66120; }
+int  nox_xxx_isArgB8EqSome_424850(void* a1) { return a1 == *(void**)&dword_587000_66120; }
 
 //----- (00424820) --------------------------------------------------------
 void* nox_xxx_spellGetDefArrayPtr_424820() { return *(void**)&dword_587000_66120; }
@@ -176,9 +179,9 @@ int  nox_xxx_spellNameToN_4243F0(const char* id) {
 int  nox_xxx_spellLoadSpells_424460(nox_memfile* f, void* a2) {
 	int v3;               // ebx
 	int v4;               // eax
-	unsigned __int8 v9;   // dl
+	unsigned char v9;   // dl
 	int* v10;             // edi
-	unsigned __int8 v12;  // cl
+	unsigned char v12;  // cl
 	int** v13;            // edi
 	int* v14;             // eax
 	int v16;              // edi
@@ -187,16 +190,16 @@ int  nox_xxx_spellLoadSpells_424460(nox_memfile* f, void* a2) {
 	char v22;             // cl
 	int v24;              // ecx
 	int v27;              // edi
-	unsigned __int8 v29;  // cl
+	unsigned char v29;  // cl
 	int v30;              // edi
-	unsigned __int8 v33;  // [esp+10h] [ebp-138h]
-	unsigned __int8 v34;  // [esp+10h] [ebp-138h]
-	unsigned __int8 v35;  // [esp+10h] [ebp-138h]
-	unsigned __int8 v36;  // [esp+10h] [ebp-138h]
-	unsigned __int8 v37;  // [esp+10h] [ebp-138h]
-	unsigned __int8 v38;  // [esp+10h] [ebp-138h]
+	unsigned char v33;  // [esp+10h] [ebp-138h]
+	unsigned char v34;  // [esp+10h] [ebp-138h]
+	unsigned char v35;  // [esp+10h] [ebp-138h]
+	unsigned char v36;  // [esp+10h] [ebp-138h]
+	unsigned char v37;  // [esp+10h] [ebp-138h]
+	unsigned char v38;  // [esp+10h] [ebp-138h]
 	const char* v39;      // [esp+14h] [ebp-134h]
-	unsigned __int8 v40;  // [esp+1Ch] [ebp-12Ch]
+	unsigned char v40;  // [esp+1Ch] [ebp-12Ch]
 	int v41;              // [esp+20h] [ebp-128h]
 	int v42;              // [esp+24h] [ebp-124h]
 	char v43[256];        // [esp+28h] [ebp-120h]
@@ -205,7 +208,7 @@ int  nox_xxx_spellLoadSpells_424460(nox_memfile* f, void* a2) {
 	v33 = nox_memfile_read_u8(f);
 	nox_memfile_read(a2, 1, v33, f);
 	v3 = 0;
-	*((_BYTE*)a2 + v33) = 0;
+	*((uint8_t*)a2 + v33) = 0;
 	v4 = nox_xxx_spellNameToN_4243F0((const char*)a2);
 	v41 = v4;
 	if (!v4)
@@ -300,28 +303,28 @@ int  nox_xxx_spellLoadSpells_424460(nox_memfile* f, void* a2) {
 }
 
 //----- (00421430) --------------------------------------------------------
-LPVOID sub_421430() {
-	unsigned __int8* v0; // esi
-	LPVOID result;       // eax
+void* sub_421430() {
+	unsigned char* v0; // esi
+	void* result;       // eax
 
 	v0 = getMemAt(0x5D4594, 552476);
 	for (int i = 0; i < 255; i++) {
-		if (*((_DWORD*)v0 - 27)) {
+		if (*((uint32_t*)v0 - 27)) {
 			if (*getMemU32Ptr(0x5D4594, 588076))
-				free(*((LPVOID*)v0 - 27));
-			*((_DWORD*)v0 - 27) = 0;
+				free(*((void**)v0 - 27));
+			*((uint32_t*)v0 - 27) = 0;
 		}
-		result = *(LPVOID*)v0;
-		if (*(_DWORD*)v0) {
+		result = *(void**)v0;
+		if (*(uint32_t*)v0) {
 			if (*getMemU32Ptr(0x5D4594, 588076))
-				free(*(LPVOID*)v0);
-			*(_DWORD*)v0 = 0;
+				free(*(void**)v0);
+			*(uint32_t*)v0 = 0;
 		}
-		*((_WORD*)v0 + 10) = 0;
-		*((_DWORD*)v0 - 7) = 0;
-		*((_DWORD*)v0 + 2) = -1;
-		*((_DWORD*)v0 + 4) = -1;
-		*((_DWORD*)v0 - 6) = 0;
+		*((uint16_t*)v0 + 10) = 0;
+		*((uint32_t*)v0 - 7) = 0;
+		*((uint32_t*)v0 + 2) = -1;
+		*((uint32_t*)v0 + 4) = -1;
+		*((uint32_t*)v0 - 6) = 0;
 		v0 += 140;
 	}
 	nox_xxx_polygonNextIdx_587000_60352 = 1;

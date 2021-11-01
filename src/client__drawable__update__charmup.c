@@ -3,9 +3,10 @@
 #include "common__random.h"
 #include "GAME2.h"
 #include "GAME5_2.h"
+#include "operators.h"
 
 //----- (004CD150) --------------------------------------------------------
-void  sub_4CD150(int a1, _DWORD* a2, int a3, int a4) {
+void  sub_4CD150(int a1, uint32_t* a2, int a3, int a4) {
 	int v4;      // eax
 	int v5;      // esi
 	int v6;      // eax
@@ -14,9 +15,9 @@ void  sub_4CD150(int a1, _DWORD* a2, int a3, int a4) {
 	int v9;      // ecx
 	int v10;     // eax
 	int v11;     // eax
-	_DWORD* v12; // eax
+	uint32_t* v12; // eax
 	int v13;     // eax
-	_DWORD* v14; // ebp
+	uint32_t* v14; // ebp
 	int v15;     // eax
 	int v16;     // eax
 	int v17;     // edi
@@ -33,42 +34,42 @@ void  sub_4CD150(int a1, _DWORD* a2, int a3, int a4) {
 	v4 = nox_common_randomIntMinMax_415FF0(0, 100, "C:\\NoxPost\\src\\client\\Drawable\\Update\\charmup.c", 16);
 	if (v4 >= 50)
 		return;
-	LOBYTE(v4) = *(_BYTE*)(a3 + 432);
-	if (!(_BYTE)v4) {
+	LOBYTE(v4) = *(uint8_t*)(a3 + 432);
+	if (!(uint8_t)v4) {
 		if (a3 == -432)
 			return;
 		if (a4) {
-			v5 = *(unsigned __int16*)(a3 + 441) +
+			v5 = *(unsigned short*)(a3 + 441) +
 				 nox_common_randomIntMinMax_415FF0(-20, 20, "C:\\NoxPost\\src\\client\\Drawable\\Update\\charmup.c", 28);
 			v6 = nox_common_randomIntMinMax_415FF0(-20, 20, "C:\\NoxPost\\src\\client\\Drawable\\Update\\charmup.c", 29);
-			LOWORD(v7) = *(_WORD*)(a3 + 437);
-			v8 = *(unsigned __int16*)(a3 + 443) + v6;
-			LOWORD(v9) = *(_WORD*)(a3 + 439);
+			LOWORD(v7) = *(uint16_t*)(a3 + 437);
+			v8 = *(unsigned short*)(a3 + 443) + v6;
+			LOWORD(v9) = *(uint16_t*)(a3 + 439);
 		} else {
-			v5 = *(unsigned __int16*)(a3 + 437) +
+			v5 = *(unsigned short*)(a3 + 437) +
 				 nox_common_randomIntMinMax_415FF0(-20, 20, "C:\\NoxPost\\src\\client\\Drawable\\Update\\charmup.c", 36);
 			v10 = nox_common_randomIntMinMax_415FF0(-20, 20, "C:\\NoxPost\\src\\client\\Drawable\\Update\\charmup.c", 37);
-			LOWORD(v7) = *(_WORD*)(a3 + 441);
-			v8 = *(unsigned __int16*)(a3 + 439) + v10;
-			LOWORD(v9) = *(_WORD*)(a3 + 443);
+			LOWORD(v7) = *(uint16_t*)(a3 + 441);
+			v8 = *(unsigned short*)(a3 + 439) + v10;
+			LOWORD(v9) = *(uint16_t*)(a3 + 443);
 		}
 		goto LABEL_19;
 	}
 	if (a3 == -432)
 		return;
-	if (nox_xxx_netTestHighBit_578B70(*(_DWORD*)(a3 + 437))) {
-		v11 = nox_xxx_netClearHighBit_578B30(*(_DWORD*)(a3 + 437));
+	if (nox_xxx_netTestHighBit_578B70(*(uint32_t*)(a3 + 437))) {
+		v11 = nox_xxx_netClearHighBit_578B30(*(uint32_t*)(a3 + 437));
 		v12 = nox_xxx_netSpriteByCodeStatic_45A720(v11);
 	} else {
-		v13 = nox_xxx_netClearHighBit_578B30(*(_DWORD*)(a3 + 437));
+		v13 = nox_xxx_netClearHighBit_578B30(*(uint32_t*)(a3 + 437));
 		v12 = nox_xxx_netSpriteByCodeDynamic_45A6F0(v13);
 	}
 	v14 = v12;
-	if (nox_xxx_netTestHighBit_578B70(*(_DWORD*)(a3 + 441))) {
-		v15 = nox_xxx_netClearHighBit_578B30(*(_DWORD*)(a3 + 441));
+	if (nox_xxx_netTestHighBit_578B70(*(uint32_t*)(a3 + 441))) {
+		v15 = nox_xxx_netClearHighBit_578B30(*(uint32_t*)(a3 + 441));
 		v4 = nox_xxx_netSpriteByCodeStatic_45A720(v15);
 	} else {
-		v16 = nox_xxx_netClearHighBit_578B30(*(_DWORD*)(a3 + 441));
+		v16 = nox_xxx_netClearHighBit_578B30(*(uint32_t*)(a3 + 441));
 		v4 = nox_xxx_netSpriteByCodeDynamic_45A6F0(v16);
 	}
 	v17 = v4;
@@ -77,21 +78,21 @@ void  sub_4CD150(int a1, _DWORD* a2, int a3, int a4) {
 	if (!a4) {
 		v5 = v14[3] + nox_common_randomIntMinMax_415FF0(-20, 20, "C:\\NoxPost\\src\\client\\Drawable\\Update\\charmup.c", 80);
 		v19 = nox_common_randomIntMinMax_415FF0(-20, 20, "C:\\NoxPost\\src\\client\\Drawable\\Update\\charmup.c", 81);
-		v7 = *(_DWORD*)(v17 + 12);
+		v7 = *(uint32_t*)(v17 + 12);
 		v8 = v14[4] + v19;
-		v9 = *(_DWORD*)(v17 + 16);
+		v9 = *(uint32_t*)(v17 + 16);
 	LABEL_19:
 		LOWORD(v25) = v9;
 		goto LABEL_20;
 	}
-	v5 = *(_DWORD*)(v4 + 12) + nox_common_randomIntMinMax_415FF0(-20, 20, "C:\\NoxPost\\src\\client\\Drawable\\Update\\charmup.c", 70);
+	v5 = *(uint32_t*)(v4 + 12) + nox_common_randomIntMinMax_415FF0(-20, 20, "C:\\NoxPost\\src\\client\\Drawable\\Update\\charmup.c", 70);
 	v18 = nox_common_randomIntMinMax_415FF0(-20, 20, "C:\\NoxPost\\src\\client\\Drawable\\Update\\charmup.c", 71);
 	v7 = v14[3];
-	v8 = *(_DWORD*)(v17 + 16) + v18;
+	v8 = *(uint32_t*)(v17 + 16) + v18;
 	v25 = v14[4];
 LABEL_20:
 	v20 = v5 + *a2 - a2[4];
-	v27 = *(__int16*)(a3 + 104);
+	v27 = *(short*)(a3 + 104);
 	v26 = a2[5];
 	v21 = v8 + a2[1] - v26 - v27;
 	if (v20 < 0)
@@ -106,11 +107,11 @@ LABEL_20:
 	v22 = v4;
 	if (v4) {
 		v23 = nox_common_randomIntMinMax_415FF0(6, 12, "C:\\NoxPost\\src\\client\\Drawable\\Update\\charmup.c", 112);
-		*(_WORD*)(v22 + 432) = v7;
-		*(_WORD*)(v22 + 434) = v25;
-		*(_BYTE*)(v22 + 443) = v23;
+		*(uint16_t*)(v22 + 432) = v7;
+		*(uint16_t*)(v22 + 434) = v25;
+		*(uint8_t*)(v22 + 443) = v23;
 		LOBYTE(v4) = nox_common_randomIntMinMax_415FF0(3, 10, "C:\\NoxPost\\src\\client\\Drawable\\Update\\charmup.c", 119);
-		*(_BYTE*)(v22 + 444) = v4;
+		*(uint8_t*)(v22 + 444) = v4;
 	}
 	return;
 }

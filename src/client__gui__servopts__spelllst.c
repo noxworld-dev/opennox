@@ -1,5 +1,6 @@
 #include "client__gui__servopts__spelllst.h"
 #include "client__gui__window.h"
+#include "common__strman.h"
 
 #include "GAME1.h"
 #include "GAME1_3.h"
@@ -8,22 +9,22 @@
 #include "GAME3.h"
 #include "GAME5_2.h"
 #include "common__magic__speltree.h"
-extern _DWORD dword_5d4594_1045508;
-extern _DWORD dword_5d4594_1045480;
-extern _DWORD dword_5d4594_1045484;
-extern _DWORD dword_5d4594_2650652;
+extern uint32_t dword_5d4594_1045508;
+extern uint32_t dword_5d4594_1045480;
+extern uint32_t dword_5d4594_1045484;
+extern uint32_t dword_5d4594_2650652;
 
 //----- (00453850) --------------------------------------------------------
 int  nox_xxx_guiSpelllistLoad_453850(int a1) {
-	_DWORD* v9;        // esi
-	_DWORD* v10;       // esi
+	uint32_t* v9;        // esi
+	uint32_t* v10;       // esi
 
 	dword_5d4594_1045484 = nox_new_window_from_file("spelllst.wnd", sub_453C00);
 	nox_xxx_wndSetDrawFn_46B340(*(int*)&dword_5d4594_1045484, sub_453B80);
-	sub_46B120(*(_DWORD**)&dword_5d4594_1045484, a1);
+	sub_46B120(*(uint32_t**)&dword_5d4594_1045484, a1);
 	nox_xxx_wnd_46B280(*(int*)&dword_5d4594_1045484, a1);
-	dword_5d4594_1045480 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1045484, 1110);
-	dword_5d4594_1045508 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1045484, 1112);
+	dword_5d4594_1045480 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1045484, 1110);
+	dword_5d4594_1045508 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1045484, 1112);
 	sub_453B00();
 	nox_window_call_field_94(*(int*)&dword_5d4594_1045480, 16399, 0, 0);
 	nox_window_call_field_94(*(int*)&dword_5d4594_1045508, 16399, 0, 0);
@@ -58,16 +59,16 @@ int  nox_xxx_guiSpelllistLoad_453850(int a1) {
 		nox_wcsncpy(wbuf, title, sizeof(wbuf)/2-1);
 		nox_window_call_field_94(*(int*)&dword_5d4594_1045480, 16397, wbuf, -1);
 	}
-	v9 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1045484, 1113);
+	v9 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1045484, 1113);
 	nox_window_call_field_94(*(int*)&dword_5d4594_1045480, 16408, (int)v9, 0);
 	nox_window_call_field_94(*(int*)&dword_5d4594_1045508, 16408, (int)v9, 0);
-	v10 = nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1045484, 1114);
+	v10 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1045484, 1114);
 	nox_window_call_field_94(*(int*)&dword_5d4594_1045480, 16409, (int)v10, 0);
 	nox_window_call_field_94(*(int*)&dword_5d4594_1045508, 16409, (int)v10, 0);
 	sub_454040(getMemAt(0x5D4594, 1045488));
 	sub_454120();
 	if (!nox_common_gameFlags_check_40A5C0(1) || nox_common_gameFlags_check_40A5C0(49152))
-		sub_46AD20(*(_DWORD**)&dword_5d4594_1045484, 1115, 1133, 0);
+		sub_46AD20(*(uint32_t**)&dword_5d4594_1045484, 1115, 1133, 0);
 	return dword_5d4594_1045484;
 }
 
@@ -75,7 +76,7 @@ int  nox_xxx_guiSpelllistLoad_453850(int a1) {
 int  sub_453C00(int a1, int a2, int* a3, int a4) {
 	int* v3;      // edi
 	int v4;       // ebx
-	__int16* v5;  // edi
+	short* v5;  // edi
 	int v6;       // ebp
 	int v7;       // ebx
 	int v8;       // esi
@@ -94,8 +95,8 @@ int  sub_453C00(int a1, int a2, int* a3, int a4) {
 	int v21;      // [esp+58h] [ebp+Ch]
 
 	if (a2 == 0x4000) {
-		if (a3 == nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1045484, 1113) ||
-			a3 == nox_xxx_wndGetChildByID_46B0C0(*(_DWORD**)&dword_5d4594_1045484, 1114)) {
+		if (a3 == nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1045484, 1113) ||
+			a3 == nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1045484, 1114)) {
 			nox_window_call_field_94(*(int*)&dword_5d4594_1045480, 0x4000, (int)a3, 0);
 			nox_window_call_field_94(*(int*)&dword_5d4594_1045508, 0x4000, (int)a3, 0);
 		LABEL_37:
@@ -116,14 +117,14 @@ int  sub_453C00(int a1, int a2, int* a3, int a4) {
 		goto LABEL_37;
 	case 1115:
 	case 1116:
-		v5 = *(__int16**)(dword_5d4594_1045480 + 32);
+		v5 = *(short**)(dword_5d4594_1045480 + 32);
 		v6 = 0;
 		v20 = sub_4165B0();
 		if (*v5 > 0) {
 			v7 = 0;
 			do {
-				if (*((_DWORD*)v5 + 6) + v7 != -4) {
-					v8 = nox_xxx_spellByTitle_424960((wchar_t*)(*((_DWORD*)v5 + 6) + v7 + 4));
+				if (*((uint32_t*)v5 + 6) + v7 != -4) {
+					v8 = nox_xxx_spellByTitle_424960((wchar_t*)(*((uint32_t*)v5 + 6) + v7 + 4));
 					if (v8) {
 						if (v21 == 1115) {
 							if (!nox_common_gameFlags_check_40A5C0(64) && !(v20[52] & 0x40) || v8 != 132)
@@ -158,8 +159,8 @@ int  sub_453C00(int a1, int a2, int* a3, int a4) {
 	case 1131:
 	case 1132:
 	case 1133:
-		v11 = *(_DWORD*)(dword_5d4594_1045480 + 32);
-		v12 = (wchar_t*)(*(_DWORD*)(v11 + 24) + 524 * (sub_4A4800(*(_DWORD*)(dword_5d4594_1045480 + 32)) + v4 - 1120) +
+		v11 = *(uint32_t*)(dword_5d4594_1045480 + 32);
+		v12 = (wchar_t*)(*(uint32_t*)(v11 + 24) + 524 * (sub_4A4800(*(uint32_t*)(dword_5d4594_1045480 + 32)) + v4 - 1120) +
 						 4);
 		if (!v12)
 			goto LABEL_19;

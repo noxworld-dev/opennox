@@ -5,8 +5,8 @@
 
 wchar_t* nox_xxx_guiServerOptionsGetGametypeName_4573C0(short mode);
 int nox_xxx_guiServerOptsLoad_457500();
-int  nox_xxx_options_457AA0(int a1, _BYTE* a2);
-int  nox_xxx_options_457B00(int a1, _BYTE* a2);
+int  nox_xxx_options_457AA0(int a1, uint8_t* a2);
+int  nox_xxx_options_457B00(int a1, uint8_t* a2);
 int sub_457FE0();
 int  sub_4580E0(int a1);
 void nox_client_guiserv_updateMapList_458230(int a1, char* name, bool a3);

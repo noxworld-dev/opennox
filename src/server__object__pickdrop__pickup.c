@@ -2,6 +2,7 @@
 #include "GAME3_2.h"
 #include "GAME3_3.h"
 #include "GAME4.h"
+#include "common__strman.h"
 
 // TODO: convert table_272352
 
@@ -13,7 +14,7 @@ int  nox_xxx_pickupGold_4F3A60_obj_pickup(int a1, int a2, int a3) {
 	int v6;      // edi
 	int v7;      // [esp-8h] [ebp-10h]
 
-	if (*(_BYTE*)(a1 + 8) & 4) {
+	if (*(uint8_t*)(a1 + 8) & 4) {
 		v3 = *(int**)(a2 + 692);
 		nox_xxx_playerAddGold_4FA590(a1, *v3);
 		nox_xxx_delayedDeleteObject_4E5CC0(a2);

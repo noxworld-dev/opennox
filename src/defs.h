@@ -1,19 +1,14 @@
 #ifndef NOX_DEFS_H
 #define NOX_DEFS_H
 
-#define DIRECTINPUT_VERSION 0x0700
-#include "wintypes.h"
 #include "memfile.h"
 #include "nox_net.h"
 #include <ctype.h>
-#include <errno.h>
-#include <math.h>
-#include <stdarg.h>
-#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <sys/stat.h>
 #include <wctype.h>
+#include <stdbool.h>
+#include <stdint.h>
 
 #define NO_MOVIE 1
 #define NO_WOLAPI 1
@@ -43,21 +38,7 @@
 
 #include "static_assert.h"
 #include "nox_wchar.h"
-
-#ifdef _WIN32
-// added for TDM-GCC/MinGW headers compatibility
-#ifdef _TDM
-typedef long LSTATUS;
-#endif // _TDM
-
-//#include <mmreg.h>
-#endif // _WIN32
-
-#include "compat_mss.h"
-#include "common__binfile.h"
-#include "common__strman.h"
 #include "noxstring.h"
-#include <stdbool.h>
 
 #include "common/alloc/classes/alloc_class.h"
 #include "client__gui__window.h"
@@ -92,45 +73,6 @@ enum {
 
 // For now bools are kept 1-byte long
 //_Static_assert(sizeof(bool) == 4, "boolean values must be aligned to 32-bit int");
-
-#ifdef __thiscall
-#undef __thiscall
-#endif
-#define __thiscall  // Test compile in C mode
-
-typedef unsigned char uint8_t;
-typedef unsigned short uint16_t;
-typedef unsigned int uint32_t;
-typedef unsigned __int64 _QWORD;
-
-#undef LOBYTE
-#undef HIBYTE
-#define LOBYTE(x) (((uint8_t*)(&x))[0])
-#define SLOBYTE(x) (((signed char*)(&x))[0])
-#define BYTE1(x) (((uint8_t*)(&x))[1])
-#define SBYTE1(x) (((signed char*)(&x))[1])
-#define BYTE2(x) (((uint8_t*)(&x))[2])
-#define HIBYTE(x) (((uint8_t*)(&x))[sizeof(x) - 1])
-#define BYTE4(x) (((uint8_t*)(&x))[4])
-
-#undef LOWORD
-#undef HIWORD
-#define LOWORD(x) (((uint16_t*)(&x))[0])
-#define SLOWORD(x) (((short*)(&x))[0])
-#define HIWORD(x) (((uint16_t*)(&x))[1])
-#define SHIWORD(x) (((short*)(&x))[1])
-#define WORD2(x) (((uint16_t*)(&x))[2])
-#define SWORD2(x) (((short*)(&x))[2])
-
-#undef LODWORD
-#undef HIDWORD
-#define LODWORD(x) (((uint32_t*)(&x))[0])
-#define SLODWORD(x) (((int*)(&x))[0])
-#define HIDWORD(x) (((uint32_t*)(&x))[1])
-#define SHIDWORD(x) (((int*)(&x))[1])
-
-#define __PAIR64__(x, y) ((((_QWORD)(x)) << 32) | ((uint32_t)(y)))
-#define __SPAIR64__(x, y) ((__int64)((((_QWORD)(x)) << 32) | ((uint32_t)(y))))
 
 void nox_exit(int exitCode);
 void nox_on_exit(void (*fnc)(void));
@@ -172,11 +114,11 @@ static void memset32(uint32_t* x, uint32_t y, size_t z) {
 #define __ROL4__ _rotl
 
 #if !defined(__clang__) && !defined(_MSC_VER)
-static _QWORD __rdtsc() {
+static uint64_t __rdtsc() {
 #ifdef __GNUC__
 	unsigned int low, high;
 	asm("rdtsc" : "=a"(low), "=d"(high));
-	return ((_QWORD)high << 32) | low;
+	return ((uint64_t)high << 32) | low;
 #else
 	_asm rdtsc;
 #endif
@@ -1202,7 +1144,7 @@ _Static_assert(sizeof(nox_keyboard_btn_t) == 8, "wrong size of nox_keyboard_btn_
 
 #define NOX_CTRLEVENT_XXX_MAX 128
 typedef struct nox_ctrlevent_xxx_t {
-	__int64 tick; // 0
+	long long tick; // 0
 	nox_ctrlevent_code code; // 8
 	uint32_t  data; // 12
 	int     active; // 16

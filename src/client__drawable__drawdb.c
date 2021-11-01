@@ -1,3 +1,5 @@
+#include <stdio.h>
+
 #include "client__drawable__drawdb.h"
 #include "client__drawable__drawable.h"
 #include "client__draw__debugdraw.h"
@@ -14,23 +16,25 @@
 #include "GAME4_3.h"
 #include "client__gui__window.h"
 #include "client__video__draw_common.h"
+#include "common__strman.h"
 #include "thing.h"
+#include "operators.h"
 
 extern int nox_things_count;
 extern nox_thing* nox_things_head;
 extern nox_thing** nox_things_array;
 extern nox_memfile* nox_loaded_thing_bin;
 
-extern _QWORD qword_581450_9544;
-extern _QWORD qword_581450_9552;
-extern _DWORD dword_5d4594_251568;
-extern _DWORD dword_5d4594_251572;
-extern _DWORD dword_5d4594_251600;
-extern _DWORD dword_5d4594_251608;
-extern _DWORD dword_5d4594_741676;
-extern _DWORD dword_5d4594_741680;
+extern uint64_t qword_581450_9544;
+extern uint64_t qword_581450_9552;
+extern uint32_t dword_5d4594_251568;
+extern uint32_t dword_5d4594_251572;
+extern uint32_t dword_5d4594_251600;
+extern uint32_t dword_5d4594_251608;
+extern uint32_t dword_5d4594_741676;
+extern uint32_t dword_5d4594_741680;
 nox_objectType_t* nox_xxx_objectTypes_head_1563660 = 0;
-extern _DWORD dword_5d4594_1563664;
+extern uint32_t dword_5d4594_1563664;
 
 bool  nox_parse_thing_flags(nox_thing* obj, nox_memfile* f, const char* attr_value);
 bool  nox_parse_thing_class(nox_thing* obj, nox_memfile* f, const char* attr_value);
@@ -130,7 +134,7 @@ bool  nox_parse_thing_draw(nox_thing* obj, nox_memfile* f, char* attr_value) {
 	uint32_t tmp;
 	nox_memfile_read64align_40AD60((char*)&tmp, sizeof(tmp), 1, f);
 
-	if (!*(_DWORD*)nox_parse_thing_draw_funcs) {
+	if (!*(uint32_t*)nox_parse_thing_draw_funcs) {
 		return 1;
 	}
 
@@ -218,7 +222,7 @@ bool  nox_parse_thing_light_dir(nox_thing* obj, nox_memfile* f, char* attr_value
 		return 0;
 	if (deg < 0 || deg >= 360)
 		return 0;
-	obj->light_dir = (__int64)((double)deg * *getMemDoublePtr(0x581450, 9560) * *(double*)&qword_581450_9552 +
+	obj->light_dir = (long long)((double)deg * *getMemDoublePtr(0x581450, 9560) * *(double*)&qword_581450_9552 +
 							   *(double*)&qword_581450_9544);
 	obj->field_10 = 0;
 	return 1;
@@ -231,7 +235,7 @@ bool  nox_parse_thing_light_penumbra(nox_thing* obj, nox_memfile* f, char* attr_
 		return 0;
 	if (deg < 0 || deg >= 180)
 		return 0;
-	obj->light_penumbra = (__int64)((double)deg * *getMemDoublePtr(0x581450, 9560) * *(double*)&qword_581450_9552 +
+	obj->light_penumbra = (long long)((double)deg * *getMemDoublePtr(0x581450, 9560) * *(double*)&qword_581450_9552 +
 									*(double*)&qword_581450_9544);
 	return 1;
 }
@@ -249,7 +253,7 @@ bool  nox_parse_thing_client_update(nox_thing* obj, nox_memfile* f, char* attr_v
 	char* v3;            // eax
 	const char* v4;      // ecx
 	int v5;              // ebp
-	unsigned __int8* v6; // edi
+	unsigned char* v6; // edi
 
 	v3 = strtok(attr_value, " \t\n\r");
 	v4 = *(const char**)getMemAt(0x587000, 175072);
@@ -259,7 +263,7 @@ bool  nox_parse_thing_client_update(nox_thing* obj, nox_memfile* f, char* attr_v
 		do {
 			if (!strcmp(v4, v3))
 				break;
-			v4 = (const char*)*((_DWORD*)v6 + 2);
+			v4 = (const char*)*((uint32_t*)v6 + 2);
 			v6 += 8;
 			++v5;
 		} while (v4);
@@ -282,7 +286,7 @@ bool  nox_parse_thing_lifetime(nox_thing* obj, nox_memfile* f, char* attr_value)
 bool  nox_parse_thing_weight(nox_thing* obj, nox_memfile* f, char* attr_value) {
 	int v = 0;
 	sscanf(attr_value, "%d", &v);
-	obj->weight = (_BYTE)v;
+	obj->weight = (uint8_t)v;
 	obj->pri_class |= 0x80000000;
 	return 1;
 }
@@ -325,7 +329,7 @@ bool  nox_parse_thing_health(nox_thing* obj, nox_memfile* f, char* attr_value) {
 
 //----- (0044CE00) --------------------------------------------------------
 int  nox_parse_thing(nox_memfile* thing_file, char* scratch_buffer, nox_thing* thing) {
-	unsigned __int8 entry_len;
+	unsigned char entry_len;
 	while ((entry_len = nox_memfile_read_u8(thing_file))) {
 		nox_memfile_read(scratch_buffer, 1u, entry_len, thing_file);
 		scratch_buffer[entry_len] = 0;
@@ -362,12 +366,12 @@ int nox_xxx_spriteDefByAlphabetClear_44CCA0() {
 //----- (00485CF0) --------------------------------------------------------
 int sub_485CF0() {
 	int v0;     // edi
-	LPVOID* v1; // esi
+	void** v1; // esi
 
 	v0 = 0;
 	if (*(int*)&dword_5d4594_251568 <= 0)
 		return 1;
-	v1 = (LPVOID*)getMemAt(0x85B3FC, 32516);
+	v1 = (void**)getMemAt(0x85B3FC, 32516);
 	do {
 		if (*v1) {
 			free(*v1);
@@ -382,12 +386,12 @@ int sub_485CF0() {
 //----- (00485F30) --------------------------------------------------------
 int sub_485F30() {
 	int v0;     // edi
-	LPVOID* v1; // esi
+	void** v1; // esi
 
 	v0 = 0;
 	if (*(int*)&dword_5d4594_251572 <= 0)
 		return 1;
-	v1 = (LPVOID*)getMemAt(0x85B3FC, 28676);
+	v1 = (void**)getMemAt(0x85B3FC, 28676);
 	do {
 		if (*v1) {
 			free(*v1);
@@ -404,7 +408,7 @@ int sub_46A360() {
 	int i;               // ebx
 	int v1;              // edx
 	int v2;              // esi
-	unsigned __int8* v3; // edi
+	unsigned char* v3; // edi
 
 	for (i = 0; i < 986560; i += 12332) {
 		v1 = 0;
@@ -453,8 +457,8 @@ void  nox_xxx_spriteDefByAlphabetAdd_0_44CD60(nox_thing* a1, int a2) {
 		return;
 
 	int v4 = *getMemU32Ptr(0x5D4594, 830724 + 4 * v2);
-	*(_DWORD*)(v3 + 8 * v4) = a1;
-	*(_DWORD*)(v3 + 8 * v4 + 4) = a2;
+	*(uint32_t*)(v3 + 8 * v4) = a1;
+	*(uint32_t*)(v3 + 8 * v4 + 4) = a2;
 	++*getMemU32Ptr(0x5D4594, 830724 + 4 * v2);
 }
 
@@ -474,34 +478,34 @@ void nox_xxx_spriteDefByAlphabetSort_44CDB0() {
 }
 
 //----- (004131A0) --------------------------------------------------------
-CHAR* nox_xxx_equipWeapon_4131A0() {
-	CHAR* result; // eax
+char* nox_xxx_equipWeapon_4131A0() {
+	char* result; // eax
 	int i;        // esi
 	int j;        // esi
 
-	result = *(CHAR**)getMemAt(0x5D4594, 251616);
+	result = *(char**)getMemAt(0x5D4594, 251616);
 	if (*getMemU32Ptr(0x5D4594, 251616) != 1) {
-		for (i = dword_5d4594_251600; i; i = *(_DWORD*)(i + 80)) {
+		for (i = dword_5d4594_251600; i; i = *(uint32_t*)(i + 80)) {
 			if (nox_common_gameFlags_check_40A5C0(2097153)) {
-				result = (CHAR*)nox_xxx_getNameId_4E3AA0(*(CHAR**)i);
+				result = (char*)nox_xxx_getNameId_4E3AA0(*(char**)i);
 			} else {
-				result = (CHAR*)nox_common_gameFlags_check_40A5C0(2);
+				result = (char*)nox_common_gameFlags_check_40A5C0(2);
 				if (!result)
 					return result;
-				result = (CHAR*)nox_xxx_getTTByNameSpriteMB_44CFC0(*(CHAR**)i);
+				result = (char*)nox_xxx_getTTByNameSpriteMB_44CFC0(*(char**)i);
 			}
-			*(_DWORD*)(i + 4) = result;
+			*(uint32_t*)(i + 4) = result;
 		}
-		for (j = dword_5d4594_251608; j; j = *(_DWORD*)(j + 80)) {
+		for (j = dword_5d4594_251608; j; j = *(uint32_t*)(j + 80)) {
 			if (nox_common_gameFlags_check_40A5C0(2097153)) {
-				result = (CHAR*)nox_xxx_getNameId_4E3AA0(*(CHAR**)j);
+				result = (char*)nox_xxx_getNameId_4E3AA0(*(char**)j);
 			} else {
-				result = (CHAR*)nox_common_gameFlags_check_40A5C0(2);
+				result = (char*)nox_common_gameFlags_check_40A5C0(2);
 				if (!result)
 					return result;
-				result = (CHAR*)nox_xxx_getTTByNameSpriteMB_44CFC0(*(CHAR**)j);
+				result = (char*)nox_xxx_getTTByNameSpriteMB_44CFC0(*(char**)j);
 			}
-			*(_DWORD*)(j + 4) = result;
+			*(uint32_t*)(j + 4) = result;
 		}
 		*getMemU32Ptr(0x5D4594, 251616) = 1;
 	}
@@ -510,7 +514,7 @@ CHAR* nox_xxx_equipWeapon_4131A0() {
 
 //----- (00415AB0) --------------------------------------------------------
 void nox_xxx_equipArmor_415AB0() {
-	unsigned __int8* v0; // esi
+	unsigned char* v0; // esi
 	int v1;              // eax
 	int v2;              // eax
 
@@ -519,14 +523,14 @@ void nox_xxx_equipArmor_415AB0() {
 			v0 = getMemAt(0x587000, 34864);
 			do {
 				if (nox_common_gameFlags_check_40A5C0(2097153)) {
-					*((_DWORD*)v0 - 2) = nox_xxx_getNameId_4E3AA0(*((CHAR**)v0 - 4));
-					v1 = nox_xxx_getNameId_4E3AA0(*(CHAR**)v0);
+					*((uint32_t*)v0 - 2) = nox_xxx_getNameId_4E3AA0(*((char**)v0 - 4));
+					v1 = nox_xxx_getNameId_4E3AA0(*(char**)v0);
 				} else {
-					*((_DWORD*)v0 - 2) = nox_xxx_getTTByNameSpriteMB_44CFC0(*((CHAR**)v0 - 4));
-					v1 = nox_xxx_getTTByNameSpriteMB_44CFC0(*(CHAR**)v0);
+					*((uint32_t*)v0 - 2) = nox_xxx_getTTByNameSpriteMB_44CFC0(*((char**)v0 - 4));
+					v1 = nox_xxx_getTTByNameSpriteMB_44CFC0(*(char**)v0);
 				}
-				*((_DWORD*)v0 + 1) = v1;
-				v2 = *((_DWORD*)v0 + 2);
+				*((uint32_t*)v0 + 1) = v1;
+				v2 = *((uint32_t*)v0 + 2);
 				v0 += 24;
 			} while (v2);
 		}
@@ -536,7 +540,7 @@ void nox_xxx_equipArmor_415AB0() {
 
 //----- (004157C0) --------------------------------------------------------
 void nox_xxx_equipWeapon_4157C0() {
-	unsigned __int8* v0; // esi
+	unsigned char* v0; // esi
 	int v1;              // eax
 	int v2;              // eax
 
@@ -545,11 +549,11 @@ void nox_xxx_equipWeapon_4157C0() {
 			v0 = getMemAt(0x587000, 33064);
 			do {
 				if (nox_common_gameFlags_check_40A5C0(2097153))
-					v1 = nox_xxx_getNameId_4E3AA0(*(CHAR**)v0);
+					v1 = nox_xxx_getNameId_4E3AA0(*(char**)v0);
 				else
-					v1 = nox_xxx_getTTByNameSpriteMB_44CFC0(*(CHAR**)v0);
-				*((_DWORD*)v0 + 1) = v1;
-				v2 = *((_DWORD*)v0 + 3);
+					v1 = nox_xxx_getTTByNameSpriteMB_44CFC0(*(char**)v0);
+				*((uint32_t*)v0 + 1) = v1;
+				v2 = *((uint32_t*)v0 + 3);
 				v0 += 12;
 			} while (v2);
 		}
@@ -637,14 +641,14 @@ void*  nox_xxx_parseThingBinClient_44C840_read_things(void) {
 			if (!obj) {
 				return 0;
 			}
-			unsigned __int8 v28 = nox_memfile_read_u8(things);
+			unsigned char v28 = nox_memfile_read_u8(things);
 			nox_memfile_read(scratch_buffer, 1, v28, things);
 			scratch_buffer[v28] = 0;
 			obj->name = nox_clone_str(scratch_buffer);
 			obj->menuicon = -1;
 			obj->field_1c = nox_things_count++;
 			obj->flags |= 0x1000000;
-			*((_BYTE*)obj + 15) = 0;
+			*((uint8_t*)obj + 15) = 0;
 			obj->field_10 = 0xFFFF;
 			obj->audio_loop = 0;
 			obj->draw_func = nox_thing_debug_draw;
@@ -675,26 +679,26 @@ void*  nox_xxx_parseThingBinClient_44C840_read_things(void) {
 		for (int i = 1; i < nox_things_count; i++) {
 			nox_things_array[nox_things_count - i] = cur;
 			nox_xxx_spriteDefByAlphabetAdd_0_44CD60(cur, nox_things_count - i);
-			if (*((_BYTE*)cur + 0xe)) {
+			if (*((uint8_t*)cur + 0xe)) {
 				// The large amount of logic in the following two branches is due to copying strings as WORDs.
 				// If not loaded, set cur->pretty_name = load_string "thing.db:${cur->name}PrettyName"
 				if (!cur->pretty_name) {
 					strcpy((char*)getMemAt(0x5D4594, 830404), "thing.db:");
-					CHAR* cur_name = cur->name;
+					char* cur_name = cur->name;
 					unsigned int cur_name_len_plus_one = strlen(cur->name) + 1;
-					unsigned __int8* v11 = getMemAt(0x5D4594, 830404 + strlen((const char*)getMemAt(0x5D4594, 830404)));
+					unsigned char* v11 = getMemAt(0x5D4594, 830404 + strlen((const char*)getMemAt(0x5D4594, 830404)));
 					memcpy(v11, cur->name, 4 * (cur_name_len_plus_one >> 2));
-					CHAR* v13 = &cur_name[4 * (cur_name_len_plus_one >> 2)];
-					unsigned __int8* v12 = &v11[4 * (cur_name_len_plus_one >> 2)];
+					char* v13 = &cur_name[4 * (cur_name_len_plus_one >> 2)];
+					unsigned char* v12 = &v11[4 * (cur_name_len_plus_one >> 2)];
 					char v14 = cur_name_len_plus_one;
 					LOWORD(cur_name_len_plus_one) = *getMemU16Ptr(0x587000, 122728);
 					memcpy(v12, v13, v14 & 3);
-					unsigned __int8* v15 = getMemAt(0x5D4594, 830405 + strlen((const char*)getMemAt(0x5D4594, 830404)));
+					unsigned char* v15 = getMemAt(0x5D4594, 830405 + strlen((const char*)getMemAt(0x5D4594, 830404)));
 					int v16 = *getMemU32Ptr(0x587000, 122724);
-					*(_DWORD*)--v15 = *getMemU32Ptr(0x587000, 122720);
-					unsigned __int8 v17 = getMemByte(0x587000, 122730);
-					*((_DWORD*)v15 + 1) = v16;
-					*((_WORD*)v15 + 4) = cur_name_len_plus_one;
+					*(uint32_t*)--v15 = *getMemU32Ptr(0x587000, 122720);
+					unsigned char v17 = getMemByte(0x587000, 122730);
+					*((uint32_t*)v15 + 1) = v16;
+					*((uint16_t*)v15 + 4) = cur_name_len_plus_one;
 					v15[10] = v17;
 					cur->pretty_name = nox_strman_loadString_40F1D0((char*)getMemAt(0x5D4594, 830404), 0,
 															 "C:\\NoxPost\\src\\Client\\Drawable\\drawdb.c", 1926);
@@ -702,20 +706,20 @@ void*  nox_xxx_parseThingBinClient_44C840_read_things(void) {
 				// if not loaded, set cur->desc = load_string "thing.db:${cur->name}Description"
 				if (!cur->desc) {
 					strcpy((char*)getMemAt(0x5D4594, 830404), "thing.db:");
-					CHAR* v18 = cur->name;
+					char* v18 = cur->name;
 					unsigned int v19 = strlen(cur->name) + 1;
-					unsigned __int8* v20 = getMemAt(0x5D4594, 830404 + strlen((const char*)getMemAt(0x5D4594, 830404)));
+					unsigned char* v20 = getMemAt(0x5D4594, 830404 + strlen((const char*)getMemAt(0x5D4594, 830404)));
 					memcpy(v20, cur->name, 4 * (v19 >> 2));
-					CHAR* v22 = &v18[4 * (v19 >> 2)];
-					unsigned __int8* v21 = &v20[4 * (v19 >> 2)];
+					char* v22 = &v18[4 * (v19 >> 2)];
+					unsigned char* v21 = &v20[4 * (v19 >> 2)];
 					char v23 = v19;
 					int v24 = *getMemU32Ptr(0x587000, 122792);
 					memcpy(v21, v22, v23 & 3);
-					unsigned __int8* v25 = getMemAt(0x5D4594, 830405 + strlen((const char*)getMemAt(0x5D4594, 830404)));
+					unsigned char* v25 = getMemAt(0x5D4594, 830405 + strlen((const char*)getMemAt(0x5D4594, 830404)));
 					int v26 = *getMemU32Ptr(0x587000, 122788);
-					*(_DWORD*)--v25 = *getMemU32Ptr(0x587000, 122784);
-					*((_DWORD*)v25 + 1) = v26;
-					*((_DWORD*)v25 + 2) = v24;
+					*(uint32_t*)--v25 = *getMemU32Ptr(0x587000, 122784);
+					*((uint32_t*)v25 + 1) = v26;
+					*((uint32_t*)v25 + 2) = v24;
 					cur->desc = nox_strman_loadString_40F1D0((char*)getMemAt(0x5D4594, 830404), 0,
 													  "C:\\NoxPost\\src\\Client\\Drawable\\drawdb.c", 1933);
 				}
@@ -734,9 +738,9 @@ void*  nox_xxx_parseThingBinClient_44C840_read_things(void) {
 
 //----- (0044C620) --------------------------------------------------------
 void sub_44C620_free() {
-	LPVOID* v0; // esi
+	void** v0; // esi
 
-	v0 = (LPVOID*)getMemAt(0x5D4594, 830296);
+	v0 = (void**)getMemAt(0x5D4594, 830296);
 	do {
 		if (*v0)
 			free(*v0);
@@ -747,10 +751,10 @@ void sub_44C620_free() {
 
 //----- (004E2B30) --------------------------------------------------------
 void nox_xxx_unitDefByAlphabetFree_4E2B30() {
-	LPVOID* v0;    // esi
-	LPVOID result; // eax
+	void** v0;    // esi
+	void* result; // eax
 
-	v0 = (LPVOID*)getMemAt(0x5D4594, 1563348);
+	v0 = (void**)getMemAt(0x5D4594, 1563348);
 	do {
 		result = *v0;
 		if (*v0)
@@ -763,7 +767,7 @@ void nox_xxx_unitDefByAlphabetFree_4E2B30() {
 //----- (0042BF80) --------------------------------------------------------
 void nox_xxx_free_42BF80() {
 	if (dword_5d4594_741676) {
-		free(*(LPVOID*)&dword_5d4594_741676);
+		free(*(void**)&dword_5d4594_741676);
 		dword_5d4594_741676 = 0;
 	}
 	dword_5d4594_741680 = 0;
@@ -787,7 +791,7 @@ int nox_xxx_freeObjectTypes_4E2A20() {
 		void* v2 = typ->field_48;
 		if (v2) {
 			if (typ->obj_class & 0x2) {
-				void* v3 = *(void**)((_DWORD)v2 + 476);
+				void* v3 = *(void**)((uint32_t)v2 + 476);
 				if (v3)
 					free(v3);
 			}
@@ -799,7 +803,7 @@ int nox_xxx_freeObjectTypes_4E2A20() {
 	}
 	nox_xxx_objectTypes_head_1563660 = 0;
 	if (*getMemU32Ptr(0x5D4594, 1563456)) {
-		free(*(LPVOID*)getMemAt(0x5D4594, 1563456));
+		free(*(void**)getMemAt(0x5D4594, 1563456));
 		*getMemU32Ptr(0x5D4594, 1563456) = 0;
 	}
 	*getMemU32Ptr(0x587000, 201384) = 1;
@@ -820,14 +824,14 @@ int sub_4E3010() {
 }
 
 //----- (004E3080) --------------------------------------------------------
-CHAR*  nox_xxx_unitDefByAlphabetAdd_4E3080(CHAR* a1) {
-	CHAR* result; // eax
+char*  nox_xxx_unitDefByAlphabetAdd_4E3080(char* a1) {
+	char* result; // eax
 
 	result = a1;
 	if (a1) {
-		result = (CHAR*)nox_xxx_keyFirstLetterNumber_4E30A0(a1);
+		result = (char*)nox_xxx_keyFirstLetterNumber_4E30A0(a1);
 		if ((int)result >= 0)
-			++*getMemU32Ptr(0x5D4594, 1563668 + 4 * (_DWORD)result);
+			++*getMemU32Ptr(0x5D4594, 1563668 + 4 * (uint32_t)result);
 	}
 	return result;
 }
@@ -873,10 +877,10 @@ void  nox_xxx_objectTypeAddToNameInd_4E30D0(int a1) {
 	int v2; // ecx
 
 	if (a1) {
-		v1 = nox_xxx_keyFirstLetterNumber_4E30A0(*(CHAR**)(a1 + 4));
+		v1 = nox_xxx_keyFirstLetterNumber_4E30A0(*(char**)(a1 + 4));
 		v2 = *getMemU32Ptr(0x5D4594, 1563348 + 4 * v1);
 		if (v2) {
-			*(_DWORD*)(v2 + 4 * *getMemU32Ptr(0x5D4594, 1563776 + 4 * v1)) = a1;
+			*(uint32_t*)(v2 + 4 * *getMemU32Ptr(0x5D4594, 1563776 + 4 * v1)) = a1;
 			++*getMemU32Ptr(0x5D4594, 1563776 + 4 * v1);
 		}
 	}
@@ -884,7 +888,7 @@ void  nox_xxx_objectTypeAddToNameInd_4E30D0(int a1) {
 
 //----- (004E2A00) --------------------------------------------------------
 int  sub_4E2A00(const void* a1, const void* a2) {
-	return _strcmpi(*(const char**)(*(_DWORD*)a1 + 4), *(const char**)(*(_DWORD*)a2 + 4));
+	return _strcmpi(*(const char**)(*(uint32_t*)a1 + 4), *(const char**)(*(uint32_t*)a2 + 4));
 }
 //----- (004E29D0) --------------------------------------------------------
 void sub_4E29D0() {
@@ -901,20 +905,20 @@ void sub_4E29D0() {
 //----- (004F0640) --------------------------------------------------------
 const char* sub_4F0640() {
 	char* v0;             // eax
-	unsigned __int8* v1;  // esi
+	unsigned char* v1;  // esi
 	char v2;              // cl
-	CHAR* v3;             // eax
+	char* v3;             // eax
 	const char* v4;       // eax
-	unsigned __int8* v5;  // esi
+	unsigned char* v5;  // esi
 	int v6;               // eax
 	const char* v7;       // eax
-	unsigned __int8* v8;  // esi
+	unsigned char* v8;  // esi
 	int v9;               // eax
 	const char* v10;      // eax
-	unsigned __int8* v11; // esi
+	unsigned char* v11; // esi
 	int v12;              // eax
 	const char* result;   // eax
-	unsigned __int8* v14; // esi
+	unsigned char* v14; // esi
 	int v15;              // eax
 
 	v0 = *(char**)getMemAt(0x587000, 208180);
@@ -922,11 +926,11 @@ const char* sub_4F0640() {
 		v1 = getMemAt(0x587000, 208180);
 		do {
 			v2 = *v0;
-			v3 = *(CHAR**)v1;
+			v3 = *(char**)v1;
 			if (v2 == 35)
 				++v3;
-			*((_DWORD*)v1 + 1) = nox_xxx_getNameId_4E3AA0(v3);
-			v0 = (char*)*((_DWORD*)v1 + 5);
+			*((uint32_t*)v1 + 1) = nox_xxx_getNameId_4E3AA0(v3);
+			v0 = (char*)*((uint32_t*)v1 + 5);
 			v1 += 20;
 		} while (v0);
 	}
@@ -935,8 +939,8 @@ const char* sub_4F0640() {
 		v5 = getMemAt(0x587000, 210712);
 		do {
 			v6 = nox_xxx_modifGetIdByName_413290(v4);
-			*((_DWORD*)v5 - 1) = nox_xxx_modifGetDescById_413330(v6);
-			v4 = (const char*)*((_DWORD*)v5 + 6);
+			*((uint32_t*)v5 - 1) = nox_xxx_modifGetDescById_413330(v6);
+			v4 = (const char*)*((uint32_t*)v5 + 6);
 			v5 += 24;
 		} while (v4);
 	}
@@ -945,8 +949,8 @@ const char* sub_4F0640() {
 		v8 = getMemAt(0x587000, 210856);
 		do {
 			v9 = nox_xxx_modifGetIdByName_413290(v7);
-			*((_DWORD*)v8 - 1) = nox_xxx_modifGetDescById_413330(v9);
-			v7 = (const char*)*((_DWORD*)v8 + 6);
+			*((uint32_t*)v8 - 1) = nox_xxx_modifGetDescById_413330(v9);
+			v7 = (const char*)*((uint32_t*)v8 + 6);
 			v8 += 24;
 		} while (v7);
 	}
@@ -955,8 +959,8 @@ const char* sub_4F0640() {
 		v11 = getMemAt(0x587000, 211000);
 		do {
 			v12 = nox_xxx_modifGetIdByName_413290(v10);
-			*((_DWORD*)v11 - 1) = nox_xxx_modifGetDescById_413330(v12);
-			v10 = (const char*)*((_DWORD*)v11 + 6);
+			*((uint32_t*)v11 - 1) = nox_xxx_modifGetDescById_413330(v12);
+			v10 = (const char*)*((uint32_t*)v11 + 6);
 			v11 += 24;
 		} while (v10);
 	}
@@ -965,8 +969,8 @@ const char* sub_4F0640() {
 		v14 = getMemAt(0x587000, 209344);
 		do {
 			v15 = nox_xxx_modifGetIdByName_413290(result);
-			*((_DWORD*)v14 - 1) = nox_xxx_modifGetDescById_413330(v15);
-			result = (const char*)*((_DWORD*)v14 + 6);
+			*((uint32_t*)v14 - 1) = nox_xxx_modifGetDescById_413330(v15);
+			result = (const char*)*((uint32_t*)v14 + 6);
 			v14 += 24;
 		} while (result);
 	}
@@ -1040,7 +1044,7 @@ int  nox_read_things_alternative_4E2B60(void) {
 			}
 			int n = nox_memfile_read_u8(things);
 			nox_memfile_read(v3, 1, n, things);
-			*((_BYTE*)v3 + n) = 0;
+			*((uint8_t*)v3 + n) = 0;
 			typ->id = nox_clone_str(v3);
 
 			typ->ind = *getMemU16Ptr(0x587000, 201384);
@@ -1063,7 +1067,7 @@ int  nox_read_things_alternative_4E2B60(void) {
 			if (!typ->field_35) {
 				typ->field_8 |= 0x40;
 			}
-			*((_WORD*)typ + 10) = typ->ind;
+			*((uint16_t*)typ + 10) = typ->ind;
 			typ->field_8 |= 0x1000000;
 			if (typ->obj_class & 0x400000) {
 				typ->field_14 = 1e10f;
@@ -1083,17 +1087,17 @@ int  nox_read_things_alternative_4E2B60(void) {
 				typ->field_14 = 0.25f;
 			}
 			if (typ->obj_class & 0x2) {
-				_DWORD* v13 = typ->field_48;
+				uint32_t* v13 = typ->field_48;
 				v13[309] = -1;
 				v13[307] = -1;
 				v13[317] = -1;
 			} else if (typ->obj_class & 0x200) {
-				_DWORD* v14 = typ->field_48;
+				uint32_t* v14 = typ->field_48;
 				v14[6] = -1;
 				v14[8] = -1;
 				v14[4] = -1;
 			} else if (typ->obj_class & 0x800) {
-				*(_DWORD*)((_DWORD)(typ->field_36) + 4) = -1;
+				*(uint32_t*)((uint32_t)(typ->field_36) + 4) = -1;
 			}
 			if (typ->obj_class & 0x3000006) {
 				if (!typ->field_34) {
@@ -1136,10 +1140,10 @@ int  nox_read_things_alternative_4E2B60(void) {
 	v18 = nox_xxx_objectTypes_head_1563660;
 	v19 = 1;
 	for (i = 1; i < *getMemIntPtr(0x587000, 201384); ++i) {
-		*(_DWORD*)(*getMemU32Ptr(0x5D4594, 1563456) + 4 * (v17 - v19)) = v18;
+		*(uint32_t*)(*getMemU32Ptr(0x5D4594, 1563456) + 4 * (v17 - v19)) = v18;
 		nox_xxx_objectTypeAddToNameInd_4E30D0(v18);
 		v17 = *getMemU32Ptr(0x587000, 201384);
-		v18 = *(_DWORD*)(v18 + 220);
+		v18 = *(uint32_t*)(v18 + 220);
 		v19 = i + 1;
 	}
 	sub_4E29D0();
@@ -1171,16 +1175,16 @@ void*  nox_xxx_draw_44C780(int a1) {
 }
 
 //----- (0044C7B0) --------------------------------------------------------
-LPVOID  sub_44C7B0(int a1) {
-	LPVOID* v1;    // ebx
+void*  sub_44C7B0(int a1) {
+	void** v1;    // ebx
 	int v2;        // ebp
-	LPVOID* v3;    // esi
+	void** v3;    // esi
 	int v4;        // edi
-	LPVOID* v5;    // esi
+	void** v5;    // esi
 	int v6;        // edi
-	LPVOID result; // eax
+	void* result; // eax
 
-	v1 = (LPVOID*)(a1 + 52);
+	v1 = (void**)(a1 + 52);
 	v2 = 55;
 	do {
 		if (*v1) {
@@ -1215,9 +1219,9 @@ LPVOID  sub_44C7B0(int a1) {
 }
 
 //----- (0044C650) --------------------------------------------------------
-void  nox_xxx_draw_44C650_free(LPVOID lpMem, void* draw) {
+void  nox_xxx_draw_44C650_free(void* lpMem, void* draw) {
 	int kind = 0;
-	if (*(_DWORD*)nox_parse_thing_draw_funcs) {
+	if (*(uint32_t*)nox_parse_thing_draw_funcs) {
 		nox_parse_thing_draw_funcs_t* item = NULL;
 		for (int i = 0; i < nox_parse_thing_draw_funcs_cnt; i++) {
 			nox_parse_thing_draw_funcs_t* cur = &nox_parse_thing_draw_funcs[i];
@@ -1232,7 +1236,7 @@ void  nox_xxx_draw_44C650_free(LPVOID lpMem, void* draw) {
 			kind = item->kind;
 		}
 	}
-	LPVOID* v7 = 0;
+	void** v7 = 0;
 	int v8 = 0;
 	char* v9 = 0;
 	int v10 = 0;
@@ -1242,13 +1246,13 @@ void  nox_xxx_draw_44C650_free(LPVOID lpMem, void* draw) {
 	switch (kind) {
 		case 2:
 		case 3:
-			if (*((_DWORD*)lpMem + 1)) {
-				free(*((LPVOID*)lpMem + 1));
+			if (*((uint32_t*)lpMem + 1)) {
+				free(*((void**)lpMem + 1));
 			}
 			free(lpMem);
 			break;
 		case 4:
-			v7 = (LPVOID*)((char*)lpMem + 4);
+			v7 = (void**)((char*)lpMem + 4);
 			v8 = 5;
 			do {
 				if (*v7)
