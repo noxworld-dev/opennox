@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <time.h>
 
-#include "compat_mss.h"
+#include "client/audio/ail/compat_mss.h"
 
 #include "GAME1.h"
 #include "GAME1_1.h"

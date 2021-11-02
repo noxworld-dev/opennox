@@ -22,7 +22,7 @@
 #include "client__shell__wolapi__woldlgs.h"
 #include "client__shell__wolapi__wollogin.h"
 #include "client__system__parsecmd.h"
-#include "compat_mss.h"
+#include "client/audio/ail/compat_mss.h"
 
 #include "client__gui__guicon.h"
 #include "client__gui__guiquit.h"

@@ -1,18 +1,13 @@
 //go:build !server
 // +build !server
 
-package nox
+package ail
 
 /*
 #include <stdint.h>
-#include "compat_mss.h"
-
-static void nox_audio_call_timer_cb(void(*f)(uint32_t), uint32_t u) { f(u); }
-static void nox_audio_call_sample_cb(void(*f)(HSAMPLE), HSAMPLE s) { f(s); }
-
 #define MINIMP3_ONLY_MP3
 #define MINIMP3_NO_SIMD
-#include "client/audio/mp3/minimp3.h"
+#include "../mp3/minimp3.h"
 */
 import "C"
 import (
@@ -39,55 +34,55 @@ var (
 	audioDebug   = os.Getenv("NOX_DEBUG_AUDIO") == "true"
 	audioSamples struct {
 		sync.RWMutex
-		byHandle map[unsafe.Pointer]*audioSample
+		byHandle map[Sample]*audioSample
 	}
 	audioStreams struct {
 		sync.RWMutex
-		byHandle map[unsafe.Pointer]*audioStream
+		byHandle map[Stream]*audioStream
 	}
 	audioDrivers struct {
 		sync.RWMutex
-		byHandle map[unsafe.Pointer]*audioDriver
+		byHandle map[Driver]*audioDriver
 	}
 	audioTimers struct {
 		sync.RWMutex
-		byHandle map[unsafe.Pointer]*audioTimer
+		byHandle map[Timer]*audioTimer
 	}
 )
 
 func init() {
-	audioSamples.byHandle = make(map[unsafe.Pointer]*audioSample)
-	audioStreams.byHandle = make(map[unsafe.Pointer]*audioStream)
-	audioDrivers.byHandle = make(map[unsafe.Pointer]*audioDriver)
-	audioTimers.byHandle = make(map[unsafe.Pointer]*audioTimer)
+	audioSamples.byHandle = make(map[Sample]*audioSample)
+	audioStreams.byHandle = make(map[Stream]*audioStream)
+	audioDrivers.byHandle = make(map[Driver]*audioDriver)
+	audioTimers.byHandle = make(map[Timer]*audioTimer)
 }
 
-func audioGetDriver(h unsafe.Pointer) *audioDriver {
-	handles.AssertValidPtr(h)
+func (dig Driver) get() *audioDriver {
+	handles.AssertValid(uintptr(dig))
 	audioDrivers.RLock()
-	s := audioDrivers.byHandle[h]
+	s := audioDrivers.byHandle[dig]
 	audioDrivers.RUnlock()
 	return s
 }
 
-func audioGetStream(h unsafe.Pointer) *audioStream {
-	handles.AssertValidPtr(h)
+func (h Stream) get() *audioStream {
+	handles.AssertValid(uintptr(h))
 	audioStreams.RLock()
 	s := audioStreams.byHandle[h]
 	audioStreams.RUnlock()
 	return s
 }
 
-func audioGetSample(h unsafe.Pointer) *audioSample {
-	handles.AssertValidPtr(h)
+func (h Sample) get() *audioSample {
+	handles.AssertValid(uintptr(h))
 	audioSamples.RLock()
 	s := audioSamples.byHandle[h]
 	audioSamples.RUnlock()
 	return s
 }
 
-func audioGetTimer(h unsafe.Pointer) *audioTimer {
-	handles.AssertValidPtr(h)
+func (h Timer) get() *audioTimer {
+	handles.AssertValid(uintptr(h))
 	audioTimers.RLock()
 	s := audioTimers.byHandle[h]
 	audioTimers.RUnlock()
@@ -95,7 +90,7 @@ func audioGetTimer(h unsafe.Pointer) *audioTimer {
 }
 
 type audioDriver struct {
-	h          unsafe.Pointer
+	h          Driver
 	dev        *openal.Device
 	ctx        *openal.Context
 	mu         sync.Mutex
@@ -110,7 +105,7 @@ type audioSampleBuf struct {
 }
 
 type audioSample struct {
-	h       unsafe.Pointer
+	h       Sample
 	d       *audioDriver
 	playing uint32 // atomic
 
@@ -127,8 +122,8 @@ type audioSample struct {
 	stereo bool
 	adpcm  bool
 
-	playback_rate uint32
-	block_size    uint32
+	playbackRate uint32
+	blockSize    uint32
 
 	eob  func()
 	eos  func()
@@ -181,7 +176,7 @@ const (
 )
 
 type audioStream struct {
-	h unsafe.Pointer
+	h Stream
 	d *audioDriver
 
 	next    *audioStream
@@ -189,16 +184,16 @@ type audioStream struct {
 	hwbuf   openal.Buffers
 	hwready int
 
-	stereo        bool
-	playback_rate uint32
-	playing       bool
+	stereo       bool
+	playbackRate uint32
+	playing      bool
 
-	file       *os.File
-	filename   string
-	file_size  int
-	chunk_size int
-	chunk_pos  int
-	buffered   int
+	file      *os.File
+	filename  string
+	fileSize  int
+	chunkSize int
+	chunkPos  int
+	buffered  int
 
 	typ audioStreamType
 	pcm struct {
@@ -228,15 +223,15 @@ func (s *audioStream) Channels() int {
 func (s *audioStream) findData() error {
 	var tmp [8]byte
 
-	s.chunk_size = 0
-	s.chunk_pos = 0
+	s.chunkSize = 0
+	s.chunkPos = 0
 
 	for {
 		off, err := s.file.Seek(0, io.SeekCurrent)
 		if err != nil {
 			audioLog.Println(err)
 			return err
-		} else if int(off) >= s.file_size {
+		} else if int(off) >= s.fileSize {
 			return io.EOF
 		}
 		_, err = io.ReadFull(s.file, tmp[:])
@@ -246,7 +241,7 @@ func (s *audioStream) findData() error {
 		}
 		size := int(binary.LittleEndian.Uint32(tmp[4:]))
 		if string(tmp[:4]) == "data" {
-			s.chunk_size = size
+			s.chunkSize = size
 			return nil
 		}
 		_, err = s.file.Seek(int64(size), io.SeekCurrent)
@@ -258,7 +253,7 @@ func (s *audioStream) findData() error {
 }
 
 type audioTimer struct {
-	h    unsafe.Pointer
+	h    Timer
 	t    *time.Ticker
 	dt   time.Duration
 	f    func(u uint32)
@@ -284,8 +279,8 @@ func satindex(x int) int {
 }
 
 var (
-	ima_index_table = [16]int{-1, -1, -1, -1, 2, 4, 6, 8, -1, -1, -1, -1, 2, 4, 6, 8}
-	ima_step_table  = [89]int{
+	imaIndexTable = [16]int{-1, -1, -1, -1, 2, 4, 6, 8, -1, -1, -1, -1, 2, 4, 6, 8}
+	imaStepTable  = [89]int{
 		7, 8, 9, 10, 11, 12, 13, 14, 16, 17, 19, 21, 23,
 		25, 28, 31, 34, 37, 41, 45, 50, 55, 60, 66, 73, 80,
 		88, 97, 107, 118, 130, 143, 157, 173, 190, 209, 230, 253, 279,
@@ -298,7 +293,7 @@ var (
 
 func decodeNibble(predictor int16, nibble byte, index int) int16 {
 	diff := 0
-	step := ima_step_table[index]
+	step := imaStepTable[index]
 
 	diff = step >> 3
 	if nibble&4 != 0 {
@@ -318,24 +313,24 @@ func decodeNibble(predictor int16, nibble byte, index int) int16 {
 	return predictor
 }
 
-func decode_adpcm(out []int16, data []byte) []int16 {
+func decodeADPCM(out []int16, data []byte) []int16 {
 	predictor := int16(data[0]) | (int16(data[1]) << 8)
 	index := int(data[2])
 
 	out = append(out, predictor)
 	for i := 4; i < len(data); i++ {
 		predictor = decodeNibble(predictor, data[i], index)
-		index = satindex(index + ima_index_table[data[i]&15])
+		index = satindex(index + imaIndexTable[data[i]&15])
 		out = append(out, predictor)
 
 		predictor = decodeNibble(predictor, data[i]>>4, index)
-		index = satindex(index + ima_index_table[data[i]>>4])
+		index = satindex(index + imaIndexTable[data[i]>>4])
 		out = append(out, predictor)
 	}
 	return out
 }
 
-func decode_adpcm_stereo(out []int16, data []byte) []int16 {
+func decodeADPCMStereo(out []int16, data []byte) []int16 {
 	lpredictor := int16(data[0]) | (int16(data[1]) << 8)
 	lindex := int(data[2])
 	rpredictor := int16(data[4]) | (int16(data[5]) << 8)
@@ -345,19 +340,19 @@ func decode_adpcm_stereo(out []int16, data []byte) []int16 {
 	for i := 8; i < len(data); i += 8 {
 		for j := 0; j < 4; j++ {
 			lpredictor = decodeNibble(lpredictor, data[i+j], lindex)
-			lindex = satindex(lindex + ima_index_table[data[i+j]&15])
+			lindex = satindex(lindex + imaIndexTable[data[i+j]&15])
 			out = append(out, lpredictor)
 
 			rpredictor = decodeNibble(rpredictor, data[i+j+4], rindex)
-			rindex = satindex(rindex + ima_index_table[data[i+j+4]&15])
+			rindex = satindex(rindex + imaIndexTable[data[i+j+4]&15])
 			out = append(out, rpredictor)
 
 			lpredictor = decodeNibble(lpredictor, data[i+j]>>4, lindex)
-			lindex = satindex(lindex + ima_index_table[data[i+j]>>4])
+			lindex = satindex(lindex + imaIndexTable[data[i+j]>>4])
 			out = append(out, lpredictor)
 
 			rpredictor = decodeNibble(rpredictor, data[i+j+4]>>4, rindex)
-			rindex = satindex(rindex + ima_index_table[data[i+j+4]>>4])
+			rindex = satindex(rindex + imaIndexTable[data[i+j+4]>>4])
 			out = append(out, rpredictor)
 		}
 	}
@@ -367,11 +362,11 @@ func decode_adpcm_stereo(out []int16, data []byte) []int16 {
 func (s *audioStream) seek(pos int) {
 	switch s.typ {
 	case audioPCM:
-		s.pcm_seek(pos)
+		s.pcmSeek(pos)
 	case audioADPCM:
-		s.adpcm_seek(pos)
+		s.adpcmSeek(pos)
 	case audioMP3:
-		s.mp3_seek(pos)
+		s.mp3Seek(pos)
 	default:
 		panic("unsupported")
 	}
@@ -380,11 +375,11 @@ func (s *audioStream) seek(pos int) {
 func (s *audioStream) tell() uint32 {
 	switch s.typ {
 	case audioPCM:
-		return s.pcm_tell()
+		return s.pcmTell()
 	case audioADPCM:
-		return s.adpcm_tell()
+		return s.adpcmTell()
 	case audioMP3:
-		return s.mp3_tell()
+		return s.mp3Tell()
 	default:
 		panic("unsupported")
 	}
@@ -393,18 +388,18 @@ func (s *audioStream) tell() uint32 {
 func (s *audioStream) decode(out []int16, max int) uint32 {
 	switch s.typ {
 	case audioPCM:
-		return s.pcm_decode(out, max)
+		return s.pcmDecode(out, max)
 	case audioADPCM:
-		return s.adpcm_decode(out, max)
+		return s.adpcmDecode(out, max)
 	case audioMP3:
-		return s.mp3_decode(out, max)
+		return s.mp3Decode(out, max)
 	default:
 		panic("unsupported")
 	}
 }
 
-func (s *audioStream) pcm_decode(out []int16, max int) uint32 {
-	remaining := int(s.chunk_size - s.chunk_pos)
+func (s *audioStream) pcmDecode(out []int16, max int) uint32 {
+	remaining := s.chunkSize - s.chunkPos
 
 	if remaining == 0 {
 		remaining = s.decodeFind()
@@ -428,26 +423,26 @@ func (s *audioStream) pcm_decode(out []int16, max int) uint32 {
 	return uint32(remaining / 2)
 }
 
-func (s *audioStream) pcm_seek(position int) {
+func (s *audioStream) pcmSeek(position int) {
 	// TODO
 	s.pcm.position = 0
 }
 
-func (s *audioStream) pcm_tell() uint32 {
+func (s *audioStream) pcmTell() uint32 {
 	return uint32(s.pcm.position)
 }
 
 func (s *audioStream) decodeFind() int {
 	s.findData()
-	remaining := s.chunk_size - s.chunk_pos
+	remaining := s.chunkSize - s.chunkPos
 	if remaining == 0 {
 		s.playing = false
 	}
 	return remaining
 }
 
-func (s *audioStream) adpcm_decode(out []int16, max int) uint32 {
-	block_size := int(s.adpcm.wf.blockAlign)
+func (s *audioStream) adpcmDecode(out []int16, max int) uint32 {
+	blockSize := int(s.adpcm.wf.blockAlign)
 
 	samples := 0
 	if s.adpcm.position >= s.adpcm.samples {
@@ -455,8 +450,8 @@ func (s *audioStream) adpcm_decode(out []int16, max int) uint32 {
 		return 0
 	}
 
-	if s.buffered < block_size {
-		remaining := s.chunk_size - s.chunk_pos
+	if s.buffered < blockSize {
+		remaining := s.chunkSize - s.chunkPos
 
 		if remaining == 0 {
 			remaining = s.decodeFind()
@@ -465,23 +460,23 @@ func (s *audioStream) adpcm_decode(out []int16, max int) uint32 {
 			}
 		}
 
-		if remaining > block_size-s.buffered {
-			remaining = block_size - s.buffered
+		if remaining > blockSize-s.buffered {
+			remaining = blockSize - s.buffered
 		}
 		io.ReadFull(s.file, s.buffer[s.buffered:s.buffered+remaining])
 		s.buffered += remaining
 	}
 
 	if s.stereo {
-		out = decode_adpcm_stereo(out[:0], s.buffer[:block_size])
+		out = decodeADPCMStereo(out[:0], s.buffer[:blockSize])
 	} else {
-		out = decode_adpcm(out[:0], s.buffer[:block_size])
+		out = decodeADPCM(out[:0], s.buffer[:blockSize])
 	}
 	samples = len(out) // TODO(dennwc): is it true for stereo?
 
-	s.buffered -= block_size
+	s.buffered -= blockSize
 	if s.buffered != 0 {
-		copy(s.buffer[0:], s.buffer[block_size:block_size+s.buffered])
+		copy(s.buffer[0:], s.buffer[blockSize:blockSize+s.buffered])
 	}
 	channels := s.Channels()
 	if samples/channels+s.adpcm.position >= s.adpcm.samples {
@@ -491,38 +486,38 @@ func (s *audioStream) adpcm_decode(out []int16, max int) uint32 {
 	return uint32(samples)
 }
 
-func (s *audioStream) adpcm_seek(position int) {
-	block_size := int(s.adpcm.wf.blockAlign)
+func (s *audioStream) adpcmSeek(position int) {
+	blockSize := int(s.adpcm.wf.blockAlign)
 	channels := s.Channels()
-	samples_per_block := (block_size/channels - 4) * 2
-	blocks := position / samples_per_block
+	samplesPerBlock := (blockSize/channels - 4) * 2
+	blocks := position / samplesPerBlock
 	s.adpcm.position = 0
 
 	for s.adpcm.position < position {
 		s.findData()
-		if s.chunk_size == 0 {
+		if s.chunkSize == 0 {
 			break
 		}
-		chunk_blocks := s.chunk_size / block_size
-		if blocks < chunk_blocks {
-			s.file.Seek(int64(blocks*block_size), io.SeekCurrent)
-			s.adpcm.position += blocks * samples_per_block
+		chunkBlocks := s.chunkSize / blockSize
+		if blocks < chunkBlocks {
+			s.file.Seek(int64(blocks*blockSize), io.SeekCurrent)
+			s.adpcm.position += blocks * samplesPerBlock
 			break
 		} else {
-			s.file.Seek(int64(s.chunk_size), io.SeekCurrent)
-			s.adpcm.position += chunk_blocks * samples_per_block
+			s.file.Seek(int64(s.chunkSize), io.SeekCurrent)
+			s.adpcm.position += chunkBlocks * samplesPerBlock
 		}
 	}
 
 	// TODO seek within an ADPCM block
 }
 
-func (s *audioStream) adpcm_tell() uint32 {
+func (s *audioStream) adpcmTell() uint32 {
 	return uint32(s.adpcm.position)
 }
 
-func (s *audioStream) mp3_decode(out []int16, max int) uint32 {
-	remaining := s.chunk_size - s.chunk_pos
+func (s *audioStream) mp3Decode(out []int16, max int) uint32 {
+	remaining := s.chunkSize - s.chunkPos
 	samples := 0
 	var info C.mp3dec_frame_info_t
 
@@ -562,20 +557,20 @@ func (s *audioStream) mp3_decode(out []int16, max int) uint32 {
 		}
 	}
 
-	frame_bytes := int(info.frame_bytes)
-	s.buffered -= frame_bytes
+	frameBytes := int(info.frame_bytes)
+	s.buffered -= frameBytes
 	if s.buffered != 0 {
-		copy(s.buffer[0:], s.buffer[frame_bytes:frame_bytes+s.buffered])
+		copy(s.buffer[0:], s.buffer[frameBytes:frameBytes+s.buffered])
 	}
 
 	return uint32(samples)
 }
 
-func (s *audioStream) mp3_seek(position int) {
+func (s *audioStream) mp3Seek(position int) {
 	C.mp3dec_init(&s.mp3.dec)
 }
 
-func (s *audioStream) mp3_tell() uint32 {
+func (s *audioStream) mp3Tell() uint32 {
 	return 0
 }
 
@@ -605,19 +600,18 @@ func (s *audioStream) unqueueBuffers() {
 	s.hwready += processed
 }
 
-//export AIL_allocate_sample_handle
-func AIL_allocate_sample_handle(dig C.HDIGDRIVER) C.HSAMPLE {
+func (dig Driver) AllocateSample() Sample {
 	if env.IsE2E() {
-		h := handles.NewPtr()
-		return C.HSAMPLE(h)
+		h := handles.New()
+		return Sample(h)
 	}
 	if audioDebug {
 		audioLog.Println("AIL_allocate_sample_handle")
 	}
-	d := audioGetDriver(unsafe.Pointer(dig))
+	d := dig.get()
 
 	s := &audioSample{
-		h:      handles.NewPtr(),
+		h:      Sample(handles.New()),
 		d:      d,
 		source: openal.NewSource(),
 	}
@@ -635,15 +629,15 @@ func AIL_allocate_sample_handle(dig C.HDIGDRIVER) C.HSAMPLE {
 	audioSamples.Lock()
 	audioSamples.byHandle[s.h] = s
 	audioSamples.Unlock()
-	return C.HSAMPLE(s.h)
+	return s.h
 }
 
-//export AIL_release_sample_handle
-func AIL_release_sample_handle(s C.HSAMPLE) {
+func (s Sample) Release() {
 	if audioDebug {
 		audioLog.Println("AIL_release_sample_handle")
 	}
-	handles.AssertValidPtr(unsafe.Pointer(s))
+	handles.AssertValid(uintptr(s))
+	// TODO: delete sample?
 }
 
 func audioOpenStream(path string) (*audioStream, error) {
@@ -687,7 +681,7 @@ func (s *audioStream) open() error {
 	if magic := string(tmp[0:4]); magic != "RIFF" {
 		return fmt.Errorf("invalid audio file magic: %q", magic)
 	}
-	s.file_size = int(binary.LittleEndian.Uint32(tmp[4:8]))
+	s.fileSize = int(binary.LittleEndian.Uint32(tmp[4:8]))
 	if str := string(tmp[8:12]); str != "WAVE" {
 		return fmt.Errorf("invalid audio file section: %q", str)
 	}
@@ -713,14 +707,14 @@ func (s *audioStream) open() error {
 	switch wf.format {
 	case 0x01: // PCM
 		s.typ = audioPCM
-		s.playback_rate = wf.samplesPerSec
+		s.playbackRate = wf.samplesPerSec
 		s.stereo = wf.channels > 1
 		s.pcm.wf = wf
 		audioLog.Printf("PCM stream: %q, %d channels", s.filename, wf.channels)
 		return nil
 	case 0x11: // ADPCM
 		s.typ = audioADPCM
-		s.playback_rate = wf.samplesPerSec
+		s.playbackRate = wf.samplesPerSec
 		s.stereo = wf.channels > 1
 		s.adpcm.wf = wf
 		_, err = io.ReadFull(s.file, tmp[:12])
@@ -749,7 +743,7 @@ func (s *audioStream) open() error {
 		wf3.blockSize = binary.LittleEndian.Uint16(tmp[24:26])
 		wf3.framesPerBlock = binary.LittleEndian.Uint16(tmp[26:28])
 		wf3.codecDelay = binary.LittleEndian.Uint16(tmp[28:30])
-		s.playback_rate = wf3.samplesPerSec
+		s.playbackRate = wf3.samplesPerSec
 		s.stereo = wf3.channels > 1
 		s.mp3.wf = wf3
 		C.mp3dec_init(&s.mp3.dec)
@@ -760,24 +754,23 @@ func (s *audioStream) open() error {
 	}
 }
 
-//export AIL_open_stream
-func AIL_open_stream(dig C.HDIGDRIVER, name *C.char, mem C.int32_t) C.HSTREAM {
+func (dig Driver) OpenStream(name string, mem int) Stream {
 	if audioDebug {
 		audioLog.Println("AIL_open_stream")
 	}
 	if env.IsE2E() {
-		h := handles.NewPtr()
-		return C.HSTREAM(h)
+		h := handles.New()
+		return Stream(h)
 	}
-	d := audioGetDriver(unsafe.Pointer(dig))
+	d := dig.get()
 
-	s, err := audioOpenStream(C.GoString(name))
+	s, err := audioOpenStream(name)
 	if err != nil {
 		audioLog.Println(err)
-		return nil
+		return 0
 	}
 	s.d = d
-	s.h = handles.NewPtr()
+	s.h = Stream(handles.New())
 	s.source = openal.NewSource()
 	audioCheckError()
 	s.hwbuf = openal.NewBuffers(2)
@@ -791,87 +784,56 @@ func AIL_open_stream(dig C.HDIGDRIVER, name *C.char, mem C.int32_t) C.HSTREAM {
 	audioStreams.Lock()
 	audioStreams.byHandle[s.h] = s
 	audioStreams.Unlock()
-	return C.HSTREAM(s.h)
+	return s.h
 }
 
-//export AIL_close_stream
-func AIL_close_stream(h C.HSTREAM) {
+func (h Stream) Close() error {
 	if audioDebug {
 		audioLog.Println("AIL_close_stream")
 	}
 	if env.IsE2E() {
-		handles.AssertValidPtr(unsafe.Pointer(h))
-		return
+		handles.AssertValid(uintptr(h))
+		return nil
 	}
-	s := audioGetStream(unsafe.Pointer(h))
+	s := h.get()
 	s.d.mu.Lock()
 	s.playing = false
 	s.d.mu.Unlock()
+	return nil
 }
 
-//export AIL_register_timer
-func AIL_register_timer(f C.AILTIMERCB) C.HTIMER {
+func RegisterTimer(f func(u uint32)) Timer {
 	if audioDebug {
 		audioLog.Println("AIL_register_timer")
 	}
 	if env.IsE2E() {
-		h := handles.NewPtr()
-		return C.HTIMER(h)
+		h := handles.New()
+		return Timer(h)
 	}
-	h := handles.NewPtr()
-	t := &audioTimer{h: h, f: func(u uint32) {
-		C.nox_audio_call_timer_cb(f, C.uint32_t(u))
-	}}
+	h := Timer(handles.New())
+	t := &audioTimer{h: h, f: f}
 
 	audioTimers.Lock()
 	audioTimers.byHandle[h] = t
 	audioTimers.Unlock()
-	return C.HTIMER(h)
+	return h
 }
 
-//export AIL_release_timer_handle
-func AIL_release_timer_handle(h C.HTIMER) {
+func (h Timer) Release() {
 	if audioDebug {
 		audioLog.Println("AIL_release_timer_handle")
 	}
-	handles.AssertValidPtr(unsafe.Pointer(h))
+	handles.AssertValid(uintptr(h))
 }
 
-//export AIL_digital_configuration
-func AIL_digital_configuration(dig C.HDIGDRIVER, rate *C.int32_t, fmt *C.int32_t, str *C.char) {
-	if audioDebug {
-		audioLog.Println("AIL_digital_configuration")
-	}
-	if str != nil {
-		*str = 0
-	}
-}
-
-//export AIL_digital_handle_release
-func AIL_digital_handle_release(h C.HDIGDRIVER) C.int32_t {
-	if audioDebug {
-		audioLog.Println("AIL_digital_handle_release")
-	}
-	return 0
-}
-
-//export AIL_digital_handle_reacquire
-func AIL_digital_handle_reacquire(h C.HDIGDRIVER) C.int32_t {
-	if audioDebug {
-		audioLog.Println("AIL_digital_handle_reacquire")
-	}
-	return 0
-}
-
-//export AIL_end_sample
-func AIL_end_sample(h C.HSAMPLE) {
+func (h Sample) End() {
 	if audioDebug {
 		audioLog.Println("AIL_end_sample")
 	}
 	if env.IsE2E() {
 		return
 	}
-	s := audioGetSample(unsafe.Pointer(h))
+	s := h.get()
 
 	s.d.mu.Lock()
 	defer s.d.mu.Unlock()
@@ -881,23 +843,14 @@ func AIL_end_sample(h C.HSAMPLE) {
 	}
 }
 
-//export AIL_get_preference
-func AIL_get_preference(s C.uint32_t) C.int32_t {
-	if audioDebug {
-		audioLog.Println("AIL_get_preference")
-	}
-	return 0
-}
-
-//export AIL_init_sample
-func AIL_init_sample(h C.HSAMPLE) {
+func (h Sample) Init() {
 	if audioDebug {
 		audioLog.Println("AIL_init_sample")
 	}
 	if env.IsE2E() {
 		return
 	}
-	s := audioGetSample(unsafe.Pointer(h))
+	s := h.get()
 
 	s.d.mu.Lock()
 	defer s.d.mu.Unlock()
@@ -909,100 +862,76 @@ func AIL_init_sample(h C.HSAMPLE) {
 
 	s.source.Setf(openal.AlPitch, 1)
 	s.source.Setf(openal.AlGain, 1)
-	AIL_set_sample_pan(h, 63)
+	h.SetPan(63)
 
 	s.Stop()
 	s.source.Stop()
 	s.unqueueBuffers()
 }
 
-//export AIL_last_error
-func AIL_last_error() *C.char {
+func LastError() string {
 	if audioDebug {
 		audioLog.Println("AIL_last_error")
 	}
-	return nil
+	return ""
 }
 
-//export AIL_load_sample_buffer
-func AIL_load_sample_buffer(h C.HSAMPLE, num C.uint32_t, buf unsafe.Pointer, sz C.uint32_t) {
+func (h Sample) LoadBuffer(num uint32, buf []byte) {
 	if audioDebug {
-		audioLog.Printf("AIL_load_sample_buffer: [%d]", int(sz))
+		audioLog.Printf("AIL_load_sample_buffer: [%d]", len(buf))
 	}
 	if env.IsE2E() {
 		return
 	}
-	s := audioGetSample(unsafe.Pointer(h))
+	s := h.get()
 	s.bmu.Lock()
 	defer s.bmu.Unlock()
 	sb := &s.buffers[num]
-	if sz == 0 {
-		sb.buf = nil
-	} else {
-		sb.buf = unsafe.Slice((*byte)(buf), int(sz))
-	}
+	sb.buf = buf
 	sb.pos = 0
 	s.Play()
 }
 
-//export AIL_pause_stream
-func AIL_pause_stream(h C.HSTREAM, pause C.int32_t) {
+func (h Stream) Pause(pause bool) {
 	if audioDebug {
 		audioLog.Println("AIL_pause_stream")
 	}
 	if env.IsE2E() {
 		return
 	}
-	s := audioGetStream(unsafe.Pointer(h))
+	s := h.get()
 	// TODO: mutex?
-	s.playing = pause == 0
+	s.playing = !pause
 }
 
-//export AIL_register_EOB_callback
-func AIL_register_EOB_callback(h C.HSAMPLE, f C.AILSAMPLECB) {
+func (h Sample) RegisterEOBCallback(f func()) {
 	if audioDebug {
 		audioLog.Println("AIL_register_EOB_callback")
 	}
 	if env.IsE2E() {
 		return
 	}
-	s := audioGetSample(unsafe.Pointer(h))
-	s.eob = func() {
-		C.nox_audio_call_sample_cb(f, h)
-	}
+	h.get().eob = f
 }
 
-//export AIL_register_EOS_callback
-func AIL_register_EOS_callback(h C.HSAMPLE, f C.AILSAMPLECB) {
+func (h Sample) RegisterEOSCallback(f func()) {
 	if audioDebug {
 		audioLog.Println("AIL_register_EOS_callback")
 	}
 	if env.IsE2E() {
 		return
 	}
-	s := audioGetSample(unsafe.Pointer(h))
-	s.eos = func() {
-		C.nox_audio_call_sample_cb(f, h)
-	}
+	h.get().eos = f
 }
 
-//export AIL_resume_sample
-func AIL_resume_sample(s C.HSAMPLE) {
-	if audioDebug {
-		audioLog.Println("AIL_resume_sample")
-	}
-	panic("abort")
-}
-
-//export AIL_sample_buffer_ready
-func AIL_sample_buffer_ready(h C.HSAMPLE) C.int32_t {
+func (h Sample) BufferReady() int {
 	if audioDebug {
 		audioLog.Println("AIL_sample_buffer_ready")
 	}
 	if env.IsE2E() {
 		return -1
 	}
-	s := audioGetSample(unsafe.Pointer(h))
+	s := h.get()
 	s.bmu.Lock()
 	defer s.bmu.Unlock()
 	if s.ready == 0 {
@@ -1019,80 +948,67 @@ func AIL_sample_buffer_ready(h C.HSAMPLE) C.int32_t {
 	return 0
 }
 
-//export AIL_sample_user_data
-func AIL_sample_user_data(h C.HSAMPLE, ind C.uint32_t) C.int32_t {
+func (h Sample) UserData(ind int) int32 {
 	if audioDebug {
 		audioLog.Println("AIL_sample_user_data")
 	}
 	if env.IsE2E() {
 		return -1
 	}
-	s := audioGetSample(unsafe.Pointer(h))
-	return C.int32_t(s.user[ind])
+	s := h.get()
+	return s.user[ind]
 }
 
-//export AIL_serve
-func AIL_serve() {
+func Serve() {
 	if audioDebug {
 		audioLog.Println("AIL_serve")
 	}
+	// TODO: call timers here to prevent data races
 }
 
-//export AIL_set_preference
-func AIL_set_preference(num C.uint32_t, val C.int32_t) C.int32_t {
-	if audioDebug {
-		audioLog.Println("AIL_set_preference")
-	}
-	return -1
-}
-
-//export AIL_set_sample_adpcm_block_size
-func AIL_set_sample_adpcm_block_size(h C.HSAMPLE, block C.uint32_t) {
+func (h Sample) SetADPCMBlockSize(block uint32) {
 	if audioDebug {
 		audioLog.Println("AIL_set_sample_adpcm_block_size")
 	}
 	if env.IsE2E() {
 		return
 	}
-	s := audioGetSample(unsafe.Pointer(h))
-	s.block_size = uint32(block)
+	s := h.get()
+	s.blockSize = block
 }
 
-//export AIL_set_sample_pan
-func AIL_set_sample_pan(h C.HSAMPLE, pan C.int32_t) {
+func (h Sample) SetPan(pan int) {
 	if audioDebug {
 		audioLog.Println("AIL_set_sample_pan")
 	}
 	if env.IsE2E() {
 		return
 	}
-	s := audioGetSample(unsafe.Pointer(h))
+	s := h.get()
 	pos := [3]float32{float32(pan-63) / 64.0, 0, 0}
 	pos[2] = float32(math.Sqrt(float64(1 - pos[0]*pos[0])))
 	s.source.Setfv(openal.AlPosition, pos[:])
 }
 
-//export AIL_set_sample_playback_rate
-func AIL_set_sample_playback_rate(h C.HSAMPLE, rate C.int32_t) {
+func (h Sample) SetPlaybackRate(rate int) {
 	if audioDebug {
 		audioLog.Println("AIL_set_sample_playback_rate")
 	}
 	if env.IsE2E() {
 		return
 	}
-	s := audioGetSample(unsafe.Pointer(h))
-	s.playback_rate = uint32(rate)
+	s := h.get()
+	s.playbackRate = uint32(rate)
 }
 
-//export AIL_set_sample_type
-func AIL_set_sample_type(h C.HSAMPLE, format C.int32_t, flags C.uint32_t) {
+func (h Sample) SetType(format int32, flags uint32) {
 	if audioDebug {
 		audioLog.Println("AIL_set_sample_type")
 	}
 	if env.IsE2E() {
 		return
 	}
-	s := audioGetSample(unsafe.Pointer(h))
+	s := h.get()
 	if flags != 0 {
 		panic("abort")
 	}
@@ -1100,93 +1016,86 @@ func AIL_set_sample_type(h C.HSAMPLE, format C.int32_t, flags C.uint32_t) {
 	s.adpcm = format&4 != 0
 }
 
-//export AIL_set_sample_user_data
-func AIL_set_sample_user_data(h C.HSAMPLE, index C.uint32_t, value C.int32_t) {
+func (h Sample) SetUserData(index int, value int32) {
 	if audioDebug {
 		audioLog.Println("AIL_set_sample_user_data")
 	}
 	if env.IsE2E() {
 		return
 	}
-	s := audioGetSample(unsafe.Pointer(h))
-	s.user[index] = int32(value)
+	s := h.get()
+	s.user[index] = value
 }
 
-//export AIL_set_sample_volume
-func AIL_set_sample_volume(h C.HSAMPLE, volume C.int32_t) {
+func (h Sample) SetVolume(volume int) {
 	if audioDebug {
 		audioLog.Println("AIL_set_sample_volume")
 	}
 	if env.IsE2E() {
 		return
 	}
-	s := audioGetSample(unsafe.Pointer(h))
+	s := h.get()
 	s.source.Setf(openal.AlGain, float32(volume)/127.0)
 }
 
-//export AIL_set_stream_position
-func AIL_set_stream_position(h C.HSTREAM, offset C.int32_t) {
+func (h Stream) SetPosition(offset int) {
 	if audioDebug {
 		audioLog.Println("AIL_set_stream_position")
 	}
 	if env.IsE2E() {
 		return
 	}
-	s := audioGetStream(unsafe.Pointer(h))
+	s := h.get()
 	s.d.mu.Lock()
 	defer s.d.mu.Unlock()
-	s.chunk_size = 0
-	s.chunk_pos = 0
+	s.chunkSize = 0
+	s.chunkPos = 0
 	s.buffered = 0
 	s.file.Seek(12, io.SeekStart)
-	s.seek(int(offset))
+	s.seek(offset)
 }
 
-//export AIL_set_stream_volume
-func AIL_set_stream_volume(h C.HSTREAM, volume C.int32_t) {
+func (h Stream) SetVolume(volume int) {
 	if audioDebug {
 		audioLog.Println("AIL_set_stream_volume", int(volume))
 	}
 	if env.IsE2E() {
 		return
 	}
-	s := audioGetStream(unsafe.Pointer(h))
+	s := h.get()
 	s.source.Setf(openal.AlGain, float32(volume)/127.0)
 }
 
-//export AIL_set_timer_frequency
-func AIL_set_timer_frequency(h C.HTIMER, hertz C.uint32_t) {
+func (h Timer) SetFrequency(hertz uint) {
 	if audioDebug {
 		audioLog.Println("AIL_set_timer_frequency")
 	}
 	if env.IsE2E() {
 		return
 	}
-	t := audioGetTimer(unsafe.Pointer(h))
+	t := h.get()
 	t.dt = time.Duration(1000.0/float32(hertz)) * time.Millisecond
 }
 
-//export AIL_start_stream
-func AIL_start_stream(h C.HSTREAM) {
+func (h Stream) Start() {
 	if audioDebug {
 		audioLog.Println("AIL_start_stream")
 	}
 	if env.IsE2E() {
 		return
 	}
-	s := audioGetStream(unsafe.Pointer(h))
+	s := h.get()
 	s.playing = true
 }
 
-//export AIL_start_timer
-func AIL_start_timer(h C.HTIMER) {
+func (h Timer) Start() {
 	if audioDebug {
 		audioLog.Println("AIL_start_timer")
 	}
 	if env.IsE2E() {
 		return
 	}
-	t := audioGetTimer(unsafe.Pointer(h))
+	t := h.get()
 	dt := t.dt
 	tm := time.NewTicker(dt)
 	t.t = tm
@@ -1201,16 +1110,14 @@ func AIL_start_timer(h C.HTIMER) {
 	}()
 }
 
-//export AIL_startup
-func AIL_startup() C.int32_t {
+func Startup() int {
 	if audioDebug {
 		audioLog.Println("AIL_startup")
 	}
 	return -1
 }
 
-//export AIL_shutdown
-func AIL_shutdown() {
+func Shutdown() {
 	if audioDebug {
 		audioLog.Println("AIL_shutdown")
 	}
@@ -1233,68 +1140,64 @@ func AIL_shutdown() {
 	audioDrivers.Unlock()
 }
 
-//export AIL_stop_sample
-func AIL_stop_sample(h C.HSAMPLE) {
+func (h Sample) Stop() {
 	if audioDebug {
 		audioLog.Println("AIL_stop_sample")
 	}
 	if env.IsE2E() {
 		return
 	}
-	s := audioGetSample(unsafe.Pointer(h))
+	s := h.get()
 	s.Stop() // TODO: anything else here?
 }
 
-//export AIL_stop_timer
-func AIL_stop_timer(h C.HTIMER) {
+func (h Timer) Stop() {
 	if audioDebug {
 		audioLog.Println("AIL_stop_timer")
 	}
 	if env.IsE2E() {
 		return
 	}
-	t := audioGetTimer(unsafe.Pointer(h))
+	t := h.get()
 	if t.t != nil {
 		t.t.Stop()
 	}
 }
 
-//export AIL_stream_position
-func AIL_stream_position(h C.HSTREAM) C.int32_t {
+func (h Stream) Position() int {
 	if audioDebug {
 		audioLog.Println("AIL_stream_position")
 	}
 	if env.IsE2E() {
 		return -1
 	}
-	s := audioGetStream(unsafe.Pointer(h))
-	return C.int32_t(s.tell())
+	s := h.get()
+	return int(s.tell())
 }
 
-//export AIL_stream_status
-func AIL_stream_status(h C.HSTREAM) C.int32_t {
+func (h Stream) Status() int {
 	if env.IsE2E() {
 		return 2
 	}
-	s := audioGetStream(unsafe.Pointer(h))
+	s := h.get()
 	if s.playing {
 		return 4
 	}
 	return 2
 }
 
-//export AIL_waveOutClose
-func AIL_waveOutClose(h C.HDIGDRIVER) {
+func (dig Driver) Close() error {
 	if audioDebug {
 		audioLog.Println("AIL_waveOutClose")
 	}
 	if env.IsE2E() {
-		return
+		return nil
 	}
-	d := audioGetDriver(unsafe.Pointer(h))
+	d := dig.get()
 	if d.t != nil {
 		d.t.Stop()
 	}
+	return nil
 }
 
 func (s *audioSample) play_adpcm(data []byte) {
@@ -1304,9 +1207,9 @@ func (s *audioSample) play_adpcm(data []byte) {
 
 	var decoded []int16
 	if s.stereo {
-		decoded = decode_adpcm_stereo(decoded, data)
+		decoded = decodeADPCMStereo(decoded, data)
 	} else {
-		decoded = decode_adpcm(decoded, data)
+		decoded = decodeADPCM(decoded, data)
 	}
 
 	s.hwready--
@@ -1316,7 +1219,7 @@ func (s *audioSample) play_adpcm(data []byte) {
 		format = openal.FormatStereo16
 	}
 
-	s.hwbuf[s.hwready].SetDataInt16(format, decoded, int32(s.playback_rate))
+	s.hwbuf[s.hwready].SetDataInt16(format, decoded, int32(s.playbackRate))
 	audioCheckError()
 	s.source.QueueBuffer(s.hwbuf[s.hwready])
 	audioCheckError()
@@ -1345,8 +1248,8 @@ func (s *audioSample) work() {
 	s.unqueueBuffers()
 
 	for s.hwready != 0 {
-		s.play_adpcm(buf.buf[buf.pos : buf.pos+int(s.block_size)])
-		buf.pos += int(s.block_size)
+		s.play_adpcm(buf.buf[buf.pos : buf.pos+int(s.blockSize)])
+		buf.pos += int(s.blockSize)
 
 		if s.IsPlaying() && s.source.State() != openal.Playing {
 			s.source.Play()
@@ -1371,15 +1274,15 @@ func (s *audioStream) work() {
 	var buffer [16 * 1024 * 3]int16
 	channels := s.Channels()
 	// We need to queue 100ms of audio data.
-	min_samples := int(s.playback_rate) * channels / 10
+	minSamples := int(s.playbackRate) * channels / 10
 
 	s.unqueueBuffers()
 
 	for s.hwready != 0 {
 		offset := 0
 
-		for offset < min_samples {
-			samples := s.decode(buffer[offset:], min_samples*2-offset)
+		for offset < minSamples {
+			samples := s.decode(buffer[offset:], minSamples*2-offset)
 			if samples == 0 {
 				break
 			}
@@ -1397,7 +1300,7 @@ func (s *audioStream) work() {
 			format = openal.FormatStereo16
 		}
 
-		s.hwbuf[s.hwready].SetDataInt16(format, buffer[:offset], int32(s.playback_rate))
+		s.hwbuf[s.hwready].SetDataInt16(format, buffer[:offset], int32(s.playbackRate))
 		audioCheckError()
 		s.source.QueueBuffer(s.hwbuf[s.hwready])
 		audioCheckError()
@@ -1420,15 +1323,14 @@ func (d *audioDriver) doWork() {
 	}
 }
 
-//export AIL_waveOutOpen
-func AIL_waveOutOpen(pdrvr *C.HDIGDRIVER, wDeviceID C.int32_t, lpFormat C.NOX_WAVEFORMAT) C.int32_t {
+func WaveOutOpen() Driver {
 	if audioDebug {
 		audioLog.Println("AIL_waveOutOpen")
 	}
 	if env.IsE2E() {
 		return 0
 	}
-	h := handles.NewPtr()
+	h := Driver(handles.New())
 
 	d := &audioDriver{h: h}
 	d.dev = openal.OpenDevice("")
@@ -1470,6 +1372,5 @@ func AIL_waveOutOpen(pdrvr *C.HDIGDRIVER, wDeviceID C.int32_t, lpFormat C.NOX_WA
 	audioDrivers.byHandle[h] = d
 	audioDrivers.Unlock()
 
-	*pdrvr = (C.HDIGDRIVER)(h)
-	return 0
+	return h
 }

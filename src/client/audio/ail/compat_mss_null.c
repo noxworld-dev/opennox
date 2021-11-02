@@ -1,6 +1,6 @@
 //+build none
 
-#include "defs.h"
+#include "compat_mss.h"
 
 struct _SAMPLE {
 	int h;

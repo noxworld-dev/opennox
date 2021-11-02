@@ -14,11 +14,10 @@
 #define MINIMP3_ONLY_MP3
 #define MINIMP3_NO_SIMD
 #define MINIMP3_IMPLEMENTATION
-#include "client/audio/mp3/minimp3.h"
+#include "../mp3/minimp3.h"
 
-#include "common/fs/nox_fs.h"
+#include "../../../common/fs/nox_fs.h"
 #include "compat_mss.h"
-#include "noxstring.h"
 
 struct _DIG_DRIVER {
 	ALCdevice* device;
@@ -217,7 +216,7 @@ static void checkError() {
 	ALCenum error;
 	error = alGetError();
 	if (error != AL_NO_ERROR) {
-		_dprintf("AL error: 0x%x\n", error);
+		printf("AL error: 0x%x\n", error);
 		abort();
 	}
 }
@@ -1012,11 +1011,11 @@ int32_t AIL_waveOutOpen(HDIGDRIVER* pdrvr, int32_t wDeviceID, NOX_WAVEFORMAT lpF
 	HDIGDRIVER dig = calloc(1, sizeof(*dig));
 	// fprintf(stderr, "%s\n", __FUNCTION__);
 	dig->device = alcOpenDevice(NULL);
-	_dprintf("AL device: %08x", (int)dig->device);
+	printf("AL device: %08x", (int)dig->device);
 	if (!dig->device)
 		checkError();
 	dig->context = alcCreateContext(dig->device, NULL);
-	_dprintf("AL context: %08x", (int)dig->context);
+	printf("AL context: %08x", (int)dig->context);
 	if (!dig->context)
 		checkError();
 	alcMakeContextCurrent(dig->context);
