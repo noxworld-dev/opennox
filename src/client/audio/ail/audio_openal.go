@@ -574,28 +574,38 @@ func (s *audioStream) mp3Tell() uint32 {
 	return 0
 }
 
-func audioCheckError() {
+func audioCheckError() bool {
 	if err := openal.Err(); err != nil {
 		audioLog.Println(err)
+		return false
 	}
+	return true
 }
 
 func (s *audioSample) unqueueBuffers() {
 	processed := int(s.source.Geti(openal.AlBuffersProcessed))
-	audioCheckError()
+	if !audioCheckError() {
+		return
+	}
 	if processed != 0 {
 		s.source.UnqueueBuffers(s.hwbuf[s.hwready : s.hwready+processed])
-		audioCheckError()
+		if !audioCheckError() {
+			return
+		}
 	}
 	s.hwready += processed
 }
 
 func (s *audioStream) unqueueBuffers() {
 	processed := int(s.source.Geti(openal.AlBuffersProcessed))
-	audioCheckError()
+	if !audioCheckError() {
+		return
+	}
 	if processed != 0 {
 		s.source.UnqueueBuffers(s.hwbuf[s.hwready : s.hwready+processed])
-		audioCheckError()
+		if !audioCheckError() {
+			return
+		}
 	}
 	s.hwready += processed
 }
@@ -615,11 +625,16 @@ func (dig Driver) AllocateSample() Sample {
 		d:      d,
 		source: openal.NewSource(),
 	}
-	audioCheckError()
+	if !audioCheckError() {
+		return 0
+	}
 
 	s.hwbuf = openal.NewBuffers(4)
 	s.hwready = 4
-	audioCheckError()
+	if !audioCheckError() {
+		s.source.Delete()
+		return 0
+	}
 
 	d.mu.Lock()
 	s.next = d.sampleHead
@@ -637,7 +652,13 @@ func (s Sample) Release() {
 		audioLog.Println("AIL_release_sample_handle")
 	}
 	handles.AssertValid(uintptr(s))
-	// TODO: delete sample?
+	if v := audioSamples.byHandle[s]; v != nil {
+		delete(audioSamples.byHandle, s)
+		for _, b := range v.hwbuf {
+			b.Delete()
+		}
+		v.source.Delete()
+	}
 }
 
 func audioOpenStream(path string) (*audioStream, error) {
@@ -772,9 +793,15 @@ func (dig Driver) OpenStream(name string, mem int) Stream {
 	s.d = d
 	s.h = Stream(handles.New())
 	s.source = openal.NewSource()
-	audioCheckError()
+	if !audioCheckError() {
+		return 0
+	}
 	s.hwbuf = openal.NewBuffers(2)
 	s.hwready = 2
+	if !audioCheckError() {
+		s.source.Delete()
+		return 0
+	}
 
 	d.mu.Lock()
 	s.next = d.streamHead
@@ -824,6 +851,12 @@ func (h Timer) Release() {
 		audioLog.Println("AIL_release_timer_handle")
 	}
 	handles.AssertValid(uintptr(h))
+	if t := audioTimers.byHandle[h]; t != nil {
+		if t.t != nil {
+			t.t.Stop()
+		}
+		delete(audioTimers.byHandle, h)
+	}
 }
 
 func (h Sample) End() {
@@ -963,7 +996,14 @@ func Serve() {
 	if audioDebug {
 		audioLog.Println("AIL_serve")
 	}
-	// TODO: call timers here to prevent data races
+	for _, t := range audioTimers.byHandle {
+		select {
+		case <-t.t.C:
+			t.f(t.user)
+			t.t.Reset(t.dt)
+		default:
+		}
+	}
 }
 
 func (h Sample) SetADPCMBlockSize(block uint32) {
@@ -1096,18 +1136,10 @@ func (h Timer) Start() {
 		return
 	}
 	t := h.get()
-	dt := t.dt
-	tm := time.NewTicker(dt)
-	t.t = tm
-	go func() {
-		for range tm.C {
-			t.f(t.user)
-			if t.dt != dt {
-				tm.Reset(t.dt)
-				dt = t.dt
-			}
-		}
-	}()
+	if t.t != nil {
+		t.t.Stop()
+	}
+	t.t = time.NewTicker(t.dt)
 }
 
 func Startup() int {
@@ -1200,7 +1232,7 @@ func (dig Driver) Close() error {
 	return nil
 }
 
-func (s *audioSample) play_adpcm(data []byte) {
+func (s *audioSample) playADPCM(data []byte) {
 	if !s.adpcm {
 		panic("abort")
 	}
@@ -1220,9 +1252,15 @@ func (s *audioSample) play_adpcm(data []byte) {
 	}
 
 	s.hwbuf[s.hwready].SetDataInt16(format, decoded, int32(s.playbackRate))
-	audioCheckError()
+	if !audioCheckError() {
+		s.hwready++
+		return
+	}
 	s.source.QueueBuffer(s.hwbuf[s.hwready])
-	audioCheckError()
+	if !audioCheckError() {
+		s.hwready++
+		return
+	}
 }
 
 func (s *audioSample) work() {
@@ -1248,7 +1286,7 @@ func (s *audioSample) work() {
 	s.unqueueBuffers()
 
 	for s.hwready != 0 {
-		s.play_adpcm(buf.buf[buf.pos : buf.pos+int(s.blockSize)])
+		s.playADPCM(buf.buf[buf.pos : buf.pos+int(s.blockSize)])
 		buf.pos += int(s.blockSize)
 
 		if s.IsPlaying() && s.source.State() != openal.Playing {
@@ -1301,9 +1339,15 @@ func (s *audioStream) work() {
 		}
 
 		s.hwbuf[s.hwready].SetDataInt16(format, buffer[:offset], int32(s.playbackRate))
-		audioCheckError()
+		if !audioCheckError() {
+			s.hwready++
+			return
+		}
 		s.source.QueueBuffer(s.hwbuf[s.hwready])
-		audioCheckError()
+		if !audioCheckError() {
+			s.hwready++
+			return
+		}
 
 		state := s.source.State()
 		if s.playing && state != openal.Playing {
