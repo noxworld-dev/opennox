@@ -84,7 +84,7 @@ int nox_xxx_cryptOpen_426910(char* a1, int a2, int a3) {
 }
 
 //----- (004268E0) --------------------------------------------------------
-int nox_xxx_file_4268E0() { return nox_binfile_yyy_409110(nox_file_3); }
+int nox_xxx_file_4268E0() { return nox_binfile_fflush_409110(nox_file_3); }
 
 //----- (004269F0) --------------------------------------------------------
 void nox_xxx_cryptClose_4269F0() {
@@ -156,7 +156,7 @@ size_t nox_xxx_fileReadWrite_426AC0_file3_fread(unsigned char* a1, size_t a2) {
 				result = 0;
 			}
 		} else {
-			result = nox_binfile_zzz_409200(a1, a2, 1, nox_file_3);
+			result = nox_binfile_fwrite_409200(a1, a2, 1, nox_file_3);
 		}
 	}
 	return result;
@@ -192,7 +192,7 @@ void nox_xxx_crypt_426C90() {
 			nox_fs_fwrite(nox_file_3, &v5, 4);
 			++dword_5d4594_740072;
 		} else {
-			*getMemU32Ptr(0x5D4594, 740040 + 4*dword_5d4594_740072) = nox_binfile_yyy_409110(nox_file_3);
+			*getMemU32Ptr(0x5D4594, 740040 + 4*dword_5d4594_740072) = nox_binfile_fflush_409110(nox_file_3);
 			v3 = nox_binfile_ftell_426A50();
 			v4 = dword_5d4594_740072;
 			*getMemU32Ptr(0x5D4594, 740008 + 4*dword_5d4594_740072) = v3;
@@ -202,7 +202,7 @@ void nox_xxx_crypt_426C90() {
 }
 
 //----- (004268F0) --------------------------------------------------------
-void sub_4268F0(int a1) { nox_binfile_kkk_409190(nox_file_3, *(int*)&dword_5d4594_739996, a1); }
+void sub_4268F0(int a1) { nox_binfile_writeIntAt_409190(nox_file_3, *(int*)&dword_5d4594_739996, a1); }
 
 //----- (00426D40) --------------------------------------------------------
 void nox_xxx_crypt_426D40() {
@@ -228,7 +228,7 @@ void nox_xxx_crypt_426D40() {
 	} else {
 		v5 = nox_binfile_ftell_426A50();
 		v3 = (void*)(v5 - *getMemU32Ptr(0x5D4594, 740008 + 4*dword_5d4594_740072));
-		nox_binfile_kkk_409190(nox_file_3, v5 - *getMemU32Ptr(0x5D4594, 740008 + 4*dword_5d4594_740072),
+		nox_binfile_writeIntAt_409190(nox_file_3, v5 - *getMemU32Ptr(0x5D4594, 740008 + 4*dword_5d4594_740072),
 							   *getMemU32Ptr(0x5D4594, 740040 + 4*dword_5d4594_740072));
 	}
 }

@@ -1,6 +1,7 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
 #include "common/fs/nox_fs.h"
 #include "common__binfile.h"
@@ -404,7 +405,13 @@ void nox_binfile_xxx_409560() {
 }
 
 //----- (00408D40) --------------------------------------------------------
+#ifdef NOX_CGO
+void nox_binfile_cryptSet_408D40_hook(FILE* f, int key);
+#endif // NOX_CGO
 int nox_binfile_cryptSet_408D40(FILE* f, int key) {
+#ifdef NOX_CGO
+	nox_binfile_cryptSet_408D40_hook(f, key);
+#endif // NOX_CGO
 	if (nox_binfile_cryptEnabled_409A60()) {
 		return 0;
 	}
@@ -417,6 +424,9 @@ int nox_binfile_cryptSet_408D40(FILE* f, int key) {
 }
 
 //----- (00408CC0) --------------------------------------------------------
+#ifdef NOX_CGO
+void nox_binfile_open_408CC0_hook(const char* path, int mode, FILE* file);
+#endif // NOX_CGO
 FILE* nox_binfile_open_408CC0(const char* path, int mode) {
 	FILE* f = 0;
 	if (mode == NOX_BINFILE_READ) {
@@ -437,6 +447,9 @@ FILE* nox_binfile_open_408CC0(const char* path, int mode) {
 	nox_binfile_buf2 = 0;
 	nox_binfile = f;
 	nox_binfile_hasErr = 0;
+#ifdef NOX_CGO
+	nox_binfile_open_408CC0_hook(path, mode, f);
+#endif // NOX_CGO
 	return f;
 }
 
@@ -495,7 +508,7 @@ unsigned char* nox_binfile_lll_409860(unsigned char* a1, unsigned char* a2, unsi
 }
 
 //----- (004097C0) --------------------------------------------------------
-void nox_binfile_iii_4097C0(uint8_t* src, size_t sz, uint8_t* dest) {
+void nox_binfile_encodeBuf_4097C0(uint8_t* src, size_t sz, uint8_t* dest) {
 	if (src == NULL) {
 		return;
 	}
@@ -528,20 +541,29 @@ void nox_binfile_iii_4097C0(uint8_t* src, size_t sz, uint8_t* dest) {
 }
 
 //----- (00408D90) --------------------------------------------------------
+#ifdef NOX_CGO
+void nox_binfile_close_408D90_hookStart(FILE* file);
+void nox_binfile_close_408D90_hook(FILE* file);
+#endif // NOX_CGO
 int nox_binfile_close_408D90(FILE* f) {
 	int v1; // esi
+#ifdef NOX_CGO
+	nox_binfile_close_408D90_hookStart(f);
+#endif // NOX_CGO
 
 	if (nox_binfile_cryptEnabled_409A60()) {
 		if (nox_binfile_offs & 7) {
 			v1 = 8 - (nox_binfile_offs & 7);
 			if (nox_binfile_mode) {
-				nox_binfile_iii_4097C0(&nox_binfile_buf2, 8, &nox_binfile_buf1);
+				nox_binfile_encodeBuf_4097C0(&nox_binfile_buf2, 8, &nox_binfile_buf1);
 				nox_fs_fwrite(f, &nox_binfile_buf1, 8);
 			}
 			nox_binfile_offs += v1;
 		}
-		nox_fs_ftell(f);
 	}
+#ifdef NOX_CGO
+	nox_binfile_close_408D90_hook(f);
+#endif // NOX_CGO
 	nox_fs_close(f);
 	nox_binfile_buf1 = 0;
 	nox_binfile = 0;
@@ -552,7 +574,7 @@ int nox_binfile_close_408D90(FILE* f) {
 }
 
 //----- (004099C0) --------------------------------------------------------
-int nox_binfile_mmm_4099C0(unsigned char* a1, signed int a2, unsigned char* a3) {
+int nox_binfile_decodeBuf_4099C0(unsigned char* a1, signed int a2, unsigned char* a3) {
 	unsigned char* v3; // edi
 	unsigned char* v4; // esi
 	int v5;            // eax
@@ -595,7 +617,13 @@ int nox_binfile_mmm_4099C0(unsigned char* a1, signed int a2, unsigned char* a3) 
 }
 
 //----- (0040ADD0) --------------------------------------------------------
-int nox_binfile_fread2_40ADD0(char* buf, size_t size, size_t count, FILE* file) {
+#ifdef NOX_CGO
+bool nox_binfile_fread_raw_40ADD0_hook(int size, int count, FILE* file);
+#endif // NOX_CGO
+int nox_binfile_fread_raw_40ADD0(char* buf, size_t size, size_t count, FILE* file) {
+#ifdef NOX_CGO
+	if (!nox_binfile_fread_raw_40ADD0_hook(size, count, file)) { abort(); }
+#endif // NOX_CGO
 	int left = count * size;
 	if (dword_5d4594_3612) {
 		return nox_fs_fread(file, buf, size * count) / size;
@@ -634,6 +662,10 @@ int nox_binfile_fread2_40ADD0(char* buf, size_t size, size_t count, FILE* file) 
 }
 
 //----- (00408E40) --------------------------------------------------------
+#ifdef NOX_CGO
+void nox_binfile_fread_408E40_hookStart(FILE* f);
+bool nox_binfile_fread_408E40_hook(char* a1, int a2, int a3, FILE* a4, int res);
+#endif // NOX_CGO
 int nox_binfile_fread_408E40(char* a1, int a2, int a3, FILE* a4) {
 	unsigned int v4; // ebp
 	unsigned int v5; // edi
@@ -653,13 +685,16 @@ int nox_binfile_fread_408E40(char* a1, int a2, int a3, FILE* a4) {
 	if (a2 == 0 || !a3) {
 		return 0;
 	}
+#ifdef NOX_CGO
+	nox_binfile_fread_408E40_hookStart(a4);
+#endif // NOX_CGO
 	v9 = nox_binfile_offs & 7;
 	if (v9) {
 		v4 = 8 - v9;
 		if (v5 < 8 - v9) {
 			v4 = v5;
 		}
-		nox_binfile_mmm_4099C0(&nox_binfile_buf2, 8, &nox_binfile_buf1);
+		nox_binfile_decodeBuf_4099C0(&nox_binfile_buf2, 8, &nox_binfile_buf1);
 		memcpy(a1, ((char*)&nox_binfile_buf1) + (nox_binfile_offs & 7), v4);
 		v7 = a3;
 		v5 = v14;
@@ -669,8 +704,8 @@ int nox_binfile_fread_408E40(char* a1, int a2, int a3, FILE* a4) {
 	v10 = v5 - v4;
 	if ((int)(v5 - v4) > 8) {
 		v6 = 8 * (v10 / 8);
-		v7 = nox_binfile_fread2_40ADD0(&a1[v4], 1u, 8 * (v10 / 8), a4);
-		nox_binfile_mmm_4099C0(&a1[v4], v6, &a1[v4]);
+		v7 = nox_binfile_fread_raw_40ADD0(&a1[v4], 1u, 8 * (v10 / 8), a4);
+		nox_binfile_decodeBuf_4099C0(&a1[v4], v6, &a1[v4]);
 		if (v7 <= 0) {
 			nox_binfile_hasErr = 1;
 		} else {
@@ -681,17 +716,23 @@ int nox_binfile_fread_408E40(char* a1, int a2, int a3, FILE* a4) {
 	v11 = v5 - v6 - v4;
 	if (v11 > 0) {
 		nox_fs_ftell(a4);
-		v12 = nox_binfile_fread2_40ADD0(&nox_binfile_buf2, 1u, 8u, a4);
+		v12 = nox_binfile_fread_raw_40ADD0(&nox_binfile_buf2, 1u, 8u, a4);
 		v7 = v12;
 		if (v12 > 0) {
-			nox_binfile_mmm_4099C0(&nox_binfile_buf2, v12, &nox_binfile_buf1);
+			nox_binfile_decodeBuf_4099C0(&nox_binfile_buf2, v12, &nox_binfile_buf1);
 			memcpy(&a1[v6 + v4], &nox_binfile_buf1, v11);
 			nox_binfile_buf1 = 0;
 			nox_binfile_offs += v11;
+#ifdef NOX_CGO
+			if (!nox_binfile_fread_408E40_hook(a1, a2, a3, a4, a3)) { abort(); }
+#endif // NOX_CGO
 			return a3;
 		}
 		nox_binfile_hasErr = 1;
 	}
+#ifdef NOX_CGO
+	if (!nox_binfile_fread_408E40_hook(a1, a2, a3, a4, v7)) { abort(); }
+#endif // NOX_CGO
 	return v7;
 }
 
@@ -711,48 +752,74 @@ int nox_binfile_skip2nextboundary_408FE0(char* a1, int a2, int a3, FILE* a4) {
 }
 
 //----- (00409050) --------------------------------------------------------
-int nox_binfile_fseek_409050(FILE* a1, int a2, int a3) {
+#ifdef NOX_CGO
+void nox_binfile_fseek_409050_hookStart(FILE* a1);
+bool nox_binfile_fseek_409050_hook(FILE* f, int offs, int whence);
+#endif // NOX_CGO
+int nox_binfile_fseek_409050(FILE* f, int offs, int whence) {
+#ifdef NOX_CGO
+	nox_binfile_fseek_409050_hookStart(f);
+#endif // NOX_CGO
 	int v3; // edi
 	int v4; // eax
 	int v5; // edi
 
 	nox_binfile_hasErr = 0;
-	if (nox_binfile_mode) {
-		if (!a2) {
-			nox_fs_fseek_end(a1, 0);
-			nox_binfile_offs = nox_fs_ftell(a1);
+	if (nox_binfile_mode != NOX_BINFILE_READ) {
+		if (offs == 0) {
+			nox_fs_fseek_end(f, 0);
+			nox_binfile_offs = nox_fs_ftell(f);
 		}
+#ifdef NOX_CGO
+		if (!nox_binfile_fseek_409050_hook(f, offs, whence)) { abort(); }
+#endif // NOX_CGO
 		return 0;
 	}
-	v3 = a2;
-	if (a3 == SEEK_CUR) {
-		if (!a2) {
+	v3 = offs;
+	if (whence == SEEK_CUR) {
+		if (offs == 0) {
+#ifdef NOX_CGO
+			if (!nox_binfile_fseek_409050_hook(f, offs, whence)) { abort(); }
+#endif // NOX_CGO
 			return 0;
 		}
-		v3 = nox_binfile_offs - nox_fs_ftell(a1) + a2;
+		v3 = nox_binfile_offs - nox_fs_ftell(f) + offs;
 	}
-	nox_fs_fseek(a1, v3, a3);
-	v4 = nox_fs_ftell(a1);
+	nox_fs_fseek(f, v3, whence);
+	v4 = nox_fs_ftell(f);
 	v5 = v4 & 7;
 	nox_binfile_offs = v4;
 	if (v4 & 7) {
-		nox_fs_fseek_cur(a1, -v5);
-		if (nox_binfile_fread2_40ADD0(&nox_binfile_buf2, 1u, 8u, a1) <= 0) {
+		nox_fs_fseek_cur(f, -v5);
+		if (nox_binfile_fread_raw_40ADD0(&nox_binfile_buf2, 1u, 8u, f) <= 0) {
 			nox_binfile_offs -= v5;
+#ifdef NOX_CGO
+			if (!nox_binfile_fseek_409050_hook(f, offs, whence)) { abort(); }
+#endif // NOX_CGO
 			return 0;
 		}
 	}
+#ifdef NOX_CGO
+	if (!nox_binfile_fseek_409050_hook(f, offs, whence)) { abort(); }
+#endif // NOX_CGO
 	return 0;
 }
 
 //----- (00409110) --------------------------------------------------------
-int nox_binfile_yyy_409110(FILE* a1) {
+#ifdef NOX_CGO
+void nox_binfile_fflush_409110_hookStart(FILE* a1);
+bool nox_binfile_fflush_409110_hook(FILE* a1);
+#endif // NOX_CGO
+int nox_binfile_fflush_409110(FILE* a1) {
+#ifdef NOX_CGO
+	nox_binfile_fflush_409110_hookStart(a1);
+#endif // NOX_CGO
 	int v1; // esi
 	int v2; // esi
 
 	if (nox_binfile_offs & 7) {
 		v1 = 8 - (nox_binfile_offs & 7);
-		nox_binfile_iii_4097C0(&nox_binfile_buf2, 8, &nox_binfile_buf1);
+		nox_binfile_encodeBuf_4097C0(&nox_binfile_buf2, 8, &nox_binfile_buf1);
 		nox_fs_fwrite(a1, &nox_binfile_buf1, 8);
 		nox_binfile_offs += v1;
 	}
@@ -760,11 +827,18 @@ int nox_binfile_yyy_409110(FILE* a1) {
 	nox_binfile_buf1 = 0;
 	nox_fs_fwrite(a1, &nox_binfile_buf1, 8);
 	nox_binfile_offs += 8;
+#ifdef NOX_CGO
+	if (!nox_binfile_fflush_409110_hook(a1)) { abort(); }
+#endif // NOX_CGO
 	return v2;
 }
 
 //----- (00409200) --------------------------------------------------------
-size_t nox_binfile_zzz_409200(char* a1, int a2, int a3, FILE* a4) {
+#ifdef NOX_CGO
+void nox_binfile_fwrite_409200_hookStart(FILE* a4);
+void nox_binfile_fwrite_409200_hook(char* a1, int a2, int a3, FILE* a4, int res);
+#endif // NOX_CGO
+size_t nox_binfile_fwrite_409200(char* a1, int a2, int a3, FILE* a4) {
 	int v4;             // ecx
 	unsigned int v5;    // ebx
 	int v6;             // esi
@@ -791,6 +865,9 @@ size_t nox_binfile_zzz_409200(char* a1, int a2, int a3, FILE* a4) {
 	if (!a2 || !v4) { // TODO: byte_5D4594 == (unsigned char*)-1288 || ...
 		return 0;
 	}
+#ifdef NOX_CGO
+	nox_binfile_fwrite_409200_hookStart(a4);
+#endif // NOX_CGO
 	v8 = nox_binfile_offs & 7;
 	if (nox_binfile_offs & 7) {
 		if (v5 >= 8 - v8) {
@@ -808,7 +885,7 @@ size_t nox_binfile_zzz_409200(char* a1, int a2, int a3, FILE* a4) {
 		}
 		nox_binfile_offs = v11;
 		if (!(v11 & 7)) {
-			nox_binfile_iii_4097C0(&nox_binfile_buf2, 8, &nox_binfile_buf1);
+			nox_binfile_encodeBuf_4097C0(&nox_binfile_buf2, 8, &nox_binfile_buf1);
 			v12 = nox_fs_fwrite(a4, &nox_binfile_buf1, 8);
 			v7 = v12;
 			nox_binfile_buf2 = 0;
@@ -823,7 +900,7 @@ size_t nox_binfile_zzz_409200(char* a1, int a2, int a3, FILE* a4) {
 			v15 = v13 / 8;
 			v16 = &a1[v6];
 			do {
-				nox_binfile_iii_4097C0(v16, 8, &nox_binfile_buf1);
+				nox_binfile_encodeBuf_4097C0(v16, 8, &nox_binfile_buf1);
 				v16 += 8;
 				--v15;
 				v7 = nox_fs_fwrite(a4, &nox_binfile_buf1, 8);
@@ -839,11 +916,14 @@ size_t nox_binfile_zzz_409200(char* a1, int a2, int a3, FILE* a4) {
 			nox_binfile_offs += v17;
 		}
 	}
+#ifdef NOX_CGO
+	nox_binfile_fwrite_409200_hook(a1, a2, a3, a4, v7);
+#endif // NOX_CGO
 	return v7;
 }
 
 //----- (00409520) --------------------------------------------------------
-int nox_binfile_ooo_409520(FILE* f) {
+int nox_binfile_skipLine_409520(FILE* f) {
 	int res; // eax
 	unsigned char v = 0;
 	do {
@@ -855,7 +935,7 @@ int nox_binfile_ooo_409520(FILE* f) {
 }
 
 //----- (00409190) --------------------------------------------------------
-void nox_binfile_kkk_409190(FILE* file, int data, int file_offset) {
+void nox_binfile_writeIntAt_409190(FILE* file, int data, int file_offset) {
 	if (file_offset < 0) {
 		return;
 	}
@@ -867,7 +947,7 @@ void nox_binfile_kkk_409190(FILE* file, int data, int file_offset) {
 	data_buf[0] = data;
 	data_buf[1] = 0;
 	char mangled_data[8];
-	nox_binfile_iii_4097C0(&data_buf, 8, mangled_data);
+	nox_binfile_encodeBuf_4097C0(&data_buf, 8, mangled_data);
 
 	nox_fs_fwrite(file, mangled_data, 8);
 

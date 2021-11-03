@@ -503,7 +503,7 @@ int nox_xxx_parseString_409470(FILE* a1, uint8_t* a2) {
 			if (v3 != '/' || v5 != '/') {
 				*v2++ = v3;
 			} else {
-				nox_binfile_ooo_409520(a1);
+				nox_binfile_skipLine_409520(a1);
 				v2 = a2;
 				v3 = *(uint32_t*)CharType;
 				v4 = 1;

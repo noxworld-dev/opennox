@@ -1004,7 +1004,7 @@ int nox_xxx_parseGamedataBin_419B30() {
 						}
 					} else {
 					LABEL_5:
-						nox_binfile_ooo_409520(v1);
+						nox_binfile_skipLine_409520(v1);
 					}
 				}
 			}
@@ -3036,7 +3036,7 @@ int nox_xxx_SavePlayerDataFromClient_41CD70(char* a1, uint8_t* a2, int a3) {
 				v7 = a2;
 				do {
 					LOBYTE(a1) = *v7++;
-					nox_binfile_zzz_409200((char*)&a1, 1, 1, nox_file_2);
+					nox_binfile_fwrite_409200((char*)&a1, 1, 1, nox_file_2);
 					--v6;
 				} while (v6);
 			}

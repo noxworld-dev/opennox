@@ -2592,7 +2592,7 @@ uint32_t* nox_xxx_FontLoadFile_43F3B0(char* a1) {
 		v1 = calloc(1, 0x20u);
 		if (v1) {
 			memset(v1, 0, 0x20u);
-			if (nox_binfile_fread2_40ADD0((char*)v17, 0x1Cu, 1u, v3) != 1) {
+			if (nox_binfile_fread_raw_40ADD0((char*)v17, 0x1Cu, 1u, v3) != 1) {
 				goto LABEL_15;
 			}
 			if (v17[0] == 1181699700) {
@@ -2603,12 +2603,12 @@ uint32_t* nox_xxx_FontLoadFile_43F3B0(char* a1) {
 				v1[3] = v17[5];
 				v4 = (char*)calloc(v17[5], 8);
 				v1[4] = v4;
-				if (!v4 || nox_binfile_fread2_40ADD0(v4, 8 * v1[3], 1u, v3) != 1) {
+				if (!v4 || nox_binfile_fread_raw_40ADD0(v4, 8 * v1[3], 1u, v3) != 1) {
 					goto LABEL_15;
 				}
 			} else {
 				nox_fs_fseek_start(v3, 0);
-				if (nox_binfile_fread2_40ADD0((char*)v18, 0x4Cu, 1u, v3) != 1) {
+				if (nox_binfile_fread_raw_40ADD0((char*)v18, 0x4Cu, 1u, v3) != 1) {
 					goto LABEL_15;
 				}
 				v5 = *(uint16_t*)&v18[2];
@@ -2630,7 +2630,7 @@ uint32_t* nox_xxx_FontLoadFile_43F3B0(char* a1) {
 			v9 = v1[5] * nox_xxx_fontLoad_440870((int)v1);
 			v10 = (char*)calloc(1, v9);
 			v1[6] = v10;
-			if (!v10 || nox_binfile_fread2_40ADD0(v10, v9, 1u, v3) != 1) {
+			if (!v10 || nox_binfile_fread_raw_40ADD0(v10, v9, 1u, v3) != 1) {
 			LABEL_15:
 				nox_xxx_Font_440840(v1);
 				nox_fs_close(v3);
@@ -4518,7 +4518,7 @@ int nox_motd_4463E0(int a1) {
 		v3 = (char*)calloc(*getMemU32Ptr(0x5D4594, 826040 + 4 * a1) + 1, 1u);
 		dword_5d4594_826036 = v3;
 		if (v3) {
-			nox_binfile_fread2_40ADD0(v3, *getMemU32Ptr(0x5D4594, 826040 + 4 * a1), 1u, v2);
+			nox_binfile_fread_raw_40ADD0(v3, *getMemU32Ptr(0x5D4594, 826040 + 4 * a1), 1u, v2);
 			v3 = *(char**)&dword_5d4594_826036;
 		}
 		v3[(*getMemU32Ptr(0x5D4594, 826040 + 4 * a1))++] = 0;

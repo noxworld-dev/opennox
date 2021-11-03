@@ -54,7 +54,7 @@ int nox_xxx_savePlayerMB_41C8F0(char* a1, unsigned int a2) {
 	if ((uint16_t)a2) {
 		v8 = (unsigned short)a2;
 		do {
-			nox_binfile_zzz_409200(v7++, 1, 1, nox_file_2);
+			nox_binfile_fwrite_409200(v7++, 1, 1, nox_file_2);
 			--v8;
 		} while (v8);
 	}

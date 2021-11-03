@@ -25,9 +25,12 @@ var files struct {
 
 type File struct {
 	*os.File
-	buf  *bufio.Reader
-	err  error
-	text bool
+	onRead  func(n int)
+	onWrite func(p []byte)
+	onSeek  func(off int64, whence int)
+	buf     *bufio.Reader
+	err     error
+	text    bool
 }
 
 func (f *File) enableBuffer() {
@@ -62,6 +65,9 @@ func (f *File) Seek(off int64, whence int) (int64, error) {
 		f.buf = nil
 	}
 	n, err := f.File.Seek(off, whence)
+	if f.onSeek != nil {
+		f.onSeek(off, whence)
+	}
 	f.err = err
 	return n, err
 }
@@ -74,6 +80,9 @@ func (f *File) Read(p []byte) (int, error) {
 	}
 	n, err := f.File.Read(p)
 	f.err = err
+	if f.onRead != nil {
+		f.onRead(len(p))
+	}
 	return n, err
 }
 
@@ -83,6 +92,9 @@ func (f *File) Write(p []byte) (int, error) {
 	}
 	n, err := f.File.Write(p)
 	f.err = err
+	if f.onWrite != nil {
+		f.onWrite(p)
+	}
 	return n, err
 }
 
@@ -92,6 +104,9 @@ func (f *File) WriteString(p string) (int, error) {
 	}
 	n, err := f.File.WriteString(p)
 	f.err = err
+	if f.onWrite != nil {
+		f.onWrite([]byte(p))
+	}
 	return n, err
 }
 
@@ -159,9 +174,7 @@ func nox_fs_move(src, dst *C.char) C.bool {
 	return fs.Rename(C.GoString(src), C.GoString(dst)) == nil
 }
 
-//export nox_fs_fseek
-func nox_fs_fseek(f *C.FILE, off C.long, mode C.int) C.int {
-	fp := fileByHandle(f)
+func convWhence(mode C.int) int {
 	var whence int
 	switch mode {
 	case C.SEEK_SET:
@@ -173,7 +186,13 @@ func nox_fs_fseek(f *C.FILE, off C.long, mode C.int) C.int {
 	default:
 		panic("unsupported seek mode")
 	}
-	_, err := fp.Seek(int64(off), whence)
+	return whence
+}
+
+//export nox_fs_fseek
+func nox_fs_fseek(f *C.FILE, off C.long, mode C.int) C.int {
+	fp := fileByHandle(f)
+	_, err := fp.Seek(int64(off), convWhence(mode))
 	if err != nil {
 		return -1
 	}

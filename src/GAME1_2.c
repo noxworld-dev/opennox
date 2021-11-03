@@ -4126,7 +4126,7 @@ void* nox_video_readBagIdxBytes_42F0B0(int is16bit) {
 		return 0;
 	}
 	int magic = 0;
-	nox_binfile_fread2_40ADD0(&magic, 4, 1, f);
+	nox_binfile_fread_raw_40ADD0(&magic, 4, 1, f);
 	nox_video_bag_flag_754144 = 0;
 	if (magic == -85082901) {
 		nox_video_bag_flag_754144 = 1;
@@ -4135,14 +4135,14 @@ void* nox_video_readBagIdxBytes_42F0B0(int is16bit) {
 		return 0;
 	}
 	unsigned int sz = 0;
-	nox_binfile_fread2_40ADD0(&sz, 4, 1, f);
+	nox_binfile_fread_raw_40ADD0(&sz, 4, 1, f);
 	void* data = calloc(1, sz);
 	if (!data) {
 		nox_fs_close(f);
 		return 0;
 	}
 	nox_fs_fseek_start(f, 0);
-	int n = nox_binfile_fread2_40ADD0(data, 1, sz, f);
+	int n = nox_binfile_fread_raw_40ADD0(data, 1, sz, f);
 	if (n != sz) {
 		nox_fs_close(f);
 		return 0;
@@ -4567,17 +4567,17 @@ void nox_video_bagReadImage_42FE30(nox_video_bag_section_t* ent) {
 	FILE* fp = nox_video_bag_seek(ent->bag_offs);
 	int rn = 0;
 	if (ent->size == ent->size_comp) {
-		rn = nox_binfile_fread2_40ADD0(ent->data, 1, ent->size_comp, fp);
+		rn = nox_binfile_fread_raw_40ADD0(ent->data, 1, ent->size_comp, fp);
 	} else {
 		char* buf = 0;
 		char* in;
 		if (ent->size_comp > nox_video_bag_tmpBufSize_787184) {
 			buf = calloc(1, ent->size_comp);
 			in = buf;
-			rn = nox_binfile_fread2_40ADD0(buf, 1, ent->size_comp, fp);
+			rn = nox_binfile_fread_raw_40ADD0(buf, 1, ent->size_comp, fp);
 		} else {
 			in = nox_video_bag_tmpBuf_787208;
-			rn = nox_binfile_fread2_40ADD0(nox_video_bag_tmpBuf_787208, 1, ent->size_comp, fp);
+			rn = nox_binfile_fread_raw_40ADD0(nox_video_bag_tmpBuf_787208, 1, ent->size_comp, fp);
 		}
 		sub_578C30(nox_video_bag_nxz_787212);
 		int inLeft = ent->size_comp;
@@ -4635,12 +4635,12 @@ int sub_42FFF0(FILE* a1) {
 	char v4[32];   // [esp+14h] [ebp-20h]
 
 	strcpy(v3, "LOOKUPTABLE");
-	v1 = nox_binfile_fread2_40ADD0(v4, 1u, strlen(v3), a1);
+	v1 = nox_binfile_fread_raw_40ADD0(v4, 1u, strlen(v3), a1);
 	result = 0;
 	if (v1 == strlen(v3)) {
 		v4[strlen(v3)] = 0;
 		if (!strcmp(v4, v3)) {
-			result = nox_binfile_fread2_40ADD0((char*)getMemAt(0x5D4594, 754340), 1u, 0x8000u, a1) == 0x8000;
+			result = nox_binfile_fread_raw_40ADD0((char*)getMemAt(0x5D4594, 754340), 1u, 0x8000u, a1) == 0x8000;
 		} else {
 			result = 0;
 		}

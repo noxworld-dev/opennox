@@ -10479,7 +10479,7 @@ char* sub_4866F0(const char* a1, const char* a2) {
 	v8[4] = v9;
 	v10 = nox_fs_open(v20);
 	*((uint32_t*)v2 + 67) = v10;
-	if (!v10 || nox_binfile_fread2_40ADD0(v17, 0xCu, 1u, v6) != 1) {
+	if (!v10 || nox_binfile_fread_raw_40ADD0(v17, 0xCu, 1u, v6) != 1) {
 		goto LABEL_27;
 	}
 	*((uint32_t*)v2 + 1) = *(uint32_t*)&v17[8];
@@ -10491,7 +10491,7 @@ char* sub_4866F0(const char* a1, const char* a2) {
 	*(uint32_t*)v2 = v11;
 	memset(v11, 0, 4 * ((unsigned int)(36 * v12) >> 2));
 	if (*(uint32_t*)&v17[4] != 1) {
-		if (nox_binfile_fread2_40ADD0(*(char**)v2, 36 * *((uint32_t*)v2 + 1), 1u, v6) == 1) {
+		if (nox_binfile_fread_raw_40ADD0(*(char**)v2, 36 * *((uint32_t*)v2 + 1), 1u, v6) == 1) {
 			goto LABEL_14;
 		}
 	LABEL_27:
@@ -10506,7 +10506,7 @@ char* sub_4866F0(const char* a1, const char* a2) {
 	v13 = 0;
 	if (*((uint32_t*)v2 + 1) > 0) {
 		v14 = 0;
-		while (nox_binfile_fread2_40ADD0((char*)(v14 + *(uint32_t*)v2), 0x20u, 1u, v6) == 1) {
+		while (nox_binfile_fread_raw_40ADD0((char*)(v14 + *(uint32_t*)v2), 0x20u, 1u, v6) == 1) {
 			++v13;
 			*(uint32_t*)(*(uint32_t*)v2 + v14 + 32) = 0;
 			v14 += 36;
@@ -10678,7 +10678,7 @@ int sub_486B60(int a1, int a2) {
 	if (!v6) {
 		return v12;
 	}
-	if (nox_binfile_fread2_40ADD0((char*)v15, 0xCu, 1u, v6) != 1 || v15[0] != 1179011410 || v15[2] != 1163280727) {
+	if (nox_binfile_fread_raw_40ADD0((char*)v15, 0xCu, 1u, v6) != 1 || v15[0] != 1179011410 || v15[2] != 1163280727) {
 		printf("error: '%s' is bad - cannot read\n", &v15[3]);
 		if (*(uint32_t*)(a1 + 272)) {
 			nox_fs_close(*(FILE**)(a1 + 272));
@@ -10686,12 +10686,12 @@ int sub_486B60(int a1, int a2) {
 		}
 		return v12;
 	}
-	if (nox_binfile_fread2_40ADD0(v13, 8u, 1u, v7) != 1) {
+	if (nox_binfile_fread_raw_40ADD0(v13, 8u, 1u, v7) != 1) {
 		goto LABEL_18;
 	}
 	while (1) {
 		if (*(uint32_t*)v13 == 544501094) {
-			nox_binfile_fread2_40ADD0(v14, 0x10u, 1u, v7);
+			nox_binfile_fread_raw_40ADD0(v14, 0x10u, 1u, v7);
 			nox_fs_fseek_cur(v7, *(uint32_t*)&v13[4] - 16);
 			goto LABEL_15;
 		}
@@ -10700,7 +10700,7 @@ int sub_486B60(int a1, int a2) {
 		}
 		nox_fs_fseek_cur(v7, *(int*)&v13[4]);
 	LABEL_15:
-		if (nox_binfile_fread2_40ADD0(v13, 8u, 1u, v7) != 1) {
+		if (nox_binfile_fread_raw_40ADD0(v13, 8u, 1u, v7) != 1) {
 			goto LABEL_18;
 		}
 	}
@@ -10734,7 +10734,7 @@ signed int sub_486DB0(int a1, char* a2, signed int a3) {
 	if (a3 > *(int*)(a1 + 284)) {
 		v4 = *(uint32_t*)(a1 + 284);
 	}
-	if (v4 <= 0 || (result = nox_binfile_fread2_40ADD0(a2, 1u, v4, *(FILE**)(a1 + 280)), result < 0)) {
+	if (v4 <= 0 || (result = nox_binfile_fread_raw_40ADD0(a2, 1u, v4, *(FILE**)(a1 + 280)), result < 0)) {
 		result = 0;
 	}
 	*(uint32_t*)(a1 + 284) -= result;
