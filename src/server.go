@@ -19,6 +19,7 @@ package nox
 #include "server__system__server.h"
 #include "server__script__script.h"
 #include "common__net_list.h"
+#include "common__crypt.h"
 #include "common__log.h"
 
 extern unsigned int nox_gameFPS;

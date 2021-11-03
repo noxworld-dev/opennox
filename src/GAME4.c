@@ -13,6 +13,7 @@
 #include "GAME4_3.h"
 #include "GAME5_2.h"
 #include "common__binfile.h"
+#include "common__crypt.h"
 #include "common__net_list.h"
 #include "common__random.h"
 #include "common__system__team.h"

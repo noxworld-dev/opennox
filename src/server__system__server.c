@@ -27,6 +27,7 @@
 #include "common__net_list.h"
 #include "common__random.h"
 #include "common__strman.h"
+#include "common__crypt.h"
 #include "common__system__settings.h"
 #include "common__telnet__telnetd.h"
 #include "input_common.h"

@@ -3072,28 +3072,6 @@ int sub_56FD50(int a1, void* a2p, int a3) {
 }
 // 560840: using guessed type void  nullsub_31(uint32_t);
 
-//----- (0056FDD0) --------------------------------------------------------
-#ifndef NOX_CGO
-void nox_xxx_cryptXor_56FDD0(char key, unsigned char* p, int n) {
-	if (!p) {
-		return;
-	}
-	for (int i = 0; i < n; i++) {
-		p[i] ^= key;
-	}
-}
-
-//----- (0056FE00) --------------------------------------------------------
-void nox_xxx_cryptXorDst_56FE00(char key, unsigned char* src, int n, unsigned char* dst) {
-	if (!src || !n || !dst) {
-		return;
-	}
-	for (int i = 0; i < n; i++) {
-		dst[i] = key ^ src[i];
-	}
-}
-#endif // NOX_CGO
-
 //----- (0056FE30) --------------------------------------------------------
 double nox_xxx_unkDoubleSmth_56FE30() {
 	double v0; // st7

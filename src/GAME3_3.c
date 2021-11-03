@@ -35,6 +35,7 @@
 #include "client__gui__window.h"
 #include "client__video__draw_common.h"
 #include "common/fs/nox_fs.h"
+#include "common__crypt.h"
 #include "common__magic__speltree.h"
 #include "server__script__script.h"
 

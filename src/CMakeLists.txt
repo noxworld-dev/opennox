@@ -328,6 +328,7 @@ set (
     common__strman.c
     common__binfile.c
     common__config.c
+    common__crypt.c
     common__log.c
     common__net_list.c
     common__ability__comablty.c

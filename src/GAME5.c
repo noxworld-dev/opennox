@@ -15,6 +15,7 @@
 #include "GAME5.h"
 #include "GAME5_2.h"
 #include "common__random.h"
+#include "common__crypt.h"
 #include "operators.h"
 #include "server__dbase__objdb.h"
 #include "server__script__script.h"

@@ -3,6 +3,7 @@
 #include "GAME5_2.h"
 #include "MixPatch.h"
 #include "common__random.h"
+#include "common__crypt.h"
 #include "defs.h"
 
 //----- (00552020) --------------------------------------------------------

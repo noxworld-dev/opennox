@@ -45,6 +45,7 @@
 #include "client__video__sdl__draw_nogl.h"
 #include "common/fs/nox_fs.h"
 #include "common__binfile.h"
+#include "common__crypt.h"
 #include "common__config.h"
 #include "input.h"
 #include "input_common.h"

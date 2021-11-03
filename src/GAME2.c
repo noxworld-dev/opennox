@@ -41,6 +41,7 @@
 #include "common__gamemech__pausefx.h"
 #include "common__net_list.h"
 #include "common__strman.h"
+#include "common__crypt.h"
 #include "operators.h"
 
 #include "client__audio__audevent.h"

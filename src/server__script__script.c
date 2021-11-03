@@ -7,6 +7,7 @@
 #include "GAME4.h"
 #include "GAME4_1.h"
 #include "common/fs/nox_fs.h"
+#include "common__crypt.h"
 #include "operators.h"
 #include "server__script__builtin.h"
 #include "server__script__internal.h"
