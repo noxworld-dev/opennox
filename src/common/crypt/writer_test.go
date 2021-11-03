@@ -34,4 +34,36 @@ func TestWriter(t *testing.T) {
 	err = w.Close()
 	require.NoError(t, err)
 	require.Equal(t, encoded, string(buf.Bytes()))
+
+	buf.Reset()
+	w.Reset(buf)
+
+	require.Equal(t, int64(0), w.Written())
+
+	_, err = w.Write([]byte("1"))
+	require.NoError(t, err)
+	require.Equal(t, int64(1), w.Written())
+	require.Equal(t, int(0), buf.Len())
+
+	_, err = w.Write([]byte("2"))
+	require.NoError(t, err)
+	require.Equal(t, int64(2), w.Written())
+	require.Equal(t, int(0), buf.Len())
+
+	err = w.Flush()
+	require.NoError(t, err)
+	require.Equal(t, int64(8), w.Written())
+	require.Equal(t, int(8), buf.Len())
+
+	err = w.WriteEmpty()
+	require.NoError(t, err)
+	require.Equal(t, int64(16), w.Written())
+	require.Equal(t, int(16), buf.Len())
+
+	err = w.Close()
+	require.NoError(t, err)
+	require.Equal(t, int64(16), w.Written())
+	require.Equal(t, int(16), buf.Len())
+	require.Equal(t, "\x71\xdd\x86\x72\xc4\x36\x80\xe5\x00\x00\x00\x00\x00\x00\x00\x00",
+		string(buf.Bytes()), "%x", buf.Bytes())
 }
