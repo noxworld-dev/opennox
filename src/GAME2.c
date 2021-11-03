@@ -8412,7 +8412,7 @@ int sub_460940(void* this) {
 	void* v2;   // [esp+0h] [ebp-4h]
 
 	v2 = this;
-	if (!*getMemU32Ptr(0x973F18, 3872) && sub_461450() == 1) {
+	if (!nox_xxx_cryptGetXxx() && sub_461450() == 1) {
 		sub_461400();
 		sub_461440(0);
 	}
@@ -8464,7 +8464,7 @@ int sub_460A10(int a1, int a2, int a3, char a4) {
 		v5 = a3;
 		if (a3 > 0) {
 			do {
-				if (*getMemU32Ptr(0x973F18, 3872) == 1) {
+				if (nox_xxx_cryptGetXxx() == 1) {
 					nox_xxx_fileReadWrite_426AC0_file3_fread(&v10, 1u);
 					nox_xxx_fileReadWrite_426AC0_file3_fread(v13, (unsigned char)v10);
 					v13[(unsigned char)v10] = 0;

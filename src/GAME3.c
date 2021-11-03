@@ -5474,7 +5474,7 @@ int nox_client_mapSpecialRWObjectData_4AC610() {
 	if ((short)v6 > 1) {
 		return 0;
 	}
-	if (!*getMemU32Ptr(0x973F18, 3872)) {
+	if (!nox_xxx_cryptGetXxx()) {
 		return 0;
 	}
 	nox_xxx_fileReadWrite_426AC0_file3_fread(&v4, 2u);
@@ -5695,7 +5695,7 @@ int nox_xxx_colorLightClientLoad_4AC980(int a1) {
 		*(uint32_t*)(v2 + 264) = 0;
 		*(uint16_t*)(v2 + 270) = 0;
 		*(uint8_t*)(v2 + 274) = -128;
-		if (*getMemU32Ptr(0x973F18, 3872) != 1) {
+		if (nox_xxx_cryptGetXxx() != 1) {
 			goto LABEL_24;
 		}
 		if (*(float*)(v2 + 140) <= 63.0 &&
@@ -5726,7 +5726,7 @@ int nox_xxx_colorLightClientLoad_4AC980(int a1) {
 		}
 		sub_484CE0(v2 + 136, 63.0);
 	}
-	if (*getMemU32Ptr(0x973F18, 3872) == 1) {
+	if (nox_xxx_cryptGetXxx() == 1) {
 		goto LABEL_13;
 	}
 LABEL_24:

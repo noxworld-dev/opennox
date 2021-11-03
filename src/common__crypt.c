@@ -8,7 +8,9 @@
 
 FILE* nox_file_3 = 0;
 
+int dword_973f18_3872 = 0;
 int dword_5d4594_739996 = 0;
+int dword_5d4594_740000 = 0;
 int dword_5d4594_740004 = 0;
 int dword_5d4594_740072 = 0;
 
@@ -35,15 +37,12 @@ void nox_xxx_cryptXorDst_56FE00(char key, unsigned char* src, int n, unsigned ch
 #endif // NOX_CGO
 
 //----- (00426A40) --------------------------------------------------------
-int nox_xxx_cryptGet_426A40() { return *getMemU32Ptr(0x5D4594, 740000); }
+int nox_xxx_cryptGet_426A40() { return dword_5d4594_740000; }
+int nox_xxx_cryptGetXxx() { return dword_973f18_3872; }
 
 //----- (00426A50) --------------------------------------------------------
-int nox_xxx_cryptSetTypeMB_426A50(int a1) {
-	int result; // eax
-
-	result = a1;
+void nox_xxx_cryptSetTypeMB_426A50(int a1) {
 	dword_5d4594_740004 = a1;
-	return result;
 }
 
 //----- (00426910) --------------------------------------------------------
@@ -55,13 +54,13 @@ int nox_xxx_cryptOpen_426910(char* a1, int a2, int a3) {
 		nox_xxx_cryptClose_4269F0();
 	}
 	nox_xxx_cryptSetTypeMB_426A50(0);
-	*getMemU32Ptr(0x973F18, 3872) = a2;
-	*getMemU32Ptr(0x5D4594, 740000) = a3 == -1;
+	dword_973f18_3872 = a2;
+	dword_5d4594_740000 = a3 == -1;
 	dword_5d4594_739996 = -1;
 	if (a2 == 1) {
 		v3 = 0;
 	} else if (a2 == 2) {
-		*getMemU32Ptr(0x973F18, 3872) = 0;
+		dword_973f18_3872 = 0;
 		v3 = 2;
 	} else {
 		v3 = 1;
@@ -75,8 +74,8 @@ int nox_xxx_cryptOpen_426910(char* a1, int a2, int a3) {
 				result = 0;
 			} else {
 				dword_5d4594_740072 = 0;
-				memset(getMemAt(0x5D4594, 740040), 0, 0x20u);
-				memset(getMemAt(0x5D4594, 740008), 0, 0x20u);
+				memset(getMemAt(0x5D4594, 740040), 0, 4*8);
+				memset(getMemAt(0x5D4594, 740008), 0, 4*8);
 				result = 1;
 			}
 		}
@@ -88,16 +87,12 @@ int nox_xxx_cryptOpen_426910(char* a1, int a2, int a3) {
 int nox_xxx_file_4268E0() { return nox_binfile_yyy_409110(nox_file_3); }
 
 //----- (004269F0) --------------------------------------------------------
-FILE* nox_xxx_cryptClose_4269F0() {
-	FILE* result; // eax
-
-	result = nox_file_3;
+void nox_xxx_cryptClose_4269F0() {
 	if (nox_file_3) {
 		nox_binfile_close_408D90(nox_file_3);
-		result = (FILE*)nox_xxx_cryptSetTypeMB_426A50(0);
+		nox_xxx_cryptSetTypeMB_426A50(0);
 		nox_file_3 = 0;
 	}
-	return result;
 }
 
 //----- (00426A60) --------------------------------------------------------
@@ -130,13 +125,13 @@ int sub_426BD0(unsigned char* a1, int a2) {
 }
 
 //----- (00426AC0) --------------------------------------------------------
-size_t nox_xxx_fileReadWrite_426AC0_file3_fread(uint8_t* a1, size_t a2) {
-	uint8_t* v2;   // ebx
+size_t nox_xxx_fileReadWrite_426AC0_file3_fread(unsigned char* a1, size_t a2) {
+	unsigned char* v2;   // ebx
 	size_t v3;     // esi
 	size_t result; // eax
 	size_t v5;     // esi
 
-	if (*getMemU32Ptr(0x973F18, 3872)) {
+	if (dword_973f18_3872) {
 		if (dword_5d4594_740004) {
 			v5 = nox_fs_fread(nox_file_3, a1, a2) / a2;
 			nox_xxx_cryptXor_56FDD0(126, a1, a2);
@@ -168,8 +163,8 @@ size_t nox_xxx_fileReadWrite_426AC0_file3_fread(uint8_t* a1, size_t a2) {
 }
 
 //----- (00426C20) --------------------------------------------------------
-void nox_xxx_fileCryptReadCrcMB_426C20(uint8_t* a1, size_t a2) {
-	if (*getMemU32Ptr(0x973F18, 3872) == 1) {
+void nox_xxx_fileCryptReadCrcMB_426C20(unsigned char* a1, size_t a2) {
+	if (dword_973f18_3872 == 1) {
 		if (dword_5d4594_740004) {
 			nox_fs_fread(nox_file_3, a1, a2);
 			nox_xxx_cryptXor_56FDD0(126, a1, a2);
@@ -188,7 +183,7 @@ void nox_xxx_crypt_426C90() {
 	int v4;   // ecx
 	void* v5; // [esp+0h] [ebp-4h]
 
-	if (!*getMemU32Ptr(0x973F18, 3872)) {
+	if (!dword_973f18_3872) {
 		if (dword_5d4594_740004) {
 			v2 = (void*)nox_fs_ftell(nox_file_3);
 			*getMemU32Ptr(0x5D4594, 740008 + 4 * dword_5d4594_740072) = v2;
@@ -218,7 +213,7 @@ void nox_xxx_crypt_426D40() {
 	void* v6; // [esp+0h] [ebp-4h]
 
 	--dword_5d4594_740072;
-	if (*getMemU32Ptr(0x973F18, 3872)) {
+	if (dword_973f18_3872) {
 		return;
 	}
 	if (dword_5d4594_740004) {
