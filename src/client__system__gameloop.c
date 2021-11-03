@@ -220,7 +220,7 @@ void cleanup() {
 	sub_40C0D0();
 	sub_40B740();
 	nox_common_maplist_free_4D0970();
-	nox_binfile_xxx_409560();
+	nox_binfile_disable_409560();
 	sub_40AF30();
 #ifdef USE_SDL
 	sub_48B1B0();

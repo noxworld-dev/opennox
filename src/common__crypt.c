@@ -84,7 +84,7 @@ int nox_xxx_cryptOpen_426910(char* a1, int a2, int a3) {
 }
 
 //----- (004268E0) --------------------------------------------------------
-int nox_xxx_file_4268E0() { return nox_binfile_fflush_409110(nox_file_3); }
+int nox_xxx_cryptFlush_4268E0() { return nox_binfile_fflush_409110(nox_file_3); }
 
 //----- (004269F0) --------------------------------------------------------
 void nox_xxx_cryptClose_4269F0() {
@@ -171,7 +171,7 @@ void nox_xxx_fileCryptReadCrcMB_426C20(unsigned char* a1, size_t a2) {
 		} else if (nox_xxx_cryptGet_426A40()) {
 			nox_binfile_fread_408E40(a1, a2, 1, nox_file_3);
 		} else {
-			nox_binfile_skip2nextboundary_408FE0(a1, a2, 1, nox_file_3);
+			nox_binfile_fread_align_408FE0(a1, a2, 1, nox_file_3);
 		}
 	}
 }
@@ -193,7 +193,7 @@ void nox_xxx_crypt_426C90() {
 			++dword_5d4594_740072;
 		} else {
 			*getMemU32Ptr(0x5D4594, 740040 + 4*dword_5d4594_740072) = nox_binfile_fflush_409110(nox_file_3);
-			v3 = nox_binfile_ftell_426A50();
+			v3 = nox_binfile_ftell_426A50(nox_file_3);
 			v4 = dword_5d4594_740072;
 			*getMemU32Ptr(0x5D4594, 740008 + 4*dword_5d4594_740072) = v3;
 			dword_5d4594_740072 = v4 + 1;
@@ -226,9 +226,28 @@ void nox_xxx_crypt_426D40() {
 		nox_fs_fwrite(nox_file_3, &v6, 4);
 		nox_fs_fseek_start(nox_file_3, v1);
 	} else {
-		v5 = nox_binfile_ftell_426A50();
+		v5 = nox_binfile_ftell_426A50(nox_file_3);
 		v3 = (void*)(v5 - *getMemU32Ptr(0x5D4594, 740008 + 4*dword_5d4594_740072));
 		nox_binfile_writeIntAt_409190(nox_file_3, v5 - *getMemU32Ptr(0x5D4594, 740008 + 4*dword_5d4594_740072),
 							   *getMemU32Ptr(0x5D4594, 740040 + 4*dword_5d4594_740072));
 	}
+}
+
+//----- (0041C200) --------------------------------------------------------
+int sub_41C200() {
+	signed int v1; // edx
+	int v2;        // [esp+0h] [ebp-Ch]
+	char v3[8];    // [esp+4h] [ebp-8h]
+
+	v2 = 1;
+	nox_xxx_fileReadWrite_426AC0_file3_fread(&v2, 2u);
+	if ((short)v2 > 1) {
+		return 0;
+	}
+	v1 = 8 - nox_binfile_ftell_426A50(nox_file_3) % 8;
+	if (v1 > 0) {
+		memset(v3, 0, v1);
+		nox_xxx_fileReadWrite_426AC0_file3_fread(v3, v1);
+	}
+	return 1;
 }

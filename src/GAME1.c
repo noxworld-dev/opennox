@@ -486,7 +486,7 @@ int nox_xxx_parseString_409470(FILE* a1, uint8_t* a2) {
 		while (1) {
 			v5 = v3;
 			nox_binfile_fread_408E40((char*)CharType, 1, 1, a1);
-			if (nox_binfile_lastErr_409370() == -1) {
+			if (nox_binfile_lastErr_409370(a1) == -1) {
 				return 0;
 			}
 			if (*getMemU32Ptr(0x587000, 1668) <= 1) {

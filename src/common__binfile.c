@@ -272,13 +272,13 @@ unsigned int dword_587000_3744[224] = {
 	0x61905335, 0xd0b528bb, 0x0792b7ba, 0x8209f630, 0x53d63bb7, 0x5104a539, 0xc70fe96a, 0x2b9ffcfe};
 
 //----- (00409370) --------------------------------------------------------
-int nox_binfile_lastErr_409370() { return -(nox_binfile_hasErr != 0); }
+int nox_binfile_lastErr_409370(FILE* f) { return -(nox_binfile_hasErr != 0); }
 
 //----- (00409A60) --------------------------------------------------------
 int nox_binfile_cryptEnabled_409A60() { return nox_binfile_doCrypt; }
 
 //----- (00409390) --------------------------------------------------------
-int nox_binfile_ftell_426A50() { return nox_binfile_offs; }
+int nox_binfile_ftell_426A50(FILE* f) { return nox_binfile_offs; }
 
 //----- (004093A0) --------------------------------------------------------
 void nox_binfile_reset_4093A0() {
@@ -398,7 +398,7 @@ void nox_binfile_cryptSetKey_409580(int* a1, int a2) {
 }
 
 //----- (00409560) --------------------------------------------------------
-void nox_binfile_xxx_409560() {
+void nox_binfile_disable_409560() {
 	if (nox_binfile_doCrypt) {
 		nox_binfile_cryptSetKey_409580(0, 0);
 	}
@@ -737,7 +737,7 @@ int nox_binfile_fread_408E40(char* a1, int a2, int a3, FILE* a4) {
 }
 
 //----- (00408FE0) --------------------------------------------------------
-int nox_binfile_skip2nextboundary_408FE0(char* a1, int a2, int a3, FILE* a4) {
+int nox_binfile_fread_align_408FE0(char* a1, int a2, int a3, FILE* a4) {
 	signed int result; // eax
 	char v5[8];        // [esp+4h] [ebp-8h]
 
@@ -929,7 +929,7 @@ int nox_binfile_skipLine_409520(FILE* f) {
 	do {
 		v = 0;
 		nox_binfile_fread_408E40(&v, 1, 1, f);
-		res = nox_binfile_lastErr_409370();
+		res = nox_binfile_lastErr_409370(f);
 	} while (res != -1 && v != 10);
 	return res;
 }

@@ -375,7 +375,7 @@ int nox_xxx_mapSaveMap_51E010(char* a1, int a2) {
 	result = nox_xxx_cryptOpen_426910(Mem, 0, 19);
 	if (result) {
 		nox_xxx_fileReadWrite_426AC0_file3_fread(&v7, 4u);
-		v5 = nox_xxx_file_4268E0();
+		v5 = nox_xxx_cryptFlush_4268E0();
 		if (nox_xxx_map_51E140()) {
 			sub_4268F0(v5);
 			nox_xxx_cryptClose_4269F0();
@@ -553,7 +553,7 @@ int sub_51E570(FILE* a1, uint8_t* a2) {
 		while (1) {
 			v5 = v3;
 			nox_binfile_fread_408E40((char*)CharType, 1, 1, a1);
-			if (nox_binfile_lastErr_409370() == -1) {
+			if (nox_binfile_lastErr_409370(a1) == -1) {
 				return 0;
 			}
 			v3 = *(uint32_t*)CharType;
@@ -593,7 +593,7 @@ int sub_51E630(FILE* a1) {
 	while (1) {
 		LOBYTE(a1) = 0;
 		nox_binfile_fread_408E40((char*)&a1, 1, 1, v1);
-		result = nox_binfile_lastErr_409370();
+		result = nox_binfile_lastErr_409370(v1);
 		if (result == -1) {
 			break;
 		}

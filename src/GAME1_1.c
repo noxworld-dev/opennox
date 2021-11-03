@@ -2662,25 +2662,6 @@ int sub_41C080(int a1) {
 	return result;
 }
 
-//----- (0041C200) --------------------------------------------------------
-int sub_41C200() {
-	signed int v1; // edx
-	int v2;        // [esp+0h] [ebp-Ch]
-	char v3[8];    // [esp+4h] [ebp-8h]
-
-	v2 = 1;
-	nox_xxx_fileReadWrite_426AC0_file3_fread(&v2, 2u);
-	if ((short)v2 > 1) {
-		return 0;
-	}
-	v1 = 8 - nox_binfile_ftell_426A50() % 8;
-	if (v1 > 0) {
-		memset(v3, 0, v1);
-		nox_xxx_fileReadWrite_426AC0_file3_fread(v3, v1);
-	}
-	return 1;
-}
-
 //----- (0041C280) --------------------------------------------------------
 // Related to placing traps??
 int sub_41C280(void* a1) {
@@ -2899,9 +2880,9 @@ FILE* sub_41CAC0(char* a1, char** a2) {
 				if (!v13) {
 					break;
 				}
-				v5 = nox_binfile_ftell_426A50();
-				nox_binfile_skip2nextboundary_408FE0((char*)&v12, 4, 1, nox_file_2);
-				v6 = nox_binfile_ftell_426A50();
+				v5 = nox_binfile_ftell_426A50(nox_file_2);
+				nox_binfile_fread_align_408FE0((char*)&v12, 4, 1, nox_file_2);
+				v6 = nox_binfile_ftell_426A50(nox_file_2);
 				if (*getMemU32Ptr(0x587000, 55816)) {
 					v7 = getMemAt(0x587000, 55816);
 					while (v13 != *((char**)v7 + 1)) {
@@ -2981,16 +2962,16 @@ int nox_xxx_computeServerPlayerDataBufferSize_41CC50(char* a1) {
 			v4 = 0;
 			while (1) {
 				nox_binfile_fread_408E40((char*)&a1, 4, 1, nox_file_2);
-				if (nox_binfile_lastErr_409370() == -1) {
+				if (nox_binfile_lastErr_409370(nox_file_2) == -1) {
 					break;
 				}
 				if (!a1) {
 					v4 += 4;
 					break;
 				}
-				v5 = nox_binfile_ftell_426A50();
-				nox_binfile_skip2nextboundary_408FE0((char*)&v9, 4, 1, nox_file_2);
-				v6 = nox_binfile_ftell_426A50() - v5;
+				v5 = nox_binfile_ftell_426A50(nox_file_2);
+				nox_binfile_fread_align_408FE0((char*)&v9, 4, 1, nox_file_2);
+				v6 = nox_binfile_ftell_426A50(nox_file_2) - v5;
 				if (*getMemU32Ptr(0x587000, 55816)) {
 					v7 = getMemAt(0x587000, 55816);
 					while (a1 != *((char**)v7 + 1)) {
