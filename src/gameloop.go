@@ -71,7 +71,6 @@ var (
 	g_v20                   bool
 	mainloopConnectResultOK bool
 	mainloopExitPath        bool
-	mainloopEnter           func()
 	mainloopContinue        = true // nox_continue_mainloop_93196
 	continueMenuOrHost      = true // nox_game_continueMenuOrHost_93200
 	g_argc2                 int
@@ -197,18 +196,10 @@ func mainloop_43E290() {
 	// XXX
 	nox_xxx_mapSetDownloadInProgress_4AB560(false)
 
-	mainloopEnter = nil
 mainloop:
 	for mainloopContinue {
 		if mainloopHook != nil {
 			mainloopHook()
-		}
-		if mainloopEnter != nil {
-			if debugMainloop {
-				log.Printf("mainloop continues (%s)\n", caller(1))
-			}
-			mainloopEnter()
-			continue mainloop
 		}
 		if mapDownloading() {
 			if done, err := mapDownloadLoop(false); !done {
