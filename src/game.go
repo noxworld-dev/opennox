@@ -792,9 +792,9 @@ func nox_xxx_gameTick_4D2580_server_C() bool {
 		C.sub_4264D0()
 	}
 	noxflags.SetGame(0x8000000)
-	C.sub_43F140(500)
+	sub_43F140(500)
 	v13 := nox_xxx_mapExitAndCheckNext_4D1860_server()
-	C.sub_43F1A0()
+	sub_43F1A0()
 	noxflags.UnsetGame(0x8000000)
 	v37 := getServerMap()
 	if !v13 {
@@ -1129,10 +1129,10 @@ func nox_xxx_mapExitAndCheckNext_4D1860_server() bool {
 		C.nox_xxx_resetMapInit_4FC570(1)
 	}
 	noxflags.SetGame(0x8000000)
-	C.sub_43F140(500)
+	sub_43F140(500)
 	v42 := C.nox_xxx_gameIsSwitchToSolo_4DB240()
 	C.sub_4DBA30(v42)
-	C.sub_43F1A0()
+	sub_43F1A0()
 	noxflags.UnsetGame(0x8000000)
 	C.sub_4FC580(1)
 	if C.dword_5d4594_1548664 != 0 {
@@ -1193,7 +1193,7 @@ func nox_xxx_mapExitAndCheckNext_4D1860_server() bool {
 		C.sub_4DB130(internCStr("AUTOSAVE"))
 		C.sub_4DB170(1, 0, 30)
 	}
-	C.nox_xxx_mapLoadOrSaveMB_4DCC70(0)
+	nox_xxx_mapLoadOrSaveMB_4DCC70(0)
 	if noxflags.HasGame(2048) {
 		sub_413980(30)
 	}
@@ -1215,6 +1215,10 @@ func nox_xxx_mapExitAndCheckNext_4D1860_server() bool {
 	}
 	C.sub_413850()
 	return true
+}
+
+func nox_xxx_mapLoadOrSaveMB_4DCC70(v int) {
+	C.nox_xxx_mapLoadOrSaveMB_4DCC70(C.int(v))
 }
 
 func sub_4D7140(a1 uint32) {

@@ -312,7 +312,7 @@ mainloop:
 				C.sub_43DB60()
 				C.sub_43D990()
 				g_v20 = true
-				C.sub_43F140(800)
+				sub_43F140(800)
 				nox_common_initRandom_415F70()
 				gameFrameSetFromFlags()
 				C.nox_ensure_thing_bin()
@@ -359,7 +359,7 @@ mainloop:
 		noxflags.UnsetGame(noxflags.GameFlag29)
 		noxflags.UnsetGame(0xD7F0)
 		noxflags.UnsetGame(noxflags.GameFlag24 | noxflags.GameFlag21)
-		C.sub_43F140(300)
+		sub_43F140(300)
 		C.sub_43D990()
 		C.nox_xxx_replayWriteSomeInt_4D39B0()
 		if noxflags.HasGame(noxflags.GameHost) {
@@ -418,7 +418,7 @@ func cmainLoop() {
 			log.Printf("cmainLoop exit (%s -> %s)\n", caller(1), caller(2))
 		}()
 	}
-	C.sub_43F140(300)
+	sub_43F140(300)
 	if !isDedicatedServer {
 		if C.sub_43C060() == 0 {
 			return
@@ -431,7 +431,7 @@ func cmainLoop() {
 		C.sub_43DBA0()
 		g_v20 = false
 	}
-	C.sub_43F1A0()
+	sub_43F1A0()
 	mainloopExitPath = false
 	mainloop_43E290()
 }
@@ -864,7 +864,7 @@ func CONNECT_RESULT_OK() {
 	if noxflags.HasGame(noxflags.GameOnline) && noxflags.HasGame(noxflags.GameHost) && C.sub_43AF40() != 0 {
 		C.sub_43AA70()
 	}
-	C.sub_43F1A0()
+	sub_43F1A0()
 	nox_video_setGammaSetting_434B30(C.int(memmap.Int32(0x587000, 80852)))
 	C.sub_434B60()
 	noxflags.SetGame(noxflags.GameFlag29)
@@ -1068,9 +1068,9 @@ func nox_xxx_gameChangeMap_43DEB0() int {
 		crc := C.nox_xxx_mapCrcGetMB_409B00()
 		v3 := C.nox_xxx_mapValidateMB_4CF470(internCStr(mapName), crc)
 		if v3&2 != 0 && v3&4 != 0 {
-			C.sub_43F140(500)
+			sub_43F140(500)
 			v5 := C.nox_xxx_mapCliReadAll_4AC2B0(internCStr(mapName))
-			C.sub_43F1A0()
+			sub_43F1A0()
 			if v5 == nil {
 				v13 := nox_server_currentMapGetFilename_409B30()
 				v6 := strMan.GetStringInFile("MapLoadError", "C:\\NoxPost\\src\\Client\\System\\gameloop.c")

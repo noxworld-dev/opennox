@@ -319,7 +319,7 @@ char* nox_xxx_mapFilenameGetSolo_4DB260();
 unsigned int nox_xxx_gameSetSoloSavePath_4DB270(const char* a1);
 char* nox_xxx_cliCheckMapExists_4DB2A0(const char* a1);
 int nox_xxx_saveMakeFolder_4DB540(char* saveName);
-char* sub_4DB790(const char* a1);
+int sub_4DB790(char* a1);
 void nox_savegame_rm_4DBE10(char* saveName, int rmDir);
 int sub_4DC100(int a1, char* saveName);
 int sub_4DC550();

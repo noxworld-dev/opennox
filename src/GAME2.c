@@ -54,7 +54,6 @@
 extern uint32_t dword_5d4594_1046852;
 extern uint32_t dword_5d4594_1045576;
 extern uint32_t dword_5d4594_1047532;
-extern uint32_t dword_587000_122856;
 extern uint32_t dword_5d4594_1045596;
 extern uint32_t dword_5d4594_1049692;
 extern uint32_t dword_5d4594_1046652;
@@ -91,7 +90,6 @@ extern uint32_t dword_5d4594_1045424;
 extern uint32_t dword_5d4594_1045584;
 extern uint32_t dword_5d4594_830972;
 extern uint32_t dword_5d4594_1049696;
-extern uint32_t dword_5d4594_831092;
 extern uint32_t dword_5d4594_1046540;
 extern uint32_t dword_5d4594_1045588;
 extern uint32_t dword_5d4594_831276;
@@ -167,7 +165,6 @@ extern uint32_t dword_5d4594_1045484;
 extern uint32_t dword_5d4594_1045464;
 extern uint32_t dword_5d4594_1049520;
 extern uint32_t dword_5d4594_1045528;
-extern uint32_t dword_5d4594_831088;
 extern uint32_t dword_5d4594_1046936;
 extern uint32_t dword_5d4594_1047540;
 extern uint32_t dword_5d4594_831236;
@@ -209,6 +206,10 @@ nox_drawable* nox_drawable_head_unk2 = 0;
 nox_drawable* nox_drawable_head_unk3 = 0;
 nox_drawable* nox_drawable_head_unk4 = 0;
 int nox_drawable_count = 0;
+
+uint32_t dword_587000_122856 = 0x1;
+uint32_t dword_5d4594_831088 = 0;
+uint32_t dword_5d4594_831092 = 0;
 
 //----- (0044CD10) --------------------------------------------------------
 char* nox_xxx_spriteDefByAlphabetAdd_44CD10(char* a1) {
@@ -550,20 +551,17 @@ void sub_44D5C0(int a1, int a2) {
 // 581430: using guessed type int AIL_set_stream_volume(uint32_t, uint32_t);
 
 //----- (0044D640) --------------------------------------------------------
-int sub_44D640() {
-	int result; // eax
-
-	result = dword_5d4594_831088;
+#ifndef NOX_CGO
+void sub_44D640() {
 	if (dword_5d4594_831088) {
 		AIL_close_stream(dword_5d4594_831088);
 		dword_5d4594_831088 = 0;
 	}
-	return result;
 }
 // 581418: using guessed type int AIL_close_stream(uint32_t);
 
 //----- (0044D660) --------------------------------------------------------
-int sub_44D660(const char* a1) {
+int sub_44D660(char* a1) {
 	unsigned char v1; // dl
 	char* v2;         // edi
 	int v3;           // eax
@@ -613,6 +611,7 @@ int sub_44D7E0(int a1) {
 	AIL_start_stream(dword_5d4594_831088);
 	return 1;
 }
+#endif // NOX_CGO
 // 581410: using guessed type int AIL_start_stream(uint32_t);
 
 //----- (0044D8C0) --------------------------------------------------------

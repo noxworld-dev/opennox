@@ -48,7 +48,6 @@
 
 extern uint32_t dword_587000_122856;
 extern uint32_t dword_5d4594_830272;
-extern uint32_t dword_5d4594_816436;
 extern uint32_t dword_5d4594_829532;
 extern uint32_t dword_5d4594_830232;
 extern uint32_t dword_5d4594_825764;
@@ -72,12 +71,9 @@ extern uint32_t dword_5d4594_829500;
 extern uint32_t nox_client_showTooltips_80840;
 extern uint32_t dword_5d4594_830120;
 extern uint32_t dword_5d4594_830256;
-extern uint32_t dword_587000_93944;
 extern uint32_t dword_5d4594_830204;
 extern uint32_t dword_5d4594_825752;
-extern uint32_t dword_5d4594_816092;
 extern uint32_t dword_5d4594_830208;
-extern uint32_t dword_5d4594_816376;
 extern uint32_t dword_587000_111668;
 extern uint32_t dword_5d4594_825768;
 extern uint32_t dword_5d4594_825736;
@@ -124,7 +120,6 @@ extern uint32_t dword_5d4594_826028;
 extern uint32_t nox_client_highResFloors_154952;
 extern uint32_t dword_5d4594_2618912;
 extern uint32_t dword_5d4594_816452;
-extern uint32_t dword_5d4594_816432;
 extern uint32_t dword_5d4594_816440;
 extern uint32_t nox_client_texturedFloors_154956;
 extern uint32_t nox_client_highResFrontWalls_80820;
@@ -138,7 +133,6 @@ extern uint32_t nox_client_gui_flag_815132;
 extern uint32_t dword_587000_87404;
 extern uint32_t dword_587000_87412;
 extern uint32_t dword_5d4594_829492;
-extern uint32_t dword_5d4594_816364;
 extern uint32_t dword_5d4594_830248;
 extern uint32_t dword_5d4594_829480;
 extern uint32_t dword_5d4594_3801780;
@@ -176,7 +170,13 @@ extern int nox_video_modes_cnt;
 extern nox_parse_thing_draw_funcs_t nox_parse_thing_draw_funcs[];
 extern int nox_parse_thing_draw_funcs_cnt;
 
+uint32_t dword_5d4594_816364 = 0;
+uint32_t dword_5d4594_816376 = 0;
+uint32_t dword_5d4594_816092 = 0;
 #ifndef NOX_CGO
+uint32_t dword_5d4594_816432 = 0;
+uint32_t dword_5d4594_816436 = 0;
+uint32_t dword_587000_93944 = 0xffffffff;
 extern uint32_t nox_game_continueMenuOrHost_93200;
 extern uint32_t nox_continue_mainloop_93196;
 int (*func_5D4594_816388)(void) = 0;
@@ -1273,128 +1273,106 @@ void sub_43D3C0(int a1, int a2) {
 // 581430: using guessed type int AIL_set_stream_volume(uint32_t, uint32_t);
 
 //----- (0043D440) --------------------------------------------------------
-int sub_43D440() {
-	int* v0;    // esi
-	int result; // eax
-
-	v0 = getMemIntPtr(0x5D4594, 816108 + 20 * *getMemU32Ptr(0x5D4594, 816352));
-	result = dword_5d4594_816340;
-	if (dword_5d4594_816340) {
-		result = dword_5d4594_816348;
-		switch (dword_5d4594_816348) {
-		case 0:
-			if (dword_5d4594_816356 && (result = dword_587000_93156) != 0) {
-				dword_5d4594_816348 = 3;
-			} else {
-				result = *v0;
-				if (*v0) {
-					result = dword_587000_93156;
-					if (dword_587000_93156) {
-						sub_486320(getMemAt(0x5D4594, 816148), 0x4000);
-						result = nox_xxx_musicStartPlay_43D6C0(v0);
-						if (result) {
-							result = 1;
-							dword_5d4594_816348 = 1;
-							v0[4] = 1;
-						} else {
-							*v0 = 0;
-						}
+void sub_43D440() {
+	int* v0 = getMemIntPtr(0x5D4594, 816108 + 20 * *getMemU32Ptr(0x5D4594, 816352));
+	if (!dword_5d4594_816340) {
+		return;
+	}
+	switch (dword_5d4594_816348) {
+	case 0:
+		if (dword_5d4594_816356 && (dword_587000_93156 != 0)) {
+			dword_5d4594_816348 = 3;
+		} else {
+			if (*v0) {
+				if (dword_587000_93156) {
+					sub_486320(getMemAt(0x5D4594, 816148), 0x4000);
+					if (nox_xxx_musicStartPlay_43D6C0(v0)) {
+						dword_5d4594_816348 = 1;
+						v0[4] = 1;
+					} else {
+						*v0 = 0;
 					}
 				}
 			}
-			break;
-		case 1:
-			if (dword_587000_93156 && *v0 == dword_5d4594_816092 && dword_5d4594_816364 &&
-				AIL_stream_status(dword_5d4594_816364) != 2) {
-				result = dword_5d4594_816356;
-				if (dword_5d4594_816356) {
-					dword_5d4594_816348 = 4;
-					result = sub_486350((int)getMemAt(0x5D4594, 816148), 0);
-				}
-			} else {
-				dword_5d4594_816348 = 2;
-				result = sub_486350((int)getMemAt(0x5D4594, 816148), 0);
-			}
-			break;
-		case 2:
-			if (!dword_5d4594_816364) {
-				result = sub_43D650();
-				dword_5d4594_816348 = 0;
-			} else {
-				result = AIL_stream_status(dword_5d4594_816364);
-				if (result == 2 || !(*getMemU32Ptr(0x5D4594, 816152) & 0xFFFF0000)) {
-					result = sub_43D650();
-					dword_5d4594_816348 = 0;
-				}
-			}
-			break;
-		case 3:
-			if (!dword_5d4594_816356 || (result = dword_587000_93156) == 0) {
-				if (!dword_587000_93156 || *v0 != dword_5d4594_816092 || !dword_5d4594_816364 ||
-					AIL_stream_status(dword_5d4594_816364) == 2) {
-					result = sub_43D650();
-					dword_5d4594_816348 = 0;
-				} else {
-					sub_486350((int)getMemAt(0x5D4594, 816148), 0x4000);
-					result = sub_43D6A0();
-					dword_5d4594_816348 = 1;
-				}
-			}
-			break;
-		case 4:
-			if (dword_5d4594_816364 && (result = AIL_stream_status(dword_5d4594_816364), result != 2)) {
-				if (!(*getMemU32Ptr(0x5D4594, 816152) & 0xFFFF0000)) {
-					result = sub_43D680();
-					dword_5d4594_816348 = 3;
-				}
-			} else {
-				result = sub_43D650();
-				dword_5d4594_816348 = 0;
-			}
-			break;
-		default:
-			return result;
 		}
+		break;
+	case 1:
+		if (dword_587000_93156 && *v0 == dword_5d4594_816092 && dword_5d4594_816364 &&
+			AIL_stream_status(dword_5d4594_816364) != 2) {
+			if (dword_5d4594_816356) {
+				dword_5d4594_816348 = 4;
+				sub_486350((int)getMemAt(0x5D4594, 816148), 0);
+			}
+		} else {
+			dword_5d4594_816348 = 2;
+			sub_486350((int)getMemAt(0x5D4594, 816148), 0);
+		}
+		break;
+	case 2:
+		if (!dword_5d4594_816364) {
+			sub_43D650();
+			dword_5d4594_816348 = 0;
+		} else {
+			if (AIL_stream_status(dword_5d4594_816364) == 2 || !(*getMemU32Ptr(0x5D4594, 816152) & 0xFFFF0000)) {
+				sub_43D650();
+				dword_5d4594_816348 = 0;
+			}
+		}
+		break;
+	case 3:
+		if (!dword_5d4594_816356 || (dword_587000_93156 == 0)) {
+			if (!dword_587000_93156 || *v0 != dword_5d4594_816092 || !dword_5d4594_816364 ||
+				AIL_stream_status(dword_5d4594_816364) == 2) {
+				sub_43D650();
+				dword_5d4594_816348 = 0;
+			} else {
+				sub_486350((int)getMemAt(0x5D4594, 816148), 0x4000);
+				sub_43D6A0();
+				dword_5d4594_816348 = 1;
+			}
+		}
+		break;
+	case 4:
+		if (dword_5d4594_816364 && (AIL_stream_status(dword_5d4594_816364) != 2)) {
+			if (!(*getMemU32Ptr(0x5D4594, 816152) & 0xFFFF0000)) {
+				sub_43D680();
+				dword_5d4594_816348 = 3;
+			}
+		} else {
+			sub_43D650();
+			dword_5d4594_816348 = 0;
+		}
+		break;
+	default:
+		break;
 	}
-	return result;
 }
 // 58141C: using guessed type int AIL_stream_status(uint32_t);
 
+#ifndef NOX_CGO
 //----- (0043D650) --------------------------------------------------------
-int sub_43D650() {
-	int result; // eax
-
-	result = dword_5d4594_816364;
+void sub_43D650() {
 	if (dword_5d4594_816364) {
+		AIL_close_stream(dword_5d4594_816364);
 		dword_5d4594_816364 = 0;
-		AIL_close_stream(result);
 	}
 	dword_5d4594_816092 = 0;
-	return result;
 }
 // 581418: using guessed type int AIL_close_stream(uint32_t);
 
 //----- (0043D680) --------------------------------------------------------
-int sub_43D680() {
-	int result; // eax
-
-	result = dword_5d4594_816364;
+void sub_43D680() {
 	if (dword_5d4594_816364) {
 		AIL_pause_stream(dword_5d4594_816364, 1);
 	}
-	return result;
 }
 // 581414: using guessed type int AIL_pause_stream(uint32_t, uint32_t);
 
 //----- (0043D6A0) --------------------------------------------------------
-int sub_43D6A0() {
-	int result; // eax
-
-	result = dword_5d4594_816364;
+void sub_43D6A0() {
 	if (dword_5d4594_816364) {
 		AIL_pause_stream(dword_5d4594_816364, 0);
 	}
-	return result;
 }
 // 581414: using guessed type int AIL_pause_stream(uint32_t, uint32_t);
 
@@ -1457,6 +1435,7 @@ int nox_xxx_musicStartPlay_43D6C0(int* a1) {
 	dword_5d4594_816364 = v4;
 	return 1;
 }
+#endif // NOX_CGO
 // 581408: using guessed type int AIL_open_stream(uint32_t, uint32_t, uint32_t);
 // 58140C: using guessed type int AIL_set_stream_position(uint32_t, uint32_t);
 // 581410: using guessed type int AIL_start_stream(uint32_t);
@@ -1620,7 +1599,8 @@ void sub_43DBA0() {
 //----- (0043DBD0) --------------------------------------------------------
 int sub_43DBD0() {
 	++dword_5d4594_816356;
-	return sub_43D440();
+	sub_43D440();
+	return 0;
 }
 
 //----- (0043DBE0) --------------------------------------------------------
@@ -1628,7 +1608,8 @@ int sub_43DBE0() {
 	if (--*(int*)&dword_5d4594_816356 < 0) {
 		dword_5d4594_816356 = 0;
 	}
-	return sub_43D440();
+	sub_43D440();
+	return 0;
 }
 
 //----- (0043DC00) --------------------------------------------------------
@@ -1910,6 +1891,7 @@ int sub_43E8C0(int a1) {
 	return result;
 }
 
+#ifndef NOX_CGO
 //----- (0043E8E0) --------------------------------------------------------
 void sub_43E8E0(int a1) {
 	if (dword_5d4594_816432) {
@@ -1933,27 +1915,23 @@ void sub_43E910(int a1) {
 // 5813FC: using guessed type int AIL_digital_handle_reacquire(uint32_t);
 
 //----- (0043E940) --------------------------------------------------------
-int sub_43E940(int a1) {
-	int v1;     // eax
-	int result; // eax
-
-#ifndef NOX_CGO
+int sub_43E940(void* a1p) {
+	int a1 = a1p;
 	nox_on_exit(sub_43E9C0);
-#endif // NOX_CGO
 	AIL_startup();
-	v1 = AIL_register_timer(sub_43E9D0);
+	int v1 = AIL_register_timer(sub_43E9D0);
 	dword_587000_93944 = v1;
 	if (v1 == -1) {
-		return -2147221504;
+		return 0x80040000;
 	}
 	AIL_set_timer_frequency(v1, 30);
 	AIL_start_timer(dword_587000_93944);
 	sub_42EBB0(1u, sub_43E910, 0, "Audio");
 	sub_42EBB0(2u, sub_43E8E0, 0, "Audio");
-	result = 0;
 	*(uint32_t*)(a1 + 20) = 1;
-	return result;
+	return 0;
 }
+#endif // NOX_CGO
 // 581398: using guessed type int AIL_set_timer_frequency(uint32_t, uint32_t);
 // 5813F8: using guessed type int AIL_start_timer(uint32_t);
 // 581420: using guessed type uint32_t AIL_startup();
@@ -1966,6 +1944,7 @@ int sub_43E9C0() {
 }
 
 //----- (0043E9D0) --------------------------------------------------------
+#ifndef NOX_CGO
 void sub_43E9D0(unsigned int a1) {
 	sub_486EF0();
 	sub_43D2D0();
@@ -1986,7 +1965,8 @@ void sub_43E9F0() {
 // 5813F4: using guessed type uint32_t AIL_shutdown();
 
 //----- (0043EA20) --------------------------------------------------------
-int sub_43EA20(int a1) {
+int sub_43EA20(void* a1p) {
+	int a1 = a1p;
 	char v2[16]; // [esp+4h] [ebp-10h]
 
 	sub_43EA90((int)v2, a1 + 60);
@@ -2088,7 +2068,8 @@ int sub_43EC10() {
 // 581390: using guessed type int AIL_waveOutClose(uint32_t);
 
 //----- (0043EC30) --------------------------------------------------------
-int sub_43EC30(int a1) {
+int sub_43EC30(void* a1p) {
+	int a1 = a1p;
 	uint32_t* v1; // esi
 	int v2;       // eax
 
@@ -2111,7 +2092,8 @@ int sub_43EC30(int a1) {
 // 5813A0: using guessed type int AIL_allocate_sample_handle(uint32_t);
 
 //----- (0043ECB0) --------------------------------------------------------
-int sub_43ECB0(int a1) {
+int sub_43ECB0(void* a1p) {
+	int a1 = a1p;
 	int v1; // esi
 
 	v1 = *(uint32_t*)(a1 + 272);
@@ -2127,6 +2109,7 @@ int sub_43ECB0(int a1) {
 	free((void*)v1);
 	return 0;
 }
+#endif // NOX_CGO
 // 581438: using guessed type int AIL_release_sample_handle(uint32_t);
 
 //----- (0043EDB0) --------------------------------------------------------
@@ -2145,6 +2128,7 @@ void sub_43EDB0(HSAMPLE a1) {
 }
 // 5813A8: using guessed type int AIL_sample_user_data(uint32_t, uint32_t);
 
+#ifndef NOX_CGO
 //----- (0043EDE0) --------------------------------------------------------
 void sub_43EDE0(HSAMPLE a1) {
 	int v1; // eax
@@ -2184,6 +2168,7 @@ int sub_43ED00(uint32_t* a1) {
 	sub_43EE00((int)v1);
 	return 0;
 }
+#endif // NOX_CGO
 // 5813AC: using guessed type int AIL_register_EOS_callback(uint32_t, uint32_t);
 // 5813B0: using guessed type int AIL_register_EOB_callback(uint32_t, uint32_t);
 // 5813B4: using guessed type int AIL_set_sample_adpcm_block_size(uint32_t, uint32_t);
@@ -2332,8 +2317,10 @@ int sub_43EFD0(int a1) {
 }
 // 5813CC: using guessed type int AIL_end_sample(uint32_t);
 
+#ifndef NOX_CGO
 //----- (0043F010) --------------------------------------------------------
-int sub_43F010(int a1) {
+int sub_43F010(void* a1p) {
+	int a1 = a1p;
 	AIL_stop_sample(*(uint32_t*)(*(uint32_t*)(a1 + 272) + 8));
 	return 0;
 }
@@ -2367,6 +2354,7 @@ int sub_43F060(uint32_t* a1) {
 
 //----- (0043F0D0) --------------------------------------------------------
 int sub_43F0D0() { return 0; }
+#endif // NOX_CGO
 
 //----- (0043F0E0) --------------------------------------------------------
 int sub_43F0E0(uint32_t* a1) {
@@ -2391,6 +2379,7 @@ int sub_43F0E0(uint32_t* a1) {
 	return result;
 }
 
+#ifndef NOX_CGO
 //----- (0043F130) --------------------------------------------------------
 int sub_43F130() { return dword_5d4594_816432; }
 
@@ -2431,6 +2420,7 @@ int sub_43F1A0() {
 	}
 	return result;
 }
+#endif // NOX_CGO
 // 5813C0: using guessed type int AIL_set_preference(uint32_t, uint32_t);
 // 5813E4: using guessed type uint32_t AIL_serve();
 

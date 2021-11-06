@@ -451,13 +451,13 @@ func drawGeneral_4B0340(a1 int) error {
 	C.sub_431290()
 	C.sub_43DBD0()
 	C.sub_44D8F0()
-	for C.sub_43DC40() != 0 || C.sub_44D930() != 0 {
+	for C.sub_43DC40() != 0 || sub_44D930() {
 		sub_4312C0()
 		//#ifdef __EMSCRIPTEN__
 		//nox_platform_sleep(0x32u);
 		//#endif
 	}
-	C.sub_43E8E0(0)
+	sub_43E8E0(0)
 	v12 := C.sub_48B3E0(0)
 	//inpHandler.UnacquireMouse()
 	//sub_48A7F0()
@@ -512,7 +512,7 @@ func drawGeneral_4B0340(a1 int) error {
 		}
 		noxrend.noxDrawCursor(v11, vpos)
 	}
-	C.sub_43E910(0)
+	sub_43E910(0)
 	C.sub_43DBE0()
 	//inpHandler.AcquireMouse()
 	C.sub_48B3E0(v12)

@@ -996,6 +996,13 @@ func Serve() {
 	if audioDebug {
 		audioLog.Println("AIL_serve")
 	}
+	for _, d := range audioDrivers.byHandle {
+		select {
+		case <-d.t.C:
+			d.doWork()
+		default:
+		}
+	}
 	for _, t := range audioTimers.byHandle {
 		select {
 		case <-t.t.C:
@@ -1406,11 +1413,6 @@ func WaveOutOpen() Driver {
 	openal.Listener{}.Setf(openal.AlGain, 1)
 	openal.Listener{}.Setfv(openal.AlPosition, []float32{0, 0, 0})
 	d.t = time.NewTicker(time.Second / 20)
-	go func() {
-		for range d.t.C {
-			d.doWork()
-		}
-	}()
 
 	audioDrivers.Lock()
 	audioDrivers.byHandle[h] = d

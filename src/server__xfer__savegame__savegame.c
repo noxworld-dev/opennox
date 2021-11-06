@@ -256,7 +256,7 @@ int nox_xxx_saveDoAutosaveMB_4DB370_savegame(const char* a1) {
 }
 
 //----- (004DB7E0) --------------------------------------------------------
-char* nox_xxx_soloLoadGame_4DB7E0_savegame(const char* a1) {
+int nox_xxx_soloLoadGame_4DB7E0_savegame(const char* a1) {
 	char* v1;            // ebp
 	char* result;        // eax
 	char* v3;            // eax

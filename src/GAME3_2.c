@@ -8142,21 +8142,19 @@ int nox_xxx_saveMakeFolder_4DB540(char* saveName) {
 	return nox_fs_mkdir(PathName);
 }
 
+#ifndef NOX_CGO
 //----- (004DB790) --------------------------------------------------------
-char* sub_4DB790(const char* a1) {
-	char* v1;     // esi
-	char* result; // eax
-
+int sub_4DB790(char* a1) {
 	nox_xxx_mapLoadOrSaveMB_4DCC70(1);
 	nox_xxx_setGameFlags_40A4D0(0x8000000);
 	sub_43F140(500);
-	v1 = nox_xxx_soloLoadGame_4DB7E0_savegame(a1);
+	int v1 = nox_xxx_soloLoadGame_4DB7E0_savegame(a1);
 	sub_43F1A0();
 	nox_common_gameFlags_unset_40A540(0x8000000);
-	result = v1;
 	*getMemU32Ptr(0x5D4594, 1563068) = nox_frame_xxx_2598000;
-	return result;
+	return v1;
 }
+#endif // NOX_CGO
 
 //----- (004DBE10) --------------------------------------------------------
 void nox_savegame_rm_4DBE10(char* saveName, int rmDir) {

@@ -54,6 +54,7 @@ import (
 
 	"github.com/spf13/viper"
 
+	"nox/v1/client/audio/ail"
 	"nox/v1/client/input/keybind"
 	"nox/v1/common"
 	"nox/v1/common/alloc/handles"
@@ -498,7 +499,7 @@ func cleanup() {
 	C.sub_40AF30()
 	//C.sub_48B1B0() // does nothing on SDL
 	C.nox_free_thing_bin()
-	AIL_shutdown()
+	ail.Shutdown()
 }
 
 func sub_4311B0() {
@@ -551,6 +552,7 @@ func sub_43DCC0() {
 
 //export sub_4312C0
 func sub_4312C0() {
+	ail.Serve()
 	if C.dword_5d4594_805988 != 0 {
 		return
 	}
