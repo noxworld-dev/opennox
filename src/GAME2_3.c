@@ -873,11 +873,13 @@ int* sub_48D7B0() {
 	return result;
 }
 
+#ifndef NOX_CGO
 //----- (0048D7D0) --------------------------------------------------------
 int nox_xxx_chatInit_48D7D0() {
 	nox_alloc_chat_1197364 = nox_new_alloc_class("Chat", 692, 64);
 	return nox_alloc_chat_1197364 != 0;
 }
+#endif // NOX_CGO
 
 //----- (0048D800) --------------------------------------------------------
 int sub_48D800() {

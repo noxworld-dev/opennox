@@ -25,6 +25,7 @@ package nox
 #include "client__drawable__drawdb.h"
 #include "client__io__console.h"
 #include "client__gui__guimsg.h"
+#include "client__system__client.h"
 
 extern unsigned int nox_game_loop_xxx_805872;
 extern unsigned int dword_5d4594_2660032;
@@ -39,6 +40,8 @@ extern unsigned int nox_gameFPS;
 extern unsigned int nox_xxx_gameDownloadInProgress_587000_173328;
 extern unsigned int nox_gameDisableMapDraw_5d4594_2650672;
 extern unsigned int nox_xxx_mapDownloadOK_587000_173332;
+extern void* nox_alloc_chat_1197364;
+extern unsigned int nox_client_renderGUI_80828;
 extern char nox_clientServerAddr[32];
 
 static void go_call_sub_4516C0(wchar_t* a1, char* a2) {
@@ -73,8 +76,7 @@ var (
 	mainloopExitPath        bool
 	mainloopContinue        = true // nox_continue_mainloop_93196
 	continueMenuOrHost      = true // nox_game_continueMenuOrHost_93200
-	g_argc2                 int
-	g_argv2                 **C.char
+	mainloopNoSkip          bool
 	nox_draw_unk1           func() bool
 	func_5D4594_816392      func() bool
 	useFrameLimit           = true
@@ -322,7 +324,7 @@ mainloop:
 						continue mainloop
 					}
 				}
-				if C.nox_xxx_clientResetSpriteAndGui_4357D0(C.int(g_argc2), g_argv2) == 0 {
+				if !nox_xxx_clientResetSpriteAndGui_4357D0(mainloopNoSkip) {
 					continue mainloop
 				}
 				if noxflags.HasGame(noxflags.GameHost) && noxflags.HasGame(noxflags.GameFlag23) && getEngineFlag(NOX_ENGINE_FLAG_1) {
@@ -385,6 +387,38 @@ mainloop:
 		cmainLoop()
 		continue mainloop
 	}
+}
+
+func nox_xxx_clientResetSpriteAndGui_4357D0(noSkip bool) bool {
+	*memmap.PtrUint32(0x85319C, 0) = 0
+	*memmap.PtrUint32(0x852978, 8) = 0
+	*memmap.PtrUint32(0x8531A0, 2576) = 0
+	// TODO: size is a guess
+	StrCopy((*C.char)(memmap.PtrOff(0x5D4594, 811280)), 1024, GoString(C.nox_xxx_getRandomName_4358A0()))
+	if noSkip {
+		*memmap.PtrUint32(0x587000, 85724) = 0
+	}
+	*memmap.PtrUint32(0x5D4594, 811064) = uint32(C.nox_client_renderGUI_80828)
+	C.nox_netlist_resetAll_40EE60()
+	if !nox_common_gameFlags_check_40A5C0(1) {
+		C.nox_xxx_cliResetAllPlayers_416E30()
+	}
+	if !nox_xxx_chatInit_48D7D0() {
+		return false
+	}
+	C.sub_4E4EF0()
+	C.sub_48D740()
+	C.nox_xxx_gameSetCliConnected_43C720(0)
+	C.nox_gameDisableMapDraw_5d4594_2650672 = 0
+	C.sub_473930()
+	C.sub_48D4B0(0)
+	return true
+}
+
+//----- (0048D7D0) --------------------------------------------------------
+func nox_xxx_chatInit_48D7D0() bool {
+	C.nox_alloc_chat_1197364 = unsafe.Pointer(nox_new_alloc_class(internCStr("Chat"), 692, 64))
+	return C.nox_alloc_chat_1197364 != nil
 }
 
 func caller(skip int) string {

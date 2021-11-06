@@ -5926,6 +5926,7 @@ int nox_xxx_cliToggleObsWindow_4357A0() {
 	return result;
 }
 
+#ifndef NOX_CGO
 //----- (004357D0) --------------------------------------------------------
 int nox_xxx_clientResetSpriteAndGui_4357D0(int argc, const char** argv) {
 	*getMemU32Ptr(0x85319C, 0) = 0;
@@ -5963,6 +5964,7 @@ int nox_xxx_clientResetSpriteAndGui_4357D0(int argc, const char** argv) {
 	sub_48D4B0(0);
 	return 1;
 }
+#endif // NOX_CGO
 
 //----- (00435A10) --------------------------------------------------------
 int nox_xxx_whenServerHostServer_435A10(signed int* a1) {

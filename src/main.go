@@ -149,6 +149,7 @@ func RunArgs(args []string) (gerr error) {
 		fPort       = flags.Int("port", common.GamePort, "server port number to use")
 		fClientPort = flags.Int("clientport", 0, "clientport")
 		fNoSoft     = flags.Bool("nosoft", false, "nosoft")
+		fNoSkip     = flags.Bool("noskip", false, "noskip")
 		// TODO: replace with -serveronly once we figure out all the details
 		fAutoServer = flags.Bool("autosrv", isDedicatedServer, "automatically start the server")
 		fAutoQuest  = flags.Bool("autoquest", false, "automatically start the quest game")
@@ -408,8 +409,7 @@ func RunArgs(args []string) (gerr error) {
 	if C.nox_client_initScreenParticles_431390() == 0 {
 		return fmt.Errorf("failed to init particles")
 	}
-	g_argc2 = len(args)
-	g_argv2 = &CStringArray(args)[0]
+	mainloopNoSkip = *fNoSkip
 	cmainLoop()
 	return nil
 }

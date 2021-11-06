@@ -1,8 +1,6 @@
 #ifndef NOX_PORT_CLIENT_SYSTEM_CLIENT
 #define NOX_PORT_CLIENT_SYSTEM_CLIENT
 
-#include "defs.h"
-
 void nox_xxx_clientDrawAll_436100_draw();
 int sub_4365C0();
 int nox_xxx_drawBandwith_436970(int a1);
