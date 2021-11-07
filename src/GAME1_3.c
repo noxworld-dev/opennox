@@ -864,6 +864,7 @@ int sub_43C7A0(int a1) {
 	return result;
 }
 
+#ifndef NOX_CGO
 //----- (0043C7B0) --------------------------------------------------------
 int nox_xxx_netAddNetStruct4Host_43C7B0(char* cp, int hostshort, int a3, signed int* a4) {
 	int v5; // eax
@@ -886,6 +887,7 @@ int nox_xxx_netAddNetStruct4Host_43C7B0(char* cp, int hostshort, int a3, signed 
 	}
 	return 1;
 }
+#endif // NOX_CGO
 
 //----- (0043C860) --------------------------------------------------------
 int nox_xxx_netHandleCliPacket_43C860(int a1, unsigned char* a2, int a3, void* a4) {
@@ -959,7 +961,6 @@ int nox_xxx_clientSendInput_43C8F0(int a1, int a2, int a3) {
 	}
 	return result;
 }
-#endif // NOX_CGO
 
 //----- (0043C9F0) --------------------------------------------------------
 int nox_xxx_netSendClientReady_43C9F0() {
@@ -1070,6 +1071,7 @@ int sub_43CC60(int a1) {
 	*getMemU32Ptr(0x587000, 91872) = a1 == 0;
 	return result;
 }
+#endif // NOX_CGO
 
 //----- (0043CC80) --------------------------------------------------------
 int sub_43CC80() {

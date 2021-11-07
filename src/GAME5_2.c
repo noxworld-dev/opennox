@@ -1495,7 +1495,6 @@ int nox_xxx_netPreStructToFull_5546F0(nox_net_struct_arg_t* narg) {
 	nox_net_struct_arr[ind] = ns;
 	return ind;
 }
-#endif // NOX_CGO
 
 //----- (00554760) --------------------------------------------------------
 int sub_554760(int a1, char* cp, int hostshort, int a4, int a5) {
@@ -1578,6 +1577,7 @@ int sub_554760(int a1, char* cp, int hostshort, int a4, int a5) {
 	}
 	return ns->id;
 }
+#endif // NOX_CGO
 
 //----- (005549F0) --------------------------------------------------------
 int sub_5549F0(unsigned int a1) {

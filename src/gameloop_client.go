@@ -51,8 +51,8 @@ func drawAndPresent() {
 func map_download_start() {
 	C.nox_xxx_gameClearAll_467DF0(1)
 	C.nox_xxx_gameDownloadShowDialog_4CC770()
-	nox_xxx_mapSetDownloadInProgress_4AB560(true)
-	nox_xxx_mapSetDownloadOK_4AB570(true)
+	nox_xxx_mapSetDownloadInProgress(true)
+	nox_xxx_mapSetDownloadOK(true)
 	if _, err := mapDownloadLoop(true); err != nil {
 		mapsendLog.Println(err)
 	}
@@ -60,7 +60,7 @@ func map_download_start() {
 
 func mapDownloadLoop(first bool) (bool, error) {
 	if !mapDownloading() {
-		if C.map_download_finish() == 0 {
+		if map_download_finish() == 0 {
 			return true, errors.New("map download failed")
 		}
 		return true, nil
@@ -115,22 +115,22 @@ func mapDownloadLoop(first bool) (bool, error) {
 
 	if mapsend.native {
 		if first {
-			C.nox_xxx_netRequestMap_43CA50()
+			nox_xxx_netRequestMap_43CA50()
 		}
 		if gameFrame()%30 != 0 { // TODO: shouldn't it be == 0?
-			C.nox_xxx_netKeepAliveSocket_43CA20()
+			nox_xxx_netKeepAliveSocket_43CA20()
 		}
 	} else {
 		select {
 		case err := <-mapsend.done:
-			nox_xxx_mapSetDownloadInProgress_4AB560(false)
+			nox_xxx_mapSetDownloadInProgress(false)
 			if err != nil {
-				nox_xxx_mapSetDownloadOK_4AB570(false)
+				nox_xxx_mapSetDownloadOK(false)
 				return true, err
 			}
-			nox_xxx_mapSetDownloadOK_4AB570(true)
-			C.nox_xxx_guiDownloadSetPercent_4CC900(100)
-			if C.map_download_finish() == 0 {
+			nox_xxx_mapSetDownloadOK(true)
+			nox_xxx_guiDownloadSetPercent_4CC900(100)
+			if map_download_finish() == 0 {
 				return true, errors.New("map download failed")
 			}
 			return true, nil
@@ -138,7 +138,7 @@ func mapDownloadLoop(first bool) (bool, error) {
 		}
 	}
 	if !mapDownloading() {
-		if C.map_download_finish() == 0 {
+		if map_download_finish() == 0 {
 			return true, errors.New("map download failed")
 		}
 		return true, nil
@@ -150,7 +150,7 @@ func mapDownloadLoop(first bool) (bool, error) {
 	nox_video_callCopyBackBuffer_4AD170()
 
 	if !mapDownloading() {
-		if C.map_download_finish() == 0 {
+		if map_download_finish() == 0 {
 			return true, errors.New("map download failed")
 		}
 		return true, nil

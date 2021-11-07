@@ -8879,6 +8879,7 @@ int sub_552570(unsigned int a1, int a2) {
 	return 0;
 }
 
+#ifndef NOX_CGO
 //----- (005525B0) --------------------------------------------------------
 int nox_xxx_cliWaitServerResponse_5525B0(unsigned int a1, char a2, int a3, char a4) {
 	if (debugNet) {
@@ -8910,6 +8911,7 @@ int nox_xxx_cliWaitServerResponse_5525B0(unsigned int a1, char a2, int a3, char 
 	}
 	return -23;
 }
+#endif // NOX_CGO
 
 //----- (00552640) --------------------------------------------------------
 int nox_xxx_netSendSock_552640(unsigned int id, const char* buf, signed int sz, char flags) {

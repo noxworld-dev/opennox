@@ -46,6 +46,7 @@ import (
 	"encoding/binary"
 	"errors"
 	"net"
+	"time"
 	"unsafe"
 
 	"github.com/noxworld-dev/nat"
@@ -55,6 +56,7 @@ import (
 	"nox/v1/common/log"
 	"nox/v1/common/memmap"
 	"nox/v1/common/noxnet"
+	"nox/v1/common/platform"
 	"nox/v1/common/serial"
 )
 
@@ -970,4 +972,98 @@ func nox_xxx_netSend_5552D0(ind int, a2 byte, a3 bool) int {
 		}
 	}
 	return 0
+}
+
+func nox_xxx_netSendClientReady_43C9F0() int {
+	var data [1]byte
+	data[0] = byte(noxnet.MSG_CLIENT_READY)
+	nox_xxx_netSendSock_552640(int(memmap.Uint32(0x5D4594, 815700)), data[:], NOX_NET_SEND_NO_LOCK|NOX_NET_SEND_FLAG2)
+	return 1
+}
+
+func nox_xxx_netKeepAliveSocket_43CA20() int {
+	var data [1]byte
+	data[0] = byte(noxnet.MSG_KEEP_ALIVE)
+	nox_xxx_netSendSock_552640(int(memmap.Uint32(0x5D4594, 815700)), data[:], NOX_NET_SEND_FLAG2)
+	return 1
+}
+
+func nox_xxx_netRequestMap_43CA50() int {
+	var data [1]byte
+	data[0] = byte(noxnet.MSG_REQUEST_MAP)
+	nox_xxx_netSendSock_552640(int(memmap.Uint32(0x5D4594, 815700)), data[:], NOX_NET_SEND_NO_LOCK|NOX_NET_SEND_FLAG2)
+	return 1
+}
+
+func nox_xxx_netMapReceived_43CA80() C.int {
+	var data [1]byte
+	data[0] = byte(noxnet.MSG_RECEIVED_MAP)
+	nox_xxx_netSendSock_552640(int(memmap.Uint32(0x5D4594, 815700)), data[:], NOX_NET_SEND_NO_LOCK|NOX_NET_SEND_FLAG2)
+	return 1
+}
+
+//export nox_xxx_cliSendCancelMap_43CAB0
+func nox_xxx_cliSendCancelMap_43CAB0() C.int {
+	id := int(memmap.Uint32(0x5D4594, 815700))
+	var data [1]byte
+	data[0] = byte(noxnet.MSG_CANCEL_MAP)
+	v0, _ := nox_xxx_netSendSock_552640(id, data[:], NOX_NET_SEND_NO_LOCK|NOX_NET_SEND_FLAG2)
+	if nox_xxx_cliWaitServerResponse_5525B0(id, v0, 20, 6) != 0 {
+		return 0
+	}
+	C.nox_netlist_resetByInd_40ED10(31, 0)
+	return 1
+}
+
+func nox_xxx_netSendIncomingClient_43CB00() int {
+	id := int(memmap.Uint32(0x5D4594, 815700))
+	var data [1]byte
+	data[0] = byte(noxnet.MSG_INCOMING_CLIENT)
+	v0, _ := nox_xxx_netSendSock_552640(id, data[:], NOX_NET_SEND_NO_LOCK|NOX_NET_SEND_FLAG2)
+	if nox_xxx_cliWaitServerResponse_5525B0(id, v0, 20, 6) != 0 {
+		return 0
+	}
+	C.nox_netlist_resetByInd_40ED10(31, 0)
+	return 1
+}
+
+func nox_xxx_cliSendOutgoingClient_43CB50() int {
+	id := int(memmap.Uint32(0x5D4594, 815700))
+	var data [1]byte
+	data[0] = byte(noxnet.MSG_OUTGOING_CLIENT)
+	v0, _ := nox_xxx_netSendSock_552640(id, data[:], NOX_NET_SEND_NO_LOCK|NOX_NET_SEND_FLAG2)
+	if nox_xxx_cliWaitServerResponse_5525B0(id, v0, 20, 6) != 0 {
+		return 0
+	}
+	C.nox_xxx_servNetInitialPackets_552A80(C.uint(id), 3)
+	C.nox_netlist_resetByInd_40ED10(31, 0)
+	return 1
+}
+
+func nox_xxx_cliWaitServerResponse_5525B0(a1 int, a2 int, a3 int, a4 byte) int {
+	if debugNet {
+		netLog.Printf("nox_xxx_cliWaitServerResponse_5525B0: %d, %d, %d, %d\n", a1, a2, a3, a4)
+	}
+	if a1 >= NOX_NET_STRUCT_MAX {
+		return -3
+	}
+	ns := getNetStructByInd(a1)
+	if ns == nil {
+		return -3
+	}
+
+	if int(ns.field_28_1) >= a2 {
+		return 0
+	}
+	for v6 := 0; v6 <= 20*a3; v6++ {
+		platform.Sleep(50 * time.Millisecond)
+		C.nox_xxx_servNetInitialPackets_552A80(C.uint(a1), C.char(a4|1))
+		C.nox_xxx_netMaybeSendAll_552460()
+		if int(ns.field_28_1) >= a2 {
+			return 0
+		}
+		// FIXME(awesie)
+		return 0
+	}
+	return -23
 }

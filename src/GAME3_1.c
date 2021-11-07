@@ -85,7 +85,6 @@ extern uint32_t dword_5d4594_1319056;
 extern uint32_t dword_5d4594_1320932;
 extern uint32_t dword_5d4594_1321032;
 extern uint32_t nox_client_renderBubbles_80844;
-extern uint32_t dword_5d4594_1522932;
 extern uint32_t dword_5d4594_1319264;
 extern uint32_t dword_5d4594_1321044;
 extern uint32_t nox_client_renderGlow_805852;
@@ -160,6 +159,7 @@ uint32_t nox_arr_956A00[NOX_MAX_HEIGHT + 150] = {0};
 unsigned char nox_arr_957820[128 * (NOX_MAX_HEIGHT + 150)] = {0};
 
 #ifndef NOX_CGO
+uint32_t dword_5d4594_1522932 = 0;
 void* nox_win_advVideoOpts_1522600 = 0;
 extern nox_bindevent_t nox_bindevent_arr[NOX_BINDEVENT_MAX];
 #endif // NOX_CGO
@@ -7489,6 +7489,7 @@ int sub_4CC6F0(int a1, int a2) {
 	return 1;
 }
 
+#ifndef NOX_CGO
 //----- (004CC770) --------------------------------------------------------
 int nox_xxx_gameDownloadShowDialog_4CC770() {
 	int v0; // ecx
@@ -7579,6 +7580,7 @@ int nox_xxx_guiDownloadClose_4CC930() {
 	dword_5d4594_1522932 = 0;
 	return result;
 }
+#endif // NOX_CGO
 
 //----- (004CCCF0) --------------------------------------------------------
 int nox_xxx_updDrawUndeadKiller_4CCCF0() { return 1; }

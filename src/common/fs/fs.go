@@ -37,6 +37,10 @@ func Mkdir(path string) error {
 	return err
 }
 
+func MkdirAll(path string) error {
+	return os.MkdirAll(Normalize(path), 0777)
+}
+
 func Remove(path string) error {
 	return os.Remove(Normalize(path))
 }

@@ -79,6 +79,15 @@ func nox_window_set_all_funcs_go(p *C.nox_window, a2 unsafe.Pointer, draw unsafe
 	return 0
 }
 
+func (win *Window) SetAllFuncs(a2 unsafe.Pointer, draw unsafe.Pointer, tooltip unsafe.Pointer) {
+	if win == nil {
+		return
+	}
+	win.setFunc93(a2)
+	win.setDraw(draw)
+	win.setTooltipFunc(tooltip)
+}
+
 //export nox_xxx_wndSetWindowProc_46B300_go
 func nox_xxx_wndSetWindowProc_46B300_go(win *C.nox_window, fnc unsafe.Pointer) C.int {
 	if win == nil {
@@ -233,7 +242,11 @@ func newWindowRaw(parent *Window, status gui.StatusFlags, px, py, w, h int, fnc9
 }
 
 func asWindow(win *C.nox_window) *Window {
-	return (*Window)(unsafe.Pointer(win))
+	return asWindowP(unsafe.Pointer(win))
+}
+
+func asWindowP(win unsafe.Pointer) *Window {
+	return (*Window)(win)
 }
 
 type Window C.nox_window

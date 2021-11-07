@@ -30,8 +30,6 @@
 
 extern uint32_t nox_client_gui_flag_1556112;
 extern uint32_t nox_game_loop_xxx_805872;
-extern uint32_t nox_xxx_gameDownloadInProgress_587000_173328;
-extern uint32_t nox_xxx_mapDownloadOK_587000_173332;
 extern uint32_t dword_5d4594_2618912;
 extern uint32_t nox_gameDisableMapDraw_5d4594_2650672;
 extern uint32_t nox_client_gui_flag_815132;
@@ -40,6 +38,8 @@ extern int nox_win_height;
 extern unsigned int nox_gameFPS;
 extern unsigned int nox_frame_xxx_2598000;
 
+uint32_t nox_xxx_mapDownloadOK_587000_173332 = 0x1;
+uint32_t nox_xxx_gameDownloadInProgress_587000_173328 = 0x1;
 void cmain_loop(int);
 extern int g_v21;
 uint32_t nox_game_continueMenuOrHost_93200 = 0x1;

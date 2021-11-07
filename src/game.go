@@ -433,7 +433,7 @@ func initGameSession435CC0() error {
 			C.nox_xxx_netPlayerIncomingServ_4DDF60(31)
 		}
 	} else {
-		C.nox_xxx_netSendIncomingClient_43CB00()
+		nox_xxx_netSendIncomingClient_43CB00()
 	}
 	gameSetCliDrawFunc(clientDraw)
 	gameSetPlayState(3)

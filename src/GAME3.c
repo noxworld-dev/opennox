@@ -72,7 +72,6 @@ extern uint32_t dword_5d4594_3798680;
 extern uint32_t dword_5d4594_3798676;
 extern uint32_t dword_5d4594_1308112;
 extern uint32_t nox_server_sendMotd_108752;
-extern uint32_t dword_5d4594_1309772;
 extern uint32_t dword_5d4594_1308148;
 extern uint32_t dword_5d4594_3798708;
 extern uint32_t dword_587000_171388;
@@ -88,10 +87,8 @@ extern uint32_t dword_5d4594_1308132;
 extern uint32_t dword_5d4594_1308108;
 extern uint32_t dword_5d4594_1308120;
 extern uint32_t dword_5d4594_1308156;
-extern uint32_t dword_5d4594_1309764;
 extern uint32_t dword_5d4594_1308128;
 extern uint32_t dword_5d4594_1308124;
-extern uint32_t dword_5d4594_1309768;
 extern uint32_t dword_5d4594_1309736;
 extern uint32_t dword_5d4594_1309756;
 extern uint32_t dword_5d4594_1309832;
@@ -101,14 +98,11 @@ extern uint32_t dword_5d4594_1308160;
 extern uint32_t dword_5d4594_1309824;
 extern uint32_t dword_5d4594_1307720;
 extern uint32_t dword_5d4594_1308164;
-extern uint32_t nox_xxx_mapPartN_587000_173336;
 extern uint32_t nox_xxx_gameDownloadInProgress_587000_173328;
-extern uint32_t dword_5d4594_1309784;
 extern uint32_t dword_5d4594_1312476;
 extern nox_gui_animation* nox_wnd_xxx_1307748;
 extern uint32_t dword_5d4594_1307736;
 extern char* dword_5d4594_3798648;
-extern uint32_t dword_5d4594_1309776;
 extern uint32_t dword_5d4594_1309708;
 extern uint32_t nox_client_renderGlow_805852;
 extern uint32_t dword_5d4594_3798716;
@@ -116,7 +110,6 @@ extern uint32_t nox_xxx_mapDownloadOK_587000_173332;
 extern uint32_t dword_5d4594_1312472;
 extern uint32_t nox_server_connectionType_3596;
 extern uint32_t nox_win_onlineOrLAN_1309716;
-extern uint32_t dword_5d4594_1309780;
 extern uint32_t dword_5d4594_1307768;
 extern uint32_t dword_5d4594_1313792;
 extern uint32_t dword_5d4594_1307744;
@@ -177,14 +170,21 @@ extern unsigned int nox_frame_xxx_2598000;
 extern char nox_savegame_name_1307752[9];
 
 #ifndef NOX_CGO
+uint32_t dword_5d4594_1309764 = 0;
+uint32_t dword_5d4594_1309768 = 0;
+uint32_t dword_5d4594_1309772 = 0;
+uint32_t nox_xxx_mapPartN_587000_173336 = 0x1;
+uint32_t dword_5d4594_1309776 = 0;
+uint32_t dword_5d4594_1309780 = 0;
+uint32_t dword_5d4594_1309784 = 0;
 uint32_t nox_xxx_normalWndWidth_587000_172872 = 640;
 uint32_t nox_xxx_normalWndHeight_587000_172876 = 480;
 uint32_t dword_5d4594_1312460 = 0;
+
+FILE* nox_file_9 = 0;
 #endif // NOX_CGO
 
 extern nox_render_data_t* ptr_5D4594_3799572;
-
-FILE* nox_file_9 = 0;
 
 nox_gui_animation* nox_wnd_xxx_1307732 = 0;
 nox_gui_animation* nox_wnd_xxx_1308092 = 0;
@@ -4844,6 +4844,7 @@ int sub_4AB4D0(int a1) {
 	return result;
 }
 
+#ifndef NOX_CGO
 //----- (004AB560) --------------------------------------------------------
 void nox_xxx_mapSetDownloadInProgress_4AB560(int a1) { nox_xxx_gameDownloadInProgress_587000_173328 = a1; }
 
@@ -4851,13 +4852,10 @@ void nox_xxx_mapSetDownloadInProgress_4AB560(int a1) { nox_xxx_gameDownloadInPro
 void nox_xxx_mapSetDownloadOK_4AB570(int a1) { nox_xxx_mapDownloadOK_587000_173332 = a1; }
 
 //----- (004AB580) --------------------------------------------------------
-const char* sub_4AB580() {
-	const char* result; // eax
-
+void sub_4AB580() {
 	if (nox_file_9) {
 		nox_fs_close(nox_file_9);
 	}
-	result = *(const char**)&dword_5d4594_1309776;
 	nox_file_9 = 0;
 	dword_5d4594_1309764 = 0;
 	dword_5d4594_1309784 = 0;
@@ -4868,11 +4866,9 @@ const char* sub_4AB580() {
 	if (dword_5d4594_1309776) {
 		free(*(void**)&dword_5d4594_1309776);
 	}
-	return result;
 }
 
 //----- (004AB5E0) --------------------------------------------------------
-#ifndef NOX_CGO
 void nox_xxx_gameDownloadMap_4AB5E0() {
 	int v0;            // esi
 	unsigned char* v1; // eax
@@ -4924,7 +4920,6 @@ void nox_xxx_gameDownloadMap_4AB5E0() {
 		}
 	}
 }
-#endif // NOX_CGO
 // 4AD170: using guessed type int nox_video_callCopyBackBuffer_4AD170(void);
 
 //----- (004AB720) --------------------------------------------------------
@@ -5054,11 +5049,7 @@ int sub_4AB9B0(char* a1) {
 }
 
 //----- (004ABA90) --------------------------------------------------------
-#ifdef NOX_CGO
-void nox_xxx_cliCancelMapDownload_native_4ABA90() {
-#else  // NOX_CGO
 void nox_xxx_cliCancelMapDownload_4ABA90() {
-#endif // NOX_CGO
 	if (dword_5d4594_1309764) {
 		nox_xxx_cliSendCancelMap_43CAB0();
 		if (nox_file_9) {
@@ -5070,11 +5061,7 @@ void nox_xxx_cliCancelMapDownload_4ABA90() {
 }
 
 //----- (004ABAD0) --------------------------------------------------------
-#ifdef NOX_CGO
-int nox_xxx_mapDownloadStart_native_4ABAD0(char* a1, unsigned int a2) {
-#else                   // NOX_CGO
 int nox_xxx_mapDownloadStart_4ABAD0(char* a1, unsigned int a2) {
-#endif                  // NOX_CGO
 	char* v2;           // edi
 	unsigned char v3;   // cl
 	char* v4;           // ebx
@@ -5145,6 +5132,7 @@ int nox_xxx_mapDownloadStart_4ABAD0(char* a1, unsigned int a2) {
 	}
 	return 0;
 }
+#endif // NOX_CGO
 
 //----- (004ABDA0) --------------------------------------------------------
 int sub_4ABDA0(int a1, short a2, short a3, uint32_t* a4) {

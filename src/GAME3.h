@@ -132,7 +132,7 @@ int sub_4AB4A0(int a1);
 int sub_4AB4D0(int a1);
 void nox_xxx_mapSetDownloadInProgress_4AB560(int a1);
 void nox_xxx_mapSetDownloadOK_4AB570(int a1);
-const char* sub_4AB580();
+void sub_4AB580();
 void nox_xxx_gameDownloadMap_4AB5E0();
 void nox_xxx_mapDeleteFile_4AB720();
 void nox_xxx_netMapDownloadPart_4AB7C0(unsigned short a1, void* a2, size_t a3);

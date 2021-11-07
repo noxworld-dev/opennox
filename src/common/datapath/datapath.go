@@ -5,6 +5,7 @@ import (
 	"path/filepath"
 	"sync"
 
+	"nox/v1/common"
 	"nox/v1/common/fs"
 	"nox/v1/common/log"
 )
@@ -36,13 +37,25 @@ func get() string {
 	return datadir
 }
 
-// Path returns the current Nox data dir. If additional args are provided, it will joined with the data dir.
+// Path returns the current Nox data dir. If additional args are provided, they will joined with the data dir.
 func Path(path ...string) string {
 	if len(path) == 0 {
 		return get()
 	}
 	args := make([]string, 0, 1+len(path))
 	args = append(args, get())
+	args = append(args, path...)
+	return filepath.Join(args...)
+}
+
+// Maps returns the current Nox maps dir. If additional args are provided, they will joined with the maps dir.
+func Maps(path ...string) string {
+	const dir = common.MapsDir
+	if len(path) == 0 {
+		return Path(dir)
+	}
+	args := make([]string, 0, 2+len(path))
+	args = append(args, get(), dir)
 	args = append(args, path...)
 	return filepath.Join(args...)
 }

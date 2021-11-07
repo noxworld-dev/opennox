@@ -5964,7 +5964,6 @@ int nox_xxx_clientResetSpriteAndGui_4357D0(int argc, const char** argv) {
 	sub_48D4B0(0);
 	return 1;
 }
-#endif // NOX_CGO
 
 //----- (00435A10) --------------------------------------------------------
 int nox_xxx_whenServerHostServer_435A10(signed int* a1) {
@@ -6044,7 +6043,6 @@ int nox_xxx_whenServerHostServer_435A10(signed int* a1) {
 }
 
 //----- (00435CC0) --------------------------------------------------------
-#ifndef NOX_CGO
 int nox_xxx_initGameSession_435CC0() {
 	sub_445450();
 	sub_45DB90();

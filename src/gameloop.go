@@ -196,7 +196,7 @@ func mainloop_43E290() {
 	*memmap.PtrUint32(0x5D4594, 816400) = 60 * gameFPS()
 
 	// XXX
-	nox_xxx_mapSetDownloadInProgress_4AB560(false)
+	nox_xxx_mapSetDownloadInProgress(false)
 
 mainloop:
 	for mainloopContinue {
@@ -1012,10 +1012,9 @@ func nox_xxx_gameSetMapPath_409D70(path string) {
 	C.nox_xxx_gameSetMapPath_409D70(internCStr(path))
 }
 
-//export map_download_finish
-func map_download_finish() C.int {
-	C.nox_xxx_guiDownloadClose_4CC930()
-	if C.nox_xxx_mapDownloadOK_587000_173332 != 0 {
+func map_download_finish() int {
+	nox_xxx_guiDownloadClose_4CC930()
+	if mapsend.downloadOK {
 		if mode := videoGetGameMode(); mode.W == 0 || mode.H == 0 {
 			mode.W = noxDefaultWidth
 			mode.H = noxDefaultHeight
@@ -1023,7 +1022,7 @@ func map_download_finish() C.int {
 		}
 	}
 
-	if C.nox_xxx_mapDownloadOK_587000_173332 == 0 {
+	if !mapsend.downloadOK {
 		noxflags.UnsetGame(9437184)
 		return 0
 	}
@@ -1041,7 +1040,7 @@ func map_download_finish() C.int {
 	if noxflags.HasGame(1) {
 		C.nox_xxx_gameServerReadyMB_4DD180(31)
 	} else {
-		C.nox_xxx_netSendClientReady_43C9F0()
+		nox_xxx_netSendClientReady_43C9F0()
 	}
 	C.nox_xxx_gameSetCliConnected_43C720(1)
 
@@ -1056,7 +1055,7 @@ func sub_435EB0() {
 	if noxflags.HasGame(1) {
 		C.nox_xxx_playerDisconnFinish_4DE530(31, 2)
 	} else {
-		C.nox_xxx_cliSendOutgoingClient_43CB50()
+		nox_xxx_cliSendOutgoingClient_43CB50()
 	}
 	C.sub_499450()
 	C.nox_xxx_gameClearAll_467DF0(0)
@@ -1106,7 +1105,7 @@ func nox_xxx_gameChangeMap_43DEB0() int {
 			if noxflags.HasGame(1) {
 				C.nox_xxx_gameServerReadyMB_4DD180(31)
 			} else {
-				C.nox_xxx_netSendClientReady_43C9F0()
+				nox_xxx_netSendClientReady_43C9F0()
 			}
 			C.nox_xxx_gameSetCliConnected_43C720(1)
 			if memmap.Int32(0x973F18, 3800) < 0 {
