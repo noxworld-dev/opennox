@@ -71,7 +71,6 @@ uint32_t dword_5d4594_3798824 = 0;
 uint32_t dword_5d4594_1307780 = 0;
 uint32_t dword_5d4594_3798820 = 0;
 uint32_t dword_5d4594_1193516 = 0;
-uint32_t dword_5d4594_1090048 = 0;
 uint32_t dword_5d4594_1049508 = 0;
 uint32_t dword_5d4594_1049796_inventory_click_column_index = 0;
 uint32_t dword_5d4594_829492 = 0;

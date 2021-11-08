@@ -137,7 +137,7 @@ extern uint32_t dword_5d4594_1063636;
 extern uint32_t nox_client_gui_flag_815132;
 extern uint32_t dword_5d4594_1049796_inventory_click_column_index;
 extern uint32_t dword_5d4594_1049508;
-extern uint32_t dword_5d4594_1090048;
+extern nox_window* dword_5d4594_1090048;
 extern uint32_t dword_5d4594_1049500;
 extern uint32_t dword_5d4594_1062512;
 extern uint32_t dword_5d4594_1049864;

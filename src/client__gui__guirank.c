@@ -22,12 +22,13 @@ extern uint32_t dword_587000_145664;
 extern uint32_t dword_5d4594_1090044;
 extern uint32_t dword_5d4594_1090100;
 extern int dword_5d4594_3799524;
-extern uint32_t dword_5d4594_1090048;
 extern uint32_t dword_5d4594_1090120;
 extern int nox_win_width;
 extern int nox_win_height;
 extern unsigned int nox_gameFPS;
 extern unsigned int nox_frame_xxx_2598000;
+
+nox_window* dword_5d4594_1090048 = 0;
 
 //----- (0046DC60) --------------------------------------------------------
 wchar_t* sub_46DC60(int a1, unsigned char a2, int a3) {
@@ -179,11 +180,11 @@ int nox_xxx_guiDrawRank_46E870() {
 	dword_5d4594_1090044 = 439 - v0;
 	dword_5d4594_1090048 = nox_window_new(0, 1560, 0, v0 + 40, 1, 1, 0);
 	nox_window_set_all_funcs(*(uint32_t**)&dword_5d4594_1090048, sub_46F060, sub_46F080, 0);
-	*(uint32_t*)(dword_5d4594_1090048 + 56) = 0x80000000;
-	*(uint32_t*)(dword_5d4594_1090048 + 64) = 0x80000000;
-	*(uint32_t*)(dword_5d4594_1090048 + 72) = 0x80000000;
-	*(uint32_t*)(dword_5d4594_1090048 + 80) = 0x80000000;
-	*(uint32_t*)(dword_5d4594_1090048 + 88) = 0x80000000;
+	*(uint32_t*)((uint32_t)dword_5d4594_1090048 + 56) = 0x80000000;
+	*(uint32_t*)((uint32_t)dword_5d4594_1090048 + 64) = 0x80000000;
+	*(uint32_t*)((uint32_t)dword_5d4594_1090048 + 72) = 0x80000000;
+	*(uint32_t*)((uint32_t)dword_5d4594_1090048 + 80) = 0x80000000;
+	*(uint32_t*)((uint32_t)dword_5d4594_1090048 + 88) = 0x80000000;
 	memset(v49, 0, sizeof(v49));
 	nox_wcscpy((wchar_t*)&v49[72], (const wchar_t*)getMemAt(0x5D4594, 1090136));
 	*(uint32_t*)&v49[68] = *getMemU32Ptr(0x85B3FC, 940);
