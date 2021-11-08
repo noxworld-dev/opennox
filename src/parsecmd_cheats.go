@@ -5,6 +5,7 @@ import (
 
 	"nox/v1/client/system/parsecmd"
 	noxflags "nox/v1/common/flags"
+	"nox/v1/common/types"
 )
 
 func init() {
@@ -138,6 +139,13 @@ func init() {
 					}
 				})
 			},
+		},
+		&parsecmd.Command{
+			Token:  "goto",
+			HelpID: "gotohelp",
+			Help:   "teleports player to a given location",
+			Flags:  parsecmd.Server | parsecmd.Cheat,
+			Func:   noxCheatGoto,
 		},
 	)
 	// legacy cheats from set and unset categories
@@ -308,4 +316,30 @@ func noxCmdPlayerByIndex(c *parsecmd.Console, sind string) *Player {
 		return nil
 	}
 	return list[ind]
+}
+
+func noxCheatGoto(c *parsecmd.Console, tokens []string) bool {
+	if len(tokens) != 2 {
+		c.Printf(parsecmd.ColorLightRed, "expected two coordinates")
+		return false
+	}
+	x, err := strconv.Atoi(tokens[0])
+	if err != nil {
+		c.Printf(parsecmd.ColorLightRed, "%s must be an integer", tokens[0])
+		return true
+	}
+	y, err := strconv.Atoi(tokens[1])
+	if err != nil {
+		c.Printf(parsecmd.ColorLightRed, "%s must be an integer", tokens[1])
+		return true
+	}
+	p := HostPlayer()
+	u := p.UnitC()
+	if u == nil {
+		c.Printf(parsecmd.ColorLightRed, "player %q doesn't have a unit", p.Name())
+		return true
+	}
+	u.SetPos(types.Pointf{X: float32(x), Y: float32(y)})
+	c.Printf(parsecmd.ColorLightYellow, "teleported player %q to (%d, %d)", p.Name(), x, y)
+	return true
 }
