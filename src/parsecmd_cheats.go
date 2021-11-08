@@ -147,6 +147,13 @@ func init() {
 			Flags:  parsecmd.Server | parsecmd.Cheat,
 			Func:   noxCheatGoto,
 		},
+		&parsecmd.Command{
+			Token:  "spawn",
+			HelpID: "spawnhelp",
+			Help:   "spawns an item or creature with a given name",
+			Flags:  parsecmd.Server | parsecmd.Cheat,
+			Func:   noxCheatSpawn,
+		},
 	)
 	// legacy cheats from set and unset categories
 	noxCmdSet.Sub = append(noxCmdSet.Sub,
@@ -341,5 +348,33 @@ func noxCheatGoto(c *parsecmd.Console, tokens []string) bool {
 	}
 	u.SetPos(types.Pointf{X: float32(x), Y: float32(y)})
 	c.Printf(parsecmd.ColorLightYellow, "teleported player %q to (%d, %d)", p.Name(), x, y)
+	return true
+}
+
+func noxCheatSpawn(c *parsecmd.Console, tokens []string) bool {
+	cnt := 1
+	switch len(tokens) {
+	default:
+		c.Printf(parsecmd.ColorLightRed, "expected an object name")
+		return false
+	case 2:
+		var err error
+		cnt, err = strconv.Atoi(tokens[1])
+		if err != nil {
+			c.Printf(parsecmd.ColorLightRed, "%s must be an integer", tokens[1])
+			return true
+		}
+	case 1:
+	}
+	typ := getObjectTypeByID(tokens[0])
+	if typ == nil {
+		c.Printf(parsecmd.ColorLightRed, "unknown object: %q", tokens[0])
+		return true
+	}
+	pos := HostPlayer().Pos()
+	for i := 0; i < cnt; i++ {
+		typ.CreateObject(pos)
+	}
+	c.Printf(parsecmd.ColorLightYellow, "created %q at (%d, %d)", typ.ID(), int(pos.X), int(pos.Y))
 	return true
 }
