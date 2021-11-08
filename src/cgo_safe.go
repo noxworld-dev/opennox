@@ -26,6 +26,8 @@ import (
 	"nox/v1/common/memmap"
 )
 
+const cgoSafe = true
+
 func init() {
 	memmap.SetRuntimeChecks(true)
 }

@@ -1,6 +1,7 @@
 package nox
 
 /*
+#include <stdlib.h>
 #include "client__gui__window.h"
 extern unsigned int dword_5d4594_3799468;
 extern int dword_5d4594_3799524;
@@ -30,11 +31,13 @@ static void nox_window_call_tooltip_func(nox_window* win, nox_window_data* data,
 */
 import "C"
 import (
+	"runtime/debug"
 	"unsafe"
 
 	"nox/v1/client/gui"
 	"nox/v1/common/alloc/classes"
 	noxcolor "nox/v1/common/color"
+	"nox/v1/common/log"
 	"nox/v1/common/types"
 )
 
@@ -246,7 +249,13 @@ func asWindow(win *C.nox_window) *Window {
 }
 
 func asWindowP(win unsafe.Pointer) *Window {
-	return (*Window)(win)
+	w := (*Window)(win)
+	if cgoSafe && w.ID() == 0xacacacac {
+		log.Println("memory corruption detected")
+		debug.PrintStack()
+		C.abort()
+	}
+	return w
 }
 
 type Window C.nox_window
