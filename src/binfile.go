@@ -8,9 +8,11 @@ import "C"
 import (
 	"bytes"
 	"encoding/hex"
+	"errors"
 	"fmt"
 	"io"
 	"os"
+	"path/filepath"
 	"runtime/debug"
 	"strings"
 	"unsafe"
@@ -21,38 +23,99 @@ import (
 )
 
 var (
-	binFileData  = make(map[*File]*Binfile)
-	binFileTmp   = make(map[string]string)
-	binFileDebug = os.Getenv("NOX_DEBUG_BINFILE") == "true"
-	binFileGo    = os.Getenv("NOX_BINFILE_GO") == "true"
+	binFileLog     = log.New("binfile")
+	binFileTmp     string
+	binFileByCFile = make(map[*File]*Binfile)
+	binFileDebug   = os.Getenv("NOX_DEBUG_BINFILE") == "true"
+	binFileGo      = os.Getenv("NOX_BINFILE_GO") == "true"
+)
+
+type BinFileMode int
+
+const (
+	BinFileRO = BinFileMode(0)
+	BinFileWO = BinFileMode(1)
+	BinFileRW = BinFileMode(2)
 )
 
 type Binfile struct {
-	Path      string
-	File      *File
-	Key       int
+	file  *File
+	mode  BinFileMode
+	key   int
+	write *crypt.Writer
+	read  *crypt.Reader
+	full  *crypt.File
+
+	orig      *File
 	noRaw     bool
 	noRawFrom string
-	write     struct {
-		File   *os.File
-		Writer *crypt.Writer
+}
+
+func (f *Binfile) close() error {
+	if f.read != nil {
+		f.read = nil
 	}
-	read struct {
-		File   *os.File
-		Reader *crypt.Reader
+	var last error
+	if f.write != nil {
+		if err := f.write.Close(); err != nil {
+			last = err
+		}
+		f.write = nil
 	}
-	full struct {
-		File *os.File
-		Full *crypt.File
+	if f.full != nil {
+		if err := f.full.Close(); err != nil {
+			last = err
+		}
+		f.full = nil
 	}
+	return last
+}
+
+func (f *Binfile) Written() int64 {
+	if f.write != nil {
+		return f.write.Written()
+	} else if f.full != nil {
+		return f.full.Written()
+	}
+	off, _ := f.Seek(0, io.SeekCurrent)
+	return off
+}
+
+func (f *Binfile) Read(p []byte) (int, error) {
+	if f.read != nil {
+		return f.read.Read(p)
+	} else if f.full != nil {
+		return f.full.Read(p)
+	}
+	return f.file.Read(p)
+}
+
+func (f *Binfile) Write(p []byte) (int, error) {
+	if f.write != nil {
+		return f.write.Write(p)
+	} else if f.full != nil {
+		return f.full.Write(p)
+	}
+	return f.file.Write(p)
+}
+
+func (f *Binfile) Seek(off int64, whence int) (int64, error) {
+	if f.read != nil {
+		return f.read.Seek(off, whence)
+	} else if f.write != nil {
+		return 0, errors.New("seek on binfile writer")
+	} else if f.full != nil {
+		return f.full.Seek(off, whence)
+	}
+	return f.file.Seek(off, whence)
 }
 
 func (f *Binfile) flags() string {
-	if f.read.File != nil {
+	if f.read != nil {
 		return "R"
-	} else if f.write.File != nil {
+	} else if f.write != nil {
 		return "W"
-	} else if f.full.File != nil {
+	} else if f.full != nil {
 		return "RW"
 	}
 	return ""
@@ -65,6 +128,53 @@ func (f *Binfile) IgnoreRaw(ignore bool) {
 	} else {
 		f.noRawFrom = ""
 	}
+}
+
+func (f *Binfile) rawSeek(off int64, whence int) {
+	if f.noRaw {
+		//if binFileDebug {
+		//	log.Printf("binfile: SKIP seek(%s,raw): %q (%d, %d)", f.flags(), f.orig.Name(), off, whence)
+		//}
+		return
+	}
+	if binFileDebug {
+		log.Printf("binfile: seek(%s,raw): %q (%d, %d)", f.flags(), f.orig.Name(), off, whence)
+	}
+	f.file.Seek(off, whence)
+	if whence != io.SeekCurrent {
+		checkEqualContent(fmt.Sprintf("seek(%s)", f.flags()), f.orig.File, f.file.File)
+	} else {
+		filesCheckOffsets(f.orig.File, f.file.File)
+	}
+}
+
+func (f *Binfile) rawWrite(p []byte) {
+	if f.noRaw {
+		//if binFileDebug {
+		//	log.Printf("binfile: SKIP write(%s,raw): %q [:%d]", f.flags(), f.orig.Name(), len(p))
+		//}
+		return
+	}
+	if binFileDebug {
+		log.Printf("binfile: write(%s,raw): %q [:%d]", f.flags(), f.orig.Name(), len(p))
+	}
+	f.file.Write(p)
+	filesCheckOffsets(f.orig.File, f.file.File)
+}
+
+func (f *Binfile) rawRead(n int) {
+	if f.noRaw {
+		//if binFileDebug {
+		//	log.Printf("binfile: SKIP read(%s,raw): %q [:%d]", f.flags(), f.orig.Name(), n)
+		//}
+		return
+	}
+	if binFileDebug {
+		log.Printf("binfile: read(%s,raw): %q [:%d]", f.flags(), f.orig.Name(), n)
+	}
+	buf := make([]byte, n)
+	f.file.Read(buf)
+	filesCheckOffsets(f.orig.File, f.file.File)
 }
 
 func filesCheckOffsets(f1, f2 *os.File) {
@@ -176,137 +286,84 @@ func checkEqualContent(pref string, f1, f2 *os.File) {
 	checkEqualBytes(pref, f1.Name(), f2.Name(), buf1, buf2)
 }
 
+func nox_binfile_open_408CC0_test(cpath *C.char, cmode C.int) *Binfile {
+	path := GoString(cpath)
+	mode := BinFileMode(cmode)
+	var (
+		f   *os.File
+		err error
+	)
+	switch mode {
+	case BinFileRO:
+		f, err = fs.Open(path)
+	case BinFileWO:
+		f, err = fs.Create(path)
+	case BinFileRW:
+		f, err = fs.OpenFile(path, os.O_RDWR)
+	default:
+		binFileLog.Println("invalid mode:", int(cmode))
+		return nil
+	}
+	if os.IsNotExist(err) {
+		return nil
+	} else if err != nil {
+		binFileLog.Println(err)
+		return nil
+	}
+	file := &File{File: f}
+	bin := &Binfile{file: file, mode: mode}
+	file.bin = bin
+	return bin
+}
+
 //export nox_binfile_open_408CC0_hook
 func nox_binfile_open_408CC0_hook(cpath *C.char, cmode C.int, cfile *C.FILE) {
 	if !binFileGo {
 		return
 	}
-	path := GoString(cpath)
-	file := fileByHandle(cfile)
-	bin := &Binfile{
-		Path: path, File: file,
+	if binFileTmp == "" {
+		dir, err := os.MkdirTemp("", "nox-binfile-")
+		if err != nil {
+			panic(err)
+		}
+		binFileTmp = dir
 	}
-	binFileData[file] = bin
+	file := fileByHandle(cfile)
+	tpath := filepath.Join(binFileTmp, file.Name())
+	if err := os.MkdirAll(filepath.Dir(tpath), 0755); err != nil {
+		panic(err)
+	}
 	switch cmode {
 	case 0:
-		f, err := fs.Open(file.Name())
+		err := fs.Copy(file.Name(), tpath)
 		if err != nil {
 			panic(err)
-		}
-		bin.read.File = f
-		if binFileDebug {
-			log.Printf("binfile: open(R): %q", path)
 		}
 	case 1:
-		file.onWrite = func(p []byte) {
-			if bin.noRaw {
-				if binFileDebug {
-					log.Printf("binfile: SKIP write(W,raw): %q [:%d]", path, len(p))
-				}
-				return
-			}
-			if binFileDebug {
-				log.Printf("binfile: write(W,raw): %q [:%d]", path, len(p))
-			}
-			bin.write.File.Write(p)
-			filesCheckOffsets(file.File, bin.write.File)
-		}
-		file.onSeek = func(off int64, whence int) {
-			if bin.noRaw {
-				if binFileDebug {
-					log.Printf("binfile: SKIP seek(W,raw): %q (%d, %d)", path, off, whence)
-				}
-				return
-			}
-			if binFileDebug {
-				log.Printf("binfile: seek(W,raw): %q (%d, %d)", path, off, whence)
-			}
-			bin.write.File.Seek(off, whence)
-			if whence != io.SeekCurrent {
-				checkEqualContent(fmt.Sprintf("seek(%s)", bin.flags()), bin.File.File, bin.write.File)
-			} else {
-				filesCheckOffsets(file.File, bin.write.File)
-			}
-		}
-		f, err := os.CreateTemp("", "opennox-binfile-")
-		if err != nil {
-			panic(err)
-		}
-		bin.write.File = f
-		binFileTmp[file.Name()] = f.Name()
-		if binFileDebug {
-			log.Printf("binfile: open(W): %q", path)
-		}
+		// create
 	case 2:
-		file.onRead = func(n int) {
-			if bin.noRaw {
-				if binFileDebug {
-					log.Printf("binfile: SKIP read(RW,raw): %q [:%d]", path, n)
-				}
-				return
-			}
-			if binFileDebug {
-				log.Printf("binfile: read(RW,raw): %q [:%d]", path, n)
-			}
-			buf := make([]byte, n)
-			bin.full.File.Read(buf)
-			filesCheckOffsets(file.File, bin.full.File)
-		}
-		file.onWrite = func(p []byte) {
-			if bin.noRaw {
-				if binFileDebug {
-					log.Printf("binfile: SKIP write(W,raw): %q [:%d]", path, len(p))
-				}
-				return
-			}
-			if binFileDebug {
-				log.Printf("binfile: write(RW,raw): %q [:%d]", path, len(p))
-			}
-			bin.full.File.Write(p)
-			filesCheckOffsets(file.File, bin.full.File)
-		}
-		file.onSeek = func(off int64, whence int) {
-			if bin.noRaw {
-				if binFileDebug {
-					log.Printf("binfile: SKIP seek(W,raw): %q (%d, %d)", path, off, whence)
-				}
-				return
-			}
-			if binFileDebug {
-				log.Printf("binfile: seek(RW,raw): %q (%d, %d)", path, off, whence)
-			}
-			bin.full.File.Seek(off, whence)
-			if whence != io.SeekCurrent {
-				checkEqualContent(fmt.Sprintf("seek(%s)", bin.flags()), bin.File.File, bin.full.File)
-			} else {
-				filesCheckOffsets(file.File, bin.full.File)
-			}
-		}
-		var (
-			f   *os.File
-			err error
-		)
-		if name, ok := binFileTmp[file.Name()]; ok {
-			f, err = os.OpenFile(name, os.O_RDWR, 0644)
-			if binFileDebug {
-				fi, _ := f.Stat()
-				log.Printf("binfile: open(RW): %q, %d", path, fi.Size())
-			}
-		} else {
-			f, err = os.CreateTemp("", "opennox-binfile-")
-			binFileTmp[file.Name()] = f.Name()
-			if binFileDebug {
-				log.Printf("binfile: open(RW, new): %q", path)
-			}
-		}
-		if err != nil {
+		err := fs.Copy(file.Name(), tpath)
+		if !os.IsNotExist(err) && err != nil {
 			panic(err)
 		}
-		bin.full.File = f
-		filesCheckOffsets(file.File, bin.full.File)
 	default:
 		panic(cmode)
 	}
+	bin := nox_binfile_open_408CC0_test(internCStr(tpath), cmode)
+	if bin == nil {
+		panic("no file")
+	}
+	bin.orig = file
+	file.hooks.onSeek = bin.rawSeek
+	file.hooks.onRead = bin.rawRead
+	file.hooks.onWrite = bin.rawWrite
+	binFileByCFile[file] = bin
+}
+
+func nox_binfile_close_408D90_test(cfile *C.FILE) C.int {
+	file := fileByHandle(cfile)
+	file.Close()
+	return 1
 }
 
 //export nox_binfile_close_408D90_hookStart
@@ -315,41 +372,25 @@ func nox_binfile_close_408D90_hookStart(cfile *C.FILE) {
 		return
 	}
 	file := fileByHandle(cfile)
-	bin := binFileData[file]
+	bin := binFileByCFile[file]
 	bin.IgnoreRaw(true)
-	if bin.read.File != nil {
-		filesCheckOffsets(file.File, bin.read.File)
-	} else if bin.write.File != nil {
-		filesCheckOffsets(file.File, bin.write.File)
-	} else if bin.full.File != nil {
-		filesCheckOffsets(file.File, bin.full.File)
-	}
+	filesCheckOffsets(file.File, bin.file.File)
 }
 
 //export nox_binfile_close_408D90_hook
-func nox_binfile_close_408D90_hook(cfile *C.FILE) {
+func nox_binfile_close_408D90_hook(cfile *C.FILE, res C.int) {
 	if !binFileGo {
 		return
 	}
 	file := fileByHandle(cfile)
-	bin := binFileData[file]
-	delete(binFileData, file)
-	if bin.read.File != nil {
-		if binFileDebug {
-			log.Printf("binfile: close(R): %q", bin.Path)
-		}
-		bin.read.File.Close()
-		bin.read.Reader = nil
+	bin := binFileByCFile[file]
+	delete(binFileByCFile, file)
+	got := nox_binfile_close_408D90_test(newFileHandle(bin.file))
+	if res != got {
+		panic(fmt.Errorf("invalid response: %d vs %d", int(res), int(got)))
 	}
-	if bin.write.File != nil {
-		if binFileDebug {
-			log.Printf("binfile: close(W): %q", bin.Path)
-		}
-		if bin.write.Writer != nil {
-			bin.write.Writer.Close()
-			bin.write.Writer = nil
-		}
-		f, err := fs.Open(bin.File.Name())
+	if bin.mode != BinFileRO {
+		f, err := fs.Open(file.Name())
 		if err != nil {
 			panic(err)
 		}
@@ -358,44 +399,16 @@ func nox_binfile_close_408D90_hook(cfile *C.FILE) {
 		if err != nil {
 			panic(err)
 		}
-		_, err = bin.write.File.Seek(0, io.SeekStart)
+		f2, err := fs.Open(bin.file.Name())
 		if err != nil {
 			panic(err)
 		}
-		buf2, err := io.ReadAll(bin.write.File)
+		defer f2.Close()
+		buf2, err := io.ReadAll(f2)
 		if err != nil {
 			panic(err)
 		}
-		checkEqualBytes(fmt.Sprintf("close(%s)", bin.flags()), f.Name(), bin.write.File.Name(), buf, buf2)
-		bin.write.File.Close()
-	}
-	if bin.full.File != nil {
-		if binFileDebug {
-			log.Printf("binfile: close(RW): %q", bin.Path)
-		}
-		if bin.full.Full != nil {
-			bin.full.Full.Close()
-			bin.full.Full = nil
-		}
-		f, err := fs.Open(bin.File.Name())
-		if err != nil {
-			panic(err)
-		}
-		defer f.Close()
-		buf, err := io.ReadAll(f)
-		if err != nil {
-			panic(err)
-		}
-		_, err = bin.full.File.Seek(0, io.SeekStart)
-		if err != nil {
-			panic(err)
-		}
-		buf2, err := io.ReadAll(bin.full.File)
-		if err != nil {
-			panic(err)
-		}
-		checkEqualBytes(fmt.Sprintf("close(%s)", bin.flags()), f.Name(), bin.full.File.Name(), buf, buf2)
-		bin.full.File.Close()
+		checkEqualBytes(fmt.Sprintf("close(%s)", bin.flags()), f.Name(), bin.file.Name(), buf, buf2)
 	}
 }
 
@@ -405,63 +418,85 @@ func nox_binfile_fread_408E40_hookStart(cfile *C.FILE) {
 		return
 	}
 	file := fileByHandle(cfile)
-	bin := binFileData[file]
+	bin := binFileByCFile[file]
 	if bin != nil {
 		bin.IgnoreRaw(true)
-		if bin.read.File != nil {
-			filesCheckOffsets(file.File, bin.read.File)
-		} else if bin.write.File != nil {
+		if bin.read != nil {
+			filesCheckOffsets(file.File, bin.file.File)
+		} else if bin.write != nil {
 			panic("read on writer")
-		} else if bin.full.File != nil {
-			filesCheckOffsets(file.File, bin.full.File)
+		} else if bin.full != nil {
+			filesCheckOffsets(file.File, bin.file.File)
 		}
 	}
 }
 
+func nox_binfile_cryptSet_408D40_test(cfile *C.FILE, ckey C.int) C.int {
+	file := fileByHandle(cfile)
+	bin := file.bin
+	if bin == nil {
+		binFileLog.Println("crypt not enabled on this file")
+		return 0
+	}
+	bin.key = int(ckey)
+	if bin.key < 0 {
+		bin.close()
+		return 1
+	}
+	switch bin.mode {
+	case BinFileRO:
+		cr, err := crypt.NewReader(bin.file, bin.key)
+		if err != nil {
+			binFileLog.Println(err)
+			return 0
+		}
+		bin.read = cr
+	case BinFileWO:
+		cw, err := crypt.NewWriter(bin.file, bin.key)
+		if err != nil {
+			binFileLog.Println(err)
+			return 0
+		}
+		cw.NoZero = true
+		bin.write = cw
+	case BinFileRW:
+		cf, err := crypt.NewFile(bin.file, bin.key)
+		if err != nil {
+			panic(err)
+		}
+		bin.full = cf
+	default:
+		binFileLog.Println("unsupported file mode:", bin.mode)
+		return 0
+	}
+	return 1
+}
+
 //export nox_binfile_cryptSet_408D40_hook
-func nox_binfile_cryptSet_408D40_hook(cfile *C.FILE, ckey C.int) {
+func nox_binfile_cryptSet_408D40_hook(cfile *C.FILE, ckey, res C.int) {
 	if !binFileGo {
 		return
 	}
 	file := fileByHandle(cfile)
-	bin := binFileData[file]
-	bin.Key = int(ckey)
-	if binFileDebug {
-		log.Printf("binfile: key(%s): %s, %d", bin.flags(), bin.Path, bin.Key)
+	bin := binFileByCFile[file]
+	got := nox_binfile_cryptSet_408D40_test(newFileHandle(bin.file), ckey)
+	if res != got {
+		panic(fmt.Errorf("invalid response: %d vs %d", int(res), int(got)))
 	}
-	if bin.read.File != nil {
-		if bin.Key < 0 {
-			bin.read.Reader = nil
-		} else {
-			cr, err := crypt.NewReader(bin.read.File, bin.Key)
-			if err != nil {
-				panic(err)
-			}
-			bin.read.Reader = cr
-		}
+}
+
+func nox_binfile_fread_408E40_test(cbuf *C.char, sz, cnt C.int, cfile *C.FILE) C.int {
+	if sz == 0 || cnt == 0 {
+		return 0
 	}
-	if bin.write.File != nil {
-		if bin.Key < 0 {
-			bin.write.Writer = nil
-		} else {
-			cw, err := crypt.NewWriter(bin.write.File, bin.Key)
-			if err != nil {
-				panic(err)
-			}
-			bin.write.Writer = cw
-		}
+	file := fileByHandle(cfile)
+	bin := file.bin
+	buf := unsafe.Slice((*byte)(unsafe.Pointer(cbuf)), int(sz*cnt))
+	n, err := bin.Read(buf)
+	if err != nil && err != io.EOF {
+		file.err = err
 	}
-	if bin.full.File != nil {
-		if bin.Key < 0 {
-			bin.full.Full = nil
-		} else {
-			cf, err := crypt.NewFile(bin.full.File, bin.Key)
-			if err != nil {
-				panic(err)
-			}
-			bin.full.Full = cf
-		}
-	}
+	return C.int(n) / sz
 }
 
 //export nox_binfile_fread_408E40_hook
@@ -470,106 +505,79 @@ func nox_binfile_fread_408E40_hook(cbuf *C.char, a2, a3 C.int, cfile *C.FILE, re
 		return true
 	}
 	file := fileByHandle(cfile)
-	bin := binFileData[file]
+	bin := binFileByCFile[file]
 	bin.IgnoreRaw(false)
+
 	buf := unsafe.Slice((*byte)(unsafe.Pointer(cbuf)), int(a2*a3))
 	buf = buf[:int(a2*res)]
 	if binFileDebug {
 		if len(buf) != cap(buf) {
-			log.Printf("binfile: read(%s): %s [:%d:%d]", bin.flags(), bin.Path, len(buf), cap(buf))
+			log.Printf("binfile: read(%s): %s [:%d:%d]", bin.flags(), file.Name(), len(buf), cap(buf))
 		} else {
-			log.Printf("binfile: read(%s): %s [:%d]", bin.flags(), bin.Path, len(buf))
+			log.Printf("binfile: read(%s): %s [:%d]", bin.flags(), file.Name(), len(buf))
 		}
 	}
-	var (
-		rd    io.Reader
-		name2 string
-	)
-	if bin.read.Reader != nil {
-		rd = bin.read.Reader
-		name2 = bin.read.File.Name()
-	} else if bin.read.File != nil {
-		rd = bin.read.File
-		name2 = bin.read.File.Name()
-	} else if bin.full.Full != nil {
-		rd = bin.full.Full
-		name2 = bin.full.File.Name()
-	} else if bin.full.File != nil {
-		rd = bin.full.File
-		name2 = bin.full.File.Name()
+	buf2 := make([]byte, int(a2*a3))
+	got := nox_binfile_fread_408E40_test((*C.char)(unsafe.Pointer(&buf2[0])), a2, a3, newFileHandle(bin.file))
+	if res != got {
+		panic(fmt.Errorf("invalid response: %d vs %d", int(res), int(got)))
 	}
-	if rd != nil {
-		buf2 := make([]byte, cap(buf))
-		n, err := rd.Read(buf2)
-		if err == io.EOF {
-			err = nil
-		}
-		if err != nil {
-			panic(err)
-		}
-		buf2 = buf2[:n]
-		checkEqualBytes(fmt.Sprintf("read(%s)", bin.flags()), file.Name(), name2, buf, buf2)
-	}
+	buf2 = buf2[:a2*got]
+	checkEqualBytes(fmt.Sprintf("read(%s)", bin.flags()), file.Name(), bin.file.Name(), buf, buf2)
 	return true
 }
 
+func nox_binfile_fread_raw_40ADD0_test(cbuf *C.char, sz, cnt C.size_t, cfile *C.FILE) C.int {
+	n := nox_fs_fread(cfile, unsafe.Pointer(cbuf), C.int(sz*cnt))
+	if n >= 0 {
+		n /= C.int(sz)
+	}
+	return n
+}
+
 //export nox_binfile_fread_raw_40ADD0_hook
-func nox_binfile_fread_raw_40ADD0_hook(a2, a3 C.int, cfile *C.FILE) C.bool {
+func nox_binfile_fread_raw_40ADD0_hook(cbuf *C.char, a2, a3 C.int, cfile *C.FILE, res C.int) C.bool {
 	if !binFileGo {
 		return true
 	}
 	file := fileByHandle(cfile)
-	bin := binFileData[file]
+	bin := binFileByCFile[file]
 	if bin == nil || bin.noRaw {
 		return true
 	}
-	size := int(a2 * a3)
-	off, _ := file.File.Seek(0, io.SeekCurrent)
-	if binFileDebug {
-		if bin == nil {
-			log.Printf("binfile: read(raw, no init): %s [:%d], +%d", file.Name(), size, off)
-		} else {
-			log.Printf("binfile: read(%s,raw): %s [:%d], +%d", bin.flags(), bin.Path, size, off)
-		}
-	}
-	if bin == nil {
-		return true
-	}
-	var rs *os.File
-	if bin.read.File != nil {
-		rs = bin.read.File
-	} else if bin.full.File != nil {
-		rs = bin.full.File
-	}
-	if rs != nil {
-		off2, err := rs.Seek(0, io.SeekCurrent)
-		if err != nil {
-			panic(err)
-		} else if off != off2 {
-			panic(fmt.Errorf("different offsets: %d vs %d", off, off2))
-		}
-		buf := make([]byte, size)
-		_, err = io.ReadFull(file.File, buf)
-		if err != nil {
-			panic(err)
-		}
-		_, err = file.File.Seek(off, io.SeekStart)
-		if err != nil {
-			panic(err)
-		}
+	buf := unsafe.Slice((*byte)(unsafe.Pointer(cbuf)), int(a2*a3))
+	buf = buf[:int(a2*res)]
 
-		buf2 := make([]byte, size)
-		_, err = io.ReadFull(rs, buf2)
-		if err != nil {
-			panic(err)
-		}
-		checkEqualBytes(fmt.Sprintf("read(%s,raw)", bin.flags()), file.Name(), rs.Name(), buf, buf2)
-		_, err = rs.Seek(off2, io.SeekStart)
-		if err != nil {
-			panic(err)
-		}
+	buf2 := make([]byte, int(a2*a3))
+	got := nox_binfile_fread_raw_40ADD0_test((*C.char)(unsafe.Pointer(&buf2[0])), C.uint(a2), C.uint(a3), newFileHandle(bin.file))
+	if res != got {
+		panic(fmt.Errorf("invalid response: %d vs %d", int(res), int(got)))
 	}
+	buf2 = buf2[:a2*got]
+	checkEqualBytes(fmt.Sprintf("read(%s)", bin.flags()), file.Name(), bin.file.Name(), buf, buf2)
 	return true
+}
+
+func nox_binfile_fseek_409050_test(cfile *C.FILE, coff, cwhence C.int) C.int {
+	file := fileByHandle(cfile)
+	bin := file.bin
+	off1, whence := int64(coff), convWhence(cwhence)
+	if bin.mode != BinFileRO {
+		// this is what nox_binfile_fseek_409050 does for some reason
+		if off1 != 0 {
+			return 0
+		}
+		// same, for some reason it resets the writer to the end
+		whence = io.SeekEnd
+	}
+	_, err := bin.Seek(off1, whence)
+	if err == io.EOF {
+		err = nil
+	}
+	if err != nil {
+		binFileLog.Println(err)
+	}
+	return 0
 }
 
 //export nox_binfile_fseek_409050_hookStart
@@ -578,14 +586,14 @@ func nox_binfile_fseek_409050_hookStart(cfile *C.FILE) {
 		return
 	}
 	file := fileByHandle(cfile)
-	bin := binFileData[file]
+	bin := binFileByCFile[file]
 	bin.IgnoreRaw(true)
-	if bin.read.File != nil {
-		filesCheckOffsets(file.File, bin.read.File)
-	} else if bin.write.File != nil {
+	if bin.read != nil {
+		filesCheckOffsets(file.File, bin.file.File)
+	} else if bin.write != nil {
 		panic("seek on writer")
-	} else if bin.full.File != nil {
-		filesCheckOffsets(file.File, bin.full.File)
+	} else if bin.full != nil {
+		filesCheckOffsets(file.File, bin.file.File)
 	}
 }
 
@@ -595,77 +603,63 @@ func nox_binfile_fseek_409050_hook(cfile *C.FILE, coff, cwhence C.int) C.bool {
 		return true
 	}
 	file := fileByHandle(cfile)
-	bin := binFileData[file]
+	bin := binFileByCFile[file]
 	bin.IgnoreRaw(false)
-	off, _ := file.File.Seek(0, io.SeekCurrent)
-	if binFileDebug {
-		log.Printf("binfile: seek(%s): %s, +%d = (%d, %d)", bin.flags(), bin.Path, off, coff, cwhence)
+	got := nox_binfile_fseek_409050_test(newFileHandle(bin.file), coff, cwhence)
+	if 0 != got {
+		panic(fmt.Errorf("invalid response: %d vs %d", 0, int(got)))
 	}
-	var (
-		sk    io.Seeker
-		file2 *os.File
-	)
-	if bin.read.Reader != nil {
-		sk = bin.read.Reader
-		file2 = bin.read.File
-	} else if bin.write.Writer != nil {
-		panic("seek on writer")
-	} else if bin.full.Full != nil {
-		sk = bin.full.Full
-		file2 = bin.full.File
-	}
-	if sk != nil {
-		off1, whence := int64(coff), convWhence(cwhence)
-		if bin.read.Reader == nil {
-			// this is what nox_binfile_fseek_409050 does for some reason
-			if off1 != 0 {
-				return true
-			}
-			// same, for some reason it resets the writer to the end
-			whence = io.SeekEnd
-		}
-		_, err := sk.Seek(off1, whence)
-		if err == io.EOF {
-			err = nil
-		}
-		if err != nil {
-			panic(err)
-		}
-		off2, err := file2.Seek(0, io.SeekCurrent)
-		if err != nil {
-			panic(err)
-		}
-		if off != off2 {
-			panic(fmt.Errorf("different offsets: %d vs %d", off, off2))
-		}
-	}
+	filesCheckOffsets(file.File, bin.file.File)
 	return true
 }
 
+func nox_binfile_fflush_409110_test(cfile *C.FILE) C.int {
+	file := fileByHandle(cfile)
+	bin := file.bin
+	var flusher interface {
+		WriteEmpty() error
+		Flush() error
+	}
+	if bin.write != nil {
+		flusher = bin.write
+	} else if bin.full != nil {
+		flusher = bin.full
+	}
+	err := flusher.Flush()
+	if err != nil {
+		binFileLog.Println(err)
+		file.err = err
+	}
+	res := bin.Written()
+	err = flusher.WriteEmpty()
+	if err != nil {
+		binFileLog.Println(err)
+		file.err = err
+	}
+	return C.int(res)
+}
+
 //export nox_binfile_fflush_409110_hookStart
-func nox_binfile_fflush_409110_hookStart(cfile *C.FILE) {
+func nox_binfile_fflush_409110_hookStart(cfile *C.FILE, binoff C.int) {
 	if !binFileGo {
 		return
 	}
 	file := fileByHandle(cfile)
-	bin := binFileData[file]
+	bin := binFileByCFile[file]
 	bin.IgnoreRaw(true)
-	if bin.read.File != nil {
-		filesCheckOffsets(file.File, bin.read.File)
-	} else if bin.write.File != nil {
-		filesCheckOffsets(file.File, bin.write.File)
-	} else if bin.full.File != nil {
-		filesCheckOffsets(file.File, bin.full.File)
+	filesCheckOffsets(file.File, bin.file.File)
+	if boff := bin.Written(); boff != int64(binoff) {
+		panic(fmt.Errorf("bin offset is different: %d vs %d", boff, int64(binoff)))
 	}
 }
 
 //export nox_binfile_fflush_409110_hook
-func nox_binfile_fflush_409110_hook(cfile *C.FILE) (out C.bool) {
+func nox_binfile_fflush_409110_hook(cfile *C.FILE, binoff C.int, res C.int) (out C.bool) {
 	if !binFileGo {
 		return true
 	}
 	file := fileByHandle(cfile)
-	bin := binFileData[file]
+	bin := binFileByCFile[file]
 	bin.IgnoreRaw(false)
 	defer func() {
 		if r := recover(); r != nil {
@@ -674,107 +668,76 @@ func nox_binfile_fflush_409110_hook(cfile *C.FILE) (out C.bool) {
 			out = false
 		}
 	}()
-	off, err := file.File.Seek(0, io.SeekCurrent)
-	if err != nil {
-		panic(err)
-	}
 	if binFileDebug {
-		log.Printf("binfile: flush(%s): %s, +%d", bin.flags(), bin.Path, off)
+		off, _ := bin.file.Seek(0, io.SeekCurrent)
+		log.Printf("binfile: flush(%s): %s, +%d (+%d)", bin.flags(), file.Name(), off, bin.Written())
 	}
-	var file2 *os.File
-	if bin.write.Writer != nil {
-		file2 = bin.write.File
-		err = bin.write.Writer.Flush()
-	} else if bin.full.Full != nil {
-		file2 = bin.full.File
-		err = bin.full.Full.Flush()
+	got := nox_binfile_fflush_409110_test(newFileHandle(bin.file))
+	if res != got {
+		panic(fmt.Errorf("invalid response: %d vs %d", int(res), int(got)))
 	}
-	if err != nil {
-		panic(err)
+	checkEqualContent(fmt.Sprintf("flush(%s)", bin.flags()), file.File, bin.file.File)
+	if boff := bin.Written(); boff != int64(binoff) {
+		panic(fmt.Errorf("bin offset is different: %d vs %d", boff, int64(binoff)))
 	}
-	if file2 == nil {
-		return true
-	}
-	_, err = file2.Write(make([]byte, 8))
-	if err != nil {
-		panic(err)
-	}
-	off2, err := file2.Seek(0, io.SeekCurrent)
-	if err != nil {
-		panic(err)
-	}
-	if off != off2 {
-		panic(fmt.Errorf("different offsets (%s): %d vs %d", bin.flags(), off, off2))
-	}
-	f, err := fs.Open(bin.File.Name())
-	if err != nil {
-		panic(err)
-	}
-	defer f.Close()
-	buf, err := io.ReadAll(f)
-	if err != nil {
-		panic(err)
-	}
-	_, err = file2.Seek(0, io.SeekStart)
-	if err != nil {
-		panic(err)
-	}
-	buf2, err := io.ReadAll(file2)
-	if err != nil {
-		panic(err)
-	}
-	_, err = file2.Seek(off2, io.SeekStart)
-	if err != nil {
-		panic(err)
-	}
-	checkEqualBytes(fmt.Sprintf("flush(%s)", bin.flags()), f.Name(), file2.Name(), buf, buf2)
 	return true
 }
 
+func nox_binfile_fwrite_409200_test(cbuf *C.char, sz, cnt C.int, cfile *C.FILE) C.size_t {
+	file := fileByHandle(cfile)
+	bin := file.bin
+	buf := unsafe.Slice((*byte)(unsafe.Pointer(cbuf)), int(sz*cnt))
+	n, err := bin.Write(buf)
+	if err != nil {
+		file.err = err
+	}
+	return C.size_t(n / int(sz))
+}
+
 //export nox_binfile_fwrite_409200_hookStart
-func nox_binfile_fwrite_409200_hookStart(cfile *C.FILE) {
+func nox_binfile_fwrite_409200_hookStart(cfile *C.FILE, binoff C.int) {
 	if !binFileGo {
 		return
 	}
 	file := fileByHandle(cfile)
-	bin := binFileData[file]
+	bin := binFileByCFile[file]
 	bin.IgnoreRaw(true)
-	if bin.read.File != nil {
+	if bin.read != nil {
 		panic("write on reader")
-	} else if bin.write.File != nil {
-		filesCheckOffsets(file.File, bin.write.File)
-	} else if bin.full.File != nil {
-		filesCheckOffsets(file.File, bin.full.File)
+	} else if bin.write != nil {
+		filesCheckOffsets(file.File, bin.file.File)
+	} else if bin.full != nil {
+		filesCheckOffsets(file.File, bin.file.File)
+	}
+	if boff := bin.Written(); boff != int64(binoff) {
+		panic(fmt.Errorf("bin offset is different: %d vs %d", boff, int64(binoff)))
 	}
 }
 
 //export nox_binfile_fwrite_409200_hook
-func nox_binfile_fwrite_409200_hook(cbuf *C.char, a2, a3 C.int, cfile *C.FILE, res C.int) {
+func nox_binfile_fwrite_409200_hook(cbuf *C.char, a2, a3 C.int, cfile *C.FILE, binoff, res C.int) {
 	if !binFileGo {
 		return
 	}
 	file := fileByHandle(cfile)
-	bin := binFileData[file]
+	bin := binFileByCFile[file]
 	bin.IgnoreRaw(false)
 	buf := unsafe.Slice((*byte)(unsafe.Pointer(cbuf)), int(a2*a3))
 	if binFileDebug {
-		off, _ := file.File.Seek(0, io.SeekCurrent)
-		log.Printf("binfile: write(%s): %s [:%d] +%d", bin.flags(), bin.Path, len(buf), off)
-	}
-	var w io.Writer
-	if bin.write.Writer != nil {
-		w = bin.write.Writer
-	} else if bin.write.File != nil {
-		w = bin.write.File
-	} else if bin.full.Full != nil {
-		w = bin.full.Full
-	} else if bin.full.File != nil {
-		w = bin.full.File
-	}
-	if w != nil {
-		_, err := w.Write(buf)
-		if err != nil {
-			panic(err)
+		off, _ := bin.file.Seek(0, io.SeekCurrent)
+		wbuf := buf
+		if len(wbuf) > 16 {
+			wbuf = wbuf[len(wbuf)-16:]
 		}
+		log.Printf("binfile: write(%s): %s [:%d] (%d * %d) +%d (+%d) %x", bin.flags(), file.Name(), len(buf), int(a2), int(a3), off, bin.Written(), wbuf)
+	}
+	got := nox_binfile_fwrite_409200_test((*C.char)(unsafe.Pointer(&buf[0])), a2, a3, newFileHandle(bin.file))
+	//if res != C.int(got) {
+	//	panic(fmt.Errorf("invalid response: %d vs %d (%v)", int(res), int(got), file.err))
+	//}
+	_ = got
+	filesCheckOffsets(file.File, bin.file.File)
+	if boff := bin.Written(); boff != int64(binoff) {
+		panic(fmt.Errorf("bin offset is different: %d vs %d", boff, int64(binoff)))
 	}
 }

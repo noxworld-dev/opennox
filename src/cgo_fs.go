@@ -24,13 +24,17 @@ var files struct {
 }
 
 type File struct {
+	h unsafe.Pointer
 	*os.File
-	onRead  func(n int)
-	onWrite func(p []byte)
-	onSeek  func(off int64, whence int)
-	buf     *bufio.Reader
-	err     error
-	text    bool
+	buf   *bufio.Reader
+	err   error
+	text  bool
+	bin   *Binfile
+	hooks struct {
+		onSeek  func(off int64, whence int)
+		onRead  func(n int)
+		onWrite func(p []byte)
+	}
 }
 
 func (f *File) enableBuffer() {
@@ -65,8 +69,8 @@ func (f *File) Seek(off int64, whence int) (int64, error) {
 		f.buf = nil
 	}
 	n, err := f.File.Seek(off, whence)
-	if f.onSeek != nil {
-		f.onSeek(off, whence)
+	if f.hooks.onSeek != nil {
+		f.hooks.onSeek(off, whence)
 	}
 	f.err = err
 	return n, err
@@ -80,8 +84,8 @@ func (f *File) Read(p []byte) (int, error) {
 	}
 	n, err := f.File.Read(p)
 	f.err = err
-	if f.onRead != nil {
-		f.onRead(len(p))
+	if f.hooks.onRead != nil {
+		f.hooks.onRead(len(p))
 	}
 	return n, err
 }
@@ -92,8 +96,8 @@ func (f *File) Write(p []byte) (int, error) {
 	}
 	n, err := f.File.Write(p)
 	f.err = err
-	if f.onWrite != nil {
-		f.onWrite(p)
+	if f.hooks.onWrite != nil {
+		f.hooks.onWrite(p)
 	}
 	return n, err
 }
@@ -104,8 +108,8 @@ func (f *File) WriteString(p string) (int, error) {
 	}
 	n, err := f.File.WriteString(p)
 	f.err = err
-	if f.onWrite != nil {
-		f.onWrite([]byte(p))
+	if f.hooks.onWrite != nil {
+		f.hooks.onWrite([]byte(p))
 	}
 	return n, err
 }
@@ -119,6 +123,12 @@ func (f *File) Sync() error {
 func (f *File) Close() error {
 	if f.buf != nil {
 		f.buf = nil
+	}
+	if f.bin != nil {
+		if err := f.bin.close(); err != nil {
+			_ = f.File.Close()
+			return err
+		}
 	}
 	return f.File.Close()
 }
@@ -398,14 +408,17 @@ func nox_fs_flush(f *C.FILE) {
 }
 
 func newFileHandle(f *File) *C.FILE {
-	h := handles.NewPtr()
+	if f.h != nil {
+		return (*C.FILE)(f.h)
+	}
+	f.h = handles.NewPtr()
 	files.Lock()
 	defer files.Unlock()
 	if files.byHandle == nil {
 		files.byHandle = make(map[unsafe.Pointer]*File)
 	}
-	files.byHandle[h] = f
-	return (*C.FILE)(h)
+	files.byHandle[f.h] = f
+	return (*C.FILE)(f.h)
 }
 
 //export nox_fs_open
