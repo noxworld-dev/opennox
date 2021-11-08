@@ -782,7 +782,7 @@ void sub_4197C0(wchar_t* a1, int a2) {
 		}
 		v4[15] = nox_wcslen(a1);
 		v2 = 2 * (unsigned char)v4[15];
-		v3 = malloc(v2 + 18);
+		v3 = calloc(1, v2 + 18);
 		*(uint64_t*)v3 = *(uint64_t*)v4;
 		v3[2] = *(uint32_t*)&v4[8];
 		v3[3] = *(uint32_t*)&v4[12];
@@ -986,13 +986,13 @@ int nox_xxx_parseGamedataBin_419B30() {
 									v3 = strtok(0, " ,\r\n\t");
 								} while (v3);
 							}
-							v5 = malloc(8u);
+							v5 = calloc(1, 8);
 							v6 = v5;
 							if (!v5) {
 								goto LABEL_28;
 							}
 							*((uint8_t*)v5 + 4) = v2;
-							*v5 = malloc(4 * v2);
+							*v5 = calloc(v2, 4);
 							for (i = 0; i < v2; ++i) {
 								*(uint32_t*)(*v6 + 4 * i) = v10[i];
 							}
@@ -2950,7 +2950,7 @@ int sub_41CC00(char* a1) {
 	nullsub_5();
 	v1 = nox_xxx_computeServerPlayerDataBufferSize_41CC50(a1);
 	v2 = v1 + 4;
-	result = (int)malloc(v1 + 4);
+	result = (int)calloc(1, v1 + 4);
 	v4 = result;
 	if (result) {
 		sub_41CAC0(a1, (char**)result);
@@ -3173,7 +3173,7 @@ int sub_41CFA0(char* a1, int a2) {
 		return 0;
 	}
 	if (nox_binfile_cryptSet_408D40((int)v3, 27)) {
-		v5 = (char*)malloc(v2);
+		v5 = (char*)calloc(1, v2);
 		if (v5) {
 			nox_binfile_fread_408E40(v5, v2, 1, nox_file_2);
 			nox_binfile_close_408D90(nox_file_2);
@@ -3516,7 +3516,7 @@ void* sub_41D9F0() {
 
 	v0 = getMemAt(0x587000, 58132);
 	do {
-		result = malloc(0x2Eu);
+		result = calloc(1, 0x2Eu);
 		*(uint32_t*)v0 = result;
 		v0 += 16;
 	} while ((int)v0 < (int)getMemAt(0x587000, 58340));
@@ -4020,7 +4020,7 @@ void sub_41E4D0(uint32_t* a1) {
 
 	v1 = a1;
 	for (i = 0; v1; v1 = (uint32_t*)v1[3]) {
-		v3 = malloc(0x2D4u);
+		v3 = calloc(1, 0x2D4u);
 		if (v3) {
 			memcpy(v3, v1, 0x2D4u);
 			v3[3] = 0;
@@ -4349,10 +4349,10 @@ int* sub_41E9D0(int a1, const char* a2, const char* a3, int a4, int a5) {
 
 	result = 0;
 	if (a2) {
-		result = (int*)malloc(0x2Cu);
+		result = (int*)calloc(1, 0x2Cu);
 		v6 = result;
 		if (result) {
-			v7 = (char*)malloc(strlen(a2) + 1);
+			v7 = (char*)calloc(strlen(a2) + 1, 1);
 			v6[3] = (int)v7;
 			if (v7) {
 				strcpy(v7, a2);
@@ -4361,7 +4361,7 @@ int* sub_41E9D0(int a1, const char* a2, const char* a3, int a4, int a5) {
 			}
 			v6[4] = 0;
 			if (a3) {
-				v8 = (char*)malloc(strlen(a3) + 1);
+				v8 = (char*)calloc(strlen(a3) + 1, 1);
 				v6[4] = (int)v8;
 				if (v8) {
 					strcpy(v8, a3);
@@ -4559,10 +4559,10 @@ void sub_41ECB0(int a1) {
 				}
 				nox_sprintf((char*)(a1 + 215), "zot0blat");
 			}
-			v5 = (wchar_t*)malloc(0x30u);
+			v5 = (wchar_t*)calloc(1, 0x30u);
 			v6 = 0;
 			if (v5) {
-				v7 = malloc(0x10Cu);
+				v7 = calloc(1, 0x10Cu);
 				*(uint32_t*)v5 = v7;
 				if (v7) {
 					memcpy(v7, (const void*)a1, 0x10Cu);
@@ -4963,9 +4963,9 @@ void sub_41F520(const char* a1) {
 	int v4;       // edi
 	int v5;       // eax
 
-	v1 = malloc(0x1Cu);
+	v1 = calloc(1, 0x1Cu);
 	if (v1) {
-		v2 = (char*)malloc(0x6Cu);
+		v2 = (char*)calloc(1, 0x6Cu);
 		*v1 = v2;
 		if (v2) {
 			memcpy(v2, a1, 0x6Cu);
@@ -5505,7 +5505,7 @@ void sub_4201B0(uint32_t* a1) {
 	uint32_t* v2; // eax
 
 	for (i = a1; i; i = (uint32_t*)i[5]) {
-		v2 = malloc(0xF8u);
+		v2 = calloc(1, 0xF8u);
 		if (v2) {
 			memcpy(v2, i, 0xF8u);
 			v2[5] = 0;
@@ -5853,7 +5853,7 @@ int sub_420C10(int a1, uint32_t* a2) {
 uint32_t* sub_420C40(int a1, int a2) {
 	uint32_t* result; // eax
 
-	result = malloc(0xCu);
+	result = calloc(1, 0xCu);
 	if (result) {
 		*result = a1;
 		result[1] = a2;
@@ -6923,7 +6923,7 @@ int* nox_xxx_tileListAddNewSubtile_422160(int a1, int a2, int a3, int a4) {
 
 	result = *(int**)&dword_5d4594_588084;
 	if (!dword_5d4594_588084) {
-		v5 = (char*)malloc(0xC8u);
+		v5 = (char*)calloc(1, 0xC8u);
 		dword_5d4594_588084 = v5;
 		for (i = 0; i < 180; i += 20) {
 			*(uint32_t*)&v5[i + 16] = &v5[i + 20];
@@ -8090,7 +8090,7 @@ int nox_xxx_parseSoundSetBin_424170(char* a1) {
 		v3[19] = dword_5d4594_588120;
 		v3[20] = 0;
 		dword_5d4594_588120 = v3;
-		v4 = (char*)malloc(strlen(v6) + 1);
+		v4 = (char*)calloc(strlen(v6) + 1, 1);
 		*v3 = v4;
 		strcpy(v4, v6);
 		while (nox_xxx_parseString_409470(v2, v6) && strcmp(v6, "END") && nox_xxx_parseString_409470(v2, v7)) {
@@ -8978,7 +8978,7 @@ wchar_t* sub_425AD0(int a1, wchar_t* a2) {
 
 	v2 = 0;
 	if (!sub_425AA0(a1)) {
-		v2 = (wchar_t*)malloc(0x34u);
+		v2 = (wchar_t*)calloc(1, 0x34u);
 		*((uint32_t*)v2 + 8) = a1;
 		nox_wcscpy(v2 + 6, a2);
 		*((uint32_t*)v2 + 9) = 0;
@@ -8994,7 +8994,7 @@ void sub_425B30(int a1, int a2) {
 	uint32_t* v2; // eax
 	uint32_t* v3; // esi
 
-	v2 = malloc(0x10u);
+	v2 = calloc(1, 0x10u);
 	v3 = v2;
 	v2[3] = a2;
 	sub_425770(v2);
@@ -9770,7 +9770,7 @@ uint8_t* nox_xxx_journalEntryAdd_427490(int a1, char* a2, short a3) {
 	uint8_t* v4;     // esi
 	int v5;          // eax
 
-	result = malloc(0x4Cu);
+	result = calloc(1, 0x4Cu);
 	v4 = result;
 	if (result) {
 		memset(result, 0, 0x4Cu);

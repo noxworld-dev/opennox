@@ -7004,7 +7004,7 @@ char* nox_xxx_journalQuestSet_500540(char* a1, int a2) {
 	if (result) {
 		*((uint32_t*)result + 34) = a2;
 	} else {
-		result = (char*)malloc(0x94u);
+		result = (char*)calloc(1, 0x94u);
 		v3 = result;
 		if (result) {
 			strcpy(result, (const char*)getMemAt(0x5D4594, 1570140));
@@ -7070,7 +7070,7 @@ char* nox_xxx_journalQuestSetBool_5006B0(char* a1, int a2) {
 	if (result) {
 		*((uint32_t*)result + 34) = a2;
 	} else {
-		result = (char*)malloc(0x94u);
+		result = (char*)calloc(1, 0x94u);
 		v3 = result;
 		if (result) {
 			strcpy(result, (const char*)getMemAt(0x5D4594, 1570140));
@@ -8763,11 +8763,11 @@ char* nox_xxx_mapReset_5028E0() {
 	*getMemU32Ptr(0x5D4594, 1599496) = 0;
 	memset(getMemAt(0x5D4594, 1599500), 0, 0x20u);
 	if (!dword_5d4594_1599588) {
-		dword_5d4594_1599588 = malloc(0x800u);
+		dword_5d4594_1599588 = calloc(1, 0x800u);
 	}
 	result = *(char**)&dword_5d4594_1599592;
 	if (!dword_5d4594_1599592) {
-		result = (char*)malloc(0x800u);
+		result = (char*)calloc(1, 0x800u);
 		dword_5d4594_1599592 = result;
 	}
 	return result;
@@ -8865,13 +8865,13 @@ int sub_502B10() {
 
 	dword_5d4594_1599596 = 0;
 	if (!dword_5d4594_1599588) {
-		dword_5d4594_1599588 = malloc(0x800u);
+		dword_5d4594_1599588 = calloc(1, 0x800u);
 	}
 	if (!dword_5d4594_1599592) {
-		dword_5d4594_1599592 = malloc(0x800u);
+		dword_5d4594_1599592 = calloc(1, 0x800u);
 	}
 	if (!dword_5d4594_1599576) {
-		dword_5d4594_1599576 = malloc(0x26000u);
+		dword_5d4594_1599576 = calloc(1, 0x26000u);
 	}
 	result = 0;
 	if (strlen(*(const char**)&dword_5d4594_1599588)) {
@@ -9679,10 +9679,10 @@ uint32_t* nox_xxx_tileAllocTileInCoordList_5040A0(int a1, int a2, float a3) {
 	bool v7;          // zf
 	float v8;         // [esp+10h] [ebp+Ch]
 
-	result = malloc(0x18u);
+	result = calloc(1, 0x18u);
 	v4 = result;
 	if (result) {
-		v5 = malloc(0x14u);
+		v5 = calloc(1, 0x14u);
 		*v4 = v5;
 		if (v5) {
 			v4[5] = 0;
@@ -9775,7 +9775,7 @@ uint32_t* sub_504290(char a1, char a2) {
 	uint32_t* v3;     // esi
 	uint8_t* v4;      // eax
 
-	result = malloc(0xCu);
+	result = calloc(1, 0xCu);
 	v3 = result;
 	if (result) {
 		result[2] = 0;
@@ -9889,7 +9889,7 @@ uint32_t* sub_5044B0(int a1, float a2, float a3) {
 	uint32_t* v5;     // eax
 	uint32_t* v6;     // eax
 
-	result = malloc(0xCu);
+	result = calloc(1, 0xCu);
 	v4 = result;
 	if (result) {
 		v5 = sub_579E70();
@@ -9976,7 +9976,7 @@ uint32_t* sub_504600(const char* a1, int a2, char a3) {
 	char* v9;         // edi
 	const char* v10;  // esi
 
-	v3 = malloc(0xCu);
+	v3 = calloc(1, 0xCu);
 	if (!v3) {
 		return 0;
 	}
@@ -10141,7 +10141,7 @@ uint32_t* nox_xxx_unitAddToList_5048A0(int a1) {
 	uint32_t* result; // eax
 	uint32_t* v2;     // ecx
 
-	result = malloc(0xCu);
+	result = calloc(1, 0xCu);
 	if (!result) {
 		return 0;
 	}
@@ -10533,7 +10533,7 @@ int nox_server_mapRWMapIntro_505080() {
 			}
 			v14 = (uint8_t*)v18;
 		} else {
-			v13 = malloc(v17);
+			v13 = calloc(1, v17);
 			dword_5d4594_1599616 = v13;
 			if (!v13) {
 				return 0;

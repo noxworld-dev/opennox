@@ -432,7 +432,7 @@ unsigned int sub_552FD0(int a1) {
 #ifndef NOX_CGO
 //----- (00553000) --------------------------------------------------------
 nox_net_struct_t* nox_xxx_makeNewNetStruct_553000(nox_net_struct_arg_t* arg) {
-	nox_net_struct_t* net = malloc(sizeof(nox_net_struct_t));
+	nox_net_struct_t* net = calloc(1, sizeof(nox_net_struct_t));
 	if (!net) {
 		return 0;
 	}
@@ -452,7 +452,7 @@ nox_net_struct_t* nox_xxx_makeNewNetStruct_553000(nox_net_struct_arg_t* arg) {
 	}
 	net->mutex_xxx = mx;
 	if (arg->data_3_size > 0) {
-		void* p = malloc(arg->data_3_size);
+		void* p = calloc(1, arg->data_3_size);
 		if (!p) {
 			free(net);
 			return 0;
@@ -467,7 +467,7 @@ nox_net_struct_t* nox_xxx_makeNewNetStruct_553000(nox_net_struct_arg_t* arg) {
 	} else {
 		arg->data_size = 1024;
 	}
-	char* data1 = (char*)malloc(arg->data_size + 2);
+	char* data1 = (char*)calloc(1, arg->data_size + 2);
 	if (!data1) {
 		free(net->data_3);
 		free(net);
@@ -478,7 +478,7 @@ nox_net_struct_t* nox_xxx_makeNewNetStruct_553000(nox_net_struct_arg_t* arg) {
 	net->data_1_yyy = &data1[0];
 	net->data_1_end = &data1[arg->data_size + 2];
 
-	char* data2 = (char*)malloc(arg->data_size + 2);
+	char* data2 = (char*)calloc(1, arg->data_size + 2);
 	if (!data2) {
 		free(net->data_1_base);
 		free(net->data_3);
@@ -863,7 +863,7 @@ int nox_xxx_netBigSwitch_553210(unsigned int id, unsigned char* packet, int pack
 					 i = nox_xxx_nextReplaceablePlayer_425C70((int)i)) {
 					if (!nox_xxx_findPlayerID_5541D0((unsigned char)i[2064] + 1)) {
 						nox_xxx_playerCallDisconnect_4DEAB0((unsigned char)i[2064], 4);
-						uint32_t* v50 = malloc(0x10u);
+						uint32_t* v50 = calloc(1, 0x10u);
 						v50[3] = (unsigned char)i[2064] + 1;
 						nox_common_list_append_4258E0((int)getMemAt(0x5D4594, 2495908), v50);
 						++*getMemU8Ptr(0x5D4594, 2500076);
@@ -1616,7 +1616,7 @@ int sub_554A50(unsigned int a1) {
 #ifndef NOX_CGO
 void nox_xxx_lobbyMakePacket_554AA0(uint16_t hostshort, const char* payload, int payloadSz, unsigned int ticks) {
 	int dataSz = 12;
-	char* data = (char*)malloc(12 + payloadSz);
+	char* data = (char*)calloc(1, 12 + payloadSz);
 	data[0] = 0;
 	data[1] = 0;
 	data[2] = 12;
@@ -4089,7 +4089,7 @@ void sub_57A4D0(wchar_t* a1, int a2, int a3, int a4) {
 				result = (const wchar_t*)sub_57A620(v4, (const wchar_t**)v12, a2, a4);
 				if (!result) {
 					if (a3) {
-						v10 = (wchar_t*)malloc(0x20Cu);
+						v10 = (wchar_t*)calloc(1, 0x20Cu);
 						nox_wcscpy(v10 + 6, a1);
 						nox_common_list_append_4258E0(a3, v10);
 					}
@@ -5051,8 +5051,8 @@ int nox_xxx_mapNxzDecompress_57BC50(char* a1, char* a2) {
 	v4 = nox_fs_fsize(v3);
 	v5 = (char*)(v4 - 4);
 	nox_binfile_fread2_40ADD0((char*)&v12, 1u, 4u, v3);
-	v6 = (char*)malloc((size_t)v5);
-	v7 = (char*)malloc(v12);
+	v6 = (char*)calloc(1, (size_t)v5);
+	v7 = (char*)calloc(1, v12);
 	v8 = v7;
 	if (!v6 || !v7) {
 		return 0;
@@ -5110,9 +5110,9 @@ int nox_xxx_mapFile_57BDD0(void* lpMem, int a2) {
 		return 0;
 	}
 	v15 = nox_fs_fsize(v4);
-	v5 = (char*)malloc(v15);
+	v5 = (char*)calloc(1, v15);
 	v6 = sub_578BA0(v15);
-	v7 = malloc(v6);
+	v7 = calloc(1, v6);
 	lpMema = v7;
 	if (!v5 || !v7) {
 		return 0;

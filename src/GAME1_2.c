@@ -484,18 +484,18 @@ void* sub_4282F0(int a1, int a2, size_t a3) {
 		*(uint32_t*)(a1 + 632) = 0;
 	}
 	v6 = 4 * a3;
-	*(uint32_t*)(a1 + 608) = malloc(4 * a3);
+	*(uint32_t*)(a1 + 608) = calloc(a3, 4);
 	if (a3) {
 		do {
-			*(uint32_t*)(*(uint32_t*)(a1 + 608) + 4 * v4++) = malloc(0xAu);
+			*(uint32_t*)(*(uint32_t*)(a1 + 608) + 4 * v4++) = calloc(1, 0xAu);
 		} while (v4 < a3);
 	}
-	*(uint32_t*)(a1 + 612) = malloc(v6);
-	*(uint32_t*)(a1 + 616) = malloc(v6);
-	*(uint32_t*)(a1 + 620) = malloc(a3);
-	*(uint32_t*)(a1 + 624) = malloc(a3);
-	*(uint32_t*)(a1 + 628) = malloc(v6);
-	result = malloc(a3);
+	*(uint32_t*)(a1 + 612) = calloc(1, v6);
+	*(uint32_t*)(a1 + 616) = calloc(1, v6);
+	*(uint32_t*)(a1 + 620) = calloc(1, a3);
+	*(uint32_t*)(a1 + 624) = calloc(1, a3);
+	*(uint32_t*)(a1 + 628) = calloc(1, v6);
+	result = calloc(1, a3);
 	v8 = 0;
 	*(uint32_t*)(a1 + 632) = result;
 	if (a3) {
@@ -537,7 +537,7 @@ unsigned int sub_428540(int a1, char* a2, int a3) {
 		free(*(void**)(a1 + 636));
 		*(uint32_t*)(a1 + 636) = 0;
 	}
-	*(uint32_t*)(a1 + 636) = malloc(2 * a3);
+	*(uint32_t*)(a1 + 636) = calloc(a3, 2);
 	result = 0;
 	if (2 * a3) {
 		v4 = a2;
@@ -584,37 +584,37 @@ char* sub_4285C0(short* a1) {
 	if ((short)result <= 0) {
 		dword_5d4594_741332 = *a1;
 	} else {
-		v3 = malloc(4 * (short)result);
+		v3 = calloc((short)result, 4);
 		v4 = 0;
 		v5 = *a1 == 0;
 		*((uint32_t*)a1 + 134) = v3;
 		if (!v5) {
 			do {
-				*(uint32_t*)(*((uint32_t*)a1 + 134) + 4 * v4++) = malloc(0xAu);
+				*(uint32_t*)(*((uint32_t*)a1 + 134) + 4 * v4++) = calloc(1, 0xAu);
 			} while (v4 < *a1);
 		}
-		v6 = malloc(4 * *a1);
+		v6 = calloc(*a1, 4);
 		v19 = *a1;
 		*((uint32_t*)a1 + 135) = v6;
-		v7 = malloc(v19);
+		v7 = calloc(1, v19);
 		v18 = 4 * *a1;
 		*((uint32_t*)a1 + 144) = v7;
-		*((uint32_t*)a1 + 136) = malloc(v18);
-		v8 = malloc(4 * *a1);
+		*((uint32_t*)a1 + 136) = calloc(1, v18);
+		v8 = calloc(*a1, 4);
 		v17 = 4 * *a1;
 		*((uint32_t*)a1 + 137) = v8;
-		v9 = malloc(v17);
+		v9 = calloc(1, v17);
 		v16 = 4 * *a1;
 		*((uint32_t*)a1 + 138) = v9;
-		*((uint32_t*)a1 + 139) = malloc(v16);
-		v10 = malloc(4 * *a1);
+		*((uint32_t*)a1 + 139) = calloc(1, v16);
+		v10 = calloc(*a1, 4);
 		v15 = 4 * *a1;
 		*((uint32_t*)a1 + 140) = v10;
-		v11 = malloc(v15);
+		v11 = calloc(1, v15);
 		v14 = 4 * *a1;
 		*((uint32_t*)a1 + 141) = v11;
-		*((uint32_t*)a1 + 142) = malloc(v14);
-		*((uint32_t*)a1 + 143) = malloc(4 * *a1);
+		*((uint32_t*)a1 + 142) = calloc(1, v14);
+		*((uint32_t*)a1 + 143) = calloc(*a1, 4);
 		v20 = 0;
 		result = nox_common_playerInfoGetFirst_416EA0();
 		v12 = result;
@@ -1913,7 +1913,7 @@ uint16_t* sub_42A8B0(uint8_t* a1, int* a2) {
 	*(uint16_t*)&v10[2] = 0;
 	v2 = *a2;
 	*(uint32_t*)&v10[4] = 0;
-	v3 = malloc(2 * v2);
+	v3 = calloc(v2, 2);
 	sub_42A970(a1, v3, a2);
 	v4 = sub_42AC50(v3, (size_t*)a2);
 	if (v3) {
@@ -2150,10 +2150,10 @@ uint8_t* sub_42AC50(uint8_t* a1, size_t* a2) {
 
 	v2 = a2;
 	v19 = 0;
-	v3 = malloc(*a2);
+	v3 = calloc(1, *a2);
 	v4 = *a2 + 5;
 	lpMem = v3;
-	v5 = malloc(v4);
+	v5 = calloc(1, v4);
 	if ((int)*a2 >= 15) {
 		v7 = time(0);
 		v8 = v7;
@@ -4091,7 +4091,7 @@ int nox_video_read_videobag(int is16bit) {
 		nox_video_bag_tmpBuf_787208 = 0;
 	}
 	if (nox_video_bag_flag_754144) {
-		nox_video_bag_tmpBuf_787208 = malloc(nox_video_bag_tmpBufSize_787184);
+		nox_video_bag_tmpBuf_787208 = calloc(1, nox_video_bag_tmpBufSize_787184);
 	}
 	if (!nox_video_bag_nxz_787212) {
 		nox_video_bag_nxz_787212 = sub_578BF0();
@@ -4099,8 +4099,8 @@ int nox_video_read_videobag(int is16bit) {
 	if (nox_video_bag_var_2650640 == 1) {
 		nox_video_bagAlloc_47A270();
 	}
-	nox_video_bag_sections_arr = malloc(sizeof(nox_video_bag_section_t) * nox_video_bag_sections_cnt);
-	nox_video_bag_images_arr = malloc(sizeof(nox_video_bag_image_t) * nox_video_bag_images_cnt);
+	nox_video_bag_sections_arr = calloc(nox_video_bag_sections_cnt, sizeof(nox_video_bag_section_t));
+	nox_video_bag_images_arr = calloc(nox_video_bag_images_cnt, sizeof(nox_video_bag_image_t));
 	nox_video_bagReadIdx_42F200((unsigned char*)indData + offs, is16bit);
 	free(indData);
 	int v7 = 0x800000;
@@ -4109,7 +4109,7 @@ int nox_video_read_videobag(int is16bit) {
 	}
 	int v8 = nox_video_bag_tmpBufSize_787184 * (v7 / nox_video_bag_tmpBufSize_787184);
 	dword_5d4594_787192 = v8 / nox_video_bag_tmpBufSize_787184;
-	nox_video_bag_ptr_787200 = (int)malloc(v8);
+	nox_video_bag_ptr_787200 = (int)calloc(1, v8);
 	if (!nox_video_bag_ptr_787200) {
 		return 0;
 	}
@@ -4136,7 +4136,7 @@ void* nox_video_readBagIdxBytes_42F0B0(int is16bit) {
 	}
 	unsigned int sz = 0;
 	nox_binfile_fread2_40ADD0(&sz, 4, 1, f);
-	void* data = malloc(sz);
+	void* data = calloc(1, sz);
 	if (!data) {
 		nox_fs_close(f);
 		return 0;
@@ -4194,7 +4194,7 @@ int nox_video_bagMaybeReload(int is16bit) {
 		nox_video_bag_tmpBuf_787208 = 0;
 	}
 	if (nox_video_bag_flag_754144) {
-		nox_video_bag_tmpBuf_787208 = malloc(nox_video_bag_tmpBufSize_787184);
+		nox_video_bag_tmpBuf_787208 = calloc(1, nox_video_bag_tmpBufSize_787184);
 	}
 	nox_video_bag_sub_42EFF0();
 	nox_video_bag_ready = 1;
@@ -4255,7 +4255,7 @@ int nox_xxx_imgLoadAlloc_42F610(int cnt) {
 	if (cnt < 0) {
 		return 0;
 	}
-	nox_images_arr1_787156 = malloc(sizeof(nox_things_imageRef_t) * cnt);
+	nox_images_arr1_787156 = calloc(cnt, sizeof(nox_things_imageRef_t));
 	if (!nox_images_arr1_787156) {
 		return 0;
 	}
@@ -4295,7 +4295,7 @@ int nox_thing_read_IMAG_one_42F660(nox_memfile* f, char* buf) {
 		nox_images_ind1_787164++;
 		return 1;
 	} else if (v6 == 2) {
-		uint32_t* v13 = malloc(16);
+		uint32_t* v13 = calloc(1, 16);
 		if (!v13) {
 			return 0;
 		}
@@ -4303,7 +4303,7 @@ int nox_thing_read_IMAG_one_42F660(nox_memfile* f, char* buf) {
 		unsigned char v33 = nox_memfile_read_u8(f);
 		*((uint8_t*)v13 + 8) = v33;
 		int v27 = v33;
-		void* v15 = malloc(4 * v33);
+		void* v15 = calloc(v33, 4);
 		if (!v15) {
 			return 0;
 		}
@@ -4418,7 +4418,7 @@ void* nox_video_getImagePixdata_42FB30(nox_video_bag_image_t* img) {
 	nox_video_bag_section_t* ent = &nox_video_bag_sections_arr[img->sect_ind];
 	if (ent->field_6 == -1) {
 		if (!ent->data) {
-			ent->data = malloc(ent->size);
+			ent->data = calloc(1, ent->size);
 			nox_video_bagReadImage_42FE30(ent);
 			ent->field_1 = nox_frame_xxx_2598000;
 		}
@@ -4572,7 +4572,7 @@ void nox_video_bagReadImage_42FE30(nox_video_bag_section_t* ent) {
 		char* buf = 0;
 		char* in;
 		if (ent->size_comp > nox_video_bag_tmpBufSize_787184) {
-			buf = malloc(ent->size_comp);
+			buf = calloc(1, ent->size_comp);
 			in = buf;
 			rn = nox_binfile_fread2_40ADD0(buf, 1, ent->size_comp, fp);
 		} else {
@@ -4816,7 +4816,7 @@ int nox_xxx_tileInitBuf_430DB0(int a1, int a2) {
 	dword_5d4594_3798804 = (46 * dword_5d4594_3798812) << getMemByte(0x973F18, 7696);
 	dword_5d4594_3798836 = 0;
 	dword_5d4594_3798840 = 0;
-	v3 = (char*)malloc(v2);
+	v3 = (char*)calloc(1, v2);
 	dword_5d4594_3798796 = v3;
 	if (!v3) {
 		return 0;

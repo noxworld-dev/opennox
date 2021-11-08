@@ -87,11 +87,11 @@ int Cvqa_file::extract_both()
     for (int i = 0; i < MAX_CACHES; i++)
     {
         caches[i].frames_buffer_size = get_cx() * get_cy() * 2 * header().fps * 2;
-        caches[i].frames_buffer = (byte*)malloc(caches[i].frames_buffer_size);
+        caches[i].frames_buffer = (byte*)calloc(1, caches[i].frames_buffer_size);
         memset(caches[i].frames_buffer, 0, caches[i].frames_buffer_size);
         caches[i].frames_buffer_position = 0;
         caches[i].audio_buffer_size = get_samplerate() * (16 / 8) * get_c_channels() * 3; // we reserve for audio buffer a bit more space to prevent is_playing setting because of audio and underfeeding frames buffer
-        caches[i].audio_buffer = (byte*)malloc(caches[i].audio_buffer_size);
+        caches[i].audio_buffer = (byte*)calloc(1, caches[i].audio_buffer_size);
         memset(caches[i].audio_buffer, 0, caches[i].audio_buffer_size);
         caches[i].audio_buffer_position = 0;
         caches[i].audio_buffer_id = 0;

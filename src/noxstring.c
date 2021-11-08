@@ -434,7 +434,7 @@ long nox_wcstol(const wchar_t* nptr, wchar_t** endptr, int base) {
 	size_t i, len = nox_wcslen(nptr);
 	char *tmp, *ptr;
 
-	tmp = malloc(len + 1);
+	tmp = calloc(len + 1, 1);
 
 	for (i = 0; i < len; i++)
 		tmp[i] = nptr[i] < 0x80 ? nptr[i] : 0x7f;

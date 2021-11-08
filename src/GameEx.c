@@ -426,7 +426,7 @@ char GameExCfgLoader() {
 		return 0;
 	v3 = nox_fs_fsize(v0);
 	if (v3) {
-		v4 = (char*)malloc(v3 + 1);
+		v4 = (char*)calloc(1, v3 + 1);
 		if (nox_fs_fread(v1, v4, v3) == v3) {
 			SomeStringSearcher(v4, "AUTO_SHIELD", (char*)&v6);
 			if ((uint8_t)*v6 == 48)
@@ -759,7 +759,7 @@ void* GameIpParser(int a1, int a2, int a3) {
 			*(uint32_t*)&cp[8] = 0;
 			*(uint32_t*)&cp[12] = 0;
 			*(uint32_t*)&cp[16] = 0;
-			fileBuffer = malloc(fileBufferSize);
+			fileBuffer = calloc(1, fileBufferSize);
 			if (nox_fs_fread(result, fileBuffer, fileSize) == fileSize) {
 				fileBufferOffset = 0;
 				v9 = 0;

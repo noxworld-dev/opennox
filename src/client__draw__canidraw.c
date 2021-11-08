@@ -96,7 +96,7 @@ bool nox_things_cond_animate_draw_parse(nox_thing* obj, nox_memfile* f, char* at
 		v6[v26] = 0;
 		v13 = v20;
 		v20[8] = get_animation_kind_id_44B4C0(v6);
-		v14 = malloc(4 * *v7);
+		v14 = calloc(*v7, 4);
 		*v20 = v14;
 		if (!v14) {
 			break;

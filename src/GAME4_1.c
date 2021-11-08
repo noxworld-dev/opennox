@@ -260,7 +260,7 @@ void sub_509C30(int a1) {
 		nox_common_list_clear_425760(getMemAt(0x5D4594, 1599676));
 		dword_5d4594_1599688 = 1;
 	}
-	v1 = (char*)malloc(0x20u);
+	v1 = (char*)calloc(1, 0x20u);
 	*((uint32_t*)v1 + 6) = *(uint32_t*)(a1 + 2068);
 	strcpy(v1 + 12, (const char*)(a1 + 2096));
 	v1[28] = *(uint8_t*)(a1 + 2251);
@@ -1099,7 +1099,7 @@ int nox_xxx_allocVisitNodesArray_50AB90() {
 	result = nox_new_alloc_class("VisitNodes", 16, 1024);
 	nox_alloc_visitNode_2386184 = result;
 	if (result) {
-		dword_5d4594_2386176 = malloc(0x2000u);
+		dword_5d4594_2386176 = calloc(1, 0x2000u);
 		if (dword_5d4594_2386176) {
 			dword_5d4594_2386172 = 0;
 			result = 1;
@@ -6830,7 +6830,7 @@ int sub_517AE0() {
 	int i;     // esi
 
 	dword_5d4594_2386944 = 70;
-	dword_5d4594_2386940 = malloc(0x118u);
+	dword_5d4594_2386940 = calloc(1, 0x118u);
 	v0 = dword_5d4594_2386944;
 	for (i = 0; i < *(int*)&dword_5d4594_2386944; ++i) {
 		*(uint32_t*)(dword_5d4594_2386940 + 4 * i) = calloc(v0, 0x10u);
@@ -8684,7 +8684,7 @@ void* nox_xxx_scriptActivatorNew_51AD40() {
 
 	result = *(void**)&nox_script_activatorsFreeList_2487240;
 	if (!nox_script_activatorsFreeList_2487240) {
-		return malloc(32);
+		return calloc(1, 32);
 	}
 	nox_script_activatorsFreeList_2487240 = *(uint32_t*)((char*)nox_script_activatorsFreeList_2487240 + 24);
 	return result;

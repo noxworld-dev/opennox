@@ -3007,7 +3007,7 @@ void sub_496050(int a1) {
 int sub_4960B0() {
 	int result; // eax
 
-	result = (int)malloc(4 * (4 * nox_win_width / 23 * (nox_win_height / 23) / 2));
+	result = (int)calloc(1, 4 * (4 * nox_win_width / 23 * (nox_win_height / 23) / 2));
 	dword_5d4594_1217456 = result;
 	if (result) {
 		sub_4CA860();
@@ -5701,7 +5701,7 @@ int sub_49A8C0() {
 //----- (0049A8E0) --------------------------------------------------------
 int sub_49A8E0_init() {
 	nox_drawable_2d_index_size = nox_drawable_2d_index_cap;
-	nox_drawable_2d_index = malloc(nox_drawable_2d_index_size * sizeof(void*));
+	nox_drawable_2d_index = calloc(nox_drawable_2d_index_size, sizeof(void*));
 	if (!nox_drawable_2d_index) {
 		return 0;
 	}
@@ -5998,7 +5998,7 @@ int nox_xxx_unused_49ADD0(int a1) {
 		return 0;
 	}
 	dword_5d4594_1301824 = nox_win_height;
-	v2 = malloc(4 * nox_win_height);
+	v2 = calloc(nox_win_height, 4);
 	dword_5d4594_1301848 = v2;
 	if (!v2) {
 		return 0;

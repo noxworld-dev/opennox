@@ -601,7 +601,7 @@ uint32_t* sub_4BD280(int a1, int a2) {
 	int v5;           // edi
 
 	v2 = a2 + 4;
-	result = malloc(a1 * (a2 + 4) + 4);
+	result = calloc(1, a1 * (a2 + 4) + 4);
 	if (result) {
 		v4 = result + 1;
 		*result = result + 1;
@@ -661,7 +661,7 @@ int sub_4BD320(uint32_t** a1) {
 uint32_t* sub_4BD340(int a1, int a2, int a3, int a4) {
 	uint32_t* v4; // esi
 
-	v4 = malloc(0x1Cu);
+	v4 = calloc(1, 0x1Cu);
 	memset(v4, 0, 0x1Cu);
 	*v4 = a1;
 	v4[6] = a4;
@@ -868,7 +868,7 @@ int sub_4BD710(int a1) { return a1 + 24; }
 uint32_t* sub_4BD720(int a1) {
 	uint32_t* v1; // esi
 
-	v1 = malloc(0x138u);
+	v1 = calloc(1, 0x138u);
 	memset(v1, 0, 0x138u);
 	sub_425770(v1);
 	sub_4BDC00((int)(v1 + 30));

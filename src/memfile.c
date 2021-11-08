@@ -22,7 +22,7 @@ nox_memfile* nox_memfile_load(const char* path, int a2) {
 	nox_binfile_fseek_409050(f, 0, SEEK_END);
 	nf->size = nox_binfile_ftell_426A50();
 	nox_binfile_fseek_409050(f, 0, SEEK_SET);
-	nf->data = (char*)malloc(nf->size);
+	nf->data = (char*)calloc(1, nf->size);
 	if (nf->data == 0) {
 		nox_memfile_free(nf);
 		nox_binfile_close_408D90(f);

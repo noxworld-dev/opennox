@@ -3755,7 +3755,7 @@ nox_window* nox_gui_newRadioButton_4A9330(nox_window* parent, int a2, int a3, in
 	if (!draw->win) {
 		draw->win = win;
 	}
-	nox_radioButton_data* d = malloc(sizeof(nox_radioButton_data));
+	nox_radioButton_data* d = calloc(1, sizeof(nox_radioButton_data));
 	d->field_0 = 0;
 	if (data) {
 		d->field_0 = data->field_0;
@@ -4968,9 +4968,9 @@ void nox_xxx_netMapDownloadPart_4AB7C0(unsigned short a1, void* a2, size_t a3) {
 			dword_5d4594_1309768 += a3;
 			++nox_xxx_mapPartN_587000_173336;
 		} else {
-			v3 = malloc(0x14u);
+			v3 = calloc(1, 0x14u);
 			if (v3) {
-				v4 = malloc(a3);
+				v4 = calloc(1, a3);
 				v3[1] = v4;
 				if (v4) {
 					memcpy(v4, a2, a3);
@@ -5119,7 +5119,7 @@ int nox_xxx_mapDownloadStart_4ABAD0(char* a1, unsigned int a2) {
 	if (_access(PathName, 0) == -1) {
 		nox_fs_mkdir(PathName);
 	}
-	v8 = (char*)malloc(strlen(v11) + 1);
+	v8 = (char*)calloc(strlen(v11) + 1, 1);
 	dword_5d4594_1309776 = v8;
 	if (v8) {
 		strcpy(v8, v11);
@@ -6921,10 +6921,10 @@ int sub_4AEDA0(int* a1, int* a2, int a3, int a4) {
 void* sub_4AEDF0() {
 	void* result; // eax
 
-	result = malloc(4 * nox_backbuffer_height);
+	result = calloc(nox_backbuffer_height, 4);
 	dword_5d4594_3798632 = result;
 	if (result) {
-		dword_5d4594_3798644 = malloc(nox_backbuffer_height << 6);
+		dword_5d4594_3798644 = calloc(1, nox_backbuffer_height << 6);
 		result = (void*)(dword_5d4594_3798644 != 0);
 	}
 	return result;
@@ -10923,7 +10923,7 @@ nox_window* nox_gui_newSlider_4B4EE0(int a1, int a2, int a3, int a4, int a5, int
 			v12 = (double)(v9 - 10) / (double)(int)(*((uint32_t*)a8 + 1) - v11);
 		}
 		a8[2] = v12;
-		v13 = (float*)malloc(0x10u);
+		v13 = (float*)calloc(1, 0x10u);
 		*v13 = *a8;
 		v13[1] = a8[1];
 		v13[2] = a8[2];
@@ -11325,7 +11325,7 @@ void* sub_4B5990() {
 	if (v1 <= 0) {
 		return *(void**)&dword_5d4594_1312476;
 	}
-	result = malloc(4 * v1);
+	result = calloc(v1, 4);
 	dword_5d4594_1312476 = result;
 	v5 = v6;
 	if (dword_5d4594_1312472 > 0) {

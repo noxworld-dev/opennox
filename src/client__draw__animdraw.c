@@ -146,7 +146,7 @@ bool nox_things_animate_draw_parse(nox_thing* obj, nox_memfile* f, char* attr_va
 	nox_memfile_read(a3, 1u, v20, f);
 	a3[v20] = 0;
 	v5[3] = get_animation_kind_id_44B4C0(a3);
-	result = (int)malloc(4 * *((unsigned char*)v5 + 8));
+	result = calloc(*((unsigned char*)v5 + 8), 4);
 	v5[1] = result;
 	if (!result) {
 		return 0;
@@ -188,7 +188,7 @@ int sub_44BE90(int a1, nox_memfile* f) {
 	char v12[128];   // [esp+Ch] [ebp-80h]
 
 	v2 = a1;
-	result = (int)malloc(4 * *(short*)(a1 + 40));
+	result = calloc(*(short*)(a1 + 40), 4);
 	*(uint32_t*)(a1 + 4) = result;
 	if (result) {
 		v4 = 0;

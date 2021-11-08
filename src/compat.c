@@ -143,7 +143,7 @@ uintptr_t _beginthread(void (*start_address)(void*), unsigned int stack_size, vo
 	}
 #endif
 	printf("thread start\n");
-	thread_arg_wrapper* arg = (thread_arg_wrapper*)malloc(sizeof(thread_arg_wrapper));
+	thread_arg_wrapper* arg = (thread_arg_wrapper*)calloc(1, sizeof(thread_arg_wrapper));
 	arg->start_address = start_address;
 	arg->arglist = arglist;
 
@@ -554,7 +554,7 @@ int RegOpenKeyExA(HKEY hKey, const char* lpSubKey, uint32_t ulOptions, REGSAM sa
 		root = hKey->path;
 
 	hkResult = calloc(sizeof(*hkResult), 1);
-	hkResult->path = malloc(strlen(root) + strlen(lpSubKey) + 2);
+	hkResult->path = calloc(strlen(root) + strlen(lpSubKey) + 2, 1);
 	sprintf(hkResult->path, "%s\\%s", root, lpSubKey);
 	*phkResult = hkResult;
 	return 0;
@@ -591,7 +591,7 @@ int RegCloseKey(HKEY hKey) {
 // Synchronization functions
 
 HANDLE CreateMutexA(LPSECURITY_ATTRIBUTES lpSecurityAttributes, int bInitialOwner, const char* lpName) {
-	pthread_mutex_t* m = malloc(sizeof(pthread_mutex_t));
+	pthread_mutex_t* m = calloc(1, sizeof(pthread_mutex_t));
 	pthread_mutexattr_t attr;
 
 	pthread_mutexattr_init(&attr);

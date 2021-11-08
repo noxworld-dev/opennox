@@ -4960,7 +4960,7 @@ FILE* nox_xxx_saveBMP_46D9D0(int a1, int a2, void* lpMem, int a4) {
 	*(uint16_t*)&v16[8] = 0;
 	*(uint32_t*)&v16[10] = 54;
 	*(uint32_t*)&v16[2] = v7 + 54;
-	v8 = (char*)malloc(v7);
+	v8 = (char*)calloc(1, v7);
 	v10 = (uint8_t*)a2;
 	lpMema = v8;
 	if (v6 > 0) {
@@ -5002,7 +5002,7 @@ FILE* nox_xxx_saveBMP_46D9D0(int a1, int a2, void* lpMem, int a4) {
 //----- (0046DB00) --------------------------------------------------------
 int nox_xxx_saveScreenshot_46DB00() {
 	if (!*getMemU32Ptr(0x5D4594, 1083964)) {
-		*getMemU32Ptr(0x5D4594, 1083964) = malloc(2 * nox_win_width * nox_win_height);
+		*getMemU32Ptr(0x5D4594, 1083964) = calloc(nox_win_width * nox_win_height, 2);
 		strcpy((char*)getMemAt(0x5D4594, 1082932), "nox");
 		*getMemU32Ptr(0x5D4594, 1083956) = 1;
 		*getMemU32Ptr(0x5D4594, 1083960) = 0;
@@ -7688,41 +7688,41 @@ int sub_473A10(uint32_t* a1, int2* a2, uint32_t* a3) {
 #ifndef NOX_CGO
 //----- (00473A40) --------------------------------------------------------
 int sub_473A40() {
-	nox_drawable_list_1 = malloc(sizeof(void*) * nox_drawable_list_1_cap);
+	nox_drawable_list_1 = calloc(nox_drawable_list_1_cap, sizeof(void*));
 	if (!nox_drawable_list_1) {
 		return 0;
 	}
 	nox_drawable_list_1_size = 0;
 
-	nox_drawable_list_3 = malloc(nox_drawable_lists_cap * sizeof(void*));
+	nox_drawable_list_3 = calloc(nox_drawable_lists_cap, sizeof(void*));
 	if (!nox_drawable_list_3) {
 		return 0;
 	}
 	nox_drawable_list_3_size = 0;
 
-	nox_drawable_list_2 = malloc(nox_drawable_lists_cap * sizeof(void*));
+	nox_drawable_list_2 = calloc(nox_drawable_lists_cap, sizeof(void*));
 	if (!nox_drawable_list_2) {
 		return 0;
 	}
 	nox_drawable_list_2_size = 0;
 
-	nox_drawable_list_4 = malloc(nox_drawable_lists_cap * sizeof(void*));
+	nox_drawable_list_4 = calloc(nox_drawable_lists_cap, sizeof(void*));
 	if (!nox_drawable_list_4) {
 		return 0;
 	}
 	nox_drawable_list_4_size = 0;
 
-	nox_client_wallsXxx_list_1096496 = malloc(256 * sizeof(void*));
+	nox_client_wallsXxx_list_1096496 = calloc(256, sizeof(void*));
 	if (!nox_client_wallsXxx_list_1096496) {
 		return 0;
 	}
 	nox_client_wallsXxx_cnt_1096500 = 0;
-	nox_client_frontWalls_list_1096504 = malloc(256 * sizeof(void*));
+	nox_client_frontWalls_list_1096504 = calloc(256, sizeof(void*));
 	if (!nox_client_frontWalls_list_1096504) {
 		return 0;
 	}
 	nox_client_frontWalls_cnt_1096508 = 0;
-	nox_client_wallsYyy_list_1096512 = malloc(256 * sizeof(void*));
+	nox_client_wallsYyy_list_1096512 = calloc(256, sizeof(void*));
 	if (!nox_client_wallsYyy_list_1096512) {
 		return 0;
 	}

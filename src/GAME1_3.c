@@ -2075,13 +2075,13 @@ int sub_43EC30(void* a1p) {
 	uint32_t* v1; // esi
 	int v2;       // eax
 
-	v1 = malloc(0x20u);
+	v1 = calloc(1, 0x20u);
 	memset(v1, 0, 0x20u);
 	*(uint32_t*)(a1 + 272) = v1;
 	v1[1] = a1;
 	*v1 = dword_5d4594_816432;
-	v1[5] = malloc(0x4000u);
-	v1[6] = malloc(0x4000u);
+	v1[5] = calloc(1, 0x4000u);
+	v1[6] = calloc(1, 0x4000u);
 	v2 = AIL_allocate_sample_handle(dword_5d4594_816432);
 	v1[2] = v2;
 	if (!v2 || !v1[5] || !v1[6]) {
@@ -2589,7 +2589,7 @@ uint32_t* nox_xxx_FontLoadFile_43F3B0(char* a1) {
 	}
 	v3 = nox_fs_open(a1);
 	if (v3) {
-		v1 = malloc(0x20u);
+		v1 = calloc(1, 0x20u);
 		if (v1) {
 			memset(v1, 0, 0x20u);
 			if (nox_binfile_fread2_40ADD0((char*)v17, 0x1Cu, 1u, v3) != 1) {
@@ -2601,7 +2601,7 @@ uint32_t* nox_xxx_FontLoadFile_43F3B0(char* a1) {
 				*v1 = v17[2];
 				v1[5] = v17[6];
 				v1[3] = v17[5];
-				v4 = (char*)malloc(8 * v17[5]);
+				v4 = (char*)calloc(v17[5], 8);
 				v1[4] = v4;
 				if (!v4 || nox_binfile_fread2_40ADD0(v4, 8 * v1[3], 1u, v3) != 1) {
 					goto LABEL_15;
@@ -2619,7 +2619,7 @@ uint32_t* nox_xxx_FontLoadFile_43F3B0(char* a1) {
 				v1[1] = v5;
 				*v1 = v6;
 				v1[3] = v7;
-				v8 = (unsigned char*)malloc(8 * v7);
+				v8 = (unsigned char*)calloc(v7, 8);
 				v1[4] = v8;
 				if (!v8) {
 					goto LABEL_15;
@@ -2628,7 +2628,7 @@ uint32_t* nox_xxx_FontLoadFile_43F3B0(char* a1) {
 			}
 			v1[7] = v1[2];
 			v9 = v1[5] * nox_xxx_fontLoad_440870((int)v1);
-			v10 = (char*)malloc(v9);
+			v10 = (char*)calloc(1, v9);
 			v1[6] = v10;
 			if (!v10 || nox_binfile_fread2_40ADD0(v10, v9, 1u, v3) != 1) {
 			LABEL_15:
@@ -6534,7 +6534,7 @@ int sub_44B940(uint32_t* a1, int a2, nox_memfile* f) {
 	v14 = 0;
 	while (1) {
 		v13 = v4 >= 16 ? v4 + 4 : v4;
-		v5 = malloc(4 * v3);
+		v5 = calloc(v3, 4);
 		*(uint32_t*)((char*)a1 + v13 + 4) = v5;
 		if (!v5) {
 			break;

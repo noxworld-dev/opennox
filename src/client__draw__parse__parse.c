@@ -21,7 +21,7 @@ void* nox_xxx_spriteLoadStaticRandomData_44C000(char* attr_value, nox_memfile* f
 	*v2 = 12;
 	v15 = nox_memfile_read_u8(f);
 	*((uint8_t*)v4 + 8) = v15;
-	result = malloc(4 * v15);
+	result = calloc(v15, 4);
 	v4[1] = result;
 	if (result) {
 		v7 = 0;
@@ -94,7 +94,7 @@ int nox_xxx_loadVectorAnimated_44BC50(int a1, nox_memfile* f) {
 	while (1) {
 		v13 = v2 >= 16 ? v2 + 4 : v2;
 		v3 = a1;
-		v4 = malloc(4 * *(short*)(a1 + 40));
+		v4 = calloc(*(short*)(a1 + 40), 4);
 		*(uint32_t*)(v13 + a1 + 4) = v4;
 		if (!v4) {
 			break;

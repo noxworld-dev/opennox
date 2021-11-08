@@ -1434,7 +1434,7 @@ int sub_40B170(int a1) {
 		v1 = 16;
 	}
 	dword_5d4594_3624 = v1;
-	dword_5d4594_3620 = malloc(168 * v1);
+	dword_5d4594_3620 = calloc(v1, 168);
 	result = dword_5d4594_3624;
 	LOBYTE(a1) = 0;
 	if (dword_5d4594_3624 > 0) {
@@ -1505,9 +1505,9 @@ void sub_40B250(int a1, unsigned char a2, unsigned short a3, const void* a4, siz
 		*(uint32_t*)(v5 + 12) += a5;
 		*(uint32_t*)(v5 + 8) = v6;
 	} else {
-		v7 = malloc(0x1Cu);
+		v7 = calloc(1, 0x1Cu);
 		if (v7) {
-			v8 = malloc(a5);
+			v8 = calloc(1, a5);
 			v7[1] = v8;
 			if (v8) {
 				memcpy(v8, a4, a5);
@@ -1780,7 +1780,7 @@ void* sub_40B890(int a1) {
 	} else {
 		*getMemU16Ptr(0x5D4594, 4660) = 16;
 	}
-	result = malloc(160 * *getMemU16Ptr(0x5D4594, 4660));
+	result = calloc(*getMemU16Ptr(0x5D4594, 4660), 160);
 	v2 = 0;
 	dword_5d4594_3632 = result;
 	if (*getMemU16Ptr(0x5D4594, 4660)) {
@@ -2015,7 +2015,7 @@ LABEL_12:
 	v22 = 0;
 	if ((int)(((unsigned int)(a5 - 1) >> 9) + 1) > 0) {
 		while (1) {
-			v10 = malloc(0x1Cu);
+			v10 = calloc(1, 0x1Cu);
 			v11 = v10;
 			if (!v10) {
 				return 0;
@@ -2026,7 +2026,7 @@ LABEL_12:
 				v12 = v7;
 			}
 			v11[4] = v12;
-			v13 = (char*)malloc(v12);
+			v13 = (char*)calloc(1, v12);
 			v14 = (short)v11[4];
 			*((uint32_t*)v11 + 3) = 0;
 			v11[8] = 0;
@@ -4334,7 +4334,7 @@ int nox_xxx_mapAlloc_4101D0() {
 	dword_5d4594_251552 = 0;
 	int v1 = 0;
 	while (1) {
-		uint32_t* v2 = malloc(36);
+		uint32_t* v2 = calloc(1, 36);
 		if (!v2) {
 			break;
 		}
@@ -6081,7 +6081,7 @@ int nox_xxx_parseModifDesc_412AE0(const char* a1, FILE* a2, char* a3) {
 		if (!nox_xxx_parseModifAddByType_412C60(a1, v3)) {
 			return 0;
 		}
-		char* v5 = (char*)malloc(strlen(v9) + 1);
+		char* v5 = (char*)calloc(strlen(v9) + 1, 1);
 		if (!v5) {
 			return 0;
 		}
@@ -6168,7 +6168,7 @@ int nox_xxx_parseWeaponDef_412D40(int a1, FILE* a2, char* a3) {
 		}
 		++*getMemU32Ptr(0x5D4594, 251604);
 		dword_5d4594_251600 = v3;
-		v5 = (char*)malloc(strlen(v9) + 1);
+		v5 = (char*)calloc(strlen(v9) + 1, 1);
 		*v4 = v5;
 		if (!v5) {
 			return 0;
@@ -6227,7 +6227,7 @@ int sub_412ED0(int a1, FILE* a2, char* a3) {
 		}
 		++*getMemU32Ptr(0x5D4594, 251612);
 		dword_5d4594_251608 = v3;
-		v5 = (char*)malloc(strlen(v9) + 1);
+		v5 = (char*)calloc(strlen(v9) + 1, 1);
 		*v4 = v5;
 		if (!v5) {
 			return 0;
@@ -6736,7 +6736,7 @@ int sub_413F60(const void* a1, const void* a2) { return *((uint32_t*)a1 + 20) - 
 char* nox_clone_str(const char* a1) {
 	char* result; // eax
 
-	result = (char*)malloc(strlen(a1) + 1);
+	result = (char*)calloc(strlen(a1) + 1, 1);
 	if (result) {
 		strcpy(result, a1);
 	}
@@ -6879,7 +6879,7 @@ unsigned int sub_4148D0(const char* lpFileName) {
 	if (v2 == -1) {
 		return -1;
 	}
-	v3 = malloc(0x2000u);
+	v3 = calloc(1, 0x2000u);
 	int n = nox_fs_fread(v2, v3, 0x2000);
 	v3[10] = 0;
 	for (i = n; n; i = n) {
@@ -7533,7 +7533,7 @@ bool nox_xxx_loadAllBinFiles_415470(void) {
 		return 0;
 	}
 
-	char* buf = malloc(256 * 1024);
+	char* buf = calloc(256 * 1024, 1);
 	if (!nox_xxx_parseModifierBin_412930("Modifier.bin", buf)) {
 		return 0;
 	}
@@ -8360,7 +8360,7 @@ void sub_416720() {
 int* sub_416770(int a1, wchar_t* a2, const char* a3) {
 	uint32_t* v3; // ebp
 
-	v3 = malloc(0x60u);
+	v3 = calloc(1, 0x60u);
 	sub_425770(v3);
 	nox_wcscpy((wchar_t*)v3 + 6, a2);
 	if (a3) {
@@ -8435,7 +8435,7 @@ int* sub_416860(int a1) {
 int* sub_4168A0(wchar_t* a1) {
 	wchar_t* v1; // esi
 
-	v1 = (wchar_t*)malloc(0x40u);
+	v1 = (wchar_t*)calloc(1, 0x40u);
 	sub_425770(v1);
 	nox_wcscpy(v1 + 6, a1);
 	nox_common_list_append_4258E0((int)getMemAt(0x5D4594, 371364), v1);
@@ -8773,7 +8773,7 @@ int nox_xxx_netMarkMinimapObject_417190(int a1, int a2, int a3) {
 			v6 = (uint32_t*)v6[2];
 		}
 	}
-	v8 = malloc(0x10u);
+	v8 = calloc(1, 0x10u);
 	if (!v8) {
 		return v3;
 	}
@@ -9736,7 +9736,7 @@ void sub_4184D0(wchar_t* a1) {
 		}
 		v3[15] = nox_wcslen(a1);
 		v1 = 2 * (unsigned char)v3[15];
-		v2 = malloc(v1 + 18);
+		v2 = calloc(1, v1 + 18);
 		*(uint64_t*)v2 = *(uint64_t*)v3;
 		v2[2] = *(uint32_t*)&v3[8];
 		v2[3] = *(uint32_t*)&v3[12];

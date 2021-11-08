@@ -769,7 +769,7 @@ DG_DYNARR_INLINE void dg__dynarr_deletefast(void** arr, dg__dynarr_md* md, size_
 // to provide alternative implementations like Win32 Heap(Re)Alloc/HeapFree
 //
 #ifndef DG_DYNARR_MALLOC
-#define DG_DYNARR_MALLOC(elemSize, numElems) malloc(elemSize* numElems)
+#define DG_DYNARR_MALLOC(elemSize, numElems) calloc(numElems, elemSize)
 
 // oldNumElems is not used here, but maybe you need it for your allocator
 // to copy the old elements over

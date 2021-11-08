@@ -142,7 +142,7 @@ void* nox_alloc_class_new_obj(nox_alloc_class* al) {
 			// allocate new items as needed, if we are allowed to
 			if (!al->can_grow)
 				return 0;
-			nox_alloc_hdr* item = malloc(al->size + sizeof(nox_alloc_hdr));
+			nox_alloc_hdr* item = calloc(1, al->size + sizeof(nox_alloc_hdr));
 			al->first_free_add = item;
 			al->field_31++;
 			if (!item)

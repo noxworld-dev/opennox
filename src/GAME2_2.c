@@ -2520,22 +2520,22 @@ int nox_video_bagAlloc_47A270() {
 	sub_47A310((const char*)getMemAt(0x587000, 153712));
 	sub_47A650();
 #ifndef NOX_CGO
-	dword_5d4594_1189584 = malloc(336 * dword_5d4594_1123532);
+	dword_5d4594_1189584 = calloc(dword_5d4594_1123532, 336);
 	if (!dword_5d4594_1189584) {
 		return 0;
 	}
 #endif // NOX_CGO
-	result = (int)malloc(0x12C000u);
+	result = (int)calloc(1, 0x12C000u);
 	*getMemU32Ptr(0x5D4594, 1189588) = result;
 	if (!result) {
 		return 0;
 	}
-	result = (int)malloc(0x12C000u);
+	result = (int)calloc(1, 0x12C000u);
 	dword_5d4594_1189592 = result;
 	if (!result) {
 		return 0;
 	}
-	result = (int)malloc(0x12C000u);
+	result = (int)calloc(1, 0x12C000u);
 	dword_5d4594_1189596 = result;
 	if (!result) {
 		return 0;
@@ -2736,7 +2736,7 @@ int nox_video_bag_readImageData_47A960(unsigned char typ, int ind) {
 		nox_fs_close(v4);
 		switch (typ & 0x3F) {
 		case 0:
-			*(uint32_t*)((char*)dword_5d4594_1189584 + 336 * ind + 324) = malloc(3 * v18 * v19);
+			*(uint32_t*)((char*)dword_5d4594_1189584 + 336 * ind + 324) = calloc(v18 * v19, 3);
 			v5 = nox_xxx_videoBag_LoadTile_47AD60(v19, v18,
 												  *(uint16_t**)((char*)dword_5d4594_1189584 + 336 * ind + 324)) == 0;
 			v6 = dword_5d4594_1189584;
@@ -2747,7 +2747,7 @@ int nox_video_bag_readImageData_47A960(unsigned char typ, int ind) {
 			*(uint8_t*)((char*)dword_5d4594_1189584 + 336 * ind + 334) = -128;
 			break;
 		case 1:
-			*(uint32_t*)((char*)dword_5d4594_1189584 + 336 * ind + 324) = malloc(3 * v18 * v19);
+			*(uint32_t*)((char*)dword_5d4594_1189584 + 336 * ind + 324) = calloc(v18 * v19, 3);
 			v5 = nox_xxx_videoBag_LoadEdge_47AF30(
 					 v19, v18, *(unsigned char**)((char*)dword_5d4594_1189584 + 336 * ind + 324)) == 0;
 			v6 = dword_5d4594_1189584;
@@ -2798,7 +2798,7 @@ int nox_video_bag_readImageData_47A960(unsigned char typ, int ind) {
 					}
 				}
 			}
-			v14 = malloc(3 * v18 * v19);
+			v14 = calloc(v18 * v19, 3);
 			*(uint32_t*)((char*)dword_5d4594_1189584 + 336 * ind + 324) = v14;
 			if (!nox_xxx_videoBag_LoadPXImg_47B7F0(v19, v18,
 												   *(uint32_t*)((char*)dword_5d4594_1189584 + 336 * ind + 324), typ)) {
@@ -9910,7 +9910,7 @@ int nox_thing_read_floor_485B30(int a1, char* a2) {
 	*(uint32_t*)(v2 + 8) = v9 + 4;
 	v10 = (unsigned char)v21 * v19 * v17;
 	v20 = 15 * v7;
-	*getMemU32Ptr(0x85B3FC, 32516 + 60 * v7) = malloc(4 * v10);
+	*getMemU32Ptr(0x85B3FC, 32516 + 60 * v7) = calloc(v10, 4);
 	v11 = 0;
 	for (i = 0; v11 < v10; *(uint32_t*)(*getMemU32Ptr(0x85B3FC, 32516 + 4 * v20) + 4 * v11 - 4) =
 							   nox_xxx_readImgMB_42FAA0(v13, v21, a2)) {
@@ -10008,7 +10008,7 @@ int nox_thing_read_edge_485D40(int a1, char* a2) {
 	v13 = v9[4];
 	*(uint32_t*)(v2 + 8) = v12 + 1;
 	v14 = 2 * v25 * (v11 + v13);
-	result = (int)malloc(5 * v14);
+	result = (int)calloc(v14, 5);
 	memset((int*)result, 0, 5 * v14);
 	v24 = 15 * v7;
 	*getMemU32Ptr(0x85B3FC, 28676 + 60 * v7) = result;
@@ -10173,7 +10173,7 @@ int nox_video_initPixbufferData_4861D0() {
 
 //----- (00486230) --------------------------------------------------------
 int nox_video_initPixbufferRows_486230() {
-	nox_pixbuffer_rows_3798784 = malloc(sizeof(uint8_t*) * nox_backbuffer_height);
+	nox_pixbuffer_rows_3798784 = calloc(nox_backbuffer_height, sizeof(uint8_t*));
 	if (!nox_pixbuffer_rows_3798784) {
 		return 0;
 	}
@@ -10190,7 +10190,7 @@ int nox_video_initPixbufferRows_486230() {
 		return 1;
 	}
 
-	nox_pixbuffer_rows_3798776 = malloc(4 * nox_backbuffer_height);
+	nox_pixbuffer_rows_3798776 = calloc(nox_backbuffer_height, 4);
 	if (!nox_pixbuffer_rows_3798776) {
 		return 0;
 	}
@@ -10454,7 +10454,7 @@ char* sub_4866F0(const char* a1, const char* a2) {
 	char v20[260];                         // [esp+1Ch] [ebp-244h]
 	struct _WIN32_FIND_DATAA FindFileData; // [esp+120h] [ebp-140h]
 
-	v2 = (char*)malloc(0x120u);
+	v2 = (char*)calloc(1, 0x120u);
 	memset(v2, 0, 0x120u);
 	strcpy(v20, a1);
 	v3 = strrchr(v20, 46);
@@ -10486,7 +10486,7 @@ char* sub_4866F0(const char* a1, const char* a2) {
 	if (*(int*)&v17[8] <= 0) {
 		goto LABEL_14;
 	}
-	v11 = malloc(36 * *(uint32_t*)&v17[8]);
+	v11 = calloc(*(uint32_t*)&v17[8], 36);
 	v12 = *((uint32_t*)v2 + 1);
 	*(uint32_t*)v2 = v11;
 	memset(v11, 0, 4 * ((unsigned int)(36 * v12) >> 2));
@@ -10846,7 +10846,7 @@ uint32_t* sub_486FA0(int a1) {
 uint32_t* sub_486FE0(int a1) {
 	uint32_t* v1; // esi
 
-	v1 = malloc(0x58u);
+	v1 = calloc(1, 0x58u);
 	memset(v1, 0, 0x58u);
 	sub_425770(v1);
 	v1[4] = 0;
@@ -10961,7 +10961,7 @@ uint32_t* sub_4871C0(int a1, int a2, const void* a3) {
 	uint32_t* v4; // esi
 
 	v3 = *(uint32_t*)(a1 + 12);
-	v4 = malloc(0x108u);
+	v4 = calloc(1, 0x108u);
 	memset(v4, 0, 0x108u);
 	sub_425770(v4);
 	v4[6] = a2;
@@ -11478,11 +11478,11 @@ uint32_t* sub_487BC0(size_t a1) {
 	uint32_t* v1; // esi
 	void* v2;     // eax
 
-	v1 = malloc(0x1Cu);
+	v1 = calloc(1, 0x1Cu);
 	memset(v1, 0, 0x1Cu);
 	sub_487C30(v1);
 	v1[1] = a1;
-	v2 = malloc(a1);
+	v2 = calloc(1, a1);
 	*v1 = v2;
 	if (v2) {
 		return v1;
@@ -11886,7 +11886,7 @@ nox_window* nox_gui_newEntryField_488500(int a1, int a2, int a3, int a4, int a5,
 		if (!v9) {
 			a8[520] = 256;
 		}
-		v10 = (int*)malloc(0x420u);
+		v10 = (int*)calloc(1, 0x420u);
 		memcpy(v10, a8, 0x420u);
 		v8[8] = v10;
 		if (nox_strman_get_lang_code() != 8 && nox_strman_get_lang_code() != 6) {
@@ -12393,7 +12393,7 @@ nox_window* nox_gui_newStaticText_489300(int a1, int a2, int a3, int a4, int a5,
 			a7[4] = v9;
 		}
 		nox_gui_windowCopyDrawData_46AF80((int)v9, a7);
-		v10 = malloc(0xCu);
+		v10 = calloc(1, 0xCu);
 		v10[0] = a8[0];
 		v10[1] = a8[1];
 		v10[2] = a8[2];

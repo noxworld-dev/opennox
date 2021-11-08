@@ -12262,14 +12262,14 @@ int sub_4F2210() {
 			result = nox_server_getNextObject_4DA7A0(result);
 		} while (result);
 		if (v3) {
-			v0 = malloc(4 * v3);
+			v0 = calloc(v3, 4);
 			if (!v4) {
 				goto LABEL_21;
 			}
 		} else if (!v4) {
 			return result;
 		}
-		lpMem = malloc(4 * v4);
+		lpMem = calloc(v4, 4);
 	LABEL_21:
 		v7 = 0;
 		v30 = 0;
@@ -13775,7 +13775,7 @@ int nox_xxx_readObjectOldVer_4F4170(int a1, int a2, int a3) {
 		nox_xxx_fileReadWrite_426AC0_file3_fread(&v19, 1u);
 		if (nox_xxx_cryptGetXxx() == 1) {
 			if ((uint8_t)v19) {
-				result = (int)malloc((unsigned char)v19 + 1);
+				result = (int)calloc(1, (unsigned char)v19 + 1);
 				*v3 = (uint8_t*)result;
 				if (!result) {
 					return result;
@@ -13954,7 +13954,7 @@ int nox_xxx_mapReadWriteObjData_4F4530(int* a1, int a2) {
 	}
 	nox_xxx_fileReadWrite_426AC0_file3_fread(&a2, 1u);
 	if (nox_xxx_cryptGetXxx() != 1 || !(uint8_t)a2 ||
-		(result = (int)malloc((unsigned char)a2 + 1), (*v2 = result) != 0)) {
+		(result = (int)calloc(1, (unsigned char)a2 + 1), (*v2 = result) != 0)) {
 		nox_xxx_fileReadWrite_426AC0_file3_fread((uint8_t*)*v2, (unsigned char)a2);
 		if (*v2) {
 			*(uint8_t*)((unsigned char)a2 + *v2) = 0;

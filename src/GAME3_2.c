@@ -1401,7 +1401,7 @@ void nox_common_scanAddMap(char* filename) {
 	if (!nox_common_checkMapFile_4CFE10(name)) {
 		return;
 	}
-	nox_map_list_item* map = malloc(sizeof(nox_map_list_item));
+	nox_map_list_item* map = calloc(1, sizeof(nox_map_list_item));
 	sub_425770(map);
 	strcpy(map->name, name);
 	map->field_6 = 1;
@@ -1854,7 +1854,7 @@ void sub_4D1210(int a1) {
 		result = nox_common_playerInfoFromNum_417090(a1);
 		v2 = result;
 		if (result) {
-			v3 = malloc(0x10u);
+			v3 = calloc(1, 0x10u);
 			v3[3] = v2;
 			nox_common_list_append_4258E0((int)getMemAt(0x5D4594, 1548492), v3);
 		}

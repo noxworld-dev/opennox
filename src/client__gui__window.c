@@ -1016,7 +1016,7 @@ int sub_46C690(int a1) {
 	if (*(unsigned int*)(a1 + 396)) {
 		return -3;
 	}
-	nox_window_ref* v2 = malloc(sizeof(nox_window_ref));
+	nox_window_ref* v2 = calloc(1, sizeof(nox_window_ref));
 	if (!v2) {
 		return -1;
 	}

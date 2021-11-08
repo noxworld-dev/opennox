@@ -2369,7 +2369,7 @@ int sub_520EA0(int a1) {
 
 	dword_5d4594_2487540 = 2 * *(uint32_t*)(a1 + 68) + 1;
 	dword_5d4594_2487536 = *(uint32_t*)(a1 + 68);
-	dword_5d4594_2487532 = malloc(4 * dword_5d4594_2487540);
+	dword_5d4594_2487532 = calloc(dword_5d4594_2487540, 4);
 	if (!dword_5d4594_2487532) {
 		return 0;
 	}
@@ -2377,7 +2377,7 @@ int sub_520EA0(int a1) {
 	v3 = 0;
 	if (dword_5d4594_2487540 > 0) {
 		do {
-			*(uint32_t*)(dword_5d4594_2487532 + 4 * v3) = malloc(20 * v2);
+			*(uint32_t*)(dword_5d4594_2487532 + 4 * v3) = calloc(v2, 20);
 			if (!*(uint32_t*)(dword_5d4594_2487532 + 4 * v3)) {
 				return 0;
 			}
@@ -2711,7 +2711,7 @@ int sub_5212B0(int a1, uint32_t* a2) {
 
 //----- (005213E0) --------------------------------------------------------
 int nox_xxx_mapgenAllocBuffer_5213E0() {
-	dword_5d4594_2487556 = malloc(0x2000u);
+	dword_5d4594_2487556 = calloc(1, 0x2000u);
 	return dword_5d4594_2487556 != 0;
 }
 

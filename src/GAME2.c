@@ -4618,7 +4618,7 @@ int sub_457140(int a1, wchar_t* a2) {
 
 	result = dword_5d4594_1045684;
 	if (dword_5d4594_1045684) {
-		v3 = (wchar_t*)malloc(0x48u);
+		v3 = (wchar_t*)calloc(1, 0x48u);
 		sub_425770(v3);
 		nox_common_list_append_4258E0((int)getMemAt(0x5D4594, 1045652), v3);
 		nox_wcscpy(v3 + 6, a2);

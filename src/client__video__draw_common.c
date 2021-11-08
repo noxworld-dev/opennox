@@ -826,7 +826,7 @@ bool nox_xxx_makeFillerColor_48BDE0() {
 //----- (0048C060) --------------------------------------------------------
 int sub_48C060() {
 	if (g_cursor_surf && g_cursor_surf_pixels) {
-		dword_5d4594_1193704 = malloc(512);
+		dword_5d4594_1193704 = calloc(1, 512);
 		if (!dword_5d4594_1193704) {
 			return 0;
 		}

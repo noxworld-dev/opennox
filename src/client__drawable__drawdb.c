@@ -603,7 +603,7 @@ int sub_42BF10() {
 		v1 = nox_get_things_count();
 	}
 	dword_5d4594_741680 = v1;
-	dword_5d4594_741676 = malloc(2 * v1);
+	dword_5d4594_741676 = calloc(v1, 2);
 	if (dword_5d4594_741676) {
 		sub_42BFB0();
 		return 1;
@@ -613,7 +613,7 @@ int sub_42BF10() {
 
 //----- (0044C840) --------------------------------------------------------
 void* nox_xxx_parseThingBinClient_44C840_read_things(void) {
-	char* scratch_buffer = (char*)malloc(256 * 1024);
+	char* scratch_buffer = calloc(256 * 1024, 1);
 	nox_xxx_spriteDefByAlphabetClear_44CCA0();
 	nox_things_free_44C580();
 	nox_things_count = 1;
@@ -696,7 +696,7 @@ void* nox_xxx_parseThingBinClient_44C840_read_things(void) {
 	} else {
 		nox_memfile_free(things);
 	}
-	void* result = malloc(sizeof(nox_thing*) * nox_things_count);
+	void* result = calloc(nox_things_count, sizeof(nox_thing*));
 	nox_things_array = result;
 	if (result) {
 		nox_xxx_spriteDefByAlphabetAlloc_44CCD0();
@@ -1031,7 +1031,7 @@ int nox_read_things_alternative_4E2B60(void) {
 	}
 	sub_4E3010();
 	dword_5d4594_1563664 = 0;
-	v1 = malloc(0x40000u);
+	v1 = calloc(1, 0x40000u);
 	v3 = v1;
 	v21 = v1;
 
@@ -1171,7 +1171,7 @@ int nox_read_things_alternative_4E2B60(void) {
 		return 0;
 	}
 	nox_xxx_protectUnitDefUpdateMB_4E3C20();
-	result = malloc(4 * *getMemU32Ptr(0x587000, 201384));
+	result = calloc(*getMemU32Ptr(0x587000, 201384), 4);
 	*getMemU32Ptr(0x5D4594, 1563456) = result;
 	if (!result) {
 		return 0;

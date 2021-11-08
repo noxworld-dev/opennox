@@ -1824,7 +1824,7 @@ int sub_557F60(int this, size_t a2) {
 	*(uint32_t*)(v2 + 1524) = v5;
 	*(uint32_t*)(v2 + 1532) = 0;
 	*(uint32_t*)(v2 + 1528) = 0;
-	v6 = malloc(v5);
+	v6 = calloc(1, v5);
 	*(uint32_t*)(v2 + 1536) = v6;
 	if (v6) {
 	LABEL_17:
@@ -2255,7 +2255,7 @@ uint32_t* sub_5589B0(int a1, int a2, uint32_t* lpMem, size_t a4) {
 
 	switch (a2) {
 	case 2:
-		result = malloc(a4);
+		result = calloc(1, a4);
 		break;
 	case 3:
 		free(lpMem);
@@ -9916,7 +9916,7 @@ void* sub_562770(int a1, int a2, void* lpMem, int a4) {
 
 	switch (a2) {
 	case 2:
-		result = malloc(a4);
+		result = calloc(1, a4);
 		break;
 	case 3:
 		free(lpMem);

@@ -45,7 +45,7 @@ nox_window* nox_gui_newScrollListBox_4A4310(int a1, int a2, int a3, int a4, int 
 			*(uint32_t*)(a7 + 16) = v8;
 		}
 		nox_gui_windowCopyDrawData_46AF80((int)v8, (const void*)a7);
-		v9 = malloc(524 * *a8);
+		v9 = calloc(*a8, 524);
 		*((uint32_t*)a8 + 6) = v9;
 		if (!v9) {
 			return 0;
@@ -63,7 +63,7 @@ nox_window* nox_gui_newScrollListBox_4A4310(int a1, int a2, int a3, int a4, int 
 		a8[22] = 0;
 		*((uint32_t*)a8 + 10) = 0;
 		if (v11) {
-			v12 = malloc(4 * *a8);
+			v12 = calloc(*a8, 4);
 			*((uint32_t*)a8 + 12) = v12;
 			if (!v12) {
 				free(*((void**)a8 + 6));
@@ -157,7 +157,7 @@ nox_window* nox_gui_newScrollListBox_4A4310(int a1, int a2, int a3, int a4, int 
 			*((uint32_t*)a8 + 9) =
 				nox_gui_newSlider_4B4EE0((int)v8, v17, a5 - v19, v22 + v23, v19, v10 - 2 * v23, v25, (float*)v24);
 		}
-		v20 = (short*)malloc(0x38u);
+		v20 = (short*)calloc(1, 0x38u);
 		memcpy(v20, a8, 0x38u);
 		v8[8] = v20;
 	}

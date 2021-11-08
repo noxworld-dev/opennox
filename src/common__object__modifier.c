@@ -15,7 +15,7 @@ int nox_xxx_parseWeapDescription_411B90(const char* a1, char* a2, obj_412ae0_t* 
 	const wchar_t* str1 =
 		nox_strman_loadString_40F1D0(stringName, 0, "C:\\NoxPost\\src\\common\\Object\\Modifier.c", 418);
 	const size_t str1len = nox_wcslen(str1);
-	obj->field_2 = malloc(2 * str1len + 2);
+	obj->field_2 = calloc(str1len + 1, 2);
 	if (!obj->field_2) {
 		return 0;
 	}
@@ -40,7 +40,7 @@ int nox_xxx_parseEnchDesc_412100_parse_desc(const char* a1, char* a2, obj_412ae0
 	const wchar_t* str1 =
 		nox_strman_loadString_40F1D0(stringName, 0, "C:\\NoxPost\\src\\common\\Object\\Modifier.c", 733);
 	const size_t str1len = nox_wcslen(str1);
-	obj->field_2 = malloc(2 * str1len + 2);
+	obj->field_2 = calloc(str1len + 1, 2);
 	if (!obj->field_2) {
 		return 0;
 	}
@@ -65,7 +65,7 @@ int nox_xxx_parseEnchDescSecondary_4121B0_parse_second_desc(const char* a1, char
 	const wchar_t* str1 =
 		nox_strman_loadString_40F1D0(stringName, 0, "C:\\NoxPost\\src\\common\\Object\\Modifier.c", 767);
 	const size_t str1len = nox_wcslen(str1);
-	obj->field_3 = malloc(2 * str1len + 2);
+	obj->field_3 = calloc(str1len + 1, 2);
 	if (!obj->field_3) {
 		return 0;
 	}
@@ -90,7 +90,7 @@ int nox_xxx_parseIdentifyDesc_412260_parse_ident_desc(const char* a1, char* a2, 
 	const wchar_t* str1 =
 		nox_strman_loadString_40F1D0(stringName, 0, "C:\\NoxPost\\src\\common\\Object\\Modifier.c", 801);
 	const size_t str1len = nox_wcslen(str1);
-	obj->field_4 = malloc(2 * str1len + 2);
+	obj->field_4 = calloc(str1len + 1, 2);
 	if (!obj->field_4) {
 		return 0;
 	}

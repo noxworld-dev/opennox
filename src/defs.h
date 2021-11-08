@@ -137,7 +137,7 @@ static void std___Xran() { abort(); }
 
 static void std___Xlen() { abort(); }
 
-static void* operator_new(size_t x) { return malloc(x); }
+static void* operator_new(size_t x) { return calloc(1, x); }
 
 static void operator_delete(void* x) { free(x); }
 

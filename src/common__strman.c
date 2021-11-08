@@ -94,7 +94,7 @@ const wchar_t* nox_strman_loadString_40F1D0(const char* name, char** strOut, con
 	const nox_string_entry* entry =
 		bsearch(fullStringName, string_entries, string_entries_cnt, sizeof(nox_string_entry), strcasecmp);
 	if (!entry) {
-		nox_missing_string* v12 = (nox_missing_string*)malloc(sizeof(nox_missing_string));
+		nox_missing_string* v12 = (nox_missing_string*)calloc(1, sizeof(nox_missing_string));
 		nox_swprintf(v12->data, L"MISSING:'%S'", fullStringName, srcFilename, srcLine);
 		v12->next = missing_strings;
 		missing_strings = v12;

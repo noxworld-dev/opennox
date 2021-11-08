@@ -51,7 +51,7 @@ void nox_xxx_netSendMap_5199F0_net_mapsend(unsigned char* a1) {
 			strcpy(&v19[8], (const char*)getMemAt(0x5D4594, 2387068));
 			nox_xxx_netSendSock_552640(*a1 + 1, v19, 88, NOX_NET_SEND_NO_LOCK | NOX_NET_SEND_FLAG2);
 		}
-		v3 = malloc(*((unsigned short*)a1 + 10) + 6);
+		v3 = calloc(1, *((unsigned short*)a1 + 10) + 6);
 		if (v3) {
 			v4 = *((unsigned short*)a1 + 10);
 			if ((unsigned short)v4 >= (unsigned int)(*((uint32_t*)a1 + 3) - *((uint32_t*)a1 + 6))) {
@@ -213,7 +213,7 @@ int nox_xxx_netMapSendPrepair_519EB0_net_mapsend() {
 		v1 = getMemAt(0x5D4594, 2387156);
 		do {
 			if (*((uint16_t*)v1 - 3) == 1) {
-				v2 = malloc(*(size_t*)getMemAt(0x5D4594, 2388644));
+				v2 = calloc(1, *(size_t*)getMemAt(0x5D4594, 2388644));
 				*(uint32_t*)v1 = v2;
 				if (v2) {
 					v3 = *(const void**)&dword_5d4594_2388640;
@@ -259,7 +259,7 @@ int nox_xxx_netMapSendPrepair_519EB0_net_mapsend() {
 	strcpy((char*)getMemAt(0x5D4594, 2386988), v12);
 	strcpy((char*)getMemAt(0x5D4594, 2387068), v11);
 	*getMemU32Ptr(0x5D4594, 2388644) = nox_fs_fsize(v8);
-	dword_5d4594_2388640 = malloc(*(size_t*)getMemAt(0x5D4594, 2388644));
+	dword_5d4594_2388640 = calloc(1, *(size_t*)getMemAt(0x5D4594, 2388644));
 	nox_binfile_fread2_40ADD0(*(char**)&dword_5d4594_2388640, 1u, *(size_t*)getMemAt(0x5D4594, 2388644), v8);
 	nox_fs_close(v8);
 	return 1;
