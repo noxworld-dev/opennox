@@ -26,15 +26,10 @@ var files struct {
 type File struct {
 	h unsafe.Pointer
 	*os.File
-	buf   *bufio.Reader
-	err   error
-	text  bool
-	bin   *Binfile
-	hooks struct {
-		onSeek  func(off int64, whence int)
-		onRead  func(n int)
-		onWrite func(p []byte)
-	}
+	buf  *bufio.Reader
+	err  error
+	text bool
+	bin  *Binfile
 }
 
 func (f *File) enableBuffer() {
@@ -69,9 +64,6 @@ func (f *File) Seek(off int64, whence int) (int64, error) {
 		f.buf = nil
 	}
 	n, err := f.File.Seek(off, whence)
-	if f.hooks.onSeek != nil {
-		f.hooks.onSeek(off, whence)
-	}
 	f.err = err
 	return n, err
 }
@@ -84,9 +76,6 @@ func (f *File) Read(p []byte) (int, error) {
 	}
 	n, err := f.File.Read(p)
 	f.err = err
-	if f.hooks.onRead != nil {
-		f.hooks.onRead(len(p))
-	}
 	return n, err
 }
 
@@ -96,9 +85,6 @@ func (f *File) Write(p []byte) (int, error) {
 	}
 	n, err := f.File.Write(p)
 	f.err = err
-	if f.hooks.onWrite != nil {
-		f.hooks.onWrite(p)
-	}
 	return n, err
 }
 
@@ -108,9 +94,6 @@ func (f *File) WriteString(p string) (int, error) {
 	}
 	n, err := f.File.WriteString(p)
 	f.err = err
-	if f.hooks.onWrite != nil {
-		f.hooks.onWrite([]byte(p))
-	}
 	return n, err
 }
 

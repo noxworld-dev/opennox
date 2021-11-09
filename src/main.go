@@ -15,7 +15,6 @@ package nox
 #include "common__object__armrlook.h"
 #include "common__object__weaplook.h"
 #include "common__log.h"
-#include "common__binfile.h"
 
 extern unsigned int dword_5d4594_805860;
 extern int nox_video_dxFullScreen;
@@ -335,7 +334,7 @@ func RunArgs(args []string) (gerr error) {
 	// C.fesetround(C.FE_TOWARDZERO)
 	C.nox_xxx_servSetPlrLimit_409F80(32)
 	*memmap.PtrUint32(0x852978, 16) = gameFPS() / 2
-	C.nox_binfile_reset_4093A0()
+	nox_binfile_reset_4093A0()
 	C.nox_ensure_thing_bin()
 	if err := nox_common_scanAllMaps_4D07F0(); err != nil {
 		return fmt.Errorf("cannot find maps: %w", err)
@@ -495,7 +494,7 @@ func cleanup() {
 	C.sub_40C0D0()
 	C.sub_40B740()
 	C.nox_common_maplist_free_4D0970()
-	C.nox_binfile_disable_409560()
+	nox_binfile_disable_409560()
 	C.sub_40AF30()
 	//C.sub_48B1B0() // does nothing on SDL
 	C.nox_free_thing_bin()
