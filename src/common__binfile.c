@@ -272,13 +272,31 @@ unsigned int dword_587000_3744[224] = {
 	0x61905335, 0xd0b528bb, 0x0792b7ba, 0x8209f630, 0x53d63bb7, 0x5104a539, 0xc70fe96a, 0x2b9ffcfe};
 
 //----- (00409370) --------------------------------------------------------
-int nox_binfile_lastErr_409370(FILE* f) { return -(nox_binfile_hasErr != 0); }
+#ifdef NOX_CGO
+bool nox_binfile_lastErr_409370_hook(FILE* file, int res);
+#endif // NOX_CGO
+int nox_binfile_lastErr_409370(FILE* f) {
+#ifdef NOX_CGO
+	if (!nox_binfile_lastErr_409370_hook(f, -(nox_binfile_hasErr != 0))) {
+		abort();
+	}
+#endif // NOX_CGO
+	return -(nox_binfile_hasErr != 0);
+}
 
 //----- (00409A60) --------------------------------------------------------
 int nox_binfile_cryptEnabled_409A60() { return nox_binfile_doCrypt; }
 
 //----- (00409390) --------------------------------------------------------
-int nox_binfile_ftell_426A50(FILE* f) { return nox_binfile_offs; }
+#ifdef NOX_CGO
+void nox_binfile_ftell_426A50_hook(FILE* file, int res);
+#endif // NOX_CGO
+int nox_binfile_ftell_426A50(FILE* f) {
+#ifdef NOX_CGO
+	nox_binfile_ftell_426A50_hook(f, nox_binfile_offs);
+#endif // NOX_CGO
+	return nox_binfile_offs;
+}
 
 //----- (004093A0) --------------------------------------------------------
 void nox_binfile_reset_4093A0() {
@@ -621,6 +639,7 @@ int nox_binfile_decodeBuf_4099C0(unsigned char* a1, signed int a2, unsigned char
 
 //----- (0040ADD0) --------------------------------------------------------
 #ifdef NOX_CGO
+void nox_binfile_fread_raw_40ADD0_hookStart(FILE* file);
 bool nox_binfile_fread_raw_40ADD0_hook(char* buf, int size, int count, FILE* file, int res);
 #endif // NOX_CGO
 int nox_binfile_fread_raw_40ADD0(char* buf, size_t size, size_t count, FILE* file) {
@@ -633,6 +652,9 @@ int nox_binfile_fread_raw_40ADD0(char* buf, size_t size, size_t count, FILE* fil
 		dword_5d4594_3612 = 0;
 		return 0;
 	}
+#ifdef NOX_CGO
+	nox_binfile_fread_raw_40ADD0_hookStart(file);
+#endif // NOX_CGO
 	unsigned int total = 0;
 	int result;
 	while (1) {
@@ -740,7 +762,14 @@ int nox_binfile_fread_408E40(char* a1, int a2, int a3, FILE* a4) {
 }
 
 //----- (00408FE0) --------------------------------------------------------
+#ifdef NOX_CGO
+void nox_binfile_fread_align_408FE0_hookStart(FILE* f);
+bool nox_binfile_fread_align_408FE0_hook(char* a1, int a2, int a3, FILE* a4, int res);
+#endif // NOX_CGO
 int nox_binfile_fread_align_408FE0(char* a1, int a2, int a3, FILE* a4) {
+#ifdef NOX_CGO
+	nox_binfile_fread_align_408FE0_hookStart(a4);
+#endif // NOX_CGO
 	signed int result; // eax
 	char v5[8];        // [esp+4h] [ebp-8h]
 
@@ -751,6 +780,9 @@ int nox_binfile_fread_align_408FE0(char* a1, int a2, int a3, FILE* a4) {
 	if (result == 1) {
 		memcpy(a1, v5, a3 * a2);
 	}
+#ifdef NOX_CGO
+	if (!nox_binfile_fread_align_408FE0_hook(a1, a2, a3, a4, result)) { abort(); }
+#endif // NOX_CGO
 	return result;
 }
 
@@ -925,7 +957,14 @@ size_t nox_binfile_fwrite_409200(char* a1, int a2, int a3, FILE* a4) {
 }
 
 //----- (00409520) --------------------------------------------------------
+#ifdef NOX_CGO
+void nox_binfile_skipLine_409520_hookStart(FILE* file);
+void nox_binfile_skipLine_409520_hook(FILE* file, int res);
+#endif // NOX_CGO
 int nox_binfile_skipLine_409520(FILE* f) {
+#ifdef NOX_CGO
+	nox_binfile_skipLine_409520_hookStart(f);
+#endif // NOX_CGO
 	int res; // eax
 	unsigned char v = 0;
 	do {
@@ -933,11 +972,21 @@ int nox_binfile_skipLine_409520(FILE* f) {
 		nox_binfile_fread_408E40(&v, 1, 1, f);
 		res = nox_binfile_lastErr_409370(f);
 	} while (res != -1 && v != 10);
+#ifdef NOX_CGO
+	nox_binfile_skipLine_409520_hook(f, res);
+#endif // NOX_CGO
 	return res;
 }
 
 //----- (00409190) --------------------------------------------------------
+#ifdef NOX_CGO
+void nox_binfile_writeIntAt_409190_hookStart(FILE* file);
+void nox_binfile_writeIntAt_409190_hook(FILE* file, int data, int file_offset);
+#endif // NOX_CGO
 void nox_binfile_writeIntAt_409190(FILE* file, int data, int file_offset) {
+#ifdef NOX_CGO
+	nox_binfile_writeIntAt_409190_hookStart(file);
+#endif // NOX_CGO
 	if (file_offset < 0) {
 		return;
 	}
@@ -954,4 +1003,7 @@ void nox_binfile_writeIntAt_409190(FILE* file, int data, int file_offset) {
 	nox_fs_fwrite(file, mangled_data, 8);
 
 	nox_fs_fseek_end(file, 0);
+#ifdef NOX_CGO
+	nox_binfile_writeIntAt_409190_hook(file, data, file_offset);
+#endif // NOX_CGO
 }

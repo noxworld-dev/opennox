@@ -7,6 +7,7 @@ package nox
 import "C"
 import (
 	"bytes"
+	"encoding/binary"
 	"encoding/hex"
 	"errors"
 	"fmt"
@@ -43,9 +44,11 @@ type binfileSkip struct {
 	seek    bool
 	fread   bool
 	fwrite  bool
+	tell    bool
 	read    bool
 	readRaw bool
 	write   bool
+	lasterr bool
 }
 
 type Binfile struct {
@@ -68,7 +71,7 @@ func (f *Binfile) assertSkip() {
 }
 
 func (f *Binfile) setSkip() {
-	f.noRawFrom = caller(2)
+	f.noRawFrom = caller(1)
 }
 
 func (f *Binfile) close() error {
@@ -429,6 +432,54 @@ func nox_binfile_close_408D90_hook(cfile *C.FILE, res C.int) {
 	}
 }
 
+//export nox_binfile_ftell_426A50_hook
+func nox_binfile_ftell_426A50_hook(cfile *C.FILE, res C.int) {
+	if !binFileGo {
+		return
+	}
+	file := fileByHandle(cfile)
+	bin := binFileByCFile[file]
+	if bin.noRaw.tell {
+		return
+	}
+	got := nox_binfile_ftell_426A50_test(newFileHandle(bin.file))
+	if res != got {
+		panic(fmt.Errorf("invalid response: %d vs %d", int(res), int(got)))
+	}
+}
+
+func nox_binfile_ftell_426A50_test(cfile *C.FILE) C.int {
+	file := fileByHandle(cfile)
+	off := file.bin.Written()
+	return C.int(off)
+}
+
+//export nox_binfile_lastErr_409370_hook
+func nox_binfile_lastErr_409370_hook(cfile *C.FILE, res C.int) C.bool {
+	if !binFileGo {
+		return true
+	}
+	file := fileByHandle(cfile)
+	bin := binFileByCFile[file]
+	if bin.noRaw.tell {
+		return true
+	}
+	got := nox_binfile_lastErr_409370_test(newFileHandle(bin.file))
+	if res != got {
+		binFileLog.Println(fmt.Errorf("invalid response: %d vs %d", int(res), int(got)))
+		return false
+	}
+	return true
+}
+
+func nox_binfile_lastErr_409370_test(cfile *C.FILE) C.int {
+	file := fileByHandle(cfile)
+	if file.err != nil {
+		return -1
+	}
+	return 0
+}
+
 func nox_binfile_cryptSet_408D40_test(cfile *C.FILE, ckey C.int) C.int {
 	file := fileByHandle(cfile)
 	bin := file.bin
@@ -491,7 +542,7 @@ func nox_binfile_fread_408E40_test(cbuf *C.char, sz, cnt C.int, cfile *C.FILE) C
 	bin := file.bin
 	buf := unsafe.Slice((*byte)(unsafe.Pointer(cbuf)), int(sz*cnt))
 	n, err := bin.Read(buf)
-	if err != nil && err != io.EOF {
+	if err != nil {
 		file.err = err
 	}
 	return C.int(n) / sz
@@ -567,6 +618,21 @@ func nox_binfile_fread_raw_40ADD0_test(cbuf *C.char, sz, cnt C.size_t, cfile *C.
 	return n
 }
 
+//export nox_binfile_fread_raw_40ADD0_hookStart
+func nox_binfile_fread_raw_40ADD0_hookStart(cfile *C.FILE) {
+	if !binFileGo {
+		return
+	}
+	file := fileByHandle(cfile)
+	bin := binFileByCFile[file]
+	if bin == nil || bin.noRaw.readRaw {
+		return
+	}
+	bin.assertSkip()
+	bin.noRaw.fread = true
+	bin.setSkip()
+}
+
 //export nox_binfile_fread_raw_40ADD0_hook
 func nox_binfile_fread_raw_40ADD0_hook(cbuf *C.char, a2, a3 C.int, cfile *C.FILE, res C.int) C.bool {
 	if !binFileGo {
@@ -577,6 +643,10 @@ func nox_binfile_fread_raw_40ADD0_hook(cbuf *C.char, a2, a3 C.int, cfile *C.FILE
 	if bin == nil || bin.noRaw.readRaw {
 		return true
 	}
+	defer func() {
+		bin.noRaw.fread = false
+		bin.assertSkip()
+	}()
 	buf := unsafe.Slice((*byte)(unsafe.Pointer(cbuf)), int(a2*a3))
 	buf = buf[:int(a2*res)]
 
@@ -588,6 +658,130 @@ func nox_binfile_fread_raw_40ADD0_hook(cbuf *C.char, a2, a3 C.int, cfile *C.FILE
 	buf2 = buf2[:a2*got]
 	checkEqualBytes(fmt.Sprintf("read(%s)", bin.flags()), file.Name(), bin.file.Name(), buf, buf2)
 	return true
+}
+
+//export nox_binfile_fread_align_408FE0_hookStart
+func nox_binfile_fread_align_408FE0_hookStart(cfile *C.FILE) {
+	if !binFileGo {
+		return
+	}
+	file := fileByHandle(cfile)
+	bin := binFileByCFile[file]
+	bin.assertSkip()
+	bin.noRaw.fread = true
+	bin.noRaw.read = true
+	bin.noRaw.readRaw = true
+	bin.setSkip()
+	filesCheckOffsets(file.File, bin.file.File)
+}
+
+//export nox_binfile_fread_align_408FE0_hook
+func nox_binfile_fread_align_408FE0_hook(cbuf *C.char, a2, a3 C.int, cfile *C.FILE, res C.int) C.bool {
+	if !binFileGo {
+		return true
+	}
+	file := fileByHandle(cfile)
+	bin := binFileByCFile[file]
+	defer func() {
+		bin.noRaw.fread = false
+		bin.noRaw.read = false
+		bin.noRaw.readRaw = false
+		bin.assertSkip()
+	}()
+
+	buf := unsafe.Slice((*byte)(unsafe.Pointer(cbuf)), int(a2*a3))
+	buf = buf[:int(a2*res)]
+	if binFileDebug {
+		if len(buf) != cap(buf) {
+			log.Printf("binfile: read-align(%s): %s [:%d:%d]", bin.flags(), file.Name(), len(buf), cap(buf))
+		} else {
+			log.Printf("binfile: read-align(%s): %s [:%d]", bin.flags(), file.Name(), len(buf))
+		}
+	}
+	buf2 := make([]byte, int(a2*a3))
+	got := nox_binfile_fread_align_408FE0_test((*C.char)(unsafe.Pointer(&buf2[0])), a2, a3, newFileHandle(bin.file))
+	if res != got {
+		panic(fmt.Errorf("invalid response: %d vs %d", int(res), int(got)))
+	}
+	buf2 = buf2[:a2*got]
+	checkEqualBytes(fmt.Sprintf("read-align(%s)", bin.flags()), file.Name(), bin.file.Name(), buf, buf2)
+	return true
+}
+
+func nox_binfile_fread_align_408FE0_test(cbuf *C.char, sz, cnt C.int, cfile *C.FILE) C.int {
+	file := fileByHandle(cfile)
+	bin := file.bin
+	buf := unsafe.Slice((*byte)(unsafe.Pointer(cbuf)), int(sz*cnt))
+	var (
+		n   int
+		err error
+	)
+	if bin.read != nil {
+		n, err = bin.read.ReadAligned(buf)
+	} else if bin.full != nil {
+		n, err = bin.full.ReadAligned(buf)
+	} else {
+		return -1
+	}
+	if err != nil {
+		file.err = err
+	}
+	return C.int(n) / sz
+}
+
+//export nox_binfile_skipLine_409520_hookStart
+func nox_binfile_skipLine_409520_hookStart(cfile *C.FILE) {
+	if !binFileGo {
+		return
+	}
+	file := fileByHandle(cfile)
+	bin := binFileByCFile[file]
+	bin.assertSkip()
+	bin.noRaw.fread = true
+	bin.noRaw.read = true
+	bin.noRaw.readRaw = true
+	bin.noRaw.lasterr = true
+	bin.setSkip()
+	filesCheckOffsets(file.File, bin.file.File)
+}
+
+//export nox_binfile_skipLine_409520_hook
+func nox_binfile_skipLine_409520_hook(cfile *C.FILE, res C.int) {
+	if !binFileGo {
+		return
+	}
+	file := fileByHandle(cfile)
+	bin := binFileByCFile[file]
+	defer func() {
+		bin.noRaw.fread = false
+		bin.noRaw.read = false
+		bin.noRaw.readRaw = false
+		bin.noRaw.lasterr = false
+		bin.assertSkip()
+	}()
+	got := nox_binfile_skipLine_409520_test(newFileHandle(bin.file))
+	if res != got {
+		panic(fmt.Errorf("invalid response: %d vs %d", int(res), int(got)))
+	}
+	filesCheckOffsets(file.File, bin.file.File)
+}
+
+func nox_binfile_skipLine_409520_test(cfile *C.FILE) C.int {
+	file := fileByHandle(cfile)
+	bin := file.bin
+	var buf [1]byte
+	for {
+		_, err := bin.Read(buf[:])
+		if err == io.EOF {
+			break
+		} else if err != nil {
+			return -1
+		}
+		if buf[0] != '\n' {
+			break
+		}
+	}
+	return 0
 }
 
 func nox_binfile_fseek_409050_test(cfile *C.FILE, coff, cwhence C.int) C.int {
@@ -801,4 +995,45 @@ func nox_binfile_fwrite_409200_hook(cbuf *C.char, a2, a3 C.int, cfile *C.FILE, b
 	if boff := bin.Written(); boff != int64(binoff) {
 		panic(fmt.Errorf("bin offset is different: %d vs %d", boff, int64(binoff)))
 	}
+}
+
+//export nox_binfile_writeIntAt_409190_hookStart
+func nox_binfile_writeIntAt_409190_hookStart(cfile *C.FILE) {
+	if !binFileGo {
+		return
+	}
+	file := fileByHandle(cfile)
+	bin := binFileByCFile[file]
+	bin.assertSkip()
+	bin.noRaw.fseek = true
+	bin.noRaw.fwrite = true
+	bin.setSkip()
+}
+
+//export nox_binfile_writeIntAt_409190_hook
+func nox_binfile_writeIntAt_409190_hook(cfile *C.FILE, cval, coff C.int) {
+	if !binFileGo {
+		return
+	}
+	file := fileByHandle(cfile)
+	bin := binFileByCFile[file]
+	defer func() {
+		bin.noRaw.fseek = false
+		bin.noRaw.fwrite = false
+		bin.assertSkip()
+	}()
+	nox_binfile_writeIntAt_409190_test(newFileHandle(bin.file), cval, coff)
+	checkEqualContent(fmt.Sprintf("writeIntAt(%s)", bin.flags()), file.File, bin.file.File)
+}
+
+func nox_binfile_writeIntAt_409190_test(cfile *C.FILE, cval, coff C.int) {
+	if coff < 0 {
+		return
+	}
+	file := fileByHandle(cfile)
+	var buf [crypt.Block]byte
+	binary.LittleEndian.PutUint32(buf[0:], uint32(cval))
+	crypt.Encode(buf[:], file.bin.key)
+	file.WriteAt(buf[:], int64(coff))
+	file.Seek(0, io.SeekEnd)
 }
