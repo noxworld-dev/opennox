@@ -8117,26 +8117,26 @@ unsigned int nox_xxx_gameSetSoloSavePath_4DB270(const char* a1) {
 }
 
 //----- (004DB2A0) --------------------------------------------------------
-char* nox_xxx_cliCheckMapExists_4DB2A0(const char* a1) {
+char* nox_client_checkSaveMapExistsTmp_4DB2A0(char* a1) {
 	char* v1;      // eax
 	char* v2;      // eax
 	char v4[24];   // [esp+4h] [ebp-418h]
 	char v5[1024]; // [esp+1Ch] [ebp-400h]
 
 	strcpy(v5, a1);
-	v1 = strrchr(v5, 58);
+	v1 = strrchr(v5, ':');
 	if (v1) {
 		*v1 = 0;
 	}
 	strcpy(&v4[4], v5);
 	v4[strlen(v5)] = 0;
 	v2 = nox_fs_root();
-	nox_sprintf((char*)getMemAt(0x5D4594, 1558936), "%s\\Save\\%s\\%s\\%s", v2, getMemAt(0x587000, 199148), &v4[4], v5);
+	nox_sprintf((char*)getMemAt(0x5D4594, 1558936), "%s\\Save\\%s\\%s\\%s", v2, "WORKING", &v4[4], v5);
 	return _access((const char*)getMemAt(0x5D4594, 1558936), 0) != -1 ? getMemAt(0x5D4594, 1558936) : 0;
 }
 
 //----- (004DB540) --------------------------------------------------------
-int nox_xxx_saveMakeFolder_4DB540(char* saveName) {
+bool nox_client_makeSaveDir_4DB540(char* saveName) {
 	char PathName[1024]; // [esp+0h] [ebp-400h]
 	nox_sprintf(PathName, "%s\\Save\\%s", nox_fs_root(), saveName);
 	return nox_fs_mkdir(PathName);
@@ -8253,7 +8253,7 @@ void nox_savegame_rm_4DBE10(char* saveName, int rmDir) {
 // 4DBE10: using guessed type char var_24000[16384];
 
 //----- (004DC100) --------------------------------------------------------
-int sub_4DC100(int a1, char* saveName) {
+int nox_client_copySave_4DC100(char* from, char* saveName) {
 	int result;                            // eax
 	int v5;                                // ebp
 	HANDLE v6;                             // ebx
@@ -8276,29 +8276,29 @@ int sub_4DC100(int a1, char* saveName) {
 	int v23;                               // [esp+1Ch] [ebp-25148h]
 	int v24;                               // [esp+20h] [ebp-25144h]
 	struct _WIN32_FIND_DATAA FindFileData; // [esp+24h] [ebp-25140h]
-	char PathName[1024];                   // [esp+164h] [ebp-25000h]
-	char NewFileName[1024];                // [esp+564h] [ebp-24C00h]
-	char ExistingFileName[1024];           // [esp+964h] [ebp-24800h]
-	char v29[1024];                        // [esp+D64h] [ebp-24400h]
+	char fromDir[1024];                   // [esp+164h] [ebp-25000h]
+	char toFile[1024];                // [esp+564h] [ebp-24C00h]
+	char fromFile[1024];           // [esp+964h] [ebp-24800h]
+	char toDir[1024];                        // [esp+D64h] [ebp-24400h]
 	char v30[16384];                       // [esp+1164h] [ebp-24000h]
 	char v31[131072];                      // [esp+5164h] [ebp-20000h]
 
 	v24 = 1;
-	nox_sprintf(&PathName, "%s\\Save\\%s", nox_fs_root(), a1);
-	nox_sprintf(&v29, "%s\\Save\\%s", nox_fs_root(), saveName);
-	if (!nox_xxx_saveMakeFolder_4DB540(saveName)) {
+	nox_sprintf(&fromDir, "%s\\Save\\%s", nox_fs_root(), from);
+	nox_sprintf(&toDir, "%s\\Save\\%s", nox_fs_root(), saveName);
+	if (!nox_client_makeSaveDir_4DB540(saveName)) {
 		return 0;
 	}
 	nox_savegame_rm_4DBE10(saveName, 0);
-	nox_sprintf(&ExistingFileName, "%s\\Player.plr", &PathName);
-	nox_sprintf(&NewFileName, "%s\\Player.plr", &v29);
-	result = nox_fs_copy(&ExistingFileName, &NewFileName);
+	nox_sprintf(&fromFile, "%s\\Player.plr", &fromDir);
+	nox_sprintf(&toFile, "%s\\Player.plr", &toDir);
+	result = nox_fs_copy(&fromFile, &toFile);
 	if (result) {
-		result = nox_fs_set_workdir(&PathName);
+		result = nox_fs_set_workdir(&fromDir);
 		if (result) {
 			v5 = 0;
 			v21 = 0;
-			v6 = FindFirstFileA((const char*)getMemAt(0x587000, 199764), &FindFileData);
+			v6 = FindFirstFileA("*", &FindFileData);
 			hFindFile = v6;
 			if (v6 == (HANDLE)-1) {
 				goto LABEL_48;
@@ -8326,7 +8326,7 @@ int sub_4DC100(int a1, char* saveName) {
 			result = FindClose(v6);
 			if (result) {
 			LABEL_48:
-				result = nox_fs_set_workdir(&v29);
+				result = nox_fs_set_workdir(&toDir);
 				if (result) {
 					v9 = 0;
 					if (v5 > 0) {
@@ -8341,7 +8341,7 @@ int sub_4DC100(int a1, char* saveName) {
 						return 0;
 					}
 				LABEL_24:
-					result = nox_fs_set_workdir(&PathName);
+					result = nox_fs_set_workdir(&fromDir);
 					if (result) {
 						v23 = 0;
 						if (v5 > 0) {
@@ -8349,7 +8349,7 @@ int sub_4DC100(int a1, char* saveName) {
 							v22 = v31;
 							while (nox_fs_set_workdir(v11)) {
 								v12 = 0;
-								v13 = FindFirstFileA((const char*)getMemAt(0x587000, 199784), &FindFileData);
+								v13 = FindFirstFileA("*", &FindFileData);
 								hFindFilea = v13;
 								if (v13 != (HANDLE)-1) {
 									if (!(FindFileData.dwFileAttributes & 0x10)) {
@@ -8376,9 +8376,9 @@ int sub_4DC100(int a1, char* saveName) {
 									if (v12 > 0) {
 										v16 = v30;
 										do {
-											nox_sprintf(&ExistingFileName, "%s\\%s\\%s", &PathName, v11, v16);
-											nox_sprintf(&NewFileName, "%s\\%s\\%s", &v29, v11, v16);
-											if (!nox_fs_copy(&ExistingFileName, &NewFileName)) {
+											nox_sprintf(&fromFile, "%s\\%s\\%s", &fromDir, v11, v16);
+											nox_sprintf(&toFile, "%s\\%s\\%s", &toDir, v11, v16);
+											if (!nox_fs_copy(&fromFile, &toFile)) {
 												v24 = 0;
 											}
 											v16 += 1024;
@@ -8415,7 +8415,7 @@ int sub_4DC100(int a1, char* saveName) {
 // 4DC100: using guessed type char var_24000[16384];
 
 //----- (004DC550) --------------------------------------------------------
-int sub_4DC550() {
+int nox_client_countSaveFiles_4DC550() {
 	int v0;              // ebx
 	char* v1;            // edi
 	char* v5;            // eax
@@ -8447,7 +8447,7 @@ int sub_4DC550() {
 // 4DC550: using guessed type char PathName[1024];
 
 //----- (004DC630) --------------------------------------------------------
-int sub_4DC630() {
+int nox_client_countPlayerFiles02_4DC630() {
 	int v0;                                // ebp
 	char* v1;                              // edi
 	HANDLE v5;                             // esi
@@ -8491,7 +8491,7 @@ int sub_4DC630() {
 // 4DC630: using guessed type char PathName[1024];
 
 //----- (004DC7D0) --------------------------------------------------------
-int sub_4DC7D0() {
+int nox_client_countPlayerFiles04_4DC7D0() {
 	int v0;                                // ebp
 	char* v1;                              // edi
 	HANDLE v5;                             // esi
@@ -8508,7 +8508,7 @@ int sub_4DC7D0() {
 	strcpy(v11, PathName);
 	nox_fs_mkdir(PathName);
 	nox_fs_set_workdir(PathName);
-	v5 = FindFirstFileA((const char*)getMemAt(0x587000, 199920), &FindFileData);
+	v5 = FindFirstFileA("*.plr", &FindFileData);
 	if (v5 != (HANDLE)-1) {
 		if (!(FindFileData.dwFileAttributes & 0x10)) {
 			nox_sprintf(PathName, "%s%s", v11, FindFileData.cFileName);

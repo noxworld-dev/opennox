@@ -110,9 +110,9 @@ extern uint32_t nox_xxx_mapDownloadOK_587000_173332;
 extern uint32_t dword_5d4594_1312472;
 extern uint32_t nox_server_connectionType_3596;
 extern uint32_t nox_win_onlineOrLAN_1309716;
-extern uint32_t dword_5d4594_1307768;
+extern void* dword_5d4594_1307768;
 extern uint32_t dword_5d4594_1313792;
-extern uint32_t dword_5d4594_1307744;
+extern void* dword_5d4594_1307744;
 extern void* dword_587000_122852;
 extern uint32_t dword_5d4594_1309828;
 extern uint32_t dword_5d4594_1309836;
@@ -134,7 +134,7 @@ void* nox_video_getImagePixdata_func(nox_video_bag_image_t*);
 #endif // NOX_CGO
 extern uint32_t dword_5d4594_2618912;
 extern uint32_t dword_5d4594_3798640;
-extern uint32_t dword_5d4594_1307776;
+extern void* dword_5d4594_1307776;
 extern uint32_t dword_5d4594_1309748;
 extern uint32_t dword_5d4594_1311148;
 extern uint32_t dword_5d4594_1313796;
@@ -142,7 +142,7 @@ extern uint32_t dword_5d4594_1313800;
 extern uint32_t dword_5d4594_1309720;
 extern uint32_t dword_5d4594_1311144;
 extern uint32_t dword_5d4594_3798636;
-extern uint32_t dword_5d4594_1307764;
+extern void* dword_5d4594_1307764;
 extern uint32_t dword_5d4594_3798696;
 extern uint32_t nox_client_gui_flag_815132;
 extern uint32_t dword_5d4594_1307780;
@@ -1708,7 +1708,7 @@ int sub_4A50D0() {
 
 	v0 = nox_wnd_xxx_1307748->field_13;
 	nox_gui_freeAnimation_43C570(nox_wnd_xxx_1307748);
-	nox_xxx_windowDestroyMB_46C4E0(*(uint32_t**)&dword_5d4594_1307764);
+	nox_xxx_windowDestroyMB_46C4E0(dword_5d4594_1307764);
 	if (v0) {
 		v0();
 		return 1;
@@ -1770,9 +1770,9 @@ int sub_4A5C70() {
 		nox_fs_remove(
 			(const char*)(dword_5d4594_1307780 + sizeof(nox_savegame_xxx) * *getMemU32Ptr(0x5D4594, 1307772) + 4));
 	}
-	nox_window_call_field_94(*(int*)&dword_5d4594_1307744, 16399, 0, 0);
-	nox_window_call_field_94(*(int*)&dword_5d4594_1307776, 16399, 0, 0);
-	nox_window_call_field_94(*(int*)&dword_5d4594_1307768, 16399, 0, 0);
+	nox_window_call_field_94(dword_5d4594_1307744, 16399, 0, 0);
+	nox_window_call_field_94(dword_5d4594_1307776, 16399, 0, 0);
+	nox_window_call_field_94(dword_5d4594_1307768, 16399, 0, 0);
 	return nox_xxx_findAutosaves_4A5150();
 }
 

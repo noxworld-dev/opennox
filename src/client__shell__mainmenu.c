@@ -188,7 +188,7 @@ int nox_xxx_windowMainMenuProc_4A1DC0(int a1, int a2, int* a3, int a4) {
 						nox_client_gui_flag_815132 = 0;
 						return 0;
 					}
-					if (sub_4DC550()) {
+					if (nox_client_countSaveFiles_4DC550()) {
 						sub_4A7A70(1);
 						nox_wnd_xxx_1307308->field_13 = nox_game_showSelChar_4A4DB0;
 					} else {

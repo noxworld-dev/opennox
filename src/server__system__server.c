@@ -2819,7 +2819,7 @@ void nox_xxx_gameTick_4D2580_server_D() {
 		}
 	} else if (v28) {
 		char* v30 = *(char**)(v28 + 700);
-		const char* v31 = (const char*)nox_xxx_cliCheckMapExists_4DB2A0(*(const char**)(v28 + 700));
+		const char* v31 = (const char*)nox_client_checkSaveMapExistsTmp_4DB2A0(*(const char**)(v28 + 700));
 		if (v31) {
 			nox_xxx_gameSetSwitchSolo_4DB220(1);
 			nox_xxx_gameSetNoMPFlag_4DB230(1);

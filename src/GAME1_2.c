@@ -6912,12 +6912,12 @@ int sub_439D90(unsigned int a1, unsigned int a2) {
 			nox_xxx_setQuest_4D6F60(1);
 		}
 		if (nox_xxx_isQuest_4D6F50()) {
-			if (sub_4DC7D0()) {
+			if (nox_client_countPlayerFiles04_4DC7D0()) {
 				sub_4A7A70(1);
 				nox_game_showSelChar_4A4DB0();
 				return nox_client_setCursorType_477610(0);
 			}
-		} else if (sub_4DC630()) {
+		} else if (nox_client_countPlayerFiles02_4DC630()) {
 			sub_4A7A70(1);
 			nox_game_showSelChar_4A4DB0();
 			return nox_client_setCursorType_477610(0);

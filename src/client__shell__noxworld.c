@@ -1067,14 +1067,14 @@ int nox_xxx_windowMultiplayerSub_439E70(int a1, unsigned int a2, int* a3, int a4
 	}
 	sub_43B460();
 	if (sub_4D6F70()) {
-		if (sub_4DC7D0()) {
+		if (nox_client_countPlayerFiles04_4DC7D0()) {
 			sub_4A7A70(1);
 			nox_game_showSelChar_4A4DB0();
 			dword_5d4594_815044 = 1;
 			sub_4A2890();
 			return 0;
 		}
-	} else if (sub_4DC630()) {
+	} else if (nox_client_countPlayerFiles02_4DC630()) {
 		sub_4A7A70(1);
 		nox_game_showSelChar_4A4DB0();
 		dword_5d4594_815044 = 1;
