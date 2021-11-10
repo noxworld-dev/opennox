@@ -258,20 +258,23 @@ func nox_xxx_cryptXorDst(key byte, src, dst []byte) {
 	if len(src) == 0 || len(dst) == 0 {
 		return
 	}
-	if noxNetNoXor {
-		copy(dst, src)
-		return
-	}
 	netCryptDst(key, src, dst)
 }
 
 func netCryptXor(key byte, p []byte) {
+	if len(p) == 0 || noxNetNoXor {
+		return
+	}
 	for i := range p {
 		p[i] ^= key
 	}
 }
 
 func netCryptDst(key byte, src, dst []byte) {
+	if noxNetNoXor {
+		copy(dst, src)
+		return
+	}
 	for i := range src {
 		dst[i] = key ^ src[i]
 	}

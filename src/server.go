@@ -524,33 +524,35 @@ func nox_server_loadMapFile_4CF5F0(a1 string, a2 int) bool {
 	}
 	v8 := getServerMap()
 	C.nox_common_checkMapFile_4CFE10(internCStr(v8))
-	var v9 C.int
+	var err error
 	if a2 != 0 {
-		v9 = C.nox_xxx_cryptOpen_426910(internCStr(fname), 1, -1)
+		err = cryptFileOpen(fname, 1, -1)
 	} else {
-		v9 = C.nox_xxx_cryptOpen_426910(internCStr(fname), 1, crypt.MapKey)
+		err = cryptFileOpen(fname, 1, crypt.MapKey)
 	}
-	if v9 == 0 {
+	if err != nil {
+		binFileLog.Println(err)
 		return false
 	}
-	var magic uint32
-	C.nox_xxx_fileReadWrite_426AC0_file3_fread((*C.uchar)(unsafe.Pointer(&magic)), 4)
+	var hdr [4]byte
+	cryptFileReadWrite(hdr[:4])
+	magic := binary.LittleEndian.Uint32(hdr[:])
 	if magic == 0xFADEBEEF {
 		C.nox_xxx_mapSetCrcMB_409B10(0)
 	} else {
 		if magic != 0xFADEFACE {
-			C.nox_xxx_cryptClose_4269F0()
+			nox_xxx_cryptClose_4269F0()
 			return false
 		}
-		var crc uint32
-		C.nox_xxx_fileCryptReadCrcMB_426C20((*C.uchar)(unsafe.Pointer(&crc)), 4)
+		cryptFileReadMaybeAlign(hdr[:4])
+		crc := binary.LittleEndian.Uint32(hdr[:])
 		C.nox_xxx_mapSetCrcMB_409B10(C.int(crc))
 	}
 	if C.nox_xxx_serverParseEntireMap_4CFCE0() == 0 {
 		return false
 	}
 	C.nox_xxx_scriptRunFirst_507290()
-	C.nox_xxx_cryptClose_4269F0()
+	nox_xxx_cryptClose_4269F0()
 	if !noxflags.HasGame(0x200000) {
 		C.nox_xxx_mapReadSetFlags_4CF990()
 		if C.nox_xxx_check_flag_aaa_43AF70() == 1 {

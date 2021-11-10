@@ -1,3 +1,5 @@
+//+build none
+
 #include <stdlib.h>
 #include <string.h>
 
@@ -15,7 +17,6 @@ int dword_5d4594_740004 = 0;
 int dword_5d4594_740072 = 0;
 
 //----- (0056FDD0) --------------------------------------------------------
-#ifndef NOX_CGO
 void nox_xxx_cryptXor_56FDD0(char key, unsigned char* p, int n) {
 	if (!p) {
 		return;
@@ -34,7 +35,6 @@ void nox_xxx_cryptXorDst_56FE00(char key, unsigned char* src, int n, unsigned ch
 		dst[i] = key ^ src[i];
 	}
 }
-#endif // NOX_CGO
 
 //----- (00426A40) --------------------------------------------------------
 int nox_xxx_cryptGet_426A40() { return dword_5d4594_740000; }

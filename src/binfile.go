@@ -8,6 +8,7 @@ import "C"
 import (
 	"encoding/binary"
 	"errors"
+	"fmt"
 	"io"
 	"os"
 	"unsafe"
@@ -36,6 +37,11 @@ type Binfile struct {
 	write *crypt.Writer
 	read  *crypt.Reader
 	full  *crypt.File
+}
+
+func (f *Binfile) Close() error {
+	// it will call Binfile.close
+	return f.file.Close()
 }
 
 func (f *Binfile) close() error {
@@ -108,10 +114,113 @@ func (f *Binfile) flags() string {
 	return ""
 }
 
+func (f *Binfile) SetKey(key int) error {
+	if f == nil {
+		return errors.New("nil file")
+	}
+	f.key = key
+	if f.key < 0 {
+		f.close()
+		return nil
+	}
+	switch f.mode {
+	case BinFileRO:
+		cr, err := crypt.NewReader(f.file, f.key)
+		if err != nil {
+			return err
+		}
+		f.read = cr
+	case BinFileWO:
+		cw, err := crypt.NewWriter(f.file, f.key)
+		if err != nil {
+			return err
+		}
+		cw.NoZero = true
+		f.write = cw
+	case BinFileRW:
+		cf, err := crypt.NewFile(f.file, f.key)
+		if err != nil {
+			return err
+		}
+		f.full = cf
+	default:
+		return fmt.Errorf("unsupported file mode: %d", f.mode)
+	}
+	return nil
+}
+
+func (f *Binfile) FileSeek(off int64, whence int) error {
+	if f.mode != BinFileRO {
+		// this is what nox_binfile_fseek_409050 does for some reason
+		if off != 0 {
+			return nil
+		}
+		// same, for some reason it resets the writer to the end
+		whence = io.SeekEnd
+	}
+	_, err := f.Seek(off, whence)
+	if err == io.EOF {
+		err = nil
+	}
+	return err
+}
+
+func (f *Binfile) ReadAligned(buf []byte) (int, error) {
+	if f.read != nil {
+		return f.read.ReadAligned(buf)
+	} else if f.full != nil {
+		return f.full.ReadAligned(buf)
+	}
+	return 0, errors.New("cannot read on writer")
+}
+func (f *Binfile) FileFlush() (int64, error) {
+	var flusher interface {
+		WriteEmpty() error
+		Flush() error
+	}
+	if f.write != nil {
+		flusher = f.write
+	} else if f.full != nil {
+		flusher = f.full
+	}
+	err := flusher.Flush()
+	res := f.Written()
+	if err != nil {
+		f.file.err = err
+		return res, err
+	}
+	err = flusher.WriteEmpty()
+	if err != nil {
+		f.file.err = err
+	}
+	return res, err
+}
+
+func (f *Binfile) WriteUint32At(v int32, off int64) error {
+	if off < 0 {
+		return nil
+	}
+	var buf [crypt.Block]byte
+	binary.LittleEndian.PutUint32(buf[0:], uint32(v))
+	crypt.Encode(buf[:], f.key)
+	_, err := f.file.WriteAt(buf[:], off)
+	f.file.Seek(0, io.SeekEnd)
+	return err
+}
+
 //export nox_binfile_open_408CC0
 func nox_binfile_open_408CC0(cpath *C.char, cmode C.int) *C.FILE {
-	path := GoString(cpath)
-	mode := BinFileMode(cmode)
+	file, err := BinfileOpen(GoString(cpath), BinFileMode(cmode))
+	if os.IsNotExist(err) {
+		return nil
+	} else if err != nil {
+		binFileLog.Println(err)
+		return nil
+	}
+	return newFileHandle(file.file)
+}
+
+func BinfileOpen(path string, mode BinFileMode) (*Binfile, error) {
 	var (
 		f   *os.File
 		err error
@@ -124,19 +233,15 @@ func nox_binfile_open_408CC0(cpath *C.char, cmode C.int) *C.FILE {
 	case BinFileRW:
 		f, err = fs.OpenFile(path, os.O_RDWR)
 	default:
-		binFileLog.Println("invalid mode:", int(cmode))
-		return nil
+		return nil, fmt.Errorf("invalid mode: %d", mode)
 	}
-	if os.IsNotExist(err) {
-		return nil
-	} else if err != nil {
-		binFileLog.Println(err)
-		return nil
+	if err != nil {
+		return nil, err
 	}
 	file := &File{File: f}
 	bin := &Binfile{file: file, mode: mode}
 	file.bin = bin
-	return newFileHandle(file)
+	return bin, nil
 }
 
 //export nox_binfile_close_408D90
@@ -166,39 +271,9 @@ func nox_binfile_lastErr_409370(cfile *C.FILE) C.int {
 func nox_binfile_cryptSet_408D40(cfile *C.FILE, ckey C.int) C.int {
 	file := fileByHandle(cfile)
 	bin := file.bin
-	if bin == nil {
-		binFileLog.Println("crypt not enabled on this file")
-		return 0
-	}
-	bin.key = int(ckey)
-	if bin.key < 0 {
-		bin.close()
-		return 1
-	}
-	switch bin.mode {
-	case BinFileRO:
-		cr, err := crypt.NewReader(bin.file, bin.key)
-		if err != nil {
-			binFileLog.Println(err)
-			return 0
-		}
-		bin.read = cr
-	case BinFileWO:
-		cw, err := crypt.NewWriter(bin.file, bin.key)
-		if err != nil {
-			binFileLog.Println(err)
-			return 0
-		}
-		cw.NoZero = true
-		bin.write = cw
-	case BinFileRW:
-		cf, err := crypt.NewFile(bin.file, bin.key)
-		if err != nil {
-			panic(err)
-		}
-		bin.full = cf
-	default:
-		binFileLog.Println("unsupported file mode:", bin.mode)
+	err := bin.SetKey(int(ckey))
+	if err != nil {
+		binFileLog.Println(err)
 		return 0
 	}
 	return 1
@@ -279,19 +354,7 @@ func nox_binfile_skipLine_409520(cfile *C.FILE) C.int {
 func nox_binfile_fseek_409050(cfile *C.FILE, coff, cwhence C.int) C.int {
 	file := fileByHandle(cfile)
 	bin := file.bin
-	off1, whence := int64(coff), convWhence(cwhence)
-	if bin.mode != BinFileRO {
-		// this is what nox_binfile_fseek_409050 does for some reason
-		if off1 != 0 {
-			return 0
-		}
-		// same, for some reason it resets the writer to the end
-		whence = io.SeekEnd
-	}
-	_, err := bin.Seek(off1, whence)
-	if err == io.EOF {
-		err = nil
-	}
+	err := bin.FileSeek(int64(coff), convWhence(cwhence))
 	if err != nil {
 		binFileLog.Println(err)
 	}
@@ -308,25 +371,9 @@ func nox_binfile_reset_4093A0() {}
 func nox_binfile_fflush_409110(cfile *C.FILE) C.int {
 	file := fileByHandle(cfile)
 	bin := file.bin
-	var flusher interface {
-		WriteEmpty() error
-		Flush() error
-	}
-	if bin.write != nil {
-		flusher = bin.write
-	} else if bin.full != nil {
-		flusher = bin.full
-	}
-	err := flusher.Flush()
+	res, err := bin.FileFlush()
 	if err != nil {
 		binFileLog.Println(err)
-		file.err = err
-	}
-	res := bin.Written()
-	err = flusher.WriteEmpty()
-	if err != nil {
-		binFileLog.Println(err)
-		file.err = err
 	}
 	return C.int(res)
 }
@@ -352,9 +399,5 @@ func nox_binfile_writeIntAt_409190(cfile *C.FILE, cval, coff C.int) {
 		return
 	}
 	file := fileByHandle(cfile)
-	var buf [crypt.Block]byte
-	binary.LittleEndian.PutUint32(buf[0:], uint32(cval))
-	crypt.Encode(buf[:], file.bin.key)
-	file.WriteAt(buf[:], int64(coff))
-	file.Seek(0, io.SeekEnd)
+	file.bin.WriteUint32At(int32(cval), int64(coff))
 }
