@@ -86,6 +86,7 @@ import (
 	"github.com/noxworld-dev/xwis"
 
 	"nox/v1/client/system/parsecmd"
+	"nox/v1/common"
 	"nox/v1/common/alloc"
 	"nox/v1/common/discover"
 	"nox/v1/common/env"
@@ -1190,7 +1191,7 @@ func nox_xxx_mapExitAndCheckNext_4D1860_server() bool {
 		nox_server_questMapNextLevel()
 	}
 	if noxflags.HasGame(2048) && C.nox_xxx_mapLoadRequired_4DCC80() == 0 {
-		C.sub_4DB130(internCStr("AUTOSAVE"))
+		C.sub_4DB130(internCStr(common.SaveAuto))
 		C.sub_4DB170(1, 0, 30)
 	}
 	nox_xxx_mapLoadOrSaveMB_4DCC70(0)

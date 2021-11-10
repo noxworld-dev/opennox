@@ -60,6 +60,14 @@ func Maps(path ...string) string {
 	return filepath.Join(args...)
 }
 
+// Save returns the current Nox save dir. If additional args are provided, it will joined with the save dir.
+func Save(path ...string) string {
+	args := make([]string, 0, 2+len(path))
+	args = append(args, get(), common.SaveDir)
+	args = append(args, path...)
+	return filepath.Join(args...)
+}
+
 // Set the Nox data dir.
 func Set(dir string) {
 	if abs, err := filepath.Abs(dir); err == nil {

@@ -470,7 +470,7 @@ func nox_xxx_servEndSession_4D3200() {
 	}
 	C.sub_56F3B0()
 	C.nox_netlist_resetAll_40EE60()
-	_ = fs.Remove(datapath.Path("save/_temp_.dat"))
+	_ = fs.Remove(datapath.Save("_temp_.dat"))
 }
 
 func sub_4D3C30() {
@@ -589,7 +589,7 @@ func nox_server_xxxInitPlayerUnits_4FC6D0() {
 				C.sub_4D7440(1)
 				C.sub_4D60B0()
 			} else {
-				fname := datapath.Path("save", "_temp_.dat")
+				fname := datapath.Save("_temp_.dat")
 				for _, u := range getPlayerUnits() {
 					v3 := u.ptrYyy()
 					v4 := asPlayer(*(**C.nox_playerInfo)(unsafe.Add(v3, 276)))

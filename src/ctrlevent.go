@@ -37,6 +37,7 @@ import (
 	"nox/v1/client"
 	"nox/v1/client/input"
 	"nox/v1/client/input/keybind"
+	"nox/v1/common"
 	noxflags "nox/v1/common/flags"
 	"nox/v1/common/memmap"
 	"nox/v1/common/types"
@@ -602,7 +603,7 @@ func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_B() {
 			if noxflags.HasGame(2048) {
 				if C.nox_xxx_game_4DCCB0() != 0 {
 					clientPlaySoundSpecial(921, 100)
-					C.sub_4DB130(internCStr("AUTOSAVE"))
+					C.sub_4DB130(internCStr(common.SaveAuto))
 					C.sub_4DB170(1, 0, 0)
 				} else {
 					clientPlaySoundSpecial(231, 100)
