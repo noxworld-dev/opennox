@@ -26,6 +26,7 @@ package nox
 #include "client__io__console.h"
 #include "client__gui__guimsg.h"
 #include "client__system__client.h"
+#include "client__drawable__drawable.h"
 
 extern unsigned int nox_game_loop_xxx_805872;
 extern unsigned int dword_5d4594_2660032;

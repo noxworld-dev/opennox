@@ -52,7 +52,6 @@ import (
 	"github.com/noxworld-dev/nat"
 
 	"nox/v1/common/alloc"
-	"nox/v1/common/alloc/classes"
 	"nox/v1/common/log"
 	"nox/v1/common/memmap"
 	"nox/v1/common/noxnet"
@@ -497,7 +496,7 @@ func (l *NetList) C() *C.nox_net_list_t {
 }
 
 func (l *NetList) freeItem(item *C.nox_net_list_item_t) {
-	classes.AsClass(unsafe.Pointer(l.alloc)).FreeObject(unsafe.Pointer(item))
+	alloc.AsClass(unsafe.Pointer(l.alloc)).FreeObjectFirst(unsafe.Pointer(item))
 }
 
 func (l *NetList) get() []byte { // nox_netlist_get_420A90
@@ -909,7 +908,7 @@ func sub_555130(a1 int, buf []byte) (int, error) {
 	if ns == nil {
 		return -3, errors.New("no net struct")
 	}
-	v5p := classes.AsClass(unsafe.Pointer(C.nox_alloc_gQueue_3844300)).NewObjectZero()
+	v5p := alloc.AsClass(unsafe.Pointer(C.nox_alloc_gQueue_3844300)).NewObject()
 	if v5p == nil {
 		return -1, errors.New("cannot alloc gqueue")
 	}

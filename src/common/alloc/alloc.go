@@ -19,7 +19,7 @@ func Malloc(size uintptr) (unsafe.Pointer, func()) {
 	if size == 0 {
 		panic("zero alloc")
 	}
-	ptr := C.calloc(1, C.uint(size))
+	ptr := C.calloc(1, C.size_t(size))
 	allocMu.Lock()
 	allocs[ptr] = size
 	allocMu.Unlock()
@@ -53,7 +53,7 @@ func Realloc(ptr unsafe.Pointer, size uintptr) unsafe.Pointer {
 		panic("zero alloc")
 	}
 	old := ptr
-	ptr = C.realloc(ptr, C.uint(size))
+	ptr = C.realloc(ptr, C.size_t(size))
 	allocMu.Lock()
 	if ptr != old {
 		delete(allocs, old)
@@ -67,7 +67,7 @@ func Calloc(num int, size uintptr) (unsafe.Pointer, func()) {
 	if uintptr(num)*size == 0 {
 		panic("zero alloc")
 	}
-	ptr := C.calloc(C.uint(num), C.uint(size))
+	ptr := C.calloc(C.size_t(num), C.size_t(size))
 	allocMu.Lock()
 	allocs[ptr] = uintptr(num) * size
 	allocMu.Unlock()
@@ -109,19 +109,19 @@ func FreePointers(b []unsafe.Pointer) {
 
 func Memset(ptr unsafe.Pointer, v byte, size uintptr) unsafe.Pointer {
 	logMemWrite(ptr, size)
-	return C.memset(ptr, C.int(v), C.uint(size))
+	return C.memset(ptr, C.int(v), C.size_t(size))
 }
 
 func Memcpy(dst, src unsafe.Pointer, size uintptr) unsafe.Pointer {
 	logMemRead(src, size)
 	logMemWrite(dst, size)
-	return C.memcpy(dst, src, C.uint(size))
+	return C.memcpy(dst, src, C.size_t(size))
 }
 
 func Memcmp(ptr1, ptr2 unsafe.Pointer, size uintptr) int {
 	logMemRead(ptr1, size)
 	logMemRead(ptr2, size)
-	return int(C.memcmp(ptr1, ptr2, C.uint(size)))
+	return int(C.memcmp(ptr1, ptr2, C.size_t(size)))
 }
 
 func Strlen(ptr unsafe.Pointer) int {

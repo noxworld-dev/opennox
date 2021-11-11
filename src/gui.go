@@ -461,7 +461,7 @@ func sub_46C200() {
 			nox_win_1064916 = nil
 		}
 		v0.Func94(2, 0, 0)
-		nox_alloc_window.FreeObject(unsafe.Pointer(v0.C()))
+		nox_alloc_window.FreeObjectFirst(unsafe.Pointer(v0.C()))
 		v0 = prev
 	}
 }

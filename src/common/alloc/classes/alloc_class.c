@@ -1,3 +1,5 @@
+//+build none
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -35,7 +37,6 @@ void nox_free_alloc_class_dynamic(nox_alloc_class* p) {
 	p->last_free_add = 0;
 }
 
-#ifndef NOX_CGO
 //----- (00413FE0) --------------------------------------------------------
 nox_alloc_class* nox_new_alloc_class(const char* name, int size, int cnt) {
 	nox_alloc_class* p = (nox_alloc_class*)calloc(1, sizeof(nox_alloc_class));
@@ -96,7 +97,6 @@ void nox_free_alloc_class(nox_alloc_class* p) {
 	free(p->items);
 	free(p);
 }
-#endif // NOX_CGO
 
 //----- (00414190) --------------------------------------------------------
 void nox_alloc_maybe_free_dynamic(nox_alloc_class* al) {
@@ -177,7 +177,6 @@ void* nox_alloc_class_new_obj(nox_alloc_class* al) {
 	return (void*)(h + 1);
 }
 
-#ifndef NOX_CGO
 //----- (004142F0) --------------------------------------------------------
 void* nox_alloc_class_new_obj_zero(nox_alloc_class* al) {
 	void* data = (void*)nox_alloc_class_new_obj(al);
@@ -186,7 +185,6 @@ void* nox_alloc_class_new_obj_zero(nox_alloc_class* al) {
 	memset(data, 0, al->size);
 	return data;
 }
-#endif // NOX_CGO
 
 //----- (004144D0) --------------------------------------------------------
 void nox_alloc_class_free_all(nox_alloc_class* al) {
@@ -299,4 +297,8 @@ void nox_alloc_class_free_obj_last(nox_alloc_class* al, void* obj) {
 //----- (004144B0) --------------------------------------------------------
 void nox_alloc_class_reset_stats(nox_alloc_class* p) {
 	p->field_34 = p->field_35;
+}
+
+void nox_alloc_class_obj_keep(nox_alloc_class* p, int off) {
+	// do nothing, since we don't clean an object
 }
