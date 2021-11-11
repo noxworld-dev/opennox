@@ -2,18 +2,19 @@ package alloc
 
 import (
 	"encoding/json"
-	"nox/v1/common/memmap"
 	"os"
 	"sync"
 	"sync/atomic"
 	"unsafe"
+
+	"nox/v1/common/memmap"
 )
 
 var (
 	logEnable uint32 // atomic
 	logOnce   sync.Once
 	logMu     sync.Mutex
-	log       *os.File
+	logFile   *os.File
 	logSeen   = make(map[memlog]struct{})
 	logEnc    *json.Encoder
 )
@@ -38,7 +39,7 @@ func ensureLog() {
 		if err != nil {
 			panic(err)
 		}
-		log = f
+		logFile = f
 		logEnc = json.NewEncoder(f)
 	})
 }

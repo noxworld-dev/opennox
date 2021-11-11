@@ -32,6 +32,7 @@ package nox
 #include "common__telnet__telnetd.h"
 #include "server__network__playback.h"
 #include "server__network__sdecode.h"
+#include "client__drawable__drawable.h"
 extern unsigned int nox_game_createOrJoin_815048;
 extern unsigned int nox_client_gui_flag_815132;
 extern unsigned int nox_client_gui_flag_1556112;

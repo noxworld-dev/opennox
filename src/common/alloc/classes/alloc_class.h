@@ -1,6 +1,9 @@
 #ifndef NOX_COMMON_ALLOC_CLASS_H
 #define NOX_COMMON_ALLOC_CLASS_H
 
+#ifdef NOX_CGO
+typedef struct nox_alloc_class nox_alloc_class;
+#else // NOX_CGO
 #include <stdint.h>
 
 #include "../../../static_assert.h"
@@ -27,20 +30,13 @@ typedef struct nox_alloc_class {
 	int can_grow;                    // 30
 	int field_31;                    // 31
 	uint64_t ticks;                  // 32
-	int field_34;                    // 34
-	int field_35;                    // 35
+	int field_34;                    // 34, 0x88, 136
+	int field_35;                    // 35, 0x8C, 140
 	int cnt2;                        // 36
 	unsigned int field_37;           // 37
 } nox_alloc_class;
 _Static_assert(sizeof(nox_alloc_class) == 152, "wrong size of nox_alloc_class structure!");
-
-#ifdef NOX_CGO_ALLOC
-#define nox_alloc_class_new_obj nox_alloc_class_new_obj_go
-#define nox_alloc_class_free_obj_first nox_alloc_class_free_obj_go
-#define nox_alloc_class_free_all nox_alloc_class_yyy_4144D0_go
-#define nox_alloc_class_free_obj_last nox_alloc_class_xxx_414400_go
-#define nox_platform_get_ticks alloc_nox_platform_get_ticks
-#endif // NOX_CGO_ALLOC
+#endif // NOX_CGO
 
 #ifndef NOX_CGO
 nox_alloc_class* nox_new_alloc_class(const char* name, int size, int cnt);
@@ -56,5 +52,6 @@ void nox_alloc_class_free_all(nox_alloc_class* p);
 void nox_alloc_class_free_obj_first(nox_alloc_class* p, void* obj);
 void nox_alloc_class_free_obj_last(nox_alloc_class* p, void* obj);
 void nox_alloc_class_reset_stats(nox_alloc_class* p);
+void nox_alloc_class_obj_keep(nox_alloc_class* p, int off);
 
 #endif // NOX_COMMON_ALLOC_CLASS_H

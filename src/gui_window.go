@@ -35,14 +35,14 @@ import (
 	"unsafe"
 
 	"nox/v1/client/gui"
-	"nox/v1/common/alloc/classes"
+	"nox/v1/common/alloc"
 	noxcolor "nox/v1/common/color"
 	"nox/v1/common/log"
 	"nox/v1/common/types"
 )
 
 var (
-	nox_alloc_window    *classes.AllocClass
+	nox_alloc_window    *alloc.Class
 	nox_win_cur_focused *Window
 	nox_win_xxx1_first  *Window
 	nox_win_xxx1_last   *Window
@@ -220,9 +220,9 @@ func newUserWindow(parent *Window, id uint, status gui.StatusFlags, px, py, w, h
 
 func newWindowRaw(parent *Window, status gui.StatusFlags, px, py, w, h int, fnc94 unsafe.Pointer) *Window {
 	if nox_alloc_window == nil {
-		nox_alloc_window = classes.New("Window", unsafe.Sizeof(C.nox_window{}), 576)
+		nox_alloc_window = alloc.NewClass("Window", unsafe.Sizeof(C.nox_window{}), 576)
 	}
-	win := asWindow((*C.nox_window)(nox_alloc_window.NewObjectZero()))
+	win := asWindow((*C.nox_window)(nox_alloc_window.NewObject()))
 	if parent != nil {
 		win.setParent(parent)
 	} else {
@@ -632,7 +632,7 @@ func sub_46C5D0() C.int {
 		it = prev
 	}
 	sub_46C200()
-	nox_alloc_window.YYY4144D0()
+	nox_alloc_window.FreeAllObjects()
 	return 0
 }
 

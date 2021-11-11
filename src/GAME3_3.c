@@ -965,6 +965,7 @@ int nox_xxx_allocClassArrayObjects_4E3360(unsigned int a1) {
 	if (!nox_alloc_gameObject_1563344) {
 		return 0;
 	}
+	nox_alloc_class_obj_keep(nox_alloc_gameObject_1563344, 36); // keep unit ID assigned in the loop below
 	if (!a1) {
 		nox_alloc_class_reset_stats(nox_alloc_gameObject_1563344);
 		return 1;
