@@ -6647,6 +6647,10 @@ short nox_xxx_unitCreateMissileSmth_517640(nox_object_t* a1p) {
 
 //----- (00517780) --------------------------------------------------------
 int nox_xxx_addObjToMapMB_517780(int a1, int a2, int a3, int a4) {
+	// TODO: should probably check upper bound as well
+	if (a2 < 0 || a3 < 0) { // see #403
+		return 0;
+	}
 	int result;       // eax
 	unsigned char v5; // cl
 	int v6;           // esi
