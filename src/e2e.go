@@ -452,10 +452,7 @@ type e2eStepRaw struct {
 	Text string `yaml:"text,omitempty"`
 }
 
-func e2eStop() {
-	if !e2e.recording {
-		return
-	}
+func e2eSaveRecording() {
 	var list e2eFileYML
 	var last time.Duration
 	for _, r := range e2e.recorded {
@@ -526,6 +523,13 @@ func e2eStop() {
 		panic(err)
 	}
 	e2eLog.Printf("RECORDED: %d events", len(list.Steps))
+}
+
+func e2eStop() {
+	if !e2e.recording {
+		return
+	}
+	e2eSaveRecording()
 }
 
 func e2eDone() {
@@ -608,6 +612,9 @@ type e2eRecordedEvent struct {
 func e2eRealInput(ev seat.InputEvent) {
 	t := platform.Ticks()
 	if e2e.recording {
+		if ev == seat.WindowClosed {
+			e2eSaveRecording()
+		}
 		e2e.recorded = append(e2e.recorded, e2eRecordedEvent{
 			Time: t - 1, Event: ev,
 		})
