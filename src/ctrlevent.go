@@ -586,7 +586,7 @@ func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_B() {
 			ce.active = false
 		case client.CCToggleRank:
 			clientPlaySoundSpecial(921, 100)
-			C.sub_4703F0()
+			sub_4703F0()
 			ce.active = false
 		case client.CCToggleNetstat:
 			C.sub_470A60()

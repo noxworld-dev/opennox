@@ -39,6 +39,7 @@ var (
 	nox_win_unk3                 *Window
 	nox_win_activeWindow_1064900 *Window
 	nox_win_1064916              *Window
+	nox_win_freeList             *Window // dword_5d4594_1064896
 )
 
 func enableGUIDrawing(enable bool) {
@@ -439,30 +440,30 @@ func sub_4281F0(p types.Point, r types.Rect) bool {
 	return p.X >= r.Left && p.X <= r.Right && p.Y >= r.Top && p.Y <= r.Bottom
 }
 
-//export sub_46C200
-func sub_46C200() {
-	v0 := asWindow(C.dword_5d4594_1064896)
-	C.dword_5d4594_1064896 = nil
-	for v0 != nil {
-		prev := v0.Prev()
-		if nox_win_unk3 == v0 {
+func freeAllWindowsInList() { // sub_46C200
+	win := nox_win_freeList
+	nox_win_freeList = nil
+	for win != nil {
+		prev := win.Prev()
+		win.prev = nil
+		if nox_win_unk3 == win {
 			nox_win_unk3 = nil
 		}
-		if nox_win_cur_focused == v0 {
+		if nox_win_cur_focused == win {
 			guiFocus(nil)
 		}
-		if C.nox_win_1064912 != nil && v0.C() == C.nox_win_1064912.win {
+		if C.nox_win_1064912 != nil && win.C() == C.nox_win_1064912.win {
 			C.nox_xxx_wnd_46C6E0(C.nox_win_1064912.win)
 		}
-		if nox_win_activeWindow_1064900 == v0 {
+		if nox_win_activeWindow_1064900 == win {
 			nox_win_activeWindow_1064900 = nil
 		}
-		if nox_win_1064916 == v0 {
+		if nox_win_1064916 == win {
 			nox_win_1064916 = nil
 		}
-		v0.Func94(2, 0, 0)
-		nox_alloc_window.FreeObjectFirst(unsafe.Pointer(v0.C()))
-		v0 = prev
+		win.Func94(2, 0, 0)
+		nox_alloc_window.FreeObjectFirst(unsafe.Pointer(win.C()))
+		win = prev
 	}
 }
 

@@ -180,7 +180,7 @@ func nox_xxx_gameDownloadShowDialog_4CC770() C.int {
 		v4 = v6
 	}
 	winDownload.SetPos(types.Point{X: (v0 - 1024) / 2, Y: (v1 - 768) / 2})
-	nox_xxx_wndShowModalMB_46A8C0(winDownload.C())
+	nox_xxx_wndShowModalMB(winDownload)
 	return 1
 }
 

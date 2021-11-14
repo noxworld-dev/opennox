@@ -36,6 +36,8 @@ extern unsigned int dword_5d4594_815708;
 extern unsigned int dword_5d4594_3844304;
 extern unsigned int dword_5d4594_2649712;
 extern unsigned int dword_5d4594_2618912;
+extern unsigned int dword_587000_145664;
+extern unsigned int dword_587000_145668;
 extern unsigned int nox_client_gui_flag_815132;
 extern unsigned int nox_gameFPS;
 extern unsigned int nox_xxx_gameDownloadInProgress_587000_173328;
@@ -46,6 +48,8 @@ extern unsigned int nox_client_renderGUI_80828;
 extern char nox_clientServerAddr[32];
 extern uint32_t dword_5d4594_1090120;
 extern nox_window* dword_5d4594_1090048;
+extern nox_window* dword_5d4594_1090100;
+extern void* dword_5d4594_1307292;
 
 static void go_call_sub_4516C0(wchar_t* a1, char* a2) {
 	sub_4516C0(a1, a2);
@@ -1002,10 +1006,58 @@ func nox_xxx_cliSetupSession_437190() {
 	*memmap.PtrUint32(0x8531A0, 2576) = 0
 }
 
+//export sub_470510
+func sub_470510() {
+	if C.dword_5d4594_1090048 != nil {
+		if C.dword_5d4594_1090120 == 2 {
+			C.dword_587000_145664 = 1
+		} else {
+			C.dword_587000_145668 = C.dword_5d4594_1090120
+			C.dword_5d4594_1090120 = 0
+			sub_4703F0()
+		}
+	}
+}
+
 func sub_470550() {
 	if C.dword_5d4594_1090048 != nil && C.dword_5d4594_1090120 != 0 {
 		C.dword_5d4594_1090120 = 4
-		C.sub_4703F0()
+		sub_4703F0()
+	}
+}
+
+//export sub_4703F0
+func sub_4703F0() {
+	C.dword_5d4594_1090120 = (C.dword_5d4594_1090120 + 1) % 6
+	v1 := int32(C.dword_5d4594_1090120)
+	if C.nox_xxx_check_flag_aaa_43AF70() != 0 || v1 != 5 {
+		if v1 == 1 {
+			if !noxflags.HasGame(4096) {
+				v1 = int32((C.dword_5d4594_1090120 + 1) % 6)
+				C.dword_5d4594_1090120 = (C.dword_5d4594_1090120 + 1) % 6
+			}
+		}
+	} else {
+		v1 = 0
+		C.dword_5d4594_1090120 = 0
+	}
+	switch v1 {
+	case 0:
+		guiFocus(nil)
+		asWindow(C.dword_5d4594_1090048).Hide()
+		asWindow(C.dword_5d4594_1090100).Hide()
+		*(*uint32)(unsafe.Add(*memmap.PtrPtr(6112660, 0x10A204), 4)) &= 0xFFFFFFF7
+		*(*uint32)(unsafe.Add(*memmap.PtrPtr(6112660, 0x10A208), 4)) &= 0xFFFFFFF7
+	case 1, 2:
+		nox_xxx_wndShowModalMB(asWindow(C.dword_5d4594_1090048))
+		sub := asWindow(C.dword_5d4594_1090100)
+		nox_xxx_wndShowModalMB(sub)
+		sub.Show()
+		*(*uint32)(unsafe.Add(*memmap.PtrPtr(6112660, 0x10A204), 4)) |= 8
+		*(*uint32)(unsafe.Add(*memmap.PtrPtr(6112660, 0x10A208), 4)) |= 8
+		C.dword_587000_145664 = 1
+	case 3, 4, 5:
+		C.dword_587000_145664 = 1
 	}
 }
 
@@ -1188,6 +1240,18 @@ func nox_xxx_cliDrawConnectedLoop_43B360() C.int {
 	}
 	C.sub_44A400()
 	C.nox_client_guiXxx_43A9D0()
-	C.nox_client_guiXxxDestroy_4A24A0()
+	nox_client_guiXxxDestroy_4A24A0()
 	return 1
+}
+
+//export nox_client_guiXxxDestroy_4A24A0
+func nox_client_guiXxxDestroy_4A24A0() C.int {
+	sub_4A1BD0()
+	sub_46C5D0()
+	C.nox_client_gui_flag_815132 = 0
+	return 1
+}
+
+func sub_4A1BD0() {
+	asWindowP(C.dword_5d4594_1307292).Destroy()
 }

@@ -107,9 +107,7 @@ void nox_server_ResetObjectGIDs_4E3C70() {
 		nox_server_SetLastObjectScriptID(nox_server_firstObjectScriptID);
 	}
 }
-#endif // NOX_CGO
 
-//#ifndef NOX_CGO
 //----- (00413980) --------------------------------------------------------
 void sub_413980(int a1) {
 	if (a1) {
@@ -119,7 +117,6 @@ void sub_413980(int a1) {
 		dword_5d4594_251744 = 0;
 	}
 }
-//#endif // NOX_CGO
 
 //----- (004139C0) --------------------------------------------------------
 void sub_4139C0() {
@@ -144,6 +141,7 @@ void sub_417160() {
 		result = nox_common_playerInfoGetNext_416EE0(i);
 	}
 }
+#endif // NOX_CGO
 
 //----- (00426060) --------------------------------------------------------
 void sub_426060() {

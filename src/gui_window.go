@@ -571,10 +571,11 @@ func (win *Window) Destroy() {
 	if win == nil {
 		return
 	}
-	if win.Flags().Has(0x800) {
+	if win.Flags().Has(gui.StatusDestroyed) {
 		return
 	}
-	win.flags |= 0x800
+	win.flags |= C.nox_window_flags(gui.StatusDestroyed)
+
 	if nox_win_unk3 == win {
 		nox_win_unk3 = nil
 	}
@@ -602,21 +603,24 @@ func (win *Window) Destroy() {
 		nox_client_wndListXxxRemove_46A960(win)
 	}
 	win.next = nil
-	win.prev = C.dword_5d4594_1064896
-	C.dword_5d4594_1064896 = win.C() // TODO: this doesn't look right; or is it a list of free items?
+	win.prev = nox_win_freeList.C()
+	nox_win_freeList = win
 }
 
 //export nox_xxx_wndShowModalMB_46A8C0
 func nox_xxx_wndShowModalMB_46A8C0(p *C.nox_window) C.int {
-	if p == nil {
+	return C.int(nox_xxx_wndShowModalMB(asWindow(p)))
+}
+
+func nox_xxx_wndShowModalMB(win *Window) int {
+	if win == nil {
 		return -2
 	}
-	win := asWindow(p)
 	for it := nox_win_xxx1_last; it != nil; it = it.Prev() {
 		if it == win {
 			nox_client_wndListXxxRemove_46A960(win)
 			nox_client_wndListXxxAdd_46A920(win)
-			win.flags |= 0x1
+			win.flags |= C.nox_window_flags(gui.StatusActive)
 			win.Show()
 			return 0
 		}
@@ -624,16 +628,14 @@ func nox_xxx_wndShowModalMB_46A8C0(p *C.nox_window) C.int {
 	return -3
 }
 
-//export sub_46C5D0
-func sub_46C5D0() C.int {
+func sub_46C5D0() {
 	for it := nox_win_xxx1_last; it != nil; {
 		prev := it.Prev()
 		it.Destroy()
 		it = prev
 	}
-	sub_46C200()
+	freeAllWindowsInList()
 	nox_alloc_window.FreeAllObjects()
-	return 0
 }
 
 //export nox_window_setPos_46A9B0
