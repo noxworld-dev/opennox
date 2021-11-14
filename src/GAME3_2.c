@@ -4990,11 +4990,7 @@ unsigned int sub_4D71F0() {
 
 //----- (004D7280) --------------------------------------------------------
 int sub_4D7280(int a1, char a2) {
-	int v2;     // ecx
 	char v4[3]; // [esp+0h] [ebp-4h]
-	char v5;    // [esp+3h] [ebp-1h]
-
-	v5 = HIBYTE(v2);
 	v4[0] = -16;
 	v4[1] = 24;
 	v4[2] = a2;
@@ -5888,11 +5884,7 @@ uint32_t* nox_xxx_netReportEquip_4D8540(int a1, uint32_t* a2, int a3) {
 //----- (004D8590) --------------------------------------------------------
 int nox_xxx_netReportDequip_4D8590(int a1, const nox_object_t* object) {
 	uint32_t* a2 = object;
-	int v2;     // ecx
 	char v4[3]; // [esp+0h] [ebp-4h]
-	char v5;    // [esp+3h] [ebp-1h]
-
-	v5 = HIBYTE(v2);
 	v4[0] = 97;
 	*(uint16_t*)&v4[1] = nox_xxx_netGetUnitCodeServ_578AC0(a2);
 	return nox_xxx_netSendPacket1_4E5390(a1, (int)v4, 3, 0, 0);
@@ -6532,11 +6524,7 @@ int nox_xxx_netMonitorCreature_4D9250(int a1, int a2) {
 
 //----- (004D92A0) --------------------------------------------------------
 int nox_xxx_netSendUnMonitorCrea_4D92A0(int a1, uint32_t* a2) {
-	int v2;     // ecx
 	char v4[3]; // [esp+0h] [ebp-4h]
-	char v5;    // [esp+3h] [ebp-1h]
-
-	v5 = HIBYTE(v2);
 	v4[0] = -36;
 	*(uint16_t*)&v4[1] = nox_xxx_netGetUnitCodeServ_578AC0(a2);
 	return nox_xxx_netSendPacket1_4E5390(a1, (int)v4, 3, 0, 1);
@@ -6659,11 +6647,7 @@ int nox_xxx_netSendJournalUpdate_4D9500(int a1, int a2) {
 
 //----- (004D9560) --------------------------------------------------------
 int nox_xxx_netSendChapterEnd_4D9560(int a1, char a2, int a3) {
-	int v3;     // ecx
 	char v5[3]; // [esp+0h] [ebp-4h]
-	char v6;    // [esp+3h] [ebp-1h]
-
-	v6 = HIBYTE(v3);
 	v5[1] = a2;
 	v5[0] = -42;
 	v5[2] = a3 == 1;
@@ -6714,11 +6698,7 @@ int nox_xxx_netSendSecondaryWeapon_4D9670(int a1, uint32_t* a2, char a3) {
 
 //----- (004D96B0) --------------------------------------------------------
 int nox_xxx_netMsgLastQuiver_4D96B0(int a1, uint32_t* a2) {
-	int v2;     // ecx
 	char v4[3]; // [esp+0h] [ebp-4h]
-	char v5;    // [esp+3h] [ebp-1h]
-
-	v5 = HIBYTE(v2);
 	v4[0] = -31;
 	*(uint16_t*)&v4[1] = nox_xxx_netGetUnitCodeServ_578AC0(a2);
 	return nox_xxx_netSendPacket1_4E5390(a1, (int)v4, 3, 0, 0);
@@ -6787,11 +6767,7 @@ int sub_4D97E0(int a1) {
 
 //----- (004D9800) --------------------------------------------------------
 int nox_xxx_netMsgFadeBegin_4D9800(int a1, int a2) {
-	int v2;     // ecx
 	char v4[3]; // [esp+0h] [ebp-4h]
-	char v5;    // [esp+3h] [ebp-1h]
-
-	v5 = HIBYTE(v2);
 	v4[0] = 0xE4;
 	v4[1] = a1 != 0;
 	v4[2] = a2 != 0;
@@ -6800,11 +6776,7 @@ int nox_xxx_netMsgFadeBegin_4D9800(int a1, int a2) {
 
 //----- (004D9800) --------------------------------------------------------
 int nox_xxx_netMsgFadeBeginPlayer(int pl, int a1, int a2) {
-	int v2;     // ecx
 	char v4[3]; // [esp+0h] [ebp-4h]
-	char v5;    // [esp+3h] [ebp-1h]
-
-	v5 = HIBYTE(v2);
 	v4[0] = 0xE4;
 	v4[1] = a1 != 0;
 	v4[2] = a2 != 0;
@@ -8808,11 +8780,7 @@ void sub_4DCEE0(const char* a1) {
 
 //----- (004DCF80) --------------------------------------------------------
 int nox_xxx_sendGauntlet_4DCF80(int a1, char a2) {
-	int v2;     // ecx
 	char v4[3]; // [esp+0h] [ebp-4h]
-	char v5;    // [esp+3h] [ebp-1h]
-
-	v5 = HIBYTE(v2);
 	v4[0] = -16;
 	v4[1] = 28;
 	v4[2] = a2;

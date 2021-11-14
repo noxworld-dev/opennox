@@ -4352,11 +4352,7 @@ int nox_xxx_sendSummonStartFX_5236F0(short a1, float* a2, char a3, short a4, sho
 
 //----- (00523760) --------------------------------------------------------
 int nox_xxx_sendSummonCancelFX_523760(short a1) {
-	int v1;     // ecx
 	char v3[3]; // [esp+0h] [ebp-4h]
-	char v4;    // [esp+3h] [ebp-1h]
-
-	v4 = HIBYTE(v1);
 	v3[0] = 127;
 	*(uint16_t*)&v3[1] = a1;
 	return nox_xxx_netSendPacket0_4E5420(255, v3, 3, 0, 1);
@@ -8702,11 +8698,7 @@ char* nox_xxx_netReportDestroyObject_5289D0(int a1) {
 
 //----- (00528A60) --------------------------------------------------------
 int nox_xxx_netObjectOutOfSight_528A60(int a1, uint32_t* a2) {
-	int v2;     // ecx
 	char v4[3]; // [esp+0h] [ebp-4h]
-	char v5;    // [esp+3h] [ebp-1h]
-
-	v5 = HIBYTE(v2);
 	v4[0] = 50;
 	*(uint16_t*)&v4[1] = nox_xxx_netGetUnitCodeServ_578AC0(a2);
 	return nox_xxx_netSendPacket0_4E5420(a1, v4, 3, 0, 1);
@@ -8714,11 +8706,7 @@ int nox_xxx_netObjectOutOfSight_528A60(int a1, uint32_t* a2) {
 
 //----- (00528A90) --------------------------------------------------------
 int nox_xxx_netObjectInShadows_528A90(int a1, uint32_t* a2) {
-	int v2;     // ecx
 	char v4[3]; // [esp+0h] [ebp-4h]
-	char v5;    // [esp+3h] [ebp-1h]
-
-	v5 = HIBYTE(v2);
 	v4[0] = 51;
 	*(uint16_t*)&v4[1] = nox_xxx_netGetUnitCodeServ_578AC0(a2);
 	return nox_xxx_netSendPacket0_4E5420(a1, v4, 3, 0, 1);

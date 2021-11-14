@@ -2085,11 +2085,7 @@ void sub_4BEDE0(int2* a1, int2* a2, int2* a3, int2* a4, int a5, float a6, int a7
 
 //----- (004BF010) --------------------------------------------------------
 int nox_xxx_clientReportSecondaryWeapon_4BF010(int a1) {
-	int v1;     // ecx
 	char v3[3]; // [esp+0h] [ebp-4h]
-	char v4;    // [esp+3h] [ebp-1h]
-
-	v4 = HIBYTE(v1);
 	v3[0] = -32;
 	*(uint16_t*)&v3[1] = nox_xxx_netGetUnitCodeCli_578B00(a1);
 	return nox_xxx_netClientSend2_4E53C0(31, v3, 3, 0, 1);
