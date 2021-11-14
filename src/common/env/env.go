@@ -16,7 +16,7 @@ var (
 
 func IsE2E() bool {
 	e2eOnce.Do(func() {
-		isE2E = os.Getenv("NOX_E2E") != ""
+		isE2E = os.Getenv("NOX_E2E") != "" || os.Getenv("NOX_E2E_RECORD") != ""
 	})
 	return isE2E
 }
