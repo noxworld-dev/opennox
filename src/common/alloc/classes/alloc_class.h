@@ -55,5 +55,6 @@ void* nox_alloc_class_new_obj_zero(nox_alloc_class* p);
 void nox_alloc_class_free_all(nox_alloc_class* p);
 void nox_alloc_class_free_obj_first(nox_alloc_class* p, void* obj);
 void nox_alloc_class_free_obj_last(nox_alloc_class* p, void* obj);
+void nox_alloc_class_reset_stats(nox_alloc_class* p);
 
 #endif // NOX_COMMON_ALLOC_CLASS_H

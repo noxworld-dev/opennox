@@ -6746,15 +6746,6 @@ char* nox_clone_str(const char* a1) {
 	return result;
 }
 
-//----- (004144B0) --------------------------------------------------------
-int sub_4144B0(int a1) {
-	int result; // eax
-
-	result = a1;
-	*(uint32_t*)(a1 + 136) = *(uint32_t*)(a1 + 140);
-	return result;
-}
-
 //----- (00414580) --------------------------------------------------------
 int sub_414580() { return *getMemU32Ptr(0x5D4594, 338312); }
 

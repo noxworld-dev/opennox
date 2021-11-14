@@ -295,3 +295,8 @@ void nox_alloc_class_free_obj_last(nox_alloc_class* al, void* obj) {
 	}
 	memset(obj, ALLOC_DEAD_CHAR, al->size);
 }
+
+//----- (004144B0) --------------------------------------------------------
+void nox_alloc_class_reset_stats(nox_alloc_class* p) {
+	p->field_34 = p->field_35;
+}

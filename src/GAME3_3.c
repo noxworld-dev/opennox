@@ -966,7 +966,7 @@ int nox_xxx_allocClassArrayObjects_4E3360(unsigned int a1) {
 		return 0;
 	}
 	if (!a1) {
-		sub_4144B0(nox_alloc_gameObject_1563344);
+		nox_alloc_class_reset_stats(nox_alloc_gameObject_1563344);
 		return 1;
 	}
 	while (1) {
@@ -985,7 +985,7 @@ int nox_xxx_allocClassArrayObjects_4E3360(unsigned int a1) {
 				nox_alloc_class_free_obj_first(nox_alloc_gameObject_1563344, v5);
 				v5[9] = v6;
 			} while (v1);
-			sub_4144B0(nox_alloc_gameObject_1563344);
+			nox_alloc_class_reset_stats(nox_alloc_gameObject_1563344);
 			return 1;
 		}
 	}

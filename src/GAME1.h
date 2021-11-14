@@ -379,7 +379,6 @@ int sub_413E10();
 void nox_xxx_gameLoopMemDump_413E30();
 int sub_413F60(const void* a1, const void* a2);
 char* nox_clone_str(const char* a1);
-int sub_4144B0(int a1);
 int sub_414580();
 int sub_414590();
 int sub_4145A0();
