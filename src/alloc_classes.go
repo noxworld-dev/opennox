@@ -10,6 +10,8 @@ import (
 	"nox/v1/common/alloc/classes"
 )
 
+const DeadWord = 0xacacacac
+
 //export nox_new_alloc_class
 func nox_new_alloc_class(name *C.char, size, cnt C.int) *C.nox_alloc_class {
 	return (*C.nox_alloc_class)(classes.New(C.GoString(name), uintptr(size), int(cnt)).UPtr())
