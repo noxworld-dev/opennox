@@ -24,6 +24,8 @@ var (
 	e2eOverride = os.Getenv("NOX_E2E_OVERRIDE") == "true"
 )
 
+const e2eDefaultDelay = 15 * time.Millisecond
+
 var e2e struct {
 	recording bool
 	path      string
@@ -381,6 +383,8 @@ func (sc *e2eScenario) Load(path string) {
 				})
 			case "closed":
 				sc.Input(dt, "", seat.WindowClosed)
+			default:
+				panic("unsupported type: " + ev.Type)
 			}
 		default:
 			panic("unsupported type: " + l.Action)
@@ -419,7 +423,7 @@ func e2eInit() {
 	if e2e.recording {
 		e2eLog.Printf("RECORD: %s", fname)
 		if e2e.slow == 0 {
-			e2e.slow = 30 * time.Millisecond
+			e2e.slow = e2eDefaultDelay
 		}
 		return
 	}
@@ -499,9 +503,11 @@ func e2eStop() {
 				s.Event = &e2eStepRaw{
 					Type: "closed",
 				}
+			default:
+				e2eLog.Printf("SKIPPED: %T", ev)
 			}
 		default:
-			// skip
+			e2eLog.Printf("SKIPPED: %T", ev)
 		}
 		if s.Event != nil {
 			list.Steps = append(list.Steps, s)
@@ -557,6 +563,9 @@ func e2eRun() {
 	if e2e.slow != 0 {
 		time.Sleep(e2e.slow)
 	}
+	if e2e.recording {
+		return
+	}
 	if len(e2e.steps) == 0 {
 		if e2e.done != nil {
 			close(e2e.done)
@@ -567,7 +576,7 @@ func e2eRun() {
 			} else {
 				e2e.realEnable = true
 				if e2e.slow == 0 {
-					e2e.slow = 15 * time.Millisecond
+					e2e.slow = e2eDefaultDelay
 				}
 				e2eLog.Println("SCRIPT COMPLETE")
 			}
@@ -600,7 +609,7 @@ func e2eRealInput(ev seat.InputEvent) {
 	t := platform.Ticks()
 	if e2e.recording {
 		e2e.recorded = append(e2e.recorded, e2eRecordedEvent{
-			Time: t, Event: ev,
+			Time: t - 1, Event: ev,
 		})
 		e2eQueueInput(ev)
 		return
