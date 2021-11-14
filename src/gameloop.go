@@ -44,6 +44,8 @@ extern unsigned int nox_xxx_mapDownloadOK_587000_173332;
 extern void* nox_alloc_chat_1197364;
 extern unsigned int nox_client_renderGUI_80828;
 extern char nox_clientServerAddr[32];
+extern uint32_t dword_5d4594_1090120;
+extern nox_window* dword_5d4594_1090048;
 
 static void go_call_sub_4516C0(wchar_t* a1, char* a2) {
 	sub_4516C0(a1, a2);
@@ -977,7 +979,7 @@ func nox_xxx_cliSetupSession_437190() {
 	C.sub_456240()
 	C.sub_48D800()
 	C.sub_49A8C0()
-	C.sub_470550()
+	sub_470550()
 	sub_46C5D0()
 	C.sub_44DF70()
 	if !noxflags.HasGame(noxflags.GameHost) {
@@ -998,6 +1000,13 @@ func nox_xxx_cliSetupSession_437190() {
 	*memmap.PtrUint32(0x85319C, 0) = 0
 	*memmap.PtrUint32(0x852978, 8) = 0
 	*memmap.PtrUint32(0x8531A0, 2576) = 0
+}
+
+func sub_470550() {
+	if C.dword_5d4594_1090048 != nil && C.dword_5d4594_1090120 != 0 {
+		C.dword_5d4594_1090120 = 4
+		C.sub_4703F0()
+	}
 }
 
 func nox_xxx_mapLoad_40A380() {

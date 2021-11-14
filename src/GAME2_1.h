@@ -211,7 +211,7 @@ char sub_46FF70(int a1);
 unsigned char sub_46FFD0();
 int sub_4703F0();
 int sub_470510();
-int sub_470550();
+void sub_470550();
 int sub_470580();
 int sub_4705B0();
 char sub_4705F0(char a1, char a2, short a3);

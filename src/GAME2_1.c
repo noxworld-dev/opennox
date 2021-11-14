@@ -5817,20 +5817,17 @@ int sub_470510() {
 	return result;
 }
 
+#ifndef NOX_CGO
 //----- (00470550) --------------------------------------------------------
-int sub_470550() {
-	int result; // eax
-
-	result = dword_5d4594_1090048;
+void sub_470550() {
 	if (dword_5d4594_1090048) {
-		result = dword_5d4594_1090120;
 		if (dword_5d4594_1090120) {
 			dword_5d4594_1090120 = 4;
-			result = sub_4703F0();
+			sub_4703F0();
 		}
 	}
-	return result;
 }
+#endif // NOX_CGO
 
 //----- (00470580) --------------------------------------------------------
 int sub_470580() {
