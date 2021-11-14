@@ -6580,7 +6580,8 @@ int nox_xxx_roundCoord_5175E0(float a1, int a2) {
 }
 
 //----- (00517640) --------------------------------------------------------
-short nox_xxx_unitCreateMissileSmth_517640(signed int a1) {
+short nox_xxx_unitCreateMissileSmth_517640(nox_object_t* a1p) {
+	int a1 = a1p;
 	int v1;        // edi
 	int v2;        // eax
 	signed int v3; // esi
@@ -6687,7 +6688,8 @@ int nox_xxx_addObjToMapMB_517780(int a1, int a2, int a3, int a4) {
 }
 
 //----- (00517870) --------------------------------------------------------
-short sub_517870(int a1) {
+short sub_517870(nox_object_t* a1p) {
+	int a1 = a1p;
 	int v1;             // eax
 	int v2;             // edi
 	unsigned short* v3; // ebx
@@ -6754,14 +6756,16 @@ unsigned short* sub_5178E0(int a1, unsigned short* a2) {
 }
 
 //----- (00517970) --------------------------------------------------------
-void nox_xxx_moveUpdateSpecial_517970(int a1) {
-	sub_517870(a1);
-	if (sub_517590(*(float*)(a1 + 64), *(float*)(a1 + 68))) {
-		nox_xxx_unitCreateMissileSmth_517640(a1);
+#ifndef NOX_CGO
+void nox_xxx_moveUpdateSpecial_517970(nox_object_t* unit) {
+	sub_517870(unit);
+	if (sub_517590(unit->new_x, unit->new_y)) {
+		nox_xxx_unitCreateMissileSmth_517640(unit);
 	} else {
-		nox_xxx_delayedDeleteObject_4E5CC0(a1);
+		nox_xxx_delayedDeleteObject_4E5CC0(unit);
 	}
 }
+#endif // NOX_CGO
 
 //----- (005179B0) --------------------------------------------------------
 void nox_xxx_waypointMapRegister_5179B0(int a1) {

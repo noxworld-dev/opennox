@@ -75,6 +75,7 @@ import (
 	noxflags "nox/v1/common/flags"
 	"nox/v1/common/fs"
 	"nox/v1/common/memmap"
+	"nox/v1/common/object"
 	"nox/v1/server"
 	"nox/v1/server/script"
 )
@@ -818,5 +819,21 @@ func nox_xxx_mapReadSetFlags_4CF990() {
 				C.nox_xxx_toggleAllTeamFlags_418690(1)
 			}
 		}
+	}
+}
+
+//export nox_xxx_moveUpdateSpecial_517970
+func nox_xxx_moveUpdateSpecial_517970(cunit *nox_object_t) {
+	unit := asUnitC(cunit)
+	C.sub_517870(cunit)
+	if C.sub_517590(C.float(unit.new_x), C.float(unit.new_y)) != 0 {
+		C.nox_xxx_unitCreateMissileSmth_517640(cunit)
+	} else {
+		if unit.Class().Has(object.ClassPlayer) {
+			gameLog.Printf("attempting to delete player unit; stopping the map")
+			mainloopStop()
+			return
+		}
+		unit.Delete()
 	}
 }
