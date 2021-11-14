@@ -720,11 +720,7 @@ int sub_461600(int a1) {
 
 //----- (00461630) --------------------------------------------------------
 int nox_xxx_send2ServInvenFail_461630(short a1) {
-	int v1;     // ecx
 	char v3[3]; // [esp+0h] [ebp-4h]
-	char v4;    // [esp+3h] [ebp-1h]
-
-	v4 = HIBYTE(v1);
 	v3[0] = -15;
 	*(uint16_t*)&v3[1] = a1;
 	return nox_xxx_netClientSend2_4E53C0(31, v3, 3, 0, 0);
@@ -1128,11 +1124,7 @@ int sub_4622E0(int a1) {
 
 //----- (004623B0) --------------------------------------------------------
 int nox_xxx_clientEquip_4623B0(int a1) {
-	int v1;     // ecx
 	char v3[3]; // [esp+0h] [ebp-4h]
-	char v4;    // [esp+3h] [ebp-1h]
-
-	v4 = HIBYTE(v1);
 	v3[0] = 117;
 	*(uint16_t*)&v3[1] = nox_xxx_netGetUnitCodeCli_578B00(a1);
 	return nox_netlist_addToMsgListCli_40EBC0(31, 0, v3, 3);
@@ -1778,11 +1770,7 @@ int sub_464B40(int a1, int a2) { return a1 >= 0 && a1 < 4 && a2 >= 0 && a2 < 21;
 
 //----- (00464B70) --------------------------------------------------------
 int nox_xxx_clientDequip_464B70(int a1) {
-	int v1;     // ecx
 	char v3[3]; // [esp+0h] [ebp-4h]
-	char v4;    // [esp+3h] [ebp-1h]
-
-	v4 = HIBYTE(v1);
 	v3[0] = 118;
 	*(uint16_t*)&v3[1] = nox_xxx_netGetUnitCodeCli_578B00(a1);
 	return nox_netlist_addToMsgListCli_40EBC0(31, 0, v3, 3);
