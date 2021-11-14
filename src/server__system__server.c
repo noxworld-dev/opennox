@@ -1336,7 +1336,7 @@ void nox_xxx_abilUpdateMB_4FBEE0() {
 		} else {
 			*getMemU32Ptr(0x5D4594, 1569648) = p[4];
 		}
-		nox_alloc_class_free_obj(*(unsigned int**)&nox_alloc_execAbil_1569644, p);
+		nox_alloc_class_free_obj_first(*(unsigned int**)&nox_alloc_execAbil_1569644, p);
 	}
 }
 
@@ -1521,7 +1521,7 @@ void sub_500510(const char* a1) {
 
 //----- (00502100) --------------------------------------------------------
 void sub_502100() {
-	nox_alloc_class_yyy_4144D0(*(uint32_t**)getMemAt(0x5D4594, 1599056));
+	nox_alloc_class_free_all(*(uint32_t**)getMemAt(0x5D4594, 1599056));
 	dword_5d4594_1599060 = 0;
 }
 

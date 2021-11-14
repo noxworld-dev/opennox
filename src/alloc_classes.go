@@ -37,17 +37,17 @@ func nox_alloc_class_new_obj_zero(p *C.nox_alloc_class) unsafe.Pointer {
 	return classes.AsClass(unsafe.Pointer(p)).NewObjectZero()
 }
 
-//export nox_alloc_class_free_obj
-func nox_alloc_class_free_obj(p *C.nox_alloc_class, obj unsafe.Pointer) {
+//export nox_alloc_class_free_obj_first
+func nox_alloc_class_free_obj_first(p *C.nox_alloc_class, obj unsafe.Pointer) {
 	classes.AsClass(unsafe.Pointer(p)).FreeObject(obj)
 }
 
-//export nox_alloc_class_yyy_4144D0
-func nox_alloc_class_yyy_4144D0(p *C.nox_alloc_class) {
+//export nox_alloc_class_free_all
+func nox_alloc_class_free_all(p *C.nox_alloc_class) {
 	classes.AsClass(unsafe.Pointer(p)).YYY4144D0()
 }
 
-//export nox_alloc_class_xxx_414400
-func nox_alloc_class_xxx_414400(p *C.nox_alloc_class, obj unsafe.Pointer) {
+//export nox_alloc_class_free_obj_last
+func nox_alloc_class_free_obj_last(p *C.nox_alloc_class, obj unsafe.Pointer) {
 	classes.AsClass(unsafe.Pointer(p)).XXX414400(obj)
 }

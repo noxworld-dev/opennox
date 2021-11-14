@@ -189,7 +189,7 @@ void* nox_alloc_class_new_obj_zero(nox_alloc_class* al) {
 #endif // NOX_CGO
 
 //----- (004144D0) --------------------------------------------------------
-void nox_alloc_class_yyy_4144D0(nox_alloc_class* al) {
+void nox_alloc_class_free_all(nox_alloc_class* al) {
 	if (!al)
 		return;
 
@@ -238,7 +238,7 @@ void nox_alloc_class_zzz_4143D0(nox_alloc_class* al, void* obj) {
 }
 
 //----- (00414330) --------------------------------------------------------
-void nox_alloc_class_free_obj(nox_alloc_class* al, void* obj) {
+void nox_alloc_class_free_obj_first(nox_alloc_class* al, void* obj) {
 	if (!obj)
 		return;
 
@@ -266,7 +266,7 @@ void nox_alloc_class_free_obj(nox_alloc_class* al, void* obj) {
 }
 
 //----- (00414400) --------------------------------------------------------
-void nox_alloc_class_xxx_414400(nox_alloc_class* al, void* obj) {
+void nox_alloc_class_free_obj_last(nox_alloc_class* al, void* obj) {
 	if (!obj)
 		return;
 

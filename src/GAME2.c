@@ -5606,7 +5606,7 @@ void nox_xxx_sprite_45A480_drawable(int a1) {
 //----- (0045A4B0) --------------------------------------------------------
 int nox_xxx_spriteDelete_45A4B0(nox_drawable* dr) {
 	sub_495B00(dr);
-	nox_alloc_class_free_obj(nox_alloc_drawable, dr);
+	nox_alloc_class_free_obj_first(nox_alloc_drawable, dr);
 	return --nox_drawable_count;
 }
 

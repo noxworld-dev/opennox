@@ -1205,7 +1205,7 @@ void sub_48DCF0(uint32_t* a1) {
 				} else {
 					dword_5d4594_1197372 = *(uint32_t*)(v2 + 688);
 				}
-				nox_alloc_class_free_obj(*(unsigned int**)&nox_alloc_chat_1197364, (uint64_t*)v2);
+				nox_alloc_class_free_obj_first(*(unsigned int**)&nox_alloc_chat_1197364, (uint64_t*)v2);
 			}
 			v2 = v25;
 			if (!v25) {
@@ -1646,13 +1646,13 @@ void sub_48E8E0(int a1) {
 		if (v3) {
 			*(uint32_t*)(v3 + 688) = *(uint32_t*)(v1 + 688);
 		}
-		nox_alloc_class_free_obj(*(unsigned int**)&nox_alloc_chat_1197364, (uint64_t*)v1);
+		nox_alloc_class_free_obj_first(*(unsigned int**)&nox_alloc_chat_1197364, (uint64_t*)v1);
 	}
 }
 
 //----- (0048E940) --------------------------------------------------------
 void sub_48E940() {
-	nox_alloc_class_yyy_4144D0(*(uint32_t**)&nox_alloc_chat_1197364);
+	nox_alloc_class_free_all(*(uint32_t**)&nox_alloc_chat_1197364);
 	*getMemU32Ptr(0x5D4594, 1197368) = 0;
 }
 
@@ -2549,7 +2549,7 @@ int nox_xxx_allocClassListFriends_495980() {
 
 //----- (004959B0) --------------------------------------------------------
 void sub_4959B0() {
-	nox_alloc_class_yyy_4144D0(*(uint32_t**)&nox_alloc_friendList_1203860);
+	nox_alloc_class_free_all(*(uint32_t**)&nox_alloc_friendList_1203860);
 	dword_5d4594_1203864 = 0;
 }
 
@@ -2597,7 +2597,7 @@ void sub_495A20(int a1) {
 		} else {
 			dword_5d4594_1203864 = *(uint32_t*)(v1 + 4);
 		}
-		nox_alloc_class_free_obj(*(unsigned int**)&nox_alloc_friendList_1203860, (uint64_t*)v1);
+		nox_alloc_class_free_obj_first(*(unsigned int**)&nox_alloc_friendList_1203860, (uint64_t*)v1);
 	}
 }
 
@@ -2653,7 +2653,7 @@ void sub_495B00(nox_drawable* dr) {
 		do {
 			v2 = (uint32_t*)v1[16];
 			sub_495B50(v1);
-			nox_alloc_class_free_obj(*(unsigned int**)getMemAt(0x5D4594, 1203868), v1);
+			nox_alloc_class_free_obj_first(*(unsigned int**)getMemAt(0x5D4594, 1203868), v1);
 			v1 = v2;
 		} while (v2);
 		*(uint32_t*)(a1 + 456) = 0;
@@ -2924,7 +2924,7 @@ void sub_495F30(int a1, int a2) {
 			}
 		}
 		sub_495B50(v2);
-		nox_alloc_class_free_obj(*(unsigned int**)getMemAt(0x5D4594, 1203868), v2);
+		nox_alloc_class_free_obj_first(*(unsigned int**)getMemAt(0x5D4594, 1203868), v2);
 	}
 }
 
@@ -5578,7 +5578,7 @@ int nox_xxx_allocArrayHealthChanges_49A5F0() {
 
 //----- (0049A630) --------------------------------------------------------
 void sub_49A630() {
-	nox_alloc_class_yyy_4144D0(*(uint32_t**)&nox_alloc_healthChange_1301772);
+	nox_alloc_class_free_all(*(uint32_t**)&nox_alloc_healthChange_1301772);
 	dword_5d4594_1301776 = 0;
 }
 
@@ -5682,7 +5682,7 @@ void sub_49A880(int a1) {
 	if (v2) {
 		*(uint32_t*)(v2 + 16) = *(uint32_t*)(a1 + 16);
 	}
-	nox_alloc_class_free_obj(*(unsigned int**)&nox_alloc_healthChange_1301772, (uint64_t*)a1);
+	nox_alloc_class_free_obj_first(*(unsigned int**)&nox_alloc_healthChange_1301772, (uint64_t*)a1);
 }
 
 //----- (0049A8C0) --------------------------------------------------------
@@ -6063,7 +6063,7 @@ void sub_49AEE0() {
 			*getMemU32Ptr(0x5D4594, 1301804) = dword_5d4594_1301812;
 		}
 	}
-	nox_alloc_class_yyy_4144D0(*(uint32_t**)&nox_alloc_pixelSpan_1301844);
+	nox_alloc_class_free_all(*(uint32_t**)&nox_alloc_pixelSpan_1301844);
 }
 
 //----- (0049AF80) --------------------------------------------------------
@@ -6190,7 +6190,7 @@ int sub_49B1A0(int a1) {
 	if (a1) {
 		do {
 			v2 = *(uint32_t*)(result + 8);
-			nox_alloc_class_free_obj(*(unsigned int**)&nox_alloc_pixelSpan_1301844, (uint64_t*)result);
+			nox_alloc_class_free_obj_first(*(unsigned int**)&nox_alloc_pixelSpan_1301844, (uint64_t*)result);
 			result = v2;
 		} while (v2);
 	}
@@ -6208,7 +6208,7 @@ int sub_49B1D0(int a1, int a2) {
 				break;
 			}
 			*(uint32_t*)(a1 + 8) = *(uint32_t*)(result + 8);
-			nox_alloc_class_free_obj(*(unsigned int**)&nox_alloc_pixelSpan_1301844, (uint64_t*)result);
+			nox_alloc_class_free_obj_first(*(unsigned int**)&nox_alloc_pixelSpan_1301844, (uint64_t*)result);
 		}
 	} else {
 		v2 = (int*)(dword_5d4594_1301848 + 4 * dword_5d4594_1301836);
@@ -6217,7 +6217,7 @@ int sub_49B1D0(int a1, int a2) {
 				break;
 			}
 			*v2 = *(uint32_t*)(result + 8);
-			nox_alloc_class_free_obj(*(unsigned int**)&nox_alloc_pixelSpan_1301844, (uint64_t*)result);
+			nox_alloc_class_free_obj_first(*(unsigned int**)&nox_alloc_pixelSpan_1301844, (uint64_t*)result);
 			result = *(uint32_t*)(dword_5d4594_1301848 + 4 * dword_5d4594_1301836);
 		}
 	}

@@ -2505,7 +2505,7 @@ void nox_xxx_allocHitArray_5486D0() {
 	for (i = dword_5d4594_2491544; i; i = *(uint32_t*)(i + 4)) {
 		*getMemU32Ptr(0x5D4594, 2490520 + 4 * *(uint32_t*)(i + 24)) = 0;
 	}
-	nox_alloc_class_yyy_4144D0(v0);
+	nox_alloc_class_free_all(v0);
 	dword_5d4594_2491544 = 0;
 }
 
