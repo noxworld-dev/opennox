@@ -117,6 +117,7 @@ func RunArgs(args []string) (gerr error) {
 		defer log.Close()
 	} else {
 		e2eInit()
+		defer e2eStop()
 	}
 	log.Printf("[nox] version: %s (%s)", Version, Commit)
 	handles.Init()

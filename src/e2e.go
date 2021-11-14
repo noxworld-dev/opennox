@@ -25,18 +25,20 @@ var (
 )
 
 var e2e struct {
-	path    string
-	p       *platformE2E
-	onInput []func(ev seat.InputEvent)
+	recording bool
+	path      string
+	p         *platformE2E
+	onInput   []func(ev seat.InputEvent)
 
 	slow       time.Duration
 	real       seat.Seat
 	realMouse  types.Point
 	realEnable bool
 
-	done  chan<- struct{}
-	steps []e2eStep
-	input []seat.InputEvent
+	done     chan<- struct{}
+	steps    []e2eStep
+	input    []seat.InputEvent
+	recorded []e2eRecordedEvent
 }
 
 type e2eStep struct {
@@ -237,24 +239,29 @@ func (sc *e2eScenario) Screen(name string) {
 	})
 }
 
+type e2eFileYML struct {
+	Steps []e2eStepYML `yaml:"steps"`
+}
+
+type e2eStepYML struct {
+	Action string        `yaml:"action"`
+	Time   uint64        `yaml:"dt,omitempty"`
+	Dur    time.Duration `yaml:"dur,omitempty"`
+	Name   string        `yaml:"name,omitempty"`
+	X      int           `yaml:"x,omitempty"`
+	Y      int           `yaml:"y,omitempty"`
+	Ang    float64       `yaml:"ang,omitempty"`
+	Slot   int           `yaml:"slot,omitempty"`
+	Event  *e2eStepRaw   `yaml:"ev,omitempty"`
+}
+
 func (sc *e2eScenario) Load(path string) {
 	e2eLog.Printf("LOAD: %s", path)
 	data, err := os.ReadFile(path)
 	if err != nil {
 		panic(err)
 	}
-	var list struct {
-		Steps []struct {
-			Action string        `yaml:"action"`
-			Time   uint64        `yaml:"dt"`
-			Dur    time.Duration `yaml:"dur"`
-			Name   string        `yaml:"name"`
-			X      int           `yaml:"x"`
-			Y      int           `yaml:"y"`
-			Ang    float64       `yaml:"ang"`
-			Slot   int           `yaml:"slot"`
-		} `yaml:"steps"`
-	}
+	var list e2eFileYML
 	err = yaml.Unmarshal(data, &list)
 	if err != nil {
 		panic(err)
@@ -345,6 +352,36 @@ func (sc *e2eScenario) Load(path string) {
 			case 5:
 				sc.Key(keybind.KeyG, l.Name)
 			}
+		case "raw":
+			ev := l.Event
+			switch ev.Type {
+			case "move":
+				sc.Input(dt, "", &seat.MouseMoveEvent{
+					Relative: ev.Relative, Pos: ev.Pos, Rel: ev.Rel,
+				})
+			case "button":
+				sc.Input(dt, "", &seat.MouseButtonEvent{
+					Pressed: ev.Pressed, Button: ev.Button,
+				})
+			case "wheel":
+				sc.Input(dt, "", &seat.MouseWheelEvent{
+					Wheel: ev.Wheel,
+				})
+			case "key":
+				sc.Input(dt, "", &seat.KeyboardEvent{
+					Pressed: ev.Pressed, Key: ev.Key,
+				})
+			case "text_edit":
+				sc.Input(dt, "", &seat.TextEditEvent{
+					Text: ev.Text,
+				})
+			case "text_input":
+				sc.Input(dt, "", &seat.TextInputEvent{
+					Text: ev.Text,
+				})
+			case "closed":
+				sc.Input(dt, "", seat.WindowClosed)
+			}
 		default:
 			panic("unsupported type: " + l.Action)
 		}
@@ -358,14 +395,34 @@ var (
 func e2eInit() {
 	e2e.path = filepath.Join(filepath.Dir(os.Args[0]), "e2e")
 	fname := filepath.Join(e2e.path, "e2e.yaml")
-	if s := os.Getenv("NOX_E2E"); s != "" && s != "true" {
+	if s := os.Getenv("NOX_E2E_RECORD"); s != "" {
+		if filepath.Ext(s) == "" {
+			s = filepath.Join(s, "e2e.yaml")
+		}
+		e2e.recording = true
+		e2e.path = s
+	} else if s = os.Getenv("NOX_E2E"); s != "" && s != "true" {
 		fname = s
 		e2e.path = filepath.Dir(s)
+	}
+	if s := os.Getenv("NOX_E2E_SLOW"); s != "" {
+		dt, err := time.ParseDuration(s)
+		if err != nil {
+			panic(err)
+		}
+		e2e.slow = dt
 	}
 
 	e2eLog.Println("WARNING: starting in e2e test mode")
 	e2e.p = newPlayformE2E()
 	platform.Set(e2e.p)
+	if e2e.recording {
+		e2eLog.Printf("RECORD: %s", fname)
+		if e2e.slow == 0 {
+			e2e.slow = 30 * time.Millisecond
+		}
+		return
+	}
 
 	go testInit(fname)
 	sc, ok := <-e2eJobs
@@ -373,6 +430,96 @@ func e2eInit() {
 		panic("cannot init e2e")
 	}
 	e2eQueue(sc)
+}
+
+type e2eStepRaw struct {
+	Type string `yaml:"type"`
+
+	Relative bool         `yaml:"rel,omitempty"`
+	Pos      types.Point  `yaml:"pos,omitempty"`
+	Rel      types.Pointf `yaml:"pos_rel,omitempty"`
+
+	Button  seat.MouseButton `yaml:"button,omitempty"`
+	Pressed bool             `yaml:"pressed,omitempty"`
+	Key     keybind.Key      `yaml:"key,omitempty"`
+
+	Wheel int `yaml:"wheel,omitempty"`
+
+	Text string `yaml:"text,omitempty"`
+}
+
+func e2eStop() {
+	if !e2e.recording {
+		return
+	}
+	var list e2eFileYML
+	var last time.Duration
+	for _, r := range e2e.recorded {
+		dt := r.Time - last
+		last = r.Time
+		s := e2eStepYML{Action: "raw", Time: uint64(dt)}
+		switch ev := r.Event.(type) {
+		case *seat.MouseMoveEvent:
+			s.Event = &e2eStepRaw{
+				Type:     "move",
+				Relative: ev.Relative,
+				Pos:      ev.Pos,
+				Rel:      ev.Rel,
+			}
+		case *seat.MouseButtonEvent:
+			s.Event = &e2eStepRaw{
+				Type:    "button",
+				Pressed: ev.Pressed,
+				Button:  ev.Button,
+			}
+		case *seat.MouseWheelEvent:
+			s.Event = &e2eStepRaw{
+				Type:  "wheel",
+				Wheel: ev.Wheel,
+			}
+		case *seat.KeyboardEvent:
+			s.Event = &e2eStepRaw{
+				Type:    "key",
+				Pressed: ev.Pressed,
+				Key:     ev.Key,
+			}
+		case *seat.TextEditEvent:
+			s.Event = &e2eStepRaw{
+				Type: "text_edit",
+				Text: ev.Text,
+			}
+		case *seat.TextInputEvent:
+			s.Event = &e2eStepRaw{
+				Type: "text_input",
+				Text: ev.Text,
+			}
+		case seat.WindowEvent:
+			switch ev {
+			case seat.WindowClosed:
+				s.Event = &e2eStepRaw{
+					Type: "closed",
+				}
+			}
+		default:
+			// skip
+		}
+		if s.Event != nil {
+			list.Steps = append(list.Steps, s)
+		}
+	}
+	f, err := os.Create(e2e.path)
+	if err != nil {
+		panic(err)
+	}
+	defer f.Close()
+	enc := yaml.NewEncoder(f)
+	if err = enc.Encode(list); err != nil {
+		panic(err)
+	}
+	if err = f.Close(); err != nil {
+		panic(err)
+	}
+	e2eLog.Printf("RECORDED: %d events", len(list.Steps))
 }
 
 func e2eDone() {
@@ -444,8 +591,20 @@ func e2eRun() {
 	e2e.steps = e2e.steps[n:]
 }
 
+type e2eRecordedEvent struct {
+	Time  time.Duration
+	Event seat.InputEvent
+}
+
 func e2eRealInput(ev seat.InputEvent) {
 	t := platform.Ticks()
+	if e2e.recording {
+		e2e.recorded = append(e2e.recorded, e2eRecordedEvent{
+			Time: t, Event: ev,
+		})
+		e2eQueueInput(ev)
+		return
+	}
 	switch ev := ev.(type) {
 	case *seat.MouseMoveEvent:
 		if !ev.Relative {
