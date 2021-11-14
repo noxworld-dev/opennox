@@ -9428,11 +9428,13 @@ char nox_xxx_playerDisconnFinish_4DE530(int a1, char a2) {
 	}
 	result = sub_4E55F0(v2);
 	if (v4) {
-		nox_xxx_playerRemoveSpawnedStuff_4E5AD0(*(uint32_t*)(v4 + 2056));
-		if (nox_common_gameFlags_check_40A5C0(4096)) {
-			sub_4DE790(*(uint32_t*)(v4 + 2056));
-		} else {
-			nox_xxx_dropAllItems_4EDA40(*(uint32_t**)(v4 + 2056));
+		if (*(uint32_t*)(v4 + 2056)) { // see #401
+			nox_xxx_playerRemoveSpawnedStuff_4E5AD0(*(uint32_t*)(v4 + 2056));
+			if (nox_common_gameFlags_check_40A5C0(4096)) {
+				sub_4DE790(*(uint32_t*)(v4 + 2056));
+			} else {
+				nox_xxx_dropAllItems_4EDA40(*(uint32_t**)(v4 + 2056));
+			}
 		}
 		v11 = v13;
 		*(uint32_t*)(v4 + 2140) = 0;

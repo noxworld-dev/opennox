@@ -192,7 +192,10 @@ func nox_xxx_gameTick_4D2580_server_B(ticks uint64) bool {
 		C.nox_xxx_voteUptate_506F30()
 		C.nox_xxx_unitsUpdateDeletedList_4E5E20()
 	}
-	updateRemotePlayers()
+	if err := updateRemotePlayers(); err != nil {
+		gameLog.Println(err)
+		return false
+	}
 	C.nox_xxx_unitsNewAddToList_4DAC00()
 	if inputKeyCheckTimeoutLegacy(0x10, 10*gameFPS()) {
 		C.nox_xxx_protectUnitDefUpdateMB_4E3C20()
@@ -293,7 +296,7 @@ func sub_416640() []byte {
 	return unsafe.Slice((*byte)(memmap.PtrOff(0x5D4594, 371516)), 168)
 }
 
-func updateRemotePlayers() {
+func updateRemotePlayers() error {
 	for _, pl := range getPlayers() {
 		if pl.UnitC() == nil {
 			continue
@@ -320,6 +323,11 @@ func updateRemotePlayers() {
 			binary.LittleEndian.PutUint16(buf[1:], uint16(gameFrame()))
 			nox_netlist_addToMsgListCli_40EBC0(pl.Index(), 1, buf[:])
 		} else {
+			if uint32(pl.UnitC().Ind()) == DeadWord { // see #401
+				pl.playerUnit = nil
+				mainloopStop()
+				return fmt.Errorf("player unit deleted (%s)", pl.Name())
+			}
 			C.nox_xxx_netUpdate_518EE0(pl.UnitC().CObj())
 		}
 		if pl.UnitC() == HostPlayerUnit() {
@@ -328,6 +336,7 @@ func updateRemotePlayers() {
 			C.nox_xxx_netSendReadPacket_5528B0(C.uint(pl.Index()+1), 0)
 		}
 	}
+	return nil
 }
 
 func nox_xxx_servNewSession_4D1660() error {
