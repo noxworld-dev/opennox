@@ -25,10 +25,9 @@ int dword_5d4594_3799524 = 0;
 unsigned int dword_5d4594_1309696 = 0;
 unsigned int dword_5d4594_1309704 = 0;
 
-nox_window* dword_5d4594_1064896 = 0;
-
 nox_window_ref* nox_win_1064912 = 0;
 #ifndef NOX_CGO
+nox_window* dword_5d4594_1064896 = 0;
 extern nox_video_bag_section_t* nox_video_bag_sections_arr;
 nox_alloc_class* nox_alloc_window = 0;
 nox_window* nox_win_xxx1_first = 0;

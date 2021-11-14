@@ -8972,7 +8972,8 @@ int nox_xxx_netNeedTimestampStatus_4174F0(int a1, int a2) {
 }
 
 //----- (00417530) --------------------------------------------------------
-char nox_xxx_playerUnsetStatus_417530(int a1, int a2) {
+char nox_xxx_playerUnsetStatus_417530(nox_playerInfo* a1p, int a2) {
+	int a1 = a1p;
 	int v2;   // eax
 	short v3; // ax
 

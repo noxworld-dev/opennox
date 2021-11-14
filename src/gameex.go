@@ -45,7 +45,7 @@ func gameexSomeWeirdCheckFixmePlease() C.bool {
 	// FIXME: no idea what is supposed to do... just checking if both are nil?
 	//        previously checked in asm: (cmp ds:6D8555, eax)
 	//        although we now know that offsets in Mix was wrong compared to our base binary
-	return (uintptr(unsafe.Pointer(C.dword_5d4594_1064896))>>8)|(uintptr(unsafe.Pointer(nox_win_activeWindow_1064900))<<24) == 0
+	return (uintptr(unsafe.Pointer(nox_win_freeList))>>8)|(uintptr(unsafe.Pointer(nox_win_activeWindow_1064900))<<24) == 0
 }
 
 var modifyWndPntr *Window

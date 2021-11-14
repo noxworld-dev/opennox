@@ -93,7 +93,6 @@ extern uint32_t dword_5d4594_1309736;
 extern uint32_t dword_5d4594_1309756;
 extern uint32_t dword_5d4594_1309832;
 extern uint32_t dword_5d4594_1313540;
-extern uint32_t dword_5d4594_1307292;
 extern uint32_t dword_5d4594_1308160;
 extern uint32_t dword_5d4594_1309824;
 extern uint32_t dword_5d4594_1307720;
@@ -193,6 +192,8 @@ nox_gui_animation* nox_wnd_xxx_1309740 = 0;
 void* dword_5d4594_3798632 = 0;
 char* dword_5d4594_3798644 = 0;
 
+void* dword_5d4594_1307292 = 0;
+
 //----- (004A19D0) --------------------------------------------------------
 void sub_4A19D0() {
 	nox_xxx_setContinueMenuOrHost_43DDD0(0);
@@ -203,7 +204,7 @@ void sub_4A19D0() {
 int sub_4A1A40(int a1) {
 	uint32_t* v1; // eax
 
-	v1 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1307292, 151);
+	v1 = nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1307292, 151);
 	return nox_xxx_wnd_46ABB0((int)v1, a1);
 }
 
@@ -221,11 +222,13 @@ int sub_4A1A60() {
 }
 // 4A18E0: using guessed type int  sub_4A18E0(int, int, int, int);
 
+#ifndef NOX_CGO
 //----- (004A1BD0) --------------------------------------------------------
-int sub_4A1BD0() { return nox_xxx_windowDestroyMB_46C4E0(*(uint32_t**)&dword_5d4594_1307292); }
+int sub_4A1BD0() { return nox_xxx_windowDestroyMB_46C4E0(dword_5d4594_1307292); }
+#endif // NOX_CGO
 
 //----- (004A1BE0) --------------------------------------------------------
-int sub_4A1BE0(int a1) { return nox_xxx_wnd_46ABB0(*(int*)&dword_5d4594_1307292, a1); }
+int sub_4A1BE0(int a1) { return nox_xxx_wnd_46ABB0(dword_5d4594_1307292, a1); }
 
 // 4A203B: variable 'v6' is possibly undefined
 
@@ -235,6 +238,7 @@ int nox_client_drawGeneralCallback_4A2200() { return nox_client_drawGeneral_4B03
 //----- (004A2490) --------------------------------------------------------
 int sub_4A2490(int a1, int a2, int a3, int a4) { return a2 == 23; }
 
+#ifndef NOX_CGO
 //----- (004A24A0) --------------------------------------------------------
 int nox_client_guiXxxDestroy_4A24A0() {
 	sub_4A1BD0();
@@ -242,6 +246,7 @@ int nox_client_guiXxxDestroy_4A24A0() {
 	nox_client_gui_flag_815132 = 0;
 	return 1;
 }
+#endif // NOX_CGO
 
 //----- (004A2560) --------------------------------------------------------
 int sub_4A2560(uint32_t* a1, int a2) {

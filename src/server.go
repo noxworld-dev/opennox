@@ -220,7 +220,7 @@ func nox_xxx_gameTick_4D2580_server_E() {
 	if C.nox_xxx_gameGet_4DB1B0() != 0 {
 		nox_xxx_gameTick_4D2580_server_D()
 	}
-	C.sub_4139C0()
+	sub_4139C0()
 	if C.nox_xxx_serverIsClosing_446180() != 0 {
 		C.sub_446190()
 	}

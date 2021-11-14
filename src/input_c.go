@@ -863,7 +863,7 @@ func nox_xxx_cursorUpdate_46B740(inp *input.Handler) {
 	if v64 == 1 {
 		nox_win_1064916 = nil
 	}
-	sub_46C200()
+	freeAllWindowsInList()
 }
 
 //export nox_input_scanCodeToAlpha_47F950

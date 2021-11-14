@@ -279,6 +279,7 @@ int nox_xxx_cliPrepareGameplay1_460E60() {
 	return result;
 }
 
+#ifndef NOX_CGO
 //----- (00460E90) --------------------------------------------------------
 int sub_460E90() {
 	int result; // eax
@@ -289,6 +290,7 @@ int sub_460E90() {
 	}
 	return result;
 }
+#endif // NOX_CGO
 
 //----- (00460EA0) --------------------------------------------------------
 int sub_460EA0(int a1) { return sub_460B90(a1); }
@@ -5747,8 +5749,9 @@ unsigned char sub_46FFD0() {
 	return result;
 }
 
+#ifndef NOX_CGO
 //----- (004703F0) --------------------------------------------------------
-int sub_4703F0() {
+void sub_4703F0() {
 	int result; // eax
 	int v1;     // edx
 
@@ -5794,30 +5797,23 @@ int sub_4703F0() {
 		dword_587000_145664 = 1;
 		break;
 	default:
-		return result;
+		break;
 	}
-	return result;
 }
 
 //----- (00470510) --------------------------------------------------------
-int sub_470510() {
-	int result; // eax
-
-	result = dword_5d4594_1090048;
+void sub_470510() {
 	if (dword_5d4594_1090048) {
-		result = dword_5d4594_1090120;
 		if (dword_5d4594_1090120 == 2) {
 			dword_587000_145664 = 1;
 		} else {
 			dword_587000_145668 = dword_5d4594_1090120;
 			dword_5d4594_1090120 = 0;
-			result = sub_4703F0();
+			sub_4703F0();
 		}
 	}
-	return result;
 }
 
-#ifndef NOX_CGO
 //----- (00470550) --------------------------------------------------------
 void sub_470550() {
 	if (dword_5d4594_1090048) {
@@ -5835,18 +5831,14 @@ int sub_470580() {
 }
 
 //----- (004705B0) --------------------------------------------------------
-int sub_4705B0() {
-	int result; // eax
-
-	result = dword_5d4594_1090048;
+void sub_4705B0() {
 	if (dword_5d4594_1090048) {
-		if (wndIsShown_nox_xxx_wndIsShown_46ACC0(*(int*)&dword_5d4594_1090048)) {
-			nox_window_set_hidden(*(int*)&dword_5d4594_1090048, 0);
+		if (wndIsShown_nox_xxx_wndIsShown_46ACC0(dword_5d4594_1090048)) {
+			nox_window_set_hidden(dword_5d4594_1090048, 0);
 		}
 		dword_5d4594_1090120 = 0;
-		result = sub_4703F0();
+		sub_4703F0();
 	}
-	return result;
 }
 
 //----- (004705F0) --------------------------------------------------------

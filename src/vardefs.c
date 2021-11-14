@@ -514,7 +514,6 @@ void* nox_alloc_tradeSession_2386492 = 0;
 uint32_t dword_5d4594_1096288 = 0;
 uint32_t dword_5d4594_3835352 = 0;
 uint32_t dword_5d4594_1046956 = 0;
-uint32_t dword_5d4594_1307292 = 0;
 void* nox_alloc_groupInfo_2523892 = 0;
 uint32_t dword_587000_145664 = 0x1;
 uint32_t dword_5d4594_787180 = 0;

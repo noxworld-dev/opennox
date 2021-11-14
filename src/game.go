@@ -48,6 +48,7 @@ extern unsigned int dword_5d4594_1563064;
 extern unsigned int dword_5d4594_251744;
 extern unsigned int dword_5d4594_815052;
 extern unsigned int dword_5d4594_823696;
+extern unsigned int dword_5d4594_1049508;
 extern void* nox_client_consoleCurCmd_823700;
 extern nox_draw_viewport_t nox_draw_viewport;
 extern unsigned char nox_net_lists_buf[2048];
@@ -279,7 +280,7 @@ func nox_xxx_serverHost_43B4D0() {
 		// host
 		C.nox_client_xxx_switchChatMap_43B510()
 		C.nox_client_guiXxx_43A9D0()
-		C.nox_client_guiXxxDestroy_4A24A0()
+		nox_client_guiXxxDestroy_4A24A0()
 		C.nox_xxx_gameSetAudioFadeoutMb_501AC0(0)
 	} else {
 		// join
@@ -785,7 +786,7 @@ func nox_xxx_gameTick_4D2580_server_D() {
 
 func nox_xxx_gameTick_4D2580_server_C() bool {
 	C.sub_4EDD70()
-	C.sub_417160()
+	sub_417160()
 	C.sub_4573B0()
 	if C.nox_xxx_CheckGameplayFlags_417DA0(2) != 0 && !noxflags.HasGame(49152) &&
 		C.nox_xxx_CheckGameplayFlags_417DA0(4) != 0 && !noxflags.HasGame(128) {
@@ -1245,12 +1246,29 @@ func sub_413980(a1 int) {
 	}
 }
 
+func sub_4139C0() {
+	if C.dword_5d4594_251744 != 0 {
+		if int(nox_xxx_bookGet_430B40_get_mouse_prev_seq()) >= int(C.dword_5d4594_251744) {
+			C.dword_5d4594_251744 = 0
+			if C.sub_450560() == 0 {
+				C.sub_413A00(0)
+			}
+		}
+	}
+}
+
+func sub_417160() {
+	for _, it := range getPlayers() {
+		C.nox_xxx_playerUnsetStatus_417530(it.C(), 16)
+	}
+}
+
 func sub_4ED970(a1 float32, v3 types.Pointf) types.Pointf {
 	var v10 [4]float32
 	v10[0] = v3.X
 	v10[1] = v3.Y
 	v9 := a1 * 0.015625
-	v11 := float32(noxRndCounter1.FloatClamp(-3.1415927, 3.1415927))
+	v11 := float32(noxRndCounter1.FloatClamp(-math.Pi, math.Pi))
 	for v5 := 0; v5 < 64; v5++ {
 		v6 := v11 + 1.8849558
 		v11 = v6
@@ -1276,8 +1294,7 @@ func nox_xxx_mapTraceRay_535250_00(a1 *[4]float32, a4 byte) bool {
 	return res
 }
 
-//export sub_473840
-func sub_473840() C.int {
+func sub_473840() {
 	C.nox_gui_console_Disable_450BF0()
 	C.nox_gui_itemAmount_free_4C03E0()
 	C.sub_46CCB0()
@@ -1294,7 +1311,7 @@ func sub_473840() C.int {
 	C.sub_445770()
 	C.sub_456240()
 	C.sub_455EE0()
-	C.sub_460E90()
+	sub_460E90()
 	C.sub_4505E0()
 	C.sub_46A860()
 	C.sub_49C7A0()
@@ -1302,7 +1319,16 @@ func sub_473840() C.int {
 	C.sub_467980()
 	sub_46C5D0()
 	C.nox_client_renderGUI_80828 = C.nox_xxx_xxxRenderGUI_587000_80832
-	return 1
+}
+
+func sub_460E90() {
+	if sub_460D40() {
+		C.sub_460D50()
+	}
+}
+
+func sub_460D40() bool {
+	return C.dword_5d4594_1049508 != 0
 }
 
 const netListsBufSize = 2048

@@ -493,7 +493,7 @@ char* nox_xxx_netMinimapUnmark4All_417430(int a1);
 char* nox_xxx_netUnmarkMinimapSpec_417470(int a1, int a2);
 char* nox_xxx_netMarkMinimapForAll_4174B0(int a1, int a2);
 int nox_xxx_netNeedTimestampStatus_4174F0(int a1, int a2);
-char nox_xxx_playerUnsetStatus_417530(int a1, int a2);
+char nox_xxx_playerUnsetStatus_417530(nox_playerInfo* a1, int a2);
 char* nox_xxx_sendAllClientStatus_4175C0(int a1);
 int nox_xxx_netReportPlayerStatus_417630(nox_playerInfo* pl);
 void nox_xxx_cliPlayerRespawn_417680(int a1, char a2);
