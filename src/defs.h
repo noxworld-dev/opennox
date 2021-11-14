@@ -113,18 +113,6 @@ static void memset32(uint32_t* x, uint32_t y, size_t z) {
 
 #define __ROL4__ _rotl
 
-#if !defined(__clang__) && !defined(_MSC_VER)
-static uint64_t __rdtsc() {
-#ifdef __GNUC__
-	unsigned int low, high;
-	asm("rdtsc" : "=a"(low), "=d"(high));
-	return ((uint64_t)high << 32) | low;
-#else
-	_asm rdtsc;
-#endif
-}
-#endif
-
 typedef struct std___Lockit {
 	uint32_t x;
 } std___Lockit;
