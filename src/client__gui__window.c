@@ -803,7 +803,7 @@ int sub_46C5D0() {
 		} while (v1);
 	}
 	sub_46C200();
-	nox_alloc_class_yyy_4144D0(nox_alloc_window);
+	nox_alloc_class_free_all(nox_alloc_window);
 	return 0;
 }
 
@@ -1001,7 +1001,7 @@ void sub_46C200() {
 				nox_win_1064916 = 0;
 			}
 			nox_window_call_field_94(v0, 2, 0, 0);
-			nox_alloc_class_free_obj(nox_alloc_window, v0);
+			nox_alloc_class_free_obj_first(nox_alloc_window, v0);
 			v0 = v2;
 		} while (v2);
 	}

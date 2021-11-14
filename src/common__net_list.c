@@ -219,7 +219,7 @@ void nox_netlist_resetList_420830(nox_net_list_t* p) {
 	p->field_2 = 0;
 	p->count = 0;
 	p->size = 0;
-	nox_alloc_class_yyy_4144D0(p->alloc);
+	nox_alloc_class_free_all(p->alloc);
 }
 
 //----- (0040ED10) --------------------------------------------------------
@@ -255,7 +255,7 @@ void nox_netlist_resetAll_40EE60() {
 
 //----- (004209C0) --------------------------------------------------------
 void nox_netlist_free_item_4209C0(nox_net_list_t* list, nox_net_list_item_t* item) {
-	nox_alloc_class_free_obj(list->alloc, item);
+	nox_alloc_class_free_obj_first(list->alloc, item);
 }
 
 //----- (00420A90) --------------------------------------------------------

@@ -36,9 +36,9 @@ _Static_assert(sizeof(nox_alloc_class) == 152, "wrong size of nox_alloc_class st
 
 #ifdef NOX_CGO_ALLOC
 #define nox_alloc_class_new_obj nox_alloc_class_new_obj_go
-#define nox_alloc_class_free_obj nox_alloc_class_free_obj_go
-#define nox_alloc_class_yyy_4144D0 nox_alloc_class_yyy_4144D0_go
-#define nox_alloc_class_xxx_414400 nox_alloc_class_xxx_414400_go
+#define nox_alloc_class_free_obj_first nox_alloc_class_free_obj_go
+#define nox_alloc_class_free_all nox_alloc_class_yyy_4144D0_go
+#define nox_alloc_class_free_obj_last nox_alloc_class_xxx_414400_go
 #define nox_platform_get_ticks alloc_nox_platform_get_ticks
 #endif // NOX_CGO_ALLOC
 
@@ -52,8 +52,8 @@ nox_alloc_class* nox_new_alloc_class_dynamic(char* name, int size, int cnt);
 void nox_free_alloc_class(nox_alloc_class* p); // idb
 void* nox_alloc_class_new_obj(nox_alloc_class* p);
 void* nox_alloc_class_new_obj_zero(nox_alloc_class* p);
-void nox_alloc_class_yyy_4144D0(nox_alloc_class* p);
-void nox_alloc_class_free_obj(nox_alloc_class* p, void* obj);
-void nox_alloc_class_xxx_414400(nox_alloc_class* p, void* obj);
+void nox_alloc_class_free_all(nox_alloc_class* p);
+void nox_alloc_class_free_obj_first(nox_alloc_class* p, void* obj);
+void nox_alloc_class_free_obj_last(nox_alloc_class* p, void* obj);
 
 #endif // NOX_COMMON_ALLOC_CLASS_H

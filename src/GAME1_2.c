@@ -5012,7 +5012,7 @@ int nox_client_initScreenParticles_431390() {
 			return 0;
 		}
 	}
-	nox_alloc_class_yyy_4144D0(nox_alloc_screenParticles_806044);
+	nox_alloc_class_free_all(nox_alloc_screenParticles_806044);
 	nox_screenParticles_head = 0;
 	dword_5d4594_806052 = 0;
 	nox_xxx_particlesLoadColor_4313E0();
@@ -5050,7 +5050,7 @@ void nox_xxx_freeScreenParticles_4314D0() {
 //----- (00431510) --------------------------------------------------------
 int sub_431510() {
 	if (nox_alloc_screenParticles_806044) {
-		nox_alloc_class_yyy_4144D0(*(uint32_t**)&nox_alloc_screenParticles_806044);
+		nox_alloc_class_free_all(*(uint32_t**)&nox_alloc_screenParticles_806044);
 	}
 	nox_screenParticles_head = 0;
 	dword_5d4594_806052 = 0;
@@ -5155,7 +5155,7 @@ void sub_4316C0(nox_screenParticle* p) {
 //----- (00431700) --------------------------------------------------------
 void sub_431700(uint64_t* a1) {
 	sub_4316C0((int)a1);
-	nox_alloc_class_free_obj(*(unsigned int**)&nox_alloc_screenParticles_806044, a1);
+	nox_alloc_class_free_obj_first(*(unsigned int**)&nox_alloc_screenParticles_806044, a1);
 }
 
 //----- (00431720) --------------------------------------------------------
