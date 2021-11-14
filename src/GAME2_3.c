@@ -2642,26 +2642,6 @@ int sub_495AE0() {
 	return result;
 }
 
-//----- (00495B00) --------------------------------------------------------
-void sub_495B00(nox_drawable* dr) {
-	int a1 = dr;
-	uint32_t* v1; // esi
-	uint32_t* v2; // edi
-
-	v1 = *(uint32_t**)(a1 + 456);
-	if (v1) {
-		do {
-			v2 = (uint32_t*)v1[16];
-			sub_495B50(v1);
-			nox_alloc_class_free_obj_first(*(unsigned int**)getMemAt(0x5D4594, 1203868), v1);
-			v1 = v2;
-		} while (v2);
-		*(uint32_t*)(a1 + 456) = 0;
-	} else {
-		*(uint32_t*)(a1 + 456) = 0;
-	}
-}
-
 //----- (00495B50) --------------------------------------------------------
 uint32_t* sub_495B50(uint32_t* a1) {
 	uint32_t* result; // eax
