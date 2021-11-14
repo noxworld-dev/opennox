@@ -43,13 +43,66 @@
 #include "GAME2.h"
 #include "common__random.h"
 
-extern nox_alloc_class* nox_alloc_drawable;
-extern nox_drawable* nox_drawable_head_unk1;
-extern nox_drawable* nox_drawable_head_unk2;
-extern nox_drawable* nox_drawable_head_unk3;
-extern nox_drawable* nox_drawable_head_unk4;
-extern int nox_drawable_count;
+uint32_t* sub_495B50(uint32_t* a1);
+
 extern unsigned int nox_frame_xxx_2598000;
+
+int nox_drawable_count = 0;
+nox_alloc_class* nox_alloc_drawable = 0;
+nox_drawable* nox_drawable_head_unk1 = 0;
+nox_drawable* nox_drawable_head_unk2 = 0;
+nox_drawable* nox_drawable_head_unk3 = 0;
+nox_drawable* nox_drawable_head_unk4 = 0;
+
+//----- (0045A020) --------------------------------------------------------
+int nox_get_drawable_count() { return nox_drawable_count; }
+
+//----- (0045A030) --------------------------------------------------------
+int nox_xxx_sprite_45A030() { return nox_drawable_head_unk2; }
+
+//----- (0045A1D0) --------------------------------------------------------
+int nox_alloc_drawable_init(int cnt) {
+	nox_alloc_drawable = nox_new_alloc_class("drawableClass", sizeof(nox_drawable), cnt);
+	return nox_alloc_drawable != 0;
+}
+
+//----- (0045A200) --------------------------------------------------------
+void nox_drawable_free() {
+	nox_free_alloc_class(nox_alloc_drawable);
+	nox_alloc_drawable = 0;
+	nox_drawable_head_unk2 = 0;
+	nox_drawable_head_unk1 = 0;
+	nox_drawable_head_unk3 = 0;
+	nox_drawable_head_unk4 = 0;
+	nox_drawable_count = 0;
+}
+
+//----- (00495B00) --------------------------------------------------------
+void sub_495B00(nox_drawable* dr) {
+	int a1 = dr;
+	uint32_t* v1; // esi
+	uint32_t* v2; // edi
+
+	v1 = *(uint32_t**)(a1 + 456);
+	if (v1) {
+		do {
+			v2 = (uint32_t*)v1[16];
+			sub_495B50(v1);
+			nox_alloc_class_free_obj_first(*(unsigned int**)getMemAt(0x5D4594, 1203868), v1);
+			v1 = v2;
+		} while (v2);
+		*(uint32_t*)(a1 + 456) = 0;
+	} else {
+		*(uint32_t*)(a1 + 456) = 0;
+	}
+}
+
+//----- (0045A4B0) --------------------------------------------------------
+int nox_xxx_spriteDelete_45A4B0(nox_drawable* dr) {
+	sub_495B00(dr);
+	nox_alloc_class_free_obj_first(nox_alloc_drawable, dr);
+	return --nox_drawable_count;
+}
 
 nox_parse_thing_draw_funcs_t nox_parse_thing_draw_funcs[] = {
 	{"NoDraw", 0, 0, 0},

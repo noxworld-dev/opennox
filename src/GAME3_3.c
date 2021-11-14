@@ -81,7 +81,7 @@ extern unsigned int nox_gameFPS;
 extern unsigned int nox_frame_xxx_2598000;
 extern unsigned int gameex_flags;
 
-void* nox_alloc_gameObject_1563344 = 0;
+nox_alloc_class* nox_alloc_gameObject_1563344 = 0;
 
 //----- (004E17B0) --------------------------------------------------------
 int nox_server_handler_PlayerDamage_4E17B0(int a1, int a2, int a3, int a4, int a5) {

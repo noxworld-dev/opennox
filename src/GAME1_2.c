@@ -28,6 +28,7 @@
 #include "common__crypt.h"
 
 #include "client__drawable__drawdb.h"
+#include "client__drawable__drawable.h"
 #include "client__gui__gamewin__gamewin.h"
 #include "client__gui__guiggovr.h"
 #include "client__gui__guiquit.h"

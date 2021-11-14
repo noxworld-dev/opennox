@@ -8,6 +8,7 @@
 #include "GAME3_1.h"
 #include "client__gui__gamewin__gamewin.h"
 #include "client__gui__guimsg.h"
+#include "client__drawable__drawable.h"
 
 extern uint32_t dword_5d4594_1320964;
 extern uint32_t dword_5d4594_1320940;

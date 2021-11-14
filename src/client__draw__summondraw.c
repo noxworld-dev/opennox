@@ -4,6 +4,7 @@
 #include "client__draw__animdraw.h"
 #include "client__draw__fx.h"
 #include "operators.h"
+#include "client__drawable__drawable.h"
 
 extern uint32_t dword_5d4594_1313740;
 extern unsigned int nox_frame_xxx_2598000;

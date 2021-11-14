@@ -196,16 +196,14 @@ extern nox_thing* nox_things_head;
 extern nox_thing** nox_things_array;
 extern int nox_things_count;
 
+extern nox_drawable* nox_drawable_head_unk1;
+extern nox_drawable* nox_drawable_head_unk2;
+extern nox_drawable* nox_drawable_head_unk3;
+extern nox_drawable* nox_drawable_head_unk4;
+
 nox_window* nox_win_unk1 = 0;
 
-nox_alloc_class* nox_alloc_drawable = 0;
-
 nox_drawable* nox_xxx_drawablePlayer_1046600 = 0;
-nox_drawable* nox_drawable_head_unk1 = 0;
-nox_drawable* nox_drawable_head_unk2 = 0;
-nox_drawable* nox_drawable_head_unk3 = 0;
-nox_drawable* nox_drawable_head_unk4 = 0;
-int nox_drawable_count = 0;
 
 uint32_t dword_587000_122856 = 0x1;
 uint32_t dword_5d4594_831088 = 0;
@@ -5404,12 +5402,6 @@ nox_drawable* nox_xxx_cliGetSpritePlayer_45A000() { return nox_xxx_drawablePlaye
 //----- (0045A010) --------------------------------------------------------
 nox_drawable* sub_45A010(nox_drawable* dr) { return dr->field_104; }
 
-//----- (0045A020) --------------------------------------------------------
-int nox_get_drawable_count() { return nox_drawable_count; }
-
-//----- (0045A030) --------------------------------------------------------
-int nox_xxx_sprite_45A030() { return nox_drawable_head_unk2; }
-
 //----- (0045A040) --------------------------------------------------------
 int sub_45A040(int a1) {
 	int result; // eax
@@ -5526,23 +5518,6 @@ void sub_45A160_drawable(nox_drawable* a1) {
 	a1->flags30 &= 0xFFBFFFFF;
 }
 
-//----- (0045A1D0) --------------------------------------------------------
-int nox_alloc_drawable_init(int cnt) {
-	nox_alloc_drawable = nox_new_alloc_class("drawableClass", sizeof(nox_drawable), cnt);
-	return nox_alloc_drawable != 0;
-}
-
-//----- (0045A200) --------------------------------------------------------
-void nox_drawable_free() {
-	nox_free_alloc_class(nox_alloc_drawable);
-	nox_alloc_drawable = 0;
-	nox_drawable_head_unk2 = 0;
-	nox_drawable_head_unk1 = 0;
-	nox_drawable_head_unk3 = 0;
-	nox_drawable_head_unk4 = 0;
-	nox_drawable_count = 0;
-}
-
 //----- (0045A360) --------------------------------------------------------
 nox_drawable* nox_xxx_spriteLoadAdd_45A360_drawable(int thingInd, int a2, int a3) {
 	nox_drawable* dr = nox_new_drawable_for_thing(thingInd);
@@ -5601,13 +5576,6 @@ void nox_xxx_sprite_45A480_drawable(int a1) {
 			sub_495F70(a1);
 		}
 	}
-}
-
-//----- (0045A4B0) --------------------------------------------------------
-int nox_xxx_spriteDelete_45A4B0(nox_drawable* dr) {
-	sub_495B00(dr);
-	nox_alloc_class_free_obj_first(nox_alloc_drawable, dr);
-	return --nox_drawable_count;
 }
 
 //----- (0045A4E0) --------------------------------------------------------
