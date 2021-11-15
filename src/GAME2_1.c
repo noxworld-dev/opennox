@@ -4762,12 +4762,12 @@ int sub_46CCD0(int a1, int a2) {
 
 //----- (0046CD70) --------------------------------------------------------
 int sub_46CD70(nox_savegame_xxx* sv) {
-	if (sv->field_0 & 8) {
+	if (sv->flags & 8) {
 		return 10;
 	}
 
 	char buf[12];
-	nox_savegame_nameFromPath_4DC970(&sv->field_4, buf);
+	nox_savegame_nameFromPath_4DC970(&sv->path, buf);
 	return (strcmp(buf, "AUTOSAVE") != 0) + (NOX_SAVEGAME_XXX_MAX - 1);
 }
 
@@ -4777,9 +4777,9 @@ int nox_savegame_findLatestSave_46CDC0(nox_savegame_xxx* sarr) {
 	FILETIME latest;
 	for (int i = 0; i < NOX_SAVEGAME_XXX_MAX; i++) {
 		nox_savegame_xxx* sv = &sarr[i];
-		if (strlen(&sv->field_4)) {
+		if (strlen(&sv->path)) {
 			struct _FILETIME t;
-			SystemTimeToFileTime(&sv->field_1188, &t);
+			SystemTimeToFileTime(&sv->timestamp, &t);
 			if (ind == -1 || CompareFileTime(&t, &latest) == 1) {
 				ind = i;
 				latest = t;

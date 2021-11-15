@@ -1282,9 +1282,9 @@ int sub_41A000(char* a1, nox_savegame_xxx* sv) {
 	v6 = strlen(a1) + 1;
 	v7 = v6;
 	v6 >>= 2;
-	memcpy(&sv->field_4, a1, 4 * v6);
+	memcpy(&sv->path, a1, 4 * v6);
 	v9 = &a1[4 * v6];
-	v8 = &sv->field_4[4 * v6];
+	v8 = &sv->path[4 * v6];
 	LOBYTE(v6) = v7;
 	memcpy(v8, v9, v6 & 3);
 	return 1;

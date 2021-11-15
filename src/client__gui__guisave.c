@@ -101,8 +101,8 @@ int nox_savegame_sub_46C920(uint32_t* a1, int a2, int* a3, int a4) {
 			nox_xxx_wnd_46ABB0((int)v10, 0);
 			return 0;
 		}
-		if (strlen(&nox_savegame_arr_1064948[v8].field_4)) {
-			nox_savegame_nameFromPath_4DC970(&nox_savegame_arr_1064948[v8].field_4, (char*)getMemAt(0x5D4594, 1082840));
+		if (strlen(&nox_savegame_arr_1064948[v8].path)) {
+			nox_savegame_nameFromPath_4DC970(&nox_savegame_arr_1064948[v8].path, (char*)getMemAt(0x5D4594, 1082840));
 			nox_xxx_wndClearCaptureMain_46ADE0(*(int*)&dword_5d4594_1082856);
 			v13 = nox_strman_loadString_40F1D0("GUISave.c:OverwriteSaveMessage", 0,
 											   "C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 184);
@@ -123,7 +123,7 @@ int nox_savegame_sub_46C920(uint32_t* a1, int a2, int* a3, int a4) {
 		return 0;
 	} else if (v5 == 502) {
 		v6 = *(uint32_t*)(*(uint32_t*)(dword_5d4594_1082864 + 32) + 48);
-		if (v6 >= 0 && strlen(&nox_savegame_arr_1064948[v6].field_4)) {
+		if (v6 >= 0 && strlen(&nox_savegame_arr_1064948[v6].path)) {
 			if (nox_xxx_playerAnimCheck_4372B0()) {
 				nox_savegame_sub_46CBD0();
 				return 0;
@@ -162,10 +162,10 @@ int nox_savegame_sub_46CBD0() {
 
 	result = 0;
 	int i = *(uint32_t*)(*(uint32_t*)(dword_5d4594_1082864 + 32) + 48);
-	if (!strlen(&nox_savegame_arr_1064948[i].field_4)) {
+	if (!strlen(&nox_savegame_arr_1064948[i].path)) {
 		return 0;
 	}
-	nox_savegame_nameFromPath_4DC970(&nox_savegame_arr_1064948[i].field_4, v3);
+	nox_savegame_nameFromPath_4DC970(&nox_savegame_arr_1064948[i].path, v3);
 	if (!sub_4DB790(v3)) {
 		v2 = nox_strman_loadString_40F1D0("SaveErrorTitle", 0, "C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 75);
 		v1 = nox_strman_loadString_40F1D0("SaveErrorTitle", 0, "C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 74);
@@ -218,12 +218,12 @@ int nox_savegame_sub_46CE40(int a1, int a2, int a3, nox_savegame_xxx* sarr) {
 	v40 = 0;
 	while (1) {
 		nox_savegame_xxx* sv = &sarr[v9];
-		if (strlen(&sv->field_4)) {
-			nox_savegame_nameFromPath_4DC970(&sv->field_4, &v41);
-			nox_sprintf(&DateStr, "nox.str:%s", *getMemU32Ptr(0x587000, 29456 + 4 * sv->field_1274));
+		if (strlen(&sv->path)) {
+			nox_savegame_nameFromPath_4DC970(&sv->path, &v41);
+			nox_sprintf(&DateStr, "nox.str:%s", *getMemU32Ptr(0x587000, 29456 + 4 * sv->player_class));
 			wchar_t* v39 = nox_strman_loadString_40F1D0(&DateStr, 0, "C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 667);
 			wchar_t* v13 = nox_strman_loadString_40F1D0("the", 0, "C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 666);
-			nox_swprintf(&v42, v13, &sv->field_1224, v39);
+			nox_swprintf(&v42, v13, &sv->player_name, v39);
 			if (!strcmp(&v41, "AUTOSAVE")) {
 				nox_wcscat(&v42, L" ");
 				wchar_t* v14 =
@@ -232,9 +232,9 @@ int nox_savegame_sub_46CE40(int a1, int a2, int a3, nox_savegame_xxx* sarr) {
 			} else {
 				nox_wcscat(&v42, L" - ");
 				wchar_t* v17;
-				switch (sv->field_1277) {
+				switch (sv->stage) {
 				case 1:;
-					char v16 = sv->field_1274;
+					char v16 = sv->player_class;
 					if (!v16) {
 						v17 = nox_strman_loadString_40F1D0("WolChat.c:Nox_Lobby_3", 0,
 														   "C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 688);
@@ -247,7 +247,7 @@ int nox_savegame_sub_46CE40(int a1, int a2, int a3, nox_savegame_xxx* sarr) {
 					}
 					break;
 				case 2:;
-					char v18 = sv->field_1274;
+					char v18 = sv->player_class;
 					if (!v18) {
 						v17 = nox_strman_loadString_40F1D0("War02a.scr:Sign5", 0,
 														   "C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 699);
@@ -260,7 +260,7 @@ int nox_savegame_sub_46CE40(int a1, int a2, int a3, nox_savegame_xxx* sarr) {
 					}
 					break;
 				case 3:;
-					char v19 = sv->field_1274;
+					char v19 = sv->player_class;
 					if (!v19) {
 						v17 = nox_strman_loadString_40F1D0("Noxworld.wnd:VillageIx", 0,
 														   "C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 710);
@@ -301,7 +301,7 @@ int nox_savegame_sub_46CE40(int a1, int a2, int a3, nox_savegame_xxx* sarr) {
 													   "C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 730);
 					break;
 				case 11:;
-					char v20 = sv->field_1274;
+					char v20 = sv->player_class;
 					if (!v20) {
 						v17 = nox_strman_loadString_40F1D0("WolChat.c:Nox_Lobby_47", 0,
 														   "C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 735);
@@ -323,9 +323,9 @@ int nox_savegame_sub_46CE40(int a1, int a2, int a3, nox_savegame_xxx* sarr) {
 			v21 = sub_46CD70(sv);
 			nox_window_call_field_94(a1, 16397, (int)getMemAt(0x587000, 145320), v21);
 			nox_window_call_field_94(a3, 16397, (int)&v42, v21);
-			GetDateFormatA(LOCALE_SYSTEM_DEFAULT, DATE_SHORTDATE, &sv->field_1188, 0, &DateStr, sizeof(DateStr));
+			GetDateFormatA(LOCALE_SYSTEM_DEFAULT, DATE_SHORTDATE, &sv->timestamp, 0, &DateStr, sizeof(DateStr));
 			GetTimeFormatA(LOCALE_SYSTEM_DEFAULT, TIME_FORCE24HOURFORMAT | TIME_NOTIMEMARKER | TIME_NOSECONDS,
-						   &sv->field_1188, 0, &TimeStr, sizeof(TimeStr));
+						   &sv->timestamp, 0, &TimeStr, sizeof(TimeStr));
 			nox_swprintf(&v42, L"%S, %S ", &DateStr, &TimeStr);
 			nox_window_call_field_94(a2, 16397, (int)&v42, v21);
 			v9 = v40;
