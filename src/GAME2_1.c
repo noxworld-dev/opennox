@@ -145,7 +145,7 @@ extern uint32_t dword_5d4594_1062508;
 extern uint32_t dword_5d4594_1064816;
 extern uint32_t dword_5d4594_1064192;
 extern uint32_t nox_video_pixmode_3799624;
-extern uint32_t dword_5d4594_1082856;
+extern nox_window* dword_5d4594_1082856;
 extern uint32_t dword_5d4594_1049504;
 extern uint32_t dword_5d4594_1090120;
 extern uint32_t dword_5d4594_1063116;
@@ -4717,7 +4717,7 @@ int sub_46CC70() {
 }
 
 //----- (0046CC90) --------------------------------------------------------
-int sub_46CC90() { return nox_xxx_wndSetCaptureMain_46ADC0(*(int*)&dword_5d4594_1082856); }
+int sub_46CC90() { return nox_xxx_wndSetCaptureMain_46ADC0(dword_5d4594_1082856); }
 
 //----- (0046CCA0) --------------------------------------------------------
 int sub_46CCA0(int a1, int a2, int a3, int a4) { return 1; }
@@ -4726,7 +4726,7 @@ int sub_46CCA0(int a1, int a2, int a3, int a4) { return 1; }
 int sub_46CCB0() {
 	int result; // eax
 
-	nox_xxx_windowDestroyMB_46C4E0(*(uint32_t**)&dword_5d4594_1082856);
+	nox_xxx_windowDestroyMB_46C4E0(dword_5d4594_1082856);
 	result = 0;
 	dword_5d4594_1082856 = 0;
 	dword_5d4594_1082864 = 0;
@@ -4792,12 +4792,12 @@ int nox_savegame_findLatestSave_46CDC0(nox_savegame_xxx* sarr) {
 //----- (0046D6F0) --------------------------------------------------------
 int sub_46D6F0() {
 	memset(nox_savegame_arr_1064948, 0, NOX_SAVEGAME_XXX_MAX * sizeof(nox_savegame_xxx));
-	if (wndIsShown_nox_xxx_wndIsShown_46ACC0(*(int*)&dword_5d4594_1082856)) {
+	if (wndIsShown_nox_xxx_wndIsShown_46ACC0(dword_5d4594_1082856)) {
 		return 0;
 	}
-	nox_window_set_hidden(*(int*)&dword_5d4594_1082856, 1);
-	nox_xxx_wnd_46ABB0(*(int*)&dword_5d4594_1082856, 0);
-	nox_xxx_wndClearCaptureMain_46ADE0(*(int*)&dword_5d4594_1082856);
+	nox_window_set_hidden(dword_5d4594_1082856, 1);
+	nox_xxx_wnd_46ABB0(dword_5d4594_1082856, 0);
+	nox_xxx_wndClearCaptureMain_46ADE0(dword_5d4594_1082856);
 	sub_413A00(0);
 	return 1;
 }
