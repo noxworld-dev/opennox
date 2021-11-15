@@ -12,6 +12,7 @@ extern uint32_t dword_5d4594_1197316;
 extern uint32_t dword_5d4594_1197320;
 extern uint32_t dword_5d4594_1197324;
 extern uint32_t dword_5d4594_1197312;
+extern uint32_t nox_player_netCode_85319C;
 
 //----- (0048CB10) --------------------------------------------------------
 uint32_t* sub_48CB10(int a1) {
@@ -99,7 +100,7 @@ uint32_t* sub_48CB10(int a1) {
 		v14 = nox_strman_loadString_40F1D0("VoteKickPlayer", 0, "C:\\NoxPost\\src\\client\\Gui\\GUIVote.c", 520);
 		sub_46AEE0((int)v13, (int)v14);
 		if (nox_xxx_getTeamCounter_417DD0()) {
-			v15 = nox_xxx_objGetTeamByNetCode_418C80(*getMemIntPtr(0x85319C, 0));
+			v15 = nox_xxx_objGetTeamByNetCode_418C80(nox_player_netCode_85319C);
 			v16 = nox_xxx_clientGetTeamColor_418AB0(*((unsigned char*)v15 + 4));
 			v26 = v16;
 			if (v16) {

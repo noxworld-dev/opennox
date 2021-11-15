@@ -140,6 +140,7 @@ extern uint32_t nox_client_renderGUI_80828;
 extern nox_window* nox_wnd_quitMenu_825760;
 extern uint32_t dword_5d4594_2650652;
 extern uint32_t dword_5d4594_830224;
+extern uint32_t nox_player_netCode_85319C;
 extern uint8_t** nox_pixbuffer_rows_3798784;
 extern nox_memfile* nox_loaded_thing_bin;
 extern unsigned int nox_frame_xxx_2598000;
@@ -3838,7 +3839,7 @@ int nox_xxx_netServerCmd_440950(char a1, wchar_t* a2) {
 
 	v3[0] = -69;
 	v3[1] = a1;
-	*(uint16_t*)&v3[2] = *getMemU16Ptr(0x85319C, 0);
+	*(uint16_t*)&v3[2] = nox_player_netCode_85319C;
 	v3[4] = 0;
 	*(uint16_t*)&v3[5] = 0;
 	if (a2) {

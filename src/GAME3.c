@@ -153,6 +153,7 @@ extern uint32_t dword_5d4594_3801780;
 extern uint32_t dword_5d4594_810632;
 extern uint32_t dword_5d4594_2650652;
 extern uint32_t dword_5d4594_1307784;
+extern uint32_t nox_player_netCode_85319C;
 extern unsigned char* nox_draw_colors_r_3804672;
 extern unsigned char* nox_draw_colors_g_3804656;
 extern unsigned char* nox_draw_colors_b_3804664;
@@ -5437,7 +5438,7 @@ char* nox_xxx_mapCliReadAll_4AC2B0(char* a1) {
 		sub_470680();
 		sub_461520();
 		nox_xxx_tile_486060();
-		v2 = nox_common_playerInfoGetByID_417040(*getMemIntPtr(0x85319C, 0));
+		v2 = nox_common_playerInfoGetByID_417040(nox_player_netCode_85319C);
 		sub_422140((int)v2);
 		nox_xxx_gameSetNoMPFlag_4DB230(0);
 		if (*getMemIntPtr(0x973F18, 3800) < 0) {

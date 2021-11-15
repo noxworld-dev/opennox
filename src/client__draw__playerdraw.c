@@ -25,6 +25,7 @@ extern uint32_t dword_5d4594_3798676;
 extern uint32_t dword_5d4594_3798680;
 extern uint32_t dword_5d4594_3798684;
 extern uint32_t dword_5d4594_3798688;
+extern uint32_t nox_player_netCode_85319C;
 extern unsigned int nox_frame_xxx_2598000;
 
 //----- (004B8270) --------------------------------------------------------
@@ -75,8 +76,8 @@ int nox_thing_player_draw(uint32_t* a1, nox_drawable* dr) {
 	if (*getMemU32Ptr(0x8531A0, 2576) && *(uint8_t*)(*getMemU32Ptr(0x8531A0, 2576) + 3680) & 1) {
 		v30 = 1;
 	}
-	if (*getMemU32Ptr(0x85319C, 0) == dr->field_32) {
-		v4 = nox_xxx_objGetTeamByNetCode_418C80(*getMemIntPtr(0x85319C, 0));
+	if (nox_player_netCode_85319C == dr->field_32) {
+		v4 = nox_xxx_objGetTeamByNetCode_418C80(nox_player_netCode_85319C);
 		if (!v4) {
 			goto LABEL_15;
 		}
@@ -86,7 +87,7 @@ int nox_thing_player_draw(uint32_t* a1, nox_drawable* dr) {
 	if (v3[3680] & 1) {
 		return 1;
 	}
-	v6 = nox_xxx_objGetTeamByNetCode_418C80(*getMemIntPtr(0x85319C, 0));
+	v6 = nox_xxx_objGetTeamByNetCode_418C80(nox_player_netCode_85319C);
 	if (v6) {
 		v7 = nox_xxx_objGetTeamByNetCode_418C80(dr->field_32);
 		v8 = v7;
@@ -220,7 +221,7 @@ LABEL_37:
 		sub_4B8D40(v10, dr, *((uint32_t*)v3 + 1) & 2, (uint32_t*)v3 + 581, v28, v27);
 	}
 
-	if (v30 || !nox_xxx_spriteCheckFlag31_4356C0(dr, 0) || dr->field_32 == *getMemU32Ptr(0x85319C, 0) ||
+	if (v30 || !nox_xxx_spriteCheckFlag31_4356C0(dr, 0) || dr->field_32 == nox_player_netCode_85319C ||
 		*getMemU32Ptr(0x852978, 8) && (nox_xxx_spriteCheckFlag31_4356C0(*getMemIntPtr(0x852978, 8), 21) || v31)) {
 		a1 = nox_color_rgb_4344A0(155, 155, 155);
 		if (!sub_48D830(dr) && !nox_common_gameFlags_check_40A5C0(2048)) {

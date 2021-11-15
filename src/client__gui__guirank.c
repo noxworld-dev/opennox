@@ -21,6 +21,7 @@ extern uint32_t dword_5d4594_1090040;
 extern uint32_t dword_587000_145664;
 extern uint32_t dword_5d4594_1090044;
 extern uint32_t dword_5d4594_1090100;
+extern uint32_t nox_player_netCode_85319C;
 extern int dword_5d4594_3799524;
 extern uint32_t dword_5d4594_1090120;
 extern int nox_win_width;
@@ -360,7 +361,7 @@ int sub_46F080(int a1, int a2) {
 		sub_46DB80();
 		sub_46DCC0();
 		dword_587000_145664 = 0;
-		v7 = nox_xxx_objGetTeamByNetCode_418C80(*getMemIntPtr(0x85319C, 0));
+		v7 = nox_xxx_objGetTeamByNetCode_418C80(nox_player_netCode_85319C);
 		if (v7) {
 			v2 = nox_xxx_clientGetTeamColor_418AB0(*((unsigned char*)v7 + 4));
 			v35 = v2;
@@ -448,7 +449,7 @@ int sub_46F080(int a1, int a2) {
 					} else {
 						v40 = 9;
 					}
-					if (*getMemU32Ptr(0x5D4594, 1084192 + 80 * v32) == *getMemU32Ptr(0x85319C, 0)) {
+					if (*getMemU32Ptr(0x5D4594, 1084192 + 80 * v32) == nox_player_netCode_85319C) {
 						dword_587000_145672 =
 							*(short*)(*(uint32_t*)(*getMemU32Ptr(0x5D4594, 1090060 + 4 * v16) + 32) + 46);
 						*getMemU32Ptr(0x5D4594, 1088996) = v32 >> 4;

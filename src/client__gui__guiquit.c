@@ -24,6 +24,7 @@ extern uint32_t dword_5d4594_825764;
 extern uint32_t dword_5d4594_825752;
 extern uint32_t dword_5d4594_825768;
 extern uint32_t dword_5d4594_2650652;
+extern uint32_t nox_player_netCode_85319C;
 extern int nox_win_width;
 extern int nox_win_height;
 extern unsigned int nox_frame_xxx_2598000;
@@ -160,7 +161,7 @@ int nox_xxx_menuGameOnButton_445840(uint32_t* a1, int a2, int* a3, int a4) {
 		goto LABEL_11;
 	case 9007:
 		if (nox_common_gameFlags_check_40A5C0(1)) {
-			v8 = nox_common_playerInfoGetByID_417040(*getMemIntPtr(0x85319C, 0));
+			v8 = nox_common_playerInfoGetByID_417040(nox_player_netCode_85319C);
 			nox_xxx_serverHandleClientConsole_443E90((int)v8, 0, 0);
 		LABEL_11:
 			sub_445C40();

@@ -181,6 +181,7 @@ extern uint32_t nox_wol_wnd_gameList_815012;
 extern nox_window* dword_5d4594_815004;
 extern uint32_t dword_5d4594_2650652;
 extern uint32_t dword_5d4594_3798844;
+extern uint32_t nox_player_netCode_85319C;
 extern nox_window* nox_wol_wnd_world_814980;
 extern int nox_enable_audio;
 extern unsigned int nox_frame_xxx_2598000;
@@ -5931,7 +5932,7 @@ int nox_xxx_cliToggleObsWindow_4357A0() {
 #ifndef NOX_CGO
 //----- (004357D0) --------------------------------------------------------
 int nox_xxx_clientResetSpriteAndGui_4357D0(int argc, const char** argv) {
-	*getMemU32Ptr(0x85319C, 0) = 0;
+	nox_player_netCode_85319C = 0;
 	*getMemU32Ptr(0x852978, 8) = 0;
 	*getMemU32Ptr(0x8531A0, 2576) = 0;
 	strcpy((char*)getMemAt(0x5D4594, 811280), nox_xxx_getRandomName_4358A0());
@@ -6014,7 +6015,7 @@ int nox_xxx_whenServerHostServer_435A10(signed int* a1) {
 	memcpy(Data, v1, 0x61u);
 	if (nox_common_gameFlags_check_40A5C0(1)) {
 		nox_xxx_replay_4D3860(Data);
-		*getMemU32Ptr(0x85319C, 0) = nox_xxx_playerNew_4DD320(31, (int)Data);
+		nox_player_netCode_85319C = nox_xxx_playerNew_4DD320(31, (int)Data);
 		nox_client_setVersion_409AE0(NOX_CLIENT_VERS_CODE);
 		nox_netlist_receiveCli_494E90(31);
 	} else {
@@ -6368,7 +6369,7 @@ int nox_xxx_cliSetupSession_437190() {
 		nox_netlist_resetAll_40EE60();
 	}
 	result = sub_417CF0();
-	*getMemU32Ptr(0x85319C, 0) = 0;
+	nox_player_netCode_85319C = 0;
 	*getMemU32Ptr(0x852978, 8) = 0;
 	*getMemU32Ptr(0x8531A0, 2576) = 0;
 	return result;

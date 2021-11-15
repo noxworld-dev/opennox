@@ -721,7 +721,7 @@ func nox_xxx_clientDrawAll_436100_draw() {
 		vp.y2 = C.int(v7) + vp.height - 1
 	}
 	C.sub_430B50(C.int(v6), C.int(v7), vp.x2, vp.y2)
-	if id := memmap.Uint32(0x85319C, 0); id != 0 {
+	if id := clientPlayerNetCode(); id != 0 {
 		*memmap.PtrPtr(0x852978, 8) = unsafe.Pointer(C.nox_xxx_netSpriteByCodeDynamic_45A6F0(C.int(id)))
 	}
 	if getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) {

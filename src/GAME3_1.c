@@ -139,6 +139,7 @@ extern uint32_t dword_5d4594_1321040;
 extern uint32_t dword_5d4594_1316972;
 extern uint32_t nox_client_renderGUI_80828;
 extern uint32_t dword_5d4594_1320940;
+extern uint32_t nox_player_netCode_85319C;
 extern int nox_win_width;
 extern int nox_win_height;
 extern unsigned int nox_gameFPS;
@@ -5055,18 +5056,18 @@ short nox_xxx_drawObject_4C4770_draw(int* a1, nox_drawable* dr, int a3) {
 	v3 = a2;
 	if (a2[112] & 4) {
 		v4 = nox_common_playerInfoGetByID_417040(*((uint32_t*)a2 + 32));
-		if (*getMemU32Ptr(0x85319C, 0) == *((uint32_t*)a2 + 32)) {
+		if (nox_player_netCode_85319C == *((uint32_t*)a2 + 32)) {
 			if (v4 && v4[3680] & 1) {
 				v54 = 1;
 			}
 		} else if (v4 && v4[3680] & 1) {
 			return (short)v4;
 		}
-		v5 = nox_xxx_objGetTeamByNetCode_418C80(*getMemIntPtr(0x85319C, 0));
+		v5 = nox_xxx_objGetTeamByNetCode_418C80(nox_player_netCode_85319C);
 		if (v5) {
 			v6 = nox_xxx_objGetTeamByNetCode_418C80(*((uint32_t*)a2 + 32));
 			if (v6) {
-				if (*getMemU32Ptr(0x85319C, 0) == *((uint32_t*)a2 + 32) ||
+				if (nox_player_netCode_85319C == *((uint32_t*)a2 + 32) ||
 					nox_xxx_servCompareTeams_419150((int)v5, (int)v6)) {
 					v53 = 1;
 				}

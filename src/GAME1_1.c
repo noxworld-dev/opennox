@@ -85,6 +85,7 @@ extern uint32_t dword_5d4594_529340;
 extern uint32_t nox_xxx_polygonNextIdx_587000_60352;
 extern uint32_t dword_5d4594_2660652;
 extern uint32_t dword_5d4594_529316;
+extern uint32_t nox_player_netCode_85319C;
 extern obj_5D4594_2650668_t** ptr_5D4594_2650668;
 extern int ptr_5D4594_2650668_cap;
 extern unsigned int nox_gameFPS;
@@ -186,7 +187,7 @@ int nox_xxx_unused_418840() {
 			++v0;
 			for (j = nox_xxx_getFirstPlayerUnit_4DA7C0(); j; j = nox_xxx_getNextPlayerUnit_4DA7F0(j)) {
 				v7 = *(uint32_t**)(*(uint32_t*)(j + 748) + 276);
-				if (v7[515] != *getMemU32Ptr(0x85319C, 0) ||
+				if (v7[515] != nox_player_netCode_85319C ||
 					!nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
 					v8 = v7[920];
 					if (!(v8 & 1) || v8 & 0x20) {
@@ -204,7 +205,7 @@ int nox_xxx_unused_418840() {
 	for (k = nox_xxx_getFirstPlayerUnit_4DA7C0(); k; k = nox_xxx_getNextPlayerUnit_4DA7F0(k)) {
 		if (!nox_xxx_servObjectHasTeam_419130(k + 48)) {
 			v11 = *(uint32_t*)(*(uint32_t*)(k + 748) + 276);
-			if ((*(uint32_t*)(v11 + 2060) != *getMemU32Ptr(0x85319C, 0) ||
+			if ((*(uint32_t*)(v11 + 2060) != nox_player_netCode_85319C ||
 				 !nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) &&
 				!(*(uint8_t*)(v11 + 3680) & 1)) {
 				nox_xxx_playerGoObserver_4E6860(v11, 0, 0);
@@ -757,7 +758,7 @@ int sub_4196D0(int a1, int a2, int a3, int a4) {
 	--*((uint32_t*)v5 + 12);
 	sub_418E40((int)v5, a1);
 	nox_xxx_createAtImpl_4191D0(*(uint8_t*)(a2 + 57), a1, 0, a3, a4);
-	if (a3 == *getMemU32Ptr(0x85319C, 0)) {
+	if (a3 == nox_player_netCode_85319C) {
 		sub_455E70(*(uint8_t*)(a2 + 57));
 	}
 	return 1;
@@ -2690,7 +2691,7 @@ int sub_41C280(void* a1) {
 			}
 		}
 		if ((short)v4 >= 3) {
-			v2 = nox_common_playerInfoGetByID_417040(*getMemIntPtr(0x85319C, 0));
+			v2 = nox_common_playerInfoGetByID_417040(nox_player_netCode_85319C);
 			v3 = v2;
 			if (v2) {
 				LOBYTE(a1) = v2[3648];
@@ -3039,7 +3040,7 @@ int nox_xxx_netSavePlayer_41CE00() {
 	char v2[3]; // [esp+0h] [ebp-4h]
 
 	v2[0] = -63;
-	*(uint16_t*)&v2[1] = *getMemU16Ptr(0x85319C, 0); // playerNetCode; my player Id (client)
+	*(uint16_t*)&v2[1] = nox_player_netCode_85319C; // playerNetCode; my player Id (client)
 	nox_xxx_netClientSend2_4E53C0(31, v2, 3, 0, 1);
 	return 1;
 }

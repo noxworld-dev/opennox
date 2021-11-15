@@ -33,6 +33,7 @@ void noxOnSrvPacketDebug(int op, unsigned char* data, int sz);
 #endif // NOX_CGO
 
 extern unsigned int nox_frame_xxx_2598000;
+extern uint32_t nox_player_netCode_85319C;
 //----- (0051BAD0) --------------------------------------------------------
 int nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned char* operationId, signed int a3) {
 	unsigned char* data;             // esi
@@ -425,7 +426,7 @@ int nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned char* operat
 									v49 = nox_common_playerInfoGetByID_417040(*(uint32_t*)(j + 36));
 									if (v49 && nox_xxx_teamCompare2_419180(j + 48, v86[57])) {
 										if (nox_common_gameFlags_check_40A5C0(2) &&
-											*(uint32_t*)(j + 36) == *getMemU32Ptr(0x85319C, 0)) {
+											*(uint32_t*)(j + 36) == nox_player_netCode_85319C) {
 											nox_xxx_netOnPacketRecvCli_48EA70((unsigned char)v49[2064],
 																			  (unsigned int)data, v45);
 										} else {

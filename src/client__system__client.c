@@ -17,6 +17,7 @@ extern uint32_t dword_5d4594_811896;
 extern uint32_t dword_5d4594_2618900;
 extern uint32_t dword_5d4594_2614264;
 extern uint32_t dword_5d4594_805836;
+extern uint32_t nox_player_netCode_85319C;
 extern uint32_t nox_client_gui_flag_815132;
 extern int nox_win_width;
 extern int nox_win_height;
@@ -104,8 +105,8 @@ void nox_xxx_clientDrawAll_436100_draw() {
 		nox_draw_viewport.y2 = v7 + nox_draw_viewport.height - 1;
 	}
 	sub_430B50(v6, v7, nox_draw_viewport.x2, nox_draw_viewport.y2);
-	if (*getMemU32Ptr(0x85319C, 0)) {
-		*getMemU32Ptr(0x852978, 8) = nox_xxx_netSpriteByCodeDynamic_45A6F0(*getMemIntPtr(0x85319C, 0));
+	if (nox_player_netCode_85319C) {
+		*getMemU32Ptr(0x852978, 8) = nox_xxx_netSpriteByCodeDynamic_45A6F0(nox_player_netCode_85319C);
 	}
 	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
 		nox_xxx_clientDrawAll_436100_draw_A();

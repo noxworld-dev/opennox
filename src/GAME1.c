@@ -105,6 +105,7 @@ extern uint32_t dword_5d4594_10956;
 extern uint32_t dword_5d4594_2660652;
 extern uint32_t dword_5d4594_2650652;
 extern uint32_t dword_5d4594_4668;
+extern uint32_t nox_player_netCode_85319C;
 extern int nox_video_bag_var_2650640;
 extern unsigned int nox_frame_xxx_2598000;
 
@@ -9601,7 +9602,7 @@ void sub_4181F0(int a1) {
 	}
 	do {
 		v5 = *((uint32_t*)v4 + 514);
-		if (v5 && (*((uint32_t*)v4 + 515) != *getMemU32Ptr(0x85319C, 0) ||
+		if (v5 && (*((uint32_t*)v4 + 515) != nox_player_netCode_85319C ||
 				   !nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING))) {
 			v6 = *((uint32_t*)v4 + 920);
 			if ((!(v6 & 1) || v6 & 0x20) && !nox_xxx_servObjectHasTeam_419130(v5 + 48)) {
@@ -9687,7 +9688,7 @@ int sub_4183C0() {
 	result = nox_xxx_getFirstPlayerUnit_4DA7C0();
 	for (i = result; result; i = result) {
 		v2 = *(uint32_t*)(i + 748);
-		if (!v2 || ((v3 = *(uint32_t*)(v2 + 276), *(uint32_t*)(v3 + 2060) != *getMemU32Ptr(0x85319C, 0)) ||
+		if (!v2 || ((v3 = *(uint32_t*)(v2 + 276), *(uint32_t*)(v3 + 2060) != nox_player_netCode_85319C) ||
 					!nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) &&
 					   ((v4 = *(uint32_t*)(v3 + 3680), !(v4 & 1)) || v4 & 0x20)) {
 			v5 = nox_xxx_clientGetTeamColor_418AB0(*(unsigned char*)(i + 52));
