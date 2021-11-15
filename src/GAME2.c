@@ -208,6 +208,7 @@ nox_drawable* nox_xxx_drawablePlayer_1046600 = 0;
 uint32_t dword_587000_122856 = 0x1;
 uint32_t dword_5d4594_831088 = 0;
 uint32_t dword_5d4594_831092 = 0;
+uint32_t nox_player_netCode_85319C = 0;
 
 //----- (0044CD10) --------------------------------------------------------
 char* nox_xxx_spriteDefByAlphabetAdd_44CD10(char* a1) {
@@ -4083,7 +4084,7 @@ char sub_455A50(char a1) {
 	int v4;       // edx
 
 	v1 = 0;
-	nox_xxx_objGetTeamByNetCode_418C80(*getMemIntPtr(0x85319C, 0));
+	nox_xxx_objGetTeamByNetCode_418C80(nox_player_netCode_85319C);
 	if (!(dword_5d4594_1045604 || (v2 = sub_455C30()) != 0)) {
 		return v2;
 	}
@@ -4235,7 +4236,7 @@ int sub_455F60() {
 	int v5;     // [esp+Ch] [ebp-8h]
 	int v6;     // [esp+10h] [ebp-4h]
 
-	nox_xxx_objGetTeamByNetCode_418C80(*getMemIntPtr(0x85319C, 0));
+	nox_xxx_objGetTeamByNetCode_418C80(nox_player_netCode_85319C);
 	if (dword_5d4594_1045636 || (result = sub_456070()) != 0) {
 		nox_xxx_gameGetScreenBoundaries_43BEB0_get_video_mode(&v3, &v2, &v6);
 		nox_xxx_screenGetSize_430C50_get_video_max(&v4, &v5);
@@ -4358,7 +4359,7 @@ int sub_456640(int a1, int a2) {
 	int xLeft;    // [esp+4h] [ebp-8h]
 	int yTop;     // [esp+8h] [ebp-4h]
 
-	nox_xxx_objGetTeamByNetCode_418C80(*getMemIntPtr(0x85319C, 0));
+	nox_xxx_objGetTeamByNetCode_418C80(nox_player_netCode_85319C);
 	nox_client_wndGetPosition_46AA60((uint32_t*)a1, &xLeft, &yTop);
 	if ((signed char)*(uint8_t*)(a1 + 4) >= 0) {
 		if (*(uint32_t*)(a2 + 20) != 0x80000000) {
@@ -4399,20 +4400,20 @@ char sub_456BB0(int a1) {
 	if (!*getMemU32Ptr(0x8531A0, 2576) || !(*(uint8_t*)(*getMemU32Ptr(0x8531A0, 2576) + 4) & 1) &&
 											  !(*(uint8_t*)(*getMemU32Ptr(0x8531A0, 2576) + 3680) & 1)) {
 		v2 = nox_common_gameFlags_check_40A5C0(1);
-		v1 = nox_xxx_objGetTeamByNetCode_418C80(*getMemIntPtr(0x85319C, 0));
+		v1 = nox_xxx_objGetTeamByNetCode_418C80(nox_player_netCode_85319C);
 		v3 = (int)v1;
 		if (v1) {
 			if (nox_xxx_servObjectHasTeam_419130((int)v1)) {
 				if (!v2) {
-					sub_419960(a1, v3, *getMemI16Ptr(0x85319C, 0));
+					sub_419960(a1, v3, nox_player_netCode_85319C);
 					LOBYTE(v1) = getMemByte(0x5D4594, 1045696) + 1;
 					++*getMemU32Ptr(0x5D4594, 1045696);
 					return (char)v1;
 				}
-				sub_4196D0(v3, a1, *getMemIntPtr(0x85319C, 0), 1);
+				sub_4196D0(v3, a1, nox_player_netCode_85319C, 1);
 				v1 = (uint32_t*)nox_common_gameFlags_check_40A5C0(128);
 				if (!v1) {
-					v1 = nox_common_playerInfoGetByID_417040(*getMemIntPtr(0x85319C, 0));
+					v1 = nox_common_playerInfoGetByID_417040(nox_player_netCode_85319C);
 					v4 = v1;
 					if (v1) {
 						nox_xxx_mapFindPlayerStart_4F7AB0(&v6, v1[514]);
@@ -4424,12 +4425,12 @@ char sub_456BB0(int a1) {
 				}
 			} else {
 				if (v2) {
-					nox_xxx_createAtImpl_4191D0(*(uint8_t*)(a1 + 57), v3, v2, *getMemIntPtr(0x85319C, 0), 1);
+					nox_xxx_createAtImpl_4191D0(*(uint8_t*)(a1 + 57), v3, v2, nox_player_netCode_85319C, 1);
 					LOBYTE(v1) = getMemByte(0x5D4594, 1045696) + 1;
 					++*getMemU32Ptr(0x5D4594, 1045696);
 					return (char)v1;
 				}
-				LOBYTE(v1) = sub_419900(a1, v3, *getMemI16Ptr(0x85319C, 0));
+				LOBYTE(v1) = sub_419900(a1, v3, nox_player_netCode_85319C);
 			}
 			++*getMemU32Ptr(0x5D4594, 1045696);
 			return (char)v1;
@@ -6924,7 +6925,7 @@ void nox_xxx_abilityReward_45D290(int a1, char* a2, int a3) {
 	char* result; // eax
 	int v4;       // esi
 
-	result = nox_common_playerInfoGetByID_417040(*getMemIntPtr(0x85319C, 0));
+	result = nox_common_playerInfoGetByID_417040(nox_player_netCode_85319C);
 	if (result) {
 		dword_5d4594_1046868 = 0;
 		dword_5d4594_1046872 = 0;
@@ -7039,7 +7040,7 @@ char* nox_xxx_clientQuestDisableAbility_45D4A0(int a1) {
 		*(uint32_t*)(dword_5d4594_1047516 + 4 * a1 + 3696) = 0;
 	}
 	sub_461360(a1);
-	result = nox_common_playerInfoGetByID_417040(*getMemIntPtr(0x85319C, 0));
+	result = nox_common_playerInfoGetByID_417040(nox_player_netCode_85319C);
 	if (result) {
 		result = (char*)nox_xxx_guiSpellSortList_45ADF0((unsigned char)result[2251]);
 	}

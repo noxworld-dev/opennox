@@ -41,6 +41,7 @@ extern uint32_t dword_587000_292492;
 extern nox_object_t* nox_xxx_host_player_unit_3843628;
 extern uint32_t dword_5d4594_2495920;
 extern uint32_t dword_5d4594_2650652;
+extern uint32_t nox_player_netCode_85319C;
 extern unsigned int nox_gameFPS;
 extern unsigned int nox_frame_xxx_2598000;
 extern nox_net_struct_t* nox_net_struct_arr[NOX_NET_STRUCT_MAX];
@@ -4179,7 +4180,7 @@ void nox_xxx_playerCursorScanFn_54AFB0(int a1, float* a2) {
 		(*(uint32_t*)(a1 + 8) & 0x80000206 || *(unsigned short*)(a1 + 4) == *getMemU32Ptr(0x5D4594, 2491604))) {
 		if (nox_xxx_mapCheck_537110(a1, *(int*)&dword_5d4594_2491592)) {
 			if (!(*(uint8_t*)(a1 + 8) & 4) ||
-				(*(uint32_t*)(a1 + 36) != *getMemU32Ptr(0x85319C, 0) ||
+				(*(uint32_t*)(a1 + 36) != nox_player_netCode_85319C ||
 				 !nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) &&
 					(v3 = nox_common_playerInfoGetByID_417040(*(uint32_t*)(a1 + 36))) != 0 && !(v3[3680] & 1)) {
 				if ((*(uint32_t*)(a1 + 8) & 0x200) != 512 || (v4 = *(uint32_t*)(a1 + 16), BYTE1(v4) & 0x40)) {

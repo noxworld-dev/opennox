@@ -31,6 +31,7 @@ extern uint32_t dword_5d4594_815704;
 extern uint32_t dword_5d4594_815708;
 extern uint32_t dword_5d4594_3844304;
 extern uint32_t dword_5d4594_2649712;
+extern uint32_t nox_player_netCode_85319C;
 extern void (*mainloop_enter)(void*);
 extern void* mainloop_enter_args;
 extern int mainloop_exit_path;
@@ -214,7 +215,7 @@ void CONNECT_PREPARE(sm_args_t* args) {
 
 	if (nox_common_gameFlags_check_40A5C0(1)) {
 		nox_xxx_replay_4D3860(Data);
-		*getMemU32Ptr(0x85319C, 0) = nox_xxx_playerNew_4DD320(31, Data);
+		nox_player_netCode_85319C = nox_xxx_playerNew_4DD320(31, Data);
 		nox_client_setVersion_409AE0(NOX_CLIENT_VERS_CODE);
 		nox_netlist_receiveCli_494E90(31);
 		nox_xxx_gameSetPlayState_4356B0(2);

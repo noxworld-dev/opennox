@@ -1025,7 +1025,7 @@ func nox_client_drawCursorAndTooltips_477830(r *NoxRender, inp *input.Handler) {
 		nox_client_itemDragnDrop_1097188.DrawFunc(vp)
 	}
 	if nox_client_spellDragnDrop_1097192 != 0 { // Player is dragging spell or ability
-		pl := getPlayerByID(int(memmap.Int32(0x85319C, 0)))
+		pl := getPlayerByID(clientPlayerNetCode())
 		if pl == nil || pl.PlayerClass() != player.Warrior {
 			v2 := C.nox_xxx_spellIcon_424A90(C.int(nox_client_spellDragnDrop_1097192)) // Spell icon
 			if v2 != nil {

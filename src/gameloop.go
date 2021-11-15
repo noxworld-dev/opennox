@@ -397,7 +397,7 @@ mainloop:
 }
 
 func nox_xxx_clientResetSpriteAndGui_4357D0(noSkip bool) bool {
-	*memmap.PtrUint32(0x85319C, 0) = 0
+	clientSetPlayerNetCode(0)
 	*memmap.PtrUint32(0x852978, 8) = 0
 	*memmap.PtrUint32(0x8531A0, 2576) = 0
 	// TODO: size is a guess
@@ -520,7 +520,7 @@ func CONNECT_OR_HOST() {
 			return
 		}
 		if !isDedicatedServer {
-			*memmap.PtrInt32(0x85319C, 0) = int32(newPlayer(31, &popts))
+			clientSetPlayerNetCode(newPlayer(31, &popts))
 		}
 		C.nox_client_setVersion_409AE0(NOX_CLIENT_VERS_CODE)
 		if !isDedicatedServer {
@@ -1001,7 +1001,7 @@ func nox_xxx_cliSetupSession_437190() {
 		C.nox_netlist_resetAll_40EE60()
 	}
 	C.sub_417CF0()
-	*memmap.PtrUint32(0x85319C, 0) = 0
+	clientSetPlayerNetCode(0)
 	*memmap.PtrUint32(0x852978, 8) = 0
 	*memmap.PtrUint32(0x8531A0, 2576) = 0
 }

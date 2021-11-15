@@ -17,7 +17,6 @@ extern unsigned char byte_973F18[44881];
 extern unsigned char byte_85B3FC[1029636];
 extern unsigned char byte_852978[40];
 extern unsigned char byte_973A20[704];
-extern unsigned char byte_85319C[4];
 #ifndef NOX_CGO_MEMMAP
 void* mem_getPtrSize(uintptr_t base, uintptr_t off, uintptr_t size) {
 	switch (base) {
@@ -51,9 +50,6 @@ void* mem_getPtrSize(uintptr_t base, uintptr_t off, uintptr_t size) {
 	case 0x973A20:
 		if (off + size <= sizeof(byte_973A20))
 			return &byte_973A20[off];
-	case 0x85319C:
-		if (off + size <= sizeof(byte_85319C))
-			return &byte_85319C[off];
 	}
 	fprintf(stderr, "Invalid memory access! Requested = %x+%d[%d]\n", base, off, size);
 	abort();

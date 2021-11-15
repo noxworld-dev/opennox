@@ -36,7 +36,6 @@ import (
 	noxflags "nox/v1/common/flags"
 	"nox/v1/common/fs"
 	"nox/v1/common/log"
-	"nox/v1/common/memmap"
 	"nox/v1/common/types"
 )
 
@@ -178,7 +177,7 @@ func gameex_makeExtensionPacket(buf []byte, opcode uint16, needsPlayer bool) {
 	binary.LittleEndian.PutUint16(buf[0:], 0xF13A) // extension packet code
 	binary.LittleEndian.PutUint16(buf[2:], opcode)
 	if needsPlayer {
-		binary.LittleEndian.PutUint32(buf[4:], memmap.Uint32(0x85319C, 0)) // playerNetCode
+		binary.LittleEndian.PutUint32(buf[4:], uint32(clientPlayerNetCode())) // playerNetCode
 	}
 }
 
@@ -196,7 +195,7 @@ func gameexDropTrap() {
 			return
 		}
 		if noxflags.HasGame(1) { // checkGameFlags isServer
-			v9 := C.nox_xxx_objGetTeamByNetCode_418C80(C.int(memmap.Uint32(0x85319C, 0)))
+			v9 := C.nox_xxx_objGetTeamByNetCode_418C80(C.int(clientPlayerNetCode()))
 			C.playerDropATrap(C.int(uintptr(unsafe.Pointer(v9)) - 12*4)) // TODO: this doesn't look right
 		} else {
 			// TODO: this currently relies on extension packets, which should not be required for this

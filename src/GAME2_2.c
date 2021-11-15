@@ -134,6 +134,7 @@ extern uint32_t dword_5d4594_3801780;
 extern uint32_t nox_client_renderGUI_80828;
 extern uint32_t dword_5d4594_3798796;
 extern uint32_t dword_5d4594_3798844;
+extern uint32_t nox_player_netCode_85319C;
 extern unsigned char* nox_draw_colors_r_3804672;
 extern unsigned char* nox_draw_colors_g_3804656;
 extern unsigned char* nox_draw_colors_b_3804664;
@@ -1408,7 +1409,7 @@ void nox_client_drawCursorAndTooltips_477830() {
 	}
 	if (nox_client_spellDragnDrop_1097192) // Player is dragging spell or ability
 	{
-		v1 = nox_common_playerInfoGetByID_417040(*getMemIntPtr(0x85319C, 0));
+		v1 = nox_common_playerInfoGetByID_417040(nox_player_netCode_85319C);
 		if (!v1 || v1[2251]) {
 			v2 = nox_xxx_spellIcon_424A90(nox_client_spellDragnDrop_1097192); // Spell icon
 			if (v2) {

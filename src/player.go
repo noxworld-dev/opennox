@@ -14,6 +14,7 @@ package nox
 extern unsigned int nox_gameDisableMapDraw_5d4594_2650672;
 extern unsigned int dword_5d4594_1046492;
 extern unsigned int dword_5d4594_2650652;
+extern unsigned int nox_player_netCode_85319C;
 extern nox_object_t* nox_xxx_host_player_unit_3843628;
 void nox_xxx_WideScreenDo_515240(bool enable);
 static void nox_xxx_netSendLineMessage_go(nox_object_t* a1, wchar_t* str) {
@@ -47,6 +48,14 @@ var noxPlayers []Player
 func init() {
 	p, _ := alloc.Calloc(NOX_PLAYERINFO_MAX, unsafe.Sizeof(Player{}))
 	noxPlayers = unsafe.Slice((*Player)(p), NOX_PLAYERINFO_MAX)
+}
+
+func clientPlayerNetCode() int {
+	return int(C.nox_player_netCode_85319C)
+}
+
+func clientSetPlayerNetCode(id int) {
+	C.nox_player_netCode_85319C = C.uint(id)
 }
 
 //export nox_xxx_cliResetAllPlayers_416E30

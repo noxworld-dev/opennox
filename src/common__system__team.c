@@ -12,6 +12,7 @@
 #include "operators.h"
 
 extern uint32_t dword_5d4594_527660;
+extern uint32_t nox_player_netCode_85319C;
 
 //----- (00417C60) --------------------------------------------------------
 int sub_417C60() {
@@ -52,9 +53,9 @@ int nox_xxx_createCoopTeam_417E10() {
 	if (!v0) {
 		v0 = nox_xxx_teamCreate_4186D0(1);
 	}
-	v1 = nox_xxx_objGetTeamByNetCode_418C80(*getMemIntPtr(0x85319C, 0));
+	v1 = nox_xxx_objGetTeamByNetCode_418C80(nox_player_netCode_85319C);
 	if (v1) {
-		nox_xxx_createAtImpl_4191D0(v0[57], (int)v1, 0, *getMemIntPtr(0x85319C, 0), 0);
+		nox_xxx_createAtImpl_4191D0(v0[57], (int)v1, 0, nox_player_netCode_85319C, 0);
 	}
 	if (v0) {
 		v2 = nox_strman_loadString_40F1D0("COOP", 0, "C:\\NoxPost\\src\\common\\System\\team.c", 405);
@@ -168,7 +169,7 @@ void nox_xxx_createAtImpl_4191D0(unsigned char a1, int a2, int a3, int a4, int a
 	*(uint8_t*)(a2 + 4) = v6[57];
 	*(uint32_t*)a2 = *((uint32_t*)v6 + 11);
 	*((uint32_t*)v6 + 11) = a2;
-	if (a4 == *getMemU32Ptr(0x85319C, 0)) {
+	if (a4 == nox_player_netCode_85319C) {
 		sub_455E70(v6[57]);
 	}
 	if (nox_common_gameFlags_check_40A5C0(1)) {
