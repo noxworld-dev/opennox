@@ -2567,7 +2567,7 @@ int nox_xxx_guiFontPtrByName_43F360(char* a1) {
 //----- (0043F3B0) --------------------------------------------------------
 uint32_t* nox_xxx_FontLoadFile_43F3B0(char* a1) {
 	uint32_t* v1;          // ebx
-	FILE* v3;              // ebp
+	FILE* file;              // ebp
 	char* v4;              // eax
 	unsigned short v5;     // cx
 	unsigned short v6;     // dx
@@ -2588,90 +2588,93 @@ uint32_t* nox_xxx_FontLoadFile_43F3B0(char* a1) {
 	if (*(int*)&dword_5d4594_816444 >= 5) {
 		return 0;
 	}
-	v3 = nox_fs_open(a1);
-	if (v3) {
-		v1 = calloc(1, 0x20u);
-		if (v1) {
-			memset(v1, 0, 0x20u);
-			if (nox_binfile_fread_raw_40ADD0((char*)v17, 0x1Cu, 1u, v3) != 1) {
-				goto LABEL_15;
-			}
-			if (v17[0] == 1181699700) {
-				v1[2] = v17[4];
-				v1[1] = v17[3];
-				*v1 = v17[2];
-				v1[5] = v17[6];
-				v1[3] = v17[5];
-				v4 = (char*)calloc(v17[5], 8);
-				v1[4] = v4;
-				if (!v4 || nox_binfile_fread_raw_40ADD0(v4, 8 * v1[3], 1u, v3) != 1) {
-					goto LABEL_15;
+	file = nox_fs_open(a1);
+	if (!file) {
+		return 0;
+	}
+	v1 = calloc(1, 0x20u);
+	if (!v1) {
+		nox_fs_close(file);
+		return 0;
+	}
+	memset(v1, 0, 0x20u);
+	if (nox_binfile_fread_raw_40ADD0((char*)v17, 0x1Cu, 1u, file) != 1) {
+		goto LABEL_15;
+	}
+	if (v17[0] == 1181699700) {
+		v1[2] = v17[4];
+		v1[1] = v17[3];
+		*v1 = v17[2];
+		v1[5] = v17[6];
+		v1[3] = v17[5];
+		v4 = (char*)calloc(v17[5], 8);
+		v1[4] = v4;
+		if (!v4 || nox_binfile_fread_raw_40ADD0(v4, 8 * v1[3], 1u, file) != 1) {
+			goto LABEL_15;
+		}
+	} else {
+		nox_fs_fseek_start(file, 0);
+		if (nox_binfile_fread_raw_40ADD0((char*)v18, 0x4Cu, 1u, file) != 1) {
+			goto LABEL_15;
+		}
+		v5 = *(uint16_t*)&v18[2];
+		v6 = *(uint16_t*)v18;
+		v1[2] = *(unsigned short*)&v18[4];
+		v1[5] = *(uint32_t*)&v18[72];
+		v7 = *(unsigned short*)&v18[6];
+		v1[1] = v5;
+		*v1 = v6;
+		v1[3] = v7;
+		v8 = (unsigned char*)calloc(v7, 8);
+		v1[4] = v8;
+		if (!v8) {
+			goto LABEL_15;
+		}
+		memcpy(v8, &v18[8], 8 * v1[3]);
+	}
+	v1[7] = v1[2];
+	v9 = v1[5] * nox_xxx_fontLoad_440870((int)v1);
+	v10 = (char*)calloc(1, v9);
+	v1[6] = v10;
+	if (!v10 || nox_binfile_fread_raw_40ADD0(v10, v9, 1u, file) != 1) {
+	LABEL_15:
+		nox_xxx_Font_440840(v1);
+		nox_fs_close(file);
+		return 0;
+	}
+	v11 = 0;
+	v12 = getMemAt(0x5D4594, 816464);
+	while (*(uint32_t*)v12) {
+		v12 += 4;
+		++v11;
+		if ((int)v12 >= (int)getMemAt(0x5D4594, 816484)) {
+			goto LABEL_21;
+		}
+	}
+	v13 = dword_5d4594_816444;
+	*getMemU32Ptr(0x5D4594, 816464 + 4 * v11) = v1;
+	dword_5d4594_816444 = v13 + 1;
+LABEL_21:
+	if (*(unsigned char**)&dword_5d4594_816488 == getMemAt(0x587000, 94176)) {
+		++v1[7];
+		v14 = (uint8_t*)nox_xxx_FontGetChar_43FE30((int)v1, 0x20u);
+		v15 = v14;
+		if (v14 && nox_strman_get_lang_code() == 8) {
+			++*v14;
+		}
+		if (nox_strman_get_lang_code() == 6) {
+			v16 = (uint8_t*)nox_xxx_FontGetChar_43FE30((int)v1, 0x3000u);
+			if (v16) {
+				if (v15) {
+					*v16 = 2 * *v15;
+					nox_fs_close(file);
+					return v1;
 				}
-			} else {
-				nox_fs_fseek_start(v3, 0);
-				if (nox_binfile_fread_raw_40ADD0((char*)v18, 0x4Cu, 1u, v3) != 1) {
-					goto LABEL_15;
-				}
-				v5 = *(uint16_t*)&v18[2];
-				v6 = *(uint16_t*)v18;
-				v1[2] = *(unsigned short*)&v18[4];
-				v1[5] = *(uint32_t*)&v18[72];
-				v7 = *(unsigned short*)&v18[6];
-				v1[1] = v5;
-				*v1 = v6;
-				v1[3] = v7;
-				v8 = (unsigned char*)calloc(v7, 8);
-				v1[4] = v8;
-				if (!v8) {
-					goto LABEL_15;
-				}
-				memcpy(v8, &v18[8], 8 * v1[3]);
-			}
-			v1[7] = v1[2];
-			v9 = v1[5] * nox_xxx_fontLoad_440870((int)v1);
-			v10 = (char*)calloc(1, v9);
-			v1[6] = v10;
-			if (!v10 || nox_binfile_fread_raw_40ADD0(v10, v9, 1u, v3) != 1) {
-			LABEL_15:
-				nox_xxx_Font_440840(v1);
-				nox_fs_close(v3);
-				return 0;
-			}
-			v11 = 0;
-			v12 = getMemAt(0x5D4594, 816464);
-			while (*(uint32_t*)v12) {
-				v12 += 4;
-				++v11;
-				if ((int)v12 >= (int)getMemAt(0x5D4594, 816484)) {
-					goto LABEL_21;
-				}
-			}
-			v13 = dword_5d4594_816444;
-			*getMemU32Ptr(0x5D4594, 816464 + 4 * v11) = v1;
-			dword_5d4594_816444 = v13 + 1;
-		LABEL_21:
-			if (*(unsigned char**)&dword_5d4594_816488 == getMemAt(0x587000, 94176)) {
-				++v1[7];
-				v14 = (uint8_t*)nox_xxx_FontGetChar_43FE30((int)v1, 0x20u);
-				v15 = v14;
-				if (v14 && nox_strman_get_lang_code() == 8) {
-					++*v14;
-				}
-				if (nox_strman_get_lang_code() == 6) {
-					v16 = (uint8_t*)nox_xxx_FontGetChar_43FE30((int)v1, 0x3000u);
-					if (v16) {
-						if (v15) {
-							*v16 = 2 * *v15;
-							nox_fs_close(v3);
-							return v1;
-						}
-						*v16 = *(uint8_t*)v1;
-					}
-				}
+				*v16 = *(uint8_t*)v1;
 			}
 		}
-		nox_fs_close(v3);
 	}
+	nox_fs_close(file);
 	return v1;
 }
 
@@ -3150,13 +3153,13 @@ int nox_xxx_StringDraw_43FE90(void* font, short a2, int xLeft, int yTop) {
 	int v44;           // eax
 	int v45;           // esi
 	int v46;           // edi
-	char* v47;         // esi
-	uint16_t* v48;     // eax
+	char* cdata;         // esi
+	uint16_t* pix;     // eax
 	int v49;           // ecx
 	char v50;          // dl
-	uint16_t* v51;     // eax
+	uint16_t* pix2;     // eax
 	int v52;           // ecx
-	uint16_t* v53;     // eax
+	uint16_t* pix3;     // eax
 	int v54;           // ecx
 	uint16_t* v55;     // eax
 	int v56;           // ecx
@@ -3185,10 +3188,10 @@ int nox_xxx_StringDraw_43FE90(void* font, short a2, int xLeft, int yTop) {
 	}
 	v7 = a1;
 	LOWORD(v4) = *(uint16_t*)(&ptr_5D4594_3799572->field_59);
-	yTop = v4;
+	int yt = v4;
 	v8 = (unsigned char*)nox_xxx_FontGetChar_43FE30(a1, a2);
 	if (!v8) {
-		v9 = sub_4408A0(&yTop);
+		v9 = sub_4408A0(&yt);
 		a2 = v9;
 		v8 = (unsigned char*)nox_xxx_FontGetChar_43FE30(a1, v9);
 		if (!v8) {
@@ -3214,60 +3217,60 @@ int nox_xxx_StringDraw_43FE90(void* font, short a2, int xLeft, int yTop) {
 			v46 = 4 * v5;
 			v69 = v45 + 1;
 			while (1) {
-				v47 = (char*)v65;
-				v48 = (uint16_t*)(2 * v11 + (uint32_t)nox_pixbuffer_rows_3798784[v46 / 4]);
+				cdata = (char*)v65;
+				pix = (uint16_t*)(2 * v11 + (uint32_t)nox_pixbuffer_rows_3798784[v46 / 4]);
 				v49 = v67;
 				v46 += 4;
 				while (1) {
-					v50 = *v47++;
+					v50 = *cdata++;
 					if (v50) {
 						break;
 					}
-					v48 += 8;
+					pix += 8;
 					v49 -= 8;
 				LABEL_92:
 					if (v49 <= 0) {
 						goto LABEL_95;
 					}
 				}
-				if (v50 < 0) {
-					*v48 = yTop;
+				if (v50 & 0x80) {
+					*pix = yt;
 				}
-				v51 = v48 + 1;
+				pix2 = pix + 1;
 				v52 = v49 - 1;
 				if (v52 > 0) {
 					if (v50 & 0x40) {
-						*v51 = yTop;
+						*pix2 = yt;
 					}
-					v53 = v51 + 1;
+					pix3 = pix2 + 1;
 					v54 = v52 - 1;
 					if (v54 > 0) {
 						if (v50 & 0x20) {
-							*v53 = yTop;
+							*pix3 = yt;
 						}
-						v55 = v53 + 1;
+						v55 = pix3 + 1;
 						v56 = v54 - 1;
 						if (v56 > 0) {
 							if (v50 & 0x10) {
-								*v55 = yTop;
+								*v55 = yt;
 							}
 							v57 = v55 + 1;
 							v58 = v56 - 1;
 							if (v58 > 0) {
 								if (v50 & 8) {
-									*v57 = yTop;
+									*v57 = yt;
 								}
 								v59 = v57 + 1;
 								v60 = v58 - 1;
 								if (v60 > 0) {
 									if (v50 & 4) {
-										*v59 = yTop;
+										*v59 = yt;
 									}
 									v61 = v59 + 1;
 									v62 = v60 - 1;
 									if (v62 > 0) {
 										if (v50 & 2) {
-											*v61 = yTop;
+											*v61 = yt;
 										}
 										v63 = v61 + 1;
 										v64 = v62 - 1;
@@ -3291,10 +3294,10 @@ int nox_xxx_StringDraw_43FE90(void* font, short a2, int xLeft, int yTop) {
 				}
 			}
 			if (v50 & 1) {
-				*v63 = yTop;
+				*v63 = yt;
 			}
 			v11 = xLeft;
-			v48 = v63 + 1;
+			pix = v63 + 1;
 			v49 = v64 - 1;
 			goto LABEL_92;
 		}
@@ -3337,56 +3340,56 @@ int nox_xxx_StringDraw_43FE90(void* font, short a2, int xLeft, int yTop) {
 			}
 		}
 		if (v20 >= v13 && v20 < v14 && v21 < 0) {
-			*v18 = yTop;
+			*v18 = yt;
 		}
 		v22 = v18 + 1;
 		v23 = v20 + 1;
 		v24 = v17 - 1;
 		if (v24 > 0) {
 			if (v23 >= v13 && v23 < v14 && v21 & 0x40) {
-				*v22 = yTop;
+				*v22 = yt;
 			}
 			v25 = v22 + 1;
 			v26 = v23 + 1;
 			v27 = v24 - 1;
 			if (v27 > 0) {
 				if (v26 >= v13 && v26 < v14 && v21 & 0x20) {
-					*v25 = yTop;
+					*v25 = yt;
 				}
 				v28 = v25 + 1;
 				v29 = v26 + 1;
 				v30 = v27 - 1;
 				if (v30 > 0) {
 					if (v29 >= v13 && v29 < v14 && v21 & 0x10) {
-						*v28 = yTop;
+						*v28 = yt;
 					}
 					v31 = v28 + 1;
 					v32 = v29 + 1;
 					v33 = v30 - 1;
 					if (v33 > 0) {
 						if (v32 >= v13 && v32 < v14 && v21 & 8) {
-							*v31 = yTop;
+							*v31 = yt;
 						}
 						v34 = v31 + 1;
 						v35 = v32 + 1;
 						v36 = v33 - 1;
 						if (v36 > 0) {
 							if (v35 >= v13 && v35 < v14 && v21 & 4) {
-								*v34 = yTop;
+								*v34 = yt;
 							}
 							v37 = v34 + 1;
 							v38 = v35 + 1;
 							v39 = v36 - 1;
 							if (v39 > 0) {
 								if (v38 >= v13 && v38 < v14 && v21 & 2) {
-									*v37 = yTop;
+									*v37 = yt;
 								}
 								v40 = v37 + 1;
 								v41 = v38 + 1;
 								v42 = v39 - 1;
 								if (v42 > 0) {
 									if (v41 >= v13 && v41 < v14 && v21 & 1) {
-										*v40 = yTop;
+										*v40 = yt;
 									}
 									v18 = v40 + 1;
 									v20 = v41 + 1;
