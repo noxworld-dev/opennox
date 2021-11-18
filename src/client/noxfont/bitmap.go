@@ -16,7 +16,7 @@ type Bitmap struct {
 }
 
 func (*Bitmap) ColorModel() color.Model {
-	return color.GrayModel
+	return color.AlphaModel
 }
 
 func (p *Bitmap) Bounds() image.Rectangle {
@@ -29,24 +29,24 @@ func (p *Bitmap) BitOffsets(x, y int) (int, int) {
 	return i, j
 }
 
-func (p *Bitmap) At(x, y int) color.Color {
-	return p.GrayAt(x, y)
-}
-
-func (p *Bitmap) GrayAt(x, y int) color.Gray {
+func (p *Bitmap) at(x, y int) bool {
 	if !(image.Point{x, y}.In(p.Rect)) {
-		return color.Gray{}
+		return false
 	}
 	i, j := p.BitOffsets(x, y)
-	if (p.Pix[i]>>j)&0x1 != 0 {
-		return color.Gray{Y: 0xFF}
-	}
-	return color.Gray{}
+	return (p.Pix[i]>>j)&0x1 != 0
 }
 
-func (p *Bitmap) setGray(x, y int, c byte) {
+func (p *Bitmap) At(x, y int) color.Color {
+	if p.at(x, y) {
+		return color.Opaque
+	}
+	return color.Transparent
+}
+
+func (p *Bitmap) set(x, y int, a byte) {
 	i, j := p.BitOffsets(x, y)
-	if c >= 128 {
+	if a >= 128 {
 		p.Pix[i] |= 1 << j
 	} else {
 		p.Pix[i] &^= 1 << j
@@ -57,12 +57,19 @@ func (p *Bitmap) Set(x, y int, c color.Color) {
 	if !(image.Point{x, y}.In(p.Rect)) {
 		return
 	}
-	p.setGray(x, y, color.GrayModel.Convert(c).(color.Gray).Y)
+	p.set(x, y, color.AlphaModel.Convert(c).(color.Alpha).A)
+}
+
+func (p *Bitmap) SetAlpha(x, y int, c color.Alpha) {
+	if !(image.Point{x, y}.In(p.Rect)) {
+		return
+	}
+	p.set(x, y, c.A)
 }
 
 func (p *Bitmap) SetGray(x, y int, c color.Gray) {
 	if !(image.Point{x, y}.In(p.Rect)) {
 		return
 	}
-	p.setGray(x, y, c.Y)
+	p.set(x, y, c.Y)
 }
