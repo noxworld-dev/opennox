@@ -1,8 +1,12 @@
 package noxfont
 
 import (
+	"image"
 	"unicode"
 	"unicode/utf16"
+
+	"golang.org/x/image/font"
+	"golang.org/x/image/math/fixed"
 )
 
 const (
@@ -11,6 +15,8 @@ const (
 	SmallName   = "small"
 	NumbersName = "number"
 )
+
+var _ font.Face = &Font{}
 
 type Font struct {
 	Field0 uint32
@@ -55,4 +61,68 @@ func rune2utf16(r rune) uint16 {
 		return uint16(r)
 	}
 	return uint16(r1)
+}
+
+func (f *Font) Close() error { return nil }
+
+func (f *Font) Kern(r0, r1 rune) fixed.Int26_6 { return 0 }
+
+func (f *Font) Glyph(dot fixed.Point26_6, r rune) (dr image.Rectangle, mask image.Image, maskp image.Point, advance fixed.Int26_6, ok bool) {
+	g := f.Rune(r)
+	if g == nil {
+		g = f.Rune('\ufffd')
+	}
+	if g == nil {
+		return image.Rectangle{}, nil, image.Point{}, 0, false
+	}
+	x := dot.X.Round()
+	y := dot.Y.Round()
+
+	dr = image.Rectangle{
+		Min: image.Point{
+			X: x,
+			Y: y,
+		},
+		Max: image.Point{
+			X: x + g.Rect.Dx(),
+			Y: y + g.Rect.Dy(),
+		},
+	}
+
+	return dr, g, image.Point{}, fixed.I(g.Rect.Dx() + 1), true
+}
+
+func (f *Font) GlyphBounds(r rune) (fixed.Rectangle26_6, fixed.Int26_6, bool) {
+	g := f.Rune(r)
+	if g == nil {
+		return fixed.Rectangle26_6{}, 0, false
+	}
+	return fixed.R(0, 0, g.Rect.Dx(), g.Rect.Dy()), fixed.I(g.Rect.Dx() + 1), true
+}
+
+func (f *Font) GlyphAdvance(r rune) (fixed.Int26_6, bool) {
+	g := f.Rune(r)
+	if g == nil {
+		return 0, false
+	}
+	return fixed.I(g.Rect.Dx() + 1), true
+}
+
+func (f *Font) Metrics() font.Metrics {
+	if len(f.Ranges) == 0 {
+		return font.Metrics{}
+	}
+	r := &f.Ranges[0]
+	if len(r.Glyphs) == 0 {
+		return font.Metrics{}
+	}
+	g := r.Glyphs[0]
+	return font.Metrics{
+		Height:     fixed.I(g.Rect.Dy()),
+		Ascent:     fixed.I(g.Rect.Dy()),
+		Descent:    0,
+		XHeight:    fixed.I(g.Rect.Dy()),
+		CapHeight:  fixed.I(g.Rect.Dy()),
+		CaretSlope: image.Point{X: 0, Y: 1},
+	}
 }
