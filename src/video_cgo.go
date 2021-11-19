@@ -54,6 +54,7 @@ import (
 	"nox/v1/common/alloc"
 	noxcolor "nox/v1/common/color"
 	"nox/v1/common/memmap"
+	"nox/v1/common/noximage"
 	"nox/v1/common/player"
 	"nox/v1/common/types"
 )
@@ -65,10 +66,8 @@ var (
 	dword_6F7C10                           func(a1 *Image, a2, a3 uint32)
 	nox_backbuffer_width32                 int
 	onPixBufferResize                      []func(sz types.Size)
-	nox_pixbuffer_size                     types.Size
 	nox_pixbuffer_main_rows                []unsafe.Pointer
 	nox_pixbuffer_rows_3798776_arr         []unsafe.Pointer
-	nox_pixbuffer_main                     []uint16
 	nox_pixbuffer_3798788_arr              []byte
 	dword_5d4594_3798632_arr               []unsafe.Pointer
 	dword_5d4594_3798644_arr               []byte
@@ -81,6 +80,10 @@ var (
 	dword_5d4594_1097208                   int
 	nox_video_gammaValue                   int
 	draw_gamma                             float32
+	noxPixBuffer                           struct {
+		img  *noximage.Image16
+		free func()
+	}
 )
 
 func OnPixBufferResize(fnc func(sz types.Size)) {
@@ -194,12 +197,12 @@ func get_video_mode_string(cid C.int) *C.wchar_t {
 
 //export nox_getBackbufWidth
 func nox_getBackbufWidth() C.int {
-	return C.int(nox_pixbuffer_size.W)
+	return C.int(noxPixBuffer.img.Rect.Dx())
 }
 
 //export nox_getBackbufHeight
 func nox_getBackbufHeight() C.int {
-	return C.int(nox_pixbuffer_size.H)
+	return C.int(noxPixBuffer.img.Rect.Dy())
 }
 
 //export nox_video_getFullScreen
@@ -415,7 +418,7 @@ func recreateRenderTarget(sz types.Size) error {
 
 //export nox_getBackbufferPitch
 func nox_getBackbufferPitch() C.int {
-	return C.int(2 * nox_pixbuffer_size.W)
+	return C.int(2 * noxPixBuffer.img.Stride)
 }
 
 //export nox_video_getSurfaceData_48A720
@@ -474,7 +477,7 @@ func drawGeneral_4B0340(a1 int) error {
 		v11, vpos = sub_48B590()
 		v2 = C.dword_5d4594_3801780
 		v4 = int(C.nox_video_renderTargetFlags)
-		prevSz = nox_pixbuffer_size
+		prevSz = noxPixBuffer.img.Size()
 		nox_video_stopCursorDrawThread_48B350()
 		C.sub_433C20()
 		nox_free_pixbuffers_486110()
@@ -544,7 +547,7 @@ func nox_video_stopCursorDrawThread_48B350() {
 }
 
 func sub_4AEDF0() {
-	height := nox_pixbuffer_size.H
+	height := noxPixBuffer.img.Rect.Dy()
 	dword_5d4594_3798632_arr, _ = alloc.Pointers(height)
 	C.dword_5d4594_3798632 = (*C.char)(unsafe.Pointer(&dword_5d4594_3798632_arr[0]))
 
@@ -575,7 +578,7 @@ func sub_4AEBD0() {
 	C.dword_5d4594_3798648, dword_5d4594_3798648_arr = C.dword_5d4594_3798644, dword_5d4594_3798644_arr
 	v0 := 0
 	C.dword_5d4594_3798640 = 0
-	for C.dword_5d4594_3798636 = 0; int(C.dword_5d4594_3798636) < nox_pixbuffer_size.H; C.dword_5d4594_3798636++ {
+	for C.dword_5d4594_3798636 = 0; int(C.dword_5d4594_3798636) < noxPixBuffer.img.Rect.Dy(); C.dword_5d4594_3798636++ {
 		dword_5d4594_3798632_arr[v0] = nil
 		v0 = int(C.dword_5d4594_3798636 + 1)
 	}
@@ -601,7 +604,7 @@ func sub_49FC20(a1, a2, a3, a4 *C.int) int {
 		ye = int(C.ptr_5D4594_3799572.rect2.bottom)
 	} else {
 		ys = 0
-		ye = nox_pixbuffer_size.H - 1
+		ye = noxPixBuffer.img.Rect.Dy() - 1
 	}
 	v16 := 0
 	v6 := int(*a1)
@@ -674,7 +677,7 @@ func nox_client_clearScreen_440900() {
 
 func (r *NoxRender) ClearScreen() {
 	cl := uint32(r.p.field_58)
-	for y := 0; y < nox_pixbuffer_size.H; y++ {
+	for y := 0; y < r.pix.Rect.Dy(); y++ {
 		row := unsafe.Slice((*uint32)(nox_pixbuffer_main_rows[y]), nox_backbuffer_width32*8)
 		for x := 0; x < nox_backbuffer_width32*8; x++ {
 			row[x] = cl
@@ -684,10 +687,13 @@ func (r *NoxRender) ClearScreen() {
 
 func nox_free_pixbuffers_486110() {
 	if memmap.Uint32(0x5D4594, 1193200) == 0 {
-		if nox_pixbuffer_main != nil {
-			alloc.FreeUints16(nox_pixbuffer_main)
-			nox_pixbuffer_main = nil
+		if noxPixBuffer.free != nil {
+			noxPixBuffer.free()
+			noxPixBuffer.free = nil
+			noxPixBuffer.free = nil
 		}
+		noxPixBuffer.img = nil
+
 		if nox_pixbuffer_3798788_arr != nil {
 			alloc.FreeBytes(nox_pixbuffer_3798788_arr)
 			nox_pixbuffer_3798788_arr = nil
@@ -716,21 +722,23 @@ func nox_video_initPixbufferData_4861D0(sz types.Size) {
 	if memmap.Uint32(0x5D4594, 1193200) != 0 {
 		return
 	}
-	nox_pixbuffer_main, _ = alloc.Uints16(uintptr(sz.W * sz.H))
+	data, free := alloc.Uints16(uintptr(sz.W * sz.H))
+	noxPixBuffer.free = free
+	noxPixBuffer.img = noximage.NewImage16WithData(data, sz)
+	noxrend.SetPixBuffer(noxPixBuffer.img)
 	if C.nox_video_renderTargetFlags&0x40 == 0 {
 		return
 	}
 
-	nox_pixbuffer_3798788_arr, _ = alloc.Bytes(uintptr(len(nox_pixbuffer_main)))
+	nox_pixbuffer_3798788_arr, _ = alloc.Bytes(uintptr(len(data)))
 	C.nox_pixbuffer_3798788 = (*C.uchar)(unsafe.Pointer(&nox_pixbuffer_3798788_arr[0]))
 }
 
 func nox_video_initPixbufferRows_486230(sz types.Size) {
-	nox_pixbuffer_size = sz
 	nox_pixbuffer_main_rows, _ = alloc.Pointers(sz.H)
 	C.nox_pixbuffer_rows_3798784 = (**C.uchar)(unsafe.Pointer(&nox_pixbuffer_main_rows[0]))
 	for y := 0; y < sz.H; y++ {
-		nox_pixbuffer_main_rows[y] = unsafe.Pointer(&nox_pixbuffer_main[y*sz.W])
+		nox_pixbuffer_main_rows[y] = unsafe.Pointer(&noxPixBuffer.img.Pix[y*sz.W])
 	}
 	for _, fnc := range onPixBufferResize {
 		fnc(sz)
@@ -762,7 +770,7 @@ func (r *NoxRender) noxDrawCursor(a1 *Image, pos types.Point) int {
 //export nox_draw_setCutSize_476700
 func nox_draw_setCutSize_476700(cutPerc C.int, a2 C.int) {
 	vp := getViewport()
-	bsz := nox_pixbuffer_size
+	bsz := noxPixBuffer.img.Size()
 	v2 := int(a2)
 	v4 := int(vp.width)
 	perc := int(cutPerc)
