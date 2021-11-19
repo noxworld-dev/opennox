@@ -46,7 +46,7 @@ type Surface interface {
 	// Size of the surface.
 	Size() types.Size
 	// Update the surface with 16 bit data.
-	Update(data []byte)
+	Update(data []uint16)
 	// Draw the surface in a given viewport rectangle.
 	Draw(vp image.Rectangle)
 	// Destroy the surface.

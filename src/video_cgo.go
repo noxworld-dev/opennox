@@ -68,7 +68,7 @@ var (
 	nox_pixbuffer_size                     types.Size
 	nox_pixbuffer_main_rows                []unsafe.Pointer
 	nox_pixbuffer_rows_3798776_arr         []unsafe.Pointer
-	nox_pixbuffer_main                     []byte
+	nox_pixbuffer_main                     []uint16
 	nox_pixbuffer_3798788_arr              []byte
 	dword_5d4594_3798632_arr               []unsafe.Pointer
 	dword_5d4594_3798644_arr               []byte
@@ -685,7 +685,7 @@ func (r *NoxRender) ClearScreen() {
 func nox_free_pixbuffers_486110() {
 	if memmap.Uint32(0x5D4594, 1193200) == 0 {
 		if nox_pixbuffer_main != nil {
-			alloc.FreeBytes(nox_pixbuffer_main)
+			alloc.FreeUints16(nox_pixbuffer_main)
 			nox_pixbuffer_main = nil
 		}
 		if nox_pixbuffer_3798788_arr != nil {
@@ -716,7 +716,7 @@ func nox_video_initPixbufferData_4861D0(sz types.Size) {
 	if memmap.Uint32(0x5D4594, 1193200) != 0 {
 		return
 	}
-	nox_pixbuffer_main, _ = alloc.Bytes(uintptr(2 * sz.W * sz.H))
+	nox_pixbuffer_main, _ = alloc.Uints16(uintptr(sz.W * sz.H))
 	if C.nox_video_renderTargetFlags&0x40 == 0 {
 		return
 	}
@@ -730,7 +730,7 @@ func nox_video_initPixbufferRows_486230(sz types.Size) {
 	nox_pixbuffer_main_rows, _ = alloc.Pointers(sz.H)
 	C.nox_pixbuffer_rows_3798784 = (**C.uchar)(unsafe.Pointer(&nox_pixbuffer_main_rows[0]))
 	for y := 0; y < sz.H; y++ {
-		nox_pixbuffer_main_rows[y] = unsafe.Pointer(&nox_pixbuffer_main[y*2*sz.W])
+		nox_pixbuffer_main_rows[y] = unsafe.Pointer(&nox_pixbuffer_main[y*sz.W])
 	}
 	for _, fnc := range onPixBufferResize {
 		fnc(sz)

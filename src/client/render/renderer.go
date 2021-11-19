@@ -42,8 +42,8 @@ type Renderer struct {
 	rotate      bool
 	rotated     bool
 	onResize    []func(view image.Rectangle)
-	buf         []byte
-	prev        []byte
+	buf         []uint16
+	prev        []uint16
 }
 
 // Ticks returns the number of present ticks since the last Reset or Init.
@@ -74,11 +74,11 @@ func (r *Renderer) OnViewResize(fnc func(view image.Rectangle)) {
 }
 
 // CopyBuffer copies given 16 bit image into the buffer and presents it.
-func (r *Renderer) CopyBuffer(sz types.Size, src []byte) {
+func (r *Renderer) CopyBuffer(sz types.Size, src []uint16) {
 	r.present(sz, src)
 }
 
-func (r *Renderer) present(sz types.Size, src []byte) {
+func (r *Renderer) present(sz types.Size, src []uint16) {
 	view := r.setViewport(float32(sz.W) / float32(sz.H))
 	if r.view != view {
 		r.view = view
@@ -88,7 +88,7 @@ func (r *Renderer) present(sz types.Size, src []byte) {
 	}
 	if src != nil {
 		if len(r.buf) != len(src) {
-			r.buf = make([]byte, len(src))
+			r.buf = make([]uint16, len(src))
 		}
 		copy(r.buf, src)
 		if bsz := r.backbuf.Size(); sz != bsz || r.filtering != r.backbufFilt {
