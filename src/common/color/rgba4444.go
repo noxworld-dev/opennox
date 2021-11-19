@@ -6,8 +6,10 @@ var (
 	_ Color16 = RGBA4444(0)
 )
 
-// ColorToRGBA4444 converts any color to RGBA4444.
-func ColorToRGBA4444(c color.Color) RGBA4444 {
+// ModelRGBA4444 stores RGBA color in 16 bits (4444).
+var ModelRGBA4444 = color.ModelFunc(modelRGBA4444)
+
+func modelRGBA4444(c color.Color) color.Color {
 	switch c := c.(type) {
 	case RGBA4444:
 		return c

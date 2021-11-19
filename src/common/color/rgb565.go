@@ -6,8 +6,10 @@ var (
 	_ Color16 = RGB565(0)
 )
 
-// ColorToRGB565 converts any color to RGB565.
-func ColorToRGB565(c color.Color) RGB565 {
+// ModelRGB565 stores RGB color in 16 bits (565).
+var ModelRGB565 = color.ModelFunc(modelRGB565)
+
+func modelRGB565(c color.Color) color.Color {
 	switch c := c.(type) {
 	case RGB565:
 		return c
