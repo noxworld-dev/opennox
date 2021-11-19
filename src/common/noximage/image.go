@@ -69,6 +69,19 @@ func (p *Image16) Row(y int) []uint16 {
 	return p.Pix[y*p.Stride : (y+1)*p.Stride : (y+1)*p.Stride]
 }
 
+func (p *Image16) SubImage(r image.Rectangle) *Image16 {
+	r = r.Intersect(p.Rect)
+	if r.Empty() {
+		return &Image16{}
+	}
+	i := p.PixOffset(r.Min.X, r.Min.Y)
+	return &Image16{
+		Pix:    p.Pix[i:],
+		Stride: p.Stride,
+		Rect:   r,
+	}
+}
+
 func (p *Image16) At(x, y int) color.Color {
 	return p.RGBAAt(x, y)
 }
