@@ -294,7 +294,7 @@ func sub_4338D0() int {
 
 var noxrend = NewNoxRender()
 
-type drawOpFunc func(dst, src []byte, op byte, val int) (outDst, outSrc []byte)
+type drawOpFunc func(dst []uint16, src []byte, op byte, val int) (outDst []uint16, outSrc []byte)
 
 func cgoSetRenderData(p *C.nox_render_data_t) {
 	C.ptr_5D4594_3799572 = p
@@ -1418,7 +1418,7 @@ func (r *NoxRender) drawImage16(img *Image, pos types.Point) { // nox_client_xxx
 		r.nox_client_drawImg_bbb_4C7860(img, pos)
 	case 3, 4, 5, 6:
 		r.draw5 = drawOpC(func() { C.sub_4C96A0() })
-		r.draw6 = func(dst, src []byte, op byte, val int) (_, _ []byte) { return dst, src }
+		r.draw6 = func(dst []uint16, src []byte, op byte, val int) (_ []uint16, _ []byte) { return dst, src }
 		if !r.IsAlphaEnabled() {
 			if r.p.field_14 != 0 {
 				r.draw5 = drawOpC(func() { C.sub_4C9970() })
@@ -1471,17 +1471,16 @@ func (r *NoxRender) drawImage16(img *Image, pos types.Point) { // nox_client_xxx
 	}
 }
 
-func pixCopyN(dst, src []byte, _ byte, n int) (_, _ []byte) { // sub_4C80E0
+func pixCopyN(dst []uint16, src []byte, _ byte, n int) (_ []uint16, _ []byte) { // sub_4C80E0
 	if n < 0 {
 		panic("negative size")
 	}
-	sz := n * 2
-	copy(dst[:sz], src[:sz])
-	return dst[sz:], src[sz:]
+	copy16b(dst[:n], src[:n*2])
+	return dst[n:], src[n*2:]
 }
 
 func drawOpC(fnc func()) drawOpFunc {
-	return func(dst, src []byte, op byte, val int) (_, _ []byte) {
+	return func(dst []uint16, src []byte, op byte, val int) (_ []uint16, _ []byte) {
 		var pdst, psrc uintptr
 		if len(dst) == 0 {
 			C.nox_draw_sprite_dstPtr_3799540 = nil
@@ -1501,7 +1500,7 @@ func drawOpC(fnc func()) drawOpFunc {
 		fnc()
 
 		if p := uintptr(unsafe.Pointer(C.nox_draw_sprite_dstPtr_3799540)); p > pdst {
-			dst = dst[p-pdst:]
+			dst = dst[(p-pdst)/2:]
 		}
 		if p := uintptr(unsafe.Pointer(C.nox_video_cur_pixdata_3799444)); p > psrc {
 			src = src[p-psrc:]
@@ -1588,14 +1587,14 @@ func (r *NoxRender) nox_client_drawImg_aaa_4C79F0(img *Image, pos types.Point) {
 		}
 	}
 	C.dword_5d4594_3799508 ^= C.uint(pos.Y & 1)
-	pitch := 2 * nox_pixbuffer_size.W
+	pitch := nox_pixbuffer_size.W
 	for i := 0; i < int(height); i++ {
-		dst := nox_pixbuffer_main[pitch*(pos.Y+i)+2*pos.X:]
+		dst := nox_pixbuffer_main[pitch*(pos.Y+i)+pos.X:]
 		if C.dword_5d4594_3799552 != 0 {
 			C.dword_5d4594_3799508 ^= 1
 			if C.dword_5d4594_3799508 != 0 {
 				if i != 0 {
-					copy(dst[:2*width], nox_pixbuffer_main[pitch*(pos.Y+i-1)+2*pos.X:])
+					copy(dst[:width], nox_pixbuffer_main[pitch*(pos.Y+i-1)+pos.X:])
 				}
 				src = skipPixdata(src, int(width), 1)
 				continue
@@ -1608,7 +1607,7 @@ func (r *NoxRender) nox_client_drawImg_aaa_4C79F0(img *Image, pos types.Point) {
 			src = src[2:]
 
 			if op&0xF == 1 {
-				dst = dst[2*val:]
+				dst = dst[val:]
 				continue
 			}
 			switch op & 0xF {
@@ -1648,20 +1647,20 @@ func (r *NoxRender) nox_client_drawXxx_4C7C80(pix []byte, pos types.Point, width
 		pix = skipPixdata(pix, width, dy)
 	}
 	C.dword_5d4594_3799508 ^= C.uint(ys & 1)
-	pitch := 2 * nox_pixbuffer_size.W
+	pitch := nox_pixbuffer_size.W
 	for i := 0; i < height; i++ {
 		yi := ys + i
 		if C.dword_5d4594_3799552 != 0 {
 			C.dword_5d4594_3799508 ^= 1
 			if C.dword_5d4594_3799508 != 0 {
 				if i != 0 {
-					src := nox_pixbuffer_main[pitch*(yi-1)+2*left:]
-					dst := nox_pixbuffer_main[pitch*(yi+0)+2*left:]
+					src := nox_pixbuffer_main[pitch*(yi-1)+left:]
+					dst := nox_pixbuffer_main[pitch*(yi+0)+left:]
 					w := right - left
 					if w > width {
 						w = width
 					}
-					copy(dst[:2*w], src[:2*w])
+					copy(dst[:w], src[:w])
 				}
 				pix = skipPixdata(pix, width, 1)
 				continue
@@ -1716,7 +1715,7 @@ func (r *NoxRender) nox_client_drawXxx_4C7C80(pix []byte, pos types.Point, width
 				xs = left
 				pix2 = pix2[pmul*d:]
 			}
-			row2 := row[2*xs:]
+			row2 := row[xs:]
 			if xe > right {
 				d := xe - right
 				xw -= d
@@ -1780,21 +1779,28 @@ func (r *NoxRender) nox_client_drawImg_bbb_4C7860(img *Image, pos types.Point) {
 			pos.Y += v12
 		}
 	}
-	xoff := 2 * pos.X
+	xoff := pos.X
 	ipitch := 2 * int(width)
-	pitch := 2 * nox_pixbuffer_size.W
+	pitch := nox_pixbuffer_size.W
 	for i := 0; i < int(height); i++ {
 		dst := nox_pixbuffer_main[pitch*(pos.Y+1)+xoff:]
 		src := data[ipitch*i:]
-		copy(dst[:wsz*2], src[:wsz*2])
+		copy16b(dst[:wsz], src[:wsz*2])
 	}
 }
 
-func (r *NoxRender) pixBlend(dst, src []byte, _ byte, sz int) (_, _ []byte) { // sub_4C8A30
+func copy16b(dst []uint16, src []byte) int {
+	n16 := len(src) / 2
+	src = src[:n16*2]
+	src16 := unsafe.Slice((*uint16)(unsafe.Pointer(&src[0])), n16)
+	return copy(dst, src16)
+}
+
+func (r *NoxRender) pixBlend(dst []uint16, src []byte, _ byte, sz int) (_ []uint16, _ []byte) { // sub_4C8A30
 	if sz < 0 {
 		panic("negative size")
 	}
-	_ = dst[2*sz:]
+	_ = dst[sz:]
 	_ = src[2*sz:]
 	const (
 		rshift = 3
@@ -1811,7 +1817,7 @@ func (r *NoxRender) pixBlend(dst, src []byte, _ byte, sz int) (_, _ []byte) { //
 	bmul := uint16(byte(r.p.field_24))
 
 	for i := 0; i < sz; i++ {
-		c1 := binary.LittleEndian.Uint16(dst) // old color
+		c1 := dst[i]                          // old color
 		c2 := binary.LittleEndian.Uint16(src) // color to draw
 
 		rc := byte((rmul * ((rmask & c2) << rshift)) >> 8)
@@ -1822,18 +1828,17 @@ func (r *NoxRender) pixBlend(dst, src []byte, _ byte, sz int) (_, _ []byte) { //
 			r.colors.G[byte(int16(gc)+(int16((gmask&c1)>>gshift)-int16(gc))/2)] |
 			r.colors.B[byte(int16(rc)+(int16((rmask&c1)<<rshift)-int16(rc))/2)]
 
-		binary.LittleEndian.PutUint16(dst, c3)
-		dst = dst[2:]
+		dst[i] = c3
 		src = src[2:]
 	}
-	return dst, src
+	return dst[sz:], src
 }
 
-func (r *NoxRender) sub_4C86B0(dst, src []byte, _ byte, sz int) (_, _ []byte) { // sub_4C86B0
+func (r *NoxRender) sub_4C86B0(dst []uint16, src []byte, _ byte, sz int) (_ []uint16, _ []byte) { // sub_4C86B0
 	if sz < 0 {
 		panic("negative size")
 	}
-	_ = dst[2*sz:]
+	_ = dst[sz:]
 	_ = src[2*sz:]
 	const (
 		rshift = 3
@@ -1855,11 +1860,10 @@ func (r *NoxRender) sub_4C86B0(dst, src []byte, _ byte, sz int) (_, _ []byte) { 
 		cg := r.colors.G[byte((gmul*(uint32(gmask&v2)>>gshift))>>8)]
 		cb := r.colors.B[byte((rmul*(uint32(rmask&v2)<<rshift))>>8)]
 		c := cr | cg | cb
-		binary.LittleEndian.PutUint16(dst, c)
-		dst = dst[2:]
+		dst[i] = c
 		src = src[2:]
 	}
-	return dst, src
+	return dst[sz:], src
 }
 
 // SADD8 is a saturating 8-bit addition.
@@ -1871,11 +1875,11 @@ func SADD8(x, y byte) byte {
 	return byte(z)
 }
 
-func (r *NoxRender) pixBlendPremult(dst, src []byte, _ byte, sz int) (_, _ []byte) { // sub_4C9B20
+func (r *NoxRender) pixBlendPremult(dst []uint16, src []byte, _ byte, sz int) (_ []uint16, _ []byte) { // sub_4C9B20
 	if sz < 0 {
 		panic("negative size")
 	}
-	_ = dst[2*sz:]
+	_ = dst[sz:]
 	_ = src[2*sz:]
 	const (
 		rshift = 7 // -10+3
@@ -1887,7 +1891,7 @@ func (r *NoxRender) pixBlendPremult(dst, src []byte, _ byte, sz int) (_, _ []byt
 		bmask = 0x001f
 	)
 	for i := 0; i < sz; i++ {
-		c1 := binary.LittleEndian.Uint16(dst)
+		c1 := dst[i]
 		c2 := binary.LittleEndian.Uint16(src)
 		cr := (c1 & rmask) >> rshift
 		cg := (c1 & gmask) >> gshift
@@ -1905,11 +1909,10 @@ func (r *NoxRender) pixBlendPremult(dst, src []byte, _ byte, sz int) (_, _ []byt
 			rbb = 0xff
 		}
 		c := r.colors.R[crb] | r.colors.G[cgb] | r.colors.B[rbb]
-		binary.LittleEndian.PutUint16(dst, c)
+		dst[i] = c
 		src = src[2:]
-		dst = dst[2:]
 	}
-	return dst, src
+	return dst[sz:], src
 }
 
 func nox_draw_initColorTables_434CC0() {
