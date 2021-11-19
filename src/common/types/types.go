@@ -3,16 +3,18 @@ package types
 import (
 	"image"
 	"math"
+
+	"nox/v1/common/noximage"
 )
 
-func Point2f(p image.Point) Pointf {
+func Point2f(p Point) Pointf {
 	return Pointf{
 		X: float32(p.X),
 		Y: float32(p.Y),
 	}
 }
 
-type Point = image.Point
+type Point = noximage.Point
 
 type Pointf struct {
 	X float32 `json:"x"`
@@ -48,14 +50,7 @@ func (p Pointf) Len() float64 {
 	return math.Sqrt(float64(p.X*p.X + p.Y*p.Y))
 }
 
-type Size struct {
-	W int `json:"w"`
-	H int `json:"h"`
-}
-
-func (s Size) Point() Point {
-	return Point{X: s.W, Y: s.H}
-}
+type Size = noximage.Size
 
 type Sizef struct {
 	W float32 `json:"w"`

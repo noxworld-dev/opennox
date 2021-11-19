@@ -9,7 +9,7 @@ import (
 	"io"
 
 	noxcolor "nox/v1/common/color"
-	"nox/v1/common/types"
+	"nox/v1/common/noximage"
 )
 
 var endiness = binary.LittleEndian
@@ -60,11 +60,11 @@ func colorDynamicMask(op byte, cl byte) color.RGBA {
 	}
 }
 
-func readSpriteHeader(r io.Reader, typ byte) (*ImageMeta, types.Size, error) {
+func readSpriteHeader(r io.Reader, typ byte) (*ImageMeta, noximage.Size, error) {
 	var b [17]byte
 	_, err := io.ReadFull(r, b[:])
 	if err != nil {
-		return nil, types.Size{}, err
+		return nil, noximage.Size{}, err
 	}
 	width := int(endiness.Uint32(b[0:]))
 	height := int(endiness.Uint32(b[4:]))
@@ -73,12 +73,12 @@ func readSpriteHeader(r io.Reader, typ byte) (*ImageMeta, types.Size, error) {
 	offs := image.Pt(offsX, offsY)
 	// one byte ignored
 	if width <= 0 || width > 1024 || height <= 0 || height > 1024 {
-		return nil, types.Size{}, fmt.Errorf("invalid image size: %dx%d", width, height)
+		return nil, noximage.Size{}, fmt.Errorf("invalid image size: %dx%d", width, height)
 	}
 	return &ImageMeta{
 			Type:  typ,
 			Point: offs,
-		}, types.Size{
+		}, noximage.Size{
 			W: width,
 			H: height,
 		}, nil
