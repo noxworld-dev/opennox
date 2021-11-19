@@ -21,6 +21,7 @@ import (
 	"unsafe"
 
 	"golang.org/x/image/font"
+	"golang.org/x/image/font/opentype"
 
 	"nox/v1/client/noxfont"
 	"nox/v1/common/datapath"
@@ -32,16 +33,17 @@ type fontFile struct {
 	Name    string
 	File    string
 	FileAlt string
+	Size    int
 	Font    font.Face
 	Ptr     unsafe.Pointer
 }
 
 var (
 	noxFontFiles = []fontFile{
-		{Name: noxfont.DefaultName, File: noxfont.DefaultFile},
-		{Name: noxfont.LargeName, File: noxfont.LargeFile, FileAlt: noxfont.DefaultFile},
-		{Name: noxfont.NumbersName, File: noxfont.NumbersFile},
-		{Name: noxfont.SmallName, File: noxfont.SmallFile},
+		{Name: noxfont.DefaultName, File: noxfont.DefaultFile, Size: 10},
+		{Name: noxfont.LargeName, File: noxfont.LargeFile, FileAlt: noxfont.DefaultFile, Size: 16},
+		{Name: noxfont.NumbersName, File: noxfont.NumbersFile, Size: 7},
+		{Name: noxfont.SmallName, File: noxfont.SmallFile, Size: 9},
 	}
 	noxFontByName = make(map[string]*fontFile)
 	noxFontByPtr  = make(map[unsafe.Pointer]*fontFile)
@@ -58,7 +60,7 @@ func loadGameFonts() error {
 				fname = f.FileAlt
 			}
 		}
-		fnt, err := loadFont(datapath.Path(fname))
+		fnt, err := loadFont(datapath.Path(fname), f.Size)
 		if err != nil {
 			return err
 		}
@@ -92,7 +94,21 @@ func nox_xxx_FontDestroy_43F2E0() {
 	C.nox_xxx_FontDestroy_43F2E0()
 }
 
-func loadFont(path string) (font.Face, error) {
+func loadFont(path string, size int) (font.Face, error) {
+	if f, err := fs.Open(path + ".ttf"); err == nil {
+		fnt, err := opentype.ParseReaderAt(f)
+		if err != nil {
+			return nil, err
+		}
+		face, err := opentype.NewFace(fnt, &opentype.FaceOptions{
+			Size: float64(size), DPI: 72,
+			Hinting: font.HintingNone,
+		})
+		if err != nil {
+			return nil, err
+		}
+		return face, nil
+	}
 	f, err := fs.Open(path + noxfont.Ext)
 	if err != nil {
 		return nil, err

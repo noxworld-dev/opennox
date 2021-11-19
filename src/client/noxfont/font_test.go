@@ -10,6 +10,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 	"golang.org/x/image/font"
+	"golang.org/x/image/math/fixed"
 
 	"nox/v1/common/noxtest"
 )
@@ -42,11 +43,13 @@ func TestFonts(t *testing.T) {
 					text = "0123456789"
 				}
 				b, _ := font.BoundString(fnt, text)
-				img := image.NewGray(image.Rect(0, 0, b.Max.X.Ceil(), b.Max.Y.Ceil()))
+				dy := (b.Max.Y - b.Min.Y).Ceil()
+				img := image.NewGray(image.Rect(0, 0, b.Max.X.Ceil(), dy))
 				dr := &font.Drawer{
 					Dst:  img,
 					Src:  image.NewUniform(color.White),
 					Face: fnt,
+					Dot:  fixed.P(0, dy),
 				}
 				dr.DrawString(text)
 				noxtest.WritePNG(t, name+".png", img, hashes[i])

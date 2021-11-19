@@ -605,14 +605,16 @@ func nox_xxx_FontGetChar_43FE30(font unsafe.Pointer, r rune) unsafe.Pointer {
 
 func (r *NoxRender) drawChar(font unsafe.Pointer, c rune, pos types.Point) int { // nox_xxx_StringDraw_43FE90
 	// FIXME: handle tab characters properly
-	r.fdraw.Face = fontFaceByPtr(font)
-	if r.fdraw.Face == nil {
+	fnt := fontFaceByPtr(font)
+	if fnt == nil {
 		return pos.X
 	}
+	dy := fnt.Metrics().CapHeight.Round()
+	r.fdraw.Face = fnt
 	// FIXME: set clip rectangle from the viewport
 	r.fdraw.Src = image.NewUniform(noxcolor.RGBA5551(r.TextColor()))
 	r.fdraw.Dst = r.pix
-	r.fdraw.Dot = fixed.P(pos.X, pos.Y)
+	r.fdraw.Dot = fixed.P(pos.X, pos.Y+dy)
 	r.fdraw.DrawString(string(c))
 	return r.fdraw.Dot.X.Round()
 }

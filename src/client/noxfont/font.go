@@ -88,11 +88,11 @@ func (f *Font) Glyph(dot fixed.Point26_6, r rune) (dr image.Rectangle, mask imag
 	dr = image.Rectangle{
 		Min: image.Point{
 			X: x,
-			Y: y,
+			Y: y - g.Rect.Dy(),
 		},
 		Max: image.Point{
 			X: x + g.Rect.Dx(),
-			Y: y + g.Rect.Dy(),
+			Y: y,
 		},
 	}
 
