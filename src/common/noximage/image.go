@@ -51,6 +51,14 @@ func (p *Image16) PixOffset(x, y int) int {
 	return (y-p.Rect.Min.Y)*p.Stride + (x - p.Rect.Min.X)
 }
 
+func (p *Image16) Row(y int) []uint16 {
+	y = y - p.Rect.Min.Y
+	if y < 0 || y >= p.Stride {
+		return nil
+	}
+	return p.Pix[y*p.Stride : (y+1)*p.Stride : (y+1)*p.Stride]
+}
+
 func (p *Image16) At(x, y int) color.Color {
 	return p.RGBAAt(x, y)
 }

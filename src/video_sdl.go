@@ -83,8 +83,7 @@ func nox_video_setBackBufSizes_48A3D0(sz types.Size) int {
 	*memmap.PtrUint32(0x973F18, 136) = uint32(2 * sz.W)
 	*memmap.PtrUint32(0x973F18, 2368) = 1
 
-	nox_backbuffer_width32 = sz.W >> 4
-	*memmap.PtrUint32(0x973F18, 2348) = uint32(sz.W >> 1)
+	*memmap.PtrUint32(0x973F18, 2348) = uint32(sz.W / 2)
 	C.dword_5d4594_3801780 = 1
 	return 1
 }
