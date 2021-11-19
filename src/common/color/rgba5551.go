@@ -6,11 +6,15 @@ var (
 	_ Color16 = RGBA5551(0)
 )
 
-// ColorToRGBA5551 converts any color to RGBA5551.
-func ColorToRGBA5551(c color.Color) RGBA5551 {
+// ModelRGBA5551 stores RGBA color in 16 bits (5551).
+var ModelRGBA5551 = color.ModelFunc(modelRGBA5551)
+
+func modelRGBA5551(c color.Color) color.Color {
 	switch c := c.(type) {
 	case RGBA5551:
 		return c
+	case RGB555:
+		return RGBA5551(c & 0x7fff) // alpha channel is inverted (0 = opaque)
 	case color.RGBA:
 		return ToRGBA5551(c.R, c.G, c.B, c.A)
 	}

@@ -6,11 +6,15 @@ var (
 	_ Color16 = RGB555(0)
 )
 
-// ColorToRGB555 converts any color to RGB555. It will drop alpha-channel, if any.
-func ColorToRGB555(c color.Color) RGB555 {
+// ModelRGB555 stores RGB color in 15 bits (555).
+var ModelRGB555 = color.ModelFunc(modelRGB555)
+
+func modelRGB555(c color.Color) color.Color {
 	switch c := c.(type) {
 	case RGB555:
 		return c
+	case RGBA5551:
+		return RGB555(c & 0x7fff)
 	case color.RGBA:
 		return ToRGB555(c.R, c.G, c.B)
 	}

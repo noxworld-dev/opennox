@@ -40,7 +40,7 @@ func (p *Image16) Size() types.Size {
 }
 
 func (p *Image16) ColorModel() color.Model {
-	return color.RGBAModel // TODO: noxcolor.ModelRGBA5551
+	return noxcolor.ModelRGBA5551
 }
 
 func (p *Image16) Bounds() image.Rectangle {
@@ -79,8 +79,7 @@ func (p *Image16) Set(x, y int, c color.Color) {
 	if !(image.Point{x, y}.In(p.Rect)) {
 		return
 	}
-	c1 := color.RGBAModel.Convert(c).(color.RGBA)
-	c2 := noxcolor.ToRGBA5551(c1.R, c1.G, c1.B, c1.A)
+	c2 := noxcolor.ModelRGBA5551.Convert(c).(noxcolor.RGBA5551)
 	p.set(x, y, c2)
 }
 
