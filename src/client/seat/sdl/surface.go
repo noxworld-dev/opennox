@@ -7,6 +7,7 @@ import (
 	"github.com/veandco/go-sdl2/sdl"
 
 	"nox/v1/client/seat"
+	"nox/v1/common/noximage"
 	"nox/v1/common/types"
 )
 
@@ -37,9 +38,12 @@ func (s *Surface) rect() *sdl.Rect {
 	return &sdl.Rect{W: int32(s.sz.W), H: int32(s.sz.H)}
 }
 
-func (s *Surface) Update(data []uint16) {
+func (s *Surface) Update(img *noximage.Image16) {
+	if s.sz != img.Size() {
+		panic("invalid image size")
+	}
 	gl.BindTexture(gl.TEXTURE_2D, s.tex)
-	gl.TexImage2D(gl.TEXTURE_2D, 0, gl.RGBA, int32(s.sz.W), int32(s.sz.H), 0, gl.BGRA, gl.UNSIGNED_SHORT_1_5_5_5_REV, gl.Ptr(data))
+	gl.TexImage2D(gl.TEXTURE_2D, 0, gl.RGBA, int32(s.sz.W), int32(s.sz.H), 0, gl.BGRA, gl.UNSIGNED_SHORT_1_5_5_5_REV, gl.Ptr(img.Pix))
 }
 
 func (s *Surface) Size() types.Size {
