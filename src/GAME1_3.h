@@ -161,7 +161,7 @@ int sub_43FE20(int a1);
 void* nox_xxx_FontGetChar_43FE30(void* font, unsigned short a2);
 int nox_xxx_StringDraw_43FE90(void* font, short a2, int xLeft, int yTop);
 int sub_440360(int a1, int a2, int xLeft, int yTop);
-int nox_xxx_guiDrawString_4407F0(int a1, short* a2, int a3, int a4);
+int nox_xxx_guiDrawString_4407F0(void* a1, wchar_t* a2, int a3, int a4);
 void nox_xxx_Font_440840(void* lpMem);
 int nox_xxx_fontLoad_440870(int a1);
 short sub_4408A0(uint16_t* a1);

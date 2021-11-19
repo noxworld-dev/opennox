@@ -577,13 +577,14 @@ func (r *NoxRender) DrawString(font unsafe.Pointer, str string, pos types.Point)
 	r.drawStringLine(font, str, pos)
 }
 
-func (r *NoxRender) drawStringLine(font unsafe.Pointer, str string, pos types.Point) { // nox_xxx_guiDrawString_4407F0
+func (r *NoxRender) drawStringLine(font unsafe.Pointer, str string, pos types.Point) int { // nox_xxx_guiDrawString_4407F0
 	for _, c := range str {
 		if c == '\n' || c == '\r' {
 			continue
 		}
 		pos.X = r.drawChar(font, c, pos)
 	}
+	return pos.X
 }
 
 func rune2wchar(r rune) uint16 {
@@ -617,6 +618,7 @@ func (r *NoxRender) drawChar(font unsafe.Pointer, c rune, pos types.Point) int {
 	if fnt == nil {
 		return pos.X
 	}
+	// TODO: handle invalid chars by blinking the replacement char
 	dy := fnt.Metrics().CapHeight.Round()
 	r.fdraw.Face = fnt
 	r.fdraw.Src = image.NewUniform(noxcolor.RGBA5551(r.TextColor()))
@@ -737,6 +739,11 @@ func nox_xxx_drawString_43FAF0(font unsafe.Pointer, sp *C.wchar_t, x, y, a5, a6 
 	s := GoWString(sp)
 	noxrend.DrawStringWrapped(font, s, int(x), int(y), int(a5), int(a6))
 	return 1
+}
+
+//export nox_xxx_guiDrawString_4407F0
+func nox_xxx_guiDrawString_4407F0(font unsafe.Pointer, cstr *C.wchar_t, x, y C.int) C.int {
+	return C.int(noxrend.drawStringLine(font, GoWString(cstr), types.Point{X: int(x), Y: int(y)}))
 }
 
 //export nox_video_drawAnimatedImageOrCursorAt_4BE6D0

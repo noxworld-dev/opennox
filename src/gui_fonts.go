@@ -4,9 +4,7 @@ package nox
 #include <stdint.h>
 void* nox_xxx_FontLoadFile_43F3B0(char* a1);
 void nox_xxx_FontDestroy_43F2E0();
-int nox_xxx_StringDraw_43FE90(void* font, short a2, int xLeft, int yTop);
 
-extern void* func_5d4594_816448;
 extern uint32_t dword_5d4594_816440;
 extern uint32_t dword_5d4594_816444;
 extern uint32_t dword_5d4594_816452;
@@ -76,7 +74,6 @@ func loadGameFonts() error {
 }
 
 func nox_xxx_fontLoadMB_43F1C0() {
-	C.func_5d4594_816448 = C.nox_xxx_StringDraw_43FE90
 	C.dword_5d4594_816440 = 1
 	C.dword_5d4594_816444 = 0
 	C.dword_5d4594_816452 = 0

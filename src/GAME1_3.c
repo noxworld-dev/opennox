@@ -187,6 +187,7 @@ int nox_game_state_arr[16] = {0};
 int nox_game_state_ind = 0;
 
 void* nox_draw_fonts_816488 = 0;
+void* func_5d4594_816448 = 0;
 #endif // NOX_CGO
 
 void (*mainloop_enter)(void*);
@@ -208,7 +209,6 @@ nox_gui_animation* nox_wnd_xxx_829520 = 0;
 nox_gui_animation* nox_wnd_xxx_830244 = 0;
 
 void* nox_draw_defaultFont_816492 = 0;
-void* func_5d4594_816448 = 0;
 
 //----- (0043B510) --------------------------------------------------------
 void nox_client_xxx_switchChatMap_43B510() {
@@ -2731,6 +2731,7 @@ int sub_43F680(int a1) {
 	return result;
 }
 
+#ifndef NOX_CGO
 //----- (0043F690) --------------------------------------------------------
 int sub_43F690(int a1, int a2, int a3, int a4) {
 	int result; // eax
@@ -2745,6 +2746,7 @@ int sub_43F690(int a1, int a2, int a3, int a4) {
 	}
 	return result;
 }
+#endif // NOX_CGO
 
 //----- (0043F6E0) --------------------------------------------------------
 int nox_xxx_drawString_43F6E0(int a1, wchar_t* a2, int a3, int a4) {
@@ -3120,6 +3122,7 @@ void* nox_xxx_FontGetChar_43FE30(void* font, unsigned short a2) {
 	return result;
 }
 
+#ifndef NOX_CGO
 //----- (0043FE90) --------------------------------------------------------
 int nox_xxx_StringDraw_43FE90(void* font, short a2, int xLeft, int yTop) {
 	int a1 = font;
@@ -3435,6 +3438,7 @@ LABEL_60:
 	return xLeft + dword_5d4594_816440 + v67;
 }
 // 43FEE1: variable 'v4' is possibly undefined
+#endif // NOX_CGO
 
 //----- (00440360) --------------------------------------------------------
 int sub_440360(int a1, int a2, int xLeft, int yTop) {
@@ -3757,10 +3761,11 @@ LABEL_61:
 }
 // 4403CC: variable 'v6' is possibly undefined
 
+#ifndef NOX_CGO
 //----- (004407F0) --------------------------------------------------------
-int nox_xxx_guiDrawString_4407F0(int a1, short* a2, int a3, int a4) {
-	short v4;   // cx
-	short* v5;  // esi
+int nox_xxx_guiDrawString_4407F0(void* a1, wchar_t* a2, int a3, int a4) {
+	wchar_t v4;   // cx
+	wchar_t* v5;  // esi
 	int result; // eax
 
 	v4 = *a2;
@@ -3771,13 +3776,14 @@ int nox_xxx_guiDrawString_4407F0(int a1, short* a2, int a3, int a4) {
 	result = a3;
 	do {
 		if (v4 != 13 && v4 != 10) {
-			result = (*(int (**)(uint32_t, uint16_t, uint32_t, uint32_t)) & func_5d4594_816448)(a1, v4, result, a4);
+			result = (*(int (**)(void*, wchar_t, uint32_t, uint32_t)) & func_5d4594_816448)(a1, v4, result, a4);
 		}
 		v4 = *v5;
 		++v5;
 	} while (v4);
 	return result;
 }
+#endif // NOX_CGO
 
 //----- (00440840) --------------------------------------------------------
 void nox_xxx_Font_440840(void* lpMem) {
