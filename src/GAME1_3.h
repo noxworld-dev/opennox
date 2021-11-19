@@ -167,7 +167,7 @@ int nox_xxx_fontLoad_440870(int a1);
 short sub_4408A0(uint16_t* a1);
 short sub_4408C0(uint8_t* a1);
 int sub_4408E0();
-void sub_440900();
+void nox_client_clearScreen_440900();
 int nox_xxx_netServerCmd_440950(char a1, wchar_t* a2);
 int sub_440AC0(wchar_t* a1);
 void sub_4417E0(wchar_t* a1, const char* a2);

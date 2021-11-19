@@ -29,7 +29,7 @@ short nox_xxx_mapGenClientText_4A9D00(unsigned char* a1) {
 	*getMemU32Ptr(0x5D4594, 1309668) = *(unsigned short*)(a1 + 1);
 	nox_xxx_clientPlaySoundSpecial_452D80(897, 50);
 	sub_430B50(0, 0, nox_win_width - 1, nox_win_height - 1);
-	sub_440900();
+	nox_client_clearScreen_440900();
 	v3 = nox_win_height / 2 - 120;
 	v4 = nox_win_width / 2 - 160;
 	nox_client_drawImageAt_47D2C0(*getMemU32Ptr(0x5D4594, 1309644 + 4 * (*getMemU32Ptr(0x5D4594, 1309672) % 4)), v4,
