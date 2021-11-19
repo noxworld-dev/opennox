@@ -23,7 +23,7 @@ import (
 	"errors"
 	"fmt"
 	"image"
-	"image/color"
+	"image/draw"
 	"math"
 	"strings"
 	"unsafe"
@@ -176,28 +176,9 @@ func mainloopDrawAndPresent(inp *input.Handler) {
 	}
 }
 
-func colorNRGB15(cl uint16) color.NRGBA {
-	r := byte((cl & 0xfc00) >> 10)
-	g := byte((cl & 0x03e0) >> 5)
-	b := byte((cl & 0x001f) >> 0)
-	r = byte((float64(r) / 31) * 0xff)
-	g = byte((float64(g) / 31) * 0xff)
-	b = byte((float64(b) / 31) * 0xff)
-	return color.NRGBA{
-		R: r, G: g, B: b, A: 0xff,
-	}
-}
-
 func copyGamePixBuffer() *image.NRGBA {
-	sz := nox_pixbuffer_size
-	img := image.NewNRGBA(image.Rect(0, 0, sz.W, sz.H))
-
-	for y := 0; y < sz.H; y++ {
-		row := unsafe.Slice((*uint16)(nox_pixbuffer_main_rows[y]), sz.W)
-		for x := 0; x < sz.W; x++ {
-			img.SetNRGBA(x, y, colorNRGB15(row[x]))
-		}
-	}
+	img := image.NewNRGBA(noxPixBuffer.img.Rect)
+	draw.Draw(img, img.Rect, noxrend.pix, noxrend.pix.Rect.Min, draw.Src)
 	return img
 }
 

@@ -98,6 +98,7 @@ import (
 	noxcolor "nox/v1/common/color"
 	noxflags "nox/v1/common/flags"
 	"nox/v1/common/memmap"
+	"nox/v1/common/noximage"
 	"nox/v1/common/types"
 )
 
@@ -301,7 +302,8 @@ func cgoSetRenderData(p *C.nox_render_data_t) {
 }
 
 type NoxRender struct {
-	p *C.nox_render_data_t
+	p   *C.nox_render_data_t
+	pix *noximage.Image16
 
 	colors struct {
 		mode noxcolor.Mode
@@ -319,6 +321,14 @@ type NoxRender struct {
 		byOpts   map[particleOpt]*Particle
 		byHandle map[unsafe.Pointer]*Particle
 	}
+}
+
+func (r *NoxRender) PixBuffer() *noximage.Image16 {
+	return r.pix
+}
+
+func (r *NoxRender) SetPixBuffer(pix *noximage.Image16) {
+	r.pix = pix
 }
 
 func newNoxRenderData() (*C.nox_render_data_t, func()) {
@@ -1587,14 +1597,15 @@ func (r *NoxRender) nox_client_drawImg_aaa_4C79F0(img *Image, pos types.Point) {
 		}
 	}
 	C.dword_5d4594_3799508 ^= C.uint(pos.Y & 1)
-	pitch := nox_pixbuffer_size.W
+	pixbuf := r.PixBuffer()
+	pitch := pixbuf.Stride
 	for i := 0; i < int(height); i++ {
-		dst := nox_pixbuffer_main[pitch*(pos.Y+i)+pos.X:]
+		dst := pixbuf.Pix[pitch*(pos.Y+i)+pos.X:]
 		if C.dword_5d4594_3799552 != 0 {
 			C.dword_5d4594_3799508 ^= 1
 			if C.dword_5d4594_3799508 != 0 {
 				if i != 0 {
-					copy(dst[:width], nox_pixbuffer_main[pitch*(pos.Y+i-1)+pos.X:])
+					copy(dst[:width], pixbuf.Pix[pitch*(pos.Y+i-1)+pos.X:])
 				}
 				src = skipPixdata(src, int(width), 1)
 				continue
@@ -1647,15 +1658,16 @@ func (r *NoxRender) nox_client_drawXxx_4C7C80(pix []byte, pos types.Point, width
 		pix = skipPixdata(pix, width, dy)
 	}
 	C.dword_5d4594_3799508 ^= C.uint(ys & 1)
-	pitch := nox_pixbuffer_size.W
+	pixbuf := r.PixBuffer()
+	pitch := pixbuf.Stride
 	for i := 0; i < height; i++ {
 		yi := ys + i
 		if C.dword_5d4594_3799552 != 0 {
 			C.dword_5d4594_3799508 ^= 1
 			if C.dword_5d4594_3799508 != 0 {
 				if i != 0 {
-					src := nox_pixbuffer_main[pitch*(yi-1)+left:]
-					dst := nox_pixbuffer_main[pitch*(yi+0)+left:]
+					src := pixbuf.Pix[pitch*(yi-1)+left:]
+					dst := pixbuf.Pix[pitch*(yi+0)+left:]
 					w := right - left
 					if w > width {
 						w = width
@@ -1669,7 +1681,7 @@ func (r *NoxRender) nox_client_drawXxx_4C7C80(pix []byte, pos types.Point, width
 		if width <= 0 {
 			continue
 		}
-		row := nox_pixbuffer_main[pitch*yi : pitch*(yi+1)]
+		row := pixbuf.Pix[pitch*yi : pitch*(yi+1)]
 		var n int
 		for j := 0; j < width; j += n {
 			op := pix[0]
@@ -1781,9 +1793,10 @@ func (r *NoxRender) nox_client_drawImg_bbb_4C7860(img *Image, pos types.Point) {
 	}
 	xoff := pos.X
 	ipitch := 2 * int(width)
-	pitch := nox_pixbuffer_size.W
+	pixbuf := r.PixBuffer()
+	pitch := pixbuf.Stride
 	for i := 0; i < int(height); i++ {
-		dst := nox_pixbuffer_main[pitch*(pos.Y+1)+xoff:]
+		dst := pixbuf.Pix[pitch*(pos.Y+1)+xoff:]
 		src := data[ipitch*i:]
 		copy16b(dst[:wsz], src[:wsz*2])
 	}

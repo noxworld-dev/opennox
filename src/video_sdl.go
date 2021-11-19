@@ -23,7 +23,7 @@ func clientDraw() bool {
 }
 
 func copyPixBuffer() {
-	noxRendererS.CopyBuffer(nox_pixbuffer_size, nox_pixbuffer_main)
+	noxRendererS.CopyBuffer(noxPixBuffer.img)
 	*memmap.PtrUint32(0x973A20, 496)++
 }
 
@@ -65,7 +65,7 @@ func gameResetVideoMode(inMenu, force bool) error {
 	videoLog.Printf("mode switch: %+v (menu: %v)", mode, inMenu)
 	videoResizeView(mode)
 	C.nox_game_loop_xxx_805872 = 0
-	if !force && mode == nox_pixbuffer_size {
+	if !force && mode == noxPixBuffer.img.Size() {
 		return nil
 	}
 	if err := recreateBuffersAndTarget(mode); err != nil {

@@ -6,6 +6,7 @@ import (
 
 	"nox/v1/client/seat"
 	"nox/v1/common/log"
+	"nox/v1/common/noximage"
 	"nox/v1/common/types"
 )
 
@@ -24,7 +25,7 @@ func New(sc seat.Screen) (*Renderer, error) {
 		return nil, err
 	}
 	sc.OnScreenResize(func(sz types.Size) {
-		r.present(types.Size{}, nil)
+		r.present(nil)
 	})
 	return r, nil
 }
@@ -42,8 +43,8 @@ type Renderer struct {
 	rotate      bool
 	rotated     bool
 	onResize    []func(view image.Rectangle)
-	buf         []uint16
-	prev        []uint16
+	buf         *noximage.Image16
+	prev        *noximage.Image16
 }
 
 // Ticks returns the number of present ticks since the last Reset or Init.
@@ -74,11 +75,12 @@ func (r *Renderer) OnViewResize(fnc func(view image.Rectangle)) {
 }
 
 // CopyBuffer copies given 16 bit image into the buffer and presents it.
-func (r *Renderer) CopyBuffer(sz types.Size, src []uint16) {
-	r.present(sz, src)
+func (r *Renderer) CopyBuffer(img *noximage.Image16) {
+	r.present(img)
 }
 
-func (r *Renderer) present(sz types.Size, src []uint16) {
+func (r *Renderer) present(img *noximage.Image16) {
+	sz := img.Size()
 	view := r.setViewport(float32(sz.W) / float32(sz.H))
 	if r.view != view {
 		r.view = view
@@ -86,11 +88,11 @@ func (r *Renderer) present(sz types.Size, src []uint16) {
 			fnc(view)
 		}
 	}
-	if src != nil {
-		if len(r.buf) != len(src) {
-			r.buf = make([]uint16, len(src))
+	if img != nil {
+		if r.buf == nil || r.buf.Rect != img.Rect {
+			r.buf = noximage.NewImage16(img.Rect)
 		}
-		copy(r.buf, src)
+		copy(r.buf.Pix, img.Pix)
 		if bsz := r.backbuf.Size(); sz != bsz || r.filtering != r.backbufFilt {
 			Log.Printf("recreating surface: %dx%d -> %dx%d", bsz.W, bsz.H, sz.W, sz.H)
 			if r.backbuf != nil {
@@ -101,7 +103,7 @@ func (r *Renderer) present(sz types.Size, src []uint16) {
 			r.backbufFilt = r.filtering
 		}
 		r.prev, r.buf = r.buf, r.prev
-		r.backbuf.Update(r.prev)
+		r.backbuf.Update(r.prev.Pix)
 	}
 	r.sc.Clear()
 	r.backbuf.Draw(view)
