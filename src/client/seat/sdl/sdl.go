@@ -3,6 +3,7 @@ package sdl
 import (
 	"errors"
 	"fmt"
+	"image"
 	"os"
 	"strings"
 
@@ -12,6 +13,7 @@ import (
 	"nox/v1/client/seat"
 	"nox/v1/common/env"
 	"nox/v1/common/log"
+	"nox/v1/common/noximage"
 	"nox/v1/common/types"
 )
 
@@ -23,7 +25,7 @@ var (
 var _ seat.Seat = &Window{}
 
 // New creates a new SDL window which implements a Seat interface.
-func New(title string, sz types.Size) (*Window, error) {
+func New(title string, sz noximage.Size) (*Window, error) {
 	// TODO: if we ever decide to use multiple windows, this will need to be moved elsewhere; same for sdl.Quit
 	if err := sdl.Init(sdl.INIT_VIDEO | sdl.INIT_TIMER | sdl.INIT_GAMECONTROLLER); err != nil {
 		return nil, fmt.Errorf("SDL Initialization failed: %w", err)
@@ -65,13 +67,13 @@ func New(title string, sz types.Size) (*Window, error) {
 
 type Window struct {
 	win      *sdl.Window
-	prevPos  types.Point
-	prevSz   types.Size
+	prevPos  image.Point
+	prevSz   noximage.Size
 	textInp  bool
 	mode     seat.ScreenMode
 	rel      bool
-	mpos     types.Point
-	onResize []func(sz types.Size)
+	mpos     image.Point
+	onResize []func(sz noximage.Size)
 	onInput  []func(ev seat.InputEvent)
 	vao      uint32
 	vbo      uint32
@@ -110,9 +112,9 @@ func (win *Window) SetTextInput(enable bool) {
 	}
 }
 
-func (win *Window) ScreenSize() types.Size {
+func (win *Window) ScreenSize() noximage.Size {
 	w, h := win.win.GLGetDrawableSize()
-	return types.Size{
+	return noximage.Size{
 		W: int(w), H: int(h),
 	}
 }
@@ -138,14 +140,14 @@ func (win *Window) displayRect() sdl.Rect {
 	return rect
 }
 
-func (win *Window) ScreenMaxSize() types.Size {
+func (win *Window) ScreenMaxSize() noximage.Size {
 	rect := win.displayRect()
-	return types.Size{
+	return noximage.Size{
 		W: int(rect.W), H: int(rect.H),
 	}
 }
 
-func (win *Window) setSize(sz types.Size) {
+func (win *Window) setSize(sz noximage.Size) {
 	Log.Printf("window size: %dx%d", sz.W, sz.H)
 	win.win.SetSize(int32(sz.W), int32(sz.H))
 }
@@ -154,7 +156,7 @@ func (win *Window) center() {
 	win.win.SetPosition(sdl.WINDOWPOS_CENTERED, sdl.WINDOWPOS_CENTERED)
 }
 
-func (win *Window) ResizeScreen(sz types.Size) {
+func (win *Window) ResizeScreen(sz noximage.Size) {
 	if win.mode != seat.Windowed {
 		return
 	}
@@ -225,7 +227,7 @@ func (win *Window) SetGamma(v float32) {
 	}
 }
 
-func (win *Window) OnScreenResize(fnc func(sz types.Size)) {
+func (win *Window) OnScreenResize(fnc func(sz noximage.Size)) {
 	win.onResize = append(win.onResize, fnc)
 }
 
@@ -512,7 +514,7 @@ func (win *Window) processMouseButtonEvent(ev *sdl.MouseButtonEvent) {
 func (win *Window) processMotionEvent(ev *sdl.MouseMotionEvent) {
 	win.inputEvent(&seat.MouseMoveEvent{
 		Relative: win.rel,
-		Pos:      types.Point{X: int(ev.X), Y: int(ev.Y)},
+		Pos:      image.Point{X: int(ev.X), Y: int(ev.Y)},
 		Rel:      types.Pointf{X: float32(ev.XRel), Y: float32(ev.YRel)},
 	})
 }

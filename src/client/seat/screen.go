@@ -3,7 +3,7 @@ package seat
 import (
 	"image"
 
-	"nox/v1/common/types"
+	"nox/v1/common/noximage"
 )
 
 const (
@@ -22,20 +22,20 @@ type ScreenMode int
 
 type Screen interface {
 	// ScreenSize returns current size of the screen.
-	ScreenSize() types.Size
+	ScreenSize() noximage.Size
 	// ScreenMaxSize returns max size of the screen.
-	ScreenMaxSize() types.Size
+	ScreenMaxSize() noximage.Size
 	// ResizeScreen changes the size of the screen.
-	ResizeScreen(sz types.Size)
+	ResizeScreen(sz noximage.Size)
 	// SetScreenMode changes the screen mode. Fullscreen will maximize the screen to max, while Windowed will return
 	// is back to the previous state.
 	SetScreenMode(mode ScreenMode)
 	// SetGamma sets screen gamma parameter.
 	SetGamma(v float32)
 	// OnScreenResize adds a handler function that will be called on screen resize.
-	OnScreenResize(fnc func(sz types.Size))
+	OnScreenResize(fnc func(sz noximage.Size))
 	// NewSurface creates a new screen surface.
-	NewSurface(sz types.Size, filter bool) Surface
+	NewSurface(sz noximage.Size, filter bool) Surface
 	// Clear the screen.
 	Clear()
 	// Present the current buffer to the screen.
@@ -44,9 +44,9 @@ type Screen interface {
 
 type Surface interface {
 	// Size of the surface.
-	Size() types.Size
+	Size() noximage.Size
 	// Update the surface with 16 bit data.
-	Update(data []uint16)
+	Update(data *noximage.Image16)
 	// Draw the surface in a given viewport rectangle.
 	Draw(vp image.Rectangle)
 	// Destroy the surface.

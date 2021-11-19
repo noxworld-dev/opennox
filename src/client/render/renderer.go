@@ -102,8 +102,8 @@ func (r *Renderer) present(img *noximage.Image16) {
 			r.backbuf = r.sc.NewSurface(sz, r.filtering)
 			r.backbufFilt = r.filtering
 		}
+		r.backbuf.Update(r.buf)
 		r.prev, r.buf = r.buf, r.prev
-		r.backbuf.Update(r.prev.Pix)
 	}
 	r.sc.Clear()
 	r.backbuf.Draw(view)

@@ -1,6 +1,8 @@
 package seat
 
 import (
+	"image"
+
 	"nox/v1/client/input/keybind"
 	"nox/v1/common/types"
 )
@@ -30,7 +32,7 @@ var _ InputEvent = &MouseMoveEvent{}
 
 type MouseMoveEvent struct {
 	Relative bool
-	Pos      types.Point
+	Pos      image.Point
 	Rel      types.Pointf
 }
 
