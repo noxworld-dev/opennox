@@ -1,7 +1,8 @@
-package bag
+package pcx
 
 import (
 	"bufio"
+	"encoding/binary"
 	"fmt"
 	"image"
 	"image/color"
@@ -10,6 +11,8 @@ import (
 	noxcolor "nox/v1/common/color"
 	"nox/v1/common/types"
 )
+
+var endiness = binary.LittleEndian
 
 var _ image.Image = (*Image)(nil)
 
@@ -24,19 +27,19 @@ type Image struct {
 	Mask *image.RGBA
 }
 
-func DecodePCX(r io.Reader, typ byte) (*Image, error) {
+func Decode(r io.Reader, typ byte) (*Image, error) {
 	switch typ {
 	case 3, 4, 5, 6:
-		return readPCXSprite(r, typ)
+		return readSprite(r, typ)
 	default:
 		return nil, fmt.Errorf("unsupported type: %d", typ)
 	}
 }
 
-func DecodePCXHeader(r io.Reader, typ byte) (*ImageMeta, error) {
+func DecodeHeader(r io.Reader, typ byte) (*ImageMeta, error) {
 	switch typ {
 	case 3, 4, 5, 6:
-		meta, _, err := readPCXSpriteHeader(r, typ)
+		meta, _, err := readSpriteHeader(r, typ)
 		return meta, err
 	default:
 		return nil, fmt.Errorf("unsupported type: %d", typ)
@@ -57,7 +60,7 @@ func colorDynamicMask(op byte, cl byte) color.RGBA {
 	}
 }
 
-func readPCXSpriteHeader(r io.Reader, typ byte) (*ImageMeta, types.Size, error) {
+func readSpriteHeader(r io.Reader, typ byte) (*ImageMeta, types.Size, error) {
 	var b [17]byte
 	_, err := io.ReadFull(r, b[:])
 	if err != nil {
@@ -81,8 +84,8 @@ func readPCXSpriteHeader(r io.Reader, typ byte) (*ImageMeta, types.Size, error) 
 		}, nil
 }
 
-func readPCXSprite(r io.Reader, typ byte) (*Image, error) {
-	meta, sz, err := readPCXSpriteHeader(r, typ)
+func readSprite(r io.Reader, typ byte) (*Image, error) {
+	meta, sz, err := readSpriteHeader(r, typ)
 	if err != nil {
 		return nil, err
 	}
@@ -190,7 +193,7 @@ func readPCXSprite(r io.Reader, typ byte) (*Image, error) {
 	}
 }
 
-func EncodePCX(img *Image) []byte {
+func Encode(img *Image) []byte {
 	rect := img.Bounds()
 	width := rect.Dx()
 	height := rect.Dy()

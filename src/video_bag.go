@@ -16,6 +16,7 @@ import (
 	"nox/v1/common/bag"
 	"nox/v1/common/log"
 	"nox/v1/common/memmap"
+	"nox/v1/common/noximage/pcx"
 )
 
 var (
@@ -114,7 +115,7 @@ func (img *Image) loadOverride() []byte {
 	} else if im == nil {
 		return nil
 	}
-	img.override = bag.EncodePCX(im)
+	img.override = pcx.Encode(im)
 	return img.override
 }
 
