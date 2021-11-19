@@ -1,10 +1,10 @@
 package main
 
 import (
-	"encoding/binary"
 	"errors"
 	"flag"
 	"fmt"
+	"image"
 	"io"
 	"log"
 	"math"
@@ -19,6 +19,7 @@ import (
 	"nox/v1/client/seat/sdl"
 	"nox/v1/common/alloc/handles"
 	noxcolor "nox/v1/common/color"
+	"nox/v1/common/noximage"
 	"nox/v1/common/types"
 )
 
@@ -122,11 +123,12 @@ func NewPlayer(sc seat.Screen, drv ail.Driver, fname string) (*Player, error) {
 	// TODO: actually open file and prepare for decoding
 	log.Printf("opening file: %q", fname)
 	sz := sc.ScreenSize()
+	frame := noximage.NewImage16(image.Rect(0, 0, sz.W, sz.H))
 	return &Player{
 		sz:   sz,
 		rend: rend, audio: drv,
-		frame: make([]byte, sz.W*sz.H*2), // 16 bit format
-		black: make([]byte, sz.W*sz.H*2), // for quick copy
+		frame: frame,
+		black: make([]uint16, len(frame.Pix)), // for quick copy
 	}, nil
 }
 
@@ -135,8 +137,8 @@ type Player struct {
 	sz    types.Size
 	rend  *render.Renderer
 	audio ail.Driver
-	black []byte
-	frame []byte
+	black []uint16
+	frame *noximage.Image16
 	cur   int
 	file  io.Reader
 }
@@ -152,18 +154,17 @@ func (p *Player) Close() error {
 
 func (p *Player) Tick() bool {
 	p.cur++
-	copy(p.frame, p.black)
+	copy(p.frame.Pix, p.black)
 	// TODO: decode the frame
 	for x := 0; x < p.sz.W; x++ {
 		y := int(float64(p.sz.H) * (0.5 + 0.5*math.Sin(float64(x+p.cur%p.sz.W)/float64(p.sz.W)*math.Pi*4)))
 		if y < 0 || y >= p.sz.H {
 			continue
 		}
-		ind := 2 * (p.sz.W*y + x)
 		cl := noxcolor.ToRGBA5551(byte(p.cur%255), 0, 255-byte(p.cur%100), 255)
-		binary.LittleEndian.PutUint16(p.frame[ind:], uint16(cl))
+		p.frame.SetRGBA5551(x, y, cl)
 	}
-	p.rend.CopyBuffer(p.sz, p.frame)
+	p.rend.CopyBuffer(p.frame)
 	// TODO: no idea how audio works, but package closely follows C
 	return true // TODO: return false once video ends
 }
