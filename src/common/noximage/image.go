@@ -5,8 +5,18 @@ import (
 	"image/color"
 
 	noxcolor "nox/v1/common/color"
-	"nox/v1/common/types"
 )
+
+type Point = image.Point
+
+type Size struct {
+	W int `json:"w"`
+	H int `json:"h"`
+}
+
+func (s Size) Point() Point {
+	return Point{X: s.W, Y: s.H}
+}
 
 var _ image.Image = &Image16{}
 
@@ -18,7 +28,7 @@ func NewImage16(r image.Rectangle) *Image16 {
 	}
 }
 
-func NewImage16WithData(data []uint16, sz types.Size) *Image16 {
+func NewImage16WithData(data []uint16, sz Size) *Image16 {
 	return &Image16{
 		Pix:    data,
 		Stride: sz.W,
@@ -32,11 +42,11 @@ type Image16 struct {
 	Rect   image.Rectangle
 }
 
-func (p *Image16) Size() types.Size {
+func (p *Image16) Size() Size {
 	if p == nil {
-		return types.Size{}
+		return Size{}
 	}
-	return types.Size{W: p.Rect.Dx(), H: p.Rect.Dy()}
+	return Size{W: p.Rect.Dx(), H: p.Rect.Dy()}
 }
 
 func (p *Image16) ColorModel() color.Model {
