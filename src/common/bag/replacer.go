@@ -11,6 +11,7 @@ import (
 	"path/filepath"
 	"strings"
 
+	"nox/v1/common/noximage/pcx"
 	"nox/v1/common/nxz"
 )
 
@@ -316,8 +317,8 @@ func (rb *replacer) ReplaceSprites(list []Replacement) error {
 					return fmt.Errorf("unsupported type for %d,%d: %d", i, j, ityp)
 				case 3, 4, 5, 6:
 				}
-				out := &Image{
-					ImageMeta: ImageMeta{
+				out := &pcx.Image{
+					ImageMeta: pcx.ImageMeta{
 						Type: ityp,
 					},
 					RGBA: *asRGBA(rp.Image),
@@ -342,7 +343,7 @@ func (rb *replacer) ReplaceSprites(list []Replacement) error {
 					return fmt.Errorf("cannot copy section data %d: %w", i, err)
 				}
 				// encode new image
-				idata := EncodePCX(out)
+				idata := pcx.Encode(out)
 				isize = int64(len(idata))
 				// write new image to the bag file
 				_, err = rb.nbag.Write(idata)

@@ -18,13 +18,14 @@ import (
 	"nox/v1/common/bag"
 	"nox/v1/common/datapath"
 	"nox/v1/common/log"
+	"nox/v1/common/noximage/pcx"
 )
 
 var debugBagImages = os.Getenv("NOX_DEBUG_BAG_IMAGES") == "true"
 
 type bagImage struct {
 	*bag.ImageRec
-	Meta *bag.ImageMeta
+	Meta *pcx.ImageMeta
 }
 
 var videoBag struct {
@@ -97,9 +98,9 @@ func openImage(base string) (image.Image, error) {
 	return jpeg.Decode(f)
 }
 
-func openImageMeta(base string) (*bag.ImageMeta, error) {
+func openImageMeta(base string) (*pcx.ImageMeta, error) {
 	if jdata, err := ioutil.ReadFile(base + ".json"); err == nil {
-		var meta bag.ImageMeta
+		var meta pcx.ImageMeta
 		if err := json.Unmarshal(jdata, &meta); err != nil {
 			return nil, err
 		}
@@ -117,7 +118,7 @@ func openImageMeta(base string) (*bag.ImageMeta, error) {
 		return nil, err
 	}
 	defer zf.Close()
-	var meta bag.ImageMeta
+	var meta pcx.ImageMeta
 	err = json.NewDecoder(zf).Decode(&meta)
 	if err != nil {
 		return nil, err
@@ -151,7 +152,7 @@ func asRGBA(img image.Image) *image.RGBA {
 	return rgba
 }
 
-func imageByBagSection(sect, offs int) (*bag.Image, error) {
+func imageByBagSection(sect, offs int) (*pcx.Image, error) {
 	videoBag.once.Do(func() {
 		if err := loadAndIndexVideoBag(); err != nil {
 			videoBag.err = err
@@ -186,7 +187,7 @@ func imageByBagSection(sect, offs int) (*bag.Image, error) {
 		}
 		return nil, err
 	}
-	out := &bag.Image{
+	out := &pcx.Image{
 		RGBA: *asRGBA(im),
 	}
 	if mask, err := openImage(base + "_mask"); err == nil {
@@ -204,7 +205,7 @@ func imageByBagSection(sect, offs int) (*bag.Image, error) {
 				if debug {
 					log.Printf("error decoding header: %v", err)
 				}
-				img.Meta = &bag.ImageMeta{}
+				img.Meta = &pcx.ImageMeta{}
 			}
 		}
 		out.ImageMeta = *img.Meta

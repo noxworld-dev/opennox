@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"nox/v1/common/fs"
+	"nox/v1/common/noximage/pcx"
 	"nox/v1/common/nxz"
 )
 
@@ -337,18 +338,18 @@ func (img *ImageRec) Raw() ([]byte, error) {
 	return buf, err
 }
 
-func (img *ImageRec) Decode() (*Image, error) {
+func (img *ImageRec) Decode() (*pcx.Image, error) {
 	r, err := img.open()
 	if err != nil {
 		return nil, err
 	}
-	return DecodePCX(r, byte(img.Type))
+	return pcx.Decode(r, byte(img.Type))
 }
 
-func (img *ImageRec) DecodeHeader() (*ImageMeta, error) {
+func (img *ImageRec) DecodeHeader() (*pcx.ImageMeta, error) {
 	r, err := img.open()
 	if err != nil {
 		return nil, err
 	}
-	return DecodePCXHeader(r, byte(img.Type))
+	return pcx.DecodeHeader(r, byte(img.Type))
 }
