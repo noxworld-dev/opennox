@@ -380,7 +380,7 @@ func RunArgs(args []string) (gerr error) {
 			return fmt.Errorf("failed to update video mode: %w", err)
 		}
 		noxrend.SelectColor(memmap.Uint32(0x85B3FC, 952))
-		sub_440900()
+		nox_client_clearScreen_440900()
 	} else {
 		enableGUIDrawing(false)
 		videoInitStub()

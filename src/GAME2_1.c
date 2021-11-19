@@ -8713,14 +8713,14 @@ void nox_xxx_drawAllMB_475810_draw(nox_draw_viewport_t* vp) {
 	}
 	if (nox_client_gui_flag_1556112 || v8) {
 		nox_xxx_drawSelectColor_434350(*getMemIntPtr(0x85B3FC, 952));
-		sub_440900();
+		nox_client_clearScreen_440900();
 		sub_437290();
 		dword_5d4594_3799524 = 1;
 		return;
 	}
 	if (*getMemU32Ptr(0x5D4594, 1096520)) {
 		nox_xxx_drawSelectColor_434350(*getMemIntPtr(0x5D4594, 2523948));
-		sub_440900();
+		nox_client_clearScreen_440900();
 		nox_xxx_drawSelectColor_434350(*getMemIntPtr(0x85B3FC, 952));
 		*getMemU32Ptr(0x5D4594, 1096520) = 0;
 		sub_437290();
@@ -8735,7 +8735,7 @@ void nox_xxx_drawAllMB_475810_draw(nox_draw_viewport_t* vp) {
 		nox_xxx_tileDrawMB_481C20(vp);
 		sub_4C5500(vp);
 	} else {
-		sub_440900();
+		nox_client_clearScreen_440900();
 	}
 	sub_475F10(vp);
 	nox_xxx_drawAllMB_475810_draw_C(vp, v36, v7);

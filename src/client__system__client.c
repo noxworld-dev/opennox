@@ -115,7 +115,7 @@ void nox_xxx_clientDrawAll_436100_draw() {
 		nox_xxx_drawMinimapAndLines_4738E0();
 	} else {
 		nox_xxx_drawSelectColor_434350(*getMemIntPtr(0x85B3FC, 952));
-		sub_440900();
+		nox_client_clearScreen_440900();
 	}
 	if (dword_5d4594_811896) {
 		sub_4365C0();
@@ -134,7 +134,7 @@ void nox_xxx_clientDrawAll_436100_draw() {
 	}
 	if (*getMemU32Ptr(0x587000, 85744)) {
 		sub_430B50(0, 0, nox_win_width - 1, nox_win_height - 1);
-		sub_440900();
+		nox_client_clearScreen_440900();
 		*getMemU32Ptr(0x587000, 85744) = 0;
 	}
 }

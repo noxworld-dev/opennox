@@ -5789,7 +5789,7 @@ int nox_xxx_unused_4800F0() {
 		MessageBoxA(0, "GfxInit() failed", "StartupError", 0);
 		return 0;
 	}
-	sub_440900();
+	nox_client_clearScreen_440900();
 	nox_xxx_setupSomeVideo_47FEF0();
 	sub_49F6D0(1);
 	sub_437290();

@@ -68,7 +68,7 @@ int nox_video_recreateRenderTarget_47FD70() {
 	nox_xxx_cursorLoadAll_477710();
 	nox_client_setCursorType_477610(v1);
 	sub_48B3E0(v2);
-	sub_440900();
+	nox_client_clearScreen_440900();
 	nox_xxx_setupSomeVideo_47FEF0();
 	sub_49F6D0(1);
 	sub_437290();

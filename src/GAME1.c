@@ -345,7 +345,7 @@ int cmain(int argc, const char* argv[]) {
 		return 0;
 	}
 	nox_xxx_drawSelectColor_434350(*getMemIntPtr(0x85B3FC, 952));
-	sub_440900();
+	nox_client_clearScreen_440900();
 	result = nox_video_read_videobag(nox_video_16bit);
 	if (!result) {
 		return 0;

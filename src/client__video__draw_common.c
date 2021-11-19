@@ -1282,7 +1282,7 @@ void sub_4B05D0() {
 		dword_5d4594_1311936 = 0;
 		*getMemU32Ptr(0x5D4594, 1311928) = 0;
 		if (func_5d4594_1311924) {
-			sub_440900();
+			nox_client_clearScreen_440900();
 			func_5d4594_1311924();
 		}
 	}

@@ -7062,7 +7062,7 @@ void nox_client_drawRectFilledOpaque_49CE30(int xLeft, int yTop, int a3, int a4)
 			} else {
 				v9 = v6->field_58;
 				v6->field_58 = v6->field_61;
-				sub_440900();
+				nox_client_clearScreen_440900();
 				ptr_5D4594_3799572->field_58 = v9;
 			}
 		}

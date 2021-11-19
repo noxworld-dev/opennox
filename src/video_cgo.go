@@ -402,7 +402,7 @@ func recreateRenderTarget(sz types.Size) error {
 	nox_xxx_cursorLoadAll_477710()
 	nox_client_setCursorType_477610(int(v1))
 	C.sub_48B3E0(v2)
-	sub_440900()
+	nox_client_clearScreen_440900()
 	C.nox_xxx_setupSomeVideo_47FEF0()
 	C.sub_49F6D0(1)
 	C.sub_437290()
@@ -667,8 +667,8 @@ func sub_49FC20(a1, a2, a3, a4 *C.int) int {
 	return 1
 }
 
-//export sub_440900
-func sub_440900() {
+//export nox_client_clearScreen_440900
+func nox_client_clearScreen_440900() {
 	val := uint32(C.ptr_5D4594_3799572.field_58)
 	for y := 0; y < nox_pixbuffer_size.H; y++ {
 		row := unsafe.Slice((*uint32)(nox_pixbuffer_main_rows[y]), nox_backbuffer_width32*8)

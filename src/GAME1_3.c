@@ -439,7 +439,7 @@ int nox_xxx_gameStateWait_43C020() {
 		return 1;
 	}
 	nox_xxx_drawSelectColor_434350(*getMemIntPtr(0x85B3FC, 952));
-	sub_440900();
+	nox_client_clearScreen_440900();
 	return 0;
 }
 #endif // NOX_CGO
@@ -3820,7 +3820,7 @@ short sub_4408C0(uint8_t* a1) {
 int sub_4408E0() { return 1; }
 
 //----- (00440900) --------------------------------------------------------
-void sub_440900() {
+void nox_client_clearScreen_440900() {
 	uint32_t** dst = nox_pixbuffer_rows_3798784;
 	int val = ptr_5D4594_3799572->field_58;
 	for (int y = 0; y < nox_backbuffer_height; y++) {
