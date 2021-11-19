@@ -79,7 +79,6 @@ extern uint32_t dword_5d4594_825768;
 extern uint32_t dword_5d4594_825736;
 extern uint32_t dword_5d4594_2614264;
 extern uint32_t dword_5d4594_830292;
-extern uint32_t dword_5d4594_816448;
 extern uint32_t dword_5d4594_815704;
 extern uint32_t nox_xxx_xxxRenderGUI_587000_80832;
 extern uint32_t dword_5d4594_826036;
@@ -110,7 +109,6 @@ extern uint32_t dword_5d4594_830148;
 extern uint32_t dword_5d4594_830116;
 extern uint32_t dword_5d4594_816368;
 extern uint32_t dword_5d4594_816340;
-extern uint32_t dword_5d4594_816488;
 extern uint32_t dword_5d4594_815044;
 extern uint32_t dword_587000_93156;
 extern void* dword_587000_127004;
@@ -187,6 +185,8 @@ int (*func_5D4594_816392)(void) = 0;
 
 int nox_game_state_arr[16] = {0};
 int nox_game_state_ind = 0;
+
+void* nox_draw_fonts_816488 = 0;
 #endif // NOX_CGO
 
 void (*mainloop_enter)(void*);
@@ -208,6 +208,7 @@ nox_gui_animation* nox_wnd_xxx_829520 = 0;
 nox_gui_animation* nox_wnd_xxx_830244 = 0;
 
 void* nox_draw_defaultFont_816492 = 0;
+void* func_5d4594_816448 = 0;
 
 //----- (0043B510) --------------------------------------------------------
 void nox_client_xxx_switchChatMap_43B510() {
@@ -2423,71 +2424,78 @@ int sub_43F1A0() {
 	}
 	return result;
 }
-#endif // NOX_CGO
 // 5813C0: using guessed type int AIL_set_preference(uint32_t, uint32_t);
 // 5813E4: using guessed type uint32_t AIL_serve();
 
+typedef struct nox_font_file_t {
+	const char* name;
+	const char* file;
+	void* font;
+} nox_font_file_t;
+
+nox_font_file_t nox_fonts_94112[] = {
+    {"default", "default.fnt", 0},
+    {"large", "large.fnt", 0},
+    {"numbers", "number.fnt", 0},
+    {"small", "small.fnt", 0},
+    {0},
+};
+int nox_fonts_cnt = sizeof(nox_fonts_94112) / sizeof(nox_font_file_t) - 1;
+
+nox_font_file_t nox_fonts_94176[] = {
+    {"default", "default.fnt", 0},
+    {"large", "default.fnt", 0},
+    {"numbers", "number.fnt", 0},
+    {"small", "small.fnt", 0},
+    {0},
+};
+
 //----- (0043F1C0) --------------------------------------------------------
 int nox_xxx_fontLoadMB_43F1C0() {
-	int v0;            // esi
-	unsigned char* v1; // eax
-	unsigned char* v2; // eax
-	int v3;            // ebp
-	int v4;            // edi
-	int v5;            // ebx
-
-	v0 = 0;
 	if (dword_5d4594_3801780) {
 		if (dword_5d4594_3801780 == 1) {
-			dword_5d4594_816448 = nox_xxx_StringDraw_43FE90;
+			func_5d4594_816448 = nox_xxx_StringDraw_43FE90;
 		}
 	} else {
-		dword_5d4594_816448 = sub_440360;
+		func_5d4594_816448 = sub_440360;
 	}
-	dword_5d4594_816456 = 64;
-	*getMemU32Ptr(0x5D4594, 816484) = 1;
 	dword_5d4594_816440 = 1;
-	dword_5d4594_816460 = 0;
-	dword_5d4594_816452 = 0;
-	v1 = getMemAt(0x5D4594, 816484);
 	dword_5d4594_816444 = 0;
-	do {
-		v1 -= 4;
-		*(uint32_t*)v1 = 0;
-	} while (v1 != getMemAt(0x5D4594, 816464));
-	if (nox_strman_get_lang_code() == 6 || (v2 = getMemAt(0x587000, 94112), nox_strman_get_lang_code() == 8)) {
-		v2 = getMemAt(0x587000, 94176);
+	dword_5d4594_816452 = 0;
+	dword_5d4594_816456 = 64;
+	dword_5d4594_816460 = 0;
+	uint32_t* v1 = getMemAt(0x5D4594, 816464);
+	for (int i = 0; i < 5; i++) {
+		v1[i] = 0;
 	}
-	dword_5d4594_816488 = v2;
-	v3 = 0;
-	do {
-		if (*(uint32_t*)&v2[v0 + 4]) {
-			v4 = 0;
-			if (v0 > 0) {
-				v5 = 0;
-				while (_strcmpi(*(const char**)&v2[v0 + 4], *(const char**)&v2[v5 + 4])) {
-					v2 = *(unsigned char**)&dword_5d4594_816488;
-					++v4;
-					v5 += 12;
-					if (v4 >= v3) {
-						goto LABEL_18;
-					}
-				}
-				*(uint32_t*)(v0 + dword_5d4594_816488 + 8) = *(uint32_t*)(dword_5d4594_816488 + 12 * v4 + 8);
-				v2 = *(unsigned char**)&dword_5d4594_816488;
-			}
-		LABEL_18:
-			if (*(uint32_t*)&v2[v0 + 4] && !*(uint32_t*)&v2[v0 + 8]) {
-				*(uint32_t*)(v0 + dword_5d4594_816488 + 8) = nox_xxx_FontLoadFile_43F3B0(*(char**)&v2[v0 + 4]);
-				v2 = *(unsigned char**)&dword_5d4594_816488;
+	*getMemU32Ptr(0x5D4594, 816484) = 1;
+
+	nox_font_file_t* fonts = nox_fonts_94112;
+	if (nox_strman_get_lang_code() == 6 || nox_strman_get_lang_code() == 8) {
+		fonts = nox_fonts_94176;
+	}
+	nox_draw_fonts_816488 = fonts;
+
+	for (int i = 0; i < nox_fonts_cnt; i++) {
+		nox_font_file_t* it = &fonts[i];
+		if (!it->file) {
+			continue;
+		}
+		for (int j = 0; j < i; j++) {
+			nox_font_file_t* it2 = &fonts[j];
+			if (!_strcmpi(it->file, it2->file)) {
+				it->font = it2->font;
+				break;
 			}
 		}
-		v0 += 12;
-		++v3;
-	} while (v0 < 60);
-	nox_draw_defaultFont_816492 = *((uint32_t*)v2 + 2);
+		if (it->file && !it->font) {
+			it->font = nox_xxx_FontLoadFile_43F3B0(it->file);
+		}
+	}
+	nox_draw_defaultFont_816492 = fonts[0].font;
 	return 1;
 }
+#endif // NOX_CGO
 
 //----- (0043F2E0) --------------------------------------------------------
 void nox_xxx_FontDestroy_43F2E0() {
@@ -2501,7 +2509,9 @@ void nox_xxx_FontDestroy_43F2E0() {
 	do {
 		result = *v1;
 		v3 = *v1 == 0;
-		*(uint32_t*)(v0 + dword_5d4594_816488 + 8) = 0;
+#ifndef NOX_CGO
+		*(uint32_t*)(v0 + (uint32_t)nox_draw_fonts_816488 + 8) = 0;
+#endif // NOX_CGO
 		if (!v3) {
 			*v1 = 0;
 			nox_xxx_Font_440840(result);
@@ -2510,6 +2520,35 @@ void nox_xxx_FontDestroy_43F2E0() {
 		v0 += 12;
 	} while ((int)v1 < (int)getMemAt(0x5D4594, 816484));
 }
+
+#ifndef NOX_CGO
+//----- (0043F360) --------------------------------------------------------
+void* nox_xxx_guiFontPtrByName_43F360(char* a1) {
+	int v1;         // edi
+	int v2;         // esi
+	const char* v3; // eax
+
+	if (!nox_draw_fonts_816488) {
+		return 0;
+	}
+	v1 = 0;
+	v2 = 0;
+	while (1) {
+		v3 = *(const char**)(v2 + (uint32_t)nox_draw_fonts_816488);
+		if (v3) {
+			if (!_strcmpi(v3, a1)) {
+				break;
+			}
+		}
+		v2 += 12;
+		++v1;
+		if (v2 >= 60) {
+			return 0;
+		}
+	}
+	return *(uint32_t*)((uint32_t)nox_draw_fonts_816488 + 12 * v1 + 8);
+}
+#endif // NOX_CGO
 
 //----- (0043F320) --------------------------------------------------------
 int nox_xxx_guiFontHeightMB_43F320(int a1) {
@@ -2537,35 +2576,8 @@ int nox_xxx_Font_43F340(int* a1) {
 	return result;
 }
 
-//----- (0043F360) --------------------------------------------------------
-int nox_xxx_guiFontPtrByName_43F360(char* a1) {
-	int v1;         // edi
-	int v2;         // esi
-	const char* v3; // eax
-
-	if (!dword_5d4594_816488) {
-		return 0;
-	}
-	v1 = 0;
-	v2 = 0;
-	while (1) {
-		v3 = *(const char**)(v2 + dword_5d4594_816488);
-		if (v3) {
-			if (!_strcmpi(v3, a1)) {
-				break;
-			}
-		}
-		v2 += 12;
-		++v1;
-		if (v2 >= 60) {
-			return 0;
-		}
-	}
-	return *(uint32_t*)(dword_5d4594_816488 + 12 * v1 + 8);
-}
-
 //----- (0043F3B0) --------------------------------------------------------
-uint32_t* nox_xxx_FontLoadFile_43F3B0(char* a1) {
+void* nox_xxx_FontLoadFile_43F3B0(char* a1) {
 	uint32_t* v1;          // ebx
 	FILE* file;              // ebp
 	char* v4;              // eax
@@ -2655,7 +2667,7 @@ uint32_t* nox_xxx_FontLoadFile_43F3B0(char* a1) {
 	*getMemU32Ptr(0x5D4594, 816464 + 4 * v11) = v1;
 	dword_5d4594_816444 = v13 + 1;
 LABEL_21:
-	if (*(unsigned char**)&dword_5d4594_816488 == getMemAt(0x587000, 94176)) {
+	if (nox_strman_get_lang_code() == 6 || nox_strman_get_lang_code() == 8) {
 		++v1[7];
 		v14 = (uint8_t*)nox_xxx_FontGetChar_43FE30((int)v1, 0x20u);
 		v15 = v14;
@@ -2729,7 +2741,7 @@ int sub_43F690(int a1, int a2, int a3, int a4) {
 	result = a1;
 	if (a1 || (result = nox_draw_defaultFont_816492) != 0) {
 		dword_5d4594_816460 = a3;
-		result = (*(int (**)(uint32_t, uint32_t, uint32_t, uint32_t)) & dword_5d4594_816448)(result, a2, a3, a4);
+		result = (*(int (**)(uint32_t, uint32_t, uint32_t, uint32_t)) & func_5d4594_816448)(result, a2, a3, a4);
 	}
 	return result;
 }
@@ -2977,7 +2989,7 @@ int nox_xxx_drawString_43FAF0(void* a1, wchar_t* str, int a3, int a4, int a5, in
 				break;
 			}
 			for (int i = a3; str3 < str2;
-				 i = (*(int (**)(uint32_t, uint32_t, uint32_t, uint32_t)) & dword_5d4594_816448)(a1, c2, i, a4)) {
+				 i = (*(int (**)(uint32_t, uint32_t, uint32_t, uint32_t)) & func_5d4594_816448)(a1, c2, i, a4)) {
 				c2 = *str3;
 				++str3;
 			}
@@ -3011,7 +3023,7 @@ int nox_xxx_drawString_43FAF0(void* a1, wchar_t* str, int a3, int a4, int a5, in
 			}
 			wchar_t v17c = 0;
 			for (int j = a3; str3 < str2;
-				 j = (*(int (**)(uint32_t, uint32_t, uint32_t, uint32_t)) & dword_5d4594_816448)(a1, v17c, j, a4)) {
+				 j = (*(int (**)(uint32_t, uint32_t, uint32_t, uint32_t)) & func_5d4594_816448)(a1, v17c, j, a4)) {
 				v17c = *str3;
 				++str3;
 			}
@@ -3036,7 +3048,7 @@ int nox_xxx_drawString_43FAF0(void* a1, wchar_t* str, int a3, int a4, int a5, in
 		}
 	}
 	for (int v19 = a3; str3 < str2;
-		 v19 = (*(int (**)(uint32_t, uint32_t, uint32_t, uint32_t)) & dword_5d4594_816448)(a1, c2, v19, a4)) {
+		 v19 = (*(int (**)(uint32_t, uint32_t, uint32_t, uint32_t)) & func_5d4594_816448)(a1, c2, v19, a4)) {
 		c2 = *str3;
 		++str3;
 	}
@@ -3759,7 +3771,7 @@ int nox_xxx_guiDrawString_4407F0(int a1, short* a2, int a3, int a4) {
 	result = a3;
 	do {
 		if (v4 != 13 && v4 != 10) {
-			result = (*(int (**)(uint32_t, uint16_t, uint32_t, uint32_t)) & dword_5d4594_816448)(a1, v4, result, a4);
+			result = (*(int (**)(uint32_t, uint16_t, uint32_t, uint32_t)) & func_5d4594_816448)(a1, v4, result, a4);
 		}
 		v4 = *v5;
 		++v5;

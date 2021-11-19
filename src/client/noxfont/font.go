@@ -13,7 +13,14 @@ const (
 	DefaultName = "default"
 	LargeName   = "large"
 	SmallName   = "small"
-	NumbersName = "number"
+	NumbersName = "numbers"
+)
+
+const (
+	DefaultFile = "default"
+	LargeFile   = "large"
+	SmallFile   = "small"
+	NumbersFile = "number"
 )
 
 var _ font.Face = &Font{}

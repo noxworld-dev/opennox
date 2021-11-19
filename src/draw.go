@@ -79,6 +79,9 @@ import (
 	"unicode/utf16"
 	"unsafe"
 
+	"golang.org/x/image/font"
+	"golang.org/x/image/math/fixed"
+
 	"nox/v1/client/input"
 	"nox/v1/common"
 	"nox/v1/common/alloc"
@@ -418,8 +421,9 @@ type drawOps struct {
 }
 
 type NoxRender struct {
-	p   *RenderData
-	pix *noximage.Image16
+	p     *RenderData
+	pix   *noximage.Image16
+	fdraw font.Drawer
 
 	colors struct {
 		mode noxcolor.Mode
@@ -485,6 +489,10 @@ func (r *NoxRender) SetAlpha(v byte) { // nox_client_drawSetAlpha_434580
 
 func (r *NoxRender) SelectColor(a1 uint32) { // nox_xxx_drawSelectColor_434350
 	r.p.SetSelectColor(a1)
+}
+
+func (r *NoxRender) TextColor() uint32 {
+	return uint32(r.p.field_59)
 }
 
 func (r *NoxRender) SetTextColor(a1 uint32) { // nox_xxx_drawSetTextColor_434390
@@ -595,8 +603,18 @@ func nox_xxx_FontGetChar_43FE30(font unsafe.Pointer, r rune) unsafe.Pointer {
 	return nil
 }
 
-func (r *NoxRender) drawChar(font unsafe.Pointer, c rune, pos types.Point) int {
-	return int(C.nox_xxx_StringDraw_43FE90(font, C.short(rune2wchar(c)), C.int(pos.X), C.int(pos.Y)))
+func (r *NoxRender) drawChar(font unsafe.Pointer, c rune, pos types.Point) int { // nox_xxx_StringDraw_43FE90
+	// FIXME: handle tab characters properly
+	r.fdraw.Face = fontFaceByPtr(font)
+	if r.fdraw.Face == nil {
+		return pos.X
+	}
+	// FIXME: set clip rectangle from the viewport
+	r.fdraw.Src = image.NewUniform(noxcolor.RGBA5551(r.TextColor()))
+	r.fdraw.Dst = r.pix
+	r.fdraw.Dot = fixed.P(pos.X, pos.Y)
+	r.fdraw.DrawString(string(c))
+	return r.fdraw.Dot.X.Round()
 }
 
 func (r *NoxRender) DrawStringWrapped(font unsafe.Pointer, s string, x, y, maxW, maxH int) { // nox_xxx_drawString_43FAF0

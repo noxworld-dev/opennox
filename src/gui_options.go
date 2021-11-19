@@ -12,6 +12,7 @@ import (
 
 	"github.com/spf13/viper"
 
+	"nox/v1/client/noxfont"
 	"nox/v1/common/types"
 )
 
@@ -112,7 +113,7 @@ func guiEnhanceInputCfg(root *Window) {
 }
 
 func guiEnhanceOptions(root *Window) {
-	small := nox_xxx_guiFontPtrByName_43F360("SMALL")
+	small := guiFontPtrByName(noxfont.SmallName)
 	// change resolution options to a new ones
 	// if you decide to change these, check carefully in other places, especially in C
 	resOpts := getResolutionOptions()

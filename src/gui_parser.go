@@ -16,6 +16,7 @@ import (
 	"unsafe"
 
 	"nox/v1/client/gui"
+	"nox/v1/client/noxfont"
 	"nox/v1/common/alloc"
 	noxcolor "nox/v1/common/color"
 	"nox/v1/common/fs"
@@ -148,7 +149,7 @@ func (p *guiParser) ParseRoot(fnc unsafe.Pointer) *Window {
 func (p *guiParser) parseFontField() (unsafe.Pointer, bool) {
 	p.skipToken() // skip '='
 	tok, _ := p.nextToken()
-	fnt := nox_xxx_guiFontPtrByName_43F360(tok)
+	fnt := guiFontPtrByName(tok)
 	return fnt, fnt != nil
 }
 
@@ -193,9 +194,9 @@ func (p *guiParser) parseWindowRoot(fnc unsafe.Pointer) *Window {
 	font := p.defaults.font
 	if font == nil {
 		if C.nox_client_gui_flag_815132 != 0 {
-			font = nox_xxx_guiFontPtrByName_43F360("large")
+			font = guiFontPtrByName(noxfont.LargeName)
 		} else {
-			font = nox_xxx_guiFontPtrByName_43F360("default")
+			font = guiFontPtrByName(noxfont.DefaultName)
 		}
 	}
 	draw.SetFont(font)
@@ -477,7 +478,7 @@ var parseWindowFuncs = []struct {
 		return true
 	}},
 	{"FONT", func(_ *guiParser, draw *WindowData, buf string) bool {
-		fnt := nox_xxx_guiFontPtrByName_43F360(buf)
+		fnt := guiFontPtrByName(buf)
 		if fnt == nil {
 			return false
 		}

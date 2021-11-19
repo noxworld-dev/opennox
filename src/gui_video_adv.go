@@ -30,6 +30,7 @@ import (
 	"unsafe"
 
 	"nox/v1/client/gui"
+	"nox/v1/client/noxfont"
 	noxcolor "nox/v1/common/color"
 	"nox/v1/common/strman"
 )
@@ -184,7 +185,7 @@ func newAdvVideoOpts(sm *strman.StringManager) *Window {
 	draw.SetDisabledColor(gui.ColorTransparent)
 	draw.SetSelectedColor(gui.ColorTransparent)
 	draw.SetBackgroundColor(gui.ColorTransparent)
-	draw.SetFont(nox_xxx_guiFontPtrByName_43F360("large"))
+	draw.SetFont(guiFontPtrByName(noxfont.LargeName))
 
 	const (
 		width  = 184

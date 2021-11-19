@@ -23,7 +23,7 @@ func TestFonts(t *testing.T) {
 		"48ab55b27889f81a909b28be5fda5642",
 	}
 	for i, name := range []string{
-		DefaultName, LargeName, SmallName, NumbersName,
+		DefaultFile, LargeFile, SmallFile, NumbersFile,
 	} {
 		t.Run(name, func(t *testing.T) {
 			path := filepath.Join(path, name+Ext)
@@ -38,7 +38,7 @@ func TestFonts(t *testing.T) {
 			})
 			t.Run("draw", func(t *testing.T) {
 				text := "The quick brown fox jumps over the lazy dog."
-				if name == NumbersName {
+				if name == NumbersFile {
 					text = "0123456789"
 				}
 				b, _ := font.BoundString(fnt, text)

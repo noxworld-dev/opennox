@@ -306,12 +306,6 @@ func nox_gui_draw() {
 	DrawGUI()
 }
 
-func nox_xxx_guiFontPtrByName_43F360(name string) unsafe.Pointer {
-	cstr := C.CString(name)
-	defer StrFree(cstr)
-	return unsafe.Pointer(uintptr(C.nox_xxx_guiFontPtrByName_43F360(cstr)))
-}
-
 //export nox_color_rgb_4344A0
 func nox_color_rgb_4344A0(r, g, b C.int) C.uint32_t {
 	cl := noxcolor.RGBColor(byte(r), byte(g), byte(b))

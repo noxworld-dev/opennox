@@ -341,8 +341,8 @@ func drawInitAll(sz types.Size, flags int) error {
 	if res := C.nox_video_initRectDrawingFuncs_49CB50(); res == 0 {
 		return errors.New("nox_video_initRectDrawingFuncs_49CB50 failed")
 	}
-	if res := C.nox_xxx_fontLoadMB_43F1C0(); res == 0 {
-		return errors.New("nox_xxx_fontLoadMB_43F1C0 failed")
+	if err := loadGameFonts(); err != nil {
+		return err
 	}
 	if res := C.sub_4AE400(); res == 0 {
 		return errors.New("sub_4AE400 failed")
@@ -1104,7 +1104,7 @@ func sub_444C50() {
 		noxrend.freeParticles()
 		C.sub_4AF950()
 		sub_4AE540()
-		C.nox_xxx_FontDestroy_43F2E0()
+		nox_xxx_FontDestroy_43F2E0()
 		C.sub_49F4D0()
 		C.dword_5d4594_823776 = 0
 		if memmap.Uint32(0x5D4594, 823780) != 0 {
