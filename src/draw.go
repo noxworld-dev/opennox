@@ -75,6 +75,7 @@ import (
 	"fmt"
 	"image"
 	"sort"
+	"strings"
 	"unicode"
 	"unicode/utf16"
 	"unsafe"
@@ -578,13 +579,11 @@ func (r *NoxRender) DrawString(font unsafe.Pointer, str string, pos types.Point)
 }
 
 func (r *NoxRender) drawStringLine(font unsafe.Pointer, str string, pos types.Point) int { // nox_xxx_guiDrawString_4407F0
-	for _, c := range str {
-		if c == '\n' || c == '\r' {
-			continue
-		}
-		pos.X = r.drawChar(font, c, pos)
-	}
-	return pos.X
+	str = strings.NewReplacer(
+		"\n", "",
+		"\r", "",
+	).Replace(str)
+	return r.drawString(font, str, pos)
 }
 
 func rune2wchar(r rune) uint16 {
@@ -612,7 +611,7 @@ func (r *NoxRender) clipRect() image.Rectangle {
 	return toRect(&r.p.clip)
 }
 
-func (r *NoxRender) drawChar(font unsafe.Pointer, c rune, pos types.Point) int { // nox_xxx_StringDraw_43FE90
+func (r *NoxRender) drawString(font unsafe.Pointer, s string, pos types.Point) int { // nox_xxx_StringDraw_43FE90
 	// FIXME: handle tab characters properly
 	fnt := fontFaceByPtr(font)
 	if fnt == nil {
@@ -624,7 +623,7 @@ func (r *NoxRender) drawChar(font unsafe.Pointer, c rune, pos types.Point) int {
 	r.fdraw.Src = image.NewUniform(noxcolor.RGBA5551(r.TextColor()))
 	r.fdraw.Dst = r.pix.SubImage(r.clipRect())
 	r.fdraw.Dot = fixed.P(pos.X, pos.Y+dy)
-	r.fdraw.DrawString(string(c))
+	r.fdraw.DrawString(s)
 	return r.fdraw.Dot.X.Round()
 }
 
@@ -656,9 +655,7 @@ func (r *NoxRender) DrawStringWrapped(font unsafe.Pointer, s string, x, y, maxW,
 	drawWord := func() {
 		cx := x + wordX
 		cy := y + wordY
-		for _, c := range word {
-			cx = r.drawChar(font, c, types.Point{X: cx, Y: cy})
-		}
+		cx = r.drawString(font, string(word), types.Point{X: cx, Y: cy})
 		word = word[:0]
 		wordX = cx - x
 		addX = 0
