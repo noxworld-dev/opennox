@@ -1342,7 +1342,7 @@ int nox_xxx_wndListboxDrawNoImage_4A3C50(uint32_t* a1, int a2) {
 	}
 	if (*(uint16_t*)(a2 + 72)) {
 		nox_xxx_drawSetTextColor_434390(*(uint32_t*)(a2 + 68));
-		nox_xxx_drawString_43FAF0(*(uint32_t*)(a2 + 200), (uint16_t*)(a2 + 72), xLeft + 1, yTop, v22, v3);
+		nox_xxx_drawStringWrap_43FAF0(*(uint32_t*)(a2 + 200), (uint16_t*)(a2 + 72), xLeft + 1, yTop, v22, v3);
 		v4 += -1 - v3;
 		yTop += v3 + 1;
 	}
@@ -1421,11 +1421,11 @@ LABEL_13:
 					--v15;
 					nox_xxx_drawGetStringSize_43F840(v17, (unsigned short*)v30, &v29, 0, 0);
 				} while (v29 > v16);
-				nox_xxx_drawString_43FAF0(*(uint32_t*)(a2 + 200), v30, xLeft + 5, v21 + 2, v16, v27);
+				nox_xxx_drawStringWrap_43FAF0(*(uint32_t*)(a2 + 200), v30, xLeft + 5, v21 + 2, v16, v27);
 				v9 = i;
 				v12 = v27;
 			} else {
-				nox_xxx_drawString_43FAF0(*(uint32_t*)(a2 + 200), (uint16_t*)(*(uint32_t*)(v2 + 24) + v9 + 4),
+				nox_xxx_drawStringWrap_43FAF0(*(uint32_t*)(a2 + 200), (uint16_t*)(*(uint32_t*)(v2 + 24) + v9 + 4),
 										  xLeft + 5, v21 + 2, v22 - 7, v12);
 			}
 			v21 += v12;
@@ -1496,7 +1496,7 @@ int nox_xxx_wndListboxDrawWithImage_4A3FC0(uint32_t* a1, int a2) {
 	}
 	if (*(uint16_t*)(a2 + 72)) {
 		nox_xxx_drawSetTextColor_434390(*(uint32_t*)(a2 + 68));
-		nox_xxx_drawString_43FAF0(*(uint32_t*)(a2 + 200), (uint16_t*)(a2 + 72), xLeft + 1, yTop, v22, 0);
+		nox_xxx_drawStringWrap_43FAF0(*(uint32_t*)(a2 + 200), (uint16_t*)(a2 + 72), xLeft + 1, yTop, v22, 0);
 		v6 = nox_xxx_guiFontHeightMB_43F320(*(uint32_t*)(a2 + 200));
 		v20 = *(uint32_t*)(a2 + 200);
 		yTop += v6 + 1;
@@ -1562,11 +1562,11 @@ int nox_xxx_wndListboxDrawWithImage_4A3FC0(uint32_t* a1, int a2) {
 					--v16;
 					nox_xxx_drawGetStringSize_43F840(v18, (unsigned short*)v30, &v29, 0, 0);
 				} while (v29 > v17);
-				nox_xxx_drawString_43FAF0(*(uint32_t*)(a2 + 200), v30, xLeft + 5, v25 + 2, v17, v28);
+				nox_xxx_drawStringWrap_43FAF0(*(uint32_t*)(a2 + 200), v30, xLeft + 5, v25 + 2, v17, v28);
 				v10 = i;
 				v13 = v28;
 			} else {
-				nox_xxx_drawString_43FAF0(*(uint32_t*)(a2 + 200), (uint16_t*)(v10 + *(uint32_t*)(v3 + 24) + 4),
+				nox_xxx_drawStringWrap_43FAF0(*(uint32_t*)(a2 + 200), (uint16_t*)(v10 + *(uint32_t*)(v3 + 24) + 4),
 										  xLeft + 5, v25 + 2, v22 - 7, v13);
 			}
 			v25 += v13;
@@ -3115,7 +3115,7 @@ int nox_xxx_wndButtonDrawNoImg_4A81D0(int a1, int a2) {
 			nox_xxx_drawSetTextColor_434390(*(uint32_t*)(v2 + 68));
 			v9 = *(uint32_t*)(a1 + 8);
 			v7 = nox_xxx_guiFontHeightMB_43F320(*(uint32_t*)(v2 + 200));
-			nox_xxx_drawString_43FAF0(*(uint32_t*)(v2 + 200), (uint16_t*)(v2 + 72), v5 - a2 / 2, v6 - v7 / 2, v9, 0);
+			nox_xxx_drawStringWrap_43FAF0(*(uint32_t*)(v2 + 200), (uint16_t*)(v2 + 72), v5 - a2 / 2, v6 - v7 / 2, v9, 0);
 		}
 		sub_43F670(0);
 	}
@@ -3180,7 +3180,7 @@ int nox_xxx_wndButtonDraw_4A8380(uint32_t* a1, int a2) {
 			nox_xxx_drawSetTextColor_434390(*(uint32_t*)(v2 + 68));
 			v10 = v3[2];
 			v8 = nox_xxx_guiFontHeightMB_43F320(*(uint32_t*)(v2 + 200));
-			nox_xxx_drawString_43FAF0(*(uint32_t*)(v2 + 200), (uint16_t*)(v2 + 72), (int)a1 - v11 / 2, a2 - v8 / 2, v10,
+			nox_xxx_drawStringWrap_43FAF0(*(uint32_t*)(v2 + 200), (uint16_t*)(v2 + 72), (int)a1 - v11 / 2, a2 - v8 / 2, v10,
 									  0);
 		}
 		sub_43F670(0);
@@ -3375,11 +3375,11 @@ int nox_xxx_wndRadioButtonDrawNoImg_4A8820(int a1, int a2) {
 			nox_xxx_drawSetTextColor_434390(*(uint32_t*)(v2 + 68));
 			v11 = *(uint32_t*)(v3 + 8);
 			v9 = nox_xxx_guiFontHeightMB_43F320(*(uint32_t*)(v2 + 200));
-			nox_xxx_drawString_43FAF0(*(uint32_t*)(v2 + 200), (uint16_t*)(v2 + 72), v14 - a1 / 2, v15 - v9 / 2, v11, 0);
+			nox_xxx_drawStringWrap_43FAF0(*(uint32_t*)(v2 + 200), (uint16_t*)(v2 + 72), v14 - a1 / 2, v15 - v9 / 2, v11, 0);
 		}
 	} else if (*(uint32_t*)(v2 + 68) != 0x80000000) {
 		nox_xxx_drawSetTextColor_434390(*(uint32_t*)(v2 + 68));
-		nox_xxx_drawString_43FAF0(*(uint32_t*)(v2 + 200), (uint16_t*)(v2 + 72), v4 + 14, v5 - v13 / 2 + 5,
+		nox_xxx_drawStringWrap_43FAF0(*(uint32_t*)(v2 + 200), (uint16_t*)(v2 + 72), v4 + 14, v5 - v13 / 2 + 5,
 								  *(uint32_t*)(v3 + 8), 0);
 	}
 	sub_43F670(0);
@@ -3436,7 +3436,7 @@ int nox_xxx_wndRadioButtonDraw_4A8A20(int a1, int a2) {
 			nox_xxx_drawSetTextColor_434390(*(uint32_t*)(v2 + 68));
 			v12 = *(uint32_t*)(a1 + 8);
 			v8 = nox_xxx_guiFontHeightMB_43F320(*(uint32_t*)(v2 + 200));
-			nox_xxx_drawString_43FAF0(*(uint32_t*)(v2 + 200), (uint16_t*)(v2 + 72), v13 - a2 / 2, v14 - v8 / 2, v12, 0);
+			nox_xxx_drawStringWrap_43FAF0(*(uint32_t*)(v2 + 200), (uint16_t*)(v2 + 72), v13 - a2 / 2, v14 - v8 / 2, v12, 0);
 		}
 	} else {
 		v9 = *(uint32_t*)(a1 + 12) - nox_xxx_guiFontHeightMB_43F320(*(uint32_t*)(v2 + 200));
@@ -3445,7 +3445,7 @@ int nox_xxx_wndRadioButtonDraw_4A8A20(int a1, int a2) {
 		v13 += 28;
 		if (v10 != 0x80000000) {
 			nox_xxx_drawSetTextColor_434390(v10);
-			nox_xxx_drawString_43FAF0(*(uint32_t*)(v2 + 200), (uint16_t*)(v2 + 72), v13, v14, *(uint32_t*)(a1 + 8), 0);
+			nox_xxx_drawStringWrap_43FAF0(*(uint32_t*)(v2 + 200), (uint16_t*)(v2 + 72), v13, v14, *(uint32_t*)(a1 + 8), 0);
 		}
 	}
 	sub_43F670(0);
@@ -3607,7 +3607,7 @@ int nox_xxx_wndDrawCheckBoxNoImg_4A8EA0(int a1, int a2) {
 			sub_43F670(1);
 		}
 		nox_xxx_drawSetTextColor_434390(*(uint32_t*)(v2 + 68));
-		nox_xxx_drawString_43FAF0(*(uint32_t*)(v2 + 200), (uint16_t*)(v2 + 72), v7, v6, *(uint32_t*)(a1 + 8), 0);
+		nox_xxx_drawStringWrap_43FAF0(*(uint32_t*)(v2 + 200), (uint16_t*)(v2 + 72), v7, v6, *(uint32_t*)(a1 + 8), 0);
 		sub_43F670(0);
 	}
 	return 1;
@@ -3666,7 +3666,7 @@ LABEL_12:
 			sub_43F670(1);
 		}
 		nox_xxx_drawSetTextColor_434390(*(uint32_t*)(v2 + 68));
-		nox_xxx_drawString_43FAF0(*(uint32_t*)(v2 + 200), (uint16_t*)(v2 + 72), v9, v8, v3[2], 0);
+		nox_xxx_drawStringWrap_43FAF0(*(uint32_t*)(v2 + 200), (uint16_t*)(v2 + 72), v9, v8, v3[2], 0);
 		sub_43F670(0);
 	}
 	return 1;
@@ -4179,7 +4179,7 @@ int nox_game_showOptions_4AA6B0() {
 		return 0;
 	}
 	nox_xxx_wndSetWindowProc_46B300(*(int*)&dword_5d4594_1309720, sub_4A18E0);
-	sub_43FE20(15);
+	nox_draw_setTabWidth_43FE20(15);
 	nox_wnd_xxx_1309740 =
 		nox_gui_makeAnimation_43C5B0(*(uint32_t**)&dword_5d4594_1309720, 0, 0, 0, -480, 0, 20, 0, -40);
 	if (!nox_wnd_xxx_1309740) {
@@ -6017,7 +6017,7 @@ LABEL_9:
 	if (v1) {
 		nox_window_call_field_94((int)v1, 16392, 0, 0);
 	}
-	return sub_43FE20(15);
+	return nox_draw_setTabWidth_43FE20(15);
 }
 
 //----- (004ADAD0) --------------------------------------------------------

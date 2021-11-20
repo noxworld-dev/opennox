@@ -6701,7 +6701,7 @@ int sub_438E30(uint32_t* a1, int a2) {
 		if (!(*(uint8_t*)(v3 + 4) & 0x10) && *(uint32_t*)(v3 + 44) == 2048) {
 			v4 = *(short***)(v3 + 32);
 			nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 2523948));
-			sub_43F7B0(*(uint32_t*)(v3 + 236), *v4, v6 + *(uint32_t*)(v3 + 16), (int)a1 + *(uint32_t*)(v3 + 20));
+			nox_xxx_drawStringStyle_43F7B0(*(uint32_t*)(v3 + 236), *v4, v6 + *(uint32_t*)(v3 + 16), (int)a1 + *(uint32_t*)(v3 + 20));
 		}
 		v3 = *(uint32_t*)(v3 + 388);
 	} while (v3);

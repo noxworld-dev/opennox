@@ -6747,7 +6747,7 @@ int sub_4CAFF0(uint32_t* a1, uint32_t* a2) {
 		v6 = xLeft + a1[2] / 2 - v13 / 2;
 		v7 = a1[3] / 2 - v12 / 2 + yTop + 1;
 		nox_xxx_drawSetTextColor_434390(v11);
-		nox_xxx_drawString_43FAF0(a2[50], v15, v6, v7, a1[2], 0);
+		nox_xxx_drawStringWrap_43FAF0(a2[50], v15, v6, v7, a1[2], 0);
 		sub_43F670(0);
 	}
 	if (v14 != 0x80000000) {

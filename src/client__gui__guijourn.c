@@ -134,7 +134,7 @@ void nox_xxx_guiDrawJournal_469D40(int xLeft, int yTop, int a3) {
 				v13 = v15 + v4;
 				if (v15 + v4 > yTop) {
 					nox_xxx_drawSetTextColor_434390(v8);
-					nox_xxx_drawString_43FAF0(0, &v17, xLeft + 10, v4, 240, 0);
+					nox_xxx_drawStringWrap_43FAF0(0, &v17, xLeft + 10, v4, 240, 0);
 				}
 				v4 = v13 + v14;
 				if (v13 + v14 > yTop + 150) {

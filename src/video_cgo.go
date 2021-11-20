@@ -48,6 +48,7 @@ import "C"
 import (
 	"errors"
 	"fmt"
+	"image"
 	"unsafe"
 
 	"nox/v1/client/input"
@@ -892,7 +893,7 @@ func nox_video_cursorDrawImpl_477A30(r *NoxRender, inp *input.Handler, pos types
 		*memmap.PtrUint32(0x5D4594, 1097288)++
 	}
 	r.SetTextColor(memmap.Uint32(0x5D4594, 2589772))
-	fh := nox_xxx_guiFontHeightMB_43F320(0)
+	fh := noxrend.FontHeight(nil)
 	if C.nox_xxx_guiSpell_460650() != 0 || C.sub_4611A0() != 0 {
 		r.nox_video_drawAnimatedImageOrCursorAt(noxCursors.Target, pos)
 		C.dword_5d4594_3798728 = 0
@@ -1033,7 +1034,7 @@ func nox_client_drawCursorAndTooltips_477830(r *NoxRender, inp *input.Handler) {
 	vp.width = C.int(nox_win_width)
 	vp.height = C.int(nox_win_height)
 	dword_5d4594_1097204 = 0
-	dword_5d4594_1097208 = nox_xxx_guiFontHeightMB_43F320(0) + 4
+	dword_5d4594_1097208 = noxrend.FontHeight(nil) + 4
 	if nox_client_itemDragnDrop_1097188 != nil { // Dragging item
 		nox_client_itemDragnDrop_1097188.SetPos(mpos)
 		nox_client_itemDragnDrop_1097188.DrawFunc(vp)
@@ -1054,7 +1055,7 @@ func nox_client_drawCursorAndTooltips_477830(r *NoxRender, inp *input.Handler) {
 	}
 	nox_video_cursorDrawImpl_477A30(r, inp, mpos)
 	if str := GoWStringP(memmap.PtrOff(0x5D4594, 1096676)); str != "" && C.nox_client_showTooltips_80840 == 1 {
-		sz := r.GetStringSize(0, str, 0)
+		sz := r.GetStringSizeWrapped(nil, str, 0)
 		px := mpos.X - dword_5d4594_1097204
 		py := mpos.Y - dword_5d4594_1097208
 		sz.W += 4
@@ -1073,7 +1074,7 @@ func nox_client_drawCursorAndTooltips_477830(r *NoxRender, inp *input.Handler) {
 		}
 		r.DrawRectFilledAlpha(px, py, sz.W, sz.H)
 		r.SetTextColor(memmap.Uint32(0x5D4594, 2589772))
-		r.DrawStringWrapped(nil, str, px+2, py+2, 0, 0)
+		r.DrawStringWrapped(nil, str, image.Rect(px+2, py+2, px+2, py+2))
 		if C.dword_5d4594_3799468 != 0 {
 			vp := getViewport()
 			if px < int(vp.x1) || px+sz.W > int(vp.x2) || py < int(vp.y1) || py+sz.H > int(vp.y2) {

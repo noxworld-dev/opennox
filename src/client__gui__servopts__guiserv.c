@@ -192,7 +192,7 @@ int nox_xxx_guiServerOptsLoad_457500() {
 		}
 		dword_5d4594_1046492 = nox_new_window_from_file(*(const char**)getMemAt(0x587000, 129760 + 4 * v1),
 														nox_xxx_guiServerOptionsProcPre_4585D0);
-		sub_43FE20(100);
+		nox_draw_setTabWidth_43FE20(100);
 		nox_window_setPos_46A9B0(*(uint32_t**)&dword_5d4594_1046492,
 								 nox_win_width - *(uint32_t*)(dword_5d4594_1046492 + 8) - 10, 0);
 		nox_xxx_wndSetWindowProc_46B300(*(int*)&dword_5d4594_1046492, nox_xxx_guiServerOptionsProc_458590);

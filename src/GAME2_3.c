@@ -1098,10 +1098,10 @@ void sub_48D990(uint32_t* a1) {
 			}
 			nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 2523948));
 			nox_xxx_drawSetColor_4343E0(*getMemIntPtr(0x852978, 4));
-			sub_43FD00(0, (uint16_t*)v30, v8, v18, 128, 0);
+			nox_xxx_drawStringWrapHL_43FD00(0, (uint16_t*)v30, v8, v18, 128, 0);
 			if (v20) {
 				nox_xxx_drawSetTextColor_434390(v21);
-				sub_43FD00(0, v20, v8, v18 - v22 - 1, 128, 0);
+				nox_xxx_drawStringWrapHL_43FD00(0, v20, v8, v18 - v22 - 1, 128, 0);
 			}
 			v2 = (uint32_t*)v30;
 		}

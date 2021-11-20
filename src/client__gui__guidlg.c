@@ -151,7 +151,7 @@ wchar_t* sub_47A020(char* a1) {
 					}
 				}
 			LABEL_15:
-				v6 = sub_43F9E0(*(uint32_t*)(v2 + 236), v3, v9);
+				v6 = nox_draw_getFontAdvance_43F9E0(*(uint32_t*)(v2 + 236), v3, v9);
 			}
 		LABEL_16:
 			nox_wcsncpy((wchar_t*)getMemAt(0x5D4594, 1115324), v3, v6);

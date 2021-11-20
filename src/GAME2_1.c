@@ -1463,7 +1463,7 @@ int nox_xxx_inventoryDrawAllMB_463430(int a1) {
 				nox_client_drawImageAt_47D2C0(*getMemIntPtr(0x5D4594, 1049908), v16.field_0, v16.field_4);
 			}
 			nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 2523948));
-			nox_xxx_drawString_43FAF0(0, getMemAt(0x5D4594, 1062588), v16.field_0 + 13, v16.field_4 + 17, 196, 0);
+			nox_xxx_drawStringWrap_43FAF0(0, getMemAt(0x5D4594, 1062588), v16.field_0 + 13, v16.field_4 + 17, 196, 0);
 		}
 	}
 	if (getMemByte(0x5D4594, 1049868) == 1) {

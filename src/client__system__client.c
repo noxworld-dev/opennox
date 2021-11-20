@@ -68,7 +68,7 @@ void nox_xxx_clientDrawAll_436100_draw_B() {
 	for (wchar_t* tok = nox_wcstok(v25, L"\n\r"); tok; tok = nox_wcstok(0, L"\n\r")) {
 		nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 2523948));
 		nox_xxx_drawGetStringSize_43F840(0, tok, &v22, 0, 0);
-		nox_xxx_drawString_43FAF0(0, tok, v17 + (220 - v22) / 2, v18, 220, 0);
+		nox_xxx_drawStringWrap_43FAF0(0, tok, v17 + (220 - v22) / 2, v18, 220, 0);
 		v18 += nox_xxx_guiFontHeightMB_43F320(0);
 	}
 }

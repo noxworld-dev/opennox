@@ -1444,7 +1444,7 @@ void nox_client_drawCursorAndTooltips_477830() {
 		}
 		nox_client_drawRectFilledAlpha_49CF10(v4, v5, v8 + 4, v6);
 		nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 2589772));
-		nox_xxx_drawString_43FAF0(0, getMemAt(0x5D4594, 1096676), v4 + 2, v5 + 2, 0, 0);
+		nox_xxx_drawStringWrap_43FAF0(0, getMemAt(0x5D4594, 1096676), v4 + 2, v5 + 2, 0, 0);
 		if (dword_5d4594_3799468) {
 			nox_draw_viewport_t* rdr = nox_draw_getViewport_437250();
 			if (v4 < rdr->x1 || v4 + v8 + 4 > rdr->x2 || v5 < rdr->y1 || v7 + v5 > rdr->y2) {
@@ -1848,7 +1848,7 @@ int sub_478A70(int2* a1) {
 	nox_client_drawImageAt_47D2C0(dword_5d4594_1098456, a1->field_0, a1->field_4);
 	result = dword_5d4594_1098604;
 	if (dword_5d4594_1098604) {
-		result = nox_xxx_drawString_43FAF0(0, *(uint16_t**)&dword_5d4594_1098604, v5 + 8, v6 + 8, v4 - 16, v3 - 16);
+		result = nox_xxx_drawStringWrap_43FAF0(0, *(uint16_t**)&dword_5d4594_1098604, v5 + 8, v6 + 8, v4 - 16, v3 - 16);
 	}
 	return result;
 }
@@ -1896,11 +1896,11 @@ int sub_478C80() {
 					if (*(uint32_t*)v2 > 1u) {
 						nox_swprintf(v11, L"%d", *(uint32_t*)v2);
 						nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 2523948));
-						nox_xxx_drawString_43FAF0(0, v11, v3, v1 + 5, 320, 0);
+						nox_xxx_drawStringWrap_43FAF0(0, v11, v3, v1 + 5, 320, 0);
 					}
 					nox_swprintf(v11, L"%d", *((uint32_t*)v2 + 33));
 					nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 2589772));
-					nox_xxx_drawString_43FAF0(0, v11, v3, v1 - v9 + 45, 320, 0);
+					nox_xxx_drawStringWrap_43FAF0(0, v11, v3, v1 - v9 + 45, 320, 0);
 				}
 				v3 += 50;
 				v2 += 1400;
@@ -11786,7 +11786,7 @@ int nox_xxx_wndEditDrawNoImage_488160(int a1, int a2) {
 	if (*(uint16_t*)(a2 + 72)) {
 		nox_xxx_drawGetStringSize_43F840(*(uint32_t*)(a2 + 200), (unsigned short*)(a2 + 72), &v22, 0, 0);
 		nox_xxx_drawSetTextColor_434390(*(uint32_t*)(a2 + 68));
-		nox_xxx_drawString_43FAF0(*(uint32_t*)(a2 + 200), (uint16_t*)(a2 + 72), v4 + 2, v7, v21, 0);
+		nox_xxx_drawStringWrap_43FAF0(*(uint32_t*)(a2 + 200), (uint16_t*)(a2 + 72), v4 + 2, v7, v21, 0);
 		v4 += v22 + 6;
 		v21 += -6 - v22;
 	}
@@ -11840,10 +11840,10 @@ int nox_xxx_wndEditDrawNoImage_488160(int a1, int a2) {
 			nox_window_setPos_46A9B0(v14, v4 + v22, v29 + v7);
 		}
 		nox_xxx_drawSetTextColor_434390(*(uint32_t*)(a2 + 68));
-		nox_xxx_drawString_43FAF0(*(uint32_t*)(a2 + 200), v26, v4 + 5, v7, 0, 0);
+		nox_xxx_drawStringWrap_43FAF0(*(uint32_t*)(a2 + 200), v26, v4 + 5, v7, 0, 0);
 		v15 = nox_color_rgb_4344A0(192, 0, 192);
 		nox_xxx_drawSetTextColor_434390(v15);
-		nox_xxx_drawString_43FAF0(*(uint32_t*)(a2 + 200), v25, v4 + v22 + 5, v7, 0, 0);
+		nox_xxx_drawStringWrap_43FAF0(*(uint32_t*)(a2 + 200), v25, v4 + v22 + 5, v7, 0, 0);
 		v16 = v4 + v22 + v24 + 5;
 		if (v2 == nox_xxx_wndGetFocus_46B4F0()) {
 			v17 = ((*getMemU8Ptr(0x5D4594, 1193344))++ & 8) == 0;
@@ -12042,7 +12042,7 @@ int nox_xxx_wndEditDrawWithImage_488870(int a1, int a2) {
 	nox_xxx_drawSetTextColor_434390(*(uint32_t*)(a2 + 68));
 	if (*(uint16_t*)(a2 + 72)) {
 		nox_xxx_drawGetStringSize_43F840(*(uint32_t*)(a2 + 200), (unsigned short*)(a2 + 72), &v17, 0, 0);
-		nox_xxx_drawString_43FAF0(*(uint32_t*)(a2 + 200), (uint16_t*)(a2 + 72), xLeft + 2, v6, v3, 0);
+		nox_xxx_drawStringWrap_43FAF0(*(uint32_t*)(a2 + 200), (uint16_t*)(a2 + 72), xLeft + 2, v6, v3, 0);
 		v3 += -6 - v17;
 		xLeft += v17 + 6;
 	}
@@ -12075,10 +12075,10 @@ int nox_xxx_wndEditDrawWithImage_488870(int a1, int a2) {
 			} while (v19 + v17 + 10 > v3);
 		}
 		nox_xxx_drawSetTextColor_434390(*(uint32_t*)(a2 + 68));
-		nox_xxx_drawString_43FAF0(*(uint32_t*)(a2 + 200), v18, xLeft + 5, v6, v3, 0);
+		nox_xxx_drawStringWrap_43FAF0(*(uint32_t*)(a2 + 200), v18, xLeft + 5, v6, v3, 0);
 		v12 = nox_color_rgb_4344A0(192, 0, 192);
 		nox_xxx_drawSetTextColor_434390(v12);
-		nox_xxx_drawString_43FAF0(*(uint32_t*)(a2 + 200), v20, v17 + xLeft + 5, v6, v3, 0);
+		nox_xxx_drawStringWrap_43FAF0(*(uint32_t*)(a2 + 200), v20, v17 + xLeft + 5, v6, v3, 0);
 		xLeft += v17 + v19 + 5;
 		if (v2 == nox_xxx_wndGetFocus_46B4F0()) {
 			v13 = ((*getMemU8Ptr(0x5D4594, 1193344))++ & 8) == 0;
@@ -12242,7 +12242,7 @@ int nox_xxx_wndStaticDrawNoImage_488D00(int a1, int xLeft) {
 		v26 = v8;
 		if (v9) {
 			v10 = *(uint32_t*)(v2 + 200);
-			if (v23 > *(int*)(v10 + 28)) {
+			if (v23 > nox_xxx_guiFontHeightMB_43F320(v10)) {
 				v22 = *v3;
 				v32 = xLeft;
 				v11 = nox_wcslen(v22);
@@ -12282,7 +12282,7 @@ int nox_xxx_wndStaticDrawNoImage_488D00(int a1, int xLeft) {
 							*(uint16_t*)(dword_5d4594_1193360 + 2 * v16) = 0;
 							nox_xxx_drawGetStringSize_43F840(*(uint32_t*)(v2 + 200),
 															 *(unsigned short**)&dword_5d4594_1193360, 0, &v23, v5);
-							if (v23 > *(int*)(*(uint32_t*)(v2 + 200) + 28)) {
+							if (v23 > nox_xxx_guiFontHeightMB_43F320(*(uint32_t*)(v2 + 200) + 28)) {
 								break;
 							}
 							v34 = v14;
@@ -12309,19 +12309,19 @@ int nox_xxx_wndStaticDrawNoImage_488D00(int a1, int xLeft) {
 							nox_xxx_drawSetTextColor_434390(v27);
 							v19 = v26;
 							v20 = v26 - 1;
-							nox_xxx_drawString_43FAF0(*(uint32_t*)(v2 + 200), *(uint16_t**)&dword_5d4594_1193360,
+							nox_xxx_drawStringWrap_43FAF0(*(uint32_t*)(v2 + 200), *(uint16_t**)&dword_5d4594_1193360,
 													  xLeft - 1, v26 - 1, v5, 0);
-							nox_xxx_drawString_43FAF0(*(uint32_t*)(v2 + 200), *(uint16_t**)&dword_5d4594_1193360,
+							nox_xxx_drawStringWrap_43FAF0(*(uint32_t*)(v2 + 200), *(uint16_t**)&dword_5d4594_1193360,
 													  xLeft + 1, v20, v5, 0);
-							nox_xxx_drawString_43FAF0(*(uint32_t*)(v2 + 200), *(uint16_t**)&dword_5d4594_1193360,
+							nox_xxx_drawStringWrap_43FAF0(*(uint32_t*)(v2 + 200), *(uint16_t**)&dword_5d4594_1193360,
 													  xLeft - 1, v19 + 1, v5, 0);
-							nox_xxx_drawString_43FAF0(*(uint32_t*)(v2 + 200), *(uint16_t**)&dword_5d4594_1193360,
+							nox_xxx_drawStringWrap_43FAF0(*(uint32_t*)(v2 + 200), *(uint16_t**)&dword_5d4594_1193360,
 													  xLeft + 1, v19 + 1, v5, 0);
 							nox_xxx_drawSetTextColor_434390(*(uint32_t*)(v2 + 68));
-							nox_xxx_drawString_43FAF0(*(uint32_t*)(v2 + 200), *(uint16_t**)&dword_5d4594_1193360, xLeft,
+							nox_xxx_drawStringWrap_43FAF0(*(uint32_t*)(v2 + 200), *(uint16_t**)&dword_5d4594_1193360, xLeft,
 													  v19, v5, 0);
 						} else {
-							nox_xxx_drawString_43FAF0(*(uint32_t*)(v2 + 200), *(uint16_t**)&dword_5d4594_1193360,
+							nox_xxx_drawStringWrap_43FAF0(*(uint32_t*)(v2 + 200), *(uint16_t**)&dword_5d4594_1193360,
 													  v32 + (v5 - v29) / 2, v26, v5, 0);
 							v19 = v26;
 						}
@@ -12337,26 +12337,26 @@ int nox_xxx_wndStaticDrawNoImage_488D00(int a1, int xLeft) {
 				xLeft += (v5 - v29) / 2;
 				if (v3[2]) {
 					nox_xxx_drawSetTextColor_434390(v27);
-					nox_xxx_drawString_43FAF0(*(uint32_t*)(v2 + 200), *v3, xLeft - 1, v8 - 1, v5, 0);
-					nox_xxx_drawString_43FAF0(*(uint32_t*)(v2 + 200), *v3, xLeft + 1, v8 - 1, v5, 0);
-					nox_xxx_drawString_43FAF0(*(uint32_t*)(v2 + 200), *v3, xLeft - 1, v8 + 1, v5, 0);
-					nox_xxx_drawString_43FAF0(*(uint32_t*)(v2 + 200), *v3, xLeft + 1, v8 + 1, v5, 0);
+					nox_xxx_drawStringWrap_43FAF0(*(uint32_t*)(v2 + 200), *v3, xLeft - 1, v8 - 1, v5, 0);
+					nox_xxx_drawStringWrap_43FAF0(*(uint32_t*)(v2 + 200), *v3, xLeft + 1, v8 - 1, v5, 0);
+					nox_xxx_drawStringWrap_43FAF0(*(uint32_t*)(v2 + 200), *v3, xLeft - 1, v8 + 1, v5, 0);
+					nox_xxx_drawStringWrap_43FAF0(*(uint32_t*)(v2 + 200), *v3, xLeft + 1, v8 + 1, v5, 0);
 					nox_xxx_drawSetTextColor_434390(*(uint32_t*)(v2 + 68));
-					nox_xxx_drawString_43FAF0(*(uint32_t*)(v2 + 200), *v3, xLeft, v8, v5, 0);
+					nox_xxx_drawStringWrap_43FAF0(*(uint32_t*)(v2 + 200), *v3, xLeft, v8, v5, 0);
 				} else {
-					nox_xxx_drawString_43FAF0(v10, *v3, xLeft, v8, v5, 0);
+					nox_xxx_drawStringWrap_43FAF0(v10, *v3, xLeft, v8, v5, 0);
 				}
 			}
 		} else if (v3[2]) {
 			nox_xxx_drawSetTextColor_434390(v27);
-			nox_xxx_drawString_43FAF0(*(uint32_t*)(v2 + 200), *v3, xLeft + 1, v8 - 1, v5, 0);
-			nox_xxx_drawString_43FAF0(*(uint32_t*)(v2 + 200), *v3, xLeft + 3, v8 - 1, v5, 0);
-			nox_xxx_drawString_43FAF0(*(uint32_t*)(v2 + 200), *v3, xLeft + 1, v8 + 1, v5, 0);
-			nox_xxx_drawString_43FAF0(*(uint32_t*)(v2 + 200), *v3, xLeft + 3, v8 + 1, v5, 0);
+			nox_xxx_drawStringWrap_43FAF0(*(uint32_t*)(v2 + 200), *v3, xLeft + 1, v8 - 1, v5, 0);
+			nox_xxx_drawStringWrap_43FAF0(*(uint32_t*)(v2 + 200), *v3, xLeft + 3, v8 - 1, v5, 0);
+			nox_xxx_drawStringWrap_43FAF0(*(uint32_t*)(v2 + 200), *v3, xLeft + 1, v8 + 1, v5, 0);
+			nox_xxx_drawStringWrap_43FAF0(*(uint32_t*)(v2 + 200), *v3, xLeft + 3, v8 + 1, v5, 0);
 			nox_xxx_drawSetTextColor_434390(*(uint32_t*)(v2 + 68));
-			nox_xxx_drawString_43FAF0(*(uint32_t*)(v2 + 200), *v3, xLeft + 2, v8, v5, 0);
+			nox_xxx_drawStringWrap_43FAF0(*(uint32_t*)(v2 + 200), *v3, xLeft + 2, v8, v5, 0);
 		} else {
-			nox_xxx_drawString_43FAF0(*(uint32_t*)(v2 + 200), *v3, xLeft + 2, v8, v5, 0);
+			nox_xxx_drawStringWrap_43FAF0(*(uint32_t*)(v2 + 200), *v3, xLeft + 2, v8, v5, 0);
 		}
 	}
 	sub_43F670(0);
@@ -12512,9 +12512,9 @@ int nox_xxx_wndStaticDrawWithImage_489550(uint32_t* a1, uint32_t* a2) {
 			nox_xxx_drawGetStringSize_43F840(v4[50], *v3, &v13, 0, 0);
 			v9 = v4[50];
 			a1 = (uint32_t*)((char*)a1 + (v12 - v13) / 2);
-			nox_xxx_drawString_43FAF0(v9, *v3, (int)a1, v6, v12, 0);
+			nox_xxx_drawStringWrap_43FAF0(v9, *v3, (int)a1, v6, v12, 0);
 		} else {
-			nox_xxx_drawString_43FAF0(v4[50], *v3, (int)a1 + 2, v6, v12, 0);
+			nox_xxx_drawStringWrap_43FAF0(v4[50], *v3, (int)a1 + 2, v6, v12, 0);
 		}
 	}
 	sub_43F670(0);

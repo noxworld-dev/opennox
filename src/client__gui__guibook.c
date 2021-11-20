@@ -244,7 +244,7 @@ int nox_xxx_bookDrawList_45BD40(int a1) {
 			(*(uint32_t*)(dword_5d4594_1047516 + 4232) ||
 			 nox_common_gameFlags_check_40A5C0(0x2000) && !nox_common_gameFlags_check_40A5C0(4096))) {
 			nox_xxx_drawGetStringSize_43F840(0, v71, &v70, 0, 0);
-			nox_xxx_drawString_43FAF0(0, v71, (108 - v70) / 2 + v66 + 24, v14, 128, 0);
+			nox_xxx_drawStringWrap_43FAF0(0, v71, (108 - v70) / 2 + v66 + 24, v14, 128, 0);
 		}
 		v23 = v14 + v3 + 2;
 		v24 = (unsigned short*)nox_xxx_guiCreatureGetName_427240(
@@ -332,30 +332,30 @@ int nox_xxx_bookDrawList_45BD40(int a1) {
 		}
 		nox_xxx_drawGetStringSize_43F840(0, v71, &v65, 0, 0);
 		v46 = v43 + 2;
-		nox_xxx_drawString_43FAF0(0, v71, (108 - v65) / 2 + v66 + 24, v46, 128, 0);
+		nox_xxx_drawStringWrap_43FAF0(0, v71, (108 - v65) / 2 + v66 + 24, v46, 128, 0);
 		v47 = v46 + v3 + 2;
 		if (v38 & 0x100) {
 			v48 = nox_strman_loadString_40F1D0("SpellInstant", 0, "C:\\NoxPost\\src\\Client\\Gui\\guibook.c", 1173);
 			nox_xxx_drawGetStringSize_43F840(0, v48, &v65, 0, 0);
-			nox_xxx_drawString_43FAF0(0, v48, (108 - v65) / 2 + v66 + 24, v47, 128, 0);
+			nox_xxx_drawStringWrap_43FAF0(0, v48, (108 - v65) / 2 + v66 + 24, v47, 128, 0);
 			v47 += v3;
 		}
 		if (v38 & 4) {
 			v49 = nox_strman_loadString_40F1D0("SpellTargeted", 0, "C:\\NoxPost\\src\\Client\\Gui\\guibook.c", 1181);
 			nox_xxx_drawGetStringSize_43F840(0, v49, &v65, 0, 0);
-			nox_xxx_drawString_43FAF0(0, v49, (108 - v65) / 2 + v66 + 24, v47, 128, 0);
+			nox_xxx_drawStringWrap_43FAF0(0, v49, (108 - v65) / 2 + v66 + 24, v47, 128, 0);
 			v47 += v3;
 		}
 		if (v38 & 8) {
 			v50 = nox_strman_loadString_40F1D0("SpellAtLocation", 0, "C:\\NoxPost\\src\\Client\\Gui\\guibook.c", 1189);
 			nox_xxx_drawGetStringSize_43F840(0, v50, &v65, 0, 0);
-			nox_xxx_drawString_43FAF0(0, v50, (108 - v65) / 2 + v66 + 24, v47, 128, 0);
+			nox_xxx_drawStringWrap_43FAF0(0, v50, (108 - v65) / 2 + v66 + 24, v47, 128, 0);
 			v47 += v3;
 		}
 		if (v38 & 0x20) {
 			v51 = nox_strman_loadString_40F1D0("SpellHostile", 0, "C:\\NoxPost\\src\\Client\\Gui\\guibook.c", 1197);
 			nox_xxx_drawGetStringSize_43F840(0, v51, &v65, 0, 0);
-			nox_xxx_drawString_43FAF0(0, v51, (108 - v65) / 2 + v66 + 24, v47, 128, 0);
+			nox_xxx_drawStringWrap_43FAF0(0, v51, (108 - v65) / 2 + v66 + 24, v47, 128, 0);
 			v47 += v3;
 		}
 		v64 =
@@ -363,7 +363,7 @@ int nox_xxx_bookDrawList_45BD40(int a1) {
 		v52 = nox_strman_loadString_40F1D0("PowerLevel", 0, "C:\\NoxPost\\src\\Client\\Gui\\guibook.c", 1206);
 		nox_swprintf(v71, v52, v64);
 		nox_xxx_drawGetStringSize_43F840(0, v71, &v65, 0, 0);
-		nox_xxx_drawString_43FAF0(0, v71, (108 - v65) / 2 + v66 + 24, v3 + v47, 128, 0);
+		nox_xxx_drawStringWrap_43FAF0(0, v71, (108 - v65) / 2 + v66 + 24, v3 + v47, 128, 0);
 		v53 = (unsigned short*)nox_xxx_spellDescription_424A30(
 			*getMemU32Ptr(0x5D4594, 1046960 + 4 * dword_5d4594_1046932));
 		v29 = v53;
@@ -377,7 +377,7 @@ int nox_xxx_bookDrawList_45BD40(int a1) {
 				v37 = v30;
 			}
 		LABEL_74:
-			nox_xxx_drawString_43FAF0(0, v29, v32, v37, 92, 0);
+			nox_xxx_drawStringWrap_43FAF0(0, v29, v32, v37, 92, 0);
 			goto LABEL_75;
 		}
 	}

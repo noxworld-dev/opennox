@@ -382,7 +382,7 @@ int cmain(int argc, const char* argv[]) {
 	sub_40B170(32);
 	sub_4134D0();
 	if (nox_strman_get_lang_code() == 6 || nox_strman_get_lang_code() == 8) {
-		sub_43F680(0);
+		nox_draw_setBold_43F680(0);
 	}
 	sub_413920();
 	if (!nox_client_initScreenParticles_431390()) {

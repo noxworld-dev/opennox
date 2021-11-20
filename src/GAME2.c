@@ -1436,7 +1436,7 @@ int nox_client_lockScreenBriefing_450160(int a1, int a2, char a3) {
 		dword_5d4594_831276 = 1140457472;
 		*getMemU32Ptr(0x5D4594, 831280) = -20 - *getMemU32Ptr(0x5D4594, 831280);
 	} else {
-		*getMemU32Ptr(0x5D4594, 831280) = (480 - *(uint32_t*)(v5[59] + 8) - *getMemIntPtr(0x5D4594, 831280)) / 2;
+		*getMemU32Ptr(0x5D4594, 831280) = (480 - nox_xxx_guiFontHeightMB_43F320(v5[59]) - *getMemIntPtr(0x5D4594, 831280)) / 2;
 		*(float*)&dword_5d4594_831276 = (double)*getMemIntPtr(0x5D4594, 831280);
 	}
 	sub_431290();
@@ -1664,7 +1664,7 @@ int nox_xxx_unused_4514F0() {
 				if ((int)v3 >= (int)getMemAt(0x5D4594, 835880)) {
 					break;
 				}
-				result = nox_xxx_drawString_43FAF0(0, *(uint16_t**)v3, dword_5d4594_839884 + 4, v2, 316, 0);
+				result = nox_xxx_drawStringWrap_43FAF0(0, *(uint16_t**)v3, dword_5d4594_839884 + 4, v2, 316, 0);
 				v2 -= v1;
 				v3 += 4;
 			} while (v2 > 0);
@@ -3439,7 +3439,7 @@ int nox_xxx_guiServerAccessLoad_4541D0(int a1) {
 	}
 	dword_5d4594_1045516 =
 		nox_new_window_from_file(*(const char**)getMemAt(0x587000, 127824 + 4 * v2), nox_xxx_windowAccessProc_454BA0);
-	sub_43FE20(100);
+	nox_draw_setTabWidth_43FE20(100);
 	sub_46B120(*(uint32_t**)&dword_5d4594_1045516, a1);
 	dword_5d4594_1045520 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1045516, 10102);
 	*getMemU32Ptr(0x5D4594, 1045524) = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1045516, 10103);

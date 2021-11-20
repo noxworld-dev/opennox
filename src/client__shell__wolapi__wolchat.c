@@ -254,7 +254,7 @@ int nox_game_showWolChat_447620() {
 
 	nox_game_addStateCode_43BDD0(1900);
 	nox_game_SetCliDrawFunc(sub_41E210);
-	sub_43FE20(150);
+	nox_draw_setTabWidth_43FE20(150);
 	dword_5d4594_829480 = nox_new_window_from_file("wolchat.wnd", sub_447CC0);
 	sub_446970_wol_chat();
 	result = dword_5d4594_829480;

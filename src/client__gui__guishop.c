@@ -134,7 +134,7 @@ wchar_t* sub_478B10(int2* a1) {
 		(result = nox_strman_loadString_40F1D0("SellInstructions", *(uint32_t**)&dword_5d4594_1098596,
 											   "C:\\NoxPost\\src\\client\\Gui\\GUIShop.c", 597),
 		 (dword_5d4594_1098596 = result) != 0)) {
-		result = (wchar_t*)nox_xxx_drawString_43FAF0(0, result, v5 + 8, v6 + 8, v4 - 16, v3 - 16);
+		result = (wchar_t*)nox_xxx_drawStringWrap_43FAF0(0, result, v5 + 8, v6 + 8, v4 - 16, v3 - 16);
 	}
 	return result;
 }
@@ -158,7 +158,7 @@ wchar_t* sub_478BC0(int* a1) {
 		(result = nox_strman_loadString_40F1D0("RepairInstructions", *(uint32_t**)&dword_5d4594_1098600,
 											   "C:\\NoxPost\\src\\client\\Gui\\GUIShop.c", 628),
 		 (dword_5d4594_1098600 = result) != 0)) {
-		result = (wchar_t*)nox_xxx_drawString_43FAF0(0, result, v5 + 8, v6 + 8, v4 - 16, v3 - 16);
+		result = (wchar_t*)nox_xxx_drawStringWrap_43FAF0(0, result, v5 + 8, v6 + 8, v4 - 16, v3 - 16);
 	}
 	return result;
 }

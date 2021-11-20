@@ -440,7 +440,7 @@ func RunArgs(args []string) (gerr error) {
 	C.sub_40B170(32)
 	C.sub_4134D0()
 	if v := strMan.Lang(); v == 6 || v == 8 {
-		C.sub_43F680(0)
+		noxrend.SetBold(false)
 	}
 	C.sub_413920()
 	if C.nox_client_initScreenParticles_431390() == 0 {

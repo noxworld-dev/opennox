@@ -546,7 +546,7 @@ int sub_45F9B0(uint32_t* a1) {
 		v6 += (v7 - v8) / 2;
 		nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 2523948));
 		nox_xxx_drawSetColor_4343E0(*getMemIntPtr(0x852978, 4));
-		sub_43F730(0, (short*)v11, v6, (int)a1);
+		nox_draw_drawStringHL_43F730(0, (short*)v11, v6, (int)a1);
 	}
 	return 1;
 }
@@ -572,7 +572,7 @@ int nox_xxx_quickbarDraw_45FAC0(uint32_t* a1) {
 	a1 = (uint32_t*)((char*)a1 + (v5 - v6) / 2);
 	nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 2523948));
 	nox_xxx_drawSetColor_4343E0(*getMemIntPtr(0x852978, 4));
-	sub_43F730(0, (short*)v9, (int)a1, v7);
+	nox_draw_drawStringHL_43F730(0, (short*)v9, (int)a1, v7);
 	return 1;
 }
 
