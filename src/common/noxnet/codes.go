@@ -20,6 +20,13 @@ func (op Op) Len() int {
 }
 
 const (
+	MSG_SERVER_DISCOVER = Op(12) // 0x0C
+	MSG_SERVER_INFO     = Op(13) // 0x0D
+	MSG_SERVER_JOIN     = Op(14) // 0x0E
+	MSG_SERVER_ERROR    = Op(19) // 0x13
+	MSG_SERVER_JOIN_OK  = Op(20) // 0x14
+	MSG_ACCEPTED        = Op(31) // 0x1F
+
 	MSG_XXX_STOP                       = Op(33)  // 0x21
 	MSG_TIMESTAMP                      = Op(39)  // 0x27
 	MSG_FULL_TIMESTAMP                 = Op(40)  // 0x28
@@ -227,7 +234,11 @@ const (
 )
 
 var opLen = map[Op]int{
-	0x1F:                               7,
+	6:            4,
+	MSG_ACCEPTED: 7, // TODO: this is the length of a server-side message only!
+
+	MSG_INCOMING_CLIENT:                0,
+	MSG_CLIENT_READY:                   0,
 	MSG_TIMESTAMP:                      2,
 	MSG_FULL_TIMESTAMP:                 4,
 	MSG_USE_MAP:                        40,

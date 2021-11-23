@@ -72,6 +72,7 @@ import (
 	noxflags "nox/v1/common/flags"
 	"nox/v1/common/log"
 	"nox/v1/common/memmap"
+	"nox/v1/common/noxnet"
 	"nox/v1/common/platform"
 	"nox/v1/common/serial"
 )
@@ -713,7 +714,7 @@ func CONNECT_SERVER(host string, port int, opts *PlayerOpts) error {
 		}
 		vs = vs[:3+len(data)]
 
-		vs[0] = 31
+		vs[0] = byte(noxnet.MSG_ACCEPTED)
 		vs[1] = ns.Data2()[1]
 		vs[2] = 32
 		if len(data) > 0 {
