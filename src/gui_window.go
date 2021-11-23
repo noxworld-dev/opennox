@@ -418,7 +418,7 @@ func (win *Window) Show() {
 }
 
 func (win *Window) Func93(ev int, a1, a2 uintptr) int {
-	if win == nil {
+	if win == nil || win.field_93 == nil || uintptr(unsafe.Pointer(win.field_93)) == DeadWord {
 		return 0
 	}
 	return int(C.nox_window_call_field_93_go(win.C(), C.int(ev), C.int(a1), C.int(a2)))
@@ -432,7 +432,7 @@ func (win *Window) setFunc93(fnc unsafe.Pointer) {
 }
 
 func (win *Window) Func94(ev int, a1, a2 uintptr) int {
-	if win == nil {
+	if win == nil || win.field_94 == nil || uintptr(unsafe.Pointer(win.field_94)) == DeadWord {
 		return 0
 	}
 	return int(C.nox_window_call_field_94_go(win.C(), C.int(ev), C.int(a1), C.int(a2)))
@@ -446,9 +446,10 @@ func (win *Window) setFunc94(fnc unsafe.Pointer) {
 }
 
 func (win *Window) Draw() {
-	if win.draw_func != nil {
-		C.nox_window_call_draw_func_go(win.C(), win.DrawData().C())
+	if win == nil || win.draw_func == nil || uintptr(unsafe.Pointer(win.draw_func)) == DeadWord {
+		return
 	}
+	C.nox_window_call_draw_func_go(win.C(), win.DrawData().C())
 }
 
 func (win *Window) setDraw(fnc unsafe.Pointer) {
