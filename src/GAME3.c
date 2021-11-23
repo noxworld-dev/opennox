@@ -829,7 +829,7 @@ int nox_xxx_wndListboxProcPre_4A30D0(int a1, unsigned int a2, wchar_t* a3, int a
 	if (a2 > 16402) {
 		switch (a2) {
 		case 0x4013u:
-			if ((int)a3 < 0) {
+			if (((int)a3 < 0) || ((int)a3 >= (int)*v5)) {
 				if (*((uint32_t*)v5 + 4)) {
 					goto LABEL_117;
 				}
@@ -865,7 +865,7 @@ int nox_xxx_wndListboxProcPre_4A30D0(int a1, unsigned int a2, wchar_t* a3, int a
 		case 0x4014u:
 			return *((uint32_t*)v5 + 12);
 		case 0x4015u:
-			if ((int)a3 >= 0) {
+			if (((int)a3 >= 0) && ((int)a3 < (int)*v5)) {
 				if (!*(uint16_t*)(*((uint32_t*)v5 + 6) + 524 * (uint32_t)a3 + 4) || !*((uint32_t*)v5 + 4)) {
 					return 0;
 				}
@@ -894,7 +894,7 @@ int nox_xxx_wndListboxProcPre_4A30D0(int a1, unsigned int a2, wchar_t* a3, int a
 					return 0;
 				}
 			LABEL_117:
-				memset(*((void**)v5 + 12), 0xFFu, 4 * *v5);
+				memset(*((void**)v5 + 12), 0xFFu, 4 * (int)*v5);
 				result = 0;
 			}
 			break;
@@ -1112,12 +1112,12 @@ int nox_xxx_wndListboxProcPre_4A30D0(int a1, unsigned int a2, wchar_t* a3, int a
 			nox_xxx_wndListBox_4A3A70(a1);
 			return 0;
 		case 0x400Fu:
-			memset(*((void**)v5 + 6), 0, 524 * *v5);
+			memset(*((void**)v5 + 6), 0, 524 * (int)*v5);
 			if (a3 != (wchar_t*)1) {
 				v5[27] = 0;
 			}
 			if (*((uint32_t*)v5 + 4)) {
-				memset(*((void**)v5 + 12), 0xFFu, 4 * *v5);
+				memset(*((void**)v5 + 12), 0xFFu, 4 * (int)*v5);
 			} else {
 				*((uint32_t*)v5 + 12) = -1;
 			}

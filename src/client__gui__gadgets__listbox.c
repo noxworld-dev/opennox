@@ -8,7 +8,8 @@
 #include "common__strman.h"
 
 //----- (004A4310) --------------------------------------------------------
-nox_window* nox_gui_newScrollListBox_4A4310(int a1, int a2, int a3, int a4, int a5, int a6, int a7, short* a8) {
+nox_window* nox_gui_newScrollListBox_4A4310(int a1, int a2, int a3, int a4, int a5, int a6, int a7, nox_scrollListBox_data* opts) {
+	short* a8 = opts;
 	uint32_t* v8;     // ebp
 	void* v9;         // edi
 	int v10;          // edi
@@ -29,8 +30,8 @@ nox_window* nox_gui_newScrollListBox_4A4310(int a1, int a2, int a3, int a4, int 
 	unsigned int v26; // [esp+180h] [ebp+8h]
 
 	v21 = 0;
-	if (a8[1] < nox_xxx_guiFontHeightMB_43F320(*(uint32_t*)(a7 + 200))) {
-		a8[1] = nox_xxx_guiFontHeightMB_43F320(*(uint32_t*)(a7 + 200));
+	if (opts->line_height < nox_xxx_guiFontHeightMB_43F320(*(uint32_t*)(a7 + 200))) {
+		opts->line_height = nox_xxx_guiFontHeightMB_43F320(*(uint32_t*)(a7 + 200));
 	}
 	if (*(uint16_t*)(a7 + 72)) {
 		v21 = 1;
@@ -39,7 +40,7 @@ nox_window* nox_gui_newScrollListBox_4A4310(int a1, int a2, int a3, int a4, int 
 		return 0;
 	}
 	v8 = nox_window_new(a1, a2, a3, a4, a5, a6, nox_xxx_wndListboxProcPre_4A30D0);
-	nox_xxx_wndListboxInit_4A3C00((int)v8, (int)a8);
+	nox_xxx_wndListboxInit_4A3C00(v8, opts);
 	if (!v8) {
 		return 0;
 	}
@@ -47,12 +48,12 @@ nox_window* nox_gui_newScrollListBox_4A4310(int a1, int a2, int a3, int a4, int 
 		*(uint32_t*)(a7 + 16) = v8;
 	}
 	nox_gui_windowCopyDrawData_46AF80((int)v8, (const void*)a7);
-	v9 = calloc(*a8, 524);
+	v9 = calloc(opts->count, 524);
 	*((uint32_t*)a8 + 6) = v9;
 	if (!v9) {
 		return 0;
 	}
-	memset(v9, 0, 524 * *a8);
+	memset(v9, 0, 524 * (int)opts->count);
 	v10 = a6;
 	a8[26] = a6;
 	if (v21) {
@@ -65,13 +66,13 @@ nox_window* nox_gui_newScrollListBox_4A4310(int a1, int a2, int a3, int a4, int 
 	a8[22] = 0;
 	*((uint32_t*)a8 + 10) = 0;
 	if (v11) {
-		v12 = calloc(*a8, 4);
+		v12 = calloc(opts->count, 4);
 		*((uint32_t*)a8 + 12) = v12;
 		if (!v12) {
 			free(*((void**)a8 + 6));
 			return 0;
 		}
-		memset(v12, 0xFFu, 4 * *a8);
+		memset(v12, 0xFFu, 4 * (int)opts->count);
 		v10 = a6;
 	}
 	if (*((uint32_t*)a8 + 3)) {
@@ -132,8 +133,7 @@ nox_window* nox_gui_newScrollListBox_4A4310(int a1, int a2, int a3, int a4, int 
 		}
 		*(uint32_t*)&v25[8] = 1;
 		*(uint32_t*)&v25[16] = v8;
-		*((uint32_t*)a8 + 8) =
-			nox_gui_newButtonOrCheckbox_4A91A0((int)v8, v17, a5 - 10, v22 + v10 - v23, 10, v23, v25);
+		*((uint32_t*)a8 + 8) = nox_gui_newButtonOrCheckbox_4A91A0((int)v8, v17, a5 - 10, v22 + v10 - v23, 10, v23, v25);
 		memset(v25, 0, sizeof(v25));
 		if ((signed char)*((uint8_t*)v8 + 4) >= 0) {
 			*(uint32_t*)&v25[20] = *getMemU32Ptr(0x85B3FC, 952);
@@ -156,11 +156,10 @@ nox_window* nox_gui_newScrollListBox_4A4310(int a1, int a2, int a3, int a4, int 
 		*(uint32_t*)&v25[8] = 8;
 		v24[3] = 0;
 		*(uint32_t*)&v25[16] = v8;
-		*((uint32_t*)a8 + 9) =
-			nox_gui_newSlider_4B4EE0((int)v8, v17, a5 - v19, v22 + v23, v19, v10 - 2 * v23, v25, (float*)v24);
+		*((uint32_t*)a8 + 9) = nox_gui_newSlider_4B4EE0((int)v8, v17, a5 - v19, v22 + v23, v19, v10 - 2 * v23, v25, (float*)v24);
 	}
-	v20 = (short*)calloc(1, 0x38u);
-	memcpy(v20, a8, 0x38u);
+	v20 = calloc(1, sizeof(nox_scrollListBox_data));
+	memcpy(v20, opts, sizeof(nox_scrollListBox_data));
 	v8[8] = v20;
 	return v8;
 }

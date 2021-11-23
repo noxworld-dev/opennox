@@ -64,7 +64,6 @@ extern uint32_t dword_5d4594_831240;
 extern uint32_t dword_5d4594_1046604;
 extern uint32_t dword_5d4594_823772;
 extern uint32_t dword_5d4594_1045580;
-extern uint32_t dword_5d4594_1046512;
 extern uint32_t dword_5d4594_1045548;
 extern uint32_t dword_5d4594_1045640;
 extern uint32_t dword_5d4594_831260;
@@ -202,6 +201,7 @@ extern nox_drawable* nox_drawable_head_unk3;
 extern nox_drawable* nox_drawable_head_unk4;
 
 nox_window* nox_win_unk1 = 0;
+nox_window* dword_5d4594_1046512 = 0;
 
 nox_drawable* nox_xxx_drawablePlayer_1046600 = 0;
 
@@ -4729,7 +4729,7 @@ int sub_457B60(int a1) {
 
 	v1 = nox_xxx_serverOptionsGetServername_40A4C0();
 	nox_swprintf(v20, L"%S", v1);
-	nox_window_call_field_94(*(int*)&dword_5d4594_1046512, 16414, (int)v20, 0);
+	nox_window_call_field_94(dword_5d4594_1046512, 16414, (int)v20, 0);
 	sub_459CD0();
 	if (nox_common_gameFlags_check_40A5C0(128)) {
 		v2 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1046492, 10122);
@@ -5141,7 +5141,7 @@ int sub_459A40(char* a1) {
 	strncpy(v2, a1, 0xFu);
 	v2[15] = 0;
 	nox_swprintf(v3, L"%S", v2);
-	return nox_window_call_field_94(*(int*)&dword_5d4594_1046512, 16414, (int)v3, 0);
+	return nox_window_call_field_94(dword_5d4594_1046512, 16414, (int)v3, 0);
 }
 
 //----- (00459AA0) --------------------------------------------------------
@@ -5155,7 +5155,7 @@ char* sub_459AA0(void* a1p) {
 	const char* v6;    // edi
 	char v7[100];      // [esp+Ch] [ebp-64h]
 
-	v1 = nox_window_call_field_94(*(int*)&dword_5d4594_1046512, 16413, 0, 0);
+	v1 = nox_window_call_field_94(dword_5d4594_1046512, 16413, 0, 0);
 	nox_sprintf(v7, "%S", v1);
 	strncpy((char*)(a1 + 9), v7, 0xFu);
 	*(uint16_t*)(a1 + 52) = sub_459C10();

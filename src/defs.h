@@ -758,8 +758,8 @@ typedef struct {
 _Static_assert(sizeof(nox_slider_data) == 16, "wrong size of nox_slider_data structure!");
 
 typedef struct {
-	uint16_t field_0_0;
-	uint16_t field_0_1;
+	uint16_t count; // 0, 0
+	uint16_t line_height; // 0, 2
 	uint32_t field_1;
 	uint32_t field_2;
 	uint32_t field_3;
