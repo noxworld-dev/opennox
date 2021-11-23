@@ -326,9 +326,9 @@ func (p *guiParser) parseDataField(typ string, buf string) (guiWidgetData, bool)
 		d := p.widgets.scrollBox
 		*d = scrollListBoxData{}
 		v, buf = gui.ParseNextUintField(buf)
-		d.field_0_0 = C.ushort(v)
+		d.count = C.ushort(v)
 		v, buf = gui.ParseNextUintField(buf)
-		d.field_0_1 = C.ushort(v)
+		d.line_height = C.ushort(v)
 		v, buf = gui.ParseNextUintField(buf)
 		d.field_1 = C.uint(v)
 		v, buf = gui.ParseNextUintField(buf)

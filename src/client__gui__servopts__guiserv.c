@@ -24,7 +24,7 @@
 #include "client__gui__servopts__playrlst.h"
 #include "client__system__parsecmd.h"
 
-extern uint32_t dword_5d4594_1046512;
+extern nox_window* dword_5d4594_1046512;
 extern uint32_t dword_587000_129656;
 extern uint32_t dword_5d4594_1046360;
 extern uint32_t dword_5d4594_1046524;
@@ -530,6 +530,9 @@ int nox_xxx_guiServerOptionsProcPre_4585D0(int a1, unsigned int a2, int a3, int 
 				nox_sprintf(v42, "%S", v35);
 				v36 = strtok(v42, "\t");
 				v37 = sub_4165B0();
+				if (!v36) {
+					v36 = "";
+				}
 				strcpy(v37, v36);
 				sub_57A1E0((int*)v37, "user.rul", 0, 7, *((uint16_t*)v37 + 26));
 				sub_459880((int)v37);

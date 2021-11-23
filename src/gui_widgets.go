@@ -84,7 +84,7 @@ func guiNewWidget(typ string, parent *Window, status gui.StatusFlags, px, py, w,
 	case "SCROLLLISTBOX":
 		tdata, _ := data.(*scrollListBoxData)
 		draw.style |= C.int(gui.StyleScrollListBox)
-		return asWindow(C.nox_gui_newScrollListBox_4A4310(iparent, C.int(status), C.int(px), C.int(py), C.int(w), C.int(h), dataPtrToInt(draw), (*C.short)(unsafe.Pointer(tdata))))
+		return asWindow(C.nox_gui_newScrollListBox_4A4310(iparent, C.int(status), C.int(px), C.int(py), C.int(w), C.int(h), dataPtrToInt(draw), (*C.nox_scrollListBox_data)(unsafe.Pointer(tdata))))
 	case "ENTRYFIELD":
 		tdata, _ := data.(*entryFieldData)
 		draw.style |= C.int(gui.StyleEntryField)
