@@ -9006,16 +9006,16 @@ void nox_xxx_servSendSettings_4DDB40(nox_object_t* punit) {
 
 	*(uint32_t*)&v5[1] = nox_frame_xxx_2598000;
 	v1 = a1[187];
-	v5[0] = 40;
+	v5[0] = 40; // MSG_FULL_TIMESTAMP
 	nox_netlist_addToMsgListCli_40EBC0(*(unsigned char*)(*(uint32_t*)(v1 + 276) + 2064), 1, v5, 5);
-	v5[0] = 44;
+	v5[0] = 44; // MSG_JOIN_DATA
 	*(uint16_t*)&v5[1] = nox_xxx_netGetUnitCodeServ_578AC0(a1);
 	v2 = *(uint32_t*)(v1 + 276);
 	*(uint32_t*)&v5[3] = *(uint32_t*)(v2 + 2068);
 	nox_netlist_addToMsgListCli_40EBC0(*(unsigned char*)(v2 + 2064), 1, v5, 7);
 	sub_4161E0();
 	v3 = nox_xxx_cliGamedataGet_416590(0);
-	v5[8] = -81;
+	v5[8] = -81; // MSG_GAME_SETTINGS
 	*(uint32_t*)&v5[9] = nox_frame_xxx_2598000;
 	*(uint32_t*)&v5[17] = nox_common_gameFlags_getVal_40A5B0() & 0x7FFF0;
 	*(uint32_t*)&v5[21] = nox_xxx_getServerSubFlags_409E60();
@@ -9024,7 +9024,7 @@ void nox_xxx_servSendSettings_4DDB40(nox_object_t* punit) {
 	v5[26] = nox_xxx_servGamedataGet_40A020(*((uint16_t*)v3 + 26));
 	v5[27] = sub_40A180(*((uint16_t*)v3 + 26));
 	nox_netlist_addToMsgListCli_40EBC0(*(unsigned char*)(*(uint32_t*)(v1 + 276) + 2064), 1, &v5[8], 20);
-	v5[28] = -80;
+	v5[28] = -80; // MSG_GAME_SETTINGS_2
 	strcpy(&v5[29], nox_xxx_serverOptionsGetServername_40A4C0());
 	memcpy(&v5[45], v3 + 24, 0x1Cu);
 	if (sub_40A220() && (sub_40A300() || sub_40A180(*((uint16_t*)v3 + 26)))) {
@@ -9036,7 +9036,7 @@ void nox_xxx_servSendSettings_4DDB40(nox_object_t* punit) {
 	nox_xxx_netNewPlayerMakePacket_4DDA90((int)&v5[124], *(uint32_t*)(v1 + 276));
 	nox_netlist_addToMsgListCli_40EBC0(*(unsigned char*)(*(uint32_t*)(v1 + 276) + 2064), 1, &v5[124], 129);
 	nox_xxx_netSendBySock_4DDDC0(*(unsigned char*)(*(uint32_t*)(v1 + 276) + 2064));
-	v5[80] = 43;
+	v5[80] = 43; // MSG_USE_MAP
 	strcpy(&v5[81], nox_server_currentMapGetFilename_409B30());
 	*(uint32_t*)&v5[113] = nox_xxx_mapCrcGetMB_409B00();
 	*(uint32_t*)&v5[117] = nox_frame_xxx_2598000;
