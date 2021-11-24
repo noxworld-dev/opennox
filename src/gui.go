@@ -239,12 +239,12 @@ func (d *WindowData) SetTextColor(cl noxcolor.Color16) {
 	d.text_color = C.uint32_t(noxcolor.ExtendColor16(cl))
 }
 
-func (d *WindowData) Font() uintptr {
-	return uintptr(d.font)
+func (d *WindowData) Font() unsafe.Pointer {
+	return d.font
 }
 
-func (d *WindowData) SetFont(font uintptr) {
-	d.font = C.uint(font)
+func (d *WindowData) SetFont(font unsafe.Pointer) {
+	d.font = font
 }
 
 func (d *WindowData) ImagePoint() image.Point {
@@ -307,10 +307,10 @@ func nox_gui_draw() {
 	DrawGUI()
 }
 
-func nox_xxx_guiFontPtrByName_43F360(name string) uintptr {
+func nox_xxx_guiFontPtrByName_43F360(name string) unsafe.Pointer {
 	cstr := C.CString(name)
 	defer StrFree(cstr)
-	return uintptr(C.nox_xxx_guiFontPtrByName_43F360(cstr))
+	return unsafe.Pointer(uintptr(C.nox_xxx_guiFontPtrByName_43F360(cstr)))
 }
 
 //export nox_color_rgb_4344A0

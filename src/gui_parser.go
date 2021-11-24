@@ -73,7 +73,7 @@ type guiParser struct {
 	br       *bufio.Reader
 	parents  []*Window
 	defaults struct {
-		font uintptr
+		font unsafe.Pointer
 		gui.StyleDefaults
 	}
 	widgets struct {
@@ -109,7 +109,7 @@ func (p *guiParser) parentsPush(win *Window) {
 
 func (p *guiParser) resetDefaults() {
 	val := noxcolor.IntToColor(memmap.Uint32(0x85B3FC, 952))
-	p.defaults.font = 0
+	p.defaults.font = nil
 	p.defaults.SetColors(val)
 }
 
@@ -145,11 +145,11 @@ func (p *guiParser) ParseRoot(fnc unsafe.Pointer) *Window {
 	return nil
 }
 
-func (p *guiParser) parseFontField() (uintptr, bool) {
+func (p *guiParser) parseFontField() (unsafe.Pointer, bool) {
 	p.skipToken() // skip '='
 	tok, _ := p.nextToken()
 	fnt := nox_xxx_guiFontPtrByName_43F360(tok)
-	return fnt, fnt != 0
+	return fnt, fnt != nil
 }
 
 //export nox_gui_parseColor_4A0570
@@ -191,7 +191,7 @@ func (p *guiParser) parseWindowRoot(fnc unsafe.Pointer) *Window {
 	draw.field_0 = 0
 	draw.SetDefaults(p.defaults.StyleDefaults)
 	font := p.defaults.font
-	if font == 0 {
+	if font == nil {
 		if C.nox_client_gui_flag_815132 != 0 {
 			font = nox_xxx_guiFontPtrByName_43F360("large")
 		} else {
@@ -478,10 +478,10 @@ var parseWindowFuncs = []struct {
 	}},
 	{"FONT", func(_ *guiParser, draw *WindowData, buf string) bool {
 		fnt := nox_xxx_guiFontPtrByName_43F360(buf)
-		if fnt == 0 {
+		if fnt == nil {
 			return false
 		}
-		draw.font = C.uint(fnt)
+		draw.font = fnt
 		return true
 	}},
 	{"TOOLTIP", func(p *guiParser, draw *WindowData, buf string) bool {

@@ -22,7 +22,7 @@ int nox_xxx_wndListboxProcWithoutData10_4A28E0(uint32_t* a1, int a2, unsigned in
 int nox_xxx_wndListBox_4A2D10(int a1, int a2, int a3);
 int nox_xxx_wndListboxProcWithData10_4A2DE0(int a1, int a2, unsigned int a3, int a4);
 short* sub_4A3090(short* a1, int a2);
-int nox_xxx_wndListboxProcPre_4A30D0(int a1, unsigned int a2, wchar_t* a3, int a4);
+int nox_xxx_wndListboxProcPre_4A30D0(nox_window* win, unsigned int a2, uint32_t a3, int a4);
 int nox_xxx_wndListBox_4A3A70(int a1);
 int nox_xxx_wndListBoxAddLine_4A3AC0(wchar_t* a1, int a2, uint32_t* a3);
 void nox_xxx_wndListboxInit_4A3C00(int a1, int a2);

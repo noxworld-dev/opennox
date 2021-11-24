@@ -758,14 +758,31 @@ typedef struct {
 _Static_assert(sizeof(nox_slider_data) == 16, "wrong size of nox_slider_data structure!");
 
 typedef struct {
+	uint32_t field_0;  // 0, 0
+	wchar_t text[256]; // 1, 4
+	uint32_t field_129;  // 129, 516
+	uint32_t field_130;  // 130, 520
+} nox_scrollListBox_item;
+_Static_assert(sizeof(nox_scrollListBox_item) == 524, "wrong size of nox_scrollListBox_item structure!");
+
+typedef struct {
 	uint16_t count; // 0, 0
 	uint16_t line_height; // 0, 2
-	uint32_t field_1;
-	uint32_t field_2;
-	uint32_t field_3;
-	uint32_t field_4;
-	uint32_t field_5;
-	uint32_t data_6[8];
+	uint32_t field_1; // 1, 4
+	uint32_t field_2; // 2, 8
+	uint32_t field_3; // 3, 12
+	uint32_t field_4; // 4, 16
+	uint32_t field_5; // 5, 20
+	nox_scrollListBox_item* items; // 6, 24
+	void* field_7; // 7, 28
+	void* field_8; // 8, 32
+	void* field_9; // 9, 36
+	uint32_t field_10; // 10, 40
+	uint16_t field_11_0; // 11, 44
+	uint16_t field_11_1; // 11, 46
+	uint32_t* field_12; // 12, 48, []*void? []int32?
+	uint16_t field_13_0; // 13, 52
+	uint16_t field_13_1; // 13, 54
 } nox_scrollListBox_data;
 _Static_assert(sizeof(nox_scrollListBox_data) == 56, "wrong size of nox_scrollListBox_data structure!");
 
