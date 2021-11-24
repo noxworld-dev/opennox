@@ -30,7 +30,7 @@ typedef struct nox_window_data {
 	int img_py;           // 16, 64 (100)
 	uint32_t text_color;  // 17, 68 (104)
 	wchar_t text[64];     // 18, 72 (108)
-	unsigned int font;    // 50, 200 (236)
+	void* font;           // 50, 200 (236)
 	wchar_t tooltip[64];  // 51, 204 (240)
 } nox_window_data;
 _Static_assert(sizeof(nox_window_data) == 332, "wrong size of nox_window_data structure!");

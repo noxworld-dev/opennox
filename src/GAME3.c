@@ -779,12 +779,7 @@ short* sub_4A3090(short* a1, int a2) {
 }
 
 //----- (004A30D0) --------------------------------------------------------
-int nox_xxx_wndListboxProcPre_4A30D0(int a1, unsigned int a2, wchar_t* a3, int a4) {
-	uint32_t* v4;  // ebp
-	short* v5;     // ebx
-	int v6;        // eax
-	int v7;        // eax
-	int result;    // eax
+int nox_xxx_wndListboxProcPre_4A30D0(nox_window* win, unsigned int ev, uint32_t a3, int a4) {
 	uint32_t* v9;  // eax
 	uint32_t* v10; // eax
 	uint32_t* v11; // eax
@@ -824,385 +819,385 @@ int nox_xxx_wndListboxProcPre_4A30D0(int a1, unsigned int a2, wchar_t* a3, int a
 	short v45;     // ax
 	int v46;       // edx
 
-	v4 = (uint32_t*)a1;
-	v5 = *(short**)(a1 + 32);
-	if (a2 > 16402) {
-		switch (a2) {
+	uint32_t* v4 = win;
+	nox_scrollListBox_data* sdata = win->field_8;
+	int ind = 0;
+	wchar_t* wstr = 0;
+	if (ev > 16402) {
+		switch (ev) {
 		case 0x4013u:
-			if (((int)a3 < 0) || ((int)a3 >= (int)*v5)) {
-				if (*((uint32_t*)v5 + 4)) {
-					goto LABEL_117;
+			ind = a3;
+			if ((ind < 0) || (ind >= (int)sdata->count)) {
+				if (sdata->field_4) {
+					memset(sdata->field_12, 0xFF, 4 * (int)sdata->count);
+					return 0;
 				}
-				*((uint32_t*)v5 + 12) = -1;
+				sdata->field_12 = -1;
 				return 0;
 			}
-			v37 = *((uint32_t*)v5 + 6) + 524 * (uint32_t)a3;
+			v37 = &sdata->items[ind];
 			if (!*(uint16_t*)(v37 + 4)) {
 				return 0;
 			}
-			if (*((uint32_t*)v5 + 4)) {
-				**((uint32_t**)v5 + 12) = a3;
-				*(uint32_t*)(*((uint32_t*)v5 + 12) + 4) = -1;
+			if (sdata->field_4) {
+				sdata->field_12[0] = ind;
+				sdata->field_12[1] = -1;
 				return 0;
 			}
-			v38 = v5[27];
-			*((uint32_t*)v5 + 12) = a3;
+			v38 = sdata->field_13_1;
+			sdata->field_12 = ind;
 			if (*(uint32_t*)v37 < v38) {
-				nox_window_call_field_94(a1, 16412, (int)a3, 0);
+				nox_window_call_field_94(win, 16412, ind, 0);
 				return 0;
 			}
-			v39 = v5[26];
+			v39 = sdata->field_13_0;
 			if (*(uint32_t*)v37 > v38 + v39) {
-				if ((int)a3 <= 0) {
-					v5[27] = 0;
+				if (ind <= 0) {
+					sdata->field_13_1 = 0;
 				} else {
-					v5[27] = *(uint16_t*)v37 - v39;
+					sdata->field_13_1 = *(uint16_t*)v37 - v39;
 				}
-				nox_xxx_wndListBox_4A2D10(a1, 0, 1);
+				nox_xxx_wndListBox_4A2D10(win, 0, 1);
 				return 0;
 			}
 			return 0;
 		case 0x4014u:
-			return *((uint32_t*)v5 + 12);
+			return sdata->field_12;
 		case 0x4015u:
-			if (((int)a3 >= 0) && ((int)a3 < (int)*v5)) {
-				if (!*(uint16_t*)(*((uint32_t*)v5 + 6) + 524 * (uint32_t)a3 + 4) || !*((uint32_t*)v5 + 4)) {
+			ind = a3;
+			if ((ind < 0) || (ind >= (int)sdata->count)) {
+				if (!sdata->field_4) {
 					return 0;
 				}
-				v33 = (wchar_t**)*((uint32_t*)v5 + 12);
-				v34 = 0;
-				v35 = *v33;
-				if ((int)*v33 < 0) {
-				LABEL_113:
-					v33[v34] = a3;
-					*(uint32_t*)(*((uint32_t*)v5 + 12) + 4 * v34 + 4) = -1;
-					return 0;
-				}
-				v36 = *((uint32_t*)v5 + 12);
-				while (v35 != a3) {
-					v35 = *(wchar_t**)(v36 + 4);
-					v36 += 4;
-					++v34;
-					if ((int)v35 < 0) {
-						goto LABEL_113;
-					}
-				}
-				sub_4A3090(v5, v34);
-				result = 0;
-			} else {
-				if (!*((uint32_t*)v5 + 4)) {
-					return 0;
-				}
-			LABEL_117:
-				memset(*((void**)v5 + 12), 0xFFu, 4 * (int)*v5);
-				result = 0;
-			}
-			break;
-		case 0x4016u:
-			return *((uint32_t*)v5 + 6) + 524 * (uint32_t)a3 + 4;
-		case 0x4017u:
-			nox_wcsncpy((wchar_t*)(*((uint32_t*)v5 + 6) + 524 * a4 + 4), a3, 0xFFu);
-			*(uint16_t*)(*((uint32_t*)v5 + 6) + 2 * (nox_wcslen(a3) + 262 * a4) + 4) = 0;
-			return 0;
-		case 0x4018u:
-			*((uint32_t*)v5 + 7) = a3;
-			return 0;
-		case 0x4019u:
-			*((uint32_t*)v5 + 8) = a3;
-			return 0;
-		case 0x401Au:
-			*((uint32_t*)v5 + 9) = a3;
-			return 0;
-		case 0x401Bu:
-			v40 = v5[22];
-			if (v40 < (int)a3) {
+				memset(sdata->field_12, 0xFF, 4 * (int)sdata->count);
 				return 0;
 			}
-			memmove(*((void**)v5 + 6), (const void*)(*((uint32_t*)v5 + 6) + 524 * (uint32_t)a3),
-					4 * ((unsigned int)(524 * (v40 - (uint32_t)a3)) >> 2));
-			v5[22] -= (short)a3;
-			v5[23] = v5[22];
-			if (*((uint32_t*)v5 + 4)) {
-				v41 = (uint32_t*)*((uint32_t*)v5 + 12);
+			if (!sdata->items[ind].text[0] || !sdata->field_4) {
+				return 0;
+			}
+			v33 = (wchar_t**)sdata->field_12;
+			v34 = 0;
+			v35 = *v33;
+			if ((int)*v33 < 0) {
+				v33[v34] = ind;
+				sdata->field_12[v34 + 1] = -1;
+				return 0;
+			}
+			v36 = sdata->field_12;
+			while (v35 != ind) {
+				v35 = *(wchar_t**)(v36 + 4);
+				v36 += 4;
+				++v34;
+				if ((int)v35 < 0) {
+					v33[v34] = ind;
+					sdata->field_12[v34 + 1] = -1;
+					return 0;
+				}
+			}
+			sub_4A3090(sdata, v34);
+			return 0;
+		case 0x4016u:
+			ind = a3;
+			return sdata->items[ind].text;
+		case 0x4017u:
+			wstr = a3;
+			nox_wcsncpy(sdata->items[a4].text, wstr, 255);
+			sdata->items[a4].text[nox_wcslen(wstr)] = 0; // TODO: potential overflow
+			return 0;
+		case 0x4018u:
+			sdata->field_7 = a3;
+			return 0;
+		case 0x4019u:
+			sdata->field_8 = a3;
+			return 0;
+		case 0x401Au:
+			sdata->field_9 = a3;
+			return 0;
+		case 0x401Bu:
+			ind = a3;
+			v40 = sdata->field_11_0;
+			if (v40 < ind) {
+				return 0;
+			}
+			memmove(sdata->items, &sdata->items[ind], sizeof(nox_scrollListBox_item) * (unsigned int)(v40 - ind));
+			sdata->field_11_0 -= (short)ind;
+			sdata->field_11_1 = sdata->field_11_0;
+			if (sdata->field_4) {
+				v41 = sdata->field_12;
 				v42 = 0;
 				if ((int)*v41 >= 0) {
 					do {
 						v43 = v41[v42];
-						if ((int)a3 < v43) {
-							sub_4A3090(v5, v42--);
+						if (ind < v43) {
+							sub_4A3090(sdata, v42--);
 						} else {
-							v41[v42] = v43 - (uint32_t)a3;
+							v41[v42] = v43 - ind;
 						}
-						v41 = (uint32_t*)*((uint32_t*)v5 + 12);
+						v41 = (uint32_t*)sdata->field_12;
 						++v42;
 					} while ((int)v41[v42] >= 0);
 				}
 			} else {
-				v44 = *((uint32_t*)v5 + 12);
+				v44 = sdata->field_12;
 				if (v44 > 0) {
-					*((uint32_t*)v5 + 12) = v44 - (uint32_t)a3;
+					sdata->field_12 = v44 - ind;
 				}
 			}
-			if (v5[27] > 0) {
-				nox_xxx_wndListBox_4A2D10(a1, -(int)a3, 1);
+			if ((int)sdata->field_13_1 > 0) {
+				nox_xxx_wndListBox_4A2D10(win, -ind, 1);
 			}
-			nox_xxx_wndListBox_4A3A70(a1);
+			nox_xxx_wndListBox_4A3A70(win);
 			return 1;
 		case 0x401Cu:
-			if (a3) {
-				v5[27] = *(uint16_t*)(*((uint32_t*)v5 + 6) + 524 * (uint32_t)a3 - 524) + 1;
+			ind = a3;
+			if (ind) {
+				sdata->field_13_1 = sdata->items[ind - 1].field_0 + 1;
 			} else {
-				v5[27] = 0;
+				sdata->field_13_1 = 0;
 			}
-			v45 = v5[26];
-			v46 = *((uint32_t*)v5 + 10);
-			if (v5[27] + v45 >= v46) {
-				v5[27] = v46 - v45;
+			v45 = sdata->field_13_0;
+			v46 = sdata->field_10;
+			if (sdata->field_13_1 + v45 >= v46) {
+				sdata->field_13_1 = v46 - v45;
 			}
-			nox_xxx_wndListBox_4A2D10(a1, 0, 1);
+			nox_xxx_wndListBox_4A2D10(win, 0, 1);
 			return 0;
 		default:
 			return 0;
 		}
-		return result;
+		return 0; // unreachable
 	}
-	if (a2 == 16402) {
+	if (ev == 16402) {
 		if ((int)a3 >= 0) {
-			v32 = v5[22];
+			v32 = sdata->field_11_0;
 			if ((int)a3 <= v32) {
-				v5[23] = (short)a3;
+				sdata->field_11_1 = (short)a3;
 			} else {
-				v5[23] = v32;
+				sdata->field_11_1 = v32;
 			}
-			result = 0;
 		} else {
-			v5[23] = 0;
-			result = 0;
+			sdata->field_11_1 = 0;
 		}
-		return result;
+		return 0;
 	}
-	if (a2 > 0x4007) {
-		switch (a2) {
+	if (ev > 0x4007) {
+		switch (ev) {
 		case 0x4009u:
-			v29 = v5[26];
-			v30 = *(uint16_t*)(*(uint32_t*)(*((uint32_t*)v5 + 9) + 32) + 4) - a4;
-			v31 = *((uint32_t*)v5 + 10) - v29 + 1;
-			v5[27] = v30;
+			v29 = sdata->field_13_0;
+			v30 = *(uint16_t*)(*(uint32_t*)((uint32_t)sdata->field_9 + 32) + 4) - a4;
+			v31 = sdata->field_10 - v29 + 1;
+			sdata->field_13_1 = v30;
 			if (v30 > v31) {
-				v5[27] = v5[20] - v29 + 1;
+				sdata->field_13_1 = (int)sdata->field_10 - v29 + 1;
 			}
-			if ((int)v5[27] < 0) {
-				v5[27] = 0;
+			if ((int)sdata->field_13_1 < 0) {
+				sdata->field_13_1 = 0;
 			}
-			nox_xxx_wndListBox_4A2D10(a1, 0, 0);
+			nox_xxx_wndListBox_4A2D10(win, 0, 0);
 			return 0;
 		case 16397:
-			v18 = v5[23];
-			v19 = v5[22];
+			v18 = sdata->field_11_1;
+			v19 = sdata->field_11_0;
 			if (v18 != v19) {
-				if (v19 < *v5) {
+				if (v19 < (int)sdata->count) {
 					v20 = v19 - 1;
-					if (v20 < v18) {
-					LABEL_66:
-						nox_xxx_wndListBoxAddLine_4A3AC0(a3, a4, v4);
-						goto LABEL_67;
+					if (v20 >= v18) {
+						v21 = 524 * v20;
+						do {
+							--v20;
+							v22 = (uint32_t*)sdata->items + v21;
+							v21 -= 524;
+							memcpy((void*)(v22 + 524), (const void*)v22, 0x20Cu);
+						} while (v20 >= sdata->field_11_1);
+						v4 = win;
 					}
-					v21 = 524 * v20;
-					do {
-						--v20;
-						v22 = *((uint32_t*)v5 + 6) + v21;
-						v21 -= 524;
-						memcpy((void*)(v22 + 524), (const void*)v22, 0x20Cu);
-					} while (v20 >= v5[23]);
-				LABEL_65:
-					v4 = (uint32_t*)a1;
-					goto LABEL_66;
-				}
-				if (*((uint32_t*)v5 + 2)) {
-					nox_window_call_field_94(a1, 16411, 1, 0);
-					v23 = v5[22] - 1;
-					if (v23 < v5[23]) {
-						goto LABEL_66;
+					nox_xxx_wndListBoxAddLine_4A3AC0(a3, a4, v4);
+				} else {
+					if (!sdata->field_2) {
+						return 0;
 					}
-					v24 = 524 * v23;
-					do {
-						--v23;
-						v25 = *((uint32_t*)v5 + 6) + v24;
-						v24 -= 524;
-						memcpy((void*)(v25 + 524), (const void*)v25, 0x20Cu);
-					} while (v23 >= v5[23]);
-					goto LABEL_65;
+					nox_window_call_field_94(win, 16411, 1, 0);
+					v23 = sdata->field_11_0 - 1;
+					if (v23 >= (int)sdata->field_11_1) {
+						v24 = 524 * v23;
+						do {
+							--v23;
+							v25 = (uint32_t)sdata->items + v24;
+							v24 -= 524;
+							memcpy((void*)(v25 + 524), (const void*)v25, 0x20Cu);
+						} while (v23 >= sdata->field_11_1);
+						v4 = win;
+					}
+					nox_xxx_wndListBoxAddLine_4A3AC0(a3, a4, v4);
 				}
-				return 0;
-			}
-			if (v18 >= *v5) {
-				if (!*((uint32_t*)v5 + 2)) {
+			} else if (v18 >= (int)sdata->count) {
+				if (!sdata->field_2) {
 					return 0;
 				}
-				nox_window_call_field_94(a1, 16411, 1, 0);
-				nox_xxx_wndListBoxAddLine_4A3AC0(a3, a4, (uint32_t*)a1);
+				nox_window_call_field_94(win, 16411, 1, 0);
+				nox_xxx_wndListBoxAddLine_4A3AC0(a3, a4, win);
 			} else {
-				nox_xxx_wndListBoxAddLine_4A3AC0(a3, a4, (uint32_t*)a1);
+				nox_xxx_wndListBoxAddLine_4A3AC0(a3, a4, win);
 			}
-		LABEL_67:
-			if (*((uint32_t*)v5 + 1)) {
-				while (*(uint32_t*)(*((uint32_t*)v5 + 6) + 524 * v5[23] - 524) >= v5[27] + v5[26]) {
-					nox_xxx_wndListBox_4A2D10((int)v4, 1, 1);
+			if (sdata->field_1) {
+				while (sdata->items[sdata->field_11_1 - 1].field_0 >= sdata->field_13_1 + sdata->field_13_0) {
+					nox_xxx_wndListBox_4A2D10(v4, 1, 1);
 				}
 			}
-			v26 = (uint32_t*)*((uint32_t*)v5 + 12);
-			if (*((uint32_t*)v5 + 4)) {
+			v26 = (uint32_t*)sdata->field_12;
+			if (sdata->field_4) {
 				if ((int)*v26 >= 0) {
 					v27 = 0;
 					do {
 						v28 = v26[v27];
-						if (v5[23] < v28) {
+						if ((int)sdata->field_11_1 < v28) {
 							v26[v27] = v28 + 1;
 						}
-						v26 = (uint32_t*)*((uint32_t*)v5 + 12);
+						v26 = (uint32_t*)sdata->field_12;
 						++v27;
 					} while ((int)v26[v27] >= 0);
 					return 1;
 				}
-			} else if (v5[23] < (int)v26) {
-				*((uint32_t*)v5 + 12) = (char*)v26 + 1;
+			} else if ((int)sdata->field_11_1 < (int)v26) {
+				sdata->field_12 = (char*)v26 + 1;
 			}
 			return 1;
 		case 0x400Eu:
-			v12 = v5[22];
-			if (v12 <= (int)a3) {
+			ind = a3;
+			v12 = sdata->field_11_0;
+			if (v12 <= ind) {
 				return 0;
 			}
-			memcpy((void*)(*((uint32_t*)v5 + 6) + 524 * (uint32_t)a3),
-				   (const void*)(*((uint32_t*)v5 + 6) + 524 * ((uint32_t)a3 + 1)),
-				   4 * ((unsigned int)(524 * (v12 - (uint32_t)a3 - 1)) >> 2));
-			v13 = --v5[22];
-			v5[23] = v13;
-			*(uint16_t*)(*((uint32_t*)v5 + 6) + 524 * v13 + 4) = 0;
-			if (*((uint32_t*)v5 + 4)) {
-				v14 = (uint32_t*)*((uint32_t*)v5 + 12);
+			memcpy(&sdata->items[ind], &sdata->items[ind + 1], sizeof(nox_scrollListBox_item) * (unsigned int)(v12 - ind - 1));
+			v13 = --sdata->field_11_0;
+			sdata->field_11_1 = v13;
+			sdata->items[v13].text[0] = 0;
+			if (sdata->field_4) {
+				v14 = (uint32_t*)sdata->field_12;
 				v15 = 0;
 				if ((int)*v14 >= 0) {
 					do {
 						v16 = (wchar_t*)v14[v15];
-						if ((int)a3 >= (int)v16) {
-							if (a3 == v16) {
-								sub_4A3090(v5, v15--);
+						if (ind >= (int)v16) {
+							if (ind == v16) {
+								sub_4A3090(sdata, v15--);
 							}
 						} else {
 							v14[v15] = (char*)v16 - 1;
 						}
-						v14 = (uint32_t*)*((uint32_t*)v5 + 12);
+						v14 = (uint32_t*)sdata->field_12;
 						++v15;
 					} while ((int)v14[v15] >= 0);
-					nox_xxx_wndListBox_4A3A70(a1);
+					nox_xxx_wndListBox_4A3A70(win);
 					return 0;
 				}
 			} else {
-				v17 = (wchar_t*)*((uint32_t*)v5 + 12);
-				if ((int)a3 < (int)v17) {
-					*((uint32_t*)v5 + 12) = (char*)v17 - 1;
-					nox_xxx_wndListBox_4A3A70(a1);
+				v17 = (wchar_t*)sdata->field_12;
+				if (ind < (int)v17) {
+					sdata->field_12 = (char*)v17 - 1;
+					nox_xxx_wndListBox_4A3A70(win);
 					return 0;
 				}
-				if (a3 == v17) {
-					*((uint32_t*)v5 + 12) = -1;
+				if (ind == v17) {
+					sdata->field_12 = -1;
 				}
 			}
-			nox_xxx_wndListBox_4A3A70(a1);
+			nox_xxx_wndListBox_4A3A70(win);
 			return 0;
 		case 0x400Fu:
-			memset(*((void**)v5 + 6), 0, 524 * (int)*v5);
-			if (a3 != (wchar_t*)1) {
-				v5[27] = 0;
+			memset(sdata->items, 0, sizeof(nox_scrollListBox_item) * (int)sdata->count);
+			if (a3 != 1) {
+				sdata->field_13_1 = 0;
 			}
-			if (*((uint32_t*)v5 + 4)) {
-				memset(*((void**)v5 + 12), 0xFFu, 4 * (int)*v5);
+			if (sdata->field_4) {
+				memset(sdata->field_12, 0xFF, 4 * (int)sdata->count);
 			} else {
-				*((uint32_t*)v5 + 12) = -1;
+				sdata->field_12 = -1;
 			}
-			v5[23] = 0;
-			v5[22] = 0;
-			*((uint32_t*)v5 + 10) = 0;
-			nox_xxx_wndListBox_4A2D10(a1, 0, 1);
+			sdata->field_11_1 = 0;
+			sdata->field_11_0 = 0;
+			sdata->field_10 = 0;
+			nox_xxx_wndListBox_4A2D10(win, 0, 1);
 			return 0;
 		default:
 			return 0;
 		}
 	}
-	if (a2 == 16391) {
-		if (a3 == *((wchar_t**)v5 + 7)) {
-			if (v5[27] > 0) {
-				nox_xxx_wndListBox_4A2D10(a1, -1, 1);
+	if (ev == 16391) {
+		if (a3 == sdata->field_7) {
+			if ((int)sdata->field_13_1 > 0) {
+				nox_xxx_wndListBox_4A2D10(win, -1, 1);
 				return 0;
 			}
-		} else if (a3 == *((wchar_t**)v5 + 8) && v5[26] + v5[27] <= *((uint32_t*)v5 + 10)) {
-			nox_xxx_wndListBox_4A2D10(a1, 1, 1);
+		} else if (a3 == sdata->field_8 && sdata->field_13_0 + sdata->field_13_1 <= sdata->field_10) {
+			nox_xxx_wndListBox_4A2D10(win, 1, 1);
 			return 0;
 		}
 		return 0;
 	}
-	if (a2 > 0x4000) {
-		if (a2 == 16385) {
-			nox_wcsncpy((wchar_t*)(a1 + 108), a3, 0x3Fu);
-			*(uint16_t*)(a1 + 2 * nox_wcslen(a3) + 108) = 0;
-			return 0;
+	if (ev == 16385) {
+		wstr = a3;
+		nox_wcsncpy(win->draw_data.text, wstr, 63);
+		win->draw_data.text[nox_wcslen(wstr)] = 0; // TODO: this may overflow
+		return 0;
+	}
+	if (ev == 16388) {
+		v9 = sdata->field_7;
+		if (v9) {
+			nox_window_setPos_46A9B0(v9, (int)a3 - v9[2], 0);
 		}
-		if (a2 == 16388) {
-			v9 = (uint32_t*)*((uint32_t*)v5 + 7);
-			if (v9) {
-				nox_window_setPos_46A9B0(v9, (int)a3 - v9[2], 0);
-			}
-			v10 = (uint32_t*)*((uint32_t*)v5 + 8);
-			if (v10) {
-				nox_window_setPos_46A9B0(v10, (int)a3 - v10[2], a4 - v10[3]);
-			}
-			v11 = (uint32_t*)*((uint32_t*)v5 + 9);
-			if (v11) {
-				nox_window_setPos_46A9B0(v11, (int)a3 - v11[2], *(uint32_t*)(*((uint32_t*)v5 + 7) + 12));
-				sub_46AB20(*((uint32_t**)v5 + 9), *(uint32_t*)(*((uint32_t*)v5 + 9) + 8),
-						   a4 - 2 * *(uint32_t*)(*(uint32_t*)(*((uint32_t*)v5 + 9) + 400) + 12));
-			}
-			v5[26] = a4;
-			if (*(uint16_t*)(a1 + 108)) {
-				v5[26] -= nox_xxx_guiFontHeightMB_43F320(*(uint32_t*)(a1 + 236));
+		v10 = sdata->field_8;
+		if (v10) {
+			nox_window_setPos_46A9B0(v10, (int)a3 - v10[2], a4 - v10[3]);
+		}
+		v11 = sdata->field_9;
+		if (v11) {
+			nox_window_setPos_46A9B0(v11, (int)a3 - v11[2], *(uint32_t*)((uint32_t)sdata->field_7 + 12));
+			sub_46AB20(sdata->field_9, *(uint32_t*)((uint32_t)sdata->field_9 + 8),
+					   a4 - 2 * *(uint32_t*)(*(uint32_t*)((uint32_t)sdata->field_9 + 400) + 12));
+		}
+		sdata->field_13_0 = a4;
+		if (win->draw_data.text[0]) {
+			sdata->field_13_0 -= nox_xxx_guiFontHeightMB_43F320(win->draw_data.font);
+		}
+		return 0;
+	}
+	if (ev > 0x4000) {
+		return 0;
+	}
+	if (ev == 0x4000) {
+		if (a3 == sdata->field_7) {
+			if ((int)sdata->field_13_1 > 0) {
+				nox_xxx_wndListBox_4A2D10(win, -1, 1);
 				return 0;
 			}
-		}
-		return 0;
-	}
-	if (a2 == 0x4000) {
-		if (a3 == *((wchar_t**)v5 + 7)) {
-			if (v5[27] > 0) {
-				nox_xxx_wndListBox_4A2D10(a1, -1, 1);
-				return 0;
-			}
-		} else if (a3 == *((wchar_t**)v5 + 8) && v5[26] + v5[27] <= *((uint32_t*)v5 + 10)) {
-			nox_xxx_wndListBox_4A2D10(a1, 1, 1);
+		} else if (a3 == sdata->field_8 && sdata->field_13_0 + sdata->field_13_1 <= sdata->field_10) {
+			nox_xxx_wndListBox_4A2D10(win, 1, 1);
 			return 0;
 		}
 		return 0;
 	}
-	if (a2 != 2) {
-		if (a2 == 23) {
-			v6 = *(uint32_t*)(a1 + 36);
-			if (a3) {
-				LOBYTE(v6) = v6 | 2;
-			} else {
-				LOBYTE(v6) = v6 & 0xFD;
+	if (ev == 2) {
+		if (sdata) {
+			free(sdata->items);
+			if (sdata->field_4) {
+				free(sdata->field_12);
 			}
-			*(uint32_t*)(a1 + 36) = v6;
-			v7 = nox_xxx_wndGetID_46B0A0((int*)a1);
-			nox_window_call_field_94(*(uint32_t*)(a1 + 52), 16387, (int)a3, v7);
-			return 1;
+			free(sdata);
 		}
+		win->field_8 = 0;
 		return 0;
 	}
-	free(*((void**)v5 + 6));
-	if (*((uint32_t*)v5 + 4)) {
-		free(*((void**)v5 + 12));
+	if (ev == 23) {
+		if (a3) {
+			win->draw_data.field_0 |= 2;
+		} else {
+			win->draw_data.field_0 &= 0xFFFFFFFD;
+		}
+		int v7 = nox_xxx_wndGetID_46B0A0(win);
+		nox_window_call_field_94(win->draw_data.win, 16387, a3, v7);
+		return 1;
 	}
-	free(v5);
 	return 0;
 }
 
