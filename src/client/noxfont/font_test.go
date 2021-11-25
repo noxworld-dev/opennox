@@ -15,14 +15,11 @@ import (
 	"github.com/stretchr/testify/require"
 	"golang.org/x/image/font"
 
-	"nox/v1/common/datapath"
+	"nox/v1/common/noxtest"
 )
 
 func TestFonts(t *testing.T) {
-	path := datapath.Path()
-	if _, err := os.Stat(filepath.Join(path, DefaultName+Ext)); os.IsNotExist(err) {
-		t.Skip("no Nox installation detected")
-	}
+	path := noxtest.DataPath(t)
 	hashes := []string{
 		"cbd1d358dc83570f64184a4ac562af12",
 		"1539531c8ab5044fd73d89d8729e0e2f",

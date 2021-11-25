@@ -1,7 +1,6 @@
 package balance
 
 import (
-	"path/filepath"
 	"testing"
 
 	"github.com/stretchr/testify/require"
@@ -10,7 +9,7 @@ import (
 )
 
 func TestReadBalance(t *testing.T) {
-	f, err := ReadBalance(filepath.Join(noxtest.DataPath(t), GamedataFile))
+	f, err := ReadBalance(noxtest.DataPath(t, GamedataFile))
 	require.NoError(t, err)
 	require.Equal(t, float64(0.2), f.FloatDef("", "BerserkerPainRatio", -1))
 	require.Equal(t, float64(0.2), f.FloatDef(TagSolo, "BerserkerPainRatio", -1))
