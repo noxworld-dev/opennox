@@ -5412,7 +5412,7 @@ char* nox_xxx_mapCliReadAll_4AC2B0(char* a1) {
 			nox_xxx_fileCryptReadCrcMB_426C20(&v8, 4u);
 			v4 = 0;
 			if (!strcmp(v12, "ObjectData")) {
-				sub_426F40(0, v12, &v4, (int (*)(int))nox_client_mapSpecialRWObjectData_4AC610);
+				nox_xxx_mapReadSectionSpecial_426F40(0, "ObjectData", &v4, nox_client_mapSpecialRWObjectData_4AC610);
 			} else if (nox_common_gameFlags_check_40A5C0(1)) {
 				sub_426AA0(v8);
 			} else {
