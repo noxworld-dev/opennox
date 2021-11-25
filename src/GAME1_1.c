@@ -95,6 +95,32 @@ extern unsigned int nox_frame_xxx_2598000;
 uint32_t dword_5d4594_527684 = 0;
 #endif // NOX_CGO
 
+typedef struct {
+	const char* name;
+	int (*fnc)(void*);
+} nox_map_sections_rec;
+
+nox_map_sections_rec nox_map_sections[] = {
+    {"MapInfo", &nox_server_mapRWMapInfo_42A6E0},
+    {"WallMap", &nox_server_mapRWWallMap_429B20},
+    {"FloorMap", &nox_server_mapRWFloorMap_422230},
+    {"SecretWalls", &nox_server_mapRWSecretWalls_4297C0},
+    {"DestructableWalls", &nox_server_mapRWDestructableWalls_429530},
+    {"WayPoints", &nox_server_mapRWWaypoints_506260},
+    {"DebugData", &nox_server_mapRWDebugData_5060D0},
+    {"WindowWalls", &nox_server_mapRWWindowWalls_4292C0},
+    {"GroupData", &nox_server_mapRWGroupData_505C30},
+    {"ScriptObject", &nox_server_mapRWScriptObject_505A40},
+    {"AmbientData", &nox_server_mapRWAmbientData_429200},
+    {"Polygons", &nox_server_mapRWPolygons_428CD0},
+    {"MapIntro", &nox_server_mapRWMapIntro_505080},
+    {"ScriptData", &nox_server_mapRWScriptData_504F90},
+    {"ObjectTOC", &nox_server_mapRWObjectTOC_428B30},
+    {"ObjectData", &nox_server_mapRWObjectData_504CF0},
+    {0},
+};
+int nox_map_sections_cnt = sizeof(nox_map_sections) / sizeof(nox_map_sections_rec) -1;
+
 //----- (004187A0) --------------------------------------------------------
 char sub_4187A0() {
 	int i;    // ebx
@@ -9442,12 +9468,8 @@ int sub_4268B0(int a1) {
 }
 
 //----- (00426A20) --------------------------------------------------------
-int sub_426A20(int a1) {
-	int result; // eax
-
-	result = a1;
+void sub_426A20(int a1) {
 	*getMemU32Ptr(0x5D4594, 739992) = a1;
-	return result;
 }
 
 //----- (00426A30) --------------------------------------------------------
@@ -9457,115 +9479,66 @@ int nox_xxx_wallGet_426A30() { return *getMemU32Ptr(0x5D4594, 739992); }
 char* nox_xxx_mapGetWallSize_426A70() { return (char*)getMemAt(0x5D4594, 739980); }
 
 //----- (00426A80) --------------------------------------------------------
-int* nox_xxx_mapWall_426A80(int* a1) {
-	int* result; // eax
-
-	result = a1;
-	*getMemU32Ptr(0x5D4594, 739980) = *a1;
+void nox_xxx_mapWall_426A80(int* a1) {
+	*getMemU32Ptr(0x5D4594, 739980) = a1[0];
 	*getMemU32Ptr(0x5D4594, 739984) = a1[1];
-	return result;
 }
 
 //----- (00426E20) --------------------------------------------------------
-int nox_xxx_mapWriteSectionsMB_426E20(int a1) {
-	int v1;            // ebp
-	const char** v2;   // ebx
-	unsigned char* v3; // esi
-	int v6;            // eax
-
-	if (!*getMemU32Ptr(0x587000, 70168)) {
-		return 1;
-	}
-	v1 = a1;
-	v2 = (const char**)getMemAt(0x587000, 70168);
-	v3 = getMemAt(0x587000, 70168);
-	while (1) {
-		LOBYTE(a1) = strlen(*v2) + 1;
-		nox_xxx_fileReadWrite_426AC0_file3_fread(&a1, 1u);
-		nox_xxx_fileReadWrite_426AC0_file3_fread(*v2, (unsigned char)a1);
+int nox_xxx_mapWriteSectionsMB_426E20(void* a1) {
+	for (int i = 0; i < nox_map_sections_cnt; i++) {
+		nox_map_sections_rec* sect = &nox_map_sections[i];
+		unsigned char a1b = strlen(sect->name) + 1;
+		nox_xxx_fileReadWrite_426AC0_file3_fread(&a1b, 1u);
+		nox_xxx_fileReadWrite_426AC0_file3_fread(sect->name, a1b);
 		nox_xxx_crypt_426C90();
-		if (!(*((int (**)(int))v3 + 1))(v1)) {
-			break;
+		if (!sect->fnc(a1)) {
+			return 0;
 		}
 		nox_xxx_crypt_426D40();
-		v6 = *((uint32_t*)v3 + 2);
-		v3 += 8;
-		v2 = (const char**)v3;
-		if (!v6) {
-			return 1;
-		}
 	}
-	return 0;
+	return 1;
 }
 // 426E69: variable 'v4' is possibly undefined
 // 426E79: variable 'v5' is possibly undefined
 
 //----- (00426EA0) --------------------------------------------------------
-int nox_xxx_mapReadSection_426EA0(int a1, const char* a2, uint32_t* a3) {
-	int v3;            // ebp
-	const char* v4;    // eax
-	unsigned char* v5; // edi
-
-	v3 = 0;
+int nox_xxx_mapReadSection_426EA0(void* a1, const char* name, uint32_t* a3) {
 	*a3 = 0;
-	v4 = *(const char**)getMemAt(0x587000, 70168);
-	if (!*getMemU32Ptr(0x587000, 70168)) {
-		return *getMemU32Ptr(0x587000, 70168 + 8 * v3) != 0;
-	}
-	v5 = getMemAt(0x587000, 70168);
-	while (strcmp(v4, a2)) {
-		v4 = (const char*)*((uint32_t*)v5 + 2);
-		v5 += 8;
-		++v3;
-		if (!v4) {
-			return *getMemU32Ptr(0x587000, 70168 + 8 * v3) != 0;
+	for (int i = 0; i < nox_map_sections_cnt; i++) {
+		nox_map_sections_rec* sect = &nox_map_sections[i];
+		if (!strcmp(sect->name, name)) {
+			if (!sect->fnc(a1)) {
+				*a3 = 1;
+				nox_xxx_cryptClose_4269F0();
+				return 0;
+			}
+			return 1;
 		}
 	}
-	if ((*(int (**)(int))getMemAt(0x587000, 70172 + 8 * v3))(a1)) {
-		return *getMemU32Ptr(0x587000, 70168 + 8 * v3) != 0;
-	}
-	*a3 = 1;
-	nox_xxx_cryptClose_4269F0();
 	return 0;
 }
 
 //----- (00426F40) --------------------------------------------------------
-int sub_426F40(int a1, const char* a2, uint32_t* a3, int (*a4)(int)) {
-	int result;        // eax
-	const char* v5;    // eax
-	int v6;            // ebp
-	unsigned char* v7; // edi
-
-	*a3 = 0;
-	if (a4) {
-		v5 = *(const char**)getMemAt(0x587000, 70168);
-		v6 = 0;
-		if (!*getMemU32Ptr(0x587000, 70168)) {
-			goto LABEL_7;
-		}
-		v7 = getMemAt(0x587000, 70168);
-		while (strcmp(v5, a2)) {
-			v5 = (const char*)*((uint32_t*)v7 + 2);
-			v7 += 8;
-			++v6;
-			if (!v5) {
-				goto LABEL_7;
-			}
-		}
-		if (a4(a1)) {
-		LABEL_7:
-			result = *getMemU32Ptr(0x587000, 70168 + 8 * v6) != 0;
-		} else {
-			*a3 = 1;
-			nox_xxx_cryptClose_4269F0();
-			result = 0;
-		}
-	} else {
-		*a3 = 1;
+int nox_xxx_mapReadSectionSpecial_426F40(void* a1, const char* name, int* err, int (*fnc)(int)) {
+	*err = 0;
+	if (fnc == 0) {
+		*err = 1;
 		nox_xxx_cryptClose_4269F0();
-		result = 0;
+		return 0;
 	}
-	return result;
+	for (int i = 0; i < nox_map_sections_cnt; i++) {
+		nox_map_sections_rec* sect = &nox_map_sections[i];
+		if (!strcmp(sect->name, name)) {
+			if (!fnc(a1)) {
+				*err = 1;
+				nox_xxx_cryptClose_4269F0();
+				return 0;
+			}
+			return 1;
+		}
+	}
+	return nox_map_sections_cnt == 0;
 }
 
 //----- (00427010) --------------------------------------------------------

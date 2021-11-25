@@ -363,14 +363,14 @@ char* sub_426680(int a1, char* a2);
 char* sub_426740(int a1, char* a2);
 int sub_426840(const void* a1, const void* a2);
 int sub_4268B0(int a1);
-int sub_426A20(int a1);
+void sub_426A20(int a1);
 int nox_xxx_wallGet_426A30();
 int nox_xxx_cryptGet_426A40();
 char* nox_xxx_mapGetWallSize_426A70();
-int* nox_xxx_mapWall_426A80(int* a1);
+void nox_xxx_mapWall_426A80(int* a1);
 int sub_426BD0(unsigned char* a1, int a2);
-int nox_xxx_mapWriteSectionsMB_426E20(int a1);
-int nox_xxx_mapReadSection_426EA0(int a1, const char* a2, uint32_t* a3);
+int nox_xxx_mapWriteSectionsMB_426E20(void* a1);
+int nox_xxx_mapReadSection_426EA0(void* a1, const char* name, uint32_t* a3);
 int nox_xxx_guide_427010(const char* a1);
 char* nox_xxx_guideNameByN_427230(int a1);
 int nox_xxx_guiCreatureGetName_427240(int a1);
@@ -407,7 +407,7 @@ int sub_427DF0(int a1, int* a2, float a3);
 
 int sub_420B70(uint32_t* a1, uint32_t* a2, int (*a3)(uint32_t, int), int a4);
 int sub_426600(int a1, void (*a2)(uint32_t, uint32_t));
-int sub_426F40(int a1, const char* a2, uint32_t* a3, int (*a4)(int));
+int nox_xxx_mapReadSectionSpecial_426F40(void* a1, const char* name, int* err, int (*fnc)(int));
 void set_bitmask_flags_from_plus_separated_names_423930(const char* input, uint32_t* bitmask,
 														const char** allowed_names);
 
