@@ -80,7 +80,7 @@ var casesMapInfo = []Info{
 }
 
 func TestReadFileInfo(t *testing.T) {
-	path := filepath.Join(noxtest.DataPath(t), Dir)
+	path := noxtest.DataPath(t, Dir)
 	for _, m := range casesMapInfo {
 		t.Run(m.Filename, func(t *testing.T) {
 			info, err := ReadMapInfo(filepath.Join(path, m.Filename))
@@ -91,7 +91,7 @@ func TestReadFileInfo(t *testing.T) {
 }
 
 func TestReadFile(t *testing.T) {
-	path := filepath.Join(noxtest.DataPath(t), Dir)
+	path := noxtest.DataPath(t, Dir)
 	for _, m := range casesMapInfo {
 		t.Run(m.Filename, func(t *testing.T) {
 			f, err := fs.Open(filepath.Join(path, m.Filename, m.Filename+Ext))

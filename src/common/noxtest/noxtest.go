@@ -6,8 +6,8 @@ import (
 	"nox/v1/common/datapath"
 )
 
-func DataPath(t testing.TB) string {
-	path := datapath.Path()
+func DataPath(t testing.TB, sub ...string) string {
+	path := datapath.Path(sub...)
 	if path == "" {
 		t.Skip("cannot detect Nox path and NOX_DATA is not set")
 	}
