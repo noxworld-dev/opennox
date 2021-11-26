@@ -97,27 +97,6 @@ func Scan(path string, opts *ScanOptions) (MapList, error) {
 	return list, last
 }
 
-type Info struct {
-	Filename      string `json:"name"`
-	Size          int    `json:"size"`
-	Format        int    `json:"format,omitempty"`
-	Summary       string `json:"summary,omitempty"`        // 0 [64]
-	Description   string `json:"description,omitempty"`    // 64 [512]
-	Version       string `json:"version,omitempty"`        // 576 [16]
-	Author        string `json:"author,omitempty"`         // 592 [64]
-	Email         string `json:"email,omitempty"`          // 656 [64]
-	Author2       string `json:"author_2,omitempty"`       // 720 [128]
-	Email2        string `json:"email_2,omitempty"`        // 848 [128]
-	Field7        string `json:",omitempty"`               // 976 [256]
-	Copyright     string `json:"copyright,omitempty"`      // 1232 [128]
-	Date          string `json:"date_str,omitempty"`       // 1360 [32]
-	Flags         uint32 `json:"flags,omitempty"`          // 1392
-	MinPlayers    byte   `json:"min_players,omitempty"`    // 1396
-	MaxPlayers    byte   `json:"max_players,omitempty"`    // 1397
-	QuestIntro    string `json:"quest_intro,omitempty"`    // 1398
-	QuestGraphics string `json:"quest_graphics,omitempty"` // 1430
-}
-
 func ReadMapInfo(dir string) (*Info, error) {
 	name := filepath.Base(dir)
 	path := filepath.Join(dir, name+Ext)
@@ -143,4 +122,31 @@ func ReadMapInfo(dir string) (*Info, error) {
 		info.Size = int(fi.Size())
 	}
 	return info, err
+}
+
+func ReadMap(dir string) (*Map, error) {
+	name := filepath.Base(dir)
+	path := filepath.Join(dir, name+Ext)
+	rc, err := fs.Open(path)
+	if err != nil {
+		return nil, err
+	}
+	defer rc.Close()
+
+	fi, err := rc.Stat()
+	if err != nil {
+		return nil, err
+	}
+
+	r, err := NewReader(rc)
+	if err != nil {
+		return nil, err
+	}
+	err = r.ReadSections()
+	m := r.Map()
+	if m != nil {
+		m.Info.Filename = name
+		m.Info.Size = int(fi.Size())
+	}
+	return m, err
 }

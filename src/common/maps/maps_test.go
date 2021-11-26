@@ -1,17 +1,18 @@
-package maps
+package maps_test
 
 import (
-	"io"
+	"bytes"
 	"path/filepath"
 	"testing"
 
 	"github.com/stretchr/testify/require"
 
-	"nox/v1/common/fs"
+	"nox/v1/common/maps"
 	"nox/v1/common/noxtest"
+	"nox/v1/server/script/noxscript"
 )
 
-var casesMapInfo = []Info{
+var casesMapInfo = []maps.Info{
 	{
 		Filename:    "con01a",
 		Size:        167256,
@@ -80,10 +81,10 @@ var casesMapInfo = []Info{
 }
 
 func TestReadFileInfo(t *testing.T) {
-	path := noxtest.DataPath(t, Dir)
+	path := noxtest.DataPath(t, maps.Dir)
 	for _, m := range casesMapInfo {
 		t.Run(m.Filename, func(t *testing.T) {
-			info, err := ReadMapInfo(filepath.Join(path, m.Filename))
+			info, err := maps.ReadMapInfo(filepath.Join(path, m.Filename))
 			require.NoError(t, err)
 			require.Equal(t, m, *info)
 		})
@@ -91,17 +92,23 @@ func TestReadFileInfo(t *testing.T) {
 }
 
 func TestReadFile(t *testing.T) {
-	path := noxtest.DataPath(t, Dir)
+	path := noxtest.DataPath(t, maps.Dir)
 	for _, m := range casesMapInfo {
 		t.Run(m.Filename, func(t *testing.T) {
-			f, err := fs.Open(filepath.Join(path, m.Filename, m.Filename+Ext))
+			mp, err := maps.ReadMap(filepath.Join(path, m.Filename))
 			require.NoError(t, err)
-			defer f.Close()
-			r, err := NewReader(f)
-			require.NoError(t, err)
-			err = r.ReadSections()
-			off, _ := f.Seek(0, io.SeekCurrent)
-			require.NoError(t, err, "off: %d (0x%x)", off, off)
+			for _, s := range mp.Unknown {
+				t.Logf("unknwon section: %q [%d]", s.Name, len(s.Data))
+			}
+			if mp.Script != nil {
+				if len(mp.Script.Data) == 0 {
+					t.Logf("script [%d]", len(mp.Script.Data))
+				} else {
+					sc, err := noxscript.ReadScript(bytes.NewReader(mp.Script.Data))
+					require.NoError(t, err)
+					t.Logf("script [%d]: %d funcs, %d strings", len(mp.Script.Data), len(sc.Funcs), len(sc.Strings))
+				}
+			}
 		})
 	}
 }

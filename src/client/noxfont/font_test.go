@@ -2,12 +2,8 @@ package noxfont
 
 import (
 	"bytes"
-	"crypto/md5"
-	"encoding/hex"
 	"image"
 	"image/color"
-	"image/png"
-	"io"
 	"os"
 	"path/filepath"
 	"testing"
@@ -53,18 +49,8 @@ func TestFonts(t *testing.T) {
 					Face: fnt,
 				}
 				dr.DrawString(text)
-				writePNG(t, name+".png", img, hashes[i])
+				noxtest.WritePNG(t, name+".png", img, hashes[i])
 			})
 		})
 	}
-}
-
-func writePNG(t testing.TB, path string, img image.Image, exp string) {
-	f, err := os.Create(path)
-	require.NoError(t, err)
-	defer f.Close()
-	h := md5.New()
-	err = png.Encode(io.MultiWriter(f, h), img)
-	require.NoError(t, err)
-	require.Equal(t, exp, hex.EncodeToString(h.Sum(nil)))
 }
