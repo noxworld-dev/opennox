@@ -15,12 +15,9 @@ type Reader struct {
 	r        io.Reader
 	err      error
 	limited  bool
-	crc      uint32
 	wallOffX uint32
 	wallOffY uint32
-	info     *Info
-	walls    *wallMap
-	floor    *floorMap
+	m        *Map
 }
 
 func NewReader(r io.Reader) (*Reader, error) {
@@ -35,8 +32,15 @@ func NewReader(r io.Reader) (*Reader, error) {
 	return rd, nil
 }
 
+func (r *Reader) Map() *Map {
+	return r.m
+}
+
 func (r *Reader) Info() *Info {
-	return r.info
+	if r.m == nil {
+		return nil
+	}
+	return &r.m.Info
 }
 
 func (r *Reader) error() error {
@@ -149,6 +153,7 @@ func (r *Reader) readAlignedString8() string {
 }
 
 func (r *Reader) readHeader() error {
+	r.m = &Map{}
 	magic := r.readU32()
 	if err := r.error(); err != nil {
 		return fmt.Errorf("cannot read magic: %w", err)
@@ -157,7 +162,7 @@ func (r *Reader) readHeader() error {
 	case 0xFADEBEEF:
 		// nop
 	case 0xFADEFACE:
-		r.crc = r.readAlignedU32()
+		r.m.crc = r.readAlignedU32()
 		if err := r.error(); err != nil {
 			return fmt.Errorf("cannot read crc: %w", err)
 		}
@@ -180,7 +185,7 @@ func (r *Reader) ReadInfo() (*Info, error) {
 		return nil, fmt.Errorf("unexpected section: %q", sect)
 	}
 	err = r.readMapInfo()
-	return r.info, err
+	return r.Info(), err
 }
 
 func (r *Reader) nextSection() (string, error) {
@@ -208,7 +213,9 @@ func (r *Reader) nextSection() (string, error) {
 func (r *Reader) ReadSections() error {
 	for {
 		sect, err := r.nextSection()
-		if err != nil {
+		if err == io.EOF {
+			return nil
+		} else if err != nil {
 			return err
 		}
 		switch sect {
@@ -218,10 +225,19 @@ func (r *Reader) ReadSections() error {
 			err = r.readWallMap()
 		case "FloorMap":
 			err = r.readFloorMap()
-		//case "SecretWalls":
-		//	err = r.readSecretWalls()
+		case "ScriptObject":
+			err = r.readScript()
+		case "ScriptData":
+			err = r.readScriptData()
 		default:
-			return fmt.Errorf("unhandled section: %q", sect)
+			data, err := io.ReadAll(r.r)
+			if err != nil {
+				return err
+			}
+			r.m.Unknown = append(r.m.Unknown, UnknownSect{
+				Name: sect,
+				Data: data,
+			})
 		}
 		if err != nil {
 			return err
@@ -234,7 +250,7 @@ func (r *Reader) readMapInfo() error {
 	if err := r.error(); err != nil {
 		return fmt.Errorf("cannot read info version: %w", err)
 	}
-	r.info = &Info{Format: int(vers)}
+	r.m.Info = Info{Format: int(vers)}
 	if vers > 3 {
 		return fmt.Errorf("unsupported version: %d", vers)
 	}
@@ -243,16 +259,16 @@ func (r *Reader) readMapInfo() error {
 			p   *string
 			max int
 		}{
-			{&r.info.Summary, 64},
-			{&r.info.Description, 512},
-			{&r.info.Version, 16},
-			{&r.info.Author, 64},
-			{&r.info.Email, 192},
-			{&r.info.Author2, 64},
-			{&r.info.Email2, 192},
-			{&r.info.Field7, 128},
-			{&r.info.Copyright, 128},
-			{&r.info.Date, 32},
+			{&r.m.Info.Summary, 64},
+			{&r.m.Info.Description, 512},
+			{&r.m.Info.Version, 16},
+			{&r.m.Info.Author, 64},
+			{&r.m.Info.Email, 192},
+			{&r.m.Info.Author2, 64},
+			{&r.m.Info.Email2, 192},
+			{&r.m.Info.Field7, 128},
+			{&r.m.Info.Copyright, 128},
+			{&r.m.Info.Date, 32},
 		} {
 			s := r.readStringFixed(f.max)
 			if err := r.error(); err != nil {
@@ -260,57 +276,30 @@ func (r *Reader) readMapInfo() error {
 			}
 			*f.p = s
 		}
-		r.info.Flags = r.readU32()
+		r.m.Info.Flags = r.readU32()
 		if err := r.error(); err != nil {
 			return fmt.Errorf("cannot read info: %w", err)
 		}
 		if vers == 2 {
-			r.info.MinPlayers = r.readU8()
-			r.info.MaxPlayers = r.readU8()
+			r.m.Info.MinPlayers = r.readU8()
+			r.m.Info.MaxPlayers = r.readU8()
 			if err := r.error(); err != nil {
 				return fmt.Errorf("cannot read info: %w", err)
 			}
 		} else {
-			r.info.MinPlayers = 2
-			r.info.MaxPlayers = 16
+			r.m.Info.MinPlayers = 2
+			r.m.Info.MaxPlayers = 16
 		}
 	}
 	if vers < 3 {
 		return nil
 	}
-	r.info.QuestIntro = r.readString8()
-	r.info.QuestGraphics = r.readString8()
+	r.m.Info.QuestIntro = r.readString8()
+	r.m.Info.QuestGraphics = r.readString8()
 	if err := r.error(); err != nil {
 		return err
 	}
 	return nil
-}
-
-type gridData struct {
-	prefix uint16
-	var1   uint32
-	var2   uint32
-	var3   uint32
-	var4   uint32
-}
-
-type WallPos struct {
-	X, Y byte
-}
-
-type wallMap struct {
-	grid gridData
-	loc  map[WallPos]*Wall
-	list []*Wall
-}
-
-type Wall struct {
-	Pos      WallPos
-	Dir      byte
-	Material byte
-	Variant  byte
-	Minimap  byte
-	Modified byte
 }
 
 func (r *Reader) readMapGrid() (*gridData, error) {
@@ -331,7 +320,7 @@ func (r *Reader) readWallMap() error {
 	if err != nil {
 		return err
 	}
-	r.walls = &wallMap{
+	r.m.walls = &wallMap{
 		grid: *grid,
 		loc:  make(map[WallPos]*Wall),
 	}
@@ -342,8 +331,8 @@ func (r *Reader) readWallMap() error {
 		} else if w == nil {
 			break
 		}
-		r.walls.list = append(r.walls.list, w)
-		r.walls.loc[w.Pos] = w
+		r.m.walls.list = append(r.m.walls.list, w)
+		r.m.walls.loc[w.Pos] = w
 	}
 	return nil
 }
@@ -363,7 +352,7 @@ func (r *Reader) readWall() (*Wall, error) {
 	}
 	w := &Wall{Pos: WallPos{X: x, Y: y}}
 	w.Dir = r.readU8()
-	//w.Dir &= 0x7f // TODO: check in the engine
+	w.Dir &= 0x7f // TODO: check in the engine
 	w.Material = r.readU8()
 	w.Variant = r.readU8()
 	w.Minimap = r.readU8()
@@ -389,7 +378,7 @@ func (r *Reader) readFloorMap() error {
 	} else if grid.prefix <= 3 {
 		return fmt.Errorf("unsupported floor map: 0x%x", grid.prefix)
 	}
-	r.floor = &floorMap{
+	r.m.floor = &floorMap{
 		grid: *grid,
 	}
 	for {
@@ -490,10 +479,42 @@ func (r *Reader) readTilePair() (tl, tr *Tile, _ error) {
 	return tl, tr, nil
 }
 
-//type SecretWall struct {
-//
-//}
-//
-//func (r *Reader) readSecretWalls() error {
-//
-//}
+func (r *Reader) readScript() error {
+	vers := int16(r.readU16())
+	if err := r.error(); err != nil {
+		return err
+	} else if vers != 1 {
+		return fmt.Errorf("unsupported version of script data section: %d", vers)
+	}
+	sz := r.readU32()
+	if err := r.error(); err != nil {
+		return err
+	}
+	data := make([]byte, sz)
+	_, err := io.ReadFull(r.r, data)
+	if err != nil {
+		return err
+	}
+	r.m.Script = &Script{Data: data}
+	return nil
+}
+
+func (r *Reader) readScriptData() error {
+	vers := r.readU16()
+	if err := r.error(); err != nil {
+		return err
+	} else if vers != 1 {
+		return fmt.Errorf("unsupported version of script data section: %d", vers)
+	}
+	has := r.readU8() != 0
+	if !has {
+		return r.error()
+	}
+	data, err := io.ReadAll(r.r)
+	if err != nil {
+		return err
+	}
+	// TODO: reading it requires access to script variables map
+	r.m.ScriptData = &ScriptData{Data: data}
+	return nil
+}
