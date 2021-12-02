@@ -7,6 +7,8 @@ import (
 	"os"
 
 	"github.com/spf13/cobra"
+
+	"nox/v1/internal/version"
 )
 
 var Root = &cobra.Command{
@@ -14,17 +16,25 @@ var Root = &cobra.Command{
 	Short: "A collection of Nox tools",
 }
 
-var (
-	Version = "v1.8.x"
-	Commit  = "<dev>"
-)
-
 func main() {
-	log.Printf("version: %s (%s)", Version, Commit)
+	log.Printf("version: %s (%s)", version.Version(), version.Commit())
 	if err := Root.Execute(); err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
 	}
+}
+
+func init() {
+	cmdEnv := &cobra.Command{
+		Use:   "env",
+		Short: "Prints environment variables",
+		Run: func(cmd *cobra.Command, args []string) {
+			for _, env := range os.Environ() {
+				fmt.Println(env)
+			}
+		},
+	}
+	Root.AddCommand(cmdEnv)
 }
 
 func writeJSON(path string, data interface{}, pretty bool) error {

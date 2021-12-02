@@ -19,6 +19,9 @@ func cleanPath(path string) string {
 func tryPaths(paths []string) []string {
 	var out []string
 	for _, pref := range pathPrefixes() {
+		if pref == "" {
+			continue
+		}
 		for _, path := range paths {
 			fpath := filepath.Join(pref, path)
 			fpath = cleanPath(fpath)
@@ -38,7 +41,13 @@ func pathPrefixes() []string {
 	if err != nil {
 		return nil
 	}
+	// Linux Snapcraft installation replaces HOME variable
+	if rhome := os.Getenv("SNAP_REAL_HOME"); rhome != "" {
+		home = rhome
+	}
 	return []string{
+		// Linux Snapcraft installation user common dir
+		os.Getenv("SNAP_USER_COMMON"),
 		// Wine default paths
 		filepath.Join(home, ".wine/drive_c"),
 		filepath.Join(home, ".wine/drive_d"),

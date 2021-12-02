@@ -1,0 +1,184 @@
+package main
+
+import (
+	"flag"
+	"fmt"
+	"os"
+	"os/exec"
+	"path/filepath"
+	"runtime"
+	"strconv"
+	"strings"
+	"time"
+
+	"nox/v1/internal/vers/git"
+)
+
+const (
+	BinOpenNox   = "opennox"
+	BinOpenNoxHD = "opennox-hd"
+	BinServer    = "opennox-server"
+	BinTools     = "noxtools"
+)
+
+const (
+	versPackage = "nox/v1/internal/version"
+)
+
+var (
+	defTargets = []string{
+		BinOpenNox, BinOpenNoxHD, BinServer, BinTools,
+	}
+	fOut = flag.String("o", "", "output directory")
+	fSrc = flag.String("s", "", "source directory")
+	fOS  = flag.String("os", runtime.GOOS, "target OS to build for")
+)
+
+func main() {
+	flag.Parse()
+	if err := build(flag.Args()); err != nil {
+		fmt.Fprintln(os.Stderr, err)
+		os.Exit(1)
+	}
+}
+
+func build(args []string) error {
+	targets := args
+	if len(targets) == 0 {
+		targets = defTargets
+	}
+	start := time.Now()
+	// TODO: run in parallel
+	for _, target := range targets {
+		if err := buildTarget(target); err != nil {
+			return err
+		}
+	}
+	fmt.Printf("=== DONE in %v ===\n", time.Since(start))
+	vers, sha := git.Version()
+	fmt.Printf("version: %s (%s)\n", vers, sha)
+	return nil
+}
+
+func buildTarget(target string) error {
+	switch target {
+	default:
+		return fmt.Errorf("unsupported target: %q", target)
+	case BinTools, "tools":
+		return goBuild("noxtools", BinTools, nil)
+	case BinServer, "server":
+		return goBuild("opennox", BinServer, &buildOpts{
+			CGO: true, Tags: []string{"server"},
+		})
+	case BinOpenNox, "client":
+		return goBuild("opennox", BinOpenNox, &buildOpts{
+			CGO: true, GUI: true,
+		})
+	case BinOpenNoxHD, "client-hd", "hd":
+		return goBuild("opennox", BinOpenNoxHD, &buildOpts{
+			CGO: true, GUI: true, Tags: []string{"highres"},
+		})
+	}
+}
+
+type buildOpts struct {
+	CGO  bool
+	GUI  bool
+	Tags []string
+}
+
+func goBuild(cmd string, bin string, opts *buildOpts) error {
+	goos := *fOS
+	switch goos {
+	case "windows":
+		if filepath.Ext(bin) == "" {
+			bin += ".exe"
+		}
+	}
+	bin = filepath.Join(*fOut, bin)
+	isCross := goos != runtime.GOOS
+	if opts == nil {
+		opts = &buildOpts{}
+	}
+	wd, err := os.Getwd()
+	if err != nil {
+		return err
+	}
+	vers, sha := git.Version()
+	var (
+		LDFLAGS = []string{
+			"-X '" + versPackage + ".commit=" + sha + "'",
+			"-X '" + versPackage + ".version=" + vers + "'",
+		}
+		GCFLAGS  = "-trimpath=" + wd
+		ASMFLAGS = "-trimpath=" + wd
+	)
+	if opts.GUI {
+		switch goos {
+		case "windows":
+			LDFLAGS = append(LDFLAGS, "-H windowsgui")
+		}
+	}
+	var (
+		envs []string
+		args = []string{
+			"go", "build", "-v",
+			`-ldflags=` + strings.Join(LDFLAGS, " "),
+			"-gcflags=" + strconv.Quote(GCFLAGS),
+			"-asmflags=" + strconv.Quote(ASMFLAGS),
+		}
+	)
+	envs = append(envs,
+		"GOOS="+goos,
+	)
+	if opts.CGO {
+		envs = append(envs,
+			"GOARCH=386",
+			"CGO_ENABLED=1",
+			`CGO_CFLAGS_ALLOW=(-fshort-wchar)|(-fno-strict-aliasing)|(-fno-strict-overflow)`,
+		)
+		if isCross {
+			switch goos {
+			case "windows":
+				envs = append(envs,
+					"CXX_FOR_TARGET=i686-w64-mingw32-g++",
+					"CC_FOR_TARGET=i686-w64-mingw32-gcc",
+					"CC=i686-w64-mingw32-gcc",
+				)
+			}
+		}
+	} else {
+		envs = append(envs, "CGO_ENABLED=0")
+	}
+	if len(opts.Tags) != 0 {
+		args = append(args, "-tags", strings.Join(opts.Tags, ","))
+	}
+	src := filepath.Join(*fSrc, "cmd", cmd)
+	if !filepath.IsAbs(src) {
+		src = "." + string(filepath.Separator) + src
+	}
+	args = append(args,
+		"-o", bin,
+		src,
+	)
+	return doEnvs(wd, envs, args...)
+}
+
+func do(cmd ...string) error {
+	fmt.Println("+ " + strings.Join(cmd, " "))
+	c := exec.Command(cmd[0], cmd[1:]...)
+	c.Stdout = os.Stdout
+	c.Stderr = os.Stderr
+	c.Env = os.Environ()
+	return c.Run()
+}
+
+func doEnvs(wd string, envs []string, cmd ...string) error {
+	fmt.Println("+ " + strings.Join(cmd, " "))
+	c := exec.Command(cmd[0], cmd[1:]...)
+	c.Dir = wd
+	c.Stdout = os.Stdout
+	c.Stderr = os.Stderr
+	c.Env = append(os.Environ(), envs...)
+	return c.Run()
+}

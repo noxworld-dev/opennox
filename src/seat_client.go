@@ -16,6 +16,7 @@ import (
 	"nox/v1/client/seat/sdl"
 	"nox/v1/common/env"
 	"nox/v1/common/types"
+	"nox/v1/internal/version"
 )
 
 var (
@@ -112,7 +113,7 @@ func setKeyFlag(key keybind.Key, val bool) {
 }
 
 func newSeat(sz types.Size) (seat.Seat, error) {
-	sst, err := sdl.New("OpenNox "+ClientVersionString(), sz)
+	sst, err := sdl.New("OpenNox "+version.ClientVersion(), sz)
 	if err != nil {
 		return nil, err
 	}

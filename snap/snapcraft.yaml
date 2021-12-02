@@ -1,0 +1,108 @@
+name: opennox
+base: core18
+version: git
+title: OpenNox
+summary: Modern implementation of Nox game engine
+#website: https://www.patreon.com/opennox # see https://bugs.launchpad.net/review-tools/+bug/1940880
+icon: snap/gui/opennox.png
+description: |
+  **OpenNox** is a modern implementation of a **Nox** game engine.
+
+  It **requires a copy** of Nox game installed. The best way to do so is to install GoG [1] version from Lutris [2].
+
+  [1] https://www.gog.com/game/nox
+  [2] https://lutris.net/games/nox/
+
+grade: stable
+confinement: strict
+
+version-script: |
+  set -x
+  cd ./src
+  go run ./internal/vers full
+
+architectures:
+  - build-on: i386
+    run-on: [amd64]
+
+apps:
+  opennox:
+    command: bin/opennox
+    desktop: usr/share/applications/opennox.desktop
+    plugs:
+      - home
+      - desktop
+      - desktop-legacy
+      - x11
+      - wayland
+      - opengl
+      - audio-playback
+      - network
+      - network-bind
+  hd:
+    command: bin/opennox-hd
+    desktop: usr/share/applications/opennox.hd.desktop
+    plugs:
+      - home
+      - desktop
+      - desktop-legacy
+      - x11
+      - wayland
+      - opengl
+      - audio-playback
+      - network
+      - network-bind
+  server:
+    command: bin/opennox-server
+    plugs:
+      - home
+      - network
+      - network-bind
+  tools:
+    command: bin/noxtools
+    plugs:
+      - home
+
+parts:
+  i386:
+    plugin: nil
+    override-build: |
+      sudo dpkg --add-architecture i386
+      sudo apt-get update
+  opennox:
+    after: [i386]
+    plugin: dump
+    source: .
+#    override-pull: |
+#      snapcraftctl pull
+#      cd /root/project/src
+#      snapcraftctl set-version "$(go run ./internal/vers full)"
+    build-snaps:
+      - go
+    build-environment:
+      - PKG_CONFIG_PATH: $PKG_CONFIG_PATH:/usr/lib/i386-linux-gnu/pkgconfig/
+    override-build: |
+      dpkg --add-architecture i386
+      apt update
+      apt install -y build-essential gcc gcc-multilib libsdl2-dev:i386 libopenal-dev:i386
+      cd /root/parts/opennox/build/src
+      go run ./internal/noxbuild
+      go run ./internal/vers -n -epref '${SNAP}/bin/' -ipref '${SNAP}/usr/share/icons/hicolor/256x256/apps/' -o opennox.desktop desktop
+      go run ./internal/vers -n -epref '${SNAP}/bin/' -ipref '${SNAP}/usr/share/icons/hicolor/256x256/apps/' -hd -o opennox.hd.desktop desktop
+      snapcraftctl build
+    stage-packages:
+      - libsdl2-2.0-0:i386
+      - libgl1:i386
+      - libopenal1:i386
+    organize:
+      src/opennox: bin/
+      src/opennox-hd: bin/
+      src/opennox-server: bin/
+      src/noxtools: bin/
+      src/*.desktop: usr/share/applications/
+      snap/gui/opennox.png: usr/share/icons/hicolor/256x256/apps/
+    stage:
+      - bin/
+      - etc/
+      - lib/
+      - usr/

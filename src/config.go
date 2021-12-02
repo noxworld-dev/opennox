@@ -114,7 +114,7 @@ func readConfig(path string) error {
 		configLog.Printf("using file: %q", configPath)
 		return nil
 	}
-	if _, ok := err.(viper.ConfigFileNotFoundError); ok {
+	if _, ok := err.(viper.ConfigFileNotFoundError); ok || os.IsNotExist(err) {
 		writeConfigLater()
 		configLog.Println("file not found, using defaults")
 		return nil

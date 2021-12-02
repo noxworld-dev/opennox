@@ -11,6 +11,7 @@ import (
 
 	noxflags "nox/v1/common/flags"
 	"nox/v1/common/log"
+	"nox/v1/internal/version"
 )
 
 var (
@@ -66,7 +67,7 @@ func getGameInfo(ctx context.Context) (*gameInfoResp, error) {
 		v := &gameInfoResp{
 			Name: getServerName(),
 			Map:  strings.ToLower(getServerMap()),
-			Vers: Version,
+			Vers: version.Version(),
 			Mode: noxflags.GetGame().ModeString(),
 		}
 		if noxflags.HasGame(noxflags.GameModeQuest) {

@@ -27,7 +27,7 @@ var _ seat.Seat = &Window{}
 // New creates a new SDL window which implements a Seat interface.
 func New(title string, sz noximage.Size) (*Window, error) {
 	// TODO: if we ever decide to use multiple windows, this will need to be moved elsewhere; same for sdl.Quit
-	if err := sdl.Init(sdl.INIT_VIDEO | sdl.INIT_TIMER | sdl.INIT_GAMECONTROLLER); err != nil {
+	if err := sdl.Init(sdl.INIT_VIDEO | sdl.INIT_TIMER); err != nil {
 		return nil, fmt.Errorf("SDL Initialization failed: %w", err)
 	}
 	sdl.SetHint(sdl.HINT_RENDER_SCALE_QUALITY, "1")

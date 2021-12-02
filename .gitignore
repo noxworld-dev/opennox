@@ -1,15 +1,16 @@
 build/
 CMakeFiles/
-.tmp/
+.tmp
 tmp/
-logs/
+logs
 *.user
 *.o
 *.exe
 *.wasm
-*.png
+src/**/*.png
 src/*.dat
 src/*.dat.gz
+cmake-*
 
 # For IntelliJ IDE
 src/.idea
