@@ -46,7 +46,7 @@ jobs:
         run: cd ./src && go mod download
 
       - name: Go build
-        run: cd ./src && ./build_go.sh
+        run: cd ./src && go run ./internal/noxbuild
 
       - name: Prepare the binaries
         run: |
@@ -115,7 +115,7 @@ jobs:
         run: cd ./src && go mod download
 
       - name: Go build
-        run: cd ./src && ./build_go_win.sh
+        run: cd ./src && go run ./internal/noxbuild -os=windows
 
       - name: Prepare the binary
         run: |

@@ -63,10 +63,11 @@ import (
 	"nox/v1/common/log"
 	"nox/v1/common/memmap"
 	"nox/v1/common/types"
+	"nox/v1/internal/version"
 )
 
 func init() {
-	if env.IsDevMode() || IsDevVersion() || env.IsE2E() {
+	if env.IsDevMode() || version.IsDev() || env.IsE2E() {
 		go func() {
 			if err := http.ListenAndServe("127.0.0.1:6060", nil); err != nil {
 				log.Printf("failed to start pprof: %v", err)
@@ -79,13 +80,21 @@ var (
 	isServer      bool
 	isServerQuest bool
 	serverExec    []string
+	onDataPathSet []func()
 )
+
+func registerOnDataPathSet(fnc func()) {
+	onDataPathSet = append(onDataPathSet, fnc)
+}
 
 // Nox only works on 32bit
 var _ = [1]struct{}{}[unsafe.Sizeof(int(0))-4]
 
 func writeLogsToDir() error {
 	dir := filepath.Dir(os.Args[0])
+	if sdir := os.Getenv("SNAP_USER_COMMON"); sdir != "" {
+		dir = sdir
+	}
 	dir = filepath.Join(dir, "logs")
 	if err := os.MkdirAll(dir, 0755); err != nil {
 		return err
@@ -119,13 +128,17 @@ func RunArgs(args []string) (gerr error) {
 		e2eInit()
 		defer e2eStop()
 	}
-	log.Printf("[nox] version: %s (%s)", Version, Commit)
+	log.Printf("[nox] version: %s (%s)", version.Version(), version.Commit())
 	handles.Init()
 	defer handles.Release()
 	flags := flag.NewFlagSet("", flag.ContinueOnError)
+	defConf := ""
+	if sdir := os.Getenv("SNAP_USER_COMMON"); sdir != "" {
+		defConf = filepath.Join(sdir, "opennox.yml")
+	}
 	// TODO: add missing flag descriptions
 	var (
-		fConfig     = flags.String("config", "", "use specified config file")
+		fConfig     = flags.String("config", defConf, "use specified config file")
 		fData       = flags.String("data", "", "explicitly set Nox data dir")
 		fServer     = flags.Bool("serveronly", false, "run the server only")
 		fWindow     = flags.Bool("window", false, "window")
@@ -161,7 +174,7 @@ func RunArgs(args []string) (gerr error) {
 		return err
 	}
 	if err := readConfig(*fConfig); err != nil {
-		return err
+		return fmt.Errorf("cannot read config: %w", err)
 	}
 	defer maybeWriteConfig()
 	if env.IsE2E() {
@@ -197,6 +210,9 @@ func RunArgs(args []string) (gerr error) {
 		writeConfigLater()
 	}
 	maybeWriteConfig()
+	for _, fnc := range onDataPathSet {
+		fnc()
+	}
 	if err := os.Chdir(datapath.Path()); err != nil {
 		return err
 	}
@@ -438,7 +454,7 @@ func nox_exit(exitCode C.int) {
 
 //export nox_xxx_getNoxVer_401020
 func nox_xxx_getNoxVer_401020() *C.wchar_t {
-	return internWStr(ClientVersionString())
+	return internWStr(version.ClientVersion())
 }
 
 //export nox_xxx_gameGetScreenBoundaries_43BEB0_get_video_mode

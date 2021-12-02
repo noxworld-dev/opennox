@@ -6,6 +6,7 @@ package nox
 import "C"
 import (
 	noxcolor "nox/v1/common/color"
+	"nox/v1/internal/version"
 )
 
 //export nox_client_onShowLegal
@@ -15,7 +16,7 @@ func nox_client_onShowLegal(p *C.nox_window) {
 	draw := vers.DrawData()
 	// original version text color is grey, we change it to yellow
 	// if it's a dev build, make it red
-	if IsDevVersion() {
+	if version.IsDev() {
 		draw.SetTextColor(noxcolor.RGBColor(255, 0, 0))
 	} else {
 		draw.SetTextColor(noxcolor.RGBColor(242, 218, 0))

@@ -10,7 +10,7 @@ func init() {
 	var opts octl.Options
 	configBoolPtr("server.control.allow_cmds", "NOX_SERVER_HTTP_ALLOWS_CMDS", false, &opts.AllowCommands)
 	configBoolPtr("server.control.allow_map_change", "NOX_SERVER_HTTP_ALLOWS_MAP_CHANGE", false, &opts.AllowMapChange)
-	registerOnConfigRead(func() {
+	registerOnDataPathSet(func() {
 		game := &gameControlHTTP{
 			// enforce these flags from our side as well
 			allowCmds:      opts.AllowCommands,

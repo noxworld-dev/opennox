@@ -1,0 +1,12 @@
+[Desktop Entry]
+Version={{ .Version }}
+Type=Application
+Name=OpenNox
+Icon={{ .IconPref }}opennox
+Exec={{ .ExecPref }}opennox
+Categories=Game;ActionGame;RolePlaying;
+Actions=HighRes;
+
+[Desktop Action HighRes]
+Name=High resolution
+Exec={{ .ExecPref }}opennox.hd

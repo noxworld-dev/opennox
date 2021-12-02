@@ -122,6 +122,7 @@ func Check(path string) bool {
 	for _, name := range checkFiles {
 		fpath := filepath.Join(path, name)
 		if fi, err := fs.Stat(fpath); err != nil || fi.IsDir() {
+			Log.Printf("cannot find required data file %q in %q", name, path)
 			return false
 		}
 	}

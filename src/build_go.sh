@@ -1,20 +1,3 @@
 #!/bin/bash
 set -e
-export GOARCH=386
-export CGO_ENABLED=1
-export CGO_CFLAGS_ALLOW="(-fshort-wchar)|(-fno-strict-aliasing)|(-fno-strict-overflow)"
-
-GIT_SHA="$(git rev-parse --short HEAD)"
-VERSION="$(git name-rev --tags --name-only $(git rev-parse HEAD))"
-if [ "$VERSION" = "undefined" ]; then
-  VERSION="v1.8.x"
-fi
-NOX_LDFLAGS="-X 'nox/v1.Commit=$GIT_SHA' -X 'nox/v1.Version=$VERSION'"
-NOX_GCFLAGS="-trimpath=$(pwd)"
-NOX_ASMFLAGS="-trimpath=$(pwd)"
-
-go build -v -ldflags="${NOX_LDFLAGS}" -gcflags="${NOX_GCFLAGS}" -asmflags="${NOX_ASMFLAGS}" -o opennox ./cmd/opennox
-go build -v -ldflags="${NOX_LDFLAGS}" -gcflags="${NOX_GCFLAGS}" -asmflags="${NOX_ASMFLAGS}" -tags highres -o opennox-hd ./cmd/opennox
-go build -v -ldflags="${NOX_LDFLAGS}" -gcflags="${NOX_GCFLAGS}" -asmflags="${NOX_ASMFLAGS}" -tags server -o opennox-server ./cmd/opennox
-go build -v -ldflags="${NOX_LDFLAGS}" -gcflags="${NOX_GCFLAGS}" -asmflags="${NOX_ASMFLAGS}" -o noxtools ./cmd/noxtools
-echo "Build complete: $VERSION ($GIT_SHA)"
+go run ./internal/noxbuild

@@ -1631,7 +1631,7 @@ func (r *NoxRender) nox_client_drawImg_aaa_4C79F0(img *Image, pos types.Point) {
 			case 6:
 				dst, src = r.draw6(dst, src, op, val)
 			default:
-				panic(op)
+				panic(fmt.Errorf("invalid draw op: 0x%x, (%d,%d)", op, i, j))
 			}
 		}
 	}

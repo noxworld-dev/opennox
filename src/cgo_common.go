@@ -11,9 +11,9 @@ package nox
 #cgo CFLAGS: -Werror=unused-label
 #cgo CFLAGS: -Werror=address
 //#cgo CFLAGS: -Werror=unused-variable
-#cgo CFLAGS: -Werror=cast-function-type
+//#cgo CFLAGS: -Werror=cast-function-type
 #cgo CFLAGS: -Werror=stringop-overflow
-#cgo linux CFLAGS: -Werror=attribute-warning
+//#cgo linux CFLAGS: -Werror=attribute-warning
 #cgo linux CFLAGS: -Werror=uninitialized
 //#cgo linux CFLAGS: -Werror=parentheses // FIXME: resolve issues related to this flag
 //#cgo linux CFLAGS: -Werror=switch-outside-range

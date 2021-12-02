@@ -33,7 +33,7 @@ var (
 )
 
 func init() {
-	registerOnConfigRead(func() {
+	registerOnDataPathSet(func() {
 		mapsend.srv = maps.NewServer(datapath.Maps())
 		mapsend.srv.RegisterOnMux(gameMux)
 		mapsendNative = maps.NewNativeDownloader(datapath.Maps())
