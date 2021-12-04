@@ -1,4 +1,27 @@
+//go:build safe
 //+build safe
+#include <stdbool.h>
+#include <stdlib.h>
+
+void* mem_getPtr_go(unsigned int base, unsigned int off, bool* ok);
+void* mem_getPtr(unsigned int base, unsigned int off) {
+	bool ok = true;
+	void* p = mem_getPtr_go(base, off, &ok);
+	if (!ok) {
+		abort();
+	}
+	return p;
+}
+
+void* mem_getPtrSize_go(unsigned int base, unsigned int off, unsigned int size, bool* ok);
+void* mem_getPtrSize(unsigned int base, unsigned int off, unsigned int size) {
+	bool ok = true;
+	void* p = mem_getPtrSize_go(base, off, size, &ok);
+	if (!ok) {
+		abort();
+	}
+	return p;
+}
 
 void* nox_memcpy_go(void* dst, void* src, unsigned int size);
 void* nox_memcpy(void* dst, const void* src, unsigned int size) { return nox_memcpy_go(dst, src, size); }
