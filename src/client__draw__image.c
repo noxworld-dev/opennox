@@ -1739,6 +1739,7 @@ void sub_4C8D60() {
 	nox_draw_sprite_dstPtr_3799540 = v1;
 }
 
+#ifndef NOX_CGO
 //----- (004C91C0) --------------------------------------------------------
 void sub_4C91C0() {
 	int result;       // eax
@@ -1786,7 +1787,6 @@ void sub_4C91C0() {
 	}
 }
 
-#ifndef NOX_CGO
 //----- (004C9970) --------------------------------------------------------
 void sub_4C9970() {
 	unsigned int result; // eax

@@ -1209,7 +1209,7 @@ typedef struct nox_render_data_t {
 	uint32_t field_63;  // 63, 252
 	uint32_t field_64;  // 64, 256
 	uint32_t field_65;  // 65, 260
-	uint32_t field_66;  // 66, 264
+	uint32_t field_66;  // 66, 264, TODO: [16][12]uint32
 	uint32_t field_67;  // 67, 268
 	uint32_t field_68;  // 68, 272
 	uint32_t field_69;  // 69, 276
@@ -1408,6 +1408,7 @@ typedef struct nox_render_data_t {
 	uint32_t field_262; // 262, 1048
 	uint32_t field_263; // 263, 1052
 } nox_render_data_t;
+_Static_assert(sizeof(nox_render_data_t) == 1056, "wrong size of nox_render_data_t structure!");
 
 typedef struct {
 	void (*fnc)(int);
