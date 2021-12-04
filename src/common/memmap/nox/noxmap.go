@@ -153,7 +153,7 @@ var noxMemmap = []struct {
 	{0x587000, 183460, 4, "dword_587000_183460"},                          // 0x5B3CA4
 	{0x587000, 184452, 4, "nox_xxx_screenWidth_587000_184452"},            // 0x5B4084
 	{0x587000, 185504, 4, "dword_587000_185504"},                          // 0x5B44A0
-	{0x587000, 192088, 2048, "sincosTable16"},
+	// {0x587000, 192088, 2048, "sincosTable16"}, // TODO: completely extract
 	{0x587000, 197424, 4, "nox_xxx_replayWriteFile_587000_197424"}, // 0x5B7330
 	{0x587000, 197428, 4, "nox_xxx_replayFile_587000_197428"},      // 0x5B7334
 	{0x587000, 201380, 4, "nox_server_firstObjectScriptID"},        // 0x5B82A4

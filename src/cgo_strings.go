@@ -38,12 +38,7 @@ func StrLen(s *C.char) int {
 	if s == nil {
 		return 0
 	}
-	n := 0
-	for *s != 0 {
-		n++
-		s = (*C.char)(unsafe.Add(unsafe.Pointer(s), 1))
-	}
-	return n
+	return alloc.Strlen(unsafe.Pointer(s))
 }
 
 func StrLenBytes(s []byte) int {

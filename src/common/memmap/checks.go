@@ -19,7 +19,7 @@ func SetRuntimeChecks(enabled bool) {
 func checkAddr(addr uintptr) {
 	if v := VariableByAddr(addr); v != nil {
 		blob, off := RelativeAddr(addr)
-		panic(fmt.Errorf("intersection with %s at (0x%X, %d)", v.Name, blob, off))
+		panic(fmt.Errorf("intersection with %s (%+d) at (0x%X, %d)", v.Name, addr-v.Addr, blob, off))
 	}
 }
 

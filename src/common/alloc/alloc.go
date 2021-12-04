@@ -124,30 +124,45 @@ func Memcmp(ptr1, ptr2 unsafe.Pointer, size uintptr) int {
 	return int(C.memcmp(ptr1, ptr2, C.size_t(size)))
 }
 
+func strlen(s *C.char) int {
+	if s == nil {
+		return 0
+	}
+	n := 0
+	for *s != 0 {
+		n++
+		s = (*C.char)(unsafe.Add(unsafe.Pointer(s), 1))
+	}
+	return n
+}
+
 func Strlen(ptr unsafe.Pointer) int {
-	n := int(C.strlen((*C.char)(ptr)))
+	if ptr == nil {
+		return 0
+	}
+	n := strlen((*C.char)(ptr))
 	logMemReadString(ptr, uintptr(n+1))
 	return n
 }
 
 func Strcpy(dst, src unsafe.Pointer) unsafe.Pointer {
-	n := uintptr(C.strlen((*C.char)(src)))
+	n := uintptr(strlen((*C.char)(src)))
 	logMemReadString(src, n+1)
 	logMemWriteString(dst, n+1)
 	return unsafe.Pointer(C.strcpy((*C.char)(dst), (*C.char)(src)))
 }
 
 func Strcat(dst, src unsafe.Pointer) unsafe.Pointer {
-	ns := uintptr(C.strlen((*C.char)(src)))
-	nd := uintptr(C.strlen((*C.char)(dst)))
+	ns := uintptr(strlen((*C.char)(src)))
+	nd := uintptr(strlen((*C.char)(dst)))
 	logMemReadString(src, ns+1)
 	logMemWriteString(dst, nd+ns+1)
 	return unsafe.Pointer(C.strcat((*C.char)(dst), (*C.char)(src)))
 }
 
 func Strcmp(str1, str2 unsafe.Pointer) int {
-	n1 := uintptr(C.strlen((*C.char)(str1)))
-	n2 := uintptr(C.strlen((*C.char)(str2)))
+	n1 := uintptr(strlen((*C.char)(str1)))
+	n2 := uintptr(strlen((*C.char)(str2)))
 	logMemReadString(str1, n1+1)
 	logMemReadString(str2, n2+1)
 	return int(C.strcmp((*C.char)(str1), (*C.char)(str2)))

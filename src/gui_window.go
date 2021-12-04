@@ -250,7 +250,7 @@ func asWindow(win *C.nox_window) *Window {
 
 func asWindowP(win unsafe.Pointer) *Window {
 	w := (*Window)(win)
-	if cgoSafe && w.ID() == DeadWord {
+	if false && cgoSafe && w.ID() == DeadWord {
 		log.Println("memory corruption detected")
 		debug.PrintStack()
 		C.abort()

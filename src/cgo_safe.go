@@ -16,10 +16,12 @@ package nox
 #cgo CFLAGS: -Dstrcpy=nox_strcpy
 #cgo CFLAGS: -Dstrcat=nox_strcat
 #cgo CFLAGS: -Dstrcmp=nox_strcmp
-typedef unsigned int uintptr_t;
+#include <stdbool.h>
 */
 import "C"
 import (
+	"fmt"
+	"os"
 	"unsafe"
 
 	"nox/v1/common/alloc"
@@ -32,19 +34,35 @@ func init() {
 	memmap.SetRuntimeChecks(true)
 }
 
-//export mem_getPtr
-func mem_getPtr(base, off C.uintptr_t) unsafe.Pointer {
+func checkPanicC(r interface{}, ok *C.bool) {
+	if r != nil {
+		fmt.Fprintln(os.Stderr, r)
+		*ok = false
+	} else {
+		*ok = true
+	}
+}
+
+//export mem_getPtr_go
+func mem_getPtr_go(base, off C.uint, ok *C.bool) unsafe.Pointer {
+	defer func() {
+		checkPanicC(recover(), ok)
+	}()
 	return memmap.PtrOff(uintptr(base), uintptr(off))
 }
 
-//export mem_getPtrSize
-func mem_getPtrSize(base, off, size C.uintptr_t) unsafe.Pointer {
+//export mem_getPtrSize_go
+func mem_getPtrSize_go(base, off, size C.uint, ok *C.bool) unsafe.Pointer {
+	defer func() {
+		checkPanicC(recover(), ok)
+	}()
 	return memmap.PtrSizeOff(uintptr(base), uintptr(off), uintptr(size))
 }
 
 //export nox_malloc
 func nox_malloc(size C.uint) unsafe.Pointer {
-	return alloc.Malloc(uintptr(size))
+	p, _ := alloc.Malloc(uintptr(size))
+	return p
 }
 
 //export nox_realloc
@@ -54,7 +72,8 @@ func nox_realloc(ptr unsafe.Pointer, size C.uint) unsafe.Pointer {
 
 //export nox_calloc
 func nox_calloc(num, size C.uint) unsafe.Pointer {
-	return alloc.Calloc(uintptr(num), uintptr(size))
+	p, _ := alloc.Calloc(int(num), uintptr(size))
+	return p
 }
 
 //export nox_free

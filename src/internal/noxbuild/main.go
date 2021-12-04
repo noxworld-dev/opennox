@@ -29,9 +29,10 @@ var (
 	defTargets = []string{
 		BinOpenNox, BinOpenNoxHD, BinServer, BinTools,
 	}
-	fOut = flag.String("o", "", "output directory")
-	fSrc = flag.String("s", "", "source directory")
-	fOS  = flag.String("os", runtime.GOOS, "target OS to build for")
+	fOut  = flag.String("o", "", "output directory")
+	fSrc  = flag.String("s", "", "source directory")
+	fOS   = flag.String("os", runtime.GOOS, "target OS to build for")
+	fSafe = flag.Bool("safe", false, "build a safe version (will run significantly slower)")
 )
 
 func main() {
@@ -99,6 +100,9 @@ func goBuild(cmd string, bin string, opts *buildOpts) error {
 	isCross := goos != runtime.GOOS
 	if opts == nil {
 		opts = &buildOpts{}
+	}
+	if *fSafe {
+		opts.Tags = append(opts.Tags, "safe")
 	}
 	wd, err := os.Getwd()
 	if err != nil {
