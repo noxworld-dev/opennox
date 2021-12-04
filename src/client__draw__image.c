@@ -1611,9 +1611,8 @@ void sub_4C97F0() {
 		v8 = v6;
 		v7 = *getMemU32Ptr(0x973F18, 28);
 		while (1) {
-			HIWORD(v3) = *getMemU16Ptr(0x973F18, 18);
 			v4 = (unsigned short)*v2;
-			LOWORD(v3) = *(unsigned short*)(&nox_video_cur_pixdata_3799444[0]);
+			unsigned short v3 = *(unsigned short*)(&nox_video_cur_pixdata_3799444[0]);
 			v5 = v1 * 16 * (*(unsigned short*)(&nox_video_cur_pixdata_3799444[0]) & 0xF);
 			*v2 =
 				*(unsigned short*)(nox_draw_colors_b_3804664 +
