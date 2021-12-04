@@ -1786,6 +1786,7 @@ void sub_4C91C0() {
 	}
 }
 
+#ifndef NOX_CGO
 //----- (004C9970) --------------------------------------------------------
 void sub_4C9970() {
 	unsigned int result; // eax
@@ -1858,7 +1859,6 @@ void sub_4C9970() {
 	}
 }
 
-#ifndef NOX_CGO
 //----- (004C96A0) --------------------------------------------------------
 void sub_4C96A0() {
 	unsigned int result; // eax
