@@ -68,7 +68,6 @@ void sub_4C8D60();
 void sub_4C8DF0();
 void sub_4C8EC0();
 void sub_4C9050();
-void sub_4C91C0();
 void sub_4C92F0();
 void sub_4C94D0();
 void sub_4C97F0();
@@ -402,6 +401,15 @@ func (r *NoxRender) SetColor(a1 uint32) { // nox_xxx_drawSetColor_4343E0
 
 func (r *NoxRender) SetColor2(a1 uint32) { // nox_client_drawSetColor_434460
 	r.p.field_61 = C.uint(a1)
+}
+
+func (r *NoxRender) field66(ind int) []uint32 {
+	const (
+		size = 12
+		max  = 16
+	)
+	arr := unsafe.Slice((*uint32)(unsafe.Pointer(&r.p.field_66)), size*max)
+	return arr[ind*size : (ind+1)*size]
 }
 
 func (r *NoxRender) sub434080(a1 int) { // sub_434080
@@ -1431,7 +1439,7 @@ func (r *NoxRender) drawImage16(img *Image, pos types.Point) { // nox_client_xxx
 			if r.p.field_14 != 0 {
 				r.draw5 = r.sub_4C9970
 				r.draw27 = r.sub_4C86B0
-				r.draw4 = drawOpC(func() { C.sub_4C91C0() })
+				r.draw4 = r.sub_4C91C0
 			} else {
 				r.draw27 = drawOpC(func() { C.sub_4C8D60() })
 				if r.p.field_17 == 0 {
@@ -1446,7 +1454,7 @@ func (r *NoxRender) drawImage16(img *Image, pos types.Point) { // nox_client_xxx
 				if v3 == 255 {
 					if r.p.field_16 == 0 {
 						r.draw27 = r.sub_4C86B0
-						r.draw4 = drawOpC(func() { C.sub_4C91C0() })
+						r.draw4 = r.sub_4C91C0
 					} else {
 						r.draw27 = pixCopyN
 						r.draw4 = drawOpC(func() { C.sub_4C8DF0() })
@@ -1947,6 +1955,33 @@ func (r *NoxRender) sub_4C86B0(dst []uint16, src []byte, _ byte, sz int) (_ []ui
 		src = src[2:]
 	}
 	return dst[sz:], src
+}
+
+func (r *NoxRender) sub_4C91C0(dst []uint16, src []byte, op byte, sz int) (_ []uint16, _ []byte) { // sub_4C91C0
+	if sz < 0 {
+		panic("negative size")
+	}
+	_ = dst[sz:]
+	_ = src[sz:]
+
+	rmul := uint16(byte(r.p.field_24))
+	gmul := uint16(byte(r.p.field_25))
+	bmul := uint16(byte(r.p.field_26))
+
+	v9 := r.field66(int(op >> 4))
+
+	rpmul := v9[6]
+	gpmul := v9[7]
+	bpmul := v9[8]
+
+	for i := 0; i < sz; i++ {
+		c := src[i] // color to draw
+		cr := r.colors.R[byte((rmul*uint16(((rpmul*uint32(c))>>8)&0xFF))>>8)]
+		cg := r.colors.G[byte((gmul*uint16(((gpmul*uint32(c))>>8)&0xFF))>>8)]
+		cb := r.colors.B[byte((bmul*uint16(((bpmul*uint32(c))>>8)&0xFF))>>8)]
+		dst[i] = cr | cg | cb
+	}
+	return dst[sz:], src[sz:]
 }
 
 // SADD8 is a saturating 8-bit addition.
