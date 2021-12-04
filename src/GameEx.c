@@ -21,7 +21,6 @@
 
 #ifndef NOX_CGO
 #include <SDL2/SDL.h>
-#endif // NOX_CGO
 
 #include "DG_dynarr.h"
 
@@ -36,6 +35,7 @@ typedef struct smallPlayerStruct {
 
 DA_TYPEDEF(smallPlayerStruct, smallPlayerStructVector);
 DA_TYPEDEF(int, intArray);
+#endif // NOX_CGO
 
 extern int nox_win_width_game;
 extern int nox_win_height_game;
@@ -149,6 +149,8 @@ int keycodeArraySize = sizeof(keycodeArray) / sizeof(keyCodeStruct);
 unsigned char functionalKeyCodes[] = {2u, 3u, 4u, 5u, 6u, 156u, 0u};
 char* EndOfKeyCodeArray = 0; // weak
 void* modifyWndPntr = 0;     // weak
+unsigned char serverData[64];
+intArray gameIps;
 #endif                       // NOX_CGO
 
 int DefaultPacket[4] = {171901697, 1, 347, 44391266}; // weak
@@ -163,12 +165,10 @@ wchar_t wndEntryNames[5][35] = {
 	 32u,  98u,  108u, 111u, 99u,  107u, 105u, 110u, 103u, 0u,  0u,   0u,   0u,   0u,   0u,   0u,   0u},
 	{101u, 120u, 116u, 101u, 110u, 115u, 105u, 111u, 110u, 32u, 109u, 101u, 115u, 115u, 97u, 103u, 101u, 115u,
 	 0u,   0u,   0u,   0u,   0u,   0u,   0u,   0u,   0u,   0u,  0u,   0u,   0u,   0u,   0u,  0u,   0u}};
-unsigned char serverData[64];
 char someSwitch = 0;        // weak
 char isInvalidIp = 0;       // weak
 char inputNewIpMsgBox[512]; // weak
 
-intArray gameIps;
 
 int nox_CharToOemW(const wchar_t* pSrc, char* pDst) { return nox_sprintf(pDst, "%S", pSrc); }
 
@@ -517,7 +517,6 @@ void DestroyNoxWindow() {
 	nox_xxx_wnd_46C6E0(modifyWndPntr);
 	nox_xxx_windowDestroyMB_46C4E0(v1);
 }
-#endif // NOX_CGO
 
 //----- (10001B40) --------------------------------------------------------
 int copyServerMatchData(char* a1) {
@@ -564,10 +563,13 @@ int copyServerMatchData(char* a1) {
 	*((uint16_t*)a1 + 31) = *getMemU32Ptr(0x5D4594, 371434);
 	return result;
 }
+#endif // NOX_CGO
 
 //----- (10001C20) --------------------------------------------------------
 char getPlayerClassFromObjPtr(int a1) { return *(uint8_t*)(*(uint32_t*)(*(uint32_t*)(a1 + 748) + 276) + 2251); }
 
+
+#ifndef NOX_CGO
 //----- (10001C50) --------------------------------------------------------
 int playerInfoStructsToVector(smallPlayerStructVector* vector) {
 	char* result; // eax
@@ -589,6 +591,7 @@ int playerInfoStructsToVector(smallPlayerStructVector* vector) {
 	}
 	return (int)result;
 }
+#endif // NOX_CGO
 
 //----- (10001D40) --------------------------------------------------------
 char playerInfoStructParser_0(char* a1) {
@@ -997,6 +1000,7 @@ int MixRecvFromReplacer(nox_socket_t s, char* buf, int len, struct nox_net_socka
 	case 2u: // clientPlaySoundSpecial
 		nox_xxx_clientPlaySoundSpecial_452D80(895, 100);
 		break;
+#ifndef NOX_CGO
 	case 3u: // Send back playerInfoStructs
 		if (nox_common_gameFlags_check_40A5C0(1) && (gameex_flags >> 5) & 1) {
 			smallPlayerStructVector vector;
@@ -1027,6 +1031,7 @@ int MixRecvFromReplacer(nox_socket_t s, char* buf, int len, struct nox_net_socka
 			da_free(vector);
 		}
 		break;
+#endif // NOX_CGO
 	case 4u:
 		if (nox_common_gameFlags_check_40A5C0(1)) {
 			if ((gameex_flags >> 5) & 1) {
@@ -1132,7 +1137,6 @@ void OnLibraryNotice_260(uint32_t arg1, uint32_t arg2, uint32_t arg3) {
 	GameIpParser(arg2, arg1, arg3);
 	pingAllServersInGameIp(arg2, v1, arg1, arg2, arg3);
 }
-#endif // NOX_CGO
 
 void OnLibraryNotice_261() {
 	unsigned char v24[64]; // [esp+1Ch] [ebp-50h]
@@ -1149,6 +1153,8 @@ void OnLibraryNotice_261() {
 	}
 	memcpy(serverData, v24, sizeof(serverData));
 }
+#endif // NOX_CGO
+
 void OnLibraryNotice_262(uint32_t arg1) {}
 void OnLibraryNotice_263(uint32_t arg1) { nox_common_gameFlags_check_40A5C0(1); }
 void OnLibraryNotice_264(uint32_t arg1) { nox_common_gameFlags_check_40A5C0(1); }
