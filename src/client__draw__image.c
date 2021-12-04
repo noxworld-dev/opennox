@@ -1858,6 +1858,7 @@ void sub_4C9970() {
 	}
 }
 
+#ifndef NOX_CGO
 //----- (004C96A0) --------------------------------------------------------
 void sub_4C96A0() {
 	unsigned int result; // eax
@@ -1918,7 +1919,6 @@ void sub_4C96A0() {
 }
 
 //----- (004C80E0) --------------------------------------------------------
-#ifndef NOX_CGO
 void sub_4C80E0() {
 	const uint32_t size = *getMemU32Ptr(0x973F18, 28) << 1;
 	memcpy(nox_draw_sprite_dstPtr_3799540, nox_video_cur_pixdata_3799444, size);
