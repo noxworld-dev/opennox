@@ -1,5 +1,16 @@
 package nox
 
+/*
+#include "defs.h"
+*/
+import "C"
+
+import (
+	"unsafe"
+
+	"nox/v1/common/types"
+)
+
 var byte_5D4594_3804364 [40]uint32
 
 var byte_581450_9176 = [40]uint32{
@@ -17,4 +28,143 @@ var byte_581450_9176 = [40]uint32{
 	0x0, 0x6, 0x0,
 	0xb, 0x0, 0xfbdefbde,
 	0xfbdefbde,
+}
+
+func asRenderData(p *C.nox_render_data_t) *RenderData {
+	return (*RenderData)(unsafe.Pointer(p))
+}
+
+type RenderData C.nox_render_data_t
+
+func (p *RenderData) C() *C.nox_render_data_t {
+	return (*C.nox_render_data_t)(unsafe.Pointer(p))
+}
+
+func (p *RenderData) ClipRect() types.Rect {
+	return types.Rect{
+		Left:   int(p.clip.left),
+		Top:    int(p.clip.top),
+		Right:  int(p.clip.right),
+		Bottom: int(p.clip.bottom),
+	}
+}
+
+func (p *RenderData) Reset() {
+	p.field_13 = 0
+	p.field_14 = 0
+	p.field_17 = 0
+	p.field_24 = 0
+	p.field_25 = 0
+	p.field_26 = 0
+	p.field_44 = 0
+	p.field_45 = 0
+	p.field_46 = 0
+	p.field_54 = 0
+	p.field_55 = 0
+	p.field_56 = 0
+	p.field_58 = 0
+	p.field_59 = 0
+	p.field_60 = 0
+	p.field_61 = 0
+	p.setColorInt62(ColorInt{R: 25, G: 25, B: 25})
+	p.field_259 = 0xFF
+	p.field_260 = 0xFF00FF
+	p.field_261 = 0xFF00FF
+	p.field_262 = 0
+}
+
+func (p *RenderData) IsAlphaEnabled() bool {
+	return p.field_13 != 0
+}
+
+func (p *RenderData) SetAlphaEnabled(enabled bool) { // nox_client_drawEnableAlpha_434560
+	if enabled != p.IsAlphaEnabled() {
+		p.field_13 = C.uint(bool2int(enabled))
+	}
+}
+
+func (p *RenderData) setField14(v int) { // sub_4345F0
+	p.field_14 = C.uint(v)
+}
+
+func (p *RenderData) setField17(v int) { // nox_xxx_draw_434600
+	p.field_17 = C.uint(v)
+}
+
+func (p *RenderData) setColorInt44(c ColorInt) { // sub_433E80
+	p.field_44 = C.uint(c.R)
+	p.field_45 = C.uint(c.G)
+	p.field_46 = C.uint(c.B)
+}
+
+func (p *RenderData) setColorInt54(c ColorInt) { // nox_xxx_drawMakeRGB_433F10
+	p.field_54 = C.uint(c.R)
+	p.field_55 = C.uint(c.G)
+	p.field_56 = C.uint(c.B)
+}
+
+func (p *RenderData) SetSelectColor(a1 uint32) { // nox_xxx_drawSelectColor_434350
+	p.field_58 = C.uint(a1)
+}
+
+func (p *RenderData) SetTextColor(a1 uint32) { // nox_xxx_drawSetTextColor_434390
+	p.field_59 = C.uint(a1)
+}
+
+func (p *RenderData) SetColor(a1 uint32) { // nox_xxx_drawSetColor_4343E0
+	p.field_60 = C.uint(a1)
+}
+
+func (p *RenderData) SetColor2(a1 uint32) { // nox_client_drawSetColor_434460
+	p.field_61 = C.uint(a1)
+}
+
+func (p *RenderData) setColorInt62(c ColorInt) { // nox_client_drawSetColor_434460
+	p.field_62 = C.uint(c.R)
+	p.field_63 = C.uint(c.G)
+	p.field_64 = C.uint(c.B)
+}
+
+func (p *RenderData) GetLightColor() ColorInt { // sub_434A10
+	return ColorInt{
+		R: int(p.field_62),
+		G: int(p.field_63),
+		B: int(p.field_64),
+	}
+}
+
+func (p *RenderData) field66(ind int) []uint32 {
+	const (
+		size = 12
+		max  = 16
+	)
+	type item [size]uint32
+	if ind < 0 || ind >= max {
+		// FIXME: why it happens? we receive 100 sometimes (e.g. when opening inventory)
+		var zero item
+		return zero[:]
+	}
+	arr := unsafe.Slice((*item)(unsafe.Pointer(&p.field_66)), max)
+	return arr[ind][:]
+}
+
+func (p *RenderData) Alpha() byte {
+	return byte(p.field_259)
+}
+
+func (p *RenderData) SetAlpha(v byte) { // nox_client_drawSetAlpha_434580
+	if p.Alpha() != v {
+		p.field_259 = C.uint(v)
+		v2 := uint64(v) | (uint64(v) << 16)
+		v2 &= 0xffffffff
+		v2 <<= 16
+		v2 = (v2 & 0xffffffff00000000) | uint64(v) | (v2 & 0xffffffff)
+		v2 <<= 16
+		p.field_260 = C.uint(uint32(v) | uint32(v2))
+		p.field_261 = C.uint(v2 >> 32)
+	}
+}
+
+func (p *RenderData) setField262(a1 int) { // sub_434080
+	p.field_262 = C.uint(a1)
 }

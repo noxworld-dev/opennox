@@ -1092,31 +1092,31 @@ __int16  sub_49F210(int a1, int a2, int a3)
         v4 = a3;
         v3 = a1;
     }
-    if (ptr_5D4594_3799572->data[0])
+    if (nox_draw_curDrawData_3799572->data[0])
     {
-        v6 = ptr_5D4594_3799572->data[7];
+        v6 = nox_draw_curDrawData_3799572->data[7];
         if (v4 > v6)
             return v5;
-        v7 = ptr_5D4594_3799572->data[5];
+        v7 = nox_draw_curDrawData_3799572->data[5];
         if (v3 < v7)
             return v5;
-        v5 = ptr_5D4594_3799572->data[6];
+        v5 = nox_draw_curDrawData_3799572->data[6];
         if (a2 < v5)
             return v5;
-        v5 = ptr_5D4594_3799572->data[8];
+        v5 = nox_draw_curDrawData_3799572->data[8];
         if (a2 > v5)
             return v5;
         if (v4 < v7)
-            v4 = ptr_5D4594_3799572->data[5];
+            v4 = nox_draw_curDrawData_3799572->data[5];
         if (v3 > v6)
-            v3 = ptr_5D4594_3799572->data[7];
+            v3 = nox_draw_curDrawData_3799572->data[7];
     }
     v8 = v3 - v4;
     v20 = (v8 + 1 < 0) ^ __OFADD__(1, v8) | (v8 == -1);
     v9 = v8 + 1;
     if (!v20)
     {
-        v10 = _mm_cvtsi32_si64(ptr_5D4594_3799572->data[61]);
+        v10 = _mm_cvtsi32_si64(nox_draw_curDrawData_3799572->data[61]);
         v11 = _m_por(_m_psllqi(v10, 0x20u), v10);
         v12 = _m_psrlw(_m_pand(v11, *(__m64*) ((_BYTE*)byte_5D4594_3804364 + 40)), *(__m64*) ((_BYTE*)byte_5D4594_3804364 + 88));
         v13 = _m_psllw(_m_pand(v11, *(__m64*) ((_BYTE*)byte_5D4594_3804364 + 48)), *(__m64*) ((_BYTE*)byte_5D4594_3804364 + 96));
@@ -1188,7 +1188,7 @@ __int16 sub_4C82C0()
     v0 = *getMemU32Ptr(0x5D4594, 3799456);
     v1 = *(__m64 * *) getMemAt(0x5D4594, 3799444);
     v2 = *(__m64 * *) & dword_5d4594_3799540;
-    v3 = *(__m64*)(&ptr_5D4594_3799572->data[260]);
+    v3 = *(__m64*)(&nox_draw_curDrawData_3799572->data[260]);
     while (1)
     {
         v4 = _m_psrlw(_m_pand((__m64)v2->m64_u64, *(__m64*) ((_BYTE*)byte_5D4594_3804364 + 32)), *(__m64*) ((_BYTE*)byte_5D4594_3804364 + 80));
@@ -1470,9 +1470,9 @@ __int16 sub_4C8C00()
     __m64 v13; // [esp+Ch] [ebp-8h]
 
     v0 = *getMemU32Ptr(0x5D4594, 3799456);
-    v1 = *(__m64*)(&ptr_5D4594_3799572->data[18]);
-    v2 = *(__m64*)(&ptr_5D4594_3799572->data[20]);
-    v3 = *(__m64*)(&ptr_5D4594_3799572->data[22]);
+    v1 = *(__m64*)(&nox_draw_curDrawData_3799572->data[18]);
+    v2 = *(__m64*)(&nox_draw_curDrawData_3799572->data[20]);
+    v3 = *(__m64*)(&nox_draw_curDrawData_3799572->data[22]);
     v4 = *(__m64 * *) getMemAt(0x5D4594, 3799444);
     v5 = *(__m64 * *) & dword_5d4594_3799540;
     while (1)

@@ -1386,7 +1386,7 @@ var noxMemmap = []struct {
 	{0x973F18, 128, 4, "nox_draw_sprite_offsY_3799556"},    // 0x973F98
 	{0x973F18, 132, 4, "nox_draw_sprite_offsX_3799560"},    // 0x973F9C
 	{0x973F18, 140, 4, "nox_backbuffer_depth"},             // 0x973FA4
-	{0x973F18, 144, 4, "ptr_5D4594_3799572"},               // 0x973FA8
+	{0x973F18, 144, 4, "nox_draw_curDrawData_3799572"},     // 0x973FA8
 	{0x973F18, 192, 4, "nox_video_windowsPlatformVersion"}, // 0x973FD8
 	{0x973F18, 196, 4, "nox_video_pixmode_3799624"},        // 0x973FDC
 	{0x973F18, 232, 1056, "obj_5D4594_3799660"},            // 0x974000

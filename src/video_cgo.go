@@ -283,14 +283,14 @@ func nox_video_callCopyBackBuffer_4AD170() {
 
 func videoInit(sz types.Size, flags int) error {
 	C.dword_5d4594_823776 = 0
-	C.ptr_5D4594_3799572 = &C.obj_5D4594_3799660
-	noxrend.SetData(&C.obj_5D4594_3799660)
+	noxrend.SetData(asRenderData(&C.obj_5D4594_3799660))
+	C.nox_draw_curDrawData_3799572 = noxrend.Data().C()
 	if err := drawInitAll(sz, flags); err != nil {
 		videoLog.Println("init:", err)
 		return err
 	}
-	C.ptr_5D4594_3799572 = &C.obj_5D4594_3800716
-	noxrend.SetData(&C.obj_5D4594_3800716)
+	noxrend.SetData(asRenderData(&C.obj_5D4594_3800716))
+	C.nox_draw_curDrawData_3799572 = noxrend.Data().C()
 	C.obj_5D4594_3800716 = C.obj_5D4594_3799660
 	C.dword_5d4594_823776 = 1
 	C.dword_5d4594_823772++
@@ -298,8 +298,8 @@ func videoInit(sz types.Size, flags int) error {
 }
 
 func videoInitStub() {
-	C.ptr_5D4594_3799572 = &C.obj_5D4594_3800716
-	noxrend.SetData(&C.obj_5D4594_3800716)
+	noxrend.SetData(asRenderData(&C.obj_5D4594_3800716))
+	C.nox_draw_curDrawData_3799572 = noxrend.Data().C()
 	C.dword_5d4594_823776 = 1
 	C.nox_win_width = noxDefaultWidth
 	C.nox_win_height = noxDefaultHeight
@@ -586,22 +586,23 @@ func sub_4AEBD0() {
 }
 
 func sub_49F610(sz types.Size) {
-	C.ptr_5D4594_3799572.flag_0 = 0
-	C.ptr_5D4594_3799572.clip = C.nox_rect{right: C.int(sz.W), bottom: C.int(sz.H)}
-	C.ptr_5D4594_3799572.rect2 = C.nox_rect{right: C.int(sz.W - 1), bottom: C.int(sz.H - 1)}
-	C.ptr_5D4594_3799572.field_9 = 0
-	C.ptr_5D4594_3799572.field_10 = 0
-	C.ptr_5D4594_3799572.field_11 = C.uint(sz.W)
-	C.ptr_5D4594_3799572.field_12 = C.uint(sz.H)
+	p := noxrend.Data()
+	p.flag_0 = 0
+	p.clip = C.nox_rect{right: C.int(sz.W), bottom: C.int(sz.H)}
+	p.rect2 = C.nox_rect{right: C.int(sz.W - 1), bottom: C.int(sz.H - 1)}
+	p.field_9 = 0
+	p.field_10 = 0
+	p.field_11 = C.uint(sz.W)
+	p.field_12 = C.uint(sz.H)
 	C.dword_5d4594_1305748 = 0
 }
 
 //export sub_49FC20
 func sub_49FC20(a1, a2, a3, a4 *C.int) int {
 	var ys, ye int
-	if C.ptr_5D4594_3799572.flag_0 != 0 {
-		ys = int(C.ptr_5D4594_3799572.rect2.top)
-		ye = int(C.ptr_5D4594_3799572.rect2.bottom)
+	if p := noxrend.Data(); p.flag_0 != 0 {
+		ys = int(p.rect2.top)
+		ye = int(p.rect2.bottom)
 	} else {
 		ys = 0
 		ye = noxPixBuffer.img.Rect.Dy() - 1
@@ -873,8 +874,9 @@ func sub_48B590() (a1 *Image, pos types.Point) {
 }
 
 func sub_48B680(a1 int) {
-	if a1 != int(C.ptr_5D4594_3799572.field_15) {
-		C.ptr_5D4594_3799572.field_14 = C.uint(a1)
+	p := noxrend.Data()
+	if a1 != int(p.field_15) {
+		p.field_14 = C.uint(a1)
 		C.sub_48BD90(1)
 	}
 }
@@ -967,7 +969,7 @@ func nox_video_cursorDrawImpl_477A30(r *NoxRender, inp *input.Handler, pos types
 			sub_48B680(0)
 		}
 		C.sub_4BE710(C.int(uintptr(unsafe.Pointer(noxCursors.Move.C()))), C.int(pos.X), C.int(pos.Y), C.int(v15))
-		C.sub_4345F0(0)
+		sub_4345F0(0)
 	case 15:
 		r.nox_video_drawAnimatedImageOrCursorAt(noxCursors.PickupFar, pos)
 		dword_5d4594_1097208 = -2 * fh

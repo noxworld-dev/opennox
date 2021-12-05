@@ -42,9 +42,9 @@ int nox_thing_door_draw(uint32_t* a1, nox_drawable* dr) {
 	a3.field_0 -= 64;
 	a3.field_4 -= 79;
 	v2 = (uint8_t*)(*(int (**)(int2*)) & dword_5d4594_3807156)(&dr->pos);
-	v3 = sub_4345F0(1);
+	sub_4345F0(1);
 	LOBYTE(v4) = v2[8];
-	LOBYTE(v3) = v2[4];
+	v3 = v2[4];
 	LOBYTE(v5) = *v2;
 	sub_433CD0(v5, v3, v4);
 	v6 = dr->field_74_4;

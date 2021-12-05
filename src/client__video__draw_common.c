@@ -463,7 +463,7 @@ void sub_4340A0(int a1, int a2, int a3, int a4) {
 
 	v4 = a1;
 	if (a1 >= 0 && a1 < 16) {
-		v5 = 48 * a1 + (uint32_t)(&ptr_5D4594_3799572->field_66);
+		v5 = 48 * a1 + (uint32_t)(&nox_draw_curDrawData_3799572->field_66);
 		*(uint32_t*)(v5 + 32) = (unsigned char)a4;
 		*(uint32_t*)(v5 + 24) = (unsigned char)a2;
 		*(uint32_t*)(v5 + 28) = (unsigned char)a3;
@@ -583,13 +583,13 @@ void nox_draw_freeColorTables_433C20() {
 //----- (00444930) --------------------------------------------------------
 int nox_xxx_GfxInit_444930(int w, int h, int depth, int flags) {
 	dword_5d4594_823776 = 0;
-	ptr_5D4594_3799572 = &obj_5D4594_3799660;
+	nox_draw_curDrawData_3799572 = &obj_5D4594_3799660;
 	int result = nox_client_drawInitAll_4449D0(w, h, depth, flags);
 	printf("%s: %d\n", __FUNCTION__, result);
 	if (!result) {
 		return 0;
 	}
-	ptr_5D4594_3799572 = &obj_5D4594_3800716;
+	nox_draw_curDrawData_3799572 = &obj_5D4594_3800716;
 	memcpy(&obj_5D4594_3800716, &obj_5D4594_3799660, sizeof(nox_render_data_t));
 	if (nox_video_renderTargetFlags & 0x200) {
 		SDL_MinimizeWindow(nox_video_getWindow_401FD0());
@@ -902,26 +902,26 @@ int sub_4338D0() {
 		memcpy(byte_5D4594_3804364, byte_581450_9336, sizeof(byte_581450_9336));
 		break;
 	}
-	ptr_5D4594_3799572->field_13 = 0;
-	ptr_5D4594_3799572->field_14 = 0;
-	ptr_5D4594_3799572->field_17 = 0;
-	ptr_5D4594_3799572->field_24 = 0;
-	ptr_5D4594_3799572->field_25 = 0;
-	ptr_5D4594_3799572->field_26 = 0;
-	ptr_5D4594_3799572->field_44 = 0;
-	ptr_5D4594_3799572->field_45 = 0;
-	ptr_5D4594_3799572->field_46 = 0;
-	ptr_5D4594_3799572->field_54 = 0;
-	ptr_5D4594_3799572->field_55 = 0;
-	ptr_5D4594_3799572->field_56 = 0;
-	ptr_5D4594_3799572->field_58 = 0;
-	ptr_5D4594_3799572->field_59 = 0;
-	ptr_5D4594_3799572->field_60 = 0;
-	ptr_5D4594_3799572->field_61 = 0;
-	ptr_5D4594_3799572->field_259 = 255;
-	ptr_5D4594_3799572->field_260 = 16711935;
-	ptr_5D4594_3799572->field_261 = 16711935;
-	ptr_5D4594_3799572->field_262 = 0;
+	nox_draw_curDrawData_3799572->field_13 = 0;
+	nox_draw_curDrawData_3799572->field_14 = 0;
+	nox_draw_curDrawData_3799572->field_17 = 0;
+	nox_draw_curDrawData_3799572->field_24 = 0;
+	nox_draw_curDrawData_3799572->field_25 = 0;
+	nox_draw_curDrawData_3799572->field_26 = 0;
+	nox_draw_curDrawData_3799572->field_44 = 0;
+	nox_draw_curDrawData_3799572->field_45 = 0;
+	nox_draw_curDrawData_3799572->field_46 = 0;
+	nox_draw_curDrawData_3799572->field_54 = 0;
+	nox_draw_curDrawData_3799572->field_55 = 0;
+	nox_draw_curDrawData_3799572->field_56 = 0;
+	nox_draw_curDrawData_3799572->field_58 = 0;
+	nox_draw_curDrawData_3799572->field_59 = 0;
+	nox_draw_curDrawData_3799572->field_60 = 0;
+	nox_draw_curDrawData_3799572->field_61 = 0;
+	nox_draw_curDrawData_3799572->field_259 = 255;
+	nox_draw_curDrawData_3799572->field_260 = 16711935;
+	nox_draw_curDrawData_3799572->field_261 = 16711935;
+	nox_draw_curDrawData_3799572->field_262 = 0;
 	sub_434990(25, 25, 25);
 	result = nox_draw_initColorTables_434CC0();
 	if (result) {
@@ -977,28 +977,28 @@ int sub_433CD0(uint8_t a1, uint8_t a2, uint8_t a3) {
 	unsigned long long v7; // rax
 	int result;            // eax
 
-	ptr_5D4594_3799572->field_24 = a1;
-	ptr_5D4594_3799572->field_25 = a2;
-	ptr_5D4594_3799572->field_26 = a3;
-	ptr_5D4594_3799572->field_16 = a1 == 0xFF && a2 == 0xFF && a3 == 0xFF;
+	nox_draw_curDrawData_3799572->field_24 = a1;
+	nox_draw_curDrawData_3799572->field_25 = a2;
+	nox_draw_curDrawData_3799572->field_26 = a3;
+	nox_draw_curDrawData_3799572->field_16 = a1 == 0xFF && a2 == 0xFF && a3 == 0xFF;
 #ifndef NOX_CGO
 	if (cpuid_5d4594_3801804) {
 		v5 = a1 | (a1 << 16);
 		v5 <<= 16;
 		LODWORD(v5) = a1 | (unsigned int)v5;
 		v5 <<= 16;
-		ptr_5D4594_3799572->field_18 = a1 | (unsigned int)v5;
-		ptr_5D4594_3799572->field_19 = HIDWORD(v5);
+		nox_draw_curDrawData_3799572->field_18 = a1 | (unsigned int)v5;
+		nox_draw_curDrawData_3799572->field_19 = HIDWORD(v5);
 		v6 = (a2 | ((a2 | ((unsigned long long)a2 << 16)) << 16)) << 16;
-		ptr_5D4594_3799572->field_20 = a2 | (unsigned int)v6;
-		ptr_5D4594_3799572->field_21 = HIDWORD(v6);
+		nox_draw_curDrawData_3799572->field_20 = a2 | (unsigned int)v6;
+		nox_draw_curDrawData_3799572->field_21 = HIDWORD(v6);
 		v7 = (a3 | ((a3 | ((unsigned long long)a3 << 16)) << 16)) << 16;
-		ptr_5D4594_3799572->field_22 = a3 | (unsigned int)v7;
-		ptr_5D4594_3799572->field_23 = HIDWORD(v7);
+		nox_draw_curDrawData_3799572->field_22 = a3 | (unsigned int)v7;
+		nox_draw_curDrawData_3799572->field_23 = HIDWORD(v7);
 	}
 #endif // NOX_CGO
 	result = dword_975380(a1, a2, a3);
-	((uint16_t*)(&ptr_5D4594_3799572->field_258))[1] = result;
+	((uint16_t*)(&nox_draw_curDrawData_3799572->field_258))[1] = result;
 	return result;
 }
 
@@ -1021,12 +1021,12 @@ void sub_433ED0(int a1) {
 }
 
 //----- (00434040) --------------------------------------------------------
-int sub_434040(int a1) {
+void sub_434040(int a1) {
 	int v2; // [esp+0h] [ebp-8h]
 	int v3; // [esp+4h] [ebp-4h]
 
 	dword_975240(a1, &v3, &v2, &a1);
-	return nox_xxx_drawMakeRGB_433F10(v3, v2, a1);
+	nox_xxx_drawMakeRGB_433F10(v3, v2, a1);
 }
 
 //----- (004341D0) --------------------------------------------------------
@@ -1044,8 +1044,8 @@ int nox_xxx_drawPlayer_4341D0(int a1, int a2) {
 	result = a1;
 	if (a1 >= 0 && a1 < 16) {
 		v3 = a2;
-		v4 = 48 * a1 + (uint32_t)(&ptr_5D4594_3799572->field_66);
-		result = *(uint32_t*)(48 * a1 + (uint32_t)(&ptr_5D4594_3799572->field_76));
+		v4 = 48 * a1 + (uint32_t)(&nox_draw_curDrawData_3799572->field_66);
+		result = *(uint32_t*)(48 * a1 + (uint32_t)(&nox_draw_curDrawData_3799572->field_76));
 		if (a2 != result) {
 			dword_975240(a2, &a1, &a2, &v10);
 			*(uint32_t*)(v4 + 24) = (unsigned char)a1;
@@ -1078,22 +1078,22 @@ int nox_xxx_drawPlayer_4341D0(int a1, int a2) {
 
 //----- (00434320) --------------------------------------------------------
 void nox_set_color_rgb_434320(int r, int g, int b) {
-	*(int*)(&ptr_5D4594_3799572->field_58) = nox_color_rgb_4344A0(r, g, b);
+	*(int*)(&nox_draw_curDrawData_3799572->field_58) = nox_color_rgb_4344A0(r, g, b);
 }
 
 //----- (004343B0) --------------------------------------------------------
 void nox_set_color_rgb_4343B0(int r, int g, int b) {
-	*(int*)(&ptr_5D4594_3799572->field_59) = nox_color_rgb_4344A0(r, g, b);
+	*(int*)(&nox_draw_curDrawData_3799572->field_59) = nox_color_rgb_4344A0(r, g, b);
 }
 
 //----- (00434400) --------------------------------------------------------
 void nox_set_color_rgb_434400(int r, int g, int b) {
-	*(int*)(&ptr_5D4594_3799572->field_60) = nox_color_rgb_4344A0(r, g, b);
+	*(int*)(&nox_draw_curDrawData_3799572->field_60) = nox_color_rgb_4344A0(r, g, b);
 }
 
 //----- (00434430) --------------------------------------------------------
 void nox_set_color_rgb_434430(int r, int g, int b) {
-	*(int*)(&ptr_5D4594_3799572->field_61) = nox_color_rgb_4344A0(r, g, b);
+	*(int*)(&nox_draw_curDrawData_3799572->field_61) = nox_color_rgb_4344A0(r, g, b);
 }
 
 //----- (00434480) --------------------------------------------------------
@@ -1364,7 +1364,7 @@ unsigned char* sub_48C200(void* a1p, int a2, int a3) {
 		dword_5d4594_1193576 = v6;
 		dword_5d4594_1193516 = result;
 		v11 = dword_6F7C34;
-		if (!ptr_5D4594_3799572->field_15) {
+		if (!nox_draw_curDrawData_3799572->field_15) {
 			v11 = dword_6F7C40;
 		}
 		v21 = v11;
@@ -1449,7 +1449,7 @@ unsigned char* sub_48C320(void* a1p, int a2, int a3) {
 		dword_5d4594_1193576 = v6;
 		dword_5d4594_1193516 = result;
 		v10 = dword_6F7C34;
-		if (!ptr_5D4594_3799572->field_15) {
+		if (!nox_draw_curDrawData_3799572->field_15) {
 			v10 = dword_6F7C40;
 		}
 		v19 = v10;

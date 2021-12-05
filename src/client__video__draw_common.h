@@ -100,7 +100,7 @@ extern int nox_enable_audio;
 extern int nox_win_width;
 extern int nox_win_height;
 
-extern nox_render_data_t* ptr_5D4594_3799572;
+extern nox_render_data_t* nox_draw_curDrawData_3799572;
 extern nox_render_data_t obj_5D4594_3799660;
 extern nox_render_data_t obj_5D4594_3800716;
 
@@ -193,7 +193,7 @@ void nox_draw_freeColorTables_433C20();
 int sub_433CD0(uint8_t a1, uint8_t a2, uint8_t a3);
 int sub_433E40(int a1);
 void sub_433ED0(int a1);
-int sub_434040(int a1);
+void sub_434040(int a1);
 void sub_4340A0(int a1, int a2, int a3, int a4);
 int nox_xxx_drawPlayer_4341D0(int a1, int a2);
 void nox_set_color_rgb_434320(int r, int g, int b);

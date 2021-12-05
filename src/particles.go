@@ -199,7 +199,7 @@ func (r *NoxRender) DrawGlow(pos types.Point, cl uint32, a3 int, a4 int) { // su
 		return
 	}
 	C.sub_434040(C.int(cl))
-	r.sub434080(a3 + 4)
+	r.Data().setField262(a3 + 4)
 	p := r.newParticle(0, int(32*byte(a4)))
 	p.DrawAt(pos)
 }

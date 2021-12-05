@@ -197,7 +197,7 @@ nox_thing* nox_things_head = 0;
 nox_thing** nox_things_array = 0;
 int nox_things_count = 0;
 
-extern nox_render_data_t* ptr_5D4594_3799572;
+extern nox_render_data_t* nox_draw_curDrawData_3799572;
 nox_render_data_t obj_5D4594_3799660 = {0};
 nox_render_data_t obj_5D4594_3800716 = {0};
 
@@ -2765,8 +2765,8 @@ int sub_43F730(int a1, short* a2, int a3, int a4) {
 		}
 	}
 	dword_5d4594_816460 = a3;
-	v6 = ptr_5D4594_3799572->field_59;
-	nox_xxx_drawSetTextColor_434390(ptr_5D4594_3799572->field_60);
+	v6 = nox_draw_curDrawData_3799572->field_59;
+	nox_xxx_drawSetTextColor_434390(nox_draw_curDrawData_3799572->field_60);
 	nox_xxx_guiDrawString_4407F0(v5, a2, a3 + 1, a4 + 1);
 	nox_xxx_drawSetTextColor_434390(v6);
 	return nox_xxx_guiDrawString_4407F0(v5, a2, a3, a4);
@@ -3052,8 +3052,8 @@ int sub_43FD00(int a1, uint16_t* a2, int a3, int a4, int a5, int a6) {
 		return a3;
 	}
 	dword_5d4594_816460 = a3;
-	v7 = ptr_5D4594_3799572->field_59;
-	nox_xxx_drawSetTextColor_434390(ptr_5D4594_3799572->field_60);
+	v7 = nox_draw_curDrawData_3799572->field_59;
+	nox_xxx_drawSetTextColor_434390(nox_draw_curDrawData_3799572->field_60);
 	nox_xxx_drawString_43FAF0(a1, a2, a3 + 1, a4 + 1, a5, a6);
 	nox_xxx_drawSetTextColor_434390(v7);
 	return nox_xxx_drawString_43FAF0(a1, a2, a3, a4, a5, a6);
@@ -3187,7 +3187,7 @@ int nox_xxx_StringDraw_43FE90(void* font, short a2, int xLeft, int yTop) {
 		return dword_5d4594_816456 + xLeft - (dword_5d4594_816456 + xLeft - dword_5d4594_816460) % dword_5d4594_816456;
 	}
 	v7 = a1;
-	LOWORD(v4) = *(uint16_t*)(&ptr_5D4594_3799572->field_59);
+	LOWORD(v4) = *(uint16_t*)(&nox_draw_curDrawData_3799572->field_59);
 	int yt = v4;
 	v8 = (unsigned char*)nox_xxx_FontGetChar_43FE30(a1, a2);
 	if (!v8) {
@@ -3202,11 +3202,11 @@ int nox_xxx_StringDraw_43FE90(void* font, short a2, int xLeft, int yTop) {
 	v11 = xLeft;
 	v65 = (int)(v8 + 1);
 	v67 = *v8;
-	if (!ptr_5D4594_3799572->flag_0) {
+	if (!nox_draw_curDrawData_3799572->flag_0) {
 		goto LABEL_102;
 	}
 	SetRect(&rc, xLeft, v5, xLeft + *v8, v10 + v5);
-	if (!nox_xxx_utilRect_49F930(&v72, (int4*)&rc, (int4*)(&ptr_5D4594_3799572->clip))) {
+	if (!nox_xxx_utilRect_49F930(&v72, (int4*)&rc, (int4*)(&nox_draw_curDrawData_3799572->clip))) {
 		return v11 + dword_5d4594_816440 + v67;
 	}
 	if (rc.left == v72.field_0 && rc.right == v72.field_8 && rc.top == v72.field_4 && rc.bottom == v72.field_C) {
@@ -3303,7 +3303,7 @@ int nox_xxx_StringDraw_43FE90(void* font, short a2, int xLeft, int yTop) {
 		}
 	LABEL_97:
 		if (dword_5d4594_816452) {
-			nox_client_drawRectStringSize_49D190(ptr_5D4594_3799572->field_59, v11, v5, v67, *(uint32_t*)(v7 + 8));
+			nox_client_drawRectStringSize_49D190(nox_draw_curDrawData_3799572->field_59, v11, v5, v67, *(uint32_t*)(v7 + 8));
 			dword_5d4594_816452 = 0;
 			nox_xxx_StringDraw_43FE90(v7, a2, v11, v5);
 			dword_5d4594_816452 = 1;
@@ -3312,8 +3312,8 @@ int nox_xxx_StringDraw_43FE90(void* font, short a2, int xLeft, int yTop) {
 	}
 	v12 = v72.field_4 - rc.top + v5;
 	v66 = *(uint32_t*)(a1 + 4) * (v72.field_4 - rc.top) + v65;
-	v13 = ptr_5D4594_3799572->clip.left;
-	v14 = ptr_5D4594_3799572->clip.right;
+	v13 = nox_draw_curDrawData_3799572->clip.left;
+	v14 = nox_draw_curDrawData_3799572->clip.right;
 	if (v72.field_C == v72.field_4) {
 		goto LABEL_60;
 	}
@@ -3415,7 +3415,7 @@ int nox_xxx_StringDraw_43FE90(void* font, short a2, int xLeft, int yTop) {
 	}
 LABEL_60:
 	if (dword_5d4594_816452) {
-		nox_client_drawRectStringSize_49D190(ptr_5D4594_3799572->field_59, xLeft, v71, v67, v72.field_C - v72.field_4);
+		nox_client_drawRectStringSize_49D190(nox_draw_curDrawData_3799572->field_59, xLeft, v71, v67, v72.field_C - v72.field_4);
 		dword_5d4594_816452 = 0;
 		nox_xxx_StringDraw_43FE90(a1, a2, xLeft, v71);
 		dword_5d4594_816452 = 1;
@@ -3500,7 +3500,7 @@ int sub_440360(int a1, int a2, int xLeft, int yTop) {
 	if ((uint16_t)a2 == 9) {
 		return dword_5d4594_816456 + xLeft - (dword_5d4594_816456 + xLeft - dword_5d4594_816460) % dword_5d4594_816456;
 	}
-	v65 = *(uint8_t*)(&ptr_5D4594_3799572->field_59);
+	v65 = *(uint8_t*)(&nox_draw_curDrawData_3799572->field_59);
 	v5 = (unsigned char*)nox_xxx_FontGetChar_43FE30(a1, a2);
 	if (!v5) {
 		LOWORD(v6) = sub_4408C0(&v65);
@@ -3513,14 +3513,14 @@ int sub_440360(int a1, int a2, int xLeft, int yTop) {
 	v7 = *(uint32_t*)(a1 + 8);
 	v8 = *v5;
 	v9 = (int)(v5 + 1);
-	v10 = ptr_5D4594_3799572->flag_0;
+	v10 = nox_draw_curDrawData_3799572->flag_0;
 	v66 = (char*)v9;
 	v67 = v8;
 	if (!v10) {
 		goto LABEL_100;
 	}
 	SetRect(&rc, xLeft, yTop, v8 + xLeft, v7 + yTop);
-	if (!nox_xxx_utilRect_49F930(&v71, (int4*)&rc, (int4*)(&ptr_5D4594_3799572->clip))) {
+	if (!nox_xxx_utilRect_49F930(&v71, (int4*)&rc, (int4*)(&nox_draw_curDrawData_3799572->clip))) {
 		return xLeft + v8 + dword_5d4594_816440;
 	}
 	if (rc.left == v71.field_0 && rc.right == v71.field_8 && rc.top == v71.field_4 && rc.bottom == v71.field_C) {
@@ -3530,7 +3530,7 @@ int sub_440360(int a1, int a2, int xLeft, int yTop) {
 		if (!v43) {
 		LABEL_95:
 			if (dword_5d4594_816452) {
-				nox_client_drawRectStringSize_49D190(ptr_5D4594_3799572->field_59, xLeft, yTop, v67,
+				nox_client_drawRectStringSize_49D190(nox_draw_curDrawData_3799572->field_59, xLeft, yTop, v67,
 													 *(uint32_t*)(a1 + 8));
 				dword_5d4594_816452 = 0;
 				sub_440360(a1, a2, xLeft, yTop);
@@ -3626,9 +3626,9 @@ int sub_440360(int a1, int a2, int xLeft, int yTop) {
 	}
 	v11 = v71.field_4 - rc.top + yTop;
 	v66 += *(uint32_t*)(a1 + 4) * (v71.field_4 - rc.top);
-	v12 = ptr_5D4594_3799572->clip.left;
-	v13 = ptr_5D4594_3799572->clip.right;
-	yTopa = ptr_5D4594_3799572->clip.right;
+	v12 = nox_draw_curDrawData_3799572->clip.left;
+	v13 = nox_draw_curDrawData_3799572->clip.right;
+	yTopa = nox_draw_curDrawData_3799572->clip.right;
 	if (v71.field_C == v71.field_4) {
 		goto LABEL_61;
 	}
@@ -3736,7 +3736,7 @@ int sub_440360(int a1, int a2, int xLeft, int yTop) {
 LABEL_61:
 	if (dword_5d4594_816452) {
 		v42 = v70;
-		nox_client_drawRectStringSize_49D190(ptr_5D4594_3799572->field_59, xLeft, v70, v67, v71.field_C - v71.field_4);
+		nox_client_drawRectStringSize_49D190(nox_draw_curDrawData_3799572->field_59, xLeft, v70, v67, v71.field_C - v71.field_4);
 		dword_5d4594_816452 = 0;
 		sub_440360(a1, a2, xLeft, v42);
 		dword_5d4594_816452 = 1;
@@ -3822,7 +3822,7 @@ int sub_4408E0() { return 1; }
 //----- (00440900) --------------------------------------------------------
 void nox_client_clearScreen_440900() {
 	uint32_t** dst = nox_pixbuffer_rows_3798784;
-	int val = ptr_5D4594_3799572->field_58;
+	int val = nox_draw_curDrawData_3799572->field_58;
 	for (int y = 0; y < nox_backbuffer_height; y++) {
 		uint32_t* row = *dst;
 		for (int x = 0; x < nox_backbuffer_width32; x++) {
@@ -4222,13 +4222,13 @@ void sub_444D00() {
 #endif // NOX_CGO
 
 //----- (00444D30) --------------------------------------------------------
-void sub_444D30() { memcpy(ptr_5D4594_3799572, &obj_5D4594_3799660, sizeof(nox_render_data_t)); }
+void sub_444D30() { memcpy(nox_draw_curDrawData_3799572, &obj_5D4594_3799660, sizeof(nox_render_data_t)); }
 
 //----- (00444D50) --------------------------------------------------------
-void sub_444D50(nox_render_data_t* a1) { memcpy(a1, ptr_5D4594_3799572, sizeof(nox_render_data_t)); }
+void sub_444D50(nox_render_data_t* a1) { memcpy(a1, nox_draw_curDrawData_3799572, sizeof(nox_render_data_t)); }
 
 //----- (00444D70) --------------------------------------------------------
-void sub_444D70(nox_render_data_t* a1) { memcpy(ptr_5D4594_3799572, a1, sizeof(nox_render_data_t)); }
+void sub_444D70(nox_render_data_t* a1) { memcpy(nox_draw_curDrawData_3799572, a1, sizeof(nox_render_data_t)); }
 
 //----- (00445440) --------------------------------------------------------
 int sub_445440() { return 1; }
