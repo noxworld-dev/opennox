@@ -1593,7 +1593,6 @@ void sub_4C97F0() {
 	int result;         // eax
 	int v1;             // ecx
 	unsigned short* v2; // edi
-	unsigned int v3;    // eax
 	unsigned int v4;    // ebx
 	int v5;             // edx
 	unsigned char v6;   // [esp+8h] [ebp-10h]
