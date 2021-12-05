@@ -248,7 +248,7 @@ int nox_client_drawGeneral_4B0340(int a1) // draw general
 	v7 = nox_backbuffer_height;
 	a1 = nox_backbuffer_depth;
 	nox_video_stopCursorDrawThread_48B350();
-	sub_433C20();
+	nox_draw_freeColorTables_433C20();
 	nox_free_pixbuffers_486110();
 	nox_video_free_renderer_48A120();
 	nox_video_renderTargetFlags = v4;

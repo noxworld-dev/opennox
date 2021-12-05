@@ -78,7 +78,7 @@ extern uint32_t nox_video_bag_ready;
 extern uint32_t dword_5d4594_823776;
 extern uint8_t* nox_pixbuffer_3798780;
 extern void* dword_5d4594_1193704;
-extern uint32_t dword_5d4594_3804668;
+extern void* nox_draw_colorTablesRev_3804668;
 extern uint32_t dword_5d4594_1193584;
 extern int nox_backbuffer_pitch_3801808;
 extern uint32_t cpuid_5d4594_3801804;
@@ -87,7 +87,7 @@ extern void* (*nox_video_getImagePixdata_func)(nox_video_bag_image_t*);
 #else  // NOX_CGO
 void* nox_video_getImagePixdata_func(nox_video_bag_image_t*);
 #endif // NOX_CGO
-extern uint32_t dword_5d4594_810640;
+extern void* dword_5d4594_810640;
 extern uint32_t dword_5d4594_1193516;
 extern uint32_t nox_video_pixmode_3799624;
 extern uint32_t dword_5d4594_3801780;
@@ -189,7 +189,7 @@ void change_windowed_fullscreen();
 void updateGamma(int value);
 #endif
 int sub_4338D0();
-void sub_433C20();
+void nox_draw_freeColorTables_433C20();
 int sub_433CD0(uint8_t a1, uint8_t a2, uint8_t a3);
 int sub_433E40(int a1);
 void sub_433ED0(int a1);

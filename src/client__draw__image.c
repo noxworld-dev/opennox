@@ -10,10 +10,10 @@ extern unsigned char** nox_pixbuffer_rows_3798784;
 extern nox_render_data_t obj_5D4594_3800716;
 extern nox_render_data_t* ptr_5D4594_3799572;
 extern unsigned char byte_5D4594_3804364[160];
-extern unsigned int dword_5d4594_3804668;
+extern void* nox_draw_colorTablesRev_3804668;
 extern unsigned int dword_5d4594_810632;
 extern unsigned int dword_5d4594_810636;
-extern unsigned int dword_5d4594_810640;
+extern void* dword_5d4594_810640;
 
 unsigned int dword_5d4594_3799508 = 0; // TODO: remove externs to it
 void* nox_draw_sprite_dstPtr_3799540 = 0;
@@ -157,7 +157,7 @@ unsigned char sub_4C73A0() {
 		//                  char)-__CFADD__(v2[1], (unsigned short)(v3 & 0x3E0) >> 2) | (unsigned
 		//                  char)(v2[1] + ((unsigned short)(v3 & 0x3E0) >> 2))) & 0xF8)) | ((((unsigned
 		//                  char)-__CFADD__(*v2, (unsigned char)v4) | (unsigned char)(*v2 + v4)) & 0xF8) << 7)));
-		result = *(unsigned char*)(dword_5d4594_810640 + (SADD8(v2[2], 8 * (v3 & 0x1F)) >> 3) |
+		result = *(unsigned char*)((unsigned int)dword_5d4594_810640 + (SADD8(v2[2], 8 * (v3 & 0x1F)) >> 3) |
 								   (4 * (SADD8(v2[1], (unsigned short)(v3 & 0x3E0) >> 2) & 0xF8) |
 									(SADD8(*v2, (unsigned char)v4) & 0xF8) << 7));
 		*v1++ = result;
@@ -205,7 +205,7 @@ void sub_4C6A00() {
 										 (32 * ((getMemByte(0x973F18, 3880 + v5) +
 												 ((unsigned short)(v1 * (v4 - getMemByte(0x973F18, 3880 + v5))) >> 8)) &
 												0xF8))))) +
-								  dword_5d4594_810640);
+								  (unsigned int)dword_5d4594_810640);
 			v2 = (unsigned char*)((unsigned int)nox_draw_sprite_dstPtr_3799540 + 1);
 			result = v8 - 1;
 			v6 = v8 == 1;
@@ -330,7 +330,7 @@ void sub_4C6C60() {
 										 (32 * ((getMemByte(0x973F18, 3880 + v6) +
 												 ((unsigned short)(v8 * (v5 - getMemByte(0x973F18, 3880 + v6))) >> 8)) &
 												0xF8))))) +
-								  dword_5d4594_810640);
+								  (unsigned int)dword_5d4594_810640);
 			v2 = (unsigned char*)((unsigned int)nox_draw_sprite_dstPtr_3799540 + 1);
 			result = v10 - 1;
 			v7 = v10 == 1;
@@ -411,7 +411,7 @@ void sub_4C6E40() {
 										 (32 * ((getMemByte(0x973F18, 3880 + v6) +
 												 ((unsigned short)(v8 * (v5 - getMemByte(0x973F18, 3880 + v6))) >> 8)) &
 												0xF8))))) +
-								  dword_5d4594_810640);
+								  (unsigned int)dword_5d4594_810640);
 			v2 = (unsigned char*)((unsigned int)nox_draw_sprite_dstPtr_3799540 + 1);
 			result = v10 - 1;
 			v7 = v10 == 1;
@@ -506,7 +506,7 @@ unsigned int sub_4C7110() {
 												   (32 * ((v7 + ((unsigned short)(v6 * ((BYTE1(result) & 0xF0) - v7)) >>
 																 8)) &
 														  0xF8))))) +
-								dword_5d4594_810640);
+								(unsigned int)dword_5d4594_810640);
 			v1 = (unsigned char*)((unsigned int)nox_draw_sprite_dstPtr_3799540 + 1);
 			result = v5 - 1;
 			nox_draw_sprite_dstPtr_3799540 = (unsigned int)nox_draw_sprite_dstPtr_3799540 + 1;
@@ -560,7 +560,7 @@ unsigned int sub_4C7240() {
 																			  getMemByte(0x973F18, 3880 + v5))) >>
 															8)) &
 														  0xF8))))) +
-								dword_5d4594_810640);
+								(unsigned int)dword_5d4594_810640);
 			v2 = (unsigned char*)((unsigned int)nox_draw_sprite_dstPtr_3799540 + 1);
 			result = v7 - 1;
 			nox_draw_sprite_dstPtr_3799540 = (unsigned int)nox_draw_sprite_dstPtr_3799540 + 1;
@@ -1709,6 +1709,7 @@ void sub_4C8DF0() {
 	}
 }
 
+#ifndef NOX_CGO
 //----- (004C8D60) --------------------------------------------------------
 void sub_4C8D60() {
 	unsigned short* v0; // esi
@@ -1724,7 +1725,7 @@ void sub_4C8D60() {
 	do {
 		v2 = *v0;
 		++v0;
-		v3 = (unsigned char)*(unsigned int*)(dword_5d4594_3804668 + v2);
+		v3 = (unsigned char)*(unsigned int*)((unsigned int)nox_draw_colorTablesRev_3804668 + v2);
 		result = *(unsigned int*)(nox_draw_colors_r_3804672 +
 								  2 * ((unsigned int)(*(unsigned int*)(&obj_5D4594_3800716.field_24) * v3) >> 8)) |
 				 *(unsigned int*)(nox_draw_colors_g_3804656 +
@@ -1739,7 +1740,6 @@ void sub_4C8D60() {
 	nox_draw_sprite_dstPtr_3799540 = v1;
 }
 
-#ifndef NOX_CGO
 //----- (004C91C0) --------------------------------------------------------
 void sub_4C91C0() {
 	int result;       // eax

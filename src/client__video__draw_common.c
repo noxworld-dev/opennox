@@ -539,7 +539,7 @@ void sub_435550() {
 
 //----- (00433C20) --------------------------------------------------------
 #ifndef NOX_CGO
-void sub_433C20_freeColorTables() {
+void nox_draw_freeColorTables_433C20_2() {
 	if (nox_draw_colors_r_3804672) {
 		free(*(void**)&nox_draw_colors_r_3804672);
 		nox_draw_colors_r_3804672 = 0;
@@ -554,29 +554,25 @@ void sub_433C20_freeColorTables() {
 	}
 }
 #else  // NOX_CGO
-void sub_433C20_freeColorTables();
+void nox_draw_freeColorTables_433C20_2();
 #endif // NOX_CGO
 
-void sub_433C20() {
 #ifndef NOX_CGO
-	sub_48A7F0();
-#endif // NOX_CGO
-
+void nox_draw_freeColorTables_433C20() {
 	if (dword_5d4594_810640) {
-		free(*(void**)&dword_5d4594_810640);
+		free(dword_5d4594_810640);
 		dword_5d4594_810640 = 0;
 	}
-	if (dword_5d4594_3804668) {
-		free(*(void**)&dword_5d4594_3804668);
-		dword_5d4594_3804668 = 0;
+	if (nox_draw_colorTablesRev_3804668) {
+		free(nox_draw_colorTablesRev_3804668);
+		nox_draw_colorTablesRev_3804668 = 0;
 	}
-	sub_433C20_freeColorTables();
+	nox_draw_freeColorTables_433C20_2();
 	sub_435550();
 	*getMemU32Ptr(0x973F18, 5232) = 0;
 }
 
 //----- (00444930) --------------------------------------------------------
-#ifndef NOX_CGO
 int nox_xxx_GfxInit_444930(int w, int h, int depth, int flags) {
 	dword_5d4594_823776 = 0;
 	ptr_5D4594_3799572 = &obj_5D4594_3799660;
@@ -604,7 +600,7 @@ void sub_444C50() {
 		nullsub_19();
 		nullsub_3();
 		nullsub_14();
-		sub_433C20();
+		nox_draw_freeColorTables_433C20();
 		nullsub_15();
 		nox_video_free_renderer_48A120();
 		nox_client_initFade_44D9D0();
@@ -921,7 +917,7 @@ int sub_4338D0() {
 	sub_434990(25, 25, 25);
 	result = nox_draw_initColorTables_434CC0();
 	if (result) {
-		result = sub_434DA0();
+		result = nox_draw_initColorTablesRev_434DA0();
 		if (result) {
 			if (!dword_5d4594_823772) {
 				sub_4353C0();

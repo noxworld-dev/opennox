@@ -1179,7 +1179,7 @@ void sub_435550() {
 }
 
 //----- (00433C20) --------------------------------------------------------
-void sub_433C20() {
+void nox_draw_freeColorTables_433C20() {
 	sub_48A7F0();
 	sub_435380(&g_ddraw_gamma_control);
 	sub_4353A0(&g_ddraw_palette);
@@ -1187,9 +1187,9 @@ void sub_433C20() {
 		free(*(LPVOID*)&dword_5d4594_810640);
 		dword_5d4594_810640 = 0;
 	}
-	if (dword_5d4594_3804668) {
-		free(*(LPVOID*)&dword_5d4594_3804668);
-		dword_5d4594_3804668 = 0;
+	if (nox_draw_colorTablesRev_3804668) {
+		free(*(LPVOID*)&nox_draw_colorTablesRev_3804668);
+		nox_draw_colorTablesRev_3804668 = 0;
 	}
 	if (dword_5d4594_3804672) {
 		free(*(LPVOID*)&dword_5d4594_3804672);
@@ -1563,7 +1563,7 @@ int sub_4338D0() {
 	sub_434990(25, 25, 25);
 	result = sub_434CC0();
 	if (result) {
-		result = sub_434DA0();
+		result = nox_draw_initColorTablesRev_434DA0();
 		if (result) {
 			if (!dword_5d4594_823772)
 				sub_4353C0();
@@ -1775,7 +1775,7 @@ int nox_client_drawGeneral_4B0340(int a1) // draw general
 	v7 = nox_backbuffer_height;
 	a1 = nox_backbuffer_depth;
 	nox_video_stopCursorDrawThread_48B350();
-	sub_433C20();
+	nox_draw_freeColorTables_433C20();
 	nox_free_pixbuffers_486110();
 	sub_48A120();
 	nox_video_renderTargetFlags = v4;

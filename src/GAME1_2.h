@@ -193,7 +193,7 @@ int sub_4349C0(uint32_t* a1);
 int sub_434A00();
 uint32_t* sub_434A10(uint32_t* a1, uint32_t* a2, uint32_t* a3);
 char sub_434A60(int a1);
-int sub_434DA0();
+int nox_draw_initColorTablesRev_434DA0();
 char sub_434E80(char a1, char a2, char a3);
 char sub_434EC0(char a1, char a2, char a3);
 int sub_434F00();
