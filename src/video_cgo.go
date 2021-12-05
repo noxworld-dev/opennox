@@ -479,7 +479,7 @@ func drawGeneral_4B0340(a1 int) error {
 		v4 = int(C.nox_video_renderTargetFlags)
 		prevSz = noxPixBuffer.img.Size()
 		nox_video_stopCursorDrawThread_48B350()
-		C.sub_433C20()
+		nox_draw_freeColorTables_433C20()
 		nox_free_pixbuffers_486110()
 		C.nox_video_renderTargetFlags = C.int(v4)
 		sz := types.Size{W: noxDefaultWidth, H: noxDefaultHeight}
@@ -1097,7 +1097,7 @@ func sub_444C50() {
 	if C.dword_5d4594_823776 != 0 {
 		nox_video_stopCursorDrawThread_48B350()
 		nox_free_pixbuffers_486110()
-		C.sub_433C20()
+		nox_draw_freeColorTables_433C20()
 		C.nox_client_initFade_44D9D0()
 		noxrend.freeParticles()
 		C.sub_4AF950()

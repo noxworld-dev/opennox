@@ -83,7 +83,7 @@ extern uint32_t dword_5d4594_1217452;
 extern uint32_t dword_5d4594_3798716;
 extern uint32_t dword_5d4594_1193712;
 extern uint32_t nox_server_connectionType_3596;
-extern uint32_t dword_5d4594_3804668;
+extern void* nox_draw_colorTablesRev_3804668;
 extern uint32_t dword_5d4594_810636;
 extern uint32_t dword_5d4594_1301828;
 extern uint32_t dword_5d4594_1193584;
@@ -100,7 +100,6 @@ extern uint32_t nox_wol_servers_sorting_166704;
 extern uint32_t dword_5d4594_1197324;
 extern uint32_t dword_5d4594_1217456;
 extern uint32_t dword_5d4594_1301800;
-extern uint32_t dword_5d4594_810640;
 extern uint32_t dword_5d4594_1305680;
 extern uint32_t dword_5d4594_1301792;
 extern uint32_t dword_5d4594_1301848;
@@ -138,6 +137,8 @@ nox_drawable*** nox_drawable_2d_index = 0;
 int nox_drawable_2d_index_size = 0;
 const int nox_drawable_2d_index_cap = 47;
 #endif // NOX_CGO
+
+void* dword_5d4594_810640 = 0;
 
 int4* (*func_5D4594_1305696)(int, int, int, int, int);
 void (*func_5D4594_1305708)(uint32_t*, int, unsigned int);
@@ -199,7 +200,7 @@ int sub_48C4D0() {
 	do {
 		v2 = *v0;
 		++v0;
-		v3 = (unsigned char)*(uint32_t*)(dword_5d4594_3804668 + v2);
+		v3 = (unsigned char)*(uint32_t*)((unsigned int)nox_draw_colorTablesRev_3804668 + v2);
 		result = *(uint32_t*)(nox_draw_colors_r_3804672 +
 							  2 * ((unsigned int)(*(uint32_t*)(&obj_5D4594_3800716.field_34) * v3) >> 8)) |
 				 *(uint32_t*)(nox_draw_colors_g_3804656 +
@@ -7540,7 +7541,7 @@ unsigned char sub_49DA90(int a1, int a2, int a3, int a4) {
 			LOBYTE(v11) = v10;
 			v11 *= 4;
 			LOBYTE(v11) = v9 | v11;
-			result = *(uint8_t*)(dword_5d4594_810640 + v11);
+			result = *(uint8_t*)((unsigned int)dword_5d4594_810640 + v11);
 			*v7++ = result;
 			v13 = v5-- <= 1;
 		} while (!v13);
@@ -7584,7 +7585,7 @@ unsigned char sub_49DB20(int a1, int a2, int a3, int a4) {
 			LOBYTE(v11) = v10;
 			v11 *= 4;
 			LOBYTE(v11) = v9 | v11;
-			result = *(uint8_t*)(dword_5d4594_810640 + v11);
+			result = *(uint8_t*)((unsigned int)dword_5d4594_810640 + v11);
 			*v7++ = result;
 			v13 = v5-- <= 1;
 		} while (!v13);
@@ -7767,7 +7768,7 @@ int4* sub_49DD60(int a1, int a2, int a3, int a4, int a5) {
 						v13 = v41;
 						v27 = *(
 							uint8_t*)(((v25 >> 3) & 0xFFFF | (unsigned short)(4 * (v26 & 0xF8 | (32 * (v24 & 0xF8))))) +
-									  dword_5d4594_810640);
+									  (unsigned int)dword_5d4594_810640);
 						v9 = a1;
 						*v40[4] = v27;
 					}
@@ -8240,7 +8241,7 @@ int sub_49E6C0(int a1) {
 					while (1) {
 						v15 = (uint8_t*)(v30 + *(uint32_t*)(v3 + 4 * v31));
 						v16 = getMemAt(0x973F18, 3880 + 4 * (unsigned char)*v15);
-						*v15 = *(uint8_t*)(dword_5d4594_810640 +
+						*v15 = *(uint8_t*)((unsigned int)dword_5d4594_810640 +
 										   (unsigned short)((4 * ((((unsigned short)(*(uint16_t*)(&obj_5D4594_3800716
 																									   .field_259) *
 																					 (v18 - v16[1])) >>
@@ -8279,7 +8280,7 @@ int sub_49E6C0(int a1) {
 				LABEL_15:
 					for (i = (uint8_t*)(v30 + *(uint32_t*)(v3 + 4 * v31));; i += v20) {
 						v11 = getMemAt(0x973F18, 3880 + 4 * (unsigned char)*i);
-						*i = *(uint8_t*)(dword_5d4594_810640 +
+						*i = *(uint8_t*)((unsigned int)dword_5d4594_810640 +
 										 (unsigned short)((4 * ((((unsigned short)(*(uint16_t*)(&obj_5D4594_3800716
 																									 .field_259) *
 																				   (v18 - v11[1])) >>

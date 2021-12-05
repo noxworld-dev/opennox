@@ -127,7 +127,6 @@ extern uint32_t dword_5d4594_741364;
 extern int nox_video_16bit;
 extern nox_gui_animation* nox_wnd_xxx_815040;
 extern uint32_t dword_5d4594_805984;
-extern uint32_t dword_5d4594_3804668;
 extern uint32_t dword_5d4594_810636;
 extern uint32_t dword_5d4594_805836;
 extern uint32_t dword_587000_87408;
@@ -155,7 +154,7 @@ uint32_t nox_game_playState_811372 = 0;
 #endif // NOX_CGO
 extern int dword_5d4594_3799524;
 extern uint32_t dword_5d4594_815032;
-extern uint32_t dword_5d4594_810640;
+extern void* dword_5d4594_810640;
 extern uint32_t dword_5d4594_815020;
 extern uint32_t dword_5d4594_815024;
 extern uint32_t dword_5d4594_815028;
@@ -241,6 +240,7 @@ nox_screenParticle* nox_screenParticles_head = 0;
 nox_screenParticle* dword_5d4594_806052 = 0;
 
 nox_draw_viewport_t nox_draw_viewport = {0};
+void* nox_draw_colorTablesRev_3804668 = 0;
 
 #ifndef NOX_CGO
 char nox_clientServerAddr[32] = "localhost";
@@ -5553,19 +5553,19 @@ uint32_t* sub_434A10(uint32_t* a1, uint32_t* a2, uint32_t* a3) {
 
 //----- (00434A60) --------------------------------------------------------
 char sub_434A60(int a1) {
-	return *(uint8_t*)(dword_5d4594_3804668 + (((unsigned char)(getMemByte(0x973F18, 3882 + 4 * a1) & 0xF8) >> 3) |
+	return *(uint8_t*)((unsigned int)nox_draw_colorTablesRev_3804668 + (((unsigned char)(getMemByte(0x973F18, 3882 + 4 * a1) & 0xF8) >> 3) |
 											   (4 * (getMemByte(0x973F18, 3881 + 4 * a1) & 0xF8)) |
 											   ((getMemByte(0x973F18, 3880 + 4 * a1) & 0xF8) << 7)));
 }
 
+#ifndef NOX_CGO
 //----- (00434DA0) --------------------------------------------------------
-int sub_434DA0() {
+int nox_draw_initColorTablesRev_434DA0() {
 	short v0;        // bx
 	int v1;          // edi
 	void* result;    // eax
 	unsigned int v3; // esi
 
-#ifndef NOX_CGO
 	if (*(int*)&nox_video_pixmode_3799624 < 0) {
 		return 1;
 	}
@@ -5580,12 +5580,8 @@ int sub_434DA0() {
 	v0 = 7;
 	v1 = 0x7FFF;
 LABEL_6:
-#else  // NOX_CGO
-	v0 = 7;
-	v1 = 0x7FFF;
-#endif // NOX_CGO
 	result = (int)calloc(v1 + 3, 1u);
-	dword_5d4594_3804668 = result;
+	nox_draw_colorTablesRev_3804668 = result;
 	if (result) {
 		v3 = 0;
 		while (1) {
@@ -5602,22 +5598,23 @@ LABEL_6:
 			if ((int)++v3 > v1) {
 				break;
 			}
-			result = dword_5d4594_3804668;
+			result = nox_draw_colorTablesRev_3804668;
 		}
 		result = 1;
 	}
 	return 1;
 }
+#endif NOX_CGO
 
 //----- (00434E80) --------------------------------------------------------
 char sub_434E80(char a1, char a2, char a3) {
-	return *(uint8_t*)(dword_5d4594_3804668 +
+	return *(uint8_t*)((unsigned int)nox_draw_colorTablesRev_3804668 +
 					   (((unsigned char)(a3 & 0xF8) >> 3) | (4 * (a2 & 0xF8)) | ((a1 & 0xF8) << 7)));
 }
 
 //----- (00434EC0) --------------------------------------------------------
 char sub_434EC0(char a1, char a2, char a3) {
-	return *(uint8_t*)(dword_5d4594_3804668 +
+	return *(uint8_t*)((unsigned int)nox_draw_colorTablesRev_3804668 +
 					   (((unsigned char)(a3 & 0xF8) >> 3) | (8 * (a2 & 0xFC)) | ((a1 & 0xF8) << 8)));
 }
 
