@@ -5299,10 +5299,8 @@ void nox_client_drawEnableAlpha_434560(int a1) {
 
 //----- (00434580) --------------------------------------------------------
 void nox_client_drawSetAlpha_434580(unsigned char a1) {
-	int result;   // eax
 	long long v2; // rax
 
-	result = a1;
 	if (nox_draw_curDrawData_3799572->field_259 != a1) {
 		nox_draw_curDrawData_3799572->field_259 = a1;
 		v2 = a1 | (a1 << 16);
@@ -5311,10 +5309,8 @@ void nox_client_drawSetAlpha_434580(unsigned char a1) {
 		LODWORD(v2) = a1 | (unsigned int)v2;
 		v2 <<= 16;
 		nox_draw_curDrawData_3799572->field_260 = a1 | (unsigned int)v2;
-		result = nox_draw_curDrawData_3799572;
 		nox_draw_curDrawData_3799572->field_261 = HIDWORD(v2);
 	}
-	return result;
 }
 
 //----- (004345F0) --------------------------------------------------------
@@ -5608,7 +5604,7 @@ int sub_434F00() {
 	}
 	if (dword_5d4594_810640 || (result = (int)calloc(0x8000u, 1u), (dword_5d4594_810640 = result) != 0)) {
 		for (i = 0; i <= 0x7FFF; ++i) {
-			*(uint8_t*)(dword_5d4594_810640 + i) =
+			*(uint8_t*)((unsigned int)dword_5d4594_810640 + i) =
 				sub_434630((unsigned short)(i & 0x7C00) >> 7, (unsigned short)(i & 0x3E0) >> 2, 8 * (i & 0x1F));
 		}
 		result = 1;
