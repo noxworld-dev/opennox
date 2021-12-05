@@ -1825,13 +1825,40 @@ func copy16b(dst []uint16, src []byte) int {
 	return copy(dst, src16)
 }
 
-func (r *NoxRender) pixBlend(dst []uint16, src []byte, _ byte, sz int) (_ []uint16, _ []byte) { // sub_4C8A30
+type drawU16Func func(old uint16, src uint16) uint16
+
+func (r *NoxRender) drawOpU16(dst []uint16, src []byte, sz int, fnc drawU16Func) (_ []uint16, _ []byte) {
 	if sz < 0 {
 		panic("negative size")
 	}
-	_ = dst[sz:]
-	_ = src[2*sz:]
-	const (
+	dnext := dst[sz:]
+	snext := src[2*sz:]
+	for i := 0; i < sz; i++ {
+		c1 := dst[i]
+		c2 := binary.LittleEndian.Uint16(src[2*i:])
+		dst[i] = fnc(c1, c2)
+	}
+	return dnext, snext
+}
+
+type drawU8Func func(old uint16, src byte) uint16
+
+func (r *NoxRender) drawOpU8(dst []uint16, src []byte, sz int, fnc drawU8Func) (_ []uint16, _ []byte) {
+	if sz < 0 {
+		panic("negative size")
+	}
+	dnext := dst[sz:]
+	snext := src[sz:]
+	for i := 0; i < sz; i++ {
+		c1 := dst[i]
+		c2 := src[i]
+		dst[i] = fnc(c1, c2)
+	}
+	return dnext, snext
+}
+
+func (r *NoxRender) pixBlend(dst []uint16, src []byte, _ byte, sz int) (_ []uint16, _ []byte) { // sub_4C8A30
+	const ( // TODO: why masks are inverted?
 		rshift = 3
 		gshift = 2
 		bshift = 7
@@ -1845,30 +1872,19 @@ func (r *NoxRender) pixBlend(dst []uint16, src []byte, _ byte, sz int) (_ []uint
 	gmul := uint16(byte(r.p.field_25))
 	bmul := uint16(byte(r.p.field_24))
 
-	for i := 0; i < sz; i++ {
-		c1 := dst[i]                          // old color
-		c2 := binary.LittleEndian.Uint16(src) // color to draw
+	return r.drawOpU16(dst, src, sz, func(old uint16, src uint16) uint16 {
+		rc := byte((rmul * ((rmask & src) << rshift)) >> 8)
+		gc := byte((gmul * ((gmask & src) >> gshift)) >> 8)
+		bc := byte((bmul * ((bmask & src) >> bshift)) >> 8)
 
-		rc := byte((rmul * ((rmask & c2) << rshift)) >> 8)
-		gc := byte((gmul * ((gmask & c2) >> gshift)) >> 8)
-		bc := byte((bmul * ((bmask & c2) >> bshift)) >> 8)
-
-		c3 := r.colors.R[byte(int16(bc)+(int16((bmask&c1)>>bshift)-int16(bc))/2)] |
-			r.colors.G[byte(int16(gc)+(int16((gmask&c1)>>gshift)-int16(gc))/2)] |
-			r.colors.B[byte(int16(rc)+(int16((rmask&c1)<<rshift)-int16(rc))/2)]
-
-		dst[i] = c3
-		src = src[2:]
-	}
-	return dst[sz:], src
+		cr := r.colors.R[byte(int16(bc)+(int16((bmask&old)>>bshift)-int16(bc))/2)]
+		cg := r.colors.G[byte(int16(gc)+(int16((gmask&old)>>gshift)-int16(gc))/2)]
+		cb := r.colors.B[byte(int16(rc)+(int16((rmask&old)<<rshift)-int16(rc))/2)]
+		return cr | cg | cb
+	})
 }
 
 func (r *NoxRender) sub_4C96A0(dst []uint16, src []byte, _ byte, sz int) (_ []uint16, _ []byte) { // sub_4C96A0
-	if sz < 0 {
-		panic("negative size")
-	}
-	_ = dst[sz:]
-	_ = src[2*sz:]
 	const (
 		rshift = 7 // -10+3
 		gshift = 2 // -5+3
@@ -1878,9 +1894,7 @@ func (r *NoxRender) sub_4C96A0(dst []uint16, src []byte, _ byte, sz int) (_ []ui
 		gmask = 0x03e0
 		bmask = 0x001f
 	)
-	for i := 0; i < sz; i++ {
-		c1 := dst[i]                          // old color
-		c2 := binary.LittleEndian.Uint16(src) // color to draw
+	return r.drawOpU16(dst, src, sz, func(c1 uint16, c2 uint16) uint16 {
 		cr := (c1 & rmask) >> rshift
 		cg := (c1 & gmask) >> gshift
 		cb := (c1 & bmask) << bshift
@@ -1889,19 +1903,11 @@ func (r *NoxRender) sub_4C96A0(dst []uint16, src []byte, _ byte, sz int) (_ []ui
 		cr = r.colors.R[byte(cr+((c2v*(((c2>>8)&0xF0)-cr))>>8))]
 		cg = r.colors.G[byte(cg+((c2v*(((c2>>4)&0xF0)-cg))>>8))]
 		cb = r.colors.B[byte(cb+((c2v*(((c2>>0)&0xF0)-cb))>>8))]
-		dst[i] = cr | cg | cb
-
-		src = src[2:]
-	}
-	return dst[sz:], src
+		return cr | cg | cb
+	})
 }
 
 func (r *NoxRender) sub_4C9970(dst []uint16, src []byte, _ byte, sz int) (_ []uint16, _ []byte) { // sub_4C9970
-	if sz < 0 {
-		panic("negative size")
-	}
-	_ = dst[sz:]
-	_ = src[2*sz:]
 	const (
 		rshift = 7 // -10+3
 		gshift = 2 // -5+3
@@ -1916,10 +1922,7 @@ func (r *NoxRender) sub_4C9970(dst []uint16, src []byte, _ byte, sz int) (_ []ui
 	gmul := uint16(byte(r.p.field_25))
 	bmul := uint16(byte(r.p.field_26))
 
-	for i := 0; i < sz; i++ {
-		c1 := dst[i]                          // old color
-		c2 := binary.LittleEndian.Uint16(src) // color to draw
-
+	return r.drawOpU16(dst, src, sz, func(c1 uint16, c2 uint16) uint16 {
 		cr := (c1 & rmask) >> rshift
 		cg := (c1 & gmask) >> gshift
 		cb := (c1 & bmask) << bshift
@@ -1928,20 +1931,11 @@ func (r *NoxRender) sub_4C9970(dst []uint16, src []byte, _ byte, sz int) (_ []ui
 		cr = r.colors.R[byte(cr+((c2v*(((rmul*((c2>>8)&0xF0))>>8)-cr))>>8))]
 		cg = r.colors.G[byte(cg+((c2v*(((gmul*((c2>>4)&0xF0))>>8)-cg))>>8))]
 		cb = r.colors.B[byte(cb+((c2v*(((bmul*(c2&0xF0))>>8)-cb))>>8))]
-		dst[i] = cr | cg | cb
-
-		src = src[2:]
-	}
-	return dst[sz:], src
+		return cr | cg | cb
+	})
 }
 
 func (r *NoxRender) sub_4C97F0(dst []uint16, src []byte, _ byte, sz int) (_ []uint16, _ []byte) { // sub_4C97F0
-	if sz < 0 {
-		panic("negative size")
-	}
-	_ = dst[sz:]
-	_ = src[2*sz:]
-
 	const (
 		rshift = 7 // -10+3
 		gshift = 2 // -5+3
@@ -1954,32 +1948,22 @@ func (r *NoxRender) sub_4C97F0(dst []uint16, src []byte, _ byte, sz int) (_ []ui
 
 	v1 := uint32(r.p.field_259)
 
-	for i := 0; i < sz; i++ {
-		v4 := dst[i]                          // old color
-		v3 := binary.LittleEndian.Uint16(src) // color to draw
-		v5 := byte((v1 * uint32(v3&0x0F) << 4) >> 8)
+	return r.drawOpU16(dst, src, sz, func(c1 uint16, c2 uint16) uint16 {
+		v5 := byte((v1 * uint32(c2&0x0F) << 4) >> 8)
 
-		cr := (v4 & rmask) >> rshift
-		cg := (v4 & gmask) >> gshift
-		cb := (v4 & bmask) << bshift
+		cr := (c1 & rmask) >> rshift
+		cg := (c1 & gmask) >> gshift
+		cb := (c1 & bmask) << bshift
 
-		cr = r.colors.R[byte(cr+((uint16(v5)*((v3>>8)&0xF0-cr))>>8))]
-		cg = r.colors.G[byte(cg+((uint16(v5)*((v3>>4)&0xF0-cg))>>8))]
-		cb = r.colors.B[byte(cb+((uint16(v5)*((v3>>0)&0xF0-cb))>>8))]
+		cr = r.colors.R[byte(cr+((uint16(v5)*((c2>>8)&0xF0-cr))>>8))]
+		cg = r.colors.G[byte(cg+((uint16(v5)*((c2>>4)&0xF0-cg))>>8))]
+		cb = r.colors.B[byte(cb+((uint16(v5)*((c2>>0)&0xF0-cb))>>8))]
 
-		dst[i] = cr | cg | cb
-
-		src = src[2:]
-	}
-	return dst[sz:], src
+		return cr | cg | cb
+	})
 }
 
 func (r *NoxRender) sub_4C86B0(dst []uint16, src []byte, _ byte, sz int) (_ []uint16, _ []byte) { // sub_4C86B0
-	if sz < 0 {
-		panic("negative size")
-	}
-	_ = dst[sz:]
-	_ = src[2*sz:]
 	const (
 		rshift = 3
 		gshift = 2
@@ -1994,25 +1978,15 @@ func (r *NoxRender) sub_4C86B0(dst []uint16, src []byte, _ byte, sz int) (_ []ui
 	gmul := uint32(r.p.field_25)
 	bmul := uint32(r.p.field_24)
 
-	for i := 0; i < sz; i++ {
-		v2 := binary.LittleEndian.Uint16(src)
-		cr := r.colors.R[byte((bmul*(uint32(bmask&v2)>>bshift))>>8)]
-		cg := r.colors.G[byte((gmul*(uint32(gmask&v2)>>gshift))>>8)]
-		cb := r.colors.B[byte((rmul*(uint32(rmask&v2)<<rshift))>>8)]
-		c := cr | cg | cb
-		dst[i] = c
-		src = src[2:]
-	}
-	return dst[sz:], src
+	return r.drawOpU16(dst, src, sz, func(_ uint16, c2 uint16) uint16 {
+		cr := r.colors.R[byte((bmul*(uint32(bmask&c2)>>bshift))>>8)]
+		cg := r.colors.G[byte((gmul*(uint32(gmask&c2)>>gshift))>>8)]
+		cb := r.colors.B[byte((rmul*(uint32(rmask&c2)<<rshift))>>8)]
+		return cr | cg | cb
+	})
 }
 
 func (r *NoxRender) sub_4C91C0(dst []uint16, src []byte, op byte, sz int) (_ []uint16, _ []byte) { // sub_4C91C0
-	if sz < 0 {
-		panic("negative size")
-	}
-	_ = dst[sz:]
-	_ = src[sz:]
-
 	rmul := uint16(byte(r.p.field_24))
 	gmul := uint16(byte(r.p.field_25))
 	bmul := uint16(byte(r.p.field_26))
@@ -2023,46 +1997,30 @@ func (r *NoxRender) sub_4C91C0(dst []uint16, src []byte, op byte, sz int) (_ []u
 	gpmul := v9[7]
 	bpmul := v9[8]
 
-	for i := 0; i < sz; i++ {
-		c := src[i] // color to draw
+	return r.drawOpU8(dst, src, sz, func(_ uint16, c byte) uint16 {
 		cr := r.colors.R[byte((rmul*uint16(((rpmul*uint32(c))>>8)&0xFF))>>8)]
 		cg := r.colors.G[byte((gmul*uint16(((gpmul*uint32(c))>>8)&0xFF))>>8)]
 		cb := r.colors.B[byte((bmul*uint16(((bpmul*uint32(c))>>8)&0xFF))>>8)]
-		dst[i] = cr | cg | cb
-	}
-	return dst[sz:], src[sz:]
+		return cr | cg | cb
+	})
 }
 
 func (r *NoxRender) sub_4C8DF0(dst []uint16, src []byte, op byte, sz int) (_ []uint16, _ []byte) { // sub_4C8DF0
-	if sz < 0 {
-		panic("negative size")
-	}
-	_ = dst[sz:]
-	_ = src[sz:]
-
 	v9 := r.field66(int(op >> 4))
 
 	rpmul := v9[6]
 	gpmul := v9[7]
 	bpmul := v9[8]
 
-	for i := 0; i < sz; i++ {
-		c := src[i] // color to draw
+	return r.drawOpU8(dst, src, sz, func(_ uint16, c byte) uint16 {
 		cr := r.colors.R[byte((rpmul*uint32(c))>>8)]
 		cg := r.colors.G[byte((gpmul*uint32(c))>>8)]
 		cb := r.colors.B[byte((bpmul*uint32(c))>>8)]
-		dst[i] = cr | cg | cb
-	}
-	return dst[sz:], src[sz:]
+		return cr | cg | cb
+	})
 }
 
 func (r *NoxRender) sub_4C8410(dst []uint16, src []byte, _ byte, sz int) (_ []uint16, _ []byte) { // sub_4C8410
-	if sz < 0 {
-		panic("negative size")
-	}
-	_ = dst[sz:]
-	_ = src[2*sz:]
-
 	const (
 		rshift = 3
 		gshift = 2
@@ -2072,11 +2030,7 @@ func (r *NoxRender) sub_4C8410(dst []uint16, src []byte, _ byte, sz int) (_ []ui
 		gmask = 0x03e0
 		bmask = 0x7c00
 	)
-
-	for i := 0; i < sz; i++ {
-		c1 := dst[i]                          // old color
-		c2 := binary.LittleEndian.Uint16(src) // color to draw
-
+	return r.drawOpU16(dst, src, sz, func(c1 uint16, c2 uint16) uint16 {
 		cr1 := (c1 & rmask) >> rshift
 		cg1 := (c1 & gmask) >> gshift
 		cb1 := (c1 & bmask) << bshift
@@ -2089,19 +2043,11 @@ func (r *NoxRender) sub_4C8410(dst []uint16, src []byte, _ byte, sz int) (_ []ui
 		cg := r.colors.G[byte(cg1+((cg2-cg1)>>1))]
 		cb := r.colors.B[byte(cb1+((cb2-cb1)>>1))]
 
-		dst[i] = cr | cg | cb
-	}
-
-	return dst[sz:], src
+		return cr | cg | cb
+	})
 }
 
 func (r *NoxRender) sub_4C9050(dst []uint16, src []byte, op byte, sz int) (_ []uint16, _ []byte) { // sub_4C9050
-	if sz < 0 {
-		panic("negative size")
-	}
-	_ = dst[sz:]
-	_ = src[sz:]
-
 	const (
 		rshift = 3
 		gshift = 2
@@ -2118,10 +2064,7 @@ func (r *NoxRender) sub_4C9050(dst []uint16, src []byte, op byte, sz int) (_ []u
 	gpmul := v5[7]
 	bpmul := v5[8]
 
-	for i := 0; i < sz; i++ {
-		c1 := dst[i] // old color
-		c2 := src[i] // color to draw
-
+	return r.drawOpU8(dst, src, sz, func(c1 uint16, c2 byte) uint16 {
 		cr := (c1 & rmask) >> rshift
 		cg := (c1 & gmask) >> gshift
 		cb := (c1 & bmask) << bshift
@@ -2130,18 +2073,11 @@ func (r *NoxRender) sub_4C9050(dst []uint16, src []byte, op byte, sz int) (_ []u
 		cg = r.colors.G[byte(cg+((uint16(((gpmul*uint32(c2))>>8)&0xFF)-cg)>>1))]
 		cb = r.colors.B[byte(cb+((uint16(((bpmul*uint32(c2))>>8)&0xFF)-cb)>>1))]
 
-		dst[i] = cr | cg | cb
-	}
-	return dst[sz:], src[sz:]
+		return cr | cg | cb
+	})
 }
 
 func (r *NoxRender) sub_4C8130(dst []uint16, src []byte, _ byte, sz int) (_ []uint16, _ []byte) { // sub_4C8130
-	if sz < 0 {
-		panic("negative size")
-	}
-	_ = dst[sz:]
-	_ = src[2*sz:]
-
 	const (
 		rshift = 3
 		gshift = 2
@@ -2154,10 +2090,7 @@ func (r *NoxRender) sub_4C8130(dst []uint16, src []byte, _ byte, sz int) (_ []ui
 
 	v1 := byte(r.p.field_259)
 
-	for i := 0; i < sz; i++ {
-		c1 := dst[i]                          // old color
-		c2 := binary.LittleEndian.Uint16(src) // color to draw
-
+	return r.drawOpU16(dst, src, sz, func(c1 uint16, c2 uint16) uint16 {
 		cr1 := (c1 & rmask) >> rshift
 		cg1 := (c1 & gmask) >> gshift
 		cb1 := (c1 & bmask) << bshift
@@ -2170,21 +2103,11 @@ func (r *NoxRender) sub_4C8130(dst []uint16, src []byte, _ byte, sz int) (_ []ui
 		cg := r.colors.G[byte(cg1+((uint16(v1)*(cg2-cg1))>>8))]
 		cb := r.colors.B[byte(cb1+((uint16(v1)*(cb2-cb1))>>8))]
 
-		dst[i] = cr | cg | cb
-
-		src = src[2:]
-	}
-
-	return dst[sz:], src
+		return cr | cg | cb
+	})
 }
 
 func (r *NoxRender) sub_4C8EC0(dst []uint16, src []byte, op byte, sz int) (_ []uint16, _ []byte) { // sub_4C8EC0
-	if sz < 0 {
-		panic("negative size")
-	}
-	_ = dst[sz:]
-	_ = src[sz:]
-
 	const (
 		rshift = 3
 		gshift = 2
@@ -2203,10 +2126,7 @@ func (r *NoxRender) sub_4C8EC0(dst []uint16, src []byte, op byte, sz int) (_ []u
 	gpmul := v7[7]
 	bpmul := v7[8]
 
-	for i := 0; i < sz; i++ {
-		c1 := dst[i] // old color
-		c2 := src[i] // color to draw
-
+	return r.drawOpU8(dst, src, sz, func(c1 uint16, c2 byte) uint16 {
 		cr := (c1 & rmask) >> rshift
 		cg := (c1 & gmask) >> gshift
 		cb := (c1 & bmask) << bshift
@@ -2215,19 +2135,11 @@ func (r *NoxRender) sub_4C8EC0(dst []uint16, src []byte, op byte, sz int) (_ []u
 		cg = r.colors.G[byte(cg+((uint16(v2)*(((uint16(gpmul)*uint16(c2))>>8)&0xFF-cg))>>8))]
 		cb = r.colors.B[byte(cb+((uint16(v2)*(((uint16(bpmul)*uint16(c2))>>8)&0xFF-cb))>>8))]
 
-		dst[i] = cr | cg | cb
-	}
-
-	return dst[sz:], src[sz:]
+		return cr | cg | cb
+	})
 }
 
 func (r *NoxRender) sub_4C94D0(dst []uint16, src []byte, op byte, sz int) (_ []uint16, _ []byte) { // sub_4C94D0
-	if sz < 0 {
-		panic("negative size")
-	}
-	_ = dst[sz:]
-	_ = src[sz:]
-
 	const (
 		rshift = 3
 		gshift = 2
@@ -2248,10 +2160,7 @@ func (r *NoxRender) sub_4C94D0(dst []uint16, src []byte, op byte, sz int) (_ []u
 	gpmul := v9[7]
 	bpmul := v9[8]
 
-	for i := 0; i < sz; i++ {
-		c1 := dst[i] // old color
-		c2 := src[i] // color to draw
-
+	return r.drawOpU8(dst, src, sz, func(c1 uint16, c2 byte) uint16 {
 		cr := (c1 & rmask) >> rshift
 		cg := (c1 & gmask) >> gshift
 		cb := (c1 & bmask) << bshift
@@ -2260,19 +2169,11 @@ func (r *NoxRender) sub_4C94D0(dst []uint16, src []byte, op byte, sz int) (_ []u
 		cg = r.colors.G[byte((gmul*((cg+((uint16((gpmul*uint32(c2))>>8)&0xFF-cg)>>1))&0xFF))>>8)]
 		cb = r.colors.B[byte((bmul*((cb+((uint16((bpmul*uint32(c2))>>8)&0xFF-cb)>>1))&0xFF))>>8)]
 
-		dst[i] = cr | cg | cb
-	}
-
-	return dst[sz:], src[sz:]
+		return cr | cg | cb
+	})
 }
 
 func (r *NoxRender) sub_4C8850(dst []uint16, src []byte, _ byte, sz int) (_ []uint16, _ []byte) { // sub_4C8850
-	if sz < 0 {
-		panic("negative size")
-	}
-	_ = dst[sz:]
-	_ = src[2*sz:]
-
 	const (
 		rshift = 7 // -10+3
 		gshift = 2 // -5+3
@@ -2289,10 +2190,7 @@ func (r *NoxRender) sub_4C8850(dst []uint16, src []byte, _ byte, sz int) (_ []ui
 	gmul := uint16(byte(r.p.field_25))
 	bmul := uint16(byte(r.p.field_26))
 
-	for i := 0; i < sz; i++ {
-		c1 := dst[i]                          // old color
-		c2 := binary.LittleEndian.Uint16(src) // color to draw
-
+	return r.drawOpU16(dst, src, sz, func(c1 uint16, c2 uint16) uint16 {
 		cr1 := (c1 & rmask) >> rshift
 		cg1 := (c1 & gmask) >> gshift
 		cb1 := (c1 & bmask) << bshift
@@ -2305,21 +2203,11 @@ func (r *NoxRender) sub_4C8850(dst []uint16, src []byte, _ byte, sz int) (_ []ui
 		cg := r.colors.G[byte(cg1+((uint16(v7)*(((gmul*cg2)>>8)-cg1))>>8))]
 		cb := r.colors.B[byte(cb1+((uint16(v7)*(((bmul*cb2)>>8)-cb1))>>8))]
 
-		dst[i] = cr | cg | cb
-
-		src = src[2:]
-	}
-
-	return dst[sz:], src
+		return cr | cg | cb
+	})
 }
 
 func (r *NoxRender) sub_4C92F0(dst []uint16, src []byte, op byte, sz int) (_ []uint16, _ []byte) { // sub_4C92F0
-	if sz < 0 {
-		panic("negative size")
-	}
-	_ = dst[sz:]
-	_ = src[sz:]
-
 	const (
 		rshift = 3
 		gshift = 2
@@ -2342,37 +2230,25 @@ func (r *NoxRender) sub_4C92F0(dst []uint16, src []byte, op byte, sz int) (_ []u
 	gpmul := v12[7]
 	bpmul := v12[8]
 
-	for i := 0; i < sz; i++ {
-		c1 := dst[i] // old color
-		v2 := src[i] // color to draw
-
+	return r.drawOpU8(dst, src, sz, func(c1 uint16, c2 byte) uint16 {
 		cr := (c1 & rmask) >> rshift
 		cg := (c1 & gmask) >> gshift
 		cb := (c1 & bmask) << bshift
 
-		cr = r.colors.R[byte(cr+(uint16(uint32(v9)*uint32(((rmul*uint16(((rpmul*uint32(v2))>>8)&0xFF))>>8)-cr))>>8))]
-		cg = r.colors.G[byte(cg+(uint16(uint32(v9)*uint32(((gmul*uint16(((gpmul*uint32(v2))>>8)&0xFF))>>8)-cg))>>8))]
-		cb = r.colors.B[byte(cb+(uint16(uint32(v9)*uint32(((bmul*uint16(((bpmul*uint32(v2))>>8)&0xFF))>>8)-cb))>>8))]
+		cr = r.colors.R[byte(cr+(uint16(uint32(v9)*uint32(((rmul*uint16(((rpmul*uint32(c2))>>8)&0xFF))>>8)-cr))>>8))]
+		cg = r.colors.G[byte(cg+(uint16(uint32(v9)*uint32(((gmul*uint16(((gpmul*uint32(c2))>>8)&0xFF))>>8)-cg))>>8))]
+		cb = r.colors.B[byte(cb+(uint16(uint32(v9)*uint32(((bmul*uint16(((bpmul*uint32(c2))>>8)&0xFF))>>8)-cb))>>8))]
 
-		dst[i] = cr | cg | cb
-	}
-
-	return dst[sz:], src[sz:]
+		return cr | cg | cb
+	})
 }
 
 func (r *NoxRender) sub_4C8D60(dst []uint16, src []byte, _ byte, sz int) (_ []uint16, _ []byte) { // sub_4C8D60
-	if sz < 0 {
-		panic("negative size")
-	}
-	_ = dst[sz:]
-	_ = src[2*sz:]
-
 	rmul := uint16(byte(r.p.field_24))
 	gmul := uint16(byte(r.p.field_25))
 	bmul := uint16(byte(r.p.field_26))
 
-	for i := 0; i < sz; i++ {
-		ci := binary.LittleEndian.Uint16(src)
+	return r.drawOpU16(dst, src, sz, func(_ uint16, ci uint16) uint16 {
 		var c byte
 		if int(ci) < len(nox_draw_colorTablesRev_3804668) {
 			c = nox_draw_colorTablesRev_3804668[ci]
@@ -2380,18 +2256,11 @@ func (r *NoxRender) sub_4C8D60(dst []uint16, src []byte, _ byte, sz int) (_ []ui
 		cr := r.colors.R[byte((uint32(rmul)*uint32(c))>>8)]
 		cg := r.colors.G[byte((uint32(gmul)*uint32(c))>>8)]
 		cb := r.colors.B[byte((uint32(bmul)*uint32(c))>>8)]
-		dst[i] = cr | cg | cb
-		src = src[2:]
-	}
-	return dst[sz:], src
+		return cr | cg | cb
+	})
 }
 
 func (r *NoxRender) pixBlendPremult(dst []uint16, src []byte, _ byte, sz int) (_ []uint16, _ []byte) { // sub_4C9B20
-	if sz < 0 {
-		panic("negative size")
-	}
-	_ = dst[sz:]
-	_ = src[2*sz:]
 	const (
 		rshift = 7 // -10+3
 		gshift = 2 // -5+3
@@ -2401,9 +2270,7 @@ func (r *NoxRender) pixBlendPremult(dst []uint16, src []byte, _ byte, sz int) (_
 		gmask = 0x03e0
 		bmask = 0x001f
 	)
-	for i := 0; i < sz; i++ {
-		c1 := dst[i]
-		c2 := binary.LittleEndian.Uint16(src)
+	return r.drawOpU16(dst, src, sz, func(c1 uint16, c2 uint16) uint16 {
 		cr := (c1 & rmask) >> rshift
 		cg := (c1 & gmask) >> gshift
 		cb := (c1 & bmask) << bshift
@@ -2419,11 +2286,8 @@ func (r *NoxRender) pixBlendPremult(dst []uint16, src []byte, _ byte, sz int) (_
 		if rbb > 0xff {
 			rbb = 0xff
 		}
-		c := r.colors.R[crb] | r.colors.G[cgb] | r.colors.B[rbb]
-		dst[i] = c
-		src = src[2:]
-	}
-	return dst[sz:], src
+		return r.colors.R[crb] | r.colors.G[cgb] | r.colors.B[rbb]
+	})
 }
 
 func nox_draw_initColorTables_434CC0() {
