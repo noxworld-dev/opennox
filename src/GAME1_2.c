@@ -5551,6 +5551,7 @@ uint32_t* sub_434A10(uint32_t* a1, uint32_t* a2, uint32_t* a3) {
 	return a3;
 }
 
+#ifndef NOX_CGO
 //----- (00434A60) --------------------------------------------------------
 char sub_434A60(int a1) {
 	return *(uint8_t*)((unsigned int)nox_draw_colorTablesRev_3804668 + (((unsigned char)(getMemByte(0x973F18, 3882 + 4 * a1) & 0xF8) >> 3) |
@@ -5558,7 +5559,6 @@ char sub_434A60(int a1) {
 											   ((getMemByte(0x973F18, 3880 + 4 * a1) & 0xF8) << 7)));
 }
 
-#ifndef NOX_CGO
 //----- (00434DA0) --------------------------------------------------------
 int nox_draw_initColorTablesRev_434DA0() {
 	short v0;        // bx

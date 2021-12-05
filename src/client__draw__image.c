@@ -1,3 +1,5 @@
+//go:build none
+//+build none
 #include <stdbool.h>
 #include <string.h>
 
@@ -15,15 +17,16 @@ extern unsigned int dword_5d4594_810632;
 extern unsigned int dword_5d4594_810636;
 extern void* dword_5d4594_810640;
 
-unsigned int dword_5d4594_3799508 = 0; // TODO: remove externs to it
+extern unsigned int dword_5d4594_3799508;
+extern unsigned int dword_5d4594_3799552;
+extern unsigned int dword_5d4594_3799484;
+extern unsigned int dword_5d4594_3799476;
+extern unsigned char* nox_draw_colors_r_3804672;
+extern unsigned char* nox_draw_colors_g_3804656;
+extern unsigned char* nox_draw_colors_b_3804664;
+
 void* nox_draw_sprite_dstPtr_3799540 = 0;
-unsigned int dword_5d4594_3799552 = 0; // TODO: remove externs to it
-unsigned int dword_5d4594_3799484 = 0;
-unsigned int dword_5d4594_3799476 = 0;
 unsigned char* nox_video_cur_pixdata_3799444 = 0;
-unsigned char* nox_draw_colors_r_3804672 = 0;
-unsigned char* nox_draw_colors_g_3804656 = 0;
-unsigned char* nox_draw_colors_b_3804664 = 0;
 
 #ifndef NOX_CGO
 
@@ -46,7 +49,6 @@ void* nox_video_getImagePixdata_func(nox_video_bag_image_t*);
 #include "operators.h"
 #endif // NOX_CGO
 
-#ifndef NOX_CGO
 //----- (004C60D0) --------------------------------------------------------
 void sub_4C60D0(nox_video_bag_image_t* img, int x, int y) {
 	int v8;   // edx
@@ -131,7 +133,6 @@ void sub_4C60D0(nox_video_bag_image_t* img, int x, int y) {
 		} while (v16);
 	}
 }
-#endif // NOX_CGO
 
 //----- (004C73A0) --------------------------------------------------------
 unsigned char sub_4C73A0() {
@@ -617,7 +618,6 @@ char* sub_4C6900(int a1, int a2) {
 	return result;
 }
 
-#ifndef NOX_CGO
 //----- (004C64E0) --------------------------------------------------------
 unsigned char* sub_4C64E0(int a1, int a2, int a3, int* a4) {
 	int v4;                // ebp
@@ -1046,7 +1046,6 @@ int sub_4C6260(int a1, int a2, int a3) {
 	}
 	return result;
 }
-#endif // NOX_CGO
 
 //----- (004C69A0) --------------------------------------------------------
 void sub_4C69A0() {
@@ -1088,7 +1087,6 @@ void sub_4C69A0() {
 	nox_draw_sprite_dstPtr_3799540 = v1;
 }
 
-#ifndef NOX_CGO
 //----- (004C5EB0) --------------------------------------------------------
 void sub_4C5EB0(nox_video_bag_image_t* img, int x, int y) {
 	int a1 = img;
@@ -1923,7 +1921,6 @@ void sub_4C80E0() {
 	nox_video_cur_pixdata_3799444 += size;
 	nox_draw_sprite_dstPtr_3799540 = (unsigned int)nox_draw_sprite_dstPtr_3799540 + size;
 }
-#endif // NOX_CGO
 
 void nullsub_7(void) {}
 
@@ -1947,7 +1944,6 @@ short sub_4C8C00() {
 	return 0;
 }
 
-#ifndef NOX_CGO
 //----- (004C7860) --------------------------------------------------------
 void nox_client_drawImg_bbb_4C7860(int a1, int a2, int a3) {
 	unsigned char* result = nox_video_getImagePixdata_func(a1);
@@ -2783,4 +2779,3 @@ void nox_client_xxxDraw16_4C7440(nox_video_bag_image_t* img, int x, int y) {
 		return;
 	}
 }
-#endif // NOX_CGO
