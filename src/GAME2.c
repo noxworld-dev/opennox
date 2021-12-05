@@ -5084,14 +5084,19 @@ int sub_459700() {
 	int v1;            // eax
 	int v2;            // edi
 	const wchar_t* v3; // eax
-	wchar_t v5[256];   // [esp+8h] [ebp-200h]
+	wchar_t v5[256] = {0};   // [esp+8h] [ebp-200h]
 
 	sub_416580();
 	v0 = sub_4165B0();
 	v1 = nox_window_call_field_94(*(int*)&dword_5d4594_1046496, 16404, 0, 0);
 	v2 = v1;
 	v3 = (const wchar_t*)nox_window_call_field_94(*(int*)&dword_5d4594_1046496, 16406, v1, 0);
-	nox_wcscpy(v5, v3);
+	if (v3) {
+		nox_wcsncpy(v5, v3, 255);
+		v5[255] = 0;
+	} else {
+		v5[0] = 0;
+	}
 	nox_window_call_field_94(*(int*)&dword_5d4594_1046496, 16398, v2, 0);
 	nox_window_call_field_94(*(int*)&dword_5d4594_1046496, 16402, v2, 0);
 	nox_window_call_field_94(*(int*)&dword_5d4594_1046496, 16397, (int)v5, -1);
