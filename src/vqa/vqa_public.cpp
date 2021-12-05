@@ -4,7 +4,7 @@ extern "C" SDL_Surface* movieSurface;
 extern "C" SDL_Surface* g_backbuffer1;
 extern "C" Uint32 g_format;
 
-extern "C" int PlayMovieCallback(byte* frame, dword cx, dword cy);
+extern "C" int PlayMovieCallback(uint8_t* frame, dword cx, dword cy);
 
 extern "C" int PlayMovie(char* filename)
 {

@@ -22,9 +22,9 @@ void convert_palet_18_to_24(t_palet palet)
 	convert_palet_18_to_24(palet, palet);
 }
 
-unsigned int fvqa_format80decompress(const byte image_in[], byte image_out[], int mod)
+unsigned int fvqa_format80decompress(const uint8_t image_in[], uint8_t image_out[], int mod)
 {
-    unsigned char* Source = (byte*)image_in;
+    unsigned char* Source = (uint8_t*)image_in;
     unsigned char* Dest = image_out;
     unsigned int Sp = 0;
     unsigned int Dp = 0;
@@ -113,16 +113,16 @@ unsigned int fvqa_format80decompress(const byte image_in[], byte image_out[], in
                 }
             }
         }
-    } while (/*Sp < len*/1);  //check for end of inputdata, because not all chunks contain the ending byte
+    } while (/*Sp < len*/1);  //check for end of inputdata, because not all chunks contain the ending uint8_t
     return Dp;
 }
 
-int decode80(const byte image_in[], byte image_out[])
+int decode80(const uint8_t image_in[], uint8_t image_out[])
 {
     return fvqa_format80decompress(image_in, image_out, 0);
 }
 
-int decode80r(const byte image_in[], byte image_out[])
+int decode80r(const uint8_t image_in[], uint8_t image_out[])
 {
     return fvqa_format80decompress(image_in, image_out, 1);
 }
@@ -132,7 +132,7 @@ Cvqa_decode::Cvqa_decode()
 {
 	cbf = new int[0x1fff * 16];
 	cbf_new = new int[0x1fff * 16];
-	m_in_decoded = new byte[256 << 10];
+	m_in_decoded = new uint8_t[256 << 10];
 }
 
 Cvqa_decode::~Cvqa_decode()
@@ -147,7 +147,7 @@ void Cvqa_decode::start_decode(const t_vqa_header& header)
 	aud_dl.init();
 	aud_dr.init();
 	c_cbf_read = 0;
-	cbf_write = reinterpret_cast<byte*>(cbf_new);
+	cbf_write = reinterpret_cast<uint8_t*>(cbf_new);
 	mc_channels = header.c_channels;
 	m_cx = header.cx;
 	m_cy = header.cy;
@@ -164,7 +164,7 @@ void Cvqa_decode::set_pf(const DDPIXELFORMAT_VQA& pf, int cb_pixel)
 	mcb_d_pixel = cb_pixel;
 }
 
-void Cvqa_decode::decode_snd2_chunk(const byte* in, int size, short* out)
+void Cvqa_decode::decode_snd2_chunk(const uint8_t* in, int size, short* out)
 {
 	if (mc_channels == 1 || m_version != game_ts)
 		aud_dl.decode_chunk(in, out, 2 * size);
@@ -187,12 +187,12 @@ void Cvqa_decode::decode_snd2_chunk(const byte* in, int size, short* out)
 	}
 }
 
-void Cvqa_decode::write_block(byte* out, int v, int count, int& x, int y) const
+void Cvqa_decode::write_block(uint8_t* out, int v, int count, int& x, int y) const
 {
 	while (count--)
 	{
-		const byte* r = reinterpret_cast<const byte*>(cbf) + mcb_d_pixel * mcx_block * mcy_block * v;
-		byte* w = out + mcb_d_pixel * (mcx_block * x + m_cx * mcy_block * y);
+		const uint8_t* r = reinterpret_cast<const uint8_t*>(cbf) + mcb_d_pixel * mcx_block * mcy_block * v;
+		uint8_t* w = out + mcb_d_pixel * (mcx_block * x + m_cx * mcy_block * y);
 		for (int b = 0; b < mcy_block; b++)
 		{
 			memcpy(w, r, mcb_d_pixel * mcx_block);
@@ -203,13 +203,13 @@ void Cvqa_decode::write_block(byte* out, int v, int count, int& x, int y) const
 	}
 }
 
-void Cvqa_decode::decode_vpt_chunk(const byte* in, byte* out)
+void Cvqa_decode::decode_vpt_chunk(const uint8_t* in, uint8_t* out)
 {
 	int cx_b = m_cx / mcx_block;
 	int cy_b = m_cy / mcy_block;
 	if (mcb_d_pixel > 1)
 	{
-		const byte* r = in;
+		const uint8_t* r = in;
 		for (int y = 0; y < cy_b; y++)
 		{
 			for (int x = 0; x < cx_b; )
@@ -243,8 +243,8 @@ void Cvqa_decode::decode_vpt_chunk(const byte* in, byte* out)
 	}
 	else
 	{
-		const byte* r1 = in;
-		const byte* r2 = in + cx_b * cy_b;
+		const uint8_t* r1 = in;
+		const uint8_t* r2 = in + cx_b * cy_b;
 		int* w1 = reinterpret_cast<int*>(out);
 		for (int y = 0; y < cy_b; y++)
 		{
@@ -280,7 +280,7 @@ void Cvqa_decode::decode_vpt_chunk(const byte* in, byte* out)
 	}
 }
 
-void Cvqa_decode::decode_cbf_chunk(const byte* s, int cb_s)
+void Cvqa_decode::decode_cbf_chunk(const uint8_t* s, int cb_s)
 {
 	const short* r = reinterpret_cast<const short*>(s);
 	int count = cb_s >> 1;
@@ -308,7 +308,7 @@ void Cvqa_decode::decode_cbf_chunk(const byte* s, int cb_s)
 		}
 	case 3:
 		{
-			byte* w = reinterpret_cast<byte*>(cbf);
+			uint8_t* w = reinterpret_cast<uint8_t*>(cbf);
 			while (count--)
 			{
 				int v = *r++;
@@ -332,7 +332,7 @@ void Cvqa_decode::decode_cbf_chunk(const byte* s, int cb_s)
 	}
 }
 
-void Cvqa_decode::decode_vqfl_chunk(const byte* s, int cb_s)
+void Cvqa_decode::decode_vqfl_chunk(const uint8_t* s, int cb_s)
 {
 	if (s[3] == 'Z')
 	{
@@ -345,13 +345,13 @@ void Cvqa_decode::decode_vqfl_chunk(const byte* s, int cb_s)
 		decode_cbf_chunk(s + 8, cb_s - 8);
 }
 
-void Cvqa_decode::decode_vqfr_chunk(const byte* in_raw, byte* out, t_palet palet)
+void Cvqa_decode::decode_vqfr_chunk(const uint8_t* in_raw, uint8_t* out, t_palet palet)
 {
 	if (!in_raw)
 		return;
 	bool cbf_compressed = 0;
-	const byte* in = 0;
-	byte* in_decoded = m_in_decoded;
+	const uint8_t* in = 0;
+	uint8_t* in_decoded = m_in_decoded;
 	while (1)
 	{
 		int id = *(int*)in_raw & vqa_t_mask;
@@ -397,10 +397,10 @@ void Cvqa_decode::decode_vqfr_chunk(const byte* in_raw, byte* out, t_palet palet
 	if (c_cbf_read & ~7)
 	{
 		if (cbf_compressed)
-			decode80(reinterpret_cast<const byte*>(cbf_new), reinterpret_cast<byte*>(cbf));
+			decode80(reinterpret_cast<const uint8_t*>(cbf_new), reinterpret_cast<uint8_t*>(cbf));
 		else
-			memcpy(cbf, cbf_new, cbf_write - reinterpret_cast<const byte*>(cbf_new));
+			memcpy(cbf, cbf_new, cbf_write - reinterpret_cast<const uint8_t*>(cbf_new));
 		c_cbf_read = 0;
-		cbf_write = reinterpret_cast<byte*>(cbf_new);
+		cbf_write = reinterpret_cast<uint8_t*>(cbf_new);
 	}
 }

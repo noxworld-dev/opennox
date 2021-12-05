@@ -5,7 +5,7 @@
 
 const static int aud_ima_index_adjust_table[8] = {-1, -1, -1, -1, 2, 4, 6, 8};
 
-const static int aud_ima_step_table[89] = 
+const static int aud_ima_step_table[89] =
 {
 	7,     8,     9,     10,    11,    12,     13,    14,    16,
     17,    19,    21,    23,    25,    28,     31,    34,    37,
@@ -21,13 +21,13 @@ const static int aud_ima_step_table[89] =
 
 const static int aud_ws_step_table2[] = {-2, -1, 0, 1};
 
-const static int aud_ws_step_table4[] = 
+const static int aud_ws_step_table4[] =
 {
     -9, -8, -6, -5, -4, -3, -2, -1,
      0,  1,  2,  3,  4,  5,  6,  8
 };
 
-void aud_decode_ima_chunk(const byte* audio_in, short* audio_out, int& index, int& sample, int cs_chunk)
+void aud_decode_ima_chunk(const uint8_t* audio_in, short* audio_out, int& index, int& sample, int cs_chunk)
 {
 	int code;
 	int delta;
@@ -61,7 +61,7 @@ void aud_decode_ima_chunk(const byte* audio_in, short* audio_out, int& index, in
 		if (index < 0)
 			index = 0;
 		else if (index > 88)
-			index = 88;  
+			index = 88;
 	}
 }
 
@@ -72,14 +72,14 @@ static int clip8(int v)
 	return v > 0xff ? 0xff : v;
 }
 
-void aud_decode_ws_chunk(const byte* r, char* w, int cb_s, int cb_d)
+void aud_decode_ws_chunk(const uint8_t* r, char* w, int cb_s, int cb_d)
 {
     if (cb_s == cb_d)
     {
         memcpy(w, r, cb_s);
         return;
     }
-	const byte* s_end = r + cb_s;
+	const uint8_t* s_end = r + cb_s;
     int sample = 0x80;
     while (r < s_end)
     {
@@ -124,10 +124,10 @@ void aud_decode_ws_chunk(const byte* r, char* w, int cb_s, int cb_d)
     }
 }
 
-void aud_encode_ima_chunk(const short* audio_in, byte* audio_out, int& index, int& sample, int cs_chunk)
+void aud_encode_ima_chunk(const short* audio_in, uint8_t* audio_out, int& index, int& sample, int cs_chunk)
 {
 	const short* r = audio_in;
-	byte* w = audio_out;
+	uint8_t* w = audio_out;
 	bool sign;
 	int code;
 	int delta;
@@ -190,7 +190,7 @@ void aud_encode_ima_chunk(const short* audio_in, byte* audio_out, int& index, in
 		if (index < 0)
 			index = 0;
 		else if (index > 88)
-			index = 88;  
+			index = 88;
 	}
 }
 
@@ -200,12 +200,12 @@ void aud_decode::init(int index, int sample)
 	m_sample = sample;
 }
 
-void aud_decode::decode_chunk(const byte* audio_in, short* audio_out, int cs_chunk)
+void aud_decode::decode_chunk(const uint8_t* audio_in, short* audio_out, int cs_chunk)
 {
 	aud_decode_ima_chunk(audio_in, audio_out, m_index, m_sample, cs_chunk);
 }
 
-void aud_decode::encode_chunk(const short* audio_in, byte* audio_out, int cs_chunk)
+void aud_decode::encode_chunk(const short* audio_in, uint8_t* audio_out, int cs_chunk)
 {
 	aud_encode_ima_chunk(audio_in, audio_out, m_index, m_sample, cs_chunk);
 }

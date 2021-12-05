@@ -13,7 +13,6 @@
 #include <string>
 #include <vector>
 
-typedef unsigned char byte;
 typedef unsigned long dword;
 
 using namespace std;

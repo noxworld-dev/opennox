@@ -43,26 +43,26 @@ struct t_wav_header
 
 struct t_palet_entry
 {
-	byte r;
-	byte g;
-	byte b;
+	uint8_t r;
+	uint8_t g;
+	uint8_t b;
 };
 
 struct t_palet24rgb_entry
 {
-	byte r, g, b;
+	uint8_t r, g, b;
 };
 
 struct t_palet24bgr_entry
 {
-	byte b, g, r;
+	uint8_t b, g, r;
 };
 
 union t_palet32entry
 {
 	struct
 	{
-		byte r, g, b, a;
+		uint8_t r, g, b, a;
 	};
 	unsigned int v;
 };
@@ -71,7 +71,7 @@ union t_palet32bgr_entry
 {
 	struct
 	{
-		byte b, g, r, a;
+		uint8_t b, g, r, a;
 	};
 	unsigned int v;
 };
@@ -137,8 +137,8 @@ const int vqa_vqfr_id = *(int*)"VQFR";
 inline int reverse(int v)
 {
     int v2 = v;
-    byte* vp = (byte*)& v;
-    byte* v2p = (byte*)& v2;
+    uint8_t* vp = (uint8_t*)& v;
+    uint8_t* v2p = (uint8_t*)& v2;
     vp[0] = v2p[3];
     vp[1] = v2p[2];
     vp[2] = v2p[1];
@@ -178,11 +178,11 @@ public:
 	int skip_chunk();
 	bool is_valid();
 
-	void register_decode(int(*cb)(byte* frame, dword cx, dword cy))
+	void register_decode(int(*cb)(uint8_t* frame, dword cx, dword cy))
 	{
 		decodeCallback = cb;
 	}
-	
+
 	void register_openal(ALCcontext* al_context)
 	{
 		extAlContext = al_context;
@@ -201,7 +201,7 @@ public:
 	void skip(size_t amount)
 	{
 		size_t finalpos = currentPosition + amount;
-		
+
 		fileStream.seekg(finalpos);
 		currentPosition = fileStream.tellg();
 	}
@@ -293,5 +293,5 @@ private:
 	size_t fileSize;
 	size_t currentPosition;
 	ALCcontext* extAlContext;
-	int(*decodeCallback)(byte* frame, dword cx, dword cy);
+	int(*decodeCallback)(uint8_t* frame, dword cx, dword cy);
 };

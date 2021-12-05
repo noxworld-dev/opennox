@@ -68,10 +68,10 @@ struct t_list_entry
 
 struct cache_entry
 {
-    byte* frames_buffer;
+    uint8_t* frames_buffer;
     unsigned int frames_buffer_size;
     unsigned int frames_buffer_position;
-    byte* audio_buffer;
+    uint8_t* audio_buffer;
     unsigned int audio_buffer_size;
     unsigned int audio_buffer_position;
     ALuint audio_buffer_id;
@@ -87,11 +87,11 @@ int Cvqa_file::extract_both()
     for (int i = 0; i < MAX_CACHES; i++)
     {
         caches[i].frames_buffer_size = get_cx() * get_cy() * 2 * header().fps * 2;
-        caches[i].frames_buffer = (byte*)calloc(1, caches[i].frames_buffer_size);
+        caches[i].frames_buffer = (uint8_t*)calloc(1, caches[i].frames_buffer_size);
         memset(caches[i].frames_buffer, 0, caches[i].frames_buffer_size);
         caches[i].frames_buffer_position = 0;
         caches[i].audio_buffer_size = get_samplerate() * (16 / 8) * get_c_channels() * 3; // we reserve for audio buffer a bit more space to prevent is_playing setting because of audio and underfeeding frames buffer
-        caches[i].audio_buffer = (byte*)calloc(1, caches[i].audio_buffer_size);
+        caches[i].audio_buffer = (uint8_t*)calloc(1, caches[i].audio_buffer_size);
         memset(caches[i].audio_buffer, 0, caches[i].audio_buffer_size);
         caches[i].audio_buffer_position = 0;
         caches[i].audio_buffer_id = 0;
@@ -176,8 +176,8 @@ int Cvqa_file::extract_both()
 	audio.write((char*)&header, sizeof(t_wav_header));*/
 
 
-	byte* frame = new byte[2 * cx * cy];
-    byte* frameDraw = new byte[2 * cx * cy];
+	uint8_t* frame = new uint8_t[2 * cx * cy];
+    uint8_t* frameDraw = new uint8_t[2 * cx * cy];
 
 	int currentFrame = 0;
 	//int soundBytesOnFrame = 0;
@@ -259,7 +259,7 @@ int Cvqa_file::extract_both()
         }
 		else if (get_chunk_id() == vqa_vqfl_id)
 		{
-			byte* data = new byte[get_chunk_size()];
+			uint8_t* data = new uint8_t[get_chunk_size()];
 			read_chunk(data);
 			vqa_d.decode_vqfl_chunk(data, get_chunk_size());
 		}
@@ -271,16 +271,16 @@ int Cvqa_file::extract_both()
 			}
 			else
 			{
-				byte* data = new byte[get_chunk_size()];
+				uint8_t* data = new uint8_t[get_chunk_size()];
 				read_chunk(data);
 				vqa_d.decode_vqfr_chunk(data, frame, NULL);
 				delete[] data;
 
 				/*string filename = name + "_" + to_string(currentFrame) + ".bmp";
 				bitmap_image bmp(cx, cy);
-				byte* red = new byte[cx*cy];
-				byte* green = new byte[cx*cy];
-				byte* blue = new byte[cx*cy];
+				uint8_t* red = new uint8_t[cx*cy];
+				uint8_t* green = new uint8_t[cx*cy];
+				uint8_t* blue = new uint8_t[cx*cy];
 				for (int j = 0; j < cx * cy; j++)
 				{
 				red[j] = frame[j * 3];
@@ -294,7 +294,7 @@ int Cvqa_file::extract_both()
 				delete[] blue;*/
 				// Raw frame in here (frame)
 
-                byte* cachedFrame = &(caches[writeCache].frames_buffer[caches[writeCache].frames_buffer_position]);
+                uint8_t* cachedFrame = &(caches[writeCache].frames_buffer[caches[writeCache].frames_buffer_position]);
                 memcpy(cachedFrame, frame, 2 * cx * cy);
                 caches[writeCache].frames_buffer_position += 2 * cx * cy;
                 if (caches[writeCache].frames_buffer_position == caches[writeCache].frames_buffer_size)
@@ -321,13 +321,13 @@ int Cvqa_file::extract_both()
 			{
 				e.c_samples = size << 1;
 				e.audio = new short[2 * size];
-				byte* data = new byte[size];
+				uint8_t* data = new uint8_t[size];
 				read_chunk(data);
 				vqa_d.decode_snd2_chunk(data, size, e.audio);
 			}
 			cs_remaining += e.c_samples;
 
-            byte* cachedAudio = &(caches[writeCache].audio_buffer[caches[writeCache].audio_buffer_position]);
+            uint8_t* cachedAudio = &(caches[writeCache].audio_buffer[caches[writeCache].audio_buffer_position]);
             memcpy(cachedAudio, e.audio, 2 * e.c_samples);
             caches[writeCache].audio_buffer_position += 2 * e.c_samples;
             if (caches[writeCache].audio_buffer_position == caches[writeCache].audio_buffer_size)
@@ -740,13 +740,13 @@ int Cvqa_file::extract_as_pcx(const string& name)
 	if (get_cbits_pixel() == 8)
 	{
 		t_palet palet;
-		byte* frame = new byte[cx * cy];
+		uint8_t* frame = new uint8_t[cx * cy];
 		for (int i = 0; i < get_c_frames(); i++)
 		{
 			while (!is_video_chunk())
 				skip_chunk();
 
-			byte* data = new byte[get_chunk_size()];
+			uint8_t* data = new uint8_t[get_chunk_size()];
 			read_chunk(data);
 			vqa_d.decode_vqfr_chunk(data, frame, palet);
 			delete[] data;
@@ -761,27 +761,27 @@ int Cvqa_file::extract_as_pcx(const string& name)
 		pf.dwGBitMask = 0x00ff00;
 		pf.dwBBitMask = 0xff0000;
 		vqa_d.set_pf(pf, 3);
-		byte* frame = new byte[3 * cx * cy];
+		uint8_t* frame = new uint8_t[3 * cx * cy];
 
 		for (int i = 0; i < get_c_frames(); i++)
 		{
 			if (get_chunk_id() == vqa_vqfl_id)
 			{
-				byte* data = new byte[get_chunk_size()];
+				uint8_t* data = new uint8_t[get_chunk_size()];
 				read_chunk(data);
 				vqa_d.decode_vqfl_chunk(data, get_chunk_size());
 			}
 			while (!is_video_chunk())
 				skip_chunk();
-			byte* data = new byte[get_chunk_size()];
+			uint8_t* data = new uint8_t[get_chunk_size()];
 			read_chunk(data);
 			vqa_d.decode_vqfr_chunk(data, frame, NULL);
 
 			string filename = name + "_" + to_string(i) + ".bmp";
 			bitmap_image bmp(cx, cy);
-			byte* red = new byte[cx*cy];
-			byte* green = new byte[cx*cy];
-			byte* blue = new byte[cx*cy];
+			uint8_t* red = new uint8_t[cx*cy];
+			uint8_t* green = new uint8_t[cx*cy];
+			uint8_t* blue = new uint8_t[cx*cy];
 			for (int j = 0; j < cx * cy; j++)
 			{
 				red[j] = frame[j * 3];
@@ -830,7 +830,7 @@ int Cvqa_file::extract_as_wav(const string& name)
 				{
 					e.c_samples = size << 1;
 					e.audio = new short[2 * size];
-					byte* data = new byte[size];
+					uint8_t* data = new uint8_t[size];
 					read_chunk(data);
 					vqa_d.decode_snd2_chunk(data, size, e.audio);
 				}
@@ -909,7 +909,7 @@ int Cvqa_file::extract_as_wav(const string& name)
 int Cvqa_file::read_chunk_header()
 {
 	if (get_p() & 1) // Get position (seek)
-		skip(1); // Skip 1 byte
+		skip(1); // Skip 1 uint8_t
 	int error = read(&m_chunk_header, sizeof(t_vqa_chunk_header));
 	m_chunk_header.size = reverse(m_chunk_header.size);
 	return error;
