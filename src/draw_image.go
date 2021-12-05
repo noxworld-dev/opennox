@@ -501,13 +501,13 @@ func (r *NoxRender) sub4C8EC0u8(dst []uint16, src []byte, op byte, sz int) (_ []
 
 func (r *NoxRender) sub4C94D0u8(dst []uint16, src []byte, op byte, sz int) (_ []uint16, _ []byte) { // sub_4C94D0
 	const (
-		rshift = 3
-		gshift = 2
-		bshift = 7
+		rshift = 7 // -10+3
+		gshift = 2 // -5+3
+		bshift = 3 // -0+3
 
-		rmask = 0x001f
+		rmask = 0x7c00
 		gmask = 0x03e0
-		bmask = 0x7c00
+		bmask = 0x001f
 	)
 
 	rmul := uint16(byte(r.p.field_24))
