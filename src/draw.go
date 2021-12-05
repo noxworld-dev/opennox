@@ -335,6 +335,13 @@ func cgoSetRenderData(p *C.nox_render_data_t) {
 	C.ptr_5D4594_3799572 = p
 }
 
+type drawOps struct {
+	draw27 drawOpFunc
+	draw4  drawOpFunc
+	draw5  drawOpFunc
+	draw6  drawOpFunc
+}
+
 type NoxRender struct {
 	p   *C.nox_render_data_t
 	pix *noximage.Image16
@@ -345,11 +352,6 @@ type NoxRender struct {
 		G    [256]uint16
 		B    [256]uint16
 	}
-
-	draw27 drawOpFunc
-	draw4  drawOpFunc
-	draw5  drawOpFunc
-	draw6  drawOpFunc
 
 	particles struct {
 		byOpts   map[particleOpt]*Particle
@@ -1465,62 +1467,63 @@ func (r *NoxRender) drawImage16(img *Image, pos types.Point) { // nox_client_xxx
 	if img == nil {
 		return
 	}
+	var ops drawOps
 	switch img.Type() & 0x3F {
 	case 2, 7:
-		r.draw27 = pixCopyN
-		r.nox_client_drawImg_bbb_4C7860(img, pos)
+		ops.draw27 = pixCopyN
+		r.nox_client_drawImg_bbb_4C7860(&ops, img, pos)
 	case 3, 4, 5, 6:
-		r.draw5 = r.sub_4C96A0
-		r.draw6 = func(dst []uint16, src []byte, op byte, val int) (_ []uint16, _ []byte) { return dst, src }
+		ops.draw5 = r.sub_4C96A0
+		ops.draw6 = func(dst []uint16, src []byte, op byte, val int) (_ []uint16, _ []byte) { return dst, src }
 		if !r.IsAlphaEnabled() {
 			if r.p.field_14 != 0 {
-				r.draw5 = r.sub_4C9970
-				r.draw27 = r.sub_4C86B0
-				r.draw4 = r.sub_4C91C0
+				ops.draw5 = r.sub_4C9970
+				ops.draw27 = r.sub_4C86B0
+				ops.draw4 = r.sub_4C91C0
 			} else {
-				r.draw27 = r.sub_4C8D60
+				ops.draw27 = r.sub_4C8D60
 				if r.p.field_17 == 0 {
-					r.draw27 = pixCopyN
+					ops.draw27 = pixCopyN
 				}
-				r.draw4 = r.sub_4C8DF0
+				ops.draw4 = r.sub_4C8DF0
 			}
 		} else {
-			r.draw5 = r.sub_4C97F0
+			ops.draw5 = r.sub_4C97F0
 			if r.p.field_14 != 0 {
 				v3 := r.p.field_259
 				if v3 == 255 {
 					if r.p.field_16 == 0 {
-						r.draw27 = r.sub_4C86B0
-						r.draw4 = r.sub_4C91C0
+						ops.draw27 = r.sub_4C86B0
+						ops.draw4 = r.sub_4C91C0
 					} else {
-						r.draw27 = pixCopyN
-						r.draw4 = r.sub_4C8DF0
+						ops.draw27 = pixCopyN
+						ops.draw4 = r.sub_4C8DF0
 					}
 				} else if v3 == 128 {
-					r.draw27 = r.pixBlend
-					r.draw4 = r.sub_4C94D0
+					ops.draw27 = r.pixBlend
+					ops.draw4 = r.sub_4C94D0
 				} else {
-					r.draw27 = r.sub_4C8850
-					r.draw4 = r.sub_4C92F0
+					ops.draw27 = r.sub_4C8850
+					ops.draw4 = r.sub_4C92F0
 				}
 			} else {
 				v4 := r.p.field_259
 				if v4 == 255 {
-					r.draw27 = pixCopyN
-					r.draw4 = r.sub_4C8DF0
+					ops.draw27 = pixCopyN
+					ops.draw4 = r.sub_4C8DF0
 				} else if v4 == 128 {
-					r.draw27 = r.sub_4C8410
-					r.draw4 = r.sub_4C9050
+					ops.draw27 = r.sub_4C8410
+					ops.draw4 = r.sub_4C9050
 				} else {
-					r.draw27 = r.sub_4C8130
-					r.draw4 = r.sub_4C8EC0
+					ops.draw27 = r.sub_4C8130
+					ops.draw4 = r.sub_4C8EC0
 				}
 			}
 		}
-		r.nox_client_drawImg_aaa_4C79F0(img, pos)
+		r.nox_client_drawImg_aaa_4C79F0(&ops, img, pos)
 	case 8:
-		r.draw27 = r.pixBlendPremult
-		r.nox_client_drawImg_aaa_4C79F0(img, pos)
+		ops.draw27 = r.pixBlendPremult
+		r.nox_client_drawImg_aaa_4C79F0(&ops, img, pos)
 	}
 }
 
@@ -1569,7 +1572,7 @@ func skipPixdata(pix []byte, width int, skip int) []byte {
 	return pix
 }
 
-func (r *NoxRender) nox_client_drawImg_aaa_4C79F0(img *Image, pos types.Point) { // nox_client_drawImg_aaa_4C79F0
+func (r *NoxRender) nox_client_drawImg_aaa_4C79F0(ops *drawOps, img *Image, pos types.Point) { // nox_client_drawImg_aaa_4C79F0
 	src := img.Pixdata()
 	if len(src) == 0 {
 		return
@@ -1605,7 +1608,7 @@ func (r *NoxRender) nox_client_drawImg_aaa_4C79F0(img *Image, pos types.Point) {
 			return
 		}
 		if rc != a1a {
-			r.nox_client_drawXxx_4C7C80(src, pos, int(width), a1a)
+			r.nox_client_drawXxx_4C7C80(ops, src, pos, int(width), a1a)
 			return
 		}
 	}
@@ -1636,13 +1639,13 @@ func (r *NoxRender) nox_client_drawImg_aaa_4C79F0(img *Image, pos types.Point) {
 			}
 			switch op & 0xF {
 			case 2, 7:
-				dst, src = r.draw27(dst, src, op, val)
+				dst, src = ops.draw27(dst, src, op, val)
 			case 4:
-				dst, src = r.draw4(dst, src, op, val)
+				dst, src = ops.draw4(dst, src, op, val)
 			case 5:
-				dst, src = r.draw5(dst, src, op, val)
+				dst, src = ops.draw5(dst, src, op, val)
 			case 6:
-				dst, src = r.draw6(dst, src, op, val)
+				dst, src = ops.draw6(dst, src, op, val)
 			default:
 				panic(fmt.Errorf("invalid draw op: 0x%x, (%d,%d)", op, i, j))
 			}
@@ -1650,7 +1653,7 @@ func (r *NoxRender) nox_client_drawImg_aaa_4C79F0(img *Image, pos types.Point) {
 	}
 }
 
-func (r *NoxRender) nox_client_drawXxx_4C7C80(pix []byte, pos types.Point, width int, clip types.Rect) { // nox_client_drawXxx_4C7C80
+func (r *NoxRender) nox_client_drawXxx_4C7C80(ops *drawOps, pix []byte, pos types.Point, width int, clip types.Rect) { // nox_client_drawXxx_4C7C80
 	left := clip.Left
 	right := clip.Right
 	dy := clip.Top - pos.Y
@@ -1711,16 +1714,16 @@ func (r *NoxRender) nox_client_drawXxx_4C7C80(pix []byte, pos types.Point, width
 			)
 			switch op & 0xF {
 			case 2, 7:
-				fnc = r.draw27
+				fnc = ops.draw27
 				pmul = 2
 			case 4:
-				fnc = r.draw4
+				fnc = ops.draw4
 				pmul = 1
 			case 5:
-				fnc = r.draw5
+				fnc = ops.draw5
 				pmul = 2
 			case 6:
-				fnc = r.draw6
+				fnc = ops.draw6
 				pmul = 2
 			default:
 				panic(op)
@@ -1757,7 +1760,7 @@ func nox_video_drawImageAt2_4B0820(a1 unsafe.Pointer, x, y C.int) {
 	p.DrawAt(types.Point{X: int(x), Y: int(y)})
 }
 
-func (r *NoxRender) nox_client_drawImg_bbb_4C7860(img *Image, pos types.Point) {
+func (r *NoxRender) nox_client_drawImg_bbb_4C7860(ops *drawOps, img *Image, pos types.Point) {
 	data := img.Pixdata()
 	if len(data) == 0 {
 		return
