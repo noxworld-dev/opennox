@@ -279,7 +279,7 @@ func sub_4338D0() int {
 	ptr.field_59 = 0
 	ptr.field_60 = 0
 	ptr.field_61 = 0
-	ptr.field_259 = 255
+	ptr.field_259 = 0xFF
 	ptr.field_260 = 0xFF00FF
 	ptr.field_261 = 0xFF00FF
 	ptr.field_262 = 0
@@ -329,17 +329,18 @@ func sub_4338D0() int {
 
 var noxrend = NewNoxRender()
 
-type drawOpFunc func(dst []uint16, src []byte, op byte, val int) (outDst []uint16, outSrc []byte)
+type drawOp16Func func(dst []uint16, src []byte, val int) (outDst []uint16, outSrc []byte)
+type drawOp8Func func(dst []uint16, src []byte, op byte, val int) (outDst []uint16, outSrc []byte)
 
 func cgoSetRenderData(p *C.nox_render_data_t) {
 	C.ptr_5D4594_3799572 = p
 }
 
 type drawOps struct {
-	draw27 drawOpFunc
-	draw4  drawOpFunc
-	draw5  drawOpFunc
-	draw6  drawOpFunc
+	draw27 drawOp16Func
+	draw4  drawOp8Func
+	draw5  drawOp16Func
+	draw6  drawOp16Func
 }
 
 type NoxRender struct {
@@ -409,8 +410,12 @@ func (r *NoxRender) SetAlphaEnabled(enabled bool) { // nox_client_drawEnableAlph
 	}
 }
 
+func (r *NoxRender) Alpha() byte {
+	return byte(r.p.field_259)
+}
+
 func (r *NoxRender) SetAlpha(v byte) { // nox_client_drawSetAlpha_434580
-	if byte(r.p.field_259) != v {
+	if r.Alpha() != v {
 		r.p.field_259 = C.uint(v)
 		v2 := uint64(v) | (uint64(v) << 16)
 		v2 &= 0xffffffff
@@ -1467,67 +1472,66 @@ func (r *NoxRender) drawImage16(img *Image, pos types.Point) { // nox_client_xxx
 	if img == nil {
 		return
 	}
-	var ops drawOps
 	switch img.Type() & 0x3F {
 	case 2, 7:
-		ops.draw27 = pixCopyN
-		r.nox_client_drawImg_bbb_4C7860(&ops, img, pos)
+		r.nox_client_drawImg_bbb_4C7860(img, pos)
 	case 3, 4, 5, 6:
-		ops.draw5 = r.sub_4C96A0
-		ops.draw6 = func(dst []uint16, src []byte, op byte, val int) (_ []uint16, _ []byte) { return dst, src }
+		var ops drawOps
+		ops.draw5 = r.sub4C96A0
+		ops.draw6 = func(dst []uint16, src []byte, val int) (_ []uint16, _ []byte) { return dst, src }
 		if !r.IsAlphaEnabled() {
 			if r.p.field_14 != 0 {
-				ops.draw5 = r.sub_4C9970
-				ops.draw27 = r.sub_4C86B0
-				ops.draw4 = r.sub_4C91C0
+				ops.draw5 = r.sub4C9970
+				ops.draw27 = r.sub4C86B0
+				ops.draw4 = r.sub4C91C0u8
 			} else {
-				ops.draw27 = r.sub_4C8D60
+				ops.draw27 = r.sub4C8D60
 				if r.p.field_17 == 0 {
 					ops.draw27 = pixCopyN
 				}
-				ops.draw4 = r.sub_4C8DF0
+				ops.draw4 = r.sub4C8DF0u8
 			}
 		} else {
-			ops.draw5 = r.sub_4C97F0
+			ops.draw5 = r.sub4C97F0
+			alpha := r.Alpha()
 			if r.p.field_14 != 0 {
-				v3 := r.p.field_259
-				if v3 == 255 {
+				if alpha == 0xFF {
 					if r.p.field_16 == 0 {
-						ops.draw27 = r.sub_4C86B0
-						ops.draw4 = r.sub_4C91C0
+						ops.draw27 = r.sub4C86B0
+						ops.draw4 = r.sub4C91C0u8
 					} else {
 						ops.draw27 = pixCopyN
-						ops.draw4 = r.sub_4C8DF0
+						ops.draw4 = r.sub4C8DF0u8
 					}
-				} else if v3 == 128 {
-					ops.draw27 = r.pixBlend
-					ops.draw4 = r.sub_4C94D0
+				} else if alpha == 0x80 {
+					ops.draw27 = r.pixBlend16
+					ops.draw4 = r.sub4C94D0u8
 				} else {
-					ops.draw27 = r.sub_4C8850
-					ops.draw4 = r.sub_4C92F0
+					ops.draw27 = r.sub4C8850
+					ops.draw4 = r.sub4C92F0u8
 				}
 			} else {
-				v4 := r.p.field_259
-				if v4 == 255 {
+				if alpha == 0xFF {
 					ops.draw27 = pixCopyN
-					ops.draw4 = r.sub_4C8DF0
-				} else if v4 == 128 {
-					ops.draw27 = r.sub_4C8410
-					ops.draw4 = r.sub_4C9050
+					ops.draw4 = r.sub4C8DF0u8
+				} else if alpha == 0x80 {
+					ops.draw27 = r.sub4C8410
+					ops.draw4 = r.sub4C9050u8
 				} else {
-					ops.draw27 = r.sub_4C8130
-					ops.draw4 = r.sub_4C8EC0
+					ops.draw27 = r.sub4C8130
+					ops.draw4 = r.sub4C8EC0u8
 				}
 			}
 		}
 		r.nox_client_drawImg_aaa_4C79F0(&ops, img, pos)
 	case 8:
+		var ops drawOps
 		ops.draw27 = r.pixBlendPremult
 		r.nox_client_drawImg_aaa_4C79F0(&ops, img, pos)
 	}
 }
 
-func pixCopyN(dst []uint16, src []byte, _ byte, n int) (_ []uint16, _ []byte) { // sub_4C80E0
+func pixCopyN(dst []uint16, src []byte, n int) (_ []uint16, _ []byte) { // sub_4C80E0
 	if n < 0 {
 		panic("negative size")
 	}
@@ -1639,13 +1643,13 @@ func (r *NoxRender) nox_client_drawImg_aaa_4C79F0(ops *drawOps, img *Image, pos 
 			}
 			switch op & 0xF {
 			case 2, 7:
-				dst, src = ops.draw27(dst, src, op, val)
+				dst, src = ops.draw27(dst, src, val)
 			case 4:
-				dst, src = ops.draw4(dst, src, op, val)
+				dst, src = ops.draw4(dst, src, op>>4, val)
 			case 5:
-				dst, src = ops.draw5(dst, src, op, val)
+				dst, src = ops.draw5(dst, src, val)
 			case 6:
-				dst, src = ops.draw6(dst, src, op, val)
+				dst, src = ops.draw6(dst, src, val)
 			default:
 				panic(fmt.Errorf("invalid draw op: 0x%x, (%d,%d)", op, i, j))
 			}
@@ -1709,21 +1713,22 @@ func (r *NoxRender) nox_client_drawXxx_4C7C80(ops *drawOps, pix []byte, pos type
 			}
 
 			var (
-				fnc  drawOpFunc
-				pmul int
+				fnc16 drawOp16Func
+				fnc8  drawOp8Func
+				pmul  int
 			)
 			switch op & 0xF {
 			case 2, 7:
-				fnc = ops.draw27
+				fnc16 = ops.draw27
 				pmul = 2
 			case 4:
-				fnc = ops.draw4
+				fnc8 = ops.draw4
 				pmul = 1
 			case 5:
-				fnc = ops.draw5
+				fnc16 = ops.draw5
 				pmul = 2
 			case 6:
-				fnc = ops.draw6
+				fnc16 = ops.draw6
 				pmul = 2
 			default:
 				panic(op)
@@ -1748,8 +1753,13 @@ func (r *NoxRender) nox_client_drawXxx_4C7C80(ops *drawOps, pix []byte, pos type
 				d := xe - right
 				xw -= d
 			}
-			_, _ = fnc(row2, pix2, op, xw)
-			pix = pix[pmul*n:]
+			if fnc8 != nil {
+				_, _ = fnc8(row2, pix2, op, xw)
+				pix = pix[n:]
+			} else {
+				_, _ = fnc16(row2, pix2, xw)
+				pix = pix[2*n:]
+			}
 		}
 	}
 }
@@ -1760,7 +1770,7 @@ func nox_video_drawImageAt2_4B0820(a1 unsafe.Pointer, x, y C.int) {
 	p.DrawAt(types.Point{X: int(x), Y: int(y)})
 }
 
-func (r *NoxRender) nox_client_drawImg_bbb_4C7860(ops *drawOps, img *Image, pos types.Point) {
+func (r *NoxRender) nox_client_drawImg_bbb_4C7860(img *Image, pos types.Point) {
 	data := img.Pixdata()
 	if len(data) == 0 {
 		return
@@ -1857,7 +1867,7 @@ func (r *NoxRender) drawOpU8(dst []uint16, src []byte, sz int, fnc drawU8Func) (
 	return dnext, snext
 }
 
-func (r *NoxRender) pixBlend(dst []uint16, src []byte, _ byte, sz int) (_ []uint16, _ []byte) { // sub_4C8A30
+func (r *NoxRender) pixBlend16(dst []uint16, src []byte, sz int) (_ []uint16, _ []byte) { // sub_4C8A30
 	const ( // TODO: why masks are inverted?
 		rshift = 3
 		gshift = 2
@@ -1884,7 +1894,7 @@ func (r *NoxRender) pixBlend(dst []uint16, src []byte, _ byte, sz int) (_ []uint
 	})
 }
 
-func (r *NoxRender) sub_4C96A0(dst []uint16, src []byte, _ byte, sz int) (_ []uint16, _ []byte) { // sub_4C96A0
+func (r *NoxRender) sub4C96A0(dst []uint16, src []byte, sz int) (_ []uint16, _ []byte) { // sub_4C96A0
 	const (
 		rshift = 7 // -10+3
 		gshift = 2 // -5+3
@@ -1907,7 +1917,7 @@ func (r *NoxRender) sub_4C96A0(dst []uint16, src []byte, _ byte, sz int) (_ []ui
 	})
 }
 
-func (r *NoxRender) sub_4C9970(dst []uint16, src []byte, _ byte, sz int) (_ []uint16, _ []byte) { // sub_4C9970
+func (r *NoxRender) sub4C9970(dst []uint16, src []byte, sz int) (_ []uint16, _ []byte) { // sub_4C9970
 	const (
 		rshift = 7 // -10+3
 		gshift = 2 // -5+3
@@ -1935,7 +1945,7 @@ func (r *NoxRender) sub_4C9970(dst []uint16, src []byte, _ byte, sz int) (_ []ui
 	})
 }
 
-func (r *NoxRender) sub_4C97F0(dst []uint16, src []byte, _ byte, sz int) (_ []uint16, _ []byte) { // sub_4C97F0
+func (r *NoxRender) sub4C97F0(dst []uint16, src []byte, sz int) (_ []uint16, _ []byte) { // sub_4C97F0
 	const (
 		rshift = 7 // -10+3
 		gshift = 2 // -5+3
@@ -1963,7 +1973,7 @@ func (r *NoxRender) sub_4C97F0(dst []uint16, src []byte, _ byte, sz int) (_ []ui
 	})
 }
 
-func (r *NoxRender) sub_4C86B0(dst []uint16, src []byte, _ byte, sz int) (_ []uint16, _ []byte) { // sub_4C86B0
+func (r *NoxRender) sub4C86B0(dst []uint16, src []byte, sz int) (_ []uint16, _ []byte) { // sub_4C86B0
 	const (
 		rshift = 3
 		gshift = 2
@@ -1986,12 +1996,12 @@ func (r *NoxRender) sub_4C86B0(dst []uint16, src []byte, _ byte, sz int) (_ []ui
 	})
 }
 
-func (r *NoxRender) sub_4C91C0(dst []uint16, src []byte, op byte, sz int) (_ []uint16, _ []byte) { // sub_4C91C0
+func (r *NoxRender) sub4C91C0u8(dst []uint16, src []byte, op byte, sz int) (_ []uint16, _ []byte) { // sub_4C91C0
 	rmul := uint16(byte(r.p.field_24))
 	gmul := uint16(byte(r.p.field_25))
 	bmul := uint16(byte(r.p.field_26))
 
-	v9 := r.field66(int(op >> 4))
+	v9 := r.field66(int(op))
 
 	rpmul := v9[6]
 	gpmul := v9[7]
@@ -2005,8 +2015,8 @@ func (r *NoxRender) sub_4C91C0(dst []uint16, src []byte, op byte, sz int) (_ []u
 	})
 }
 
-func (r *NoxRender) sub_4C8DF0(dst []uint16, src []byte, op byte, sz int) (_ []uint16, _ []byte) { // sub_4C8DF0
-	v9 := r.field66(int(op >> 4))
+func (r *NoxRender) sub4C8DF0u8(dst []uint16, src []byte, op byte, sz int) (_ []uint16, _ []byte) { // sub_4C8DF0
+	v9 := r.field66(int(op))
 
 	rpmul := v9[6]
 	gpmul := v9[7]
@@ -2020,7 +2030,7 @@ func (r *NoxRender) sub_4C8DF0(dst []uint16, src []byte, op byte, sz int) (_ []u
 	})
 }
 
-func (r *NoxRender) sub_4C8410(dst []uint16, src []byte, _ byte, sz int) (_ []uint16, _ []byte) { // sub_4C8410
+func (r *NoxRender) sub4C8410(dst []uint16, src []byte, sz int) (_ []uint16, _ []byte) { // sub_4C8410
 	const (
 		rshift = 3
 		gshift = 2
@@ -2047,7 +2057,7 @@ func (r *NoxRender) sub_4C8410(dst []uint16, src []byte, _ byte, sz int) (_ []ui
 	})
 }
 
-func (r *NoxRender) sub_4C9050(dst []uint16, src []byte, op byte, sz int) (_ []uint16, _ []byte) { // sub_4C9050
+func (r *NoxRender) sub4C9050u8(dst []uint16, src []byte, op byte, sz int) (_ []uint16, _ []byte) { // sub_4C9050
 	const (
 		rshift = 3
 		gshift = 2
@@ -2058,7 +2068,7 @@ func (r *NoxRender) sub_4C9050(dst []uint16, src []byte, op byte, sz int) (_ []u
 		bmask = 0x7c00
 	)
 
-	v5 := r.field66(int(op >> 4))
+	v5 := r.field66(int(op))
 
 	rpmul := v5[6]
 	gpmul := v5[7]
@@ -2077,7 +2087,7 @@ func (r *NoxRender) sub_4C9050(dst []uint16, src []byte, op byte, sz int) (_ []u
 	})
 }
 
-func (r *NoxRender) sub_4C8130(dst []uint16, src []byte, _ byte, sz int) (_ []uint16, _ []byte) { // sub_4C8130
+func (r *NoxRender) sub4C8130(dst []uint16, src []byte, sz int) (_ []uint16, _ []byte) { // sub_4C8130
 	const (
 		rshift = 3
 		gshift = 2
@@ -2107,7 +2117,7 @@ func (r *NoxRender) sub_4C8130(dst []uint16, src []byte, _ byte, sz int) (_ []ui
 	})
 }
 
-func (r *NoxRender) sub_4C8EC0(dst []uint16, src []byte, op byte, sz int) (_ []uint16, _ []byte) { // sub_4C8EC0
+func (r *NoxRender) sub4C8EC0u8(dst []uint16, src []byte, op byte, sz int) (_ []uint16, _ []byte) { // sub_4C8EC0
 	const (
 		rshift = 3
 		gshift = 2
@@ -2120,7 +2130,7 @@ func (r *NoxRender) sub_4C8EC0(dst []uint16, src []byte, op byte, sz int) (_ []u
 
 	v2 := byte(r.p.field_259)
 
-	v7 := r.field66(int(op >> 4))
+	v7 := r.field66(int(op))
 
 	rpmul := v7[6]
 	gpmul := v7[7]
@@ -2139,7 +2149,7 @@ func (r *NoxRender) sub_4C8EC0(dst []uint16, src []byte, op byte, sz int) (_ []u
 	})
 }
 
-func (r *NoxRender) sub_4C94D0(dst []uint16, src []byte, op byte, sz int) (_ []uint16, _ []byte) { // sub_4C94D0
+func (r *NoxRender) sub4C94D0u8(dst []uint16, src []byte, op byte, sz int) (_ []uint16, _ []byte) { // sub_4C94D0
 	const (
 		rshift = 3
 		gshift = 2
@@ -2154,7 +2164,7 @@ func (r *NoxRender) sub_4C94D0(dst []uint16, src []byte, op byte, sz int) (_ []u
 	gmul := uint16(byte(r.p.field_25))
 	bmul := uint16(byte(r.p.field_26))
 
-	v9 := r.field66(int(op >> 4))
+	v9 := r.field66(int(op))
 
 	rpmul := v9[6]
 	gpmul := v9[7]
@@ -2173,7 +2183,7 @@ func (r *NoxRender) sub_4C94D0(dst []uint16, src []byte, op byte, sz int) (_ []u
 	})
 }
 
-func (r *NoxRender) sub_4C8850(dst []uint16, src []byte, _ byte, sz int) (_ []uint16, _ []byte) { // sub_4C8850
+func (r *NoxRender) sub4C8850(dst []uint16, src []byte, sz int) (_ []uint16, _ []byte) { // sub_4C8850
 	const (
 		rshift = 7 // -10+3
 		gshift = 2 // -5+3
@@ -2207,7 +2217,7 @@ func (r *NoxRender) sub_4C8850(dst []uint16, src []byte, _ byte, sz int) (_ []ui
 	})
 }
 
-func (r *NoxRender) sub_4C92F0(dst []uint16, src []byte, op byte, sz int) (_ []uint16, _ []byte) { // sub_4C92F0
+func (r *NoxRender) sub4C92F0u8(dst []uint16, src []byte, op byte, sz int) (_ []uint16, _ []byte) { // sub_4C92F0
 	const (
 		rshift = 3
 		gshift = 2
@@ -2224,7 +2234,7 @@ func (r *NoxRender) sub_4C92F0(dst []uint16, src []byte, op byte, sz int) (_ []u
 	gmul := uint16(byte(r.p.field_25))
 	bmul := uint16(byte(r.p.field_26))
 
-	v12 := r.field66(int(op >> 4))
+	v12 := r.field66(int(op))
 
 	rpmul := v12[6]
 	gpmul := v12[7]
@@ -2243,7 +2253,7 @@ func (r *NoxRender) sub_4C92F0(dst []uint16, src []byte, op byte, sz int) (_ []u
 	})
 }
 
-func (r *NoxRender) sub_4C8D60(dst []uint16, src []byte, _ byte, sz int) (_ []uint16, _ []byte) { // sub_4C8D60
+func (r *NoxRender) sub4C8D60(dst []uint16, src []byte, sz int) (_ []uint16, _ []byte) { // sub_4C8D60
 	rmul := uint16(byte(r.p.field_24))
 	gmul := uint16(byte(r.p.field_25))
 	bmul := uint16(byte(r.p.field_26))
@@ -2260,7 +2270,7 @@ func (r *NoxRender) sub_4C8D60(dst []uint16, src []byte, _ byte, sz int) (_ []ui
 	})
 }
 
-func (r *NoxRender) pixBlendPremult(dst []uint16, src []byte, _ byte, sz int) (_ []uint16, _ []byte) { // sub_4C9B20
+func (r *NoxRender) pixBlendPremult(dst []uint16, src []byte, sz int) (_ []uint16, _ []byte) { // sub_4C9B20
 	const (
 		rshift = 7 // -10+3
 		gshift = 2 // -5+3
