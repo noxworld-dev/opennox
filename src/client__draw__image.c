@@ -2458,7 +2458,6 @@ void nox_xxx_smthPlayerAnim_4C7670(nox_video_bag_image_t* img, int x, int y) {
 		}
 	}
 }
-#endif // NOX_CGO
 
 //----- (004C8130) --------------------------------------------------------
 void sub_4C8130() {
@@ -2537,7 +2536,6 @@ void sub_4C8130() {
 	}
 }
 
-#ifndef NOX_CGO
 //----- (004C8410) --------------------------------------------------------
 void sub_4C8410() {
 	int result;         // eax
