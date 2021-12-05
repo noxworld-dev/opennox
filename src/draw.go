@@ -67,7 +67,6 @@ void sub_4C8410();
 void sub_4C86B0();
 void sub_4C8EC0();
 void sub_4C9050();
-void sub_4C92F0();
 void  nox_xxx_cliLight16_469140(nox_drawable* dr, nox_draw_viewport_t* vp);
 void nox_xxx_clientDrawAll_436100_draw_A();
 void nox_xxx_clientDrawAll_436100_draw_B();
@@ -1508,7 +1507,7 @@ func (r *NoxRender) drawImage16(img *Image, pos types.Point) { // nox_client_xxx
 					r.draw4 = r.sub_4C94D0
 				} else {
 					r.draw27 = r.sub_4C8850
-					r.draw4 = drawOpC(func() { C.sub_4C92F0() })
+					r.draw4 = r.sub_4C92F0
 				}
 			} else {
 				v4 := r.p.field_259
@@ -2180,6 +2179,53 @@ func (r *NoxRender) sub_4C8850(dst []uint16, src []byte, _ byte, sz int) (_ []ui
 	}
 
 	return dst[sz:], src
+}
+
+func (r *NoxRender) sub_4C92F0(dst []uint16, src []byte, op byte, sz int) (_ []uint16, _ []byte) { // sub_4C92F0
+	if sz < 0 {
+		panic("negative size")
+	}
+	_ = dst[sz:]
+	_ = src[sz:]
+
+	const (
+		rshift = 3
+		gshift = 2
+		bshift = 7
+
+		rmask = 0x001f
+		gmask = 0x03e0
+		bmask = 0x7c00
+	)
+
+	v9 := byte(r.p.field_259)
+
+	rmul := uint16(byte(r.p.field_24))
+	gmul := uint16(byte(r.p.field_25))
+	bmul := uint16(byte(r.p.field_26))
+
+	v12 := r.field66(int(op >> 4))
+
+	rpmul := v12[6]
+	gpmul := v12[7]
+	bpmul := v12[8]
+
+	for i := 0; i < sz; i++ {
+		c1 := dst[i] // old color
+		v2 := src[i] // color to draw
+
+		cr := (c1 & rmask) >> rshift
+		cg := (c1 & gmask) >> gshift
+		cb := (c1 & bmask) << bshift
+
+		cr = r.colors.R[byte(cr+(uint16(uint32(v9)*uint32(((rmul*uint16(((rpmul*uint32(v2))>>8)&0xFF))>>8)-cr))>>8))]
+		cg = r.colors.G[byte(cg+(uint16(uint32(v9)*uint32(((gmul*uint16(((gpmul*uint32(v2))>>8)&0xFF))>>8)-cg))>>8))]
+		cb = r.colors.B[byte(cb+(uint16(uint32(v9)*uint32(((bmul*uint16(((bpmul*uint32(v2))>>8)&0xFF))>>8)-cb))>>8))]
+
+		dst[i] = cr | cg | cb
+	}
+
+	return dst[sz:], src[sz:]
 }
 
 func (r *NoxRender) sub_4C8D60(dst []uint16, src []byte, _ byte, sz int) (_ []uint16, _ []byte) { // sub_4C8D60
