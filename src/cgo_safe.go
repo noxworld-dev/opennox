@@ -5,6 +5,8 @@ package nox
 
 /*
 #cgo CFLAGS: -g -O0 -DNOX_CGO_MEMMAP
+#cgo CFLAGS: -fsanitize=address
+#cgo LDFLAGS: -fsanitize=address
 #cgo CFLAGS: -Dmalloc=nox_malloc
 #cgo CFLAGS: -Drealloc=nox_realloc
 #cgo CFLAGS: -Dcalloc=nox_calloc
