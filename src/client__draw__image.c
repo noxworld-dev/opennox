@@ -1206,7 +1206,6 @@ void sub_4C9B20() {
 	nox_video_cur_pixdata_3799444 = v0;
 	nox_draw_sprite_dstPtr_3799540 = v1;
 }
-#endif // NOX_CGO
 
 //----- (004C8EC0) --------------------------------------------------------
 void sub_4C8EC0() {
@@ -1286,7 +1285,6 @@ void sub_4C8EC0() {
 	}
 }
 
-#ifndef NOX_CGO
 //----- (004C9050) --------------------------------------------------------
 void sub_4C9050() {
 	int result;         // eax
