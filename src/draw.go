@@ -66,7 +66,6 @@ void sub_4C8130();
 void sub_4C8410();
 void sub_4C86B0();
 void sub_4C8850();
-void sub_4C8DF0();
 void sub_4C8EC0();
 void sub_4C9050();
 void sub_4C92F0();
@@ -1493,7 +1492,7 @@ func (r *NoxRender) drawImage16(img *Image, pos types.Point) { // nox_client_xxx
 				if r.p.field_17 == 0 {
 					r.draw27 = pixCopyN
 				}
-				r.draw4 = drawOpC(func() { C.sub_4C8DF0() })
+				r.draw4 = r.sub_4C8DF0
 			}
 		} else {
 			r.draw5 = drawOpC(func() { C.sub_4C97F0() })
@@ -1505,7 +1504,7 @@ func (r *NoxRender) drawImage16(img *Image, pos types.Point) { // nox_client_xxx
 						r.draw4 = r.sub_4C91C0
 					} else {
 						r.draw27 = pixCopyN
-						r.draw4 = drawOpC(func() { C.sub_4C8DF0() })
+						r.draw4 = r.sub_4C8DF0
 					}
 				} else if v3 == 128 {
 					r.draw27 = r.pixBlend
@@ -1518,7 +1517,7 @@ func (r *NoxRender) drawImage16(img *Image, pos types.Point) { // nox_client_xxx
 				v4 := r.p.field_259
 				if v4 == 255 {
 					r.draw27 = pixCopyN
-					r.draw4 = drawOpC(func() { C.sub_4C8DF0() })
+					r.draw4 = r.sub_4C8DF0
 				} else if v4 == 128 {
 					r.draw27 = drawOpC(func() { C.sub_4C8410() })
 					r.draw4 = drawOpC(func() { C.sub_4C9050() })
@@ -2027,6 +2026,29 @@ func (r *NoxRender) sub_4C91C0(dst []uint16, src []byte, op byte, sz int) (_ []u
 		cr := r.colors.R[byte((rmul*uint16(((rpmul*uint32(c))>>8)&0xFF))>>8)]
 		cg := r.colors.G[byte((gmul*uint16(((gpmul*uint32(c))>>8)&0xFF))>>8)]
 		cb := r.colors.B[byte((bmul*uint16(((bpmul*uint32(c))>>8)&0xFF))>>8)]
+		dst[i] = cr | cg | cb
+	}
+	return dst[sz:], src[sz:]
+}
+
+func (r *NoxRender) sub_4C8DF0(dst []uint16, src []byte, op byte, sz int) (_ []uint16, _ []byte) { // sub_4C8DF0
+	if sz < 0 {
+		panic("negative size")
+	}
+	_ = dst[sz:]
+	_ = src[sz:]
+
+	v9 := r.field66(int(op >> 4))
+
+	rpmul := v9[6]
+	gpmul := v9[7]
+	bpmul := v9[8]
+
+	for i := 0; i < sz; i++ {
+		c := src[i] // color to draw
+		cr := r.colors.R[byte((rpmul*uint32(c))>>8)]
+		cg := r.colors.G[byte((gpmul*uint32(c))>>8)]
+		cb := r.colors.B[byte((bpmul*uint32(c))>>8)]
 		dst[i] = cr | cg | cb
 	}
 	return dst[sz:], src[sz:]
