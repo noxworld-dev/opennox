@@ -1,12 +1,12 @@
 #pragma once
 #include "CommonHeader.h"
 
-class aud_decode  
+class aud_decode
 {
 public:
 	void init(int index = 0, int sample = 0);
-	void decode_chunk(const byte* audio_in, short* audio_out, int cs_chunk);
-	void encode_chunk(const short* audio_in, byte* audio_out, int cs_chunk);
+	void decode_chunk(const uint8_t* audio_in, short* audio_out, int cs_chunk);
+	void encode_chunk(const short* audio_in, uint8_t* audio_out, int cs_chunk);
 
 	int index() const
 	{
@@ -17,4 +17,4 @@ private:
 	int m_sample;
 };
 
-void aud_decode_ws_chunk(const byte* s, char* d, int cb_s, int cb_d);
+void aud_decode_ws_chunk(const uint8_t* s, char* d, int cb_s, int cb_d);
