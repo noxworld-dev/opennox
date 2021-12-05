@@ -50,9 +50,7 @@ extern unsigned int dword_5d4594_3799508;
 extern unsigned int nox_client_texturedFloors2_154960;
 extern unsigned int dword_5d4594_1193156;
 extern unsigned int dword_5d4594_1193188;
-extern void* nox_draw_sprite_dstPtr_3799540;
 extern unsigned int dword_5d4594_3799552;
-extern unsigned char* nox_video_cur_pixdata_3799444;
 extern int dword_5d4594_3799524;
 extern unsigned int nox_client_gui_flag_1556112;
 extern unsigned int nox_gameDisableMapDraw_5d4594_2650672;
@@ -1534,36 +1532,6 @@ func pixCopyN(dst []uint16, src []byte, _ byte, n int) (_ []uint16, _ []byte) { 
 	return dst[n:], src[n*2:]
 }
 
-func drawOpC(fnc func()) drawOpFunc {
-	return func(dst []uint16, src []byte, op byte, val int) (_ []uint16, _ []byte) {
-		var pdst, psrc uintptr
-		if len(dst) == 0 {
-			C.nox_draw_sprite_dstPtr_3799540 = nil
-		} else {
-			C.nox_draw_sprite_dstPtr_3799540 = unsafe.Pointer(&dst[0])
-			pdst = uintptr(unsafe.Pointer(&dst[0]))
-		}
-		if len(src) == 0 {
-			C.nox_video_cur_pixdata_3799444 = nil
-		} else {
-			C.nox_video_cur_pixdata_3799444 = (*C.uchar)(unsafe.Pointer(&src[0]))
-			psrc = uintptr(unsafe.Pointer(&src[0]))
-		}
-
-		*memmap.PtrUint32(0x973F18, 0) = uint32(op)
-		*memmap.PtrInt32(0x973F18, 28) = int32(val)
-		fnc()
-
-		if p := uintptr(unsafe.Pointer(C.nox_draw_sprite_dstPtr_3799540)); p > pdst {
-			dst = dst[(p-pdst)/2:]
-		}
-		if p := uintptr(unsafe.Pointer(C.nox_video_cur_pixdata_3799444)); p > psrc {
-			src = src[p-psrc:]
-		}
-		return dst, src
-	}
-}
-
 //export nox_video_getImagePixdata_func
 func nox_video_getImagePixdata_func(img *C.nox_video_bag_image_t) unsafe.Pointer {
 	data := asImage(img).Pixdata()
@@ -2413,15 +2381,6 @@ func (r *NoxRender) sub_4C8D60(dst []uint16, src []byte, _ byte, sz int) (_ []ui
 		src = src[2:]
 	}
 	return dst[sz:], src
-}
-
-// SADD8 is a saturating 8-bit addition.
-func SADD8(x, y byte) byte {
-	z := uint16(x) + uint16(y)
-	if z > 0xff {
-		return 0xff
-	}
-	return byte(z)
 }
 
 func (r *NoxRender) pixBlendPremult(dst []uint16, src []byte, _ byte, sz int) (_ []uint16, _ []byte) { // sub_4C9B20
