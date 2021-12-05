@@ -898,11 +898,18 @@ int nox_xxx_wndListboxProcPre_4A30D0(nox_window* win, unsigned int ev, uint32_t 
 			return 0;
 		case 0x4016u:
 			ind = a3;
+			if ((ind < 0) || (ind >= (int)sdata->count)) {
+				return 0;
+			}
 			return sdata->items[ind].text;
 		case 0x4017u:
+			ind = a4;
 			wstr = a3;
-			nox_wcsncpy(sdata->items[a4].text, wstr, 255);
-			sdata->items[a4].text[nox_wcslen(wstr)] = 0; // TODO: potential overflow
+			if ((ind < 0) || (ind >= (int)sdata->count)) {
+				return 0;
+			}
+			nox_wcsncpy(sdata->items[ind].text, wstr, 255);
+			sdata->items[ind].text[nox_wcslen(wstr)] = 0; // TODO: potential overflow
 			return 0;
 		case 0x4018u:
 			sdata->field_7 = a3;
@@ -950,7 +957,7 @@ int nox_xxx_wndListboxProcPre_4A30D0(nox_window* win, unsigned int ev, uint32_t 
 			return 1;
 		case 0x401Cu:
 			ind = a3;
-			if (ind) {
+			if ((ind - 1 >= 0) && (ind - 1 < (int)sdata->count)) {
 				sdata->field_13_1 = sdata->items[ind - 1].field_0 + 1;
 			} else {
 				sdata->field_13_1 = 0;
@@ -1065,11 +1072,14 @@ int nox_xxx_wndListboxProcPre_4A30D0(nox_window* win, unsigned int ev, uint32_t 
 		case 0x400Eu:
 			ind = a3;
 			v12 = sdata->field_11_0;
-			if (v12 <= ind) {
+			if ((ind < 0) || (ind >= v12)) {
 				return 0;
 			}
-			memcpy(&sdata->items[ind], &sdata->items[ind + 1], sizeof(nox_scrollListBox_item) * (unsigned int)(v12 - ind - 1));
+			for (int i = ind; i < v12 - 1; i++) {
+				memcpy(&sdata->items[i], &sdata->items[i + 1], sizeof(nox_scrollListBox_item));
+			}
 			v13 = --sdata->field_11_0;
+			memset(&sdata->items[v13], 0, sizeof(nox_scrollListBox_item));
 			sdata->field_11_1 = v13;
 			sdata->items[v13].text[0] = 0;
 			if (sdata->field_4) {

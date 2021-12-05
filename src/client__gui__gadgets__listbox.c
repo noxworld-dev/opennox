@@ -48,7 +48,7 @@ nox_window* nox_gui_newScrollListBox_4A4310(int a1, int a2, int a3, int a4, int 
 		*(uint32_t*)(a7 + 16) = v8;
 	}
 	nox_gui_windowCopyDrawData_46AF80((int)v8, (const void*)a7);
-	v9 = calloc(opts->count, 524);
+	v9 = calloc(opts->count, sizeof(nox_scrollListBox_item));
 	*((uint32_t*)a8 + 6) = v9;
 	if (!v9) {
 		return 0;
