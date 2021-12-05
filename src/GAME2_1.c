@@ -8111,8 +8111,8 @@ LABEL_64:
 		v45 = nox_xxx_getWallDrawOffset_46A3F0(v3[1], v84, v3[2], v73);
 		v46 = v82 + *(uint32_t*)v45 - 51;
 		v47 = -73 - *((uint32_t*)v45 + 1) + v7;
-		v48 = sub_4345F0(1);
-		LOBYTE(v48) = *((uint8_t*)v32 + 8);
+		sub_4345F0(1);
+		v48 = *((uint8_t*)v32 + 8);
 		LOBYTE(v49) = *((uint8_t*)v32 + 4);
 		LOBYTE(v50) = *(uint8_t*)v32;
 		sub_433CD0(v50, v49, v48);
@@ -8144,9 +8144,9 @@ LABEL_64:
 		v55 = nox_xxx_getWallDrawOffset_46A3F0(v3[1], v84, v3[2], v73);
 		v56 = v82 + *(uint32_t*)v55 - 50;
 		v57 = -72 - *((uint32_t*)v55 + 1) + v7;
-		v58 = sub_4345F0(1);
+		sub_4345F0(1);
 		LOBYTE(v59) = v54[8];
-		LOBYTE(v58) = v54[4];
+		v58 = v54[4];
 		LOBYTE(v60) = *v54;
 		sub_433CD0(v60, v58, v59);
 		if (!(v72 & 2)) {

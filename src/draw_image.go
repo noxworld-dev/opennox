@@ -18,7 +18,7 @@ func (r *NoxRender) drawImage16(img *Image, pos types.Point) { // nox_client_xxx
 		var ops drawOps
 		ops.draw5 = r.sub4C96A0
 		ops.draw6 = func(dst []uint16, src []byte, val int) (_ []uint16, _ []byte) { return dst, src }
-		if !r.IsAlphaEnabled() {
+		if !r.Data().IsAlphaEnabled() {
 			if r.p.field_14 != 0 {
 				ops.draw5 = r.sub4C9970
 				ops.draw27 = r.sub4C86B0
@@ -32,7 +32,7 @@ func (r *NoxRender) drawImage16(img *Image, pos types.Point) { // nox_client_xxx
 			}
 		} else {
 			ops.draw5 = r.sub4C97F0
-			alpha := r.Alpha()
+			alpha := r.Data().Alpha()
 			if r.p.field_14 != 0 {
 				if alpha == 0xFF {
 					if r.p.field_16 == 0 {
@@ -225,10 +225,10 @@ func (r *NoxRender) sub4C97F0(dst []uint16, src []byte, sz int) (_ []uint16, _ [
 		bmask = 0x001f
 	)
 
-	v1 := uint32(r.p.field_259)
+	a := uint32(r.p.Alpha())
 
 	return r.drawOpU16(dst, src, sz, func(c1 uint16, c2 uint16) uint16 {
-		v5 := byte((v1 * uint32(c2&0x0F) << 4) >> 8)
+		v5 := byte((a * uint32(c2&0x0F) << 4) >> 8)
 
 		cr := (c1 & rmask) >> rshift
 		cg := (c1 & gmask) >> gshift
@@ -303,7 +303,7 @@ func (r *NoxRender) sub4C8130(dst []uint16, src []byte, sz int) (_ []uint16, _ [
 		bmask = 0x7c00
 	)
 
-	v1 := byte(r.p.field_259)
+	a := r.p.Alpha()
 
 	return r.drawOpU16(dst, src, sz, func(c1 uint16, c2 uint16) uint16 {
 		cr1 := (c1 & rmask) >> rshift
@@ -314,9 +314,9 @@ func (r *NoxRender) sub4C8130(dst []uint16, src []byte, sz int) (_ []uint16, _ [
 		cg2 := (c2 & gmask) >> gshift
 		cb2 := (c2 & bmask) << bshift
 
-		cr := r.colors.R[byte(cr1+((uint16(v1)*(cr2-cr1))>>8))]
-		cg := r.colors.G[byte(cg1+((uint16(v1)*(cg2-cg1))>>8))]
-		cb := r.colors.B[byte(cb1+((uint16(v1)*(cb2-cb1))>>8))]
+		cr := r.colors.R[byte(cr1+((uint16(a)*(cr2-cr1))>>8))]
+		cg := r.colors.G[byte(cg1+((uint16(a)*(cg2-cg1))>>8))]
+		cb := r.colors.B[byte(cb1+((uint16(a)*(cb2-cb1))>>8))]
 
 		return cr | cg | cb
 	})
@@ -333,7 +333,7 @@ func (r *NoxRender) sub4C8850(dst []uint16, src []byte, sz int) (_ []uint16, _ [
 		bmask = 0x001f
 	)
 
-	v7 := byte(r.p.field_259)
+	a := r.p.Alpha()
 
 	rmul := uint16(byte(r.p.field_24))
 	gmul := uint16(byte(r.p.field_25))
@@ -348,9 +348,9 @@ func (r *NoxRender) sub4C8850(dst []uint16, src []byte, sz int) (_ []uint16, _ [
 		cg2 := (c2 & gmask) >> gshift
 		cb2 := (c2 & bmask) << bshift
 
-		cr := r.colors.R[byte(cr1+((uint16(v7)*(((rmul*cr2)>>8)-cr1))>>8))]
-		cg := r.colors.G[byte(cg1+((uint16(v7)*(((gmul*cg2)>>8)-cg1))>>8))]
-		cb := r.colors.B[byte(cb1+((uint16(v7)*(((bmul*cb2)>>8)-cb1))>>8))]
+		cr := r.colors.R[byte(cr1+((uint16(a)*(((rmul*cr2)>>8)-cr1))>>8))]
+		cg := r.colors.G[byte(cg1+((uint16(a)*(((gmul*cg2)>>8)-cg1))>>8))]
+		cb := r.colors.B[byte(cb1+((uint16(a)*(((bmul*cb2)>>8)-cb1))>>8))]
 
 		return cr | cg | cb
 	})
@@ -408,7 +408,7 @@ func (r *NoxRender) sub4C91C0u8(dst []uint16, src []byte, op byte, sz int) (_ []
 	gmul := uint16(byte(r.p.field_25))
 	bmul := uint16(byte(r.p.field_26))
 
-	v9 := r.field66(int(op))
+	v9 := r.p.field66(int(op))
 
 	rpmul := v9[6]
 	gpmul := v9[7]
@@ -423,7 +423,7 @@ func (r *NoxRender) sub4C91C0u8(dst []uint16, src []byte, op byte, sz int) (_ []
 }
 
 func (r *NoxRender) sub4C8DF0u8(dst []uint16, src []byte, op byte, sz int) (_ []uint16, _ []byte) { // sub_4C8DF0
-	v9 := r.field66(int(op))
+	v9 := r.p.field66(int(op))
 
 	rpmul := v9[6]
 	gpmul := v9[7]
@@ -448,7 +448,7 @@ func (r *NoxRender) sub4C9050u8(dst []uint16, src []byte, op byte, sz int) (_ []
 		bmask = 0x7c00
 	)
 
-	v5 := r.field66(int(op))
+	v5 := r.p.field66(int(op))
 
 	rpmul := v5[6]
 	gpmul := v5[7]
@@ -478,9 +478,9 @@ func (r *NoxRender) sub4C8EC0u8(dst []uint16, src []byte, op byte, sz int) (_ []
 		bmask = 0x7c00
 	)
 
-	v2 := byte(r.p.field_259)
+	a := r.p.Alpha()
 
-	v7 := r.field66(int(op))
+	v7 := r.p.field66(int(op))
 
 	rpmul := v7[6]
 	gpmul := v7[7]
@@ -491,9 +491,9 @@ func (r *NoxRender) sub4C8EC0u8(dst []uint16, src []byte, op byte, sz int) (_ []
 		cg := (c1 & gmask) >> gshift
 		cb := (c1 & bmask) << bshift
 
-		cr = r.colors.R[byte(cr+((uint16(v2)*(((uint16(rpmul)*uint16(c2))>>8)&0xFF-cr))>>8))]
-		cg = r.colors.G[byte(cg+((uint16(v2)*(((uint16(gpmul)*uint16(c2))>>8)&0xFF-cg))>>8))]
-		cb = r.colors.B[byte(cb+((uint16(v2)*(((uint16(bpmul)*uint16(c2))>>8)&0xFF-cb))>>8))]
+		cr = r.colors.R[byte(cr+((uint16(a)*(((uint16(rpmul)*uint16(c2))>>8)&0xFF-cr))>>8))]
+		cg = r.colors.G[byte(cg+((uint16(a)*(((uint16(gpmul)*uint16(c2))>>8)&0xFF-cg))>>8))]
+		cb = r.colors.B[byte(cb+((uint16(a)*(((uint16(bpmul)*uint16(c2))>>8)&0xFF-cb))>>8))]
 
 		return cr | cg | cb
 	})
@@ -514,7 +514,7 @@ func (r *NoxRender) sub4C94D0u8(dst []uint16, src []byte, op byte, sz int) (_ []
 	gmul := uint16(byte(r.p.field_25))
 	bmul := uint16(byte(r.p.field_26))
 
-	v9 := r.field66(int(op))
+	v9 := r.p.field66(int(op))
 
 	rpmul := v9[6]
 	gpmul := v9[7]
@@ -544,13 +544,13 @@ func (r *NoxRender) sub4C92F0u8(dst []uint16, src []byte, op byte, sz int) (_ []
 		bmask = 0x7c00
 	)
 
-	v9 := byte(r.p.field_259)
+	a := r.p.Alpha()
 
 	rmul := uint16(byte(r.p.field_24))
 	gmul := uint16(byte(r.p.field_25))
 	bmul := uint16(byte(r.p.field_26))
 
-	v12 := r.field66(int(op))
+	v12 := r.p.field66(int(op))
 
 	rpmul := v12[6]
 	gpmul := v12[7]
@@ -561,9 +561,9 @@ func (r *NoxRender) sub4C92F0u8(dst []uint16, src []byte, op byte, sz int) (_ []
 		cg := (c1 & gmask) >> gshift
 		cb := (c1 & bmask) << bshift
 
-		cr = r.colors.R[byte(cr+(uint16(uint32(v9)*uint32(((rmul*uint16(((rpmul*uint32(c2))>>8)&0xFF))>>8)-cr))>>8))]
-		cg = r.colors.G[byte(cg+(uint16(uint32(v9)*uint32(((gmul*uint16(((gpmul*uint32(c2))>>8)&0xFF))>>8)-cg))>>8))]
-		cb = r.colors.B[byte(cb+(uint16(uint32(v9)*uint32(((bmul*uint16(((bpmul*uint32(c2))>>8)&0xFF))>>8)-cb))>>8))]
+		cr = r.colors.R[byte(cr+(uint16(uint32(a)*uint32(((rmul*uint16(((rpmul*uint32(c2))>>8)&0xFF))>>8)-cr))>>8))]
+		cg = r.colors.G[byte(cg+(uint16(uint32(a)*uint32(((gmul*uint16(((gpmul*uint32(c2))>>8)&0xFF))>>8)-cg))>>8))]
+		cb = r.colors.B[byte(cb+(uint16(uint32(a)*uint32(((bmul*uint16(((bpmul*uint32(c2))>>8)&0xFF))>>8)-cb))>>8))]
 
 		return cr | cg | cb
 	})

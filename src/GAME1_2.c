@@ -234,7 +234,7 @@ int ptr_5D4594_754092_cnt = 0;
 
 int obj_5D4594_754104_switch = 0;
 
-nox_render_data_t* ptr_5D4594_3799572 = 0;
+nox_render_data_t* nox_draw_curDrawData_3799572 = 0;
 
 nox_screenParticle* nox_screenParticles_head = 0;
 nox_screenParticle* dword_5d4594_806052 = 0;
@@ -5192,88 +5192,71 @@ char* nox_xxx_copyServerIPAndPort_431790(char* a1) {
 }
 // 4335F8: variable 'v12' is possibly undefined
 
+#ifndef NOX_CGO
 //----- (00433E80) --------------------------------------------------------
 void sub_433E80(unsigned char a1, unsigned char a2, unsigned char a3) {
-	ptr_5D4594_3799572->field_44 = a1;
-	ptr_5D4594_3799572->field_45 = a2;
-	ptr_5D4594_3799572->field_46 = a3;
+	nox_draw_curDrawData_3799572->field_44 = a1;
+	nox_draw_curDrawData_3799572->field_45 = a2;
+	nox_draw_curDrawData_3799572->field_46 = a3;
 }
 
 //----- (00433F10) --------------------------------------------------------
-int nox_xxx_drawMakeRGB_433F10(unsigned char a1, unsigned char a2, unsigned char a3) {
-	int result;            // eax
+void nox_xxx_drawMakeRGB_433F10(unsigned char a1, unsigned char a2, unsigned char a3) {
 	long long v4;          // rax
 	unsigned long long v5; // rax
 	unsigned long long v6; // rax
 
-	result = a1;
-	ptr_5D4594_3799572->field_54 = a1;
-	ptr_5D4594_3799572->field_55 = a2;
-	ptr_5D4594_3799572->field_56 = a3;
-#ifndef NOX_CGO
+	nox_draw_curDrawData_3799572->field_54 = a1;
+	nox_draw_curDrawData_3799572->field_55 = a2;
+	nox_draw_curDrawData_3799572->field_56 = a3;
 	if (cpuid_5d4594_3801804) {
 		v4 = a1 | (a1 << 16);
 		HIDWORD(v4) = 0;
 		v4 <<= 16;
 		LODWORD(v4) = a1 | (unsigned int)v4;
 		v4 <<= 16;
-		ptr_5D4594_3799572->field_48 = a1 | (unsigned int)v4;
-		ptr_5D4594_3799572->field_49 = HIDWORD(v4);
+		nox_draw_curDrawData_3799572->field_48 = a1 | (unsigned int)v4;
+		nox_draw_curDrawData_3799572->field_49 = HIDWORD(v4);
 		v5 = (a2 | ((a2 | ((unsigned long long)a2 << 16)) << 16)) << 16;
-		ptr_5D4594_3799572->field_50 = a2 | (unsigned int)v5;
-		ptr_5D4594_3799572->field_51 = HIDWORD(v5);
+		nox_draw_curDrawData_3799572->field_50 = a2 | (unsigned int)v5;
+		nox_draw_curDrawData_3799572->field_51 = HIDWORD(v5);
 		v6 = (a3 | ((a3 | ((unsigned long long)a3 << 16)) << 16)) << 16;
-		ptr_5D4594_3799572->field_52 = a3 | (unsigned int)v6;
-		ptr_5D4594_3799572->field_53 = HIDWORD(v6);
-		result = ptr_5D4594_3799572;
+		nox_draw_curDrawData_3799572->field_52 = a3 | (unsigned int)v6;
+		nox_draw_curDrawData_3799572->field_53 = HIDWORD(v6);
 	}
-#endif // NOX_CGO
-	return result;
 }
 
 //----- (00434080) --------------------------------------------------------
-int sub_434080(int a1) {
-	int result; // eax
-
-	result = a1;
-	ptr_5D4594_3799572->field_262 = a1;
-	return result;
+void sub_434080(int a1) {
+	nox_draw_curDrawData_3799572->field_262 = a1;
 }
 
 //----- (00434350) --------------------------------------------------------
-int nox_xxx_drawSelectColor_434350(int a1) {
-	int result; // eax
-
-	result = a1;
-	ptr_5D4594_3799572->field_58 = a1;
-	return result;
+void nox_xxx_drawSelectColor_434350(int a1) {
+	nox_draw_curDrawData_3799572->field_58 = a1;
 }
 
 //----- (00434370) --------------------------------------------------------
 int sub_434370() {
-	ptr_5D4594_3799572->field_61 = ptr_5D4594_3799572->field_58;
-	return ptr_5D4594_3799572;
+	nox_draw_curDrawData_3799572->field_61 = nox_draw_curDrawData_3799572->field_58;
+	return nox_draw_curDrawData_3799572;
 }
 
 //----- (00434390) --------------------------------------------------------
-int nox_xxx_drawSetTextColor_434390(int a1) {
-	ptr_5D4594_3799572->field_59 = a1;
-	return a1;
+void nox_xxx_drawSetTextColor_434390(int a1) {
+	nox_draw_curDrawData_3799572->field_59 = a1;
 }
 
 //----- (004343E0) --------------------------------------------------------
-int nox_xxx_drawSetColor_4343E0(int a1) {
-	ptr_5D4594_3799572->field_60 = a1;
-	return a1;
+void nox_xxx_drawSetColor_4343E0(int a1) {
+	nox_draw_curDrawData_3799572->field_60 = a1;
 }
 
 //----- (00434460) --------------------------------------------------------
-int nox_client_drawSetColor_434460(int a1) {
-	ptr_5D4594_3799572->field_61 = a1;
-	return a1;
+void nox_client_drawSetColor_434460(int a1) {
+	nox_draw_curDrawData_3799572->field_61 = a1;
 }
 
-#ifndef NOX_CGO
 //----- (004344D0) --------------------------------------------------------
 int nox_xxx_unused_4344D0(uint8_t* a1) {
 	int result; // eax
@@ -5306,45 +5289,44 @@ char* sub_434510(char* a1, unsigned char a2, unsigned char a3, unsigned char a4)
 	return result;
 }
 
+#ifndef NOX_CGO
 //----- (00434560) --------------------------------------------------------
-int nox_client_drawEnableAlpha_434560(int a1) {
-	if (ptr_5D4594_3799572->field_13 != a1) {
-		ptr_5D4594_3799572->field_13 = a1;
+void nox_client_drawEnableAlpha_434560(int a1) {
+	if (nox_draw_curDrawData_3799572->field_13 != a1) {
+		nox_draw_curDrawData_3799572->field_13 = a1;
 	}
-	return ptr_5D4594_3799572;
 }
 
 //----- (00434580) --------------------------------------------------------
-int nox_client_drawSetAlpha_434580(unsigned char a1) {
+void nox_client_drawSetAlpha_434580(unsigned char a1) {
 	int result;   // eax
 	long long v2; // rax
 
 	result = a1;
-	if (ptr_5D4594_3799572->field_259 != a1) {
-		ptr_5D4594_3799572->field_259 = a1;
+	if (nox_draw_curDrawData_3799572->field_259 != a1) {
+		nox_draw_curDrawData_3799572->field_259 = a1;
 		v2 = a1 | (a1 << 16);
 		HIDWORD(v2) = 0;
 		v2 <<= 16;
 		LODWORD(v2) = a1 | (unsigned int)v2;
 		v2 <<= 16;
-		ptr_5D4594_3799572->field_260 = a1 | (unsigned int)v2;
-		result = ptr_5D4594_3799572;
-		ptr_5D4594_3799572->field_261 = HIDWORD(v2);
+		nox_draw_curDrawData_3799572->field_260 = a1 | (unsigned int)v2;
+		result = nox_draw_curDrawData_3799572;
+		nox_draw_curDrawData_3799572->field_261 = HIDWORD(v2);
 	}
 	return result;
 }
 
 //----- (004345F0) --------------------------------------------------------
-int sub_4345F0(int a1) {
-	ptr_5D4594_3799572->field_14 = a1;
-	return a1;
+void sub_4345F0(int a1) {
+	nox_draw_curDrawData_3799572->field_14 = a1;
 }
 
 //----- (00434600) --------------------------------------------------------
-int nox_xxx_draw_434600(int a1) {
-	ptr_5D4594_3799572->field_17 = a1;
-	return a1;
+void nox_xxx_draw_434600(int a1) {
+	nox_draw_curDrawData_3799572->field_17 = a1;
 }
+#endif // NOX_CGO
 
 //----- (00434610) --------------------------------------------------------
 int sub_434610(int a1) {
@@ -5518,40 +5500,37 @@ int sub_434950() {
 	return 1;
 }
 
+#ifndef NOX_CGO
 //----- (00434990) --------------------------------------------------------
-int sub_434990(int a1, int a2, int a3) {
-	ptr_5D4594_3799572->field_62 = a1;
-	ptr_5D4594_3799572->field_63 = a2;
-	ptr_5D4594_3799572->field_64 = a3;
-	return a2;
+void sub_434990(int a1, int a2, int a3) {
+	nox_draw_curDrawData_3799572->field_62 = a1;
+	nox_draw_curDrawData_3799572->field_63 = a2;
+	nox_draw_curDrawData_3799572->field_64 = a3;
 }
 
 //----- (004349C0) --------------------------------------------------------
-int sub_4349C0(uint32_t* a1) {
-	ptr_5D4594_3799572->field_62 = *a1;
-	ptr_5D4594_3799572->field_63 = a1[1];
-	ptr_5D4594_3799572->field_64 = a1[2];
-	return a1[2];
+void sub_4349C0(uint32_t* a1) {
+	nox_draw_curDrawData_3799572->field_62 = a1[0];
+	nox_draw_curDrawData_3799572->field_63 = a1[1];
+	nox_draw_curDrawData_3799572->field_64 = a1[2];
 }
 
 //----- (00434A00) --------------------------------------------------------
-int sub_434A00() { return (uint32_t)(&ptr_5D4594_3799572->field_62); }
+int sub_434A00() { return (uint32_t)(&nox_draw_curDrawData_3799572->field_62); }
 
 //----- (00434A10) --------------------------------------------------------
-uint32_t* sub_434A10(uint32_t* a1, uint32_t* a2, uint32_t* a3) {
+void sub_434A10(uint32_t* a1, uint32_t* a2, uint32_t* a3) {
 	if (a1) {
-		*a1 = ptr_5D4594_3799572->field_62;
+		*a1 = nox_draw_curDrawData_3799572->field_62;
 	}
 	if (a2) {
-		*a2 = ptr_5D4594_3799572->field_63;
+		*a2 = nox_draw_curDrawData_3799572->field_63;
 	}
 	if (a3) {
-		*a3 = ptr_5D4594_3799572->field_64;
+		*a3 = nox_draw_curDrawData_3799572->field_64;
 	}
-	return a3;
 }
 
-#ifndef NOX_CGO
 //----- (00434A60) --------------------------------------------------------
 char sub_434A60(int a1) {
 	return *(uint8_t*)((unsigned int)nox_draw_colorTablesRev_3804668 + (((unsigned char)(getMemByte(0x973F18, 3882 + 4 * a1) & 0xF8) >> 3) |

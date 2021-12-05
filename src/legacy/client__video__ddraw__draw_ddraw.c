@@ -1210,13 +1210,13 @@ void nox_draw_freeColorTables_433C20() {
 //----- (00444930) --------------------------------------------------------
 int nox_xxx_GfxInit_444930(HWND wnd, int w, int h, int depth, int flags) {
 	dword_5d4594_823776 = 0;
-	ptr_5D4594_3799572 = &obj_5D4594_3799660;
+	nox_draw_curDrawData_3799572 = &obj_5D4594_3799660;
 	int result = nox_client_drawInitAll_4449D0(wnd, w, h, depth, flags);
 	printf("%s: %d\n", __FUNCTION__, result);
 	if (!result) {
 		return 0;
 	}
-	ptr_5D4594_3799572 = &obj_5D4594_3800716;
+	nox_draw_curDrawData_3799572 = &obj_5D4594_3800716;
 	memcpy(&obj_5D4594_3800716, &obj_5D4594_3799660, sizeof(obj_5D4594_3799572_t));
 	if (nox_video_renderTargetFlags & 0x200) {
 		ShowWindow(windowHandle_dword_973FE0, SW_MINIMIZE);
@@ -1540,26 +1540,26 @@ int sub_4338D0() {
 		memcpy(byte_5D4594_3804364, byte_581450_9336, sizeof(byte_581450_9336));
 		break;
 	}
-	ptr_5D4594_3799572->data[13] = 0;
-	ptr_5D4594_3799572->data[14] = 0;
-	ptr_5D4594_3799572->data[17] = 0;
-	ptr_5D4594_3799572->data[24] = 0;
-	ptr_5D4594_3799572->data[25] = 0;
-	ptr_5D4594_3799572->data[26] = 0;
-	ptr_5D4594_3799572->data[44] = 0;
-	ptr_5D4594_3799572->data[45] = 0;
-	ptr_5D4594_3799572->data[46] = 0;
-	ptr_5D4594_3799572->data[54] = 0;
-	ptr_5D4594_3799572->data[55] = 0;
-	ptr_5D4594_3799572->data[56] = 0;
-	ptr_5D4594_3799572->data[58] = 0;
-	ptr_5D4594_3799572->data[59] = 0;
-	ptr_5D4594_3799572->data[60] = 0;
-	ptr_5D4594_3799572->data[61] = 0;
-	ptr_5D4594_3799572->data[259] = 255;
-	ptr_5D4594_3799572->data[260] = 16711935;
-	ptr_5D4594_3799572->data[261] = 16711935;
-	ptr_5D4594_3799572->data[262] = 0;
+	nox_draw_curDrawData_3799572->data[13] = 0;
+	nox_draw_curDrawData_3799572->data[14] = 0;
+	nox_draw_curDrawData_3799572->data[17] = 0;
+	nox_draw_curDrawData_3799572->data[24] = 0;
+	nox_draw_curDrawData_3799572->data[25] = 0;
+	nox_draw_curDrawData_3799572->data[26] = 0;
+	nox_draw_curDrawData_3799572->data[44] = 0;
+	nox_draw_curDrawData_3799572->data[45] = 0;
+	nox_draw_curDrawData_3799572->data[46] = 0;
+	nox_draw_curDrawData_3799572->data[54] = 0;
+	nox_draw_curDrawData_3799572->data[55] = 0;
+	nox_draw_curDrawData_3799572->data[56] = 0;
+	nox_draw_curDrawData_3799572->data[58] = 0;
+	nox_draw_curDrawData_3799572->data[59] = 0;
+	nox_draw_curDrawData_3799572->data[60] = 0;
+	nox_draw_curDrawData_3799572->data[61] = 0;
+	nox_draw_curDrawData_3799572->data[259] = 255;
+	nox_draw_curDrawData_3799572->data[260] = 16711935;
+	nox_draw_curDrawData_3799572->data[261] = 16711935;
+	nox_draw_curDrawData_3799572->data[262] = 0;
 	sub_434990(25, 25, 25);
 	result = sub_434CC0();
 	if (result) {

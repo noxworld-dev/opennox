@@ -89,7 +89,9 @@ import (
 	"nox/v1/common/types"
 )
 
-var nox_draw_colorTablesRev_3804668 []byte // map[Color16]byte
+var (
+	nox_draw_colorTablesRev_3804668 []byte // map[Color16]byte
+)
 
 func getViewport() *Viewport {
 	return asViewport(&C.nox_draw_viewport)
@@ -262,28 +264,8 @@ func sub_4338D0() int {
 	C.dword_975380 = (*[0]byte)(C.sub_434E80)
 	copy(byte_5D4594_3804364[:], byte_581450_9176[:])
 	copy(unsafe.Slice((*uint32)(unsafe.Pointer(&C.byte_5D4594_3804364[0])), 40), byte_581450_9176[:])
-	ptr := C.ptr_5D4594_3799572
-	ptr.field_13 = 0
-	ptr.field_14 = 0
-	ptr.field_17 = 0
-	ptr.field_24 = 0
-	ptr.field_25 = 0
-	ptr.field_26 = 0
-	ptr.field_44 = 0
-	ptr.field_45 = 0
-	ptr.field_46 = 0
-	ptr.field_54 = 0
-	ptr.field_55 = 0
-	ptr.field_56 = 0
-	ptr.field_58 = 0
-	ptr.field_59 = 0
-	ptr.field_60 = 0
-	ptr.field_61 = 0
-	ptr.field_259 = 0xFF
-	ptr.field_260 = 0xFF00FF
-	ptr.field_261 = 0xFF00FF
-	ptr.field_262 = 0
-	C.sub_434990(25, 25, 25)
+	ptr := noxrend.Data()
+	ptr.Reset()
 	nox_draw_initColorTables_434CC0()
 	nox_draw_initColorTablesRev_434DA0()
 	if C.dword_5d4594_823772 == 0 {
@@ -327,14 +309,106 @@ func sub_4338D0() int {
 	return 1
 }
 
+//export sub_433E80
+func sub_433E80(r, g, b C.uchar) {
+	noxrend.Data().setColorInt44(ColorInt{
+		R: int(r),
+		G: int(g),
+		B: int(b),
+	})
+}
+
+//export nox_xxx_drawMakeRGB_433F10
+func nox_xxx_drawMakeRGB_433F10(r, g, b C.uchar) {
+	noxrend.Data().setColorInt54(ColorInt{
+		R: int(r),
+		G: int(g),
+		B: int(b),
+	})
+}
+
+//export sub_434080
+func sub_434080(a1 C.int) {
+	noxrend.Data().setField262(int(a1))
+}
+
+//export nox_xxx_drawSelectColor_434350
+func nox_xxx_drawSelectColor_434350(a1 C.int) {
+	noxrend.Data().SetSelectColor(uint32(a1))
+}
+
+//export nox_xxx_drawSetTextColor_434390
+func nox_xxx_drawSetTextColor_434390(a1 C.int) {
+	noxrend.Data().SetTextColor(uint32(a1))
+}
+
+//export nox_xxx_drawSetColor_4343E0
+func nox_xxx_drawSetColor_4343E0(a1 C.int) {
+	noxrend.Data().SetColor(uint32(a1))
+}
+
+//export nox_client_drawSetColor_434460
+func nox_client_drawSetColor_434460(a1 C.int) {
+	noxrend.Data().SetColor2(uint32(a1))
+}
+
+//export nox_client_drawEnableAlpha_434560
+func nox_client_drawEnableAlpha_434560(a1 C.int) {
+	noxrend.Data().SetAlphaEnabled(a1 != 0)
+}
+
+//export sub_4345F0
+func sub_4345F0(a1 C.int) {
+	noxrend.Data().setField14(int(a1))
+}
+
+//export nox_xxx_draw_434600
+func nox_xxx_draw_434600(a1 C.int) {
+	noxrend.Data().setField17(int(a1))
+}
+
+//export sub_434990
+func sub_434990(r, g, b C.int) {
+	noxrend.Data().setColorInt62(ColorInt{
+		R: int(r),
+		G: int(g),
+		B: int(b),
+	})
+}
+
+//export sub_4349C0
+func sub_4349C0(a1 *C.uint) {
+	arr := unsafe.Slice(a1, 3)
+	noxrend.Data().setColorInt62(ColorInt{
+		R: int(arr[0]),
+		G: int(arr[1]),
+		B: int(arr[2]),
+	})
+}
+
+//export sub_434A10
+func sub_434A10(a1, a2, a3 *C.uint) {
+	p := noxrend.Data()
+	if a1 != nil {
+		*a1 = p.field_62
+	}
+	if a2 != nil {
+		*a2 = p.field_63
+	}
+	if a3 != nil {
+		*a3 = p.field_64
+	}
+}
+
+//export nox_client_drawSetAlpha_434580
+func nox_client_drawSetAlpha_434580(a C.uchar) {
+	noxrend.Data().SetAlpha(byte(a))
+}
+
 var noxrend = NewNoxRender()
 
 type drawOp16Func func(dst []uint16, src []byte, val int) (outDst []uint16, outSrc []byte)
 type drawOp8Func func(dst []uint16, src []byte, op byte, val int) (outDst []uint16, outSrc []byte)
-
-func cgoSetRenderData(p *C.nox_render_data_t) {
-	C.ptr_5D4594_3799572 = p
-}
 
 type drawOps struct {
 	draw27 drawOp16Func
@@ -344,7 +418,7 @@ type drawOps struct {
 }
 
 type NoxRender struct {
-	p   *C.nox_render_data_t
+	p   *RenderData
 	pix *noximage.Image16
 
 	colors struct {
@@ -368,9 +442,11 @@ func (r *NoxRender) SetPixBuffer(pix *noximage.Image16) {
 	r.pix = pix
 }
 
-func newNoxRenderData() (*C.nox_render_data_t, func()) {
+func newNoxRenderData() (*RenderData, func()) {
 	p, free := alloc.Malloc(unsafe.Sizeof(C.nox_render_data_t{}))
-	return (*C.nox_render_data_t)(p), free
+	d := (*RenderData)(p)
+	d.Reset()
+	return d, free
 }
 
 func NewNoxRender() *NoxRender {
@@ -387,85 +463,40 @@ func (r *NoxRender) Frame() uint32 {
 	return gameFrame()
 }
 
-func (r *NoxRender) SetData(p *C.nox_render_data_t) {
+func (r *NoxRender) Data() *RenderData {
+	return r.p
+}
+
+func (r *NoxRender) SetData(p *RenderData) {
 	r.p = p
 }
 
 func (r *NoxRender) Rect() types.Rect {
-	return types.Rect{
-		Left:   int(r.p.clip.left),
-		Top:    int(r.p.clip.top),
-		Right:  int(r.p.clip.right),
-		Bottom: int(r.p.clip.bottom),
-	}
-}
-
-func (r *NoxRender) IsAlphaEnabled() bool {
-	return r.p.field_13 != 0
+	return r.p.ClipRect()
 }
 
 func (r *NoxRender) SetAlphaEnabled(enabled bool) { // nox_client_drawEnableAlpha_434560
-	if enabled != r.IsAlphaEnabled() {
-		r.p.field_13 = C.uint(bool2int(enabled))
-	}
-}
-
-func (r *NoxRender) Alpha() byte {
-	return byte(r.p.field_259)
+	r.p.SetAlphaEnabled(enabled)
 }
 
 func (r *NoxRender) SetAlpha(v byte) { // nox_client_drawSetAlpha_434580
-	if r.Alpha() != v {
-		r.p.field_259 = C.uint(v)
-		v2 := uint64(v) | (uint64(v) << 16)
-		v2 &= 0xffffffff
-		v2 <<= 16
-		v2 = (v2 & 0xffffffff00000000) | uint64(v) | (v2 & 0xffffffff)
-		v2 <<= 16
-		r.p.field_260 = C.uint(uint32(v) | uint32(v2))
-		r.p.field_261 = C.uint(v2 >> 32)
-	}
-}
-
-func (r *NoxRender) setField17(v int) { // 	nox_xxx_draw_434600
-	r.p.field_17 = C.uint(v)
+	r.p.SetAlpha(v)
 }
 
 func (r *NoxRender) SelectColor(a1 uint32) { // nox_xxx_drawSelectColor_434350
-	r.p.field_58 = C.uint(a1)
+	r.p.SetSelectColor(a1)
 }
 
 func (r *NoxRender) SetTextColor(a1 uint32) { // nox_xxx_drawSetTextColor_434390
-	r.p.field_59 = C.uint(a1)
+	r.p.SetTextColor(a1)
 }
 
 func (r *NoxRender) SetColor(a1 uint32) { // nox_xxx_drawSetColor_4343E0
-	r.p.field_60 = C.uint(a1)
+	r.p.SetColor(a1)
 }
 
 func (r *NoxRender) SetColor2(a1 uint32) { // nox_client_drawSetColor_434460
-	r.p.field_61 = C.uint(a1)
-}
-
-func (r *NoxRender) field66(ind int) []uint32 {
-	const (
-		size = 12
-		max  = 16
-	)
-	arr := unsafe.Slice((*uint32)(unsafe.Pointer(&r.p.field_66)), size*max)
-	return arr[ind*size : (ind+1)*size]
-}
-
-func (r *NoxRender) sub434080(a1 int) { // sub_434080
-	r.p.field_262 = C.uint(a1)
-}
-
-func (r *NoxRender) GetLightColor() NoxLight { // sub_434A10
-	return NoxLight{
-		R: int(r.p.field_62),
-		G: int(r.p.field_63),
-		B: int(r.p.field_64),
-	}
+	r.p.SetColor2(a1)
 }
 
 func (r *NoxRender) sub49EFA0(pos types.Point) { // sub_49EFA0
@@ -662,7 +693,7 @@ func (r *NoxRender) GetStringSize(a1 int, a2 string, a5 int) types.Size { // nox
 }
 
 func (r *NoxRender) DrawCircle(a1, a2, a3 int) {
-	if r.IsAlphaEnabled() {
+	if r.p.IsAlphaEnabled() {
 		C.nox_video_drawCircle16Alpha_4B2480(C.int(a1), C.int(a2), C.int(a3))
 	} else {
 		C.nox_video_drawCircle16Opaque_4B1380(C.int(a1), C.int(a2), C.int(a3))
@@ -880,7 +911,7 @@ func nox_xxx_drawAllMB_475810_draw(vp *Viewport) {
 	C.sub_476680()
 }
 
-type NoxLight struct {
+type ColorInt struct {
 	R, G, B int
 }
 
@@ -892,7 +923,7 @@ const (
 )
 
 var (
-	nox_arr2_853BC0 [lightGridW][lightGridH]NoxLight
+	nox_arr2_853BC0 [lightGridW][lightGridH]ColorInt
 	lightsOutBuf    []uint32
 )
 
@@ -913,9 +944,9 @@ func sub_468F80(vp *Viewport) {
 			}
 		}
 	} else {
-		cl := noxrend.GetLightColor()
+		cl := noxrend.Data().GetLightColor()
 		if nox_xxx_get_57AF20() != 0 {
-			cl = NoxLight{R: 50, G: 50, B: 50}
+			cl = ColorInt{R: 50, G: 50, B: 50}
 		}
 		for i := 0; i < lightGridW; i++ {
 			for j := 0; j < lightGridH; j++ {
@@ -960,17 +991,17 @@ func sub_469920(p *C.nox_point) *C.char {
 	c01 := nox_arr2_853BC0[xd+0][yd+1]
 	c11 := nox_arr2_853BC0[xd+1][yd+1]
 
-	var cr1 NoxLight
+	var cr1 ColorInt
 	cr1.R = c00.R + xr*(c10.R-c00.R)/lightGrid
 	cr1.G = c00.G + xr*(c10.G-c00.G)/lightGrid
 	cr1.B = c00.B + xr*(c10.B-c00.B)/lightGrid
 
-	var cr2 NoxLight
+	var cr2 ColorInt
 	cr2.R = c01.R + xr*(c11.R-c01.R)/lightGrid
 	cr2.G = c01.G + xr*(c11.G-c01.G)/lightGrid
 	cr2.B = c01.B + xr*(c11.B-c01.B)/lightGrid
 
-	var res NoxLight
+	var res ColorInt
 	res.R = cr1.R + yr*(cr2.R-cr1.R)/lightGrid
 	res.G = cr1.G + yr*(cr2.G-cr1.G)/lightGrid
 	res.B = cr1.B + yr*(cr2.B-cr1.B)/lightGrid
@@ -1030,7 +1061,7 @@ func sub_4695E0(a1, a2 C.int, a3p *C.int, a4, a5 C.int) {
 
 	ptr := &nox_arr2_853BC0[a1][a2]
 
-	var res NoxLight
+	var res ColorInt
 	res.R = v6 + ptr.R
 	res.G = v7 + ptr.G
 	res.B = v8 + ptr.B
@@ -1895,11 +1926,11 @@ func drawCreatureFrontEffects(r *NoxRender, vp *Viewport, dr *Drawable) { // nox
 			pos.Y += int(memmap.Int32(0x587000, 149436+v8))
 		}
 		if dr.CheckFlag31(29) {
-			r.setField17(1)
+			r.Data().setField17(1)
 			C.sub_433E40(C.int(memmap.Uint32(0x85B3FC, 980)))
 		}
 		r.nox_video_drawAnimatedImageOrCursorAt(asImageRefP(*memmap.PtrPtr(0x5D4594, 1096456)), pos.Add(types.Point{X: -64, Y: -64}))
-		r.setField17(0)
+		r.Data().setField17(0)
 	}
 	if dr.CheckFlag31(4) && !nox_xxx_checkGameFlagPause_413A50() {
 		v11 := int(*(*float32)(dr.field(48)))

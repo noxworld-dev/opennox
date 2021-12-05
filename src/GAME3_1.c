@@ -148,7 +148,7 @@ extern unsigned int nox_frame_xxx_2598000;
 extern int nox_backbuffer_depth;
 extern unsigned int nox_video_dxUnlockSurface;
 
-extern nox_render_data_t* ptr_5D4594_3799572;
+extern nox_render_data_t* nox_draw_curDrawData_3799572;
 extern nox_render_data_t obj_5D4594_3800716;
 
 nox_gui_animation* nox_wnd_xxx_1522608 = 0;
@@ -1814,7 +1814,7 @@ int sub_4BE840(int* a1, int* a2, int* a3, int* a4, int a5) {
 				nox_client_drawAddPoint_49F500(v26, v27);
 				sub_434040(*getMemIntPtr(0x5D4594, 1316984));
 				sub_434080(*getMemIntPtr(0x5D4594, 1316992));
-				LOBYTE(v28) = getMemByte(0x5D4594, 1316996);
+				v28 = getMemByte(0x5D4594, 1316996);
 				sub_49E4F0(v28);
 			}
 			v10 = v26;
@@ -1970,8 +1970,8 @@ void sub_4BEAD0(int2* a1, int2* a2, int2* a3, int2* a4, int a5, int a6) {
 				nox_client_drawAddPoint_49F500(v13, v41);
 				nox_client_drawAddPoint_49F500(v27, v28);
 				sub_434040(*getMemIntPtr(0x5D4594, 1316984));
-				v32 = sub_434080(*getMemIntPtr(0x5D4594, 1316992));
-				LOBYTE(v32) = getMemByte(0x5D4594, 1316996);
+				sub_434080(*getMemIntPtr(0x5D4594, 1316992));
+				v32 = getMemByte(0x5D4594, 1316996);
 				sub_49E4F0(v32);
 			}
 			v13 = v27;
@@ -4337,7 +4337,8 @@ int nox_xxx_spriteDrawCircleMB_4C32A0(int a1, int a2, int a3, int a4) {
 								   a2 + ((a3 * *getMemU32Ptr(0x587000, 192092)) >> 4));
 	nox_client_drawAddPoint_49F500(a1 + v5, a2 + v6);
 	nox_client_drawLineFromPoints_49E4B0();
-	return nox_client_drawEnableAlpha_434560(0);
+	nox_client_drawEnableAlpha_434560(0);
+	return 1;
 }
 
 //----- (004C3390) --------------------------------------------------------
@@ -5160,9 +5161,9 @@ LABEL_33:
 		nox_xxx_draw_434600(1);
 		sub_433E40(*getMemIntPtr(0x85B3FC, 980));
 	} else {
-		v33 = sub_4345F0(1);
+		sub_4345F0(1);
 		LOBYTE(v34) = v28[8];
-		LOBYTE(v33) = v28[4];
+		v33 = v28[4];
 		LOBYTE(v35) = *v28;
 		sub_433CD0(v35, v33, v34);
 	}

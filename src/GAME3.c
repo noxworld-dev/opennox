@@ -184,7 +184,7 @@ uint32_t dword_5d4594_1312460 = 0;
 FILE* nox_file_9 = 0;
 #endif // NOX_CGO
 
-extern nox_render_data_t* ptr_5D4594_3799572;
+extern nox_render_data_t* nox_draw_curDrawData_3799572;
 
 nox_gui_animation* nox_wnd_xxx_1307732 = 0;
 nox_gui_animation* nox_wnd_xxx_1308092 = 0;
@@ -6633,7 +6633,8 @@ int sub_4AE6F0(int a1, int a2, int a3, int a4, int a5) {
 	v37 = a3;
 	v34 = 3;
 	v32 = 5 - 2 * a3;
-	result = nox_client_drawSetColor_434460(a5);
+	nox_client_drawSetColor_434460(a5);
+	result = 1;
 	v6 = a4;
 	if (a4 < 0) {
 		v6 = 0;
@@ -6651,7 +6652,7 @@ int sub_4AE6F0(int a1, int a2, int a3, int a4, int a5) {
 		nox_client_drawAddPoint_49F500(a1 + v7, a2 + v8);
 		sub_4AEC20(0, 1);
 		v10 = *(void (**)(int, int, int)) & dword_5d4594_3798708;
-		if (!ptr_5D4594_3799572->field_13) {
+		if (!nox_draw_curDrawData_3799572->field_13) {
 			v10 = *(void (**)(int, int, int)) & dword_5d4594_3798720;
 		}
 		v11 = a2 + a3;
@@ -7350,7 +7351,8 @@ int sub_4AF650(int* a1) {
 	nox_client_drawEnableAlpha_434560(1);
 	nox_client_drawSetAlpha_434580(255 * a1[12] / a1[13]);
 	nox_xxx_drawParticlefx_4AFEB0(a1);
-	return nox_client_drawEnableAlpha_434560(0);
+	nox_client_drawEnableAlpha_434560(0);
+	return 1;
 }
 
 //----- (004AF600) --------------------------------------------------------
@@ -7596,7 +7598,7 @@ char* nox_xxx_drawPartFx2_4AF990(int a1, int a2, int a3, int a4) {
 		*((uint32_t*)result + 4) = 0;
 		*((uint32_t*)result + 3) = 0;
 		*((uint32_t*)result + 5) = 0;
-		*((uint32_t*)result + 6) = ptr_5D4594_3799572->field_61;
+		*((uint32_t*)result + 6) = nox_draw_curDrawData_3799572->field_61;
 		*((uint32_t*)result + 7) = a1;
 		*((uint32_t*)result + 8) = a2;
 		*((uint32_t*)result + 9) = a3;
@@ -8261,12 +8263,12 @@ void* sub_4B0680(unsigned char a1, unsigned char a2) {
 
 	result = *(int**)&dword_5d4594_1312460;
 	v3 = a1;
-	v4 = ptr_5D4594_3799572->field_262;
+	v4 = nox_draw_curDrawData_3799572->field_262;
 	if (dword_5d4594_1312460) {
 		while (1) {
 			v7 = result;
-			if (*result == v4 && result[1] == v3 && result[2] == a2 && result[12] == ptr_5D4594_3799572->field_54 &&
-				result[13] == ptr_5D4594_3799572->field_55 && result[14] == ptr_5D4594_3799572->field_56) {
+			if (*result == v4 && result[1] == v3 && result[2] == a2 && result[12] == nox_draw_curDrawData_3799572->field_54 &&
+				result[13] == nox_draw_curDrawData_3799572->field_55 && result[14] == nox_draw_curDrawData_3799572->field_56) {
 				break;
 			}
 			result = (int*)result[18];
@@ -8289,9 +8291,9 @@ void* sub_4B0680(unsigned char a1, unsigned char a2) {
 		v5[4] = 0;
 		v6 = 2 * (22 * v4 * (v4 + 1) / 7 + 6 * v4) + 17;
 		v5[3] = v6;
-		v5[12] = ptr_5D4594_3799572->field_54;
-		v5[13] = ptr_5D4594_3799572->field_55;
-		v5[14] = ptr_5D4594_3799572->field_56;
+		v5[12] = nox_draw_curDrawData_3799572->field_54;
+		v5[13] = nox_draw_curDrawData_3799572->field_55;
+		v5[14] = nox_draw_curDrawData_3799572->field_56;
 		v5[16] = (int)calloc(1u, v6);
 		v5[18] = 0;
 		sub_4B0870(v5);
@@ -8499,7 +8501,7 @@ int nox_video_assignCircleDrawFuncs_4B0B30() {
 void nox_video_drawCircle_4B0B90(int a1, int a2, int a3) {
 	int result; // eax
 
-	if (ptr_5D4594_3799572->field_13) {
+	if (nox_draw_curDrawData_3799572->field_13) {
 		result = (*(int (**)(uint32_t, uint32_t, uint32_t))getMemAt(0x5D4594, 1312464))(a1, a2, a3);
 	} else {
 		result = (*(int (**)(uint32_t, uint32_t, uint32_t))getMemAt(0x5D4594, 1312468))(a1, a2, a3);
@@ -8531,7 +8533,7 @@ int sub_4B0BC0(int a1, int a2, int a3) {
 	v12 = 0;
 	v13 = v3;
 	v11 = 3;
-	if (!ptr_5D4594_3799572->field_13) {
+	if (!nox_draw_curDrawData_3799572->field_13) {
 		v4 = *(int (**)(int, int, int)) & dword_5d4594_3798720;
 	}
 	v5 = a2;
@@ -8589,7 +8591,7 @@ char nox_video_drawCircle8Opaque_4B0D30(int a1, int a2, int a3) {
 
 	v3 = a1;
 	v4 = a3;
-	if (ptr_5D4594_3799572->flag_0 && sub_49F8E0(a1, a2, a3)) {
+	if (nox_draw_curDrawData_3799572->flag_0 && sub_49F8E0(a1, a2, a3)) {
 		return sub_4B0F50(a1, a2, a3);
 	}
 
@@ -8598,7 +8600,7 @@ char nox_video_drawCircle8Opaque_4B0D30(int a1, int a2, int a3) {
 	v6 = 0;
 	v9 = 1 - a3;
 	v15 = 5 - 2 * a3;
-	result = *(uint8_t*)(&ptr_5D4594_3799572->field_61);
+	result = *(uint8_t*)(&nox_draw_curDrawData_3799572->field_61);
 	v13 = 4 * (v4 + a2);
 	v7 = v4;
 	v10 = 3;
@@ -8684,16 +8686,16 @@ int sub_4B0F50(int a1, int a2, int a3) {
 	v19 = 5 - 2 * a3;
 	v27 = a3;
 	v26 = 3;
-	v4 = *(uint8_t*)(&ptr_5D4594_3799572->field_61);
-	v17 = ptr_5D4594_3799572->clip.left;
+	v4 = *(uint8_t*)(&nox_draw_curDrawData_3799572->field_61);
+	v17 = nox_draw_curDrawData_3799572->clip.left;
 	v5 = a2;
-	v15 = ptr_5D4594_3799572->clip.bottom;
-	v31 = *(uint8_t*)(&ptr_5D4594_3799572->field_61);
+	v15 = nox_draw_curDrawData_3799572->clip.bottom;
+	v31 = *(uint8_t*)(&nox_draw_curDrawData_3799572->field_61);
 	result = a2 + v27;
-	v16 = ptr_5D4594_3799572->clip.right;
-	v18 = ptr_5D4594_3799572->clip.top;
+	v16 = nox_draw_curDrawData_3799572->clip.right;
+	v18 = nox_draw_curDrawData_3799572->clip.top;
 	v24 = a2 + v27;
-	if (a1 >= v17 && a1 < ptr_5D4594_3799572->clip.right && result >= ptr_5D4594_3799572->clip.top && result < v15) {
+	if (a1 >= v17 && a1 < nox_draw_curDrawData_3799572->clip.right && result >= nox_draw_curDrawData_3799572->clip.top && result < v15) {
 		pixbuffer[result][a1] = v4;
 	}
 	v7 = a1 + v3;
@@ -8830,12 +8832,12 @@ short nox_video_drawCircle16Opaque_4B1380(int a1, int a2, int a3) {
 
 	v3 = a2;
 	v4 = a3;
-	if (ptr_5D4594_3799572->flag_0 && sub_49F8E0(a1, a2, a3)) {
+	if (nox_draw_curDrawData_3799572->flag_0 && sub_49F8E0(a1, a2, a3)) {
 		return sub_4B15E0(a1, a2, a3);
 	}
 	v15 = 1 - a3;
 	v25 = 5 - 2 * a3;
-	result = *(uint16_t*)(&ptr_5D4594_3799572->field_61);
+	result = *(uint16_t*)(&nox_draw_curDrawData_3799572->field_61);
 	v6 = 2 * a1;
 	v7 = 4 * (a2 + v4);
 	v18 = v6;
@@ -8942,18 +8944,18 @@ int sub_4B15E0(int a1, int a2, int a3) {
 	v31 = a3;
 	v22 = 5 - 2 * a3;
 	v30 = 3;
-	v4 = *(uint16_t*)(&ptr_5D4594_3799572->field_61);
-	v5 = ptr_5D4594_3799572->clip.left;
-	v38 = ptr_5D4594_3799572->clip.top;
+	v4 = *(uint16_t*)(&nox_draw_curDrawData_3799572->field_61);
+	v5 = nox_draw_curDrawData_3799572->clip.left;
+	v38 = nox_draw_curDrawData_3799572->clip.top;
 	v6 = a2;
-	v18 = ptr_5D4594_3799572->clip.bottom;
+	v18 = nox_draw_curDrawData_3799572->clip.bottom;
 	result = a1;
-	v24 = *(uint16_t*)(&ptr_5D4594_3799572->field_61);
+	v24 = *(uint16_t*)(&nox_draw_curDrawData_3799572->field_61);
 	v8 = a2 + v31;
-	v20 = ptr_5D4594_3799572->clip.left;
-	v19 = ptr_5D4594_3799572->clip.right;
+	v20 = nox_draw_curDrawData_3799572->clip.left;
+	v19 = nox_draw_curDrawData_3799572->clip.right;
 	v36 = a2 + v31;
-	if (a1 >= v5 && a1 < ptr_5D4594_3799572->clip.right && v8 >= v38 && v8 < v18) {
+	if (a1 >= v5 && a1 < nox_draw_curDrawData_3799572->clip.right && v8 >= v38 && v8 < v18) {
 		*(uint16_t*)((uint32_t)pixbuffer[v8] + 2 * a1) = v4;
 	}
 	v9 = a1 + v3;
@@ -9101,7 +9103,7 @@ int nox_video_drawCircle8Alpha_4B1A60(int a1, int a2, int a3) {
 	if (dword_5d4594_810632) {
 		v4 = a3;
 		v5 = a1;
-		if (ptr_5D4594_3799572->flag_0 && sub_49F8E0(a1, a2, a3)) {
+		if (nox_draw_curDrawData_3799572->flag_0 && sub_49F8E0(a1, a2, a3)) {
 			result = sub_4B1E30(a1, a2, a3);
 		} else {
 			v6 = 0;
@@ -9112,7 +9114,7 @@ int nox_video_drawCircle8Alpha_4B1A60(int a1, int a2, int a3) {
 			v8 = 4 * (a2 + a3);
 			v15 = v8;
 			v9 = (uint8_t*)(v5 + (uint32_t)pixbuffer[v8 / 4]);
-			result = *(unsigned char*)(&ptr_5D4594_3799572->field_61);
+			result = *(unsigned char*)(&nox_draw_curDrawData_3799572->field_61);
 			*v9 = *(uint8_t*)(result + ((unsigned char)*v9 << 8) + dword_5d4594_810632);
 			v14 = 4 * a2;
 			v10 = (uint8_t*)(a3 + v5 + *(uint32_t*)(4 * a2 + (uint32_t)pixbuffer));
@@ -9228,20 +9230,20 @@ int sub_4B1E30(int a1, int a2, int a3) {
 		v25 = 5 - 2 * a3;
 		v33 = a3;
 		v29 = 3;
-		v5 = ptr_5D4594_3799572->clip.right;
-		v23 = *(uint8_t*)(&ptr_5D4594_3799572->field_61);
-		v6 = ptr_5D4594_3799572->clip.left;
-		v18 = ptr_5D4594_3799572->clip.bottom;
+		v5 = nox_draw_curDrawData_3799572->clip.right;
+		v23 = *(uint8_t*)(&nox_draw_curDrawData_3799572->field_61);
+		v6 = nox_draw_curDrawData_3799572->clip.left;
+		v18 = nox_draw_curDrawData_3799572->clip.bottom;
 		result = a2;
 		v21 = v6;
 		v7 = a1 < v6;
-		v8 = *(uint8_t*)(&ptr_5D4594_3799572->field_61);
+		v8 = *(uint8_t*)(&nox_draw_curDrawData_3799572->field_61);
 		v9 = a2 + a3;
-		v19 = ptr_5D4594_3799572->clip.right;
-		v20 = ptr_5D4594_3799572->clip.top;
+		v19 = nox_draw_curDrawData_3799572->clip.right;
+		v20 = nox_draw_curDrawData_3799572->clip.top;
 		v30 = a2 + a3;
-		if (!v7 && a1 < v5 && v9 >= ptr_5D4594_3799572->clip.top && v9 < v18) {
-			v5 = ptr_5D4594_3799572->clip.right;
+		if (!v7 && a1 < v5 && v9 >= nox_draw_curDrawData_3799572->clip.top && v9 < v18) {
+			v5 = nox_draw_curDrawData_3799572->clip.right;
 			*(uint8_t*)(a1 + *(uint32_t*)((uint32_t)pixbuffer + 4 * (a2 + a3))) =
 				*(uint8_t*)(v23 + (*(unsigned char*)(a1 + *(uint32_t*)((uint32_t)pixbuffer + 4 * (a2 + a3))) << 8) +
 							dword_5d4594_810632);
@@ -9443,7 +9445,7 @@ uint16_t* nox_video_drawCircle16Alpha_4B2480(int a1, int a2, int a3) {
 	int v63;                 // [esp+54h] [ebp+4h]
 	int v64;                 // [esp+58h] [ebp+8h]
 
-	if (ptr_5D4594_3799572->flag_0 && sub_49F8E0(a1, a2, a3)) {
+	if (nox_draw_curDrawData_3799572->flag_0 && sub_49F8E0(a1, a2, a3)) {
 		return (uint16_t*)sub_4B3450(a1, a2, a3);
 	}
 
@@ -9451,11 +9453,11 @@ uint16_t* nox_video_drawCircle16Alpha_4B2480(int a1, int a2, int a3) {
 
 	v57 = 0;
 	v56 = a3; // Radius?
-	colourBase = *(unsigned short*)(&ptr_5D4594_3799572->field_61);
+	colourBase = *(unsigned short*)(&nox_draw_curDrawData_3799572->field_61);
 	v55 = 3;
 	grencol = (*((uint32_t*)((uint8_t*)byte_5D4594_3804364 + 4)) & colourBase) >> *((uint8_t*)byte_5D4594_3804364 + 16);
 	v44 = 1 - a3;
-	bluecol = ((unsigned char)*(uint16_t*)(&ptr_5D4594_3799572->field_61) & *((uint8_t*)byte_5D4594_3804364 + 8))
+	bluecol = ((unsigned char)*(uint16_t*)(&nox_draw_curDrawData_3799572->field_61) & *((uint8_t*)byte_5D4594_3804364 + 8))
 			  << *((uint8_t*)byte_5D4594_3804364 + 20);
 	v45 = 5 - 2 * a3;
 	v5 = 4 * (a3 + a2);
@@ -10085,11 +10087,11 @@ int sub_4B3450(int a1, int a2, int a3) {
 	v79 = a3;
 	v65 = 1 - a3;
 	v66 = 5 - 2 * a3;
-	v60 = ptr_5D4594_3799572->clip.left;
-	v48 = ptr_5D4594_3799572->clip.right;
-	v3 = *(uint16_t*)(&ptr_5D4594_3799572->field_61);
-	v49 = ptr_5D4594_3799572->clip.top;
-	v50 = ptr_5D4594_3799572->clip.bottom;
+	v60 = nox_draw_curDrawData_3799572->clip.left;
+	v48 = nox_draw_curDrawData_3799572->clip.right;
+	v3 = *(uint16_t*)(&nox_draw_curDrawData_3799572->field_61);
+	v49 = nox_draw_curDrawData_3799572->clip.top;
+	v50 = nox_draw_curDrawData_3799572->clip.bottom;
 	v78 = 0;
 	v75 = 3;
 	v71 = (unsigned short)(*((uint16_t*)((uint8_t*)byte_5D4594_3804364 + 0)) & v3) >>

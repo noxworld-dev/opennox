@@ -85,7 +85,7 @@ int nox_xxx_drawLightningStep_4BB070(int a1, int a2) {
 		return --dword_5d4594_1316492;
 	}
 	if (*getMemU32Ptr(0x5D4594, 1316508)) {
-		LOBYTE(v23) = getMemByte(0x5D4594, 1316420) + 48;
+		v23 = getMemByte(0x5D4594, 1316420) + 48;
 		sub_434040(*getMemIntPtr(0x5D4594, 1316440));
 		sub_434080(12);
 		v4 = SHIWORD(a1);

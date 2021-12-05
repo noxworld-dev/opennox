@@ -162,7 +162,7 @@ extern int nox_drawable_list_3_size;
 extern nox_drawable** nox_drawable_list_4;
 extern int nox_drawable_list_4_size;
 
-extern nox_render_data_t* ptr_5D4594_3799572;
+extern nox_render_data_t* nox_draw_curDrawData_3799572;
 
 extern obj_5D4594_2650668_t** ptr_5D4594_2650668;
 
@@ -1477,7 +1477,8 @@ int sub_477EF0(int a1, int a2, int a3) {
 	nox_client_drawAddPoint_49F500(a2 + 4, a3 - 4);
 	nox_xxx_rasterPointRel_49F570(-8, 8);
 	nox_client_drawLineFromPoints_49E4B0();
-	return nox_client_drawEnableAlpha_434560(0);
+	nox_client_drawEnableAlpha_434560(0);
+	return 1;
 }
 
 //----- (00477F80) --------------------------------------------------------
@@ -4475,21 +4476,21 @@ int sub_47D380(int a1, int a2) {
 		v2 = a2;
 		v3 = a1;
 	}
-	v4 = ptr_5D4594_3799572->clip.left;
+	v4 = nox_draw_curDrawData_3799572->clip.left;
 	if (v2 >= v4) {
-		if (v2 >= ptr_5D4594_3799572->clip.right) {
+		if (v2 >= nox_draw_curDrawData_3799572->clip.right) {
 			return 0;
 		}
 	} else {
-		v2 = ptr_5D4594_3799572->clip.left;
+		v2 = nox_draw_curDrawData_3799572->clip.left;
 	}
-	v5 = ptr_5D4594_3799572->clip.right;
+	v5 = nox_draw_curDrawData_3799572->clip.right;
 	if (v3 < v5) {
 		if (v3 < v4) {
 			return 0;
 		}
 	} else {
-		v3 = ptr_5D4594_3799572->clip.right;
+		v3 = nox_draw_curDrawData_3799572->clip.right;
 	}
 	if (v2 == v3) {
 		return 0;
@@ -12908,11 +12909,11 @@ void sub_48B590(uint32_t* a1, uint32_t* a2, uint32_t* a3) {
 
 //----- (0048B680) --------------------------------------------------------
 void sub_48B680(int a1) {
-	if (a1 != ptr_5D4594_3799572->field_15) {
+	if (a1 != nox_draw_curDrawData_3799572->field_15) {
 		if (nox_video_cursorDrawIsThreaded) {
-			ptr_5D4594_3799572->field_15 = a1;
+			nox_draw_curDrawData_3799572->field_15 = a1;
 		} else {
-			ptr_5D4594_3799572->field_14 = a1;
+			nox_draw_curDrawData_3799572->field_14 = a1;
 		}
 		sub_48BD90(1);
 	}
@@ -12929,24 +12930,24 @@ int sub_48B6B0(int a1, int a2, int a3) {
 		return sub_433CD0(a1, a2, a3);
 	}
 	result = (unsigned char)a1;
-	ptr_5D4594_3799572->field_34 = (unsigned char)a1;
-	ptr_5D4594_3799572->field_35 = (unsigned char)a2;
-	ptr_5D4594_3799572->field_36 = (unsigned char)a3;
+	nox_draw_curDrawData_3799572->field_34 = (unsigned char)a1;
+	nox_draw_curDrawData_3799572->field_35 = (unsigned char)a2;
+	nox_draw_curDrawData_3799572->field_36 = (unsigned char)a3;
 	if (cpuid_5d4594_3801804) {
 		v4 = (unsigned char)a1 | ((unsigned char)a1 << 16);
 		HIDWORD(v4) = 0;
 		v4 <<= 16;
 		LODWORD(v4) = (unsigned char)a1 | (unsigned int)v4;
 		v4 <<= 16;
-		ptr_5D4594_3799572->field_28 = (unsigned char)a1 | (unsigned int)v4;
-		ptr_5D4594_3799572->field_29 = HIDWORD(v4);
+		nox_draw_curDrawData_3799572->field_28 = (unsigned char)a1 | (unsigned int)v4;
+		nox_draw_curDrawData_3799572->field_29 = HIDWORD(v4);
 		v5 = ((unsigned char)a2 | (((unsigned char)a2 | ((unsigned long long)(unsigned char)a2 << 16)) << 16)) << 16;
-		ptr_5D4594_3799572->field_30 = (unsigned char)a2 | (unsigned int)v5;
-		ptr_5D4594_3799572->field_31 = HIDWORD(v5);
+		nox_draw_curDrawData_3799572->field_30 = (unsigned char)a2 | (unsigned int)v5;
+		nox_draw_curDrawData_3799572->field_31 = HIDWORD(v5);
 		v6 = ((unsigned char)a3 | (((unsigned char)a3 | ((unsigned long long)(unsigned char)a3 << 16)) << 16)) << 16;
-		ptr_5D4594_3799572->field_32 = (unsigned char)a3 | (unsigned int)v6;
-		result = ptr_5D4594_3799572;
-		ptr_5D4594_3799572->field_33 = HIDWORD(v6);
+		nox_draw_curDrawData_3799572->field_32 = (unsigned char)a3 | (unsigned int)v6;
+		result = nox_draw_curDrawData_3799572;
+		nox_draw_curDrawData_3799572->field_33 = HIDWORD(v6);
 	}
 	return result;
 }

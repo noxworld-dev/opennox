@@ -968,7 +968,7 @@ func nox_xxx_gameStateWait_43C020() bool {
 		return true
 	}
 	if !isDedicatedServer {
-		C.nox_xxx_drawSelectColor_434350(C.int(memmap.Uint32(0x85B3FC, 952)))
+		nox_xxx_drawSelectColor_434350(C.int(memmap.Uint32(0x85B3FC, 952)))
 		nox_client_clearScreen_440900()
 	}
 	return false
