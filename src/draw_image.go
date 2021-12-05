@@ -244,23 +244,23 @@ func (r *NoxRender) sub4C97F0(dst []uint16, src []byte, sz int) (_ []uint16, _ [
 
 func (r *NoxRender) sub4C86B0(dst []uint16, src []byte, sz int) (_ []uint16, _ []byte) { // sub_4C86B0
 	const (
-		rshift = 3
-		gshift = 2
-		bshift = 7
+		rshift = 7 // -10+3
+		gshift = 2 // -5+3
+		bshift = 3 // -0+3
 
-		rmask = 0x001f
+		rmask = 0x7c00
 		gmask = 0x03e0
-		bmask = 0x7c00
+		bmask = 0x001f
 	)
 
-	rmul := uint32(r.p.field_26)
+	rmul := uint32(r.p.field_24)
 	gmul := uint32(r.p.field_25)
-	bmul := uint32(r.p.field_24)
+	bmul := uint32(r.p.field_26)
 
 	return r.drawOpU16(dst, src, sz, func(_ uint16, c2 uint16) uint16 {
-		cr := r.colors.R[byte((bmul*(uint32(bmask&c2)>>bshift))>>8)]
+		cr := r.colors.R[byte((rmul*(uint32(rmask&c2)>>rshift))>>8)]
 		cg := r.colors.G[byte((gmul*(uint32(gmask&c2)>>gshift))>>8)]
-		cb := r.colors.B[byte((rmul*(uint32(rmask&c2)<<rshift))>>8)]
+		cb := r.colors.B[byte((bmul*(uint32(bmask&c2)<<bshift))>>8)]
 		return cr | cg | cb
 	})
 }
