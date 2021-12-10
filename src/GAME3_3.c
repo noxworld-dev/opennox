@@ -897,8 +897,11 @@ int sub_4E31E0(uint32_t* a1) {
 	return result;
 }
 
+#ifndef NOX_CGO
 //----- (004E3220) --------------------------------------------------------
-int nox_thing_read_xxx_4E3220(int a1, char* a2, int a3) {
+int nox_thing_read_xxx_4E3220(nox_memfile* a1p, char* a2, nox_objectType_t* a3p) {
+	int a1 = a1p;
+	int a3 = a3p;
 	char* v3;          // ebx
 	unsigned char* v4; // eax
 	char* v5;          // edi
@@ -938,6 +941,7 @@ int nox_thing_read_xxx_4E3220(int a1, char* a2, int a3) {
 		}
 	}
 }
+#endif // NOX_CGO
 
 //----- (004E3320) --------------------------------------------------------
 void nox_xxx_unitDefFindMaxDataSize_4E3320() {

@@ -167,34 +167,6 @@ type Ptrs struct {
 	Ptr_nox_xxx_updDrawMonsterGen_4BC920        unsafe.Pointer
 	Ptr_sub_454120                              unsafe.Pointer
 	Ptr_sub_453750                              unsafe.Pointer
-	Ptr_nox_xxx_parseCapacity_535B80            unsafe.Pointer
-	Ptr_nox_xxx_parseClass_535B00               unsafe.Pointer
-	Ptr_nox_xxx_parseSubclass_535B30            unsafe.Pointer
-	Ptr_nox_xxx_parseExtent_535990              unsafe.Pointer
-	Ptr_nox_xxx_parseFlags_535AD0               unsafe.Pointer
-	Ptr_nox_xxx_parseHealth_535A60              unsafe.Pointer
-	Ptr_nox_xxx_parseLightIntensity_535C20      unsafe.Pointer
-	Ptr_nox_xxx_parseMass_535B60                unsafe.Pointer
-	Ptr_nox_xxx_parseMenuIcon_535C30            unsafe.Pointer
-	Ptr_nox_xxx_parsePrettyImage_0_535C80       unsafe.Pointer
-	Ptr_nox_xxx_parseSpeed_535A20               unsafe.Pointer
-	Ptr_nox_xxx_parseWeight_535BB0              unsafe.Pointer
-	Ptr_nox_xxx_parseMaterial_535BE0            unsafe.Pointer
-	Ptr_nox_xxx_parseXP_535970                  unsafe.Pointer
-	Ptr_nox_xxx_parseCollide_536EC0             unsafe.Pointer
-	Ptr_nox_xxx_parseDamageFn_536C60            unsafe.Pointer
-	Ptr_nox_xxx_parseDamageSound_536CF0         unsafe.Pointer
-	Ptr_nox_xxx_parseDieProc_536B80             unsafe.Pointer
-	Ptr_nox_xxx_parseDrop_536A20                unsafe.Pointer
-	Ptr_nox_xxx_parseInitProc_536930            unsafe.Pointer
-	Ptr_nox_xxx_parseCreateProc_536830          unsafe.Pointer
-	Ptr_nox_xxx_parsePickup_536710              unsafe.Pointer
-	Ptr_nox_xxx_parseUpdate_536620              unsafe.Pointer
-	Ptr_nox_xxx_parseUseFn_5363F0               unsafe.Pointer
-	Ptr_nox_xxx_parseXFer_5360A0                unsafe.Pointer
-	Ptr_nox_xxx_parseDraw_535CD0                unsafe.Pointer
-	Ptr_nox_xxx_parseZSize_5359B0               unsafe.Pointer
-	Ptr_nox_xxx_parseWorth_535A00               unsafe.Pointer
 	Ptr_nox_xxx_monsterIdleStarted_546820       unsafe.Pointer
 	Ptr_nox_xxx_monsterUpdateIdleLogic_546850   unsafe.Pointer
 	Ptr_nox_xxx_mobActionWait_544960            unsafe.Pointer

@@ -10,10 +10,11 @@ void nullsub_65();
 void nullsub_69();
 void nullsub_70();
 
-static int nox_call_objectType_parse_go(int (*fnc)(char*, void*), char* arg1, void* arg2) { return fnc(arg1, arg2); }
+static int nox_call_objectType_parseUpdate_go(int (*fnc)(char*, void*), char* arg1, void* arg2) { return fnc(arg1, arg2); }
 */
 import "C"
 import (
+	"fmt"
 	"strings"
 	"unsafe"
 
@@ -38,10 +39,7 @@ func init() {
 	}
 }
 
-//export nox_xxx_parseUpdate_536620
-func nox_xxx_parseUpdate_536620(a1 *C.nox_objectType_t, _ C.int, a3 *C.char) C.int {
-	objt := asObjectType(unsafe.Pointer(a1))
-	str := GoString(a3)
+func nox_xxx_parseUpdate_536620(objt *ObjectType, _ *MemFile, str string, _ []byte) error {
 	name := str
 	if i := strings.IndexAny(str, " \t\n\r"); i > 0 {
 		name = str[:i]
@@ -49,23 +47,25 @@ func nox_xxx_parseUpdate_536620(a1 *C.nox_objectType_t, _ C.int, a3 *C.char) C.i
 	}
 	t := noxObjectUpdateByName[name]
 	if t == nil {
-		thingsLog.Printf("unsupported update function: %q", name)
-		return 1
+		// TODO: add "unknown" updates as a nop update types (similar to NoUpdate)
+		return nil
 	}
 	objt.func_update = (*[0]byte)(t.Func)
 	objt.data_update = nil
 	objt.data_update_size = C.int(t.DataSize)
 	if t.DataSize == 0 {
-		return 1
+		return nil
 	}
 	data, _ := alloc.Calloc(1, uintptr(t.DataSize))
 	objt.data_update = data
 	if t.ParseFunc != nil {
 		cstr := CString(str)
 		defer StrFree(cstr)
-		return C.int(C.nox_call_objectType_parse_go((*[0]byte)(t.ParseFunc), cstr, data))
+		if C.nox_call_objectType_parseUpdate_go((*[0]byte)(t.ParseFunc), cstr, data) == 0 {
+			return fmt.Errorf("cannot parse update data for %q", name)
+		}
 	}
-	return 1
+	return nil
 }
 
 var noxObjectUpdateTable = []noxObjectUpdateFuncs{
