@@ -1040,7 +1040,7 @@ func nox_xxx_mapExitAndCheckNext_4D1860_server() bool {
 		}
 		k.SetPos(v61)
 		if !noxflags.HasGame(512) {
-			v18 := k.ptrYyy()
+			v18 := k.updateDataPtr()
 			v18 = *(*unsafe.Pointer)(unsafe.Add(v18, 276))
 			// TODO: these look like offsets to the Player struct
 			*(*uint32)(unsafe.Add(v18, 2136)) = 0
@@ -1117,7 +1117,7 @@ func nox_xxx_mapExitAndCheckNext_4D1860_server() bool {
 			if sub := strings.Fields(str2); len(sub) >= 3 {
 				v34, _ := strconv.Atoi(sub[0])
 				if v35 := getObjectByInd(v34).AsUnit(); v35 != nil {
-					v36 := unsafe.Slice((*float32)(v35.ptrYyy()), 3)
+					v36 := unsafe.Slice((*float32)(v35.updateDataPtr()), 3)
 					v38, _ := strconv.ParseFloat(sub[1], 64)
 					v36[0] = float32(v38 * memmap.Float64(0x581450, 10008))
 					v36[1] = v36[0]
@@ -1157,7 +1157,7 @@ func nox_xxx_mapExitAndCheckNext_4D1860_server() bool {
 			for _, np := range m.GetOwned516() {
 				if C.nox_xxx_isUnit_4E5B50(np.CObj()) != 0 {
 					n := np.AsUnit()
-					v48 := n.ptrYyy()
+					v48 := n.updateDataPtr()
 					v61 := sub_4ED970(50.0, m.Pos())
 					n.SetPos(v61)
 					*(*uint32)(unsafe.Add(v48, 388)) = 0

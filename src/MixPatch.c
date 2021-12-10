@@ -42,7 +42,7 @@ void sub_980523(nox_object_t* unit) {
 		if ((it->obj_class & 0x2000000) && (it->field_4 & 0x100)) {
 			if (nox_xxx_unitArmorInventoryEquipFlags_415C70(it) & 0x3000000) {
 				// TODO: it appears that it reuses some other field; this might make the game unstable
-				*(uint32_t*)(*(uint32_t*)(((uint32_t)unit->field_187) + 276) + 2500) = it;
+				*(uint32_t*)(*(uint32_t*)(((uint32_t)unit->data_update) + 276) + 2500) = it;
 			}
 		}
 	}

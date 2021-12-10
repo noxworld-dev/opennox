@@ -2089,9 +2089,8 @@ void nox_xxx_updateUnits_51B100() {
 	for (nox_object_t* obj = nox_xxx_getFirstUpdatable2Object_4DA840(); obj;
 		 obj = nox_xxx_getNextUpdatable2Object_4DA850(obj)) {
 		if (!(*(uint8_t*)&obj->field_4 & 0x22)) {
-			v14 = *(void (**)(int)) & obj->field_186;
-			if (v14) {
-				v14(obj);
+			if (obj->func_update) {
+				obj->func_update(obj);
 			}
 			nox_xxx_updateFallLogic_51B870(obj);
 			sub_51B810(obj);

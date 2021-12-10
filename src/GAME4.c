@@ -4113,14 +4113,11 @@ int nox_xxx_freeSpellRelated_4FCA80() {
 
 //----- (004FCAC0) --------------------------------------------------------
 int nox_xxx_Fn_4FCAC0(int a1, int a2) {
-	int v3;       // ecx
-	uint32_t* v4; // eax
-
 	sub_4FE8A0(a1);
 	nox_alloc_class_free_all(*(uint32_t**)&nox_alloc_magicEnt_1569668);
 	dword_5d4594_1569672 = 0;
 	for (nox_object_t* u = nox_xxx_getFirstPlayerUnit_4DA7C0(); u; u = nox_xxx_getNextPlayerUnit_4DA7F0(u)) {
-		v3 = u->field_187;
+		int v3 = u->data_update;
 		*(uint8_t*)(v3 + 188) = 0;
 		*(uint32_t*)(v3 + 216) = 0;
 		*(uint32_t*)(v3 + 192) = 0;
@@ -4131,12 +4128,12 @@ int nox_xxx_Fn_4FCAC0(int a1, int a2) {
 		*(uint8_t*)(v3 + 212) = 0;
 	}
 	if (a2) {
-		v4 = nox_xxx_newObjectByTypeID_4E3810("ImaginaryCaster");
+		uint32_t* v4 = nox_xxx_newObjectByTypeID_4E3810("ImaginaryCaster");
 		dword_5d4594_1569664 = v4;
 		if (!v4) {
 			return 0;
 		}
-		nox_xxx_createAt_4DAA50((int)v4, 0, 2944.0, 2944.0);
+		nox_xxx_createAt_4DAA50(v4, 0, 2944.0, 2944.0);
 	}
 	return 1;
 }

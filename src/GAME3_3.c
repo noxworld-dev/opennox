@@ -1079,13 +1079,13 @@ nox_object_t* nox_xxx_newObjectWithType_4E3470(nox_objectType_t* typ) {
 		}
 		memcpy(ob->field_184, typ->field_51, typ->field_51_size);
 	}
-	ob->field_186 = typ->func_update;
+	ob->func_update = typ->func_update;
 	if (typ->data_update_size) {
-		ob->field_187 = calloc(1, typ->data_update_size);
-		if (!ob->field_187) {
+		ob->data_update = calloc(1, typ->data_update_size);
+		if (!ob->data_update) {
 			return 0;
 		}
-		memcpy(ob->field_187, typ->data_update, typ->data_update_size);
+		memcpy(ob->data_update, typ->data_update, typ->data_update_size);
 	}
 	ob->field_177 = typ->field_46;
 	ob->field_178 = typ->field_42;
