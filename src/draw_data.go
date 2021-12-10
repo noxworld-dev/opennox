@@ -139,13 +139,9 @@ func (p *RenderData) field66(ind int) []uint32 {
 		max  = 16
 	)
 	type item [size]uint32
-	if ind < 0 || ind >= max {
-		// FIXME: why it happens? we receive 100 sometimes (e.g. when opening inventory)
-		var zero item
-		return zero[:]
-	}
 	arr := unsafe.Slice((*item)(unsafe.Pointer(&p.field_66)), max)
-	return arr[ind][:]
+	v := arr[ind][:]
+	return v
 }
 
 func (p *RenderData) Alpha() byte {

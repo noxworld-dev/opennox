@@ -1695,7 +1695,7 @@ func (r *NoxRender) nox_client_drawXxx_4C7C80(ops *drawOps, pix []byte, pos type
 				xw -= d
 			}
 			if fnc8 != nil {
-				_, _ = fnc8(row2, pix2, op, xw)
+				_, _ = fnc8(row2, pix2, op>>4, xw)
 				pix = pix[n:]
 			} else {
 				_, _ = fnc16(row2, pix2, xw)
