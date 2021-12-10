@@ -1937,6 +1937,31 @@ int sub_51A920(int a1) {
 }
 
 //----- (0051B100) --------------------------------------------------------
+void nox_xxx_updateUnits_51B100_callUpdate() {
+	for (nox_object_t* obj = nox_xxx_getFirstUpdatable2Object_4DA840(); obj; obj = nox_xxx_getNextUpdatable2Object_4DA850(obj)) {
+		if ((obj->field_4 & 0x22) == 0) {
+			if (obj->func_update) {
+				obj->func_update(obj);
+			}
+			nox_xxx_updateFallLogic_51B870(obj);
+			sub_51B810(obj);
+			sub_537770(obj);
+			float px = obj->x;
+			float py = obj->y;
+			obj->field_31_0 = obj->field_31_1;
+			float nx = obj->new_x;
+			float ny = obj->new_y;
+			obj->prev_x = px;
+			obj->prev_y = py;
+			obj->x = nx;
+			obj->y = ny;
+			obj->force_x = 0;
+			obj->force_y = 0;
+			nox_xxx_moveUpdateSpecial_517970(obj);
+		}
+	}
+}
+
 void nox_xxx_updateUnits_51B100() {
 	int i;             // esi
 	int v1;            // edi
@@ -1952,10 +1977,6 @@ void nox_xxx_updateUnits_51B100() {
 	int v11;           // ecx
 	int v12;           // eax
 	void (*v14)(int);  // eax
-	int v15;           // eax
-	int v16;           // ecx
-	int v17;           // edx
-	int v18;           // eax
 	int k;             // esi
 	int v20;           // eax
 	int v21;           // edx
@@ -2086,29 +2107,7 @@ void nox_xxx_updateUnits_51B100() {
 			v2 = v3;
 		} while (v3);
 	}
-	for (nox_object_t* obj = nox_xxx_getFirstUpdatable2Object_4DA840(); obj;
-		 obj = nox_xxx_getNextUpdatable2Object_4DA850(obj)) {
-		if (!(*(uint8_t*)&obj->field_4 & 0x22)) {
-			if (obj->func_update) {
-				obj->func_update(obj);
-			}
-			nox_xxx_updateFallLogic_51B870(obj);
-			sub_51B810(obj);
-			sub_537770(obj);
-			v15 = *(uint32_t*)&obj->x;
-			v16 = *(uint32_t*)&obj->y;
-			obj->field_31_0 = obj->field_31_1;
-			v17 = *(uint32_t*)&obj->new_x;
-			obj->field_18 = v15;
-			v18 = *(uint32_t*)&obj->new_y;
-			*(uint32_t*)&obj->x = v17;
-			obj->field_19 = v16;
-			*(uint32_t*)&obj->y = v18;
-			*(uint32_t*)&obj->force_x = 0;
-			*(uint32_t*)&obj->force_y = 0;
-			nox_xxx_moveUpdateSpecial_517970(obj);
-		}
-	}
+	nox_xxx_updateUnits_51B100_callUpdate();
 	nox_xxx_collisions_511850();
 	for (k = nox_xxx_getFirstUpdatableObject_4DA8A0(); k; k = nox_xxx_getNextUpdatableObject_4DA8B0(k)) {
 		v20 = *(uint32_t*)(k + 64);
