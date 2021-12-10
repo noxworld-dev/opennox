@@ -5031,14 +5031,15 @@ int sub_536600(char* a1, int a2) {
 	return 1;
 }
 
+#ifndef NOX_CGO
 //----- (00536620) --------------------------------------------------------
-int nox_xxx_parseUpdate_536620(uint32_t* a1, int a2, char* a3) {
+int nox_xxx_parseUpdate_536620(nox_objectType_t* a1p, int a2, char* a3) {
+	uint32_t* a1 = a1p;
 	char* v3;              // ebx
 	const char* v4;        // eax
 	int v5;                // ebp
 	unsigned char* v6;     // edi
 	int v7;                // ebp
-	int result;            // eax
 	int (*v9)(char*, int); // esi
 	char* v10;             // [esp+1Ch] [ebp+Ch]
 
@@ -5059,27 +5060,25 @@ int nox_xxx_parseUpdate_536620(uint32_t* a1, int a2, char* a3) {
 	}
 	v7 = 16 * v5;
 	if (!*getMemU32Ptr(0x587000, 270328 + v7)) {
-		goto LABEL_13;
+		return 1;
 	}
 	a1[47] = *getMemU32Ptr(0x587000, 270332 + v7);
 	a1[49] = *getMemU32Ptr(0x587000, 270336 + v7);
 	if (!*getMemU32Ptr(0x587000, 270336 + v7)) {
-		goto LABEL_13;
+		return 1;
 	}
-	result = (int)calloc(1u, *getMemU32Ptr(0x587000, 270336 + v7));
-	a1[48] = result;
-	if (!result) {
-		return result;
+	void* data = calloc(1u, *getMemU32Ptr(0x587000, 270336 + v7));
+	a1[48] = data;
+	if (!data) {
+		return 0;
 	}
 	v9 = *(int (**)(char*, int))getMemAt(0x587000, 270340 + v7);
 	if (v9) {
-		result = v9(v10, result);
-	} else {
-	LABEL_13:
-		result = 1;
+		return v9(v10, data);
 	}
-	return result;
+	return 1;
 }
+#endif // NOX_CGO
 
 //----- (00536710) --------------------------------------------------------
 int nox_xxx_parsePickup_536710(int a1, int a2, char* a3) {

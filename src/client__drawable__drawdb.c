@@ -820,7 +820,7 @@ int nox_xxx_freeObjectTypes_4E2A20() {
 		if (typ->field_44) {
 			free(typ->field_44);
 		}
-		void* v2 = typ->field_48;
+		void* v2 = typ->data_update;
 		if (v2) {
 			if (typ->obj_class & 0x2) {
 				void* v3 = *(void**)((uint32_t)v2 + 476);
@@ -828,7 +828,7 @@ int nox_xxx_freeObjectTypes_4E2A20() {
 					free(v3);
 				}
 			}
-			free(typ->field_48);
+			free(typ->data_update);
 		}
 		if (typ->field_51) {
 			free(typ->field_51);
@@ -1128,12 +1128,12 @@ int nox_read_things_alternative_4E2B60(void) {
 				typ->field_14 = 0.25f;
 			}
 			if (typ->obj_class & 0x2) {
-				uint32_t* v13 = typ->field_48;
+				uint32_t* v13 = typ->data_update;
 				v13[309] = -1;
 				v13[307] = -1;
 				v13[317] = -1;
 			} else if (typ->obj_class & 0x200) {
-				uint32_t* v14 = typ->field_48;
+				uint32_t* v14 = typ->data_update;
 				v14[6] = -1;
 				v14[8] = -1;
 				v14[4] = -1;

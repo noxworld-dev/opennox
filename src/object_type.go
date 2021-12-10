@@ -110,3 +110,7 @@ func (t *ObjectType) CreateObject(p types.Pointf) script.Object {
 	}
 	return obj
 }
+
+func (t *ObjectType) updateDataRaw() []byte {
+	return unsafe.Slice((*byte)(t.data_update), int(t.data_update_size))
+}
