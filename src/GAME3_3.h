@@ -21,7 +21,7 @@ int nox_xxx_damageMonsterGen_4E27D0(int a1, int a2, int a3, int a4, int a5);
 int nox_xxx_keyFirstLetterNumber_4E30A0(char* a1);
 int nox_xxx_unitDefProtectMB_4E31A0(int a1);
 int sub_4E31E0(uint32_t* a1);
-int nox_thing_read_xxx_4E3220(int a1, char* a2, int a3);
+int nox_thing_read_xxx_4E3220(nox_memfile* a1, char* a2, nox_objectType_t* a3);
 void nox_xxx_unitDefFindMaxDataSize_4E3320();
 int nox_xxx_allocClassArrayObjects_4E3360(unsigned int a1);
 int nox_xxx_freeGameObjectClass_4E3420();

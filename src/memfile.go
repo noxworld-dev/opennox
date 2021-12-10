@@ -16,6 +16,10 @@ func asMemfile(p *C.nox_memfile) *MemFile {
 
 type MemFile C.nox_memfile
 
+func (f *MemFile) C() *C.nox_memfile {
+	return (*C.nox_memfile)(unsafe.Pointer(f))
+}
+
 func (f *MemFile) RawData() []byte {
 	if f.data == nil {
 		return nil

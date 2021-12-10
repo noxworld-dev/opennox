@@ -22,7 +22,7 @@ func getObjectTypeByID(id string) *ObjectType { // nox_xxx_objectTypeByID_4E3830
 	if p == nil {
 		return nil
 	}
-	return asObjectType(unsafe.Pointer(p))
+	return asObjectType(p)
 }
 
 func getObjectTypeByInd(ind int) *ObjectType {
@@ -36,7 +36,7 @@ func getObjectTypeByInd(ind int) *ObjectType {
 	if p == nil {
 		return nil
 	}
-	return asObjectType(unsafe.Pointer(p))
+	return asObjectType(p)
 }
 
 func getObjectTypes() (out []*ObjectType) {
@@ -64,7 +64,11 @@ func newObjectByTypeID(id string) *Object { // nox_xxx_newObjectByTypeID_4E3810
 
 type ObjectType C.nox_objectType_t
 
-func asObjectType(p unsafe.Pointer) *ObjectType {
+func asObjectType(p *C.nox_objectType_t) *ObjectType {
+	return asObjectTypeP(unsafe.Pointer(p))
+}
+
+func asObjectTypeP(p unsafe.Pointer) *ObjectType {
 	return (*ObjectType)(p)
 }
 
