@@ -403,6 +403,8 @@ typedef struct nox_thing {
 _Static_assert(sizeof(nox_thing) == 128, "wrong size of nox_thing structure!");
 
 typedef struct nox_objectType_t nox_objectType_t;
+typedef struct nox_object_t nox_object_t;
+
 typedef struct nox_objectType_t {
 	unsigned short ind;       // 0, 0
 	unsigned short field_0_1; // 0, 2
@@ -444,7 +446,7 @@ typedef struct nox_objectType_t {
 	void* field_44;           // 44, 176, TODO: data
 	int field_44_size;        // 45, 180
 	uint32_t field_46;        // 46, 184
-	void (*func_update)(void*); // 47, 188
+	void (*func_update)(nox_object_t*); // 47, 188
 	void* data_update;          // 48, 192
 	int   data_update_size;     // 49, 196
 	uint32_t field_50;        // 50, 200
@@ -456,7 +458,6 @@ typedef struct nox_objectType_t {
 } nox_objectType_t;
 _Static_assert(sizeof(nox_objectType_t) == 224, "wrong size of nox_objectType_t structure!");
 
-typedef struct nox_object_t nox_object_t;
 typedef struct nox_object_t {
 	const char* id;          // 0, 0
 	unsigned short typ_ind;  // 1, 4
@@ -478,8 +479,8 @@ typedef struct nox_object_t {
 	float y;                 // 15, 60
 	float new_x;             // 16, 64
 	float new_y;             // 17, 68
-	uint32_t field_18;       // 18, 72
-	uint32_t field_19;       // 19, 76
+	float prev_x;            // 18, 72
+	float prev_y;            // 19, 76
 	float vel_x;             // 20, 80
 	float vel_y;             // 21, 84
 	float force_x;           // 22, 88
@@ -637,7 +638,7 @@ typedef struct nox_object_t {
 	uint32_t field_183;      // 183, 732
 	void* field_184;         // 184, 736, // TODO: data
 	uint32_t field_185;      // 185, 740
-	void (*func_update)(void*); // 186, 744
+	void (*func_update)(nox_object_t*); // 186, 744
 	void* data_update;          // 187, 748
 	uint32_t field_188;      // 188, 752
 	uint32_t field_189;      // 189, 756
