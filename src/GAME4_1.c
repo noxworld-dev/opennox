@@ -7882,7 +7882,7 @@ int nox_xxx_netUpdate_518EE0(nox_object_t* obj) {
 	float4 a1;    // [esp+1Ch] [ebp-10h]
 
 	v1 = obj;
-	v2 = obj->field_187;
+	v2 = obj->data_update;
 	v3 = *(unsigned char*)(*(uint32_t*)(v2 + 276) + 2064);
 	nox_netlist_initPlayerBufs_40F020(v3);
 	if (v3 != 31 && !((nox_frame_xxx_2598000 + v3) % (unsigned int)(15 * nox_gameFPS))) {

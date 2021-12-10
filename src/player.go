@@ -675,7 +675,7 @@ func newPlayer(ind int, opts *PlayerOpts) int {
 	pl.field_2152 = 0
 	pl.netCode = punit.field_9
 	pl.field_2156 = C.uint(C.nox_xxx_scavengerTreasureMax_4D1600())
-	yyy := punit.ptrYyy()
+	yyy := punit.updateDataPtr()
 	xxx := punit.ptrXxx()
 	*(**Player)(unsafe.Add(yyy, 276)) = pl
 	pl.field_4584 = C.uint(protectUint16(*(*uint16)(unsafe.Add(xxx, 0))))
@@ -779,7 +779,7 @@ func sub_4E8210(u *Unit) (types.Pointf, bool) {
 		v2  unsafe.Pointer
 	)
 	for _, u2 := range getPlayerUnits() {
-		ptr := u2.ptrYyy()
+		ptr := u2.updateDataPtr()
 		ptr2 := *(*unsafe.Pointer)(unsafe.Add(ptr, 308))
 		if ptr2 == nil {
 			continue
@@ -792,7 +792,7 @@ func sub_4E8210(u *Unit) (types.Pointf, bool) {
 	if v2 == nil {
 		return types.Pointf{}, false
 	}
-	*(*unsafe.Pointer)(unsafe.Pointer(uintptr(u.ptrYyy()) + 308)) = v2
+	*(*unsafe.Pointer)(unsafe.Pointer(uintptr(u.updateDataPtr()) + 308)) = v2
 	out := sub_4ED970(60.0, asPointf(unsafe.Add(v2, 7*8)))
 	return out, true
 }

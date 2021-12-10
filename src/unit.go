@@ -89,8 +89,8 @@ func (u *Unit) ptrXxx() unsafe.Pointer {
 	return unsafe.Pointer(u.field_139)
 }
 
-func (u *Unit) ptrYyy() unsafe.Pointer {
-	return unsafe.Pointer(u.field_187)
+func (u *Unit) updateDataPtr() unsafe.Pointer {
+	return unsafe.Pointer(u.data_update)
 }
 
 func (u *Unit) Health() (cur, max int) {
@@ -150,7 +150,7 @@ func (u *Unit) Mana() (cur, max int) {
 	if u == nil {
 		return
 	}
-	p := u.ptrYyy()
+	p := u.updateDataPtr()
 	if p == nil {
 		return
 	}
@@ -167,7 +167,7 @@ func (u *Unit) SetMana(v int) {
 	if v < 0 {
 		v = 0
 	}
-	p := u.ptrYyy()
+	p := u.updateDataPtr()
 	if p == nil {
 		return
 	}
@@ -188,7 +188,7 @@ func (u *Unit) SetMaxMana(v int) {
 	if v < 0 {
 		v = 0
 	}
-	p := u.ptrYyy()
+	p := u.updateDataPtr()
 	if p == nil {
 		return
 	}

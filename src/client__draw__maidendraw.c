@@ -40,7 +40,7 @@ int nox_thing_maiden_draw(uint32_t* a1, nox_drawable* dr) {
 			return nox_thing_monster_draw(a1, dr);
 		}
 	}
-	int v5 = *(uint32_t*)&v2->field_187;
+	int v5 = v2->data_update;
 	int v6 = 0;
 	uint8_t* v7 = (uint8_t*)(v5 + 2077);
 	int v8;
