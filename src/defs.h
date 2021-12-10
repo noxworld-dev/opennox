@@ -444,9 +444,9 @@ typedef struct nox_objectType_t {
 	void* field_44;           // 44, 176, TODO: data
 	int field_44_size;        // 45, 180
 	uint32_t field_46;        // 46, 184
-	uint32_t field_47;        // 47, 188
-	void* field_48;           // 48, 192, TODO: data
-	int field_48_size;        // 49, 196
+	int (*func_update)(char*, void*); // 47, 188
+	void* data_update;                // 48, 192
+	int   data_update_size;           // 49, 196
 	uint32_t field_50;        // 50, 200
 	void* field_51;           // 51, 204, TODO: data
 	int field_51_size;        // 52, 208

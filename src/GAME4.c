@@ -1699,8 +1699,7 @@ void nox_xxx_playerInventory_4F8420(int a1) {
 // 4F8444: variable 'v3' is possibly undefined
 
 //----- (004F8460) --------------------------------------------------------
-void nox_xxx_unitUpdatePlayerImpl_4F8460(int a1) {
-	int v1;             // esi
+void nox_xxx_unitUpdatePlayerImpl_4F8460(int v1) {
 	char v3;            // al
 	int v4;             // edx
 	unsigned char* v5;  // ebp
@@ -1767,9 +1766,8 @@ void nox_xxx_unitUpdatePlayerImpl_4F8460(int a1) {
 	int v68;            // [esp+14h] [ebp-8h]
 	int v69;            // [esp+18h] [ebp-4h]
 
-	v1 = a1;
-	int v2 = *(uint32_t*)(a1 + 748);
-	a1 = 0;
+	int v2 = *(uint32_t*)(v1 + 748);
+	int a1 = 0;
 	v68 = 0;
 	switch (*(unsigned char*)(v2 + 88)) {
 	case 0u:

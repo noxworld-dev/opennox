@@ -303,67 +303,6 @@ type Ptrs struct {
 	Ptr_sub_53F930                              unsafe.Pointer
 	Ptr_nox_xxx_usePotion_53EF70                unsafe.Pointer
 	Ptr_sub_5363C0                              unsafe.Pointer
-	Ptr_nox_xxx_updatePlayer_4F8100             unsafe.Pointer
-	Ptr_nox_xxx_updateProjectile_53AC10         unsafe.Pointer
-	Ptr_nullsub_65                              unsafe.Pointer
-	Ptr_nox_xxx_spellFlyUpdate_53B940           unsafe.Pointer
-	Ptr_nox_xxx_updateAntiSpellProj_53BB00      unsafe.Pointer
-	Ptr_nox_xxx_updateDoor_53AC50               unsafe.Pointer
-	Ptr_nox_xxx_updateSpark_53ADC0              unsafe.Pointer
-	Ptr_nox_xxx_updateProjTrail_53AEC0          unsafe.Pointer
-	Ptr_nox_xxx_updatePush_53B030               unsafe.Pointer
-	Ptr_sub_536550                              unsafe.Pointer
-	Ptr_nox_xxx_updateTrigger_53B1B0            unsafe.Pointer
-	Ptr_sub_5365B0                              unsafe.Pointer
-	Ptr_nox_xxx_updateToggle_53B060             unsafe.Pointer
-	Ptr_nox_xxx_unitUpdateMonster_50A5C0        unsafe.Pointer
-	Ptr_sub_53B300                              unsafe.Pointer
-	Ptr_sub_536580                              unsafe.Pointer
-	Ptr_nox_xxx_updateElevator_53B5D0           unsafe.Pointer
-	Ptr_nox_xxx_updateElevatorShaft_53B380      unsafe.Pointer
-	Ptr_nox_xxx_updatePhantomPlayer_53B860      unsafe.Pointer
-	Ptr_nox_xxx_updateObelisk_53C580            unsafe.Pointer
-	Ptr_nox_xxx_updateLifetime_53B8F0           unsafe.Pointer
-	Ptr_sub_536600                              unsafe.Pointer
-	Ptr_nox_xxx_updateMagicMissile_53BDA0       unsafe.Pointer
-	Ptr_nox_xxx_updatePixie_53CD20              unsafe.Pointer
-	Ptr_nullsub_70                              unsafe.Pointer
-	Ptr_nullsub_69                              unsafe.Pointer
-	Ptr_nox_xxx_updateShootingTrap_54F9A0       unsafe.Pointer
-	Ptr_sub_5364E0                              unsafe.Pointer
-	Ptr_nox_xxx_updateTeleportPentagram_53BEF0  unsafe.Pointer
-	Ptr_nox_xxx_updateInvisiblePentagram_53C0C0 unsafe.Pointer
-	Ptr_nox_xxx_updateSwitch_53B320             unsafe.Pointer
-	Ptr_nox_xxx_updateBlow_53C160               unsafe.Pointer
-	Ptr_nox_xxx_unitUpdateMover_54F740          unsafe.Pointer
-	Ptr_nox_xxx_updateBlackPowderBarrel_53C9A0  unsafe.Pointer
-	Ptr_nox_xxx_updateOneSecondDie_53CB60       unsafe.Pointer
-	Ptr_nox_xxx_updateWaterBarrel_53CB90        unsafe.Pointer
-	Ptr_nox_xxx_updateSelfDestruct_53CC90       unsafe.Pointer
-	Ptr_nox_xxx_updateBlackPowderBurn_53CCB0    unsafe.Pointer
-	Ptr_nox_xxx_updateDeathBall_53D080          unsafe.Pointer
-	Ptr_nox_xxx_updateDeathBallFragment_53D220  unsafe.Pointer
-	Ptr_nox_xxx_updateMoonglow_53D270           unsafe.Pointer
-	Ptr_nox_xxx_updateSentryGlobe_510E60        unsafe.Pointer
-	Ptr_nox_xxx_updateTelekinesis_53D330        unsafe.Pointer
-	Ptr_nox_xxx_updateFist_53D400               unsafe.Pointer
-	Ptr_nox_xxx_updateMeteorShower_53D5A0       unsafe.Pointer
-	Ptr_nox_xxx_meteorExplode_53D6E0            unsafe.Pointer
-	Ptr_nox_xxx_updateToxicCloud_53D850         unsafe.Pointer
-	Ptr_nox_xxx_updateSmallToxicCloud_53D960    unsafe.Pointer
-	Ptr_nox_xxx_updateArachnaphobia_53DA60      unsafe.Pointer
-	Ptr_nox_xxx_updateExpire_53DB00             unsafe.Pointer
-	Ptr_nox_xxx_updateBreak_53DB30              unsafe.Pointer
-	Ptr_nox_xxx_updateOpen_53DBB0               unsafe.Pointer
-	Ptr_nox_xxx_updateBreakAndRemove_53DC30     unsafe.Pointer
-	Ptr_nox_xxx_updateChakramInMotion_53DCC0    unsafe.Pointer
-	Ptr_nox_xxx_updateFlag_53DDF0               unsafe.Pointer
-	Ptr_nox_xxx_updateTrapDoor_53DE80           unsafe.Pointer
-	Ptr_nox_xxx_updateGameBall_53DF40           unsafe.Pointer
-	Ptr_nox_xxx_updateCrown_53E1D0              unsafe.Pointer
-	Ptr_nox_xxx_updateUndeadKiller_53E190       unsafe.Pointer
-	Ptr_nox_xxx_updateHarpoon_54F380            unsafe.Pointer
-	Ptr_nox_xxx_updateMonsterGenerator_54E930   unsafe.Pointer
 	Ptr_nox_xxx_pickupDefault_4F31E0            unsafe.Pointer
 	Ptr_nox_xxx_pickupFood_4F3350               unsafe.Pointer
 	Ptr_nox_xxx_pickupUse_4F34D0                unsafe.Pointer

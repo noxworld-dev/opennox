@@ -943,8 +943,8 @@ int nox_thing_read_xxx_4E3220(int a1, char* a2, int a3) {
 void nox_xxx_unitDefFindMaxDataSize_4E3320() {
 	int max = 0;
 	for (nox_objectType_t* typ = nox_xxx_objectTypes_head_1563660; typ; typ = typ->next) {
-		if (max < typ->field_36_size + typ->field_44_size + typ->field_48_size + typ->field_51_size) {
-			max = typ->field_36_size + typ->field_44_size + typ->field_48_size + typ->field_51_size;
+		if (max < typ->field_36_size + typ->field_44_size + typ->data_update_size + typ->field_51_size) {
+			max = typ->field_36_size + typ->field_44_size + typ->data_update_size + typ->field_51_size;
 		}
 	}
 	// TODO: result is unused :/
@@ -1075,13 +1075,13 @@ nox_object_t* nox_xxx_newObjectWithType_4E3470(nox_objectType_t* typ) {
 		}
 		memcpy(ob->field_184, typ->field_51, typ->field_51_size);
 	}
-	ob->field_186 = typ->field_47;
-	if (typ->field_48_size) {
-		ob->field_187 = calloc(1, typ->field_48_size);
+	ob->field_186 = typ->func_update;
+	if (typ->data_update_size) {
+		ob->field_187 = calloc(1, typ->data_update_size);
 		if (!ob->field_187) {
 			return 0;
 		}
-		memcpy(ob->field_187, typ->field_48, typ->field_48_size);
+		memcpy(ob->field_187, typ->data_update, typ->data_update_size);
 	}
 	ob->field_177 = typ->field_46;
 	ob->field_178 = typ->field_42;

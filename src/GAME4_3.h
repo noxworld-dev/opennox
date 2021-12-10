@@ -165,7 +165,7 @@ int sub_536550(char* a1, uint32_t* a2);
 int sub_536580(char* a1, int a2);
 int sub_5365B0(char* a1, int a2);
 int sub_536600(char* a1, int a2);
-int nox_xxx_parseUpdate_536620(uint32_t* a1, int a2, char* a3);
+int nox_xxx_parseUpdate_536620(nox_objectType_t* a1, int a2, char* a3);
 int nox_xxx_parsePickup_536710(int a1, int a2, char* a3);
 char* sub_5367B0(short* a1);
 int nox_xxx_parseCreateProc_536830(int a1, int a2, char* a3);
