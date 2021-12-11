@@ -28,7 +28,7 @@ int nox_xxx_checkWinkFlags_4F7DF0(int a1);
 int nox_xxx_weaponGetStaminaByType_4F7E80(int a1);
 short nox_xxx_playerRespawn_4F7EF0(int a1);
 int sub_4F80C0(int a1, float2* a3);
-char nox_xxx_updatePlayer_4F8100(uint32_t* a1);
+void nox_xxx_updatePlayer_4F8100(nox_object_t* a1);
 void nox_xxx_playerInventory_4F8420(int a1);
 void nox_xxx_unitUpdatePlayerImpl_4F8460(int a1);
 int sub_4F9A80(int a1);

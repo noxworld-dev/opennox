@@ -671,42 +671,47 @@ typedef struct {
 	uint32_t field_16; // 16, 64
 	uint32_t field_17; // 17, 68
 	uint32_t field_18; // 18, 72
-	uint32_t field_19; // 19, 76
-	uint32_t field_20; // 20, 80
+	uint16_t field_19_0; // 19, 76
+	uint16_t field_19_1; // 19, 78
+	uint16_t field_20_0; // 20, 80
+	uint16_t field_20_1; // 20, 82
 	uint32_t field_21; // 21, 84
-	uint32_t field_22; // 22, 88
+	uint8_t field_22_0; // 22, 88
+	uint8_t field_22_1; // 22, 89
+	uint8_t field_22_2; // 22, 90
+	uint8_t field_22_3; // 22, 91
 	uint32_t field_23; // 23, 92
 	uint32_t field_24; // 24, 96
 	uint32_t field_25; // 25, 100
 	uint32_t field_26; // 26, 104
 	uint32_t field_27; // 27, 108
 	uint32_t field_28; // 28, 112
-	uint32_t field_29; // 29, 116
-	uint32_t field_30; // 30, 120
-	uint32_t field_31; // 31, 124
-	uint32_t field_32; // 32, 128
-	uint32_t field_33; // 33, 132
+	nox_object_t* field_29[4]; // 29, 116, TODO: teleport markers? traps?
+	nox_object_t* harpoon; // 33, 132
 	uint32_t field_34; // 34, 136
 	uint32_t field_35; // 35, 140
 	uint32_t field_36; // 36, 144
 	uint32_t field_37; // 37, 148
 	uint32_t field_38; // 38, 152
 	uint32_t field_39; // 39, 156
-	uint32_t field_40; // 40, 160
+	uint16_t field_40_0; // 40, 160
+	uint16_t field_40_1; // 40, 162
 	uint32_t field_41; // 41, 164
 	uint32_t field_42; // 42, 168
 	uint32_t field_43; // 43, 172
 	uint32_t field_44; // 44, 176
 	uint32_t field_45; // 45, 180
 	uint32_t field_46; // 46, 184
-	uint32_t field_47; // 47, 188
+	uint8_t field_47_0; // 47, 188
+	uint8_t field_47_1; // 47, 189
+	uint16_t field_47_2; // 47, 190
 	uint32_t field_48; // 48, 192
 	uint32_t field_49; // 49, 196
 	uint32_t field_50; // 50, 200
 	uint32_t field_51; // 51, 204
 	uint32_t field_52; // 52, 208
 	uint32_t field_53; // 53, 212
-	uint32_t field_54; // 54, 216
+	uint32_t field_54; // 54, 216, TODO: (manual?) casting timestamp
 	uint32_t field_55; // 55, 220
 	uint32_t field_56; // 56, 224
 	uint32_t field_57; // 57, 228
@@ -789,7 +794,7 @@ typedef struct {
 	uint32_t field_134; // 134, 536
 	uint32_t field_135; // 135, 540
 	uint32_t field_136; // 136, 544
-	uint32_t field_137; // 137, 548
+	uint32_t field_137; // 137, 548, TODO: some timestamp
 	uint32_t field_138; // 138, 552
 } nox_object_Player_data_t;
 _Static_assert(sizeof(nox_object_Player_data_t) == 556, "wrong size of nox_object_Player_data_t structure!");
@@ -2333,7 +2338,18 @@ typedef struct nox_playerInfo {
 	uint32_t field_3588;
 	uint32_t field_3592;
 	unsigned int frame_3596;
-	uint32_t data_3600[12];
+	uint32_t field_3600; // 900, 3600
+	uint32_t field_3604; // 901, 3604
+	uint32_t field_3608; // 902, 3608
+	uint32_t field_3612; // 903, 3612
+	uint32_t field_3616; // 904, 3616
+	uint32_t field_3620; // 905, 3620
+	uint32_t field_3624; // 906, 3624
+	nox_object_t* obj_3628; // 907, 3628
+	float pos_x_3632; // 908, 3632
+	float pos_y_3636; // 909, 3636
+	uint32_t field_3640; // 910, 3640
+	uint32_t field_3644; // 911, 3644
 	uint32_t field_3648;
 	uint32_t field_3652;
 	uint32_t field_3656;
