@@ -173,7 +173,7 @@ func gameFrameInc() {
 }
 
 func serverUpdateUnits() { // nox_xxx_updateUnits_51B100
-	C.nox_xxx_updateUnits_51B100_A()
+	serverUpdateUnitsAAA()
 	C.nox_xxx_updateUnits_51B100_B()
 	serverUpdateUnitsCallUpdate()
 	C.nox_xxx_collisions_511850()

@@ -1936,6 +1936,7 @@ int sub_51A920(int a1) {
 	return result;
 }
 
+#ifndef NOX_CGO
 //----- (0051B100) --------------------------------------------------------
 void nox_xxx_updateUnits_51B100_A() {
 	for (nox_object_t* u = nox_xxx_getFirstPlayerUnit_4DA7C0(); u; u = nox_xxx_getNextPlayerUnit_4DA7F0(u)) {
@@ -1944,6 +1945,7 @@ void nox_xxx_updateUnits_51B100_A() {
 		*(uint32_t*)((int)ud + 288) = nox_xxx_findObjectAtCursor_54AF40(u);
 	}
 }
+#endif // NOX_CGO
 
 void nox_xxx_updateUnits_51B100_B() {
 	int v2 = nox_xxx_getFirstUpdatableObject_4DA8A0();

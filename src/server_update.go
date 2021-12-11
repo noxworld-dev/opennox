@@ -5,9 +5,27 @@ package nox
 void nox_xxx_updateFallLogic_51B870(nox_object_t* a1);
 void sub_51B810(nox_object_t* a1);
 void sub_537770(nox_object_t* a1);
+void nox_xxx_itemApplyUpdateEffect_4FA490(nox_object_t* a1);
+void* nox_xxx_findObjectAtCursor_54AF40(nox_object_t* a1);
 */
 import "C"
-import "nox/v1/common/types"
+import (
+	"unsafe"
+
+	"nox/v1/common/types"
+)
+
+func serverUpdateUnitsAAA() { // nox_xxx_updateUnits_51B100_A
+	for _, p := range getPlayers() {
+		u := p.UnitC()
+		if u == nil {
+			continue
+		}
+		ud := u.updateDataPtr()
+		C.nox_xxx_itemApplyUpdateEffect_4FA490(u.CObj())
+		*(*unsafe.Pointer)(unsafe.Add(ud, 288)) = C.nox_xxx_findObjectAtCursor_54AF40(u.CObj())
+	}
+}
 
 func serverUpdateUnitsCallUpdate() { // nox_xxx_updateUnits_51B100_callUpdate
 	for obj := firstServerObjectUpdatable2(); obj != nil; obj = obj.Next() {
