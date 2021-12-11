@@ -1538,146 +1538,108 @@ int sub_4F80C0(int a1, float2* a3) {
 }
 
 //----- (004F8100) --------------------------------------------------------
-char nox_xxx_updatePlayer_4F8100(uint32_t* a1) {
-	uint32_t* v1;      // edi
-	int v2;            // ebx
-	int v3;            // edx
-	int v4;            // esi
-	uint16_t* v5;      // ebp
-	int v6;            // eax
-	int v7;            // eax
-	short v8;          // ax
-	uint32_t* v9;      // eax
-	int v10;           // ecx
-	short v11;         // ax
-	short v12;         // ax
-	int v13;           // eax
-	int v14;           // eax
-	unsigned char v15; // cl
-	int v16;           // eax
-	double v17;        // st7
-	int v18;           // eax
-	float v20;         // [esp+0h] [ebp-14h]
-	float v21;         // [esp+18h] [ebp+4h]
-
-	v1 = a1;
-	v2 = 0;
-	v3 = 4;
-	v4 = a1[187];
-	v5 = (uint16_t*)a1[139];
-	v6 = v4 + 116;
-	do {
-		if (*(uint32_t*)v6 && *(uint8_t*)(*(uint32_t*)v6 + 16) & 0x20) {
-			*(uint32_t*)v6 = 0;
-		}
-		v6 += 4;
-		--v3;
-	} while (v3);
-	if (!(a1[4] & 0x20)) {
-		if (nox_common_gameFlags_check_40A5C0(4096) && *(uint32_t*)(v4 + 280)) {
-			a1[22] = 0;
-			a1[23] = 0;
-			a1[20] = 0;
-			a1[21] = 0;
-		}
-		if (nox_common_gameFlags_check_40A5C0(4096) && (v7 = *(uint32_t*)(v4 + 548)) != 0 &&
-			*(uint8_t*)(*(uint32_t*)(v4 + 276) + 2064) != 31 &&
-			nox_frame_xxx_2598000 - v7 > (unsigned int)(30 * nox_gameFPS)) {
-			LOBYTE(v6) = sub_4DCFB0((int)a1);
-		} else {
-			v8 = *(uint16_t*)(v4 + 78);
-			if (v8) {
-				*(uint16_t*)(v4 + 78) = v8 - 1;
-			} else {
-				if (*(uint16_t*)(v4 + 76)) {
-					v2 = 1000 * (*(unsigned short*)(v4 + 76) - (unsigned short)*v5) / *(unsigned short*)(v4 + 76);
-				}
-				*(uint16_t*)(v4 + 76) = *v5;
-				if (v2 > 0) {
-					*(uint16_t*)(v4 + 78) = 7;
-				}
-			}
-			if (nox_common_gameFlags_check_40A5C0(0x4000000)) {
-				sub_4F9E70((int)a1);
-			}
-			sub_4F9ED0(a1);
-			v9 = *(uint32_t**)(v4 + 276);
-			v10 = v9[907];
-			if (!v10) {
-				v10 = v9[514];
-			}
-			v9[908] = *(uint32_t*)(v10 + 56);
-			v9[909] = *(uint32_t*)(v10 + 60);
-			v11 = *(uint16_t*)(v4 + 160);
-			if (v11) {
-				*(uint16_t*)(v4 + 160) = v11 - 1;
-			}
-			nox_xxx_unitNeedSync_4E44F0((int)a1);
-			v12 = *(uint16_t*)(v4 + 82);
-			if (v12) {
-				*(uint16_t*)(v4 + 82) = v12 - 1;
-			}
-			v13 = a1[4];
-			if ((v13 & 0x8000) == 0) {
-				if (v2 > 0) {
-					v14 = a1[131];
-					if (*(uint8_t*)(*(uint32_t*)(v4 + 276) + 2252)) {
-						if (v14 == 5) {
-							nox_xxx_aud_501960(330, (int)a1, 0, 0);
-						} else if (v2 <= 450) {
-							if (v2 <= 70) {
-								nox_xxx_aud_501960(327, (int)a1, 0, 0);
-							} else {
-								nox_xxx_aud_501960(328, (int)a1, 0, 0);
-							}
-						} else {
-							nox_xxx_aud_501960(329, (int)a1, 0, 0);
-						}
-					} else if (v14 == 5) {
-						nox_xxx_aud_501960(320, (int)a1, 0, 0);
-					} else if (v2 <= 450) {
-						if (v2 <= 70) {
-							nox_xxx_aud_501960(317, (int)a1, 0, 0);
-						} else {
-							nox_xxx_aud_501960(318, (int)a1, 0, 0);
-						}
-					} else {
-						nox_xxx_aud_501960(319, (int)a1, 0, 0);
-					}
-				}
-				v15 = *(uint8_t*)(v4 + 91);
-				if (v15 < 0x64u) {
-					*(uint8_t*)(v4 + 91) = v15 + 0x64u / nox_gameFPS;
-				}
-			}
-			v16 = *(uint32_t*)(v4 + 216);
-			if (v16 && !*(uint8_t*)(v4 + 188) &&
-				(unsigned int)(nox_frame_xxx_2598000 - v16) > *getMemIntPtr(0x852978, 16)) {
-				nox_xxx_playerSpell_4FB2A0_magic_plyrspel((int)a1);
-				*(uint32_t*)(v4 + 216) = 0;
-			}
-			nox_xxx_playerInventory_4F8420((int)a1);
-			nox_xxx_unitUpdatePlayerImpl_4F8460((int)a1);
-			if (nox_xxx_testUnitBuffs_4FF350((int)a1, 8) && *(uint8_t*)(v4 + 88) != 1) {
-				nox_xxx_playerSetState_4FA020(a1, 5);
-			}
-			nox_xxx_questCheckSecretArea_421C70((int)a1);
-			v6 = *(uint32_t*)(v4 + 132);
-			if (v6) {
-				v17 = nox_xxx_gamedataGetFloat_419D40("HarpoonForce");
-				v18 = *(uint32_t*)(v4 + 132);
-				if (*(uint8_t*)(v18 + 16) & 0x20) {
-					LOBYTE(v6) = (unsigned int)nox_xxx_harpoonBreakForPlr_537520(a1);
-				} else {
-					sub_4E7540((int)a1, v18);
-					v21 = v17;
-					v20 = -v21;
-					LOBYTE(v6) = nox_xxx_objectApplyForce_52DF80((int)(v1 + 14), *(uint32_t*)(v4 + 132), v20);
-				}
-			}
+void nox_xxx_updatePlayer_4F8100(nox_object_t* u) {
+	nox_object_Player_data_t* ud = u->data_update;
+	uint16_t* v5 = u->field_139;
+	for (int i = 0; i < 4; i++) {
+		nox_object_t* p = ud->field_29[i];
+		if (p && ((p->field_4 & 0x20) != 0)) {
+			ud->field_29[i] = 0;
 		}
 	}
-	return v6;
+	if ((u->field_4 & 0x20) != 0) {
+		return;
+	}
+	if (nox_common_gameFlags_check_40A5C0(4096) && ud->field_70) {
+		u->force_x = 0;
+		u->force_y = 0;
+		u->vel_x = 0;
+		u->vel_y = 0;
+	}
+	if (nox_common_gameFlags_check_40A5C0(4096) && ud->field_137 != 0 && ud->player->playerInd != 31 && (nox_frame_xxx_2598000 - ud->field_137 > (30 * nox_gameFPS))) {
+		sub_4DCFB0(u);
+		return;
+	}
+	int v2 = 0;
+	if (ud->field_19_1 != 0) {
+		ud->field_19_1--;
+	} else {
+		if (ud->field_19_0 != 0) {
+			v2 = 1000 * (ud->field_19_0 - (unsigned short)*v5) / ud->field_19_0;
+		}
+		ud->field_19_0 = *v5;
+		if (v2 > 0) {
+			ud->field_19_1 = 7;
+		}
+	}
+	if (nox_common_gameFlags_check_40A5C0(0x4000000)) {
+		sub_4F9E70(u);
+	}
+	sub_4F9ED0(u);
+	nox_playerInfo* pl = ud->player;
+	nox_object_t* u2 = pl->obj_3628;
+	if (!u2) {
+		u2 = pl->playerUnit;
+	}
+	pl->pos_x_3632 = u2->x;
+	pl->pos_y_3636 = u2->y;
+	if (ud->field_40_0 != 0) {
+		ud->field_40_0--;
+	}
+	nox_xxx_unitNeedSync_4E44F0(u);
+	if (ud->field_20_1 != 0) {
+		ud->field_20_1--;
+	}
+	if ((u->field_4 & 0x8000) == 0) {
+		if (v2 > 0) {
+			int v14 = u->field_131;
+			if (ud->player->info.isFemale) {
+				if (v14 == 5) {
+					nox_xxx_aud_501960(330, u, 0, 0);
+				} else if (v2 <= 450) {
+					if (v2 <= 70) {
+						nox_xxx_aud_501960(327, u, 0, 0);
+					} else {
+						nox_xxx_aud_501960(328, u, 0, 0);
+					}
+				} else {
+					nox_xxx_aud_501960(329, u, 0, 0);
+				}
+			} else if (v14 == 5) {
+				nox_xxx_aud_501960(320, u, 0, 0);
+			} else if (v2 <= 450) {
+				if (v2 <= 70) {
+					nox_xxx_aud_501960(317, u, 0, 0);
+				} else {
+					nox_xxx_aud_501960(318, u, 0, 0);
+				}
+			} else {
+				nox_xxx_aud_501960(319, u, 0, 0);
+			}
+		}
+		if (ud->field_22_3 < 100) {
+			ud->field_22_3 += 100 / nox_gameFPS;
+		}
+	}
+	if (ud->field_54 != 0 && ud->field_47_0 == 0 && (unsigned int)(nox_frame_xxx_2598000 - ud->field_54) > *getMemIntPtr(0x852978, 16)) {
+		nox_xxx_playerSpell_4FB2A0_magic_plyrspel(u);
+		ud->field_54 = 0;
+	}
+	nox_xxx_playerInventory_4F8420(u);
+	nox_xxx_unitUpdatePlayerImpl_4F8460(u);
+	if (nox_xxx_testUnitBuffs_4FF350(u, 8) && ud->field_22_0 != 1) {
+		nox_xxx_playerSetState_4FA020(u, 5);
+	}
+	nox_xxx_questCheckSecretArea_421C70(u);
+	if (ud->harpoon) {
+		if ((ud->harpoon->field_4 & 0x20) != 0) {
+			nox_xxx_harpoonBreakForPlr_537520(u);
+		} else {
+			double force = nox_xxx_gamedataGetFloat_419D40("HarpoonForce");
+			sub_4E7540(u, ud->harpoon);
+			nox_xxx_objectApplyForce_52DF80(&u->x, ud->harpoon, -force);
+		}
+	}
 }
 
 //----- (004F8420) --------------------------------------------------------
