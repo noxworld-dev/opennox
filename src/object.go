@@ -6,6 +6,7 @@ package nox
 extern nox_object_t* nox_server_objects_1556844;
 extern nox_object_t* nox_server_objects_uninited_1556860;
 extern nox_object_t* nox_server_objects_updatable2_1556848;
+static void nox_call_obj_update_go(void (*fnc)(nox_object_t*), nox_object_t* obj) { fnc(obj); }
 */
 import "C"
 import (
@@ -315,6 +316,13 @@ func (obj *Object) Pos() types.Pointf {
 	}
 }
 
+func (obj *Object) newPos() types.Pointf {
+	return types.Pointf{
+		X: float32(obj.new_x),
+		Y: float32(obj.new_y),
+	}
+}
+
 func (obj *Object) SetPos(p types.Pointf) {
 	pp, free := alloc.Malloc(unsafe.Sizeof(C.float2{}))
 	defer free()
@@ -322,6 +330,21 @@ func (obj *Object) SetPos(p types.Pointf) {
 	cp.field_0 = C.float(p.X)
 	cp.field_4 = C.float(p.Y)
 	C.nox_xxx_unitMove_4E7010(obj.CObj(), cp)
+}
+
+func (obj *Object) setPos(p types.Pointf) {
+	obj.x = C.float(p.X)
+	obj.y = C.float(p.Y)
+}
+
+func (obj *Object) setPrevPos(p types.Pointf) {
+	obj.prev_x = C.float(p.X)
+	obj.prev_y = C.float(p.Y)
+}
+
+func (obj *Object) setForce(p types.Pointf) {
+	obj.force_x = C.float(p.X)
+	obj.force_y = C.float(p.Y)
 }
 
 func (obj *Object) Z() float32 {
@@ -364,4 +387,10 @@ func (obj *Object) Delete() {
 
 func (obj *Object) Destroy() {
 	panic("implement me")
+}
+
+func (obj *Object) callUpdate() {
+	if obj.func_update != nil {
+		C.nox_call_obj_update_go((*[0]byte)(obj.func_update), obj.CObj())
+	}
 }
