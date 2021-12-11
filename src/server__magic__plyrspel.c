@@ -44,7 +44,8 @@ void nox_xxx_abilGetError_4FB0B0_magic_plyrspel(int a1) {
 
 //----- (004FB2A0) --------------------------------------------------------
 int nox_xxx_isArgB8EqSome_424850(void* a1);
-int nox_xxx_playerSpell_4FB2A0_magic_plyrspel(int a1) {
+int nox_xxx_playerSpell_4FB2A0_magic_plyrspel(nox_object_t* a1p) {
+	int a1 = a1p;
 	uint32_t* v1; // edi
 	int v2;       // ebp
 	int v3;       // esi

@@ -5733,7 +5733,8 @@ void nox_xxx_lineCollisionChk_537230(float* a1, int arg4) {
 int nox_xxx_traceRay_5374B0(float4* a1) { return nox_xxx_mapTraceRay_535250(a1, 0, 0, 9); }
 
 //----- (005374D0) --------------------------------------------------------
-void sub_5374D0(uint32_t* a1) {
+void sub_5374D0(nox_object_t* a1p) {
+	uint32_t* a1 = a1p;
 	int v1; // esi
 
 	if (a1) {
@@ -5750,9 +5751,9 @@ void sub_5374D0(uint32_t* a1) {
 }
 
 //----- (00537520) --------------------------------------------------------
-uint32_t* nox_xxx_harpoonBreakForPlr_537520(uint32_t* a1) {
+void nox_xxx_harpoonBreakForPlr_537520(nox_object_t* a1) {
 	sub_5374D0(a1);
-	return nox_xxx_aud_501960(998, (int)a1, 0, 0);
+	nox_xxx_aud_501960(998, a1, 0, 0);
 }
 
 //----- (00537540) --------------------------------------------------------
@@ -5810,7 +5811,8 @@ void sub_5375A0(int a1) {
 }
 
 //----- (00537610) --------------------------------------------------------
-char nox_xxx_unitHasCollideOrUpdateFn_537610(int a1) {
+char nox_xxx_unitHasCollideOrUpdateFn_537610(nox_object_t* a1p) {
+	int a1 = a1p;
 	int v1;               // eax
 	int v2;               // edx
 	int v3;               // edi

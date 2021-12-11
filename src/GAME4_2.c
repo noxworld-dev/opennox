@@ -12165,35 +12165,22 @@ int nox_xxx_castFear_52DF40(int a1, int a2, int a3, int a4, int* a5, char a6) {
 	return 1;
 }
 
+#ifndef NOX_CGO
 //----- (0052DF80) --------------------------------------------------------
-char nox_xxx_objectApplyForce_52DF80(int a1, int a2, float a3) {
-	int v3;          // esi
-	unsigned int v4; // eax
-	double v5;       // st7
-	double v6;       // st7
-	float v8;        // [esp+4h] [ebp-4h]
-	float v9;        // [esp+Ch] [ebp+4h]
-	float v10;       // [esp+10h] [ebp+8h]
-	float v11;       // [esp+14h] [ebp+Ch]
-
-	v3 = a2;
-	v4 = nox_xxx_isObjectMovable_52E020(a2);
-	if (v4) {
-		v10 = *(float*)(a2 + 56) - *(float*)a1;
-		v5 = *(float*)(v3 + 60) - *(float*)(a1 + 4);
-		v9 = v5;
-		v8 = sqrt(v5 * v9 + v10 * v10) + 0.1;
-		v11 = a3 * 10.0;
-		v6 = v11 / nox_xxx_objectGetMass_4E4A70(v3);
-		LOBYTE(v4) = *(uint8_t*)(v3 + 8);
-		*(float*)(v3 + 88) = v10 * v6 / v8 + *(float*)(v3 + 88);
-		*(float*)(v3 + 92) = v9 * v6 / v8 + *(float*)(v3 + 92);
-		if (!(v4 & 1)) {
-			LOBYTE(v4) = nox_xxx_unitHasCollideOrUpdateFn_537610(v3);
+void nox_xxx_objectApplyForce_52DF80(float* vec, nox_object_t* obj, float force) {
+	if (nox_xxx_isObjectMovable_52E020(obj)) {
+		float dx = obj->x - vec[0];
+		float dy = obj->y - vec[1];
+		float r = sqrt((double)dy * dy + (double)dx * dx) + 0.1;
+		double f = 10.0 * force / nox_xxx_objectGetMass_4E4A70(obj);
+		obj->force_x += (double)dx * f / r;
+		obj->force_y += (double)dy * f / r;
+		if ((obj->obj_class & 0x1) == 0) {
+			nox_xxx_unitHasCollideOrUpdateFn_537610(obj);
 		}
 	}
-	return v4;
 }
+#endif // NOX_CGO
 
 //----- (0052E020) --------------------------------------------------------
 unsigned int nox_xxx_isObjectMovable_52E020(int a1) {

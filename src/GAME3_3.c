@@ -1034,7 +1034,7 @@ nox_object_t* nox_xxx_newObjectWithType_4E3470(nox_objectType_t* typ) {
 	ob->field_7 = typ->field_11;
 	ob->field_8 = typ->field_12;
 	ob->float_28 = typ->field_13;
-	ob->float_30 = typ->field_14;
+	ob->mass = typ->mass;
 	memcpy(&ob->shape, &typ->shape, 0x3Cu); // TODO: this is larger than nox_shape
 	if (!(ob->field_4 & 0x40)) {
 		nox_xxx_objectUnkUpdateCoords_4E7290(ob);
@@ -4004,7 +4004,9 @@ void nox_xxx_spawnSomeBarrel_4E7470(int a1, int a2) {
 }
 
 //----- (004E7540) --------------------------------------------------------
-void sub_4E7540(int a1, int a2) {
+void sub_4E7540(nox_object_t* a1p, nox_object_t* a2p) {
+	int a1 = a1p;
+	int a2 = a2p;
 	int v3; // eax
 
 	if (a1) {
@@ -8599,7 +8601,9 @@ int nox_xxx_dropTreasure_4ED710(int a1, int a2, int* a3) {
 }
 
 //----- (004ED790) --------------------------------------------------------
-int nox_xxx_drop_4ED790(int a1, uint32_t* a2, float2* a3) {
+int nox_xxx_drop_4ED790(nox_object_t* a1p, nox_object_t* a2p, float2* a3) {
+	int a1 = a1p;
+	uint32_t* a2 = a2p;
 	int result;                         // eax
 	int (*v4)(int, uint32_t*, float2*); // eax
 
@@ -9233,7 +9237,8 @@ int sub_4EE440(int a1) {
 }
 
 //----- (004EE460) --------------------------------------------------------
-void nox_xxx_unitAdjustHP_4EE460(int unit, int dv) {
+void nox_xxx_unitAdjustHP_4EE460(nox_object_t* unitp, int dv) {
+	int unit = unitp;
 	if (nox_common_gameFlags_check_40A5C0(0x4000000)) {
 		return;
 	}
@@ -9272,7 +9277,8 @@ void nox_xxx_mobInformOwnerHP_4EE4C0(nox_object_t* obj) {
 }
 
 //----- (004EE5E0) --------------------------------------------------------
-void nox_xxx_unitDamageClear_4EE5E0(int unit, int damageAmount) {
+void nox_xxx_unitDamageClear_4EE5E0(nox_object_t* unitp, int damageAmount) {
+	int unit = unitp;
 	int healthData;              // eax
 	int v3;                      // eax
 	int v4;                      // eax
@@ -9595,7 +9601,8 @@ void nox_xxx_setSomePoisonData_4EEA90(int a1, int a2) {
 }
 
 //----- (004EEB80) --------------------------------------------------------
-unsigned short nox_xxx_playerManaAdd_4EEB80(int unit, short amount) {
+unsigned short nox_xxx_playerManaAdd_4EEB80(nox_object_t* unitp, short amount) {
+	int unit = unitp;
 	unsigned short result;    // ax
 	int manaData;             // esi
 	short currentMana;        // ax
@@ -13033,7 +13040,8 @@ void nox_xxx_inventoryPutImpl_4F3070(int a1, nox_object_t* item, int a3) {
 //----- (004F3180) --------------------------------------------------------
 extern int nox_cheat_allowall;
 
-bool nox_xxx_playerCheckStrength_4F3180(int a1, nox_object_t* item) {
+bool nox_xxx_playerCheckStrength_4F3180(nox_object_t* a1p, nox_object_t* item) {
+	int a1 = a1p;
 	if (nox_cheat_allowall) {
 		return 1;
 	}

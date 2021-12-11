@@ -6716,7 +6716,8 @@ void nox_xxx_polygonDrawColor_421B80() {
 }
 
 //----- (00421C70) --------------------------------------------------------
-void nox_xxx_questCheckSecretArea_421C70(int a1) {
+void nox_xxx_questCheckSecretArea_421C70(nox_object_t* a1p) {
+	int a1 = a1p;
 	int v1;            // ebp
 	int v2;            // eax
 	float v3;          // edx

@@ -2,10 +2,14 @@ package nox
 
 /*
 #include "defs.h"
+#include "GAME1_1.h"
+#include "GAME3_2.h"
+#include "GAME3_3.h"
 #include "GAME4.h"
 #include "GAME4_1.h"
 #include "GAME4_3.h"
 #include "GAME5.h"
+#include "server__magic__plyrspel.h"
 void nullsub_65();
 void nullsub_69();
 void nullsub_70();
@@ -19,12 +23,16 @@ import (
 	"unsafe"
 
 	"nox/v1/common/alloc"
+	noxflags "nox/v1/common/flags"
+	"nox/v1/common/memmap"
+	"nox/v1/common/object"
+	"nox/v1/common/types"
 )
 
 type noxObjectUpdateFuncs struct {
 	Name      string
 	Func      unsafe.Pointer
-	DataSize  int
+	DataSize  uintptr
 	ParseFunc unsafe.Pointer
 }
 
@@ -56,7 +64,7 @@ func nox_xxx_parseUpdate_536620(objt *ObjectType, _ *MemFile, str string, _ []by
 	if t.DataSize == 0 {
 		return nil
 	}
-	data, _ := alloc.Calloc(1, uintptr(t.DataSize))
+	data, _ := alloc.Malloc(t.DataSize)
 	objt.data_update = data
 	if t.ParseFunc != nil {
 		cstr := CString(str)
@@ -70,7 +78,7 @@ func nox_xxx_parseUpdate_536620(objt *ObjectType, _ *MemFile, str string, _ []by
 
 var noxObjectUpdateTable = []noxObjectUpdateFuncs{
 	{"NoUpdate", nil, 0, nil},
-	{"PlayerUpdate", C.nox_xxx_updatePlayer_4F8100, 556, nil},
+	{"PlayerUpdate", C.nox_xxx_updatePlayer_4F8100, unsafe.Sizeof(C.nox_object_Player_data_t{}), nil},
 	{"ProjectileUpdate", C.nox_xxx_updateProjectile_53AC10, 0, nil},
 	{"HomingProjectileUpdate", C.nullsub_65, 4, nil},
 	{"SpellProjectileUpdate", C.nox_xxx_spellFlyUpdate_53B940, 28, nil},
@@ -81,7 +89,7 @@ var noxObjectUpdateTable = []noxObjectUpdateFuncs{
 	{"PushUpdate", C.nox_xxx_updatePush_53B030, 12, C.sub_536550},
 	{"TriggerUpdate", C.nox_xxx_updateTrigger_53B1B0, 60, C.sub_5365B0},
 	{"ToggleUpdate", C.nox_xxx_updateToggle_53B060, 60, C.sub_5365B0},
-	{"MonsterUpdate", C.nox_xxx_unitUpdateMonster_50A5C0, 2200, nil},
+	{"MonsterUpdate", C.nox_xxx_unitUpdateMonster_50A5C0, unsafe.Sizeof(C.nox_object_Monster_data_t{}), nil},
 	{"LoopAndDamageUpdate", C.sub_53B300, 16, C.sub_536580},
 	{"ElevatorUpdate", C.nox_xxx_updateElevator_53B5D0, 20, nil},
 	{"ElevatorShaftUpdate", C.nox_xxx_updateElevatorShaft_53B380, 16, nil},
@@ -127,4 +135,173 @@ var noxObjectUpdateTable = []noxObjectUpdateFuncs{
 	{"HarpoonUpdate", C.nox_xxx_updateHarpoon_54F380, 4, nil},
 	{"WeaponArmorUpdate", nil, 8, nil},
 	{"MonsterGeneratorUpdate", C.nox_xxx_updateMonsterGenerator_54E930, 164, nil},
+}
+
+//export nox_xxx_updatePlayer_4F8100
+func nox_xxx_updatePlayer_4F8100(up *nox_object_t) {
+	u := asUnitC(up)
+	ud := u.updateDataPlayer()
+	v5 := (*C.ushort)(unsafe.Pointer(u.field_139))
+	for i := 0; i < 4; i++ {
+		p := asObjectC(ud.field_29[i])
+		if p != nil && ((p.Flags16() & 0x20) != 0) {
+			ud.field_29[i] = nil
+		}
+	}
+	if (u.field_4 & 0x20) != 0 {
+		return
+	}
+	if noxflags.HasGame(4096) && ud.field_70 != 0 {
+		u.force_x = 0
+		u.force_y = 0
+		u.vel_x = 0
+		u.vel_y = 0
+	}
+	if noxflags.HasGame(4096) && ud.field_137 != 0 && ud.player.playerInd != 31 && (gameFrame()-uint32(ud.field_137) > (30 * gameFPS())) {
+		C.sub_4DCFB0(u.CObj())
+		return
+	}
+	v2 := 0
+	if ud.field_19_1 != 0 {
+		ud.field_19_1--
+	} else {
+		if ud.field_19_0 != 0 {
+			v2 = int(1000 * (ud.field_19_0 - *v5) / ud.field_19_0)
+		}
+		ud.field_19_0 = *v5
+		if v2 > 0 {
+			ud.field_19_1 = 7
+		}
+	}
+	if noxflags.HasGame(0x4000000) {
+		sub_4F9E70(u)
+	}
+	sub_4F9ED0(u)
+	pl := asPlayer(ud.player)
+	u2 := asUnitC(pl.obj_3628)
+	if u2 == nil {
+		u2 = pl.UnitC()
+	}
+	pl.pos_x_3632 = u2.x
+	pl.pos_y_3636 = u2.y
+	if ud.field_40_0 != 0 {
+		ud.field_40_0--
+	}
+	u.needSync()
+	if ud.field_20_1 != 0 {
+		ud.field_20_1--
+	}
+	if u.Flags16()&0x8000 == 0 {
+		if v2 > 0 {
+			v14 := u.field_131
+			if asPlayer(ud.player).Info().IsFemale() {
+				if v14 == 5 {
+					nox_xxx_aud_501960(330, u, 0, 0)
+				} else if v2 <= 450 {
+					if v2 <= 70 {
+						nox_xxx_aud_501960(327, u, 0, 0)
+					} else {
+						nox_xxx_aud_501960(328, u, 0, 0)
+					}
+				} else {
+					nox_xxx_aud_501960(329, u, 0, 0)
+				}
+			} else if v14 == 5 {
+				nox_xxx_aud_501960(320, u, 0, 0)
+			} else if v2 <= 450 {
+				if v2 <= 70 {
+					nox_xxx_aud_501960(317, u, 0, 0)
+				} else {
+					nox_xxx_aud_501960(318, u, 0, 0)
+				}
+			} else {
+				nox_xxx_aud_501960(319, u, 0, 0)
+			}
+		}
+		if ud.field_22_3 < 100 {
+			ud.field_22_3 += C.uchar(100 / gameFPS())
+		}
+	}
+	if ud.field_54 != 0 && ud.field_47_0 == 0 && (gameFrame()-uint32(ud.field_54)) > memmap.Uint32(0x852978, 16) {
+		C.nox_xxx_playerSpell_4FB2A0_magic_plyrspel(u.CObj()) // (manual?) spell casting
+		ud.field_54 = 0
+	}
+	nox_xxx_playerInventory_4F8420(u)
+	C.nox_xxx_unitUpdatePlayerImpl_4F8460(u.CObj())
+	if u.testBuff(8) && ud.field_22_0 != 1 {
+		C.nox_xxx_playerSetState_4FA020(u.CObj(), 5)
+	}
+	C.nox_xxx_questCheckSecretArea_421C70(u.CObj())
+	if ud.harpoon != nil {
+		if (ud.harpoon.field_4 & 0x20) != 0 {
+			nox_xxx_harpoonBreakForPlr_537520(u)
+		} else {
+			force := gamedataFloat("HarpoonForce")
+			C.sub_4E7540(u.CObj(), ud.harpoon)
+			asObjectC(ud.harpoon).applyForce(u.Pos(), -force)
+		}
+	}
+}
+
+//export nox_xxx_objectApplyForce_52DF80
+func nox_xxx_objectApplyForce_52DF80(vec *C.float, obj *C.nox_object_t, force C.float) {
+	asObjectC(obj).applyForce(asPointf(unsafe.Pointer(vec)), float64(force))
+}
+
+func nox_xxx_playerInventory_4F8420(u *Unit) {
+	for it := u.FirstItem(); it != nil; it = it.NextItem() {
+		if it.Flags16()&0x100 != 0 {
+			if !C.nox_xxx_playerCheckStrength_4F3180(u.CObj(), it.CObj()) {
+				u.forceDrop(it)
+			}
+		}
+	}
+}
+
+func (obj *Object) applyForce(vec types.Pointf, force float64) { // nox_xxx_objectApplyForce_52DF80
+	if !obj.IsMovable() {
+		return
+	}
+	dp := obj.Pos().Sub(vec)
+	r := dp.Len() + 0.1
+	f := 10.0 * force / float64(obj.Mass())
+	obj.force_x += C.float(float64(dp.X) * f / r)
+	obj.force_y += C.float(float64(dp.Y) * f / r)
+	if !obj.Class().Has(object.ClassMissile) {
+		C.nox_xxx_unitHasCollideOrUpdateFn_537610(obj.CObj())
+	}
+}
+
+func nox_xxx_harpoonBreakForPlr_537520(u *Unit) {
+	C.sub_5374D0(u.CObj())
+	nox_xxx_aud_501960(998, u, 0, 0)
+}
+
+func nox_xxx_aud_501960(a1 int, u *Unit, a3, a4 int) {
+	C.nox_xxx_aud_501960(C.int(a1), u.CObj(), C.int(a3), C.int(a4))
+}
+
+func sub_4F9E70(u *Unit) {
+	v1 := memmap.Uint32(0x5D4594, 1392)
+	v3 := unsafe.Slice((*uint16)(u.field_139), 3)
+	if u.Flags16()&0x8000 == 0 && v3 != nil && v3[0] != 0 && (gameFrame()%(v1*gameFPS()/uint32(v3[2]))) == 0 {
+		C.nox_xxx_unitDamageClear_4EE5E0(u.CObj(), 1)
+	}
+}
+
+func sub_4F9ED0(u *Unit) {
+	ud := u.updateDataPlayer()
+	v3 := unsafe.Slice((*uint16)(u.field_139), 3)
+	if (u.Flags16() & 0x8000) != 0 {
+		return
+	}
+	if v3 != nil && (gameFrame()-uint32(u.field_134)) > gameFPS() {
+		v5 := v3[2]
+		if v3[0] < v5 && v5 != 0 && (gameFrame()%(300*gameFPS()/uint32(v3[2]))) == 0 {
+			C.nox_xxx_unitAdjustHP_4EE460(u.CObj(), 1)
+		}
+	}
+	if ud.mana_cur < ud.mana_max && (gameFrame()%(300*gameFPS()/uint32(ud.mana_max))) == 0 {
+		C.nox_xxx_playerManaAdd_4EEB80(u.CObj(), 1)
+	}
 }
