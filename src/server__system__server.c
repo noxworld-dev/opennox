@@ -1937,6 +1937,245 @@ int sub_51A920(int a1) {
 }
 
 //----- (0051B100) --------------------------------------------------------
+void nox_xxx_updateUnits_51B100_A() {
+	for (nox_object_t* u = nox_xxx_getFirstPlayerUnit_4DA7C0(); u; u = nox_xxx_getNextPlayerUnit_4DA7F0(u)) {
+		void* ud = u->data_update;
+		nox_xxx_itemApplyUpdateEffect_4FA490(u);
+		*(uint32_t*)((int)ud + 288) = nox_xxx_findObjectAtCursor_54AF40(u);
+	}
+}
+
+void nox_xxx_updateUnits_51B100_B() {
+	int v2 = nox_xxx_getFirstUpdatableObject_4DA8A0();
+	if (v2) {
+		int v3 = 0;
+		do {
+			v3 = nox_xxx_getNextUpdatableObject_4DA8B0(v2);
+			if (!(*(uint8_t*)(v2 + 16) & 0x20)) {
+				int v4 = *(uint32_t*)(v2 + 520);
+				if (v4 && *(uint8_t*)(v4 + 16) & 0x20) {
+					int v5 = *(uint32_t*)(v4 + 508);
+					if (!v5 || *(uint8_t*)(v5 + 16) & 0x20) {
+						*(uint32_t*)(v2 + 520) = 0;
+					} else {
+						*(uint32_t*)(v2 + 520) = v5;
+					}
+				}
+				void (*v6)(int);
+				v6 = *(void (**)(int))(v2 + 744);
+				if (v6) {
+					if (*(uint8_t*)(v2 + 8) & 4) {
+						int v7 = *(uint32_t*)(v2 + 748);
+						if (!(*(uint8_t*)(v2 + 16) & 2)) {
+							v6(v2); // update function for the player
+						}
+						nox_xxx_playerCmd_51AC30(*(unsigned char*)(*(uint32_t*)(v7 + 276) + 2064));
+					} else if (!(*(uint8_t*)(v2 + 16) & 2)) {
+						v6(v2);
+					}
+				}
+				if (*(uint8_t*)(v2 + 8) & 2) {
+					nox_xxx_unitNeedSync_4E44F0(v2);
+				}
+				nox_xxx_updateFallLogic_51B870(v2);
+				uint16_t* v8 = *(uint16_t**)(v2 + 556);
+				if (v8) {
+					v8[1] = *v8;
+				}
+				double v9 = *(float*)(v2 + 64) - *(float*)(v2 + 56);
+				*(uint32_t*)(v2 + 16) &= 0xFFEFFFFF;
+				float v58 = v9;
+				float v61 = sub_419A10(v58);
+				float v59 = *(float*)(v2 + 68) - *(float*)(v2 + 60);
+				float v62 = sub_419A10(v59);
+				// Checks if fields are within 0.01d of...something?
+				if (*(float*)(v2 + 88) <= *(double*)&qword_581450_10392 ||
+					*(float*)(v2 + 88) >= *(double*)&qword_581450_10256 ||
+					*(float*)(v2 + 92) <= *(double*)&qword_581450_10392 ||
+					*(float*)(v2 + 92) >= *(double*)&qword_581450_10256 ||
+					*(float*)(v2 + 80) <= *(double*)&qword_581450_10392 ||
+					*(float*)(v2 + 80) >= *(double*)&qword_581450_10256 ||
+					*(float*)(v2 + 84) <= *(double*)&qword_581450_10392 ||
+					*(float*)(v2 + 84) >= *(double*)&qword_581450_10256 || v61 <= *(double*)&qword_581450_10392 ||
+					v61 >= *(double*)&qword_581450_10256 || v62 <= *(double*)&qword_581450_10392 ||
+					v62 >= *(double*)&qword_581450_10256 || *(float*)(v2 + 104) <= *(double*)&qword_581450_10392 ||
+					*(float*)(v2 + 104) >= *(double*)&qword_581450_10256 ||
+					*(float*)(v2 + 108) <= *(double*)&qword_581450_10392 ||
+					*(float*)(v2 + 108) >= *(double*)&qword_581450_10256) {
+					nox_xxx_unitHasCollideOrUpdateFn_537610(v2);
+					*(uint32_t*)(v2 + 16) &= 0xF7FFFFFF;
+				} else {
+					*(uint32_t*)(v2 + 88) = 0;
+					*(uint32_t*)(v2 + 92) = 0;
+					*(uint32_t*)(v2 + 80) = 0;
+					*(uint32_t*)(v2 + 84) = 0;
+					nox_xxx_unitRaise_4E46F0(v2, 0.0);
+					int v10 = *(uint32_t*)(v2 + 56);
+					*(uint32_t*)(v2 + 68) = *(uint32_t*)(v2 + 60);
+					int v11 = *(uint32_t*)(v2 + 16);
+					*(uint32_t*)(v2 + 64) = v10;
+					int v12 = *(uint32_t*)(v2 + 744);
+					*(uint32_t*)(v2 + 108) = 0;
+					*(uint32_t*)(v2 + 16) = v11 | 0x8000000;
+					if (!v12) {
+						nox_xxx_unitRemoveFromUpdatable_4DA920((uint32_t*)v2);
+					}
+				}
+			}
+			v2 = v3;
+		} while (v3);
+	}
+}
+
+void nox_xxx_updateUnits_51B100_C() {
+	for (int k = nox_xxx_getFirstUpdatableObject_4DA8A0(); k; k = nox_xxx_getNextUpdatableObject_4DA8B0(k)) {
+		int v20 = *(uint32_t*)(k + 64);
+		int v21 = *(uint32_t*)(k + 60);
+		*(uint32_t*)(k + 72) = *(uint32_t*)(k + 56);
+		int v22 = *(uint32_t*)(k + 68);
+		*(uint32_t*)(k + 56) = v20; // updates unit coords
+		LOBYTE(v20) = *(uint8_t*)(k + 541);
+		*(uint32_t*)(k + 76) = v21;
+		LOWORD(v21) = *(uint16_t*)(k + 126);
+		*(uint32_t*)(k + 60) = v22;
+		*(uint32_t*)(k + 88) = 0;
+		*(uint32_t*)(k + 92) = 0;
+		*(uint16_t*)(k + 124) = v21;
+		if ((unsigned char)v20 > 4u) {
+			*(uint8_t*)(k + 541) = 4;
+		}
+		*(float*)(k + 544) = (*(float*)(k + 552) + *(float*)(k + 548)) * (5.0 - (double)*(unsigned char*)(k + 541)) * 0.2;
+		if (nox_xxx_testUnitBuffs_4FF350(k, 4)) {
+			*(float*)(k + 544) = *(float*)(k + 544) * 0.5; // switch back from running
+		}
+		if (*(uint8_t*)(k + 541) || *(uint8_t*)(k + 540)) {
+			short v23 = *(uint16_t*)(k + 542);
+			if (v23 > 0) {
+				short v24 = v23 - 1;
+				*(uint16_t*)(k + 542) = v24;
+				if (!v24) {
+					char v25 = *(uint8_t*)(k + 541);
+					if (v25) {
+						*(uint8_t*)(k + 541) = v25 - 1;
+					}
+					if (*(uint8_t*)(k + 540)) {
+						int v26 = *(uint32_t*)(k + 16);
+						if ((v26 & 0x8000) == 0) {
+							nox_xxx_updatePoison_4EE8F0(k, 1);
+						}
+					}
+					*(uint16_t*)(k + 542) = 1000;
+				}
+			}
+		}
+		nox_xxx_updateUnitBuffs_4FF620(k);
+		if (*(uint8_t*)(k + 540)) {
+			uint16_t* v27 = *(uint16_t**)(k + 556);
+			if (v27) {
+				if (v27[2] > 0u && *v27 > 0u) {
+					int v28 = nox_common_gameFlags_check_40A5C0(4096);
+					int v29 = *(uint32_t*)(*(uint32_t*)(k + 556) + 16);
+					int v30 = v28 + 1;
+					if (!v29 || (unsigned int)(nox_frame_xxx_2598000 - v29) > 0x3C) {
+						unsigned char v31 = *(uint8_t*)(k + 540);
+						if (v31 > 8u || !(nox_frame_xxx_2598000 % (unsigned int)(128 >> (v31 - 1)))) {
+							(*(void (**)(int, uint32_t, uint32_t, int, int))(k + 716))(k, 0, 0, v30, 5);
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+void nox_xxx_updateUnits_51B100_D() {
+	uint8_t* v32 = nox_xxx_wallSecretGetFirstWall_410780();
+	if (v32) {
+		char v33 = 0;
+		for (; v32; v32 = (uint8_t*)nox_xxx_wallSecretNext_410790((int*)v32)) {
+			switch (v32[21]) {
+			case 1:;
+				char v47 = v32[20];
+				if (!((v47 & 4) && ((v47 & 8) == 8))) {
+					v33 = 0;
+					break;
+				}
+				int v48 = *((uint32_t*)v32 + 6) - 1;
+				*((uint32_t*)v32 + 6) = v48;
+				if (v48) {
+					v33 = 0;
+					break;
+				}
+				int v49 = *((uint32_t*)v32 + 1);
+				v32[21] = 4;
+				int v50 = 23 * v49;
+				int v51 = *((uint32_t*)v32 + 2);
+				double v52 = (double)(v50 + 11);
+				int v53 = *((uint32_t*)v32 + 3);
+				float2 v64;
+				v64.field_0 = v52;
+				v64.field_4 = (double)(23 * v51 + 11);
+				char* v54 = nox_xxx_wallFindOpenSound_410EE0(*(unsigned char*)(v53 + 1));
+				int v55 = nox_xxx_utilFindSound_40AF50(v54);
+				nox_xxx_audCreate_501A30(v55, &v64, 0, 0);
+				v33 = 0;
+				break;
+			case 2:;
+				char v36 = v32[22] - 1;
+				v32[22] = v36;
+				if (!v36) {
+					int v37 = *((uint32_t*)v32 + 4);
+					v32[21] = 1;
+					*((uint32_t*)v32 + 6) = nox_gameFPS * v37;
+				}
+				v33 = 1;
+				break;
+			case 3:;
+				char v38 = v32[20];
+				int v39 = 0;
+				if (!(!(v38 & 4) || v38 & 8 || (v39 = *((uint32_t*)v32 + 6) - 1, (*((uint32_t*)v32 + 6) = v39) != 0))) {
+					int v40 = *((uint32_t*)v32 + 1);
+					v32[21] = 2;
+					int v41 = 23 * v40;
+					int v42 = *((uint32_t*)v32 + 2);
+					double v43 = (double)(v41 + 11);
+					int v44 = *((uint32_t*)v32 + 3);
+					float2 v63;
+					v63.field_0 = v43;
+					v63.field_4 = (double)(23 * v42 + 11);
+					char* v45 = nox_xxx_wallFindCloseSound_410F20(*(unsigned char*)(v44 + 1));
+					int v46 = nox_xxx_utilFindSound_40AF50(v45);
+					nox_xxx_audCreate_501A30(v46, &v63, 0, 0);
+				}
+				v33 = 0;
+				break;
+			case 4:;
+				char v34 = v32[22] + 1;
+				v32[22] = v34;
+				if (v34 == 23) {
+					int v35 = *((uint32_t*)v32 + 4);
+					v32[21] = 3;
+					*((uint32_t*)v32 + 6) = nox_gameFPS * v35;
+				}
+				v33 = 1;
+				break;
+			default:
+				break;
+			}
+			if (v33) {
+				double v56 = (double)(int)(23 * *((uint32_t*)v32 + 1)) + 11.5;
+				double v65 = (double)(int)(23 * *((uint32_t*)v32 + 2)) + 11.5;
+				float4 v66;
+				v66.field_0 = v56 - 42.5;
+				v66.field_4 = v65 - 42.5;
+				v66.field_8 = v56 + 42.5;
+				v66.field_C = v65 + 42.5;
+				nox_xxx_getUnitsInRect_517C10(&v66, sub_51B860, 0);
+			}
+		}
+	}
+}
+
 void nox_xxx_updateUnits_51B100_callUpdate() {
 	for (nox_object_t* obj = nox_xxx_getFirstUpdatable2Object_4DA840(); obj; obj = nox_xxx_getNextUpdatable2Object_4DA850(obj)) {
 		if ((obj->field_4 & 0x22) == 0) {
@@ -1962,297 +2201,18 @@ void nox_xxx_updateUnits_51B100_callUpdate() {
 	}
 }
 
+#ifndef NOX_CGO
 void nox_xxx_updateUnits_51B100() {
-	int i;             // esi
-	int v1;            // edi
-	int v2;            // esi
-	int v3;            // ebx
-	int v4;            // eax
-	int v5;            // eax
-	void (*v6)(int);   // eax
-	int v7;            // edi
-	uint16_t* v8;      // eax
-	double v9;         // st7
-	int v10;           // eax
-	int v11;           // ecx
-	int v12;           // eax
-	void (*v14)(int);  // eax
-	int k;             // esi
-	int v20;           // eax
-	int v21;           // edx
-	int v22;           // ecx
-	short v23;         // ax
-	short v24;         // ax
-	char v25;          // al
-	int v26;           // eax
-	uint16_t* v27;     // eax
-	int v28;           // edi
-	int v29;           // ecx
-	int v30;           // edi
-	unsigned char v31; // cl
-	uint8_t* v32;      // esi
-	char v33;          // bl
-	char v34;          // al
-	int v35;           // edx
-	char v36;          // al
-	int v37;           // eax
-	char v38;          // al
-	int v39;           // eax
-	int v40;           // eax
-	int v41;           // ecx
-	int v42;           // eax
-	double v43;        // st7
-	int v44;           // ecx
-	char* v45;         // eax
-	int v46;           // eax
-	char v47;          // al
-	int v48;           // eax
-	int v49;           // eax
-	int v50;           // ecx
-	int v51;           // eax
-	double v52;        // st7
-	int v53;           // ecx
-	char* v54;         // eax
-	int v55;           // eax
-	double v56;        // st7
-	float v58;         // [esp+0h] [ebp-48h]
-	float v59;         // [esp+0h] [ebp-48h]
-	char v60 = 0;      // [esp+17h] [ebp-31h]
-	float v61;         // [esp+18h] [ebp-30h]
-	float v62;         // [esp+1Ch] [ebp-2Ch]
-	float2 v63;        // [esp+20h] [ebp-28h]
-	float2 v64;        // [esp+28h] [ebp-20h]
-	float v65;         // [esp+34h] [ebp-14h]
-	float4 v66;
-
-	for (i = nox_xxx_getFirstPlayerUnit_4DA7C0(); i; i = nox_xxx_getNextPlayerUnit_4DA7F0(i)) {
-		v1 = *(uint32_t*)(i + 748);
-		nox_xxx_itemApplyUpdateEffect_4FA490(i);
-		*(uint32_t*)(v1 + 288) = nox_xxx_findObjectAtCursor_54AF40(i);
-	}
-	v2 = nox_xxx_getFirstUpdatableObject_4DA8A0();
-	if (v2) {
-		do {
-			v3 = nox_xxx_getNextUpdatableObject_4DA8B0(v2);
-			if (!(*(uint8_t*)(v2 + 16) & 0x20)) {
-				v4 = *(uint32_t*)(v2 + 520);
-				if (v4 && *(uint8_t*)(v4 + 16) & 0x20) {
-					v5 = *(uint32_t*)(v4 + 508);
-					if (!v5 || *(uint8_t*)(v5 + 16) & 0x20) {
-						*(uint32_t*)(v2 + 520) = 0;
-					} else {
-						*(uint32_t*)(v2 + 520) = v5;
-					}
-				}
-				v6 = *(void (**)(int))(v2 + 744);
-				if (v6) {
-					if (*(uint8_t*)(v2 + 8) & 4) {
-						v7 = *(uint32_t*)(v2 + 748);
-						if (!(*(uint8_t*)(v2 + 16) & 2)) {
-							v6(v2); // update function for the player
-						}
-						nox_xxx_playerCmd_51AC30(*(unsigned char*)(*(uint32_t*)(v7 + 276) + 2064));
-					} else if (!(*(uint8_t*)(v2 + 16) & 2)) {
-						v6(v2);
-					}
-				}
-				if (*(uint8_t*)(v2 + 8) & 2) {
-					nox_xxx_unitNeedSync_4E44F0(v2);
-				}
-				nox_xxx_updateFallLogic_51B870(v2);
-				v8 = *(uint16_t**)(v2 + 556);
-				if (v8) {
-					v8[1] = *v8;
-				}
-				v9 = *(float*)(v2 + 64) - *(float*)(v2 + 56);
-				*(uint32_t*)(v2 + 16) &= 0xFFEFFFFF;
-				v58 = v9;
-				v61 = sub_419A10(v58);
-				v59 = *(float*)(v2 + 68) - *(float*)(v2 + 60);
-				v62 = sub_419A10(v59);
-				// Checks if fields are within 0.01d of...something?
-				if (*(float*)(v2 + 88) <= *(double*)&qword_581450_10392 ||
-					*(float*)(v2 + 88) >= *(double*)&qword_581450_10256 ||
-					*(float*)(v2 + 92) <= *(double*)&qword_581450_10392 ||
-					*(float*)(v2 + 92) >= *(double*)&qword_581450_10256 ||
-					*(float*)(v2 + 80) <= *(double*)&qword_581450_10392 ||
-					*(float*)(v2 + 80) >= *(double*)&qword_581450_10256 ||
-					*(float*)(v2 + 84) <= *(double*)&qword_581450_10392 ||
-					*(float*)(v2 + 84) >= *(double*)&qword_581450_10256 || v61 <= *(double*)&qword_581450_10392 ||
-					v61 >= *(double*)&qword_581450_10256 || v62 <= *(double*)&qword_581450_10392 ||
-					v62 >= *(double*)&qword_581450_10256 || *(float*)(v2 + 104) <= *(double*)&qword_581450_10392 ||
-					*(float*)(v2 + 104) >= *(double*)&qword_581450_10256 ||
-					*(float*)(v2 + 108) <= *(double*)&qword_581450_10392 ||
-					*(float*)(v2 + 108) >= *(double*)&qword_581450_10256) {
-					nox_xxx_unitHasCollideOrUpdateFn_537610(v2);
-					*(uint32_t*)(v2 + 16) &= 0xF7FFFFFF;
-				} else {
-					*(uint32_t*)(v2 + 88) = 0;
-					*(uint32_t*)(v2 + 92) = 0;
-					*(uint32_t*)(v2 + 80) = 0;
-					*(uint32_t*)(v2 + 84) = 0;
-					nox_xxx_unitRaise_4E46F0(v2, 0.0);
-					v10 = *(uint32_t*)(v2 + 56);
-					*(uint32_t*)(v2 + 68) = *(uint32_t*)(v2 + 60);
-					v11 = *(uint32_t*)(v2 + 16);
-					*(uint32_t*)(v2 + 64) = v10;
-					v12 = *(uint32_t*)(v2 + 744);
-					*(uint32_t*)(v2 + 108) = 0;
-					*(uint32_t*)(v2 + 16) = v11 | 0x8000000;
-					if (!v12) {
-						nox_xxx_unitRemoveFromUpdatable_4DA920((uint32_t*)v2);
-					}
-				}
-			}
-			v2 = v3;
-		} while (v3);
-	}
+	nox_xxx_updateUnits_51B100_A();
+	nox_xxx_updateUnits_51B100_B();
 	nox_xxx_updateUnits_51B100_callUpdate();
 	nox_xxx_collisions_511850();
-	for (k = nox_xxx_getFirstUpdatableObject_4DA8A0(); k; k = nox_xxx_getNextUpdatableObject_4DA8B0(k)) {
-		v20 = *(uint32_t*)(k + 64);
-		v21 = *(uint32_t*)(k + 60);
-		*(uint32_t*)(k + 72) = *(uint32_t*)(k + 56);
-		v22 = *(uint32_t*)(k + 68);
-		*(uint32_t*)(k + 56) = v20; // updates unit coords
-		LOBYTE(v20) = *(uint8_t*)(k + 541);
-		*(uint32_t*)(k + 76) = v21;
-		LOWORD(v21) = *(uint16_t*)(k + 126);
-		*(uint32_t*)(k + 60) = v22;
-		*(uint32_t*)(k + 88) = 0;
-		*(uint32_t*)(k + 92) = 0;
-		*(uint16_t*)(k + 124) = v21;
-		if ((unsigned char)v20 > 4u) {
-			*(uint8_t*)(k + 541) = 4;
-		}
-		*(float*)(k + 544) =
-			(*(float*)(k + 552) + *(float*)(k + 548)) * (5.0 - (double)*(unsigned char*)(k + 541)) * 0.2;
-		if (nox_xxx_testUnitBuffs_4FF350(k, 4)) {
-			*(float*)(k + 544) = *(float*)(k + 544) * 0.5; // switch back from running
-		}
-		if (*(uint8_t*)(k + 541) || *(uint8_t*)(k + 540)) {
-			v23 = *(uint16_t*)(k + 542);
-			if (v23 > 0) {
-				v24 = v23 - 1;
-				*(uint16_t*)(k + 542) = v24;
-				if (!v24) {
-					v25 = *(uint8_t*)(k + 541);
-					if (v25) {
-						*(uint8_t*)(k + 541) = v25 - 1;
-					}
-					if (*(uint8_t*)(k + 540)) {
-						v26 = *(uint32_t*)(k + 16);
-						if ((v26 & 0x8000) == 0) {
-							nox_xxx_updatePoison_4EE8F0(k, 1);
-						}
-					}
-					*(uint16_t*)(k + 542) = 1000;
-				}
-			}
-		}
-		nox_xxx_updateUnitBuffs_4FF620(k);
-		if (*(uint8_t*)(k + 540)) {
-			v27 = *(uint16_t**)(k + 556);
-			if (v27) {
-				if (v27[2] > 0u && *v27 > 0u) {
-					v28 = nox_common_gameFlags_check_40A5C0(4096);
-					v29 = *(uint32_t*)(*(uint32_t*)(k + 556) + 16);
-					v30 = v28 + 1;
-					if (!v29 || (unsigned int)(nox_frame_xxx_2598000 - v29) > 0x3C) {
-						v31 = *(uint8_t*)(k + 540);
-						if (v31 > 8u || !(nox_frame_xxx_2598000 % (unsigned int)(128 >> (v31 - 1)))) {
-							(*(void (**)(int, uint32_t, uint32_t, int, int))(k + 716))(k, 0, 0, v30, 5);
-						}
-					}
-				}
-			}
-		}
-	}
-	v32 = nox_xxx_wallSecretGetFirstWall_410780();
-	if (v32) {
-		v33 = v60;
-		for (; v32; v32 = (uint8_t*)nox_xxx_wallSecretNext_410790((int*)v32)) {
-			switch (v32[21]) {
-			case 1:
-				v47 = v32[20];
-				if (!((v47 & 4) && ((v47 & 8) == 8))) {
-					v33 = 0;
-					break;
-				}
-				v48 = *((uint32_t*)v32 + 6) - 1;
-				*((uint32_t*)v32 + 6) = v48;
-				if (v48) {
-					v33 = 0;
-					break;
-				}
-				v49 = *((uint32_t*)v32 + 1);
-				v32[21] = 4;
-				v50 = 23 * v49;
-				v51 = *((uint32_t*)v32 + 2);
-				v52 = (double)(v50 + 11);
-				v53 = *((uint32_t*)v32 + 3);
-				v64.field_0 = v52;
-				v64.field_4 = (double)(23 * v51 + 11);
-				v54 = nox_xxx_wallFindOpenSound_410EE0(*(unsigned char*)(v53 + 1));
-				v55 = nox_xxx_utilFindSound_40AF50(v54);
-				nox_xxx_audCreate_501A30(v55, &v64, 0, 0);
-				v33 = 0;
-				break;
-			case 2:
-				v36 = v32[22] - 1;
-				v32[22] = v36;
-				if (!v36) {
-					v37 = *((uint32_t*)v32 + 4);
-					v32[21] = 1;
-					*((uint32_t*)v32 + 6) = nox_gameFPS * v37;
-				}
-				v33 = 1;
-				break;
-			case 3:
-				v38 = v32[20];
-				if (!(!(v38 & 4) || v38 & 8 || (v39 = *((uint32_t*)v32 + 6) - 1, (*((uint32_t*)v32 + 6) = v39) != 0))) {
-					v40 = *((uint32_t*)v32 + 1);
-					v32[21] = 2;
-					v41 = 23 * v40;
-					v42 = *((uint32_t*)v32 + 2);
-					v43 = (double)(v41 + 11);
-					v44 = *((uint32_t*)v32 + 3);
-					v63.field_0 = v43;
-					v63.field_4 = (double)(23 * v42 + 11);
-					v45 = nox_xxx_wallFindCloseSound_410F20(*(unsigned char*)(v44 + 1));
-					v46 = nox_xxx_utilFindSound_40AF50(v45);
-					nox_xxx_audCreate_501A30(v46, &v63, 0, 0);
-				}
-				v33 = 0;
-				break;
-			case 4:
-				v34 = v32[22] + 1;
-				v32[22] = v34;
-				if (v34 == 23) {
-					v35 = *((uint32_t*)v32 + 4);
-					v32[21] = 3;
-					*((uint32_t*)v32 + 6) = nox_gameFPS * v35;
-				}
-				v33 = 1;
-				break;
-			default:
-				break;
-			}
-			if (v33) {
-				v56 = (double)(int)(23 * *((uint32_t*)v32 + 1)) + 11.5;
-				v65 = (double)(int)(23 * *((uint32_t*)v32 + 2)) + 11.5;
-				v66.field_0 = v56 - 42.5;
-				v66.field_4 = v65 - 42.5;
-				v66.field_8 = v56 + 42.5;
-				v66.field_C = v65 + 42.5;
-				nox_xxx_getUnitsInRect_517C10(&v66, sub_51B860, 0);
-			}
-		}
-	}
+	nox_xxx_updateUnits_51B100_C();
+	nox_xxx_updateUnits_51B100_D();
 	nox_xxx_decay_511750();
 	nox_server_checkVictory_509A60();
 }
-// 51B5E7: variable 'v60' is possibly undefined
+#endif // NOX_CGO
 
 //----- (005524C0) --------------------------------------------------------
 void sub_5524C0() {

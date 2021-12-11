@@ -59,6 +59,12 @@ void sub_4FC680();
 bool sub_57B140();
 //int sub_417C60();
 //int nox_xxx_freeObjectTypes_4E2A20();
+
+void nox_xxx_updateUnits_51B100_A();
+void nox_xxx_updateUnits_51B100_B();
+void nox_xxx_updateUnits_51B100_C();
+void nox_xxx_updateUnits_51B100_D();
+void nox_xxx_updateUnits_51B100_callUpdate();
 */
 import "C"
 import (
@@ -167,6 +173,17 @@ func gameFrameInc() {
 	C.nox_frame_xxx_2598000++
 }
 
+func serverUpdateUnits() { // nox_xxx_updateUnits_51B100
+	C.nox_xxx_updateUnits_51B100_A()
+	C.nox_xxx_updateUnits_51B100_B()
+	C.nox_xxx_updateUnits_51B100_callUpdate()
+	C.nox_xxx_collisions_511850()
+	C.nox_xxx_updateUnits_51B100_C()
+	C.nox_xxx_updateUnits_51B100_D()
+	C.nox_xxx_decay_511750()
+	C.nox_server_checkVictory_509A60()
+}
+
 func nox_xxx_gameTick_4D2580_server_B(ticks uint64) bool {
 	C.nox_xxx_updateServer_4D2DA0(C.longlong(ticks))
 	nox_server_netMaybeSendInitialPackets_4DEB30()
@@ -180,7 +197,7 @@ func nox_xxx_gameTick_4D2580_server_B(ticks uint64) bool {
 	C.sub_40B970()
 	C.sub_40B790()
 	if !noxflags.HasGame(noxflags.GamePause) {
-		C.nox_xxx_updateUnits_51B100()
+		serverUpdateUnits()
 		C.sub_4EC720()
 		if noxflags.HasGame(noxflags.GameModeQuest) {
 			C.sub_50D890()
