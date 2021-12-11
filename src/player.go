@@ -675,13 +675,13 @@ func newPlayer(ind int, opts *PlayerOpts) int {
 	pl.field_2152 = 0
 	pl.netCode = punit.field_9
 	pl.field_2156 = C.uint(C.nox_xxx_scavengerTreasureMax_4D1600())
-	yyy := punit.updateDataPtr()
+	udata := punit.updateDataPlayer()
 	xxx := punit.ptrXxx()
-	*(**Player)(unsafe.Add(yyy, 276)) = pl
+	udata.player = pl.C()
 	pl.field_4584 = C.uint(protectUint16(*(*uint16)(unsafe.Add(xxx, 0))))
 	pl.field_4592 = C.uint(protectUint16(*(*uint16)(unsafe.Add(xxx, 4))))
-	pl.field_4596 = C.uint(protectUint16(*(*uint16)(unsafe.Add(yyy, 4))))
-	pl.field_4600 = C.uint(protectUint16(*(*uint16)(unsafe.Add(yyy, 8))))
+	pl.field_4596 = C.uint(protectUint16(uint16(udata.mana_cur)))
+	pl.field_4600 = C.uint(protectUint16(uint16(udata.mana_max)))
 	pl.field_4604 = C.uint(protectFloat32(*(*float32)(unsafe.Pointer(&punit.field_7))))
 	pl.field_4608 = C.uint(protectFloat32(float32(punit.float_30)))
 	pl.field_4612 = C.uint(protectInt(int(*(*uint32)(&punit.field_85))))
@@ -779,8 +779,8 @@ func sub_4E8210(u *Unit) (types.Pointf, bool) {
 		v2  unsafe.Pointer
 	)
 	for _, u2 := range getPlayerUnits() {
-		ptr := u2.updateDataPtr()
-		ptr2 := *(*unsafe.Pointer)(unsafe.Add(ptr, 308))
+		ptr := u2.updateDataPlayer()
+		ptr2 := ptr.field_77
 		if ptr2 == nil {
 			continue
 		}
@@ -792,7 +792,8 @@ func sub_4E8210(u *Unit) (types.Pointf, bool) {
 	if v2 == nil {
 		return types.Pointf{}, false
 	}
-	*(*unsafe.Pointer)(unsafe.Pointer(uintptr(u.updateDataPtr()) + 308)) = v2
+	ud := u.updateDataPlayer()
+	ud.field_77 = v2
 	out := sub_4ED970(60.0, asPointf(unsafe.Add(v2, 7*8)))
 	return out, true
 }
