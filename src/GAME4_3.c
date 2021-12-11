@@ -5883,7 +5883,8 @@ int sub_537750(int a1) {
 unsigned int sub_537760() { return dword_5d4594_2488620 != 0 ? (unsigned int)getMemAt(0x5D4594, 2488612) : 0; }
 
 //----- (00537770) --------------------------------------------------------
-char sub_537770(int a1) {
+void sub_537770(nox_object_t* a1p) {
+	int a1 = a1p;
 	int v1;    // eax
 	int v3;    // [esp+0h] [ebp-Ch]
 	float2 v4; // [esp+4h] [ebp-8h]
@@ -5912,7 +5913,6 @@ char sub_537770(int a1) {
 			}
 		}
 	}
-	return v1;
 }
 
 //----- (00537850) --------------------------------------------------------

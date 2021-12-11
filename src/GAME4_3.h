@@ -201,7 +201,7 @@ int sub_537700();
 int sub_537740();
 int sub_537750(int a1);
 unsigned int sub_537760();
-char sub_537770(int a1);
+void sub_537770(nox_object_t* a1);
 char nox_xxx_projectileTraceHit_537850(int a1, int* a2, float2* a3);
 uint32_t* nox_xxx_sMakeScorch_537AF0(int* a1, int a2);
 int nox_xxx_scorchInit_537BD0();

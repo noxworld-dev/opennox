@@ -8658,7 +8658,8 @@ int nox_xxx_playerCmd_51AC30(int a1) {
 int nox_xxx_playerCmdGet_51AC40(int a1) { return *getMemU32Ptr(0x5D4594, 2388804 + 4 * a1) == 0; }
 
 //----- (0051B810) --------------------------------------------------------
-int sub_51B810(int a1) {
+void sub_51B810(nox_object_t* a1p) {
+	int a1 = a1p;
 	float* v1; // eax
 	double v2; // st7
 	int v3;    // edx
@@ -8678,14 +8679,15 @@ int sub_51B810(int a1) {
 	v1[21] = v7;
 	v1[16] = v4 + v1[16];
 	v1[17] = v7 + v1[17];
-	return nox_xxx_objectUnkUpdateCoords_4E7290(v6);
+	nox_xxx_objectUnkUpdateCoords_4E7290(v6);
 }
 
 //----- (0051B860) --------------------------------------------------------
 char sub_51B860(int a1) { return nox_xxx_unitHasCollideOrUpdateFn_537610(a1); }
 
 //----- (0051B870) --------------------------------------------------------
-void nox_xxx_updateFallLogic_51B870(int a1) {
+void nox_xxx_updateFallLogic_51B870(nox_object_t* a1p) {
+	int a1 = a1p;
 	int v1;         // esi
 	int v2;         // ecx
 	double v3;      // st7

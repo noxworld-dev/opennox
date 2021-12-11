@@ -64,7 +64,6 @@ void nox_xxx_updateUnits_51B100_A();
 void nox_xxx_updateUnits_51B100_B();
 void nox_xxx_updateUnits_51B100_C();
 void nox_xxx_updateUnits_51B100_D();
-void nox_xxx_updateUnits_51B100_callUpdate();
 */
 import "C"
 import (
@@ -176,7 +175,7 @@ func gameFrameInc() {
 func serverUpdateUnits() { // nox_xxx_updateUnits_51B100
 	C.nox_xxx_updateUnits_51B100_A()
 	C.nox_xxx_updateUnits_51B100_B()
-	C.nox_xxx_updateUnits_51B100_callUpdate()
+	serverUpdateUnitsCallUpdate()
 	C.nox_xxx_collisions_511850()
 	C.nox_xxx_updateUnits_51B100_C()
 	C.nox_xxx_updateUnits_51B100_D()

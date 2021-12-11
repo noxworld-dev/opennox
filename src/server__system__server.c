@@ -2176,6 +2176,7 @@ void nox_xxx_updateUnits_51B100_D() {
 	}
 }
 
+#ifndef NOX_CGO
 void nox_xxx_updateUnits_51B100_callUpdate() {
 	for (nox_object_t* obj = nox_xxx_getFirstUpdatable2Object_4DA840(); obj; obj = nox_xxx_getNextUpdatable2Object_4DA850(obj)) {
 		if ((obj->field_4 & 0x22) == 0) {
@@ -2201,7 +2202,6 @@ void nox_xxx_updateUnits_51B100_callUpdate() {
 	}
 }
 
-#ifndef NOX_CGO
 void nox_xxx_updateUnits_51B100() {
 	nox_xxx_updateUnits_51B100_A();
 	nox_xxx_updateUnits_51B100_B();
