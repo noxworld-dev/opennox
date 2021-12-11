@@ -4136,7 +4136,8 @@ void sub_54AD50(int a1, int a2, int a3) {
 }
 
 //----- (0054AF40) --------------------------------------------------------
-int nox_xxx_findObjectAtCursor_54AF40(int a1) {
+void* nox_xxx_findObjectAtCursor_54AF40(nox_object_t* a1p) {
+	int a1 = a1p;
 	int v1;     // eax
 	double v2;  // st7
 	float2 a1a; // [esp+0h] [ebp-8h]

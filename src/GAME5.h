@@ -107,7 +107,7 @@ int sub_54A900(int a1);
 int sub_54A950(int a1);
 void sub_54AD50(int a1, int a2, int a3);
 double sub_54A990(float2* a1, float a2, int a3, float2* a4);
-int nox_xxx_findObjectAtCursor_54AF40(int a1);
+void* nox_xxx_findObjectAtCursor_54AF40(nox_object_t* a1);
 void nox_xxx_playerCursorScanFn_54AFB0(int a1, float* a2);
 int sub_54B2D0(int* a1, int a2, uint32_t* a3);
 int sub_54B810(int a1, int a2, int* a3, int2* a4, int a5);

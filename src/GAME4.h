@@ -47,7 +47,7 @@ int nox_xxx_unitGetStrength_4F9FD0(int a1);
 int nox_xxx_playerSetState_4FA020(uint32_t* a1, int a2);
 int sub_4FA280(int a1);
 int nox_common_mapPlrActionToStateId_4FA2B0(int a1);
-int nox_xxx_itemApplyUpdateEffect_4FA490(int a1);
+void nox_xxx_itemApplyUpdateEffect_4FA490(nox_object_t* a1);
 int nox_xxx_checkInversionEffect_4FA4F0(int a1, int a2);
 uint32_t* nox_xxx_playerAddGold_4FA590(int a1, int a2);
 uint32_t* nox_xxx_playerSubGold_4FA5D0(int a1, unsigned int a2);

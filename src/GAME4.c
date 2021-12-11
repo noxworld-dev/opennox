@@ -2921,7 +2921,8 @@ int nox_common_mapPlrActionToStateId_4FA2B0(int a1) {
 }
 
 //----- (004FA490) --------------------------------------------------------
-int nox_xxx_itemApplyUpdateEffect_4FA490(int a1) {
+void nox_xxx_itemApplyUpdateEffect_4FA490(nox_object_t* a1p) {
+	int a1 = a1p;
 	int result;                          // eax
 	uint32_t* i;                         // esi
 	int* v3;                             // edi
@@ -2947,7 +2948,6 @@ int nox_xxx_itemApplyUpdateEffect_4FA490(int a1) {
 			} while (v4);
 		}
 	}
-	return result;
 }
 
 //----- (004FA4F0) --------------------------------------------------------
