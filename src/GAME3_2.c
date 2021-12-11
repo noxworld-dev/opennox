@@ -8655,7 +8655,8 @@ int nox_xxx_sendGauntlet_4DCF80(int a1, char a2) {
 }
 
 //----- (004DCFB0) --------------------------------------------------------
-char sub_4DCFB0(int a1) {
+void sub_4DCFB0(nox_object_t* a1p) {
+	int a1 = a1p;
 	char result;         // al
 	int v2;              // edi
 	int v3;              // esi
@@ -8679,17 +8680,16 @@ char sub_4DCFB0(int a1) {
 				if (nox_xxx_playerSaveToFile_41A140(FileName, *(unsigned char*)(*(uint32_t*)(v3 + 276) + 2064))) {
 					v2 = sub_41CFA0(FileName, *(unsigned char*)(*(uint32_t*)(v3 + 276) + 2064));
 				}
-				result = nox_fs_remove(FileName);
+				nox_fs_remove(FileName);
 				if (v2) {
 				LABEL_13:
-					result = nox_xxx_player_4D7960(*(uint8_t*)(*(uint32_t*)(v3 + 276) + 2064));
+					nox_xxx_player_4D7960(*(uint8_t*)(*(uint32_t*)(v3 + 276) + 2064));
 				}
 			} else {
-				result = (unsigned int)nox_xxx_playerCallDisconnect_4DEAB0(*(unsigned char*)(v4 + 2064), 4);
+				nox_xxx_playerCallDisconnect_4DEAB0(*(unsigned char*)(v4 + 2064), 4);
 			}
 		}
 	}
-	return result;
 }
 
 //----- (004DD0B0) --------------------------------------------------------

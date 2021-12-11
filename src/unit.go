@@ -352,3 +352,15 @@ func (u *Unit) clearActionStack() { // aka nox_xxx_monsterClearActionStack_50A3A
 func (u *Unit) monsterPushAction(v int) unsafe.Pointer { // aka nox_xxx_monsterPushAction_50A260
 	return unsafe.Pointer(C.nox_xxx_monsterPushAction_50A260(u.CObj(), C.int(v)))
 }
+
+func (u *Unit) testBuff(v byte) bool { // nox_xxx_testUnitBuffs_4FF350
+	return uint32(u.field_85)&(uint32(1)<<v) != 0
+}
+
+func (u *Unit) makeUnseen() { // nox_xxx_objectMakeUnseenByNoone_4E44E0
+	u.field_38 = 0
+}
+
+func (u *Unit) needSync() { // nox_xxx_unitNeedSync_4E44F0
+	u.field_38 = -1
+}

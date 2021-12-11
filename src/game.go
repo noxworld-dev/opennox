@@ -1033,7 +1033,7 @@ func nox_xxx_mapExitAndCheckNext_4D1860_server() bool {
 				if C.nox_xxx_CheckGameplayFlags_417DA0(2) == 0 && !noxflags.HasGame(0x8000) {
 					v17 := unsafe.Pointer(C.nox_xxx_clientGetTeamColor_418AB0(C.int(k.team())))
 					if v17 != nil {
-						v61 = sub_4ED970(50.0, asPointf(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v17, 72)), 56)))
+						v61 = randomReachablePointAround(50.0, asPointf(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v17, 72)), 56)))
 					}
 				}
 			}
@@ -1157,7 +1157,7 @@ func nox_xxx_mapExitAndCheckNext_4D1860_server() bool {
 				if C.nox_xxx_isUnit_4E5B50(np.CObj()) != 0 {
 					n := np.AsUnit()
 					ud := n.updateDataMonster()
-					v61 := sub_4ED970(50.0, m.Pos())
+					v61 := randomReachablePointAround(50.0, m.Pos())
 					n.SetPos(v61)
 					ud.field_97 = 0
 					n.clearActionStack()
@@ -1262,7 +1262,7 @@ func sub_417160() {
 	}
 }
 
-func sub_4ED970(a1 float32, v3 types.Pointf) types.Pointf {
+func randomReachablePointAround(a1 float32, v3 types.Pointf) types.Pointf { // sub_4ED970
 	var v10 [4]float32
 	v10[0] = v3.X
 	v10[1] = v3.Y

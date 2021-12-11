@@ -424,7 +424,7 @@ typedef struct nox_objectType_t {
 	uint32_t field_11;        // 11, 44
 	uint32_t field_12;        // 12, 48
 	float field_13;           // 13, 52
-	float field_14;           // 14, 56
+	float mass;               // 14, 56
 	nox_shape shape;          // 15, 60
 	uint32_t field_28;        // 28, 112
 	float field_29;           // 29, 116
@@ -492,7 +492,7 @@ typedef struct nox_object_t {
 	uint32_t field_27;       // 27, 108
 	float float_28;          // 28, 112, // TODO: damping/drag?
 	uint32_t field_29;       // 29, 116
-	float float_30;          // 30, 120
+	float mass;              // 30, 120
 	uint16_t field_31_0;     // 31, 124, // TODO: 124 is set to value of 126 in at least 51B100
 	uint16_t field_31_1;     // 31, 126, // TODO: 126 accessed as word in at least 51B100, probably direction
 	uint32_t field_32;       // 32, 128
@@ -536,7 +536,7 @@ typedef struct nox_object_t {
 	uint32_t field_82;       // 82, 328
 	uint32_t field_83;       // 83, 332
 	uint32_t field_84;       // 84, 336
-	uint32_t field_85;       // 85, 340
+	uint32_t field_85;       // 85, 340, TODO: buff flags?
 	uint32_t field_86;       // 86, 344
 	uint32_t field_87;       // 87, 348
 	uint32_t field_88;       // 88, 352
@@ -587,7 +587,7 @@ typedef struct nox_object_t {
 	uint32_t field_131;      // 131, 524
 	uint32_t field_132;      // 132, 528
 	uint32_t field_133;      // 133, 532
-	uint32_t field_134;      // 134, 536
+	uint32_t field_134;      // 134, 536, TODO: some timestamp
 	uint32_t field_135;      // 135, 540, TODO: 541 accessed as byte
 	float float_136;         // 136, 544, TODO: current speed?
 	float float_137;         // 137, 548

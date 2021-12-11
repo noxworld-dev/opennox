@@ -1537,6 +1537,7 @@ int sub_4F80C0(int a1, float2* a3) {
 	return result;
 }
 
+#ifndef NOX_CGO
 //----- (004F8100) --------------------------------------------------------
 void nox_xxx_updatePlayer_4F8100(nox_object_t* u) {
 	nox_object_Player_data_t* ud = u->data_update;
@@ -1659,9 +1660,11 @@ void nox_xxx_playerInventory_4F8420(int a1) {
 	}
 }
 // 4F8444: variable 'v3' is possibly undefined
+#endif // NOX_CGO
 
 //----- (004F8460) --------------------------------------------------------
-void nox_xxx_unitUpdatePlayerImpl_4F8460(int v1) {
+void nox_xxx_unitUpdatePlayerImpl_4F8460(nox_object_t* v1p) {
+	int v1 = v1p;
 	char v3;            // al
 	int v4;             // edx
 	unsigned char* v5;  // ebp
@@ -2581,6 +2584,7 @@ int sub_4F9E10(int a1) {
 	return 1;
 }
 
+#ifndef NOX_CGO
 //----- (004F9E70) --------------------------------------------------------
 void sub_4F9E70(int a1) {
 	int v1;       // edx
@@ -2629,6 +2633,7 @@ LABEL_9:
 		nox_xxx_playerManaAdd_4EEB80((int)a1, 1);
 	}
 }
+#endif // NOX_CGO
 
 //----- (004F9F90) --------------------------------------------------------
 int nox_xxx_animPlayerGetFrameRange_4F9F90(int a1, uint32_t* a2, int* a3) {
@@ -2671,7 +2676,8 @@ int nox_xxx_unitGetStrength_4F9FD0(int a1) {
 }
 
 //----- (004FA020) --------------------------------------------------------
-int nox_xxx_playerSetState_4FA020(uint32_t* a1, int a2) {
+int nox_xxx_playerSetState_4FA020(nox_object_t* a1p, int a2) {
+	uint32_t* a1 = a1p;
 	int v2; // ebx
 	int v3; // ebp
 	int v4; // eax
@@ -6111,7 +6117,8 @@ void sub_4FF310(int a1) {
 }
 
 //----- (004FF350) --------------------------------------------------------
-int nox_xxx_testUnitBuffs_4FF350(int a1, char a2) {
+int nox_xxx_testUnitBuffs_4FF350(nox_object_t* a1p, char a2) {
+	int a1 = a1p;
 	int result; // eax
 
 	result = a1;
@@ -7921,7 +7928,8 @@ int sub_501920(int a1) { return *getMemU32Ptr(0x5D4594, 1570284 + 28 * a1); }
 int nox_xxx_getSevenDwords3_501940(int a1) { return *getMemU32Ptr(0x5D4594, 1570296 + 28 * a1); }
 
 //----- (00501960) --------------------------------------------------------
-uint32_t* nox_xxx_aud_501960(int a1, int a2, int a3, int a4) {
+uint32_t* nox_xxx_aud_501960(int a1, nox_object_t* a2p, int a3, int a4) {
+	int a2 = a2p;
 	uint32_t* result; // eax
 	uint32_t* v5;     // esi
 

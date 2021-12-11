@@ -1093,7 +1093,7 @@ int nox_read_things_alternative_4E2B60(void) {
 			typ->field_2 = 0;
 			typ->field_3 = -1;
 			typ->field_10 = 0x4000;
-			typ->field_14 = 1.0f;
+			typ->mass = 1.0f;
 			typ->field_28 = 0;
 			typ->field_29 = 30.0f;
 			typ->func_damage = nox_xxx_damageDefaultProc_4E0B30;
@@ -1110,7 +1110,7 @@ int nox_read_things_alternative_4E2B60(void) {
 			*((uint16_t*)typ + 10) = typ->ind;
 			typ->field_8 |= 0x1000000;
 			if (typ->obj_class & 0x400000) {
-				typ->field_14 = 1e10f;
+				typ->mass = 1e10f;
 			}
 			if (typ->obj_class & 0x1) {
 				typ->field_13 = 1.0f;
@@ -1122,10 +1122,10 @@ int nox_read_things_alternative_4E2B60(void) {
 			if (!strcmp(typ->id, "Boulder") || !strcmp(typ->id, "RollingBoulder") ||
 				!strcmp(typ->id, "BoulderIndestructible")) {
 				typ->field_13 = 0.01f;
-				typ->field_14 = 100.0f;
+				typ->mass = 100.0f;
 			}
 			if (!strcmp(typ->id, "Rock7")) {
-				typ->field_14 = 0.25f;
+				typ->mass = 0.25f;
 			}
 			if (typ->obj_class & 0x2) {
 				uint32_t* v13 = typ->data_update;
@@ -1149,7 +1149,7 @@ int nox_read_things_alternative_4E2B60(void) {
 				}
 			}
 			typ->field_4 = 1;
-			typ->field_14 *= 10.0f;
+			typ->mass *= 10.0f;
 			dword_5d4594_1563664 ^= nox_xxx_unitDefProtectMB_4E31A0(typ);
 			typ->next = nox_xxx_objectTypes_head_1563660;
 			nox_xxx_objectTypes_head_1563660 = typ;

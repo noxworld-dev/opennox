@@ -335,7 +335,7 @@ int sub_4DCE80(const char* a1);
 char* nox_xxx_getQuestMapName_4DCED0();
 void sub_4DCEE0(const char* a1);
 int nox_xxx_sendGauntlet_4DCF80(int a1, char a2);
-char sub_4DCFB0(int a1);
+void sub_4DCFB0(nox_object_t* a1);
 char* sub_4DD0B0(int a1);
 void* nox_xxx_playerSendMOTD_4DD140(int a1);
 char* nox_xxx_gameServerReadyMB_4DD180(int a1);

@@ -207,6 +207,17 @@ func (obj *Object) SetFlags16(v uint32) {
 	obj.field_4 = C.uint(v)
 }
 
+func (obj *Object) Mass() float32 {
+	return float32(obj.mass)
+}
+
+func (obj *Object) IsMovable() bool {
+	if obj.Flags16()&0x8068 != 0 {
+		return false
+	}
+	return !obj.Class().Has(object.ClassImmobile)
+}
+
 func (obj *Object) findByID(id string) *Object {
 	if obj.equalID(id) {
 		return obj
@@ -393,4 +404,14 @@ func (obj *Object) callUpdate() {
 	if obj.func_update != nil {
 		C.nox_call_obj_update_go((*[0]byte)(obj.func_update), obj.CObj())
 	}
+}
+
+func (obj *Object) forceDrop(item *Object) { // nox_xxx_invForceDropItem_4ED930
+	pos := randomReachablePointAround(50.0, obj.Pos())
+	ptr, free := alloc.Malloc(8)
+	defer free()
+	cpos := (*C.float2)(ptr)
+	cpos.field_0 = C.float(pos.X)
+	cpos.field_4 = C.float(pos.Y)
+	C.nox_xxx_drop_4ED790(obj.CObj(), item.CObj(), cpos)
 }
