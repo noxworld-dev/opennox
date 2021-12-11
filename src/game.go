@@ -1040,12 +1040,10 @@ func nox_xxx_mapExitAndCheckNext_4D1860_server() bool {
 		}
 		k.SetPos(v61)
 		if !noxflags.HasGame(512) {
-			v18 := k.updateDataPtr()
-			v18 = *(*unsafe.Pointer)(unsafe.Add(v18, 276))
-			// TODO: these look like offsets to the Player struct
-			*(*uint32)(unsafe.Add(v18, 2136)) = 0
-			*(*uint32)(unsafe.Add(v18, 2140)) = 0
-			*(*uint32)(unsafe.Add(v18, 2144)) = gameFrame()
+			plx := k.Player()
+			plx.field_2136 = 0
+			plx.field_2140 = 0
+			plx.field_2144 = C.uint(gameFrame())
 			C.nox_xxx_netReportLesson_4D8EF0(k.CObj())
 		}
 	}
@@ -1155,18 +1153,19 @@ func nox_xxx_mapExitAndCheckNext_4D1860_server() bool {
 	if sub_4DCC00() {
 		for _, m := range getPlayerUnits() {
 			for _, np := range m.GetOwned516() {
+				var np *Object = np
 				if C.nox_xxx_isUnit_4E5B50(np.CObj()) != 0 {
 					n := np.AsUnit()
-					v48 := n.updateDataPtr()
+					ud := n.updateDataMonster()
 					v61 := sub_4ED970(50.0, m.Pos())
 					n.SetPos(v61)
-					*(*uint32)(unsafe.Add(v48, 388)) = 0
+					ud.field_97 = 0
 					n.clearActionStack()
 					n.field_130 = 0
-					*(*uint32)(unsafe.Add(v48, 1196)) = 0
-					*(*uint32)(unsafe.Add(v48, 1216)) = 0
-					*(*byte)(unsafe.Add(v48, 1129)) = 0
-					*(*int32)(unsafe.Add(v48, 0)) = -559023410
+					ud.field_299 = 0
+					ud.field_304 = 0
+					*(*byte)(unsafe.Add(unsafe.Pointer(ud), 1129)) = 0
+					ud.field_0 = 0xDEADFACE
 					v49p := n.monsterPushAction(3) // follow?
 					if v49p != nil {
 						v49 := unsafe.Slice((*float32)(v49p), 4)
@@ -1176,7 +1175,7 @@ func nox_xxx_mapExitAndCheckNext_4D1860_server() bool {
 						*(*unsafe.Pointer)(unsafe.Pointer(&v49[3])) = unsafe.Pointer(m.CObj())
 					}
 					if n.Class().Has(2) && n.field_3&0x30 != 0 {
-						C.nox_xxx_setNPCColor_4E4A90(n.CObj(), 0, C.int(*(*uintptr)(unsafe.Add(v48, 748))+2076))
+						C.nox_xxx_setNPCColor_4E4A90(n.CObj(), 0, C.int(uintptr(ud.field_187)+2076))
 					}
 				} else if m.Class().Has(1) && C.sub_4E5B80(m.CObj()) != 0 {
 					C.sub_4E81D0(m.CObj())

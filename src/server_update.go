@@ -10,20 +10,14 @@ void* nox_xxx_findObjectAtCursor_54AF40(nox_object_t* a1);
 */
 import "C"
 import (
-	"unsafe"
-
 	"nox/v1/common/types"
 )
 
 func serverUpdateUnitsAAA() { // nox_xxx_updateUnits_51B100_A
-	for _, p := range getPlayers() {
-		u := p.UnitC()
-		if u == nil {
-			continue
-		}
-		ud := u.updateDataPtr()
+	for _, u := range getPlayerUnits() {
+		ud := u.updateDataPlayer()
 		C.nox_xxx_itemApplyUpdateEffect_4FA490(u.CObj())
-		*(*unsafe.Pointer)(unsafe.Add(ud, 288)) = C.nox_xxx_findObjectAtCursor_54AF40(u.CObj())
+		ud.cursor_obj = C.nox_xxx_findObjectAtCursor_54AF40(u.CObj())
 	}
 }
 

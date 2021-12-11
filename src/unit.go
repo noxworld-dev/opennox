@@ -93,6 +93,24 @@ func (u *Unit) updateDataPtr() unsafe.Pointer {
 	return unsafe.Pointer(u.data_update)
 }
 
+func (u *Unit) updateDataPlayer() *C.nox_object_Player_data_t {
+	// TODO: verify this conversion by checking ObjectType
+	return (*C.nox_object_Player_data_t)(u.updateDataPtr())
+}
+
+func (u *Unit) updateDataMonster() *C.nox_object_Monster_data_t {
+	// TODO: verify this conversion by checking ObjectType
+	return (*C.nox_object_Monster_data_t)(u.updateDataPtr())
+}
+
+func (u *Unit) Player() *Player {
+	if u == nil {
+		return nil
+	}
+	ud := u.updateDataPlayer()
+	return asPlayer(ud.player)
+}
+
 func (u *Unit) Health() (cur, max int) {
 	if u == nil {
 		return
@@ -150,13 +168,13 @@ func (u *Unit) Mana() (cur, max int) {
 	if u == nil {
 		return
 	}
-	p := u.updateDataPtr()
+	// TODO: check if offsets are the same for monsters
+	p := u.updateDataPlayer()
 	if p == nil {
 		return
 	}
-	// TODO: +6 is similar, what's the difference?
-	cur = int(*(*uint16)(unsafe.Add(p, 4)))
-	max = int(*(*uint16)(unsafe.Add(p, 8)))
+	cur = int(p.mana_cur)
+	max = int(p.mana_max)
 	return
 }
 
@@ -167,18 +185,18 @@ func (u *Unit) SetMana(v int) {
 	if v < 0 {
 		v = 0
 	}
-	p := u.updateDataPtr()
+	p := u.updateDataPlayer()
 	if p == nil {
 		return
 	}
 	if _, max := u.Mana(); v > max {
 		v = max
 	}
-	cur := int(*(*uint16)(unsafe.Add(p, 4)))
-	*(*uint16)(unsafe.Add(p, 6)) = uint16(cur)
-	*(*uint16)(unsafe.Add(p, 4)) = uint16(v)
-	pt := *(*unsafe.Pointer)(unsafe.Add(p, 276))
-	C.nox_xxx_protectMana_56F9E0(*(*C.int)(unsafe.Add(pt, 4596)), C.short(v-cur))
+	cur := int(p.mana_cur)
+	p.mana_prev = C.ushort(cur)
+	p.mana_cur = C.ushort(v)
+	pt := asPlayer(p.player)
+	C.nox_xxx_protectMana_56F9E0(C.int(pt.field_4596), C.short(v-cur))
 }
 
 func (u *Unit) SetMaxMana(v int) {
@@ -188,11 +206,11 @@ func (u *Unit) SetMaxMana(v int) {
 	if v < 0 {
 		v = 0
 	}
-	p := u.updateDataPtr()
+	p := u.updateDataPlayer()
 	if p == nil {
 		return
 	}
-	*(*uint16)(unsafe.Add(p, 8)) = uint16(v)
+	p.mana_max = C.ushort(v)
 	u.SetMana(v)
 }
 
