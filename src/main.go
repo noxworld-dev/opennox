@@ -54,12 +54,12 @@ import (
 	"github.com/spf13/viper"
 
 	"nox/v1/client/audio/ail"
-	"nox/v1/client/input/keybind"
 	"nox/v1/common"
 	"nox/v1/common/alloc/handles"
 	"nox/v1/common/datapath"
 	"nox/v1/common/env"
 	noxflags "nox/v1/common/flags"
+	"nox/v1/common/keybind"
 	"nox/v1/common/log"
 	"nox/v1/common/memmap"
 	"nox/v1/common/types"
@@ -398,7 +398,7 @@ func RunArgs(args []string) (gerr error) {
 	noxCommonInitRandom()
 	C.nox_xxx_loadLook_415D50()
 	C.nox_xxx_loadModifyers_4158C0()
-	C.nox_xxx_cmdTokensLoad_4444F0()
+	initConsole(strMan)
 	C.sub_4D11A0()
 	if !isDedicatedServer {
 		videoResizeView(types.Size{})

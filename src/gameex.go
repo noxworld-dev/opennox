@@ -30,11 +30,11 @@ import (
 
 	"github.com/spf13/viper"
 
-	"nox/v1/client/input/keybind"
 	"nox/v1/common/alloc"
 	"nox/v1/common/datapath"
 	noxflags "nox/v1/common/flags"
 	"nox/v1/common/fs"
+	"nox/v1/common/keybind"
 	"nox/v1/common/log"
 	"nox/v1/common/types"
 )

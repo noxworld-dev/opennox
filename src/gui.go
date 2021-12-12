@@ -24,11 +24,9 @@ import (
 
 	"nox/v1/client/gui"
 	"nox/v1/client/input"
-	"nox/v1/client/input/keybind"
-	"nox/v1/client/system/parsecmd"
 	noxcolor "nox/v1/common/color"
+	"nox/v1/common/keybind"
 	"nox/v1/common/log"
-	"nox/v1/common/memmap"
 	"nox/v1/common/strman"
 	"nox/v1/common/types"
 )
@@ -402,38 +400,19 @@ func nox_xxx_consoleEditProc_450F40(a1 unsafe.Pointer, a2, a3, a4 C.int) C.int {
 
 //var dword_5d4594_2618912 *noxKeyEventInt
 
-func sub_437060(inp *input.Handler) int {
+func keyBindingsCheckActive(inp *input.Handler) int {
 	if C.sub_46A4A0() != 0 {
 		return 1
 	}
 	for _, key := range inp.KeyboardKeys() {
 		//dword_5d4594_2618912 = p
-		if !inp.GetKeyFlag(key) && !inp.IsPressed(key) {
-			switch key {
-			case keybind.KeyF1, keybind.KeyF2, keybind.KeyF3, keybind.KeyF4, keybind.KeyF5,
-				keybind.KeyF6, keybind.KeyF7, keybind.KeyF8, keybind.KeyF9, keybind.KeyF10,
-				keybind.KeyF11, keybind.KeyF12:
-				if !nox_xxx_guiCursor_477600() {
-					sub_4443B0(key)
-				}
+		if !inp.GetKeyFlag(key) && !inp.IsPressed(key) && !nox_xxx_guiCursor_477600() {
+			if parseCmd.ExecMacros(key) {
+				inp.SetKeyFlag(key, true)
 			}
 		}
 	}
 	return 1
-}
-
-func sub_4443B0(a1 keybind.Key) {
-	if a1 < keybind.KeyF1 || a1 > keybind.KeyF12 {
-		return
-	}
-	if *memmap.PtrUint32(0x587000, 95416) == 0 {
-		return
-	}
-	if str := GoWString(C.sub_444410(C.int(a1))); str != "" {
-		consolePrintf(parsecmd.ColorWhite, "> %s\n", str)
-		parseServerCmd(str, 0)
-		sub_4309B0(C.uchar(a1), 1)
-	}
 }
 
 func sub_4281F0(p types.Point, r types.Rect) bool {

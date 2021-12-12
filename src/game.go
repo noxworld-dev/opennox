@@ -66,7 +66,6 @@ void sub_4D2230();
 void sub_4DBA30(int a1);
 void sub_50AFA0();
 void sub_4409D0(wchar_t* a1);
-wchar_t* nox_xxx_consoleTokenFindByAlias_443E40(wchar_t* s);
 unsigned int*  nox_xxx_netUseMap_4DEE00(const char* a1, int a2);
 char* nox_xxx_getSomeMapName_4D0CF0();
 int  nox_server_loadMapFile_4CF5F0(char* a1, int a2);
@@ -87,9 +86,9 @@ import (
 
 	"github.com/noxworld-dev/xwis"
 
-	"nox/v1/client/system/parsecmd"
 	"nox/v1/common"
 	"nox/v1/common/alloc"
+	"nox/v1/common/console"
 	"nox/v1/common/discover"
 	"nox/v1/common/env"
 	noxflags "nox/v1/common/flags"
@@ -473,7 +472,7 @@ func initGameSession435CC0() error {
 	if isServer && !isDedicatedServer {
 		getPlayers()[0].GoObserver(false, true)
 	}
-	parseServerCmd("execrul autoexec.rul", 1)
+	serverExecCmd("execrul autoexec.rul")
 	if isServer {
 		serverCmd("set cycle on")
 		for _, cmd := range serverExec {
@@ -488,6 +487,10 @@ func initGameSession435CC0() error {
 	return nil
 }
 
+func serverExecCmd(cmd string) {
+	parseServerCmd(cmd, 0)
+}
+
 func parseServerCmd(cmd string, flag int) bool { // nox_server_parseCmdText_443C80
 	return parseServerCmdWith(parseCmd, cmd, flag)
 }
@@ -497,10 +500,12 @@ func nox_server_parseCmdText_443C80(cstr *C.wchar_t, flag C.int) C.int {
 	return C.int(bool2int(parseServerCmd(GoWString(cstr), int(flag))))
 }
 
-func parseServerCmdWith(c *parsecmd.Console, cmd string, flag int) bool {
+func parseServerCmdWith(c *console.Console, cmd string, flag int) bool {
+	defer func() {
+		C.nox_client_consoleCurCmd_823700 = nil
+	}()
 	cmd = strings.TrimSpace(cmd)
 	if len(cmd) == 0 {
-		C.nox_client_consoleCurCmd_823700 = nil
 		return false
 	}
 	cmdTextC, cmdFree := CWString(cmd)
@@ -519,52 +524,7 @@ func parseServerCmdWith(c *parsecmd.Console, cmd string, flag int) bool {
 		C.dword_5d4594_823696 = 0
 		return true
 	}
-	var (
-		tokens []string
-	)
-	for len(cmd) > 0 {
-		var token string
-		if cmd[0] == '"' {
-			if i := strings.IndexAny(cmd[1:], "\"\n\r"); i >= 0 {
-				i++
-				token = cmd[1:i]
-				cmd = cmd[i+1:]
-			} else {
-				token = cmd[1:]
-				cmd = ""
-			}
-			tokens = append(tokens, token)
-			continue
-		}
-		if i := strings.IndexByte(cmd, ' '); i >= 0 {
-			token = cmd[:i]
-			cmd = cmd[i+1:]
-		} else {
-			token = cmd
-			cmd = ""
-		}
-		if token != "" {
-			ctoken, freeTok := CWString(token)
-			ctoknew := C.nox_xxx_consoleTokenFindByAlias_443E40(ctoken)
-			toknew := GoWString(ctoknew)
-			freeTok()
-			if toknew != "" && token != toknew {
-				token = toknew
-			}
-		}
-		if token != "" {
-			tokens = append(tokens, token)
-		}
-	}
-	res := false
-	if len(tokens) > 0 {
-		res = c.ParseToken(0, tokens, c.Commands())
-		if !res {
-			help := strMan.GetStringInFile("typehelp", "C:\\NoxPost\\src\\Client\\System\\parsecmd.c")
-			consolePrintf(parsecmd.ColorRed, help)
-		}
-	}
-	C.nox_client_consoleCurCmd_823700 = nil
+	res := parseCmd.Exec(cmd)
 	return res
 }
 

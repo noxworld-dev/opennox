@@ -7,7 +7,7 @@ import (
 	"image"
 
 	"nox/v1/client/input"
-	"nox/v1/client/input/keybind"
+	"nox/v1/common/keybind"
 	"nox/v1/common/types"
 )
 

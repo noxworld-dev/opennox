@@ -1,5 +1,5 @@
 // Package parsecmd implements console command parsing for Nox.
-package parsecmd
+package console
 
 import "nox/v1/common/strman"
 
@@ -59,8 +59,8 @@ type CommandLegacyFunc func(c *Console, tokInd int, tokens []string) bool
 // Command describes a console command.
 type Command struct {
 	// Token is the first token (keyword) of the command.
-	Token  string
-	Token2 string
+	Token string
+	Alias string
 	// HelpID is a string ID used to fetch the help text.
 	HelpID strman.ID
 	// Help is a text string used when a help text cannot be found by HelpID.
@@ -75,4 +75,12 @@ type Command struct {
 	//
 	// Deprecated: use Func instead.
 	LegacyFunc CommandLegacyFunc
+}
+
+// Register a sub command handler.
+func (c *Command) Register(sub *Command) {
+	if sub.Flags.Has(Secret) {
+		sub.Token = EncodeSecret(sub.Token)
+	}
+	c.Sub = append(c.Sub, sub)
 }

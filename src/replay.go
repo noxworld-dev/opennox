@@ -282,7 +282,7 @@ func nox_xxx_replayTickMB(a1 bool) error {
 				if _, err := io.ReadFull(replay.reader, data); err != nil {
 					return fmt.Errorf("cannot cmd: %w", err)
 				}
-				parseServerCmd(string(data), 0)
+				serverExecCmd(string(data))
 			}
 		case replayOpFrame:
 			if a1 {

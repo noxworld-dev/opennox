@@ -36,9 +36,9 @@ import (
 
 	"nox/v1/client"
 	"nox/v1/client/input"
-	"nox/v1/client/input/keybind"
 	"nox/v1/common"
 	noxflags "nox/v1/common/flags"
+	"nox/v1/common/keybind"
 	"nox/v1/common/memmap"
 	"nox/v1/common/types"
 )

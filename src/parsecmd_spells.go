@@ -1,13 +1,16 @@
 package nox
 
 import (
-	"nox/v1/client/system/parsecmd"
+	"nox/v1/common/console"
 	"nox/v1/common/things"
 )
 
 func init() {
-	noxCmdList.Sub = append(noxCmdList.Sub,
-		&parsecmd.Command{Token: "spells", HelpID: "listspellshelp", Flags: parsecmd.ClientServer, Func: func(c *parsecmd.Console, tokens []string) bool {
+	noxCmdList.Register(&console.Command{
+		Token:  "spells",
+		HelpID: "listspellshelp",
+		Flags:  console.ClientServer,
+		Func: func(c *console.Console, tokens []string) bool {
 			const (
 				allow    = "ok"
 				disallow = "X"
@@ -24,9 +27,9 @@ func init() {
 				} else if sp.Allowed() {
 					astr = allow
 				}
-				c.Printf(parsecmd.ColorRed, "%3d\t%-40.40s\t%-40.40q\tcost: %-3d\t%-8s", ind, id, title, mana, astr)
+				c.Printf(console.ColorRed, "%3d\t%-40.40s\t%-40.40q\tcost: %-3d\t%-8s", ind, id, title, mana, astr)
 			}
 			return true
-		}},
-	)
+		},
+	})
 }

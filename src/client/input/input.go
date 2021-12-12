@@ -3,8 +3,8 @@ package input
 import (
 	"image"
 
-	"nox/v1/client/input/keybind"
 	"nox/v1/client/seat"
+	"nox/v1/common/keybind"
 	"nox/v1/common/log"
 	"nox/v1/common/types"
 )

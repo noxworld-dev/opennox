@@ -732,7 +732,7 @@ func nox_xxx_client_435F80_draw(inp *input.Handler) bool {
 	if C.nox_xxx_serverIsClosing_446180() != 0 {
 		C.sub_446190()
 	}
-	if sub_437060(inp) == 0 && !noxflags.HasGame(8) {
+	if keyBindingsCheckActive(inp) == 0 && !noxflags.HasGame(8) {
 		nox_xxx_setContinueMenuOrHost_43DDD0(0)
 		return false
 	}

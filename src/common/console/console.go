@@ -1,6 +1,12 @@
-package parsecmd
+package console
 
-import "nox/v1/common/strman"
+import (
+	"fmt"
+	"strings"
+
+	"nox/v1/common/keybind"
+	"nox/v1/common/strman"
+)
 
 // Color of console text messages.
 type Color int
@@ -29,13 +35,21 @@ type Printer interface {
 	Printf(cl Color, format string, args ...interface{})
 }
 
-// NewConsole creates a new console handler.
-func NewConsole(p Printer, sm *strman.StringManager) *Console {
+// LocalizedPrinter is an interface used for command output.
+type LocalizedPrinter interface {
+	Strings() *strman.StringManager
+	Printer
+}
+
+// New creates a new console handler.
+// A custom exec function can be provided. The function is used for macros only.
+// in case it is nil, Exec will be used.
+func New(p Printer) *Console {
 	cn := &Console{
-		p:  p,
-		sm: sm,
+		p: p,
 	}
 	cn.registerBuiltin()
+	cn.initMacros()
 	return cn
 }
 
@@ -43,10 +57,16 @@ func NewConsole(p Printer, sm *strman.StringManager) *Console {
 type Console struct {
 	p          Printer
 	sm         *strman.StringManager
+	tokAlias   map[string]string
 	cmds       []*Command
 	cheats     bool
 	isClient   bool
 	isHeadless bool
+	macros     struct {
+		disabled bool
+		exec     func(cmd string)
+		byKey    map[keybind.Key]*macro
+	}
 }
 
 // Printf exposes underlying Printer.
@@ -58,7 +78,36 @@ func (cn *Console) Printf(cl Color, format string, args ...interface{}) {
 
 // Strings exposes the underlying string manager.
 func (cn *Console) Strings() *strman.StringManager {
+	if cn.sm == nil {
+		panic("call Localize first")
+	}
 	return cn.sm
+}
+
+// Localize all command tokens. Additional tokens can be passed as well.
+func (cn *Console) Localize(sm *strman.StringManager, tokens ...string) {
+	cn.sm = sm
+	cn.tokAlias = make(map[string]string)
+	cn.localizeCmds(cn.Commands())
+	cn.localizeMacros()
+	for _, tok := range tokens {
+		sid := strman.ID(fmt.Sprintf("cmd_token:%s", tok))
+		alias := cn.sm.GetStringInFile(sid, "parsecmd.c")
+		cn.tokAlias[alias] = tok
+	}
+}
+
+func (cn *Console) localizeCmds(cmds []*Command) {
+	for i := range cmds {
+		c := cmds[i]
+		if v, ok := cn.sm.GetVariant(strman.ID("cmd_token:" + c.Token)); ok {
+			c.Alias = v.Str
+		} else {
+			c.Alias = c.Token
+		}
+		cn.tokAlias[c.Alias] = c.Token
+		cn.localizeCmds(c.Sub)
+	}
 }
 
 // IsClient checks if it's a client-side console.
@@ -145,7 +194,7 @@ func (cn *Console) helpOne(ind int, tokens []string, cmds []*Command) bool {
 func (cn *Console) helpList(cmds []*Command) {
 	for _, cmd := range cmds {
 		if !cmd.Flags.Has(NoHelp) && (cn.Cheats() || !cmd.Flags.Has(Cheat)) {
-			cn.p.Printf(ColorRed, "\t%s -\t%s", cmd.Token2, cn.HelpString(cmd))
+			cn.p.Printf(ColorRed, "\t%s -\t%s", cmd.Alias, cn.HelpString(cmd))
 		}
 	}
 }
@@ -235,4 +284,48 @@ func (cn *Console) ParseToken(tokInd int, tokens []string, cmds []*Command) bool
 		return true
 	}
 	return res
+}
+
+// Exec a given console command.
+func (cn *Console) Exec(cmd string) bool {
+	var (
+		tokens []string
+	)
+	for len(cmd) > 0 {
+		var token string
+		if cmd[0] == '"' {
+			if i := strings.IndexAny(cmd[1:], "\"\n\r"); i >= 0 {
+				i++
+				token = cmd[1:i]
+				cmd = cmd[i+1:]
+			} else {
+				token = cmd[1:]
+				cmd = ""
+			}
+			tokens = append(tokens, token)
+			continue
+		}
+		if i := strings.IndexByte(cmd, ' '); i >= 0 {
+			token = cmd[:i]
+			cmd = cmd[i+1:]
+		} else {
+			token = cmd
+			cmd = ""
+		}
+		if toknew, ok := cn.tokAlias[token]; ok {
+			token = toknew
+		}
+		if token != "" {
+			tokens = append(tokens, token)
+		}
+	}
+	if len(tokens) == 0 {
+		return false
+	}
+	ok := cn.ParseToken(0, tokens, cn.Commands())
+	if !ok {
+		help := cn.sm.GetStringInFile("typehelp", "parsecmd.c")
+		cn.p.Printf(ColorRed, help)
+	}
+	return ok
 }
