@@ -556,14 +556,14 @@ int nox_cmd_show_bindings(int tokInd, int tokCnt, wchar_t** tokens) {
 	if (tokCnt != 2) {
 		return 0;
 	}
-	v3 = getMemAt(0x587000, 94516);
+	v3 = getMemAt(0x587000, 94500 + 16);
 	do {
 		if (*(uint16_t*)v3) {
 			nox_gui_console_Printf_450C00(NOX_CONSOLE_WHITE, (wchar_t*)getMemAt(0x587000, 102824), *((uint32_t*)v3 - 2),
 										  v3);
 		}
 		v3 += 76;
-	} while ((int)v3 - (int)getMemAt(0x587000, 94516) < 912);
+	} while ((int)v3 - (int)getMemAt(0x587000, 94500 + 16) < 912);
 	if (*getMemU32Ptr(0x587000, 95416)) {
 		v4 = nox_strman_loadString_40F1D0("macrosOn", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1630);
 	} else {
@@ -2027,7 +2027,7 @@ void sub_444570() {
 	wchar_t* v1; // eax
 	char v3[80]; // [esp+4h] [ebp-50h]
 
-	v0 = getMemIntPtr(0x587000, 94504);
+	v0 = getMemIntPtr(0x587000, 94500 + 4);
 	do {
 		nox_sprintf(v3, "keybind:%S", *v0);
 		v1 = nox_strman_loadString_40F1D0(v3, 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 874);
@@ -2075,7 +2075,7 @@ int nox_cmd_unbind(int tokInd, int tokCnt, wchar_t** tokens) {
 	if (v3 == -1) {
 		return 0;
 	}
-	*getMemU16Ptr(0x587000, 94516 + 76 * v3) = 0;
+	*getMemU16Ptr(0x587000, 94500 + 76*v3 + 16) = 0;
 	return 1;
 }
 
@@ -2759,7 +2759,7 @@ int nox_cmd_bind(int tokInd, int tokCnt, wchar_t** tokens) {
 	if (v3 == -1 || nox_wcslen(tokens[2]) >= 0x80) {
 		return 0;
 	}
-	nox_wcscpy((wchar_t*)getMemAt(0x587000, 94516 + 76 * v3), tokens[2]);
+	nox_wcscpy((wchar_t*)getMemAt(0x587000, 94500 + 76*v3 + 16), tokens[2]);
 	return 1;
 }
 
