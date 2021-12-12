@@ -1,6 +1,8 @@
 package nox
 
 import (
+	"context"
+
 	"nox/v1/common/console"
 	"nox/v1/common/things"
 )
@@ -10,7 +12,7 @@ func init() {
 		Token:  "spells",
 		HelpID: "listspellshelp",
 		Flags:  console.ClientServer,
-		Func: func(c *console.Console, tokens []string) bool {
+		Func: func(ctx context.Context, c *console.Console, tokens []string) bool {
 			const (
 				allow    = "ok"
 				disallow = "X"

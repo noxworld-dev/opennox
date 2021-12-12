@@ -18,6 +18,7 @@ int nox_gui_console_Enter_450FD0();
 */
 import "C"
 import (
+	"context"
 	"image"
 	"os"
 	"unsafe"
@@ -407,7 +408,7 @@ func keyBindingsCheckActive(inp *input.Handler) int {
 	for _, key := range inp.KeyboardKeys() {
 		//dword_5d4594_2618912 = p
 		if !inp.GetKeyFlag(key) && !inp.IsPressed(key) && !nox_xxx_guiCursor_477600() {
-			if parseCmd.ExecMacros(key) {
+			if parseCmd.ExecMacros(context.Background(), key) {
 				inp.SetKeyFlag(key, true)
 			}
 		}

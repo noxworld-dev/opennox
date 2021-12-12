@@ -1,6 +1,7 @@
 package console
 
 import (
+	"context"
 	"sort"
 	"strings"
 
@@ -22,7 +23,7 @@ func (cn *Console) initMacros() {
 		HelpID: "macroshelp",
 		Flags:  ClientServer,
 		Sub: []*Command{
-			{Token: "on", HelpID: "macrosonhelp", Flags: Server, Func: func(c *Console, tokens []string) bool {
+			{Token: "on", HelpID: "macrosonhelp", Flags: Server, Func: func(ctx context.Context, c *Console, tokens []string) bool {
 				if len(tokens) != 0 {
 					return false
 				}
@@ -30,7 +31,7 @@ func (cn *Console) initMacros() {
 				c.Printf(ColorRed, "%s\n", c.Strings().GetStringInFile("macroson", "parsecmd.c"))
 				return true
 			}},
-			{Token: "off", HelpID: "macrosoffhelp", Flags: Server, Func: func(c *Console, tokens []string) bool {
+			{Token: "off", HelpID: "macrosoffhelp", Flags: Server, Func: func(ctx context.Context, c *Console, tokens []string) bool {
 				if len(tokens) != 0 {
 					return false
 				}
@@ -44,7 +45,7 @@ func (cn *Console) initMacros() {
 		Token:  "bind",
 		HelpID: "bindHelp",
 		Flags:  ClientServer,
-		Func: func(c *Console, tokens []string) bool {
+		Func: func(ctx context.Context, c *Console, tokens []string) bool {
 			if len(tokens) < 2 {
 				return false
 			}
@@ -55,7 +56,7 @@ func (cn *Console) initMacros() {
 		Token:  "unbind",
 		HelpID: "unbindHelp",
 		Flags:  ClientServer,
-		Func: func(c *Console, tokens []string) bool {
+		Func: func(ctx context.Context, c *Console, tokens []string) bool {
 			if len(tokens) != 1 {
 				return false
 			}
@@ -66,7 +67,7 @@ func (cn *Console) initMacros() {
 		Token:  "bindings",
 		HelpID: "showbindingshelp",
 		Flags:  ClientServer,
-		Func: func(c *Console, tokens []string) bool {
+		Func: func(ctx context.Context, c *Console, tokens []string) bool {
 			if len(tokens) != 0 {
 				return false
 			}
@@ -104,8 +105,10 @@ func (cn *Console) localizeMacros() {
 	}
 }
 
+type ExecFunc func(ctx context.Context, cmd string) bool
+
 // SetExec sets a custom exec function for macros.
-func (cn *Console) SetExec(exec func(cmd string)) {
+func (cn *Console) SetExec(exec ExecFunc) {
 	cn.macros.exec = exec
 }
 
@@ -120,7 +123,7 @@ func (cn *Console) Macros() bool {
 }
 
 // ExecMacros runs a macros associated with a given key. It returns false if the key is not bound to anything.
-func (cn *Console) ExecMacros(k keybind.Key) bool {
+func (cn *Console) ExecMacros(ctx context.Context, k keybind.Key) bool {
 	if cn.macros.disabled {
 		return false
 	}
@@ -131,11 +134,9 @@ func (cn *Console) ExecMacros(k keybind.Key) bool {
 	cmd := b.Cmd
 	cn.Printf(ColorWhite, "> %s\n", cmd)
 	if cn.macros.exec != nil {
-		cn.macros.exec(cmd)
-	} else {
-		_ = cn.Exec(cmd)
+		return cn.macros.exec(ctx, cmd)
 	}
-	return true
+	return cn.Exec(ctx, cmd)
 }
 
 // BindKey binds command to a given key.

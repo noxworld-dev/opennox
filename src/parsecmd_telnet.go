@@ -5,6 +5,7 @@ package nox
 */
 import "C"
 import (
+	"context"
 	"strconv"
 
 	"nox/v1/common/console"
@@ -18,7 +19,7 @@ func init() {
 	}})
 }
 
-func cmdTelnetOff(c *console.Console, tokens []string) bool {
+func cmdTelnetOff(ctx context.Context, c *console.Console, tokens []string) bool {
 	if len(tokens) != 0 {
 		return false
 	}
@@ -31,7 +32,7 @@ func cmdTelnetOff(c *console.Console, tokens []string) bool {
 	return true
 }
 
-func cmdTelnetOn(c *console.Console, tokens []string) bool {
+func cmdTelnetOn(ctx context.Context, c *console.Console, tokens []string) bool {
 	n := len(tokens)
 	if n > 1 {
 		return false

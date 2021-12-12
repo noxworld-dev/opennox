@@ -49,7 +49,6 @@ extern unsigned int dword_5d4594_251744;
 extern unsigned int dword_5d4594_815052;
 extern unsigned int dword_5d4594_823696;
 extern unsigned int dword_5d4594_1049508;
-extern void* nox_client_consoleCurCmd_823700;
 extern nox_draw_viewport_t nox_draw_viewport;
 extern unsigned char nox_net_lists_buf[2048];
 
@@ -76,6 +75,7 @@ void  sub_500510(const char* a1);
 */
 import "C"
 import (
+	"context"
 	"errors"
 	"fmt"
 	"math"
@@ -374,6 +374,7 @@ func nox_xxx_getSomeCoods_435670() types.Point {
 }
 
 func initGameSession435CC0() error {
+	ctx := context.Background()
 	C.sub_445450()
 	C.sub_45DB90()
 	C.sub_41D1A0(0)
@@ -472,14 +473,14 @@ func initGameSession435CC0() error {
 	if isServer && !isDedicatedServer {
 		getPlayers()[0].GoObserver(false, true)
 	}
-	serverExecCmd("execrul autoexec.rul")
+	execConsoleCmd(ctx, "execrul autoexec.rul")
 	if isServer {
-		serverCmd("set cycle on")
+		execServerCmd("set cycle on")
 		for _, cmd := range serverExec {
 			if len(cmd) == 0 {
 				continue
 			}
-			serverCmd(cmd)
+			execServerCmd(cmd)
 		}
 	}
 	C.sub_4951C0()
@@ -487,64 +488,58 @@ func initGameSession435CC0() error {
 	return nil
 }
 
-func serverExecCmd(cmd string) {
-	parseServerCmd(cmd, 0)
-}
-
-func parseServerCmd(cmd string, flag int) bool { // nox_server_parseCmdText_443C80
-	return parseServerCmdWith(parseCmd, cmd, flag)
-}
-
 //export nox_server_parseCmdText_443C80
-func nox_server_parseCmdText_443C80(cstr *C.wchar_t, flag C.int) C.int {
-	return C.int(bool2int(parseServerCmd(GoWString(cstr), int(flag))))
+func nox_server_parseCmdText_443C80(cstr *C.wchar_t, _ C.int) C.int {
+	cmd := GoWString(cstr)
+	if cmd == "" {
+		return 0
+	}
+	if C.dword_5d4594_823696 != 0 {
+		cmdTextC, cmdFree := CWString(cmd)
+		defer cmdFree()
+		C.sub_4409D0(cmdTextC)
+		C.dword_5d4594_823696 = 0
+		return 1
+	}
+	res := execConsoleCmd(context.Background(), GoWString(cstr))
+	return C.int(bool2int(res))
 }
 
-func parseServerCmdWith(c *console.Console, cmd string, flag int) bool {
-	defer func() {
-		C.nox_client_consoleCurCmd_823700 = nil
-	}()
+func execConsoleCmd(ctx context.Context, cmd string) bool { // nox_server_parseCmdText_443C80
 	cmd = strings.TrimSpace(cmd)
 	if len(cmd) == 0 {
 		return false
 	}
-	cmdTextC, cmdFree := CWString(cmd)
-	defer cmdFree()
-	C.nox_client_consoleCurCmd_823700 = unsafe.Pointer(cmdTextC)
 	if noxflags.HasGame(noxflags.GameHost) {
-		c.SetIsClient(false)
-		*memmap.PtrUint32(0x5D4594, 823688) = 0
+		ctx = console.AsServer(ctx)
 	} else {
-		c.SetIsClient(true)
-		*memmap.PtrUint32(0x5D4594, 823688) = 1
+		ctx = console.AsClient(ctx)
 	}
-	c.SetIsHeadless(getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING))
-	if C.dword_5d4594_823696 != 0 {
-		C.sub_4409D0(cmdTextC)
-		C.dword_5d4594_823696 = 0
-		return true
+	if getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) {
+		ctx = console.AsDedicated(ctx)
 	}
-	res := parseCmd.Exec(cmd)
-	return res
+	return parseCmd.Exec(ctx, cmd)
 }
 
-func serverCmd(cmd string) {
+func execServerCmd(cmd string) {
 	cmd = strings.TrimSpace(cmd)
 	if len(cmd) == 0 {
 		return
 	}
-	if old := parseCmd.Cheats(); !old {
-		parseCmd.SetCheats(true)
-		defer parseCmd.SetCheats(false)
+	ctx := context.Background()
+	ctx = console.AsServer(ctx)
+	if getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) {
+		ctx = console.AsDedicated(ctx)
 	}
-	parseServerCmdWith(parseCmd, cmd, 1)
+	ctx = console.WithCheats(ctx)
+	parseCmd.Exec(ctx, cmd)
 }
 
 func serverCmdLoadMap(name string) {
 	if len(name) == 0 {
 		return
 	}
-	serverCmd("load " + name)
+	execServerCmd("load " + name)
 }
 
 func nox_xxx_getSomeMapName_4D0CF0() string {

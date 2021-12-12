@@ -6,6 +6,7 @@ void  nox_xxx_playerLeaveObserver_0_4E6AA0(nox_playerInfo* pl);
 */
 import "C"
 import (
+	"context"
 	"encoding/binary"
 	"errors"
 	"fmt"
@@ -203,6 +204,7 @@ func nox_xxx_replayTickMB(a1 bool) error {
 	if err := replay.err; err != nil {
 		return err
 	}
+	ctx := context.Background()
 	var buf [5]byte
 	if !replay.readHeader {
 		if _, err := io.ReadFull(replay.reader, buf[:5]); err == io.EOF {
@@ -282,7 +284,7 @@ func nox_xxx_replayTickMB(a1 bool) error {
 				if _, err := io.ReadFull(replay.reader, data); err != nil {
 					return fmt.Errorf("cannot cmd: %w", err)
 				}
-				serverExecCmd(string(data))
+				execConsoleCmd(ctx, string(data))
 			}
 		case replayOpFrame:
 			if a1 {
