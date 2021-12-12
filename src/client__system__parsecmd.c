@@ -965,7 +965,7 @@ int nox_cmd_set_mnstrs(int tokInd, int tokCnt, wchar_t** tokens) {
 	wchar_t* v5; // [esp-4h] [ebp-10h]
 
 	if (tokCnt == 3 || tokCnt == 4) {
-		if (_nox_wcsicmp(tokens[2], *(const wchar_t**)getMemAt(0x587000, 94492))) {
+		if (_nox_wcsicmp(tokens[2], *(const wchar_t**)getMemAt(0x587000, 94468 + 4*6))) {
 			if (!_nox_wcsicmp(tokens[tokInd], L"on")) {
 				sub_409E70(4);
 				nox_server_gameSettingsUpdated_40A670();
@@ -1128,7 +1128,7 @@ int nox_cmd_set_weapon(int tokInd, int tokCnt, wchar_t** tokens) {
 			nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v3, v8);
 			return 1;
 		}
-		if (_nox_wcsicmp(tokens[2], *(const wchar_t**)getMemAt(0x587000, 94492))) {
+		if (_nox_wcsicmp(tokens[2], *(const wchar_t**)getMemAt(0x587000, 94468 + 4*6))) {
 			v6 = (unsigned short*)sub_415A60(tokens[2]);
 			if (v6 || (nox_sprintf(v11, "%S", tokens[2]), (v6 = (unsigned short*)sub_415A30(v11)) != 0)) {
 				if (!_nox_wcsicmp(tokens[3], L"on")) {
@@ -1486,7 +1486,7 @@ int nox_cmd_unmute(int tokInd, int tokCnt, wchar_t** tokens) {
 	if (!nox_client_consoleIsServer_823684) {
 		v5 = sub_57A0F0(*v3);
 	} else {
-		if (_nox_wcsicmp(tokens[tokInd], *(const wchar_t**)getMemAt(0x587000, 94496))) {
+		if (_nox_wcsicmp(tokens[tokInd], *(const wchar_t**)getMemAt(0x587000, 94468 + 4*7))) {
 			v5 = sub_57A0F0(*v3);
 		} else {
 			v4 = tokInd + 1;
@@ -1551,7 +1551,7 @@ int nox_cmd_mute(int tokInd, int tokCnt, wchar_t** tokens) {
 	if (!nox_client_consoleIsServer_823684) {
 		v5 = sub_57A080(*v3);
 	} else {
-		if (_nox_wcsicmp(tokens[tokInd], *(const wchar_t**)getMemAt(0x587000, 94496))) {
+		if (_nox_wcsicmp(tokens[tokInd], *(const wchar_t**)getMemAt(0x587000, 94468 + 4*7))) {
 			v5 = sub_57A080(*v3);
 		} else {
 			v4 = tokInd + 1;
