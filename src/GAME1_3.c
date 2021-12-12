@@ -3858,7 +3858,7 @@ int sub_440AC0(wchar_t* a1) {
 	const wchar_t** v2; // esi
 
 	v1 = 0;
-	v2 = (const wchar_t**)getMemAt(0x587000, 94504);
+	v2 = (const wchar_t**)getMemAt(0x587000, 94500 + 4);
 	while (_nox_wcsicmp(a1, *v2)) {
 		v2 += 19;
 		++v1;
@@ -3958,15 +3958,15 @@ wchar_t* sub_444410(int a1) {
 
 	result = 0;
 	v2 = 0;
-	v3 = getMemAt(0x587000, 94512);
+	v3 = getMemAt(0x587000, 94500 + 12);
 	while (a1 != *(uint32_t*)v3) {
 		v3 += 76;
 		++v2;
-		if ((int)v3 - (int)getMemAt(0x587000, 94512) >= 912) {
+		if ((int)v3 - (int)getMemAt(0x587000, 94500 + 12) >= 912) {
 			return result;
 		}
 	}
-	return (char*)getMemAt(0x587000, 94516 + 76 * v2);
+	return (char*)getMemAt(0x587000, 94500 + 76*v2 + 16);
 }
 
 #ifndef NOX_CGO
