@@ -1,4 +1,4 @@
-package parsecmd
+package console
 
 import (
 	"testing"

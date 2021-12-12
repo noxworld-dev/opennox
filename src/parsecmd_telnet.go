@@ -7,18 +7,18 @@ import "C"
 import (
 	"strconv"
 
-	"nox/v1/client/system/parsecmd"
+	"nox/v1/common/console"
 	noxflags "nox/v1/common/flags"
 )
 
 func init() {
-	parseCmd.Register(&parsecmd.Command{Token: "telnet", HelpID: "telnethelp", Flags: parsecmd.Server, Sub: []*parsecmd.Command{
-		{Token: "on", HelpID: "telnetonhelp", Flags: parsecmd.Server, Func: cmdTelnetOn},
-		{Token: "off", HelpID: "telnetoffhelp", Flags: parsecmd.Server, Func: cmdTelnetOff},
+	parseCmd.Register(&console.Command{Token: "telnet", HelpID: "telnethelp", Flags: console.Server, Sub: []*console.Command{
+		{Token: "on", HelpID: "telnetonhelp", Flags: console.Server, Func: cmdTelnetOn},
+		{Token: "off", HelpID: "telnetoffhelp", Flags: console.Server, Func: cmdTelnetOff},
 	}})
 }
 
-func cmdTelnetOff(c *parsecmd.Console, tokens []string) bool {
+func cmdTelnetOff(c *console.Console, tokens []string) bool {
 	if len(tokens) != 0 {
 		return false
 	}
@@ -27,11 +27,11 @@ func cmdTelnetOff(c *parsecmd.Console, tokens []string) bool {
 	}
 	C.nox_telnet_stop_579830()
 	s := c.Strings().GetString("parsecmd.c:telnetoff")
-	c.Printf(parsecmd.ColorRed, s)
+	c.Printf(console.ColorRed, s)
 	return true
 }
 
-func cmdTelnetOn(c *parsecmd.Console, tokens []string) bool {
+func cmdTelnetOn(c *console.Console, tokens []string) bool {
 	n := len(tokens)
 	if n > 1 {
 		return false
@@ -47,6 +47,6 @@ func cmdTelnetOn(c *parsecmd.Console, tokens []string) bool {
 	}
 	port := int(C.nox_telnet_getPort_579850())
 	s := c.Strings().GetString("parsecmd.c:telneton")
-	c.Printf(parsecmd.ColorRed, s, port)
+	c.Printf(console.ColorRed, s, port)
 	return true
 }

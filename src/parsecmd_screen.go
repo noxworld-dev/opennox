@@ -8,21 +8,21 @@ import (
 	"os"
 	"sync/atomic"
 
-	"nox/v1/client/system/parsecmd"
+	"nox/v1/common/console"
 	"nox/v1/common/datapath"
 	"nox/v1/common/log"
 )
 
 func init() {
-	parseCmd.Register(&parsecmd.Command{
+	parseCmd.Register(&console.Command{
 		Token:  "image",
 		HelpID: "imagehelp",
-		Flags:  parsecmd.ClientServer,
+		Flags:  console.ClientServer,
 		Func:   cmdScreenshot,
 	})
 }
 
-func cmdScreenshot(c *parsecmd.Console, tokens []string) bool {
+func cmdScreenshot(c *console.Console, tokens []string) bool {
 	makeScreenshot()
 	return true
 }

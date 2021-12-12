@@ -22,7 +22,7 @@
 
 package sdl
 
-import "nox/v1/client/input/keybind"
+import "nox/v1/common/keybind"
 
 // TODO: map the following keys, if possible:
 // #define DIK_UNDERLINE       0x93    /*                     (NEC PC98) */

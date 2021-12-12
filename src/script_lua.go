@@ -5,7 +5,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"nox/v1/client/system/parsecmd"
+	"nox/v1/common/console"
 	"nox/v1/common/datapath"
 	"nox/v1/common/maps"
 	"nox/v1/server/script"
@@ -20,21 +20,21 @@ var (
 )
 
 func init() {
-	parseCmd.Register(&parsecmd.Command{
+	parseCmd.Register(&console.Command{
 		Token: "lua", HelpID: "luahelp",
 		Help:  "execute LUA command",
-		Flags: parsecmd.Server | parsecmd.Cheat,
-		Func: func(c *parsecmd.Console, tokens []string) bool {
+		Flags: console.Server | console.Cheat,
+		Func: func(c *console.Console, tokens []string) bool {
 			if len(tokens) == 0 {
 				return false
 			}
 			if scriptLUA.vm == nil {
-				c.Printf(parsecmd.ColorRed, "LUA is not running")
+				c.Printf(console.ColorRed, "LUA is not running")
 				return true
 			}
 			code := strings.Join(tokens, " ")
 			if err := scriptLUA.vm.Exec(code); err != nil {
-				c.Printf(parsecmd.ColorRed, "LUA error: %v", err)
+				c.Printf(console.ColorRed, "LUA error: %v", err)
 			}
 			return true
 		},

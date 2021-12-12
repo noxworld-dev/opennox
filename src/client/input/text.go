@@ -3,7 +3,7 @@ package input
 import (
 	"unicode"
 
-	"nox/v1/client/input/keybind"
+	"nox/v1/common/keybind"
 )
 
 type inputCharMap struct {

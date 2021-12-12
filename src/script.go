@@ -3,7 +3,7 @@ package nox
 import (
 	"time"
 
-	"nox/v1/client/system/parsecmd"
+	"nox/v1/common/console"
 	"nox/v1/common/log"
 	"nox/v1/common/object"
 	"nox/v1/common/types"
@@ -163,17 +163,17 @@ func (noxScript) WallGroupByID(id string) *script.WallGroup {
 	return getWallGroupByID(id)
 }
 
-type scriptConsole parsecmd.Color
+type scriptConsole console.Color
 
 func (c scriptConsole) Print(text string) {
-	consolePrintf(parsecmd.Color(c), "%s", text)
+	consolePrintf(console.Color(c), "%s", text)
 }
 
 func (noxScript) Console(error bool) script.Printer {
 	if error {
-		return scriptConsole(parsecmd.ColorLightRed)
+		return scriptConsole(console.ColorLightRed)
 	}
-	return scriptConsole(parsecmd.ColorYellow)
+	return scriptConsole(console.ColorYellow)
 }
 
 type scriptGlobalPrint struct{}

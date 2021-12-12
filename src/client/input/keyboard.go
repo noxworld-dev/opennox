@@ -1,8 +1,8 @@
 package input
 
 import (
-	"nox/v1/client/input/keybind"
 	"nox/v1/client/seat"
+	"nox/v1/common/keybind"
 )
 
 const keyboardEventBuf = 256

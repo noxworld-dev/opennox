@@ -3852,22 +3852,18 @@ int nox_xxx_netServerCmd_440950(char a1, wchar_t* a2) {
 	return nox_xxx_netClientSend2_4E53C0(31, v3, 2 * (unsigned char)v3[4] + 7, 0, 1);
 }
 
+#ifndef NOX_CGO
 //----- (00440AC0) --------------------------------------------------------
 int sub_440AC0(wchar_t* a1) {
-	int v1;             // edi
-	const wchar_t** v2; // esi
-
-	v1 = 0;
-	v2 = (const wchar_t**)getMemAt(0x587000, 94500 + 4);
-	while (_nox_wcsicmp(a1, *v2)) {
-		v2 += 19;
-		++v1;
-		if ((int)v2 >= (int)getMemAt(0x587000, 95416)) {
-			return -1;
+	for (int i = 0; i < 12; i++) {
+		const wchar_t** v2 = (const wchar_t**)getMemAt(0x587000, 94500 + 76*i + 4);
+		if (_nox_wcsicmp(a1, *v2) == 0) {
+			return i;
 		}
 	}
-	return v1;
+	return -1;
 }
+#endif // NOX_CGO
 
 //----- (004417E0) --------------------------------------------------------
 void sub_4417E0(wchar_t* a1, const char* a2) {
@@ -3948,28 +3944,18 @@ void sub_4443B0(unsigned char a1) {
 		}
 	}
 }
-#endif // NOX_CGO
 
 //----- (00444410) --------------------------------------------------------
 wchar_t* sub_444410(int a1) {
-	char* result;      // eax
-	int v2;            // edx
-	unsigned char* v3; // ecx
-
-	result = 0;
-	v2 = 0;
-	v3 = getMemAt(0x587000, 94500 + 12);
-	while (a1 != *(uint32_t*)v3) {
-		v3 += 76;
-		++v2;
-		if ((int)v3 - (int)getMemAt(0x587000, 94500 + 12) >= 912) {
-			return result;
+	for (int i = 0; i < 12; i++) {
+		unsigned char* v3 = getMemAt(0x587000, 94500 + 76*i + 12);
+		if (a1 == *(uint32_t*)v3) {
+			return (char*)getMemAt(0x587000, 94500 + 76*i + 16);
 		}
 	}
-	return (char*)getMemAt(0x587000, 94500 + 76*v2 + 16);
+	return 0;
 }
 
-#ifndef NOX_CGO
 //----- (004445C0) --------------------------------------------------------
 void nox_setProfiledMode_4445C0() {
 	int v0 = 0;

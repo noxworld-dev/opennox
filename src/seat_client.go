@@ -10,11 +10,11 @@ import (
 	"github.com/spf13/viper"
 
 	"nox/v1/client/input"
-	"nox/v1/client/input/keybind"
 	"nox/v1/client/render"
 	"nox/v1/client/seat"
 	"nox/v1/client/seat/sdl"
 	"nox/v1/common/env"
+	"nox/v1/common/keybind"
 	"nox/v1/common/types"
 	"nox/v1/internal/version"
 )
