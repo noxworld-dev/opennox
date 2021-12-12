@@ -45,6 +45,7 @@ type LocalizedPrinter interface {
 type isClientKey struct{}
 type isDedicatedKey struct{}
 type isCheatsKey struct{}
+type curCmdKey struct{}
 
 // AsClient marks the commands as executed client-side.
 func AsClient(ctx context.Context) context.Context {
@@ -99,6 +100,17 @@ func IsCheats(ctx context.Context) bool {
 	if !ok {
 		return false
 	}
+	return v
+}
+
+// withCommand sets current command string that is being executed.
+func withCommand(ctx context.Context, cmd string) context.Context {
+	return context.WithValue(ctx, curCmdKey{}, cmd)
+}
+
+// CurCommand gets current command string that is being executed.
+func CurCommand(ctx context.Context) string {
+	v, _ := ctx.Value(curCmdKey{}).(string)
 	return v
 }
 
@@ -327,6 +339,7 @@ func (cn *Console) ParseToken(ctx context.Context, tokInd int, tokens []string, 
 
 // Exec a given console command.
 func (cn *Console) Exec(ctx context.Context, cmd string) bool {
+	ctx = withCommand(ctx, cmd)
 	var (
 		tokens []string
 	)

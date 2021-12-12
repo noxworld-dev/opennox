@@ -368,12 +368,12 @@ func sub_4CBBF0() {
 
 func nox_client_processInput_4308A0(h *input.Handler) {
 	if noxflags.HasGame(noxflags.GameOnline) && !noxflags.HasGame(noxflags.GameModeQuest) && h.SeqDelay() > 2700 {
-		if !noxflags.HasGame(1) {
-			C.nox_xxx_netServerCmd_440950(0, (*C.wchar_t)(memmap.PtrOff(0x587000, 80784)))
+		if !noxflags.HasGame(noxflags.GameHost) {
+			nox_xxx_netServerCmd_440950(0, GoWString((*C.wchar_t)(memmap.PtrOff(0x587000, 80784))))
 			return
 		}
 		if memmap.Uint32(0x8531A0, 2576) != 0 {
-			C.nox_xxx_serverHandleClientConsole_443E90((*C.nox_playerInfo)(*memmap.PtrPtr(0x8531A0, 2576)), 0, (*C.wchar_t)(memmap.PtrOff(0x587000, 80792)))
+			nox_xxx_serverHandleClientConsole_443E90(asPlayer((*C.nox_playerInfo)(*memmap.PtrPtr(0x8531A0, 2576))), 0, GoWString((*C.wchar_t)(memmap.PtrOff(0x587000, 80792))))
 		}
 	}
 }

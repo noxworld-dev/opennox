@@ -170,7 +170,7 @@ int nox_xxx_menuGameOnButton_445840(uint32_t* a1, int a2, int* a3, int a4) {
 			a3[9] = v9;
 			result = 0;
 		} else {
-			nox_xxx_netServerCmd_440950(0, 0);
+			nox_xxx_netServerCmd_440950_empty();
 			sub_445C40();
 			v7 = a3[9];
 			LOBYTE(v7) = v7 & 0xFD;

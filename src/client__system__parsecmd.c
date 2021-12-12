@@ -27,7 +27,6 @@
 #include "common__magic__speltree.h"
 #include "static.h"
 
-extern uint32_t dword_5d4594_823696;
 extern uint32_t dword_5d4594_1563664;
 extern uint32_t nox_xxx_xxxRenderGUI_587000_80832;
 extern uint32_t nox_server_connectionType_3596;
@@ -36,14 +35,15 @@ extern uint32_t nox_client_renderGUI_80828;
 extern uint32_t dword_5d4594_2650652;
 extern uint32_t nox_player_netCode_85319C;
 
-void* nox_client_consoleCurCmd_823700 = 0;
-
 nox_playerInfo* nox_console_playerWhoSent_823692 = 0;
 
-int nox_xxx_consoleTokenPairs_823708 = 0;
 unsigned int nox_client_consoleIsServer_823684 = 0;
 
 #ifndef NOX_CGO
+uint32_t nox_console_waitSysOpPass = 0;
+int nox_xxx_consoleTokenPairs_823708 = 0;
+void* nox_client_consoleCurCmd_823700 = 0;
+
 enum {
 	NOX_CONSOLE_SECRET = 0x40,
 };
@@ -778,7 +778,6 @@ int nox_cmd_help(int tokInd, int tokCnt, wchar_t** tokens) {
 	nox_cmd_help_2_441B90(nox_commands);
 	return 1;
 }
-#endif // NOX_CGO
 
 //----- (004421A0) --------------------------------------------------------
 int nox_cmd_set_obs(int tokInd, int tokCnt, wchar_t** tokens) {
@@ -801,7 +800,6 @@ int nox_cmd_set_save_debug(int tokInd, int tokCnt, wchar_t** tokens) {
 	return 1;
 }
 
-#ifndef NOX_CGO
 //----- (00442410) --------------------------------------------------------
 int nox_cmd_set_god(int tokInd, int tokCnt, wchar_t** tokens) {
 	if (!nox_common_gameFlags_check_40A5C0(4096)) {
@@ -1570,6 +1568,7 @@ int nox_cmd_mute(int tokInd, int tokCnt, wchar_t** tokens) {
 	return 1;
 }
 
+#ifndef NOX_CGO
 //----- (004437B0) --------------------------------------------------------
 int nox_cmd_exec(int tokInd, int tokCnt, wchar_t** tokens) {
 	if (tokCnt != 2) {
@@ -1584,6 +1583,7 @@ int nox_cmd_exec(int tokInd, int tokCnt, wchar_t** tokens) {
 	nox_xxx_netServerCmd_440950(1, *(wchar_t**)&nox_client_consoleCurCmd_823700);
 	return 1;
 }
+#endif // NOX_CGO
 
 //----- (00443810) --------------------------------------------------------
 int nox_cmd_exec_rul(int tokInd, int tokCnt, wchar_t** tokens) {
@@ -1601,12 +1601,13 @@ int nox_cmd_exec_rul(int tokInd, int tokCnt, wchar_t** tokens) {
 	return 1;
 }
 
+#ifndef NOX_CGO
 //----- (004439B0) --------------------------------------------------------
 int nox_cmd_sysop(int tokInd, int tokCnt, wchar_t** tokens) {
 	wchar_t* v2; // eax
 	wchar_t* v4; // eax
 	if (tokCnt == 1) {
-		dword_5d4594_823696 = 1;
+		nox_console_waitSysOpPass = 1;
 		v2 = nox_strman_loadString_40F1D0("enterSysopPW", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 4014);
 		nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v2);
 	} else {
@@ -1649,7 +1650,6 @@ void nox_console_encodeSecretToken_443BF0(unsigned short* a1, char* a2) {
 }
 
 //----- (00443A20) --------------------------------------------------------
-#ifndef NOX_CGO
 int nox_xxx_consoleParseToken_443A20(int tokInd, int tokCnt, wchar_t** tokens, nox_cmd_t cmds[], int a5) {
 	if (!tokens[tokInd] || !cmds || !cmds[0].token) {
 		return 0;
@@ -1715,12 +1715,9 @@ int nox_xxx_consoleParseToken_443A20(int tokInd, int tokCnt, wchar_t** tokens, n
 	}
 	return res;
 }
-#else  // NOX_CGO
-int nox_xxx_consoleParseToken_443A20(int tokInd, int tokCnt, wchar_t** tokens, int a5);
-#endif // NOX_CGO
 
 //----- (004409D0) --------------------------------------------------------
-void sub_4409D0(wchar_t* a1) {
+void nox_console_sendSysOpPass_4409D0(wchar_t* a1) {
 	char v2[21]; // [esp+0h] [ebp-18h]
 
 	v2[0] = -68;
@@ -1730,7 +1727,6 @@ void sub_4409D0(wchar_t* a1) {
 	nox_xxx_netClientSend2_4E53C0(31, v2, 21, 0, 1);
 }
 
-#ifndef NOX_CGO
 //----- (00443E40) --------------------------------------------------------
 wchar_t* nox_xxx_consoleTokenFindByAlias_443E40(wchar_t* s) {
 	if (nox_xxx_consoleTokenPairs_823708 <= 0) {
@@ -1764,9 +1760,9 @@ int nox_server_parseCmdText_443C80(wchar_t* cmdText, int a2) {
 		nox_client_consoleIsServer_823684 = 0;
 		*getMemU32Ptr(0x5D4594, 823688) = 1;
 	}
-	if (dword_5d4594_823696) {
-		sub_4409D0(cmdText);
-		dword_5d4594_823696 = 0;
+	if (nox_console_waitSysOpPass) {
+		nox_console_sendSysOpPass_4409D0(cmdText);
+		nox_console_waitSysOpPass = 0;
 		return 1;
 	}
 	nox_wcscpy((wchar_t*)getMemAt(0x5D4594, 820276), cmdText);
@@ -2045,7 +2041,7 @@ void nox_xxx_cmdTokensLoad_4444F0() {
 		nox_xxx_consoleTokenAddPair_4444C0(*v0, (int)v1);
 		++v0;
 	} while ((int)v0 < (int)getMemAt(0x587000, 94500));
-	dword_5d4594_823696 = 0;
+	nox_console_waitSysOpPass = 0;
 	nox_xxx_consoleLoadTokens_444440(nox_commands);
 	sub_444570();
 }
@@ -2065,7 +2061,6 @@ int nox_cmd_unbind(int tokInd, int tokCnt, wchar_t** tokens) {
 	*getMemU16Ptr(0x587000, 94500 + 76*v3 + 16) = 0;
 	return 1;
 }
-#endif // NOX_CGO
 
 //----- (00440BC0) --------------------------------------------------------
 char* sub_cmd_broadcast_xxx_440BC0(int tokInd, int tokCnt, wchar_t** tokens) {
@@ -2133,6 +2128,7 @@ int nox_cmd_say(int tokInd, int tokCnt, wchar_t** tokens) {
 	nox_xxx_cmdSayDo_46A4B0((wchar_t*)((int)nox_client_consoleCurCmd_823700 + 8), 0);
 	return 1;
 }
+#endif // NOX_CGO
 
 //----- (00440CC0) --------------------------------------------------------
 int nox_cmd_offonly1(int tokInd, int tokCnt, wchar_t** tokens) {
@@ -2551,7 +2547,6 @@ int nox_cmd_exit(int tokInd, int tokCnt, wchar_t** tokens) {
 	nox_game_exit_xxx_43DE60();
 	return 1;
 }
-#endif // NOX_CGO
 
 //----- (00442210) --------------------------------------------------------
 int nox_cmd_watch(int tokInd, int tokCnt, wchar_t** tokens) {
@@ -2580,6 +2575,7 @@ int nox_cmd_watch(int tokInd, int tokCnt, wchar_t** tokens) {
 	}
 	return result;
 }
+#endif // NOX_CGO
 
 //----- (004422D0) --------------------------------------------------------
 int nox_cmd_gamma(int tokInd, int tokCnt, wchar_t** tokens) {

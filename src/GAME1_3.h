@@ -169,6 +169,7 @@ short sub_4408C0(uint8_t* a1);
 int sub_4408E0();
 void nox_client_clearScreen_440900();
 int nox_xxx_netServerCmd_440950(char a1, wchar_t* a2);
+void nox_xxx_netServerCmd_440950_empty();
 int sub_440AC0(wchar_t* a1);
 void sub_4417E0(wchar_t* a1, const char* a2);
 int nox_xxx_doExecrul_4438A0(int a1);

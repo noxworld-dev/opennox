@@ -456,7 +456,7 @@ var noxMemmap = []struct {
 	{0x5D4594, 816492, 4, "nox_draw_defaultFont_816492"},                        // 0x69BB00
 	{0x5D4594, 823684, 4, "nox_client_consoleIsServer_823684"},                  // 0x69D718
 	{0x5D4594, 823692, 4, "nox_console_playerWhoSent_823692"},                   // 0x69D720
-	{0x5D4594, 823696, 4, "dword_5d4594_823696"},                                // 0x69D724
+	{0x5D4594, 823696, 4, "nox_console_waitSysOpPass"},                          // 0x69D724
 	{0x5D4594, 823700, 4, "nox_client_consoleCurCmd_823700"},                    // 0x69D728
 	{0x5D4594, 823708, 4, "nox_xxx_consoleTokenPairs_823708"},                   // 0x69D730
 	{0x5D4594, 823772, 4, "dword_5d4594_823772"},                                // 0x69D770
