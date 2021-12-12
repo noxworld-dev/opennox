@@ -5,6 +5,7 @@ package nox
 extern unsigned int nox_client_consoleIsServer_823684;
 extern int nox_cheat_allowall;
 extern int nox_cheat_charmall;
+extern void* nox_client_consoleCurCmd_823700;
 
 void nox_xxx_consoleTokenAddPair_4444C0(wchar_t* tok, wchar_t* tok2);
 int nox_gui_console_Print_450B90(unsigned char typ, wchar_t* str);
@@ -89,10 +90,14 @@ int nox_cmd_startSoloQuest(int, int, wchar_t**);
 */
 import "C"
 import (
+	"context"
 	"fmt"
+	"strings"
+	"unsafe"
 
 	"nox/v1/common/console"
 	noxflags "nox/v1/common/flags"
+	"nox/v1/common/memmap"
 	"nox/v1/common/strman"
 )
 
@@ -125,8 +130,15 @@ func consolePrintf(typ console.Color, format string, args ...interface{}) int {
 }
 
 func wrapCommandC(cfnc func(C.int, C.int, **C.wchar_t) C.int) console.CommandLegacyFunc {
-	return func(c *console.Console, tokInd int, tokens []string) bool {
-		C.nox_client_consoleIsServer_823684 = C.uint(bool2int(!c.IsClient()))
+	return func(ctx context.Context, c *console.Console, tokInd int, tokens []string) bool {
+		cmdTextC, cmdFree := CWString(strings.Join(tokens, " "))
+		C.nox_client_consoleCurCmd_823700 = unsafe.Pointer(cmdTextC)
+		defer func() {
+			C.nox_client_consoleCurCmd_823700 = nil
+			cmdFree()
+		}()
+		*memmap.PtrUint32(0x5D4594, 823688) = uint32(bool2int(console.IsClient(ctx)))
+		C.nox_client_consoleIsServer_823684 = C.uint(bool2int(!console.IsClient(ctx)))
 		ctokens, free := CWStrSlice(tokens)
 		defer free()
 		var ptr **C.wchar_t
@@ -138,7 +150,7 @@ func wrapCommandC(cfnc func(C.int, C.int, **C.wchar_t) C.int) console.CommandLeg
 }
 
 func init() {
-	parseCmd.SetExec(serverExecCmd)
+	parseCmd.SetExec(execConsoleCmd)
 	for _, c := range noxCommands {
 		parseCmd.Register(c)
 	}
@@ -190,11 +202,11 @@ var (
 			Token:  "bindings",
 			HelpID: "showbindingshelp",
 			Flags:  console.ClientServer,
-			Func: func(c *console.Console, tokens []string) bool {
+			Func: func(ctx context.Context, c *console.Console, tokens []string) bool {
 				if len(tokens) != 0 {
 					return false
 				}
-				return c.Exec("bindings")
+				return c.Exec(ctx, "bindings")
 			},
 		},
 		{Token: "game", HelpID: "showgamehelp", Flags: console.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_show_game)},
@@ -233,7 +245,7 @@ var (
 		{Token: "clear", HelpID: "clearhelp", Flags: console.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_clear)},
 		{Token: "exec", HelpID: "exechelp", Flags: console.Server, LegacyFunc: wrapCommandC(nox_cmd_exec)},
 		{Token: "execrul", HelpID: "execrulhelp", Flags: console.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_exec_rul)},
-		{Token: "exit", HelpID: "exithelp", Flags: console.ClientServer, Func: func(c *console.Console, tokens []string) bool {
+		{Token: "exit", HelpID: "exithelp", Flags: console.ClientServer, Func: func(ctx context.Context, c *console.Console, tokens []string) bool {
 			if noxflags.HasGame(noxflags.GameModeQuest) && noxflags.HasGame(1) {
 				C.sub_4D6B10(0)
 			}
@@ -258,7 +270,7 @@ var (
 			{Token: "options", HelpID: "menuoptionshelp", Flags: console.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_menu_options)},
 		}},
 		{Token: "mute", HelpID: "mutehelp", Flags: console.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_mute)},
-		{Token: "quit", HelpID: "quithelp", Flags: console.ClientServer, Func: func(c *console.Console, tokens []string) bool {
+		{Token: "quit", HelpID: "quithelp", Flags: console.ClientServer, Func: func(ctx context.Context, c *console.Console, tokens []string) bool {
 			C.nox_client_quit_4460C0()
 			return true
 		}},

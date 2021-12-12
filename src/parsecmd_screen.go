@@ -22,7 +22,7 @@ func init() {
 	})
 }
 
-func cmdScreenshot(c *console.Console, tokens []string) bool {
+func cmdScreenshot(ctx context.Context, c *console.Console, tokens []string) bool {
 	makeScreenshot()
 	return true
 }

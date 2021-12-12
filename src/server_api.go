@@ -106,7 +106,7 @@ func queueServerCmd(cmd string) {
 	cmd = strings.TrimSpace(cmd)
 	apiLog.Printf("run command: %q", cmd)
 	addGameTickHook(func() {
-		serverCmd(cmd)
+		execServerCmd(cmd)
 	})
 }
 

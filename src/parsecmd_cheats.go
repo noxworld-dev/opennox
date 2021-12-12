@@ -1,6 +1,7 @@
 package nox
 
 import (
+	"context"
 	"strconv"
 
 	"nox/v1/common/console"
@@ -14,7 +15,7 @@ func init() {
 		HelpID: "cheathealthhelp",
 		Help:   "sets health for the player",
 		Flags:  console.Server | console.Cheat,
-		Func: func(c *console.Console, tokens []string) bool {
+		Func: func(ctx context.Context, c *console.Console, tokens []string) bool {
 			return noxCmdSetPlayerUnitParam(c, tokens, "health", (*Unit).SetMaxHealth, func(u *Unit) {
 				_, max := u.Health()
 				u.SetHealth(max)
@@ -26,7 +27,7 @@ func init() {
 		HelpID: "cheatmanahelp",
 		Help:   "sets mana for the player",
 		Flags:  console.Server | console.Cheat,
-		Func: func(c *console.Console, tokens []string) bool {
+		Func: func(ctx context.Context, c *console.Console, tokens []string) bool {
 			return noxCmdSetPlayerUnitParam(c, tokens, "mana", (*Unit).SetMaxMana, func(u *Unit) {
 				_, max := u.Mana()
 				u.SetMana(max)
@@ -38,7 +39,7 @@ func init() {
 		HelpID: "cheatequipall",
 		Help:   "allows to equip all items by all classes",
 		Flags:  console.Server | console.Cheat,
-		Func: func(c *console.Console, tokens []string) bool {
+		Func: func(ctx context.Context, c *console.Console, tokens []string) bool {
 			return noxCmdSetBool(c, tokens, func(allow bool) {
 				cheatEquipAll(allow)
 				if allow {
@@ -54,7 +55,7 @@ func init() {
 		HelpID: "cheatcharmall",
 		Help:   "allows to charm all creatures",
 		Flags:  console.Server | console.Cheat,
-		Func: func(c *console.Console, tokens []string) bool {
+		Func: func(ctx context.Context, c *console.Console, tokens []string) bool {
 			return noxCmdSetBool(c, tokens, func(allow bool) {
 				cheatCharmAll(allow)
 				if allow {
@@ -75,7 +76,7 @@ func init() {
 		Token:  "god",
 		HelpID: "setgodhelp",
 		Flags:  console.Server | console.Cheat,
-		Func: func(c *console.Console, tokens []string) bool {
+		Func: func(ctx context.Context, c *console.Console, tokens []string) bool {
 			return noxCmdSetBool(c, tokens, func(enable bool) {
 				serverCheatInvincible(enable)
 				if enable {
@@ -92,7 +93,7 @@ func init() {
 		Token:  "sage",
 		HelpID: "setsagehelp",
 		Flags:  console.Server | console.Cheat,
-		Func: func(c *console.Console, tokens []string) bool {
+		Func: func(ctx context.Context, c *console.Console, tokens []string) bool {
 			return noxCmdSetBool(c, tokens, func(enable bool) {
 				serverCheatSage(enable)
 				if enable {
@@ -109,7 +110,7 @@ func init() {
 		Token:  "spells",
 		HelpID: "setsagehelp",
 		Flags:  console.Server | console.Cheat,
-		Func: func(c *console.Console, tokens []string) bool {
+		Func: func(ctx context.Context, c *console.Console, tokens []string) bool {
 			return noxCmdSetBool(c, tokens, func(enable bool) {
 				serverCheatSpells(enable)
 				if enable {
@@ -126,7 +127,7 @@ func init() {
 		Token:  "scrolls",
 		HelpID: "setsagehelp",
 		Flags:  console.Server | console.Cheat,
-		Func: func(c *console.Console, tokens []string) bool {
+		Func: func(ctx context.Context, c *console.Console, tokens []string) bool {
 			return noxCmdSetBool(c, tokens, func(enable bool) {
 				serverCheatScrolls(enable)
 				if enable {
@@ -169,7 +170,7 @@ func init() {
 	})
 }
 
-func noxCheatGold(c *console.Console, tokens []string) bool {
+func noxCheatGold(ctx context.Context, c *console.Console, tokens []string) bool {
 	if len(tokens) != 1 {
 		return false
 	}
@@ -226,7 +227,7 @@ func serverCheatSpells(enable bool) {
 	}
 }
 
-func noxCheatSetGod(c *console.Console, tokens []string) bool {
+func noxCheatSetGod(ctx context.Context, c *console.Console, tokens []string) bool {
 	if !noxflags.HasGame(noxflags.GameModeQuest) {
 		serverCheatGod(true)
 		str := strMan.GetStringInFile("godset", "parsecmd.c")
@@ -235,7 +236,7 @@ func noxCheatSetGod(c *console.Console, tokens []string) bool {
 	return true
 }
 
-func noxCheatUnsetGod(c *console.Console, tokens []string) bool {
+func noxCheatUnsetGod(ctx context.Context, c *console.Console, tokens []string) bool {
 	serverCheatGod(false)
 	str := strMan.GetStringInFile("godunset", "parsecmd.c")
 	c.Printf(console.ColorRed, str)
@@ -320,7 +321,7 @@ func noxCmdPlayerByIndex(c *console.Console, sind string) *Player {
 	return list[ind]
 }
 
-func noxCheatGoto(c *console.Console, tokens []string) bool {
+func noxCheatGoto(ctx context.Context, c *console.Console, tokens []string) bool {
 	if len(tokens) != 2 {
 		c.Printf(console.ColorLightRed, "expected two coordinates")
 		return false
@@ -346,7 +347,7 @@ func noxCheatGoto(c *console.Console, tokens []string) bool {
 	return true
 }
 
-func noxCheatSpawn(c *console.Console, tokens []string) bool {
+func noxCheatSpawn(ctx context.Context, c *console.Console, tokens []string) bool {
 	cnt := 1
 	switch len(tokens) {
 	default:

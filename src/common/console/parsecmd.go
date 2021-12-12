@@ -1,7 +1,11 @@
-// Package parsecmd implements console command parsing for Nox.
+// Package console implements console command parsing for Nox.
 package console
 
-import "nox/v1/common/strman"
+import (
+	"context"
+
+	"nox/v1/common/strman"
+)
 
 var secretChars = `0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz`
 
@@ -47,14 +51,14 @@ const (
 
 // CommandFunc accepts a set of string arguments (tokens) and executes some action.
 // The function should return true if the parsing was successful and false otherwise.
-type CommandFunc func(c *Console, tokens []string) bool
+type CommandFunc func(ctx context.Context, c *Console, tokens []string) bool
 
 // CommandLegacyFunc is the same as CommandFunc, but accepts the full array of tokens
 // and a index of the first token that is the first argument for the command.
 // This functions is a Nox legacy and isn't designed well, e.g. changing parent of the sub-command
 // requires changes to the code, since the number of tokens may change.
 // The function should return true if the parsing was successful and false otherwise.
-type CommandLegacyFunc func(c *Console, tokInd int, tokens []string) bool
+type CommandLegacyFunc func(ctx context.Context, c *Console, tokInd int, tokens []string) bool
 
 // Command describes a console command.
 type Command struct {

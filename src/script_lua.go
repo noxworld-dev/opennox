@@ -1,6 +1,7 @@
 package nox
 
 import (
+	"context"
 	"os"
 	"path/filepath"
 	"strings"
@@ -24,7 +25,7 @@ func init() {
 		Token: "lua", HelpID: "luahelp",
 		Help:  "execute LUA command",
 		Flags: console.Server | console.Cheat,
-		Func: func(c *console.Console, tokens []string) bool {
+		Func: func(ctx context.Context, c *console.Console, tokens []string) bool {
 			if len(tokens) == 0 {
 				return false
 			}

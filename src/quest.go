@@ -11,6 +11,7 @@ void sub_51A1F0(int a1);
 */
 import "C"
 import (
+	"context"
 	"os"
 	"strconv"
 
@@ -76,7 +77,7 @@ func init() {
 	noxCmdSet.Register(noxCmdSetQuest)
 }
 
-func cmdSetQuestLevelInc(c *console.Console, tokens []string) bool {
+func cmdSetQuestLevelInc(ctx context.Context, c *console.Console, tokens []string) bool {
 	if len(tokens) != 1 {
 		return false
 	}
@@ -90,7 +91,7 @@ func cmdSetQuestLevelInc(c *console.Console, tokens []string) bool {
 	return true
 }
 
-func cmdSetQuestWarpAllow(c *console.Console, tokens []string) bool {
+func cmdSetQuestWarpAllow(ctx context.Context, c *console.Console, tokens []string) bool {
 	if len(tokens) > 1 {
 		return false
 	}
@@ -112,7 +113,7 @@ func cmdSetQuestWarpAllow(c *console.Console, tokens []string) bool {
 	return true
 }
 
-func cmdSetQuestWarpInc(c *console.Console, tokens []string) bool {
+func cmdSetQuestWarpInc(ctx context.Context, c *console.Console, tokens []string) bool {
 	if len(tokens) != 1 {
 		return false
 	}
@@ -126,7 +127,7 @@ func cmdSetQuestWarpInc(c *console.Console, tokens []string) bool {
 	return true
 }
 
-func cmdSetQuestWarpInf(c *console.Console, tokens []string) bool {
+func cmdSetQuestWarpInf(ctx context.Context, c *console.Console, tokens []string) bool {
 	if len(tokens) > 1 {
 		return false
 	}
