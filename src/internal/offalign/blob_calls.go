@@ -11,12 +11,12 @@ import (
 var reBlobCall = regexp.MustCompile(`(getMem[^\s(]*)\s*\(`)
 
 type BlobCall struct {
-	Name    string // identifier of the called function
-	Base    uint   // blob base address
-	Pos     [2]int // start and the end index of the call
-	Off     [2]int // start and the end index of the index expression (in a call)
-	Expr    []byte // whole blob call expression
-	OffExpr []byte // blob index expression
+	Name    string  // identifier of the called function
+	Base    uintptr // blob base address
+	Pos     [2]int  // start and the end index of the call
+	Off     [2]int  // start and the end index of the index expression (in a call)
+	Expr    []byte  // whole blob call expression
+	OffExpr []byte  // blob index expression
 }
 
 func (b *BlobCall) ParseOffs() (BlobOffSum, bool) {
@@ -69,13 +69,13 @@ func BlobCalls(data []byte) []BlobCall {
 	}
 }
 
-func parseUint(s []byte) (uint, error) {
+func parseUint(s []byte) (uintptr, error) {
 	s = bytes.TrimSpace(s)
 	v, err := strconv.ParseUint(string(s), 0, 64)
 	if err != nil {
 		return 0, err
 	}
-	return uint(v), nil
+	return uintptr(v), nil
 }
 
 func parseOffSum(data []byte) (BlobOffSum, bool) {
@@ -168,7 +168,7 @@ func parseOffMult(data []byte) (BlobOffMult, bool) {
 }
 
 type BlobOffMult struct {
-	Static uint
+	Static uintptr
 	Sum    BlobOffSum
 }
 
@@ -190,7 +190,7 @@ func (o BlobOffMult) Replace(fnc func(string) string) {
 }
 
 type BlobOffSum struct {
-	Static uint
+	Static uintptr
 	Mult   []BlobOffMult
 	Raw    []string
 }
@@ -220,7 +220,7 @@ func (o *BlobOffSum) Merge(o2 BlobOffSum) {
 	o.Raw = append(o.Raw, o2.Raw...)
 }
 
-func (o BlobOffSum) FindMult(elem uint) (*BlobOffMult, []BlobOffMult) {
+func (o BlobOffSum) FindMult(elem uintptr) (*BlobOffMult, []BlobOffMult) {
 	var (
 		cur  BlobOffMult
 		rest []BlobOffMult

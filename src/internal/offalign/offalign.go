@@ -4,6 +4,10 @@ import (
 	"bytes"
 	"errors"
 	"fmt"
+	"go/ast"
+	"go/format"
+	"go/parser"
+	"go/token"
 	"io/ioutil"
 	"log"
 	"os"
@@ -42,7 +46,7 @@ func main() {
 				log.Printf("elem %d: %d", i, base+elem*i)
 			}
 		}
-		_, err := offsetAlignDir(*fPath, *fBlob, base, elem, cnt)
+		_, err := offsetAlignDir(*fPath, uintptr(*fBlob), uintptr(base), uintptr(elem), uintptr(cnt))
 		return err
 	}
 	if err := cmd.Execute(); err != nil {
@@ -51,7 +55,7 @@ func main() {
 	}
 }
 
-func offsetAlignDir(path string, blob, base, elem, cnt uint) (int, error) {
+func offsetAlignDir(path string, blob, base, elem, cnt uintptr) (int, error) {
 	if blob == 0 {
 		return 0, errors.New("blob address must be specified")
 	}
@@ -61,14 +65,28 @@ func offsetAlignDir(path string, blob, base, elem, cnt uint) (int, error) {
 	if elem == 0 {
 		return 0, errors.New("element size must be specified")
 	}
+	num := 0
+	if err := eachFileGo(path, nil, func(path string) error {
+		ok, err := rewriteFile(path, func(data []byte) []byte {
+			return offsetAlignGo(path, data, blob, base, elem, cnt)
+		})
+		if err != nil {
+			return err
+		}
+		if ok {
+			num++
+		}
+		return nil
+	}); err != nil {
+		return num, err
+	}
 	paths, err := readFileListC(path, []string{
 		memmapName,
 		dataName,
 	})
 	if err != nil {
-		return 0, err
+		return num, err
 	}
-	num := 0
 	for _, fname := range paths {
 		ok, err := offsetAlignFile(fname, blob, base, elem, cnt)
 		if err != nil {
@@ -82,9 +100,9 @@ func offsetAlignDir(path string, blob, base, elem, cnt uint) (int, error) {
 }
 
 type AlignedOffset struct {
-	Base  uint
+	Base  uintptr
 	Elem  BlobOffMult
-	Field uint
+	Field uintptr
 	Raw   []string
 }
 
@@ -120,7 +138,7 @@ func (o *BlobOffSum) AddMult(m BlobOffMult) {
 	o.Mult = append(o.Mult, m)
 }
 
-func (o BlobOffSum) Align(base, elem, cnt uint) (AlignedOffset, bool) {
+func (o BlobOffSum) Align(base, elem, cnt uintptr) (AlignedOffset, bool) {
 	size := elem * cnt
 	if o.Static < base || (size != 0 && o.Static >= base+size) {
 		return AlignedOffset{}, false
@@ -146,7 +164,20 @@ func (o BlobOffSum) Align(base, elem, cnt uint) (AlignedOffset, bool) {
 	return out, true
 }
 
-func offsetAlignFile(path string, blob, base, elem, cnt uint) (bool, error) {
+func rewriteFile(path string, fnc func(data []byte) []byte) (bool, error) {
+	data, err := ioutil.ReadFile(path)
+	if err != nil {
+		return false, err
+	}
+	out := fnc(data)
+	if out == nil || bytes.Equal(data, out) {
+		return false, nil // skip
+	}
+	err = ioutil.WriteFile(path, out, 0644)
+	return true, err
+}
+
+func offsetAlignFile(path string, blob, base, elem, cnt uintptr) (bool, error) {
 	data, err := ioutil.ReadFile(path)
 	if err != nil {
 		return false, err
@@ -156,10 +187,12 @@ func offsetAlignFile(path string, blob, base, elem, cnt uint) (bool, error) {
 		return false, nil // skip
 	}
 	err = ioutil.WriteFile(path, out, 0644)
-	return true, err
+	return rewriteFile(path, func(data []byte) []byte {
+		return offsetAlign(data, blob, base, elem, cnt)
+	})
 }
 
-func offsetAlign(data []byte, blob, base, elem, cnt uint) []byte {
+func offsetAlign(data []byte, blob, base, elem, cnt uintptr) []byte {
 	if cnt <= 0 {
 		cnt = 1
 	}
@@ -220,7 +253,7 @@ func offsetAlign(data []byte, blob, base, elem, cnt uint) []byte {
 
 func readFileListC(path string, ignore []string) ([]string, error) {
 	var out []string
-	err := filepath.Walk(path, func(path string, info os.FileInfo, err error) error {
+	err := filepath.WalkDir(path, func(path string, info os.DirEntry, err error) error {
 		if err != nil {
 			return err
 		} else if info.IsDir() {
@@ -238,4 +271,308 @@ func readFileListC(path string, ignore []string) ([]string, error) {
 		return nil
 	})
 	return out, err
+}
+
+func eachFileGo(path string, ignore []string, fnc func(path string) error) error {
+	return filepath.WalkDir(path, func(path string, info os.DirEntry, err error) error {
+		if err != nil {
+			return err
+		} else if info.IsDir() {
+			base := filepath.Base(path)
+			if base != "." && strings.HasPrefix(base, ".") {
+				return filepath.SkipDir
+			}
+			return nil // descend
+		}
+		if !strings.HasSuffix(path, ".go") {
+			return nil // ignore
+		}
+		for _, name := range ignore {
+			if strings.HasSuffix(path, name) {
+				return nil // ignore
+			}
+		}
+		return fnc(path)
+	})
+}
+
+func offsetAlignGo(path string, data []byte, blob, base, elem, cnt uintptr) []byte {
+	fset := token.NewFileSet()
+	f, err := parser.ParseFile(fset, path, data, parser.ParseComments|parser.SkipObjectResolution)
+	if err != nil {
+		panic(err)
+	}
+	found := false
+	for _, im := range f.Imports {
+		if (im.Name != nil && im.Name.Name == "memmap") || strings.HasSuffix(im.Path.Value, "memmap\"") {
+			found = true
+			break
+		}
+	}
+	if !found {
+		return nil
+	}
+	al := &offAligner{
+		blob: blob,
+		base: base,
+		elem: elem,
+		cnt:  cnt,
+	}
+	ast.Walk(al, f)
+	if al.replaced == 0 {
+		return nil
+	}
+	var buf bytes.Buffer
+	if err := format.Node(&buf, fset, f); err != nil {
+		panic(err)
+	}
+	return buf.Bytes()
+}
+
+type offAligner struct {
+	blob, base, elem, cnt uintptr
+	replaced              int
+}
+
+func (v *offAligner) Visit(n ast.Node) ast.Visitor {
+	switch n := n.(type) {
+	default:
+		return v
+	case *ast.CallExpr:
+		if len(n.Args) != 2 {
+			return v
+		}
+		sel, ok := n.Fun.(*ast.SelectorExpr)
+		if !ok {
+			return v
+		}
+		pkg, ok := sel.X.(*ast.Ident)
+		if !ok || pkg.Name != "memmap" {
+			return v
+		}
+		blobe, ok := n.Args[0].(*ast.BasicLit)
+		if !ok || blobe.Kind != token.INT {
+			return v
+		}
+		blob, err := strconv.ParseUint(blobe.Value, 0, 64)
+		if err != nil {
+			panic(err)
+		}
+		if uintptr(blob) != v.blob {
+			return v
+		}
+		off, rest := staticExprGo(n.Args[1])
+		if off == 0 {
+			return v
+		}
+		x := v.alignGo(off, rest)
+		if x == nil {
+			return v
+		}
+		n.Args[1] = x
+		v.replaced++
+		return v
+	}
+}
+
+func staticExprGo(n ast.Expr) (uintptr, ast.Expr) {
+	if n == nil {
+		return 0, nil
+	}
+	switch n := n.(type) {
+	default:
+		return 0, n
+	case *ast.ParenExpr:
+		v, r := staticExprGo(n.X)
+		if v == 0 {
+			return 0, n
+		}
+		if r == nil {
+			return v, nil
+		}
+		n.X = r
+		return v, n
+	case *ast.BasicLit:
+		if n.Kind != token.INT {
+			return 0, n
+		}
+		v, err := strconv.ParseUint(n.Value, 0, 64)
+		if err != nil {
+			return 0, n
+		}
+		return uintptr(v), nil
+	case *ast.BinaryExpr:
+		switch n.Op {
+		default:
+			return 0, n
+		case token.MUL:
+			x, xr := staticExprGo(n.X)
+			y, yr := staticExprGo(n.Y)
+			if xr != nil || yr != nil {
+				return 0, n
+			}
+			return x * y, nil
+		case token.QUO:
+			x, xr := staticExprGo(n.X)
+			y, yr := staticExprGo(n.Y)
+			if xr != nil || yr != nil {
+				return 0, n
+			}
+			return x / y, nil
+		case token.SUB:
+			x, xr := staticExprGo(n.X)
+			if x == 0 {
+				// no positive static part, and we ignore negative
+				return 0, n
+			}
+			// have positive part, maybe with some additions
+			if xr == nil {
+				// nothing more from the positive side, so can use negative rest
+				return x, &ast.UnaryExpr{X: n.Y, Op: n.Op}
+			}
+			n.X = xr
+			return x, n
+		case token.ADD:
+			x, xr := staticExprGo(n.X)
+			y, yr := staticExprGo(n.Y)
+			if x == 0 && y == 0 {
+				// nothing interesting, keep original
+				return 0, n
+			}
+			v := x + y
+			if xr == nil && yr == nil {
+				return v, nil
+			}
+			if xr == nil {
+				return v, yr
+			} else if yr == nil {
+				return v, xr
+			}
+			n.X = xr
+			n.Y = yr
+			return v, n
+		}
+	}
+}
+
+func (v *offAligner) alignGo(static uintptr, rest ast.Expr) ast.Expr {
+	size := v.elem * v.cnt
+	if static < v.base || (size != 0 && static >= v.base+size) {
+		return nil
+	}
+	var parts []ast.Expr
+	parts = append(parts, astUint(uint64(v.base)))
+	off := static - v.base
+	n := off / v.elem
+	field := off % v.elem
+	isMul := n != 0 || v.cnt != 0
+	if muly, mulrest := v.getMultExpr(rest); muly != nil {
+		isMul = true
+		if n != 0 {
+			muly = astAdd(muly, astUint(uint64(n)))
+		}
+		parts = append(parts, astMul(astUint(uint64(v.elem)), muly))
+		if mulrest != nil {
+			parts = append(parts, mulrest)
+		}
+	} else {
+		if n != 0 || isMul {
+			parts = append(parts, astMul(astUint(uint64(v.elem)), astUint(uint64(n))))
+		}
+		if rest != nil {
+			parts = append(parts, rest)
+		}
+	}
+	if field != 0 || v.elem > 1 {
+		parts = append(parts, astUint(uint64(field)))
+	}
+	return astAdd(parts...)
+}
+
+func (v *offAligner) getMultExpr(e ast.Expr) (y, r ast.Expr) {
+	switch e := e.(type) {
+	default:
+		return nil, nil
+	case *ast.ParenExpr:
+		return v.getMultExpr(e.X)
+	case *ast.BinaryExpr:
+		switch e.Op {
+		default:
+			return nil, nil
+		case token.MUL:
+			xi, xr := staticExprGo(e.X)
+			yi, yr := staticExprGo(e.Y)
+			if xi*yi == v.elem {
+				if xr != nil || yr != nil {
+					return nil, nil // one of the parts has additive
+				}
+				return astUint(1), nil
+			}
+			if xi == v.elem && yi == 0 {
+				if xr != nil {
+					return nil, nil // mult has additive
+				}
+				return yr, nil
+			} else if yi == v.elem && xi == 0 {
+				if yr != nil {
+					return nil, nil // mult has additive
+				}
+				return xr, nil
+			}
+			return nil, nil
+		case token.ADD:
+			xy, xr := v.getMultExpr(e.X)
+			yy, yr := v.getMultExpr(e.Y)
+			if xy == nil && yy == nil {
+				return nil, nil
+			}
+			var vy ast.Expr
+			if xy == nil {
+				vy = yy
+			} else if yy == nil {
+				vy = xy
+			} else {
+				vy = astAdd(xy, yy)
+			}
+			if xr == nil && yr == nil {
+				return vy, nil
+			} else if xr == nil {
+				return vy, yr
+			} else if yr == nil {
+				return vy, xr
+			}
+			return vy, astAdd(xr, yr)
+		}
+	}
+}
+
+func astUint(v uint64) *ast.BasicLit {
+	return &ast.BasicLit{Kind: token.INT, Value: strconv.FormatUint(v, 10)}
+}
+
+func astAdd(parts ...ast.Expr) ast.Expr {
+	return astCommut(token.ADD, parts...)
+}
+
+func astMul(parts ...ast.Expr) ast.Expr {
+	return astCommut(token.MUL, parts...)
+}
+
+func astCommut(op token.Token, parts ...ast.Expr) ast.Expr {
+	for _, v := range parts {
+		if v == nil {
+			panic("nil expr")
+		}
+	}
+	n := len(parts)
+	switch n {
+	case 0:
+		panic("no parts")
+	case 1:
+		return parts[0]
+	case 2:
+		return &ast.BinaryExpr{X: parts[0], Op: op, Y: parts[1]}
+	default:
+		return &ast.BinaryExpr{X: astCommut(op, parts[:n-1]...), Op: op, Y: parts[n-1]}
+	}
 }
