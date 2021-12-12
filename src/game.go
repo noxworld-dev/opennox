@@ -47,7 +47,7 @@ extern unsigned int dword_5d4594_1556144;
 extern unsigned int dword_5d4594_1563064;
 extern unsigned int dword_5d4594_251744;
 extern unsigned int dword_5d4594_815052;
-extern unsigned int dword_5d4594_823696;
+extern unsigned int nox_console_waitSysOpPass;
 extern unsigned int dword_5d4594_1049508;
 extern nox_draw_viewport_t nox_draw_viewport;
 extern unsigned char nox_net_lists_buf[2048];
@@ -64,7 +64,7 @@ void sub_4D22B0();
 void sub_4D2230();
 void sub_4DBA30(int a1);
 void sub_50AFA0();
-void sub_4409D0(wchar_t* a1);
+void nox_console_sendSysOpPass_4409D0(wchar_t* a1);
 unsigned int*  nox_xxx_netUseMap_4DEE00(const char* a1, int a2);
 char* nox_xxx_getSomeMapName_4D0CF0();
 int  nox_server_loadMapFile_4CF5F0(char* a1, int a2);
@@ -488,20 +488,18 @@ func initGameSession435CC0() error {
 	return nil
 }
 
+//export nox_xxx_netServerCmd_440950_empty
+func nox_xxx_netServerCmd_440950_empty() {
+	nox_xxx_netServerCmd_440950(0, "")
+}
+
 //export nox_server_parseCmdText_443C80
 func nox_server_parseCmdText_443C80(cstr *C.wchar_t, _ C.int) C.int {
 	cmd := GoWString(cstr)
 	if cmd == "" {
 		return 0
 	}
-	if C.dword_5d4594_823696 != 0 {
-		cmdTextC, cmdFree := CWString(cmd)
-		defer cmdFree()
-		C.sub_4409D0(cmdTextC)
-		C.dword_5d4594_823696 = 0
-		return 1
-	}
-	res := execConsoleCmd(context.Background(), GoWString(cstr))
+	res := execConsoleCmd(context.Background(), cmd)
 	return C.int(bool2int(res))
 }
 
@@ -509,6 +507,11 @@ func execConsoleCmd(ctx context.Context, cmd string) bool { // nox_server_parseC
 	cmd = strings.TrimSpace(cmd)
 	if len(cmd) == 0 {
 		return false
+	}
+	if consoleWaitSysOpPass {
+		nox_console_sendSysOpPass_4409D0(cmd)
+		consoleWaitSysOpPass = false
+		return true
 	}
 	if noxflags.HasGame(noxflags.GameHost) {
 		ctx = console.AsServer(ctx)
@@ -518,7 +521,7 @@ func execConsoleCmd(ctx context.Context, cmd string) bool { // nox_server_parseC
 	if getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) {
 		ctx = console.AsDedicated(ctx)
 	}
-	return parseCmd.Exec(ctx, cmd)
+	return noxConsole.Exec(ctx, cmd)
 }
 
 func execServerCmd(cmd string) {
@@ -532,7 +535,7 @@ func execServerCmd(cmd string) {
 		ctx = console.AsDedicated(ctx)
 	}
 	ctx = console.WithCheats(ctx)
-	parseCmd.Exec(ctx, cmd)
+	noxConsole.Exec(ctx, cmd)
 }
 
 func serverCmdLoadMap(name string) {

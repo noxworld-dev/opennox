@@ -21,7 +21,7 @@ var (
 )
 
 func init() {
-	parseCmd.Register(&console.Command{
+	noxConsole.Register(&console.Command{
 		Token: "lua", HelpID: "luahelp",
 		Help:  "execute LUA command",
 		Flags: console.Server | console.Cheat,

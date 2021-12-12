@@ -5,7 +5,6 @@ package nox
 extern unsigned int nox_client_consoleIsServer_823684;
 extern int nox_cheat_allowall;
 extern int nox_cheat_charmall;
-extern void* nox_client_consoleCurCmd_823700;
 
 void nox_xxx_consoleTokenAddPair_4444C0(wchar_t* tok, wchar_t* tok2);
 int nox_gui_console_Print_450B90(unsigned char typ, wchar_t* str);
@@ -21,8 +20,6 @@ int nox_cmd_list_staffs(int, int, wchar_t**);
 int nox_cmd_show_game(int, int, wchar_t**);
 int nox_cmd_show_mmx(int, int, wchar_t**);
 int nox_cmd_load(int, int, wchar_t**);
-int nox_cmd_set_obs(int, int, wchar_t**);
-int nox_cmd_set_save_debug(int, int, wchar_t**);
 int nox_cmd_set_cycle(int, int, wchar_t**);
 int nox_cmd_set_weapons(int, int, wchar_t**);
 int nox_cmd_set_staffs(int, int, wchar_t**);
@@ -41,11 +38,7 @@ int nox_cmd_set_spellpts(int, int, wchar_t**);
 int nox_cmd_list_users(int, int, wchar_t**);
 int nox_cmd_unmute(int, int, wchar_t**);
 int nox_cmd_mute(int, int, wchar_t**);
-int nox_cmd_exec(int, int, wchar_t**);
 int nox_cmd_exec_rul(int, int, wchar_t**);
-int nox_cmd_sysop(int, int, wchar_t**);
-int nox_cmd_broadcast(int, int, wchar_t**);
-int nox_cmd_say(int, int, wchar_t**);
 int nox_cmd_offonly1(int, int, wchar_t**);
 int nox_cmd_offonly2(int, int, wchar_t**);
 int nox_cmd_set_fr(int, int, wchar_t**);
@@ -72,7 +65,6 @@ int nox_cmd_cheat_goto(int, int, wchar_t**);
 int nox_cmd_cheat_level(int, int, wchar_t**);
 int nox_cmd_cheat_spells(int, int, wchar_t**);
 int nox_cmd_cheat_gold(int, int, wchar_t**);
-int nox_cmd_watch(int, int, wchar_t**);
 int nox_cmd_gamma(int, int, wchar_t**);
 int nox_cmd_window(int, int, wchar_t**);
 int nox_cmd_set_qual_modem(int, int, wchar_t**);
@@ -92,12 +84,9 @@ import "C"
 import (
 	"context"
 	"fmt"
-	"strings"
-	"unsafe"
 
 	"nox/v1/common/console"
 	noxflags "nox/v1/common/flags"
-	"nox/v1/common/memmap"
 	"nox/v1/common/strman"
 )
 
@@ -115,10 +104,10 @@ func cheatCharmAll(v bool) {
 	C.nox_cheat_charmall = C.int(bool2int(v))
 }
 
-var parseCmd = console.New(consolePrinter{})
+var noxConsole = console.New(consolePrinter{})
 
 func initConsole(sm *strman.StringManager) {
-	parseCmd.Localize(sm, "on", "off", "force", "ctf", "coop", "team", "respawn", "all")
+	noxConsole.Localize(sm, "on", "off", "force", "ctf", "coop", "team", "respawn", "all")
 }
 
 func consolePrintf(typ console.Color, format string, args ...interface{}) int {
@@ -131,13 +120,6 @@ func consolePrintf(typ console.Color, format string, args ...interface{}) int {
 
 func wrapCommandC(cfnc func(C.int, C.int, **C.wchar_t) C.int) console.CommandLegacyFunc {
 	return func(ctx context.Context, c *console.Console, tokInd int, tokens []string) bool {
-		cmdTextC, cmdFree := CWString(strings.Join(tokens, " "))
-		C.nox_client_consoleCurCmd_823700 = unsafe.Pointer(cmdTextC)
-		defer func() {
-			C.nox_client_consoleCurCmd_823700 = nil
-			cmdFree()
-		}()
-		*memmap.PtrUint32(0x5D4594, 823688) = uint32(bool2int(console.IsClient(ctx)))
 		C.nox_client_consoleIsServer_823684 = C.uint(bool2int(!console.IsClient(ctx)))
 		ctokens, free := CWStrSlice(tokens)
 		defer free()
@@ -150,9 +132,9 @@ func wrapCommandC(cfnc func(C.int, C.int, **C.wchar_t) C.int) console.CommandLeg
 }
 
 func init() {
-	parseCmd.SetExec(execConsoleCmd)
+	noxConsole.SetExec(execConsoleCmd)
 	for _, c := range noxCommands {
-		parseCmd.Register(c)
+		noxConsole.Register(c)
 	}
 }
 
@@ -172,7 +154,17 @@ var (
 		{Token: "monsters", HelpID: "setmnstrshelp", Flags: console.Server | console.Cheat, LegacyFunc: wrapCommandC(nox_cmd_set_mnstrs)},
 		{Token: "name", HelpID: "setnamehelp", Flags: console.Server, LegacyFunc: wrapCommandC(nox_cmd_set_name)},
 		{Token: "netdebug", HelpID: "setnetdebughelp", Flags: console.ClientServer | console.Cheat, LegacyFunc: wrapCommandC(nox_cmd_set_net_debug)},
-		{Token: "ob", HelpID: "setobshelp", Flags: console.ClientServer | console.Cheat, LegacyFunc: wrapCommandC(nox_cmd_set_obs)},
+		{Token: "ob", HelpID: "setobshelp", Flags: console.ClientServer | console.Cheat, Func: func(ctx context.Context, c *console.Console, tokens []string) bool {
+			cur := console.CurCommand(ctx)
+			s := c.Strings().GetStringInFile("processingobs", "parsecmd.c")
+			c.Printf(console.ColorRed, s)
+			if noxflags.HasGame(noxflags.GameHost) {
+				nox_xxx_serverHandleClientConsole_443E90(clientPlayer(), 0, cur)
+			} else {
+				nox_xxx_netServerCmd_440950(0, cur)
+			}
+			return true
+		}},
 		{Token: "players", HelpID: "setplayershelp", Flags: console.Server, LegacyFunc: wrapCommandC(nox_cmd_set_players)},
 		{Token: "quality", HelpID: "setqualityhelp", Flags: console.ClientServer, Sub: []*console.Command{
 			{Token: "modem", HelpID: "setqualmodemhelp", Flags: console.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_set_qual_modem)},
@@ -181,7 +173,12 @@ var (
 			{Token: "T1", HelpID: "setqualT1help", Flags: console.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_set_qual_t1)},
 			{Token: "LAN", HelpID: "setqualLANhelp", Flags: console.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_set_qual_lan)},
 		}},
-		{Token: "savedebugcmd", HelpID: "setsavedebughelp", Flags: console.Server, LegacyFunc: wrapCommandC(nox_cmd_set_save_debug)},
+		{Token: "savedebugcmd", HelpID: "setsavedebughelp", Flags: console.Server, Func: func(ctx context.Context, c *console.Console, tokens []string) bool {
+			setEngineFlag(NOX_ENGINE_FLAG_SAVE_DEBUG)
+			s := c.Strings().GetStringInFile("savedebugset", "parsecmd.c")
+			c.Printf(console.ColorRed, s)
+			return true
+		}},
 		{Token: "spell", HelpID: "setspellhelp", Flags: console.Server, LegacyFunc: wrapCommandC(nox_cmd_set_spell)},
 		{Token: "spellpoints", HelpID: "setspellptshelp", Flags: console.Server | console.Cheat, LegacyFunc: wrapCommandC(nox_cmd_set_spellpts)},
 		{Token: "staff", HelpID: "setstaffhelp", Flags: console.Server | console.Cheat, LegacyFunc: wrapCommandC(nox_cmd_set_staff)},
@@ -241,9 +238,7 @@ var (
 		}},
 		{Token: "audtest", HelpID: "sethelp", Flags: console.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_set)},
 		{Token: "ban", HelpID: "banhelp", Flags: console.Server, LegacyFunc: wrapCommandC(nox_cmd_ban)},
-		{Token: "broadcast", HelpID: "broadcasthelp", Flags: console.Server, LegacyFunc: wrapCommandC(nox_cmd_broadcast)},
 		{Token: "clear", HelpID: "clearhelp", Flags: console.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_clear)},
-		{Token: "exec", HelpID: "exechelp", Flags: console.Server, LegacyFunc: wrapCommandC(nox_cmd_exec)},
 		{Token: "execrul", HelpID: "execrulhelp", Flags: console.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_exec_rul)},
 		{Token: "exit", HelpID: "exithelp", Flags: console.ClientServer, Func: func(ctx context.Context, c *console.Console, tokens []string) bool {
 			if noxflags.HasGame(noxflags.GameModeQuest) && noxflags.HasGame(1) {
@@ -274,11 +269,8 @@ var (
 			C.nox_client_quit_4460C0()
 			return true
 		}},
-		{Token: "say", HelpID: "sayhelp", Flags: console.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_say)},
-		{Token: "sysop", HelpID: "nohelp", Flags: console.ClientServer | console.NoHelp, LegacyFunc: wrapCommandC(nox_cmd_sysop)},
 		{Token: "unmute", HelpID: "unmutehelp", Flags: console.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_unmute)},
 		{Token: "unlock", HelpID: "unlockhelp", Flags: console.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_unlock)},
-		{Token: "watch", HelpID: "watchhelp", Flags: console.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_watch)},
 		{Token: "window", HelpID: "windowhelp", Flags: console.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_window)},
 		{Token: "startSoloQuest", HelpID: "nohelp", Flags: console.Server | console.NoHelp, LegacyFunc: wrapCommandC(nox_cmd_startSoloQuest)},
 	}
@@ -310,12 +302,6 @@ func nox_cmd_show_mmx(i C.int, n C.int, arr **C.wchar_t) C.int {
 }
 func nox_cmd_load(i C.int, n C.int, arr **C.wchar_t) C.int {
 	return C.nox_cmd_load(i, n, arr)
-}
-func nox_cmd_set_obs(i C.int, n C.int, arr **C.wchar_t) C.int {
-	return C.nox_cmd_set_obs(i, n, arr)
-}
-func nox_cmd_set_save_debug(i C.int, n C.int, arr **C.wchar_t) C.int {
-	return C.nox_cmd_set_save_debug(i, n, arr)
 }
 func nox_cmd_set_cycle(i C.int, n C.int, arr **C.wchar_t) C.int {
 	return C.nox_cmd_set_cycle(i, n, arr)
@@ -371,20 +357,8 @@ func nox_cmd_unmute(i C.int, n C.int, arr **C.wchar_t) C.int {
 func nox_cmd_mute(i C.int, n C.int, arr **C.wchar_t) C.int {
 	return C.nox_cmd_mute(i, n, arr)
 }
-func nox_cmd_exec(i C.int, n C.int, arr **C.wchar_t) C.int {
-	return C.nox_cmd_exec(i, n, arr)
-}
 func nox_cmd_exec_rul(i C.int, n C.int, arr **C.wchar_t) C.int {
 	return C.nox_cmd_exec_rul(i, n, arr)
-}
-func nox_cmd_sysop(i C.int, n C.int, arr **C.wchar_t) C.int {
-	return C.nox_cmd_sysop(i, n, arr)
-}
-func nox_cmd_broadcast(i C.int, n C.int, arr **C.wchar_t) C.int {
-	return C.nox_cmd_broadcast(i, n, arr)
-}
-func nox_cmd_say(i C.int, n C.int, arr **C.wchar_t) C.int {
-	return C.nox_cmd_say(i, n, arr)
 }
 func nox_cmd_offonly1(i C.int, n C.int, arr **C.wchar_t) C.int {
 	return C.nox_cmd_offonly1(i, n, arr)
@@ -460,9 +434,6 @@ func nox_cmd_cheat_level(i C.int, n C.int, arr **C.wchar_t) C.int {
 }
 func nox_cmd_cheat_spells(i C.int, n C.int, arr **C.wchar_t) C.int {
 	return C.nox_cmd_cheat_spells(i, n, arr)
-}
-func nox_cmd_watch(i C.int, n C.int, arr **C.wchar_t) C.int {
-	return C.nox_cmd_watch(i, n, arr)
 }
 func nox_cmd_gamma(i C.int, n C.int, arr **C.wchar_t) C.int {
 	return C.nox_cmd_gamma(i, n, arr)

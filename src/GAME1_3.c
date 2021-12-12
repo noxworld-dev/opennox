@@ -3834,7 +3834,6 @@ void nox_client_clearScreen_440900() {
 		++dst;
 	}
 }
-#endif // NOX_CGO
 
 //----- (00440950) --------------------------------------------------------
 int nox_xxx_netServerCmd_440950(char a1, wchar_t* a2) {
@@ -3852,7 +3851,6 @@ int nox_xxx_netServerCmd_440950(char a1, wchar_t* a2) {
 	return nox_xxx_netClientSend2_4E53C0(31, v3, 2 * (unsigned char)v3[4] + 7, 0, 1);
 }
 
-#ifndef NOX_CGO
 //----- (00440AC0) --------------------------------------------------------
 int sub_440AC0(wchar_t* a1) {
 	for (int i = 0; i < 12; i++) {
@@ -3863,7 +3861,11 @@ int sub_440AC0(wchar_t* a1) {
 	}
 	return -1;
 }
+void nox_xxx_netServerCmd_440950_empty() {
+	nox_xxx_netServerCmd_440950(0, 0);
+}
 #endif // NOX_CGO
+
 
 //----- (004417E0) --------------------------------------------------------
 void sub_4417E0(wchar_t* a1, const char* a2) {

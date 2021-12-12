@@ -50,6 +50,10 @@ func init() {
 	noxPlayers = unsafe.Slice((*Player)(p), NOX_PLAYERINFO_MAX)
 }
 
+func clientPlayer() *Player {
+	return getPlayerByID(clientPlayerNetCode())
+}
+
 func clientPlayerNetCode() int {
 	return int(C.nox_player_netCode_85319C)
 }

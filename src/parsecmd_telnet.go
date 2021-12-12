@@ -13,7 +13,7 @@ import (
 )
 
 func init() {
-	parseCmd.Register(&console.Command{Token: "telnet", HelpID: "telnethelp", Flags: console.Server, Sub: []*console.Command{
+	noxConsole.Register(&console.Command{Token: "telnet", HelpID: "telnethelp", Flags: console.Server, Sub: []*console.Command{
 		{Token: "on", HelpID: "telnetonhelp", Flags: console.Server, Func: cmdTelnetOn},
 		{Token: "off", HelpID: "telnetoffhelp", Flags: console.Server, Func: cmdTelnetOff},
 	}})

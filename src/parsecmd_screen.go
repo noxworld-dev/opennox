@@ -14,7 +14,7 @@ import (
 )
 
 func init() {
-	parseCmd.Register(&console.Command{
+	noxConsole.Register(&console.Command{
 		Token:  "image",
 		HelpID: "imagehelp",
 		Flags:  console.ClientServer,
