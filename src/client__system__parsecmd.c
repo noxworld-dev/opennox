@@ -1739,12 +1739,12 @@ wchar_t* nox_xxx_consoleTokenFindByAlias_443E40(wchar_t* s) {
 	}
 	int ind = 0;
 	const wchar_t** i;
-	for (i = (const wchar_t**)getMemAt(0x5D4594, 816504 + 8 * 0); _nox_wcsicmp(s, *i); i += 2) {
+	for (i = (const wchar_t**)getMemAt(0x5D4594, 816500 + 4); _nox_wcsicmp(s, *i); i += 2) {
 		if (++ind >= nox_xxx_consoleTokenPairs_823708) {
 			return 0;
 		}
 	}
-	return *getMemU32Ptr(0x5D4594, 816500 + 8 * ind);
+	return *getMemU32Ptr(0x5D4594, 816500 + 8*ind);
 }
 
 #ifndef NOX_CGO
@@ -1995,8 +1995,8 @@ int nox_xxx_serverHandleClientConsole_443E90(nox_playerInfo* pl, char a2, wchar_
 //----- (004444C0) --------------------------------------------------------
 void nox_xxx_consoleTokenAddPair_4444C0(wchar_t* tok, wchar_t* tok2) {
 	int n = nox_xxx_consoleTokenPairs_823708;
-	*getMemU32Ptr(0x5D4594, 816500 + 8 * n) = tok;
-	*getMemU32Ptr(0x5D4594, 816504 + 8 * n) = tok2;
+	*getMemU32Ptr(0x5D4594, 816500 + 8*n) = tok;
+	*getMemU32Ptr(0x5D4594, 816500 + 8*n + 4) = tok2;
 	nox_xxx_consoleTokenPairs_823708++;
 }
 
