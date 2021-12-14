@@ -16,8 +16,7 @@ on:
 jobs:
   snapcraft_linux_go:
     name: Go build for Snapcraft
-    runs-on: ['self-hosted', 'ubuntu-20.04']
-    needs: [hybrid_linux_go]
+    runs-on: 'ubuntu-20.04'
     steps:
       - uses: actions/checkout@v2
         with:
