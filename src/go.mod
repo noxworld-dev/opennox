@@ -3,18 +3,18 @@ module nox/v1
 go 1.17
 
 require (
-	github.com/go-gl/gl v0.0.0-20210813123233-e4099ee2221f
-	github.com/icza/bitio v1.0.0
+	github.com/go-gl/gl v0.0.0-20211210172815-726fda9656d6
+	github.com/icza/bitio v1.1.0
 	github.com/julienschmidt/httprouter v1.3.0
 	github.com/noxworld-dev/nat v0.1.0
 	github.com/noxworld-dev/xwis v0.0.0-20210515205840-04bf7dc6295b
 	github.com/spf13/cobra v1.1.3
 	github.com/spf13/viper v1.8.1
 	github.com/stretchr/testify v1.7.0
-	github.com/szhublox/opennoxcontrol v0.0.0-20211002165725-d658169cd601
+	github.com/szhublox/opennoxcontrol v0.0.0-20211214215120-c4bc4281312f
 	github.com/timshannon/go-openal v0.0.0-20170220204755-e0ed4c67cffe
-	github.com/veandco/go-sdl2 v0.4.5
-	github.com/yuin/gopher-lua v0.0.0-20200816102855-ee81675732da
+	github.com/veandco/go-sdl2 v0.4.10
+	github.com/yuin/gopher-lua v0.0.0-20210529063254-f4c35e4016d9
 	golang.org/x/crypto v0.0.0-20210921155107-089bfa567519
 	golang.org/x/image v0.0.0-20211028202545-6944b10bf410
 	golang.org/x/sys v0.0.0-20210615035016-665e8c7367d1
