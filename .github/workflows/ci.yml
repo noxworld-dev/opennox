@@ -16,7 +16,7 @@ on:
 jobs:
   hybrid_linux_go:
     name: Go build on Linux Host
-    runs-on: ubuntu-20.04
+    runs-on: ['self-hosted', 'ubuntu-20.04']
     strategy:
       fail-fast: true
 
@@ -65,7 +65,7 @@ jobs:
 
   hybrid_linux_mingw_go:
     name: Go Win build on Linux Host
-    runs-on: ubuntu-20.04
+    runs-on: ['self-hosted', 'ubuntu-20.04']
     strategy:
       fail-fast: true
 
@@ -134,7 +134,7 @@ jobs:
 
   hybrid_linux_gcc:
     name: alpine-386-gcc-github on Linux Host
-    runs-on: ubuntu-20.04
+    runs-on: ['self-hosted', 'ubuntu-20.04']
     strategy:
       fail-fast: true
 
@@ -170,7 +170,7 @@ jobs:
 
   hybrid_linux_wasm:
     name: alpine-wasm-github on Linux Host
-    runs-on: ubuntu-20.04
+    runs-on: ['self-hosted', 'ubuntu-20.04']
     strategy:
       fail-fast: true
 
@@ -193,22 +193,10 @@ jobs:
         uses: docker://noxworld/alpine-wasm-github
 
   windows_native_hosted:
-    name: MSVC on ${{ matrix.config.name }} Host
-    runs-on: ${{ matrix.config.os }}
+    name: MSVC on WinServer 2019 Host
+    runs-on: windows-2019
     strategy:
       fail-fast: true
-      matrix:
-        config:
-          - {
-            name: "WinServer 2019",
-            os: windows-2019,
-            vcpkg: {
-              triplet: x86-windows,
-              commitId: '6185aa76504a5025f36754324abf307cc776f3da',
-              responseFile: 'vcpkg.txt'
-            }
-            }
-
     steps:
       - uses: actions/checkout@v2
         with:
@@ -221,10 +209,10 @@ jobs:
         uses: lukka/run-vcpkg@v5
         id: runvcpkg
         with:
-          vcpkgArguments: '@${{ github.workspace }}/${{ matrix.config.vcpkg.responseFile }}'
-          vcpkgTriplet: '${{ matrix.config.vcpkg.triplet }}'
+          vcpkgArguments: '@${{ github.workspace }}/vcpkg.txt'
+          vcpkgTriplet: x86-windows
           vcpkgDirectory: '${{ github.workspace }}/vcpkg'
-          vcpkgGitCommitId: '${{ matrix.config.vcpkg.commitId }}'
+          vcpkgGitCommitId: '6185aa76504a5025f36754324abf307cc776f3da'
 
       - name: Run CMake+gmake
         uses: lukka/run-cmake@v3
@@ -253,7 +241,7 @@ jobs:
 
   release_repackage_linux:
     name: Repackage Linux release
-    runs-on: ubuntu-20.04
+    runs-on: ['self-hosted', 'ubuntu-20.04']
     if: startsWith(github.ref, 'refs/tags/v')
     needs: [hybrid_linux_go]
     steps:
@@ -298,7 +286,7 @@ jobs:
 
   release_repackage_win:
       name: Repackage Windows release
-      runs-on: ubuntu-20.04
+      runs-on: ['self-hosted', 'ubuntu-20.04']
       if: startsWith(github.ref, 'refs/tags/v')
       needs: [hybrid_linux_mingw_go, windows_native_hosted]
       steps:
