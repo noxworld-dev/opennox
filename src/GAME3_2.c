@@ -8853,14 +8853,14 @@ int nox_xxx_playerNew_4DD320(int ind, unsigned char* data) {
 	pl->field_2152 = 0;
 	pl->netCode = punit->field_9;
 	pl->field_2156 = nox_xxx_scavengerTreasureMax_4D1600();
-	int v15 = punit->field_187;
+	int v15 = punit->data_update;
 	*(uint32_t*)(v15 + 276) = pl;
 	pl->field_4584 = nox_xxx_protectionCreateInt_56F400(*(unsigned short*)((int)punit->field_139 + 0));
 	pl->field_4592 = nox_xxx_protectionCreateInt_56F400(*(unsigned short*)((int)punit->field_139 + 4));
 	pl->field_4596 = nox_xxx_protectionCreateInt_56F400(*(unsigned short*)(v15 + 4));
 	pl->field_4600 = nox_xxx_protectionCreateInt_56F400(*(unsigned short*)(v15 + 8));
 	pl->field_4604 = nox_xxx_protectionCreateFloat_56F440(*(float*)(&punit->field_7));
-	pl->field_4608 = nox_xxx_protectionCreateFloat_56F440(*(float*)(&punit->float_30));
+	pl->field_4608 = nox_xxx_protectionCreateFloat_56F440(*(float*)(&punit->mass));
 	pl->field_4612 = nox_xxx_protectionCreateInt_56F400(*(uint32_t*)(&punit->field_85));
 	pl->field_4616 = nox_xxx_protectionCreateInt_56F400(pl->info.playerClass);
 	pl->field_4620 = nox_xxx_protectionCreateInt_56F400(pl->info.field_2235);
