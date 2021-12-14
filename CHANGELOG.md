@@ -1,5 +1,23 @@
 # Changelog
 
+## v1.8.6
+
+- Release OpenNox for Linux on [Snapcraft](https://snapcraft.io/opennox).
+- Reading game files is now safer and more extendable.
+- Preparations for saving and replaying Nox games.
+- Preparations for rendering TTF fonts in game engine.
+- E2E mode now allows recording player input directly (to reproduce bugs).
+- Safer and faster sprite rendering.
+- Initial work for rendering maps previews.
+- A lot of internal refactorings and improvements.
+- Allow configuring manual spell cast timeout.
+- Allow binding any keys with `bind` command.
+- New `cheat spawn` command to spawn items and monsters.
+- Fix: Safer GUI code, preventing a major memory corruption.
+- Fix: Races in the audio playback.
+- Fix: Potential fix for native map downloads.
+- Fix: Crashes when playing on broken maps.
+
 ## v1.8.5
 
 - Add more resolution options for both regular and HD version.
