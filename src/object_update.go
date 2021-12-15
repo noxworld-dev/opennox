@@ -166,15 +166,15 @@ func nox_xxx_updatePlayer_4F8100(up *nox_object_t) {
 		ud.field_19_1--
 	} else {
 		if ud.field_19_0 != 0 {
-			v2 = int(1000 * (ud.field_19_0 - *v5) / ud.field_19_0)
+			v2 = 1000 * (int(ud.field_19_0) - int(*v5)) / int(ud.field_19_0)
 		}
 		ud.field_19_0 = *v5
 		if v2 > 0 {
 			ud.field_19_1 = 7
 		}
 	}
-	if noxflags.HasGame(0x4000000) {
-		sub_4F9E70(u)
+	if noxflags.HasGame(noxflags.GameSuddenDeath) {
+		playerSuddedDeath4F9E70(u)
 	}
 	sub_4F9ED0(u)
 	pl := asPlayer(ud.player)
@@ -194,7 +194,7 @@ func nox_xxx_updatePlayer_4F8100(up *nox_object_t) {
 	if u.Flags16()&0x8000 == 0 {
 		if v2 > 0 {
 			v14 := u.field_131
-			if asPlayer(ud.player).Info().IsFemale() {
+			if pl.Info().IsFemale() {
 				if v14 == 5 {
 					nox_xxx_aud_501960(330, u, 0, 0)
 				} else if v2 <= 450 {
@@ -206,16 +206,18 @@ func nox_xxx_updatePlayer_4F8100(up *nox_object_t) {
 				} else {
 					nox_xxx_aud_501960(329, u, 0, 0)
 				}
-			} else if v14 == 5 {
-				nox_xxx_aud_501960(320, u, 0, 0)
-			} else if v2 <= 450 {
-				if v2 <= 70 {
-					nox_xxx_aud_501960(317, u, 0, 0)
-				} else {
-					nox_xxx_aud_501960(318, u, 0, 0)
-				}
 			} else {
-				nox_xxx_aud_501960(319, u, 0, 0)
+				if v14 == 5 {
+					nox_xxx_aud_501960(320, u, 0, 0)
+				} else if v2 <= 450 {
+					if v2 <= 70 {
+						nox_xxx_aud_501960(317, u, 0, 0)
+					} else {
+						nox_xxx_aud_501960(318, u, 0, 0)
+					}
+				} else {
+					nox_xxx_aud_501960(319, u, 0, 0)
+				}
 			}
 		}
 		if ud.field_22_3 < 100 {
@@ -281,7 +283,7 @@ func nox_xxx_aud_501960(a1 int, u *Unit, a3, a4 int) {
 	C.nox_xxx_aud_501960(C.int(a1), u.CObj(), C.int(a3), C.int(a4))
 }
 
-func sub_4F9E70(u *Unit) {
+func playerSuddedDeath4F9E70(u *Unit) {
 	v1 := memmap.Uint32(0x5D4594, 1392)
 	v3 := unsafe.Slice((*uint16)(u.field_139), 3)
 	if u.Flags16()&0x8000 == 0 && v3 != nil && v3[0] != 0 && (gameFrame()%(v1*gameFPS()/uint32(v3[2]))) == 0 {
