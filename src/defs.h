@@ -1637,13 +1637,13 @@ typedef struct nox_drawable {
 } nox_drawable;
 _Static_assert(sizeof(nox_drawable) == 512, "wrong size of nox_drawable structure!");
 
-// 3108 = NOX_OBJ_1050020_ROW_COUNT * sizeof(nox_obj_1050020_t)
-// 777 = NOX_OBJ_1050020_ROW_COUNT * (sizeof(nox_obj_1050020_t)/4)
-// 37 = (sizeof(nox_obj_1050020_t)/4)
-#define NOX_OBJ_1050020_ROW_COUNT 21
-#define NOX_OBJ_1050020_COL_COUNT 4
-#define NOX_OBJ_1050020_MAX (NOX_OBJ_1050020_ROW_COUNT * NOX_OBJ_1050020_COL_COUNT)
-typedef struct nox_obj_1050020_t {
+// 3108 = NOX_INVENTORY_ROW_COUNT * sizeof(nox_inventory_cell_t)
+// 777 = NOX_INVENTORY_ROW_COUNT * (sizeof(nox_inventory_cell_t)/4)
+// 37 = (sizeof(nox_inventory_cell_t)/4)
+#define NOX_INVENTORY_ROW_COUNT 21
+#define NOX_INVENTORY_COL_COUNT 4
+#define NOX_INVENTORY_CELLS_MAX (NOX_INVENTORY_ROW_COUNT * NOX_INVENTORY_COL_COUNT)
+typedef struct nox_inventory_cell_t {
 	nox_drawable* field_0;
 	uint32_t field_4;
 	uint32_t data_4[30];
@@ -1655,8 +1655,8 @@ typedef struct nox_obj_1050020_t {
 	uint8_t field_142;
 	uint8_t field_143;
 	uint32_t field_144;
-} nox_obj_1050020_t;
-_Static_assert(sizeof(nox_obj_1050020_t) == 148, "wrong size of nox_obj_1050020_t structure!");
+} nox_inventory_cell_t;
+_Static_assert(sizeof(nox_inventory_cell_t) == 148, "wrong size of nox_inventory_cell_t structure!");
 
 typedef struct obj_412ae0_t obj_412ae0_t;
 typedef struct obj_412ae0_t {
