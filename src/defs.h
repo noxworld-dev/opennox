@@ -2436,6 +2436,16 @@ typedef struct nox_spell_t {
 } nox_spell_t;
 _Static_assert(sizeof(nox_spell_t) == 80, "wrong size of nox_spell_t structure!");
 
+typedef struct {
+	uint32_t field_0; // 0
+	uint32_t field_1; // 4
+	uint32_t field_2; // 8
+	uint8_t field_3[4]; // 12
+	uint32_t field_4; // 16
+	uint32_t field_5; // 20
+} nox_player_ctrl_t;
+_Static_assert(sizeof(nox_player_ctrl_t) == 24, "wrong size of nox_player_ctrl_t structure!");
+
 typedef enum {
 	NOX_ENGINE_FLAG_1 = 1u << 0u,
 	NOX_ENGINE_FLAG_ENABLE_SHOW_EXTENTS = 1u << 1u,

@@ -21,6 +21,7 @@ extern unsigned int nox_client_renderGUI_80828;
 extern unsigned int nox_xxx_xxxRenderGUI_587000_80832;
 extern void* nox_gui_itemAmount_dialog_1319228;
 extern int nox_players_controlBuffer_2388804[NOX_PLAYERINFO_MAX];
+extern nox_player_ctrl_t nox_players_controlBuffer_2388932[NOX_PLAYERINFO_MAX][128];
 
 int nox_ctrlevent_add_ticks_42E630();
 void nox_client_orderCreature(int creature, int command);
@@ -948,23 +949,22 @@ func (c *CtrlEventHandler) writeToNetBuffer() { // nox_xxx_netBuf_42D510
 }
 
 //export nox_xxx_playerSaveInput_51A960
-func nox_xxx_playerSaveInput_51A960(a1 C.int, a2 *C.uchar) C.int {
-	pl := getPlayerByInd(int(a1))
-	v3 := *a2 // TODO: size of the rest of a2?
+func nox_xxx_playerSaveInput_51A960(pli C.int, a2 *C.uchar) C.int {
+	pl := getPlayerByInd(int(pli))
+	sz := int(*a2) + 1
 	if pl != nil && *(*byte)(pl.field(3680))&0x10 == 0 {
-		return C.int(v3) + 1
+		return C.int(sz)
 	}
-	a2s := unsafe.Slice((*byte)(unsafe.Pointer(a2)), int(v3)+1)
-	var buf [3072]byte
-	v5 := sub_51AAA0(a2s[1:], buf[:])
-	v6 := int(C.nox_players_controlBuffer_2388804[a1])
-	if v6+v5 < 128 {
-		C.nox_players_controlBuffer_2388804[a1] = C.int(v6 + v5)
-		tsz := 24 * v5
-		copy(unsafe.Slice((*byte)(memmap.PtrOff(0x5D4594, 2388932+24*(uintptr(v6)+(uintptr(a1)<<7))+0)), tsz), buf[:tsz])
+	a2s := unsafe.Slice((*byte)(unsafe.Pointer(a2)), sz)
+	buf := sub_51AAA0(a2s[1:], nil)
+	ind := int(C.nox_players_controlBuffer_2388804[pli])
+	if ind+len(buf) < 128 {
+		dst := C.nox_players_controlBuffer_2388932[pli][ind:]
+		n := copy(dst, buf)
+		C.nox_players_controlBuffer_2388804[pli] = C.int(ind + n)
 	}
-	C.sub_51AA20(a1)
-	return C.int(v3) + 1
+	C.sub_51AA20(pli)
+	return C.int(sz)
 }
 
 func (c *CtrlEventHandler) hasDefBinding(ev keybind.Event, key keybind.Key) bool {
@@ -976,21 +976,20 @@ func (c *CtrlEventHandler) hasDefBinding(ev keybind.Event, key keybind.Key) bool
 	return false
 }
 
-func sub_51AAA0(a1 []byte, a3 []byte) int {
-	cnt := 0
-	v5 := a3[8:]
-	for off := 0; off < len(a1); {
-		code := client.CtrlCode(a1[off])
-		off += 4
-		binary.LittleEndian.PutUint32(v5[0:], uint32(code))
-		binary.LittleEndian.PutUint32(v5[4:], 0)
-		if sz := code.DataSize(); sz != 0 {
-			copy(v5[4:4+sz], a1[off:])
-			off += sz
+func sub_51AAA0(data []byte, out []C.nox_player_ctrl_t) []C.nox_player_ctrl_t {
+	for len(data) > 0 {
+		code := client.CtrlCode(data[0])
+		data = data[4:]
+		v := C.nox_player_ctrl_t{
+			field_2: C.uint(code),
+			field_4: 1,
 		}
-		binary.LittleEndian.PutUint32(v5[8:], 1)
-		cnt++
-		v5 = v5[24:]
+		if sz := code.DataSize(); sz != 0 {
+			dst := unsafe.Slice((*byte)(unsafe.Pointer(&v.field_3[0])), 4)
+			copy(dst, data[:sz])
+			data = data[sz:]
+		}
+		out = append(out, v)
 	}
-	return cnt
+	return out
 }
