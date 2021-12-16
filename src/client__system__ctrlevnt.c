@@ -1441,7 +1441,7 @@ int nox_xxx_playerSaveInput_51A960(int a1, unsigned char* a2) {
 	v6 = nox_players_controlBuffer_2388804[a1];
 	if (v6 + v5 < 128) {
 		nox_players_controlBuffer_2388804[a1] = v6 + v5;
-		memcpy(getMemAt(0x5D4594, 2388932 + 24 * (v6 + (a1 << 7))), v8, 24 * v5);
+		memcpy(getMemAt(0x5D4594, 2388932 + 24*(v6 + (a1 << 7))), v8, 24 * v5);
 		v3 = v7;
 	}
 	sub_51AA20(a1);

@@ -961,7 +961,7 @@ func nox_xxx_playerSaveInput_51A960(a1 C.int, a2 *C.uchar) C.int {
 	if v6+v5 < 128 {
 		C.nox_players_controlBuffer_2388804[a1] = C.int(v6 + v5)
 		tsz := 24 * v5
-		copy(unsafe.Slice((*byte)(memmap.PtrOff(0x5D4594, 2388932+24*(uintptr(v6)+(uintptr(a1)<<7)))), tsz), buf[:tsz])
+		copy(unsafe.Slice((*byte)(memmap.PtrOff(0x5D4594, 2388932+24*(uintptr(v6)+(uintptr(a1)<<7))+0)), tsz), buf[:tsz])
 	}
 	C.sub_51AA20(a1)
 	return C.int(v3) + 1
