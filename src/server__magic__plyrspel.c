@@ -44,77 +44,55 @@ void nox_xxx_abilGetError_4FB0B0_magic_plyrspel(int a1) {
 
 //----- (004FB2A0) --------------------------------------------------------
 int nox_xxx_isArgB8EqSome_424850(void* a1);
-int nox_xxx_playerSpell_4FB2A0_magic_plyrspel(nox_object_t* a1p) {
-	int a1 = a1p;
-	uint32_t* v1; // edi
-	int v2;       // ebp
-	int v3;       // esi
-	uint32_t* v4; // eax
-	int v5;       // ebx
-	int result;   // eax
-	int v7;       // eax
+void nox_xxx_playerSpell_4FB2A0_magic_plyrspel(nox_object_t* u) {
+	int a1 = u;
 	int v8;       // ebx
-	int v9;       // ecx
-	int v10;      // eax
-	double v11;   // st7
-	int* v12;     // eax
 	wchar_t* v13; // eax
-	int v14[3];   // [esp+10h] [ebp-Ch]
 
-	v1 = (uint32_t*)a1;
-	v2 = 1;
-	v3 = *(uint32_t*)(a1 + 748);
-	if (nox_xxx_isArgB8EqSome_424850(*(void**)(v3 + 184))) {
+	int v2 = 1;
+	nox_object_Player_data_t* ud = u->data_update;
+	nox_playerInfo* pl = ud->player;
+	int v3 = ud;
+	if (nox_xxx_isArgB8EqSome_424850(ud->field_46)) {
 		v2 = 0;
 	} else {
-		v4 = *(uint32_t**)(v3 + 184);
+		uint32_t* v4 = ud->field_46;
 		if (v4 && *v4) {
+			int spellInd = *v4;
 			if (!nox_common_gameFlags_check_40A5C0(4096)) {
-				v5 = *(uint32_t*)(v3 + 288);
-				if (nox_xxx_spellHasFlags_424A50(**(uint32_t**)(v3 + 184), 32)) {
-					if (v5) {
-						result = nox_xxx_unitIsEnemyTo_5330C0((int)v1, v5);
-						if (!result) {
-							return result;
-						}
+				void* targ = ud->cursor_obj;
+				if (nox_xxx_spellHasFlags_424A50(spellInd, 32)) {
+					if (targ && !nox_xxx_unitIsEnemyTo_5330C0(u, targ)) {
+						return;
 					}
 				}
 			}
-			v7 = **(uint32_t**)(v3 + 184);
-			if (*(uint32_t*)(*(uint32_t*)(v3 + 276) + 4 * v7 + 3696) || v7 == 34) {
+			if (pl->spell_lvl[spellInd] || spellInd == 34) {
 				v2 = 0;
-				a1 = sub_4FD0E0((int)v1, v7);
-				if (a1 || (a1 = nox_xxx_checkPlrCantCastSpell_4FD150((int)v1, **(uint32_t**)(v3 + 184), 0)) != 0) {
-					nox_xxx_netInformTextMsg_4DA0F0(*(unsigned char*)(*(uint32_t*)(v3 + 276) + 2064), 0, &a1);
-					nox_xxx_aud_501960(231, (int)v1, 0, 0);
+				a1 = sub_4FD0E0(u, spellInd);
+				if (a1 || (a1 = nox_xxx_checkPlrCantCastSpell_4FD150(u, **(uint32_t**)(v3 + 184), 0)) != 0) {
+					nox_xxx_netInformTextMsg_4DA0F0(pl->playerInd, 0, &a1);
+					nox_xxx_aud_501960(231, u, 0, 0);
 				} else {
-					v8 = sub_4FCF90((int)v1, **(uint32_t**)(v3 + 184), 1);
+					v8 = sub_4FCF90(u, spellInd, 1);
 					if (v8 < 0) {
 						a1 = 11;
-						nox_xxx_netInformTextMsg_4DA0F0(*(unsigned char*)(*(uint32_t*)(v3 + 276) + 2064), 0, &a1);
-						nox_xxx_aud_501960(232, (int)v1, 0, 0);
+						nox_xxx_netInformTextMsg_4DA0F0(pl->playerInd, 0, &a1);
+						nox_xxx_aud_501960(232, u, 0, 0);
 					} else {
-						v14[0] = *(uint32_t*)(*(uint32_t*)(v3 + 276) + 3640);
-						if (nox_common_gameFlags_check_40A5C0(4096)) {
-							if (nox_xxx_spellHasFlags_424A50(**(uint32_t**)(v3 + 184), 32)) {
-								v9 = *(uint32_t*)(v3 + 276);
-								if (*(uint32_t*)(v9 + 3640)) {
-									if (!nox_xxx_unitIsEnemyTo_5330C0((int)v1, *(uint32_t*)(v9 + 3640))) {
-										v14[0] = 0;
-									}
-								}
+						int v14[3];
+						v14[0] = pl->obj_3640;
+						if (nox_common_gameFlags_check_40A5C0(4096) && nox_xxx_spellHasFlags_424A50(spellInd, 32)) {
+							if (pl->obj_3640 && !nox_xxx_unitIsEnemyTo_5330C0(u, pl->obj_3640)) {
+								v14[0] = 0;
 							}
 						}
-						v10 = *(uint32_t*)(v3 + 276);
-						*(float*)&v14[1] = (double)*(int*)(v10 + 2284);
-						v11 = (double)*(int*)(v10 + 2288);
-						v12 = *(int**)(v3 + 184);
-						*(float*)&v14[2] = v11;
-						if (nox_xxx_castSpellByUser_4FDD20(*v12, v1, v14)) {
-							nox_xxx_netInformTextMsg_4DA0F0(*(unsigned char*)(*(uint32_t*)(v3 + 276) + 2064), 1,
-															*(int**)(v3 + 184));
+						*(float*)&v14[1] = (double)pl->field_2284;
+						*(float*)&v14[2] = (double)pl->field_2288;
+						if (nox_xxx_castSpellByUser_4FDD20(spellInd, u, v14)) {
+							nox_xxx_netInformTextMsg_4DA0F0(pl->playerInd, 1, ud->field_46);
 						} else {
-							sub_4FD030((int)v1, v8);
+							sub_4FD030(u, v8);
 							a1 = 8;
 						}
 					}
@@ -123,22 +101,20 @@ int nox_xxx_playerSpell_4FB2A0_magic_plyrspel(nox_object_t* a1p) {
 		}
 	}
 	if (*(uint8_t*)(v3 + 88) == 2) {
-		nox_xxx_playerSetState_4FA020(v1, 13);
+		nox_xxx_playerSetState_4FA020(u, 13);
 	}
 	if (v2) {
 		v13 = nox_strman_loadString_40F1D0("SpellUnknown", 0, "C:\\NoxPost\\src\\Server\\Magic\\plyrspel.c", 301);
-		result = nox_xxx_netSendLineMessage_4D9EB0((int)v1, v13);
+		nox_xxx_netSendLineMessage_4D9EB0(u, v13);
 	} else if (a1) {
-		result = nox_xxx_netReportSpellStat_4D9630(*(unsigned char*)(*(uint32_t*)(v3 + 276) + 2064),
-												   **(uint32_t**)(v3 + 184), 0);
+		uint32_t* v4 = ud->field_46;
+		nox_xxx_netReportSpellStat_4D9630(pl->playerInd, *v4, 0);
 	} else {
-		result = nox_xxx_spellHasFlags_424A50(**(uint32_t**)(v3 + 184), 0x100000);
-		if (!result) {
-			result = nox_xxx_netReportSpellStat_4D9630(*(unsigned char*)(*(uint32_t*)(v3 + 276) + 2064),
-													   **(uint32_t**)(v3 + 184), 15);
+		uint32_t* v4 = ud->field_46;
+		if (!nox_xxx_spellHasFlags_424A50(*v4, 0x100000)) {
+			nox_xxx_netReportSpellStat_4D9630(pl->playerInd, *v4, 15);
 		}
 	}
-	return result;
 }
 
 //----- (004FB550) --------------------------------------------------------

@@ -154,7 +154,7 @@ const char* nox_spell_ids[NOX_SPELLS_MAX + 1] = {
 nox_spell_t nox_spells_arr_588124[NOX_SPELLS_MAX + 1] = {0};
 
 //----- (00424850) --------------------------------------------------------
-int nox_xxx_isArgB8EqSome_424850(void* a1) { return a1 == *(void**)&dword_587000_66120; }
+int nox_xxx_isArgB8EqSome_424850(void* a1) { return a1 == dword_587000_66120; }
 
 //----- (00424820) --------------------------------------------------------
 void* nox_xxx_spellGetDefArrayPtr_424820() { return *(void**)&dword_587000_66120; }

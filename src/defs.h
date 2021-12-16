@@ -701,7 +701,7 @@ typedef struct {
 	uint32_t field_43; // 43, 172
 	uint32_t field_44; // 44, 176
 	uint32_t field_45; // 45, 180
-	uint32_t field_46; // 46, 184
+	void* field_46; // 46, 184, TODO: current spell? doesn't look like nox_spell_t
 	uint8_t field_47_0; // 47, 188
 	uint8_t field_47_1; // 47, 189
 	uint16_t field_47_2; // 47, 190
@@ -2325,7 +2325,9 @@ typedef struct nox_playerInfo {
 	uint8_t data_2168[17];
 	nox_playerInfo2 info; // 2185
 	uint16_t field_2282;
-	uint32_t data_2284[4];
+	int field_2284; // 2284, TODO: x coordinate of something? spell?
+	int field_2288; // 2288, TODO: y coordinate of something? spell?
+	uint32_t data_2292[2];
 	uint32_t data_2300[13];
 	wchar_t name_full[30]; // 2352 // TODO: size is a wild guess
 	uint32_t data_2412[97];
@@ -2348,7 +2350,7 @@ typedef struct nox_playerInfo {
 	nox_object_t* obj_3628; // 907, 3628
 	float pos_x_3632; // 908, 3632
 	float pos_y_3636; // 909, 3636
-	uint32_t field_3640; // 910, 3640
+	nox_object_t* obj_3640; // 910, 3640
 	uint32_t field_3644; // 911, 3644
 	uint32_t field_3648;
 	uint32_t field_3652;
