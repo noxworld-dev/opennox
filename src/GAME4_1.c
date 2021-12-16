@@ -8549,6 +8549,8 @@ int sub_51A940(int a1) {
 int sub_51A950() { return *getMemU32Ptr(0x5D4594, 2388656); }
 
 //----- (0051AA20) --------------------------------------------------------
+int nox_players_controlBuffer_2388676[NOX_PLAYERINFO_MAX] = {0};
+int nox_players_controlBuffer_2388804[NOX_PLAYERINFO_MAX] = {0};
 int sub_51AA20(int a1) {
 	int v1;            // esi
 	int v2;            // edi
@@ -8560,9 +8562,9 @@ int sub_51AA20(int a1) {
 	v1 = 0;
 	v2 = 0;
 	v3 = 0;
-	result = *getMemU32Ptr(0x5D4594, 2388804 + 4*a1) - 1;
+	result = nox_players_controlBuffer_2388804[a1] - 1;
 	if (result >= 0) {
-		v5 = *getMemU32Ptr(0x5D4594, 2388804 + 4*a1);
+		v5 = nox_players_controlBuffer_2388804[a1];
 		v6 = getMemAt(0x5D4594, 2388948 + 24 * (result + (a1 << 7)));
 		do {
 			if (*(uint32_t*)v6) {
@@ -8601,13 +8603,12 @@ int sub_51AA20(int a1) {
 }
 
 //----- (0051AB50) --------------------------------------------------------
-int nox_players_controlBuffer_2388676[NOX_PLAYERINFO_MAX] = {0};
 unsigned char* nox_xxx_playerControlBufferFirst_51AB50(int a1) {
 	int v1; // esi
 	int v2; // edx
 
 	nox_players_controlBuffer_2388676[a1] = 0;
-	if (*getMemIntPtr(0x5D4594, 2388804 + 4*a1) <= 0) {
+	if (nox_players_controlBuffer_2388804[a1] <= 0) {
 		return 0;
 	}
 	v1 = a1 << 7;
@@ -8617,7 +8618,7 @@ unsigned char* nox_xxx_playerControlBufferFirst_51AB50(int a1) {
 			break;
 		}
 		nox_players_controlBuffer_2388676[a1] = v2 + 1;
-		if (v2 + 1 >= *getMemIntPtr(0x5D4594, 2388804 + 4*a1)) {
+		if (v2 + 1 >= nox_players_controlBuffer_2388804[a1]) {
 			return 0;
 		}
 	}
@@ -8633,13 +8634,13 @@ unsigned char* nox_xxx_playerGetControlBufferNext_51ABC0(int a1) {
 	v1 = nox_players_controlBuffer_2388676[a1] + 1;
 	nox_players_controlBuffer_2388676[a1] = v1;
 	v2 = v1;
-	if (v1 >= *getMemIntPtr(0x5D4594, 2388804 + 4*a1)) {
+	if (v1 >= nox_players_controlBuffer_2388804[a1]) {
 		return 0;
 	}
 	v3 = a1 << 7;
 	while (!*getMemU32Ptr(0x5D4594, 2388948 + 24 * (v3 + v2))) {
 		nox_players_controlBuffer_2388676[a1] = ++v2;
-		if (v2 >= *getMemIntPtr(0x5D4594, 2388804 + 4*a1)) {
+		if (v2 >= nox_players_controlBuffer_2388804[a1]) {
 			return 0;
 		}
 	}
@@ -8647,16 +8648,12 @@ unsigned char* nox_xxx_playerGetControlBufferNext_51ABC0(int a1) {
 }
 
 //----- (0051AC30) --------------------------------------------------------
-int nox_xxx_playerCmd_51AC30(int a1) {
-	int result; // eax
-
-	result = a1;
-	*getMemU32Ptr(0x5D4594, 2388804 + 4*a1) = 0;
-	return result;
+void nox_xxx_playerCmd_51AC30(int a1) {
+	nox_players_controlBuffer_2388804[a1] = 0;
 }
 
 //----- (0051AC40) --------------------------------------------------------
-int nox_xxx_playerCmdGet_51AC40(int a1) { return *getMemU32Ptr(0x5D4594, 2388804 + 4*a1) == 0; }
+int nox_xxx_playerCmdGet_51AC40(int a1) { return nox_players_controlBuffer_2388804[a1] == 0; }
 
 //----- (0051B810) --------------------------------------------------------
 void sub_51B810(nox_object_t* a1p) {

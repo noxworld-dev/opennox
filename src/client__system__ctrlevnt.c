@@ -1438,9 +1438,9 @@ int nox_xxx_playerSaveInput_51A960(int a1, unsigned char* a2) {
 		return v3 + 1;
 	}
 	v5 = sub_51AAA0((int)(a2 + 1), v3, (int)v8);
-	v6 = *getMemU32Ptr(0x5D4594, 2388804 + 4*a1);
+	v6 = nox_players_controlBuffer_2388804[a1];
 	if (v6 + v5 < 128) {
-		*getMemU32Ptr(0x5D4594, 2388804 + 4*a1) = v6 + v5;
+		nox_players_controlBuffer_2388804[a1] = v6 + v5;
 		memcpy(getMemAt(0x5D4594, 2388932 + 24 * (v6 + (a1 << 7))), v8, 24 * v5);
 		v3 = v7;
 	}

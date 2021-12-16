@@ -20,6 +20,7 @@ package nox
 extern unsigned int nox_client_renderGUI_80828;
 extern unsigned int nox_xxx_xxxRenderGUI_587000_80832;
 extern void* nox_gui_itemAmount_dialog_1319228;
+extern int nox_players_controlBuffer_2388804[NOX_PLAYERINFO_MAX];
 
 int nox_ctrlevent_add_ticks_42E630();
 void nox_client_orderCreature(int creature, int command);
@@ -955,11 +956,11 @@ func nox_xxx_playerSaveInput_51A960(a1 C.int, a2 *C.uchar) C.int {
 	}
 	a2s := unsafe.Slice((*byte)(unsafe.Pointer(a2)), int(v3)+1)
 	var buf [3072]byte
-	v5 := uint32(sub_51AAA0(a2s[1:], buf[:]))
-	v6 := memmap.Uint32(0x5D4594, 2388804+4*uintptr(a1)+0)
+	v5 := sub_51AAA0(a2s[1:], buf[:])
+	v6 := int(C.nox_players_controlBuffer_2388804[a1])
 	if v6+v5 < 128 {
-		*memmap.PtrUint32(0x5D4594, 2388804+4*uintptr(a1)+0) = v6 + v5
-		tsz := int(24 * v5)
+		C.nox_players_controlBuffer_2388804[a1] = C.int(v6 + v5)
+		tsz := 24 * v5
 		copy(unsafe.Slice((*byte)(memmap.PtrOff(0x5D4594, 2388932+24*(uintptr(v6)+(uintptr(a1)<<7)))), tsz), buf[:tsz])
 	}
 	C.sub_51AA20(a1)

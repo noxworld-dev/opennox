@@ -263,7 +263,7 @@ int sub_51A950();
 int sub_51AA20(int a1);
 unsigned char* nox_xxx_playerControlBufferFirst_51AB50(int a1);
 unsigned char* nox_xxx_playerGetControlBufferNext_51ABC0(int a1);
-int nox_xxx_playerCmd_51AC30(int a1);
+void nox_xxx_playerCmd_51AC30(int a1);
 int nox_xxx_playerCmdGet_51AC40(int a1);
 void sub_51B810(nox_object_t* a1);
 char sub_51B860(int a1);
