@@ -29,7 +29,7 @@ func serverUpdateUnitsCallUpdate() { // nox_xxx_updateUnits_51B100_callUpdate
 			C.sub_51B810(obj.CObj())
 			C.sub_537770(obj.CObj())
 			prev := obj.Pos()
-			obj.field_31_0 = obj.field_31_1
+			obj.field_31_0 = obj.direction
 			npos := obj.newPos()
 			obj.setPrevPos(prev)
 			obj.setPos(npos)

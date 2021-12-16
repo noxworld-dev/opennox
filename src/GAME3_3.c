@@ -1041,7 +1041,7 @@ nox_object_t* nox_xxx_newObjectWithType_4E3470(nox_objectType_t* typ) {
 	}
 	ob->field_122_0 = typ->field_30_0;
 	ob->field_122_2 = typ->field_30_2;
-	ob->float_136 = typ->field_31;
+	ob->speed_cur = typ->speed;
 	ob->float_137 = typ->field_32;
 	ob->float_138 = typ->field_33;
 	ob->field_139 = typ->field_34;

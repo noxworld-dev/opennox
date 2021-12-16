@@ -2190,7 +2190,7 @@ void nox_xxx_updateUnits_51B100_callUpdate() {
 			sub_537770(obj);
 			float px = obj->x;
 			float py = obj->y;
-			obj->field_31_0 = obj->field_31_1;
+			obj->field_31_0 = obj->direction;
 			float nx = obj->new_x;
 			float ny = obj->new_y;
 			obj->prev_x = px;

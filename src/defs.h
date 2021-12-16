@@ -431,7 +431,7 @@ typedef struct nox_objectType_t {
 	uint8_t field_30_0;       // 30, 120
 	uint8_t field_30_1;       // 30, 121
 	uint16_t field_30_2;      // 30, 122
-	float field_31;           // 31, 124
+	float speed;              // 31, 124
 	float field_32;           // 32, 128
 	uint32_t field_33;        // 33, 132
 	void* field_34;           // 34, 136, TODO: data, *[20]byte
@@ -471,7 +471,7 @@ typedef struct nox_object_t {
 	uint16_t field_6_2;      // 6, 26
 	uint32_t field_7;        // 7, 28 // TODO: float?
 	uint32_t field_8;        // 8, 32
-	uint32_t field_9;        // 9, 36
+	uint32_t field_9;        // 9, 36, TODO: some frame/timestamp
 	unsigned int extent;     // 10, 40
 	int script_id;           // 11, 44
 	uint32_t field_12;       // 12, 48
@@ -494,10 +494,10 @@ typedef struct nox_object_t {
 	uint32_t field_29;       // 29, 116
 	float mass;              // 30, 120
 	uint16_t field_31_0;     // 31, 124, // TODO: 124 is set to value of 126 in at least 51B100
-	uint16_t field_31_1;     // 31, 126, // TODO: 126 accessed as word in at least 51B100, probably direction
+	uint16_t direction;      // 31, 126, // TODO: 126 accessed as word in at least 51B100, probably direction
 	uint32_t field_32;       // 32, 128
 	uint32_t field_33;       // 33, 132
-	uint32_t field_34;       // 34, 136
+	uint32_t field_34;       // 34, 136, TODO: some frame/timestamp
 	uint32_t field_35;       // 35, 140
 	uint32_t field_36;       // 36, 144
 	uint32_t field_37;       // 37, 148
@@ -589,7 +589,7 @@ typedef struct nox_object_t {
 	uint32_t field_133;      // 133, 532
 	uint32_t field_134;      // 134, 536, TODO: some timestamp
 	uint32_t field_135;      // 135, 540, TODO: 541 accessed as byte
-	float float_136;         // 136, 544, TODO: current speed?
+	float speed_cur;         // 136, 544
 	float float_137;         // 137, 548
 	float float_138;         // 138, 552
 	void* field_139;         // 139, 556, TODO: data, *[20]byte, related to health and damage
@@ -676,7 +676,7 @@ typedef struct {
 	uint16_t field_20_0; // 20, 80
 	uint16_t field_20_1; // 20, 82
 	uint32_t field_21; // 21, 84
-	uint8_t field_22_0; // 22, 88
+	uint8_t field_22_0; // 22, 88, TODO: player unit state?
 	uint8_t field_22_1; // 22, 89
 	uint8_t field_22_2; // 22, 90
 	uint8_t field_22_3; // 22, 91
@@ -712,12 +712,14 @@ typedef struct {
 	uint32_t field_52; // 52, 208
 	uint32_t field_53; // 53, 212
 	uint32_t field_54; // 54, 216, TODO: (manual?) casting timestamp
-	uint32_t field_55; // 55, 220
-	uint32_t field_56; // 56, 224
+	int field_55; // 55, 220, TODO: spell-related? x coord?
+	int field_56; // 56, 224, TODO: spell-related? y coord?
 	uint32_t field_57; // 57, 228
 	uint32_t field_58; // 58, 232
-	uint32_t field_59; // 59, 236
-	uint32_t field_60; // 60, 240
+	uint8_t field_59_0; // 59, 236, TODO: frame index?
+	uint8_t field_59_1; // 59, 237
+	uint16_t field_59_2; // 59, 238
+	uint32_t field_60; // 60, 240, TODO: some flags?
 	uint32_t field_61; // 61, 244
 	uint32_t field_62; // 62, 248
 	uint32_t field_63; // 63, 252

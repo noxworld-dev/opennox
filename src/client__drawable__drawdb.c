@@ -1114,8 +1114,8 @@ int nox_read_things_alternative_4E2B60(void) {
 			}
 			if (typ->obj_class & 0x1) {
 				typ->field_13 = 1.0f;
-				typ->field_31 = typ->field_31 + typ->field_31;
-				typ->field_32 = typ->field_32 + typ->field_32;
+				typ->speed *= 2;
+				typ->field_32 *= 2;
 			} else {
 				typ->field_13 = 0.5f;
 			}
