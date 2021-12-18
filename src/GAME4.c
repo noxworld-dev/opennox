@@ -1965,7 +1965,7 @@ void nox_xxx_unitUpdatePlayerImpl_4F8460(nox_object_t* u) {
 		while (*(uint32_t*)(*(uint32_t*)(v50 + 748) + 132) != u) {
 			v50 = nox_xxx_getNextPlayerUnit_4DA7F0(v50);
 			if (!v50) {
-			LABEL_155:
+			LABEL_155:;
 				double v51 = 2 * u->speed_cur;
 				v52 = 8 * (int)u->field_31_0;
 				u->force_x = v51 * *getMemFloatPtr(0x587000, 194136 + v52);
