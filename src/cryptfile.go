@@ -7,6 +7,7 @@ import "C"
 import (
 	"encoding/binary"
 	"io"
+	"os"
 	"unsafe"
 
 	"nox/v1/common/memmap"
@@ -39,7 +40,9 @@ func nox_xxx_cryptSetTypeMB_426A50(a1 C.int) {
 //export nox_xxx_cryptOpen_426910
 func nox_xxx_cryptOpen_426910(a1 *C.char, cmode, key C.int) int32 {
 	if err := cryptFileOpen(GoString(a1), int(cmode), int(key)); err != nil {
-		binFileLog.Println(err)
+		if !os.IsNotExist(err) {
+			binFileLog.Println(err)
+		}
 		return 0
 	}
 	return 1
