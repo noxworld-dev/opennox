@@ -384,7 +384,7 @@ func (p *guiParser) parseDataField(typ string, buf string) (guiWidgetData, bool)
 		d := p.widgets.staticText
 		*d = staticTextData{}
 		v, buf = gui.ParseNextUintField(buf)
-		d.field_1 = C.uint(bool2int(v != 0))
+		d.center = C.uint(bool2int(v != 0))
 		v, buf = gui.ParseNextUintField(buf)
 		d.field_2 = C.uint(bool2int(v != 0))
 		s, buf = gui.ParseNextField(buf)
@@ -406,7 +406,7 @@ func (p *guiParser) parseDataField(typ string, buf string) (guiWidgetData, bool)
 			p.widgets.staticText = (*staticTextData)(pp)
 		}
 		d2 := p.widgets.staticText
-		d2.field_1 = C.uint(bool2int(p.widgets.staticText.field_1 != 0))
+		d2.center = C.uint(bool2int(p.widgets.staticText.center != 0))
 		return d, true
 	}
 	return nil, true

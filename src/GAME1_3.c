@@ -116,7 +116,6 @@ extern uint32_t dword_5d4594_814624;
 extern uint32_t dword_5d4594_826028;
 extern uint32_t nox_client_highResFloors_154952;
 extern uint32_t dword_5d4594_2618912;
-extern uint32_t dword_5d4594_816452;
 extern uint32_t nox_draw_fontAdvance_816440;
 extern uint32_t nox_client_texturedFloors_154956;
 extern uint32_t nox_client_highResFrontWalls_80820;
@@ -171,6 +170,7 @@ uint32_t dword_5d4594_816364 = 0;
 uint32_t dword_5d4594_816376 = 0;
 uint32_t dword_5d4594_816092 = 0;
 #ifndef NOX_CGO
+uint32_t nox_draw_textSmoothing_816452 = 0;
 uint32_t dword_5d4594_816432 = 0;
 uint32_t dword_5d4594_816436 = 0;
 uint32_t dword_587000_93944 = 0xffffffff;
@@ -2461,7 +2461,7 @@ int nox_xxx_fontLoadMB_43F1C0() {
 	}
 	nox_draw_fontAdvance_816440 = 1;
 	dword_5d4594_816444 = 0;
-	dword_5d4594_816452 = 0;
+	nox_draw_textSmoothing_816452 = 0;
 	nox_draw_tabWidth_816456 = 64;
 	nox_draw_lineStartX_816460 = 0;
 	uint32_t* v1 = getMemAt(0x5D4594, 816464);
@@ -2707,18 +2707,12 @@ int sub_43F620(void* lpMem) {
 	--dword_5d4594_816444;
 	return 1;
 }
-#endif // NOX_CGO
 
 //----- (0043F670) --------------------------------------------------------
-int sub_43F670(int a1) {
-	int result; // eax
-
-	result = dword_5d4594_816452;
-	dword_5d4594_816452 = a1;
-	return result;
+void nox_draw_enableTextSmoothing_43F670(int a1) {
+	nox_draw_textSmoothing_816452 = a1;
 }
 
-#ifndef NOX_CGO
 //----- (0043F680) --------------------------------------------------------
 int nox_draw_setBold_43F680(int a1) {
 	int result; // eax
@@ -3308,11 +3302,11 @@ int nox_xxx_StringDraw_43FE90(void* font, short a2, int xLeft, int yTop) {
 			goto LABEL_92;
 		}
 	LABEL_97:
-		if (dword_5d4594_816452) {
+		if (nox_draw_textSmoothing_816452) {
 			nox_client_drawRectStringSize_49D190(nox_draw_curDrawData_3799572->field_59, v11, v5, v67, *(uint32_t*)(v7 + 8));
-			dword_5d4594_816452 = 0;
+			nox_draw_textSmoothing_816452 = 0;
 			nox_xxx_StringDraw_43FE90(v7, a2, v11, v5);
-			dword_5d4594_816452 = 1;
+			nox_draw_textSmoothing_816452 = 1;
 		}
 		return v11 + nox_draw_fontAdvance_816440 + v67;
 	}
@@ -3420,11 +3414,11 @@ int nox_xxx_StringDraw_43FE90(void* font, short a2, int xLeft, int yTop) {
 		break;
 	}
 LABEL_60:
-	if (dword_5d4594_816452) {
+	if (nox_draw_textSmoothing_816452) {
 		nox_client_drawRectStringSize_49D190(nox_draw_curDrawData_3799572->field_59, xLeft, v71, v67, v72.field_C - v72.field_4);
-		dword_5d4594_816452 = 0;
+		nox_draw_textSmoothing_816452 = 0;
 		nox_xxx_StringDraw_43FE90(a1, a2, xLeft, v71);
-		dword_5d4594_816452 = 1;
+		nox_draw_textSmoothing_816452 = 1;
 	}
 	return xLeft + nox_draw_fontAdvance_816440 + v67;
 }
@@ -3535,12 +3529,12 @@ int sub_440360(int a1, int a2, int xLeft, int yTop) {
 		v44 = v7 - 1;
 		if (!v43) {
 		LABEL_95:
-			if (dword_5d4594_816452) {
+			if (nox_draw_textSmoothing_816452) {
 				nox_client_drawRectStringSize_49D190(nox_draw_curDrawData_3799572->field_59, xLeft, yTop, v67,
 													 *(uint32_t*)(a1 + 8));
-				dword_5d4594_816452 = 0;
+				nox_draw_textSmoothing_816452 = 0;
 				sub_440360(a1, a2, xLeft, yTop);
-				dword_5d4594_816452 = 1;
+				nox_draw_textSmoothing_816452 = 1;
 			}
 			return xLeft + nox_draw_fontAdvance_816440 + v67;
 		}
@@ -3740,12 +3734,12 @@ int sub_440360(int a1, int a2, int xLeft, int yTop) {
 		break;
 	}
 LABEL_61:
-	if (dword_5d4594_816452) {
+	if (nox_draw_textSmoothing_816452) {
 		v42 = v70;
 		nox_client_drawRectStringSize_49D190(nox_draw_curDrawData_3799572->field_59, xLeft, v70, v67, v71.field_C - v71.field_4);
-		dword_5d4594_816452 = 0;
+		nox_draw_textSmoothing_816452 = 0;
 		sub_440360(a1, a2, xLeft, v42);
-		dword_5d4594_816452 = 1;
+		nox_draw_textSmoothing_816452 = 1;
 	}
 	return xLeft + nox_draw_fontAdvance_816440 + v67;
 }

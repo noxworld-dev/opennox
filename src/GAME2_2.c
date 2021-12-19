@@ -11774,7 +11774,7 @@ int nox_xxx_wndEditDrawNoImage_488160(int a1, int a2) {
 	v29 = v5;
 	v7 = yTop + v6 / 2 - v5 / 2;
 	if (((*(uint32_t*)(a1 + 4) >> 13) & 1) == 1) {
-		sub_43F670(1);
+		nox_draw_enableTextSmoothing_43F670(1);
 	}
 	if ((*(uint32_t*)(a1 + 4) >> 3) & 1) {
 		if (*(uint8_t*)a2 & 2) {
@@ -11853,7 +11853,7 @@ int nox_xxx_wndEditDrawNoImage_488160(int a1, int a2) {
 			}
 		}
 	}
-	sub_43F670(0);
+	nox_draw_enableTextSmoothing_43F670(0);
 	return 1;
 }
 // 488160: using guessed type wchar_t var_200[256];
@@ -12029,7 +12029,7 @@ int nox_xxx_wndEditDrawWithImage_488870(int a1, int a2) {
 	v23 = v4;
 	v6 = v21 + v5 / 2 - v4 / 2;
 	if (((*(uint32_t*)(a1 + 4) >> 13) & 1) == 1) {
-		sub_43F670(1);
+		nox_draw_enableTextSmoothing_43F670(1);
 	}
 	if ((*(uint32_t*)(a1 + 4) >> 3) & 1) {
 		v7 = (int)v20;
@@ -12088,7 +12088,7 @@ int nox_xxx_wndEditDrawWithImage_488870(int a1, int a2) {
 			}
 		}
 	}
-	sub_43F670(0);
+	nox_draw_enableTextSmoothing_43F670(0);
 	return 1;
 }
 // 488870: using guessed type wchar_t var_200[256];
@@ -12213,7 +12213,7 @@ int nox_xxx_wndStaticDrawNoImage_488D00(int a1, int xLeft) {
 	v5 = *(uint32_t*)(a1 + 8);
 	v6 = yTop + *(int*)(a1 + 12) / 2;
 	if ((*(uint32_t*)(a1 + 4) & 0x2000) == 0x2000) {
-		sub_43F670(1);
+		nox_draw_enableTextSmoothing_43F670(1);
 	}
 	if (*(uint8_t*)(a1 + 4) & 8) {
 		if (*(uint8_t*)v2 & 2) {
@@ -12359,7 +12359,7 @@ int nox_xxx_wndStaticDrawNoImage_488D00(int a1, int xLeft) {
 			nox_xxx_drawStringWrap_43FAF0(*(uint32_t*)(v2 + 200), *v3, xLeft + 2, v8, v5, 0);
 		}
 	}
-	sub_43F670(0);
+	nox_draw_enableTextSmoothing_43F670(0);
 	return 1;
 }
 
@@ -12475,8 +12475,11 @@ int nox_xxx_wndStaticProc_489420(int a1, int a2, int a3, int a4) {
 	return result;
 }
 
+#ifndef NOX_CGO
 //----- (00489550) --------------------------------------------------------
-int nox_xxx_wndStaticDrawWithImage_489550(uint32_t* a1, uint32_t* a2) {
+int nox_xxx_wndStaticDrawWithImage_489550(nox_window* a1p, nox_window_data* a2p) {
+	uint32_t* a1 = a1p;
+	uint32_t* a2 = a2p;
 	uint32_t* v2;        // esi
 	unsigned short** v3; // ebp
 	uint32_t* v4;        // ebx
@@ -12497,7 +12500,7 @@ int nox_xxx_wndStaticDrawWithImage_489550(uint32_t* a1, uint32_t* a2) {
 	v5 = nox_xxx_guiFontHeightMB_43F320(a2[50]);
 	v6 = v11 + v2[3] / 2 - v5 / 2;
 	if ((v2[1] & 0x2000) == 0x2000) {
-		sub_43F670(1);
+		nox_draw_enableTextSmoothing_43F670(1);
 	}
 	v7 = v4[6];
 	if (v7) {
@@ -12522,9 +12525,10 @@ int nox_xxx_wndStaticDrawWithImage_489550(uint32_t* a1, uint32_t* a2) {
 			nox_xxx_drawStringWrap_43FAF0(v4[50], *v3, (int)a1 + 2, v6, v12, 0);
 		}
 	}
-	sub_43F670(0);
+	nox_draw_enableTextSmoothing_43F670(0);
 	return 1;
 }
+#endif // NOX_CGO
 
 //----- (004896C0) --------------------------------------------------------
 int sub_4896C0() { return *getMemU32Ptr(0x5D4594, 1193356); }

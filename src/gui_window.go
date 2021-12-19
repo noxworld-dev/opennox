@@ -290,7 +290,7 @@ func (win *Window) SetFlags(v gui.StatusFlags) {
 	win.flags = C.nox_window_flags(v)
 }
 
-func (win *Window) Offs() types.Point {
+func (win *Window) Offs() types.Point { // nox_gui_getWindowOffs_46AA20
 	if win == nil {
 		return types.Point{}
 	}
@@ -333,6 +333,17 @@ func (win *Window) Size() types.Size {
 func (win *Window) pointIn(p types.Point) bool {
 	off, end := win.Offs(), win.End()
 	return p.X >= off.X && p.X <= end.X && p.Y >= off.Y && p.Y <= end.Y
+}
+
+func (win *Window) GlobalPos() types.Point { // nox_client_wndGetPosition_46AA60
+	if win == nil {
+		return types.Point{}
+	}
+	pos := win.Offs()
+	for it := win.Parent(); it != nil; it = it.Parent() {
+		pos = pos.Add(it.Offs())
+	}
+	return pos
 }
 
 func (win *Window) IsChild(win2 *Window) bool {

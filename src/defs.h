@@ -1510,7 +1510,7 @@ _Static_assert(sizeof(nox_entryField_data) == 1056, "wrong size of nox_entryFiel
 
 typedef struct {
 	wchar_t* text;
-	uint32_t field_1;
+	uint32_t center;
 	uint32_t field_2;
 } nox_staticText_data;
 _Static_assert(sizeof(nox_staticText_data) == 12, "wrong size of nox_staticText_data structure!");

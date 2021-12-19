@@ -400,6 +400,11 @@ func nox_client_drawSetAlpha_434580(a C.uchar) {
 	noxrend.Data().SetAlpha(byte(a))
 }
 
+//export nox_draw_enableTextSmoothing_43F670
+func nox_draw_enableTextSmoothing_43F670(v C.int) {
+	noxrend.text.smooth = v != 0
+}
+
 var noxrend = NewNoxRender()
 
 type drawOp16Func func(dst []uint16, src []byte, val int) (outDst []uint16, outSrc []byte)
@@ -474,6 +479,7 @@ type NoxRender struct {
 		lineStart int
 		advance   int
 		useBold   bool
+		smooth    bool
 	}
 
 	particles struct {

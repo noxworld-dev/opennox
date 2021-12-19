@@ -4,7 +4,6 @@ package nox
 #include <stdint.h>
 
 extern uint32_t dword_5d4594_816444;
-extern uint32_t dword_5d4594_816452;
 */
 import "C"
 import (
@@ -67,7 +66,6 @@ func loadGameFonts() error {
 
 func nox_xxx_fontLoadMB_43F1C0() {
 	C.dword_5d4594_816444 = 0
-	C.dword_5d4594_816452 = 0
 	v1 := unsafe.Slice((*uint32)(memmap.PtrOff(0x5D4594, 816464)), 5)
 	for i := range v1 {
 		v1[i] = 0

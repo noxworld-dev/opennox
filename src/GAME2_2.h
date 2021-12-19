@@ -258,7 +258,7 @@ nox_window* nox_gui_newStaticText_489300(nox_window* a1, int a2, int a3, int a4,
 int nox_xxx_wndStaticProcPre_489390(nox_window* a1, int a2, int a3, int a4);
 int nox_xxx_wndStatic_4893E0(int a1);
 int nox_xxx_wndStaticProc_489420(int a1, int a2, int a3, int a4);
-int nox_xxx_wndStaticDrawWithImage_489550(uint32_t* a1, uint32_t* a2);
+int nox_xxx_wndStaticDrawWithImage_489550(nox_window* a1p, nox_window_data* a2p);
 int sub_4896C0();
 int sub_4896D0(int a1);
 int sub_4896E0();

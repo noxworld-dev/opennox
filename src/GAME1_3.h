@@ -145,7 +145,7 @@ int nox_xxx_Font_43F340(int* a1);
 void* nox_xxx_guiFontPtrByName_43F360(char* a1);
 void* nox_xxx_FontLoadFile_43F3B0(char* a1);
 int sub_43F620(void* lpMem);
-int sub_43F670(int a1);
+void nox_draw_enableTextSmoothing_43F670(int a1);
 int nox_draw_setBold_43F680(int a1);
 int sub_43F690(int a1, int a2, int a3, int a4);
 int nox_xxx_drawString_43F6E0(void* a1, wchar_t* a2, int a3, int a4);

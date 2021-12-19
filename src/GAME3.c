@@ -1334,7 +1334,7 @@ int nox_xxx_wndListboxDrawNoImage_4A3C50(uint32_t* a1, int a2) {
 	v4 = a1[3];
 	v22 = a1[2];
 	if ((a1[1] & 0x2000) == 0x2000) {
-		sub_43F670(1);
+		nox_draw_enableTextSmoothing_43F670(1);
 	}
 	nox_xxx_wndDraw_49F7F0();
 	if (*(uint32_t*)(v2 + 12)) {
@@ -1436,7 +1436,7 @@ LABEL_13:
 		}
 	}
 	sub_49F860();
-	sub_43F670(0);
+	nox_draw_enableTextSmoothing_43F670(0);
 	return 1;
 }
 // 4A3C50: using guessed type wchar_t var_200[256];
@@ -1480,7 +1480,7 @@ int nox_xxx_wndListboxDrawWithImage_4A3FC0(uint32_t* a1, int a2) {
 	v4 = a1[3];
 	v22 = a1[2];
 	if ((a1[1] & 0x2000) == 0x2000) {
-		sub_43F670(1);
+		nox_draw_enableTextSmoothing_43F670(1);
 	}
 	nox_xxx_wndDraw_49F7F0();
 	if (*(uint32_t*)(v3 + 12)) {
@@ -1577,7 +1577,7 @@ int nox_xxx_wndListboxDrawWithImage_4A3FC0(uint32_t* a1, int a2) {
 		}
 	}
 	sub_49F860();
-	sub_43F670(0);
+	nox_draw_enableTextSmoothing_43F670(0);
 	return 1;
 }
 // 4A3FC0: using guessed type wchar_t var_200[256];
@@ -3108,7 +3108,7 @@ int nox_xxx_wndButtonDrawNoImg_4A81D0(int a1, int a2) {
 		v5 = xLeft + *(uint32_t*)(a1 + 8) / 2;
 		v6 = yTop + *(uint32_t*)(a1 + 12) / 2;
 		if ((*(uint32_t*)(a1 + 4) & 0x2000) == 0x2000) {
-			sub_43F670(1);
+			nox_draw_enableTextSmoothing_43F670(1);
 		}
 		nox_xxx_drawGetStringSize_43F840(*(uint32_t*)(v2 + 200), (unsigned short*)(v2 + 72), &a2, 0, 0);
 		if (*(uint32_t*)(v2 + 68) != 0x80000000) {
@@ -3117,7 +3117,7 @@ int nox_xxx_wndButtonDrawNoImg_4A81D0(int a1, int a2) {
 			v7 = nox_xxx_guiFontHeightMB_43F320(*(uint32_t*)(v2 + 200));
 			nox_xxx_drawStringWrap_43FAF0(*(uint32_t*)(v2 + 200), (uint16_t*)(v2 + 72), v5 - a2 / 2, v6 - v7 / 2, v9, 0);
 		}
-		sub_43F670(0);
+		nox_draw_enableTextSmoothing_43F670(0);
 	}
 	return 1;
 }
@@ -3173,7 +3173,7 @@ int nox_xxx_wndButtonDraw_4A8380(uint32_t* a1, int a2) {
 		v7 = v3[1] & 0x2000;
 		a2 += v6 / 2;
 		if (v7 == 0x2000) {
-			sub_43F670(1);
+			nox_draw_enableTextSmoothing_43F670(1);
 		}
 		nox_xxx_drawGetStringSize_43F840(*(uint32_t*)(v2 + 200), (unsigned short*)(v2 + 72), &v11, 0, 0);
 		if (*(uint32_t*)(v2 + 68) != 0x80000000) {
@@ -3183,7 +3183,7 @@ int nox_xxx_wndButtonDraw_4A8380(uint32_t* a1, int a2) {
 			nox_xxx_drawStringWrap_43FAF0(*(uint32_t*)(v2 + 200), (uint16_t*)(v2 + 72), (int)a1 - v11 / 2, a2 - v8 / 2, v10,
 									  0);
 		}
-		sub_43F670(0);
+		nox_draw_enableTextSmoothing_43F670(0);
 	}
 	return 1;
 }
@@ -3362,7 +3362,7 @@ int nox_xxx_wndRadioButtonDrawNoImg_4A8820(int a1, int a2) {
 		nox_client_drawRectFilledOpaque_49CE30(v4 + 1, v5 + 1, 8, 8);
 	}
 	if ((*(uint32_t*)(v3 + 4) & 0x2000) == 0x2000) {
-		sub_43F670(1);
+		nox_draw_enableTextSmoothing_43F670(1);
 	}
 	if (**(uint32_t**)(v3 + 32)) {
 		v6 = *(uint32_t*)(v3 + 12);
@@ -3382,7 +3382,7 @@ int nox_xxx_wndRadioButtonDrawNoImg_4A8820(int a1, int a2) {
 		nox_xxx_drawStringWrap_43FAF0(*(uint32_t*)(v2 + 200), (uint16_t*)(v2 + 72), v4 + 14, v5 - v13 / 2 + 5,
 								  *(uint32_t*)(v3 + 8), 0);
 	}
-	sub_43F670(0);
+	nox_draw_enableTextSmoothing_43F670(0);
 	return 1;
 }
 
@@ -3424,7 +3424,7 @@ int nox_xxx_wndRadioButtonDraw_4A8A20(int a1, int a2) {
 		nox_client_drawImageAt_47D2C0(v3, v13 + *(uint32_t*)(v2 + 60), v14 + *(uint32_t*)(v2 + 64));
 	}
 	if ((*(uint32_t*)(a1 + 4) & 0x2000) == 0x2000) {
-		sub_43F670(1);
+		nox_draw_enableTextSmoothing_43F670(1);
 	}
 	if (**(uint32_t**)(a1 + 32)) {
 		v6 = *(uint32_t*)(a1 + 8);
@@ -3448,7 +3448,7 @@ int nox_xxx_wndRadioButtonDraw_4A8A20(int a1, int a2) {
 			nox_xxx_drawStringWrap_43FAF0(*(uint32_t*)(v2 + 200), (uint16_t*)(v2 + 72), v13, v14, *(uint32_t*)(a1 + 8), 0);
 		}
 	}
-	sub_43F670(0);
+	nox_draw_enableTextSmoothing_43F670(0);
 	return 1;
 }
 
@@ -3604,11 +3604,11 @@ int nox_xxx_wndDrawCheckBoxNoImg_4A8EA0(int a1, int a2) {
 	nox_xxx_drawGetStringSize_43F840(*(uint32_t*)(v2 + 200), (unsigned short*)(v2 + 72), &v9, 0, 0);
 	if (*(uint32_t*)(v2 + 68) != 0x80000000) {
 		if ((*(uint32_t*)(a1 + 4) & 0x2000) == 0x2000) {
-			sub_43F670(1);
+			nox_draw_enableTextSmoothing_43F670(1);
 		}
 		nox_xxx_drawSetTextColor_434390(*(uint32_t*)(v2 + 68));
 		nox_xxx_drawStringWrap_43FAF0(*(uint32_t*)(v2 + 200), (uint16_t*)(v2 + 72), v7, v6, *(uint32_t*)(a1 + 8), 0);
-		sub_43F670(0);
+		nox_draw_enableTextSmoothing_43F670(0);
 	}
 	return 1;
 }
@@ -3663,11 +3663,11 @@ LABEL_12:
 	nox_xxx_drawGetStringSize_43F840(*(uint32_t*)(v2 + 200), (unsigned short*)(v2 + 72), (int*)&a1, 0, 0);
 	if (*(uint32_t*)(v2 + 68) != 0x80000000) {
 		if ((v3[1] & 0x2000) == 0x2000) {
-			sub_43F670(1);
+			nox_draw_enableTextSmoothing_43F670(1);
 		}
 		nox_xxx_drawSetTextColor_434390(*(uint32_t*)(v2 + 68));
 		nox_xxx_drawStringWrap_43FAF0(*(uint32_t*)(v2 + 200), (uint16_t*)(v2 + 72), v9, v8, v3[2], 0);
-		sub_43F670(0);
+		nox_draw_enableTextSmoothing_43F670(0);
 	}
 	return 1;
 }

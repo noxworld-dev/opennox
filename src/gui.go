@@ -23,6 +23,8 @@ import (
 	"os"
 	"unsafe"
 
+	"golang.org/x/image/font"
+
 	"nox/v1/client/gui"
 	"nox/v1/client/input"
 	noxcolor "nox/v1/common/color"
@@ -230,15 +232,23 @@ func (d *WindowData) SetSelectedColor(cl noxcolor.Color16) {
 	d.sel_color = C.uint32_t(noxcolor.ExtendColor16(cl))
 }
 
+func (d *WindowData) TextColorRaw() uint32 {
+	return uint32(d.text_color)
+}
+
 func (d *WindowData) TextColor() noxcolor.Color16 {
-	return noxcolor.IntToColor(uint32(d.text_color))
+	return noxcolor.IntToColor(d.TextColorRaw())
 }
 
 func (d *WindowData) SetTextColor(cl noxcolor.Color16) {
 	d.text_color = C.uint32_t(noxcolor.ExtendColor16(cl))
 }
 
-func (d *WindowData) Font() unsafe.Pointer {
+func (d *WindowData) Font() font.Face {
+	return asFont(d.font)
+}
+
+func (d *WindowData) FontC() unsafe.Pointer {
 	return d.font
 }
 

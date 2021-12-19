@@ -9,6 +9,7 @@ package nox
 */
 import "C"
 import (
+	"image"
 	"unsafe"
 
 	"nox/v1/client/gui"
@@ -112,7 +113,7 @@ func tempDrawData() (*WindowData, func()) {
 	return d, free
 }
 
-func NewStaticText(par *Window, id uint, px, py, w, h int, f1, f2 bool, text string) *Window {
+func NewStaticText(par *Window, id uint, px, py, w, h int, center, f2 bool, text string) *Window {
 	draw, dfree := tempDrawData()
 	defer dfree()
 	*draw = *par.DrawData()
@@ -123,7 +124,7 @@ func NewStaticText(par *Window, id uint, px, py, w, h int, f1, f2 bool, text str
 
 	win := newStaticText(par, status, px, py, w, h, draw, &staticTextData{
 		text:    internWStr(text),
-		field_1: C.uint(bool2int(f1)),
+		center:  C.uint(bool2int(center)),
 		field_2: C.uint(bool2int(f2)),
 	})
 	win.SetID(id)
@@ -150,6 +151,7 @@ func newStaticText(par *Window, status gui.StatusFlags, px, py, w, h int, draw *
 	if !win.Flags().Has(gui.StatusImage) {
 		win.SetAllFuncs(C.nox_xxx_wndStaticProc_489420, C.nox_xxx_wndStaticDrawNoImage_488D00, nil)
 	} else {
+		_ = nox_xxx_wndStaticDrawWithImage_489550
 		win.SetAllFuncs(C.nox_xxx_wndStaticProc_489420, C.nox_xxx_wndStaticDrawWithImage_489550, nil)
 	}
 	if draw.win == nil {
@@ -187,6 +189,51 @@ func nox_xxx_wndStaticProcPre_489390(cwin *C.nox_window, ev C.int, a3, a4 C.int)
 		return C.int(uintptr(unsafe.Pointer(data.text)))
 	}
 	return 0
+}
+
+//export nox_xxx_wndStaticDrawWithImage_489550
+func nox_xxx_wndStaticDrawWithImage_489550(cwin *C.nox_window, cdraw *C.nox_window_data) C.int {
+	win := asWindow(cwin)
+	draw := asWindowData(cdraw)
+	r := noxrend
+
+	data := (*staticTextData)(unsafe.Pointer(win.widget_data))
+
+	wpos := win.GlobalPos()
+	wsz := win.Size()
+	fnt := draw.Font()
+	fh := r.FontHeight(fnt)
+	if win.Flags().Has(gui.StatusSmoothText) {
+		r.text.smooth = true
+	}
+	if bg := draw.BackgroundImage(); bg != nil {
+		r.DrawImageAt(bg, wpos.Add(draw.ImagePoint()))
+	}
+	var img *Image
+	if win.Flags().Has(gui.StatusEnabled) {
+		img = draw.EnabledImage()
+	} else {
+		img = draw.DisabledImage()
+	}
+	if img != nil {
+		r.DrawImageAt(img, wpos.Add(draw.ImagePoint()))
+	}
+	if str := GoWString(data.text); str != "" {
+		r.Data().SetTextColor(draw.TextColorRaw())
+		y0 := wpos.Y + wsz.H/2 - fh/2
+		if data.center != 0 {
+			tsz := r.GetStringSizeWrapped(fnt, str, 0)
+			x0 := wpos.X + (wsz.W-tsz.W)/2
+			rect := image.Rect(x0, y0, x0+wsz.W, y0)
+			r.DrawStringWrapped(fnt, str, rect)
+		} else {
+			x0 := wpos.X + 2
+			rect := image.Rect(x0, y0, x0+wsz.W, y0)
+			r.DrawStringWrapped(fnt, str, rect)
+		}
+	}
+	r.text.smooth = false
+	return 1
 }
 
 func NewHorizontalSlider(par *Window, id uint, px, py, w, h int, min, max int) *Window {

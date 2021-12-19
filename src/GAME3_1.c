@@ -6740,7 +6740,7 @@ int sub_4CAFF0(uint32_t* a1, uint32_t* a2) {
 	}
 	if (v11 != 0x80000000) {
 		if ((a1[1] & 0x2000) == 0x2000) {
-			sub_43F670(1);
+			nox_draw_enableTextSmoothing_43F670(1);
 		}
 		nox_swprintf(v15, L"%i%%", a1[8]);
 		nox_xxx_drawGetStringSize_43F840(a2[50], v15, &v13, &v12, 64);
@@ -6748,7 +6748,7 @@ int sub_4CAFF0(uint32_t* a1, uint32_t* a2) {
 		v7 = a1[3] / 2 - v12 / 2 + yTop + 1;
 		nox_xxx_drawSetTextColor_434390(v11);
 		nox_xxx_drawStringWrap_43FAF0(a2[50], v15, v6, v7, a1[2], 0);
-		sub_43F670(0);
+		nox_draw_enableTextSmoothing_43F670(0);
 	}
 	if (v14 != 0x80000000) {
 		nox_client_drawSetColor_434460(v14);
