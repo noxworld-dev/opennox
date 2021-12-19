@@ -12442,7 +12442,6 @@ int nox_xxx_wndStatic_4893E0(int a1) {
 	}
 	return result;
 }
-#endif // NOX_CGO
 
 //----- (00489420) --------------------------------------------------------
 int nox_xxx_wndStaticProc_489420(int a1, int a2, int a3, int a4) {
@@ -12475,7 +12474,6 @@ int nox_xxx_wndStaticProc_489420(int a1, int a2, int a3, int a4) {
 	return result;
 }
 
-#ifndef NOX_CGO
 //----- (00489550) --------------------------------------------------------
 int nox_xxx_wndStaticDrawWithImage_489550(nox_window* a1p, nox_window_data* a2p) {
 	uint32_t* a1 = a1p;

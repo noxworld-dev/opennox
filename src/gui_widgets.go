@@ -148,6 +148,7 @@ func newStaticText(par *Window, status gui.StatusFlags, px, py, w, h int, draw *
 	}
 	_ = nox_xxx_wndStaticProcPre_489390
 	win := newWindowRaw(par, status, px, py, w, h, C.nox_xxx_wndStaticProcPre_489390)
+	_ = nox_xxx_wndStaticProc_489420
 	if !win.Flags().Has(gui.StatusImage) {
 		win.SetAllFuncs(C.nox_xxx_wndStaticProc_489420, C.nox_xxx_wndStaticDrawNoImage_488D00, nil)
 	} else {
@@ -187,6 +188,20 @@ func nox_xxx_wndStaticProcPre_489390(cwin *C.nox_window, ev C.int, a3, a4 C.int)
 	case guiEventStaticTextGetText:
 		data := (*staticTextData)(win.widget_data)
 		return C.int(uintptr(unsafe.Pointer(data.text)))
+	}
+	return 0
+}
+
+//export nox_xxx_wndStaticProc_489420
+func nox_xxx_wndStaticProc_489420(a1, a2, a3, a4 C.int) C.int {
+	if a2 != 21 {
+		return 0
+	}
+	switch a3 {
+	case 15, 205, 208:
+		return 1
+	case 200, 203:
+		return 1
 	}
 	return 0
 }
