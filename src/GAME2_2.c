@@ -12406,10 +12406,10 @@ nox_window* nox_gui_newStaticText_489300(nox_window* a1, int a2, int a3, int a4,
 	}
 	return v9;
 }
-#endif // NOX_CGO
 
 //----- (00489390) --------------------------------------------------------
-int nox_xxx_wndStaticProcPre_489390(int a1, int a2, int a3, int a4) {
+int nox_xxx_wndStaticProcPre_489390(nox_window* a1p, int a2, int a3, int a4) {
+	int a1 = a1p;
 	switch (a2) {
 	case 2:
 		free(*(void**)(a1 + 32));
@@ -12426,7 +12426,6 @@ int nox_xxx_wndStaticProcPre_489390(int a1, int a2, int a3, int a4) {
 	return 0;
 }
 
-#ifndef NOX_CGO
 //----- (004893E0) --------------------------------------------------------
 int nox_xxx_wndStatic_4893E0(int a1) {
 	int result; // eax

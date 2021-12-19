@@ -145,6 +145,7 @@ func newStaticText(par *Window, status gui.StatusFlags, px, py, w, h int, draw *
 	if style&gui.StyleStaticText == 0 {
 		return nil
 	}
+	_ = nox_xxx_wndStaticProcPre_489390
 	win := newWindowRaw(par, status, px, py, w, h, C.nox_xxx_wndStaticProcPre_489390)
 	if !win.Flags().Has(gui.StatusImage) {
 		win.SetAllFuncs(C.nox_xxx_wndStaticProc_489420, C.nox_xxx_wndStaticDrawNoImage_488D00, nil)
@@ -160,6 +161,32 @@ func newStaticText(par *Window, status gui.StatusFlags, px, py, w, h int, draw *
 	*wdata = *data
 	win.widget_data = unsafe.Pointer(wdata)
 	return win
+}
+
+const (
+	guiEventStaticTextPref    = 0x4000
+	guiEventStaticTextSetText = guiEventStaticTextPref + 1
+	guiEventStaticTextGetText = guiEventStaticTextPref + 2
+)
+
+//export nox_xxx_wndStaticProcPre_489390
+func nox_xxx_wndStaticProcPre_489390(cwin *C.nox_window, ev C.int, a3, a4 C.int) C.int {
+	win := asWindow(cwin)
+	switch ev {
+	case 2:
+		alloc.Free(win.widget_data)
+		win.widget_data = nil
+	case guiEventStaticTextSetText:
+		if a3 != 0 {
+			ptr := (*C.wchar_t)(unsafe.Pointer(uintptr(a3)))
+			data := (*staticTextData)(win.widget_data)
+			data.text = ptr
+		}
+	case guiEventStaticTextGetText:
+		data := (*staticTextData)(win.widget_data)
+		return C.int(uintptr(unsafe.Pointer(data.text)))
+	}
+	return 0
 }
 
 func NewHorizontalSlider(par *Window, id uint, px, py, w, h int, min, max int) *Window {

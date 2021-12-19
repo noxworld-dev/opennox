@@ -255,7 +255,7 @@ void nox_xxx_onChar_488BD0(unsigned short a1);
 int nox_xxx_wndStaticDrawNoImage_488D00(int a1, int xLeft);
 wchar_t* sub_4892D0(int a1);
 nox_window* nox_gui_newStaticText_489300(nox_window* a1, int a2, int a3, int a4, int a5, int a6, nox_window_data* a7p, nox_staticText_data* a8p);
-int nox_xxx_wndStaticProcPre_489390(int a1, int a2, int a3, int a4);
+int nox_xxx_wndStaticProcPre_489390(nox_window* a1, int a2, int a3, int a4);
 int nox_xxx_wndStatic_4893E0(int a1);
 int nox_xxx_wndStaticProc_489420(int a1, int a2, int a3, int a4);
 int nox_xxx_wndStaticDrawWithImage_489550(uint32_t* a1, uint32_t* a2);
