@@ -6259,7 +6259,7 @@ int sub_470E90(int a1, int a2) {
 void nox_win_init_cur_weapon(nox_window* a1, int a2, int a3, int w, int h) {
 	nox_windows_arr_1093036[4].win = nox_window_new(a1, 0x408, a2, a3, w, h, 0);
 	nox_window_set_all_funcs(nox_windows_arr_1093036[4].win, sub_470E90, sub_470F40_draw, sub_4710B0);
-	nox_windows_arr_1093036[4].win->field_8 = 4;
+	nox_windows_arr_1093036[4].win->widget_data = 4;
 }
 
 //----- (00470F40) --------------------------------------------------------
@@ -6278,7 +6278,7 @@ int sub_470F40_draw(nox_window* win) {
 	int v18;           // [esp+30h] [ebp+4h]
 
 	v18 = 1;
-	v3 = &nox_windows_arr_1093036[win->field_8];
+	v3 = &nox_windows_arr_1093036[(int)win->widget_data]; // TODO: this doesn't look right!
 	nox_client_wndGetPosition_46AA60(win, &v14, &v16);
 
 	int w;

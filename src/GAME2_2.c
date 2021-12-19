@@ -12376,8 +12376,11 @@ wchar_t* sub_4892D0(int a1) {
 	return result;
 }
 
+#ifndef NOX_CGO
 //----- (00489300) --------------------------------------------------------
-nox_window* nox_gui_newStaticText_489300(int a1, int a2, int a3, int a4, int a5, int a6, uint32_t* a7, uint32_t* a8) {
+nox_window* nox_gui_newStaticText_489300(nox_window* a1, int a2, int a3, int a4, int a5, int a6, nox_window_data* a7p, nox_staticText_data* a8p) {
+	uint32_t* a7 = a7p;
+	uint32_t* a8 = a8p;
 	int v8;        // ecx
 	uint32_t* v9;  // esi
 	uint32_t* v10; // edx
@@ -12403,6 +12406,7 @@ nox_window* nox_gui_newStaticText_489300(int a1, int a2, int a3, int a4, int a5,
 	}
 	return v9;
 }
+#endif // NOX_CGO
 
 //----- (00489390) --------------------------------------------------------
 int nox_xxx_wndStaticProcPre_489390(int a1, int a2, int a3, int a4) {
@@ -12422,6 +12426,7 @@ int nox_xxx_wndStaticProcPre_489390(int a1, int a2, int a3, int a4) {
 	return 0;
 }
 
+#ifndef NOX_CGO
 //----- (004893E0) --------------------------------------------------------
 int nox_xxx_wndStatic_4893E0(int a1) {
 	int result; // eax
@@ -12438,6 +12443,7 @@ int nox_xxx_wndStatic_4893E0(int a1) {
 	}
 	return result;
 }
+#endif // NOX_CGO
 
 //----- (00489420) --------------------------------------------------------
 int nox_xxx_wndStaticProc_489420(int a1, int a2, int a3, int a4) {

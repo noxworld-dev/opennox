@@ -92,7 +92,7 @@ func guiNewWidget(typ string, parent *Window, status gui.StatusFlags, px, py, w,
 	case "STATICTEXT":
 		tdata, _ := data.(*staticTextData)
 		draw.style |= C.int(gui.StyleStaticText)
-		return asWindow(C.nox_gui_newStaticText_489300(iparent, C.int(status), C.int(px), C.int(py), C.int(w), C.int(h), (*C.uint)(udraw), (*C.uint)(unsafe.Pointer(tdata))))
+		return newStaticText(parent, status, px, py, w, h, draw, tdata)
 	case "PROGRESSBAR":
 		draw.style |= C.int(gui.StyleProgressBar)
 		return asWindow(C.nox_gui_newProgressBar_4CAF10(iparent, C.int(status), C.int(px), C.int(py), C.int(w), C.int(h), (*C.uint)(udraw)))
@@ -121,20 +121,44 @@ func NewStaticText(par *Window, id uint, px, py, w, h int, f1, f2 bool, text str
 	draw.style |= C.int(gui.StyleStaticText)
 	status := gui.StatusSmoothText | gui.StatusNoFocus
 
-	datap, dataFree := alloc.Calloc(1, unsafe.Sizeof(staticTextData{}))
-	defer dataFree()
-	data := (*staticTextData)(datap)
-	data.field_1 = C.uint(bool2int(f1))
-	data.field_2 = C.uint(bool2int(f2))
-	data.text = internWStr(text)
-
-	iparent := unsafePtrToInt(unsafe.Pointer(par.C()))
-	win := asWindow(C.nox_gui_newStaticText_489300(iparent, C.int(status), C.int(px), C.int(py), C.int(w), C.int(h),
-		(*C.uint)(unsafe.Pointer(draw)), (*C.uint)(unsafe.Pointer(data))))
+	win := newStaticText(par, status, px, py, w, h, draw, &staticTextData{
+		text:    internWStr(text),
+		field_1: C.uint(bool2int(f1)),
+		field_2: C.uint(bool2int(f2)),
+	})
 	win.SetID(id)
 	if par != nil {
 		par.Func94(22, uintptr(id), 0)
 	}
+	return win
+}
+
+//export nox_gui_newStaticText_489300
+func nox_gui_newStaticText_489300(par *C.nox_window, status C.int, px, py, w, h C.int, draw *C.nox_window_data, data *C.nox_staticText_data) *C.nox_window {
+	return newStaticText(asWindow(par), gui.StatusFlags(status), int(px), int(py), int(w), int(h), asWindowData(draw), (*staticTextData)(unsafe.Pointer(data))).C()
+}
+
+func newStaticText(par *Window, status gui.StatusFlags, px, py, w, h int, draw *WindowData, data *staticTextData) *Window { // nox_gui_newStaticText_489300
+	style := draw.StyleFlags()
+	style &= 0xFFFFFBFF
+	draw.SetStyleFlags(style)
+	if style&gui.StyleStaticText == 0 {
+		return nil
+	}
+	win := newWindowRaw(par, status, px, py, w, h, C.nox_xxx_wndStaticProcPre_489390)
+	if !win.Flags().Has(gui.StatusImage) {
+		win.SetAllFuncs(C.nox_xxx_wndStaticProc_489420, C.nox_xxx_wndStaticDrawNoImage_488D00, nil)
+	} else {
+		win.SetAllFuncs(C.nox_xxx_wndStaticProc_489420, C.nox_xxx_wndStaticDrawWithImage_489550, nil)
+	}
+	if draw.win == nil {
+		draw.win = win.C()
+	}
+	win.CopyDrawData(draw)
+	datap, _ := alloc.Malloc(unsafe.Sizeof(staticTextData{}))
+	wdata := (*staticTextData)(datap)
+	*wdata = *data
+	win.widget_data = unsafe.Pointer(wdata)
 	return win
 }
 
@@ -268,7 +292,7 @@ func newRadioButton(parent *Window, status gui.StatusFlags, px, py, w, h int, dr
 	if data != nil {
 		d.field_0 = data.field_0
 	}
-	win.field_8 = C.uint(unsafePtrToInt(unsafe.Pointer(d)))
+	win.widget_data = unsafe.Pointer(d)
 	win.CopyDrawData(draw)
 	return win
 }

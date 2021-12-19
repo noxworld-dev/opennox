@@ -44,7 +44,7 @@ typedef struct nox_window {
 	int off_y;                                               // 5, 20
 	int end_x;                                               // 6, 24
 	int end_y;                                               // 7, 28
-	unsigned int field_8;                                    // 8, 32; index in nox_windows_arr_1093036? nox_window*?
+	void* widget_data;                                       // 8, 32; different types
 	nox_window_data draw_data;                               // 9, 36
 	unsigned int field_92;                                   // 92, 368
 	int (*field_93)(nox_window*, int, int, int);             // 93

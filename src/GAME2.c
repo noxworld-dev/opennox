@@ -4638,7 +4638,7 @@ int sub_4571A0(int a1, int a2) {
 
 	result = dword_5d4594_1045684;
 	if (dword_5d4594_1045684) {
-		v3 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1045684, 10501)->field_8;
+		v3 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1045684, 10501)->widget_data;
 		result = sub_456E40(a1, 0);
 		v4 = result;
 		if (result != -1) {

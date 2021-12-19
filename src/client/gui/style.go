@@ -17,7 +17,7 @@ const (
 	StyleUserWindow                            // 0x2000
 )
 
-type StyleFlags int
+type StyleFlags uint
 
 func (s *StyleFlags) Set(s2 StyleFlags) {
 	*s |= s2

@@ -92,7 +92,7 @@ int nox_gui_console_Printf_450C00(unsigned char cl, wchar_t* fmt, ...) {
 
 //----- (00450FD0) --------------------------------------------------------
 int nox_gui_console_Enter_450FD0() {
-	if (!*(uint32_t*)((char*)nox_gui_console_input->field_8 + 1044)) {
+	if (!*(uint32_t*)((char*)nox_gui_console_input->widget_data + 1044)) {
 		wchar_t* line = nox_window_call_field_94(nox_gui_console_input, 16413, 0, 0);
 		if (nox_gui_console_wantsPass && nox_gui_console_password[0]) {
 			if (_nox_wcsicmp(line, nox_gui_console_password)) {
@@ -279,7 +279,7 @@ void nox_gui_console_reloadColors_451100() {
 		nox_gui_console_win->draw_data.bg_color = color2;
 	}
 	if (nox_gui_console_scrollbox) {
-		uint32_t* v1 = nox_gui_console_scrollbox->field_8;
+		uint32_t* v1 = nox_gui_console_scrollbox->widget_data;
 		nox_gui_console_scrollbox->draw_data.bg_color = 0x80000000;
 		nox_gui_console_scrollbox->draw_data.dis_color = 0x80000000;
 		nox_gui_console_scrollbox->draw_data.en_color = color;

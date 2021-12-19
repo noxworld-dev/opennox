@@ -820,7 +820,7 @@ int nox_xxx_wndListboxProcPre_4A30D0(nox_window* win, unsigned int ev, uint32_t 
 	int v46;       // edx
 
 	uint32_t* v4 = win;
-	nox_scrollListBox_data* sdata = win->field_8;
+	nox_scrollListBox_data* sdata = win->widget_data;
 	int ind = 0;
 	wchar_t* wstr = 0;
 	if (ev > 16402) {
@@ -1195,7 +1195,7 @@ int nox_xxx_wndListboxProcPre_4A30D0(nox_window* win, unsigned int ev, uint32_t 
 			}
 			free(sdata);
 		}
-		win->field_8 = 0;
+		win->widget_data = 0;
 		return 0;
 	}
 	if (ev == 23) {
@@ -3771,7 +3771,7 @@ nox_window* nox_gui_newRadioButton_4A9330(nox_window* parent, int a2, int a3, in
 	if (data) {
 		d->field_0 = data->field_0;
 	}
-	win->field_8 = d;
+	win->widget_data = d;
 	nox_gui_windowCopyDrawData_46AF80(win, draw);
 	return win;
 }
