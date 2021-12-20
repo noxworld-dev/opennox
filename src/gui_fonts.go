@@ -7,6 +7,7 @@ extern uint32_t dword_5d4594_816444;
 */
 import "C"
 import (
+	"os"
 	"strings"
 	"unsafe"
 
@@ -85,7 +86,11 @@ func nox_xxx_FontDestroy_43F2E0() {
 }
 
 func loadFont(path string, size int) (font.Face, error) {
-	if f, err := fs.Open(path + ".ttf"); err == nil {
+	f, err := fs.Open(path + ".ttf")
+	if os.IsNotExist(err) {
+		f, err = fs.Open(path + ".otf")
+	}
+	if err == nil {
 		fnt, err := opentype.ParseReaderAt(f)
 		if err != nil {
 			return nil, err
@@ -99,7 +104,7 @@ func loadFont(path string, size int) (font.Face, error) {
 		}
 		return face, nil
 	}
-	f, err := fs.Open(path + noxfont.Ext)
+	f, err = fs.Open(path + noxfont.Ext)
 	if err != nil {
 		return nil, err
 	}
