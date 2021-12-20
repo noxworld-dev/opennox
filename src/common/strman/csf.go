@@ -7,10 +7,40 @@ import (
 	"strings"
 	"unicode/utf16"
 
+	"golang.org/x/text/encoding/charmap"
+
 	"nox/v1/common/fs"
 )
 
 func (sm *StringManager) ReadCSF(path string) error {
+	if err := sm.readCSF(path, nil); err != nil {
+		return err
+	}
+	// This is an ugly workaround for Russian Nox fonts.
+	// That localization uses CP-1251 characters followed by zero bytes
+	// instead of UTF-16 as all other languages.
+	if sm.GetString("QuitMenu.wnd:Quit") == "Âûõîä" {
+		dec := charmap.Windows1251.NewDecoder()
+		var buf []byte
+		if err := sm.readCSF(path, func(data []uint16) string {
+			if cap(buf) < len(data) {
+				buf = make([]byte, 0, len(data))
+			} else {
+				buf = buf[:0]
+			}
+			for _, c := range data {
+				buf = append(buf, byte(c))
+			}
+			out, _ := dec.Bytes(buf)
+			return string(out)
+		}); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func (sm *StringManager) readCSF(path string, conv func(data []uint16) string) error {
 	f, err := fs.Open(path)
 	if err != nil {
 		return err
@@ -78,7 +108,13 @@ func (sm *StringManager) ReadCSF(path string) error {
 			str := bytes2utf16(wstr)
 			invertUTF16(str)
 			str = filterSpaces(str)
-			r := Variant{Str: string(utf16.Decode(str))}
+			var s string
+			if conv != nil {
+				s = conv(str)
+			} else {
+				s = string(utf16.Decode(str))
+			}
+			r := Variant{Str: s}
 			if sect == "strw" {
 				if _, err := io.ReadFull(f, buf[:4]); err != nil {
 					return err
