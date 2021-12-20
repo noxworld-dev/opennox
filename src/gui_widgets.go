@@ -10,6 +10,7 @@ package nox
 import "C"
 import (
 	"image"
+	"strings"
 	"unsafe"
 
 	"nox/v1/client/gui"
@@ -150,6 +151,7 @@ func newStaticText(par *Window, status gui.StatusFlags, px, py, w, h int, draw *
 	win := newWindowRaw(par, status, px, py, w, h, C.nox_xxx_wndStaticProcPre_489390)
 	_ = nox_xxx_wndStaticProc_489420
 	if !win.Flags().Has(gui.StatusImage) {
+		_ = nox_xxx_wndStaticDrawNoImage_488D00
 		win.SetAllFuncs(C.nox_xxx_wndStaticProc_489420, C.nox_xxx_wndStaticDrawNoImage_488D00, nil)
 	} else {
 		_ = nox_xxx_wndStaticDrawWithImage_489550
@@ -219,7 +221,7 @@ func nox_xxx_wndStaticDrawWithImage_489550(cwin *C.nox_window, cdraw *C.nox_wind
 	fnt := draw.Font()
 	fh := r.FontHeight(fnt)
 	if win.Flags().Has(gui.StatusSmoothText) {
-		r.text.smooth = true
+		r.SetTextSmooting(true)
 	}
 	if bg := draw.BackgroundImage(); bg != nil {
 		r.DrawImageAt(bg, wpos.Add(draw.ImagePoint()))
@@ -247,7 +249,100 @@ func nox_xxx_wndStaticDrawWithImage_489550(cwin *C.nox_window, cdraw *C.nox_wind
 			r.DrawStringWrapped(fnt, str, rect)
 		}
 	}
-	r.text.smooth = false
+	r.SetTextSmooting(false)
+	return 1
+}
+
+//export nox_xxx_wndStaticDrawNoImage_488D00
+func nox_xxx_wndStaticDrawNoImage_488D00(cwin *C.nox_window, cdraw *C.nox_window_data) C.int {
+	win := asWindow(cwin)
+	draw := asWindowData(cdraw)
+	r := noxrend
+	fnt := draw.Font()
+
+	wdata := (*staticTextData)(win.widget_data)
+	highlight := draw.EnabledColorRaw()
+	wpos := win.GlobalPos()
+	wsz := win.Size()
+	x, y := wpos.X, wpos.Y
+	w, h := wsz.W, wsz.H
+	if win.Flags().Has(gui.StatusSmoothText) {
+		r.SetTextSmooting(true)
+	}
+	borderColor := draw.EnabledColorRaw()
+	var bgColor uint32
+	if win.Flags().Has(gui.StatusEnabled) {
+		if draw.Field0()&0x2 != 0 {
+			borderColor = draw.HighlightColorRaw()
+		}
+		bgColor = draw.BackgroundColorRaw()
+	} else {
+		bgColor = draw.DisabledColorRaw()
+	}
+	if draw.Field0()&0x4 != 0 {
+		highlight = draw.SelectedColorRaw()
+	}
+	if bgColor != noxcolor.ExtendColor16(gui.ColorTransparent) {
+		r.Data().SetColor2(bgColor)
+		r.DrawRectFilledOpaque(x+1, y+1, w-2, h-2)
+	}
+	if borderColor != noxcolor.ExtendColor16(gui.ColorTransparent) {
+		r.Data().SetColor2(borderColor)
+		r.DrawBorder(x, y, w, h)
+	}
+	if text := GoWString(wdata.text); text != "" && draw.TextColorRaw() != noxcolor.ExtendColor16(gui.ColorTransparent) {
+		r.Data().SetTextColor(draw.TextColorRaw())
+		sz := r.GetStringSizeWrapped(fnt, text, w)
+		cy := y + (h-sz.H)/2
+		if wdata.center != 0 {
+			if sz.H > r.FontHeight(fnt) {
+				dy := fnt.Metrics().CapHeight.Round()
+				for i, line := range r.SplitStringWrapped(fnt, text, w) {
+					if strings.TrimSpace(line) == "" {
+						continue
+					}
+					sz := r.GetStringSizeWrapped(fnt, line, w)
+					lx := x + (w-sz.W)/2
+					ly := cy + dy*i
+					if wdata.field_2 != 0 {
+						r.Data().SetTextColor(highlight)
+						r.DrawStringWrapped(fnt, line, image.Rect(lx-1, ly-1, lx-1+w, ly-1))
+						r.DrawStringWrapped(fnt, line, image.Rect(lx+1, ly-1, lx+1+w, ly-1))
+						r.DrawStringWrapped(fnt, line, image.Rect(lx-1, ly+1, lx-1+w, ly+1))
+						r.DrawStringWrapped(fnt, line, image.Rect(lx+1, ly+1, lx+1+w, ly+1))
+						r.Data().SetTextColor(draw.TextColorRaw())
+						r.DrawStringWrapped(fnt, line, image.Rect(lx, ly, lx+w, ly))
+					} else {
+						r.DrawStringWrapped(fnt, line, image.Rect(lx, ly, lx+w, ly))
+					}
+				}
+			} else {
+				x += (w - sz.W) / 2
+				if wdata.field_2 != 0 {
+					r.Data().SetTextColor(highlight)
+					r.DrawStringWrapped(fnt, text, image.Rect(x-1, cy-1, x-1+w, cy-1))
+					r.DrawStringWrapped(fnt, text, image.Rect(x+1, cy-1, x+1+w, cy-1))
+					r.DrawStringWrapped(fnt, text, image.Rect(x-1, cy+1, x-1+w, cy+1))
+					r.DrawStringWrapped(fnt, text, image.Rect(x+1, cy+1, x+1+w, cy+1))
+					r.Data().SetTextColor(draw.TextColorRaw())
+					r.DrawStringWrapped(fnt, text, image.Rect(x, cy, x+w, cy))
+				} else {
+					r.DrawStringWrapped(fnt, text, image.Rect(x, cy, x+w, cy))
+				}
+			}
+		} else if wdata.field_2 != 0 {
+			r.Data().SetTextColor(highlight)
+			r.DrawStringWrapped(fnt, text, image.Rect(x+1, cy-1, x+1+w, cy-1))
+			r.DrawStringWrapped(fnt, text, image.Rect(x+3, cy-1, x+3+w, cy-1))
+			r.DrawStringWrapped(fnt, text, image.Rect(x+1, cy+1, x+1+w, cy+1))
+			r.DrawStringWrapped(fnt, text, image.Rect(x+3, cy+1, x+3+w, cy+1))
+			r.Data().SetTextColor(draw.TextColorRaw())
+			r.DrawStringWrapped(fnt, text, image.Rect(x+2, cy, x+2+w, cy))
+		} else {
+			r.DrawStringWrapped(fnt, text, image.Rect(x+2, cy, x+2+w, cy))
+		}
+	}
+	r.SetTextSmooting(false)
 	return 1
 }
 

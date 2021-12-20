@@ -402,7 +402,7 @@ func nox_client_drawSetAlpha_434580(a C.uchar) {
 
 //export nox_draw_enableTextSmoothing_43F670
 func nox_draw_enableTextSmoothing_43F670(v C.int) {
-	noxrend.text.smooth = v != 0
+	noxrend.SetTextSmooting(v != 0)
 }
 
 var noxrend = NewNoxRender()
@@ -553,6 +553,10 @@ func (r *NoxRender) SetTextColor(a1 uint32) { // nox_xxx_drawSetTextColor_434390
 	r.p.SetTextColor(a1)
 }
 
+func (r *NoxRender) SetTextSmooting(enabled bool) {
+	r.text.smooth = enabled
+}
+
 func (r *NoxRender) Color() uint32 {
 	return uint32(r.p.field_60)
 }
@@ -627,6 +631,10 @@ func (r *NoxRender) DrawRectFilledOpaque(x, y, w, h int) { // nox_client_drawRec
 
 func (r *NoxRender) DrawRectFilledAlpha(x, y, w, h int) { // nox_client_drawRectFilledAlpha_49CF10
 	C.nox_client_drawRectFilledAlpha_49CF10(C.int(x), C.int(y), C.int(w), C.int(h))
+}
+
+func (r *NoxRender) DrawBorder(x, y, w, h int) { // nox_client_drawBorderLines_49CC70
+	C.nox_client_drawBorderLines_49CC70(C.int(x), C.int(y), C.int(w), C.int(h))
 }
 
 func (r *NoxRender) FontHeight(fnt font.Face) int {
@@ -723,7 +731,7 @@ func (r *NoxRender) DrawStringWrapped(font font.Face, s string, rect image.Recta
 	if getEngineFlag(NOX_ENGINE_FLAG_DISABLE_TEXT_RENDERING) {
 		return rect.Min.X
 	}
-	dot, _ := r.doStringWrapped(font, s, rect, r.drawString)
+	dot, _ := r.doStringWrapped(font, s, rect, r.drawString, nil)
 	return dot.X
 }
 
@@ -754,7 +762,7 @@ func (r *NoxRender) getStringRuneAdvance(fnt font.Face, c rune) int {
 
 type doStringFunc func(f font.Face, s string, p types.Point) int
 
-func (r *NoxRender) doStringWrapped(font font.Face, s string, rect image.Rectangle, fnc doStringFunc) (dot types.Point, bb image.Rectangle) {
+func (r *NoxRender) doStringWrapped(font font.Face, s string, rect image.Rectangle, wordFnc doStringFunc, lineFnc func(s string)) (dot types.Point, bb image.Rectangle) {
 	dot = rect.Min
 	bb.Min = rect.Min
 	bb.Max = rect.Min
@@ -775,16 +783,18 @@ func (r *NoxRender) doStringWrapped(font font.Face, s string, rect image.Rectang
 	var (
 		wordP types.Point // relative to rect.Min
 		word  []rune      // current word
+		line  []rune      // current line
 		wordN int         // words in the current line
 		addX  int         // relative to wordX
 	)
 
 	procWord := func() {
 		cp := rect.Min.Add(wordP)
-		cp.X = fnc(font, string(word), cp)
+		cp.X = wordFnc(font, string(word), cp)
 		if cp.X > bb.Max.X {
 			bb.Max.X = cp.X
 		}
+		line = append(line, word...)
 		word = word[:0]
 		wordP.X = cp.X - rect.Min.X
 		addX = 0
@@ -798,6 +808,7 @@ func (r *NoxRender) doStringWrapped(font font.Face, s string, rect image.Rectang
 		switch c {
 		case '\t':
 			procWord()
+			line = append(line, c)
 			tab := r.text.tabWidth
 			wordP.X += tab
 			wordP.X -= wordP.X % tab
@@ -810,6 +821,10 @@ func (r *NoxRender) doStringWrapped(font font.Face, s string, rect image.Rectang
 			wordP.X = 0
 			wordN = 0
 			wordP.Y += dy
+			if lineFnc != nil {
+				lineFnc(string(line))
+				line = line[:0]
+			}
 			if maxH > 0 && wordP.Y >= maxH {
 				bb.Max.Y = rect.Max.Y + dy
 				return rect.Min.Add(wordP), bb
@@ -824,6 +839,10 @@ func (r *NoxRender) doStringWrapped(font font.Face, s string, rect image.Rectang
 			addX += dx
 			if wordN != 0 && wordP.X+addX > maxW {
 				// word is too long, but not the first in a line
+				if lineFnc != nil {
+					lineFnc(string(line))
+					line = line[:0]
+				}
 				wordP.X = 0
 				wordN = 0
 				wordP.Y += dy
@@ -839,6 +858,10 @@ func (r *NoxRender) doStringWrapped(font font.Face, s string, rect image.Rectang
 		}
 	}
 	procWord()
+	if lineFnc != nil && len(line) != 0 {
+		lineFnc(string(line))
+		line = line[:0]
+	}
 	bb.Max.Y += wordP.Y + dy
 	return rect.Min.Add(wordP), bb
 }
@@ -860,15 +883,26 @@ func (r *NoxRender) DrawStringWrappedStyle(font font.Face, s string, rect image.
 	return x
 }
 
+func (r *NoxRender) SplitStringWrapped(fnt font.Face, s string, maxW int) []string {
+	rect := image.Rect(0, 0, maxW, 0)
+	var lines []string
+	r.doStringWrapped(fnt, s, rect, r.advanceString, func(line string) {
+		lines = append(lines, line)
+	})
+	return lines
+}
+
+func (r *NoxRender) advanceString(fnt font.Face, s string, p types.Point) int {
+	x := p.X
+	for _, c := range s {
+		x += r.getStringRuneAdvance(fnt, c)
+	}
+	return x
+}
+
 func (r *NoxRender) GetStringSizeWrapped(fnt font.Face, s string, maxW int) types.Size { // nox_xxx_drawGetStringSize_43F840
 	rect := image.Rect(0, 0, maxW, 0)
-	_, bb := r.doStringWrapped(fnt, s, rect, func(fnt font.Face, s string, p types.Point) int {
-		x := p.X
-		for _, c := range s {
-			x += r.getStringRuneAdvance(fnt, c)
-		}
-		return x
-	})
+	_, bb := r.doStringWrapped(fnt, s, rect, r.advanceString, nil)
 	return types.Size{W: bb.Dx(), H: bb.Dy()}
 }
 

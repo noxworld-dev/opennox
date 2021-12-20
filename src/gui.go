@@ -160,8 +160,12 @@ func (d *WindowData) SetBackgroundImage(p *Image) {
 	d.bg_image = unsafe.Pointer(p.C())
 }
 
+func (d *WindowData) BackgroundColorRaw() uint32 {
+	return uint32(d.bg_color)
+}
+
 func (d *WindowData) BackgroundColor() noxcolor.Color16 {
-	return noxcolor.IntToColor(uint32(d.bg_color))
+	return noxcolor.IntToColor(d.BackgroundColorRaw())
 }
 
 func (d *WindowData) SetBackgroundColor(cl noxcolor.Color16) {
@@ -176,8 +180,12 @@ func (d *WindowData) SetEnabledImage(p *Image) {
 	d.en_image = unsafe.Pointer(p.C())
 }
 
+func (d *WindowData) EnabledColorRaw() uint32 {
+	return uint32(d.en_color)
+}
+
 func (d *WindowData) EnabledColor() noxcolor.Color16 {
-	return noxcolor.IntToColor(uint32(d.en_color))
+	return noxcolor.IntToColor(d.EnabledColorRaw())
 }
 
 func (d *WindowData) SetEnabledColor(cl noxcolor.Color16) {
@@ -192,8 +200,12 @@ func (d *WindowData) SetDisabledImage(p *Image) {
 	d.dis_image = unsafe.Pointer(p.C())
 }
 
+func (d *WindowData) DisabledColorRaw() uint32 {
+	return uint32(d.dis_color)
+}
+
 func (d *WindowData) DisabledColor() noxcolor.Color16 {
-	return noxcolor.IntToColor(uint32(d.dis_color))
+	return noxcolor.IntToColor(d.DisabledColorRaw())
 }
 
 func (d *WindowData) SetDisabledColor(cl noxcolor.Color16) {
@@ -208,8 +220,12 @@ func (d *WindowData) SetHighlightImage(p *Image) {
 	d.hl_image = unsafe.Pointer(p.C())
 }
 
+func (d *WindowData) HighlightColorRaw() uint32 {
+	return uint32(d.hl_color)
+}
+
 func (d *WindowData) HighlightColor() noxcolor.Color16 {
-	return noxcolor.IntToColor(uint32(d.hl_color))
+	return noxcolor.IntToColor(d.HighlightColorRaw())
 }
 
 func (d *WindowData) SetHighlightColor(cl noxcolor.Color16) {
@@ -224,8 +240,12 @@ func (d *WindowData) SetSelectedImage(p *Image) {
 	d.sel_image = unsafe.Pointer(p.C())
 }
 
+func (d *WindowData) SelectedColorRaw() uint32 {
+	return uint32(d.sel_color)
+}
+
 func (d *WindowData) SelectedColor() noxcolor.Color16 {
-	return noxcolor.IntToColor(uint32(d.sel_color))
+	return noxcolor.IntToColor(d.SelectedColorRaw())
 }
 
 func (d *WindowData) SetSelectedColor(cl noxcolor.Color16) {
