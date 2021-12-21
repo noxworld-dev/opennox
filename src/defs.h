@@ -580,7 +580,7 @@ typedef struct nox_object_t {
 	nox_object_t* field_124; // 124, 496, TODO: next item
 	void* field_125;         // 125, 500, TODO: a nox_object_t*? see 4ED0C0
 	nox_object_t* field_126; // 126, 504, TODO: first item
-	uint32_t field_127;      // 127, 508
+	void* field_127;         // 127, 508
 	void* field_128;         // 128, 512
 	void* field_129;         // 129, 516
 	uint32_t field_130;      // 130, 520
@@ -2349,7 +2349,7 @@ typedef struct nox_playerInfo {
 	uint32_t field_3616; // 904, 3616
 	uint32_t field_3620; // 905, 3620
 	uint32_t field_3624; // 906, 3624
-	nox_object_t* obj_3628; // 907, 3628
+	nox_object_t* camera_follow; // 907, 3628
 	float pos_x_3632; // 908, 3632
 	float pos_y_3636; // 909, 3636
 	nox_object_t* obj_3640; // 910, 3640
@@ -2364,11 +2364,12 @@ typedef struct nox_playerInfo {
 	uint8_t field_3676; // 3676, TODO: status?
 	uint8_t field_3676_1;
 	uint16_t field_3676_2;
-	uint32_t field_3680; // 920, 3680
+	uint32_t field_3680; // 920, 3680, TODO: some flags?
 	uint8_t field_3684; // 921, 3684 // TODO: level?
 	uint8_t field_3685;
 	uint16_t field_3686;
-	uint32_t data_3688[2];
+	uint32_t field_3688;
+	uint32_t field_3692;
 	unsigned int spell_lvl[NOX_SPELLS_MAX]; // 3696
 	unsigned int beast_scroll_lvl[41];      // 4244
 	uint32_t data_4408[23];
@@ -2405,7 +2406,15 @@ typedef struct nox_playerInfo {
 	uint32_t field_4696; // 1174, 4696
 	uint32_t field_4700; // 1175, 4700
 	wchar_t name_final[30]; // 4704, server-approved player name // TODO: size is a wild guess
-	uint32_t data_4764[9];
+	uint32_t field_4764; // 1191, 4764
+	uint32_t field_4768; // 1192, 4768
+	uint32_t field_4772; // 1193, 4772
+	uint32_t field_4776; // 1194, 4776
+	uint32_t field_4780; // 1195, 4780
+	uint32_t field_4784; // 1196, 4784
+	uint32_t field_4788; // 1197, 4788
+	uint32_t field_4792; // 1198, 4792
+	uint32_t field_4796; // 1199, 4796
 	uint32_t data_4800[7];
 } nox_playerInfo;
 #pragma pack(pop)

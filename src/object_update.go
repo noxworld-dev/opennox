@@ -137,6 +137,15 @@ var noxObjectUpdateTable = []noxObjectUpdateFuncs{
 	{"MonsterGeneratorUpdate", C.nox_xxx_updateMonsterGenerator_54E930, 164, nil},
 }
 
+type PlayerUpdateData C.nox_object_Player_data_t
+
+func (ud *PlayerUpdateData) Player() *Player {
+	if ud == nil {
+		return nil
+	}
+	return asPlayer(ud.player)
+}
+
 //export nox_xxx_updatePlayer_4F8100
 func nox_xxx_updatePlayer_4F8100(up *nox_object_t) {
 	u := asUnitC(up)
@@ -151,13 +160,13 @@ func nox_xxx_updatePlayer_4F8100(up *nox_object_t) {
 	if (u.field_4 & 0x20) != 0 {
 		return
 	}
-	if noxflags.HasGame(4096) && ud.field_70 != 0 {
+	if noxflags.HasGame(noxflags.GameModeQuest) && ud.field_70 != 0 {
 		u.force_x = 0
 		u.force_y = 0
 		u.vel_x = 0
 		u.vel_y = 0
 	}
-	if noxflags.HasGame(4096) && ud.field_137 != 0 && ud.player.playerInd != 31 && (gameFrame()-uint32(ud.field_137) > (30 * gameFPS())) {
+	if noxflags.HasGame(noxflags.GameModeQuest) && ud.field_137 != 0 && ud.player.playerInd != 31 && (gameFrame()-uint32(ud.field_137) > (30 * gameFPS())) {
 		C.sub_4DCFB0(u.CObj())
 		return
 	}
@@ -177,8 +186,8 @@ func nox_xxx_updatePlayer_4F8100(up *nox_object_t) {
 		playerSuddedDeath4F9E70(u)
 	}
 	sub_4F9ED0(u)
-	pl := asPlayer(ud.player)
-	u2 := asUnitC(pl.obj_3628)
+	pl := ud.Player()
+	u2 := pl.CameraTarget().AsUnit()
 	if u2 == nil {
 		u2 = pl.UnitC()
 	}

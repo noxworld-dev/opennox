@@ -93,9 +93,10 @@ func (u *Unit) updateDataPtr() unsafe.Pointer {
 	return unsafe.Pointer(u.data_update)
 }
 
-func (u *Unit) updateDataPlayer() *C.nox_object_Player_data_t {
+func (u *Unit) updateDataPlayer() *PlayerUpdateData {
 	// TODO: verify this conversion by checking ObjectType
-	return (*C.nox_object_Player_data_t)(u.updateDataPtr())
+	p := (*C.nox_object_Player_data_t)(u.updateDataPtr())
+	return (*PlayerUpdateData)(unsafe.Pointer(p))
 }
 
 func (u *Unit) updateDataMonster() *C.nox_object_Monster_data_t {
@@ -103,7 +104,7 @@ func (u *Unit) updateDataMonster() *C.nox_object_Monster_data_t {
 	return (*C.nox_object_Monster_data_t)(u.updateDataPtr())
 }
 
-func (u *Unit) Player() *Player {
+func (u *Unit) ControllingPlayer() *Player {
 	if u == nil {
 		return nil
 	}
@@ -353,8 +354,12 @@ func (u *Unit) monsterPushAction(v int) unsafe.Pointer { // aka nox_xxx_monsterP
 	return unsafe.Pointer(C.nox_xxx_monsterPushAction_50A260(u.CObj(), C.int(v)))
 }
 
+func (u *Unit) buffFlags() uint32 {
+	return uint32(u.field_85)
+}
+
 func (u *Unit) testBuff(v byte) bool { // nox_xxx_testUnitBuffs_4FF350
-	return uint32(u.field_85)&(uint32(1)<<v) != 0
+	return u.buffFlags()&(uint32(1)<<v) != 0
 }
 
 func (u *Unit) makeUnseen() { // nox_xxx_objectMakeUnseenByNoone_4E44E0

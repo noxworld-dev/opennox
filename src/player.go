@@ -420,6 +420,38 @@ func (p *Player) Disconnect(v int) {
 	nox_xxx_netStructReadPackets2_4DEC50(p.Index())
 }
 
+func (p *Player) CameraTarget() *Object {
+	if p == nil {
+		return nil
+	}
+	return asObjectC(p.camera_follow)
+}
+
+func (p *Player) CameraUnlock() {
+	if p == nil {
+		return
+	}
+	p.camera_follow = nil
+}
+
+func (p *Player) CameraFollow(obj *Object) {
+	if p == nil {
+		return
+	}
+	p.camera_follow = obj.CObj()
+}
+
+func (p *Player) CameraToggle(obj *Object) {
+	if p == nil {
+		return
+	}
+	if p.CameraTarget() == obj {
+		p.CameraUnlock()
+	} else {
+		p.CameraFollow(obj)
+	}
+}
+
 func (p *Player) GoObserver(notify, keepPlayer bool) bool {
 	if p == nil {
 		return true

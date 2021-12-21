@@ -1033,7 +1033,7 @@ func sub_4703F0() {
 	v1 := int32(C.dword_5d4594_1090120)
 	if C.nox_xxx_check_flag_aaa_43AF70() != 0 || v1 != 5 {
 		if v1 == 1 {
-			if !noxflags.HasGame(4096) {
+			if !noxflags.HasGame(noxflags.GameModeQuest) {
 				v1 = int32((C.dword_5d4594_1090120 + 1) % 6)
 				C.dword_5d4594_1090120 = (C.dword_5d4594_1090120 + 1) % 6
 			}

@@ -1578,7 +1578,7 @@ void nox_xxx_updatePlayer_4F8100(nox_object_t* u) {
 	}
 	sub_4F9ED0(u);
 	nox_playerInfo* pl = ud->player;
-	nox_object_t* u2 = pl->obj_3628;
+	nox_object_t* u2 = pl->camera_follow;
 	if (!u2) {
 		u2 = pl->playerUnit;
 	}

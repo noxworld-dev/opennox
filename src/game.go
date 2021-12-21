@@ -998,7 +998,7 @@ func nox_xxx_mapExitAndCheckNext_4D1860_server() bool {
 		}
 		k.SetPos(v61)
 		if !noxflags.HasGame(512) {
-			plx := k.Player()
+			plx := k.ControllingPlayer()
 			plx.field_2136 = 0
 			plx.field_2140 = 0
 			plx.field_2144 = C.uint(gameFrame())
