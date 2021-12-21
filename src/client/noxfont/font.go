@@ -30,6 +30,7 @@ type Font struct {
 	Field1 uint32
 	Inline bool
 	Ranges []Range
+	CP1251 bool // this font is encoded for CP-1251 instead of UTF-16
 }
 
 type Range struct {
@@ -50,7 +51,18 @@ func (f *Font) RangeFor(c uint16) *Range {
 func (f *Font) Char16(c uint16) *Bitmap {
 	rng := f.RangeFor(c)
 	if rng == nil {
-		return nil
+		if !f.CP1251 {
+			return nil
+		}
+		if first := rune2utf16('А'); c >= first && c <= rune2utf16('я') {
+			c = 0xC0 + (c - first)
+		} else {
+			return nil
+		}
+		rng = f.RangeFor(c)
+		if rng == nil {
+			return nil
+		}
 	}
 	ind := c - rng.StartChar
 	return rng.Glyphs[ind]

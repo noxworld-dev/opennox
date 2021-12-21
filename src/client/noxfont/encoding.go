@@ -90,8 +90,23 @@ func Decode(r io.Reader) (*Font, error) {
 			rng.Glyphs = append(rng.Glyphs, img)
 		}
 	}
+	// This is an ugly workaround for Russian Nox fonts.
+	// That localization uses CP-1251 characters instead of UTF-16 as all other languages.
+	if len(f.Ranges) == 1 {
+		if g := f.Char16(0xFB); g != nil {
+			if bytes.Equal(g.Pix, fontRusYeruSmall[:]) || bytes.Equal(g.Pix, fontRusYeruLarge[:]) {
+				f.CP1251 = true
+			}
+		}
+	}
 	return &f, nil
 }
+
+var (
+	// Tests for one unique Russian letter: "ы" (0xFB in CP-1251).
+	fontRusYeruSmall = [18]byte{4: 0x88, 6: 0x88, 8: 0xc8, 10: 0xa8, 12: 0xc8}
+	fontRusYeruLarge = [45]byte{15: 0xc1, 16: 0x80, 18: 0xc1, 19: 0x80, 21: 0xf9, 22: 0x80, 24: 0xcd, 25: 0x80, 27: 0xcd, 28: 0x80, 30: 0xf9, 31: 0x80}
+)
 
 func (f *Font) Encode() ([]byte, error) {
 	var (
