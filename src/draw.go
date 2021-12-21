@@ -1764,10 +1764,6 @@ func nox_client_drawImageAt_47D2C0(img *C.nox_video_bag_image_t, x, y C.int) {
 }
 
 func sub_47D200() {
-	if C.dword_5d4594_3801780 == 0 {
-		panic("TODO")
-		//nox_client_drawAtFunc_3799500 = sub_4C5EB0
-	}
 	C.dword_5d4594_3799484 = 0
 	*memmap.PtrUint32(0x973F18, 52) = 0
 	*memmap.PtrUint32(0x973F18, 12) = 0
@@ -2060,7 +2056,7 @@ func (r *NoxRender) nox_client_drawImg_bbb_4C7860(img *Image, pos types.Point) {
 
 func nox_draw_initColorTables_434CC0() {
 	mode := noxcolor.GetMode()
-	if C.dword_5d4594_3801780 == 0 {
+	if C.nox_video_modeXxx_3801780 == 0 {
 		mode = noxcolor.ModeRGBA5551
 	}
 	noxrend.SetColorMode(mode)

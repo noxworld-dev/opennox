@@ -130,7 +130,7 @@ extern void* dword_587000_155144;
 extern uint32_t dword_5d4594_3798840;
 extern uint32_t dword_5d4594_1123524;
 extern uint32_t dword_5d4594_1193380;
-extern uint32_t dword_5d4594_3801780;
+extern uint32_t nox_video_modeXxx_3801780;
 extern uint32_t nox_client_renderGUI_80828;
 extern uint32_t dword_5d4594_3798796;
 extern uint32_t dword_5d4594_3798844;
@@ -2516,7 +2516,7 @@ int nox_video_bagAlloc_47A270() {
 	int result; // eax
 
 	sub_47D150();
-	if (!dword_5d4594_3801780) {
+	if (!nox_video_modeXxx_3801780) {
 		return 0;
 	}
 	sub_47A310((const char*)getMemAt(0x587000, 153712));
@@ -4396,9 +4396,9 @@ void sub_47D150() {
 
 //----- (0047D200) --------------------------------------------------------
 int sub_47D200() {
-	if (dword_5d4594_3801780 == 0) {
+	if (nox_video_modeXxx_3801780 == 0) {
 		nox_client_drawAtFunc_3799500 = sub_4C5EB0;
-	} else if (dword_5d4594_3801780 == 1) {
+	} else if (nox_video_modeXxx_3801780 == 1) {
 		if (cpuid_5d4594_3801804) {
 			nox_client_drawAtFunc_3799500 = nox_xxx_smthPlayerAnim_4C7670;
 		} else {
@@ -5794,9 +5794,9 @@ int nox_xxx_unused_4800F0() {
 	nox_xxx_setupSomeVideo_47FEF0();
 	sub_49F6D0(1);
 	sub_437290();
-	nox_video_16bit = dword_5d4594_3801780;
+	nox_video_16bit = nox_video_modeXxx_3801780;
 	*getMemU32Ptr(0x973F18, 6060) = nox_backbuffer_pitch_3801808 * nox_backbuffer_height;
-	*getMemU32Ptr(0x973F18, 7696) = dword_5d4594_3801780 == 1;
+	*getMemU32Ptr(0x973F18, 7696) = nox_video_modeXxx_3801780 == 1;
 	sub_430B50(0, 0, 639, 479);
 	nox_input_pollEvents_4453A0();
 	return 1;

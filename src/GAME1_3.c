@@ -130,7 +130,7 @@ extern uint32_t dword_587000_87412;
 extern uint32_t dword_5d4594_829492;
 extern uint32_t dword_5d4594_830248;
 extern uint32_t dword_5d4594_829480;
-extern uint32_t dword_5d4594_3801780;
+extern uint32_t nox_video_modeXxx_3801780;
 extern uint32_t nox_client_renderGUI_80828;
 extern nox_window* nox_wnd_quitMenu_825760;
 extern uint32_t dword_5d4594_2650652;
@@ -2452,8 +2452,8 @@ nox_font_file_t nox_fonts_94176[] = {
 
 //----- (0043F1C0) --------------------------------------------------------
 int nox_xxx_fontLoadMB_43F1C0() {
-	if (dword_5d4594_3801780) {
-		if (dword_5d4594_3801780 == 1) {
+	if (nox_video_modeXxx_3801780) {
+		if (nox_video_modeXxx_3801780 == 1) {
 			func_5d4594_816448 = nox_xxx_StringDraw_43FE90;
 		}
 	} else {

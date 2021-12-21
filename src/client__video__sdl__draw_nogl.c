@@ -137,7 +137,7 @@ void nox_video_drop_renderer() {
 
 //----- (0048A3D0) --------------------------------------------------------
 int nox_video_setBackBufSizes_48A3D0() {
-	dword_5d4594_3801780 = 2;
+	nox_video_modeXxx_3801780 = 2;
 	*getMemU32Ptr(0x973F18, 2368) = 0;
 	if (!g_backbuffer1) {
 		return 0;
@@ -150,7 +150,7 @@ int nox_video_setBackBufSizes_48A3D0() {
 
 	nox_backbuffer_width32 = g_backbuffer1->w >> 4;
 	*getMemU32Ptr(0x973F18, 2348) = g_backbuffer1->w >> 1;
-	dword_5d4594_3801780 = 1;
+	nox_video_modeXxx_3801780 = 1;
 	nox_backbuffer_pitch_3801808 = 2 * g_backbuffer1->w;
 	nox_backbuffer_pitchDiff = g_backbuffer1->pitch - 2 * g_backbuffer1->w;
 	nox_video_pixmode_3799624 = 1;
@@ -195,8 +195,8 @@ int nox_client_drawGeneral_4B0340(int a1) // draw general
 	v12 = sub_48B3E0(0);
 	unacquireMouse_sub_47D8B0();
 	sub_48A7F0();
-	v2 = dword_5d4594_3801780;
-	if (dword_5d4594_3801780) {
+	v2 = nox_video_modeXxx_3801780;
+	if (nox_video_modeXxx_3801780) {
 		v3 = a1;
 		v4 = a1;
 	LABEL_13:
@@ -242,7 +242,7 @@ int nox_client_drawGeneral_4B0340(int a1) // draw general
 		return 1;
 	}
 	sub_48B590(&v11, &v10, &v9);
-	v2 = dword_5d4594_3801780;
+	v2 = nox_video_modeXxx_3801780;
 	v4 = nox_video_renderTargetFlags;
 	v8 = nox_backbuffer_width;
 	v7 = nox_backbuffer_height;

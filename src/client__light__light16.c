@@ -34,7 +34,7 @@ extern uint32_t dword_5d4594_3798804;
 extern uint32_t dword_5d4594_3798820;
 extern uint32_t dword_5d4594_3798824;
 extern uint32_t dword_5d4594_3798840;
-extern uint32_t dword_5d4594_3801780;
+extern uint32_t nox_video_modeXxx_3801780;
 extern uint32_t dword_5d4594_3798796;
 extern uint32_t dword_5d4594_3798844;
 extern int nox_win_width;
@@ -236,7 +236,7 @@ void sub_484F90(int a1) {
 										 *(uint32_t*)(a1 + 144) > 0) {
 		if (!nox_xxx_get_57AF20() || a1 == *getMemU32Ptr(0x852978, 8) ||
 			*(int (**)(int*, int))(a1 + 300) == nox_thing_glow_orb_draw) {
-			if (*(uint32_t*)(a1 + 120) & 0x20000000 && dword_5d4594_3801780 == 1) {
+			if (*(uint32_t*)(a1 + 120) & 0x20000000 && nox_video_modeXxx_3801780 == 1) {
 				a5 = nox_common_randomFloatXxx_416090(0.89999998, 1.1) * *(float*)(a1 + 140);
 				v3 = (double)sub_484C60(a5);
 			} else {
@@ -916,7 +916,7 @@ int nox_xxx___cfltcvt_init_430CC0() {
 #ifndef NOX_CGO
 //----- (00430BA0) --------------------------------------------------------
 int nox_video_initFloorBuffer_430BA0() {
-	if (dword_5d4594_3801780 == 1) {
+	if (nox_video_modeXxx_3801780 == 1) {
 		nox_xxx___cfltcvt_init_430CC0();
 	} else {
 		sub_430D60();

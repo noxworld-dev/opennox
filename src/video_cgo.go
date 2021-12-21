@@ -41,6 +41,18 @@ extern int nox_win_width;
 extern int nox_win_height;
 extern unsigned char** nox_pixbuffer_rows_3798776;
 extern unsigned char* nox_pixbuffer_3798788;
+extern void* dword_5d4594_3798720;
+extern void* dword_5d4594_3798708;
+extern void* dword_5d4594_3798712;
+extern void* dword_5d4594_3798716;
+extern void* dword_5d4594_1305712;
+extern void* dword_5d4594_1305720;
+extern void* dword_5d4594_1305700;
+extern void* dword_5d4594_1305716;
+extern void* dword_5d4594_3798696;
+extern unsigned int dword_5d4594_1305724;
+extern int4* (*func_5D4594_1305696)(int, int, int, int, int);
+extern void (*func_5D4594_1305708)(uint32_t*, int, unsigned int);
 int nox_video_initFloorBuffer_430BA0();
 int nox_xxx___cfltcvt_init_430CC0();
 */
@@ -310,6 +322,9 @@ func drawInitAll(sz types.Size, flags int) error {
 	if err := nox_client_drawXxx_444AC0(sz.W, sz.H, flags); err != nil {
 		return err
 	}
+	if C.nox_video_modeXxx_3801780 != 1 {
+		panic("unsupported draw mode")
+	}
 	sub_47D200()
 	nox_video_initPixbuffer_486090(sz)
 	sub_49F610(sz)
@@ -323,35 +338,51 @@ func drawInitAll(sz types.Size, flags int) error {
 		return errors.New("nox_client_initFade2_44D9A0 failed")
 	}
 	noxrend.initParticles()
-	if res := C.nox_video_initLineDrawingFuncs_49E3F0(); res == 0 {
-		return errors.New("nox_video_initLineDrawingFuncs_49E3F0 failed")
-	}
-	if res := C.sub_48C560(); res == 0 {
-		return errors.New("sub_48C560 failed")
-	}
-	if res := C.sub_4B02D0(); res == 0 {
-		return errors.New("sub_4B02D0 failed")
-	}
+	nox_video_initLineDrawingFuncs_49E3F0()
+	sub_4B02D0()
 	if res := C.sub_4AF8D0(); res == 0 {
 		return errors.New("sub_4AF8D0 failed")
 	}
-	if res := C.sub_4AEE80(); res == 0 {
-		return errors.New("sub_4AEE80 failed")
-	}
 	sub_4AE520()
-	if res := C.nox_video_initRectDrawingFuncs_49CB50(); res == 0 {
-		return errors.New("nox_video_initRectDrawingFuncs_49CB50 failed")
-	}
+	nox_video_initRectDrawingFuncs_49CB50()
 	if err := loadGameFonts(); err != nil {
 		return err
 	}
-	if res := C.sub_4AE400(); res == 0 {
-		return errors.New("sub_4AE400 failed")
-	}
-	if res := C.sub_49F4A0(); res == 0 {
-		return errors.New("sub_49F4A0 failed")
-	}
+	sub_49F4A0()
 	return nil
+}
+
+func sub_49F4A0() {
+	C.dword_5d4594_1305724 = 32
+	*memmap.PtrUint32(0x973A20, 536) = 0
+	C.dword_5d4594_3798696, _ = alloc.Calloc(32, 8)
+}
+
+func sub_4B02D0() {
+	C.dword_5d4594_1311936 = 0
+	C.func_5d4594_1311924 = nil
+	*memmap.PtrUint32(0x5D4594, 1311928) = 0
+	*memmap.PtrUint32(0x5D4594, 1311932) = 0
+}
+
+func nox_video_initLineDrawingFuncs_49E3F0() {
+	C.dword_5d4594_3798720 = C.sub_49F180
+	C.dword_5d4594_3798708 = C.sub_49F180
+	C.dword_5d4594_3798712 = C.sub_49F420
+	C.dword_5d4594_3798716 = C.sub_49E930
+	*memmap.PtrPtr(0x973A20, 544) = unsafe.Pointer(C.sub_49F010)
+	*memmap.PtrPtr(0x973A20, 548) = unsafe.Pointer(C.sub_49ED80)
+}
+
+func nox_video_initRectDrawingFuncs_49CB50() {
+	*memmap.PtrPtr(0x5D4594, 1305704) = unsafe.Pointer(C.nox_xxx_draw_49D270_MBRect_49D270) // alpha filled
+	*memmap.PtrPtr(0x5D4594, 1305692) = unsafe.Pointer(C.sub_49D370)
+	C.dword_5d4594_1305712 = C.sub_49D6F0
+	C.dword_5d4594_1305720 = C.sub_49D6F0
+	C.dword_5d4594_1305700 = C.sub_49D8E0
+	C.dword_5d4594_1305716 = C.sub_49DBB0
+	C.func_5D4594_1305696 = (*[0]byte)(C.sub_49E060) // string size
+	C.func_5D4594_1305708 = (*[0]byte)(C.sub_49E3C0) // cursor?
 }
 
 func gameUpdateVideoMode(inMenu bool) error {
@@ -410,9 +441,9 @@ func recreateRenderTarget(sz types.Size) error {
 	C.nox_xxx_setupSomeVideo_47FEF0()
 	C.sub_49F6D0(1)
 	C.sub_437290()
-	//videoSet16Bit(C.dword_5d4594_3801780 != 0)
+	//videoSet16Bit(C.nox_video_modeXxx_3801780 != 0)
 	*memmap.PtrUint32(0x973F18, 6060) = uint32(2 * sz.W * sz.H)
-	*memmap.PtrUint32(0x973F18, 7696) = uint32(bool2int(C.dword_5d4594_3801780 == 1))
+	*memmap.PtrUint32(0x973F18, 7696) = uint32(bool2int(C.nox_video_modeXxx_3801780 == 1))
 	C.sub_430B50(0, 0, noxDefaultWidth-1, noxDefaultHeight-1)
 	return nil
 }
@@ -465,7 +496,7 @@ func drawGeneral_4B0340(a1 int) error {
 	v12 := C.sub_48B3E0(0)
 	//inpHandler.UnacquireMouse()
 	//sub_48A7F0()
-	v2 := C.dword_5d4594_3801780
+	v2 := C.nox_video_modeXxx_3801780
 	var (
 		v4     int
 		prevSz types.Size
@@ -476,7 +507,7 @@ func drawGeneral_4B0340(a1 int) error {
 		v4 = a1
 	} else {
 		v11, vpos = sub_48B590()
-		v2 = C.dword_5d4594_3801780
+		v2 = C.nox_video_modeXxx_3801780
 		v4 = int(C.nox_video_renderTargetFlags)
 		prevSz = noxPixBuffer.img.Size()
 		nox_video_stopCursorDrawThread_48B350()

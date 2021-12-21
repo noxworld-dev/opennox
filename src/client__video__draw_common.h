@@ -90,7 +90,7 @@ void* nox_video_getImagePixdata_func(nox_video_bag_image_t*);
 extern void* dword_5d4594_810640;
 extern uint32_t dword_5d4594_1193516;
 extern uint32_t nox_video_pixmode_3799624;
-extern uint32_t dword_5d4594_3801780;
+extern uint32_t nox_video_modeXxx_3801780;
 extern unsigned char* nox_draw_colors_r_3804672;
 extern unsigned char* nox_draw_colors_g_3804656;
 extern unsigned char* nox_draw_colors_b_3804664;

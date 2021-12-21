@@ -172,7 +172,7 @@ extern uint32_t dword_5d4594_815000;
 extern uint32_t dword_5d4594_741676;
 extern uint32_t dword_5d4594_3798840;
 extern uint32_t nox_video_pixmode_3799624;
-extern uint32_t dword_5d4594_3801780;
+extern uint32_t nox_video_modeXxx_3801780;
 extern uint32_t dword_5d4594_810632;
 extern uint32_t nox_client_renderGUI_80828;
 extern uint32_t dword_5d4594_3798796;
@@ -4756,7 +4756,7 @@ char* sub_430B80(uint32_t* a1) {
 void sub_430BB0(uint32_t* a1, uint32_t* a2, uint32_t* a3) {
 	*a1 = nox_backbuffer_width;
 	*a2 = nox_backbuffer_height;
-	*a3 = dword_5d4594_3801780 != 0 ? 16 : 8;
+	*a3 = nox_video_modeXxx_3801780 != 0 ? 16 : 8;
 }
 
 //----- (00430BE0) --------------------------------------------------------

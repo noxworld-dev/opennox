@@ -149,7 +149,7 @@ extern nox_window* dword_5d4594_1082856;
 extern uint32_t dword_5d4594_1049504;
 extern uint32_t dword_5d4594_1090120;
 extern uint32_t dword_5d4594_1063116;
-extern uint32_t dword_5d4594_3801780;
+extern uint32_t nox_video_modeXxx_3801780;
 extern uint32_t nox_client_renderGUI_80828;
 extern uint32_t dword_5d4594_1062480;
 extern uint32_t nox_player_netCode_85319C;
@@ -4862,7 +4862,7 @@ int nox_xxx_screenshot_46D830() {
 	}
 	v5 = *getMemU32Ptr(0x5D4594, 1082896);
 	v7 = dword_587000_145540;
-	if (dword_5d4594_3801780 == 1) {
+	if (nox_video_modeXxx_3801780 == 1) {
 		v7 = 2 * dword_587000_145540;
 		v5 = 2 * *getMemU32Ptr(0x5D4594, 1082896);
 	}
@@ -8016,7 +8016,7 @@ LABEL_64:
 			v77.field_0 = 23 * v3[5];
 			v77.field_4 = 23 * (v31 + 1);
 			v32 = (int*)(*(int (**)(int2*)) & dword_5d4594_3807156)(&v77);
-			if (dword_5d4594_3801780 == 1 && v32 != (int*)31) {
+			if (nox_video_modeXxx_3801780 == 1 && v32 != (int*)31) {
 				v83[0] = *v32;
 				v83[1] = v32[1];
 				v33 = v32[2];
@@ -8033,7 +8033,7 @@ LABEL_64:
 			v77.field_0 = 23 * v3[5];
 			v77.field_4 = 23 * v35;
 			v32 = (int*)(*(int (**)(int2*)) & dword_5d4594_3807156)(&v77);
-			if (dword_5d4594_3801780 == 1 && v32 != (int*)31) {
+			if (nox_video_modeXxx_3801780 == 1 && v32 != (int*)31) {
 				v83[0] = *v32;
 				v83[1] = v32[1];
 				v36 = v32[2];
@@ -8049,7 +8049,7 @@ LABEL_64:
 			v77.field_0 = 23 * v3[5];
 			v77.field_4 = 23 * v37;
 			v32 = (int*)(*(int (**)(int2*)) & dword_5d4594_3807156)(&v77);
-			if (dword_5d4594_3801780 == 1 && v32 != (int*)31) {
+			if (nox_video_modeXxx_3801780 == 1 && v32 != (int*)31) {
 				v83[0] = *v32;
 				v83[1] = v32[1];
 				v38 = v32[2];
@@ -8064,7 +8064,7 @@ LABEL_64:
 			v77.field_0 = 23 * v3[5] + 11;
 			v77.field_4 = 23 * v39 + 11;
 			v32 = (int*)(*(int (**)(int2*)) & dword_5d4594_3807156)(&v77);
-			if (dword_5d4594_3801780 == 1 && v32 != (int*)31) {
+			if (nox_video_modeXxx_3801780 == 1 && v32 != (int*)31) {
 				v83[0] = *v32;
 				v83[1] = v32[1];
 				v40 = v32[2];
@@ -8080,7 +8080,7 @@ LABEL_64:
 			v77.field_0 = 23 * v3[5];
 			v77.field_4 = 23 * (v41 + 1);
 			v32 = (int*)(*(int (**)(int2*)) & dword_5d4594_3807156)(&v77);
-			if (dword_5d4594_3801780 == 1 && v32 != (int*)31) {
+			if (nox_video_modeXxx_3801780 == 1 && v32 != (int*)31) {
 				v83[0] = *v32;
 				v83[1] = v32[1];
 				v42 = v32[2];
@@ -8096,7 +8096,7 @@ LABEL_64:
 			v77.field_0 = 23 * v3[5];
 			v77.field_4 = 23 * (v43 + 1);
 			v32 = (int*)(*(int (**)(int2*)) & dword_5d4594_3807156)(&v77);
-			if (dword_5d4594_3801780 == 1 && v32 != (int*)31) {
+			if (nox_video_modeXxx_3801780 == 1 && v32 != (int*)31) {
 				v83[0] = *v32;
 				v83[1] = v32[1];
 				v44 = v32[2];

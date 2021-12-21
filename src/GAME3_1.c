@@ -111,7 +111,7 @@ extern uint64_t qword_581450_9512;
 extern uint64_t qword_581450_9544;
 extern uint32_t dword_5d4594_1320968;
 extern uint32_t dword_5d4594_1319060;
-extern uint32_t dword_5d4594_3798720;
+extern void* dword_5d4594_3798720;
 extern uint32_t dword_5d4594_1522632;
 extern uint32_t dword_5d4594_1321252;
 extern uint32_t dword_5d4594_3798156;

@@ -77,14 +77,13 @@ func gameResetVideoMode(inMenu, force bool) error {
 }
 
 func nox_video_setBackBufSizes_48A3D0(sz types.Size) int {
-	C.dword_5d4594_3801780 = 2
 	*memmap.PtrUint32(0x973F18, 2368) = 0
 
 	*memmap.PtrUint32(0x973F18, 136) = uint32(2 * sz.W)
 	*memmap.PtrUint32(0x973F18, 2368) = 1
 
 	*memmap.PtrUint32(0x973F18, 2348) = uint32(sz.W / 2)
-	C.dword_5d4594_3801780 = 1
+	C.nox_video_modeXxx_3801780 = 1
 	return 1
 }
 

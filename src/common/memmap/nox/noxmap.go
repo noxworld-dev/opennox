@@ -1394,7 +1394,7 @@ var noxMemmap = []struct {
 	{0x973F18, 232, 1056, "obj_5D4594_3799660"},            // 0x974000
 	{0x973F18, 1288, 1056, "obj_5D4594_3800716"},           // 0x974420
 	{0x973F18, 2344, 4, "nox_video_renderTargetFlags"},     // 0x974840
-	{0x973F18, 2352, 4, "dword_5d4594_3801780"},            // 0x974848
+	{0x973F18, 2352, 4, "nox_video_modeXxx_3801780"},       // 0x974848
 	{0x973F18, 2356, 4, "nox_backbuffer_width"},            // 0x97484C
 	{0x973F18, 2360, 4, "nox_backbuffer_height"},           // 0x974850
 	{0x973F18, 2372, 4, "nox_backbuffer_width32"},          // 0x97485C
