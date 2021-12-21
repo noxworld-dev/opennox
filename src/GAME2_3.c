@@ -6957,13 +6957,6 @@ int nox_video_initRectDrawingFuncs_49CB50() {
 		return 1;
 	}
 	*getMemU32Ptr(0x5D4594, 1305704) = nox_xxx_draw_49D270_MBRect_49D270; // alpha filled
-#ifdef NOX_CGO
-	*getMemU32Ptr(0x5D4594, 1305692) = sub_49D370;
-	dword_5d4594_1305712 = sub_49D6F0;
-	dword_5d4594_1305720 = sub_49D6F0;
-	dword_5d4594_1305700 = sub_49D8E0;
-	dword_5d4594_1305716 = sub_49DBB0;
-#else                                 // NOX_CGO
 	if (cpuid_5d4594_3801804) {
 		*getMemU32Ptr(0x5D4594, 1305692) = sub_49D540;
 		dword_5d4594_1305712 = sub_49D770;
@@ -6977,7 +6970,6 @@ int nox_video_initRectDrawingFuncs_49CB50() {
 		dword_5d4594_1305700 = sub_49D8E0;
 		dword_5d4594_1305716 = sub_49DBB0;
 	}
-#endif                                // NOX_CGO
 	func_5D4594_1305696 = sub_49E060; // string size
 	func_5D4594_1305708 = sub_49E3C0; // cursor?
 	return 1;
@@ -7158,6 +7150,7 @@ int sub_49D1C0(void* a1, int a2, int a3) {
 	return 0;
 }
 
+#ifndef NOX_CGO
 //----- (0049D1E0) --------------------------------------------------------
 void sub_49D1E0(int a1, int a2, unsigned int a3, int a4) {
 	int result;   // eax
@@ -7190,6 +7183,7 @@ void sub_49D1E0(int a1, int a2, unsigned int a3, int a4) {
 		} while (a4-- > 1);
 	}
 }
+#endif // NOX_CGO
 
 //----- (0049D270) --------------------------------------------------------
 void nox_xxx_draw_49D270_MBRect_49D270(int a1, int a2, unsigned int a3, int a4) {
@@ -7342,6 +7336,7 @@ void sub_49D370(int a1, int a2, int a3, int a4) {
 	}
 }
 
+#ifndef NOX_CGO
 int sub_49D540(int a1, int a2, int a3, int a4) {
 	abort();
 	return 0;
@@ -7374,6 +7369,7 @@ int sub_49D680(int a1, int a2, int a3, int a4) {
 	}
 	return result;
 }
+#endif // NOX_CGO
 
 //----- (0049D6F0) --------------------------------------------------------
 short sub_49D6F0(int a1, int a2, unsigned int a3, int a4) {
@@ -7432,6 +7428,7 @@ short sub_49D6F0(int a1, int a2, unsigned int a3, int a4) {
 	return v4;
 }
 
+#ifndef NOX_CGO
 void sub_49D770(int a1, int a2, unsigned int a3, int a4) {
 	abort();
 	return;
@@ -7460,6 +7457,7 @@ void sub_49D880(int a1, int a2, int a3, int a4) {
 		} while (!v9);
 	}
 }
+#endif // NOX_CGO
 
 //----- (0049D8E0) --------------------------------------------------------
 int sub_49D8E0(int a1, int a2, int a3, int a4) {
@@ -7507,6 +7505,7 @@ int sub_49D8E0(int a1, int a2, int a3, int a4) {
 	return result;
 }
 
+#ifndef NOX_CGO
 int sub_49D9A0(int a1, int a2, int a3, int a4) {
 	abort();
 	return 0;
@@ -7599,6 +7598,7 @@ unsigned char sub_49DB20(int a1, int a2, int a3, int a4) {
 	} while (!v13);
 	return result;
 }
+#endif // NOX_CGO
 
 //----- (0049DBB0) --------------------------------------------------------
 int sub_49DBB0(int a1, int a2, int a3, int a4) {
@@ -7647,6 +7647,7 @@ int sub_49DBB0(int a1, int a2, int a3, int a4) {
 	return result;
 }
 
+#ifndef NOX_CGO
 int sub_49DC70(int a1, int a2, int a3, int a4) {
 	abort();
 	return 0;
@@ -7806,6 +7807,7 @@ int4* sub_49DD60(int a1, int a2, int a3, int a4, int a5) {
 	}
 	return result;
 }
+#endif // NOX_CGO
 
 //----- (0049E060) --------------------------------------------------------
 int4* sub_49E060(int a1, int a2, int a3, int a4, int a5) {
@@ -7960,6 +7962,7 @@ int4* sub_49E060(int a1, int a2, int a3, int a4, int a5) {
 	return result;
 }
 
+#ifndef NOX_CGO
 //----- (0049E380) --------------------------------------------------------
 void sub_49E380(uint32_t* a1, int a2, unsigned int a3) {
 	int v3;        // edi
@@ -7985,6 +7988,7 @@ void sub_49E380(uint32_t* a1, int a2, unsigned int a3) {
 		}
 	}
 }
+#endif // NOX_CGO
 
 //----- (0049E3C0) --------------------------------------------------------
 void sub_49E3C0(uint32_t* a1, int a2, unsigned int a3) {
@@ -8022,14 +8026,10 @@ int nox_video_initLineDrawingFuncs_49E3F0() {
 		return 1;
 	}
 	dword_5d4594_3798720 = sub_49F180;
-#ifdef NOX_CGO
-	dword_5d4594_3798708 = sub_49F180;
-#else  // NOX_CGO
 	dword_5d4594_3798708 = sub_49F210;
 	if (!cpuid_5d4594_3801804) {
 		dword_5d4594_3798708 = sub_49F180;
 	}
-#endif // NOX_CGO
 	dword_5d4594_3798712 = sub_49F420;
 	dword_5d4594_3798716 = sub_49E930;
 	*getMemU32Ptr(0x973A20, 544) = sub_49F010;
@@ -8063,6 +8063,7 @@ int sub_49E510(int a1) {
 	return (*(int (**)(uint32_t)) & dword_5d4594_3798716)(0);
 }
 
+#ifndef NOX_CGO
 //----- (0049E540) --------------------------------------------------------
 int sub_49E540(int a1) {
 	int result;        // eax
@@ -8178,6 +8179,7 @@ int sub_49E540(int a1) {
 	}
 	return result;
 }
+#endif // NOX_CGO
 
 //----- (0049E6C0) --------------------------------------------------------
 int sub_49E6C0(int a1) {
@@ -8783,6 +8785,7 @@ int sub_49ED80(unsigned char a1, int a2) {
 //----- (0049EFA0) --------------------------------------------------------
 int sub_49EFA0(int a1, int a2) { return (*(int (**)(uint32_t, uint32_t))getMemAt(0x973A20, 544))(a1, a2); }
 
+#ifndef NOX_CGO
 //----- (0049EFC0) --------------------------------------------------------
 int sub_49EFC0(int a1, int a2) {
 	int result; // eax
@@ -8795,6 +8798,7 @@ int sub_49EFC0(int a1, int a2) {
 	}
 	return result;
 }
+#endif // NOX_CGO
 
 //----- (0049F010) --------------------------------------------------------
 int sub_49F010(int a1, int a2) {
@@ -8809,6 +8813,7 @@ int sub_49F010(int a1, int a2) {
 	return result;
 }
 
+#ifndef NOX_CGO
 //----- (0049F060) --------------------------------------------------------
 void sub_49F060(int a1, int a2, int a3) {
 	int v3;           // ecx
@@ -8916,6 +8921,7 @@ unsigned char* sub_49F0F0(int a1, int a2, int a3) {
 	}
 	return result;
 }
+#endif // NOX_CGO
 
 //----- (0049F180) --------------------------------------------------------
 void sub_49F180(int a1, int a2, int a3) {
@@ -8980,6 +8986,7 @@ short sub_49F210(int a1, int a2, int a3) {
 	return 0;
 }
 
+#ifndef NOX_CGO
 //----- (0049F3A0) --------------------------------------------------------
 void sub_49F3A0(int a1, int a2, int a3) {
 	int v3;        // ecx
@@ -9028,6 +9035,7 @@ void sub_49F3A0(int a1, int a2, int a3) {
 		} while (!v8);
 	}
 }
+#endif // NOX_CGO
 
 //----- (0049F420) --------------------------------------------------------
 void sub_49F420(int a1, int a2, int a3) {
