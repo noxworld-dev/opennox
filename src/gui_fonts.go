@@ -7,7 +7,9 @@ extern uint32_t dword_5d4594_816444;
 */
 import "C"
 import (
+	"fmt"
 	"os"
+	"path/filepath"
 	"strings"
 	"unsafe"
 
@@ -55,7 +57,7 @@ func loadGameFonts() error {
 		}
 		fnt, err := loadFont(datapath.Path(fname), f.Size)
 		if err != nil {
-			return err
+			return fmt.Errorf("cannot load font: %w", err)
 		}
 		f.Font = fnt
 		f.Ptr = handles.NewPtr()
@@ -93,15 +95,18 @@ func loadFont(path string, size int) (font.Face, error) {
 	if err == nil {
 		fnt, err := opentype.ParseReaderAt(f)
 		if err != nil {
-			return nil, err
+			_ = f.Close()
+			return nil, fmt.Errorf("%s: %w", filepath.Base(f.Name()), err)
 		}
 		face, err := opentype.NewFace(fnt, &opentype.FaceOptions{
 			Size: float64(size), DPI: 72,
 			Hinting: font.HintingNone,
 		})
 		if err != nil {
+			_ = f.Close()
 			return nil, err
 		}
+		// not closing the file, since it's still used by the font
 		return face, nil
 	}
 	f, err = fs.Open(path + noxfont.Ext)
