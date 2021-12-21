@@ -61,7 +61,6 @@ void nullsub_70() {}
 #include "thing.h"
 #include "win.h"
 
-extern uint32_t dword_5d4594_526284;
 extern uint32_t nox_profiled_805856;
 extern uint32_t dword_5d4594_10988;
 extern uint32_t dword_5d4594_527656;
@@ -119,6 +118,7 @@ HANDLE* nox_video_cursorDrawThreadHandle;
 
 nox_engine_flag nox_common_engineFlags = 0u;
 #ifndef NOX_CGO
+uint32_t dword_5d4594_526284 = 0;
 uint32_t nox_common_gameFlags;      // & 1 = host server; & 0x800 = solo game
 #endif                              // NOX_CGO
 int nox_server_gameSettingsUpdated; // If you define it as 1-byte bool, the game will crash
@@ -9328,29 +9328,23 @@ int sub_417D00() {
 	return result;
 }
 
+#ifndef NOX_CGO
 //----- (00417D50) --------------------------------------------------------
-int nox_xxx_SetGameplayFlag_417D50(int a1) {
-	int result; // eax
-
-	result = a1;
+void nox_xxx_SetGameplayFlag_417D50(int a1) {
 	dword_5d4594_526284 |= a1;
-	return result;
 }
 
 //----- (00417D70) --------------------------------------------------------
-int nox_xxx_UnsetGameplayFlags_417D70(int a1) {
-	int result; // eax
-
-	result = ~a1;
+void nox_xxx_UnsetGameplayFlags_417D70(int a1) {
 	dword_5d4594_526284 &= ~a1;
-	return result;
 }
 
 //----- (00417D90) --------------------------------------------------------
 int nox_xxx_GetGameplayFlags_417D90() { return dword_5d4594_526284; }
 
 //----- (00417DA0) --------------------------------------------------------
-int nox_xxx_CheckGameplayFlags_417DA0(int a1) { return (a1 & dword_5d4594_526284) != 0; }
+bool nox_xxx_CheckGameplayFlags_417DA0(int a1) { return (a1 & dword_5d4594_526284) != 0; }
+#endif // NOX_CGO
 
 //----- (00417DC0) --------------------------------------------------------
 int sub_417DC0() { return dword_5d4594_526276; }

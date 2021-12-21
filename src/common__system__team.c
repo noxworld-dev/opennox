@@ -39,7 +39,8 @@ int sub_417C60() {
 	}
 	nox_xxx_SetGameplayFlag_417D50(2);
 	nox_xxx_UnsetGameplayFlags_417D70(1);
-	return nox_xxx_UnsetGameplayFlags_417D70(4);
+	nox_xxx_UnsetGameplayFlags_417D70(4);
+	return 1;
 }
 
 //----- (00417E10) --------------------------------------------------------
@@ -61,7 +62,8 @@ int nox_xxx_createCoopTeam_417E10() {
 		v2 = nox_strman_loadString_40F1D0("COOP", 0, "C:\\NoxPost\\src\\common\\System\\team.c", 405);
 		sub_418800((wchar_t*)v0, v2, 0);
 	}
-	return nox_xxx_UnsetGameplayFlags_417D70(1);
+	nox_xxx_UnsetGameplayFlags_417D70(1);
+	return 1;
 }
 
 //----- (004186D0) --------------------------------------------------------

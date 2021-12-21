@@ -715,7 +715,7 @@ func newPlayer(ind int, opts *PlayerOpts) int {
 			if C.sub_40AA70(pl.C()) == 0 {
 				pl.GoObserver(false, true)
 			}
-		} else if C.nox_xxx_CheckGameplayFlags_417DA0(4) != 0 {
+		} else if checkGameplayFlags(4) {
 			C.sub_4DF3C0(pl.C())
 		}
 	} else if !noxflags.HasGame(noxflags.GameModeCoop) {

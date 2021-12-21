@@ -238,7 +238,8 @@ int nox_xxx_unused_418840() {
 			}
 		}
 	}
-	return nox_xxx_SetGameplayFlag_417D50(4);
+	nox_xxx_SetGameplayFlag_417D50(4);
+	return 1;
 }
 
 //----- (004189D0) --------------------------------------------------------

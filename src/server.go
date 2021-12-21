@@ -829,7 +829,7 @@ func nox_xxx_mapReadSetFlags_4CF990() {
 		noxflags.SetGame(noxflags.GameModeChat)
 		if C.nox_xxx_getTeamCounter_417DD0() != 0 {
 			C.nox_xxx_teamAssignFlags_418640()
-			if C.nox_xxx_CheckGameplayFlags_417DA0(2) == 0 && !noxflags.HasGame(0x8000) {
+			if !checkGameplayFlags(2) && !noxflags.HasGame(0x8000) {
 				C.nox_xxx_toggleAllTeamFlags_418690(1)
 			}
 		}
