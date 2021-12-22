@@ -1133,7 +1133,7 @@ func nox_xxx_mapExitAndCheckNext_4D1860_server() bool {
 						*(*unsafe.Pointer)(unsafe.Pointer(&v49[3])) = unsafe.Pointer(m.CObj())
 					}
 					if n.Class().Has(2) && n.field_3&0x30 != 0 {
-						C.nox_xxx_setNPCColor_4E4A90(n.CObj(), 0, C.int(uintptr(ud.field_187)+2076))
+						C.nox_xxx_setNPCColor_4E4A90(n.CObj(), 0, C.int(ud.field_519))
 					}
 				} else if m.Class().Has(1) && C.sub_4E5B80(m.CObj()) != 0 {
 					C.sub_4E81D0(m.CObj())
