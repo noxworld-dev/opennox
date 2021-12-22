@@ -2210,11 +2210,13 @@ int nox_cmd_unset_net_debug(int tokInd, int tokCnt, wchar_t** tokens) {
 	return 1;
 }
 
+#ifndef NOX_CGO
 //----- (00441440) --------------------------------------------------------
 int nox_cmd_show_ai(int tokInd, int tokCnt, wchar_t** tokens) {
 	nox_common_toggleEngineFlag(NOX_ENGINE_FLAG_ENABLE_SHOW_AI);
 	return 1;
 }
+#endif // NOX_CGO
 
 //----- (00441460) --------------------------------------------------------
 int nox_cmd_show_gui(int tokInd, int tokCnt, wchar_t** tokens) {
@@ -2224,12 +2226,14 @@ int nox_cmd_show_gui(int tokInd, int tokCnt, wchar_t** tokens) {
 	return 1;
 }
 
+#ifndef NOX_CGO
 //----- (00441480) --------------------------------------------------------
 int nox_cmd_show_extents(int tokInd, int tokCnt, wchar_t** tokens) {
 	nox_xxx_clientPlaySoundSpecial_452D80(921, 100);
 	nox_common_toggleEngineFlag(NOX_ENGINE_FLAG_ENABLE_SHOW_EXTENTS);
 	return 1;
 }
+#endif // NOX_CGO
 
 //----- (004414B0) --------------------------------------------------------
 int nox_cmd_show_perfmon(int tokInd, int tokCnt, wchar_t** tokens) {

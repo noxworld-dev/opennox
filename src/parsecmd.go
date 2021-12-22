@@ -45,9 +45,7 @@ int nox_cmd_set_fr(int, int, wchar_t**);
 int nox_cmd_unset_fr(int, int, wchar_t**);
 int nox_cmd_set_net_debug(int, int, wchar_t**);
 int nox_cmd_unset_net_debug(int, int, wchar_t**);
-int nox_cmd_show_ai(int, int, wchar_t**);
 int nox_cmd_show_gui(int, int, wchar_t**);
-int nox_cmd_show_extents(int, int, wchar_t**);
 int nox_cmd_show_perfmon(int, int, wchar_t**);
 int nox_cmd_show_netstat(int, int, wchar_t**);
 int nox_cmd_show_info(int, int, wchar_t**);
@@ -210,9 +208,16 @@ var (
 		{Token: "motd", HelpID: "showmotdhelp", Flags: console.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_show_motd)},
 		{Token: "rank", HelpID: "showrankhelp", Flags: console.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_show_rank)},
 		{Token: "perfmon", HelpID: "showperfmonhelp", Flags: console.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_show_perfmon)},
-		{Token: "extents", HelpID: "showextentshelp", Flags: console.ClientServer | console.Cheat, LegacyFunc: wrapCommandC(nox_cmd_show_extents)},
+		{Token: "extents", HelpID: "showextentshelp", Flags: console.ClientServer | console.Cheat, Func: func(ctx context.Context, c *console.Console, tokens []string) bool {
+			clientPlaySoundSpecial(921, 100)
+			toggleEngineFlag(NOX_ENGINE_FLAG_ENABLE_SHOW_EXTENTS)
+			return true
+		}},
 		{Token: "gui", HelpID: "showguihelp", Flags: console.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_show_gui)},
-		{Token: "ai", HelpID: "showaihelp", Flags: console.Server | console.Cheat, LegacyFunc: wrapCommandC(nox_cmd_show_ai)},
+		{Token: "ai", HelpID: "showaihelp", Flags: console.Server | console.Cheat, Func: func(ctx context.Context, c *console.Console, tokens []string) bool {
+			toggleEngineFlag(NOX_ENGINE_FLAG_ENABLE_SHOW_AI)
+			return true
+		}},
 		{Token: "info", HelpID: "showinfohelp", Flags: console.ClientServer | console.NoHelp, LegacyFunc: wrapCommandC(nox_cmd_show_info)},
 		{Token: "mem", HelpID: "showmemhelp", Flags: console.ClientServer | console.Cheat, LegacyFunc: wrapCommandC(nox_cmd_show_mem)},
 		{Token: "netstat", HelpID: "shownetstathelp", Flags: console.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_show_netstat)},
@@ -378,14 +383,8 @@ func nox_cmd_set_net_debug(i C.int, n C.int, arr **C.wchar_t) C.int {
 func nox_cmd_unset_net_debug(i C.int, n C.int, arr **C.wchar_t) C.int {
 	return C.nox_cmd_unset_net_debug(i, n, arr)
 }
-func nox_cmd_show_ai(i C.int, n C.int, arr **C.wchar_t) C.int {
-	return C.nox_cmd_show_ai(i, n, arr)
-}
 func nox_cmd_show_gui(i C.int, n C.int, arr **C.wchar_t) C.int {
 	return C.nox_cmd_show_gui(i, n, arr)
-}
-func nox_cmd_show_extents(i C.int, n C.int, arr **C.wchar_t) C.int {
-	return C.nox_cmd_show_extents(i, n, arr)
 }
 func nox_cmd_show_perfmon(i C.int, n C.int, arr **C.wchar_t) C.int {
 	return C.nox_cmd_show_perfmon(i, n, arr)
