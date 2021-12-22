@@ -802,6 +802,16 @@ typedef struct {
 _Static_assert(sizeof(nox_object_Player_data_t) == 556, "wrong size of nox_object_Player_data_t structure!");
 
 typedef struct {
+	uint32_t action; // 0, 0
+	uint32_t field_1; // 1, 4
+	uint32_t field_2; // 2, 8
+	uint32_t field_3; // 3, 12
+	uint32_t field_4; // 4, 16
+	uint32_t field_5; // 5, 20
+} nox_ai_stack_t;
+_Static_assert(sizeof(nox_ai_stack_t) == 24, "wrong size of nox_ai_stack_t structure!");
+
+typedef struct {
 	uint32_t field_0; // 0, 0
 	uint32_t field_1; // 1, 4
 	uint32_t field_2; // 2, 8
@@ -938,152 +948,11 @@ typedef struct {
 	uint32_t field_133; // 133, 532
 	uint32_t field_134; // 134, 536
 	uint32_t field_135; // 135, 540
-	uint32_t field_136; // 136, 544
+	char ai_stack_ind;  // 136, 544
+	uint8_t field_136_1;  // 136, 545
+	uint16_t field_136_2; // 136, 546
 	uint32_t field_137; // 137, 548
-	uint32_t field_138; // 138, 552
-	uint32_t field_139; // 139, 556
-	uint32_t field_140; // 140, 560
-	uint32_t field_141; // 141, 564
-	uint32_t field_142; // 142, 568
-	uint32_t field_143; // 143, 572
-	uint32_t field_144; // 144, 576
-	uint32_t field_145; // 145, 580
-	uint32_t field_146; // 146, 584
-	uint32_t field_147; // 147, 588
-	uint32_t field_148; // 148, 592
-	uint32_t field_149; // 149, 596
-	uint32_t field_150; // 150, 600
-	uint32_t field_151; // 151, 604
-	uint32_t field_152; // 152, 608
-	uint32_t field_153; // 153, 612
-	uint32_t field_154; // 154, 616
-	uint32_t field_155; // 155, 620
-	uint32_t field_156; // 156, 624
-	uint32_t field_157; // 157, 628
-	uint32_t field_158; // 158, 632
-	uint32_t field_159; // 159, 636
-	uint32_t field_160; // 160, 640
-	uint32_t field_161; // 161, 644
-	uint32_t field_162; // 162, 648
-	uint32_t field_163; // 163, 652
-	uint32_t field_164; // 164, 656
-	uint32_t field_165; // 165, 660
-	uint32_t field_166; // 166, 664
-	uint32_t field_167; // 167, 668
-	uint32_t field_168; // 168, 672
-	uint32_t field_169; // 169, 676
-	uint32_t field_170; // 170, 680
-	uint32_t field_171; // 171, 684
-	uint32_t field_172; // 172, 688
-	uint32_t field_173; // 173, 692
-	uint32_t field_174; // 174, 696
-	uint32_t field_175; // 175, 700
-	uint32_t field_176; // 176, 704
-	uint32_t field_177; // 177, 708
-	uint32_t field_178; // 178, 712
-	uint32_t field_179; // 179, 716
-	uint32_t field_180; // 180, 720
-	uint32_t field_181; // 181, 724
-	uint32_t field_182; // 182, 728
-	uint32_t field_183; // 183, 732
-	uint32_t field_184; // 184, 736
-	uint32_t field_185; // 185, 740
-	uint32_t field_186; // 186, 744
-	void* field_187; // 187, 748
-	uint32_t field_188; // 188, 752
-	uint32_t field_189; // 189, 756
-	uint32_t field_190; // 190, 760
-	uint32_t field_191; // 191, 764
-	uint32_t field_192; // 192, 768
-	uint32_t field_193; // 193, 772
-	uint32_t field_194; // 194, 776
-	uint32_t field_195; // 195, 780
-	uint32_t field_196; // 196, 784
-	uint32_t field_197; // 197, 788
-	uint32_t field_198; // 198, 792
-	uint32_t field_199; // 199, 796
-	uint32_t field_200; // 200, 800
-	uint32_t field_201; // 201, 804
-	uint32_t field_202; // 202, 808
-	uint32_t field_203; // 203, 812
-	uint32_t field_204; // 204, 816
-	uint32_t field_205; // 205, 820
-	uint32_t field_206; // 206, 824
-	uint32_t field_207; // 207, 828
-	uint32_t field_208; // 208, 832
-	uint32_t field_209; // 209, 836
-	uint32_t field_210; // 210, 840
-	uint32_t field_211; // 211, 844
-	uint32_t field_212; // 212, 848
-	uint32_t field_213; // 213, 852
-	uint32_t field_214; // 214, 856
-	uint32_t field_215; // 215, 860
-	uint32_t field_216; // 216, 864
-	uint32_t field_217; // 217, 868
-	uint32_t field_218; // 218, 872
-	uint32_t field_219; // 219, 876
-	uint32_t field_220; // 220, 880
-	uint32_t field_221; // 221, 884
-	uint32_t field_222; // 222, 888
-	uint32_t field_223; // 223, 892
-	uint32_t field_224; // 224, 896
-	uint32_t field_225; // 225, 900
-	uint32_t field_226; // 226, 904
-	uint32_t field_227; // 227, 908
-	uint32_t field_228; // 228, 912
-	uint32_t field_229; // 229, 916
-	uint32_t field_230; // 230, 920
-	uint32_t field_231; // 231, 924
-	uint32_t field_232; // 232, 928
-	uint32_t field_233; // 233, 932
-	uint32_t field_234; // 234, 936
-	uint32_t field_235; // 235, 940
-	uint32_t field_236; // 236, 944
-	uint32_t field_237; // 237, 948
-	uint32_t field_238; // 238, 952
-	uint32_t field_239; // 239, 956
-	uint32_t field_240; // 240, 960
-	uint32_t field_241; // 241, 964
-	uint32_t field_242; // 242, 968
-	uint32_t field_243; // 243, 972
-	uint32_t field_244; // 244, 976
-	uint32_t field_245; // 245, 980
-	uint32_t field_246; // 246, 984
-	uint32_t field_247; // 247, 988
-	uint32_t field_248; // 248, 992
-	uint32_t field_249; // 249, 996
-	uint32_t field_250; // 250, 1000
-	uint32_t field_251; // 251, 1004
-	uint32_t field_252; // 252, 1008
-	uint32_t field_253; // 253, 1012
-	uint32_t field_254; // 254, 1016
-	uint32_t field_255; // 255, 1020
-	uint32_t field_256; // 256, 1024
-	uint32_t field_257; // 257, 1028
-	uint32_t field_258; // 258, 1032
-	uint32_t field_259; // 259, 1036
-	uint32_t field_260; // 260, 1040
-	uint32_t field_261; // 261, 1044
-	uint32_t field_262; // 262, 1048
-	uint32_t field_263; // 263, 1052
-	uint32_t field_264; // 264, 1056
-	uint32_t field_265; // 265, 1060
-	uint32_t field_266; // 266, 1064
-	uint32_t field_267; // 267, 1068
-	uint32_t field_268; // 268, 1072
-	uint32_t field_269; // 269, 1076
-	uint32_t field_270; // 270, 1080
-	uint32_t field_271; // 271, 1084
-	uint32_t field_272; // 272, 1088
-	uint32_t field_273; // 273, 1092
-	uint32_t field_274; // 274, 1096
-	uint32_t field_275; // 275, 1100
-	uint32_t field_276; // 276, 1104
-	uint32_t field_277; // 277, 1108
-	uint32_t field_278; // 278, 1112
-	uint32_t field_279; // 279, 1116
-	uint32_t field_280; // 280, 1120
-	uint32_t field_281; // 281, 1124
+	nox_ai_stack_t ai_stack[24]; // 138, 552
 	uint32_t field_282; // 282, 1128
 	uint32_t field_283; // 283, 1132
 	uint32_t field_284; // 284, 1136

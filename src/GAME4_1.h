@@ -16,7 +16,7 @@ int nox_xxx_mathDirection4ToAngle_509E90(int a1);
 int nox_xxx_math_509EA0(int a1);
 int nox_xxx_math_509ED0(float2* a1);
 void nox_xxx_utilNormalizeVector_509F20(float2* a1);
-void nox_xxx_debugPrintStack_509F60(int a1, int a2);
+void nox_ai_debug_printStack_509F60(nox_object_t* u, char* event);
 int sub_509FF0(int a1);
 int nox_xxx_monsterActionIsCondition_50A010(int a1);
 int nox_xxx_mobActionGet_50A020(int a1);

@@ -1538,7 +1538,7 @@ char nox_xxx_mobActionDependency_546A70(int a1) {
 						} while (*(char*)(v2 + 544) >= a1a && !sub_5341F0(v1));
 						a1a = *(char*)(v2 + 544);
 						nox_xxx_monsterActionReset_50A110(v1);
-						nox_xxx_debugPrintStack_509F60(v1, (int)getMemAt(0x587000, 286484));
+						nox_ai_debug_printStack_509F60(v1, "procDep");
 						break;
 					}
 					if (v4) {

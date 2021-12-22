@@ -390,15 +390,16 @@ void nox_xxx_utilNormalizeVector_509F20(float2* a1) {
 	a1->field_4 = a1->field_4 / v1;
 }
 
+#ifndef NOX_CGO
 //----- (00509F60) --------------------------------------------------------
-void nox_xxx_debugPrintStack_509F60(int a1, int a2) {
+void nox_ai_debug_printStack_509F60(nox_object_t* u, char* event) {
 	int v2;       // esi
 	char v3;      // al
 	int v5;       // edi
 	uint32_t* v6; // esi
 
-	v2 = *(uint32_t*)(a1 + 748);
-	nox_ai_debug_printf_5341A0("%d: stack (%s):\n", nox_frame_xxx_2598000, a2);
+	v2 = *(uint32_t*)((int)u + 748);
+	nox_ai_debug_printf_5341A0("%d: stack (%s):\n", nox_frame_xxx_2598000, event);
 	v3 = *(uint8_t*)(v2 + 544);
 	if (v3 == -1) {
 		nox_ai_debug_printf_5341A0("  <stack empty>\n");
@@ -416,6 +417,7 @@ void nox_xxx_debugPrintStack_509F60(int a1, int a2) {
 		nox_ai_debug_printf_5341A0("----------------------------------------\n");
 	}
 }
+#endif // NOX_CGO
 
 //----- (00509FF0) --------------------------------------------------------
 int sub_509FF0(int a1) {
@@ -617,9 +619,9 @@ int* nox_xxx_monsterPushAction_50A260(nox_object_t* a1p, int a2) {
 	if (*(uint32_t*)(v2 + 552) == 31 && a2 != 30) {
 		return 0;
 	}
-	v5 = (uint32_t*)(v2 + 24 * (v4 + 23));
-	if (*(uint32_t*)(v2 + 24 * (v4 + 23)) || v4) {
-		v6 = nox_xxx_monsterActionIsCondition_50A010(*(uint32_t*)(v2 + 24 * (v4 + 23)));
+	v5 = (uint32_t*)(v2 + 552 + 24 * v4);
+	if (*(uint32_t*)(v2 + 552 + 24 * v4) || v4) {
+		v6 = nox_xxx_monsterActionIsCondition_50A010(*(uint32_t*)(v2 + 552 + 24 * v4));
 		if (!v6 && v5[5]) {
 			v7 = *(void (**)(int))getMemAt(0x587000, 233172 + 16 * *v5);
 			if (v7) {
@@ -632,7 +634,7 @@ int* nox_xxx_monsterPushAction_50A260(nox_object_t* a1p, int a2) {
 	}
 	v8 = *(uint8_t*)(v2 + 544) + 1;
 	*(uint8_t*)(v2 + 544) = v8;
-	v9 = (int*)(v2 + 24 * (v8 + 23));
+	v9 = (int*)(v2 + 552 + 24 * v8);
 	*v9 = a2;
 	v9[5] = 0;
 	nox_xxx_monsterActionReset_50A110(a1);
@@ -860,7 +862,7 @@ int nox_xxx_unitUpdateMonster_50A5C0(float a1) {
 		LABEL_31:
 			(*(void (**)(int))getMemAt(0x587000, 233164 + 16 * v15))(v1);
 			if (dword_5d4594_1599692) {
-				nox_xxx_debugPrintStack_509F60(v1, (int)getMemAt(0x587000, 234084));
+				nox_ai_debug_printStack_509F60(v1, "stack changed");
 			}
 			v19 = *(uint32_t*)(v2 + 1440);
 			BYTE1(v19) &= 0xFDu;
