@@ -492,7 +492,7 @@ char nox_xxx_mobActionRoam_5457E0(int* a1) {
 		if (!*(uint32_t*)(v8 + 4)) {
 			v19 = v1[9];
 			v10 = nox_xxx_getUnitName_4E39D0((int)v1);
-			nox_xxx_debugPrintf_5341A0("%d: %s(#%d) Cannot find any waypoints\n", nox_frame_xxx_2598000, v10, v19);
+			nox_ai_debug_printf_5341A0("%d: %s(#%d) Cannot find any waypoints\n", nox_frame_xxx_2598000, v10, v19);
 			nox_xxx_monsterPopAction_50A160((int)v1);
 			v3 = nox_xxx_monsterPushAction_50A260((int)v1, 1);
 			v11 = v3;
@@ -520,13 +520,13 @@ char nox_xxx_mobActionRoam_5457E0(int* a1) {
 	if (*(uint8_t*)(v2 + 284) == 2) {
 		v20 = v1[9];
 		v15 = nox_xxx_getUnitName_4E39D0((int)v1);
-		nox_xxx_debugPrintf_5341A0("%d: %s(#%d) Cannot compute path to waypoint, choosing other\n",
+		nox_ai_debug_printf_5341A0("%d: %s(#%d) Cannot compute path to waypoint, choosing other\n",
 								   nox_frame_xxx_2598000, v15, v20);
 		v16 = sub_545B60(v2, v22);
 		if (!v16) {
 			v21 = v1[9];
 			v17 = nox_xxx_getUnitName_4E39D0((int)v1);
-			nox_xxx_debugPrintf_5341A0("%d: %s(#%d) No previous waypoint, giving up.\n", nox_frame_xxx_2598000, v17,
+			nox_ai_debug_printf_5341A0("%d: %s(#%d) No previous waypoint, giving up.\n", nox_frame_xxx_2598000, v17,
 									   v21);
 			LOBYTE(v3) = nox_xxx_monsterPopAction_50A160((int)v1);
 			return (char)v3;
@@ -607,7 +607,7 @@ int nox_xxx_monsterRoamDeadEnd_545BB0(int a1, int a2) {
 	} else {
 		v8 = *(uint32_t*)(a1 + 36);
 		v7 = nox_xxx_getUnitName_4E39D0(a1);
-		nox_xxx_debugPrintf_5341A0("%d: %s(#%d) Reached dead end, giving up.\n", nox_frame_xxx_2598000, v7, v8);
+		nox_ai_debug_printf_5341A0("%d: %s(#%d) Reached dead end, giving up.\n", nox_frame_xxx_2598000, v7, v8);
 		nox_xxx_monsterPopAction_50A160(a1);
 		result = 0;
 	}
@@ -1531,7 +1531,7 @@ char nox_xxx_mobActionDependency_546A70(int a1) {
 						v41 = *getMemU32Ptr(0x587000, 284520 + 4 * *(uint32_t*)v5);
 						v40 = *(uint32_t*)(v1 + 36);
 						v38 = nox_xxx_getUnitName_4E39D0(v1);
-						nox_xxx_debugPrintf_5341A0("%d: %s(#%d) DEPENDENCY '%s'@%d failed, popping:\n",
+						nox_ai_debug_printf_5341A0("%d: %s(#%d) DEPENDENCY '%s'@%d failed, popping:\n",
 												   nox_frame_xxx_2598000, v38, v40, v41, a1a);
 						do {
 							nox_xxx_monsterPopAction_50A160(v1);
@@ -1940,7 +1940,7 @@ char nox_xxx_monsterMainAIFn_547210(int a1) {
 				} else if ((unsigned int)(nox_frame_xxx_2598000 - *(uint32_t*)(v2 + 496)) > (int)nox_gameFPS >> 1) {
 					v39 = *(uint32_t*)(v1 + 36);
 					v34 = nox_xxx_getUnitName_4E39D0(v1);
-					nox_xxx_debugPrintf_5341A0("%d: %s(#%d) FRUSTRATED\n", nox_frame_xxx_2598000, v34, v39);
+					nox_ai_debug_printf_5341A0("%d: %s(#%d) FRUSTRATED\n", nox_frame_xxx_2598000, v34, v39);
 					*(uint32_t*)(v2 + 1440) |= 0x200000u;
 					if (nox_xxx_checkMobAction_50A0D0(v1, 6) || nox_xxx_checkMobAction_50A0D0(v1, 14) ||
 						nox_xxx_checkMobAction_50A0D0(v1, 24)) {
@@ -2177,7 +2177,7 @@ int nox_xxx_BuildWaypointPath_547F70(uint32_t* a1, int a2, uint32_t* a3, int a4)
 							goto LABEL_20;
 						}
 					}
-					nox_xxx_debugPrintf_5341A0("BuildWaypointPath: Node list exceeded internal buffer.\n");
+					nox_ai_debug_printf_5341A0("BuildWaypointPath: Node list exceeded internal buffer.\n");
 				LABEL_20:
 					v10 = 0;
 					if (v8 > 0) {
@@ -2194,7 +2194,7 @@ int nox_xxx_BuildWaypointPath_547F70(uint32_t* a1, int a2, uint32_t* a3, int a4)
 						} while (v10 < v8);
 					}
 					if (v10 != v8) {
-						nox_xxx_debugPrintf_5341A0("BuildWaypointPath: Node list too long.\n");
+						nox_ai_debug_printf_5341A0("BuildWaypointPath: Node list too long.\n");
 						*getMemU32Ptr(0x5D4594, 2490500) = 1;
 					}
 					return v10;

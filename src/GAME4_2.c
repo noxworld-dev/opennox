@@ -8454,7 +8454,7 @@ int nox_xxx_aiLostSight_528560(int a1, int a2) {
 	v4 = (int*)(v2 + 4 * a2 + 1132);
 	v10 = *(uint32_t*)(v3 + 36);
 	v5 = nox_xxx_getUnitName_4E39D0(v3);
-	nox_xxx_debugPrintf_5341A0("%d: Lost sight of %s(#%d)\n", nox_frame_xxx_2598000, v5, v10);
+	nox_ai_debug_printf_5341A0("%d: Lost sight of %s(#%d)\n", nox_frame_xxx_2598000, v5, v10);
 	nox_xxx_scriptCallByEventBlock_502490((int*)(v2 + 1296), *v4, a1, 15);
 	v6 = *(uint32_t*)(v2 + 1196);
 	if (*v4 == v6) {

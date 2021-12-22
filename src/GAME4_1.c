@@ -398,22 +398,22 @@ void nox_xxx_debugPrintStack_509F60(int a1, int a2) {
 	uint32_t* v6; // esi
 
 	v2 = *(uint32_t*)(a1 + 748);
-	nox_xxx_debugPrintf_5341A0("%d: stack (%s):\n", nox_frame_xxx_2598000, a2);
+	nox_ai_debug_printf_5341A0("%d: stack (%s):\n", nox_frame_xxx_2598000, a2);
 	v3 = *(uint8_t*)(v2 + 544);
 	if (v3 == -1) {
-		nox_xxx_debugPrintf_5341A0("  <stack empty>\n");
-		nox_xxx_debugPrintf_5341A0("----------------------------------------\n");
+		nox_ai_debug_printf_5341A0("  <stack empty>\n");
+		nox_ai_debug_printf_5341A0("----------------------------------------\n");
 	} else {
 		if (v3 >= 0) {
 			v5 = v3 + 1;
 			v6 = (uint32_t*)(v2 + 8 * (3 * v3 + 69));
 			do {
-				nox_xxx_debugPrintf_5341A0("  %s\n", *getMemU32Ptr(0x587000, 230096 + 4 * *v6));
+				nox_ai_debug_printf_5341A0("  %s\n", *getMemU32Ptr(0x587000, 230096 + 4 * *v6));
 				v6 -= 6;
 				--v5;
 			} while (v5);
 		}
-		nox_xxx_debugPrintf_5341A0("----------------------------------------\n");
+		nox_ai_debug_printf_5341A0("----------------------------------------\n");
 	}
 }
 
@@ -547,7 +547,7 @@ char nox_xxx_monsterPopAction_50A160(nox_object_t* a1p) {
 	v14 = *getMemU32Ptr(0x587000, 230096 + 4 * *(uint32_t*)(v1 + 8 * (3 * v2 + 69)));
 	v13 = *(uint32_t*)(a1 + 36);
 	v3 = nox_xxx_getUnitName_4E39D0(a1);
-	nox_xxx_debugPrintf_5341A0("%d: PopActionStack( %s(#%d) ) = %s@%d:\n", nox_frame_xxx_2598000, v3, v13, v14, v15);
+	nox_ai_debug_printf_5341A0("%d: PopActionStack( %s(#%d) ) = %s@%d:\n", nox_frame_xxx_2598000, v3, v13, v14, v15);
 	v4 = *(uint8_t*)(v1 + 544);
 	if (v4 >= 0) {
 		v5 = (uint32_t*)(v1 + 24 * (v4 + 23));
@@ -639,7 +639,7 @@ int* nox_xxx_monsterPushAction_50A260(nox_object_t* a1p, int a2) {
 	v12 = *getMemU32Ptr(0x587000, 230096 + 4 * a2);
 	v11 = *(uint32_t*)(a1 + 36);
 	v10 = nox_xxx_getUnitName_4E39D0(a1);
-	nox_xxx_debugPrintf_5341A0("%d: PushActionStack( %s(#%d), %s ), result:\n", nox_frame_xxx_2598000, v10, v11, v12);
+	nox_ai_debug_printf_5341A0("%d: PushActionStack( %s(#%d), %s ), result:\n", nox_frame_xxx_2598000, v10, v11, v12);
 	result = v9;
 	dword_5d4594_1599692 = 1;
 	return result;
@@ -802,7 +802,7 @@ int nox_xxx_unitUpdateMonster_50A5C0(float a1) {
 					}
 					nox_xxx_scriptCallByEventBlock_502490((int*)(v2 + 1248), *(uint32_t*)(LODWORD(a1) + 520),
 														  SLODWORD(a1), 17);
-					nox_xxx_debugPrintf_5341A0("%d: HP = %d/%d\n", nox_frame_xxx_2598000,
+					nox_ai_debug_printf_5341A0("%d: HP = %d/%d\n", nox_frame_xxx_2598000,
 											   **(unsigned short**)(LODWORD(a1) + 556),
 											   *(unsigned short*)(*(uint32_t*)(LODWORD(a1) + 556) + 4));
 				}
@@ -1889,7 +1889,7 @@ void* nox_xxx_pathFind_50BA00(int a1, int a2, float* a3, float* a4, int (*a5)(in
 				if (!v31) {
 					v55 = *(uint32_t*)(v30 + 36);
 					v47 = nox_xxx_getUnitName_4E39D0(v30);
-					nox_xxx_debugPrintf_5341A0("%d: %s(#%d), buildPath: Exhausted search storage\n",
+					nox_ai_debug_printf_5341A0("%d: %s(#%d), buildPath: Exhausted search storage\n",
 											   nox_frame_xxx_2598000, v47, v55);
 				LABEL_130:
 					dword_5d4594_1599712 = 1;
@@ -1910,7 +1910,7 @@ void* nox_xxx_pathFind_50BA00(int a1, int a2, float* a3, float* a4, int (*a5)(in
 				v30 = a2;
 				v56 = *(uint32_t*)(a2 + 36);
 				v48 = nox_xxx_getUnitName_4E39D0(a2);
-				nox_xxx_debugPrintf_5341A0("%d: %s(#%d), buildPath: Exhausted search storage\n", nox_frame_xxx_2598000,
+				nox_ai_debug_printf_5341A0("%d: %s(#%d), buildPath: Exhausted search storage\n", nox_frame_xxx_2598000,
 										   v48, v56);
 				goto LABEL_130;
 			}
@@ -1969,7 +1969,7 @@ void* nox_xxx_pathFind_50BA00(int a1, int a2, float* a3, float* a4, int (*a5)(in
 			if (a6 && v66 >= a6) {
 				v58 = *(uint32_t*)(a2 + 36);
 				v50 = nox_xxx_getUnitName_4E39D0(a2);
-				nox_xxx_debugPrintf_5341A0("%d: %s(#%d), buildPath: Reached search depth limit\n",
+				nox_ai_debug_printf_5341A0("%d: %s(#%d), buildPath: Reached search depth limit\n",
 										   nox_frame_xxx_2598000, v50, v58);
 				goto LABEL_134;
 			}
@@ -1980,7 +1980,7 @@ void* nox_xxx_pathFind_50BA00(int a1, int a2, float* a3, float* a4, int (*a5)(in
 	}
 	v57 = *(uint32_t*)(a2 + 36);
 	v49 = nox_xxx_getUnitName_4E39D0(a2);
-	nox_xxx_debugPrintf_5341A0("%d: %s(#%d), buildPath: Exhausted search space\n", nox_frame_xxx_2598000, v49, v57);
+	nox_ai_debug_printf_5341A0("%d: %s(#%d), buildPath: Exhausted search space\n", nox_frame_xxx_2598000, v49, v57);
 LABEL_134:
 	v30 = a2;
 	dword_5d4594_1599712 = 2;
@@ -2251,7 +2251,7 @@ int nox_xxx_appendWorkPath_50C990(int a1, int a2, int a3) {
 			return v4;
 		}
 	}
-	nox_xxx_debugPrintf_5341A0("appendWorkPath: Path truncated.\n");
+	nox_ai_debug_printf_5341A0("appendWorkPath: Path truncated.\n");
 	return v4;
 }
 
@@ -2865,7 +2865,7 @@ int nox_xxx_creatureSetMovePath_50D5A0(int a1) {
 				}
 				return 0;
 			}
-			nox_xxx_debugPrintf_5341A0(" ** Waypoint path failed, doing detailed path\n");
+			nox_ai_debug_printf_5341A0(" ** Waypoint path failed, doing detailed path\n");
 			nox_xxx_creatureSetDetailedPath_50D220(a1, (int)v3);
 		}
 	} else if (!v9 || (unsigned int)(nox_frame_xxx_2598000 - *(uint32_t*)(v1 + 280)) > 0xA &&

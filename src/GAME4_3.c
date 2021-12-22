@@ -2019,7 +2019,7 @@ int* nox_xxx_mobActionMelee1_532130(int a1) {
 			(v7 = *(uint32_t*)(v6 + 12), BYTE1(v7) & 0x40)) {
 			v13 = *(uint32_t*)(a1 + 36);
 			v8 = nox_xxx_getUnitName_4E39D0(a1);
-			nox_xxx_debugPrintf_5341A0("%d: %s(#%d) Tried to MELEE_ATTACK but friend in the way\n",
+			nox_ai_debug_printf_5341A0("%d: %s(#%d) Tried to MELEE_ATTACK but friend in the way\n",
 									   nox_frame_xxx_2598000, v8, v13);
 			nox_xxx_monsterPopAction_50A160(a1);
 			v9 = nox_xxx_monsterPushAction_50A260(a1, 27);
@@ -2141,7 +2141,7 @@ char nox_xxx_mobActionMeleeAtt_532440(int a1) {
 		} else {
 			v10 = *(uint32_t*)(a1 + 36);
 			v6 = nox_xxx_getUnitName_4E39D0(a1);
-			nox_xxx_debugPrintf_5341A0("%d: %s(#%d) Tried to MELEE_ATTACK but cannot\n", nox_frame_xxx_2598000, v6,
+			nox_ai_debug_printf_5341A0("%d: %s(#%d) Tried to MELEE_ATTACK but cannot\n", nox_frame_xxx_2598000, v6,
 									   v10);
 			LOBYTE(v3) = nox_xxx_monsterPopAction_50A160(a1);
 		}
@@ -3302,7 +3302,14 @@ int sub_534160(int a1) {
 }
 
 //----- (005341A0) --------------------------------------------------------
-void nox_xxx_debugPrintf_5341A0(char* a1, ...) {
+#ifdef NOX_CGO
+void nox_ai_debug_print(char* str);
+#else // NOX_CGO
+void nox_ai_debug_print(const char* str) {
+	fprintf(stderr, "%s", str);
+}
+#endif // NOX_CGO
+void nox_ai_debug_printf_5341A0(char* a1, ...) {
 	// char debug[1024];
 	va_list va; // [esp+8h] [ebp+8h]
 
@@ -3311,6 +3318,7 @@ void nox_xxx_debugPrintf_5341A0(char* a1, ...) {
 	// OutputDebugStringA(debug);
 	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_SHOW_AI)) {
 		nox_vsprintf((char*)getMemAt(0x5D4594, 2487996), a1, va);
+		nox_ai_debug_print((char*)getMemAt(0x5D4594, 2487996));
 	}
 }
 
