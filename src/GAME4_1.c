@@ -1473,7 +1473,7 @@ void sub_50B600(float* arg0, float4* a1) {
 		} else if (!(v2 & 0x400008)) {
 			return;
 		}
-		if (!((uint8_t)arg0[4] & 0x48) && (signed char)*((uint8_t*)arg0 + 8) >= 0) {
+		if (!((uint8_t)((uint32_t*)arg0)[4] & 0x48) && (signed char)*((uint8_t*)arg0 + 8) >= 0) {
 			v3 = *((uint32_t*)arg0 + 43);
 			if (v3 == 2) {
 				if (nox_xxx_mathPointOnTheLine_57C8A0(a1, (float2*)arg0 + 7, &a3)) {
