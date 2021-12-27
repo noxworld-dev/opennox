@@ -65,7 +65,7 @@ int sub_532FE0(unsigned short a1, int a2);
 int sub_533010(unsigned short a1, int a2);
 unsigned char* nox_xxx_unused_533030(int a1, int a2);
 int nox_xxx_projAddVelocitySmth_533080(int a1, int a2, float a3, int a4);
-int nox_xxx_unitIsEnemyTo_5330C0(int a1, int a2);
+int nox_xxx_unitIsEnemyTo_5330C0(nox_object_t* a1, nox_object_t* a2);
 int sub_533360(nox_object_t* a1, nox_object_t* a2);
 int nox_xxx_unused_5333F0(int a1);
 void nox_xxx_fnPickEnemyAggro_533460(int a1, int a2);

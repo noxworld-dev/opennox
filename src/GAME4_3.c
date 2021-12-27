@@ -2611,7 +2611,9 @@ int nox_xxx_projAddVelocitySmth_533080(int a1, int a2, float a3, int a4) {
 }
 
 //----- (005330C0) --------------------------------------------------------
-int nox_xxx_unitIsEnemyTo_5330C0(int a1, int a2) {
+int nox_xxx_unitIsEnemyTo_5330C0(nox_object_t* a1p, nox_object_t* a2p) {
+	int a1 = a1p;
+	int a2 = a2p;
 	int v2; // edx
 	int v3; // eax
 	int v5; // ecx

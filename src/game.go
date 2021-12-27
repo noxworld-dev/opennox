@@ -49,7 +49,6 @@ extern unsigned int dword_5d4594_251744;
 extern unsigned int dword_5d4594_815052;
 extern unsigned int nox_console_waitSysOpPass;
 extern unsigned int dword_5d4594_1049508;
-extern unsigned int dword_5d4594_2386156;
 extern nox_draw_viewport_t nox_draw_viewport;
 extern unsigned char nox_net_lists_buf[2048];
 
@@ -95,6 +94,7 @@ import (
 	noxflags "nox/v1/common/flags"
 	"nox/v1/common/log"
 	"nox/v1/common/memmap"
+	"nox/v1/common/object"
 	"nox/v1/common/types"
 	"nox/v1/common/unit/ai"
 )
@@ -1247,18 +1247,108 @@ func nox_xxx_mapTraceRay_535250_00(a1 *[4]float32, a4 byte) bool {
 	return res
 }
 
-func nox_xxx_mapTraceObstacles_50B580(obj noxObject, p1, p2 types.Pointf) bool {
+var (
+	dword_5d4594_2386148 *Unit
+	dword_5d4594_2386156 bool
+)
+
+func nox_xxx_mapTraceObstacles_50B580(u *Unit, p1, p2 types.Pointf) bool {
 	rect := types.RectFromPointsf(p1, p2)
-	C.dword_5d4594_2386156 = 1
-	*memmap.PtrPtr(0x5D4594, 2386148) = unsafe.Pointer(obj.CObj())
+	dword_5d4594_2386156 = true
+	dword_5d4594_2386148 = u
 
 	pp, ppFree := alloc.Malloc(16)
 	defer ppFree()
 	p := (*[4]float32)(pp)
 	p[0], p[1] = p1.X, p1.Y
 	p[2], p[3] = p2.X, p2.Y
+	_ = sub_50B600
 	nox_xxx_getUnitsInRect_517C10(rect, C.sub_50B600, pp)
-	return C.dword_5d4594_2386156 != 0
+	return dword_5d4594_2386156
+}
+
+//export sub_50B600
+func sub_50B600(cobj *C.nox_object_t, a1 *C.float4) {
+	obj := asObjectC(cobj)
+	if !dword_5d4594_2386156 {
+		return
+	}
+	if dword_5d4594_2386148.CObj() == obj.CObj() {
+		return
+	}
+	if obj.Class().HasAny(object.MaskUnits) {
+		u2 := obj.AsUnit()
+		if dword_5d4594_2386148.isEnemyTo(u2) {
+			return
+		}
+	} else if !obj.Class().HasAny(object.ClassImmobile | object.ClassObstacle) {
+		return
+	}
+	if (obj.Flags16()&0x48 != 0) || obj.Class().Has(object.ClassDoor) {
+		return
+	}
+	pos := obj.Pos()
+	sh := obj.getShape()
+	switch sh.kind {
+	case shapeKindCircle:
+		a3p, a3Free := alloc.Malloc(8)
+		defer a3Free()
+		a3 := unsafe.Slice((*float32)(a3p), 2)
+		if C.nox_xxx_mathPointOnTheLine_57C8A0(a1, (*C.float2)(unsafe.Pointer(&obj.x)), (*C.float2)(a3p)) != 0 {
+			dx := a3[0] - pos.X
+			dy := a3[1] - pos.Y
+			if dy*dy+dx*dx <= sh.circle.R2 {
+				dword_5d4594_2386156 = false
+			}
+		}
+	case shapeKindBox:
+		a2p, a2Free := alloc.Malloc(16)
+		defer a2Free()
+		a2 := unsafe.Slice((*float32)(a2p), 4)
+
+		v12 := sh.box.LeftTop + pos.X
+		v5 := sh.box.LeftBottom + pos.Y
+		a2[0] = v12
+		v13 := v5
+		v6 := sh.box.LeftBottom2 + pos.X
+		a2[1] = v13
+		v9 := v6
+		v7 := sh.box.LeftTop2 + pos.Y
+		a2[2] = v9
+		v10 := v7
+		v8 := sh.box.RightTop + pos.X
+		a2[3] = v10
+		v11 := sh.box.RightBottom + pos.Y
+		xx := sh.box.RightBottom2 + pos.X
+		yy := sh.box.RightTop2 + pos.Y
+		if C.sub_427980(a1, (*C.float4)(a2p)) != 0 {
+			dword_5d4594_2386156 = false
+			return
+		}
+		a2[0] = v12
+		a2[1] = v13
+		a2[2] = v8
+		a2[3] = v11
+		if C.sub_427980(a1, (*C.float4)(a2p)) != 0 {
+			dword_5d4594_2386156 = false
+			return
+		}
+		a2[0] = xx
+		a2[1] = yy
+		a2[2] = v8
+		a2[3] = v11
+		if C.sub_427980(a1, (*C.float4)(a2p)) != 0 {
+			dword_5d4594_2386156 = false
+			return
+		}
+		a2[0] = xx
+		a2[1] = yy
+		a2[2] = v9
+		a2[3] = v10
+		if C.sub_427980(a1, (*C.float4)(a2p)) != 0 {
+			dword_5d4594_2386156 = false
+		}
+	}
 }
 
 func nox_xxx_getUnitsInRect_517C10(rect types.Rectf, fnc unsafe.Pointer, payload unsafe.Pointer) {

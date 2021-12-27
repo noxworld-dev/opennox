@@ -47,7 +47,7 @@ void sub_50B500();
 int sub_50B510();
 int sub_50B520();
 int nox_xxx_mapTraceObstacles_50B580(nox_object_t* a1, float4* a3);
-void sub_50B600(float* arg0, float4* a1);
+void sub_50B600(nox_object_t* arg0, float4* a1);
 int sub_50B810(int a1, float* a2);
 int sub_50B870(int a1, int a2, int a3);
 int nox_xxx_pathfind_preCheckWalls2_50B8A0(int a1, int a2, int a3);

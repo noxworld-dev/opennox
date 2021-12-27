@@ -1447,8 +1447,10 @@ int nox_xxx_mapTraceObstacles_50B580(nox_object_t* a1p, float4* a3) {
 	return dword_5d4594_2386156;
 }
 
+#ifndef NOX_CGO
 //----- (0050B600) --------------------------------------------------------
-void sub_50B600(float* arg0, float4* a1) {
+void sub_50B600(nox_object_t* a1p, float4* a1) {
+	float* arg0 = a1p;
 	int v2;    // eax
 	int v3;    // eax
 	double v4; // st6
@@ -1522,6 +1524,7 @@ void sub_50B600(float* arg0, float4* a1) {
 		}
 	}
 }
+#endif // NOX_CGO
 
 //----- (0050B810) --------------------------------------------------------
 int sub_50B810(int a1, float* a2) {

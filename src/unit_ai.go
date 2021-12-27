@@ -230,7 +230,7 @@ func nox_xxx_mobActionDependency_546A70(uc *C.nox_object_t) {
 				break
 			}
 			pos, pos2 := u.Pos(), obj.Pos()
-			ok = !nox_xxx_mapTraceObstacles_50B580(u.AsObject(), pos, pos2)
+			ok = !nox_xxx_mapTraceObstacles_50B580(u, pos, pos2)
 		case ai.DEPENDENCY_OBJECT_AT_VISIBLE_LOCATION:
 			v28 := st.ArgObj(2)
 			v29 := false
@@ -369,7 +369,9 @@ func nox_xxx_mobActionDependency_546A70(uc *C.nox_object_t) {
 				continue
 			}
 		}
-		ai.Log.Printf("%d: %s DEPENDENCY '%s'@%d failed, popping:\n", gameFrame(), u.String(), typ.String(), i)
+		if getEngineFlag(NOX_ENGINE_FLAG_ENABLE_SHOW_AI) {
+			ai.Log.Printf("%d: %s DEPENDENCY '%s'@%d failed, popping:\n", gameFrame(), u.String(), typ.String(), i)
+		}
 		for {
 			nox_xxx_monsterPopAction_50A160(u)
 			if !(ud.getAIStackInd() >= i && C.sub_5341F0(u.CObj()) == 0) {
