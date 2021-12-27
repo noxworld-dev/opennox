@@ -97,3 +97,33 @@ func RectFromPointsf(p1, p2 Pointf) Rectf {
 	}
 	return r
 }
+
+func UtilRectXxx(a2, a3 Rect) (out Rect, _ bool) { // nox_xxx_utilRect_49F930
+	left := a3.Left
+	if a2.Left >= a3.Left {
+		left = a2.Left
+	}
+	right := a3.Right
+	if a2.Right <= right {
+		right = a2.Right
+	}
+	if left >= right {
+		return out, false
+	}
+	top := a3.Top
+	if a2.Top >= top {
+		top = a2.Top
+	}
+	bottom := a3.Bottom
+	if a2.Bottom <= bottom {
+		bottom = a2.Bottom
+	}
+	if top >= bottom {
+		return out, false
+	}
+	out.Left = left
+	out.Top = top
+	out.Right = right
+	out.Bottom = bottom
+	return out, true
+}

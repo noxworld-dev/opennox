@@ -41,13 +41,9 @@ extern unsigned int nox_client_gui_flag_815132;
 extern unsigned int dword_5d4594_1096432;
 extern unsigned int dword_5d4594_3799452;
 extern unsigned int dword_5d4594_3799468;
-extern unsigned int dword_5d4594_3799484;
-extern unsigned int dword_5d4594_3799476;
-extern unsigned int dword_5d4594_3799508;
 extern unsigned int nox_client_texturedFloors2_154960;
 extern unsigned int dword_5d4594_1193156;
 extern unsigned int dword_5d4594_1193188;
-extern unsigned int dword_5d4594_3799552;
 extern int dword_5d4594_3799524;
 extern unsigned int nox_client_gui_flag_1556112;
 extern unsigned int nox_gameDisableMapDraw_5d4594_2650672;
@@ -68,7 +64,6 @@ void nox_xxx_drawAllMB_475810_draw_D(nox_draw_viewport_t* vp);
 */
 import "C"
 import (
-	"encoding/binary"
 	"fmt"
 	"image"
 	"sort"
@@ -394,6 +389,30 @@ func sub_434A10(a1, a2, a3 *C.uint) {
 	}
 }
 
+//export sub_47D370
+func sub_47D370(a1 C.int) {
+	noxrend.Set_dword_5d4594_3799484(int(a1))
+}
+
+//export sub_47D400
+func sub_47D400(a1 C.int, a2 C.char) {
+	noxrend.Set_dword_5d4594_37995xx(uint32(a1), byte(a2))
+}
+
+//export sub_49F7C0_def
+func sub_49F7C0_def() {
+	v1 := noxrend.Get_dword_5d4594_3799476()
+	cr := noxrend.Data().ClipRect()
+	if v1 > cr.Bottom {
+		v1 = cr.Bottom
+	}
+	nox_client_copyRect_49F6F0(cr.Left, cr.Top, cr.Right-cr.Left, v1-cr.Top)
+}
+
+func nox_client_copyRect_49F6F0(x, y, w, h int) {
+	panic("TODO") // FIXME
+}
+
 //export nox_client_drawSetAlpha_434580
 func nox_client_drawSetAlpha_434580(a C.uchar) {
 	noxrend.Data().SetAlpha(byte(a))
@@ -405,16 +424,6 @@ func nox_draw_enableTextSmoothing_43F670(v C.int) {
 }
 
 var noxrend = NewNoxRender()
-
-type drawOp16Func func(dst []uint16, src []byte, val int) (outDst []uint16, outSrc []byte)
-type drawOp8Func func(dst []uint16, src []byte, op byte, val int) (outDst []uint16, outSrc []byte)
-
-type drawOps struct {
-	draw27 drawOp16Func
-	draw4  drawOp8Func
-	draw5  drawOp16Func
-	draw6  drawOp16Func
-}
 
 func toRect(cr *C.nox_rect) image.Rectangle {
 	return image.Rect(int(cr.left), int(cr.top), int(cr.right), int(cr.bottom))
@@ -435,6 +444,22 @@ type NoxRender struct {
 		byOpts   map[particleOpt]*Particle
 		byHandle map[unsafe.Pointer]*Particle
 	}
+}
+
+func (r *NoxRender) Set_dword_5d4594_3799484(v int) {
+	r.rnd.Set_dword_5d4594_3799484(v)
+}
+
+func (r *NoxRender) Set_dword_5d4594_37995xx(v uint32, a2 byte) {
+	r.rnd.Set_dword_5d4594_37995xx(v, a2)
+}
+
+func (r *NoxRender) Reset_dword_5d4594_3799476() {
+	r.rnd.Reset_dword_5d4594_3799476()
+}
+
+func (r *NoxRender) Get_dword_5d4594_3799476() int {
+	return r.rnd.Get_dword_5d4594_3799476()
 }
 
 func (r *NoxRender) PixBuffer() *noximage.Image16 {
@@ -489,6 +514,45 @@ func (d renderDataAdapter) Frame() uint32 {
 
 func (d renderDataAdapter) ClipRect() image.Rectangle {
 	return d.r.ClipRectImg()
+}
+
+func (d renderDataAdapter) ClipRectNox() types.Rect {
+	return d.r.Rect()
+}
+
+func (d renderDataAdapter) Flag0() bool {
+	return d.r.p.flag_0 != 0
+}
+
+func (d renderDataAdapter) Flag14() bool {
+	return d.r.p.field_14 != 0
+}
+
+func (d renderDataAdapter) Flag16() bool {
+	return d.r.p.field_16 != 0
+}
+
+func (d renderDataAdapter) Flag17() bool {
+	return d.r.p.field_17 != 0
+}
+
+func (d renderDataAdapter) ColorMultA() (r, g, b uint32) {
+	p := d.r.p
+	return uint32(p.field_24), uint32(p.field_25), uint32(p.field_26)
+}
+
+func (d renderDataAdapter) ColorMultOp(op int) (r, g, b uint32) {
+	arr := d.r.p.field66(op)
+
+	return arr[6], arr[7], arr[8]
+}
+
+func (d renderDataAdapter) IsAlphaEnabled() bool {
+	return d.r.p.IsAlphaEnabled()
+}
+
+func (d renderDataAdapter) Alpha() byte {
+	return d.r.p.Alpha()
 }
 
 func (d renderDataAdapter) Color() uint32 {
@@ -1497,12 +1561,18 @@ func (r *NoxRender) DrawImageAt(img *Image, pos types.Point) {
 		C.sub_49F780(C.int(memmap.Int32(0x973F18, 52)), C.int(memmap.Int32(0x973F18, 12)))
 		r.p.flag_0 = 1
 	}
-	r.drawImage16(img, pos)
+	r.rnd.HookImageDrawXxx = func(pos types.Point, sz types.Size) {
+		*memmap.PtrInt32(0x973F18, 92) = int32(pos.X)
+		*memmap.PtrInt32(0x973F18, 84) = int32(pos.Y)
+		*memmap.PtrUint32(0x973F18, 88) = uint32(sz.W)
+		*memmap.PtrUint32(0x973F18, 76) = uint32(sz.H)
+	}
+	r.rnd.DrawImage16(img, pos)
 	if C.dword_5d4594_3799452 != 0 {
 		C.sub_49F860()
 		C.dword_5d4594_3799452 = 0
 	}
-	C.dword_5d4594_3799484 = 0
+	r.rnd.Set_dword_5d4594_3799484(0)
 	*memmap.PtrUint32(0x973F18, 120) = 0
 	if memmap.Uint32(0x973F18, 68) != 0 && img != nil {
 		if memmap.Uint32(0x973F18, 92) != uint32(img.field_1_0) || memmap.Uint32(0x973F18, 84) != uint32(img.field_1_1) {
@@ -1519,10 +1589,10 @@ func nox_client_drawImageAt_47D2C0(img *C.nox_video_bag_image_t, x, y C.int) {
 }
 
 func sub_47D200() {
-	C.dword_5d4594_3799484 = 0
+	noxrend.Set_dword_5d4594_3799484(0)
 	*memmap.PtrUint32(0x973F18, 52) = 0
 	*memmap.PtrUint32(0x973F18, 12) = 0
-	C.dword_5d4594_3799476 = 0
+	noxrend.Reset_dword_5d4594_3799476()
 	C.dword_5d4594_3799452 = 0
 	*memmap.PtrUint32(0x973F18, 44) = 0
 	*memmap.PtrUint32(0x973F18, 104) = 0
@@ -1535,8 +1605,7 @@ func sub_47D200() {
 	*memmap.PtrUint32(0x973F18, 68) = 0
 	C.dword_5d4594_3799524 = 0
 	C.dword_5d4594_3799468 = 0
-	C.dword_5d4594_3799552 = 0
-	C.dword_5d4594_3799508 = 0
+	noxrend.Set_dword_5d4594_37995xx(0, 0)
 }
 
 //export nox_video_getImagePixdata_func
@@ -1557,256 +1626,10 @@ func nox_video_getImagePixdata_42FB30(img *C.nox_video_bag_image_t) unsafe.Point
 	return unsafe.Pointer(&data[0])
 }
 
-func (r *NoxRender) nox_client_drawImg_aaa_4C79F0(ops *drawOps, img *Image, pos types.Point) { // nox_client_drawImg_aaa_4C79F0
-	src := img.Pixdata()
-	if len(src) == 0 {
-		return
-	}
-
-	width := binary.LittleEndian.Uint32(src[0:])
-	height := binary.LittleEndian.Uint32(src[4:])
-	src = src[8:]
-
-	offX := int32(binary.LittleEndian.Uint32(src[0:]))
-	offY := int32(binary.LittleEndian.Uint32(src[4:]))
-	src = src[8:]
-	pos.X += int(offX)
-	pos.Y += int(offY)
-
-	src = src[1:] // unused
-
-	if C.dword_5d4594_3799484 != 0 {
-		height -= uint32(C.dword_5d4594_3799484)
-		if height <= 0 {
-			return
-		}
-		C.dword_5d4594_3799476 = C.uint(int(height) + pos.Y)
-	}
-	*memmap.PtrInt32(0x973F18, 92) = int32(pos.X)
-	*memmap.PtrInt32(0x973F18, 84) = int32(pos.Y)
-	*memmap.PtrUint32(0x973F18, 88) = width
-	*memmap.PtrUint32(0x973F18, 76) = height
-	if r.p.flag_0 != 0 {
-		rc := types.Rect{Left: pos.X, Top: pos.Y, Right: pos.X + int(width), Bottom: pos.Y + int(height)}
-		a1a, ok := nox_xxx_utilRect_49F930(rc, r.Rect())
-		if !ok {
-			return
-		}
-		if rc != a1a {
-			r.nox_client_drawXxx_4C7C80(ops, src, pos, int(width), a1a)
-			return
-		}
-	}
-	C.dword_5d4594_3799508 ^= C.uint(pos.Y & 1)
-	pixbuf := r.PixBuffer()
-	pitch := pixbuf.Stride
-	for i := 0; i < int(height); i++ {
-		dst := pixbuf.Pix[pitch*(pos.Y+i)+pos.X:]
-		if C.dword_5d4594_3799552 != 0 {
-			C.dword_5d4594_3799508 ^= 1
-			if C.dword_5d4594_3799508 != 0 {
-				if i != 0 {
-					copy(dst[:width], pixbuf.Pix[pitch*(pos.Y+i-1)+pos.X:])
-				}
-				src = skipPixdata(src, int(width), 1)
-				continue
-			}
-		}
-		var val int
-		for j := 0; j < int(width); j += val {
-			op := src[0]
-			val = int(src[1])
-			src = src[2:]
-
-			if op&0xF == 1 {
-				dst = dst[val:]
-				continue
-			}
-			switch op & 0xF {
-			case 2, 7:
-				dst, src = ops.draw27(dst, src, val)
-			case 4:
-				dst, src = ops.draw4(dst, src, op>>4, val)
-			case 5:
-				dst, src = ops.draw5(dst, src, val)
-			case 6:
-				dst, src = ops.draw6(dst, src, val)
-			default:
-				panic(fmt.Errorf("invalid draw op: 0x%x, (%d,%d)", op, i, j))
-			}
-		}
-	}
-}
-
-func (r *NoxRender) nox_client_drawXxx_4C7C80(ops *drawOps, pix []byte, pos types.Point, width int, clip types.Rect) { // nox_client_drawXxx_4C7C80
-	left := clip.Left
-	right := clip.Right
-	dy := clip.Top - pos.Y
-	height := clip.Bottom - clip.Top
-	if C.dword_5d4594_3799484 != 0 {
-		height -= int(C.dword_5d4594_3799484)
-		if height <= 0 {
-			return
-		}
-		C.dword_5d4594_3799476 = C.uint(height + pos.Y)
-	}
-	if height == 0 {
-		return
-	}
-	ys := pos.Y
-	if dy != 0 {
-		ys += dy
-		pix = skipPixdata(pix, width, dy)
-	}
-	C.dword_5d4594_3799508 ^= C.uint(ys & 1)
-	pixbuf := r.PixBuffer()
-	pitch := pixbuf.Stride
-	for i := 0; i < height; i++ {
-		yi := ys + i
-		if C.dword_5d4594_3799552 != 0 {
-			C.dword_5d4594_3799508 ^= 1
-			if C.dword_5d4594_3799508 != 0 {
-				if i != 0 {
-					src := pixbuf.Pix[pitch*(yi-1)+left:]
-					dst := pixbuf.Pix[pitch*(yi+0)+left:]
-					w := right - left
-					if w > width {
-						w = width
-					}
-					copy(dst[:w], src[:w])
-				}
-				pix = skipPixdata(pix, width, 1)
-				continue
-			}
-		}
-		if width <= 0 {
-			continue
-		}
-		row := pixbuf.Pix[pitch*yi : pitch*(yi+1)]
-		var n int
-		for j := 0; j < width; j += n {
-			op := pix[0]
-			n = int(pix[1]) // TODO: custom bag images fail here
-			pix = pix[2:]
-
-			if op&0xF == 1 {
-				continue
-			}
-
-			var (
-				fnc16 drawOp16Func
-				fnc8  drawOp8Func
-				pmul  int
-			)
-			switch op & 0xF {
-			case 2, 7:
-				fnc16 = ops.draw27
-				pmul = 2
-			case 4:
-				fnc8 = ops.draw4
-				pmul = 1
-			case 5:
-				fnc16 = ops.draw5
-				pmul = 2
-			case 6:
-				fnc16 = ops.draw6
-				pmul = 2
-			default:
-				panic(op)
-			}
-			xs := pos.X + j
-			xe := xs + n
-			xw := n
-			if xe <= left || xs >= right {
-				pix = pix[pmul*n:]
-				continue
-			}
-
-			pix2 := pix
-			if xs < left {
-				d := left - xs
-				xw -= d
-				xs = left
-				pix2 = pix2[pmul*d:]
-			}
-			row2 := row[xs:]
-			if xe > right {
-				d := xe - right
-				xw -= d
-			}
-			if fnc8 != nil {
-				_, _ = fnc8(row2, pix2, op>>4, xw)
-				pix = pix[n:]
-			} else {
-				_, _ = fnc16(row2, pix2, xw)
-				pix = pix[2*n:]
-			}
-		}
-	}
-}
-
 //export nox_video_drawImageAt2_4B0820
 func nox_video_drawImageAt2_4B0820(a1 unsafe.Pointer, x, y C.int) {
 	p := noxrend.asParticle(a1)
 	p.DrawAt(types.Point{X: int(x), Y: int(y)})
-}
-
-func (r *NoxRender) nox_client_drawImg_bbb_4C7860(img *Image, pos types.Point) {
-	data := img.Pixdata()
-	if len(data) == 0 {
-		return
-	}
-	width := binary.LittleEndian.Uint32(data[0:])
-	height := binary.LittleEndian.Uint32(data[4:])
-	data = data[8:]
-
-	offX := int32(binary.LittleEndian.Uint32(data[0:]))
-	offY := int32(binary.LittleEndian.Uint32(data[4:]))
-	data = data[8:]
-	pos.X += int(offX)
-	pos.Y += int(offY)
-
-	data = data[1:] // unused
-
-	if C.dword_5d4594_3799484 != 0 {
-		height -= uint32(C.dword_5d4594_3799484)
-		if height <= 0 {
-			return
-		}
-		C.dword_5d4594_3799476 = C.uint(pos.Y + int(height))
-	}
-
-	wsz := int(width)
-	if r.p.flag_0 != 0 {
-		rc := types.Rect{
-			Left:   pos.X,
-			Top:    pos.Y,
-			Right:  pos.X + int(width),
-			Bottom: pos.Y + int(height),
-		}
-		a1a, ok := nox_xxx_utilRect_49F930(rc, r.Rect())
-		if !ok {
-			return
-		}
-		v11 := a1a.Left - rc.Left
-		v12 := a1a.Top - rc.Top
-		wsz = a1a.Right - a1a.Left
-		height = uint32(a1a.Bottom - a1a.Top)
-		if a1a.Left != rc.Left || v12 != 0 {
-			pos.X += v11
-			data = data[int(width)*v12+2*v11:]
-			pos.Y += v12
-		}
-	}
-	xoff := pos.X
-	ipitch := 2 * int(width)
-	pixbuf := r.PixBuffer()
-	pitch := pixbuf.Stride
-	for i := 0; i < int(height); i++ {
-		dst := pixbuf.Pix[pitch*(pos.Y+1)+xoff:]
-		src := data[ipitch*i:]
-		copy16b(dst[:wsz], src[:wsz*2])
-	}
 }
 
 func nox_draw_initColorTables_434CC0() {

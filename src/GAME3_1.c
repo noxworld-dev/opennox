@@ -5034,7 +5034,6 @@ short nox_xxx_drawObject_4C4770_draw(int* a1, nox_drawable* dr, int a3) {
 	int v48;            // eax
 	int v49;            // eax
 	int v50;            // eax
-	int v51;            // ebx
 	int v53;            // [esp+18h] [ebp-30h]
 	int v54;            // [esp+1Ch] [ebp-2Ch]
 	int2 a1a;           // [esp+20h] [ebp-28h]
@@ -5141,12 +5140,12 @@ LABEL_33:
 		v28 = (unsigned char*)(*(int (**)(int2*)) & dword_5d4594_3807156)((int2*)(a2 + 12));
 	}
 	v29 = *((uint16_t*)a2 + 52);
-	a2a.field_0 = 0;
+	int a2b = 0;
 	if (v29 >= 0) {
 		v30 = 0;
 	} else {
 		if (*getMemIntPtr(0x5D4594, 1321512) < 0 && a2 == *(unsigned char**)getMemAt(0x5D4594, 1321516)) {
-			a2a.field_0 = 1;
+			a2b = 1;
 		}
 		v30 = -v29;
 	}
@@ -5304,10 +5303,9 @@ LABEL_105:
 		nox_xxx_draw_434600(1);
 		sub_433E40(*getMemIntPtr(0x85B3FC, 956));
 	}
-	v51 = a2a.field_0;
-	if (a2a.field_0) {
+	if (a2b) {
 		nox_xxx_wndDraw_49F7F0();
-		sub_49F7C0(dword_5d4594_3799476);
+		sub_49F7C0_def();
 	} else {
 		sub_47D370(v30);
 	}
@@ -5315,7 +5313,7 @@ LABEL_105:
 	sub_4345F0(0);
 	nox_client_drawEnableAlpha_434560(0);
 	nox_xxx_draw_434600(0);
-	if (v51) {
+	if (a2b) {
 		sub_49F860();
 	}
 	*((uint16_t*)v3 + 1) = 1;

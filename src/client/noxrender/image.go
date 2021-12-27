@@ -1,13 +1,29 @@
-package nox
+package noxrender
 
 import (
 	"encoding/binary"
+	"fmt"
 	"unsafe"
 
 	"nox/v1/common/types"
 )
 
-func (r *NoxRender) drawImage16(img *Image, pos types.Point) { // nox_client_xxxDraw16_4C7440
+type drawOp16Func func(dst []uint16, src []byte, val int) (outDst []uint16, outSrc []byte)
+type drawOp8Func func(dst []uint16, src []byte, op byte, val int) (outDst []uint16, outSrc []byte)
+
+type drawOps struct {
+	draw27 drawOp16Func
+	draw4  drawOp8Func
+	draw5  drawOp16Func
+	draw6  drawOp16Func
+}
+
+type Image16 interface {
+	Type() int
+	Pixdata() []byte
+}
+
+func (r *NoxRender) DrawImage16(img Image16, pos types.Point) { // nox_client_xxxDraw16_4C7440
 	if img == nil {
 		return
 	}
@@ -18,14 +34,14 @@ func (r *NoxRender) drawImage16(img *Image, pos types.Point) { // nox_client_xxx
 		var ops drawOps
 		ops.draw5 = r.sub4C96A0
 		ops.draw6 = func(dst []uint16, src []byte, val int) (_ []uint16, _ []byte) { return dst, src }
-		if !r.Data().IsAlphaEnabled() {
-			if r.p.field_14 != 0 {
+		if !r.p.IsAlphaEnabled() {
+			if r.p.Flag14() {
 				ops.draw5 = r.sub4C9970
 				ops.draw27 = r.sub4C86B0
 				ops.draw4 = r.sub4C91C0u8
 			} else {
 				ops.draw27 = r.sub4C8D60
-				if r.p.field_17 == 0 {
+				if !r.p.Flag17() {
 					ops.draw27 = pixCopyN
 				}
 				ops.draw4 = r.sub4C8DF0u8
@@ -33,9 +49,9 @@ func (r *NoxRender) drawImage16(img *Image, pos types.Point) { // nox_client_xxx
 		} else {
 			ops.draw5 = r.sub4C97F0
 			alpha := r.Data().Alpha()
-			if r.p.field_14 != 0 {
+			if r.p.Flag14() {
 				if alpha == 0xFF {
-					if r.p.field_16 == 0 {
+					if !r.p.Flag16() {
 						ops.draw27 = r.sub4C86B0
 						ops.draw4 = r.sub4C91C0u8
 					} else {
@@ -67,6 +83,251 @@ func (r *NoxRender) drawImage16(img *Image, pos types.Point) { // nox_client_xxx
 		var ops drawOps
 		ops.draw27 = r.pixBlendPremult
 		r.nox_client_drawImg_aaa_4C79F0(&ops, img, pos)
+	}
+}
+
+func (r *NoxRender) nox_client_drawImg_bbb_4C7860(img Image16, pos types.Point) {
+	data := img.Pixdata()
+	if len(data) == 0 {
+		return
+	}
+	width := binary.LittleEndian.Uint32(data[0:])
+	height := binary.LittleEndian.Uint32(data[4:])
+	data = data[8:]
+
+	offX := int32(binary.LittleEndian.Uint32(data[0:]))
+	offY := int32(binary.LittleEndian.Uint32(data[4:]))
+	data = data[8:]
+	pos.X += int(offX)
+	pos.Y += int(offY)
+
+	data = data[1:] // unused
+
+	if r.dword_5d4594_3799484 != 0 {
+		height -= r.dword_5d4594_3799484
+		if height <= 0 {
+			return
+		}
+		r.dword_5d4594_3799476 = pos.Y + int(height)
+	}
+
+	wsz := int(width)
+	if r.p.Flag0() {
+		rc := types.Rect{
+			Left:   pos.X,
+			Top:    pos.Y,
+			Right:  pos.X + int(width),
+			Bottom: pos.Y + int(height),
+		}
+		a1a, ok := types.UtilRectXxx(rc, r.p.ClipRectNox())
+		if !ok {
+			return
+		}
+		v11 := a1a.Left - rc.Left
+		v12 := a1a.Top - rc.Top
+		wsz = a1a.Right - a1a.Left
+		height = uint32(a1a.Bottom - a1a.Top)
+		if a1a.Left != rc.Left || v12 != 0 {
+			pos.X += v11
+			data = data[int(width)*v12+2*v11:]
+			pos.Y += v12
+		}
+	}
+	xoff := pos.X
+	ipitch := 2 * int(width)
+	pixbuf := r.PixBuffer()
+	pitch := pixbuf.Stride
+	for i := 0; i < int(height); i++ {
+		dst := pixbuf.Pix[pitch*(pos.Y+1)+xoff:]
+		src := data[ipitch*i:]
+		copy16b(dst[:wsz], src[:wsz*2])
+	}
+}
+
+func (r *NoxRender) nox_client_drawImg_aaa_4C79F0(ops *drawOps, img Image16, pos types.Point) { // nox_client_drawImg_aaa_4C79F0
+	src := img.Pixdata()
+	if len(src) == 0 {
+		return
+	}
+
+	width := binary.LittleEndian.Uint32(src[0:])
+	height := binary.LittleEndian.Uint32(src[4:])
+	src = src[8:]
+
+	offX := int32(binary.LittleEndian.Uint32(src[0:]))
+	offY := int32(binary.LittleEndian.Uint32(src[4:]))
+	src = src[8:]
+	pos.X += int(offX)
+	pos.Y += int(offY)
+
+	src = src[1:] // unused
+
+	if r.dword_5d4594_3799484 != 0 {
+		height -= r.dword_5d4594_3799484
+		if height <= 0 {
+			return
+		}
+		r.dword_5d4594_3799476 = pos.Y + int(height)
+	}
+	if r.HookImageDrawXxx != nil {
+		r.HookImageDrawXxx(pos, types.Size{W: int(width), H: int(height)})
+	}
+	if r.p.Flag0() {
+		rc := types.Rect{Left: pos.X, Top: pos.Y, Right: pos.X + int(width), Bottom: pos.Y + int(height)}
+		a1a, ok := types.UtilRectXxx(rc, r.p.ClipRectNox())
+		if !ok {
+			return
+		}
+		if rc != a1a {
+			r.nox_client_drawXxx_4C7C80(ops, src, pos, int(width), a1a)
+			return
+		}
+	}
+	r.dword_5d4594_3799508 ^= byte(pos.Y & 0x1)
+	pixbuf := r.PixBuffer()
+	pitch := pixbuf.Stride
+	for i := 0; i < int(height); i++ {
+		dst := pixbuf.Pix[pitch*(pos.Y+i)+pos.X:]
+		if r.dword_5d4594_3799552 != 0 {
+			r.dword_5d4594_3799508 ^= 1
+			if r.dword_5d4594_3799508 != 0 {
+				if i != 0 {
+					copy(dst[:width], pixbuf.Pix[pitch*(pos.Y+i-1)+pos.X:])
+				}
+				src = skipPixdata(src, int(width), 1)
+				continue
+			}
+		}
+		var val int
+		for j := 0; j < int(width); j += val {
+			op := src[0]
+			val = int(src[1])
+			src = src[2:]
+
+			if op&0xF == 1 {
+				dst = dst[val:]
+				continue
+			}
+			switch op & 0xF {
+			case 2, 7:
+				dst, src = ops.draw27(dst, src, val)
+			case 4:
+				dst, src = ops.draw4(dst, src, op>>4, val)
+			case 5:
+				dst, src = ops.draw5(dst, src, val)
+			case 6:
+				dst, src = ops.draw6(dst, src, val)
+			default:
+				panic(fmt.Errorf("invalid draw op: 0x%x, (%d,%d)", op, i, j))
+			}
+		}
+	}
+}
+
+func (r *NoxRender) nox_client_drawXxx_4C7C80(ops *drawOps, pix []byte, pos types.Point, width int, clip types.Rect) { // nox_client_drawXxx_4C7C80
+	left := clip.Left
+	right := clip.Right
+	dy := clip.Top - pos.Y
+	height := clip.Bottom - clip.Top
+	if r.dword_5d4594_3799484 != 0 {
+		height -= int(r.dword_5d4594_3799484)
+		if height <= 0 {
+			return
+		}
+		r.dword_5d4594_3799476 = pos.Y + height
+	}
+	if height == 0 {
+		return
+	}
+	ys := pos.Y
+	if dy != 0 {
+		ys += dy
+		pix = skipPixdata(pix, width, dy)
+	}
+	r.dword_5d4594_3799508 ^= byte(ys & 0x1)
+	pixbuf := r.PixBuffer()
+	pitch := pixbuf.Stride
+	for i := 0; i < height; i++ {
+		yi := ys + i
+		if r.dword_5d4594_3799552 != 0 {
+			r.dword_5d4594_3799508 ^= 1
+			if r.dword_5d4594_3799508 != 0 {
+				if i != 0 {
+					src := pixbuf.Pix[pitch*(yi-1)+left:]
+					dst := pixbuf.Pix[pitch*(yi+0)+left:]
+					w := right - left
+					if w > width {
+						w = width
+					}
+					copy(dst[:w], src[:w])
+				}
+				pix = skipPixdata(pix, width, 1)
+				continue
+			}
+		}
+		if width <= 0 {
+			continue
+		}
+		row := pixbuf.Pix[pitch*yi : pitch*(yi+1)]
+		var n int
+		for j := 0; j < width; j += n {
+			op := pix[0]
+			n = int(pix[1]) // TODO: custom bag images fail here
+			pix = pix[2:]
+
+			if op&0xF == 1 {
+				continue
+			}
+
+			var (
+				fnc16 drawOp16Func
+				fnc8  drawOp8Func
+				pmul  int
+			)
+			switch op & 0xF {
+			case 2, 7:
+				fnc16 = ops.draw27
+				pmul = 2
+			case 4:
+				fnc8 = ops.draw4
+				pmul = 1
+			case 5:
+				fnc16 = ops.draw5
+				pmul = 2
+			case 6:
+				fnc16 = ops.draw6
+				pmul = 2
+			default:
+				panic(op)
+			}
+			xs := pos.X + j
+			xe := xs + n
+			xw := n
+			if xe <= left || xs >= right {
+				pix = pix[pmul*n:]
+				continue
+			}
+
+			pix2 := pix
+			if xs < left {
+				d := left - xs
+				xw -= d
+				xs = left
+				pix2 = pix2[pmul*d:]
+			}
+			row2 := row[xs:]
+			if xe > right {
+				d := xe - right
+				xw -= d
+			}
+			if fnc8 != nil {
+				_, _ = fnc8(row2, pix2, op>>4, xw)
+				pix = pix[n:]
+			} else {
+				_, _ = fnc16(row2, pix2, xw)
+				pix = pix[2*n:]
+			}
+		}
 	}
 }
 
@@ -146,10 +407,10 @@ func (r *NoxRender) pixBlend16(dst []uint16, src []byte, sz int) (_ []uint16, _ 
 		gmask = 0x03e0
 		bmask = 0x7c00
 	)
-
-	rmul := uint16(byte(r.p.field_26))
-	gmul := uint16(byte(r.p.field_25))
-	bmul := uint16(byte(r.p.field_24))
+	rm, gm, bm := r.p.ColorMultA()
+	rmul := uint16(byte(bm))
+	gmul := uint16(byte(gm))
+	bmul := uint16(byte(rm))
 
 	return r.drawOpU16(dst, src, sz, func(old uint16, src uint16) uint16 {
 		rc := byte((rmul * ((rmask & src) << rshift)) >> 8)
@@ -196,10 +457,10 @@ func (r *NoxRender) sub4C9970(dst []uint16, src []byte, sz int) (_ []uint16, _ [
 		gmask = 0x03e0
 		bmask = 0x001f
 	)
-
-	rmul := uint16(byte(r.p.field_24))
-	gmul := uint16(byte(r.p.field_25))
-	bmul := uint16(byte(r.p.field_26))
+	rm, gm, bm := r.p.ColorMultA()
+	rmul := uint16(byte(rm))
+	gmul := uint16(byte(gm))
+	bmul := uint16(byte(bm))
 
 	return r.drawOpU16(dst, src, sz, func(c1 uint16, c2 uint16) uint16 {
 		cr := (c1 & rmask) >> rshift
@@ -253,9 +514,7 @@ func (r *NoxRender) sub4C86B0(dst []uint16, src []byte, sz int) (_ []uint16, _ [
 		bmask = 0x001f
 	)
 
-	rmul := uint32(r.p.field_24)
-	gmul := uint32(r.p.field_25)
-	bmul := uint32(r.p.field_26)
+	rmul, gmul, bmul := r.p.ColorMultA()
 
 	return r.drawOpU16(dst, src, sz, func(_ uint16, c2 uint16) uint16 {
 		cr := r.colors.R[byte((rmul*(uint32(rmask&c2)>>rshift))>>8)]
@@ -334,10 +593,10 @@ func (r *NoxRender) sub4C8850(dst []uint16, src []byte, sz int) (_ []uint16, _ [
 	)
 
 	a := r.p.Alpha()
-
-	rmul := uint16(byte(r.p.field_24))
-	gmul := uint16(byte(r.p.field_25))
-	bmul := uint16(byte(r.p.field_26))
+	rm, gm, bm := r.p.ColorMultA()
+	rmul := uint16(byte(rm))
+	gmul := uint16(byte(gm))
+	bmul := uint16(byte(bm))
 
 	return r.drawOpU16(dst, src, sz, func(c1 uint16, c2 uint16) uint16 {
 		cr1 := (c1 & rmask) >> rshift
@@ -357,14 +616,15 @@ func (r *NoxRender) sub4C8850(dst []uint16, src []byte, sz int) (_ []uint16, _ [
 }
 
 func (r *NoxRender) sub4C8D60(dst []uint16, src []byte, sz int) (_ []uint16, _ []byte) { // sub_4C8D60
-	rmul := uint16(byte(r.p.field_24))
-	gmul := uint16(byte(r.p.field_25))
-	bmul := uint16(byte(r.p.field_26))
+	rm, gm, bm := r.p.ColorMultA()
+	rmul := uint16(byte(rm))
+	gmul := uint16(byte(gm))
+	bmul := uint16(byte(bm))
 
 	return r.drawOpU16(dst, src, sz, func(_ uint16, ci uint16) uint16 {
 		var c byte
-		if int(ci) < len(nox_draw_colorTablesRev_3804668) {
-			c = nox_draw_colorTablesRev_3804668[ci]
+		if int(ci) < len(r.colors.revTable) {
+			c = r.colors.revTable[ci]
 		}
 		cr := r.colors.R[byte((uint32(rmul)*uint32(c))>>8)]
 		cg := r.colors.G[byte((uint32(gmul)*uint32(c))>>8)]
@@ -404,15 +664,12 @@ func (r *NoxRender) pixBlendPremult(dst []uint16, src []byte, sz int) (_ []uint1
 }
 
 func (r *NoxRender) sub4C91C0u8(dst []uint16, src []byte, op byte, sz int) (_ []uint16, _ []byte) { // sub_4C91C0
-	rmul := uint16(byte(r.p.field_24))
-	gmul := uint16(byte(r.p.field_25))
-	bmul := uint16(byte(r.p.field_26))
+	rm, gm, bm := r.p.ColorMultA()
+	rmul := uint16(byte(rm))
+	gmul := uint16(byte(gm))
+	bmul := uint16(byte(bm))
 
-	v9 := r.p.field66(int(op))
-
-	rpmul := v9[6]
-	gpmul := v9[7]
-	bpmul := v9[8]
+	rpmul, gpmul, bpmul := r.p.ColorMultOp(int(op))
 
 	return r.drawOpU8(dst, src, sz, func(_ uint16, c byte) uint16 {
 		cr := r.colors.R[byte((rmul*uint16(((rpmul*uint32(c))>>8)&0xFF))>>8)]
@@ -423,11 +680,7 @@ func (r *NoxRender) sub4C91C0u8(dst []uint16, src []byte, op byte, sz int) (_ []
 }
 
 func (r *NoxRender) sub4C8DF0u8(dst []uint16, src []byte, op byte, sz int) (_ []uint16, _ []byte) { // sub_4C8DF0
-	v9 := r.p.field66(int(op))
-
-	rpmul := v9[6]
-	gpmul := v9[7]
-	bpmul := v9[8]
+	rpmul, gpmul, bpmul := r.p.ColorMultOp(int(op))
 
 	return r.drawOpU8(dst, src, sz, func(_ uint16, c byte) uint16 {
 		cr := r.colors.R[byte((rpmul*uint32(c))>>8)]
@@ -448,11 +701,7 @@ func (r *NoxRender) sub4C9050u8(dst []uint16, src []byte, op byte, sz int) (_ []
 		bmask = 0x001f
 	)
 
-	v5 := r.p.field66(int(op))
-
-	rpmul := v5[6]
-	gpmul := v5[7]
-	bpmul := v5[8]
+	rpmul, gpmul, bpmul := r.p.ColorMultOp(int(op))
 
 	return r.drawOpU8(dst, src, sz, func(c1 uint16, c2 byte) uint16 {
 		cr := (c1 & rmask) >> rshift
@@ -480,11 +729,7 @@ func (r *NoxRender) sub4C8EC0u8(dst []uint16, src []byte, op byte, sz int) (_ []
 
 	a := r.p.Alpha()
 
-	v7 := r.p.field66(int(op))
-
-	rpmul := v7[6]
-	gpmul := v7[7]
-	bpmul := v7[8]
+	rpmul, gpmul, bpmul := r.p.ColorMultOp(int(op))
 
 	return r.drawOpU8(dst, src, sz, func(c1 uint16, c2 byte) uint16 {
 		cr := (c1 & rmask) >> rshift
@@ -510,15 +755,12 @@ func (r *NoxRender) sub4C94D0u8(dst []uint16, src []byte, op byte, sz int) (_ []
 		bmask = 0x001f
 	)
 
-	rmul := uint16(byte(r.p.field_24))
-	gmul := uint16(byte(r.p.field_25))
-	bmul := uint16(byte(r.p.field_26))
+	rm, gm, bm := r.p.ColorMultA()
+	rmul := uint16(byte(rm))
+	gmul := uint16(byte(gm))
+	bmul := uint16(byte(bm))
 
-	v9 := r.p.field66(int(op))
-
-	rpmul := v9[6]
-	gpmul := v9[7]
-	bpmul := v9[8]
+	rpmul, gpmul, bpmul := r.p.ColorMultOp(int(op))
 
 	return r.drawOpU8(dst, src, sz, func(c1 uint16, c2 byte) uint16 {
 		cr := (c1 & rmask) >> rshift
@@ -546,15 +788,12 @@ func (r *NoxRender) sub4C92F0u8(dst []uint16, src []byte, op byte, sz int) (_ []
 
 	a := r.p.Alpha()
 
-	rmul := uint16(byte(r.p.field_24))
-	gmul := uint16(byte(r.p.field_25))
-	bmul := uint16(byte(r.p.field_26))
+	rm, gm, bm := r.p.ColorMultA()
+	rmul := uint16(byte(rm))
+	gmul := uint16(byte(gm))
+	bmul := uint16(byte(bm))
 
-	v12 := r.p.field66(int(op))
-
-	rpmul := v12[6]
-	gpmul := v12[7]
-	bpmul := v12[8]
+	rpmul, gpmul, bpmul := r.p.ColorMultOp(int(op))
 
 	return r.drawOpU8(dst, src, sz, func(c1 uint16, c2 byte) uint16 {
 		cr := (c1 & rmask) >> rshift

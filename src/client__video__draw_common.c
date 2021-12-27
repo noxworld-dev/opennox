@@ -58,12 +58,12 @@ void nox_color_rgb_func_set(int mode);
 unsigned char* nox_draw_colors_r_3804672 = 0;
 unsigned char* nox_draw_colors_g_3804656 = 0;
 unsigned char* nox_draw_colors_b_3804664 = 0;
-unsigned int dword_5d4594_3799476 = 0;
-unsigned int dword_5d4594_3799552 = 0;
-unsigned int dword_5d4594_3799484 = 0;
-unsigned int dword_5d4594_3799508 = 0;
 
 #ifndef NOX_CGO
+unsigned int dword_5d4594_3799476 = 0;
+unsigned int dword_5d4594_3799484 = 0;
+unsigned int dword_5d4594_3799508 = 0;
+unsigned int dword_5d4594_3799552 = 0;
 uint32_t g_backbuffer_count;
 uint32_t g_cursor_surf_pitch;
 uint8_t* g_cursor_surf_pixels;

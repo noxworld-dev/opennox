@@ -125,6 +125,7 @@ extern int nox_backbuffer_width;
 extern int nox_backbuffer_height;
 extern unsigned int nox_gameFPS;
 extern unsigned int nox_frame_xxx_2598000;
+extern uint32_t dword_5d4594_3799476;
 
 const int nox_max_npcs = 1024;
 nox_npc* npc_array;
@@ -9217,17 +9218,22 @@ int4* sub_49F780(int xLeft, int a2) {
 }
 
 //----- (0049F7C0) --------------------------------------------------------
-int4* sub_49F7C0(int a1) {
+#ifndef NOX_CGO
+void sub_49F7C0(int a1) {
 	int v1; // eax
 
 	v1 = a1;
 	if (a1 > (int)nox_draw_curDrawData_3799572->clip.bottom) {
 		v1 = nox_draw_curDrawData_3799572->clip.bottom;
 	}
-	return nox_client_copyRect_49F6F0(nox_draw_curDrawData_3799572->clip.left, nox_draw_curDrawData_3799572->clip.top,
+	nox_client_copyRect_49F6F0(nox_draw_curDrawData_3799572->clip.left, nox_draw_curDrawData_3799572->clip.top,
 									  nox_draw_curDrawData_3799572->clip.right - nox_draw_curDrawData_3799572->clip.left,
 									  v1 - nox_draw_curDrawData_3799572->clip.top);
 }
+void sub_49F7C0_def() {
+	sub_49F7C0(dword_5d4594_3799476);
+}
+#endif // NOX_CGO
 
 //----- (0049F7F0) --------------------------------------------------------
 int nox_xxx_wndDraw_49F7F0() {

@@ -4449,19 +4449,15 @@ void nox_client_drawImageAt_47D2C0(nox_video_bag_image_t* img, int x, int y) {
 		img->field_1_1 = *getMemU16Ptr(0x973F18, 84);
 	}
 }
-#endif // NOX_CGO
 
 //----- (0047D370) --------------------------------------------------------
-int sub_47D370(int a1) {
-	int result; // eax
-
-	result = a1;
+void sub_47D370(int a1) {
 	if (a1 < 0) {
-		result = 0;
+		a1 = 0;
 	}
-	dword_5d4594_3799484 = result;
-	return result;
+	dword_5d4594_3799484 = a1;
 }
+#endif // NOX_CGO
 
 //----- (0047D380) --------------------------------------------------------
 int sub_47D380(int a1, int a2) {
@@ -4512,15 +4508,13 @@ int sub_47D3F0(int a1) {
 	return result;
 }
 
+#ifndef NOX_CGO
 //----- (0047D400) --------------------------------------------------------
-int sub_47D400(int a1, char a2) {
-	int result; // eax
-
-	result = a1;
+void sub_47D400(int a1, char a2) {
 	dword_5d4594_3799552 = a1;
 	dword_5d4594_3799508 = a2 & 1;
-	return result;
 }
+#endif // NOX_CGO
 
 //----- (0047D420) --------------------------------------------------------
 int nox_xxx_unused_47D420(int a1, int a2, int a3, int a4, int a5, int a6) {
