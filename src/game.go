@@ -122,11 +122,6 @@ func gameGetPlayState() int {
 	return nox_game_playState_811372
 }
 
-//export nox_xxx_gameSetPlayState_4356B0
-func nox_xxx_gameSetPlayState_4356B0(st C.int) {
-	gameSetPlayState(int(st))
-}
-
 func gameSetPlayState(st int) {
 	gameLog.Println("play state:", st)
 	nox_game_playState_811372 = st
