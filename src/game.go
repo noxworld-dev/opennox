@@ -72,6 +72,8 @@ void  nox_xxx_addDebugEntry_511590(void* a1, void* a2);
 int nox_xxx_mapLoadRequired_4DCC80();
 int  sub_4EF660(nox_object_t* a1p);
 void  sub_500510(const char* a1);
+
+void nox_xxx_getUnitsInRect_517C10_go(nox_object_t* obj, void* payload);
 */
 import "C"
 import (
@@ -1247,108 +1249,131 @@ func nox_xxx_mapTraceRay_535250_00(a1 *[4]float32, a4 byte) bool {
 	return res
 }
 
-var (
-	dword_5d4594_2386148 *Unit
-	dword_5d4594_2386156 bool
-)
+//export nox_xxx_mapTraceObstacles_50B580
+func nox_xxx_mapTraceObstacles_50B580(from *C.nox_object_t, a2 *C.float4) C.int {
+	if nox_xxx_mapTraceObstacles(asUnitC(from), types.Pointf{
+		X: float32(a2.field_0),
+		Y: float32(a2.field_4),
+	}, types.Pointf{
+		X: float32(a2.field_8),
+		Y: float32(a2.field_C),
+	}) {
+		return 1
+	}
+	return 0
+}
 
-func nox_xxx_mapTraceObstacles_50B580(u *Unit, p1, p2 types.Pointf) bool {
+func nox_xxx_mapTraceObstacles(from *Unit, p1, p2 types.Pointf) bool { // nox_xxx_mapTraceObstacles_50B580
 	rect := types.RectFromPointsf(p1, p2)
-	dword_5d4594_2386156 = true
-	dword_5d4594_2386148 = u
 
 	pp, ppFree := alloc.Malloc(16)
 	defer ppFree()
 	p := (*[4]float32)(pp)
 	p[0], p[1] = p1.X, p1.Y
 	p[2], p[3] = p2.X, p2.Y
-	_ = sub_50B600
-	nox_xxx_getUnitsInRect_517C10(rect, C.sub_50B600, pp)
-	return dword_5d4594_2386156
-}
 
-//export sub_50B600
-func sub_50B600(cobj *C.nox_object_t, a1 *C.float4) {
-	obj := asObjectC(cobj)
-	if !dword_5d4594_2386156 {
-		return
-	}
-	if dword_5d4594_2386148.CObj() == obj.CObj() {
-		return
-	}
-	if obj.Class().HasAny(object.MaskUnits) {
-		u2 := obj.AsUnit()
-		if dword_5d4594_2386148.isEnemyTo(u2) {
+	searching := true
+	getUnitsInRect(rect, func(obj *Object) {
+		if !searching {
 			return
 		}
-	} else if !obj.Class().HasAny(object.ClassImmobile | object.ClassObstacle) {
-		return
-	}
-	if (obj.Flags16()&0x48 != 0) || obj.Class().Has(object.ClassDoor) {
-		return
-	}
-	pos := obj.Pos()
-	sh := obj.getShape()
-	switch sh.kind {
-	case shapeKindCircle:
-		a3p, a3Free := alloc.Malloc(8)
-		defer a3Free()
-		a3 := unsafe.Slice((*float32)(a3p), 2)
-		if C.nox_xxx_mathPointOnTheLine_57C8A0(a1, (*C.float2)(unsafe.Pointer(&obj.x)), (*C.float2)(a3p)) != 0 {
-			dx := a3[0] - pos.X
-			dy := a3[1] - pos.Y
-			if dy*dy+dx*dx <= sh.circle.R2 {
-				dword_5d4594_2386156 = false
+		if from.CObj() == obj.CObj() {
+			return
+		}
+		if obj.Class().HasAny(object.MaskUnits) {
+			u2 := obj.AsUnit()
+			if from.isEnemyTo(u2) {
+				return
+			}
+		} else if !obj.Class().HasAny(object.ClassImmobile | object.ClassObstacle) {
+			return
+		}
+		if (obj.Flags16()&0x48 != 0) || obj.Class().Has(object.ClassDoor) {
+			return
+		}
+		pos := obj.Pos()
+		sh := obj.getShape()
+		switch sh.kind {
+		case shapeKindCircle:
+			a3p, a3Free := alloc.Malloc(8)
+			defer a3Free()
+			a3 := unsafe.Slice((*float32)(a3p), 2)
+			if C.nox_xxx_mathPointOnTheLine_57C8A0((*C.float4)(pp), (*C.float2)(unsafe.Pointer(&obj.x)), (*C.float2)(a3p)) != 0 {
+				dx := a3[0] - pos.X
+				dy := a3[1] - pos.Y
+				if dy*dy+dx*dx <= sh.circle.R2 {
+					searching = false
+				}
+			}
+		case shapeKindBox:
+			a2p, a2Free := alloc.Malloc(16)
+			defer a2Free()
+			a2 := unsafe.Slice((*float32)(a2p), 4)
+
+			v12 := sh.box.LeftTop + pos.X
+			v5 := sh.box.LeftBottom + pos.Y
+			a2[0] = v12
+			v13 := v5
+			v6 := sh.box.LeftBottom2 + pos.X
+			a2[1] = v13
+			v9 := v6
+			v7 := sh.box.LeftTop2 + pos.Y
+			a2[2] = v9
+			v10 := v7
+			v8 := sh.box.RightTop + pos.X
+			a2[3] = v10
+			v11 := sh.box.RightBottom + pos.Y
+			xx := sh.box.RightBottom2 + pos.X
+			yy := sh.box.RightTop2 + pos.Y
+			if C.sub_427980((*C.float4)(pp), (*C.float4)(a2p)) != 0 {
+				searching = false
+				return
+			}
+			a2[0] = v12
+			a2[1] = v13
+			a2[2] = v8
+			a2[3] = v11
+			if C.sub_427980((*C.float4)(pp), (*C.float4)(a2p)) != 0 {
+				searching = false
+				return
+			}
+			a2[0] = xx
+			a2[1] = yy
+			a2[2] = v8
+			a2[3] = v11
+			if C.sub_427980((*C.float4)(pp), (*C.float4)(a2p)) != 0 {
+				searching = false
+				return
+			}
+			a2[0] = xx
+			a2[1] = yy
+			a2[2] = v9
+			a2[3] = v10
+			if C.sub_427980((*C.float4)(pp), (*C.float4)(a2p)) != 0 {
+				searching = false
 			}
 		}
-	case shapeKindBox:
-		a2p, a2Free := alloc.Malloc(16)
-		defer a2Free()
-		a2 := unsafe.Slice((*float32)(a2p), 4)
+	})
+	return searching
+}
 
-		v12 := sh.box.LeftTop + pos.X
-		v5 := sh.box.LeftBottom + pos.Y
-		a2[0] = v12
-		v13 := v5
-		v6 := sh.box.LeftBottom2 + pos.X
-		a2[1] = v13
-		v9 := v6
-		v7 := sh.box.LeftTop2 + pos.Y
-		a2[2] = v9
-		v10 := v7
-		v8 := sh.box.RightTop + pos.X
-		a2[3] = v10
-		v11 := sh.box.RightBottom + pos.Y
-		xx := sh.box.RightBottom2 + pos.X
-		yy := sh.box.RightTop2 + pos.Y
-		if C.sub_427980(a1, (*C.float4)(a2p)) != 0 {
-			dword_5d4594_2386156 = false
-			return
-		}
-		a2[0] = v12
-		a2[1] = v13
-		a2[2] = v8
-		a2[3] = v11
-		if C.sub_427980(a1, (*C.float4)(a2p)) != 0 {
-			dword_5d4594_2386156 = false
-			return
-		}
-		a2[0] = xx
-		a2[1] = yy
-		a2[2] = v8
-		a2[3] = v11
-		if C.sub_427980(a1, (*C.float4)(a2p)) != 0 {
-			dword_5d4594_2386156 = false
-			return
-		}
-		a2[0] = xx
-		a2[1] = yy
-		a2[2] = v9
-		a2[3] = v10
-		if C.sub_427980(a1, (*C.float4)(a2p)) != 0 {
-			dword_5d4594_2386156 = false
-		}
-	}
+var (
+	// TODO: port nox_xxx_getUnitsInRect_517C10 instead
+	getUnitsInRectStack []func(obj *Object)
+)
+
+//export nox_xxx_getUnitsInRect_517C10_go
+func nox_xxx_getUnitsInRect_517C10_go(obj *C.nox_object_t, _ unsafe.Pointer) {
+	getUnitsInRectStack[len(getUnitsInRectStack)-1](asObjectC(obj))
+}
+
+func getUnitsInRect(rect types.Rectf, fnc func(obj *Object)) {
+	getUnitsInRectStack = append(getUnitsInRectStack, fnc)
+	defer func() {
+		getUnitsInRectStack = getUnitsInRectStack[:len(getUnitsInRectStack)-1]
+	}()
+	_ = nox_xxx_getUnitsInRect_517C10_go
+	nox_xxx_getUnitsInRect_517C10(rect, C.nox_xxx_getUnitsInRect_517C10_go, nil)
 }
 
 func nox_xxx_getUnitsInRect_517C10(rect types.Rectf, fnc unsafe.Pointer, payload unsafe.Pointer) {

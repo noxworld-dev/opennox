@@ -230,7 +230,7 @@ func nox_xxx_mobActionDependency_546A70(uc *C.nox_object_t) {
 				break
 			}
 			pos, pos2 := u.Pos(), obj.Pos()
-			ok = !nox_xxx_mapTraceObstacles_50B580(u, pos, pos2)
+			ok = !nox_xxx_mapTraceObstacles(u, pos, pos2)
 		case ai.DEPENDENCY_OBJECT_AT_VISIBLE_LOCATION:
 			v28 := st.ArgObj(2)
 			v29 := false
