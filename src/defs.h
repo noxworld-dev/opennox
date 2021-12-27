@@ -933,7 +933,7 @@ typedef struct {
 	uint32_t field_118; // 118, 472
 	uint32_t field_119; // 119, 476
 	uint32_t field_120; // 120, 480
-	uint32_t field_121; // 121, 484
+	void* field_121; // 121, 484
 	uint32_t field_122; // 122, 488
 	uint32_t field_123; // 123, 492
 	uint32_t field_124; // 124, 496

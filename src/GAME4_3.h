@@ -346,7 +346,7 @@ int nox_xxx_spellFlySearchTarget_540610(float2* a1, int a2, int a3, float a4, in
 void sub_540780(float* a1, int a2);
 int sub_5408A0(int a1);
 int nox_xxx_mobCastInversion_5408D0(int a1);
-int* nox_xxx_monsterCast_540A30(int a1, int a2, int a3);
+void nox_xxx_monsterCast_540A30(nox_object_t* a1, int a2, nox_object_t* a3);
 int nox_xxx_unitIsMagicMissile_540B60(int a1, int a2);
 int nox_xxx_monsterBuffSelf_540B90(int a1);
 int sub_540CE0(int a1, int a2);

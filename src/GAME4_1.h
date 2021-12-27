@@ -25,7 +25,8 @@ int nox_xxx_monsterIsActionScheduled_50A090(int a1, int a2);
 int nox_xxx_checkMobAction_50A0D0(int a1, int a2);
 void nox_xxx_monsterActionReset_50A110(nox_object_t* a1);
 char nox_xxx_monsterPopAction_50A160(nox_object_t* a1p);
-int* nox_xxx_monsterPushAction_50A260(nox_object_t* a1p, int a2);
+#define nox_xxx_monsterPushAction_50A260(obj, a2) nox_xxx_monsterPushAction_50A260_impl(obj, a2, __FILE__, __LINE__)
+int* nox_xxx_monsterPushAction_50A260_impl(nox_object_t* a1p, int a2, const char* file, int line);
 int* nox_xxx_monsterAction_50A360(int a1, int a2);
 void nox_xxx_monsterClearActionStack_50A3A0(int a1);
 int nox_xxx_monsterCallDieFn_50A3D0(uint32_t* a1);

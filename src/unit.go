@@ -17,6 +17,7 @@ import (
 	noxflags "nox/v1/common/flags"
 	"nox/v1/common/object"
 	"nox/v1/common/types"
+	"nox/v1/common/unit/ai"
 	"nox/v1/server/script"
 )
 
@@ -351,8 +352,22 @@ func (u *Unit) clearActionStack() { // aka nox_xxx_monsterClearActionStack_50A3A
 	}
 }
 
-func (u *Unit) monsterPushAction(v int) unsafe.Pointer { // aka nox_xxx_monsterPushAction_50A260
-	return unsafe.Pointer(C.nox_xxx_monsterPushAction_50A260(u.CObj(), C.int(v)))
+func (u *Unit) monsterPushAction(act ai.ActionType, args ...interface{}) *aiStack { // aka nox_xxx_monsterPushAction_50A260
+	st := (*aiStack)(unsafe.Pointer(C.nox_xxx_monsterPushAction_50A260_impl(u.CObj(), C.int(act), internCStr("go"), 0)))
+	if len(args) != 0 {
+		st.SetArgs(args...)
+	}
+	return st
+}
+
+func (u *Unit) monsterActionIsScheduled(act ai.ActionType) bool { // nox_xxx_monsterIsActionScheduled_50A090
+	stack := u.updateDataMonster().getAIStack()
+	for _, v := range stack {
+		if v.Type() == act {
+			return true
+		}
+	}
+	return false
 }
 
 func (u *Unit) buffFlags() uint32 {

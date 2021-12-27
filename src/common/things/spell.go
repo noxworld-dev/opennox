@@ -107,7 +107,7 @@ var (
 
 const (
 	SpellFlagUnk1       = SpellFlags(0x1)        // 1
-	SpellFlagUnk2       = SpellFlags(0x2)        // 2
+	SpellDuration       = SpellFlags(0x2)        // 2
 	SpellTargetFoe      = SpellFlags(0x4)        // 4
 	SpellFlagUnk4       = SpellFlags(0x8)        // 8
 	SpellFlagUnk5       = SpellFlags(0x10)       // 16
@@ -144,6 +144,8 @@ type SpellFlags uint32
 
 func (f SpellFlags) string() string {
 	switch f {
+	case SpellDuration:
+		return "DURATION"
 	case SpellTargetFoe:
 		return "TARGET_FOE"
 	case SpellCancelsProtect:

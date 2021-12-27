@@ -98,6 +98,13 @@ func SpellDefs() []*SpellDef {
 	return out
 }
 
+func SpellDefByInd(i int) *SpellDef {
+	if i <= 0 || i >= noxSpellsMax {
+		return nil
+	}
+	return (*SpellDef)(unsafe.Pointer(&C.nox_spells_arr_588124[i]))
+}
+
 func SpellIDs() []string {
 	out := make([]string, 0, noxSpellsMax)
 	for i := 1; i < noxSpellsMax; i++ {

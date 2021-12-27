@@ -11,6 +11,7 @@ extern unsigned int dword_5d4594_2489460;
 import "C"
 
 import (
+	"fmt"
 	"math"
 	"unsafe"
 
@@ -43,6 +44,26 @@ type aiStack struct {
 
 func (s *aiStack) Type() ai.ActionType {
 	return ai.ActionType(s.action)
+}
+
+func (s *aiStack) SetArgs(args ...interface{}) {
+	for i, v := range args {
+		p := s.ptr(i)
+		switch v := v.(type) {
+		case int:
+			*(*int32)(p) = int32(v)
+		case uint32:
+			*(*uint32)(p) = v
+		case unsafe.Pointer:
+			*(*unsafe.Pointer)(p) = v
+		case float32:
+			*(*float32)(p) = v
+		case noxObject:
+			*(*unsafe.Pointer)(p) = unsafe.Pointer(v.CObj())
+		default:
+			panic(fmt.Errorf("unsupported arg: %T", v))
+		}
+	}
 }
 
 func (s *aiStack) ArgU32(i int) uint32 {
@@ -85,6 +106,21 @@ func (s *aiStack) argPtr(i int) unsafe.Pointer {
 		return *(*unsafe.Pointer)(unsafe.Pointer(&s.arg_3))
 	case 3:
 		return *(*unsafe.Pointer)(unsafe.Pointer(&s.arg_4))
+	default:
+		panic(i)
+	}
+}
+
+func (s *aiStack) ptr(i int) unsafe.Pointer {
+	switch i {
+	case 0:
+		return unsafe.Pointer(&s.arg_1)
+	case 1:
+		return unsafe.Pointer(&s.arg_2)
+	case 2:
+		return unsafe.Pointer(&s.arg_3)
+	case 3:
+		return unsafe.Pointer(&s.arg_4)
 	default:
 		panic(i)
 	}

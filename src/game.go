@@ -95,6 +95,7 @@ import (
 	"nox/v1/common/log"
 	"nox/v1/common/memmap"
 	"nox/v1/common/types"
+	"nox/v1/common/unit/ai"
 )
 
 var (
@@ -1124,14 +1125,8 @@ func nox_xxx_mapExitAndCheckNext_4D1860_server() bool {
 					ud.field_304 = 0
 					*(*byte)(unsafe.Add(unsafe.Pointer(ud), 1129)) = 0
 					ud.field_0 = 0xDEADFACE
-					v49p := n.monsterPushAction(3) // follow?
-					if v49p != nil {
-						v49 := unsafe.Slice((*float32)(v49p), 4)
-						p := m.Pos()
-						v49[1] = p.X
-						v49[2] = p.Y
-						*(*unsafe.Pointer)(unsafe.Pointer(&v49[3])) = unsafe.Pointer(m.CObj())
-					}
+					p := m.Pos()
+					n.monsterPushAction(ai.ACTION_ESCORT, p.X, p.Y, m)
 					if n.Class().Has(2) && n.field_3&0x30 != 0 {
 						C.nox_xxx_setNPCColor_4E4A90(n.CObj(), 0, C.int(ud.field_519))
 					}

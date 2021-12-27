@@ -591,7 +591,7 @@ char nox_xxx_monsterPopAction_50A160(nox_object_t* a1p) {
 // 50A21D: variable 'v11' is possibly undefined
 
 //----- (0050A260) --------------------------------------------------------
-int* nox_xxx_monsterPushAction_50A260(nox_object_t* a1p, int a2) {
+int* nox_xxx_monsterPushAction_50A260_impl(nox_object_t* a1p, int a2, const char* file, int line) {
 	int a1 = a1p;
 	int v2;          // esi
 	int* result;     // eax
@@ -641,7 +641,7 @@ int* nox_xxx_monsterPushAction_50A260(nox_object_t* a1p, int a2) {
 	v12 = *getMemU32Ptr(0x587000, 230096 + 4 * a2);
 	v11 = *(uint32_t*)(a1 + 36);
 	v10 = nox_xxx_getUnitName_4E39D0(a1);
-	nox_ai_debug_printf_5341A0("%d: PushActionStack( %s(#%d), %s ), result:\n", nox_frame_xxx_2598000, v10, v11, v12);
+	nox_ai_debug_printf_5341A0("%d: PushActionStack( %s(#%d), %s ), result: (%s:%d)\n", nox_frame_xxx_2598000, v10, v11, v12, file, line);
 	result = v9;
 	dword_5d4594_1599692 = 1;
 	return result;

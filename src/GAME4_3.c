@@ -12193,8 +12193,11 @@ int nox_xxx_mobCastInversion_5408D0(int a1) {
 }
 // 5408D0: using guessed type int var_224[137];
 
+#ifndef NOX_CGO
 //----- (00540A30) --------------------------------------------------------
-int* nox_xxx_monsterCast_540A30(int a1, int a2, int a3) {
+void nox_xxx_monsterCast_540A30(nox_object_t* a1p, int a2, nox_object_t* a3p) {
+	int a1 = a1p;
+	int a3 = a3p;
 	int v3;      // esi
 	int* v4;     // ebx
 	int* result; // eax
@@ -12256,8 +12259,8 @@ LABEL_8:
 			}
 		}
 	}
-	return result;
 }
+#endif // NOX_CGO
 
 //----- (00540B60) --------------------------------------------------------
 int nox_xxx_unitIsMagicMissile_540B60(int a1, int a2) {
