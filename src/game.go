@@ -49,6 +49,7 @@ extern unsigned int dword_5d4594_251744;
 extern unsigned int dword_5d4594_815052;
 extern unsigned int nox_console_waitSysOpPass;
 extern unsigned int dword_5d4594_1049508;
+extern unsigned int dword_5d4594_2386156;
 extern nox_draw_viewport_t nox_draw_viewport;
 extern unsigned char nox_net_lists_buf[2048];
 
@@ -1246,14 +1247,26 @@ func nox_xxx_mapTraceRay_535250_00(a1 *[4]float32, a4 byte) bool {
 	return res
 }
 
-func nox_xxx_mapTraceObstacles_50B580(obj noxObject, a2 *[4]float32) bool {
-	a2p, a2Free := alloc.Malloc(16)
-	defer a2Free()
-	a1c := (*[4]float32)(a2p)
-	*a1c = *a2
-	res := C.nox_xxx_mapTraceObstacles_50B580(obj.CObj(), (*C.float4)(unsafe.Pointer(a1c))) != 0
-	*a2 = *a1c
-	return res
+func nox_xxx_mapTraceObstacles_50B580(obj noxObject, p1, p2 types.Pointf) bool {
+	rect := types.RectFromPointsf(p1, p2)
+	C.dword_5d4594_2386156 = 1
+	*memmap.PtrPtr(0x5D4594, 2386148) = unsafe.Pointer(obj.CObj())
+
+	pp, ppFree := alloc.Malloc(16)
+	defer ppFree()
+	p := (*[4]float32)(pp)
+	p[0], p[1] = p1.X, p1.Y
+	p[2], p[3] = p2.X, p2.Y
+	nox_xxx_getUnitsInRect_517C10(rect, C.sub_50B600, pp)
+	return C.dword_5d4594_2386156 != 0
+}
+
+func nox_xxx_getUnitsInRect_517C10(rect types.Rectf, fnc unsafe.Pointer, payload unsafe.Pointer) {
+	rp, rpFree := alloc.Malloc(16)
+	defer rpFree()
+	rr := (*types.Rectf)(rp)
+	*rr = rect
+	C.nox_xxx_getUnitsInRect_517C10((*C.float4)(rp), (*[0]byte)(fnc), payload)
 }
 
 func nox_xxx_calcDistance_4E6C00(obj1, obj2 noxObject) float32 {

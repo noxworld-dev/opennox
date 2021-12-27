@@ -6900,7 +6900,7 @@ LABEL_12:
 }
 
 //----- (00517C10) --------------------------------------------------------
-void nox_xxx_getUnitsInRect_517C10(float4* a1, void (*a2)(float*, int), int a3) {
+void nox_xxx_getUnitsInRect_517C10(float4* a1, void (*a2)(float*, int), void* a3) {
 	int v3;                  // eax
 	int v4;                  // et1
 	void (*v5)(float*, int); // ebp

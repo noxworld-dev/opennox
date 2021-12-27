@@ -67,3 +67,33 @@ type Rect struct {
 func (r *Rect) IsEmpty() bool {
 	return r.Right <= r.Left || r.Bottom <= r.Top
 }
+
+type Rectf struct {
+	Left   float32
+	Top    float32
+	Right  float32
+	Bottom float32
+}
+
+func (r *Rectf) IsEmpty() bool {
+	return r.Right <= r.Left || r.Bottom <= r.Top
+}
+
+func RectFromPointsf(p1, p2 Pointf) Rectf {
+	var r Rectf
+	if p1.X >= p2.X {
+		r.Left = p2.X
+		r.Right = p1.X
+	} else {
+		r.Left = p1.X
+		r.Right = p2.X
+	}
+	if p1.Y >= p2.Y {
+		r.Top = p2.Y
+		r.Bottom = p1.Y
+	} else {
+		r.Top = p1.Y
+		r.Bottom = p2.Y
+	}
+	return r
+}

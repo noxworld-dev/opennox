@@ -229,14 +229,8 @@ func nox_xxx_mobActionDependency_546A70(uc *C.nox_object_t) {
 				ok = false
 				break
 			}
-			var arg [4]float32
-			pos := u.Pos()
-			arg[0] = pos.X
-			arg[1] = pos.Y
-			pos2 := obj.Pos()
-			arg[2] = pos2.X
-			arg[3] = pos2.Y
-			ok = !nox_xxx_mapTraceObstacles_50B580(u.AsObject(), &arg)
+			pos, pos2 := u.Pos(), obj.Pos()
+			ok = !nox_xxx_mapTraceObstacles_50B580(u.AsObject(), pos, pos2)
 		case ai.DEPENDENCY_OBJECT_AT_VISIBLE_LOCATION:
 			v28 := st.ArgObj(2)
 			v29 := false
@@ -257,11 +251,11 @@ func nox_xxx_mobActionDependency_546A70(uc *C.nox_object_t) {
 				ok = false
 			}
 		case ai.DEPENDENCY_OBJECT_FARTHER_THAN:
-			obj := st.ArgObj(2)
-			ok = obj != nil && nox_xxx_calcDistance_4E6C00(u, obj) > st.ArgF32(0)
+			obj, r := st.ArgObj(2), st.ArgF32(0)
+			ok = obj != nil && nox_xxx_calcDistance_4E6C00(u, obj) > r
 		case ai.DEPENDENCY_OBJECT_CLOSER_THAN:
-			obj := st.ArgObj(2)
-			ok = obj != nil && nox_xxx_calcDistance_4E6C00(u, obj) <= st.ArgF32(0)
+			obj, r := st.ArgObj(2), st.ArgF32(0)
+			ok = obj != nil && nox_xxx_calcDistance_4E6C00(u, obj) <= r
 		case ai.DEPENDENCY_LOCATION_FARTHER_THAN:
 			pos := u.Pos()
 			pos2 := st.ArgPos(2)
