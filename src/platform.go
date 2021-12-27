@@ -117,6 +117,6 @@ func nox_ticks_maybe_sleep_416DD0() {
 
 	ms := int64(float64(df)*float64(mul)) + dt
 	if ms > 0 {
-		platform.Sleep(time.Duration(ms) * time.Millisecond)
+		mainloopSleep(time.Duration(ms) * time.Millisecond)
 	}
 }

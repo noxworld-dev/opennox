@@ -63,7 +63,7 @@ type gameInfoResp struct {
 
 func getGameInfo(ctx context.Context) (*gameInfoResp, error) {
 	ch := make(chan *gameInfoResp, 1)
-	addGameTickHook(func() {
+	addGameLoopHook(ctx, func() {
 		v := &gameInfoResp{
 			Name: getServerName(),
 			Map:  strings.ToLower(getServerMap()),
@@ -97,7 +97,7 @@ func getGameInfo(ctx context.Context) (*gameInfoResp, error) {
 func queueServerMapLoad(name string) {
 	name = strings.TrimSpace(name)
 	apiLog.Printf("load map: %q", name)
-	addGameTickHook(func() {
+	addGameLoopHook(context.Background(), func() {
 		serverCmdLoadMap(name)
 	})
 }
@@ -105,7 +105,7 @@ func queueServerMapLoad(name string) {
 func queueServerCmd(cmd string) {
 	cmd = strings.TrimSpace(cmd)
 	apiLog.Printf("run command: %q", cmd)
-	addGameTickHook(func() {
+	addGameLoopHook(context.Background(), func() {
 		execServerCmd(cmd)
 	})
 }
@@ -113,7 +113,7 @@ func queueServerCmd(cmd string) {
 func queueMapLUA(code string) {
 	code = strings.TrimSpace(code)
 	apiLog.Printf("run lua: %q", code)
-	addGameTickHook(func() {
+	addGameLoopHook(context.Background(), func() {
 		runMapLUA(code)
 	})
 }

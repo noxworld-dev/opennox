@@ -58,6 +58,7 @@ static int go_call_int_void_func(int (*fnc)(void)) { return fnc(); }
 */
 import "C"
 import (
+	"context"
 	"errors"
 	"fmt"
 	"net"
@@ -187,6 +188,32 @@ func nox_xxx_gameIsNotMultiplayer_4DB250() bool {
 	return C.nox_xxx_gameIsNotMultiplayer_4DB250() != 0
 }
 
+var gameLoopHooks = make(chan func())
+
+func addGameLoopHook(ctx context.Context, fnc func()) {
+	select {
+	case <-ctx.Done():
+	case gameLoopHooks <- fnc:
+	}
+}
+
+func runGameLoopHooks() {
+	mainloopSleep(time.Millisecond)
+}
+
+func mainloopSleep(dt time.Duration) {
+	tm := time.NewTimer(dt)
+	defer tm.Stop()
+	for {
+		select {
+		case <-tm.C:
+			return
+		case fnc := <-gameLoopHooks:
+			fnc()
+		}
+	}
+}
+
 func mainloopStop() {
 	mainloopContinue = false
 	continueMenuOrHost = false
@@ -211,6 +238,7 @@ mainloop:
 		if mainloopHook != nil {
 			mainloopHook()
 		}
+		runGameLoopHooks()
 		if mapDownloading() {
 			if done, err := mapDownloadLoop(false); !done {
 				continue mainloop
@@ -284,12 +312,13 @@ mainloop:
 			} else {
 				if !getEngineFlag(NOX_ENGINE_FLAG_SLEEP) {
 					for !nox_ticks_should_update_416CD0() {
+						mainloopSleep(time.Microsecond)
 					}
 				} else {
 					ms := nox_ticks_until_next_416D00()
 					*memmap.PtrUint32(0x5D4594, 816404) = uint32(ms)
 					if ms > 0 {
-						platform.Sleep(time.Duration(ms) * time.Millisecond)
+						mainloopSleep(time.Duration(ms) * time.Millisecond)
 					}
 				}
 			}
