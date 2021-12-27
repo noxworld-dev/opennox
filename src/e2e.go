@@ -217,7 +217,7 @@ func (sc *e2eScenario) Screen(name string) {
 	sc.add(0, name, func() {
 		fname := strings.ReplaceAll(strings.ToLower(name), " ", "_")
 		fname = filepath.Join(e2e.path, "testdata", fname)
-		img := copyGamePixBuffer()
+		img := noxrend.CopyPixBuffer()
 		var buf bytes.Buffer
 		if err := png.Encode(&buf, img); err != nil {
 			panic(err)

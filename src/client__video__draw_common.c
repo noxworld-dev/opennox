@@ -1317,7 +1317,6 @@ int nox_video_waitVBlankAndDrawCursorFromThread_48B5D0(int a1, int a2) {
 	}
 	return 0;
 }
-#endif // NOX_CGO
 
 //----- (0048C200) --------------------------------------------------------
 unsigned char* sub_48C200(void* a1p, int a2, int a3) {
@@ -1490,7 +1489,6 @@ unsigned char* sub_48C320(void* a1p, int a2, int a3) {
 }
 
 //----- (0048A290) --------------------------------------------------------
-#ifndef NOX_CGO
 void sub_48A290_call_present() {
 	sdl_present();
 	++g_present_ticks;

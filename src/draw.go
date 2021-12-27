@@ -72,13 +72,12 @@ import (
 	"fmt"
 	"image"
 	"sort"
-	"strings"
 	"unsafe"
 
 	"golang.org/x/image/font"
-	"golang.org/x/image/math/fixed"
 
 	"nox/v1/client/input"
+	"nox/v1/client/noxrender"
 	"nox/v1/common"
 	"nox/v1/common/alloc"
 	noxcolor "nox/v1/common/color"
@@ -421,65 +420,15 @@ func toRect(cr *C.nox_rect) image.Rectangle {
 	return image.Rect(int(cr.left), int(cr.top), int(cr.right), int(cr.bottom))
 }
 
-type renderFace struct {
-	r *NoxRender
-	f font.Face
-}
-
-func (f *renderFace) Close() error {
-	return f.f.Close()
-}
-
-func (f *renderFace) Glyph(dot fixed.Point26_6, r rune) (dr image.Rectangle, mask image.Image, maskp image.Point, advance fixed.Int26_6, ok bool) {
-	dr, mask, maskp, advance, ok = f.f.Glyph(dot, r)
-	if ok {
-		advance += fixed.I(f.r.text.advance)
-	}
-	return
-}
-
-func (f *renderFace) GlyphBounds(r rune) (bounds fixed.Rectangle26_6, advance fixed.Int26_6, ok bool) {
-	bounds, advance, ok = f.f.GlyphBounds(r)
-	if ok {
-		advance += fixed.I(f.r.text.advance)
-	}
-	return
-}
-
-func (f *renderFace) GlyphAdvance(r rune) (advance fixed.Int26_6, ok bool) {
-	advance, ok = f.f.GlyphAdvance(r)
-	if ok {
-		advance += fixed.I(f.r.text.advance)
-	}
-	return
-}
-
-func (f *renderFace) Kern(r0, r1 rune) fixed.Int26_6 {
-	return f.f.Kern(r0, r1)
-}
-
-func (f *renderFace) Metrics() font.Metrics {
-	return f.f.Metrics()
-}
-
 type NoxRender struct {
 	p   *RenderData
-	pix *noximage.Image16
+	rnd *noxrender.NoxRender
 
 	colors struct {
 		mode noxcolor.Mode
 		R    [256]uint16
 		G    [256]uint16
 		B    [256]uint16
-	}
-	text struct {
-		face *renderFace
-		font.Drawer
-		tabWidth  int
-		lineStart int
-		advance   int
-		useBold   bool
-		smooth    bool
 	}
 
 	particles struct {
@@ -489,11 +438,11 @@ type NoxRender struct {
 }
 
 func (r *NoxRender) PixBuffer() *noximage.Image16 {
-	return r.pix
+	return r.rnd.PixBuffer()
 }
 
 func (r *NoxRender) SetPixBuffer(pix *noximage.Image16) {
-	r.pix = pix
+	r.rnd.SetPixBuffer(pix)
 }
 
 func newNoxRenderData() (*RenderData, func()) {
@@ -504,13 +453,18 @@ func newNoxRenderData() (*RenderData, func()) {
 }
 
 func NewNoxRender() *NoxRender {
-	r := &NoxRender{}
+	r := &NoxRender{rnd: noxrender.NewRender()}
+	r.rnd.SetData(renderDataAdapter{r})
 	r.SetColorMode(noxcolor.ModeRGBA5551)
-	r.text.tabWidth = 64
-	r.text.face = &renderFace{r: r}
-	r.text.Face = r.text.face
-	r.text.useBold = true
 	return r
+}
+
+func (r *NoxRender) CopyPixBuffer() *image.NRGBA {
+	return r.rnd.CopyPixBuffer()
+}
+
+func (r *NoxRender) ClearScreen() {
+	r.rnd.ClearScreen()
 }
 
 func (r *NoxRender) shouldDrawGlow() bool {
@@ -523,6 +477,42 @@ func (r *NoxRender) Frame() uint32 {
 
 func (r *NoxRender) Data() *RenderData {
 	return r.p
+}
+
+type renderDataAdapter struct {
+	r *NoxRender
+}
+
+func (d renderDataAdapter) Frame() uint32 {
+	return d.r.Frame()
+}
+
+func (d renderDataAdapter) ClipRect() image.Rectangle {
+	return d.r.ClipRectImg()
+}
+
+func (d renderDataAdapter) Color() uint32 {
+	return d.r.Color()
+}
+
+func (d renderDataAdapter) BgColor() uint32 {
+	return uint32(d.r.p.field_58)
+}
+
+func (d renderDataAdapter) ShouldDrawText() bool {
+	return !getEngineFlag(NOX_ENGINE_FLAG_DISABLE_TEXT_RENDERING)
+}
+
+func (d renderDataAdapter) TextColor() uint32 {
+	return d.r.TextColor()
+}
+
+func (d renderDataAdapter) SetTextColor(a1 uint32) {
+	d.r.SetTextColor(a1)
+}
+
+func (d renderDataAdapter) DefaultFont() font.Face {
+	return noxFontDefault
 }
 
 func (r *NoxRender) SetData(p *RenderData) {
@@ -554,7 +544,7 @@ func (r *NoxRender) SetTextColor(a1 uint32) { // nox_xxx_drawSetTextColor_434390
 }
 
 func (r *NoxRender) SetTextSmooting(enabled bool) {
-	r.text.smooth = enabled
+	r.rnd.SetTextSmooting(enabled)
 }
 
 func (r *NoxRender) Color() uint32 {
@@ -574,15 +564,15 @@ func (r *NoxRender) sub49EFA0(pos types.Point) { // sub_49EFA0
 }
 
 func (r *NoxRender) SetBold(enable bool) {
-	r.text.useBold = enable
+	r.rnd.SetBold(enable)
 }
 
 func (r *NoxRender) TabWidth() int {
-	return r.text.tabWidth
+	return r.rnd.TabWidth()
 }
 
 func (r *NoxRender) SetTabWidth(w int) {
-	r.text.tabWidth = w
+	r.rnd.SetTabWidth(w)
 }
 
 func (r *NoxRender) DrawPoint(pos types.Point, rad int) { // nox_xxx_drawPointMB_499B70
@@ -637,283 +627,48 @@ func (r *NoxRender) DrawBorder(x, y, w, h int) { // nox_client_drawBorderLines_4
 	C.nox_client_drawBorderLines_49CC70(C.int(x), C.int(y), C.int(w), C.int(h))
 }
 
-func (r *NoxRender) FontHeight(fnt font.Face) int {
-	if fnt == nil {
-		fnt = noxFontDefault
-		if fnt == nil {
-			return 0
-		}
-	}
-	return fnt.Metrics().CapHeight.Round()
-}
-
-func (r *NoxRender) DrawString(font font.Face, str string, pos types.Point) int { // nox_xxx_drawString_43F6E0
-	if getEngineFlag(NOX_ENGINE_FLAG_DISABLE_TEXT_RENDERING) {
-		return pos.X
-	}
-	if font == nil {
-		font = noxFontDefault
-		if font == nil {
-			return pos.X
-		}
-	}
-	r.text.lineStart = pos.X
-	return r.drawStringLine(font, str, pos)
-}
-
-func (r *NoxRender) DrawStringStyle(font font.Face, str string, pos types.Point) int { // nox_xxx_drawStringStyle_43F7B0
-	if getEngineFlag(NOX_ENGINE_FLAG_DISABLE_TEXT_RENDERING) {
-		return pos.X
-	}
-	if font == nil {
-		font = noxFontDefault
-		if font == nil {
-			return pos.X
-		}
-	}
-	r.text.lineStart = pos.X
-	if !r.text.useBold {
-		return r.drawStringLine(font, str, pos)
-	}
-	r.text.advance = 1
-	r.drawStringLine(font, str, pos)
-	x := r.drawStringLine(font, str, pos.Add(types.Point{X: 1}))
-	r.text.advance = 0
-	return x
-}
-
-func (r *NoxRender) DrawStringHL(font font.Face, str string, pos types.Point) int { // nox_draw_drawStringHL_43F730
-	if getEngineFlag(NOX_ENGINE_FLAG_DISABLE_TEXT_RENDERING) {
-		return pos.X
-	}
-	if font == nil {
-		font = noxFontDefault
-		if font == nil {
-			return pos.X
-		}
-	}
-	r.text.lineStart = pos.X
-	old := r.TextColor()
-	r.SetTextColor(r.Color())
-	r.drawStringLine(font, str, pos.Add(types.Point{X: 1, Y: 1}))
-	r.SetTextColor(old)
-	return r.drawStringLine(font, str, pos)
-}
-
-func (r *NoxRender) drawStringLine(font font.Face, str string, pos types.Point) int { // nox_xxx_guiDrawString_4407F0
-	str = strings.NewReplacer(
-		"\n", "",
-		"\r", "",
-	).Replace(str)
-	return r.drawString(font, str, pos)
-}
-
-func (r *NoxRender) clipRect() image.Rectangle {
+func (r *NoxRender) ClipRectImg() image.Rectangle {
 	return toRect(&r.p.clip)
 }
 
-func (r *NoxRender) drawString(fnt font.Face, s string, pos types.Point) int { // nox_xxx_StringDraw_43FE90
-	// FIXME: handle tab characters properly
-	if fnt == nil {
-		return pos.X
-	}
-	// TODO: handle invalid chars by blinking the replacement char
-	dy := fnt.Metrics().CapHeight.Round()
-	r.text.face.f = fnt
-	r.text.Src = image.NewUniform(noxcolor.RGBA5551(r.TextColor()))
-	r.text.Dst = r.pix.SubImage(r.clipRect())
-	r.text.Dot = fixed.P(pos.X, pos.Y+dy)
-	r.text.DrawString(s)
-	return r.text.Dot.X.Round()
+func (r *NoxRender) FontHeight(fnt font.Face) int {
+	return r.rnd.FontHeight(fnt)
+}
+
+func (r *NoxRender) DrawString(font font.Face, str string, pos types.Point) int { // nox_xxx_drawString_43F6E0
+	return r.rnd.DrawString(font, str, pos)
+}
+
+func (r *NoxRender) DrawStringStyle(font font.Face, str string, pos types.Point) int { // nox_xxx_drawStringStyle_43F7B0
+	return r.rnd.DrawStringStyle(font, str, pos)
+}
+
+func (r *NoxRender) DrawStringHL(font font.Face, str string, pos types.Point) int { // nox_draw_drawStringHL_43F730
+	return r.rnd.DrawStringHL(font, str, pos)
 }
 
 func (r *NoxRender) DrawStringWrapped(font font.Face, s string, rect image.Rectangle) int { // nox_xxx_drawStringWrap_43FAF0
-	if getEngineFlag(NOX_ENGINE_FLAG_DISABLE_TEXT_RENDERING) {
-		return rect.Min.X
-	}
-	dot, _ := r.doStringWrapped(font, s, rect, r.drawString, nil)
-	return dot.X
+	return r.rnd.DrawStringWrapped(font, s, rect)
 }
 
 func (r *NoxRender) DrawStringWrappedHL(font font.Face, s string, rect image.Rectangle) int { // nox_xxx_drawStringWrapHL_43FD00
-	if getEngineFlag(NOX_ENGINE_FLAG_DISABLE_TEXT_RENDERING) {
-		return rect.Min.X
-	}
-	r.text.lineStart = rect.Min.X
-	old := r.TextColor()
-	r.SetTextColor(r.Color())
-	pt := types.Point{X: 1, Y: 1}
-	rect2 := rect
-	rect2.Min = rect2.Min.Add(pt)
-	rect2.Max = rect2.Max.Add(pt)
-	r.DrawStringWrapped(font, s, rect2)
-	r.SetTextColor(old)
-	return r.DrawStringWrapped(font, s, rect)
-}
-
-func (r *NoxRender) getStringRuneAdvance(fnt font.Face, c rune) int {
-	r.text.face.f = fnt
-	dx, ok := r.text.face.GlyphAdvance(c)
-	if !ok {
-		dx, ok = r.text.face.GlyphAdvance('?')
-	}
-	return dx.Round()
-}
-
-type doStringFunc func(f font.Face, s string, p types.Point) int
-
-func (r *NoxRender) doStringWrapped(font font.Face, s string, rect image.Rectangle, wordFnc doStringFunc, lineFnc func(s string)) (dot types.Point, bb image.Rectangle) {
-	dot = rect.Min
-	bb.Min = rect.Min
-	bb.Max = rect.Min
-	if font == nil {
-		font = noxFontDefault
-		if font == nil {
-			return
-		}
-	}
-	if s == "" {
-		return
-	}
-
-	dy := font.Metrics().CapHeight.Round()
-	r.text.lineStart = rect.Min.X
-	str := []rune(s)
-
-	var (
-		wordP types.Point // relative to rect.Min
-		word  []rune      // current word
-		line  []rune      // current line
-		wordN int         // words in the current line
-		addX  int         // relative to wordX
-	)
-
-	procWord := func() {
-		cp := rect.Min.Add(wordP)
-		cp.X = wordFnc(font, string(word), cp)
-		if cp.X > bb.Max.X {
-			bb.Max.X = cp.X
-		}
-		line = append(line, word...)
-		word = word[:0]
-		wordP.X = cp.X - rect.Min.X
-		addX = 0
-		wordN++
-	}
-
-	maxW := rect.Dx()
-	maxH := rect.Dy()
-
-	for i, c := range str {
-		switch c {
-		case '\t':
-			procWord()
-			line = append(line, c)
-			tab := r.text.tabWidth
-			wordP.X += tab
-			wordP.X -= wordP.X % tab
-			continue
-		case '\r', '\n':
-			if i != 0 && str[i-1] == '\r' {
-				continue
-			}
-			procWord()
-			wordP.X = 0
-			wordN = 0
-			wordP.Y += dy
-			if lineFnc != nil {
-				lineFnc(string(line))
-				line = line[:0]
-			}
-			if maxH > 0 && wordP.Y >= maxH {
-				bb.Max.Y = rect.Max.Y + dy
-				return rect.Min.Add(wordP), bb
-			}
-			continue
-		}
-		if maxW > 0 {
-			dx := r.getStringRuneAdvance(font, c)
-			if dx == 0 {
-				continue
-			}
-			addX += dx
-			if wordN != 0 && wordP.X+addX > maxW {
-				// word is too long, but not the first in a line
-				if lineFnc != nil {
-					lineFnc(string(line))
-					line = line[:0]
-				}
-				wordP.X = 0
-				wordN = 0
-				wordP.Y += dy
-				if maxH > 0 && wordP.Y >= maxH {
-					bb.Max.Y = rect.Max.Y + dy
-					return rect.Min.Add(wordP), bb
-				}
-			}
-		}
-		word = append(word, c)
-		if c == ' ' {
-			procWord()
-		}
-	}
-	procWord()
-	if lineFnc != nil && len(line) != 0 {
-		lineFnc(string(line))
-		line = line[:0]
-	}
-	bb.Max.Y += wordP.Y + dy
-	return rect.Min.Add(wordP), bb
+	return r.rnd.DrawStringWrappedHL(font, s, rect)
 }
 
 func (r *NoxRender) DrawStringWrappedStyle(font font.Face, s string, rect image.Rectangle) int { // nox_xxx_bookDrawString_43FA80_43FD80
-	if getEngineFlag(NOX_ENGINE_FLAG_DISABLE_TEXT_RENDERING) {
-		return rect.Min.X
-	}
-	r.text.lineStart = rect.Min.X
-	if !r.text.useBold {
-		return r.DrawStringWrapped(font, s, rect)
-	}
-	// draw bold by repeating the call twice with a swift
-	r.text.advance = 1
-	r.DrawStringWrapped(font, s, rect)
-	rect.Min.X += 1
-	x := r.DrawStringWrapped(font, s, rect)
-	r.text.advance = 0
-	return x
+	return r.rnd.DrawStringWrappedStyle(font, s, rect)
 }
 
 func (r *NoxRender) SplitStringWrapped(fnt font.Face, s string, maxW int) []string {
-	rect := image.Rect(0, 0, maxW, 0)
-	var lines []string
-	r.doStringWrapped(fnt, s, rect, r.advanceString, func(line string) {
-		lines = append(lines, line)
-	})
-	return lines
-}
-
-func (r *NoxRender) advanceString(fnt font.Face, s string, p types.Point) int {
-	x := p.X
-	for _, c := range s {
-		x += r.getStringRuneAdvance(fnt, c)
-	}
-	return x
+	return r.rnd.SplitStringWrapped(fnt, s, maxW)
 }
 
 func (r *NoxRender) GetStringSizeWrapped(fnt font.Face, s string, maxW int) types.Size { // nox_xxx_drawGetStringSize_43F840
-	rect := image.Rect(0, 0, maxW, 0)
-	_, bb := r.doStringWrapped(fnt, s, rect, r.advanceString, nil)
-	return types.Size{W: bb.Dx(), H: bb.Dy()}
+	return r.rnd.GetStringSizeWrapped(fnt, s, maxW)
 }
 
 func (r *NoxRender) GetStringSizeWrappedStyle(fnt font.Face, s string, maxW int) types.Size { // nox_xxx_bookGetStringSize_43FA80
-	if !r.text.useBold {
-		return r.GetStringSizeWrapped(fnt, s, maxW)
-	}
-	r.text.advance = 1
-	sz := r.GetStringSizeWrapped(fnt, s, maxW)
-	r.text.advance = 0
-	return sz
+	return r.rnd.GetStringSizeWrappedStyle(fnt, s, maxW)
 }
 
 func (r *NoxRender) DrawCircle(a1, a2, a3 int) {

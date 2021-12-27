@@ -708,13 +708,6 @@ func nox_client_clearScreen_440900() {
 	noxrend.ClearScreen()
 }
 
-func (r *NoxRender) ClearScreen() {
-	cl := uint32(r.p.field_58)
-	for i := range r.pix.Pix {
-		r.pix.Pix[i] = uint16(cl)
-	}
-}
-
 func nox_free_pixbuffers_486110() {
 	if memmap.Uint32(0x5D4594, 1193200) == 0 {
 		noxPixBuffer.img = nil

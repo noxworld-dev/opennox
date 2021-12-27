@@ -13035,7 +13035,6 @@ int nox_video_cursorThreadWorker_48BEB0() {
 	}
 	return 0;
 }
-#endif // NOX_CGO
 
 //----- (0048C0C0) --------------------------------------------------------
 int sub_48C0C0(void* a1, uint32_t* a2, uint32_t* a3) {
@@ -13057,7 +13056,6 @@ int sub_48C0C0(void* a1, uint32_t* a2, uint32_t* a3) {
 	return result;
 }
 
-#ifndef NOX_CGO
 //----- (0048C170) --------------------------------------------------------
 void sub_48C170(int4* a1, int4* a2) {
 	if (nox_video_renderTargetFlags & 0x10) {

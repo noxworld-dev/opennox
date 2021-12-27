@@ -25,7 +25,7 @@ func maybeScreenshot() {
 		return
 	case out := <-screenshots.req:
 		defer close(out)
-		out <- copyGamePixBuffer()
+		out <- noxrend.CopyPixBuffer()
 	}
 }
 

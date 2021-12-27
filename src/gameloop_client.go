@@ -22,8 +22,6 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"image"
-	"image/draw"
 	"math"
 	"strings"
 	"unsafe"
@@ -174,12 +172,6 @@ func mainloopDrawAndPresent(inp *input.Handler) {
 		// C.nox_xxx_directDrawBlitMB_48A220() // does nothing
 		nox_video_callCopyBackBuffer_4AD170()
 	}
-}
-
-func copyGamePixBuffer() *image.NRGBA {
-	img := image.NewNRGBA(noxPixBuffer.img.Rect)
-	draw.Draw(img, img.Rect, noxrend.pix, noxrend.pix.Rect.Min, draw.Src)
-	return img
 }
 
 func DrawSparks() {
