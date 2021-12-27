@@ -2684,7 +2684,9 @@ int nox_xxx_unitIsEnemyTo_5330C0(int a1, int a2) {
 }
 
 //----- (00533360) --------------------------------------------------------
-int sub_533360(int a1, int a2) {
+int sub_533360(nox_object_t* a1p, nox_object_t* a2p) {
+	int a1 = a1p;
+	int a2 = a2p;
 	double v2;  // st7
 	double v3;  // st6
 	float* v4;  // eax
@@ -3280,7 +3282,7 @@ int sub_534120(int a1, float2* a2) {
 }
 
 //----- (00534160) --------------------------------------------------------
-int sub_534160(int a1) {
+nox_object_t* sub_534160(int a1) {
 	int result; // eax
 	int i;      // ecx
 
@@ -3619,7 +3621,7 @@ int sub_534780(int a1) {
 }
 
 //----- (005347A0) --------------------------------------------------------
-int sub_5347A0(int a1) { return (*(uint32_t*)(*(uint32_t*)(a1 + 748) + 1440) >> 9) & 1; }
+int sub_5347A0(nox_object_t* a1) { return (*(uint32_t*)(*(uint32_t*)((int)a1 + 748) + 1440) >> 9) & 1; }
 
 //----- (005347C0) --------------------------------------------------------
 int sub_5347C0(int a1) {
@@ -3644,8 +3646,8 @@ int sub_5347C0(int a1) {
 int nox_xxx_isNotPoisoned_5347F0(int a1) { return *(uint8_t*)(a1 + 540) != 0; }
 
 //----- (00534810) --------------------------------------------------------
-int nox_xxx_mobGetMoveAttemptTime_534810(int a1) {
-	return nox_frame_xxx_2598000 - *(uint32_t*)(*(uint32_t*)(a1 + 748) + 508) < (unsigned int)(3 * nox_gameFPS);
+int nox_xxx_mobGetMoveAttemptTime_534810(nox_object_t* a1) {
+	return nox_frame_xxx_2598000 - *(uint32_t*)(*(uint32_t*)((int)a1 + 748) + 508) < (unsigned int)(3 * nox_gameFPS);
 }
 
 //----- (00534840) --------------------------------------------------------
@@ -5593,7 +5595,7 @@ LABEL_10:
 }
 
 //----- (005370E0) --------------------------------------------------------
-int nox_xxx_unitCanInteractWith_5370E0(int a1, int a2, char a3) {
+int nox_xxx_unitCanInteractWith_5370E0(nox_object_t* a1, nox_object_t* a2, char a3) {
 	int result; // eax
 
 	result = nox_xxx_unitCanSee_536FB0(a1, a2, a3);
@@ -13780,10 +13782,10 @@ int* nox_xxx_mobActionHunt_5449D0(int a1) {
 }
 
 //----- (00544A00) --------------------------------------------------------
-int nox_xxx_mobSearchEdible_544A00(int a1, float a2) {
+int nox_xxx_mobSearchEdible_544A00(nox_object_t* a1, float a2) {
 	*getMemU32Ptr(0x5D4594, 2489452) = 0;
 	*getMemU32Ptr(0x5D4594, 2489444) = 1259902592;
-	nox_xxx_unitsGetInCircle_517F90((float2*)(a1 + 56), a2, nox_xxx_mobSearchEdible2_544A40, a1);
+	nox_xxx_unitsGetInCircle_517F90((float2*)((int)a1 + 56), a2, nox_xxx_mobSearchEdible2_544A40, a1);
 	return *getMemU32Ptr(0x5D4594, 2489452);
 }
 

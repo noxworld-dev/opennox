@@ -27,6 +27,7 @@ import (
 	"nox/v1/common/memmap"
 	"nox/v1/common/object"
 	"nox/v1/common/types"
+	"nox/v1/common/unit/ai"
 )
 
 type noxObjectUpdateFuncs struct {
@@ -144,6 +145,38 @@ func (ud *PlayerUpdateData) Player() *Player {
 		return nil
 	}
 	return asPlayer(ud.player)
+}
+
+type MonsterUpdateData C.nox_object_Monster_data_t
+
+func (ud *MonsterUpdateData) getAIStackInd() int {
+	if ud == nil {
+		return -1
+	}
+	return int(int8(ud.ai_stack_ind))
+}
+
+func (ud *MonsterUpdateData) getAIStack() []aiStack {
+	ind := ud.getAIStackInd()
+	if ind < 0 {
+		return nil
+	}
+	ptr := (*aiStack)(unsafe.Pointer(&ud.ai_stack[0]))
+	stack := unsafe.Slice(ptr, cap(ud.ai_stack))
+	return stack[:ind+1]
+}
+
+func (ud *MonsterUpdateData) printAIStack(event string) {
+	ai.Log.Printf("%d: stack (%s):\n", gameFrame(), event)
+	defer ai.Log.Println("----------------------------------------")
+	stack := ud.getAIStack()
+	if len(stack) == 0 {
+		return
+	}
+	for i := len(stack) - 1; i >= 0; i-- {
+		typ := stack[i].Type()
+		ai.Log.Printf("  %s", typ.String())
+	}
 }
 
 //export nox_xxx_updatePlayer_4F8100

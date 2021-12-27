@@ -327,6 +327,13 @@ func (obj *Object) Pos() types.Pointf {
 	}
 }
 
+func (obj *Object) prevPos() types.Pointf {
+	return types.Pointf{
+		X: float32(obj.prev_x),
+		Y: float32(obj.prev_y),
+	}
+}
+
 func (obj *Object) newPos() types.Pointf {
 	return types.Pointf{
 		X: float32(obj.new_x),

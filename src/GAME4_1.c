@@ -508,7 +508,8 @@ int nox_xxx_checkMobAction_50A0D0(int a1, int a2) {
 }
 
 //----- (0050A110) --------------------------------------------------------
-int nox_xxx_monsterActionReset_50A110(int a1) {
+void nox_xxx_monsterActionReset_50A110(nox_object_t* a1p) {
+	int a1 = a1p;
 	int result; // eax
 
 	result = *(uint32_t*)(a1 + 748);
@@ -521,7 +522,6 @@ int nox_xxx_monsterActionReset_50A110(int a1) {
 	*(uint32_t*)(result + 364) = 0;
 	*(uint32_t*)(result + 548) = nox_frame_xxx_2598000;
 	*(uint32_t*)(result + 496) = nox_frame_xxx_2598000;
-	return result;
 }
 
 //----- (0050A160) --------------------------------------------------------
@@ -1417,7 +1417,8 @@ int sub_50B520() {
 }
 
 //----- (0050B580) --------------------------------------------------------
-int nox_xxx_mapTraceObstacles_50B580(int a1, float4* a3) {
+int nox_xxx_mapTraceObstacles_50B580(nox_object_t* a1p, float4* a3) {
+	int a1 = a1p;
 	float v2;   // edx
 	bool v3;    // c0
 	float v4;   // edx
@@ -7101,7 +7102,7 @@ int* nox_xxx_secretWallCheckUnits_517F00(float* a1, int (*a2)(int*, int), int a3
 }
 
 //----- (00517F90) --------------------------------------------------------
-void nox_xxx_unitsGetInCircle_517F90(float2* a1, float a2, int a3, int a4) {
+void nox_xxx_unitsGetInCircle_517F90(float2* a1, float a2, void* a3, nox_object_t* a4) {
 	double v4;  // st7
 	int a3a[4]; // [esp+0h] [ebp-20h]
 	float4 a1a; // [esp+10h] [ebp-10h]

@@ -1261,8 +1261,10 @@ void nox_xxx_mobAction_5469B0(int a1) {
 	}
 }
 
+#ifndef NOX_CGO
 //----- (00546A70) --------------------------------------------------------
-char nox_xxx_mobActionDependency_546A70(int a1) {
+void nox_xxx_mobActionDependency_546A70(nox_object_t* a1p) {
+	int a1 = a1p;
 	int v1;              // edi
 	int v2;              // ebx
 	int v3;              // eax
@@ -1477,7 +1479,7 @@ char nox_xxx_mobActionDependency_546A70(int a1) {
 					}
 					goto LABEL_90;
 				case 0x3D:
-					return v3;
+					return;
 				case 0x3E:
 					v4 = nox_xxx_testUnitBuffs_4FF350(v1, *(uint32_t*)(v5 + 4));
 					goto LABEL_90;
@@ -1546,7 +1548,7 @@ char nox_xxx_mobActionDependency_546A70(int a1) {
 					}
 					if (a1a) {
 						v2 = v42;
-						v37 = nox_xxx_monsterActionIsCondition_50A010(*(uint32_t*)(v42 + 8 * (3 * a1a + 66)));
+						v37 = nox_xxx_monsterActionIsCondition_50A010(*(uint32_t*)(v42 + 24 * (a1a + 22)));
 						if (v37) {
 							break;
 						}
@@ -1590,8 +1592,8 @@ char nox_xxx_mobActionDependency_546A70(int a1) {
 			LOBYTE(v3) = a1a - 1;
 		}
 	}
-	return v3;
 }
+#endif // NOX_CGO
 // 546AC8: variable 'v6' is possibly undefined
 // 546FED: variable 'v32' is possibly undefined
 // 546FFF: variable 'v39' is possibly undefined
@@ -4136,7 +4138,7 @@ void sub_54AD50(int a1, int a2, int a3) {
 }
 
 //----- (0054AF40) --------------------------------------------------------
-void* nox_xxx_findObjectAtCursor_54AF40(nox_object_t* a1p) {
+nox_object_t* nox_xxx_findObjectAtCursor_54AF40(nox_object_t* a1p) {
 	int a1 = a1p;
 	int v1;     // eax
 	double v2;  // st7

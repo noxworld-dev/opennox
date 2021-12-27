@@ -1120,7 +1120,7 @@ func nox_xxx_mapExitAndCheckNext_4D1860_server() bool {
 					ud.field_97 = 0
 					n.clearActionStack()
 					n.field_130 = 0
-					ud.field_299 = 0
+					ud.current_enemy = nil
 					ud.field_304 = 0
 					*(*byte)(unsafe.Add(unsafe.Pointer(ud), 1129)) = 0
 					ud.field_0 = 0xDEADFACE
@@ -1249,6 +1249,24 @@ func nox_xxx_mapTraceRay_535250_00(a1 *[4]float32, a4 byte) bool {
 	res := C.nox_xxx_mapTraceRay_535250((*C.float4)(unsafe.Pointer(a1c)), nil, nil, C.char(a4)) != 0
 	*a1 = *a1c
 	return res
+}
+
+func nox_xxx_mapTraceObstacles_50B580(obj noxObject, a2 *[4]float32) bool {
+	a2p, a2Free := alloc.Malloc(16)
+	defer a2Free()
+	a1c := (*[4]float32)(a2p)
+	*a1c = *a2
+	res := C.nox_xxx_mapTraceObstacles_50B580(obj.CObj(), (*C.float4)(unsafe.Pointer(a1c))) != 0
+	*a2 = *a1c
+	return res
+}
+
+func nox_xxx_calcDistance_4E6C00(obj1, obj2 noxObject) float32 {
+	return float32(C.nox_xxx_calcDistance_4E6C00(obj1.CObj(), obj2.CObj()))
+}
+
+func nox_xxx_unitCanInteractWith_5370E0(u, obj noxObject, a3 byte) bool {
+	return C.nox_xxx_unitCanInteractWith_5370E0(u.CObj(), obj.CObj(), C.char(a3)) != 0
 }
 
 func sub_473840() {

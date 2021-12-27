@@ -3614,12 +3614,14 @@ int sub_4E6BD0(int a1) {
 }
 
 //----- (004E6C00) --------------------------------------------------------
-long double nox_xxx_calcDistance_4E6C00(int a1, int a2) {
+double nox_xxx_calcDistance_4E6C00(nox_object_t* a1p, nox_object_t* a2p) {
+	int a1 = a1p;
+	int a2 = a2p;
 	double v2;          // st7
 	double v3;          // st6
 	int v4;             // edx
-	long double v5;     // st5
-	long double result; // st7
+	double v5;     // st5
+	double result; // st7
 	double v7;          // st6
 	int v8;             // eax
 	double v9;          // st6

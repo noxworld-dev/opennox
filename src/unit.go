@@ -99,9 +99,10 @@ func (u *Unit) updateDataPlayer() *PlayerUpdateData {
 	return (*PlayerUpdateData)(unsafe.Pointer(p))
 }
 
-func (u *Unit) updateDataMonster() *C.nox_object_Monster_data_t {
+func (u *Unit) updateDataMonster() *MonsterUpdateData {
 	// TODO: verify this conversion by checking ObjectType
-	return (*C.nox_object_Monster_data_t)(u.updateDataPtr())
+	p := (*C.nox_object_Monster_data_t)(u.updateDataPtr())
+	return (*MonsterUpdateData)(unsafe.Pointer(p))
 }
 
 func (u *Unit) ControllingPlayer() *Player {
@@ -345,7 +346,7 @@ func (u *Unit) dropAllItems() {
 func (u *Unit) clearActionStack() { // aka nox_xxx_monsterClearActionStack_50A3A0
 	if u.Class().Has(object.ClassMonster) {
 		for C.sub_5341F0(u.CObj()) == 0 {
-			C.nox_xxx_monsterPopAction_50A160(u.CObj())
+			nox_xxx_monsterPopAction_50A160(u)
 		}
 	}
 }

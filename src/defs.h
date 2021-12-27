@@ -731,7 +731,7 @@ typedef struct {
 	nox_playerInfo* player; // 69, 276
 	uint32_t field_70; // 70, 280
 	uint32_t field_71; // 71, 284
-	void* cursor_obj; // 72, 288
+	nox_object_t* cursor_obj; // 72, 288
 	uint32_t field_73; // 73, 292
 	uint32_t field_74; // 74, 296
 	uint32_t field_75; // 75, 300
@@ -803,10 +803,10 @@ _Static_assert(sizeof(nox_object_Player_data_t) == 556, "wrong size of nox_objec
 
 typedef struct {
 	uint32_t action; // 0, 0
-	uint32_t field_1; // 1, 4
-	uint32_t field_2; // 2, 8
-	uint32_t field_3; // 3, 12
-	uint32_t field_4; // 4, 16
+	uint32_t arg_1; // 1, 4
+	uint32_t arg_2; // 2, 8
+	uint32_t arg_3; // 3, 12
+	uint32_t arg_4; // 4, 16
 	uint32_t field_5; // 5, 20
 } nox_ai_stack_t;
 _Static_assert(sizeof(nox_ai_stack_t) == 24, "wrong size of nox_ai_stack_t structure!");
@@ -913,7 +913,7 @@ typedef struct {
 	uint32_t field_98; // 98, 392
 	uint32_t field_99; // 99, 396
 	uint32_t field_100; // 100, 400
-	uint32_t field_101; // 101, 404
+	uint32_t field_101; // 101, 404, TODO: some frame/timestamp
 	uint32_t field_102; // 102, 408
 	uint32_t field_103; // 103, 412
 	uint32_t field_104; // 104, 416
@@ -953,7 +953,9 @@ typedef struct {
 	uint16_t field_136_2; // 136, 546
 	uint32_t field_137; // 137, 548
 	nox_ai_stack_t ai_stack[24]; // 138, 552
-	uint32_t field_282; // 282, 1128
+	uint8_t field_282_0; // 282, 1128, TODO: current stamina?
+	uint8_t field_282_1; // 282, 1129
+	uint16_t field_282_2; // 282, 1130
 	uint32_t field_283; // 283, 1132
 	uint32_t field_284; // 284, 1136
 	uint32_t field_285; // 285, 1140
@@ -970,7 +972,7 @@ typedef struct {
 	uint32_t field_296; // 296, 1184
 	uint32_t field_297; // 297, 1188
 	uint32_t field_298; // 298, 1192
-	uint32_t field_299; // 299, 1196
+	nox_object_t* current_enemy; // 299, 1196
 	uint32_t field_300; // 300, 1200
 	uint32_t field_301; // 301, 1204
 	uint32_t field_302; // 302, 1208
@@ -1007,7 +1009,7 @@ typedef struct {
 	uint32_t field_333; // 333, 1332
 	uint32_t field_334; // 334, 1336
 	uint32_t field_335; // 335, 1340
-	uint32_t field_336; // 336, 1344
+	float field_336; // 336, 1344
 	uint32_t field_337; // 337, 1348
 	uint32_t field_338; // 338, 1352
 	uint32_t field_339; // 339, 1356
@@ -1185,7 +1187,7 @@ typedef struct {
 	uint32_t field_511; // 511, 2044
 	uint32_t field_512; // 512, 2048
 	uint32_t field_513; // 513, 2052
-	uint32_t field_514; // 514, 2056
+	uint32_t field_514; // 514, 2056, TODO: weapon damage type?
 	uint32_t field_515; // 515, 2060
 	uint32_t field_516; // 516, 2064
 	uint32_t field_517; // 517, 2068

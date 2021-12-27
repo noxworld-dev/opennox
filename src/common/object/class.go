@@ -63,6 +63,10 @@ func (c Class) Has(c2 Class) bool {
 	return c&c2 != 0
 }
 
+func (c Class) HasAny(c2 Class) bool {
+	return c&c2 != 0
+}
+
 func (c Class) Split() []Class {
 	var out []Class
 	for i := 0; i < 32; i++ {
