@@ -1,6 +1,6 @@
 package things
 
-func (f *File) skipEDGE() error {
+func (f *Reader) skipEDGE() error {
 	if err := f.skip(4); err != nil {
 		return err
 	}

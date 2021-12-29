@@ -88,11 +88,11 @@ type ImageRef struct {
 	Name string
 }
 
-func (ii *ImageRef) MarshalJSON() ([]byte, error) {
+func (ii ImageRef) MarshalJSON() ([]byte, error) {
 	if ii.Ind != 0 {
 		return json.Marshal(ii.Ind)
 	}
-	return json.Marshal(*ii)
+	return json.Marshal(ii)
 }
 
 func (ii *ImageRef) UnmarshalJSON(p []byte) error {
@@ -114,7 +114,23 @@ func (ii *ImageRef) UnmarshalJSON(p []byte) error {
 	return nil
 }
 
-func (f *File) readImageRef() (*ImageRef, error) {
+func (f *Reader) readImageRefs8() ([]ImageRef, error) {
+	n, err := f.readU8()
+	if err != nil {
+		return nil, err
+	}
+	out := make([]ImageRef, 0, n)
+	for i := 0; i < int(n); i++ {
+		img, err := f.readImageRef()
+		if err != nil {
+			return out, err
+		}
+		out = append(out, *img)
+	}
+	return out, nil
+}
+
+func (f *Reader) readImageRef() (*ImageRef, error) {
 	ind, err := f.readI32()
 	if err != nil {
 		return nil, err
@@ -133,7 +149,7 @@ func (f *File) readImageRef() (*ImageRef, error) {
 	return &ImageRef{Ind2: int(ind2), Name: name}, nil
 }
 
-func (f *File) skipImageRefs8() error {
+func (f *Reader) skipImageRefs8() error {
 	n, err := f.readU8()
 	if err != nil {
 		return err
@@ -146,7 +162,7 @@ func (f *File) skipImageRefs8() error {
 	return nil
 }
 
-func (f *File) skipImageRef() error {
+func (f *Reader) skipImageRef() error {
 	ind, err := f.readI32()
 	if err != nil {
 		return err
@@ -160,7 +176,7 @@ func (f *File) skipImageRef() error {
 	return f.skipBytes8()
 }
 
-func (f *File) readImage() (*Image, error) {
+func (f *Reader) readImage() (*Image, error) {
 	name, err := f.readString8()
 	if err != nil {
 		return nil, err
@@ -183,36 +199,16 @@ func (f *File) readImage() (*Image, error) {
 		img.Img = iind
 		return img, nil
 	case 2:
-		frames, err := f.readU8()
+		ani, err := f.readAnimation()
 		if err != nil {
 			return nil, err
 		}
-		ani := &Animation{Frames: make([]ImageRef, 0, frames)}
 		img.Ani = ani
-		v2, err := f.readU8()
-		if err != nil {
-			return nil, err
-		}
-		ani.Field = v2
-		loop, err := f.readBytes8()
-		if err != nil {
-			return nil, err
-		}
-		if err := ani.Kind.UnmarshalText(loop); err != nil {
-			return nil, err
-		}
-		for i := 0; i < int(frames); i++ {
-			fr, err := f.readImageRef()
-			if err != nil {
-				return nil, err
-			}
-			ani.Frames = append(ani.Frames, *fr)
-		}
 		return img, nil
 	}
 }
 
-func (f *File) readImages() ([]Image, error) {
+func (f *Reader) readImages() ([]Image, error) {
 	n, err := f.readU32()
 	if err != nil {
 		return nil, err
@@ -228,7 +224,7 @@ func (f *File) readImages() ([]Image, error) {
 	return out, nil
 }
 
-func (f *File) ReadImages() ([]Image, error) {
+func (f *Reader) ReadImages() ([]Image, error) {
 	if err := f.seek(0, io.SeekStart); err != nil {
 		return nil, err
 	}
@@ -246,7 +242,7 @@ func (f *File) ReadImages() ([]Image, error) {
 	}
 }
 
-func (f *File) skipIMAG() error {
+func (f *Reader) skipIMAG() error {
 	n, err := f.readU32()
 	if err != nil {
 		return err

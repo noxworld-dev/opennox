@@ -16,17 +16,18 @@ var endiness = binary.LittleEndian
 type Data struct {
 	Images []Image `json:"images,omitempty"`
 	Things []Thing `json:"things,omitempty"`
-	Spells []Spell `json:"things,omitempty"`
+	Spells []Spell `json:"spells,omitempty"`
+	Walls  []Wall  `json:"walls,omitempty"`
 }
 
-type File struct {
+type Reader struct {
 	f  io.ReadSeeker
 	c  io.Closer
 	r  *crypt.Reader
 	br *bufio.Reader
 }
 
-func OpenReader(f io.ReadSeeker, key int) (*File, error) {
+func OpenReader(f io.ReadSeeker, key int) (*Reader, error) {
 	if key == 0 {
 		key = crypt.ThingBin
 	}
@@ -34,13 +35,13 @@ func OpenReader(f io.ReadSeeker, key int) (*File, error) {
 	if err != nil {
 		return nil, err
 	}
-	return &File{
+	return &Reader{
 		f: f, r: r,
 		br: bufio.NewReader(r),
 	}, nil
 }
 
-func Open(path string) (*File, error) {
+func Open(path string) (*Reader, error) {
 	key, ok := crypt.KeyForFile(path)
 	if !ok {
 		return nil, errors.New("unsupported things file")
@@ -58,14 +59,14 @@ func Open(path string) (*File, error) {
 	return tf, nil
 }
 
-func (f *File) Close() error {
+func (f *Reader) Close() error {
 	if f.c == nil {
 		return nil
 	}
 	return f.c.Close()
 }
 
-func (f *File) offset() (int64, error) {
+func (f *Reader) offset() (int64, error) {
 	off, err := f.f.Seek(0, io.SeekCurrent)
 	if err != nil {
 		return 0, err
@@ -73,7 +74,7 @@ func (f *File) offset() (int64, error) {
 	return off - int64(f.br.Buffered()+f.r.Buffered()), nil
 }
 
-func (f *File) seek(off int64, whence int) error {
+func (f *Reader) seek(off int64, whence int) error {
 	if whence == io.SeekCurrent {
 		cur, err := f.offset()
 		if err != nil {
@@ -91,16 +92,16 @@ func (f *File) seek(off int64, whence int) error {
 	return nil
 }
 
-func (f *File) read(p []byte) (int, error) {
+func (f *Reader) read(p []byte) (int, error) {
 	return io.ReadFull(f.br, p)
 }
 
-func (f *File) skip(n int) error {
+func (f *Reader) skip(n int) error {
 	_, err := f.br.Discard(n)
 	return err
 }
 
-func (f *File) skipBytes8() error {
+func (f *Reader) skipBytes8() error {
 	sz, err := f.readU8()
 	if err != nil {
 		return err
@@ -108,7 +109,7 @@ func (f *File) skipBytes8() error {
 	return f.skip(int(sz))
 }
 
-func (f *File) skipBytes16() error {
+func (f *Reader) skipBytes16() error {
 	sz, err := f.readU16()
 	if err != nil {
 		return err
@@ -116,7 +117,7 @@ func (f *File) skipBytes16() error {
 	return f.skip(int(sz))
 }
 
-func (f *File) readSect() (string, error) {
+func (f *Reader) readSect() (string, error) {
 	var sect [4]byte
 	_, err := f.read(sect[:])
 	if err != nil {
@@ -126,7 +127,7 @@ func (f *File) readSect() (string, error) {
 	return string(sect[:]), nil
 }
 
-func (f *File) checkEND() error {
+func (f *Reader) checkEND() error {
 	var sect [4]byte
 	_, err := f.read(sect[:])
 	if err == io.EOF {
@@ -141,7 +142,7 @@ func (f *File) checkEND() error {
 	return nil
 }
 
-func (f *File) checkZeros() error {
+func (f *Reader) checkZeros() error {
 	b, err := f.br.ReadByte()
 	if err == io.EOF {
 		return nil
@@ -154,7 +155,7 @@ func (f *File) checkZeros() error {
 	return nil
 }
 
-func (f *File) readU8() (byte, error) {
+func (f *Reader) readU8() (byte, error) {
 	b, err := f.br.ReadByte()
 	if err == io.EOF {
 		return 0, io.ErrUnexpectedEOF
@@ -164,7 +165,7 @@ func (f *File) readU8() (byte, error) {
 	return b, nil
 }
 
-func (f *File) readI8() (int8, error) {
+func (f *Reader) readI8() (int8, error) {
 	v, err := f.readU8()
 	if err != nil {
 		return 0, err
@@ -172,7 +173,7 @@ func (f *File) readI8() (int8, error) {
 	return int8(v), nil
 }
 
-func (f *File) readU16() (uint16, error) {
+func (f *Reader) readU16() (uint16, error) {
 	var b [2]byte
 	_, err := f.read(b[:])
 	if err == io.EOF {
@@ -183,7 +184,7 @@ func (f *File) readU16() (uint16, error) {
 	return endiness.Uint16(b[:]), nil
 }
 
-func (f *File) readI16() (int16, error) {
+func (f *Reader) readI16() (int16, error) {
 	v, err := f.readU16()
 	if err != nil {
 		return 0, err
@@ -191,7 +192,7 @@ func (f *File) readI16() (int16, error) {
 	return int16(v), nil
 }
 
-func (f *File) readU32() (uint32, error) {
+func (f *Reader) readU32() (uint32, error) {
 	var b [4]byte
 	_, err := f.read(b[:])
 	if err == io.EOF {
@@ -202,7 +203,7 @@ func (f *File) readU32() (uint32, error) {
 	return endiness.Uint32(b[:]), nil
 }
 
-func (f *File) readI32() (int32, error) {
+func (f *Reader) readI32() (int32, error) {
 	v, err := f.readU32()
 	if err != nil {
 		return 0, err
@@ -210,7 +211,7 @@ func (f *File) readI32() (int32, error) {
 	return int32(v), nil
 }
 
-func (f *File) readU64align() (uint64, error) {
+func (f *Reader) readU64align() (uint64, error) {
 	off, err := f.offset()
 	if err != nil {
 		return 0, err
@@ -230,7 +231,7 @@ func (f *File) readU64align() (uint64, error) {
 	return endiness.Uint64(b[:]), nil
 }
 
-func (f *File) readBytes8() ([]byte, error) {
+func (f *Reader) readBytes8() ([]byte, error) {
 	sz, err := f.readU8()
 	if err != nil {
 		return nil, err
@@ -240,7 +241,7 @@ func (f *File) readBytes8() ([]byte, error) {
 	return buf, err
 }
 
-func (f *File) readBytes16() ([]byte, error) {
+func (f *Reader) readBytes16() ([]byte, error) {
 	sz, err := f.readU16()
 	if err != nil {
 		return nil, err
@@ -250,7 +251,7 @@ func (f *File) readBytes16() ([]byte, error) {
 	return buf, err
 }
 
-func (f *File) readString8() (string, error) {
+func (f *Reader) readString8() (string, error) {
 	b, err := f.readBytes8()
 	if err != nil {
 		return "", err
@@ -258,7 +259,7 @@ func (f *File) readString8() (string, error) {
 	return string(b), nil
 }
 
-func (f *File) readString16() (string, error) {
+func (f *Reader) readString16() (string, error) {
 	b, err := f.readBytes16()
 	if err != nil {
 		return "", err
@@ -270,7 +271,7 @@ func swap4(p []byte) {
 	p[0], p[1], p[2], p[3] = p[3], p[2], p[1], p[0]
 }
 
-func (f *File) skipUntil(exp string) (bool, error) {
+func (f *Reader) skipUntil(exp string) (bool, error) {
 	for {
 		sect, err := f.readSect()
 		if err == io.EOF {
@@ -329,7 +330,7 @@ func (f *File) skipUntil(exp string) (bool, error) {
 	}
 }
 
-func (f *File) ReadAll() (*Data, error) {
+func (f *Reader) ReadAll() (*Data, error) {
 	if err := f.seek(0, io.SeekStart); err != nil {
 		return nil, err
 	}
@@ -353,10 +354,11 @@ func (f *File) ReadAll() (*Data, error) {
 				return &data, err
 			}
 		case "WALL":
-			// TODO
-			if err := f.skipWALL(); err != nil {
+			walls, err := f.readWALL()
+			if err != nil {
 				return &data, err
 			}
+			data.Walls = append(data.Walls, walls...)
 		case "AUD ":
 			// TODO
 			if err := f.skipAUD(); err != nil {

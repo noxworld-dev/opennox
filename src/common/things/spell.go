@@ -295,7 +295,7 @@ type Spell struct {
 	OffSound    string     `json:"off_sound,omitempty"`
 }
 
-func (f *File) ReadSpells() ([]Spell, error) {
+func (f *Reader) ReadSpells() ([]Spell, error) {
 	if err := f.seek(0, io.SeekStart); err != nil {
 		return nil, err
 	}
@@ -306,7 +306,7 @@ func (f *File) ReadSpells() ([]Spell, error) {
 	return f.readSPEL()
 }
 
-func (f *File) skipSPEL() error {
+func (f *Reader) skipSPEL() error {
 	n, err := f.readU32()
 	if err != nil {
 		return err
@@ -359,7 +359,7 @@ func (f *File) skipSPEL() error {
 	return nil // no END here
 }
 
-func (f *File) readSPEL() ([]Spell, error) {
+func (f *Reader) readSPEL() ([]Spell, error) {
 	n, err := f.readU32()
 	if err != nil {
 		return nil, err

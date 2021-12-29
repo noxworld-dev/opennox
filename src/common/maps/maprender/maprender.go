@@ -50,7 +50,7 @@ func NewRenderer(datadir string) (*Renderer, error) {
 
 // Renderer is a Nox map renderer.
 type Renderer struct {
-	tng        *things.File
+	tng        *things.Reader
 	bag        *bag.File
 	wallByMat  map[int]*things.Wall
 	images     []*bag.ImageRec

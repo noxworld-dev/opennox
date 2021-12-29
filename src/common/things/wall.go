@@ -26,11 +26,11 @@ type WallVariant struct {
 }
 
 type WallImage struct {
-	Pt  image.Point
-	Img *ImageRef
+	Pt  image.Point `json:"pt,omitempty"`
+	Img ImageRef    `json:"img"`
 }
 
-func (f *File) ReadWalls() ([]Wall, error) {
+func (f *Reader) ReadWalls() ([]Wall, error) {
 	if err := f.seek(0, io.SeekStart); err != nil {
 		return nil, err
 	}
@@ -48,7 +48,7 @@ func (f *File) ReadWalls() ([]Wall, error) {
 	}
 }
 
-func (f *File) skipWALL() error {
+func (f *Reader) skipWALL() error {
 	if err := f.skip(4); err != nil {
 		return err
 	}
@@ -96,7 +96,7 @@ func (f *File) skipWALL() error {
 	return f.checkEND()
 }
 
-func (f *File) readWALL() ([]Wall, error) {
+func (f *Reader) readWALL() ([]Wall, error) {
 	n, err := f.readU32()
 	if err != nil {
 		return nil, err
@@ -184,7 +184,7 @@ func (f *File) readWALL() ([]Wall, error) {
 					}
 					vari.Images[k] = WallImage{
 						Pt:  image.Pt(int(x), int(y)),
-						Img: ref,
+						Img: *ref,
 					}
 				}
 				vars = append(vars, vari)

@@ -1,6 +1,6 @@
 package things
 
-func (f *File) skipFLOR() error {
+func (f *Reader) skipFLOR() error {
 	if err := f.skip(4); err != nil {
 		return err
 	}

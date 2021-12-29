@@ -2,7 +2,7 @@ package things
 
 import "fmt"
 
-func (f *File) skipAVNT() error {
+func (f *Reader) skipAVNT() error {
 	if err := f.skipBytes8(); err != nil {
 		return err
 	}

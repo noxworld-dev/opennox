@@ -1,6 +1,6 @@
 package things
 
-func (f *File) skipAUD() error {
+func (f *Reader) skipAUD() error {
 	n, err := f.readI32()
 	if err != nil {
 		return err

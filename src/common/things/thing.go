@@ -14,6 +14,7 @@ import (
 
 var (
 	reflThing     = reflect.TypeOf(Thing{})
+	reflProcFunc  = reflect.TypeOf(ProcFunc{})
 	reflThingKeys = make(map[string]reflect.StructField)
 )
 
@@ -59,6 +60,11 @@ type RGB struct {
 	B byte `json:"b"`
 }
 
+type ProcFunc struct {
+	Name string   `json:"name"`
+	Args []string `json:"args,omitempty"`
+}
+
 type Thing struct {
 	Name        string    `json:"name" nox:"-"`
 	PrettyName  strman.ID `json:"pretty_name,omitempty" nox:"PRETTYNAME"`
@@ -82,7 +88,7 @@ type Thing struct {
 	Lifetime       int         `json:"lifetime,omitempty" nox:"LIFETIME"`
 	Experience     int         `json:"experience,omitempty" nox:"EXPERIENCE"`
 	Material       string      `json:"material,omitempty" nox:"MATERIAL"`
-	Damage         string      `json:"damage,omitempty" nox:"DAMAGE"`
+	Draw           Draw        `json:"draw,omitempty" nox:"-"`
 	AudioLoop      string      `json:"audio_loop,omitempty" nox:"AUDIOLOOP"`
 	DamageSound    string      `json:"damage_sound,omitempty" nox:"DAMAGESOUND"`
 	LightIntensity int         `json:"light_intensity,omitempty" nox:"LIGHTINTENSITY"`
@@ -90,16 +96,19 @@ type Thing struct {
 	LightPenumbra  int         `json:"light_penumbra,omitempty" nox:"LIGHTPENUMBRA"`
 	LightColor     *RGB        `json:"light_color,omitempty" nox:"-"`
 
-	OnCreate       string `json:"on_create,omitempty" nox:"CREATE"`
-	OnInit         string `json:"on_init,omitempty" nox:"INIT"`
-	OnUpdate       string `json:"on_update,omitempty" nox:"UPDATE"`
-	OnClientUpdate string `json:"on_client_update,omitempty" nox:"CLIENTUPDATE"`
-	OnCollide      string `json:"on_collide,omitempty" nox:"COLLIDE"`
-	OnPickup       string `json:"on_pickup,omitempty" nox:"PICKUP"`
-	OnUse          string `json:"on_use,omitempty" nox:"USE"`
-	OnDrop         string `json:"on_drop,omitempty" nox:"DROP"`
-	OnXfer         string `json:"on_xfer,omitempty" nox:"XFER"`
-	OnDestroy      string `json:"on_destroy,omitempty" nox:"DESTROY"`
+	Preprocess     *ProcFunc `json:"preprocess,omitempty" nox:"PREPROCESS"`
+	OnCreate       *ProcFunc `json:"on_create,omitempty" nox:"CREATE"`
+	OnInit         *ProcFunc `json:"on_init,omitempty" nox:"INIT"`
+	OnUpdate       *ProcFunc `json:"on_update,omitempty" nox:"UPDATE"`
+	OnDamage       *ProcFunc `json:"on_damage,omitempty" nox:"DAMAGE"`
+	OnClientUpdate *ProcFunc `json:"on_client_update,omitempty" nox:"CLIENTUPDATE"`
+	OnCollide      *ProcFunc `json:"on_collide,omitempty" nox:"COLLIDE"`
+	OnPickup       *ProcFunc `json:"on_pickup,omitempty" nox:"PICKUP"`
+	OnUse          *ProcFunc `json:"on_use,omitempty" nox:"USE"`
+	OnDrop         *ProcFunc `json:"on_drop,omitempty" nox:"DROP"`
+	OnXfer         *ProcFunc `json:"on_xfer,omitempty" nox:"XFER"`
+	OnDestroy      *ProcFunc `json:"on_destroy,omitempty" nox:"DESTROY"`
+	OnDie          *ProcFunc `json:"on_die,omitempty" nox:"DIE"`
 }
 
 type ZSize struct {
@@ -107,7 +116,7 @@ type ZSize struct {
 	Top    int `json:"top"`
 }
 
-func (f *File) ReadThings() ([]Thing, error) {
+func (f *Reader) ReadThings() ([]Thing, error) {
 	if err := f.seek(0, io.SeekStart); err != nil {
 		return nil, err
 	}
@@ -138,7 +147,13 @@ func parseThingAttrByKey(th *Thing, key, val string) (bool, error) {
 		rv = nv.Elem()
 		ft = ft.Elem()
 	}
-	if ft.Kind() == reflect.String {
+	if ft == reflProcFunc {
+		arr := strings.Fields(val)
+		rv.Set(reflect.ValueOf(ProcFunc{
+			Name: arr[0], Args: arr[1:],
+		}))
+		return true, nil
+	} else if ft.Kind() == reflect.String {
 		rv.SetString(val)
 		return true, nil
 	} else if ft.Kind() == reflect.Int {
@@ -199,7 +214,7 @@ func fixThingAttrs(attr string) []string {
 	return out
 }
 
-func (f *File) readThing() (*Thing, error) {
+func (f *Reader) readThing() (*Thing, error) {
 	name, err := f.readString8()
 	if err != nil {
 		return nil, err
@@ -229,10 +244,11 @@ func (f *File) readThing() (*Thing, error) {
 				if val != "" {
 					return th, fmt.Errorf("unexpected value for attr %q: %q", key, val)
 				}
-				// TODO
-				if err := f.skipThingDraw(); err != nil {
+				dr, err := f.readThingDraw()
+				if err != nil {
 					return th, err
 				}
+				th.Draw = dr
 			case "MENUICON":
 				if val != "" {
 					return th, fmt.Errorf("unexpected value for attr %q: %q", key, val)
@@ -325,10 +341,6 @@ func (f *File) readThing() (*Thing, error) {
 					}
 					th.Extent = Box{W: w, H: h}
 				}
-			case "DIE":
-				// TODO
-			case "PREPROCESS":
-				// TODO
 			default:
 				ok, err := parseThingAttrByKey(th, key, val)
 				if err != nil {
@@ -341,7 +353,7 @@ func (f *File) readThing() (*Thing, error) {
 	}
 }
 
-func (f *File) skipTHNG() error {
+func (f *Reader) skipTHNG() error {
 	if err := f.skipBytes8(); err != nil {
 		return err
 	}
@@ -368,39 +380,7 @@ func (f *File) skipTHNG() error {
 	}
 }
 
-func (f *File) skipThingAnimDraw() error {
-	n, err := f.readU8()
-	if err != nil {
-		return err
-	}
-	if err := f.skip(1); err != nil {
-		return err
-	}
-	if err := f.skipBytes8(); err != nil {
-		return err
-	}
-	for i := 0; i < int(n); i++ {
-		if err := f.skipImageRef(); err != nil {
-			return err
-		}
-	}
-	return err
-}
-
-func (f *File) skipThingAnimCondDraw() error {
-	n, err := f.readU8()
-	if err != nil {
-		return err
-	}
-	for i := 0; i < int(n); i++ {
-		if err := f.skipThingAnimDraw(); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-
-func (f *File) skipThingAnimVectorDraw44B8B0() (int, error) {
+func (f *Reader) skipThingAnimComplexHeader() (int, error) {
 	n, err := f.readU8()
 	if err != nil {
 		return 0, err
@@ -414,8 +394,8 @@ func (f *File) skipThingAnimVectorDraw44B8B0() (int, error) {
 	return int(n), nil
 }
 
-func (f *File) skipThingAnimVectorDraw() error {
-	n, err := f.skipThingAnimVectorDraw44B8B0()
+func (f *Reader) skipThingAnimVectorDraw() error {
+	n, err := f.skipThingAnimComplexHeader()
 	if err != nil {
 		return err
 	}
@@ -429,7 +409,7 @@ func (f *File) skipThingAnimVectorDraw() error {
 	return nil
 }
 
-func (f *File) skipThingAnimStateDraw() error {
+func (f *Reader) skipThingAnimStateDraw() error {
 	for {
 		cmd, err := f.readSect()
 		if err == io.EOF {
@@ -449,7 +429,7 @@ func (f *File) skipThingAnimStateDraw() error {
 		if err := f.skipBytes8(); err != nil {
 			return err
 		}
-		n, err := f.skipThingAnimVectorDraw44B8B0()
+		n, err := f.skipThingAnimComplexHeader()
 		if err != nil {
 			return err
 		}
@@ -461,7 +441,7 @@ func (f *File) skipThingAnimStateDraw() error {
 	}
 }
 
-func (f *File) skipThingMonsterDraw() error {
+func (f *Reader) skipThingMonsterDraw() error {
 	for {
 		sect, err := f.readSect()
 		if err == io.EOF {
@@ -485,7 +465,7 @@ func (f *File) skipThingMonsterDraw() error {
 		if err := f.skipBytes8(); err != nil {
 			return err
 		}
-		n, err := f.skipThingAnimVectorDraw44B8B0()
+		n, err := f.skipThingAnimComplexHeader()
 		if err != nil {
 			return err
 		}
@@ -499,7 +479,7 @@ func (f *File) skipThingMonsterDraw() error {
 	}
 }
 
-func (f *File) skipThingPlayerDraw() error {
+func (f *Reader) skipThingPlayerDraw() error {
 	sect, err := f.readSect()
 	if err == io.EOF {
 		return nil
@@ -518,7 +498,7 @@ stat:
 		if err := f.skipBytes8(); err != nil {
 			return err
 		}
-		n, err := f.skipThingAnimVectorDraw44B8B0()
+		n, err := f.skipThingAnimComplexHeader()
 		if err != nil {
 			return err
 		}
@@ -550,55 +530,4 @@ stat:
 			}
 		}
 	}
-}
-
-func (f *File) skipThingDraw() error {
-	dname, err := f.readString8()
-	if err != nil {
-		return err
-	}
-	_, err = f.readU64align()
-	if err != nil {
-		return err
-	}
-	switch dname {
-	case "StaticDraw", "WeaponDraw", "ArmorDraw", "BaseDraw":
-		if err := f.skipImageRef(); err != nil {
-			return err
-		}
-	case "StaticRandomDraw", "DoorDraw":
-		if err := f.skipImageRefs8(); err != nil {
-			return err
-		}
-	case "AnimateDraw", "GlyphDraw", "WeaponAnimateDraw", "ArmorAnimateDraw",
-		"FlagDraw", "SphericalShieldDraw", "SummonEffectDraw":
-		if err := f.skipThingAnimDraw(); err != nil {
-			return err
-		}
-	case "ConditionalAnimateDraw", "MonsterGeneratorDraw":
-		if err := f.skipThingAnimCondDraw(); err != nil {
-			return err
-		}
-	case "AnimateStateDraw":
-		if err := f.skipThingAnimStateDraw(); err != nil {
-			return err
-		}
-	case "VectorAnimateDraw", "ReleasedSoulDraw":
-		if err := f.skipThingAnimVectorDraw(); err != nil {
-			return err
-		}
-	case "MonsterDraw", "MaidenDraw":
-		if err := f.skipThingMonsterDraw(); err != nil {
-			return err
-		}
-	case "PlayerDraw":
-		if err := f.skipThingPlayerDraw(); err != nil {
-			return err
-		}
-	case "SlaveDraw", "BoulderDraw", "ArrowDraw", "WeakArrowDraw", "HarpoonDraw":
-		if err := f.skipImageRefs8(); err != nil {
-			return err
-		}
-	}
-	return nil
 }
