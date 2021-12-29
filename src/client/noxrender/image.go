@@ -23,6 +23,23 @@ type Image16 interface {
 	Pixdata() []byte
 }
 
+type rawImage struct {
+	typ  int
+	data []byte
+}
+
+func (img *rawImage) Type() int {
+	return img.typ
+}
+
+func (img *rawImage) Pixdata() []byte {
+	return img.data
+}
+
+func NewRawImage(typ int, data []byte) Image16 {
+	return &rawImage{typ: typ, data: data}
+}
+
 func (r *NoxRender) DrawImage16(img Image16, pos types.Point) { // nox_client_xxxDraw16_4C7440
 	if img == nil {
 		return
@@ -32,49 +49,50 @@ func (r *NoxRender) DrawImage16(img Image16, pos types.Point) { // nox_client_xx
 		r.nox_client_drawImg_bbb_4C7860(img, pos)
 	case 3, 4, 5, 6:
 		var ops drawOps
-		ops.draw5 = r.sub4C96A0
+		ops.draw5 = r.pixOpOver4444
 		ops.draw6 = func(dst []uint16, src []byte, val int) (_ []uint16, _ []byte) { return dst, src }
 		if !r.p.IsAlphaEnabled() {
-			if r.p.Flag14() {
-				ops.draw5 = r.sub4C9970
-				ops.draw27 = r.sub4C86B0
-				ops.draw4 = r.sub4C91C0u8
+			if r.p.Multiply14() {
+				ops.draw5 = r.pixOpOver4444Multiply
+				ops.draw27 = r.pixOpSrcMultiply
+				ops.draw4 = r.pixOpSrcMultiplyIndexed
 			} else {
-				ops.draw27 = r.sub4C8D60
-				if !r.p.Flag17() {
-					ops.draw27 = pixCopyN
+				ops.draw27 = pixOpSrc
+				ops.draw4 = r.pixOpSrcIndexed
+				if r.p.Colorize17() {
+					ops.draw27 = r.pixOpSrcColorize
 				}
-				ops.draw4 = r.sub4C8DF0u8
 			}
 		} else {
-			ops.draw5 = r.sub4C97F0
+			ops.draw5 = r.pixOpOver4444Alpha
 			alpha := r.Data().Alpha()
-			if r.p.Flag14() {
+			if r.p.Multiply14() {
 				if alpha == 0xFF {
-					if !r.p.Flag16() {
-						ops.draw27 = r.sub4C86B0
-						ops.draw4 = r.sub4C91C0u8
+					if r.p.Flag16() {
+						ops.draw27 = pixOpSrc
+						ops.draw4 = r.pixOpSrcIndexed
 					} else {
-						ops.draw27 = pixCopyN
-						ops.draw4 = r.sub4C8DF0u8
+						ops.draw5 = r.pixOpOver4444Multiply
+						ops.draw27 = r.pixOpSrcMultiply
+						ops.draw4 = r.pixOpSrcMultiplyIndexed
 					}
 				} else if alpha == 0x80 {
-					ops.draw27 = r.pixBlend16
-					ops.draw4 = r.sub4C94D0u8
+					ops.draw27 = r.pixOpOverMultiplyAlpha50
+					ops.draw4 = r.pixOpOverMultiplyAlpha50Indexed
 				} else {
-					ops.draw27 = r.sub4C8850
-					ops.draw4 = r.sub4C92F0u8
+					ops.draw27 = r.pixOpOverMultiplyAlpha
+					ops.draw4 = r.pixOpOverMultiplyAlphaIndexed
 				}
 			} else {
 				if alpha == 0xFF {
-					ops.draw27 = pixCopyN
-					ops.draw4 = r.sub4C8DF0u8
+					ops.draw27 = pixOpSrc
+					ops.draw4 = r.pixOpSrcIndexed
 				} else if alpha == 0x80 {
-					ops.draw27 = r.sub4C8410
-					ops.draw4 = r.sub4C9050u8
+					ops.draw27 = r.pixOpOverAlpha50
+					ops.draw4 = r.pixOpOverAlpha50Indexed
 				} else {
-					ops.draw27 = r.sub4C8130
-					ops.draw4 = r.sub4C8EC0u8
+					ops.draw27 = r.pixOpOverAlpha
+					ops.draw4 = r.pixOpOverAlphaIndexed
 				}
 			}
 		}
@@ -389,7 +407,7 @@ func (r *NoxRender) drawOpU8(dst []uint16, src []byte, sz int, fnc drawU8Func) (
 	return dnext, snext
 }
 
-func pixCopyN(dst []uint16, src []byte, n int) (_ []uint16, _ []byte) { // sub_4C80E0
+func pixOpSrc(dst []uint16, src []byte, n int) (_ []uint16, _ []byte) { // sub_4C80E0
 	if n < 0 {
 		panic("negative size")
 	}
@@ -397,34 +415,34 @@ func pixCopyN(dst []uint16, src []byte, n int) (_ []uint16, _ []byte) { // sub_4
 	return dst[n:], src[n*2:]
 }
 
-func (r *NoxRender) pixBlend16(dst []uint16, src []byte, sz int) (_ []uint16, _ []byte) { // sub_4C8A30
-	const ( // TODO: why masks are inverted?
-		rshift = 3
+func (r *NoxRender) pixOpOverMultiplyAlpha50(dst []uint16, src []byte, sz int) (_ []uint16, _ []byte) { // sub_4C8A30
+	const (
+		rshift = 7
 		gshift = 2
-		bshift = 7
+		bshift = 3
 
-		rmask = 0x001f
+		rmask = 0x7c00
 		gmask = 0x03e0
-		bmask = 0x7c00
+		bmask = 0x001f
 	)
 	rm, gm, bm := r.p.ColorMultA()
-	rmul := uint16(byte(bm))
+	rmul := uint16(byte(rm))
 	gmul := uint16(byte(gm))
-	bmul := uint16(byte(rm))
+	bmul := uint16(byte(bm))
 
 	return r.drawOpU16(dst, src, sz, func(old uint16, src uint16) uint16 {
-		rc := byte((rmul * ((rmask & src) << rshift)) >> 8)
+		rc := byte((rmul * ((rmask & src) >> rshift)) >> 8)
 		gc := byte((gmul * ((gmask & src) >> gshift)) >> 8)
-		bc := byte((bmul * ((bmask & src) >> bshift)) >> 8)
+		bc := byte((bmul * ((bmask & src) << bshift)) >> 8)
 
-		cr := r.colors.R[byte(int16(bc)+(int16((bmask&old)>>bshift)-int16(bc))/2)]
+		cr := r.colors.R[byte(int16(rc)+(int16((rmask&old)>>rshift)-int16(rc))/2)]
 		cg := r.colors.G[byte(int16(gc)+(int16((gmask&old)>>gshift)-int16(gc))/2)]
-		cb := r.colors.B[byte(int16(rc)+(int16((rmask&old)<<rshift)-int16(rc))/2)]
+		cb := r.colors.B[byte(int16(bc)+(int16((bmask&old)<<bshift)-int16(bc))/2)]
 		return cr | cg | cb
 	})
 }
 
-func (r *NoxRender) sub4C96A0(dst []uint16, src []byte, sz int) (_ []uint16, _ []byte) { // sub_4C96A0
+func (r *NoxRender) pixOpOver4444(dst []uint16, src []byte, sz int) (_ []uint16, _ []byte) { // sub_4C96A0
 	const (
 		rshift = 7 // -10+3
 		gshift = 2 // -5+3
@@ -447,7 +465,7 @@ func (r *NoxRender) sub4C96A0(dst []uint16, src []byte, sz int) (_ []uint16, _ [
 	})
 }
 
-func (r *NoxRender) sub4C9970(dst []uint16, src []byte, sz int) (_ []uint16, _ []byte) { // sub_4C9970
+func (r *NoxRender) pixOpOver4444Multiply(dst []uint16, src []byte, sz int) (_ []uint16, _ []byte) { // sub_4C9970
 	const (
 		rshift = 7 // -10+3
 		gshift = 2 // -5+3
@@ -475,7 +493,7 @@ func (r *NoxRender) sub4C9970(dst []uint16, src []byte, sz int) (_ []uint16, _ [
 	})
 }
 
-func (r *NoxRender) sub4C97F0(dst []uint16, src []byte, sz int) (_ []uint16, _ []byte) { // sub_4C97F0
+func (r *NoxRender) pixOpOver4444Alpha(dst []uint16, src []byte, sz int) (_ []uint16, _ []byte) { // sub_4C97F0
 	const (
 		rshift = 7 // -10+3
 		gshift = 2 // -5+3
@@ -503,7 +521,7 @@ func (r *NoxRender) sub4C97F0(dst []uint16, src []byte, sz int) (_ []uint16, _ [
 	})
 }
 
-func (r *NoxRender) sub4C86B0(dst []uint16, src []byte, sz int) (_ []uint16, _ []byte) { // sub_4C86B0
+func (r *NoxRender) pixOpSrcMultiply(dst []uint16, src []byte, sz int) (_ []uint16, _ []byte) { // sub_4C86B0
 	const (
 		rshift = 7 // -10+3
 		gshift = 2 // -5+3
@@ -524,7 +542,7 @@ func (r *NoxRender) sub4C86B0(dst []uint16, src []byte, sz int) (_ []uint16, _ [
 	})
 }
 
-func (r *NoxRender) sub4C8410(dst []uint16, src []byte, sz int) (_ []uint16, _ []byte) { // sub_4C8410
+func (r *NoxRender) pixOpOverAlpha50(dst []uint16, src []byte, sz int) (_ []uint16, _ []byte) { // sub_4C8410
 	const (
 		rshift = 7 // -10+3
 		gshift = 2 // -5+3
@@ -551,7 +569,7 @@ func (r *NoxRender) sub4C8410(dst []uint16, src []byte, sz int) (_ []uint16, _ [
 	})
 }
 
-func (r *NoxRender) sub4C8130(dst []uint16, src []byte, sz int) (_ []uint16, _ []byte) { // sub_4C8130
+func (r *NoxRender) pixOpOverAlpha(dst []uint16, src []byte, sz int) (_ []uint16, _ []byte) { // sub_4C8130
 	const (
 		rshift = 7 // -10+3
 		gshift = 2 // -5+3
@@ -581,7 +599,7 @@ func (r *NoxRender) sub4C8130(dst []uint16, src []byte, sz int) (_ []uint16, _ [
 	})
 }
 
-func (r *NoxRender) sub4C8850(dst []uint16, src []byte, sz int) (_ []uint16, _ []byte) { // sub_4C8850
+func (r *NoxRender) pixOpOverMultiplyAlpha(dst []uint16, src []byte, sz int) (_ []uint16, _ []byte) { // sub_4C8850
 	const (
 		rshift = 7 // -10+3
 		gshift = 2 // -5+3
@@ -615,7 +633,7 @@ func (r *NoxRender) sub4C8850(dst []uint16, src []byte, sz int) (_ []uint16, _ [
 	})
 }
 
-func (r *NoxRender) sub4C8D60(dst []uint16, src []byte, sz int) (_ []uint16, _ []byte) { // sub_4C8D60
+func (r *NoxRender) pixOpSrcColorize(dst []uint16, src []byte, sz int) (_ []uint16, _ []byte) { // sub_4C8D60
 	rm, gm, bm := r.p.ColorMultA()
 	rmul := uint16(byte(rm))
 	gmul := uint16(byte(gm))
@@ -663,7 +681,7 @@ func (r *NoxRender) pixBlendPremult(dst []uint16, src []byte, sz int) (_ []uint1
 	})
 }
 
-func (r *NoxRender) sub4C91C0u8(dst []uint16, src []byte, op byte, sz int) (_ []uint16, _ []byte) { // sub_4C91C0
+func (r *NoxRender) pixOpSrcMultiplyIndexed(dst []uint16, src []byte, op byte, sz int) (_ []uint16, _ []byte) { // sub_4C91C0
 	rm, gm, bm := r.p.ColorMultA()
 	rmul := uint16(byte(rm))
 	gmul := uint16(byte(gm))
@@ -679,7 +697,7 @@ func (r *NoxRender) sub4C91C0u8(dst []uint16, src []byte, op byte, sz int) (_ []
 	})
 }
 
-func (r *NoxRender) sub4C8DF0u8(dst []uint16, src []byte, op byte, sz int) (_ []uint16, _ []byte) { // sub_4C8DF0
+func (r *NoxRender) pixOpSrcIndexed(dst []uint16, src []byte, op byte, sz int) (_ []uint16, _ []byte) { // sub_4C8DF0
 	rpmul, gpmul, bpmul := r.p.ColorMultOp(int(op))
 
 	return r.drawOpU8(dst, src, sz, func(_ uint16, c byte) uint16 {
@@ -690,7 +708,7 @@ func (r *NoxRender) sub4C8DF0u8(dst []uint16, src []byte, op byte, sz int) (_ []
 	})
 }
 
-func (r *NoxRender) sub4C9050u8(dst []uint16, src []byte, op byte, sz int) (_ []uint16, _ []byte) { // sub_4C9050
+func (r *NoxRender) pixOpOverAlpha50Indexed(dst []uint16, src []byte, op byte, sz int) (_ []uint16, _ []byte) { // sub_4C9050
 	const (
 		rshift = 7 // -10+3
 		gshift = 2 // -5+3
@@ -716,7 +734,7 @@ func (r *NoxRender) sub4C9050u8(dst []uint16, src []byte, op byte, sz int) (_ []
 	})
 }
 
-func (r *NoxRender) sub4C8EC0u8(dst []uint16, src []byte, op byte, sz int) (_ []uint16, _ []byte) { // sub_4C8EC0
+func (r *NoxRender) pixOpOverAlphaIndexed(dst []uint16, src []byte, op byte, sz int) (_ []uint16, _ []byte) { // sub_4C8EC0
 	const (
 		rshift = 7 // -10+3
 		gshift = 2 // -5+3
@@ -744,7 +762,7 @@ func (r *NoxRender) sub4C8EC0u8(dst []uint16, src []byte, op byte, sz int) (_ []
 	})
 }
 
-func (r *NoxRender) sub4C94D0u8(dst []uint16, src []byte, op byte, sz int) (_ []uint16, _ []byte) { // sub_4C94D0
+func (r *NoxRender) pixOpOverMultiplyAlpha50Indexed(dst []uint16, src []byte, op byte, sz int) (_ []uint16, _ []byte) { // sub_4C94D0
 	const (
 		rshift = 7 // -10+3
 		gshift = 2 // -5+3
@@ -775,7 +793,7 @@ func (r *NoxRender) sub4C94D0u8(dst []uint16, src []byte, op byte, sz int) (_ []
 	})
 }
 
-func (r *NoxRender) sub4C92F0u8(dst []uint16, src []byte, op byte, sz int) (_ []uint16, _ []byte) { // sub_4C92F0
+func (r *NoxRender) pixOpOverMultiplyAlphaIndexed(dst []uint16, src []byte, op byte, sz int) (_ []uint16, _ []byte) { // sub_4C92F0
 	const (
 		rshift = 7 // -10+3
 		gshift = 2 // -5+3

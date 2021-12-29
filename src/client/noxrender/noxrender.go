@@ -15,9 +15,9 @@ type RenderData interface {
 	ClipRectNox() types.Rect // TODO: replace with ClipRect
 
 	Flag0() bool
-	Flag14() bool
+	Multiply14() bool
 	Flag16() bool
-	Flag17() bool
+	Colorize17() bool
 
 	ColorMultA() (r, g, b uint32)
 	ColorMultOp(op int) (r, g, b uint32)

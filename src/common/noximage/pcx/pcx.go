@@ -10,6 +10,7 @@ import (
 
 	noxcolor "nox/v1/common/color"
 	"nox/v1/common/noximage"
+	"nox/v1/common/types"
 )
 
 var endiness = binary.LittleEndian
@@ -36,13 +37,13 @@ func Decode(r io.Reader, typ byte) (*Image, error) {
 	}
 }
 
-func DecodeHeader(r io.Reader, typ byte) (*ImageMeta, error) {
+func DecodeHeader(r io.Reader, typ byte) (*ImageMeta, types.Size, error) {
 	switch typ {
 	case 3, 4, 5, 6:
-		meta, _, err := readSpriteHeader(r, typ)
-		return meta, err
+		meta, sz, err := readSpriteHeader(r, typ)
+		return meta, sz, err
 	default:
-		return nil, fmt.Errorf("unsupported type: %d", typ)
+		return nil, types.Size{}, fmt.Errorf("unsupported type: %d", typ)
 	}
 }
 

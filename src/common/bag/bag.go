@@ -12,6 +12,7 @@ import (
 	"nox/v1/common/fs"
 	"nox/v1/common/noximage/pcx"
 	"nox/v1/common/nxz"
+	"nox/v1/common/types"
 )
 
 var endiness = binary.LittleEndian
@@ -346,10 +347,10 @@ func (img *ImageRec) Decode() (*pcx.Image, error) {
 	return pcx.Decode(r, byte(img.Type))
 }
 
-func (img *ImageRec) DecodeHeader() (*pcx.ImageMeta, error) {
+func (img *ImageRec) DecodeHeader() (*pcx.ImageMeta, types.Size, error) {
 	r, err := img.open()
 	if err != nil {
-		return nil, err
+		return nil, types.Size{}, err
 	}
 	return pcx.DecodeHeader(r, byte(img.Type))
 }

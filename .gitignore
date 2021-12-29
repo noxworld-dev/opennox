@@ -1,6 +1,7 @@
 build/
 CMakeFiles/
 .tmp
+.testOut
 tmp/
 logs
 *.user

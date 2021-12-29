@@ -524,7 +524,7 @@ func (d renderDataAdapter) Flag0() bool {
 	return d.r.p.flag_0 != 0
 }
 
-func (d renderDataAdapter) Flag14() bool {
+func (d renderDataAdapter) Multiply14() bool {
 	return d.r.p.field_14 != 0
 }
 
@@ -532,7 +532,7 @@ func (d renderDataAdapter) Flag16() bool {
 	return d.r.p.field_16 != 0
 }
 
-func (d renderDataAdapter) Flag17() bool {
+func (d renderDataAdapter) Colorize17() bool {
 	return d.r.p.field_17 != 0
 }
 

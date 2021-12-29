@@ -199,7 +199,7 @@ func imageByBagSection(sect, offs int) (*pcx.Image, error) {
 		out.ImageMeta = *meta
 	} else {
 		if img.Meta == nil {
-			if meta, err := img.DecodeHeader(); err == nil {
+			if meta, _, err := img.DecodeHeader(); err == nil {
 				img.Meta = meta
 			} else {
 				if debug {
