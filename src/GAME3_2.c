@@ -7953,6 +7953,7 @@ unsigned int nox_xxx_gameSetSoloSavePath_4DB270(const char* a1) {
 	return result;
 }
 
+#ifndef NOX_CGO
 //----- (004DB2A0) --------------------------------------------------------
 char* nox_client_checkSaveMapExistsTmp_4DB2A0(char* a1) {
 	char* v1;      // eax
@@ -7979,7 +7980,6 @@ bool nox_client_makeSaveDir_4DB540(char* saveName) {
 	return nox_fs_mkdir(PathName);
 }
 
-#ifndef NOX_CGO
 //----- (004DB790) --------------------------------------------------------
 int sub_4DB790(char* a1) {
 	nox_xxx_mapLoadOrSaveMB_4DCC70(1);

@@ -730,11 +730,13 @@ func nox_xxx_gameTick_4D2580_server_D() {
 		}
 	} else if v28 != 0 {
 		v30 := GoString(*(**C.char)(unsafe.Pointer(v28 + 700)))
-		v31 := GoString(C.nox_client_checkSaveMapExistsTmp_4DB2A0(internCStr(v30)))
-		if v31 != "" {
+		v31, err := nox_client_checkSaveMapExistsTmp(v30)
+		if err == nil && v31 != "" {
 			C.nox_xxx_gameSetSwitchSolo_4DB220(1)
 			C.nox_xxx_gameSetNoMPFlag_4DB230(1)
 			C.nox_xxx_gameSetSoloSavePath_4DB270(internCStr(v31))
+		} else {
+			gameLog.Println(err)
 		}
 		switchMap(v30)
 	}
