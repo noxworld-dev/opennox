@@ -1724,7 +1724,7 @@ int sub_4A50D0() {
 		v0();
 		return 1;
 	}
-	sub_431510();
+	nox_client_resetScreenParticles_431510();
 	nox_gui_draw();
 	if (nox_common_gameFlags_check_40A5C0(0x2000)) {
 		if (!nox_xxx_check_flag_aaa_43AF70()) {
@@ -2216,7 +2216,7 @@ int sub_4A6C90() {
 	if (v0) {
 		v0();
 	} else {
-		sub_431510();
+		nox_client_resetScreenParticles_431510();
 		nox_gui_draw();
 		if (!nox_common_gameFlags_check_40A5C0(0x2000)) {
 			nox_client_guiXxxDestroy_4A24A0();

@@ -406,7 +406,7 @@ int sub_44F300(int a1, int a2) {
 
 	v2 = nox_draw_getViewport_437250();
 	sub_44E110();
-	sub_431510();
+	nox_client_resetScreenParticles_431510();
 	nox_xxx_bookHideMB_45ACA0(1);
 	sub_446780();
 	v3 = (nox_win_width - NOX_DEFAULT_WIDTH) / 2;
@@ -732,7 +732,7 @@ int nox_client_showQuestBriefing2_450980(int a1, int a2) {
 	int result;  // eax
 
 	dword_5d4594_832480 = 0;
-	sub_431510();
+	nox_client_resetScreenParticles_431510();
 	nox_xxx_bookHideMB_45ACA0(1);
 	sub_446780();
 	v2 = nox_xxx_gLoadImg_42F970((const char*)(a1 + 5));
@@ -761,7 +761,7 @@ int nox_client_showQuestBriefing_450A30(int a1, int a2) {
 	int result;  // eax
 
 	dword_5d4594_832480 = 0;
-	sub_431510();
+	nox_client_resetScreenParticles_431510();
 	nox_xxx_bookHideMB_45ACA0(1);
 	sub_446780();
 	v2 = nox_xxx_gLoadImg_42F970((const char*)(a1 + 5));

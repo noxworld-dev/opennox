@@ -5050,7 +5050,7 @@ void nox_xxx_freeScreenParticles_4314D0() {
 }
 
 //----- (00431510) --------------------------------------------------------
-int sub_431510() {
+int nox_client_resetScreenParticles_431510() {
 	if (nox_alloc_screenParticles_806044) {
 		nox_alloc_class_free_all(*(uint32_t**)&nox_alloc_screenParticles_806044);
 	}

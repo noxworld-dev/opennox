@@ -3208,7 +3208,7 @@ int nox_xxx_gameClearAll_467DF0(int a1) {
 	nox_xxx_sprite_49C4F0();
 	sub_49A630();
 	sub_49BBB0();
-	sub_431510();
+	nox_client_resetScreenParticles_431510();
 	nox_xxx_spriteDeleteAll_45A5E0(a1);
 	result = nox_common_gameFlags_check_40A5C0(1);
 	if (!result) {

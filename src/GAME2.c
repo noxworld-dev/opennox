@@ -1394,13 +1394,13 @@ int nox_client_lockScreenBriefing_450160(int a1, int a2, char a3) {
 			*getMemU32Ptr(0x5D4594, 832472) = 1;
 			v8 = nox_xxx_gLoadImg_42F970("MenuSystemBG");
 			nox_xxx_wndSetIcon_46AE60(*(int*)&nox_wnd_briefing_831232, (int)v8);
-			sub_431510();
+			nox_client_resetScreenParticles_431510();
 			nox_xxx_bookHideMB_45ACA0(1);
 		} else if (a3 & 4) {
 			*getMemU32Ptr(0x5D4594, 832472) = 4;
 			v9 = nox_xxx_gLoadImg_42F970("GauntletInstructionBackground");
 			nox_xxx_wndSetIcon_46AE60(*(int*)&nox_wnd_briefing_831232, (int)v9);
-			sub_431510();
+			nox_client_resetScreenParticles_431510();
 			nox_xxx_bookHideMB_45ACA0(1);
 		} else {
 			*getMemU32Ptr(0x5D4594, 832472) = 2;
@@ -1408,7 +1408,7 @@ int nox_client_lockScreenBriefing_450160(int a1, int a2, char a3) {
 			if (*getMemU32Ptr(0x5D4594, 832464)) {
 				nox_window_call_field_94((int)v5, 16385, *getMemIntPtr(0x5D4594, 832464), 0);
 			}
-			sub_431510();
+			nox_client_resetScreenParticles_431510();
 			nox_xxx_bookHideMB_45ACA0(1);
 		}
 		sub_446780();
