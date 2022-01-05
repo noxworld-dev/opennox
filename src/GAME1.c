@@ -2725,21 +2725,21 @@ int sub_40CBE0(int a1, int a2) {
 		if (sub_40CD00()) {
 			if (sub_43C710()) {
 				sub_44B010();
-				nox_xxx____setargv_0_40E0A0();
+				sub_40E0A0();
 			} else {
 				sub_41E300(9);
 				sub_41F4B0();
 				sub_41EC30();
 				sub_446490(0);
 				nox_xxx____setargv_4_44B000();
-				nox_xxx____setargv_0_40E0A0();
+				sub_40E0A0();
 				nox_game_checkStateWol_43C260();
 				sub_44A400();
 			}
 			return 0;
 		}
 		if (sub_41E2F0() == 9) {
-			nox_xxx____setargv_0_40E0A0();
+			sub_40E0A0();
 			dword_5d4594_10988 = 0;
 			return 0;
 		}
@@ -3814,7 +3814,7 @@ void sub_40E070() {
 void sub_40E090() { dword_5d4594_10984 = 0; }
 
 //----- (0040E0A0) --------------------------------------------------------
-void nox_xxx____setargv_0_40E0A0() { dword_5d4594_10984 = 1; }
+void sub_40E0A0() { dword_5d4594_10984 = 1; }
 
 //----- (0040E0B0) --------------------------------------------------------
 int sub_40E0B0() { return dword_5d4594_10984 == 0; }

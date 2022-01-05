@@ -3280,7 +3280,7 @@ void sub_468020() {
 		sub_468060();
 		sub_4207F0(1);
 		nox_game_showWolLogin_44A560();
-		nox_xxx____setargv_0_40E0A0();
+		sub_40E0A0();
 	}
 }
 

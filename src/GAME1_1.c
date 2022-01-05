@@ -3936,7 +3936,7 @@ int sub_41E300(int a1) {
 			dword_5d4594_527988 = a1;
 			sub_41DA10(a1);
 			if (dword_5d4594_527988 == 11) {
-				nox_xxx____setargv_0_40E0A0();
+				sub_40E0A0();
 			}
 		}
 		result = 1;

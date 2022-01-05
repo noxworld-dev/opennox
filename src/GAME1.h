@@ -245,7 +245,7 @@ int sub_40E020(int a1, int a2, int a3, int a4);
 int sub_40E050(int a1, int a2);
 void sub_40E070();
 void sub_40E090();
-void nox_xxx____setargv_0_40E0A0();
+void sub_40E0A0();
 int sub_40E0B0();
 int sub_40E0C0();
 int nox_common_getInstallPath_40E0D0(char* dst, const char* lpSubKey, int a3);
