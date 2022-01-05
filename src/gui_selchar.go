@@ -2,13 +2,18 @@ package nox
 
 /*
 #include "GAME1_3.h"
+#include "GAME2.h"
 #include "GAME3_2.h"
 extern uint32_t dword_5d4594_1563080;
 extern uint32_t dword_5d4594_1563084;
 extern uint32_t dword_5d4594_1563088;
 extern uint32_t dword_5d4594_1563092;
 extern uint32_t dword_5d4594_1563096;
+extern uint32_t dword_5d4594_830872;
+extern uint32_t dword_5d4594_830972;
+extern uint32_t dword_5d4594_831224;
 extern unsigned int dword_5d4594_251744;
+extern unsigned int nox_gameDisableMapDraw_5d4594_2650672;
 */
 import "C"
 import (
@@ -51,6 +56,24 @@ func sub4DCE80(a1 string) {
 	StrCopy((*C.char)(ptr), 20, a1)
 }
 
+//export sub_4505B0
+func sub_4505B0() {
+	sub_450580()
+	C.nox_gameDisableMapDraw_5d4594_2650672 = 0
+	v0 := nox_client_getIntroScreenDuration_44E3B0()
+	C.nox_client_screenFadeTimeout_44DAB0(v0, 1, (*[0]byte)(C.sub_44E320))
+	C.nox_gameDisableMapDraw_5d4594_2650672 = 1
+}
+
+//export sub_450580
+func sub_450580() {
+	sub_44D8F0()
+	*memmap.PtrUint32(0x5D4594, 832488) = 1
+	C.dword_5d4594_831224 = 0
+	*memmap.PtrUint32(0x5D4594, 831292) = 0
+	*memmap.PtrUint32(0x5D4594, 831296) = 0
+}
+
 //export sub_4DB170
 func sub_4DB170(a1, a2, a3 C.int) {
 	C.dword_5d4594_1563092 = C.uint(a3)
@@ -65,6 +88,12 @@ func sub_4DB170(a1, a2, a3 C.int) {
 
 func sub_4DCBD0(a1 int) {
 	*memmap.PtrUint32(0x5D4594, 1563076) = uint32(a1)
+}
+
+//export sub_44D8F0
+func sub_44D8F0() {
+	C.dword_5d4594_830872 = 0
+	C.dword_5d4594_830972 = 0
 }
 
 //export nox_savegame_nameFromPath_4DC970

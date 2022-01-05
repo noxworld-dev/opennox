@@ -485,7 +485,7 @@ func drawGeneral_4B0340(a1 int) error {
 	}
 	C.sub_431290()
 	C.sub_43DBD0()
-	C.sub_44D8F0()
+	sub_44D8F0()
 	for C.sub_43DC40() != 0 || sub_44D930() {
 		sub_4312C0()
 		//#ifdef __EMSCRIPTEN__

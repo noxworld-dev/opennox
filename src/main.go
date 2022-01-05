@@ -493,7 +493,7 @@ func change_windowed_fullscreen() {
 
 //export sub_4AA9C0
 func sub_4AA9C0() C.int {
-	C.sub_44D8F0()
+	sub_44D8F0()
 	if !env.IsE2E() {
 		videoUpdateGameMode(guiOptionsRes)
 	}
@@ -559,7 +559,7 @@ func sub_4311B0() {
 
 func sub_4312B0() {
 	C.sub_431290()
-	C.sub_44D8F0()
+	sub_44D8F0()
 	C.sub_43D990()
 }
 

@@ -623,15 +623,13 @@ void sub_44D8C0() {
 	}
 }
 
+#ifndef NOX_CGO
 //----- (0044D8F0) --------------------------------------------------------
-int sub_44D8F0() {
-	int result; // eax
-
-	result = 0;
+void sub_44D8F0() {
 	dword_5d4594_830872 = 0;
 	dword_5d4594_830972 = 0;
-	return result;
 }
+#endif // NOX_CGO
 
 //----- (0044D900) --------------------------------------------------------
 int nox_xxx_playDialogFile_44D900(int a1, int a2) {
@@ -1474,31 +1472,27 @@ int sub_450560() { return dword_5d4594_831260; }
 //----- (00450570) --------------------------------------------------------
 int sub_450570() { return dword_5d4594_831220; }
 
+#ifndef NOX_CGO
 //----- (00450580) --------------------------------------------------------
-int sub_450580() {
-	int result; // eax
-
+void sub_450580() {
 	sub_44D8F0();
-	result = 0;
 	*getMemU32Ptr(0x5D4594, 832488) = 1;
 	dword_5d4594_831224 = 0;
 	*getMemU32Ptr(0x5D4594, 831292) = 0;
 	*getMemU32Ptr(0x5D4594, 831296) = 0;
-	return result;
 }
 
 //----- (004505B0) --------------------------------------------------------
-int sub_4505B0() {
+void sub_4505B0() {
 	int v0;     // eax
-	int result; // eax
 
 	sub_450580();
 	nox_gameDisableMapDraw_5d4594_2650672 = 0;
 	v0 = nox_client_getIntroScreenDuration_44E3B0();
-	result = nox_client_screenFadeTimeout_44DAB0(v0, 1, sub_44E320);
+	nox_client_screenFadeTimeout_44DAB0(v0, 1, sub_44E320);
 	nox_gameDisableMapDraw_5d4594_2650672 = 1;
-	return result;
 }
+#endif // NOX_CGO
 
 //----- (004505E0) --------------------------------------------------------
 int sub_4505E0() {
