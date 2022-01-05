@@ -299,7 +299,7 @@ uint32_t* nox_xxx_unitClearPendingMB_4DB030();
 int sub_4DB0A0();
 int sub_4DB100();
 unsigned int sub_4DB130(const char* a1);
-int sub_4DB170(int a1, int a2, int a3);
+void sub_4DB170(int a1, int a2, int a3);
 int nox_xxx_gameGet_4DB1B0();
 int sub_4DB1C0();
 int nox_xxx_gameSetSwitchSolo_4DB220(int a1);

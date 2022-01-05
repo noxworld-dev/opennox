@@ -738,7 +738,7 @@ func nox_xxx_gameTick_4D2580_server_D() {
 		}
 		switchMap(v30)
 	}
-	C.sub_4DB170(0, C.int(v28), 0)
+	sub_4DB170(0, C.int(v28), 0)
 }
 
 func nox_xxx_gameTick_4D2580_server_C() bool {
@@ -1149,7 +1149,7 @@ func nox_xxx_mapExitAndCheckNext_4D1860_server() bool {
 	}
 	if noxflags.HasGame(noxflags.GameModeCoop) && C.nox_xxx_mapLoadRequired_4DCC80() == 0 {
 		C.sub_4DB130(internCStr(common.SaveAuto))
-		C.sub_4DB170(1, 0, 30)
+		sub_4DB170(1, 0, 30)
 	}
 	nox_xxx_mapLoadOrSaveMB_4DCC70(0)
 	if noxflags.HasGame(noxflags.GameModeCoop) {

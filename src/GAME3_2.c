@@ -7897,21 +7897,19 @@ unsigned int sub_4DB130(const char* a1) {
 	return result;
 }
 
+#ifndef NOX_CGO
 //----- (004DB170) --------------------------------------------------------
-int sub_4DB170(int a1, int a2, int a3) {
-	int result; // eax
-
+void sub_4DB170(int a1, int a2, int a3) {
 	dword_5d4594_1563092 = a3;
 	dword_5d4594_1563088 = nox_frame_xxx_2598000;
-	result = a1;
 	dword_5d4594_1563084 = a2;
 	dword_5d4594_1563080 = a1;
 	dword_5d4594_1563096 = a2 != 0;
 	if (!a1) {
-		result = sub_4DCBD0(0);
+		sub_4DCBD0(0);
 	}
-	return result;
 }
+#endif // NOX_CGO
 
 //----- (004DB1B0) --------------------------------------------------------
 int nox_xxx_gameGet_4DB1B0() { return dword_5d4594_1563080; }
