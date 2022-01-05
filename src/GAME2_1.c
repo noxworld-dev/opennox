@@ -66,7 +66,7 @@ extern uint32_t dword_5d4594_1064828;
 extern uint32_t dword_5d4594_1049976;
 extern uint32_t dword_5d4594_1090284;
 extern uint32_t dword_5d4594_1062484;
-extern uint32_t dword_5d4594_1082868;
+extern void* dword_5d4594_1082868;
 extern uint32_t dword_5d4594_1049992;
 extern uint32_t dword_5d4594_1062556;
 extern uint32_t dword_5d4594_1096264;
@@ -86,7 +86,7 @@ extern uint32_t dword_587000_145540;
 extern uint32_t dword_5d4594_1096260;
 extern uint32_t nox_client_gui_flag_1556112;
 extern uint32_t dword_5d4594_1096284;
-extern uint32_t dword_5d4594_1082864;
+extern void* dword_5d4594_1082864;
 extern uint32_t dword_587000_145664;
 extern uint32_t dword_5d4594_1096288;
 extern uint32_t dword_5d4594_2614264;
@@ -209,7 +209,6 @@ int nox_client_wallsYyy_cnt_1096516 = 0;
 obj_5D4594_2650668_t** ptr_5D4594_2650668 = 0;
 const int ptr_5D4594_2650668_cap = 128;
 
-nox_savegame_xxx nox_savegame_arr_1064948[NOX_SAVEGAME_XXX_MAX] = {0};
 nox_inventory_cell_t nox_client_inventory_grid_1050020[NOX_INVENTORY_CELLS_MAX] = {0};
 
 //----- (00460D40) --------------------------------------------------------
@@ -4787,19 +4786,6 @@ int nox_savegame_findLatestSave_46CDC0(nox_savegame_xxx* sarr) {
 		}
 	};
 	return ind;
-}
-
-//----- (0046D6F0) --------------------------------------------------------
-int sub_46D6F0() {
-	memset(nox_savegame_arr_1064948, 0, NOX_SAVEGAME_XXX_MAX * sizeof(nox_savegame_xxx));
-	if (wndIsShown_nox_xxx_wndIsShown_46ACC0(dword_5d4594_1082856)) {
-		return 0;
-	}
-	nox_window_set_hidden(dword_5d4594_1082856, 1);
-	nox_xxx_wnd_46ABB0(dword_5d4594_1082856, 0);
-	nox_xxx_wndClearCaptureMain_46ADE0(dword_5d4594_1082856);
-	sub_413A00(0);
-	return 1;
 }
 
 #ifndef NOX_CGO

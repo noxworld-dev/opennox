@@ -12,13 +12,26 @@
 #include "GAME3_2.h"
 #include "common/fs/nox_fs.h"
 
-extern uint32_t dword_5d4594_1082868;
-extern uint32_t dword_5d4594_1082860;
-extern uint32_t dword_5d4594_1082864;
 nox_window* dword_5d4594_1082856 = 0;
+void* dword_5d4594_1082860 = 0;
+void* dword_5d4594_1082864 = 0;
+void* dword_5d4594_1082868 = 0;
 extern int nox_win_width;
 extern int nox_win_height;
-extern nox_savegame_xxx nox_savegame_arr_1064948[NOX_SAVEGAME_XXX_MAX];
+nox_savegame_xxx nox_savegame_arr_1064948[NOX_SAVEGAME_XXX_MAX] = {0};
+
+//----- (0046D6F0) --------------------------------------------------------
+int sub_46D6F0() {
+	memset(nox_savegame_arr_1064948, 0, NOX_SAVEGAME_XXX_MAX * sizeof(nox_savegame_xxx));
+	if (wndIsShown_nox_xxx_wndIsShown_46ACC0(dword_5d4594_1082856)) {
+		return 0;
+	}
+	nox_window_set_hidden(dword_5d4594_1082856, 1);
+	nox_xxx_wnd_46ABB0(dword_5d4594_1082856, 0);
+	nox_xxx_wndClearCaptureMain_46ADE0(dword_5d4594_1082856);
+	sub_413A00(0);
+	return 1;
+}
 
 //----- (0046C730) --------------------------------------------------------
 int nox_savegame_sub_46C730() {
