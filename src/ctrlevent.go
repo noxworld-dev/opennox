@@ -616,7 +616,7 @@ func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_B() {
 			if noxflags.HasGame(noxflags.GameModeCoop) {
 				if C.nox_xxx_game_4DCCB0() != 0 {
 					clientPlaySoundSpecial(921, 100)
-					C.sub_413A00(1)
+					sub_413A00(1)
 					v41 := strMan.GetStringInFile("GUIQuit.c:ReallyLoadMessage", "C:\\NoxPost\\src\\Client\\System\\Ctrlevnt.c")
 					v40 := strMan.GetStringInFile("SelChar.c:LoadLabel", "C:\\NoxPost\\src\\Client\\System\\Ctrlevnt.c")
 					NewDialogWindow(nil, v40, v41, 56, C.sub_42E600, C.sub_42E620)

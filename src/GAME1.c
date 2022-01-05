@@ -6647,6 +6647,7 @@ void sub_413960() {
 //----- (004139B0) --------------------------------------------------------
 int sub_4139B0() { return dword_5d4594_251744 != 0; }
 
+#ifndef NOX_CGO
 //----- (00413A00) --------------------------------------------------------
 void sub_413A00(int a1) {
 	if (nox_common_gameFlags_check_40A5C0(2048) == 1) {
@@ -6660,6 +6661,7 @@ void sub_413A00(int a1) {
 		}
 	}
 }
+#endif // NOX_CGO
 
 //----- (00413A50) --------------------------------------------------------
 int nox_xxx_checkGameFlagPause_413A50() { return nox_common_gameFlags_check_40A5C0(0x40000); }

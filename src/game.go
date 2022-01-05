@@ -1189,7 +1189,7 @@ func sub_4DCC00() bool {
 
 func sub_413980(a1 int) {
 	if a1 != 0 {
-		C.sub_413A00(1)
+		sub_413A00(1)
 		C.dword_5d4594_251744 = C.uint(a1 + int(nox_xxx_bookGet_430B40_get_mouse_prev_seq()))
 	} else {
 		C.dword_5d4594_251744 = 0
@@ -1201,7 +1201,7 @@ func sub_4139C0() {
 		if int(nox_xxx_bookGet_430B40_get_mouse_prev_seq()) >= int(C.dword_5d4594_251744) {
 			C.dword_5d4594_251744 = 0
 			if C.sub_450560() == 0 {
-				C.sub_413A00(0)
+				sub_413A00(0)
 			}
 		}
 	}
