@@ -7991,7 +7991,6 @@ int sub_4DB790(char* a1) {
 	*getMemU32Ptr(0x5D4594, 1563068) = nox_frame_xxx_2598000;
 	return v1;
 }
-#endif // NOX_CGO
 
 //----- (004DBE10) --------------------------------------------------------
 void nox_savegame_rm_4DBE10(char* saveName, int rmDir) {
@@ -8086,6 +8085,7 @@ void nox_savegame_rm_4DBE10(char* saveName, int rmDir) {
 		nox_fs_remove_dir(saveDir);
 	}
 }
+#endif // NOX_CGO
 // 4DBE10: using guessed type char var_20000[131072];
 // 4DBE10: using guessed type char var_24000[16384];
 

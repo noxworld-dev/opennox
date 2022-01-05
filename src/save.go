@@ -59,6 +59,33 @@ func nox_client_makeSaveMapDir_4DB5A0(a1c, a2c *C.char) C.bool {
 	return fs.Mkdir(datapath.Save(a1, a2)) == nil
 }
 
+//export nox_savegame_rm_4DBE10
+func nox_savegame_rm_4DBE10(cname *C.char, rmDir C.int) {
+	if cname == nil {
+		return
+	}
+	saveName := GoString(cname)
+	_ = nox_savegame_rm(saveName, rmDir != 0)
+}
+
+func nox_savegame_rm(name string, rmdir bool) error {
+	if name == "" {
+		return nil
+	}
+	saveDir := datapath.Save(name)
+	if err := fs.RemoveAll(saveDir); err != nil {
+		return err
+	}
+	// TODO: this should actually only remove the player file and map dirs; we just remove the whole dir instead
+	//       implement it properly later, if it makes any difference
+	if !rmdir {
+		if err := fs.Mkdir(saveDir); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
 //export nox_client_checkSaveMapExistsTmp_4DB2A0
 func nox_client_checkSaveMapExistsTmp_4DB2A0(name *C.char) *C.char {
 	path, err := nox_client_checkSaveMapExistsTmp(GoString(name))
