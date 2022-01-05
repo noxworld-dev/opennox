@@ -569,7 +569,7 @@ func nox_server_loadMapFile_4CF5F0(mname string, noCrypt bool) bool {
 		C.nox_xxx_mapSetCrcMB_409B10(0)
 	} else {
 		if magic != 0xFADEFACE {
-			nox_xxx_cryptClose_4269F0()
+			cryptFileClose()
 			return false
 		}
 		cryptFileReadMaybeAlign(hdr[:4])
@@ -580,7 +580,7 @@ func nox_server_loadMapFile_4CF5F0(mname string, noCrypt bool) bool {
 		return false
 	}
 	C.nox_xxx_scriptRunFirst_507290()
-	nox_xxx_cryptClose_4269F0()
+	cryptFileClose()
 	if !noxflags.HasGame(0x200000) {
 		nox_xxx_mapReadSetFlags_4CF990()
 		if C.nox_xxx_check_flag_aaa_43AF70() == 1 {

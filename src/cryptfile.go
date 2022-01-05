@@ -50,7 +50,7 @@ func nox_xxx_cryptOpen_426910(a1 *C.char, cmode, key C.int) int32 {
 
 func cryptFileOpen(path string, cmode int, key int) error {
 	if cryptFile != nil {
-		nox_xxx_cryptClose_4269F0()
+		cryptFileClose()
 	}
 	nox_xxx_cryptSetTypeMB_426A50(0)
 	cryptFileNoKey = key == -1
@@ -90,6 +90,10 @@ func nox_xxx_cryptFlush_4268E0() C.int {
 
 //export nox_xxx_cryptClose_4269F0
 func nox_xxx_cryptClose_4269F0() {
+	cryptFileClose()
+}
+
+func cryptFileClose() {
 	if cryptFile != nil {
 		cryptFile.Close()
 		nox_xxx_cryptSetTypeMB_426A50(0)
@@ -104,8 +108,12 @@ func nox_xxx_mapgenGetSomeFile_426A60() *C.FILE {
 
 //export nox_xxx_cryptSeekCur_40E0A0
 func nox_xxx_cryptSeekCur_40E0A0(a1 C.int) C.int {
-	cryptFile.FileSeek(int64(a1), io.SeekCurrent)
+	nox_xxx_cryptSeekCur(int64(a1))
 	return 0
+}
+
+func nox_xxx_cryptSeekCur(off int64) {
+	cryptFile.FileSeek(off, io.SeekCurrent)
 }
 
 func sub_426BD0(a1 []byte) {
