@@ -99,7 +99,7 @@ void nox_xxx_cryptClose_4269F0() {
 FILE* nox_xxx_mapgenGetSomeFile_426A60() { return nox_file_3; }
 
 //----- (00426AA0) --------------------------------------------------------
-int sub_426AA0(int a1) { return nox_binfile_fseek_409050(nox_file_3, a1, SEEK_CUR); }
+int nox_xxx_cryptSeekCur_40E0A0(int a1) { return nox_binfile_fseek_409050(nox_file_3, a1, SEEK_CUR); }
 
 //----- (00426BD0) --------------------------------------------------------
 int sub_426BD0(unsigned char* a1, int a2) {

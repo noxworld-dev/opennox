@@ -102,8 +102,8 @@ func nox_xxx_mapgenGetSomeFile_426A60() *C.FILE {
 	return newFileHandle(cryptFile.file)
 }
 
-//export sub_426AA0
-func sub_426AA0(a1 C.int) C.int {
+//export nox_xxx_cryptSeekCur_40E0A0
+func nox_xxx_cryptSeekCur_40E0A0(a1 C.int) C.int {
 	cryptFile.FileSeek(int64(a1), io.SeekCurrent)
 	return 0
 }

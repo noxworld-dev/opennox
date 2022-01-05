@@ -5195,7 +5195,7 @@ int sub_4ABDA0(int a1, short a2, short a3, uint32_t* a4) {
 		++*a4;
 	}
 	if (a3 >= 40) {
-		sub_426AA0(4);
+		nox_xxx_cryptSeekCur_40E0A0(4);
 		*a4 += 4;
 		if (a2 >= 2) {
 			if (a2 < 5) {
@@ -5207,7 +5207,7 @@ int sub_4ABDA0(int a1, short a2, short a3, uint32_t* a4) {
 				*a4 += 2;
 			}
 			v4 = (unsigned short)(4 * LOWORD(v11));
-			sub_426AA0(v4);
+			nox_xxx_cryptSeekCur_40E0A0(v4);
 			*a4 += v4;
 		}
 		if (a2 >= 3) {
@@ -5309,7 +5309,7 @@ int nox_xxx_spriteLoadFromMap_4AC020(int thingInd, short a2, uint32_t* a3) {
 		v12 = (unsigned char)a3;
 		v21 = (unsigned char)a3;
 		++*v3;
-		sub_426AA0(v21);
+		nox_xxx_cryptSeekCur_40E0A0(v21);
 		*v3 += v12;
 		nox_xxx_fileReadWrite_426AC0_file3_fread(&thingInd, 1u);
 		v13 = thingInd;
@@ -5321,7 +5321,7 @@ int nox_xxx_spriteLoadFromMap_4AC020(int thingInd, short a2, uint32_t* a3) {
 		v14 = 4 * (unsigned short)v27;
 		v19 = 4 * (unsigned short)v27;
 		*v3 += 2;
-		sub_426AA0(v19);
+		nox_xxx_cryptSeekCur_40E0A0(v19);
 		*v3 += v14;
 		nox_xxx_fileReadWrite_426AC0_file3_fread(&v28, 4u);
 		v15 = v28;
@@ -5330,17 +5330,17 @@ int nox_xxx_spriteLoadFromMap_4AC020(int thingInd, short a2, uint32_t* a3) {
 		LOBYTE(v16) = v16 & 0xA1;
 		*(uint32_t*)(v9 + 280) = v15 | v16;
 		if ((short)v23 >= 63) {
-			sub_426AA0(2);
+			nox_xxx_cryptSeekCur_40E0A0(2);
 			*v3 += 2;
 			nox_xxx_fileReadWrite_426AC0_file3_fread(&v24, 4u);
 			*v3 += 4;
-			sub_426AA0(v24);
+			nox_xxx_cryptSeekCur_40E0A0(v24);
 			*v3 += v24;
-			sub_426AA0(4);
+			nox_xxx_cryptSeekCur_40E0A0(4);
 			*v3 += 4;
 		}
 		if ((short)v23 >= 64) {
-			sub_426AA0(4);
+			nox_xxx_cryptSeekCur_40E0A0(4);
 			*v3 += 4;
 		}
 	}
@@ -5424,7 +5424,7 @@ char* nox_xxx_mapCliReadAll_4AC2B0(char* a1) {
 			if (!strcmp(v12, "ObjectData")) {
 				nox_xxx_mapReadSectionSpecial_426F40(0, "ObjectData", &v4, nox_client_mapSpecialRWObjectData_4AC610);
 			} else if (nox_common_gameFlags_check_40A5C0(1)) {
-				sub_426AA0(v8);
+				nox_xxx_cryptSeekCur_40E0A0(v8);
 			} else {
 				nox_xxx_mapReadSection_426EA0(0, v12, &v4);
 			}
@@ -5490,7 +5490,7 @@ int nox_client_mapSpecialRWObjectData_4AC610() {
 				v5 -= v3;
 			}
 			if (v5 > 0) {
-				sub_426AA0(v5);
+				nox_xxx_cryptSeekCur_40E0A0(v5);
 			}
 			nox_xxx_fileReadWrite_426AC0_file3_fread(&v4, 2u);
 			if (!(uint16_t)v4) {

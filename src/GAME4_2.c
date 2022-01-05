@@ -8934,7 +8934,7 @@ int nox_xxx_XFerMonster_528DB0(int a1) {
 		nox_xxx_fileReadWrite_426AC0_file3_fread((uint8_t*)(v1 + 1344), 4u);
 		nox_xxx_fileReadWrite_426AC0_file3_fread((uint8_t*)(v1 + 1312), 4u);
 		if ((short)v45 < 33) {
-			sub_426AA0(2);
+			nox_xxx_cryptSeekCur_40E0A0(2);
 		}
 		nox_xxx_fileReadWrite_426AC0_file3_fread((uint8_t*)(v1 + 1304), 4u);
 		*(uint32_t*)(v1 + 1308) = *(uint32_t*)(v1 + 1304);

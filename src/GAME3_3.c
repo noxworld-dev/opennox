@@ -14297,13 +14297,13 @@ int nox_xxx_unitTriggerXfer_4F4E50(float a1) {
 		}
 		if (nox_xxx_cryptGetXxx() == 1 && (short)v11 < 31) {
 			nox_xxx_fileReadWrite_426AC0_file3_fread(&a1, 1u);
-			sub_426AA0(4 * LOBYTE(a1));
+			nox_xxx_cryptSeekCur_40E0A0(4 * LOBYTE(a1));
 			nox_xxx_fileReadWrite_426AC0_file3_fread(&a1, 1u);
-			sub_426AA0(4 * LOBYTE(a1));
+			nox_xxx_cryptSeekCur_40E0A0(4 * LOBYTE(a1));
 			nox_xxx_fileReadWrite_426AC0_file3_fread(&a1, 1u);
-			sub_426AA0(4 * LOBYTE(a1));
+			nox_xxx_cryptSeekCur_40E0A0(4 * LOBYTE(a1));
 			nox_xxx_fileReadWrite_426AC0_file3_fread(&a1, 1u);
-			sub_426AA0(4 * LOBYTE(a1));
+			nox_xxx_cryptSeekCur_40E0A0(4 * LOBYTE(a1));
 		}
 		nox_xxx_fileReadWrite_426AC0_file3_fread(v2 + 44, 4u);
 		nox_xxx_fileReadWrite_426AC0_file3_fread(v2 + 48, 4u);

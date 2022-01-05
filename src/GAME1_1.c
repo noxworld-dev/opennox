@@ -1302,7 +1302,7 @@ int sub_41A000(char* a1, nox_savegame_xxx* sv) {
 			memcpy(getMemAt(0x85B3FC, 10980), v12, 0x4FCu);
 			*getMemU16Ptr(0x85B3FC, 12256) = v13;
 		} else {
-			sub_426AA0(v11);
+			nox_xxx_cryptSeekCur_40E0A0(v11);
 		}
 	}
 	nox_xxx_cryptClose_4269F0();
@@ -1469,7 +1469,7 @@ char* nox_xxx_cliPlrInfoLoadFromFile_41A2E0(char* a1, int a2) {
 							break;
 						}
 					LABEL_13:
-						sub_426AA0((int)a1);
+						nox_xxx_cryptSeekCur_40E0A0((int)a1);
 					}
 					v6 = getMemAt(0x587000, 55816);
 					while (a2 != *((uint32_t*)v6 + 1)) {
@@ -1537,7 +1537,7 @@ int nox_xxx_plrLoad_41A480(char* a1) {
 				}
 			} else {
 			LABEL_8:
-				sub_426AA0(v6);
+				nox_xxx_cryptSeekCur_40E0A0(v6);
 			}
 		}
 		nox_xxx_cryptClose_4269F0();
@@ -3095,7 +3095,7 @@ int nox_xxx_unused_41CE30(char* a1, wchar_t* a2) {
 			if (a1 == (char*)2) {
 				break;
 			}
-			sub_426AA0(v7);
+			nox_xxx_cryptSeekCur_40E0A0(v7);
 		}
 		v2 = 0;
 	} while (!*getMemU32Ptr(0x587000, 55816));
@@ -3219,7 +3219,7 @@ int sub_41D090(char* a1) {
 				sub_41D110(&v2);
 				break;
 			}
-			sub_426AA0(v3);
+			nox_xxx_cryptSeekCur_40E0A0(v3);
 		}
 		nox_xxx_cryptClose_4269F0();
 		result = v2;

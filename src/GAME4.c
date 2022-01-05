@@ -10481,7 +10481,7 @@ int nox_server_mapRWMapIntro_505080() {
 			return 1;
 		}
 		if (nox_common_gameFlags_check_40A5C0(0x400000)) {
-			sub_426AA0(v17);
+			nox_xxx_cryptSeekCur_40E0A0(v17);
 			return 1;
 		}
 		if (v1) {
