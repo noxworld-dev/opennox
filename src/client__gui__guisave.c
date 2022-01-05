@@ -67,7 +67,9 @@ int nox_savegame_sub_46C730() {
 }
 
 //----- (0046C920) --------------------------------------------------------
-int nox_savegame_sub_46C920(uint32_t* a1, int a2, int* a3, int a4) {
+int nox_savegame_sub_46C920(nox_window* a1p, int a2, nox_window* a3p, int a4) {
+	uint32_t* a1 = a1p;
+	int* a3 = a3p;
 	int v5;        // esi
 	int v6;        // eax
 	wchar_t* v7;   // eax
@@ -83,15 +85,15 @@ int nox_savegame_sub_46C920(uint32_t* a1, int a2, int* a3, int a4) {
 		if (a2 != 16400) {
 			return 0;
 		}
-		nox_window_call_field_94(*(int*)&dword_5d4594_1082860, 16403, a4, 0);
-		nox_window_call_field_94(*(int*)&dword_5d4594_1082864, 16403, a4, 0);
-		nox_window_call_field_94(*(int*)&dword_5d4594_1082868, 16403, a4, 0);
+		nox_window_call_field_94(dword_5d4594_1082860, 16403, a4, 0);
+		nox_window_call_field_94(dword_5d4594_1082864, 16403, a4, 0);
+		nox_window_call_field_94(dword_5d4594_1082868, 16403, a4, 0);
 		return 0;
 	}
 	v5 = nox_xxx_wndGetID_46B0A0(a3);
 	nox_xxx_clientPlaySoundSpecial_452D80(766, 100);
 	if (v5 == 501) {
-		v8 = *(uint32_t*)(*(uint32_t*)(dword_5d4594_1082864 + 32) + 48);
+		v8 = *(uint32_t*)(*(uint32_t*)((uint32_t)dword_5d4594_1082864 + 32) + 48);
 		if (v8 < 0) {
 			return 0;
 		}
@@ -122,7 +124,7 @@ int nox_savegame_sub_46C920(uint32_t* a1, int a2, int* a3, int a4) {
 		sub_46D6F0();
 		return 0;
 	} else if (v5 == 502) {
-		v6 = *(uint32_t*)(*(uint32_t*)(dword_5d4594_1082864 + 32) + 48);
+		v6 = *(uint32_t*)(*(uint32_t*)((uint32_t)dword_5d4594_1082864 + 32) + 48);
 		if (v6 >= 0 && strlen(&nox_savegame_arr_1064948[v6].path)) {
 			if (nox_xxx_playerAnimCheck_4372B0()) {
 				nox_savegame_sub_46CBD0();
@@ -161,7 +163,7 @@ int nox_savegame_sub_46CBD0() {
 	char v3[12]; // [esp+4h] [ebp-Ch]
 
 	result = 0;
-	int i = *(uint32_t*)(*(uint32_t*)(dword_5d4594_1082864 + 32) + 48);
+	int i = *(uint32_t*)(*(uint32_t*)((uint32_t)dword_5d4594_1082864 + 32) + 48);
 	if (!strlen(&nox_savegame_arr_1064948[i].path)) {
 		return 0;
 	}
@@ -381,7 +383,7 @@ void nox_savegame_sub_46D580() {
 	wchar_t* v6;  // eax
 
 	memset(nox_savegame_arr_1064948, 0, NOX_SAVEGAME_XXX_MAX * sizeof(nox_savegame_xxx));
-	nox_savegame_sub_46CE40(*(int*)&dword_5d4594_1082860, *(int*)&dword_5d4594_1082864, *(int*)&dword_5d4594_1082868,
+	nox_savegame_sub_46CE40(dword_5d4594_1082860, dword_5d4594_1082864, dword_5d4594_1082868,
 							nox_savegame_arr_1064948);
 	nox_xxx_wndShowModalMB_46A8C0(dword_5d4594_1082856);
 	nox_xxx_wnd_46ABB0(dword_5d4594_1082856, 1);

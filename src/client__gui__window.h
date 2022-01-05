@@ -73,7 +73,7 @@ int nox_client_wndGetPosition_46AA60(nox_window* a1, unsigned int* a2, unsigned 
 bool nox_xxx_wndPointInWnd_46AAB0(unsigned int* a1, int a2, int a3);
 int sub_46AB20(unsigned int* a1, int a2, int a3);
 int nox_window_get_size(nox_window* win, int* outW, int* outH);
-int nox_xxx_wnd_46ABB0(int a1, int a2);
+int nox_xxx_wnd_46ABB0(nox_window* win, int a2);
 int nox_window_set_hidden(nox_window* win, int visible);
 int wndIsShown_nox_xxx_wndIsShown_46ACC0(nox_window* win);
 int nox_xxx_wndSetRectColor2MB_46AFE0(nox_window* win, int a2); // TODO: callers probably private

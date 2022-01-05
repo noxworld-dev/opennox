@@ -251,7 +251,8 @@ int nox_xxx_findAutosaves_4A5150() {
 	return result;
 }
 //----- (004A5710) --------------------------------------------------------
-int nox_xxx_windowSelCharProc_4A5710(int a1, unsigned int a2, int* a3, int a4) {
+int nox_xxx_windowSelCharProc_4A5710(int a1, unsigned int a2, nox_window* a3p, int a4) {
+	int* a3 = a3p;
 	int v5;                             // eax
 	wchar_t* v6;                        // eax
 	int v7;                             // ebx
@@ -276,7 +277,7 @@ int nox_xxx_windowSelCharProc_4A5710(int a1, unsigned int a2, int* a3, int a4) {
 		if (a2 != 16391) {
 			if (a2 == 2) {
 				if (nox_xxx_wndGetID_46B0A0(a3) == 500) {
-					free(*(void**)&dword_5d4594_1307780);
+					free(dword_5d4594_1307780);
 					return 0;
 				}
 			} else if (a2 == 16389) {
