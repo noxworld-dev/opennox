@@ -8,7 +8,7 @@ int sub_42CC50(void** this);
 void nullsub_33(uint32_t a1, uint32_t a2, uint32_t a3);
 void nullsub_3(void);
 int nox_xxx_testCPUID2_444D90();
-int sub_448640(void);
+void sub_448640(void);
 void nullsub_4(uint32_t a1, uint32_t a2, uint32_t a3, uint32_t a4);
 int nox_xxx_j_inventoryNameSignInit_467460(void);
 void nullsub_5(void);

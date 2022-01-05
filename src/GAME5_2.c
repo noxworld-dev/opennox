@@ -8612,7 +8612,9 @@ int  SEH_57EA00(int a1, int a2, int a3, int a4)
 
 void nullsub_2() {}
 
-int sub_448640(void) { return sub_44A400(); }
+#ifndef NOX_CGO
+void sub_448640(void) { sub_44A400(); }
+#endif // NOX_CGO
 
 void nullsub_4(uint32_t a1, uint32_t a2, uint32_t a3, uint32_t a4) {}
 
