@@ -8605,23 +8605,17 @@ int sub_4DCE30() {
 	return sub_446140();
 }
 
+#ifndef NOX_CGO
 //----- (004DCE60) --------------------------------------------------------
-int sub_4DCE60(int a1) {
-	int result; // eax
-
-	result = a1;
+void sub_4DCE60(int a1) {
 	*getMemU32Ptr(0x5D4594, 1563100) = a1;
-	return result;
 }
 
 //----- (004DCE70) --------------------------------------------------------
 int sub_4DCE70() { return *getMemU32Ptr(0x5D4594, 1563100); }
 
 //----- (004DCE80) --------------------------------------------------------
-int sub_4DCE80(const char* a1) {
-	int result; // eax
-
-	result = 0;
+void sub_4DCE80(char* a1) {
 	if (a1) {
 		strcpy((char*)getMemAt(0x5D4594, 1563104), a1);
 	} else {
@@ -8631,8 +8625,8 @@ int sub_4DCE80(const char* a1) {
 		*getMemU32Ptr(0x5D4594, 1563116) = 0;
 		*getMemU32Ptr(0x5D4594, 1563120) = 0;
 	}
-	return result;
 }
+#endif // NOX_CGO
 
 //----- (004DCED0) --------------------------------------------------------
 char* nox_xxx_getQuestMapName_4DCED0() { return getMemAt(0x5D4594, 1563104); }

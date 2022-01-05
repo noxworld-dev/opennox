@@ -12,6 +12,7 @@ extern unsigned int dword_5d4594_251744;
 */
 import "C"
 import (
+	"nox/v1/common/alloc"
 	"nox/v1/common/datapath"
 	noxflags "nox/v1/common/flags"
 	"nox/v1/common/memmap"
@@ -33,6 +34,22 @@ func sub_413A00(a1 C.int) {
 
 //export sub_448640
 func sub_448640() { C.sub_44A400() }
+
+//export sub_4DCE60
+func sub_4DCE60(a1 C.int) {
+	*memmap.PtrUint32(0x5D4594, 1563100) = uint32(a1)
+}
+
+//export sub_4DCE80
+func sub_4DCE80(a1 *C.char) {
+	sub4DCE80(GoString(a1))
+}
+
+func sub4DCE80(a1 string) {
+	ptr := memmap.PtrOff(0x5D4594, 1563104)
+	alloc.Memset(ptr, 0, 20)
+	StrCopy((*C.char)(ptr), 20, a1)
+}
 
 //export sub_4DB170
 func sub_4DB170(a1, a2, a3 C.int) {
