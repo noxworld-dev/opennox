@@ -300,7 +300,7 @@ int nox_xxx_windowSelCharProc_4A5710(int a1, unsigned int a2, nox_window* a3p, i
 					goto LABEL_38;
 				}
 				nox_savegame_nameFromPath_4DC970((char*)((uint32_t)dword_5d4594_1307780 + sizeof(nox_savegame_xxx) * v8 + 4),
-												 v20);
+												 v20, sizeof(v20));
 				if ((!nox_common_gameFlags_check_40A5C0(2048) ||
 					 nox_client_copySave_4DC100((int)v20, "WORKING")) &&
 					sub_41A000((char*)((uint32_t)dword_5d4594_1307780 + sizeof(nox_savegame_xxx) * *(uint32_t*)(v7 + 48) + 4),
@@ -359,7 +359,7 @@ int nox_xxx_windowSelCharProc_4A5710(int a1, unsigned int a2, nox_window* a3p, i
 			}
 			*getMemU32Ptr(0x5D4594, 1307772) = *(uint32_t*)(*(uint32_t*)((uint32_t)dword_5d4594_1307776 + 32) + 48);
 			nox_savegame_nameFromPath_4DC970((char*)((uint32_t)dword_5d4594_1307780 + sizeof(nox_savegame_xxx) * v5 + 4),
-											 nox_savegame_name_1307752);
+											 nox_savegame_name_1307752, sizeof(nox_savegame_name_1307752));
 			if (nox_common_gameFlags_check_40A5C0(2048) && !strcmp(nox_savegame_name_1307752, "AUTOSAVE")) {
 				nox_xxx_clientPlaySoundSpecial_452D80(925, 100);
 				v17 = 0;

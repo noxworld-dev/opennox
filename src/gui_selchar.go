@@ -12,6 +12,7 @@ extern unsigned int dword_5d4594_251744;
 */
 import "C"
 import (
+	"nox/v1/common/datapath"
 	noxflags "nox/v1/common/flags"
 )
 
@@ -42,4 +43,10 @@ func sub_4DB170(a1, a2, a3 C.int) {
 	if a1 == 0 {
 		C.sub_4DCBD0(0)
 	}
+}
+
+//export nox_savegame_nameFromPath_4DC970
+func nox_savegame_nameFromPath_4DC970(src, dst *C.char, max C.int) {
+	name := datapath.SaveNameFromPath(GoString(src))
+	StrCopy(dst, int(max), name)
 }

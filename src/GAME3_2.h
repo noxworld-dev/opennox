@@ -316,7 +316,7 @@ int nox_client_copySave_4DC100(char* a1, char* saveName);
 int nox_client_countSaveFiles_4DC550();
 int nox_client_countPlayerFiles02_4DC630();
 int nox_client_countPlayerFiles04_4DC7D0();
-void nox_savegame_nameFromPath_4DC970(char* src, char* dst);
+void nox_savegame_nameFromPath_4DC970(char* src, char* dst, int max);
 char* sub_4DC9B0(char* a1);
 char* nox_xxx_unused_4DCA00();
 int sub_4DCBD0(int a1);

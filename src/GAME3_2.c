@@ -8371,8 +8371,9 @@ int nox_client_countPlayerFiles04_4DC7D0() {
 }
 // 4DC7D0: using guessed type char PathName[1024];
 
+#ifndef NOX_CGO
 //----- (004DC970) --------------------------------------------------------
-void nox_savegame_nameFromPath_4DC970(char* src, char* dst) {
+void nox_savegame_nameFromPath_4DC970(char* src, char* dst, int max) {
 	if (!src || !dst) {
 		return;
 	}
@@ -8383,6 +8384,7 @@ void nox_savegame_nameFromPath_4DC970(char* src, char* dst) {
 	strncpy(dst, p - 8, 8);
 	dst[8] = 0;
 }
+#endif // NOX_CGO
 
 //----- (004DC9B0) --------------------------------------------------------
 char* sub_4DC9B0(char* a1) {

@@ -117,7 +117,7 @@ int nox_savegame_sub_46C920(nox_window* a1p, int a2, nox_window* a3p, int a4) {
 			return 0;
 		}
 		if (strlen(&nox_savegame_arr_1064948[v8].path)) {
-			nox_savegame_nameFromPath_4DC970(&nox_savegame_arr_1064948[v8].path, (char*)getMemAt(0x5D4594, 1082840));
+			nox_savegame_nameFromPath_4DC970(&nox_savegame_arr_1064948[v8].path, (char*)getMemAt(0x5D4594, 1082840), 16); // TODO: max size is a guess
 			nox_xxx_wndClearCaptureMain_46ADE0(dword_5d4594_1082856);
 			v13 = nox_strman_loadString_40F1D0("GUISave.c:OverwriteSaveMessage", 0,
 											   "C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 184);
@@ -180,7 +180,7 @@ int nox_savegame_sub_46CBD0() {
 	if (!strlen(&nox_savegame_arr_1064948[i].path)) {
 		return 0;
 	}
-	nox_savegame_nameFromPath_4DC970(&nox_savegame_arr_1064948[i].path, v3);
+	nox_savegame_nameFromPath_4DC970(&nox_savegame_arr_1064948[i].path, v3, sizeof(v3));
 	if (!sub_4DB790(v3)) {
 		v2 = nox_strman_loadString_40F1D0("SaveErrorTitle", 0, "C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 75);
 		v1 = nox_strman_loadString_40F1D0("SaveErrorTitle", 0, "C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 74);
@@ -234,7 +234,7 @@ int nox_savegame_sub_46CE40(int a1, int a2, int a3, nox_savegame_xxx* sarr) {
 	while (1) {
 		nox_savegame_xxx* sv = &sarr[v9];
 		if (strlen(&sv->path)) {
-			nox_savegame_nameFromPath_4DC970(&sv->path, &v41);
+			nox_savegame_nameFromPath_4DC970(&sv->path, &v41, sizeof(v41));
 			nox_sprintf(&DateStr, "nox.str:%s", *getMemU32Ptr(0x587000, 29456 + 4 * sv->player_class));
 			wchar_t* v39 = nox_strman_loadString_40F1D0(&DateStr, 0, "C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 667);
 			wchar_t* v13 = nox_strman_loadString_40F1D0("the", 0, "C:\\NoxPost\\src\\client\\Gui\\GUISave.c", 666);

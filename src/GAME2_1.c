@@ -4741,8 +4741,8 @@ int sub_46CCD0(int a1, int a2) {
 	char v5[12]; // [esp+Ch] [ebp-18h]
 	char v6[12]; // [esp+18h] [ebp-Ch]
 
-	nox_savegame_nameFromPath_4DC970((char*)(a1 + 4), v5);
-	nox_savegame_nameFromPath_4DC970((char*)(a1 + 4), v6);
+	nox_savegame_nameFromPath_4DC970((char*)(a1 + 4), v5, sizeof(v5));
+	nox_savegame_nameFromPath_4DC970((char*)(a1 + 4), v6, sizeof(v6));
 	if (!strcmp(v5, "AUTOSAVE")) {
 		return -1;
 	}
@@ -4766,7 +4766,7 @@ int sub_46CD70(nox_savegame_xxx* sv) {
 	}
 
 	char buf[12];
-	nox_savegame_nameFromPath_4DC970(&sv->path, buf);
+	nox_savegame_nameFromPath_4DC970(&sv->path, buf, sizeof(buf));
 	return (strcmp(buf, "AUTOSAVE") != 0) + (NOX_SAVEGAME_XXX_MAX - 1);
 }
 
