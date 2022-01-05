@@ -14,6 +14,7 @@ import "C"
 import (
 	"nox/v1/common/datapath"
 	noxflags "nox/v1/common/flags"
+	"nox/v1/common/memmap"
 )
 
 //export sub_413A00
@@ -41,8 +42,12 @@ func sub_4DB170(a1, a2, a3 C.int) {
 	C.dword_5d4594_1563080 = C.uint(a1)
 	C.dword_5d4594_1563096 = C.uint(bool2int(a2 != 0))
 	if a1 == 0 {
-		C.sub_4DCBD0(0)
+		sub_4DCBD0(0)
 	}
+}
+
+func sub_4DCBD0(a1 int) {
+	*memmap.PtrUint32(0x5D4594, 1563076) = uint32(a1)
 }
 
 //export nox_savegame_nameFromPath_4DC970

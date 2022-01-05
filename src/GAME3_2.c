@@ -8403,6 +8403,7 @@ char* sub_4DC9B0(char* a1) {
 	return result;
 }
 
+#ifndef NOX_CGO
 //----- (004DCA00) --------------------------------------------------------
 char* nox_xxx_unused_4DCA00() {
 	unsigned int v0;                       // ebp
@@ -8468,6 +8469,7 @@ int sub_4DCBD0(int a1) {
 	*getMemU32Ptr(0x5D4594, 1563076) = a1;
 	return result;
 }
+#endif // NOX_CGO
 
 //----- (004DCBE0) --------------------------------------------------------
 int sub_4DCBE0() { return *getMemU32Ptr(0x5D4594, 1563076); }
