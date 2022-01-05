@@ -2,9 +2,9 @@
 #include "GAME2_1.h"
 #include "common__strman.h"
 extern uint32_t dword_5d4594_1064300;
-extern uint32_t dword_5d4594_1064820;
+extern void* dword_5d4594_1064820;
 extern uint32_t dword_5d4594_1064296;
-extern uint32_t dword_5d4594_1064816;
+extern void* dword_5d4594_1064816;
 
 //----- (00468890) --------------------------------------------------------
 int sub_468890_wol_reg(char* a1, char* a2, char* a3, uint8_t* a4, uint8_t* a5, wchar_t* a6) {
