@@ -144,7 +144,7 @@ extern uint32_t dword_5d4594_3798636;
 extern void* dword_5d4594_1307764;
 extern void* dword_5d4594_3798696;
 extern uint32_t nox_client_gui_flag_815132;
-extern uint32_t dword_5d4594_1307780;
+extern void* dword_5d4594_1307780;
 extern uint32_t dword_5d4594_1308084;
 extern uint32_t dword_5d4594_1309812;
 extern uint32_t dword_5d4594_1309820;
@@ -1779,7 +1779,7 @@ int sub_4A5C70() {
 		nox_savegame_rm_4DBE10(nox_savegame_name_1307752, 1);
 	} else {
 		nox_fs_remove(
-			(const char*)(dword_5d4594_1307780 + sizeof(nox_savegame_xxx) * *getMemU32Ptr(0x5D4594, 1307772) + 4));
+			(const char*)((uint32_t)dword_5d4594_1307780 + sizeof(nox_savegame_xxx) * *getMemU32Ptr(0x5D4594, 1307772) + 4));
 	}
 	nox_window_call_field_94(dword_5d4594_1307744, 16399, 0, 0);
 	nox_window_call_field_94(dword_5d4594_1307776, 16399, 0, 0);

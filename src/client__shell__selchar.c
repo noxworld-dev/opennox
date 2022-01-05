@@ -17,7 +17,6 @@
 #include "common/fs/nox_fs.h"
 #include "common__strman.h"
 #include "server__system__server.h"
-extern uint32_t dword_5d4594_1307780;
 
 char nox_savegame_name_1307752[9] = {0};
 nox_gui_animation* nox_wnd_xxx_1307748 = 0;
@@ -25,6 +24,7 @@ void* dword_5d4594_1307764 = 0;
 void* dword_5d4594_1307744 = 0;
 void* dword_5d4594_1307776 = 0;
 void* dword_5d4594_1307768 = 0;
+void* dword_5d4594_1307780 = 0;
 
 //----- (004A4DB0) --------------------------------------------------------
 int nox_game_showSelChar_4A4DB0() {
@@ -178,8 +178,8 @@ int nox_xxx_findAutosaves_4A5150() {
 			do {
 				if (!(FindFileData.dwFileAttributes & 0x10)) {
 					nox_sprintf(PathName, "%s%s", v32, FindFileData.cFileName);
-					sub_41A000(PathName, (uint8_t*)(v11 + dword_5d4594_1307780));
-					if (sub_4A5690((uint8_t*)(v11 + dword_5d4594_1307780)) == 1) {
+					sub_41A000(PathName, (uint8_t*)(v11 + (uint32_t)dword_5d4594_1307780));
+					if (sub_4A5690((uint8_t*)(v11 + (uint32_t)dword_5d4594_1307780)) == 1) {
 						++v9;
 						v11 += sizeof(nox_savegame_xxx);
 					}
@@ -193,14 +193,14 @@ int nox_xxx_findAutosaves_4A5150() {
 		v12 = 0;
 		v13 = v9;
 		do {
-			nox_sprintf(v28, "nox.str:%s", *getMemU32Ptr(0x587000, 29456 + 4 * *(unsigned char*)(v12 + dword_5d4594_1307780 + 1274)));
+			nox_sprintf(v28, "nox.str:%s", *getMemU32Ptr(0x587000, 29456 + 4 * *(unsigned char*)(v12 + (uint32_t)dword_5d4594_1307780 + 1274)));
 			v26 = nox_strman_loadString_40F1D0(v28, 0, "C:\\NoxPost\\src\\client\\shell\\selchar.c", 285);
-			v24 = v12 + dword_5d4594_1307780 + 1224;
+			v24 = v12 + (uint32_t)dword_5d4594_1307780 + 1224;
 			v14 = nox_strman_loadString_40F1D0("GuiInv.c:ElaborateNameFormat", 0, "C:\\NoxPost\\src\\client\\shell\\selchar.c", 283);
 			nox_swprintf(v30, v14, v24, v26);
-			if (*(uint8_t*)(v12 + dword_5d4594_1307780) & 4) {
+			if (*(uint8_t*)(v12 + (uint32_t)dword_5d4594_1307780) & 4) {
 				// save game text
-				v15 = *(unsigned char*)(v12 + dword_5d4594_1307780 + 1277);
+				v15 = *(unsigned char*)(v12 + (uint32_t)dword_5d4594_1307780 + 1277);
 				if (v15 < 1) {
 					v15 = 1;
 				}
@@ -212,7 +212,7 @@ int nox_xxx_findAutosaves_4A5150() {
 			}
 			nox_window_call_field_94(dword_5d4594_1307744, 16397, (int)getMemAt(0x587000, 170708), 14);
 			nox_window_call_field_94(dword_5d4594_1307768, 16397, (int)v30, 14);
-			if (*(uint8_t*)(v12 + dword_5d4594_1307780) & 4) {
+			if (*(uint8_t*)(v12 + (uint32_t)dword_5d4594_1307780) & 4) {
 				v25 = nox_strman_loadString_40F1D0("Noxworld.c:Quest", 0, "C:\\NoxPost\\src\\client\\shell\\selchar.c", 316);
 			} else {
 				v25 = nox_strman_loadString_40F1D0("Multiplayer", 0, "C:\\NoxPost\\src\\client\\shell\\selchar.c", 325);
@@ -296,14 +296,14 @@ int nox_xxx_windowSelCharProc_4A5710(int a1, unsigned int a2, nox_window* a3p, i
 			v7 = *(uint32_t*)((uint32_t)dword_5d4594_1307776 + 32);
 			v8 = *(uint32_t*)(v7 + 48);
 			if (v8 != -1) {
-				if (!strlen((const char*)(dword_5d4594_1307780 + sizeof(nox_savegame_xxx) * v8 + 4))) {
+				if (!strlen((const char*)((uint32_t)dword_5d4594_1307780 + sizeof(nox_savegame_xxx) * v8 + 4))) {
 					goto LABEL_38;
 				}
-				nox_savegame_nameFromPath_4DC970((char*)(dword_5d4594_1307780 + sizeof(nox_savegame_xxx) * v8 + 4),
+				nox_savegame_nameFromPath_4DC970((char*)((uint32_t)dword_5d4594_1307780 + sizeof(nox_savegame_xxx) * v8 + 4),
 												 v20);
 				if ((!nox_common_gameFlags_check_40A5C0(2048) ||
 					 nox_client_copySave_4DC100((int)v20, "WORKING")) &&
-					sub_41A000((char*)(dword_5d4594_1307780 + sizeof(nox_savegame_xxx) * *(uint32_t*)(v7 + 48) + 4),
+					sub_41A000((char*)((uint32_t)dword_5d4594_1307780 + sizeof(nox_savegame_xxx) * *(uint32_t*)(v7 + 48) + 4),
 							   v23)) {
 					memcpy(getMemAt(0x85B3FC, 10980), v23, 0x4FCu);
 					*getMemU16Ptr(0x85B3FC, 12256) = *(uint16_t*)&v23[1276];
@@ -319,11 +319,11 @@ int nox_xxx_windowSelCharProc_4A5710(int a1, unsigned int a2, nox_window* a3p, i
 						nox_xxx_gameSetSwitchSolo_4DB220(1);
 						nox_xxx_gameSetNoMPFlag_4DB230(1);
 						nox_sprintf(v21, "%s.map",
-									dword_5d4594_1307780 + sizeof(nox_savegame_xxx) * *(uint32_t*)(v7 + 48) + 1156);
+									(uint32_t)dword_5d4594_1307780 + sizeof(nox_savegame_xxx) * *(uint32_t*)(v7 + 48) + 1156);
 						v9 = nox_client_checkSaveMapExistsTmp_4DB2A0(v21) == 0;
 						v10 = *(uint32_t*)(v7 + 48);
-						v19 = dword_5d4594_1307780 + sizeof(nox_savegame_xxx) * v10 + 1156;
-						v18 = dword_5d4594_1307780 + sizeof(nox_savegame_xxx) * v10 + 1156;
+						v19 = (uint32_t)dword_5d4594_1307780 + sizeof(nox_savegame_xxx) * v10 + 1156;
+						v18 = (uint32_t)dword_5d4594_1307780 + sizeof(nox_savegame_xxx) * v10 + 1156;
 						if (v9) {
 							v12 = nox_fs_root();
 							nox_sprintf(v22, "%s\\Maps\\%s\\%s.map", v12, v18, v19);
@@ -335,15 +335,15 @@ int nox_xxx_windowSelCharProc_4A5710(int a1, unsigned int a2, nox_window* a3p, i
 						nox_xxx_gameSetMapPath_409D70(v21);
 						nox_xxx_mapLoadOrSaveMB_4DCC70(1);
 						v13 = sub_41D090(
-							(char*)(dword_5d4594_1307780 + sizeof(nox_savegame_xxx) * *(uint32_t*)(v7 + 48) + 4));
+							(char*)((uint32_t)dword_5d4594_1307780 + sizeof(nox_savegame_xxx) * *(uint32_t*)(v7 + 48) + 4));
 						nox_server_SetFirstObjectScriptID_4E3C60(v13);
 					} else if (sub_4D6F30()) {
-						sub_4DCE60(*(unsigned char*)(dword_5d4594_1307780 +
+						sub_4DCE60(*(unsigned char*)((uint32_t)dword_5d4594_1307780 +
 													 sizeof(nox_savegame_xxx) * *(uint32_t*)(v7 + 48) + 1277));
-						sub_4DCE80((const char*)(dword_5d4594_1307780 +
+						sub_4DCE80((const char*)((uint32_t)dword_5d4594_1307780 +
 												 sizeof(nox_savegame_xxx) * *(uint32_t*)(v7 + 48) + 1156));
 						v14 = sub_41D090(
-							(char*)(dword_5d4594_1307780 + sizeof(nox_savegame_xxx) * *(uint32_t*)(v7 + 48) + 4));
+							(char*)((uint32_t)dword_5d4594_1307780 + sizeof(nox_savegame_xxx) * *(uint32_t*)(v7 + 48) + 4));
 						nox_server_SetFirstObjectScriptID_4E3C60(v14);
 					}
 					sub_4A24C0(0);
@@ -358,7 +358,7 @@ int nox_xxx_windowSelCharProc_4A5710(int a1, unsigned int a2, nox_window* a3p, i
 				goto LABEL_40;
 			}
 			*getMemU32Ptr(0x5D4594, 1307772) = *(uint32_t*)(*(uint32_t*)((uint32_t)dword_5d4594_1307776 + 32) + 48);
-			nox_savegame_nameFromPath_4DC970((char*)(dword_5d4594_1307780 + sizeof(nox_savegame_xxx) * v5 + 4),
+			nox_savegame_nameFromPath_4DC970((char*)((uint32_t)dword_5d4594_1307780 + sizeof(nox_savegame_xxx) * v5 + 4),
 											 nox_savegame_name_1307752);
 			if (nox_common_gameFlags_check_40A5C0(2048) && !strcmp(nox_savegame_name_1307752, "AUTOSAVE")) {
 				nox_xxx_clientPlaySoundSpecial_452D80(925, 100);
@@ -369,7 +369,7 @@ int nox_xxx_windowSelCharProc_4A5710(int a1, unsigned int a2, nox_window* a3p, i
 				v6 = nox_strman_loadString_40F1D0("GUISave.c:AutoSaveDeleteTitle", 0,
 												  "C:\\NoxPost\\src\\client\\shell\\selchar.c", 465);
 			} else {
-				if (!strlen((const char*)(dword_5d4594_1307780 +
+				if (!strlen((const char*)((uint32_t)dword_5d4594_1307780 +
 										  sizeof(nox_savegame_xxx) * *getMemU32Ptr(0x5D4594, 1307772) + 4))) {
 				LABEL_38:
 					nox_xxx_clientPlaySoundSpecial_452D80(925, 100);
