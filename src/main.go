@@ -443,9 +443,7 @@ func RunArgs(args []string) (gerr error) {
 		noxrend.SetBold(false)
 	}
 	C.sub_413920()
-	if C.nox_client_initScreenParticles_431390() == 0 {
-		return fmt.Errorf("failed to init particles")
-	}
+	nox_client_initScreenParticles_431390()
 	mainloopNoSkip = *fNoSkip
 	cmainLoop()
 	return nil
@@ -510,7 +508,7 @@ func cleanup() {
 		C.nox_xxx_networkLog_close_413D00()
 	}
 	C.nox_common_writecfgfile(internCStr("nox.cfg"))
-	C.nox_xxx_freeScreenParticles_4314D0()
+	nox_xxx_freeScreenParticles_4314D0()
 	C.sub_413960()
 	C.sub_431380()
 	C.sub_4134F0()

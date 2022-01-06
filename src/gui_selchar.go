@@ -18,11 +18,15 @@ extern uint32_t dword_5d4594_830972;
 extern uint32_t dword_5d4594_831224;
 extern unsigned int dword_5d4594_251744;
 extern unsigned int nox_gameDisableMapDraw_5d4594_2650672;
+extern nox_screenParticle* dword_5d4594_806052;
+extern nox_screenParticle* nox_screenParticles_head;
+extern void* nox_alloc_screenParticles_806044;
 */
 import "C"
 import (
 	"encoding/binary"
 	"io"
+	"unsafe"
 
 	"nox/v1/common/alloc"
 	"nox/v1/common/datapath"
@@ -65,6 +69,48 @@ func sub_40E0A0() {
 
 func sub_40E090() {
 	C.dword_5d4594_10984 = 0
+}
+
+func nox_xxx_particlesLoadColor_4313E0() {
+	*memmap.PtrUint32(0x5D4594, 806012) = uint32(nox_color_rgb_4344A0(255, 255, 200))
+	*memmap.PtrUint32(0x5D4594, 806004) = uint32(nox_color_rgb_4344A0(50, 150, 255))
+	*memmap.PtrUint32(0x5D4594, 806036) = uint32(nox_color_rgb_4344A0(200, 255, 255))
+	*memmap.PtrUint32(0x5D4594, 806024) = uint32(nox_color_rgb_4344A0(255, 200, 100))
+	*memmap.PtrUint32(0x5D4594, 806040) = uint32(nox_color_rgb_4344A0(200, 255, 200))
+	*memmap.PtrUint32(0x5D4594, 806020) = uint32(nox_color_rgb_4344A0(255, 255, 0))
+	*memmap.PtrUint32(0x5D4594, 806028) = uint32(nox_color_rgb_4344A0(0, 0, 255))
+	*memmap.PtrUint32(0x5D4594, 806016) = uint32(nox_color_rgb_4344A0(128, 128, 255))
+	*memmap.PtrUint32(0x5D4594, 806008) = uint32(nox_color_rgb_4344A0(255, 128, 64))
+	*memmap.PtrUint32(0x5D4594, 806032) = uint32(nox_color_rgb_4344A0(0, 255, 0))
+}
+
+func nox_client_initScreenParticles_431390() {
+	if C.nox_alloc_screenParticles_806044 == nil {
+		C.nox_alloc_screenParticles_806044 = alloc.NewClass("ScreenParticles", unsafe.Sizeof(C.nox_screenParticle{}), 2000).UPtr()
+		if C.nox_alloc_screenParticles_806044 == nil {
+			panic("cannot init particles")
+		}
+	}
+	nox_client_resetScreenParticles_431510()
+}
+
+func nox_xxx_freeScreenParticles_4314D0() {
+	if C.nox_alloc_screenParticles_806044 != nil {
+		alloc.AsClass(C.nox_alloc_screenParticles_806044).Free()
+	}
+	C.nox_alloc_screenParticles_806044 = nil
+	C.nox_screenParticles_head = nil
+	C.dword_5d4594_806052 = nil
+}
+
+//export nox_client_resetScreenParticles_431510
+func nox_client_resetScreenParticles_431510() {
+	if C.nox_alloc_screenParticles_806044 != nil {
+		alloc.AsClass(C.nox_alloc_screenParticles_806044).FreeAllObjects()
+	}
+	C.nox_screenParticles_head = nil
+	C.dword_5d4594_806052 = nil
+	nox_xxx_particlesLoadColor_4313E0()
 }
 
 //export sub_413A00

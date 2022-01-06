@@ -379,7 +379,7 @@ mainloop:
 			}
 			nox_xxx_cliSetupSession_437190()
 			gameUpdateVideoMode(true)
-			C.nox_client_initScreenParticles_431390()
+			nox_client_initScreenParticles_431390()
 			cmainLoop()
 			continue mainloop
 		}

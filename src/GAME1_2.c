@@ -5006,6 +5006,7 @@ void sub_431380() {
 	sub_4896E0();
 }
 
+#ifndef NOX_CGO
 //----- (00431390) --------------------------------------------------------
 int nox_client_initScreenParticles_431390() {
 	if (!nox_alloc_screenParticles_806044) {
@@ -5022,9 +5023,7 @@ int nox_client_initScreenParticles_431390() {
 }
 
 //----- (004313E0) --------------------------------------------------------
-int nox_xxx_particlesLoadColor_4313E0() {
-	int result; // eax
-
+void nox_xxx_particlesLoadColor_4313E0() {
 	*getMemU32Ptr(0x5D4594, 806012) = nox_color_rgb_4344A0(255, 255, 200);
 	*getMemU32Ptr(0x5D4594, 806004) = nox_color_rgb_4344A0(50, 150, 255);
 	*getMemU32Ptr(0x5D4594, 806036) = nox_color_rgb_4344A0(200, 255, 255);
@@ -5034,9 +5033,7 @@ int nox_xxx_particlesLoadColor_4313E0() {
 	*getMemU32Ptr(0x5D4594, 806028) = nox_color_rgb_4344A0(0, 0, 255);
 	*getMemU32Ptr(0x5D4594, 806016) = nox_color_rgb_4344A0(128, 128, 255);
 	*getMemU32Ptr(0x5D4594, 806008) = nox_color_rgb_4344A0(255, 128, 64);
-	result = nox_color_rgb_4344A0(0, 255, 0);
-	*getMemU32Ptr(0x5D4594, 806032) = result;
-	return result;
+	*getMemU32Ptr(0x5D4594, 806032) = nox_color_rgb_4344A0(0, 255, 0);
 }
 
 //----- (004314D0) --------------------------------------------------------
@@ -5050,14 +5047,15 @@ void nox_xxx_freeScreenParticles_4314D0() {
 }
 
 //----- (00431510) --------------------------------------------------------
-int nox_client_resetScreenParticles_431510() {
+void nox_client_resetScreenParticles_431510() {
 	if (nox_alloc_screenParticles_806044) {
 		nox_alloc_class_free_all(*(uint32_t**)&nox_alloc_screenParticles_806044);
 	}
 	nox_screenParticles_head = 0;
 	dword_5d4594_806052 = 0;
-	return nox_xxx_particlesLoadColor_4313E0();
+	nox_xxx_particlesLoadColor_4313E0();
 }
+#endif // NOX_CGO
 
 //----- (00431540) --------------------------------------------------------
 nox_screenParticle* nox_client_newScreenParticle_431540(int a1, int a2, int a3, int a4, int a5, int a6, char a7,

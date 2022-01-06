@@ -154,9 +154,9 @@ int sub_431340();
 int sub_431370();
 void sub_431380();
 int nox_client_initScreenParticles_431390();
-int nox_xxx_particlesLoadColor_4313E0();
+void nox_xxx_particlesLoadColor_4313E0();
 void nox_xxx_freeScreenParticles_4314D0();
-int nox_client_resetScreenParticles_431510();
+void nox_client_resetScreenParticles_431510();
 nox_screenParticle* nox_client_newScreenParticle_431540(int a1, int a2, int a3, int a4, int a5, int a6, char a7,
 														char a8, char a9, char a10);
 void nox_client_addScreenParticle_431680(nox_screenParticle* p);
