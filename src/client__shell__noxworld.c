@@ -797,7 +797,7 @@ int nox_xxx_windowMultiplayerSub_439E70(int a1, unsigned int a2, int* a3, int a4
 		if (nox_xxx_wndGetID_46B0A0(a3) == 10061) {
 			nox_point mpos = nox_client_getMousePos_4309F0();
 			dword_5d4594_814624 = sub_4A28C0(a4);
-			sub_439370(&mpos, *(int*)&dword_5d4594_814624);
+			sub_439370(&mpos, dword_5d4594_814624);
 			return 0;
 		}
 		return 0;
@@ -833,7 +833,7 @@ int nox_xxx_windowMultiplayerSub_439E70(int a1, unsigned int a2, int* a3, int a4
 			*getMemU32Ptr(0x5D4594, 815036) = sub_4A2610(*(int*)&nox_wol_wnd_world_814980, &v30, v7);
 		} else {
 			dword_5d4594_814624 = sub_4A0490(v5 - 10070);
-			sub_439370(&mpos, *(int*)&dword_5d4594_814624);
+			sub_439370(&mpos, dword_5d4594_814624);
 		}
 		nox_xxx_cursorSetTooltip_4776B0((wchar_t*)getMemAt(0x5D4594, 815112));
 	}

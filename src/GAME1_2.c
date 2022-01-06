@@ -142,7 +142,6 @@ extern void* dword_587000_93164;
 extern uint32_t dword_5d4594_815044;
 extern uint32_t nox_wol_server_result_cnt_815088;
 extern void* dword_587000_127004;
-extern uint32_t dword_5d4594_814624;
 extern uint32_t cpuid_5d4594_3801804;
 extern uint32_t dword_5d4594_528256;
 extern uint32_t dword_5d4594_3798816;
@@ -241,6 +240,8 @@ nox_screenParticle* dword_5d4594_806052 = 0;
 
 nox_draw_viewport_t nox_draw_viewport = {0};
 void* nox_draw_colorTablesRev_3804668 = 0;
+
+void* dword_5d4594_814624 = 0;
 
 #ifndef NOX_CGO
 char nox_clientServerAddr[32] = "localhost";
@@ -6754,7 +6755,7 @@ int sub_439050(int a1, unsigned int a2, int* a3, unsigned int a4) {
 				if (a4 < *(int*)&nox_wol_server_result_cnt_815088) {
 					nox_point pos = nox_client_getMousePos_4309F0();
 					dword_5d4594_814624 = sub_4A04C0(a4);
-					sub_439370(&pos, *(int*)&dword_5d4594_814624);
+					sub_439370(&pos, dword_5d4594_814624);
 				}
 			}
 		} else if (a2 == 16403 || a2 == 16412) {
@@ -7255,7 +7256,7 @@ unsigned int nox_client_getServerAddr_43B300() {
 	unsigned int result; // eax
 
 	if (dword_5d4594_815056) {
-		result = inet_addr((const char*)(dword_5d4594_814624 + 12));
+		result = inet_addr((const char*)((uint32_t)dword_5d4594_814624 + 12));
 	} else {
 		result = 0;
 	}
@@ -7270,7 +7271,7 @@ int sub_43B340() {
 	int result; // eax
 
 	if (dword_5d4594_815056) {
-		result = *(unsigned short*)(dword_5d4594_814624 + 163);
+		result = *(unsigned short*)((uint32_t)dword_5d4594_814624 + 163);
 	} else {
 		result = 0;
 	}
@@ -7287,8 +7288,8 @@ int nox_xxx_cliDrawConnectedLoop_43B360() { // client connecting draw handler
 
 	nox_xxx_setGameFlags_40A4D0(4);
 	nox_common_gameFlags_unset_40A540(1);
-	v0 = (char*)(dword_5d4594_814624 + 12);
-	if (!memcmp((const void*)(dword_5d4594_814624 + 12), getMemAt(0x5D4594, 815116), 1u)) {
+	v0 = (char*)((uint32_t)dword_5d4594_814624 + 12);
+	if (!memcmp((const void*)((uint32_t)dword_5d4594_814624 + 12), getMemAt(0x5D4594, 815116), 1u)) {
 		nox_client_setServerConnectAddr_435720("localhost");
 	} else {
 		v1 = nox_client_getServerPort_43B320();
@@ -7297,7 +7298,7 @@ int nox_xxx_cliDrawConnectedLoop_43B360() { // client connecting draw handler
 		nox_client_setServerConnectAddr_435720(v0);
 	}
 	nox_common_writecfgfile("nox.cfg");
-	v2 = *(uint8_t*)(dword_5d4594_814624 + 102);
+	v2 = *(uint8_t*)((uint32_t)dword_5d4594_814624 + 102);
 	nox_video_mode* v3;
 	if (v2 < 0 && (v3 = sub_43BE80_video_mode_by_id(v2 & 0x7F)) != 0) {
 		sub_430C30_set_video_max(v3->width, v3->height);

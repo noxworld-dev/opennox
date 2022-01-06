@@ -198,7 +198,6 @@ uint32_t dword_5d4594_1308088 = 0;
 uint32_t dword_5d4594_826028 = 0;
 uint32_t dword_5d4594_2487524 = 0;
 uint32_t dword_5d4594_1522612 = 0;
-uint32_t dword_5d4594_814624 = 0;
 uint32_t dword_5d4594_829484 = 0;
 uint32_t dword_5d4594_1045468 = 0;
 uint32_t nox_xxx_lightningTargetArrayIndex_5d4594_2487904 = 0;
