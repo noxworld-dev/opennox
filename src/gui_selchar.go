@@ -6,6 +6,7 @@ package nox
 #include "GAME1_2.h"
 #include "GAME1_3.h"
 #include "GAME2.h"
+#include "GAME2_2.h"
 #include "GAME2_3.h"
 #include "GAME3_2.h"
 #include "GAME4.h"
@@ -164,6 +165,24 @@ func sub_413A00(a1 C.int) {
 //export sub_448640
 func sub_448640() { sub_44A400() }
 
+//export sub_43E200
+func sub_43E200() C.int {
+	C.sub_477530(0)
+	C.nox_xxx_gui_43E1A0(0)
+	nox_xxx_setContinueMenuOrHost_43DDD0(0)
+	nox_game_exit_xxx_43DE60()
+	sub_44A400()
+	return 1
+}
+
+//export sub_43E230
+func sub_43E230() C.int {
+	C.sub_477530(0)
+	noxflags.SetGame(noxflags.GameFlag21)
+	sub_44A400()
+	return 1
+}
+
 //export sub_44A400
 func sub_44A400() {
 	if win1 := asWindowP(C.dword_5d4594_830224); win1 != nil {
@@ -262,6 +281,12 @@ func sub_4505B0() {
 	v0 := nox_client_getIntroScreenDuration_44E3B0()
 	C.nox_client_screenFadeTimeout_44DAB0(v0, 1, (*[0]byte)(C.sub_44E320))
 	C.nox_gameDisableMapDraw_5d4594_2650672 = 1
+}
+
+//export sub_43DDA0
+func sub_43DDA0() {
+	*memmap.PtrUint32(0x5D4594, 816344) = 0
+	C.sub_43D9E0((*C.int4)(memmap.PtrOff(0x5D4594, 816060)))
 }
 
 //export sub_450580

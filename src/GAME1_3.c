@@ -110,7 +110,7 @@ extern uint32_t dword_5d4594_815044;
 extern uint32_t dword_587000_93156;
 extern void* dword_587000_127004;
 extern uint32_t dword_5d4594_829484;
-extern uint32_t dword_5d4594_814624;
+extern void* dword_5d4594_814624;
 extern uint32_t dword_5d4594_826028;
 extern uint32_t nox_client_highResFloors_154952;
 extern uint32_t dword_5d4594_2618912;
@@ -1712,6 +1712,7 @@ void sub_43DD70(int a1, int a2) {
 	*getMemU32Ptr(0x5D4594, 816344) = 1;
 }
 
+#ifndef NOX_CGO
 //----- (0043DDA0) --------------------------------------------------------
 void sub_43DDA0() {
 	*getMemU32Ptr(0x5D4594, 816344) = 0;
@@ -1719,7 +1720,6 @@ void sub_43DDA0() {
 }
 
 //----- (0043DDD0) --------------------------------------------------------
-#ifndef NOX_CGO
 void nox_xxx_setContinueMenuOrHost_43DDD0(int v) { nox_game_continueMenuOrHost_93200 = v; }
 
 //----- (0043DDE0) --------------------------------------------------------
@@ -1825,6 +1825,7 @@ uint32_t* nox_xxx_gui_43E1A0(int a1) {
 	return result;
 }
 
+#ifndef NOX_CGO
 //----- (0043E200) --------------------------------------------------------
 int sub_43E200() {
 	sub_477530(0);
@@ -1855,6 +1856,7 @@ int sub_43E230() {
 	sub_44A400();
 	return 1;
 }
+#endif // NOX_CGO
 
 //-------------------------------------------------------------------------
 #ifndef NOX_CGO
@@ -2599,12 +2601,12 @@ void* nox_xxx_FontLoadFile_43F3B0(char* a1) {
 	if (!file) {
 		return 0;
 	}
-	v1 = calloc(1, 0x20u);
+	v1 = calloc(1, 32);
 	if (!v1) {
 		nox_fs_close(file);
 		return 0;
 	}
-	memset(v1, 0, 0x20u);
+	memset(v1, 0, 32);
 	if (nox_binfile_fread_raw_40ADD0((char*)v17, 0x1Cu, 1u, file) != 1) {
 		goto LABEL_15;
 	}
