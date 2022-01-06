@@ -3,7 +3,6 @@ package nox
 /*
 #include "defs.h"
 #include "client__gui__window.h"
-int sub_43BE40(int a1);
 int sub_4A24F0();
 
 static int nox_gui_call_intvoid_go(int (*f)(void)) { return f(); }
@@ -124,7 +123,7 @@ func (a *guiAnim) doOut() {
 	a.Window().SetPos(p)
 	if maxed == 2 {
 		a.setState(NOX_GUI_ANIM_OUT_DONE)
-		C.sub_43BE40(1)
+		sub_43BE40(1)
 		if a.fnc_done_out != nil {
 			C.nox_gui_call_intvoid_go(a.fnc_done_out)
 		}
@@ -164,7 +163,7 @@ func (a *guiAnim) doIn() {
 	a.Window().SetPos(p)
 	if maxed == 2 {
 		a.setState(NOX_GUI_ANIM_IN_DONE)
-		C.sub_43BE40(0)
+		sub_43BE40(0)
 		if a.fnc_done_in != nil {
 			C.nox_gui_call_void2_go(a.fnc_done_in)
 		}
@@ -241,7 +240,7 @@ func nox_gui_makeAnimation_43C5B0(win *Window, x1, y1, x2, y2, in_dx, in_dy, out
 	a.out_dx = C.int(out_dx)
 	a.out_dy = C.int(out_dy)
 	a.setState(NOX_GUI_ANIM_IN)
-	C.sub_43BE40(3)
+	sub_43BE40(3)
 	clientPlaySoundSpecial(922, 100)
 	a.field_12 = nil
 	a.fnc_done_out = nil

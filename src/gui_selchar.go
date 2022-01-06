@@ -1,10 +1,17 @@
 package nox
 
 /*
+#include "GAME1.h"
 #include "GAME1_1.h"
+#include "GAME1_2.h"
 #include "GAME1_3.h"
 #include "GAME2.h"
+#include "GAME2_3.h"
 #include "GAME3_2.h"
+#include "GAME4.h"
+#include "client__shell__noxworld.h"
+
+extern void* dword_5d4594_814624;
 extern uint32_t dword_5d4594_10984;
 extern unsigned int dword_5d4594_527988;
 extern uint32_t dword_5d4594_528256;
@@ -17,6 +24,7 @@ extern uint32_t dword_5d4594_830872;
 extern uint32_t dword_5d4594_830972;
 extern uint32_t dword_5d4594_831224;
 extern unsigned int dword_5d4594_251744;
+extern unsigned int nox_game_createOrJoin_815048;
 extern unsigned int nox_gameDisableMapDraw_5d4594_2650672;
 extern nox_screenParticle* dword_5d4594_806052;
 extern nox_screenParticle* nox_screenParticles_head;
@@ -71,6 +79,11 @@ func sub_40E090() {
 	C.dword_5d4594_10984 = 0
 }
 
+//export sub_43BE40
+func sub_43BE40(a1 C.int) {
+	*memmap.PtrUint32(0x5D4594, 815204) = uint32(a1)
+}
+
 func nox_xxx_particlesLoadColor_4313E0() {
 	*memmap.PtrUint32(0x5D4594, 806012) = uint32(nox_color_rgb_4344A0(255, 255, 200))
 	*memmap.PtrUint32(0x5D4594, 806004) = uint32(nox_color_rgb_4344A0(50, 150, 255))
@@ -111,6 +124,22 @@ func nox_client_resetScreenParticles_431510() {
 	C.nox_screenParticles_head = nil
 	C.dword_5d4594_806052 = nil
 	nox_xxx_particlesLoadColor_4313E0()
+}
+
+//export sub_43B670
+func sub_43B670() {
+	v0 := sub_416640()
+	if C.nox_game_createOrJoin_815048 != 0 {
+		C.sub_44A400()
+		C.nox_client_xxx_switchChatMap_43B510()
+		C.nox_client_guiXxx_43A9D0()
+		nox_client_guiXxxDestroy_4A24A0()
+		C.nox_xxx_gameSetAudioFadeoutMb_501AC0(C.int(*(*uint32)(unsafe.Pointer(&v0[74]))))
+	} else {
+		C.sub_43B630()
+		C.sub_40D350(C.int(*(*uint32)(unsafe.Add(C.dword_5d4594_814624, 32))))
+	}
+	C.sub_49FF20()
 }
 
 //export sub_413A00

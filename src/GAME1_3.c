@@ -247,8 +247,9 @@ void nox_client_xxx_switchChatMap_43B510() {
 }
 // 43B510: using guessed type char var_50[80];
 
+#ifndef NOX_CGO
 //----- (0043B670) --------------------------------------------------------
-uint32_t* sub_43B670() {
+void sub_43B670() {
 	char* v0; // esi
 
 	v0 = sub_416640();
@@ -260,10 +261,11 @@ uint32_t* sub_43B670() {
 		nox_xxx_gameSetAudioFadeoutMb_501AC0(*(uint32_t*)(v0 + 74));
 	} else {
 		sub_43B630();
-		sub_40D350(*(uint32_t*)(dword_5d4594_814624 + 32));
+		sub_40D350(*(uint32_t*)((uint32_t)dword_5d4594_814624 + 32));
 	}
-	return sub_49FF20();
+	sub_49FF20();
 }
+#endif // NOX_CGO
 
 //----- (0043B6D0) --------------------------------------------------------
 int sub_43B6D0() { return dword_5d4594_815044; }
@@ -319,16 +321,12 @@ int nox_game_getStateCode_43BE10() { return nox_game_state_arr[nox_game_state_in
 //----- (0043BE30) --------------------------------------------------------
 int sub_43BE30() { return *getMemU32Ptr(0x5D4594, 815204); }
 
+#ifndef NOX_CGO
 //----- (0043BE40) --------------------------------------------------------
-int sub_43BE40(int a1) {
-	int result; // eax
-
-	result = a1;
+void sub_43BE40(int a1) {
 	*getMemU32Ptr(0x5D4594, 815204) = a1;
-	return result;
 }
 
-#ifndef NOX_CGO
 //----- (0043BE50) --------------------------------------------------------
 int sub_43BE50_get_video_mode_id() {
 	for (int i = 0; i < nox_video_modes_cnt; i++) {

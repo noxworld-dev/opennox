@@ -497,7 +497,7 @@ func sub_4AA9C0() C.int {
 	}
 	C.nox_common_writecfgfile(internCStr("nox.cfg"))
 	C.nox_wnd_xxx_1309740.state = C.nox_gui_anim_state(NOX_GUI_ANIM_OUT)
-	C.sub_43BE40(2)
+	sub_43BE40(2)
 	clientPlaySoundSpecial(923, 100)
 	return 1
 }

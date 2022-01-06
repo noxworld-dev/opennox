@@ -5,7 +5,7 @@
 
 int map_download_loop(int first);
 void nox_client_xxx_switchChatMap_43B510();
-uint32_t* sub_43B670();
+void sub_43B670();
 int sub_43B6D0();
 unsigned short* sub_43BC10(wchar_t* a1, unsigned char a2);
 int nox_sprintAddrPort_43BC80(const char* addr, unsigned short port, char* dst);
@@ -15,7 +15,7 @@ void nox_game_decStateInd_43BDC0();
 void nox_game_addStateCode_43BDD0(int a1);
 int nox_game_getStateCode_43BE10();
 int sub_43BE30();
-int sub_43BE40(int a1);
+void sub_43BE40(int a1);
 int sub_43BE50_get_video_mode_id();
 wchar_t* get_video_mode_string(int v1);
 nox_video_mode* sub_43BE80_video_mode_by_id(int a1);
