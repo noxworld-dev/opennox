@@ -3200,6 +3200,7 @@ int sub_41CFA0(char* a1, int a2) {
 	return result;
 }
 
+#ifndef NOX_CGO
 //----- (0041D090) --------------------------------------------------------
 int sub_41D090(char* a1) {
 	int result; // eax
@@ -3246,6 +3247,7 @@ int sub_41D110(uint32_t* a1) {
 	}
 	return result;
 }
+#endif // NOX_CGO
 
 //----- (0041D170) --------------------------------------------------------
 int sub_41D170() {

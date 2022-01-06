@@ -17,10 +17,18 @@ extern unsigned int nox_gameDisableMapDraw_5d4594_2650672;
 */
 import "C"
 import (
+	"encoding/binary"
+	"io"
+
 	"nox/v1/common/alloc"
 	"nox/v1/common/datapath"
 	noxflags "nox/v1/common/flags"
+	"nox/v1/common/log"
 	"nox/v1/common/memmap"
+)
+
+var (
+	saveLog = log.New("save")
 )
 
 //export sub_413A00
@@ -54,6 +62,60 @@ func sub4DCE80(a1 string) {
 	ptr := memmap.PtrOff(0x5D4594, 1563104)
 	alloc.Memset(ptr, 0, 20)
 	StrCopy((*C.char)(ptr), 20, a1)
+}
+
+//export sub_41D090
+func sub_41D090(a1 *C.char) C.int {
+	v, err := sub41D090(GoString(a1))
+	if err != nil {
+		saveLog.Println(err)
+		return 0
+	}
+	return C.int(v)
+}
+
+func sub41D090(path string) (uint32, error) {
+	if err := cryptFileOpen(path, 1, 27); err != nil {
+		return 0, err
+	}
+	defer cryptFileClose()
+	var buf [4]byte
+	for {
+		_, err := cryptFileReadWrite(buf[:4])
+		if err == io.EOF {
+			return 0, nil
+		} else if err != nil {
+			return 0, err
+		}
+		a1 := binary.LittleEndian.Uint32(buf[:])
+		if a1 == 0 {
+			return 0, nil
+		}
+		cryptFileReadMaybeAlign(buf[:4])
+		v3 := binary.LittleEndian.Uint32(buf[:])
+		if a1 == 10 {
+			return sub_41D110()
+		}
+		nox_xxx_cryptSeekCur(int64(v3))
+	}
+}
+
+func sub_41D110() (uint32, error) {
+	if !noxflags.HasGame(2048) {
+		return 0, nil
+	}
+	var buf [4]byte
+	v2 := uint16(5)
+	binary.LittleEndian.PutUint16(buf[:], v2)
+	_, err := cryptFileReadWrite(buf[:2])
+	v2 = binary.LittleEndian.Uint16(buf[:])
+	if int16(v2) <= 5 && int16(v2) >= 5 {
+		buf = [4]byte{}
+		_, err = cryptFileReadWrite(buf[:4])
+		v3 := binary.LittleEndian.Uint32(buf[:])
+		return v3, err
+	}
+	return uint32(v2), err
 }
 
 //export sub_4505B0
