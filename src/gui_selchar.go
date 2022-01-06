@@ -15,6 +15,10 @@ extern void* dword_5d4594_814624;
 extern uint32_t dword_5d4594_10984;
 extern unsigned int dword_5d4594_527988;
 extern uint32_t dword_5d4594_528256;
+extern void* dword_5d4594_830224;
+extern uint32_t dword_5d4594_830228;
+extern void* dword_5d4594_830232;
+extern void* dword_5d4594_830236;
 extern uint32_t dword_5d4594_1563080;
 extern uint32_t dword_5d4594_1563084;
 extern uint32_t dword_5d4594_1563088;
@@ -33,6 +37,7 @@ extern void* nox_alloc_screenParticles_806044;
 import "C"
 import (
 	"encoding/binary"
+	"image"
 	"io"
 	"unsafe"
 
@@ -130,7 +135,7 @@ func nox_client_resetScreenParticles_431510() {
 func sub_43B670() {
 	v0 := sub_416640()
 	if C.nox_game_createOrJoin_815048 != 0 {
-		C.sub_44A400()
+		sub_44A400()
 		C.nox_client_xxx_switchChatMap_43B510()
 		C.nox_client_guiXxx_43A9D0()
 		nox_client_guiXxxDestroy_4A24A0()
@@ -157,7 +162,28 @@ func sub_413A00(a1 C.int) {
 }
 
 //export sub_448640
-func sub_448640() { C.sub_44A400() }
+func sub_448640() { sub_44A400() }
+
+//export sub_44A400
+func sub_44A400() {
+	if win1 := asWindowP(C.dword_5d4594_830224); win1 != nil {
+		if C.dword_5d4594_830236 != nil {
+			nox_xxx_wndSetCaptureMain_46ADC0(asWindowP(C.dword_5d4594_830236).C())
+			C.dword_5d4594_830236 = nil
+		}
+		C.nox_xxx_wnd_46C6E0(win1.C())
+		nox_xxx_wndClearCaptureMain_46ADE0(win1.C())
+		win1.Destroy()
+		if C.dword_5d4594_830232 != nil {
+			guiFocus(asWindowP(C.dword_5d4594_830232))
+		}
+		C.dword_5d4594_830224 = nil
+		C.dword_5d4594_830228 = 0
+		nox_client_setCursorType_477610(0)
+
+		setMouseBounds(image.Rect(0, 0, nox_win_width-1, nox_win_height-1))
+	}
+}
 
 //export sub_4DCE60
 func sub_4DCE60(a1 C.int) {

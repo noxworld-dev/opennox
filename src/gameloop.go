@@ -1268,7 +1268,7 @@ func nox_xxx_cliDrawConnectedLoop_43B360() C.int {
 	} else {
 		videoSetMaxSize(noxVideoMax)
 	}
-	C.sub_44A400()
+	sub_44A400()
 	C.nox_client_guiXxx_43A9D0()
 	nox_client_guiXxxDestroy_4A24A0()
 	return 1

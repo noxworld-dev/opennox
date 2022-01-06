@@ -279,7 +279,7 @@ int sub_44A0B0(int a1);
 int sub_44A200(int a1);
 int sub_44A340(int a1, int a2);
 void sub_44A360(int a1);
-int sub_44A400();
+void sub_44A400();
 int sub_44A4A0();
 int sub_44A4B0();
 int sub_44A4D0(int a1);

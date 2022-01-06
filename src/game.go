@@ -1569,7 +1569,7 @@ func nox_game_switchStates_43C0A0() C.int { // switch game states
 			C.sub_41EC30()
 			C.sub_446490(0)
 			C.nox_xxx____setargv_4_44B000()
-			C.sub_44A400()
+			sub_44A400()
 			return 1
 		}
 		fallthrough

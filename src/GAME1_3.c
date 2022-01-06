@@ -1831,7 +1831,8 @@ int sub_43E200() {
 	nox_xxx_gui_43E1A0(0);
 	nox_xxx_setContinueMenuOrHost_43DDD0(0);
 	nox_game_exit_xxx_43DE60();
-	return sub_44A400();
+	sub_44A400();
+	return 1;
 }
 
 //----- (0043E230) --------------------------------------------------------
@@ -1851,7 +1852,8 @@ int sub_43E230() {
 #endif // NOX_CGO
 
 	nox_xxx_setGameFlags_40A4D0(0x100000);
-	return sub_44A400();
+	sub_44A400();
+	return 1;
 }
 
 //-------------------------------------------------------------------------
@@ -6179,11 +6181,9 @@ void sub_44A360(int a1) {
 	v2[59] = result;
 }
 
+#ifndef NOX_CGO
 //----- (0044A400) --------------------------------------------------------
-int sub_44A400() {
-	int result; // eax
-
-	result = dword_5d4594_830224;
+void sub_44A400() {
 	if (dword_5d4594_830224) {
 		if (dword_5d4594_830236) {
 			nox_xxx_wndSetCaptureMain_46ADC0(dword_5d4594_830236);
@@ -6200,8 +6200,8 @@ int sub_44A400() {
 		nox_client_setCursorType_477610(0);
 		nox_xxx_setMouseBounds_430A70(0, nox_win_width - 1, 0, nox_win_height - 1);
 	}
-	return result;
 }
+#endif // NOX_CGO
 
 //----- (0044A4A0) --------------------------------------------------------
 int sub_44A4A0() { return dword_5d4594_830224 != 0; }
