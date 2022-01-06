@@ -1564,7 +1564,7 @@ func nox_game_switchStates_43C0A0() C.int { // switch game states
 		return 1
 	case gameStateServerList: // list of servers
 		if C.nox_xxx_check_flag_aaa_43AF70() == 1 && C.sub_40E0B0() == 0 {
-			C.sub_41E300(9)
+			sub_41E300(9)
 			C.sub_41F4B0()
 			C.sub_41EC30()
 			C.sub_446490(0)

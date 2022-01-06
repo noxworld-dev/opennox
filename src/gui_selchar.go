@@ -1,9 +1,13 @@
 package nox
 
 /*
+#include "GAME1_1.h"
 #include "GAME1_3.h"
 #include "GAME2.h"
 #include "GAME3_2.h"
+extern uint32_t dword_5d4594_10984;
+extern unsigned int dword_5d4594_527988;
+extern uint32_t dword_5d4594_528256;
 extern uint32_t dword_5d4594_1563080;
 extern uint32_t dword_5d4594_1563084;
 extern uint32_t dword_5d4594_1563088;
@@ -30,6 +34,38 @@ import (
 var (
 	saveLog = log.New("save")
 )
+
+//export sub_41E300
+func sub_41E300(a1 C.int) C.int {
+	if a1 == 11 && noxflags.HasGame(noxflags.GameFlag29) && sub_43C710() {
+		if C.dword_5d4594_528256 != 0 {
+			C.sub_41E470()
+		} else {
+			C.nox_xxx_reconStart_41E400()
+		}
+		return 0
+	}
+	if C.int(C.dword_5d4594_527988) != a1 {
+		C.dword_5d4594_527988 = C.uint(a1)
+		C.sub_41DA10(a1)
+		if C.dword_5d4594_527988 == 11 {
+			sub_40E0A0()
+		}
+	}
+	return 1
+}
+
+func sub_43C710() bool {
+	return noxflags.HasGame(noxflags.GameFlag29)
+}
+
+func sub_40E0A0() {
+	C.dword_5d4594_10984 = 1
+}
+
+func sub_40E090() {
+	C.dword_5d4594_10984 = 0
+}
 
 //export sub_413A00
 func sub_413A00(a1 C.int) {
