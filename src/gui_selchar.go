@@ -6,12 +6,19 @@ package nox
 #include "GAME1_2.h"
 #include "GAME1_3.h"
 #include "GAME2.h"
+#include "GAME2_1.h"
 #include "GAME2_2.h"
 #include "GAME2_3.h"
+#include "GAME3.h"
 #include "GAME3_2.h"
 #include "GAME4.h"
 #include "client__shell__noxworld.h"
 
+extern uint32_t dword_5d4594_1064296;
+extern void* dword_5d4594_1064816;
+extern void* dword_5d4594_1064820;
+extern void* dword_5d4594_1064824;
+extern void* dword_5d4594_1064828;
 extern void* dword_5d4594_814624;
 extern uint32_t dword_5d4594_10984;
 extern unsigned int dword_5d4594_527988;
@@ -52,6 +59,71 @@ import (
 var (
 	saveLog = log.New("save")
 )
+
+//export sub_468480
+func sub_468480(a1 C.int, a2 C.int, a3 C.int, a4 C.int) C.int {
+	if a2 != 21 {
+		return 0
+	}
+	if a3 != 1 {
+		return 0
+	}
+	if a4 == 2 {
+		clientPlaySoundSpecial(231, 100)
+		sub_4684C0()
+	}
+	return 1
+}
+
+//export sub_4683B0
+func sub_4683B0() C.int {
+	gameSetCliDrawFunc(func() bool {
+		return C.sub_41E210() != 0
+	})
+	win := newWindowFromFile("wolreg.wnd", C.sub_4685D0)
+	C.dword_5d4594_1064816 = unsafe.Pointer(win.C())
+	win.SetAllFuncs(C.sub_468480, nil, nil)
+	C.dword_5d4594_1064820 = unsafe.Pointer(win.ChildByID(1755).C())
+	C.dword_5d4594_1064824 = unsafe.Pointer(win.ChildByID(1756).C())
+	C.dword_5d4594_1064828 = unsafe.Pointer(win.ChildByID(1754).C())
+	v0 := win.ChildByID(1766)
+	v0.DrawData().field_0 |= 4
+	v1 := win.ChildByID(1767)
+	v1.DrawData().field_0 |= 4
+	C.dword_5d4594_1064296 = 0
+	nox_xxx_wnd_46ABB0(win, 1)
+	return 1
+}
+
+//export sub_4684C0
+func sub_4684C0() {
+	v0 := GUIChildByID(1700)
+	switch C.dword_5d4594_1064296 {
+	case 0:
+		sub_41E300(5)
+		C.sub_4207F0(1)
+		nox_xxx_wnd_46ABB0(v0, 1)
+		C.sub_4A1BE0(1)
+		C.sub_4A1A40(0)
+	case 1:
+		C.dword_5d4594_1064296 = 0
+		asWindowP(C.dword_5d4594_1064824).Hide()
+		asWindowP(C.dword_5d4594_1064820).Show()
+	case 2:
+		C.dword_5d4594_1064296 = 0
+		asWindowP(C.dword_5d4594_1064828).Hide()
+		asWindowP(C.dword_5d4594_1064820).Show()
+	case 3:
+		C.dword_5d4594_1064296 = 1
+		asWindowP(C.dword_5d4594_1064828).Hide()
+		asWindowP(C.dword_5d4594_1064824).Show()
+	case 4:
+		sub_41E300(5)
+		C.sub_4207F0(1)
+		nox_xxx_wnd_46ABB0(v0, 1)
+		C.sub_4A1BE0(1)
+	}
+}
 
 //export sub_41E300
 func sub_41E300(a1 C.int) C.int {

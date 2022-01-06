@@ -358,6 +358,10 @@ func (win *Window) IsChild(win2 *Window) bool {
 	return false
 }
 
+func GUIChildByID(id uint) *Window {
+	return nox_win_xxx1_last.ChildByID(id)
+}
+
 func (win *Window) ChildByID(id uint) *Window {
 	for cur := win; cur != nil; cur = cur.Prev() {
 		if cur.ID() == id {
@@ -692,4 +696,8 @@ func sub_46B180(win *Window) {
 	} else {
 		win.Parent().field_100 = nil
 	}
+}
+
+func nox_xxx_wnd_46ABB0(win *Window, v int) int {
+	return int(C.nox_xxx_wnd_46ABB0(win.C(), C.int(v)))
 }

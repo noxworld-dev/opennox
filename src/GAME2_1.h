@@ -137,7 +137,7 @@ int sub_4680E0();
 int sub_468340();
 int sub_4683B0();
 int sub_468480(int a1, int a2, int a3, int a4);
-int sub_4684C0();
+void sub_4684C0();
 int sub_4685D0(int a1, int a2, int* a3, int a4);
 int sub_468840(wchar_t* a1);
 int sub_468DC0();

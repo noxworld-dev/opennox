@@ -3364,6 +3364,7 @@ int sub_468340() {
 	return nox_window_set_hidden((int)v3, 0);
 }
 
+#ifndef NOX_CGO
 //----- (004683B0) --------------------------------------------------------
 int sub_4683B0() {
 	uint32_t* v0; // eax
@@ -3400,46 +3401,42 @@ int sub_468480(int a1, int a2, int a3, int a4) {
 }
 
 //----- (004684C0) --------------------------------------------------------
-int sub_4684C0() {
-	uint32_t* v0; // esi
-	int result;   // eax
-
-	v0 = nox_xxx_wndGetChildByID_46B0C0(0, 1700);
-	result = dword_5d4594_1064296;
+void sub_4684C0() {
+	uint32_t* v0 = nox_xxx_wndGetChildByID_46B0C0(0, 1700);
 	switch (dword_5d4594_1064296) {
 	case 0:
 		sub_41E300(5);
 		sub_4207F0(1);
 		nox_xxx_wnd_46ABB0((int)v0, 1);
 		sub_4A1BE0(1);
-		result = sub_4A1A40(0);
+		sub_4A1A40(0);
 		break;
 	case 1:
 		dword_5d4594_1064296 = 0;
 		nox_window_set_hidden(dword_5d4594_1064824, 1);
-		result = nox_window_set_hidden(dword_5d4594_1064820, 0);
+		nox_window_set_hidden(dword_5d4594_1064820, 0);
 		break;
 	case 2:
 		dword_5d4594_1064296 = 0;
 		nox_window_set_hidden(dword_5d4594_1064828, 1);
-		result = nox_window_set_hidden(dword_5d4594_1064820, 0);
+		nox_window_set_hidden(dword_5d4594_1064820, 0);
 		break;
 	case 3:
 		dword_5d4594_1064296 = 1;
 		nox_window_set_hidden(dword_5d4594_1064828, 1);
-		result = nox_window_set_hidden(dword_5d4594_1064824, 0);
+		nox_window_set_hidden(dword_5d4594_1064824, 0);
 		break;
 	case 4:
 		sub_41E300(5);
 		sub_4207F0(1);
 		nox_xxx_wnd_46ABB0((int)v0, 1);
-		result = sub_4A1BE0(1);
+		sub_4A1BE0(1);
 		break;
 	default:
-		return result;
+		break;
 	}
-	return result;
 }
+#endif // NOX_CGO
 
 //----- (004685D0) --------------------------------------------------------
 int sub_4685D0(int a1, int a2, int* a3, int a4) {
