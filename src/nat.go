@@ -11,9 +11,12 @@ import (
 )
 
 var (
-	gameNAT func()
-	useNAT  = true
+	useNAT = true
 )
+
+type natService struct {
+	stop func()
+}
 
 func init() {
 	nat.Log = log.New("nat")
@@ -21,7 +24,7 @@ func init() {
 	configBoolPtr("network.port_forward", "NOX_NET_NAT", true, &useNAT)
 }
 
-func gameStartNAT(port, hport int) error {
+func (s *Server) gameStartNAT(port, hport int) error {
 	if !useNAT || !noxflags.HasGame(noxflags.GameOnline) || env.IsE2E() {
 		return nil
 	}
@@ -36,13 +39,13 @@ func gameStartNAT(port, hport int) error {
 			stop()
 		}
 	}()
-	gameNAT = cancel
+	s.nat.stop = cancel
 	return nil
 }
 
-func gameStopNAT() {
-	if gameNAT != nil {
-		gameNAT()
-		gameNAT = nil
+func (s *Server) gameStopNAT() {
+	if s.nat.stop != nil {
+		s.nat.stop()
+		s.nat.stop = nil
 	}
 }

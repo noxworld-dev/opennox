@@ -72,7 +72,7 @@ func asObjectC(p *C.nox_object_t) *Object {
 	return asObject(unsafe.Pointer(p))
 }
 
-func firstServerObject() *Object { // nox_server_getFirstObject_4DA790
+func (s *Server) firstServerObject() *Object { // nox_server_getFirstObject_4DA790
 	return asObjectC(C.nox_server_objects_1556844)
 }
 
@@ -80,13 +80,13 @@ func firstServerObjectUpdatable2() *Object { // nox_xxx_getFirstUpdatable2Object
 	return asObjectC(C.nox_server_objects_updatable2_1556848)
 }
 
-func firstServerObjectUninited() *Object { // nox_server_getFirstObjectUninited_4DA870
+func (s *Server) firstServerObjectUninited() *Object { // nox_server_getFirstObjectUninited_4DA870
 	return asObjectC(C.nox_server_objects_uninited_1556860)
 }
 
-func getObjects() []*Object {
+func (s *Server) getObjects() []*Object {
 	var out []*Object
-	for p := firstServerObject(); p != nil; p = p.Next() {
+	for p := s.firstServerObject(); p != nil; p = p.Next() {
 		out = append(out, p)
 	}
 	return out
@@ -100,21 +100,21 @@ func getObjectsUpdatable2() []*Object {
 	return out
 }
 
-func getObjectsUninited() []*Object {
+func (s *Server) getObjectsUninited() []*Object {
 	var out []*Object
-	for p := firstServerObjectUninited(); p != nil; p = p.Next() {
+	for p := s.firstServerObjectUninited(); p != nil; p = p.Next() {
 		out = append(out, p)
 	}
 	return out
 }
 
-func getObjectByID(id string) *Object {
-	for obj := firstServerObject(); obj != nil; obj = obj.Next() {
+func (s *Server) getObjectByID(id string) *Object {
+	for obj := s.firstServerObject(); obj != nil; obj = obj.Next() {
 		if p := obj.findByID(id); p != nil {
 			return p
 		}
 	}
-	for obj := firstServerObjectUninited(); obj != nil; obj = obj.Next() {
+	for obj := s.firstServerObjectUninited(); obj != nil; obj = obj.Next() {
 		if p := obj.findByID(id); p != nil {
 			return p
 		}
@@ -122,8 +122,8 @@ func getObjectByID(id string) *Object {
 	return nil
 }
 
-func getObjectByInd(ind int) *Object { // aka nox_xxx_netGetUnitByExtent_4ED020
-	for p := firstServerObject(); p != nil; p = p.Next() {
+func (s *Server) getObjectByInd(ind int) *Object { // aka nox_xxx_netGetUnitByExtent_4ED020
+	for p := s.firstServerObject(); p != nil; p = p.Next() {
 		if p.Flags16()&0x20 == 0 && p.Ind() == ind {
 			return p
 		}
@@ -131,7 +131,7 @@ func getObjectByInd(ind int) *Object { // aka nox_xxx_netGetUnitByExtent_4ED020
 	return nil
 }
 
-func getObjectGroupByID(id string) *script.ObjectGroup {
+func (s *Server) getObjectGroupByID(id string) *script.ObjectGroup {
 	g := getMapGroupByID(id, 0)
 	if g == nil {
 		return nil
@@ -141,7 +141,7 @@ func getObjectGroupByID(id string) *script.ObjectGroup {
 	var list []script.Object
 	for wp := g.FirstItem(); wp != nil; wp = wp.Next() {
 		ind := int(*(*int32)(wp.Payload()))
-		if wl := getObjectByInd(ind); wl != nil {
+		if wl := s.getObjectByInd(ind); wl != nil {
 			list = append(list, wl)
 		}
 	}
@@ -155,6 +155,10 @@ type noxObject interface {
 }
 
 type Object nox_object_t
+
+func (obj *Object) getServer() *Server {
+	return noxServer // TODO: attach to object
+}
 
 func (obj *Object) UniqueKey() uintptr {
 	return uintptr(unsafe.Pointer(obj))
@@ -196,7 +200,7 @@ func (obj *Object) stringAs(typ string) string {
 	}
 	if obj.Class().Has(object.ClassPlayer) {
 		// TODO: better way
-		for _, p := range getPlayers() {
+		for _, p := range obj.getServer().getPlayers() {
 			if u := p.UnitC(); u != nil && u.CObj() == obj.CObj() {
 				oid += fmt.Sprintf(",P:%q", p.Name())
 			}
@@ -319,7 +323,7 @@ func (obj *Object) ObjectTypeC() *ObjectType {
 		return nil
 	}
 	ind := obj.objTypeInd()
-	return getObjectTypeByInd(ind)
+	return obj.getServer().getObjectTypeByInd(ind)
 }
 
 func (obj *Object) ObjectType() script.ObjectType {

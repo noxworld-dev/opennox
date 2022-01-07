@@ -13,15 +13,15 @@ import (
 	"nox/v1/common/types"
 )
 
-func serverUpdateUnitsAAA() { // nox_xxx_updateUnits_51B100_A
-	for _, u := range getPlayerUnits() {
+func (s *Server) updateUnitsAAA() { // nox_xxx_updateUnits_51B100_A
+	for _, u := range s.getPlayerUnits() {
 		ud := u.updateDataPlayer()
 		C.nox_xxx_itemApplyUpdateEffect_4FA490(u.CObj())
 		ud.cursor_obj = C.nox_xxx_findObjectAtCursor_54AF40(u.CObj())
 	}
 }
 
-func serverUpdateUnitsCallUpdate() { // nox_xxx_updateUnits_51B100_callUpdate
+func (s *Server) updateUnitsCallUpdate() { // nox_xxx_updateUnits_51B100_callUpdate
 	for obj := firstServerObjectUpdatable2(); obj != nil; obj = obj.Next() {
 		if obj.Flags16()&0x22 == 0 {
 			obj.callUpdate()

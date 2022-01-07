@@ -356,7 +356,7 @@ mainloop:
 					continue mainloop
 				}
 				if noxflags.HasGame(noxflags.GameHost) {
-					if err := nox_xxx_servNewSession_4D1660(); err != nil {
+					if err := noxServer.nox_xxx_servNewSession_4D1660(); err != nil {
 						log.Println(err)
 						continue mainloop
 					}
@@ -409,7 +409,7 @@ mainloop:
 		C.sub_434B60()
 		mainloopConnectResultOK = false
 		if noxflags.HasGame(noxflags.GameHost) {
-			nox_xxx_servEndSession_4D3200()
+			noxServer.nox_xxx_servEndSession_4D3200()
 		}
 		if noxflags.HasGame(noxflags.GameFlag2) {
 			nox_xxx_cliSetupSession_437190()
@@ -438,7 +438,7 @@ func nox_xxx_clientResetSpriteAndGui_4357D0(noSkip bool) bool {
 	*memmap.PtrUint32(0x5D4594, 811064) = uint32(C.nox_client_renderGUI_80828)
 	C.nox_netlist_resetAll_40EE60()
 	if !nox_common_gameFlags_check_40A5C0(1) {
-		C.nox_xxx_cliResetAllPlayers_416E30()
+		noxServer.resetAllPlayers()
 	}
 	if !nox_xxx_chatInit_48D7D0() {
 		return false
@@ -550,7 +550,7 @@ func CONNECT_OR_HOST() {
 			return
 		}
 		if !isDedicatedServer {
-			clientSetPlayerNetCode(newPlayer(31, &popts))
+			clientSetPlayerNetCode(noxServer.newPlayer(31, &popts))
 		}
 		C.nox_client_setVersion_409AE0(NOX_CLIENT_VERS_CODE)
 		if !isDedicatedServer {
@@ -825,7 +825,7 @@ func CONNECT_RESULT_FAIL(err error) {
 	noxflags.UnsetGame(noxflags.GameFlag21)
 	mainloopConnectResultOK = false
 	if noxflags.HasGame(noxflags.GameHost) {
-		nox_xxx_servEndSession_4D3200()
+		noxServer.nox_xxx_servEndSession_4D3200()
 	}
 	if noxflags.HasGame(noxflags.GameFlag2) {
 		nox_xxx_cliSetupSession_437190()
@@ -883,7 +883,7 @@ func CONNECT_RESULT_OK() {
 		}()
 	}
 	mainloopConnectResultOK = true
-	if err := nox_xxx_replayStartReadingOrSaving_4D38D0(); err != nil {
+	if err := noxServer.nox_xxx_replayStartReadingOrSaving_4D38D0(); err != nil {
 		if debugMainloop {
 			log.Println("nox_xxx_replayStartReadingOrSaving_4D38D0:", err)
 		}
@@ -892,7 +892,7 @@ func CONNECT_RESULT_OK() {
 	}
 	if !noxflags.HasGame(noxflags.GameHost) {
 		nox_xxx_setGameState_43DDF0(nil)
-	} else if !nox_xxx_servInitialMapLoad_4D17F0() {
+	} else if !noxServer.nox_xxx_servInitialMapLoad_4D17F0() {
 		if debugMainloop {
 			log.Println("nox_xxx_servInitialMapLoad_4D17F0 exit")
 		}
@@ -1008,7 +1008,7 @@ func nox_xxx_cliSetupSession_437190() {
 		C.sub_40D380()
 	}
 	C.sub_473960()
-	nox_xxx_cliResetAllPlayers_416E30()
+	noxServer.resetAllPlayers()
 	C.sub_455EE0()
 	C.sub_456240()
 	C.sub_48D800()
@@ -1023,7 +1023,7 @@ func nox_xxx_cliSetupSession_437190() {
 	if !noxflags.HasGame(noxflags.GameHost) {
 		C.sub_4E4DE0()
 	}
-	nox_xxx_mapLoad_40A380()
+	noxServer.nox_xxx_mapLoad_40A380()
 	clientSetServerHost("")
 	C.sub_446580(1)
 	C.sub_48D760()
@@ -1091,17 +1091,17 @@ func sub_4703F0() {
 	}
 }
 
-func nox_xxx_mapLoad_40A380() {
+func (s *Server) nox_xxx_mapLoad_40A380() {
 	C.nox_xxx_set3512_40A340(0)
 	nox_xxx_setMapCRC_40A360(0)
 	name := GoString((*C.char)(memmap.PtrOff(0x5D4594, 3608)))
-	nox_xxx_gameSetMapPath_409D70(name)
+	s.nox_xxx_gameSetMapPath_409D70(name)
 	noxflags.SetGame(noxflags.GameHost | noxflags.GameFlag2)
 	noxflags.UnsetGame(137212) // TODO
 	C.nox_server_gameSettingsUpdated = 1
 }
 
-func nox_xxx_gameSetMapPath_409D70(path string) {
+func (s *Server) nox_xxx_gameSetMapPath_409D70(path string) {
 	log.Printf("set map path: %q", path)
 	C.nox_xxx_gameSetMapPath_409D70(internCStr(path))
 }
@@ -1125,7 +1125,7 @@ func map_download_finish() int {
 		C.nox_gameDisableMapDraw_5d4594_2650672 = 1
 		C.nox_client_fadeXxx_44DA60(1)
 	}
-	if fname := nox_server_currentMapGetFilename_409B30(); C.nox_xxx_mapCliReadAll_4AC2B0(internCStr(fname)) == nil {
+	if fname := noxServer.nox_server_currentMapGetFilename_409B30(); C.nox_xxx_mapCliReadAll_4AC2B0(internCStr(fname)) == nil {
 		v6 := strMan.GetStringInFile("MapLoadError", "C:\\NoxPost\\src\\Client\\System\\gameloop.c")
 		C.go_call_sub_4516C0(internWStr(v6), internCStr(fname))
 		C.nox_xxx_spriteLoadError_4356E0()
@@ -1181,7 +1181,7 @@ func nox_xxx_gameChangeMap_43DEB0() int {
 		if nox_xxx_gameIsNotMultiplayer_4DB250() {
 			mapName = nox_xxx_mapFilenameGetSolo_4DB260()
 		} else {
-			mapName = nox_server_currentMapGetFilename_409B30()
+			mapName = noxServer.nox_server_currentMapGetFilename_409B30()
 		}
 		// TODO: remove this partial path denormalization once we port map parsing
 		if i := strings.LastIndexByte(mapName, '/'); i >= 0 {
@@ -1201,7 +1201,7 @@ func nox_xxx_gameChangeMap_43DEB0() int {
 			v5 := C.nox_xxx_mapCliReadAll_4AC2B0(internCStr(mapName))
 			sub_43F1A0()
 			if v5 == nil {
-				v13 := nox_server_currentMapGetFilename_409B30()
+				v13 := noxServer.nox_server_currentMapGetFilename_409B30()
 				v6 := strMan.GetStringInFile("MapLoadError", "C:\\NoxPost\\src\\Client\\System\\gameloop.c")
 				C.go_call_sub_4516C0(internWStr(v6), internCStr(v13))
 				C.nox_xxx_spriteLoadError_4356E0()

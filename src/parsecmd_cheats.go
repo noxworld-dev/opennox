@@ -183,7 +183,7 @@ func noxCheatGold(ctx context.Context, c *console.Console, tokens []string) bool
 		c.Printf(console.ColorLightRed, "failed to parse the value")
 		return true
 	}
-	for _, u := range getPlayerUnits() {
+	for _, u := range noxServer.getPlayerUnits() {
 		u.AddGold(v)
 	}
 	c.Printf(console.ColorLightYellow, "added %d gold to all players", v)
@@ -202,7 +202,7 @@ func serverCheatInvincible(enable bool) {
 
 func serverCheatSage(enable bool) {
 	if noxflags.HasGame(noxflags.GameModeCoop) {
-		for _, p := range getPlayers() {
+		for _, p := range noxServer.getPlayers() {
 			serverSetAllBeastScrolls(p, enable)
 			serverSetAllSpells(p, enable)
 			serverSetAllWarriorAbilities(p, enable)
@@ -212,7 +212,7 @@ func serverCheatSage(enable bool) {
 
 func serverCheatScrolls(enable bool) {
 	if noxflags.HasGame(noxflags.GameModeCoop) {
-		for _, p := range getPlayers() {
+		for _, p := range noxServer.getPlayers() {
 			serverSetAllBeastScrolls(p, enable)
 		}
 	}
@@ -220,7 +220,7 @@ func serverCheatScrolls(enable bool) {
 
 func serverCheatSpells(enable bool) {
 	if noxflags.HasGame(noxflags.GameModeCoop) {
-		for _, p := range getPlayers() {
+		for _, p := range noxServer.getPlayers() {
 			serverSetAllSpells(p, enable)
 			serverSetAllWarriorAbilities(p, enable)
 		}
@@ -313,7 +313,7 @@ func noxCmdPlayerByIndex(c *console.Console, sind string) *Player {
 		c.Printf(console.ColorLightRed, "player index must be an integer")
 		return nil
 	}
-	list := getPlayers()
+	list := noxServer.getPlayers()
 	if ind < 0 || ind >= len(list) {
 		c.Printf(console.ColorLightRed, "player index out of range [0-%d]", len(list)-1)
 		return nil
@@ -362,7 +362,7 @@ func noxCheatSpawn(ctx context.Context, c *console.Console, tokens []string) boo
 		}
 	case 1:
 	}
-	typ := getObjectTypeByID(tokens[0])
+	typ := noxServer.getObjectTypeByID(tokens[0])
 	if typ == nil {
 		c.Printf(console.ColorLightRed, "unknown object: %q", tokens[0])
 		return true

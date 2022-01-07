@@ -19,17 +19,17 @@ func asWall(p unsafe.Pointer) *Wall {
 	return (*Wall)(p)
 }
 
-func getWallAtGrid(pos types.Point) *Wall {
+func (s *Server) getWallAtGrid(pos types.Point) *Wall {
 	p := C.nox_server_getWallAtGrid_410580(C.int(pos.X), C.int(pos.Y))
 	return asWall(p)
 }
 
-func getWallAt(pos types.Pointf) *Wall {
-	return getWallAtGrid(wall.PosToGrid(pos))
+func (s *Server) getWallAt(pos types.Pointf) *Wall {
+	return s.getWallAtGrid(wall.PosToGrid(pos))
 }
 
-func getWallNear(pos types.Pointf) *Wall {
-	if w := getWallAt(pos); w != nil {
+func (s *Server) getWallNear(pos types.Pointf) *Wall {
+	if w := s.getWallAt(pos); w != nil {
 		return w
 	}
 	// TODO: a better way
@@ -51,14 +51,14 @@ func getWallNear(pos types.Pointf) *Wall {
 		return d1 < d2
 	})
 	for _, p := range try {
-		if w := getWallAtGrid(p); w != nil {
+		if w := s.getWallAtGrid(p); w != nil {
 			return w
 		}
 	}
 	return nil
 }
 
-func getWallGroupByID(id string) *script.WallGroup {
+func (s *Server) getWallGroupByID(id string) *script.WallGroup {
 	g := getMapGroupByID(id, 2)
 	if g == nil {
 		return nil
@@ -68,7 +68,7 @@ func getWallGroupByID(id string) *script.WallGroup {
 	var list []script.Wall
 	for wp := g.FirstItem(); wp != nil; wp = wp.Next() {
 		p := wp.Payload()
-		if wl := getWallAtGrid(types.Point{
+		if wl := s.getWallAtGrid(types.Point{
 			X: int(*(*C.int)(unsafe.Add(p, 0))),
 			Y: int(*(*C.int)(unsafe.Add(p, 4))),
 		}); wl != nil {

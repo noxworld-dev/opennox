@@ -178,6 +178,7 @@ func RunArgs(args []string) (gerr error) {
 	if err := flags.Parse(args[1:]); err != nil {
 		return err
 	}
+	noxServer = NewServer()
 	if err := readConfig(*fConfig); err != nil {
 		return fmt.Errorf("cannot read config: %w", err)
 	}
@@ -346,7 +347,7 @@ func RunArgs(args []string) (gerr error) {
 		setEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)
 	}
 	if v := *fPort; v > 0 {
-		setServerPort(v)
+		noxServer.setServerPort(v)
 	}
 	if v := *fClientPort; v > 0 {
 		C.nox_xxx_setClientNetPort_40A410(C.int(v))
@@ -355,11 +356,11 @@ func RunArgs(args []string) (gerr error) {
 		setEngineFlag(NOX_ENGINE_DISABLE_SOFT_LIGHTS)
 	}
 	if fname := *fRecord; fname != "" {
-		if err := nox_xxx_replayStartSave_4D3370(fname); err != nil {
+		if err := noxServer.nox_xxx_replayStartSave_4D3370(fname); err != nil {
 			return err
 		}
 	} else if fname = *fReplay; fname != "" {
-		if err := nox_xxx_replayFileOpen_4D34C0(fname); err != nil {
+		if err := noxServer.nox_xxx_replayFileOpen_4D34C0(fname); err != nil {
 			return err
 		}
 	}

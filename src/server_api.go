@@ -24,13 +24,14 @@ func init() {
 		apiTokens[tok] = struct{}{}
 	}
 	const pref = "/api/v0/game"
-	gameMux.HandleFunc(pref+"/info", handleServerInfo)
-	gameMux.HandleFunc(pref+"/map", handleChangeMap)
-	gameMux.HandleFunc(pref+"/cmd", handleRunCmd)
-	gameMux.HandleFunc(pref+"/lua", handleRunLUA)
 	var token string
 	configStrPtr("server.api_token", "NOX_API_TOKEN", "", &token)
 	registerOnConfigRead(func() {
+		mux := noxServer.http.mux
+		mux.HandleFunc(pref+"/info", handleServerInfo)
+		mux.HandleFunc(pref+"/map", handleChangeMap)
+		mux.HandleFunc(pref+"/cmd", handleRunCmd)
+		mux.HandleFunc(pref+"/lua", handleRunLUA)
 		if token != "" {
 			apiTokens[token] = struct{}{}
 		}
@@ -64,17 +65,18 @@ type gameInfoResp struct {
 func getGameInfo(ctx context.Context) (*gameInfoResp, error) {
 	ch := make(chan *gameInfoResp, 1)
 	addGameLoopHook(ctx, func() {
+		s := noxServer
 		v := &gameInfoResp{
-			Name: getServerName(),
-			Map:  strings.ToLower(getServerMap()),
+			Name: s.getServerName(),
+			Map:  strings.ToLower(s.getServerMap()),
 			Vers: version.Version(),
 			Mode: noxflags.GetGame().ModeString(),
 		}
 		if noxflags.HasGame(noxflags.GameModeQuest) {
-			v.Quest = &gameInfoQuest{Stage: nox_game_getQuestStage_4E3CC0()}
+			v.Quest = &gameInfoQuest{Stage: s.nox_game_getQuestStage_4E3CC0()}
 		}
-		v.Players.Max = getServerMaxPlayers()
-		for _, p := range getPlayers() {
+		v.Players.Max = s.getServerMaxPlayers()
+		for _, p := range s.getPlayers() {
 			v.Players.List = append(v.Players.List, gameInfoPlayer{
 				Name:  p.Name(),
 				Class: p.PlayerClass().String(),
@@ -114,7 +116,7 @@ func queueMapLUA(code string) {
 	code = strings.TrimSpace(code)
 	apiLog.Printf("run lua: %q", code)
 	addGameLoopHook(context.Background(), func() {
-		runMapLUA(code)
+		noxServer.runMapLUA(code)
 	})
 }
 

@@ -950,12 +950,16 @@ func (c *CtrlEventHandler) writeToNetBuffer() { // nox_xxx_netBuf_42D510
 
 //export nox_xxx_playerSaveInput_51A960
 func nox_xxx_playerSaveInput_51A960(pli C.int, a2 *C.uchar) C.int {
-	pl := getPlayerByInd(int(pli))
-	sz := int(*a2) + 1
+	return C.int(noxServer.nox_xxx_playerSaveInput(int(pli), unsafe.Pointer(a2)))
+}
+
+func (s *Server) nox_xxx_playerSaveInput(pli int, a2 unsafe.Pointer) int {
+	pl := s.getPlayerByInd(int(pli))
+	sz := int(*(*byte)(a2)) + 1
 	if pl != nil && *(*byte)(pl.field(3680))&0x10 == 0 {
-		return C.int(sz)
+		return sz
 	}
-	a2s := unsafe.Slice((*byte)(unsafe.Pointer(a2)), sz)
+	a2s := unsafe.Slice((*byte)(a2), sz)
 	buf := sub_51AAA0(a2s[1:], nil)
 	ind := int(C.nox_players_controlBuffer_2388804[pli])
 	if ind+len(buf) < 128 {
@@ -963,8 +967,8 @@ func nox_xxx_playerSaveInput_51A960(pli C.int, a2 *C.uchar) C.int {
 		n := copy(dst, buf)
 		C.nox_players_controlBuffer_2388804[pli] = C.int(ind + n)
 	}
-	C.sub_51AA20(pli)
-	return C.int(sz)
+	C.sub_51AA20(C.int(pli))
+	return sz
 }
 
 func (c *CtrlEventHandler) hasDefBinding(ev keybind.Event, key keybind.Key) bool {

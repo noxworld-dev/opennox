@@ -575,7 +575,7 @@ func nox_xxx_findAutosaves_4A5150() {
 		v20 := winSelSave.ChildByID(501)
 		nox_xxx_wnd_46ABB0(v21, 1)
 		nox_xxx_wnd_46ABB0(v22, 1)
-		if (nox_xxx_isQuest_4D6F50() || sub_4D6F70()) && nox_client_countPlayerFiles04_4DC7D0() >= 14 {
+		if (noxServer.nox_xxx_isQuest_4D6F50() || sub_4D6F70()) && nox_client_countPlayerFiles04_4DC7D0() >= 14 {
 			nox_xxx_wnd_46ABB0(v20, 0)
 		} else {
 			nox_xxx_wnd_46ABB0(v20, 1)
@@ -597,14 +597,14 @@ func nox_xxx_findAutosaves_4A5150() {
 //export sub_4A5690
 func sub_4A5690(sv *C.nox_savegame_xxx) C.int {
 	if sv.flags&4 == 0 {
-		if !nox_xxx_isQuest_4D6F50() && !sub_4D6F70() {
+		if !noxServer.nox_xxx_isQuest_4D6F50() && !sub_4D6F70() {
 			return 1
 		}
 		if sv.flags&4 == 0 {
 			return 0
 		}
 	}
-	if nox_xxx_isQuest_4D6F50() || sub_4D6F70() {
+	if noxServer.nox_xxx_isQuest_4D6F50() || sub_4D6F70() {
 		return 1
 	}
 	return 0
@@ -904,11 +904,11 @@ func nox_xxx_windowSelCharProc_4A5710(a1 C.int, ev C.uint, a3w *C.nox_window, a4
 			*v23d = v23
 			gamePopState()
 			if int32(*memmap.PtrUint8(0x85B3FC, 0x2FDE)) == 0 {
-				nox_xxx_gameSetMapPath_409D70("war01a.map")
+				noxServer.nox_xxx_gameSetMapPath_409D70("war01a.map")
 			} else if int32(*memmap.PtrUint8(0x85B3FC, 0x2FDE)) == 1 {
-				nox_xxx_gameSetMapPath_409D70("wiz01a.map")
+				noxServer.nox_xxx_gameSetMapPath_409D70("wiz01a.map")
 			} else if int32(*memmap.PtrUint8(0x85B3FC, 0x2FDE)) == 2 {
-				nox_xxx_gameSetMapPath_409D70("con01a.map")
+				noxServer.nox_xxx_gameSetMapPath_409D70("con01a.map")
 			}
 			if noxflags.HasGame(2048) {
 				C.nox_xxx_gameSetSwitchSolo_4DB220(1)
@@ -920,13 +920,13 @@ func nox_xxx_windowSelCharProc_4A5710(a1 C.int, ev C.uint, a3w *C.nox_window, a4
 					v22 = datapath.Maps(mname, fbase)
 				}
 				C.nox_xxx_gameSetSoloSavePath_4DB270(internCStr(v22))
-				nox_xxx_gameSetMapPath_409D70(fbase)
+				noxServer.nox_xxx_gameSetMapPath_409D70(fbase)
 				nox_xxx_mapLoadOrSaveMB_4DCC70(1)
 				v13, _ := sub41D090(GoString(&sv.path[0]))
 				noxServer.SetFirstObjectScriptID(server.ObjectScriptID(v13))
 			} else if sub_4D6F30() != 0 {
 				sub_4DCE60(int(sv.stage))
-				sub_4DCE80(GoString(&sv.map_name[0]))
+				noxServer.sub_4DCE80(GoString(&sv.map_name[0]))
 				v14, _ := sub41D090(GoString(&sv.path[0]))
 				noxServer.SetFirstObjectScriptID(server.ObjectScriptID(v14))
 			}
@@ -986,7 +986,7 @@ func sub_4DCE60(a1 int) {
 	*memmap.PtrUint32(0x5D4594, 1563100) = uint32(a1)
 }
 
-func sub_4DCE80(a1 string) {
+func (s *Server) sub_4DCE80(a1 string) {
 	ptr := memmap.PtrOff(0x5D4594, 1563104)
 	alloc.Memset(ptr, 0, 20)
 	StrCopy((*C.char)(ptr), 20, a1)

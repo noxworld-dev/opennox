@@ -39,7 +39,7 @@ var (
 	}
 )
 
-func nox_xxx_replayStartSave_4D3370(name string) error {
+func (s *Server) nox_xxx_replayStartSave_4D3370(name string) error {
 	replayLog.Printf("writing replay to: %q", name)
 	f, err := os.Create(name)
 	if err != nil {
@@ -53,7 +53,7 @@ func nox_xxx_replayStartSave_4D3370(name string) error {
 	return nil
 }
 
-func nox_xxx_replayFileOpen_4D34C0(name string) error {
+func (s *Server) nox_xxx_replayFileOpen_4D34C0(name string) error {
 	replayLog.Printf("replaying file: %q", name)
 	f, err := os.Open(name)
 	if err != nil {
@@ -67,12 +67,12 @@ func nox_xxx_replayFileOpen_4D34C0(name string) error {
 	*memmap.PtrUint32(0x5D4594, 1548728) = 0
 	*memmap.PtrUint8(0x5D4594, 1548724) = 0
 	setEngineFlag(NOX_ENGINE_FLAG_REPLAY_READ)
-	pl := getPlayerByID(255)
+	pl := s.getPlayerByID(255)
 	pl.GoObserver(false, true)
 	return nil
 }
 
-func nox_xxx_replayStopSave_4D33B0() {
+func (s *Server) nox_xxx_replayStopSave_4D33B0() {
 	if replay.wcloser != nil {
 		replayLog.Println("recording stopped")
 		replay.wcloser.Close()
@@ -123,7 +123,7 @@ func nox_xxx_replayWriteMSgMB(pl *Player, data []byte) {
 	replay.writer.Write(data)
 }
 
-func nox_xxx_replayStopReadMB_4D3530() {
+func (s *Server) nox_xxx_replayStopReadMB_4D3530() {
 	if replay.rcloser != nil {
 		replayLog.Println("replay stopped")
 		replay.rcloser.Close()
@@ -132,7 +132,7 @@ func nox_xxx_replayStopReadMB_4D3530() {
 	replay.reader = nil
 	replay.readHeader = false
 	resetEngineFlag(NOX_ENGINE_FLAG_REPLAY_READ)
-	pl := getPlayerByID(255)
+	pl := s.getPlayerByID(255)
 	C.nox_xxx_playerLeaveObserver_0_4E6AA0(pl.C())
 }
 
@@ -172,12 +172,12 @@ func nox_xxx_replayReadeRndCounter_415F50(r io.Reader) {
 	noxRndCounter1.Reset(i)
 }
 
-func nox_xxx_replayStartReadingOrSaving_4D38D0() error {
+func (s *Server) nox_xxx_replayStartReadingOrSaving_4D38D0() error {
 	if getEngineFlag(NOX_ENGINE_FLAG_REPLAY_WRITE) && replay.writer != nil {
 		var buf [6]byte
 		binary.LittleEndian.PutUint32(buf[0:4], gameFrame())
 		buf[4] = replayOpInit
-		mapname := nox_server_currentMapGetFilename_409B30()
+		mapname := s.nox_server_currentMapGetFilename_409B30()
 		buf[5] = byte(len(mapname))
 		replay.writer.Write(buf[:])
 		replay.writer.Write([]byte(mapname))
@@ -186,7 +186,7 @@ func nox_xxx_replayStartReadingOrSaving_4D38D0() error {
 		return nil
 	}
 	if getEngineFlag(NOX_ENGINE_FLAG_REPLAY_READ) && replay.reader != nil {
-		return nox_xxx_replayTickMB_4D3580_net_playback(false)
+		return s.nox_xxx_replayTickMB_4D3580_net_playback(false)
 	}
 	return nil
 }
@@ -200,7 +200,7 @@ func nox_xxx_replayWriteFrame_4D39B0() {
 	}
 }
 
-func nox_xxx_replayTickMB(a1 bool) error {
+func (s *Server) nox_xxx_replayTickMB(a1 bool) error {
 	if err := replay.err; err != nil {
 		return err
 	}
@@ -208,7 +208,7 @@ func nox_xxx_replayTickMB(a1 bool) error {
 	var buf [5]byte
 	if !replay.readHeader {
 		if _, err := io.ReadFull(replay.reader, buf[:5]); err == io.EOF {
-			nox_xxx_replayStopReadMB_4D3530()
+			s.nox_xxx_replayStopReadMB_4D3530()
 			nox_xxx_setContinueMenuOrHost_43DDD0(0)
 			nox_game_exit_xxx_43DE60()
 			return nil
@@ -259,7 +259,7 @@ func nox_xxx_replayTickMB(a1 bool) error {
 			if _, err := io.ReadFull(replay.reader, data); err != nil {
 				return fmt.Errorf("cannot read map name: %w", err)
 			}
-			nox_xxx_gameSetMapPath_409D70(string(data))
+			s.nox_xxx_gameSetMapPath_409D70(string(data))
 			if _, err := io.ReadFull(replay.reader, buf[:4]); err != nil {
 				return fmt.Errorf("cannot read version: %w", err)
 			}
@@ -302,10 +302,10 @@ func nox_xxx_replayTickMB(a1 bool) error {
 	}
 }
 
-func nox_xxx_replayTickMB_4D3580_net_playback(a1 bool) error {
-	if err := nox_xxx_replayTickMB(a1); err != nil {
+func (s *Server) nox_xxx_replayTickMB_4D3580_net_playback(a1 bool) error {
+	if err := s.nox_xxx_replayTickMB(a1); err != nil {
 		replayLog.Println(err)
-		nox_xxx_replayStopReadMB_4D3530()
+		s.nox_xxx_replayStopReadMB_4D3530()
 		nox_xxx_setContinueMenuOrHost_43DDD0(0)
 		nox_game_exit_xxx_43DE60()
 		return err

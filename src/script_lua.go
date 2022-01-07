@@ -13,12 +13,10 @@ import (
 	"nox/v1/server/script/lua"
 )
 
-var (
-	scriptLUA struct {
-		curmap string
-		vm     *lua.VM
-	}
-)
+type scriptLUA struct {
+	curmap string
+	vm     *lua.VM
+}
 
 func init() {
 	noxConsole.Register(&console.Command{
@@ -29,12 +27,12 @@ func init() {
 			if len(tokens) == 0 {
 				return false
 			}
-			if scriptLUA.vm == nil {
+			if noxServer.lua.vm == nil {
 				c.Printf(console.ColorRed, "LUA is not running")
 				return true
 			}
 			code := strings.Join(tokens, " ")
-			if err := scriptLUA.vm.Exec(code); err != nil {
+			if err := noxServer.lua.vm.Exec(code); err != nil {
 				c.Printf(console.ColorRed, "LUA error: %v", err)
 			}
 			return true
@@ -42,41 +40,41 @@ func init() {
 	})
 }
 
-func runMapLUA(code string) {
-	if scriptLUA.vm == nil {
+func (s *Server) runMapLUA(code string) {
+	if s.lua.vm == nil {
 		return
 	}
 	if len(code) == 0 {
 		return
 	}
-	if err := scriptLUA.vm.Exec(code); err != nil {
+	if err := s.lua.vm.Exec(code); err != nil {
 		lua.Log.Printf("error: %v", err)
 	}
 }
 
-func luaScriptTick() {
-	if scriptLUA.vm == nil {
+func (s *Server) luaScriptTick() {
+	if s.lua.vm == nil {
 		return
 	}
-	scriptLUA.vm.OnFrame()
+	s.lua.vm.OnFrame()
 }
 
-func luaMaybeInitMap() {
-	mp := nox_server_currentMapGetFilename_409B30()
-	if mp == scriptLUA.curmap {
+func (s *Server) luaMaybeInitMap() {
+	mp := s.nox_server_currentMapGetFilename_409B30()
+	if mp == s.lua.curmap {
 		return
 	}
-	luaShutdown()
+	s.luaShutdown()
 	lua.Log.Printf("loading script for map %q", mp)
-	scriptLUA.curmap = mp
+	s.lua.curmap = mp
 	mp = strings.TrimSuffix(mp, maps.Ext)
 	mapDir := datapath.Path(maps.Dir, mp)
-	scriptLUA.vm = lua.NewVM(noxScript{}, mapDir)
+	s.lua.vm = lua.NewVM(noxScript{s}, mapDir)
 	lname := mp + ".lua"
-	err := scriptLUA.vm.ExecFile(filepath.Join(mapDir, lname))
+	err := s.lua.vm.ExecFile(filepath.Join(mapDir, lname))
 	if os.IsNotExist(err) {
 		lua.Log.Printf("no lua script for map: %q", lname)
-		scriptLUA.vm.InitDefault()
+		s.lua.vm.InitDefault()
 		return
 	} else if err != nil {
 		lua.Log.Printf("error opening script %q: %v (%T)", filepath.Join(maps.Dir, mp, lname), err, err)
@@ -85,22 +83,22 @@ func luaMaybeInitMap() {
 	lua.Log.Printf("map script loaded: %q", lname)
 }
 
-func luaShutdown() {
-	if scriptLUA.vm != nil {
-		lua.Log.Printf("stopping script for map %q", scriptLUA.curmap)
-		_ = scriptLUA.vm.Close()
-		scriptLUA.vm = nil
+func (s *Server) luaShutdown() {
+	if s.lua.vm != nil {
+		lua.Log.Printf("stopping script for map %q", s.lua.curmap)
+		_ = s.lua.vm.Close()
+		s.lua.vm = nil
 	}
-	scriptLUA.curmap = ""
+	s.lua.curmap = ""
 }
 
-func luaOnEvent(event script.EventType) {
+func (s *Server) luaOnEvent(event script.EventType) {
 	switch event {
 	case script.EventMapInitialize,
 		script.EventMapEntry:
-		luaMaybeInitMap()
+		s.luaMaybeInitMap()
 	}
-	if scriptLUA.vm != nil {
-		scriptLUA.vm.OnEvent(event)
+	if s.lua.vm != nil {
+		s.lua.vm.OnEvent(event)
 	}
 }

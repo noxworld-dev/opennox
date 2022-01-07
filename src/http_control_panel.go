@@ -17,7 +17,7 @@ func init() {
 			allowMapChange: opts.AllowMapChange,
 		}
 		srv := octl.NewControlPanel(game, &opts)
-		gameMux.Handle("/", srv)
+		noxServer.http.mux.Handle("/", srv)
 	})
 }
 

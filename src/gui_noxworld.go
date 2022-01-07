@@ -151,7 +151,7 @@ func nox_client_refreshServerList_4378B0() {
 		clientSetOnLobbyServer(clientOnLobbyServer)
 		ticks := platformTicks()
 		*memmap.PtrUint32(0x5D4594, 814964) = uint32(ticks)
-		port := getServerPort()
+		port := noxServer.getServerPort()
 		nox_xxx_lobbyMakePacket_554AA0(port, nil, uint32(ticks))
 		asWindow(C.nox_wol_wnd_world_814980).NewDialogID("Wolchat.c:PleaseWait", "C:\\NoxPost\\src\\client\\shell\\noxworld.c")
 	}

@@ -35,7 +35,7 @@ var (
 func init() {
 	registerOnDataPathSet(func() {
 		mapsend.srv = maps.NewServer(datapath.Maps())
-		mapsend.srv.RegisterOnMux(gameMux)
+		mapsend.srv.RegisterOnMux(noxServer.http.mux)
 		mapsendNative = maps.NewNativeDownloader(datapath.Maps())
 	})
 }
@@ -95,10 +95,10 @@ func nox_xxx_mapDownloadStart_native_4ABAD0(name string, sz uint) int {
 		mname := name[i+1 : j]
 		mdir = datapath.Maps(mname)
 		fpath = filepath.Join(mdir, mname+".nxz")
-		nox_xxx_gameSetMapPath_409D70(name[i+1:])
+		noxServer.nox_xxx_gameSetMapPath_409D70(name[i+1:])
 	} else {
-		nox_xxx_gameSetMapPath_409D70(name)
-		mname := getServerMap()
+		noxServer.nox_xxx_gameSetMapPath_409D70(name)
+		mname := noxServer.getServerMap()
 		mdir = datapath.Maps(mname)
 		fpath = filepath.Join(mdir, mname+".nxz")
 	}
@@ -138,7 +138,7 @@ func clientGetServerMap() string {
 	if nox_xxx_gameIsNotMultiplayer_4DB250() {
 		return nox_xxx_mapFilenameGetSolo_4DB260()
 	}
-	return nox_server_currentMapGetFilename_409B30()
+	return noxServer.nox_server_currentMapGetFilename_409B30()
 }
 
 //export nox_xxx_netMapDownloadPart_4AB7C0
@@ -195,7 +195,7 @@ func nox_xxx_guiDownloadAbort_4CC830(a1 C.int, a2 C.int, a3 C.int, a4 C.int) C.i
 	if a4 == 2 {
 		clientPlaySoundSpecial(231, 100)
 		nox_xxx_guiDownloadClose_4CC930()
-		nox_xxx_gameSetMapPath_409D70(GoString((*C.char)(memmap.PtrOff(0x5D4594, 1522936))))
+		noxServer.nox_xxx_gameSetMapPath_409D70(GoString((*C.char)(memmap.PtrOff(0x5D4594, 1522936))))
 		nox_xxx_cliCancelMapDownload_4ABA90()
 		nox_xxx_mapSetDownloadInProgress_4AB560(0)
 		nox_xxx_mapSetDownloadOK_4AB570(0)
@@ -217,7 +217,7 @@ func nox_xxx_guiDownloadProc_4CC890(a1 C.int, a2 C.int, a3 *C.int, a4 C.int) C.i
 	}
 	nox_xxx_guiDownloadClose_4CC930()
 	nox_xxx_cliCancelMapDownload_4ABA90()
-	nox_xxx_gameSetMapPath_409D70(GoString((*C.char)(memmap.PtrOff(0x5D4594, 1522940))))
+	noxServer.nox_xxx_gameSetMapPath_409D70(GoString((*C.char)(memmap.PtrOff(0x5D4594, 1522940))))
 	nox_xxx_mapSetDownloadInProgress_4AB560(0)
 	nox_xxx_mapSetDownloadOK_4AB570(0)
 	nox_common_gameFlags_unset_40A540(9437184)

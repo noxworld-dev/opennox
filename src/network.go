@@ -397,23 +397,23 @@ func sendXXX_5550D0(addr net.IP, port int, data []byte) (int, error) {
 	return sendToServer(addr, port, data)
 }
 
-func nox_xxx_netSendPacket_4E5030(a1 int, buf []byte, a4, a5, a6 int) int {
+func (s *Server) nox_xxx_netSendPacket_4E5030(a1 int, buf []byte, a4, a5, a6 int) int {
 	b, free := alloc.Bytes(uintptr(len(buf)))
 	defer free()
 	copy(b, buf)
 	return int(C.nox_xxx_netSendPacket_4E5030(C.int(a1), unsafe.Pointer(&b[0]), C.int(len(b)), C.int(a4), C.int(a5), C.char(a6)))
 }
 
-func nox_xxx_netSendPacket1_4E5390(a1 int, buf []byte, a4, a5 int) int {
-	return nox_xxx_netSendPacket_4E5030(a1, buf, a4, a5, 1)
+func (s *Server) nox_xxx_netSendPacket1_4E5390(a1 int, buf []byte, a4, a5 int) int {
+	return s.nox_xxx_netSendPacket_4E5030(a1, buf, a4, a5, 1)
 }
 
-func nox_xxx_netMsgFadeBegin_4D9800(a1, a2 bool) int {
+func (s *Server) nox_xxx_netMsgFadeBegin_4D9800(a1, a2 bool) int {
 	var p [3]byte
 	p[0] = byte(noxnet.MSG_FADE_BEGIN)
 	p[1] = byte(bool2int(a1))
 	p[2] = byte(bool2int(a2))
-	return nox_xxx_netSendPacket1_4E5390(255, p[:], 0, 1)
+	return s.nox_xxx_netSendPacket1_4E5390(255, p[:], 0, 1)
 }
 
 func nox_client_getServerAddr_43B300() net.IP {
@@ -553,11 +553,11 @@ type netStructOpt struct {
 	funcyyy   unsafe.Pointer
 }
 
-func nox_xxx_netAddPlayerHandler_4DEBC0(port int) (ind, cport int, _ error) {
+func (s *Server) nox_xxx_netAddPlayerHandler_4DEBC0(port int) (ind, cport int, _ error) {
 	narg := &netStructOpt{
 		port:      port,
 		data3size: 0,
-		field4:    getServerMaxPlayers(),
+		field4:    s.getServerMaxPlayers(),
 		datasize:  2048,
 		funcyyy:   C.nox_xxx_netlist_ServRecv_4DEC30,
 		funcxxx:   C.nox_xxx_netFn_UpdateStream_4DF630,
@@ -729,7 +729,7 @@ func nox_xxx_makeNewNetStruct(arg *netStructOpt) *netStruct {
 	return ns
 }
 
-func nox_server_netClose_5546A0(i int) {
+func (s *Server) nox_server_netClose_5546A0(i int) {
 	if ns := getNetStructByInd(i); ns != nil {
 		_ = ns.Socket().Close()
 		ns.SetSocket(nil)
@@ -745,10 +745,10 @@ func nox_xxx_netStructFree_5531C0(ns *C.nox_net_struct_t) {
 
 //export nox_xxx_netStructReadPackets_5545B0
 func nox_xxx_netStructReadPackets_5545B0(ind C.uint) C.int {
-	return C.int(nox_xxx_netStructReadPackets(int(ind)))
+	return C.int(noxServer.nox_xxx_netStructReadPackets(int(ind)))
 }
 
-func nox_xxx_netStructReadPackets(ind int) int {
+func (s *Server) nox_xxx_netStructReadPackets(ind int) int {
 	if ind < 0 || ind >= NOX_NET_STRUCT_MAX {
 		return -3
 	}
@@ -789,8 +789,8 @@ func nox_xxx_netStructReadPackets(ind int) int {
 	return 0
 }
 
-func nox_xxx_netStructReadPackets2_4DEC50(a1 int) int {
-	return nox_xxx_netStructReadPackets(a1 + 1)
+func (s *Server) nox_xxx_netStructReadPackets2_4DEC50(a1 int) int {
+	return s.nox_xxx_netStructReadPackets(a1 + 1)
 }
 
 //export nox_xxx_netlist_ServRecv_4DEC30

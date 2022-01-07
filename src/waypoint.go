@@ -16,12 +16,12 @@ func asWaypoint(p unsafe.Pointer) *Waypoint {
 	return (*Waypoint)(p)
 }
 
-func firstWaypoint() *Waypoint {
+func (s *Server) firstWaypoint() *Waypoint {
 	return asWaypoint(unsafe.Pointer(uintptr(C.nox_xxx_waypointsHead_2523752)))
 }
 
-func getWaypointByID(id string) *Waypoint {
-	for w := firstWaypoint(); w != nil; w = w.Next() {
+func (s *Server) getWaypointByID(id string) *Waypoint {
+	for w := s.firstWaypoint(); w != nil; w = w.Next() {
 		if w.equalID(id) {
 			return w
 		}
@@ -29,8 +29,8 @@ func getWaypointByID(id string) *Waypoint {
 	return nil
 }
 
-func getWaypointByInd(ind int) *Waypoint {
-	for w := firstWaypoint(); w != nil; w = w.Next() {
+func (s *Server) getWaypointByInd(ind int) *Waypoint {
+	for w := s.firstWaypoint(); w != nil; w = w.Next() {
 		if w.Ind() == ind {
 			return w
 		}
@@ -38,7 +38,7 @@ func getWaypointByInd(ind int) *Waypoint {
 	return nil
 }
 
-func getWaypointGroupByID(id string) *script.WaypointGroup {
+func (s *Server) getWaypointGroupByID(id string) *script.WaypointGroup {
 	g := getMapGroupByID(id, 1)
 	if g == nil {
 		return nil
@@ -48,16 +48,16 @@ func getWaypointGroupByID(id string) *script.WaypointGroup {
 	var list []script.Waypoint
 	for wp := g.FirstItem(); wp != nil; wp = wp.Next() {
 		ind := int(*(*int32)(wp.Payload()))
-		if wl := getWaypointByInd(ind); wl != nil {
+		if wl := s.getWaypointByInd(ind); wl != nil {
 			list = append(list, wl)
 		}
 	}
 	return script.NewWaypointGroup(id, list...)
 }
 
-func getWaypoints() []*Waypoint {
+func (s *Server) getWaypoints() []*Waypoint {
 	var out []*Waypoint
-	for w := firstWaypoint(); w != nil; w = w.Next() {
+	for w := s.firstWaypoint(); w != nil; w = w.Next() {
 		out = append(out, w)
 	}
 	return out

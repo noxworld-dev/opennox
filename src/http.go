@@ -10,31 +10,40 @@ import (
 )
 
 var (
-	gameMux     = http.NewServeMux()
-	gameHTTP    = &http.Server{Addr: fmt.Sprintf(":%d", common.GameHTTPPort), Handler: gameMux}
-	gameHTTPLis net.Listener
-	httpLog     = log.New("http")
+	httpLog = log.New("http")
 )
 
-func gameStartHTTP(port int) error {
-	if gameHTTPLis != nil {
+type httpService struct {
+	mux *http.ServeMux
+	srv *http.Server
+	lis net.Listener
+}
+
+func (s *httpService) init() {
+	s.mux = http.NewServeMux()
+	s.srv = &http.Server{Addr: fmt.Sprintf(":%d", common.GameHTTPPort), Handler: s.mux}
+}
+
+func (s *Server) gameStartHTTP(port int) error {
+	if s.http.lis != nil {
 		return nil
 	}
-	gameHTTP.Addr = fmt.Sprintf(":%d", port)
-	ln, err := net.Listen("tcp", gameHTTP.Addr)
+	addr := fmt.Sprintf(":%d", port)
+	s.http.srv.Addr = addr
+	ln, err := net.Listen("tcp", addr)
 	if err != nil {
 		return fmt.Errorf("cannot start http server: %w", err)
 	}
-	gameHTTPLis = ln
-	go gameHTTP.Serve(ln)
-	httpLog.Println("http api server started:", gameHTTP.Addr)
+	s.http.lis = ln
+	go s.http.srv.Serve(ln)
+	httpLog.Println("http api server started:", addr)
 	return nil
 }
 
-func gameStopHTTP() {
-	if gameHTTPLis != nil {
-		_ = gameHTTPLis.Close()
-		gameHTTPLis = nil
+func (s *Server) gameStopHTTP() {
+	if s.http.lis != nil {
+		_ = s.http.lis.Close()
+		s.http.lis = nil
 		httpLog.Println("http api server stopped")
 	}
 }

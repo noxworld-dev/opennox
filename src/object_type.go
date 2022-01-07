@@ -15,7 +15,7 @@ import (
 	"nox/v1/server/script"
 )
 
-func getObjectTypeByID(id string) *ObjectType { // nox_xxx_objectTypeByID_4E3830
+func (s *Server) getObjectTypeByID(id string) *ObjectType { // nox_xxx_objectTypeByID_4E3830
 	cstr := CString(id)
 	defer StrFree(cstr)
 	p := C.nox_xxx_objectTypeByID_4E3830(cstr)
@@ -25,7 +25,7 @@ func getObjectTypeByID(id string) *ObjectType { // nox_xxx_objectTypeByID_4E3830
 	return asObjectType(p)
 }
 
-func getObjectTypeByInd(ind int) *ObjectType {
+func (s *Server) getObjectTypeByInd(ind int) *ObjectType {
 	if ind == math.MaxUint16 {
 		return nil
 	}
@@ -39,9 +39,9 @@ func getObjectTypeByInd(ind int) *ObjectType {
 	return asObjectType(p)
 }
 
-func getObjectTypes() (out []*ObjectType) {
+func (s *Server) getObjectTypes() (out []*ObjectType) {
 	for i := 0; i < int(C.nox_xxx_unitDefGetCount_4E3AC0()); i++ {
-		typ := getObjectTypeByInd(i)
+		typ := s.getObjectTypeByInd(i)
 		if typ == nil {
 			continue
 		}
@@ -50,8 +50,8 @@ func getObjectTypes() (out []*ObjectType) {
 	return
 }
 
-func newObjectByTypeID(id string) *Object { // nox_xxx_newObjectByTypeID_4E3810
-	typ := getObjectTypeByID(id)
+func (s *Server) newObjectByTypeID(id string) *Object { // nox_xxx_newObjectByTypeID_4E3810
+	typ := s.getObjectTypeByID(id)
 	if typ == nil {
 		return nil
 	}

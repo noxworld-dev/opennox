@@ -114,6 +114,10 @@ func (ev noxEventType) String() string {
 
 //export nox_script_callByEvent_cgo
 func nox_script_callByEvent_cgo(event C.int, a1, a2 unsafe.Pointer) {
+	noxServer.nox_script_callByEventcgo(int(event), a1, a2)
+}
+
+func (s *Server) nox_script_callByEventcgo(event int, a1, a2 unsafe.Pointer) {
 	ev := noxEventType(event)
 	switch ev {
 	case noxEventCollide, noxEventMonsterCollide, noxEventMonsterHearEnemy:
@@ -157,10 +161,10 @@ func nox_script_callByEvent_cgo(event C.int, a1, a2 unsafe.Pointer) {
 		callOnMonsterDead(obj)
 	case noxEventPlayerJoin:
 		p := asPlayer((*C.nox_playerInfo)(a1))
-		callOnPlayerJoin(p)
+		s.callOnPlayerJoin(p)
 	case noxEventPlayerLeave:
 		p := asPlayer((*C.nox_playerInfo)(a1))
-		callOnPlayerLeave(p)
+		s.callOnPlayerLeave(p)
 	default:
 		scriptLog.Printf("event: %s (%x, %x)", ev, uintptr(a1), uintptr(a2))
 	}

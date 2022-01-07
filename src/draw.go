@@ -1329,7 +1329,7 @@ func nox_client_queueWallsDraw(vp *Viewport, xmin, ymin int) { // nox_xxx_drawAl
 	ymax := ymin + int(vp.height)/common.GridStep + 4
 	for y := ymin; y <= ymax; y++ {
 		for x := xmin; x <= xmax; x++ {
-			wl := getWallAtGrid(types.Point{X: x, Y: y})
+			wl := noxServer.getWallAtGrid(types.Point{X: x, Y: y})
 			if wl == nil {
 				continue
 			}

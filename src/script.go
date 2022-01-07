@@ -12,11 +12,11 @@ import (
 
 var scriptLog = log.New("script")
 
-func scriptTick() {
-	luaScriptTick()
+func (s *Server) scriptTick() {
+	s.luaScriptTick()
 }
 
-func scriptOnEvent(event script.EventType) {
+func (s *Server) scriptOnEvent(event script.EventType) {
 	scriptLog.Printf("event: %q", event)
 
 	// The global logic is the following:
@@ -27,20 +27,20 @@ func scriptOnEvent(event script.EventType) {
 
 	// TODO: handle OnPlayerAFK
 
-	noxscriptOnEvent(event)
-	luaOnEvent(event)
+	s.noxscriptOnEvent(event)
+	s.luaOnEvent(event)
 
 	switch event {
 	case script.EventMapEntry:
 		// TODO: we "rejoin" existing players here because the engine will actually keep all player objects
 		//       after map change ideally we should find the place where it resets their
-		for _, p := range getPlayers() {
-			callOnPlayerJoin(p)
+		for _, p := range s.getPlayers() {
+			s.callOnPlayerJoin(p)
 		}
 	case script.EventMapExit:
 		// TODO: same as above: we make players "leave" when the map changes, so scripts can run their player logic
-		for _, p := range getPlayers() {
-			callOnPlayerLeave(p)
+		for _, p := range s.getPlayers() {
+			s.callOnPlayerLeave(p)
 		}
 	}
 	switch event {
@@ -48,11 +48,13 @@ func scriptOnEvent(event script.EventType) {
 	//       actually, EventMapShutdown is called when saving game when the map _isn't_ shutting down
 	//       so probably worth adding a new event that triggers at the right time
 	case script.EventMapExit:
-		luaShutdown()
+		s.luaShutdown()
 	}
 }
 
-type noxScript struct{}
+type noxScript struct {
+	s *Server
+}
 
 func (noxScript) Frame() int {
 	return int(gameFrame())
@@ -71,8 +73,8 @@ func (noxScript) CinemaPlayers(v bool) {
 	CinemaPlayers(v)
 }
 
-func (noxScript) Players() []script.Player {
-	list := getPlayers()
+func (s noxScript) Players() []script.Player {
+	list := s.s.getPlayers()
 	out := make([]script.Player, 0, len(list))
 	for _, p := range list {
 		out = append(out, p)
@@ -84,24 +86,24 @@ func (noxScript) HostPlayer() script.Player {
 	return HostPlayer()
 }
 
-func (noxScript) OnPlayerJoin(fnc func(p script.Player)) {
-	OnPlayerJoin(fnc)
+func (s noxScript) OnPlayerJoin(fnc func(p script.Player)) {
+	s.s.OnPlayerJoin(fnc)
 }
 
-func (noxScript) OnPlayerLeave(fnc func(p script.Player)) {
-	OnPlayerLeave(fnc)
+func (s noxScript) OnPlayerLeave(fnc func(p script.Player)) {
+	s.s.OnPlayerLeave(fnc)
 }
 
-func (noxScript) ObjectTypeByID(id string) script.ObjectType {
-	tp := getObjectTypeByID(id)
+func (s noxScript) ObjectTypeByID(id string) script.ObjectType {
+	tp := s.s.getObjectTypeByID(id)
 	if tp == nil {
 		return nil
 	}
 	return tp
 }
 
-func (noxScript) ObjectByID(id string) script.Object {
-	obj := getObjectByID(id)
+func (s noxScript) ObjectByID(id string) script.Object {
+	obj := s.s.getObjectByID(id)
 	if obj == nil {
 		return nil
 	}
@@ -111,56 +113,56 @@ func (noxScript) ObjectByID(id string) script.Object {
 	return obj
 }
 
-func (noxScript) ObjectGroupByID(id string) *script.ObjectGroup {
-	g := getObjectGroupByID(id)
+func (s noxScript) ObjectGroupByID(id string) *script.ObjectGroup {
+	g := s.s.getObjectGroupByID(id)
 	if g == nil {
 		return nil
 	}
 	return g
 }
 
-func (noxScript) WaypointByID(id string) script.Waypoint {
-	w := getWaypointByID(id)
+func (s noxScript) WaypointByID(id string) script.Waypoint {
+	w := s.s.getWaypointByID(id)
 	if w == nil {
 		return nil
 	}
 	return w
 }
 
-func (noxScript) WaypointGroupByID(id string) *script.WaypointGroup {
-	g := getWaypointGroupByID(id)
+func (s noxScript) WaypointGroupByID(id string) *script.WaypointGroup {
+	g := s.s.getWaypointGroupByID(id)
 	if g == nil {
 		return nil
 	}
 	return g
 }
 
-func (noxScript) WallAt(pos types.Pointf) script.Wall {
-	w := getWallAt(pos)
+func (s noxScript) WallAt(pos types.Pointf) script.Wall {
+	w := s.s.getWallAt(pos)
 	if w == nil {
 		return nil
 	}
 	return w
 }
 
-func (noxScript) WallNear(pos types.Pointf) script.Wall {
-	w := getWallNear(pos)
+func (s noxScript) WallNear(pos types.Pointf) script.Wall {
+	w := s.s.getWallNear(pos)
 	if w == nil {
 		return nil
 	}
 	return w
 }
 
-func (noxScript) WallAtGrid(pos types.Point) script.Wall {
-	w := getWallAtGrid(pos)
+func (s noxScript) WallAtGrid(pos types.Point) script.Wall {
+	w := s.s.getWallAtGrid(pos)
 	if w == nil {
 		return nil
 	}
 	return w
 }
 
-func (noxScript) WallGroupByID(id string) *script.WallGroup {
-	return getWallGroupByID(id)
+func (s noxScript) WallGroupByID(id string) *script.WallGroup {
+	return s.s.getWallGroupByID(id)
 }
 
 type scriptConsole console.Color

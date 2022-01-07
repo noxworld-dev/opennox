@@ -12,7 +12,7 @@ type debugPlayerInfo struct {
 	NetCode  int          `json:"net_code"`
 	Name     string       `json:"name"`
 	OrigName string       `json:"orig_name"`
-	Serial   string `json:"serial"`
+	Serial   string       `json:"serial"`
 	Active   bool         `json:"active"`
 	Class    player.Class `json:"class"`
 	Unit     *debugObject `json:"unit"`
@@ -45,9 +45,9 @@ func init() {
 		all := r.URL.Query().Get("all") != ""
 		var arr []*Player
 		if all {
-			arr = getAllPlayerStructs()
+			arr = noxServer.getAllPlayerStructs()
 		} else {
-			arr = getPlayers()
+			arr = noxServer.getPlayers()
 		}
 		writeJSONResp(w, arr)
 	})

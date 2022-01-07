@@ -43,15 +43,13 @@ import (
 
 const NOX_PLAYERINFO_MAX = int(C.NOX_PLAYERINFO_MAX)
 
-var noxPlayers []Player
-
-func init() {
+func (s *Server) allocPlayers() {
 	p, _ := alloc.Calloc(NOX_PLAYERINFO_MAX, unsafe.Sizeof(Player{}))
-	noxPlayers = unsafe.Slice((*Player)(p), NOX_PLAYERINFO_MAX)
+	s.players = unsafe.Slice((*Player)(p), NOX_PLAYERINFO_MAX)
 }
 
 func clientPlayer() *Player {
-	return getPlayerByID(clientPlayerNetCode())
+	return noxServer.getPlayerByID(clientPlayerNetCode())
 }
 
 func clientPlayerNetCode() int {
@@ -62,50 +60,62 @@ func clientSetPlayerNetCode(id int) {
 	C.nox_player_netCode_85319C = C.uint(id)
 }
 
-//export nox_xxx_cliResetAllPlayers_416E30
+// export nox_xxx_cliResetAllPlayers_416E30
 func nox_xxx_cliResetAllPlayers_416E30() {
-	for i := range noxPlayers {
-		noxPlayers[i] = Player{}
+	noxServer.resetAllPlayers()
+}
+
+func (s *Server) resetAllPlayers() { // nox_xxx_cliResetAllPlayers_416E30
+	for i := range s.players {
+		s.players[i] = Player{}
 	}
+}
+
+func (s *Server) playerFirst() *Player {
+	for i := range s.players {
+		p := &s.players[i]
+		if p.IsActive() {
+			return p
+		}
+	}
+	return nil
+}
+
+func (s *Server) playerNext(it *Player) *Player {
+	if it == nil {
+		return nil
+	}
+	for i := int(it.playerInd) + 1; i < len(s.players); i++ {
+		p := &s.players[i]
+		if p.IsActive() {
+			return p
+		}
+	}
+	return nil
 }
 
 //export nox_common_playerInfoGetFirst_416EA0
 func nox_common_playerInfoGetFirst_416EA0() *C.nox_playerInfo {
-	for i := range noxPlayers {
-		p := &noxPlayers[i]
-		if p.IsActive() {
-			return p.C()
-		}
-	}
-	return nil
+	return noxServer.playerFirst().C()
 }
 
 //export nox_common_playerInfoGetNext_416EE0
 func nox_common_playerInfoGetNext_416EE0(it *C.nox_playerInfo) *C.nox_playerInfo {
-	if it == nil {
-		return nil
-	}
-	for i := int(it.playerInd) + 1; i < len(noxPlayers); i++ {
-		p := &noxPlayers[i]
-		if p.IsActive() {
-			return p.C()
-		}
-	}
-	return nil
+	return noxServer.playerNext(asPlayer(it)).C()
 }
 
 //export nox_common_playerInfoCount_416F40
 func nox_common_playerInfoCount_416F40() C.int {
-	return C.int(cntPlayers())
+	return C.int(noxServer.cntPlayers())
 }
 
 //export nox_common_playerInfoNew_416F60
 func nox_common_playerInfoNew_416F60(id C.int) *C.nox_playerInfo {
-	return newPlayerInfo(int(id)).C()
+	return noxServer.newPlayerInfo(int(id)).C()
 }
 
-func playerResetInd(ind int) *Player {
-	p := &noxPlayers[ind]
+func (s *Server) playerResetInd(ind int) *Player {
+	p := &s.players[ind]
 	p.Reset()
 	p.playerInd = C.uchar(ind)
 	return p
@@ -113,35 +123,35 @@ func playerResetInd(ind int) *Player {
 
 //export nox_common_playerInfoResetInd_417000
 func nox_common_playerInfoResetInd_417000(ind C.int) *C.nox_playerInfo {
-	return playerResetInd(int(ind)).C()
+	return noxServer.playerResetInd(int(ind)).C()
 }
 
 //export nox_common_playerInfoGetByID_417040
 func nox_common_playerInfoGetByID_417040(id C.int) *C.nox_playerInfo {
-	return getPlayerByID(int(id)).C()
+	return noxServer.getPlayerByID(int(id)).C()
 }
 
 //export nox_common_playerInfoFromNum_417090
 func nox_common_playerInfoFromNum_417090(ind C.int) *C.nox_playerInfo {
-	return getPlayerByInd(int(ind)).C()
+	return noxServer.getPlayerByInd(int(ind)).C()
 }
 
 //export nox_common_playerInfoFromNumRaw
 func nox_common_playerInfoFromNumRaw(ind C.int) *C.nox_playerInfo {
-	return noxPlayers[ind].C()
+	return noxServer.players[ind].C()
 }
 
 //export nox_xxx_playerNew_4DD320
 func nox_xxx_playerNew_4DD320(ind C.int, data *C.uchar) C.int {
-	return C.int(newPlayerFromPacket(int(ind), unsafe.Slice((*byte)(unsafe.Pointer(data)), 153)))
+	return C.int(noxServer.newPlayerFromPacket(int(ind), unsafe.Slice((*byte)(unsafe.Pointer(data)), 153)))
 }
 
-func newPlayerInfo(id int) *Player {
-	if p := getPlayerByID(id); p != nil {
+func (s *Server) newPlayerInfo(id int) *Player {
+	if p := s.getPlayerByID(id); p != nil {
 		return p
 	}
-	for i := range noxPlayers {
-		p := &noxPlayers[i]
+	for i := range s.players {
+		p := &s.players[i]
 		if !p.IsActive() {
 			p.Reset()
 			p.playerInd = C.uchar(i)
@@ -160,14 +170,14 @@ func (p *Player) Reset() { // nox_common_playerInfoReset_416FD0
 
 //export nox_xxx_playerDisconnByPlrID_4DEB00
 func nox_xxx_playerDisconnByPlrID_4DEB00(id C.int) {
-	if p := getPlayerByInd(int(id)); p != nil {
+	if p := noxServer.getPlayerByInd(int(id)); p != nil {
 		p.Disconnect(4)
 	}
 }
 
 //export nox_xxx_playerCallDisconnect_4DEAB0
 func nox_xxx_playerCallDisconnect_4DEAB0(ind C.int, v C.char) *C.char {
-	getPlayerByInd(int(ind)).Disconnect(int(v))
+	noxServer.getPlayerByInd(int(ind)).Disconnect(int(v))
 	return nil
 }
 
@@ -180,7 +190,7 @@ func asPlayer(p *C.nox_playerInfo) *Player {
 }
 
 func BlindPlayers(blind bool) {
-	nox_xxx_netMsgFadeBegin_4D9800(!blind, false)
+	noxServer.nox_xxx_netMsgFadeBegin_4D9800(!blind, false)
 }
 
 func CinemaPlayers(cinema bool) {
@@ -195,7 +205,7 @@ func PrintToPlayers(text string) {
 
 func HostPlayer() *Player {
 	// TODO: better way
-	for _, p := range getPlayers() {
+	for _, p := range noxServer.getPlayers() {
 		if p.IsHost() {
 			return p
 		}
@@ -262,6 +272,10 @@ func (p *PlayerInfo) SetField2262(v uint16) {
 }
 
 type Player C.nox_playerInfo
+
+func (p *Player) getServer() *Server {
+	return noxServer // TODO: attach to object
+}
 
 func (p *Player) field(off uintptr) unsafe.Pointer {
 	return unsafe.Add(unsafe.Pointer(p), off)
@@ -417,7 +431,7 @@ func (p *Player) Disconnect(v int) {
 	}
 	C.nox_xxx_playerDisconnFinish_4DE530(C.int(p.Index()), C.char(v))
 	C.nox_xxx_playerForceDisconnect_4DE7C0(C.int(p.Index()))
-	nox_xxx_netStructReadPackets2_4DEC50(p.Index())
+	p.getServer().nox_xxx_netStructReadPackets2_4DEC50(p.Index())
 }
 
 func (p *Player) CameraTarget() *Object {
@@ -459,8 +473,8 @@ func (p *Player) GoObserver(notify, keepPlayer bool) bool {
 	return C.nox_xxx_playerGoObserver_4E6860(p.C(), C.int(bool2int(notify)), C.int(bool2int(keepPlayer))) != 0
 }
 
-func cntPlayers() (n int) {
-	for _, p := range noxPlayers {
+func (s *Server) cntPlayers() (n int) {
+	for _, p := range s.players {
 		if p.IsActive() {
 			n++
 		}
@@ -468,17 +482,17 @@ func cntPlayers() (n int) {
 	return n
 }
 
-func getAllPlayerStructs() (out []*Player) {
-	for i := range noxPlayers {
-		p := &noxPlayers[i]
+func (s *Server) getAllPlayerStructs() (out []*Player) {
+	for i := range s.players {
+		p := &s.players[i]
 		out = append(out, p)
 	}
 	return out
 }
 
-func getPlayers() (out []*Player) {
-	for i := range noxPlayers {
-		p := &noxPlayers[i]
+func (s *Server) getPlayers() (out []*Player) {
+	for i := range s.players {
+		p := &s.players[i]
 		if p.IsActive() {
 			out = append(out, p)
 		}
@@ -486,8 +500,8 @@ func getPlayers() (out []*Player) {
 	return out
 }
 
-func getPlayerUnits() (out []*Unit) {
-	for _, p := range getPlayers() {
+func (s *Server) getPlayerUnits() (out []*Unit) {
+	for _, p := range s.getPlayers() {
 		if u := p.UnitC(); u != nil {
 			out = append(out, u)
 		}
@@ -495,11 +509,11 @@ func getPlayerUnits() (out []*Unit) {
 	return out
 }
 
-func getPlayerByInd(i int) *Player {
-	if i < 0 || i >= len(noxPlayers) {
+func (s *Server) getPlayerByInd(i int) *Player {
+	if i < 0 || i >= len(s.players) {
 		return nil
 	}
-	p := &noxPlayers[i]
+	p := &s.players[i]
 	if !p.IsActive() {
 		return nil
 	}
@@ -507,9 +521,9 @@ func getPlayerByInd(i int) *Player {
 	return p
 }
 
-func getPlayerByID(id int) *Player {
-	for i := range noxPlayers {
-		p := &noxPlayers[i]
+func (s *Server) getPlayerByID(id int) *Player {
+	for i := range s.players {
+		p := &s.players[i]
 		if p.IsActive() && int(p.netCode) == id {
 			return p
 		}
@@ -517,8 +531,8 @@ func getPlayerByID(id int) *Player {
 	return nil
 }
 
-func hasPlayerUnits() bool {
-	for _, p := range noxPlayers {
+func (s *Server) hasPlayerUnits() bool {
+	for _, p := range s.players {
 		if p.UnitC() != nil {
 			return true
 		}
@@ -559,10 +573,10 @@ func sub_459D70() int {
 	return int(v0 + 2)
 }
 
-func nox_xxx_playerCheckName_4DDA00(pl *Player) {
+func (s *Server) nox_xxx_playerCheckName_4DDA00(pl *Player) {
 	for i := 2; ; i++ {
 		ok := true
-		for _, pl2 := range getPlayers() {
+		for _, pl2 := range s.getPlayers() {
 			if pl.Index() == pl2.Index() {
 				continue
 			}
@@ -629,15 +643,15 @@ func (p *PlayerOpts) MarshalBinary() ([]byte, error) {
 	return data, nil
 }
 
-func newPlayerFromPacket(ind int, data []byte) int {
+func (s *Server) newPlayerFromPacket(ind int, data []byte) int {
 	var opts PlayerOpts
 	if err := opts.UnmarshalBinary(data); err != nil {
 		panic(err)
 	}
-	return newPlayer(ind, &opts)
+	return s.newPlayer(ind, &opts)
 }
 
-func newPlayer(ind int, opts *PlayerOpts) int {
+func (s *Server) newPlayer(ind int, opts *PlayerOpts) int {
 	v2 := opts.Byte152
 	opts.Byte152 &= 0x7F
 	v3 := v2 >> 7
@@ -662,7 +676,7 @@ func newPlayer(ind int, opts *PlayerOpts) int {
 	} else {
 		ptyp = "NewPlayer"
 	}
-	punit := newObjectByTypeID(ptyp).AsUnit()
+	punit := s.newObjectByTypeID(ptyp).AsUnit()
 	if punit == nil {
 		return 0
 	}
@@ -673,7 +687,7 @@ func newPlayer(ind int, opts *PlayerOpts) int {
 			}
 		}
 	}
-	pl := playerResetInd(ind)
+	pl := s.playerResetInd(ind)
 	if int8(v5[102]) >= 0 {
 		pl.field_10 = C.ushort(opts.Screen.W / 2)
 		pl.field_12 = C.ushort(opts.Screen.H / 2)
@@ -705,7 +719,7 @@ func newPlayer(ind int, opts *PlayerOpts) int {
 	*info = opts.Info
 	info.SetNameSuff("")
 	pl.SetName(pl.OrigName())
-	nox_xxx_playerCheckName_4DDA00(pl)
+	s.nox_xxx_playerCheckName_4DDA00(pl)
 	C.nox_xxx_playerInitColors_461460(pl.C())
 	pl.playerUnit = punit.CObj()
 	pl.field_2152 = 0
@@ -759,7 +773,7 @@ func newPlayer(ind int, opts *PlayerOpts) int {
 	}
 	var v30 [132]byte
 	nox_xxx_netNewPlayerMakePacket_4DDA90(v30[:], pl)
-	nox_xxx_netSendPacket_4E5030(ind|0x80, v30[:129], 0, 0, 0)
+	s.nox_xxx_netSendPacket_4E5030(ind|0x80, v30[:129], 0, 0, 0)
 	pl.field_3676 = 2
 	if C.nox_xxx_check_flag_aaa_43AF70() == 1 && !noxflags.HasGame(128) {
 		C.sub_425F10(pl.C())
@@ -768,7 +782,7 @@ func newPlayer(ind int, opts *PlayerOpts) int {
 	C.nox_xxx_unitsNewAddToList_4DAC00()
 	var p28 types.Pointf
 	if noxflags.HasGame(noxflags.GameModeQuest) {
-		if p, ok := sub_4E8210(punit); !ok {
+		if p, ok := s.sub_4E8210(punit); !ok {
 			p28 = nox_xxx_mapFindPlayerStart_4F7AB0(punit)
 		} else {
 			p28 = p
@@ -803,18 +817,18 @@ func newPlayer(ind int, opts *PlayerOpts) int {
 		buf[0] = byte(noxnet.MSG_FADE_BEGIN)
 		buf[1] = 1
 		buf[2] = 1
-		nox_xxx_netSendPacket_4E5030(ind, buf[:], 0, 0, 0)
+		s.nox_xxx_netSendPacket_4E5030(ind, buf[:], 0, 0, 0)
 	}
-	callOnPlayerJoin(pl)
+	s.callOnPlayerJoin(pl)
 	return int(punit.field_9)
 }
 
-func sub_4E8210(u *Unit) (types.Pointf, bool) {
+func (s *Server) sub_4E8210(u *Unit) (types.Pointf, bool) {
 	var (
 		max uint32
 		v2  unsafe.Pointer
 	)
-	for _, u2 := range getPlayerUnits() {
+	for _, u2 := range s.getPlayerUnits() {
 		ptr := u2.updateDataPlayer()
 		ptr2 := ptr.field_77
 		if ptr2 == nil {

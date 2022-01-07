@@ -4,55 +4,54 @@ import (
 	"nox/v1/server/script"
 )
 
-var (
-	scriptEvents struct {
-		byObject      map[uintptr]*objectHandlers
-		onPlayerJoin  []func(p script.Player)
-		onPlayerLeave []func(p script.Player)
-	}
-)
-
-func clearScriptTriggers() {
-	scriptEvents.byObject = nil
-	scriptEvents.onPlayerJoin = nil
-	scriptEvents.onPlayerLeave = nil
+type scriptEvents struct {
+	byObject      map[uintptr]*objectHandlers
+	onPlayerJoin  []func(p script.Player)
+	onPlayerLeave []func(p script.Player)
 }
 
-func OnPlayerJoin(fnc func(p script.Player)) {
-	scriptEvents.onPlayerJoin = append(scriptEvents.onPlayerJoin, fnc)
+func (s *Server) clearScriptTriggers() {
+	s.scriptEvents.byObject = nil
+	s.scriptEvents.onPlayerJoin = nil
+	s.scriptEvents.onPlayerLeave = nil
 }
 
-func OnPlayerLeave(fnc func(p script.Player)) {
-	scriptEvents.onPlayerLeave = append(scriptEvents.onPlayerLeave, fnc)
+func (s *Server) OnPlayerJoin(fnc func(p script.Player)) {
+	s.scriptEvents.onPlayerJoin = append(s.scriptEvents.onPlayerJoin, fnc)
 }
 
-func callOnPlayerJoin(p *Player) {
+func (s *Server) OnPlayerLeave(fnc func(p script.Player)) {
+	s.scriptEvents.onPlayerLeave = append(s.scriptEvents.onPlayerLeave, fnc)
+}
+
+func (s *Server) callOnPlayerJoin(p *Player) {
 	scriptLog.Printf("player join: %s", p)
-	for _, fnc := range scriptEvents.onPlayerJoin {
+	for _, fnc := range s.scriptEvents.onPlayerJoin {
 		fnc(p)
 	}
 }
 
-func callOnPlayerLeave(p *Player) {
+func (s *Server) callOnPlayerLeave(p *Player) {
 	scriptLog.Printf("player leave: %s", p)
-	for _, fnc := range scriptEvents.onPlayerLeave {
+	for _, fnc := range s.scriptEvents.onPlayerLeave {
 		fnc(p)
 	}
 }
 
 func (obj *Object) getHandlers() *objectHandlers {
-	return scriptEvents.byObject[obj.UniqueKey()]
+	return obj.getServer().scriptEvents.byObject[obj.UniqueKey()]
 }
 
 func (obj *Object) getOrNewHandlers() *objectHandlers {
-	if h := scriptEvents.byObject[obj.UniqueKey()]; h != nil {
+	s := obj.getServer()
+	if h := s.scriptEvents.byObject[obj.UniqueKey()]; h != nil {
 		return h
 	}
-	if scriptEvents.byObject == nil {
-		scriptEvents.byObject = make(map[uintptr]*objectHandlers)
+	if s.scriptEvents.byObject == nil {
+		s.scriptEvents.byObject = make(map[uintptr]*objectHandlers)
 	}
 	h := &objectHandlers{obj: obj}
-	scriptEvents.byObject[obj.UniqueKey()] = h
+	s.scriptEvents.byObject[obj.UniqueKey()] = h
 	return h
 }
 

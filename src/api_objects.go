@@ -76,9 +76,9 @@ func (obj *Object) MarshalJSON() ([]byte, error) {
 
 func init() {
 	http.HandleFunc("/debug/nox/types", func(w http.ResponseWriter, r *http.Request) {
-		writeJSONResp(w, getObjectTypes())
+		writeJSONResp(w, noxServer.getObjectTypes())
 	})
 	http.HandleFunc("/debug/nox/objects", func(w http.ResponseWriter, r *http.Request) {
-		writeJSONResp(w, getObjects())
+		writeJSONResp(w, noxServer.getObjects())
 	})
 }
