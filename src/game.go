@@ -433,7 +433,7 @@ func initGameSession435CC0() error {
 	}
 
 	C.sub_4958F0()
-	C.nox_xxx_gameSetCliConnected_43C720(0)
+	nox_xxx_gameSetCliConnected(false)
 	noxflags.SetGame(noxflags.GameFlag24)
 	if noxflags.HasGame(noxflags.GameHost) {
 		if !isDedicatedServer {

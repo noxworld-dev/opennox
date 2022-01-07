@@ -817,6 +817,7 @@ int sub_43C650() {
 //----- (0043C6E0) --------------------------------------------------------
 int sub_43C6E0() { return !dword_5d4594_815704 && !dword_5d4594_815708; }
 
+#ifndef NOX_CGO
 //----- (0043C700) --------------------------------------------------------
 int nox_client_isConnected_43C700() { return *getMemU32Ptr(0x5D4594, 815764); }
 
@@ -824,19 +825,17 @@ int nox_client_isConnected_43C700() { return *getMemU32Ptr(0x5D4594, 815764); }
 int sub_43C710() { return nox_common_gameFlags_check_40A5C0(0x10000000); }
 
 //----- (0043C720) --------------------------------------------------------
-int nox_xxx_gameSetCliConnected_43C720(int a1) {
-	int result; // eax
+void nox_xxx_gameSetCliConnected_43C720(int a1) {
 	bool v2;    // zf
 
-	result = a1;
 	v2 = *getMemU32Ptr(0x5D4594, 815764) == a1;
 	*getMemU32Ptr(0x5D4594, 815764) = a1;
 	if (!v2 && !a1) {
 		nox_xxx_guiServerOptionsHide_4597E0(0);
-		result = nox_xxx_cliSetSettingsAcquired_4169D0(0);
+		nox_xxx_cliSetSettingsAcquired_4169D0(0);
 	}
-	return result;
 }
+#endif // NOX_CGO
 
 //----- (0043C750) --------------------------------------------------------
 int nox_xxx_netGet_43C750() { return *(uint32_t*)getMemAt(0x5D4594, 815700); }

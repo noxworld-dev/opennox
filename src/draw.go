@@ -874,7 +874,7 @@ func nox_xxx_client_435F80_draw(inp *input.Handler) bool {
 	C.sub_49BD70(vp)
 	C.sub_49BBC0()
 	C.nox_xxx_polygonDrawColor_421B80()
-	if C.nox_client_isConnected_43C700() != 0 {
+	if nox_client_isConnected() {
 		C.nox_xxx_cliToggleObsWindow_4357A0()
 	}
 	nox_xxx_clientDrawAll_436100_draw()
@@ -925,7 +925,7 @@ func nox_xxx_clientDrawAll_436100_draw() {
 	}
 	if getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) {
 		C.nox_xxx_clientDrawAll_436100_draw_A()
-	} else if memmap.Uint32(0x852978, 8) != 0 && C.nox_client_isConnected_43C700() != 0 {
+	} else if memmap.Uint32(0x852978, 8) != 0 && nox_client_isConnected() {
 		nox_xxx_drawAllMB_475810_draw(vp)
 		C.nox_xxx_drawMinimapAndLines_4738E0()
 	} else {
@@ -1885,5 +1885,34 @@ func drawCreatureFrontEffects(r *NoxRender, vp *Viewport, dr *Drawable) { // nox
 			C.nox_xxx_drawShield_499810(vp.C(), dr.C())
 		case 0, 1, 2:
 		}
+	}
+}
+
+//export nox_client_isConnected_43C700
+func nox_client_isConnected_43C700() C.int {
+	return C.int(bool2int(nox_client_isConnected()))
+}
+
+//export nox_xxx_gameSetCliConnected_43C720
+func nox_xxx_gameSetCliConnected_43C720(a1 C.int) {
+	nox_xxx_gameSetCliConnected(a1 != 0)
+}
+
+func nox_client_isConnected() bool {
+	return memmap.Uint32(0x5D4594, 815764) != 0
+}
+
+func nox_xxx_gameSetCliConnected(v bool) {
+	same := nox_client_isConnected() == v
+	cl := caller(1)
+	if v {
+		gameLog.Printf("client connected: %s", cl)
+	} else {
+		gameLog.Printf("client not connected: %s", cl)
+	}
+	*memmap.PtrUint32(0x5D4594, 815764) = uint32(bool2int(v))
+	if !same && !v {
+		C.nox_xxx_guiServerOptionsHide_4597E0(0)
+		C.nox_xxx_cliSetSettingsAcquired_4169D0(0)
 	}
 }

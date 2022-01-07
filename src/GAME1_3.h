@@ -42,7 +42,7 @@ int sub_43C650();
 int sub_43C6E0();
 int nox_client_isConnected_43C700();
 int sub_43C710();
-int nox_xxx_gameSetCliConnected_43C720(int a1);
+void nox_xxx_gameSetCliConnected_43C720(int a1);
 int nox_xxx_netGet_43C750();
 int sub_43C760();
 int sub_43C790();

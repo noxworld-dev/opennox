@@ -175,7 +175,7 @@ func nox_game_exit_xxx_43DE60() {
 		log.Println("nox_game_exit_xxx_43DE60")
 	}
 	mainloopContinue = false
-	C.nox_xxx_gameSetCliConnected_43C720(0)
+	nox_xxx_gameSetCliConnected(false)
 	if C.nox_xxx_check_flag_aaa_43AF70() != 1 {
 		return
 	}
@@ -445,7 +445,7 @@ func nox_xxx_clientResetSpriteAndGui_4357D0(noSkip bool) bool {
 	}
 	C.sub_4E4EF0()
 	C.sub_48D740()
-	C.nox_xxx_gameSetCliConnected_43C720(0)
+	nox_xxx_gameSetCliConnected(false)
 	C.nox_gameDisableMapDraw_5d4594_2650672 = 0
 	C.sub_473930()
 	C.sub_48D4B0(0)
@@ -1136,7 +1136,7 @@ func map_download_finish() int {
 	} else {
 		nox_xxx_netSendClientReady_43C9F0()
 	}
-	C.nox_xxx_gameSetCliConnected_43C720(1)
+	nox_xxx_gameSetCliConnected(true)
 
 	if noxflags.HasGame(9437184) {
 		noxflags.UnsetGame(9437184)
@@ -1212,7 +1212,7 @@ func nox_xxx_gameChangeMap_43DEB0() int {
 			} else {
 				nox_xxx_netSendClientReady_43C9F0()
 			}
-			C.nox_xxx_gameSetCliConnected_43C720(1)
+			nox_xxx_gameSetCliConnected(true)
 			if memmap.Int32(0x973F18, 3800) < 0 {
 				v7 := strMan.GetStringInFile("cdecode.c:EnterChat", "C:\\NoxPost\\src\\Client\\System\\gameloop.c")
 				nox_xxx_printCentered_445490(v7)
