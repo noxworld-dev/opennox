@@ -10,9 +10,13 @@ package nox
 #include "GAME2_2.h"
 #include "GAME2_3.h"
 #include "GAME3.h"
+#include "GAME3_1.h"
 #include "GAME3_2.h"
 #include "GAME4.h"
+#include "client__gui__servopts__guiserv.h"
 #include "client__shell__noxworld.h"
+#include "client__gui__guicon.h"
+#include "client__gui__guibook.h"
 
 extern uint32_t dword_5d4594_1064296;
 extern void* dword_5d4594_1064816;
@@ -36,7 +40,9 @@ extern uint32_t dword_5d4594_830872;
 extern uint32_t dword_5d4594_830972;
 extern uint32_t dword_5d4594_831224;
 extern unsigned int dword_5d4594_251744;
+extern unsigned int nox_client_renderGUI_80828;
 extern unsigned int nox_game_createOrJoin_815048;
+extern unsigned int nox_xxx_xxxRenderGUI_587000_80832;
 extern unsigned int nox_gameDisableMapDraw_5d4594_2650672;
 extern nox_screenParticle* dword_5d4594_806052;
 extern nox_screenParticle* nox_screenParticles_head;
@@ -246,7 +252,7 @@ func sub_448640() { sub_44A400() }
 
 //export sub_43E200
 func sub_43E200() C.int {
-	C.sub_477530(0)
+	sub_477530(0)
 	C.nox_xxx_gui_43E1A0(0)
 	nox_xxx_setContinueMenuOrHost_43DDD0(0)
 	nox_game_exit_xxx_43DE60()
@@ -256,10 +262,48 @@ func sub_43E200() C.int {
 
 //export sub_43E230
 func sub_43E230() C.int {
-	C.sub_477530(0)
+	sub_477530(0)
 	noxflags.SetGame(noxflags.GameFlag21)
 	sub_44A400()
 	return 1
+}
+
+//export sub_477530
+func sub_477530(a1 C.int) {
+	if a1 == 1 {
+		*memmap.PtrUint32(0x5D4594, 0x10BBCC) = uint32(C.nox_xxx_bookHideMB_45ACA0(0))
+		*memmap.PtrUint32(0x5D4594, 0x10BBD8) = uint32(C.sub_467C10())
+		*memmap.PtrUint32(0x5D4594, 1096660) = uint32(C.nox_xxx_guiServerOptionsTryHide_4574D0())
+		C.nox_client_renderGUI_80828 = 0
+		*memmap.PtrUint32(0x5D4594, 0x10BBD0) = uint32(C.sub_473670())
+		if *memmap.PtrUint32(0x5D4594, 0x10BBD0) == 1 {
+			C.nox_client_toggleMap_473610()
+		}
+		C.nox_gui_console_Hide_4512B0()
+		C.sub_446780()
+		C.sub_4AD9B0(1)
+		C.sub_4C35B0(1)
+		C.sub_46D6F0()
+		C.sub_460660()
+		*memmap.PtrUint32(0x5D4594, 0x10BBE0) = 1
+	} else {
+		*memmap.PtrUint32(0x5D4594, 0x10BBE0) = 0
+		if *memmap.PtrUint32(0x5D4594, 0x10BBCC) != 0 {
+			C.nox_xxx_bookShowMB_45AD70(0)
+		}
+		if *memmap.PtrUint32(0x5D4594, 0x10BBD8) != 0 {
+			C.sub_467BB0()
+		}
+		if *memmap.PtrUint32(0x5D4594, 1096660) != 0 {
+			C.nox_xxx_guiServerOptsLoad_457500()
+		}
+		if *memmap.PtrUint32(0x5D4594, 0x10BBD0) != 0 {
+			C.nox_client_toggleMap_473610()
+		}
+		if C.nox_xxx_xxxRenderGUI_587000_80832 == 1 {
+			C.nox_client_renderGUI_80828 = 1
+		}
+	}
 }
 
 //export sub_44A400

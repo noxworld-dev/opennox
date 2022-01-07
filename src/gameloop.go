@@ -1219,7 +1219,7 @@ func nox_xxx_gameChangeMap_43DEB0() int {
 					noxflags.SetGame(0x100000)
 				} else {
 					noxflags.UnsetGame(0x900000)
-					C.sub_477530(1)
+					sub_477530(1)
 					C.nox_xxx_gui_43E1A0(1)
 					v12 := strMan.GetStringInFile("OverwriteReadOnly", "C:\\NoxPost\\src\\Client\\System\\gameloop.c")
 					v10 := strMan.GetStringInFile("Warning", "C:\\NoxPost\\src\\Client\\System\\gameloop.c")

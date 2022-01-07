@@ -32,7 +32,7 @@ void* nox_xxx_clientGetSpriteAtCursor_476F90();
 void nox_xxx_clientEnumHover_476FA0();
 void nox_xxx_clientOnCursorHover_477050(int arg0, int a2);
 void nox_video_drawCursorSelectCircle2_477470(uint32_t* a1, int a2, int a3);
-unsigned char sub_477530(int a1);
+void sub_477530(int a1);
 int nox_xxx_guiCursor_477600();
 int nox_client_setCursorType_477610(int a1);
 int nox_client_getCursorType_477620();

@@ -1251,10 +1251,9 @@ void nox_video_drawCursorSelectCircle2_477470(uint32_t* a1, int a2, int a3) {
 	}
 }
 
+#ifndef NOX_CGO
 //----- (00477530) --------------------------------------------------------
-unsigned char sub_477530(int a1) {
-	unsigned char result; // al
-
+void sub_477530(int a1) {
 	if (a1 == 1) {
 		*getMemU32Ptr(0x5D4594, 1096652) = nox_xxx_bookHideMB_45ACA0(0);
 		*getMemU32Ptr(0x5D4594, 1096664) = sub_467C10();
@@ -1269,7 +1268,7 @@ unsigned char sub_477530(int a1) {
 		sub_4AD9B0(1);
 		sub_4C35B0(1);
 		sub_46D6F0();
-		result = sub_460660();
+		sub_460660();
 		*getMemU32Ptr(0x5D4594, 1096672) = 1;
 	} else {
 		*getMemU32Ptr(0x5D4594, 1096672) = 0;
@@ -1282,16 +1281,15 @@ unsigned char sub_477530(int a1) {
 		if (*getMemU32Ptr(0x5D4594, 1096660)) {
 			nox_xxx_guiServerOptsLoad_457500();
 		}
-		result = getMemByte(0x5D4594, 1096656);
 		if (*getMemU32Ptr(0x5D4594, 1096656)) {
-			result = nox_client_toggleMap_473610();
+			nox_client_toggleMap_473610();
 		}
 		if (nox_xxx_xxxRenderGUI_587000_80832 == 1) {
 			nox_client_renderGUI_80828 = 1;
 		}
 	}
-	return result;
 }
+#endif // NOX_CGO
 
 //----- (00477600) --------------------------------------------------------
 int nox_xxx_guiCursor_477600() { return *getMemU32Ptr(0x5D4594, 1096672); }
