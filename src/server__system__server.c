@@ -1,6 +1,7 @@
 #include <math.h>
 #include <time.h>
 
+#include "common__system__team.h"
 #include "server__script__script.h"
 #include "server__system__server.h"
 #include "server__script__activator.h"
@@ -403,7 +404,7 @@ void sub_4D2160() {
 	int v5;       // [esp+4h] [ebp-4h]
 
 	v5 = nox_common_playerInfoCount_416F40();
-	result = nox_xxx_TeamGet_418B10();
+	result = nox_server_teamFirst_418B10();
 	for (i = result; result; i = result) {
 		if (!*(uint32_t*)(*((uint32_t*)i + 19) + 492) && sub_418BC0((int)i)) {
 			do {
@@ -418,7 +419,7 @@ void sub_4D2160() {
 			} while (!v4 || !nox_xxx_teamCompare2_419180(v4 + 48, i[57]));
 			sub_4F3400(*((uint32_t*)j + 514), *((uint32_t*)i + 19), 1);
 		}
-		result = nox_xxx_TeamNext_418B60((int)i);
+		result = nox_server_teamNext_418B60((int)i);
 	}
 }
 
@@ -547,10 +548,10 @@ int nox_xxx_updateServer_4D2DA0(long long a1) {
 		if (v3 >= sub_40AA40()) {
 			goto LABEL_31;
 		}
-		v4 = nox_xxx_TeamGet_418B10();
+		v4 = nox_server_teamFirst_418B10();
 		if (v4) {
 			while (nox_xxx_countNonEliminatedPlayersInTeam_40A830((int)v4) != 1) {
-				v4 = nox_xxx_TeamNext_418B60((int)v4);
+				v4 = nox_server_teamNext_418B60((int)v4);
 				if (!v4) {
 					goto LABEL_31;
 				}
@@ -2458,7 +2459,7 @@ int nox_xxx_mapExitAndCheckNext_4D1860_server() {
 		return 0;
 	}
 	if (nox_xxx_CheckGameplayFlags_417DA0(4) || nox_common_gameFlags_check_40A5C0(0x8000)) {
-		sub_417D00();
+		nox_server_teamsResetYyy_417D00();
 	}
 	for (l = nox_xxx_getDebugData_57C3E0(); l; l = nox_xxx_nextDebugObject_57C3F0(l)) {
 		if (!strcmp((const char*)l, "spring")) {
@@ -2731,7 +2732,7 @@ int nox_xxx_gameTick_4D2580_server_C() {
 		sub_416690();
 		if (nox_common_gameFlags_check_40A5C0(128)) {
 			if (nox_common_gameFlags_check_40A5C0(0x8000)) {
-				sub_419030(1);
+				nox_server_teamsZzz_419030(1);
 			}
 			nox_common_gameFlags_unset_40A540(49152);
 		} else {

@@ -17,6 +17,7 @@
 #include "common__net_list.h"
 #include "common__random.h"
 #include "operators.h"
+#include "common__system__team.h"
 #include "server__gamemech__explevel.h"
 #include "server__magic__plyrspel.h"
 #include "server__network__mapsend.h"
@@ -102,7 +103,7 @@ int sub_5098A0() {
 	v10 = 0;
 	v1 = 0;
 	v2 = 2147483648;
-	for (i = nox_xxx_TeamGet_418B10(); i; i = nox_xxx_TeamNext_418B60((int)i)) {
+	for (i = nox_server_teamFirst_418B10(); i; i = nox_server_teamNext_418B60((int)i)) {
 		v4 = *((uint32_t*)i + 13);
 		if (v4 >= v2) {
 			v1 = v4 == v2 && v0;
@@ -156,7 +157,7 @@ int sub_5099B0() {
 	v0 = 0;
 	v1 = 0;
 	v2 = -1;
-	for (i = nox_xxx_TeamGet_418B10(); i; i = nox_xxx_TeamNext_418B60((int)i)) {
+	for (i = nox_server_teamFirst_418B10(); i; i = nox_server_teamNext_418B60((int)i)) {
 		v4 = *((uint32_t*)i + 13);
 		if (v4 >= v2) {
 			v1 = v4 == v2 && v0;
@@ -232,7 +233,7 @@ void nox_server_checkVictory_509A60() {
 	if (!v0a) {
 		return;
 	}
-	for (char* v3 = nox_xxx_TeamGet_418B10(); v3; v3 = nox_xxx_TeamNext_418B60(v3)) {
+	for (char* v3 = nox_server_teamFirst_418B10(); v3; v3 = nox_server_teamNext_418B60(v3)) {
 		if (*((int*)v3 + 13) >= v2) {
 			nox_xxx_setGameFlags_40A4D0(8);
 			nox_xxx_netSendDMTeamWinner_4D8BF0(v3, 0);

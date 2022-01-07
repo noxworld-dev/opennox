@@ -15,22 +15,53 @@ extern uint32_t dword_5d4594_527660;
 extern uint32_t nox_player_netCode_85319C;
 nox_team_t nox_server_teams_526292[NOX_TEAMS_MAX] = {0};
 
-//----- (00417C60) --------------------------------------------------------
-int sub_417C60() {
-	unsigned char* v0; // eax
-	unsigned char* v1; // esi
+//----- (00418AE0) --------------------------------------------------------
+nox_team_t* nox_server_teamByXxx_418AE0(int a1) {
+	for (nox_team_t* it = nox_server_teamFirst_418B10(); it; it = nox_server_teamNext_418B60(it)) {
+		if (it->field_60 == a1) {
+			return it;
+		}
+	}
+	return 0;
+}
 
+//----- (00418B10) --------------------------------------------------------
+nox_team_t* nox_server_teamFirst_418B10() {
+	for (int i = 1; i < NOX_TEAMS_MAX; i++) {
+		nox_team_t* t = &nox_server_teams_526292[i];
+		if (t->active) {
+			return t;
+		}
+	}
+	return 0;
+}
+
+//----- (00418B60) --------------------------------------------------------
+nox_team_t* nox_server_teamNext_418B60(nox_team_t* t) {
+	if (!t) {
+		return 0;
+	}
+	for (int i = t->ind+1; i < NOX_TEAMS_MAX; i++) {
+		nox_team_t* t2 = &nox_server_teams_526292[i];
+		if (t2->active) {
+			return t2;
+		}
+	}
+	return 0;
+}
+
+//----- (00417C60) --------------------------------------------------------
+int nox_server_teamsReset_417C60() {
 	memset(nox_server_teams_526292, 0, NOX_TEAMS_MAX*sizeof(nox_team_t));
-	v0 = &nox_server_teams_526292[0].field_72;
-	do {
-		*(v0 - 15) = 0;
-		*(uint32_t*)v0 = 0;
-		*((uint32_t*)v0 + 1) = 0;
-		*((uint32_t*)v0 - 3) = 0;
-		v0 += 80;
-	} while ((int)v0 < (int)&nox_server_teams_526292[16].field_72);
+	for (int i = 0; i < NOX_TEAMS_MAX - 1; i++) {
+		nox_team_t* t = &nox_server_teams_526292[i];
+		t->field_57 = 0;
+		t->field_72 = 0;
+		t->field_76 = 0;
+		t->field_60 = 0;
+	}
 	if (!*getMemU32Ptr(0x5D4594, 526288)) {
-		v1 = getMemAt(0x587000, 54596);
+		unsigned char* v1 = getMemAt(0x587000, 54596);
 		do {
 			*(uint32_t*)v1 =
 				nox_strman_loadString_40F1D0(*((char**)v1 - 1), 0, "C:\\NoxPost\\src\\common\\System\\team.c", 233);
@@ -68,48 +99,35 @@ int nox_xxx_createCoopTeam_417E10() {
 }
 
 //----- (004186D0) --------------------------------------------------------
-char* nox_xxx_teamCreate_4186D0(char a1) {
-	wchar_t* v1;       // eax
-	char* result;      // eax
-	unsigned char v3;  // al
-	unsigned char v4;  // bl
-	int v5;            // esi
-	char v6;           // al
-	unsigned char* v7; // esi
-	wchar_t* v8;       // eax
-
-	if (getMemByte(0x5D4594, 526280) < 0x10u) {
-		v3 = sub_4187E0();
-		v4 = v3;
-		v5 = 5 * v3;
-		v6 = a1;
-		v7 = &nox_server_teams_526292[v3];
-		*((uint32_t*)v7 + 13) = 0;
-		*((uint32_t*)v7 + 12) = 0;
-		*(uint16_t*)v7 = 0;
-		*((uint32_t*)v7 + 17) = 0;
-		*((uint32_t*)v7 + 11) = 0;
-		*((uint32_t*)v7 + 15) = 0;
-		v7[58] = v4;
-		if (!a1) {
-			v6 = sub_4187A0();
-		}
-		v7[57] = v6;
-		v7[56] = v4;
-		*((uint32_t*)v7 + 16) = 1;
-		++*getMemU8Ptr(0x5D4594, 526280);
-		sub_459CD0();
-		if (!nox_common_gameFlags_check_40A5C0(512)) {
-			v8 = nox_strman_loadString_40F1D0("teamcreate", 0, "C:\\NoxPost\\src\\common\\System\\team.c", 1009);
-			nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v8);
-		}
-		result = (char*)v7;
-	} else {
-		v1 = nox_strman_loadString_40F1D0("teamexceed", 0, "C:\\NoxPost\\src\\common\\System\\team.c", 982);
+nox_team_t* nox_xxx_teamCreate_4186D0(char a1) {
+	if (getMemByte(0x5D4594, 526280) >= (NOX_TEAMS_MAX - 1)) {
+		wchar_t* v1 = nox_strman_loadString_40F1D0("teamexceed", 0, "C:\\NoxPost\\src\\common\\System\\team.c", 982);
 		nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v1);
-		result = 0;
+		return 0;
 	}
-	return result;
+	unsigned char ti = nox_server_teamGetInactive_4187E0();
+	nox_team_t* t = &nox_server_teams_526292[ti];
+	t->field_52 = 0;
+	t->field_48 = 0;
+	t->field_0 = 0;
+	t->field_68 = 0;
+	t->field_44 = 0;
+	t->field_60 = 0;
+	t->ind = ti;
+	t->field_56 = ti;
+	char v6 = a1;
+	if (!a1) {
+		v6 = sub_4187A0();
+	}
+	t->field_57 = v6;
+	t->active = 1;
+	++*getMemU8Ptr(0x5D4594, 526280);
+	sub_459CD0();
+	if (!nox_common_gameFlags_check_40A5C0(512)) {
+		wchar_t* v8 = nox_strman_loadString_40F1D0("teamcreate", 0, "C:\\NoxPost\\src\\common\\System\\team.c", 1009);
+		nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v8);
+	}
+	return t;
 }
 
 //----- (00418C20) --------------------------------------------------------

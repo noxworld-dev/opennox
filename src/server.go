@@ -57,7 +57,7 @@ int sub_4DCF20();
 int sub_4E76C0();
 void sub_4FC680();
 bool sub_57B140();
-//int sub_417C60();
+//int nox_server_teamsReset_417C60();
 //int nox_xxx_freeObjectTypes_4E2A20();
 
 void nox_xxx_updateUnits_51B100_A();
@@ -398,7 +398,7 @@ func (s *Server) nox_xxx_servNewSession_4D1660() error {
 		return errors.New("nox_read_things_alternative_4E2B60 failed")
 	}
 	C.nox_motd_4463E0(1)
-	C.sub_417C60()
+	C.nox_server_teamsReset_417C60()
 	C.sub_4259C0()
 	C.sub_4D7C60()
 	C.nox_xxx_unitDefFindMaxDataSize_4E3320()
@@ -777,7 +777,7 @@ func (s *Server) nox_xxx_mapReadSetFlags_4CF990() {
 	C.sub_456050()
 	if noxflags.HasGame(noxflags.GameModeQuest) && memmap.Int32(0x973F18, 3800) < 0 {
 		C.sub_4D6B10(1)
-		C.sub_419030(1)
+		C.nox_server_teamsZzz_419030(1)
 	}
 	mapname := s.getServerMap()
 	gameLog.Printf("checking map flags for %q", filepath.Base(mapname))

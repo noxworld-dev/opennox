@@ -6,6 +6,7 @@ package nox
 #include "GAME3_1.h"
 #include "defs.h"
 #include "GAME2_1.h"
+#include "common__system__team.h"
 #include "client__system__client.h"
 #include "client__gui__guiquit.h"
 #include "client__gui__guiggovr.h"
@@ -1412,7 +1413,7 @@ LOOP:
 		} else {
 			v41 = 0x7FFFFFFF
 		}
-		if uint32(dr.field_27) == memmap.Uint32(0x5D4594, 1096448) && C.nox_xxx_TeamGet_418B10() != nil {
+		if uint32(dr.field_27) == memmap.Uint32(0x5D4594, 1096448) && C.nox_server_teamFirst_418B10() != nil {
 			for v25 := nox_xxx_cliGetSpritePlayer_45A000(); v25 != nil; v25 = v25.Field104() {
 				if v25.CheckFlag31(30) {
 					continue LOOP

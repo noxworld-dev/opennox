@@ -5,7 +5,7 @@
 #include "defs.h"
 
 char sub_4187A0();
-int sub_4187E0();
+int nox_server_teamGetInactive_4187E0();
 void sub_418800(wchar_t* a1, wchar_t* a2, int a3);
 int sub_418830(int a1, int a2);
 int nox_xxx_unused_418840();
@@ -14,9 +14,6 @@ char* sub_418A10();
 char* sub_418A40(wchar_t* a1);
 char* sub_418A80(int a1);
 char* nox_xxx_clientGetTeamColor_418AB0(int a1);
-char* sub_418AE0(int a1);
-char* nox_xxx_TeamGet_418B10();
-char* nox_xxx_TeamNext_418B60(int a1);
 int sub_418BC0(int a1);
 int nox_xxx_teamCheckSmth_418C60(int a1);
 uint32_t* sub_418C70(uint32_t* a1);
@@ -26,7 +23,7 @@ void* nox_xxx_materialGetTeamColor_418D50(int a1);
 void sub_418D80(int a1);
 uint32_t* sub_418E40(int a1, int a2);
 void sub_418F20(wchar_t* a1, int a2);
-int sub_419030(int a1);
+int nox_server_teamsZzz_419030(int a1);
 void nox_xxx_netChangeTeamID_419090(int a1, int a2);
 int sub_4190F0(wchar_t* a1);
 int nox_xxx_servObjectHasTeam_419130(int a1);

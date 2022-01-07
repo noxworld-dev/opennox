@@ -785,7 +785,7 @@ func (s *Server) nox_xxx_gameTick_4D2580_server_C() bool {
 		C.sub_416690()
 		if noxflags.HasGame(128) {
 			if noxflags.HasGame(0x8000) {
-				C.sub_419030(1)
+				C.nox_server_teamsZzz_419030(1)
 			}
 			noxflags.UnsetGame(49152)
 		} else {
@@ -1062,7 +1062,7 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() bool {
 	}
 
 	if checkGameplayFlags(4) || noxflags.HasGame(0x8000) {
-		C.sub_417D00()
+		C.nox_server_teamsResetYyy_417D00()
 	}
 	for l := C.nox_xxx_getDebugData_57C3E0(); l != nil; l = C.nox_xxx_nextDebugObject_57C3F0(l) {
 		switch str := GoString((*C.char)(l)); str {

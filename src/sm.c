@@ -404,7 +404,7 @@ void CONNECT_WAIT_THEN(sm_args_t* args) {
 	}
 	nox_xxx_gameSetPlayState_4356B0(2);
 	if (!nox_common_gameFlags_check_40A5C0(1)) {
-		sub_417C60();
+		nox_server_teamsReset_417C60();
 	}
 	GOTO_CONNECT_RESULT(0);
 }

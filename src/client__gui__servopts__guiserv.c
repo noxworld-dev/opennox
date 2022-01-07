@@ -612,7 +612,7 @@ int nox_xxx_guiServerOptionsProcPre_4585D0(int a1, unsigned int a2, int a3, int 
 			v25 = sub_4165B0();
 			if (nox_common_gameFlags_check_40A5C0(128)) {
 				if ((int)v25[53] < 0) {
-					sub_419030(1);
+					nox_server_teamsZzz_419030(1);
 				}
 				*((uint16_t*)v25 + 26) &= 0x3FFFu;
 			}
@@ -685,7 +685,7 @@ int nox_xxx_guiServerOptionsProcPre_4585D0(int a1, unsigned int a2, int a3, int 
 		case 10330:
 			if (nox_xxx_CheckGameplayFlags_417DA0(4)) {
 				nox_xxx_toggleAllTeamFlags_418690(0);
-				sub_419030(1);
+				nox_server_teamsZzz_419030(1);
 				sub_46AD20(*(uint32_t**)&dword_5d4594_1046508, 10331, 10333, 0);
 				result = 1;
 			} else {

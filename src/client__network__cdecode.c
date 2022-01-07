@@ -3043,7 +3043,7 @@ int nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 				goto LABEL_920;
 			case 7u:
 				if (nox_client_isConnected_43C700()) {
-					sub_419030(0);
+					nox_server_teamsZzz_419030(0);
 					sub_456FA0();
 				}
 				data += 2;
@@ -3060,7 +3060,7 @@ int nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 				break;
 			case 9u:
 				if (nox_client_isConnected_43C700()) {
-					sub_417D00();
+					nox_server_teamsResetYyy_417D00();
 				}
 				data += 2;
 				break;

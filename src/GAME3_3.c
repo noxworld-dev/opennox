@@ -3535,7 +3535,7 @@ int nox_xxx_playerGoObserver_4E6860(nox_playerInfo* pl, int a2, int a3) {
 	if (!v10 && !nox_common_gameFlags_check_40A5C0(4096)) {
 		sub_40A1F0(0);
 		nox_xxx_playerForceSendLessons_416E50(1);
-		sub_417D00();
+		nox_server_teamsResetYyy_417D00();
 		sub_40A970();
 	}
 	nox_xxx_netInformTextMsg_4DA0F0(pl->playerInd, 12, (int*)&a2);
@@ -6347,10 +6347,10 @@ void nox_xxx_pickupFlagCtf_4EA490(int a1, int a2) {
 						return;
 					}
 				}
-				v11 = nox_xxx_TeamGet_418B10();
+				v11 = nox_server_teamFirst_418B10();
 				if (v11) {
 					while (*((uint32_t*)v11 + 13) < v9) {
-						v11 = nox_xxx_TeamNext_418B60((int)v11);
+						v11 = nox_server_teamNext_418B60((int)v11);
 						if (!v11) {
 							return;
 						}
@@ -6464,10 +6464,10 @@ short sub_4EA800(int a1, int a2) {
 			*v4 = 0;
 		}
 		v5 = nox_xxx_clientGetTeamColor_418AB0(*(unsigned char*)(a1 + 52));
-		v2 = nox_xxx_TeamNext_418B60((int)v5);
+		v2 = nox_server_teamNext_418B60((int)v5);
 		v6 = (int)v2;
 		if (!v2) {
-			v2 = nox_xxx_TeamGet_418B10();
+			v2 = nox_server_teamFirst_418B10();
 			v6 = (int)v2;
 		}
 		v7 = *v4;
@@ -6490,10 +6490,10 @@ short sub_4EA800(int a1, int a2) {
 				nox_xxx_netInformTextMsg2_4DA180(9, v17);
 				nox_xxx_netSendPointFx_522FF0(154, (float2*)(v3 + 56));
 				if (v8 > 0) {
-					v10 = nox_xxx_TeamGet_418B10();
+					v10 = nox_server_teamFirst_418B10();
 					if (v10) {
 						while (*((uint32_t*)v10 + 13) < v8) {
-							v10 = nox_xxx_TeamNext_418B60((int)v10);
+							v10 = nox_server_teamNext_418B60((int)v10);
 							if (!v10) {
 								goto LABEL_27;
 							}

@@ -11820,7 +11820,7 @@ int sub_5095E0() {
 	v10 = 0;
 	v1 = 0;
 	v2 = 0x7FFFFFFF;
-	for (i = nox_xxx_TeamGet_418B10(); i; i = nox_xxx_TeamNext_418B60((int)i)) {
+	for (i = nox_server_teamFirst_418B10(); i; i = nox_server_teamNext_418B60((int)i)) {
 		v4 = *((uint32_t*)i + 13);
 		if (v4 <= v2) {
 			v1 = v4 == v2 && v0;

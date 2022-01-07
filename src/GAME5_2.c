@@ -26,6 +26,7 @@
 #include "client__gui__guiinv.h"
 #include "client__shell__mainmenu.h"
 #include "common__system__group.h"
+#include "common__system__team.h"
 #include "comw32__comlib.h"
 
 #include "MixPatch.h"
@@ -837,7 +838,7 @@ int nox_xxx_netBigSwitch_553210(unsigned int id, unsigned char* packet, int pack
 						*(uint8_t*)(out + 3) = 11;
 						return 4;
 					}
-				} else if (sub_418AE0(*((uint32_t*)packet + 21))) {
+				} else if (nox_server_teamByXxx_418AE0(*((uint32_t*)packet + 21))) {
 					if (v46 > 0) {
 						v43 = 1;
 					}

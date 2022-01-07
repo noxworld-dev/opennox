@@ -1823,7 +1823,7 @@ int sub_4948B0(int a1) {
 	} else {
 		v2 = *((unsigned short*)nox_xxx_cliGamedataGet_416590(0) + 27);
 	}
-	for (i = nox_xxx_TeamGet_418B10(); i; i = nox_xxx_TeamNext_418B60((int)i)) {
+	for (i = nox_server_teamFirst_418B10(); i; i = nox_server_teamNext_418B60((int)i)) {
 		if (i == (char*)a1) {
 			if (!nox_common_gameFlags_check_40A5C0(1024)) {
 				*((uint32_t*)i + 13) = v2;

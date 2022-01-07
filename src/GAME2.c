@@ -4320,7 +4320,7 @@ int sub_456500() {
 	nox_window_call_field_94((int)v1, 16399, 0, 0);
 	nox_xxx_wnd_46ABB0(*(int*)&dword_5d4594_1045688, 0);
 	nox_xxx_wnd_46ABB0(*(int*)&dword_5d4594_1045692, 0);
-	for (i = nox_xxx_TeamGet_418B10(); i; i = nox_xxx_TeamNext_418B60((int)i)) {
+	for (i = nox_server_teamFirst_418B10(); i; i = nox_server_teamNext_418B60((int)i)) {
 		sub_457230((wchar_t*)i);
 	}
 	for (j = nox_common_playerInfoGetFirst_416EA0(); j; j = nox_common_playerInfoGetNext_416EE0((int)j)) {

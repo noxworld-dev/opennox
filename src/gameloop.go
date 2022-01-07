@@ -806,7 +806,7 @@ func CONNECT_SERVER(host string, port int, opts *PlayerOpts) error {
 	}
 	gameSetPlayState(2)
 	if !noxflags.HasGame(noxflags.GameHost) {
-		C.sub_417C60()
+		C.nox_server_teamsReset_417C60()
 	}
 	return nil
 }

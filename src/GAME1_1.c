@@ -128,12 +128,12 @@ char sub_4187A0() {
 	char* v1; // eax
 
 	for (i = 1; i < 17; ++i) {
-		v1 = nox_xxx_TeamGet_418B10();
+		v1 = nox_server_teamFirst_418B10();
 		if (!v1) {
 			return i;
 		}
 		while ((unsigned char)v1[57] != i) {
-			v1 = nox_xxx_TeamNext_418B60((int)v1);
+			v1 = nox_server_teamNext_418B60((int)v1);
 			if (!v1) {
 				return i;
 			}
@@ -143,39 +143,28 @@ char sub_4187A0() {
 }
 
 //----- (00417D00) --------------------------------------------------------
-int sub_417D00() {
-	unsigned char* v1; // eax
-	int result;        // eax
-	short v3;          // [esp+0h] [ebp-2h]
-
-	v1 = &nox_server_teams_526292[1].field_52;
-	do {
-		*(uint32_t*)v1 = 0;
-		v1 += 80;
-	} while ((int)v1 < (int)&nox_server_teams_526292[NOX_TEAMS_MAX].field_52);
-	result = nox_common_gameFlags_check_40A5C0(1);
-	if (result == 1) {
-		v3 = 2500;
+int nox_server_teamsResetYyy_417D00() {
+	for (int i = 1; i < NOX_TEAMS_MAX; i++) {
+		nox_team_t* t = &nox_server_teams_526292[i];
+		t->field_52 = 0;
+	}
+	int result = 0;
+	if (nox_common_gameFlags_check_40A5C0(1)) {
+		short v3 = 2500;
 		result = nox_xxx_netSendPacket1_4E5390(159, (int)&v3, 2, 0, 1);
 	}
 	return result;
 }
 
 //----- (004187E0) --------------------------------------------------------
-int sub_4187E0() {
-	int result;        // eax
-	unsigned char* v1; // ecx
-
-	result = 1;
-	v1 = &nox_server_teams_526292[1].field_64;
-	while (*(uint32_t*)v1) {
-		v1 += 80;
-		++result;
-		if ((int)v1 >= (int)&nox_server_teams_526292[NOX_TEAMS_MAX].field_64) {
-			return 0;
+int nox_server_teamGetInactive_4187E0() {
+	for (int i = 1; i < NOX_TEAMS_MAX; i++) {
+		nox_team_t* t = &nox_server_teams_526292[i];
+		if (!t->active) {
+			return i;
 		}
 	}
-	return result;
+	return 0;
 }
 
 //----- (00418800) --------------------------------------------------------
@@ -216,7 +205,7 @@ int nox_xxx_unused_418840() {
 	v0 = 0;
 	v1 = sub_416640();
 	v2 = sub_4165B0();
-	sub_419030(1);
+	nox_server_teamsZzz_419030(1);
 	v3 = *((uint16_t*)v2 + 26) & 0x3FFF;
 	HIBYTE(v3) |= 0x80u;
 	*((uint16_t*)v2 + 26) = v3;
@@ -271,7 +260,7 @@ char* sub_4189D0() {
 
 	v0 = 0;
 	v1 = 32;
-	for (i = nox_xxx_TeamGet_418B10(); i; i = nox_xxx_TeamNext_418B60((int)i)) {
+	for (i = nox_server_teamFirst_418B10(); i; i = nox_server_teamNext_418B60((int)i)) {
 		v3 = sub_418BC0((int)i);
 		if (v3 < v1) {
 			v1 = v3;
@@ -285,12 +274,12 @@ char* sub_4189D0() {
 char* sub_418A10() {
 	char* result; // eax
 
-	result = nox_xxx_TeamGet_418B10();
+	result = nox_server_teamFirst_418B10();
 	if (!result) {
 		return nox_xxx_teamCreate_4186D0(0);
 	}
 	while (*((uint32_t*)result + 15)) {
-		result = nox_xxx_TeamNext_418B60((int)result);
+		result = nox_server_teamNext_418B60((int)result);
 		if (!result) {
 			return nox_xxx_teamCreate_4186D0(0);
 		}
@@ -302,12 +291,12 @@ char* sub_418A10() {
 char* sub_418A40(wchar_t* a1) {
 	char* v1; // esi
 
-	v1 = nox_xxx_TeamGet_418B10();
+	v1 = nox_server_teamFirst_418B10();
 	if (!v1) {
 		return 0;
 	}
 	while (_nox_wcsicmp((const wchar_t*)v1, a1)) {
-		v1 = nox_xxx_TeamNext_418B60((int)v1);
+		v1 = nox_server_teamNext_418B60((int)v1);
 		if (!v1) {
 			return 0;
 		}
@@ -319,12 +308,12 @@ char* sub_418A40(wchar_t* a1) {
 char* sub_418A80(int a1) {
 	char* result; // eax
 
-	result = nox_xxx_TeamGet_418B10();
+	result = nox_server_teamFirst_418B10();
 	if (!result) {
 		return 0;
 	}
 	while ((unsigned char)result[56] != a1) {
-		result = nox_xxx_TeamNext_418B60((int)result);
+		result = nox_server_teamNext_418B60((int)result);
 		if (!result) {
 			return 0;
 		}
@@ -336,72 +325,17 @@ char* sub_418A80(int a1) {
 char* nox_xxx_clientGetTeamColor_418AB0(int a1) {
 	char* result; // eax
 
-	result = nox_xxx_TeamGet_418B10();
+	result = nox_server_teamFirst_418B10();
 	if (!result) {
 		return 0;
 	}
 	while ((unsigned char)result[57] != a1) {
-		result = nox_xxx_TeamNext_418B60((int)result);
+		result = nox_server_teamNext_418B60((int)result);
 		if (!result) {
 			return 0;
 		}
 	}
 	return result;
-}
-
-//----- (00418AE0) --------------------------------------------------------
-char* sub_418AE0(int a1) {
-	char* result; // eax
-
-	result = nox_xxx_TeamGet_418B10();
-	if (!result) {
-		return 0;
-	}
-	while (*((uint32_t*)result + 15) != a1) {
-		result = nox_xxx_TeamNext_418B60((int)result);
-		if (!result) {
-			return 0;
-		}
-	}
-	return result;
-}
-
-//----- (00418B10) --------------------------------------------------------
-char* nox_xxx_TeamGet_418B10() {
-	char v0;          // dl
-	unsigned char v2; // [esp+4h] [ebp-4h]
-
-	v0 = 1;
-	v2 = 1;
-	while (!*(uint32_t*)(&nox_server_teams_526292[v2].field_64)) {
-		v2 = ++v0;
-		if ((unsigned char)v0 >= NOX_TEAMS_MAX) {
-			return 0;
-		}
-	}
-	return &nox_server_teams_526292[v2];
-}
-
-//----- (00418B60) --------------------------------------------------------
-char* nox_xxx_TeamNext_418B60(int a1) {
-	unsigned char v1; // dl
-	unsigned char v3; // [esp+8h] [ebp+4h]
-
-	if (!a1) {
-		return 0;
-	}
-	v3 = *(uint8_t*)(a1 + 58) + 1;
-	v1 = v3;
-	if (v3 >= NOX_TEAMS_MAX) {
-		return 0;
-	}
-	while (!*(uint32_t*)(&nox_server_teams_526292[v3].field_64)) {
-		v3 = ++v1;
-		if (v1 >= NOX_TEAMS_MAX) {
-			return 0;
-		}
-	}
-	return &nox_server_teams_526292[v3];
 }
 
 //----- (00418BC0) --------------------------------------------------------
@@ -625,23 +559,19 @@ void sub_418F20(wchar_t* a1, int a2) {
 }
 
 //----- (00419030) --------------------------------------------------------
-int sub_419030(int a1) {
-	unsigned char* v1; // esi
-	int result;        // eax
-
+int nox_server_teamsZzz_419030(int a1) {
 	nox_xxx_UnsetGameplayFlags_417D70(4);
-	v1 = &nox_server_teams_526292[1];
-	do {
-		if (*((uint32_t*)v1 + 16)) {
-			sub_418F20((wchar_t*)v1, 0);
+	for (int i = 1; i < NOX_TEAMS_MAX; i++) {
+		nox_team_t* t = &nox_server_teams_526292[i];
+		if (t->active) {
+			sub_418F20(t, 0);
 		}
-		v1 += 80;
-	} while ((int)v1 < (int)&nox_server_teams_526292[NOX_TEAMS_MAX]);
-	result = a1;
+	}
+	int result = 0;
 	if (a1) {
-		LOWORD(a1) = 1988;
+		uint16_t a1a = 1988;
 		sub_456FA0();
-		result = nox_xxx_netSendPacket1_4E5390(159, (int)&a1, 2, 0, 1);
+		result = nox_xxx_netSendPacket1_4E5390(159, (int)&a1a, 2, 0, 1);
 	}
 	return result;
 }
@@ -670,12 +600,12 @@ void nox_xxx_netChangeTeamID_419090(int a1, int a2) {
 int sub_4190F0(wchar_t* a1) {
 	char* v1; // esi
 
-	v1 = nox_xxx_TeamGet_418B10();
+	v1 = nox_server_teamFirst_418B10();
 	if (!v1) {
 		return 0;
 	}
 	while (_nox_wcsicmp((const wchar_t*)v1, a1)) {
-		v1 = nox_xxx_TeamNext_418B60((int)v1);
+		v1 = nox_server_teamNext_418B60((int)v1);
 		if (!v1) {
 			return 0;
 		}

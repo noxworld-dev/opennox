@@ -1082,7 +1082,7 @@ int sub_40A770() {
 		}
 		return v0;
 	}
-	v1 = nox_xxx_TeamGet_418B10();
+	v1 = nox_server_teamFirst_418B10();
 	if (!v1) {
 		return v0;
 	}
@@ -1104,7 +1104,7 @@ int sub_40A770() {
 			++v0;
 		}
 	LABEL_10:
-		v1 = nox_xxx_TeamNext_418B60((int)v1);
+		v1 = nox_server_teamNext_418B60((int)v1);
 	} while (v1);
 	return v0;
 }
@@ -1156,7 +1156,7 @@ int nox_xxx_gamePlayIsAnyPlayers_40A8A0() {
 		}
 		goto LABEL_18;
 	}
-	v1 = nox_xxx_TeamGet_418B10();
+	v1 = nox_server_teamFirst_418B10();
 	if (!v1) {
 	LABEL_18:
 		result = v0 < 1;
@@ -1181,7 +1181,7 @@ int nox_xxx_gamePlayIsAnyPlayers_40A8A0() {
 			++v0;
 		}
 	LABEL_10:
-		v1 = nox_xxx_TeamNext_418B60((int)v1);
+		v1 = nox_server_teamNext_418B60((int)v1);
 	} while (v1);
 	return v0 > 1;
 }
@@ -1268,7 +1268,7 @@ int sub_40AA70(nox_playerInfo* pl) {
 	if (!result) {
 		return result;
 	}
-	if (sub_418AE0(*(uint32_t*)(a1 + 2068))) {
+	if (nox_server_teamByXxx_418AE0(*(uint32_t*)(a1 + 2068))) {
 		goto LABEL_31;
 	}
 	v4 = (unsigned char)v1[52];
@@ -9309,7 +9309,7 @@ char* sub_417C00(char* a1, int a2) {
 }
 
 //----- (00417CF0) --------------------------------------------------------
-int sub_417CF0() { return sub_419030(0); }
+int sub_417CF0() { return nox_server_teamsZzz_419030(0); }
 
 #ifndef NOX_CGO
 //----- (00417D50) --------------------------------------------------------
@@ -9341,7 +9341,7 @@ char sub_417DE0() {
 	char* i; // eax
 
 	v0 = 0;
-	for (i = nox_xxx_TeamGet_418B10(); i; i = nox_xxx_TeamNext_418B60((int)i)) {
+	for (i = nox_server_teamFirst_418B10(); i; i = nox_server_teamNext_418B60((int)i)) {
 		if (*((uint32_t*)i + 15)) {
 			++v0;
 		}
@@ -9494,7 +9494,7 @@ int nox_xxx_mapInfoSetKotr_4180D0() {
 			v0 = v1;
 		} while (v1);
 	}
-	for (i = nox_xxx_TeamGet_418B10(); i; i = nox_xxx_TeamNext_418B60((int)i)) {
+	for (i = nox_server_teamFirst_418B10(); i; i = nox_server_teamNext_418B60((int)i)) {
 		*((uint32_t*)i + 19) = 0;
 	}
 	v3 = 0;
@@ -9570,7 +9570,7 @@ void sub_4181F0(int a1) {
 	v1 = 0;
 	v19 = 0;
 	if (a1) {
-		for (i = nox_xxx_TeamGet_418B10(); i; i = nox_xxx_TeamNext_418B60((int)i)) {
+		for (i = nox_server_teamFirst_418B10(); i; i = nox_server_teamNext_418B60((int)i)) {
 			sub_418D80((int)i);
 		}
 	}
@@ -9623,7 +9623,7 @@ void sub_4181F0(int a1) {
 			v17 = *(uint32_t*)(v16 + 276);
 			result = *(char**)(v17 + 2068);
 			if (result) {
-				result = sub_418AE0(*(uint32_t*)(v17 + 2068));
+				result = nox_server_teamByXxx_418AE0(*(uint32_t*)(v17 + 2068));
 				if (result) {
 					nox_xxx_createAtImpl_4191D0(result[57], v15 + 48, 1, *(uint32_t*)(v15 + 36), 0);
 				}
@@ -9673,7 +9673,7 @@ int sub_4183C0() {
 			v5 = nox_xxx_clientGetTeamColor_418AB0(*(unsigned char*)(i + 52));
 			v6 = 0;
 			v12 = 1000000000.0;
-			v7 = nox_xxx_TeamGet_418B10();
+			v7 = nox_server_teamFirst_418B10();
 			if (v7) {
 				do {
 					v8 = *((uint32_t*)v7 + 18);
@@ -9686,7 +9686,7 @@ int sub_4183C0() {
 							v6 = (int)v7;
 						}
 					}
-					v7 = nox_xxx_TeamNext_418B60((int)v7);
+					v7 = nox_server_teamNext_418B60((int)v7);
 				} while (v7);
 				if (v6) {
 					if (v5) {
@@ -9796,7 +9796,7 @@ char* nox_xxx_toggleAllTeamFlags_418690(int a1) {
 	char* i;      // esi
 	int v3;       // [esp-8h] [ebp-Ch]
 
-	result = nox_xxx_TeamGet_418B10();
+	result = nox_server_teamFirst_418B10();
 	for (i = result; result; i = result) {
 		if (*((uint32_t*)i + 18)) {
 			v3 = *((uint32_t*)i + 18);
@@ -9806,7 +9806,7 @@ char* nox_xxx_toggleAllTeamFlags_418690(int a1) {
 				nox_xxx_objectSetOff_4E7600(v3);
 			}
 		}
-		result = nox_xxx_TeamNext_418B60((int)i);
+		result = nox_server_teamNext_418B60((int)i);
 	}
 	return result;
 }

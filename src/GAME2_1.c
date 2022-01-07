@@ -22,6 +22,7 @@
 #include "client__shell__wolapi__wolreg.h"
 #include "common__net_list.h"
 #include "common__object__modifier.h"
+#include "common__system__team.h"
 #include "operators.h"
 
 #include "client__gui__gamewin__gamewin.h"
@@ -5158,7 +5159,7 @@ char* sub_46DCC0() {
 			v3 = v2;
 			do {
 				v4 = 0x7FFFFFFF;
-				for (k = nox_xxx_TeamGet_418B10(); k; k = nox_xxx_TeamNext_418B60((int)k)) {
+				for (k = nox_server_teamFirst_418B10(); k; k = nox_server_teamNext_418B60((int)k)) {
 					if (*((int*)k + 13) >= v1 && !sub_46E130((unsigned char)k[57]) && *((int*)k + 13) < v4) {
 						v4 = *((uint32_t*)k + 13);
 						v3 = (unsigned int)k;
@@ -5374,7 +5375,7 @@ char* sub_46E4E0() {
 		v2 = v1;
 		do {
 			v3 = 0x80000000;
-			for (i = nox_xxx_TeamGet_418B10(); i; i = nox_xxx_TeamNext_418B60((int)i)) {
+			for (i = nox_server_teamFirst_418B10(); i; i = nox_server_teamNext_418B60((int)i)) {
 				if (*((int*)i + 13) <= v0 && !sub_46E130((unsigned char)i[57]) && *((int*)i + 13) > v3) {
 					v3 = *((uint32_t*)i + 13);
 					v2 = (unsigned int)i;
@@ -7077,7 +7078,7 @@ int nox_xxx_cliDrawMinimap_472600(int a1, int a2) {
 		nox_client_drawSetColor_434460(v43);
 		v44 = *(uint32_t*)(k + 108);
 		if (v44 == *getMemIntPtr(0x5D4594, 1096304)) {
-			if (nox_xxx_TeamGet_418B10() || (v45 = nox_xxx_cliGetSpritePlayer_45A000()) == 0) {
+			if (nox_server_teamFirst_418B10() || (v45 = nox_xxx_cliGetSpritePlayer_45A000()) == 0) {
 			LABEL_64:
 				nox_client_drawSetColor_434460(*getMemIntPtr(0x8531A0, 2572));
 				v46 = nox_xxx_objGetTeamByNetCode_418C80(*(uint32_t*)(k + 128));
@@ -8593,7 +8594,7 @@ void nox_xxx_drawAllMB_475810_draw_E(nox_draw_viewport_t* vp) {
 			} else {
 				v41 = 0x7FFFFFFF;
 			}
-			if (dr->field_27 != *getMemU32Ptr(0x5D4594, 1096448) || nox_xxx_TeamGet_418B10() ||
+			if (dr->field_27 != *getMemU32Ptr(0x5D4594, 1096448) || nox_server_teamFirst_418B10() ||
 				(v25 = nox_xxx_cliGetSpritePlayer_45A000()) == 0) {
 			LABEL_64:
 				v26 = dr->flags28;

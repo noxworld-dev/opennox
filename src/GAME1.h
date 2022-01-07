@@ -501,7 +501,7 @@ char* nox_xxx_clientEquipWeaponArmor_417AA0(char a1, int a2, int a3, int a4);
 char* sub_417B80(char a1, int a2, int a3);
 char* sub_417C00(char* a1, int a2);
 int sub_417CF0();
-int sub_417D00();
+int nox_server_teamsResetYyy_417D00();
 void nox_xxx_SetGameplayFlag_417D50(int a1);
 void nox_xxx_UnsetGameplayFlags_417D70(int a1);
 int nox_xxx_GetGameplayFlags_417D90();
