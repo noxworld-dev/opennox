@@ -9317,7 +9317,7 @@ int sub_417D00() {
 	int result;        // eax
 	short v3;          // [esp+0h] [ebp-2h]
 
-	v1 = getMemAt(0x5D4594, 526424);
+	v1 = getMemAt(0x5D4594, 526292 + 80*1 + 52);
 	do {
 		*(uint32_t*)v1 = 0;
 		v1 += 80;

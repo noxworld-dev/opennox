@@ -147,7 +147,7 @@ int sub_4187E0() {
 	unsigned char* v1; // ecx
 
 	result = 1;
-	v1 = getMemAt(0x5D4594, 526436);
+	v1 = getMemAt(0x5D4594, 526292 + 80*1 + 64);
 	while (*(uint32_t*)v1) {
 		v1 += 80;
 		++result;
@@ -353,13 +353,13 @@ char* nox_xxx_TeamGet_418B10() {
 
 	v0 = 1;
 	v2 = 1;
-	while (!*getMemU32Ptr(0x5D4594, 526356 + 80 * v2)) {
+	while (!*getMemU32Ptr(0x5D4594, 526292 + 80*v2 + 64)) {
 		v2 = ++v0;
-		if ((unsigned char)v0 >= 0x11u) {
+		if ((unsigned char)v0 >= 17) {
 			return 0;
 		}
 	}
-	return (char*)getMemAt(0x5D4594, 526292 + 80 * v2);
+	return (char*)getMemAt(0x5D4594, 526292 + 80*v2);
 }
 
 //----- (00418B60) --------------------------------------------------------
@@ -375,13 +375,13 @@ char* nox_xxx_TeamNext_418B60(int a1) {
 	if (v3 >= 0x11u) {
 		return 0;
 	}
-	while (!*getMemU32Ptr(0x5D4594, 526356 + 80 * v3)) {
+	while (!*getMemU32Ptr(0x5D4594, 526292 + 80*v3 + 64)) {
 		v3 = ++v1;
 		if (v1 >= 0x11u) {
 			return 0;
 		}
 	}
-	return (char*)getMemAt(0x5D4594, 526292 + 80 * v3);
+	return (char*)getMemAt(0x5D4594, 526292 + 80*v3);
 }
 
 //----- (00418BC0) --------------------------------------------------------
@@ -610,7 +610,7 @@ int sub_419030(int a1) {
 	int result;        // eax
 
 	nox_xxx_UnsetGameplayFlags_417D70(4);
-	v1 = getMemAt(0x5D4594, 526372);
+	v1 = getMemAt(0x5D4594, 526292 + 80*1);
 	do {
 		if (*((uint32_t*)v1 + 16)) {
 			sub_418F20((wchar_t*)v1, 0);
