@@ -493,3 +493,7 @@ func sub46B120(win, par *Window) int {
 	}
 	return 0
 }
+
+func sub_46AEE0(a1 *Window, a2 string) {
+	a1.Func94(16385, uintptr(unsafe.Pointer(internWStr(a2))), 0)
+}

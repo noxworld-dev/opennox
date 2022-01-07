@@ -16,10 +16,11 @@
 typedef struct nox_savegame_xxx {
 	uint32_t flags; // 0
 	char path[1024]; // 4
-	uint8_t field_1028[160];
+	uint8_t field_1028[128];
+	char map_name[32]; // 1156
 	SYSTEMTIME timestamp; // 1188
 	uint8_t field_1204[20];
-	uint8_t player_name[50]; // 1224
+	wchar_t player_name[25]; // 1224
 	uint8_t player_class; // 1274
 	uint8_t field_1275;
 	uint8_t field_1276;

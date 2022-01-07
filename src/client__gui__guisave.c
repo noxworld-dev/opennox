@@ -1,3 +1,5 @@
+//+build none
+
 #include "client__gui__guisave.h"
 #include "client__gui__window.h"
 #include "common__strman.h"
@@ -194,7 +196,10 @@ int nox_savegame_sub_46CBD0() {
 }
 
 //----- (0046CE40) --------------------------------------------------------
-int nox_savegame_sub_46CE40(int a1, int a2, int a3, nox_savegame_xxx* sarr) {
+int nox_savegame_sub_46CE40(nox_window* a1p, nox_window* a2p, nox_window* a3p, nox_savegame_xxx* sarr) {
+	int a1 = a1p;
+	int a2 = a2p;
+	int a3 = a3p;
 	char* v5;            // eax
 	int v9;              // esi
 	int v21;             // esi

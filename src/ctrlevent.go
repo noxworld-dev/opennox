@@ -527,8 +527,8 @@ func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_B() {
 			C.nox_client_quit_4460C0()
 			ce.active = false
 		case client.CCQuitMenu:
-			if C.sub_450560() != 0 {
-				C.nox_savegame_sub_46D580()
+			if sub_450560() {
+				nox_savegame_sub_46D580()
 			} else {
 				C.sub_42EB90(1)
 			}
@@ -605,7 +605,7 @@ func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_B() {
 			if noxflags.HasGame(noxflags.GameModeCoop) {
 				if C.nox_xxx_game_4DCCB0() != 0 {
 					clientPlaySoundSpecial(921, 100)
-					C.sub_4DB130(internCStr(common.SaveAuto))
+					sub_4DB130(common.SaveAuto)
 					sub_4DB170(1, 0, 0)
 				} else {
 					clientPlaySoundSpecial(231, 100)

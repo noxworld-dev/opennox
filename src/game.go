@@ -203,7 +203,7 @@ func startServer() bool {
 	noxflags.UnsetGame(noxflags.GameModeCoop)
 	C.sub_461440(0)
 	C.sub_4D6F40(0)
-	C.sub_4D6F90(0)
+	sub_4D6F90(0)
 	if !isServerQuest {
 		nox_xxx_setQuest_4D6F60(0)
 	} else {
@@ -254,6 +254,10 @@ func nox_xxx_setQuest_4D6F60(v int) {
 
 func sub_4D6F30() uint32 {
 	return memmap.Uint32(0x5D4594, 1556156)
+}
+
+func sub_4D6F90(a1 uint32) {
+	*memmap.PtrUint32(0x5D4594, 1556104) = a1
 }
 
 func sub_43AF30() uint32 {
@@ -825,7 +829,7 @@ func nox_game_guiInit_473680() error {
 	if C.sub_4C3760() == 0 {
 		return errors.New("sub_4C3760 failed")
 	}
-	if C.nox_savegame_sub_46C730() == 0 {
+	if nox_savegame_sub_46C730() == 0 {
 		return errors.New("nox_savegame_sub_46C730 failed")
 	}
 	if C.sub_4C09D0() == 0 {
@@ -1150,7 +1154,7 @@ func nox_xxx_mapExitAndCheckNext_4D1860_server() bool {
 		nox_server_questMapNextLevel()
 	}
 	if noxflags.HasGame(noxflags.GameModeCoop) && C.nox_xxx_mapLoadRequired_4DCC80() == 0 {
-		C.sub_4DB130(internCStr(common.SaveAuto))
+		sub_4DB130(common.SaveAuto)
 		sub_4DB170(1, 0, 30)
 	}
 	nox_xxx_mapLoadOrSaveMB_4DCC70(0)
@@ -1202,7 +1206,7 @@ func sub_4139C0() {
 	if C.dword_5d4594_251744 != 0 {
 		if int(nox_xxx_bookGet_430B40_get_mouse_prev_seq()) >= int(C.dword_5d4594_251744) {
 			C.dword_5d4594_251744 = 0
-			if C.sub_450560() == 0 {
+			if !sub_450560() {
 				sub_413A00(0)
 			}
 		}
