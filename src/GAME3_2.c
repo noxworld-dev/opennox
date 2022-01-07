@@ -738,7 +738,7 @@ int nox_xxx_mapValidateMB_4CF470(char* a1, int a2) {
 		return 6;
 	}
 	if (a1) {
-		if (strchr(a1, 92)) {
+		if (strchr(a1, '\\')) {
 			strcpy(FileName, a1);
 		} else {
 			strcpy(FileName, "maps\\");
@@ -8085,7 +8085,6 @@ void nox_savegame_rm_4DBE10(char* saveName, int rmDir) {
 		nox_fs_remove_dir(saveDir);
 	}
 }
-#endif // NOX_CGO
 // 4DBE10: using guessed type char var_20000[131072];
 // 4DBE10: using guessed type char var_24000[16384];
 
@@ -8248,6 +8247,7 @@ int nox_client_copySave_4DC100(char* from, char* saveName) {
 #endif
 	return result;
 }
+#endif // NOX_CGO
 // 4DC100: using guessed type char var_20000[131072];
 // 4DC100: using guessed type char var_24000[16384];
 
@@ -8327,6 +8327,7 @@ int nox_client_countPlayerFiles02_4DC630() {
 }
 // 4DC630: using guessed type char PathName[1024];
 
+#ifndef NOX_CGO
 //----- (004DC7D0) --------------------------------------------------------
 int nox_client_countPlayerFiles04_4DC7D0() {
 	int v0;                                // ebp
@@ -8371,7 +8372,6 @@ int nox_client_countPlayerFiles04_4DC7D0() {
 }
 // 4DC7D0: using guessed type char PathName[1024];
 
-#ifndef NOX_CGO
 //----- (004DC970) --------------------------------------------------------
 void nox_savegame_nameFromPath_4DC970(char* src, char* dst, int max) {
 	if (!src || !dst) {

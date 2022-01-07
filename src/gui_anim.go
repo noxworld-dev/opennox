@@ -236,7 +236,10 @@ func (a *guiAnim) Free() {
 }
 
 //export nox_gui_makeAnimation_43C5B0
-func nox_gui_makeAnimation_43C5B0(win *Window, x1, y1, x2, y2, in_dx, in_dy, out_dx, out_dy int) *C.nox_gui_animation {
+func nox_gui_makeAnimation_43C5B0(win *C.nox_window, x1, y1, x2, y2, in_dx, in_dy, out_dx, out_dy C.int) *C.nox_gui_animation {
+	return nox_gui_makeAnimation(asWindow(win), int(x1), int(y1), int(x2), int(y2), int(in_dx), int(in_dy), int(out_dx), int(out_dy)).C()
+}
+func nox_gui_makeAnimation(win *Window, x1, y1, x2, y2, in_dx, in_dy, out_dx, out_dy int) *guiAnim {
 	a := newGUIAnimation(win)
 	win.SetPos(types.Point{X: x2, Y: y2})
 	a.x1 = C.int(x1)
@@ -253,5 +256,5 @@ func nox_gui_makeAnimation_43C5B0(win *Window, x1, y1, x2, y2, in_dx, in_dy, out
 	a.field_12 = nil
 	a.fnc_done_out = nil
 	a.fnc_done_in = nil
-	return a.C()
+	return a
 }

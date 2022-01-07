@@ -2,6 +2,7 @@ package nox
 
 /*
 #include "client__gui__window.h"
+extern void* dword_5d4594_1307292;
 */
 import "C"
 import (
@@ -9,10 +10,12 @@ import (
 	"image"
 	"math"
 	"strings"
+	"unsafe"
 
 	"github.com/spf13/viper"
 
 	"nox/v1/client/noxfont"
+	"nox/v1/common/strman"
 	"nox/v1/common/types"
 )
 
@@ -163,4 +166,11 @@ func guiEnhanceOptions(root *Window) {
 	NewStaticText(root, 317, 112, 258, 140, 16, true, false, "Sensitivity")
 	NewHorizontalSlider(root, 318, 120, 274, 120, 16, 1, 100).
 		Func94(16394, uintptr((math.Log10(float64(nox_input_getSensitivity()))+1.0)*50), 0)
+}
+
+func sub_4A19F0(name strman.ID) {
+	win := asWindowP(C.dword_5d4594_1307292)
+	v1 := win.ChildByID(152)
+	v2 := strMan.GetStringInFile(name, "C:\\NoxPost\\src\\client\\shell\\OptsBack.c")
+	v1.Func94(16385, uintptr(unsafe.Pointer(internWStr(v2))), math.MaxUint32)
 }

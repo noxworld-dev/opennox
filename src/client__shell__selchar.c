@@ -1,3 +1,5 @@
+//+build none
+
 #include "client__shell__selchar.h"
 
 #include "GAME1.h"
@@ -291,13 +293,16 @@ int nox_xxx_windowSelCharProc_4A5710(int a1, unsigned int a2, nox_window* a3p, i
 			nox_server_SetFirstObjectScriptID_4E3C60(1000000000);
 			sub_4A50A0();
 			nox_wnd_xxx_1307748->field_13 = nox_game_showSelClass_4A4840;
-			goto LABEL_40;
+			nox_xxx_clientPlaySoundSpecial_452D80(921, 100);
+			return 1;
 		case 502:
 			v7 = *(uint32_t*)((uint32_t)dword_5d4594_1307776 + 32);
 			v8 = *(uint32_t*)(v7 + 48);
 			if (v8 != -1) {
 				if (!strlen((const char*)((uint32_t)dword_5d4594_1307780 + sizeof(nox_savegame_xxx) * v8 + 4))) {
-					goto LABEL_38;
+					nox_xxx_clientPlaySoundSpecial_452D80(925, 100);
+					nox_xxx_clientPlaySoundSpecial_452D80(921, 100);
+					return 1;
 				}
 				nox_savegame_nameFromPath_4DC970((char*)((uint32_t)dword_5d4594_1307780 + sizeof(nox_savegame_xxx) * v8 + 4),
 												 v20, sizeof(v20));
@@ -351,11 +356,13 @@ int nox_xxx_windowSelCharProc_4A5710(int a1, unsigned int a2, nox_window* a3p, i
 					nox_wnd_xxx_1307748->field_13 = 0;
 				}
 			}
-			goto LABEL_40;
+			nox_xxx_clientPlaySoundSpecial_452D80(921, 100);
+			return 1;
 		case 503:
 			v5 = *(uint32_t*)(*(uint32_t*)((uint32_t)dword_5d4594_1307776 + 32) + 48);
 			if (v5 == -1) {
-				goto LABEL_40;
+				nox_xxx_clientPlaySoundSpecial_452D80(921, 100);
+				return 1;
 			}
 			*getMemU32Ptr(0x5D4594, 1307772) = *(uint32_t*)(*(uint32_t*)((uint32_t)dword_5d4594_1307776 + 32) + 48);
 			nox_savegame_nameFromPath_4DC970((char*)((uint32_t)dword_5d4594_1307780 + sizeof(nox_savegame_xxx) * v5 + 4),
@@ -371,9 +378,9 @@ int nox_xxx_windowSelCharProc_4A5710(int a1, unsigned int a2, nox_window* a3p, i
 			} else {
 				if (!strlen((const char*)((uint32_t)dword_5d4594_1307780 +
 										  sizeof(nox_savegame_xxx) * *getMemU32Ptr(0x5D4594, 1307772) + 4))) {
-				LABEL_38:
 					nox_xxx_clientPlaySoundSpecial_452D80(925, 100);
-					goto LABEL_40;
+					nox_xxx_clientPlaySoundSpecial_452D80(921, 100);
+					return 1;
 				}
 				v17 = sub_4A5C70;
 				v16 = 56;
@@ -390,7 +397,6 @@ int nox_xxx_windowSelCharProc_4A5710(int a1, unsigned int a2, nox_window* a3p, i
 				}
 			}
 			nox_xxx_dialogMsgBoxCreate_449A10(0, (int)v6, (int)v15, v16, v17, 0);
-		LABEL_40:
 			nox_xxx_clientPlaySoundSpecial_452D80(921, 100);
 			return 1;
 		case 504:
@@ -398,9 +404,11 @@ int nox_xxx_windowSelCharProc_4A5710(int a1, unsigned int a2, nox_window* a3p, i
 			nox_window_call_field_94(dword_5d4594_1307744, 0x4000, (int)a3, 0);
 			nox_window_call_field_94(dword_5d4594_1307776, 0x4000, (int)a3, 0);
 			nox_window_call_field_94(dword_5d4594_1307768, 0x4000, (int)a3, 0);
-			goto LABEL_40;
+			nox_xxx_clientPlaySoundSpecial_452D80(921, 100);
+			return 1;
 		default:
-			goto LABEL_40;
+			nox_xxx_clientPlaySoundSpecial_452D80(921, 100);
+			return 1;
 		}
 	}
 	if (a2 == 16400) {

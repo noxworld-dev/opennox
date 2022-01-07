@@ -1174,7 +1174,7 @@ func nox_xxx_printCentered_445490(str string) {
 }
 
 func nox_xxx_gameChangeMap_43DEB0() int {
-	if noxflags.HasGame(0x800000) {
+	if noxflags.HasGame(noxflags.GameFlag24) {
 		nox_client_setCursorType_477610(10)
 
 		mapName := ""
@@ -1183,8 +1183,19 @@ func nox_xxx_gameChangeMap_43DEB0() int {
 		} else {
 			mapName = nox_server_currentMapGetFilename_409B30()
 		}
+		// TODO: remove this partial path denormalization once we port map parsing
+		if i := strings.LastIndexByte(mapName, '/'); i >= 0 {
+			mapName = mapName[:i] + "\\" + mapName[i+1:]
+		}
 		crc := C.nox_xxx_mapCrcGetMB_409B00()
 		v3 := C.nox_xxx_mapValidateMB_4CF470(internCStr(mapName), crc)
+		if v3&0x2 == 0 {
+			gameLog.Printf("nox_xxx_mapValidateMB_4CF470: invalid or missing map file: %q", mapName)
+		}
+		if v3&0x4 == 0 {
+			gameLog.Printf("nox_xxx_mapValidateMB_4CF470: CRC check failed: %q (expected: 0x%x)", mapName, crc)
+		}
+		gameLog.Println("nox_xxx_mapValidateMB_4CF470:", uint32(v3))
 		if v3&2 != 0 && v3&4 != 0 {
 			sub_43F140(500)
 			v5 := C.nox_xxx_mapCliReadAll_4AC2B0(internCStr(mapName))
@@ -1213,30 +1224,28 @@ func nox_xxx_gameChangeMap_43DEB0() int {
 				C.nox_gameDisableMapDraw_5d4594_2650672 = 1
 				C.nox_client_fadeXxx_44DA60(1)
 			}
-		} else {
-			if !noxflags.HasGame(noxflags.GameHost) {
-				if v3&1 == 0 || v3&4 != 0 {
-					noxflags.SetGame(0x100000)
-				} else {
-					noxflags.UnsetGame(0x900000)
-					sub_477530(1)
-					C.nox_xxx_gui_43E1A0(1)
-					v12 := strMan.GetStringInFile("OverwriteReadOnly", "C:\\NoxPost\\src\\Client\\System\\gameloop.c")
-					v10 := strMan.GetStringInFile("Warning", "C:\\NoxPost\\src\\Client\\System\\gameloop.c")
-					NewDialogWindow(nil, v10, v12, 24, C.sub_43E230, C.sub_43E200)
-				}
+		} else if !noxflags.HasGame(noxflags.GameHost) {
+			if v3&1 == 0 || v3&4 != 0 {
+				noxflags.SetGame(noxflags.GameFlag21)
 			} else {
-				if !isDedicatedServer {
-					C.nox_xxx_gameServerReadyMB_4DD180(31)
-				}
-				if !getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) {
-					C.nox_gameDisableMapDraw_5d4594_2650672 = 1
-					C.nox_client_fadeXxx_44DA60(1)
-				}
+				noxflags.UnsetGame(0x900000)
+				sub_477530(1)
+				C.nox_xxx_gui_43E1A0(1)
+				v12 := strMan.GetStringInFile("OverwriteReadOnly", "C:\\NoxPost\\src\\Client\\System\\gameloop.c")
+				v10 := strMan.GetStringInFile("Warning", "C:\\NoxPost\\src\\Client\\System\\gameloop.c")
+				NewDialogWindow(nil, v10, v12, 24, C.sub_43E230, C.sub_43E200)
+			}
+		} else {
+			if !isDedicatedServer {
+				C.nox_xxx_gameServerReadyMB_4DD180(31)
+			}
+			if !getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) {
+				C.nox_gameDisableMapDraw_5d4594_2650672 = 1
+				C.nox_client_fadeXxx_44DA60(1)
 			}
 		}
 	}
-	if noxflags.HasGame(0x100000) {
+	if noxflags.HasGame(noxflags.GameFlag21) {
 		map_download_start()
 		return 0
 	}

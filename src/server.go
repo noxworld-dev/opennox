@@ -303,7 +303,7 @@ func switchQuestIfRequested4D6FD0() {
 		mapFile = C.GoString(C.nox_xxx_getQuestMapFile_4D0F60())
 	}
 	switchMap(mapFile)
-	sub4DCE80("")
+	sub_4DCE80("")
 	nox_game_setQuestStage_4E3CD0(0)
 	C.sub_4169F0()
 }
