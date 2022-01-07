@@ -50,14 +50,18 @@ import (
 	"encoding/binary"
 	"image"
 	"io"
+	"time"
 	"unsafe"
 
+	"nox/v1/common"
 	"nox/v1/common/alloc"
 	"nox/v1/common/datapath"
 	noxflags "nox/v1/common/flags"
 	"nox/v1/common/log"
 	"nox/v1/common/memmap"
 )
+
+const NOX_SAVEGAME_XXX_MAX = 14
 
 var (
 	saveLog = log.New("save")
@@ -277,6 +281,56 @@ func sub_44A400() {
 
 		setMouseBounds(image.Rect(0, 0, nox_win_width-1, nox_win_height-1))
 	}
+}
+
+//export sub_46CD70
+func sub_46CD70(sv *C.nox_savegame_xxx) C.int {
+	return C.int(sub46CD70(sv))
+}
+
+func sub46CD70(sv *C.nox_savegame_xxx) int {
+	if sv.flags&0x8 != 0 {
+		return 10
+	}
+	buf := datapath.SaveNameFromPath(GoString(&sv.path[0]))
+	return bool2int(buf != common.SaveAuto) + (NOX_SAVEGAME_XXX_MAX - 1)
+}
+
+//export nox_savegame_findLatestSave_46CDC0
+func nox_savegame_findLatestSave_46CDC0(sptr *C.nox_savegame_xxx) C.int {
+	return C.int(nox_savegame_findLatestSave(unsafe.Slice(sptr, NOX_SAVEGAME_XXX_MAX)))
+}
+
+func nox_savegame_findLatestSave(sarr []C.nox_savegame_xxx) int {
+	var (
+		ind    = -1
+		latest time.Time
+	)
+	for i := 0; i < len(sarr); i++ {
+		sv := &sarr[i]
+		spath := GoString(&sv.path[0])
+		if spath == "" {
+			continue
+		}
+		t := asTime(&sv.timestamp)
+		if ind == -1 || t.After(latest) {
+			ind = i
+			latest = t
+		}
+	}
+	return ind
+}
+
+func asTime(ts *C.SYSTEMTIME) time.Time {
+	if ts == nil {
+		return time.Time{}
+	}
+	return time.Date(
+		int(ts.wYear), time.Month(ts.wMonth), int(ts.wDay),
+		int(ts.wHour), int(ts.wMinute), int(ts.wSecond),
+		int(ts.wMilliseconds)*int(time.Millisecond),
+		time.Local,
+	)
 }
 
 //export sub_4DCE60

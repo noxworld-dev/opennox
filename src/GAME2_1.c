@@ -4753,6 +4753,7 @@ int sub_46CCD0(int a1, int a2) {
 }
 
 //----- (0046CD70) --------------------------------------------------------
+#ifndef NOX_CGO
 int sub_46CD70(nox_savegame_xxx* sv) {
 	if (sv->flags & 8) {
 		return 10;
@@ -4781,7 +4782,6 @@ int nox_savegame_findLatestSave_46CDC0(nox_savegame_xxx* sarr) {
 	return ind;
 }
 
-#ifndef NOX_CGO
 //----- (0046D750) --------------------------------------------------------
 int nox_xxx_queueScreenshot_46D750(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, int a9, int a10) {
 	int v10; // edi
