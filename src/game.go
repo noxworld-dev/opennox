@@ -1392,7 +1392,7 @@ func nox_xxx_unitCanInteractWith_5370E0(u, obj noxObject, a3 byte) bool {
 func sub_473840() {
 	C.nox_gui_console_Disable_450BF0()
 	C.nox_gui_itemAmount_free_4C03E0()
-	C.sub_46CCB0()
+	sub_46CCB0()
 	C.sub_4AE3B0()
 	C.sub_48D450()
 	C.sub_4C4220()

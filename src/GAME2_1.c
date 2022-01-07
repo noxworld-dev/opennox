@@ -4703,7 +4703,6 @@ int sub_46C610() {
 #ifndef NOX_CGO
 //----- (0046C720) --------------------------------------------------------
 nox_window* nox_client_getWin1064916_46C720() { return nox_win_1064916; }
-#endif // NOX_CGO
 
 //----- (0046CC70) --------------------------------------------------------
 int sub_46CC70() {
@@ -4719,16 +4718,13 @@ int sub_46CC90() { return nox_xxx_wndSetCaptureMain_46ADC0(dword_5d4594_1082856)
 int sub_46CCA0(int a1, int a2, int a3, int a4) { return 1; }
 
 //----- (0046CCB0) --------------------------------------------------------
-int sub_46CCB0() {
-	int result; // eax
-
+void sub_46CCB0() {
 	nox_xxx_windowDestroyMB_46C4E0(dword_5d4594_1082856);
-	result = 0;
 	dword_5d4594_1082856 = 0;
 	dword_5d4594_1082864 = 0;
 	dword_5d4594_1082868 = 0;
-	return result;
 }
+#endif // NOX_CGO
 
 //----- (0046CCD0) --------------------------------------------------------
 int sub_46CCD0(int a1, int a2) {

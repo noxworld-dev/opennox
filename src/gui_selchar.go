@@ -41,6 +41,9 @@ extern unsigned int nox_gameDisableMapDraw_5d4594_2650672;
 extern nox_screenParticle* dword_5d4594_806052;
 extern nox_screenParticle* nox_screenParticles_head;
 extern void* nox_alloc_screenParticles_806044;
+extern nox_window* dword_5d4594_1082856;
+extern void* dword_5d4594_1082864;
+extern void* dword_5d4594_1082868;
 */
 import "C"
 import (
@@ -396,4 +399,29 @@ func sub_44D8F0() {
 func nox_savegame_nameFromPath_4DC970(src, dst *C.char, max C.int) {
 	name := datapath.SaveNameFromPath(GoString(src))
 	StrCopy(dst, int(max), name)
+}
+
+func sub_46CCB0() {
+	asWindow(C.dword_5d4594_1082856).Destroy()
+	C.dword_5d4594_1082856 = nil
+	C.dword_5d4594_1082864 = nil
+	C.dword_5d4594_1082868 = nil
+}
+
+//export sub_46CC70
+func sub_46CC70() C.int {
+	C.sub_4DB130((*C.char)(memmap.PtrOff(0x5D4594, 1082840)))
+	sub_4DB170(1, 0, 0)
+	return C.sub_46D6F0()
+}
+
+//export sub_46CC90
+func sub_46CC90() C.int {
+	nox_xxx_wndSetCaptureMain_46ADC0(C.dword_5d4594_1082856)
+	return 0
+}
+
+//export sub_46CCA0
+func sub_46CCA0(a1, a2, a3, a4 C.int) C.int {
+	return 1
 }

@@ -182,7 +182,7 @@ nox_window* nox_client_getWin1064916_46C720();
 int sub_46CC70();
 int sub_46CC90();
 int sub_46CCA0(int a1, int a2, int a3, int a4);
-int sub_46CCB0();
+void sub_46CCB0();
 int sub_46CCD0(int a1, int a2);
 int sub_46CD70(nox_savegame_xxx* sv);
 int nox_savegame_findLatestSave_46CDC0(nox_savegame_xxx* sarr);
