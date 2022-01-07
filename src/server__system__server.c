@@ -264,14 +264,14 @@ int nox_server_loadMapFile_4CF5F0(char* a1, int a2) {
 		*(uint16_t*)&FileName[strlen(FileName)] = *getMemU16Ptr(0x587000, 191700);
 		strcat(FileName, v2);
 	}
-	if (_access(FileName, 0) == -1) {
+	if (nox_fs_access(FileName, 0) == -1) {
 		v6 = strchr(FileName, 46);
 		if (v6) {
 			v7 = v6 - FileName;
 			strncpy(v16, FileName, v6 - FileName);
 			v16[v7] = 0;
 			nox_sprintf(v15, "%s%s", v16, getMemAt(0x587000, 191704));
-			if (_access(v15, 0) == -1) {
+			if (nox_fs_access(v15, 0) == -1) {
 				return 0;
 			}
 			if (!nox_xxx_mapNxzDecompress_57BC50(v15, FileName)) {

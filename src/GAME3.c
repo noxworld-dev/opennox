@@ -5053,7 +5053,7 @@ int sub_4AB9B0(char* a1) {
 		*(uint16_t*)&FileName[strlen(FileName)] = *getMemU16Ptr(0x587000, 173348);
 		strcat(FileName, a1);
 	}
-	result = _access(FileName, 0);
+	result = nox_fs_access(FileName, 0);
 	if (result != -1) {
 		result = nox_fs_remove(FileName);
 	}
@@ -5125,10 +5125,10 @@ int nox_xxx_mapDownloadStart_4ABAD0(char* a1, unsigned int a2) {
 		v2[4] = v3;
 	}
 	sub_4AB9B0(a1);
-	if (_access((const char*)getMemAt(0x587000, 173392), 0) == -1) {
+	if (nox_fs_access((const char*)getMemAt(0x587000, 173392), 0) == -1) {
 		nox_fs_mkdir((const char*)getMemAt(0x587000, 173400));
 	}
-	if (_access(PathName, 0) == -1) {
+	if (nox_fs_access(PathName, 0) == -1) {
 		nox_fs_mkdir(PathName);
 	}
 	v8 = (char*)calloc(strlen(v11) + 1, 1);
@@ -5389,9 +5389,9 @@ char* nox_xxx_mapCliReadAll_4AC2B0(char* a1) {
 			strcat(v11, v13);
 		}
 		_makepath(FileName, &v3, v11, v13, v16);
-		if (_access(FileName, 0) == -1) {
+		if (nox_fs_access(FileName, 0) == -1) {
 			_makepath(v15, &v3, v11, v13, ".nxz");
-			if (_access(v15, 0) == -1) {
+			if (nox_fs_access(v15, 0) == -1) {
 				return 0;
 			}
 			result = (char*)nox_xxx_mapNxzDecompress_57BC50(v15, FileName);

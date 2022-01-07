@@ -29,6 +29,8 @@ bool nox_fs_remove_dir(const char* path);
 bool nox_fs_copy(const char* src, const char* dst);
 bool nox_fs_move(const char* src, const char* dst);
 
+int nox_fs_access(const char* filename, int mode);
+
 // nox_fs_open opens the file for reading (in binary mode).
 FILE* nox_fs_open(const char* path);
 // nox_fs_open_text opens the file for reading (in text mode).
@@ -72,6 +74,8 @@ bool nox_fs_remove(char* path);
 bool nox_fs_remove_dir(char* path);
 bool nox_fs_copy(char* src, char* dst);
 bool nox_fs_move(char* src, char* dst);
+
+int nox_fs_access(char* filename, int mode);
 
 // nox_fs_open opens the file for reading (in binary mode).
 FILE* nox_fs_open(char* path);

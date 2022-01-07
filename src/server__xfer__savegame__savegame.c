@@ -281,7 +281,7 @@ int nox_xxx_soloLoadGame_4DB7E0_savegame(const char* a1) {
 		if (!strcmp(a1, "WORKING") || (result = (char*)nox_client_copySave_4DC100(a1, "WORKING")) != 0) {
 			v3 = nox_fs_root();
 			nox_sprintf(FileName, "%s\\Save\\%s\\Player.plr", v3, getMemAt(0x587000, 199424));
-			if (_access(FileName, 0) == -1) {
+			if (nox_fs_access(FileName, 0) == -1) {
 				v4 = nox_strman_loadString_40F1D0("AutoSaveNotFound", 0,
 												  "C:\\NoxPost\\src\\Server\\Xfer\\SaveGame\\SaveGame.c", 755);
 				nox_xxx_printToAll_4D9FD0(0, v4);

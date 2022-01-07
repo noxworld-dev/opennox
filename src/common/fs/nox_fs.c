@@ -376,6 +376,18 @@ FILE* __nox_fs_fopen(const char* path, const char* mode) {
 #endif // _WIN32
 }
 
+int nox_fs_access(const char* filename, int mode) {
+#ifndef _WIN32
+	int result;
+	char* converted = nox_fs_normalize(filename);
+	result = access(converted, mode);
+	free(converted);
+	return result;
+#else  // _WIN32
+	return _access(filename, mode);
+#endif // _WIN32
+}
+
 FILE* nox_fs_open(const char* path) { return __nox_fs_fopen(path, "rb"); }
 
 FILE* nox_fs_open_text(const char* path) { return __nox_fs_fopen(path, "r"); }

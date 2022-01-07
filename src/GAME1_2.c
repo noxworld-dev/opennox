@@ -4659,7 +4659,7 @@ bool nox_video_bagexists_4300D0(int a1) {
 	char* v1; // eax
 
 	v1 = nox_video_getbagfilename(a1);
-	return _access(v1, 0) != -1;
+	return nox_fs_access(v1, 0) != -1;
 }
 
 //----- (00430100) --------------------------------------------------------

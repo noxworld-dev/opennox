@@ -404,6 +404,17 @@ func newFileHandle(f *File) *C.FILE {
 	return (*C.FILE)(f.h)
 }
 
+//export nox_fs_access
+func nox_fs_access(path *C.char, mode C.int) C.int {
+	_, err := fs.Stat(C.GoString(path))
+	if os.IsNotExist(err) {
+		return -1
+	} else if err != nil {
+		return -2
+	}
+	return 0
+}
+
 //export nox_fs_open
 func nox_fs_open(path *C.char) *C.FILE {
 	f, err := fs.Open(C.GoString(path))

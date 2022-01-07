@@ -240,7 +240,6 @@ enum {
 #define _controlfp compat_controlfp
 #define _open compat_open
 #define _chmod compat_chmod
-#define _access compat_access
 #define _stat compat_stat
 
 #define _strdup strdup
@@ -303,7 +302,6 @@ void _makepath(char* path, const char* drive, const char* dir, const char* fname
 void _splitpath(const char* path, char* drive, char* dir, char* fname, char* ext);
 int _open(const char* filename, int oflag, ...);
 int _chmod(const char* filename, int mode);
-int _access(const char* filename, int mode);
 int _stat(const char* path, struct _stat* buffer);
 
 static inline unsigned int _rotl(unsigned int value, int shift) {

@@ -474,6 +474,7 @@ int FindClose(HANDLE hFindFile) {
 	return true;
 }
 
+#ifndef NOX_CGO
 int _open(const char* filename, int oflag, ...) {
 	va_list ap;
 	int fd;
@@ -487,7 +488,6 @@ int _open(const char* filename, int oflag, ...) {
 	return fd;
 }
 
-#ifndef NOX_CGO
 int _chmod(const char* filename, int mode) {
 	int result;
 	char* converted = nox_fs_normalize(filename);
@@ -496,14 +496,6 @@ int _chmod(const char* filename, int mode) {
 	return result;
 }
 #endif // NOX_CGO
-
-int _access(const char* filename, int mode) {
-	int result;
-	char* converted = nox_fs_normalize(filename);
-	result = access(converted, mode);
-	free(converted);
-	return result;
-}
 
 int _stat(const char* path, struct _stat* buffer) {
 	int result;
