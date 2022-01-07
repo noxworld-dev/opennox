@@ -9311,25 +9311,6 @@ char* sub_417C00(char* a1, int a2) {
 //----- (00417CF0) --------------------------------------------------------
 int sub_417CF0() { return sub_419030(0); }
 
-//----- (00417D00) --------------------------------------------------------
-int sub_417D00() {
-	unsigned char* v1; // eax
-	int result;        // eax
-	short v3;          // [esp+0h] [ebp-2h]
-
-	v1 = getMemAt(0x5D4594, 526292 + 80*1 + 52);
-	do {
-		*(uint32_t*)v1 = 0;
-		v1 += 80;
-	} while ((int)v1 < (int)getMemAt(0x5D4594, 527704));
-	result = nox_common_gameFlags_check_40A5C0(1);
-	if (result == 1) {
-		v3 = 2500;
-		result = nox_xxx_netSendPacket1_4E5390(159, (int)&v3, 2, 0, 1);
-	}
-	return result;
-}
-
 #ifndef NOX_CGO
 //----- (00417D50) --------------------------------------------------------
 void nox_xxx_SetGameplayFlag_417D50(int a1) {

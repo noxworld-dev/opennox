@@ -13,21 +13,22 @@
 
 extern uint32_t dword_5d4594_527660;
 extern uint32_t nox_player_netCode_85319C;
+nox_team_t nox_server_teams_526292[NOX_TEAMS_MAX] = {0};
 
 //----- (00417C60) --------------------------------------------------------
 int sub_417C60() {
 	unsigned char* v0; // eax
 	unsigned char* v1; // esi
 
-	memset(getMemAt(0x5D4594, 526292), 0, 17*80);
-	v0 = getMemAt(0x5D4594, 526292 + 72);
+	memset(nox_server_teams_526292, 0, NOX_TEAMS_MAX*sizeof(nox_team_t));
+	v0 = &nox_server_teams_526292[0].field_72;
 	do {
 		*(v0 - 15) = 0;
 		*(uint32_t*)v0 = 0;
 		*((uint32_t*)v0 + 1) = 0;
 		*((uint32_t*)v0 - 3) = 0;
 		v0 += 80;
-	} while ((int)v0 < (int)getMemAt(0x5D4594, 526292 + 80*16 + 72));
+	} while ((int)v0 < (int)&nox_server_teams_526292[16].field_72);
 	if (!*getMemU32Ptr(0x5D4594, 526288)) {
 		v1 = getMemAt(0x587000, 54596);
 		do {
@@ -82,7 +83,7 @@ char* nox_xxx_teamCreate_4186D0(char a1) {
 		v4 = v3;
 		v5 = 5 * v3;
 		v6 = a1;
-		v7 = getMemAt(0x5D4594, 526292 + 16*v5);
+		v7 = &nox_server_teams_526292[v3];
 		*((uint32_t*)v7 + 13) = 0;
 		*((uint32_t*)v7 + 12) = 0;
 		*(uint16_t*)v7 = 0;

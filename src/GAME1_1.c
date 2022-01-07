@@ -90,6 +90,7 @@ extern obj_5D4594_2650668_t** ptr_5D4594_2650668;
 extern int ptr_5D4594_2650668_cap;
 extern unsigned int nox_gameFPS;
 extern unsigned int nox_frame_xxx_2598000;
+extern nox_team_t nox_server_teams_526292[NOX_TEAMS_MAX];
 
 #ifndef NOX_CGO
 uint32_t dword_5d4594_527684 = 0;
@@ -141,17 +142,36 @@ char sub_4187A0() {
 	return 0;
 }
 
+//----- (00417D00) --------------------------------------------------------
+int sub_417D00() {
+	unsigned char* v1; // eax
+	int result;        // eax
+	short v3;          // [esp+0h] [ebp-2h]
+
+	v1 = &nox_server_teams_526292[1].field_52;
+	do {
+		*(uint32_t*)v1 = 0;
+		v1 += 80;
+	} while ((int)v1 < (int)&nox_server_teams_526292[NOX_TEAMS_MAX].field_52);
+	result = nox_common_gameFlags_check_40A5C0(1);
+	if (result == 1) {
+		v3 = 2500;
+		result = nox_xxx_netSendPacket1_4E5390(159, (int)&v3, 2, 0, 1);
+	}
+	return result;
+}
+
 //----- (004187E0) --------------------------------------------------------
 int sub_4187E0() {
 	int result;        // eax
 	unsigned char* v1; // ecx
 
 	result = 1;
-	v1 = getMemAt(0x5D4594, 526292 + 80*1 + 64);
+	v1 = &nox_server_teams_526292[1].field_64;
 	while (*(uint32_t*)v1) {
 		v1 += 80;
 		++result;
-		if ((int)v1 >= (int)getMemAt(0x5D4594, 527716)) {
+		if ((int)v1 >= (int)&nox_server_teams_526292[NOX_TEAMS_MAX].field_64) {
 			return 0;
 		}
 	}
@@ -353,13 +373,13 @@ char* nox_xxx_TeamGet_418B10() {
 
 	v0 = 1;
 	v2 = 1;
-	while (!*getMemU32Ptr(0x5D4594, 526292 + 80*v2 + 64)) {
+	while (!*(uint32_t*)(&nox_server_teams_526292[v2].field_64)) {
 		v2 = ++v0;
-		if ((unsigned char)v0 >= 17) {
+		if ((unsigned char)v0 >= NOX_TEAMS_MAX) {
 			return 0;
 		}
 	}
-	return (char*)getMemAt(0x5D4594, 526292 + 80*v2);
+	return &nox_server_teams_526292[v2];
 }
 
 //----- (00418B60) --------------------------------------------------------
@@ -372,16 +392,16 @@ char* nox_xxx_TeamNext_418B60(int a1) {
 	}
 	v3 = *(uint8_t*)(a1 + 58) + 1;
 	v1 = v3;
-	if (v3 >= 0x11u) {
+	if (v3 >= NOX_TEAMS_MAX) {
 		return 0;
 	}
-	while (!*getMemU32Ptr(0x5D4594, 526292 + 80*v3 + 64)) {
+	while (!*(uint32_t*)(&nox_server_teams_526292[v3].field_64)) {
 		v3 = ++v1;
-		if (v1 >= 0x11u) {
+		if (v1 >= NOX_TEAMS_MAX) {
 			return 0;
 		}
 	}
-	return (char*)getMemAt(0x5D4594, 526292 + 80*v3);
+	return &nox_server_teams_526292[v3];
 }
 
 //----- (00418BC0) --------------------------------------------------------
@@ -610,13 +630,13 @@ int sub_419030(int a1) {
 	int result;        // eax
 
 	nox_xxx_UnsetGameplayFlags_417D70(4);
-	v1 = getMemAt(0x5D4594, 526292 + 80*1);
+	v1 = &nox_server_teams_526292[1];
 	do {
 		if (*((uint32_t*)v1 + 16)) {
 			sub_418F20((wchar_t*)v1, 0);
 		}
 		v1 += 80;
-	} while ((int)v1 < (int)getMemAt(0x5D4594, 527652));
+	} while ((int)v1 < (int)&nox_server_teams_526292[NOX_TEAMS_MAX]);
 	result = a1;
 	if (a1) {
 		LOWORD(a1) = 1988;
