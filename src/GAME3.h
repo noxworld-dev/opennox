@@ -2,6 +2,7 @@
 #define NOX_PORT_GAME3
 
 #include "defs.h"
+#include "common__savegame.h"
 
 void sub_4A19D0();
 int sub_4A1A40(int a1);
@@ -33,7 +34,7 @@ int nox_game_showSelClass_4A4840();
 int sub_4A4970();
 int sub_4A49A0();
 int sub_4A49D0(int yTop, int a2);
-int sub_4A4CB0(const void* a1, const void* a2);
+int sub_4A4CB0(nox_savegame_xxx* a1, nox_savegame_xxx* a2);
 int sub_4A50A0();
 int sub_4A50D0();
 int sub_4A5690(uint8_t* a1);

@@ -18,6 +18,7 @@ package nox
 #include "client__gui__guicon.h"
 #include "client__gui__guibook.h"
 
+extern void* dword_5d4594_1307292;
 extern uint32_t dword_5d4594_1064296;
 extern void* dword_5d4594_1064816;
 extern void* dword_5d4594_1064820;
@@ -50,6 +51,7 @@ extern void* nox_alloc_screenParticles_806044;
 extern nox_window* dword_5d4594_1082856;
 extern void* dword_5d4594_1082864;
 extern void* dword_5d4594_1082868;
+extern nox_gui_animation* nox_wnd_xxx_1307748;
 */
 import "C"
 import (
@@ -72,6 +74,11 @@ const NOX_SAVEGAME_XXX_MAX = 14
 var (
 	saveLog = log.New("save")
 )
+
+//export sub_4A1BE0
+func sub_4A1BE0(a1 C.int) C.int {
+	return C.int(nox_xxx_wnd_46ABB0(asWindowP(C.dword_5d4594_1307292), int(a1)))
+}
 
 //export sub_468480
 func sub_468480(a1 C.int, a2 C.int, a3 C.int, a4 C.int) C.int {
@@ -116,7 +123,7 @@ func sub_4684C0() {
 		sub_41E300(5)
 		C.sub_4207F0(1)
 		nox_xxx_wnd_46ABB0(v0, 1)
-		C.sub_4A1BE0(1)
+		sub_4A1BE0(1)
 		C.sub_4A1A40(0)
 	case 1:
 		C.dword_5d4594_1064296 = 0
@@ -134,7 +141,7 @@ func sub_4684C0() {
 		sub_41E300(5)
 		C.sub_4207F0(1)
 		nox_xxx_wnd_46ABB0(v0, 1)
-		C.sub_4A1BE0(1)
+		sub_4A1BE0(1)
 	}
 }
 
@@ -173,6 +180,25 @@ func sub_40E090() {
 //export sub_43BE40
 func sub_43BE40(a1 C.int) {
 	*memmap.PtrUint32(0x5D4594, 815204) = uint32(a1)
+}
+
+//export sub_4A4CB0
+func sub_4A4CB0(sv1, sv2 *C.nox_savegame_xxx) C.int {
+	dt := asTime(&sv1.timestamp).Sub(asTime(&sv2.timestamp))
+	if dt < 0 {
+		return -1
+	} else if dt > 0 {
+		return +1
+	}
+	return 0
+}
+
+//export sub_4A50A0
+func sub_4A50A0() C.int {
+	C.nox_wnd_xxx_1307748.state = C.nox_gui_anim_state(NOX_GUI_ANIM_OUT)
+	sub_43BE40(2)
+	clientPlaySoundSpecial(923, 100)
+	return 1
 }
 
 func nox_xxx_particlesLoadColor_4313E0() {

@@ -226,10 +226,10 @@ int sub_4A1A60() {
 #ifndef NOX_CGO
 //----- (004A1BD0) --------------------------------------------------------
 int sub_4A1BD0() { return nox_xxx_windowDestroyMB_46C4E0(dword_5d4594_1307292); }
-#endif // NOX_CGO
 
 //----- (004A1BE0) --------------------------------------------------------
 int sub_4A1BE0(int a1) { return nox_xxx_wnd_46ABB0(dword_5d4594_1307292, a1); }
+#endif // NOX_CGO
 
 // 4A203B: variable 'v6' is possibly undefined
 
@@ -1678,7 +1678,10 @@ int sub_4A49D0(int yTop, int a2) {
 }
 
 //----- (004A4CB0) --------------------------------------------------------
-int sub_4A4CB0(const void* a1, const void* a2) {
+#ifndef NOX_CGO
+int sub_4A4CB0(nox_savegame_xxx* a1p, nox_savegame_xxx* a2p) {
+	void* a1 = a1p;
+	void* a2 = a2p;
 	if (*((uint16_t*)a1 + 594) != *((uint16_t*)a2 + 594)) {
 		return *((unsigned short*)a2 + 594) - *((unsigned short*)a1 + 594);
 	}
@@ -1712,6 +1715,7 @@ int sub_4A50A0() {
 	nox_xxx_clientPlaySoundSpecial_452D80(923, 100);
 	return 1;
 }
+#endif // NOX_CGO
 
 //----- (004A50D0) --------------------------------------------------------
 int sub_4A50D0() {
