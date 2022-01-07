@@ -1715,7 +1715,6 @@ int sub_4A50A0() {
 	nox_xxx_clientPlaySoundSpecial_452D80(923, 100);
 	return 1;
 }
-#endif // NOX_CGO
 
 //----- (004A50D0) --------------------------------------------------------
 int sub_4A50D0() {
@@ -1748,25 +1747,21 @@ int sub_4A50D0() {
 // 4A5150: using guessed type char PathName[1024];
 
 //----- (004A5690) --------------------------------------------------------
-int sub_4A5690(uint8_t* a1) {
-	int result; // eax
-
-	if (!(*a1 & 4)) {
+int sub_4A5690(nox_savegame_xxx* sv) {
+	if (!(sv->flags & 4)) {
 		if (!nox_xxx_isQuest_4D6F50() && !sub_4D6F70()) {
 			return 1;
 		}
-		if (!(*a1 & 4)) {
-			goto LABEL_12;
+		if (!(sv->flags & 4)) {
+			return 0;
 		}
 	}
 	if (nox_xxx_isQuest_4D6F50() || sub_4D6F70()) {
-		result = 1;
-	} else {
-	LABEL_12:
-		result = 0;
+		return 1;
 	}
-	return result;
+	return 0;
 }
+#endif // NOX_CGO
 
 //----- (004A56E0) --------------------------------------------------------
 void* nox_xxx_clearAdminFlag() {

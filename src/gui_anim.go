@@ -83,11 +83,11 @@ func (a *guiAnim) Prev() *guiAnim {
 }
 
 func (a *guiAnim) Func12() int {
-	return int(C.nox_gui_call_intvoid_go(a.field_12))
+	return nox_cgo_call_intvoid(a.field_12)
 }
 
 func (a *guiAnim) Func13() int {
-	return int(C.nox_gui_call_intvoid_go(a.field_13))
+	return nox_cgo_call_intvoid(a.field_13)
 }
 
 func (a *guiAnim) doOut() {
@@ -125,7 +125,7 @@ func (a *guiAnim) doOut() {
 		a.setState(NOX_GUI_ANIM_OUT_DONE)
 		sub_43BE40(1)
 		if a.fnc_done_out != nil {
-			C.nox_gui_call_intvoid_go(a.fnc_done_out)
+			nox_cgo_call_intvoid(a.fnc_done_out)
 		}
 	}
 }
@@ -165,10 +165,18 @@ func (a *guiAnim) doIn() {
 		a.setState(NOX_GUI_ANIM_IN_DONE)
 		sub_43BE40(0)
 		if a.fnc_done_in != nil {
-			C.nox_gui_call_void2_go(a.fnc_done_in)
+			nox_cgo_call_void2(a.fnc_done_in)
 		}
 		C.sub_4A24F0()
 	}
+}
+
+func nox_cgo_call_void2(ptr *[0]byte) {
+	C.nox_gui_call_void2_go(ptr)
+}
+
+func nox_cgo_call_intvoid(ptr *[0]byte) int {
+	return int(C.nox_gui_call_intvoid_go(ptr))
 }
 
 func guiAnimationStep() {

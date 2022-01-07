@@ -52,6 +52,7 @@ extern nox_window* dword_5d4594_1082856;
 extern void* dword_5d4594_1082864;
 extern void* dword_5d4594_1082868;
 extern nox_gui_animation* nox_wnd_xxx_1307748;
+extern void* dword_5d4594_1307764;
 */
 import "C"
 import (
@@ -198,6 +199,34 @@ func sub_4A50A0() C.int {
 	C.nox_wnd_xxx_1307748.state = C.nox_gui_anim_state(NOX_GUI_ANIM_OUT)
 	sub_43BE40(2)
 	clientPlaySoundSpecial(923, 100)
+	return 1
+}
+
+//export sub_4A50D0
+func sub_4A50D0() C.int {
+	v0 := C.nox_wnd_xxx_1307748.field_13
+	asGUIAnim(C.nox_wnd_xxx_1307748).Free()
+	C.nox_wnd_xxx_1307748 = nil
+	asWindowP(C.dword_5d4594_1307764).Destroy()
+	C.dword_5d4594_1307764 = nil
+	if v0 != nil {
+		nox_cgo_call_intvoid((*[0]byte)(v0))
+		return 1
+	}
+	nox_client_resetScreenParticles_431510()
+	DrawGUI()
+	if !noxflags.HasGame(0x2000) {
+		nox_client_guiXxxDestroy_4A24A0()
+		return 1
+	}
+	if C.nox_xxx_check_flag_aaa_43AF70() == 0 {
+		nox_xxx_serverHost_43B4D0()
+		return 1
+	}
+	if C.nox_xxx_check_flag_aaa_43AF70() == 1 {
+		sub_43B670()
+		return 1
+	}
 	return 1
 }
 
@@ -353,6 +382,22 @@ func sub_44A400() {
 	}
 }
 
+//export sub_4A5690
+func sub_4A5690(sv *C.nox_savegame_xxx) C.int {
+	if sv.flags&4 == 0 {
+		if !nox_xxx_isQuest_4D6F50() && !sub_4D6F70() {
+			return 1
+		}
+		if sv.flags&4 == 0 {
+			return 0
+		}
+	}
+	if nox_xxx_isQuest_4D6F50() || sub_4D6F70() {
+		return 1
+	}
+	return 0
+}
+
 //export sub_46CD70
 func sub_46CD70(sv *C.nox_savegame_xxx) C.int {
 	return C.int(sub46CD70(sv))
@@ -401,6 +446,10 @@ func asTime(ts *C.SYSTEMTIME) time.Time {
 		int(ts.wMilliseconds)*int(time.Millisecond),
 		time.Local,
 	)
+}
+
+func sub_4D6F70() bool {
+	return memmap.Uint32(0x5D4594, 1556164) != 0
 }
 
 //export sub_4DCE60

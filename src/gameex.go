@@ -251,7 +251,7 @@ func gameexOnKeyboardPress(kcode keybind.Key) {
 			if noxflags.HasGame(512) {
 				modifyWndPntr.ChildByID(1938).Hide()
 				v11 := modifyWndPntr.ChildByID(1524)
-				C.nox_xxx_wnd_46ABB0(v11.C(), 0)
+				nox_xxx_wnd_46ABB0(v11, 0)
 			}
 			sub46B120(modifyWndPntr, nil)
 			a2b := modifyWndPntr.ChildByID(1981)

@@ -37,7 +37,7 @@ int sub_4A49D0(int yTop, int a2);
 int sub_4A4CB0(nox_savegame_xxx* a1, nox_savegame_xxx* a2);
 int sub_4A50A0();
 int sub_4A50D0();
-int sub_4A5690(uint8_t* a1);
+int sub_4A5690(nox_savegame_xxx* a1);
 void* nox_xxx_clearAdminFlag();
 void nox_xxx_setAdminFlag();
 int sub_4A5C70();
