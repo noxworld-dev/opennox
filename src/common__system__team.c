@@ -61,7 +61,7 @@ int nox_server_teamsReset_417C60() {
 		t->field_60 = 0;
 	}
 	if (!*getMemU32Ptr(0x5D4594, 526288)) {
-		unsigned char* v1 = getMemAt(0x587000, 54596);
+		unsigned char* v1 = getMemAt(0x587000, 54592 + 4);
 		do {
 			*(uint32_t*)v1 =
 				nox_strman_loadString_40F1D0(*((char**)v1 - 1), 0, "C:\\NoxPost\\src\\common\\System\\team.c", 233);
@@ -136,7 +136,7 @@ wchar_t* sub_418C20(int a1) {
 	unsigned char* v2; // eax
 
 	v1 = 0;
-	v2 = getMemAt(0x587000, 54600);
+	v2 = getMemAt(0x587000, 54592 + 8);
 	while (*(uint32_t*)v2 != a1) {
 		v2 += 16;
 		++v1;
@@ -144,7 +144,7 @@ wchar_t* sub_418C20(int a1) {
 			return nox_strman_loadString_40F1D0("NoTeam", 0, "C:\\NoxPost\\src\\common\\System\\team.c", 1365);
 		}
 	}
-	return *(wchar_t**)getMemAt(0x587000, 54596 + 16 * v1);
+	return *(wchar_t**)getMemAt(0x587000, 54592 + 16*v1 + 4);
 }
 
 //----- (004191D0) --------------------------------------------------------

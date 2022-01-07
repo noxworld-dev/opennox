@@ -428,7 +428,7 @@ void* nox_xxx_materialGetTeamColor_418D50(int a1) {
 		return 0;
 	}
 	v1 = 0;
-	v2 = getMemAt(0x587000, 54600);
+	v2 = getMemAt(0x587000, 54592 + 8);
 	while (*(unsigned char*)(a1 + 56) != *(uint32_t*)v2) {
 		v2 += 16;
 		++v1;
@@ -436,7 +436,7 @@ void* nox_xxx_materialGetTeamColor_418D50(int a1) {
 			return 0;
 		}
 	}
-	return *(void**)getMemAt(0x587000, 54604 + 16 * v1);
+	return *(void**)getMemAt(0x587000, 54592 + 16*v1 + 12);
 }
 
 //----- (00418D80) --------------------------------------------------------
