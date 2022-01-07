@@ -1773,6 +1773,7 @@ void* nox_xxx_clearAdminFlag() {
 void nox_xxx_setAdminFlag() { nox_common_setEngineFlag(NOX_ENGINE_FLAG_ADMIN); }
 
 //----- (004A5C70) --------------------------------------------------------
+#ifndef NOX_CGO
 int sub_4A5C70() {
 	if (nox_common_gameFlags_check_40A5C0(2048)) {
 		nox_savegame_rm_4DBE10(nox_savegame_name_1307752, 1);
@@ -1785,6 +1786,7 @@ int sub_4A5C70() {
 	nox_window_call_field_94(dword_5d4594_1307768, 16399, 0, 0);
 	return nox_xxx_findAutosaves_4A5150();
 }
+#endif // NOX_CGO
 
 // 4A18E0: using guessed type int  sub_4A18E0(int, int, int, int);
 

@@ -52,9 +52,9 @@ int nox_savegame_sub_46C730() {
 	dword_5d4594_1082860 = nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1082856, 510);
 	dword_5d4594_1082864 = nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1082856, 511);
 	dword_5d4594_1082868 = nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1082856, 512);
-	nox_xxx_wndSetProc_46B2C0(*(int*)&dword_5d4594_1082860, nox_savegame_sub_46C920);
-	sub_46B120(*(uint32_t**)&dword_5d4594_1082864, *(int*)&dword_5d4594_1082860);
-	sub_46B120(*(uint32_t**)&dword_5d4594_1082868, *(int*)&dword_5d4594_1082860);
+	nox_xxx_wndSetProc_46B2C0(dword_5d4594_1082860, nox_savegame_sub_46C920);
+	sub_46B120(dword_5d4594_1082864, dword_5d4594_1082860);
+	sub_46B120(dword_5d4594_1082868, dword_5d4594_1082860);
 	*getMemU32Ptr(0x5D4594, 1082872) = nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1082856, 501);
 	*getMemU32Ptr(0x5D4594, 1082876) = nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1082856, 502);
 	*getMemU32Ptr(0x5D4594, 1082880) = nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1082856, 503);

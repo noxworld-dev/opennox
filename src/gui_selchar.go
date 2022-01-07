@@ -17,6 +17,7 @@ package nox
 #include "client__shell__noxworld.h"
 #include "client__gui__guicon.h"
 #include "client__gui__guibook.h"
+#include "client__shell__selchar.h"
 
 extern void* dword_5d4594_1307292;
 extern uint32_t dword_5d4594_1064296;
@@ -53,6 +54,11 @@ extern void* dword_5d4594_1082864;
 extern void* dword_5d4594_1082868;
 extern nox_gui_animation* nox_wnd_xxx_1307748;
 extern void* dword_5d4594_1307764;
+extern void* dword_5d4594_1307744;
+extern void* dword_5d4594_1307768;
+extern void* dword_5d4594_1307776;
+extern void* dword_5d4594_1307780;
+extern char nox_savegame_name_1307752[9];
 */
 import "C"
 import (
@@ -66,6 +72,7 @@ import (
 	"nox/v1/common/alloc"
 	"nox/v1/common/datapath"
 	noxflags "nox/v1/common/flags"
+	"nox/v1/common/fs"
 	"nox/v1/common/log"
 	"nox/v1/common/memmap"
 )
@@ -396,6 +403,23 @@ func sub_4A5690(sv *C.nox_savegame_xxx) C.int {
 		return 1
 	}
 	return 0
+}
+
+//export sub_4A5C70
+func sub_4A5C70() C.int {
+	if noxflags.HasGame(2048) {
+		nox_savegame_rm(GoString(&C.nox_savegame_name_1307752[0]), true)
+	} else {
+		ind := memmap.Uint32(0x5D4594, 1307772)
+		arr := unsafe.Slice((*C.nox_savegame_xxx)(C.dword_5d4594_1307780), NOX_SAVEGAME_XXX_MAX)
+		path := GoString(&arr[ind].path[0])
+		fs.Remove(path)
+	}
+	asWindowP(C.dword_5d4594_1307744).Func94(16399, 0, 0)
+	asWindowP(C.dword_5d4594_1307776).Func94(16399, 0, 0)
+	asWindowP(C.dword_5d4594_1307768).Func94(16399, 0, 0)
+	C.nox_xxx_findAutosaves_4A5150()
+	return 1
 }
 
 //export sub_46CD70

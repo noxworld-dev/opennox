@@ -41,7 +41,7 @@ extern uint64_t qword_5d4594_814956;
 extern uint64_t qword_5d4594_815068;
 extern uint32_t dword_5d4594_815044;
 extern uint32_t nox_wol_server_result_cnt_815088;
-extern uint32_t dword_5d4594_814624;
+extern void* dword_5d4594_814624;
 extern uint32_t dword_5d4594_815032;
 extern uint32_t dword_5d4594_815020;
 extern uint32_t dword_5d4594_815024;
