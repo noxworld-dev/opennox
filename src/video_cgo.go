@@ -437,7 +437,7 @@ func recreateRenderTarget(sz types.Size) error {
 	nox_xxx_cursorLoadAll_477710()
 	nox_client_setCursorType_477610(int(v1))
 	C.sub_48B3E0(v2)
-	nox_client_clearScreen_440900()
+	noxrend.ClearScreen()
 	C.nox_xxx_setupSomeVideo_47FEF0()
 	C.sub_49F6D0(1)
 	C.sub_437290()

@@ -930,7 +930,7 @@ func nox_xxx_clientDrawAll_436100_draw() {
 		C.nox_xxx_drawMinimapAndLines_4738E0()
 	} else {
 		noxrend.SelectColor(memmap.Uint32(0x85B3FC, 952))
-		nox_client_clearScreen_440900()
+		noxrend.ClearScreen()
 	}
 	if C.dword_5d4594_811896 != 0 {
 		C.sub_4365C0()
@@ -949,7 +949,7 @@ func nox_xxx_clientDrawAll_436100_draw() {
 	}
 	if memmap.Uint32(0x587000, 85744) != 0 {
 		C.sub_430B50(0, 0, C.int(nox_win_width-1), C.int(nox_win_height-1))
-		nox_client_clearScreen_440900()
+		noxrend.ClearScreen()
 		*memmap.PtrUint32(0x587000, 85744) = 0
 	}
 }
@@ -976,14 +976,14 @@ func nox_xxx_drawAllMB_475810_draw(vp *Viewport) {
 	}
 	if C.nox_client_gui_flag_1556112 != 0 || disableDraw {
 		noxrend.SelectColor(memmap.Uint32(0x85B3FC, 952))
-		nox_client_clearScreen_440900()
+		noxrend.ClearScreen()
 		C.sub_437290()
 		C.dword_5d4594_3799524 = 1
 		return
 	}
 	if memmap.Uint32(0x5D4594, 1096520) != 0 {
 		noxrend.SelectColor(memmap.Uint32(0x5D4594, 2523948))
-		nox_client_clearScreen_440900()
+		noxrend.ClearScreen()
 		noxrend.SelectColor(memmap.Uint32(0x85B3FC, 952))
 		*memmap.PtrUint32(0x5D4594, 1096520) = 0
 		C.sub_437290()
@@ -998,7 +998,7 @@ func nox_xxx_drawAllMB_475810_draw(vp *Viewport) {
 		nox_xxx_tileDrawMB_481C20(vp)
 		C.sub_4C5500(vp.C())
 	} else {
-		nox_client_clearScreen_440900()
+		noxrend.ClearScreen()
 	}
 	sub_475F10(vp)
 	nox_client_queueWallsDraw(vp, xmin, ymin)
