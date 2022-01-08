@@ -8,6 +8,8 @@ import (
 	"strings"
 )
 
+const pkg = "noxflags"
+
 var (
 	game       GameFlag
 	gameChange []func(f GameFlag)
@@ -161,6 +163,79 @@ func (f GameFlag) ModeString() string {
 	return "custom"
 }
 
+func (f GameFlag) GoString() string {
+	switch f {
+	case GameHost:
+		return pkg + ".GameHost"
+	case GameFlag2:
+		return pkg + ".GameFlag2"
+	case GameFlag3:
+		return pkg + ".GameFlag3"
+	case GameFlag4:
+		return pkg + ".GameFlag4"
+	case GameModeKOTR:
+		return pkg + ".GameModeKOTR"
+	case GameModeCTF:
+		return pkg + ".GameModeCTF"
+	case GameModeFlagBall:
+		return pkg + ".GameModeFlagBall"
+	case GameModeChat:
+		return pkg + ".GameModeChat"
+	case GameModeArena:
+		return pkg + ".GameModeArena"
+	case GameModeSolo10:
+		return pkg + ".GameModeSolo10"
+	case GameModeElimination:
+		return pkg + ".GameModeElimination"
+	case GameModeCoop:
+		return pkg + ".GameModeCoop"
+	case GameModeQuest:
+		return pkg + ".GameModeQuest"
+	case GameOnline:
+		return pkg + ".GameOnline"
+	case GameFlag15:
+		return pkg + ".GameFlag15"
+	case GameFlag16:
+		return pkg + ".GameFlag16"
+	case GameNotQuest:
+		return pkg + ".GameNotQuest"
+	case GameFlag18:
+		return pkg + ".GameFlag18"
+	case GamePause:
+		return pkg + ".GamePause"
+	case GameFlag20:
+		return pkg + ".GameFlag20"
+	case GameFlag21:
+		return pkg + ".GameFlag21"
+	case GameFlag22:
+		return pkg + ".GameFlag22"
+	case GameFlag23:
+		return pkg + ".GameFlag23"
+	case GameFlag24:
+		return pkg + ".GameFlag24"
+	case GameFlag25:
+		return pkg + ".GameFlag25"
+	case GameFlag26:
+		return pkg + ".GameFlag26"
+	case GameSuddenDeath:
+		return pkg + ".GameSuddenDeath"
+	case GameFlag28:
+		return pkg + ".GameFlag28"
+	case GameFlag29:
+		return pkg + ".GameFlag29"
+	case GameFlag30:
+		return pkg + ".GameFlag30"
+	case GameFlag31:
+		return pkg + ".GameFlag31"
+	case GameFlag32:
+		return pkg + ".GameFlag32"
+	}
+	if bits.OnesCount(uint(f)) == 1 {
+		return fmt.Sprintf(pkg+".GameFlag(0x%x)", uint(f))
+	}
+	return strings.Join(f.SplitGoString(), " | ")
+}
+
 func (f GameFlag) String() string {
 	switch f {
 	case GameHost:
@@ -247,6 +322,14 @@ func (f GameFlag) Split() []GameFlag {
 		f >>= 1
 	}
 	return list
+}
+
+func (f GameFlag) SplitGoString() []string {
+	var arr []string
+	for _, v := range f.Split() {
+		arr = append(arr, v.GoString())
+	}
+	return arr
 }
 
 func (f GameFlag) SplitString() []string {
