@@ -28,7 +28,7 @@ func WStrFree(s *C.wchar_t) {
 func CStringArray(arr []string) []*C.char {
 	out := make([]*C.char, 0, len(arr)+1)
 	for _, arg := range arr {
-		out = append(out, C.CString(arg))
+		out = append(out, CString(arg))
 	}
 	out = append(out, nil)
 	return out[:len(arr):len(arr)]

@@ -29,7 +29,7 @@ func nox_new_window_from_file(cname *C.char, fnc unsafe.Pointer) *C.nox_window {
 	if isDedicatedServer {
 		panic("server should not load GUI")
 	}
-	name := C.GoString(cname)
+	name := GoString(cname)
 	win := newWindowFromFile(name, fnc)
 	if win != nil {
 		guiParseHook(name, win)
@@ -155,7 +155,7 @@ func (p *guiParser) parseFontField() (unsafe.Pointer, bool) {
 
 //export nox_gui_parseColor_4A0570
 func nox_gui_parseColor_4A0570(out *C.uint, buf *C.char) C.int {
-	r, g, b := gui.ParseColor(C.GoString(buf))
+	r, g, b := gui.ParseColor(GoString(buf))
 	cl := noxcolor.RGBColor(byte(r), byte(g), byte(b))
 	*out = C.uint(noxcolor.ExtendColor16(cl))
 	return 1

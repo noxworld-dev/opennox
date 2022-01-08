@@ -24,7 +24,7 @@ func internCStr(s string) *C.char {
 	if ok {
 		return p
 	}
-	p = C.CString(s)
+	p = CString(s)
 	strManC[s] = p
 	return p
 }
@@ -34,7 +34,7 @@ func internCBytes(b []byte) unsafe.Pointer {
 	if ok {
 		return unsafe.Pointer(p)
 	}
-	bp := C.CBytes(b)
+	bp := CBytes(b)
 	strManC[string(b)] = (*C.char)(bp)
 	return bp
 }
@@ -51,7 +51,7 @@ func internWStr(s string) *C.wchar_t {
 
 //export nox_strman_readfile
 func nox_strman_readfile(cpath *C.char) C.int {
-	err := strmanReadFile(C.GoString(cpath))
+	err := strmanReadFile(GoString(cpath))
 	if err != nil {
 		log.Println(err)
 		return 0
@@ -75,11 +75,11 @@ func strmanReadFile(path string) error {
 func nox_strman_loadString_40F1D0(name *C.char, strOut **C.char, srcFile *C.char, srcLine C.int) *C.wchar_t {
 	if strOut != nil {
 		*strOut = nil
-		v, _ := strMan.GetVariantInFile(strman.ID(C.GoString(name)), C.GoString(srcFile))
+		v, _ := strMan.GetVariantInFile(strman.ID(GoString(name)), GoString(srcFile))
 		*strOut = internCStr(v.Str2)
 		return internWStr(v.Str)
 	}
-	s := strMan.GetStringInFile(strman.ID(C.GoString(name)), C.GoString(srcFile))
+	s := strMan.GetStringInFile(strman.ID(GoString(name)), GoString(srcFile))
 	return internWStr(s)
 }
 

@@ -444,7 +444,7 @@ func (c *CtrlEventHandler) nox_xxx_input_42D220_A(inp *input.Handler) *CtrlEvent
 		li := -1
 		for i, key := range it.keys {
 			if key.IsKeyboard() {
-				if C.nox_xxx_wndGetFocus_46B4F0() != nil || C.sub_46A4A0() != 0 {
+				if nox_xxx_wndGetFocus_46B4F0() != nil || C.sub_46A4A0() != 0 {
 					break
 				}
 				if inp.IsReleased(key) {
@@ -549,7 +549,7 @@ func nox_xxx_cursorUpdate_46B740_sprites(inp *input.Handler, v63 bool, v66 []int
 		c1 := v65.X - sp.X
 		c2 := v65.Y - sp.Y
 		v54 := c1*c1 + c2*c2
-		if sprite.Flags28()&0x80000000 == 0 || C.nox_xxx_cursorGetDraggedItem_477680() != nil {
+		if sprite.Flags28()&0x80000000 == 0 || nox_xxx_cursorGetDraggedItem_477680() != nil {
 			if v54 < 125*125 {
 				if p := *memmap.PtrPtr(0x8531A0, 2576); p != nil {
 					v57 := *(*uintptr)(unsafe.Add(p, 3680))

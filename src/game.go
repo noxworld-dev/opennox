@@ -128,7 +128,7 @@ func gameSetPlayState(st int) {
 }
 
 func nox_game_setMovieFile_4CB230(name string, out *C.char) bool {
-	cname := C.CString(name)
+	cname := CString(name)
 	defer StrFree(cname)
 	return C.nox_game_setMovieFile_4CB230(cname, out) != 0
 }
@@ -229,11 +229,11 @@ func startServer() bool {
 }
 
 func (s *Server) getServerName() string {
-	return C.GoString(C.nox_xxx_serverOptionsGetServername_40A4C0())
+	return GoString(C.nox_xxx_serverOptionsGetServername_40A4C0())
 }
 
 func (s *Server) getServerMap() string {
-	return C.GoString(C.nox_xxx_mapGetMapName_409B40())
+	return GoString(C.nox_xxx_mapGetMapName_409B40())
 }
 
 func (s *Server) getServerMaxPlayers() int {
@@ -555,11 +555,11 @@ func nox_xxx_getSomeMapName_4D0CF0() string {
 }
 
 func (s *Server) nox_server_currentMapGetFilename_409B30() string {
-	return C.GoString((*C.char)(memmap.PtrOff(0x5D4594, 2598188)))
+	return GoString((*C.char)(memmap.PtrOff(0x5D4594, 2598188)))
 }
 
 func nox_xxx_mapFilenameGetSolo_4DB260() string {
-	return C.GoString((*C.char)(memmap.PtrOff(0x5D4594, 1559960)))
+	return GoString((*C.char)(memmap.PtrOff(0x5D4594, 1559960)))
 }
 
 func (s *Server) nox_xxx_servInitialMapLoad_4D17F0() bool {
@@ -1450,7 +1450,7 @@ func (s *Server) nox_xxx_netlist_4DEB50() {
 		if len(buf) != 0 {
 			dst := unsafe.Slice((*byte)(unsafe.Pointer(&C.nox_net_lists_buf[0])), netListsBufSize)
 			n := copy(dst, buf)
-			C.nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(31, &C.nox_net_lists_buf[0], C.int(n))
+			nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_raw(31, dst[:n])
 		}
 		C.nox_netlist_resetByInd_40ED10(31, 0)
 	}
@@ -1459,7 +1459,11 @@ func (s *Server) nox_xxx_netlist_4DEB50() {
 func nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(ind int, data []byte) int {
 	cdata, cfree := alloc.Bytes(uintptr(len(data)))
 	defer cfree()
-	return int(C.nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(C.int(ind), (*C.uchar)(unsafe.Pointer(&cdata[0])), C.int(len(data))))
+	return nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_raw(ind, cdata)
+}
+
+func nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_raw(ind int, data []byte) int {
+	return int(C.nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(C.int(ind), (*C.uchar)(unsafe.Pointer(&data[0])), C.int(len(data))))
 }
 
 var (
@@ -1548,7 +1552,7 @@ func nox_game_switchStates_43C0A0() C.int { // switch game states
 		return 1
 	case gameStateCharSelect: // character selection
 		C.sub_4A7A70(1)
-		if C.nox_game_showSelChar_4A4DB0() == 0 {
+		if nox_game_showSelChar_4A4DB0() == 0 {
 			return 0
 		}
 		return 1

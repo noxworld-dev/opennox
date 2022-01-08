@@ -226,7 +226,7 @@ func clientGetClientPort() int {
 
 //export nox_client_setServerConnectAddr_435720
 func nox_client_setServerConnectAddr_435720(addr *C.char) {
-	clientSetServerHost(C.GoString(addr))
+	clientSetServerHost(GoString(addr))
 }
 
 //export nox_client_getServerConnectAddr
@@ -443,7 +443,7 @@ func nox_xxx_clientSendInput_43C8F0(a1, a2, a3 C.int) C.int {
 }
 
 func clientSendInput(a1 int, a2 uint16, a3 uint16) bool {
-	v3 := C.nox_xxx_spriteGetMB_476F80()
+	v3 := nox_xxx_spriteGetMB_476F80()
 	v4 := noxCtrlEventNetbuf[:noxCtrlEventNetbufSize]
 	if len(v4) == 0 {
 		return true
@@ -462,7 +462,7 @@ func clientSendInput(a1 int, a2 uint16, a3 uint16) bool {
 	}
 	v6 := a3
 	if v3 != nil {
-		v6 = uint16(*(*uint32)(unsafe.Add(v3, 16)))
+		v6 = uint16(v3.Pos().Y)
 	}
 	if a2 == memmap.Uint16(0x5D4594, 815768) && v6 == memmap.Uint16(0x5D4594, 815770) {
 		return true
@@ -795,7 +795,8 @@ func (s *Server) nox_xxx_netStructReadPackets2_4DEC50(a1 int) int {
 
 //export nox_xxx_netlist_ServRecv_4DEC30
 func nox_xxx_netlist_ServRecv_4DEC30(a1 C.int, a2 *C.uchar, a3 C.int, a4 unsafe.Pointer) C.int {
-	C.nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(a1-1, a2, a3)
+	// should pass the pointer unchanged, otherwise expect bugs!
+	nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_raw(int(a1-1), unsafe.Slice((*byte)(a2), int(a3)))
 	return 1
 }
 

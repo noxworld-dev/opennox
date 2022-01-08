@@ -123,8 +123,8 @@ func nox_fs_root() *C.char {
 
 //export nox_fs_normalize
 func nox_fs_normalize(path *C.char) *C.char {
-	out := fs.Normalize(C.GoString(path))
-	return C.CString(out)
+	out := fs.Normalize(GoString(path))
+	return CString(out)
 }
 
 //export nox_fs_workdir
@@ -139,32 +139,32 @@ func nox_fs_workdir(dst *C.char, max C.int) C.bool {
 
 //export nox_fs_remove
 func nox_fs_remove(path *C.char) C.bool {
-	return fs.Remove(C.GoString(path)) == nil
+	return fs.Remove(GoString(path)) == nil
 }
 
 //export nox_fs_mkdir
 func nox_fs_mkdir(path *C.char) C.bool {
-	return fs.Mkdir(C.GoString(path)) == nil
+	return fs.Mkdir(GoString(path)) == nil
 }
 
 //export nox_fs_remove_dir
 func nox_fs_remove_dir(path *C.char) C.bool {
-	return fs.Remove(C.GoString(path)) == nil
+	return fs.Remove(GoString(path)) == nil
 }
 
 //export nox_fs_set_workdir
 func nox_fs_set_workdir(path *C.char) C.bool {
-	return fs.Chdir(C.GoString(path)) == nil
+	return fs.Chdir(GoString(path)) == nil
 }
 
 //export nox_fs_copy
 func nox_fs_copy(src, dst *C.char) C.bool {
-	return fs.Copy(C.GoString(src), C.GoString(dst)) == nil
+	return fs.Copy(GoString(src), GoString(dst)) == nil
 }
 
 //export nox_fs_move
 func nox_fs_move(src, dst *C.char) C.bool {
-	return fs.Rename(C.GoString(src), C.GoString(dst)) == nil
+	return fs.Rename(GoString(src), GoString(dst)) == nil
 }
 
 func convWhence(mode C.int) int {
@@ -283,7 +283,7 @@ func nox_fs_fgetc(f *C.FILE) C.int {
 //export nox_fs_fputs
 func nox_fs_fputs(f *C.FILE, str *C.char) C.int {
 	fp := fileByHandle(f)
-	n, err := fp.WriteString(C.GoString(str))
+	n, err := fp.WriteString(GoString(str))
 	if err != nil {
 		return -1
 	}
@@ -293,7 +293,7 @@ func nox_fs_fputs(f *C.FILE, str *C.char) C.int {
 //export nox_fs_fputs_sync
 func nox_fs_fputs_sync(f *C.FILE, str *C.char) C.int {
 	fp := fileByHandle(f)
-	n, err := fp.WriteString(C.GoString(str))
+	n, err := fp.WriteString(GoString(str))
 	if err != nil {
 		return -1
 	}
@@ -406,7 +406,7 @@ func newFileHandle(f *File) *C.FILE {
 
 //export nox_fs_access
 func nox_fs_access(path *C.char, mode C.int) C.int {
-	_, err := fs.Stat(C.GoString(path))
+	_, err := fs.Stat(GoString(path))
 	if os.IsNotExist(err) {
 		return -1
 	} else if err != nil {
@@ -417,7 +417,7 @@ func nox_fs_access(path *C.char, mode C.int) C.int {
 
 //export nox_fs_open
 func nox_fs_open(path *C.char) *C.FILE {
-	f, err := fs.Open(C.GoString(path))
+	f, err := fs.Open(GoString(path))
 	if err != nil {
 		return nil
 	}
@@ -426,7 +426,7 @@ func nox_fs_open(path *C.char) *C.FILE {
 
 //export nox_fs_open_text
 func nox_fs_open_text(path *C.char) *C.FILE {
-	f, err := fs.Open(C.GoString(path))
+	f, err := fs.Open(GoString(path))
 	if err != nil {
 		return nil
 	}
@@ -435,7 +435,7 @@ func nox_fs_open_text(path *C.char) *C.FILE {
 
 //export nox_fs_create
 func nox_fs_create(path *C.char) *C.FILE {
-	f, err := fs.Create(C.GoString(path))
+	f, err := fs.Create(GoString(path))
 	if err != nil {
 		return nil
 	}
@@ -444,7 +444,7 @@ func nox_fs_create(path *C.char) *C.FILE {
 
 //export nox_fs_create_text
 func nox_fs_create_text(path *C.char) *C.FILE {
-	f, err := fs.Create(C.GoString(path))
+	f, err := fs.Create(GoString(path))
 	if err != nil {
 		return nil
 	}
@@ -453,7 +453,7 @@ func nox_fs_create_text(path *C.char) *C.FILE {
 
 //export nox_fs_open_rw
 func nox_fs_open_rw(path *C.char) *C.FILE {
-	f, err := fs.OpenFile(C.GoString(path), os.O_RDWR)
+	f, err := fs.OpenFile(GoString(path), os.O_RDWR)
 	if err != nil {
 		return nil
 	}
@@ -467,7 +467,7 @@ func nox_fs_create_rw(path *C.char) *C.FILE {
 
 //export nox_fs_append_text
 func nox_fs_append_text(path *C.char) *C.FILE {
-	f, err := fs.OpenFile(C.GoString(path), os.O_WRONLY|os.O_APPEND)
+	f, err := fs.OpenFile(GoString(path), os.O_WRONLY|os.O_APPEND)
 	if err != nil {
 		return nil
 	}

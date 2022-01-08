@@ -316,13 +316,13 @@ func (s *Server) switchQuestIfRequested4D6FD0() {
 	if C.nox_xxx_questFlag_1556148 != 0 {
 		return
 	}
-	mapName := C.GoString(C.nox_xxx_getQuestMapName_4DCED0())
+	mapName := GoString(C.nox_xxx_getQuestMapName_4DCED0())
 	C.nox_server_setupQuestGame_4D6C70()
 	var mapFile string
 	if mapName != "" {
 		mapFile = mapName + ".map"
 	} else {
-		mapFile = C.GoString(C.nox_xxx_getQuestMapFile_4D0F60())
+		mapFile = GoString(C.nox_xxx_getQuestMapFile_4D0F60())
 	}
 	s.switchMap(mapFile)
 	s.sub_4DCE80("")

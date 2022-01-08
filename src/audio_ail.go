@@ -259,7 +259,7 @@ func sub_43ED00(a1p *C.uint32_t) C.int {
 	if *(*uint32)(unsafe.Add(v4, 4)) == 2 {
 		smp.SetADPCMBlockSize(*(*uint32)(unsafe.Add(v4, 24)))
 	}
-	C.sub_43F060((*C.uint)(unsafe.Pointer(&a1[0])))
+	sub_43F060((*C.uint)(unsafe.Pointer(&a1[0])))
 	v1[7] = 0
 	v1[3] = 0
 	smp.RegisterEOBCallback(func() {

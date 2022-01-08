@@ -425,7 +425,7 @@ func recreateRenderTarget(sz types.Size) error {
 		flags |= 0x200
 	}
 	C.nox_xxx_setSomeFunc_48A210(C.int(uintptr(C.sub_47FCE0))) // TODO: another callback
-	v1 := C.nox_client_getCursorType_477620()
+	v1 := nox_client_getCursorType_477620()
 	nox_client_setCursorType_477610(0)
 	v2 := C.sub_48B3E0(0)
 	if err := videoInit(videoGetWindowSize(), int(flags)); err != nil {

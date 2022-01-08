@@ -48,7 +48,7 @@ func drawAndPresent() {
 
 func map_download_start() {
 	C.nox_xxx_gameClearAll_467DF0(1)
-	C.nox_xxx_gameDownloadShowDialog_4CC770()
+	nox_xxx_gameDownloadShowDialog_4CC770()
 	nox_xxx_mapSetDownloadInProgress(true)
 	nox_xxx_mapSetDownloadOK(true)
 	if _, err := mapDownloadLoop(true); err != nil {

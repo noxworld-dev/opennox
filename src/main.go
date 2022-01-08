@@ -269,7 +269,7 @@ func RunArgs(args []string) (gerr error) {
 		log.Printf("game flag set: %v", f)
 		C.nox_xxx_guiChatShowHide_445730(C.int(bool2int(noxflags.GetGame().Mode() != noxflags.GameModeChat)))
 		if f.Has(noxflags.GameSuddenDeath) && noxflags.HasGame(noxflags.GameHost) {
-			C.nox_xxx_netPrintLineToAll_4DA390(C.CString("Settings.c:SuddenDeathStart"))
+			C.nox_xxx_netPrintLineToAll_4DA390(CString("Settings.c:SuddenDeathStart"))
 		}
 	})
 	noxflags.OnGameUnset(func(f noxflags.GameFlag) {
@@ -381,7 +381,7 @@ func RunArgs(args []string) (gerr error) {
 	keyBinding = keybind.New(strMan)
 	C.nox_init_sound_index_40AED0()
 	C.nox_xxx_mapSetDataDefault_416500()
-	if C.nox_common_readcfgfile(C.CString("nox.cfg"), 0) == 0 {
+	if C.nox_common_readcfgfile(CString("nox.cfg"), 0) == 0 {
 		return fmt.Errorf("failed to load config file")
 	}
 	if env.IsE2E() {
@@ -579,7 +579,7 @@ func sub_43DCC0() {
 	C.sub_43D990()
 	for C.dword_5d4594_816348 != 0 {
 		if C.dword_5d4594_816348 == 3 {
-			C.sub_43D650()
+			sub_43D650()
 			C.dword_5d4594_816348 = 0
 		}
 		sub_4312C0()
