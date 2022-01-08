@@ -30,10 +30,16 @@ func main() {
 }
 
 func run(path string) error {
+	r := new(Refactorer)
+	return r.ProcessDir(path)
+}
+
+func (r *Refactorer) ProcessDir(path string) error {
 	list, err := os.ReadDir(path)
 	if err != nil {
 		return err
 	}
+	var filtered []string
 	for _, fi := range list {
 		if fi.IsDir() {
 			continue
@@ -41,14 +47,46 @@ func run(path string) error {
 		if filepath.Ext(fi.Name()) != ".go" {
 			continue
 		}
-		if err := runFile(filepath.Join(path, fi.Name())); err != nil {
+		filtered = append(filtered, filepath.Join(path, fi.Name()))
+	}
+	list = nil
+	r.defined = make(map[string]struct{})
+	for _, fpath := range filtered {
+		if err := r.preProcessFile(fpath); err != nil {
+			return err
+		}
+	}
+	for _, fpath := range filtered {
+		if err := r.processFile(fpath); err != nil {
 			return err
 		}
 	}
 	return nil
 }
 
-func runFile(path string) error {
+func (r *Refactorer) preProcessFile(path string) error {
+	data, err := os.ReadFile(path)
+	if err != nil {
+		return err
+	}
+	fs := token.NewFileSet()
+	f, err := parser.ParseFile(fs, path, data, parser.ParseComments)
+	if err != nil {
+		return err
+	}
+	for _, v := range f.Decls {
+		switch v := v.(type) {
+		case *ast.FuncDecl:
+			if v.Recv == nil {
+				r.defined[v.Name.Name] = struct{}{}
+			}
+		}
+	}
+	return nil
+}
+
+func (r *Refactorer) processFile(path string) error {
+	r.fileChanged = false
 	log.Println(path)
 	data, err := os.ReadFile(path)
 	if err != nil {
@@ -59,9 +97,8 @@ func runFile(path string) error {
 	if err != nil {
 		return err
 	}
-	v := &visitor{}
-	ast.Walk(v, f)
-	if !v.changed {
+	ast.Walk(r, f)
+	if !r.fileChanged {
 		return nil
 	}
 	var buf bytes.Buffer
@@ -77,11 +114,22 @@ func runFile(path string) error {
 	return os.WriteFile(path, buf.Bytes(), 0644)
 }
 
-type visitor struct {
-	changed bool
+type Refactorer struct {
+	fileChanged bool
+	inDecl      string
+	defined     map[string]struct{}
 }
 
-func (v *visitor) visitFlagsCall(n *ast.CallExpr, fnc string) {
+func (r *Refactorer) visitCCall(n *ast.CallExpr, fnc string) {
+	if fnc == r.inDecl {
+		return
+	}
+	if _, ok := r.defined[fnc]; ok {
+		n.Fun = n.Fun.(*ast.SelectorExpr).Sel
+		r.fileChanged = true
+	}
+}
+func (r *Refactorer) visitFlagsCall(n *ast.CallExpr, fnc string) {
 	switch fnc {
 	case "HasGame", "SetGame", "UnsetGame":
 		if len(n.Args) != 1 {
@@ -96,11 +144,11 @@ func (v *visitor) visitFlagsCall(n *ast.CallExpr, fnc string) {
 			log.Println(err)
 			return
 		}
-		v.changed = true
+		r.fileChanged = true
 		n.Args[0] = &ast.Ident{Name: noxflags.GameFlag(val).GoString()}
 	}
 }
-func (v *visitor) visitCall(n *ast.CallExpr) {
+func (r *Refactorer) visitCall(n *ast.CallExpr) {
 	sel, ok := n.Fun.(*ast.SelectorExpr)
 	if !ok {
 		return
@@ -110,15 +158,19 @@ func (v *visitor) visitCall(n *ast.CallExpr) {
 		return
 	}
 	switch pkg.Name {
+	case "C":
+		r.visitCCall(n, sel.Sel.Name)
 	case "noxflags":
-		v.visitFlagsCall(n, sel.Sel.Name)
+		r.visitFlagsCall(n, sel.Sel.Name)
 	}
 }
 
-func (v *visitor) Visit(n ast.Node) ast.Visitor {
+func (r *Refactorer) Visit(n ast.Node) ast.Visitor {
 	switch n := n.(type) {
+	case *ast.FuncDecl:
+		r.inDecl = n.Name.Name
 	case *ast.CallExpr:
-		v.visitCall(n)
+		r.visitCall(n)
 	}
-	return v
+	return r
 }
