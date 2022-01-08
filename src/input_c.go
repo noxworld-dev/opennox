@@ -570,7 +570,7 @@ func nox_xxx_cursorUpdate_46B740_sprites(inp *input.Handler, v63 bool, v66 []int
 			if v54 >= 75*75 {
 				nox_client_setCursorType_477610(15)
 			} else {
-				if noxflags.HasGame(6144) || C.sub_57B450(sprite.C()) != 0 {
+				if noxflags.HasGame(noxflags.GameModeCoop|noxflags.GameModeQuest) || C.sub_57B450(sprite.C()) != 0 {
 					nox_client_setCursorType_477610(2)
 				} else {
 					nox_client_setCursorType_477610(16)

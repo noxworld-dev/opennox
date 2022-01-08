@@ -190,11 +190,11 @@ var wndEntryNames = [5][35]uint16{
 }
 
 func gameexDropTrap() {
-	if noxflags.HasGame(516) {
+	if noxflags.HasGame(noxflags.GameFlag3 | noxflags.GameModeSolo10) {
 		if C.dword_5d4594_1064868 != 0 || nox_win_unk3 != nil {
 			return
 		}
-		if noxflags.HasGame(1) { // checkGameFlags isServer
+		if noxflags.HasGame(noxflags.GameHost) { // checkGameFlags isServer
 			v9 := C.nox_xxx_objGetTeamByNetCode_418C80(C.int(clientPlayerNetCode()))
 			C.playerDropATrap(C.int(uintptr(unsafe.Pointer(v9)) - 12*4)) // TODO: this doesn't look right
 		} else {
@@ -213,11 +213,11 @@ func gameexOnKeyboardPress(kcode keybind.Key) {
 	if ((C.gameex_flags>>3)&1 != 0) && (kcode == keybind.KeyLBracket || kcode == keybind.KeyRBracket) {
 		v8 := byte(bool2int(kcode == keybind.KeyLBracket))
 		// checks some gameFlags that are yet undiscovered
-		if noxflags.HasGame(0x204) {
+		if noxflags.HasGame(noxflags.GameFlag3 | noxflags.GameModeSolo10) {
 			if C.dword_5d4594_1064868 != 0 || nox_win_unk3 != nil {
 				return
 			}
-			if noxflags.HasGame(1) { // isServer
+			if noxflags.HasGame(noxflags.GameHost) { // isServer
 				if u := HostPlayerUnit(); u != nil && C.mix_MouseKeyboardWeaponRoll(C.int(uintptr(unsafe.Pointer(u.CObj()))), C.char(v8)) != 0 {
 					clientPlaySoundSpecial(895, 100)
 				}
@@ -231,12 +231,12 @@ func gameexOnKeyboardPress(kcode keybind.Key) {
 		}
 	}
 	if kcode == keybind.KeyF8 { // TODO: should be configurable, or actually just set defaults and remove this window
-		if !noxflags.HasGame(1) {
+		if !noxflags.HasGame(noxflags.GameHost) {
 			nox_xxx_printCentered_445490("only server can change these options")
 			clientPlaySoundSpecial(231, 100)
 			return
 		}
-		if !noxflags.HasGame(516) {
+		if !noxflags.HasGame(noxflags.GameFlag3 | noxflags.GameModeSolo10) {
 			return
 		}
 		clientPlaySoundSpecial(921, 100)
@@ -248,7 +248,7 @@ func gameexOnKeyboardPress(kcode keybind.Key) {
 			if modifyWndPntr == nil {
 				return
 			}
-			if noxflags.HasGame(512) {
+			if noxflags.HasGame(noxflags.GameModeSolo10) {
 				modifyWndPntr.ChildByID(1938).Hide()
 				v11 := modifyWndPntr.ChildByID(1524)
 				nox_xxx_wnd_46ABB0(v11, 0)
@@ -290,7 +290,7 @@ func modifyWndInputHandler(a1, a2, a3, a4 C.int) C.int {
 	case 1937:
 		destroyGameExWindow()
 	case 1938:
-		if !noxflags.HasGame(512) {
+		if !noxflags.HasGame(noxflags.GameModeSolo10) {
 			C.sub_4BDFD0()
 			asWindow((*C.nox_window)(unsafe.Pointer(uintptr(C.dword_5d4594_1316972)))).SetPos(types.Point{X: 200, Y: 100})
 		}

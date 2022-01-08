@@ -197,7 +197,7 @@ func detectBestVideoSettings() { // nox_setProfiledMode_4445C0
 		})
 	}
 	C.nox_video_setCutSize_4766A0(C.int(cut))
-	if noxflags.HasGame(0x10000000) {
+	if noxflags.HasGame(noxflags.GameFlag29) {
 		nox_draw_setCutSize_476700(C.int(cut), 0)
 	}
 	C.nox_profiled_805856 = 1
@@ -843,7 +843,7 @@ func nox_xxx_client_435F80_draw(inp *input.Handler) bool {
 	if C.nox_xxx_serverIsClosing_446180() != 0 {
 		C.sub_446190()
 	}
-	if keyBindingsCheckActive(inp) == 0 && !noxflags.HasGame(8) {
+	if keyBindingsCheckActive(inp) == 0 && !noxflags.HasGame(noxflags.GameFlag4) {
 		nox_xxx_setContinueMenuOrHost_43DDD0(0)
 		return false
 	}
@@ -862,11 +862,11 @@ func nox_xxx_client_435F80_draw(inp *input.Handler) bool {
 	if !clientSendInput(31, uint16(ipx), uint16(ipy)) {
 		return true
 	}
-	if !noxflags.HasGame(1) {
+	if !noxflags.HasGame(noxflags.GameHost) {
 		C.sub_40B970()
 		C.sub_40B790()
 	}
-	if noxflags.HasGame(1) {
+	if noxflags.HasGame(noxflags.GameHost) {
 		C.nox_xxx_spriteDeleteSomeList_49C4B0()
 		if C.nox_netlist_receiveCli_494E90(31) == 0 {
 			return true
@@ -902,7 +902,7 @@ func nox_xxx_clientDrawAll_436100_draw() {
 		isTick = true
 		nox_ticks_reset_416D40()
 	}
-	if !(memmap.Uint32(0x587000, 85724) == 0 || isTick || !noxflags.HasGame(1) || nox_ticks_check_416D70() ||
+	if !(memmap.Uint32(0x587000, 85724) == 0 || isTick || !noxflags.HasGame(noxflags.GameHost) || nox_ticks_check_416D70() ||
 		C.nox_client_gui_flag_815132 != 0 || nox_xxx_checkGameFlagPause_413A50() || getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
 		setEngineFlag(NOX_ENGINE_FLAG_PAUSE)
 		return
@@ -941,13 +941,13 @@ func nox_xxx_clientDrawAll_436100_draw() {
 	if C.dword_5d4594_811904 != 0 {
 		C.sub_436F50()
 	}
-	if noxflags.HasGame(8) {
+	if noxflags.HasGame(noxflags.GameFlag4) {
 		v13 := platformTicks() - memmap.Uint64(0x5D4594, 811908)
-		if v13 > 10000 && !noxflags.HasGame(1) {
-			noxflags.UnsetGame(8)
+		if v13 > 10000 && !noxflags.HasGame(noxflags.GameHost) {
+			noxflags.UnsetGame(noxflags.GameFlag4)
 		}
 	}
-	if noxflags.HasGame(8) {
+	if noxflags.HasGame(noxflags.GameFlag4) {
 		C.nox_xxx_clientDrawAll_436100_draw_B()
 	}
 	if memmap.Uint32(0x587000, 85744) != 0 {

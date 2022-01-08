@@ -603,16 +603,16 @@ func (s *Server) nox_server_loadMapFile_4CF5F0(mname string, noCrypt bool) bool 
 	}
 	C.nox_xxx_scriptRunFirst_507290()
 	cryptFileClose()
-	if !noxflags.HasGame(0x200000) {
+	if !noxflags.HasGame(noxflags.GameFlag22) {
 		s.nox_xxx_mapReadSetFlags_4CF990()
 		if C.nox_xxx_check_flag_aaa_43AF70() == 1 {
 			C.sub_416690()
 		}
-		noxflags.UnsetGame(0x4000000)
+		noxflags.UnsetGame(noxflags.GameSuddenDeath)
 		C.sub_470680()
 		C.sub_4D0550(internCStr(fname))
 		C.sub_4161E0()
-		if !noxflags.HasGame(128) {
+		if !noxflags.HasGame(noxflags.GameModeChat) {
 			C.sub_4165F0(0, 1)
 		}
 	}
@@ -666,7 +666,7 @@ func (s *Server) nox_server_xxxInitPlayerUnits_4FC6D0() {
 	} else {
 		s.nox_xxx_netMsgFadeBegin_4D9800(true, true)
 	}
-	if noxflags.HasGame(noxflags.GameOnline) && !noxflags.HasGame(128) {
+	if noxflags.HasGame(noxflags.GameOnline) && !noxflags.HasGame(noxflags.GameModeChat) {
 		for _, u := range s.getPlayerUnits() {
 			plx := u.ControllingPlayer()
 			if plx.Index() != 31 && plx.field_3680&1 == 0 {
@@ -851,7 +851,7 @@ func (s *Server) nox_xxx_mapReadSetFlags_4CF990() {
 		noxflags.SetGame(noxflags.GameModeChat)
 		if C.nox_xxx_getTeamCounter_417DD0() != 0 {
 			C.nox_xxx_teamAssignFlags_418640()
-			if !checkGameplayFlags(2) && !noxflags.HasGame(0x8000) {
+			if !checkGameplayFlags(2) && !noxflags.HasGame(noxflags.GameFlag16) {
 				C.nox_xxx_toggleAllTeamFlags_418690(1)
 			}
 		}

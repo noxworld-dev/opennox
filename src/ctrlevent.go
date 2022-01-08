@@ -450,42 +450,42 @@ func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_B() {
 		}
 		switch ce.code {
 		case client.CCSpellGestureUp: // un
-			if !noxflags.HasGame(128) {
+			if !noxflags.HasGame(noxflags.GameModeChat) {
 				clientPlaySoundSpecial(186, 100)
 				clientSetPhonemeFrame(1)
 			}
 		case client.CCSpellGestureDown: // zo
-			if !noxflags.HasGame(128) {
+			if !noxflags.HasGame(noxflags.GameModeChat) {
 				clientPlaySoundSpecial(190, 100)
 				clientSetPhonemeFrame(6)
 			}
 		case client.CCSpellGestureLeft: // et
-			if !noxflags.HasGame(128) {
+			if !noxflags.HasGame(noxflags.GameModeChat) {
 				clientPlaySoundSpecial(192, 100)
 				clientSetPhonemeFrame(3)
 			}
 		case client.CCSpellGestureRight: // cha
-			if !noxflags.HasGame(128) {
+			if !noxflags.HasGame(noxflags.GameModeChat) {
 				clientPlaySoundSpecial(188, 100)
 				clientSetPhonemeFrame(4)
 			}
 		case client.CCSpellGestureUpperRight: // in
-			if !noxflags.HasGame(128) {
+			if !noxflags.HasGame(noxflags.GameModeChat) {
 				clientPlaySoundSpecial(187, 100)
 				clientSetPhonemeFrame(2)
 			}
 		case client.CCSpellGestureUpperLeft: // ka
-			if !noxflags.HasGame(128) {
+			if !noxflags.HasGame(noxflags.GameModeChat) {
 				clientPlaySoundSpecial(193, 100)
 				clientSetPhonemeFrame(0)
 			}
 		case client.CCSpellGestureLowerRight: // do
-			if !noxflags.HasGame(128) {
+			if !noxflags.HasGame(noxflags.GameModeChat) {
 				clientPlaySoundSpecial(189, 100)
 				clientSetPhonemeFrame(7)
 			}
 		case client.CCSpellGestureLowerLeft: // ro
-			if !noxflags.HasGame(128) {
+			if !noxflags.HasGame(noxflags.GameModeChat) {
 				clientPlaySoundSpecial(191, 100)
 				clientSetPhonemeFrame(5)
 			}
@@ -573,7 +573,7 @@ func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_B() {
 			C.nox_client_buildTrap_45E040()
 			ce.active = false
 		case client.CCServerOptions:
-			if !(noxflags.HasGame(8) || !noxflags.HasGame(noxflags.GameOnline)) {
+			if !(noxflags.HasGame(noxflags.GameFlag4) || !noxflags.HasGame(noxflags.GameOnline)) {
 				C.nox_xxx_guiServerOptsLoad_457500()
 			}
 			ce.active = false

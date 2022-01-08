@@ -246,7 +246,7 @@ func sub_4A50D0() C.int {
 	}
 	nox_client_resetScreenParticles_431510()
 	DrawGUI()
-	if !noxflags.HasGame(0x2000) {
+	if !noxflags.HasGame(noxflags.GameOnline) {
 		nox_client_guiXxxDestroy_4A24A0()
 		return 1
 	}
@@ -335,12 +335,12 @@ func sub_46D6F0() C.int {
 
 //export sub_413A00
 func sub_413A00(a1 C.int) {
-	if noxflags.HasGame(2048) {
+	if noxflags.HasGame(noxflags.GameModeCoop) {
 		if a1 != 0 {
-			noxflags.SetGame(0x40000)
+			noxflags.SetGame(noxflags.GamePause)
 		} else {
 			if C.dword_5d4594_251744 == 0 {
-				noxflags.UnsetGame(0x40000)
+				noxflags.UnsetGame(noxflags.GamePause)
 				nox_ticks_reset_416D40()
 			}
 		}
@@ -458,7 +458,7 @@ func nox_game_showSelChar_4A4DB0() C.int {
 	wlist.setFunc94(C.nox_xxx_windowSelCharProc_4A5710)
 	sub46B120(wnames, wlist)
 	sub46B120(wstyle, wlist)
-	if noxflags.HasGame(2048) {
+	if noxflags.HasGame(noxflags.GameModeCoop) {
 		wup := win.ChildByID(504)
 		wup.Hide()
 
@@ -487,7 +487,7 @@ func nox_game_showSelChar_4A4DB0() C.int {
 	}
 	nox_xxx_findAutosaves_4A5150()
 	sub_4A19F0("OptsBack.wnd:Back")
-	if noxflags.HasGame(8192) {
+	if noxflags.HasGame(noxflags.GameOnline) {
 		setEngineFlag(NOX_ENGINE_FLAG_ADMIN)
 	} else {
 		resetEngineFlag(NOX_ENGINE_FLAG_ADMIN)
@@ -508,7 +508,7 @@ func nox_xxx_findAutosaves_4A5150() {
 	nox_xxx_wnd_46ABB0(v1, 1)
 	PathName := datapath.Save()
 	fs.Mkdir(PathName)
-	if noxflags.HasGame(2048) {
+	if noxflags.HasGame(noxflags.GameModeCoop) {
 		p, _ := alloc.Calloc(NOX_SAVEGAME_XXX_MAX, unsafe.Sizeof(C.nox_savegame_xxx{}))
 		nox_xxx_saves_arr = unsafe.Slice((*C.nox_savegame_xxx)(p), NOX_SAVEGAME_XXX_MAX)
 		nox_savegame_sub_46CE40(wlist, wnames, wstyle, nox_xxx_saves_arr)
@@ -612,7 +612,7 @@ func sub_4A5690(sv *C.nox_savegame_xxx) C.int {
 
 //export sub_4A5C70
 func sub_4A5C70() C.int {
-	if noxflags.HasGame(2048) {
+	if noxflags.HasGame(noxflags.GameModeCoop) {
 		nox_savegame_rm(nox_savegame_name_1307752, true)
 	} else {
 		ind := memmap.Uint32(0x5D4594, 1307772)
@@ -815,7 +815,7 @@ func sub_450570() bool {
 
 //export nox_savegame_sub_46D580
 func nox_savegame_sub_46D580() {
-	if noxflags.HasGame(4096) {
+	if noxflags.HasGame(noxflags.GameModeQuest) {
 		return
 	}
 	nox_savegame_arr_1064948 = [NOX_SAVEGAME_XXX_MAX]C.nox_savegame_xxx{}
@@ -898,7 +898,7 @@ func nox_xxx_windowSelCharProc_4A5710(a1 C.int, ev C.uint, a3w *C.nox_window, a4
 		v20 := datapath.SaveNameFromPath(spath)
 		saveLog.Printf("loading slot %d: %q (%q, %q)", v10, v20, spath, GoString(&sv.map_name[0]))
 		var v23 C.nox_savegame_xxx
-		if (!noxflags.HasGame(2048) || nox_client_copySave(v20, common.SaveTmp) == nil) && C.sub_41A000(&sv.path[0], &v23) != 0 {
+		if (!noxflags.HasGame(noxflags.GameModeCoop) || nox_client_copySave(v20, common.SaveTmp) == nil) && C.sub_41A000(&sv.path[0], &v23) != 0 {
 
 			v23d := (*C.nox_savegame_xxx)(memmap.PtrOff(0x85B3FC, 10980))
 			*v23d = v23
@@ -910,7 +910,7 @@ func nox_xxx_windowSelCharProc_4A5710(a1 C.int, ev C.uint, a3w *C.nox_window, a4
 			} else if int32(*memmap.PtrUint8(0x85B3FC, 0x2FDE)) == 2 {
 				noxServer.nox_xxx_gameSetMapPath_409D70("con01a.map")
 			}
-			if noxflags.HasGame(2048) {
+			if noxflags.HasGame(noxflags.GameModeCoop) {
 				C.nox_xxx_gameSetSwitchSolo_4DB220(1)
 				C.nox_xxx_gameSetNoMPFlag_4DB230(1)
 				mname := GoString(&sv.map_name[0])
@@ -950,7 +950,7 @@ func nox_xxx_windowSelCharProc_4A5710(a1 C.int, ev C.uint, a3w *C.nox_window, a4
 		*memmap.PtrInt32(0x5D4594, 0x13F47C) = v5
 		npath := datapath.SaveNameFromPath(spath)
 		nox_savegame_name_1307752 = npath
-		if noxflags.HasGame(2048) && nox_savegame_name_1307752 == common.SaveAuto {
+		if noxflags.HasGame(noxflags.GameModeCoop) && nox_savegame_name_1307752 == common.SaveAuto {
 			clientPlaySoundSpecial(925, 100)
 			v17 = nil
 			v16 = 33
@@ -964,7 +964,7 @@ func nox_xxx_windowSelCharProc_4A5710(a1 C.int, ev C.uint, a3w *C.nox_window, a4
 			}
 			v17 = C.sub_4A5C70
 			v16 = 56
-			if noxflags.HasGame(2048) {
+			if noxflags.HasGame(noxflags.GameModeCoop) {
 				v15 = strMan.GetStringInFile("GUISave.c:DeleteSaveMessage", "C:\\NoxPost\\src\\client\\shell\\selchar.c")
 				v6 = strMan.GetStringInFile("GUISave.c:DeleteSaveTitle", "C:\\NoxPost\\src\\client\\shell\\selchar.c")
 			} else {
@@ -1029,7 +1029,7 @@ func sub41D090(path string) (uint32, error) {
 }
 
 func sub_41D110() (uint32, error) {
-	if !noxflags.HasGame(2048) {
+	if !noxflags.HasGame(noxflags.GameModeCoop) {
 		return 0, nil
 	}
 	var buf [4]byte

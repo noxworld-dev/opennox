@@ -752,11 +752,11 @@ func (s *Server) newPlayer(ind int, opts *PlayerOpts) int {
 	C.nox_xxx_netNotifyRate_4D7F10(C.int(ind))
 	if noxflags.HasGame(noxflags.GameModeQuest) {
 		pl.GoObserver(false, true)
-	} else if noxflags.HasGame(512) {
+	} else if noxflags.HasGame(noxflags.GameModeSolo10) {
 		C.nox_xxx_netReportPlayerStatus_417630(pl.C())
 	} else if pl.Index() == 31 && getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) {
 		pl.GoObserver(false, true)
-	} else if noxflags.HasGame(128) {
+	} else if noxflags.HasGame(noxflags.GameModeChat) {
 		if C.sub_40A740() != 0 {
 			if C.sub_40AA70(pl.C()) == 0 {
 				pl.GoObserver(false, true)
@@ -775,7 +775,7 @@ func (s *Server) newPlayer(ind int, opts *PlayerOpts) int {
 	nox_xxx_netNewPlayerMakePacket_4DDA90(v30[:], pl)
 	s.nox_xxx_netSendPacket_4E5030(ind|0x80, v30[:129], 0, 0, 0)
 	pl.field_3676 = 2
-	if C.nox_xxx_check_flag_aaa_43AF70() == 1 && !noxflags.HasGame(128) {
+	if C.nox_xxx_check_flag_aaa_43AF70() == 1 && !noxflags.HasGame(noxflags.GameModeChat) {
 		C.sub_425F10(pl.C())
 	}
 	C.nox_xxx_createAt_4DAA50(punit.CObj(), 0, 2944.0, 2944.0)
@@ -803,7 +803,7 @@ func (s *Server) newPlayer(ind int, opts *PlayerOpts) int {
 			C.nox_xxx_netGuiGameSettings_4DD9B0(1, unsafe.Pointer(&v29[0]), C.int(pl.Index()))
 		}
 	}
-	if noxflags.HasGame(0xC000) {
+	if noxflags.HasGame(noxflags.GameFlag15 | noxflags.GameFlag16) {
 		if (pl.field_3680 & 1) == 0 {
 			C.sub_509C30(pl.C())
 		}

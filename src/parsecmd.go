@@ -246,10 +246,10 @@ var (
 		{Token: "clear", HelpID: "clearhelp", Flags: console.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_clear)},
 		{Token: "execrul", HelpID: "execrulhelp", Flags: console.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_exec_rul)},
 		{Token: "exit", HelpID: "exithelp", Flags: console.ClientServer, Func: func(ctx context.Context, c *console.Console, tokens []string) bool {
-			if noxflags.HasGame(noxflags.GameModeQuest) && noxflags.HasGame(1) {
+			if noxflags.HasGame(noxflags.GameModeQuest) && noxflags.HasGame(noxflags.GameHost) {
 				C.sub_4D6B10(0)
 			}
-			if noxflags.HasGame(0x2000000) {
+			if noxflags.HasGame(noxflags.GameFlag26) {
 				C.nox_client_quit_4460C0()
 			}
 			nox_xxx_setContinueMenuOrHost_43DDD0(0)

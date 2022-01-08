@@ -614,7 +614,7 @@ func (s *Server) nox_xxx_gameTick_4D2580_server() bool {
 		if C.sub_416650() != 0 && sub_41E2F0() == 8 {
 			v2 = true
 		}
-		if v4 == 1 || noxflags.HasGame(8) || gameFrame()%uint32(v4) == 1 {
+		if v4 == 1 || noxflags.HasGame(noxflags.GameFlag4) || gameFrame()%uint32(v4) == 1 {
 			C.nox_netlist_resetAllInList_40EE90(1)
 		}
 	}
@@ -633,7 +633,7 @@ func (s *Server) nox_xxx_gameTick_4D2580_server() bool {
 	if !noxflags.HasGame(noxflags.GameModeCoop) {
 		C.nox_telnet_tick_578FC0()
 	}
-	if noxflags.HasGame(8) {
+	if noxflags.HasGame(noxflags.GameFlag4) {
 		nox_xxx_gameTick_4D2580_server_A1()
 		s.nox_xxx_gameTick_4D2580_server_A2(v2)
 	} else if C.dword_5d4594_1548524 == 0 {
@@ -654,7 +654,7 @@ func nox_xxx_gameTick_4D2580_server_A1() {
 		*memmap.PtrUint64(0x5D4594, 1548676) = platformTicks() + 10000
 		C.nox_xxx_guiServerOptionsHide_4597E0(0)
 		if C.nox_xxx_check_flag_aaa_43AF70() == 1 {
-			if !noxflags.HasGame(128) {
+			if !noxflags.HasGame(noxflags.GameModeChat) {
 				C.nox_xxx_net_4263C0()
 				C.sub_40DF90()
 				C.sub_4264D0()
@@ -678,13 +678,13 @@ func (s *Server) nox_xxx_gameTick_4D2580_server_A2(v2 bool) {
 	*memmap.PtrUint32(0x5D4594, 1548680) = 0
 	C.dword_5d4594_1548524 = 1
 	sub_416170(12)
-	noxflags.UnsetGame(8)
+	noxflags.UnsetGame(noxflags.GameFlag4)
 	for _, u := range s.getPlayerUnits() {
 		u.dropAllItems()
 		C.nox_xxx_playerMakeDefItems_4EF7D0(C.int(uintptr(unsafe.Pointer(u.CObj()))), 1, 0)
 	}
 	C.nox_xxx_unitsNewAddToList_4DAC00()
-	if noxflags.HasGame(512) {
+	if noxflags.HasGame(noxflags.GameModeSolo10) {
 		return
 	}
 	v7 := nox_xxx_cliGamedataGet_416590(0)
@@ -724,11 +724,11 @@ func (s *Server) nox_xxx_gameTick_4D2580_server_D() {
 	v24 := (u.Flags16()>>15)&1 != 0
 	if !v24 {
 		s.scriptOnEvent("MapShutdown")
-		noxflags.SetGame(0x8000000)
+		noxflags.SetGame(noxflags.GameFlag28)
 		v26 := GoString(C.sub_4DB160())
 		v23 = C.nox_xxx_saveDoAutosaveMB_4DB370_savegame(internCStr(v26)) != 0
-		noxflags.UnsetGame(0x8000000)
-		if !v23 && noxflags.HasGame(2) {
+		noxflags.UnsetGame(noxflags.GameFlag28)
+		if !v23 && noxflags.HasGame(noxflags.GameFlag2) {
 			v35 := strMan.GetStringInFile("GUISave.c:SaveErrorTitle", "C:\\NoxPost\\src\\Server\\System\\server.c")
 			NewDialogWindow(nil, v35, v35, 33, nil, nil)
 		}
@@ -757,18 +757,18 @@ func (s *Server) nox_xxx_gameTick_4D2580_server_C() bool {
 	C.sub_4EDD70()
 	s.sub_417160()
 	C.sub_4573B0()
-	if checkGameplayFlags(2) && !noxflags.HasGame(49152) &&
-		checkGameplayFlags(4) && !noxflags.HasGame(128) {
+	if checkGameplayFlags(2) && !noxflags.HasGame(noxflags.GameFlag15|noxflags.GameFlag16) &&
+		checkGameplayFlags(4) && !noxflags.HasGame(noxflags.GameModeChat) {
 		C.sub_4181F0(1)
 	}
-	if noxflags.HasGame(noxflags.GameModeQuest) && C.nox_xxx_check_flag_aaa_43AF70() == 1 && !noxflags.HasGame(128) {
+	if noxflags.HasGame(noxflags.GameModeQuest) && C.nox_xxx_check_flag_aaa_43AF70() == 1 && !noxflags.HasGame(noxflags.GameModeChat) {
 		C.sub_4264D0()
 	}
-	noxflags.SetGame(0x8000000)
+	noxflags.SetGame(noxflags.GameFlag28)
 	sub_43F140(500)
 	v13 := s.nox_xxx_mapExitAndCheckNext_4D1860_server()
 	sub_43F1A0()
-	noxflags.UnsetGame(0x8000000)
+	noxflags.UnsetGame(noxflags.GameFlag28)
 	v37 := s.getServerMap()
 	if !v13 {
 		v14 := strMan.GetStringInFile("MapAccessError", "C:\\NoxPost\\src\\Server\\System\\server.c")
@@ -783,11 +783,11 @@ func (s *Server) nox_xxx_gameTick_4D2580_server_C() bool {
 	C.nox_xxx_netUseMap_4DEE00(internCStr(v39), v18)
 	if C.nox_xxx_check_flag_aaa_43AF70() == 1 {
 		C.sub_416690()
-		if noxflags.HasGame(128) {
-			if noxflags.HasGame(0x8000) {
+		if noxflags.HasGame(noxflags.GameModeChat) {
+			if noxflags.HasGame(noxflags.GameFlag16) {
 				C.nox_server_teamsZzz_419030(1)
 			}
-			noxflags.UnsetGame(49152)
+			noxflags.UnsetGame(noxflags.GameFlag15 | noxflags.GameFlag16)
 		} else {
 			C.sub_426060()
 			C.sub_41D6C0()
@@ -927,7 +927,7 @@ func nox_xxx_mapFindPlayerStart_4F7AB0(a2 *Unit) types.Pointf {
 }
 
 func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() bool {
-	if noxflags.HasGame(2) {
+	if noxflags.HasGame(noxflags.GameFlag2) {
 		nox_client_setCursorType_477610(10)
 	}
 	C.sub_4D22B0()
@@ -969,7 +969,7 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() bool {
 		}
 		v10 := s.nox_server_currentMapGetFilename_409B30()
 		v6 = s.nox_server_loadMapFile_4CF5F0(v10, false)
-		if noxflags.HasGame(noxflags.GameOnline) && !noxflags.HasGame(128) {
+		if noxflags.HasGame(noxflags.GameOnline) && !noxflags.HasGame(noxflags.GameModeChat) {
 			v13 := 0
 			if C.nox_xxx_gamePlayIsAnyPlayers_40A8A0() != 0 {
 				v12 := noxflags.GetGame()
@@ -997,9 +997,9 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() bool {
 	for _, k := range s.getPlayerUnits() {
 		C.sub_4EF660(k.CObj())
 		v61 := nox_xxx_mapFindPlayerStart_4F7AB0(k)
-		if noxflags.HasGame(128) {
+		if noxflags.HasGame(noxflags.GameModeChat) {
 			if C.nox_xxx_getTeamCounter_417DD0() != 0 {
-				if !checkGameplayFlags(2) && !noxflags.HasGame(0x8000) {
+				if !checkGameplayFlags(2) && !noxflags.HasGame(noxflags.GameFlag16) {
 					v17 := unsafe.Pointer(C.nox_xxx_clientGetTeamColor_418AB0(C.int(k.team())))
 					if v17 != nil {
 						v61 = randomReachablePointAround(50.0, asPointf(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v17, 72)), 56)))
@@ -1008,7 +1008,7 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() bool {
 			}
 		}
 		k.SetPos(v61)
-		if !noxflags.HasGame(512) {
+		if !noxflags.HasGame(noxflags.GameModeSolo10) {
 			plx := k.ControllingPlayer()
 			plx.field_2136 = 0
 			plx.field_2140 = 0
@@ -1050,18 +1050,18 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() bool {
 		PrintToPlayers(v24)
 		return false
 	}
-	if noxflags.HasGame(96) && starts.flagN < 2 {
+	if noxflags.HasGame(noxflags.GameModeCTF|noxflags.GameModeFlagBall) && starts.flagN < 2 {
 		v24 := strMan.GetStringInFile("FlagCountError", "C:\\NoxPost\\src\\Server\\System\\server.c")
 		PrintToPlayers(v24)
 		return false
 	}
-	if noxflags.HasGame(64) && starts.ballN < 1 {
+	if noxflags.HasGame(noxflags.GameModeFlagBall) && starts.ballN < 1 {
 		v24 := strMan.GetStringInFile("BallStartCountError", "C:\\NoxPost\\src\\Server\\System\\server.c")
 		PrintToPlayers(v24)
 		return false
 	}
 
-	if checkGameplayFlags(4) || noxflags.HasGame(0x8000) {
+	if checkGameplayFlags(4) || noxflags.HasGame(noxflags.GameFlag16) {
 		C.nox_server_teamsResetYyy_417D00()
 	}
 	for l := C.nox_xxx_getDebugData_57C3E0(); l != nil; l = C.nox_xxx_nextDebugObject_57C3F0(l) {
@@ -1100,12 +1100,12 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() bool {
 	if C.nox_xxx_gameIsSwitchToSolo_4DB240() == 0 {
 		C.nox_xxx_resetMapInit_4FC570(1)
 	}
-	noxflags.SetGame(0x8000000)
+	noxflags.SetGame(noxflags.GameFlag28)
 	sub_43F140(500)
 	v42 := C.nox_xxx_gameIsSwitchToSolo_4DB240()
 	C.sub_4DBA30(v42)
 	sub_43F1A0()
-	noxflags.UnsetGame(0x8000000)
+	noxflags.UnsetGame(noxflags.GameFlag28)
 	C.sub_4FC580(1)
 	if s.mapSwitchWPName != "" {
 		if wp := s.getWaypointByID(s.mapSwitchWPName); wp != nil {
@@ -1153,7 +1153,7 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() bool {
 	for _, obj := range getObjectsUpdatable2() {
 		obj.SetFlags16(obj.Flags16() & 0x7FFFFFFF)
 	}
-	if noxflags.HasGame(16) && checkGameplayFlags(4) {
+	if noxflags.HasGame(noxflags.GameModeKOTR) && checkGameplayFlags(4) {
 		C.sub_4D2160()
 	}
 	if noxflags.HasGame(noxflags.GameModeQuest) {
@@ -1439,7 +1439,7 @@ func sub_460D40() bool {
 const netListsBufSize = 2048
 
 func (s *Server) nox_xxx_netlist_4DEB50() {
-	if !noxflags.HasGame(2) {
+	if !noxflags.HasGame(noxflags.GameFlag2) {
 		return
 	}
 	if getEngineFlag(NOX_ENGINE_FLAG_REPLAY_READ) {
