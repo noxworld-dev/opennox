@@ -16,6 +16,7 @@ extern uint32_t dword_5d4594_1313532;
 extern uint32_t dword_5d4594_1313536;
 extern uint32_t dword_5d4594_1313540;
 extern unsigned int nox_frame_xxx_2598000;
+extern uint32_t nox_color_white_2523948;
 
 //----- (004B6770) --------------------------------------------------------
 int sub_4B6770(int* a1, nox_drawable* dr, int a3, int a4) {
@@ -77,7 +78,7 @@ int nox_thing_magic_sparkle_draw(int* a1, nox_drawable* dr) {
 	int result; // eax
 
 	if (nox_common_randomIntMinMax_415FF0(0, 10, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 317) >= 5) {
-		result = sub_4B6770(a1, dr, *getMemIntPtr(0x5D4594, 2523948), *(int*)&dword_5d4594_1313540);
+		result = sub_4B6770(a1, dr, nox_color_white_2523948, *(int*)&dword_5d4594_1313540);
 	} else {
 		result = sub_4B6770(a1, dr, *(int*)&dword_5d4594_1313540, *(int*)&dword_5d4594_1313536);
 	}
@@ -146,7 +147,7 @@ int nox_thing_pixie_dust_draw(int* a1, nox_drawable* dr) {
 	int result; // eax
 
 	if (nox_common_randomIntMinMax_415FF0(0, 10, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 554) >= 5) {
-		result = sub_4B6770(a1, dr, *getMemIntPtr(0x5D4594, 2523948), *(int*)&dword_5d4594_1313564);
+		result = sub_4B6770(a1, dr, nox_color_white_2523948, *(int*)&dword_5d4594_1313564);
 	} else {
 		result = sub_4B6770(a1, dr, *(int*)&dword_5d4594_1313564, *getMemIntPtr(0x5D4594, 1313560));
 	}
@@ -162,7 +163,7 @@ int nox_thing_blue_rain_spark_draw(uint32_t* a1, nox_drawable* dr) {
 
 	int a2 = dr;
 
-	result = sub_4B6970(a1, dr, *getMemIntPtr(0x5D4594, 2523948), *(int*)&dword_5d4594_1313540);
+	result = sub_4B6970(a1, dr, nox_color_white_2523948, *(int*)&dword_5d4594_1313540);
 	if (result == 1 && *(uint8_t*)(a2 + 296) >= 5) {
 		v3 = *getMemU32Ptr(0x5D4594, 1313688);
 		if (!*getMemU32Ptr(0x5D4594, 1313688)) {
@@ -324,7 +325,7 @@ int nox_thing_death_ball_spark_draw(uint32_t* a1, nox_drawable* dr) {
 
 //----- (004B7040) --------------------------------------------------------
 int nox_thing_white_spark_draw(uint32_t* a1, nox_drawable* dr) {
-	return sub_4B6970(a1, dr, *getMemIntPtr(0x5D4594, 2523948), *(int*)&dword_5d4594_1313540);
+	return sub_4B6970(a1, dr, nox_color_white_2523948, *(int*)&dword_5d4594_1313540);
 }
 
 //----- (004AFE80) --------------------------------------------------------

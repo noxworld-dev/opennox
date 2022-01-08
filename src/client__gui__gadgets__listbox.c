@@ -7,6 +7,9 @@
 #include "GAME3.h"
 #include "common__strman.h"
 
+extern uint32_t nox_color_white_2523948;
+extern uint32_t nox_color_yellow_2589772;
+
 //----- (004A4310) --------------------------------------------------------
 nox_window* nox_gui_newScrollListBox_4A4310(int a1, int a2, int a3, int a4, int a5, int a6, int a7, nox_scrollListBox_data* opts) {
 	short* a8 = opts;
@@ -94,8 +97,8 @@ nox_window* nox_gui_newScrollListBox_4A4310(int a1, int a2, int a3, int a4, int 
 			*(uint32_t*)&v25[20] = *getMemU32Ptr(0x85B3FC, 952);
 			*(uint32_t*)&v25[44] = *getMemU32Ptr(0x85B3FC, 952);
 			*(uint32_t*)&v25[28] = *getMemU32Ptr(0x852978, 12);
-			*(uint32_t*)&v25[36] = *getMemU32Ptr(0x5D4594, 2523948);
-			*(uint32_t*)&v25[52] = *getMemU32Ptr(0x5D4594, 2589772);
+			*(uint32_t*)&v25[36] = nox_color_white_2523948;
+			*(uint32_t*)&v25[52] = nox_color_yellow_2589772;
 			*(uint32_t*)&v25[68] = *getMemU32Ptr(0x852978, 12);
 			v16 = nox_strman_loadString_40F1D0("WindowDir:Up", 0,
 											   "C:\\NoxPost\\src\\Client\\Gui\\Gadgets\\listbox.c", 1483);
@@ -118,8 +121,8 @@ nox_window* nox_gui_newScrollListBox_4A4310(int a1, int a2, int a3, int a4, int 
 			*(uint32_t*)&v25[20] = *getMemU32Ptr(0x85B3FC, 952);
 			*(uint32_t*)&v25[44] = *getMemU32Ptr(0x85B3FC, 952);
 			*(uint32_t*)&v25[28] = *getMemU32Ptr(0x852978, 12);
-			*(uint32_t*)&v25[36] = *getMemU32Ptr(0x5D4594, 2523948);
-			*(uint32_t*)&v25[52] = *getMemU32Ptr(0x5D4594, 2589772);
+			*(uint32_t*)&v25[36] = nox_color_white_2523948;
+			*(uint32_t*)&v25[52] = nox_color_yellow_2589772;
 			*(uint32_t*)&v25[68] = *getMemU32Ptr(0x852978, 12);
 			v18 = nox_strman_loadString_40F1D0("WindowDir:Down", 0,
 											   "C:\\NoxPost\\src\\Client\\Gui\\Gadgets\\listbox.c", 1519);

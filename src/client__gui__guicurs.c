@@ -22,6 +22,8 @@ extern int nox_win_width;
 extern int nox_win_height;
 extern unsigned int nox_frame_xxx_2598000;
 extern int nox_client_mouseCursorType;
+extern uint32_t nox_color_white_2523948;
+extern uint32_t nox_color_yellow_2589772;
 
 //----- (00477A30) --------------------------------------------------------
 void nox_video_cursorDrawImpl_477A30(int a1, int a2, int a3) {
@@ -51,7 +53,7 @@ void nox_video_cursorDrawImpl_477A30(int a1, int a2, int a3) {
 	if ((unsigned char)nox_frame_xxx_2598000 & 1) {
 		++*getMemU32Ptr(0x5D4594, 1097288);
 	}
-	nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 2589772));
+	nox_xxx_drawSetTextColor_434390(nox_color_yellow_2589772);
 	v5 = nox_xxx_guiFontHeightMB_43F320(0);
 	if (nox_xxx_guiSpell_460650() || sub_4611A0()) {
 		nox_video_drawAnimatedImageOrCursorAt_4BE6D0(*getMemIntPtr(0x5D4594, 1097240), v3, v4);

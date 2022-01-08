@@ -26,6 +26,7 @@ extern uint32_t dword_5d4594_1107036;
 extern uint32_t dword_5d4594_1098628;
 extern uint32_t dword_5d4594_1098576;
 extern uint32_t nox_client_renderGUI_80828;
+extern uint32_t nox_color_white_2523948;
 
 //----- (00478730) --------------------------------------------------------
 void sub_478730(int* a1) {
@@ -151,7 +152,7 @@ wchar_t* sub_478BC0(int* a1) {
 	v1 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1098576, 3806);
 	nox_client_wndGetPosition_46AA60(v1, &v5, &v6);
 	nox_window_get_size((int)v1, &v4, &v3);
-	nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 2523948));
+	nox_xxx_drawSetTextColor_434390(nox_color_white_2523948);
 	nox_client_drawImageAt_47D2C0(dword_5d4594_1098456, *a1, a1[1]);
 	result = *(wchar_t**)&dword_5d4594_1098600;
 	if (dword_5d4594_1098600 ||

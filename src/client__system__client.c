@@ -23,6 +23,8 @@ extern int nox_win_width;
 extern int nox_win_height;
 extern nox_draw_viewport_t nox_draw_viewport;
 extern unsigned int nox_frame_xxx_2598000;
+extern uint32_t nox_color_white_2523948;
+extern uint32_t nox_color_yellow_2589772;
 
 void nox_xxx_clientDrawAll_436100_draw_A() {
 	if (!sub_436550()) {
@@ -40,7 +42,7 @@ void nox_xxx_clientDrawAll_436100_draw_A() {
 			nox_strman_loadString_40F1D0("InProgress", 0, "C:\\NoxPost\\src\\client\\System\\client.c", 1550);
 		int v22 = 0;
 		nox_xxx_drawGetStringSize_43F840(v10, v11, &v22, 0, 0);
-		nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 2523948));
+		nox_xxx_drawSetTextColor_434390(nox_color_white_2523948);
 		int v21 = nox_win_height / 2;
 		int v20 = (nox_win_width - v22) / 2;
 		wchar_t* v12 =
@@ -64,9 +66,9 @@ void nox_xxx_clientDrawAll_436100_draw_B() {
 	nox_xxx_drawGetStringSize_43F840(0, v25, &v22, &v23, 220);
 	int v17 = v14 + 45;
 	int v18 = v16 + (49 - v23) / 2 + 143;
-	nox_client_drawSetColor_434460(*getMemIntPtr(0x5D4594, 2523948));
+	nox_client_drawSetColor_434460(nox_color_white_2523948);
 	for (wchar_t* tok = nox_wcstok(v25, L"\n\r"); tok; tok = nox_wcstok(0, L"\n\r")) {
-		nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 2523948));
+		nox_xxx_drawSetTextColor_434390(nox_color_white_2523948);
 		nox_xxx_drawGetStringSize_43F840(0, tok, &v22, 0, 0);
 		nox_xxx_drawStringWrap_43FAF0(0, tok, v17 + (220 - v22) / 2, v18, 220, 0);
 		v18 += nox_xxx_guiFontHeightMB_43F320(0);
@@ -203,20 +205,20 @@ int sub_4365C0() {
 	v24 = nox_frame_xxx_2598000;
 	v6 = nox_strman_loadString_40F1D0("Frame", 0, "C:\\NoxPost\\src\\client\\System\\client.c", 1159);
 	nox_swprintf((wchar_t*)getMemAt(0x5D4594, 810900), v6, v24);
-	nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 2523948));
+	nox_xxx_drawSetTextColor_434390(nox_color_white_2523948);
 	nox_xxx_drawString_43F6E0(0, getMemI16Ptr(0x5D4594, 810900), v0, v5);
 	v5 += 10;
 	v7 = sub_43C760();
 	v8 = nox_strman_loadString_40F1D0("PacketSize", 0, "C:\\NoxPost\\src\\client\\System\\client.c", 1165);
 	nox_swprintf((wchar_t*)getMemAt(0x5D4594, 810900), v8, v7);
-	nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 2523948));
+	nox_xxx_drawSetTextColor_434390(nox_color_white_2523948);
 	nox_xxx_drawString_43F6E0(0, getMemI16Ptr(0x5D4594, 810900), v0, v5);
 	nox_xxx_drawBandwith_436970(v7);
 	v5 += 10;
 	v25 = nox_get_drawable_count();
 	v9 = nox_strman_loadString_40F1D0("DrawCount", 0, "C:\\NoxPost\\src\\client\\System\\client.c", 1172);
 	nox_swprintf((wchar_t*)getMemAt(0x5D4594, 810900), v9, v25);
-	nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 2523948));
+	nox_xxx_drawSetTextColor_434390(nox_color_white_2523948);
 	nox_xxx_drawString_43F6E0(0, getMemI16Ptr(0x5D4594, 810900), v0, v5);
 	v5 += 10;
 	v26 = *getMemU32Ptr(0x85B3FC, 120);
@@ -274,7 +276,7 @@ int nox_xxx_drawBandwith_436970(int a1) {
 
 	v9 = nox_win_height - 1;
 	v1 = nox_win_height - 31;
-	nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 2523948));
+	nox_xxx_drawSetTextColor_434390(nox_color_white_2523948);
 	v8 = v1 - nox_xxx_guiFontHeightMB_43F320(0);
 	v2 = (short*)nox_strman_loadString_40F1D0("Bandwidth", 0, "C:\\NoxPost\\src\\client\\System\\client.c", 323);
 	nox_xxx_drawString_43F6E0(0, v2, 0, v8);
@@ -289,7 +291,7 @@ int nox_xxx_drawBandwith_436970(int a1) {
 	*getMemU32Ptr(0x5D4594, 812452) = (v3 + 1) % 128;
 	v5 = 0;
 	v6 = nox_win_width / 128;
-	nox_client_drawSetColor_434460(*getMemIntPtr(0x5D4594, 2589772));
+	nox_client_drawSetColor_434460(nox_color_yellow_2589772);
 	v10 = 127;
 	do {
 		nox_client_drawAddPoint_49F500(v5, v9 - *getMemU32Ptr(0x5D4594, 811940 + 4 * v4));
@@ -323,7 +325,7 @@ int sub_436AA0(int a1) {
 
 	v1 = nox_xxx_guiFontHeightMB_43F320(0);
 	v2 = v1 + 30;
-	nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 2523948));
+	nox_xxx_drawSetTextColor_434390(nox_color_white_2523948);
 	v14 = v1 - nox_xxx_guiFontHeightMB_43F320(0);
 	v3 = (short*)nox_strman_loadString_40F1D0("FPS", 0, "C:\\NoxPost\\src\\client\\System\\client.c", 368);
 	nox_xxx_drawString_43F6E0(0, v3, 0, v14);
@@ -355,7 +357,7 @@ int sub_436AA0(int a1) {
 		v10 = *getMemU32Ptr(0x5D4594, 812456 + 4 * v7);
 		if (v10 >= 10) {
 			v12 = v10 < 20;
-			v11 = *getMemU32Ptr(0x5D4594, 2589772);
+			v11 = nox_color_yellow_2589772;
 			if (!v12) {
 				v11 = *getMemU32Ptr(0x8531A0, 2572);
 			}
@@ -390,7 +392,7 @@ int nox_xxx_drawTimingMB_436C40() {
 	int v12;       // [esp+0h] [ebp-8h]
 	int v13;       // [esp+4h] [ebp-4h]
 
-	nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 2523948));
+	nox_xxx_drawSetTextColor_434390(nox_color_white_2523948);
 	v11 = 60 - nox_xxx_guiFontHeightMB_43F320(0);
 	v0 = (short*)nox_strman_loadString_40F1D0("CSTiming", 0, "C:\\NoxPost\\src\\client\\System\\client.c", 428);
 	nox_xxx_drawString_43F6E0(0, v0, 0, v11);
@@ -457,7 +459,7 @@ int nox_xxx_drawPing_436DF0(int a1) {
 
 	v1 = nox_win_height - 80;
 	v14 = nox_win_height - 80 + 30;
-	nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 2523948));
+	nox_xxx_drawSetTextColor_434390(nox_color_white_2523948);
 	v13 = v1 - nox_xxx_guiFontHeightMB_43F320(0);
 	v2 = (short*)nox_strman_loadString_40F1D0("Ping", 0, "C:\\NoxPost\\src\\client\\System\\client.c", 478);
 	nox_xxx_drawString_43F6E0(0, v2, 0, v13);
@@ -478,7 +480,7 @@ int nox_xxx_drawPing_436DF0(int a1) {
 		v8 = *getMemU32Ptr(0x5D4594, 814000 + 4 * v5);
 		if (v8 >= 100) {
 			v10 = v8 < 350;
-			v9 = *getMemU32Ptr(0x5D4594, 2589772);
+			v9 = nox_color_yellow_2589772;
 			if (!v10) {
 				v9 = *getMemU32Ptr(0x85B3FC, 940);
 			}
@@ -514,7 +516,7 @@ int sub_436F50() {
 	nox_draw_viewport_t* rdr = nox_draw_getViewport_437250();
 	v2 = rdr->x1 + 10;
 	v3 = rdr->y1 + 90;
-	nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 2523948));
+	nox_xxx_drawSetTextColor_434390(nox_color_white_2523948);
 	v4 = nox_server_currentMapGetFilename_409B30();
 	nox_swprintf((wchar_t*)getMemAt(0x5D4594, 811120), L"%S", v4);
 	nox_xxx_drawString_43F6E0(0, getMemI16Ptr(0x5D4594, 811120), v2, v3);

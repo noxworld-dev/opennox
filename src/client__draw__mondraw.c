@@ -10,6 +10,7 @@
 #include "client__gui__window.h"
 #include "client__video__draw_common.h"
 #include "common__random.h"
+#include "common__system__team.h"
 #include "operators.h"
 
 extern int nox_backbuffer_depth;

@@ -24,6 +24,7 @@ int nox_gui_console_locked = 0;
 unsigned int nox_gui_console_translucent = 1;
 int nox_gui_console_wantsPass = 0;
 extern int dword_5d4594_3799524;
+extern uint32_t nox_color_white_2523948;
 
 wchar_t nox_gui_console_password[64] = {0};
 
@@ -307,7 +308,7 @@ void nox_gui_console_reloadColors_451100() {
 			*(uint32_t*)(v4 + 56) = color2;
 			*(uint32_t*)(v1[7] + 80) = color2;
 			*(uint32_t*)(v1[7] + 64) = color;
-			*(uint32_t*)(v1[7] + 72) = *getMemU32Ptr(0x5D4594, 2523948);
+			*(uint32_t*)(v1[7] + 72) = nox_color_white_2523948;
 			*(uint32_t*)(v1[7] + 88) = color;
 			*(uint32_t*)(v1[7] + 104) = color;
 		}
@@ -316,7 +317,7 @@ void nox_gui_console_reloadColors_451100() {
 			*(uint32_t*)(v5 + 56) = color2;
 			*(uint32_t*)(v1[8] + 80) = color2;
 			*(uint32_t*)(v1[8] + 64) = color;
-			*(uint32_t*)(v1[8] + 72) = *getMemU32Ptr(0x5D4594, 2523948);
+			*(uint32_t*)(v1[8] + 72) = nox_color_white_2523948;
 			*(uint32_t*)(v1[8] + 88) = color;
 			*(uint32_t*)(v1[8] + 104) = color;
 		}

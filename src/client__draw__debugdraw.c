@@ -7,6 +7,8 @@
 #include "GAME3_1.h"
 
 extern unsigned int nox_frame_xxx_2598000;
+extern uint32_t nox_color_white_2523948;
+extern uint32_t nox_color_yellow_2589772;
 //----- (004BCC90) --------------------------------------------------------
 int nox_thing_debug_draw(nox_draw_viewport_t* vp, nox_drawable* dr) {
 	uint32_t* a1 = vp;
@@ -28,10 +30,10 @@ int nox_thing_debug_draw(nox_draw_viewport_t* vp, nox_drawable* dr) {
 
 	v2 = *getMemU32Ptr(0x8531A0, 2572);
 	if (dr->field_72 >= nox_frame_xxx_2598000) {
-		v2 = *getMemU32Ptr(0x5D4594, 2589772);
+		v2 = nox_color_yellow_2589772;
 	}
 	nox_client_drawSetColor_434460(v2);
-	nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 2523948));
+	nox_xxx_drawSetTextColor_434390(nox_color_white_2523948);
 	v3 = dr->pos.y;
 	v4 = *a1 + dr->pos.x - a1[4];
 	v5 = dr->flags28;

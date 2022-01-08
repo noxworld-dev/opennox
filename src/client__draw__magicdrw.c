@@ -11,6 +11,7 @@
 extern uint32_t dword_5d4594_1313804;
 extern unsigned int nox_gameFPS;
 extern unsigned int nox_frame_xxx_2598000;
+extern uint32_t nox_color_white_2523948;
 
 //----- (004B98A0) --------------------------------------------------------
 int nox_thing_magic_draw(int* a1, nox_drawable* dr) {
@@ -40,7 +41,7 @@ int nox_thing_magic_draw(int* a1, nox_drawable* dr) {
 	if (v4 - 10 >= v2 && v6 - 10 >= v3 && v4 + 10 < a1[2] && v6 + 10 < a1[3]) {
 		v7 = nox_common_randomIntMinMax_415FF0(1, 4, "C:\\NoxPost\\src\\Client\\Draw\\magicdrw.c", 48);
 		sub_4B6720(&v10, *getMemIntPtr(0x5D4594, 1313808), 2 * v7 + 1, (v7 >> 1) + 3);
-		nox_client_drawSetColor_434460(*getMemIntPtr(0x5D4594, 2523948));
+		nox_client_drawSetColor_434460(nox_color_white_2523948);
 		nox_client_drawRectFilledOpaque_49CE30(v10.field_0 - (v7 >> 1), v10.field_4 - (v7 >> 1), v7, v7);
 		nox_xxx_spriteChangeLightColor_484BE0((uint32_t*)(a2 + 136), 200, 200, 255);
 		v9 = nox_common_randomFloatXxx_416090(0.0, 100.0);
@@ -77,7 +78,7 @@ int nox_thing_magic_missle_draw(int* a1, nox_drawable* dr) {
 	if (v4 - 10 >= v2 && v6 - 10 >= v3 && v4 + 10 < a1[2] && v6 + 10 < a1[3]) {
 		v7 = nox_common_randomIntMinMax_415FF0(1, 4, "C:\\NoxPost\\src\\Client\\Draw\\magicdrw.c", 91);
 		sub_4B6720(&v10, *getMemIntPtr(0x5D4594, 1313812), 2 * v7 + 1, (v7 >> 1) + 3);
-		nox_client_drawSetColor_434460(*getMemIntPtr(0x5D4594, 2523948));
+		nox_client_drawSetColor_434460(nox_color_white_2523948);
 		nox_client_drawRectFilledOpaque_49CE30(v10.field_0 - (v7 >> 1), v10.field_4 - (v7 >> 1), v7, v7);
 		nox_xxx_spriteChangeLightColor_484BE0((uint32_t*)(a2 + 136), 255, 180, 50);
 		v9 = nox_common_randomFloatXxx_416090(0.0, 100.0);

@@ -2933,7 +2933,7 @@ int nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 				memcpy(v386, (const void*)(data + 18), 2 * *(unsigned char*)(data + 15));
 				v386[*(unsigned char*)(data + 15)] = 0;
 				if (*(uint8_t*)(data + 17)) {
-					v271 = sub_418C20(*(unsigned char*)(data + 16));
+					v271 = nox_server_teamTitle_418C20(*(unsigned char*)(data + 16));
 					nox_swprintf(v386, v271);
 				}
 				v272 = nox_xxx_clientGetTeamColor_418AB0(*(uint32_t*)(data + 2));

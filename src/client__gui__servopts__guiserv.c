@@ -41,6 +41,7 @@ extern uint32_t dword_5d4594_1046508;
 extern uint32_t dword_5d4594_1046496;
 extern uint32_t dword_5d4594_1046492;
 extern int nox_win_width;
+extern uint32_t nox_color_white_2523948;
 extern int nox_win_height;
 
 typedef struct {
@@ -736,7 +737,7 @@ int nox_xxx_guiServerOptionsProcPre_4585D0(int a1, unsigned int a2, int a3, int 
 	}
 	if ((unsigned short)a3 == 1) {
 		if (a4 == 10101) {
-			v4[26] = *getMemU32Ptr(0x5D4594, 2523948);
+			v4[26] = nox_color_white_2523948;
 			return 1;
 		}
 		return 1;

@@ -1313,25 +1313,34 @@ var noxMemmap = []struct {
 	{0x5D4594, 2523904, 4, "dword_5d4594_2523904"},                                  // 0x83C894
 	{0x5D4594, 2523908, 4, "nox_alloc_debugData_2523908"},                           // 0x83C898
 	{0x5D4594, 2523912, 4, "dword_5d4594_2523912"},                                  // 0x83C89C
-	{0x5D4594, 2598000, 4, "nox_frame_xxx_2598000"},                                 // 0x84EA04
-	{0x852978, 20, 4, "dword_5d4594_2614264"},                                       // 0x85298C
-	{0x85319C, 0, 4, "nox_player_netCode_85319C"},                                   // 0x85319C
-	{0x8531A0, 2568, 4, "dword_5d4594_2618900"},                                     // 0x853BA8
-	{0x8531A0, 2580, 4, "dword_5d4594_2618912"},                                     // 0x853BB4
-	{0x85B3FC, 0, 4, "nox_gameFPS"},                                                 // 0x85B3FC
-	{0x85B3FC, 8, 4, "dword_5d4594_2649712"},                                        // 0x85B404
-	{0x85B3FC, 932, 4, "nox_common_engineFlags"},                                    // 0x85B7A0
-	{0x85B3FC, 936, 4, "nox_video_bag_var_2650640"},                                 // 0x85B7A4
-	{0x85B3FC, 948, 4, "dword_5d4594_2650652"},                                      // 0x85B7B0
-	{0x85B3FC, 964, 4, "ptr_5D4594_2650668"},                                        // 0x85B7C0
-	{0x85B3FC, 968, 4, "nox_gameDisableMapDraw_5d4594_2650672"},                     // 0x85B7C4
-	{0x85B3FC, 972, 4, "dword_5d4594_2650676"},                                      // 0x85B7C8
-	{0x85B3FC, 976, 4, "dword_5d4594_2650680"},                                      // 0x85B7CC
-	{0x85B3FC, 6020, 4096, "byte_5D4594_2655724"},                                   // 0x85CB80
-	{0x85B3FC, 10116, 4, "byte_5D4594_2659820"},                                     // 0x85DB80
-	{0x85B3FC, 10212, 4, "byte_5D4594_2659916"},                                     // 0x85DBE0
-	{0x85B3FC, 10328, 4, "dword_5d4594_2660032"},                                    // 0x85DC54
-	{0x85B3FC, 10948, 4, "dword_5d4594_2660652"},                                    // 0x85DEC0
+	{0x5D4594, 2523948, 4, "nox_color_white_2523948"},
+	{0x5D4594, 2589772, 4, "nox_color_yellow_2589772"},
+	{0x5D4594, 2589776, 4, "nox_color_red_2589776"},
+	{0x5D4594, 2598000, 4, "nox_frame_xxx_2598000"}, // 0x84EA04
+	{0x5D4594, 2598268, 4, "nox_color_violet_2598268"},
+	{0x5D4594, 2614256, 4, "nox_color_orange_2614256"},
+	{0x5D4594, 2614268, 4, "nox_color_green_2614268"},
+	{0x5D4594, 2649820, 4, "nox_color_cyan_2649820"},
+	{0x5D4594, 2650656, 4, "nox_color_black_2650656"},
+	{0x5D4594, 2650684, 4, "nox_color_blue_2650684"},
+	{0x852978, 20, 4, "dword_5d4594_2614264"},                   // 0x85298C
+	{0x85319C, 0, 4, "nox_player_netCode_85319C"},               // 0x85319C
+	{0x8531A0, 2568, 4, "dword_5d4594_2618900"},                 // 0x853BA8
+	{0x8531A0, 2580, 4, "dword_5d4594_2618912"},                 // 0x853BB4
+	{0x85B3FC, 0, 4, "nox_gameFPS"},                             // 0x85B3FC
+	{0x85B3FC, 8, 4, "dword_5d4594_2649712"},                    // 0x85B404
+	{0x85B3FC, 932, 4, "nox_common_engineFlags"},                // 0x85B7A0
+	{0x85B3FC, 936, 4, "nox_video_bag_var_2650640"},             // 0x85B7A4
+	{0x85B3FC, 948, 4, "dword_5d4594_2650652"},                  // 0x85B7B0
+	{0x85B3FC, 964, 4, "ptr_5D4594_2650668"},                    // 0x85B7C0
+	{0x85B3FC, 968, 4, "nox_gameDisableMapDraw_5d4594_2650672"}, // 0x85B7C4
+	{0x85B3FC, 972, 4, "dword_5d4594_2650676"},                  // 0x85B7C8
+	{0x85B3FC, 976, 4, "dword_5d4594_2650680"},                  // 0x85B7CC
+	{0x85B3FC, 6020, 4096, "byte_5D4594_2655724"},               // 0x85CB80
+	{0x85B3FC, 10116, 4, "byte_5D4594_2659820"},                 // 0x85DB80
+	{0x85B3FC, 10212, 4, "byte_5D4594_2659916"},                 // 0x85DBE0
+	{0x85B3FC, 10328, 4, "dword_5d4594_2660032"},                // 0x85DC54
+	{0x85B3FC, 10948, 4, "dword_5d4594_2660652"},                // 0x85DEC0
 	// {0x85B3FC, 10984, 1024, "nox_save_player_path_xxx"},	// FIXME: extracting this leads to a freeze on character color screen (English GoG data folder)
 	{0x85B3FC, 1029608, 4, "dword_5d4594_3679312"},         // 0x9569E4
 	{0x85B3FC, 1029616, 4, "dword_5d4594_3679320"},         // 0x9569EC

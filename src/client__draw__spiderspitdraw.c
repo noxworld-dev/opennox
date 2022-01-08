@@ -2,6 +2,8 @@
 #include "GAME1_2.h"
 #include "GAME2_3.h"
 
+extern uint32_t nox_color_white_2523948;
+
 //----- (004B9D70) --------------------------------------------------------
 int nox_thing_spider_spit_draw(uint32_t* a1, nox_drawable* dr) {
 	uint32_t* v2; // eax
@@ -61,7 +63,7 @@ int nox_thing_spider_spit_draw(uint32_t* a1, nox_drawable* dr) {
 	}
 	nox_client_drawLineFromPoints_49E4B0();
 	nox_client_drawRectFilledOpaque_49CE30(v9 - 1, v7 - 1, 4, 4);
-	nox_client_drawSetColor_434460(*getMemIntPtr(0x5D4594, 2523948));
+	nox_client_drawSetColor_434460(nox_color_white_2523948);
 	nox_client_drawAddPoint_49F500(v9, v7);
 	nox_client_drawAddPoint_49F500(v8, v10);
 	nox_client_drawLineFromPoints_49E4B0();

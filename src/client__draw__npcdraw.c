@@ -14,6 +14,7 @@
 extern uint32_t dword_5d4594_1313796;
 extern uint32_t dword_5d4594_1313800;
 extern unsigned int nox_frame_xxx_2598000;
+extern uint32_t nox_color_white_2523948;
 
 //----- (004B9050) --------------------------------------------------------
 int nox_thing_npc_draw(int* a1, nox_drawable* dr) {
@@ -73,7 +74,7 @@ int nox_thing_npc_draw(int* a1, nox_drawable* dr) {
 					v6 = 0;
 					do {
 						v7 = v6 + 1;
-						nox_xxx_drawPlayer_4341D0(v6 + 1, *getMemIntPtr(0x5D4594, 2523948));
+						nox_xxx_drawPlayer_4341D0(v6 + 1, nox_color_white_2523948);
 						v6 = v7;
 					} while (v7 < 6);
 				} else {
@@ -169,7 +170,7 @@ int nox_thing_npc_draw(int* a1, nox_drawable* dr) {
 					nox_xxx_spriteDrawMonsterHP_4BC080(v21, v4, (unsigned short)v33, (unsigned short)a1, a2);
 				}
 				for (i = 0; i < 6; ++i) {
-					nox_xxx_drawPlayer_4341D0(i, *getMemIntPtr(0x5D4594, 2523948));
+					nox_xxx_drawPlayer_4341D0(i, nox_color_white_2523948);
 				}
 			}
 		}

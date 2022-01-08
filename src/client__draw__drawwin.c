@@ -14,6 +14,9 @@
 #include "client__draw__fx.h"
 #include "client__video__draw_common.h"
 
+extern uint32_t nox_color_white_2523948;
+extern uint32_t nox_color_red_2589776;
+
 //----- (004746C0) --------------------------------------------------------
 int nox_xxx_drawHasteAndRunParticles_4746C0(nox_draw_viewport_t* vp, nox_drawable* dr) {
 	int a2 = dr;
@@ -111,7 +114,7 @@ int nox_xxx_drawHasteAndRunParticles_4746C0(nox_draw_viewport_t* vp, nox_drawabl
 	}
 	if (nox_xxx_spriteCheckFlag31_4356C0(dr, 17)) {
 		nox_client_drawXxxProtect_474BE0(vp, &dr->pos, dr, 0, 0, *getMemIntPtr(0x85B3FC, 940),
-										 *getMemIntPtr(0x5D4594, 2589776), 1);
+										 nox_color_red_2589776, 1);
 	}
 	if (nox_xxx_spriteCheckFlag31_4356C0(dr, 18)) {
 		nox_client_drawXxxProtect_474BE0(vp, &dr->pos, dr, 85, 1, *getMemIntPtr(0x8531A0, 2572),
@@ -119,7 +122,7 @@ int nox_xxx_drawHasteAndRunParticles_4746C0(nox_draw_viewport_t* vp, nox_drawabl
 	}
 	if (nox_xxx_spriteCheckFlag31_4356C0(dr, 20)) {
 		nox_client_drawXxxProtect_474BE0(vp, &dr->pos, dr, 170, 2, *getMemIntPtr(0x85B3FC, 980),
-										 *getMemIntPtr(0x5D4594, 2523948), 1);
+										 nox_color_white_2523948, 1);
 	}
 	if (nox_xxx_spriteCheckFlag31_4356C0(dr, 27) && ((v8 = *(uint8_t*)(a2 + 297)) == 0 || v8 == 1 || v8 == 2)) {
 		result = nox_xxx_drawShield_499810(vp, dr);
@@ -275,7 +278,7 @@ int nox_xxx_drawEffectsMB_474E60(nox_draw_viewport_t* vp, nox_drawable* dr) {
 	}
 	if (nox_xxx_spriteCheckFlag31_4356C0(dr, 17)) {
 		nox_client_drawXxxProtect_474BE0(v4, (int*)(a2 + 12), dr, 0, 0, *getMemIntPtr(0x85B3FC, 940),
-										 *getMemIntPtr(0x5D4594, 2589776), 0);
+										 nox_color_red_2589776, 0);
 	}
 	if (nox_xxx_spriteCheckFlag31_4356C0(dr, 18)) {
 		nox_client_drawXxxProtect_474BE0(v4, (int*)(a2 + 12), dr, 85, 1, *getMemIntPtr(0x8531A0, 2572),
@@ -283,7 +286,7 @@ int nox_xxx_drawEffectsMB_474E60(nox_draw_viewport_t* vp, nox_drawable* dr) {
 	}
 	if (nox_xxx_spriteCheckFlag31_4356C0(dr, 20)) {
 		nox_client_drawXxxProtect_474BE0(v4, (int*)(a2 + 12), dr, 170, 2, *getMemIntPtr(0x85B3FC, 980),
-										 *getMemIntPtr(0x5D4594, 2523948), 0);
+										 nox_color_white_2523948, 0);
 	}
 	if (nox_xxx_spriteCheckFlag31_4356C0(dr, 26)) {
 		sub_4739E0(v4, (int2*)(a2 + 12), &xLeft);

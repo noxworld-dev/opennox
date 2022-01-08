@@ -15,6 +15,37 @@ extern uint32_t dword_5d4594_527660;
 extern uint32_t nox_player_netCode_85319C;
 nox_team_t nox_server_teams_526292[NOX_TEAMS_MAX] = {0};
 
+typedef struct {
+	const char* name;
+	wchar_t* title;
+	int code;
+	uint32_t* color;
+} nox_team_info_t;
+
+uint32_t nox_color_white_2523948 = 0;
+uint32_t nox_color_red_2589776 = 0;
+uint32_t nox_color_blue_2650684 = 0;
+uint32_t nox_color_green_2614268 = 0;
+uint32_t nox_color_cyan_2649820 = 0;
+uint32_t nox_color_yellow_2589772 = 0;
+uint32_t nox_color_violet_2598268 = 0;
+uint32_t nox_color_black_2650656 = 0;
+uint32_t nox_color_orange_2614256 = 0;
+
+nox_team_info_t nox_team_table[] = {
+    {"advserv.wnd:None", 0, 0, &nox_color_white_2523948},
+    {"modifier.db:MaterialTeamRedDesc",    0, 1, &nox_color_red_2589776},
+    {"modifier.db:MaterialTeamBlueDesc",   0, 2, &nox_color_blue_2650684},
+    {"modifier.db:MaterialTeamGreenDesc",  0, 3, &nox_color_green_2614268},
+    {"modifier.db:MaterialTeamCyanDesc",   0, 4, &nox_color_cyan_2649820},
+    {"modifier.db:MaterialTeamYellowDesc", 0, 5, &nox_color_yellow_2589772},
+    {"modifier.db:MaterialTeamVioletDesc", 0, 6, &nox_color_violet_2598268},
+    {"modifier.db:MaterialTeamBlackDesc",  0, 7, &nox_color_black_2650656},
+    {"modifier.db:MaterialTeamWhiteDesc",  0, 8, &nox_color_white_2523948},
+    {"modifier.db:MaterialTeamOrangeDesc", 0, 9, &nox_color_orange_2614256},
+};
+int nox_team_table_cnt = sizeof(nox_team_table) / sizeof(nox_team_info_t);
+
 //----- (00418AE0) --------------------------------------------------------
 nox_team_t* nox_server_teamByXxx_418AE0(int a1) {
 	for (nox_team_t* it = nox_server_teamFirst_418B10(); it; it = nox_server_teamNext_418B60(it)) {
@@ -61,12 +92,10 @@ int nox_server_teamsReset_417C60() {
 		t->field_60 = 0;
 	}
 	if (!*getMemU32Ptr(0x5D4594, 526288)) {
-		unsigned char* v1 = getMemAt(0x587000, 54592 + 4);
-		do {
-			*(uint32_t*)v1 =
-				nox_strman_loadString_40F1D0(*((char**)v1 - 1), 0, "C:\\NoxPost\\src\\common\\System\\team.c", 233);
-			v1 += 16;
-		} while ((int)v1 < (int)getMemAt(0x587000, 54756));
+		for (int i = 0; i < nox_team_table_cnt; i++) {
+			nox_team_info_t* t = &nox_team_table[i];
+			t->title = nox_strman_loadString_40F1D0(t->name, 0, "C:\\NoxPost\\src\\common\\System\\team.c", 233);
+		}
 		*getMemU32Ptr(0x5D4594, 526288) = 1;
 	}
 	nox_xxx_SetGameplayFlag_417D50(2);
@@ -131,20 +160,28 @@ nox_team_t* nox_xxx_teamCreate_4186D0(char a1) {
 }
 
 //----- (00418C20) --------------------------------------------------------
-wchar_t* sub_418C20(int a1) {
-	int v1;            // ecx
-	unsigned char* v2; // eax
-
-	v1 = 0;
-	v2 = getMemAt(0x587000, 54592 + 8);
-	while (*(uint32_t*)v2 != a1) {
-		v2 += 16;
-		++v1;
-		if ((int)v2 >= (int)getMemAt(0x587000, 54760)) {
-			return nox_strman_loadString_40F1D0("NoTeam", 0, "C:\\NoxPost\\src\\common\\System\\team.c", 1365);
+wchar_t* nox_server_teamTitle_418C20(int a1) {
+	for (int i = 0; i < nox_team_table_cnt; i++) {
+		nox_team_info_t* t = &nox_team_table[i];
+		if (t->code == a1) {
+			return t->title;
 		}
 	}
-	return *(wchar_t**)getMemAt(0x587000, 54592 + 16*v1 + 4);
+	return nox_strman_loadString_40F1D0("NoTeam", 0, "C:\\NoxPost\\src\\common\\System\\team.c", 1365);
+}
+
+//----- (00418D50) --------------------------------------------------------
+uint32_t* nox_xxx_materialGetTeamColor_418D50(void* a1p) {
+	if (!a1p) {
+		return 0;
+	}
+	for (int i = 0; i < nox_team_table_cnt; i++) {
+		nox_team_info_t* t = &nox_team_table[i];
+		if (t->code == *(unsigned char*)((int)a1p + 56)) {
+			return t->color;
+		}
+	}
+	return 0;
 }
 
 //----- (004191D0) --------------------------------------------------------

@@ -190,6 +190,7 @@ extern int nox_backbuffer_width;
 extern int nox_backbuffer_height;
 extern unsigned int nox_gameFPS;
 extern unsigned int nox_frame_xxx_2598000;
+extern uint32_t nox_color_white_2523948;
 
 extern nox_thing* nox_things_head;
 extern nox_thing** nox_things_array;
@@ -4894,7 +4895,7 @@ char sub_459150() {
 			if (sub_40A740()) {
 				sub_418800((wchar_t*)v2, (wchar_t*)getMemAt(0x5D4594, 1046564), 0);
 			} else {
-				v4 = sub_418C20(v3);
+				v4 = nox_server_teamTitle_418C20(v3);
 				sub_418800((wchar_t*)v2, v4, 1);
 			}
 			v2[56] = v3;
@@ -7770,7 +7771,7 @@ int sub_45F5D0(uint32_t* a1) {
 	nox_client_wndGetPosition_46AA60(a1, &v4, &a1);
 	v2 = (short*)sub_42E8E0(v1 + 28, 1);
 	if (v2) {
-		nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 2523948));
+		nox_xxx_drawSetTextColor_434390(nox_color_white_2523948);
 		nox_xxx_drawString_43F6E0(*getMemIntPtr(0x5D4594, 1049684), v2, v4, (int)a1);
 	}
 	return 1;

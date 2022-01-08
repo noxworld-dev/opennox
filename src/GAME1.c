@@ -9754,7 +9754,7 @@ int nox_xxx_wndGuiTeamCreate_4185B0() {
 			if (v2) {
 				v3 = sub_4ECBD0(i);
 				v4 = v3;
-				v5 = sub_418C20(v3);
+				v5 = nox_server_teamTitle_418C20(v3);
 				if (v5) {
 					sub_418800((wchar_t*)v2, v5, 1);
 				}

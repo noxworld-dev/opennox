@@ -40,7 +40,8 @@ nox_team_t* nox_server_teamNext_418B60(nox_team_t* a1);
 int nox_server_teamsReset_417C60();
 int nox_xxx_createCoopTeam_417E10();
 nox_team_t* nox_xxx_teamCreate_4186D0(char a1);
-wchar_t* sub_418C20(int a1);
+wchar_t* nox_server_teamTitle_418C20(int a1);
+uint32_t* nox_xxx_materialGetTeamColor_418D50(void* a1);
 void nox_xxx_createAtImpl_4191D0(unsigned char a1, int a2, int a3, int a4, int a5);
 
 #endif // NOX_PORT_COMMON_TEAM

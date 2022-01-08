@@ -12,6 +12,7 @@
 #include "client__drawable__drawable.h"
 #include "client__gui__window.h"
 #include "client__video__draw_common.h"
+#include "common__system__team.h"
 #include "operators.h"
 
 extern int nox_win_width;
@@ -27,6 +28,7 @@ extern uint32_t dword_5d4594_3798684;
 extern uint32_t dword_5d4594_3798688;
 extern uint32_t nox_player_netCode_85319C;
 extern unsigned int nox_frame_xxx_2598000;
+extern uint32_t nox_color_white_2523948;
 
 //----- (004B8270) --------------------------------------------------------
 int nox_thing_player_draw(uint32_t* a1, nox_drawable* dr) {
@@ -179,12 +181,12 @@ LABEL_25:
 		dword_5d4594_3798688 = *getMemU32Ptr(0x85B3FC, 980);
 		goto LABEL_37;
 	}
-	*getMemU32Ptr(0x973A20, 512) = *getMemU32Ptr(0x5D4594, 2523948);
-	dword_5d4594_3798672 = *getMemU32Ptr(0x5D4594, 2523948);
-	dword_5d4594_3798676 = *getMemU32Ptr(0x5D4594, 2523948);
-	dword_5d4594_3798680 = *getMemU32Ptr(0x5D4594, 2523948);
-	dword_5d4594_3798684 = *getMemU32Ptr(0x5D4594, 2523948);
-	dword_5d4594_3798688 = *getMemU32Ptr(0x5D4594, 2523948);
+	*getMemU32Ptr(0x973A20, 512) = nox_color_white_2523948;
+	dword_5d4594_3798672 = nox_color_white_2523948;
+	dword_5d4594_3798676 = nox_color_white_2523948;
+	dword_5d4594_3798680 = nox_color_white_2523948;
+	dword_5d4594_3798684 = nox_color_white_2523948;
+	dword_5d4594_3798688 = nox_color_white_2523948;
 LABEL_37:
 	nox_xxx_drawPlayer_4341D0(1, *getMemIntPtr(0x973A20, 512));
 	nox_xxx_drawPlayer_4341D0(2, *(int*)&dword_5d4594_3798672);
@@ -281,7 +283,7 @@ LABEL_37:
 			(*(void (**)(int*, uint32_t))(dword_5d4594_1313800 + 300))(v36, dword_5d4594_1313800);
 		}
 		do {
-			nox_xxx_drawPlayer_4341D0(v12++, *getMemIntPtr(0x5D4594, 2523948));
+			nox_xxx_drawPlayer_4341D0(v12++, nox_color_white_2523948);
 		} while (v12 < 6);
 		if (dr != *getMemU32Ptr(0x852978, 8) && nox_xxx_playerGet_470A90()) {
 			if (nox_common_gameFlags_check_40A5C0(4096)) {

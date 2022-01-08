@@ -183,6 +183,7 @@ extern uint32_t nox_player_netCode_85319C;
 extern nox_window* nox_wol_wnd_world_814980;
 extern int nox_enable_audio;
 extern unsigned int nox_frame_xxx_2598000;
+extern uint32_t nox_color_white_2523948;
 
 extern int nox_backbuffer_width;
 extern int nox_backbuffer_height;
@@ -6699,7 +6700,7 @@ int sub_438E30(uint32_t* a1, int a2) {
 	do {
 		if (!(*(uint8_t*)(v3 + 4) & 0x10) && *(uint32_t*)(v3 + 44) == 2048) {
 			v4 = *(short***)(v3 + 32);
-			nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 2523948));
+			nox_xxx_drawSetTextColor_434390(nox_color_white_2523948);
 			nox_xxx_drawStringStyle_43F7B0(*(uint32_t*)(v3 + 236), *v4, v6 + *(uint32_t*)(v3 + 16), (int)a1 + *(uint32_t*)(v3 + 20));
 		}
 		v3 = *(uint32_t*)(v3 + 388);

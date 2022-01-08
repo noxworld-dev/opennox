@@ -33,6 +33,7 @@ extern int nox_win_width;
 extern int nox_win_height;
 extern unsigned int nox_gameFPS;
 extern unsigned int nox_frame_xxx_2598000;
+extern uint32_t nox_color_white_2523948;
 
 //----- (0045DEB0) --------------------------------------------------------
 int nox_xxx_spellPutInBox_45DEB0(int* a1, int a2, int a3, int a4) {
@@ -544,7 +545,7 @@ int sub_45F9B0(uint32_t* a1) {
 		v3 = (char*)a1 - nox_xxx_guiFontHeightMB_43F320(0);
 		a1 = &v3[nox_xxx_guiFontHeightMB_43F320(*getMemIntPtr(0x5D4594, 1049684)) + 1];
 		v6 += (v7 - v8) / 2;
-		nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 2523948));
+		nox_xxx_drawSetTextColor_434390(nox_color_white_2523948);
 		nox_xxx_drawSetColor_4343E0(*getMemIntPtr(0x852978, 4));
 		nox_draw_drawStringHL_43F730(0, (short*)v11, v6, (int)a1);
 	}
@@ -570,7 +571,7 @@ int nox_xxx_quickbarDraw_45FAC0(uint32_t* a1) {
 	nox_swprintf(v9, v2, v4);
 	nox_xxx_drawGetStringSize_43F840(0, v9, &v6, 0, 0);
 	a1 = (uint32_t*)((char*)a1 + (v5 - v6) / 2);
-	nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 2523948));
+	nox_xxx_drawSetTextColor_434390(nox_color_white_2523948);
 	nox_xxx_drawSetColor_4343E0(*getMemIntPtr(0x852978, 4));
 	nox_draw_drawStringHL_43F730(0, (short*)v9, (int)a1, v7);
 	return 1;
@@ -647,7 +648,7 @@ int nox_xxx_quickBarDrawFn_45FBD0(int yTop) {
 				}
 				return 1;
 			}
-			nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 2523948));
+			nox_xxx_drawSetTextColor_434390(nox_color_white_2523948);
 			v17 = yTop + v5 + 2;
 			v15 = xLeft + 6;
 			v11 = (short*)nox_strman_loadString_40F1D0("NoIcon", 0, "C:\\NoxPost\\src\\Client\\Gui\\guispell.c", 1388);
@@ -657,7 +658,7 @@ int nox_xxx_quickBarDrawFn_45FBD0(int yTop) {
 			if (v9) {
 				goto LABEL_14;
 			}
-			nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 2523948));
+			nox_xxx_drawSetTextColor_434390(nox_color_white_2523948);
 			v17 = yTop + v5 + 2;
 			v15 = xLeft + 6;
 			v11 = (short*)nox_strman_loadString_40F1D0("NoIcon", 0, "C:\\NoxPost\\src\\Client\\Gui\\guispell.c", 1401);
@@ -725,7 +726,7 @@ int nox_xxx_quickBarWarriorDraw_45FDE0(int yTop) {
 		if (v9) {
 			nox_client_drawImageAt_47D2C0(v9, xLeft, yTop);
 		} else {
-			nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 2523948));
+			nox_xxx_drawSetTextColor_434390(nox_color_white_2523948);
 			v17 = nox_xxx_guiFontHeightMB_43F320(0) + yTop + 2;
 			v16 = xLeft + 6;
 			v12 = (short*)nox_strman_loadString_40F1D0("NoIcon", 0, "C:\\NoxPost\\src\\Client\\Gui\\guispell.c", 1491);

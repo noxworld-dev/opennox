@@ -126,6 +126,8 @@ extern int nox_backbuffer_height;
 extern unsigned int nox_gameFPS;
 extern unsigned int nox_frame_xxx_2598000;
 extern uint32_t dword_5d4594_3799476;
+extern uint32_t nox_color_yellow_2589772;
+extern uint32_t nox_color_white_2523948;
 
 const int nox_max_npcs = 1024;
 nox_npc* npc_array;
@@ -1016,7 +1018,7 @@ void sub_48D990(uint32_t* a1) {
 	while (1) {
 		if (v2[165]) {
 			v3 = v2[167];
-			v21 = *getMemU32Ptr(0x5D4594, 2523948);
+			v21 = nox_color_white_2523948;
 			v20 = 0;
 			if (v3 && *(uint8_t*)(v3 + 112) & 4) {
 				v4 = nox_xxx_objGetTeamByNetCode_418C80(*(uint32_t*)(v3 + 128));
@@ -1099,7 +1101,7 @@ void sub_48D990(uint32_t* a1) {
 				nox_client_drawAddPoint_49F500(v23, v13 - v1);
 				nox_client_drawLineFromPoints_49E4B0();
 			}
-			nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 2523948));
+			nox_xxx_drawSetTextColor_434390(nox_color_white_2523948);
 			nox_xxx_drawSetColor_4343E0(*getMemIntPtr(0x852978, 4));
 			nox_xxx_drawStringWrapHL_43FD00(0, (uint16_t*)v30, v8, v18, 128, 0);
 			if (v20) {
@@ -5612,7 +5614,7 @@ void sub_49A6A0(nox_draw_viewport_t* vp, nox_drawable* dr) {
 	if (a2 == *getMemU32Ptr(0x852978, 8)) {
 		v9 = *getMemU32Ptr(0x85B3FC, 940);
 	} else {
-		v9 = *getMemU32Ptr(0x5D4594, 2589772);
+		v9 = nox_color_yellow_2589772;
 	}
 	v2 = *(uint32_t**)&dword_5d4594_1301776;
 	v8 = *(uint32_t**)&dword_5d4594_1301776;

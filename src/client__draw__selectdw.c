@@ -4,6 +4,8 @@
 #include "GAME2_2.h"
 #include "GAME2_3.h"
 extern void* dword_5d4594_1096640;
+extern uint32_t nox_color_white_2523948;
+extern uint32_t nox_color_violet_2598268;
 
 //----- (004773C0) --------------------------------------------------------
 void nox_video_drawCursorSelectCircle_4773C0(nox_draw_viewport_t* a1p) {
@@ -19,7 +21,7 @@ void nox_video_drawCursorSelectCircle_4773C0(nox_draw_viewport_t* a1p) {
 			!sub_495A80(*(uint32_t*)((uint32_t)dword_5d4594_1096640 + 128))) {
 			v4 = nox_common_randomIntMinMax_415FF0(0, 1, "C:\\NoxPost\\src\\Client\\Draw\\selectdw.c", 440);
 			if (!v4) {
-				v3 = *(uint32_t**)getMemAt(0x5D4594, 2598268);
+				v3 = nox_color_violet_2598268;
 				goto LABEL_15;
 			}
 			if (v4 == 1) {
@@ -29,7 +31,7 @@ void nox_video_drawCursorSelectCircle_4773C0(nox_draw_viewport_t* a1p) {
 		} else {
 			v1 = nox_common_randomIntMinMax_415FF0(0, 2, "C:\\NoxPost\\src\\Client\\Draw\\selectdw.c", 423);
 			if (!v1) {
-				v3 = *(uint32_t**)getMemAt(0x5D4594, 2523948);
+				v3 = nox_color_white_2523948;
 				goto LABEL_15;
 			}
 			v2 = v1 - 1;

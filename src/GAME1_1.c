@@ -419,26 +419,6 @@ void nox_xxx_teamRenameMB_418CD0(wchar_t* a1, wchar_t* a2) {
 	}
 }
 
-//----- (00418D50) --------------------------------------------------------
-void* nox_xxx_materialGetTeamColor_418D50(int a1) {
-	int v1;            // ecx
-	unsigned char* v2; // eax
-
-	if (!a1) {
-		return 0;
-	}
-	v1 = 0;
-	v2 = getMemAt(0x587000, 54592 + 8);
-	while (*(unsigned char*)(a1 + 56) != *(uint32_t*)v2) {
-		v2 += 16;
-		++v1;
-		if ((int)v2 >= (int)getMemAt(0x587000, 54760)) {
-			return 0;
-		}
-	}
-	return *(void**)getMemAt(0x587000, 54592 + 16*v1 + 12);
-}
-
 //----- (00418D80) --------------------------------------------------------
 void sub_418D80(int a1) {
 	int v1;       // eax

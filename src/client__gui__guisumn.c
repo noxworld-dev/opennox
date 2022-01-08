@@ -26,6 +26,8 @@ extern uint32_t dword_5d4594_1321204;
 extern uint32_t dword_5d4594_1321040;
 extern int nox_win_width;
 extern int nox_win_height;
+extern uint32_t nox_color_white_2523948;
+extern uint32_t nox_color_yellow_2589772;
 
 //----- (004C1D80) --------------------------------------------------------
 int nox_xxx_guiSummonCreatureLoad_4C1D80() {
@@ -184,7 +186,7 @@ int sub_4C27F0(uint32_t* a1) {
 		nox_xxx_guiFontHeightMB_43F320(0);
 		v4 = (nox_xxx_screenWidth_587000_184452 - v12) / 2 + 1;
 		if (nox_xxx_wndPointInWnd_46AAB0(a1, mpos.x, mpos.y)) {
-			sub_4C2A00(v11 + v4, v10 + 3, *getMemIntPtr(0x5D4594, 2589772), *getMemIntPtr(0x85B3FC, 952), (short*)v2);
+			sub_4C2A00(v11 + v4, v10 + 3, nox_color_yellow_2589772, *getMemIntPtr(0x85B3FC, 952), (short*)v2);
 			if (a1[8] != *getMemU32Ptr(0x587000, 184552)) {
 				*getMemU32Ptr(0x587000, 184552) = a1[8];
 				nox_xxx_clientPlaySoundSpecial_452D80(920, 100);
@@ -194,13 +196,13 @@ int sub_4C27F0(uint32_t* a1) {
 		}
 		if (dword_5d4594_1321204) {
 			if (sub_4C2DD0(*(int*)&dword_5d4594_1321204)) {
-				sub_4C2A00(v11 + v4, v10 + 3, *getMemIntPtr(0x5D4594, 2523948), *getMemIntPtr(0x85B3FC, 952),
+				sub_4C2A00(v11 + v4, v10 + 3, nox_color_white_2523948, *getMemIntPtr(0x85B3FC, 952),
 						   (short*)v2);
 				return 1;
 			}
 			v5 = a1[8];
 			if (v5 != 4 && v5 != 5) {
-				sub_4C2A00(v11 + v4, v10 + 3, *getMemIntPtr(0x5D4594, 2523948), *getMemIntPtr(0x85B3FC, 952),
+				sub_4C2A00(v11 + v4, v10 + 3, nox_color_white_2523948, *getMemIntPtr(0x85B3FC, 952),
 						   (short*)v2);
 				return 1;
 			}

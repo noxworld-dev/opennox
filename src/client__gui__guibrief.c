@@ -30,6 +30,7 @@ extern uint32_t dword_5d4594_832484;
 extern int nox_win_width;
 extern int nox_win_height;
 extern unsigned int nox_frame_xxx_2598000;
+extern uint32_t nox_color_white_2523948;
 
 //----- (0044E410) --------------------------------------------------------
 wchar_t* sub_44E410() {
@@ -152,7 +153,7 @@ int sub_44E8E0(int a1, int a2) {
 	v47 = 0;
 	v45 = 0;
 	v50 = (nox_win_height - NOX_DEFAULT_HEIGHT) / 2;
-	nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 2523948));
+	nox_xxx_drawSetTextColor_434390(nox_color_white_2523948);
 	v2 = nox_win_width / 2;
 	v3 = nox_win_height / 2;
 	v51 = nox_win_width / 2;
@@ -167,7 +168,7 @@ int sub_44E8E0(int a1, int a2) {
 	nox_wcscat(v56, WideCharStr);
 	nox_swprintf(v57, L"%s - %s", &v55[1], v56);
 	nox_xxx_drawGetStringSize_43F840(*(uint32_t*)(a2 + 200), v57, &v39, &v38, 0);
-	nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 2523948));
+	nox_xxx_drawSetTextColor_434390(nox_color_white_2523948);
 	nox_xxx_drawString_43F6E0(*(uint32_t*)(a2 + 200), (short*)v57, v2 - v39 / 2, v38 + v3 - 240);
 	v40 = *getMemU32Ptr(0x587000, 122968) - *getMemU32Ptr(0x587000, 122964);
 	v36 = (double)v38 * 1.5;
@@ -203,7 +204,7 @@ int sub_44E8E0(int a1, int a2) {
 			}
 			nox_xxx_drawStringWrap_43FAF0(*(uint32_t*)(a2 + 200), &v55[1], v10, v8, v40 - 8, v38);
 			v13 = v41 + v41 / 2 + v8;
-			nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 2523948));
+			nox_xxx_drawSetTextColor_434390(nox_color_white_2523948);
 			v14 = nox_strman_loadString_40F1D0("GUIBrief.c:GeneratorsDestroyed", 0,
 											   "C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c", 529);
 			nox_xxx_drawStringWrap_43FAF0(*(uint32_t*)(a2 + 200), v14, v10, v13, *(int*)&dword_5d4594_832476, v38);
@@ -212,7 +213,7 @@ int sub_44E8E0(int a1, int a2) {
 			nox_xxx_drawStringWrap_43FAF0(*(uint32_t*)(a2 + 200), &v55[1], v10 + dword_5d4594_832476, v13,
 									  v40 - dword_5d4594_832476 - 8, v38);
 			v15 = v41 + v13;
-			nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 2523948));
+			nox_xxx_drawSetTextColor_434390(nox_color_white_2523948);
 			v16 = nox_strman_loadString_40F1D0("GUIBrief.c:numSecretsFound", 0,
 											   "C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c", 541);
 			nox_xxx_drawStringWrap_43FAF0(*(uint32_t*)(a2 + 200), v16, v10, v15, *(int*)&dword_5d4594_832476, v38);
@@ -221,7 +222,7 @@ int sub_44E8E0(int a1, int a2) {
 			nox_xxx_drawStringWrap_43FAF0(*(uint32_t*)(a2 + 200), &v55[1], v10 + dword_5d4594_832476, v15,
 									  v40 - dword_5d4594_832476 - 8, v38);
 			v17 = v41 + v15;
-			nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 2523948));
+			nox_xxx_drawSetTextColor_434390(nox_color_white_2523948);
 			v18 = nox_strman_loadString_40F1D0("GUIBrief.c:Kills", 0, "C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c", 553);
 			nox_xxx_drawStringWrap_43FAF0(*(uint32_t*)(a2 + 200), v18, v10, v17, *(int*)&dword_5d4594_832476, v38);
 			nox_swprintf(&v55[1], L" %d", *((unsigned short*)v7 + 2));
@@ -229,7 +230,7 @@ int sub_44E8E0(int a1, int a2) {
 			nox_xxx_drawStringWrap_43FAF0(*(uint32_t*)(a2 + 200), &v55[1], v10 + dword_5d4594_832476, v17,
 									  v40 - dword_5d4594_832476 - 8, v38);
 			v19 = v41 + v17;
-			nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 2523948));
+			nox_xxx_drawSetTextColor_434390(nox_color_white_2523948);
 			v20 = nox_strman_loadString_40F1D0("GUIBrief.c:TotalScore", 0, "C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c",
 											   565);
 			nox_xxx_drawStringWrap_43FAF0(*(uint32_t*)(a2 + 200), v20, v10, v19, *(int*)&dword_5d4594_832476, v38);
@@ -303,7 +304,7 @@ int sub_44E8E0(int a1, int a2) {
 		}
 		dword_587000_122956 = 1;
 	}
-	v33 = *getMemU32Ptr(0x5D4594, 2523948);
+	v33 = nox_color_white_2523948;
 	v34 =
 		nox_strman_loadString_40F1D0("GeneralPrint:QuestSplash12", 0, "C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c", 642);
 	nox_xxx_drawGetStringSize_43F840(*(uint32_t*)(a2 + 200), v34, &v39, 0, 0);
@@ -331,7 +332,7 @@ int sub_44F0F0(int a1, int a2) {
 	// quest title screen text
 	v2 = nox_win_width / 2;
 	v3 = nox_win_height / 2;
-	nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 2523948));
+	nox_xxx_drawSetTextColor_434390(nox_color_white_2523948);
 	v4 = nox_strman_loadString_40F1D0("Noxworld.c:Stage", 0, "C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c", 668);
 	nox_wcscpy(v13, v4);
 	nox_wcscat(v13, L" %d");
@@ -357,7 +358,7 @@ int sub_44F0F0(int a1, int a2) {
 		}
 		nox_xxx_aSpellphoneme_3_587000_123008 = 1;
 	}
-	v12 = *getMemU32Ptr(0x5D4594, 2523948);
+	v12 = nox_color_white_2523948;
 	v6 = (nox_win_width - NOX_DEFAULT_WIDTH) / 2;
 	v7 = (nox_win_height - NOX_DEFAULT_HEIGHT) / 2;
 	v8 =
@@ -437,7 +438,7 @@ int sub_44F300(int a1, int a2) {
 	nox_xxx_drawString_43F6E0(*(int*)&dword_5d4594_832484, v6, v34.field_0, v34.field_4);
 	nox_xxx_drawGetStringSize_43F840(*(int*)&dword_5d4594_832484, (unsigned short*)v6, &v27, 0, 0);
 	v34.field_0 += v27 + 4;
-	nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 2523948));
+	nox_xxx_drawSetTextColor_434390(nox_color_white_2523948);
 	v7 =
 		nox_strman_loadString_40F1D0("GeneralPrint:QuestSplash2b", 0, "C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c", 799);
 	nox_xxx_drawStringWrap_43FAF0(*(int*)&dword_5d4594_832484, v7, v34.field_0, v34.field_4, v3 - v34.field_0 + 520, 0);
@@ -459,7 +460,7 @@ int sub_44F300(int a1, int a2) {
 		nox_xxx_drawString_43F6E0(*(int*)&dword_5d4594_832484, (short*)v29, v34.field_0, v34.field_4);
 		v34.field_0 = v8 - v28;
 		v34.field_4 = v4 + 115;
-		nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 2523948));
+		nox_xxx_drawSetTextColor_434390(nox_color_white_2523948);
 		nox_xxx_drawString_43F6E0(*(int*)&dword_5d4594_832484, (short*)v30, v34.field_0, v34.field_4);
 	} else {
 		v34.field_0 = v3 + 199;
@@ -467,7 +468,7 @@ int sub_44F300(int a1, int a2) {
 		nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x852978, 12));
 		nox_xxx_drawString_43F6E0(*(int*)&dword_5d4594_832484, (short*)v29, v34.field_0, v34.field_4);
 		v34.field_0 += v27 + 4;
-		nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 2523948));
+		nox_xxx_drawSetTextColor_434390(nox_color_white_2523948);
 		nox_xxx_drawStringWrap_43FAF0(*(int*)&dword_5d4594_832484, v30, v34.field_0, v34.field_4, v8 - v34.field_0, 0);
 	}
 	v34.field_0 = v3 + 133;
@@ -482,7 +483,7 @@ int sub_44F300(int a1, int a2) {
 	nox_xxx_drawString_43F6E0(*(int*)&dword_5d4594_832484, v9, v34.field_0, v34.field_4);
 	nox_xxx_drawGetStringSize_43F840(*(int*)&dword_5d4594_832484, (unsigned short*)v9, &v27, 0, 0);
 	v34.field_0 += v27 + 4;
-	nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 2523948));
+	nox_xxx_drawSetTextColor_434390(nox_color_white_2523948);
 	v10 =
 		nox_strman_loadString_40F1D0("GeneralPrint:QuestSplash4b", 0, "C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c", 869);
 	nox_xxx_drawStringWrap_43FAF0(*(int*)&dword_5d4594_832484, v10, v34.field_0, v34.field_4, v4 - v34.field_0 + 630, 0);
@@ -504,7 +505,7 @@ int sub_44F300(int a1, int a2) {
 		nox_xxx_drawString_43F6E0(*(int*)&dword_5d4594_832484, (short*)v29, v34.field_0, v34.field_4);
 		v34.field_0 = v11 - v28;
 		v34.field_4 = v4 + 198;
-		nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 2523948));
+		nox_xxx_drawSetTextColor_434390(nox_color_white_2523948);
 		nox_xxx_drawString_43F6E0(*(int*)&dword_5d4594_832484, (short*)v30, v34.field_0, v34.field_4);
 	} else {
 		v34.field_0 = v3 + 250;
@@ -512,7 +513,7 @@ int sub_44F300(int a1, int a2) {
 		nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x852978, 12));
 		nox_xxx_drawString_43F6E0(*(int*)&dword_5d4594_832484, (short*)v29, v34.field_0, v34.field_4);
 		v34.field_0 += v27 + 4;
-		nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 2523948));
+		nox_xxx_drawSetTextColor_434390(nox_color_white_2523948);
 		nox_xxx_drawStringWrap_43FAF0(*(int*)&dword_5d4594_832484, v30, v34.field_0, v34.field_4, v11 - v34.field_0, 0);
 	}
 	v34.field_0 = v3 + 182;
@@ -535,7 +536,7 @@ int sub_44F300(int a1, int a2) {
 	nox_xxx_drawString_43F6E0(*(int*)&dword_5d4594_832484, v12, v34.field_0, v34.field_4);
 	nox_xxx_drawGetStringSize_43F840(*(int*)&dword_5d4594_832484, (unsigned short*)v12, &v27, 0, 0);
 	v34.field_0 += v27 + 4;
-	nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 2523948));
+	nox_xxx_drawSetTextColor_434390(nox_color_white_2523948);
 	v13 =
 		nox_strman_loadString_40F1D0("GeneralPrint:QuestSplash5b", 0, "C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c", 949);
 	nox_xxx_drawStringWrap_43FAF0(*(int*)&dword_5d4594_832484, v13, v34.field_0, v34.field_4, v3 - v34.field_0 + 470, 0);
@@ -561,7 +562,7 @@ int sub_44F300(int a1, int a2) {
 		nox_xxx_drawString_43F6E0(*(int*)&dword_5d4594_832484, (short*)v29, v34.field_0, v34.field_4);
 		v34.field_0 = v14 - v28;
 		v34.field_4 = v4 + 286;
-		nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 2523948));
+		nox_xxx_drawSetTextColor_434390(nox_color_white_2523948);
 		nox_xxx_drawString_43F6E0(*(int*)&dword_5d4594_832484, (short*)v30, v34.field_0, v34.field_4);
 	} else {
 		v34.field_0 = v3 + 113;
@@ -569,7 +570,7 @@ int sub_44F300(int a1, int a2) {
 		nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x852978, 12));
 		nox_xxx_drawString_43F6E0(*(int*)&dword_5d4594_832484, (short*)v29, v34.field_0, v34.field_4);
 		v34.field_0 += v27 + 4;
-		nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 2523948));
+		nox_xxx_drawSetTextColor_434390(nox_color_white_2523948);
 		nox_xxx_drawStringWrap_43FAF0(*(int*)&dword_5d4594_832484, v30, v34.field_0, v34.field_4, v14 - v34.field_0, 0);
 	}
 	v34.field_0 = v3 + 186;
@@ -592,7 +593,7 @@ int sub_44F300(int a1, int a2) {
 	nox_xxx_drawString_43F6E0(*(int*)&dword_5d4594_832484, v15, v34.field_0, v34.field_4);
 	nox_xxx_drawGetStringSize_43F840(*(int*)&dword_5d4594_832484, (unsigned short*)v15, &v27, 0, 0);
 	v34.field_0 += v27 + 4;
-	nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 2523948));
+	nox_xxx_drawSetTextColor_434390(nox_color_white_2523948);
 	v16 = nox_strman_loadString_40F1D0("GeneralPrint:QuestSplash8b", 0, "C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c",
 									   1034);
 	nox_xxx_drawStringWrap_43FAF0(*(int*)&dword_5d4594_832484, v16, v34.field_0, v34.field_4, v3 - v34.field_0 + 550, 0);
@@ -607,7 +608,7 @@ int sub_44F300(int a1, int a2) {
 	nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x852978, 12));
 	nox_xxx_drawString_43F6E0(*(int*)&dword_5d4594_832484, (short*)v17, v34.field_0, v34.field_4);
 	v34.field_0 += v27 + 4;
-	nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 2523948));
+	nox_xxx_drawSetTextColor_434390(nox_color_white_2523948);
 	nox_xxx_drawString_43F6E0(*(int*)&dword_5d4594_832484, (short*)v18, v34.field_0, v34.field_4);
 	v19 = nox_strman_loadString_40F1D0("GeneralPrint:QuestSplash10a", 0, "C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c",
 									   1055);
@@ -620,7 +621,7 @@ int sub_44F300(int a1, int a2) {
 	nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x852978, 12));
 	nox_xxx_drawString_43F6E0(*(int*)&dword_5d4594_832484, (short*)v19, v34.field_0, v34.field_4);
 	v34.field_0 += v27 + 4;
-	nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 2523948));
+	nox_xxx_drawSetTextColor_434390(nox_color_white_2523948);
 	nox_xxx_drawString_43F6E0(*(int*)&dword_5d4594_832484, (short*)v20, v34.field_0, v34.field_4);
 	v21 = nox_strman_loadString_40F1D0("GeneralPrint:QuestSplash11a", 0, "C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c",
 									   1070);
@@ -633,7 +634,7 @@ int sub_44F300(int a1, int a2) {
 	nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x852978, 12));
 	nox_xxx_drawString_43F6E0(*(int*)&dword_5d4594_832484, (short*)v21, v34.field_0, v34.field_4);
 	v34.field_0 += v27 + 4;
-	nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 2523948));
+	nox_xxx_drawSetTextColor_434390(nox_color_white_2523948);
 	nox_xxx_drawString_43F6E0(*(int*)&dword_5d4594_832484, (short*)v22, v34.field_0, v34.field_4);
 	result = nox_frame_xxx_2598000 / 0x1Eu;
 	if (nox_frame_xxx_2598000 % 0x1Eu) {
@@ -648,7 +649,7 @@ int sub_44F300(int a1, int a2) {
 		}
 		*getMemU32Ptr(0x587000, 123012) = 1;
 	}
-	v24 = *getMemU32Ptr(0x5D4594, 2523948);
+	v24 = nox_color_white_2523948;
 	v25 = nox_strman_loadString_40F1D0("GeneralPrint:QuestSplash12", 0, "C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c",
 									   1097);
 	nox_xxx_drawGetStringSize_43F840(*(int*)&dword_5d4594_832484, v25, &v27, 0, 0);

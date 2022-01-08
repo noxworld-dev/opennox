@@ -4682,7 +4682,7 @@ int nox_server_setupQuestGame_4D6C70() {
 	v13 = nox_xxx_teamCreate_4186D0((char)v0);
 	v14 = v13;
 	v13[56] = 9;
-	v15 = sub_418C20(9);
+	v15 = nox_server_teamTitle_418C20(9);
 	if (v15 != (wchar_t*)v0) {
 		sub_418800((wchar_t*)v14, v15, 1);
 	}

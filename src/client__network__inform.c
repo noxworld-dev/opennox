@@ -121,7 +121,7 @@ int nox_client_handlePacketInform_4C9BF0(int a1) {
 		if (!v18) {
 			return 10;
 		}
-		v54 = sub_418C20(*(uint32_t*)(a1 + 6));
+		v54 = nox_server_teamTitle_418C20(*(uint32_t*)(a1 + 6));
 		v19 = nox_strman_loadString_40F1D0("objcoll.c:FlagCaptureNotice", 0,
 										   "C:\\NoxPost\\src\\client\\Network\\inform.c", 196);
 		nox_swprintf(v62, v19, v18 + 4704, v54);
@@ -133,7 +133,7 @@ int nox_client_handlePacketInform_4C9BF0(int a1) {
 		if (!v20) {
 			return 10;
 		}
-		v55 = sub_418C20(*(uint32_t*)(a1 + 6));
+		v55 = nox_server_teamTitle_418C20(*(uint32_t*)(a1 + 6));
 		v21 = nox_strman_loadString_40F1D0("objcoll.c:FlagPickupNotice", 0,
 										   "C:\\NoxPost\\src\\client\\Network\\inform.c", 213);
 		nox_swprintf(v62, v21, v20 + 4704, v55);
@@ -143,7 +143,7 @@ int nox_client_handlePacketInform_4C9BF0(int a1) {
 	case 7u:
 		v22 = nox_common_playerInfoGetByID_417040(*(uint32_t*)(a1 + 2));
 		if (v22) {
-			v56 = sub_418C20(*(uint32_t*)(a1 + 6));
+			v56 = nox_server_teamTitle_418C20(*(uint32_t*)(a1 + 6));
 			v23 = nox_strman_loadString_40F1D0("drop.c:FlagDropNotice", 0,
 											   "C:\\NoxPost\\src\\client\\Network\\inform.c", 230);
 			nox_swprintf(v62, v23, v22 + 4704, v56);
@@ -152,7 +152,7 @@ int nox_client_handlePacketInform_4C9BF0(int a1) {
 		}
 		return 10;
 	case 8u:
-		v53 = sub_418C20(*(uint32_t*)(a1 + 2));
+		v53 = nox_server_teamTitle_418C20(*(uint32_t*)(a1 + 2));
 		v17 = nox_strman_loadString_40F1D0("update.c:FlagRespawnNotice", 0,
 										   "C:\\NoxPost\\src\\client\\Network\\inform.c", 179);
 		nox_swprintf(v62, v17, v53);
@@ -288,7 +288,7 @@ int nox_client_handlePacketInform_4C9BF0(int a1) {
 		}
 		return result;
 	case 0x10u:
-		v49 = sub_418C20(*(uint32_t*)(a1 + 2));
+		v49 = nox_server_teamTitle_418C20(*(uint32_t*)(a1 + 2));
 		v9 = nox_strman_loadString_40F1D0("pickup.c:WrongTeam", 0, "C:\\NoxPost\\src\\client\\Network\\inform.c", 105);
 		nox_swprintf(v62, v9, v49);
 		nox_xxx_printCentered_445490(v62);

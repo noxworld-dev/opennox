@@ -139,6 +139,8 @@ extern unsigned int nox_frame_xxx_2598000;
 void* dword_5d4594_830236 = 0;
 void* dword_5d4594_830224 = 0;
 void* dword_5d4594_830232 = 0;
+extern uint32_t nox_color_white_2523948;
+extern uint32_t nox_color_yellow_2589772;
 
 extern int nox_win_width;
 extern int nox_win_height;
@@ -4279,7 +4281,7 @@ int nox_xxx_drawMessageLines_445530() {
 		if (v13) {
 			nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 2597996));
 		} else {
-			nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 2523948));
+			nox_xxx_drawSetTextColor_434390(nox_color_white_2523948);
 		}
 		nox_xxx_drawString_43F6E0(0, (short*)v6, v7 / 2, v1);
 		v11 = -4 - nox_xxx_guiFontHeightMB_43F320(0);
@@ -5324,7 +5326,7 @@ int sub_448140(int yTop) {
 	nox_client_wndGetPosition_46AA60((uint32_t*)yTop, &xLeft, &yTop);
 	nox_window_get_size(v1, &v4, &v5);
 	nox_client_drawRectFilledAlpha_49CF10(xLeft, yTop, v4, v5);
-	nox_client_drawSetColor_434460(*getMemIntPtr(0x5D4594, 2523948));
+	nox_client_drawSetColor_434460(nox_color_white_2523948);
 	nox_client_drawAddPoint_49F500(xLeft + 1, yTop);
 	nox_xxx_rasterPointRel_49F570(v4 - 2, 0);
 	nox_client_drawLineFromPoints_49E4B0();
@@ -5350,9 +5352,9 @@ int sub_448240(uint32_t* a1, uint8_t* a2) {
 	v2 = *(unsigned short**)getMemAt(0x587000, 108824 + 12 * a1[8]);
 	nox_client_wndGetPosition_46AA60(a1, &v6, &a1);
 	nox_xxx_drawGetStringSize_43F840(0, v2, &v5, 0, 0);
-	v3 = *getMemU32Ptr(0x5D4594, 2589772);
+	v3 = nox_color_yellow_2589772;
 	if (!(*a2 & 2)) {
-		v3 = *getMemU32Ptr(0x5D4594, 2523948);
+		v3 = nox_color_white_2523948;
 	}
 	sub_4482D0((80 - v5) / 2 + v6 + 1, (int)a1, v3, *getMemIntPtr(0x85B3FC, 952), v2);
 	return 1;

@@ -5,6 +5,8 @@
 #include "GAME2_3.h"
 #include "common__strman.h"
 #include "operators.h"
+extern uint32_t nox_color_white_2523948;
+extern uint32_t nox_color_yellow_2589772;
 
 //----- (00469BC0) --------------------------------------------------------
 void nox_xxx_cliBuildJournalString_469BC0() {
@@ -101,7 +103,7 @@ void nox_xxx_guiDrawJournal_469D40(int xLeft, int yTop, int a3) {
 				LOWORD(v7) = *(uint16_t*)(v5 + 72);
 				switch (v7) {
 				case 1:
-					v8 = *getMemU32Ptr(0x5D4594, 2523948);
+					v8 = nox_color_white_2523948;
 					goto LABEL_12;
 				case 2:
 					v8 = *getMemU32Ptr(0x85B3FC, 940);
@@ -116,7 +118,7 @@ void nox_xxx_guiDrawJournal_469D40(int xLeft, int yTop, int a3) {
 					nox_wcscpy(v17, v10);
 					break;
 				case 8:
-					v8 = *getMemU32Ptr(0x5D4594, 2589772);
+					v8 = nox_color_yellow_2589772;
 					v11 = nox_strman_loadString_40F1D0("Journal:HintLabel", 0,
 													   "C:\\NoxPost\\src\\client\\Gui\\GUIJourn.c", 145);
 					nox_wcscpy(v17, v11);

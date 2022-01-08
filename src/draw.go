@@ -62,6 +62,8 @@ void nox_xxx_drawAllMB_475810_draw_A(nox_draw_viewport_t* vp);
 int nox_xxx_drawAllMB_475810_draw_B(nox_draw_viewport_t* vp);
 void nox_xxx_drawAllMB_475810_draw_C(nox_draw_viewport_t* vp, int v36, int v7);
 void nox_xxx_drawAllMB_475810_draw_D(nox_draw_viewport_t* vp);
+extern uint32_t nox_color_white_2523948;
+extern uint32_t nox_color_red_2589776;
 */
 import "C"
 import (
@@ -983,7 +985,7 @@ func nox_xxx_drawAllMB_475810_draw(vp *Viewport) {
 		return
 	}
 	if memmap.Uint32(0x5D4594, 1096520) != 0 {
-		noxrend.SelectColor(memmap.Uint32(0x5D4594, 2523948))
+		noxrend.SelectColor(uint32(C.nox_color_white_2523948))
 		noxrend.ClearScreen()
 		noxrend.SelectColor(memmap.Uint32(0x85B3FC, 952))
 		*memmap.PtrUint32(0x5D4594, 1096520) = 0
@@ -1752,13 +1754,13 @@ func drawCreatureBackEffects(r *NoxRender, vp *Viewport, dr *Drawable) { // nox_
 	}
 	// Protection effects
 	if dr.CheckFlag31(17) {
-		r.drawProtectEffectDefault(vp, dr.Pos(), dr, 0, 0, memmap.Uint32(0x85B3FC, 940), memmap.Uint32(0x5D4594, 2589776), true)
+		r.drawProtectEffectDefault(vp, dr.Pos(), dr, 0, 0, memmap.Uint32(0x85B3FC, 940), uint32(C.nox_color_red_2589776), true)
 	}
 	if dr.CheckFlag31(18) {
 		r.drawProtectEffectDefault(vp, dr.Pos(), dr, 85, 1, memmap.Uint32(0x8531A0, 2572), memmap.Uint32(0x852978, 24), true)
 	}
 	if dr.CheckFlag31(20) {
-		r.drawProtectEffectDefault(vp, dr.Pos(), dr, 170, 2, memmap.Uint32(0x85B3FC, 980), memmap.Uint32(0x5D4594, 2523948), true)
+		r.drawProtectEffectDefault(vp, dr.Pos(), dr, 170, 2, memmap.Uint32(0x85B3FC, 980), uint32(C.nox_color_white_2523948), true)
 	}
 	if dr.CheckFlag31(27) { // Shield effects
 		switch *(*byte)(dr.field(297)) {
@@ -1856,13 +1858,13 @@ func drawCreatureFrontEffects(r *NoxRender, vp *Viewport, dr *Drawable) { // nox
 		}
 	}
 	if dr.CheckFlag31(17) {
-		r.drawProtectEffectDefault(vp, dr.Pos(), dr, 0, 0, memmap.Uint32(0x85B3FC, 940), memmap.Uint32(0x5D4594, 2589776), false)
+		r.drawProtectEffectDefault(vp, dr.Pos(), dr, 0, 0, memmap.Uint32(0x85B3FC, 940), uint32(C.nox_color_red_2589776), false)
 	}
 	if dr.CheckFlag31(18) {
 		r.drawProtectEffectDefault(vp, dr.Pos(), dr, 85, 1, memmap.Uint32(0x8531A0, 2572), memmap.Uint32(0x852978, 24), false)
 	}
 	if dr.CheckFlag31(20) {
-		r.drawProtectEffectDefault(vp, dr.Pos(), dr, 170, 2, memmap.Uint32(0x85B3FC, 980), memmap.Uint32(0x5D4594, 2523948), false)
+		r.drawProtectEffectDefault(vp, dr.Pos(), dr, 170, 2, memmap.Uint32(0x85B3FC, 980), uint32(C.nox_color_white_2523948), false)
 	}
 	if dr.CheckFlag31(26) {
 		pos := vp.toScreenPos(dr.Pos())

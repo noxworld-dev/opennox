@@ -55,6 +55,7 @@ extern int4* (*func_5D4594_1305696)(int, int, int, int, int);
 extern void (*func_5D4594_1305708)(uint32_t*, int, unsigned int);
 int nox_video_initFloorBuffer_430BA0();
 int nox_xxx___cfltcvt_init_430CC0();
+extern uint32_t nox_color_yellow_2589772;
 */
 import "C"
 import (
@@ -916,7 +917,7 @@ func nox_video_cursorDrawImpl_477A30(r *NoxRender, inp *input.Handler, pos types
 	if gameFrame()&1 != 0 {
 		*memmap.PtrUint32(0x5D4594, 1097288)++
 	}
-	r.SetTextColor(memmap.Uint32(0x5D4594, 2589772))
+	r.SetTextColor(uint32(C.nox_color_yellow_2589772))
 	fh := noxrend.FontHeight(nil)
 	if C.nox_xxx_guiSpell_460650() != 0 || C.sub_4611A0() != 0 {
 		r.nox_video_drawAnimatedImageOrCursorAt(noxCursors.Target, pos)
@@ -1097,7 +1098,7 @@ func nox_client_drawCursorAndTooltips_477830(r *NoxRender, inp *input.Handler) {
 			py = 0
 		}
 		r.DrawRectFilledAlpha(px, py, sz.W, sz.H)
-		r.SetTextColor(memmap.Uint32(0x5D4594, 2589772))
+		r.SetTextColor(uint32(C.nox_color_yellow_2589772))
 		r.DrawStringWrapped(nil, str, image.Rect(px+2, py+2, px+2, py+2))
 		if C.dword_5d4594_3799468 != 0 {
 			vp := getViewport()

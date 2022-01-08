@@ -144,6 +144,9 @@ extern int nox_win_width;
 extern int nox_win_height;
 extern unsigned int nox_gameFPS;
 extern unsigned int nox_frame_xxx_2598000;
+extern uint32_t nox_color_white_2523948;
+extern uint32_t nox_color_violet_2598268;
+extern uint32_t nox_color_yellow_2589772;
 
 extern int nox_backbuffer_depth;
 extern unsigned int nox_video_dxUnlockSurface;
@@ -2905,11 +2908,11 @@ int sub_4C0D00() {
 				(*(void (**)(unsigned char*, uint32_t))(*(uint32_t*)v6 + 300))(getMemAt(0x5D4594, 1320188),
 																			   *(uint32_t*)v6);
 				nox_swprintf(v23, L"%d", *((uint32_t*)v6 + 1));
-				nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 2523948));
+				nox_xxx_drawSetTextColor_434390(nox_color_white_2523948);
 				nox_xxx_drawString_43F6E0(0, (short*)v23, v8 + v21 + 5, v22 + v7 + 5);
 				v9 = v22 + v7 + 50;
 				nox_swprintf(v23, L"%d", *((uint32_t*)v6 + 34));
-				nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 2589772));
+				nox_xxx_drawSetTextColor_434390(nox_color_yellow_2589772);
 				nox_xxx_drawString_43F6E0(0, (short*)v23, v8 + v21 + 5, v9 - v18 - 5);
 			}
 			v8 += 50;
@@ -2933,11 +2936,11 @@ int sub_4C0D00() {
 				(*(void (**)(unsigned char*, uint32_t))(*(uint32_t*)v11 + 300))(getMemAt(0x5D4594, 1320188),
 																				*(uint32_t*)v11);
 				nox_swprintf(v23, L"%d", *((uint32_t*)v11 + 1));
-				nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 2523948));
+				nox_xxx_drawSetTextColor_434390(nox_color_white_2523948);
 				nox_xxx_drawString_43F6E0(0, (short*)v23, v13 + v21 + 5, v22 + v12 + 5);
 				v14 = v22 + v12 + 50;
 				nox_swprintf(v23, L"%d", *((uint32_t*)v11 + 34));
-				nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 2589772));
+				nox_xxx_drawSetTextColor_434390(nox_color_yellow_2589772);
 				nox_xxx_drawString_43F6E0(0, (short*)v23, v13 + v21 + 5, v14 - v18 - 5);
 			}
 			v13 += 50;
@@ -3632,7 +3635,7 @@ int nox_xxx_guiDrawSummonBox_4C1FE0(uint32_t* a1) {
 			v21 = 38 * v22 - 4;
 			v20 = 38 * v23 - 4;
 			if (*((uint32_t*)v2 + 4)) {
-				nox_client_drawSetColor_434460(*getMemIntPtr(0x5D4594, 2589772));
+				nox_client_drawSetColor_434460(nox_color_yellow_2589772);
 				v18 = v20;
 				v17 = v21;
 				*((uint32_t*)v2 + 4) = 0;
@@ -3659,7 +3662,7 @@ int nox_xxx_guiDrawSummonBox_4C1FE0(uint32_t* a1) {
 				if (v19) {
 					nox_client_drawSetColor_434460(*getMemIntPtr(0x85B3FC, 984));
 				} else {
-					nox_client_drawSetColor_434460(*getMemIntPtr(0x5D4594, 2598268));
+					nox_client_drawSetColor_434460(nox_color_violet_2598268);
 				}
 				nox_client_drawRectFilledOpaque_49CE30(v21 + v3 - 2, v5, 2, v20);
 				if (v19) {
@@ -5294,7 +5297,7 @@ LABEL_105:
 	if (!(v3[112] & 4) && nox_xxx_spriteCheckFlag31_4356C0((int)v3, 23) && !nox_common_gameFlags_check_40A5C0(2048)) {
 		nox_xxx_draw_434600(1);
 		if ((unsigned char)nox_frame_xxx_2598000 & 1) {
-			sub_433E40(*getMemIntPtr(0x5D4594, 2523948));
+			sub_433E40(nox_color_white_2523948);
 		} else {
 			sub_433E40(*getMemIntPtr(0x85B3FC, 980));
 		}

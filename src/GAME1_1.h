@@ -19,7 +19,6 @@ int nox_xxx_teamCheckSmth_418C60(int a1);
 uint32_t* sub_418C70(uint32_t* a1);
 uint32_t* nox_xxx_objGetTeamByNetCode_418C80(int a1);
 void nox_xxx_teamRenameMB_418CD0(wchar_t* a1, wchar_t* a2);
-void* nox_xxx_materialGetTeamColor_418D50(int a1);
 void sub_418D80(int a1);
 uint32_t* sub_418E40(int a1, int a2);
 void sub_418F20(wchar_t* a1, int a2);
