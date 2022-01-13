@@ -58,7 +58,7 @@ func nox_common_playerInfoGetNext_416EE0(it *C.nox_playerInfo) *C.nox_playerInfo
 	if it == nil {
 		return nil
 	}
-	for i := range noxPlayers[it.playerInd+1:] {
+	for i := int(it.playerInd) + 1; i < len(noxPlayers); i++ {
 		p := &noxPlayers[i]
 		if p.IsActive() {
 			return p.C()
