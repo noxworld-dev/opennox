@@ -69,7 +69,9 @@ import (
 func init() {
 	if env.IsDevMode() || version.IsDev() || env.IsE2E() {
 		go func() {
-			if err := http.ListenAndServe("127.0.0.1:6060", nil); err != nil {
+			host := "127.0.0.1:6060"
+			log.Printf("starting pprof server on %q", host)
+			if err := http.ListenAndServe(host, nil); err != nil {
 				log.Printf("failed to start pprof: %v", err)
 			}
 		}()
