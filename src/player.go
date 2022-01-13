@@ -60,11 +60,6 @@ func clientSetPlayerNetCode(id int) {
 	C.nox_player_netCode_85319C = C.uint(id)
 }
 
-// export nox_xxx_cliResetAllPlayers_416E30
-func nox_xxx_cliResetAllPlayers_416E30() {
-	noxServer.resetAllPlayers()
-}
-
 func (s *Server) resetAllPlayers() { // nox_xxx_cliResetAllPlayers_416E30
 	for i := range s.players {
 		s.players[i] = Player{}
@@ -85,7 +80,7 @@ func (s *Server) playerNext(it *Player) *Player {
 	if it == nil {
 		return nil
 	}
-	for i := int(it.playerInd) + 1; i < len(s.players); i++ {
+	for i := it.Index() + 1; i < len(s.players); i++ {
 		p := &s.players[i]
 		if p.IsActive() {
 			return p
@@ -116,8 +111,7 @@ func nox_common_playerInfoNew_416F60(id C.int) *C.nox_playerInfo {
 
 func (s *Server) playerResetInd(ind int) *Player {
 	p := &s.players[ind]
-	p.Reset()
-	p.playerInd = C.uchar(ind)
+	p.Reset(ind)
 	return p
 }
 
@@ -153,8 +147,7 @@ func (s *Server) newPlayerInfo(id int) *Player {
 	for i := range s.players {
 		p := &s.players[i]
 		if !p.IsActive() {
-			p.Reset()
-			p.playerInd = C.uchar(i)
+			p.Reset(i)
 			p.netCode = C.uint(id)
 			return p
 		}
@@ -162,10 +155,12 @@ func (s *Server) newPlayerInfo(id int) *Player {
 	return nil
 }
 
-func (p *Player) Reset() { // nox_common_playerInfoReset_416FD0
-	*p = Player{}
-	p.active = 1
-	p.field_3648 = 4
+func (p *Player) Reset(ind int) { // nox_common_playerInfoReset_416FD0
+	*p = Player{
+		playerInd:  C.uchar(ind),
+		active:     1,
+		field_3648: 4,
+	}
 }
 
 //export nox_xxx_playerDisconnByPlrID_4DEB00
@@ -474,7 +469,8 @@ func (p *Player) GoObserver(notify, keepPlayer bool) bool {
 }
 
 func (s *Server) cntPlayers() (n int) {
-	for _, p := range s.players {
+	for i := range s.players {
+		p := &s.players[i]
 		if p.IsActive() {
 			n++
 		}
@@ -532,7 +528,8 @@ func (s *Server) getPlayerByID(id int) *Player {
 }
 
 func (s *Server) hasPlayerUnits() bool {
-	for _, p := range s.players {
+	for i := range s.players {
+		p := &s.players[i]
 		if p.UnitC() != nil {
 			return true
 		}
