@@ -22,6 +22,7 @@ import (
 var (
 	e2eLog      = log.New("E2E")
 	e2eOverride = os.Getenv("NOX_E2E_OVERRIDE") == "true"
+	e2eFailFast = os.Getenv("NOX_E2E_FAILFAST") != "false"
 )
 
 const e2eDefaultDelay = 15 * time.Millisecond
@@ -52,6 +53,7 @@ type e2eStep struct {
 type e2eScenario struct {
 	steps []e2eStep
 	done  chan struct{}
+	err   error
 }
 
 func (sc *e2eScenario) Exec() {
@@ -91,7 +93,11 @@ func (sc *e2eScenario) Input(dt time.Duration, name string, evs ...seat.InputEve
 func (sc *e2eScenario) Quit(dt time.Duration) {
 	sc.Input(dt, "", seat.WindowClosed)
 	sc.Input(1, "", seat.WindowClosed)
-	sc.Wait(1, "")
+	sc.add(1, "", func() {
+		if sc.err != nil {
+			panic(sc.err)
+		}
+	})
 }
 
 func (sc *e2eScenario) Move(x, y int, name string) {
@@ -231,7 +237,11 @@ func (sc *e2eScenario) Screen(name string) {
 				fname2 := fname + "_got.png"
 				_ = os.WriteFile(fname+"_got.png", buf.Bytes(), 0644)
 				err = fmt.Errorf("unexpected screen state, see %q", fname2)
-				panic(err)
+				if e2eFailFast {
+					panic(err)
+				}
+				e2eLog.Println(err)
+				sc.err = err
 			}
 		} else if os.IsNotExist(err) {
 			_ = os.WriteFile(fname+".png", buf.Bytes(), 0644)
