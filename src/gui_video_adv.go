@@ -120,8 +120,7 @@ func sub_49B3C0() {
 	C.dword_5d4594_1301796 = 0
 }
 
-//export nox_client_advVideoOptsProc_4CB5D0
-func nox_client_advVideoOptsProc_4CB5D0(a1 unsafe.Pointer, ev C.int, a3 unsafe.Pointer, a4 C.int) C.int {
+func nox_client_advVideoOptsProc_4CB5D0(win *Window, ev int, a3, a4 uintptr) uintptr {
 	if ev == 16389 {
 		clientPlaySoundSpecial(920, 100)
 		return 1
@@ -129,8 +128,7 @@ func nox_client_advVideoOptsProc_4CB5D0(a1 unsafe.Pointer, ev C.int, a3 unsafe.P
 	if ev != 16391 {
 		return 0
 	}
-	win := asWindow((*C.nox_window)(a1))
-	targ := asWindow((*C.nox_window)(a3))
+	targ := asWindowP(unsafe.Pointer(a3))
 	clientPlaySoundSpecial(766, 100)
 	id := targ.ID()
 	switch id {
@@ -192,7 +190,7 @@ func newAdvVideoOpts(sm *strman.StringManager) *Window {
 		height = 315
 	)
 
-	root := newUserWindow(nil, 2000, draw.Status(), 280, 38, width, height, draw, C.nox_client_advVideoOptsProc_4CB5D0)
+	root := newUserWindow(nil, 2000, draw.Status(), 280, 38, width, height, draw, nox_client_advVideoOptsProc_4CB5D0)
 
 	const (
 		pad     = 3

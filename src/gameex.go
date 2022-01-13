@@ -244,7 +244,7 @@ func gameexOnKeyboardPress(kcode keybind.Key) {
 			destroyGameExWindow()
 			modifyWndPntr = nil
 		} else {
-			modifyWndPntr = newWindowFromString(gameexModifWnd, unsafe.Pointer(C.modifyWndInputHandler))
+			modifyWndPntr = newWindowFromString(gameexModifWnd, modifyWndInputHandler)
 			if modifyWndPntr == nil {
 				return
 			}
@@ -279,20 +279,19 @@ func destroyGameExWindow() {
 	modifyWndPntr = nil
 }
 
-//export modifyWndInputHandler
-func modifyWndInputHandler(a1, a2, a3, a4 C.int) C.int {
+func modifyWndInputHandler(a1 *Window, a2 int, a3, a4 uintptr) uintptr {
 	if a2 != 16391 {
 		return 0
 	}
 	clientPlaySoundSpecial(766, 100)
-	a3p := asWindow((*C.nox_window)(unsafe.Pointer(uintptr(a3))))
+	a3p := asWindowP(unsafe.Pointer(a3))
 	switch a3p.ID() {
 	case 1937:
 		destroyGameExWindow()
 	case 1938:
 		if !noxflags.HasGame(noxflags.GameModeSolo10) {
 			C.sub_4BDFD0()
-			asWindow((*C.nox_window)(unsafe.Pointer(uintptr(C.dword_5d4594_1316972)))).SetPos(types.Point{X: 200, Y: 100})
+			asWindowP(unsafe.Pointer(uintptr(C.dword_5d4594_1316972))).SetPos(types.Point{X: 200, Y: 100})
 		}
 	case 1520:
 		if (C.gameex_flags>>1)&1 != 0 {

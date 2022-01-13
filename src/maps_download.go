@@ -163,8 +163,8 @@ func nox_xxx_netMapDownloadPart_4AB7C0(a1 C.ushort, a2p unsafe.Pointer, a3 C.uin
 
 //export nox_xxx_gameDownloadShowDialog_4CC770
 func nox_xxx_gameDownloadShowDialog_4CC770() C.int {
-	winDownload = newWindowFromFile("mapdnld.wnd", C.nox_xxx_guiDownloadProc_4CC890)
-	winDownload.SetAllFuncs(C.nox_xxx_guiDownloadAbort_4CC830, nil, nil)
+	winDownload = newWindowFromFile("mapdnld.wnd", nox_xxx_guiDownloadProc_4CC890)
+	winDownload.SetAllFuncs(nox_xxx_guiDownloadAbort_4CC830, nil, nil)
 	mode := videoGetGameMode()
 	v3, v4 := mode.W, mode.H
 	max := videoGetMaxSize()
@@ -184,8 +184,7 @@ func nox_xxx_gameDownloadShowDialog_4CC770() C.int {
 	return 1
 }
 
-//export nox_xxx_guiDownloadAbort_4CC830
-func nox_xxx_guiDownloadAbort_4CC830(a1 C.int, a2 C.int, a3 C.int, a4 C.int) C.int {
+func nox_xxx_guiDownloadAbort_4CC830(a1 *Window, a2 int, a3, a4 uintptr) uintptr {
 	if a2 != 21 {
 		return 0
 	}
@@ -204,9 +203,7 @@ func nox_xxx_guiDownloadAbort_4CC830(a1 C.int, a2 C.int, a3 C.int, a4 C.int) C.i
 	return 1
 }
 
-//export nox_xxx_guiDownloadProc_4CC890
-func nox_xxx_guiDownloadProc_4CC890(a1 C.int, a2 C.int, a3 *C.int, a4 C.int) C.int {
-
+func nox_xxx_guiDownloadProc_4CC890(a1 *Window, a2 int, a3, a4 uintptr) uintptr {
 	if a2 != 16391 {
 		return 0
 	}
@@ -226,7 +223,7 @@ func nox_xxx_guiDownloadProc_4CC890(a1 C.int, a2 C.int, a3 *C.int, a4 C.int) C.i
 
 func nox_xxx_guiDownloadSetPercent_4CC900(a1 int) int {
 	v1 := winDownload.ChildByID(1603)
-	return v1.Func94(16416, uintptr(a1), 0)
+	return int(v1.Func94(16416, uintptr(a1), 0))
 }
 
 func nox_xxx_guiDownloadClose_4CC930() {

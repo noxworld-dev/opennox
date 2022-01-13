@@ -11,17 +11,11 @@ extern nox_window_ref* nox_win_1064912;
 int  nox_xxx_wndDrawFnDefault_46B370(int a1, int* a2);
 void  sub_4AA030(nox_window* win, nox_window_data* data);
 
-int nox_xxx_wndDefaultProc_0_46B330(int a1, int a2, int a3, int a4);
-int nox_xxx_wndDefaultProc_46B2F0(int a1, int a2, int a3, int a4);
-
-static void nox_window_call_draw_func_go(nox_window* win, nox_window_data* data) {
-	win->draw_func(win, data);
+static int nox_window_call_draw_func_go(int (*fnc)(nox_window*, nox_window_data*), nox_window* win, nox_window_data* data) {
+	return fnc(win, data);
 }
-static int nox_window_call_field_93_go(nox_window* win, int a2, int a3, int a4) {
-	return win->field_93(win, a2, a3, a4);
-}
-static int nox_window_call_field_94_go(nox_window* win, int a2, int a3, int a4) {
-	return win->field_94(win, a2, a3, a4);
+static int nox_window_call_func_go(int (*fnc)(nox_window*, int, int, int), nox_window* win, int a2, int a3, int a4) {
+	return fnc(win, a2, a3, a4);
 }
 static void nox_window_call_tooltip_func(nox_window* win, nox_window_data* data, int a3) {
 	if (!win || !win->tooltip_func)
@@ -46,11 +40,39 @@ var (
 	nox_win_cur_focused *Window
 	nox_win_xxx1_first  *Window
 	nox_win_xxx1_last   *Window
+	winExts             = make(map[*Window]*windowExt)
 )
+
+type WindowFunc func(win *Window, ev int, a1, a2 uintptr) uintptr
+type WindowDrawFunc func(win *Window, draw *WindowData) int
+
+func wrapWindowFuncC(fnc unsafe.Pointer) WindowFunc {
+	if fnc == nil {
+		return nil
+	}
+	return func(win *Window, ev int, a1, a2 uintptr) uintptr {
+		return uintptr(C.nox_window_call_func_go((*[0]byte)(fnc), win.C(), C.int(ev), C.int(a1), C.int(a2)))
+	}
+}
+
+func wrapWindowDrawFuncC(fnc unsafe.Pointer) WindowDrawFunc {
+	if fnc == nil {
+		return nil
+	}
+	return func(win *Window, draw *WindowData) int {
+		return int(C.nox_window_call_draw_func_go((*[0]byte)(fnc), win.C(), draw.C()))
+	}
+}
+
+type windowExt struct {
+	Func93 WindowFunc
+	Func94 WindowFunc
+	Draw   WindowDrawFunc
+}
 
 //export nox_window_new_go
 func nox_window_new_go(par *C.nox_window, flags, a3, a4, w, h C.int, fnc unsafe.Pointer) *C.nox_window {
-	return newWindowRaw(asWindow(par), gui.StatusFlags(flags), int(a3), int(a4), int(w), int(h), fnc).C()
+	return newWindowRaw(asWindow(par), gui.StatusFlags(flags), int(a3), int(a4), int(w), int(h), wrapWindowFuncC(fnc)).C()
 }
 
 //export nox_xxx_wndGetID_46B0A0
@@ -76,13 +98,13 @@ func nox_window_set_all_funcs_go(p *C.nox_window, a2 unsafe.Pointer, draw unsafe
 		return -2
 	}
 	win := asWindow(p)
-	win.setFunc93(a2)
-	win.setDraw(draw)
+	win.setFunc93(wrapWindowFuncC(a2))
+	win.setDraw(wrapWindowDrawFuncC(draw))
 	win.setTooltipFunc(tooltip)
 	return 0
 }
 
-func (win *Window) SetAllFuncs(a2 unsafe.Pointer, draw unsafe.Pointer, tooltip unsafe.Pointer) {
+func (win *Window) SetAllFuncs(a2 WindowFunc, draw WindowDrawFunc, tooltip unsafe.Pointer) {
 	if win == nil {
 		return
 	}
@@ -96,7 +118,7 @@ func nox_xxx_wndSetWindowProc_46B300_go(win *C.nox_window, fnc unsafe.Pointer) C
 	if win == nil {
 		return -2
 	}
-	asWindow(win).setFunc93(fnc)
+	asWindow(win).setFunc93(wrapWindowFuncC(fnc))
 	return 0
 }
 
@@ -105,7 +127,7 @@ func nox_xxx_wndSetProc_46B2C0_go(win *C.nox_window, fnc unsafe.Pointer) C.int {
 	if win == nil {
 		return -2
 	}
-	asWindow(win).setFunc94(fnc)
+	asWindow(win).setFunc94(wrapWindowFuncC(fnc))
 	return 0
 }
 
@@ -114,7 +136,7 @@ func nox_xxx_wndSetDrawFn_46B340_go(win *C.nox_window, fnc unsafe.Pointer) C.int
 	if win == nil {
 		return -2
 	}
-	asWindow(win).setDraw(fnc)
+	asWindow(win).setDraw(wrapWindowDrawFuncC(fnc))
 	return 0
 }
 
@@ -207,7 +229,7 @@ func nox_client_wndListXxxRemove_46A960(win *Window) {
 	}
 }
 
-func newUserWindow(parent *Window, id uint, status gui.StatusFlags, px, py, w, h int, drawData *WindowData, fnc unsafe.Pointer) *Window {
+func newUserWindow(parent *Window, id uint, status gui.StatusFlags, px, py, w, h int, drawData *WindowData, fnc WindowFunc) *Window {
 	win := newWindowRaw(parent, status, px, py, w, h, fnc)
 	drawData.style |= C.int(gui.StyleUserWindow)
 	win.SetID(id)
@@ -218,7 +240,7 @@ func newUserWindow(parent *Window, id uint, status gui.StatusFlags, px, py, w, h
 	return win
 }
 
-func newWindowRaw(parent *Window, status gui.StatusFlags, px, py, w, h int, fnc94 unsafe.Pointer) *Window {
+func newWindowRaw(parent *Window, status gui.StatusFlags, px, py, w, h int, fnc94 WindowFunc) *Window {
 	if nox_alloc_window == nil {
 		nox_alloc_window = alloc.NewClass("Window", unsafe.Sizeof(C.nox_window{}), 576)
 	}
@@ -238,7 +260,7 @@ func newWindowRaw(parent *Window, status gui.StatusFlags, px, py, w, h int, fnc9
 	win.setFunc93(nil)
 	win.setFunc94(fnc94)
 	if fnc94 != nil {
-		win.Func94(1, 0, 0)
+		fnc94(win, 1, 0, 0)
 	}
 	win.field_92 = 0
 	return win
@@ -262,6 +284,18 @@ type Window C.nox_window
 
 func (win *Window) C() *C.nox_window {
 	return (*C.nox_window)(unsafe.Pointer(win))
+}
+
+func (win *Window) ext() *windowExt {
+	if win == nil {
+		return nil
+	}
+	ext := winExts[win]
+	if ext == nil {
+		ext = &windowExt{}
+		winExts[win] = ext
+	}
+	return ext
 }
 
 func (win *Window) ID() uint {
@@ -432,46 +466,65 @@ func (win *Window) Show() {
 	win.flags &^= C.nox_window_flags(gui.StatusHidden)
 }
 
-func (win *Window) Func93(ev int, a1, a2 uintptr) int {
-	if win == nil || win.field_93 == nil || uintptr(unsafe.Pointer(win.field_93)) == DeadWord {
+func (win *Window) setFunc93(fnc WindowFunc) {
+	if fnc == nil {
+		fnc = func(win *Window, ev int, a1, a2 uintptr) uintptr { return 0 }
+	}
+	win.ext().Func93 = fnc
+}
+
+func (win *Window) setFunc94(fnc WindowFunc) {
+	if fnc == nil {
+		fnc = func(win *Window, ev int, a1, a2 uintptr) uintptr { return 0 }
+	}
+	win.ext().Func94 = fnc
+}
+
+func (win *Window) Func93(ev int, a1, a2 uintptr) uintptr {
+	if win == nil {
 		return 0
 	}
-	return int(C.nox_window_call_field_93_go(win.C(), C.int(ev), C.int(a1), C.int(a2)))
-}
-
-func (win *Window) setFunc93(fnc unsafe.Pointer) {
-	if fnc == nil {
-		fnc = C.nox_xxx_wndDefaultProc_0_46B330
+	if ext := win.ext(); ext != nil && ext.Func93 != nil {
+		return ext.Func93(win, ev, a1, a2)
 	}
-	win.field_93 = (*[0]byte)(fnc)
-}
-
-func (win *Window) Func94(ev int, a1, a2 uintptr) int {
-	if win == nil || win.field_94 == nil || uintptr(unsafe.Pointer(win.field_94)) == DeadWord {
+	if win.field_93 == nil || uintptr(unsafe.Pointer(win.field_93)) == DeadWord {
 		return 0
 	}
-	return int(C.nox_window_call_field_94_go(win.C(), C.int(ev), C.int(a1), C.int(a2)))
+	return uintptr(C.nox_window_call_func_go(win.field_93, win.C(), C.int(ev), C.int(a1), C.int(a2)))
 }
 
-func (win *Window) setFunc94(fnc unsafe.Pointer) {
-	if fnc == nil {
-		fnc = C.nox_xxx_wndDefaultProc_46B2F0
+func (win *Window) Func94(ev int, a1, a2 uintptr) uintptr {
+	if win == nil {
+		return 0
 	}
-	win.field_94 = (*[0]byte)(fnc)
+	if ext := win.ext(); ext != nil && ext.Func94 != nil {
+		return ext.Func94(win, ev, a1, a2)
+	}
+	if win.field_94 == nil || uintptr(unsafe.Pointer(win.field_94)) == DeadWord {
+		return 0
+	}
+	return uintptr(C.nox_window_call_func_go(win.field_94, win.C(), C.int(ev), C.int(a1), C.int(a2)))
 }
 
 func (win *Window) Draw() {
-	if win == nil || win.draw_func == nil || uintptr(unsafe.Pointer(win.draw_func)) == DeadWord {
+	if win == nil {
 		return
 	}
-	C.nox_window_call_draw_func_go(win.C(), win.DrawData().C())
+	if ext := win.ext(); ext != nil && ext.Draw != nil {
+		ext.Draw(win, win.DrawData())
+		return
+	}
+	if win.draw_func == nil || uintptr(unsafe.Pointer(win.draw_func)) == DeadWord {
+		return
+	}
+	C.nox_window_call_draw_func_go(win.draw_func, win.C(), win.DrawData().C())
 }
 
-func (win *Window) setDraw(fnc unsafe.Pointer) {
+func (win *Window) setDraw(fnc WindowDrawFunc) {
 	if fnc == nil {
-		fnc = C.nox_xxx_wndDrawFnDefault_46B370
+		fnc = wrapWindowDrawFuncC(C.nox_xxx_wndDrawFnDefault_46B370)
 	}
-	win.draw_func = (*[0]byte)(fnc)
+	win.ext().Draw = fnc
 }
 
 func (win *Window) TooltipFunc(a1 uintptr) {
@@ -591,6 +644,7 @@ func (win *Window) Destroy() {
 		return
 	}
 	win.flags |= C.nox_window_flags(gui.StatusDestroyed)
+	delete(winExts, win)
 
 	if nox_win_unk3 == win {
 		nox_win_unk3 = nil

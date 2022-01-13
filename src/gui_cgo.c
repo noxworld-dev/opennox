@@ -21,6 +21,3 @@ int nox_xxx_wndSetWindowProc_46B300(int a1, int (*a2)(int, int, int, int)) {
 
 int nox_xxx_wndSetDrawFn_46B340_go(nox_window* a1, void* a2);
 int nox_xxx_wndSetDrawFn_46B340(int a1, int (*a2)(int, int)) { return nox_xxx_wndSetDrawFn_46B340_go(a1, a2); }
-
-int nox_xxx_wndDefaultProc_0_46B330(int a1, int a2, int a3, int a4) { return 0; }
-int nox_xxx_wndDefaultProc_46B2F0(int a1, int a2, int a3, int a4) { return 0; }

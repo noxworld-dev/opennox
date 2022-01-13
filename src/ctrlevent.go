@@ -408,7 +408,7 @@ func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_A(a4 *CtrlEventBinding) 
 }
 
 func clientAcceptTradeOrDrop() {
-	dialog := asWindow((*C.nox_window)(C.nox_gui_itemAmount_dialog_1319228))
+	dialog := asWindowP(C.nox_gui_itemAmount_dialog_1319228)
 	if dialog == nil {
 		return
 	}

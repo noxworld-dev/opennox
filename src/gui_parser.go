@@ -30,14 +30,14 @@ func nox_new_window_from_file(cname *C.char, fnc unsafe.Pointer) *C.nox_window {
 		panic("server should not load GUI")
 	}
 	name := GoString(cname)
-	win := newWindowFromFile(name, fnc)
+	win := newWindowFromFile(name, wrapWindowFuncC(fnc))
 	if win != nil {
 		guiParseHook(name, win)
 	}
 	return win.C()
 }
 
-func newWindowFromFile(name string, fnc unsafe.Pointer) *Window {
+func newWindowFromFile(name string, fnc WindowFunc) *Window {
 	guiLog.Printf("load: %q", name)
 	path := filepath.Join("window", name)
 
@@ -51,11 +51,11 @@ func newWindowFromFile(name string, fnc unsafe.Pointer) *Window {
 	return newWindowFromReader(f, fnc)
 }
 
-func newWindowFromString(src string, fnc unsafe.Pointer) *Window {
+func newWindowFromString(src string, fnc WindowFunc) *Window {
 	return newWindowFromReader(strings.NewReader(src), fnc)
 }
 
-func newWindowFromReader(r io.Reader, fnc unsafe.Pointer) *Window {
+func newWindowFromReader(r io.Reader, fnc WindowFunc) *Window {
 	return newGUIParser(strMan, r).ParseRoot(fnc)
 }
 
@@ -114,7 +114,7 @@ func (p *guiParser) resetDefaults() {
 	p.defaults.SetColors(val)
 }
 
-func (p *guiParser) ParseRoot(fnc unsafe.Pointer) *Window {
+func (p *guiParser) ParseRoot(fnc WindowFunc) *Window {
 	for {
 		tok := p.nextWord()
 		if tok == "" {
@@ -185,7 +185,7 @@ func (p *guiParser) parseColorField() (noxcolor.Color16, bool) {
 	return gui.ParseColorTransp(tok)
 }
 
-func (p *guiParser) parseWindowRoot(fnc unsafe.Pointer) *Window {
+func (p *guiParser) parseWindowRoot(fnc WindowFunc) *Window {
 	draw, drawFree := tempDrawData()
 	defer drawFree()
 
@@ -412,7 +412,7 @@ func (p *guiParser) parseDataField(typ string, buf string) (guiWidgetData, bool)
 	return nil, true
 }
 
-func (p *guiParser) parseWindowOrWidget(typ string, id uint, status gui.StatusFlags, px, py, w, h int, drawData *WindowData, data guiWidgetData, fnc unsafe.Pointer) *Window {
+func (p *guiParser) parseWindowOrWidget(typ string, id uint, status gui.StatusFlags, px, py, w, h int, drawData *WindowData, data guiWidgetData, fnc WindowFunc) *Window {
 	parent := p.parentsTop()
 	if typ == "USER" {
 		return newUserWindow(parent, id, status, px, py, w, h, drawData, fnc)

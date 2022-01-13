@@ -107,9 +107,8 @@ func sub_4A1BE0(a1 C.int) C.int {
 	return C.int(nox_xxx_wnd_46ABB0(asWindowP(C.dword_5d4594_1307292), int(a1)))
 }
 
-//export sub_468480
-func sub_468480(a1 C.int, a2 C.int, a3 C.int, a4 C.int) C.int {
-	if a2 != 21 {
+func sub_468480(win *Window, ev int, a3, a4 uintptr) uintptr {
+	if ev != 21 {
 		return 0
 	}
 	if a3 != 1 {
@@ -127,9 +126,9 @@ func sub_4683B0() C.int {
 	gameSetCliDrawFunc(func() bool {
 		return C.sub_41E210() != 0
 	})
-	win := newWindowFromFile("wolreg.wnd", C.sub_4685D0)
+	win := newWindowFromFile("wolreg.wnd", wrapWindowFuncC(C.sub_4685D0))
 	C.dword_5d4594_1064816 = unsafe.Pointer(win.C())
-	win.SetAllFuncs(C.sub_468480, nil, nil)
+	win.SetAllFuncs(sub_468480, nil, nil)
 	C.dword_5d4594_1064820 = unsafe.Pointer(win.ChildByID(1755).C())
 	C.dword_5d4594_1064824 = unsafe.Pointer(win.ChildByID(1756).C())
 	C.dword_5d4594_1064828 = unsafe.Pointer(win.ChildByID(1754).C())
@@ -435,12 +434,12 @@ func nox_game_showSelChar_4A4DB0() C.int {
 	}
 	gameAddStateCode(500)
 	sub_4A1BE0(1)
-	win := newWindowFromFile("selchar.wnd", unsafe.Pointer(C.nox_xxx_windowSelCharProc_4A5710))
+	win := newWindowFromFile("selchar.wnd", nox_xxx_windowSelCharProc_4A5710)
 	winSelSave = win
 	if win == nil {
 		return 0
 	}
-	win.setFunc93(C.sub_4A18E0)
+	win.setFunc93(wrapWindowFuncC(C.sub_4A18E0))
 	anim := nox_gui_makeAnimation(win, 0, 0, 0, -440, 0, 20, 0, -40)
 	nox_wnd_xxx_1307748 = anim
 	if anim == nil {
@@ -455,7 +454,7 @@ func nox_game_showSelChar_4A4DB0() C.int {
 	winCharList = wlist
 	winCharListNames = wnames
 	winCharListStyle = wstyle
-	wlist.setFunc94(C.nox_xxx_windowSelCharProc_4A5710)
+	wlist.setFunc94(nox_xxx_windowSelCharProc_4A5710)
 	sub46B120(wnames, wlist)
 	sub46B120(wstyle, wlist)
 	if noxflags.HasGame(noxflags.GameModeCoop) {
@@ -855,9 +854,8 @@ func nox_savegame_sub_46D580() {
 	sub_413A00(1)
 }
 
-//export nox_xxx_windowSelCharProc_4A5710
-func nox_xxx_windowSelCharProc_4A5710(a1 C.int, ev C.uint, a3w *C.nox_window, a4 C.int) C.int {
-	win := asWindow(a3w)
+func nox_xxx_windowSelCharProc_4A5710(a1 *Window, ev int, a3w, a4 uintptr) uintptr {
+	win := asWindowP(unsafe.Pointer(a3w))
 	switch ev {
 	case 0x2:
 		if win.ID() == 500 {
@@ -868,9 +866,9 @@ func nox_xxx_windowSelCharProc_4A5710(a1 C.int, ev C.uint, a3w *C.nox_window, a4
 		clientPlaySoundSpecial(920, 100)
 		return 1
 	case 0x4010:
-		winCharList.Func94(0x4013, uintptr(a4), 0)
-		winCharListNames.Func94(0x4013, uintptr(a4), 0)
-		winCharListStyle.Func94(0x4013, uintptr(a4), 0)
+		winCharList.Func94(0x4013, a4, 0)
+		winCharListNames.Func94(0x4013, a4, 0)
+		winCharListStyle.Func94(0x4013, a4, 0)
 		return 0
 	}
 	if ev != 0x4007 {
@@ -974,9 +972,9 @@ func nox_xxx_windowSelCharProc_4A5710(a1 C.int, ev C.uint, a3w *C.nox_window, a4
 		}
 		NewDialogWindow(nil, v6, v15, v16, v17, nil)
 	case 504, 505:
-		winCharList.Func94(0x4000, uintptr(unsafe.Pointer(a3w)), 0)
-		winCharListNames.Func94(0x4000, uintptr(unsafe.Pointer(a3w)), 0)
-		winCharListStyle.Func94(0x4000, uintptr(unsafe.Pointer(a3w)), 0)
+		winCharList.Func94(0x4000, a3w, 0)
+		winCharListNames.Func94(0x4000, a3w, 0)
+		winCharListStyle.Func94(0x4000, a3w, 0)
 	}
 	clientPlaySoundSpecial(921, 100)
 	return 1
@@ -1047,17 +1045,19 @@ func sub_41D110() (uint32, error) {
 }
 
 func nox_savegame_sub_46C730() int {
-	win := newWindowFromFile("selchar.wnd", unsafe.Pointer(C.nox_savegame_sub_46C920))
+	win := newWindowFromFile("selchar.wnd", nox_savegame_sub_46C920)
 	dword_5d4594_1082856 = win
 	if win == nil {
 		return 0
 	}
 	win.flags |= 32
-	dword_5d4594_1082856.setFunc93(C.sub_46CCA0)
+	dword_5d4594_1082856.setFunc93(func(win *Window, ev int, a1, a2 uintptr) uintptr {
+		return 1
+	})
 	dword_5d4594_1082860 = dword_5d4594_1082856.ChildByID(510)
 	dword_5d4594_1082864 = dword_5d4594_1082856.ChildByID(511)
 	dword_5d4594_1082868 = dword_5d4594_1082856.ChildByID(512)
-	dword_5d4594_1082860.setFunc94(C.nox_savegame_sub_46C920)
+	dword_5d4594_1082860.setFunc94(nox_savegame_sub_46C920)
 	sub46B120(dword_5d4594_1082864, dword_5d4594_1082860)
 	sub46B120(dword_5d4594_1082868, dword_5d4594_1082860)
 	swin1 := dword_5d4594_1082856.ChildByID(501)
@@ -1084,19 +1084,17 @@ func nox_savegame_sub_46C730() int {
 	return 1
 }
 
-//export nox_savegame_sub_46C920
-func nox_savegame_sub_46C920(a1w *C.nox_window, a2 C.int, a3w *C.nox_window, a4 C.int) C.int {
+func nox_savegame_sub_46C920(win1 *Window, a2 int, a3w, a4 uintptr) uintptr {
 	if a2 != 0x4007 {
 		if a2 != 16400 {
 			return 0
 		}
-		dword_5d4594_1082860.Func94(0x4013, uintptr(a4), 0)
-		dword_5d4594_1082864.Func94(0x4013, uintptr(a4), 0)
-		dword_5d4594_1082868.Func94(0x4013, uintptr(a4), 0)
+		dword_5d4594_1082860.Func94(0x4013, a4, 0)
+		dword_5d4594_1082864.Func94(0x4013, a4, 0)
+		dword_5d4594_1082868.Func94(0x4013, a4, 0)
 		return 0
 	}
-	win1 := asWindow(a1w)
-	win3 := asWindow(a3w)
+	win3 := asWindowP(unsafe.Pointer(a3w))
 	wid := win3.ID()
 	clientPlaySoundSpecial(766, 100)
 	if wid == 501 {
@@ -1254,9 +1252,4 @@ func sub_46CC70() C.int {
 func sub_46CC90() C.int {
 	nox_xxx_wndSetCaptureMain_46ADC0(dword_5d4594_1082856.C())
 	return 0
-}
-
-//export sub_46CCA0
-func sub_46CCA0(a1, a2, a3, a4 C.int) C.int {
-	return 1
 }
