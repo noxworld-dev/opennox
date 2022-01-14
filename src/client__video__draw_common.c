@@ -414,7 +414,7 @@ int sdl_drawCursorThreaded(int a1) {
 	r1->bottom = r1->top + *getMemU32Ptr(0x5D4594, 1193620);
 
 	if ((!a1 || dword_5d4594_1193668 || dword_5d4594_1193664) &&
-		nox_xxx_utilRect_49F930((int4*)&v4, r1, (int4*)(&obj_5D4594_3800716.field_9))) {
+		nox_xxx_utilRect_49F930((int4*)&v4, r1, (int4*)(&obj_5D4594_3800716.rect3))) {
 		r2->left = 0;
 		r2->top = 0;
 		r2->right = v4.right - v4.left;
@@ -427,7 +427,7 @@ int sdl_drawCursorThreaded(int a1) {
 		//    return 0;
 	}
 
-	if (nox_xxx_utilRect_49F930((int4*)&v4, r1, (int4*)(&obj_5D4594_3800716.field_9))) {
+	if (nox_xxx_utilRect_49F930((int4*)&v4, r1, (int4*)(&obj_5D4594_3800716.rect3))) {
 		r3->left = v4.left - r1->left;
 		r3->top = v4.top - r1->top;
 		r3->right = v4.right - r1->left;

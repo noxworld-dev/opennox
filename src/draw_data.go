@@ -49,6 +49,45 @@ func (p *RenderData) ClipRect() types.Rect {
 	}
 }
 
+func (p *RenderData) SetClipRect(r types.Rect) {
+	p.clip.left = C.int(r.Left)
+	p.clip.top = C.int(r.Top)
+	p.clip.right = C.int(r.Right)
+	p.clip.bottom = C.int(r.Bottom)
+}
+
+func (p *RenderData) Rect2() types.Rect {
+	return types.Rect{
+		Left:   int(p.rect2.left),
+		Top:    int(p.rect2.top),
+		Right:  int(p.rect2.right),
+		Bottom: int(p.rect2.bottom),
+	}
+}
+
+func (p *RenderData) SetRect2(r types.Rect) {
+	p.rect2.left = C.int(r.Left)
+	p.rect2.top = C.int(r.Top)
+	p.rect2.right = C.int(r.Right)
+	p.rect2.bottom = C.int(r.Bottom)
+}
+
+func (p *RenderData) Rect3() types.Rect {
+	return types.Rect{
+		Left:   int(p.rect3.left),
+		Top:    int(p.rect3.top),
+		Right:  int(p.rect3.right),
+		Bottom: int(p.rect3.bottom),
+	}
+}
+
+func (p *RenderData) SetRect3(r types.Rect) {
+	p.rect3.left = C.int(r.Left)
+	p.rect3.top = C.int(r.Top)
+	p.rect3.right = C.int(r.Right)
+	p.rect3.bottom = C.int(r.Bottom)
+}
+
 func (p *RenderData) Reset() {
 	p.field_13 = 0
 	p.field_14 = 0
@@ -66,7 +105,7 @@ func (p *RenderData) Reset() {
 	p.field_59 = 0
 	p.field_60 = 0
 	p.field_61 = 0
-	p.setColorInt62(ColorInt{R: 25, G: 25, B: 25})
+	p.SetLightColor(ColorInt{R: 25, G: 25, B: 25})
 	p.field_259 = 0xFF
 	p.field_260 = 0xFF00FF
 	p.field_261 = 0xFF00FF
@@ -119,7 +158,7 @@ func (p *RenderData) SetColor2(a1 uint32) { // nox_client_drawSetColor_434460
 	p.field_61 = C.uint(a1)
 }
 
-func (p *RenderData) setColorInt62(c ColorInt) { // nox_client_drawSetColor_434460
+func (p *RenderData) SetLightColor(c ColorInt) { // nox_client_drawSetColor_434460
 	p.field_62 = C.uint(c.R)
 	p.field_63 = C.uint(c.G)
 	p.field_64 = C.uint(c.B)

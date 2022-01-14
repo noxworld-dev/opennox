@@ -181,6 +181,7 @@ func RunArgs(args []string) (gerr error) {
 		return err
 	}
 	noxServer = NewServer()
+	noxrend = NewNoxRender()
 	if err := readConfig(*fConfig); err != nil {
 		return fmt.Errorf("cannot read config: %w", err)
 	}

@@ -9156,18 +9156,18 @@ int sub_49F5B0(uint32_t* a1, uint32_t* a2, int a3) {
 //----- (0049F610) --------------------------------------------------------
 int sub_49F610() {
 	nox_draw_curDrawData_3799572->flag_0 = 0;
-	nox_draw_curDrawData_3799572->field_9 = 0;
 	nox_draw_curDrawData_3799572->clip.left = 0;
-	nox_draw_curDrawData_3799572->field_10 = 0;
 	nox_draw_curDrawData_3799572->clip.top = 0;
-	nox_draw_curDrawData_3799572->field_11 = nox_backbuffer_width;
 	nox_draw_curDrawData_3799572->clip.right = nox_backbuffer_width;
-	nox_draw_curDrawData_3799572->field_12 = nox_backbuffer_height;
 	nox_draw_curDrawData_3799572->clip.bottom = nox_backbuffer_height;
 	nox_draw_curDrawData_3799572->rect2.left = 0;
 	nox_draw_curDrawData_3799572->rect2.top = 0;
 	nox_draw_curDrawData_3799572->rect2.right = nox_backbuffer_width - 1;
 	nox_draw_curDrawData_3799572->rect2.bottom = nox_backbuffer_height - 1;
+	nox_draw_curDrawData_3799572->rect3.left = 0;
+	nox_draw_curDrawData_3799572->rect3.top = 0;
+	nox_draw_curDrawData_3799572->rect3.right = nox_backbuffer_width;
+	nox_draw_curDrawData_3799572->rect3.bottom = nox_backbuffer_height;
 	dword_5d4594_1305748 = 0;
 	return 1;
 }
@@ -9192,7 +9192,7 @@ int4* nox_client_copyRect_49F6F0(int xLeft, int yTop, int a3, int a4) {
 	RECT rc;      // [esp+10h] [ebp-10h]
 
 	SetRect(&rc, xLeft, yTop, xLeft + a3, yTop + a4);
-	result = nox_xxx_utilRect_49F930((int4*)&rcSrc, (int4*)&rc, (int4*)(&nox_draw_curDrawData_3799572->field_9));
+	result = nox_xxx_utilRect_49F930((int4*)&rcSrc, (int4*)&rc, (int4*)(&nox_draw_curDrawData_3799572->rect3));
 	if (result) {
 		CopyRect(&nox_draw_curDrawData_3799572->clip, &rcSrc);
 		--rcSrc.right;

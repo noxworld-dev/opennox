@@ -39,7 +39,15 @@ func asImageP(p unsafe.Pointer) *Image {
 	if p == nil {
 		return nil
 	}
-	return noxImages.byHandle[p]
+	img := noxImages.byHandle[p]
+	if img == nil {
+		err := fmt.Errorf("unexpected image handle: %x", p)
+		videoLog.Printf("%v", err)
+		if cgoSafe {
+			panic(err)
+		}
+	}
+	return img
 }
 
 func NewRawImage(typ int, data []byte) *Image {

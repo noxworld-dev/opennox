@@ -86,6 +86,7 @@ import (
 )
 
 var (
+	noxrend                         *NoxRender
 	nox_draw_colorTablesRev_3804668 []byte // map[Color16]byte
 )
 
@@ -361,7 +362,7 @@ func nox_xxx_draw_434600(a1 C.int) {
 
 //export sub_434990
 func sub_434990(r, g, b C.int) {
-	noxrend.Data().setColorInt62(ColorInt{
+	noxrend.Data().SetLightColor(ColorInt{
 		R: int(r),
 		G: int(g),
 		B: int(b),
@@ -371,7 +372,7 @@ func sub_434990(r, g, b C.int) {
 //export sub_4349C0
 func sub_4349C0(a1 *C.uint) {
 	arr := unsafe.Slice(a1, 3)
-	noxrend.Data().setColorInt62(ColorInt{
+	noxrend.Data().SetLightColor(ColorInt{
 		R: int(arr[0]),
 		G: int(arr[1]),
 		B: int(arr[2]),
@@ -404,16 +405,32 @@ func sub_47D400(a1 C.int, a2 C.char) {
 
 //export sub_49F7C0_def
 func sub_49F7C0_def() {
-	v1 := noxrend.Get_dword_5d4594_3799476()
-	cr := noxrend.Data().ClipRect()
+	noxrend.sub_49F7C0_def_go()
+}
+
+func (r *NoxRender) sub_49F7C0_def_go() {
+	v1 := r.Get_dword_5d4594_3799476()
+	cr := r.Data().ClipRect()
 	if v1 > cr.Bottom {
 		v1 = cr.Bottom
 	}
-	nox_client_copyRect_49F6F0(cr.Left, cr.Top, cr.Right-cr.Left, v1-cr.Top)
+	r.nox_client_copyRect_49F6F0(cr.Left, cr.Top, cr.Right-cr.Left, v1-cr.Top)
 }
 
-func nox_client_copyRect_49F6F0(x, y, w, h int) {
-	panic("TODO") // FIXME
+func (r *NoxRender) nox_client_copyRect_49F6F0(x, y, w, h int) {
+	rc := types.Rect{
+		Left:   x,
+		Top:    y,
+		Right:  x + w,
+		Bottom: y + h,
+	}
+	d := r.Data()
+	if rect, ok := types.UtilRectXxx(rc, d.Rect3()); ok {
+		d.SetClipRect(rect)
+		rect.Right--
+		rect.Bottom--
+		d.SetRect2(rect)
+	}
 }
 
 //export nox_client_drawSetAlpha_434580
@@ -425,8 +442,6 @@ func nox_client_drawSetAlpha_434580(a C.uchar) {
 func nox_draw_enableTextSmoothing_43F670(v C.int) {
 	noxrend.SetTextSmooting(v != 0)
 }
-
-var noxrend = NewNoxRender()
 
 func toRect(cr *C.nox_rect) image.Rectangle {
 	return image.Rect(int(cr.left), int(cr.top), int(cr.right), int(cr.bottom))
@@ -1570,7 +1585,9 @@ func (r *NoxRender) DrawImageAt(img *Image, pos types.Point) {
 		*memmap.PtrUint32(0x973F18, 88) = uint32(sz.W)
 		*memmap.PtrUint32(0x973F18, 76) = uint32(sz.H)
 	}
-	r.rnd.DrawImage16(img, pos)
+	if img != nil {
+		r.rnd.DrawImage16(img, pos)
+	}
 	if C.dword_5d4594_3799452 != 0 {
 		C.sub_49F860()
 		C.dword_5d4594_3799452 = 0

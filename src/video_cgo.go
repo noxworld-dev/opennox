@@ -621,12 +621,9 @@ func sub_4AEBD0() {
 func sub_49F610(sz types.Size) {
 	p := noxrend.Data()
 	p.flag_0 = 0
-	p.clip = C.nox_rect{right: C.int(sz.W), bottom: C.int(sz.H)}
-	p.rect2 = C.nox_rect{right: C.int(sz.W - 1), bottom: C.int(sz.H - 1)}
-	p.field_9 = 0
-	p.field_10 = 0
-	p.field_11 = C.uint(sz.W)
-	p.field_12 = C.uint(sz.H)
+	p.SetClipRect(types.Rect{Right: sz.W, Bottom: sz.H})
+	p.SetRect2(types.Rect{Right: sz.W - 1, Bottom: sz.H - 1})
+	p.SetRect3(types.Rect{Right: sz.W, Bottom: sz.H})
 	C.dword_5d4594_1305748 = 0
 }
 
@@ -634,8 +631,9 @@ func sub_49F610(sz types.Size) {
 func sub_49FC20(a1, a2, a3, a4 *C.int) int {
 	var ys, ye int
 	if p := noxrend.Data(); p.flag_0 != 0 {
-		ys = int(p.rect2.top)
-		ye = int(p.rect2.bottom)
+		rect2 := p.Rect2()
+		ys = rect2.Top
+		ye = rect2.Bottom
 	} else {
 		ys = 0
 		ye = noxPixBuffer.img.Rect.Dy() - 1

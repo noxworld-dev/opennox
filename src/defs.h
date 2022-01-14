@@ -1731,10 +1731,7 @@ typedef struct nox_render_data_t {
 	int flag_0;         // 0, 0
 	nox_rect clip;      // 1, 4
 	nox_rect rect2;     // 5, 20; is usually set to [0,w-1] as opposed to clip, which is [0,w]
-	uint32_t field_9;   // 9, 36
-	uint32_t field_10;  // 10, 40
-	uint32_t field_11;  // 11, 44
-	uint32_t field_12;  // 12, 48
+	nox_rect rect3;     // 9, 36
 	uint32_t field_13;  // 13, 52
 	uint32_t field_14;  // 14, 56
 	uint32_t field_15;  // 15, 60
