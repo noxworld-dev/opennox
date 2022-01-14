@@ -43,15 +43,20 @@ var (
 	winExts             = make(map[*Window]*windowExt)
 )
 
-type WindowFunc func(win *Window, ev int, a1, a2 uintptr) uintptr
+type WindowFunc func(win *Window, ev WindowEvent) WindowEventResp
 type WindowDrawFunc func(win *Window, draw *WindowData) int
 
 func wrapWindowFuncC(fnc unsafe.Pointer) WindowFunc {
 	if fnc == nil {
 		return nil
 	}
-	return func(win *Window, ev int, a1, a2 uintptr) uintptr {
-		return uintptr(C.nox_window_call_func_go((*[0]byte)(fnc), win.C(), C.int(ev), C.int(a1), C.int(a2)))
+	return func(win *Window, e WindowEvent) WindowEventResp {
+		ev, a1, a2 := e.EventArgsC()
+		r := C.nox_window_call_func_go((*[0]byte)(fnc), win.C(), C.int(ev), C.int(a1), C.int(a2))
+		if r == 0 {
+			return nil
+		}
+		return RawEventResp(r)
 	}
 }
 
@@ -163,7 +168,11 @@ func nox_window_call_field_94_fnc(p *C.nox_window, a2, a3, a4 C.int, file *C.cha
 	if guiDebug {
 		guiLog.Printf("nox_window_call_field_94(%p, %x, %x, %x): %s:%d", p, a2, a3, a4, GoString(file), line)
 	}
-	return C.int(asWindow(p).Func94(int(a2), uintptr(a3), uintptr(a4)))
+	r := asWindow(p).Func94(asWindowEvent(int(a2), uintptr(a3), uintptr(a4)))
+	if r == nil {
+		return 0
+	}
+	return C.int(r.EventRespC())
 }
 
 //export nox_window_call_field_93
@@ -171,7 +180,11 @@ func nox_window_call_field_93(p *C.nox_window, a2, a3, a4 C.int) C.int {
 	if p == nil {
 		return 0
 	}
-	return C.int(asWindow(p).Func93(int(a2), uintptr(a3), uintptr(a4)))
+	r := asWindow(p).Func93(asWindowEvent(int(a2), uintptr(a3), uintptr(a4)))
+	if r == nil {
+		return 0
+	}
+	return C.int(r.EventRespC())
 }
 
 //export nox_xxx_wndGetChildByID_46B0C0
@@ -235,7 +248,7 @@ func newUserWindow(parent *Window, id uint, status gui.StatusFlags, px, py, w, h
 	win.SetID(id)
 	win.CopyDrawData(drawData)
 	if parent != nil {
-		parent.Func94(22, uintptr(id), 0)
+		parent.Func94(WindowNewChild{ID: id})
 	}
 	return win
 }
@@ -260,7 +273,7 @@ func newWindowRaw(parent *Window, status gui.StatusFlags, px, py, w, h int, fnc9
 	win.setFunc93(nil)
 	win.setFunc94(fnc94)
 	if fnc94 != nil {
-		fnc94(win, 1, 0, 0)
+		fnc94(win, WindowInit{})
 	}
 	win.field_92 = 0
 	return win
@@ -468,42 +481,52 @@ func (win *Window) Show() {
 
 func (win *Window) setFunc93(fnc WindowFunc) {
 	if fnc == nil {
-		fnc = func(win *Window, ev int, a1, a2 uintptr) uintptr { return 0 }
+		fnc = func(win *Window, ev WindowEvent) WindowEventResp { return nil }
 	}
 	win.ext().Func93 = fnc
 }
 
 func (win *Window) setFunc94(fnc WindowFunc) {
 	if fnc == nil {
-		fnc = func(win *Window, ev int, a1, a2 uintptr) uintptr { return 0 }
+		fnc = func(win *Window, ev WindowEvent) WindowEventResp { return nil }
 	}
 	win.ext().Func94 = fnc
 }
 
-func (win *Window) Func93(ev int, a1, a2 uintptr) uintptr {
+func (win *Window) Func93(e WindowEvent) WindowEventResp {
 	if win == nil {
-		return 0
+		return nil
 	}
 	if ext := win.ext(); ext != nil && ext.Func93 != nil {
-		return ext.Func93(win, ev, a1, a2)
+		return ext.Func93(win, e)
 	}
 	if win.field_93 == nil || uintptr(unsafe.Pointer(win.field_93)) == DeadWord {
-		return 0
+		return nil
 	}
-	return uintptr(C.nox_window_call_func_go(win.field_93, win.C(), C.int(ev), C.int(a1), C.int(a2)))
+	ev, a1, a2 := e.EventArgsC()
+	r := C.nox_window_call_func_go(win.field_93, win.C(), C.int(ev), C.int(a1), C.int(a2))
+	if r == 0 {
+		return nil
+	}
+	return RawEventResp(r)
 }
 
-func (win *Window) Func94(ev int, a1, a2 uintptr) uintptr {
+func (win *Window) Func94(e WindowEvent) WindowEventResp {
 	if win == nil {
-		return 0
+		return nil
 	}
 	if ext := win.ext(); ext != nil && ext.Func94 != nil {
-		return ext.Func94(win, ev, a1, a2)
+		return ext.Func94(win, e)
 	}
 	if win.field_94 == nil || uintptr(unsafe.Pointer(win.field_94)) == DeadWord {
-		return 0
+		return nil
 	}
-	return uintptr(C.nox_window_call_func_go(win.field_94, win.C(), C.int(ev), C.int(a1), C.int(a2)))
+	ev, a1, a2 := e.EventArgsC()
+	r := C.nox_window_call_func_go(win.field_94, win.C(), C.int(ev), C.int(a1), C.int(a2))
+	if r == 0 {
+		return nil
+	}
+	return RawEventResp(r)
 }
 
 func (win *Window) Draw() {
@@ -625,11 +648,11 @@ func (win *Window) Focus() {
 		return
 	}
 	if nox_win_cur_focused != nil && nox_win_cur_focused != win {
-		nox_win_cur_focused.Func94(23, 0, 0)
+		nox_win_cur_focused.Func94(WindowFocus(false))
 	}
 	nox_win_cur_focused = win
 	for cur := win; cur != nil; cur = cur.Parent() {
-		if cur.Func94(23, 1, 0) != 0 {
+		if eventRespBool(cur.Func94(WindowFocus(true))) {
 			return
 		}
 	}

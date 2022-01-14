@@ -259,7 +259,7 @@ func gameexOnKeyboardPress(kcode keybind.Key) {
 				wstr := GoWStringSlice(wndEntryNames[i][:])
 				id := uint(1520 + i)
 				wstrC, freeStr := CWString(wstr)
-				a2b.Func94(16397, uintptr(unsafe.Pointer(wstrC)), math.MaxUint32)
+				a2b.Func94(asWindowEvent(0x400D, uintptr(unsafe.Pointer(wstrC)), math.MaxUint32))
 				freeStr()
 				if uint32(C.getFlagValueFromFlagIndex(C.int(id)-1519))&uint32(C.gameex_flags) != 0 {
 					v14 := modifyWndPntr.ChildByID(id)
@@ -279,9 +279,10 @@ func destroyGameExWindow() {
 	modifyWndPntr = nil
 }
 
-func modifyWndInputHandler(a1 *Window, a2 int, a3, a4 uintptr) uintptr {
+func modifyWndInputHandler(a1 *Window, ev WindowEvent) WindowEventResp {
+	a2, a3, _ := ev.EventArgsC()
 	if a2 != 16391 {
-		return 0
+		return nil
 	}
 	clientPlaySoundSpecial(766, 100)
 	a3p := asWindowP(unsafe.Pointer(a3))
@@ -324,7 +325,7 @@ func modifyWndInputHandler(a1 *Window, a2 int, a3, a4 uintptr) uintptr {
 			C.gameex_flags |= 0x20
 		}
 	}
-	return 0
+	return nil
 }
 
 const gameexModifWnd = `

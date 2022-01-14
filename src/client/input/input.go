@@ -102,12 +102,12 @@ func (h *Handler) IsMousePressed(btn seat.MouseButton) bool {
 }
 
 // GetMouseState return current mouse button state.
-func (h *Handler) GetMouseState(btn seat.MouseButton) uint {
+func (h *Handler) GetMouseState(btn seat.MouseButton) MouseStateCode {
 	return h.m.GetMouseState(btn)
 }
 
 // SetMouseState sets current mouse button state.
-func (h *Handler) SetMouseState(btn seat.MouseButton, st uint) {
+func (h *Handler) SetMouseState(btn seat.MouseButton, st MouseStateCode) {
 	h.m.SetMouseState(btn, st)
 }
 

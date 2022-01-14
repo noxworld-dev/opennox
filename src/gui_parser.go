@@ -420,7 +420,7 @@ func (p *guiParser) parseWindowOrWidget(typ string, id uint, status gui.StatusFl
 	win := guiNewWidget(typ, parent, status, px, py, w, h, drawData, data)
 	win.SetID(id)
 	if parent != nil {
-		parent.Func94(22, uintptr(id), 0)
+		parent.Func94(WindowNewChild{ID: id})
 	}
 	return win
 }

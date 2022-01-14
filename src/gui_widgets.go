@@ -16,6 +16,7 @@ import (
 	"nox/v1/client/gui"
 	"nox/v1/common/alloc"
 	noxcolor "nox/v1/common/color"
+	"nox/v1/common/keybind"
 )
 
 type guiWidgetData interface {
@@ -130,7 +131,7 @@ func NewStaticText(par *Window, id uint, px, py, w, h int, center, f2 bool, text
 	})
 	win.SetID(id)
 	if par != nil {
-		par.Func94(22, uintptr(id), 0)
+		par.Func94(WindowNewChild{ID: id})
 	}
 	return win
 }
@@ -170,11 +171,15 @@ const (
 	guiEventStaticTextGetText = guiEventStaticTextPref + 2
 )
 
-func nox_xxx_wndStaticProcPre_489390(win *Window, ev int, a3, a4 uintptr) uintptr {
-	switch ev {
-	case 2:
+func nox_xxx_wndStaticProcPre_489390(win *Window, e WindowEvent) WindowEventResp {
+	switch e.(type) {
+	case WindowDestroy:
 		alloc.Free(win.widget_data)
 		win.widget_data = nil
+		return nil
+	}
+	ev, a3, _ := e.EventArgsC()
+	switch ev {
 	case guiEventStaticTextSetText:
 		if a3 != 0 {
 			ptr := (*C.wchar_t)(unsafe.Pointer(a3))
@@ -183,22 +188,20 @@ func nox_xxx_wndStaticProcPre_489390(win *Window, ev int, a3, a4 uintptr) uintpt
 		}
 	case guiEventStaticTextGetText:
 		data := (*staticTextData)(win.widget_data)
-		return uintptr(unsafe.Pointer(data.text))
+		return RawEventResp(unsafe.Pointer(data.text))
 	}
-	return 0
+	return nil
 }
 
-func nox_xxx_wndStaticProc_489420(a1 *Window, a2 int, a3, a4 uintptr) uintptr {
-	if a2 != 21 {
-		return 0
+func nox_xxx_wndStaticProc_489420(win *Window, ev WindowEvent) WindowEventResp {
+	switch ev := ev.(type) {
+	case WindowKeyPress:
+		switch ev.Key {
+		case keybind.KeyTab, keybind.KeyRight, keybind.KeyDown, keybind.KeyUp, keybind.KeyLeft:
+			return RawEventResp(1)
+		}
 	}
-	switch a3 {
-	case 15, 205, 208:
-		return 1
-	case 200, 203:
-		return 1
-	}
-	return 0
+	return nil
 }
 
 func nox_xxx_wndStaticDrawWithImage_489550(win *Window, draw *WindowData) int {
@@ -364,7 +367,7 @@ func NewHorizontalSlider(par *Window, id uint, px, py, w, h int, min, max int) *
 		(*C.uint)(unsafe.Pointer(draw)), (*C.float)(unsafe.Pointer(data))))
 	win.SetID(id)
 	if par != nil {
-		par.Func94(22, uintptr(id), 0)
+		par.Func94(WindowNewChild{ID: id})
 	}
 	return win
 }
@@ -389,7 +392,7 @@ func NewCheckbox(par *Window, id uint, px, py, w, h int, text string) *Window {
 	win := newButtonOrCheckbox(par, status, px, py, w, h, draw)
 	win.SetID(id)
 	if par != nil {
-		par.Func94(22, uintptr(id), 0)
+		par.Func94(WindowNewChild{ID: id})
 	}
 	return win
 }
@@ -418,7 +421,7 @@ func NewRadioButton(par *Window, id uint, px, py, w, h int, group int, text stri
 	win := newRadioButton(par, status, px, py, w, h, draw, (*radioButtonData)(rdata))
 	win.SetID(id)
 	if par != nil {
-		par.Func94(22, uintptr(id), 0)
+		par.Func94(WindowNewChild{ID: id})
 	}
 	return win
 }

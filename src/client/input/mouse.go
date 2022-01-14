@@ -1,6 +1,7 @@
 package input
 
 import (
+	"fmt"
 	"image"
 
 	"nox/v1/client/seat"
@@ -13,21 +14,77 @@ const (
 	mouseEventBuf     = 256
 )
 
+type MouseButton int8
+
+func (btn MouseButton) String() string {
+	switch btn {
+	case -1:
+		return "None"
+	case NOX_MOUSE_LEFT:
+		return "Left"
+	case NOX_MOUSE_RIGHT:
+		return "Right"
+	case NOX_MOUSE_MIDDLE:
+		return "Middle"
+	default:
+		return fmt.Sprintf("MouseButton(%d)", int(btn))
+	}
+}
+
 const (
-	NOX_MOUSE_LEFT   = 0
-	NOX_MOUSE_RIGHT  = 1
-	NOX_MOUSE_MIDDLE = 2
+	NOX_MOUSE_LEFT   = MouseButton(0)
+	NOX_MOUSE_RIGHT  = MouseButton(1)
+	NOX_MOUSE_MIDDLE = MouseButton(2)
+)
+
+type MouseState int8
+
+func (s MouseState) String() string {
+	switch s {
+	case NOX_MOUSE_DOWN:
+		return "Down"
+	case NOX_MOUSE_DRAG_END:
+		return "DragEnd"
+	case NOX_MOUSE_UP:
+		return "Up"
+	case NOX_MOUSE_PRESSED:
+		return "Pressed"
+	default:
+		return fmt.Sprintf("MouseState(%d)", int(s))
+	}
+}
+
+const (
+	NOX_MOUSE_DOWN     = MouseState(1)
+	NOX_MOUSE_DRAG_END = MouseState(2)
+	NOX_MOUSE_UP       = MouseState(3)
+	NOX_MOUSE_PRESSED  = MouseState(4)
 )
 
 const (
-	NOX_MOUSE_DOWN     = 1
-	NOX_MOUSE_DRAG_END = 2
-	NOX_MOUSE_UP       = 3
-	NOX_MOUSE_PRESSED  = 4
+	NOX_MOUSE_LEFT_DOWN       = MouseStateCode(4*(int(NOX_MOUSE_LEFT)+1) + int(NOX_MOUSE_DOWN))
+	NOX_MOUSE_LEFT_DRAG_END   = MouseStateCode(4*(int(NOX_MOUSE_LEFT)+1) + int(NOX_MOUSE_DRAG_END))
+	NOX_MOUSE_LEFT_UP         = MouseStateCode(4*(int(NOX_MOUSE_LEFT)+1) + int(NOX_MOUSE_UP))
+	NOX_MOUSE_LEFT_PRESSED    = MouseStateCode(4*(int(NOX_MOUSE_LEFT)+1) + int(NOX_MOUSE_PRESSED))
+	NOX_MOUSE_RIGHT_DOWN      = MouseStateCode(4*(int(NOX_MOUSE_RIGHT)+1) + int(NOX_MOUSE_DOWN))
+	NOX_MOUSE_RIGHT_DRAG_END  = MouseStateCode(4*(int(NOX_MOUSE_RIGHT)+1) + int(NOX_MOUSE_DRAG_END))
+	NOX_MOUSE_RIGHT_UP        = MouseStateCode(4*(int(NOX_MOUSE_RIGHT)+1) + int(NOX_MOUSE_UP))
+	NOX_MOUSE_RIGHT_PRESSED   = MouseStateCode(4*(int(NOX_MOUSE_RIGHT)+1) + int(NOX_MOUSE_PRESSED))
+	NOX_MOUSE_MIDDLE_DOWN     = MouseStateCode(4*(int(NOX_MOUSE_MIDDLE)+1) + int(NOX_MOUSE_DOWN))
+	NOX_MOUSE_MIDDLE_DRAG_END = MouseStateCode(4*(int(NOX_MOUSE_MIDDLE)+1) + int(NOX_MOUSE_DRAG_END))
+	NOX_MOUSE_MIDDLE_UP       = MouseStateCode(4*(int(NOX_MOUSE_MIDDLE)+1) + int(NOX_MOUSE_UP))
+	NOX_MOUSE_MIDDLE_PRESSED  = MouseStateCode(4*(int(NOX_MOUSE_MIDDLE)+1) + int(NOX_MOUSE_PRESSED))
 )
 
-func nox_mouse_state(btn, st int) uint {
-	return uint(4*(btn+1) + st)
+type MouseStateCode uint
+
+func (st MouseStateCode) Split() (MouseButton, MouseState) {
+	sti := int((st - 1) / 4)
+	return MouseButton(sti - 1), MouseState(int(st-1)%4 + 1)
+}
+
+func ToMouseState(btn MouseButton, st MouseState) MouseStateCode {
+	return MouseStateCode(4*(int(btn)+1) + int(st))
 }
 
 type noxMouseEventType uint
@@ -42,7 +99,7 @@ const (
 
 type noxMouseBtnInt struct {
 	pressed bool
-	state   uint
+	state   MouseStateCode
 	seq     uint
 }
 
@@ -117,7 +174,7 @@ func (h *mouseHandler) MouseMove(ev *seat.MouseMoveEvent) {
 	})
 }
 
-func toMouseBtn(v seat.MouseButton) int {
+func toMouseBtn(v seat.MouseButton) MouseButton {
 	switch v {
 	case seat.MouseButtonLeft:
 		return NOX_MOUSE_LEFT
@@ -126,7 +183,7 @@ func toMouseBtn(v seat.MouseButton) int {
 	case seat.MouseButtonMiddle:
 		return NOX_MOUSE_MIDDLE
 	}
-	return -1
+	return MouseButton(-1)
 }
 
 func (h *mouseHandler) MouseButton(ev *seat.MouseButtonEvent) {
@@ -171,11 +228,11 @@ func (h *mouseHandler) IsMousePressed(btn seat.MouseButton) bool {
 	return h.cur.btn[toMouseBtn(btn)].pressed
 }
 
-func (h *mouseHandler) GetMouseState(btn seat.MouseButton) uint {
+func (h *mouseHandler) GetMouseState(btn seat.MouseButton) MouseStateCode {
 	return h.cur.btn[toMouseBtn(btn)].state
 }
 
-func (h *mouseHandler) SetMouseState(btn seat.MouseButton, st uint) {
+func (h *mouseHandler) SetMouseState(btn seat.MouseButton, st MouseStateCode) {
 	h.cur.btn[toMouseBtn(btn)].state = st
 }
 
@@ -260,12 +317,10 @@ func (h *mouseHandler) changeMousePos(p image.Point, isAbs bool) {
 	h.setMousePos(p)
 }
 
-func (h *mouseHandler) nox_client_mouseBtnStateFinal(pos types.Point, ind uint) {
-	cur := &h.cur.btn[ind]
-	btn := 4 * (ind + 1)
-
-	if cur.state == btn+NOX_MOUSE_DOWN {
-		h.prevBtn[ind] = pos
+func (h *mouseHandler) nox_client_mouseBtnStateFinal(pos types.Point, btn MouseButton) {
+	cur := &h.cur.btn[btn]
+	if cur.state == ToMouseState(btn, NOX_MOUSE_DOWN) {
+		h.prevBtn[btn] = pos
 	}
 }
 
@@ -279,12 +334,11 @@ func (h *mouseHandler) noxResetMouseBuffer(cseq uint) {
 	h.nox_client_processMouseEvents_4302A0(cseq, 1, true)
 }
 
-func (h *mouseHandler) nox_client_mouseBtnStateReset(ind uint) {
-	cur := &h.cur.btn[ind]
-	prev := &h.prev.btn[ind]
-	btn := 4 * (ind + 1)
-	if cur.pressed && (prev.state == btn+NOX_MOUSE_DOWN || prev.state == btn+NOX_MOUSE_PRESSED) {
-		cur.state = btn + NOX_MOUSE_PRESSED
+func (h *mouseHandler) nox_client_mouseBtnStateReset(btn MouseButton) {
+	cur := &h.cur.btn[btn]
+	prev := &h.prev.btn[btn]
+	if cur.pressed && (prev.state == ToMouseState(btn, NOX_MOUSE_DOWN) || prev.state == ToMouseState(btn, NOX_MOUSE_PRESSED)) {
+		cur.state = ToMouseState(btn, NOX_MOUSE_PRESSED)
 	}
 }
 
@@ -334,14 +388,13 @@ func (h *mouseHandler) nox_client_nextMouseEvent_47DB20(e *noxMouseStateInt) boo
 	return true
 }
 
-func (h *mouseHandler) nox_client_mouseBtnStateApply(cseq uint, evt *noxMouseStateInt, pos types.Point, ind uint) {
-	ev := &evt.btn[ind]
-	cur := &h.cur.btn[ind]
-	prevPos := h.prevBtn[ind]
-	btn := 4 * (ind + 1)
+func (h *mouseHandler) nox_client_mouseBtnStateApply(cseq uint, evt *noxMouseStateInt, pos types.Point, btn MouseButton) {
+	ev := &evt.btn[btn]
+	cur := &h.cur.btn[btn]
+	prevPos := h.prevBtn[btn]
 
 	if ev.seq == 0 {
-		h.nox_client_mouseBtnStateReset(ind)
+		h.nox_client_mouseBtnStateReset(btn)
 		return
 	}
 	if cur.pressed == ev.pressed {
@@ -350,16 +403,16 @@ func (h *mouseHandler) nox_client_mouseBtnStateApply(cseq uint, evt *noxMouseSta
 	dx := pos.X - prevPos.X
 	dy := pos.Y - prevPos.Y
 	if ev.pressed {
-		if cur.state != btn+NOX_MOUSE_UP {
-			cur.state = btn + NOX_MOUSE_DOWN
+		if cur.state != ToMouseState(btn, NOX_MOUSE_UP) {
+			cur.state = ToMouseState(btn, NOX_MOUSE_DOWN)
 			cur.pressed = true
 			cur.seq = cseq
 		}
 	} else {
 		if int(cseq)-int(cur.seq) >= 15 || dx*dx+dy*dy >= 100 {
-			cur.state = btn + NOX_MOUSE_DRAG_END
+			cur.state = ToMouseState(btn, NOX_MOUSE_DRAG_END)
 		} else {
-			cur.state = btn + NOX_MOUSE_UP
+			cur.state = ToMouseState(btn, NOX_MOUSE_UP)
 		}
 		cur.pressed = false
 		cur.seq = cseq
@@ -370,28 +423,28 @@ func (h *mouseHandler) MouseAction(key keybind.Key, ev keybind.Event) bool {
 	if key == keybind.KeyLeftMouse {
 		btn := NOX_MOUSE_LEFT
 		state := h.GetMouseState(seat.MouseButtonLeft)
-		if state != nox_mouse_state(btn, NOX_MOUSE_DOWN) && state != nox_mouse_state(btn, NOX_MOUSE_PRESSED) {
+		if state != ToMouseState(btn, NOX_MOUSE_DOWN) && state != ToMouseState(btn, NOX_MOUSE_PRESSED) {
 			return true
 		}
-		if state == nox_mouse_state(btn, NOX_MOUSE_PRESSED) && ev == 1 {
+		if state == ToMouseState(btn, NOX_MOUSE_PRESSED) && ev == 1 {
 			return true
 		}
 	} else if key == keybind.KeyMiddleMouse {
 		btn := NOX_MOUSE_MIDDLE
 		state := h.GetMouseState(seat.MouseButtonMiddle)
-		if state != nox_mouse_state(btn, NOX_MOUSE_DOWN) && state != nox_mouse_state(btn, NOX_MOUSE_PRESSED) {
+		if state != ToMouseState(btn, NOX_MOUSE_DOWN) && state != ToMouseState(btn, NOX_MOUSE_PRESSED) {
 			return true
 		}
-		if state == nox_mouse_state(btn, NOX_MOUSE_PRESSED) && ev == 1 {
+		if state == ToMouseState(btn, NOX_MOUSE_PRESSED) && ev == 1 {
 			return true
 		}
 	} else if key == keybind.KeyRightMouse {
 		btn := NOX_MOUSE_RIGHT
 		state := h.GetMouseState(seat.MouseButtonRight)
-		if state != nox_mouse_state(btn, NOX_MOUSE_DOWN) && state != nox_mouse_state(btn, NOX_MOUSE_PRESSED) {
+		if state != ToMouseState(btn, NOX_MOUSE_DOWN) && state != ToMouseState(btn, NOX_MOUSE_PRESSED) {
 			return true
 		}
-		if state == nox_mouse_state(btn, NOX_MOUSE_PRESSED) && ev == 1 {
+		if state == ToMouseState(btn, NOX_MOUSE_PRESSED) && ev == 1 {
 			return true
 		}
 	} else if key == keybind.KeyMouseWheelUp {

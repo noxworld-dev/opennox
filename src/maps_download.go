@@ -12,6 +12,7 @@ import (
 	"unsafe"
 
 	"nox/v1/common/datapath"
+	"nox/v1/common/keybind"
 	"nox/v1/common/log"
 	"nox/v1/common/maps"
 	"nox/v1/common/memmap"
@@ -184,14 +185,15 @@ func nox_xxx_gameDownloadShowDialog_4CC770() C.int {
 	return 1
 }
 
-func nox_xxx_guiDownloadAbort_4CC830(a1 *Window, a2 int, a3, a4 uintptr) uintptr {
-	if a2 != 21 {
-		return 0
+func nox_xxx_guiDownloadAbort_4CC830(a1 *Window, ev WindowEvent) WindowEventResp {
+	ekey, ok := ev.(WindowKeyPress)
+	if !ok {
+		return nil
 	}
-	if a3 != 1 {
-		return 0
+	if ekey.Key != keybind.KeyEsc {
+		return nil
 	}
-	if a4 == 2 {
+	if ekey.Pressed {
 		clientPlaySoundSpecial(231, 100)
 		nox_xxx_guiDownloadClose_4CC930()
 		noxServer.nox_xxx_gameSetMapPath_409D70(GoString((*C.char)(memmap.PtrOff(0x5D4594, 1522936))))
@@ -200,17 +202,18 @@ func nox_xxx_guiDownloadAbort_4CC830(a1 *Window, a2 int, a3, a4 uintptr) uintptr
 		nox_xxx_mapSetDownloadOK_4AB570(0)
 		nox_common_gameFlags_unset_40A540(9437184)
 	}
-	return 1
+	return RawEventResp(1)
 }
 
-func nox_xxx_guiDownloadProc_4CC890(a1 *Window, a2 int, a3, a4 uintptr) uintptr {
-	if a2 != 16391 {
-		return 0
+func nox_xxx_guiDownloadProc_4CC890(a1 *Window, ev WindowEvent) WindowEventResp {
+	a2, a3, _ := ev.EventArgsC()
+	if a2 != 0x4007 {
+		return nil
 	}
 	v3 := asWindowP(unsafe.Pointer(a3)).ID()
 	clientPlaySoundSpecial(766, 100)
 	if v3 != 1601 {
-		return 0
+		return nil
 	}
 	nox_xxx_guiDownloadClose_4CC930()
 	nox_xxx_cliCancelMapDownload_4ABA90()
@@ -218,12 +221,12 @@ func nox_xxx_guiDownloadProc_4CC890(a1 *Window, a2 int, a3, a4 uintptr) uintptr 
 	nox_xxx_mapSetDownloadInProgress_4AB560(0)
 	nox_xxx_mapSetDownloadOK_4AB570(0)
 	nox_common_gameFlags_unset_40A540(9437184)
-	return 1
+	return RawEventResp(1)
 }
 
 func nox_xxx_guiDownloadSetPercent_4CC900(a1 int) int {
 	v1 := winDownload.ChildByID(1603)
-	return int(v1.Func94(16416, uintptr(a1), 0))
+	return eventRespInt(v1.Func94(asWindowEvent(0x4020, uintptr(a1), 0)))
 }
 
 func nox_xxx_guiDownloadClose_4CC930() {

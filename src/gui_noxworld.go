@@ -140,7 +140,7 @@ func nox_client_refreshServerList_4378B0() {
 	*memmap.PtrUint64(0x5D4594, 815076) = platformTicks()
 	C.dword_5d4594_815060 = 0
 	C.sub_4379C0()
-	asWindow(C.dword_5d4594_815004).Func94(16399, 0, 0)
+	asWindow(C.dword_5d4594_815004).Func94(asWindowEvent(0x400F, 0, 0))
 	C.sub_49FFA0(1)
 	C.nox_wol_server_result_cnt_815088 = 0
 	if C.dword_587000_87404 != 0 {

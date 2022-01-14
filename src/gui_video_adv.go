@@ -120,13 +120,14 @@ func sub_49B3C0() {
 	C.dword_5d4594_1301796 = 0
 }
 
-func nox_client_advVideoOptsProc_4CB5D0(win *Window, ev int, a3, a4 uintptr) uintptr {
-	if ev == 16389 {
+func nox_client_advVideoOptsProc_4CB5D0(win *Window, e WindowEvent) WindowEventResp {
+	ev, a3, _ := e.EventArgsC()
+	if ev == 0x4005 {
 		clientPlaySoundSpecial(920, 100)
-		return 1
+		return RawEventResp(1)
 	}
-	if ev != 16391 {
-		return 0
+	if ev != 0x4007 {
+		return nil
 	}
 	targ := asWindowP(unsafe.Pointer(a3))
 	clientPlaySoundSpecial(766, 100)
@@ -136,21 +137,21 @@ func nox_client_advVideoOptsProc_4CB5D0(win *Window, ev int, a3, a4 uintptr) uin
 		// always enabled
 		C.nox_video_dxUnlockSurface = 1
 		win.DrawData().Field0Set(0x4, true)
-		return 0
+		return nil
 	case 2033:
 		v := C.nox_client_texturedFloors2_154960 != 0
 		C.nox_client_texturedFloors2_154960 = C.uint(bool2int(!v))
 		C.nox_client_texturedFloors_154956 = C.uint(bool2int(!v))
 		C.nox_xxx_tileSetDrawFn_481420()
 		C.dword_5d4594_1193156 = 0
-		return 0
+		return nil
 	case 2099:
 		detectBestVideoSettings()
 		nox_client_advVideoOptsLoad(nox_win_advVideoOpts_1522600)
 		if par := win.Parent(); par != nil {
-			par.Func94(16391, uintptr(unsafe.Pointer(targ.C())), 0)
+			par.Func94(asWindowEvent(0x4007, uintptr(unsafe.Pointer(targ.C())), 0))
 		}
-		return 0
+		return nil
 	}
 	if opt, ok := noxVideoAdvOpts[id]; ok {
 		if opt.Toggle != nil {
@@ -168,7 +169,7 @@ func nox_client_advVideoOptsProc_4CB5D0(win *Window, ev int, a3, a4 uintptr) uin
 	case 2040:
 		C.nox_xxx_xxxRenderGUI_587000_80832 = C.nox_client_renderGUI_80828
 	}
-	return 0
+	return nil
 }
 
 func newAdvVideoOpts(sm *strman.StringManager) *Window {

@@ -384,11 +384,7 @@ func nox_xxx_windowUpdateKeysMB_46B6B0(inp *input.Handler, key keybind.Key) {
 	}
 	ok := false
 	for win := root; win != nil; win = win.Parent() {
-		st := 1
-		if inp.IsPressed(key) {
-			st = 2
-		}
-		if win.Func93(21, uintptr(key), uintptr(st)) != 0 {
+		if eventRespBool(win.Func93(WindowKeyPress{Key: key, Pressed: inp.IsPressed(key)})) {
 			ok = true
 			break
 		}
@@ -465,7 +461,7 @@ func freeAllWindowsInList() { // sub_46C200
 		if nox_win_1064916 == win {
 			nox_win_1064916 = nil
 		}
-		win.Func94(2, 0, 0)
+		win.Func94(WindowDestroy{})
 		nox_alloc_window.FreeObjectFirst(unsafe.Pointer(win.C()))
 		win = prev
 	}
@@ -495,5 +491,5 @@ func sub46B120(win, par *Window) int {
 }
 
 func sub_46AEE0(a1 *Window, a2 string) {
-	a1.Func94(16385, uintptr(unsafe.Pointer(internWStr(a2))), 0)
+	a1.Func94(asWindowEvent(guiEventStaticTextSetText, uintptr(unsafe.Pointer(internWStr(a2))), 0))
 }

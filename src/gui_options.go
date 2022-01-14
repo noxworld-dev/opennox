@@ -78,7 +78,7 @@ func nox_video_setMenuOptions(cwin *C.nox_window) {
 		}
 		id := uint(guiIDMenuExt + i)
 		if res == mode {
-			root.ChildByID(id).Func94(16392, 1, 0)
+			root.ChildByID(id).Func94(asWindowEvent(0x4008, 1, 0))
 			return
 		}
 	}
@@ -162,15 +162,15 @@ func guiEnhanceOptions(root *Window) {
 	// add gamma and sensitivity sliders instead
 	NewStaticText(root, 315, 112, 220, 140, 16, true, false, "Gamma")
 	NewHorizontalSlider(root, 316, 120, 236, 120, 16, 1, 100).
-		Func94(16394, uintptr((float32(nox_video_getGamma())-0.5)*50), 0)
+		Func94(asWindowEvent(0x400A, uintptr((float32(nox_video_getGamma())-0.5)*50), 0))
 	NewStaticText(root, 317, 112, 258, 140, 16, true, false, "Sensitivity")
 	NewHorizontalSlider(root, 318, 120, 274, 120, 16, 1, 100).
-		Func94(16394, uintptr((math.Log10(float64(nox_input_getSensitivity()))+1.0)*50), 0)
+		Func94(asWindowEvent(0x400A, uintptr((math.Log10(float64(nox_input_getSensitivity()))+1.0)*50), 0))
 }
 
 func sub_4A19F0(name strman.ID) {
 	win := asWindowP(C.dword_5d4594_1307292)
 	v1 := win.ChildByID(152)
 	v2 := strMan.GetStringInFile(name, "C:\\NoxPost\\src\\client\\shell\\OptsBack.c")
-	v1.Func94(16385, uintptr(unsafe.Pointer(internWStr(v2))), math.MaxUint32)
+	v1.Func94(asWindowEvent(guiEventStaticTextSetText, uintptr(unsafe.Pointer(internWStr(v2))), math.MaxUint32))
 }
