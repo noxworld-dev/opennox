@@ -131,7 +131,7 @@ int sub_4D6B10(int a1);
 int sub_4D6BE0();
 int nox_server_setupQuestGame_4D6C70();
 int sub_4D6F30();
-int sub_4D6F40(int a1);
+void sub_4D6F40(int a1);
 int nox_xxx_isQuest_4D6F50();
 int nox_xxx_setQuest_4D6F60(int a1);
 int sub_4D6F70();

@@ -202,7 +202,7 @@ func startServer() bool {
 	}
 	noxflags.UnsetGame(noxflags.GameModeCoop)
 	C.sub_461440(0)
-	sub_4D6F40(0)
+	sub4D6F40(false)
 	sub_4D6F90(0)
 	if !isServerQuest {
 		noxServer.nox_xxx_setQuest_4D6F60(0)
@@ -246,14 +246,6 @@ func (s *Server) nox_xxx_isQuest_4D6F50() bool {
 
 func (s *Server) nox_xxx_setQuest_4D6F60(v int) {
 	*memmap.PtrUint32(0x5D4594, 1556160) = uint32(v)
-}
-
-func sub_4D6F30() uint32 {
-	return memmap.Uint32(0x5D4594, 1556156)
-}
-
-func sub_4D6F40(a1 uint32) {
-	*memmap.PtrUint32(0x5D4594, 1556156) = a1
 }
 
 func sub_4D6F90(a1 uint32) {

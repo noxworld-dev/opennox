@@ -4699,17 +4699,15 @@ int nox_server_setupQuestGame_4D6C70() {
 	return sub_4D6A60();
 }
 
+#ifndef NOX_CGO
 //----- (004D6F30) --------------------------------------------------------
 int sub_4D6F30() { return *getMemU32Ptr(0x5D4594, 1556156); }
 
 //----- (004D6F40) --------------------------------------------------------
-int sub_4D6F40(int a1) {
-	int result; // eax
-
-	result = a1;
+void sub_4D6F40(int a1) {
 	*getMemU32Ptr(0x5D4594, 1556156) = a1;
-	return result;
 }
+#endif // NOX_CGO
 
 //----- (004D6F50) --------------------------------------------------------
 int nox_xxx_isQuest_4D6F50() { return *getMemU32Ptr(0x5D4594, 1556160); }

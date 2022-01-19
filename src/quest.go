@@ -35,6 +35,7 @@ type questServer struct {
 }
 
 var (
+	questFlag_1556156      bool
 	questPlayerFile        string // 0x5D4594, 1560984
 	questPlayerSet         bool   // dword_5d4594_1563052
 	questLevelInc          = 1
@@ -298,4 +299,22 @@ func sub_4DCF20() {
 			fs.Remove(path)
 		}
 	}
+}
+
+//export sub_4D6F30
+func sub_4D6F30() C.int {
+	return C.int(bool2int(sub4D6F30()))
+}
+
+func sub4D6F30() bool { // sub_4D6F30
+	return questFlag_1556156
+}
+
+//export sub_4D6F40
+func sub_4D6F40(a1 C.int) {
+	sub4D6F40(a1 != 0)
+}
+
+func sub4D6F40(a1 bool) { // sub_4D6F40
+	questFlag_1556156 = a1
 }

@@ -431,7 +431,7 @@ func sub_44A400() {
 //export nox_game_showSelChar_4A4DB0
 func nox_game_showSelChar_4A4DB0() C.int {
 	nox_client_setCursorType_477610(0)
-	if sub_4D6F30() != 0 {
+	if sub4D6F30() {
 		sub_4D6F90(1)
 	}
 	gameAddStateCode(500)
@@ -929,7 +929,7 @@ func nox_xxx_windowSelCharProc_4A5710(a1 *Window, e WindowEvent) WindowEventResp
 				nox_xxx_mapLoadOrSaveMB_4DCC70(1)
 				v13, _ := sub41D090(GoString(&sv.path[0]))
 				noxServer.SetFirstObjectScriptID(server.ObjectScriptID(v13))
-			} else if sub_4D6F30() != 0 {
+			} else if sub4D6F30() {
 				sub_4DCE60(int(sv.stage))
 				noxServer.setQuestMapName(GoString(&sv.map_name[0]))
 				v14, _ := sub41D090(GoString(&sv.path[0]))

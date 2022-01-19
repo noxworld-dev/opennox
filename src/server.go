@@ -633,7 +633,7 @@ func (s *Server) nox_server_xxxInitPlayerUnits_4FC6D0() {
 			C.nox_game_sendQuestStage_4D6960(255)
 			C.sub_4D7440(1)
 			C.sub_4D60B0()
-		} else if sub_4D6F30() == 0 || C.sub_4D7430() != 0 {
+		} else if !sub4D6F30() || C.sub_4D7430() != 0 {
 			if C.sub_4D76F0() == 1 {
 				C.sub_4D6880(255, 1)
 				C.sub_4D76E0(0)
