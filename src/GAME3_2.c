@@ -8633,12 +8633,10 @@ void sub_4DCE80(char* a1) {
 		*getMemU32Ptr(0x5D4594, 1563120) = 0;
 	}
 }
-#endif // NOX_CGO
 
 //----- (004DCED0) --------------------------------------------------------
 char* nox_xxx_getQuestMapName_4DCED0() { return getMemAt(0x5D4594, 1563104); }
 
-#ifndef NOX_CGO
 //----- (004DCEE0) --------------------------------------------------------
 void sub_4DCEE0(char* a1) {
 	if (a1) {

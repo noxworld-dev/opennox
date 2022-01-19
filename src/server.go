@@ -885,7 +885,7 @@ func sub_4DB0A0() {
 	C.dword_5d4594_1563092 = 0
 	C.dword_5d4594_1563096 = 0
 	*memmap.PtrUint32(0x5D4594, 1563100) = 0
-	*memmap.PtrUint8(0x5D4594, 1563104) = 0
+	noxServer.quest.mapName = ""
 	C.dword_5d4594_1563064 = 0
 	questPlayerSet = false
 }

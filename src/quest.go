@@ -30,6 +30,7 @@ const (
 )
 
 type questServer struct {
+	mapName                   string // 0x5D4594, 1563104
 	nox_xxx_questFlag_1556148 int
 }
 
@@ -232,7 +233,7 @@ func (s *Server) switchQuestIfRequested4D6FD0() {
 	if s.quest.nox_xxx_questFlag_1556148 != 0 {
 		return
 	}
-	mapName := GoString(C.nox_xxx_getQuestMapName_4DCED0())
+	mapName := s.getQuestMapName()
 	C.nox_server_setupQuestGame_4D6C70()
 	var mapFile string
 	if mapName != "" {
@@ -241,7 +242,7 @@ func (s *Server) switchQuestIfRequested4D6FD0() {
 		mapFile = GoString(C.nox_xxx_getQuestMapFile_4D0F60())
 	}
 	s.switchMap(mapFile)
-	s.sub_4DCE80("")
+	s.setQuestMapName("")
 	s.nox_game_setQuestStage_4E3CD0(0)
 	sub_4169F0()
 }
@@ -260,6 +261,18 @@ func (s *Server) cmdStartSoloQuest() { // nox_server_conCmdHandler_startSoloQues
 	*memmap.PtrUint32(0x5D4594, 1556152) = uint32(bool2int(sub_416A00()))
 	sub_4169E0()
 	noxServer.setQuestFlag(30)
+}
+
+func sub_4DCE60(a1 int) {
+	*memmap.PtrUint32(0x5D4594, 1563100) = uint32(a1)
+}
+
+func (s *Server) setQuestMapName(name string) { // sub_4DCE80
+	s.quest.mapName = name
+}
+
+func (s *Server) getQuestMapName() string { // nox_xxx_getQuestMapName_4DCED0
+	return s.quest.mapName
 }
 
 //export sub_4DCEE0

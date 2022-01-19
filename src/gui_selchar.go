@@ -931,7 +931,7 @@ func nox_xxx_windowSelCharProc_4A5710(a1 *Window, e WindowEvent) WindowEventResp
 				noxServer.SetFirstObjectScriptID(server.ObjectScriptID(v13))
 			} else if sub_4D6F30() != 0 {
 				sub_4DCE60(int(sv.stage))
-				noxServer.sub_4DCE80(GoString(&sv.map_name[0]))
+				noxServer.setQuestMapName(GoString(&sv.map_name[0]))
 				v14, _ := sub41D090(GoString(&sv.path[0]))
 				noxServer.SetFirstObjectScriptID(server.ObjectScriptID(v14))
 			}
@@ -986,16 +986,6 @@ func nox_xxx_windowSelCharProc_4A5710(a1 *Window, e WindowEvent) WindowEventResp
 	}
 	clientPlaySoundSpecial(921, 100)
 	return RawEventResp(1)
-}
-
-func sub_4DCE60(a1 int) {
-	*memmap.PtrUint32(0x5D4594, 1563100) = uint32(a1)
-}
-
-func (s *Server) sub_4DCE80(a1 string) {
-	ptr := memmap.PtrOff(0x5D4594, 1563104)
-	alloc.Memset(ptr, 0, 20)
-	StrCopy((*C.char)(ptr), 20, a1)
 }
 
 //export sub_41D090
