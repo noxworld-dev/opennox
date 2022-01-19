@@ -76,7 +76,6 @@ int nox_cmd_clear(int, int, wchar_t**);
 int nox_cmd_menu_options(int, int, wchar_t**);
 int nox_cmd_menu_vidopt(int, int, wchar_t**);
 int nox_cmd_reenter(int, int, wchar_t**);
-int nox_cmd_startSoloQuest(int, int, wchar_t**);
 */
 import "C"
 import (
@@ -277,7 +276,6 @@ var (
 		{Token: "unmute", HelpID: "unmutehelp", Flags: console.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_unmute)},
 		{Token: "unlock", HelpID: "unlockhelp", Flags: console.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_unlock)},
 		{Token: "window", HelpID: "windowhelp", Flags: console.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_window)},
-		{Token: "startSoloQuest", HelpID: "nohelp", Flags: console.Server | console.NoHelp, LegacyFunc: wrapCommandC(nox_cmd_startSoloQuest)},
 	}
 )
 
@@ -472,7 +470,4 @@ func nox_cmd_menu_vidopt(i C.int, n C.int, arr **C.wchar_t) C.int {
 }
 func nox_cmd_reenter(i C.int, n C.int, arr **C.wchar_t) C.int {
 	return C.nox_cmd_reenter(i, n, arr)
-}
-func nox_cmd_startSoloQuest(i C.int, n C.int, arr **C.wchar_t) C.int {
-	return C.nox_cmd_startSoloQuest(i, n, arr)
 }

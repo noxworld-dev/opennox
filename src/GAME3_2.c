@@ -87,7 +87,6 @@ extern uint32_t dword_5d4594_1563088;
 extern uint32_t nox_xxx_warriorMaxSpeed_587000_312796;
 extern uint32_t nox_server_sanctuaryHelp_54276;
 extern uint32_t dword_5d4594_3835312;
-extern uint32_t dword_5d4594_1563052;
 extern uint32_t nox_xxx_conjurerSpeed_587000_312812;
 extern uint32_t nox_xxx_wizardSpeed_587000_312828;
 extern uint32_t nox_xxx_wizardStrength_587000_312824;
@@ -133,6 +132,10 @@ nox_object_t* nox_server_objects_1556844 = 0;
 nox_object_t* nox_xxx_host_player_unit_3843628 = 0;
 
 nox_list_item_t nox_common_maplist = {0};
+
+#ifndef NOX_CGO
+uint32_t dword_5d4594_1563052 = 0;
+#endif // NOX_CGO
 
 // 4CD756: variable 'v5' is possibly undefined
 // 4CD767: variable 'v7' is possibly undefined
@@ -4744,6 +4747,7 @@ int sub_4D6F90(int a1) {
 //----- (004D6FA0) --------------------------------------------------------
 int sub_4D6FA0() { return *getMemU32Ptr(0x5D4594, 1556104); }
 
+#ifndef NOX_CGO
 //----- (004D6FB0) --------------------------------------------------------
 int nox_xxx_setQuestFlag_4D6FB0(int f) {
 	nox_xxx_questFlag_1556148 = f;
@@ -4761,6 +4765,7 @@ int nox_server_conCmdHandler_startSoloQuest_4D7080() {
 	sub_4169E0();
 	return nox_xxx_setQuestFlag_4D6FB0(30);
 }
+#endif // NOX_CGO
 
 //----- (004D70B0) --------------------------------------------------------
 char* sub_4D70B0() {
@@ -7855,6 +7860,7 @@ uint32_t* nox_xxx_unitClearPendingMB_4DB030() {
 	return result;
 }
 
+#ifndef NOX_CGO
 //----- (004DB0A0) --------------------------------------------------------
 int sub_4DB0A0() {
 	*getMemU8Ptr(0x5D4594, 1560984) = getMemByte(0x5D4594, 1563136);
@@ -7871,6 +7877,7 @@ int sub_4DB0A0() {
 	*getMemU8Ptr(0x5D4594, 1563104) = getMemByte(0x5D4594, 1563140);
 	return 1;
 }
+#endif // NOX_CGO
 
 //----- (004DB100) --------------------------------------------------------
 int sub_4DB100() {
@@ -8631,8 +8638,9 @@ void sub_4DCE80(char* a1) {
 //----- (004DCED0) --------------------------------------------------------
 char* nox_xxx_getQuestMapName_4DCED0() { return getMemAt(0x5D4594, 1563104); }
 
+#ifndef NOX_CGO
 //----- (004DCEE0) --------------------------------------------------------
-void sub_4DCEE0(const char* a1) {
+void sub_4DCEE0(char* a1) {
 	if (a1) {
 		strcpy((char*)getMemAt(0x5D4594, 1560984), a1);
 		dword_5d4594_1563052 = 1;
@@ -8640,6 +8648,7 @@ void sub_4DCEE0(const char* a1) {
 		dword_5d4594_1563052 = 0;
 	}
 }
+#endif // NOX_CGO
 
 //----- (004DCF80) --------------------------------------------------------
 int nox_xxx_sendGauntlet_4DCF80(int a1, char a2) {

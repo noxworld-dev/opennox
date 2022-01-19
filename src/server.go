@@ -36,6 +36,13 @@ extern unsigned int dword_5d4594_825768;
 extern unsigned int dword_5d4594_1548524;
 extern unsigned int nox_server_switchToWP_1548664;
 extern nox_object_t* nox_xxx_host_player_unit_3843628;
+extern uint32_t dword_5d4594_1563044;
+extern unsigned int dword_5d4594_1563064;
+extern uint32_t dword_5d4594_1563080;
+extern uint32_t dword_5d4594_1563084;
+extern uint32_t dword_5d4594_1563088;
+extern uint32_t dword_5d4594_1563092;
+extern uint32_t dword_5d4594_1563096;
 
 void nox_xxx_abilUpdateMB_4FBEE0();
 char* nox_server_updateRemotePlayers_4DEC80();
@@ -110,6 +117,7 @@ type Server struct {
 	lua             scriptLUA
 	activators      activators
 	tickHooks       tickHooks
+	quest           questServer
 	mapSwitchWPName string
 }
 
@@ -282,7 +290,7 @@ func (s *Server) nox_xxx_gameTick_4D2580_server_E() {
 	}
 	if s.nox_xxx_isQuest_4D6F50() {
 		s.switchQuestIfRequested4D6FD0()
-		C.sub_4DCF20()
+		sub_4DCF20()
 	}
 }
 
@@ -308,31 +316,24 @@ func (s *Server) nox_xxx_mapEntry_4FC600() {
 	}
 }
 
-func (s *Server) switchQuestIfRequested4D6FD0() {
-	if C.nox_xxx_questFlag_1556148 == 0 {
-		return
-	}
-	C.nox_xxx_questFlag_1556148--
-	if C.nox_xxx_questFlag_1556148 != 0 {
-		return
-	}
-	mapName := GoString(C.nox_xxx_getQuestMapName_4DCED0())
-	C.nox_server_setupQuestGame_4D6C70()
-	var mapFile string
-	if mapName != "" {
-		mapFile = mapName + ".map"
-	} else {
-		mapFile = GoString(C.nox_xxx_getQuestMapFile_4D0F60())
-	}
-	s.switchMap(mapFile)
-	s.sub_4DCE80("")
-	s.nox_game_setQuestStage_4E3CD0(0)
-	C.sub_4169F0()
-}
-
 func sub_416640() []byte {
 	// TODO: size is a guess
 	return unsafe.Slice((*byte)(memmap.PtrOff(0x5D4594, 371516)), 168)
+}
+
+func sub_416A00() bool {
+	v0 := sub_416640()
+	return (v0[100]>>4)&0x1 != 0
+}
+
+func sub_4169E0() {
+	v0 := sub_416640()
+	v0[100] |= 0x10
+}
+
+func sub_4169F0() {
+	v0 := sub_416640()
+	v0[100] &= 0xEF
 }
 
 func (s *Server) updateRemotePlayers() error {
@@ -462,7 +463,7 @@ func (s *Server) nox_xxx_servNewSession_4D1660() error {
 		return errors.New("nox_xxx_allocPendingOwnsArray_516EE0 failed")
 	}
 	C.sub_421B10()
-	C.sub_4DB0A0()
+	sub_4DB0A0()
 	C.sub_4D0F30()
 	srvPort := s.getServerPort()
 	httpPort := inferHTTPPort(srvPort)
@@ -872,4 +873,19 @@ func nox_xxx_moveUpdateSpecial_517970(cunit *nox_object_t) {
 		}
 		unit.Delete()
 	}
+}
+
+func sub_4DB0A0() {
+	questPlayerFile = ""
+	C.dword_5d4594_1563044 = 0
+	*memmap.PtrUint32(0x5D4594, 1563048) = 0
+	C.dword_5d4594_1563080 = 0
+	C.dword_5d4594_1563084 = 0
+	C.dword_5d4594_1563088 = 0
+	C.dword_5d4594_1563092 = 0
+	C.dword_5d4594_1563096 = 0
+	*memmap.PtrUint32(0x5D4594, 1563100) = 0
+	*memmap.PtrUint8(0x5D4594, 1563104) = 0
+	C.dword_5d4594_1563064 = 0
+	questPlayerSet = false
 }

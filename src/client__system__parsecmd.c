@@ -2761,6 +2761,7 @@ int nox_cmd_reenter(int tokInd, int tokCnt, wchar_t** tokens) {
 	return 1;
 }
 
+#ifndef NOX_CGO
 //----- (004423A0) --------------------------------------------------------
 int nox_cmd_startSoloQuest(int tokInd, int tokCnt, wchar_t** tokens) {
 	if (nox_xxx_isQuest_4D6F50() && !nox_common_gameFlags_check_40A5C0(4096)) {
@@ -2768,3 +2769,4 @@ int nox_cmd_startSoloQuest(int tokInd, int tokCnt, wchar_t** tokens) {
 	}
 	return 1;
 }
+#endif // NOX_CGO

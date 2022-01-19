@@ -56,7 +56,6 @@ extern uint32_t dword_5d4594_1548704;
 extern uint32_t dword_5d4594_1563096;
 extern uint32_t dword_5d4594_1563052;
 extern void* nox_alloc_execAbil_1569644;
-extern uint32_t nox_xxx_questFlag_1556148;
 extern uint32_t dword_5d4594_825768;
 extern void* nox_alloc_springs_2386568;
 extern uint32_t dword_5d4594_608316;
@@ -88,6 +87,7 @@ void nullsub_21(void) {}
 void nullsub_25(uint32_t a1) {}
 
 #ifndef NOX_CGO
+uint32_t nox_xxx_questFlag_1556148 = 0;
 uint32_t nox_server_switchToWP_1548664 = 0;
 unsigned int nox_server_lastObjectScriptID = 1000000000;
 unsigned int nox_server_firstObjectScriptID = 1000000000;
@@ -860,6 +860,7 @@ int sub_4DCC00() { return dword_5d4594_1563064; }
 //----- (004DCC80) --------------------------------------------------------
 int nox_xxx_mapLoadRequired_4DCC80() { return *getMemU32Ptr(0x5D4594, 1563072); }
 
+#ifndef NOX_CGO
 //----- (004DCF20) --------------------------------------------------------
 int sub_4DCF20() {
 	char* v0;   // esi
@@ -883,7 +884,6 @@ int sub_4DCF20() {
 }
 
 //----- (004DEB30) --------------------------------------------------------
-#ifndef NOX_CGO
 void nox_server_netMaybeSendInitialPackets_4DEB30() {
 	if (!(nox_common_getEngineFlag(NOX_ENGINE_FLAG_REPLAY_READ))) {
 		nox_xxx_servNetInitialPackets_552A80(*getMemUintPtr(0x5D4594, 1563148), 1);

@@ -969,7 +969,7 @@ void sub_44DF70() {
 }
 
 //----- (0044DF90) --------------------------------------------------------
-int nox_client_setScreenFade_44DF90(int a1) {
+int nox_client_setScreenFade_44DF90(void* a1) {
 	int result = 0;
 	struc_36* it = (struc_36*)getMemAt(0x5D4594, 831108);
 	for (int i = 0; i < 4; i++) {
@@ -986,7 +986,7 @@ int nox_client_setScreenFade_44DF90(int a1) {
 }
 
 //----- (0044DFD0) --------------------------------------------------------
-int nox_client_checkFade_44DFD0(int a1) {
+int nox_client_checkFade_44DFD0(void* a1) {
 	struc_36* it = (struc_36*)getMemAt(0x5D4594, 831108);
 	int v2 = 0;
 	while (!(it->field_0 & 1) || it->field_6 != a1) {
@@ -998,6 +998,7 @@ int nox_client_checkFade_44DFD0(int a1) {
 	return it != 0;
 }
 
+#ifndef NOX_CGO
 //----- (0044E000) --------------------------------------------------------
 void sub_44E000() {
 	if (!nox_client_checkFade_44DFD0(nox_client_drawFadingScreen_44DD70)) {
@@ -1022,23 +1023,23 @@ void sub_44E040() {
 }
 
 //----- (0044E070) --------------------------------------------------------
-int sub_44E070() {
+void sub_44E070() {
 	nox_client_setScreenFade_44DF90(nox_client_drawFadingScreen_44DD70);
-	return nox_client_setScreenFade_44DF90(sub_44DE30);
+	nox_client_setScreenFade_44DF90(sub_44DE30);
 }
 
 //----- (0044E090) --------------------------------------------------------
-int sub_44E090() {
+void sub_44E090() {
 	nox_client_setScreenFade_44DF90(nox_xxx_screenFadeEffect_44DD20);
-	return nox_client_setScreenFade_44DF90(sub_44DDF0);
+	nox_client_setScreenFade_44DF90(sub_44DDF0);
 }
 
 //----- (0044E0B0) --------------------------------------------------------
-int nox_xxx_cliPlayMapIntro_44E0B0(int a1) {
+void nox_xxx_cliPlayMapIntro_44E0B0(int a1) {
 	sub_44E070();
 	sub_44E090();
 	nox_gameDisableMapDraw_5d4594_2650672 = 1;
-	return nox_client_fadeXxx_44DA60(a1);
+	nox_client_fadeXxx_44DA60(a1);
 }
 
 //----- (0044E0D0) --------------------------------------------------------
@@ -1051,6 +1052,7 @@ int sub_44E0D0() {
 	}
 	return nox_gameDisableMapDraw_5d4594_2650672 != 0;
 }
+#endif // NOX_CGO
 
 //----- (0044E110) --------------------------------------------------------
 uint32_t* sub_44E110() {
