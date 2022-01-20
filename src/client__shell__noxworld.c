@@ -63,6 +63,7 @@ extern nox_video_mode nox_video_modes[7];
 int dword_5d4594_815104 = 0;
 nox_gui_animation* nox_wnd_xxx_815040 = 0;
 
+#ifndef NOX_CGO
 //----- (004373A0) --------------------------------------------------------
 void sub_4373A0() {
 	wchar_t* v0; // eax
@@ -119,7 +120,6 @@ void sub_4373A0() {
 }
 
 //----- (004378B0) --------------------------------------------------------
-#ifndef NOX_CGO
 void nox_client_refreshServerList_4378B0() {
 	if (sub_44A4A0()) {
 		dword_5d4594_815104 = 1;

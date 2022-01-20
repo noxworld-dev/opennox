@@ -36,7 +36,7 @@ extern void* dword_5d4594_830224;
 extern uint32_t dword_5d4594_830228;
 extern void* dword_5d4594_830232;
 extern void* dword_5d4594_830236;
-extern uint32_t dword_5d4594_831220;
+extern unsigned int dword_5d4594_831220;
 extern uint32_t dword_5d4594_831260;
 extern uint32_t dword_5d4594_1563080;
 extern uint32_t dword_5d4594_1563084;
@@ -208,11 +208,6 @@ func sub_40E0A0() {
 
 func sub_40E090() {
 	C.dword_5d4594_10984 = 0
-}
-
-//export sub_43BE40
-func sub_43BE40(a1 C.int) {
-	*memmap.PtrUint32(0x5D4594, 815204) = uint32(a1)
 }
 
 //export sub_4A4CB0
@@ -487,7 +482,7 @@ func nox_game_showSelChar_4A4DB0() C.int {
 		sub_46AEE0(wblank, v4)
 	}
 	nox_xxx_findAutosaves_4A5150()
-	sub_4A19F0("OptsBack.wnd:Back")
+	sub4A19F0("OptsBack.wnd:Back")
 	if noxflags.HasGame(noxflags.GameOnline) {
 		setEngineFlag(NOX_ENGINE_FLAG_ADMIN)
 	} else {
@@ -935,7 +930,7 @@ func nox_xxx_windowSelCharProc_4A5710(a1 *Window, e WindowEvent) WindowEventResp
 				v14, _ := sub41D090(GoString(&sv.path[0]))
 				noxServer.SetFirstObjectScriptID(server.ObjectScriptID(v14))
 			}
-			C.sub_4A24C0(0)
+			sub4A24C0(false)
 			sub_4A50A0()
 			nox_wnd_xxx_1307748.field_13 = nil
 		}
@@ -1183,6 +1178,7 @@ func sub_4505B0() {
 	sub_450580()
 	C.nox_gameDisableMapDraw_5d4594_2650672 = 0
 	v0 := nox_client_getIntroScreenDuration_44E3B0()
+	_ = sub_44E320
 	C.nox_client_screenFadeTimeout_44DAB0(v0, 1, (*[0]byte)(C.sub_44E320))
 	C.nox_gameDisableMapDraw_5d4594_2650672 = 1
 }

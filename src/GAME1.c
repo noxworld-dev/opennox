@@ -6553,6 +6553,7 @@ int sub_4137E0() {
 	return result;
 }
 
+#ifndef NOX_CGO
 //----- (00413800) --------------------------------------------------------
 void nox_game_cdMaybeSwitchState_413800() {
 	if (!*getMemU32Ptr(0x5D4594, 251724)) {
@@ -6562,6 +6563,7 @@ void nox_game_cdMaybeSwitchState_413800() {
 		}
 	}
 }
+#endif // NOX_CGO
 
 //----- (00413830) --------------------------------------------------------
 int nox_xxx_testCD_413830() { return dword_5d4594_251704 != 0; }

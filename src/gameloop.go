@@ -426,6 +426,16 @@ mainloop:
 	}
 }
 
+//export nox_game_cdMaybeSwitchState_413800
+func nox_game_cdMaybeSwitchState_413800() {
+	if memmap.Uint32(0x5D4594, 251724) == 0 {
+		*memmap.PtrUint32(0x5D4594, 251724) = 1
+		if !nox_game_switchStates() {
+			C.sub_413760()
+		}
+	}
+}
+
 func nox_xxx_clientResetSpriteAndGui_4357D0(noSkip bool) bool {
 	clientSetPlayerNetCode(0)
 	*memmap.PtrUint32(0x852978, 8) = 0
@@ -437,7 +447,7 @@ func nox_xxx_clientResetSpriteAndGui_4357D0(noSkip bool) bool {
 	}
 	*memmap.PtrUint32(0x5D4594, 811064) = uint32(C.nox_client_renderGUI_80828)
 	C.nox_netlist_resetAll_40EE60()
-	if !nox_common_gameFlags_check_40A5C0(1) {
+	if !noxflags.HasGame(noxflags.GameHost) {
 		noxServer.resetAllPlayers()
 	}
 	if !nox_xxx_chatInit_48D7D0() {
@@ -482,7 +492,7 @@ func cmainLoop() {
 	}
 	sub_43F140(300)
 	if !isDedicatedServer {
-		if C.sub_43C060() == 0 {
+		if !sub_43C060() {
 			return
 		}
 	}
@@ -984,7 +994,7 @@ func nox_xxx_cliWaitForJoinData_43BFE0() bool {
 		C.nox_client_gui_flag_815132 = 1
 		return true
 	}
-	if nox_game_switchStates_43C0A0() == 0 {
+	if !nox_game_switchStates() {
 		return false
 	}
 	C.nox_client_gui_flag_815132 = 1

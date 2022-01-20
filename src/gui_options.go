@@ -168,7 +168,12 @@ func guiEnhanceOptions(root *Window) {
 		Func94(asWindowEvent(0x400A, uintptr((math.Log10(float64(nox_input_getSensitivity()))+1.0)*50), 0))
 }
 
-func sub_4A19F0(name strman.ID) {
+//export sub_4A19F0
+func sub_4A19F0(name *C.char) {
+	sub4A19F0(strman.ID(GoString(name)))
+}
+
+func sub4A19F0(name strman.ID) {
 	win := asWindowP(C.dword_5d4594_1307292)
 	v1 := win.ChildByID(152)
 	v2 := strMan.GetStringInFile(name, "C:\\NoxPost\\src\\client\\shell\\OptsBack.c")

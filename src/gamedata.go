@@ -15,7 +15,6 @@ var (
 	gamedataLog = log.New("gamedata")
 )
 
-//export nox_xxx_gamedataFree_419DB0
 func nox_xxx_gamedataFree_419DB0() {
 	gamedata.file = nil
 }

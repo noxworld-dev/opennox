@@ -199,11 +199,13 @@ char* dword_5d4594_3798644 = 0;
 
 void* dword_5d4594_1307292 = 0;
 
+#ifndef NOX_CGO
 //----- (004A19D0) --------------------------------------------------------
 void sub_4A19D0() {
 	nox_xxx_setContinueMenuOrHost_43DDD0(0);
 	nox_client_gui_flag_815132 = 0;
 }
+#endif // NOX_CGO
 
 //----- (004A1A40) --------------------------------------------------------
 int sub_4A1A40(int a1) {
@@ -213,6 +215,7 @@ int sub_4A1A40(int a1) {
 	return nox_xxx_wnd_46ABB0((int)v1, a1);
 }
 
+#ifndef NOX_CGO
 //----- (004A1A60) --------------------------------------------------------
 int sub_4A1A60() {
 	uint32_t* v0; // eax
@@ -227,13 +230,11 @@ int sub_4A1A60() {
 }
 // 4A18E0: using guessed type int  sub_4A18E0(int, int, int, int);
 
-#ifndef NOX_CGO
 //----- (004A1BD0) --------------------------------------------------------
 int sub_4A1BD0() { return nox_xxx_windowDestroyMB_46C4E0(dword_5d4594_1307292); }
 
 //----- (004A1BE0) --------------------------------------------------------
 int sub_4A1BE0(int a1) { return nox_xxx_wnd_46ABB0(dword_5d4594_1307292, a1); }
-#endif // NOX_CGO
 
 // 4A203B: variable 'v6' is possibly undefined
 
@@ -243,7 +244,6 @@ int nox_client_drawGeneralCallback_4A2200() { return nox_client_drawGeneral_4B03
 //----- (004A2490) --------------------------------------------------------
 int sub_4A2490(int a1, int a2, int a3, int a4) { return a2 == 23; }
 
-#ifndef NOX_CGO
 //----- (004A24A0) --------------------------------------------------------
 int nox_client_guiXxxDestroy_4A24A0() {
 	sub_4A1BD0();
@@ -8240,6 +8240,7 @@ int sub_4B0220(size_t a1) {
 	return result;
 }
 
+#ifndef NOX_CGO
 //----- (004B02D0) --------------------------------------------------------
 int sub_4B02D0() {
 	dword_5d4594_1311936 = 0;
@@ -8248,6 +8249,7 @@ int sub_4B02D0() {
 	*getMemU32Ptr(0x5D4594, 1311932) = 0;
 	return 1;
 }
+#endif // NOX_CGO
 
 //----- (004B0610) --------------------------------------------------------
 void sub_4B0610(int a1) {

@@ -1171,6 +1171,7 @@ uint32_t* sub_44E110() {
 	return result;
 }
 
+#ifndef NOX_CGO
 //----- (0044E320) --------------------------------------------------------
 void sub_44E320() {
 	int v0; // eax
@@ -1195,7 +1196,6 @@ void sub_44E320() {
 	nox_client_screenFadeXxx_44DB30(v0, 1, sub_44E3C0);
 }
 
-#ifndef NOX_CGO
 //----- (0044E3B0) --------------------------------------------------------
 int nox_client_getIntroScreenDuration_44E3B0() { return 25; }
 #endif // NOX_CGO

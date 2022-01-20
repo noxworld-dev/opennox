@@ -986,8 +986,8 @@ func nox_xxx_drawAllMB_475810_draw(vp *Viewport) {
 	nox_wallsYyy = nox_wallsYyy[:0]
 	C.nox_xxx_drawBlack_496150(vp.C())
 	disableDraw := false
-	if !noxflags.HasGame(noxflags.GameModeCoop) && (C.nox_xxx_testCD_413830() == 0) ||
-		noxflags.HasGame(noxflags.GameModeCoop) && (C.nox_xxx_testCDAndSolo_413840() == 0) ||
+	if (!noxflags.HasGame(noxflags.GameModeCoop) && !nox_xxx_testCD_413830()) ||
+		(noxflags.HasGame(noxflags.GameModeCoop) && !nox_xxx_testCDAndSolo_413840()) ||
 		asDrawable((*C.nox_drawable)(*memmap.PtrPtr(0x852978, 8))).CheckFlag31(2) ||
 		C.nox_gameDisableMapDraw_5d4594_2650672 != 0 {
 		disableDraw = true

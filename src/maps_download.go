@@ -12,6 +12,7 @@ import (
 	"unsafe"
 
 	"nox/v1/common/datapath"
+	noxflags "nox/v1/common/flags"
 	"nox/v1/common/keybind"
 	"nox/v1/common/log"
 	"nox/v1/common/maps"
@@ -200,7 +201,7 @@ func nox_xxx_guiDownloadAbort_4CC830(a1 *Window, ev WindowEvent) WindowEventResp
 		nox_xxx_cliCancelMapDownload_4ABA90()
 		nox_xxx_mapSetDownloadInProgress_4AB560(0)
 		nox_xxx_mapSetDownloadOK_4AB570(0)
-		nox_common_gameFlags_unset_40A540(9437184)
+		noxflags.UnsetGame(noxflags.GameFlag21 | noxflags.GameFlag24)
 	}
 	return RawEventResp(1)
 }
@@ -220,7 +221,7 @@ func nox_xxx_guiDownloadProc_4CC890(a1 *Window, ev WindowEvent) WindowEventResp 
 	noxServer.nox_xxx_gameSetMapPath_409D70(GoString((*C.char)(memmap.PtrOff(0x5D4594, 1522940))))
 	nox_xxx_mapSetDownloadInProgress_4AB560(0)
 	nox_xxx_mapSetDownloadOK_4AB570(0)
-	nox_common_gameFlags_unset_40A540(9437184)
+	noxflags.UnsetGame(noxflags.GameFlag21 | noxflags.GameFlag24)
 	return RawEventResp(1)
 }
 

@@ -2057,6 +2057,7 @@ int nox_xxx_parseGamedataBinPre_4D1630() {
 	return result;
 }
 
+#ifndef NOX_CGO
 //----- (004D1650) --------------------------------------------------------
 // Microsoft VisualC 2-14/net runtime
 void nox_xxx_unknown_libname_11_4D1650() {
@@ -2065,7 +2066,6 @@ void nox_xxx_unknown_libname_11_4D1650() {
 }
 
 //----- (004D1660) --------------------------------------------------------
-#ifndef NOX_CGO
 int nox_xxx_servNewSession_4D1660() {
 	sub_4D15C0();
 	dword_5d4594_2649712 = 2147483648;

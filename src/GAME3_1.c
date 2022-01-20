@@ -101,7 +101,6 @@ nox_window* dword_5d4594_1522620 = 0;
 nox_window* dword_5d4594_1522624 = 0;
 nox_window* dword_5d4594_1522628 = 0;
 extern uint32_t nox_client_lockHighResFloors_1193152;
-extern uint32_t nox_win_legalBg_1522892;
 extern uint32_t nox_client_drawFrontWalls_80812;
 extern uint32_t dword_5d4594_1320992;
 extern uint32_t dword_5d4594_1321204;
@@ -163,6 +162,7 @@ uint32_t nox_arr_956A00[NOX_MAX_HEIGHT + 150] = {0};
 unsigned char nox_arr_957820[128 * (NOX_MAX_HEIGHT + 150)] = {0};
 
 #ifndef NOX_CGO
+uint32_t nox_win_legalBg_1522892 = 0;
 uint32_t dword_5d4594_1522932 = 0;
 void* nox_win_advVideoOpts_1522600 = 0;
 extern nox_bindevent_t nox_bindevent_arr[NOX_BINDEVENT_MAX];
@@ -7395,9 +7395,7 @@ int sub_4CC3C0(unsigned int a1) {
 }
 
 //----- (004CC4E0) --------------------------------------------------------
-#ifdef NOX_CGO
-void nox_client_onShowLegal(nox_window* win);
-#endif                          // NOX_CGO
+#ifndef NOX_CGO
 int nox_game_showLegal_4CC4E0() // display legal window
 {
 	uint32_t* v0;       // esi
@@ -7437,9 +7435,6 @@ int nox_game_showLegal_4CC4E0() // display legal window
 		nox_window_call_field_94(nox_win_legalBg_1522892, 16391, (int)v6, 0);
 	}
 	sub_43D9B0(14, 100);
-#ifdef NOX_CGO
-	nox_client_onShowLegal(nox_win_legalBg_1522892);
-#endif // NOX_CGO
 	return 1;
 }
 
@@ -7488,7 +7483,6 @@ int sub_4CC6F0(int a1, int a2) {
 	return 1;
 }
 
-#ifndef NOX_CGO
 //----- (004CC770) --------------------------------------------------------
 int nox_xxx_gameDownloadShowDialog_4CC770() {
 	int v0; // ecx

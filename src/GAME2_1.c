@@ -4121,7 +4121,8 @@ int sub_46AEE0(int a1, int a2) {
 }
 
 //----- (0046AF00) --------------------------------------------------------
-int sub_46AF00(int a1) {
+wchar_t* sub_46AF00(void* a1p) {
+	int a1 = a1p;
 	int v1;     // ecx
 	int result; // eax
 
@@ -4142,7 +4143,8 @@ int sub_46AF00(int a1) {
 }
 
 //----- (0046AF40) --------------------------------------------------------
-int sub_46AF40(int a1) {
+void* sub_46AF40(void* a1p) {
+	int a1 = a1p;
 	int result; // eax
 
 	result = a1;

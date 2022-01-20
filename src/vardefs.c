@@ -301,7 +301,6 @@ uint32_t nox_game_cdState_251700 = 0;
 uint32_t dword_5d4594_1193584 = 0;
 uint32_t dword_5d4594_1599532 = 0;
 uint32_t dword_5d4594_3798800 = 0;
-uint32_t nox_win_legalBg_1522892 = 0;
 uint32_t dword_5d4594_3798812 = 0;
 uint32_t dword_5d4594_251552 = 0;
 uint32_t dword_5d4594_1046952 = 0;

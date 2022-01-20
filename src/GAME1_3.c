@@ -318,12 +318,10 @@ void nox_game_addStateCode_43BDD0(int a1) {
 
 //----- (0043BE10) --------------------------------------------------------
 int nox_game_getStateCode_43BE10() { return nox_game_state_arr[nox_game_state_ind]; }
-#endif // NOX_CGO
 
 //----- (0043BE30) --------------------------------------------------------
 int sub_43BE30() { return *getMemU32Ptr(0x5D4594, 815204); }
 
-#ifndef NOX_CGO
 //----- (0043BE40) --------------------------------------------------------
 void sub_43BE40(int a1) {
 	*getMemU32Ptr(0x5D4594, 815204) = a1;
@@ -443,7 +441,6 @@ int nox_xxx_gameStateWait_43C020() {
 	nox_client_clearScreen_440900();
 	return 0;
 }
-#endif // NOX_CGO
 
 //----- (0043C060) --------------------------------------------------------
 int sub_43C060() {
@@ -457,7 +454,6 @@ int sub_43C060() {
 	return nox_xxx_compassGenStrings_4A9C80() != 0;
 }
 
-#ifndef NOX_CGO
 //----- (0043C0A0) --------------------------------------------------------
 int nox_game_switchStates_43C0A0() { // switch game states
 	unsigned char si = nox_game_state_ind;
@@ -6204,10 +6200,10 @@ void sub_44A400() {
 		nox_xxx_setMouseBounds_430A70(0, nox_win_width - 1, 0, nox_win_height - 1);
 	}
 }
-#endif // NOX_CGO
 
 //----- (0044A4A0) --------------------------------------------------------
 int sub_44A4A0() { return dword_5d4594_830224 != 0; }
+#endif // NOX_CGO
 
 //----- (0044A4B0) --------------------------------------------------------
 int sub_44A4B0() {

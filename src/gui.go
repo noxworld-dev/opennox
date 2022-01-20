@@ -353,6 +353,26 @@ func nox_color_rgb_func_get() C.int {
 	return C.int(noxcolor.GetMode())
 }
 
+//export nox_set_color_rgb_434320
+func nox_set_color_rgb_434320(r, g, b C.int) {
+	noxrend.Data().SetSelectColor(uint32(nox_color_rgb_4344A0(r, g, b)))
+}
+
+//export nox_set_color_rgb_4343B0
+func nox_set_color_rgb_4343B0(r, g, b C.int) {
+	noxrend.Data().SetTextColor(uint32(nox_color_rgb_4344A0(r, g, b)))
+}
+
+//export nox_set_color_rgb_434400
+func nox_set_color_rgb_434400(r, g, b C.int) {
+	noxrend.Data().SetColor(uint32(nox_color_rgb_4344A0(r, g, b)))
+}
+
+//export nox_set_color_rgb_434430
+func nox_set_color_rgb_434430(r, g, b C.int) {
+	noxrend.Data().SetColor2(uint32(nox_color_rgb_4344A0(r, g, b)))
+}
+
 func unsafePtrToInt(p unsafe.Pointer) C.int {
 	return C.int(uintptr(p))
 }

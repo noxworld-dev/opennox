@@ -43,7 +43,6 @@ short (*dword_6F7C34)();
 
 int nox_video_renderTargetFlags = 0;
 int nox_video_windowsPlatformVersion = 0;
-int (*func_5d4594_1311924)(void) = 0;
 
 void (*dword_975240)(uint32_t, uint32_t*, uint32_t*, uint32_t*);
 int (*dword_975380)(uint32_t, uint32_t, uint32_t);
@@ -60,6 +59,7 @@ unsigned char* nox_draw_colors_g_3804656 = 0;
 unsigned char* nox_draw_colors_b_3804664 = 0;
 
 #ifndef NOX_CGO
+int (*func_5d4594_1311924)(void) = 0;
 unsigned int dword_5d4594_3799476 = 0;
 unsigned int dword_5d4594_3799484 = 0;
 unsigned int dword_5d4594_3799508 = 0;
@@ -1076,6 +1076,7 @@ int nox_xxx_drawPlayer_4341D0(int a1, int a2) {
 	return result;
 }
 
+#ifndef NOX_CGO
 //----- (00434320) --------------------------------------------------------
 void nox_set_color_rgb_434320(int r, int g, int b) {
 	*(int*)(&nox_draw_curDrawData_3799572->field_58) = nox_color_rgb_4344A0(r, g, b);
@@ -1095,6 +1096,7 @@ void nox_set_color_rgb_434400(int r, int g, int b) {
 void nox_set_color_rgb_434430(int r, int g, int b) {
 	*(int*)(&nox_draw_curDrawData_3799572->field_61) = nox_color_rgb_4344A0(r, g, b);
 }
+#endif // NOX_CGO
 
 //----- (00434480) --------------------------------------------------------
 void sub_434480(int a1, int* a2, int* a3, int* a4) { dword_975240(a1, a2, a3, a4); }
@@ -1279,6 +1281,7 @@ int sub_4B0300(char* a1) {
 // 4B0536: variable 'v8' is possibly undefined
 // 4B0536: variable 'v7' is possibly undefined
 
+#ifndef NOX_CGO
 //----- (004B05D0) --------------------------------------------------------
 void sub_4B05D0() {
 	if (dword_5d4594_1311936) {
@@ -1293,15 +1296,10 @@ void sub_4B05D0() {
 }
 
 //----- (004B0640) --------------------------------------------------------
-int sub_4B0640(int (*a1)(void)) {
-	int result; // eax
-
-	result = a1;
+void sub_4B0640(int (*a1)(void)) {
 	func_5d4594_1311924 = a1;
-	return result;
 }
 
-#ifndef NOX_CGO
 //----- (0048B5D0) --------------------------------------------------------
 int nox_video_waitVBlankAndDrawCursorFromThread_48B5D0(int a1, int a2) {
 	if (!*getMemU32Ptr(0x5D4594, 1193708) && nox_video_drawCursorThreadOk && dword_5d4594_823776 &&

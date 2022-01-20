@@ -167,7 +167,7 @@ func (a *guiAnim) doIn() {
 		if a.fnc_done_in != nil {
 			nox_cgo_call_void2(a.fnc_done_in)
 		}
-		C.sub_4A24F0()
+		sub_4A24F0()
 	}
 }
 

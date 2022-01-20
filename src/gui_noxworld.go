@@ -10,7 +10,7 @@ package nox
 #include "win.h"
 #include "MixPatch.h"
 extern unsigned int dword_587000_87404;
-extern unsigned int dword_587000_87412;
+extern int dword_587000_87412;
 extern unsigned int dword_5d4594_3844304;
 extern unsigned int dword_5d4594_2660652;
 extern unsigned int dword_5d4594_527988;
@@ -22,12 +22,20 @@ extern nox_window* nox_wol_wnd_world_814980;
 extern unsigned int nox_wol_server_result_cnt_815088;
 extern int dword_5d4594_815104;
 extern unsigned long long qword_5d4594_815068;
+extern unsigned int nox_game_createOrJoin_815048;
+extern uint32_t dword_587000_87408;
+extern void* dword_5d4594_814984;
+extern void* dword_5d4594_814988;
+extern void* dword_5d4594_814996;
+extern void* dword_5d4594_815000;
+extern uint32_t dword_5d4594_815056;
 */
 import "C"
 import (
 	"encoding/binary"
 	"errors"
 	"fmt"
+	"image"
 	"net"
 	"time"
 	"unsafe"
@@ -132,7 +140,7 @@ func onLobbyServerPacket(addr string, port int, name string, packet []byte) bool
 
 //export nox_client_refreshServerList_4378B0
 func nox_client_refreshServerList_4378B0() {
-	if C.sub_44A4A0() != 0 {
+	if sub44A4A0() {
 		C.dword_5d4594_815104 = 1
 		return
 	}
@@ -255,7 +263,7 @@ func clientOnLobbyServer(info *LobbyServerInfo) int {
 	*(*uint16)(field(163)) = info.Flags      // flags
 	*(*uint16)(field(165)) = info.Level      // quest_level
 	srv.field_42 = 0
-	if *(*int32)(unsafe.Pointer(&C.dword_587000_87412)) == -1 || C.sub_437860(C.int(srv.field_11_0), C.int(srv.field_11_2)) == C.int(C.dword_587000_87412) {
+	if C.dword_587000_87412 == -1 || C.sub_437860(C.int(srv.field_11_0), C.int(srv.field_11_2)) == C.dword_587000_87412 {
 		if C.nox_xxx_checkSomeFlagsOnJoin_4899C0(srv) != 0 {
 			StrCopy(&srv.addr[0], 16, info.Addr)
 			srv.field_9 = C.nox_wol_server_result_cnt_815088
@@ -522,4 +530,55 @@ func sub_41F3A0(a1, a2 int) bool {
 	NewDialogWindow(nil, v2, v4, 288, nil, nil)
 	C.sub_44A4B0()
 	return C.sub_40D2F0(C.int(a1), C.int(a2)) != 0
+}
+
+//export sub_4373A0
+func sub_4373A0() {
+	if win := asWindowP(C.dword_5d4594_815000); !win.Flags().IsHidden() {
+		win.Hide()
+		C.dword_5d4594_815056 = 0
+		C.nox_xxx_wnd_46C6E0(win.C())
+		guiFocus(asWindow(C.nox_wol_wnd_world_814980))
+	}
+	if C.dword_587000_87408 == 1 || C.dword_587000_87412 == -1 {
+		if C.nox_game_createOrJoin_815048 == 1 {
+			C.nox_game_createOrJoin_815048 = 0
+			setMouseBounds(image.Rect(0, 0, nox_win_width-1, nox_win_height-1))
+			v2 := strMan.GetStringInFile("ChooseArea", "C:\\NoxPost\\src\\client\\shell\\noxworld.c")
+			asWindowP(C.dword_5d4594_814996).Func94(asWindowEvent(0x4001, uintptr(unsafe.Pointer(internCStr(v2))), 0))
+			clientPlaySoundSpecial(231, 100)
+		} else {
+			nox_game_checkStateSwitch_43C1E0()
+			C.sub_49FF20()
+			if C.dword_587000_87404 == 1 {
+				*memmap.PtrUint32(0x5D4594, 815084) = 1
+				sub_41E300(7)
+				C.sub_4207F0(4)
+				C.sub_40D380()
+			}
+			clientPlaySoundSpecial(231, 100)
+		}
+	} else if C.nox_game_createOrJoin_815048 == 1 {
+		C.nox_game_createOrJoin_815048 = 0
+		setMouseBounds(image.Rect(0, 0, nox_win_width-1, nox_win_height-1))
+		nox_xxx_wndClearCaptureMain_46ADE0(asWindowP(C.dword_5d4594_814984).C())
+		C.sub_4375C0(1)
+		v0 := strMan.GetStringInFile("JoinServer", "C:\\NoxPost\\src\\client\\shell\\noxworld.c")
+		asWindowP(C.dword_5d4594_814996).Func94(asWindowEvent(0x4001, uintptr(unsafe.Pointer(internCStr(v0))), 0))
+		clientPlaySoundSpecial(231, 100)
+	} else {
+		C.sub_49FF20()
+		if C.dword_587000_87404 != 0 {
+			C.dword_587000_87412 = -1
+			nox_xxx_wndClearCaptureMain_46ADE0(asWindowP(C.dword_5d4594_814984).C())
+			asWindowP(C.dword_5d4594_814984).Hide()
+			asWindowP(C.dword_5d4594_814988).Show()
+			v1 := strMan.GetStringInFile("ChooseArea", "C:\\NoxPost\\src\\client\\shell\\noxworld.c")
+			asWindowP(C.dword_5d4594_814996).Func94(asWindowEvent(0x4001, uintptr(unsafe.Pointer(internCStr(v1))), 0))
+			nox_client_refreshServerList_4378B0()
+			clientPlaySoundSpecial(231, 100)
+		} else {
+			nox_game_checkStateSwitch_43C1E0()
+		}
+	}
 }

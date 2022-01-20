@@ -98,6 +98,7 @@ var (
 		freeRows func()
 		onResize []func(sz types.Size)
 	}
+	func_5d4594_1311924 func()
 )
 
 func OnPixBufferResize(fnc func(sz types.Size)) {
@@ -361,9 +362,32 @@ func sub_49F4A0() {
 
 func sub_4B02D0() {
 	C.dword_5d4594_1311936 = 0
-	C.func_5d4594_1311924 = nil
+	func_5d4594_1311924 = nil
 	*memmap.PtrUint32(0x5D4594, 1311928) = 0
 	*memmap.PtrUint32(0x5D4594, 1311932) = 0
+}
+
+//export sub_4B0640
+func sub_4B0640(fnc unsafe.Pointer) {
+	sub4B0640(func() {
+		nox_cgo_call_void2((*[0]byte)(fnc))
+	})
+}
+
+func sub4B0640(fnc func()) {
+	func_5d4594_1311924 = fnc
+}
+
+func sub_4B05D0() {
+	if C.dword_5d4594_1311936 != 0 {
+		C.sub_555500(1)
+		C.dword_5d4594_1311936 = 0
+		*memmap.PtrUint32(0x5D4594, 1311928) = 0
+		if func_5d4594_1311924 != nil {
+			nox_client_clearScreen_440900()
+			func_5d4594_1311924()
+		}
+	}
 }
 
 func nox_video_initLineDrawingFuncs_49E3F0() {
@@ -481,7 +505,7 @@ func drawGeneral_4B0340(a1 int) error {
 	// FIXME
 	v1 := false
 	if getEngineFlag(NOX_ENGINE_FLAG_ENABLE_WINDOWED_MODE) || v1 || C.nox_video_renderTargetFlags&0x10 != 0 {
-		C.sub_4B05D0()
+		sub_4B05D0()
 		return nil
 	}
 	C.sub_431290()
@@ -552,7 +576,7 @@ func drawGeneral_4B0340(a1 int) error {
 	C.sub_43DBE0()
 	//inpHandler.AcquireMouse()
 	C.sub_48B3E0(v12)
-	C.sub_4B05D0()
+	sub_4B05D0()
 	return nil
 }
 

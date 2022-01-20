@@ -25,6 +25,7 @@
 
 extern uint32_t nox_client_gui_flag_815132;
 
+#ifndef NOX_CGO
 nox_gui_animation* nox_wnd_xxx_1307308 = 0;
 nox_window* nox_win_main_bg = 0;
 nox_window* nox_win_main_menu = 0;
@@ -42,18 +43,18 @@ int sub_4A1D40() {
 }
 
 //----- (004A2500) --------------------------------------------------------
-int sub_4A2500() {
+void sub_4A2500() {
 	nox_xxx_setFrameLimit_43DDE0(1);
 	nox_window_set_hidden(nox_win_main_bg, 0);
 	nox_window_set_hidden(nox_win_main_menu, 0);
-	return sub_4A24F0();
+	sub_4A24F0();
 }
 
 //----- (004A2530) --------------------------------------------------------
-int sub_4A2530() {
+void sub_4A2530() {
 	nox_xxx_setFrameLimit_43DDE0(0);
 	nox_window_set_hidden(nox_win_main_bg, 1);
-	return nox_window_set_hidden(nox_win_main_menu, 1);
+	nox_window_set_hidden(nox_win_main_menu, 1);
 }
 
 //----- (004A1D80) --------------------------------------------------------
@@ -302,6 +303,7 @@ int nox_xxx_windowMainMenuProc_4A1DC0(int a1, int a2, int* a3, int a4) {
 	}
 	return 1;
 }
+#endif // NOX_CGO
 
 //----- (004A22A0) --------------------------------------------------------
 int sub_4A22A0(int a1, int* a2) {

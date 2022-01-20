@@ -147,47 +147,51 @@ func nox_game_rollLogoAndStart_4AB1F0() bool {
 		return true
 	}
 	C.sub_4B0300(path)
-	C.sub_4B0640((*[0]byte)(C.nox_game_rollIntroAndStart_4AB170))
+	sub4B0640(nox_game_rollIntroAndStart_4AB170)
 	if err := drawGeneral_4B0340(0); err != nil {
 		videoLog.Println(err)
 	}
 	return true
 }
 
-//export nox_game_rollIntroAndStart_4AB170
-func nox_game_rollIntroAndStart_4AB170() C.int {
+func nox_game_rollIntroAndStart_4AB170() {
 	path, freePath := alloc.Malloc(128)
 	defer freePath()
 	if C.sub_578DF0()&0x80 != 0 || noxflags.HasGame(noxflags.GameFlag26) || !nox_game_setMovieFile_4CB230("Intro.vqa", (*C.char)(path)) {
 		nox_game_rollNoxLogoAndStart_4AB0F0()
-		return 1
+		return
 	}
 	C.sub_4B0300((*C.char)(path))
-	C.sub_4B0640((*[0]byte)(C.nox_game_rollNoxLogoAndStart_4AB0F0))
+	sub4B0640(nox_game_rollNoxLogoAndStart_4AB0F0)
 	if err := drawGeneral_4B0340(1); err != nil {
 		videoLog.Println(err)
 	}
 	C.sub_578DE0(C.char(C.sub_578DF0() | 0x80))
-	return 1
 }
 
-//export nox_game_rollNoxLogoAndStart_4AB0F0
-func nox_game_rollNoxLogoAndStart_4AB0F0() C.int {
+func nox_game_rollNoxLogoAndStart_4AB0F0() {
 	path, freePath := alloc.Malloc(128)
 	defer freePath()
 	if noxflags.HasGame(noxflags.GameFlag26) || !nox_game_setMovieFile_4CB230("NoxLogo.vqa", (*C.char)(path)) {
-		if C.nox_game_showLegal_4CC4E0() == 0 {
-			nox_xxx_setContinueMenuOrHost_43DDD0(0)
-			C.nox_client_gui_flag_815132 = 0
-		}
-		return 1
+		nox_game_showLegal_4CC4E0()
+		return
 	}
 	C.sub_4B0300((*C.char)(path))
-	C.sub_4B0640((*[0]byte)(C.nox_game_showLegal_4CC4E0))
+	sub4B0640(nox_game_showLegal_4CC4E0)
 	if err := drawGeneral_4B0340(0); err != nil {
 		videoLog.Println(err)
 	}
-	return 1
+}
+
+func sub_43C060() bool {
+	C.nox_xxx_loadPal_4A96C0_video_read_palette(internCStr("default.pal"))
+	C.nox_xxx_wndLoadBorder_4AA1F0()
+	nox_xxx_wndLoadMainBG_4A2210()
+	nox_client_setCursorType_477610(0)
+	C.sub_48B3E0(1)
+	sub_44E040()
+	C.sub_43E8C0(0)
+	return C.nox_xxx_compassGenStrings_4A9C80() != 0
 }
 
 func startServer() bool {
@@ -1524,54 +1528,58 @@ func gamePopStateUntil(code int) {
 }
 
 //export nox_game_switchStates_43C0A0
-func nox_game_switchStates_43C0A0() C.int { // switch game states
+func nox_game_switchStates_43C0A0() C.int {
+	return C.int(bool2int(nox_game_switchStates()))
+}
+
+func nox_game_switchStates() bool { // switch game states
 	switch gameGetStateCode() {
 	case gameStateMovies:
 		if !nox_game_rollLogoAndStart_4AB1F0() {
-			return 0
+			return false
 		}
-		return 1
+		return true
 	case gameStateMainMenu: // main menu
-		if C.nox_game_showMainMenu_4A1C00() == 0 {
-			return 0
+		if nox_game_showMainMenu_4A1C00() == 0 {
+			return false
 		}
-		return 1
+		return true
 	case gameStateOptions: // main menu options
 		if C.nox_game_showOptions_4AA6B0() == 0 {
-			return 0
+			return false
 		}
-		return 1
+		return true
 	case gameStateOnlineOrLAN: // online or LAN
 		if C.nox_game_showOnlineOrLAN_413800() == 0 {
-			return 0
+			return false
 		}
-		return 1
+		return true
 	case gameStateCharSelect: // character selection
 		C.sub_4A7A70(1)
 		if nox_game_showSelChar_4A4DB0() == 0 {
-			return 0
+			return false
 		}
-		return 1
+		return true
 	case gameStateClassSelect:
 		if C.nox_game_showSelClass_4A4840() == 0 {
-			return 0
+			return false
 		}
-		return 1
+		return true
 	case gameStateColorSelect:
 		if C.nox_game_showSelColor_4A5D00() == 0 {
-			return 0
+			return false
 		}
-		return 1
+		return true
 	case gameStateWolLogin:
 		if C.nox_game_showWolLogin_44A560() == 0 {
-			return 0
+			return false
 		}
-		return 1
+		return true
 	case gameStateWolChat:
 		if C.nox_game_showWolChat_447620() == 0 {
-			return 0
+			return false
 		}
-		return 1
+		return true
 	case gameStateServerList: // list of servers
 		if C.nox_xxx_check_flag_aaa_43AF70() == 1 && C.sub_40E0B0() == 0 {
 			sub_41E300(9)
@@ -1580,16 +1588,16 @@ func nox_game_switchStates_43C0A0() C.int { // switch game states
 			C.sub_446490(0)
 			C.nox_xxx____setargv_4_44B000()
 			sub_44A400()
-			return 1
+			return true
 		}
 		fallthrough
 	case gameStateXxx:
 		if C.nox_game_showGameSel_4379F0() == 0 {
-			return 0
+			return false
 		}
-		return 1
+		return true
 	}
-	return 1
+	return true
 }
 
 //export nox_game_checkStateSwitch_43C1E0
@@ -1600,6 +1608,7 @@ func nox_game_checkStateSwitch_43C1E0() {
 	p := nox_gui_findAnimationForDest_43C520(gameGetStateCode())
 	if p != nil {
 		p.Func12()
+		_ = nox_game_switchStates_43C0A0
 		p.field_13 = (*[0]byte)(C.nox_game_switchStates_43C0A0)
 		gamePopState()
 	}
@@ -1642,9 +1651,10 @@ func nox_game_checkStateMenu_43C2F0() {
 	p := nox_gui_findAnimationForDest_43C520(gameGetStateCode())
 	if p != nil {
 		if gameGetStateCode() == gameStateMainMenu {
-			C.nox_game_showMainMenu_4A1C00()
+			nox_game_showMainMenu_4A1C00()
 		} else {
 			p.Func12()
+			_ = nox_game_showMainMenu_4A1C00
 			p.field_13 = (*[0]byte)(C.nox_game_showMainMenu_4A1C00)
 		}
 	}

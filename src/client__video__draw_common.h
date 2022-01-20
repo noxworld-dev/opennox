@@ -248,6 +248,10 @@ void nox_video_copyBackBuffer3_4AD1E0();
 void nox_video_copyBackBuffer_4AD2A0();
 int sub_4B0300(char* a1);
 void sub_4B05D0();
-int sub_4B0640(int (*a1)(void));
+#ifndef NOX_CGO
+void sub_4B0640(int (*a1)(void));
+#else // NOX_CGO
+void sub_4B0640(void* a1);
+#endif // NOX_CGO
 
 #endif // NOX_PORT_CLIENT_VIDEO_DRAW_COMMON_H

@@ -479,14 +479,14 @@ func (win *Window) Show() {
 	win.flags &^= C.nox_window_flags(gui.StatusHidden)
 }
 
-func (win *Window) setFunc93(fnc WindowFunc) {
+func (win *Window) setFunc93(fnc WindowFunc) { // nox_xxx_wndSetWindowProc_46B300
 	if fnc == nil {
 		fnc = func(win *Window, ev WindowEvent) WindowEventResp { return nil }
 	}
 	win.ext().Func93 = fnc
 }
 
-func (win *Window) setFunc94(fnc WindowFunc) {
+func (win *Window) setFunc94(fnc WindowFunc) { // nox_xxx_wndSetProc_46B2C0
 	if fnc == nil {
 		fnc = func(win *Window, ev WindowEvent) WindowEventResp { return nil }
 	}
@@ -543,7 +543,7 @@ func (win *Window) Draw() {
 	C.nox_window_call_draw_func_go(win.draw_func, win.C(), win.DrawData().C())
 }
 
-func (win *Window) setDraw(fnc WindowDrawFunc) {
+func (win *Window) setDraw(fnc WindowDrawFunc) { // nox_xxx_wndSetDrawFn_46B340
 	if fnc == nil {
 		fnc = wrapWindowDrawFuncC(C.nox_xxx_wndDrawFnDefault_46B370)
 	}
