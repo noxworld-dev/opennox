@@ -1,4 +1,4 @@
-name: ci
+name: Build and release
 on:
   push:
     branches:
@@ -7,7 +7,7 @@ on:
       - ci_tests
       - dennwc
     tags:
-      - v*
+      - '*'
   pull_request:
     branches:
       - master
@@ -21,6 +21,7 @@ jobs:
   snapcraft_linux_go:
     name: Go build for Snapcraft
     runs-on: 'ubuntu-20.04'
+    if: startsWith(github.ref, 'refs/tags/v') || (github.ref == 'refs/heads/dev')
     steps:
       - uses: actions/checkout@v2
         with:
@@ -93,15 +94,17 @@ jobs:
 
       - name: Upload the binary
         uses: actions/upload-artifact@v2
-        if: startsWith(github.ref, 'refs/tags/v') || (github.ref == 'refs/heads/dev') || (github.ref == 'refs/heads/ci_tests')
+        if: startsWith(github.ref, 'refs/tags/') || (github.ref == 'refs/heads/dev') || (github.ref == 'refs/heads/ci_tests')
         with:
           name: opennox-linux
           path: /tmp/opennox-linux.tar.gz
+          if-no-files-found: error
+          retention-days: 1
 
   docker_server_go:
     name: Docker server build
     runs-on: [ 'self-hosted', 'ubuntu-20.04' ]
-    if: startsWith(github.ref, 'refs/tags/v') || (github.ref == 'refs/heads/dev') || (github.ref == 'refs/heads/ci_tests')
+    if: startsWith(github.ref, 'refs/tags/') || (github.ref == 'refs/heads/dev') || (github.ref == 'refs/heads/ci_tests')
     needs: [hybrid_linux_go]
     strategy:
       fail-fast: true
@@ -132,7 +135,7 @@ jobs:
 
       - name: Log in to the Container registry
         uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
-        if: startsWith(github.ref, 'refs/tags/v') || (github.ref == 'refs/heads/dev')
+        if: startsWith(github.ref, 'refs/tags/') || (github.ref == 'refs/heads/dev')
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
@@ -145,12 +148,16 @@ jobs:
           docker push $DOCKER_IMAGE_NAME:dev
 
       - name: Push tagged
-        if: startsWith(github.ref, 'refs/tags/v')
+        if: startsWith(github.ref, 'refs/tags/')
         run: |
           export VERSION=$(git name-rev --tags --name-only $(git rev-parse HEAD))
           docker tag $DOCKER_IMAGE_NAME:tmp $DOCKER_IMAGE_NAME:$VERSION
-          docker tag $DOCKER_IMAGE_NAME:tmp $DOCKER_IMAGE_NAME:latest
           docker push $DOCKER_IMAGE_NAME:$VERSION
+
+      - name: Push latest
+        if: startsWith(github.ref, 'refs/tags/v')
+        run: |
+          docker tag $DOCKER_IMAGE_NAME:tmp $DOCKER_IMAGE_NAME:latest
           docker push $DOCKER_IMAGE_NAME:latest
 
   hybrid_linux_mingw_go:
@@ -209,20 +216,23 @@ jobs:
 
       - name: Prepare the binary
         run: |
-          rm /tmp/*.exe
-          rm /tmp/*.zip
           cp ./src/opennox.exe /tmp/opennox.exe
           cp ./src/opennox-hd.exe /tmp/opennox-hd.exe
           cp ./src/opennox-server.exe /tmp/opennox-server.exe
           cp ./src/noxtools.exe /tmp/noxtools.exe
-          zip /tmp/opennox-win.zip /tmp/opennox.exe /tmp/opennox-hd.exe /tmp/opennox-server.exe /tmp/noxtools.exe
 
       - name: Upload the binary
         uses: actions/upload-artifact@v2
-        if: startsWith(github.ref, 'refs/tags/v')
+        if: startsWith(github.ref, 'refs/tags/')
         with:
           name: opennox-win
-          path: /tmp/opennox-win.zip
+          path: |
+            /tmp/opennox.exe
+            /tmp/opennox-hd.exe
+            /tmp/opennox-server.exe
+            /tmp/noxtools.exe
+          if-no-files-found: error
+          retention-days: 1
 
   hybrid_linux_gcc:
     name: alpine-386-gcc-github on Linux Host
@@ -248,17 +258,19 @@ jobs:
       - name: Build GCC
         uses: docker://noxworld/alpine-386-gcc-github
 
-      - name: Prepare the binary
-        run: |
-          cp ./build/out /tmp/nox
-          tar -czf /tmp/nox-linux.tar.gz /tmp/nox
-
-      - name: Upload the binary
-        uses: actions/upload-artifact@v2
-        if: startsWith(github.ref, 'refs/tags/v')
-        with:
-          name: nox-linux
-          path: /tmp/nox-linux.tar.gz
+#      - name: Prepare the binary
+#        run: |
+#          cp ./build/out /tmp/nox
+#          tar -czf /tmp/nox-linux.tar.gz /tmp/nox
+#
+#      - name: Upload the binary
+#        uses: actions/upload-artifact@v2
+#        if: startsWith(github.ref, 'refs/tags/v')
+#        with:
+#          name: nox-linux
+#          path: /tmp/nox-linux.tar.gz
+#          if-no-files-found: error
+#          retention-days: 1
 
   hybrid_linux_wasm:
     name: alpine-wasm-github on Linux Host
@@ -324,17 +336,19 @@ jobs:
 
       - name: Upload the binary
         uses: actions/upload-artifact@v2
-        if: startsWith(github.ref, 'refs/tags/v')
+        if: startsWith(github.ref, 'refs/tags/')
         with:
            name: nox-win
            path: |
              ${{ runner.workspace }}\b\gmake\Release\*.exe
              ${{ runner.workspace }}\b\gmake\Release\*.dll
+           if-no-files-found: error
+           retention-days: 1
 
   release_repackage_linux:
     name: Repackage Linux release
     runs-on: ['self-hosted', 'ubuntu-20.04']
-    if: startsWith(github.ref, 'refs/tags/v')
+    if: startsWith(github.ref, 'refs/tags/')
     needs: [hybrid_linux_go]
     steps:
       - uses: actions/checkout@v2
@@ -342,16 +356,19 @@ jobs:
           fetch-depth: 0
           submodules: true
 
-      - uses: actions/download-artifact@v2
-        with:
-          name: opennox-linux
-          path: ~/Downloads/
-
-      - name: Repackage release
+      - name: Cleanup
         run: |
           rm -rf /tmp/linux-tmp
           mkdir -p /tmp/linux-tmp
-          tar -xvzf ~/Downloads/opennox-linux.tar.gz -C /tmp/linux-tmp/
+
+      - uses: actions/download-artifact@v2
+        with:
+          name: opennox-linux
+          path: /tmp/linux-tmp/
+
+      - name: Repackage release
+        run: |
+          tar -xvzf /tmp/linux-tmp/opennox-linux.tar.gz -C /tmp/linux-tmp/
 
           rm -rf /tmp/opennox-linux
           mkdir -p /tmp/opennox-linux
@@ -367,19 +384,21 @@ jobs:
 
           export VERSION=$(git name-rev --tags --name-only $(git rev-parse HEAD))
           cd /tmp/opennox-linux
-          rm -f /tmp/OpenNox-linux-*.tar.gz
-          tar -czf /tmp/OpenNox-linux-$VERSION.tar.gz ./*
+          rm -rf /tmp/opennox-linux-release
+          mkdir -p /tmp/opennox-linux-release
+          tar -czf /tmp/opennox-linux-release/OpenNox-linux-$VERSION.tar.gz ./*
 
       - name: Upload the archive
         uses: actions/upload-artifact@v2
         with:
           name: opennox-release-linux
-          path: /tmp/OpenNox-linux-*.tar.gz
+          path: /tmp/opennox-linux-release/OpenNox-linux-*.tar.gz
+          if-no-files-found: error
 
   release_repackage_win:
       name: Repackage Windows release
       runs-on: ['self-hosted', 'ubuntu-20.04']
-      if: startsWith(github.ref, 'refs/tags/v')
+      if: startsWith(github.ref, 'refs/tags/')
       needs: [hybrid_linux_mingw_go, windows_native_hosted]
       steps:
         - name: Install NSIS
@@ -390,26 +409,29 @@ jobs:
             fetch-depth: 0
             submodules: true
 
+        - name: Cleanup
+          run: |
+            rm -rf /tmp/win-tmp
+            mkdir -p /tmp/win-tmp
+
         - uses: actions/download-artifact@v2
           with:
             name: nox-win # needed for SDL and OpenAL DLLs
-            path: ~/Downloads/
+            path: /tmp/win-tmp/deps/
 
         - uses: actions/download-artifact@v2
           with:
             name: opennox-win
-            path: ~/Downloads/
+            path: /tmp/win-tmp/opennox/
 
         - name: Repackage release
           run: |
-            rm -rf /tmp/win-tmp
-            mkdir -p /tmp/win-tmp
-            unzip ~/Downloads/opennox-win.zip -d /tmp/win-tmp/
-
             rm -rf /tmp/opennox-win
             mkdir -p /tmp/opennox-win
-            cp ~/Downloads/*.dll /tmp/opennox-win/
-            cp /tmp/win-tmp/tmp/*.exe /tmp/opennox-win/
+            ls -la /tmp/win-tmp/deps/
+            cp /tmp/win-tmp/deps/*.dll /tmp/opennox-win/
+            ls -la /tmp/win-tmp/opennox/
+            cp /tmp/win-tmp/opennox/*.exe /tmp/opennox-win/
             cp ./CHANGELOG.md /tmp/opennox-win/
 
             mkdir /tmp/opennox-win/docs
@@ -419,16 +441,53 @@ jobs:
             cp ./docs/maps-*.md /tmp/opennox-win/docs/
             cp ./docs/*-sample.yml /tmp/opennox-win/docs/
 
+            rm -rf /tmp/opennox-win-release
+            mkdir -p /tmp/opennox-win-release
             export VERSION=$(git name-rev --tags --name-only $(git rev-parse HEAD))
-            makensis -DVERSION="$VERSION" -DDATA="/tmp/opennox-win/" -DOUTDIR="/tmp/" ./scripts/opennox.nsi
+            makensis -DVERSION="$VERSION" -DDATA="/tmp/opennox-win/" -DOUTDIR="/tmp/opennox-win-release/" ./scripts/opennox.nsi
+
             cd /tmp/opennox-win
-            rm -f /tmp/OpenNox-*.zip
-            zip -9 -r /tmp/OpenNox-$VERSION.zip ./*
+            zip -9 -r /tmp/opennox-win-release/OpenNox-$VERSION.zip ./*
 
         - name: Upload the archive
           uses: actions/upload-artifact@v2
           with:
             name: opennox-release-win
             path: |
-              /tmp/OpenNox-*.zip
-              /tmp/OpenNox-*.exe
+              /tmp/opennox-win-release/OpenNox-*.zip
+              /tmp/opennox-win-release/OpenNox-*.exe
+            if-no-files-found: error
+
+  github_release_go:
+    name: Github release
+    runs-on: [ 'self-hosted', 'ubuntu-20.04' ]
+    if: startsWith(github.ref, 'refs/tags/')
+    needs: [release_repackage_linux, release_repackage_win]
+    steps:
+      - name: Cleanup
+        run: |
+          rm -rf /tmp/release-tmp
+          mkdir -p /tmp/release-tmp
+
+      - uses: actions/download-artifact@v2
+        with:
+          name: opennox-release-linux
+          path: /tmp/release-tmp/
+
+      - uses: actions/download-artifact@v2
+        with:
+          name: opennox-release-win
+          path: /tmp/release-tmp/
+
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          body: |
+            TODO: changelog
+          draft: true
+          fail_on_unmatched_files: true
+          files: |
+            /tmp/release-tmp/OpenNox-linux-*.tar.gz
+            /tmp/release-tmp/OpenNox-*.zip
+            /tmp/release-tmp/OpenNox-*.exe
