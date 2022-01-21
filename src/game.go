@@ -583,8 +583,15 @@ func (s *Server) nox_xxx_servInitialMapLoad_4D17F0() bool {
 }
 
 type tickHooks struct {
-	gameTickMu    sync.Mutex
-	gameTickHooks []func()
+	gameTickMu        sync.Mutex
+	gameTickCallbacks []func() // one time
+	gameTickHooks     []func() // persistent
+}
+
+func (s *Server) addGameTickCallback(fnc func()) {
+	s.tickHooks.gameTickMu.Lock()
+	s.tickHooks.gameTickCallbacks = append(s.tickHooks.gameTickCallbacks, fnc)
+	s.tickHooks.gameTickMu.Unlock()
 }
 
 func (s *Server) addGameTickHook(fnc func()) {
@@ -596,11 +603,14 @@ func (s *Server) addGameTickHook(fnc func()) {
 func (s *Server) runGameTickHooks() {
 	s.tickHooks.gameTickMu.Lock()
 	defer s.tickHooks.gameTickMu.Unlock()
-	for i, fnc := range s.tickHooks.gameTickHooks {
+	for _, fnc := range s.tickHooks.gameTickHooks {
 		fnc()
-		s.tickHooks.gameTickHooks[i] = nil
 	}
-	s.tickHooks.gameTickHooks = s.tickHooks.gameTickHooks[:0]
+	for i, fnc := range s.tickHooks.gameTickCallbacks {
+		fnc()
+		s.tickHooks.gameTickCallbacks[i] = nil
+	}
+	s.tickHooks.gameTickCallbacks = s.tickHooks.gameTickCallbacks[:0]
 }
 
 func (s *Server) nox_xxx_gameTick_4D2580_server() bool {

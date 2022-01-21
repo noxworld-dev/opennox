@@ -103,6 +103,7 @@ func NewServer() *Server {
 	}
 	s.allocPlayers()
 	s.http.init()
+	s.initMetrics()
 	return s
 }
 
@@ -532,6 +533,7 @@ func sub_4D3C30() {
 
 func (s *Server) nox_server_loadMapFile_4CF5F0(mname string, noCrypt bool) bool {
 	gameLog.Printf("loading map %q", mname)
+	cntGameMap.WithLabelValues(filepath.Base(mname)).Inc()
 	C.sub_481410()
 	C.nox_xxx_unitsNewAddToList_4DAC00()
 	C.nox_xxx_waypoint_5799C0()

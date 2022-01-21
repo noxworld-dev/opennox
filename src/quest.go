@@ -17,6 +17,9 @@ import (
 	"os"
 	"strconv"
 
+	"github.com/prometheus/client_golang/prometheus"
+	"github.com/prometheus/client_golang/prometheus/promauto"
+
 	"nox/v1/common/console"
 	noxflags "nox/v1/common/flags"
 	"nox/v1/common/fs"
@@ -35,6 +38,10 @@ type questServer struct {
 }
 
 var (
+	questLevel = promauto.NewGauge(prometheus.GaugeOpts{
+		Name: "nox_quest_level",
+		Help: "The level of Quest game",
+	})
 	questFlag_1556156      bool
 	questPlayerFile        string // 0x5D4594, 1560984
 	questPlayerSet         bool   // dword_5d4594_1563052
@@ -208,6 +215,7 @@ func (s *Server) nox_server_questMapNextLevel() {
 	lvl := s.nox_game_getQuestStage_4E3CC0()
 	lvl += questLevelInc
 	questLog.Printf("switching level to %d", lvl)
+	questLevel.Set(float64(lvl))
 	s.nox_game_setQuestStage_4E3CD0(lvl)
 	lvl = s.nox_xxx_getQuestStage_51A930()
 	C.sub_51A1F0(C.int(lvl))

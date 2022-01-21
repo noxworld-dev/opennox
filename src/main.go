@@ -51,6 +51,9 @@ import (
 	"strings"
 	"unsafe"
 
+	"github.com/prometheus/client_golang/prometheus"
+	"github.com/prometheus/client_golang/prometheus/promauto"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/spf13/viper"
 
 	"nox/v1/client/audio/ail"
@@ -67,16 +70,14 @@ import (
 )
 
 func init() {
-	if env.IsDevMode() || version.IsDev() || env.IsE2E() {
-		go func() {
-			host := "127.0.0.1:6060"
-			log.Printf("starting pprof server on %q", host)
-			if err := http.ListenAndServe(host, nil); err != nil {
-				log.Printf("failed to start pprof: %v", err)
-			}
-		}()
-	}
+	http.Handle("/metrics", promhttp.Handler())
 	viper.SetDefault(configManualSpellCastDelay, 0.5)
+	promauto.NewCounterVec(prometheus.CounterOpts{
+		Name: "opennox_version",
+		Help: "OpenNox version",
+	}, []string{"vers", "commit"}).WithLabelValues(
+		version.Version(), version.Commit(),
+	).Inc()
 }
 
 const (
@@ -176,9 +177,22 @@ func RunArgs(args []string) (gerr error) {
 		fAutoExec   = flags.String("autoexec", "load estate", "run the specified command at server startup")
 		fRecord     = flags.String("record", "", "record the game to a given file")
 		fReplay     = flags.String("replay", "", "replay game recording from a given file")
+		fPProf      = flags.String("pprof", "", "enable pprof")
 	)
 	if err := flags.Parse(args[1:]); err != nil {
 		return err
+	}
+	if env.IsDevMode() || version.IsDev() || env.IsE2E() || *fPProf != "" {
+		go func() {
+			host := *fPProf
+			if host == "" {
+				host = "127.0.0.1:6060"
+			}
+			log.Printf("starting pprof server on %q", host)
+			if err := http.ListenAndServe(host, nil); err != nil {
+				log.Printf("failed to start pprof: %v", err)
+			}
+		}()
 	}
 	noxServer = NewServer()
 	noxrend = NewNoxRender()

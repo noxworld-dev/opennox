@@ -8,15 +8,26 @@ import "C"
 import (
 	"unsafe"
 
+	"github.com/prometheus/client_golang/prometheus"
+	"github.com/prometheus/client_golang/prometheus/promauto"
+
 	"nox/v1/common/log"
 	"nox/v1/common/strman"
 )
 
 var (
-	strMan     = strman.New()
-	strManDone = false
-	strManC    = make(map[string]*C.char)
-	strManW    = make(map[string]*C.wchar_t)
+	strMan      = strman.New()
+	strManDone  = false
+	strManC     = make(map[string]*C.char)
+	strManW     = make(map[string]*C.wchar_t)
+	cntStringsC = promauto.NewCounter(prometheus.CounterOpts{
+		Name: "nox_cgo_strings",
+		Help: "The number of interned string values",
+	})
+	cntStringsW = promauto.NewCounter(prometheus.CounterOpts{
+		Name: "nox_cgo_wstrings",
+		Help: "The number of interned wide string values",
+	})
 )
 
 func internCStr(s string) *C.char {
@@ -26,6 +37,7 @@ func internCStr(s string) *C.char {
 	}
 	p = CString(s)
 	strManC[s] = p
+	cntStringsC.Inc()
 	return p
 }
 
@@ -36,6 +48,7 @@ func internCBytes(b []byte) unsafe.Pointer {
 	}
 	bp := CBytes(b)
 	strManC[string(b)] = (*C.char)(bp)
+	cntStringsC.Inc()
 	return bp
 }
 
@@ -46,6 +59,7 @@ func internWStr(s string) *C.wchar_t {
 	}
 	p, _ = CWString(s)
 	strManW[s] = p
+	cntStringsW.Inc()
 	return p
 }
 

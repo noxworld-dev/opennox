@@ -82,6 +82,7 @@ var (
 	debugMainloop           = os.Getenv("NOX_DEBUG_MAINLOOP") == "true"
 	g_v20                   bool
 	mainloopConnectResultOK bool
+	mainloopCnt             uint64
 	mainloopExitPath        bool
 	mainloopContinue        = true // nox_continue_mainloop_93196
 	continueMenuOrHost      = true // nox_game_continueMenuOrHost_93200
@@ -235,6 +236,7 @@ func mainloop_43E290() {
 
 mainloop:
 	for mainloopContinue {
+		cntMainloop.Inc()
 		if mainloopHook != nil {
 			mainloopHook()
 		}
