@@ -1,5 +1,15 @@
 # Changelog
 
+## v1.8.7
+
+- Support loading of TrueType and OpenType fonts.
+- Automatically fix Russian translation and font files.
+- A ton of internal changes and cleanup.
+- Fix: Creatures and NPCs with ranging attack trying to fight melee only.
+- Fix: Server API being stuck than there are no players on the server.
+- Fix: Crash when falling into a pit.
+- Fix: AI debug logging.
+
 ## v1.8.6
 
 - Release OpenNox for Linux on [Snapcraft](https://snapcraft.io/opennox).
