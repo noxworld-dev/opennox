@@ -12043,48 +12043,45 @@ int nox_xxx_spellFlySearchTarget_540610(float2* a1, int a2, int a3, float a4, in
 	*getMemU32Ptr(0x5D4594, 2489144) = a5;
 	*getMemU32Ptr(0x5D4594, 2489152) = 0;
 	*getMemU32Ptr(0x5D4594, 2489148) = 1287568416;
-	if (a1) {
-		if (a2) {
-			v9 = *(float*)(a2 + 56);
-			v10 = a1->field_0;
-			v15.field_4 = *(float*)(a2 + 60);
-			v15.field_0 = v9;
-			v11 = a1->field_4;
-			v15.field_8 = v10;
-			v15.field_C = v11;
-			if (nox_xxx_mapTraceRay_535250(&v15, 0, 0, 5)) {
-				v12 = a1->field_4;
-				a3a[3] = LODWORD(a1->field_0);
-			LABEL_18:
-				*(float*)&a3a[4] = v12;
-				goto LABEL_19;
-			}
+	if (!a1) {
+		if (!a2) {
+			return 0;
+		}
+		v12 = *(float*)(a2 + 60);
+		a3a[3] = *(uint32_t*)(a2 + 56);
+		*(float*)&a3a[4] = v12;
+	} else if (a2) {
+		v9 = *(float*)(a2 + 56);
+		v10 = a1->field_0;
+		v15.field_4 = *(float*)(a2 + 60);
+		v15.field_0 = v9;
+		v11 = a1->field_4;
+		v15.field_8 = v10;
+		v15.field_C = v11;
+		if (nox_xxx_mapTraceRay_535250(&v15, 0, 0, 5)) {
+			v12 = a1->field_4;
+			a3a[3] = LODWORD(a1->field_0);
+			*(float*)&a3a[4] = v12;
+		} else {
 			v13 = *(uint32_t*)(a2 + 60);
 			a3a[3] = *(uint32_t*)(a2 + 56);
 			a3a[4] = v13;
-		} else {
-			v14 = a1->field_4;
-			a3a[3] = LODWORD(a1->field_0);
-			*(float*)&a3a[4] = v14;
 		}
-	LABEL_19:
-		a3a[1] = a2;
-		a3a[0] = a3;
-		*(float*)&a3a[2] = a4 * a4;
-		a3a[5] = nox_xxx_findParentChainPlayer_4EC580(a2);
-		a1a.field_0 = *(float*)&a3a[3] - a4;
-		a1a.field_4 = *(float*)&a3a[4] - a4;
-		a1a.field_8 = *(float*)&a3a[3] + a4;
-		a1a.field_C = *(float*)&a3a[4] + a4;
-		nox_xxx_getUnitsInRect_517C10(&a1a, sub_540780, (int)a3a);
-		return *getMemU32Ptr(0x5D4594, 2489152);
+	} else {
+		v14 = a1->field_4;
+		a3a[3] = LODWORD(a1->field_0);
+		*(float*)&a3a[4] = v14;
 	}
-	if (a2) {
-		v12 = *(float*)(a2 + 60);
-		a3a[3] = *(uint32_t*)(a2 + 56);
-		goto LABEL_18;
-	}
-	return 0;
+	a3a[1] = a2;
+	a3a[0] = a3;
+	*(float*)&a3a[2] = a4 * a4;
+	a3a[5] = nox_xxx_findParentChainPlayer_4EC580(a2);
+	a1a.field_0 = *(float*)&a3a[3] - a4;
+	a1a.field_4 = *(float*)&a3a[4] - a4;
+	a1a.field_8 = *(float*)&a3a[3] + a4;
+	a1a.field_C = *(float*)&a3a[4] + a4;
+	nox_xxx_getUnitsInRect_517C10(&a1a, sub_540780, (int)a3a);
+	return *getMemU32Ptr(0x5D4594, 2489152);
 }
 
 //----- (00540780) --------------------------------------------------------
