@@ -150,6 +150,8 @@ jobs:
 
       - name: Prepare the binary
         run: |
+          rm /tmp/*.exe
+          rm /tmp/*.zip
           cp ./src/opennox.exe /tmp/opennox.exe
           cp ./src/opennox-hd.exe /tmp/opennox-hd.exe
           cp ./src/opennox-server.exe /tmp/opennox-server.exe
