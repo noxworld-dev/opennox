@@ -42,7 +42,7 @@ nox_team_info_t nox_team_table[] = {
     {"modifier.db:MaterialTeamVioletDesc", 0, 6, &nox_color_violet_2598268},
     {"modifier.db:MaterialTeamBlackDesc",  0, 7, &nox_color_black_2650656},
     {"modifier.db:MaterialTeamWhiteDesc",  0, 8, &nox_color_white_2523948},
-    {"modifier.db:MaterialTeamOrangeDesc", 0, 9, &nox_color_orange_2614256},
+    {"modifier.db:MaterialTeamOrangeDesc", 0, 9, &nox_color_orange_2614256}, // 0x852978, 12
 };
 int nox_team_table_cnt = sizeof(nox_team_table) / sizeof(nox_team_info_t);
 

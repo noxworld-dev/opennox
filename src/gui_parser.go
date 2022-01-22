@@ -3,6 +3,7 @@ package nox
 /*
 #include "client__gui__window.h"
 extern unsigned int nox_client_gui_flag_815132;
+extern uint32_t nox_color_black_2650656;
 */
 import "C"
 import (
@@ -20,7 +21,6 @@ import (
 	"nox/v1/common/alloc"
 	noxcolor "nox/v1/common/color"
 	"nox/v1/common/fs"
-	"nox/v1/common/memmap"
 	"nox/v1/common/strman"
 )
 
@@ -109,7 +109,7 @@ func (p *guiParser) parentsPush(win *Window) {
 }
 
 func (p *guiParser) resetDefaults() {
-	val := noxcolor.IntToColor(memmap.Uint32(0x85B3FC, 952))
+	val := noxcolor.IntToColor(uint32(C.nox_color_black_2650656))
 	p.defaults.font = nil
 	p.defaults.SetColors(val)
 }

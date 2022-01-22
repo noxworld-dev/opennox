@@ -5,8 +5,16 @@
 #include "GAME2_3.h"
 #include "common__strman.h"
 #include "operators.h"
+
 extern uint32_t nox_color_white_2523948;
+extern uint32_t nox_color_red_2589776;
+extern uint32_t nox_color_blue_2650684;
+extern uint32_t nox_color_green_2614268;
+extern uint32_t nox_color_cyan_2649820;
 extern uint32_t nox_color_yellow_2589772;
+extern uint32_t nox_color_violet_2598268;
+extern uint32_t nox_color_black_2650656;
+extern uint32_t nox_color_orange_2614256;
 
 //----- (00469BC0) --------------------------------------------------------
 void nox_xxx_cliBuildJournalString_469BC0() {
@@ -88,7 +96,7 @@ void nox_xxx_guiDrawJournal_469D40(int xLeft, int yTop, int a3) {
 	v3 = *getMemU32Ptr(0x8531A0, 2576);
 	v4 = yTop - a3;
 	if (*getMemU32Ptr(0x8531A0, 2576)) {
-		nox_client_drawSetColor_434460(*getMemIntPtr(0x85B3FC, 952));
+		nox_client_drawSetColor_434460(nox_color_black_2650656);
 		nox_client_drawRectFilledOpaque_49CE30(xLeft, yTop, 260, 150);
 		v5 = *(uint32_t*)(v3 + 3644);
 		if (v5) {

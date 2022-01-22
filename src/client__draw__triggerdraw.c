@@ -3,6 +3,8 @@
 #include "GAME1_2.h"
 #include "GAME2_3.h"
 
+extern uint32_t nox_color_black_2650656;
+
 //----- (004BB9D0) --------------------------------------------------------
 int nox_thing_trigger_draw(uint32_t* a1, nox_drawable* dr) {
 	int v2 = *a1 - a1[4];
@@ -17,7 +19,7 @@ int nox_thing_trigger_draw(uint32_t* a1, nox_drawable* dr) {
 	int v11 = dr->pos.x + v2 + nox_float2int(dr->shape.box_right_top);
 	int v5 = dr->pos.y + v3 + nox_float2int(dr->shape.box_right_bottom);
 
-	nox_client_drawSetColor_434460(*getMemIntPtr(0x85B3FC, 952));
+	nox_client_drawSetColor_434460(nox_color_black_2650656);
 	nox_client_drawEnableAlpha_434560(1);
 	nox_client_drawAddPoint_49F500(v4, v12);
 	nox_client_drawAddPoint_49F500(v11, v5);

@@ -36,6 +36,7 @@ extern unsigned int dword_5d4594_816340;
 extern unsigned int dword_5d4594_816348;
 extern unsigned int dword_5d4594_805988;
 extern int nox_video_bag_var_2650640;
+extern uint32_t nox_color_black_2650656;
 
 extern nox_gui_animation* nox_wnd_xxx_1309740;
 */
@@ -423,7 +424,7 @@ func RunArgs(args []string) (gerr error) {
 		if err := gameResetVideoMode(true, true); err != nil {
 			return fmt.Errorf("failed to update video mode: %w", err)
 		}
-		noxrend.SelectColor(memmap.Uint32(0x85B3FC, 952))
+		noxrend.SelectColor(uint32(C.nox_color_black_2650656))
 		noxrend.ClearScreen()
 	} else {
 		enableGUIDrawing(false)

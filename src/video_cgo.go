@@ -56,6 +56,8 @@ extern void (*func_5D4594_1305708)(uint32_t*, int, unsigned int);
 int nox_video_initFloorBuffer_430BA0();
 int nox_xxx___cfltcvt_init_430CC0();
 extern uint32_t nox_color_yellow_2589772;
+extern uint32_t nox_color_black_2650656;
+extern uint32_t nox_color_blue_2650684;
 */
 import "C"
 import (
@@ -1009,7 +1011,7 @@ func nox_video_cursorDrawImpl_477A30(r *NoxRender, inp *input.Handler, pos types
 		if v16 := nox_xxx_spriteGetMB_476F80(); v16 != nil {
 			sub_48B680(1)
 			if v16.Flags28()&6 == 0 || C.sub_495A80(C.int(v16.Field32())) != 0 {
-				sub_48B800(memmap.Uint32(0x85B3FC, 980))
+				sub_48B800(uint32(C.nox_color_blue_2650684))
 			} else {
 				sub_48B800(memmap.Uint32(0x85B3FC, 940))
 			}
@@ -1136,7 +1138,7 @@ func sub_477F80() {
 	if C.dword_5d4594_3799468 != 0 {
 		vp := getViewport()
 		if C.dword_5d4594_1097212 < vp.x1 || C.dword_5d4594_1097212+64 >= vp.x2 || C.dword_5d4594_1097216 < vp.y1 || C.dword_5d4594_1097216+64 >= vp.y2 {
-			noxrend.SetColor2(memmap.Uint32(0x85B3FC, 952))
+			noxrend.SetColor2(uint32(C.nox_color_black_2650656))
 			noxrend.DrawRectFilledOpaque(int(C.dword_5d4594_1097212)+32, int(C.dword_5d4594_1097216)+32, 64, 64)
 		}
 	}

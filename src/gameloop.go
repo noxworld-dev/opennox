@@ -50,6 +50,7 @@ extern uint32_t dword_5d4594_1090120;
 extern nox_window* dword_5d4594_1090048;
 extern nox_window* dword_5d4594_1090100;
 extern void* dword_5d4594_1307292;
+extern uint32_t nox_color_black_2650656;
 
 static void go_call_sub_4516C0(wchar_t* a1, char* a2) {
 	sub_4516C0(a1, a2);
@@ -1009,7 +1010,7 @@ func nox_xxx_gameStateWait_43C020() bool {
 		return true
 	}
 	if !isDedicatedServer {
-		noxrend.SelectColor(memmap.Uint32(0x85B3FC, 952))
+		noxrend.SelectColor(uint32(C.nox_color_black_2650656))
 		noxrend.ClearScreen()
 	}
 	return false

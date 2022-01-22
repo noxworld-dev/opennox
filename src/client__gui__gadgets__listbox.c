@@ -8,7 +8,14 @@
 #include "common__strman.h"
 
 extern uint32_t nox_color_white_2523948;
+extern uint32_t nox_color_red_2589776;
+extern uint32_t nox_color_blue_2650684;
+extern uint32_t nox_color_green_2614268;
+extern uint32_t nox_color_cyan_2649820;
 extern uint32_t nox_color_yellow_2589772;
+extern uint32_t nox_color_violet_2598268;
+extern uint32_t nox_color_black_2650656;
+extern uint32_t nox_color_orange_2614256;
 
 //----- (004A4310) --------------------------------------------------------
 nox_window* nox_gui_newScrollListBox_4A4310(int a1, int a2, int a3, int a4, int a5, int a6, int a7, nox_scrollListBox_data* opts) {
@@ -94,12 +101,12 @@ nox_window* nox_gui_newScrollListBox_4A4310(int a1, int a2, int a3, int a4, int 
 		}
 		memset(v25, 0, sizeof(v25));
 		if ((signed char)*((uint8_t*)v8 + 4) >= 0) {
-			*(uint32_t*)&v25[20] = *getMemU32Ptr(0x85B3FC, 952);
-			*(uint32_t*)&v25[44] = *getMemU32Ptr(0x85B3FC, 952);
-			*(uint32_t*)&v25[28] = *getMemU32Ptr(0x852978, 12);
+			*(uint32_t*)&v25[20] = nox_color_black_2650656;
+			*(uint32_t*)&v25[44] = nox_color_black_2650656;
+			*(uint32_t*)&v25[28] = nox_color_orange_2614256;
 			*(uint32_t*)&v25[36] = nox_color_white_2523948;
 			*(uint32_t*)&v25[52] = nox_color_yellow_2589772;
-			*(uint32_t*)&v25[68] = *getMemU32Ptr(0x852978, 12);
+			*(uint32_t*)&v25[68] = nox_color_orange_2614256;
 			v16 = nox_strman_loadString_40F1D0("WindowDir:Up", 0,
 											   "C:\\NoxPost\\src\\Client\\Gui\\Gadgets\\listbox.c", 1483);
 			nox_wcscpy((wchar_t*)&v25[72], v16);
@@ -118,12 +125,12 @@ nox_window* nox_gui_newScrollListBox_4A4310(int a1, int a2, int a3, int a4, int 
 		*((uint32_t*)a8 + 7) = nox_gui_newButtonOrCheckbox_4A91A0((int)v8, v26 | 9, a5 - 10, v22, 10, v23, v25);
 		memset(v25, 0, sizeof(v25));
 		if ((signed char)*((uint8_t*)v8 + 4) >= 0) {
-			*(uint32_t*)&v25[20] = *getMemU32Ptr(0x85B3FC, 952);
-			*(uint32_t*)&v25[44] = *getMemU32Ptr(0x85B3FC, 952);
-			*(uint32_t*)&v25[28] = *getMemU32Ptr(0x852978, 12);
+			*(uint32_t*)&v25[20] = nox_color_black_2650656;
+			*(uint32_t*)&v25[44] = nox_color_black_2650656;
+			*(uint32_t*)&v25[28] = nox_color_orange_2614256;
 			*(uint32_t*)&v25[36] = nox_color_white_2523948;
 			*(uint32_t*)&v25[52] = nox_color_yellow_2589772;
-			*(uint32_t*)&v25[68] = *getMemU32Ptr(0x852978, 12);
+			*(uint32_t*)&v25[68] = nox_color_orange_2614256;
 			v18 = nox_strman_loadString_40F1D0("WindowDir:Down", 0,
 											   "C:\\NoxPost\\src\\Client\\Gui\\Gadgets\\listbox.c", 1519);
 			nox_wcscpy((wchar_t*)&v25[72], v18);
@@ -139,11 +146,11 @@ nox_window* nox_gui_newScrollListBox_4A4310(int a1, int a2, int a3, int a4, int 
 		*((uint32_t*)a8 + 8) = nox_gui_newButtonOrCheckbox_4A91A0((int)v8, v17, a5 - 10, v22 + v10 - v23, 10, v23, v25);
 		memset(v25, 0, sizeof(v25));
 		if ((signed char)*((uint8_t*)v8 + 4) >= 0) {
-			*(uint32_t*)&v25[20] = *getMemU32Ptr(0x85B3FC, 952);
-			*(uint32_t*)&v25[44] = *getMemU32Ptr(0x85B3FC, 952);
-			*(uint32_t*)&v25[36] = *getMemU32Ptr(0x85B3FC, 952);
-			*(uint32_t*)&v25[28] = *getMemU32Ptr(0x852978, 12);
-			*(uint32_t*)&v25[52] = *getMemU32Ptr(0x852978, 12);
+			*(uint32_t*)&v25[20] = nox_color_black_2650656;
+			*(uint32_t*)&v25[44] = nox_color_black_2650656;
+			*(uint32_t*)&v25[36] = nox_color_black_2650656;
+			*(uint32_t*)&v25[28] = nox_color_orange_2614256;
+			*(uint32_t*)&v25[52] = nox_color_orange_2614256;
 			v19 = 10;
 		} else {
 			*(uint32_t*)&v25[24] = nox_xxx_gLoadImg_42F970("DefaultSliderThumb");

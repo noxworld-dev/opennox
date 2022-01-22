@@ -126,8 +126,16 @@ extern int nox_backbuffer_height;
 extern unsigned int nox_gameFPS;
 extern unsigned int nox_frame_xxx_2598000;
 extern uint32_t dword_5d4594_3799476;
-extern uint32_t nox_color_yellow_2589772;
+
 extern uint32_t nox_color_white_2523948;
+extern uint32_t nox_color_red_2589776;
+extern uint32_t nox_color_blue_2650684;
+extern uint32_t nox_color_green_2614268;
+extern uint32_t nox_color_cyan_2649820;
+extern uint32_t nox_color_yellow_2589772;
+extern uint32_t nox_color_violet_2598268;
+extern uint32_t nox_color_black_2650656;
+extern uint32_t nox_color_orange_2614256;
 
 const int nox_max_npcs = 1024;
 nox_npc* npc_array;
@@ -5631,7 +5639,7 @@ void sub_49A6A0(nox_draw_viewport_t* vp, nox_drawable* dr) {
 					nox_swprintf(v13, L"%d", abs32(*((short*)v8 + 2)));
 					nox_xxx_drawGetStringSize_43F840(*(int*)&dword_5d4594_1301780, v13, &v12, 0, 0);
 					v7 = v12 / -2 + v5;
-					nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x85B3FC, 952));
+					nox_xxx_drawSetTextColor_434390(nox_color_black_2650656);
 					nox_xxx_drawString_43F6E0(*(int*)&dword_5d4594_1301780, (short*)v13, v7 - 1, v6 - 1);
 					nox_xxx_drawString_43F6E0(*(int*)&dword_5d4594_1301780, (short*)v13, v7 - 1, v6 + 1);
 					nox_xxx_drawString_43F6E0(*(int*)&dword_5d4594_1301780, (short*)v13, v7 + 1, v6 - 1);
@@ -10147,7 +10155,7 @@ nox_window* nox_new_window_from_file(const char* name, int (*fnc)(int, int, int,
 
 //----- (004A0D10) --------------------------------------------------------
 void nox_gui_resetWidgetData_4A0D10() {
-	unsigned int val = *getMemU32Ptr(0x85B3FC, 952);
+	unsigned int val = nox_color_black_2650656;
 	*getMemU32Ptr(0x5D4594, 1307288) = 0;
 	*getMemU32Ptr(0x5D4594, 1307264) = val;
 	*getMemU32Ptr(0x5D4594, 1307268) = val;

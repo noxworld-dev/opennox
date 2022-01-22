@@ -35,6 +35,16 @@ extern int nox_win_width;
 extern int nox_win_height;
 extern nox_window_yyy nox_windows_arr_1093036[7];
 
+extern uint32_t nox_color_white_2523948;
+extern uint32_t nox_color_red_2589776;
+extern uint32_t nox_color_blue_2650684;
+extern uint32_t nox_color_green_2614268;
+extern uint32_t nox_color_cyan_2649820;
+extern uint32_t nox_color_yellow_2589772;
+extern uint32_t nox_color_violet_2598268;
+extern uint32_t nox_color_black_2650656;
+extern uint32_t nox_color_orange_2614256;
+
 //----- (004710B0) --------------------------------------------------------
 int sub_4710B0() {
 	wchar_t* v0; // eax
@@ -282,7 +292,7 @@ int nox_xxx_guiHealthManaTubeDraw_471D10(int xLeft) {
 	nox_client_wndGetPosition_46AA60(v1, &xLeft, &yTop);
 	xLeft += 5;
 	if (dword_5d4594_3799468) {
-		nox_client_drawSetColor_434460(*getMemIntPtr(0x85B3FC, 952));
+		nox_client_drawSetColor_434460(nox_color_black_2650656);
 		nox_client_drawRectFilledOpaque_49CE30(xLeft, yTop, 15, 125);
 	}
 	v4 = *((uint32_t*)v3 + 2);

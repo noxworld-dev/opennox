@@ -29,6 +29,16 @@ extern int nox_win_width;
 extern int nox_win_height;
 extern unsigned int nox_frame_xxx_2598000;
 
+extern uint32_t nox_color_white_2523948;
+extern uint32_t nox_color_red_2589776;
+extern uint32_t nox_color_blue_2650684;
+extern uint32_t nox_color_green_2614268;
+extern uint32_t nox_color_cyan_2649820;
+extern uint32_t nox_color_yellow_2589772;
+extern uint32_t nox_color_violet_2598268;
+extern uint32_t nox_color_black_2650656;
+extern uint32_t nox_color_orange_2614256;
+
 nox_window* nox_wnd_quitMenu_825760 = 0;
 
 //----- (00445790) --------------------------------------------------------
@@ -38,7 +48,7 @@ int nox_xxx_wndLoadQuitMenu_445790() {
 		return 0;
 	}
 	nox_window_set_all_funcs(nox_wnd_quitMenu_825760, sub_445BB0, nox_xxx_wndDrawQuitMenu_445BC0, 0);
-	nox_wnd_quitMenu_825760->draw_data.bg_color = *getMemU32Ptr(0x85B3FC, 952);
+	nox_wnd_quitMenu_825760->draw_data.bg_color = nox_color_black_2650656;
 	nox_wnd_quitMenu_825760->off_x = (nox_win_width - nox_wnd_quitMenu_825760->width) / 2;
 	nox_wnd_quitMenu_825760->end_x = nox_wnd_quitMenu_825760->off_x + nox_wnd_quitMenu_825760->width;
 	if (nox_win_height > 768) {

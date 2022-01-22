@@ -158,9 +158,16 @@ extern int nox_win_height;
 extern int nox_backbuffer_width;
 extern int nox_backbuffer_height;
 extern uint32_t array_5D4594_1049872[9];
+
 extern uint32_t nox_color_white_2523948;
-extern uint32_t nox_color_violet_2598268;
+extern uint32_t nox_color_red_2589776;
+extern uint32_t nox_color_blue_2650684;
+extern uint32_t nox_color_green_2614268;
+extern uint32_t nox_color_cyan_2649820;
 extern uint32_t nox_color_yellow_2589772;
+extern uint32_t nox_color_violet_2598268;
+extern uint32_t nox_color_black_2650656;
+extern uint32_t nox_color_orange_2614256;
 
 extern nox_window* nox_win_unk3;
 
@@ -1643,7 +1650,7 @@ int nox_xxx_guiDrawInventoryTray_4643B0(int a1, int a2) {
 						v15 = *(uint16_t*)(v7 + 448);
 						if (v15 >= 0) {
 							nox_swprintf(WideCharStr, L"%d", v15);
-							nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x85B3FC, 980));
+							nox_xxx_drawSetTextColor_434390(nox_color_blue_2650684);
 							nox_xxx_drawGetStringSize_43F840(*(int*)&dword_5d4594_1063636, WideCharStr, &v26, 0, 0);
 							nox_xxx_drawString_43F6E0(*(int*)&dword_5d4594_1063636, (short*)WideCharStr, v6 - v26 + 44,
 													  v5 + 6);
@@ -5957,7 +5964,7 @@ int nox_xxx_cliDrawLagometer_470770(int a1, int a2) {
 							  xLeft + (*(int*)(v1 + 8) - a1) / 2, yTop + 3);
 	v6 = xLeft + 1;
 	v7 = yTop + 14;
-	nox_client_drawSetColor_434460(*getMemIntPtr(0x85B3FC, 952));
+	nox_client_drawSetColor_434460(nox_color_black_2650656);
 	nox_client_drawRectFilledOpaque_49CE30(v6, v7, 30, 3);
 	for (i = 1; i < 31; ++i) {
 		v9 = *getMemU16Ptr(0x5D4594, 1090184 + 2 * ((i + getMemByte(0x5D4594, 1090248)) % 31));
@@ -6520,7 +6527,7 @@ int nox_xxx_drawHealthManaBar_471C00(int a1) {
 	}
 	v4 = nox_win_height / 2 - 48;
 	v5 = 48 * *((int*)v2 + 1) / *((int*)v2 + 2);
-	nox_client_drawSetColor_434460(*getMemIntPtr(0x85B3FC, 952));
+	nox_client_drawSetColor_434460(nox_color_black_2650656);
 	nox_client_drawRectFilledOpaque_49CE30(v3, v4, 2, 48);
 	nox_client_drawSetColor_434460(*((uint32_t*)v2 + 3));
 	nox_client_drawRectFilledOpaque_49CE30(v3, v4 - v5 + 48, 2, v5);
@@ -6905,7 +6912,7 @@ int nox_xxx_cliDrawMinimap_472600(int a1, int a2) {
 	if (*(uint32_t*)v2 <= 0) {
 		nox_client_drawRectFilledAlpha_49CF10(0, v4 / 2, v3, v3);
 	} else {
-		nox_client_drawSetColor_434460(*getMemIntPtr(0x85B3FC, 952));
+		nox_client_drawSetColor_434460(nox_color_black_2650656);
 		if (v5 >= v3) {
 			nox_client_drawRectFilledOpaque_49CE30(0, v4 / 2, v3, v3);
 		} else {
@@ -6914,7 +6921,7 @@ int nox_xxx_cliDrawMinimap_472600(int a1, int a2) {
 		}
 	}
 	nox_client_drawEnableAlpha_434560(1);
-	nox_client_drawSetColor_434460(*getMemIntPtr(0x85B3FC, 952));
+	nox_client_drawSetColor_434460(nox_color_black_2650656);
 	nox_client_drawSetAlpha_434580(0x5Au);
 	nox_client_drawRectLines_473510(-1, yTop - 1, v3 + 2, v3 + 2);
 	nox_client_drawSetAlpha_434580(0x3Cu);
@@ -7077,7 +7084,7 @@ int nox_xxx_cliDrawMinimap_472600(int a1, int a2) {
 		v42 = nox_xxx_minimap_587000_149232;
 		xLeft.field_0 = 100 * (*(int*)(k + 12) - v8) / v42;
 		xLeft.field_4 = yTop + 100 * (*(int*)(k + 16) - v9) / v42;
-		if (!(*(uint32_t*)(k + 112) & 0x400000) || (v43 = *getMemU32Ptr(0x85B3FC, 980), !(*(uint8_t*)(k + 116) & 8))) {
+		if (!(*(uint32_t*)(k + 112) & 0x400000) || (v43 = nox_color_blue_2650684, !(*(uint8_t*)(k + 116) & 8))) {
 			v43 = *getMemU32Ptr(0x85B3FC, 940);
 		}
 		nox_client_drawSetColor_434460(v43);
@@ -8483,7 +8490,7 @@ void nox_xxx_drawAllMB_475810_draw_A(nox_draw_viewport_t* vp) {
 		int v3 = vp->y2;
 		sub_437290();
 		if (dword_5d4594_3799524) {
-			nox_client_drawSetColor_434460(*getMemIntPtr(0x85B3FC, 952));
+			nox_client_drawSetColor_434460(nox_color_black_2650656);
 			nox_client_drawRectFilledOpaque_49CE30(0, 0, nox_getBackbufWidth(), vp->y1);
 			nox_client_drawRectFilledOpaque_49CE30(0, v3, nox_getBackbufWidth(), nox_getBackbufHeight() - v3);
 			nox_client_drawRectFilledOpaque_49CE30(0, vp->y1, vp->x1, v3 - vp->y1);
@@ -8697,7 +8704,7 @@ void nox_xxx_drawAllMB_475810_draw(nox_draw_viewport_t* vp) {
 		v8 = 1;
 	}
 	if (nox_client_gui_flag_1556112 || v8) {
-		nox_xxx_drawSelectColor_434350(*getMemIntPtr(0x85B3FC, 952));
+		nox_xxx_drawSelectColor_434350(nox_color_black_2650656);
 		nox_client_clearScreen_440900();
 		sub_437290();
 		dword_5d4594_3799524 = 1;
@@ -8706,7 +8713,7 @@ void nox_xxx_drawAllMB_475810_draw(nox_draw_viewport_t* vp) {
 	if (*getMemU32Ptr(0x5D4594, 1096520)) {
 		nox_xxx_drawSelectColor_434350(nox_color_white_2523948);
 		nox_client_clearScreen_440900();
-		nox_xxx_drawSelectColor_434350(*getMemIntPtr(0x85B3FC, 952));
+		nox_xxx_drawSelectColor_434350(nox_color_black_2650656);
 		*getMemU32Ptr(0x5D4594, 1096520) = 0;
 		sub_437290();
 		dword_5d4594_3799524 = 1;

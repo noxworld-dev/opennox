@@ -190,7 +190,16 @@ extern int nox_backbuffer_width;
 extern int nox_backbuffer_height;
 extern unsigned int nox_gameFPS;
 extern unsigned int nox_frame_xxx_2598000;
+
 extern uint32_t nox_color_white_2523948;
+extern uint32_t nox_color_red_2589776;
+extern uint32_t nox_color_blue_2650684;
+extern uint32_t nox_color_green_2614268;
+extern uint32_t nox_color_cyan_2649820;
+extern uint32_t nox_color_yellow_2589772;
+extern uint32_t nox_color_violet_2598268;
+extern uint32_t nox_color_black_2650656;
+extern uint32_t nox_color_orange_2614256;
 
 extern nox_thing* nox_things_head;
 extern nox_thing** nox_things_array;
@@ -892,7 +901,7 @@ int nox_client_drawFadingScreen_44DD70(int a1) {
 
 //----- (0044DDC0) --------------------------------------------------------
 void nox_xxx_cliClearScreen_44DDC0() {
-	nox_client_drawSetColor_434460(*getMemIntPtr(0x85B3FC, 952));
+	nox_client_drawSetColor_434460(nox_color_black_2650656);
 	nox_client_drawRectFilledOpaque_49CE30(0, 0, nox_getBackbufWidth(), nox_getBackbufHeight());
 }
 
@@ -1231,7 +1240,7 @@ uint32_t* sub_44E560() {
 	dword_5d4594_831236 = result;
 	if (result) {
 		nox_xxx_wndSetWindowProc_46B300((int)result, nox_client_wndQuestBriefProc_44E630);
-		*(uint32_t*)(dword_5d4594_831236 + 56) = *getMemU32Ptr(0x85B3FC, 952);
+		*(uint32_t*)(dword_5d4594_831236 + 56) = nox_color_black_2650656;
 		nox_wnd_briefing_831232 = nox_new_window_from_file("Briefing.wnd", 0);
 		result = nox_wnd_briefing_831232;
 		if (result) {
@@ -1648,7 +1657,7 @@ int nox_xxx_unused_4514F0() {
 	result = dword_5d4594_823776;
 	if (dword_5d4594_823776) {
 		v1 = nox_xxx_guiFontHeightMB_43F320(0);
-		nox_client_drawSetColor_434460(*getMemIntPtr(0x85B3FC, 952));
+		nox_client_drawSetColor_434460(nox_color_black_2650656);
 		nox_client_drawRectFilledOpaque_49CE30(*(int*)&dword_5d4594_839884, *(int*)&dword_5d4594_839888, 320, 21 * v1);
 		nox_client_drawSetColor_434460(1);
 		nox_client_drawBorderLines_49CC70(*(int*)&dword_5d4594_839884, *(int*)&dword_5d4594_839888, 320, 21 * v1);

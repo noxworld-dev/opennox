@@ -14,7 +14,16 @@
 extern uint32_t dword_5d4594_1313796;
 extern uint32_t dword_5d4594_1313800;
 extern unsigned int nox_frame_xxx_2598000;
+
 extern uint32_t nox_color_white_2523948;
+extern uint32_t nox_color_red_2589776;
+extern uint32_t nox_color_blue_2650684;
+extern uint32_t nox_color_green_2614268;
+extern uint32_t nox_color_cyan_2649820;
+extern uint32_t nox_color_yellow_2589772;
+extern uint32_t nox_color_violet_2598268;
+extern uint32_t nox_color_black_2650656;
+extern uint32_t nox_color_orange_2614256;
 
 //----- (004B9050) --------------------------------------------------------
 int nox_thing_npc_draw(int* a1, nox_drawable* dr) {
@@ -81,7 +90,7 @@ int nox_thing_npc_draw(int* a1, nox_drawable* dr) {
 					v8 = 0;
 					do {
 						v9 = v8 + 1;
-						nox_xxx_drawPlayer_4341D0(v8 + 1, *getMemIntPtr(0x85B3FC, 980));
+						nox_xxx_drawPlayer_4341D0(v8 + 1, nox_color_blue_2650684);
 						v8 = v9;
 					} while (v9 < 6);
 				}
@@ -89,7 +98,7 @@ int nox_thing_npc_draw(int* a1, nox_drawable* dr) {
 				v10 = 0;
 				do {
 					v11 = v10 + 1;
-					nox_xxx_drawPlayer_4341D0(v10 + 1, *getMemIntPtr(0x85B3FC, 980));
+					nox_xxx_drawPlayer_4341D0(v10 + 1, nox_color_blue_2650684);
 					v10 = v11;
 				} while (v11 < 6);
 			} else if (v5[328] == 1) {

@@ -26,6 +26,16 @@ extern uint32_t dword_5d4594_830124;
 extern int nox_win_width;
 extern int nox_win_height;
 
+extern uint32_t nox_color_white_2523948;
+extern uint32_t nox_color_red_2589776;
+extern uint32_t nox_color_blue_2650684;
+extern uint32_t nox_color_green_2614268;
+extern uint32_t nox_color_cyan_2649820;
+extern uint32_t nox_color_yellow_2589772;
+extern uint32_t nox_color_violet_2598268;
+extern uint32_t nox_color_black_2650656;
+extern uint32_t nox_color_orange_2614256;
+
 //----- (00448730) --------------------------------------------------------
 int sub_448730_wol_dialogs() {
 	int result; // eax
@@ -42,7 +52,7 @@ int sub_448730_wol_dialogs() {
 	result = nox_new_window_from_file("wolfind.wnd", sub_4489C0_wol_dialogs);
 	dword_5d4594_830124 = result;
 	if (result) {
-		*(uint32_t*)(result + 56) = *getMemU32Ptr(0x85B3FC, 952);
+		*(uint32_t*)(result + 56) = nox_color_black_2650656;
 		*(uint32_t*)(dword_5d4594_830124 + 16) = (nox_win_width - *(uint32_t*)(dword_5d4594_830124 + 8)) / 2;
 		*(uint32_t*)(dword_5d4594_830124 + 24) =
 			*(uint32_t*)(dword_5d4594_830124 + 8) + *(uint32_t*)(dword_5d4594_830124 + 16);

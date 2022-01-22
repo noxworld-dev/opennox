@@ -23,8 +23,16 @@ extern int nox_win_width;
 extern int nox_win_height;
 extern nox_draw_viewport_t nox_draw_viewport;
 extern unsigned int nox_frame_xxx_2598000;
+
 extern uint32_t nox_color_white_2523948;
+extern uint32_t nox_color_red_2589776;
+extern uint32_t nox_color_blue_2650684;
+extern uint32_t nox_color_green_2614268;
+extern uint32_t nox_color_cyan_2649820;
 extern uint32_t nox_color_yellow_2589772;
+extern uint32_t nox_color_violet_2598268;
+extern uint32_t nox_color_black_2650656;
+extern uint32_t nox_color_orange_2614256;
 
 void nox_xxx_clientDrawAll_436100_draw_A() {
 	if (!sub_436550()) {
@@ -116,7 +124,7 @@ void nox_xxx_clientDrawAll_436100_draw() {
 		nox_xxx_drawAllMB_475810_draw(&nox_draw_viewport);
 		nox_xxx_drawMinimapAndLines_4738E0();
 	} else {
-		nox_xxx_drawSelectColor_434350(*getMemIntPtr(0x85B3FC, 952));
+		nox_xxx_drawSelectColor_434350(nox_color_black_2650656);
 		nox_client_clearScreen_440900();
 	}
 	if (dword_5d4594_811896) {
@@ -231,7 +239,7 @@ int sub_4365C0() {
 	v20 = dword_5d4594_2614264;
 	v11 = nox_strman_loadString_40F1D0("Latency", 0, "C:\\NoxPost\\src\\client\\System\\client.c", 1181);
 	nox_swprintf((wchar_t*)getMemAt(0x5D4594, 810900), v11, v20, v27);
-	nox_client_drawSetColor_434460(*getMemIntPtr(0x85B3FC, 952));
+	nox_client_drawSetColor_434460(nox_color_black_2650656);
 	nox_client_drawRectFilledOpaque_49CE30(v0 + 80, v5, 16, 8);
 	nox_xxx_drawString_43F6E0(0, getMemI16Ptr(0x5D4594, 810900), v0, v5);
 	v12 = 200;
@@ -417,7 +425,7 @@ int nox_xxx_drawTimingMB_436C40() {
 	v6 = 0;
 	while (1) {
 		v7 = (v4 + 1) % 128;
-		nox_client_drawSetColor_434460(*getMemIntPtr(0x85B3FC, 980));
+		nox_client_drawSetColor_434460(nox_color_blue_2650684);
 		nox_client_drawAddPoint_49F500(v6, 90 - *getMemU32Ptr(0x5D4594, 812972 + 4 * v4));
 		v8 = v6 + v5;
 		nox_client_drawAddPoint_49F500(v8, 90 - *getMemU32Ptr(0x5D4594, 812972 + 4 * v7));

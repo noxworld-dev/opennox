@@ -63,7 +63,10 @@ int nox_xxx_drawAllMB_475810_draw_B(nox_draw_viewport_t* vp);
 void nox_xxx_drawAllMB_475810_draw_C(nox_draw_viewport_t* vp, int v36, int v7);
 void nox_xxx_drawAllMB_475810_draw_D(nox_draw_viewport_t* vp);
 extern uint32_t nox_color_white_2523948;
+extern uint32_t nox_color_black_2650656;
 extern uint32_t nox_color_red_2589776;
+extern uint32_t nox_color_blue_2650684;
+extern uint32_t nox_color_green_2614268;
 */
 import "C"
 import (
@@ -947,7 +950,7 @@ func nox_xxx_clientDrawAll_436100_draw() {
 		nox_xxx_drawAllMB_475810_draw(vp)
 		C.nox_xxx_drawMinimapAndLines_4738E0()
 	} else {
-		noxrend.SelectColor(memmap.Uint32(0x85B3FC, 952))
+		noxrend.SelectColor(uint32(C.nox_color_black_2650656))
 		noxrend.ClearScreen()
 	}
 	if C.dword_5d4594_811896 != 0 {
@@ -993,7 +996,7 @@ func nox_xxx_drawAllMB_475810_draw(vp *Viewport) {
 		disableDraw = true
 	}
 	if C.nox_client_gui_flag_1556112 != 0 || disableDraw {
-		noxrend.SelectColor(memmap.Uint32(0x85B3FC, 952))
+		noxrend.SelectColor(uint32(C.nox_color_black_2650656))
 		noxrend.ClearScreen()
 		C.sub_437290()
 		C.dword_5d4594_3799524 = 1
@@ -1002,7 +1005,7 @@ func nox_xxx_drawAllMB_475810_draw(vp *Viewport) {
 	if memmap.Uint32(0x5D4594, 1096520) != 0 {
 		noxrend.SelectColor(uint32(C.nox_color_white_2523948))
 		noxrend.ClearScreen()
-		noxrend.SelectColor(memmap.Uint32(0x85B3FC, 952))
+		noxrend.SelectColor(uint32(C.nox_color_black_2650656))
 		*memmap.PtrUint32(0x5D4594, 1096520) = 0
 		C.sub_437290()
 		C.dword_5d4594_3799524 = 1
@@ -1707,7 +1710,7 @@ func drawCreatureBackEffects(r *NoxRender, vp *Viewport, dr *Drawable) { // nox_
 	}
 	if dr.CheckFlag31(14) {
 		pos := vp.toScreenPos(dr.Pos())
-		r.DrawGlow(pos, memmap.Uint32(0x85B3FC, 980), 30, 31)
+		r.DrawGlow(pos, uint32(C.nox_color_blue_2650684), 30, 31)
 	}
 	if dr.CheckFlag31(9) && !nox_xxx_checkGameFlagPause_413A50() { // Haste effect
 		if drawWhiteBubbleParticle == 0 {
@@ -1774,10 +1777,10 @@ func drawCreatureBackEffects(r *NoxRender, vp *Viewport, dr *Drawable) { // nox_
 		r.drawProtectEffectDefault(vp, dr.Pos(), dr, 0, 0, memmap.Uint32(0x85B3FC, 940), uint32(C.nox_color_red_2589776), true)
 	}
 	if dr.CheckFlag31(18) {
-		r.drawProtectEffectDefault(vp, dr.Pos(), dr, 85, 1, memmap.Uint32(0x8531A0, 2572), memmap.Uint32(0x852978, 24), true)
+		r.drawProtectEffectDefault(vp, dr.Pos(), dr, 85, 1, memmap.Uint32(0x8531A0, 2572), uint32(C.nox_color_green_2614268), true)
 	}
 	if dr.CheckFlag31(20) {
-		r.drawProtectEffectDefault(vp, dr.Pos(), dr, 170, 2, memmap.Uint32(0x85B3FC, 980), uint32(C.nox_color_white_2523948), true)
+		r.drawProtectEffectDefault(vp, dr.Pos(), dr, 170, 2, uint32(C.nox_color_blue_2650684), uint32(C.nox_color_white_2523948), true)
 	}
 	if dr.CheckFlag31(27) { // Shield effects
 		switch *(*byte)(dr.field(297)) {
@@ -1810,7 +1813,7 @@ func drawCreatureFrontEffects(r *NoxRender, vp *Viewport, dr *Drawable) { // nox
 		}
 		if dr.CheckFlag31(29) {
 			r.Data().setField17(1)
-			C.sub_433E40(C.int(memmap.Uint32(0x85B3FC, 980)))
+			C.sub_433E40(C.int(C.nox_color_blue_2650684))
 		}
 		r.nox_video_drawAnimatedImageOrCursorAt(asImageRefP(*memmap.PtrPtr(0x5D4594, 1096456)), pos.Add(types.Point{X: -64, Y: -64}))
 		r.Data().setField17(0)
@@ -1878,10 +1881,10 @@ func drawCreatureFrontEffects(r *NoxRender, vp *Viewport, dr *Drawable) { // nox
 		r.drawProtectEffectDefault(vp, dr.Pos(), dr, 0, 0, memmap.Uint32(0x85B3FC, 940), uint32(C.nox_color_red_2589776), false)
 	}
 	if dr.CheckFlag31(18) {
-		r.drawProtectEffectDefault(vp, dr.Pos(), dr, 85, 1, memmap.Uint32(0x8531A0, 2572), memmap.Uint32(0x852978, 24), false)
+		r.drawProtectEffectDefault(vp, dr.Pos(), dr, 85, 1, memmap.Uint32(0x8531A0, 2572), uint32(C.nox_color_green_2614268), false)
 	}
 	if dr.CheckFlag31(20) {
-		r.drawProtectEffectDefault(vp, dr.Pos(), dr, 170, 2, memmap.Uint32(0x85B3FC, 980), uint32(C.nox_color_white_2523948), false)
+		r.drawProtectEffectDefault(vp, dr.Pos(), dr, 170, 2, uint32(C.nox_color_blue_2650684), uint32(C.nox_color_white_2523948), false)
 	}
 	if dr.CheckFlag31(26) {
 		pos := vp.toScreenPos(dr.Pos())

@@ -108,6 +108,16 @@ extern uint32_t nox_player_netCode_85319C;
 extern int nox_video_bag_var_2650640;
 extern unsigned int nox_frame_xxx_2598000;
 
+extern uint32_t nox_color_white_2523948;
+extern uint32_t nox_color_red_2589776;
+extern uint32_t nox_color_blue_2650684;
+extern uint32_t nox_color_green_2614268;
+extern uint32_t nox_color_cyan_2649820;
+extern uint32_t nox_color_yellow_2589772;
+extern uint32_t nox_color_violet_2598268;
+extern uint32_t nox_color_black_2650656;
+extern uint32_t nox_color_orange_2614256;
+
 extern unsigned int nox_rnd_table_37892[4096];
 
 int nox_enable_audio = 1;
@@ -344,7 +354,7 @@ int cmain(int argc, const char* argv[]) {
 	if (!result) {
 		return 0;
 	}
-	nox_xxx_drawSelectColor_434350(*getMemIntPtr(0x85B3FC, 952));
+	nox_xxx_drawSelectColor_434350(nox_color_black_2650656);
 	nox_client_clearScreen_440900();
 	result = nox_video_read_videobag(nox_video_16bit);
 	if (!result) {

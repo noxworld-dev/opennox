@@ -4,8 +4,16 @@
 #include "GAME2_2.h"
 #include "GAME2_3.h"
 extern void* dword_5d4594_1096640;
+
 extern uint32_t nox_color_white_2523948;
+extern uint32_t nox_color_red_2589776;
+extern uint32_t nox_color_blue_2650684;
+extern uint32_t nox_color_green_2614268;
+extern uint32_t nox_color_cyan_2649820;
+extern uint32_t nox_color_yellow_2589772;
 extern uint32_t nox_color_violet_2598268;
+extern uint32_t nox_color_black_2650656;
+extern uint32_t nox_color_orange_2614256;
 
 //----- (004773C0) --------------------------------------------------------
 void nox_video_drawCursorSelectCircle_4773C0(nox_draw_viewport_t* a1p) {
@@ -36,11 +44,11 @@ void nox_video_drawCursorSelectCircle_4773C0(nox_draw_viewport_t* a1p) {
 			}
 			v2 = v1 - 1;
 			if (!v2) {
-				v3 = *(uint32_t**)getMemAt(0x85B3FC, 980);
+				v3 = nox_color_blue_2650684;
 				goto LABEL_15;
 			}
 			if (v2 == 1) {
-				v3 = *(uint32_t**)getMemAt(0x85B3FC, 116);
+				v3 = nox_color_cyan_2649820;
 				goto LABEL_15;
 			}
 		}

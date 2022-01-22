@@ -152,8 +152,16 @@ extern int nox_video_cursorDrawIsThreaded;
 int nox_client_mouseCursorType = 0;
 extern unsigned int nox_frame_xxx_2598000;
 extern HANDLE* nox_video_cursorDrawThreadHandle;
+
 extern uint32_t nox_color_white_2523948;
+extern uint32_t nox_color_red_2589776;
+extern uint32_t nox_color_blue_2650684;
+extern uint32_t nox_color_green_2614268;
+extern uint32_t nox_color_cyan_2649820;
 extern uint32_t nox_color_yellow_2589772;
+extern uint32_t nox_color_violet_2598268;
+extern uint32_t nox_color_black_2650656;
+extern uint32_t nox_color_orange_2614256;
 
 void* dword_5d4594_1189592 = 0;
 void* dword_5d4594_1189596 = 0;
@@ -421,7 +429,7 @@ void sub_476270(nox_draw_viewport_t* a1p) {
 			if (i == v24) {
 				nox_client_drawSetColor_434460(*getMemIntPtr(0x85B3FC, 940));
 			} else if (v23[2 * i] < 0.0 || *v25 < 0.0) {
-				nox_client_drawSetColor_434460(*getMemIntPtr(0x85B3FC, 980));
+				nox_client_drawSetColor_434460(nox_color_blue_2650684);
 			} else {
 				nox_client_drawSetColor_434460(nox_color_yellow_2589772);
 			}
@@ -1459,7 +1467,7 @@ int sub_477EA0() {
 	nox_point mpos = nox_client_getMousePos_4309F0();
 	int x = mpos.x;
 	int y = mpos.y + 22;
-	nox_video_cursorDrawImpl_477A30(*getMemIntPtr(0x85B3FC, 952), x, y);
+	nox_video_cursorDrawImpl_477A30(nox_color_black_2650656, x, y);
 	sub_477EF0(*getMemIntPtr(0x852978, 4), --x, y);
 	return sub_477EF0(*getMemIntPtr(0x852978, 4), x + 2, y);
 }
@@ -1488,7 +1496,7 @@ void sub_477F80() {
 			nox_draw_viewport_t* rdr = nox_draw_getViewport_437250();
 			if (dword_5d4594_1097212 < rdr->x1 || dword_5d4594_1097212 + 64 >= rdr->x2 ||
 				dword_5d4594_1097216 < rdr->y1 || dword_5d4594_1097216 + 64 >= rdr->y2) {
-				nox_client_drawSetColor_434460(*getMemIntPtr(0x85B3FC, 952));
+				nox_client_drawSetColor_434460(nox_color_black_2650656);
 				nox_client_drawRectFilledOpaque_49CE30(dword_5d4594_1097212 + 32, dword_5d4594_1097216 + 32, 64, 64);
 			}
 		}

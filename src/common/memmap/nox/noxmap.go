@@ -1318,11 +1318,11 @@ var noxMemmap = []struct {
 	{0x5D4594, 2589776, 4, "nox_color_red_2589776"},
 	{0x5D4594, 2598000, 4, "nox_frame_xxx_2598000"}, // 0x84EA04
 	{0x5D4594, 2598268, 4, "nox_color_violet_2598268"},
-	{0x5D4594, 2614256, 4, "nox_color_orange_2614256"},
-	{0x5D4594, 2614268, 4, "nox_color_green_2614268"},
-	{0x5D4594, 2649820, 4, "nox_color_cyan_2649820"},
-	{0x5D4594, 2650656, 4, "nox_color_black_2650656"},
-	{0x5D4594, 2650684, 4, "nox_color_blue_2650684"},
+	{0x852978, 12, 4, "nox_color_orange_2614256"},
+	{0x852978, 24, 4, "nox_color_green_2614268"},
+	{0x85B3FC, 116, 4, "nox_color_cyan_2649820"},
+	{0x85B3FC, 952, 4, "nox_color_black_2650656"},
+	{0x85B3FC, 980, 4, "nox_color_blue_2650684"},
 	{0x852978, 20, 4, "dword_5d4594_2614264"},                   // 0x85298C
 	{0x85319C, 0, 4, "nox_player_netCode_85319C"},               // 0x85319C
 	{0x8531A0, 2568, 4, "dword_5d4594_2618900"},                 // 0x853BA8

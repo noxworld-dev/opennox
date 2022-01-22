@@ -168,10 +168,16 @@ extern int nox_win_depth_game;
 extern int nox_win_depth_menu;
 extern unsigned int nox_frame_xxx_2598000;
 extern char nox_savegame_name_1307752[9];
+
 extern uint32_t nox_color_white_2523948;
-extern uint32_t nox_color_violet_2598268;
-extern uint32_t nox_color_yellow_2589772;
 extern uint32_t nox_color_red_2589776;
+extern uint32_t nox_color_blue_2650684;
+extern uint32_t nox_color_green_2614268;
+extern uint32_t nox_color_cyan_2649820;
+extern uint32_t nox_color_yellow_2589772;
+extern uint32_t nox_color_violet_2598268;
+extern uint32_t nox_color_black_2650656;
+extern uint32_t nox_color_orange_2614256;
 
 #ifndef NOX_CGO
 uint32_t dword_5d4594_1309764 = 0;
@@ -3827,7 +3833,7 @@ int nox_xxx_wndRadioButtonProcPre_4A93C0(int a1, int a2, wchar_t* a3, int a4) {
 //----- (004A94A0) --------------------------------------------------------
 int nox_xxx_loadDefColor_4A94A0() // initListBoxColors, recall that one
 {
-	*getMemU32Ptr(0x85B3FC, 952) = nox_color_rgb_4344A0(0, 0, 0); // rgbatocompatiblecolor
+	nox_color_black_2650656 = nox_color_rgb_4344A0(0, 0, 0); // rgbatocompatiblecolor
 	*getMemU32Ptr(0x852978, 4) = nox_color_rgb_4344A0(8, 8, 8);
 	*getMemU32Ptr(0x85B3FC, 956) = nox_color_rgb_4344A0(115, 115, 115);
 	*getMemU32Ptr(0x5D4594, 2597996) = nox_color_rgb_4344A0(212, 212, 212);
@@ -3837,14 +3843,14 @@ int nox_xxx_loadDefColor_4A94A0() // initListBoxColors, recall that one
 	nox_color_red_2589776 = nox_color_rgb_4344A0(255, 128, 128);
 	*getMemU32Ptr(0x85B3FC, 984) = nox_color_rgb_4344A0(0, 100, 0);
 	*getMemU32Ptr(0x8531A0, 2572) = nox_color_rgb_4344A0(0, 255, 0);
-	*getMemU32Ptr(0x852978, 24) = nox_color_rgb_4344A0(128, 255, 128);
+	nox_color_green_2614268 = nox_color_rgb_4344A0(128, 255, 128);
 	*getMemU32Ptr(0x85B3FC, 944) = nox_color_rgb_4344A0(0, 0, 140);
-	*getMemU32Ptr(0x85B3FC, 116) = nox_color_rgb_4344A0(0, 0, 255);
-	*getMemU32Ptr(0x85B3FC, 980) = nox_color_rgb_4344A0(0, 160, 255);
-	*getMemU32Ptr(0x852978, 12) = nox_color_rgb_4344A0(240, 180, 42);
+	nox_color_cyan_2649820 = nox_color_rgb_4344A0(0, 0, 255);
+	nox_color_blue_2650684 = nox_color_rgb_4344A0(0, 160, 255);
+	nox_color_orange_2614256 = nox_color_rgb_4344A0(240, 180, 42);
 	nox_color_yellow_2589772 = nox_color_rgb_4344A0(255, 255, 0);
 	*getMemU32Ptr(0x852978, 0) = nox_color_rgb_4344A0(255, 255, 128);
-	*getMemU32Ptr(0x85B3FC, 132) = getMemAt(0x85B3FC, 952);
+	*getMemU32Ptr(0x85B3FC, 132) = &nox_color_black_2650656;
 	*getMemU32Ptr(0x85B3FC, 136) = getMemAt(0x852978, 4);
 	*getMemU32Ptr(0x85B3FC, 140) = getMemAt(0x85B3FC, 956);
 	*getMemU32Ptr(0x85B3FC, 144) = getMemAt(0x5D4594, 2597996);
@@ -3854,11 +3860,11 @@ int nox_xxx_loadDefColor_4A94A0() // initListBoxColors, recall that one
 	*getMemU32Ptr(0x85B3FC, 160) = &nox_color_red_2589776;
 	*getMemU32Ptr(0x85B3FC, 164) = getMemAt(0x85B3FC, 984);
 	*getMemU32Ptr(0x85B3FC, 168) = getMemAt(0x8531A0, 2572);
-	*getMemU32Ptr(0x85B3FC, 172) = getMemAt(0x852978, 24);
+	*getMemU32Ptr(0x85B3FC, 172) = &nox_color_green_2614268;
 	*getMemU32Ptr(0x85B3FC, 176) = getMemAt(0x85B3FC, 944);
-	*getMemU32Ptr(0x85B3FC, 180) = getMemAt(0x85B3FC, 116);
-	*getMemU32Ptr(0x85B3FC, 184) = getMemAt(0x85B3FC, 980);
-	*getMemU32Ptr(0x85B3FC, 188) = getMemAt(0x852978, 12);
+	*getMemU32Ptr(0x85B3FC, 180) = &nox_color_cyan_2649820;
+	*getMemU32Ptr(0x85B3FC, 184) = &nox_color_blue_2650684;
+	*getMemU32Ptr(0x85B3FC, 188) = &nox_color_orange_2614256;
 	*getMemU32Ptr(0x85B3FC, 192) = &nox_color_yellow_2589772;
 	*getMemU32Ptr(0x85B3FC, 196) = getMemAt(0x852978, 0);
 	return 1;
@@ -12040,7 +12046,7 @@ short sub_4B8960(int* a1, nox_drawable* dr, int a3, uint32_t* a4, int a5, int a6
 	if ((unsigned char)nox_frame_xxx_2598000 & 1) {
 		v27 = nox_color_white_2523948;
 	} else {
-		v27 = *getMemU32Ptr(0x85B3FC, 980);
+		v27 = nox_color_blue_2650684;
 	}
 	v8 = a3;
 	if (a3 & 2) {
@@ -12230,7 +12236,7 @@ short sub_4B8D40(int* a1, nox_drawable* dr, int a3, uint32_t* a4, int a5, int a6
 	if ((unsigned char)nox_frame_xxx_2598000 & 1) {
 		v13 = nox_color_white_2523948;
 	} else {
-		v13 = *getMemU32Ptr(0x85B3FC, 980);
+		v13 = nox_color_blue_2650684;
 	}
 	v7 = 1;
 	v8 = (int*)(a5 + 160);
@@ -12334,7 +12340,7 @@ void nox_xxx_drawOtherPlayerHP_4B8EB0(uint32_t* a1, nox_drawable* dr, unsigned s
 		v7 = *(float*)(a2 + 48) + *(float*)(a2 + 48);
 		v5 = nox_float2int(v7) + v4;
 		v6 = *(uint32_t*)(a2 + 16) + a1[1] - *(short*)(a2 + 104) - a1[5] - 48;
-		nox_client_drawSetColor_434460(*getMemIntPtr(0x85B3FC, 952));
+		nox_client_drawSetColor_434460(nox_color_black_2650656);
 		nox_client_drawRectFilledOpaque_49CE30(v5, v6, 2, 48);
 		if (a4) {
 			nox_client_drawSetColor_434460(*getMemIntPtr(0x8531A0, 2572));

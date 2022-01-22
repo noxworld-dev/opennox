@@ -22,8 +22,16 @@ extern int nox_win_width;
 extern int nox_win_height;
 extern unsigned int nox_frame_xxx_2598000;
 extern int nox_client_mouseCursorType;
+
 extern uint32_t nox_color_white_2523948;
+extern uint32_t nox_color_red_2589776;
+extern uint32_t nox_color_blue_2650684;
+extern uint32_t nox_color_green_2614268;
+extern uint32_t nox_color_cyan_2649820;
 extern uint32_t nox_color_yellow_2589772;
+extern uint32_t nox_color_violet_2598268;
+extern uint32_t nox_color_black_2650656;
+extern uint32_t nox_color_orange_2614256;
 
 //----- (00477A30) --------------------------------------------------------
 void nox_video_cursorDrawImpl_477A30(int a1, int a2, int a3) {
@@ -127,7 +135,7 @@ void nox_video_cursorDrawImpl_477A30(int a1, int a2, int a3) {
 			if (v16) {
 				sub_48B680(1);
 				if (!(*(uint8_t*)(v16 + 112) & 6) || sub_495A80(*(uint32_t*)(v16 + 128))) {
-					sub_48B800(*getMemIntPtr(0x85B3FC, 980));
+					sub_48B800(nox_color_blue_2650684);
 				} else {
 					sub_48B800(*getMemIntPtr(0x85B3FC, 940));
 				}

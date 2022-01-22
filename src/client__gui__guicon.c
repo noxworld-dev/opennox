@@ -24,7 +24,16 @@ int nox_gui_console_locked = 0;
 unsigned int nox_gui_console_translucent = 1;
 int nox_gui_console_wantsPass = 0;
 extern int dword_5d4594_3799524;
+
 extern uint32_t nox_color_white_2523948;
+extern uint32_t nox_color_red_2589776;
+extern uint32_t nox_color_blue_2650684;
+extern uint32_t nox_color_green_2614268;
+extern uint32_t nox_color_cyan_2649820;
+extern uint32_t nox_color_yellow_2589772;
+extern uint32_t nox_color_violet_2598268;
+extern uint32_t nox_color_black_2650656;
+extern uint32_t nox_color_orange_2614256;
 
 wchar_t nox_gui_console_password[64] = {0};
 
@@ -220,7 +229,7 @@ nox_window* nox_gui_console_Create_450C70(int win_width, int win_height) {
 	*getMemU32Ptr(0x5D4594, 833708) = win_height / 2;
 	nox_gui_console_win = nox_window_new(0, 56, 0, 0, win_width - 1, win_height / 2, 0);
 	nox_window_set_all_funcs(nox_gui_console_win, nox_xxx_consoleWndFn_450E80, nox_xxx_consoleWndFn_450E90, 0);
-	*(uint32_t*)((char*)nox_gui_console_win + 56) = *getMemU32Ptr(0x85B3FC, 952);
+	*(uint32_t*)((char*)nox_gui_console_win + 56) = nox_color_black_2650656;
 
 	char drawData[332];
 	memset(drawData, 0, sizeof(drawData));
@@ -275,7 +284,7 @@ nox_window* nox_gui_console_Create_450C70(int win_width, int win_height) {
 //----- (00451100) --------------------------------------------------------
 void nox_gui_console_reloadColors_451100() {
 	unsigned int color = *getMemU32Ptr(0x85B3FC, 956);
-	unsigned int color2 = *getMemU32Ptr(0x85B3FC, 952);
+	unsigned int color2 = nox_color_black_2650656;
 	if (nox_gui_console_win) {
 		nox_gui_console_win->draw_data.bg_color = color2;
 	}

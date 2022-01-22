@@ -139,8 +139,16 @@ extern unsigned int nox_frame_xxx_2598000;
 void* dword_5d4594_830236 = 0;
 void* dword_5d4594_830224 = 0;
 void* dword_5d4594_830232 = 0;
+
 extern uint32_t nox_color_white_2523948;
+extern uint32_t nox_color_red_2589776;
+extern uint32_t nox_color_blue_2650684;
+extern uint32_t nox_color_green_2614268;
+extern uint32_t nox_color_cyan_2649820;
 extern uint32_t nox_color_yellow_2589772;
+extern uint32_t nox_color_violet_2598268;
+extern uint32_t nox_color_black_2650656;
+extern uint32_t nox_color_orange_2614256;
 
 extern int nox_win_width;
 extern int nox_win_height;
@@ -437,7 +445,7 @@ int nox_xxx_gameStateWait_43C020() {
 	if (nox_client_gui_flag_815132) {
 		return 1;
 	}
-	nox_xxx_drawSelectColor_434350(*getMemIntPtr(0x85B3FC, 952));
+	nox_xxx_drawSelectColor_434350(nox_color_black_2650656);
 	nox_client_clearScreen_440900();
 	return 0;
 }
@@ -1811,7 +1819,7 @@ uint32_t* nox_xxx_gui_43E1A0(int a1) {
 	if (a1) {
 		result = nox_window_new(0, 552, 0, 0, nox_win_width, nox_win_height, 0);
 		dword_5d4594_816412 = result;
-		result[14] = *getMemU32Ptr(0x85B3FC, 952);
+		result[14] = nox_color_black_2650656;
 	} else {
 		result = *(uint32_t**)&dword_5d4594_816412;
 		if (dword_5d4594_816412) {
@@ -4263,7 +4271,7 @@ int nox_xxx_drawMessageLines_445530() {
 		if (*getMemU32Ptr(0x5D4594, 824440 + v5) < nox_frame_xxx_2598000) {
 			break;
 		}
-		nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x85B3FC, 952));
+		nox_xxx_drawSetTextColor_434390(nox_color_black_2650656);
 		v6 = getMemU16Ptr(0x5D4594, 823804 + v5);
 		nox_xxx_drawGetStringSize_43F840(0, v6, &v14, 0, 0);
 		v7 = nox_win_width - v14;
@@ -4376,12 +4384,12 @@ uint32_t* sub_445FF0() {
 	uint32_t* result; // eax
 
 	if (nox_wnd_quitMenu_825760) {
-		nox_wnd_quitMenu_825760->draw_data.bg_color = *getMemU32Ptr(0x85B3FC, 952);
+		nox_wnd_quitMenu_825760->draw_data.bg_color = nox_color_black_2650656;
 	}
 	for (i = 9001; i <= 9006; ++i) {
 		result = nox_xxx_wndGetChildByID_46B0C0(nox_wnd_quitMenu_825760, i);
 		if (result) {
-			result[26] = *getMemU32Ptr(0x852978, 12);
+			result[26] = nox_color_orange_2614256;
 		}
 	}
 	return result;
@@ -5352,7 +5360,7 @@ int sub_448240(uint32_t* a1, uint8_t* a2) {
 	if (!(*a2 & 2)) {
 		v3 = nox_color_white_2523948;
 	}
-	sub_4482D0((80 - v5) / 2 + v6 + 1, (int)a1, v3, *getMemIntPtr(0x85B3FC, 952), v2);
+	sub_4482D0((80 - v5) / 2 + v6 + 1, (int)a1, v3, nox_color_black_2650656, v2);
 	return 1;
 }
 
@@ -5569,7 +5577,7 @@ int sub_448FC0(int a1, int a2) {
 	nox_client_wndGetPosition_46AA60((uint32_t*)a1, &xLeft, &yTop);
 	if ((signed char)*(uint8_t*)(a1 + 4) >= 0) {
 		if (*(uint32_t*)(a2 + 20) != 0x80000000) {
-			nox_client_drawSetColor_434460(*getMemIntPtr(0x85B3FC, 952));
+			nox_client_drawSetColor_434460(nox_color_black_2650656);
 			nox_client_drawRectFilledOpaque_49CE30(xLeft, yTop, *(uint32_t*)(a1 + 8), *(uint32_t*)(a1 + 12));
 		}
 	} else {
@@ -5613,7 +5621,7 @@ int sub_449280() {
 	result = nox_new_window_from_file("wolopt.wnd", sub_4493D0);
 	dword_5d4594_830104 = result;
 	if (result) {
-		*(uint32_t*)(result + 56) = *getMemU32Ptr(0x85B3FC, 952);
+		*(uint32_t*)(result + 56) = nox_color_black_2650656;
 		*(uint32_t*)(dword_5d4594_830104 + 16) = (nox_win_width - *(uint32_t*)(dword_5d4594_830104 + 8)) / 2;
 		*(uint32_t*)(dword_5d4594_830104 + 24) =
 			*(uint32_t*)(dword_5d4594_830104 + 8) + *(uint32_t*)(dword_5d4594_830104 + 16);
@@ -5734,7 +5742,7 @@ int nox_xxx_guiServerListLoad_449530() {
 	result = nox_new_window_from_file("servlist.wnd", sub_4497D0_wol_dialogs);
 	dword_5d4594_830108 = result;
 	if (result) {
-		*(uint32_t*)(result + 56) = *getMemU32Ptr(0x85B3FC, 952);
+		*(uint32_t*)(result + 56) = nox_color_black_2650656;
 		sub_46B120(*(uint32_t**)&dword_5d4594_830108, 0);
 		nox_xxx_wndShowModalMB_46A8C0(*(int*)&dword_5d4594_830108);
 		sub_46C690(*(int*)&dword_5d4594_830108);
