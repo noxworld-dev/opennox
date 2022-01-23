@@ -1,6 +1,14 @@
 package version
 
-import "strings"
+import (
+	"nox/v1/common/log"
+)
+
+var Log = log.New("version")
+
+func LogVersion() {
+	Log.Printf("version: %s (%s)", Version(), Commit())
+}
 
 const (
 	Series = "v1.8.x"
@@ -31,5 +39,5 @@ func ClientVersion() string {
 }
 
 func IsDev() bool {
-	return commit == devCommit || strings.HasSuffix(version, ".x")
+	return commit == devCommit || semverIsDev(version)
 }

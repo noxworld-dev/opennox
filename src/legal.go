@@ -77,7 +77,12 @@ func nox_game_showLegal_4CC4E0() {
 	v9 := noxrend.GetStringSizeWrapped(v1, v8, 640).H
 	v0.SetPos(image.Pt(0, 477-v9))
 	vers := version.ClientVersion()
-	win.ChildByID(9999).Func94(asWindowEvent(0x4001, uintptr(unsafe.Pointer(internWStr(vers))), 0))
+	versText := win.ChildByID(9999)
+	if !version.IsDev() && !version.IsLatest() {
+		vers += "\n\nRelease " + version.Latest() + " is now available!"
+		versText.SetPos(versText.Offs().Add(image.Pt(0, 10)))
+	}
+	versText.Func94(asWindowEvent(0x4001, uintptr(unsafe.Pointer(internWStr(vers))), 0))
 	win.ChildByID(9998).Func94(asWindowEvent(0x4001, uintptr(unsafe.Pointer(internWStr(""))), 0))
 	win.ChildByID(9970).setDraw(sub_4CC6F0)
 	nox_win_legalBg_timer = 300
@@ -93,9 +98,12 @@ func nox_client_onShowLegal(win *Window) {
 	vers := win.ChildByID(9999)
 	draw := vers.DrawData()
 	// original version text color is grey, we change it to yellow
-	// if it's a dev build, make it red
+	// when the new release is available - highlight with green
+	// and if it's a dev build - make the text red
 	if version.IsDev() {
 		draw.SetTextColor(noxcolor.RGBColor(255, 0, 0))
+	} else if !version.IsLatest() {
+		draw.SetTextColor(noxcolor.RGBColor(0, 242, 0))
 	} else {
 		draw.SetTextColor(noxcolor.RGBColor(242, 218, 0))
 	}

@@ -3,7 +3,6 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"log"
 	"os"
 
 	"github.com/spf13/cobra"
@@ -17,7 +16,7 @@ var Root = &cobra.Command{
 }
 
 func main() {
-	log.Printf("version: %s (%s)", version.Version(), version.Commit())
+	version.LogVersion()
 	if err := Root.Execute(); err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)

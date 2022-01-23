@@ -137,7 +137,10 @@ func RunArgs(args []string) (gerr error) {
 		e2eInit()
 		defer e2eStop()
 	}
-	log.Printf("[nox] version: %s (%s)", version.Version(), version.Commit())
+	version.LogVersion()
+	if !isDedicatedServer {
+		go version.Latest() // prefetch
+	}
 	handles.Init()
 	defer handles.Release()
 	flags := flag.NewFlagSet("", flag.ContinueOnError)
