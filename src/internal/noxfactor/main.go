@@ -15,6 +15,7 @@ import (
 	"strconv"
 
 	noxflags "nox/v1/common/flags"
+	"nox/v1/internal/noxfactor/c2gotok"
 )
 
 var (
@@ -52,6 +53,11 @@ func (r *Refactorer) ProcessDir(path string) error {
 	list = nil
 	r.defined = make(map[string]struct{})
 	for _, fpath := range filtered {
+		if err := r.reformatC(fpath); err != nil {
+			return err
+		}
+	}
+	for _, fpath := range filtered {
 		if err := r.preProcessFile(fpath); err != nil {
 			return err
 		}
@@ -62,6 +68,21 @@ func (r *Refactorer) ProcessDir(path string) error {
 		}
 	}
 	return nil
+}
+
+func (r *Refactorer) reformatC(path string) error {
+	data, err := os.ReadFile(path)
+	if err != nil {
+		return err
+	}
+	toks := c2gotok.Tokenize(data)
+	toks = c2gotok.C2Go(toks)
+	var buf bytes.Buffer
+	c2gotok.Print(&buf, toks)
+	if bytes.Equal(data, buf.Bytes()) {
+		return nil
+	}
+	return os.WriteFile(path, buf.Bytes(), 0644)
 }
 
 func (r *Refactorer) preProcessFile(path string) error {
