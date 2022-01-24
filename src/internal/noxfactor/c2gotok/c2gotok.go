@@ -11,6 +11,14 @@ var (
 		"uint32_t": "uint32",
 		"uint16_t": "uint16",
 		"uint8_t":  "uint8",
+		"char":     "byte",
+		"float":    "float32",
+		"double":   "float64",
+	}
+	c2goKnowTypes = []string{
+		"int", "char", "byte", "float", "double",
+		"uint64_t", "uint32_t", "uint16_t", "uint8_t",
+		"uint64", "uint32", "uint16", "uint8",
 	}
 )
 
@@ -51,11 +59,15 @@ func (c *c2goConv) convertNext() ([]Token, bool) {
 	for _, check := range []checkFunc{
 		c.checkTwoWordTypes,
 		c.checkConvToPtrOrder,
-		c.checkConvToInt,
+		c.checkConvTo,
 		c.checkConvToPtrIdent,
 		c.checkConvToPtrIdentAddr,
+		//c.checkAssignConv,
 		c.checkIfParen,
-		c.checkDoWile,
+		c.checkForParen,
+		c.checkWhile1,
+		c.checkWhile,
+		c.checkDoWhile,
 	} {
 		if toks, ok := check(); ok {
 			return toks, true
@@ -173,66 +185,164 @@ func (c *c2goConv) checkTwoWordTypes() ([]Token, bool) {
 }
 
 func (c *c2goConv) checkConvToPtrOrder() ([]Token, bool) {
-	li, toks, ok := c.tokens(false, func(t Token) bool {
-		return true
-	}, token.LPAREN, token.IDENT, matchOneOrMore(token.MUL), token.RPAREN)
+	id := asMatchOp(token.IDENT)
+	ptr := matchOneOrMore(token.MUL)
+	li, _, ok := c.tokens(false, token.LPAREN, id, ptr, token.RPAREN)
 	if !ok {
 		return nil, false
 	}
-	n := len(toks)
-	toks[2], toks[n-2] = toks[n-2], toks[2]
+	var toks []Token
+	toks = append(toks, []Token{
+		{Tok: token.LPAREN},
+	}...)
+	page, _ := ptr.Result()
+	toks = append(toks, page...)
+	page, _ = id.Result()
+	toks = append(toks, page...)
+	toks = append(toks, []Token{
+		{Tok: token.RPAREN},
+	}...)
 	c.replace(li, toks...)
 	return nil, true
 }
 
-func (c *c2goConv) checkConvToInt() ([]Token, bool) {
-	li, toks, ok := c.tokens(false, token.LPAREN, "int", token.RPAREN, token.IDENT)
+func (c *c2goConv) checkConvTo() ([]Token, bool) {
+	for _, typ := range c2goKnowTypes {
+		if toks, ok := c.checkConvToType(typ); ok {
+			return toks, true
+		}
+	}
+	return nil, false
+}
+
+func (c *c2goConv) checkConvToType(typ string) ([]Token, bool) {
+	id := asMatchOp(token.IDENT)
+	last := asMatchOp(func(t Token) bool {
+		return t.Tok != token.LPAREN && t.Tok != token.LBRACK
+	})
+	li, _, ok := c.tokens(false, token.LPAREN, typ, token.RPAREN, id, last)
 	if !ok {
 		return nil, false
 	}
-	toks = []Token{
-		toks[1],
+	var toks []Token
+	toks = append(toks, []Token{
 		{Tok: token.LPAREN},
-		toks[3],
+		{Tok: token.IDENT, Lit: typ},
 		{Tok: token.RPAREN},
-	}
+		{Tok: token.LPAREN},
+	}...)
+	page, _ := id.Result()
+	toks = append(toks, page...)
+	toks = append(toks, []Token{
+		{Tok: token.RPAREN},
+	}...)
+	page, _ = last.Result()
+	toks = append(toks, page...)
 	c.replace(li, toks...)
 	return nil, true
 }
 
 func (c *c2goConv) checkConvToPtrIdent() ([]Token, bool) {
-	li, toks, ok := c.tokens(false, token.LPAREN, matchOneOrMore(token.MUL), token.IDENT, token.RPAREN, token.IDENT)
+	for _, typ := range c2goKnowTypes {
+		if toks, ok := c.checkConvToPtrIdentType(typ); ok {
+			return toks, true
+		}
+	}
+	return nil, false
+}
+
+func (c *c2goConv) checkConvToPtrIdentType(typ string) ([]Token, bool) {
+	ptrs := matchOneOrMore(token.MUL)
+	id := asMatchOp(token.IDENT)
+	last := asMatchOp(func(t Token) bool {
+		return t.Tok != token.LPAREN && t.Tok != token.LBRACK
+	})
+	li, _, ok := c.tokens(false, token.LPAREN, ptrs, typ, token.RPAREN, id, last)
 	if !ok {
 		return nil, false
 	}
-	n := len(toks)
-	id := toks[n-1]
-	toks = toks[:n-1]
+	var toks []Token
 	toks = append(toks, []Token{
 		{Tok: token.LPAREN},
-		id,
+	}...)
+	page, _ := ptrs.Result()
+	toks = append(toks, page...)
+	toks = append(toks, []Token{
+		{Tok: token.IDENT, Lit: typ},
+		{Tok: token.RPAREN},
+		{Tok: token.LPAREN},
+	}...)
+	page, _ = id.Result()
+	toks = append(toks, page...)
+	toks = append(toks, []Token{
 		{Tok: token.RPAREN},
 	}...)
+	page, _ = last.Result()
+	toks = append(toks, page...)
 	c.replace(li, toks...)
 	return nil, true
 }
 
 func (c *c2goConv) checkConvToPtrIdentAddr() ([]Token, bool) {
-	li, toks, ok := c.tokens(false, func(t Token) bool {
-		return t.Tok != token.IDENT && t.Tok != token.RPAREN
-	}, token.LPAREN, matchOneOrMore(token.MUL), token.IDENT, token.RPAREN, token.AND, token.IDENT)
+	for _, typ := range c2goKnowTypes {
+		if toks, ok := c.checkConvToPtrIdentAddrType(typ); ok {
+			return toks, true
+		}
+	}
+	return nil, false
+}
+
+func (c *c2goConv) checkConvToPtrIdentAddrType(typ string) ([]Token, bool) {
+	ptrs := matchOneOrMore(token.MUL)
+	id := asMatchOp(token.IDENT)
+	last := asMatchOp(func(t Token) bool {
+		return t.Tok != token.LPAREN && t.Tok != token.LBRACK
+	})
+	li, _, ok := c.tokens(false, token.LPAREN, ptrs, typ, token.RPAREN, token.AND, id, last)
 	if !ok {
 		return nil, false
 	}
-	n := len(toks)
-	id := toks[n-1]
-	toks = toks[:n-2]
+	var toks []Token
 	toks = append(toks, []Token{
 		{Tok: token.LPAREN},
+	}...)
+	page, _ := ptrs.Result()
+	toks = append(toks, page...)
+	toks = append(toks, []Token{
+		{Tok: token.IDENT, Lit: typ},
+		{Tok: token.RPAREN},
+		{Tok: token.LPAREN},
 		{Tok: token.AND},
-		id,
+	}...)
+	page, _ = id.Result()
+	toks = append(toks, page...)
+	toks = append(toks, []Token{
 		{Tok: token.RPAREN},
 	}...)
+	page, _ = last.Result()
+	toks = append(toks, page...)
+	c.replace(li, toks...)
+	return nil, true
+}
+
+func (c *c2goConv) checkAssignConv() ([]Token, bool) {
+	for _, typ := range c2goKnowTypes {
+		if toks, ok := c.checkAssignConvType(typ); ok {
+			return toks, true
+		}
+	}
+	return nil, false
+}
+
+func (c *c2goConv) checkAssignConvType(typ string) ([]Token, bool) {
+	ptrs := matchZeroOrMore(token.MUL)
+	li, _, ok := c.tokens(false, token.ASSIGN, token.LPAREN, ptrs, typ, token.RPAREN)
+	if !ok {
+		return nil, false
+	}
+	toks := []Token{
+		{Tok: token.ASSIGN},
+	}
 	c.replace(li, toks...)
 	return nil, true
 }
@@ -256,7 +366,59 @@ func (c *c2goConv) checkIfParen() ([]Token, bool) {
 	return nil, true
 }
 
-func (c *c2goConv) checkDoWile() ([]Token, bool) {
+func (c *c2goConv) checkForParen() ([]Token, bool) {
+	cond := matchClosing(token.LPAREN, token.RPAREN)
+	li, _, ok := c.tokens(false, token.FOR, token.LPAREN, cond, token.LBRACE)
+	if !ok {
+		return nil, false
+	}
+	var toks []Token
+	toks = append(toks, []Token{
+		{Tok: token.FOR, Lit: "for"}, {Lit: " "},
+	}...)
+	page, _ := cond.Result()
+	toks = append(toks, page[:len(page)-1]...)
+	toks = append(toks, []Token{
+		{Lit: " "}, {Tok: token.LBRACE},
+	}...)
+	c.replace(li, toks...)
+	return nil, true
+}
+
+func (c *c2goConv) checkWhile1() ([]Token, bool) {
+	li, _, ok := c.tokens(false, "while", token.LPAREN, "1", token.RPAREN, token.LBRACE)
+	if !ok {
+		return nil, false
+	}
+	c.replace(li, []Token{
+		{Tok: token.FOR, Lit: "for"},
+		{Lit: " "},
+		{Tok: token.LBRACE},
+	}...)
+	return nil, true
+}
+
+func (c *c2goConv) checkWhile() ([]Token, bool) {
+	cond := matchClosing(token.LPAREN, token.RPAREN)
+	li, _, ok := c.tokens(false, "while", token.LPAREN, cond, token.LBRACE)
+	if !ok {
+		return nil, false
+	}
+	var toks []Token
+	toks = append(toks, []Token{
+		{Tok: token.FOR, Lit: "for"},
+		{Lit: " "},
+	}...)
+	page, _ := cond.Result()
+	toks = append(toks, page[:len(page)-1]...)
+	toks = append(toks, []Token{
+		{Tok: token.LBRACE},
+	}...)
+	c.replace(li, toks...)
+	return nil, true
+}
+
+func (c *c2goConv) checkDoWhile() ([]Token, bool) {
 	if c.toks[0].Lit != "do" {
 		return nil, false
 	}
@@ -392,6 +554,10 @@ func (m *multiMatch) Result() ([]Token, matchRes) {
 
 func matchOneOrMore(v interface{}) matchOp {
 	return &multiMatch{op: asMatchOp(v), skipSpace: true}
+}
+
+func matchZeroOrMore(v interface{}) matchOp {
+	return &multiMatch{op: asMatchOp(v), skipSpace: true, zero: true}
 }
 
 type matchBraces struct {

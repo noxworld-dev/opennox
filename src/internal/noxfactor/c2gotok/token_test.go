@@ -38,7 +38,7 @@ int nox_common_readcfgfile(const char* path, int a2) {
 		file = 0;
 	}
 	sub_42CD90();
-	file = nox_fs_open_text("default.cfg");
+	file = (int*)nox_fs_open_text("default.cfg");
 	if (!file) {
 		return 0;
 	}
@@ -105,7 +105,7 @@ int nox_common_readcfgfile(byte* path, int a2) {
 		file = 0;
 	}
 	sub_42CD90();
-	file = nox_fs_open_text("default.cfg");
+	file = (*int)nox_fs_open_text("default.cfg");
 	if !file {
 		return 0;
 	}
@@ -121,8 +121,8 @@ int nox_common_readcfgfile(byte* path, int a2) {
 		return 0;
 	}
 #ifdef NOX_CGO
-	*(*uint32)(&dword_5d4594_805836) = 0;
-	*(**uint16)(dword_5d4594_805836) = 0;
+	*(*uint32)(&dword_5d4594_805836)= 0;
+	*(**uint16)(dword_5d4594_805836)= 0;
 #endif // NOX_CGO
 	for {
 		nox_fs_close(file);

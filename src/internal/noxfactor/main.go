@@ -14,6 +14,8 @@ import (
 	"path/filepath"
 	"strconv"
 
+	"golang.org/x/sync/errgroup"
+
 	noxflags "nox/v1/common/flags"
 	"nox/v1/internal/noxfactor/c2gotok"
 )
@@ -52,10 +54,15 @@ func (r *Refactorer) ProcessDir(path string) error {
 	}
 	list = nil
 	r.defined = make(map[string]struct{})
+	var eg errgroup.Group
 	for _, fpath := range filtered {
-		if err := r.reformatC(fpath); err != nil {
-			return err
-		}
+		fpath := fpath
+		eg.Go(func() error {
+			return r.reformatC(fpath)
+		})
+	}
+	if err := eg.Wait(); err != nil {
+		return err
 	}
 	for _, fpath := range filtered {
 		if err := r.preProcessFile(fpath); err != nil {
@@ -161,6 +168,9 @@ func (r *Refactorer) visitGoCall(n *ast.CallExpr, fnc *ast.Ident) {
 		return
 	}
 	switch fnc.Name {
+	case "getMemIntPtr":
+		n.Fun = selExpr("memmap", "PtrInt32")
+		r.fileChanged = true
 	case "getMemU32Ptr":
 		n.Fun = selExpr("memmap", "PtrUint32")
 		r.fileChanged = true
@@ -192,6 +202,41 @@ func (r *Refactorer) visitGoCall(n *ast.CallExpr, fnc *ast.Ident) {
 		if len(n.Args) == 4 && isZero(n.Args[1]) {
 			n.Fun = selExpr("strMan", "GetStringInFile")
 			n.Args = []ast.Expr{n.Args[0], n.Args[2]}
+			r.fileChanged = true
+			r.visitCall(n)
+		}
+	case "nox_memfile_skip":
+		if len(n.Args) == 2 {
+			n.Fun = recvCall(n.Args[0], "Skip")
+			n.Args = []ast.Expr{n.Args[1]}
+			r.fileChanged = true
+			r.visitCall(n)
+		}
+	case "nox_memfile_read_u8":
+		if len(n.Args) == 1 {
+			n.Fun = recvCall(n.Args[0], "ReadU8")
+			n.Args = []ast.Expr{}
+			r.fileChanged = true
+			r.visitCall(n)
+		}
+	case "nox_memfile_read_i8":
+		if len(n.Args) == 1 {
+			n.Fun = recvCall(n.Args[0], "ReadI8")
+			n.Args = []ast.Expr{}
+			r.fileChanged = true
+			r.visitCall(n)
+		}
+	case "nox_memfile_read_u32":
+		if len(n.Args) == 1 {
+			n.Fun = recvCall(n.Args[0], "ReadU32")
+			n.Args = []ast.Expr{}
+			r.fileChanged = true
+			r.visitCall(n)
+		}
+	case "nox_memfile_read_i32":
+		if len(n.Args) == 1 {
+			n.Fun = recvCall(n.Args[0], "ReadI32")
+			n.Args = []ast.Expr{}
 			r.fileChanged = true
 			r.visitCall(n)
 		}
