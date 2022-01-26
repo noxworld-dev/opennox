@@ -1974,8 +1974,9 @@ void nox_xxx_unitUpdatePlayerImpl_4F8460(nox_object_t* u) {
 			}
 		}
 		if (v49 >= v69) {
+			// stop hovering after a jump?
 			nox_xxx_playerSetState_4FA020(u, 0);
-			u->field_4 &= 0xFFFFFFBFu;
+			u->field_4 &= 0xFFFFBFFFu;
 			u->field_34 = nox_frame_xxx_2598000;
 		}
 		return;
