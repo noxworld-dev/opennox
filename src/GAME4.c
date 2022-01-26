@@ -2122,7 +2122,7 @@ void nox_xxx_unitUpdatePlayerImpl_4F8460(nox_object_t* u) {
 		ud->field_59_0 = v12;
 		if (v12 >= v13) {
 			nox_xxx_playerSetState_4FA020(u, 13);
-			ud->field_59_0 = 0;
+			ud->field_41 = 0;
 		}
 		break;
 	case 0x20u:
