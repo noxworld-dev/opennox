@@ -14,6 +14,7 @@ import (
 	"os"
 	"unsafe"
 
+	noxflags "nox/v1/common/flags"
 	"nox/v1/common/log"
 	"nox/v1/common/memmap"
 )
@@ -49,7 +50,7 @@ func (s *Server) nox_xxx_replayStartSave_4D3370(name string) error {
 	replay.err = nil
 	replay.writer = f
 	replay.wcloser = f
-	setEngineFlag(NOX_ENGINE_FLAG_REPLAY_WRITE)
+	noxflags.SetEngine(noxflags.EngineReplayWrite)
 	return nil
 }
 
@@ -66,7 +67,7 @@ func (s *Server) nox_xxx_replayFileOpen_4D34C0(name string) error {
 	replay.readHeader = false
 	*memmap.PtrUint32(0x5D4594, 1548728) = 0
 	*memmap.PtrUint8(0x5D4594, 1548724) = 0
-	setEngineFlag(NOX_ENGINE_FLAG_REPLAY_READ)
+	noxflags.SetEngine(noxflags.EngineReplayRead)
 	pl := s.getPlayerByID(255)
 	pl.GoObserver(false, true)
 	return nil
@@ -79,7 +80,7 @@ func (s *Server) nox_xxx_replayStopSave_4D33B0() {
 		replay.wcloser = nil
 	}
 	replay.writer = nil
-	resetEngineFlag(NOX_ENGINE_FLAG_REPLAY_WRITE)
+	noxflags.UnsetEngine(noxflags.EngineReplayWrite)
 }
 
 //export nox_xxx_replaySaveConsole_4D33E0
@@ -131,13 +132,13 @@ func (s *Server) nox_xxx_replayStopReadMB_4D3530() {
 	}
 	replay.reader = nil
 	replay.readHeader = false
-	resetEngineFlag(NOX_ENGINE_FLAG_REPLAY_READ)
+	noxflags.UnsetEngine(noxflags.EngineReplayRead)
 	pl := s.getPlayerByID(255)
 	C.nox_xxx_playerLeaveObserver_0_4E6AA0(pl.C())
 }
 
 func nox_xxx_replay_4D3860(pi *PlayerOpts) error {
-	if getEngineFlag(NOX_ENGINE_FLAG_REPLAY_WRITE) && replay.writer != nil {
+	if noxflags.HasEngine(noxflags.EngineReplayWrite) && replay.writer != nil {
 		data, err := pi.MarshalBinary()
 		if err != nil {
 			return err
@@ -146,7 +147,7 @@ func nox_xxx_replay_4D3860(pi *PlayerOpts) error {
 		replay.writer.Write(data)
 		return nil
 	}
-	if getEngineFlag(NOX_ENGINE_FLAG_REPLAY_READ) && replay.reader != nil {
+	if noxflags.HasEngine(noxflags.EngineReplayRead) && replay.reader != nil {
 		data := make([]byte, 153)
 		nox_xxx_replayReadeRndCounter_415F50(replay.reader)
 		replay.reader.Read(data)
@@ -173,7 +174,7 @@ func nox_xxx_replayReadeRndCounter_415F50(r io.Reader) {
 }
 
 func (s *Server) nox_xxx_replayStartReadingOrSaving_4D38D0() error {
-	if getEngineFlag(NOX_ENGINE_FLAG_REPLAY_WRITE) && replay.writer != nil {
+	if noxflags.HasEngine(noxflags.EngineReplayWrite) && replay.writer != nil {
 		var buf [6]byte
 		binary.LittleEndian.PutUint32(buf[0:4], gameFrame())
 		buf[4] = replayOpInit
@@ -185,14 +186,14 @@ func (s *Server) nox_xxx_replayStartReadingOrSaving_4D38D0() error {
 		replay.writer.Write(buf[:4])
 		return nil
 	}
-	if getEngineFlag(NOX_ENGINE_FLAG_REPLAY_READ) && replay.reader != nil {
+	if noxflags.HasEngine(noxflags.EngineReplayRead) && replay.reader != nil {
 		return s.nox_xxx_replayTickMB_4D3580_net_playback(false)
 	}
 	return nil
 }
 
 func nox_xxx_replayWriteFrame_4D39B0() {
-	if getEngineFlag(NOX_ENGINE_FLAG_REPLAY_WRITE) && replay.writer != nil {
+	if noxflags.HasEngine(noxflags.EngineReplayWrite) && replay.writer != nil {
 		var buf [5]byte
 		binary.LittleEndian.PutUint32(buf[0:4], gameFrame())
 		buf[4] = replayOpFrame

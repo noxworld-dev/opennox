@@ -171,7 +171,7 @@ var (
 			{Token: "LAN", HelpID: "setqualLANhelp", Flags: console.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_set_qual_lan)},
 		}},
 		{Token: "savedebugcmd", HelpID: "setsavedebughelp", Flags: console.Server, Func: func(ctx context.Context, c *console.Console, tokens []string) bool {
-			setEngineFlag(NOX_ENGINE_FLAG_SAVE_DEBUG)
+			noxflags.SetEngine(noxflags.EngineSaveDebug)
 			s := c.Strings().GetStringInFile("savedebugset", "parsecmd.c")
 			c.Printf(console.ColorRed, s)
 			return true
@@ -209,12 +209,12 @@ var (
 		{Token: "perfmon", HelpID: "showperfmonhelp", Flags: console.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_show_perfmon)},
 		{Token: "extents", HelpID: "showextentshelp", Flags: console.ClientServer | console.Cheat, Func: func(ctx context.Context, c *console.Console, tokens []string) bool {
 			clientPlaySoundSpecial(921, 100)
-			toggleEngineFlag(NOX_ENGINE_FLAG_ENABLE_SHOW_EXTENTS)
+			noxflags.ToggleEngine(noxflags.EngineShowExtents)
 			return true
 		}},
 		{Token: "gui", HelpID: "showguihelp", Flags: console.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_show_gui)},
 		{Token: "ai", HelpID: "showaihelp", Flags: console.Server | console.Cheat, Func: func(ctx context.Context, c *console.Console, tokens []string) bool {
-			toggleEngineFlag(NOX_ENGINE_FLAG_ENABLE_SHOW_AI)
+			noxflags.ToggleEngine(noxflags.EngineShowAI)
 			return true
 		}},
 		{Token: "info", HelpID: "showinfohelp", Flags: console.ClientServer | console.NoHelp, LegacyFunc: wrapCommandC(nox_cmd_show_info)},

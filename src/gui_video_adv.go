@@ -32,6 +32,7 @@ import (
 	"nox/v1/client/gui"
 	"nox/v1/client/noxfont"
 	noxcolor "nox/v1/common/color"
+	noxflags "nox/v1/common/flags"
 	"nox/v1/common/strman"
 )
 
@@ -50,7 +51,7 @@ func nox_client_advVideoOpts_New_4CB590(par *C.nox_window) C.int {
 
 type videoOpt struct {
 	ID     uint
-	Flag   EngineFlags
+	Flag   noxflags.EngineFlag
 	CFlag  *C.uint
 	TextID strman.ID
 	Text   string
@@ -64,7 +65,7 @@ var noxVideoAdvOptsList = []*videoOpt{
 	{ID: 2051, Get: getFiltering, Toggle: toggleFiltering, Text: "Smooth image", TextID: "AdVidOpt.wnd:Filtering"},
 	{ID: 2050, Get: getScaled, Toggle: toggleScaled, Text: "Stretch image", TextID: "AdVidOpt.wnd:Stretched"},
 	{ID: 2010, CFlag: &C.nox_video_dxUnlockSurface, TextID: "AdVidOpt.wnd:ClipWalls", Def: true, Hidden: true},
-	{ID: 2012, Flag: NOX_ENGINE_FLAG_ENABLE_SOFT_SHADOW_EDGE, TextID: "AdVidOpt.wnd:GouradShading"},
+	{ID: 2012, Flag: noxflags.EngineSoftShadowEdge, TextID: "AdVidOpt.wnd:GouradShading"},
 	{ID: 2014, CFlag: &C.nox_gui_console_translucent, TextID: "AdVidOpt.wnd:TranslucentConsole"},
 	{ID: 2015, CFlag: &C.nox_client_renderGlow_805852, TextID: "AdVidOpt.wnd:RenderGlow"},
 	{ID: 2016, CFlag: &C.nox_client_fadeObjects_80836, TextID: "AdVidOpt.wnd:FadeObjects"},
@@ -104,7 +105,7 @@ func nox_client_advVideoOptsLoad(win *Window) {
 			if opt.Get != nil {
 				v = opt.Get()
 			} else if opt.Flag != 0 {
-				v = getEngineFlag(opt.Flag)
+				v = noxflags.HasEngine(opt.Flag)
 			} else if opt.CFlag != nil {
 				v = *opt.CFlag != 0
 			}
@@ -157,7 +158,7 @@ func nox_client_advVideoOptsProc_4CB5D0(win *Window, e WindowEvent) WindowEventR
 		if opt.Toggle != nil {
 			opt.Toggle()
 		} else if opt.Flag != 0 {
-			toggleEngineFlag(opt.Flag)
+			noxflags.ToggleEngine(opt.Flag)
 		} else if opt.CFlag != nil {
 			v := *opt.CFlag != 0
 			*opt.CFlag = C.uint(bool2int(!v))

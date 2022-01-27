@@ -196,8 +196,8 @@ func sub_43C060() bool {
 
 func startServer() bool {
 	C.nox_game_createOrJoin_815048 = 1
-	setEngineFlag(NOX_ENGINE_FLAG_ADMIN)
-	resetEngineFlag(NOX_ENGINE_FLAG_GODMODE)
+	noxflags.SetEngine(noxflags.EngineAdmin)
+	noxflags.UnsetEngine(noxflags.EngineGodMode)
 	noxflags.SetGame(noxflags.GameOnline)
 	if !isServerQuest {
 		noxflags.SetGame(noxflags.GameNotQuest)
@@ -523,7 +523,7 @@ func execConsoleCmd(ctx context.Context, cmd string) bool { // nox_server_parseC
 	} else {
 		ctx = console.AsClient(ctx)
 	}
-	if getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) {
+	if noxflags.HasEngine(noxflags.EngineNoRendering) {
 		ctx = console.AsDedicated(ctx)
 	}
 	return noxConsole.Exec(ctx, cmd)
@@ -536,7 +536,7 @@ func execServerCmd(cmd string) {
 	}
 	ctx := context.Background()
 	ctx = console.AsServer(ctx)
-	if getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) {
+	if noxflags.HasEngine(noxflags.EngineNoRendering) {
 		ctx = console.AsDedicated(ctx)
 	}
 	ctx = console.WithCheats(ctx)
@@ -631,10 +631,10 @@ func (s *Server) nox_xxx_gameTick_4D2580_server() bool {
 	C.sub_502100()
 	C.sub_5524C0()
 	C.nox_xxx_netMaybeSendAll_552460()
-	if getEngineFlag(NOX_ENGINE_FLAG_REPLAY_READ) {
+	if noxflags.HasEngine(noxflags.EngineReplayRead) {
 		s.nox_xxx_replayTickMB_4D3580_net_playback(true)
 	}
-	if getEngineFlag(NOX_ENGINE_FLAG_LOG_BAND) {
+	if noxflags.HasEngine(noxflags.EngineLogBand) {
 		if v0-memmap.Uint64(0x5D4594, 1548684) > 1000 {
 			C.sub_4D3130()
 			*memmap.PtrUint64(0x5D4594, 1548684) = v0
@@ -914,7 +914,7 @@ func nox_game_guiInit_473680() error {
 	C.nox_gui_console_Enable_450BE0()
 	C.sub_4AB4A0(0)
 	C.sub_4AB4D0(0)
-	if C.nox_client_renderGUI_80828 == 0 || getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) {
+	if C.nox_client_renderGUI_80828 == 0 || noxflags.HasEngine(noxflags.EngineNoRendering) {
 		C.sub_4721A0(0)
 		C.sub_460EA0(0)
 		C.nox_window_set_visible_unk5(0)
@@ -1452,7 +1452,7 @@ func (s *Server) nox_xxx_netlist_4DEB50() {
 	if !noxflags.HasGame(noxflags.GameFlag2) {
 		return
 	}
-	if getEngineFlag(NOX_ENGINE_FLAG_REPLAY_READ) {
+	if noxflags.HasEngine(noxflags.EngineReplayRead) {
 		s.nox_xxx_replayTickMB_4D3580_net_playback(false)
 		C.nox_netlist_resetByInd_40ED10(31, 0)
 	} else if !isDedicatedServer {

@@ -3,6 +3,7 @@ package nox
 import (
 	"nox/v1/client/seat"
 	"nox/v1/common/env"
+	noxflags "nox/v1/common/flags"
 	"nox/v1/common/log"
 	"nox/v1/common/types"
 )
@@ -103,7 +104,7 @@ func videoApplyConfigVideoMode() {
 		changeWindowedOrFullscreen()
 		return
 	}
-	if !getEngineFlag(NOX_ENGINE_FLAG_ENABLE_WINDOWED_MODE) {
+	if !noxflags.HasEngine(noxflags.EngineWindowed) {
 		// FIXME: this will cause the game to change its window size to whatever set in nox.cfg right at the
 		// start! this is different from original game where window is only resized after joining the game
 		changeWindowedOrFullscreen()

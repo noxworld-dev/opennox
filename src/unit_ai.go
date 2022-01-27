@@ -151,7 +151,7 @@ func (s *aiStack) ArgUnit(i int) *Unit {
 }
 
 func (u *Unit) maybePrintAIStack(event string) {
-	if getEngineFlag(NOX_ENGINE_FLAG_ENABLE_SHOW_AI) {
+	if noxflags.HasEngine(noxflags.EngineShowAI) {
 		u.updateDataMonster().printAIStack(event)
 	}
 }
@@ -369,7 +369,7 @@ func nox_xxx_mobActionDependency_546A70(uc *C.nox_object_t) {
 				continue
 			}
 		}
-		if getEngineFlag(NOX_ENGINE_FLAG_ENABLE_SHOW_AI) {
+		if noxflags.HasEngine(noxflags.EngineShowAI) {
 			ai.Log.Printf("%d: %s DEPENDENCY '%s'@%d failed, popping:\n", gameFrame(), u.String(), typ.String(), i)
 		}
 		for {

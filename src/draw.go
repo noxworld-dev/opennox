@@ -134,7 +134,7 @@ func detectBestVideoSettings() { // nox_setProfiledMode_4445C0
 		C.nox_gui_console_translucent = 0
 		C.nox_client_renderGlow_805852 = 0
 		C.nox_client_fadeObjects_80836 = 0
-		resetEngineFlag(NOX_ENGINE_FLAG_ENABLE_SOFT_SHADOW_EDGE)
+		noxflags.UnsetEngine(noxflags.EngineSoftShadowEdge)
 		C.nox_client_renderBubbles_80844 = 0
 	} else if cfg == 200 {
 		//v4 = 8
@@ -148,7 +148,7 @@ func detectBestVideoSettings() { // nox_setProfiledMode_4445C0
 		C.nox_gui_console_translucent = 0
 		C.nox_client_renderGlow_805852 = 0
 		C.nox_client_fadeObjects_80836 = 0
-		resetEngineFlag(NOX_ENGINE_FLAG_ENABLE_SOFT_SHADOW_EDGE)
+		noxflags.UnsetEngine(noxflags.EngineSoftShadowEdge)
 		C.nox_client_renderBubbles_80844 = 0
 	} else if cfg == 266 {
 		//v4 = 8
@@ -162,7 +162,7 @@ func detectBestVideoSettings() { // nox_setProfiledMode_4445C0
 		C.nox_gui_console_translucent = 0
 		C.nox_client_renderGlow_805852 = 1
 		C.nox_client_fadeObjects_80836 = 1
-		setEngineFlag(NOX_ENGINE_FLAG_ENABLE_SOFT_SHADOW_EDGE)
+		noxflags.SetEngine(noxflags.EngineSoftShadowEdge)
 		C.nox_client_renderBubbles_80844 = 1
 	} else if cfg == 300 {
 		//v4 = 16
@@ -176,7 +176,7 @@ func detectBestVideoSettings() { // nox_setProfiledMode_4445C0
 		C.nox_gui_console_translucent = 0
 		C.nox_client_renderGlow_805852 = 1
 		C.nox_client_fadeObjects_80836 = 1
-		setEngineFlag(NOX_ENGINE_FLAG_ENABLE_SOFT_SHADOW_EDGE)
+		noxflags.SetEngine(noxflags.EngineSoftShadowEdge)
 		C.nox_client_renderBubbles_80844 = 1
 	} else if cfg == 450 {
 		//v4 = 16
@@ -190,11 +190,11 @@ func detectBestVideoSettings() { // nox_setProfiledMode_4445C0
 		C.nox_gui_console_translucent = 1
 		C.nox_client_renderGlow_805852 = 1
 		C.nox_client_fadeObjects_80836 = 1
-		setEngineFlag(NOX_ENGINE_FLAG_ENABLE_SOFT_SHADOW_EDGE)
+		noxflags.SetEngine(noxflags.EngineSoftShadowEdge)
 		C.nox_client_renderBubbles_80844 = 1
 	}
 	C.nox_xxx_tileSetDrawFn_481420()
-	if !getEngineFlag(NOX_ENGINE_FLAG_ENABLE_WINDOWED_MODE) {
+	if !noxflags.HasEngine(noxflags.EngineWindowed) {
 		videoUpdateGameMode(types.Size{
 			W: noxDefaultWidth,
 			H: noxDefaultHeight,
@@ -585,7 +585,7 @@ func (d renderDataAdapter) BgColor() uint32 {
 }
 
 func (d renderDataAdapter) ShouldDrawText() bool {
-	return !getEngineFlag(NOX_ENGINE_FLAG_DISABLE_TEXT_RENDERING)
+	return !noxflags.HasEngine(noxflags.EngineNoTextRendering)
 }
 
 func (d renderDataAdapter) TextColor() uint32 {
@@ -921,11 +921,11 @@ func nox_xxx_clientDrawAll_436100_draw() {
 		nox_ticks_reset_416D40()
 	}
 	if !(memmap.Uint32(0x587000, 85724) == 0 || isTick || !noxflags.HasGame(noxflags.GameHost) || nox_ticks_check_416D70() ||
-		C.nox_client_gui_flag_815132 != 0 || nox_xxx_checkGameFlagPause_413A50() || getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
-		setEngineFlag(NOX_ENGINE_FLAG_PAUSE)
+		C.nox_client_gui_flag_815132 != 0 || nox_xxx_checkGameFlagPause_413A50() || noxflags.HasEngine(noxflags.EngineNoRendering)) {
+		noxflags.SetEngine(noxflags.EnginePause)
 		return
 	}
-	resetEngineFlag(NOX_ENGINE_FLAG_PAUSE)
+	noxflags.UnsetEngine(noxflags.EnginePause)
 	*memmap.PtrUint64(0x5D4594, 814532) = v0
 	*memmap.PtrUint32(0x5D4594, 811916) = gameFrame()
 	vp := getViewport()
@@ -944,7 +944,7 @@ func nox_xxx_clientDrawAll_436100_draw() {
 	if id := clientPlayerNetCode(); id != 0 {
 		*memmap.PtrPtr(0x852978, 8) = unsafe.Pointer(C.nox_xxx_netSpriteByCodeDynamic_45A6F0(C.int(id)))
 	}
-	if getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) {
+	if noxflags.HasEngine(noxflags.EngineNoRendering) {
 		C.nox_xxx_clientDrawAll_436100_draw_A()
 	} else if memmap.Uint32(0x852978, 8) != 0 && nox_client_isConnected() {
 		nox_xxx_drawAllMB_475810_draw(vp)
@@ -1031,7 +1031,7 @@ func nox_xxx_drawAllMB_475810_draw(vp *Viewport) {
 	C.sub_4C5060(vp.C())
 	nox_client_maybeDrawFrontWalls(vp)
 	C.nox_client_procFade_44D9F0(0)
-	if getEngineFlag(NOX_ENGINE_FLAG_ENABLE_SHOW_AI) {
+	if noxflags.HasEngine(noxflags.EngineShowAI) {
 		C.sub_476270(vp.C())
 	}
 	C.sub_45AB40()
@@ -1064,7 +1064,7 @@ func sub_468F80(vp *Viewport) {
 	// TODO: values here are similar to lightGridW and lightGridH
 	C.dword_5d4594_2650676 = C.uint(46*((int(vp.field_4)+11)/46-1) - 11)
 	C.dword_5d4594_2650680 = C.uint(46*((int(vp.field_5)+11)/46) - 57)
-	if getEngineFlag(NOX_ENGINE_DISABLE_SOFT_LIGHTS) {
+	if noxflags.HasEngine(noxflags.EngineNoSoftLights) {
 		for i := 0; i < lightGridW; i++ {
 			for j := 0; j < lightGridH; j++ {
 				nox_arr2_853BC0[i][j].R = 255 << 16
@@ -1099,7 +1099,7 @@ func sub_468F80(vp *Viewport) {
 
 //export sub_469920
 func sub_469920(p *C.nox_point) *C.char {
-	if getEngineFlag(NOX_ENGINE_DISABLE_SOFT_LIGHTS) {
+	if noxflags.HasEngine(noxflags.EngineNoSoftLights) {
 		return (*C.char)(unsafe.Pointer(&lightsOutBuf[0]))
 	}
 
@@ -1455,7 +1455,7 @@ LOOP:
 		if dr.DrawFunc(vp) == 0 {
 			continue
 		}
-		if getEngineFlag(NOX_ENGINE_FLAG_ENABLE_SHOW_EXTENTS) {
+		if noxflags.HasEngine(noxflags.EngineShowExtents) {
 			C.nox_thing_debug_draw(vp.C(), dr.C())
 		}
 		dr.field_33 = 0
@@ -1482,7 +1482,7 @@ func sub_475FE0(vp *Viewport) {
 		if C.nox_xxx_client_4984B0_drawable(dr.C()) != 0 {
 			dr.field_121 = 1
 			dr.DrawFunc(vp)
-			if getEngineFlag(NOX_ENGINE_FLAG_ENABLE_SHOW_EXTENTS) {
+			if noxflags.HasEngine(noxflags.EngineShowExtents) {
 				C.nox_thing_debug_draw(vp.C(), dr.C())
 			}
 			dr.field_33 = 0
@@ -1505,7 +1505,7 @@ func sub_475F10(vp *Viewport) {
 			}
 			drawCreatureFrontEffects(noxrend, vp, dr)
 			C.sub_495BB0(dr.C(), vp.C())
-			if getEngineFlag(NOX_ENGINE_FLAG_ENABLE_SHOW_EXTENTS) {
+			if noxflags.HasEngine(noxflags.EngineShowExtents) {
 				C.nox_thing_debug_draw(vp.C(), dr.C())
 			}
 			dr.field_33 = 0
@@ -1550,7 +1550,7 @@ func sub_4745F0(cvp *C.nox_draw_viewport_t) {
 		}
 		drawCreatureFrontEffects(noxrend, vp, dr)
 		C.sub_495BB0(dr.C(), vp.C())
-		if getEngineFlag(NOX_ENGINE_FLAG_ENABLE_SHOW_EXTENTS) {
+		if noxflags.HasEngine(noxflags.EngineShowExtents) {
 			C.nox_thing_debug_draw(vp.C(), dr.C())
 		}
 		dr.field_33 = 0

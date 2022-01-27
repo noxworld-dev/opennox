@@ -484,9 +484,9 @@ func nox_game_showSelChar_4A4DB0() C.int {
 	nox_xxx_findAutosaves_4A5150()
 	sub4A19F0("OptsBack.wnd:Back")
 	if noxflags.HasGame(noxflags.GameOnline) {
-		setEngineFlag(NOX_ENGINE_FLAG_ADMIN)
+		noxflags.SetEngine(noxflags.EngineAdmin)
 	} else {
-		resetEngineFlag(NOX_ENGINE_FLAG_ADMIN)
+		noxflags.UnsetEngine(noxflags.EngineAdmin)
 		C.sub_4602F0()
 	}
 	if noxflags.HasGame(noxflags.GameFlag26) {

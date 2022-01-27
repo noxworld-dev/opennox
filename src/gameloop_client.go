@@ -30,6 +30,7 @@ import (
 	"nox/v1/client/seat"
 	"nox/v1/common/alloc"
 	"nox/v1/common/datapath"
+	noxflags "nox/v1/common/flags"
 	"nox/v1/common/maps"
 	"nox/v1/common/memmap"
 	"nox/v1/common/types"
@@ -38,10 +39,10 @@ import (
 func drawAndPresent() {
 	if C.nox_client_gui_flag_815132 != 0 {
 		guiAnimationStep()
-		resetEngineFlag(NOX_ENGINE_FLAG_PAUSE)
+		noxflags.UnsetEngine(noxflags.EnginePause)
 		generateMouseSparks(inpHandlerS)
 	}
-	if !getEngineFlag(NOX_ENGINE_FLAG_PAUSE) {
+	if !noxflags.HasEngine(noxflags.EnginePause) {
 		mainloopDrawAndPresent(inpHandlerS)
 	}
 }
@@ -163,12 +164,12 @@ func mainloopDrawAndPresent(inp *input.Handler) {
 		DrawGUI() // Draw game windows
 	}
 	DrawSparks()
-	if !getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) || getEngineFlag(NOX_ENGINE_FLAG_9) || C.nox_client_gui_flag_815132 != 0 {
+	if !noxflags.HasEngine(noxflags.EngineNoRendering) || noxflags.HasEngine(noxflags.EngineFlag9) || C.nox_client_gui_flag_815132 != 0 {
 		nox_client_drawCursorAndTooltips_477830(noxrend, inp) // Draw cursor
 	}
 	C.nox_client_procFade_44D9F0(1)
 	maybeScreenshot()
-	if !getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) || getEngineFlag(NOX_ENGINE_FLAG_9) || C.nox_client_gui_flag_815132 != 0 {
+	if !noxflags.HasEngine(noxflags.EngineNoRendering) || noxflags.HasEngine(noxflags.EngineFlag9) || C.nox_client_gui_flag_815132 != 0 {
 		// C.nox_xxx_directDrawBlitMB_48A220() // does nothing
 		nox_video_callCopyBackBuffer_4AD170()
 	}

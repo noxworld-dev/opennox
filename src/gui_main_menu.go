@@ -359,7 +359,7 @@ func nox_xxx_windowMainMenuProc_4A1DC0(a1 *Window, ev WindowEvent) WindowEventRe
 			noxflags.UnsetGame(noxflags.GameOnline)
 			noxflags.UnsetGame(noxflags.GameNotQuest)
 			C.nox_xxx_gameSetAudioFadeoutMb_501AC0(0)
-			resetEngineFlag(NOX_ENGINE_FLAG_ADMIN | NOX_ENGINE_FLAG_GODMODE)
+			noxflags.UnsetEngine(noxflags.EngineAdmin | noxflags.EngineGodMode)
 			sub_4D6F40(0)
 			sub_4D6F90(0)
 			noxServer.nox_xxx_setQuest_4D6F60(0)
@@ -394,8 +394,8 @@ func nox_xxx_windowMainMenuProc_4A1DC0(a1 *Window, ev WindowEvent) WindowEventRe
 	case 112:
 		// prepare to start a server
 		sub_4A1D40()
-		setEngineFlag(NOX_ENGINE_FLAG_ADMIN)
-		resetEngineFlag(NOX_ENGINE_FLAG_GODMODE)
+		noxflags.SetEngine(noxflags.EngineAdmin)
+		noxflags.UnsetEngine(noxflags.EngineGodMode)
 		noxflags.SetGame(noxflags.GameOnline)
 		noxflags.SetGame(noxflags.GameNotQuest)
 		noxflags.UnsetGame(noxflags.GameModeCoop)
@@ -451,8 +451,8 @@ func nox_xxx_windowMainMenuProc_4A1DC0(a1 *Window, ev WindowEvent) WindowEventRe
 			return RawEventResp(1)
 		}
 		sub_4A1D40()
-		setEngineFlag(NOX_ENGINE_FLAG_ADMIN)
-		resetEngineFlag(NOX_ENGINE_FLAG_GODMODE)
+		noxflags.SetEngine(noxflags.EngineAdmin)
+		noxflags.UnsetEngine(noxflags.EngineGodMode)
 		noxflags.SetGame(noxflags.GameOnline)
 		noxflags.SetGame(noxflags.GameNotQuest)
 		noxflags.UnsetGame(noxflags.GameModeCoop)

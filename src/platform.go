@@ -8,6 +8,7 @@ import (
 	"time"
 
 	"nox/v1/common/env"
+	noxflags "nox/v1/common/flags"
 	"nox/v1/common/platform"
 )
 
@@ -96,7 +97,7 @@ var (
 func nox_ticks_reset_416D40() {
 	nox_gameTicks_371764 = platformTicks()
 	nox_gameFrame_371772 = gameFrame()
-	resetEngineFlag(NOX_ENGINE_FLAG_PAUSE)
+	noxflags.UnsetEngine(noxflags.EnginePause)
 }
 
 func nox_ticks_check_416D70() bool {

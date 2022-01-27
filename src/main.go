@@ -300,7 +300,7 @@ func RunArgs(args []string) (gerr error) {
 		}
 	})
 	noxflags.SetGame(noxflags.GameHost | noxflags.GameFlag2)
-	setEngineFlag(NOX_ENGINE_FLAG_ENABLE_SOFT_SHADOW_EDGE)
+	noxflags.SetEngine(noxflags.EngineSoftShadowEdge)
 	C.dword_5d4594_2650652 = 0
 	gameFPSSet(30)
 	gameFrameSetFromFlags()
@@ -315,29 +315,29 @@ func RunArgs(args []string) (gerr error) {
 	}
 	if *fServer {
 		C.nox_enable_audio = 0
-		setEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING |
-			NOX_ENGINE_FLAG_DISABLE_TEXT_RENDERING |
-			NOX_ENGINE_FLAG_DISABLE_FLOOR_RENDERING |
-			NOX_ENGINE_FLAG_SLEEP)
+		noxflags.SetEngine(noxflags.EngineNoRendering |
+			noxflags.EngineNoTextRendering |
+			noxflags.EngineNoFloorRendering |
+			noxflags.EngineSleep)
 	}
 	if *fSleep {
-		setEngineFlag(NOX_ENGINE_FLAG_SLEEP)
+		noxflags.SetEngine(noxflags.EngineSleep)
 	}
 	if v := *fDrop; v != 0 {
 		C.nox_net_setPacketDrop_552010(C.int(v))
 	}
 	if *fNoText {
-		setEngineFlag(NOX_ENGINE_FLAG_DISABLE_TEXT_RENDERING)
+		noxflags.SetEngine(noxflags.EngineNoTextRendering)
 	}
 	if *fNoLog {
 		C.nox_xxx_log_4_close_413C00()
 	}
 	if *fLock {
-		setEngineFlag(NOX_ENGINE_FLAG_LOCK_VIDEO_RESOLUTION)
+		noxflags.SetEngine(noxflags.EngineLockResolution)
 	}
 	if *fSafe {
-		resetEngineFlag(NOX_ENGINE_FLAG_ENABLE_SOFT_SHADOW_EDGE)
-		setEngineFlag(NOX_ENGINE_FLAG_ENABLE_WINDOWED_MODE)
+		noxflags.UnsetEngine(noxflags.EngineSoftShadowEdge)
+		noxflags.SetEngine(noxflags.EngineWindowed)
 		C.nox_enable_audio = 0
 		C.nox_video_dxUnlockSurface = 1
 		*memmap.PtrUint32(0x5D4594, 805840) = 1
@@ -362,10 +362,10 @@ func RunArgs(args []string) (gerr error) {
 		*memmap.PtrUint8(0x587000, 88) = byte(v)
 	}
 	if *fNoFloor {
-		setEngineFlag(NOX_ENGINE_FLAG_DISABLE_FLOOR_RENDERING)
+		noxflags.SetEngine(noxflags.EngineNoFloorRendering)
 	}
 	if *fNoDraw {
-		setEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)
+		noxflags.SetEngine(noxflags.EngineNoRendering)
 	}
 	if v := *fPort; v > 0 {
 		noxServer.setServerPort(v)
@@ -374,7 +374,7 @@ func RunArgs(args []string) (gerr error) {
 		C.nox_xxx_setClientNetPort_40A410(C.int(v))
 	}
 	if *fNoSoft {
-		setEngineFlag(NOX_ENGINE_DISABLE_SOFT_LIGHTS)
+		noxflags.SetEngine(noxflags.EngineNoSoftLights)
 	}
 	if fname := *fRecord; fname != "" {
 		if err := noxServer.nox_xxx_replayStartSave_4D3370(fname); err != nil {

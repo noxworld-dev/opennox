@@ -595,7 +595,7 @@ func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_B() {
 			clientPlaySoundSpecial(921, 100)
 			ce.active = false
 		case client.CCToggleGUI:
-			if !getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) {
+			if !noxflags.HasEngine(noxflags.EngineNoRendering) {
 				C.nox_client_renderGUI_80828 ^= 1
 				C.nox_xxx_xxxRenderGUI_587000_80832 = C.nox_client_renderGUI_80828
 				clientPlaySoundSpecial(921, 100)

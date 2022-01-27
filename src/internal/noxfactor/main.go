@@ -150,8 +150,8 @@ type Refactorer struct {
 
 var callGoRename = map[string]string{
 	"nox_xxx_clientPlaySoundSpecial_452D80": "clientPlaySoundSpecial",
-	"nox_common_setEngineFlag":              "setEngineFlag",
-	"nox_common_resetEngineFlag":            "resetEngineFlag",
+	"nox_common_setEngineFlag":              "noxflags.SetEngine",
+	"nox_common_resetEngineFlag":            "noxflags.UnsetEngine",
 	"nox_new_window_from_file":              "newWindowFromFile",
 	"nox_gui_makeAnimation_43C5B0":          "nox_gui_makeAnimation",
 	"nox_xxx_dialogMsgBoxCreate_449A10":     "NewDialogWindow",

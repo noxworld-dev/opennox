@@ -261,7 +261,7 @@ func sub_446040() uint32 {
 }
 
 func (s *Server) nox_xxx_gameTick_4D2580_server_E() {
-	if getEngineFlag(NOX_ENGINE_FLAG_REPLAY_WRITE | NOX_ENGINE_FLAG_REPLAY_READ) {
+	if noxflags.HasEngine(noxflags.EngineReplayWrite | noxflags.EngineReplayRead) {
 		C.sub_4E76C0()
 	}
 	if C.nox_xxx_gameGet_4DB1B0() != 0 {
@@ -297,7 +297,7 @@ func (s *Server) nox_xxx_gameTick_4D2580_server_E() {
 
 //export nox_server_netMaybeSendInitialPackets_4DEB30
 func nox_server_netMaybeSendInitialPackets_4DEB30() {
-	if !getEngineFlag(NOX_ENGINE_FLAG_REPLAY_READ) {
+	if !noxflags.HasEngine(noxflags.EngineReplayRead) {
 		C.nox_xxx_servNetInitialPackets_552A80(C.uint(memmap.Uint32(0x5D4594, 1563148)), 1)
 	}
 }

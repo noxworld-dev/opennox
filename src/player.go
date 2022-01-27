@@ -751,7 +751,7 @@ func (s *Server) newPlayer(ind int, opts *PlayerOpts) int {
 		pl.GoObserver(false, true)
 	} else if noxflags.HasGame(noxflags.GameModeSolo10) {
 		C.nox_xxx_netReportPlayerStatus_417630(pl.C())
-	} else if pl.Index() == 31 && getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) {
+	} else if pl.Index() == 31 && noxflags.HasEngine(noxflags.EngineNoRendering) {
 		pl.GoObserver(false, true)
 	} else if noxflags.HasGame(noxflags.GameModeChat) {
 		if C.sub_40A740() != 0 {

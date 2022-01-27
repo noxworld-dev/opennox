@@ -6,3 +6,10 @@ func abs(v int) int {
 	}
 	return v
 }
+
+func bool2int(v bool) int {
+	if v {
+		return 1
+	}
+	return 0
+}

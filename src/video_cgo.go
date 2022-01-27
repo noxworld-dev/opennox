@@ -69,6 +69,7 @@ import (
 	"nox/v1/client/input"
 	"nox/v1/common/alloc"
 	noxcolor "nox/v1/common/color"
+	noxflags "nox/v1/common/flags"
 	"nox/v1/common/memmap"
 	"nox/v1/common/noximage"
 	"nox/v1/common/player"
@@ -441,7 +442,7 @@ func recreateRenderTarget(sz types.Size) error {
 	if C.dword_5d4594_805860 != 0 {
 		flags |= 0x18
 	}
-	if getEngineFlag(NOX_ENGINE_FLAG_LOCK_VIDEO_RESOLUTION) && C.nox_video_dxFullScreen != 0 {
+	if noxflags.HasEngine(noxflags.EngineLockResolution) && C.nox_video_dxFullScreen != 0 {
 		flags &= 0xFFFFFFDF
 	}
 	if C.nox_enable_threads == 0 {
@@ -506,7 +507,7 @@ func drawGeneral_4B0340(a1 int) error {
 	*memmap.PtrUint32(0x5D4594, 1311932) = uint32(a1)
 	// FIXME
 	v1 := false
-	if getEngineFlag(NOX_ENGINE_FLAG_ENABLE_WINDOWED_MODE) || v1 || C.nox_video_renderTargetFlags&0x10 != 0 {
+	if noxflags.HasEngine(noxflags.EngineWindowed) || v1 || C.nox_video_renderTargetFlags&0x10 != 0 {
 		sub_4B05D0()
 		return nil
 	}

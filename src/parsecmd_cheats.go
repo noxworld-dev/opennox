@@ -193,9 +193,9 @@ func noxCheatGold(ctx context.Context, c *console.Console, tokens []string) bool
 func serverCheatInvincible(enable bool) {
 	if noxflags.HasGame(noxflags.GameModeCoop) {
 		if enable {
-			setEngineFlag(NOX_ENGINE_FLAG_ADMIN | NOX_ENGINE_FLAG_GODMODE)
+			noxflags.SetEngine(noxflags.EngineAdmin | noxflags.EngineGodMode)
 		} else {
-			resetEngineFlag(NOX_ENGINE_FLAG_ADMIN | NOX_ENGINE_FLAG_GODMODE)
+			noxflags.UnsetEngine(noxflags.EngineAdmin | noxflags.EngineGodMode)
 		}
 	}
 }

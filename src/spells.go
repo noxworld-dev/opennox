@@ -22,17 +22,17 @@ const noxSpellsMax = int(C.NOX_SPELLS_MAX)
 
 //export nox_xxx_spellAwardAll1_4EFD80
 func nox_xxx_spellAwardAll1_4EFD80(p *C.nox_playerInfo) {
-	serverSetAllBeastScrolls(asPlayer(p), getEngineFlag(NOX_ENGINE_FLAG_ADMIN))
+	serverSetAllBeastScrolls(asPlayer(p), noxflags.HasEngine(noxflags.EngineAdmin))
 }
 
 //export nox_xxx_spellAwardAll2_4EFC80
 func nox_xxx_spellAwardAll2_4EFC80(p *C.nox_playerInfo) {
-	serverSetAllSpells(asPlayer(p), getEngineFlag(NOX_ENGINE_FLAG_ADMIN))
+	serverSetAllSpells(asPlayer(p), noxflags.HasEngine(noxflags.EngineAdmin))
 }
 
 //export nox_xxx_spellAwardAll3_4EFE10
 func nox_xxx_spellAwardAll3_4EFE10(p *C.nox_playerInfo) {
-	serverSetAllWarriorAbilities(asPlayer(p), getEngineFlag(NOX_ENGINE_FLAG_ADMIN))
+	serverSetAllWarriorAbilities(asPlayer(p), noxflags.HasEngine(noxflags.EngineAdmin))
 }
 
 func serverSetAllBeastScrolls(p *Player, enable bool) {

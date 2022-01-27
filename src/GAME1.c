@@ -126,9 +126,9 @@ unsigned int nox_video_dxFullScreen = 0;
 unsigned int nox_video_dxUnlockSurface = 0;
 HANDLE* nox_video_cursorDrawThreadHandle;
 
-nox_engine_flag nox_common_engineFlags = 0u;
 #ifndef NOX_CGO
 uint32_t dword_5d4594_526284 = 0;
+nox_engine_flag nox_common_engineFlags = 0u;
 uint32_t nox_common_gameFlags;      // & 1 = host server; & 0x800 = solo game
 #endif                              // NOX_CGO
 int nox_server_gameSettingsUpdated; // If you define it as 1-byte bool, the game will crash
@@ -177,7 +177,6 @@ extern table_28760_t table_28760[];
 
 #ifndef NOX_CGO
 nox_playerInfo nox_playerinfo_arr[NOX_PLAYERINFO_MAX] = {0};
-#endif // NOX_CGO
 
 void nox_common_setEngineFlag(const nox_engine_flag flags) { nox_common_engineFlags |= flags; }
 
@@ -187,7 +186,6 @@ void nox_common_toggleEngineFlag(const nox_engine_flag flags) { nox_common_engin
 
 bool nox_common_getEngineFlag(const nox_engine_flag flags) { return (nox_common_engineFlags & flags) != 0; }
 
-#ifndef NOX_CGO
 void nox_exit(int exitCode) {
 #ifdef __EMSCRIPTEN__
 	nox_platform_sleep(0x32u);
