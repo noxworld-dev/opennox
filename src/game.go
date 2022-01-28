@@ -343,7 +343,8 @@ func (v xwisInfoShort) XWIS() xwis.GameInfo {
 }
 
 func (s *Server) maybeRegisterGameOnline() {
-	if !useXWIS || !noxflags.HasGame(noxflags.GameOnline) || env.IsE2E() {
+	if !useXWIS || !noxflags.HasGame(noxflags.GameOnline) || env.IsE2E() || !s.announce {
+		s.maybeStopRegister()
 		return
 	}
 	info := s.getGameInfoXWIS()

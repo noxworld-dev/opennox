@@ -353,7 +353,8 @@ func nox_xxx_windowMainMenuProc_4A1DC0(a1 *Window, ev WindowEvent) WindowEventRe
 	}
 	a3 := asWindowP(unsafe.Pointer(a3p))
 	switch a3.ID() {
-	case 111:
+	case 111: // Solo campaign button
+		noxServer.announce = false
 		if nox_xxx_checkHasSoloMaps() && nox_xxx_testCDAndSolo_413840() {
 			noxflags.SetGame(noxflags.GameModeCoop)
 			noxflags.UnsetGame(noxflags.GameOnline)
@@ -391,7 +392,8 @@ func nox_xxx_windowMainMenuProc_4A1DC0(a1 *Window, ev WindowEvent) WindowEventRe
 			clientPlaySoundSpecial(921, 100)
 		}
 		return RawEventResp(1)
-	case 112:
+	case 112: // Multiplayer button
+		noxServer.announce = true
 		// prepare to start a server
 		sub_4A1D40()
 		noxflags.SetEngine(noxflags.EngineAdmin)
@@ -441,7 +443,7 @@ func nox_xxx_windowMainMenuProc_4A1DC0(a1 *Window, ev WindowEvent) WindowEventRe
 		}
 		a3.DrawData().field_0 &= 0xFFFFFFFD
 		clientPlaySoundSpecial(921, 100)
-	case 131:
+	case 131: // Solo Quest
 		if !nox_client_checkQuestExp_SKU2_4D7700() {
 			v7 := strMan.GetStringInFile("GeneralPrint:InformExpansion", "C:\\NoxPost\\src\\Client\\shell\\mainmenu.c")
 			NewDialogWindow(nox_win_main_menu, "", v7, 33, nil, nil)
@@ -450,6 +452,7 @@ func nox_xxx_windowMainMenuProc_4A1DC0(a1 *Window, ev WindowEvent) WindowEventRe
 			clientPlaySoundSpecial(921, 100)
 			return RawEventResp(1)
 		}
+		noxServer.announce = false
 		sub_4A1D40()
 		noxflags.SetEngine(noxflags.EngineAdmin)
 		noxflags.UnsetEngine(noxflags.EngineGodMode)

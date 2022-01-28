@@ -120,6 +120,7 @@ type Server struct {
 	tickHooks       tickHooks
 	quest           questServer
 	mapSwitchWPName string
+	announce        bool
 }
 
 //export nox_server_ResetObjectGIDs_4E3C70
@@ -471,8 +472,12 @@ func (s *Server) nox_xxx_servNewSession_4D1660() error {
 	if err := s.gameStartHTTP(httpPort); err != nil {
 		return err
 	}
-	if err := s.gameStartNAT(srvPort, httpPort); err != nil {
-		return err
+	if s.announce {
+		if err := s.gameStartNAT(srvPort, httpPort); err != nil {
+			return err
+		}
+	} else {
+		s.gameStopNAT()
 	}
 	return nil
 }
