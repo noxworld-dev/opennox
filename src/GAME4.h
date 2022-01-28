@@ -95,7 +95,7 @@ int sub_4FCEB0(int a1);
 int nox_xxx_spellCheckSmth_4FCEF0(int a1, int* a2, int a3);
 int sub_4FCF90(int a1, int a2, int a3);
 unsigned short sub_4FD030(int a1, short a2);
-void nox_xxx_teleportPixie_4FD050(uint32_t* a1, int a2);
+void nox_xxx_teleportPixie_4FD050(nox_object_t* a1, int a2);
 void sub_4FD090(int a1);
 int sub_4FD0E0(int a1, int a2);
 int nox_xxx_checkPlrCantCastSpell_4FD150(int a1, int a2, int a3);

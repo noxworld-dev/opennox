@@ -4379,14 +4379,15 @@ unsigned short sub_4FD030(int a1, short a2) {
 }
 
 //----- (004FD050) --------------------------------------------------------
-void nox_xxx_teleportPixie_4FD050(uint32_t* a1, int a2) {
+void nox_xxx_teleportPixie_4FD050(nox_object_t* a1p, int a2) {
+	uint32_t* a1 = a1p;
 	a1[16] = *(uint32_t*)(a2 + 56);
 	a1[17] = *(uint32_t*)(a2 + 60);
 	a1[14] = *(uint32_t*)(a2 + 56);
 	a1[15] = *(uint32_t*)(a2 + 60);
 	a1[18] = *(uint32_t*)(a2 + 56);
 	a1[19] = *(uint32_t*)(a2 + 60);
-	nox_xxx_moveUpdateSpecial_517970((int)a1);
+	nox_xxx_moveUpdateSpecial_517970(a1);
 }
 
 //----- (004FD090) --------------------------------------------------------

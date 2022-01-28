@@ -502,8 +502,8 @@ typedef struct nox_object_t {
 	uint32_t field_36;       // 36, 144
 	uint32_t field_37;       // 37, 148
 	int field_38;            // 38, 152
-	uint32_t field_39;       // 39, 156
-	uint32_t field_40;       // 40, 160
+	float float_39;          // 39, 156
+	float float_40;          // 40, 160
 	uint32_t field_41;       // 41, 164
 	uint32_t field_42;       // 42, 168
 	nox_shape shape;         // 43, 172
@@ -580,7 +580,7 @@ typedef struct nox_object_t {
 	nox_object_t* field_124; // 124, 496, TODO: next item
 	void* field_125;         // 125, 500, TODO: a nox_object_t*? see 4ED0C0
 	nox_object_t* field_126; // 126, 504, TODO: first item
-	void* field_127;         // 127, 508
+	void* field_127;         // 127, 508, TODO: owner? caster? target?
 	void* field_128;         // 128, 512
 	void* field_129;         // 129, 516
 	uint32_t field_130;      // 130, 520
