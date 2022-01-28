@@ -6,6 +6,7 @@ import (
 
 	"github.com/spf13/viper"
 
+	"nox/v1/common/env"
 	"nox/v1/common/log"
 )
 
@@ -14,10 +15,15 @@ func init() {
 	if err != nil {
 		wd = "."
 	}
-	configPath = filepath.Join(wd, configName+"."+configExt)
 	viper.SetConfigName(configName)
 	viper.SetConfigType(configExt)
 	viper.AddConfigPath(wd)
+	if sdir := env.AppUserDir(); sdir != "" {
+		viper.AddConfigPath(sdir)
+		configPath = filepath.Join(sdir, configName+"."+configExt)
+	} else {
+		configPath = filepath.Join(wd, configName+"."+configExt)
+	}
 	viper.AddConfigPath(filepath.Dir(os.Args[0]))
 }
 

@@ -20,3 +20,10 @@ func IsE2E() bool {
 	})
 	return isE2E
 }
+
+func AppUserDir() string {
+	if os.Getenv("SNAP_NAME") == "opennox" {
+		return os.Getenv("SNAP_USER_COMMON")
+	}
+	return ""
+}

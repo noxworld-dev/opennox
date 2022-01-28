@@ -101,7 +101,7 @@ var _ = [1]struct{}{}[unsafe.Sizeof(int(0))-4]
 
 func writeLogsToDir() error {
 	dir := filepath.Dir(os.Args[0])
-	if sdir := os.Getenv("SNAP_USER_COMMON"); sdir != "" {
+	if sdir := env.AppUserDir(); sdir != "" {
 		dir = sdir
 	}
 	dir = filepath.Join(dir, "logs")
@@ -144,13 +144,9 @@ func RunArgs(args []string) (gerr error) {
 	handles.Init()
 	defer handles.Release()
 	flags := flag.NewFlagSet("", flag.ContinueOnError)
-	defConf := ""
-	if sdir := os.Getenv("SNAP_USER_COMMON"); sdir != "" {
-		defConf = filepath.Join(sdir, "opennox.yml")
-	}
 	// TODO: add missing flag descriptions
 	var (
-		fConfig     = flags.String("config", defConf, "use specified config file")
+		fConfig     = flags.String("config", "", "use specified config file")
 		fData       = flags.String("data", "", "explicitly set Nox data dir")
 		fServer     = flags.Bool("serveronly", false, "run the server only")
 		fWindow     = flags.Bool("window", false, "window")
