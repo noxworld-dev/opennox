@@ -63,7 +63,7 @@
 - Integrated the new (simple) server control panel. 
 - Fix: Saving complex input bindings to the config.
 - Fix: Wrong interpretation of XWIS option in the new config.
-- Fix: Possible crashes for maps using new memhacks compiler.
+- Fix: Possible crashes for maps using new Panic's compiler.
 
 ## v1.8.2
 

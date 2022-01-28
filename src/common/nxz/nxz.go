@@ -172,7 +172,7 @@ func (r *Reader) decodeMore() {
 			continue
 		}
 		if sym >= 0x111 {
-			continue // TODO: a hack? or is it an end opcode?
+			continue // TODO: a workaround? or is it an end opcode?
 		}
 		// LZ77
 		leng := uint64(4)

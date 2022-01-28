@@ -4374,7 +4374,7 @@ int nox_script_builtinNeedsFields4044_508C30(int fi) {
 
 int nox_script_callBuiltin(int fi) {
 	int res = 0;
-	if (nox_script_panic_memhack_call(fi, &res)) {
+	if (nox_script_panic_compiler_call(fi, &res)) {
 		return res;
 	}
 	return (*(int (**)()) & nox_script_builtin[fi])();
@@ -4383,7 +4383,7 @@ int nox_script_callBuiltin(int fi) {
 //----- (00508B70) --------------------------------------------------------
 int nox_script_callBuiltin_508B70(int i, int fi) {
 	if (fi < 0 || fi >= nox_script_builtin_cnt) {
-		if (!nox_script_panic_memhack_check(fi)) {
+		if (!nox_script_panic_compiler_check(fi)) {
 			printf("noxscript: invalid builtin index: %d (%x)\n", fi, fi);
 			return 0;
 		}

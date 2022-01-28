@@ -38,7 +38,7 @@ type Runtime struct {
 
 	builtins builtinsData
 
-	panicsMemhack bool
+	panicsCompiler bool
 
 	// set during the call
 	caller  Object
@@ -50,7 +50,7 @@ func (r *Runtime) Reset() {
 	r.strings = nil
 	r.builtins.byOp = nil
 	r.resetBuiltinData()
-	r.panicsMemhack = false
+	r.panicsCompiler = false
 	r.funcs = nil
 	r.caller = nil
 	r.trigger = nil

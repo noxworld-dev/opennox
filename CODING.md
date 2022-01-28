@@ -1,4 +1,4 @@
-# Hacking guideline
+# Coding guideline
 
 ## Use pure C, not C++
 
@@ -8,7 +8,7 @@ C++ is insanely complicated as a language, thus it's very hard to find a good an
 
 So for now all the code in this port must be in plain C, **no C++ is allowed**, with the exception of *non-critical* and *self-contained* code, e.g. movie playback.
 
-Furthemore, includes of such code must be surrounded by defines which allow easy disabling of such a code in a way that does not affect the main codebase.
+Furthermore, `#include` of such code must be surrounded by defines which allow easy disabling of such a code in a way that does not affect the main codebase.
 
 ## Use open standards
 
@@ -40,7 +40,7 @@ This doesn't imply that the code may not be _extended_ to support new functional
 
 ## Keep it compilable and runnable
 
-Before commiting a change into `dev` please make sure that the code is AT LEAST compilable and runnable. The project is complicated, so we can't ask for testing for any possible regressions, but it should pass at least some basic checks.
+Before committing a change into `dev` please make sure that the code is AT LEAST compilable and runnable. The project is complicated, so we can't ask for testing for any possible regressions, but it should pass at least some basic checks.
 
 The code in the `master` branch should be compilable, runnable, (mostly) regression-checked and working on ALL supported platforms:
 
@@ -54,7 +54,7 @@ The code in the `master` branch should be compilable, runnable, (mostly) regress
 
 The large majority of current work(this is subject to change) is renaming of functions and variables, restoration of data structures, and restoration of code flow from assembly-like to more C-like.
 
-The former of these typically touches many files in multiple locations without making any logical changes, while the latter two can introduce subtle changes in logic and the generated generated machine code.
+The former of these typically touches many files in multiple locations without making any logical changes, while the latter two can introduce subtle changes in logic and the generated machine code.
 
 Given the general lack of clarity in the code, it is often necessary to review existing commits when looking for newly introduced issues, which often involves undoing changes within the commit in order to find the cause of any given issue.
 

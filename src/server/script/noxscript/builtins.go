@@ -59,7 +59,7 @@ func (f *Func) CallBuiltin(code int) (int, error) {
 	r := f.r
 	b, ok := r.builtins.byOp[code]
 	if !ok {
-		if r.checkPanicMemhack(code) {
+		if r.checkPanicCompiler(code) {
 			return 0, nil
 		}
 		err := fmt.Errorf("invalid builtin index: %d (%x)", code, code)

@@ -39,7 +39,7 @@ nox_point nox_mouse_min = {0, 0};
 #ifdef __GNUC__
 nox_point nox_mouse_max = {NOX_DEFAULT_WIDTH - 1, NOX_DEFAULT_HEIGHT - 1};
 #else
-nox_point nox_mouse_max = {639, 478}; // ugly hack for MSVC
+nox_point nox_mouse_max = {639, 478}; // ugly workaround for MSVC
 #endif
 
 #ifndef NOX_CGO

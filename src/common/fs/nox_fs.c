@@ -461,7 +461,7 @@ bool nox_fs_move(const char* src, const char* dst) {
 bool nox_fs_fgets(FILE* stream, char* str, int size) {
 	char* out = fgets(str, size, stream);
 	if (out) {
-		// XXX hack for text-mode line conversion
+		// XXX workaround for text-mode line conversion
 		size = strlen(out);
 		if (size >= 2 && out[size - 1] == '\n' && out[size - 2] == '\r') {
 			out[size - 2] = '\n';

@@ -6,12 +6,12 @@ import (
 	"nox/v1/common/log"
 )
 
-func (r *Runtime) PanicsHackEnabled() bool {
-	return r.panicsMemhack
+func (r *Runtime) PanicsCompilerEnabled() bool {
+	return r.panicsCompiler
 }
 
-func (r *Runtime) checkPanicMemhack(fnc int) bool {
-	// ===[ Panic's memhack detection ]===
+func (r *Runtime) checkPanicCompiler(fnc int) bool {
+	// ===[ Panic's compiler detection ]===
 	// it usually triggers on a2=973231
 	// 0x587000 + 245900 + 3892924 -> 0x979748 -> 0x5D4594 + 3821996 + 8 -> nox_script_stack[2]
 
@@ -19,7 +19,7 @@ func (r *Runtime) checkPanicMemhack(fnc int) bool {
 	stackOff := off - (0x5D4594 + 3821996)
 
 	if stackOff < 0 || stackOff+4 > 4096 || stackOff%4 != 0 {
-		return false // disallow other type of hacks
+		return false // disallow other type of stack manipulation
 	}
 	stackInd := stackOff / 4
 	// function address we need to jump to
@@ -56,17 +56,17 @@ func (r *Runtime) checkPanicMemhack(fnc int) bool {
 		0xc3,       // ret
 		0x90, 0x90, // nop x2
 	}
-	hackDwords := len(stackExp) / 4
-	if stackInd+hackDwords >= 1024 {
-		return false // we expect all items of the hack to fit
+	bodyDwords := len(stackExp) / 4
+	if stackInd+bodyDwords >= 1024 {
+		return false // we expect all items of the body to fit
 	}
 	// check that the exploit code is exactly the one we expect
-	for i := 0; i < hackDwords; i++ {
+	for i := 0; i < bodyDwords; i++ {
 		if binary.LittleEndian.Uint32(stackExp[4*i:]) != r.StackAt(stackInd+i) {
 			return false
 		}
 	}
-	r.panicsMemhack = true
-	log.Printf("noxscript: enabled Panic's memhack API")
+	r.panicsCompiler = true
+	log.Printf("noxscript: enabled Panic's compiler API")
 	return true
 }

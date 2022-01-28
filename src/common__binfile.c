@@ -614,7 +614,7 @@ int nox_binfile_fread_raw_40ADD0(char* buf, size_t size, size_t count, FILE* fil
 	unsigned int total = 0;
 	int result;
 	while (1) {
-		// this looks like a hack for old PCs to process sounds while reading files from CD
+		// this looks like a workaround for old PCs to process sounds while reading files from CD
 		// sub_4312C0();
 		size_t n = left;
 		if (left > 204800) {

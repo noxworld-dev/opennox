@@ -4,13 +4,13 @@
 #include "server__script__panic.h"
 #include "server__script__script.h"
 
-bool nox_script_panic_memhack_is_enabled = false;
+bool nox_script_panic_compiler_is_enabled = false;
 
 void nox_script_push(int val);
 int nox_script_pop();
 
-bool nox_script_panic_memhack_check(int fnc) {
-	// ===[ Panic's memhack detection ]===
+bool nox_script_panic_compiler_check(int fnc) {
+	// ===[ Panic's compiler detection ]===
 	// it usually triggers on a2=973231
 	// 0x587000 + 245900 + 3892924 -> 0x979748 -> 0x5D4594 + 3821996 + 8 -> nox_script_stack[2]
 
@@ -18,7 +18,7 @@ bool nox_script_panic_memhack_check(int fnc) {
 	int stack_off = off - (0x5D4594 + 3821996);
 
 	if (stack_off < 0 || stack_off + 4 > 4096 || stack_off % 4 != 0) {
-		return false; // disallow other type of hacks
+		return false; // disallow other type of stack manipulations
 	}
 	int stack_ind = stack_off / 4;
 	// function address we need to jump to
@@ -55,24 +55,24 @@ bool nox_script_panic_memhack_check(int fnc) {
 		0xc3,                                    // ret
 		0x90, 0x90                               // nop x2
 	};
-	int hack_len = sizeof(stack_exp) / 4;
-	if (stack_ind + hack_len >= 1024) {
-		return false; // we expect all items of the hack to fit
+	int body_len = sizeof(stack_exp) / 4;
+	if (stack_ind + body_len >= 1024) {
+		return false; // we expect all items of the body to fit
 	}
 	// check that the exploit code is exactly the one we expect
 	unsigned int* stack_dword = stack_exp;
-	for (int i = 0; i < hack_len; i++) {
+	for (int i = 0; i < body_len; i++) {
 		if (stack_dword[i] != nox_script_stack_at(stack_ind + i)) {
 			return false;
 		}
 	}
 	// TODO: must set it back when the map shutdowns
-	nox_script_panic_memhack_is_enabled = true;
-	printf("noxscript: enabled Panic's memhack API\n");
+	nox_script_panic_compiler_is_enabled = true;
+	printf("noxscript: enabled Panic's compiler API\n");
 	return true;
 }
 
-int nox_script_panic_memhack_sub_751090() {
+int nox_script_panic_compiler_sub_751090() {
 	// Panic's replacement for nox_script_builtin_516850 (opcode 185)
 	//
 	//  0x68, 0x50, 0x72, 0x50, 0x00, // push   0x507250 // nox_script_pop
@@ -90,7 +90,7 @@ int nox_script_panic_memhack_sub_751090() {
 	return 0;
 }
 
-int nox_script_panic_memhack_write_7510AC() {
+int nox_script_panic_compiler_write_7510AC() {
 	// Panic's replacement for nox_script_fn59_513F20 (opcode 89)
 	//
 	//  0x56,                         // push   esi
@@ -109,15 +109,15 @@ int nox_script_panic_memhack_write_7510AC() {
 	return 0;
 }
 
-bool nox_script_panic_memhack_call(int fi, int* ret) {
-	if (!nox_script_panic_memhack_is_enabled) {
+bool nox_script_panic_compiler_call(int fi, int* ret) {
+	if (!nox_script_panic_compiler_is_enabled) {
 		return false;
 	}
 	if (fi == 185) {
-		*ret = nox_script_panic_memhack_sub_751090();
+		*ret = nox_script_panic_compiler_sub_751090();
 		return true;
 	} else if (fi == 89) {
-		*ret = nox_script_panic_memhack_write_7510AC();
+		*ret = nox_script_panic_compiler_write_7510AC();
 		return true;
 	}
 	return false;

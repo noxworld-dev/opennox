@@ -227,7 +227,7 @@ func (f *Reader) readThing() (*Thing, error) {
 		} else if len(attr) == 0 {
 			return th, nil
 		}
-		// this hack exists only because some files are broken
+		// this workaround exists only because some files are broken
 		attrs := []string{attr}
 		if strings.Count(attr, "=") > 1 {
 			attrs = fixThingAttrs(attr)

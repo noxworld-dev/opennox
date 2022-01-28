@@ -20,7 +20,7 @@ var (
 )
 
 func XWISRooms() []xwis.Room {
-	// TODO: this is a hack; XWIS doesn't allow to reconnect twice for some reason (IP discovery + WOL scan)
+	// TODO: this is a workaround; XWIS doesn't allow to reconnect twice for some reason (IP discovery + WOL scan)
 	xwisMu.Lock()
 	rooms := xwisRooms
 	xwisMu.Unlock()

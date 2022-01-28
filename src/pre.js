@@ -573,7 +573,7 @@ class Network {
     }
 
     bind (destport) {
-        // XXX HACK
+        // XXX workaround
         this.lastDestPort = destport
 
         this.recvQueue[destport] = []
