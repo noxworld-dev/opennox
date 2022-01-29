@@ -124,7 +124,7 @@ func (s *Server) getObjectByID(id string) *Object {
 
 func (s *Server) getObjectByInd(ind int) *Object { // aka nox_xxx_netGetUnitByExtent_4ED020
 	for p := s.firstServerObject(); p != nil; p = p.Next() {
-		if p.Flags16()&0x20 == 0 && p.Ind() == ind {
+		if !p.Flags().Has(object.FlagDestroyed) && p.Ind() == ind {
 			return p
 		}
 	}
@@ -234,11 +234,11 @@ func (obj *Object) ArmorClass() object.ArmorClass {
 	return object.ArmorClass(obj.field_3)
 }
 
-func (obj *Object) Flags16() uint32 {
-	return uint32(obj.field_4)
+func (obj *Object) Flags() object.Flags {
+	return object.Flags(obj.field_4)
 }
 
-func (obj *Object) SetFlags16(v uint32) {
+func (obj *Object) SetFlags(v object.Flags) {
 	obj.field_4 = C.uint(v)
 }
 
@@ -251,7 +251,7 @@ func (obj *Object) getShape() *noxShape {
 }
 
 func (obj *Object) IsMovable() bool {
-	if obj.Flags16()&0x8068 != 0 {
+	if obj.Flags().HasAny(object.FlagNotMovableMask) {
 		return false
 	}
 	return !obj.Class().Has(object.ClassImmobile)
@@ -364,6 +364,33 @@ func (obj *Object) Pos() types.Pointf {
 		X: float32(obj.x),
 		Y: float32(obj.y),
 	}
+}
+
+func (obj *Object) Vel() types.Pointf {
+	if obj == nil {
+		return types.Pointf{}
+	}
+	return types.Pointf{
+		X: float32(obj.vel_x),
+		Y: float32(obj.vel_y),
+	}
+}
+
+func (obj *Object) Force() types.Pointf {
+	if obj == nil {
+		return types.Pointf{}
+	}
+	return types.Pointf{
+		X: float32(obj.force_x),
+		Y: float32(obj.force_y),
+	}
+}
+
+func (obj *Object) Dir() uint16 {
+	if obj == nil {
+		return 0
+	}
+	return uint16(obj.direction)
 }
 
 func (obj *Object) prevPos() types.Pointf {

@@ -186,7 +186,7 @@ func nox_xxx_updatePlayer_4F8100(up *nox_object_t) {
 	v5 := (*C.ushort)(unsafe.Pointer(u.field_139))
 	for i := 0; i < 4; i++ {
 		p := asObjectC(ud.field_29[i])
-		if p != nil && ((p.Flags16() & 0x20) != 0) {
+		if p != nil && p.Flags().Has(object.FlagDestroyed) {
 			ud.field_29[i] = nil
 		}
 	}
@@ -233,7 +233,7 @@ func nox_xxx_updatePlayer_4F8100(up *nox_object_t) {
 	if ud.field_20_1 != 0 {
 		ud.field_20_1--
 	}
-	if u.Flags16()&0x8000 == 0 {
+	if !u.Flags().Has(object.FlagDead) {
 		if v2 > 0 {
 			v14 := u.field_131
 			if pl.Info().IsFemale() {
@@ -294,7 +294,7 @@ func nox_xxx_objectApplyForce_52DF80(vec *C.float, obj *C.nox_object_t, force C.
 
 func nox_xxx_playerInventory_4F8420(u *Unit) {
 	for it := u.FirstItem(); it != nil; it = it.NextItem() {
-		if it.Flags16()&0x100 != 0 {
+		if it.Flags().Has(object.FlagEquipped) {
 			if !C.nox_xxx_playerCheckStrength_4F3180(u.CObj(), it.CObj()) {
 				u.forceDrop(it)
 			}
@@ -328,7 +328,7 @@ func nox_xxx_aud_501960(a1 int, u *Unit, a3, a4 int) {
 func playerSuddedDeath4F9E70(u *Unit) {
 	v1 := memmap.Uint32(0x5D4594, 1392)
 	v3 := unsafe.Slice((*uint16)(u.field_139), 3)
-	if u.Flags16()&0x8000 == 0 && v3 != nil && v3[0] != 0 && (gameFrame()%(v1*gameFPS()/uint32(v3[2]))) == 0 {
+	if !u.Flags().Has(object.FlagDead) && v3 != nil && v3[0] != 0 && (gameFrame()%(v1*gameFPS()/uint32(v3[2]))) == 0 {
 		C.nox_xxx_unitDamageClear_4EE5E0(u.CObj(), 1)
 	}
 }
@@ -336,7 +336,7 @@ func playerSuddedDeath4F9E70(u *Unit) {
 func sub_4F9ED0(u *Unit) {
 	ud := u.updateDataPlayer()
 	v3 := unsafe.Slice((*uint16)(u.field_139), 3)
-	if (u.Flags16() & 0x8000) != 0 {
+	if u.Flags().Has(object.FlagDead) {
 		return
 	}
 	if v3 != nil && (gameFrame()-uint32(u.field_134)) > gameFPS() {

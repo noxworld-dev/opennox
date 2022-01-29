@@ -732,7 +732,7 @@ func (s *Server) nox_xxx_gameTick_4D2580_server_D() {
 		return
 	}
 	v23 := false
-	v24 := (u.Flags16()>>15)&1 != 0
+	v24 := (u.Flags()>>15)&1 != 0
 	if !v24 {
 		s.scriptOnEvent("MapShutdown")
 		noxflags.SetGame(noxflags.GameFlag28)
@@ -948,10 +948,10 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() bool {
 	C.sub_500510(internCStr(v2))
 	C.nox_xxx_mapSwitchLevel_4D12E0(1)
 	for _, obj := range s.getObjects() {
-		obj.SetFlags16(obj.Flags16() | 0x80000000)
+		obj.SetFlags(obj.Flags() | object.FlagMarked)
 	}
 	for _, obj := range getObjectsUpdatable2() {
-		obj.SetFlags16(obj.Flags16() | 0x80000000)
+		obj.SetFlags(obj.Flags() | object.FlagMarked)
 	}
 	if noxflags.HasGame(noxflags.GameModeCoop) {
 		C.nox_xxx_spellEnableAll_424BD0()
@@ -1158,11 +1158,12 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() bool {
 		}
 		C.sub_4DCBF0(0)
 	}
+	_ = object.FlagMarked
 	for _, obj := range s.getObjects() {
-		obj.SetFlags16(obj.Flags16() & 0x7FFFFFFF)
+		obj.SetFlags(obj.Flags() & 0x7FFFFFFF)
 	}
 	for _, obj := range getObjectsUpdatable2() {
-		obj.SetFlags16(obj.Flags16() & 0x7FFFFFFF)
+		obj.SetFlags(obj.Flags() & 0x7FFFFFFF)
 	}
 	if noxflags.HasGame(noxflags.GameModeKOTR) && checkGameplayFlags(4) {
 		C.sub_4D2160()
@@ -1306,7 +1307,7 @@ func nox_xxx_mapTraceObstacles(from *Unit, p1, p2 types.Pointf) bool { // nox_xx
 		} else if !obj.Class().HasAny(object.ClassImmobile | object.ClassObstacle) {
 			return
 		}
-		if (obj.Flags16()&0x48 != 0) || obj.Class().Has(object.ClassDoor) {
+		if obj.Flags().HasAny(object.FlagNoCollide|object.FlagAllowOverlap) || obj.Class().Has(object.ClassDoor) {
 			return
 		}
 		pos := obj.Pos()

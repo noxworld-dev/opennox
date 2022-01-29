@@ -3,6 +3,8 @@ package nox
 import (
 	"encoding/json"
 	"net/http"
+	"strconv"
+	"strings"
 
 	"nox/v1/common/object"
 	"nox/v1/common/types"
@@ -18,10 +20,15 @@ type debugObjectType struct {
 type debugObject struct {
 	Ind        int               `json:"ind"`
 	ID         string            `json:"id,omitempty"`
+	ScriptID   int               `json:"script_id,omitempty"`
 	Enabled    bool              `json:"enabled"`
 	Class      object.Class      `json:"class"`
+	Flags      object.Flags      `json:"flags,omitempty"`
 	ArmorClass object.ArmorClass `json:"armor_class,omitempty"`
+	Dir        uint16            `json:"dir,omitempty"`
 	Pos        types.Pointf      `json:"pos"`
+	Vel        types.Pointf      `json:"vel,omitempty"`
+	Force      types.Pointf      `json:"force,omitempty"`
 	Type       *debugObjectType  `json:"type"`
 	Inventory  []*debugObject    `json:"inventory,omitempty"`
 	Field516   []*debugObject    `json:"field_516,omitempty"`
@@ -59,11 +66,16 @@ func (obj *Object) dump() *debugObject {
 	}
 	return &debugObject{
 		Ind:        obj.Ind(),
+		ScriptID:   obj.ScriptID(),
 		ID:         obj.ID(),
 		Enabled:    obj.IsEnabled(),
 		Class:      obj.Class(),
+		Flags:      obj.Flags(),
 		ArmorClass: obj.ArmorClass(),
+		Dir:        obj.Dir(),
 		Pos:        obj.Pos(),
+		Vel:        obj.Vel(),
+		Force:      obj.Force(),
 		Type:       obj.ObjectTypeC().dump(),
 		Inventory:  inv,
 		Field516:   f516,
@@ -79,6 +91,42 @@ func init() {
 		writeJSONResp(w, noxServer.getObjectTypes())
 	})
 	http.HandleFunc("/debug/nox/objects", func(w http.ResponseWriter, r *http.Request) {
-		writeJSONResp(w, noxServer.getObjects())
+		qu := r.URL.Query()
+		indStr := qu.Get("ind")
+		if indStr == "" {
+			writeJSONResp(w, noxServer.getObjects())
+			return
+		}
+		ind, err := strconv.ParseInt(indStr, 10, 32)
+		if err != nil {
+			http.Error(w, "Bad index", http.StatusBadRequest)
+			return
+		}
+		obj := noxServer.getObjectByInd(int(ind))
+		if obj == nil {
+			http.Error(w, "Not found", http.StatusFound)
+			return
+		}
+		all := obj.Flags()
+		for _, word := range strings.Split(qu.Get("flags"), ",") {
+			fname := word
+			unset := false
+			if strings.HasPrefix(fname, "-") {
+				unset = true
+				fname = fname[1:]
+			}
+			fl, err := object.ParseFlag(fname)
+			if err != nil {
+				http.Error(w, err.Error(), http.StatusBadRequest)
+				return
+			}
+			if unset {
+				all &^= fl
+			} else {
+				all |= fl
+			}
+		}
+		obj.SetFlags(all)
+		writeJSONResp(w, obj)
 	})
 }
