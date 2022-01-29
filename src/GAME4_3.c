@@ -8849,14 +8849,13 @@ int nox_xxx_updateMagicMissile_53BDA0(int a1) {
 
 	v1 = *(int**)(a1 + 748);
 	v2 = *v1;
-	if (*(uint8_t*)(*v1 + 16) & 0x20 ||
-		nox_frame_xxx_2598000 - *(uint32_t*)(a1 + 128) > (unsigned int)(3 * nox_gameFPS)) {
+	if ((*(uint8_t*)(*v1 + 16) & 0x20) || (nox_frame_xxx_2598000 - *(uint32_t*)(a1 + 128) > (unsigned int)(3 * nox_gameFPS))) {
 		return (*(int (**)(int, uint32_t, uint32_t))(a1 + 696))(a1, 0, 0);
 	}
 	v3 = v1[1];
 	if (v3) {
 		v4 = *(uint32_t*)(v3 + 16);
-		if (v4 & 0x20 || (v4 & 0x8000) != 0) {
+		if (((v4 & 0x20) != 0) || ((v4 & 0x8000) != 0)) {
 			v1[1] = 0;
 		}
 	}
@@ -9561,7 +9560,7 @@ void nox_xxx_updatePixie_53CD20(nox_object_t* obj) {
 	int v6 = v1[1];
 	if (v6) {
 		int v7 = *(uint32_t*)(v6 + 16);
-		if (v7 & 0x20 || (v7 & 0x8000) != 0) {
+		if (((v7 & 0x20) != 0) || ((v7 & 0x8000) != 0)) {
 			v1[1] = 0;
 		}
 	}
@@ -9617,7 +9616,7 @@ LABEL_29:
 	obj->float_28 = 0.9;
 	obj->force_x = *getMemFloatPtr(0x587000, 194136 + v19) * obj->speed_cur;
 	obj->force_y = *getMemFloatPtr(0x587000, 194140 + v19) * obj->speed_cur;
-	if ((unsigned char)nox_frame_xxx_2598000 & 8 && obj->field_127) {
+	if (((unsigned char)nox_frame_xxx_2598000 & 8) && obj->field_127) {
 		if (nox_xxx_mapCheck_537110(obj, obj->field_127) == 1) {
 			v1[6] = nox_frame_xxx_2598000;
 		}
@@ -11992,7 +11991,7 @@ int nox_xxx_spellFlySearchTarget_540610(float2* a1, int a2, int a3, float a4, in
 				v6 = *(uint32_t*)(a6 + 748);
 				v7 = *(uint32_t*)(v6 + 288);
 				if (v7) {
-					if (nox_xxx_unitIsEnemyTo_5330C0(a6, *(uint32_t*)(v6 + 288)) && (a5 == 1 || !a5 && a2 != v7)) {
+					if (nox_xxx_unitIsEnemyTo_5330C0(a6, *(uint32_t*)(v6 + 288)) && ((a5 == 1) || !a5 && a2 != v7)) {
 						return v7;
 					}
 				}
