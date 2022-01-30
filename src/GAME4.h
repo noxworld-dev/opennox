@@ -99,8 +99,8 @@ void nox_xxx_teleportPixie_4FD050(nox_object_t* a1, int a2);
 void sub_4FD090(int a1);
 int sub_4FD0E0(int a1, int a2);
 int nox_xxx_checkPlrCantCastSpell_4FD150(int a1, int a2, int a3);
-int nox_xxx_spellAccept_4FD400(int a1, int a2, uint32_t* a3, int a4, int* a5, int a6);
-int nox_xxx_gameCaptureMagic_4FDC10(int a1, int a2);
+int nox_xxx_spellAccept_4FD400(int a1, void* a2, void* a3p, void* a4p, void* a5p, int a6);
+int nox_xxx_gameCaptureMagic_4FDC10(int a1, nox_object_t* a2);
 int nox_xxx_castSpellByUser_4FDD20(int a1, uint32_t* a2, int* a3);
 uint32_t* nox_xxx_createSpellFly_4FDDA0(int a1, int a2, int a3);
 void nox_xxx_collide_4FDF90(int a1, int a2);
@@ -296,8 +296,7 @@ void sub_509120(uint32_t* a1, int a2, const char* a3);
 int sub_5095E0();
 int sub_5096F0();
 
-int nox_xxx_spellDurationBased_4FEBA0(int a1, int a2, uint32_t* a3, int a4, uint32_t* a5, int a6, int (*a7)(uint16_t*),
-									  int a8, int a9, int a10);
+int nox_xxx_spellDurationBased_4FEBA0(int a1, void* a2p, nox_object_t* a3p, nox_object_t* a4p, void* a5p, int a6, void* a7p, void* a8p, void* a9p, int a10);
 void nox_server_scriptExecuteFnForEachGroupObj_502670(unsigned char* groupPtr, int expectedType, void (*a3)(int, int),
 													  int a4);
 

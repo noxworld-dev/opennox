@@ -4547,8 +4547,12 @@ int nox_xxx_checkPlrCantCastSpell_4FD150(int a1, int a2, int a3) {
 	return 13;
 }
 
+#ifndef NOX_CGO
 //----- (004FD400) --------------------------------------------------------
-int nox_xxx_spellAccept_4FD400(int a1, int a2, uint32_t* a3, int a4, int* a5, int a6) {
+int nox_xxx_spellAccept_4FD400(int a1, void* a2, void* a3p, void* a4p, void* a5p, int a6) {
+	uint32_t* a3 = a3p;
+	int a4 = a4p;
+	int* a5 = a5p;
 	int result;                              // eax
 	int (*v7)(int, int, int, int, int, int); // eax
 	double v8;                               // st7
@@ -4867,10 +4871,12 @@ int nox_xxx_spellAccept_4FD400(int a1, int a2, uint32_t* a3, int a4, int* a5, in
 	}
 	return result;
 }
+#endif // NOX_CGO
 // 52ED30: using guessed type void nullsub_29();
 
 //----- (004FDC10) --------------------------------------------------------
-int nox_xxx_gameCaptureMagic_4FDC10(int a1, int a2) {
+int nox_xxx_gameCaptureMagic_4FDC10(int a1, nox_object_t* a2p) {
+	int a2 = a2p;
 	int v3; // esi
 	int v4; // eax
 	int v5; // esi
@@ -5688,8 +5694,14 @@ unsigned int sub_4FEB60(int a1, int a2) {
 }
 
 //----- (004FEBA0) --------------------------------------------------------
-int nox_xxx_spellDurationBased_4FEBA0(int a1, int a2, uint32_t* a3, int a4, uint32_t* a5, int a6, int (*a7)(uint16_t*),
-									  int a8, int a9, int a10) {
+int nox_xxx_spellDurationBased_4FEBA0(int a1, void* a2p, nox_object_t* a3p, nox_object_t* a4p, void* a5p, int a6, void* a7p, void* a8p, void* a9p, int a10) {
+	int a2 = a2p;
+	uint32_t* a3 = a3p;
+	int a4 = a4p;
+	uint32_t* a5 = a5p;
+	int (*a7)(uint16_t*) = a7p;
+	int a8 = a8p;
+	int a9 = a9p;
 	int v10;       // eax
 	uint16_t* v12; // esi
 	int v13;       // edx

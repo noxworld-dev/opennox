@@ -4,16 +4,23 @@ package nox
 #include "defs.h"
 #include "server__magic__plyrspel.h"
 #include "GAME3_3.h"
+#include "GAME4.h"
+#include "GAME4_2.h"
+#include "GAME4_3.h"
 #include "GAME5_2.h"
+#include "server__magic__spell__execdur.h"
 extern nox_spell_t nox_spells_arr_588124[NOX_SPELLS_MAX+1];
 void nox_xxx_spellCastByBook_4FCB80();
 void nox_xxx_spellCastByPlayer_4FEEF0();
+
+static int nox_spells_call_intint6_go(int (*f)(int, void*, nox_object_t*, nox_object_t*, void*, int), int a1, void* a2, nox_object_t* a3, nox_object_t* a4, void* a5, int a6) { return f(a1, a2, a3, a4, a5, a6); }
 */
 import "C"
 import (
 	"unsafe"
 
 	noxflags "nox/v1/common/flags"
+	"nox/v1/common/object"
 	"nox/v1/common/player"
 	"nox/v1/common/things"
 )
@@ -33,6 +40,14 @@ func nox_xxx_spellAwardAll2_4EFC80(p *C.nox_playerInfo) {
 //export nox_xxx_spellAwardAll3_4EFE10
 func nox_xxx_spellAwardAll3_4EFE10(p *C.nox_playerInfo) {
 	serverSetAllWarriorAbilities(asPlayer(p), noxflags.HasEngine(noxflags.EngineAdmin))
+}
+
+func nox_xxx_spellHasFlags_424A50(ind int, flag things.SpellFlags) bool {
+	sp := SpellDefByInd(ind)
+	if sp == nil {
+		return false
+	}
+	return sp.Flags().Has(flag)
 }
 
 func serverSetAllBeastScrolls(p *Player, enable bool) {
@@ -148,4 +163,211 @@ func (s *SpellDef) Phonemes() (out []things.Phoneme) {
 		out = append(out, things.Phoneme(i))
 	}
 	return out
+}
+
+type spellAcceptArg struct {
+	Obj  *nox_object_t
+	Arg1 uintptr
+	Arg2 uintptr
+}
+
+//export nox_xxx_spellAccept_4FD400
+func nox_xxx_spellAccept_4FD400(ispellID C.int, a2, a3p, a4p, a5p unsafe.Pointer, a6i C.int) C.int {
+	spellID := int(ispellID)
+	if spellID == 0 {
+		return 0
+	}
+	obj3 := asUnit(a3p)
+	if obj3 == nil {
+		return 0
+	}
+	if a2 == nil {
+		return 0
+	}
+	if a5p == nil {
+		return 0
+	}
+	a6 := int(a6i)
+	arg5 := (*spellAcceptArg)(a5p)
+	obj4 := asUnit(a4p)
+	obj5 := asUnitC(arg5.Obj)
+	if nox_xxx_spellHasFlags_424A50(spellID, things.SpellFlagUnk8) && obj5 != nil && !obj5.Class().Has(object.MaskUnits) {
+		return 0
+	}
+	if !(obj5 == nil || C.nox_xxx_gameCaptureMagic_4FDC10(C.int(spellID), obj5.CObj()) != 0) {
+		nox_xxx_aud_501960(231, obj5, 0, 0)
+		return 0
+	}
+	var cfnc unsafe.Pointer
+	switch spellID {
+	case 1:
+		cfnc = C.nox_xxx_castAnchor_52C390
+	case 2:
+		cfnc = C.nox_xxx_spellArachna_52DC80
+	case 3:
+		cfnc = C.sub_52C750
+	case 4:
+		return nox_xxx_spellDurationBased_4FEBA0(spellID, a2, obj3, obj4, arg5, a6, C.nox_xxx_spellBlink2_530310, C.nox_xxx_spellBlink1_530380, nil, 0)
+	case 5:
+		cfnc = C.nox_xxx_castBurn_52C3E0
+	case 6:
+		cfnc = C.sub_52BBA0
+	case 8:
+		return nox_xxx_spellDurationBased_4FEBA0(spellID, a2, obj3, obj4, arg5, a6, nil, C.sub_52F460, nil, 0)
+	case 9:
+		return nox_xxx_spellDurationBased_4FEBA0(spellID, a2, obj3, obj4, arg5, a6, C.nox_xxx_charmCreature1_5011F0, C.nox_xxx_charmCreatureFinish_5013E0, C.nox_xxx_charmCreature2_501690, 0)
+	case 10, 11:
+		cfnc = C.nox_xxx_spellCastCleansingFlame_52D5C0
+	case 12:
+		cfnc = C.nox_xxx_castConfuse_52C1E0
+	case 13:
+		cfnc = C.nox_xxx_castCounterSpell_52BBB0
+	case 14:
+		cfnc = C.nox_xxx_castCurePoison_52CDB0
+	case 15:
+		cfnc = C.nox_xxx_castDeath_52C920
+	case 16:
+		cfnc = C.nox_xxx_castDeathRay_52D1E0
+	case 17:
+		cfnc = C.sub_52C8D0
+	case 18:
+		cfnc = C.sub_52BF00
+	case 19:
+		cfnc = C.sub_537E60
+	case 21:
+		return nox_xxx_spellDurationBased_4FEBA0(spellID, a2, obj3, obj4, arg5, a6, C.nox_xxx_spellTurnUndeadCreate_531310, C.nox_xxx_spellTurnUndeadUpdate_531410, C.nox_xxx_spellTurnUndeadDelete_531420, 70)
+	case 22:
+		return nox_xxx_spellDurationBased_4FEBA0(spellID, a2, obj3, obj4, arg5, a6, nil, C.nox_xxx_spellDrainMana_52E210, nil, 0)
+	case 23:
+		cfnc = C.nox_xxx_castEquake_52DE40
+	case 24:
+		return nox_xxx_spellDurationBased_4FEBA0(spellID, a2, obj3, obj4, arg5, a6, C.nox_xxx_spellEnergyBoltStop_52E820, C.nox_xxx_spellEnergyBoltTick_52E850, C.nullsub_29, 30)
+	case 26:
+		cfnc = C.nox_xxx_castFear_52DF40
+	case 27:
+		cfnc = C.nox_xxx_castFireball_52C790
+	case 28:
+		return nox_xxx_spellDurationBased_4FEBA0(spellID, a2, obj3, obj4, arg5, a6, nil, C.nox_xxx_firewalkTick_52ED40, nil, 3*gameFPS())
+	case 29:
+		cfnc = C.nox_xxx_castFist_52D3C0
+	case 31:
+		return nox_xxx_spellDurationBased_4FEBA0(spellID, a2, obj3, obj4, arg5, a6, C.sub_52EF30, C.sub_52EFD0, C.sub_52F1D0, 2*gameFPS()/3)
+	case 32:
+		cfnc = C.nox_xxx_castFreeze_52C350
+	case 33:
+		cfnc = C.nox_xxx_castFumble_52C060
+	case 34:
+		cfnc = C.nox_xxx_castGlyph_537FA0
+	case 35:
+		return nox_xxx_spellDurationBased_4FEBA0(spellID, a2, obj3, obj4, arg5, a6, C.sub_52F220, C.sub_52F2E0, nil, 0)
+	case 36:
+		cfnc = C.nox_xxx_castHaste_52C640
+	case 37:
+		cfnc = C.nox_xxx_castInfra_52CA30
+	case 38:
+		cfnc = C.sub_52BEB0
+	case 39:
+		cfnc = C.nox_xxx_castInvis_52C980
+	case 40:
+		cfnc = C.nox_xxx_castInvul_52C9E0
+	case 41:
+		cfnc = C.sub_52DD50
+	case 42:
+		cfnc = C.nox_xxx_castLight_52C6D0
+	case 43:
+		return nox_xxx_spellDurationBased_4FEBA0(spellID, a2, obj3, obj4, arg5, a6, C.nox_xxx_onStartLightning_52F820, C.nox_xxx_onFrameLightning_52F8A0, C.sub_530100, 30)
+	case 44:
+		cfnc = C.nox_xxx_castLock_52CE90
+	case 45:
+		cfnc = C.sub_52CA80
+	case 46, 47, 48, 49:
+		cfnc = C.sub_52CBD0
+	case 50:
+		cfnc = C.nox_xxx_castMissilesOM_540160
+	case 51:
+		return nox_xxx_spellDurationBased_4FEBA0(spellID, a2, obj5, obj4, arg5, a6, C.nox_xxx_castShield1_52F5A0, C.sub_52F650, C.sub_52F670, 0)
+	case 52:
+		cfnc = C.nox_xxx_castMeteor_52D9D0
+	case 53:
+		cfnc = C.nox_xxx_castMeteorShower_52D8A0
+	case 54:
+		return nox_xxx_spellDurationBased_4FEBA0(spellID, a2, obj5, obj4, arg5, a6, C.nox_xxx_spellCreateMoonglow_531A00, nil, C.sub_531AF0, 0)
+	case 55:
+		cfnc = C.sub_52C230
+	case 56:
+		return nox_xxx_spellDurationBased_4FEBA0(spellID, a2, obj3, obj4, arg5, a6, C.nox_xxx_manaBomb_530F90, C.nox_xxx_manaBombBoom_5310C0, C.sub_531290, 0)
+	case 57:
+		cfnc = C.nox_xxx_spellPhantom_52CA70
+	case 58:
+		cfnc = C.nox_xxx_castPixies_540440
+	case 59:
+		v8 := gamedataFloat("PlasmaSearchTime")
+		return nox_xxx_spellDurationBased_4FEBA0(spellID, a2, obj3, obj4, arg5, a6, C.nox_xxx_plasmaSmth_531580, C.nox_xxx_plasmaShot_531600, C.sub_5319E0, uint32(v8))
+	case 60:
+		cfnc = C.nox_xxx_castPoison_52C720
+	case 61:
+		cfnc = C.nox_xxx_castProtectElect_52D150
+	case 62:
+		cfnc = C.nox_xxx_castProtectFire_52D110
+	case 63:
+		cfnc = C.sub_52D190
+	case 64:
+		cfnc = C.nox_xxx_castProtectPosion_52D1A0
+	case 65:
+		cfnc = C.nox_xxx_castPull_52BFA0
+	case 66:
+		cfnc = C.nox_xxx_castPush_52C000
+	case 67:
+		return nox_xxx_spellDurationBased_4FEBA0(spellID, a2, obj5, obj4, arg5, a6, C.sub_531490, C.sub_5314F0, C.sub_531560, 0)
+	case 68, 133:
+		cfnc = C.nox_xxx_castSpellWinkORrestoreHealth_52BF20
+	case 69:
+		cfnc = C.sub_52BF50
+	case 70:
+		cfnc = C.nox_xxx_castRun_52C680
+	case 71:
+		cfnc = C.nox_xxx_useShock_52C5A0
+	case 72:
+		cfnc = C.nox_xxx_castSlow_52C190
+	case 74:
+		cfnc = C.nox_xxx_castStun_52C2C0
+	case 75, 76, 77, 78, 80, 81, 82, 83, 84, 85,
+		86, 87, 88, 89, 90, 91, 92, 93, 94, 95,
+		96, 97, 98, 99, 100, 101, 102, 103, 104, 105,
+		106, 107, 108, 109, 110, 111, 112, 113, 114:
+		return nox_xxx_spellDurationBased_4FEBA0(spellID, a2, obj3, obj4, arg5, a6, C.nox_xxx_summonStart_500DA0, C.nox_xxx_summonFinish_5010D0, C.nox_xxx_summonCancel_5011C0, 0)
+	case 115:
+		return nox_xxx_spellDurationBased_4FEBA0(spellID, a2, obj3, obj4, arg5, a6, C.sub_530CA0, C.sub_530D30, nil, 0)
+	case 116:
+		return nox_xxx_spellDurationBased_4FEBA0(spellID, a2, obj3, obj4, arg5, a6, C.nox_xxx_spellTagCreature_530160, C.sub_530250, C.sub_530270, 0)
+	case 117, 118, 119, 120, 122, 123, 124, 125:
+		return nox_xxx_spellDurationBased_4FEBA0(spellID, a2, obj3, obj4, arg5, a6, C.sub_5305D0, C.sub_530650, nil, 0)
+	case 121:
+		return nox_xxx_spellDurationBased_4FEBA0(spellID, a2, obj3, obj4, arg5, a6, C.nox_xxx_castTele_530820, C.sub_530880, nil, 0)
+	case 126:
+		return nox_xxx_spellDurationBased_4FEBA0(spellID, a2, obj3, obj4, arg5, a6, C.sub_530A30_spell_execdur, C.nox_xxx_castTTT_530B70, nil, 0)
+	case 127:
+		cfnc = C.nox_xxx_castTelekinesis_52D330
+	case 128:
+		cfnc = C.nox_xxx_castToxicCloud_52DB60
+	case 129:
+		cfnc = C.sub_52CCD0
+	case 130:
+		cfnc = C.nox_xxx_castVamp_52C530
+	case 131:
+		cfnc = C.sub_52C270
+	case 132:
+		return nox_xxx_spellDurationBased_4FEBA0(spellID, a2, obj3, obj4, arg5, a6, C.nox_xxx_spellWallCreate_4FFA90, C.nox_xxx_spellWallUpdate_500070, C.nox_xxx_spellWallDestroy_500080, 0)
+	default:
+		return 1
+	}
+	v9 := C.nox_spells_call_intint6_go((*[0]byte)(cfnc), C.int(spellID), a2, obj3.CObj(), obj4.CObj(), unsafe.Pointer(arg5), C.int(a6))
+	if v9 == 0 {
+		nox_xxx_aud_501960(231, obj4, 0, 0)
+	}
+	return v9
+}
+
+func nox_xxx_spellDurationBased_4FEBA0(spellID int, a2 unsafe.Pointer, a3, a4 *Unit, a5 *spellAcceptArg, a6 int, a7, a8, a9 unsafe.Pointer, a10 uint32) C.int {
+	return C.nox_xxx_spellDurationBased_4FEBA0(C.int(spellID), a2, a3.CObj(), a4.CObj(), unsafe.Pointer(a5), C.int(a6), a7, a8, a9, C.int(a10))
 }
