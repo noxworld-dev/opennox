@@ -29,6 +29,7 @@
 #include "server__script__panic.h"
 #include "server__script__script.h"
 #include "server__script__activator.h"
+#include "common__system__team.h"
 
 // TODO: move somewhere else
 int nox_xxx_netSendChat_528AC0(int a1, wchar_t* a2, wchar_t a3);

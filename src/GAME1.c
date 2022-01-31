@@ -9342,9 +9342,6 @@ bool nox_xxx_CheckGameplayFlags_417DA0(int a1) { return (a1 & dword_5d4594_52628
 //----- (00417DC0) --------------------------------------------------------
 int sub_417DC0() { return dword_5d4594_526276; }
 
-//----- (00417DD0) --------------------------------------------------------
-unsigned char nox_xxx_getTeamCounter_417DD0() { return getMemByte(0x5D4594, 526280); }
-
 //----- (00417DE0) --------------------------------------------------------
 char sub_417DE0() {
 	char v0; // bl
@@ -9650,7 +9647,7 @@ void sub_4181F0(int a1) {
 
 //----- (00418390) --------------------------------------------------------
 int sub_418390() {
-	if (!getMemByte(0x5D4594, 526280)) {
+	if (!nox_xxx_getTeamCounter_417DD0()) {
 		return 0;
 	}
 	nox_xxx_SetGameplayFlag_417D50(2);

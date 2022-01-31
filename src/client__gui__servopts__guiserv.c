@@ -1,6 +1,7 @@
 #include "client__gui__servopts__guiserv.h"
 #include "client__gui__window.h"
 #include "common__strman.h"
+#include "common__system__team.h"
 
 #include "GAME1.h"
 #include "GAME1_1.h"

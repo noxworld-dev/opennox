@@ -13,7 +13,10 @@
 
 extern uint32_t dword_5d4594_527660;
 extern uint32_t nox_player_netCode_85319C;
+
+#ifndef NOX_CGO
 nox_team_t nox_server_teams_526292[NOX_TEAMS_MAX] = {0};
+#endif // NOX_CGO
 
 typedef struct {
 	const char* name;
@@ -42,10 +45,11 @@ nox_team_info_t nox_team_table[] = {
     {"modifier.db:MaterialTeamVioletDesc", 0, 6, &nox_color_violet_2598268},
     {"modifier.db:MaterialTeamBlackDesc",  0, 7, &nox_color_black_2650656},
     {"modifier.db:MaterialTeamWhiteDesc",  0, 8, &nox_color_white_2523948},
-    {"modifier.db:MaterialTeamOrangeDesc", 0, 9, &nox_color_orange_2614256}, // 0x852978, 12
+    {"modifier.db:MaterialTeamOrangeDesc", 0, 9, &nox_color_orange_2614256},
 };
 int nox_team_table_cnt = sizeof(nox_team_table) / sizeof(nox_team_info_t);
 
+#ifndef NOX_CGO
 //----- (00418AE0) --------------------------------------------------------
 nox_team_t* nox_server_teamByXxx_418AE0(int a1) {
 	for (nox_team_t* it = nox_server_teamFirst_418B10(); it; it = nox_server_teamNext_418B60(it)) {
@@ -81,6 +85,37 @@ nox_team_t* nox_server_teamNext_418B60(nox_team_t* t) {
 	return 0;
 }
 
+//----- (004187E0) --------------------------------------------------------
+int nox_server_teamGetInactive_4187E0() {
+	for (int i = 1; i < NOX_TEAMS_MAX; i++) {
+		nox_team_t* t = &nox_server_teams_526292[i];
+		if (!t->active) {
+			return i;
+		}
+	}
+	return 0;
+}
+
+//----- (004187A0) --------------------------------------------------------
+char sub_4187A0() {
+	int i;    // ebx
+	char* v1; // eax
+
+	for (i = 1; i < 17; ++i) {
+		v1 = nox_server_teamFirst_418B10();
+		if (!v1) {
+			return i;
+		}
+		while ((unsigned char)v1[57] != i) {
+			v1 = nox_server_teamNext_418B60((int)v1);
+			if (!v1) {
+				return i;
+			}
+		}
+	}
+	return 0;
+}
+
 //----- (00417C60) --------------------------------------------------------
 int nox_server_teamsReset_417C60() {
 	memset(nox_server_teams_526292, 0, NOX_TEAMS_MAX*sizeof(nox_team_t));
@@ -102,6 +137,23 @@ int nox_server_teamsReset_417C60() {
 	nox_xxx_UnsetGameplayFlags_417D70(1);
 	nox_xxx_UnsetGameplayFlags_417D70(4);
 	return 1;
+}
+
+//----- (00418AB0) --------------------------------------------------------
+nox_team_t* nox_xxx_clientGetTeamColor_418AB0(int a1) {
+	char* result; // eax
+
+	result = nox_server_teamFirst_418B10();
+	if (!result) {
+		return 0;
+	}
+	while ((unsigned char)result[57] != a1) {
+		result = nox_server_teamNext_418B60((int)result);
+		if (!result) {
+			return 0;
+		}
+	}
+	return result;
 }
 
 //----- (00417E10) --------------------------------------------------------
@@ -127,6 +179,9 @@ int nox_xxx_createCoopTeam_417E10() {
 	return 1;
 }
 
+//----- (00417DD0) --------------------------------------------------------
+unsigned char nox_xxx_getTeamCounter_417DD0() { return getMemByte(0x5D4594, 526280); }
+
 //----- (004186D0) --------------------------------------------------------
 nox_team_t* nox_xxx_teamCreate_4186D0(char a1) {
 	if (getMemByte(0x5D4594, 526280) >= (NOX_TEAMS_MAX - 1)) {
@@ -138,7 +193,7 @@ nox_team_t* nox_xxx_teamCreate_4186D0(char a1) {
 	nox_team_t* t = &nox_server_teams_526292[ti];
 	t->field_52 = 0;
 	t->field_48 = 0;
-	t->field_0 = 0;
+	t->name[0] = 0;
 	t->field_68 = 0;
 	t->field_44 = 0;
 	t->field_60 = 0;
@@ -171,7 +226,7 @@ wchar_t* nox_server_teamTitle_418C20(int a1) {
 }
 
 //----- (00418D50) --------------------------------------------------------
-uint32_t* nox_xxx_materialGetTeamColor_418D50(void* a1p) {
+uint32_t* nox_xxx_materialGetTeamColor_418D50(nox_team_t* a1p) {
 	if (!a1p) {
 		return 0;
 	}
@@ -184,8 +239,42 @@ uint32_t* nox_xxx_materialGetTeamColor_418D50(void* a1p) {
 	return 0;
 }
 
+//----- (00417D00) --------------------------------------------------------
+int nox_server_teamsResetYyy_417D00() {
+	for (int i = 1; i < NOX_TEAMS_MAX; i++) {
+		nox_team_t* t = &nox_server_teams_526292[i];
+		t->field_52 = 0;
+	}
+	int result = 0;
+	if (nox_common_gameFlags_check_40A5C0(1)) {
+		short v3 = 2500;
+		result = nox_xxx_netSendPacket1_4E5390(159, (int)&v3, 2, 0, 1);
+	}
+	return result;
+}
+
+//----- (00419030) --------------------------------------------------------
+int nox_server_teamsZzz_419030(int a1) {
+	nox_xxx_UnsetGameplayFlags_417D70(4);
+	for (int i = 1; i < NOX_TEAMS_MAX; i++) {
+		nox_team_t* t = &nox_server_teams_526292[i];
+		if (t->active) {
+			sub_418F20(t, 0);
+		}
+	}
+	int result = 0;
+	if (a1) {
+		uint16_t a1a = 1988;
+		sub_456FA0();
+		result = nox_xxx_netSendPacket1_4E5390(159, (int)&a1a, 2, 0, 1);
+	}
+	return result;
+}
+#endif // NOX_CGO
+
 //----- (004191D0) --------------------------------------------------------
-void nox_xxx_createAtImpl_4191D0(unsigned char a1, int a2, int a3, int a4, int a5) {
+void nox_xxx_createAtImpl_4191D0(unsigned char a1, void* a2p, int a3, int a4, int a5) {
+	int a2 = a2p;
 	char* result;     // eax
 	char* v6;         // esi
 	int v7;           // ebx

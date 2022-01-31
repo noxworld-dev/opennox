@@ -796,7 +796,7 @@ func (s *Server) nox_xxx_gameTick_4D2580_server_C() bool {
 		C.sub_416690()
 		if noxflags.HasGame(noxflags.GameModeChat) {
 			if noxflags.HasGame(noxflags.GameFlag16) {
-				C.nox_server_teamsZzz_419030(1)
+				nox_server_teamsZzz_419030(1)
 			}
 			noxflags.UnsetGame(noxflags.GameFlag15 | noxflags.GameFlag16)
 		} else {
@@ -1008,13 +1008,10 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() bool {
 	for _, k := range s.getPlayerUnits() {
 		C.sub_4EF660(k.CObj())
 		v61 := nox_xxx_mapFindPlayerStart_4F7AB0(k)
-		if noxflags.HasGame(noxflags.GameModeChat) {
-			if C.nox_xxx_getTeamCounter_417DD0() != 0 {
-				if !checkGameplayFlags(2) && !noxflags.HasGame(noxflags.GameFlag16) {
-					v17 := unsafe.Pointer(C.nox_xxx_clientGetTeamColor_418AB0(C.int(k.team())))
-					if v17 != nil {
-						v61 = randomReachablePointAround(50.0, asPointf(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v17, 72)), 56)))
-					}
+		if noxflags.HasGame(noxflags.GameModeChat) && s.teamCount() != 0 {
+			if !checkGameplayFlags(2) && !noxflags.HasGame(noxflags.GameFlag16) {
+				if t := k.Team(); t != nil {
+					v61 = randomReachablePointAround(50.0, asPointf(unsafe.Add(t.field_72, 56)))
 				}
 			}
 		}
@@ -1073,7 +1070,7 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() bool {
 	}
 
 	if checkGameplayFlags(4) || noxflags.HasGame(noxflags.GameFlag16) {
-		C.nox_server_teamsResetYyy_417D00()
+		nox_server_teamsResetYyy_417D00()
 	}
 	for l := C.nox_xxx_getDebugData_57C3E0(); l != nil; l = C.nox_xxx_nextDebugObject_57C3F0(l) {
 		switch str := GoString((*C.char)(l)); str {

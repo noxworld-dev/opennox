@@ -19,6 +19,7 @@
 #include "operators.h"
 #include "server__dbase__objdb.h"
 #include "server__script__script.h"
+#include "common__system__team.h"
 
 #include "client__gui__window.h"
 #include "client__video__draw_common.h"

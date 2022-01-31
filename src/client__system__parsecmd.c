@@ -9,6 +9,7 @@
 #include "common__system__settings.h"
 #include "common__telnet__telnetd.h"
 #include "server__script__script.h"
+#include "common__system__team.h"
 
 #include "GAME1.h"
 #include "GAME1_1.h"

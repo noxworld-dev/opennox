@@ -11,6 +11,7 @@
 #include "GAME2_2.h"
 #include "GAME2_3.h"
 #include "client__gui__gadgets__listbox.h"
+#include "common__system__team.h"
 #include "operators.h"
 
 extern uint32_t dword_587000_145672;

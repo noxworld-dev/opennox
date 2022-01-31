@@ -17,6 +17,7 @@
 #include "client__gui__guivote.h"
 #include "client__gui__servopts__guiserv.h"
 #include "client__system__parsecmd.h"
+#include "common__system__team.h"
 #include "common__log.h"
 #include "operators.h"
 

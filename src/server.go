@@ -82,12 +82,14 @@ import (
 	"unsafe"
 
 	"nox/v1/common"
+	"nox/v1/common/console"
 	"nox/v1/common/crypt"
 	"nox/v1/common/datapath"
 	noxflags "nox/v1/common/flags"
 	"nox/v1/common/fs"
 	"nox/v1/common/memmap"
 	"nox/v1/common/object"
+	"nox/v1/common/strman"
 	"nox/v1/server"
 	"nox/v1/server/script"
 )
@@ -96,11 +98,12 @@ var (
 	noxServer *Server
 )
 
-func NewServer() *Server {
+func NewServer(pr console.Printer, sm *strman.StringManager) *Server {
 	s := &Server{
 		port:   common.GamePort,
-		Server: server.New(),
+		Server: server.New(pr, sm),
 	}
+	s.allocTeams()
 	s.allocPlayers()
 	s.http.init()
 	s.initMetrics()
@@ -118,6 +121,7 @@ type Server struct {
 	lua             scriptLUA
 	activators      activators
 	tickHooks       tickHooks
+	teams           serverTeams
 	quest           questServer
 	mapSwitchWPName string
 	announce        bool
@@ -401,7 +405,7 @@ func (s *Server) nox_xxx_servNewSession_4D1660() error {
 		return errors.New("nox_read_things_alternative_4E2B60 failed")
 	}
 	C.nox_motd_4463E0(1)
-	C.nox_server_teamsReset_417C60()
+	s.teamsReset()
 	C.sub_4259C0()
 	C.sub_4D7C60()
 	C.nox_xxx_unitDefFindMaxDataSize_4E3320()
@@ -785,7 +789,7 @@ func (s *Server) nox_xxx_mapReadSetFlags_4CF990() {
 	C.sub_456050()
 	if noxflags.HasGame(noxflags.GameModeQuest) && memmap.Int32(0x973F18, 3800) < 0 {
 		C.sub_4D6B10(1)
-		C.nox_server_teamsZzz_419030(1)
+		nox_server_teamsZzz_419030(1)
 	}
 	mapname := s.getServerMap()
 	gameLog.Printf("checking map flags for %q", filepath.Base(mapname))
@@ -802,7 +806,7 @@ func (s *Server) nox_xxx_mapReadSetFlags_4CF990() {
 	if vv&1 != 0 {
 		gameLog.Println("setting coop mode")
 		noxflags.UnsetGame(noxflags.GameModeMask)
-		C.nox_xxx_createCoopTeam_417E10()
+		s.nox_xxx_createCoopTeam_417E10()
 		noxflags.SetGame(noxflags.GameModeCoop)
 	} else if vv&2 != 0 {
 		gameLog.Println("setting quest mode")

@@ -56,6 +56,10 @@ func (u *Unit) team() byte {
 	return byte(u.field_13)
 }
 
+func (u *Unit) Team() *nox_team_t {
+	return u.getServer().teamByYyy(u.team())
+}
+
 func (u *Unit) setPos(cp *C.float2) {
 	C.nox_xxx_unitMove_4E7010(u.CObj(), cp)
 }
