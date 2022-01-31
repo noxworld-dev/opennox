@@ -154,7 +154,7 @@ func GoStringNP(s unsafe.Pointer, n int) string {
 	if i < 0 {
 		return string(b)
 	}
-	return string(b[:n])
+	return string(b[:i])
 }
 
 func GoStringS(s []byte) string {
