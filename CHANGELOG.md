@@ -1,5 +1,14 @@
 # Changelog
 
+## v1.8.8
+
+- Notify if OpenNox update is available.
+- Server: add metrics for monitoring.
+- Fix: Jumping no longer prevents from taking damage from lava.
+- Fix: Do not announce Solo Quest games online.
+- Fix: Team colors (regression from v1.8.7).
+- Fix: Correctly set config dir for Snap.
+
 ## v1.8.7
 
 - Support loading of TrueType and OpenType fonts.
