@@ -11973,6 +11973,7 @@ int nox_xxx_castPixies_540440(int a1, int a2, int a3, int a4, int a5, int a6) {
 	return 1;
 }
 
+#ifndef NOX_CGO
 //----- (00540610) --------------------------------------------------------
 nox_object_t* nox_xxx_spellFlySearchTarget_540610(float2* a1, nox_object_t* a2p, int a3, float a4, int a5, nox_object_t* a6p) {
 	int a2 = a2p;
@@ -12089,6 +12090,7 @@ void sub_540780(float* a1, int a2) {
 		}
 	}
 }
+#endif // NOX_CGO
 
 //----- (005408A0) --------------------------------------------------------
 int sub_5408A0(int a1) {

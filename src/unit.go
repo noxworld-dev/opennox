@@ -345,10 +345,6 @@ func (u *Unit) dropAllItems() {
 	C.nox_xxx_dropAllItems_4EDA40((*C.uint)(unsafe.Pointer(u.CObj())))
 }
 
-func (u *Unit) isEnemyTo(u2 *Unit) bool { // nox_xxx_unitIsEnemyTo_5330C0
-	return C.nox_xxx_unitIsEnemyTo_5330C0(u.CObj(), u2.CObj()) != 0
-}
-
 func (u *Unit) clearActionStack() { // aka nox_xxx_monsterClearActionStack_50A3A0
 	if u.Class().Has(object.ClassMonster) {
 		for C.sub_5341F0(u.CObj()) == 0 {

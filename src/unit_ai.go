@@ -240,14 +240,8 @@ func nox_xxx_mobActionDependency_546A70(uc *C.nox_object_t) {
 				*(*float32)(unsafe.Pointer(&st.arg_1)) = pos.X
 				*(*float32)(unsafe.Pointer(&st.arg_2)) = pos.Y
 			}
-			var arg [4]float32
-			pos := u.Pos()
-			arg[0] = pos.X
-			arg[1] = pos.Y
 			pos2 := st.ArgPos(0)
-			arg[2] = pos2.X
-			arg[3] = pos2.Y
-			if nox_xxx_mapTraceRay_535250_00(&arg, 1) && !v29 {
+			if _, trok := nox_xxx_mapTraceRay_535250_00(u.Pos(), pos2, 1); trok && !v29 {
 				ok = false
 			}
 		case ai.DEPENDENCY_OBJECT_FARTHER_THAN:

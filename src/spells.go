@@ -20,7 +20,6 @@ import "C"
 import (
 	"unsafe"
 
-	"nox/v1/common/alloc"
 	noxflags "nox/v1/common/flags"
 	"nox/v1/common/memmap"
 	"nox/v1/common/object"
@@ -48,6 +47,15 @@ func nox_xxx_spellAwardAll2_4EFC80(p *C.nox_playerInfo) {
 //export nox_xxx_spellAwardAll3_4EFE10
 func nox_xxx_spellAwardAll3_4EFE10(p *C.nox_playerInfo) {
 	serverSetAllWarriorAbilities(asPlayer(p), noxflags.HasEngine(noxflags.EngineAdmin))
+}
+
+//export nox_xxx_spellFlySearchTarget_540610
+func nox_xxx_spellFlySearchTarget_540610(cpos *C.float2, msl *nox_object_t, mask C.int, dist C.float, a5 C.int, self *nox_object_t) *nox_object_t {
+	var pos *types.Pointf
+	if cpos != nil {
+		pos = &types.Pointf{X: float32(cpos.field_0), Y: float32(cpos.field_4)}
+	}
+	return nox_xxx_spellFlySearchTarget(pos, asObjectC(msl), uint32(mask), float32(dist), int(a5), asUnitC(self)).CObj()
 }
 
 func nox_xxx_spellHasFlags_424A50(ind int, flag things.SpellFlags) bool {
@@ -426,17 +434,17 @@ func (s *Server) castSpellMissilesCustom(spellID int, owner, caster *Unit, opts 
 		dir := nox_xxx_math_roundDirI16(int16(caster.field_31_0) + doff)
 		dirX := memmap.Float32(0x587000, 194136+8*uintptr(dir))
 		dirY := memmap.Float32(0x587000, 194140+8*uintptr(dir))
-		var a1a [4]float32
-		a1a[0] = cpos.X
-		a1a[1] = cpos.Y
-		a1a[2] = cpos.X + cvel.X + rdist*dirX
-		a1a[3] = cpos.Y + cvel.Y + rdist*dirY
-		if !nox_xxx_mapTraceRay_535250_00(&a1a, 5) {
+		p2 := types.Pointf{
+			X: cpos.X + cvel.X + rdist*dirX,
+			Y: cpos.Y + cvel.Y + rdist*dirY,
+		}
+		tpos, ok := nox_xxx_mapTraceRay_535250_00(cpos, p2, 5)
+		if !ok {
 			continue
 		}
 		msl := noxServer.newObjectByTypeID(opts.Type)
 		mud := msl.updateDataMissile()
-		nox_xxx_createAt_4DAA50(msl, owner, types.Pointf{X: a1a[2], Y: a1a[3]})
+		nox_xxx_createAt_4DAA50(msl, owner, tpos)
 		mspeed := float32(noxRndCounter1.FloatClamp(opts.SpeedRndMin, opts.SpeedRndMax) * float64(msl.speed_cur))
 		msl.speed_cur = C.float(mspeed)
 		msl.setDir(dir)
@@ -452,7 +460,7 @@ func (s *Server) castSpellMissilesCustom(spellID int, owner, caster *Unit, opts 
 				Y: float32(pl.field_2288),
 			}
 		}
-		targ := nox_xxx_spellFlySearchTarget_540610(ppos, msl, 32, opts.SearchDist, 0, owner)
+		targ := nox_xxx_spellFlySearchTarget(ppos, msl, 0x20, opts.SearchDist, 0, owner)
 		mud.owner = owner.CObj()
 		mud.target = targ.CObj()
 		mud.spellID = C.int(spellID)
@@ -491,14 +499,81 @@ func nox_xxx_castMissilesOM_540160(spellID int, a2 unsafe.Pointer, owner, caster
 	return 1
 }
 
-func nox_xxx_spellFlySearchTarget_540610(pos *types.Pointf, msl *Object, a3 int, a4 float32, a5 int, a6 *Unit) *Object {
-	var cp *C.float2
-	if pos != nil {
-		pp, free := alloc.Malloc(unsafe.Sizeof(C.float2{}))
-		defer free()
-		cp = (*C.float2)(pp)
-		cp.field_0 = C.float(pos.X)
-		cp.field_4 = C.float(pos.Y)
+func nox_xxx_spellFlySearchTarget(pos *types.Pointf, msl *Object, mask uint32, dist float32, a5 int, self *Unit) *Object {
+	if self != nil && self.Class().Has(object.ClassPlayer) && mask&0x20 != 0 {
+		if curTarg := self.updateDataPlayer().CursorObj(); curTarg != nil {
+			if self.isEnemyTo(curTarg) && ((a5 == 1) || (a5 == 0) && msl != curTarg) {
+				return curTarg
+			}
+		}
 	}
-	return asObjectC(C.nox_xxx_spellFlySearchTarget_540610(cp, msl.CObj(), C.int(a3), C.float(a4), C.int(a5), a6.CObj()))
+	var center types.Pointf
+	if pos == nil {
+		if msl == nil {
+			return nil
+		}
+		center = msl.Pos()
+	} else if msl != nil {
+		if _, ok := nox_xxx_mapTraceRay_535250_00(msl.Pos(), *pos, 5); ok {
+			center = *pos // TODO: it ignores tay tracing result; intentional?
+		} else {
+			center = msl.Pos()
+		}
+	} else {
+		center = *pos
+	}
+	dist2 := dist * dist
+	owner := msl.findOwnerChainPlayer()
+	rect := types.Rectf{
+		Left:   center.X - dist,
+		Top:    center.Y - dist,
+		Right:  center.X + dist,
+		Bottom: center.Y + dist,
+	}
+	var (
+		minDist float32 = 1e+08
+		found   *Object
+	)
+	getUnitsInRect(rect, func(it *Object) {
+		if !(a5 != 0 || msl != it) {
+			return
+		}
+		if !it.Class().HasAny(object.MaskTargets) {
+			return
+		}
+		if it.Class().Has(object.ClassMonster) && (it.field_3&0x8000 != 0) {
+			return
+		}
+		if it.Class().Has(object.ClassPlayer) && it.AsUnit().ControllingPlayer().field_3680&0x1 != 0 {
+			return
+		}
+		if it.Flags().HasAny(object.FlagDestroyed | object.FlagDead) {
+			return
+		}
+		if it.Class().Has(object.ClassMonster) && (it.field_3&0x4000 != 0) {
+			return
+		}
+		it.findOwnerChainPlayer() // FIXME: result unused!
+		if (mask&0x20 != 0) && !msl.isEnemyTo(it) {
+			return
+		}
+		opos := it.Pos()
+		dx := center.X - opos.X
+		dy := center.Y - opos.Y
+		odist := dy*dy + dx*dx
+		if odist > dist2 {
+			return
+		}
+		if msl != nil && !nox_xxx_unitCanInteractWith_5370E0(msl, it, 0) {
+			return
+		}
+		if owner != nil && !nox_xxx_unitCanInteractWith_5370E0(owner, it, 0) {
+			return
+		}
+		if odist < minDist {
+			found = it
+			minDist = odist
+		}
+	})
+	return found
 }

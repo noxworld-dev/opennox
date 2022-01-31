@@ -246,7 +246,7 @@ void nox_xxx_unitRemoveChild_4EC470(int a1);
 void nox_xxx_unitTransferSlaves_4EC4B0(int a1);
 int nox_xxx_unitHasThatParent_4EC4F0(int a1, int a2);
 int nox_xxx_unitsHaveSameTeam_4EC520(int a1, int a2);
-int nox_xxx_findParentChainPlayer_4EC580(int unit);
+nox_object_t* nox_xxx_findParentChainPlayer_4EC580(nox_object_t* unit);
 void sub_4EC5B0();
 uint32_t* nox_xxx_respawnAdd_4EC5E0(int a1);
 void sub_4EC6A0(int a1);

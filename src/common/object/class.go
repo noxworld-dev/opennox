@@ -56,7 +56,8 @@ const (
 )
 
 const (
-	MaskUnits = ClassPlayer | ClassMonster
+	MaskUnits   = ClassPlayer | ClassMonster
+	MaskTargets = ClassMonsterGenerator | MaskUnits
 )
 
 func (c Class) Has(c2 Class) bool {

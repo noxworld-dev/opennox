@@ -3,6 +3,7 @@ package nox
 /*
 #include "GAME3_2.h"
 #include "GAME3_3.h"
+#include "GAME4_3.h"
 #include "defs.h"
 extern nox_object_t* nox_server_objects_1556844;
 extern nox_object_t* nox_server_objects_uninited_1556860;
@@ -20,6 +21,11 @@ import (
 	"nox/v1/common/types"
 	"nox/v1/server/script"
 )
+
+//export nox_xxx_findParentChainPlayer_4EC580
+func nox_xxx_findParentChainPlayer_4EC580(obj *nox_object_t) *nox_object_t {
+	return asObjectC(obj).findOwnerChainPlayer().CObj()
+}
 
 type shapeKind uint32
 
@@ -516,4 +522,23 @@ func (obj *Object) forceDrop(item *Object) { // nox_xxx_invForceDropItem_4ED930
 	cpos.field_0 = C.float(pos.X)
 	cpos.field_4 = C.float(pos.Y)
 	C.nox_xxx_drop_4ED790(obj.CObj(), item.CObj(), cpos)
+}
+
+func (obj *Object) isEnemyTo(obj2 noxObject) bool { // nox_xxx_unitIsEnemyTo_5330C0
+	return C.nox_xxx_unitIsEnemyTo_5330C0(obj.CObj(), toCObj(obj2)) != 0
+}
+
+func (obj *Object) findOwnerChainPlayer() *Object { // nox_xxx_findParentChainPlayer_4EC580
+	if obj == nil {
+		return nil
+	}
+	res := obj
+	for it := obj.OwnerC(); it != nil; it = it.OwnerC() {
+		if it.Class().Has(object.ClassPlayer) {
+			res = it
+			break
+		}
+		res = it
+	}
+	return res
 }

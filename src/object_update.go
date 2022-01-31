@@ -147,6 +147,13 @@ func (ud *PlayerUpdateData) Player() *Player {
 	return asPlayer(ud.player)
 }
 
+func (ud *PlayerUpdateData) CursorObj() *Object {
+	if ud == nil {
+		return nil
+	}
+	return asObjectC(ud.cursor_obj)
+}
+
 type MonsterUpdateData C.nox_object_Monster_data_t
 
 func (ud *MonsterUpdateData) getAIStackInd() int {

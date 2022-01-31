@@ -7786,8 +7786,10 @@ int nox_xxx_unitsHaveSameTeam_4EC520(int a1, int a2) {
 	return 0;
 }
 
+#ifndef NOX_CGO
 //----- (004EC580) --------------------------------------------------------
-int nox_xxx_findParentChainPlayer_4EC580(int unit) {
+nox_object_t* nox_xxx_findParentChainPlayer_4EC580(nox_object_t* unitp) {
+	int unit = unitp;
 	int result; // eax
 	int i;      // ecx
 
@@ -7802,6 +7804,7 @@ int nox_xxx_findParentChainPlayer_4EC580(int unit) {
 	}
 	return result;
 }
+#endif // NOX_CGO
 
 //----- (004EC5B0) --------------------------------------------------------
 void sub_4EC5B0() {
