@@ -198,7 +198,7 @@ nox_team_t* nox_xxx_teamCreate_4186D0(char a1) {
 	t->field_44 = 0;
 	t->field_60 = 0;
 	t->ind = ti;
-	t->field_56 = ti;
+	t->def_ind = ti;
 	char v6 = a1;
 	if (!a1) {
 		v6 = sub_4187A0();

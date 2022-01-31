@@ -30,22 +30,22 @@ import (
 
 //export nox_server_teamByXxx_418AE0
 func nox_server_teamByXxx_418AE0(a1 C.int) *nox_team_t {
-	return noxServer.teamByXxx(int(a1))
+	return noxServer.teamByXxx(int(a1)).C()
 }
 
 //export nox_xxx_clientGetTeamColor_418AB0
 func nox_xxx_clientGetTeamColor_418AB0(a1 C.int) *nox_team_t {
-	return noxServer.teamByYyy(byte(a1))
+	return noxServer.teamByYyy(byte(a1)).C()
 }
 
 //export nox_server_teamFirst_418B10
 func nox_server_teamFirst_418B10() *nox_team_t {
-	return noxServer.firstTeam()
+	return noxServer.firstTeam().C()
 }
 
 //export nox_server_teamNext_418B60
 func nox_server_teamNext_418B60(t *nox_team_t) *nox_team_t {
-	return noxServer.nextTeam(t)
+	return noxServer.nextTeam(asTeam(t)).C()
 }
 
 //export nox_server_teamTitle_418C20
@@ -55,12 +55,12 @@ func nox_server_teamTitle_418C20(a1 C.int) *C.wchar_t {
 
 //export nox_xxx_teamCreate_4186D0
 func nox_xxx_teamCreate_4186D0(a1 C.char) *nox_team_t {
-	return noxServer.teamCreate(byte(a1))
+	return noxServer.teamCreate(byte(a1)).C()
 }
 
 //export nox_xxx_materialGetTeamColor_418D50
 func nox_xxx_materialGetTeamColor_418D50(t *nox_team_t) *C.uint {
-	return noxServer.getTeamColor(t)
+	return noxServer.getTeamColor(asTeam(t))
 }
 
 //export nox_xxx_getTeamCounter_417DD0
@@ -81,6 +81,59 @@ type TeamDef struct {
 }
 
 type nox_team_t = C.nox_team_t
+
+func asTeam(p *nox_team_t) *Team {
+	if p == nil {
+		return nil
+	}
+	return asTeamP(unsafe.Pointer(p))
+}
+
+func asTeamP(p unsafe.Pointer) *Team {
+	if p == nil {
+		return nil
+	}
+	return (*Team)(p)
+}
+
+type Team nox_team_t
+
+func (t *Team) C() *nox_team_t {
+	return (*nox_team_t)(unsafe.Pointer(t))
+}
+
+func (t *Team) Name() string {
+	return GoWString(&t.name[0])
+}
+
+func (t *Team) DefInd() byte {
+	return byte(t.def_ind)
+}
+
+func (t *Team) Ind57() byte {
+	return byte(t.field_57)
+}
+
+func (t *Team) Ind() int {
+	if t == nil {
+		return 0
+	}
+	return int(t.ind)
+}
+
+func (t *Team) Ind60() int {
+	if t == nil {
+		return 0
+	}
+	return int(t.field_60)
+}
+
+func (t *Team) Active() bool {
+	if t == nil {
+		return false
+	}
+	return t.active != 0
+}
 
 type serverTeams struct {
 	defs []TeamDef
@@ -113,31 +166,31 @@ func (s *Server) teamsReloadTitles() {
 	}
 }
 
-func (s *Server) firstTeam() *nox_team_t { // nox_server_teamFirst_418B10
+func (s *Server) firstTeam() *Team { // nox_server_teamFirst_418B10
 	for i := 1; i < len(s.teams.arr); i++ {
-		t := &s.teams.arr[i]
-		if t.active != 0 {
+		t := asTeam(&s.teams.arr[i])
+		if t.Active() {
 			return t
 		}
 	}
 	return nil
 }
 
-func (s *Server) nextTeam(t *nox_team_t) *nox_team_t { // nox_server_teamNext_418B60
+func (s *Server) nextTeam(t *Team) *Team { // nox_server_teamNext_418B60
 	if t == nil {
 		return nil
 	}
-	for i := int(t.ind) + 1; i < len(s.teams.arr); i++ {
-		t2 := &s.teams.arr[i]
-		if t2.active != 0 {
+	for i := t.Ind() + 1; i < len(s.teams.arr); i++ {
+		t2 := asTeam(&s.teams.arr[i])
+		if t2.Active() {
 			return t2
 		}
 	}
 	return nil
 }
 
-func (s *Server) Teams() []*nox_team_t {
-	var out []*nox_team_t
+func (s *Server) Teams() []*Team {
+	var out []*Team
 	for it := s.firstTeam(); it != nil; it = s.nextTeam(it) {
 		out = append(out, it)
 	}
@@ -146,17 +199,17 @@ func (s *Server) Teams() []*nox_team_t {
 
 func (s *Server) teamInactive() int { // nox_server_teamGetInactive_4187E0
 	for i := 1; i < len(s.teams.arr); i++ {
-		t := &s.teams.arr[i]
-		if t.active == 0 {
+		t := asTeam(&s.teams.arr[i])
+		if !t.Active() {
 			return i
 		}
 	}
 	return 0
 }
 
-func (s *Server) teamByXxx(a1 int) *nox_team_t { // nox_server_teamByXxx_418AE0
+func (s *Server) teamByXxx(a1 int) *Team { // nox_server_teamByXxx_418AE0
 	for it := s.firstTeam(); it != nil; it = s.nextTeam(it) {
-		if int(it.field_60) == a1 {
+		if it.Ind60() == a1 {
 			return it
 		}
 	}
@@ -180,9 +233,9 @@ func (s *Server) teamsReset() {
 	nox_xxx_UnsetGameplayFlags_417D70(4)
 }
 
-func (s *Server) teamByYyy(a1 byte) *nox_team_t { // nox_xxx_clientGetTeamColor_418AB0
+func (s *Server) teamByYyy(a1 byte) *Team { // nox_xxx_clientGetTeamColor_418AB0
 	for t := s.firstTeam(); t != nil; t = s.nextTeam(t) {
-		if byte(t.field_57) == a1 {
+		if t.Ind57() == a1 {
 			return t
 		}
 	}
@@ -197,37 +250,37 @@ func (s *Server) nox_xxx_createCoopTeam_417E10() {
 	noxflags.SetGame(noxflags.GameModeSolo10)
 	t := s.teamByYyy(1)
 	if t == nil {
-		t = nox_xxx_teamCreate_4186D0(1)
+		t = s.teamCreate(1)
 	}
 	if v1 := C.nox_xxx_objGetTeamByNetCode_418C80(C.int(C.nox_player_netCode_85319C)); v1 != nil {
 		C.nox_xxx_createAtImpl_4191D0(t.field_57, unsafe.Pointer(v1), 0, C.int(C.nox_player_netCode_85319C), 0)
 	}
 	if t != nil {
 		text := s.Strings().GetStringInFile("COOP", "C:\\NoxPost\\src\\common\\System\\team.c")
-		sub_418800(t, text, 0)
+		t.setNameAnd68(text, 0)
 	}
 	nox_xxx_UnsetGameplayFlags_417D70(1)
 }
 
-func sub_418800(t *nox_team_t, name string, a3 int) {
+func (t *Team) setNameAnd68(name string, a3 int) { // sub_418800
 	WStrCopy(&t.name[0], 20, name)
 	t.name[20] = 0
 	t.field_68 = C.uint(a3)
 }
 
-func (s *Server) teamCreate(ind byte) *nox_team_t {
+func (s *Server) teamCreate(ind byte) *Team {
 	if int(memmap.Uint8(0x5D4594, 526280)) >= len(s.teams.arr)-1 {
 		text := s.Strings().GetStringInFile("teamexceed", "C:\\NoxPost\\src\\common\\System\\team.c")
 		s.Printf(console.ColorRed, text)
 		return nil
 	}
 	ti := s.teamInactive()
-	t := &s.teams.arr[ti]
+	t := asTeam(&s.teams.arr[ti])
 	t.name[0] = 0
 	t.field_44 = 0
 	t.field_48 = 0
 	t.field_52 = 0
-	t.field_56 = C.uchar(ti)
+	t.def_ind = C.uchar(ti)
 	t.ind = C.uchar(ti)
 	t.field_60 = 0
 	t.active = 1
@@ -250,7 +303,7 @@ func (s *Server) teamFindFreeInd() byte {
 	for i := 1; i < len(s.teams.arr); i++ {
 		ok := true
 		for it := s.firstTeam(); it != nil; it = s.nextTeam(it) {
-			if byte(it.field_57) != byte(i) {
+			if it.Ind57() != byte(i) {
 				ok = false
 				break
 			}
@@ -272,14 +325,14 @@ func (s *Server) teamTitle(a1 byte) string {
 	return s.Strings().GetStringInFile("NoTeam", "C:\\NoxPost\\src\\common\\System\\team.c")
 }
 
-func (s *Server) getTeamColor(t2 *nox_team_t) *C.uint {
+func (s *Server) getTeamColor(t2 *Team) *C.uint {
 	if t2 == nil {
 		return nil
 	}
 	for i := range s.teams.defs {
-		t := &s.teams.defs[i]
-		if t.Code == byte(t2.field_56) {
-			return t.Color
+		td := &s.teams.defs[i]
+		if td.Code == t2.DefInd() {
+			return td.Color
 		}
 	}
 	return nil
@@ -290,7 +343,7 @@ func (s *Server) teamsResetYyy() int {
 		t := &s.teams.arr[i]
 		t.field_52 = 0
 	}
-	if !nox_common_gameFlags_check_40A5C0(1) {
+	if !noxflags.HasGame(noxflags.GameHost) {
 		return 0
 	}
 	return s.sendTeamPacket(0x09)
@@ -311,9 +364,9 @@ func (s *Server) sendTeamPacket(op byte) int {
 func (s *Server) teamsZzz(a1 int) int {
 	nox_xxx_UnsetGameplayFlags_417D70(4)
 	for i := 1; i < len(s.teams.arr); i++ {
-		t := &s.teams.arr[i]
-		if t.active != 0 {
-			C.sub_418F20(t, 0)
+		t := asTeam(&s.teams.arr[i])
+		if t.Active() {
+			C.sub_418F20(t.C(), 0)
 		}
 	}
 	if a1 == 0 {

@@ -275,6 +275,17 @@ func (obj *Object) IsMovable() bool {
 	return !obj.Class().Has(object.ClassImmobile)
 }
 
+func (obj *Object) team() byte {
+	return byte(obj.field_13)
+}
+
+func (obj *Object) Team() *Team {
+	if obj == nil {
+		return nil
+	}
+	return obj.getServer().teamByYyy(obj.team())
+}
+
 func (obj *Object) findByID(id string) *Object {
 	if obj.equalID(id) {
 		return obj

@@ -861,7 +861,7 @@ func (s *Server) nox_xxx_mapReadSetFlags_4CF990() {
 		C.sub_40A1F0(0)
 		noxflags.UnsetGame(noxflags.GameModeMask)
 		noxflags.SetGame(noxflags.GameModeChat)
-		if C.nox_xxx_getTeamCounter_417DD0() != 0 {
+		if s.teamCount() != 0 {
 			C.nox_xxx_teamAssignFlags_418640()
 			if !checkGameplayFlags(2) && !noxflags.HasGame(noxflags.GameFlag16) {
 				C.nox_xxx_toggleAllTeamFlags_418690(1)

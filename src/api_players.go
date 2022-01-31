@@ -8,14 +8,15 @@ import (
 )
 
 type debugPlayerInfo struct {
-	Ind      int          `json:"ind"`
-	NetCode  int          `json:"net_code"`
-	Name     string       `json:"name"`
-	OrigName string       `json:"orig_name"`
-	Serial   string       `json:"serial"`
-	Active   bool         `json:"active"`
-	Class    player.Class `json:"class"`
-	Unit     *debugObject `json:"unit"`
+	Ind      int            `json:"ind"`
+	NetCode  int            `json:"net_code"`
+	Name     string         `json:"name"`
+	OrigName string         `json:"orig_name"`
+	Serial   string         `json:"serial"`
+	Active   bool           `json:"active"`
+	Class    player.Class   `json:"class"`
+	Team     *debugTeamInfo `json:"team"`
+	Unit     *debugObject   `json:"unit"`
 }
 
 var _ json.Marshaler = &Player{}
@@ -33,6 +34,7 @@ func (p *Player) dump() *debugPlayerInfo {
 		Active:   p.IsActive(),
 		Class:    p.PlayerClass(),
 		Unit:     p.UnitC().AsObject().dump(),
+		Team:     p.UnitC().Team().dump(),
 	}
 }
 

@@ -30,6 +30,7 @@ type debugObject struct {
 	Vel        types.Pointf      `json:"vel,omitempty"`
 	Force      types.Pointf      `json:"force,omitempty"`
 	Type       *debugObjectType  `json:"type"`
+	Team       *debugTeamInfo    `json:"team,omitempty"`
 	Inventory  []*debugObject    `json:"inventory,omitempty"`
 	Field516   []*debugObject    `json:"field_516,omitempty"`
 }
@@ -77,6 +78,7 @@ func (obj *Object) dump() *debugObject {
 		Vel:        obj.Vel(),
 		Force:      obj.Force(),
 		Type:       obj.ObjectTypeC().dump(),
+		Team:       obj.Team().dump(),
 		Inventory:  inv,
 		Field516:   f516,
 	}
