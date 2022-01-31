@@ -11787,6 +11787,7 @@ void nox_xxx_warriorInfravis_540110(int a1, short a2) {
 	}
 }
 
+#ifndef NOX_CGO
 //----- (00540160) --------------------------------------------------------
 int nox_xxx_castMissilesOM_540160(int a1, int a2, int a3, int a4, int a5, int a6) {
 	int v6;     // ebp
@@ -11907,6 +11908,7 @@ int nox_xxx_castMissilesOM_540160(int a1, int a2, int a3, int a4, int a5, int a6
 	}
 	return result;
 }
+#endif // NOX_CGO
 
 //----- (00540440) --------------------------------------------------------
 int nox_xxx_castPixies_540440(int a1, int a2, int a3, int a4, int a5, int a6) {
@@ -11972,7 +11974,9 @@ int nox_xxx_castPixies_540440(int a1, int a2, int a3, int a4, int a5, int a6) {
 }
 
 //----- (00540610) --------------------------------------------------------
-int nox_xxx_spellFlySearchTarget_540610(float2* a1, int a2, int a3, float a4, int a5, int a6) {
+nox_object_t* nox_xxx_spellFlySearchTarget_540610(float2* a1, nox_object_t* a2p, int a3, float a4, int a5, nox_object_t* a6p) {
+	int a2 = a2p;
+	int a6 = a6p;
 	int v6;     // ecx
 	int v7;     // esi
 	float v9;   // edx

@@ -802,6 +802,17 @@ typedef struct {
 _Static_assert(sizeof(nox_object_Player_data_t) == 556, "wrong size of nox_object_Player_data_t structure!");
 
 typedef struct {
+	nox_object_t* owner; // 0, 0
+	nox_object_t* target; // 1, 4
+	uint32_t field_8; // 2, 8
+	int spellID; // 3, 12
+	uint32_t field_16; // 4, 16
+	uint32_t field_20; // 5, 20
+	uint32_t field_24; // 6, 24
+} nox_object_Missile_data_t;
+_Static_assert(sizeof(nox_object_Missile_data_t) == 28, "wrong size of nox_object_Missile_data_t structure!");
+
+typedef struct {
 	uint32_t action; // 0, 0
 	uint32_t arg_1; // 1, 4
 	uint32_t arg_2; // 2, 8
@@ -2195,8 +2206,8 @@ typedef struct nox_playerInfo {
 	uint8_t data_2168[17];
 	nox_playerInfo2 info; // 2185
 	uint16_t field_2282;
-	int field_2284; // 2284, TODO: x coordinate of something? spell?
-	int field_2288; // 2288, TODO: y coordinate of something? spell?
+	int field_2284; // 2284, TODO: x coordinate of something? cursor? spell target?
+	int field_2288; // 2288, TODO: y coordinate of something? cursor? spell target?
 	uint32_t data_2292[2];
 	uint32_t data_2300[13];
 	wchar_t name_full[30]; // 2352 // TODO: size is a wild guess
@@ -2307,9 +2318,9 @@ typedef struct nox_spell_t {
 	uint8_t field_15_3;      // 15, 63
 	unsigned short price;    // 16, 64
 	uint16_t field_16_1;     // 16, 66
-	void* cast_sound;        // 17, 68
-	void* on_sound;          // 18, 72
-	void* off_sound;         // 19, 76
+	int cast_sound;        // 17, 68
+	int on_sound;          // 18, 72
+	int off_sound;         // 19, 76
 } nox_spell_t;
 _Static_assert(sizeof(nox_spell_t) == 80, "wrong size of nox_spell_t structure!");
 

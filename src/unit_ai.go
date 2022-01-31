@@ -59,7 +59,7 @@ func (s *aiStack) SetArgs(args ...interface{}) {
 		case float32:
 			*(*float32)(p) = v
 		case noxObject:
-			*(*unsafe.Pointer)(p) = unsafe.Pointer(v.CObj())
+			*(*unsafe.Pointer)(p) = unsafe.Pointer(toCObj(v))
 		default:
 			panic(fmt.Errorf("unsupported arg: %T", v))
 		}

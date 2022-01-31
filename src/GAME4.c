@@ -43,7 +43,6 @@ extern uint32_t dword_5d4594_1568868;
 extern uint32_t nox_alloc_magicEnt_1569668;
 extern void* nox_alloc_execAbil_1569644;
 extern void* nox_alloc_vote_1599652;
-extern void* nox_alloc_spellDur_1569724;
 extern uint32_t dword_5d4594_1599616;
 extern uint32_t dword_5d4594_1599064;
 extern void* nox_alloc_magicWall_1569748;
@@ -65,7 +64,6 @@ extern uint32_t dword_5d4594_1599576;
 extern uint32_t dword_5d4594_1599540;
 extern uint32_t dword_5d4594_1569752;
 extern uint32_t dword_5d4594_251568;
-extern uint32_t dword_5d4594_1569728;
 extern uint32_t dword_5d4594_1570272;
 extern uint32_t dword_5d4594_1599656;
 extern uint32_t dword_5d4594_2650652;
@@ -77,6 +75,9 @@ extern unsigned int nox_gameFPS;
 FILE* nox_file_8 = 0;
 
 int nox_cheat_charmall = 0;
+
+void* nox_alloc_spellDur_1569724 = 0;
+uint32_t dword_5d4594_1569728 = 0;
 
 //----- (004F5F30) --------------------------------------------------------
 int nox_xxx_XFerSpellReward_4F5F30(int* a1) {
@@ -5493,7 +5494,7 @@ int nox_xxx_spellCreateDurations_4FE850() {
 
 //----- (004FE880) --------------------------------------------------------
 void sub_4FE880() {
-	nox_free_alloc_class(*(void**)&nox_alloc_spellDur_1569724);
+	nox_free_alloc_class(nox_alloc_spellDur_1569724);
 	dword_5d4594_1569728 = 0;
 }
 
@@ -5517,7 +5518,7 @@ void sub_4FE8A0(int a1) {
 			} while (v3);
 		}
 	} else {
-		nox_alloc_class_free_all(*(uint32_t**)&nox_alloc_spellDur_1569724);
+		nox_alloc_class_free_all(nox_alloc_spellDur_1569724);
 		dword_5d4594_1569728 = 0;
 	}
 }
@@ -5552,7 +5553,7 @@ int nox_xxx_spellCastedNext_4FE940(int a1) { return *(uint32_t*)(a1 + 116); }
 uint16_t* nox_xxx_newSpellDuration_4FE950() {
 	uint16_t* result; // eax
 
-	result = nox_alloc_class_new_obj_zero(*(uint32_t**)&nox_alloc_spellDur_1569724);
+	result = nox_alloc_class_new_obj_zero(nox_alloc_spellDur_1569724);
 	if (result) {
 		*result = ++*getMemU16Ptr(0x5D4594, 1569732);
 	}
@@ -5582,7 +5583,7 @@ void sub_4FE980(int a1) {
 			v3 = v4;
 		} while (v4);
 	}
-	nox_alloc_class_free_obj_first(*(unsigned int**)&nox_alloc_spellDur_1569724, (uint64_t*)a1);
+	nox_alloc_class_free_obj_first(nox_alloc_spellDur_1569724, a1);
 }
 
 //----- (004FE9D0) --------------------------------------------------------

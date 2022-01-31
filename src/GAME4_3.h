@@ -342,7 +342,7 @@ void nox_xxx_warriorTreadLightly_5400B0(uint32_t* a1, short a2);
 void nox_xxx_warriorInfravis_540110(int a1, short a2);
 int nox_xxx_castMissilesOM_540160(int a1, int a2, int a3, int a4, int a5, int a6);
 int nox_xxx_castPixies_540440(int a1, int a2, int a3, int a4, int a5, int a6);
-int nox_xxx_spellFlySearchTarget_540610(float2* a1, int a2, int a3, float a4, int a5, int a6);
+nox_object_t* nox_xxx_spellFlySearchTarget_540610(float2* a1, nox_object_t* a2, int a3, float a4, int a5, nox_object_t* a6);
 void sub_540780(float* a1, int a2);
 int sub_5408A0(int a1);
 int nox_xxx_mobCastInversion_5408D0(int a1);

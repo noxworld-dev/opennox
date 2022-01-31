@@ -21,6 +21,11 @@ import (
 	"nox/v1/server/script"
 )
 
+//export nox_xxx_unitIsUnitTT_4E7C80
+func nox_xxx_unitIsUnitTT_4E7C80(a1 *nox_object_t, a2 C.int) C.int {
+	return C.int(asUnitC(a1).countSubOfType(int(a2)))
+}
+
 func asUnit(p unsafe.Pointer) *Unit {
 	if p == nil {
 		return nil
@@ -88,10 +93,6 @@ func (u *Unit) CanSee(obj script.Object) bool {
 
 func (u *Unit) ptrXxx() unsafe.Pointer {
 	return unsafe.Pointer(u.field_139)
-}
-
-func (u *Unit) updateDataPtr() unsafe.Pointer {
-	return unsafe.Pointer(u.data_update)
 }
 
 func (u *Unit) updateDataPlayer() *PlayerUpdateData {
@@ -388,4 +389,17 @@ func (u *Unit) makeUnseen() { // nox_xxx_objectMakeUnseenByNoone_4E44E0
 
 func (u *Unit) needSync() { // nox_xxx_unitNeedSync_4E44F0
 	u.field_38 = -1
+}
+
+func (u *Unit) countSubOfType(typ int) int { // nox_xxx_unitIsUnitTT_4E7C80
+	if u == nil {
+		return 0
+	}
+	cnt := 0
+	for it := u.FirstOwned516(); it != nil; it = it.NextOwned512() {
+		if it.objTypeInd() == typ && !it.Flags().Has(object.FlagDestroyed) {
+			cnt++
+		}
+	}
+	return cnt
 }

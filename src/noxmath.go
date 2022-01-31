@@ -20,3 +20,13 @@ func nox_xxx_math_roundDir(v int32) int32 {
 	}
 	return v
 }
+
+func nox_xxx_math_roundDirI16(v int16) uint16 {
+	if v < 0 {
+		v += int16((uint32(255-v) >> 8) << 8)
+	}
+	if v >= 256 {
+		v -= int16((uint32(v) >> 8) << 8)
+	}
+	return uint16(v)
+}

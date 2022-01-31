@@ -775,7 +775,7 @@ func (s *Server) newPlayer(ind int, opts *PlayerOpts) int {
 	if C.nox_xxx_check_flag_aaa_43AF70() == 1 && !noxflags.HasGame(noxflags.GameModeChat) {
 		C.sub_425F10(pl.C())
 	}
-	C.nox_xxx_createAt_4DAA50(punit.CObj(), 0, 2944.0, 2944.0)
+	nox_xxx_createAt_4DAA50(punit, nil, types.Pointf{X: 2944.0, Y: 2944.0})
 	C.nox_xxx_unitsNewAddToList_4DAC00()
 	var p28 types.Pointf
 	if noxflags.HasGame(noxflags.GameModeQuest) {

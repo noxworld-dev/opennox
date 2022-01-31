@@ -1,6 +1,7 @@
 package nox
 
 /*
+#include "GAME3_2.h"
 #include "GAME3_3.h"
 #include "defs.h"
 extern nox_object_t* nox_server_objects_1556844;
@@ -148,7 +149,18 @@ func (s *Server) getObjectGroupByID(id string) *script.ObjectGroup {
 	return script.NewObjectGroup(id, list...)
 }
 
+func nox_xxx_createAt_4DAA50(obj noxObject, owner noxObject, pos types.Pointf) {
+	C.nox_xxx_createAt_4DAA50(obj.CObj(), toCObj(owner), C.float(pos.X), C.float(pos.Y))
+}
+
 type nox_object_t = C.nox_object_t
+
+func toCObj(obj noxObject) *nox_object_t {
+	if obj == nil {
+		return nil
+	}
+	return obj.CObj()
+}
 
 type noxObject interface {
 	CObj() *nox_object_t
@@ -289,6 +301,14 @@ func (obj *Object) NextItem() *Object {
 	return asObject(unsafe.Pointer(obj.field_124))
 }
 
+func (obj *Object) updateDataPtr() unsafe.Pointer {
+	return unsafe.Pointer(obj.data_update)
+}
+
+func (obj *Object) updateDataMissile() *C.nox_object_Missile_data_t {
+	return (*C.nox_object_Missile_data_t)(unsafe.Pointer(obj.data_update))
+}
+
 func (obj *Object) Inventory() []*Object {
 	var out []*Object
 	for p := obj.FirstItem(); p != nil; p = p.NextItem() {
@@ -393,6 +413,11 @@ func (obj *Object) Dir() uint16 {
 	return uint16(obj.direction)
 }
 
+func (obj *Object) setDir(dir uint16) {
+	obj.field_31_0 = C.uint16_t(dir)
+	obj.direction = C.uint16_t(dir)
+}
+
 func (obj *Object) prevPos() types.Pointf {
 	return types.Pointf{
 		X: float32(obj.prev_x),
@@ -424,6 +449,11 @@ func (obj *Object) setPos(p types.Pointf) {
 func (obj *Object) setPrevPos(p types.Pointf) {
 	obj.prev_x = C.float(p.X)
 	obj.prev_y = C.float(p.Y)
+}
+
+func (obj *Object) setVel(p types.Pointf) {
+	obj.vel_x = C.float(p.X)
+	obj.vel_y = C.float(p.Y)
 }
 
 func (obj *Object) setForce(p types.Pointf) {

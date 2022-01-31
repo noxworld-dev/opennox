@@ -7083,7 +7083,8 @@ int nox_xxx_netInformTextMsg2_4DA180(int a1, uint8_t* a2) {
 }
 
 //----- (004DA2C0) --------------------------------------------------------
-void nox_xxx_netPriMsgToPlayer_4DA2C0(int a1, const char* a2, char a3) {
+void nox_xxx_netPriMsgToPlayer_4DA2C0(nox_object_t* a1p, const char* a2, char a3) {
+	int a1 = a1p;
 	int v3;      // edx
 	char v4[52]; // [esp+Ch] [ebp-34h]
 
@@ -7521,7 +7522,7 @@ uint32_t* nox_xxx_action_4DA9F0(uint32_t* a1) {
 }
 
 //----- (004DAA50) --------------------------------------------------------
-void nox_xxx_createAt_4DAA50(nox_object_t* obj, int a2, float a3, float a4) {
+void nox_xxx_createAt_4DAA50(nox_object_t* obj, nox_object_t* owner, float a3, float a4) {
 	int a1 = obj;
 	int v4; // eax
 	int v5; // eax
@@ -7551,8 +7552,8 @@ void nox_xxx_createAt_4DAA50(nox_object_t* obj, int a2, float a3, float a4) {
 	if (*(uint8_t*)(a1 + 8) & 6) {
 		nox_xxx_unitPostCreateNotify_4E7F10(a1);
 	}
-	if (a2) {
-		nox_xxx_unitSetOwner_4EC290(a2, a1);
+	if (owner) {
+		nox_xxx_unitSetOwner_4EC290(owner, a1);
 	}
 	v6 = *(uint32_t*)(a1 + 16);
 	*(uint32_t*)(a1 + 80) = 0;

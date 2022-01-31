@@ -25,6 +25,14 @@ func (s *Server) getObjectTypeByID(id string) *ObjectType { // nox_xxx_objectTyp
 	return asObjectType(p)
 }
 
+func (s *Server) getObjectTypeID(id string) int { // nox_xxx_getNameId_4E3AA0
+	typ := s.getObjectTypeByID(id)
+	if typ == nil {
+		return 0
+	}
+	return typ.Ind()
+}
+
 func (s *Server) getObjectTypeByInd(ind int) *ObjectType {
 	if ind == math.MaxUint16 {
 		return nil
@@ -107,8 +115,8 @@ func (t *ObjectType) CreateObject(p types.Pointf) script.Object {
 	if cobj == nil {
 		return nil
 	}
-	C.nox_xxx_createAt_4DAA50(cobj, 0, C.float(p.X), C.float(p.Y))
 	obj := asObjectC(cobj)
+	nox_xxx_createAt_4DAA50(obj, nil, p)
 	if obj.Class().Has(object.MaskUnits) {
 		return obj.AsUnit()
 	}

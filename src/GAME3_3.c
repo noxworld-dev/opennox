@@ -4304,8 +4304,10 @@ int nox_xxx_unitIsGameball_4E7C30(int a1) {
 	return 1;
 }
 
+#ifndef NOX_CGO
 //----- (004E7C80) --------------------------------------------------------
-int nox_xxx_unitIsUnitTT_4E7C80(int a1, int a2) {
+int nox_xxx_unitIsUnitTT_4E7C80(nox_object_t* a1p, int a2) {
+	int a1 = a1p;
 	int result; // eax
 	int i;      // ecx
 
@@ -4319,6 +4321,7 @@ int nox_xxx_unitIsUnitTT_4E7C80(int a1, int a2) {
 	}
 	return result;
 }
+#endif // NOX_CGO
 
 //----- (004E7CC0) --------------------------------------------------------
 int sub_4E7CC0(int a1, int a2) {
