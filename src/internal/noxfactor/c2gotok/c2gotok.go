@@ -28,8 +28,37 @@ func C2Go(toks []Token) []Token {
 }
 
 type c2goConv struct {
-	toks []Token
-	prev Token
+	toks     []Token
+	prev     Token
+	matchers struct {
+		multi []multiMatch
+		token []matchTok
+	}
+}
+
+func (c *c2goConv) resetMatchers() {
+	for i := range c.matchers.multi {
+		c.matchers.multi[i] = multiMatch{}
+	}
+	for i := range c.matchers.token {
+		c.matchers.token[i] = matchTok{}
+	}
+	c.matchers.multi = c.matchers.multi[:0]
+	c.matchers.token = c.matchers.token[:0]
+}
+
+func (c *c2goConv) newMulti() *multiMatch {
+	i := len(c.matchers.multi)
+	c.matchers.multi = append(c.matchers.multi, multiMatch{})
+	return &c.matchers.multi[i]
+}
+
+func (c *c2goConv) newToken(fnc matchFunc) *matchTok {
+	i := len(c.matchers.token)
+	c.matchers.token = append(c.matchers.token, matchTok{})
+	m := &c.matchers.token[i]
+	*m = matchTok{fnc: fnc}
+	return m
 }
 
 func (c *c2goConv) Convert(toks []Token) []Token {
@@ -69,6 +98,7 @@ func (c *c2goConv) convertNext() ([]Token, bool) {
 		c.checkWhile,
 		c.checkDoWhile,
 	} {
+		c.resetMatchers()
 		if toks, ok := check(); ok {
 			return toks, true
 		}
@@ -130,9 +160,9 @@ func (c *c2goConv) tokens(exact bool, tokens ...interface{}) (int, []Token, bool
 	conds := make([]matchOp, 0, 2*len(tokens)-1)
 	for i, v := range tokens {
 		if i != 0 && !exact {
-			conds = append(conds, matchSpaces())
+			conds = append(conds, c.matchSpaces())
 		}
-		conds = append(conds, asMatchOp(v))
+		conds = append(conds, c.asMatchOp(v))
 	}
 	j := 0
 	last := 0
@@ -185,8 +215,8 @@ func (c *c2goConv) checkTwoWordTypes() ([]Token, bool) {
 }
 
 func (c *c2goConv) checkConvToPtrOrder() ([]Token, bool) {
-	id := asMatchOp(token.IDENT)
-	ptr := matchOneOrMore(token.MUL)
+	id := c.asMatchOp(token.IDENT)
+	ptr := c.matchOneOrMore(token.MUL)
 	li, _, ok := c.tokens(false, token.LPAREN, id, ptr, token.RPAREN)
 	if !ok {
 		return nil, false
@@ -216,8 +246,11 @@ func (c *c2goConv) checkConvTo() ([]Token, bool) {
 }
 
 func (c *c2goConv) checkConvToType(typ string) ([]Token, bool) {
-	id := asMatchOp(token.IDENT)
-	last := asMatchOp(func(t Token) bool {
+	if c.toks[0].Tok != token.LPAREN {
+		return nil, false
+	}
+	id := c.asMatchOp(token.IDENT)
+	last := c.asMatchOp(func(t Token) bool {
 		return t.Tok != token.LPAREN && t.Tok != token.LBRACK
 	})
 	li, _, ok := c.tokens(false, token.LPAREN, typ, token.RPAREN, id, last)
@@ -252,9 +285,12 @@ func (c *c2goConv) checkConvToPtrIdent() ([]Token, bool) {
 }
 
 func (c *c2goConv) checkConvToPtrIdentType(typ string) ([]Token, bool) {
-	ptrs := matchOneOrMore(token.MUL)
-	id := asMatchOp(token.IDENT)
-	last := asMatchOp(func(t Token) bool {
+	if c.toks[0].Tok != token.LPAREN {
+		return nil, false
+	}
+	ptrs := c.matchOneOrMore(token.MUL)
+	id := c.asMatchOp(token.IDENT)
+	last := c.asMatchOp(func(t Token) bool {
 		return t.Tok != token.LPAREN && t.Tok != token.LBRACK
 	})
 	li, _, ok := c.tokens(false, token.LPAREN, ptrs, typ, token.RPAREN, id, last)
@@ -293,9 +329,12 @@ func (c *c2goConv) checkConvToPtrIdentAddr() ([]Token, bool) {
 }
 
 func (c *c2goConv) checkConvToPtrIdentAddrType(typ string) ([]Token, bool) {
-	ptrs := matchOneOrMore(token.MUL)
-	id := asMatchOp(token.IDENT)
-	last := asMatchOp(func(t Token) bool {
+	if c.toks[0].Tok != token.LPAREN {
+		return nil, false
+	}
+	ptrs := c.matchOneOrMore(token.MUL)
+	id := c.asMatchOp(token.IDENT)
+	last := c.asMatchOp(func(t Token) bool {
 		return t.Tok != token.LPAREN && t.Tok != token.LBRACK
 	})
 	li, _, ok := c.tokens(false, token.LPAREN, ptrs, typ, token.RPAREN, token.AND, id, last)
@@ -335,7 +374,7 @@ func (c *c2goConv) checkAssignConv() ([]Token, bool) {
 }
 
 func (c *c2goConv) checkAssignConvType(typ string) ([]Token, bool) {
-	ptrs := matchZeroOrMore(token.MUL)
+	ptrs := c.matchZeroOrMore(token.MUL)
 	li, _, ok := c.tokens(false, token.ASSIGN, token.LPAREN, ptrs, typ, token.RPAREN)
 	if !ok {
 		return nil, false
@@ -452,22 +491,22 @@ func (c *c2goConv) checkDoWhile() ([]Token, bool) {
 	return nil, true
 }
 
-func asMatchOp(v interface{}) matchOp {
+func (c *c2goConv) asMatchOp(v interface{}) matchOp {
 	switch v := v.(type) {
 	case matchOp:
 		return v
 	case matchFunc:
-		return &matchTok{fnc: v}
+		return c.newToken(v)
 	case func(t Token) bool:
-		return &matchTok{fnc: v}
+		return c.newToken(v)
 	case string:
-		return &matchTok{fnc: func(t Token) bool {
+		return c.newToken(func(t Token) bool {
 			return v == t.Lit
-		}}
+		})
 	case token.Token:
-		return &matchTok{fnc: func(t Token) bool {
+		return c.newToken(func(t Token) bool {
 			return v == t.Tok
-		}}
+		})
 	default:
 		panic(v)
 	}
@@ -482,16 +521,20 @@ const (
 	matchMore
 )
 
-func mustMatchSpace() matchOp {
-	return &multiMatch{op: &matchTok{fnc: func(t Token) bool {
+func (c *c2goConv) mustMatchSpace() matchOp {
+	m := c.newMulti()
+	*m = multiMatch{op: c.newToken(func(t Token) bool {
 		return t.IsSpace()
-	}}}
+	})}
+	return m
 }
 
-func matchSpaces() matchOp {
-	return &multiMatch{zero: true, op: &matchTok{fnc: func(t Token) bool {
+func (c *c2goConv) matchSpaces() *multiMatch {
+	m := c.newMulti()
+	*m = multiMatch{zero: true, op: c.newToken(func(t Token) bool {
 		return t.IsSpace()
-	}}}
+	})}
+	return m
 }
 
 type matchFunc func(t Token) bool
@@ -552,12 +595,12 @@ func (m *multiMatch) Result() ([]Token, matchRes) {
 	return nil, m.res
 }
 
-func matchOneOrMore(v interface{}) matchOp {
-	return &multiMatch{op: asMatchOp(v), skipSpace: true}
+func (c *c2goConv) matchOneOrMore(v interface{}) matchOp {
+	return &multiMatch{op: c.asMatchOp(v), skipSpace: true}
 }
 
-func matchZeroOrMore(v interface{}) matchOp {
-	return &multiMatch{op: asMatchOp(v), skipSpace: true, zero: true}
+func (c *c2goConv) matchZeroOrMore(v interface{}) matchOp {
+	return &multiMatch{op: c.asMatchOp(v), skipSpace: true, zero: true}
 }
 
 type matchBraces struct {

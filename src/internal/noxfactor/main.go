@@ -13,6 +13,7 @@ import (
 	"os"
 	"path/filepath"
 	"strconv"
+	"time"
 
 	"golang.org/x/sync/errgroup"
 
@@ -33,8 +34,11 @@ func main() {
 }
 
 func run(path string) error {
+	start := time.Now()
 	r := new(Refactorer)
-	return r.ProcessDir(path)
+	err := r.ProcessDir(path)
+	log.Println("DONE in", time.Since(start))
+	return err
 }
 
 func (r *Refactorer) ProcessDir(path string) error {
@@ -161,6 +165,9 @@ var callGoRename = map[string]string{
 	"nox_xxx_gLoadImg_42F970":               "nox_xxx_gLoadImg",
 	"nox_xxx_checkHasSoloMaps_40ABD0":       "nox_xxx_checkHasSoloMaps",
 	"nox_xxx_wndShowModalMB_46A8C0":         "nox_xxx_wndShowModalMB",
+	"nox_xxx_cryptClose_4269F0":             "cryptFileClose",
+	"nox_xxx_cryptSeekCur_40E0A0":           "nox_xxx_cryptSeekCur",
+	"nox_xxx_cryptOpen_426910":              "cryptFileOpen",
 }
 
 func (r *Refactorer) visitGoCall(n *ast.CallExpr, fnc *ast.Ident) {
@@ -374,6 +381,26 @@ func (r *Refactorer) visitGoCall(n *ast.CallExpr, fnc *ast.Ident) {
 			r.fileChanged = true
 			r.visitCall(n)
 		}
+	case "nox_xxx_fileReadWrite_426AC0_file3_fread":
+		if len(n.Args) == 2 {
+			n.Fun = ident("cryptFileReadWrite")
+			n.Args = []ast.Expr{sliceExprLeft(n.Args[0], n.Args[1])}
+			r.fileChanged = true
+			r.visitCall(n)
+		}
+	case "nox_xxx_fileCryptReadCrcMB_426C20":
+		if len(n.Args) == 2 {
+			n.Fun = ident("cryptFileReadMaybeAlign")
+			n.Args = []ast.Expr{sliceExprLeft(n.Args[0], n.Args[1])}
+			r.fileChanged = true
+			r.visitCall(n)
+		}
+	case "nox_common_playerInfoGetByID_417040":
+		if len(n.Args) == 1 {
+			n.Fun = selExpr("noxServer", "getPlayerByID")
+			r.fileChanged = true
+			r.visitCall(n)
+		}
 	default:
 		if newName := callGoRename[fnc.Name]; newName != "" {
 			fnc.Name = newName
@@ -464,6 +491,10 @@ func call(name string, args ...ast.Expr) *ast.CallExpr {
 
 func callExpr(fnc ast.Expr, args ...ast.Expr) *ast.CallExpr {
 	return &ast.CallExpr{Fun: fnc, Args: args}
+}
+
+func sliceExprLeft(exp ast.Expr, ri ast.Expr) *ast.SliceExpr {
+	return &ast.SliceExpr{X: exp, High: ri}
 }
 
 func isZeroInt(exp ast.Expr) bool {
