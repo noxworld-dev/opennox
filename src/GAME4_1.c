@@ -5148,7 +5148,8 @@ int sub_511560(int a1) {
 }
 
 //----- (00511660) --------------------------------------------------------
-int nox_xxx_unitSetDecayTime_511660(uint32_t* a1, int a2) {
+int nox_xxx_unitSetDecayTime_511660(nox_object_t* a1p, int a2) {
+	uint32_t* a1 = a1p;
 	int result;      // eax
 	unsigned int v3; // edx
 	int v4;          // ecx

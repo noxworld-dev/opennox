@@ -148,7 +148,7 @@ void sub_511360(int a1);
 void nox_xxx_updateDebugObjects_5113A0();
 void nox_xxx_unused_5114D0(int a1, int a2, int a3, int a4, int a5, int a6);
 int sub_511560(int a1);
-int nox_xxx_unitSetDecayTime_511660(uint32_t* a1, int a2);
+int nox_xxx_unitSetDecayTime_511660(nox_object_t* a1, int a2);
 int nox_xxx_decay_5116F0(nox_object_t* item);
 void nox_xxx_decay_511750();
 int nox_xxx_decayDestroy_5117B0();

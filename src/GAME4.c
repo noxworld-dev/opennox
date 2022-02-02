@@ -10326,6 +10326,7 @@ int sub_504AB0(char* a1) {
 }
 // 504AB0: using guessed type char var_840[64];
 
+#ifndef NOX_CGO
 //----- (00504CF0) --------------------------------------------------------
 int nox_server_mapRWObjectData_504CF0(uint32_t* a2) {
 	int result;        // eax
@@ -10422,6 +10423,7 @@ int nox_server_mapRWObjectData_504CF0(uint32_t* a2) {
 	}
 	return result;
 }
+#endif // NOX_CGO
 
 //----- (00505050) --------------------------------------------------------
 void* sub_505050() { return *(void**)&dword_5d4594_1599616; }

@@ -5,7 +5,7 @@
 
 int nox_xxx_wallMath_427F30(int2* a1, int* a2);
 int sub_4280E0(int2* a1, uint32_t* a2);
-int sub_428170(uint32_t* a1, int4* a2);
+int sub_428170(void* a1, int4* a2);
 int sub_4281F0(int2* a1, int4* a2);
 int sub_428220(float2* a1, float4* a2);
 void nox_shape_box_calc(nox_shape* s);

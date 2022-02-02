@@ -306,6 +306,7 @@ int nox_xxx_wallMath_427F30(int2* a1, int* a2) {
 	return 1;
 }
 
+#ifndef NOX_CGO
 //----- (004280E0) --------------------------------------------------------
 int sub_4280E0(int2* a1, uint32_t* a2) {
 	int v2; // ebx
@@ -349,9 +350,11 @@ int sub_4280E0(int2* a1, uint32_t* a2) {
 	}
 	return 1;
 }
+#endif // NOX_CGO
 
 //----- (00428170) --------------------------------------------------------
-int sub_428170(uint32_t* a1, int4* a2) {
+int sub_428170(void* a1p, int4* a2) {
+	uint32_t* a1 = a1p;
 	int v2; // edx
 	int v3; // edx
 

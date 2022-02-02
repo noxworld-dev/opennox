@@ -33,7 +33,7 @@ func (s *Server) getObjectTypeID(id string) int { // nox_xxx_getNameId_4E3AA0
 	return typ.Ind()
 }
 
-func (s *Server) getObjectTypeByInd(ind int) *ObjectType {
+func (s *Server) getObjectTypeByInd(ind int) *ObjectType { // nox_xxx_objectTypeByInd_4E3B70
 	if ind == math.MaxUint16 {
 		return nil
 	}
@@ -58,16 +58,20 @@ func (s *Server) getObjectTypes() (out []*ObjectType) {
 	return
 }
 
+func (s *Server) newObjectByTypeInd(ind int) *Object { // nox_xxx_newObjectWithTypeInd_4E3450
+	typ := s.getObjectTypeByInd(ind)
+	if typ == nil {
+		return nil
+	}
+	return typ.newObject()
+}
+
 func (s *Server) newObjectByTypeID(id string) *Object { // nox_xxx_newObjectByTypeID_4E3810
 	typ := s.getObjectTypeByID(id)
 	if typ == nil {
 		return nil
 	}
-	cobj := C.nox_xxx_newObjectWithType_4E3470(typ.C())
-	if cobj == nil {
-		return nil
-	}
-	return asObjectC(cobj)
+	return typ.newObject()
 }
 
 type ObjectType C.nox_objectType_t
@@ -110,12 +114,19 @@ func (t *ObjectType) String() string {
 	return fmt.Sprintf("ObjectType(%d,%q)", t.Ind(), t.ID())
 }
 
-func (t *ObjectType) CreateObject(p types.Pointf) script.Object {
+func (t *ObjectType) newObject() *Object { // nox_xxx_newObjectWithType_4E3470
 	cobj := C.nox_xxx_newObjectWithType_4E3470(t.C())
 	if cobj == nil {
 		return nil
 	}
-	obj := asObjectC(cobj)
+	return asObjectC(cobj)
+}
+
+func (t *ObjectType) CreateObject(p types.Pointf) script.Object {
+	obj := t.newObject()
+	if obj == nil {
+		return nil
+	}
 	nox_xxx_createAt_4DAA50(obj, nil, p)
 	if obj.Class().Has(object.MaskUnits) {
 		return obj.AsUnit()

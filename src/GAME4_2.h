@@ -8,7 +8,7 @@ void sub_51DD50(int a1, int a2, int a3, int a4);
 int sub_51DE30(uint32_t* a1, uint32_t* a2, uint32_t* a3);
 int nox_xxx_mapCountWallsMB_51DEA0(int a1);
 int sub_51DED0();
-int nox_xxx_xfer_saveObj_51DF90(int a1);
+int nox_xxx_xfer_saveObj_51DF90(nox_object_t* a1);
 int nox_xxx_mapSaveMap_51E010(char* a1, int a2);
 int nox_xxx_map_51E140();
 int nox_xxx_mapGenSpellIdByName_51E1D0(const char* a1);

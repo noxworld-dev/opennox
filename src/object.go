@@ -9,6 +9,7 @@ extern nox_object_t* nox_server_objects_1556844;
 extern nox_object_t* nox_server_objects_uninited_1556860;
 extern nox_object_t* nox_server_objects_updatable2_1556848;
 static void nox_call_obj_update_go(void (*fnc)(nox_object_t*), nox_object_t* obj) { fnc(obj); }
+static int nox_call_object_xfer(int (*fnc)(nox_object_t*, void*), nox_object_t* a1, void* a2) { return fnc(a1, a2); }
 */
 import "C"
 import (
@@ -306,11 +307,11 @@ func (obj *Object) equalID(id2 string) bool {
 	return id == id2 || strings.HasSuffix(id, ":"+id2)
 }
 
-func (obj *Object) Next() *Object {
+func (obj *Object) Next() *Object { // nox_server_getNextObject_4DA7A0, nox_xxx_getNextUpdatable2Object_4DA850
 	return asObject(unsafe.Pointer(obj.field_111))
 }
 
-func (obj *Object) FirstItem() *Object {
+func (obj *Object) FirstItem() *Object { // nox_xxx_inventoryGetFirst_4E7980
 	return asObject(unsafe.Pointer(obj.field_126))
 }
 
@@ -523,6 +524,10 @@ func (obj *Object) callUpdate() {
 	if obj.func_update != nil {
 		C.nox_call_obj_update_go((*[0]byte)(obj.func_update), obj.CObj())
 	}
+}
+
+func (obj *Object) callXfer(a2 unsafe.Pointer) int {
+	return int(C.nox_call_object_xfer((*[0]byte)(obj.func_xfer), obj.CObj(), a2))
 }
 
 func (obj *Object) forceDrop(item *Object) { // nox_xxx_invForceDropItem_4ED930

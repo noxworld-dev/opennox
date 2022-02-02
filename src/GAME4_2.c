@@ -323,7 +323,8 @@ int sub_51DED0() {
 }
 
 //----- (0051DF90) --------------------------------------------------------
-int nox_xxx_xfer_saveObj_51DF90(int a1) {
+int nox_xxx_xfer_saveObj_51DF90(nox_object_t* a1p) {
+	int a1 = a1p;
 	int v1;     // esi
 	int v2;     // eax
 	int result; // eax

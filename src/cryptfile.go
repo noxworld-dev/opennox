@@ -182,6 +182,39 @@ func cryptFileReadWrite(p []byte) (int, error) {
 	return cryptFileWrite(p)
 }
 
+func cryptFileWriteU16(v uint16) error {
+	var buf [2]byte
+	binary.LittleEndian.PutUint16(buf[:], v)
+	_, err := cryptFileWrite(buf[:])
+	return err
+}
+
+func cryptFileReadWriteU16(v uint16) (uint16, error) {
+	if cryptFileMode != 0 {
+		v2, err := cryptFileReadU16()
+		if err != nil {
+			return v, err
+		}
+		return v2, nil
+	}
+	err := cryptFileWriteU16(v)
+	return v, err
+}
+
+func cryptFileReadWriteU32(v uint32) (uint32, error) {
+	if cryptFileMode != 0 {
+		v2, err := cryptFileReadU32()
+		if err != nil {
+			return v, err
+		}
+		return v2, nil
+	}
+	var buf [4]byte
+	binary.LittleEndian.PutUint32(buf[:], v)
+	_, err := cryptFileWrite(buf[:])
+	return v, err
+}
+
 func cryptFileReadU8() (byte, error) {
 	var buf [1]byte
 	_, err := cryptFileRead(buf[:])
@@ -189,6 +222,15 @@ func cryptFileReadU8() (byte, error) {
 		return 0, err
 	}
 	return buf[0], nil
+}
+
+func cryptFileReadU16() (uint16, error) {
+	var buf [2]byte
+	_, err := cryptFileRead(buf[:])
+	if err != nil {
+		return 0, err
+	}
+	return binary.LittleEndian.Uint16(buf[:]), nil
 }
 
 func cryptFileReadU32() (uint32, error) {
