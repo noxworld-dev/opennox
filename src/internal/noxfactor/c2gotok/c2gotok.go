@@ -12,11 +12,12 @@ var (
 		"uint16_t": "uint16",
 		"uint8_t":  "uint8",
 		"char":     "byte",
+		"short":    "int16",
 		"float":    "float32",
 		"double":   "float64",
 	}
 	c2goKnowTypes = []string{
-		"int", "char", "byte", "float", "double",
+		"int", "char", "byte", "short", "float", "double",
 		"uint64_t", "uint32_t", "uint16_t", "uint8_t",
 		"uint64", "uint32", "uint16", "uint8",
 	}
@@ -87,6 +88,8 @@ func (c *c2goConv) convertNext() ([]Token, bool) {
 	}
 	for _, check := range []checkFunc{
 		c.checkTwoWordTypes,
+		c.checkLiteralSuffixes,
+		c.checkFieldAccess,
 		c.checkConvToPtrOrder,
 		c.checkConvTo,
 		c.checkConvToPtrIdent,
@@ -214,6 +217,32 @@ func (c *c2goConv) checkTwoWordTypes() ([]Token, bool) {
 	return nil, false
 }
 
+func (c *c2goConv) checkLiteralSuffixes() ([]Token, bool) {
+	if c.toks[0].Tok != token.INT {
+		return nil, false
+	}
+	lit := c.asMatchOp(token.INT)
+	li, _, ok := c.tokens(true, lit, "u")
+	if !ok {
+		return nil, false
+	}
+	c.skip(li)
+	page, _ := lit.Result()
+	return page, true
+}
+
+func (c *c2goConv) checkFieldAccess() ([]Token, bool) {
+	if c.toks[0].Tok != token.SUB {
+		return nil, false
+	}
+	li, _, ok := c.tokens(true, token.SUB, token.GTR)
+	if !ok {
+		return nil, false
+	}
+	c.skip(li)
+	return []Token{{Tok: token.PERIOD}}, true
+}
+
 func (c *c2goConv) checkConvToPtrOrder() ([]Token, bool) {
 	id := c.asMatchOp(token.IDENT)
 	ptr := c.matchOneOrMore(token.MUL)
@@ -259,9 +288,7 @@ func (c *c2goConv) checkConvToType(typ string) ([]Token, bool) {
 	}
 	var toks []Token
 	toks = append(toks, []Token{
-		{Tok: token.LPAREN},
 		{Tok: token.IDENT, Lit: typ},
-		{Tok: token.RPAREN},
 		{Tok: token.LPAREN},
 	}...)
 	page, _ := id.Result()

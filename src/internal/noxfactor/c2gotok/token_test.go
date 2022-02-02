@@ -60,7 +60,7 @@ int nox_common_readcfgfile(const char* path, int a2) {
 	do {
 		nox_fs_close(file);
 		nox_common_writecfgfile("nox.cfg");
-	} while (a < 10);
+	} while (a < 10u);
 	return 1;
 }
 `

@@ -153,21 +153,23 @@ type Refactorer struct {
 }
 
 var callGoRename = map[string]string{
-	"nox_xxx_clientPlaySoundSpecial_452D80": "clientPlaySoundSpecial",
-	"nox_common_setEngineFlag":              "noxflags.SetEngine",
-	"nox_common_resetEngineFlag":            "noxflags.UnsetEngine",
-	"nox_new_window_from_file":              "newWindowFromFile",
-	"nox_gui_makeAnimation_43C5B0":          "nox_gui_makeAnimation",
-	"nox_xxx_dialogMsgBoxCreate_449A10":     "NewDialogWindow",
-	"nox_xxx_windowFocus_46B500":            "guiFocus",
-	"nox_game_addStateCode_43BDD0":          "gameAddStateCode",
-	"nox_game_getStateCode_43BE10":          "gameGetStateCode",
-	"nox_xxx_gLoadImg_42F970":               "nox_xxx_gLoadImg",
-	"nox_xxx_checkHasSoloMaps_40ABD0":       "nox_xxx_checkHasSoloMaps",
-	"nox_xxx_wndShowModalMB_46A8C0":         "nox_xxx_wndShowModalMB",
-	"nox_xxx_cryptClose_4269F0":             "cryptFileClose",
-	"nox_xxx_cryptSeekCur_40E0A0":           "nox_xxx_cryptSeekCur",
-	"nox_xxx_cryptOpen_426910":              "cryptFileOpen",
+	"nox_xxx_clientPlaySoundSpecial_452D80":   "clientPlaySoundSpecial",
+	"nox_common_setEngineFlag":                "noxflags.SetEngine",
+	"nox_common_resetEngineFlag":              "noxflags.UnsetEngine",
+	"nox_new_window_from_file":                "newWindowFromFile",
+	"nox_gui_makeAnimation_43C5B0":            "nox_gui_makeAnimation",
+	"nox_xxx_dialogMsgBoxCreate_449A10":       "NewDialogWindow",
+	"nox_xxx_windowFocus_46B500":              "guiFocus",
+	"nox_game_addStateCode_43BDD0":            "gameAddStateCode",
+	"nox_game_getStateCode_43BE10":            "gameGetStateCode",
+	"nox_xxx_gLoadImg_42F970":                 "nox_xxx_gLoadImg",
+	"nox_xxx_checkHasSoloMaps_40ABD0":         "nox_xxx_checkHasSoloMaps",
+	"nox_xxx_wndShowModalMB_46A8C0":           "nox_xxx_wndShowModalMB",
+	"nox_xxx_cryptClose_4269F0":               "cryptFileClose",
+	"nox_xxx_cryptSeekCur_40E0A0":             "nox_xxx_cryptSeekCur",
+	"nox_xxx_cryptOpen_426910":                "cryptFileOpen",
+	"nox_xxx_getFirstUpdatable2Object_4DA840": "firstServerObjectUpdatable2",
+	"nox_float2int":                           "int",
 }
 
 func (r *Refactorer) visitGoCall(n *ast.CallExpr, fnc *ast.Ident) {
@@ -398,6 +400,32 @@ func (r *Refactorer) visitGoCall(n *ast.CallExpr, fnc *ast.Ident) {
 	case "nox_common_playerInfoGetByID_417040":
 		if len(n.Args) == 1 {
 			n.Fun = selExpr("noxServer", "getPlayerByID")
+			r.fileChanged = true
+			r.visitCall(n)
+		}
+	case "nox_server_getFirstObject_4DA790":
+		if len(n.Args) == 0 {
+			n.Fun = selExpr("noxServer", "firstServerObject")
+			r.fileChanged = true
+			r.visitCall(n)
+		}
+	case "nox_server_getFirstObjectUninited_4DA870":
+		if len(n.Args) == 0 {
+			n.Fun = selExpr("noxServer", "firstServerObjectUninited")
+			r.fileChanged = true
+			r.visitCall(n)
+		}
+	case "nox_server_getNextObject_4DA7A0", "nox_xxx_getNextUpdatable2Object_4DA850":
+		if len(n.Args) == 1 {
+			n.Fun = recvCall(n.Args[0], "Next")
+			n.Args = []ast.Expr{}
+			r.fileChanged = true
+			r.visitCall(n)
+		}
+	case "nox_xxx_inventoryGetFirst_4E7980":
+		if len(n.Args) == 1 {
+			n.Fun = recvCall(n.Args[0], "FirstItem")
+			n.Args = []ast.Expr{}
 			r.fileChanged = true
 			r.visitCall(n)
 		}
