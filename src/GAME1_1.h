@@ -314,7 +314,7 @@ unsigned int sub_4255F0(uint8_t* a1, uint8_t* a2, int a3);
 int sub_425680(uint8_t* a1, uint8_t* a2);
 int sub_425710(int a1, int a2);
 void nox_common_list_clear_425760(nox_list_item_t* list);
-uint32_t* sub_425770(uint32_t* a1);
+void* sub_425770(void* a1);
 int sub_425790(int* a1, uint32_t* a2);
 void sub_4257F0(int* a1, uint32_t* a2);
 void sub_425840(uint32_t* a1, int a2);
@@ -363,7 +363,11 @@ char* nox_xxx_mapGetWallSize_426A70();
 void nox_xxx_mapWall_426A80(int* a1);
 int sub_426BD0(unsigned char* a1, int a2);
 int nox_xxx_mapWriteSectionsMB_426E20(void* a1);
+#ifdef NOX_CGO
+int nox_xxx_mapReadSection_426EA0(void* a1, char* name, uint32_t* a3);
+#else // NOX_CGO
 int nox_xxx_mapReadSection_426EA0(void* a1, const char* name, uint32_t* a3);
+#endif // NOX_CGO
 int nox_xxx_guide_427010(const char* a1);
 char* nox_xxx_guideNameByN_427230(int a1);
 int nox_xxx_guiCreatureGetName_427240(int a1);

@@ -5,6 +5,7 @@ package nox
 */
 import "C"
 import (
+	"bytes"
 	"encoding/binary"
 	"io"
 	"os"
@@ -116,7 +117,7 @@ func nox_xxx_cryptSeekCur(off int64) {
 	cryptFile.FileSeek(off, io.SeekCurrent)
 }
 
-func sub_426BD0(a1 []byte) {
+func cryptFileCRCAdd(a1 []byte) {
 	if cryptFile == nil {
 		return
 	}
@@ -140,31 +141,79 @@ func nox_xxx_fileReadWrite_426AC0_file3_fread(a1 *C.uchar, a2 C.size_t) C.size_t
 	return 1
 }
 
-func cryptFileReadWrite(a1 []byte) (int, error) {
-	if cryptFileMode != 0 {
-		var (
-			n   int
-			err error
-		)
-		if cryptFileXOREnabled {
-			n, err = cryptFile.file.Read(a1)
-			netCryptXor(126, a1)
-		} else {
-			n, err = cryptFile.Read(a1)
-		}
-		if n != 0 {
-			sub_426BD0(a1)
-		}
-		return n, err
+func cryptFileRead(p []byte) (int, error) {
+	if cryptFileMode == 0 {
+		panic("invalid file mode")
 	}
-	sub_426BD0(a1)
+	var (
+		n   int
+		err error
+	)
 	if cryptFileXOREnabled {
-		v2 := make([]byte, len(a1))
-		copy(v2, a1)
+		n, err = cryptFile.file.Read(p)
+		netCryptXor(126, p)
+	} else {
+		n, err = cryptFile.Read(p)
+	}
+	if n != 0 {
+		cryptFileCRCAdd(p)
+	}
+	return n, err
+}
+
+func cryptFileWrite(p []byte) (int, error) {
+	if cryptFileMode != 0 {
+		panic("invalid file mode")
+	}
+	cryptFileCRCAdd(p)
+	if cryptFileXOREnabled {
+		v2 := make([]byte, len(p))
+		copy(v2, p)
 		netCryptXor(126, v2)
 		return cryptFile.file.Write(v2)
 	}
-	return cryptFile.Write(a1)
+	return cryptFile.Write(p)
+}
+
+func cryptFileReadWrite(p []byte) (int, error) {
+	if cryptFileMode != 0 {
+		return cryptFileRead(p)
+	}
+	return cryptFileWrite(p)
+}
+
+func cryptFileReadU8() (byte, error) {
+	var buf [1]byte
+	_, err := cryptFileRead(buf[:])
+	if err != nil {
+		return 0, err
+	}
+	return buf[0], nil
+}
+
+func cryptFileReadU32() (uint32, error) {
+	var buf [4]byte
+	_, err := cryptFileRead(buf[:])
+	if err != nil {
+		return 0, err
+	}
+	return binary.LittleEndian.Uint32(buf[:]), nil
+}
+
+func cryptFileReadString8() (string, error) {
+	sz, err := cryptFileReadU8()
+	if err != nil {
+		return "", err
+	} else if sz == 0 {
+		return "", nil
+	}
+	buf := make([]byte, sz)
+	_, err = cryptFileRead(buf[:])
+	if err != nil {
+		return "", err
+	}
+	buf = bytes.TrimRight(buf, "\x00")
+	return string(buf), nil
 }
 
 //export nox_xxx_fileCryptReadCrcMB_426C20
@@ -173,17 +222,27 @@ func nox_xxx_fileCryptReadCrcMB_426C20(a1 *C.uchar, a2 C.size_t) {
 	cryptFileReadMaybeAlign(buf)
 }
 
-func cryptFileReadMaybeAlign(a1 []byte) {
-	if cryptFileMode == 1 {
-		if cryptFileXOREnabled {
-			cryptFile.file.Read(a1)
-			netCryptXor(126, a1)
-		} else if cryptFileNoKey {
-			cryptFile.Read(a1)
-		} else {
-			cryptFile.ReadAligned(a1)
-		}
+func cryptFileReadMaybeAlign(p []byte) error {
+	if cryptFileMode != 1 {
+		return nil
 	}
+	if cryptFileXOREnabled {
+		_, err := cryptFile.file.Read(p)
+		netCryptXor(126, p)
+		return err
+	}
+	if cryptFileNoKey {
+		_, err := cryptFile.Read(p)
+		return err
+	}
+	_, err := cryptFile.ReadAligned(p)
+	return err
+}
+
+func cryptFileReadAlignedU32() (uint32, error) {
+	var buf [4]byte
+	err := cryptFileReadMaybeAlign(buf[:])
+	return binary.LittleEndian.Uint32(buf[:]), err
 }
 
 //export nox_xxx_crypt_426C90

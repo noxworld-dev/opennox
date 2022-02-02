@@ -5371,6 +5371,7 @@ int nox_xxx_spriteLoadFromMap_4AC020(int thingInd, short a2, uint32_t* a3) {
 	return v9;
 }
 
+#ifndef NOX_CGO
 //----- (004AC2B0) --------------------------------------------------------
 char* nox_xxx_mapCliReadAll_4AC2B0(char* a1) {
 	char* result;       // eax
@@ -5468,6 +5469,7 @@ char* nox_xxx_mapCliReadAll_4AC2B0(char* a1) {
 	}
 	return result;
 }
+#endif // NOX_CGO
 // 4BB9C0: using guessed type void nullsub_20(void);
 
 //----- (004AC610) --------------------------------------------------------

@@ -237,7 +237,7 @@ func sub_4A50D0() C.int {
 	winSelSave.Destroy()
 	winSelSave = nil
 	if v0 != nil {
-		nox_cgo_call_intvoid((*[0]byte)(v0))
+		cgoCallIntVoidFunc(unsafe.Pointer(v0))
 		return 1
 	}
 	nox_client_resetScreenParticles_431510()

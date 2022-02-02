@@ -13632,7 +13632,8 @@ int nox_xxx_xfer_4F3E30(unsigned short a1, int a2, int a3) {
 // 4F3E30: using guessed type char var_100[256];
 
 //----- (004F3F50) --------------------------------------------------------
-int nox_xxx_servMapLoadPlaceObj_4F3F50(int a1, int a2, int* a3) {
+int nox_xxx_servMapLoadPlaceObj_4F3F50(nox_object_t* a1p, int a2, int* a3) {
+	int a1 = a1p;
 	int v3;     // eax
 	int v4;     // edi
 	int result; // eax

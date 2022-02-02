@@ -55,7 +55,6 @@ extern uint32_t nox_color_black_2650656;
 static void go_call_sub_4516C0(wchar_t* a1, char* a2) {
 	sub_4516C0(a1, a2);
 }
-static int go_call_int_void_func(int (*fnc)(void)) { return fnc(); }
 */
 import "C"
 import (
@@ -136,7 +135,7 @@ func nox_game_SetCliDrawFunc(fnc unsafe.Pointer) {
 		gameSetCliDrawFunc(nil)
 	} else {
 		gameSetCliDrawFunc(func() bool {
-			return C.go_call_int_void_func((*[0]byte)(fnc)) != 0
+			return cgoCallIntVoidFunc(fnc) != 0
 		})
 	}
 }
@@ -147,7 +146,7 @@ func sub_43DE40(fnc unsafe.Pointer) C.int {
 		gameSet816392Func(nil)
 	} else {
 		gameSet816392Func(func() bool {
-			return C.go_call_int_void_func((*[0]byte)(fnc)) != 0
+			return cgoCallIntVoidFunc(fnc) != 0
 		})
 	}
 	return 1
@@ -255,7 +254,10 @@ mainloop:
 				goto MAINLOOP_EXIT
 			}
 		} else {
-			if nox_xxx_gameChangeMap_43DEB0() == 0 {
+			if err := nox_xxx_gameChangeMap_43DEB0(); err != nil {
+				if err != nil && err != ErrMapDownload {
+					gameLog.Println(err)
+				}
 				// XXX
 				if mapDownloading() {
 					continue mainloop
@@ -1138,7 +1140,9 @@ func map_download_finish() int {
 		C.nox_gameDisableMapDraw_5d4594_2650672 = 1
 		C.nox_client_fadeXxx_44DA60(1)
 	}
-	if fname := noxServer.nox_server_currentMapGetFilename_409B30(); C.nox_xxx_mapCliReadAll_4AC2B0(internCStr(fname)) == nil {
+	fname := noxServer.nox_server_currentMapGetFilename_409B30()
+	if err := nox_xxx_mapCliReadAll_4AC2B0(fname); err != nil {
+		gameLog.Println(err)
 		v6 := strMan.GetStringInFile("MapLoadError", "C:\\NoxPost\\src\\Client\\System\\gameloop.c")
 		C.go_call_sub_4516C0(internWStr(v6), internCStr(fname))
 		C.nox_xxx_spriteLoadError_4356E0()
@@ -1186,7 +1190,11 @@ func nox_xxx_printCentered_445490(str string) {
 	C.nox_xxx_printCentered_445490(wstr)
 }
 
-func nox_xxx_gameChangeMap_43DEB0() int {
+var (
+	ErrMapDownload = errors.New("map download started")
+)
+
+func nox_xxx_gameChangeMap_43DEB0() error {
 	if noxflags.HasGame(noxflags.GameFlag24) {
 		nox_client_setCursorType_477610(10)
 
@@ -1196,12 +1204,14 @@ func nox_xxx_gameChangeMap_43DEB0() int {
 		} else {
 			mapName = noxServer.nox_server_currentMapGetFilename_409B30()
 		}
+		gameLog.Printf("nox_xxx_gameChangeMap_43DEB0: %q", mapName)
 		// TODO: remove this partial path denormalization once we port map parsing
-		if i := strings.LastIndexByte(mapName, '/'); i >= 0 {
-			mapName = mapName[:i] + "\\" + mapName[i+1:]
+		mapName2 := mapName
+		if i := strings.LastIndexByte(mapName2, '/'); i >= 0 {
+			mapName2 = mapName2[:i] + "\\" + mapName2[i+1:]
 		}
 		crc := C.nox_xxx_mapCrcGetMB_409B00()
-		v3 := C.nox_xxx_mapValidateMB_4CF470(internCStr(mapName), crc)
+		v3 := C.nox_xxx_mapValidateMB_4CF470(internCStr(mapName2), crc)
 		if v3&0x2 == 0 {
 			gameLog.Printf("nox_xxx_mapValidateMB_4CF470: invalid or missing map file: %q", mapName)
 		}
@@ -1211,15 +1221,16 @@ func nox_xxx_gameChangeMap_43DEB0() int {
 		gameLog.Println("nox_xxx_mapValidateMB_4CF470:", uint32(v3))
 		if v3&2 != 0 && v3&4 != 0 {
 			sub_43F140(500)
-			v5 := C.nox_xxx_mapCliReadAll_4AC2B0(internCStr(mapName))
-			sub_43F1A0()
-			if v5 == nil {
+			if err := nox_xxx_mapCliReadAll_4AC2B0(mapName); err != nil {
+				err = fmt.Errorf("change map failed: %w", err)
+				gameLog.Println(err)
 				v13 := noxServer.nox_server_currentMapGetFilename_409B30()
 				v6 := strMan.GetStringInFile("MapLoadError", "C:\\NoxPost\\src\\Client\\System\\gameloop.c")
 				C.go_call_sub_4516C0(internWStr(v6), internCStr(v13))
 				C.nox_xxx_spriteLoadError_4356E0()
-				return 0
+				return err
 			}
+			sub_43F1A0()
 			if noxflags.HasGame(noxflags.GameHost) {
 				C.nox_xxx_gameServerReadyMB_4DD180(31)
 			} else {
@@ -1260,12 +1271,12 @@ func nox_xxx_gameChangeMap_43DEB0() int {
 	}
 	if noxflags.HasGame(noxflags.GameFlag21) {
 		map_download_start()
-		return 0
+		return ErrMapDownload
 	}
 	if noxflags.HasGame(noxflags.GameFlag21 | noxflags.GameFlag24) {
 		noxflags.UnsetGame(noxflags.GameFlag21 | noxflags.GameFlag24)
 	}
-	return 1
+	return nil
 }
 
 //export nox_xxx_cliDrawConnectedLoop_43B360

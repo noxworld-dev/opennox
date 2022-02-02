@@ -373,7 +373,7 @@ func sub_4B02D0() {
 //export sub_4B0640
 func sub_4B0640(fnc unsafe.Pointer) {
 	sub4B0640(func() {
-		nox_cgo_call_void2((*[0]byte)(fnc))
+		cgoCallVoid2Func(fnc)
 	})
 }
 

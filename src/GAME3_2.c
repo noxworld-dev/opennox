@@ -912,6 +912,7 @@ int sub_4CFC90(int a1) {
 	return (v1 & 2) != 0 ? 4096 : 128;
 }
 
+#ifndef NOX_CGO
 //----- (004CFCE0) --------------------------------------------------------
 int nox_xxx_serverParseEntireMap_4CFCE0() {
 	uint32_t* v0; // eax
@@ -957,6 +958,7 @@ int nox_xxx_serverParseEntireMap_4CFCE0() {
 	}
 	return 1;
 }
+#endif // NOX_CGO
 
 //----- (004CFDF0) --------------------------------------------------------
 int sub_4CFDF0(int a1) {
@@ -970,6 +972,7 @@ int sub_4CFDF0(int a1) {
 //----- (004CFE00) --------------------------------------------------------
 int sub_4CFE00() { return *getMemU32Ptr(0x5D4594, 1523072); }
 
+#ifndef NOX_CGO
 //----- (004CFE10) --------------------------------------------------------
 int nox_common_checkMapFile_4CFE10(const char* a1) {
 	char pbuf[256];
@@ -1000,6 +1003,7 @@ int nox_common_checkMapFile_4CFE10(const char* a1) {
 	nox_xxx_cryptClose_4269F0();
 	return 1;
 }
+#endif // NOX_CGO
 
 //----- (004CFF50) --------------------------------------------------------
 int sub_4CFF50(int a1) {
@@ -1391,6 +1395,7 @@ void nox_common_maplist_add_4D0760(nox_map_list_item* map) {
 	nox_common_list_append_4258E0(it, map);
 }
 
+#ifndef NOX_CGO
 //----- (004D07F0) --------------------------------------------------------
 void nox_common_scanAddMap(char* filename) {
 	char name[12];
@@ -1409,7 +1414,6 @@ void nox_common_scanAddMap(char* filename) {
 	nox_common_maplist_add_4D0760(map);
 }
 
-#ifndef NOX_CGO
 int nox_common_scanAllMaps_4D07F0() {
 	nox_common_list_clear_425760(&nox_common_maplist);
 

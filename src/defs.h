@@ -629,7 +629,7 @@ typedef struct nox_object_t {
 	void* field_173;         // 173, 692, // TODO: struct pointer; struct at least 8 bytes wide. see 4F3030.
 	uint32_t field_174;      // 174, 696
 	void* field_175;         // 175, 700, // TODO: data
-	void* func_xfer;         // 176, 704
+	int (*func_xfer)(nox_object_t*, int); // 176, 704
 	uint32_t field_177;      // 177, 708
 	uint32_t field_178;      // 178, 712
 	void* func_damage;       // 179, 716

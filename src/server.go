@@ -540,14 +540,14 @@ func sub_4D3C30() {
 	C.sub_502DF0()
 }
 
-func (s *Server) nox_server_loadMapFile_4CF5F0(mname string, noCrypt bool) bool {
+func (s *Server) nox_server_loadMapFile_4CF5F0(mname string, noCrypt bool) error {
 	gameLog.Printf("loading map %q", mname)
 	cntGameMap.WithLabelValues(filepath.Base(mname)).Inc()
 	C.sub_481410()
 	C.nox_xxx_unitsNewAddToList_4DAC00()
 	C.nox_xxx_waypoint_5799C0()
 	if mname == "" {
-		return false
+		return errors.New("empty map name")
 	}
 	if strings.ToLower(mname) == "#return" {
 		mname = GoStringP(memmap.PtrOff(0x5D4594, 1523080))
@@ -563,7 +563,7 @@ func (s *Server) nox_server_loadMapFile_4CF5F0(mname string, noCrypt bool) bool 
 		s.nox_xxx_gameSetMapPath_409D70(v12)
 		if C.nox_xxx_mapGenStart_4D4320() == 0 {
 			C.nox_xxx_mapSwitchLevel_4D12E0(1)
-			return false
+			return errors.New("nox_xxx_mapGenStart_4D4320 failed")
 		}
 		sub_4D3C30()
 		mname = v12
@@ -578,14 +578,14 @@ func (s *Server) nox_server_loadMapFile_4CF5F0(mname string, noCrypt bool) bool 
 	if _, err := fs.Stat(fname); err != nil {
 		tname := strings.TrimSuffix(fname, filepath.Ext(mname)) + ".nxz"
 		if _, err := fs.Stat(tname); err != nil {
-			return false
+			return err
 		}
 		if C.nox_xxx_mapNxzDecompress_57BC50(internCStr(tname), internCStr(fname)) == 0 {
-			return false
+			return fmt.Errorf("cannot decompress map: %q", fname)
 		}
 	}
 	v8 := s.getServerMap()
-	C.nox_common_checkMapFile_4CFE10(internCStr(v8))
+	nox_common_checkMapFile(v8)
 	var err error
 	if noCrypt {
 		err = cryptFileOpen(fname, 1, -1)
@@ -593,25 +593,18 @@ func (s *Server) nox_server_loadMapFile_4CF5F0(mname string, noCrypt bool) bool 
 		err = cryptFileOpen(fname, 1, crypt.MapKey)
 	}
 	if err != nil {
-		binFileLog.Println(err)
-		return false
+		return err
 	}
-	var hdr [4]byte
-	cryptFileReadWrite(hdr[:4])
-	magic := binary.LittleEndian.Uint32(hdr[:])
-	if magic == 0xFADEBEEF {
-		C.nox_xxx_mapSetCrcMB_409B10(0)
-	} else {
-		if magic != 0xFADEFACE {
-			cryptFileClose()
-			return false
-		}
-		cryptFileReadMaybeAlign(hdr[:4])
-		crc := binary.LittleEndian.Uint32(hdr[:])
-		C.nox_xxx_mapSetCrcMB_409B10(C.int(crc))
+	crc, err := mapReadCryptHeader()
+	if err != nil {
+		cryptFileClose()
+		return err
 	}
-	if C.nox_xxx_serverParseEntireMap_4CFCE0() == 0 {
-		return false
+	C.nox_xxx_mapSetCrcMB_409B10(C.int(crc))
+	if err := s.nox_xxx_serverParseEntireMap_4CFCE0(); err != nil {
+		cryptFileClose()
+		gameLog.Println(err)
+		return err
 	}
 	C.nox_xxx_scriptRunFirst_507290()
 	cryptFileClose()
@@ -629,7 +622,7 @@ func (s *Server) nox_server_loadMapFile_4CF5F0(mname string, noCrypt bool) bool 
 		}
 	}
 	StrCopyP(memmap.PtrOff(0x5D4594, 1523080), 1024, mname)
-	return true
+	return nil
 }
 
 func (s *Server) nox_server_xxxInitPlayerUnits_4FC6D0() {
@@ -705,7 +698,7 @@ func (s *Server) switchMap(fname string) {
 		name = strings.TrimSuffix(name, ext)
 	}
 	name = strings.ToLower(name)
-	C.nox_common_checkMapFile_4CFE10(internCStr(name))
+	nox_common_checkMapFile(name)
 	C.sub_4CFDF0(C.int(memmap.Uint32(0x973F18, 3800)))
 	copy(ptr2408, v5[:])
 	C.dword_5d4594_1548524 = 1
@@ -793,7 +786,8 @@ func (s *Server) nox_xxx_mapReadSetFlags_4CF990() {
 	}
 	mapname := s.getServerMap()
 	gameLog.Printf("checking map flags for %q", filepath.Base(mapname))
-	if C.nox_common_checkMapFile_4CFE10(internCStr(mapname)) == 0 {
+	if err := nox_common_checkMapFile(mapname); err != nil {
+		gameLog.Println(err)
 		if !noxflags.HasGame(noxflags.GameModeSolo10) {
 			noxflags.UnsetGame(noxflags.GameModeMask)
 			noxflags.SetGame(noxflags.GameModeArena)

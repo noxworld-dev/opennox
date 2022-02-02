@@ -957,10 +957,10 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() bool {
 		C.nox_xxx_spellEnableAll_424BD0()
 		C.sub_4537F0()
 	}
-	var v6 bool
+	var merr error
 	if C.nox_xxx_gameIsSwitchToSolo_4DB240() != 0 {
 		v5 := nox_xxx_mapFilenameGetSolo_4DB260()
-		v6 = s.nox_server_loadMapFile_4CF5F0(v5, false)
+		merr = s.nox_server_loadMapFile_4CF5F0(v5, false)
 	} else {
 		v7p := unsafe.Pointer(C.sub_4165B0())
 		v7 := unsafe.Slice((*byte)(v7p), 58)
@@ -979,7 +979,7 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() bool {
 			C.sub_4537F0()
 		}
 		v10 := s.nox_server_currentMapGetFilename_409B30()
-		v6 = s.nox_server_loadMapFile_4CF5F0(v10, false)
+		merr = s.nox_server_loadMapFile_4CF5F0(v10, false)
 		if noxflags.HasGame(noxflags.GameOnline) && !noxflags.HasGame(noxflags.GameModeChat) {
 			v13 := 0
 			if C.nox_xxx_gamePlayIsAnyPlayers_40A8A0() != 0 {
@@ -997,7 +997,8 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() bool {
 			C.sub_4D2230()
 		}
 	}
-	if !v6 {
+	if merr != nil {
+		gameLog.Println(merr)
 		*memmap.PtrUint32(0x5D4594, 1548520) = 1
 		return false
 	}

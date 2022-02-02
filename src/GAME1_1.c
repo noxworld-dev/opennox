@@ -94,7 +94,6 @@ extern nox_team_t nox_server_teams_526292[NOX_TEAMS_MAX];
 
 #ifndef NOX_CGO
 uint32_t dword_5d4594_527684 = 0;
-#endif // NOX_CGO
 
 typedef struct {
 	const char* name;
@@ -121,6 +120,7 @@ nox_map_sections_rec nox_map_sections[] = {
     {0},
 };
 int nox_map_sections_cnt = sizeof(nox_map_sections) / sizeof(nox_map_sections_rec) -1;
+#endif // NOX_CGO
 
 //----- (00418800) --------------------------------------------------------
 void sub_418800(wchar_t* a1, wchar_t* a2, int a3) {
@@ -8539,7 +8539,8 @@ void nox_common_list_clear_425760(nox_list_item_t* list) {
 }
 
 //----- (00425770) --------------------------------------------------------
-uint32_t* sub_425770(uint32_t* a1) {
+void* sub_425770(void* a1p) {
+	uint32_t* a1 = a1p;
 	uint32_t* result; // eax
 
 	result = a1;
@@ -9341,6 +9342,7 @@ void nox_xxx_mapWall_426A80(int* a1) {
 	*getMemU32Ptr(0x5D4594, 739984) = a1[1];
 }
 
+#ifndef NOX_CGO
 //----- (00426E20) --------------------------------------------------------
 int nox_xxx_mapWriteSectionsMB_426E20(void* a1) {
 	for (int i = 0; i < nox_map_sections_cnt; i++) {
@@ -9397,6 +9399,7 @@ int nox_xxx_mapReadSectionSpecial_426F40(void* a1, const char* name, int* err, i
 	}
 	return nox_map_sections_cnt == 0;
 }
+#endif // NOX_CGO
 
 //----- (00427010) --------------------------------------------------------
 int nox_xxx_guide_427010(const char* a1) {
