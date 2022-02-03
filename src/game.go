@@ -776,9 +776,9 @@ func (s *Server) nox_xxx_gameTick_4D2580_server_C() bool {
 		C.sub_4264D0()
 	}
 	noxflags.SetGame(noxflags.GameFlag28)
-	sub_43F140(500)
+	noxAudioServeT(500)
 	v13 := s.nox_xxx_mapExitAndCheckNext_4D1860_server()
-	sub_43F1A0()
+	noxAudioServe()
 	noxflags.UnsetGame(noxflags.GameFlag28)
 	v37 := s.getServerMap()
 	if !v13 {
@@ -1110,10 +1110,10 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() bool {
 		C.nox_xxx_resetMapInit_4FC570(1)
 	}
 	noxflags.SetGame(noxflags.GameFlag28)
-	sub_43F140(500)
+	noxAudioServeT(500)
 	v42 := C.nox_xxx_gameIsSwitchToSolo_4DB240()
 	C.sub_4DBA30(v42)
-	sub_43F1A0()
+	noxAudioServe()
 	noxflags.UnsetGame(noxflags.GameFlag28)
 	C.sub_4FC580(1)
 	if s.mapSwitchWPName != "" {

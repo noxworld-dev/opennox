@@ -117,8 +117,8 @@ func sub_43E9F0() {
 	ail.Shutdown()
 }
 
-func sub_43F140(a1 int) {
-	sub_43F1A0()
+func noxAudioServeT(a1 int) { // sub_43F140
+	noxAudioServe()
 }
 
 //export sub_43F050
@@ -131,7 +131,7 @@ func sub_43F0D0() C.int {
 	return 0
 }
 
-func sub_43F1A0() {
+func noxAudioServe() { // sub_43F1A0
 	if audioDev != 0 {
 		ail.Serve()
 	}

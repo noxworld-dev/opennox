@@ -31,9 +31,9 @@ func sub_4DB790(a1 *C.char) C.int {
 func sub4DB790(a1 string) int {
 	nox_xxx_mapLoadOrSaveMB_4DCC70(1)
 	noxflags.SetGame(noxflags.GameFlag28)
-	sub_43F140(500)
+	noxAudioServeT(500)
 	v1 := int(C.nox_xxx_soloLoadGame_4DB7E0_savegame(internCStr(a1)))
-	sub_43F1A0()
+	noxAudioServe()
 	noxflags.UnsetGame(noxflags.GameFlag28)
 	*memmap.PtrUint32(0x5D4594, 1563068) = gameFrame()
 	return v1

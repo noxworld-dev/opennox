@@ -370,7 +370,7 @@ func mainloopConnectOrHost() (again bool, _ error) {
 	C.sub_43DB60()
 	C.sub_43D990()
 	g_v20 = true
-	sub_43F140(800)
+	noxAudioServeT(800)
 	nox_common_initRandom_415F70()
 	gameFrameSetFromFlags()
 	C.nox_ensure_thing_bin()
@@ -412,7 +412,7 @@ func mainloopReset() error {
 	noxflags.UnsetGame(noxflags.GameFlag29)
 	noxflags.UnsetGame(noxflags.GameModeKOTR | noxflags.GameModeCTF | noxflags.GameModeFlagBall | noxflags.GameModeChat | noxflags.GameModeArena | noxflags.GameModeSolo10 | noxflags.GameModeElimination | noxflags.GameModeQuest | noxflags.GameFlag15 | noxflags.GameFlag16)
 	noxflags.UnsetGame(noxflags.GameFlag24 | noxflags.GameFlag21)
-	sub_43F140(300)
+	noxAudioServeT(300)
 	C.sub_43D990()
 	nox_xxx_replayWriteFrame_4D39B0()
 	if noxflags.HasGame(noxflags.GameHost) {
@@ -508,7 +508,7 @@ func cmainLoop() {
 			log.Printf("cmainLoop exit (%s -> %s)\n", caller(1), caller(2))
 		}()
 	}
-	sub_43F140(300)
+	noxAudioServeT(300)
 	if !isDedicatedServer {
 		if !sub_43C060() {
 			return
@@ -521,7 +521,7 @@ func cmainLoop() {
 		C.sub_43DBA0()
 		g_v20 = false
 	}
-	sub_43F1A0()
+	noxAudioServe()
 	mainloop_43E290(false)
 }
 
@@ -940,7 +940,7 @@ func CONNECT_RESULT_OK() error {
 	if noxflags.HasGame(noxflags.GameOnline) && noxflags.HasGame(noxflags.GameHost) && C.sub_43AF40() != 0 {
 		C.sub_43AA70()
 	}
-	sub_43F1A0()
+	noxAudioServe()
 	nox_video_setGammaSetting_434B30(C.int(memmap.Int32(0x587000, 80852)))
 	C.sub_434B60()
 	noxflags.SetGame(noxflags.GameFlag29)
@@ -1217,7 +1217,7 @@ func nox_xxx_gameChangeMap_43DEB0() error {
 		}
 		gameLog.Println("nox_xxx_mapValidateMB_4CF470:", uint32(v3))
 		if v3&2 != 0 && v3&4 != 0 {
-			sub_43F140(500)
+			noxAudioServeT(500)
 			if err := nox_xxx_mapCliReadAll_4AC2B0(mapName); err != nil {
 				err = fmt.Errorf("change map failed: %w", err)
 				gameLog.Println(err)
@@ -1227,7 +1227,7 @@ func nox_xxx_gameChangeMap_43DEB0() error {
 				C.nox_xxx_spriteLoadError_4356E0()
 				return err
 			}
-			sub_43F1A0()
+			noxAudioServe()
 			if noxflags.HasGame(noxflags.GameHost) {
 				C.nox_xxx_gameServerReadyMB_4DD180(31)
 			} else {
