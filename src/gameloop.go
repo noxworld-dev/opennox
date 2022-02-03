@@ -216,7 +216,7 @@ func mainloopFrameLimit() {
 	if !useFrameLimit {
 		return
 	}
-	if noxflags.HasGame(noxflags.GameHost) && noxflags.HasGame(noxflags.GameFlag2) && !noxflags.HasEngine(noxflags.EngineNoRendering) && noxflags.HasGame(noxflags.GameFlag29) {
+	if noxflags.HasGame(noxflags.GameHost) && noxflags.HasGame(noxflags.GameClient) && !noxflags.HasEngine(noxflags.EngineNoRendering) && noxflags.HasGame(noxflags.GameFlag29) {
 		if noxflags.HasEngine(noxflags.EnginePause) {
 			return
 		}
@@ -392,7 +392,7 @@ mainloop:
 		if noxflags.HasGame(noxflags.GameHost) {
 			C.nox_xxx_servResetPlayers_4D23C0()
 		}
-		if noxflags.HasGame(noxflags.GameFlag2) {
+		if noxflags.HasGame(noxflags.GameClient) {
 			sub_435EB0()
 		}
 		if err := gameUpdateVideoMode(true); err != nil {
@@ -408,7 +408,7 @@ mainloop:
 		if noxflags.HasGame(noxflags.GameHost) {
 			noxServer.nox_xxx_servEndSession_4D3200()
 		}
-		if noxflags.HasGame(noxflags.GameFlag2) {
+		if noxflags.HasGame(noxflags.GameClient) {
 			nox_xxx_cliSetupSession_437190()
 		}
 		inputClearKeyTimeouts()
@@ -832,7 +832,7 @@ func CONNECT_RESULT_FAIL(err error) {
 	if noxflags.HasGame(noxflags.GameHost) {
 		noxServer.nox_xxx_servEndSession_4D3200()
 	}
-	if noxflags.HasGame(noxflags.GameFlag2) {
+	if noxflags.HasGame(noxflags.GameClient) {
 		nox_xxx_cliSetupSession_437190()
 	}
 	inputClearKeyTimeouts()
@@ -904,7 +904,7 @@ func CONNECT_RESULT_OK() {
 		cmainLoop()
 		return
 	}
-	if !noxflags.HasGame(noxflags.GameFlag2) {
+	if !noxflags.HasGame(noxflags.GameClient) {
 		gameSetCliDrawFunc(nil)
 	} else {
 		if !noxflags.HasGame(noxflags.GameFlag21) {
@@ -1100,7 +1100,7 @@ func (s *Server) nox_xxx_mapLoad_40A380() {
 	nox_xxx_setMapCRC_40A360(0)
 	name := GoString((*C.char)(memmap.PtrOff(0x5D4594, 3608)))
 	s.nox_xxx_gameSetMapPath_409D70(name)
-	noxflags.SetGame(noxflags.GameHost | noxflags.GameFlag2)
+	noxflags.SetGame(noxflags.GameHost | noxflags.GameClient)
 	noxflags.UnsetGame(noxflags.GameFlag3 | noxflags.GameFlag4 | noxflags.GameModeKOTR | noxflags.GameModeCTF | noxflags.GameModeFlagBall | noxflags.GameModeChat | noxflags.GameModeArena | noxflags.GameModeSolo10 | noxflags.GameModeElimination | noxflags.GameModeQuest | noxflags.GameFlag18) // TODO
 	C.nox_server_gameSettingsUpdated = 1
 }

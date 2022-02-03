@@ -28,7 +28,7 @@ func init() {
 
 const (
 	GameHost            = GameFlag(0x1)        // 1
-	GameFlag2           = GameFlag(0x2)        // 2
+	GameClient          = GameFlag(0x2)        // 2
 	GameFlag3           = GameFlag(0x4)        // 4
 	GameFlag4           = GameFlag(0x8)        // 8
 	GameModeKOTR        = GameFlag(0x10)       // 16
@@ -167,8 +167,8 @@ func (f GameFlag) GoString() string {
 	switch f {
 	case GameHost:
 		return pkg + ".GameHost"
-	case GameFlag2:
-		return pkg + ".GameFlag2"
+	case GameClient:
+		return pkg + ".GameClient"
 	case GameFlag3:
 		return pkg + ".GameFlag3"
 	case GameFlag4:
@@ -240,8 +240,8 @@ func (f GameFlag) String() string {
 	switch f {
 	case GameHost:
 		return "Host"
-	case GameFlag2:
-		return "Flag2"
+	case GameClient:
+		return "Client"
 	case GameFlag3:
 		return "Flag3"
 	case GameFlag4:

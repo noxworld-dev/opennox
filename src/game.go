@@ -739,7 +739,7 @@ func (s *Server) nox_xxx_gameTick_4D2580_server_D() {
 		v26 := GoString(C.sub_4DB160())
 		v23 = C.nox_xxx_saveDoAutosaveMB_4DB370_savegame(internCStr(v26)) != 0
 		noxflags.UnsetGame(noxflags.GameFlag28)
-		if !v23 && noxflags.HasGame(noxflags.GameFlag2) {
+		if !v23 && noxflags.HasGame(noxflags.GameClient) {
 			v35 := strMan.GetStringInFile("GUISave.c:SaveErrorTitle", "C:\\NoxPost\\src\\Server\\System\\server.c")
 			NewDialogWindow(nil, v35, v35, 33, nil, nil)
 		}
@@ -938,7 +938,7 @@ func nox_xxx_mapFindPlayerStart_4F7AB0(a2 *Unit) types.Pointf {
 }
 
 func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() bool {
-	if noxflags.HasGame(noxflags.GameFlag2) {
+	if noxflags.HasGame(noxflags.GameClient) {
 		nox_client_setCursorType_477610(10)
 	}
 	C.sub_4D22B0()
@@ -1446,7 +1446,7 @@ func sub_460D40() bool {
 const netListsBufSize = 2048
 
 func (s *Server) nox_xxx_netlist_4DEB50() {
-	if !noxflags.HasGame(noxflags.GameFlag2) {
+	if !noxflags.HasGame(noxflags.GameClient) {
 		return
 	}
 	if noxflags.HasEngine(noxflags.EngineReplayRead) {

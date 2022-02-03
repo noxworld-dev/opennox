@@ -295,7 +295,7 @@ func RunArgs(args []string) (gerr error) {
 			C.dword_5d4594_3592 = 0
 		}
 	})
-	noxflags.SetGame(noxflags.GameHost | noxflags.GameFlag2)
+	noxflags.SetGame(noxflags.GameHost | noxflags.GameClient)
 	noxflags.SetEngine(noxflags.EngineSoftShadowEdge)
 	C.dword_5d4594_2650652 = 0
 	gameFPSSet(30)
