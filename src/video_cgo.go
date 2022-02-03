@@ -233,7 +233,6 @@ func nox_video_setFullScreen(v C.int) {
 	updateFullScreen(int(v))
 }
 
-//export nox_video_sync_depths
 func nox_video_sync_depths() C.bool {
 	return true
 }

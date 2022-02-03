@@ -2,7 +2,10 @@ package nox
 
 /*
 #include "client__gui__window.h"
+#include "GAME3.h"
 extern void* dword_5d4594_1307292;
+extern void* dword_5d4594_1309720;
+extern nox_gui_animation* nox_wnd_xxx_1309740;
 */
 import "C"
 import (
@@ -178,4 +181,15 @@ func sub4A19F0(name strman.ID) {
 	v1 := win.ChildByID(152)
 	v2 := strMan.GetStringInFile(name, "C:\\NoxPost\\src\\client\\shell\\OptsBack.c")
 	v1.Func94(asWindowEvent(guiEventStaticTextSetText, uintptr(unsafe.Pointer(internWStr(v2))), math.MaxUint32))
+}
+
+//export sub_4AAA10
+func sub_4AAA10() C.int {
+	v0p := asGUIAnim(C.nox_wnd_xxx_1309740)
+	v0 := *v0p // copy before deletion
+	v0p.Free()
+	asWindowP(C.dword_5d4594_1309720).Destroy()
+	C.sub_4A1A40(1)
+	v0.Func13()
+	return 1
 }

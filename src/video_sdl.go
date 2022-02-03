@@ -7,7 +7,6 @@ package nox
 #include "GAME2_1.h"
 #include "GAME3.h"
 #include "client__video__draw_common.h"
-extern unsigned int nox_game_loop_xxx_805872;
 */
 import "C"
 import (
@@ -64,7 +63,6 @@ func gameResetVideoMode(inMenu, force bool) error {
 	}
 	videoLog.Printf("mode switch: %+v (menu: %v)", mode, inMenu)
 	videoResizeView(mode)
-	C.nox_game_loop_xxx_805872 = 0
 	if !force && mode == noxPixBuffer.img.Size() {
 		return nil
 	}

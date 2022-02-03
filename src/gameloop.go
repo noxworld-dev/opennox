@@ -28,7 +28,6 @@ package nox
 #include "client__system__client.h"
 #include "client__drawable__drawable.h"
 
-extern unsigned int nox_game_loop_xxx_805872;
 extern unsigned int dword_5d4594_2660032;
 extern void* dword_5d4594_814624;
 extern unsigned int dword_5d4594_815704;
@@ -82,7 +81,6 @@ var (
 	debugMainloop           = os.Getenv("NOX_DEBUG_MAINLOOP") == "true"
 	g_v20                   bool
 	mainloopConnectResultOK bool
-	mainloopCnt             uint64
 	mainloopContinue        = true // nox_continue_mainloop_93196
 	continueMenuOrHost      = true // nox_game_continueMenuOrHost_93200
 	mainloopNoSkip          bool
@@ -327,13 +325,9 @@ mainloop:
 				}
 			}
 		}
-		if C.nox_game_loop_xxx_805872 != 0 {
-			continueMenuOrHost = true
-		} else {
-			if mainloopContinue {
-				// unwind the stack and continue the mainloop
-				continue mainloop
-			}
+		if mainloopContinue {
+			// unwind the stack and continue the mainloop
+			continue mainloop
 		}
 	MAINLOOP_EXIT:
 		if !exitPath {
@@ -342,49 +336,42 @@ mainloop:
 				nox_exit(0)
 			}
 			// repeat
-			if C.nox_game_loop_xxx_805872 == 0 {
-				C.sub_43DB60()
-				C.sub_43D990()
-				g_v20 = true
-				sub_43F140(800)
-				nox_common_initRandom_415F70()
-				gameFrameSetFromFlags()
-				C.nox_ensure_thing_bin()
-				*memmap.PtrUint32(0x85B3FC, 960) = 0
-				*memmap.PtrUint32(0x85B3FC, 4) = 0
-				if mainloopConnectResultOK {
-					if debugMainloop {
-						log.Println("CONNECT_RESULT_OK retry")
-					}
-					CONNECT_RESULT_OK()
-					continue mainloop
+			C.sub_43DB60()
+			C.sub_43D990()
+			g_v20 = true
+			sub_43F140(800)
+			nox_common_initRandom_415F70()
+			gameFrameSetFromFlags()
+			C.nox_ensure_thing_bin()
+			*memmap.PtrUint32(0x85B3FC, 960) = 0
+			*memmap.PtrUint32(0x85B3FC, 4) = 0
+			if mainloopConnectResultOK {
+				if debugMainloop {
+					log.Println("CONNECT_RESULT_OK retry")
 				}
-				if noxflags.HasGame(noxflags.GameHost) {
-					if err := noxServer.nox_xxx_servNewSession_4D1660(); err != nil {
-						log.Println(err)
-						continue mainloop
-					}
-				}
-				if !nox_xxx_clientResetSpriteAndGui_4357D0(mainloopNoSkip) {
-					continue mainloop
-				}
-				if noxflags.HasGame(noxflags.GameHost) && noxflags.HasGame(noxflags.GameFlag23) && noxflags.HasEngine(noxflags.EngineFlag1) {
-					v23 := nox_fs_root()
-					C.sub_4D39F0(v23)
-					if C.nox_xxx_mapGenStart_4D4320() == 0 {
-						C.nox_xxx_mapSwitchLevel_4D12E0(0)
-						continue mainloop
-					}
-					sub_4D3C30()
-					noxflags.UnsetGame(noxflags.GameFlag23)
-				}
-				CONNECT_OR_HOST()
+				CONNECT_RESULT_OK()
 				continue mainloop
 			}
-			nox_xxx_cliSetupSession_437190()
-			gameUpdateVideoMode(true)
-			nox_client_initScreenParticles_431390()
-			cmainLoop()
+			if noxflags.HasGame(noxflags.GameHost) {
+				if err := noxServer.nox_xxx_servNewSession_4D1660(); err != nil {
+					log.Println(err)
+					continue mainloop
+				}
+			}
+			if !nox_xxx_clientResetSpriteAndGui_4357D0(mainloopNoSkip) {
+				continue mainloop
+			}
+			if noxflags.HasGame(noxflags.GameHost) && noxflags.HasGame(noxflags.GameFlag23) && noxflags.HasEngine(noxflags.EngineFlag1) {
+				v23 := nox_fs_root()
+				C.sub_4D39F0(v23)
+				if C.nox_xxx_mapGenStart_4D4320() == 0 {
+					C.nox_xxx_mapSwitchLevel_4D12E0(0)
+					continue mainloop
+				}
+				sub_4D3C30()
+				noxflags.UnsetGame(noxflags.GameFlag23)
+			}
+			CONNECT_OR_HOST()
 			continue mainloop
 		}
 		if debugMainloop {
@@ -422,7 +409,6 @@ mainloop:
 		if noxflags.HasEngine(noxflags.EngineGameLoopMemdump) {
 			C.nox_xxx_gameLoopMemDump_413E30()
 		}
-		// C.nullsub_2()
 
 		// repeat
 		cmainLoop()

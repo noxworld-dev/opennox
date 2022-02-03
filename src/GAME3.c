@@ -4283,9 +4283,7 @@ bool nox_video_sync_depths() {
 	nox_win_depth_menu = nox_win_depth_game;
 	return false;
 }
-#else  // NOX_CGO
-bool nox_video_sync_depths();
-#endif // NOX_CGO
+
 int sub_4AAA10() {
 	int (*v0)(void); // esi
 
@@ -4300,6 +4298,7 @@ int sub_4AAA10() {
 	}
 	return 1;
 }
+#endif // NOX_CGO
 
 #ifdef NOX_CGO
 void nox_video_setMenuOptions(nox_window* root);
