@@ -529,7 +529,6 @@ func cleanup() {
 	nox_xxx_freeScreenParticles_4314D0()
 	C.sub_413960()
 	C.sub_431380()
-	C.sub_4134F0()
 	C.nox_xxx_freeWeaponArmorDefAndModifs_413060()
 	sub_4311B0()
 	C.nox_xxx_freeFloorBuffer_430EF0()

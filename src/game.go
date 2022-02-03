@@ -1193,7 +1193,6 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() bool {
 			C.sub_4D7280(255, C.char(v57))
 		}
 	}
-	C.sub_413850()
 	return true
 }
 

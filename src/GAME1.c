@@ -68,7 +68,6 @@ extern uint32_t dword_5d4594_251728;
 extern uint32_t dword_5d4594_3592;
 extern uint32_t dword_5d4594_805860;
 extern uint32_t dword_5d4594_526276;
-extern uint32_t dword_5d4594_251704;
 extern uint32_t dword_5d4594_371756;
 extern uint32_t dword_5d4594_251712;
 extern uint32_t nox_xxx_useMMX_587000_80800;
@@ -127,6 +126,7 @@ unsigned int nox_video_dxUnlockSurface = 0;
 HANDLE* nox_video_cursorDrawThreadHandle;
 
 #ifndef NOX_CGO
+uint32_t dword_5d4594_251704 = 0;
 uint32_t dword_5d4594_526284 = 0;
 nox_engine_flag nox_common_engineFlags = 0u;
 uint32_t nox_common_gameFlags;      // & 1 = host server; & 0x800 = solo game
@@ -6493,14 +6493,21 @@ int sub_413420(char a1) {
 
 //----- (004134D0) --------------------------------------------------------
 int sub_4134D0() {
+#ifndef NOX_CGO
 	dword_5d4594_251704 = 0;
+#endif // NOX_CGO
 	dword_5d4594_251708 = 0;
 	dword_5d4594_251712 = 0;
 	dword_5d4594_251716 = 0;
 	dword_5d4594_251720 = 0;
+#ifndef NOX_CGO
 	return sub_413850();
+#else // NOX_CGO
+	return 0;
+#endif // NOX_CGO
 }
 
+#ifndef NOX_CGO
 //----- (004134F0) --------------------------------------------------------
 void sub_4134F0() {
 	nox_game_cdState_251700 = 0;
@@ -6525,6 +6532,7 @@ void sub_413780() {
 		dword_5d4594_251716 = 0;
 	}
 }
+#endif // NOX_CGO
 
 //----- (004137A0) --------------------------------------------------------
 int sub_4137A0() {
@@ -6571,7 +6579,6 @@ void nox_game_cdMaybeSwitchState_413800() {
 		}
 	}
 }
-#endif // NOX_CGO
 
 //----- (00413830) --------------------------------------------------------
 int nox_xxx_testCD_413830() { return dword_5d4594_251704 != 0; }
@@ -6591,6 +6598,7 @@ int sub_413850() {
 	}
 	return result;
 }
+#endif // NOX_CGO
 
 //----- (00413870) --------------------------------------------------------
 int sub_413870(int a1) {

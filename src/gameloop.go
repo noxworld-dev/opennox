@@ -83,6 +83,7 @@ var (
 	mainloopConnectResultOK bool
 	mainloopContinue        = true // nox_continue_mainloop_93196
 	continueMenuOrHost      = true // nox_game_continueMenuOrHost_93200
+	initialStateSwitch      = false
 	mainloopStopError       bool
 	mainloopNoSkip          bool
 	nox_draw_unk1           func() bool
@@ -294,7 +295,7 @@ mainloop:
 		}
 		nox_framerate_limit_416C70(30)
 		processInput()
-		C.sub_413520_gamedisk()
+		nox_game_cdMaybeSwitchState_413800()
 		C.nox_xxx_time_startProfile_435770()
 		if !gameStateFunc() {
 			if debugMainloop {
@@ -444,13 +445,15 @@ func mainloopReset() error {
 	return nil
 }
 
-//export nox_game_cdMaybeSwitchState_413800
 func nox_game_cdMaybeSwitchState_413800() {
-	if memmap.Uint32(0x5D4594, 251724) == 0 {
-		*memmap.PtrUint32(0x5D4594, 251724) = 1
-		if !nox_game_switchStates() {
-			C.sub_413760()
-		}
+	if initialStateSwitch {
+		return
+	}
+	initialStateSwitch = true
+	C.sub_4137E0()
+	if !nox_game_switchStates() {
+		nox_xxx_setContinueMenuOrHost_43DDD0(0)
+		nox_game_exit_xxx_43DE60()
 	}
 }
 

@@ -4,7 +4,6 @@ package nox
 #include "GAME1_3.h"
 #include "GAME2_1.h"
 #include "client__gui__window.h"
-extern uint32_t dword_5d4594_251704;
 */
 import "C"
 import (
@@ -107,16 +106,4 @@ func nox_client_onShowLegal(win *Window) {
 	} else {
 		draw.SetTextColor(noxcolor.RGBColor(242, 218, 0))
 	}
-}
-
-func nox_client_checkQuestExp_SKU2_4D7700() bool {
-	return true
-}
-
-func nox_xxx_testCD_413830() bool {
-	return C.dword_5d4594_251704 != 0
-}
-
-func nox_xxx_testCDAndSolo_413840() bool {
-	return C.dword_5d4594_251704 == 2
 }

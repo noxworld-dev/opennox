@@ -572,7 +572,9 @@ int nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 				sub_49C7A0();
 				nox_xxx_guiServerOptionsHide_4597E0(0);
 				sub_44A400();
+#ifndef NOX_CGO
 				sub_413850();
+#endif // NOX_CGO
 			}
 			data += 41;
 			break;
