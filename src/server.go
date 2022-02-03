@@ -223,7 +223,7 @@ func (s *Server) nox_xxx_gameTick_4D2580_server_B(ticks uint64) bool {
 	C.nox_xxx_updateServer_4D2DA0(C.longlong(ticks))
 	nox_server_netMaybeSendInitialPackets_4DEB30()
 	s.nox_xxx_netlist_4DEB50()
-	if nox_server_mainloop_exiting_43DEA0() {
+	if !mainloopContinue {
 		return false
 	}
 	if gameFrame()%2 == 0 {

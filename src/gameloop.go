@@ -83,6 +83,7 @@ var (
 	mainloopConnectResultOK bool
 	mainloopContinue        = true // nox_continue_mainloop_93196
 	continueMenuOrHost      = true // nox_game_continueMenuOrHost_93200
+	mainloopStopError       bool
 	mainloopNoSkip          bool
 	nox_draw_unk1           func() bool
 	func_5D4594_816392      func() bool
@@ -162,11 +163,6 @@ func nox_xxx_setFrameLimit_43DDE0(v C.int) {
 	useFrameLimit = v != 0
 }
 
-//export nox_server_mainloop_exiting_43DEA0
-func nox_server_mainloop_exiting_43DEA0() C.bool {
-	return C.bool(!mainloopContinue)
-}
-
 //export nox_game_exit_xxx_43DE60
 func nox_game_exit_xxx_43DE60() {
 	if debugMainloop {
@@ -237,8 +233,7 @@ func mainloopFrameLimit() {
 }
 
 func mainloopStop() {
-	mainloopContinue = false
-	continueMenuOrHost = false
+	mainloopStopError = true
 }
 
 func mainloop_43E290(exitPath bool) {
@@ -248,6 +243,7 @@ func mainloop_43E290(exitPath bool) {
 			log.Printf("mainloop_43E290 exit (%s -> %s)\n", caller(1), caller(2))
 		}()
 	}
+	mainloopStopError = false
 	mainloopContinue = true
 	continueMenuOrHost = true
 	*memmap.PtrUint32(0x5D4594, 816400) = 60 * gameFPS()
@@ -256,7 +252,7 @@ func mainloop_43E290(exitPath bool) {
 	nox_xxx_mapSetDownloadInProgress(false)
 
 mainloop:
-	for mainloopContinue {
+	for mainloopContinue && !mainloopStopError {
 		cntMainloop.Inc()
 		if mainloopHook != nil {
 			mainloopHook()
@@ -268,7 +264,8 @@ mainloop:
 			} else if err != nil {
 				log.Println(err)
 				// map error
-				mainloopStop()
+				mainloopContinue = false
+				continueMenuOrHost = false
 				if debugMainloop {
 					log.Println("mapDownloadLoop exit")
 				}
@@ -283,7 +280,8 @@ mainloop:
 				if mapDownloading() {
 					continue mainloop
 				}
-				mainloopStop()
+				mainloopContinue = false
+				continueMenuOrHost = false
 				if debugMainloop {
 					log.Println("nox_xxx_gameChangeMap_43DEB0 exit")
 				}
@@ -325,19 +323,19 @@ mainloop:
 		C.sub_4519C0()
 		sub_4312C0()
 		C.sub_495430()
-		if noxflags.HasGame(noxflags.GameHost) && continueMenuOrHost {
+		if noxflags.HasGame(noxflags.GameHost) && continueMenuOrHost && !mainloopStopError {
 			mainloopMaybeSwitchMapXXX()
 		}
 		drawAndPresent()
 		C.sub_435750()
 		mainloopFrameLimit()
-		if mainloopContinue {
+		if mainloopContinue && !mainloopStopError {
 			// unwind the stack and continue the mainloop
 			continue mainloop
 		}
 	MAINLOOP_EXIT:
 		if !exitPath {
-			if !continueMenuOrHost {
+			if !continueMenuOrHost || mainloopStopError {
 				cleanup()
 				nox_exit(0)
 			}
