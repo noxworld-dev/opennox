@@ -1886,12 +1886,12 @@ void mainloop_43E290() {
 	}
 #endif // __EMSCRIPTEN__
 }
-#endif // NOX_CGO
 // 43E815: variable 'v18' is possibly undefined
 // 4AD170: using guessed type int nox_video_callCopyBackBuffer_4AD170(void);
 
 //----- (0043E8B0) --------------------------------------------------------
 int nox_xxx_debugSub_43E8B0() { return *getMemU32Ptr(0x5D4594, 816404); }
+#endif // NOX_CGO
 
 //----- (0043E8C0) --------------------------------------------------------
 int sub_43E8C0(int a1) {

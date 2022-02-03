@@ -231,9 +231,7 @@ func mainloopFrameLimit() {
 		}
 		return
 	}
-	dt := nox_ticks_until_next_416D00()
-	*memmap.PtrUint32(0x5D4594, 816404) = uint32(dt / time.Millisecond)
-	if dt > 0 {
+	if dt := nox_ticks_until_next_416D00(); dt > 0 {
 		mainloopSleep(dt)
 	}
 }
