@@ -342,84 +342,99 @@ mainloop:
 				nox_exit(0)
 			}
 			// repeat
-			C.sub_43DB60()
-			C.sub_43D990()
-			g_v20 = true
-			sub_43F140(800)
-			nox_common_initRandom_415F70()
-			gameFrameSetFromFlags()
-			C.nox_ensure_thing_bin()
-			*memmap.PtrUint32(0x85B3FC, 960) = 0
-			*memmap.PtrUint32(0x85B3FC, 4) = 0
-			if mainloopConnectResultOK {
-				if debugMainloop {
-					log.Println("CONNECT_RESULT_OK retry")
-				}
-				CONNECT_RESULT_OK()
-				continue mainloop
-			}
-			if noxflags.HasGame(noxflags.GameHost) {
-				if err := noxServer.nox_xxx_servNewSession_4D1660(); err != nil {
-					log.Println(err)
-					continue mainloop
-				}
-			}
-			if !nox_xxx_clientResetSpriteAndGui_4357D0(mainloopNoSkip) {
-				continue mainloop
-			}
-			if noxflags.HasGame(noxflags.GameHost) && noxflags.HasGame(noxflags.GameFlag23) && noxflags.HasEngine(noxflags.EngineFlag1) {
-				v23 := nox_fs_root()
-				C.sub_4D39F0(v23)
-				if C.nox_xxx_mapGenStart_4D4320() == 0 {
-					C.nox_xxx_mapSwitchLevel_4D12E0(0)
-					continue mainloop
-				}
-				sub_4D3C30()
-				noxflags.UnsetGame(noxflags.GameFlag23)
-			}
-			CONNECT_OR_HOST()
+			mainloopConnectOrHost()
 			continue mainloop
 		}
 		if debugMainloop {
 			log.Println("MAINLOOP_EXIT")
 		}
-		noxflags.UnsetGame(noxflags.GameFlag29)
-		noxflags.UnsetGame(noxflags.GameModeKOTR | noxflags.GameModeCTF | noxflags.GameModeFlagBall | noxflags.GameModeChat | noxflags.GameModeArena | noxflags.GameModeSolo10 | noxflags.GameModeElimination | noxflags.GameModeQuest | noxflags.GameFlag15 | noxflags.GameFlag16)
-		noxflags.UnsetGame(noxflags.GameFlag24 | noxflags.GameFlag21)
-		sub_43F140(300)
-		C.sub_43D990()
-		nox_xxx_replayWriteFrame_4D39B0()
-		if noxflags.HasGame(noxflags.GameHost) {
-			C.nox_xxx_servResetPlayers_4D23C0()
-		}
-		if noxflags.HasGame(noxflags.GameClient) {
-			sub_435EB0()
-		}
-		if err := gameUpdateVideoMode(true); err != nil {
-			if debugMainloop {
-				log.Printf("gameUpdateVideoMode: %v (%s)", err, caller(0))
-			}
+		if err := mainloopReset(); err != nil {
+			log.Println("mainloopReset:", err)
 			continue mainloop
 		}
-		*memmap.PtrUint32(0x587000, 80852) = uint32(nox_video_getGammaSetting_434B00())
-		nox_video_setGammaSetting_434B30(1)
-		C.sub_434B60()
-		mainloopConnectResultOK = false
-		if noxflags.HasGame(noxflags.GameHost) {
-			noxServer.nox_xxx_servEndSession_4D3200()
-		}
-		if noxflags.HasGame(noxflags.GameClient) {
-			nox_xxx_cliSetupSession_437190()
-		}
-		inputClearKeyTimeouts()
-		if noxflags.HasEngine(noxflags.EngineGameLoopMemdump) {
-			C.nox_xxx_gameLoopMemDump_413E30()
-		}
-
 		// repeat
 		cmainLoop()
 		continue mainloop
 	}
+}
+
+func mainloopConnectOrHost() {
+	C.sub_43DB60()
+	C.sub_43D990()
+	g_v20 = true
+	sub_43F140(800)
+	nox_common_initRandom_415F70()
+	gameFrameSetFromFlags()
+	C.nox_ensure_thing_bin()
+	*memmap.PtrUint32(0x85B3FC, 960) = 0
+	*memmap.PtrUint32(0x85B3FC, 4) = 0
+	if mainloopConnectResultOK {
+		if debugMainloop {
+			log.Println("CONNECT_RESULT_OK retry")
+		}
+		CONNECT_RESULT_OK()
+		return
+	}
+	if noxflags.HasGame(noxflags.GameHost) {
+		if err := noxServer.nox_xxx_servNewSession_4D1660(); err != nil {
+			log.Println(err)
+			return
+		}
+	}
+	if !nox_xxx_clientResetSpriteAndGui_4357D0(mainloopNoSkip) {
+		return
+	}
+	if noxflags.HasGame(noxflags.GameHost) && noxflags.HasGame(noxflags.GameFlag23) && noxflags.HasEngine(noxflags.EngineFlag1) {
+		v23 := nox_fs_root()
+		C.sub_4D39F0(v23)
+		if C.nox_xxx_mapGenStart_4D4320() == 0 {
+			C.nox_xxx_mapSwitchLevel_4D12E0(0)
+			return
+		}
+		sub_4D3C30()
+		noxflags.UnsetGame(noxflags.GameFlag23)
+	}
+	CONNECT_OR_HOST()
+	return
+}
+
+func mainloopReset() error {
+	if debugMainloop {
+		log.Println("mainloopReset")
+	}
+	noxflags.UnsetGame(noxflags.GameFlag29)
+	noxflags.UnsetGame(noxflags.GameModeKOTR | noxflags.GameModeCTF | noxflags.GameModeFlagBall | noxflags.GameModeChat | noxflags.GameModeArena | noxflags.GameModeSolo10 | noxflags.GameModeElimination | noxflags.GameModeQuest | noxflags.GameFlag15 | noxflags.GameFlag16)
+	noxflags.UnsetGame(noxflags.GameFlag24 | noxflags.GameFlag21)
+	sub_43F140(300)
+	C.sub_43D990()
+	nox_xxx_replayWriteFrame_4D39B0()
+	if noxflags.HasGame(noxflags.GameHost) {
+		C.nox_xxx_servResetPlayers_4D23C0()
+	}
+	if noxflags.HasGame(noxflags.GameClient) {
+		sub_435EB0()
+	}
+	if err := gameUpdateVideoMode(true); err != nil {
+		if debugMainloop {
+			log.Printf("gameUpdateVideoMode: %v (%s)", err, caller(0))
+		}
+		return err
+	}
+	*memmap.PtrUint32(0x587000, 80852) = uint32(nox_video_getGammaSetting_434B00())
+	nox_video_setGammaSetting_434B30(1)
+	C.sub_434B60()
+	mainloopConnectResultOK = false
+	if noxflags.HasGame(noxflags.GameHost) {
+		noxServer.nox_xxx_servEndSession_4D3200()
+	}
+	if noxflags.HasGame(noxflags.GameClient) {
+		nox_xxx_cliSetupSession_437190()
+	}
+	inputClearKeyTimeouts()
+	if noxflags.HasEngine(noxflags.EngineGameLoopMemdump) {
+		C.nox_xxx_gameLoopMemDump_413E30()
+	}
+	return nil
 }
 
 //export nox_game_cdMaybeSwitchState_413800
