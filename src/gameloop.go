@@ -83,7 +83,6 @@ var (
 	g_v20                   bool
 	mainloopConnectResultOK bool
 	mainloopCnt             uint64
-	mainloopExitPath        bool
 	mainloopContinue        = true // nox_continue_mainloop_93196
 	continueMenuOrHost      = true // nox_game_continueMenuOrHost_93200
 	mainloopNoSkip          bool
@@ -220,7 +219,7 @@ func mainloopStop() {
 	continueMenuOrHost = false
 }
 
-func mainloop_43E290() {
+func mainloop_43E290(exitPath bool) {
 	if debugMainloop {
 		log.Printf("mainloop_43E290 (%s)\n", caller(1))
 		defer func() {
@@ -337,7 +336,7 @@ mainloop:
 			}
 		}
 	MAINLOOP_EXIT:
-		if !mainloopExitPath {
+		if !exitPath {
 			if !continueMenuOrHost {
 				cleanup()
 				nox_exit(0)
@@ -509,8 +508,7 @@ func cmainLoop() {
 		g_v20 = false
 	}
 	sub_43F1A0()
-	mainloopExitPath = false
-	mainloop_43E290()
+	mainloop_43E290(false)
 }
 
 func CONNECT_OR_HOST() {
@@ -946,8 +944,7 @@ func CONNECT_RESULT_OK() {
 	nox_video_setGammaSetting_434B30(C.int(memmap.Int32(0x587000, 80852)))
 	C.sub_434B60()
 	noxflags.SetGame(noxflags.GameFlag29)
-	mainloopExitPath = true
-	mainloop_43E290()
+	mainloop_43E290(true)
 }
 
 func mainloopMaybeSwitchMapXXX() {
