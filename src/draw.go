@@ -920,7 +920,7 @@ func nox_xxx_clientDrawAll_436100_draw() {
 		isTick = true
 		nox_ticks_reset_416D40()
 	}
-	if !(memmap.Uint32(0x587000, 85724) == 0 || isTick || !noxflags.HasGame(noxflags.GameHost) || nox_ticks_check_416D70() ||
+	if !(memmap.Uint32(0x587000, 85724) == 0 || isTick || !noxflags.HasGame(noxflags.GameHost) || nox_ticks_getNext() >= 0 ||
 		C.nox_client_gui_flag_815132 != 0 || nox_xxx_checkGameFlagPause_413A50() || noxflags.HasEngine(noxflags.EngineNoRendering)) {
 		noxflags.SetEngine(noxflags.EnginePause)
 		return

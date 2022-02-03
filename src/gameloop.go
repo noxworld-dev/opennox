@@ -212,6 +212,32 @@ func mainloopSleep(dt time.Duration) {
 	}
 }
 
+func mainloopFrameLimit() {
+	if !useFrameLimit {
+		return
+	}
+	if noxflags.HasGame(noxflags.GameHost) && noxflags.HasGame(noxflags.GameFlag2) && !noxflags.HasEngine(noxflags.EngineNoRendering) && noxflags.HasGame(noxflags.GameFlag29) {
+		if noxflags.HasEngine(noxflags.EnginePause) {
+			return
+		}
+		if dt := nox_ticks_getNext(); dt > 0 {
+			mainloopSleep(dt)
+		}
+		return
+	}
+	if !noxflags.HasEngine(noxflags.EngineSleep) {
+		for !nox_ticks_should_update_416CD0() {
+			mainloopSleep(time.Microsecond)
+		}
+		return
+	}
+	dt := nox_ticks_until_next_416D00()
+	*memmap.PtrUint32(0x5D4594, 816404) = uint32(dt / time.Millisecond)
+	if dt > 0 {
+		mainloopSleep(dt)
+	}
+}
+
 func mainloopStop() {
 	mainloopContinue = false
 	continueMenuOrHost = false
@@ -306,25 +332,7 @@ mainloop:
 		}
 		drawAndPresent()
 		C.sub_435750()
-		if useFrameLimit {
-			if noxflags.HasGame(noxflags.GameHost) && noxflags.HasGame(noxflags.GameFlag2) && !noxflags.HasEngine(noxflags.EngineNoRendering) && noxflags.HasGame(noxflags.GameFlag29) {
-				if !noxflags.HasEngine(noxflags.EnginePause) {
-					nox_ticks_maybe_sleep_416DD0()
-				}
-			} else {
-				if !noxflags.HasEngine(noxflags.EngineSleep) {
-					for !nox_ticks_should_update_416CD0() {
-						mainloopSleep(time.Microsecond)
-					}
-				} else {
-					ms := nox_ticks_until_next_416D00()
-					*memmap.PtrUint32(0x5D4594, 816404) = uint32(ms)
-					if ms > 0 {
-						mainloopSleep(time.Duration(ms) * time.Millisecond)
-					}
-				}
-			}
-		}
+		mainloopFrameLimit()
 		if mainloopContinue {
 			// unwind the stack and continue the mainloop
 			continue mainloop

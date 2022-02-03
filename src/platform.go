@@ -70,12 +70,12 @@ func nox_framerate_limit_416C70(fps int) {
 	nox_framerate_next_ticks = ticks + nox_framerate_step_ticks
 }
 
-func nox_ticks_should_update_416CD0() C.bool {
+func nox_ticks_should_update_416CD0() bool {
 	nox_framerate_cur_ticks = platformTicks()
 	return nox_framerate_cur_ticks >= nox_framerate_next_ticks
 }
 
-func nox_ticks_until_next_416D00() int64 {
+func nox_ticks_until_next_416D00() time.Duration {
 	ticks := platformTicks()
 	if nox_framerate_next_ticks < ticks {
 		return 0
@@ -84,7 +84,7 @@ func nox_ticks_until_next_416D00() int64 {
 	if diff > nox_framerate_next_ticks {
 		return 0
 	}
-	return int64(diff)
+	return time.Duration(diff) * time.Millisecond
 }
 
 var (
@@ -99,24 +99,12 @@ func nox_ticks_reset_416D40() {
 	noxflags.UnsetEngine(noxflags.EnginePause)
 }
 
-func nox_ticks_check_416D70() bool {
-	const mul = float32(0.033333335)
+func nox_ticks_getNext() time.Duration {
+	const mul = 1000.0 / 30.0
 
 	df := int(gameFrame()) - int(nox_gameFrame_371772)
 	dt := int64(platformTicks()) - int64(nox_gameTicks_371764)
 
-	v2 := float64(df) * float64(mul)
-	return float64(dt)*0.001 <= v2
-}
-
-func nox_ticks_maybe_sleep_416DD0() {
-	const mul = float32(1000) / 30
-
-	df := int(gameFrame()) - int(nox_gameFrame_371772)
-	dt := int64(nox_gameTicks_371764) - int64(platformTicks())
-
-	ms := int64(float64(df)*float64(mul)) + dt
-	if ms > 0 {
-		mainloopSleep(time.Duration(ms) * time.Millisecond)
-	}
+	ms := int64(float64(df)*mul) - dt
+	return time.Duration(ms) * time.Millisecond
 }
