@@ -476,7 +476,7 @@ func (s *Server) nox_xxx_servNewSession_4D1660() error {
 	if err := s.gameStartHTTP(httpPort); err != nil {
 		return err
 	}
-	if s.announce {
+	if isDedicatedServer || s.announce {
 		if err := s.gameStartNAT(srvPort, httpPort); err != nil {
 			return err
 		}
