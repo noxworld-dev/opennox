@@ -175,7 +175,7 @@ func sub_4684C0() {
 
 //export sub_41E300
 func sub_41E300(a1 C.int) C.int {
-	if a1 == 11 && noxflags.HasGame(noxflags.GameFlag29) && checkFlag29() {
+	if a1 == 11 && noxflags.HasGame(noxflags.GameFlag29) {
 		if C.dword_5d4594_528256 != 0 {
 			C.sub_41E470()
 		} else {
@@ -195,11 +195,7 @@ func sub_41E300(a1 C.int) C.int {
 
 //export sub_43C710
 func sub_43C710() C.int {
-	return C.int(bool2int(checkFlag29()))
-}
-
-func checkFlag29() bool {
-	return noxflags.HasGame(noxflags.GameFlag29)
+	return C.int(bool2int(noxflags.HasGame(noxflags.GameFlag29)))
 }
 
 func sub_40E0A0() {
