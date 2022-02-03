@@ -1473,26 +1473,58 @@ func nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_raw(ind int, data []byte) in
 }
 
 var (
-	nox_game_state_arr []int
+	nox_game_state_arr []noxClientState
 )
 
+type noxClientState int
+
+func (st noxClientState) String() string {
+	switch st {
+	case gameStateNone:
+		return "<none>"
+	case gameStateMovies:
+		return "Movies"
+	case gameStateMainMenu:
+		return "MainMenu"
+	case gameStateOptions:
+		return "Options"
+	case gameStateOnlineOrLAN:
+		return "OnlineOrLAN"
+	case gameStateCharSelect:
+		return "CharSelect"
+	case gameStateClassSelect:
+		return "ClassSelect"
+	case gameStateColorSelect:
+		return "ColorSelect"
+	case gameStateWolLogin:
+		return "WolLogin"
+	case gameStateWolChat:
+		return "WolChat"
+	case gameStateServerList:
+		return "ServerList"
+	default:
+		return fmt.Sprintf("noxClientState(%d)", int(st))
+	}
+}
+
 const (
-	gameStateMovies      = 10
-	gameStateMainMenu    = 100
-	gameStateOptions     = 300
-	gameStateOnlineOrLAN = 400
-	gameStateCharSelect  = 500
-	gameStateClassSelect = 600
-	gameStateColorSelect = 700
-	gameStateWolLogin    = 1700
-	gameStateWolChat     = 1900
-	gameStateServerList  = 10000
-	gameStateXxx         = 1915
+	gameStateNone        = noxClientState(-1)
+	gameStateMovies      = noxClientState(10)
+	gameStateMainMenu    = noxClientState(100)
+	gameStateOptions     = noxClientState(300)
+	gameStateOnlineOrLAN = noxClientState(400)
+	gameStateCharSelect  = noxClientState(500)
+	gameStateClassSelect = noxClientState(600)
+	gameStateColorSelect = noxClientState(700)
+	gameStateWolLogin    = noxClientState(1700)
+	gameStateWolChat     = noxClientState(1900)
+	gameStateServerList  = noxClientState(10000)
+	gameStateXxx         = noxClientState(1915)
 )
 
 //export nox_game_addStateCode_43BDD0
 func nox_game_addStateCode_43BDD0(code C.int) {
-	gameAddStateCode(int(code))
+	gameAddStateCode(noxClientState(code))
 }
 
 //export nox_game_getStateCode_43BE10
@@ -1505,7 +1537,7 @@ func nox_game_decStateInd_43BDC0() {
 	gamePopState()
 }
 
-func gameAddStateCode(code int) {
+func gameAddStateCode(code noxClientState) {
 	if gameGetStateCode() == code {
 		return
 	}
@@ -1513,7 +1545,7 @@ func gameAddStateCode(code int) {
 	gameLog.Println("game state code:", code)
 }
 
-func gameGetStateCode() int {
+func gameGetStateCode() noxClientState {
 	if len(nox_game_state_arr) == 0 {
 		return -1
 	}
@@ -1527,7 +1559,7 @@ func gamePopState() {
 	gameLog.Println("game state code:", gameGetStateCode())
 }
 
-func gamePopStateUntil(code int) {
+func gamePopStateUntil(code noxClientState) {
 	for gameGetStateCode() != code {
 		gamePopState()
 	}

@@ -180,9 +180,9 @@ func guiAnimationStep() {
 	}
 }
 
-func nox_gui_findAnimationForDest_43C520(dest int) *guiAnim {
+func nox_gui_findAnimationForDest_43C520(dest noxClientState) *guiAnim {
 	for p := guiAnimationsHead; p != nil; p = p.Next() {
-		if int(p.field_0) == dest {
+		if noxClientState(p.field_0) == dest {
 			return p
 		}
 	}
