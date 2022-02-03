@@ -340,7 +340,17 @@ mainloop:
 				nox_exit(0)
 			}
 			// repeat
-			mainloopConnectOrHost()
+			again, err := mainloopConnectOrHost()
+			if err != nil {
+				log.Println(err)
+				if again {
+					cmainLoop()
+				}
+				continue mainloop
+			}
+			if again {
+				mainloop_43E290(true)
+			}
 			continue mainloop
 		}
 		if debugMainloop {
@@ -356,7 +366,7 @@ mainloop:
 	}
 }
 
-func mainloopConnectOrHost() {
+func mainloopConnectOrHost() (again bool, _ error) {
 	C.sub_43DB60()
 	C.sub_43D990()
 	g_v20 = true
@@ -370,30 +380,29 @@ func mainloopConnectOrHost() {
 		if debugMainloop {
 			log.Println("CONNECT_RESULT_OK retry")
 		}
-		CONNECT_RESULT_OK()
-		return
+		err := CONNECT_RESULT_OK()
+		return true, err
 	}
 	if noxflags.HasGame(noxflags.GameHost) {
 		if err := noxServer.nox_xxx_servNewSession_4D1660(); err != nil {
-			log.Println(err)
-			return
+			return false, err
 		}
 	}
 	if !nox_xxx_clientResetSpriteAndGui_4357D0(mainloopNoSkip) {
-		return
+		return false, nil
 	}
 	if noxflags.HasGame(noxflags.GameHost) && noxflags.HasGame(noxflags.GameFlag23) && noxflags.HasEngine(noxflags.EngineFlag1) {
 		v23 := nox_fs_root()
 		C.sub_4D39F0(v23)
 		if C.nox_xxx_mapGenStart_4D4320() == 0 {
 			C.nox_xxx_mapSwitchLevel_4D12E0(0)
-			return
+			return false, nil
 		}
 		sub_4D3C30()
 		noxflags.UnsetGame(noxflags.GameFlag23)
 	}
-	CONNECT_OR_HOST()
-	return
+	err := CONNECT_OR_HOST()
+	return true, err
 }
 
 func mainloopReset() error {
@@ -516,7 +525,7 @@ func cmainLoop() {
 	mainloop_43E290(false)
 }
 
-func CONNECT_OR_HOST() {
+func CONNECT_OR_HOST() error {
 	if debugMainloop {
 		log.Println("CONNECT_OR_HOST")
 		defer func() {
@@ -563,9 +572,8 @@ func CONNECT_OR_HOST() {
 
 	if noxflags.HasGame(noxflags.GameHost) {
 		if err := nox_xxx_replay_4D3860(&popts); err != nil {
-			log.Println(err)
 			CONNECT_RESULT_FAIL(err)
-			return
+			return fmt.Errorf("nox_xxx_replay_4D3860: %w", err)
 		}
 		if !isDedicatedServer {
 			clientSetPlayerNetCode(noxServer.newPlayer(31, &popts))
@@ -579,13 +587,14 @@ func CONNECT_OR_HOST() {
 		host := clientGetServerHost()
 		port := clientGetServerPort()
 		if err := CONNECT_SERVER(host, port, &popts); err != nil {
-			log.Println(err)
 			CONNECT_RESULT_FAIL(err)
-			return
+			return fmt.Errorf("connect to server failed: %w", err)
 		}
 	}
-	CONNECT_RESULT_OK()
-	return
+	if err := CONNECT_RESULT_OK(); err != nil {
+		return fmt.Errorf("connect result: %w", err)
+	}
+	return nil
 }
 
 func newConnectFailErr(code int, err error) *connectFailErr {
@@ -853,7 +862,6 @@ func CONNECT_RESULT_FAIL(err error) {
 		C.nox_xxx_gameLoopMemDump_413E30()
 	}
 	nox_client_showConnError_43D0A0(errcode)
-	cmainLoop()
 	return
 }
 
@@ -893,7 +901,7 @@ func nox_client_showConnError_43D0A0(errcode int) {
 	C.sub_44A360(1)
 }
 
-func CONNECT_RESULT_OK() {
+func CONNECT_RESULT_OK() error {
 	if debugMainloop {
 		log.Printf("CONNECT_RESULT_OK (%s)\n", caller(1))
 		defer func() {
@@ -902,20 +910,12 @@ func CONNECT_RESULT_OK() {
 	}
 	mainloopConnectResultOK = true
 	if err := noxServer.nox_xxx_replayStartReadingOrSaving_4D38D0(); err != nil {
-		if debugMainloop {
-			log.Println("nox_xxx_replayStartReadingOrSaving_4D38D0:", err)
-		}
-		cmainLoop()
-		return
+		return fmt.Errorf("nox_xxx_replayStartReadingOrSaving_4D38D0: %w", err)
 	}
 	if !noxflags.HasGame(noxflags.GameHost) {
 		nox_xxx_setGameState_43DDF0(nil)
 	} else if !noxServer.nox_xxx_servInitialMapLoad_4D17F0() {
-		if debugMainloop {
-			log.Println("nox_xxx_servInitialMapLoad_4D17F0 exit")
-		}
-		cmainLoop()
-		return
+		return errors.New("nox_xxx_servInitialMapLoad_4D17F0 exit")
 	}
 	if !noxflags.HasGame(noxflags.GameClient) {
 		gameSetCliDrawFunc(nil)
@@ -927,16 +927,11 @@ func CONNECT_RESULT_OK() {
 				videoUpdateGameMode(mode)
 			}
 			if err := gameUpdateVideoMode(false); err != nil {
-				if debugMainloop {
-					log.Printf("gameUpdateVideoMode: %v (%s)", err, caller(0))
-				}
-				return
+				return fmt.Errorf("gameUpdateVideoMode: %w", err)
 			}
 		}
 		if err := initGameSession435CC0(); err != nil {
-			gameLog.Println("failed to init game session:", err)
-			cmainLoop()
-			return
+			return fmt.Errorf("failed to init game session: %w", err)
 		}
 	}
 	if noxflags.HasEngine(noxflags.EngineGameLoopMemdump) {
@@ -949,7 +944,7 @@ func CONNECT_RESULT_OK() {
 	nox_video_setGammaSetting_434B30(C.int(memmap.Int32(0x587000, 80852)))
 	C.sub_434B60()
 	noxflags.SetGame(noxflags.GameFlag29)
-	mainloop_43E290(true)
+	return nil
 }
 
 func mainloopMaybeSwitchMapXXX() {
