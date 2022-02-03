@@ -59,8 +59,7 @@ func nox_platform_sleep(ms C.uint) {
 	platform.Sleep(time.Duration(ms) * time.Millisecond)
 }
 
-//export nox_framerate_limit_416C70
-func nox_framerate_limit_416C70(fps C.int) {
+func nox_framerate_limit_416C70(fps int) {
 	if fps != 0 {
 		nox_framerate_step_ticks = 1000 / uint64(fps)
 	} else {
