@@ -86,6 +86,7 @@ import (
 	"sync"
 	"unsafe"
 
+	"github.com/noxworld-dev/lobby"
 	"github.com/noxworld-dev/xwis"
 
 	"nox/v1/common"
@@ -99,6 +100,7 @@ import (
 	"nox/v1/common/object"
 	"nox/v1/common/types"
 	"nox/v1/common/unit/ai"
+	"nox/v1/internal/version"
 )
 
 var (
@@ -296,24 +298,26 @@ func nox_xxx_serverHost_43B4D0() {
 type xwisInfoShort struct {
 	Name       string
 	Map        string
-	Flags      xwis.GameFlags
-	Access     xwis.Access
+	Port       int
+	Flags      noxflags.GameFlag
+	Access     lobby.GameAccess
 	Players    int
 	MaxPlayers int
 	Level      int
 }
 
-func (s *Server) getGameInfoXWIS() xwisInfoShort {
-	var access xwis.Access
+func (s *Server) getGameInfo() xwisInfoShort {
+	access := lobby.AccessOpen
 	if acc := sub_416640(); acc[100]&0x20 != 0 {
-		access = xwis.AccessPrivate
+		access = lobby.AccessPassword
 	} else if acc[100]&0x10 != 0 {
-		access = xwis.AccessClosed
+		access = lobby.AccessClosed
 	}
 	return xwisInfoShort{
+		Port:       s.getServerPort(),
 		Name:       s.getServerName(),
 		Map:        s.getServerMap(),
-		Flags:      xwis.GameFlags(noxflags.GetGame()),
+		Flags:      noxflags.GetGame(),
 		Players:    s.cntPlayers(),
 		MaxPlayers: s.getServerMaxPlayers(),
 		Level:      s.nox_game_getQuestStage_4E3CC0(),
@@ -326,18 +330,69 @@ func xwisIsQuest(info *xwis.GameInfo) bool {
 	return flags&int(xwis.MapTypeQuest) != 0
 }
 
-func (v xwisInfoShort) XWIS() xwis.GameInfo {
-	info := xwis.GameInfo{
-		Name:       v.Name,
-		Map:        v.Map,
-		Resolution: xwis.Res1024x768,
-		Flags:      v.Flags,
-		Access:     v.Access,
-		Players:    v.Players,
-		MaxPlayers: v.MaxPlayers,
+func gameFlagsToMode(f noxflags.GameFlag) lobby.GameMode {
+	switch {
+	case f.Has(noxflags.GameModeKOTR):
+		return lobby.ModeKOTR
+	case f.Has(noxflags.GameModeCTF):
+		return lobby.ModeCTF
+	case f.Has(noxflags.GameModeFlagBall):
+		return lobby.ModeFlagBall
+	case f.Has(noxflags.GameModeChat):
+		return lobby.ModeChat
+	case f.Has(noxflags.GameModeArena):
+		return lobby.ModeArena
+	case f.Has(noxflags.GameModeElimination):
+		return lobby.ModeElimination
+	case f.Has(noxflags.GameModeQuest):
+		return lobby.ModeQuest
+	case f.Has(noxflags.GameModeCoop):
+		return lobby.ModeCoop
 	}
-	if xwisIsQuest(&info) {
-		info.FragLimit = v.Level
+	return lobby.ModeCustom
+}
+
+func gameAccessToXWIS(v lobby.GameAccess) xwis.Access {
+	switch v {
+	case lobby.AccessOpen:
+		return xwis.AccessOpen
+	case lobby.AccessClosed:
+		return xwis.AccessClosed
+	case lobby.AccessPassword:
+		return xwis.AccessPrivate
+	}
+	return xwis.AccessOpen
+}
+
+func (v xwisInfoShort) GameInfo() discover.GameInfo {
+	info := discover.GameInfo{
+		Game: lobby.Game{
+			Name: v.Name,
+			Port: v.Port,
+			Map:  v.Map,
+
+			Mode: gameFlagsToMode(v.Flags),
+			Vers: version.Version(),
+			Players: lobby.PlayersInfo{
+				Cur: v.Players,
+				Max: v.MaxPlayers,
+			},
+		},
+		XWIS: xwis.GameInfo{
+			Name:       v.Name,
+			Map:        v.Map,
+			Resolution: xwis.Res1024x768,
+			Flags:      xwis.GameFlags(v.Flags),
+			Access:     gameAccessToXWIS(v.Access),
+			Players:    v.Players,
+			MaxPlayers: v.MaxPlayers,
+		},
+	}
+	if v.Flags.Has(noxflags.GameModeQuest) {
+		info.Game.Quest = &lobby.QuestInfo{Stage: v.Level}
+	}
+	if xwisIsQuest(&info.XWIS) {
+		info.XWIS.FragLimit = v.Level
 	}
 	return info
 }
@@ -347,17 +402,17 @@ func (s *Server) maybeRegisterGameOnline() {
 		s.maybeStopRegister()
 		return
 	}
-	info := s.getGameInfoXWIS()
+	info := s.getGameInfo()
 	if s.srvReg.srv == nil {
 		s.srvReg.cur = info
-		s.srvReg.srv = discover.NewServer(info.XWIS())
+		s.srvReg.srv = discover.NewServer(info.GameInfo())
 		return
 	}
 	if s.srvReg.cur == info {
 		return
 	}
 	s.srvReg.cur = info
-	s.srvReg.srv.Update(info.XWIS())
+	s.srvReg.srv.Update(info.GameInfo())
 }
 
 func (s *Server) maybeStopRegister() {

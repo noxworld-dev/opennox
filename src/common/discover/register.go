@@ -2,118 +2,186 @@ package discover
 
 import (
 	"context"
+	"sync"
 	"time"
 
+	"github.com/noxworld-dev/lobby"
 	"github.com/noxworld-dev/xwis"
+	"golang.org/x/sync/errgroup"
 
 	"nox/v1/common/log"
 )
 
-var xwisLog = log.New("xwis")
+const (
+	lobbyInterval = lobby.DefaultTimeout / 3
+)
+
+var (
+	lobbyLog = log.New("lobby")
+	xwisLog  = log.New("xwis")
+)
+
+type GameInfo struct {
+	lobby.Game
+	XWIS xwis.GameInfo
+}
 
 // NewServer registers the server with initial game info.
 // It will automatically retry the registration until the server is closed.
-func NewServer(info xwis.GameInfo) *RegServer {
-	upd := make(chan xwis.GameInfo, 1)
-	upd <- info
+func NewServer(info GameInfo) *RegServer {
+	ctx, stop := context.WithCancel(context.Background())
 	s := &RegServer{
-		upd:  upd,
-		done: make(chan struct{}),
+		stop:  stop,
+		ticks: make(chan time.Time, 1),
+		xwis:  make(chan struct{}, 1),
+		cur:   info,
 	}
-	go s.do()
+	s.wg.Go(func() error {
+		ticker := time.NewTicker(lobbyInterval)
+		defer ticker.Stop()
+		var t time.Time
+		for {
+			select {
+			case <-ctx.Done():
+				return nil
+			case t = <-ticker.C:
+			}
+			select {
+			case <-ctx.Done():
+				return nil
+			case s.ticks <- t:
+			}
+		}
+	})
+	s.wg.Go(func() error {
+		return s.doLobby(ctx)
+	})
+	s.wg.Go(func() error {
+		return s.doXWIS(ctx)
+	})
 	return s
 }
 
 type RegServer struct {
-	upd  chan xwis.GameInfo
-	done chan struct{}
+	wg    errgroup.Group
+	stop  func()
+	ticks chan time.Time
+	xwis  chan struct{}
+
+	mu  sync.RWMutex
+	cur GameInfo
 }
 
-func (s *RegServer) Update(info xwis.GameInfo) {
-	if s.done == nil {
-		return
-	}
-	// remove old value, if any
+func (s *RegServer) Update(info GameInfo) {
+	infoSetDefaults(&info.XWIS)
+	s.mu.Lock()
+	s.cur = info
+	s.mu.Unlock()
 	select {
-	case _, ok := <-s.upd:
-		if !ok {
-			return
-		}
+	case s.ticks <- time.Now():
 	default:
 	}
-	// put the new one
 	select {
-	case s.upd <- info:
+	case s.xwis <- struct{}{}:
 	default:
 	}
 }
 
 func (s *RegServer) Close() error {
-	if s.done == nil {
+	if s.stop == nil {
 		return nil
 	}
-	close(s.upd)
-	<-s.done
-	s.done = nil
-	return nil
+	s.stop()
+	s.stop = nil
+	return s.wg.Wait()
 }
 
-func (s *RegServer) do() {
-	defer close(s.done)
-	var (
-		gcancel func()
-		gdone   chan struct{}
-	)
-	stop := func() {
-		if gcancel != nil {
-			gcancel()
-			gcancel = nil
-			<-gdone
-		}
-	}
-	defer stop()
-	for info := range s.upd {
-		stop()
-		info := info
-		ctx, cancel := context.WithCancel(context.Background())
-		done := make(chan struct{})
-		go func() {
-			defer close(done)
-			infoSetDefaults(&info)
-			s.register(ctx, info)
-		}()
-		gcancel, gdone = cancel, done
-	}
+func (s *RegServer) info() GameInfo {
+	s.mu.RLock()
+	info := s.cur
+	s.mu.RUnlock()
+	return info
 }
 
-func (s *RegServer) register(ctx context.Context, info xwis.GameInfo) {
-	// TODO: supports game info updates in XWIS library
+type gameRegHost struct {
+	s *RegServer
+}
+
+func (h gameRegHost) GameInfo(ctx context.Context) (*lobby.Game, error) {
+	info := h.s.info()
+	return &info.Game, nil
+}
+
+func (s *RegServer) doLobby(ctx context.Context) error {
+	cli := newLobbyClient()
 	for {
-		xwisLog.Println("updating game info...")
-		var (
-			cli *xwis.Client
-			err error
-		)
-		for {
-			cli, err = xwis.NewClient(ctx, "", "")
-			if err == nil {
-				break
-			}
-			xwisLog.Println("cannot initialize:", err)
-			select {
-			case <-ctx.Done():
-				return
-			case <-time.After(3 * time.Second):
-			}
+		if err := lobby.KeepRegistered(ctx, cli, s.ticks, gameRegHost{s: s}); err != nil {
+			lobbyLog.Println(err)
 		}
-		if err := cli.HostGame(ctx, info); err != nil {
-			xwisLog.Println(err)
-		}
-		cli.Close()
 		select {
 		case <-ctx.Done():
-			return
+			return nil
+		default:
+		}
+	}
+}
+
+func (s *RegServer) doXWIS(ctx context.Context) error {
+	for {
+		err := s.xwisReopenAndLoop(ctx)
+		select {
+		case <-ctx.Done():
+			return nil
+		default:
+		}
+		if err != nil {
+			xwisLog.Println(err)
+		}
+		select {
+		case <-ctx.Done():
+			return nil
 		case <-time.After(3 * time.Second):
+		}
+	}
+}
+
+func (s *RegServer) xwisReopenAndLoop(ctx context.Context) error {
+	cli, err := xwis.NewClient(ctx, "", "")
+	if err != nil {
+		return err
+	}
+	defer cli.Close()
+
+	for try := 0; ; try++ {
+		game, err := cli.RegisterGame(ctx, s.info().XWIS)
+		if err != nil {
+			xwisLog.Println("registration failed:", err)
+			select {
+			case <-ctx.Done():
+				return nil
+			case <-time.After(3 * time.Second):
+			}
+			continue
+		}
+		if try >= 5 {
+			return err
+		}
+		if err := s.xwisUpdateLoop(ctx, game); err != nil {
+			xwisLog.Println("update failed:", err)
+		}
+	}
+
+}
+
+func (s *RegServer) xwisUpdateLoop(ctx context.Context, game *xwis.Game) error {
+	for {
+		select {
+		case <-ctx.Done():
+			return ctx.Err()
+		case <-s.xwis:
+		}
+		if err := game.Update(ctx, s.info().XWIS); err != nil {
+			return err
 		}
 	}
 }

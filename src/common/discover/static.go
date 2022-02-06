@@ -20,6 +20,7 @@ func init() {
 			return err
 		}
 		for _, s := range list {
+			s.Priority = -1
 			select {
 			case <-ctx.Done():
 				return ctx.Err()
@@ -48,6 +49,7 @@ func staticIPs(path string) ([]Server, error) {
 	sc := bufio.NewScanner(f)
 	for sc.Scan() {
 		line := sc.Text()
+		// TODO: support server ports
 		ip := net.ParseIP(line).To4()
 		if ip == nil {
 			last = fmt.Errorf("cannot parse server IP in %s: %q", name, line)

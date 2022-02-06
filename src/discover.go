@@ -8,9 +8,13 @@ import (
 	"nox/v1/common/discover"
 )
 
-func discoverAndPingServers(port int, ts uint32, data []byte) {
+func discoverAndPingServers(defPort int, ts uint32, data []byte) {
 	ctx := context.Background()
 	err := discover.EachServer(ctx, func(s discover.Server) error {
+		port := s.Port
+		if port <= 0 {
+			port = defPort
+		}
 		_, err := sendToServer(s.Addr, port, data)
 		return err
 	})
@@ -36,7 +40,7 @@ func discoverAndPingServers(port int, ts uint32, data []byte) {
 		// TODO: more fields
 		onLobbyServer(&LobbyServerInfo{
 			Addr:       g.Addr,
-			Port:       port, // TODO: this should come from the server
+			Port:       defPort, // TODO: this should come from the server
 			Name:       g.Name,
 			Map:        g.Map,
 			Players:    g.Players,

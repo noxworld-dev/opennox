@@ -56,7 +56,7 @@ func init() {
 			select {
 			case <-ctx.Done():
 				return ctx.Err()
-			case out <- Server{Addr: ip}:
+			case out <- Server{Priority: 10, Addr: ip}:
 			}
 		}
 		return nil

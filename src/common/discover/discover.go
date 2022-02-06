@@ -4,6 +4,7 @@ package discover
 import (
 	"context"
 	"net"
+	"strconv"
 	"sync"
 	"time"
 
@@ -19,7 +20,13 @@ var (
 )
 
 type Server struct {
-	Addr net.IP // only IPv4 for now
+	Priority int    // lower values mean higher priority
+	Addr     net.IP // only IPv4 for now
+	Port     int
+}
+
+func (s Server) String() string {
+	return s.Addr.String() + ":" + strconv.Itoa(s.Port)
 }
 
 type SearchFunc func(ctx context.Context, out chan<- Server) error
