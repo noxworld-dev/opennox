@@ -33,6 +33,10 @@ func (s *StatusFlags) Set(s2 StatusFlags) {
 	*s |= s2
 }
 
+func (s StatusFlags) IsEnabled() bool {
+	return s.Has(StatusEnabled)
+}
+
 func (s StatusFlags) IsHidden() bool {
 	return s.Has(StatusHidden)
 }
