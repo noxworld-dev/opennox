@@ -152,6 +152,11 @@ type Refactorer struct {
 	defined     map[string]struct{}
 }
 
+var identGoRename = map[string]string{
+	"NOX_MAX_WIDTH":  "noxMaxWidth",
+	"NOX_MAX_HEIGHT": "noxMaxHeight",
+}
+
 var callGoRename = map[string]string{
 	"nox_xxx_clientPlaySoundSpecial_452D80":   "clientPlaySoundSpecial",
 	"nox_common_setEngineFlag":                "noxflags.SetEngine",
@@ -163,12 +168,21 @@ var callGoRename = map[string]string{
 	"nox_game_addStateCode_43BDD0":            "gameAddStateCode",
 	"nox_game_getStateCode_43BE10":            "gameGetStateCode",
 	"nox_xxx_gLoadImg_42F970":                 "nox_xxx_gLoadImg",
+	"nox_xxx_guiFontPtrByName_43F360":         "guiFontPtrByName",
 	"nox_xxx_checkHasSoloMaps_40ABD0":         "nox_xxx_checkHasSoloMaps",
 	"nox_xxx_wndShowModalMB_46A8C0":           "nox_xxx_wndShowModalMB",
 	"nox_xxx_cryptClose_4269F0":               "cryptFileClose",
 	"nox_xxx_cryptSeekCur_40E0A0":             "nox_xxx_cryptSeekCur",
 	"nox_xxx_cryptOpen_426910":                "cryptFileOpen",
 	"nox_xxx_getFirstUpdatable2Object_4DA840": "firstServerObjectUpdatable2",
+	"nox_xxx_wndSetCaptureMain_46ADC0":        "nox_xxx_wndSetCaptureMain",
+	"nox_xxx_wndClearCaptureMain_46ADE0":      "nox_xxx_wndClearCaptureMain",
+	"nox_xxx_wndGetCaptureMain_46AE00":        "nox_xxx_wndGetCaptureMain",
+	"nox_client_getServerPort_43B320":         "clientGetServerPort",
+	"nox_game_SetCliDrawFunc":                 "gameSetCliDrawFunc",
+	"nox_client_getMousePos_4309F0":           "getMousePos",
+	"sub_43F140":                              "noxAudioServeT",
+	"nox_platform_get_ticks":                  "platformTicks",
 	"nox_float2int":                           "int",
 }
 
@@ -179,6 +193,9 @@ func (r *Refactorer) visitGoCall(n *ast.CallExpr, fnc *ast.Ident) {
 	switch fnc.Name {
 	case "getMemIntPtr":
 		n.Fun = selExpr("memmap", "PtrInt32")
+		r.fileChanged = true
+	case "getMemU64Ptr":
+		n.Fun = selExpr("memmap", "PtrUint64")
 		r.fileChanged = true
 	case "getMemU32Ptr":
 		n.Fun = selExpr("memmap", "PtrUint32")
@@ -207,6 +224,9 @@ func (r *Refactorer) visitGoCall(n *ast.CallExpr, fnc *ast.Ident) {
 		n.Fun = selExpr("noxflags", "UnsetGame")
 		r.fileChanged = true
 		r.visitCall(n)
+	case "nox_common_randomInt_415FA0":
+		n.Fun = selExpr("noxRndCounter1", "IntClamp")
+		r.fileChanged = true
 	case "nox_strman_loadString_40F1D0":
 		if len(n.Args) == 4 && isZero(n.Args[1]) {
 			n.Fun = selExpr("strMan", "GetStringInFile")
@@ -296,9 +316,20 @@ func (r *Refactorer) visitGoCall(n *ast.CallExpr, fnc *ast.Ident) {
 			r.fileChanged = true
 			r.visitCall(n)
 		}
+	case "nox_xxx_windowDestroyMB_46C4E0":
+		if len(n.Args) == 1 {
+			n.Fun = recvCall(n.Args[0], "Destroy")
+			n.Args = []ast.Expr{}
+			r.fileChanged = true
+			r.visitCall(n)
+		}
 	case "nox_xxx_wndGetChildByID_46B0C0":
 		if len(n.Args) == 2 {
-			n.Fun = recvCall(n.Args[0], "ChildByID")
+			if isZero(n.Args[0]) {
+				n.Fun = ident("GUIChildByID")
+			} else {
+				n.Fun = recvCall(n.Args[0], "ChildByID")
+			}
 			n.Args = []ast.Expr{n.Args[1]}
 			r.fileChanged = true
 			r.visitCall(n)
@@ -330,7 +361,20 @@ func (r *Refactorer) visitGoCall(n *ast.CallExpr, fnc *ast.Ident) {
 				n.Args = []ast.Expr{}
 				r.fileChanged = true
 				r.visitCall(n)
+			default:
+				n.Fun = recvCall(n.Args[0], "SetHidden")
+				n.Args = []ast.Expr{n.Args[1]}
+				r.fileChanged = true
+				r.visitCall(n)
 			}
+		}
+	case "wndIsShown_nox_xxx_wndIsShown_46ACC0":
+		if len(n.Args) == 1 {
+			call := callExpr(recvCall(n.Args[0], "Flags"))
+			n.Fun = recvCall(call, "IsHidden")
+			n.Args = []ast.Expr{}
+			r.fileChanged = true
+			r.visitCall(n)
 		}
 	case "asWindowEvent":
 		if len(n.Args) == 3 {
@@ -429,6 +473,12 @@ func (r *Refactorer) visitGoCall(n *ast.CallExpr, fnc *ast.Ident) {
 			r.fileChanged = true
 			r.visitCall(n)
 		}
+	case "nox_strman_get_lang_code":
+		if len(n.Args) == 0 {
+			n.Fun = selExpr("strMan", "Lang")
+			r.fileChanged = true
+			r.visitCall(n)
+		}
 	default:
 		if newName := callGoRename[fnc.Name]; newName != "" {
 			fnc.Name = newName
@@ -485,6 +535,11 @@ func (r *Refactorer) visitCall(n *ast.CallExpr) {
 
 func (r *Refactorer) Visit(n ast.Node) ast.Visitor {
 	switch n := n.(type) {
+	case *ast.Ident:
+		if newName := identGoRename[n.Name]; newName != "" {
+			n.Name = newName
+			r.fileChanged = true
+		}
 	case *ast.FuncDecl:
 		r.inDecl = n.Name.Name
 	case *ast.CallExpr:
