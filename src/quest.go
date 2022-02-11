@@ -211,7 +211,7 @@ func nox_server_questNextStageThreshold_4D74F0(lvl C.int) C.int {
 
 func (s *Server) nox_server_questMapNextLevel() {
 	// server loading next quest level
-	C.sub_51A920(C.int(nox_common_randomInt_415FA0(0, 2)))
+	C.sub_51A920(C.int(noxRndCounter1.IntClamp(0, 2)))
 	lvl := s.nox_game_getQuestStage_4E3CC0()
 	lvl += questLevelInc
 	questLog.Printf("switching level to %d", lvl)

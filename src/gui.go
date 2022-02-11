@@ -37,7 +37,6 @@ import (
 var (
 	guiLog                       = log.New("gui")
 	guiDebug                     = os.Getenv("NOX_DEBUG_GUI") == "true"
-	nox_win_unk3                 *Window
 	nox_win_activeWindow_1064900 *Window
 	nox_win_1064916              *Window
 	nox_win_freeList             *Window // dword_5d4594_1064896
@@ -72,24 +71,37 @@ func nox_client_getWin1064916_46C720() *C.nox_window {
 
 //export nox_xxx_wndSetCaptureMain_46ADC0
 func nox_xxx_wndSetCaptureMain_46ADC0(win *C.nox_window) C.int {
-	if nox_win_unk3 != nil {
-		return -4
-	}
-	nox_win_unk3 = asWindow(win)
-	return 0
+	return C.int(nox_xxx_wndSetCaptureMain(asWindow(win)))
 }
 
 //export nox_xxx_wndClearCaptureMain_46ADE0
 func nox_xxx_wndClearCaptureMain_46ADE0(win *C.nox_window) C.int {
-	if win == nox_win_unk3.C() {
-		nox_win_unk3 = nil
-	}
+	nox_xxx_wndClearCaptureMain(asWindow(win))
 	return 0
 }
 
 //export nox_xxx_wndGetCaptureMain_46AE00
 func nox_xxx_wndGetCaptureMain_46AE00() *C.nox_window {
-	return nox_win_unk3.C()
+	return nox_xxx_wndGetCaptureMain().C()
+}
+
+func nox_xxx_wndSetCaptureMain(win *Window) int {
+	if nox_win_cur_input != nil {
+		return -4
+	}
+	nox_win_cur_input = win
+	return 0
+}
+
+func nox_xxx_wndClearCaptureMain(win *Window) int {
+	if win == nox_win_cur_input {
+		nox_win_cur_input = nil
+	}
+	return 0
+}
+
+func nox_xxx_wndGetCaptureMain() *Window {
+	return nox_win_cur_input
 }
 
 func asWindowData(data *C.nox_window_data) *WindowData {
@@ -415,7 +427,7 @@ func nox_xxx_windowUpdateKeysMB_46B6B0(inp *input.Handler, key keybind.Key) {
 //export nox_xxx_consoleEditProc_450F40
 func nox_xxx_consoleEditProc_450F40(a1 unsafe.Pointer, a2, a3, a4 C.int) C.int {
 	if a2 != 21 {
-		return C.nox_xxx_wndEditProc_487D70((*C.uint)(a1), a2, a3, a4)
+		return C.nox_xxx_wndEditProc_487D70((*C.nox_window)(a1), a2, a3, a4)
 	}
 	if ctrlEvent.hasDefBinding(11, keybind.Key(a3)) {
 		if a4 == 2 {
@@ -429,7 +441,7 @@ func nox_xxx_consoleEditProc_450F40(a1 unsafe.Pointer, a2, a3, a4 C.int) C.int {
 		}
 	} else {
 		if a3 != 28 {
-			return C.nox_xxx_wndEditProc_487D70((*C.uint)(a1), a2, a3, a4)
+			return C.nox_xxx_wndEditProc_487D70((*C.nox_window)(a1), a2, a3, a4)
 		}
 		if a4 == 2 {
 			C.nox_gui_console_Enter_450FD0()
@@ -466,14 +478,14 @@ func freeAllWindowsInList() { // sub_46C200
 	for win != nil {
 		prev := win.Prev()
 		win.prev = nil
-		if nox_win_unk3 == win {
-			nox_win_unk3 = nil
+		if nox_win_cur_input == win {
+			nox_win_cur_input = nil
 		}
 		if nox_win_cur_focused == win {
 			guiFocus(nil)
 		}
-		if C.nox_win_1064912 != nil && win.C() == C.nox_win_1064912.win {
-			C.nox_xxx_wnd_46C6E0(C.nox_win_1064912.win)
+		if nox_win_1064912 != nil && win == nox_win_1064912.Win {
+			nox_xxx_wnd46C6E0(nox_win_1064912.Win)
 		}
 		if nox_win_activeWindow_1064900 == win {
 			nox_win_activeWindow_1064900 = nil
@@ -512,4 +524,9 @@ func sub46B120(win, par *Window) int {
 
 func sub_46AEE0(a1 *Window, a2 string) {
 	a1.Func94(asWindowEvent(guiEventStaticTextSetText, uintptr(unsafe.Pointer(internWStr(a2))), 0))
+}
+
+func nox_xxx_wndEditProc_487D70(a1 *Window, ev WindowEvent) RawEventResp {
+	a2, a3, a4 := ev.EventArgsC()
+	return RawEventResp(C.nox_xxx_wndEditProc_487D70(a1.C(), C.int(a2), C.int(a3), C.int(a4)))
 }

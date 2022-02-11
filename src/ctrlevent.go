@@ -619,7 +619,12 @@ func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_B() {
 					sub_413A00(1)
 					v41 := strMan.GetStringInFile("GUIQuit.c:ReallyLoadMessage", "C:\\NoxPost\\src\\Client\\System\\Ctrlevnt.c")
 					v40 := strMan.GetStringInFile("SelChar.c:LoadLabel", "C:\\NoxPost\\src\\Client\\System\\Ctrlevnt.c")
-					NewDialogWindow(nil, v40, v41, 56, C.sub_42E600, C.sub_42E620)
+					NewDialogWindow(nil, v40, v41, 56, func() {
+						sub_413A00(0)
+						sub4DB790("AUTOSAVE")
+					}, func() {
+						sub_413A00(0)
+					})
 				} else {
 					clientPlaySoundSpecial(231, 100)
 				}

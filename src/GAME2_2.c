@@ -11673,7 +11673,8 @@ int nox_xxx_wndEditProc_487D70_key(uint32_t* a1, int v4, int a3, int a4) {
 	*(uint16_t*)(v4 + 2 * (unsigned short)++*(uint16_t*)(v4 + 1052)) = 0;
 	return 1;
 }
-int nox_xxx_wndEditProc_487D70(uint32_t* a1, int a2, int a3, int a4) {
+int nox_xxx_wndEditProc_487D70(nox_window* a1p, int a2, int a3, int a4) {
+	uint32_t* a1 = a1p;
 	int v4;  // esi
 			 //	int result;          // eax
 			 //	short v6;          // ax

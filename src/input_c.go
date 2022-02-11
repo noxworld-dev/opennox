@@ -150,6 +150,10 @@ func nox_xxx_bookGet_430B40_get_mouse_prev_seq() C.int {
 	return C.int(getInputSeq())
 }
 
+func nox_client_setMousePos_430B10(x, y int) {
+	changeMousePos(image.Pt(x, y), true)
+}
+
 //export nox_client_changeMousePos_430A00
 func nox_client_changeMousePos_430A00(x, y C.int, isAbs C.bool) {
 	changeMousePos(image.Pt(int(x), int(y)), bool(isAbs))
@@ -622,10 +626,10 @@ func nox_xxx_cursorUpdate_46B740(inp *input.Handler) {
 	} else {
 		nox_client_setCursorType_477610(14)
 	}
-	if nox_win_unk3 != nil {
+	if nox_win_cur_input != nil {
 		nox_client_setCursorType_477610(0)
 		nox_win_1064916 = nil
-		child := nox_win_unk3.ChildByPos(mpos)
+		child := nox_win_cur_input.ChildByPos(mpos)
 		v1 = child
 		for btn, v9 := range states {
 			if v9 == 0 {
@@ -635,7 +639,7 @@ func nox_xxx_cursorUpdate_46B740(inp *input.Handler) {
 				continue
 			}
 			if child == nil {
-				if eventRespBool(nox_win_unk3.Func93(&WindowMouseState{State: input.MouseStateCode(v9), Pos: mpos})) {
+				if eventRespBool(nox_win_cur_input.Func93(&WindowMouseState{State: input.MouseStateCode(v9), Pos: mpos})) {
 					states[btn] = 0
 				}
 				continue
@@ -645,7 +649,7 @@ func nox_xxx_cursorUpdate_46B740(inp *input.Handler) {
 					states[btn] = 0
 					break
 				}
-				if v10 == nox_win_unk3 {
+				if v10 == nox_win_cur_input {
 					break
 				}
 			}
@@ -717,8 +721,8 @@ func nox_xxx_cursorUpdate_46B740(inp *input.Handler) {
 			states[input.NOX_MOUSE_LEFT] = 0
 		}
 	} else {
-		if C.nox_win_1064912 != nil {
-			v23 = asWindow(C.nox_win_1064912.win).ChildByPos(mpos)
+		if nox_win_1064912 != nil {
+			v23 = nox_win_1064912.Win.ChildByPos(mpos)
 			goto LABEL_98
 		}
 		for v24 := nox_win_xxx1_last; v24 != nil; v24 = v24.Prev() {
@@ -841,8 +845,8 @@ func nox_xxx_cursorUpdate_46B740(inp *input.Handler) {
 		}
 	}
 	if nox_win_1064916 == nil && v1 != nox_win_activeWindow_1064900 {
-		if nox_win_unk3 != nil {
-			if nox_win_unk3.IsChild(nox_win_activeWindow_1064900) {
+		if nox_win_cur_input != nil {
+			if nox_win_cur_input.IsChild(nox_win_activeWindow_1064900) {
 				nox_win_activeWindow_1064900.Func93(&WindowMouseUnk{Event: 18, Pos: mpos})
 			}
 		} else if nox_win_activeWindow_1064900 != nil {

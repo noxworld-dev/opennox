@@ -1168,8 +1168,8 @@ func sub_444C50() {
 func sub_478000() C.int {
 	C.sub_467CD0()
 	if nox_client_spellDragnDrop_type_1097196 != 0 {
-		v1 := nox_xxx_wndGetCaptureMain_46AE00()
-		nox_xxx_wndClearCaptureMain_46ADE0(v1)
+		v1 := nox_xxx_wndGetCaptureMain()
+		nox_xxx_wndClearCaptureMain(v1)
 		nox_xxx_bookSpellDnDclear_477660()
 	}
 	return 0

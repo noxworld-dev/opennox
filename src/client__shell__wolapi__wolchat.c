@@ -60,7 +60,8 @@ int sub_446A20_wol_chat(wchar_t* a1) {
 	v3 = nox_strman_loadString_40F1D0("UpdatingChannels", 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolchat.c", 212);
 	v1 = nox_strman_loadString_40F1D0("PleaseWait", 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\wolchat.c", 211);
 	nox_xxx_dialogMsgBoxCreate_449A10(*(int*)&dword_5d4594_829480, (int)v1, (int)v3, 288, 0, 0);
-	return sub_44A4B0();
+	sub_44A4B0();
+	return 0;
 }
 
 //----- (00446AE0) --------------------------------------------------------

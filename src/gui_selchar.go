@@ -32,8 +32,6 @@ extern void* dword_5d4594_814624;
 extern uint32_t dword_5d4594_10984;
 extern unsigned int dword_5d4594_527988;
 extern uint32_t dword_5d4594_528256;
-extern void* dword_5d4594_830224;
-extern uint32_t dword_5d4594_830228;
 extern void* dword_5d4594_830232;
 extern void* dword_5d4594_830236;
 extern unsigned int dword_5d4594_831220;
@@ -71,6 +69,7 @@ import (
 	"time"
 	"unsafe"
 
+	"nox/v1/client/gui"
 	"nox/v1/common"
 	"nox/v1/common/alloc"
 	"nox/v1/common/datapath"
@@ -320,7 +319,7 @@ func sub_46D6F0() C.int {
 	}
 	win.Hide()
 	nox_xxx_wnd_46ABB0(win, 0)
-	nox_xxx_wndClearCaptureMain_46ADE0(win.C())
+	nox_xxx_wndClearCaptureMain(win)
 	sub_413A00(0)
 	return 1
 }
@@ -341,24 +340,6 @@ func sub_413A00(a1 C.int) {
 
 //export sub_448640
 func sub_448640() { sub_44A400() }
-
-//export sub_43E200
-func sub_43E200() C.int {
-	sub_477530(0)
-	C.nox_xxx_gui_43E1A0(0)
-	nox_xxx_setContinueMenuOrHost_43DDD0(0)
-	nox_game_exit_xxx_43DE60()
-	sub_44A400()
-	return 1
-}
-
-//export sub_43E230
-func sub_43E230() C.int {
-	sub_477530(0)
-	noxflags.SetGame(noxflags.GameFlag21)
-	sub_44A400()
-	return 1
-}
 
 //export sub_477530
 func sub_477530(a1 C.int) {
@@ -400,19 +381,19 @@ func sub_477530(a1 C.int) {
 
 //export sub_44A400
 func sub_44A400() {
-	if win1 := asWindowP(C.dword_5d4594_830224); win1 != nil {
+	if win1 := nox_gui_curDialog_830224; win1 != nil {
 		if C.dword_5d4594_830236 != nil {
-			nox_xxx_wndSetCaptureMain_46ADC0(asWindowP(C.dword_5d4594_830236).C())
+			nox_xxx_wndSetCaptureMain(asWindowP(C.dword_5d4594_830236))
 			C.dword_5d4594_830236 = nil
 		}
-		C.nox_xxx_wnd_46C6E0(win1.C())
-		nox_xxx_wndClearCaptureMain_46ADE0(win1.C())
+		nox_xxx_wnd46C6E0(win1)
+		nox_xxx_wndClearCaptureMain(win1)
 		win1.Destroy()
 		if C.dword_5d4594_830232 != nil {
 			guiFocus(asWindowP(C.dword_5d4594_830232))
 		}
-		C.dword_5d4594_830224 = nil
-		C.dword_5d4594_830228 = 0
+		nox_gui_curDialog_830224 = nil
+		dword_5d4594_830228 = nil
 		nox_client_setCursorType_477610(0)
 
 		setMouseBounds(image.Rect(0, 0, nox_win_width-1, nox_win_height-1))
@@ -602,8 +583,7 @@ func sub_4A5690(sv *C.nox_savegame_xxx) C.int {
 	return 0
 }
 
-//export sub_4A5C70
-func sub_4A5C70() C.int {
+func sub_4A5C70() {
 	if noxflags.HasGame(noxflags.GameModeCoop) {
 		nox_savegame_rm(nox_savegame_name_1307752, true)
 	} else {
@@ -615,7 +595,6 @@ func sub_4A5C70() C.int {
 	winCharListNames.Func94(asWindowEvent(0x400F, 0, 0))
 	winCharListStyle.Func94(asWindowEvent(0x400F, 0, 0))
 	nox_xxx_findAutosaves_4A5150()
-	return 1
 }
 
 var saveClasses = []string{
@@ -816,7 +795,7 @@ func nox_savegame_sub_46D580() {
 	win1 := dword_5d4594_1082856
 	nox_xxx_wndShowModalMB(win1)
 	nox_xxx_wnd_46ABB0(win1, 1)
-	nox_xxx_wndSetCaptureMain_46ADC0(win1.C())
+	nox_xxx_wndSetCaptureMain(win1)
 	v1 := win1.ChildByID(501)
 	if sub_450560() && !sub_450570() {
 		nox_xxx_wnd_46ABB0(v1, 0)
@@ -939,8 +918,8 @@ func nox_xxx_windowSelCharProc_4A5710(a1 *Window, e WindowEvent) WindowEventResp
 		sv := &nox_xxx_saves_arr[v5]
 		spath := GoString(&sv.path[0])
 		var (
-			v17     unsafe.Pointer
-			v16     int
+			v17     func()
+			v16     gui.DialogFlags
 			v6, v15 string
 		)
 		*memmap.PtrInt32(0x5D4594, 0x13F47C) = v5
@@ -958,7 +937,7 @@ func nox_xxx_windowSelCharProc_4A5710(a1 *Window, e WindowEvent) WindowEventResp
 				clientPlaySoundSpecial(921, 100)
 				return RawEventResp(1)
 			}
-			v17 = C.sub_4A5C70
+			v17 = sub_4A5C70
 			v16 = 56
 			if noxflags.HasGame(noxflags.GameModeCoop) {
 				v15 = strMan.GetStringInFile("GUISave.c:DeleteSaveMessage", "C:\\NoxPost\\src\\client\\shell\\selchar.c")
@@ -1102,10 +1081,16 @@ func nox_savegame_sub_46C920(win1 *Window, ev WindowEvent) WindowEventResp {
 		if GoString(&nox_savegame_arr_1064948[v8].path[0]) != "" {
 			path := datapath.SaveNameFromPath(GoString(&nox_savegame_arr_1064948[v8].path[0]))
 			StrCopy((*C.char)(memmap.PtrOff(0x5D4594, 1082840)), 16, path)
-			nox_xxx_wndClearCaptureMain_46ADE0(dword_5d4594_1082856.C())
+			nox_xxx_wndClearCaptureMain(dword_5d4594_1082856)
 			v13 := strMan.GetStringInFile("GUISave.c:OverwriteSaveMessage", "C:\\NoxPost\\src\\client\\Gui\\GUISave.c")
 			v11 := strMan.GetStringInFile("GUISave.c:OverwriteSaveTitle", "C:\\NoxPost\\src\\client\\Gui\\GUISave.c")
-			NewDialogWindow(dword_5d4594_1082856, v11, v13, 56, C.sub_46CC70, C.sub_46CC90)
+			NewDialogWindow(dword_5d4594_1082856, v11, v13, 56, func() {
+				sub_4DB130(GoStringP(memmap.PtrOff(0x5D4594, 1082840)))
+				sub_4DB170(1, 0, 0)
+				sub_46D6F0()
+			}, func() {
+				nox_xxx_wndSetCaptureMain(dword_5d4594_1082856)
+			})
 			return nil
 		}
 		var v14 string
@@ -1127,7 +1112,7 @@ func nox_savegame_sub_46C920(win1 *Window, ev WindowEvent) WindowEventResp {
 			}
 			v12 := strMan.GetStringInFile("GUIQuit.c:ReallyLoadMessage", "C:\\NoxPost\\src\\client\\Gui\\GUISave.c")
 			v7 := strMan.GetStringInFile("SelChar.c:LoadLabel", "C:\\NoxPost\\src\\client\\Gui\\GUISave.c")
-			NewDialogWindow(nil, v7, v12, 24, C.nox_savegame_sub_46CBD0, C.sub_44A400)
+			NewDialogWindow(nil, v7, v12, 24, nox_savegame_sub_46CBD0, sub_44A400)
 			return nil
 		}
 		clientPlaySoundSpecial(925, 100)
@@ -1148,11 +1133,10 @@ func nox_savegame_sub_46C920(win1 *Window, ev WindowEvent) WindowEventResp {
 	return nil
 }
 
-//export nox_savegame_sub_46CBD0
-func nox_savegame_sub_46CBD0() C.int {
+func nox_savegame_sub_46CBD0() {
 	i := *(*int32)(unsafe.Add(dword_5d4594_1082864.widget_data, 48))
 	if GoString(&nox_savegame_arr_1064948[i].path[0]) == "" {
-		return 0
+		return
 	}
 	v3 := datapath.SaveNameFromPath(GoString(&nox_savegame_arr_1064948[i].path[0]))
 	if sub4DB790(v3) == 0 {
@@ -1163,7 +1147,7 @@ func nox_savegame_sub_46CBD0() C.int {
 		sub_4505B0()
 	}
 	sub_44A400()
-	return sub_46D6F0()
+	sub_46D6F0()
 }
 
 func sub_446060() {
@@ -1231,17 +1215,4 @@ func sub_46CCB0() {
 	dword_5d4594_1082856 = nil
 	dword_5d4594_1082864 = nil
 	dword_5d4594_1082868 = nil
-}
-
-//export sub_46CC70
-func sub_46CC70() C.int {
-	sub_4DB130(GoStringP(memmap.PtrOff(0x5D4594, 1082840)))
-	sub_4DB170(1, 0, 0)
-	return sub_46D6F0()
-}
-
-//export sub_46CC90
-func sub_46CC90() C.int {
-	nox_xxx_wndSetCaptureMain_46ADC0(dword_5d4594_1082856.C())
-	return 0
 }

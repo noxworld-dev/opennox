@@ -1006,10 +1006,10 @@ void sub_46C200() {
 		} while (v2);
 	}
 }
-#endif // NOX_CGO
 
 //----- (0046C690) --------------------------------------------------------
-int sub_46C690(int a1) {
+int sub_46C690(nox_window* a1p) {
+	int a1 = a1p;
 	if (!a1) {
 		return -2;
 	}
@@ -1052,6 +1052,7 @@ int sub_46B240(int a1) {
 	}
 	return result;
 }
+#endif // NOX_CGO
 
 //----- (0046B250) --------------------------------------------------------
 int nox_window_is_child(nox_window* a1, nox_window* a2) {

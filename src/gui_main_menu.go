@@ -15,7 +15,6 @@ package nox
 #include "client__shell__mainmenu.h"
 #include "client__video__draw_common.h"
 extern void* dword_5d4594_1307292;
-extern void* dword_5d4594_830224;
 extern void* dword_5d4594_831236;
 extern unsigned int dword_5d4594_831220;
 extern unsigned int nox_client_gui_flag_815132;
@@ -77,7 +76,7 @@ func sub_4A1AA0(a1 *Window, ev WindowEvent) WindowEventResp {
 				if gameGetStateCode() == 100 {
 					v6 := strMan.GetStringInFile("GUIQuit.c:ReallyQuitMessage", "C:\\NoxPost\\src\\client\\shell\\OptsBack.c")
 					v4 := strMan.GetStringInFile("GUIQuit.c:ReallyQuitTitle", "C:\\NoxPost\\src\\client\\shell\\OptsBack.c")
-					NewDialogWindow(asWindowP(C.dword_5d4594_1307292), v4, v6, 56, C.sub_4A19D0, nil)
+					NewDialogWindow(asWindowP(C.dword_5d4594_1307292), v4, v6, 56, sub_4A19D0, nil)
 				} else {
 					if sub_4D6F30() != 0 {
 						sub_4D6F90(2)
@@ -144,7 +143,7 @@ func sub_4A1D40() C.int {
 
 //export sub_44E320
 func sub_44E320() {
-	nox_xxx_wndClearCaptureMain_46ADE0(asWindowP(C.dword_5d4594_831236).C())
+	nox_xxx_wndClearCaptureMain(asWindowP(C.dword_5d4594_831236))
 	guiFocus(nil)
 	asWindowP(C.dword_5d4594_831236).Hide()
 	sub_450580()
@@ -266,16 +265,6 @@ func sub43BE30() bool {
 	return memmap.Uint32(0x5D4594, 815204) != 0
 }
 
-//export sub_44A4A0
-func sub_44A4A0() C.int {
-	return C.int(bool2int(C.dword_5d4594_830224 != nil))
-}
-
-func sub44A4A0() bool {
-	return C.dword_5d4594_830224 != nil
-}
-
-//export sub_4A19D0
 func sub_4A19D0() {
 	nox_xxx_setContinueMenuOrHost_43DDD0(0)
 	C.nox_client_gui_flag_815132 = 0
@@ -311,8 +300,7 @@ func sub4A18E0(a1 *Window, ev WindowEvent) WindowEventResp {
 			} else if gameGetStateCode() == 100 {
 				v6 := strMan.GetStringInFile("GUIQuit.c:ReallyQuitMessage", "C:\\NoxPost\\src\\client\\shell\\OptsBack.c")
 				v5 := strMan.GetStringInFile("GUIQuit.c:ReallyQuitTitle", "C:\\NoxPost\\src\\client\\shell\\OptsBack.c")
-				_ = sub_4A19D0
-				NewDialogWindow(asWindowP(C.dword_5d4594_1307292), v5, v6, 56, C.sub_4A19D0, nil)
+				NewDialogWindow(asWindowP(C.dword_5d4594_1307292), v5, v6, 56, sub_4A19D0, nil)
 			} else {
 				if gameGetStateCode() == 700 {
 					C.sub_4A7A60(1)
@@ -387,8 +375,8 @@ func nox_xxx_windowMainMenuProc_4A1DC0(a1 *Window, ev WindowEvent) WindowEventRe
 			v9 := strMan.GetStringInFile("caution", "C:\\NoxPost\\src\\Client\\shell\\mainmenu.c")
 			v5 := strMan.GetStringInFile("solo", "C:\\NoxPost\\src\\Client\\shell\\mainmenu.c")
 			NewDialogWindow(nox_win_main_menu, v5, v9, 33, nil, nil)
-			C.sub_44A360(1)
-			C.sub_44A4B0()
+			sub_44A360(1)
+			sub_44A4B0()
 			clientPlaySoundSpecial(921, 100)
 		}
 		return RawEventResp(1)

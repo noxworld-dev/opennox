@@ -13,6 +13,8 @@ import (
 	"nox/v1/common/alloc"
 )
 
+type wchar_t = C.wchar_t
+
 func StrFree(s *C.char) {
 	C.free(unsafe.Pointer(s))
 }

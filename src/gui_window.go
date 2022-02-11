@@ -38,10 +38,17 @@ import (
 var (
 	nox_alloc_window    *alloc.Class
 	nox_win_cur_focused *Window
+	nox_win_cur_input   *Window
 	nox_win_xxx1_first  *Window
 	nox_win_xxx1_last   *Window
+	nox_win_1064912     *WindowRef
 	winExts             = make(map[*Window]*windowExt)
 )
+
+type WindowRef struct {
+	Win  *Window
+	Next *WindowRef
+}
 
 type WindowFunc func(win *Window, ev WindowEvent) WindowEventResp
 type WindowDrawFunc func(win *Window, draw *WindowData) int
@@ -460,6 +467,18 @@ func (win *Window) CopyDrawData(p *WindowData) int {
 	return 0
 }
 
+func (win *Window) ToggleHidden() {
+	win.SetHidden(!win.Flags().IsHidden())
+}
+
+func (win *Window) SetHidden(hidden bool) {
+	if hidden {
+		win.Hide()
+	} else {
+		win.Show()
+	}
+}
+
 func (win *Window) Hide() {
 	if win == nil {
 		return
@@ -669,14 +688,14 @@ func (win *Window) Destroy() {
 	win.flags |= C.nox_window_flags(gui.StatusDestroyed)
 	delete(winExts, win)
 
-	if nox_win_unk3 == win {
-		nox_win_unk3 = nil
+	if nox_win_cur_input == win {
+		nox_win_cur_input = nil
 	}
 	if nox_win_cur_focused == win {
 		guiFocus(nil)
 	}
-	if C.nox_win_1064912 != nil && win.C() == C.nox_win_1064912.win {
-		C.nox_xxx_wnd_46C6E0(C.nox_win_1064912.win)
+	if nox_win_1064912 != nil && win == nox_win_1064912.Win {
+		nox_xxx_wnd46C6E0(nox_win_1064912.Win)
 	}
 	if nox_win_activeWindow_1064900 == win {
 		nox_win_activeWindow_1064900 = nil
@@ -777,4 +796,36 @@ func sub_46B180(win *Window) {
 
 func nox_xxx_wnd_46ABB0(win *Window, v int) int {
 	return int(C.nox_xxx_wnd_46ABB0(win.C(), C.int(v)))
+}
+
+//export nox_xxx_wnd_46C6E0
+func nox_xxx_wnd_46C6E0(p *C.nox_window) C.int {
+	return C.int(nox_xxx_wnd46C6E0(asWindow(p)))
+}
+
+func nox_xxx_wnd46C6E0(win *Window) int { // nox_xxx_wnd_46C6E0
+	if win == nil {
+		return -2
+	}
+	if nox_win_1064912 == nil || nox_win_1064912.Win != win {
+		return -1
+	}
+	nox_win_1064912 = nox_win_1064912.Next
+	return 0
+}
+
+//export sub_46C690
+func sub_46C690(p *C.nox_window) C.int {
+	return C.int(sub46C690(asWindow(p)))
+}
+
+func sub46C690(a1 *Window) int {
+	if a1 == nil {
+		return -2
+	}
+	if a1.Parent() != nil {
+		return -3
+	}
+	nox_win_1064912 = &WindowRef{Next: nox_win_1064912, Win: a1}
+	return 0
 }

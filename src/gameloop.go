@@ -901,7 +901,7 @@ func nox_client_showConnError_43D0A0(errcode int) {
 		desc = strMan.GetStringInFile("UnknownConnError", strfile)
 	}
 	NewDialogWindow(nil, title, desc, 33, nil, nil)
-	C.sub_44A360(1)
+	sub_44A360(1)
 }
 
 func CONNECT_RESULT_OK() error {
@@ -1257,7 +1257,18 @@ func nox_xxx_gameChangeMap_43DEB0() error {
 				C.nox_xxx_gui_43E1A0(1)
 				v12 := strMan.GetStringInFile("OverwriteReadOnly", "C:\\NoxPost\\src\\Client\\System\\gameloop.c")
 				v10 := strMan.GetStringInFile("Warning", "C:\\NoxPost\\src\\Client\\System\\gameloop.c")
-				NewDialogWindow(nil, v10, v12, 24, C.sub_43E230, C.sub_43E200)
+				NewDialogWindow(nil, v10, v12, 24, func() {
+					sub_477530(0)
+					noxflags.SetGame(noxflags.GameFlag21)
+					sub_44A400()
+				}, func() {
+
+					sub_477530(0)
+					C.nox_xxx_gui_43E1A0(0)
+					nox_xxx_setContinueMenuOrHost_43DDD0(0)
+					nox_game_exit_xxx_43DE60()
+					sub_44A400()
+				})
 			}
 		} else {
 			if !isDedicatedServer {

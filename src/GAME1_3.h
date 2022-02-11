@@ -271,17 +271,17 @@ int nox_xxx_guiServerListLoad_449530();
 int sub_449BE0(int a1, int a2, int a3, int a4);
 int sub_449C30(uint32_t* a1, int a2, int a3, int a4);
 int nox_xxx_windowDlgProc_449CA0(int a1, int a2, int* a3, int a4);
-int sub_449E00(int a1);
-int sub_449E30(int a1);
+int sub_449E00(wchar_t* a1);
+int sub_449E30(wchar_t* a1);
 int sub_449E60(char a1);
 void sub_449EA0(int a1);
 int sub_44A0B0(int a1);
-int sub_44A200(int a1);
+int nox_gui_dialogUnsetFlags_830224(int a1);
 int sub_44A340(int a1, int a2);
 void sub_44A360(int a1);
 void sub_44A400();
 int sub_44A4A0();
-int sub_44A4B0();
+void sub_44A4B0();
 int sub_44A4D0(int a1);
 int sub_44A4E0();
 char* sub_44A520(int a1);
@@ -301,7 +301,10 @@ int sub_44BB20(const char* a1);
 
 int nox_xxx_setGameState_43DDF0(int (*a1)(void));
 void sub_446AD0(int (*fnc)(void));
-uint32_t* nox_xxx_dialogMsgBoxCreate_449A10(nox_window* win, wchar_t* a2, wchar_t* text, int a4, void (*a5)(void),
-											void (*a6)(void));
+#ifndef NOX_CGO
+uint32_t* nox_xxx_dialogMsgBoxCreate_449A10(nox_window* win, wchar_t* a2, wchar_t* text, int a4, void (*a5)(void), void (*a6)(void));
+#else // NOX_CGO
+void* nox_xxx_dialogMsgBoxCreate_449A10(nox_window* win, wchar_t* a2, wchar_t* text, int a4, void* a5, void* a6);
+#endif // NOX_CGO
 
 #endif // NOX_PORT_GAME1_3

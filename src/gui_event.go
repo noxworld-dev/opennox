@@ -50,6 +50,30 @@ func init() {
 		}
 		return WindowFocus(a1 != 0)
 	})
+	RegisterWindowEvent(&WindowEvent0x4001{}, func(a1, a2 uintptr) WindowEvent {
+		cstr := (*wchar_t)(unsafe.Pointer(a1))
+		str := GoWString(cstr)
+		return &WindowEvent0x4001{
+			Str:  str,
+			Val:  int(a2),
+			cstr: cstr,
+		}
+	})
+	RegisterWindowEvent(&WindowEvent0x4007{}, func(a1, a2 uintptr) WindowEvent {
+		return &WindowEvent0x4007{
+			Win: asWindowP(unsafe.Pointer(a1)),
+			Val: a2,
+		}
+	})
+	RegisterWindowEvent(&WindowEvent0x400d{}, func(a1, a2 uintptr) WindowEvent {
+		cstr := (*wchar_t)(unsafe.Pointer(a1))
+		str := GoWString(cstr)
+		return &WindowEvent0x400d{
+			Str:  str,
+			Val:  int(a2),
+			cstr: cstr,
+		}
+	})
 }
 
 type WindowEvent interface {
@@ -185,6 +209,13 @@ func eventRespInt(r WindowEventResp) int {
 	return int(r.EventRespC())
 }
 
+func eventRespPtr(r WindowEventResp) unsafe.Pointer {
+	if r == nil {
+		return nil
+	}
+	return unsafe.Pointer(r.EventRespC())
+}
+
 type WindowEventResp interface {
 	EventRespC() uintptr
 }
@@ -195,4 +226,45 @@ type RawEventResp uintptr
 
 func (r RawEventResp) EventRespC() uintptr {
 	return uintptr(r)
+}
+
+var _ WindowEvent = &WindowEvent0x4001{}
+
+type WindowEvent0x4001 struct {
+	Str  string
+	Val  int
+	cstr *wchar_t
+}
+
+func (ev *WindowEvent0x4001) EventArgsC() (int, uintptr, uintptr) {
+	if ev.cstr == nil {
+		ev.cstr = internWStr(ev.Str)
+	}
+	return 0x4001, uintptr(unsafe.Pointer(ev.cstr)), uintptr(ev.Val)
+}
+
+var _ WindowEvent = &WindowEvent0x4007{}
+
+type WindowEvent0x4007 struct {
+	Win *Window
+	Val uintptr
+}
+
+func (ev *WindowEvent0x4007) EventArgsC() (int, uintptr, uintptr) {
+	return 0x4007, uintptr(unsafe.Pointer(ev.Win.C())), ev.Val
+}
+
+var _ WindowEvent = &WindowEvent0x400d{}
+
+type WindowEvent0x400d struct {
+	Str  string
+	Val  int
+	cstr *wchar_t
+}
+
+func (ev *WindowEvent0x400d) EventArgsC() (int, uintptr, uintptr) {
+	if ev.cstr == nil {
+		ev.cstr = internWStr(ev.Str)
+	}
+	return 0x400d, uintptr(unsafe.Pointer(ev.cstr)), uintptr(ev.Val)
 }

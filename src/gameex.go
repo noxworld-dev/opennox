@@ -191,7 +191,7 @@ var wndEntryNames = [5][35]uint16{
 
 func gameexDropTrap() {
 	if noxflags.HasGame(noxflags.GameFlag3 | noxflags.GameModeSolo10) {
-		if C.dword_5d4594_1064868 != 0 || nox_win_unk3 != nil {
+		if C.dword_5d4594_1064868 != 0 || nox_win_cur_input != nil {
 			return
 		}
 		if noxflags.HasGame(noxflags.GameHost) { // checkGameFlags isServer
@@ -214,7 +214,7 @@ func gameexOnKeyboardPress(kcode keybind.Key) {
 		v8 := byte(bool2int(kcode == keybind.KeyLBracket))
 		// checks some gameFlags that are yet undiscovered
 		if noxflags.HasGame(noxflags.GameFlag3 | noxflags.GameModeSolo10) {
-			if C.dword_5d4594_1064868 != 0 || nox_win_unk3 != nil {
+			if C.dword_5d4594_1064868 != 0 || nox_win_cur_input != nil {
 				return
 			}
 			if noxflags.HasGame(noxflags.GameHost) { // isServer
@@ -274,7 +274,7 @@ func gameexOnKeyboardPress(kcode keybind.Key) {
 }
 
 func destroyGameExWindow() {
-	C.nox_xxx_wnd_46C6E0(modifyWndPntr.C())
+	nox_xxx_wnd46C6E0(modifyWndPntr)
 	modifyWndPntr.Destroy()
 	modifyWndPntr = nil
 }

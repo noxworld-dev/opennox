@@ -102,7 +102,7 @@ int nox_xxx_wndClearCaptureMain_46ADE0(nox_window* a1);
 nox_window* nox_xxx_wndGetCaptureMain_46AE00();
 void nox_xxx_windowUpdateKeysMB_46B6B0(unsigned char* a1);
 void sub_46C200();
-int sub_46C690(int a1);
+int sub_46C690(nox_window* a1);
 int nox_xxx_wnd_46C6E0(nox_window* a1);
 int nox_window_is_child(nox_window* a1, nox_window* a2);
 int nox_xxx_wnd_46B280(int a1, int a2);

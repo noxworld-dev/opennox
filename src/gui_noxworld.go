@@ -528,7 +528,7 @@ func sub_41F3A0(a1, a2 int) bool {
 		v2 = strMan.GetStringInFile("wolchat.c:PleaseWait", "C:\\NoxPost\\src\\common\\WolAPI\\wolchnl.c")
 	}
 	NewDialogWindow(nil, v2, v4, 288, nil, nil)
-	C.sub_44A4B0()
+	sub_44A4B0()
 	return C.sub_40D2F0(C.int(a1), C.int(a2)) != 0
 }
 
@@ -537,7 +537,7 @@ func sub_4373A0() {
 	if win := asWindowP(C.dword_5d4594_815000); !win.Flags().IsHidden() {
 		win.Hide()
 		C.dword_5d4594_815056 = 0
-		C.nox_xxx_wnd_46C6E0(win.C())
+		nox_xxx_wnd46C6E0(win)
 		guiFocus(asWindow(C.nox_wol_wnd_world_814980))
 	}
 	if C.dword_587000_87408 == 1 || C.dword_587000_87412 == -1 {
@@ -561,7 +561,7 @@ func sub_4373A0() {
 	} else if C.nox_game_createOrJoin_815048 == 1 {
 		C.nox_game_createOrJoin_815048 = 0
 		setMouseBounds(image.Rect(0, 0, nox_win_width-1, nox_win_height-1))
-		nox_xxx_wndClearCaptureMain_46ADE0(asWindowP(C.dword_5d4594_814984).C())
+		nox_xxx_wndClearCaptureMain(asWindowP(C.dword_5d4594_814984))
 		C.sub_4375C0(1)
 		v0 := strMan.GetStringInFile("JoinServer", "C:\\NoxPost\\src\\client\\shell\\noxworld.c")
 		asWindowP(C.dword_5d4594_814996).Func94(asWindowEvent(0x4001, uintptr(unsafe.Pointer(internCStr(v0))), 0))
@@ -570,7 +570,7 @@ func sub_4373A0() {
 		C.sub_49FF20()
 		if C.dword_587000_87404 != 0 {
 			C.dword_587000_87412 = -1
-			nox_xxx_wndClearCaptureMain_46ADE0(asWindowP(C.dword_5d4594_814984).C())
+			nox_xxx_wndClearCaptureMain(asWindowP(C.dword_5d4594_814984))
 			asWindowP(C.dword_5d4594_814984).Hide()
 			asWindowP(C.dword_5d4594_814988).Show()
 			v1 := strMan.GetStringInFile("ChooseArea", "C:\\NoxPost\\src\\client\\shell\\noxworld.c")
