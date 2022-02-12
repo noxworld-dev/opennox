@@ -13575,7 +13575,8 @@ int sub_4F3DD0(int a1, int a2) {
 }
 
 //----- (004F3E30) --------------------------------------------------------
-int nox_xxx_xfer_4F3E30(unsigned short a1, int a2, int a3) {
+int nox_xxx_xfer_4F3E30(unsigned short a1, nox_object_t* a2p, int a3) {
+	int a2 = a2p;
 	int v3;            // ebp
 	unsigned short v4; // si
 	uint32_t* v5;      // eax
@@ -13875,7 +13876,8 @@ int nox_xxx_readObjectOldVer_4F4170(int a1, int a2, int a3) {
 }
 
 //----- (004F4530) --------------------------------------------------------
-int nox_xxx_mapReadWriteObjData_4F4530(int* a1, int a2) {
+int nox_xxx_mapReadWriteObjData_4F4530(nox_object_t* a1p, int a2) {
+	int* a1 = a1p;
 	int* v2;          // esi
 	int v3;           // edi
 	int v4;           // ecx
@@ -14031,8 +14033,10 @@ int nox_xxx_mapReadWriteObjData_4F4530(int* a1, int a2) {
 	return result;
 }
 
+#ifndef NOX_CGO
 //----- (004F49A0) --------------------------------------------------------
-int nox_xxx_XFerDefault_4F49A0(int a1) {
+int nox_xxx_XFerDefault_4F49A0(nox_object_t* a1p, void* a2) {
+	int a1 = a1p;
 	int* v1;    // esi
 	int v2;     // edi
 	int result; // eax
@@ -14053,6 +14057,7 @@ int nox_xxx_XFerDefault_4F49A0(int a1) {
 	}
 	return result;
 }
+#endif // NOX_CGO
 
 //----- (004F4A20) --------------------------------------------------------
 int nox_xxx_XFerSpellPagePedistal_4F4A20(int a1) {
