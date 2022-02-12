@@ -19,12 +19,14 @@ package nox
 #include "server__script__script.h"
 #include "client__gui__guicon.h"
 extern unsigned int nox_player_netCode_85319C;
+extern unsigned int dword_5d4594_1599644;;
 */
 import "C"
 import (
 	"encoding/binary"
 	"errors"
 	"fmt"
+	"io"
 	"os"
 	"path/filepath"
 	"strings"
@@ -40,6 +42,7 @@ import (
 	"nox/v1/common/memmap"
 	"nox/v1/common/object"
 	"nox/v1/common/types"
+	"nox/v1/server/script/noxscript"
 )
 
 var (
@@ -102,9 +105,70 @@ func nox_server_mapRWWindowWalls_4292C0(a1 unsafe.Pointer) int {
 func nox_server_mapRWGroupData_505C30(a1 unsafe.Pointer) int {
 	return cgoCallIntVoidPtrFunc(C.nox_server_mapRWGroupData_505C30, a1)
 }
-func nox_server_mapRWScriptObject_505A40(a1 unsafe.Pointer) int {
-	return cgoCallIntVoidPtrFunc(C.nox_server_mapRWScriptObject_505A40, a1)
+
+func nox_server_mapRWScriptObject_505A40(a1 unsafe.Pointer) (gout int) {
+	defer func() {
+		log.Printf("nox_server_mapRWScriptObject_505A40: 0x%x (%s)", gout, caller(1))
+	}()
+	fname := datapath.Path(noxscript.NCobjName)
+	C.dword_5d4594_1599644 = 0
+	if cryptFile.Mode() != BinFileRO {
+		cryptFileWriteU16(1)
+		f, err := fs.Open(fname)
+		if os.IsNotExist(err) {
+			cryptFileWriteU32(0)
+			return 1
+		} else if err != nil {
+			mapLog.Println(err)
+			return 0
+		}
+		defer f.Close()
+		fi, _ := f.Stat()
+		sz := fi.Size()
+		cryptFileWriteU32(uint32(sz))
+		if sz == 0 {
+			return 1
+		}
+		_, err = io.CopyN(cryptFileWriter{}, f, sz)
+		if err != nil {
+			mapLog.Println(err)
+			return 0
+		}
+		return 1
+	}
+	v10, _ := cryptFileReadU16()
+	if int16(v10) < 1 {
+		return 0
+	}
+	if nox_xxx_cryptGetXxx() != 1 {
+		return 0
+	}
+	f, err := fs.Create(fname)
+	if err != nil {
+		mapLog.Println(err)
+		return 0
+	}
+	defer f.Close()
+	sz, err := cryptFileReadU32()
+	if err != nil {
+		mapLog.Println(err)
+		return 0
+	}
+	C.dword_5d4594_1599644 = C.uint(sz)
+	if sz > 0 {
+		_, err = io.CopyN(f, cryptFileReader{}, int64(sz))
+		if err != nil {
+			mapLog.Println(err)
+			return 0
+		}
+	}
+	_ = f.Close()
+	if sz <= 0 || noxflags.HasGame(noxflags.GameFlag22|noxflags.GameFlag23) {
+		return 1
+	}
+	return int(C.nox_script_ncobj_parse_505360())
 }
+
 func nox_server_mapRWAmbientData_429200(a1 unsafe.Pointer) int {
 	return cgoCallIntVoidPtrFunc(C.nox_server_mapRWAmbientData_429200, a1)
 }
@@ -169,7 +233,7 @@ func nox_common_checkMapFile(name string) error {
 	}
 	var pbuf [32]byte
 	cryptFileReadWrite(pbuf[:32])
-	if C.nox_server_mapRWMapInfo_42A6E0() == 0 {
+	if nox_server_mapRWMapInfo_42A6E0(nil) == 0 {
 		return fmt.Errorf("cannot read map info: %q", name)
 	}
 	return nil

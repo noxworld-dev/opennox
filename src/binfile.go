@@ -42,6 +42,10 @@ type Binfile struct {
 	full  *crypt.File
 }
 
+func (f *Binfile) Mode() BinFileMode {
+	return f.mode
+}
+
 func (f *Binfile) Close() error {
 	// it will call Binfile.close
 	return f.file.Close()

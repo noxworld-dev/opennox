@@ -10549,6 +10549,7 @@ int nox_server_mapRWMapIntro_505080() {
 }
 // 505080: using guessed type char var_400[1024];
 
+#ifndef NOX_CGO
 //----- (00505A40) --------------------------------------------------------
 int nox_server_mapRWScriptObject_505A40() {
 	int v0;   // edi
@@ -10619,6 +10620,7 @@ int nox_server_mapRWScriptObject_505A40() {
 	}
 	return nox_script_ncobj_parse_505360();
 }
+#endif // NOX_CGO
 
 //----- (00505C30) --------------------------------------------------------
 int nox_server_mapRWGroupData_505C30() {

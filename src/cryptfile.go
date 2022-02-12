@@ -141,6 +141,12 @@ func nox_xxx_fileReadWrite_426AC0_file3_fread(a1 *C.uchar, a2 C.size_t) C.size_t
 	return 1
 }
 
+type cryptFileReader struct{}
+
+func (cryptFileReader) Read(p []byte) (int, error) {
+	return cryptFileRead(p)
+}
+
 func cryptFileRead(p []byte) (int, error) {
 	if cryptFileMode == 0 {
 		panic("invalid file mode")
@@ -159,6 +165,12 @@ func cryptFileRead(p []byte) (int, error) {
 		cryptFileCRCAdd(p)
 	}
 	return n, err
+}
+
+type cryptFileWriter struct{}
+
+func (cryptFileWriter) Write(p []byte) (int, error) {
+	return cryptFileWrite(p)
 }
 
 func cryptFileWrite(p []byte) (int, error) {
@@ -185,6 +197,13 @@ func cryptFileReadWrite(p []byte) (int, error) {
 func cryptFileWriteU16(v uint16) error {
 	var buf [2]byte
 	binary.LittleEndian.PutUint16(buf[:], v)
+	_, err := cryptFileWrite(buf[:])
+	return err
+}
+
+func cryptFileWriteU32(v uint32) error {
+	var buf [4]byte
+	binary.LittleEndian.PutUint32(buf[:], v)
 	_, err := cryptFileWrite(buf[:])
 	return err
 }
