@@ -513,7 +513,7 @@ func nox_xxx_findAutosaves_4A5150() {
 	}
 	sort.Slice(nox_xxx_saves_arr[:v9], func(i, j int) bool {
 		sv1, sv2 := &nox_xxx_saves_arr[i], &nox_xxx_saves_arr[j]
-		return asTime(&sv1.timestamp).Before(asTime(&sv2.timestamp))
+		return asTime(&sv1.timestamp).After(asTime(&sv2.timestamp))
 	})
 	for i := 0; i < v9; i++ {
 		sv := &nox_xxx_saves_arr[i]
