@@ -49,12 +49,17 @@ func KeyForFile(path string) (int, bool) {
 
 // Encode a buffer with a given key.
 func Encode(p []byte, key int) error {
-	if len(p)%Block != 0 {
-		return errInvalidSize
-	}
 	c, err := NewCipher(key)
 	if err != nil {
 		return err
+	}
+	return EncodeWith(c, p)
+}
+
+// EncodeWith encodes a buffer with a given cipher.
+func EncodeWith(c *blowfish.Cipher, p []byte) error {
+	if len(p)%Block != 0 {
+		return errInvalidSize
 	}
 	for i := 0; i < len(p); i += Block {
 		b := p[i : i+Block]
@@ -71,6 +76,18 @@ func Decode(p []byte, key int) error {
 	c, err := NewCipher(key)
 	if err != nil {
 		return err
+	}
+	for i := 0; i < len(p); i += Block {
+		b := p[i : i+Block]
+		c.Decrypt(b, b)
+	}
+	return nil
+}
+
+// DecodeWith decodes a buffer with a given cipher.
+func DecodeWith(c *blowfish.Cipher, p []byte) error {
+	if len(p)%Block != 0 {
+		return errInvalidSize
 	}
 	for i := 0; i < len(p); i += Block {
 		b := p[i : i+Block]

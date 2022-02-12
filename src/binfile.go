@@ -13,13 +13,16 @@ import (
 	"os"
 	"unsafe"
 
+	"golang.org/x/crypto/blowfish"
+
 	"nox/v1/common/crypt"
 	"nox/v1/common/fs"
 	"nox/v1/common/log"
 )
 
 var (
-	binFileLog = log.New("binfile")
+	binFileLog     = log.New("binfile")
+	binFileCiphers = make(map[int]*blowfish.Cipher)
 )
 
 type BinFileMode int
@@ -202,7 +205,16 @@ func (f *Binfile) WriteUint32At(v int32, off int64) error {
 	}
 	var buf [crypt.Block]byte
 	binary.LittleEndian.PutUint32(buf[0:], uint32(v))
-	crypt.Encode(buf[:], f.key)
+	c := binFileCiphers[f.key]
+	if c == nil {
+		var err error
+		c, err = crypt.NewCipher(f.key)
+		if err != nil {
+			return err
+		}
+		binFileCiphers[f.key] = c
+	}
+	crypt.EncodeWith(c, buf[:])
 	_, err := f.file.WriteAt(buf[:], off)
 	f.file.Seek(0, io.SeekEnd)
 	return err
