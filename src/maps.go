@@ -53,33 +53,73 @@ type mapSection struct {
 
 type mapSectionFunc func(a1 unsafe.Pointer) int
 
-func wrapMapSectionFunc(fnc unsafe.Pointer) mapSectionFunc {
-	return func(a1 unsafe.Pointer) int {
-		return cgoCallIntVoidPtrFunc(fnc, a1)
-	}
-}
-
 var (
 	noxMapSections = []mapSection{
-		{Name: "MapInfo", Fnc: wrapMapSectionFunc(C.nox_server_mapRWMapInfo_42A6E0)},
-		{Name: "WallMap", Fnc: wrapMapSectionFunc(C.nox_server_mapRWWallMap_429B20)},
-		{Name: "FloorMap", Fnc: wrapMapSectionFunc(C.nox_server_mapRWFloorMap_422230)},
-		{Name: "SecretWalls", Fnc: wrapMapSectionFunc(C.nox_server_mapRWSecretWalls_4297C0)},
-		{Name: "DestructableWalls", Fnc: wrapMapSectionFunc(C.nox_server_mapRWDestructableWalls_429530)},
-		{Name: "WayPoints", Fnc: wrapMapSectionFunc(C.nox_server_mapRWWaypoints_506260)},
-		{Name: "DebugData", Fnc: wrapMapSectionFunc(C.nox_server_mapRWDebugData_5060D0)},
-		{Name: "WindowWalls", Fnc: wrapMapSectionFunc(C.nox_server_mapRWWindowWalls_4292C0)},
-		{Name: "GroupData", Fnc: wrapMapSectionFunc(C.nox_server_mapRWGroupData_505C30)},
-		{Name: "ScriptObject", Fnc: wrapMapSectionFunc(C.nox_server_mapRWScriptObject_505A40)},
-		{Name: "AmbientData", Fnc: wrapMapSectionFunc(C.nox_server_mapRWAmbientData_429200)},
-		{Name: "Polygons", Fnc: wrapMapSectionFunc(C.nox_server_mapRWPolygons_428CD0)},
-		{Name: "MapIntro", Fnc: wrapMapSectionFunc(C.nox_server_mapRWMapIntro_505080)},
-		{Name: "ScriptData", Fnc: wrapMapSectionFunc(C.nox_server_mapRWScriptData_504F90)},
-		{Name: "ObjectTOC", Fnc: wrapMapSectionFunc(C.nox_server_mapRWObjectTOC_428B30)},
+		{Name: "MapInfo", Fnc: nox_server_mapRWMapInfo_42A6E0},
+		{Name: "WallMap", Fnc: nox_server_mapRWWallMap_429B20},
+		{Name: "FloorMap", Fnc: nox_server_mapRWFloorMap_422230},
+		{Name: "SecretWalls", Fnc: nox_server_mapRWSecretWalls_4297C0},
+		{Name: "DestructableWalls", Fnc: nox_server_mapRWDestructableWalls_429530},
+		{Name: "WayPoints", Fnc: nox_server_mapRWWaypoints_506260},
+		{Name: "DebugData", Fnc: nox_server_mapRWDebugData_5060D0},
+		{Name: "WindowWalls", Fnc: nox_server_mapRWWindowWalls_4292C0},
+		{Name: "GroupData", Fnc: nox_server_mapRWGroupData_505C30},
+		{Name: "ScriptObject", Fnc: nox_server_mapRWScriptObject_505A40},
+		{Name: "AmbientData", Fnc: nox_server_mapRWAmbientData_429200},
+		{Name: "Polygons", Fnc: nox_server_mapRWPolygons_428CD0},
+		{Name: "MapIntro", Fnc: nox_server_mapRWMapIntro_505080},
+		{Name: "ScriptData", Fnc: nox_server_mapRWScriptData_504F90},
+		{Name: "ObjectTOC", Fnc: nox_server_mapRWObjectTOC_428B30},
 		{Name: "ObjectData", Fnc: nox_server_mapRWObjectData_504CF0},
 	}
 	noxMapSectByName = make(map[string]*mapSection)
 )
+
+func nox_server_mapRWMapInfo_42A6E0(a1 unsafe.Pointer) int {
+	return cgoCallIntVoidPtrFunc(C.nox_server_mapRWMapInfo_42A6E0, a1)
+}
+func nox_server_mapRWWallMap_429B20(a1 unsafe.Pointer) int {
+	return cgoCallIntVoidPtrFunc(C.nox_server_mapRWWallMap_429B20, a1)
+}
+func nox_server_mapRWFloorMap_422230(a1 unsafe.Pointer) int {
+	return cgoCallIntVoidPtrFunc(C.nox_server_mapRWFloorMap_422230, a1)
+}
+func nox_server_mapRWSecretWalls_4297C0(a1 unsafe.Pointer) int {
+	return cgoCallIntVoidPtrFunc(C.nox_server_mapRWSecretWalls_4297C0, a1)
+}
+func nox_server_mapRWDestructableWalls_429530(a1 unsafe.Pointer) int {
+	return cgoCallIntVoidPtrFunc(C.nox_server_mapRWDestructableWalls_429530, a1)
+}
+func nox_server_mapRWWaypoints_506260(a1 unsafe.Pointer) int {
+	return cgoCallIntVoidPtrFunc(C.nox_server_mapRWWaypoints_506260, a1)
+}
+func nox_server_mapRWDebugData_5060D0(a1 unsafe.Pointer) int {
+	return cgoCallIntVoidPtrFunc(C.nox_server_mapRWDebugData_5060D0, a1)
+}
+func nox_server_mapRWWindowWalls_4292C0(a1 unsafe.Pointer) int {
+	return cgoCallIntVoidPtrFunc(C.nox_server_mapRWWindowWalls_4292C0, a1)
+}
+func nox_server_mapRWGroupData_505C30(a1 unsafe.Pointer) int {
+	return cgoCallIntVoidPtrFunc(C.nox_server_mapRWGroupData_505C30, a1)
+}
+func nox_server_mapRWScriptObject_505A40(a1 unsafe.Pointer) int {
+	return cgoCallIntVoidPtrFunc(C.nox_server_mapRWScriptObject_505A40, a1)
+}
+func nox_server_mapRWAmbientData_429200(a1 unsafe.Pointer) int {
+	return cgoCallIntVoidPtrFunc(C.nox_server_mapRWAmbientData_429200, a1)
+}
+func nox_server_mapRWPolygons_428CD0(a1 unsafe.Pointer) int {
+	return cgoCallIntVoidPtrFunc(C.nox_server_mapRWPolygons_428CD0, a1)
+}
+func nox_server_mapRWMapIntro_505080(a1 unsafe.Pointer) int {
+	return cgoCallIntVoidPtrFunc(C.nox_server_mapRWMapIntro_505080, a1)
+}
+func nox_server_mapRWScriptData_504F90(a1 unsafe.Pointer) int {
+	return cgoCallIntVoidPtrFunc(C.nox_server_mapRWScriptData_504F90, a1)
+}
+func nox_server_mapRWObjectTOC_428B30(a1 unsafe.Pointer) int {
+	return cgoCallIntVoidPtrFunc(C.nox_server_mapRWObjectTOC_428B30, a1)
+}
 
 func init() {
 	for i := range noxMapSections {
