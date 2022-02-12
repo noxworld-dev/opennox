@@ -322,6 +322,7 @@ int sub_51DED0() {
 	return 1;
 }
 
+#ifndef NOX_CGO
 //----- (0051DF90) --------------------------------------------------------
 int nox_xxx_xfer_saveObj_51DF90(nox_object_t* a1p) {
 	int a1 = a1p;
@@ -351,6 +352,7 @@ int nox_xxx_xfer_saveObj_51DF90(nox_object_t* a1p) {
 	}
 	return result;
 }
+#endif // NOX_CGO
 // 51DFAA: variable 'v2' is possibly undefined
 // 51DFC3: variable 'v4' is possibly undefined
 // 51DFDA: variable 'v5' is possibly undefined

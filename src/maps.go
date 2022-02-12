@@ -365,7 +365,7 @@ func nox_server_mapRWObjectData_504CF0_Write(a2 unsafe.Pointer) int {
 	for it := noxServer.firstServerObject(); it != nil; it = it.Next() {
 		pos := it.Pos()
 		if a2 == nil || sub_4280E0(types.Point{X: int(pos.X), Y: int(pos.Y)}, a2) {
-			if C.sub_4E3B80(C.int(it.objTypeInd())) != 0 && C.nox_xxx_xfer_saveObj_51DF90(it.CObj()) == 0 {
+			if C.sub_4E3B80(C.int(it.objTypeInd())) != 0 && nox_xxx_xfer_saveObj51DF90(it) == 0 {
 				return 0
 			}
 		}
@@ -381,8 +381,8 @@ func nox_server_mapRWObjectData_504CF0_Write(a2 unsafe.Pointer) int {
 			pos := obj.Pos()
 			v6 := obj.FirstItem()
 			v6.setPos(pos)
-			C.nox_xxx_xfer_saveObj_51DF90(v6.CObj())
-		} else if C.sub_4E3B80(C.int(obj.objTypeInd())) != 0 && C.nox_xxx_xfer_saveObj_51DF90(obj.CObj()) == 0 {
+			nox_xxx_xfer_saveObj51DF90(v6)
+		} else if C.sub_4E3B80(C.int(obj.objTypeInd())) != 0 && nox_xxx_xfer_saveObj51DF90(obj) == 0 {
 			return 0
 		}
 	}
