@@ -64,14 +64,14 @@ const (
 )
 
 func init() {
-	configBoolPtr("network.xor", "NOX_NET_NO_XOR", true, &noxNetNoXor)
+	configBoolPtr("network.xor", "NOX_NET_XOR", true, &noxNetXor)
 	configHiddenBoolPtr("debug.network", "NOX_DEBUG_NET", &debugNet)
 }
 
 var (
-	noxNetNoXor bool
-	debugNet    bool
-	netLog      = log.New("network")
+	noxNetXor bool
+	debugNet  bool
+	netLog    = log.New("network")
 )
 
 var (
@@ -236,7 +236,7 @@ func nox_client_getServerConnectAddr() *C.char {
 
 //export nox_xxx_cryptXor_56FDD0
 func nox_xxx_cryptXor_56FDD0(key C.char, p *C.uchar, n C.int) {
-	if p == nil || n == 0 || noxNetNoXor {
+	if p == nil || n == 0 || !noxNetXor {
 		return
 	}
 	buf := unsafe.Slice((*byte)(unsafe.Pointer(p)), int(n))
@@ -261,7 +261,7 @@ func nox_xxx_cryptXorDst(key byte, src, dst []byte) {
 }
 
 func netCryptXor(key byte, p []byte) {
-	if len(p) == 0 || noxNetNoXor {
+	if len(p) == 0 || !noxNetXor {
 		return
 	}
 	for i := range p {
@@ -270,7 +270,7 @@ func netCryptXor(key byte, p []byte) {
 }
 
 func netCryptDst(key byte, src, dst []byte) {
-	if noxNetNoXor {
+	if !noxNetXor {
 		copy(dst, src)
 		return
 	}
