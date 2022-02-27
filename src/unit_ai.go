@@ -200,7 +200,7 @@ func nox_xxx_mobActionDependency_546A70(uc *C.nox_object_t) {
 			}
 			ok = gameFrame()-st.ArgU32(0) <= 10*gameFPS()
 		case ai.DEPENDENCY_NOT_UNDER_ATTACK:
-			if C.sub_5347A0(u.CObj()) != 0 {
+			if C.sub_5347A0(u.CObj()) == 0 {
 				break
 			}
 			if u.field_130 == 0 {
