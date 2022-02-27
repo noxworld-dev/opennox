@@ -1,3 +1,5 @@
+//+build none
+
 #include "common__telnet__telnetd.h"
 #include "GAME1.h"
 #include "client__system__parsecmd.h" // for nox_server_parseCmdText_443C80

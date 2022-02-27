@@ -29,7 +29,6 @@ package nox
 #include "client__shell__selcolor.h"
 #include "client__shell__wolapi__wolchat.h"
 #include "client__shell__wolapi__wollogin.h"
-#include "common__telnet__telnetd.h"
 #include "server__network__playback.h"
 #include "server__network__sdecode.h"
 #include "client__drawable__drawable.h"
@@ -695,9 +694,6 @@ func (s *Server) nox_xxx_gameTick_4D2580_server() bool {
 			C.sub_4D3130()
 			*memmap.PtrUint64(0x5D4594, 1548684) = v0
 		}
-	}
-	if !noxflags.HasGame(noxflags.GameModeCoop) {
-		C.nox_telnet_tick_578FC0()
 	}
 	if noxflags.HasGame(noxflags.GameFlag4) {
 		nox_xxx_gameTick_4D2580_server_A1()
