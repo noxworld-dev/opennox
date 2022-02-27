@@ -45,7 +45,7 @@ func newSocketUDP() *Socket {
 	return &Socket{udp: true}
 }
 
-func listenUDPBroadcast(ip net.IP, port int) (net.PacketConn, *Socket, error) {
+func listenUDPBroadcast(ip net.IP, port int) (*net.UDPConn, *Socket, error) {
 	netLog.Printf("bind udp %s:%d", ip, port)
 	l, err := net.ListenUDP("udp4", &net.UDPAddr{IP: ip, Port: port})
 	if err != nil {

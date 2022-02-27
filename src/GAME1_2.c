@@ -6463,7 +6463,7 @@ int nox_client_OnLobbyServer_4375F0(const char* addr, uint16_t port, const char*
 	memset(&srv, 0, sizeof(nox_gui_server_ent_t));
 	srv.field_11_0 = *(short*)(packet + 40);
 	srv.field_11_2 = *(short*)(packet + 42);
-	srv.field_12 = *(uint32_t*)(packet + 24);
+	srv.version = *(uint32_t*)(packet + 24);
 	srv.ping = curTicks - ticks; // ping
 	srv.status = *(uint8_t*)(packet + 20) | *(uint8_t*)(packet + 21);
 	srv.field_25_1 = *(uint8_t*)(packet + 5) | (16 * *(uint8_t*)(packet + 6));

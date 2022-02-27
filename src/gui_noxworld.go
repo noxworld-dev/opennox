@@ -32,6 +32,7 @@ extern uint32_t dword_5d4594_815056;
 */
 import "C"
 import (
+	"context"
 	"encoding/binary"
 	"errors"
 	"fmt"
@@ -40,34 +41,148 @@ import (
 	"time"
 	"unsafe"
 
+	"github.com/noxworld-dev/lobby"
+
 	"nox/v1/common/alloc"
 	"nox/v1/common/discover"
+	noxflags "nox/v1/common/flags"
 	"nox/v1/common/memmap"
 )
 
 var (
 	lobbyBroadcast struct {
-		Conn  net.PacketConn
+		Conn  *net.UDPConn
 		Sock  *Socket
 		SockC nox_socket_t
 	}
 	errLobbyNoSocket = errors.New("no broadcast socket")
+	discoverDone     = make(chan []discover.Server, 1)
 )
 
+type nox_gui_server_ent_t C.nox_gui_server_ent_t
+
+func (s *nox_gui_server_ent_t) C() *C.nox_gui_server_ent_t {
+	return (*C.nox_gui_server_ent_t)(unsafe.Pointer(s))
+}
+
+func (s *nox_gui_server_ent_t) field(off uintptr) unsafe.Pointer {
+	// see https://github.com/golang/go/issues/7560
+	return unsafe.Add(unsafe.Pointer(s), off)
+}
+
+func (s *nox_gui_server_ent_t) Players() int {
+	if s == nil {
+		return 0
+	}
+	return int(s.players)
+}
+
+func (s *nox_gui_server_ent_t) MaxPlayers() int {
+	if s == nil {
+		return 0
+	}
+	return int(s.max_players)
+}
+
+func (s *nox_gui_server_ent_t) Ping() int {
+	if s == nil {
+		return 0
+	}
+	return int(s.ping)
+}
+
+func (s *nox_gui_server_ent_t) Version() uint32 {
+	if s == nil {
+		return 0
+	}
+	return uint32(s.version)
+}
+
+func (s *nox_gui_server_ent_t) SetVersion(v uint32) {
+	s.version = C.uint(v)
+}
+
+func (s *nox_gui_server_ent_t) Status() int {
+	if s == nil {
+		return 0
+	}
+	return int(s.status)
+}
+
+func (s *nox_gui_server_ent_t) QuestLevel() int {
+	if s == nil {
+		return 0
+	}
+	return int(*(*uint16)(s.field(165))) // quest_level
+}
+
+func (s *nox_gui_server_ent_t) SetQuestLevel(v uint16) {
+	*(*uint16)(s.field(165)) = v // quest_level
+}
+
+func (s *nox_gui_server_ent_t) Addr() string {
+	if s == nil {
+		return ""
+	}
+	return GoString(&s.addr[0])
+}
+
+func (s *nox_gui_server_ent_t) SetAddr(v string) {
+	StrCopy(&s.addr[0], 16, v)
+}
+
+func (s *nox_gui_server_ent_t) Port() int {
+	if s == nil {
+		return 0
+	}
+	return int(*(*uint16)(s.field(109))) // port
+}
+
+func (s *nox_gui_server_ent_t) SetPort(v uint16) {
+	*(*uint16)(s.field(109)) = v // port
+}
+
+func (s *nox_gui_server_ent_t) ServerName() string {
+	if s == nil {
+		return ""
+	}
+	return GoString(&s.server_name[0])
+}
+
+func (s *nox_gui_server_ent_t) SetServerName(v string) {
+	StrNCopy(&s.server_name[0], 15, v)
+}
+
+func (s *nox_gui_server_ent_t) MapName() string {
+	if s == nil {
+		return ""
+	}
+	return GoString(&s.map_name[0])
+}
+
+func (s *nox_gui_server_ent_t) SetMapName(v string) {
+	StrCopy(&s.map_name[0], 9, v)
+}
+
+func (s *nox_gui_server_ent_t) Flags() noxflags.GameFlag {
+	if s == nil {
+		return 0
+	}
+	return noxflags.GameFlag(*(*uint16)(s.field(163))) // flags
+}
+
+func (s *nox_gui_server_ent_t) SetFlags(v noxflags.GameFlag) {
+	*(*uint16)(s.field(163)) = uint16(v) // flags
+}
+
 type LobbyServerInfo struct {
-	Addr       string
-	Port       int
-	Name       string
-	Map        string
+	discover.Server
 	Status     byte
-	Ping       time.Duration
-	Players    int
-	MaxPlayers int
 	Flags      uint16 // TODO: should be the same as GameFlags
 	Level      uint16
 	Field_11_0 int16
 	Field_11_2 int16
-	Field_12   uint32
+	Version    uint32
 	Field_25_1 byte
 	Field_25_2 byte
 	Field_26_1 uint16
@@ -78,64 +193,48 @@ type LobbyServerInfo struct {
 }
 
 func (s *LobbyServerInfo) String() string {
-	addr := fmt.Sprintf("%s:%d", s.Addr, s.Port)
+	addr := fmt.Sprintf("%s:%d", s.IP, s.Port)
 	ping := ""
 	if s.Ping > 0 {
 		ping = fmt.Sprintf(" P:%s,", s.Ping)
 	}
-	return fmt.Sprintf("{%q, %q, %d/%d,%s F:%v, M:%q, L:%d}", addr, s.Name, s.Players, s.MaxPlayers, ping, s.Flags, s.Map, s.Level)
-}
-
-type LobbyServerFunc func(info *LobbyServerInfo) int
-
-var guiOnLobbyServer LobbyServerFunc
-
-func clientSetOnLobbyServer(fnc LobbyServerFunc) {
-	guiOnLobbyServer = fnc
-}
-
-func onLobbyServer(info *LobbyServerInfo) bool {
-	if guiOnLobbyServer == nil {
-		discover.Log.Printf("ignoring server response: %s:%d, %q", info.Addr, info.Port, info.Name)
-		return false
-	}
-	return guiOnLobbyServer(info) != 0
+	return fmt.Sprintf("{%q, %q (%s), %d/%d,%s F:%v, M:%q, L:%d}", addr, s.Name, s.Source, s.Players.Cur, s.Players.Max, ping, s.Flags, s.Map, s.Level)
 }
 
 func onLobbyServerPacket(addr string, port int, name string, packet []byte) bool {
-	if guiOnLobbyServer == nil {
-		discover.Log.Printf("ignoring server response: %s:%d, %q", addr, port, name)
-		return false
-	}
-	ticks := uint64(binary.LittleEndian.Uint32(packet[44:]))
-	if exp := *memmap.PtrUint32(0x5D4594, 814964); uint32(ticks) != exp {
-		discover.Log.Printf("onLobbyServerPacket: ignoring server %q: invalid ts: 0x%x vs 0x%x", addr, ticks, exp)
-		return false
-	}
-	mi := StrLenBytes(packet[10:])
-	info := &LobbyServerInfo{
-		Addr:       addr,
-		Port:       port,
-		Name:       name,
-		Players:    int(packet[3]),
-		MaxPlayers: int(packet[4]),
-		Field_25_1: packet[5] | (packet[6] << 4),
-		Field_38_3: binary.LittleEndian.Uint32(packet[7:]) & 0xffffff,
-		Map:        string(packet[10 : 10+mi]),
-		Field_25_2: packet[19],
-		Status:     packet[20] | packet[21],
-		Field_12:   binary.LittleEndian.Uint32(packet[24:]),
-		Flags:      binary.LittleEndian.Uint16(packet[28:]),
-		Field_39_3: binary.LittleEndian.Uint32(packet[32:]),
-		Field_26_1: binary.LittleEndian.Uint16(packet[36:]),
-		Field_26_3: binary.LittleEndian.Uint16(packet[38:]),
-		Field_11_0: int16(binary.LittleEndian.Uint16(packet[40:])),
-		Field_11_2: int16(binary.LittleEndian.Uint16(packet[42:])),
-		Ping:       time.Duration(platformTicks()-ticks) * time.Millisecond,
-		Level:      binary.LittleEndian.Uint16(packet[68:]),
-	}
-	copy(info.Field_33_3[:], packet[48:48+20])
-	return onLobbyServer(info)
+	discover.Log.Printf("ignoring server response: %s:%d, %q", addr, port, name)
+	return false
+	/*
+		ticks := uint64(binary.LittleEndian.Uint32(packet[44:]))
+		if exp := *memmap.PtrUint32(0x5D4594, 814964); uint32(ticks) != exp {
+			discover.Log.Printf("onLobbyServerPacket: ignoring server %q: invalid ts: 0x%x vs 0x%x", addr, ticks, exp)
+			return false
+		}
+		mi := StrLenBytes(packet[10:])
+		info := &LobbyServerInfo{
+			Addr:       addr,
+			Port:       port,
+			Name:       name,
+			Players:    int(packet[3]),
+			MaxPlayers: int(packet[4]),
+			Field_25_1: packet[5] | (packet[6] << 4),
+			Field_38_3: binary.LittleEndian.Uint32(packet[7:]) & 0xffffff,
+			Map:        string(packet[10 : 10+mi]),
+			Field_25_2: packet[19],
+			Status:     packet[20] | packet[21],
+			Field_12:   binary.LittleEndian.Uint32(packet[24:]),
+			Flags:      binary.LittleEndian.Uint16(packet[28:]),
+			Field_39_3: binary.LittleEndian.Uint32(packet[32:]),
+			Field_26_1: binary.LittleEndian.Uint16(packet[36:]),
+			Field_26_3: binary.LittleEndian.Uint16(packet[38:]),
+			Field_11_0: int16(binary.LittleEndian.Uint16(packet[40:])),
+			Field_11_2: int16(binary.LittleEndian.Uint16(packet[42:])),
+			Ping:       time.Duration(platformTicks()-ticks) * time.Millisecond,
+			Level:      binary.LittleEndian.Uint16(packet[68:]),
+		}
+		copy(info.Field_33_3[:], packet[48:48+20])
+		return onLobbyServer(info)
+	*/
 }
 
 //export nox_client_refreshServerList_4378B0
@@ -156,15 +255,58 @@ func nox_client_refreshServerList_4378B0() {
 		v3 := sub_41E2F0()
 		C.sub_41DA70(C.int(v3), 12)
 	} else {
-		clientSetOnLobbyServer(clientOnLobbyServer)
-		ticks := platformTicks()
-		*memmap.PtrUint32(0x5D4594, 814964) = uint32(ticks)
-		port := noxServer.getServerPort()
-		nox_xxx_lobbyMakePacket_554AA0(port, nil, uint32(ticks))
+		ctx := context.Background()
 		asWindow(C.nox_wol_wnd_world_814980).NewDialogID("Wolchat.c:PleaseWait", "C:\\NoxPost\\src\\client\\shell\\noxworld.c")
+		C.dword_5d4594_3844304 = 0
+		go discoverAndPingServers(ctx)
 	}
 	C.dword_5d4594_815104 = 0
+	// next auto-refresh
 	C.qword_5d4594_815068 = C.ulonglong(*memmap.PtrUint64(0x5D4594, 815076) + 120000)
+}
+
+//export sub_438770_waitList
+func sub_438770_waitList() {
+	if C.dword_5d4594_815060 != 0 || C.dword_587000_87404 != 0 {
+		return
+	}
+	timer := time.NewTimer(10 * time.Millisecond)
+	defer timer.Stop()
+	var list []discover.Server
+	select {
+	case <-timer.C:
+		return
+	case list = <-discoverDone:
+	}
+	for _, g := range list {
+		level := 0
+		if g.Quest != nil {
+			level = g.Quest.Stage
+		}
+		var status byte
+		switch g.Access {
+		case lobby.AccessClosed:
+			status |= 0x10
+		case lobby.AccessPassword:
+			status |= 0x20
+		}
+		// TODO: should propagate this via lobby
+		v := uint32(noxProtoVersionLegacy)
+		if g.Res.HighRes || g.Res.Width > 1024 || g.Res.Height > 768 {
+			v = noxProtoVersionHighRes
+		}
+		clientOnLobbyServer(&LobbyServerInfo{
+			Server:  g,
+			Flags:   gameModeToFlags(g.Mode),
+			Status:  status,
+			Level:   uint16(level),
+			Version: v,
+		})
+	}
+	sub_44A400()
+	C.sub_4379C0()
+	C.sub_4A0360()
+	C.dword_5d4594_815060 = 1
 }
 
 //export nox_xxx_createSocketLocal_554B40
@@ -200,7 +342,6 @@ func sub_554D10() C.int {
 		lobbyBroadcast.Sock = nil
 		lobbyBroadcast.SockC = 0
 		gameSetCliDrawFunc(nil)
-		clientSetOnLobbyServer(nil)
 	}
 	return 0
 }
@@ -215,28 +356,24 @@ func sub_4A0410(addr string, port int) bool {
 func clientOnLobbyServer(info *LobbyServerInfo) int {
 	discover.Log.Printf("server response: %s", info)
 	if C.nox_wol_server_result_cnt_815088 >= 2500 || C.dword_5d4594_815044 != 0 || C.dword_5d4594_815060 != 0 {
-		discover.Log.Printf("OnLobbyServer_4375F0: ignoring server %q: don't need more results", info.Addr)
+		discover.Log.Printf("OnLobbyServer_4375F0: ignoring server %q: don't need more results", info.Address)
 		return 0
 	}
-	if info.Addr == "" {
-		discover.Log.Printf("OnLobbyServer_4375F0: ignoring server %q: invalid address", info.Addr)
+	if info.Address == "" {
+		discover.Log.Printf("OnLobbyServer_4375F0: ignoring server %q: invalid address", info.Address)
 		return 0
 	}
-	if !sub_4A0410(info.Addr, info.Port) {
-		discover.Log.Printf("OnLobbyServer_4375F0: ignoring server %q: duplicate?", info.Addr)
+	if !sub_4A0410(info.Address, info.Port) {
+		discover.Log.Printf("OnLobbyServer_4375F0: ignoring server %q: duplicate?", info.Address)
 		return 0
 	}
-	srvP, freeSrv := alloc.Malloc(unsafe.Sizeof(C.nox_gui_server_ent_t{}))
+	srvP, freeSrv := alloc.Malloc(unsafe.Sizeof(nox_gui_server_ent_t{}))
 	defer freeSrv()
-	srv := (*C.nox_gui_server_ent_t)(srvP)
-	// see https://github.com/golang/go/issues/7560
-	field := func(off uintptr) unsafe.Pointer {
-		return unsafe.Add(unsafe.Pointer(srv), off)
-	}
+	srv := (*nox_gui_server_ent_t)(srvP)
 	srv.field_11_0 = C.short(info.Field_11_0)
 	srv.field_11_2 = C.short(info.Field_11_2)
-	srv.field_12 = C.uint(info.Field_12)
-	if info.Ping < 0 {
+	srv.SetVersion(info.Version)
+	if info.Ping <= 0 {
 		srv.ping = 9999 // UI interprets it as N/A
 	} else {
 		srv.ping = C.int(info.Ping / time.Millisecond)
@@ -244,68 +381,38 @@ func clientOnLobbyServer(info *LobbyServerInfo) int {
 	srv.status = C.uchar(info.Status)
 	srv.field_25_1 = C.uchar(info.Field_25_1)
 	srv.field_25_2 = C.uchar(info.Field_25_2)
-	if info.Players < 0 || info.Players > 0xff {
+	if info.Players.Cur < 0 || info.Players.Cur > 0xff {
 		srv.players = 255
 	} else {
-		srv.players = C.uchar(info.Players)
+		srv.players = C.uchar(info.Players.Cur)
 	}
-	if info.MaxPlayers < 0 || info.MaxPlayers > 0xff {
+	if info.Players.Max < 0 || info.Players.Cur > 0xff {
 		srv.max_players = 255
 	} else {
-		srv.max_players = C.uchar(info.MaxPlayers)
+		srv.max_players = C.uchar(info.Players.Max)
 	}
-	*(*uint16)(field(105)) = info.Field_26_1 // field_26_1
-	*(*uint16)(field(107)) = info.Field_26_3 // field_26_3
-	StrCopy(&srv.map_name[0], 9, info.Map)
+	*(*uint16)(srv.field(105)) = info.Field_26_1 // field_26_1
+	*(*uint16)(srv.field(107)) = info.Field_26_3 // field_26_3
+	srv.SetMapName(info.Map)
 	copy(unsafe.Slice((*byte)(unsafe.Pointer(&srv.field_33_3[0])), 20), info.Field_33_3[:])
-	*(*uint32)(field(155)) = info.Field_38_3 // field_38_3
-	*(*uint32)(field(159)) = info.Field_39_3 // field_39_3
-	*(*uint16)(field(163)) = info.Flags      // flags
-	*(*uint16)(field(165)) = info.Level      // quest_level
+	*(*uint32)(srv.field(155)) = info.Field_38_3 // field_38_3
+	*(*uint32)(srv.field(159)) = info.Field_39_3 // field_39_3
+	srv.SetFlags(noxflags.GameFlag(info.Flags))
+	srv.SetQuestLevel(info.Level)
 	srv.field_42 = 0
 	if C.dword_587000_87412 == -1 || C.sub_437860(C.int(srv.field_11_0), C.int(srv.field_11_2)) == C.dword_587000_87412 {
-		if C.nox_xxx_checkSomeFlagsOnJoin_4899C0(srv) != 0 {
-			StrCopy(&srv.addr[0], 16, info.Addr)
+		if C.nox_xxx_checkSomeFlagsOnJoin_4899C0(srv.C()) != 0 {
+			srv.SetAddr(info.Address)
 			srv.field_9 = C.nox_wol_server_result_cnt_815088
 			srv.field_7 = 0
-			*(*uint16)(field(109)) = uint16(info.Port) // port
-			StrNCopy(&srv.server_name[0], 15, info.Name)
-			*(*uint16)(field(163)) = info.Flags // flags
-			C.nox_wol_servers_addResult_4A0030(srv)
+			srv.SetPort(uint16(info.Port))
+			srv.SetServerName(info.Name)
+			srv.SetFlags(noxflags.GameFlag(info.Flags))
+			C.nox_wol_servers_addResult_4A0030(srv.C())
 			C.nox_wol_server_result_cnt_815088++
 		}
 	}
 	return 0
-}
-
-func nox_xxx_lobbyMakePacket_554AA0(port int, payload []byte, ticks uint32) {
-	data := make([]byte, 12+len(payload))
-	data[0] = 0
-	data[1] = 0
-	data[2] = 12
-	// data[3] = ???
-	// data[4:5] = 0
-	// data[6] = ???
-	// data[7] = ???
-	binary.LittleEndian.PutUint32(data[8:], uint32(ticks))
-	if len(payload) > 0 {
-		binary.LittleEndian.PutUint16(data[4:], uint16(len(payload)))
-		copy(data[12:], payload)
-	}
-	C.dword_5d4594_3844304 = 0
-	nox_xxx_sendLobbyPacket_554C80(port, data)
-	discoverAndPingServers(port, ticks, data)
-}
-
-func nox_xxx_sendLobbyPacket_554C80(port int, buf []byte) (int, error) {
-	if lobbyBroadcast.Conn == nil {
-		return 0, errLobbyNoSocket
-	}
-	if len(buf) < 2 {
-		return 0, nil
-	}
-	ip := net.IPv4(255, 255, 255, 255)
-	return lobbyBroadcast.Conn.WriteTo(buf, &net.UDPAddr{IP: ip, Port: port})
 }
 
 func sub_554FF0() bool {
@@ -361,9 +468,7 @@ func sub_554D70(conn net.PacketConn, sock *Socket, csock nox_socket_t, a1 byte) 
 						port := inPort
 						name := buf[72:]
 						name = name[:StrLenBytes(name)]
-						if onLobbyServerPacket(saddr, port, string(name), buf) {
-							clientSetOnLobbyServer(nil)
-						}
+						onLobbyServerPacket(saddr, port, string(name), buf)
 					}
 				case 15:
 					if C.sub_43B6D0() != 0 {

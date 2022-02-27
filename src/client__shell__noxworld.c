@@ -399,6 +399,17 @@ int sub_4383A0() {
 }
 
 //----- (00438770) --------------------------------------------------------
+void sub_438770_waitList();
+#ifndef NOX_CGO
+void sub_438770_waitList() {
+	if ((nox_platform_get_ticks() - *getMemU64Ptr(0x5D4594, 815076)) > 1000 && !dword_5d4594_815060 && !dword_587000_87404) {
+		sub_44A400();
+		sub_4379C0();
+		sub_4A0360();
+		dword_5d4594_815060 = 1;
+	}
+}
+#endif // NOX_CGO
 int sub_438770() {
 	int result;   // eax
 	long long v1; // rax
@@ -484,17 +495,11 @@ int sub_438770() {
 			 !wndIsShown_nox_xxx_wndIsShown_46ACC0(*(int*)&nox_wol_wnd_gameList_815012)) &&
 			!nox_game_createOrJoin_815048 && !dword_5d4594_815044 && !dword_5d4594_815052 &&
 			wndIsShown_nox_xxx_wndIsShown_46ACC0(*(int*)&dword_5d4594_815000)) {
-			if ((unsigned long long)nox_platform_get_ticks() > *(uint64_t*)&qword_5d4594_815068) {
+			if (nox_platform_get_ticks() > qword_5d4594_815068) {
 				nox_client_refreshServerList_4378B0();
 				return 1;
 			}
-			if ((unsigned long long)(nox_platform_get_ticks() - *getMemU64Ptr(0x5D4594, 815076)) > 0x3E8 &&
-				!dword_5d4594_815060 && !dword_587000_87404) {
-				sub_44A400();
-				sub_4379C0();
-				sub_4A0360();
-				dword_5d4594_815060 = 1;
-			}
+			sub_438770_waitList();
 		}
 	LABEL_29:
 		result = 1;

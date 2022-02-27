@@ -9,18 +9,20 @@ import (
 	"nox/v1/internal/version"
 )
 
-const (
-	lobbyServer = "http://nox.nwca.xyz:8088"
+var (
+	// LobbyServer is an address of the Nox lobby server used for discovery.
+	LobbyServer = "http://nox.nwca.xyz:8088"
 )
 
 func newLobbyClient() *lobby.Client {
-	cli := lobby.NewClient(lobbyServer)
+	cli := lobby.NewClient(LobbyServer)
 	cli.SetUserAgent("OpenNox/" + version.Version())
 	return cli
 }
 
 func init() {
-	RegisterBackend("lobby", func(ctx context.Context, out chan<- Server) error {
+	const backend = "lobby"
+	RegisterBackend(backend, func(ctx context.Context, out chan<- Server) error {
 		cli := newLobbyClient()
 		rooms, err := cli.ListGames(ctx)
 		if err != nil {
@@ -31,11 +33,17 @@ func init() {
 			if ip == nil {
 				continue
 			}
+			g := g.Game
 			Log.Printf("lobby: %s (%s)", ip, g.Name)
 			select {
 			case <-ctx.Done():
 				return ctx.Err()
-			case out <- Server{Priority: 0, Addr: ip, Port: g.Port}:
+			case out <- Server{
+				IP:       ip,
+				Source:   backend,
+				Priority: priorityLobby,
+				Game:     g,
+			}:
 			}
 		}
 		return nil

@@ -9,7 +9,7 @@ package nox
 import "C"
 
 const (
-	NOX_CLIENT_VERS_CODE = 0x000F039A
+	NOX_CLIENT_VERS_CODE = noxProtoVersionHighRes
 	noxMaxWidth          = 3840
 	noxMaxHeight         = 2160
 	noxHighRes           = true

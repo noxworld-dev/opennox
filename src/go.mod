@@ -6,7 +6,7 @@ require (
 	github.com/go-gl/gl v0.0.0-20211210172815-726fda9656d6
 	github.com/icza/bitio v1.1.0
 	github.com/julienschmidt/httprouter v1.3.0
-	github.com/noxworld-dev/lobby v0.0.0-20220206103738-f47bc394d6d6
+	github.com/noxworld-dev/lobby v0.0.0-20220206121606-0413c4115f83
 	github.com/noxworld-dev/nat v0.1.0
 	github.com/noxworld-dev/xwis v0.0.0-20220204182326-c5d2fc18e75e
 	github.com/prometheus/client_golang v1.12.1

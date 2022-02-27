@@ -2381,7 +2381,7 @@ typedef struct nox_gui_server_ent_t {
 	uint32_t field_10;            // 10, 40
 	short field_11_0;             // 11, 44
 	short field_11_2;             // 11, 46
-	uint32_t field_12;            // 12, 48
+	uint32_t version;             // 12, 48
 	uint32_t field_13;            // 13, 52
 	uint32_t field_14;            // 14, 56
 	uint32_t field_15;            // 15, 60

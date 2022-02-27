@@ -266,12 +266,8 @@ github.com/modern-go/reflect2 v1.0.1/go.mod h1:bx2lNnkwVCuqBIxFjflWJWanXIb3Rllmb
 github.com/modern-go/reflect2 v1.0.2/go.mod h1:yWuevngMOJpCy52FWWMvUC8ws7m/LJsjYzDa0/r8luk=
 github.com/mwitkow/go-conntrack v0.0.0-20161129095857-cc309e4a2223/go.mod h1:qRWi+5nqEBWmkhHvq77mSJWrCKwh8bxhgT7d/eI7P4U=
 github.com/mwitkow/go-conntrack v0.0.0-20190716064945-2f068394615f/go.mod h1:qRWi+5nqEBWmkhHvq77mSJWrCKwh8bxhgT7d/eI7P4U=
-github.com/noxworld-dev/lobby v0.0.0-20220204215113-2587c212d03e h1:obB2brwf/y5fYaP7xWDZ1+VI2Q1DCW+Tb0+RJmBPTkQ=
-github.com/noxworld-dev/lobby v0.0.0-20220204215113-2587c212d03e/go.mod h1:Eg4ugV8a35SfRaSRmYtR5PnWOuUaN0LRwAHJ/xv/u5g=
-github.com/noxworld-dev/lobby v0.0.0-20220206095322-89af113a78f9 h1:bhuYX5tKSZbrZMIh5pTw7I09Tr4k7hJayXXaxRipIdU=
-github.com/noxworld-dev/lobby v0.0.0-20220206095322-89af113a78f9/go.mod h1:Eg4ugV8a35SfRaSRmYtR5PnWOuUaN0LRwAHJ/xv/u5g=
-github.com/noxworld-dev/lobby v0.0.0-20220206103738-f47bc394d6d6 h1:t/QHPezNQFMHajdI0hDvSLrYlKf5tbs0yORQJe7JdsU=
-github.com/noxworld-dev/lobby v0.0.0-20220206103738-f47bc394d6d6/go.mod h1:Eg4ugV8a35SfRaSRmYtR5PnWOuUaN0LRwAHJ/xv/u5g=
+github.com/noxworld-dev/lobby v0.0.0-20220206121606-0413c4115f83 h1:PlaSDf5UO4TkFLO9zo6/2m1uEkjAbiEXL2u/EG92zuc=
+github.com/noxworld-dev/lobby v0.0.0-20220206121606-0413c4115f83/go.mod h1:Eg4ugV8a35SfRaSRmYtR5PnWOuUaN0LRwAHJ/xv/u5g=
 github.com/noxworld-dev/nat v0.1.0 h1:901X798aWD7HR7J4CAQ8+0C0Hk+zMPfwDqP6FSl1WG0=
 github.com/noxworld-dev/nat v0.1.0/go.mod h1:nuyzkNVgk/Eybj3dbJmm0vsX7xBxjqCczqN6cWkpfrM=
 github.com/noxworld-dev/xwis v0.0.0-20211004170833-846701d6228d/go.mod h1:YE9AGHKE7I/U9guNTsv+jlPrDj45ZMp29H9Q/IgpWcI=

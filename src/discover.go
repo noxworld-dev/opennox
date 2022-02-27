@@ -2,53 +2,59 @@ package nox
 
 import (
 	"context"
+	"errors"
+	"time"
 
-	"github.com/noxworld-dev/xwis"
+	"github.com/noxworld-dev/lobby"
 
 	"nox/v1/common/discover"
+	noxflags "nox/v1/common/flags"
 )
 
-func discoverAndPingServers(defPort int, ts uint32, data []byte) {
-	ctx := context.Background()
-	err := discover.EachServer(ctx, func(s discover.Server) error {
-		port := s.Port
-		if port <= 0 {
-			port = defPort
-		}
-		_, err := sendToServer(s.Addr, port, data)
-		return err
-	})
-	if err != nil {
+func init() {
+	configStrPtr("network.lobby.address", "NOX_LOBBY_ADDR", discover.LobbyServer, &discover.LobbyServer)
+}
+
+type LobbyServerFunc func(s *LobbyServerInfo)
+
+func isCtxTimeout(err error) bool {
+	return err != nil && (errors.Is(err, context.Canceled) || errors.Is(err, context.DeadlineExceeded))
+}
+
+// discoverAndPingServers discovers game servers and sends them to the UI.
+// It should run in a goroutine, and will communicate via discoverDone channel.
+func discoverAndPingServers(ctx context.Context) {
+	start := time.Now()
+	list, err := discover.ListServersWith(ctx, lobbyBroadcast.Conn)
+	if err != nil && !isCtxTimeout(err) {
 		discover.Log.Println(err)
 	}
-	for _, l := range discover.XWISRooms() {
-		if l.Game == nil {
-			continue
-		}
-		g := l.Game
-		level := 0
-		if xwisIsQuest(l.Game) {
-			level = g.FragLimit
-		}
-		var status byte
-		switch g.Access {
-		case xwis.AccessClosed:
-			status |= 0x10
-		case xwis.AccessPrivate:
-			status |= 0x20
-		}
-		// TODO: more fields
-		onLobbyServer(&LobbyServerInfo{
-			Addr:       g.Addr,
-			Port:       defPort, // TODO: this should come from the server
-			Name:       g.Name,
-			Map:        g.Map,
-			Players:    g.Players,
-			MaxPlayers: g.MaxPlayers,
-			Flags:      uint16(g.Flags) | uint16(g.MapType),
-			Status:     status,
-			Ping:       -1, // we have no idea - it comes from a central server
-			Level:      uint16(level),
-		})
+	select {
+	case discoverDone <- list:
+		discover.Log.Printf("done in %v", time.Since(start))
+	default:
+		discover.Log.Printf("discarded in %v", time.Since(start))
 	}
+}
+
+func gameModeToFlags(mode lobby.GameMode) uint16 {
+	switch mode {
+	case lobby.ModeKOTR:
+		return uint16(noxflags.GameModeKOTR)
+	case lobby.ModeCTF:
+		return uint16(noxflags.GameModeCTF)
+	case lobby.ModeFlagBall:
+		return uint16(noxflags.GameModeFlagBall)
+	case lobby.ModeChat:
+		return uint16(noxflags.GameModeChat)
+	case lobby.ModeArena:
+		return uint16(noxflags.GameModeArena)
+	case lobby.ModeElimination:
+		return uint16(noxflags.GameModeElimination)
+	case lobby.ModeQuest:
+		return uint16(noxflags.GameModeQuest)
+	case lobby.ModeCoop:
+		return uint16(noxflags.GameModeCoop)
+	}
+	return 0
 }

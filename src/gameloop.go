@@ -88,6 +88,7 @@ var (
 	mainloopNoSkip          bool
 	nox_draw_unk1           func() bool
 	func_5D4594_816392      func() bool
+	clientLoopWait          func()
 	useFrameLimit           = true
 	mainloopHook            func()
 )

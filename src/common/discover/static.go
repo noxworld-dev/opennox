@@ -7,6 +7,11 @@ import (
 	"net"
 	"os"
 	"path/filepath"
+	"strings"
+
+	"github.com/noxworld-dev/lobby"
+
+	"nox/v1/common"
 )
 
 const (
@@ -49,7 +54,11 @@ func staticIPs(path string) ([]Server, error) {
 	sc := bufio.NewScanner(f)
 	for sc.Scan() {
 		line := sc.Text()
+		if strings.HasPrefix(line, "#") {
+			continue
+		}
 		// TODO: support server ports
+		const port = common.GamePort
 		ip := net.ParseIP(line).To4()
 		if ip == nil {
 			last = fmt.Errorf("cannot parse server IP in %s: %q", name, line)
@@ -57,7 +66,15 @@ func staticIPs(path string) ([]Server, error) {
 			continue
 		}
 		Log.Printf("%s: %v", name, ip)
-		out = append(out, Server{Addr: ip})
+		out = append(out, Server{
+			Source:   name,
+			Priority: priorityStatic,
+			IP:       ip,
+			Game: lobby.Game{
+				Address: ip.String(),
+				Port:    port,
+			},
+		})
 	}
 	if err := sc.Err(); err != nil {
 		last = fmt.Errorf("error reading %s: %w", name, err)
