@@ -9,9 +9,10 @@ ADD opennox-server /usr/bin/opennox-server
 
 VOLUME /nox/
 
+EXPOSE 22/tcp
 EXPOSE 18590/udp
 EXPOSE 18580/tcp
 EXPOSE 6060/tcp
 
 WORKDIR /nox/
-ENTRYPOINT ["opennox-server"]
+ENTRYPOINT ["opennox-server", "--rcon=:22"]

@@ -252,6 +252,31 @@ func (cn *Console) registerBuiltin() {
 	})
 	cn.Register(&Command{Token: "help", HelpID: "helphelp", Flags: ClientServer, LegacyFunc: helpCmd})
 	cn.Register(&Command{Token: "ques", HelpID: "helphelp", Flags: ClientServer, LegacyFunc: helpCmd})
+	cn.Register(&Command{
+		Token:  "colors",
+		Help:   "test console colors",
+		HelpID: "helpcolors",
+		Flags:  ClientServer,
+		Func: func(ctx context.Context, c *Console, tokens []string) bool {
+			c.Print(ColorBlack, " 1: Black")
+			c.Print(ColorDarkGrey, " 2: DarkGrey")
+			c.Print(ColorLightGrey, " 3: LightGrey")
+			c.Print(ColorWhite, " 4: White")
+			c.Print(ColorDarkRed, " 5: DarkRed")
+			c.Print(ColorRed, " 6: Red")
+			c.Print(ColorLightRed, " 7: LightRed")
+			c.Print(ColorDarkGreen, " 8: DarkGreen")
+			c.Print(ColorGreen, " 9: Green")
+			c.Print(ColorLightGreen, "10: LightGreen")
+			c.Print(ColorDarkBlue, "11: DarkBlue")
+			c.Print(ColorBlue, "12: Blue")
+			c.Print(ColorLightBlue, "13: LightBlue")
+			c.Print(ColorDarkYellow, "14: DarkYellow")
+			c.Print(ColorYellow, "15: Yellow")
+			c.Print(ColorLightYellow, "16: LightYellow")
+			return true
+		},
+	})
 }
 
 func (cn *Console) HelpString(cmd *Command) string {

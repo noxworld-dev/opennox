@@ -533,7 +533,7 @@ func initGameSession435CC0() error {
 	if isServer && !isDedicatedServer {
 		noxServer.getPlayers()[0].GoObserver(false, true)
 	}
-	execConsoleCmd(ctx, "execrul autoexec.rul")
+	execConsoleCmdAuthed(ctx, "execrul autoexec.rul")
 	if isServer {
 		execServerCmd("set cycle on")
 		for _, cmd := range serverExec {
@@ -572,6 +572,14 @@ func execConsoleCmd(ctx context.Context, cmd string) bool { // nox_server_parseC
 		nox_console_sendSysOpPass_4409D0(cmd)
 		consoleWaitSysOpPass = false
 		return true
+	}
+	return execConsoleCmdAuthed(ctx, cmd)
+}
+
+func execConsoleCmdAuthed(ctx context.Context, cmd string) bool {
+	cmd = strings.TrimSpace(cmd)
+	if len(cmd) == 0 {
+		return false
 	}
 	if noxflags.HasGame(noxflags.GameHost) {
 		ctx = console.AsServer(ctx)

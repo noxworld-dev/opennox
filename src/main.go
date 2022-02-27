@@ -145,6 +145,10 @@ func RunArgs(args []string) (gerr error) {
 	defer handles.Release()
 	flags := flag.NewFlagSet("", flag.ContinueOnError)
 	// TODO: add missing flag descriptions
+	rconDefHost := ""
+	if env.IsDevMode() {
+		rconDefHost = rconDefaultHost
+	}
 	var (
 		fConfig     = flags.String("config", "", "use specified config file")
 		fData       = flags.String("data", "", "explicitly set Nox data dir")
@@ -178,6 +182,8 @@ func RunArgs(args []string) (gerr error) {
 		fRecord     = flags.String("record", "", "record the game to a given file")
 		fReplay     = flags.String("replay", "", "replay game recording from a given file")
 		fPProf      = flags.String("pprof", "", "enable pprof")
+		fRcon       = flags.String("rcon", rconDefHost, "enable remote console")
+		fRconPass   = flags.String("rcon-pass", "", "remote console password")
 	)
 	if err := flags.Parse(args[1:]); err != nil {
 		return err
@@ -463,6 +469,26 @@ func RunArgs(args []string) (gerr error) {
 	C.sub_413920()
 	nox_client_initScreenParticles_431390()
 	mainloopNoSkip = *fNoSkip
+	if host := *fRcon; host != "" {
+		rconLog.Println("starting rcon at", host)
+		rcon, err := NewRemoteConsole(host, execConsoleCmdAuthed, RconOptions{
+			Pass: *fRconPass,
+		})
+		if err != nil {
+			if !env.IsDevMode() {
+				return err
+			}
+			rconLog.Println(err)
+		} else {
+			defer rcon.Close()
+			consoleMux.Add(rcon)
+			go func() {
+				if err := rcon.Serve(); err != nil {
+					rconLog.Println(err)
+				}
+			}()
+		}
+	}
 	cmainLoop()
 	return nil
 }

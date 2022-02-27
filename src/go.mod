@@ -17,7 +17,7 @@ require (
 	github.com/timshannon/go-openal v0.0.0-20170220204755-e0ed4c67cffe
 	github.com/veandco/go-sdl2 v0.4.10
 	github.com/yuin/gopher-lua v0.0.0-20210529063254-f4c35e4016d9
-	golang.org/x/crypto v0.0.0-20210921155107-089bfa567519
+	golang.org/x/crypto v0.0.0-20220214200702-86341886e292
 	golang.org/x/image v0.0.0-20211028202545-6944b10bf410
 	golang.org/x/mod v0.5.1
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
