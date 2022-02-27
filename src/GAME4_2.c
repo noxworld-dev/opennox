@@ -12592,7 +12592,6 @@ int nox_xxx_spellEnergyBoltTick_52E850(float a1) {
 	int v1;                                              // esi
 	int v2;                                              // eax
 	int result;                                          // eax
-	int v4;                                              // ecx
 	int v5;                                              // eax
 	void (**v6)(uint32_t, uint32_t, uint32_t, int, int); // edi
 	int v7;                                              // eax
@@ -12603,7 +12602,6 @@ int nox_xxx_spellEnergyBoltTick_52E850(float a1) {
 	int v12;                                             // ecx
 	int v13;                                             // edi
 	int v14;                                             // eax
-	int v15;                                             // edx
 	float v16;                                           // edi
 	int v17;                                             // eax
 	uint32_t* v18;                                       // ecx
@@ -12617,7 +12615,6 @@ int nox_xxx_spellEnergyBoltTick_52E850(float a1) {
 	int v26;                                             // [esp-4h] [ebp-20h]
 	float v27;                                           // [esp+0h] [ebp-1Ch]
 	float v28;                                           // [esp+4h] [ebp-18h]
-	float2 v29;                                          // [esp+14h] [ebp-8h]
 	float v31;                                           // [esp+20h] [ebp+4h]
 	float v32;                                           // [esp+20h] [ebp+4h]
 	float v33;                                           // [esp+20h] [ebp+4h]
@@ -12671,10 +12668,9 @@ int nox_xxx_spellEnergyBoltTick_52E850(float a1) {
 		*getMemU32Ptr(0x5D4594, 2487832) = 0;
 		nox_xxx_energyBoltTarget_5d4594_2487880 = 0;
 		v14 = *(uint32_t*)(v1 + 16);
-		*getMemU32Ptr(0x5D4594, 2487868) = *(uint32_t*)(v14 + 56);
-		v15 = *(uint32_t*)(v14 + 60);
+		*getMemFloatPtr(0x5D4594, 2487868) = *(float*)(v14 + 56);
+		*getMemFloatPtr(0x5D4594, 2487872) = *(float*)(v14 + 60);
 		*(float*)&dword_5d4594_2487884 = v31 * v31;
-		*getMemU32Ptr(0x5D4594, 2487872) = v15;
 		nox_xxx_unitsGetInCircle_517F90((float2*)(*(uint32_t*)(v1 + 16) + 56), v31,
 										nox_xxx_spellEnergyBoltSetTarget_52EC60, *(uint32_t*)(v1 + 16));
 		*(uint32_t*)(v1 + 48) = nox_xxx_energyBoltTarget_5d4594_2487880;
@@ -12692,7 +12688,6 @@ int nox_xxx_spellEnergyBoltTick_52E850(float a1) {
 		v16 = v33;
 		v17 = nox_float2int(v33);
 		v18 = *(uint32_t**)(v1 + 48);
-		LODWORD(v29.field_0) = v17;
 		v19 = (double)v17;
 		v20 = *(uint32_t**)(v1 + 36);
 		*(float*)(v1 + 72) = v33 - v19;
@@ -12737,15 +12732,15 @@ int nox_xxx_spellEnergyBoltTick_52E850(float a1) {
 		}
 		return 0;
 	}
-	v4 = *(uint32_t*)(v1 + 32);
+	float2 v29;
 	v29.field_0 = *(float*)(v1 + 28);
-	*getMemU32Ptr(0x5D4594, 2487868) = v29.field_0;
-	*getMemU32Ptr(0x5D4594, 2487872) = v4;
+	v29.field_4 = *(float*)(v1 + 32);
+	*getMemFloatPtr(0x5D4594, 2487868) = v29.field_0;
+	*getMemFloatPtr(0x5D4594, 2487872) = v29.field_4;
 	nox_xxx_energyBoltTarget_5d4594_2487880 = 0;
 	*(float*)&dword_5d4594_2487884 = v31 * v31;
 	*getMemU32Ptr(0x5D4594, 2487832) = 1;
 	v5 = *(uint32_t*)(v1 + 16);
-	v29.field_4 = v4;
 	nox_xxx_unitsGetInCircle_517F90(&v29, v31, nox_xxx_spellEnergyBoltSetTarget_52EC60, v5);
 	if (nox_xxx_energyBoltTarget_5d4594_2487880) {
 		v6 = (void (**)(uint32_t, uint32_t, uint32_t, int, int))(nox_xxx_energyBoltTarget_5d4594_2487880 + 716);
