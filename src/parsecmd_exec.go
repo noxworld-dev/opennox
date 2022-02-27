@@ -79,7 +79,7 @@ func init() {
 			if len(tokens) == 0 {
 				consoleWaitSysOpPass = true
 				str := c.Strings().GetStringInFile("enterSysopPW", "parsecmd.c")
-				c.Printf(console.ColorRed, str)
+				c.Print(console.ColorRed, str)
 			} else if console.IsClient(ctx) {
 				s := strings.TrimPrefix(console.CurCommand(ctx), "sysop ")
 				nox_xxx_netServerCmd_440950(2, s)

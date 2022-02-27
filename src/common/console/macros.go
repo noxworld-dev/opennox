@@ -28,7 +28,7 @@ func (cn *Console) initMacros() {
 					return false
 				}
 				c.SetMacros(true)
-				c.Printf(ColorRed, "%s\n", c.Strings().GetStringInFile("macroson", "parsecmd.c"))
+				c.Print(ColorRed, c.Strings().GetStringInFile("macroson", "parsecmd.c"))
 				return true
 			}},
 			{Token: "off", HelpID: "macrosoffhelp", Flags: Server, Func: func(ctx context.Context, c *Console, tokens []string) bool {
@@ -36,7 +36,7 @@ func (cn *Console) initMacros() {
 					return false
 				}
 				c.SetMacros(false)
-				c.Printf(ColorRed, "%s\n", c.Strings().GetStringInFile("macrosoff", "parsecmd.c"))
+				c.Print(ColorRed, c.Strings().GetStringInFile("macrosoff", "parsecmd.c"))
 				return true
 			}},
 		},
@@ -92,7 +92,7 @@ func (cn *Console) initMacros() {
 			if c.macros.disabled {
 				sid = "macrosOff"
 			}
-			c.Printf(ColorWhite, "%s\n", c.sm.GetStringInFile(sid, "parsecmd.c"))
+			c.Print(ColorWhite, c.sm.GetStringInFile(sid, "parsecmd.c"))
 			return true
 		},
 	})

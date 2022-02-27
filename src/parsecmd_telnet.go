@@ -28,7 +28,7 @@ func cmdTelnetOff(ctx context.Context, c *console.Console, tokens []string) bool
 	}
 	C.nox_telnet_stop_579830()
 	s := c.Strings().GetString("parsecmd.c:telnetoff")
-	c.Printf(console.ColorRed, s)
+	c.Print(console.ColorRed, s)
 	return true
 }
 

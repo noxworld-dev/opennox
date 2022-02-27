@@ -28,7 +28,7 @@ func init() {
 				return false
 			}
 			if noxServer.lua.vm == nil {
-				c.Printf(console.ColorRed, "LUA is not running")
+				c.Print(console.ColorRed, "LUA is not running")
 				return true
 			}
 			code := strings.Join(tokens, " ")

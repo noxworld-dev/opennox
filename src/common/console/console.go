@@ -4,8 +4,10 @@ import (
 	"context"
 	"fmt"
 	"strings"
+	"sync"
 
 	"nox/v1/common/keybind"
+	"nox/v1/common/log"
 	"nox/v1/common/strman"
 )
 
@@ -33,7 +35,55 @@ const (
 
 // Printer is an interface used for command output.
 type Printer interface {
+	Print(cl Color, str string)
 	Printf(cl Color, format string, args ...interface{})
+}
+
+// LogPrinter returns a printer that writes to a given logger.
+func LogPrinter(l *log.Logger) Printer {
+	return logPrinter{l: l}
+}
+
+type logPrinter struct {
+	l *log.Logger
+}
+
+func (p logPrinter) Print(cl Color, str string) {
+	// TODO: colorize?
+	p.l.Print(str)
+}
+func (p logPrinter) Printf(cl Color, format string, args ...interface{}) {
+	// TODO: colorize?
+	p.l.Printf(format, args...)
+}
+
+// NewMultiPrinter prints into multiple printers at once.
+func NewMultiPrinter(list ...Printer) *MultiPrinter {
+	return &MultiPrinter{list: list}
+}
+
+type MultiPrinter struct {
+	mu   sync.Mutex
+	list []Printer
+}
+
+func (p *MultiPrinter) Add(p2 Printer) {
+	p.mu.Lock()
+	p.list = append(p.list, p2)
+	p.mu.Unlock()
+}
+
+func (p *MultiPrinter) Print(cl Color, str string) {
+	p.mu.Lock()
+	defer p.mu.Unlock()
+	for _, s := range p.list {
+		s.Print(cl, str)
+	}
+}
+
+func (p *MultiPrinter) Printf(cl Color, format string, args ...interface{}) {
+	str := fmt.Sprintf(format, args...)
+	p.Print(cl, str)
 }
 
 // LocalizedPrinter is an interface used for command output.
@@ -114,6 +164,8 @@ func CurCommand(ctx context.Context) string {
 	return v
 }
 
+var _ Printer = (*Console)(nil)
+
 // New creates a new console handler.
 // A custom exec function can be provided. The function is used for macros only.
 // in case it is nil, Exec will be used.
@@ -137,6 +189,13 @@ type Console struct {
 		disabled bool
 		exec     ExecFunc
 		byKey    map[keybind.Key]*macro
+	}
+}
+
+// Print exposes underlying Printer.
+func (cn *Console) Print(cl Color, str string) {
+	if cn.p != nil {
+		cn.p.Print(cl, str)
 	}
 }
 
@@ -229,7 +288,7 @@ func (cn *Console) helpOne(ctx context.Context, ind int, tokens []string, cmds [
 		return false
 	}
 	if len(cmd.Sub) == 0 {
-		cn.p.Printf(ColorRed, cn.HelpString(cmd))
+		cn.p.Print(ColorRed, cn.HelpString(cmd))
 		return true
 	}
 	if ind+1 >= len(tokens) {
@@ -299,13 +358,13 @@ func (cn *Console) ParseToken(ctx context.Context, tokInd int, tokens []string, 
 	if !IsClient(ctx) {
 		if !cmd.Flags.Has(Server) {
 			s := cn.Strings().GetString("parsecmd.c:clientonly")
-			cn.Printf(ColorRed, s)
+			cn.Print(ColorRed, s)
 			return true
 		}
 	} else {
 		if !cmd.Flags.Has(Client) {
 			s := cn.Strings().GetString("parsecmd.c:serveronly")
-			cn.Printf(ColorRed, s)
+			cn.Print(ColorRed, s)
 			return true
 		}
 	}
@@ -316,7 +375,7 @@ func (cn *Console) ParseToken(ctx context.Context, tokInd int, tokens []string, 
 	if len(cmd.Sub) != 0 { // have sub-commands
 		if tokInd+1 >= len(tokens) {
 			// not enough tokens - print help
-			cn.Printf(ColorRed, cn.HelpString(cmd))
+			cn.Print(ColorRed, cn.HelpString(cmd))
 			return true
 		}
 		// continue parsing the sub command
@@ -331,7 +390,7 @@ func (cn *Console) ParseToken(ctx context.Context, tokInd int, tokens []string, 
 	}
 	if !res {
 		// command failed - print help
-		cn.Printf(ColorRed, cn.HelpString(cmd))
+		cn.Print(ColorRed, cn.HelpString(cmd))
 		return true
 	}
 	return res
@@ -377,7 +436,7 @@ func (cn *Console) Exec(ctx context.Context, cmd string) bool {
 	ok := cn.ParseToken(ctx, 0, tokens, cn.Commands())
 	if !ok {
 		help := cn.sm.GetStringInFile("typehelp", "parsecmd.c")
-		cn.p.Printf(ColorRed, help)
+		cn.p.Print(ColorRed, help)
 	}
 	return ok
 }

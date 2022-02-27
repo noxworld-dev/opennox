@@ -80,18 +80,19 @@ int nox_cmd_reenter(int, int, wchar_t**);
 import "C"
 import (
 	"context"
-	"fmt"
 
 	"nox/v1/common/console"
 	noxflags "nox/v1/common/flags"
+	"nox/v1/common/log"
 	"nox/v1/common/strman"
 )
 
-type consolePrinter struct{}
-
-func (consolePrinter) Printf(cl console.Color, format string, args ...interface{}) {
-	consolePrintf(cl, format, args...)
-}
+var (
+	consoleMux = console.NewMultiPrinter(
+		console.LogPrinter(log.New("console")),
+	)
+	noxConsole = console.New(consoleMux)
+)
 
 func cheatEquipAll(v bool) {
 	C.nox_cheat_allowall = C.int(bool2int(v))
@@ -101,18 +102,8 @@ func cheatCharmAll(v bool) {
 	C.nox_cheat_charmall = C.int(bool2int(v))
 }
 
-var noxConsole = console.New(consolePrinter{})
-
 func initConsole(sm *strman.StringManager) {
 	noxConsole.Localize(sm, "on", "off", "force", "ctf", "coop", "team", "respawn", "all")
-}
-
-func consolePrintf(typ console.Color, format string, args ...interface{}) int {
-	str := fmt.Sprintf(format, args...)
-	cstr, free := CWString(str)
-	defer free()
-	res := C.nox_gui_console_Print_450B90(C.uchar(typ), cstr)
-	return int(res)
 }
 
 func wrapCommandC(cfnc func(C.int, C.int, **C.wchar_t) C.int) console.CommandLegacyFunc {
@@ -154,7 +145,7 @@ var (
 		{Token: "ob", HelpID: "setobshelp", Flags: console.ClientServer | console.Cheat, Func: func(ctx context.Context, c *console.Console, tokens []string) bool {
 			cur := console.CurCommand(ctx)
 			s := c.Strings().GetStringInFile("processingobs", "parsecmd.c")
-			c.Printf(console.ColorRed, s)
+			c.Print(console.ColorRed, s)
 			if noxflags.HasGame(noxflags.GameHost) {
 				nox_xxx_serverHandleClientConsole_443E90(clientPlayer(), 0, cur)
 			} else {
@@ -173,7 +164,7 @@ var (
 		{Token: "savedebugcmd", HelpID: "setsavedebughelp", Flags: console.Server, Func: func(ctx context.Context, c *console.Console, tokens []string) bool {
 			noxflags.SetEngine(noxflags.EngineSaveDebug)
 			s := c.Strings().GetStringInFile("savedebugset", "parsecmd.c")
-			c.Printf(console.ColorRed, s)
+			c.Print(console.ColorRed, s)
 			return true
 		}},
 		{Token: "spell", HelpID: "setspellhelp", Flags: console.Server, LegacyFunc: wrapCommandC(nox_cmd_set_spell)},

@@ -113,7 +113,7 @@ func cmdSetQuestLevelInc(ctx context.Context, c *console.Console, tokens []strin
 	}
 	v, err := strconv.Atoi(tokens[0])
 	if err != nil {
-		c.Printf(console.ColorRed, "cannot parse value")
+		c.Print(console.ColorRed, "cannot parse value")
 		return false
 	}
 	questLevelInc = v
@@ -129,16 +129,16 @@ func cmdSetQuestWarpAllow(ctx context.Context, c *console.Console, tokens []stri
 	if len(tokens) > 0 {
 		b, err := strconv.ParseBool(tokens[0])
 		if err != nil {
-			c.Printf(console.ColorRed, "cannot parse value")
+			c.Print(console.ColorRed, "cannot parse value")
 			return false
 		}
 		v = b
 	}
 	questAllowDefault = v
 	if v {
-		c.Printf(console.ColorLightYellow, "Quest warp gate will work for everyone")
+		c.Print(console.ColorLightYellow, "Quest warp gate will work for everyone")
 	} else {
-		c.Printf(console.ColorLightYellow, "Quest warp gate will only work if you've passed the level already")
+		c.Print(console.ColorLightYellow, "Quest warp gate will only work if you've passed the level already")
 	}
 	return true
 }
@@ -149,7 +149,7 @@ func cmdSetQuestWarpInc(ctx context.Context, c *console.Console, tokens []string
 	}
 	v, err := strconv.Atoi(tokens[0])
 	if err != nil {
-		c.Printf(console.ColorRed, "cannot parse value")
+		c.Print(console.ColorRed, "cannot parse value")
 		return false
 	}
 	questLevelWarpInc = v
@@ -165,16 +165,16 @@ func cmdSetQuestWarpInf(ctx context.Context, c *console.Console, tokens []string
 	if len(tokens) > 0 {
 		b, err := strconv.ParseBool(tokens[0])
 		if err != nil {
-			c.Printf(console.ColorRed, "cannot parse value")
+			c.Print(console.ColorRed, "cannot parse value")
 			return false
 		}
 		v = b
 	}
 	questLevelWarpInfinite = v
 	if v {
-		c.Printf(console.ColorLightYellow, "Quest warp gate will work indefinitely")
+		c.Print(console.ColorLightYellow, "Quest warp gate will work indefinitely")
 	} else {
-		c.Printf(console.ColorLightYellow, "Quest warp gate will cutoff at some point")
+		c.Print(console.ColorLightYellow, "Quest warp gate will cutoff at some point")
 	}
 	return true
 }

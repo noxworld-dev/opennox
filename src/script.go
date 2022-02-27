@@ -168,7 +168,7 @@ func (s noxScript) WallGroupByID(id string) *script.WallGroup {
 type scriptConsole console.Color
 
 func (c scriptConsole) Print(text string) {
-	consolePrintf(console.Color(c), "%s", text)
+	noxConsole.Print(console.Color(c), text)
 }
 
 func (noxScript) Console(error bool) script.Printer {

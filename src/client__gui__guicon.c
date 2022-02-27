@@ -19,7 +19,9 @@ nox_window* nox_gui_console_win = 0;
 nox_window* nox_gui_console_scrollbox = 0;
 nox_window* nox_gui_console_input = 0;
 
+#ifndef NOX_CGO
 int nox_gui_console_enabled = 0;
+#endif // NOX_CGO
 int nox_gui_console_locked = 0;
 unsigned int nox_gui_console_translucent = 1;
 int nox_gui_console_wantsPass = 0;
@@ -37,11 +39,13 @@ extern uint32_t nox_color_orange_2614256;
 
 wchar_t nox_gui_console_password[64] = {0};
 
+#ifndef NOX_CGO
 //----- (00450BE0) --------------------------------------------------------
 void nox_gui_console_Enable_450BE0() { nox_gui_console_enabled = 1; }
 
 //----- (00450BF0) --------------------------------------------------------
 void nox_gui_console_Disable_450BF0() { nox_gui_console_enabled = 0; }
+#endif // NOX_CGO
 
 //----- (00450B70) --------------------------------------------------------
 int nox_gui_console_Clear_450B70() { return nox_window_call_field_94(nox_gui_console_scrollbox, 16399, 0, 0); }
@@ -68,6 +72,7 @@ void nox_gui_console_Unlock_450B50() {
 	nox_gui_console_wantsPass = 0;
 }
 
+#ifndef NOX_CGO
 //----- (00450B90) --------------------------------------------------------
 int nox_gui_console_Print_450B90(unsigned char cl, wchar_t* str) {
 	if (nox_gui_console_enabled) {
@@ -90,6 +95,7 @@ void nox_gui_console_PrintOrError_450C30(unsigned char cl, wchar_t* str) {
 		nox_gui_console_Print_450B90(cl, str);
 	}
 }
+#endif // NOX_CGO
 
 //----- (00450C00) --------------------------------------------------------
 wchar_t nox_gui_console_printBuf[512] = {0};

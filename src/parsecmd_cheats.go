@@ -43,9 +43,9 @@ func init() {
 			return noxCmdSetBool(c, tokens, func(allow bool) {
 				cheatEquipAll(allow)
 				if allow {
-					c.Printf(console.ColorLightYellow, "all players are allowed to equip all items")
+					c.Print(console.ColorLightYellow, "all players are allowed to equip all items")
 				} else {
-					c.Printf(console.ColorLightYellow, "equip restrictions with work as usual")
+					c.Print(console.ColorLightYellow, "equip restrictions with work as usual")
 				}
 			})
 		},
@@ -59,9 +59,9 @@ func init() {
 			return noxCmdSetBool(c, tokens, func(allow bool) {
 				cheatCharmAll(allow)
 				if allow {
-					c.Printf(console.ColorLightYellow, "players can charm any creature")
+					c.Print(console.ColorLightYellow, "players can charm any creature")
 				} else {
-					c.Printf(console.ColorLightYellow, "charming will work as it should")
+					c.Print(console.ColorLightYellow, "charming will work as it should")
 				}
 			})
 		},
@@ -81,10 +81,10 @@ func init() {
 				serverCheatInvincible(enable)
 				if enable {
 					str := strMan.GetStringInFile("godset", "parsecmd.c")
-					c.Printf(console.ColorLightYellow, str)
+					c.Print(console.ColorLightYellow, str)
 				} else {
 					str := strMan.GetStringInFile("godunset", "parsecmd.c")
-					c.Printf(console.ColorLightYellow, str)
+					c.Print(console.ColorLightYellow, str)
 				}
 			})
 		},
@@ -98,10 +98,10 @@ func init() {
 				serverCheatSage(enable)
 				if enable {
 					str := strMan.GetStringInFile("sageset", "parsecmd.c")
-					c.Printf(console.ColorLightYellow, str)
+					c.Print(console.ColorLightYellow, str)
 				} else {
 					str := strMan.GetStringInFile("sageunset", "parsecmd.c")
-					c.Printf(console.ColorLightYellow, str)
+					c.Print(console.ColorLightYellow, str)
 				}
 			})
 		},
@@ -115,10 +115,10 @@ func init() {
 				serverCheatSpells(enable)
 				if enable {
 					str := strMan.GetStringInFile("sageset", "parsecmd.c")
-					c.Printf(console.ColorLightYellow, str)
+					c.Print(console.ColorLightYellow, str)
 				} else {
 					str := strMan.GetStringInFile("sageunset", "parsecmd.c")
-					c.Printf(console.ColorLightYellow, str)
+					c.Print(console.ColorLightYellow, str)
 				}
 			})
 		},
@@ -132,10 +132,10 @@ func init() {
 				serverCheatScrolls(enable)
 				if enable {
 					str := strMan.GetStringInFile("sageset", "parsecmd.c")
-					c.Printf(console.ColorLightYellow, str)
+					c.Print(console.ColorLightYellow, str)
 				} else {
 					str := strMan.GetStringInFile("sageunset", "parsecmd.c")
-					c.Printf(console.ColorLightYellow, str)
+					c.Print(console.ColorLightYellow, str)
 				}
 			})
 		},
@@ -180,7 +180,7 @@ func noxCheatGold(ctx context.Context, c *console.Console, tokens []string) bool
 		v = 999999999 // a lot, but still some space before overflowing int32
 	}
 	if err != nil {
-		c.Printf(console.ColorLightRed, "failed to parse the value")
+		c.Print(console.ColorLightRed, "failed to parse the value")
 		return true
 	}
 	for _, u := range noxServer.getPlayerUnits() {
@@ -231,7 +231,7 @@ func noxCheatSetGod(ctx context.Context, c *console.Console, tokens []string) bo
 	if !noxflags.HasGame(noxflags.GameModeQuest) {
 		serverCheatGod(true)
 		str := strMan.GetStringInFile("godset", "parsecmd.c")
-		c.Printf(console.ColorRed, str)
+		c.Print(console.ColorRed, str)
 	}
 	return true
 }
@@ -239,7 +239,7 @@ func noxCheatSetGod(ctx context.Context, c *console.Console, tokens []string) bo
 func noxCheatUnsetGod(ctx context.Context, c *console.Console, tokens []string) bool {
 	serverCheatGod(false)
 	str := strMan.GetStringInFile("godunset", "parsecmd.c")
-	c.Printf(console.ColorRed, str)
+	c.Print(console.ColorRed, str)
 	return true
 }
 
@@ -258,7 +258,7 @@ func noxCmdSetBool(c *console.Console, tokens []string, fnc func(v bool)) bool {
 	if len(tokens) == 1 {
 		v, err := strconv.ParseBool(tokens[0])
 		if err != nil {
-			c.Printf(console.ColorLightRed, "failed to parse the value")
+			c.Print(console.ColorLightRed, "failed to parse the value")
 			return true
 		}
 		allow = v
@@ -310,7 +310,7 @@ func noxCmdSetPlayerUnitParam(c *console.Console, tokens []string, param string,
 func noxCmdPlayerByIndex(c *console.Console, sind string) *Player {
 	ind, err := strconv.Atoi(sind)
 	if err != nil {
-		c.Printf(console.ColorLightRed, "player index must be an integer")
+		c.Print(console.ColorLightRed, "player index must be an integer")
 		return nil
 	}
 	list := noxServer.getPlayers()
@@ -323,7 +323,7 @@ func noxCmdPlayerByIndex(c *console.Console, sind string) *Player {
 
 func noxCheatGoto(ctx context.Context, c *console.Console, tokens []string) bool {
 	if len(tokens) != 2 {
-		c.Printf(console.ColorLightRed, "expected two coordinates")
+		c.Print(console.ColorLightRed, "expected two coordinates")
 		return false
 	}
 	x, err := strconv.Atoi(tokens[0])
@@ -351,7 +351,7 @@ func noxCheatSpawn(ctx context.Context, c *console.Console, tokens []string) boo
 	cnt := 1
 	switch len(tokens) {
 	default:
-		c.Printf(console.ColorLightRed, "expected an object name")
+		c.Print(console.ColorLightRed, "expected an object name")
 		return false
 	case 2:
 		var err error
