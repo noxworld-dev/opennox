@@ -7,7 +7,20 @@ import (
 	"strings"
 
 	"nox/v1/common/fs"
+	"nox/v1/common/log"
 )
+
+var Log = log.New("path")
+
+var workdir string
+
+func init() {
+	if wd, err := os.Getwd(); err != nil {
+		Log.Printf("cannot get workdir: %w", err)
+	} else {
+		workdir = wd
+	}
+}
 
 func cleanPath(path string) string {
 	if runtime.GOOS == "windows" {

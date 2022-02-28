@@ -5,36 +5,22 @@ import (
 	"path/filepath"
 	"sync"
 
-	"nox/v1/common"
 	"nox/v1/common/fs"
-	"nox/v1/common/log"
 )
 
-var Log = log.New("path")
-
-var (
-	workdir string
-
-	once    sync.Once
-	datadir string
-)
-
-func init() {
-	if wd, err := os.Getwd(); err != nil {
-		Log.Printf("cannot get workdir: %w", err)
-	} else {
-		workdir = wd
-	}
+var datadir struct {
+	sync.Once
+	path string
 }
 
 // getData returns the current Nox data dir.
 func getData() string {
-	once.Do(func() {
-		if datadir == "" {
+	datadir.Do(func() {
+		if datadir.path == "" {
 			SetData(FindData())
 		}
 	})
-	return datadir
+	return datadir.path
 }
 
 // Data returns the current Nox data dir. If additional args are provided, they will joined with the data dir.
@@ -48,32 +34,12 @@ func Data(path ...string) string {
 	return filepath.Join(args...)
 }
 
-// Maps returns the current Nox maps dir. If additional args are provided, they will joined with the maps dir.
-func Maps(path ...string) string {
-	const dir = common.MapsDir
-	if len(path) == 0 {
-		return Data(dir)
-	}
-	args := make([]string, 0, 2+len(path))
-	args = append(args, getData(), dir)
-	args = append(args, path...)
-	return filepath.Join(args...)
-}
-
-// Save returns the current Nox save dir. If additional args are provided, it will joined with the save dir.
-func Save(path ...string) string {
-	args := make([]string, 0, 2+len(path))
-	args = append(args, getData(), common.SaveDir)
-	args = append(args, path...)
-	return filepath.Join(args...)
-}
-
 // SetData the Nox data dir.
 func SetData(dir string) {
 	if abs, err := filepath.Abs(dir); err == nil {
 		dir = abs
 	}
-	datadir = dir
+	datadir.path = dir
 	Log.Printf("setting data dir to: %q", dir)
 }
 
