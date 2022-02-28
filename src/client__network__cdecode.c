@@ -615,7 +615,7 @@ int nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 				strcpy(pl->field_2096, (const char*)(data + 119));
 				pl->field_3680 |= *(uint32_t*)(data + 112);
 				memcpy(&pl->info, (const void*)(data + 3), 97);
-				nox_swprintf(pl->name_full, L"%s%s", pl->info.name, pl->info.name_suff);
+				nox_swprintf(pl->name_final, L"%s%s", pl->info.name, pl->info.name_suff);
 				if (dword_5d4594_2650652) {
 					pl->field_2108 = 0;
 					sub_41D670(pl->field_2096);

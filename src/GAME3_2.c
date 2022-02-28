@@ -8851,7 +8851,7 @@ int nox_xxx_playerNew_4DD320(int ind, unsigned char* data) {
 	pl->field_3676 = 2;
 	pl->field_3680 = 0;
 	memcpy(&pl->info, &data[0], 97);
-	nox_wcscpy(pl->name_full, pl->info.name);
+	nox_wcscpy(pl->name_final, pl->info.name);
 	pl->info.name_suff[0] = 0;
 	nox_xxx_playerCheckName_4DDA00(pl);
 	nox_xxx_playerInitColors_461460(pl);
@@ -8999,7 +8999,7 @@ void nox_xxx_netNewPlayerMakePacket_4DDA90(unsigned char* buf, nox_playerInfo* p
 	buf[118] = pl->field_3676 == 3;
 	*(uint32_t*)(&buf[112]) = pl->field_3680 & 0x423;
 	memcpy(&buf[119], pl->field_2096, strlen(pl->field_2096) + 1);
-	memcpy(&buf[3], &pl->info, 91);
+	memcpy(&buf[3], &pl->info, 97);
 }
 
 //----- (004DDB40) --------------------------------------------------------

@@ -2208,9 +2208,7 @@ typedef struct nox_playerInfo {
 	uint16_t field_2282;
 	int field_2284; // 2284, TODO: x coordinate of something? cursor? spell target?
 	int field_2288; // 2288, TODO: y coordinate of something? cursor? spell target?
-	uint32_t data_2292[2];
-	uint32_t data_2300[13];
-	wchar_t name_full[30]; // 2352 // TODO: size is a wild guess
+	uint32_t data_2292[30];
 	uint32_t data_2412[97];
 	uint32_t data_2800[100];
 	uint32_t data_3200[50];
@@ -2299,7 +2297,6 @@ typedef struct nox_playerInfo {
 #pragma pack(pop)
 _Static_assert(sizeof(nox_playerInfo) == 4828, "wrong size of nox_playerInfo structure!");
 _Static_assert(offsetof(nox_playerInfo, info) == 2185, "wrong offset of nox_playerInfo.info field!");
-_Static_assert(offsetof(nox_playerInfo, name_full) == 2352, "wrong offset of nox_playerInfo.name_full field!");
 _Static_assert(offsetof(nox_playerInfo, frame_3596) == 3596, "wrong offset of nox_playerInfo.frame_3596 field!");
 _Static_assert(offsetof(nox_playerInfo, field_4580) == 4580, "wrong offset of nox_playerInfo.field_4580 field!");
 
