@@ -118,7 +118,7 @@ func (f *File) Close() error {
 
 //export nox_fs_root
 func nox_fs_root() *C.char {
-	return internCStr(datapath.Path())
+	return internCStr(datapath.Data())
 }
 
 //export nox_fs_normalize

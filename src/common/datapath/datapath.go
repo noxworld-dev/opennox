@@ -27,23 +27,23 @@ func init() {
 	}
 }
 
-// get returns the current Nox data dir.
-func get() string {
+// getData returns the current Nox data dir.
+func getData() string {
 	once.Do(func() {
 		if datadir == "" {
-			Set(Find())
+			SetData(FindData())
 		}
 	})
 	return datadir
 }
 
-// Path returns the current Nox data dir. If additional args are provided, they will joined with the data dir.
-func Path(path ...string) string {
+// Data returns the current Nox data dir. If additional args are provided, they will joined with the data dir.
+func Data(path ...string) string {
 	if len(path) == 0 {
-		return get()
+		return getData()
 	}
 	args := make([]string, 0, 1+len(path))
-	args = append(args, get())
+	args = append(args, getData())
 	args = append(args, path...)
 	return filepath.Join(args...)
 }
@@ -52,10 +52,10 @@ func Path(path ...string) string {
 func Maps(path ...string) string {
 	const dir = common.MapsDir
 	if len(path) == 0 {
-		return Path(dir)
+		return Data(dir)
 	}
 	args := make([]string, 0, 2+len(path))
-	args = append(args, get(), dir)
+	args = append(args, getData(), dir)
 	args = append(args, path...)
 	return filepath.Join(args...)
 }
@@ -63,13 +63,13 @@ func Maps(path ...string) string {
 // Save returns the current Nox save dir. If additional args are provided, it will joined with the save dir.
 func Save(path ...string) string {
 	args := make([]string, 0, 2+len(path))
-	args = append(args, get(), common.SaveDir)
+	args = append(args, getData(), common.SaveDir)
 	args = append(args, path...)
 	return filepath.Join(args...)
 }
 
-// Set the Nox data dir.
-func Set(dir string) {
+// SetData the Nox data dir.
+func SetData(dir string) {
 	if abs, err := filepath.Abs(dir); err == nil {
 		dir = abs
 	}
@@ -77,8 +77,8 @@ func Set(dir string) {
 	Log.Printf("setting data dir to: %q", dir)
 }
 
-// Find locates game data path. It returns empty string if not found.
-func Find() string {
+// FindData locates game data path. It returns empty string if not found.
+func FindData() string {
 	consider := []string{
 		os.Getenv("NOX_DATA"),    // takes priority
 		".",                      // current dir overrides registry and other install paths
@@ -100,7 +100,7 @@ func Find() string {
 			// this is a workaround for Nox trying to chdir from time to time
 			path = filepath.Join(workdir, path)
 		}
-		if Check(path) {
+		if CheckData(path) {
 			return path
 		}
 	}
@@ -114,8 +114,8 @@ var checkFiles = []string{
 	"thing.bin",
 }
 
-// Check if a directory contains Nox game data.
-func Check(path string) bool {
+// CheckData if a directory contains Nox game data.
+func CheckData(path string) bool {
 	if fi, err := fs.Stat(path); err != nil || !fi.IsDir() {
 		return false
 	}

@@ -15,7 +15,7 @@ import (
 )
 
 func DataPath(t testing.TB, sub ...string) string {
-	path := datapath.Path(sub...)
+	path := datapath.Data(sub...)
 	if path == "" {
 		t.Skip("cannot detect Nox path and NOX_DATA is not set")
 	}

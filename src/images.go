@@ -37,7 +37,7 @@ var videoBag struct {
 }
 
 func loadAndIndexVideoBag() error {
-	f, err := bag.Open(datapath.Path("video.bag"))
+	f, err := bag.Open(datapath.Data("video.bag"))
 	if err != nil {
 		return fmt.Errorf("error reading video bag: %w", err)
 	}
@@ -64,7 +64,7 @@ func loadAndIndexVideoBag() error {
 }
 
 func openVideoZip() error {
-	zf, err := zip.OpenReader(datapath.Path("video.bag.zip"))
+	zf, err := zip.OpenReader(datapath.Data("video.bag.zip"))
 	if os.IsNotExist(err) {
 		return nil
 	} else if err != nil {
@@ -174,7 +174,7 @@ func imageByBagSection(sect, offs int) (*pcx.Image, error) {
 	}
 	ext := path.Ext(img.Name)
 	base := strings.TrimSuffix(img.Name, ext)
-	base = datapath.Path("images", base)
+	base = datapath.Data("images", base)
 	im, err := openImage(base)
 	if os.IsNotExist(err) {
 		if debug {

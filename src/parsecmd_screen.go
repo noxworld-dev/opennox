@@ -37,7 +37,7 @@ func makeScreenshot() {
 			log.Println("cannot take screenshot:", err)
 			return
 		}
-		base := datapath.Path("nox")
+		base := datapath.Data("nox")
 		var w io.WriteCloser
 		for {
 			i := atomic.AddUint32(&screenshotSeq, 1)

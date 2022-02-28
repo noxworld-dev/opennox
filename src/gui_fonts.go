@@ -55,7 +55,7 @@ func loadGameFonts() error {
 				fname = f.FileAlt
 			}
 		}
-		fnt, err := loadFont(datapath.Path(fname), f.Size)
+		fnt, err := loadFont(datapath.Data(fname), f.Size)
 		if err != nil {
 			return fmt.Errorf("cannot load font: %w", err)
 		}

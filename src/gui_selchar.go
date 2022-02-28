@@ -541,7 +541,7 @@ func nox_xxx_findAutosaves_4A5150() {
 		}
 		wnames.Func94(asWindowEvent(0x400D, uintptr(unsafe.Pointer(internWStr(v25))), 14))
 	}
-	fs.Chdir(datapath.Path())
+	fs.Chdir(datapath.Data())
 	if v9 != 0 {
 		v21 := winSelSave.ChildByID(503)
 		v22 := winSelSave.ChildByID(502)

@@ -23,7 +23,7 @@ import (
 var soloAllowMP = os.Getenv("NOX_SOLO_MP") == "true"
 
 func scanMaps() (maps.MapList, error) {
-	return maps.Scan(datapath.Path(maps.Dir), &maps.ScanOptions{
+	return maps.Scan(datapath.Data(maps.Dir), &maps.ScanOptions{
 		Solo: soloAllowMP,
 	})
 }

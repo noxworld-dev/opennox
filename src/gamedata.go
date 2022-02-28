@@ -23,7 +23,7 @@ func nox_xxx_gamedataFree_419DB0() {
 func nox_xxx_parseGamedataBin_419B30() C.int {
 	gamedata.file = nil
 	var err error
-	gamedata.file, err = balance.ReadBalance(datapath.Path(balance.GamedataFile))
+	gamedata.file, err = balance.ReadBalance(datapath.Data(balance.GamedataFile))
 	if err != nil {
 		gamedataLog.Println("error parsing gamedata:", err)
 		return 0

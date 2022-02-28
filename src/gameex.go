@@ -92,7 +92,7 @@ func gameexReadConfig(path string) error {
 		gameexDefaults()
 		gameexLoadConfig()
 	}()
-	path = datapath.Path(path)
+	path = datapath.Data(path)
 	gameex.configPath = path
 	f, err := fs.Open(path)
 	if os.IsNotExist(err) {

@@ -41,7 +41,7 @@ type RconOptions struct {
 
 func NewRemoteConsole(host string, exec console.ExecFunc, opts RconOptions) (*RemoteConsole, error) {
 	if opts.KeyPath == "" {
-		opts.KeyPath = datapath.Path("server.pem")
+		opts.KeyPath = datapath.Data("server.pem")
 	}
 	l, err := net.Listen("tcp", host)
 	if err != nil {

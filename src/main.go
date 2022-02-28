@@ -211,11 +211,11 @@ func RunArgs(args []string) (gerr error) {
 		mainloopHook = e2eRun
 	}
 	if path := *fData; path != "" {
-		datapath.Set(path)
+		datapath.SetData(path)
 	} else if path = os.Getenv("NOX_DATA"); path != "" {
-		datapath.Set(path)
+		datapath.SetData(path)
 	} else if path = viper.GetString(configNoxDataPath); path != "" {
-		datapath.Set(path)
+		datapath.SetData(path)
 		if filepath.IsAbs(path) && strings.HasPrefix(path, filepath.Dir(viper.ConfigFileUsed())) {
 			if rel, err := filepath.Rel(filepath.Dir(viper.ConfigFileUsed()), path); err == nil {
 				viper.Set(configNoxDataPath, rel)
@@ -223,13 +223,13 @@ func RunArgs(args []string) (gerr error) {
 			}
 		}
 	} else {
-		path = datapath.Find()
+		path = datapath.FindData()
 		if path == "" {
 			err := errors.New("cannot find Nox data dir")
 			datapath.Log.Println(err)
 			return err
 		}
-		datapath.Set(path)
+		datapath.SetData(path)
 		if filepath.IsAbs(path) && strings.HasPrefix(path, filepath.Dir(viper.ConfigFileUsed())) {
 			if rel, err := filepath.Rel(filepath.Dir(viper.ConfigFileUsed()), path); err == nil {
 				path = rel
@@ -242,7 +242,7 @@ func RunArgs(args []string) (gerr error) {
 	for _, fnc := range onDataPathSet {
 		fnc()
 	}
-	if err := os.Chdir(datapath.Path()); err != nil {
+	if err := os.Chdir(datapath.Data()); err != nil {
 		return err
 	}
 	initBlobData()

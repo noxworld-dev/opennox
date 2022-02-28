@@ -110,7 +110,7 @@ func nox_server_mapRWScriptObject_505A40(a1 unsafe.Pointer) (gout int) {
 	defer func() {
 		log.Printf("nox_server_mapRWScriptObject_505A40: 0x%x (%s)", gout, caller(1))
 	}()
-	fname := datapath.Path(noxscript.NCobjName)
+	fname := datapath.Data(noxscript.NCobjName)
 	C.dword_5d4594_1599644 = 0
 	if cryptFile.Mode() != BinFileRO {
 		cryptFileWriteU16(1)

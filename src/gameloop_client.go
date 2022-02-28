@@ -101,7 +101,7 @@ func mapDownloadLoop(first bool) (bool, error) {
 				defer cli.Close()
 				defer close(errc)
 
-				err := cli.DownloadMap(ctx, datapath.Path(maps.Dir), name)
+				err := cli.DownloadMap(ctx, datapath.Data(maps.Dir), name)
 				if err != nil {
 					mapsendLog.Println("download failed:", err)
 					errc <- err

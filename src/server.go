@@ -552,7 +552,7 @@ func (s *Server) nox_server_loadMapFile_4CF5F0(mname string, noCrypt bool) error
 	if strings.ToLower(mname) == "#return" {
 		mname = GoStringP(memmap.PtrOff(0x5D4594, 1523080))
 	} else if strings.HasPrefix(mname, "#") {
-		v3 := datapath.Path()
+		v3 := datapath.Data()
 		C.sub_4D39F0(internCStr(v3))
 		v13 := mname[1:]
 		if i := strings.IndexByte(mname, '.'); i > 0 {
