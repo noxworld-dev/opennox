@@ -190,8 +190,11 @@ type rcShell struct {
 
 	br      *bufio.Reader
 	line    []rune
-	history []string
-	cur     int
+	cursor  int
+	history struct {
+		list []string
+		cur  int
+	}
 
 	mu sync.Mutex
 	ch ssh.Channel
@@ -274,20 +277,51 @@ func (sh *rcShell) Exec(cmd string) {
 		return
 	}
 	rconLog.Printf("command: %q", cmd)
-	if len(sh.history) == 0 || cmd != sh.history[len(sh.history)-1] {
-		sh.history = append(sh.history, cmd)
+	if n := len(sh.history.list); n == 0 || cmd != sh.history.list[n-1] {
+		sh.history.list = append(sh.history.list, cmd)
 	}
-	sh.cur = len(sh.history)
+	sh.history.cur = len(sh.history.list)
 	sh.rc.exec(sh.ctx, cmd)
 }
 
 func (sh *rcShell) eraseOne() {
-	if len(sh.line) > 0 {
-		sh.line = sh.line[:len(sh.line)-1]
+	if sh.cursor == 0 || len(sh.line) == 0 {
+		return
 	}
+	if sh.cursor == len(sh.line) {
+		sh.line = sh.line[:len(sh.line)-1]
+		sh.cursor--
+	} else {
+		sh.line = append(sh.line[:sh.cursor-1], sh.line[sh.cursor:]...)
+		sh.cursor--
+	}
+
 	sh.mu.Lock()
 	defer sh.mu.Unlock()
-	sh.bw.WriteString("\b \b") // TODO: smarter way?
+	sh.bw.WriteRune('\b')
+	right := sh.line[sh.cursor:]
+	sh.bw.WriteString(string(right))
+	sh.bw.WriteRune(' ')
+	sh.bw.WriteString("\033[")
+	sh.bw.WriteString(strconv.Itoa(len(right) + 1))
+	sh.bw.WriteRune('D')
+	sh.bw.Flush()
+}
+
+func (sh *rcShell) delOne() {
+	if sh.cursor == len(sh.line) {
+		return
+	}
+	sh.line = append(sh.line[:sh.cursor], sh.line[sh.cursor+1:]...)
+
+	sh.mu.Lock()
+	defer sh.mu.Unlock()
+	right := sh.line[sh.cursor:]
+	sh.bw.WriteString(string(right))
+	sh.bw.WriteRune(' ')
+	sh.bw.WriteString("\033[")
+	sh.bw.WriteString(strconv.Itoa(len(right) + 1))
+	sh.bw.WriteRune('D')
 	sh.bw.Flush()
 }
 
@@ -298,9 +332,32 @@ func (sh *rcShell) eraseLine() {
 	sh.bw.Flush()
 }
 
+func (sh *rcShell) cursorLeft() {
+	if sh.cursor <= 0 {
+		return
+	}
+	sh.mu.Lock()
+	sh.bw.WriteRune('\b')
+	sh.bw.Flush()
+	sh.mu.Unlock()
+	sh.cursor--
+}
+
+func (sh *rcShell) cursorRight() {
+	if sh.cursor >= len(sh.line) {
+		return
+	}
+	sh.mu.Lock()
+	sh.bw.WriteRune(sh.line[sh.cursor])
+	sh.bw.Flush()
+	sh.mu.Unlock()
+	sh.cursor++
+}
+
 func (sh *rcShell) doCmd() bool {
 	cmd := string(sh.line)
 	sh.line = sh.line[:0]
+	sh.cursor = 0
 	switch cmd {
 	case "q", "quit":
 		return false
@@ -313,11 +370,12 @@ func (sh *rcShell) doCmd() bool {
 }
 
 func (sh *rcShell) recall() {
-	if sh.cur < 0 || sh.cur >= len(sh.history) {
+	i := sh.history.cur
+	if i < 0 || i >= len(sh.history.list) {
 		return
 	}
 	sh.eraseLine()
-	old := sh.history[sh.cur]
+	old := sh.history.list[i]
 	sh.line = []rune(old)
 	sh.printPrompt()
 	sh.print(0, old, false)
@@ -336,10 +394,26 @@ func (sh *rcShell) addRune(r rune) bool {
 	case '\033':
 		return sh.readSpec()
 	}
-	sh.line = append(sh.line, r)
+	if len(sh.line) == sh.cursor {
+		sh.line = append(sh.line, r)
+		sh.cursor++
+	} else {
+		sh.line = append(sh.line, ' ')
+		i := sh.cursor
+		copy(sh.line[i+1:], sh.line[i:])
+		sh.line[i] = r
+		sh.cursor++
+	}
 	sh.mu.Lock()
 	defer sh.mu.Unlock()
 	sh.bw.WriteRune(r)
+	right := sh.line[sh.cursor:]
+	sh.bw.WriteString(string(right))
+	if len(right) != 0 {
+		sh.bw.WriteString("\033[")
+		sh.bw.WriteString(strconv.Itoa(len(right)))
+		sh.bw.WriteRune('D')
+	}
 	sh.bw.Flush()
 	return true
 }
@@ -360,23 +434,33 @@ func (sh *rcShell) readSpec() bool {
 		case '\r':
 			rconLog.Printf("skip: %q", string(cmd))
 			sh.line = sh.line[:0]
+			sh.cursor = 0
 			sh.eraseLine()
 			sh.printPrompt()
 			return true
 		}
 		cmd = append(cmd, r)
 		switch string(cmd) {
-		case "[A":
-			if sh.cur > 0 {
-				sh.cur--
+		case "[3~": // del
+			sh.delOne()
+			return true
+		case "[A": // up
+			if sh.history.cur > 0 {
+				sh.history.cur--
 			}
 			sh.recall()
 			return true
-		case "[B":
-			if sh.cur < len(sh.history)-1 {
-				sh.cur++
+		case "[B": // down
+			if sh.history.cur < len(sh.history.list)-1 {
+				sh.history.cur++
 			}
 			sh.recall()
+			return true
+		case "[C": // right
+			sh.cursorRight()
+			return true
+		case "[D": // left
+			sh.cursorLeft()
 			return true
 		}
 	}
