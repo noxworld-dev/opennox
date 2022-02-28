@@ -51,6 +51,22 @@ func NewRemoteConsole(host string, exec console.ExecFunc, opts RconOptions) (*Re
 		l: l, opts: opts, exec: exec,
 		conf: ssh.ServerConfig{
 			ServerVersion: "SSH-2.0-OpenNox-" + version.Version(),
+			BannerCallback: func(c ssh.ConnMetadata) string {
+				return `
+  /888888                                /88   /88           /88   /88
+ /88__  88                              | 888 | 88          | 88  / 88
+| 88  \ 88  /888888   /888888  /8888888 | 8888| 88  /888888 |  88/ 88/
+| 88  | 88 /88__  88 /88__  88| 88__  88| 88 88 88 /88__  88 \  8888/
+| 88  | 88| 88  \ 88| 88888888| 88  \ 88| 88  8888| 88  \ 88  >88  88
+| 88  | 88| 88  | 88| 88_____/| 88  | 88| 88\  888| 88  | 88 /88/\  88
+|  888888/| 8888888/|  8888888| 88  | 88| 88 \  88|  888888/| 88  \ 88
+ \______/ | 88____/  \_______/|__/  |__/|__/  \__/ \______/ |__/  |__/
+          | 88
+          | 88        Version: ` + version.ClientVersion() + `
+          |__/
+
+`
+			},
 		},
 	}
 	if opts.Pass != "" {
@@ -169,11 +185,12 @@ func (rc *RemoteConsole) authPassword(c ssh.ConnMetadata, pass []byte) (*ssh.Per
 	return &ssh.Permissions{}, nil
 }
 
-func (rc *RemoteConsole) newShell(ctx context.Context, ch ssh.Channel) *rcShell {
+func (rc *RemoteConsole) newShell(ctx context.Context, ch ssh.Channel, user string) *rcShell {
 	sh := &rcShell{
 		rc: rc, ctx: ctx, ch: ch,
-		br: bufio.NewReader(ch),
-		bw: bufio.NewWriter(ch),
+		user: user,
+		br:   bufio.NewReader(ch),
+		bw:   bufio.NewWriter(ch),
 	}
 	rc.sessions.Lock()
 	if rc.sessions.list == nil {
@@ -185,8 +202,9 @@ func (rc *RemoteConsole) newShell(ctx context.Context, ch ssh.Channel) *rcShell 
 }
 
 type rcShell struct {
-	rc  *RemoteConsole
-	ctx context.Context
+	rc   *RemoteConsole
+	ctx  context.Context
+	user string
 
 	br      *bufio.Reader
 	line    []rune
@@ -223,13 +241,13 @@ func (sh *rcShell) newLine() {
 	sh.bw.WriteString("\r\n")
 }
 
-func (sh *rcShell) printPrompt() {
-	sh.print(console.ColorGreen, "nox> ", false)
-}
-
 func (sh *rcShell) print(cl console.Color, str string, nl bool) {
 	sh.mu.Lock()
 	defer sh.mu.Unlock()
+	sh.printUnsafe(cl, str, nl)
+}
+
+func (sh *rcShell) printUnsafe(cl console.Color, str string, nl bool) {
 	colored := cl > 0
 	if colored {
 		code := 0
@@ -270,6 +288,21 @@ func (sh *rcShell) print(cl console.Color, str string, nl bool) {
 
 func (sh *rcShell) Print(cl console.Color, str string) {
 	sh.print(cl, str, true)
+}
+
+func (sh *rcShell) printPrompt() {
+	sh.mu.Lock()
+	defer sh.mu.Unlock()
+	sh.bw.WriteString("\033[0;36m")
+	sh.bw.WriteString(sh.user)
+	sh.bw.WriteString("@opennox")
+	sh.bw.WriteString("\033[0m")
+	sh.bw.WriteRune(':')
+	sh.bw.WriteString("\033[0;34m")
+	sh.bw.WriteString("~")
+	sh.bw.WriteString("\033[0m")
+	sh.bw.WriteString("$ ")
+	sh.bw.Flush()
 }
 
 func (sh *rcShell) Exec(cmd string) {
@@ -483,7 +516,7 @@ func (sh *rcShell) Serve() {
 	}
 }
 
-func (rc *RemoteConsole) serveSession(ctx context.Context, ch ssh.Channel, reqs <-chan *ssh.Request) {
+func (rc *RemoteConsole) serveSession(ctx context.Context, ch ssh.Channel, user string, reqs <-chan *ssh.Request) {
 	defer ch.Close()
 	ctx, cancel := context.WithCancel(ctx)
 	defer cancel()
@@ -528,7 +561,7 @@ func (rc *RemoteConsole) serveSession(ctx context.Context, ch ssh.Channel, reqs 
 			if r.WantReply {
 				r.Reply(true, nil)
 			}
-			sh := rc.newShell(ctx, ch)
+			sh := rc.newShell(ctx, ch, user)
 			go sh.Serve()
 		default:
 			rconLog.Printf("unsupported session request: %q", r.Type)
@@ -552,7 +585,7 @@ func (rc *RemoteConsole) serveConn(sc *ssh.ServerConn, chans <-chan ssh.NewChann
 				if err != nil {
 					rconLog.Printf("cannot open session: %v", err)
 				} else {
-					go rc.serveSession(ctx, cc, ccr)
+					go rc.serveSession(ctx, cc, sc.User(), ccr)
 				}
 			default:
 				rconLog.Printf("unsupported channel type: %q", typ)
