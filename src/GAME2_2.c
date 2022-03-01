@@ -11861,7 +11861,8 @@ int nox_xxx_wndEditDrawNoImage_488160(int a1, int a2) {
 // 488160: using guessed type wchar_t var_200[256];
 
 //----- (00488500) --------------------------------------------------------
-nox_window* nox_gui_newEntryField_488500(int a1, int a2, int a3, int a4, int a5, int a6, int a7, wchar_t* a8) {
+nox_window* nox_gui_newEntryField_488500(nox_window* a1p, int a2, int a3, int a4, int a5, int a6, int a7, wchar_t* a8) {
+	int a1 = a1p;
 	uint32_t* v8;     // esi
 	bool v9;          // cc
 	int* v10;         // ebx

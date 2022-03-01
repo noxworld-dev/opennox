@@ -348,7 +348,7 @@ func sub_477530(a1 C.int) {
 		*memmap.PtrUint32(0x5D4594, 0x10BBD8) = uint32(C.sub_467C10())
 		*memmap.PtrUint32(0x5D4594, 1096660) = uint32(C.nox_xxx_guiServerOptionsTryHide_4574D0())
 		C.nox_client_renderGUI_80828 = 0
-		*memmap.PtrUint32(0x5D4594, 0x10BBD0) = uint32(C.sub_473670())
+		*memmap.PtrUint32(0x5D4594, 0x10BBD0) = uint32(sub_473670())
 		if *memmap.PtrUint32(0x5D4594, 0x10BBD0) == 1 {
 			nox_client_toggleMap_473610()
 		}

@@ -18,7 +18,8 @@ extern uint32_t nox_color_black_2650656;
 extern uint32_t nox_color_orange_2614256;
 
 //----- (004A4310) --------------------------------------------------------
-nox_window* nox_gui_newScrollListBox_4A4310(int a1, int a2, int a3, int a4, int a5, int a6, int a7, nox_scrollListBox_data* opts) {
+nox_window* nox_gui_newScrollListBox_4A4310(nox_window* a1p, int a2, int a3, int a4, int a5, int a6, int a7, nox_scrollListBox_data* opts) {
+	int a1 = a1p;
 	short* a8 = opts;
 	uint32_t* v8;     // ebp
 	void* v9;         // edi

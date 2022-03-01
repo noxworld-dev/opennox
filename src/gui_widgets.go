@@ -87,11 +87,11 @@ func guiNewWidget(typ string, parent *Window, status gui.StatusFlags, px, py, w,
 	case "SCROLLLISTBOX":
 		tdata, _ := data.(*scrollListBoxData)
 		draw.style |= C.int(gui.StyleScrollListBox)
-		return asWindow(C.nox_gui_newScrollListBox_4A4310(iparent, C.int(status), C.int(px), C.int(py), C.int(w), C.int(h), dataPtrToInt(draw), (*C.nox_scrollListBox_data)(unsafe.Pointer(tdata))))
+		return nox_gui_newScrollListBox_4A4310(parent, status, px, py, w, h, draw, tdata)
 	case "ENTRYFIELD":
 		tdata, _ := data.(*entryFieldData)
 		draw.style |= C.int(gui.StyleEntryField)
-		return asWindow(C.nox_gui_newEntryField_488500(iparent, C.int(status), C.int(px), C.int(py), C.int(w), C.int(h), dataPtrToInt(draw), (*C.ushort)(unsafe.Pointer(tdata))))
+		return nox_gui_newEntryField_488500(parent, status, px, py, w, h, draw, tdata)
 	case "STATICTEXT":
 		tdata, _ := data.(*staticTextData)
 		draw.style |= C.int(gui.StyleStaticText)
@@ -101,6 +101,14 @@ func guiNewWidget(typ string, parent *Window, status gui.StatusFlags, px, py, w,
 		return asWindow(C.nox_gui_newProgressBar_4CAF10(iparent, C.int(status), C.int(px), C.int(py), C.int(w), C.int(h), (*C.uint)(udraw)))
 	}
 	return nil
+}
+
+func nox_gui_newScrollListBox_4A4310(par *Window, status gui.StatusFlags, px, py, w, h int, draw *WindowData, tdata *scrollListBoxData) *Window {
+	return asWindow(C.nox_gui_newScrollListBox_4A4310(par.C(), C.int(status), C.int(px), C.int(py), C.int(w), C.int(h), dataPtrToInt(draw), (*C.nox_scrollListBox_data)(unsafe.Pointer(tdata))))
+}
+
+func nox_gui_newEntryField_488500(par *Window, status gui.StatusFlags, px, py, w, h int, draw *WindowData, tdata *entryFieldData) *Window {
+	return asWindow(C.nox_gui_newEntryField_488500(par.C(), C.int(status), C.int(px), C.int(py), C.int(w), C.int(h), dataPtrToInt(draw), (*C.ushort)(unsafe.Pointer(tdata))))
 }
 
 func tempDrawData() (*WindowData, func()) {

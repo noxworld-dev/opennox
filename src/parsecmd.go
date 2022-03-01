@@ -11,8 +11,6 @@ int nox_gui_console_Print_450B90(unsigned char typ, wchar_t* str);
 int nox_client_quit_4460C0();
 int  sub_4D6B10(int a1);
 
-int nox_cmd_lock(int, int, wchar_t**);
-int nox_cmd_unlock(int, int, wchar_t**);
 int nox_cmd_set_sysop(int, int, wchar_t**);
 int nox_cmd_list_weapons(int, int, wchar_t**);
 int nox_cmd_list_armor(int, int, wchar_t**);
@@ -72,7 +70,6 @@ int nox_cmd_set_qual_t1(int, int, wchar_t**);
 int nox_cmd_set_qual_lan(int, int, wchar_t**);
 int nox_cmd_set_time(int, int, wchar_t**);
 int nox_cmd_set_lessons(int, int, wchar_t**);
-int nox_cmd_clear(int, int, wchar_t**);
 int nox_cmd_menu_options(int, int, wchar_t**);
 int nox_cmd_menu_vidopt(int, int, wchar_t**);
 int nox_cmd_reenter(int, int, wchar_t**);
@@ -233,7 +230,6 @@ var (
 		}},
 		{Token: "audtest", HelpID: "sethelp", Flags: console.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_set)},
 		{Token: "ban", HelpID: "banhelp", Flags: console.Server, LegacyFunc: wrapCommandC(nox_cmd_ban)},
-		{Token: "clear", HelpID: "clearhelp", Flags: console.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_clear)},
 		{Token: "execrul", HelpID: "execrulhelp", Flags: console.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_exec_rul)},
 		{Token: "exit", HelpID: "exithelp", Flags: console.ClientServer, Func: func(ctx context.Context, c *console.Console, tokens []string) bool {
 			if noxflags.HasGame(noxflags.GameModeQuest) && noxflags.HasGame(noxflags.GameHost) {
@@ -248,7 +244,6 @@ var (
 		}},
 		{Token: "gamma", HelpID: "gammahelp", Flags: console.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_gamma)},
 		{Token: "kick", HelpID: "kickhelp", Flags: console.Server, LegacyFunc: wrapCommandC(nox_cmd_kick)},
-		{Token: "lock", HelpID: "lockhelp", Flags: console.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_lock)},
 		{Token: "load", HelpID: "loadhelp", Flags: console.Server | console.Cheat, LegacyFunc: wrapCommandC(nox_cmd_load)},
 		{Token: "log", HelpID: "loghelp", Flags: console.ClientServer | console.Cheat, Sub: []*console.Command{
 			{Token: "console", HelpID: "logconsolehelp", Flags: console.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_log_console)},
@@ -265,17 +260,10 @@ var (
 			return true
 		}},
 		{Token: "unmute", HelpID: "unmutehelp", Flags: console.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_unmute)},
-		{Token: "unlock", HelpID: "unlockhelp", Flags: console.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_unlock)},
 		{Token: "window", HelpID: "windowhelp", Flags: console.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_window)},
 	}
 )
 
-func nox_cmd_lock(i C.int, n C.int, arr **C.wchar_t) C.int {
-	return C.nox_cmd_lock(i, n, arr)
-}
-func nox_cmd_unlock(i C.int, n C.int, arr **C.wchar_t) C.int {
-	return C.nox_cmd_unlock(i, n, arr)
-}
 func nox_cmd_set_sysop(i C.int, n C.int, arr **C.wchar_t) C.int {
 	return C.nox_cmd_set_sysop(i, n, arr)
 }
@@ -449,9 +437,6 @@ func nox_cmd_set_time(i C.int, n C.int, arr **C.wchar_t) C.int {
 }
 func nox_cmd_set_lessons(i C.int, n C.int, arr **C.wchar_t) C.int {
 	return C.nox_cmd_set_lessons(i, n, arr)
-}
-func nox_cmd_clear(i C.int, n C.int, arr **C.wchar_t) C.int {
-	return C.nox_cmd_clear(i, n, arr)
 }
 func nox_cmd_menu_options(i C.int, n C.int, arr **C.wchar_t) C.int {
 	return C.nox_cmd_menu_options(i, n, arr)

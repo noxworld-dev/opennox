@@ -919,7 +919,7 @@ func nox_game_guiInit_473680() error {
 		return errors.New("nox_xxx_cliPrepareGameplay1_460E60 failed")
 	}
 	vsz := videoGetWindowSize()
-	*memmap.PtrPtr(0x5D4594, 1096352) = unsafe.Pointer(C.nox_gui_console_Create_450C70(C.int(vsz.W), C.int(vsz.H)))
+	*memmap.PtrPtr(0x5D4594, 1096352) = unsafe.Pointer(nox_gui_console_Create_450C70(vsz).C())
 	if memmap.Uint32(0x5D4594, 1096352) == 0 {
 		return errors.New("nox_gui_console_Create_450C70 failed")
 	}

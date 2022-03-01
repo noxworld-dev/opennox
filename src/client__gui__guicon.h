@@ -26,16 +26,25 @@ enum {
 nox_window* nox_gui_console_Create_450C70(int win_width, int win_height);
 void nox_gui_console_reloadColors_451100();
 int nox_gui_console_Hide_4512B0();
-int nox_gui_console_Clear_450B70();
+void nox_gui_console_Clear_450B70();
 void nox_gui_console_Enable_450BE0();
 void nox_gui_console_Disable_450BF0();
 void nox_gui_console_Lock_450B20(wchar_t* pass);
 void nox_gui_console_Unlock_450B50();
 void nox_client_toggleConsole_451350();
 int nox_gui_console_flagXxx_451410();
+int nox_gui_console_translucent_get();
+void nox_gui_console_translucent_set(int v);
 
 int nox_gui_console_Print_450B90(unsigned char cl, wchar_t* str);
-int nox_gui_console_Printf_450C00(unsigned char cl, wchar_t* fmt, ...);
 void nox_gui_console_PrintOrError_450C30(unsigned char cl, wchar_t* str);
+
+static int nox_gui_console_Printf_450C00(unsigned char cl, wchar_t* fmt, ...) {
+	static wchar_t nox_gui_console_printBuf[512] = {0};
+	va_list va;
+	va_start(va, fmt);
+	nox_vswprintf(nox_gui_console_printBuf, fmt, va);
+	return nox_gui_console_Print_450B90(cl, nox_gui_console_printBuf);
+}
 
 #endif // NOX_PORT_CLIENT_GUI_GUICON

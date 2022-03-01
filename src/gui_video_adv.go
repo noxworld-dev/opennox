@@ -52,6 +52,7 @@ func nox_client_advVideoOpts_New_4CB590(par *C.nox_window) C.int {
 type videoOpt struct {
 	ID     uint
 	Flag   noxflags.EngineFlag
+	Bool   *bool
 	CFlag  *C.uint
 	TextID strman.ID
 	Text   string
@@ -66,7 +67,7 @@ var noxVideoAdvOptsList = []*videoOpt{
 	{ID: 2050, Get: getScaled, Toggle: toggleScaled, Text: "Stretch image", TextID: "AdVidOpt.wnd:Stretched"},
 	{ID: 2010, CFlag: &C.nox_video_dxUnlockSurface, TextID: "AdVidOpt.wnd:ClipWalls", Def: true, Hidden: true},
 	{ID: 2012, Flag: noxflags.EngineSoftShadowEdge, TextID: "AdVidOpt.wnd:GouradShading"},
-	{ID: 2014, CFlag: &C.nox_gui_console_translucent, TextID: "AdVidOpt.wnd:TranslucentConsole"},
+	{ID: 2014, Bool: &nox_gui_console_translucent, TextID: "AdVidOpt.wnd:TranslucentConsole"},
 	{ID: 2015, CFlag: &C.nox_client_renderGlow_805852, TextID: "AdVidOpt.wnd:RenderGlow"},
 	{ID: 2016, CFlag: &C.nox_client_fadeObjects_80836, TextID: "AdVidOpt.wnd:FadeObjects"},
 	{ID: 2017, CFlag: &C.nox_client_showTooltips_80840, TextID: "AdVidOpt.wnd:ShowTooltips"},
@@ -106,6 +107,8 @@ func nox_client_advVideoOptsLoad(win *Window) {
 				v = opt.Get()
 			} else if opt.Flag != 0 {
 				v = noxflags.HasEngine(opt.Flag)
+			} else if opt.Bool != nil {
+				v = *opt.Bool
 			} else if opt.CFlag != nil {
 				v = *opt.CFlag != 0
 			}
@@ -159,6 +162,9 @@ func nox_client_advVideoOptsProc_4CB5D0(win *Window, e WindowEvent) WindowEventR
 			opt.Toggle()
 		} else if opt.Flag != 0 {
 			noxflags.ToggleEngine(opt.Flag)
+		} else if opt.Bool != nil {
+			v := *opt.Bool
+			*opt.Bool = !v
 		} else if opt.CFlag != nil {
 			v := *opt.CFlag != 0
 			*opt.CFlag = C.uint(bool2int(!v))

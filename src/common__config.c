@@ -7,6 +7,7 @@
 #include "GAME3_2.h"
 #include "GAME5_2.h"
 #include "client__gui__window.h"
+#include "client__gui__guicon.h"
 #include "client__system__ctrlevnt.h"
 #include "client__video__draw_common.h"
 #include "defs.h"
@@ -629,11 +630,11 @@ int sub_432340() {
 		return 1;
 	}
 	v1 = atoi(v0);
-	nox_gui_console_translucent = v1;
+	nox_gui_console_translucent_set(v1);
 	v2 = v1 == 0;
 	result = 1;
 	if (!v2) {
-		nox_gui_console_translucent = 1;
+		nox_gui_console_translucent_set(1);
 	}
 	return result;
 }
@@ -1500,7 +1501,7 @@ int sub_4332E0(FILE* a1) {
 	nox_fs_fprintf(a1, "HighResFloors = %d\n", nox_client_highResFloors_154952);
 	nox_fs_fprintf(a1, "LockHighResFloors = %d\n", nox_client_lockHighResFloors_1193152);
 	nox_fs_fprintf(a1, "TexturedFloors = %d\n", nox_client_texturedFloors_154956);
-	nox_fs_fprintf(a1, "TranslucentConsole = %d\n", nox_gui_console_translucent);
+	nox_fs_fprintf(a1, "TranslucentConsole = %d\n", nox_gui_console_translucent_get());
 	nox_fs_fprintf(a1, "RenderGlow = %d\n", nox_client_renderGlow_805852);
 	nox_fs_fprintf(a1, "RenderGUI = %d\n", nox_client_renderGUI_80828);
 	nox_fs_fprintf(a1, "FadeObjects = %d\n", nox_client_fadeObjects_80836);

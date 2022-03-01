@@ -13,8 +13,6 @@ extern nox_window_ref* nox_win_1064912;
 
 extern unsigned int nox_client_renderGUI_80828;
 extern unsigned int nox_xxx_xxxRenderGUI_587000_80832;
-
-int nox_gui_console_Enter_450FD0();
 */
 import "C"
 import (
@@ -27,6 +25,7 @@ import (
 
 	"nox/v1/client/gui"
 	"nox/v1/client/input"
+	"nox/v1/common/alloc"
 	noxcolor "nox/v1/common/color"
 	"nox/v1/common/keybind"
 	"nox/v1/common/log"
@@ -110,6 +109,11 @@ func asWindowData(data *C.nox_window_data) *WindowData {
 
 func asWindowDataP(data unsafe.Pointer) *WindowData {
 	return (*WindowData)(data)
+}
+
+func newWindowData() (*WindowData, func()) {
+	p, free := alloc.Malloc(unsafe.Sizeof(WindowData{}))
+	return asWindowDataP(p), free
 }
 
 type WindowData C.nox_window_data
@@ -426,33 +430,6 @@ func nox_xxx_windowUpdateKeysMB_46B6B0(inp *input.Handler, key keybind.Key) {
 		}
 	}
 	inp.SetKeyFlag(key, ok)
-}
-
-//export nox_xxx_consoleEditProc_450F40
-func nox_xxx_consoleEditProc_450F40(a1 unsafe.Pointer, a2, a3, a4 C.int) C.int {
-	if a2 != 21 {
-		return C.nox_xxx_wndEditProc_487D70((*C.nox_window)(a1), a2, a3, a4)
-	}
-	if ctrlEvent.hasDefBinding(11, keybind.Key(a3)) {
-		if a4 == 2 {
-			C.nox_client_toggleConsole_451350()
-		}
-		return 1
-	}
-	if a3 == 1 {
-		if a4 == 2 {
-			C.nox_xxx_consoleEsc_49B7A0()
-		}
-	} else {
-		if a3 != 28 {
-			return C.nox_xxx_wndEditProc_487D70((*C.nox_window)(a1), a2, a3, a4)
-		}
-		if a4 == 2 {
-			C.nox_gui_console_Enter_450FD0()
-			return 1
-		}
-	}
-	return 1
 }
 
 //var dword_5d4594_2618912 *noxKeyEventInt

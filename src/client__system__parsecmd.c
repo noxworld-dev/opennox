@@ -318,7 +318,6 @@ int nox_cmd_racoiaws(int tokInd, int tokCnt, wchar_t** tokens) {
 	nox_cheats_disabled = 0;
 	return 1;
 }
-#endif // NOX_CGO
 
 //----- (00440D80) --------------------------------------------------------
 int nox_cmd_lock(int tokInd, int tokCnt, wchar_t** tokens) {
@@ -343,6 +342,7 @@ int nox_cmd_unlock(int tokInd, int tokCnt, wchar_t** tokens) {
 	nox_gui_console_Printf_450C00(NOX_CONSOLE_WHITE, s);
 	return 1;
 }
+#endif // NOX_CGO
 
 //----- (00440E10) --------------------------------------------------------
 int nox_cmd_set_sysop(int tokInd, int tokCnt, wchar_t** tokens) {
@@ -2716,11 +2716,13 @@ int nox_cmd_set_lessons(int tokInd, int tokCnt, wchar_t** tokens) {
 	return 1;
 }
 
+#ifndef NOX_CGO
 //----- (004435C0) --------------------------------------------------------
 int nox_cmd_clear(int tokInd, int tokCnt, wchar_t** tokens) {
 	nox_gui_console_Clear_450B70();
 	return 1;
 }
+#endif // NOX_CGO
 
 //----- (004435D0) --------------------------------------------------------
 int nox_cmd_menu_options(int tokInd, int tokCnt, wchar_t** tokens) {

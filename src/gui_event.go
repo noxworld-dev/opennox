@@ -216,6 +216,13 @@ func eventRespPtr(r WindowEventResp) unsafe.Pointer {
 	return unsafe.Pointer(r.EventRespC())
 }
 
+func eventRespStr(r WindowEventResp) string {
+	if r == nil {
+		return ""
+	}
+	return GoWString((*wchar_t)(eventRespPtr(r)))
+}
+
 type WindowEventResp interface {
 	EventRespC() uintptr
 }

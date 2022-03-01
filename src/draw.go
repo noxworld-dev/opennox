@@ -192,7 +192,7 @@ func detectBestVideoSettings() { // nox_setProfiledMode_4445C0
 		C.nox_client_highResFloors_154952 = 0
 		C.nox_client_lockHighResFloors_1193152 = 0
 		C.nox_client_texturedFloors_154956 = 1
-		C.nox_gui_console_translucent = 0
+		nox_gui_console_translucent = false
 		C.nox_client_renderGlow_805852 = 0
 		C.nox_client_fadeObjects_80836 = 0
 		noxflags.UnsetEngine(noxflags.EngineSoftShadowEdge)
@@ -206,7 +206,7 @@ func detectBestVideoSettings() { // nox_setProfiledMode_4445C0
 		C.nox_client_highResFloors_154952 = 0
 		C.nox_client_lockHighResFloors_1193152 = 0
 		C.nox_client_texturedFloors_154956 = 1
-		C.nox_gui_console_translucent = 0
+		nox_gui_console_translucent = false
 		C.nox_client_renderGlow_805852 = 0
 		C.nox_client_fadeObjects_80836 = 0
 		noxflags.UnsetEngine(noxflags.EngineSoftShadowEdge)
@@ -220,7 +220,7 @@ func detectBestVideoSettings() { // nox_setProfiledMode_4445C0
 		C.nox_client_highResFloors_154952 = 1
 		C.nox_client_lockHighResFloors_1193152 = 0
 		C.nox_client_texturedFloors_154956 = 1
-		C.nox_gui_console_translucent = 0
+		nox_gui_console_translucent = false
 		C.nox_client_renderGlow_805852 = 1
 		C.nox_client_fadeObjects_80836 = 1
 		noxflags.SetEngine(noxflags.EngineSoftShadowEdge)
@@ -234,7 +234,7 @@ func detectBestVideoSettings() { // nox_setProfiledMode_4445C0
 		C.nox_client_highResFloors_154952 = 1
 		C.nox_client_lockHighResFloors_1193152 = 0
 		C.nox_client_texturedFloors_154956 = 1
-		C.nox_gui_console_translucent = 0
+		nox_gui_console_translucent = false
 		C.nox_client_renderGlow_805852 = 1
 		C.nox_client_fadeObjects_80836 = 1
 		noxflags.SetEngine(noxflags.EngineSoftShadowEdge)
@@ -248,7 +248,7 @@ func detectBestVideoSettings() { // nox_setProfiledMode_4445C0
 		C.nox_client_highResFloors_154952 = 1
 		C.nox_client_lockHighResFloors_1193152 = 1
 		C.nox_client_texturedFloors_154956 = 1
-		C.nox_gui_console_translucent = 1
+		nox_gui_console_translucent = true
 		C.nox_client_renderGlow_805852 = 1
 		C.nox_client_fadeObjects_80836 = 1
 		noxflags.SetEngine(noxflags.EngineSoftShadowEdge)

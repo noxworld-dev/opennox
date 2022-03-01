@@ -1388,7 +1388,7 @@ typedef struct {
 _Static_assert(sizeof(nox_scrollListBox_data) == 56, "wrong size of nox_scrollListBox_data structure!");
 
 typedef struct {
-	uint8_t data_0[1024];
+	wchar_t text[512];
 	uint32_t field_1024;
 	uint32_t field_1028;
 	uint32_t field_1032;
