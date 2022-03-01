@@ -347,6 +347,7 @@ void nox_gui_console_reloadColors_451100() {
 	}
 }
 
+#ifndef NOX_CGO
 //----- (004512B0) --------------------------------------------------------
 int nox_gui_console_Hide_4512B0() {
 	if (wndIsShown_nox_xxx_wndIsShown_46ACC0(nox_gui_console_win)) {
@@ -364,3 +365,4 @@ int nox_gui_console_Hide_4512B0() {
 	dword_5d4594_3799524 = 1;
 	return 1;
 }
+#endif // NOX_CGO

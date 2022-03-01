@@ -394,8 +394,8 @@ func nox_xxx_windowMainMenuProc_4A1DC0(a1 *Window, ev WindowEvent) WindowEventRe
 		sub_4D6F90(0)
 		noxServer.nox_xxx_setQuest_4D6F60(0)
 		C.sub_4D6F80(0)
-		if C.sub_473670() == 0 {
-			C.nox_client_toggleMap_473610()
+		if sub_473670() == 0 {
+			nox_client_toggleMap_473610()
 		}
 		C.nox_xxx_cliShowHideTubes_470AA0(0)
 		C.nox_xxx_cliSetMinimapZoom_472520(2300)
@@ -444,8 +444,8 @@ func nox_xxx_windowMainMenuProc_4A1DC0(a1 *Window, ev WindowEvent) WindowEventRe
 		noxServer.nox_game_setQuestStage_4E3CD0(0)
 		C.sub_4D7440(0)
 		C.nox_xxx_cliSetMinimapZoom_472520(2300)
-		if C.sub_473670() == 0 {
-			C.nox_client_toggleMap_473610()
+		if sub_473670() == 0 {
+			nox_client_toggleMap_473610()
 		}
 		C.sub_461440(0)
 		if C.nox_xxx_parseGamedataBinPre_4D1630() == 0 {

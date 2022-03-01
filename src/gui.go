@@ -105,7 +105,11 @@ func nox_xxx_wndGetCaptureMain() *Window {
 }
 
 func asWindowData(data *C.nox_window_data) *WindowData {
-	return (*WindowData)(unsafe.Pointer(data))
+	return asWindowDataP(unsafe.Pointer(data))
+}
+
+func asWindowDataP(data unsafe.Pointer) *WindowData {
+	return (*WindowData)(data)
 }
 
 type WindowData C.nox_window_data
@@ -459,7 +463,7 @@ func keyBindingsCheckActive(inp *input.Handler) int {
 	}
 	for _, key := range inp.KeyboardKeys() {
 		//dword_5d4594_2618912 = p
-		if !inp.GetKeyFlag(key) && !inp.IsPressed(key) && !nox_xxx_guiCursor_477600() {
+		if !inp.GetKeyFlag(key) && !inp.IsPressed(key) && nox_xxx_guiCursor_477600() == 0 {
 			if noxConsole.ExecMacros(context.Background(), key) {
 				inp.SetKeyFlag(key, true)
 			}

@@ -126,8 +126,8 @@ func inputSetKeyTimeout(ev keybind.Event) {
 	inputKeyTimeoutsNew[ev] = gameFrame()
 }
 
-func nox_xxx_guiCursor_477600() bool {
-	return memmap.Uint32(0x5D4594, 1096672) != 0
+func nox_xxx_guiCursor_477600() uint32 {
+	return memmap.Uint32(0x5D4594, 1096672)
 }
 
 //export nox_client_getMousePos_4309F0
@@ -488,7 +488,7 @@ func nox_xxx_cursorUpdate_46B740_sprites(inp *input.Handler, v63 bool, v66 []int
 	if nox_xxx_checkGameFlagPause_413A50() {
 		return
 	}
-	if nox_xxx_guiCursor_477600() {
+	if nox_xxx_guiCursor_477600() != 0 {
 		return
 	}
 	if C.nox_xxx_clientIsObserver_4372E0() != 0 {
@@ -614,7 +614,7 @@ func nox_xxx_cursorUpdate_46B740(inp *input.Handler) {
 	mpos := inp.GetMousePos()
 
 	C.nox_xxx_cursorSetTooltip_4776B0(nil)
-	if C.nox_client_gui_flag_815132 != 0 || nox_xxx_guiCursor_477600() {
+	if C.nox_client_gui_flag_815132 != 0 || nox_xxx_guiCursor_477600() != 0 {
 		nox_client_setCursorType(gui.CursorSelect)
 	} else {
 		nox_client_setCursorType(gui.CursorMoveArrow)

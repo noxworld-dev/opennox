@@ -369,11 +369,11 @@ func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_A(a4 *CtrlEventBinding) 
 			case keybind.EventToggleGUI:
 				c.nox_ctrlevent_action_42E670(client.CCToggleGUI, nil)
 			case keybind.EventAutoSave:
-				if noxflags.HasGame(noxflags.GameModeCoop) && !nox_xxx_guiCursor_477600() {
+				if noxflags.HasGame(noxflags.GameModeCoop) && nox_xxx_guiCursor_477600() == 0 {
 					c.nox_ctrlevent_action_42E670(client.CCAutoSave, nil)
 				}
 			case keybind.EventAutoLoad:
-				if noxflags.HasGame(noxflags.GameModeCoop) && !nox_xxx_guiCursor_477600() {
+				if noxflags.HasGame(noxflags.GameModeCoop) && nox_xxx_guiCursor_477600() == 0 {
 					c.nox_ctrlevent_action_42E670(client.CCAutoLoad, nil)
 				}
 			case keybind.EventScreenShot:
@@ -535,7 +535,7 @@ func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_B() {
 			}
 			ce.active = false
 		case client.CCReadMap:
-			C.nox_client_toggleMap_473610()
+			nox_client_toggleMap_473610()
 			ce.active = false
 		case client.CCInventory:
 			C.nox_client_toggleInventory_467C60()

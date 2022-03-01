@@ -1135,7 +1135,6 @@ func nox_client_drawCursorAndTooltips_477830(r *NoxRender, inp *input.Handler) {
 	}
 }
 
-//export sub_477F80
 func sub_477F80() {
 	if C.dword_5d4594_3799468 != 0 {
 		vp := getViewport()

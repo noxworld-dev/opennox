@@ -3787,8 +3787,10 @@ int nox_xxx_wndSummonBigButtonProc_4C24B0(int a1, int a2, unsigned int a3) {
 	}
 }
 
+#ifndef NOX_CGO
 //----- (004C26F0) --------------------------------------------------------
-int sub_4C26F0(int yTop) {
+int sub_4C26F0(void* a1p) {
+	int yTop = a1p;
 	int v1;     // esi
 	int result; // eax
 	int xLeft;  // [esp+4h] [ebp-Ch]
@@ -3816,6 +3818,7 @@ int sub_4C26F0(int yTop) {
 	dword_5d4594_3799524 = 1;
 	return result;
 }
+#endif // NOX_CGO
 
 //----- (004C2A00) --------------------------------------------------------
 int sub_4C2A00(int a1, int a2, int a3, int a4, short* a5) {

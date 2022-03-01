@@ -7402,6 +7402,7 @@ void sub_4735C0(int xLeft, int yTop) {
 	}
 }
 
+#ifndef NOX_CGO
 //----- (00473610) --------------------------------------------------------
 char nox_client_toggleMap_473610() {
 	int v0; // eax
@@ -7426,7 +7427,6 @@ char nox_client_toggleMap_473610() {
 //----- (00473670) --------------------------------------------------------
 int sub_473670() { return getMemByte(0x5D4594, 1096424) & 1; }
 
-#ifndef NOX_CGO
 //----- (00473680) --------------------------------------------------------
 int nox_game_guiInit_473680() {
 	*getMemU32Ptr(0x5D4594, 1096420) = nox_xxx_gLoadImg_42F970("CursorBitmap");
@@ -8476,6 +8476,7 @@ int sub_4757D0_drawable(nox_drawable* dr) {
 	return result;
 }
 
+#ifndef NOX_CGO
 //----- (00475810) --------------------------------------------------------
 void nox_xxx_drawAllMB_475810_draw_A(nox_draw_viewport_t* vp) {
 	if (!*getMemU32Ptr(0x5D4594, 1096448)) {
@@ -8503,6 +8504,7 @@ void nox_xxx_drawAllMB_475810_draw_A(nox_draw_viewport_t* vp) {
 	}
 	sub_437260();
 }
+#endif // NOX_CGO
 int nox_xxx_drawAllMB_475810_draw_B(nox_draw_viewport_t* vp) {
 	int v10 = 1;
 	int v11;

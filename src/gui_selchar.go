@@ -350,9 +350,9 @@ func sub_477530(a1 C.int) {
 		C.nox_client_renderGUI_80828 = 0
 		*memmap.PtrUint32(0x5D4594, 0x10BBD0) = uint32(C.sub_473670())
 		if *memmap.PtrUint32(0x5D4594, 0x10BBD0) == 1 {
-			C.nox_client_toggleMap_473610()
+			nox_client_toggleMap_473610()
 		}
-		C.nox_gui_console_Hide_4512B0()
+		nox_gui_console_Hide_4512B0()
 		C.sub_446780()
 		C.sub_4AD9B0(1)
 		C.sub_4C35B0(1)
@@ -371,7 +371,7 @@ func sub_477530(a1 C.int) {
 			C.nox_xxx_guiServerOptsLoad_457500()
 		}
 		if *memmap.PtrUint32(0x5D4594, 0x10BBD0) != 0 {
-			C.nox_client_toggleMap_473610()
+			nox_client_toggleMap_473610()
 		}
 		if C.nox_xxx_xxxRenderGUI_587000_80832 == 1 {
 			C.nox_client_renderGUI_80828 = 1

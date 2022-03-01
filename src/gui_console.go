@@ -2,7 +2,10 @@ package nox
 
 /*
 #include "client__gui__window.h"
+extern int dword_5d4594_3799524;
 extern nox_window* nox_gui_console_scrollbox;
+extern nox_window* nox_gui_console_input;
+extern nox_window* nox_gui_console_win;
 */
 import "C"
 import (
@@ -61,4 +64,24 @@ func nox_gui_console_PrintOrError_450C30(cl C.uchar, cstr *C.wchar_t) {
 	if str != "" {
 		noxConsole.Print(console.Color(cl), str)
 	}
+}
+
+//export nox_gui_console_Hide_4512B0
+func nox_gui_console_Hide_4512B0() C.int {
+	cwin := asWindow(C.nox_gui_console_win)
+	if cwin.Flags().IsHidden() {
+		return 0
+	}
+	cinp := asWindow(C.nox_gui_console_input)
+	if nox_xxx_wndGetFocus_46B4F0() == cinp.C() {
+		guiFocus(nil)
+	}
+	cwin.Hide()
+	cwin.flags &= 0xFFFFFFF7
+	cinp.flags &= 0xFFFFFFF7
+	asWindow(C.nox_gui_console_scrollbox).flags &= 0xFFFFFFF7
+	cinp.DrawData().field_0 &= 0xFFFFFFFB
+	cinp.DrawData().field_0 &= 0xFFFFFFFD
+	C.dword_5d4594_3799524 = 1
+	return 1
 }

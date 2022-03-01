@@ -134,7 +134,7 @@ int nox_xxx_guiDrawSummon_4C2440(int a1);
 int nox_xxx_guiHideSummonWindow_4C2470();
 int sub_4C24A0();
 int nox_xxx_wndSummonBigButtonProc_4C24B0(int a1, int a2, unsigned int a3);
-int sub_4C26F0(int yTop);
+int sub_4C26F0(void* yTop);
 int sub_4C2A00(int a1, int a2, int a3, int a4, short* a5);
 int nox_xxx_clientOrderCreature_4C2A60(int a1, unsigned int a2);
 int nox_xxx_wndSummonProc_4C2B10(uint32_t* a1, unsigned int a2, unsigned int a3);

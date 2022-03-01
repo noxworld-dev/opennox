@@ -759,6 +759,10 @@ func (r *NoxRender) nox_client_drawAddPoint_49F500(pos types.Point) {
 	C.nox_client_drawAddPoint_49F500(C.int(pos.X), C.int(pos.Y))
 }
 
+func (r *NoxRender) nox_xxx_rasterPointRel_49F570(pos types.Point) {
+	C.nox_xxx_rasterPointRel_49F570(C.int(pos.X), C.int(pos.Y))
+}
+
 func (r *NoxRender) DrawLineFromPoints(arr ...types.Point) { // nox_client_drawLineFromPoints_49E4B0
 	for _, p := range arr {
 		r.nox_client_drawAddPoint_49F500(p)
@@ -932,7 +936,7 @@ func nox_xxx_client_435F80_draw(inp *input.Handler) bool {
 		return false
 	}
 	C.sub_437100()
-	if C.sub_478030() == 0 && !nox_xxx_guiCursor_477600() {
+	if C.sub_478030() == 0 && nox_xxx_guiCursor_477600() == 0 {
 		C.sub_470DE0()
 	}
 	ctrlEvent.nox_xxx_input_42D220(inp)
@@ -1041,8 +1045,36 @@ func nox_xxx_clientDrawAll_436100_draw() {
 	}
 }
 
+func nox_xxx_drawAllMB_475810_draw_A(vp *Viewport) {
+	if *memmap.PtrUint32(0x5D4594, 1096448) == 0 {
+		*memmap.PtrUint32(0x5D4594, 1096448) = nox_xxx_getTTByNameSpriteMB_44CFC0("Crown")
+	}
+	sub_477F80()
+	*memmap.PtrUint32(0x973F18, 68) = 0
+	if vp.x1 != 0 {
+		C.dword_5d4594_3799468 = 1
+		v4 := int(vp.x2) + 1
+		v3 := int(vp.y2)
+		noxrend.setRectFullScreen()
+		if C.dword_5d4594_3799524 != 0 {
+			rect := noxrend.PixBuffer().Rect
+			noxrend.Data().SetColor2(uint32(C.nox_color_black_2650656))
+			noxrend.DrawRectFilledOpaque(0, 0, rect.Dx(), int(vp.y1))
+			noxrend.DrawRectFilledOpaque(0, v3, rect.Dx(), rect.Dy()-v3)
+			noxrend.DrawRectFilledOpaque(0, int(vp.y1), int(vp.x1), v3-int(vp.y1))
+			noxrend.DrawRectFilledOpaque(v4, int(vp.y1), rect.Dx()-v4, v3-int(vp.y1))
+			C.dword_5d4594_3799524 = 0
+		}
+		noxrend.Data().SetColor2(*memmap.PtrUint32(0x85B3FC, 956))
+		noxrend.DrawBorder(int(vp.x1)-2, int(vp.y1)-2, v4-int(vp.x1)+4, v3-int(vp.y1)+4)
+	} else {
+		C.dword_5d4594_3799468 = 0
+	}
+	noxrend.nox_client_copyRect_49F6F0(int(vp.x1), int(vp.y1), int(vp.width), int(vp.height))
+}
+
 func nox_xxx_drawAllMB_475810_draw(vp *Viewport) {
-	C.nox_xxx_drawAllMB_475810_draw_A(vp.C())
+	nox_xxx_drawAllMB_475810_draw_A(vp)
 	if int32(vp.field_12) < 0 {
 		vp.field_12 = C.int(-1 - int32(vp.field_12))
 	} else if int32(vp.field_12) > 0 {

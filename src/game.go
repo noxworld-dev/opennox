@@ -217,8 +217,8 @@ func startServer() bool {
 		C.nox_xxx_cliShowHideTubes_470AA0(1)
 	}
 	C.sub_4D6F80(0)
-	if C.sub_473670() == 0 {
-		C.nox_client_toggleMap_473610()
+	if sub_473670() == 0 {
+		nox_client_toggleMap_473610()
 	}
 	if !isServerQuest {
 		C.nox_xxx_cliShowHideTubes_470AA0(0)
