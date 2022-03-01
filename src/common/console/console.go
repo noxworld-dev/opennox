@@ -206,6 +206,21 @@ func (cn *Console) Printf(cl Color, format string, args ...interface{}) {
 	}
 }
 
+// PrintOrError prints given text or prints a generic error if the text is empty.
+func (cn *Console) PrintOrError(cl Color, str string) {
+	if cn.p == nil {
+		return
+	}
+	if str != "" {
+		cn.Print(cl, str)
+		return
+	}
+	str = cn.Strings().GetStringInFile("InternalError", "guicon.c")
+	if str != "" {
+		cn.Print(cl, str)
+	}
+}
+
 // Strings exposes the underlying string manager.
 func (cn *Console) Strings() *strman.StringManager {
 	if cn.sm == nil {

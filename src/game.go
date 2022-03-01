@@ -919,7 +919,7 @@ func nox_game_guiInit_473680() error {
 		return errors.New("nox_xxx_cliPrepareGameplay1_460E60 failed")
 	}
 	vsz := videoGetWindowSize()
-	*memmap.PtrPtr(0x5D4594, 1096352) = unsafe.Pointer(nox_gui_console_Create_450C70(vsz).C())
+	*memmap.PtrPtr(0x5D4594, 1096352) = unsafe.Pointer(guiCon.Init(vsz).C())
 	if memmap.Uint32(0x5D4594, 1096352) == 0 {
 		return errors.New("nox_gui_console_Create_450C70 failed")
 	}
@@ -960,7 +960,7 @@ func nox_game_guiInit_473680() error {
 	if C.sub_48C980() == 0 {
 		return errors.New("sub_48C980 failed")
 	}
-	nox_gui_console_Enable_450BE0()
+	guiCon.Enable(true)
 	C.sub_4AB4A0(0)
 	C.sub_4AB4D0(0)
 	if C.nox_client_renderGUI_80828 == 0 || noxflags.HasEngine(noxflags.EngineNoRendering) {
@@ -1454,7 +1454,7 @@ func nox_xxx_unitCanInteractWith_5370E0(u, obj noxObject, a3 byte) bool {
 }
 
 func sub_473840() {
-	nox_gui_console_Disable_450BF0()
+	guiCon.Enable(false)
 	C.nox_gui_itemAmount_free_4C03E0()
 	sub_46CCB0()
 	C.sub_4AE3B0()

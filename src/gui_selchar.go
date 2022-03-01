@@ -352,7 +352,7 @@ func sub_477530(a1 C.int) {
 		if *memmap.PtrUint32(0x5D4594, 0x10BBD0) == 1 {
 			nox_client_toggleMap_473610()
 		}
-		nox_gui_console_Hide_4512B0()
+		guiCon.Hide()
 		C.sub_446780()
 		C.sub_4AD9B0(1)
 		C.sub_4C35B0(1)

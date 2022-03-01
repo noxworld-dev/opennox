@@ -500,7 +500,7 @@ func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_B() {
 			C.nox_client_toggleSpellbook_45AC70()
 			ce.active = false
 		case client.CCToggleConsole:
-			nox_client_toggleConsole_451350()
+			guiCon.Toggle()
 			ce.active = false
 		case client.CCIncreaseWindowSize:
 			clientPlaySoundSpecial(921, 100)

@@ -67,7 +67,7 @@ var noxVideoAdvOptsList = []*videoOpt{
 	{ID: 2050, Get: getScaled, Toggle: toggleScaled, Text: "Stretch image", TextID: "AdVidOpt.wnd:Stretched"},
 	{ID: 2010, CFlag: &C.nox_video_dxUnlockSurface, TextID: "AdVidOpt.wnd:ClipWalls", Def: true, Hidden: true},
 	{ID: 2012, Flag: noxflags.EngineSoftShadowEdge, TextID: "AdVidOpt.wnd:GouradShading"},
-	{ID: 2014, Bool: &nox_gui_console_translucent, TextID: "AdVidOpt.wnd:TranslucentConsole"},
+	{ID: 2014, Bool: &guiCon.translucent, TextID: "AdVidOpt.wnd:TranslucentConsole"},
 	{ID: 2015, CFlag: &C.nox_client_renderGlow_805852, TextID: "AdVidOpt.wnd:RenderGlow"},
 	{ID: 2016, CFlag: &C.nox_client_fadeObjects_80836, TextID: "AdVidOpt.wnd:FadeObjects"},
 	{ID: 2017, CFlag: &C.nox_client_showTooltips_80840, TextID: "AdVidOpt.wnd:ShowTooltips"},

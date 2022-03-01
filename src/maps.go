@@ -404,7 +404,7 @@ func nox_xxx_mapCliReadAll_4AC2B0(path string) error {
 	C.sub_4B64C0()
 	C.nox_xxx_bookSetColor_45AC40()
 	C.nox_xxx_colorInit_4C4FD0()
-	nox_gui_console_reloadColors_451100()
+	guiCon.ReloadColors()
 	C.sub_445FF0()
 	C.sub_470680()
 	C.sub_461520()
