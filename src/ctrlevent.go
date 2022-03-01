@@ -37,6 +37,7 @@ import (
 	"unsafe"
 
 	"nox/v1/client"
+	"nox/v1/client/gui"
 	"nox/v1/client/input"
 	"nox/v1/common"
 	noxflags "nox/v1/common/flags"
@@ -173,16 +174,16 @@ func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_A(a4 *CtrlEventBinding) 
 		for _, k := range it.events {
 			switch k {
 			case keybind.EventAction:
-				switch nox_client_getCursorType_477620() {
-				case 3:
+				switch nox_client_getCursorType() {
+				case gui.CursorShop:
 					v10 := nox_xxx_clientGetSpriteAtCursor_476F90()
 					C.nox_xxx_clientTrade_42E850(v10.C())
-				case 4:
+				case gui.CursorTalk:
 					v11 := nox_xxx_clientGetSpriteAtCursor_476F90()
 					if v11.Flags70()&0x10 != 0 {
 						C.nox_xxx_clientTalk_42E7B0(v11.C())
 					}
-				case 13:
+				case gui.CursorUse:
 					v12 := nox_xxx_clientGetSpriteAtCursor_476F90()
 					C.nox_xxx_clientCollideOrUse_42E810(v12.C())
 				default:

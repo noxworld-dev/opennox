@@ -766,7 +766,6 @@ uint32_t dword_5d4594_1568308 = 0;
 uint32_t dword_5d4594_830192 = 0;
 uint32_t dword_5d4594_1193576 = 0;
 uint32_t dword_587000_129656 = 0x1;
-uint32_t nox_xxx_cursorTypePrev_587000_151528 = 0x11;
 uint32_t dword_5d4594_1091364 = 0;
 uint32_t dword_5d4594_2386928 = 0;
 uint32_t dword_5d4594_599496 = 0;

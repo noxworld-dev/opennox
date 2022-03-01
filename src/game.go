@@ -88,6 +88,7 @@ import (
 	"github.com/noxworld-dev/lobby"
 	"github.com/noxworld-dev/xwis"
 
+	"nox/v1/client/gui"
 	"nox/v1/common"
 	"nox/v1/common/alloc"
 	"nox/v1/common/console"
@@ -188,7 +189,7 @@ func sub_43C060() bool {
 	C.nox_xxx_loadPal_4A96C0_video_read_palette(internCStr("default.pal"))
 	C.nox_xxx_wndLoadBorder_4AA1F0()
 	nox_xxx_wndLoadMainBG_4A2210()
-	nox_client_setCursorType_477610(0)
+	nox_client_setCursorType(gui.CursorSelect)
 	C.sub_48B3E0(1)
 	sub_44E040()
 	C.sub_43E8C0(0)
@@ -998,7 +999,7 @@ func nox_xxx_mapFindPlayerStart_4F7AB0(a2 *Unit) types.Pointf {
 
 func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() bool {
 	if noxflags.HasGame(noxflags.GameClient) {
-		nox_client_setCursorType_477610(10)
+		nox_client_setCursorType(gui.CursorBusy)
 	}
 	C.sub_4D22B0()
 	s.nox_xxx_netMsgFadeBegin_4D9800(false, true)

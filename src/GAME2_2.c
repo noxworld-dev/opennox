@@ -149,7 +149,6 @@ extern int nox_video_drawCursorThreadOk;
 extern int nox_video_allowCursorDrawThread;
 extern int nox_video_windowsPlatformVersion;
 extern int nox_video_cursorDrawIsThreaded;
-int nox_client_mouseCursorType = 0;
 extern unsigned int nox_frame_xxx_2598000;
 extern HANDLE* nox_video_cursorDrawThreadHandle;
 
@@ -183,6 +182,7 @@ extern nox_light_3 nox_arr2_853BC0[57 * 4]
 								  [45 * 4]; // TODO: the 4x factor is for high-res; figure out what those values are
 
 #ifndef NOX_CGO
+int nox_client_mouseCursorType = 0;
 int nox_video_16bit = 0;
 uint32_t dword_5d4594_1097208 = 0;
 
@@ -1304,6 +1304,7 @@ void sub_477530(int a1) {
 //----- (00477600) --------------------------------------------------------
 int nox_xxx_guiCursor_477600() { return *getMemU32Ptr(0x5D4594, 1096672); }
 
+#ifndef NOX_CGO
 //----- (00477610) --------------------------------------------------------
 int nox_client_setCursorType_477610(int a1) {
 	int result; // eax
@@ -1319,7 +1320,6 @@ int nox_client_getCursorType_477620() { return nox_client_mouseCursorType; }
 //----- (00477630) --------------------------------------------------------
 int nox_xxx_cursorGetTypePrev_477630() { return nox_xxx_cursorTypePrev_587000_151528; }
 
-#ifndef NOX_CGO
 //----- (00477640) --------------------------------------------------------
 void nox_xxx_bookSaveSpellForDragDrop_477640(int a1, int a2) {
 	nox_client_spellDragnDrop_1097192 = a1;

@@ -68,6 +68,7 @@ import (
 	"time"
 	"unsafe"
 
+	"nox/v1/client/gui"
 	"nox/v1/common/env"
 	noxflags "nox/v1/common/flags"
 	"nox/v1/common/log"
@@ -1197,7 +1198,7 @@ var (
 
 func nox_xxx_gameChangeMap_43DEB0() error {
 	if noxflags.HasGame(noxflags.GameFlag24) {
-		nox_client_setCursorType_477610(10)
+		nox_client_setCursorType(gui.CursorBusy)
 
 		mapName := ""
 		if nox_xxx_gameIsNotMultiplayer_4DB250() {

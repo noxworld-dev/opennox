@@ -6904,7 +6904,7 @@ int sub_439D90(unsigned int a1, unsigned int a2) {
 		}
 		sub_4A7A70(0);
 		nox_game_showSelClass_4A4840();
-		result = nox_client_setCursorType_477610(0);
+		nox_client_setCursorType_477610(0);
 	}
 	return result;
 }

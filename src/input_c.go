@@ -47,6 +47,7 @@ import (
 	"sync"
 	"unsafe"
 
+	"nox/v1/client/gui"
 	"nox/v1/client/input"
 	"nox/v1/client/seat"
 	noxflags "nox/v1/common/flags"
@@ -97,10 +98,6 @@ func inputClearKeyTimeouts() {
 	inputKeyTimeoutsNew = make(map[keybind.Event]uint32)
 }
 
-func nox_client_getCursorType_477620() int {
-	return int(C.nox_client_mouseCursorType)
-}
-
 func nox_xxx_spriteGetMB_476F80() *Drawable {
 	return asDrawable((*C.nox_drawable)(C.dword_5d4594_1096640))
 }
@@ -131,10 +128,6 @@ func inputSetKeyTimeout(ev keybind.Event) {
 
 func nox_xxx_guiCursor_477600() bool {
 	return memmap.Uint32(0x5D4594, 1096672) != 0
-}
-
-func nox_client_setCursorType_477610(v int) {
-	C.nox_client_mouseCursorType = C.int(v)
 }
 
 //export nox_client_getMousePos_4309F0
@@ -503,19 +496,19 @@ func nox_xxx_cursorUpdate_46B740_sprites(inp *input.Handler, v63 bool, v66 []int
 	}
 	v42 := int(C.sub_4675B0())
 	if v42 == 5 {
-		nox_client_setCursorType_477610(6)
+		nox_client_setCursorType(gui.CursorIdentify)
 		return
 	}
 	if v42 == 6 {
-		nox_client_setCursorType_477610(8)
+		nox_client_setCursorType(gui.CursorRepair)
 		return
 	}
 	sprite := nox_xxx_clientGetSpriteAtCursor_476F90()
 	if sprite == nil {
 		if C.sub_479590() == 2 {
-			nox_client_setCursorType_477610(11)
+			nox_client_setCursorType(gui.CursorBuy)
 		} else if C.sub_479590() == 3 {
-			nox_client_setCursorType_477610(12)
+			nox_client_setCursorType(gui.CursorSell)
 		}
 		return
 	}
@@ -559,9 +552,9 @@ func nox_xxx_cursorUpdate_46B740_sprites(inp *input.Handler, v63 bool, v66 []int
 					v57 := *(*uintptr)(unsafe.Add(p, 3680))
 					if v57&0x200 == 0 && C.sub_478030() == 0 {
 						if sprite.Flags28()&2 != 0 && sprite.Flags70()&0x10 != 0 {
-							nox_client_setCursorType_477610(4)
+							nox_client_setCursorType(gui.CursorTalk)
 						} else if sprite.Flags28()&2 != 0 && sprite.Flags29()&8 != 0 {
-							nox_client_setCursorType_477610(3)
+							nox_client_setCursorType(gui.CursorShop)
 						}
 					}
 				}
@@ -572,12 +565,12 @@ func nox_xxx_cursorUpdate_46B740_sprites(inp *input.Handler, v63 bool, v66 []int
 				C.nox_xxx_cursorSetTooltip_4776B0(v55)
 			}
 			if v54 >= 75*75 {
-				nox_client_setCursorType_477610(15)
+				nox_client_setCursorType(gui.CursorPickupFar)
 			} else {
 				if noxflags.HasGame(noxflags.GameModeCoop|noxflags.GameModeQuest) || C.sub_57B450(sprite.C()) != 0 {
-					nox_client_setCursorType_477610(2)
+					nox_client_setCursorType(gui.CursorPickup)
 				} else {
-					nox_client_setCursorType_477610(16)
+					nox_client_setCursorType(gui.CursorCaution)
 				}
 				v56 := C.nox_client_mousePriKey_430AF0()
 				if v66[v56] == int(C.nox_xxx_cursor_430B00()) {
@@ -598,7 +591,7 @@ func nox_xxx_cursorUpdate_46B740_sprites(inp *input.Handler, v63 bool, v66 []int
 			c1 := v65.X - sp.X
 			c2 := v65.Y - sp.Y
 			if c1*c1+c2*c2 < 75*75 && sprite.Flags30()&0x1000000 != 0 && sprite.Flags70()&0xC == 0 {
-				nox_client_setCursorType_477610(13)
+				nox_client_setCursorType(gui.CursorUse)
 			}
 		}
 	}
@@ -622,12 +615,12 @@ func nox_xxx_cursorUpdate_46B740(inp *input.Handler) {
 
 	C.nox_xxx_cursorSetTooltip_4776B0(nil)
 	if C.nox_client_gui_flag_815132 != 0 || nox_xxx_guiCursor_477600() {
-		nox_client_setCursorType_477610(0)
+		nox_client_setCursorType(gui.CursorSelect)
 	} else {
-		nox_client_setCursorType_477610(14)
+		nox_client_setCursorType(gui.CursorMoveArrow)
 	}
 	if nox_win_cur_input != nil {
-		nox_client_setCursorType_477610(0)
+		nox_client_setCursorType(gui.CursorSelect)
 		nox_win_1064916 = nil
 		child := nox_win_cur_input.ChildByPos(mpos)
 		v1 = child
@@ -655,7 +648,7 @@ func nox_xxx_cursorUpdate_46B740(inp *input.Handler) {
 			}
 		}
 	} else if nox_win_1064916 != nil {
-		nox_client_setCursorType_477610(0)
+		nox_client_setCursorType(gui.CursorSelect)
 		switch input.MouseStateCode(states[input.NOX_MOUSE_LEFT]) {
 		case 0, input.NOX_MOUSE_LEFT_PRESSED:
 			if nox_win_1064916.Flags().Has(4) && C.sub_45D9B0() == 0 {
@@ -795,7 +788,7 @@ func nox_xxx_cursorUpdate_46B740(inp *input.Handler) {
 		if v1.Flags().Has(0x200) {
 			v1 = nil
 		} else if v1 != nil {
-			nox_client_setCursorType_477610(0)
+			nox_client_setCursorType(gui.CursorSelect)
 			for i, v39 := range states {
 				if v39 == 0 {
 					continue

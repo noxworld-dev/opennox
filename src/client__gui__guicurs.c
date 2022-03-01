@@ -15,7 +15,6 @@
 
 extern int dword_5d4594_1097212;
 extern int dword_5d4594_1097216;
-extern uint32_t nox_xxx_cursorTypePrev_587000_151528;
 extern uint32_t dword_5d4594_1097208;
 extern uint32_t dword_5d4594_3798728;
 extern int nox_win_width;
@@ -32,6 +31,8 @@ extern uint32_t nox_color_yellow_2589772;
 extern uint32_t nox_color_violet_2598268;
 extern uint32_t nox_color_black_2650656;
 extern uint32_t nox_color_orange_2614256;
+
+uint32_t nox_xxx_cursorTypePrev_587000_151528 = 17;
 
 //----- (00477A30) --------------------------------------------------------
 void nox_video_cursorDrawImpl_477A30(int a1, int a2, int a3) {
