@@ -1601,6 +1601,7 @@ int sub_4BE610() {
 	return result;
 }
 
+#ifndef NOX_CGO
 //----- (004BE640) --------------------------------------------------------
 int sub_4BE640(int a1, int a2) {
 	unsigned int v2; // ecx
@@ -1634,7 +1635,6 @@ int sub_4BE640(int a1, int a2) {
 	return result;
 }
 
-#ifndef NOX_CGO
 //----- (004BE6D0) --------------------------------------------------------
 void nox_video_drawAnimatedImageOrCursorAt_4BE6D0(int a1, int a2, int a3) {
 	int v3 = sub_4BE640(a1, 0);
@@ -1646,7 +1646,6 @@ void nox_video_drawAnimatedImageOrCursorAt_4BE6D0(int a1, int a2, int a3) {
 		}
 	}
 }
-#endif // NOX_CGO
 
 //----- (004BE710) --------------------------------------------------------
 short sub_4BE710(int a1, int a2, int a3, int a4) {
@@ -1690,6 +1689,7 @@ int sub_4BE7B0(int a1) {
 	}
 	return result;
 }
+#endif // NOX_CGO
 
 //----- (004BE800) --------------------------------------------------------
 int sub_4BE800(int a1) {

@@ -16,7 +16,6 @@
 extern int dword_5d4594_1097212;
 extern int dword_5d4594_1097216;
 extern uint32_t dword_5d4594_1097208;
-extern uint32_t dword_5d4594_3798728;
 extern int nox_win_width;
 extern int nox_win_height;
 extern unsigned int nox_frame_xxx_2598000;
@@ -32,6 +31,7 @@ extern uint32_t nox_color_violet_2598268;
 extern uint32_t nox_color_black_2650656;
 extern uint32_t nox_color_orange_2614256;
 
+uint32_t dword_5d4594_3798728 = 0;
 uint32_t nox_xxx_cursorTypePrev_587000_151528 = 17;
 
 //----- (00477A30) --------------------------------------------------------

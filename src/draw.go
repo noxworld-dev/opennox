@@ -847,8 +847,8 @@ func nox_video_drawAnimatedImageOrCursorAt_4BE6D0(a1, a2, a3 C.int) {
 }
 
 func (r *NoxRender) nox_video_drawAnimatedImageOrCursorAt(ref *noxImageRef, pos types.Point) {
-	if v3 := asImageP(unsafe.Pointer(uintptr(C.sub_4BE640(C.int(uintptr(unsafe.Pointer(ref.C()))), 0)))); v3 != nil {
-		if C.dword_5d4594_3798728 != 0 {
+	if v3 := getCursorAnimFrame(ref, 0); v3 != nil {
+		if dword_5d4594_3798728 {
 			r.noxDrawCursor(v3, pos)
 		} else {
 			r.DrawImageAt(v3, pos)

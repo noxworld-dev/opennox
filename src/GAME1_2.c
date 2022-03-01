@@ -4230,7 +4230,7 @@ void nox_video_bagFree_42F4D0() {
 	if (nox_images_arr1_787156) {
 		if (nox_images_ind1_787164 > 0) {
 			for (int i = 0; i < nox_images_ind1_787164; i++) {
-				if (nox_images_arr1_787156[i].field_25_1 == 2) {
+				if (nox_images_arr1_787156[i].ref_kind == 2) {
 					free(*(void**)((int)nox_images_arr1_787156[i].field_24 + 4));
 					free(nox_images_arr1_787156[i].field_24);
 				}
@@ -4285,7 +4285,7 @@ int nox_thing_read_IMAG_one_42F660(nox_memfile* f, char* buf) {
 	strcpy(nox_images_arr1_787156[nox_images_ind1_787164].name, buf);
 
 	char v6 = nox_memfile_read_i8(f);
-	nox_images_arr1_787156[nox_images_ind1_787164].field_25_1 = v6;
+	nox_images_arr1_787156[nox_images_ind1_787164].ref_kind = v6;
 	if (v6 == 1) {
 		int v8 = nox_memfile_read_i32(f);
 		if (v8 == -1) {
@@ -4374,7 +4374,7 @@ nox_video_bag_image_t* nox_xxx_gLoadImg_42F970(const char* name) {
 				}
 				return nox_xxx_loadImage_47A8C0(p->field_25_0, p->name2);
 			}
-			return &nox_video_bag_images_arr[p->field_24];
+			return &nox_video_bag_images_arr[(int)p->field_24];
 		}
 	}
 	return 0;

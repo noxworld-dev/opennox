@@ -230,14 +230,15 @@ func nox_xxx_gLoadImg(name string) *Image {
 	}
 	for _, p := range nox_images_arr1_787156 {
 		if name == p.Name() {
-			if p.field_24 == -1 {
+			ind := p.field24int()
+			if ind == -1 {
 				if p.field_25_0 == -1 {
 					return nil
 				}
 				name2 := p.Name2()
 				return nox_xxx_loadImage_47A8C0(byte(p.field_25_0), name2)
 			}
-			return noxImages.byIndex[p.field_24]
+			return noxImages.byIndex[ind]
 		}
 	}
 	return nil
@@ -265,6 +266,34 @@ func (r *noxImageRef) Name2() string {
 	return GoString(&r.name2[0])
 }
 
+func (r *noxImageRef) kind() int {
+	return int(r.ref_kind)
+}
+
+func (r *noxImageRef) field24int() int {
+	if r.kind() == 2 {
+		panic("not an regular image")
+	}
+	return int(uintptr(r.field_24))
+}
+
+func (r *noxImageRef) field24ptr() *noxImageRefAnim {
+	if r.kind() != 2 {
+		panic("not an animation")
+	}
+	return (*noxImageRefAnim)(r.field_24)
+}
+
+type noxImageRefAnim C.nox_things_imageRef2_t
+
+func (r *noxImageRefAnim) C() *C.nox_things_imageRef2_t {
+	return (*C.nox_things_imageRef2_t)(unsafe.Pointer(r))
+}
+
+func (r *noxImageRefAnim) Images() []*C.nox_video_bag_image_t {
+	return unsafe.Slice(r.images, r.images_sz)
+}
+
 func nox_xxx_gLoadAnim(name string) *noxImageRef {
 	if name == "" {
 		return nil
@@ -279,12 +308,12 @@ func nox_xxx_gLoadAnim(name string) *noxImageRef {
 
 func nox_video_bagFree_42F4D0() {
 	for _, p := range nox_images_arr1_787156 {
-		if p.field_25_1 == 2 {
-			ptr := unsafe.Slice((*unsafe.Pointer)(unsafe.Pointer(uintptr(p.field_24))), 2)
-			alloc.Free(ptr[1])
-			alloc.Free(unsafe.Pointer(uintptr(p.field_24)))
+		if p.kind() == 2 {
+			anim := p.field24ptr()
+			alloc.Free(unsafe.Pointer(anim.images))
+			alloc.Free(unsafe.Pointer(anim.C()))
 		}
-		alloc.Free(unsafe.Pointer(p))
+		alloc.Free(unsafe.Pointer(p.C()))
 	}
 	nox_images_arr1_787156 = nil
 	sub_47D150()

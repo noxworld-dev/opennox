@@ -8,7 +8,7 @@ const (
 	CursorPickup       = Cursor(2)
 	CursorShop         = Cursor(3)
 	CursorTalk         = Cursor(4)
-	Cursor5            = Cursor(5)
+	CursorTarget       = Cursor(5)
 	CursorIdentify     = Cursor(6)
 	CursorCantIdentify = Cursor(7)
 	CursorRepair       = Cursor(8)

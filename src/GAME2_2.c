@@ -46,10 +46,8 @@ extern unsigned char byte_5D4594_3804364[160];
 
 extern uint32_t dword_5d4594_1098456;
 extern uint32_t dword_5d4594_1193180;
-extern int dword_5d4594_1097212;
 extern uint32_t dword_5d4594_1193352;
 extern uint32_t dword_5d4594_1096636;
-extern int dword_5d4594_1097216;
 extern uint32_t dword_5d4594_3807116;
 extern uint32_t dword_5d4594_1098620;
 extern uint32_t nox_xxx_cursorTypePrev_587000_151528;
@@ -182,6 +180,8 @@ extern nox_light_3 nox_arr2_853BC0[57 * 4]
 								  [45 * 4]; // TODO: the 4x factor is for high-res; figure out what those values are
 
 #ifndef NOX_CGO
+int dword_5d4594_1097212 = 0;
+int dword_5d4594_1097216 = 0;
 int nox_client_mouseCursorType = 0;
 int nox_video_16bit = 0;
 uint32_t dword_5d4594_1097208 = 0;

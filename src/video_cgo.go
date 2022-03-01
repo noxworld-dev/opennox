@@ -92,7 +92,6 @@ var (
 	nox_client_spellDragnDrop_type_1097196 int
 	nox_client_itemDragnDrop_1097188       *Drawable
 	dword_5d4594_1097204                   int
-	dword_5d4594_1097208                   int
 	nox_video_gammaValue                   int
 	draw_gamma                             float32
 	noxPixBuffer                           struct {
@@ -936,18 +935,19 @@ func nox_video_cursorDrawImpl_477A30(r *NoxRender, inp *input.Handler, pos types
 	v18 := memmap.Uint32(0x973F18, 68)
 	pos = pos.Sub(types.Point{X: 64, Y: 64})
 	*memmap.PtrUint32(0x973F18, 68) = 0
-	C.dword_5d4594_3798728 = 1
-	C.dword_5d4594_1097212 = C.int(pos.X)
-	C.dword_5d4594_1097216 = C.int(pos.Y)
+	dword_5d4594_3798728 = true
+	defer func() {
+		dword_5d4594_3798728 = false
+	}()
+	dword_5d4594_1097212 = pos
 	if gameFrame()&1 != 0 {
 		*memmap.PtrUint32(0x5D4594, 1097288)++
 	}
 	r.SetTextColor(uint32(C.nox_color_yellow_2589772))
-	fh := noxrend.FontHeight(nil)
+	fh := r.FontHeight(nil)
 	if C.nox_xxx_guiSpell_460650() != 0 || C.sub_4611A0() != 0 {
 		r.nox_video_drawAnimatedImageOrCursorAt(noxCursors.Target, pos)
-		C.dword_5d4594_3798728 = 0
-		nox_xxx_cursorTypePrev_587000_151528 = 5
+		nox_xxx_cursorTypePrev_587000_151528 = gui.CursorTarget
 		*memmap.PtrUint32(0x973F18, 68) = v18
 		return
 	}
@@ -1019,8 +1019,8 @@ func nox_video_cursorDrawImpl_477A30(r *NoxRender, inp *input.Handler, pos types
 		} else {
 			sub_48B680(0)
 		}
-		C.sub_4BE710(C.int(uintptr(unsafe.Pointer(noxCursors.Move.C()))), C.int(pos.X), C.int(pos.Y), C.int(v15))
-		sub_4345F0(0)
+		r.sub_4BE710(noxCursors.Move, pos, int(v15))
+		r.Data().setField14(0)
 	case gui.CursorPickupFar:
 		r.nox_video_drawAnimatedImageOrCursorAt(noxCursors.PickupFar, pos)
 		dword_5d4594_1097208 = -2 * fh
@@ -1030,7 +1030,6 @@ func nox_video_cursorDrawImpl_477A30(r *NoxRender, inp *input.Handler, pos types
 	default:
 		r.nox_video_drawAnimatedImageOrCursorAt(noxCursors.Select, pos)
 	}
-	C.dword_5d4594_3798728 = 0
 	nox_xxx_cursorTypePrev_587000_151528 = nox_client_mouseCursorType
 	*memmap.PtrUint32(0x973F18, 68) = v18
 }
@@ -1138,9 +1137,10 @@ func nox_client_drawCursorAndTooltips_477830(r *NoxRender, inp *input.Handler) {
 func sub_477F80() {
 	if C.dword_5d4594_3799468 != 0 {
 		vp := getViewport()
-		if C.dword_5d4594_1097212 < vp.x1 || C.dword_5d4594_1097212+64 >= vp.x2 || C.dword_5d4594_1097216 < vp.y1 || C.dword_5d4594_1097216+64 >= vp.y2 {
+		if dword_5d4594_1097212.X < int(vp.x1) || dword_5d4594_1097212.X+cursorSize >= int(vp.x2) ||
+			dword_5d4594_1097212.Y < int(vp.y1) || dword_5d4594_1097212.Y+cursorSize >= int(vp.y2) {
 			noxrend.SetColor2(uint32(C.nox_color_black_2650656))
-			noxrend.DrawRectFilledOpaque(int(C.dword_5d4594_1097212)+32, int(C.dword_5d4594_1097216)+32, 64, 64)
+			noxrend.DrawRectFilledOpaque(dword_5d4594_1097212.X+cursorSize/2, dword_5d4594_1097212.Y+cursorSize/2, cursorSize, cursorSize)
 		}
 	}
 }
