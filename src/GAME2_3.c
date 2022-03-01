@@ -982,7 +982,8 @@ wchar_t* nox_xxx_createTextBubble_48D880(int a1, wchar_t* a2) {
 }
 
 //----- (0048D990) --------------------------------------------------------
-void sub_48D990(uint32_t* a1) {
+void sub_48D990(nox_draw_viewport_t* a1p) {
+	uint32_t* a1 = a1p;
 	int v1;        // ebx
 	uint32_t* v2;  // esi
 	int v3;        // eax
@@ -5374,7 +5375,6 @@ void nox_xxx_bookRewardCli_499CF0(int* a1, int a2, int a3) {
 	int v4;              // esi
 	int2 a3a;            // [esp+8h] [ebp-8h]
 
-	nox_draw_getViewport_437250();
 	if (!nox_common_gameFlags_check_40A5C0(2048) ||
 		(result = nox_xxx_bookGet_430B40_get_mouse_prev_seq() - *getMemU32Ptr(0x5D4594, 1217504), result >= 2)) {
 		*getMemU32Ptr(0x5D4594, 1217504) = nox_xxx_bookGet_430B40_get_mouse_prev_seq();

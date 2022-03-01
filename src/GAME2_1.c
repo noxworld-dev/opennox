@@ -6798,7 +6798,7 @@ int sub_472540(int a1) {
 }
 
 //----- (004725C0) --------------------------------------------------------
-int4* nox_xxx_drawMinimap4Sprite_4725C0(int a1) {
+void nox_xxx_drawMinimap4Sprite_4725C0(int a1) {
 	int4* result; // eax
 
 	result = (int4*)nox_xxx_spriteCheckFlag31_4356C0(*getMemIntPtr(0x852978, 8), 2);
@@ -6806,9 +6806,8 @@ int4* nox_xxx_drawMinimap4Sprite_4725C0(int a1) {
 		sub_437260();
 		*getMemU32Ptr(0x5D4594, 1096316) = sub_472540(a1);
 		nox_xxx_cliDrawMinimap_472600(a1, *getMemIntPtr(0x5D4594, 1096316));
-		result = sub_437290();
+		sub_437290();
 	}
-	return result;
 }
 
 //----- (00472600) --------------------------------------------------------

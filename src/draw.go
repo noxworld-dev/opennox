@@ -73,6 +73,7 @@ import (
 	"fmt"
 	"image"
 	"sort"
+	"sync"
 	"unsafe"
 
 	"golang.org/x/image/font"
@@ -91,14 +92,74 @@ import (
 var (
 	noxrend                         *NoxRender
 	nox_draw_colorTablesRev_3804668 []byte // map[Color16]byte
+	viewport                        struct {
+		sync.Once
+		ptr *Viewport
+	}
 )
 
 func getViewport() *Viewport {
-	return asViewport(&C.nox_draw_viewport)
+	viewport.Do(func() {
+		p, _ := alloc.Malloc(unsafe.Sizeof(Viewport{}))
+		viewport.ptr = asViewport((*C.nox_draw_viewport_t)(p))
+	})
+	return viewport.ptr
 }
 
 func asViewport(p *C.nox_draw_viewport_t) *Viewport {
 	return (*Viewport)(unsafe.Pointer(p))
+}
+
+//export nox_draw_getViewport_437250
+func nox_draw_getViewport_437250() *C.nox_draw_viewport_t {
+	return getViewport().C()
+}
+
+//export sub_437260
+func sub_437260() {
+	vp := getViewport()
+	noxrend.nox_client_copyRect_49F6F0(int(vp.x1), int(vp.y1), int(vp.width), int(vp.height))
+}
+
+func sub_437180() {
+	C.sub_48D990(getViewport().C())
+}
+
+//export sub_4355B0
+func sub_4355B0(a1 C.int) {
+	getViewport().field_12 = a1
+}
+
+func nox_xxx_getSomeCoods() types.Point {
+	vp := getViewport()
+	return types.Point{
+		X: int(vp.field_6),
+		Y: int(vp.field_7),
+	}
+}
+
+//export nox_xxx_getSomeCoods_435670
+func nox_xxx_getSomeCoods_435670(a1 *C.int2) {
+	p := nox_xxx_getSomeCoods()
+	a1.field_0 = C.int(p.X)
+	a1.field_4 = C.int(p.Y)
+}
+
+//export nox_xxx_cliUpdateCameraPos_435600
+func nox_xxx_cliUpdateCameraPos_435600(a1, a2 C.int) {
+	vp := getViewport()
+	*memmap.PtrInt32(0x5D4594, 811364) = int32(vp.field_6)
+	*memmap.PtrInt32(0x5D4594, 811368) = int32(vp.field_7)
+	v2 := a2 + vp.field_12 - vp.height/2
+	vp.field_4 = a1 - vp.width/2
+	vp.field_5 = a2 + vp.field_12 - vp.height/2
+	vp.field_6 = a1
+	vp.field_7 = v2 + vp.height/2
+}
+
+//export sub_437290
+func sub_437290() {
+	noxrend.setRectFullScreen()
 }
 
 type Viewport C.nox_draw_viewport_t
@@ -434,6 +495,11 @@ func (r *NoxRender) nox_client_copyRect_49F6F0(x, y, w, h int) {
 		rect.Bottom--
 		d.SetRect2(rect)
 	}
+}
+
+func (r *NoxRender) setRectFullScreen() { // sub_437290
+	sz := r.PixBuffer().Size()
+	r.nox_client_copyRect_49F6F0(0, 0, sz.W, sz.H)
 }
 
 //export nox_client_drawSetAlpha_434580
@@ -874,7 +940,7 @@ func nox_xxx_client_435F80_draw(inp *input.Handler) bool {
 		C.sub_430880(0)
 	}
 	C.nox_xxx_clientEnumHover_476FA0()
-	vp := noxGetViewport()
+	vp := getViewport()
 	ipx := int(vp.field_4) + mpos.X - int(vp.x1)
 	ipy := int(vp.field_5) + mpos.Y - int(vp.y1)
 	if !clientSendInput(31, uint16(ipx), uint16(ipy)) {
@@ -892,7 +958,7 @@ func nox_xxx_client_435F80_draw(inp *input.Handler) bool {
 	} else {
 		C.sub_43CCA0()
 	}
-	C.sub_49BD70(vp)
+	C.sub_49BD70(vp.C())
 	C.sub_49BBC0()
 	C.nox_xxx_polygonDrawColor_421B80()
 	if nox_client_isConnected() {
@@ -995,7 +1061,7 @@ func nox_xxx_drawAllMB_475810_draw(vp *Viewport) {
 	if C.nox_client_gui_flag_1556112 != 0 || disableDraw {
 		noxrend.SelectColor(uint32(C.nox_color_black_2650656))
 		noxrend.ClearScreen()
-		C.sub_437290()
+		noxrend.setRectFullScreen()
 		C.dword_5d4594_3799524 = 1
 		return
 	}
@@ -1004,7 +1070,7 @@ func nox_xxx_drawAllMB_475810_draw(vp *Viewport) {
 		noxrend.ClearScreen()
 		noxrend.SelectColor(uint32(C.nox_color_black_2650656))
 		*memmap.PtrUint32(0x5D4594, 1096520) = 0
-		C.sub_437290()
+		noxrend.setRectFullScreen()
 		C.dword_5d4594_3799524 = 1
 		return
 	}
@@ -1032,7 +1098,7 @@ func nox_xxx_drawAllMB_475810_draw(vp *Viewport) {
 		C.sub_476270(vp.C())
 	}
 	C.sub_45AB40()
-	C.sub_437290()
+	noxrend.setRectFullScreen()
 	*memmap.PtrUint32(0x973F18, 68) = 1
 	C.sub_476680()
 }

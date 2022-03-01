@@ -422,18 +422,6 @@ func (s *Server) maybeStopRegister() {
 	}
 }
 
-func noxGetViewport() *C.nox_draw_viewport_t {
-	return &C.nox_draw_viewport
-}
-
-func nox_xxx_getSomeCoods_435670() types.Point {
-	vp := noxGetViewport()
-	return types.Point{
-		X: int(vp.field_6),
-		Y: int(vp.field_7),
-	}
-}
-
 func initGameSession435CC0() error {
 	ctx := context.Background()
 	C.sub_445450()
@@ -504,7 +492,7 @@ func initGameSession435CC0() error {
 	gameSetPlayState(3)
 	*memmap.PtrUint32(0x587000, 85720) = 1
 	sz := videoGetWindowSize()
-	vp := noxGetViewport()
+	vp := getViewport()
 	vp.x1 = 0
 	vp.y1 = 0
 	vp.x2 = C.int(sz.W - 1)

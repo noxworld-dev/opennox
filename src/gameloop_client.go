@@ -159,7 +159,7 @@ func mapDownloadLoop(first bool) (bool, error) {
 }
 
 func mainloopDrawAndPresent(inp *input.Handler) {
-	C.sub_437180()
+	sub_437180()
 	if C.nox_client_gui_flag_1556112 == 0 {
 		DrawGUI() // Draw game windows
 	}

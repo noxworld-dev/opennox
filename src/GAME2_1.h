@@ -264,7 +264,7 @@ void nox_client_mapZoomOut_472500();
 int nox_xxx_cliSetMinimapZoom_472520(int a1);
 int sub_472530();
 int sub_472540(int a1);
-int4* nox_xxx_drawMinimap4Sprite_4725C0(int a1);
+void nox_xxx_drawMinimap4Sprite_4725C0(int a1);
 int nox_xxx_cliDrawMinimap_472600(int a1, int a2);
 int sub_4730D0(int2* a1, unsigned char a2, int a3);
 int sub_473380(int a1, int a2, int a3, int a4, int a5);

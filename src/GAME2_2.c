@@ -1075,7 +1075,6 @@ void nox_xxx_clientEnumHover_476FA0() {
 		*getMemU32Ptr(0x5D4594, 1096632) = nox_xxx_getNameId_4E3AA0("Glyph");
 	}
 	nox_point mpos = nox_client_getMousePos_4309F0();
-	nox_draw_getViewport_437250();
 	sub_473970(&mpos, &mpos);
 	dword_5d4594_1096640 = 0;
 	nox_client_spriteUnderCursorXxx_1096644 = 0;

@@ -215,12 +215,14 @@ func get_video_mode_string(cid C.int) *C.wchar_t {
 
 //export nox_getBackbufWidth
 func nox_getBackbufWidth() C.int {
-	return C.int(noxPixBuffer.img.Rect.Dx())
+	dx := noxrend.PixBuffer().Rect.Dx()
+	return C.int(dx)
 }
 
 //export nox_getBackbufHeight
 func nox_getBackbufHeight() C.int {
-	return C.int(noxPixBuffer.img.Rect.Dy())
+	dy := noxrend.PixBuffer().Rect.Dy()
+	return C.int(dy)
 }
 
 //export nox_video_getFullScreen
@@ -467,7 +469,7 @@ func recreateRenderTarget(sz types.Size) error {
 	noxrend.ClearScreen()
 	C.nox_xxx_setupSomeVideo_47FEF0()
 	C.sub_49F6D0(1)
-	C.sub_437290()
+	noxrend.setRectFullScreen()
 	//videoSet16Bit(C.nox_video_modeXxx_3801780 != 0)
 	*memmap.PtrUint32(0x973F18, 6060) = uint32(2 * sz.W * sz.H)
 	*memmap.PtrUint32(0x973F18, 7696) = uint32(bool2int(C.nox_video_modeXxx_3801780 == 1))

@@ -239,12 +239,12 @@ nox_render_data_t* nox_draw_curDrawData_3799572 = 0;
 nox_screenParticle* nox_screenParticles_head = 0;
 nox_screenParticle* dword_5d4594_806052 = 0;
 
-nox_draw_viewport_t nox_draw_viewport = {0};
 void* nox_draw_colorTablesRev_3804668 = 0;
 
 void* dword_5d4594_814624 = 0;
 
 #ifndef NOX_CGO
+nox_draw_viewport_t nox_draw_viewport = {0};
 char nox_clientServerAddr[32] = "localhost";
 #endif // NOX_CGO
 
@@ -5775,13 +5775,10 @@ long long nox_xxx_initTime_435570() {
 //----- (00435590) --------------------------------------------------------
 int sub_435590() { return *getMemU32Ptr(0x5D4594, 811916); }
 
+#ifndef NOX_CGO
 //----- (004355B0) --------------------------------------------------------
-int sub_4355B0(int a1) {
-	int result; // eax
-
-	result = a1;
+void sub_4355B0(int a1) {
 	nox_draw_viewport.field_12 = a1;
-	return result;
 }
 
 //----- (004355C0) --------------------------------------------------------
@@ -5808,6 +5805,7 @@ void nox_xxx_cliUpdateCameraPos_435600(int a1, int a2) {
 
 //----- (00435670) --------------------------------------------------------
 void nox_xxx_getSomeCoods_435670(int2* a1) { *a1 = *(int2*)(&nox_draw_viewport.field_6); }
+#endif // NOX_CGO
 
 //----- (00435690) --------------------------------------------------------
 uint32_t* sub_435690(uint32_t* a1) {
@@ -6311,11 +6309,11 @@ int sub_437100() {
 	return result;
 }
 
+#ifndef NOX_CGO
 //----- (00437180) --------------------------------------------------------
 void sub_437180() { sub_48D990(&nox_draw_viewport); }
 
 //----- (00437190) --------------------------------------------------------
-#ifndef NOX_CGO
 int nox_xxx_cliSetupSession_437190() {
 	int result; // eax
 
@@ -6351,7 +6349,6 @@ int nox_xxx_cliSetupSession_437190() {
 	*getMemU32Ptr(0x8531A0, 2576) = 0;
 	return result;
 }
-#endif // NOX_CGO
 
 //----- (00437250) --------------------------------------------------------
 nox_draw_viewport_t* nox_draw_getViewport_437250() { return &nox_draw_viewport; }
@@ -6363,7 +6360,8 @@ void sub_437260() {
 }
 
 //----- (00437290) --------------------------------------------------------
-int4* sub_437290() { return nox_client_copyRect_49F6F0(0, 0, nox_getBackbufWidth(), nox_getBackbufHeight()); }
+void sub_437290() { nox_client_copyRect_49F6F0(0, 0, nox_getBackbufWidth(), nox_getBackbufHeight()); }
+#endif // NOX_CGO
 
 //----- (004372B0) --------------------------------------------------------
 int nox_xxx_playerAnimCheck_4372B0() {
