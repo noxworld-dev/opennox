@@ -59,44 +59,41 @@ func sub_4A1A60() bool {
 }
 
 func sub_4A1AA0(a1 *Window, ev WindowEvent) WindowEventResp {
-	a2, a3p, _ := ev.EventArgsC()
-
-	if a2 == 16389 {
+	switch ev := ev.(type) {
+	case *WindowEvent0x4005:
 		clientPlaySoundSpecial(920, 100)
 		return RawEventResp(1)
-	}
-	if a2 != 16391 {
-		return nil
-	}
-	if sub_43BE30() != 2 && sub_43BE30() != 3 || sub_4D6F30() != 0 {
-		a3 := asWindowP(unsafe.Pointer(a3p))
-		v3 := a3.ID() - 151
-		if v3 != 0 {
-			if v3 == 1 {
-				if gameGetStateCode() == gameStateMainMenu {
-					v6 := strMan.GetStringInFile("GUIQuit.c:ReallyQuitMessage", "C:\\NoxPost\\src\\client\\shell\\OptsBack.c")
-					v4 := strMan.GetStringInFile("GUIQuit.c:ReallyQuitTitle", "C:\\NoxPost\\src\\client\\shell\\OptsBack.c")
-					NewDialogWindow(asWindowP(C.dword_5d4594_1307292), v4, v6, 56, sub_4A19D0, nil)
-				} else {
-					if sub_4D6F30() != 0 {
-						sub_4D6F90(2)
+	case *WindowEvent0x4007:
+		if sub_43BE30() != 2 && sub_43BE30() != 3 || sub_4D6F30() != 0 {
+			v3 := ev.Win.ID() - 151
+			if v3 != 0 {
+				if v3 == 1 {
+					if gameGetStateCode() == gameStateMainMenu {
+						v6 := strMan.GetStringInFile("GUIQuit.c:ReallyQuitMessage", "C:\\NoxPost\\src\\client\\shell\\OptsBack.c")
+						v4 := strMan.GetStringInFile("GUIQuit.c:ReallyQuitTitle", "C:\\NoxPost\\src\\client\\shell\\OptsBack.c")
+						NewDialogWindow(asWindowP(C.dword_5d4594_1307292), v4, v6, 56, sub_4A19D0, nil)
+					} else {
+						if sub_4D6F30() != 0 {
+							sub_4D6F90(2)
+						}
+						if gameGetStateCode() == gameStateColorSelect {
+							C.sub_4A7A60(1)
+						}
+						nox_game_checkStateSwitch_43C1E0()
 					}
-					if gameGetStateCode() == gameStateColorSelect {
-						C.sub_4A7A60(1)
-					}
-					nox_game_checkStateSwitch_43C1E0()
 				}
+			} else {
+				if gameGetStateCode() == gameStateColorSelect {
+					C.sub_4A7A60(0)
+				}
+				nox_game_checkStateOptions_43C220()
 			}
-		} else {
-			if gameGetStateCode() == gameStateColorSelect {
-				C.sub_4A7A60(0)
-			}
-			nox_game_checkStateOptions_43C220()
+			clientPlaySoundSpecial(921, 100)
+			return nil
 		}
-		clientPlaySoundSpecial(921, 100)
-		return nil
+		return RawEventResp(1)
 	}
-	return RawEventResp(1)
+	return nil
 }
 
 func nox_xxx_wndLoadMainBG_4A2210() int {
@@ -252,7 +249,7 @@ func nox_game_showMainMenu4A1C00() bool {
 	C.sub_43D9B0(25, 100)
 	if noxflags.HasGame(noxflags.GameFlag26) {
 		v3 := win.ChildByID(112)
-		win.Func94(asWindowEvent(0x4007, uintptr(unsafe.Pointer(v3.C())), 0))
+		win.Func94(&WindowEvent0x4007{Win: v3})
 	}
 	return true
 }
@@ -333,138 +330,137 @@ func nox_client_drawGeneralCallback_4A2200() C.int {
 }
 
 func nox_xxx_windowMainMenuProc_4A1DC0(a1 *Window, ev WindowEvent) WindowEventResp {
-	a2, a3p, _ := ev.EventArgsC()
-	if a2 == 16389 {
+	switch ev := ev.(type) {
+	case *WindowEvent0x4005:
 		clientPlaySoundSpecial(920, 100)
 		return RawEventResp(1)
-	}
-	if a2 != 16391 {
-		return nil
-	}
-	if guiAnimState(nox_wnd_xxx_1307308.state) != NOX_GUI_ANIM_IN_DONE && !noxflags.HasGame(noxflags.GameFlag26) {
-		clientPlaySoundSpecial(921, 100)
-		return RawEventResp(1)
-	}
-	a3 := asWindowP(unsafe.Pointer(a3p))
-	switch a3.ID() {
-	case 111: // Solo campaign button
-		noxServer.announce = false
-		if nox_xxx_checkHasSoloMaps() {
-			noxflags.SetGame(noxflags.GameModeCoop)
-			noxflags.UnsetGame(noxflags.GameOnline)
-			noxflags.UnsetGame(noxflags.GameNotQuest)
-			C.nox_xxx_gameSetAudioFadeoutMb_501AC0(0)
-			noxflags.UnsetEngine(noxflags.EngineAdmin | noxflags.EngineGodMode)
+	case *WindowEvent0x4007:
+		if guiAnimState(nox_wnd_xxx_1307308.state) != NOX_GUI_ANIM_IN_DONE && !noxflags.HasGame(noxflags.GameFlag26) {
+			clientPlaySoundSpecial(921, 100)
+			return RawEventResp(1)
+		}
+		switch ev.Win.ID() {
+		case 111: // Solo campaign button
+			noxServer.announce = false
+			if nox_xxx_checkHasSoloMaps() {
+				noxflags.SetGame(noxflags.GameModeCoop)
+				noxflags.UnsetGame(noxflags.GameOnline)
+				noxflags.UnsetGame(noxflags.GameNotQuest)
+				C.nox_xxx_gameSetAudioFadeoutMb_501AC0(0)
+				noxflags.UnsetEngine(noxflags.EngineAdmin | noxflags.EngineGodMode)
+				sub_4D6F40(0)
+				sub_4D6F90(0)
+				noxServer.nox_xxx_setQuest_4D6F60(0)
+				C.sub_4D6F80(0)
+				C.nox_xxx_cliShowHideTubes_470AA0(0)
+				C.sub_461440(0)
+				sub_4A1D40()
+				C.nox_xxx_cliSetMinimapZoom_472520(1110)
+				if C.nox_xxx_parseGamedataBinPre_4D1630() == 0 {
+					nox_xxx_setContinueMenuOrHost_43DDD0(0)
+					C.nox_client_gui_flag_815132 = 0
+					return nil
+				}
+				if C.nox_client_countSaveFiles_4DC550() != 0 {
+					C.sub_4A7A70(1)
+					_ = nox_game_showSelChar_4A4DB0
+					nox_wnd_xxx_1307308.field_13 = (*[0]byte)(C.nox_game_showSelChar_4A4DB0)
+				} else {
+					C.sub_4A7A70(0)
+					nox_wnd_xxx_1307308.field_13 = (*[0]byte)(C.nox_game_showSelClass_4A4840)
+				}
+				clientPlaySoundSpecial(921, 100)
+			} else {
+				v9 := strMan.GetStringInFile("caution", "C:\\NoxPost\\src\\Client\\shell\\mainmenu.c")
+				v5 := strMan.GetStringInFile("solo", "C:\\NoxPost\\src\\Client\\shell\\mainmenu.c")
+				NewDialogWindow(nox_win_main_menu, v5, v9, 33, nil, nil)
+				sub_44A360(1)
+				sub_44A4B0()
+				clientPlaySoundSpecial(921, 100)
+			}
+			return RawEventResp(1)
+		case 112: // Multiplayer button
+			noxServer.announce = true
+			// prepare to start a server
+			sub_4A1D40()
+			noxflags.SetEngine(noxflags.EngineAdmin)
+			noxflags.UnsetEngine(noxflags.EngineGodMode)
+			noxflags.SetGame(noxflags.GameOnline)
+			noxflags.SetGame(noxflags.GameNotQuest)
+			noxflags.UnsetGame(noxflags.GameModeCoop)
+			C.sub_461440(0)
 			sub_4D6F40(0)
 			sub_4D6F90(0)
 			noxServer.nox_xxx_setQuest_4D6F60(0)
 			C.sub_4D6F80(0)
+			if sub_473670() == 0 {
+				nox_client_toggleMap_473610()
+			}
 			C.nox_xxx_cliShowHideTubes_470AA0(0)
-			C.sub_461440(0)
-			sub_4A1D40()
-			C.nox_xxx_cliSetMinimapZoom_472520(1110)
+			C.nox_xxx_cliSetMinimapZoom_472520(2300)
 			if C.nox_xxx_parseGamedataBinPre_4D1630() == 0 {
 				nox_xxx_setContinueMenuOrHost_43DDD0(0)
 				C.nox_client_gui_flag_815132 = 0
 				return nil
 			}
-			if C.nox_client_countSaveFiles_4DC550() != 0 {
-				C.sub_4A7A70(1)
-				_ = nox_game_showSelChar_4A4DB0
-				nox_wnd_xxx_1307308.field_13 = (*[0]byte)(C.nox_game_showSelChar_4A4DB0)
-			} else {
-				C.sub_4A7A70(0)
-				nox_wnd_xxx_1307308.field_13 = (*[0]byte)(C.nox_game_showSelClass_4A4840)
+			// sub_4AA450();
+			nox_wnd_xxx_1307308.field_13 = (*[0]byte)(C.nox_game_showGameSel_4379F0)
+			C.sub_43AF50(0)
+			clientPlaySoundSpecial(921, 100)
+		case 121:
+			ptr, free := alloc.Malloc(128)
+			defer free()
+			if !nox_game_setMovieFile_4CB230("Intro.vqa", (*C.char)(ptr)) {
+				clientPlaySoundSpecial(921, 100)
+				break
 			}
+			sub_4A1D40()
+			C.sub_4B0300((*C.char)(ptr))
+			sub4B0640(func() {
+				nox_game_state.Switch()
+			})
+			_ = nox_client_drawGeneralCallback_4A2200
+			nox_wnd_xxx_1307308.field_13 = (*[0]byte)(C.nox_client_drawGeneralCallback_4A2200)
 			clientPlaySoundSpecial(921, 100)
-		} else {
-			v9 := strMan.GetStringInFile("caution", "C:\\NoxPost\\src\\Client\\shell\\mainmenu.c")
-			v5 := strMan.GetStringInFile("solo", "C:\\NoxPost\\src\\Client\\shell\\mainmenu.c")
-			NewDialogWindow(nox_win_main_menu, v5, v9, 33, nil, nil)
-			sub_44A360(1)
-			sub_44A4B0()
+			return RawEventResp(1)
+		case 122:
+			if C.sub_44E560() != nil {
+				C.nox_client_lockScreenBriefing_450160(255, 1, 0)
+				sub_4A2530()
+			}
+			ev.Win.DrawData().field_0 &= 0xFFFFFFFD
+			clientPlaySoundSpecial(921, 100)
+		case 131: // Solo Quest
+			noxServer.announce = false
+			sub_4A1D40()
+			noxflags.SetEngine(noxflags.EngineAdmin)
+			noxflags.UnsetEngine(noxflags.EngineGodMode)
+			noxflags.SetGame(noxflags.GameOnline)
+			noxflags.SetGame(noxflags.GameNotQuest)
+			noxflags.UnsetGame(noxflags.GameModeCoop)
+			sub_4D6F40(1)
+			sub_4D6F90(1)
+			noxServer.nox_game_setQuestStage_4E3CD0(0)
+			C.sub_4D7440(0)
+			C.nox_xxx_cliSetMinimapZoom_472520(2300)
+			if sub_473670() == 0 {
+				nox_client_toggleMap_473610()
+			}
+			C.sub_461440(0)
+			if C.nox_xxx_parseGamedataBinPre_4D1630() == 0 {
+				nox_xxx_setContinueMenuOrHost_43DDD0(0)
+				C.nox_client_gui_flag_815132 = 0
+				return nil
+			}
+			// sub_4AA450();
+			nox_wnd_xxx_1307308.field_13 = (*[0]byte)(C.nox_game_showGameSel_4379F0)
+			C.sub_43AF50(0)
+			clientPlaySoundSpecial(921, 100)
+		default:
 			clientPlaySoundSpecial(921, 100)
 		}
 		return RawEventResp(1)
-	case 112: // Multiplayer button
-		noxServer.announce = true
-		// prepare to start a server
-		sub_4A1D40()
-		noxflags.SetEngine(noxflags.EngineAdmin)
-		noxflags.UnsetEngine(noxflags.EngineGodMode)
-		noxflags.SetGame(noxflags.GameOnline)
-		noxflags.SetGame(noxflags.GameNotQuest)
-		noxflags.UnsetGame(noxflags.GameModeCoop)
-		C.sub_461440(0)
-		sub_4D6F40(0)
-		sub_4D6F90(0)
-		noxServer.nox_xxx_setQuest_4D6F60(0)
-		C.sub_4D6F80(0)
-		if sub_473670() == 0 {
-			nox_client_toggleMap_473610()
-		}
-		C.nox_xxx_cliShowHideTubes_470AA0(0)
-		C.nox_xxx_cliSetMinimapZoom_472520(2300)
-		if C.nox_xxx_parseGamedataBinPre_4D1630() == 0 {
-			nox_xxx_setContinueMenuOrHost_43DDD0(0)
-			C.nox_client_gui_flag_815132 = 0
-			return nil
-		}
-		// sub_4AA450();
-		nox_wnd_xxx_1307308.field_13 = (*[0]byte)(C.nox_game_showGameSel_4379F0)
-		C.sub_43AF50(0)
-		clientPlaySoundSpecial(921, 100)
-	case 121:
-		ptr, free := alloc.Malloc(128)
-		defer free()
-		if !nox_game_setMovieFile_4CB230("Intro.vqa", (*C.char)(ptr)) {
-			clientPlaySoundSpecial(921, 100)
-			break
-		}
-		sub_4A1D40()
-		C.sub_4B0300((*C.char)(ptr))
-		sub4B0640(func() {
-			nox_game_state.Switch()
-		})
-		_ = nox_client_drawGeneralCallback_4A2200
-		nox_wnd_xxx_1307308.field_13 = (*[0]byte)(C.nox_client_drawGeneralCallback_4A2200)
-		clientPlaySoundSpecial(921, 100)
-		return RawEventResp(1)
-	case 122:
-		if C.sub_44E560() != nil {
-			C.nox_client_lockScreenBriefing_450160(255, 1, 0)
-			sub_4A2530()
-		}
-		a3.DrawData().field_0 &= 0xFFFFFFFD
-		clientPlaySoundSpecial(921, 100)
-	case 131: // Solo Quest
-		noxServer.announce = false
-		sub_4A1D40()
-		noxflags.SetEngine(noxflags.EngineAdmin)
-		noxflags.UnsetEngine(noxflags.EngineGodMode)
-		noxflags.SetGame(noxflags.GameOnline)
-		noxflags.SetGame(noxflags.GameNotQuest)
-		noxflags.UnsetGame(noxflags.GameModeCoop)
-		sub_4D6F40(1)
-		sub_4D6F90(1)
-		noxServer.nox_game_setQuestStage_4E3CD0(0)
-		C.sub_4D7440(0)
-		C.nox_xxx_cliSetMinimapZoom_472520(2300)
-		if sub_473670() == 0 {
-			nox_client_toggleMap_473610()
-		}
-		C.sub_461440(0)
-		if C.nox_xxx_parseGamedataBinPre_4D1630() == 0 {
-			nox_xxx_setContinueMenuOrHost_43DDD0(0)
-			C.nox_client_gui_flag_815132 = 0
-			return nil
-		}
-		// sub_4AA450();
-		nox_wnd_xxx_1307308.field_13 = (*[0]byte)(C.nox_game_showGameSel_4379F0)
-		C.sub_43AF50(0)
-		clientPlaySoundSpecial(921, 100)
 	default:
-		clientPlaySoundSpecial(921, 100)
+		return nil
 	}
-	return RawEventResp(1)
 }

@@ -58,7 +58,8 @@ func wrapWindowFuncC(fnc unsafe.Pointer) WindowFunc {
 		return nil
 	}
 	return func(win *Window, e WindowEvent) WindowEventResp {
-		ev, a1, a2 := e.EventArgsC()
+		ev := e.EventCode()
+		a1, a2 := e.EventArgsC()
 		r := C.nox_window_call_func_go((*[0]byte)(fnc), win.C(), C.int(ev), C.int(a1), C.int(a2))
 		if r == 0 {
 			return nil
@@ -522,7 +523,8 @@ func (win *Window) Func93(e WindowEvent) WindowEventResp {
 	if win.field_93 == nil || uintptr(unsafe.Pointer(win.field_93)) == DeadWord {
 		return nil
 	}
-	ev, a1, a2 := e.EventArgsC()
+	ev := e.EventCode()
+	a1, a2 := e.EventArgsC()
 	r := C.nox_window_call_func_go(win.field_93, win.C(), C.int(ev), C.int(a1), C.int(a2))
 	if r == 0 {
 		return nil
@@ -540,7 +542,8 @@ func (win *Window) Func94(e WindowEvent) WindowEventResp {
 	if win.field_94 == nil || uintptr(unsafe.Pointer(win.field_94)) == DeadWord {
 		return nil
 	}
-	ev, a1, a2 := e.EventArgsC()
+	ev := e.EventCode()
+	a1, a2 := e.EventArgsC()
 	r := C.nox_window_call_func_go(win.field_94, win.C(), C.int(ev), C.int(a1), C.int(a2))
 	if r == 0 {
 		return nil

@@ -207,22 +207,22 @@ func nox_xxx_guiDownloadAbort_4CC830(a1 *Window, ev WindowEvent) WindowEventResp
 }
 
 func nox_xxx_guiDownloadProc_4CC890(a1 *Window, ev WindowEvent) WindowEventResp {
-	a2, a3, _ := ev.EventArgsC()
-	if a2 != 0x4007 {
-		return nil
+	switch ev := ev.(type) {
+	case *WindowEvent0x4007:
+		v3 := ev.Win.ID()
+		clientPlaySoundSpecial(766, 100)
+		if v3 != 1601 {
+			return nil
+		}
+		nox_xxx_guiDownloadClose_4CC930()
+		nox_xxx_cliCancelMapDownload_4ABA90()
+		noxServer.nox_xxx_gameSetMapPath_409D70(GoString((*C.char)(memmap.PtrOff(0x5D4594, 1522940))))
+		nox_xxx_mapSetDownloadInProgress_4AB560(0)
+		nox_xxx_mapSetDownloadOK_4AB570(0)
+		noxflags.UnsetGame(noxflags.GameFlag21 | noxflags.GameFlag24)
+		return RawEventResp(1)
 	}
-	v3 := asWindowP(unsafe.Pointer(a3)).ID()
-	clientPlaySoundSpecial(766, 100)
-	if v3 != 1601 {
-		return nil
-	}
-	nox_xxx_guiDownloadClose_4CC930()
-	nox_xxx_cliCancelMapDownload_4ABA90()
-	noxServer.nox_xxx_gameSetMapPath_409D70(GoString((*C.char)(memmap.PtrOff(0x5D4594, 1522940))))
-	nox_xxx_mapSetDownloadInProgress_4AB560(0)
-	nox_xxx_mapSetDownloadOK_4AB570(0)
-	noxflags.UnsetGame(noxflags.GameFlag21 | noxflags.GameFlag24)
-	return RawEventResp(1)
+	return nil
 }
 
 func nox_xxx_guiDownloadSetPercent_4CC900(a1 int) int {

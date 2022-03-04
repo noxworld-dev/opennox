@@ -508,6 +508,7 @@ func sub_46AEE0(a1 *Window, a2 string) {
 }
 
 func nox_xxx_wndEditProc_487D70(a1 *Window, ev WindowEvent) RawEventResp {
-	a2, a3, a4 := ev.EventArgsC()
+	a2 := ev.EventCode()
+	a3, a4 := ev.EventArgsC()
 	return RawEventResp(C.nox_xxx_wndEditProc_487D70(a1.C(), C.int(a2), C.int(a3), C.int(a4)))
 }

@@ -43,7 +43,6 @@ static bool iswalpha_go(wchar_t r) { return iswalpha(r); }
 import "C"
 import (
 	"image"
-	"math"
 	"sync"
 	"unsafe"
 
@@ -315,19 +314,19 @@ func sub_4C3B70() {
 		if ev.Event == keybind.EventToggleQuitMenu {
 			continue
 		}
-		win40.Func94(asWindowEvent(0x400D, uintptr(unsafe.Pointer(internWStr(ev.Title))), math.MaxUint32))
-		win36.Func94(asWindowEvent(0x400D, uintptr(memmap.PtrOff(0x587000, 185340)), math.MaxUint32))
+		win40.Func94(&WindowEvent0x400d{Str: ev.Title, Val: -1})
+		win36.Func94(&WindowEvent0x400d{Str: " ", Val: -1})
 		v2 := ctrlEvent.sub_42E8E0_go(ev.Event, 1)
 		v3 := ctrlEvent.sub_42E8E0_go(ev.Event, 2)
 		if v2 != "" {
-			win44.Func94(asWindowEvent(0x400D, uintptr(unsafe.Pointer(internWStr(v2))), math.MaxUint32))
+			win44.Func94(&WindowEvent0x400d{Str: v2, Val: -1})
 		} else {
-			win44.Func94(asWindowEvent(0x400D, uintptr(memmap.PtrOff(0x587000, 185344)), math.MaxUint32))
+			win44.Func94(&WindowEvent0x400d{Str: " ", Val: -1})
 		}
 		if v3 != "" && v2 != v3 {
-			win48.Func94(asWindowEvent(0x400D, uintptr(unsafe.Pointer(internWStr(v3))), math.MaxUint32))
+			win48.Func94(&WindowEvent0x400d{Str: v3, Val: -1})
 		} else {
-			win48.Func94(asWindowEvent(0x400D, uintptr(memmap.PtrOff(0x587000, 185348)), math.MaxUint32))
+			win48.Func94(&WindowEvent0x400d{Str: " ", Val: -1})
 		}
 	}
 }
@@ -346,19 +345,19 @@ func sub_4CBBF0() {
 		if ev.Event == keybind.EventToggleQuitMenu {
 			continue
 		}
-		win20.Func94(asWindowEvent(0x400D, uintptr(unsafe.Pointer(internWStr(ev.Title))), math.MaxUint32))
-		win16.Func94(asWindowEvent(0x400D, uintptr(memmap.PtrOff(0x587000, 187544)), math.MaxUint32))
+		win20.Func94(&WindowEvent0x400d{Str: ev.Title, Val: -1})
+		win16.Func94(&WindowEvent0x400d{Str: " ", Val: -1})
 		v2 := ctrlEvent.sub_42E8E0_go(ev.Event, 1)
 		v3 := ctrlEvent.sub_42E8E0_go(ev.Event, 2)
 		if v2 != "" {
-			win24.Func94(asWindowEvent(0x400D, uintptr(unsafe.Pointer(internWStr(v2))), math.MaxUint32))
+			win24.Func94(&WindowEvent0x400d{Str: v2, Val: -1})
 		} else {
-			win24.Func94(asWindowEvent(0x400D, uintptr(memmap.PtrOff(0x587000, 187548)), math.MaxUint32))
+			win24.Func94(&WindowEvent0x400d{Str: " ", Val: -1})
 		}
 		if v3 != "" && v2 != v3 {
-			win28.Func94(asWindowEvent(0x400D, uintptr(unsafe.Pointer(internWStr(v3))), math.MaxUint32))
+			win28.Func94(&WindowEvent0x400d{Str: v3, Val: -1})
 		} else {
-			win28.Func94(asWindowEvent(0x400D, uintptr(memmap.PtrOff(0x587000, 187552)), math.MaxUint32))
+			win28.Func94(&WindowEvent0x400d{Str: " ", Val: -1})
 		}
 	}
 }

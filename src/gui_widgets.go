@@ -180,20 +180,21 @@ const (
 )
 
 func nox_xxx_wndStaticProcPre_489390(win *Window, e WindowEvent) WindowEventResp {
-	switch e.(type) {
+	switch e := e.(type) {
 	case WindowDestroy:
 		alloc.Free(win.widget_data)
 		win.widget_data = nil
 		return nil
-	}
-	ev, a3, _ := e.EventArgsC()
-	switch ev {
-	case guiEventStaticTextSetText:
-		if a3 != 0 {
-			ptr := (*C.wchar_t)(unsafe.Pointer(a3))
-			data := (*staticTextData)(win.widget_data)
-			data.text = ptr
+	case *WindowEvent0x4001:
+		data := (*staticTextData)(win.widget_data)
+		if e.Str != "" {
+			data.text = e.cStr()
+		} else {
+			data.text = nil
 		}
+		return nil
+	}
+	switch e.EventCode() {
 	case guiEventStaticTextGetText:
 		data := (*staticTextData)(win.widget_data)
 		return RawEventResp(unsafe.Pointer(data.text))

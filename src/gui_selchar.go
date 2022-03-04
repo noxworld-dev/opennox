@@ -450,16 +450,14 @@ func nox_game_showSelChar4A4DB0() bool {
 		sub_46AEE0(wblank, v8)
 	} else {
 		wup := win.ChildByID(504)
-		v1a := uintptr(unsafe.Pointer(wup))
-		wlist.Func94(asWindowEvent(0x4018, v1a, 0))
-		wnames.Func94(asWindowEvent(0x4018, v1a, 0))
-		wstyle.Func94(asWindowEvent(0x4018, v1a, 0))
+		wlist.Func94(&WindowEvent0x4018{Win: wup})
+		wnames.Func94(&WindowEvent0x4018{Win: wup})
+		wstyle.Func94(&WindowEvent0x4018{Win: wup})
 
 		wdown := win.ChildByID(505)
-		v2a := uintptr(unsafe.Pointer(wdown))
-		wlist.Func94(asWindowEvent(0x4019, v2a, 0))
-		wnames.Func94(asWindowEvent(0x4019, v2a, 0))
-		wstyle.Func94(asWindowEvent(0x4019, v2a, 0))
+		wlist.Func94(&WindowEvent0x4019{Win: wdown})
+		wnames.Func94(&WindowEvent0x4019{Win: wdown})
+		wstyle.Func94(&WindowEvent0x4019{Win: wdown})
 
 		wblank := win.ChildByID(509)
 		v4 := strMan.GetStringInFile("LoadCharLabel", "C:\\NoxPost\\src\\client\\shell\\selchar.c")
@@ -475,7 +473,7 @@ func nox_game_showSelChar4A4DB0() bool {
 	}
 	if noxflags.HasGame(noxflags.GameFlag26) {
 		wload := win.ChildByID(502)
-		win.Func94(asWindowEvent(0x4007, uintptr(unsafe.Pointer(wload)), 0))
+		win.Func94(&WindowEvent0x4007{Win: wload})
 	}
 	return true
 }
@@ -538,15 +536,15 @@ func nox_xxx_findAutosaves_4A5150() {
 			v30 += strMan.GetStringInFile("Noxworld.c:Stage", "C:\\NoxPost\\src\\client\\shell\\selchar.c")
 			v30 += fmt.Sprintf(" %d", v15)
 		}
-		wlist.Func94(asWindowEvent(0x400D, uintptr(unsafe.Pointer(internWStr(" "))), 14))
-		wstyle.Func94(asWindowEvent(0x400D, uintptr(unsafe.Pointer(internWStr(v30))), 14))
+		wlist.Func94(&WindowEvent0x400d{Str: " ", Val: 14})
+		wstyle.Func94(&WindowEvent0x400d{Str: v30, Val: 14})
 		var v25 string
 		if sv.flags&0x4 != 0 {
 			v25 = strMan.GetStringInFile("Noxworld.c:Quest", "C:\\NoxPost\\src\\client\\shell\\selchar.c")
 		} else {
 			v25 = strMan.GetStringInFile("Multiplayer", "C:\\NoxPost\\src\\client\\shell\\selchar.c")
 		}
-		wnames.Func94(asWindowEvent(0x400D, uintptr(unsafe.Pointer(internWStr(v25))), 14))
+		wnames.Func94(&WindowEvent0x400d{Str: v25, Val: 14})
 	}
 	fs.Chdir(datapath.Data())
 	if v9 != 0 {
@@ -634,13 +632,13 @@ func nox_savegame_sub_46CE40(wlist, wnames, wstyles *Window, sarr []C.nox_savega
 		sv := &sarr[v9]
 		spath := GoString(&sv.path[0])
 		if spath == "" {
-			wlist.Func94(asWindowEvent(0x400D, uintptr(memmap.PtrOff(0x587000, 143900)), 3))
+			wlist.Func94(&WindowEvent0x400d{Str: " ", Val: 3})
 			str := " "
 			if v9 != 0 {
 				str = strMan.GetStringInFile("EmptySlot", stringsFile)
 			}
-			wnames.Func94(asWindowEvent(0x400D, uintptr(unsafe.Pointer(internWStr(str))), 3))
-			wstyles.Func94(asWindowEvent(0x400D, uintptr(unsafe.Pointer(internWStr(str))), 3))
+			wnames.Func94(&WindowEvent0x400d{Str: str, Val: 3})
+			wstyles.Func94(&WindowEvent0x400d{Str: str, Val: 3})
 			continue
 		}
 		playerName := GoWString(&sv.player_name[0])
@@ -709,11 +707,11 @@ func nox_savegame_sub_46CE40(wlist, wnames, wstyles *Window, sarr []C.nox_savega
 			}
 			v42 += v17
 		}
-		v21 := sub_46CD70(sv)
+		v21 := sub46CD70(sv)
 		stime := asTime(&sv.timestamp).Format("06-01-02, 15:04 ")
-		wlist.Func94(asWindowEvent(0x400D, uintptr(unsafe.Pointer(internWStr(" "))), uintptr(v21)))
-		wstyles.Func94(asWindowEvent(0x400D, uintptr(unsafe.Pointer(internWStr(v42))), uintptr(v21)))
-		wnames.Func94(asWindowEvent(0x400D, uintptr(unsafe.Pointer(internWStr(stime))), uintptr(v21)))
+		wlist.Func94(&WindowEvent0x400d{Str: " ", Val: v21})
+		wstyles.Func94(&WindowEvent0x400d{Str: v42, Val: v21})
+		wnames.Func94(&WindowEvent0x400d{Str: stime, Val: v21})
 	}
 	v22 := swin.ChildByID(503)
 	v24 := swin.ChildByID(502)
@@ -841,128 +839,123 @@ func nox_xxx_windowSelCharProc_4A5710(a1 *Window, e WindowEvent) WindowEventResp
 			nox_xxx_saves_arr = nil
 		}
 		return nil
-	}
-	ev, a3w, a4 := e.EventArgsC()
-	switch ev {
-	case 0x4005:
+	case *WindowEvent0x4005:
 		clientPlaySoundSpecial(920, 100)
 		return RawEventResp(1)
-	case 0x4010:
-		ev2 := asWindowEvent(0x4013, a4, 0)
+	case *WindowEvent0x4010:
+		ev2 := asWindowEvent(0x4013, e.Val, 0)
 		winCharList.Func94(ev2)
 		winCharListNames.Func94(ev2)
 		winCharListStyle.Func94(ev2)
 		return nil
-	}
-	if ev != 0x4007 {
-		return nil
-	}
-	win2 := asWindowP(unsafe.Pointer(a3w))
-	switch win2.ID() {
-	case 501:
-		noxServer.SetFirstObjectScriptID(1000000000)
-		sub_4A50A0()
-		nox_wnd_xxx_1307748.field_13 = (*[0]byte)(C.nox_game_showSelClass_4A4840)
-	case 502:
-		v7 := winCharListNames.widget_data
-		v10 := *(*int32)(unsafe.Add(v7, 48))
-		if v10 == -1 {
-			break
-		}
-		sv := &nox_xxx_saves_arr[v10]
-		spath := GoString(&sv.path[0])
-		if spath == "" {
-			saveLog.Printf("save path is empty for slot %d", v10)
-			clientPlaySoundSpecial(925, 100)
-			clientPlaySoundSpecial(921, 100)
-			return RawEventResp(1)
-		}
-		v20 := datapath.SaveNameFromPath(spath)
-		saveLog.Printf("loading slot %d: %q (%q, %q)", v10, v20, spath, GoString(&sv.map_name[0]))
-		var v23 C.nox_savegame_xxx
-		if (!noxflags.HasGame(noxflags.GameModeCoop) || nox_client_copySave(v20, common.SaveTmp) == nil) && C.sub_41A000(&sv.path[0], &v23) != 0 {
-
-			v23d := (*C.nox_savegame_xxx)(memmap.PtrOff(0x85B3FC, 10980))
-			*v23d = v23
-			gamePopState()
-			if int32(*memmap.PtrUint8(0x85B3FC, 0x2FDE)) == 0 {
-				noxServer.nox_xxx_gameSetMapPath_409D70("war01a.map")
-			} else if int32(*memmap.PtrUint8(0x85B3FC, 0x2FDE)) == 1 {
-				noxServer.nox_xxx_gameSetMapPath_409D70("wiz01a.map")
-			} else if int32(*memmap.PtrUint8(0x85B3FC, 0x2FDE)) == 2 {
-				noxServer.nox_xxx_gameSetMapPath_409D70("con01a.map")
-			}
-			if noxflags.HasGame(noxflags.GameModeCoop) {
-				C.nox_xxx_gameSetSwitchSolo_4DB220(1)
-				C.nox_xxx_gameSetNoMPFlag_4DB230(1)
-				mname := GoString(&sv.map_name[0])
-				fbase := fmt.Sprintf("%s.map", mname)
-				v22, err := nox_client_checkSaveMapExistsTmp(fbase)
-				if err != nil {
-					v22 = datapath.Maps(mname, fbase)
-				}
-				C.nox_xxx_gameSetSoloSavePath_4DB270(internCStr(v22))
-				noxServer.nox_xxx_gameSetMapPath_409D70(fbase)
-				nox_xxx_mapLoadOrSaveMB_4DCC70(1)
-				v13, _ := sub41D090(GoString(&sv.path[0]))
-				noxServer.SetFirstObjectScriptID(server.ObjectScriptID(v13))
-			} else if sub4D6F30() {
-				sub_4DCE60(int(sv.stage))
-				noxServer.setQuestMapName(GoString(&sv.map_name[0]))
-				v14, _ := sub41D090(GoString(&sv.path[0]))
-				noxServer.SetFirstObjectScriptID(server.ObjectScriptID(v14))
-			}
-			sub4A24C0(false)
+	case *WindowEvent0x4007:
+		switch e.Win.ID() {
+		case 501:
+			noxServer.SetFirstObjectScriptID(1000000000)
 			sub_4A50A0()
-			nox_wnd_xxx_1307748.field_13 = nil
-		}
-	case 503:
-		v7 := winCharListNames.widget_data
-		v5 := *(*int32)(unsafe.Add(v7, 48))
-		if v5 == -1 {
-			break
-		}
-		sv := &nox_xxx_saves_arr[v5]
-		spath := GoString(&sv.path[0])
-		var (
-			v17     func()
-			v16     gui.DialogFlags
-			v6, v15 string
-		)
-		*memmap.PtrInt32(0x5D4594, 0x13F47C) = v5
-		npath := datapath.SaveNameFromPath(spath)
-		nox_savegame_name_1307752 = npath
-		if noxflags.HasGame(noxflags.GameModeCoop) && nox_savegame_name_1307752 == common.SaveAuto {
-			clientPlaySoundSpecial(925, 100)
-			v17 = nil
-			v16 = 33
-			v15 = strMan.GetStringInFile("GUISave.c:AutoSaveDeleteNotAllowed", "C:\\NoxPost\\src\\client\\shell\\selchar.c")
-			v6 = strMan.GetStringInFile("GUISave.c:AutoSaveDeleteTitle", "C:\\NoxPost\\src\\client\\shell\\selchar.c")
-		} else {
+			nox_wnd_xxx_1307748.field_13 = (*[0]byte)(C.nox_game_showSelClass_4A4840)
+		case 502:
+			v7 := winCharListNames.widget_data
+			v10 := *(*int32)(unsafe.Add(v7, 48))
+			if v10 == -1 {
+				break
+			}
+			sv := &nox_xxx_saves_arr[v10]
+			spath := GoString(&sv.path[0])
 			if spath == "" {
+				saveLog.Printf("save path is empty for slot %d", v10)
 				clientPlaySoundSpecial(925, 100)
 				clientPlaySoundSpecial(921, 100)
 				return RawEventResp(1)
 			}
-			v17 = sub_4A5C70
-			v16 = 56
-			if noxflags.HasGame(noxflags.GameModeCoop) {
-				v15 = strMan.GetStringInFile("GUISave.c:DeleteSaveMessage", "C:\\NoxPost\\src\\client\\shell\\selchar.c")
-				v6 = strMan.GetStringInFile("GUISave.c:DeleteSaveTitle", "C:\\NoxPost\\src\\client\\shell\\selchar.c")
-			} else {
-				v15 = strMan.GetStringInFile("GUISave.c:DeleteCharacterMessage", "C:\\NoxPost\\src\\client\\shell\\selchar.c")
-				v6 = strMan.GetStringInFile("GUISave.c:DeleteCharacterTitle", "C:\\NoxPost\\src\\client\\shell\\selchar.c")
+			v20 := datapath.SaveNameFromPath(spath)
+			saveLog.Printf("loading slot %d: %q (%q, %q)", v10, v20, spath, GoString(&sv.map_name[0]))
+			var v23 C.nox_savegame_xxx
+			if (!noxflags.HasGame(noxflags.GameModeCoop) || nox_client_copySave(v20, common.SaveTmp) == nil) && C.sub_41A000(&sv.path[0], &v23) != 0 {
+
+				v23d := (*C.nox_savegame_xxx)(memmap.PtrOff(0x85B3FC, 10980))
+				*v23d = v23
+				gamePopState()
+				if int32(*memmap.PtrUint8(0x85B3FC, 0x2FDE)) == 0 {
+					noxServer.nox_xxx_gameSetMapPath_409D70("war01a.map")
+				} else if int32(*memmap.PtrUint8(0x85B3FC, 0x2FDE)) == 1 {
+					noxServer.nox_xxx_gameSetMapPath_409D70("wiz01a.map")
+				} else if int32(*memmap.PtrUint8(0x85B3FC, 0x2FDE)) == 2 {
+					noxServer.nox_xxx_gameSetMapPath_409D70("con01a.map")
+				}
+				if noxflags.HasGame(noxflags.GameModeCoop) {
+					C.nox_xxx_gameSetSwitchSolo_4DB220(1)
+					C.nox_xxx_gameSetNoMPFlag_4DB230(1)
+					mname := GoString(&sv.map_name[0])
+					fbase := fmt.Sprintf("%s.map", mname)
+					v22, err := nox_client_checkSaveMapExistsTmp(fbase)
+					if err != nil {
+						v22 = datapath.Maps(mname, fbase)
+					}
+					C.nox_xxx_gameSetSoloSavePath_4DB270(internCStr(v22))
+					noxServer.nox_xxx_gameSetMapPath_409D70(fbase)
+					nox_xxx_mapLoadOrSaveMB_4DCC70(1)
+					v13, _ := sub41D090(GoString(&sv.path[0]))
+					noxServer.SetFirstObjectScriptID(server.ObjectScriptID(v13))
+				} else if sub4D6F30() {
+					sub_4DCE60(int(sv.stage))
+					noxServer.setQuestMapName(GoString(&sv.map_name[0]))
+					v14, _ := sub41D090(GoString(&sv.path[0]))
+					noxServer.SetFirstObjectScriptID(server.ObjectScriptID(v14))
+				}
+				sub4A24C0(false)
+				sub_4A50A0()
+				nox_wnd_xxx_1307748.field_13 = nil
 			}
+		case 503:
+			v7 := winCharListNames.widget_data
+			v5 := *(*int32)(unsafe.Add(v7, 48))
+			if v5 == -1 {
+				break
+			}
+			sv := &nox_xxx_saves_arr[v5]
+			spath := GoString(&sv.path[0])
+			var (
+				v17     func()
+				v16     gui.DialogFlags
+				v6, v15 string
+			)
+			*memmap.PtrInt32(0x5D4594, 0x13F47C) = v5
+			npath := datapath.SaveNameFromPath(spath)
+			nox_savegame_name_1307752 = npath
+			if noxflags.HasGame(noxflags.GameModeCoop) && nox_savegame_name_1307752 == common.SaveAuto {
+				clientPlaySoundSpecial(925, 100)
+				v17 = nil
+				v16 = 33
+				v15 = strMan.GetStringInFile("GUISave.c:AutoSaveDeleteNotAllowed", "C:\\NoxPost\\src\\client\\shell\\selchar.c")
+				v6 = strMan.GetStringInFile("GUISave.c:AutoSaveDeleteTitle", "C:\\NoxPost\\src\\client\\shell\\selchar.c")
+			} else {
+				if spath == "" {
+					clientPlaySoundSpecial(925, 100)
+					clientPlaySoundSpecial(921, 100)
+					return RawEventResp(1)
+				}
+				v17 = sub_4A5C70
+				v16 = 56
+				if noxflags.HasGame(noxflags.GameModeCoop) {
+					v15 = strMan.GetStringInFile("GUISave.c:DeleteSaveMessage", "C:\\NoxPost\\src\\client\\shell\\selchar.c")
+					v6 = strMan.GetStringInFile("GUISave.c:DeleteSaveTitle", "C:\\NoxPost\\src\\client\\shell\\selchar.c")
+				} else {
+					v15 = strMan.GetStringInFile("GUISave.c:DeleteCharacterMessage", "C:\\NoxPost\\src\\client\\shell\\selchar.c")
+					v6 = strMan.GetStringInFile("GUISave.c:DeleteCharacterTitle", "C:\\NoxPost\\src\\client\\shell\\selchar.c")
+				}
+			}
+			NewDialogWindow(nil, v6, v15, v16, v17, nil)
+		case 504, 505:
+			ev2 := &WindowEvent0x4000{Win: e.Win}
+			winCharList.Func94(ev2)
+			winCharListNames.Func94(ev2)
+			winCharListStyle.Func94(ev2)
 		}
-		NewDialogWindow(nil, v6, v15, v16, v17, nil)
-	case 504, 505:
-		ev2 := asWindowEvent(0x4000, a3w, 0)
-		winCharList.Func94(ev2)
-		winCharListNames.Func94(ev2)
-		winCharListStyle.Func94(ev2)
+		clientPlaySoundSpecial(921, 100)
+		return RawEventResp(1)
 	}
-	clientPlaySoundSpecial(921, 100)
-	return RawEventResp(1)
+	return nil
 }
 
 //export sub_41D090
@@ -1060,81 +1053,79 @@ func nox_savegame_sub_46C730() int {
 }
 
 func nox_savegame_sub_46C920(win1 *Window, ev WindowEvent) WindowEventResp {
-	a2, a3w, a4 := ev.EventArgsC()
-	if a2 != 0x4007 {
-		if a2 != 0x4010 {
-			return nil
-		}
-		ev2 := asWindowEvent(0x4013, a4, 0)
+	switch ev := ev.(type) {
+	case *WindowEvent0x4010:
+		ev2 := asWindowEvent(0x4013, ev.Val, 0)
 		dword_5d4594_1082860.Func94(ev2)
 		dword_5d4594_1082864.Func94(ev2)
 		dword_5d4594_1082868.Func94(ev2)
 		return nil
-	}
-	win3 := asWindowP(unsafe.Pointer(a3w))
-	wid := win3.ID()
-	clientPlaySoundSpecial(766, 100)
-	if wid == 501 {
-		v8 := *(*int32)(unsafe.Add(dword_5d4594_1082864.widget_data, 48))
-		if v8 < 0 {
-			return nil
-		}
-		v9 := *(*uint32)(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x852978, 8) + 120)))
-		if (v9 & 0x8000) != 0 {
-			v10 := win1.ChildByID(501)
-			nox_xxx_wnd_46ABB0(v10, 0)
-			return nil
-		}
-		if GoString(&nox_savegame_arr_1064948[v8].path[0]) != "" {
-			path := datapath.SaveNameFromPath(GoString(&nox_savegame_arr_1064948[v8].path[0]))
-			StrCopy((*C.char)(memmap.PtrOff(0x5D4594, 1082840)), 16, path)
-			nox_xxx_wndClearCaptureMain(dword_5d4594_1082856)
-			v13 := strMan.GetStringInFile("GUISave.c:OverwriteSaveMessage", "C:\\NoxPost\\src\\client\\Gui\\GUISave.c")
-			v11 := strMan.GetStringInFile("GUISave.c:OverwriteSaveTitle", "C:\\NoxPost\\src\\client\\Gui\\GUISave.c")
-			NewDialogWindow(dword_5d4594_1082856, v11, v13, 56, func() {
-				sub_4DB130(GoStringP(memmap.PtrOff(0x5D4594, 1082840)))
-				sub_4DB170(1, 0, 0)
-				sub_46D6F0()
-			}, func() {
-				nox_xxx_wndSetCaptureMain(dword_5d4594_1082856)
-			})
-			return nil
-		}
-		var v14 string
-		if v8 != 0 {
-			v14 = fmt.Sprintf(common.SaveFormat, v8)
-		} else {
-			v14 = common.SaveAuto
-		}
-		sub_4DB130(v14)
-		sub_4DB170(1, 0, 0)
-		sub_46D6F0()
-		return nil
-	} else if wid == 502 {
-		v6 := *(*int32)(unsafe.Add(dword_5d4594_1082864.widget_data, 48))
-		if v6 >= 0 && GoString(&nox_savegame_arr_1064948[v6].path[0]) != "" {
-			if C.nox_xxx_playerAnimCheck_4372B0() != 0 {
-				nox_savegame_sub_46CBD0()
+	case *WindowEvent0x4007:
+		clientPlaySoundSpecial(766, 100)
+		switch ev.Win.ID() {
+		case 501:
+			v8 := *(*int32)(unsafe.Add(dword_5d4594_1082864.widget_data, 48))
+			if v8 < 0 {
 				return nil
 			}
-			v12 := strMan.GetStringInFile("GUIQuit.c:ReallyLoadMessage", "C:\\NoxPost\\src\\client\\Gui\\GUISave.c")
-			v7 := strMan.GetStringInFile("SelChar.c:LoadLabel", "C:\\NoxPost\\src\\client\\Gui\\GUISave.c")
-			NewDialogWindow(nil, v7, v12, 24, nox_savegame_sub_46CBD0, sub_44A400)
+			v9 := *(*uint32)(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x852978, 8) + 120)))
+			if (v9 & 0x8000) != 0 {
+				v10 := win1.ChildByID(501)
+				nox_xxx_wnd_46ABB0(v10, 0)
+				return nil
+			}
+			if GoString(&nox_savegame_arr_1064948[v8].path[0]) != "" {
+				path := datapath.SaveNameFromPath(GoString(&nox_savegame_arr_1064948[v8].path[0]))
+				StrCopy((*C.char)(memmap.PtrOff(0x5D4594, 1082840)), 16, path)
+				nox_xxx_wndClearCaptureMain(dword_5d4594_1082856)
+				v13 := strMan.GetStringInFile("GUISave.c:OverwriteSaveMessage", "C:\\NoxPost\\src\\client\\Gui\\GUISave.c")
+				v11 := strMan.GetStringInFile("GUISave.c:OverwriteSaveTitle", "C:\\NoxPost\\src\\client\\Gui\\GUISave.c")
+				NewDialogWindow(dword_5d4594_1082856, v11, v13, 56, func() {
+					sub_4DB130(GoStringP(memmap.PtrOff(0x5D4594, 1082840)))
+					sub_4DB170(1, 0, 0)
+					sub_46D6F0()
+				}, func() {
+					nox_xxx_wndSetCaptureMain(dword_5d4594_1082856)
+				})
+				return nil
+			}
+			var v14 string
+			if v8 != 0 {
+				v14 = fmt.Sprintf(common.SaveFormat, v8)
+			} else {
+				v14 = common.SaveAuto
+			}
+			sub_4DB130(v14)
+			sub_4DB170(1, 0, 0)
+			sub_46D6F0()
 			return nil
-		}
-		clientPlaySoundSpecial(925, 100)
-		return nil
-	} else if wid == 503 {
-		if sub_450560() {
-			sub_450580()
-			sub_43DDA0()
-			nox_xxx_setContinueMenuOrHost_43DDD0(0)
-			nox_game_exit_xxx_43DE60()
-			sub_446060()
+		case 502:
+			v6 := *(*int32)(unsafe.Add(dword_5d4594_1082864.widget_data, 48))
+			if v6 >= 0 && GoString(&nox_savegame_arr_1064948[v6].path[0]) != "" {
+				if C.nox_xxx_playerAnimCheck_4372B0() != 0 {
+					nox_savegame_sub_46CBD0()
+					return nil
+				}
+				v12 := strMan.GetStringInFile("GUIQuit.c:ReallyLoadMessage", "C:\\NoxPost\\src\\client\\Gui\\GUISave.c")
+				v7 := strMan.GetStringInFile("SelChar.c:LoadLabel", "C:\\NoxPost\\src\\client\\Gui\\GUISave.c")
+				NewDialogWindow(nil, v7, v12, 24, nox_savegame_sub_46CBD0, sub_44A400)
+				return nil
+			}
+			clientPlaySoundSpecial(925, 100)
+			return nil
+		case 503:
+			if sub_450560() {
+				sub_450580()
+				sub_43DDA0()
+				nox_xxx_setContinueMenuOrHost_43DDD0(0)
+				nox_game_exit_xxx_43DE60()
+				sub_446060()
+				sub_46D6F0()
+				return nil
+			}
 			sub_46D6F0()
 			return nil
 		}
-		sub_46D6F0()
 		return nil
 	}
 	return nil

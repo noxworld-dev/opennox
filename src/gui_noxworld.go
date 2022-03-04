@@ -650,7 +650,7 @@ func sub_4373A0() {
 			C.nox_game_createOrJoin_815048 = 0
 			setMouseBounds(image.Rect(0, 0, nox_win_width-1, nox_win_height-1))
 			v2 := strMan.GetStringInFile("ChooseArea", "C:\\NoxPost\\src\\client\\shell\\noxworld.c")
-			asWindowP(C.dword_5d4594_814996).Func94(asWindowEvent(0x4001, uintptr(unsafe.Pointer(internCStr(v2))), 0))
+			asWindowP(C.dword_5d4594_814996).Func94(&WindowEvent0x4001{Str: v2})
 			clientPlaySoundSpecial(231, 100)
 		} else {
 			nox_game_checkStateSwitch_43C1E0()
@@ -669,7 +669,7 @@ func sub_4373A0() {
 		nox_xxx_wndClearCaptureMain(asWindowP(C.dword_5d4594_814984))
 		C.sub_4375C0(1)
 		v0 := strMan.GetStringInFile("JoinServer", "C:\\NoxPost\\src\\client\\shell\\noxworld.c")
-		asWindowP(C.dword_5d4594_814996).Func94(asWindowEvent(0x4001, uintptr(unsafe.Pointer(internCStr(v0))), 0))
+		asWindowP(C.dword_5d4594_814996).Func94(&WindowEvent0x4001{Str: v0})
 		clientPlaySoundSpecial(231, 100)
 	} else {
 		C.sub_49FF20()
@@ -679,7 +679,7 @@ func sub_4373A0() {
 			asWindowP(C.dword_5d4594_814984).Hide()
 			asWindowP(C.dword_5d4594_814988).Show()
 			v1 := strMan.GetStringInFile("ChooseArea", "C:\\NoxPost\\src\\client\\shell\\noxworld.c")
-			asWindowP(C.dword_5d4594_814996).Func94(asWindowEvent(0x4001, uintptr(unsafe.Pointer(internCStr(v1))), 0))
+			asWindowP(C.dword_5d4594_814996).Func94(&WindowEvent0x4001{Str: v1})
 			nox_client_refreshServerList_4378B0()
 			clientPlaySoundSpecial(231, 100)
 		} else {

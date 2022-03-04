@@ -22,7 +22,6 @@ import "C"
 import (
 	"bufio"
 	"encoding/binary"
-	"math"
 	"os"
 	"strconv"
 	"strings"
@@ -258,9 +257,7 @@ func gameexOnKeyboardPress(kcode keybind.Key) {
 			for i := 0; i < 5; i++ {
 				wstr := GoWStringSlice(wndEntryNames[i][:])
 				id := uint(1520 + i)
-				wstrC, freeStr := CWString(wstr)
-				a2b.Func94(asWindowEvent(0x400D, uintptr(unsafe.Pointer(wstrC)), math.MaxUint32))
-				freeStr()
+				a2b.Func94(&WindowEvent0x400d{Str: wstr, Val: -1})
 				if uint32(C.getFlagValueFromFlagIndex(C.int(id)-1519))&uint32(C.gameex_flags) != 0 {
 					v14 := modifyWndPntr.ChildByID(id)
 					v14.DrawData().field_0 |= 0x4
@@ -280,50 +277,49 @@ func destroyGameExWindow() {
 }
 
 func modifyWndInputHandler(a1 *Window, ev WindowEvent) WindowEventResp {
-	a2, a3, _ := ev.EventArgsC()
-	if a2 != 16391 {
+	switch ev := ev.(type) {
+	case *WindowEvent0x4007:
+		clientPlaySoundSpecial(766, 100)
+		switch ev.Win.ID() {
+		case 1937:
+			destroyGameExWindow()
+		case 1938:
+			if !noxflags.HasGame(noxflags.GameModeSolo10) {
+				C.sub_4BDFD0()
+				asWindowP(unsafe.Pointer(uintptr(C.dword_5d4594_1316972))).SetPos(types.Point{X: 200, Y: 100})
+			}
+		case 1520:
+			if (C.gameex_flags>>1)&1 != 0 {
+				C.gameex_flags &= 0xFFFFFFFD
+			} else {
+				C.gameex_flags |= 0x2
+			}
+		case 1521:
+			if (C.gameex_flags>>2)&1 != 0 {
+				C.gameex_flags &= 0xFFFFFFFB
+			} else {
+				C.gameex_flags |= 0x4
+			}
+		case 1522:
+			if (C.gameex_flags>>3)&1 != 0 {
+				C.gameex_flags &= 0xFFFFFFF7
+			} else {
+				C.gameex_flags |= 0x8
+			}
+		case 1523:
+			if (C.gameex_flags>>4)&1 != 0 {
+				C.gameex_flags &= 0xFFFFFFEF
+			} else {
+				C.gameex_flags |= 0x10
+			}
+		case 1524:
+			if (C.gameex_flags>>5)&1 != 0 {
+				C.gameex_flags &= 0xFFFFFFDF
+			} else {
+				C.gameex_flags |= 0x20
+			}
+		}
 		return nil
-	}
-	clientPlaySoundSpecial(766, 100)
-	a3p := asWindowP(unsafe.Pointer(a3))
-	switch a3p.ID() {
-	case 1937:
-		destroyGameExWindow()
-	case 1938:
-		if !noxflags.HasGame(noxflags.GameModeSolo10) {
-			C.sub_4BDFD0()
-			asWindowP(unsafe.Pointer(uintptr(C.dword_5d4594_1316972))).SetPos(types.Point{X: 200, Y: 100})
-		}
-	case 1520:
-		if (C.gameex_flags>>1)&1 != 0 {
-			C.gameex_flags &= 0xFFFFFFFD
-		} else {
-			C.gameex_flags |= 0x2
-		}
-	case 1521:
-		if (C.gameex_flags>>2)&1 != 0 {
-			C.gameex_flags &= 0xFFFFFFFB
-		} else {
-			C.gameex_flags |= 0x4
-		}
-	case 1522:
-		if (C.gameex_flags>>3)&1 != 0 {
-			C.gameex_flags &= 0xFFFFFFF7
-		} else {
-			C.gameex_flags |= 0x8
-		}
-	case 1523:
-		if (C.gameex_flags>>4)&1 != 0 {
-			C.gameex_flags &= 0xFFFFFFEF
-		} else {
-			C.gameex_flags |= 0x10
-		}
-	case 1524:
-		if (C.gameex_flags>>5)&1 != 0 {
-			C.gameex_flags &= 0xFFFFFFDF
-		} else {
-			C.gameex_flags |= 0x20
-		}
 	}
 	return nil
 }

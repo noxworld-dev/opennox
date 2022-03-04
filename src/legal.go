@@ -25,7 +25,7 @@ func sub_4CC6F0(win *Window, draw *WindowData) int {
 	if nox_win_legalBg_timer < 0 {
 		nox_win_legalBg_1522892.Destroy()
 		nox_win_legalBg_1522892 = nil
-		nox_game_showMainMenu_4A1C00()
+		nox_game_showMainMenu4A1C00()
 	}
 	if nox_win_legalBg_timer < 270 {
 		v0 := nox_win_legalBg_1522892.ChildByID(9910)
@@ -37,18 +37,19 @@ func sub_4CC6F0(win *Window, draw *WindowData) int {
 }
 
 func nox_xxx_windowMainBGProc_4CC6A0(win *Window, ev WindowEvent) WindowEventResp {
-	if nox_win_legalBg_timer <= 270 {
-		a2, a3p, _ := ev.EventArgsC()
-		if a2 != 16391 {
-			return nil
-		}
-		a3 := asWindowP(unsafe.Pointer(a3p))
-		if a3.ID() == 9901 {
-			win.Destroy()
-			nox_game_showMainMenu_4A1C00()
-		}
+	if nox_win_legalBg_timer > 270 {
+		return RawEventResp(1)
 	}
-	return RawEventResp(1)
+	switch ev := ev.(type) {
+	case *WindowEvent0x4007:
+		if ev.Win.ID() == 9901 {
+			win.Destroy()
+			nox_game_showMainMenu4A1C00()
+		}
+		return RawEventResp(1)
+	default:
+		return nil
+	}
 }
 
 func sub_4CC660(win *Window, ev WindowEvent) WindowEventResp {
@@ -59,7 +60,7 @@ func sub_4CC660(win *Window, ev WindowEvent) WindowEventResp {
 		}
 		if ekey.Pressed {
 			win.Destroy()
-			nox_game_showMainMenu_4A1C00()
+			nox_game_showMainMenu4A1C00()
 		}
 	}
 	return RawEventResp(1)
@@ -81,13 +82,13 @@ func nox_game_showLegal_4CC4E0() {
 		vers += "\n\nRelease " + version.Latest() + " is now available!"
 		versText.SetPos(versText.Offs().Add(image.Pt(0, 10)))
 	}
-	versText.Func94(asWindowEvent(0x4001, uintptr(unsafe.Pointer(internWStr(vers))), 0))
-	win.ChildByID(9998).Func94(asWindowEvent(0x4001, uintptr(unsafe.Pointer(internWStr(""))), 0))
+	versText.Func94(&WindowEvent0x4001{Str: vers})
+	win.ChildByID(9998).Func94(&WindowEvent0x4001{Str: " "})
 	win.ChildByID(9970).setDraw(sub_4CC6F0)
 	nox_win_legalBg_timer = 300
 	if noxflags.HasGame(noxflags.GameFlag26) {
 		v6 := win.ChildByID(9901)
-		win.Func94(asWindowEvent(0x4007, uintptr(unsafe.Pointer(v6.C())), 0))
+		win.Func94(&WindowEvent0x4007{Win: v6})
 	}
 	C.sub_43D9B0(14, 100)
 	nox_client_onShowLegal(win)

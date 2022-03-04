@@ -27,8 +27,6 @@ int nox_xxx_tileSetDrawFn_481420();
 */
 import "C"
 import (
-	"unsafe"
-
 	"nox/v1/client/gui"
 	"nox/v1/client/noxfont"
 	noxcolor "nox/v1/common/color"
@@ -124,57 +122,55 @@ func sub_49B3C0() {
 	C.dword_5d4594_1301796 = 0
 }
 
-func nox_client_advVideoOptsProc_4CB5D0(win *Window, e WindowEvent) WindowEventResp {
-	ev, a3, _ := e.EventArgsC()
-	if ev == 0x4005 {
+func nox_client_advVideoOptsProc_4CB5D0(win *Window, ev WindowEvent) WindowEventResp {
+	switch ev := ev.(type) {
+	case *WindowEvent0x4005:
 		clientPlaySoundSpecial(920, 100)
 		return RawEventResp(1)
-	}
-	if ev != 0x4007 {
-		return nil
-	}
-	targ := asWindowP(unsafe.Pointer(a3))
-	clientPlaySoundSpecial(766, 100)
-	id := targ.ID()
-	switch id {
-	case 2010:
-		// always enabled
-		C.nox_video_dxUnlockSurface = 1
-		win.DrawData().Field0Set(0x4, true)
-		return nil
-	case 2033:
-		v := C.nox_client_texturedFloors2_154960 != 0
-		C.nox_client_texturedFloors2_154960 = C.uint(bool2int(!v))
-		C.nox_client_texturedFloors_154956 = C.uint(bool2int(!v))
-		C.nox_xxx_tileSetDrawFn_481420()
-		C.dword_5d4594_1193156 = 0
-		return nil
-	case 2099:
-		detectBestVideoSettings()
-		nox_client_advVideoOptsLoad(nox_win_advVideoOpts_1522600)
-		if par := win.Parent(); par != nil {
-			par.Func94(asWindowEvent(0x4007, uintptr(unsafe.Pointer(targ.C())), 0))
+	case *WindowEvent0x4007:
+		clientPlaySoundSpecial(766, 100)
+		id := ev.Win.ID()
+		switch id {
+		case 2010:
+			// always enabled
+			C.nox_video_dxUnlockSurface = 1
+			win.DrawData().Field0Set(0x4, true)
+			return nil
+		case 2033:
+			v := C.nox_client_texturedFloors2_154960 != 0
+			C.nox_client_texturedFloors2_154960 = C.uint(bool2int(!v))
+			C.nox_client_texturedFloors_154956 = C.uint(bool2int(!v))
+			C.nox_xxx_tileSetDrawFn_481420()
+			C.dword_5d4594_1193156 = 0
+			return nil
+		case 2099:
+			detectBestVideoSettings()
+			nox_client_advVideoOptsLoad(nox_win_advVideoOpts_1522600)
+			if par := win.Parent(); par != nil {
+				par.Func94(ev)
+			}
+			return nil
+		}
+		if opt, ok := noxVideoAdvOpts[id]; ok {
+			if opt.Toggle != nil {
+				opt.Toggle()
+			} else if opt.Flag != 0 {
+				noxflags.ToggleEngine(opt.Flag)
+			} else if opt.Bool != nil {
+				v := *opt.Bool
+				*opt.Bool = !v
+			} else if opt.CFlag != nil {
+				v := *opt.CFlag != 0
+				*opt.CFlag = C.uint(bool2int(!v))
+			}
+		}
+		switch id {
+		case 2020:
+			sub_49B3C0()
+		case 2040:
+			C.nox_xxx_xxxRenderGUI_587000_80832 = C.nox_client_renderGUI_80828
 		}
 		return nil
-	}
-	if opt, ok := noxVideoAdvOpts[id]; ok {
-		if opt.Toggle != nil {
-			opt.Toggle()
-		} else if opt.Flag != 0 {
-			noxflags.ToggleEngine(opt.Flag)
-		} else if opt.Bool != nil {
-			v := *opt.Bool
-			*opt.Bool = !v
-		} else if opt.CFlag != nil {
-			v := *opt.CFlag != 0
-			*opt.CFlag = C.uint(bool2int(!v))
-		}
-	}
-	switch id {
-	case 2020:
-		sub_49B3C0()
-	case 2040:
-		C.nox_xxx_xxxRenderGUI_587000_80832 = C.nox_client_renderGUI_80828
 	}
 	return nil
 }
