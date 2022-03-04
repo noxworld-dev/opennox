@@ -15,7 +15,7 @@ var latest struct {
 
 // IsLatest checks if the current version is the latest one.
 func IsLatest() bool {
-	return Version() == Latest()
+	return semver.Compare(Version(), Latest()) >= 0
 }
 
 // Latest returns the latest version number discovered via one or more sources.
