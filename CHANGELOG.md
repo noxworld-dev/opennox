@@ -1,5 +1,20 @@
 # Changelog
 
+## v1.8.9
+
+- OpenNox will now use the new lobby server and fallback to XWIS if no servers were found.
+- Ping will now be shown in servers list for servers that support it.
+- Server discovery was optimized and is now faster.
+- Implemented a tiny builtin SSH remote console. Telnet support removed.
+- Game load/save was optimized and works faster now.
+- Fix: Not being able to connect to non-OpenNox servers.
+- Fix: Spawned creatures being stuck when damaged.
+- Fix: Magic missiles targeting dead entities.
+- Fix: Energy bolt not working properly in traps.
+- Fix: UI no longer freezes when discovering game servers.
+- Fix: Player names not being shown in scores table.
+- Fix: Sorting in the character list.
+
 ## v1.8.8
 
 - Notify if OpenNox update is available.
