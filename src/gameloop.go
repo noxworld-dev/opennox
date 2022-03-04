@@ -453,7 +453,7 @@ func nox_game_cdMaybeSwitchState_413800() {
 	}
 	initialStateSwitch = true
 	C.sub_4137E0()
-	if !nox_game_switchStates() {
+	if !nox_game_state.Switch() {
 		nox_xxx_setContinueMenuOrHost_43DDD0(0)
 		nox_game_exit_xxx_43DE60()
 	}
@@ -1001,7 +1001,7 @@ func nox_xxx_cliWaitForJoinData_43BFE0() bool {
 		C.nox_client_gui_flag_815132 = 1
 		return true
 	}
-	if !nox_game_switchStates() {
+	if !nox_game_state.Switch() {
 		return false
 	}
 	C.nox_client_gui_flag_815132 = 1

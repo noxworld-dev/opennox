@@ -9,6 +9,7 @@ import "C"
 import (
 	"unsafe"
 
+	"nox/v1/client/gui"
 	"nox/v1/common/alloc"
 	"nox/v1/common/env"
 	"nox/v1/common/types"
@@ -180,9 +181,9 @@ func guiAnimationStep() {
 	}
 }
 
-func nox_gui_findAnimationForDest_43C520(dest noxClientState) *guiAnim {
+func nox_gui_findAnimationForDest_43C520(dest gui.StateID) *guiAnim {
 	for p := guiAnimationsHead; p != nil; p = p.Next() {
-		if noxClientState(p.field_0) == dest {
+		if gui.StateID(p.field_0) == dest {
 			return p
 		}
 	}

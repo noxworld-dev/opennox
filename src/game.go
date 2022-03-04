@@ -104,17 +104,68 @@ import (
 )
 
 var (
-	useXWIS = true
-	gameLog = log.New("game")
+	useXWIS                   = true
+	gameLog                   = log.New("game")
+	nox_game_state            gui.State
+	nox_game_playState_811372 int
+)
+
+const (
+	gameStateMovies      = gui.StateID(10)
+	gameStateMainMenu    = gui.StateID(100)
+	gameStateOptions     = gui.StateID(300)
+	gameStateOnlineOrLAN = gui.StateID(400)
+	gameStateCharSelect  = gui.StateID(500)
+	gameStateClassSelect = gui.StateID(600)
+	gameStateColorSelect = gui.StateID(700)
+	gameStateWolLogin    = gui.StateID(1700)
+	gameStateWolChat     = gui.StateID(1900)
+	gameStateServerList  = gui.StateID(10000)
+	gameStateXxx         = gui.StateID(1915)
 )
 
 func init() {
 	configBoolPtr("network.xwis.register", "NOX_XWIS", true, &useXWIS)
+	gui.RegisterState(gameStateMovies, "Movies", nox_game_rollLogoAndStart_4AB1F0)
+	gui.RegisterState(gameStateMainMenu, "MainMenu", nox_game_showMainMenu4A1C00)
+	gui.RegisterState(gameStateOptions, "Options", func() bool {
+		return C.nox_game_showOptions_4AA6B0() != 0
+	})
+	gui.RegisterState(gameStateOnlineOrLAN, "OnlineOrLAN", func() bool {
+		return C.nox_game_showOnlineOrLAN_413800() != 0
+	})
+	gui.RegisterState(gameStateCharSelect, "CharSelect", func() bool {
+		C.sub_4A7A70(1)
+		return nox_game_showSelChar4A4DB0()
+	})
+	gui.RegisterState(gameStateClassSelect, "ClassSelect", func() bool {
+		return C.nox_game_showSelClass_4A4840() != 0
+	})
+	gui.RegisterState(gameStateColorSelect, "ColorSelect", func() bool {
+		return C.nox_game_showSelColor_4A5D00() != 0
+	})
+	gui.RegisterState(gameStateWolLogin, "WolLogin", func() bool {
+		return C.nox_game_showWolLogin_44A560() != 0
+	})
+	gui.RegisterState(gameStateWolChat, "WolChat", func() bool {
+		return C.nox_game_showWolChat_447620() != 0
+	})
+	gui.RegisterState(gameStateServerList, "ServerList", func() bool {
+		if C.nox_xxx_check_flag_aaa_43AF70() == 1 && C.sub_40E0B0() == 0 {
+			sub_41E300(9)
+			C.sub_41F4B0()
+			C.sub_41EC30()
+			C.sub_446490(0)
+			C.nox_xxx____setargv_4_44B000()
+			sub_44A400()
+			return true
+		}
+		return C.nox_game_showGameSel_4379F0() != 0
+	})
+	gui.RegisterState(gameStateXxx, "StateXxx", func() bool {
+		return C.nox_game_showGameSel_4379F0() != 0
+	})
 }
-
-var (
-	nox_game_playState_811372 int
-)
 
 //export nox_xxx_gameGetPlayState_4356B0
 func nox_xxx_gameGetPlayState_4356B0() C.int {
@@ -1520,59 +1571,9 @@ func nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_raw(ind int, data []byte) in
 	return int(C.nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(C.int(ind), (*C.uchar)(unsafe.Pointer(&data[0])), C.int(len(data))))
 }
 
-var (
-	nox_game_state_arr []noxClientState
-)
-
-type noxClientState int
-
-func (st noxClientState) String() string {
-	switch st {
-	case gameStateNone:
-		return "<none>"
-	case gameStateMovies:
-		return "Movies"
-	case gameStateMainMenu:
-		return "MainMenu"
-	case gameStateOptions:
-		return "Options"
-	case gameStateOnlineOrLAN:
-		return "OnlineOrLAN"
-	case gameStateCharSelect:
-		return "CharSelect"
-	case gameStateClassSelect:
-		return "ClassSelect"
-	case gameStateColorSelect:
-		return "ColorSelect"
-	case gameStateWolLogin:
-		return "WolLogin"
-	case gameStateWolChat:
-		return "WolChat"
-	case gameStateServerList:
-		return "ServerList"
-	default:
-		return fmt.Sprintf("noxClientState(%d)", int(st))
-	}
-}
-
-const (
-	gameStateNone        = noxClientState(-1)
-	gameStateMovies      = noxClientState(10)
-	gameStateMainMenu    = noxClientState(100)
-	gameStateOptions     = noxClientState(300)
-	gameStateOnlineOrLAN = noxClientState(400)
-	gameStateCharSelect  = noxClientState(500)
-	gameStateClassSelect = noxClientState(600)
-	gameStateColorSelect = noxClientState(700)
-	gameStateWolLogin    = noxClientState(1700)
-	gameStateWolChat     = noxClientState(1900)
-	gameStateServerList  = noxClientState(10000)
-	gameStateXxx         = noxClientState(1915)
-)
-
 //export nox_game_addStateCode_43BDD0
 func nox_game_addStateCode_43BDD0(code C.int) {
-	gameAddStateCode(noxClientState(code))
+	gameAddStateCode(gui.StateID(code))
 }
 
 //export nox_game_getStateCode_43BE10
@@ -1585,105 +1586,29 @@ func nox_game_decStateInd_43BDC0() {
 	gamePopState()
 }
 
-func gameAddStateCode(code noxClientState) {
-	if gameGetStateCode() == code {
+func gameAddStateCode(code gui.StateID) {
+	if !nox_game_state.Push(code) {
 		return
 	}
-	nox_game_state_arr = append(nox_game_state_arr, code)
 	gameLog.Println("game state code:", code)
 }
 
-func gameGetStateCode() noxClientState {
-	if len(nox_game_state_arr) == 0 {
-		return -1
-	}
-	return nox_game_state_arr[len(nox_game_state_arr)-1]
+func gameGetStateCode() gui.StateID {
+	return nox_game_state.Current()
 }
 
 func gamePopState() {
-	if len(nox_game_state_arr) > 0 {
-		nox_game_state_arr = nox_game_state_arr[:len(nox_game_state_arr)-1]
-	}
-	gameLog.Println("game state code:", gameGetStateCode())
+	nox_game_state.Pop()
+	gameLog.Println("game state code:", nox_game_state.Current())
 }
 
-func gamePopStateUntil(code noxClientState) {
-	for gameGetStateCode() != code {
-		gamePopState()
-	}
+func gamePopStateUntil(code gui.StateID) {
+	nox_game_state.PopUntil(code)
 }
 
 //export nox_game_switchStates_43C0A0
 func nox_game_switchStates_43C0A0() C.int {
-	return C.int(bool2int(nox_game_switchStates()))
-}
-
-func nox_game_switchStates() bool { // switch game states
-	switch gameGetStateCode() {
-	case gameStateMovies:
-		if !nox_game_rollLogoAndStart_4AB1F0() {
-			return false
-		}
-		return true
-	case gameStateMainMenu: // main menu
-		if nox_game_showMainMenu_4A1C00() == 0 {
-			return false
-		}
-		return true
-	case gameStateOptions: // main menu options
-		if C.nox_game_showOptions_4AA6B0() == 0 {
-			return false
-		}
-		return true
-	case gameStateOnlineOrLAN: // online or LAN
-		if C.nox_game_showOnlineOrLAN_413800() == 0 {
-			return false
-		}
-		return true
-	case gameStateCharSelect: // character selection
-		C.sub_4A7A70(1)
-		if nox_game_showSelChar_4A4DB0() == 0 {
-			return false
-		}
-		return true
-	case gameStateClassSelect:
-		if C.nox_game_showSelClass_4A4840() == 0 {
-			return false
-		}
-		return true
-	case gameStateColorSelect:
-		if C.nox_game_showSelColor_4A5D00() == 0 {
-			return false
-		}
-		return true
-	case gameStateWolLogin:
-		if C.nox_game_showWolLogin_44A560() == 0 {
-			return false
-		}
-		return true
-	case gameStateWolChat:
-		if C.nox_game_showWolChat_447620() == 0 {
-			return false
-		}
-		return true
-	case gameStateServerList: // list of servers
-		if C.nox_xxx_check_flag_aaa_43AF70() == 1 && C.sub_40E0B0() == 0 {
-			sub_41E300(9)
-			C.sub_41F4B0()
-			C.sub_41EC30()
-			C.sub_446490(0)
-			C.nox_xxx____setargv_4_44B000()
-			sub_44A400()
-			return true
-		}
-		fallthrough
-	case gameStateXxx:
-		if C.nox_game_showGameSel_4379F0() == 0 {
-			return false
-		}
-		return true
-	}
-	return true
+	return C.int(bool2int(nox_game_state.Switch()))
 }
 
 //export nox_game_checkStateSwitch_43C1E0

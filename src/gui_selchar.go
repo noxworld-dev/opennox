@@ -402,6 +402,13 @@ func sub_44A400() {
 
 //export nox_game_showSelChar_4A4DB0
 func nox_game_showSelChar_4A4DB0() C.int {
+	if nox_game_showSelChar4A4DB0() {
+		return 1
+	}
+	return 0
+}
+
+func nox_game_showSelChar4A4DB0() bool {
 	nox_client_setCursorType(gui.CursorSelect)
 	if sub4D6F30() {
 		sub_4D6F90(1)
@@ -411,13 +418,13 @@ func nox_game_showSelChar_4A4DB0() C.int {
 	win := newWindowFromFile("selchar.wnd", nox_xxx_windowSelCharProc_4A5710)
 	winSelSave = win
 	if win == nil {
-		return 0
+		return false
 	}
 	win.setFunc93(wrapWindowFuncC(C.sub_4A18E0))
 	anim := nox_gui_makeAnimation(win, 0, 0, 0, -440, 0, 20, 0, -40)
 	nox_wnd_xxx_1307748 = anim
 	if anim == nil {
-		return 0
+		return false
 	}
 	anim.field_0 = 500
 	anim.field_12 = (*[0]byte)(C.sub_4A50A0)
@@ -470,7 +477,7 @@ func nox_game_showSelChar_4A4DB0() C.int {
 		wload := win.ChildByID(502)
 		win.Func94(asWindowEvent(0x4007, uintptr(unsafe.Pointer(wload)), 0))
 	}
-	return 1
+	return true
 }
 
 func nox_xxx_findAutosaves_4A5150() {

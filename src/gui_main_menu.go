@@ -73,7 +73,7 @@ func sub_4A1AA0(a1 *Window, ev WindowEvent) WindowEventResp {
 		v3 := a3.ID() - 151
 		if v3 != 0 {
 			if v3 == 1 {
-				if gameGetStateCode() == 100 {
+				if gameGetStateCode() == gameStateMainMenu {
 					v6 := strMan.GetStringInFile("GUIQuit.c:ReallyQuitMessage", "C:\\NoxPost\\src\\client\\shell\\OptsBack.c")
 					v4 := strMan.GetStringInFile("GUIQuit.c:ReallyQuitTitle", "C:\\NoxPost\\src\\client\\shell\\OptsBack.c")
 					NewDialogWindow(asWindowP(C.dword_5d4594_1307292), v4, v6, 56, sub_4A19D0, nil)
@@ -81,14 +81,14 @@ func sub_4A1AA0(a1 *Window, ev WindowEvent) WindowEventResp {
 					if sub_4D6F30() != 0 {
 						sub_4D6F90(2)
 					}
-					if gameGetStateCode() == 700 {
+					if gameGetStateCode() == gameStateColorSelect {
 						C.sub_4A7A60(1)
 					}
 					nox_game_checkStateSwitch_43C1E0()
 				}
 			}
 		} else {
-			if gameGetStateCode() == 700 {
+			if gameGetStateCode() == gameStateColorSelect {
 				C.sub_4A7A60(0)
 			}
 			nox_game_checkStateOptions_43C220()
@@ -210,6 +210,12 @@ func sub4A24C0(a1 bool) {
 
 //export nox_game_showMainMenu_4A1C00
 func nox_game_showMainMenu_4A1C00() C.int {
+	if nox_game_showMainMenu4A1C00() {
+		return 1
+	}
+	return 0
+}
+func nox_game_showMainMenu4A1C00() bool {
 	//uint32_t* v1; // esi
 	//uint32_t* v2; // esi
 	//uint32_t* v3; // eax
@@ -219,7 +225,7 @@ func nox_game_showMainMenu_4A1C00() C.int {
 	gameAddStateCode(100)
 	win := newWindowFromFile("MainMenu.wnd", nox_xxx_windowMainMenuProc_4A1DC0)
 	if win == nil {
-		return 0
+		return false
 	}
 	nox_win_main_menu = win
 	win.setFunc93(sub4A18E0)
@@ -227,7 +233,7 @@ func nox_game_showMainMenu_4A1C00() C.int {
 	v1.setFunc94(nox_xxx_windowMainMenuProc_4A1DC0)
 	nox_wnd_xxx_1307308 = nox_gui_makeAnimation(v1, 0, 0, 0, -270, 0, 20, 0, -40)
 	if nox_wnd_xxx_1307308 == nil {
-		return 0
+		return false
 	}
 	nox_wnd_xxx_1307308.field_0 = 100
 	_ = sub_4A1D40
@@ -238,7 +244,7 @@ func nox_game_showMainMenu_4A1C00() C.int {
 	v2.setFunc94(nox_xxx_windowMainMenuProc_4A1DC0)
 	nox_wnd_xxx_1307304 = nox_gui_makeAnimation(v2, 0, 270, 0, 510, 0, -20, 0, 40)
 	if nox_wnd_xxx_1307304 == nil {
-		return 0
+		return false
 	}
 	sub4A19F0("OptsBack.wnd:Quit")
 	nox_xxx_unknown_libname_11_4D1650()
@@ -248,7 +254,7 @@ func nox_game_showMainMenu_4A1C00() C.int {
 		v3 := win.ChildByID(112)
 		win.Func94(asWindowEvent(0x4007, uintptr(unsafe.Pointer(v3.C())), 0))
 	}
-	return 1
+	return true
 }
 
 //export sub_43BE40
@@ -295,14 +301,14 @@ func sub4A18E0(a1 *Window, ev WindowEvent) WindowEventResp {
 			return RawEventResp(1)
 		}
 		if !sub44A4A0() {
-			if gameGetStateCode() == 10000 {
+			if gameGetStateCode() == gameStateServerList {
 				sub_4373A0()
-			} else if gameGetStateCode() == 100 {
+			} else if gameGetStateCode() == gameStateMainMenu {
 				v6 := strMan.GetStringInFile("GUIQuit.c:ReallyQuitMessage", "C:\\NoxPost\\src\\client\\shell\\OptsBack.c")
 				v5 := strMan.GetStringInFile("GUIQuit.c:ReallyQuitTitle", "C:\\NoxPost\\src\\client\\shell\\OptsBack.c")
 				NewDialogWindow(asWindowP(C.dword_5d4594_1307292), v5, v6, 56, sub_4A19D0, nil)
 			} else {
-				if gameGetStateCode() == 700 {
+				if gameGetStateCode() == gameStateColorSelect {
 					C.sub_4A7A60(1)
 				}
 				nox_game_checkStateSwitch_43C1E0()
@@ -418,7 +424,7 @@ func nox_xxx_windowMainMenuProc_4A1DC0(a1 *Window, ev WindowEvent) WindowEventRe
 		sub_4A1D40()
 		C.sub_4B0300((*C.char)(ptr))
 		sub4B0640(func() {
-			nox_game_switchStates()
+			nox_game_state.Switch()
 		})
 		_ = nox_client_drawGeneralCallback_4A2200
 		nox_wnd_xxx_1307308.field_13 = (*[0]byte)(C.nox_client_drawGeneralCallback_4A2200)
