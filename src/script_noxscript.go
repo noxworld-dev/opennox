@@ -13,6 +13,7 @@ import (
 	"strings"
 	"unsafe"
 
+	"nox/v1/common/object"
 	"nox/v1/server/script"
 )
 
@@ -275,14 +276,14 @@ func nox_server_scriptValToObjectPtr_511B60(val C.int) *C.nox_object_t {
 func (s *Server) nox_server_scriptValToObjectPtr(val int) *Object {
 	if val == -1 {
 		obj := asObject(C.nox_script_get_caller())
-		if obj == nil || (obj.field_4&0x20) != 0 {
+		if obj == nil || obj.Flags().Has(object.FlagDestroyed) {
 			return nil
 		}
 		return obj
 	}
 	if val == -2 {
 		obj := asObject(C.nox_script_get_trigger())
-		if obj == nil || (obj.field_4&0x20) != 0 {
+		if obj == nil || obj.Flags().Has(object.FlagDestroyed) {
 			return nil
 		}
 		return obj
@@ -292,19 +293,19 @@ func (s *Server) nox_server_scriptValToObjectPtr(val int) *Object {
 	}
 
 	for obj := s.firstServerObject(); obj != nil; obj = obj.Next() {
-		if (obj.field_4&0x20) == 0 && obj.ScriptID() == val {
+		if !obj.Flags().Has(object.FlagDestroyed) && obj.ScriptID() == val {
 			C.nox_xxx_scriptPrepareFoundUnit_511D70(obj.CObj())
 			return obj
 		}
 		for sub := obj.FirstItem(); sub != nil; sub = sub.NextItem() {
-			if (sub.field_4&0x20) == 0 && sub.ScriptID() == val {
+			if !sub.Flags().Has(object.FlagDestroyed) && sub.ScriptID() == val {
 				C.nox_xxx_scriptPrepareFoundUnit_511D70(sub.CObj())
 				return sub
 			}
 		}
 	}
 	for obj := s.firstServerObjectUninited(); obj != nil; obj = obj.Next() {
-		if (obj.field_4&0x20) == 0 && obj.ScriptID() == val {
+		if !obj.Flags().Has(object.FlagDestroyed) && obj.ScriptID() == val {
 			C.nox_xxx_scriptPrepareFoundUnit_511D70(obj.CObj())
 			return obj
 		}

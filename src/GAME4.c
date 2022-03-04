@@ -1545,11 +1545,11 @@ void nox_xxx_updatePlayer_4F8100(nox_object_t* u) {
 	uint16_t* v5 = u->field_139;
 	for (int i = 0; i < 4; i++) {
 		nox_object_t* p = ud->field_29[i];
-		if (p && ((p->field_4 & 0x20) != 0)) {
+		if (p && ((p->flags & 0x20) != 0)) {
 			ud->field_29[i] = 0;
 		}
 	}
-	if ((u->field_4 & 0x20) != 0) {
+	if ((u->flags & 0x20) != 0) {
 		return;
 	}
 	if (nox_common_gameFlags_check_40A5C0(4096) && ud->field_70) {
@@ -1592,7 +1592,7 @@ void nox_xxx_updatePlayer_4F8100(nox_object_t* u) {
 	if (ud->field_20_1 != 0) {
 		ud->field_20_1--;
 	}
-	if ((u->field_4 & 0x8000) == 0) {
+	if ((u->flags & 0x8000) == 0) {
 		if (v2 > 0) {
 			int v14 = u->field_131;
 			if (ud->player->info.isFemale) {
@@ -1634,7 +1634,7 @@ void nox_xxx_updatePlayer_4F8100(nox_object_t* u) {
 	}
 	nox_xxx_questCheckSecretArea_421C70(u);
 	if (ud->harpoon) {
-		if ((ud->harpoon->field_4 & 0x20) != 0) {
+		if ((ud->harpoon->flags & 0x20) != 0) {
 			nox_xxx_harpoonBreakForPlr_537520(u);
 		} else {
 			double force = nox_xxx_gamedataGetFloat_419D40("HarpoonForce");
@@ -1893,7 +1893,7 @@ void nox_xxx_unitUpdatePlayerImpl_4F8460(nox_object_t* u) {
 			nox_xxx_playerSetState_4FA020(u, 4);
 			ud->field_60 &= 0xFFFFFFDF;
 			u->field_34 = nox_frame_xxx_2598000;
-			u->field_4 |= 0x18;
+			u->flags |= 0x18;
 			u->vel_x = 0;
 			u->vel_y = 0;
 			u->force_x = 0;
@@ -1977,12 +1977,12 @@ void nox_xxx_unitUpdatePlayerImpl_4F8460(nox_object_t* u) {
 		if (v49 >= v69) {
 			// stop hovering after a jump?
 			nox_xxx_playerSetState_4FA020(u, 0);
-			u->field_4 &= 0xFFFFBFFFu;
+			u->flags &= 0xFFFFBFFFu;
 			u->field_34 = nox_frame_xxx_2598000;
 		}
 		return;
 	case 0xDu:
-		u->field_4 &= 0xFFFFBFFE;
+		u->flags &= 0xFFFFBFFE;
 		if (sub_4F9A80(u)) {
 			nox_xxx_playerSetState_4FA020(u, 0);
 		}
@@ -2262,7 +2262,7 @@ void nox_xxx_unitUpdatePlayerImpl_4F8460(nox_object_t* u) {
 					if (nox_xxx_testUnitBuffs_4FF350(u, 3)) {
 						u->direction = nox_xxx_playerConfusedGetDirection_4F7A40(u);
 					}
-					u->field_4 |= 0x4000u;
+					u->flags |= 0x4000u;
 					nox_xxx_playerSetState_4FA020(u, 12);
 					u->field_34 = nox_frame_xxx_2598000;
 					return;

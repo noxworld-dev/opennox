@@ -5199,10 +5199,10 @@ int nox_xxx_decay_5116F0(nox_object_t* item) {
 	int result; // eax
 	int v2;     // ecx
 
-	result = *(uint32_t*)&item->field_4;
+	result = item->flags;
 	if (result & 0x400000) {
 		v2 = 0;
-		*(uint32_t*)&item->field_4 = result & 0xFFBFFFFF;
+		item->flags = result & 0xFFBFFFFF;
 		result = dword_5d4594_2386576;
 		if (dword_5d4594_2386576) {
 			while (result != item) {

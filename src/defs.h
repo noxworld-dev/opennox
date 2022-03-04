@@ -463,9 +463,9 @@ typedef struct nox_object_t {
 	const char* id;          // 0, 0
 	unsigned short typ_ind;  // 1, 4
 	uint16_t field_1_2;      // 1, 6
-	unsigned int obj_class;  // 2, 8 -- Bitmask: 0x2 is owned monster, 0x4 is player
+	unsigned int obj_class;  // 2, 8
 	uint32_t field_3;        // 3, 12, // TODO: some flags?
-	unsigned int field_4;    // 4, 16, // TODO: some flags?
+	unsigned int flags;      // 4, 16
 	uint32_t field_5;        // 5, 20
 	uint16_t field_6_0;      // 6, 24
 	uint16_t field_6_2;      // 6, 26
@@ -580,7 +580,7 @@ typedef struct nox_object_t {
 	nox_object_t* field_124; // 124, 496, TODO: next item
 	void* field_125;         // 125, 500, TODO: a nox_object_t*? see 4ED0C0
 	nox_object_t* field_126; // 126, 504, TODO: first item
-	void* field_127;         // 127, 508, TODO: owner? caster? target?
+	nox_object_t* owner;     // 127, 508
 	void* field_128;         // 128, 512
 	void* field_129;         // 129, 516
 	uint32_t field_130;      // 130, 520

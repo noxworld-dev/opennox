@@ -247,11 +247,11 @@ func (obj *Object) ArmorClass() object.ArmorClass {
 }
 
 func (obj *Object) Flags() object.Flags {
-	return object.Flags(obj.field_4)
+	return object.Flags(obj.flags)
 }
 
 func (obj *Object) SetFlags(v object.Flags) {
-	obj.field_4 = C.uint(v)
+	obj.flags = C.uint(v)
 }
 
 func (obj *Object) Mass() float32 {
@@ -355,8 +355,7 @@ func (obj *Object) ObjectType() script.ObjectType {
 }
 
 func (obj *Object) OwnerC() *Object {
-	p := *(*unsafe.Pointer)(obj.field(508))
-	return asObject(p)
+	return asObjectC(obj.owner)
 }
 
 func (obj *Object) Owner() script.Object {

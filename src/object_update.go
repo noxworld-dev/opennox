@@ -190,7 +190,7 @@ func nox_xxx_updatePlayer_4F8100(up *nox_object_t) {
 			ud.field_29[i] = nil
 		}
 	}
-	if (u.field_4 & 0x20) != 0 {
+	if u.Flags().Has(object.FlagDestroyed) {
 		return
 	}
 	if noxflags.HasGame(noxflags.GameModeQuest) && ud.field_70 != 0 {
@@ -276,13 +276,13 @@ func nox_xxx_updatePlayer_4F8100(up *nox_object_t) {
 		C.nox_xxx_playerSetState_4FA020(u.CObj(), 5)
 	}
 	C.nox_xxx_questCheckSecretArea_421C70(u.CObj())
-	if ud.harpoon != nil {
-		if (ud.harpoon.field_4 & 0x20) != 0 {
+	if harp := asObjectC(ud.harpoon); harp != nil {
+		if harp.Flags().Has(object.FlagDestroyed) {
 			nox_xxx_harpoonBreakForPlr_537520(u)
 		} else {
 			force := gamedataFloat("HarpoonForce")
-			C.sub_4E7540(u.CObj(), ud.harpoon)
-			asObjectC(ud.harpoon).applyForce(u.Pos(), -force)
+			C.sub_4E7540(u.CObj(), harp.CObj())
+			harp.applyForce(u.Pos(), -force)
 		}
 	}
 }
