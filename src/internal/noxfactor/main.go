@@ -479,6 +479,13 @@ func (r *Refactorer) visitGoCall(n *ast.CallExpr, fnc *ast.Ident) {
 			r.fileChanged = true
 			r.visitCall(n)
 		}
+	case "nox_common_randomIntMinMax_415FF0":
+		if len(n.Args) == 4 {
+			n.Fun = ident("randomIntMinMax")
+			n.Args = n.Args[:2]
+			r.fileChanged = true
+			r.visitCall(n)
+		}
 	default:
 		if newName := callGoRename[fnc.Name]; newName != "" {
 			fnc.Name = newName
