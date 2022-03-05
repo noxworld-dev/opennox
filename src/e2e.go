@@ -232,11 +232,16 @@ func (sc *e2eScenario) Screen(name string) {
 			_ = os.WriteFile(fname+".png", buf.Bytes(), 0644)
 			return
 		}
+		gotName := fname + "_got.png"
+		if _, err := os.Stat(gotName); err == nil {
+			if err = os.Remove(gotName); err != nil {
+				e2eLog.Println(err)
+			}
+		}
 		if data, err := os.ReadFile(fname + ".png"); err == nil {
 			if !bytes.Equal(buf.Bytes(), data) {
-				fname2 := fname + "_got.png"
-				_ = os.WriteFile(fname+"_got.png", buf.Bytes(), 0644)
-				err = fmt.Errorf("unexpected screen state, see %q", fname2)
+				_ = os.WriteFile(gotName, buf.Bytes(), 0644)
+				err = fmt.Errorf("unexpected screen state, see %q", gotName)
 				if e2eFailFast {
 					panic(err)
 				}
