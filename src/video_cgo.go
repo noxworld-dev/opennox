@@ -175,7 +175,7 @@ func setGamma(v float32) {
 		v = 3.0
 	}
 	if draw_gamma != v {
-		videoLog.Printf("gamma2: %v", draw_gamma)
+		videoLog.Printf("gamma2: %v", v)
 	}
 	draw_gamma = v
 	if noxSeat != nil {
