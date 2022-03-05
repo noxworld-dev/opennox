@@ -47,7 +47,8 @@ func (p Pointf) Mul(v float32) Pointf {
 }
 
 func (p Pointf) Len() float64 {
-	return math.Sqrt(float64(p.X*p.X + p.Y*p.Y))
+	x, y := float64(p.X), float64(p.Y)
+	return math.Sqrt(x*x + y*y)
 }
 
 type Size = noximage.Size

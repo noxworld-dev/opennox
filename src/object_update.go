@@ -314,10 +314,12 @@ func (obj *Object) applyForce(vec types.Pointf, force float64) { // nox_xxx_obje
 		return
 	}
 	dp := obj.Pos().Sub(vec)
-	r := dp.Len() + 0.1
-	f := 10.0 * force / float64(obj.Mass())
-	obj.force_x += C.float(float64(dp.X) * f / r)
-	obj.force_y += C.float(float64(dp.Y) * f / r)
+	r := float32(dp.Len() + 0.1)
+	f := 10.0 * float32(force) / obj.Mass()
+	// This weird conversion is how Nox is doing it.
+	// Be aware that changing it may cause minor deviation in physics.
+	obj.force_x += C.float(float64(dp.X) * float64(f) / float64(r))
+	obj.force_y += C.float(float64(dp.Y) * float64(f) / float64(r))
 	if !obj.Class().Has(object.ClassMissile) {
 		C.nox_xxx_unitHasCollideOrUpdateFn_537610(obj.CObj())
 	}
