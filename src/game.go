@@ -352,9 +352,18 @@ type xwisInfoShort struct {
 	Port       int
 	Flags      noxflags.GameFlag
 	Access     lobby.GameAccess
-	Players    int
+	Players    []lobby.PlayerInfo
 	MaxPlayers int
 	Level      int
+	Res        types.Size
+}
+
+func (v *xwisInfoShort) Equal(v2 *xwisInfoShort) bool {
+	return v.Name == v2.Name && v.Map == v2.Map &&
+		v.Port == v2.Port && v.Flags == v2.Flags &&
+		v.Access == v2.Access && len(v.Players) == len(v2.Players) &&
+		v.MaxPlayers == v2.MaxPlayers && v.Level == v2.Level &&
+		v.Res == v2.Res
 }
 
 func (s *Server) getGameInfo() xwisInfoShort {
@@ -364,15 +373,28 @@ func (s *Server) getGameInfo() xwisInfoShort {
 	} else if acc[100]&0x10 != 0 {
 		access = lobby.AccessClosed
 	}
+	players := s.getPlayers()
+	list := make([]lobby.PlayerInfo, 0, len(players))
+	for _, p := range players {
+		list = append(list, lobby.PlayerInfo{
+			Name:  p.Name(),
+			Class: p.PlayerClass().String(),
+		})
+	}
+	res := videoGetMaxSize()
+	if !isDedicatedServer {
+		res = videoGetGameMode()
+	}
 	return xwisInfoShort{
 		Port:       s.getServerPort(),
 		Name:       s.getServerName(),
 		Map:        s.getServerMap(),
 		Flags:      noxflags.GetGame(),
-		Players:    s.cntPlayers(),
+		Players:    list,
 		MaxPlayers: s.getServerMaxPlayers(),
 		Level:      s.nox_game_getQuestStage_4E3CC0(),
 		Access:     access,
+		Res:        res,
 	}
 }
 
@@ -421,12 +443,17 @@ func (v xwisInfoShort) GameInfo() discover.GameInfo {
 			Name: v.Name,
 			Port: v.Port,
 			Map:  v.Map,
-
+			Res: lobby.Resolution{
+				Width:   v.Res.W,
+				Height:  v.Res.H,
+				HighRes: noxHighRes,
+			},
 			Mode: gameFlagsToMode(v.Flags),
 			Vers: version.Version(),
 			Players: lobby.PlayersInfo{
-				Cur: v.Players,
-				Max: v.MaxPlayers,
+				Cur:  len(v.Players),
+				Max:  v.MaxPlayers,
+				List: v.Players,
 			},
 		},
 		XWIS: xwis.GameInfo{
@@ -435,7 +462,7 @@ func (v xwisInfoShort) GameInfo() discover.GameInfo {
 			Resolution: xwis.Res1024x768,
 			Flags:      xwis.GameFlags(v.Flags),
 			Access:     gameAccessToXWIS(v.Access),
-			Players:    v.Players,
+			Players:    len(v.Players),
 			MaxPlayers: v.MaxPlayers,
 		},
 	}
@@ -459,7 +486,7 @@ func (s *Server) maybeRegisterGameOnline() {
 		s.srvReg.srv = discover.NewServer(info.GameInfo())
 		return
 	}
-	if s.srvReg.cur == info {
+	if s.srvReg.cur.Equal(&info) {
 		return
 	}
 	s.srvReg.cur = info
