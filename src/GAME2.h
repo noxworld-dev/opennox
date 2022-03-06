@@ -114,7 +114,7 @@ long long sub_452690(int a3, long long a4, int a5);
 int sub_4526D0(int a1);
 int sub_4526F0(int a1);
 int* sub_452810(int a1, char a2);
-int nox_thing_read_AVNT_452890(int a1, void* a2);
+int nox_thing_read_AVNT_452890(nox_memfile* a1, void* a2);
 int nox_thing_skip_AVNT_452B00(nox_memfile* f);
 int nox_thing_skip_AVNT_inner_452B30(nox_memfile* f);
 int sub_452BD0(int a1, char* a2);

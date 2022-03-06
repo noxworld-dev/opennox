@@ -177,6 +177,7 @@ int nox_xxx_spellNameToN_4243F0(const char* id) {
 	return 0;
 }
 
+#ifndef NOX_CGO
 //----- (00424460) --------------------------------------------------------
 int nox_xxx_spellLoadSpells_424460(nox_memfile* f, void* a2) {
 	int v3;            // ebx
@@ -308,6 +309,7 @@ int nox_xxx_spellLoadSpells_424460(nox_memfile* f, void* a2) {
 	sp->valid = 1;
 	return 1;
 }
+#endif // NOX_CGO
 
 //----- (00421430) --------------------------------------------------------
 void* sub_421430() {

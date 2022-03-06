@@ -3,51 +3,136 @@ package nox
 /*
 #include "memfile.h"
 #include "defs.h"
+#include "GAME1.h"
+#include "GAME1_1.h"
+#include "GAME2.h"
+extern uint32_t dword_5d4594_251540;
+extern uint32_t dword_5d4594_251568;
+extern uint32_t dword_5d4594_251572;
 */
 import "C"
 import (
 	"fmt"
+	"io"
 	"unsafe"
 
 	"nox/v1/common/alloc"
+	"nox/v1/common/crypt"
+	noxflags "nox/v1/common/flags"
 	"nox/v1/common/log"
+	"nox/v1/common/things"
 )
 
 var (
 	thingsLog              = log.New("things")
+	noxLoadedThings        *MemFile
 	nox_images_arr1_787156 []*noxImageRef
 )
 
-//export nox_thing_read_IMAG_415700
-func nox_thing_read_IMAG_415700(fp *C.nox_memfile, cbuf *C.char) C.int {
-	f := asMemfile(fp)
-	pbuf := unsafe.Pointer(cbuf)
-	buf := unsafe.Slice((*byte)(pbuf), 256*1024)
+func thingsImageRef(ref *things.ImageRef) *Image {
+	if ref == nil {
+		return nil
+	}
+	return nox_xxx_readImgMB42FAA0(ref.Ind, byte(ref.Ind2), ref.Name)
+}
 
+func nox_xxx_loadAllBinFiles_415470() error {
+	if err := nox_xxx_parseSoundSetBin_424170("soundset.bin"); err != nil {
+		return err
+	}
+	buf, freeBuf := alloc.Malloc(256 * 1024)
+	defer freeBuf()
+	if C.nox_xxx_parseModifierBin_412930(internCStr("modifier.bin"), (*C.char)(buf)) == 0 {
+		return fmt.Errorf("failed to load modifiers")
+	}
+
+	thg := noxLoadedThings
+	if thg == nil {
+		var err error
+		thg, err = loadMemfile("thing.bin", crypt.ThingBin)
+		if err != nil {
+			return fmt.Errorf("failed to open things: %w", err)
+		}
+	}
+	thg.Seek(0, io.SeekStart)
+	if err := loadAllBinFileSections(thg, buf); err != nil {
+		thg.Free()
+		noxLoadedThings = nil
+		return err
+	}
+	noxLoadedThings = thg
+	return nil
+}
+
+func loadAllBinFileSections(thg *MemFile, buf unsafe.Pointer) error {
+	C.dword_5d4594_251540 = 0
+	C.dword_5d4594_251568 = 0
+	C.dword_5d4594_251572 = 0
+	for {
+		sect := thg.ReadU32()
+		if sect == 0 {
+			break
+		}
+		switch sect {
+		case 0x5350454C: // SPEL
+			if err := nox_thing_read_SPEL_4156B0(thg); err != nil {
+				return err
+			}
+		case 0x41554420: // AUD
+			if noxflags.HasGame(noxflags.GameFlag22) {
+				C.nox_thing_skip_AUD_414D40(thg.C())
+			} else if C.nox_thing_read_audio_415660(thg.C(), (*C.char)(buf)) == 0 {
+				return fmt.Errorf("failed to load audio")
+			}
+		case 0x41564E54: // AVNT
+			if noxflags.HasGame(noxflags.GameFlag22) {
+				C.nox_thing_skip_AVNT_452B00(thg.C())
+			} else if C.nox_thing_read_AVNT_452890(thg.C(), buf) == 0 {
+				return fmt.Errorf("failed to load AVNT")
+			}
+		case 0x57414C4C: // WALL
+			if C.nox_thing_read_WALL_410900(thg.C(), (*C.char)(buf)) == 0 {
+				return fmt.Errorf("failed to load walls")
+			}
+		case 0x464C4F52: // FLOR
+			if C.nox_thing_read_FLOR_411540(thg.C(), (*C.uchar)(buf)) == 0 {
+				return fmt.Errorf("failed to load floor")
+			}
+		case 0x45444745: // EDGE
+			if C.nox_thing_read_EDGE_411850(thg.C(), (*C.uchar)(buf)) == 0 {
+				return fmt.Errorf("failed to load edges")
+			}
+		case 0x4142494C: // ABIL
+			if C.nox_thing_read_ABIL_415750(thg.C(), buf) == 0 {
+				return fmt.Errorf("failed to load abilities")
+			}
+		case 0x494D4147: // IMAG
+			if err := nox_thing_read_IMAG_415700(thg); err != nil {
+				return err
+			}
+			return nil
+		}
+	}
+	return nil
+}
+
+func nox_thing_read_IMAG_415700(f *MemFile) error {
 	cnt := int(f.ReadU32())
 	nox_images_arr1_787156 = make([]*noxImageRef, 0, cnt)
 	for i := 0; i < cnt; i++ {
-		if err := nox_thing_read_IMAG_one_42F660(f, buf); err != nil {
-			thingsLog.Printf("cannot read image %d: %v", i, err)
-			return 0
+		if err := nox_thing_read_IMAG_one_42F660(f); err != nil {
+			return fmt.Errorf("cannot read image %d: %w", i, err)
 		}
 	}
-	return 1
+	return nil
 }
 
-func nox_thing_read_IMAG_one_42F660(f *MemFile, buf []byte) error {
+func nox_thing_read_IMAG_one_42F660(f *MemFile) error {
 	refP, _ := alloc.Malloc(unsafe.Sizeof(C.nox_things_imageRef_t{}))
 	ref := asImageRef((*C.nox_things_imageRef_t)(refP))
 	nox_images_arr1_787156 = append(nox_images_arr1_787156, ref)
 
-	readString8 := func() string {
-		sz := f.ReadU8()
-		_, _ = f.Read(buf[:sz])
-		buf[sz] = 0
-		return string(buf[:sz])
-	}
-
-	name := readString8()
+	name, _ := f.ReadString8()
 	copy(unsafe.Slice((*byte)(unsafe.Pointer(&ref.name[0])), len(ref.name)), name)
 	ref.name[len(name)] = 0
 
@@ -59,7 +144,7 @@ func nox_thing_read_IMAG_one_42F660(f *MemFile, buf []byte) error {
 		ind := f.ReadI32()
 		if ind == -1 {
 			typ := f.ReadU8()
-			name2 := readString8()
+			name2, _ := f.ReadString8()
 			if nox_xxx_loadImage_47A8C0(typ, name2) != nil {
 				copy(unsafe.Slice((*byte)(unsafe.Pointer(&ref.name2[0])), len(ref.name2)), name2)
 				ref.name2[len(name2)] = 0
@@ -80,7 +165,7 @@ func nox_thing_read_IMAG_one_42F660(f *MemFile, buf []byte) error {
 		anim.images_sz = C.uchar(sz)
 		anim.field_2_1 = C.uchar(f.ReadU8())
 
-		switch ityp := readString8(); ityp {
+		switch ityp, _ := f.ReadString8(); ityp {
 		case "Loop":
 			anim.anim_type = 2
 		case "OneShot":
@@ -91,7 +176,7 @@ func nox_thing_read_IMAG_one_42F660(f *MemFile, buf []byte) error {
 		for i := 0; i < len(arr); i++ {
 			if ind := int(f.ReadI32()); ind == -1 {
 				typ := f.ReadI8()
-				name2 := readString8()
+				name2, _ := f.ReadString8()
 				arr[i] = unsafe.Pointer(nox_xxx_loadImage_47A8C0(byte(typ), name2).C())
 			} else {
 				arr[i] = unsafe.Pointer(bagImageByIndex(ind).C())

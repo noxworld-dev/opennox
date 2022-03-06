@@ -27,6 +27,10 @@ type Reader struct {
 	br *bufio.Reader
 }
 
+func newDirectReader(r io.Reader) *Reader {
+	return &Reader{br: bufio.NewReader(r)}
+}
+
 func OpenReader(f io.ReadSeeker, key int) (*Reader, error) {
 	if key == 0 {
 		key = crypt.ThingBin

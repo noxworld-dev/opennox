@@ -444,8 +444,9 @@ func RunArgs(args []string) (gerr error) {
 	if C.nox_audio_initall(C.nox_enable_audio) == 0 && C.nox_enable_audio != 0 {
 		return fmt.Errorf("failed to init audio")
 	}
-	if !C.nox_xxx_loadAllBinFiles_415470() {
-		return fmt.Errorf("failed to load bin files")
+	if err := nox_xxx_loadAllBinFiles_415470(); err != nil {
+		thingsLog.Println(err)
+		return fmt.Errorf("failed to load bin files: %w", err)
 	}
 	if err := nox_xxx_initInput_430190(); err != nil {
 		return fmt.Errorf("failed to init input: %w", err)

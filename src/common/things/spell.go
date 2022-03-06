@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"io"
 	"strings"
+
+	"nox/v1/common/strman"
 )
 
 func init() {
@@ -28,10 +30,14 @@ const (
 	PhonRO  = Phoneme(6) // lower-left
 	PhonZO  = Phoneme(7) // down
 	PhonDO  = Phoneme(8) // lower-right
-	phonMax = 9
+	PhonMax = 9
 )
 
 type Phoneme byte
+
+func (p Phoneme) Valid() bool {
+	return p >= 0 && p < PhonMax
+}
 
 func (p Phoneme) String() string {
 	switch p {
@@ -59,7 +65,7 @@ func (p Phoneme) String() string {
 }
 
 func (p Phoneme) MarshalJSON() ([]byte, error) {
-	if p >= 0 && p < phonMax {
+	if p.Valid() {
 		return json.Marshal(p.String())
 	}
 	return json.Marshal(int(p))
@@ -288,11 +294,16 @@ type Spell struct {
 	Price       int        `json:"price"`
 	Flags       SpellFlags `json:"flags"`
 	Phonemes    []Phoneme  `json:"phonemes,omitempty"`
-	Title       string     `json:"title,omitempty"`
-	Desc        string     `json:"description,omitempty"`
+	Title       strman.ID  `json:"title,omitempty"`
+	Desc        strman.ID  `json:"description,omitempty"`
 	CastSound   string     `json:"cast_sound,omitempty"`
 	OnSound     string     `json:"on_sound,omitempty"`
 	OffSound    string     `json:"off_sound,omitempty"`
+}
+
+func ReadSpellsSection(r io.Reader) ([]Spell, error) {
+	f := newDirectReader(r)
+	return f.readSPEL()
 }
 
 func (f *Reader) ReadSpells() ([]Spell, error) {
@@ -389,7 +400,7 @@ func (f *Reader) readSPEL() ([]Spell, error) {
 			v, err := f.readU8()
 			if err != nil {
 				return out, err
-			} else if v >= phonMax {
+			} else if v >= PhonMax {
 				return out, fmt.Errorf("invalid phoneme: %d", v)
 			}
 			phon = append(phon, Phoneme(v))
@@ -442,8 +453,8 @@ func (f *Reader) readSPEL() ([]Spell, error) {
 			ManaCost:    int(mana),
 			Price:       int(price),
 			Flags:       SpellFlags(fl),
-			Title:       title,
-			Desc:        desc,
+			Title:       strman.ID(title),
+			Desc:        strman.ID(desc),
 			Phonemes:    phon,
 			CastSound:   cast,
 			OnSound:     on,

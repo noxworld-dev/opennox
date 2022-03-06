@@ -1360,7 +1360,7 @@ void sub_40AF30() {
 }
 
 //----- (0040AF50) --------------------------------------------------------
-int nox_xxx_utilFindSound_40AF50(void* a1) {
+int nox_xxx_utilFindSound_40AF50(char* a1) {
 	int* v1;    // eax
 	int result; // eax
 
@@ -7544,6 +7544,7 @@ int nox_thing_read_ability_415320(int a1) {
 	return 1;
 }
 
+#ifndef NOX_CGO
 //----- (00415470) --------------------------------------------------------
 bool nox_xxx_loadAllBinFiles_415470(void) {
 	if (!nox_xxx_parseSoundSetBin_424170("SoundSet.bin")) {
@@ -7627,9 +7628,11 @@ bool nox_xxx_loadAllBinFiles_415470(void) {
 	free(buf);
 	return 1;
 }
+#endif // NOX_CGO
 
 //----- (00415660) --------------------------------------------------------
-int nox_thing_read_audio_415660(int a1, char* a2) {
+int nox_thing_read_audio_415660(nox_memfile* a1p, char* a2) {
+	int a1 = a1p;
 	int v2;  // ebx
 	int* v3; // eax
 	int v4;  // edi
@@ -7649,6 +7652,7 @@ int nox_thing_read_audio_415660(int a1, char* a2) {
 	return 0;
 }
 
+#ifndef NOX_CGO
 //----- (004156B0) --------------------------------------------------------
 int nox_thing_read_SPEL_4156B0(nox_memfile* f, void* a2) {
 	int v2 = 0; // ebx
@@ -7665,7 +7669,6 @@ int nox_thing_read_SPEL_4156B0(nox_memfile* f, void* a2) {
 	return 0;
 }
 
-#ifndef NOX_CGO
 //----- (00415700) --------------------------------------------------------
 int nox_thing_read_IMAG_415700(nox_memfile* f, char* buf) {
 	unsigned int cnt = nox_memfile_read_u32(f);

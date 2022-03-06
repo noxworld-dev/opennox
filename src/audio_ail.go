@@ -20,6 +20,8 @@ uint32_t* sub_486320(uint32_t* a1, int a2);
 void sub_43D3C0(int a1, int a2);
 int sub_486350(void* a1, int a2);
 int sub_486640(void* a1, int a2);
+int nox_xxx_utilFindSound_40AF50(char* a1);
+int nox_xxx_parseSoundSetBin_424170(char* a1);
 
 extern void* dword_587000_127004;
 extern uint32_t dword_5d4594_816092;
@@ -33,6 +35,7 @@ extern uint32_t dword_587000_122848;
 */
 import "C"
 import (
+	"fmt"
 	"math"
 	"path/filepath"
 	"strings"
@@ -410,4 +413,17 @@ func sub_43F060(a1p *C.uint32_t) C.int {
 	v2 := C.sub_486640(unsafe.Pointer(&a1[44]), C.int(*(*uint32)(unsafe.Add(p2, 8))))
 	smp.SetPlaybackRate(int(v2))
 	return 0
+}
+
+func nox_xxx_utilFindSound_40AF50(id string) C.int {
+	return C.nox_xxx_utilFindSound_40AF50(internCStr(id))
+}
+
+func nox_xxx_parseSoundSetBin_424170(path string) error {
+	cpath := CString(path)
+	defer StrFree(cpath)
+	if C.nox_xxx_parseSoundSetBin_424170(cpath) == 0 {
+		return fmt.Errorf("failed to load sounds")
+	}
+	return nil
 }

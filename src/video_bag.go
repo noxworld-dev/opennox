@@ -200,9 +200,15 @@ func nox_xxx_readImgMB_42FAA0(known_idx C.int, typ C.char, cname2 *C.char) *C.no
 	if known_idx != -1 {
 		return bagImageByIndex(int(known_idx)).C()
 	}
-	name2 := GoString(cname2)
-	log.Printf("nox_xxx_readImgMB_42FAA0(%d, %d, %q)", int(known_idx), int(typ), name2)
-	return nox_xxx_loadImage_47A8C0(byte(typ), name2).C()
+	return nox_xxx_readImgMB42FAA0(int(known_idx), byte(typ), GoString(cname2)).C()
+}
+
+func nox_xxx_readImgMB42FAA0(ind int, typ byte, name2 string) *Image {
+	if ind != -1 {
+		return bagImageByIndex(ind)
+	}
+	log.Printf("nox_xxx_readImgMB42FAA0(%d, %d, %q)", ind, int(typ), name2)
+	return nox_xxx_loadImage_47A8C0(typ, name2)
 }
 
 //export nox_xxx_gLoadImg_42F970

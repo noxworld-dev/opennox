@@ -13,13 +13,18 @@ package nox
 extern nox_spell_t nox_spells_arr_588124[NOX_SPELLS_MAX+1];
 void nox_xxx_spellCastByBook_4FCB80();
 void nox_xxx_spellCastByPlayer_4FEEF0();
+extern void* dword_587000_66120;
 
 static int nox_spells_call_intint6_go(int (*f)(int, void*, nox_object_t*, nox_object_t*, void*, int), int a1, void* a2, nox_object_t* a3, nox_object_t* a4, void* a5, int a6) { return f(a1, a2, a3, a4, a5, a6); }
 */
 import "C"
 import (
+	"bufio"
+	"fmt"
+	"io"
 	"unsafe"
 
+	"nox/v1/common/alloc"
 	noxflags "nox/v1/common/flags"
 	"nox/v1/common/memmap"
 	"nox/v1/common/object"
@@ -56,6 +61,78 @@ func nox_xxx_spellFlySearchTarget_540610(cpos *C.float2, msl *nox_object_t, mask
 		pos = &types.Pointf{X: float32(cpos.field_0), Y: float32(cpos.field_4)}
 	}
 	return nox_xxx_spellFlySearchTarget(pos, asObjectC(msl), uint32(mask), float32(dist), int(a5), asUnitC(self)).CObj()
+}
+
+func nox_thing_read_SPEL_4156B0(f *MemFile) error {
+	br := bufio.NewReader(f)
+	spells, err := things.ReadSpellsSection(br)
+	if n := br.Buffered(); n != 0 {
+		f.Seek(-int64(n), io.SeekCurrent)
+	}
+	if err != nil {
+		return err
+	}
+	isClient := noxflags.HasGame(noxflags.GameClient)
+	for _, s := range spells {
+		if err := createSpellFrom(&s, isClient); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+type phonemeLeaf struct {
+	Ind int32
+	Pho [things.PhonMax]*phonemeLeaf
+}
+
+var _ = [1]struct{}{}[40-unsafe.Sizeof(phonemeLeaf{})]
+
+func createSpellFrom(s *things.Spell, isClient bool) error {
+	ind := things.SpellIndex(s.ID)
+	sp := SpellDefByInd(ind)
+	if sp == nil {
+		return fmt.Errorf("unsupported spell: %q", s.ID)
+	}
+	sp.mana_cost = C.uchar(s.ManaCost)
+	sp.price = C.ushort(s.Price)
+
+	if len(s.Phonemes) != 0 {
+		leaf := (*phonemeLeaf)(unsafe.Pointer(C.dword_587000_66120))
+		for _, ph := range s.Phonemes {
+			next := leaf.Pho[ph]
+			if next == nil {
+				p, _ := alloc.Malloc(unsafe.Sizeof(phonemeLeaf{}))
+				next = (*phonemeLeaf)(p)
+				leaf.Pho[ph] = next
+			}
+			leaf = next
+		}
+		leaf.Ind = int32(ind)
+
+		s.Phonemes = append(s.Phonemes, things.PhonEnd)
+	}
+	sp.setPhonemes(s.Phonemes)
+
+	sp.icon = nil
+	if isClient {
+		sp.icon = unsafe.Pointer(thingsImageRef(s.Icon).C())
+	}
+	sp.icon_enabled = nil
+	if isClient {
+		sp.icon_enabled = unsafe.Pointer(thingsImageRef(s.IconEnabled).C())
+	}
+
+	sp.flags = C.uint(s.Flags)
+	sp.title = internWStr(strMan.GetStringInFile(s.Title, "C:\\NoxPost\\src\\Common\\Magic\\Speltree.c"))
+	sp.desc = internWStr(strMan.GetStringInFile(s.Desc, "C:\\NoxPost\\src\\Common\\Magic\\Speltree.c"))
+
+	sp.cast_sound = nox_xxx_utilFindSound_40AF50(s.CastSound)
+	sp.on_sound = nox_xxx_utilFindSound_40AF50(s.OnSound)
+	sp.off_sound = nox_xxx_utilFindSound_40AF50(s.OffSound)
+	sp.enabled = 1
+	sp.valid = 1
+	return nil
 }
 
 func nox_xxx_spellHasFlags_424A50(ind int, flag things.SpellFlags) bool {
@@ -174,9 +251,16 @@ func (s *SpellDef) BasePrice() int {
 	return int(s.price)
 }
 
+func (s *SpellDef) setPhonemes(ph []things.Phoneme) {
+	s.phonemes_cnt = C.uchar(len(ph))
+	for i, p := range ph {
+		s.phonemes[i] = C.char(p)
+	}
+}
+
 func (s *SpellDef) Phonemes() (out []things.Phoneme) {
 	for i := 0; i < int(s.phonemes_cnt); i++ {
-		out = append(out, things.Phoneme(i))
+		out = append(out, things.Phoneme(s.phonemes[i]))
 	}
 	return out
 }

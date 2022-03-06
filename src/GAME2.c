@@ -2400,7 +2400,8 @@ int* sub_452810(int a1, char a2) {
 }
 
 //----- (00452890) --------------------------------------------------------
-int nox_thing_read_AVNT_452890(int a1, void* a2) {
+int nox_thing_read_AVNT_452890(nox_memfile* a1p, void* a2) {
+	int a1 = a1p;
 	int v2;             // esi
 	unsigned char* v3;  // eax
 	int v4;             // eax
