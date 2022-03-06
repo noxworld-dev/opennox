@@ -255,6 +255,20 @@ func (r *Refactorer) visitGoCall(n *ast.CallExpr, fnc *ast.Ident) {
 			r.fileChanged = true
 			r.visitCall(n)
 		}
+	case "nox_memfile_read_u16":
+		if len(n.Args) == 1 {
+			n.Fun = recvCall(n.Args[0], "ReadU16")
+			n.Args = []ast.Expr{}
+			r.fileChanged = true
+			r.visitCall(n)
+		}
+	case "nox_memfile_read_i16":
+		if len(n.Args) == 1 {
+			n.Fun = recvCall(n.Args[0], "ReadI16")
+			n.Args = []ast.Expr{}
+			r.fileChanged = true
+			r.visitCall(n)
+		}
 	case "nox_memfile_read_u32":
 		if len(n.Args) == 1 {
 			n.Fun = recvCall(n.Args[0], "ReadU32")
@@ -483,6 +497,12 @@ func (r *Refactorer) visitGoCall(n *ast.CallExpr, fnc *ast.Ident) {
 		if len(n.Args) == 4 {
 			n.Fun = ident("randomIntMinMax")
 			n.Args = n.Args[:2]
+			r.fileChanged = true
+			r.visitCall(n)
+		}
+	case "nox_xxx_spellNameToN_4243F0":
+		if len(n.Args) == 1 {
+			n.Fun = selExpr("things", "SpellIndex")
 			r.fileChanged = true
 			r.visitCall(n)
 		}
