@@ -589,8 +589,6 @@ func nox_xxx_spellAccept4FD400(spellID things.SpellID, a2, obj3, obj4 *Unit, arg
 		return nox_xxx_spellDurationBased_4FEBA0(spellID, a2, obj3, obj4, arg5, lvl, C.nox_xxx_spellBlink2_530310, C.nox_xxx_spellBlink1_530380, nil, 0)
 	case things.SPELL_BURN:
 		cfnc = C.nox_xxx_castBurn_52C3E0
-	case things.SPELL_CANCEL:
-		cfnc = C.sub_52BBA0
 	case things.SPELL_CHANNEL_LIFE:
 		return nox_xxx_spellDurationBased_4FEBA0(spellID, a2, obj3, obj4, arg5, lvl, nil, C.sub_52F460, nil, 0)
 	case things.SPELL_CHARM:
@@ -609,8 +607,6 @@ func nox_xxx_spellAccept4FD400(spellID things.SpellID, a2, obj3, obj4 *Unit, arg
 		cfnc = C.nox_xxx_castDeathRay_52D1E0
 	case things.SPELL_DETECT_MAGIC:
 		cfnc = C.sub_52C8D0
-	case things.SPELL_DETONATE:
-		cfnc = C.sub_52BF00
 	case things.SPELL_DETONATE_GLYPHS:
 		cfnc = C.sub_537E60
 	case things.SPELL_TURN_UNDEAD:
@@ -675,8 +671,6 @@ func nox_xxx_spellAccept4FD400(spellID things.SpellID, a2, obj3, obj4 *Unit, arg
 		cfnc = C.sub_52C230
 	case things.SPELL_MANA_BOMB:
 		return nox_xxx_spellDurationBased_4FEBA0(spellID, a2, obj3, obj4, arg5, lvl, C.nox_xxx_manaBomb_530F90, C.nox_xxx_manaBombBoom_5310C0, C.sub_531290, 0)
-	case things.SPELL_PHANTOM:
-		cfnc = C.nox_xxx_spellPhantom_52CA70
 	case things.SPELL_PIXIE_SWARM:
 		cfnc = C.nox_xxx_castPixies_540440
 	case things.SPELL_PLASMA:
@@ -688,8 +682,6 @@ func nox_xxx_spellAccept4FD400(spellID things.SpellID, a2, obj3, obj4 *Unit, arg
 		cfnc = C.nox_xxx_castProtectElect_52D150
 	case things.SPELL_PROTECTION_FROM_FIRE:
 		cfnc = C.nox_xxx_castProtectFire_52D110
-	case things.SPELL_PROTECTION_FROM_MAGIC:
-		cfnc = C.sub_52D190
 	case things.SPELL_PROTECTION_FROM_POISON:
 		cfnc = C.nox_xxx_castProtectPosion_52D1A0
 	case things.SPELL_PULL:
