@@ -39,7 +39,7 @@ import (
 
 var (
 	spellPhonemeTree   *phonemeLeaf
-	noxSpellMissileTyp int // 0x5D4594, 2489136
+	noxSpellMissileTyp = make(map[int]int) // map[spellID]typeID, 0x5D4594, 2489136
 )
 
 type serverSpells struct {
@@ -344,6 +344,17 @@ func (s *Server) nox_thing_read_SPEL_4156B0(f *MemFile, isClient bool) error {
 		}
 	}
 	if os.Getenv("NOX_DUMP_SPELLS") == "true" {
+		// generate default configs for OpenNox spell extensions
+		for i := range spells {
+			sp := &spells[i]
+			switch sp.ID {
+			case "SPELL_MAGIC_MISSILE":
+				if sp.Missiles == nil {
+					sp.Missiles = new(things.MissilesSpellConf)
+					sp.Missiles.SetDefaults()
+				}
+			}
+		}
 		yf, err := fs.Create(datapath.Data(yamlFile))
 		if err != nil {
 			return err
@@ -744,18 +755,7 @@ func nox_xxx_spellDurationBased_4FEBA0(spellID int, a2, a3, a4 *Unit, a5 *spellA
 	return C.nox_xxx_spellDurationBased_4FEBA0(C.int(spellID), a2.CObj(), a3.CObj(), a4.CObj(), unsafe.Pointer(a5), C.int(a6), a7, a8, a9, C.int(a10)) != 0
 }
 
-type MissilesSpellOpts struct {
-	Count       int
-	Spread      uint16
-	Type        string
-	VelMult     float32
-	Offset      float32
-	SpeedRndMin float64
-	SpeedRndMax float64
-	SearchDist  float32
-}
-
-func (s *Server) castSpellMissilesCustom(spellID int, owner, caster *Unit, opts MissilesSpellOpts) {
+func (s *Server) castSpellMissilesCustom(spellID int, owner, caster *Unit, opts things.MissilesSpell) {
 	cpos := caster.Pos()
 	cvel := caster.Vel()
 	rdist := float32(caster.shape.circle_r) + opts.Offset
@@ -775,7 +775,7 @@ func (s *Server) castSpellMissilesCustom(spellID int, owner, caster *Unit, opts 
 		if !ok {
 			continue
 		}
-		msl := noxServer.newObjectByTypeID(opts.Type)
+		msl := noxServer.newObjectByTypeID(opts.Projectile)
 		mud := msl.updateDataMissile()
 		nox_xxx_createAt_4DAA50(msl, owner, tpos)
 		mspeed := float32(noxRndCounter1.FloatClamp(opts.SpeedRndMin, opts.SpeedRndMax) * float64(msl.speed_cur))
@@ -803,15 +803,23 @@ func (s *Server) castSpellMissilesCustom(spellID int, owner, caster *Unit, opts 
 }
 
 func nox_xxx_castMissilesOM_540160(spellID int, a2, owner, caster *Unit, a5 *spellAcceptArg, lvl int) int {
-	const typ = "MagicMissile"
-	if noxSpellMissileTyp == 0 {
-		noxSpellMissileTyp = noxServer.getObjectTypeID(typ)
+	sp := noxServer.SpellDefByInd(spellID)
+	opts := sp.Def.Missiles.Level(lvl)
+	typ, ok := noxSpellMissileTyp[spellID]
+	if !ok {
+		typ = noxServer.getObjectTypeID(opts.Projectile)
+		noxSpellMissileTyp[spellID] = typ
 	}
-	// it's intentionally loading this variable twice
-	// looks previously there were two separate config values for it
-	cnt := int(gamedataFloatInd("MagicMissileCount", lvl-1))
-	curCnt := owner.countSubOfType(noxSpellMissileTyp)
-	maxCnt := int(gamedataFloatInd("MagicMissileCount", lvl-1))
+	curCnt := owner.countSubOfType(typ)
+	var cnt, maxCnt int
+	if opts.Count <= 0 {
+		// it's intentionally loading this variable twice
+		// looks previously there were two separate config values for it
+		cnt = int(gamedataFloatInd("MagicMissileCount", lvl-1))
+		maxCnt = int(gamedataFloatInd("MagicMissileCount", lvl-1))
+	} else {
+		cnt, maxCnt = opts.Count, opts.Count
+	}
 	if curCnt+cnt > maxCnt {
 		cnt = maxCnt - curCnt
 	}
@@ -819,16 +827,8 @@ func nox_xxx_castMissilesOM_540160(spellID int, a2, owner, caster *Unit, a5 *spe
 		C.nox_xxx_netPriMsgToPlayer_4DA2C0(owner.CObj(), internCStr("mmissile.c:TooManyMissiles"), 0)
 		return 0
 	}
-	noxServer.castSpellMissilesCustom(spellID, owner, caster, MissilesSpellOpts{
-		Count:       cnt,
-		Spread:      16,
-		Type:        typ,
-		Offset:      4.0,
-		VelMult:     0.1,
-		SpeedRndMin: 0.80000001,
-		SpeedRndMax: 1.2,
-		SearchDist:  600.0,
-	})
+	opts.Count = cnt
+	noxServer.castSpellMissilesCustom(spellID, owner, caster, opts)
 	return 1
 }
 

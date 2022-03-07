@@ -374,18 +374,19 @@ func (f *SpellFlags) UnmarshalYAML(unmarshal func(interface{}) error) error {
 }
 
 type Spell struct {
-	ID          string     `json:"name" yaml:"name"`
-	Icon        *ImageRef  `json:"icon,omitempty" yaml:"icon,omitempty"`
-	IconEnabled *ImageRef  `json:"icon_enabled,omitempty" yaml:"icon_enabled,omitempty"`
-	ManaCost    int        `json:"mana_cost" yaml:"mana_cost"`
-	Price       int        `json:"price" yaml:"price"`
-	Flags       SpellFlags `json:"flags" yaml:"flags"`
-	Phonemes    []Phoneme  `json:"phonemes,omitempty" yaml:"phonemes,omitempty"`
-	Title       strman.ID  `json:"title,omitempty" yaml:"title,omitempty"`
-	Desc        strman.ID  `json:"desc,omitempty" yaml:"desc,omitempty"`
-	CastSound   string     `json:"cast_sound,omitempty" yaml:"cast_sound,omitempty"`
-	OnSound     string     `json:"on_sound,omitempty" yaml:"on_sound,omitempty"`
-	OffSound    string     `json:"off_sound,omitempty" yaml:"off_sound,omitempty"`
+	ID          string             `json:"name" yaml:"name"`
+	Icon        *ImageRef          `json:"icon,omitempty" yaml:"icon,omitempty"`
+	IconEnabled *ImageRef          `json:"icon_enabled,omitempty" yaml:"icon_enabled,omitempty"`
+	ManaCost    int                `json:"mana_cost" yaml:"mana_cost"`
+	Price       int                `json:"price" yaml:"price"`
+	Flags       SpellFlags         `json:"flags" yaml:"flags"`
+	Phonemes    []Phoneme          `json:"phonemes,omitempty" yaml:"phonemes,omitempty"`
+	Title       strman.ID          `json:"title,omitempty" yaml:"title,omitempty"`
+	Desc        strman.ID          `json:"desc,omitempty" yaml:"desc,omitempty"`
+	CastSound   string             `json:"cast_sound,omitempty" yaml:"cast_sound,omitempty"`
+	OnSound     string             `json:"on_sound,omitempty" yaml:"on_sound,omitempty"`
+	OffSound    string             `json:"off_sound,omitempty" yaml:"off_sound,omitempty"`
+	Missiles    *MissilesSpellConf `json:"missiles,omitempty" yaml:"missiles,omitempty"`
 }
 
 func SkipSpellsSection(r io.Reader) error {
