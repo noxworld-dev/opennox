@@ -6,6 +6,8 @@ import (
 	"io"
 	"strings"
 
+	"gopkg.in/yaml.v2"
+
 	"nox/v1/common/strman"
 )
 
@@ -18,6 +20,8 @@ func init() {
 var (
 	_ json.Marshaler   = Phoneme(0)
 	_ json.Unmarshaler = (*Phoneme)(nil)
+	_ yaml.Marshaler   = Phoneme(0)
+	_ yaml.Unmarshaler = (*Phoneme)(nil)
 )
 
 const (
@@ -71,16 +75,14 @@ func (p Phoneme) MarshalJSON() ([]byte, error) {
 	return json.Marshal(int(p))
 }
 
-func (p *Phoneme) UnmarshalJSON(data []byte) error {
-	var s string
-	if err := json.Unmarshal(data, &s); err != nil {
-		var v int
-		if err2 := json.Unmarshal(data, &v); err2 != nil {
-			return err
-		}
-		*p = Phoneme(v)
-		return nil
+func (p Phoneme) MarshalYAML() (interface{}, error) {
+	if p.Valid() {
+		return p.String(), nil
 	}
+	return int(p), nil
+}
+
+func (p *Phoneme) parseText(s string) error {
 	switch strings.ToLower(s) {
 	case "ka":
 		*p = PhonKA
@@ -106,9 +108,37 @@ func (p *Phoneme) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+func (p *Phoneme) UnmarshalJSON(data []byte) error {
+	var s string
+	if err := json.Unmarshal(data, &s); err != nil {
+		var v int
+		if err2 := json.Unmarshal(data, &v); err2 != nil {
+			return err
+		}
+		*p = Phoneme(v)
+		return nil
+	}
+	return p.parseText(s)
+}
+
+func (p *Phoneme) UnmarshalYAML(unmarshal func(interface{}) error) error {
+	var v uint8
+	if err := unmarshal(&v); err == nil {
+		*p = Phoneme(v)
+		return nil
+	}
+	var s string
+	if err := unmarshal(&s); err != nil {
+		return err
+	}
+	return p.parseText(s)
+}
+
 var (
 	_ json.Marshaler   = SpellFlags(0)
 	_ json.Unmarshaler = (*SpellFlags)(nil)
+	_ yaml.Marshaler   = SpellFlags(0)
+	_ yaml.Unmarshaler = (*SpellFlags)(nil)
 )
 
 const (
@@ -219,7 +249,7 @@ func (f SpellFlags) MarshalJSON() ([]byte, error) {
 		if s := v.string(); s != "" {
 			out = append(out, s)
 		} else {
-			out = append(out, int(v))
+			out = append(out, uint(v))
 		}
 	}
 	if len(out) == 1 {
@@ -228,18 +258,29 @@ func (f SpellFlags) MarshalJSON() ([]byte, error) {
 	return json.Marshal(out)
 }
 
-func (f *SpellFlags) unmarshalJSON(data []byte) (bool, error) {
-	var v uint32
-	if err := json.Unmarshal(data, &v); err == nil {
-		*f = SpellFlags(v)
-		return true, nil
+func (f SpellFlags) MarshalYAML() (interface{}, error) {
+	if f == 0 {
+		return 0, nil
 	}
-	var s string
-	err := json.Unmarshal(data, &s)
-	if err != nil {
-		return false, err
+	arr := f.Split()
+	out := make([]interface{}, 0, len(arr))
+	for _, v := range f.Split() {
+		if s := v.string(); s != "" {
+			out = append(out, s)
+		} else {
+			out = append(out, uint(v))
+		}
 	}
+	if len(out) == 1 {
+		return out[0], nil
+	}
+	return out, nil
+}
+
+func (f *SpellFlags) parseText(s string) error {
 	switch s {
+	case "DURATION":
+		*f = SpellDuration
 	case "TARGET_FOE":
 		*f = SpellTargetFoe
 	case "CANCELS_PROTECT":
@@ -261,9 +302,24 @@ func (f *SpellFlags) unmarshalJSON(data []byte) (bool, error) {
 	case "CON_USE":
 		*f = SpellConUse
 	default:
-		return true, fmt.Errorf("unknown spell flag: %q", s)
+		return fmt.Errorf("unknown spell flag: %q", s)
 	}
-	return true, nil
+	return nil
+}
+
+func (f *SpellFlags) unmarshalJSON(data []byte) (bool, error) {
+	var v uint32
+	if err := json.Unmarshal(data, &v); err == nil {
+		*f = SpellFlags(v)
+		return true, nil
+	}
+	var s string
+	err := json.Unmarshal(data, &s)
+	if err != nil {
+		return false, err
+	}
+	err = f.parseText(s)
+	return true, err
 }
 
 func (f *SpellFlags) UnmarshalJSON(data []byte) error {
@@ -286,19 +342,55 @@ func (f *SpellFlags) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+func (f *SpellFlags) unmarshalYAML(unmarshal func(interface{}) error) (bool, error) {
+	var v uint32
+	if err := unmarshal(&v); err == nil {
+		*f = SpellFlags(v)
+		return true, nil
+	}
+	var s string
+	err := unmarshal(&s)
+	if err != nil {
+		return false, err
+	}
+	err = f.parseText(s)
+	return true, err
+}
+
+func (f *SpellFlags) UnmarshalYAML(unmarshal func(interface{}) error) error {
+	if ok, err := f.unmarshalYAML(unmarshal); ok {
+		return err
+	}
+	var arr []SpellFlags
+	if err := unmarshal(&arr); err != nil {
+		return err
+	}
+	v := SpellFlags(0)
+	for _, a := range arr {
+		v |= a
+	}
+	*f = v
+	return nil
+}
+
 type Spell struct {
-	ID          string     `json:"name"`
-	Icon        *ImageRef  `json:"icon,omitempty"`
-	IconEnabled *ImageRef  `json:"icon_enabled,omitempty"`
-	ManaCost    int        `json:"mana_cost"`
-	Price       int        `json:"price"`
-	Flags       SpellFlags `json:"flags"`
-	Phonemes    []Phoneme  `json:"phonemes,omitempty"`
-	Title       strman.ID  `json:"title,omitempty"`
-	Desc        strman.ID  `json:"description,omitempty"`
-	CastSound   string     `json:"cast_sound,omitempty"`
-	OnSound     string     `json:"on_sound,omitempty"`
-	OffSound    string     `json:"off_sound,omitempty"`
+	ID          string     `json:"name" yaml:"name"`
+	Icon        *ImageRef  `json:"icon,omitempty" yaml:"icon,omitempty"`
+	IconEnabled *ImageRef  `json:"icon_enabled,omitempty" yaml:"icon_enabled,omitempty"`
+	ManaCost    int        `json:"mana_cost" yaml:"mana_cost"`
+	Price       int        `json:"price" yaml:"price"`
+	Flags       SpellFlags `json:"flags" yaml:"flags"`
+	Phonemes    []Phoneme  `json:"phonemes,omitempty" yaml:"phonemes,omitempty"`
+	Title       strman.ID  `json:"title,omitempty" yaml:"title,omitempty"`
+	Desc        strman.ID  `json:"desc,omitempty" yaml:"desc,omitempty"`
+	CastSound   string     `json:"cast_sound,omitempty" yaml:"cast_sound,omitempty"`
+	OnSound     string     `json:"on_sound,omitempty" yaml:"on_sound,omitempty"`
+	OffSound    string     `json:"off_sound,omitempty" yaml:"off_sound,omitempty"`
+}
+
+func SkipSpellsSection(r io.Reader) error {
+	f := newDirectReader(r)
+	return f.skipSPEL()
 }
 
 func ReadSpellsSection(r io.Reader) ([]Spell, error) {

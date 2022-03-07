@@ -83,9 +83,9 @@ var (
 )
 
 type ImageRef struct {
-	Ind  int
-	Ind2 int
-	Name string
+	Ind  int    `json:"ind,omitempty" yaml:"ind,omitempty"`
+	Ind2 int    `json:"ind_2,omitempty" yaml:"ind_2,omitempty"`
+	Name string `json:"name,omitempty" yaml:"name,omitempty"`
 }
 
 func (ii ImageRef) MarshalJSON() ([]byte, error) {
