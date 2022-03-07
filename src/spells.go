@@ -59,6 +59,25 @@ func getPhonemeTree() *phonemeLeaf {
 
 const noxSpellsMax = int(C.NOX_SPELLS_MAX)
 
+//export nox_xxx_spellNameByN_424870
+func nox_xxx_spellNameByN_424870(ind C.int) *C.char {
+	s := things.SpellIDByIndex(int(ind))
+	if s == "" {
+		return nil
+	}
+	return internCStr(s)
+}
+
+//export nox_xxx_spellNameToN_4243F0
+func nox_xxx_spellNameToN_4243F0(cid *C.char) C.int {
+	id := GoString(cid)
+	ind := things.SpellIndex(id)
+	if ind <= 0 {
+		return 0
+	}
+	return C.int(ind)
+}
+
 //export nox_xxx_spellAwardAll1_4EFD80
 func nox_xxx_spellAwardAll1_4EFD80(p *C.nox_playerInfo) {
 	serverSetAllBeastScrolls(asPlayer(p), noxflags.HasEngine(noxflags.EngineAdmin))
