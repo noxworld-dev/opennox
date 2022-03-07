@@ -5887,6 +5887,37 @@ int sub_420EE0(int a1) {
 	return result;
 }
 
+//----- (00421430) --------------------------------------------------------
+void* sub_421430() {
+	unsigned char* v0; // esi
+	void* result;      // eax
+
+	v0 = getMemAt(0x5D4594, 552476);
+	for (int i = 0; i < 255; i++) {
+		if (*((uint32_t*)v0 - 27)) {
+			if (*getMemU32Ptr(0x5D4594, 588076)) {
+				free(*((void**)v0 - 27));
+			}
+			*((uint32_t*)v0 - 27) = 0;
+		}
+		result = *(void**)v0;
+		if (*(uint32_t*)v0) {
+			if (*getMemU32Ptr(0x5D4594, 588076)) {
+				free(*(void**)v0);
+			}
+			*(uint32_t*)v0 = 0;
+		}
+		*((uint16_t*)v0 + 10) = 0;
+		*((uint32_t*)v0 - 7) = 0;
+		*((uint32_t*)v0 + 2) = -1;
+		*((uint32_t*)v0 + 4) = -1;
+		*((uint32_t*)v0 - 6) = 0;
+		v0 += 140;
+	}
+	nox_xxx_polygonNextIdx_587000_60352 = 1;
+	return result;
+}
+
 //----- (00420EF0) --------------------------------------------------------
 int sub_420EF0(uint32_t* a1) {
 	unsigned int v1;   // ebp

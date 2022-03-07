@@ -10,7 +10,6 @@ package nox
 #include "GAME4_3.h"
 #include "GAME5_2.h"
 #include "server__magic__spell__execdur.h"
-extern nox_spell_t nox_spells_arr_588124[NOX_SPELLS_MAX+1];
 void nox_xxx_spellCastByBook_4FCB80();
 void nox_xxx_spellCastByPlayer_4FEEF0();
 
@@ -21,6 +20,7 @@ import (
 	"bufio"
 	"fmt"
 	"io"
+	"sort"
 	"unsafe"
 
 	"nox/v1/common/alloc"
@@ -36,6 +36,10 @@ var (
 	spellPhonemeTree   *phonemeLeaf
 	noxSpellMissileTyp int // 0x5D4594, 2489136
 )
+
+type serverSpells struct {
+	byInd map[int]*SpellDef
+}
 
 var _ = [1]struct{}{}[40-unsafe.Sizeof(phonemeLeaf{})]
 
@@ -102,7 +106,209 @@ func nox_xxx_spellFlySearchTarget_540610(cpos *C.float2, msl *nox_object_t, mask
 	return nox_xxx_spellFlySearchTarget(pos, asObjectC(msl), uint32(mask), float32(dist), int(a5), asUnitC(self)).CObj()
 }
 
-func nox_thing_read_SPEL_4156B0(f *MemFile) error {
+//export nox_xxx_spellGetAud44_424800
+func nox_xxx_spellGetAud44_424800(ind, a2 C.int) C.int {
+	sp := noxServer.SpellDefByInd(int(ind))
+	if sp == nil {
+		return 0
+	}
+	return C.int(sp.GetAudio(int(a2)))
+}
+
+//export nox_xxx_spellTitle_424930
+func nox_xxx_spellTitle_424930(ind C.int) *wchar_t {
+	sp := noxServer.SpellDefByInd(int(ind))
+	if sp == nil || !sp.IsValid() {
+		return nil
+	}
+	return internWStr(sp.Title)
+}
+
+//export nox_xxx_spellDescription_424A30
+func nox_xxx_spellDescription_424A30(ind C.int) *wchar_t {
+	sp := noxServer.SpellDefByInd(int(ind))
+	if sp == nil {
+		return nil
+	}
+	return internWStr(sp.Desc)
+}
+
+//export nox_xxx_spellByTitle_424960
+func nox_xxx_spellByTitle_424960(ctitle *wchar_t) C.int {
+	title := GoWString(ctitle)
+	for i := 1; i < noxSpellsMax; i++ {
+		if noxServer.SpellDefByInd(i).Title == title {
+			return C.int(i)
+		}
+	}
+	return 0
+}
+
+//export nox_xxx_spellManaCost_4249A0
+func nox_xxx_spellManaCost_4249A0(ind, a2 C.int) C.int {
+	if ind <= 0 || int(ind) >= noxSpellsMax {
+		return 0
+	}
+	if a2 == 2 {
+		switch ind {
+		case 24:
+			return C.int(gamedataFloat("EnergyBoltTrapCost"))
+		case 43:
+			return C.int(gamedataFloat("LightningTrapCost"))
+		case 56:
+			return C.int(gamedataFloat("ManaBombTrapCost"))
+		}
+	}
+	sp := noxServer.SpellDefByInd(int(ind))
+	return C.int(sp.Def.ManaCost)
+}
+
+//export nox_xxx_spellPhonemes_424A20
+func nox_xxx_spellPhonemes_424A20(ind, ind2 C.int) C.char {
+	sp := noxServer.SpellDefByInd(int(ind))
+	if sp == nil {
+		return 0
+	}
+	list := sp.Def.Phonemes
+	if ind2 < 0 || int(ind2) >= len(list) {
+		return 0
+	}
+	return C.char(list[ind2])
+}
+
+//export nox_xxx_spellHasFlags_424A50
+func nox_xxx_spellHasFlags_424A50(ind, flags C.int) C.bool {
+	return C.bool(noxServer.nox_xxx_spellHasFlags424A50(int(ind), things.SpellFlags(flags)))
+}
+
+//export nox_xxx_spellFlags_424A70
+func nox_xxx_spellFlags_424A70(ind C.int) C.uint {
+	sp := noxServer.SpellDefByInd(int(ind))
+	if sp == nil {
+		return 0
+	}
+	return C.uint(sp.Def.Flags)
+}
+
+//export nox_xxx_spellIcon_424A90
+func nox_xxx_spellIcon_424A90(ind C.int) unsafe.Pointer {
+	sp := noxServer.SpellDefByInd(int(ind))
+	if sp == nil {
+		return nil
+	}
+	return unsafe.Pointer(sp.Icon.C())
+}
+
+//export nox_xxx_spellIconHighlight_424AB0
+func nox_xxx_spellIconHighlight_424AB0(ind C.int) unsafe.Pointer {
+	sp := noxServer.SpellDefByInd(int(ind))
+	if sp == nil {
+		return nil
+	}
+	return unsafe.Pointer(sp.IconEnabled.C())
+}
+
+//export nox_xxx_spellFirstValid_424AD0
+func nox_xxx_spellFirstValid_424AD0() C.int {
+	for i := 1; i < noxSpellsMax; i++ {
+		sp := noxServer.SpellDefByInd(i)
+		if sp.IsValid() {
+			return C.int(i)
+		}
+	}
+	return 0
+}
+
+//export nox_xxx_spellNextValid_424AF0
+func nox_xxx_spellNextValid_424AF0(ind C.int) C.int {
+	ind++
+	if ind <= 0 || int(ind) >= noxSpellsMax {
+		return 0
+	}
+	for i := int(ind); i < noxSpellsMax; i++ {
+		sp := noxServer.SpellDefByInd(i)
+		if sp.IsValid() {
+			return C.int(i)
+		}
+	}
+	return 0
+}
+
+//export nox_xxx_spellIsValid_424B50
+func nox_xxx_spellIsValid_424B50(ind C.int) C.bool {
+	sp := noxServer.SpellDefByInd(int(ind))
+	if sp == nil {
+		return false
+	}
+	return C.bool(sp.Valid)
+}
+
+//export nox_xxx_spellIsEnabled_424B70
+func nox_xxx_spellIsEnabled_424B70(ind C.int) C.bool {
+	sp := noxServer.SpellDefByInd(int(ind))
+	if sp == nil {
+		return false
+	}
+	return C.bool(sp.Enabled)
+}
+
+//export nox_xxx_spellEnable_424B90
+func nox_xxx_spellEnable_424B90(ind C.int) C.bool {
+	sp := noxServer.SpellDefByInd(int(ind))
+	if sp == nil {
+		return false
+	}
+	sp.Enabled = true
+	return true
+}
+
+//export nox_xxx_spellDisable_424BB0
+func nox_xxx_spellDisable_424BB0(ind C.int) C.bool {
+	sp := noxServer.SpellDefByInd(int(ind))
+	if sp == nil {
+		return false
+	}
+	sp.Enabled = false
+	return true
+}
+
+//export nox_xxx_spellCanUseInTrap_424BF0
+func nox_xxx_spellCanUseInTrap_424BF0(ind C.int) C.bool {
+	sp := noxServer.SpellDefByInd(int(ind))
+	if sp == nil {
+		return false
+	}
+	if noxflags.HasGame(noxflags.GameModeQuest) && ind == 4 {
+		return false
+	}
+	return C.bool(!sp.Def.Flags.Has(things.SpellNoTrap))
+}
+
+//export nox_xxx_spellPrice_424C40
+func nox_xxx_spellPrice_424C40(ind C.int) C.int {
+	sp := noxServer.SpellDefByInd(int(ind))
+	if sp == nil {
+		return 0
+	}
+	price := float64(sp.Def.Price)
+	if noxflags.HasGame(noxflags.GameModeQuest) {
+		price *= gamedataFloat("QuestSpellWorthMultiplier")
+	}
+	return C.int(price)
+}
+
+//export nox_xxx_spellEnableAll_424BD0
+func nox_xxx_spellEnableAll_424BD0() {
+	noxServer.spellEnableAll()
+}
+
+func (s *Server) spellEnableAll() {
+	for _, sp := range s.spells.byInd {
+		sp.Enabled = true
+	}
+}
+
+func (s *Server) nox_thing_read_SPEL_4156B0(f *MemFile, isClient bool) error {
 	br := bufio.NewReader(f)
 	spells, err := things.ReadSpellsSection(br)
 	if n := br.Buffered(); n != 0 {
@@ -111,27 +317,38 @@ func nox_thing_read_SPEL_4156B0(f *MemFile) error {
 	if err != nil {
 		return err
 	}
-	isClient := noxflags.HasGame(noxflags.GameClient)
-	for _, s := range spells {
-		if err := createSpellFrom(&s, isClient); err != nil {
+	for _, sp := range spells {
+		if err := s.createSpellFrom(&sp, isClient); err != nil {
 			return err
 		}
 	}
 	return nil
 }
 
-func createSpellFrom(s *things.Spell, isClient bool) error {
-	ind := things.SpellIndex(s.ID)
-	sp := SpellDefByInd(ind)
-	if sp == nil {
-		return fmt.Errorf("unsupported spell: %q", s.ID)
+func (s *Server) createSpellFrom(def *things.Spell, isClient bool) error {
+	ind := things.SpellIndex(def.ID)
+	if ind <= 0 {
+		return fmt.Errorf("unsupported spell: %q", def.ID)
 	}
-	sp.mana_cost = C.uchar(s.ManaCost)
-	sp.price = C.ushort(s.Price)
-
-	if len(s.Phonemes) != 0 {
+	const strFile = "speltree.c"
+	sp := &SpellDef{
+		Def:       *def,
+		Ind:       ind,
+		Enabled:   true,
+		Valid:     true,
+		Title:     s.Strings().GetStringInFile(def.Title, strFile),
+		Desc:      s.Strings().GetStringInFile(def.Desc, strFile),
+		CastSound: nox_xxx_utilFindSound_40AF50(def.CastSound),
+		OnSound:   nox_xxx_utilFindSound_40AF50(def.OnSound),
+		OffSound:  nox_xxx_utilFindSound_40AF50(def.OffSound),
+	}
+	if s.spells.byInd == nil {
+		s.spells.byInd = make(map[int]*SpellDef)
+	}
+	s.spells.byInd[ind] = sp
+	if len(sp.Def.Phonemes) != 0 {
 		leaf := getPhonemeTree()
-		for _, ph := range s.Phonemes {
+		for _, ph := range sp.Def.Phonemes {
 			next := leaf.Pho[ph]
 			if next == nil {
 				p, _ := alloc.Malloc(unsafe.Sizeof(phonemeLeaf{}))
@@ -141,38 +358,21 @@ func createSpellFrom(s *things.Spell, isClient bool) error {
 			leaf = next
 		}
 		leaf.Ind = int32(ind)
-
-		s.Phonemes = append(s.Phonemes, things.PhonEnd)
+		sp.Def.Phonemes = append(sp.Def.Phonemes, things.PhonEnd)
 	}
-	sp.setPhonemes(s.Phonemes)
-
-	sp.icon = nil
 	if isClient {
-		sp.icon = unsafe.Pointer(thingsImageRef(s.Icon).C())
+		sp.Icon = thingsImageRef(sp.Def.Icon)
+		sp.IconEnabled = thingsImageRef(sp.Def.IconEnabled)
 	}
-	sp.icon_enabled = nil
-	if isClient {
-		sp.icon_enabled = unsafe.Pointer(thingsImageRef(s.IconEnabled).C())
-	}
-
-	sp.flags = C.uint(s.Flags)
-	sp.title = internWStr(strMan.GetStringInFile(s.Title, "C:\\NoxPost\\src\\Common\\Magic\\Speltree.c"))
-	sp.desc = internWStr(strMan.GetStringInFile(s.Desc, "C:\\NoxPost\\src\\Common\\Magic\\Speltree.c"))
-
-	sp.cast_sound = nox_xxx_utilFindSound_40AF50(s.CastSound)
-	sp.on_sound = nox_xxx_utilFindSound_40AF50(s.OnSound)
-	sp.off_sound = nox_xxx_utilFindSound_40AF50(s.OffSound)
-	sp.enabled = 1
-	sp.valid = 1
 	return nil
 }
 
-func nox_xxx_spellHasFlags_424A50(ind int, flag things.SpellFlags) bool {
-	sp := SpellDefByInd(ind)
+func (s *Server) nox_xxx_spellHasFlags424A50(ind int, flag things.SpellFlags) bool {
+	sp := s.SpellDefByInd(ind)
 	if sp == nil {
 		return false
 	}
-	return sp.Flags().Has(flag)
+	return sp.Def.Flags.Has(flag)
 }
 
 func serverSetAllBeastScrolls(p *Player, enable bool) {
@@ -230,19 +430,24 @@ func nox_xxx_spellBookReact_4FCB70() {
 	C.nox_xxx_spellCastByPlayer_4FEEF0()
 }
 
-func SpellDefs() []*SpellDef {
+func (s *Server) SpellDefs() []*SpellDef {
 	out := make([]*SpellDef, 0, noxSpellsMax)
-	for i := 1; i < noxSpellsMax; i++ {
-		out = append(out, (*SpellDef)(unsafe.Pointer(&C.nox_spells_arr_588124[i])))
+	for _, sp := range s.spells.byInd {
+		if sp != nil {
+			out = append(out, sp)
+		}
 	}
+	sort.Slice(out, func(i, j int) bool {
+		return out[i].Ind < out[j].Ind
+	})
 	return out
 }
 
-func SpellDefByInd(i int) *SpellDef {
-	if i <= 0 || i >= noxSpellsMax {
+func (s *Server) SpellDefByInd(i int) *SpellDef {
+	if i <= 0 {
 		return nil
 	}
-	return (*SpellDef)(unsafe.Pointer(&C.nox_spells_arr_588124[i]))
+	return s.spells.byInd[i]
 }
 
 func SpellIDs() []string {
@@ -253,48 +458,22 @@ func SpellIDs() []string {
 	return out
 }
 
-type SpellDef C.nox_spell_t
-
-func (s *SpellDef) Title() string {
-	return GoWString(s.title)
+type SpellDef struct {
+	Def         things.Spell
+	Ind         int
+	Enabled     bool
+	Valid       bool
+	Title       string
+	Desc        string
+	Icon        *Image
+	IconEnabled *Image
+	CastSound   int
+	OnSound     int
+	OffSound    int
 }
 
-func (s *SpellDef) Description() string {
-	return GoWString(s.desc)
-}
-
-func (s *SpellDef) Flags() things.SpellFlags {
-	return things.SpellFlags(s.flags)
-}
-
-func (s *SpellDef) Allowed() bool {
-	return s.enabled == 1
-}
-
-func (s *SpellDef) Valid() bool {
-	return s.valid == 1
-}
-
-func (s *SpellDef) ManaCost() int {
-	return int(s.mana_cost)
-}
-
-func (s *SpellDef) BasePrice() int {
-	return int(s.price)
-}
-
-func (s *SpellDef) setPhonemes(ph []things.Phoneme) {
-	s.phonemes_cnt = C.uchar(len(ph))
-	for i, p := range ph {
-		s.phonemes[i] = C.char(p)
-	}
-}
-
-func (s *SpellDef) Phonemes() (out []things.Phoneme) {
-	for i := 0; i < int(s.phonemes_cnt); i++ {
-		out = append(out, things.Phoneme(s.phonemes[i]))
-	}
-	return out
+func (s *SpellDef) IsValid() bool {
+	return s != nil && s.Valid
 }
 
 func (s *SpellDef) GetAudio(snd int) int { // nox_xxx_spellGetAud44_424800
@@ -303,11 +482,11 @@ func (s *SpellDef) GetAudio(snd int) int { // nox_xxx_spellGetAud44_424800
 	}
 	switch snd {
 	case 0:
-		return int(s.cast_sound)
+		return s.CastSound
 	case 1:
-		return int(s.on_sound)
+		return s.OnSound
 	case 2:
-		return int(s.off_sound)
+		return s.OffSound
 	}
 	return 0
 }
@@ -340,7 +519,7 @@ func nox_xxx_spellAccept4FD400(spellID int, a2, obj3, obj4 *Unit, arg5 *spellAcc
 		return false
 	}
 	obj5 := asUnitC(arg5.Obj)
-	if nox_xxx_spellHasFlags_424A50(spellID, things.SpellFlagUnk8) && obj5 != nil && !obj5.Class().Has(object.MaskUnits) {
+	if noxServer.nox_xxx_spellHasFlags424A50(spellID, things.SpellFlagUnk8) && obj5 != nil && !obj5.Class().Has(object.MaskUnits) {
 		return false
 	}
 	if !(obj5 == nil || C.nox_xxx_gameCaptureMagic_4FDC10(C.int(spellID), obj5.CObj()) != 0) {
@@ -583,7 +762,7 @@ func (s *Server) castSpellMissilesCustom(spellID int, owner, caster *Unit, opts 
 		mud.target = targ.CObj()
 		mud.spellID = C.int(spellID)
 	}
-	aud := SpellDefByInd(spellID).GetAudio(0)
+	aud := s.SpellDefByInd(spellID).GetAudio(0)
 	nox_xxx_aud_501960(aud, caster, 0, 0)
 }
 
@@ -706,12 +885,12 @@ func nox_xxx_castSpellByUser_4FDD20(a1 C.int, a2 *nox_object_t, a3 unsafe.Pointe
 
 func nox_xxx_castSpellByUser4FDD20(spellInd int, u *Unit, a3 *spellAcceptArg) bool {
 	lvl := int(C.nox_xxx_spellGetPower_4FE7B0(C.int(spellInd), u.CObj()))
-	if nox_xxx_spellHasFlags_424A50(spellInd, things.SpellCancelsProtect) {
+	if noxServer.nox_xxx_spellHasFlags424A50(spellInd, things.SpellCancelsProtect) {
 		C.nox_xxx_spellBuffOff_4FF5B0(u.CObj(), 0)
 		C.nox_xxx_spellBuffOff_4FF5B0(u.CObj(), 23)
 		C.nox_xxx_spellCancelDurSpell_4FEB10(67, u.CObj())
 	}
-	if !nox_xxx_spellHasFlags_424A50(spellInd, things.SpellTargetFoe) || u.CObj() == a3.Obj {
+	if !noxServer.nox_xxx_spellHasFlags424A50(spellInd, things.SpellTargetFoe) || u.CObj() == a3.Obj {
 		return nox_xxx_spellAccept4FD400(spellInd, u, u, u, a3, lvl)
 	}
 	C.nox_xxx_createSpellFly_4FDDA0(u.CObj(), a3.Obj, C.int(spellInd))

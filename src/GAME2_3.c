@@ -6593,7 +6593,7 @@ void sub_49BBC0() {
 	unsigned char v1; // [esp+0h] [ebp-4h]
 
 	if (getMemByte(0x5D4594, 1303504)) {
-		v1 = nox_xxx_spellPhonemes_424A20(getMemByte(0x5D4594, 1303504))[getMemByte(0x5D4594, 1303512)];
+		v1 = nox_xxx_spellPhonemes_424A20(getMemByte(0x5D4594, 1303504), getMemByte(0x5D4594, 1303512));
 		if (nox_frame_xxx_2598000 >= *getMemIntPtr(0x5D4594, 1303516)) {
 			v0 = nox_xxx_spellGetPhoneme_4FE1C0(nox_player_netCode_85319C, v1);
 			nox_xxx_clientPlaySoundSpecial_452D80(v0, 100);

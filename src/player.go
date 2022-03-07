@@ -860,7 +860,7 @@ func nox_xxx_playerSpell_4FB2A0_magic_plyrspel(up *nox_object_t) {
 		spellInd := int(leaf.Ind)
 		if !noxflags.HasGame(noxflags.GameModeQuest) {
 			targ := ud.CursorObj()
-			if nox_xxx_spellHasFlags_424A50(spellInd, things.SpellCancelsProtect) {
+			if noxServer.nox_xxx_spellHasFlags424A50(spellInd, things.SpellCancelsProtect) {
 				if targ != nil && !u.isEnemyTo(targ) {
 					return
 				}
@@ -886,7 +886,7 @@ func nox_xxx_playerSpell_4FB2A0_magic_plyrspel(up *nox_object_t) {
 					defer v14free()
 					arg := (*spellAcceptArg)(v14p)
 					arg.Obj = pl.obj_3640
-					if noxflags.HasGame(noxflags.GameModeQuest) && nox_xxx_spellHasFlags_424A50(spellInd, 32) {
+					if noxflags.HasGame(noxflags.GameModeQuest) && noxServer.nox_xxx_spellHasFlags424A50(spellInd, 32) {
 						if pl.obj_3640 != nil && !u.isEnemyTo(asObjectC(pl.obj_3640)) {
 							arg.Obj = nil
 						}
@@ -907,14 +907,14 @@ func nox_xxx_playerSpell_4FB2A0_magic_plyrspel(up *nox_object_t) {
 		C.nox_xxx_playerSetState_4FA020(u.CObj(), 13)
 	}
 	if ok2 {
-		v13 := strMan.GetStringInFile("SpellUnknown", "C:\\NoxPost\\src\\Server\\Magic\\plyrspel.c")
+		v13 := noxServer.Strings().GetStringInFile("SpellUnknown", "C:\\NoxPost\\src\\Server\\Magic\\plyrspel.c")
 		nox_xxx_netSendLineMessage_4D9EB0(u, v13)
 	} else if a1 != 0 {
 		v4 := (*phonemeLeaf)(ud.spell_phoneme_leaf)
 		nox_xxx_netReportSpellStat_4D9630(pl.Index(), int(v4.Ind), 0)
 	} else {
 		v4 := (*phonemeLeaf)(ud.spell_phoneme_leaf)
-		if !nox_xxx_spellHasFlags_424A50(int(v4.Ind), things.SpellFlagUnk21) {
+		if !noxServer.nox_xxx_spellHasFlags424A50(int(v4.Ind), things.SpellFlagUnk21) {
 			nox_xxx_netReportSpellStat_4D9630(pl.Index(), int(v4.Ind), 15)
 		}
 	}

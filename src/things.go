@@ -68,6 +68,7 @@ func loadAllBinFileSections(thg *MemFile, buf unsafe.Pointer) error {
 	C.dword_5d4594_251540 = 0
 	C.dword_5d4594_251568 = 0
 	C.dword_5d4594_251572 = 0
+	isClient := noxflags.HasGame(noxflags.GameClient)
 	for {
 		sect := thg.ReadU32()
 		if sect == 0 {
@@ -75,7 +76,7 @@ func loadAllBinFileSections(thg *MemFile, buf unsafe.Pointer) error {
 		}
 		switch sect {
 		case 0x5350454C: // SPEL
-			if err := nox_thing_read_SPEL_4156B0(thg); err != nil {
+			if err := noxServer.nox_thing_read_SPEL_4156B0(thg, isClient); err != nil {
 				return err
 			}
 		case 0x41554420: // AUD

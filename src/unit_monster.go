@@ -14,8 +14,8 @@ import (
 func (u *Unit) monsterCast(spellInd int, target *Object) {
 	ud := u.updateDataMonster()
 	u.monsterPushAction(ai.DEPENDENCY_UNINTERRUPTABLE)
-	spell := SpellDefByInd(spellInd)
-	if spell.Flags().Has(things.SpellDuration) {
+	spell := u.getServer().SpellDefByInd(spellInd)
+	if spell.Def.Flags.Has(things.SpellDuration) {
 		ts := gameFrame() + uint32(noxRndCounter1.IntClamp(int(gameFPS()/2), int(2*gameFPS())))
 		u.monsterPushAction(ai.DEPENDENCY_TIME, ts)
 		u.monsterPushAction(ai.ACTION_CAST_DURATION_SPELL, uint32(spellInd), 0, target)
@@ -23,7 +23,7 @@ func (u *Unit) monsterCast(spellInd int, target *Object) {
 		u.monsterPushAction(ai.ACTION_CAST_SPELL_ON_OBJECT, uint32(spellInd), 0, target)
 	}
 	if target.CObj() != u.CObj() && !u.monsterActionIsScheduled(ai.ACTION_FLEE) {
-		if !spell.Flags().Has(things.SpellTargetFoe) { // TODO: looks like the flag name is incorrect
+		if !spell.Def.Flags.Has(things.SpellTargetFoe) { // TODO: looks like the flag name is incorrect
 			u.monsterPushAction(ai.ACTION_FACE_OBJECT, target)
 			u.monsterPushAction(ai.DEPENDENCY_BLOCKED_LINE_OF_FIRE, target)
 		}

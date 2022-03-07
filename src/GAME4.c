@@ -4163,8 +4163,7 @@ void nox_xxx_spellCastByBook_4FCB80() {
 			v8 = v24;
 			if (v7 != v24) {
 				v19 = sub_416640();
-				LOBYTE(v27) = nox_xxx_spellPhonemes_424A20(
-					*(uint32_t*)(v0 + 4 * *(unsigned char*)(v0 + 28) + 8))[*(unsigned char*)(v0 + 36)];
+				LOBYTE(v27) = nox_xxx_spellPhonemes_424A20(*(uint32_t*)(v0 + 4 * *(unsigned char*)(v0 + 28) + 8), *(unsigned char*)(v0 + 36));
 				v20 = v27;
 				if (!dword_5d4594_2650652 || *(uint32_t*)(v19 + 62)) {
 					sub_4FC960(*(uint32_t*)(v0 + 4), v27);

@@ -5,6 +5,7 @@
 #include "defs.h"
 #include "common__system__team.h"
 
+void* sub_421430();
 void sub_418800(wchar_t* a1, wchar_t* a2, int a3);
 int sub_418830(int a1, int a2);
 int nox_xxx_unused_418840();

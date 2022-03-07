@@ -18,15 +18,15 @@ func init() {
 				disallow = "X"
 				invalid  = "INVALID"
 			)
-			for i, sp := range SpellDefs() {
-				mana := sp.ManaCost()
-				title := sp.Title()
+			for i, sp := range noxServer.SpellDefs() {
+				mana := sp.Def.ManaCost
+				title := sp.Title
 				ind := i + 1
 				id := things.SpellIDByIndex(ind)
 				astr := disallow
-				if !sp.Valid() {
+				if !sp.IsValid() {
 					astr = invalid
-				} else if sp.Allowed() {
+				} else if sp.Enabled {
 					astr = allow
 				}
 				c.Printf(console.ColorRed, "%3d\t%-40.40s\t%-40.40q\tcost: %-3d\t%-8s", ind, id, title, mana, astr)

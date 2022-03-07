@@ -1080,7 +1080,7 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() bool {
 		obj.SetFlags(obj.Flags() | object.FlagMarked)
 	}
 	if noxflags.HasGame(noxflags.GameModeCoop) {
-		C.nox_xxx_spellEnableAll_424BD0()
+		nox_xxx_spellEnableAll_424BD0()
 		C.sub_4537F0()
 	}
 	var merr error
@@ -1101,7 +1101,7 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() bool {
 				v9 := C.sub_459870()
 				C.sub_57AAA0(internCStr("user.rul"), (*C.char)(v7p), (*C.int)(unsafe.Pointer(v9)))
 			}
-			C.nox_xxx_spellEnableAll_424BD0()
+			nox_xxx_spellEnableAll_424BD0()
 			C.sub_4537F0()
 		}
 		v10 := s.nox_server_currentMapGetFilename_409B30()

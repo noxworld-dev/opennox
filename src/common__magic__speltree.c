@@ -1,3 +1,5 @@
+//+build none
+
 #include "common__magic__speltree.h"
 
 #include "GAME1.h"
@@ -7,8 +9,6 @@
 #include "common__strman.h"
 #include "operators.h"
 
-extern uint32_t nox_xxx_polygonNextIdx_587000_60352;
-#ifndef NOX_CGO
 void* dword_587000_66120 = 0;
 
 const char* nox_spell_ids[NOX_SPELLS_MAX + 1] = {
@@ -151,11 +151,30 @@ const char* nox_spell_ids[NOX_SPELLS_MAX + 1] = {
 	"SPELL_TELEPORT_TO_MARKER",          // 137
 	0,
 };
-#endif // NOX_CGO
+
+typedef struct nox_spell_t {
+	wchar_t* title;          // 0, 0
+	wchar_t* desc;           // 1, 4
+	void* icon;              // 2, 8
+	void* icon_enabled;      // 3, 12
+	unsigned int flags;      // 4, 16
+	unsigned int enabled;    // 5, 20
+	unsigned int valid;      // 6, 24
+	char phonemes[32];       // 7, 28
+	uint8_t field_15_0;      // 15, 60
+	uint8_t phonemes_cnt;    // 15, 61
+	unsigned char mana_cost; // 15, 62
+	uint8_t field_15_3;      // 15, 63
+	unsigned short price;    // 16, 64
+	uint16_t field_16_1;     // 16, 66
+	int cast_sound;        // 17, 68
+	int on_sound;          // 18, 72
+	int off_sound;         // 19, 76
+} nox_spell_t;
+_Static_assert(sizeof(nox_spell_t) == 80, "wrong size of nox_spell_t structure!");
 
 nox_spell_t nox_spells_arr_588124[NOX_SPELLS_MAX + 1] = {0};
 
-#ifndef NOX_CGO
 //----- (00424850) --------------------------------------------------------
 int nox_xxx_isArgB8EqSome_424850(void* a1) { return a1 == dword_587000_66120; }
 
@@ -311,41 +330,9 @@ int nox_xxx_spellLoadSpells_424460(nox_memfile* f, void* a2) {
 	sp->valid = 1;
 	return 1;
 }
-#endif // NOX_CGO
-
-//----- (00421430) --------------------------------------------------------
-void* sub_421430() {
-	unsigned char* v0; // esi
-	void* result;      // eax
-
-	v0 = getMemAt(0x5D4594, 552476);
-	for (int i = 0; i < 255; i++) {
-		if (*((uint32_t*)v0 - 27)) {
-			if (*getMemU32Ptr(0x5D4594, 588076)) {
-				free(*((void**)v0 - 27));
-			}
-			*((uint32_t*)v0 - 27) = 0;
-		}
-		result = *(void**)v0;
-		if (*(uint32_t*)v0) {
-			if (*getMemU32Ptr(0x5D4594, 588076)) {
-				free(*(void**)v0);
-			}
-			*(uint32_t*)v0 = 0;
-		}
-		*((uint16_t*)v0 + 10) = 0;
-		*((uint32_t*)v0 - 7) = 0;
-		*((uint32_t*)v0 + 2) = -1;
-		*((uint32_t*)v0 + 4) = -1;
-		*((uint32_t*)v0 - 6) = 0;
-		v0 += 140;
-	}
-	nox_xxx_polygonNextIdx_587000_60352 = 1;
-	return result;
-}
 
 //----- (00424800) --------------------------------------------------------
-void* nox_xxx_spellGetAud44_424800(int ind, int a2) {
+int nox_xxx_spellGetAud44_424800(int ind, int a2) {
 	if (ind <= 0 || ind >= NOX_SPELLS_MAX) {
 		return 0;
 	}
@@ -405,12 +392,12 @@ int nox_xxx_spellManaCost_4249A0(int ind, int a2) {
 }
 
 //----- (00424A20) --------------------------------------------------------
-char* nox_xxx_spellPhonemes_424A20(int ind) {
+char nox_xxx_spellPhonemes_424A20(int ind, int ind2) {
 	if (ind <= 0 || ind >= NOX_SPELLS_MAX) {
 		return 0;
 	}
 	nox_spell_t* sp = &nox_spells_arr_588124[ind];
-	return sp->phonemes;
+	return sp->phonemes[ind2];
 }
 
 //----- (00424A30) --------------------------------------------------------

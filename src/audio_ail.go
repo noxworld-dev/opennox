@@ -415,8 +415,8 @@ func sub_43F060(a1p *C.uint32_t) C.int {
 	return 0
 }
 
-func nox_xxx_utilFindSound_40AF50(id string) C.int {
-	return C.nox_xxx_utilFindSound_40AF50(internCStr(id))
+func nox_xxx_utilFindSound_40AF50(id string) int {
+	return int(C.nox_xxx_utilFindSound_40AF50(internCStr(id)))
 }
 
 func nox_xxx_parseSoundSetBin_424170(path string) error {

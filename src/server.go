@@ -114,6 +114,7 @@ type Server struct {
 	*server.Server
 	port            int
 	players         []Player
+	spells          serverSpells
 	srvReg          srvReg
 	scriptEvents    scriptEvents
 	nat             natService
@@ -830,7 +831,7 @@ func (s *Server) nox_xxx_mapReadSetFlags_4CF990() {
 			if C.nox_xxx_mapInfoSetFlagball_417F30() != 0 {
 				noxflags.UnsetGame(noxflags.GameModeMask)
 				noxflags.SetGame(noxflags.GameModeFlagBall)
-				C.nox_xxx_spellDisable_424BB0(132)
+				nox_xxx_spellDisable_424BB0(132)
 			}
 		} else if mode.Has(noxflags.GameModeKOTR) {
 			gameLog.Println("setting KOTR mode")

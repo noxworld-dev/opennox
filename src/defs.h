@@ -2311,27 +2311,6 @@ _Static_assert(offsetof(nox_playerInfo, info) == 2185, "wrong offset of nox_play
 _Static_assert(offsetof(nox_playerInfo, frame_3596) == 3596, "wrong offset of nox_playerInfo.frame_3596 field!");
 _Static_assert(offsetof(nox_playerInfo, field_4580) == 4580, "wrong offset of nox_playerInfo.field_4580 field!");
 
-typedef struct nox_spell_t {
-	wchar_t* title;          // 0, 0
-	wchar_t* desc;           // 1, 4
-	void* icon;              // 2, 8
-	void* icon_enabled;      // 3, 12
-	unsigned int flags;      // 4, 16
-	unsigned int enabled;    // 5, 20
-	unsigned int valid;      // 6, 24
-	char phonemes[32];       // 7, 28
-	uint8_t field_15_0;      // 15, 60
-	uint8_t phonemes_cnt;    // 15, 61
-	unsigned char mana_cost; // 15, 62
-	uint8_t field_15_3;      // 15, 63
-	unsigned short price;    // 16, 64
-	uint16_t field_16_1;     // 16, 66
-	int cast_sound;        // 17, 68
-	int on_sound;          // 18, 72
-	int off_sound;         // 19, 76
-} nox_spell_t;
-_Static_assert(sizeof(nox_spell_t) == 80, "wrong size of nox_spell_t structure!");
-
 typedef struct {
 	uint32_t field_0; // 0
 	uint32_t field_1; // 4

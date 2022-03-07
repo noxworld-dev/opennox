@@ -12,7 +12,7 @@ type debugSpellDef struct {
 	Title     string            `json:"title,omitempty"`
 	Desc      string            `json:"desc,omitempty"`
 	Flags     things.SpellFlags `json:"flags,omitempty"`
-	Allowed   bool              `json:"allowed"`
+	Enabled   bool              `json:"enabled"`
 	Valid     bool              `json:"valid"`
 	ManaCost  int               `json:"mana_cost,omitempty"`
 	BasePrice int               `json:"base_price,omitempty"`
@@ -26,14 +26,14 @@ func (s *SpellDef) dump() *debugSpellDef {
 		return nil
 	}
 	return &debugSpellDef{
-		Title:     s.Title(),
-		Desc:      s.Description(),
-		Flags:     s.Flags(),
-		Allowed:   s.Allowed(),
-		Valid:     s.Valid(),
-		ManaCost:  s.ManaCost(),
-		BasePrice: s.BasePrice(),
-		Phonemes:  s.Phonemes(),
+		Title:     s.Title,
+		Desc:      s.Desc,
+		Flags:     s.Def.Flags,
+		Enabled:   s.Enabled,
+		Valid:     s.Valid,
+		ManaCost:  s.Def.ManaCost,
+		BasePrice: s.Def.Price,
+		Phonemes:  s.Def.Phonemes,
 	}
 }
 
@@ -44,7 +44,7 @@ func (s *SpellDef) MarshalJSON() ([]byte, error) {
 func init() {
 	http.HandleFunc("/debug/nox/spells", func(w http.ResponseWriter, r *http.Request) {
 		var out []*debugSpellDef
-		spells := SpellDefs()
+		spells := noxServer.SpellDefs()
 		ids := SpellIDs()
 		for i, s := range spells {
 			d := s.dump()
