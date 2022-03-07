@@ -11,7 +11,7 @@ import (
 	"nox/v1/common/unit/ai"
 )
 
-func (u *Unit) monsterCast(spellInd int, target *Object) {
+func (u *Unit) monsterCast(spellInd things.SpellID, target *Object) {
 	ud := u.updateDataMonster()
 	u.monsterPushAction(ai.DEPENDENCY_UNINTERRUPTABLE)
 	spell := u.getServer().SpellDefByInd(spellInd)
@@ -38,5 +38,5 @@ func (u *Unit) monsterCast(spellInd int, target *Object) {
 
 //export nox_xxx_monsterCast_540A30
 func nox_xxx_monsterCast_540A30(cu *C.nox_object_t, spellInd C.int, a3p *C.nox_object_t) {
-	asUnitC(cu).monsterCast(int(spellInd), asObjectC(a3p))
+	asUnitC(cu).monsterCast(things.SpellID(spellInd), asObjectC(a3p))
 }

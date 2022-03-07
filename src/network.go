@@ -60,6 +60,7 @@ import (
 	"nox/v1/common/noxnet"
 	"nox/v1/common/platform"
 	"nox/v1/common/serial"
+	"nox/v1/common/things"
 )
 
 const (
@@ -1092,7 +1093,7 @@ func nox_xxx_netInformTextMsg_4DA0F0(pid int, code byte, ind int) bool {
 	}
 }
 
-func nox_xxx_netReportSpellStat_4D9630(a1, a2 int, a3 byte) bool {
+func nox_xxx_netReportSpellStat_4D9630(a1 int, a2 things.SpellID, a3 byte) bool {
 	var buf [6]byte
 	buf[0] = byte(noxnet.MSG_REPORT_SPELL_STAT)
 	binary.LittleEndian.PutUint32(buf[1:], uint32(a2))

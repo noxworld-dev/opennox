@@ -21,8 +21,8 @@ func init() {
 			for i, sp := range noxServer.SpellDefs() {
 				mana := sp.Def.ManaCost
 				title := sp.Title
-				ind := i + 1
-				id := things.SpellIDByIndex(ind)
+				ind := things.SpellID(i + 1)
+				id := ind.String()
 				astr := disallow
 				if !sp.IsValid() {
 					astr = invalid
