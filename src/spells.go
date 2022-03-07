@@ -13,7 +13,6 @@ package nox
 extern nox_spell_t nox_spells_arr_588124[NOX_SPELLS_MAX+1];
 void nox_xxx_spellCastByBook_4FCB80();
 void nox_xxx_spellCastByPlayer_4FEEF0();
-extern void* dword_587000_66120;
 
 static int nox_spells_call_intint6_go(int (*f)(int, void*, nox_object_t*, nox_object_t*, void*, int), int a1, void* a2, nox_object_t* a3, nox_object_t* a4, void* a5, int a6) { return f(a1, a2, a3, a4, a5, a6); }
 */
@@ -34,8 +33,37 @@ import (
 )
 
 var (
+	spellPhonemeTree   *phonemeLeaf
 	noxSpellMissileTyp int // 0x5D4594, 2489136
 )
+
+var _ = [1]struct{}{}[40-unsafe.Sizeof(phonemeLeaf{})]
+
+type phonemeLeaf struct {
+	Ind int32
+	Pho [things.PhonMax]*phonemeLeaf
+}
+
+//export nox_xxx_isArgB8EqSome_424850
+func nox_xxx_isArgB8EqSome_424850(p unsafe.Pointer) C.int {
+	if p == nox_xxx_spellGetDefArrayPtr_424820() {
+		return 1
+	}
+	return 0
+}
+
+//export nox_xxx_spellGetDefArrayPtr_424820
+func nox_xxx_spellGetDefArrayPtr_424820() unsafe.Pointer {
+	return unsafe.Pointer(getPhonemeTree())
+}
+
+func getPhonemeTree() *phonemeLeaf {
+	if spellPhonemeTree == nil {
+		p, _ := alloc.Malloc(unsafe.Sizeof(phonemeLeaf{}))
+		spellPhonemeTree = (*phonemeLeaf)(p)
+	}
+	return spellPhonemeTree
+}
 
 const noxSpellsMax = int(C.NOX_SPELLS_MAX)
 
@@ -81,13 +109,6 @@ func nox_thing_read_SPEL_4156B0(f *MemFile) error {
 	return nil
 }
 
-type phonemeLeaf struct {
-	Ind int32
-	Pho [things.PhonMax]*phonemeLeaf
-}
-
-var _ = [1]struct{}{}[40-unsafe.Sizeof(phonemeLeaf{})]
-
 func createSpellFrom(s *things.Spell, isClient bool) error {
 	ind := things.SpellIndex(s.ID)
 	sp := SpellDefByInd(ind)
@@ -98,7 +119,7 @@ func createSpellFrom(s *things.Spell, isClient bool) error {
 	sp.price = C.ushort(s.Price)
 
 	if len(s.Phonemes) != 0 {
-		leaf := (*phonemeLeaf)(unsafe.Pointer(C.dword_587000_66120))
+		leaf := getPhonemeTree()
 		for _, ph := range s.Phonemes {
 			next := leaf.Pho[ph]
 			if next == nil {

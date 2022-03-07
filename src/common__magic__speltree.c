@@ -7,7 +7,9 @@
 #include "common__strman.h"
 #include "operators.h"
 
+#ifndef NOX_CGO
 void* dword_587000_66120 = 0;
+#endif // NOX_CGO
 extern uint32_t nox_xxx_polygonNextIdx_587000_60352;
 
 const char* nox_spell_ids[NOX_SPELLS_MAX + 1] = {
@@ -153,11 +155,13 @@ const char* nox_spell_ids[NOX_SPELLS_MAX + 1] = {
 
 nox_spell_t nox_spells_arr_588124[NOX_SPELLS_MAX + 1] = {0};
 
+#ifndef NOX_CGO
 //----- (00424850) --------------------------------------------------------
 int nox_xxx_isArgB8EqSome_424850(void* a1) { return a1 == dword_587000_66120; }
 
 //----- (00424820) --------------------------------------------------------
 void* nox_xxx_spellGetDefArrayPtr_424820() { return *(void**)&dword_587000_66120; }
+#endif // NOX_CGO
 
 //----- (00424870) --------------------------------------------------------
 char* nox_xxx_spellNameByN_424870(int ind) {

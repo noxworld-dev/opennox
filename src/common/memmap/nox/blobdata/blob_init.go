@@ -3922,5 +3922,4 @@ func Init(p *Ptrs) {
 	*p.Ptr_dword_587000_93164 = memmap.PtrOff(0x5D4594, 0xC7474)
 	*p.Ptr_dword_587000_122852 = memmap.PtrOff(0x5D4594, 830980)
 	*p.Ptr_dword_587000_81128 = memmap.PtrOff(0x5D4594, 0xC4BFC)
-	*p.Ptr_dword_587000_66120 = memmap.PtrOff(0x5D4594, 599084)
 }

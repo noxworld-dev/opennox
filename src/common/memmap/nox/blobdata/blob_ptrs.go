@@ -11,7 +11,6 @@ type Ptrs struct {
 	Ptr_dword_587000_93164                    *unsafe.Pointer
 	Ptr_dword_587000_122852                   *unsafe.Pointer
 	Ptr_dword_587000_81128                    *unsafe.Pointer
-	Ptr_dword_587000_66120                    *unsafe.Pointer
 
 	Ptr_nox_xxx_parseWeapColor_411C40           unsafe.Pointer
 	Ptr_sub_411D90                              unsafe.Pointer

@@ -46,7 +46,6 @@ extern void* dword_587000_127004;
 extern void* dword_587000_93164;
 extern void* dword_587000_122852;
 extern void* dword_587000_81128;
-extern void* dword_587000_66120;
 void nox_xxx_unknown_libname_86_57F634();
 void nullsub_45();
 void nullsub_46();
@@ -75,7 +74,6 @@ func initBlobData() {
 		Ptr_dword_587000_93164:                    &C.dword_587000_93164,
 		Ptr_dword_587000_122852:                   &C.dword_587000_122852,
 		Ptr_dword_587000_81128:                    &C.dword_587000_81128,
-		Ptr_dword_587000_66120:                    &C.dword_587000_66120,
 		Ptr_nox_xxx_parseWeapColor_411C40:         unsafe.Pointer(C.nox_xxx_parseWeapColor_411C40),
 		Ptr_sub_411D90:                            unsafe.Pointer(C.sub_411D90),
 		Ptr_sub_40E4F0:                            unsafe.Pointer(C.sub_40E4F0),
