@@ -274,7 +274,7 @@ func nox_xxx_updatePlayer_4F8100(up *nox_object_t) {
 		}
 	}
 	if ud.field_54 != 0 && ud.field_47_0 == 0 && (gameFrame()-uint32(ud.field_54)) > memmap.Uint32(0x852978, 16) {
-		C.nox_xxx_playerSpell_4FB2A0_magic_plyrspel(u.CObj()) // (manual?) spell casting
+		nox_xxx_playerSpell_4FB2A0_magic_plyrspel(u.CObj()) // (manual?) spell casting
 		ud.field_54 = 0
 	}
 	nox_xxx_playerInventory_4F8420(u)

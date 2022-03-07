@@ -8,6 +8,7 @@ package nox
 #include "GAME2_1.h"
 #include "GAME3_2.h"
 #include "GAME3_3.h"
+#include "GAME4.h"
 #include "GAME4_1.h"
 #include "common__net_list.h"
 #include "defs.h"
@@ -17,9 +18,6 @@ extern unsigned int dword_5d4594_2650652;
 extern unsigned int nox_player_netCode_85319C;
 extern nox_object_t* nox_xxx_host_player_unit_3843628;
 void nox_xxx_WideScreenDo_515240(bool enable);
-static void nox_xxx_netSendLineMessage_go(nox_object_t* a1, wchar_t* str) {
-	nox_xxx_netSendLineMessage_4D9EB0(a1, str);
-}
 static void nox_xxx_printToAll_4D9FD0_go(int a1, wchar_t* str) {
 	nox_xxx_printToAll_4D9FD0(a1, str);
 }
@@ -36,7 +34,9 @@ import (
 	noxflags "nox/v1/common/flags"
 	"nox/v1/common/memmap"
 	"nox/v1/common/noxnet"
+	"nox/v1/common/object"
 	"nox/v1/common/player"
+	"nox/v1/common/things"
 	"nox/v1/common/types"
 	"nox/v1/server/script"
 )
@@ -336,9 +336,7 @@ func (p *Player) IsHost() bool {
 }
 
 func (p *Player) Print(text string) {
-	cstr, free := CWString(text)
-	defer free()
-	C.nox_xxx_netSendLineMessage_go(p.UnitC().CObj(), cstr)
+	nox_xxx_netSendLineMessage_4D9EB0(p.UnitC(), text)
 }
 
 func (p *Player) Blind(blind bool) {
@@ -843,4 +841,87 @@ func (s *Server) sub_4E8210(u *Unit) (types.Pointf, bool) {
 	ud.field_77 = v2
 	out := randomReachablePointAround(60.0, asPointf(unsafe.Add(v2, 7*8)))
 	return out, true
+}
+
+//export nox_xxx_playerSpell_4FB2A0_magic_plyrspel
+func nox_xxx_playerSpell_4FB2A0_magic_plyrspel(up *nox_object_t) {
+	u := asUnitC(up)
+
+	ok2 := true
+	ud := u.updateDataPlayer()
+	pl := ud.Player()
+	var a1 int
+	if u != nil {
+		a1 = 1
+	}
+	if leaf := (*phonemeLeaf)(ud.spell_phoneme_leaf); leaf == getPhonemeTree() {
+		ok2 = false
+	} else if leaf != nil && leaf.Ind != 0 {
+		spellInd := int(leaf.Ind)
+		if !noxflags.HasGame(noxflags.GameModeQuest) {
+			targ := ud.CursorObj()
+			if nox_xxx_spellHasFlags_424A50(spellInd, things.SpellCancelsProtect) {
+				if targ != nil && !u.isEnemyTo(targ) {
+					return
+				}
+			}
+		}
+		if pl.spell_lvl[spellInd] != 0 || spellInd == 34 {
+			ok2 = false
+			a1 = int(C.sub_4FD0E0(u.CObj(), C.int(spellInd)))
+			if a1 == 0 {
+				a1 = int(C.nox_xxx_checkPlrCantCastSpell_4FD150(u.CObj(), C.int(spellInd), 0))
+			}
+			if a1 != 0 {
+				nox_xxx_netInformTextMsg_4DA0F0(pl.Index(), 0, a1)
+				nox_xxx_aud_501960(231, u, 0, 0)
+			} else {
+				mana := int(C.sub_4FCF90(u.CObj(), C.int(spellInd), 1))
+				if mana < 0 {
+					a1 = 11
+					nox_xxx_netInformTextMsg_4DA0F0(pl.Index(), 0, a1)
+					nox_xxx_aud_501960(232, u, 0, 0)
+				} else {
+					v14p, v14free := alloc.Malloc(unsafe.Sizeof(spellAcceptArg{}))
+					defer v14free()
+					arg := (*spellAcceptArg)(v14p)
+					arg.Obj = pl.obj_3640
+					if noxflags.HasGame(noxflags.GameModeQuest) && nox_xxx_spellHasFlags_424A50(spellInd, 32) {
+						if pl.obj_3640 != nil && !u.isEnemyTo(asObjectC(pl.obj_3640)) {
+							arg.Obj = nil
+						}
+					}
+					arg.Arg1 = float32(pl.field_2284)
+					arg.Arg2 = float32(pl.field_2288)
+					if nox_xxx_castSpellByUser4FDD20(spellInd, u, arg) {
+						nox_xxx_netInformTextMsg_4DA0F0(pl.Index(), 1, spellInd)
+					} else {
+						sub_4FD030(u, mana)
+						a1 = 8
+					}
+				}
+			}
+		}
+	}
+	if ud.field_22_0 == 2 {
+		C.nox_xxx_playerSetState_4FA020(u.CObj(), 13)
+	}
+	if ok2 {
+		v13 := strMan.GetStringInFile("SpellUnknown", "C:\\NoxPost\\src\\Server\\Magic\\plyrspel.c")
+		nox_xxx_netSendLineMessage_4D9EB0(u, v13)
+	} else if a1 != 0 {
+		v4 := (*phonemeLeaf)(ud.spell_phoneme_leaf)
+		nox_xxx_netReportSpellStat_4D9630(pl.Index(), int(v4.Ind), 0)
+	} else {
+		v4 := (*phonemeLeaf)(ud.spell_phoneme_leaf)
+		if !nox_xxx_spellHasFlags_424A50(int(v4.Ind), things.SpellFlagUnk21) {
+			nox_xxx_netReportSpellStat_4D9630(pl.Index(), int(v4.Ind), 15)
+		}
+	}
+}
+
+func sub_4FD030(a1 *Unit, a2 int) {
+	if a1.Class().Has(object.ClassPlayer) {
+		C.nox_xxx_playerManaAdd_4EEB80(a1.CObj(), C.short(a2))
+	}
 }

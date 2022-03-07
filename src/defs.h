@@ -701,7 +701,7 @@ typedef struct {
 	uint32_t field_43; // 43, 172
 	uint32_t field_44; // 44, 176
 	uint32_t field_45; // 45, 180
-	void* field_46; // 46, 184, TODO: current spell? doesn't look like nox_spell_t
+	void* spell_phoneme_leaf; // 46, 184
 	uint8_t field_47_0; // 47, 188
 	uint8_t field_47_1; // 47, 189
 	uint16_t field_47_2; // 47, 190

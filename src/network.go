@@ -36,6 +36,9 @@ int  nox_netlist_addToMsgListCli_40EBC0(int ind1, int ind2, unsigned char* buf, 
 void* nox_xxx_spriteGetMB_476F80();
 int nox_xxx_netSendPacket_4E5030(int a1, const void* a2, signed int a3, int a4, int a5, char a6);
 int  nox_xxx_netSendReadPacket_5528B0(unsigned int a1, char a2);
+static int nox_xxx_netSendLineMessage_go(nox_object_t* a1, wchar_t* str) {
+	return nox_xxx_netSendLineMessage_4D9EB0(a1, str);
+}
 
 int nox_xxx_netHandlerDefXxx_553D60(unsigned int a1, char* a2, int a3, void* a4);
 int nox_xxx_netHandlerDefYyy_553D70(unsigned int a1, char* a2, int a3, void* a4);
@@ -404,6 +407,9 @@ func (s *Server) nox_xxx_netSendPacket_4E5030(a1 int, buf []byte, a4, a5, a6 int
 	return int(C.nox_xxx_netSendPacket_4E5030(C.int(a1), unsafe.Pointer(&b[0]), C.int(len(b)), C.int(a4), C.int(a5), C.char(a6)))
 }
 
+func (s *Server) nox_xxx_netSendPacket0_4E5420(a1 int, buf []byte, a4, a5 int) int {
+	return s.nox_xxx_netSendPacket_4E5030(a1, buf, a4, a5, 0)
+}
 func (s *Server) nox_xxx_netSendPacket1_4E5390(a1 int, buf []byte, a4, a5 int) int {
 	return s.nox_xxx_netSendPacket_4E5030(a1, buf, a4, a5, 1)
 }
@@ -1069,4 +1075,34 @@ func nox_xxx_cliWaitServerResponse_5525B0(a1 int, a2 int, a3 int, a4 byte) int {
 		return 0
 	}
 	return -23
+}
+
+func nox_xxx_netInformTextMsg_4DA0F0(pid int, code byte, ind int) bool {
+	var buf [6]byte
+	buf[0] = byte(noxnet.MSG_INFORM)
+	buf[1] = code
+	switch code {
+	case 0, 1, 2, 12, 13, 16, 20, 21:
+		binary.LittleEndian.PutUint32(buf[2:], uint32(ind))
+		return nox_netlist_addToMsgListCli_40EBC0(pid, 1, buf[:6])
+	case 17:
+		return nox_netlist_addToMsgListCli_40EBC0(pid, 1, buf[:2])
+	default:
+		return true
+	}
+}
+
+func nox_xxx_netReportSpellStat_4D9630(a1, a2 int, a3 byte) bool {
+	var buf [6]byte
+	buf[0] = byte(noxnet.MSG_REPORT_SPELL_STAT)
+	binary.LittleEndian.PutUint32(buf[1:], uint32(a2))
+	buf[5] = a3
+	return noxServer.nox_xxx_netSendPacket0_4E5420(a1, buf[:], 0, 1) != 0
+}
+
+func nox_xxx_netSendLineMessage_4D9EB0(u *Unit, s string) bool {
+	_ = noxnet.MSG_TEXT_MESSAGE
+	cstr, free := CWString(s)
+	defer free()
+	return C.nox_xxx_netSendLineMessage_go(u.CObj(), cstr) != 0
 }

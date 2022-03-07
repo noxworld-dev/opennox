@@ -14,7 +14,7 @@ extern nox_spell_t nox_spells_arr_588124[NOX_SPELLS_MAX+1];
 void nox_xxx_spellCastByBook_4FCB80();
 void nox_xxx_spellCastByPlayer_4FEEF0();
 
-static int nox_spells_call_intint6_go(int (*f)(int, void*, nox_object_t*, nox_object_t*, void*, int), int a1, void* a2, nox_object_t* a3, nox_object_t* a4, void* a5, int a6) { return f(a1, a2, a3, a4, a5, a6); }
+static int nox_spells_call_intint6_go(int (*f)(int, void*, nox_object_t*, nox_object_t*, void*, int), int a1, nox_object_t* a2, nox_object_t* a3, nox_object_t* a4, void* a5, int a6) { return f(a1, a2, a3, a4, a5, a6); }
 */
 import "C"
 import (
@@ -42,14 +42,6 @@ var _ = [1]struct{}{}[40-unsafe.Sizeof(phonemeLeaf{})]
 type phonemeLeaf struct {
 	Ind int32
 	Pho [things.PhonMax]*phonemeLeaf
-}
-
-//export nox_xxx_isArgB8EqSome_424850
-func nox_xxx_isArgB8EqSome_424850(p unsafe.Pointer) C.int {
-	if p == nox_xxx_spellGetDefArrayPtr_424820() {
-		return 1
-	}
-	return 0
 }
 
 //export nox_xxx_spellGetDefArrayPtr_424820
@@ -303,39 +295,41 @@ func (s *SpellDef) GetAudio(snd int) int { // nox_xxx_spellGetAud44_424800
 
 type spellAcceptArg struct {
 	Obj  *nox_object_t
-	Arg1 uintptr
-	Arg2 uintptr
+	Arg1 float32
+	Arg2 float32
 }
 
 //export nox_xxx_spellAccept_4FD400
 func nox_xxx_spellAccept_4FD400(ispellID C.int, a2, a3p, a4p, a5p unsafe.Pointer, lvli C.int) C.int {
-	spellID := int(ispellID)
-	if spellID == 0 {
-		return 0
+	if nox_xxx_spellAccept4FD400(int(ispellID), asUnit(a2), asUnit(a3p), asUnit(a4p), (*spellAcceptArg)(a5p), int(lvli)) {
+		return 1
 	}
-	obj3 := asUnit(a3p)
+	return 0
+}
+
+func nox_xxx_spellAccept4FD400(spellID int, a2, obj3, obj4 *Unit, arg5 *spellAcceptArg, lvl int) bool {
+	if spellID == 0 {
+		return false
+	}
 	if obj3 == nil {
-		return 0
+		return false
 	}
 	if a2 == nil {
-		return 0
+		return false
 	}
-	if a5p == nil {
-		return 0
+	if arg5 == nil {
+		return false
 	}
-	lvl := int(lvli)
-	arg5 := (*spellAcceptArg)(a5p)
-	obj4 := asUnit(a4p)
 	obj5 := asUnitC(arg5.Obj)
 	if nox_xxx_spellHasFlags_424A50(spellID, things.SpellFlagUnk8) && obj5 != nil && !obj5.Class().Has(object.MaskUnits) {
-		return 0
+		return false
 	}
 	if !(obj5 == nil || C.nox_xxx_gameCaptureMagic_4FDC10(C.int(spellID), obj5.CObj()) != 0) {
 		nox_xxx_aud_501960(231, obj5, 0, 0)
-		return 0
+		return false
 	}
 	var (
-		fnc  func(spellID int, a2 unsafe.Pointer, a3, a4 *Unit, a5 *spellAcceptArg, lvl int) int
+		fnc  func(spellID int, a2, a3, a4 *Unit, a5 *spellAcceptArg, lvl int) int
 		cfnc unsafe.Pointer
 	)
 	switch spellID {
@@ -498,22 +492,22 @@ func nox_xxx_spellAccept_4FD400(ispellID C.int, a2, a3p, a4p, a5p unsafe.Pointer
 	case 132:
 		return nox_xxx_spellDurationBased_4FEBA0(spellID, a2, obj3, obj4, arg5, lvl, C.nox_xxx_spellWallCreate_4FFA90, C.nox_xxx_spellWallUpdate_500070, C.nox_xxx_spellWallDestroy_500080, 0)
 	default:
-		return 1
+		return true
 	}
 	if cfnc != nil {
-		fnc = func(spellID int, a2 unsafe.Pointer, a3, a4 *Unit, a5 *spellAcceptArg, lvl int) int {
-			return int(C.nox_spells_call_intint6_go((*[0]byte)(cfnc), C.int(spellID), a2, a3.CObj(), a4.CObj(), unsafe.Pointer(arg5), C.int(lvl)))
+		fnc = func(spellID int, a2, a3, a4 *Unit, a5 *spellAcceptArg, lvl int) int {
+			return int(C.nox_spells_call_intint6_go((*[0]byte)(cfnc), C.int(spellID), a2.CObj(), a3.CObj(), a4.CObj(), unsafe.Pointer(arg5), C.int(lvl)))
 		}
 	}
 	v9 := fnc(spellID, a2, obj3, obj4, arg5, lvl)
 	if v9 == 0 {
 		nox_xxx_aud_501960(231, obj4, 0, 0)
 	}
-	return C.int(v9)
+	return v9 != 0
 }
 
-func nox_xxx_spellDurationBased_4FEBA0(spellID int, a2 unsafe.Pointer, a3, a4 *Unit, a5 *spellAcceptArg, a6 int, a7, a8, a9 unsafe.Pointer, a10 uint32) C.int {
-	return C.nox_xxx_spellDurationBased_4FEBA0(C.int(spellID), a2, a3.CObj(), a4.CObj(), unsafe.Pointer(a5), C.int(a6), a7, a8, a9, C.int(a10))
+func nox_xxx_spellDurationBased_4FEBA0(spellID int, a2, a3, a4 *Unit, a5 *spellAcceptArg, a6 int, a7, a8, a9 unsafe.Pointer, a10 uint32) bool {
+	return C.nox_xxx_spellDurationBased_4FEBA0(C.int(spellID), a2.CObj(), a3.CObj(), a4.CObj(), unsafe.Pointer(a5), C.int(a6), a7, a8, a9, C.int(a10)) != 0
 }
 
 type MissilesSpellOpts struct {
@@ -574,7 +568,7 @@ func (s *Server) castSpellMissilesCustom(spellID int, owner, caster *Unit, opts 
 	nox_xxx_aud_501960(aud, caster, 0, 0)
 }
 
-func nox_xxx_castMissilesOM_540160(spellID int, a2 unsafe.Pointer, owner, caster *Unit, a5 *spellAcceptArg, lvl int) int {
+func nox_xxx_castMissilesOM_540160(spellID int, a2, owner, caster *Unit, a5 *spellAcceptArg, lvl int) int {
 	const typ = "MagicMissile"
 	if noxSpellMissileTyp == 0 {
 		noxSpellMissileTyp = noxServer.getObjectTypeID(typ)
@@ -681,4 +675,26 @@ func nox_xxx_spellFlySearchTarget(pos *types.Pointf, msl *Object, mask uint32, d
 		}
 	})
 	return found
+}
+
+//export nox_xxx_castSpellByUser_4FDD20
+func nox_xxx_castSpellByUser_4FDD20(a1 C.int, a2 *nox_object_t, a3 unsafe.Pointer) C.int {
+	if nox_xxx_castSpellByUser4FDD20(int(a1), asUnitC(a2), (*spellAcceptArg)(a3)) {
+		return 1
+	}
+	return 0
+}
+
+func nox_xxx_castSpellByUser4FDD20(spellInd int, u *Unit, a3 *spellAcceptArg) bool {
+	lvl := int(C.nox_xxx_spellGetPower_4FE7B0(C.int(spellInd), u.CObj()))
+	if nox_xxx_spellHasFlags_424A50(spellInd, things.SpellCancelsProtect) {
+		C.nox_xxx_spellBuffOff_4FF5B0(u.CObj(), 0)
+		C.nox_xxx_spellBuffOff_4FF5B0(u.CObj(), 23)
+		C.nox_xxx_spellCancelDurSpell_4FEB10(67, u.CObj())
+	}
+	if !nox_xxx_spellHasFlags_424A50(spellInd, things.SpellTargetFoe) || u.CObj() == a3.Obj {
+		return nox_xxx_spellAccept4FD400(spellInd, u, u, u, a3, lvl)
+	}
+	C.nox_xxx_createSpellFly_4FDDA0(u.CObj(), a3.Obj, C.int(spellInd))
+	return true
 }

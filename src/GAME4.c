@@ -2273,7 +2273,7 @@ void nox_xxx_unitUpdatePlayerImpl_4F8460(nox_object_t* u) {
 					if (!ud->field_54) {
 						nox_xxx_plrSetSpellType_4F9B90(u);
 					}
-					ud->field_46 = nox_xxx_updateSpellRelated_424830(ud->field_46, 1);
+					ud->spell_phoneme_leaf = nox_xxx_updateSpellRelated_424830(ud->spell_phoneme_leaf, 1);
 					nox_xxx_aud_501960(186, u, 0, 0);
 					ud->field_47_0 = 0;
 				}
@@ -2283,7 +2283,7 @@ void nox_xxx_unitUpdatePlayerImpl_4F8460(nox_object_t* u) {
 					if (!ud->field_54) {
 						nox_xxx_plrSetSpellType_4F9B90(u);
 					}
-					ud->field_46 = nox_xxx_updateSpellRelated_424830(ud->field_46, 7);
+					ud->spell_phoneme_leaf = nox_xxx_updateSpellRelated_424830(ud->spell_phoneme_leaf, 7);
 					nox_xxx_aud_501960(190, u, 0, 0);
 					ud->field_47_0 = 0;
 				}
@@ -2293,7 +2293,7 @@ void nox_xxx_unitUpdatePlayerImpl_4F8460(nox_object_t* u) {
 					if (!ud->field_54) {
 						nox_xxx_plrSetSpellType_4F9B90(u);
 					}
-					ud->field_46 = nox_xxx_updateSpellRelated_424830(ud->field_46, 3);
+					ud->spell_phoneme_leaf = nox_xxx_updateSpellRelated_424830(ud->spell_phoneme_leaf, 3);
 					nox_xxx_aud_501960(192, u, 0, 0);
 					ud->field_47_0 = 0;
 				}
@@ -2303,7 +2303,7 @@ void nox_xxx_unitUpdatePlayerImpl_4F8460(nox_object_t* u) {
 					if (!ud->field_54) {
 						nox_xxx_plrSetSpellType_4F9B90(u);
 					}
-					ud->field_46 = nox_xxx_updateSpellRelated_424830(ud->field_46, 5);
+					ud->spell_phoneme_leaf = nox_xxx_updateSpellRelated_424830(ud->spell_phoneme_leaf, 5);
 					nox_xxx_aud_501960(188, u, 0, 0);
 					ud->field_47_0 = 0;
 				}
@@ -2313,7 +2313,7 @@ void nox_xxx_unitUpdatePlayerImpl_4F8460(nox_object_t* u) {
 					if (!ud->field_54) {
 						nox_xxx_plrSetSpellType_4F9B90(u);
 					}
-					ud->field_46 = nox_xxx_updateSpellRelated_424830(ud->field_46, 2);
+					ud->spell_phoneme_leaf = nox_xxx_updateSpellRelated_424830(ud->spell_phoneme_leaf, 2);
 					nox_xxx_aud_501960(187, u, 0, 0);
 					ud->field_47_0 = 0;
 				}
@@ -2323,7 +2323,7 @@ void nox_xxx_unitUpdatePlayerImpl_4F8460(nox_object_t* u) {
 					if (!ud->field_54) {
 						nox_xxx_plrSetSpellType_4F9B90(u);
 					}
-					ud->field_46 = nox_xxx_updateSpellRelated_424830(ud->field_46, 0);
+					ud->spell_phoneme_leaf = nox_xxx_updateSpellRelated_424830(ud->spell_phoneme_leaf, 0);
 					nox_xxx_aud_501960(193, u, 0, 0);
 					ud->field_47_0 = 0;
 				}
@@ -2333,7 +2333,7 @@ void nox_xxx_unitUpdatePlayerImpl_4F8460(nox_object_t* u) {
 					if (!ud->field_54) {
 						nox_xxx_plrSetSpellType_4F9B90(u);
 					}
-					ud->field_46 = nox_xxx_updateSpellRelated_424830(ud->field_46, 8);
+					ud->spell_phoneme_leaf = nox_xxx_updateSpellRelated_424830(ud->spell_phoneme_leaf, 8);
 					nox_xxx_aud_501960(189, u, 0, 0);
 					ud->field_47_0 = 0;
 				}
@@ -2343,7 +2343,7 @@ void nox_xxx_unitUpdatePlayerImpl_4F8460(nox_object_t* u) {
 					if (!ud->field_54) {
 						nox_xxx_plrSetSpellType_4F9B90(u);
 					}
-					ud->field_46 = nox_xxx_updateSpellRelated_424830(ud->field_46, 6);
+					ud->spell_phoneme_leaf = nox_xxx_updateSpellRelated_424830(ud->spell_phoneme_leaf, 6);
 					nox_xxx_aud_501960(191, u, 0, 0);
 					ud->field_47_0 = 0;
 				}
@@ -4335,7 +4335,8 @@ int nox_xxx_spellCheckSmth_4FCEF0(int a1, int* a2, int a3) {
 }
 
 //----- (004FCF90) --------------------------------------------------------
-int sub_4FCF90(int a1, int a2, int a3) {
+int sub_4FCF90(nox_object_t* a1p, int a2, int a3) {
+	int a1 = a1p;
 	unsigned short* v3; // ebp
 	int result;         // eax
 	int v5;             // eax
@@ -4407,7 +4408,8 @@ void sub_4FD090(int a1) {
 }
 
 //----- (004FD0E0) --------------------------------------------------------
-int sub_4FD0E0(int a1, int a2) {
+int sub_4FD0E0(nox_object_t* a1p, int a2) {
+	int a1 = a1p;
 	int v2; // ebx
 	int v4; // eax
 
@@ -4426,7 +4428,8 @@ int sub_4FD0E0(int a1, int a2) {
 }
 
 //----- (004FD150) --------------------------------------------------------
-int nox_xxx_checkPlrCantCastSpell_4FD150(int a1, int a2, int a3) {
+int nox_xxx_checkPlrCantCastSpell_4FD150(nox_object_t* a1p, int a2, int a3) {
+	int a1 = a1p;
 	int v3;     // eax
 	int result; // eax
 	int v5;     // eax
@@ -4923,8 +4926,10 @@ int nox_xxx_gameCaptureMagic_4FDC10(int a1, nox_object_t* a2p) {
 	return 1;
 }
 
+#ifndef NOX_CGO
 //----- (004FDD20) --------------------------------------------------------
-int nox_xxx_castSpellByUser_4FDD20(int a1, uint32_t* a2, int* a3) {
+int nox_xxx_castSpellByUser_4FDD20(int a1, nox_object_t* a2, void* a3p) {
+	int* a3 = a3p;
 	int v3; // ebx
 
 	v3 = nox_xxx_spellGetPower_4FE7B0(a1, (int)a2);
@@ -4939,9 +4944,12 @@ int nox_xxx_castSpellByUser_4FDD20(int a1, uint32_t* a2, int* a3) {
 	nox_xxx_createSpellFly_4FDDA0((int)a2, *a3, a1);
 	return 1;
 }
+#endif // NOX_CGO
 
 //----- (004FDDA0) --------------------------------------------------------
-uint32_t* nox_xxx_createSpellFly_4FDDA0(int a1, int a2, int a3) {
+uint32_t* nox_xxx_createSpellFly_4FDDA0(nox_object_t* a1p, nox_object_t* a2p, int a3) {
+	int a1 = a1p;
+	int a2 = a2p;
 	int v3;           // esi
 	int v4;           // eax
 	int v5;           // eax
@@ -5454,7 +5462,8 @@ void nox_xxx_spell_4FE680(int a1, float a2) {
 }
 
 //----- (004FE7B0) --------------------------------------------------------
-int nox_xxx_spellGetPower_4FE7B0(int a1, int a2) {
+int nox_xxx_spellGetPower_4FE7B0(int a1, nox_object_t* a2p) {
+	int a2 = a2p;
 	int v2;     // eax
 	int result; // eax
 	int v4;     // eax
@@ -5658,7 +5667,8 @@ int nox_xxx_playerCancelSpells_4FEAE0(int a1) {
 }
 
 //----- (004FEB10) --------------------------------------------------------
-uint32_t* nox_xxx_spellCancelDurSpell_4FEB10(int a1, int a2) {
+uint32_t* nox_xxx_spellCancelDurSpell_4FEB10(int a1, nox_object_t* a2p) {
+	int a2 = a2p;
 	uint32_t* result; // eax
 	int v3;           // ecx
 	uint32_t* v4;     // esi
@@ -5695,7 +5705,7 @@ unsigned int sub_4FEB60(int a1, int a2) {
 }
 
 //----- (004FEBA0) --------------------------------------------------------
-int nox_xxx_spellDurationBased_4FEBA0(int a1, void* a2p, nox_object_t* a3p, nox_object_t* a4p, void* a5p, int a6, void* a7p, void* a8p, void* a9p, int a10) {
+int nox_xxx_spellDurationBased_4FEBA0(int a1, nox_object_t* a2p, nox_object_t* a3p, nox_object_t* a4p, void* a5p, int a6, void* a7p, void* a8p, void* a9p, int a10) {
 	int a2 = a2p;
 	uint32_t* a3 = a3p;
 	int a4 = a4p;
@@ -6206,7 +6216,8 @@ int nox_xxx_unitClearBuffs_4FF580(int a1) {
 }
 
 //----- (004FF5B0) --------------------------------------------------------
-int nox_xxx_spellBuffOff_4FF5B0(int a1, int a2) {
+int nox_xxx_spellBuffOff_4FF5B0(nox_object_t* a1p, int a2) {
+	int a1 = a1p;
 	int result; // eax
 	int v3;     // ecx
 	int v4;     // eax
