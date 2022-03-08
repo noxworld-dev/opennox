@@ -4573,7 +4573,7 @@ int nox_xxx_spellAccept_4FD400(int a1, void* a2, void* a3p, void* a4p, void* a5p
 	if (!a5) {
 		return 0;
 	}
-	if (nox_xxx_spellHasFlags_424A50(a1, 128) && *a5 && !(*(uint8_t*)(*a5 + 8) & 6)) {
+	if (nox_xxx_spellHasFlags_424A50(a1, 0x80) && *a5 && !(*(uint8_t*)(*a5 + 8) & 6)) {
 		return 0;
 	}
 	if (!*a5 || nox_xxx_gameCaptureMagic_4FDC10(a1, *a5)) {

@@ -6088,7 +6088,7 @@ int nox_xxx_guiSpellSortList_45ADF0(int a1) {
 			if (j != 34 && !nox_xxx_playerCheckSpellClass_57AEA0(a1, j) &&
 				(nox_common_gameFlags_check_40A5C0(0x2000) && !nox_common_gameFlags_check_40A5C0(4096) ||
 				 *(uint32_t*)(dword_5d4594_1047516 + 4 * j + 3696))) {
-				if (nox_xxx_spellHasFlags_424A50(j, 86016)) {
+				if (nox_xxx_spellHasFlags_424A50(j, 0x15000)) {
 					++dword_5d4594_1047512;
 				}
 				if (!nox_xxx_spellHasFlags_424A50(j, 0x2000)) {
@@ -6688,7 +6688,7 @@ int nox_xxx_bookWndFn_45CC10(uint32_t* a1, int a2, unsigned int a3) {
 			goto LABEL_44;
 		}
 		dword_5d4594_1047540 = *getMemU32Ptr(0x5D4594, 1046960 + 4 * dword_5d4594_1046932);
-		if (!nox_xxx_spellHasFlags_424A50(*(int*)&dword_5d4594_1047540, 86016)) {
+		if (!nox_xxx_spellHasFlags_424A50(*(int*)&dword_5d4594_1047540, 0x15000)) {
 			nox_xxx_bookSaveSpellForDragDrop_477640(*(int*)&dword_5d4594_1047540, 1);
 			goto LABEL_22;
 		}
@@ -6720,7 +6720,7 @@ int nox_xxx_bookWndFn_45CC10(uint32_t* a1, int a2, unsigned int a3) {
 				nox_xxx_bookSpellDnDclear_477660();
 				return 1;
 			}
-			if (!nox_xxx_spellHasFlags_424A50(*(int*)&dword_5d4594_1047540, 1536)) {
+			if (!nox_xxx_spellHasFlags_424A50(*(int*)&dword_5d4594_1047540, 0x600)) {
 				nox_xxx_guiSpellSetCursor_45DF60(*(int*)&dword_5d4594_1047540, 0);
 				nox_xxx_bookSpellDnDclear_477660();
 				return 1;
@@ -6788,7 +6788,7 @@ void nox_xxx_netSpellRewardCli_45CFE0(int a1, int a2, int a3, int a4) {
 		return;
 	}
 	*(uint32_t*)(v4 + 4 * a1 + 3696) = a2;
-	if (nox_xxx_spellHasFlags_424A50(a1, 4096)) {
+	if (nox_xxx_spellHasFlags_424A50(a1, 0x1000)) {
 		v11 = 0x2000;
 		goto LABEL_9;
 	}
@@ -6979,7 +6979,7 @@ int sub_45D320(int a1) {
 	if (v1) {
 		*(uint32_t*)(v1 + 4 * a1 + 3696) = 0;
 		sub_461360(a1);
-		if (nox_xxx_spellHasFlags_424A50(a1, 4096)) {
+		if (nox_xxx_spellHasFlags_424A50(a1, 0x1000)) {
 			v3 = 0x2000;
 		} else if (nox_xxx_spellHasFlags_424A50(a1, 0x4000)) {
 			v3 = 0x8000;
@@ -7099,7 +7099,7 @@ void nox_xxx_bookFillAll_45D570(int a1, int a2) {
 	if (dword_5d4594_1047520 != 1) {
 		nox_xxx_quickBarClose_4606B0();
 		*getMemU32Ptr(0x5D4594, 1046612) = nox_xxx_buttonsGetSelectedRow_45E180();
-		if (a1 != 2 || (result = nox_xxx_spellHasFlags_424A50(a2, 86016)) == 0) {
+		if (a1 != 2 || (result = nox_xxx_spellHasFlags_424A50(a2, 0x15000)) == 0) {
 			result = nox_xxx_buttonHaveSpellInBarMB_4612D0(a2);
 			if (result != 1) {
 				if (a1 == 2 || a1 == 4) {
@@ -7329,7 +7329,7 @@ void* nox_xxx_book_45DBE0(void* a1, int a2, int a3) {
 	nox_xxx_spellKeyPackSetSpell_45DC40(*(int*)&nox_xxx_aClosewoodengat_587000_133480, a2, a3);
 	result = a1;
 	if (a1 == (void*)2) {
-		if (a2 && (result = (void*)nox_xxx_spellHasFlags_424A50(a2, 1536)) != 0) {
+		if (a2 && (result = (void*)nox_xxx_spellHasFlags_424A50(a2, 0x600)) != 0) {
 			*(uint8_t*)(*(uint32_t*)((uint32_t)nox_xxx_aClosewoodengat_587000_133480 + 204) + 8 * a3 + 4) = 1;
 		} else {
 			result = *(void**)&nox_xxx_aClosewoodengat_587000_133480;
@@ -7392,7 +7392,7 @@ int nox_xxx_bookSpellDrop_45DCA0(int a1, char a2, int a3, int a4, int* a5) {
 		}
 		if (nox_xxx_bookGetSpellDnDType_477670() == 1) {
 			v11 = v6 << 8;
-			*(uint8_t*)(*getMemU32Ptr(0x5D4594, 1048400 + v11) + 8 * v9 + 4) = nox_xxx_spellHasFlags_424A50(a1, 1536);
+			*(uint8_t*)(*getMemU32Ptr(0x5D4594, 1048400 + v11) + 8 * v9 + 4) = nox_xxx_spellHasFlags_424A50(a1, 0x600);
 		} else {
 			v11 = v6 << 8;
 			*(uint8_t*)(*getMemU32Ptr(0x5D4594, 1048400 + v11) + 8 * v9 + 4) = a2;
@@ -7763,7 +7763,7 @@ int sub_45F520(int a1, unsigned int a2) {
 		}
 		return 0;
 	}
-	if (nox_xxx_spellHasFlags_424A50(v6, 2098176)) {
+	if (nox_xxx_spellHasFlags_424A50(v6, 0x200400)) {
 		nox_xxx_clientPlaySoundSpecial_452D80(925, 100);
 	} else {
 		*(uint8_t*)(v5 + 4) ^= 1u;
@@ -7955,7 +7955,7 @@ void sub_45F900() {
 		v3 = *(uint32_t*)(v2 + 8 * i);
 		v4 = v2 + 8 * i;
 		if (v3) {
-			if (!nox_xxx_spellHasFlags_424A50(v3, 2098176)) {
+			if (!nox_xxx_spellHasFlags_424A50(v3, 0x200400)) {
 				*(uint8_t*)(v4 + 4) ^= 1u;
 				nox_xxx_updateSpellIconDir_45DE10(i, *(int*)&nox_xxx_aClosewoodengat_587000_133480);
 			}

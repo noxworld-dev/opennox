@@ -23,7 +23,7 @@ func (u *Unit) monsterCast(spellInd things.SpellID, target *Object) {
 		u.monsterPushAction(ai.ACTION_CAST_SPELL_ON_OBJECT, uint32(spellInd), 0, target)
 	}
 	if target.CObj() != u.CObj() && !u.monsterActionIsScheduled(ai.ACTION_FLEE) {
-		if !spell.Def.Flags.Has(things.SpellTargetFoe) { // TODO: looks like the flag name is incorrect
+		if !spell.Def.Flags.Has(things.SpellTargeted) { // TODO: looks like the flag name is incorrect
 			u.monsterPushAction(ai.ACTION_FACE_OBJECT, target)
 			u.monsterPushAction(ai.DEPENDENCY_BLOCKED_LINE_OF_FIRE, target)
 		}

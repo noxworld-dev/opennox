@@ -860,7 +860,7 @@ func nox_xxx_playerSpell_4FB2A0_magic_plyrspel(up *nox_object_t) {
 		spellInd := things.SpellID(leaf.Ind)
 		if !noxflags.HasGame(noxflags.GameModeQuest) {
 			targ := ud.CursorObj()
-			if noxServer.spellHasFlags(spellInd, things.SpellCancelsProtect) {
+			if noxServer.spellHasFlags(spellInd, things.SpellOffensive) {
 				if targ != nil && !u.isEnemyTo(targ) {
 					return
 				}

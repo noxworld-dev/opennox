@@ -324,8 +324,7 @@ int nox_xxx_bookDrawList_45BD40(int a1) {
 		if (v44) {
 			_itow(v44, WideCharStr, 10);
 			nox_wcscat(v71, WideCharStr);
-		} else if (nox_xxx_spellHasFlags_424A50(*getMemU32Ptr(0x5D4594, 1046960 + 4 * dword_5d4594_1046932),
-												0x800000)) {
+		} else if (nox_xxx_spellHasFlags_424A50(*getMemU32Ptr(0x5D4594, 1046960 + 4 * dword_5d4594_1046932), 0x800000)) {
 			nox_wcscat(v71, L"0");
 		} else {
 			nox_wcscat(v71, L"*");

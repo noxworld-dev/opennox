@@ -104,12 +104,12 @@ func nox_xxx_spellAwardAll3_4EFE10(p *C.nox_playerInfo) {
 }
 
 //export nox_xxx_spellFlySearchTarget_540610
-func nox_xxx_spellFlySearchTarget_540610(cpos *C.float2, msl *nox_object_t, mask C.int, dist C.float, a5 C.int, self *nox_object_t) *nox_object_t {
+func nox_xxx_spellFlySearchTarget_540610(cpos *C.float2, msl *nox_object_t, sflags C.int, dist C.float, a5 C.int, self *nox_object_t) *nox_object_t {
 	var pos *types.Pointf
 	if cpos != nil {
 		pos = &types.Pointf{X: float32(cpos.field_0), Y: float32(cpos.field_4)}
 	}
-	return nox_xxx_spellFlySearchTarget(pos, asObjectC(msl), uint32(mask), float32(dist), int(a5), asUnitC(self)).CObj()
+	return nox_xxx_spellFlySearchTarget(pos, asObjectC(msl), things.SpellFlags(sflags), float32(dist), int(a5), asUnitC(self)).CObj()
 }
 
 //export nox_xxx_spellGetAud44_424800
@@ -423,7 +423,7 @@ func (s *Server) spellFlags(ind things.SpellID) things.SpellFlags {
 	}
 	flags := sp.Def.Flags
 	if s.spells.allowAll {
-		flags |= things.SpellCommonUse
+		flags |= things.SpellClassAny
 	}
 	return flags
 }
@@ -875,8 +875,8 @@ func nox_xxx_castMissilesOM_540160(spellID things.SpellID, a2, owner, caster *Un
 	return 1
 }
 
-func nox_xxx_spellFlySearchTarget(pos *types.Pointf, msl *Object, mask uint32, dist float32, a5 int, self *Unit) *Object {
-	if self != nil && self.Class().Has(object.ClassPlayer) && mask&0x20 != 0 {
+func nox_xxx_spellFlySearchTarget(pos *types.Pointf, msl *Object, sflags things.SpellFlags, dist float32, a5 int, self *Unit) *Object {
+	if self != nil && self.Class().Has(object.ClassPlayer) && sflags.Has(things.SpellOffensive) {
 		if curTarg := self.updateDataPlayer().CursorObj(); curTarg != nil {
 			if self.isEnemyTo(curTarg) && ((a5 == 1) || (a5 == 0) && msl != curTarg) {
 				return curTarg
@@ -930,7 +930,7 @@ func nox_xxx_spellFlySearchTarget(pos *types.Pointf, msl *Object, mask uint32, d
 			return
 		}
 		it.findOwnerChainPlayer() // FIXME: result unused!
-		if (mask&0x20 != 0) && !msl.isEnemyTo(it) {
+		if sflags.Has(things.SpellOffensive) && !msl.isEnemyTo(it) {
 			return
 		}
 		opos := it.Pos()
@@ -964,12 +964,12 @@ func nox_xxx_castSpellByUser_4FDD20(a1 C.int, a2 *nox_object_t, a3 unsafe.Pointe
 
 func nox_xxx_castSpellByUser4FDD20(spellInd things.SpellID, u *Unit, a3 *spellAcceptArg) bool {
 	lvl := int(C.nox_xxx_spellGetPower_4FE7B0(C.int(spellInd), u.CObj()))
-	if noxServer.spellHasFlags(spellInd, things.SpellCancelsProtect) {
+	if noxServer.spellHasFlags(spellInd, things.SpellOffensive) {
 		C.nox_xxx_spellBuffOff_4FF5B0(u.CObj(), 0)
 		C.nox_xxx_spellBuffOff_4FF5B0(u.CObj(), 23)
 		C.nox_xxx_spellCancelDurSpell_4FEB10(67, u.CObj())
 	}
-	if !noxServer.spellHasFlags(spellInd, things.SpellTargetFoe) || u.CObj() == a3.Obj {
+	if !noxServer.spellHasFlags(spellInd, things.SpellTargeted) || u.CObj() == a3.Obj {
 		return nox_xxx_spellAccept4FD400(spellInd, u, u, u, a3, lvl)
 	}
 	C.nox_xxx_createSpellFly_4FDDA0(u.CObj(), a3.Obj, C.int(spellInd))

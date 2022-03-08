@@ -144,31 +144,31 @@ var (
 const (
 	SpellFlagUnk1       = SpellFlags(0x1)        // 1
 	SpellDuration       = SpellFlags(0x2)        // 2
-	SpellTargetFoe      = SpellFlags(0x4)        // 4
-	SpellFlagUnk4       = SpellFlags(0x8)        // 8
-	SpellFlagUnk5       = SpellFlags(0x10)       // 16
-	SpellCancelsProtect = SpellFlags(0x20)       // 32
+	SpellTargeted       = SpellFlags(0x4)        // 4
+	SpellAtLocation     = SpellFlags(0x8)        // 8
+	SpellMobsCanCast    = SpellFlags(0x10)       // 16
+	SpellOffensive      = SpellFlags(0x20)       // 32
 	SpellFlagUnk7       = SpellFlags(0x40)       // 64
 	SpellFlagUnk8       = SpellFlags(0x80)       // 128
-	SpellFlagUnk9       = SpellFlags(0x100)      // 256
-	SpellAutoTrack      = SpellFlags(0x200)      // 512
+	SpellInstant        = SpellFlags(0x100)      // 256
+	SpellFlagUnk10      = SpellFlags(0x200)      // 512
 	SpellFlagUnk11      = SpellFlags(0x400)      // 1024
 	SpellFlagUnk12      = SpellFlags(0x800)      // 2048
-	SpellFlagUnk13      = SpellFlags(0x1000)     // 4096
-	SpellSummon         = SpellFlags(0x2000)     // 8192
-	SpellFlagUnk15      = SpellFlags(0x4000)     // 16384
-	SpellFlagUnk16      = SpellFlags(0x8000)     // 32768
-	SpellFlagUnk17      = SpellFlags(0x10000)    // 65536
-	SpellFlagUnk18      = SpellFlags(0x20000)    // 131072
-	SpellFlagUnk19      = SpellFlags(0x40000)    // 262144
-	SpellFlagUnk20      = SpellFlags(0x80000)    // 524288
+	SpellSummonMain     = SpellFlags(0x1000)     // 4096
+	SpellSummonCreature = SpellFlags(0x2000)     // 8192
+	SpellMarkMain       = SpellFlags(0x4000)     // 16384
+	SpellMarkNumber     = SpellFlags(0x8000)     // 32768
+	SpellGotoMarkMain   = SpellFlags(0x10000)    // 65536
+	SpellGotoMarkNumber = SpellFlags(0x20000)    // 131072
+	SpellCanCounter     = SpellFlags(0x40000)    // 262144
+	SpellCantHoldCrown  = SpellFlags(0x80000)    // 524288
 	SpellFlagUnk21      = SpellFlags(0x100000)   // 1048576
 	SpellCantTargetSelf = SpellFlags(0x200000)   // 2097152
 	SpellNoTrap         = SpellFlags(0x400000)   // 4194304
 	SpellNoMana         = SpellFlags(0x800000)   // 8388608
-	SpellCommonUse      = SpellFlags(0x1000000)  // 16777216
-	SpellWizUse         = SpellFlags(0x2000000)  // 33554432
-	SpellConUse         = SpellFlags(0x4000000)  // 67108864
+	SpellClassAny       = SpellFlags(0x1000000)  // 16777216
+	SpellClassWizard    = SpellFlags(0x2000000)  // 33554432
+	SpellClassConjurer  = SpellFlags(0x4000000)  // 67108864
 	SpellFlagUnk28      = SpellFlags(0x8000000)  // 134217728
 	SpellFlagUnk29      = SpellFlags(0x10000000) // 268435456
 	SpellFlagUnk30      = SpellFlags(0x20000000) // 536870912
@@ -182,26 +182,44 @@ func (f SpellFlags) string() string {
 	switch f {
 	case SpellDuration:
 		return "DURATION"
-	case SpellTargetFoe:
-		return "TARGET_FOE"
-	case SpellCancelsProtect:
-		return "CANCELS_PROTECT"
-	case SpellAutoTrack:
-		return "AUTO_TRACK"
-	case SpellSummon:
-		return "SUMMON"
+	case SpellTargeted:
+		return "TARGETED"
+	case SpellAtLocation:
+		return "AT_LOCATION"
+	case SpellMobsCanCast:
+		return "MOBS_CAN_CAST"
+	case SpellOffensive:
+		return "OFFENSIVE"
+	case SpellInstant:
+		return "INSTANT"
+	case SpellSummonMain:
+		return "SUMMON_SPELL"
+	case SpellSummonCreature:
+		return "SUMMON_CREATURE"
+	case SpellMarkMain:
+		return "MARK_SPELL"
+	case SpellMarkNumber:
+		return "MARK_NUMBER"
+	case SpellGotoMarkMain:
+		return "GOTO_MARK_SPELL"
+	case SpellGotoMarkNumber:
+		return "GOTO_MARK_NUMBER"
+	case SpellCanCounter:
+		return "CAN_COUNTER"
+	case SpellCantHoldCrown:
+		return "CANT_HOLD_CROWN"
 	case SpellCantTargetSelf:
 		return "CANT_TARGET_SELF"
 	case SpellNoTrap:
 		return "NO_TRAP"
 	case SpellNoMana:
 		return "NO_MANA"
-	case SpellCommonUse:
-		return "COMMON_USE"
-	case SpellWizUse:
-		return "WIS_USE"
-	case SpellConUse:
-		return "CON_USE"
+	case SpellClassAny:
+		return "CLASS_ANY"
+	case SpellClassWizard:
+		return "CLASS_WIZARD"
+	case SpellClassConjurer:
+		return "CLASS_CONJURER"
 	}
 	return ""
 }
@@ -281,26 +299,46 @@ func (f *SpellFlags) parseText(s string) error {
 	switch s {
 	case "DURATION":
 		*f = SpellDuration
-	case "TARGET_FOE":
-		*f = SpellTargetFoe
-	case "CANCELS_PROTECT":
-		*f = SpellCancelsProtect
+	case "TARGET_FOE", "TARGETED":
+		*f = SpellTargeted
+	case "TARGET_POINT", "AT_LOCATION":
+		*f = SpellAtLocation
+	case "MOBS_CAN_CAST":
+		*f = SpellMobsCanCast
+	case "CANCELS_PROTECT", "OFFENSIVE":
+		*f = SpellOffensive
+	case "INSTANT":
+		*f = SpellInstant
 	case "AUTO_TRACK":
-		*f = SpellAutoTrack
-	case "SUMMON":
-		*f = SpellSummon
+		*f = SpellFlagUnk10
+	case "SUMMON_SPELL":
+		*f = SpellSummonMain
+	case "SUMMON", "SUMMON_CREATURE":
+		*f = SpellSummonCreature
+	case "MARK_SPELL":
+		*f = SpellMarkMain
+	case "MARK_NUMBER":
+		*f = SpellMarkNumber
+	case "GOTO_MARK_SPELL":
+		*f = SpellGotoMarkMain
+	case "GOTO_MARK_NUMBER":
+		*f = SpellGotoMarkNumber
+	case "CAN_COUNTER":
+		*f = SpellCanCounter
+	case "CANT_HOLD_CROWN":
+		*f = SpellCantHoldCrown
 	case "CANT_TARGET_SELF":
 		*f = SpellCantTargetSelf
 	case "NO_TRAP":
 		*f = SpellNoTrap
 	case "NO_MANA":
 		*f = SpellNoMana
-	case "COMMON_USE":
-		*f = SpellCommonUse
-	case "WIS_USE":
-		*f = SpellWizUse
-	case "CON_USE":
-		*f = SpellConUse
+	case "COMMON_USE", "CLASS_ANY":
+		*f = SpellClassAny
+	case "WIS_USE", "CLASS_WIZARD":
+		*f = SpellClassWizard
+	case "CON_USE", "CLASS_CONJURER":
+		*f = SpellClassConjurer
 	default:
 		return fmt.Errorf("unknown spell flag: %q", s)
 	}
