@@ -860,7 +860,7 @@ func nox_xxx_playerSpell_4FB2A0_magic_plyrspel(up *nox_object_t) {
 		spellInd := things.SpellID(leaf.Ind)
 		if !noxflags.HasGame(noxflags.GameModeQuest) {
 			targ := ud.CursorObj()
-			if noxServer.nox_xxx_spellHasFlags424A50(spellInd, things.SpellCancelsProtect) {
+			if noxServer.spellHasFlags(spellInd, things.SpellCancelsProtect) {
 				if targ != nil && !u.isEnemyTo(targ) {
 					return
 				}
@@ -886,7 +886,7 @@ func nox_xxx_playerSpell_4FB2A0_magic_plyrspel(up *nox_object_t) {
 					defer v14free()
 					arg := (*spellAcceptArg)(v14p)
 					arg.Obj = pl.obj_3640
-					if noxflags.HasGame(noxflags.GameModeQuest) && noxServer.nox_xxx_spellHasFlags424A50(spellInd, 32) {
+					if noxflags.HasGame(noxflags.GameModeQuest) && noxServer.spellHasFlags(spellInd, 32) {
 						if pl.obj_3640 != nil && !u.isEnemyTo(asObjectC(pl.obj_3640)) {
 							arg.Obj = nil
 						}
@@ -914,7 +914,7 @@ func nox_xxx_playerSpell_4FB2A0_magic_plyrspel(up *nox_object_t) {
 		nox_xxx_netReportSpellStat_4D9630(pl.Index(), things.SpellID(v4.Ind), 0)
 	} else {
 		v4 := (*phonemeLeaf)(ud.spell_phoneme_leaf)
-		if !noxServer.nox_xxx_spellHasFlags424A50(things.SpellID(v4.Ind), things.SpellFlagUnk21) {
+		if !noxServer.spellHasFlags(things.SpellID(v4.Ind), things.SpellFlagUnk21) {
 			nox_xxx_netReportSpellStat_4D9630(pl.Index(), things.SpellID(v4.Ind), 15)
 		}
 	}

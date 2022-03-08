@@ -95,7 +95,7 @@ func init() {
 		Flags:  console.Server | console.Cheat,
 		Func: func(ctx context.Context, c *console.Console, tokens []string) bool {
 			return noxCmdSetBool(c, tokens, func(enable bool) {
-				serverCheatSage(enable)
+				serverCheatSage(enable, 0)
 				if enable {
 					str := strMan.GetStringInFile("sageset", "parsecmd.c")
 					c.Print(console.ColorLightYellow, str)
@@ -108,11 +108,30 @@ func init() {
 	})
 	noxCmdCheat.Register(&console.Command{
 		Token:  "spells",
-		HelpID: "setsagehelp",
+		HelpID: "cheatspellshelp",
 		Flags:  console.Server | console.Cheat,
 		Func: func(ctx context.Context, c *console.Console, tokens []string) bool {
+			all := false
+			max := 0
+			if len(tokens) == 0 {
+				max = 1 // compatibility
+			}
+			if len(tokens) > 0 && tokens[0] == "all" {
+				all = true
+				tokens = tokens[1:]
+			}
+			if len(tokens) > 0 {
+				if v, err := strconv.Atoi(tokens[0]); err == nil && v > 0 {
+					max = v
+					tokens = tokens[1:]
+				}
+			}
 			return noxCmdSetBool(c, tokens, func(enable bool) {
-				serverCheatSpells(enable)
+				if all {
+					serverCheatAllSpells(enable, max)
+				} else {
+					serverCheatSpells(enable, max)
+				}
 				if enable {
 					str := strMan.GetStringInFile("sageset", "parsecmd.c")
 					c.Print(console.ColorLightYellow, str)
@@ -200,12 +219,12 @@ func serverCheatInvincible(enable bool) {
 	}
 }
 
-func serverCheatSage(enable bool) {
+func serverCheatSage(enable bool, max int) {
 	if noxflags.HasGame(noxflags.GameModeCoop) {
 		for _, p := range noxServer.getPlayers() {
 			serverSetAllBeastScrolls(p, enable)
-			serverSetAllSpells(p, enable)
-			serverSetAllWarriorAbilities(p, enable)
+			serverSetAllSpells(p, enable, max)
+			serverSetAllWarriorAbilities(p, enable, max)
 		}
 	}
 }
@@ -218,12 +237,19 @@ func serverCheatScrolls(enable bool) {
 	}
 }
 
-func serverCheatSpells(enable bool) {
+func serverCheatSpells(enable bool, max int) {
 	if noxflags.HasGame(noxflags.GameModeCoop) {
 		for _, p := range noxServer.getPlayers() {
-			serverSetAllSpells(p, enable)
-			serverSetAllWarriorAbilities(p, enable)
+			serverSetAllSpells(p, enable, max)
+			serverSetAllWarriorAbilities(p, enable, max)
 		}
+	}
+}
+
+func serverCheatAllSpells(enable bool, max int) {
+	serverCheatSage(enable, max)
+	if noxflags.HasGame(noxflags.GameModeCoop) {
+		noxServer.spells.allowAll = enable
 	}
 }
 
@@ -246,7 +272,7 @@ func noxCheatUnsetGod(ctx context.Context, c *console.Console, tokens []string) 
 func serverCheatGod(enable bool) {
 	if noxflags.HasGame(noxflags.GameModeCoop) {
 		serverCheatInvincible(enable)
-		serverCheatSage(enable)
+		serverCheatSage(enable, 0)
 	}
 }
 

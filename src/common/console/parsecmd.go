@@ -86,5 +86,10 @@ func (c *Command) Register(sub *Command) {
 	if sub.Flags.Has(Secret) {
 		sub.Token = EncodeSecret(sub.Token)
 	}
+	for _, s := range c.Sub {
+		if s.Token == sub.Token {
+			panic("already registered: " + sub.Token)
+		}
+	}
 	c.Sub = append(c.Sub, sub)
 }

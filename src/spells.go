@@ -43,7 +43,8 @@ var (
 )
 
 type serverSpells struct {
-	byID map[things.SpellID]*SpellDef
+	byID     map[things.SpellID]*SpellDef
+	allowAll bool // a cheat to allow all spells
 }
 
 var _ = [1]struct{}{}[40-unsafe.Sizeof(phonemeLeaf{})]
@@ -94,12 +95,12 @@ func nox_xxx_spellAwardAll1_4EFD80(p *C.nox_playerInfo) {
 
 //export nox_xxx_spellAwardAll2_4EFC80
 func nox_xxx_spellAwardAll2_4EFC80(p *C.nox_playerInfo) {
-	serverSetAllSpells(asPlayer(p), noxflags.HasEngine(noxflags.EngineAdmin))
+	serverSetAllSpells(asPlayer(p), noxflags.HasEngine(noxflags.EngineAdmin), 0)
 }
 
 //export nox_xxx_spellAwardAll3_4EFE10
 func nox_xxx_spellAwardAll3_4EFE10(p *C.nox_playerInfo) {
-	serverSetAllWarriorAbilities(asPlayer(p), noxflags.HasEngine(noxflags.EngineAdmin))
+	serverSetAllWarriorAbilities(asPlayer(p), noxflags.HasEngine(noxflags.EngineAdmin), 0)
 }
 
 //export nox_xxx_spellFlySearchTarget_540610
@@ -184,16 +185,12 @@ func nox_xxx_spellPhonemes_424A20(ind, ind2 C.int) C.char {
 
 //export nox_xxx_spellHasFlags_424A50
 func nox_xxx_spellHasFlags_424A50(ind, flags C.int) C.bool {
-	return C.bool(noxServer.nox_xxx_spellHasFlags424A50(things.SpellID(ind), things.SpellFlags(flags)))
+	return C.bool(noxServer.spellHasFlags(things.SpellID(ind), things.SpellFlags(flags)))
 }
 
 //export nox_xxx_spellFlags_424A70
 func nox_xxx_spellFlags_424A70(ind C.int) C.uint {
-	sp := noxServer.SpellDefByInd(things.SpellID(ind))
-	if sp == nil {
-		return 0
-	}
-	return C.uint(sp.Def.Flags)
+	return C.uint(noxServer.spellFlags(things.SpellID(ind)))
 }
 
 //export nox_xxx_spellIcon_424A90
@@ -415,12 +412,20 @@ func (s *Server) createSpellFrom(def *things.Spell, isClient bool) error {
 	return nil
 }
 
-func (s *Server) nox_xxx_spellHasFlags424A50(ind things.SpellID, flag things.SpellFlags) bool {
+func (s *Server) spellHasFlags(ind things.SpellID, flag things.SpellFlags) bool {
+	return s.spellFlags(ind).Has(flag)
+}
+
+func (s *Server) spellFlags(ind things.SpellID) things.SpellFlags {
 	sp := s.SpellDefByInd(ind)
 	if sp == nil {
-		return false
+		return 0
 	}
-	return sp.Def.Flags.Has(flag)
+	flags := sp.Def.Flags
+	if s.spells.allowAll {
+		flags |= things.SpellCommonUse
+	}
+	return flags
 }
 
 func serverSetAllBeastScrolls(p *Player, enable bool) {
@@ -436,10 +441,13 @@ func serverSetAllBeastScrolls(p *Player, enable bool) {
 	C.nox_xxx_playerApplyProtectionCRC_56FD50(C.int(*(*uintptr)(p.field(4640))), unsafe.Pointer(&p.beast_scroll_lvl[0]), C.int(len(p.beast_scroll_lvl)))
 }
 
-func serverSetAllSpells(p *Player, enable bool) {
+func serverSetAllSpells(p *Player, enable bool, max int) {
 	lvl := 0
 	if enable {
-		lvl = 3
+		lvl = max
+		if max <= 0 {
+			lvl = 3
+		}
 	}
 	C.nox_xxx_playerResetProtectionCRC_56F7D0(C.int(*(*uintptr)(p.field(4636))), 0)
 	// set max level for all possible spells
@@ -462,13 +470,16 @@ func serverSetAllSpells(p *Player, enable bool) {
 	C.nox_xxx_playerApplyProtectionCRC_56FD50(C.int(*(*uintptr)(p.field(4636))), unsafe.Pointer(&p.spell_lvl[0]), C.int(len(p.spell_lvl)))
 }
 
-func serverSetAllWarriorAbilities(p *Player, enable bool) {
+func serverSetAllWarriorAbilities(p *Player, enable bool, max int) {
 	if p.PlayerClass() != player.Warrior {
 		return
 	}
 	lvl := 0
 	if enable {
-		lvl = 5
+		lvl = max
+		if max <= 0 {
+			lvl = 5
+		}
 	}
 	for i := 1; i < 6; i++ {
 		p.spell_lvl[i] = C.uint(lvl)
@@ -570,7 +581,7 @@ func nox_xxx_spellAccept4FD400(spellID things.SpellID, a2, obj3, obj4 *Unit, arg
 		return false
 	}
 	obj5 := asUnitC(arg5.Obj)
-	if noxServer.nox_xxx_spellHasFlags424A50(spellID, things.SpellFlagUnk8) && obj5 != nil && !obj5.Class().Has(object.MaskUnits) {
+	if noxServer.spellHasFlags(spellID, things.SpellFlagUnk8) && obj5 != nil && !obj5.Class().Has(object.MaskUnits) {
 		return false
 	}
 	if !(obj5 == nil || C.nox_xxx_gameCaptureMagic_4FDC10(C.int(spellID), obj5.CObj()) != 0) {
@@ -953,12 +964,12 @@ func nox_xxx_castSpellByUser_4FDD20(a1 C.int, a2 *nox_object_t, a3 unsafe.Pointe
 
 func nox_xxx_castSpellByUser4FDD20(spellInd things.SpellID, u *Unit, a3 *spellAcceptArg) bool {
 	lvl := int(C.nox_xxx_spellGetPower_4FE7B0(C.int(spellInd), u.CObj()))
-	if noxServer.nox_xxx_spellHasFlags424A50(spellInd, things.SpellCancelsProtect) {
+	if noxServer.spellHasFlags(spellInd, things.SpellCancelsProtect) {
 		C.nox_xxx_spellBuffOff_4FF5B0(u.CObj(), 0)
 		C.nox_xxx_spellBuffOff_4FF5B0(u.CObj(), 23)
 		C.nox_xxx_spellCancelDurSpell_4FEB10(67, u.CObj())
 	}
-	if !noxServer.nox_xxx_spellHasFlags424A50(spellInd, things.SpellTargetFoe) || u.CObj() == a3.Obj {
+	if !noxServer.spellHasFlags(spellInd, things.SpellTargetFoe) || u.CObj() == a3.Obj {
 		return nox_xxx_spellAccept4FD400(spellInd, u, u, u, a3, lvl)
 	}
 	C.nox_xxx_createSpellFly_4FDDA0(u.CObj(), a3.Obj, C.int(spellInd))

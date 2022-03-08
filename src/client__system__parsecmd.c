@@ -2466,6 +2466,7 @@ int nox_cmd_cheat_level(int tokInd, int tokCnt, wchar_t** tokens) {
 	return 1;
 }
 
+#ifndef NOX_CGO
 //----- (00441FC0) --------------------------------------------------------
 int nox_cmd_cheat_spells(int tokInd, int tokCnt, wchar_t** tokens) {
 	int v4;  // eax
@@ -2503,7 +2504,6 @@ int nox_cmd_cheat_spells(int tokInd, int tokCnt, wchar_t** tokens) {
 }
 
 //----- (00442070) --------------------------------------------------------
-#ifndef NOX_CGO
 int nox_cmd_cheat_gold(int tokInd, int tokCnt, wchar_t** tokens) {
 	int v4;  // edi
 	char* i; // esi
