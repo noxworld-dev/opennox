@@ -142,7 +142,7 @@ func init() {
 	})
 	noxCmdCheat.Register(&console.Command{
 		Token:  "goto",
-		HelpID: "gotohelp",
+		HelpID: "cheatgotohelp",
 		Help:   "teleports player to a given location",
 		Flags:  console.Server | console.Cheat,
 		Func:   noxCheatGoto,
@@ -322,28 +322,40 @@ func noxCmdPlayerByIndex(c *console.Console, sind string) *Player {
 }
 
 func noxCheatGoto(ctx context.Context, c *console.Console, tokens []string) bool {
-	if len(tokens) != 2 {
-		c.Print(console.ColorLightRed, "expected two coordinates")
+	var pos types.Pointf
+	switch len(tokens) {
+	case 1: // waypoint name
+		wp := noxServer.getWaypointByID(tokens[0])
+		if wp == nil {
+			c.Printf(console.ColorLightRed, "cannot find waypoint %q", tokens[0])
+			return true
+		}
+		pos = wp.Pos()
+	case 2: // coordinates
+		x, err := strconv.Atoi(tokens[0])
+		if err != nil {
+			c.Printf(console.ColorLightRed, "%s must be an integer", tokens[0])
+			return true
+		}
+		y, err := strconv.Atoi(tokens[1])
+		if err != nil {
+			c.Printf(console.ColorLightRed, "%s must be an integer", tokens[1])
+			return true
+		}
+		pos = types.Pointf{X: float32(x), Y: float32(y)}
+	default:
+		c.Print(console.ColorLightRed, "expected two coordinates or a waypoint name")
 		return false
 	}
-	x, err := strconv.Atoi(tokens[0])
-	if err != nil {
-		c.Printf(console.ColorLightRed, "%s must be an integer", tokens[0])
-		return true
+	for _, p := range noxServer.getPlayers() {
+		u := p.UnitC()
+		if u == nil {
+			c.Printf(console.ColorLightRed, "player %q doesn't have a unit", p.Name())
+			continue
+		}
+		u.SetPos(pos)
+		c.Printf(console.ColorLightYellow, "teleported player %q to (%v, %v)", p.Name(), pos.X, pos.Y)
 	}
-	y, err := strconv.Atoi(tokens[1])
-	if err != nil {
-		c.Printf(console.ColorLightRed, "%s must be an integer", tokens[1])
-		return true
-	}
-	p := HostPlayer()
-	u := p.UnitC()
-	if u == nil {
-		c.Printf(console.ColorLightRed, "player %q doesn't have a unit", p.Name())
-		return true
-	}
-	u.SetPos(types.Pointf{X: float32(x), Y: float32(y)})
-	c.Printf(console.ColorLightYellow, "teleported player %q to (%d, %d)", p.Name(), x, y)
 	return true
 }
 

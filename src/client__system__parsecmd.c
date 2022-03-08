@@ -2367,6 +2367,7 @@ int nox_cmd_cheat_ability(int tokInd, int tokCnt, wchar_t** tokens) {
 	return 1;
 }
 
+#ifndef NOX_CGO
 //----- (00441D80) --------------------------------------------------------
 int nox_cmd_cheat_goto(int tokInd, int tokCnt, wchar_t** tokens) {
 	const char* v4; // edi
@@ -2415,7 +2416,6 @@ int nox_cmd_cheat_goto(int tokInd, int tokCnt, wchar_t** tokens) {
 	return 1;
 }
 
-#ifndef NOX_CGO
 //----- (00441EB0) --------------------------------------------------------
 int nox_cmd_cheat_health(int tokInd, int tokCnt, wchar_t** tokens) {
 	char* i; // esi

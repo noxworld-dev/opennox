@@ -57,7 +57,6 @@ int nox_cmd_log_console(int, int, wchar_t**);
 int nox_cmd_log_stop(int, int, wchar_t**);
 int nox_cmd_set(int, int, wchar_t**);
 int nox_cmd_cheat_ability(int, int, wchar_t**);
-int nox_cmd_cheat_goto(int, int, wchar_t**);
 int nox_cmd_cheat_level(int, int, wchar_t**);
 int nox_cmd_cheat_spells(int, int, wchar_t**);
 int nox_cmd_cheat_gold(int, int, wchar_t**);
@@ -213,7 +212,6 @@ var (
 	}}
 	noxCmdCheat = &console.Command{Token: "cheat", HelpID: "cheathelp", Flags: console.Server | console.Cheat, Sub: []*console.Command{
 		{Token: "ability", HelpID: "cheatabilityhelp", Flags: console.Server, LegacyFunc: wrapCommandC(nox_cmd_cheat_ability)},
-		{Token: "goto", HelpID: "cheatgotohelp", Flags: console.Server, LegacyFunc: wrapCommandC(nox_cmd_cheat_goto)},
 		{Token: "level", HelpID: "cheatlevelhelp", Flags: console.Server, LegacyFunc: wrapCommandC(nox_cmd_cheat_level)},
 		{Token: "spells", HelpID: "cheatspellshelp", Flags: console.Server, LegacyFunc: wrapCommandC(nox_cmd_cheat_spells)},
 		{Token: "re-enter", HelpID: "", Flags: console.Server, LegacyFunc: wrapCommandC(nox_cmd_reenter)},
@@ -401,9 +399,6 @@ func nox_cmd_set(i C.int, n C.int, arr **C.wchar_t) C.int {
 }
 func nox_cmd_cheat_ability(i C.int, n C.int, arr **C.wchar_t) C.int {
 	return C.nox_cmd_cheat_ability(i, n, arr)
-}
-func nox_cmd_cheat_goto(i C.int, n C.int, arr **C.wchar_t) C.int {
-	return C.nox_cmd_cheat_goto(i, n, arr)
 }
 func nox_cmd_cheat_level(i C.int, n C.int, arr **C.wchar_t) C.int {
 	return C.nox_cmd_cheat_level(i, n, arr)
