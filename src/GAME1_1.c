@@ -1467,7 +1467,7 @@ LABEL_20:
 	if (nox_xxx_cryptGetXxx() == 1 && v3) {
 		v6 = nox_wcslen((const wchar_t*)v2);
 		v7 = nox_xxx_protectionStringCRCLen_56FAE0((int*)v2, 2 * v6);
-		nox_xxx_playerUpdateNetBuffs_56F7D0(*(uint32_t*)(*(uint32_t*)(v3 + 276) + 4628), v7);
+		nox_xxx_playerResetProtectionCRC_56F7D0(*(uint32_t*)(*(uint32_t*)(v3 + 276) + 4628), v7);
 	}
 	nox_xxx_fileReadWrite_426AC0_file3_fread((uint8_t*)(v2 + 50), 4u);
 	nox_xxx_fileReadWrite_426AC0_file3_fread((uint8_t*)(v2 + 54), 4u);
@@ -2185,7 +2185,7 @@ int nox_xxx_guiSpellbook_41B660(int a1) {
 				if ((short)v22 < 3 || *(uint8_t*)(v2 + 2251)) {
 					v18 = v23;
 					v15 = nox_xxx_spellNameToN_4243F0(v24);
-					nox_xxx_spellGrantToPlayer_4FB550_magic_plyrspel(a1, v15, 0, 0, v18);
+					nox_xxx_spellGrantToPlayer_4FB550(a1, v15, 0, 0, v18);
 				} else {
 					v14 = nox_xxx_abilityNameToN_424D80(v24);
 					nox_xxx_abilityRewardServ_4FB9C0_ability(a1, v14, 0);

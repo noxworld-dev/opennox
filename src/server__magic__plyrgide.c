@@ -59,7 +59,7 @@ int nox_xxx_awardBeastGuide_4FAE80_magic_plyrgide(int a1, int a2, int a3) {
 		return 0;
 	}
 	*v7 = 1;
-	nox_xxx_playerAwardSpellProtection_56FCE0(*(uint32_t*)(*(uint32_t*)(v4 + 276) + 4640), a2,
+	nox_xxx_playerAwardSpellProtectionCRC_56FCE0(*(uint32_t*)(*(uint32_t*)(v4 + 276) + 4640), a2,
 											  *(uint32_t*)(*(uint32_t*)(v4 + 276) + 4 * a2 + 4244));
 	if (a3) {
 		nox_xxx_aud_501960(227, a1, 0, 0);
@@ -76,7 +76,7 @@ int nox_xxx_awardBeastGuide_4FAE80_magic_plyrgide(int a1, int a2, int a3) {
 				if (v10) {
 					do {
 						*(uint32_t*)(*(uint32_t*)(v4 + 276) + 4 * v10 + 4244) = 1;
-						nox_xxx_playerAwardSpellProtection_56FCE0(
+						nox_xxx_playerAwardSpellProtectionCRC_56FCE0(
 							*(uint32_t*)(*(uint32_t*)(v4 + 276) + 4640), *v11,
 							*(uint32_t*)(*(uint32_t*)(v4 + 276) + 4 * *v11 + 4244));
 						v10 = v11[1];

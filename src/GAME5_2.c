@@ -2745,7 +2745,7 @@ uint32_t* sub_56F780(int a1, int a2) {
 }
 
 //----- (0056F7D0) --------------------------------------------------------
-uint32_t* nox_xxx_playerUpdateNetBuffs_56F7D0(int a1, int a2) {
+uint32_t* nox_xxx_playerResetProtectionCRC_56F7D0(int a1, int a2) {
 	uint32_t* result; // eax
 	int v3;           // ecx
 
@@ -3019,7 +3019,7 @@ int sub_56FCB0(int a1, int a2) {
 }
 
 //----- (0056FCE0) --------------------------------------------------------
-int nox_xxx_playerAwardSpellProtection_56FCE0(int a1, int a2, int a3) {
+int nox_xxx_playerAwardSpellProtectionCRC_56FCE0(int a1, int a2, int a3) {
 	int result;   // eax
 	uint32_t* v4; // eax
 	uint32_t* v5; // esi
@@ -3042,7 +3042,7 @@ int nox_xxx_playerAwardSpellProtection_56FCE0(int a1, int a2, int a3) {
 // 560840: using guessed type void  nullsub_31(uint32_t);
 
 //----- (0056FD50) --------------------------------------------------------
-int sub_56FD50(int a1, void* a2p, int a3) {
+int nox_xxx_playerApplyProtectionCRC_56FD50(int a1, void* a2p, int a3) {
 	int a2 = a2p;
 	int v3;       // ebp
 	uint32_t* v4; // eax

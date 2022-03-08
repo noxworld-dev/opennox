@@ -11511,7 +11511,7 @@ int nox_xxx_useSpellReward_53F9E0(int a1, int a2) {
 	if (nox_common_gameFlags_check_40A5C0(6144) && !*(uint32_t*)(*(uint32_t*)(v4 + 276) + 4 * *v2 + 3696)) {
 		v3 = 1;
 	}
-	if (nox_xxx_spellGrantToPlayer_4FB550_magic_plyrspel(a1, *v2, 1, v3, 0)) {
+	if (nox_xxx_spellGrantToPlayer_4FB550(a1, *v2, 1, v3, 0)) {
 		nox_xxx_delayedDeleteObject_4E5CC0(a2);
 	} else {
 		nox_xxx_aud_501960(925, a1, 2, *(uint32_t*)(a1 + 36));

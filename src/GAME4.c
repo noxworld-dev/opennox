@@ -3004,7 +3004,7 @@ uint32_t* sub_4FA620(int a1, int a2) {
 			result = sub_56F920(*(uint32_t*)(*(uint32_t*)(v3 + 276) + 4588), a2);
 		} else {
 			*(uint32_t*)(v4 + 2164) = 0;
-			result = nox_xxx_playerUpdateNetBuffs_56F7D0(*(uint32_t*)(*(uint32_t*)(v3 + 276) + 4588), 0);
+			result = nox_xxx_playerResetProtectionCRC_56F7D0(*(uint32_t*)(*(uint32_t*)(v3 + 276) + 4588), 0);
 		}
 	}
 	return result;

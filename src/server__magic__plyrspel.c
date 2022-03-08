@@ -120,7 +120,7 @@ void nox_xxx_playerSpell_4FB2A0_magic_plyrspel(nox_object_t* u) {
 #endif // NOX_CGO
 
 //----- (004FB550) --------------------------------------------------------
-int nox_xxx_spellGrantToPlayer_4FB550_magic_plyrspel(nox_object_t* a1p, int a2, int a3, int a4, int a5) {
+int nox_xxx_spellGrantToPlayer_4FB550(nox_object_t* a1p, int a2, int a3, int a4, int a5) {
 	int a1 = a1p;
 	int v5;        // ebp
 	int v6;        // esi
@@ -176,7 +176,7 @@ int nox_xxx_spellGrantToPlayer_4FB550_magic_plyrspel(nox_object_t* a1p, int a2, 
 	if (a5) {
 		*(uint32_t*)(*(uint32_t*)(v7 + 276) + 4 * a2 + 3696) = a5;
 	}
-	nox_xxx_playerAwardSpellProtection_56FCE0(*(uint32_t*)(*(uint32_t*)(v7 + 276) + 4636), a2,
+	nox_xxx_playerAwardSpellProtectionCRC_56FCE0(*(uint32_t*)(*(uint32_t*)(v7 + 276) + 4636), a2,
 											  *(uint32_t*)(*(uint32_t*)(v7 + 276) + 4 * a2 + 3696));
 	int v20 = 0;
 	if (nox_xxx_spellHasFlags_424A50(a2, 4096)) {
@@ -206,7 +206,7 @@ int nox_xxx_spellGrantToPlayer_4FB550_magic_plyrspel(nox_object_t* a1p, int a2, 
 						*(uint32_t*)(v14 + 4 * v6 + 3696) = 3;
 					}
 				}
-				nox_xxx_playerAwardSpellProtection_56FCE0(*(uint32_t*)(*(uint32_t*)(v7 + 276) + 4636), v6,
+				nox_xxx_playerAwardSpellProtectionCRC_56FCE0(*(uint32_t*)(*(uint32_t*)(v7 + 276) + 4636), v6,
 														  *(uint32_t*)(v12 + *(uint32_t*)(v7 + 276)));
 			}
 			v12 += 4;

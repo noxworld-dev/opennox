@@ -1948,7 +1948,7 @@ int* nox_xxx_setUnitBuffFlags_4E48F0(int a1, int a2) {
 	v2 = *(uint8_t*)(a1 + 8);
 	*(uint32_t*)(a1 + 340) = a2;
 	if (v2 & 4) {
-		nox_xxx_playerUpdateNetBuffs_56F7D0(*(uint32_t*)(*(uint32_t*)(*(uint32_t*)(a1 + 748) + 276) + 4612), a2);
+		nox_xxx_playerResetProtectionCRC_56F7D0(*(uint32_t*)(*(uint32_t*)(*(uint32_t*)(a1 + 748) + 276) + 4612), a2);
 	}
 	if (*(uint32_t*)(a1 + 8) & 0x20400004) {
 		result = (int*)(a1 + 560);
@@ -6667,7 +6667,7 @@ int nox_xxx_collideSpellPedestal_4EAD20(int a1, int a2) {
 
 	result = a2;
 	if (a2) {
-		result = nox_xxx_spellGrantToPlayer_4FB550_magic_plyrspel(a2, **(uint32_t**)(a1 + 700), 1, 0, 0);
+		result = nox_xxx_spellGrantToPlayer_4FB550(a2, **(uint32_t**)(a1 + 700), 1, 0, 0);
 	}
 	return result;
 }
@@ -10230,32 +10230,32 @@ void nox_xxx_spellAwardAll2_4EFC80(nox_playerInfo* a1p) {
 	uint32_t* v2; // ebx
 	char v3;      // al
 
-	nox_xxx_playerUpdateNetBuffs_56F7D0(*(uint32_t*)(a1 + 4636), 0);
+	nox_xxx_playerResetProtectionCRC_56F7D0(*(uint32_t*)(a1 + 4636), 0);
 	v1 = 1;
 	v2 = (uint32_t*)(a1 + 3700);
 	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ADMIN)) {
 		do {
 			*v2 = 3;
-			nox_xxx_playerAwardSpellProtection_56FCE0(*(uint32_t*)(a1 + 4636), v1++, 3);
+			nox_xxx_playerAwardSpellProtectionCRC_56FCE0(*(uint32_t*)(a1 + 4636), v1++, 3);
 			++v2;
 		} while (v1 < 137);
 	} else {
 		do {
 			*v2 = 0;
-			nox_xxx_playerAwardSpellProtection_56FCE0(*(uint32_t*)(a1 + 4636), v1++, 0);
+			nox_xxx_playerAwardSpellProtectionCRC_56FCE0(*(uint32_t*)(a1 + 4636), v1++, 0);
 			++v2;
 		} while (v1 < 137);
 		if (nox_common_gameFlags_check_40A5C0(4096)) {
 			v3 = *(uint8_t*)(a1 + 2251);
 			if (v3 == 1) {
-				nox_xxx_spellGrantToPlayer_4FB550_magic_plyrspel(*(uint32_t*)(a1 + 2056), 27, 1, 1, 1);
+				nox_xxx_spellGrantToPlayer_4FB550(*(uint32_t*)(a1 + 2056), 27, 1, 1, 1);
 			} else if (v3 == 2) {
-				nox_xxx_spellGrantToPlayer_4FB550_magic_plyrspel(*(uint32_t*)(a1 + 2056), 9, 1, 1, 1);
-				nox_xxx_spellGrantToPlayer_4FB550_magic_plyrspel(*(uint32_t*)(a1 + 2056), 41, 1, 1, 1);
+				nox_xxx_spellGrantToPlayer_4FB550(*(uint32_t*)(a1 + 2056), 9, 1, 1, 1);
+				nox_xxx_spellGrantToPlayer_4FB550(*(uint32_t*)(a1 + 2056), 41, 1, 1, 1);
 			}
 		}
 	}
-	sub_56FD50(*(uint32_t*)(a1 + 4636), a1 + 3696, 137);
+	nox_xxx_playerApplyProtectionCRC_56FD50(*(uint32_t*)(a1 + 4636), a1 + 3696, 137);
 }
 
 //----- (004EFD80) --------------------------------------------------------
@@ -10264,23 +10264,23 @@ void nox_xxx_spellAwardAll1_4EFD80(nox_playerInfo* a1p) {
 	int v1;       // esi
 	uint32_t* v2; // ebx
 
-	nox_xxx_playerUpdateNetBuffs_56F7D0(*(uint32_t*)(a1 + 4640), 0);
+	nox_xxx_playerResetProtectionCRC_56F7D0(*(uint32_t*)(a1 + 4640), 0);
 	v1 = 1;
 	v2 = (uint32_t*)(a1 + 4248);
 	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ADMIN)) {
 		do {
 			*v2 = 1;
-			nox_xxx_playerAwardSpellProtection_56FCE0(*(uint32_t*)(a1 + 4640), v1++, 1);
+			nox_xxx_playerAwardSpellProtectionCRC_56FCE0(*(uint32_t*)(a1 + 4640), v1++, 1);
 			++v2;
 		} while (v1 < 41);
 	} else {
 		do {
 			*v2 = 0;
-			nox_xxx_playerAwardSpellProtection_56FCE0(*(uint32_t*)(a1 + 4640), v1++, 0);
+			nox_xxx_playerAwardSpellProtectionCRC_56FCE0(*(uint32_t*)(a1 + 4640), v1++, 0);
 			++v2;
 		} while (v1 < 41);
 	}
-	sub_56FD50(*(uint32_t*)(a1 + 4640), a1 + 4244, 41);
+	nox_xxx_playerApplyProtectionCRC_56FD50(*(uint32_t*)(a1 + 4640), a1 + 4244, 41);
 }
 
 //----- (004EFE10) --------------------------------------------------------
@@ -10295,13 +10295,13 @@ void nox_xxx_spellAwardAll3_4EFE10(nox_playerInfo* a1p) {
 		if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ADMIN)) {
 			do {
 				*v3 = 5;
-				nox_xxx_playerAwardSpellProtection_56FCE0(*(uint32_t*)(a1 + 4636), v2++, 5);
+				nox_xxx_playerAwardSpellProtectionCRC_56FCE0(*(uint32_t*)(a1 + 4636), v2++, 5);
 				++v3;
 			} while (v2 < 6);
 		} else {
 			do {
 				*v3 = 0;
-				nox_xxx_playerAwardSpellProtection_56FCE0(*(uint32_t*)(a1 + 4636), v2++, 0);
+				nox_xxx_playerAwardSpellProtectionCRC_56FCE0(*(uint32_t*)(a1 + 4636), v2++, 0);
 				++v3;
 			} while (v2 < 6);
 		}

@@ -2492,9 +2492,9 @@ int nox_cmd_cheat_spells(int tokInd, int tokCnt, wchar_t** tokens) {
 			v8 = (int*)(i + 3696);
 			do {
 				*v8 = v5;
-				nox_xxx_playerAwardSpellProtection_56FCE0(*((uint32_t*)i + 1159), v7, v5);
+				nox_xxx_playerAwardSpellProtectionCRC_56FCE0(*((uint32_t*)i + 1159), v7, v5);
 				*v8 = v5;
-				nox_xxx_playerAwardSpellProtection_56FCE0(*((uint32_t*)i + 1159), v7++, v5);
+				nox_xxx_playerAwardSpellProtectionCRC_56FCE0(*((uint32_t*)i + 1159), v7++, v5);
 				++v8;
 			} while (v7 < 137);
 		}

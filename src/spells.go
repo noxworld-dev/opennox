@@ -428,12 +428,12 @@ func serverSetAllBeastScrolls(p *Player, enable bool) {
 	if enable {
 		lvl = 1
 	}
-	C.nox_xxx_playerUpdateNetBuffs_56F7D0(C.int(*(*uintptr)(p.field(4640))), 0)
+	C.nox_xxx_playerResetProtectionCRC_56F7D0(C.int(*(*uintptr)(p.field(4640))), 0)
 	for i := 1; i < len(p.beast_scroll_lvl); i++ {
 		p.beast_scroll_lvl[i] = C.uint(lvl)
-		C.nox_xxx_playerAwardSpellProtection_56FCE0(C.int(*(*uintptr)(p.field(4640))), C.int(i), C.int(lvl))
+		C.nox_xxx_playerAwardSpellProtectionCRC_56FCE0(C.int(*(*uintptr)(p.field(4640))), C.int(i), C.int(lvl))
 	}
-	C.sub_56FD50(C.int(*(*uintptr)(p.field(4640))), unsafe.Pointer(&p.beast_scroll_lvl[0]), C.int(len(p.beast_scroll_lvl)))
+	C.nox_xxx_playerApplyProtectionCRC_56FD50(C.int(*(*uintptr)(p.field(4640))), unsafe.Pointer(&p.beast_scroll_lvl[0]), C.int(len(p.beast_scroll_lvl)))
 }
 
 func serverSetAllSpells(p *Player, enable bool) {
@@ -441,22 +441,25 @@ func serverSetAllSpells(p *Player, enable bool) {
 	if enable {
 		lvl = 3
 	}
-	C.nox_xxx_playerUpdateNetBuffs_56F7D0(C.int(*(*uintptr)(p.field(4636))), 0)
+	C.nox_xxx_playerResetProtectionCRC_56F7D0(C.int(*(*uintptr)(p.field(4636))), 0)
+	// set max level for all possible spells
+	// the engine will automatically allow only ones that have WIS_USE, CON_USE or COMMON_USE set
 	for i := 1; i < len(p.spell_lvl); i++ {
 		p.spell_lvl[i] = C.uint(lvl)
-		C.nox_xxx_playerAwardSpellProtection_56FCE0(C.int(*(*uintptr)(p.field(4636))), C.int(i), C.int(lvl))
+		C.nox_xxx_playerAwardSpellProtectionCRC_56FCE0(C.int(*(*uintptr)(p.field(4636))), C.int(i), C.int(lvl))
 	}
 	if !enable && noxflags.HasGame(noxflags.GameModeQuest) {
 		u := p.UnitC()
+		// grant default spells for Quest when disabling the cheat
 		switch p.PlayerClass() {
 		case player.Wizard:
-			C.nox_xxx_spellGrantToPlayer_4FB550_magic_plyrspel(u.CObj(), 27, 1, 1, 1)
+			C.nox_xxx_spellGrantToPlayer_4FB550(u.CObj(), C.int(things.SPELL_FIREBALL), 1, 1, 1)
 		case player.Conjurer:
-			C.nox_xxx_spellGrantToPlayer_4FB550_magic_plyrspel(u.CObj(), 9, 1, 1, 1)
-			C.nox_xxx_spellGrantToPlayer_4FB550_magic_plyrspel(u.CObj(), 41, 1, 1, 1) // spawn spells?
+			C.nox_xxx_spellGrantToPlayer_4FB550(u.CObj(), C.int(things.SPELL_CHARM), 1, 1, 1)
+			C.nox_xxx_spellGrantToPlayer_4FB550(u.CObj(), C.int(things.SPELL_LESSER_HEAL), 1, 1, 1)
 		}
 	}
-	C.sub_56FD50(C.int(*(*uintptr)(p.field(4636))), unsafe.Pointer(&p.spell_lvl[0]), C.int(len(p.spell_lvl)))
+	C.nox_xxx_playerApplyProtectionCRC_56FD50(C.int(*(*uintptr)(p.field(4636))), unsafe.Pointer(&p.spell_lvl[0]), C.int(len(p.spell_lvl)))
 }
 
 func serverSetAllWarriorAbilities(p *Player, enable bool) {
@@ -469,7 +472,7 @@ func serverSetAllWarriorAbilities(p *Player, enable bool) {
 	}
 	for i := 1; i < 6; i++ {
 		p.spell_lvl[i] = C.uint(lvl)
-		C.nox_xxx_playerAwardSpellProtection_56FCE0(C.int(*(*uintptr)(p.field(4636))), C.int(i), C.int(lvl))
+		C.nox_xxx_playerAwardSpellProtectionCRC_56FCE0(C.int(*(*uintptr)(p.field(4636))), C.int(i), C.int(lvl))
 	}
 }
 

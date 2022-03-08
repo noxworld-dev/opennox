@@ -69,7 +69,7 @@ int nox_xxx_abilityRewardServ_4FB9C0_ability(int a1, int a2, int a3) {
 		if (*v7 > 5) {
 			*v7 = 5;
 		}
-		nox_xxx_playerAwardSpellProtection_56FCE0(*(uint32_t*)(*(uint32_t*)(v3 + 276) + 4636), a2,
+		nox_xxx_playerAwardSpellProtectionCRC_56FCE0(*(uint32_t*)(*(uint32_t*)(v3 + 276) + 4636), a2,
 												  *(uint32_t*)(*(uint32_t*)(v3 + 276) + 4 * a2 + 3696));
 		nox_xxx_netAbilityReport_4D8060(a1, a2, a3);
 		if (nox_common_gameFlags_check_40A5C0(4096)) {

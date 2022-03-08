@@ -5795,7 +5795,7 @@ int sub_513280(int a1, int* a2) {
 		!*(uint32_t*)(*(uint32_t*)(*(uint32_t*)(a1 + 748) + 276) + 4 * *a2 + 3696)) {
 		v2 = 1;
 	}
-	return nox_xxx_spellGrantToPlayer_4FB550_magic_plyrspel(a1, *a2, 1, v2, 0);
+	return nox_xxx_spellGrantToPlayer_4FB550(a1, *a2, 1, v2, 0);
 }
 
 //----- (00513390) --------------------------------------------------------

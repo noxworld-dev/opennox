@@ -1015,7 +1015,7 @@ int nox_script_awardSpell_5131C0() {
 	if (v2) {
 		v4 = nox_server_scriptValToObjectPtr_511B60(v1);
 		if (v4) {
-			v5 = nox_xxx_spellGrantToPlayer_4FB550_magic_plyrspel(v4, v2, 1, 0, 0);
+			v5 = nox_xxx_spellGrantToPlayer_4FB550(v4, v2, 1, 0, 0);
 			nox_script_push(v5);
 		} else {
 			nox_script_push(0);
