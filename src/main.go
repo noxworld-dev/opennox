@@ -138,11 +138,6 @@ func RunArgs(args []string) (gerr error) {
 		defer e2eStop()
 	}
 	version.LogVersion()
-	if !isDedicatedServer {
-		go version.Latest() // prefetch
-	}
-	handles.Init()
-	defer handles.Release()
 	flags := flag.NewFlagSet("", flag.ContinueOnError)
 	// TODO: add missing flag descriptions
 	rconDefHost := ""
@@ -187,6 +182,11 @@ func RunArgs(args []string) (gerr error) {
 	)
 	if err := flags.Parse(args[1:]); err != nil {
 		return err
+	}
+	handles.Init()
+	defer handles.Release()
+	if !isDedicatedServer {
+		go version.Latest() // prefetch
 	}
 	if env.IsDevMode() || version.IsDev() || env.IsE2E() || *fPProf != "" {
 		go func() {
