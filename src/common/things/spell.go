@@ -151,7 +151,7 @@ const (
 	SpellFlagUnk7       = SpellFlags(0x40)       // 64
 	SpellFlagUnk8       = SpellFlags(0x80)       // 128
 	SpellInstant        = SpellFlags(0x100)      // 256
-	SpellFlagUnk10      = SpellFlags(0x200)      // 512
+	SpellDefensive      = SpellFlags(0x200)      // 512
 	SpellFlagUnk11      = SpellFlags(0x400)      // 1024
 	SpellFlagUnk12      = SpellFlags(0x800)      // 2048
 	SpellSummonMain     = SpellFlags(0x1000)     // 4096
@@ -192,6 +192,8 @@ func (f SpellFlags) string() string {
 		return "OFFENSIVE"
 	case SpellInstant:
 		return "INSTANT"
+	case SpellDefensive:
+		return "DEFENSIVE"
 	case SpellSummonMain:
 		return "SUMMON_SPELL"
 	case SpellSummonCreature:
@@ -309,8 +311,8 @@ func (f *SpellFlags) parseText(s string) error {
 		*f = SpellOffensive
 	case "INSTANT":
 		*f = SpellInstant
-	case "AUTO_TRACK":
-		*f = SpellFlagUnk10
+	case "AUTO_TRACK", "DEFENSIVE":
+		*f = SpellDefensive
 	case "SUMMON_SPELL":
 		*f = SpellSummonMain
 	case "SUMMON", "SUMMON_CREATURE":
