@@ -1,9 +1,11 @@
 package things
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"io"
+	"os"
 	"strings"
 
 	"gopkg.in/yaml.v2"
@@ -421,13 +423,56 @@ type Spell struct {
 	ManaCost    int                `json:"mana_cost" yaml:"mana_cost"`
 	Price       int                `json:"price" yaml:"price"`
 	Flags       SpellFlags         `json:"flags" yaml:"flags"`
-	Phonemes    []Phoneme          `json:"phonemes,omitempty" yaml:"phonemes,omitempty"`
+	Phonemes    []Phoneme          `json:"phonemes,omitempty" yaml:"phonemes,flow,omitempty"`
 	Title       strman.ID          `json:"title,omitempty" yaml:"title,omitempty"`
 	Desc        strman.ID          `json:"desc,omitempty" yaml:"desc,omitempty"`
 	CastSound   string             `json:"cast_sound,omitempty" yaml:"cast_sound,omitempty"`
 	OnSound     string             `json:"on_sound,omitempty" yaml:"on_sound,omitempty"`
 	OffSound    string             `json:"off_sound,omitempty" yaml:"off_sound,omitempty"`
 	Missiles    *MissilesSpellConf `json:"missiles,omitempty" yaml:"missiles,omitempty"`
+}
+
+func ReadSpellsYAML(path string) ([]Spell, error) {
+	data, err := os.ReadFile(path)
+	if err != nil {
+		return nil, err
+	}
+	// compatibility
+	var out []Spell
+	if err := yaml.Unmarshal(data, &out); err == nil {
+		return out, nil
+	}
+	// new format - individual objects split as YAML documents
+	out = nil
+	dec := yaml.NewDecoder(bytes.NewReader(data))
+	for {
+		var sp Spell
+		err := dec.Decode(&sp)
+		if err == io.EOF {
+			return out, nil
+		} else if err != nil {
+			return out, err
+		}
+		out = append(out, sp)
+	}
+}
+
+func WriteSpellsYAML(path string, list []Spell) error {
+	f, err := os.Create(path)
+	if err != nil {
+		return err
+	}
+	defer f.Close()
+	enc := yaml.NewEncoder(f)
+	for _, sp := range list {
+		if err := enc.Encode(sp); err != nil {
+			return err
+		}
+	}
+	if err := enc.Close(); err != nil {
+		return err
+	}
+	return f.Close()
 }
 
 func SkipSpellsSection(r io.Reader) error {

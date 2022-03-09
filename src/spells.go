@@ -24,12 +24,9 @@ import (
 	"sort"
 	"unsafe"
 
-	"gopkg.in/yaml.v2"
-
 	"nox/v1/common/alloc"
 	"nox/v1/common/datapath"
 	noxflags "nox/v1/common/flags"
-	"nox/v1/common/fs"
 	"nox/v1/common/memmap"
 	"nox/v1/common/object"
 	"nox/v1/common/player"
@@ -313,25 +310,9 @@ func (s *Server) spellEnableAll() {
 
 func (s *Server) nox_thing_read_SPEL_4156B0(f *MemFile, isClient bool) error {
 	const yamlFile = "spells.yml"
-	var spells []things.Spell
-	if yf, err := fs.Open(datapath.Data(yamlFile)); err == nil {
-		defer yf.Close()
-
-		br := bufio.NewReader(f)
-		err = things.SkipSpellsSection(br)
-		if n := br.Buffered(); n != 0 {
-			f.Seek(-int64(n), io.SeekCurrent)
-		}
-		if err != nil {
-			return err
-		}
-		if err := yaml.NewDecoder(yf).Decode(&spells); err != nil {
-			return err
-		}
-	} else {
-		if !os.IsNotExist(err) {
-			thingsLog.Println(err)
-		}
+	spells, err := things.ReadSpellsYAML(datapath.Data(yamlFile))
+	if os.IsNotExist(err) {
+		// no new file - read bag instead
 		br := bufio.NewReader(f)
 		spells, err = things.ReadSpellsSection(br)
 		if n := br.Buffered(); n != 0 {
@@ -340,6 +321,18 @@ func (s *Server) nox_thing_read_SPEL_4156B0(f *MemFile, isClient bool) error {
 		if err != nil {
 			return err
 		}
+	} else if err == nil {
+		// ok, need to skip bag section
+		br := bufio.NewReader(f)
+		err = things.SkipSpellsSection(br)
+		if n := br.Buffered(); n != 0 {
+			f.Seek(-int64(n), io.SeekCurrent)
+		}
+		if err != nil {
+			return err
+		}
+	} else {
+		return err
 	}
 	if os.Getenv("NOX_DUMP_SPELLS") == "true" {
 		// generate default configs for OpenNox spell extensions
@@ -353,12 +346,7 @@ func (s *Server) nox_thing_read_SPEL_4156B0(f *MemFile, isClient bool) error {
 				}
 			}
 		}
-		yf, err := fs.Create(datapath.Data(yamlFile))
-		if err != nil {
-			return err
-		}
-		defer yf.Close()
-		if err := yaml.NewEncoder(yf).Encode(spells); err != nil {
+		if err := things.WriteSpellsYAML(yamlFile, spells); err != nil {
 			return err
 		}
 	}
