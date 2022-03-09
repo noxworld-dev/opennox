@@ -379,6 +379,7 @@ func (s *Server) createSpellFrom(def *things.Spell, isClient bool) error {
 	sp := &SpellDef{
 		Def:       *def,
 		ID:        ind,
+		Effect:    ind,
 		Enabled:   true,
 		Valid:     true,
 		Title:     s.Strings().GetStringInFile(def.Title, strFile),
@@ -386,6 +387,11 @@ func (s *Server) createSpellFrom(def *things.Spell, isClient bool) error {
 		CastSound: nox_xxx_utilFindSound_40AF50(def.CastSound),
 		OnSound:   nox_xxx_utilFindSound_40AF50(def.OnSound),
 		OffSound:  nox_xxx_utilFindSound_40AF50(def.OffSound),
+	}
+	if def.Effect != "" {
+		if eff := things.ParseSpellID(def.Effect); eff > 0 {
+			sp.Effect = eff
+		}
 	}
 	if s.spells.byID == nil {
 		s.spells.byID = make(map[things.SpellID]*SpellDef)
@@ -522,7 +528,8 @@ func SpellIDs() []string {
 
 type SpellDef struct {
 	Def         things.Spell
-	ID          things.SpellID
+	ID          things.SpellID // the ID of the spell itself, used to index it
+	Effect      things.SpellID // the ID of the spell effect function
 	Enabled     bool
 	Valid       bool
 	Title       string
@@ -581,6 +588,7 @@ func nox_xxx_spellAccept4FD400(spellID things.SpellID, a2, obj3, obj4 *Unit, arg
 		return false
 	}
 	obj5 := asUnitC(arg5.Obj)
+	sp := noxServer.SpellDefByInd(spellID)
 	if noxServer.spellHasFlags(spellID, things.SpellFlagUnk8) && obj5 != nil && !obj5.Class().Has(object.MaskUnits) {
 		return false
 	}
@@ -592,7 +600,8 @@ func nox_xxx_spellAccept4FD400(spellID things.SpellID, a2, obj3, obj4 *Unit, arg
 		fnc  func(spellID things.SpellID, a2, a3, a4 *Unit, a5 *spellAcceptArg, lvl int) int
 		cfnc unsafe.Pointer
 	)
-	switch spellID {
+	effectID := sp.Effect
+	switch effectID {
 	case things.SPELL_ANCHOR:
 		cfnc = C.nox_xxx_castAnchor_52C390
 	case things.SPELL_ARACHNAPHOBIA:

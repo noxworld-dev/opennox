@@ -415,6 +415,7 @@ func (f *SpellFlags) UnmarshalYAML(unmarshal func(interface{}) error) error {
 
 type Spell struct {
 	ID          string             `json:"name" yaml:"name"`
+	Effect      string             `json:"effect,omitempty" yaml:"effect,omitempty"`
 	Icon        *ImageRef          `json:"icon,omitempty" yaml:"icon,omitempty"`
 	IconEnabled *ImageRef          `json:"icon_enabled,omitempty" yaml:"icon_enabled,omitempty"`
 	ManaCost    int                `json:"mana_cost" yaml:"mana_cost"`
