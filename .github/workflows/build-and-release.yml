@@ -205,6 +205,7 @@ jobs:
           unzip -o /tmp/openal.zip
           sudo rsync -r /tmp/openal-soft-1.21.1-bin/include/ /usr/i686-w64-mingw32/include/
           sudo rsync -r /tmp/openal-soft-1.21.1-bin/libs/Win32/ /usr/i686-w64-mingw32/lib/
+          sudo ln -s ./libOpenAL32.dll.a /usr/i686-w64-mingw32/lib/libOpenAL.dll.a
           echo "2e4b005c4f8057adcf4459d9b239d3fe745a9128079b2a091f899550f2d931b0 /tmp/openal.zip" > /tmp/checksum.txt
           sha256sum -c /tmp/checksum.txt
 
@@ -430,6 +431,7 @@ jobs:
             mkdir -p /tmp/opennox-win
             ls -la /tmp/win-tmp/deps/
             cp /tmp/win-tmp/deps/*.dll /tmp/opennox-win/
+            mv /tmp/opennox-win/OpenAL32.dll /tmp/opennox-win/libopenal-1.dll
             ls -la /tmp/win-tmp/opennox/
             cp /tmp/win-tmp/opennox/*.exe /tmp/opennox-win/
             cp ./CHANGELOG.md /tmp/opennox-win/
