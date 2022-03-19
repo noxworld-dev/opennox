@@ -1272,7 +1272,7 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() bool {
 					ud.field_0 = 0xDEADFACE
 					p := m.Pos()
 					n.monsterPushAction(ai.ACTION_ESCORT, p.X, p.Y, m)
-					if n.Class().Has(2) && n.field_3&0x30 != 0 {
+					if n.Class().Has(2) && n.SubClass()&0x30 != 0 {
 						C.nox_xxx_setNPCColor_4E4A90(n.CObj(), 0, C.int(ud.field_519))
 					}
 				} else if m.Class().Has(1) && C.sub_4E5B80(m.CObj()) != 0 {

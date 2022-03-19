@@ -4547,8 +4547,7 @@ int nox_xxx_playerClassCanUseItem_57B3D0(nox_object_t* item, char a2) {
 	if (nox_cheat_allowall) {
 		return 1;
 	}
-	return ((unsigned char)(1 << a2) & (unsigned char)sub_57B370(*(uint32_t*)&item->obj_class,
-																 *(uint32_t*)&item->field_3,
+	return ((unsigned char)(1 << a2) & (unsigned char)sub_57B370(item->obj_class, item->obj_subclass,
 																 *(unsigned short*)&item->typ_ind)) != 0;
 }
 

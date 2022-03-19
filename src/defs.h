@@ -464,8 +464,8 @@ typedef struct nox_object_t {
 	unsigned short typ_ind;  // 1, 4
 	uint16_t field_1_2;      // 1, 6
 	unsigned int obj_class;  // 2, 8
-	uint32_t field_3;        // 3, 12, // TODO: some flags?
-	unsigned int flags;      // 4, 16
+	unsigned int obj_subclass; // 3, 12
+	unsigned int obj_flags;  // 4, 16
 	uint32_t field_5;        // 5, 20
 	uint16_t field_6_0;      // 6, 24
 	uint16_t field_6_2;      // 6, 26

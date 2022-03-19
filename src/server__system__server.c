@@ -821,7 +821,7 @@ void sub_4DBA30(int a1) {
 					if (obj != v3) {
 						do {
 							nox_object_t* v21 = nox_xxx_getNextUpdatable2Object_4DA850(obj);
-							if ((int)obj->flags >= 0) {
+							if ((int)obj->obj_flags >= 0) {
 								if (sub_4E5B80(obj)) {
 									nox_xxx_delayedDeleteObject_4E5CC0(obj);
 								}
@@ -2182,7 +2182,7 @@ void nox_xxx_updateUnits_51B100_D() {
 #ifndef NOX_CGO
 void nox_xxx_updateUnits_51B100_callUpdate() {
 	for (nox_object_t* obj = nox_xxx_getFirstUpdatable2Object_4DA840(); obj; obj = nox_xxx_getNextUpdatable2Object_4DA850(obj)) {
-		if ((obj->flags & 0x22) == 0) {
+		if ((obj->obj_flags & 0x22) == 0) {
 			if (obj->func_update) {
 				obj->func_update(obj);
 			}
@@ -2334,7 +2334,7 @@ int nox_xxx_mapExitAndCheckNext_4D1860_server() {
 	}
 	for (nox_object_t* obj = nox_xxx_getFirstUpdatable2Object_4DA840(); obj;
 		 obj = nox_xxx_getNextUpdatable2Object_4DA850(obj)) {
-		obj->flags |= 0x80000000;
+		obj->obj_flags |= 0x80000000;
 	}
 	if (nox_common_gameFlags_check_40A5C0(2048)) {
 		nox_xxx_spellEnableAll_424BD0();
@@ -2551,7 +2551,7 @@ int nox_xxx_mapExitAndCheckNext_4D1860_server() {
 	}
 	for (nox_object_t* obj = nox_xxx_getFirstUpdatable2Object_4DA840(); obj;
 		 obj = nox_xxx_getNextUpdatable2Object_4DA850(obj)) {
-		obj->flags &= 0x7FFFFFFFu;
+		obj->obj_flags &= 0x7FFFFFFFu;
 	}
 	if (nox_common_gameFlags_check_40A5C0(16) && nox_xxx_CheckGameplayFlags_417DA0(4)) {
 		sub_4D2160();

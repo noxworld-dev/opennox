@@ -914,7 +914,7 @@ func nox_xxx_spellFlySearchTarget(pos *types.Pointf, msl *Object, sflags things.
 		if !it.Class().HasAny(object.MaskTargets) {
 			return
 		}
-		if it.Class().Has(object.ClassMonster) && (it.field_3&0x8000 != 0) {
+		if it.Class().Has(object.ClassMonster) && (it.SubClass()&0x8000 != 0) {
 			return
 		}
 		if it.Class().Has(object.ClassPlayer) && it.AsUnit().ControllingPlayer().field_3680&0x1 != 0 {
@@ -923,7 +923,7 @@ func nox_xxx_spellFlySearchTarget(pos *types.Pointf, msl *Object, sflags things.
 		if it.Flags().HasAny(object.FlagDestroyed | object.FlagDead) {
 			return
 		}
-		if it.Class().Has(object.ClassMonster) && (it.field_3&0x4000 != 0) {
+		if it.Class().Has(object.ClassMonster) && (it.SubClass()&0x4000 != 0) {
 			return
 		}
 		it.findOwnerChainPlayer() // FIXME: result unused!

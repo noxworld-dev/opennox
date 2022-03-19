@@ -1027,8 +1027,8 @@ nox_object_t* nox_xxx_newObjectWithType_4E3470(nox_objectType_t* typ) {
 	memset(ob, 0, sizeof(nox_object_t));
 	ob->typ_ind = typ->field_5_0; // TODO: why is it setting it and then overwriting again?
 	ob->obj_class = typ->obj_class;
-	ob->field_3 = typ->obj_subclass;
-	ob->flags = typ->obj_flags;
+	ob->obj_subclass = typ->obj_subclass;
+	ob->obj_flags = typ->obj_flags;
 	ob->field_5 = typ->field_9;
 	ob->field_6_0 = typ->material;
 	*(float*)(&ob->field_7) = typ->experience;
@@ -1036,7 +1036,7 @@ nox_object_t* nox_xxx_newObjectWithType_4E3470(nox_objectType_t* typ) {
 	ob->float_28 = typ->field_13;
 	ob->mass = typ->mass;
 	memcpy(&ob->shape, &typ->shape, 0x3Cu); // TODO: this is larger than nox_shape
-	if (!(ob->flags & 0x40)) {
+	if (!(ob->obj_flags & 0x40)) {
 		nox_xxx_objectUnkUpdateCoords_4E7290(ob);
 	}
 	ob->field_122_0 = typ->weight;
@@ -8243,7 +8243,7 @@ int sub_4ECF10(int a1) {
 
 	nox_object_t* obj = nox_xxx_getFirstUpdatable2Object_4DA840();
 	while (obj) {
-		if (!(obj->flags & 0x20) && obj->script_id == a1) {
+		if (!(obj->obj_flags & 0x20) && obj->script_id == a1) {
 			return obj;
 		}
 
@@ -13014,7 +13014,7 @@ void nox_xxx_inventoryPutImpl_4F3070(int a1, nox_object_t* item, int a3) {
 	int v7; // ecx
 
 	v3 = 0;
-	if (a1 && item && !(*(uint8_t*)(a1 + 16) & 0x20) && !(item->flags & 0x20)) {
+	if (a1 && item && !(*(uint8_t*)(a1 + 16) & 0x20) && !(item->obj_flags & 0x20)) {
 		*(uint32_t*)&item->field_125 = 0;
 		*(uint32_t*)&item->field_124 = *(uint32_t*)(a1 + 504);
 		v4 = *(uint32_t*)(a1 + 504);

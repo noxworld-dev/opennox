@@ -246,19 +246,23 @@ func (obj *Object) Class() object.Class {
 	return object.Class(obj.obj_class)
 }
 
+func (obj *Object) SubClass() uint32 {
+	return uint32(obj.obj_subclass)
+}
+
 func (obj *Object) ArmorClass() object.ArmorClass {
 	if !obj.Class().Has(object.ClassArmor) {
 		return 0
 	}
-	return object.ArmorClass(obj.field_3)
+	return object.ArmorClass(obj.SubClass())
 }
 
 func (obj *Object) Flags() object.Flags {
-	return object.Flags(obj.flags)
+	return object.Flags(obj.obj_flags)
 }
 
 func (obj *Object) SetFlags(v object.Flags) {
-	obj.flags = C.uint(v)
+	obj.obj_flags = C.uint(v)
 }
 
 func (obj *Object) Mass() float32 {

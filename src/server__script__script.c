@@ -1442,14 +1442,14 @@ int sub_508CB0(unsigned int* a1, int a2) {
 nox_object_t* nox_server_scriptValToObjectPtr_511B60(int val) {
 	if (val == -1) {
 		nox_object_t* obj = nox_script_get_caller();
-		if (!obj || (obj->flags & 0x20) != 0) {
+		if (!obj || (obj->obj_flags & 0x20) != 0) {
 			return 0;
 		}
 		return obj;
 	}
 	if (val == -2) {
 		nox_object_t* obj = nox_script_get_trigger();
-		if (!obj || (obj->flags & 0x20) != 0) {
+		if (!obj || (obj->obj_flags & 0x20) != 0) {
 			return 0;
 		}
 		return obj;
@@ -1460,12 +1460,12 @@ nox_object_t* nox_server_scriptValToObjectPtr_511B60(int val) {
 	}
 
 	for (nox_object_t* obj = nox_server_getFirstObject_4DA790(); obj; obj = nox_server_getNextObject_4DA7A0(obj)) {
-		if ((obj->flags & 0x20) == 0 && obj->script_id == val) {
+		if ((obj->obj_flags & 0x20) == 0 && obj->script_id == val) {
 			nox_xxx_scriptPrepareFoundUnit_511D70(obj);
 			return obj;
 		}
 		for (nox_object_t* sub = obj->field_126; sub; sub = sub->field_124) {
-			if ((sub->flags & 0x20) == 0 && sub->script_id == val) {
+			if ((sub->obj_flags & 0x20) == 0 && sub->script_id == val) {
 				nox_xxx_scriptPrepareFoundUnit_511D70(sub);
 				return sub;
 			}
@@ -1473,7 +1473,7 @@ nox_object_t* nox_server_scriptValToObjectPtr_511B60(int val) {
 	}
 	for (nox_object_t* obj = nox_server_getFirstObjectUninited_4DA870(); obj;
 		 obj = nox_server_getNextObjectUninited_4DA880(obj)) {
-		if ((obj->flags & 0x20) == 0 && obj->script_id == val) {
+		if ((obj->obj_flags & 0x20) == 0 && obj->script_id == val) {
 			nox_xxx_scriptPrepareFoundUnit_511D70(obj);
 			return obj;
 		}

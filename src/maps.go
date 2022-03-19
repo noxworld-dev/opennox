@@ -481,7 +481,7 @@ func nox_server_mapRWObjectData_504CF0_Write(a2 unsafe.Pointer) int {
 				continue
 			}
 		}
-		if obj.Class().Has(object.ClassWeapon) && obj.field_3&0x40 != 0 {
+		if obj.Class().Has(object.ClassWeapon) && obj.SubClass()&0x40 != 0 {
 			pos := obj.Pos()
 			v6 := obj.FirstItem()
 			v6.setPos(pos)

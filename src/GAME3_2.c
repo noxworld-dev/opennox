@@ -7675,10 +7675,10 @@ char nox_xxx_servFinalizeDelObject_4DADE0(nox_object_t* item) {
 	const int a1 = (int)item;
 	int v1; // eax
 
-	v1 = item->flags;
+	v1 = item->obj_flags;
 	if (v1 & 4) {
 		LOBYTE(v1) = v1 & 0xFB;
-		item->flags = v1;
+		item->obj_flags = v1;
 		nox_xxx_playerLeaveObsByObserved_4E60A0(a1);
 		if (!nox_common_gameFlags_check_40A5C0(0x80000)) {
 			nox_xxx_netReportDestroyObject_5289D0(a1);
