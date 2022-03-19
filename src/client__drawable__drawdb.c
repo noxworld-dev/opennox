@@ -808,17 +808,17 @@ int nox_xxx_freeObjectTypes_4E2A20() {
 		if (typ->id) {
 			free(typ->id);
 		}
-		if (typ->field_34) {
-			free(typ->field_34);
+		if (typ->data_34) {
+			free(typ->data_34);
 		}
-		if (typ->field_36) {
-			free(typ->field_36);
+		if (typ->collide_data) {
+			free(typ->collide_data);
 		}
-		if (typ->field_41) {
-			free(typ->field_41);
+		if (typ->die_data) {
+			free(typ->die_data);
 		}
-		if (typ->field_44) {
-			free(typ->field_44);
+		if (typ->init_data) {
+			free(typ->init_data);
 		}
 		void* v2 = typ->data_update;
 		if (v2) {
@@ -830,8 +830,8 @@ int nox_xxx_freeObjectTypes_4E2A20() {
 			}
 			free(typ->data_update);
 		}
-		if (typ->field_51) {
-			free(typ->field_51);
+		if (typ->use_data) {
+			free(typ->use_data);
 		}
 		free(typ);
 	}
@@ -875,7 +875,7 @@ char* nox_xxx_unitDefByAlphabetAdd_4E3080(char* a1) {
 int nox_xxx_objectTypes_allFit_4E3110() {
 	int ret = 1;
 	for (nox_objectType_t* typ = nox_xxx_getFirstObjectType_4E3B30(); typ; typ = nox_xxx_objectType_next_4E3B40(typ)) {
-		if ((typ->field_8 & 0x40) != 0) {
+		if ((typ->obj_flags & 0x40) != 0) {
 			continue;
 		}
 		nox_shape* shape = &typ->shape;
@@ -1091,31 +1091,31 @@ int nox_read_things_alternative_4E2B60(void) {
 			++*getMemU32Ptr(0x587000, 201384);
 
 			typ->field_2 = 0;
-			typ->field_3 = -1;
-			typ->field_10 = 0x4000;
+			typ->menu_icon = -1;
+			typ->material = 0x4000;
 			typ->mass = 1.0f;
-			typ->field_28 = 0;
-			typ->field_29 = 30.0f;
+			typ->zsize1 = 0;
+			typ->zsize2 = 30.0f;
 			typ->func_damage = nox_xxx_damageDefaultProc_4E0B30;
 			typ->func_damage_sound = nox_xxx_soundDefaultDamageSound_532E20;
 			typ->func_xfer = nox_xxx_XFerDefault_4F49A0;
-			typ->field_30_0 = 0xff;
+			typ->weight = 0xff;
 			if (!nox_thing_read_xxx_4E3220(things, v3, typ)) {
 				nox_memfile_free(things);
 				return 0;
 			}
-			if (!typ->field_35) {
-				typ->field_8 |= 0x40;
+			if (!typ->func_collide) {
+				typ->obj_flags |= 0x40;
 			}
 			*((uint16_t*)typ + 10) = typ->ind;
-			typ->field_8 |= 0x1000000;
+			typ->obj_flags |= 0x1000000;
 			if (typ->obj_class & 0x400000) {
 				typ->mass = 1e10f;
 			}
 			if (typ->obj_class & 0x1) {
 				typ->field_13 = 1.0f;
 				typ->speed *= 2;
-				typ->field_32 *= 2;
+				typ->speed_2 *= 2;
 			} else {
 				typ->field_13 = 0.5f;
 			}
@@ -1138,12 +1138,12 @@ int nox_read_things_alternative_4E2B60(void) {
 				v14[8] = -1;
 				v14[4] = -1;
 			} else if (typ->obj_class & 0x800) {
-				*(uint32_t*)((uint32_t)(typ->field_36) + 4) = -1;
+				*(uint32_t*)((uint32_t)(typ->collide_data) + 4) = -1;
 			}
 			if (typ->obj_class & 0x3000006) {
-				if (!typ->field_34) {
-					typ->field_34 = calloc(1, 20);
-					if (!typ->field_34) {
+				if (!typ->data_34) {
+					typ->data_34 = calloc(1, 20);
+					if (!typ->data_34) {
 						return 0;
 					}
 				}

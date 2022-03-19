@@ -107,7 +107,7 @@ func (t *ObjectType) ArmorClass() object.ArmorClass {
 	if !t.Class().Has(object.ClassArmor) {
 		return 0
 	}
-	return object.ArmorClass(t.field_7)
+	return object.ArmorClass(t.obj_subclass)
 }
 
 func (t *ObjectType) String() string {

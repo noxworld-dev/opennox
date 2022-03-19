@@ -7975,10 +7975,10 @@ int nox_xxx_netUpdate_518EE0(nox_object_t* obj) {
 				 cur_obj = nox_xxx_getNextUpdatable2Object_4DA850(cur_obj)) {
 				if (!(cur_obj->obj_class & 0x20400000) &&
 					!nox_xxx_playerMapTracksObj_4173D0(*(unsigned char*)(*(uint32_t*)(v2 + 276) + 2064), cur_obj) &&
-					(*(float*)&cur_obj->field_58 > (double)a1.field_8 ||
-					 *(float*)&cur_obj->field_60 < (double)a1.field_0 ||
-					 *(float*)&cur_obj->field_59 > (double)a1.field_C ||
-					 *(float*)&cur_obj->field_61 < (double)a1.field_4)) {
+					(cur_obj->collide_x1 > (double)a1.field_8 ||
+					 cur_obj->collide_x2 < (double)a1.field_0 ||
+					 cur_obj->collide_y1 > (double)a1.field_C ||
+					 cur_obj->collide_y2 < (double)a1.field_4)) {
 					if (v14 & cur_obj->field_37) {
 						nox_xxx_netObjectOutOfSight_528A60(*(unsigned char*)(*(uint32_t*)(v2 + 276) + 2064),
 														   (uint32_t*)cur_obj);

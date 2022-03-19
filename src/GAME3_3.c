@@ -947,8 +947,8 @@ int nox_thing_read_xxx_4E3220(nox_memfile* a1p, char* a2, nox_objectType_t* a3p)
 void nox_xxx_unitDefFindMaxDataSize_4E3320() {
 	int max = 0;
 	for (nox_objectType_t* typ = nox_xxx_objectTypes_head_1563660; typ; typ = typ->next) {
-		if (max < typ->field_36_size + typ->field_44_size + typ->data_update_size + typ->field_51_size) {
-			max = typ->field_36_size + typ->field_44_size + typ->data_update_size + typ->field_51_size;
+		if (max < typ->collide_data_size + typ->init_data_size + typ->data_update_size + typ->use_data_size) {
+			max = typ->collide_data_size + typ->init_data_size + typ->data_update_size + typ->use_data_size;
 		}
 	}
 	// TODO: result is unused :/
@@ -1027,57 +1027,57 @@ nox_object_t* nox_xxx_newObjectWithType_4E3470(nox_objectType_t* typ) {
 	memset(ob, 0, sizeof(nox_object_t));
 	ob->typ_ind = typ->field_5_0; // TODO: why is it setting it and then overwriting again?
 	ob->obj_class = typ->obj_class;
-	ob->field_3 = typ->field_7;
-	ob->flags = typ->field_8;
+	ob->field_3 = typ->obj_subclass;
+	ob->flags = typ->obj_flags;
 	ob->field_5 = typ->field_9;
-	ob->field_6_0 = typ->field_10;
-	ob->field_7 = typ->field_11;
-	ob->field_8 = typ->field_12;
+	ob->field_6_0 = typ->material;
+	*(float*)(&ob->field_7) = typ->experience;
+	ob->field_8 = typ->worth;
 	ob->float_28 = typ->field_13;
 	ob->mass = typ->mass;
 	memcpy(&ob->shape, &typ->shape, 0x3Cu); // TODO: this is larger than nox_shape
 	if (!(ob->flags & 0x40)) {
 		nox_xxx_objectUnkUpdateCoords_4E7290(ob);
 	}
-	ob->field_122_0 = typ->field_30_0;
-	ob->field_122_2 = typ->field_30_2;
+	ob->field_122_0 = typ->weight;
+	ob->field_122_2 = typ->carry_capacity;
 	ob->speed_cur = typ->speed;
-	ob->float_137 = typ->field_32;
+	ob->float_137 = typ->speed_2;
 	ob->float_138 = typ->field_33;
-	ob->field_139 = typ->field_34;
+	ob->field_139 = typ->data_34;
 	ob->field_38 = -1;
 	ob->typ_ind = typ->ind;
-	if (typ->field_34) {
+	if (typ->data_34) {
 		ob->field_139 = calloc(1, 20);
 		if (!ob->field_139) {
 			return 0;
 		}
-		memcpy(ob->field_139, typ->field_34, 20);
+		memcpy(ob->field_139, typ->data_34, 20);
 	}
-	ob->field_172 = typ->field_43;
-	if (typ->field_44_size) {
-		ob->field_173 = calloc(1, typ->field_44_size);
+	ob->field_172 = typ->func_init;
+	if (typ->init_data_size) {
+		ob->field_173 = calloc(1, typ->init_data_size);
 		if (!ob->field_173) {
 			return 0;
 		}
-		memcpy(ob->field_173, typ->field_44, typ->field_44_size);
+		memcpy(ob->field_173, typ->init_data, typ->init_data_size);
 	}
-	ob->field_174 = typ->field_35;
-	if (typ->field_36_size) {
-		ob->field_175 = calloc(1, typ->field_36_size);
+	ob->field_174 = typ->func_collide;
+	if (typ->collide_data_size) {
+		ob->field_175 = calloc(1, typ->collide_data_size);
 		if (!ob->field_175) {
 			return 0;
 		}
-		memcpy(ob->field_175, typ->field_36, typ->field_36_size);
+		memcpy(ob->field_175, typ->collide_data, typ->collide_data_size);
 	}
 	ob->func_xfer = typ->func_xfer;
-	ob->field_183 = typ->field_50;
-	if (typ->field_51_size) {
-		ob->field_184 = calloc(1, typ->field_51_size);
+	ob->field_183 = typ->func_use;
+	if (typ->use_data_size) {
+		ob->field_184 = calloc(1, typ->use_data_size);
 		if (!ob->field_184) {
 			return 0;
 		}
-		memcpy(ob->field_184, typ->field_51, typ->field_51_size);
+		memcpy(ob->field_184, typ->use_data, typ->use_data_size);
 	}
 	ob->func_update = typ->func_update;
 	if (typ->data_update_size) {
@@ -1087,13 +1087,13 @@ nox_object_t* nox_xxx_newObjectWithType_4E3470(nox_objectType_t* typ) {
 		}
 		memcpy(ob->data_update, typ->data_update, typ->data_update_size);
 	}
-	ob->field_177 = typ->field_46;
-	ob->field_178 = typ->field_42;
+	ob->field_177 = typ->func_pickup;
+	ob->field_178 = typ->func_drop;
 	ob->func_damage = typ->func_damage;
 	ob->func_damage_sound = typ->func_damage_sound;
-	ob->deleteOverride = typ->field_40;
+	ob->deleteOverride = typ->func_die;
 	ob->field_190 = 0;
-	ob->field_182 = typ->field_41;
+	ob->field_182 = typ->die_data;
 	ob->field_192 = -1;
 	ob->field_9 = v9;
 	if (nox_common_gameFlags_check_40A5C0(6291456) &&

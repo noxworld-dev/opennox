@@ -411,48 +411,48 @@ typedef struct nox_objectType_t {
 	unsigned short field_0_1; // 0, 2
 	const char* id;           // 1, 4
 	uint32_t field_2;         // 2, 8
-	uint32_t field_3;         // 3, 12
+	int menu_icon;            // 3, 12
 	unsigned int field_4;     // 4, 16
 	uint16_t field_5_0;       // 5, 20
 	uint16_t field_5_1;       // 5, 22
 	unsigned int obj_class;   // 6, 24
-	uint32_t field_7;         // 7, 28
-	unsigned int field_8;     // 8, 32, TODO: some flags? subclass?
+	unsigned int obj_subclass;// 7, 28
+	unsigned int obj_flags;   // 8, 32
 	uint32_t field_9;         // 9, 36
-	uint16_t field_10;        // 10, 40
+	uint16_t material;        // 10, 40
 	uint16_t field_10_1;      // 10, 42
-	uint32_t field_11;        // 11, 44
-	uint32_t field_12;        // 12, 48
+	float experience;         // 11, 44
+	uint32_t worth;           // 12, 48
 	float field_13;           // 13, 52
 	float mass;               // 14, 56
 	nox_shape shape;          // 15, 60
-	uint32_t field_28;        // 28, 112
-	float field_29;           // 29, 116
-	uint8_t field_30_0;       // 30, 120
+	float zsize1;             // 28, 112
+	float zsize2;             // 29, 116
+	uint8_t weight;           // 30, 120
 	uint8_t field_30_1;       // 30, 121
-	uint16_t field_30_2;      // 30, 122
+	uint16_t carry_capacity;  // 30, 122
 	float speed;              // 31, 124
-	float field_32;           // 32, 128
+	float speed_2;            // 32, 128
 	uint32_t field_33;        // 33, 132
-	void* field_34;           // 34, 136, TODO: data, *[20]byte
-	uint32_t field_35;        // 35, 140
-	void* field_36;           // 36, 144, TODO: data
-	int field_36_size;        // 37, 148
+	void* data_34;           // 34, 136, TODO: data, *[20]byte
+	void* func_collide;       // 35, 140
+	void* collide_data;       // 36, 144
+	int   collide_data_size;  // 37, 148
 	void* func_damage;        // 38, 152
 	void* func_damage_sound;  // 39, 156
-	uint32_t field_40;        // 40, 160
-	void* field_41;           // 41, 164, TODO: data
-	uint32_t field_42;        // 42, 168
-	uint32_t field_43;        // 43, 172
-	void* field_44;           // 44, 176, TODO: data
-	int field_44_size;        // 45, 180
-	uint32_t field_46;        // 46, 184
+	void* func_die;           // 40, 160
+	void* die_data;           // 41, 164
+	void* func_drop;          // 42, 168
+	void* func_init;          // 43, 172
+	void* init_data;          // 44, 176
+	int   init_data_size;     // 45, 180
+	void* func_pickup;        // 46, 184
 	void (*func_update)(nox_object_t*); // 47, 188
 	void* data_update;          // 48, 192
 	int   data_update_size;     // 49, 196
-	uint32_t field_50;        // 50, 200
-	void* field_51;           // 51, 204, TODO: data
-	int field_51_size;        // 52, 208
+	void* func_use;             // 50, 200
+	void* use_data;             // 51, 204
+	int   use_data_size;        // 52, 208
 	void* func_xfer;          // 53, 212
 	void (*func_new)(void*);  // 54, 216
 	nox_objectType_t* next;   // 55, 220
@@ -508,11 +508,11 @@ typedef struct nox_object_t {
 	uint32_t field_42;       // 42, 168
 	nox_shape shape;         // 43, 172
 	uint32_t field_56;       // 56, 224
-	uint32_t field_57;       // 57, 228
-	uint32_t field_58;       // 58, 232
-	uint32_t field_59;       // 59, 236
-	uint32_t field_60;       // 60, 240
-	uint32_t field_61;       // 61, 244
+	float field_57;          // 57, 228
+	float collide_x1;        // 58, 232
+	float collide_y1;        // 59, 236
+	float collide_x2;        // 60, 240
+	float collide_y2;        // 61, 244
 	uint32_t field_62;       // 62, 248
 	uint32_t field_63;       // 63, 252
 	uint32_t field_64;       // 64, 256
@@ -942,7 +942,7 @@ typedef struct {
 	uint32_t field_116; // 116, 464
 	uint32_t field_117; // 117, 468
 	uint32_t field_118; // 118, 472
-	uint32_t field_119; // 119, 476
+	void* field_119; // 119, 476
 	uint32_t field_120; // 120, 480
 	void* field_121; // 121, 484
 	uint32_t field_122; // 122, 488
