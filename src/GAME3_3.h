@@ -77,7 +77,7 @@ int* nox_xxx_setNPCColor_4E4A90(nox_object_t* a1p, unsigned char a2, int a3);
 int* nox_xxx_npcSetItemEquipFlags_4E4B20(int a1, nox_object_t* item, int a3);
 int sub_4E4C00(nox_object_t* item);
 int sub_4E4C10(nox_object_t* item);
-int sub_4E4C30(nox_object_t* item);
+int nox_object_getInitData_4E4C30(nox_object_t* item);
 int sub_4E4C50(nox_object_t* item);
 int sub_4E4C80(nox_object_t* item);
 int sub_4E4C90(int a1, unsigned int a2);

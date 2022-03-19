@@ -5870,13 +5870,13 @@ int nox_xxx_itemReportHealth_4D87A0(int a1, nox_object_t* item) {
 	uint16_t* v3; // eax
 	char v4[7];   // [esp+4h] [ebp-8h]
 
-	result = item->field_139;
+	result = item->data_139;
 	if (result) {
 		if (*(uint16_t*)(result + 4)) {
 			v4[0] = 68;
 			*(uint16_t*)&v4[1] = nox_xxx_netGetUnitCodeServ_578AC0(item);
-			v3 = (uint16_t*)item->field_139;
-			*(uint16_t*)&v4[3] = *v3;
+			v3 = item->data_139;
+			*(uint16_t*)&v4[3] = v3[0];
 			*(uint16_t*)&v4[5] = v3[2];
 			result = nox_xxx_netSendPacket1_4E5390(a1, (int)v4, 7, 0, 0);
 		}
@@ -6024,7 +6024,7 @@ int nox_xxx_netReportModifiablePickup_4D8AD0(int a1, nox_object_t* item) {
 	char v6[9]; // [esp+8h] [ebp-Ch]
 
 	v6[0] = 76;
-	v2 = *(uint32_t*)&item->field_173;
+	v2 = item->init_data;
 	*(uint16_t*)&v6[1] = nox_xxx_netGetUnitCodeServ_578AC0(item);
 	*(uint16_t*)&v6[3] = *(uint16_t*)&item->typ_ind;
 	v3 = 0;
@@ -8861,12 +8861,12 @@ int nox_xxx_playerNew_4DD320(int ind, unsigned char* data) {
 	pl->field_2156 = nox_xxx_scavengerTreasureMax_4D1600();
 	int v15 = punit->data_update;
 	*(uint32_t*)(v15 + 276) = pl;
-	pl->field_4584 = nox_xxx_protectionCreateInt_56F400(*(unsigned short*)((int)punit->field_139 + 0));
-	pl->field_4592 = nox_xxx_protectionCreateInt_56F400(*(unsigned short*)((int)punit->field_139 + 4));
+	pl->field_4584 = nox_xxx_protectionCreateInt_56F400(*(unsigned short*)((int)punit->data_139 + 0));
+	pl->field_4592 = nox_xxx_protectionCreateInt_56F400(*(unsigned short*)((int)punit->data_139 + 4));
 	pl->field_4596 = nox_xxx_protectionCreateInt_56F400(*(unsigned short*)(v15 + 4));
 	pl->field_4600 = nox_xxx_protectionCreateInt_56F400(*(unsigned short*)(v15 + 8));
-	pl->field_4604 = nox_xxx_protectionCreateFloat_56F440(*(float*)(&punit->field_7));
-	pl->field_4608 = nox_xxx_protectionCreateFloat_56F440(*(float*)(&punit->mass));
+	pl->field_4604 = nox_xxx_protectionCreateFloat_56F440(punit->experience);
+	pl->field_4608 = nox_xxx_protectionCreateFloat_56F440(punit->mass);
 	pl->field_4612 = nox_xxx_protectionCreateInt_56F400(*(uint32_t*)(&punit->field_85));
 	pl->field_4616 = nox_xxx_protectionCreateInt_56F400(pl->info.playerClass);
 	pl->field_4620 = nox_xxx_protectionCreateInt_56F400(pl->info.field_2235);

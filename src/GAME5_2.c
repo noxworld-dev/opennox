@@ -2940,7 +2940,7 @@ int sub_56FB60(nox_object_t* item) {
 		v2 = sub_4E4C00(item);
 		v3 = (unsigned short)nox_xxx_unitGetHP_4EE780(item) ^ v2;
 		v4 = sub_4E4C10(item) ^ v3;
-		v5 = (int*)sub_4E4C30(item);
+		v5 = (int*)nox_object_getInitData_4E4C30(item);
 		v6 = sub_4E4C50(item);
 		if (v5 && v6 > 0) {
 			v4 ^= nox_xxx_protectionStringCRC_56FAC0(v5, v6);

@@ -87,10 +87,6 @@ func (u *Unit) CanSee(obj script.Object) bool {
 	panic("implement me")
 }
 
-func (u *Unit) ptrXxx() unsafe.Pointer {
-	return unsafe.Pointer(u.field_139)
-}
-
 func (u *Unit) updateDataPlayer() *PlayerUpdateData {
 	// TODO: verify this conversion by checking ObjectType
 	p := (*C.nox_object_Player_data_t)(u.updateDataPtr())

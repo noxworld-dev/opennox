@@ -190,7 +190,7 @@ func (ud *MonsterUpdateData) printAIStack(event string) {
 func nox_xxx_updatePlayer_4F8100(up *nox_object_t) {
 	u := asUnitC(up)
 	ud := u.updateDataPlayer()
-	v5 := (*C.ushort)(unsafe.Pointer(u.field_139))
+	v5 := (*C.ushort)(u.ptrXxx())
 	for i := 0; i < 4; i++ {
 		p := asObjectC(ud.field_29[i])
 		if p != nil && p.Flags().Has(object.FlagDestroyed) {
@@ -336,7 +336,7 @@ func nox_xxx_aud_501960(a1 int, u *Unit, a3, a4 int) {
 
 func playerSuddedDeath4F9E70(u *Unit) {
 	v1 := memmap.Uint32(0x5D4594, 1392)
-	v3 := unsafe.Slice((*uint16)(u.field_139), 3)
+	v3 := unsafe.Slice((*uint16)(u.ptrXxx()), 3)
 	if !u.Flags().Has(object.FlagDead) && v3 != nil && v3[0] != 0 && (gameFrame()%(v1*gameFPS()/uint32(v3[2]))) == 0 {
 		C.nox_xxx_unitDamageClear_4EE5E0(u.CObj(), 1)
 	}
@@ -344,7 +344,7 @@ func playerSuddedDeath4F9E70(u *Unit) {
 
 func sub_4F9ED0(u *Unit) {
 	ud := u.updateDataPlayer()
-	v3 := unsafe.Slice((*uint16)(u.field_139), 3)
+	v3 := unsafe.Slice((*uint16)(u.ptrXxx()), 3)
 	if u.Flags().Has(object.FlagDead) {
 		return
 	}

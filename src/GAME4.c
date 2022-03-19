@@ -1542,7 +1542,7 @@ int sub_4F80C0(int a1, float2* a3) {
 //----- (004F8100) --------------------------------------------------------
 void nox_xxx_updatePlayer_4F8100(nox_object_t* u) {
 	nox_object_Player_data_t* ud = u->data_update;
-	uint16_t* v5 = u->field_139;
+	uint16_t* v5 = u->data_139;
 	for (int i = 0; i < 4; i++) {
 		nox_object_t* p = ud->field_29[i];
 		if (p && ((p->obj_flags & 0x20) != 0)) {

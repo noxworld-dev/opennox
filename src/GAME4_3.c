@@ -7826,15 +7826,15 @@ int nox_xxx_playerEquipWeapon_53A420(uint32_t* a1, nox_object_t* item, int a3, i
 	const int v12 = item->obj_class;
 	if (v12 & 0x1000 && (item->obj_subclass & 0x47F0000)) {
 		nox_xxx_netReportCharges_4D82B0(*(unsigned char*)(*(uint32_t*)(v8 + 276) + 2064), (uint32_t*)item,
-										*(uint8_t*)(*(uint32_t*)&item->field_184 + 108),
-										*(uint8_t*)(*(uint32_t*)&item->field_184 + 109));
+										*(uint8_t*)((int)item->use_data + 108),
+										*(uint8_t*)((int)item->use_data + 109));
 	} else if (v12 & 0x1000000) {
 		if (v4 & 0x82) {
 			nox_xxx_netReportCharges_4D82B0(*(unsigned char*)(*(uint32_t*)(v8 + 276) + 2064), (uint32_t*)item,
-											*(uint8_t*)(*(uint32_t*)&item->field_184 + 1),
-											**(uint8_t**)&item->field_184);
+											*(uint8_t*)((int)item->use_data + 1),
+											*(uint8_t*)item->use_data);
 		} else if (v4 & 0xC) {
-			**(uint8_t**)&item->field_184 = 0;
+			*(uint8_t*)item->use_data = 0;
 		}
 	}
 	nox_xxx_itemApplyEngageEffect_4F2FF0(item, (int)a1);
@@ -7868,11 +7868,11 @@ void sub_53A6C0(int a1, nox_object_t* item) {
 	short v3; // ax
 
 	if (a1 && item) {
-		v2 = *(uint32_t*)&item->obj_class;
+		v2 = item->obj_class;
 		if (v2 & 0x1000) {
 			nox_xxx_aud_501960(830, a1, 0, 0);
 		} else {
-			v3 = *(uint16_t*)&item->field_6_0;
+			v3 = item->material;
 			if (v3 & 0x10) {
 				nox_xxx_aud_501960(842, a1, 0, 0);
 			} else if (v3 & 8) {
@@ -7960,15 +7960,15 @@ int sub_53A720(int a1, nox_object_t* item, int a3, int a4) {
 			}
 		}
 		if (!v9) {
-			v11 = *(uint32_t*)&item->obj_class;
+			v11 = item->obj_class;
 			if (v11 & 0x1000 && (item->obj_subclass & 0x47F0000)) {
 				nox_xxx_netReportCharges_4D82B0(*(unsigned char*)(*(uint32_t*)(v13 + 276) + 2064), item,
-												*(uint8_t*)(*(uint32_t*)&item->field_184 + 108),
-												*(uint8_t*)(*(uint32_t*)&item->field_184 + 109));
+												*(uint8_t*)((int)item->use_data + 108),
+												*(uint8_t*)((int)item->use_data + 109));
 			} else if (v11 & 0x1000000 && (item->obj_subclass & 0x82)) {
 				nox_xxx_netReportCharges_4D82B0(*(unsigned char*)(*(uint32_t*)(v13 + 276) + 2064), item,
-												*(uint8_t*)(*(uint32_t*)&item->field_184 + 1),
-												**(uint8_t**)&item->field_184);
+												*(uint8_t*)((int)item->use_data + 1),
+												*(uint8_t*)item->use_data);
 			}
 		}
 	}

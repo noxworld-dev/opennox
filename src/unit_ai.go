@@ -183,7 +183,7 @@ func nox_xxx_mobActionDependency_546A70(uc *C.nox_object_t) {
 			ok = st.ArgU32(0) > gameFrame()
 		case ai.DEPENDENCY_ALIVE:
 			obj := st.ArgObj(0)
-			v13 := unsafe.Slice((*uint16)(obj.field_139), 3)
+			v13 := unsafe.Slice((*uint16)(obj.ptrXxx()), 3)
 			if obj == nil || !obj.Class().HasAny(object.MaskUnits) || (v13[0] == 0) && v13[2] != 0 {
 				ok = false
 				ud.field_97 = 0
@@ -307,7 +307,7 @@ func nox_xxx_mobActionDependency_546A70(uc *C.nox_object_t) {
 			enemy := asUnitC(ud.current_enemy)
 			ok = enemy != nil && nox_xxx_calcDistance_4E6C00(u, enemy) <= st.ArgF32(0)
 		case ai.DEPENDENCY_NOT_HEALTHY:
-			v34 := unsafe.Slice((*uint16)(u.field_139), 3)
+			v34 := unsafe.Slice((*uint16)(u.ptrXxx()), 3)
 			v35 := float32(1.0)
 			if v34[2] != 0 {
 				v35 = float32(v34[0]) / float32(v34[2])

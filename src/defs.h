@@ -433,8 +433,8 @@ typedef struct nox_objectType_t {
 	uint16_t carry_capacity;  // 30, 122
 	float speed;              // 31, 124
 	float speed_2;            // 32, 128
-	uint32_t field_33;        // 33, 132
-	void* data_34;           // 34, 136, TODO: data, *[20]byte
+	float float_33;           // 33, 132
+	void* data_34;            // 34, 136, TODO: data, *[20]byte
 	void* func_collide;       // 35, 140
 	void* collide_data;       // 36, 144
 	int   collide_data_size;  // 37, 148
@@ -467,10 +467,10 @@ typedef struct nox_object_t {
 	unsigned int obj_subclass; // 3, 12
 	unsigned int obj_flags;  // 4, 16
 	uint32_t field_5;        // 5, 20
-	uint16_t field_6_0;      // 6, 24
+	uint16_t material;       // 6, 24
 	uint16_t field_6_2;      // 6, 26
-	uint32_t field_7;        // 7, 28 // TODO: float?
-	uint32_t field_8;        // 8, 32
+	float experience;        // 7, 28
+	uint32_t worth;          // 8, 32
 	uint32_t field_9;        // 9, 36, TODO: some frame/timestamp
 	unsigned int extent;     // 10, 40
 	int script_id;           // 11, 44
@@ -507,8 +507,8 @@ typedef struct nox_object_t {
 	uint32_t field_41;       // 41, 164
 	uint32_t field_42;       // 42, 168
 	nox_shape shape;         // 43, 172
-	uint32_t field_56;       // 56, 224
-	float field_57;          // 57, 228
+	float zsize1;            // 56, 224
+	float zsize2;            // 57, 228
 	float collide_x1;        // 58, 232
 	float collide_y1;        // 59, 236
 	float collide_x2;        // 60, 240
@@ -573,9 +573,9 @@ typedef struct nox_object_t {
 	uint32_t field_119;      // 119, 476
 	uint32_t field_120;      // 120, 480
 	uint32_t field_121;      // 121, 484
-	uint8_t field_122_0;     // 122, 488
+	uint8_t weight;          // 122, 488
 	uint8_t field_122_1;     // 122, 489
-	uint16_t field_122_2;    // 122, 490
+	uint16_t carry_capacity; // 122, 490
 	uint32_t field_123;      // 123, 492 // Also health data, possibly same as 556, see 4E4560
 	nox_object_t* field_124; // 124, 496, TODO: next item
 	void* field_125;         // 125, 500, TODO: a nox_object_t*? see 4ED0C0
@@ -590,9 +590,9 @@ typedef struct nox_object_t {
 	uint32_t field_134;      // 134, 536, TODO: some timestamp
 	uint32_t field_135;      // 135, 540, TODO: 541 accessed as byte
 	float speed_cur;         // 136, 544
-	float float_137;         // 137, 548
+	float speed_2;           // 137, 548
 	float float_138;         // 138, 552
-	void* field_139;         // 139, 556, TODO: data, *[20]byte, related to health and damage
+	void* data_139;          // 139, 556, TODO: data, *[20]byte, related to health and damage
 	uint32_t field_140;      // 140, 560
 	uint32_t field_141;      // 141, 564
 	uint32_t field_142;      // 142, 568
@@ -625,22 +625,22 @@ typedef struct nox_object_t {
 	uint32_t field_169;      // 169, 676
 	uint32_t field_170;      // 170, 680
 	uint32_t field_171;      // 171, 684
-	uint32_t field_172;      // 172, 688
-	void* field_173;         // 173, 692, // TODO: struct pointer; struct at least 8 bytes wide. see 4F3030.
-	uint32_t field_174;      // 174, 696
-	void* field_175;         // 175, 700, // TODO: data
+	void* func_init;         // 172, 688
+	void* init_data;         // 173, 692, // TODO: struct pointer; struct at least 8 bytes wide. see 4F3030.
+	void* func_collide;      // 174, 696
+	void* collide_data;      // 175, 700
 	int (*func_xfer)(nox_object_t*, int); // 176, 704
-	uint32_t field_177;      // 177, 708
-	uint32_t field_178;      // 178, 712
+	void* func_pickup;       // 177, 708
+	void* func_drop;         // 178, 712
 	void* func_damage;       // 179, 716
 	void* func_damage_sound; // 180, 720
-	uint32_t deleteOverride; // 181, 724 // deletion override function (see 004EE5E0)
-	uint32_t field_182;      // 182, 728
-	uint32_t field_183;      // 183, 732
-	void* field_184;         // 184, 736, // TODO: data
+	void* func_die;          // 181, 724
+	void* die_data;          // 182, 728
+	void* func_use;          // 183, 732
+	void* use_data;          // 184, 736
 	uint32_t field_185;      // 185, 740
 	void (*func_update)(nox_object_t*); // 186, 744
-	void* data_update;          // 187, 748
+	void* data_update;       // 187, 748
 	uint32_t field_188;      // 188, 752
 	uint32_t field_189;      // 189, 756
 	uint32_t field_190;      // 190, 760

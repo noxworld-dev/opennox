@@ -1030,54 +1030,56 @@ nox_object_t* nox_xxx_newObjectWithType_4E3470(nox_objectType_t* typ) {
 	ob->obj_subclass = typ->obj_subclass;
 	ob->obj_flags = typ->obj_flags;
 	ob->field_5 = typ->field_9;
-	ob->field_6_0 = typ->material;
-	*(float*)(&ob->field_7) = typ->experience;
-	ob->field_8 = typ->worth;
+	ob->material = typ->material;
+	ob->experience = typ->experience;
+	ob->worth = typ->worth;
 	ob->float_28 = typ->field_13;
 	ob->mass = typ->mass;
-	memcpy(&ob->shape, &typ->shape, 0x3Cu); // TODO: this is larger than nox_shape
+	memcpy(&ob->shape, &typ->shape, sizeof(nox_shape));
+	ob->zsize1 = typ->zsize1;
+	ob->zsize2 = typ->zsize2;
 	if (!(ob->obj_flags & 0x40)) {
 		nox_xxx_objectUnkUpdateCoords_4E7290(ob);
 	}
-	ob->field_122_0 = typ->weight;
-	ob->field_122_2 = typ->carry_capacity;
+	ob->weight = typ->weight;
+	ob->carry_capacity = typ->carry_capacity;
 	ob->speed_cur = typ->speed;
-	ob->float_137 = typ->speed_2;
-	ob->float_138 = typ->field_33;
-	ob->field_139 = typ->data_34;
+	ob->speed_2 = typ->speed_2;
+	ob->float_138 = typ->float_33;
+	ob->data_139 = 0;
 	ob->field_38 = -1;
 	ob->typ_ind = typ->ind;
 	if (typ->data_34) {
-		ob->field_139 = calloc(1, 20);
-		if (!ob->field_139) {
+		ob->data_139 = calloc(1, 20);
+		if (!ob->data_139) {
 			return 0;
 		}
-		memcpy(ob->field_139, typ->data_34, 20);
+		memcpy(ob->data_139, typ->data_34, 20);
 	}
-	ob->field_172 = typ->func_init;
+	ob->func_init = typ->func_init;
 	if (typ->init_data_size) {
-		ob->field_173 = calloc(1, typ->init_data_size);
-		if (!ob->field_173) {
+		ob->init_data = calloc(1, typ->init_data_size);
+		if (!ob->init_data) {
 			return 0;
 		}
-		memcpy(ob->field_173, typ->init_data, typ->init_data_size);
+		memcpy(ob->init_data, typ->init_data, typ->init_data_size);
 	}
-	ob->field_174 = typ->func_collide;
+	ob->func_collide = typ->func_collide;
 	if (typ->collide_data_size) {
-		ob->field_175 = calloc(1, typ->collide_data_size);
-		if (!ob->field_175) {
+		ob->collide_data = calloc(1, typ->collide_data_size);
+		if (!ob->collide_data) {
 			return 0;
 		}
-		memcpy(ob->field_175, typ->collide_data, typ->collide_data_size);
+		memcpy(ob->collide_data, typ->collide_data, typ->collide_data_size);
 	}
 	ob->func_xfer = typ->func_xfer;
-	ob->field_183 = typ->func_use;
+	ob->func_use = typ->func_use;
 	if (typ->use_data_size) {
-		ob->field_184 = calloc(1, typ->use_data_size);
-		if (!ob->field_184) {
+		ob->use_data = calloc(1, typ->use_data_size);
+		if (!ob->use_data) {
 			return 0;
 		}
-		memcpy(ob->field_184, typ->use_data, typ->use_data_size);
+		memcpy(ob->use_data, typ->use_data, typ->use_data_size);
 	}
 	ob->func_update = typ->func_update;
 	if (typ->data_update_size) {
@@ -1087,17 +1089,17 @@ nox_object_t* nox_xxx_newObjectWithType_4E3470(nox_objectType_t* typ) {
 		}
 		memcpy(ob->data_update, typ->data_update, typ->data_update_size);
 	}
-	ob->field_177 = typ->func_pickup;
-	ob->field_178 = typ->func_drop;
+	ob->func_pickup = typ->func_pickup;
+	ob->func_drop = typ->func_drop;
 	ob->func_damage = typ->func_damage;
 	ob->func_damage_sound = typ->func_damage_sound;
-	ob->deleteOverride = typ->func_die;
+	ob->func_die = typ->func_die;
 	ob->field_190 = 0;
-	ob->field_182 = typ->die_data;
+	ob->die_data = typ->die_data;
 	ob->field_192 = -1;
 	ob->field_9 = v9;
 	if (nox_common_gameFlags_check_40A5C0(6291456) &&
-		(ob->obj_class & 0x20A02 || ob->func_xfer == nox_xxx_XFerInvLight_4F5AA0 || ob->field_122_0 != 0xff) &&
+		(ob->obj_class & 0x20A02 || ob->func_xfer == nox_xxx_XFerInvLight_4F5AA0 || ob->weight != 0xff) &&
 		(v5 = calloc(1u, 0xA0Cu), (ob->field_189 = v5) == 0)) {
 		nox_xxx_objectFreeMem_4E38A0(ob);
 		return 0;
@@ -2122,11 +2124,11 @@ int sub_4E4C10(nox_object_t* item) {
 }
 
 //----- (004E4C30) --------------------------------------------------------
-int sub_4E4C30(nox_object_t* item) {
+int nox_object_getInitData_4E4C30(nox_object_t* item) {
 	int result; // eax
 
 	if (item) {
-		result = *(uint32_t*)&item->field_173;
+		result = item->init_data;
 	} else {
 		result = 0;
 	}
@@ -4427,7 +4429,7 @@ int sub_4E7DE0(int a1, nox_object_t* item) {
 	if (v2 & 0x13001000) {
 		v3 = *(uint32_t**)(a1 + 692);
 		v4 = 0;
-		v5 = *(uint32_t*)&item->field_173 - (uint32_t)v3;
+		v5 = (int)item->init_data - (uint32_t)v3;
 		while (*v3 == *(uint32_t*)((char*)v3 + v5)) {
 			++v4;
 			++v3;
@@ -4443,15 +4445,15 @@ LABEL_8:
 	}
 	v6 = *(uint32_t*)(a1 + 12);
 	if (v6 & 1) {
-		v7 = **(uint8_t**)(a1 + 736) == **(uint8_t**)&item->field_184;
+		v7 = **(uint8_t**)(a1 + 736) == *(uint8_t*)item->use_data;
 	} else {
 		if (!(v6 & 2)) {
-			if (**(uint8_t**)(a1 + 736) != **(uint8_t**)&item->field_184) {
+			if (**(uint8_t**)(a1 + 736) != *(uint8_t*)item->use_data) {
 				return 0;
 			}
 			return 1;
 		}
-		v7 = strcmp(*(const char**)(a1 + 736), *(const char**)&item->field_184) == 0;
+		v7 = strcmp(*(const char**)(a1 + 736), item->use_data) == 0;
 	}
 	if (!v7) {
 		return 0;
@@ -9379,7 +9381,7 @@ short nox_xxx_unitGetHP_4EE780(nox_object_t* item) {
 	short* v1;    // eax
 	short result; // ax
 
-	if (item && (v1 = *(short**)&item->field_139) != 0) {
+	if (item && (v1 = (short*)item->data_139) != 0) {
 		result = *v1;
 	} else {
 		result = 0;
@@ -12967,7 +12969,7 @@ int nox_xxx_itemApplyEngageEffect_4F2FF0(nox_object_t* item, int a2) {
 	int (*v5)(int, int, int); // ecx
 
 	v2 = 2;
-	v3 = (int*)(*(uint32_t*)&item->field_173 + 8);
+	v3 = (int*)((int)item->init_data + 8);
 	do {
 		result = *v3;
 		if (*v3) {
@@ -12990,7 +12992,7 @@ int nox_xxx_itemApplyDisengageEffect_4F3030(const nox_object_t* object, int a2) 
 	int (*v5)(int, int, int); // ecx
 
 	v2 = 2;
-	v3 = (int*)(*(uint32_t*)&object->field_173 + 8);
+	v3 = (int*)((int)object->init_data + 8);
 	do {
 		result = *v3;
 		if (*v3) {
@@ -13092,7 +13094,7 @@ int nox_xxx_pickupDefault_4F31E0(int a1, nox_object_t* item, int a3) {
 				v11 = *(unsigned char*)(v9 + 488);
 				v9 = *(uint32_t*)(v9 + 496);
 			}
-			if (2 * *(unsigned short*)(v4 + 490) - i >= *(unsigned char*)&item->field_122_0) {
+			if (2 * *(unsigned short*)(v4 + 490) - i >= item->weight) {
 				if ((*(uint8_t*)&item->obj_class & 0x10) != 16 ||
 					((v12 = nox_xxx_inventoryCountObjects_4E7D30(v4, *(unsigned short*)&item->typ_ind),
 					  !nox_common_gameFlags_check_40A5C0(6144))
@@ -13453,9 +13455,9 @@ int nox_xxx_pickupAmmo_4F3B00(int a1, nox_object_t* item, int a3, int a4) {
 		return sub_53A720(v6, item, a3, a4);
 	}
 	v7 = *(uint32_t*)(a1 + 504);
-	v8 = *(uint32_t**)&item->field_173;
-	v20 = *(uint32_t**)&item->field_173;
-	v19 = *(unsigned char**)&item->field_184;
+	v8 = item->init_data;
+	v20 = item->init_data;
+	v19 = item->use_data;
 	if (!v7) {
 		return sub_53A720(v6, item, a3, a4);
 	}

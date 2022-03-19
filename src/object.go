@@ -273,6 +273,10 @@ func (obj *Object) getShape() *noxShape {
 	return (*noxShape)(unsafe.Pointer(&obj.shape))
 }
 
+func (obj *Object) ptrXxx() unsafe.Pointer {
+	return unsafe.Pointer(obj.data_139)
+}
+
 func (obj *Object) IsMovable() bool {
 	if obj.Flags().HasAny(object.FlagNotMovableMask) {
 		return false
