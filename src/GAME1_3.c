@@ -2313,8 +2313,10 @@ int sub_43EE00(int a1) {
 // 5813C4: using guessed type int AIL_load_sample_buffer(uint32_t, uint32_t, uint32_t, uint32_t);
 // 5813C8: using guessed type int AIL_sample_buffer_ready(uint32_t);
 
+#ifndef NOX_CGO
 //----- (0043EFD0) --------------------------------------------------------
-int sub_43EFD0(int a1) {
+int sub_43EFD0(void* a1p) {
+	int a1 = a1p;
 	uint32_t* v1; // esi
 
 	v1 = *(uint32_t**)(a1 + 272);
@@ -2327,7 +2329,6 @@ int sub_43EFD0(int a1) {
 }
 // 5813CC: using guessed type int AIL_end_sample(uint32_t);
 
-#ifndef NOX_CGO
 //----- (0043F010) --------------------------------------------------------
 int sub_43F010(void* a1p) {
 	int a1 = a1p;

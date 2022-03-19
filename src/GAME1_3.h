@@ -128,7 +128,7 @@ int sub_43EC30(void* a1);
 int sub_43ECB0(void* a1);
 int sub_43ED00(uint32_t* a1);
 int sub_43EE00(int a1);
-int sub_43EFD0(int a1);
+int sub_43EFD0(void* a1);
 int sub_43F010(void* a1);
 int sub_43F030(int a1);
 int sub_43F050();

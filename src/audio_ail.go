@@ -46,11 +46,6 @@ import (
 	"nox/v1/common/memmap"
 )
 
-//export AIL_end_sample
-func AIL_end_sample(s C.HSAMPLE) {
-	ail.Sample(unsafe.Pointer(s)).End()
-}
-
 //export AIL_load_sample_buffer
 func AIL_load_sample_buffer(s C.HSAMPLE, num C.uint32_t, buf unsafe.Pointer, sz C.uint32_t) {
 	ail.Sample(unsafe.Pointer(s)).LoadBuffer(uint32(num), unsafe.Slice((*byte)(buf), int(sz)))
@@ -90,6 +85,20 @@ var (
 	audioTimer93944 ail.Timer = math.MaxUint32
 	audioDev        ail.Driver
 )
+
+//export sub_43EFD0
+func sub_43EFD0(a1 unsafe.Pointer) C.int {
+	v1p := *(**uint32)(unsafe.Add(a1, 272))
+	v1 := unsafe.Slice(v1p, 8)
+	ail.Sample(v1[2]).End()
+	if v1[7] == 0 {
+		ptr := unsafe.Pointer(uintptr(v1[1]))
+		fptr := (*unsafe.Pointer)(unsafe.Add(ptr, 284))
+		cgoCallVoidUintFunc(*fptr, v1[1])
+		v1[7] = 1
+	}
+	return 0
+}
 
 //export sub_43E940
 func sub_43E940(a1 unsafe.Pointer) C.int {
