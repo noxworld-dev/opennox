@@ -1,40 +1,46 @@
-# OpenNox
+<p align="center" style="font-size:32pt;font-style:bold">
+    <img src="docs/logo.png" width=400>
+</p>
+<p align="center" style="font-size:12pt;font-style:bold">
+    <b>OpenNox</b> is an open-source community collaboration project extending the Nox engine. 
+</p>
+<p align="center">
+    <a href="https://github.com/noxworld-dev/opennox/releases"><img alt="OpenNox releases" src="https://img.shields.io/github/downloads/noxworld-dev/opennox/total?style=flat-square"></a>
+    <a href="https://github.com/noxworld-dev/opennox/actions"><img alt="OpenNox Workflow Status (dev)" src="https://img.shields.io/github/workflow/status/noxworld-dev/opennox/build-and-release?style=flat-square"></a>
+    <a href="https://www.gnu.org/licenses/gpl-3.0.en.html"><img alt="OpenNox license" src="https://img.shields.io/github/license/noxworld-dev/opennox?style=flat-square"></a>
+</p>
 
-## Features
+## Download OpenNox
 
-### For players
+### Release
+All release builds are made from the `dev` branch. Recent OpenNox releases can be found [here](<https://github.com/noxworld-dev/opennox/releases>).
 
-- Native SDL and OpenAL support (no workarounds required for Win10, streaming, etc).
-- Builtin XWIS integration. Also, no need for account in order to host or join games.
-- Native Linux build (no Wine).
-- More [Nox Quest](./docs/game-quest.md) controls.
-- Gamepad support.
+Linux releases are also available in `stable` channel of our Snap package:
 
-### For developers and moders
+[![Get it from the Snap Store](https://snapcraft.io/static/images/badges/en/snap-store-white.svg)](https://snapcraft.io/opennox)
 
-- Dedicated server.
-- Easier way to [customize translations](./docs/mod-translation.md).
-- Easy way to [replace Nox sprites](./docs/mod-sprites.md).
+### Nightly
+On each commit, an automated build of the `dev` branch is uploaded.
+These builds contain all the latest merged features, but are not yet considered stable for release.
+These builds are to help provide an insight to what the next release will contain and should only be used for active playtesting purposes **only**.
 
-## Build
+Linux nightly builds are also available in `edge` channel of our [Snap package](https://snapcraft.io/opennox).
 
-See the build instructions here:
+## Build OpenNox
+**NOTE: This section is only for people who wish to build the source code locally.**
 
 ### Linux
-
 - [Linux](./docs/build-linux.md)
 - [Linux (C only)](./docs/build-linux-legacy.md)
   
 ### Windows
-
 - [Windows](./docs/build-windows.md)
 - [Windows (on Linux)](./docs/build-windows-on-linux.md)
 - [Windows (C only, MinGW)](./docs/build-windows-legacy-mingw.md)
 - [Windows (C only, MSVC)](./docs/build-windows-legacy-msvc.md)
 
 ## Contributing
-
-Read [CODING](CODING.md)!
+Read [CONTRIBUTING](CONTRIBUTING.md)!
 
 ## Legal
 
@@ -44,5 +50,7 @@ This project has no direct affiliation with Electronic Arts Inc. and/or the "Nox
 No assets, texts, artwork or other media from the original game(s) is included in this project.
 We do not condone piracy in any way, shape or form and encourage users to legally own the original game.
 
-The video game "Nox" is copyright :copyright: 2000 Westwood Studios. All Rights Reserved.
+The video game "Nox" is copyright © 2000 Westwood Studios. All Rights Reserved.
 Westwood Studios is a trademark or registered trademark of Electronic Arts in the U.S. and/or other countries. All rights reserved.
+
+The source code provided in this repository is licenced under the [GNU General Public License version 3](<https://www.gnu.org/licenses/gpl-3.0.html>). Please see the accompanying LICENSE file.

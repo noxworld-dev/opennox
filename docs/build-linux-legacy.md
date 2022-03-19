@@ -2,7 +2,7 @@
 
 This is a legacy build mode that excludes Go dependencies.
 
-Note that it will also exclude some features implemented in the main version.
+Note that it will also exclude a lot of new features implemented in the [main version](./build-linux.md).
 
 ## Installing C compiler
 

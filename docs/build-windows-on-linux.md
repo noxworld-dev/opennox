@@ -44,6 +44,7 @@ curl -so openal.zip https://openal-soft.org/openal-binaries/openal-soft-1.21.1-b
 unzip ./openal.zip
 sudo mv ./openal-soft-1.21.1-bin/include/* /usr/i686-w64-mingw32/include/
 sudo mv ./openal-soft-1.21.1-bin/libs/Win32/* /usr/i686-w64-mingw32/lib/
+sudo ln -s ./libOpenAL32.dll.a /usr/i686-w64-mingw32/lib/libOpenAL.dll.a
 ```
 
 ## Building

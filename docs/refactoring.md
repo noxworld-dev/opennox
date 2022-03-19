@@ -56,11 +56,11 @@ When doing such refactorings, follow the next steps:
 
 1. Change the type to `void*` and try to compile. If it does, then you can continue to 3, if not...
 2. Fix all compilation errors in the pointer arithmetic to include an explicit type cast to `uintptr_t`: `p + 4*a` -> `(uintptr_t)p + 4*a`.
-3. Change the type of the pointer to the correct one, e.g. `BYTE*` without changing the accesses to it.
+3. Change the type of the pointer to the correct one, e.g. `char*` without changing the accesses to it.
 4. Start changing the accesses. Make multiple commits to make it easier to find bugs, in case you make a typo somewhere.
 
 The step 2 may require to make hundrends of replacements, so there are a few tips how you can do it semi-automatically.
 
 - Instead of looking for usages of the variables, start by looking for all string matches. This will help avoid `#ifdef` issues.
-- Examine the usages, find patterns. For example, for arrays you may find assignments (`*(DWORD*)(&p) = a;`), dereferences of different kinds (`*(DWORD*)(p + 4*a)`), etc.
-- Make an automated replacement of specific patterns. Make sure to include at least one token on the right and left to replace only that specific usage pattern. For example, in `*(DWORD*)(p + 4*a)` you should look for `(p +` and replace it with `((uintptr_t)p +`, NOT a `p` to `(uintptr_t)p`.
+- Examine the usages, find patterns. For example, for arrays you may find assignments (`*(uint32_t*)(&p) = a;`), dereferences of different kinds (`*(uint32_t*)(p + 4*a)`), etc.
+- Make an automated replacement of specific patterns. Make sure to include at least one token on the right and left to replace only that specific usage pattern. For example, in `*(uint32_t*)(p + 4*a)` you should look for `(p +` and replace it with `((uintptr_t)p +`, NOT a `p` to `(uintptr_t)p`.
