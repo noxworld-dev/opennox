@@ -2263,22 +2263,22 @@ typedef struct nox_playerInfo {
 	uint32_t data_4408[23];
 	uint32_t data_4500[20];
 	uint32_t field_4580; // 1145, 4580
-	uint32_t field_4584; // 1146, 4584
-	uint32_t field_4588; // 1147, 4588
-	uint32_t field_4592; // 1148, 4592
-	uint32_t field_4596; // 1149, 4596
-	uint32_t field_4600; // 1150, 4600
-	uint32_t field_4604; // 1151, 4604
-	uint32_t field_4608; // 1152, 4608
-	uint32_t field_4612; // 1153, 4612
-	uint32_t field_4616; // 1154, 4616
-	uint32_t field_4620; // 1155, 4620
-	uint32_t field_4624; // 1156, 4624
-	uint32_t field_4628; // 1157, 4628
-	uint32_t field_4632; // 1158, 4632
-	uint32_t field_4636; // 1159, 4636
-	uint32_t field_4640; // 1160, 4640
-	uint32_t field_4644; // 1161, 4644
+	uint32_t prot_unit_hp_cur;       // 1146, 4584
+	uint32_t prot_player_field_2164; // 1147, 4588
+	uint32_t prot_unit_hp_max;       // 1148, 4592
+	uint32_t prot_unit_mana_cur;     // 1149, 4596
+	uint32_t prot_unit_mana_max;     // 1150, 4600
+	uint32_t prot_unit_experience;   // 1151, 4604
+	uint32_t prot_unit_mass;         // 1152, 4608
+	uint32_t prot_unit_field_85;     // 1153, 4612
+	uint32_t prot_player_class;      // 1154, 4616
+	uint32_t prot_player_field_2235; // 1155, 4620
+	uint32_t prot_player_field_2239; // 1156, 4624
+	uint32_t prot_player_orig_name;  // 1157, 4628
+	uint32_t prot_4632; // 1158, 4632
+	uint32_t prot_4636; // 1159, 4636
+	uint32_t prot_4640; // 1160, 4640
+	uint32_t prot_player_level; // 1161, 4644
 	int field_4648; // 1162, 4648
 	uint32_t field_4652; // 1163, 4652
 	uint32_t field_4656; // 1164, 4656

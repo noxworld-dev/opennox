@@ -192,7 +192,7 @@ func (u *Unit) SetMana(v int) {
 	p.mana_prev = C.ushort(cur)
 	p.mana_cur = C.ushort(v)
 	pt := asPlayer(p.player)
-	C.nox_xxx_protectMana_56F9E0(C.int(pt.field_4596), C.short(v-cur))
+	C.nox_xxx_protectMana_56F9E0(C.int(pt.prot_unit_mana_cur), C.short(v-cur))
 }
 
 func (u *Unit) SetMaxMana(v int) {
