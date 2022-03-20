@@ -55,7 +55,7 @@ The codebase must be **compatible with the latest released Nox** version (1.2b):
 This doesn't imply that the code may not be _extended_ to support new functionality, e.g. new mod APIs, new file formats, new network protocols, etc.
 But these extensions should be written in such a way that they do not enter in conflict with the original Nox codebase, i.e. they should allow graceful fallback in case if it isn't supported by the original clients or servers.
 
-## Keep it compilable and runnable
+## Make sure it compiles and runs
 
 Before committing a change into `dev` please make sure that the code is AT LEAST compilable and runnable.
 The project is complicated, so we can't ask for testing for any possible regressions, but it should pass at least some basic checks.
@@ -74,7 +74,9 @@ The code in the `master` branch should be compilable, runnable, (mostly) regress
 
 ## Pull Request guidelines
 
-The large majority of current work (this is subject to change) is renaming of functions and variables, restoration of data structures, and restoration of code flow from assembly-like to more C-like.
+Before making any significant changes, open an issue to discuss the feature.
+
+The large majority of current work (this is subject to change) is renaming of functions and variables, restoration of data structures, and restoration of code flow from assembly-like to more C-like and then porting to Go.
 
 The former of these typically touches many files in multiple locations without making any logical changes, while the latter two can introduce subtle changes in logic and the generated machine code.
 
