@@ -654,7 +654,7 @@ func (id SpellID) Valid() bool {
 }
 
 func (id SpellID) String() string {
-	if !id.Valid() {
+	if !id.Valid() && id != 0 {
 		return ""
 	}
 	return spellIDs[id]
