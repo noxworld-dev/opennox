@@ -5,19 +5,23 @@
     <b>OpenNox</b> is an open-source community collaboration project extending the Nox engine. 
 </p>
 <p align="center">
-    <a href="https://github.com/noxworld-dev/opennox/releases"><img alt="OpenNox releases" src="https://img.shields.io/github/downloads/noxworld-dev/opennox/total?style=flat-square"></a>
-    <a href="https://github.com/noxworld-dev/opennox/actions"><img alt="OpenNox Workflow Status (dev)" src="https://img.shields.io/github/workflow/status/noxworld-dev/opennox/build-and-release?style=flat-square"></a>
-    <a href="https://www.gnu.org/licenses/gpl-3.0.en.html"><img alt="OpenNox license" src="https://img.shields.io/github/license/noxworld-dev/opennox?style=flat-square"></a>
+    <a href="https://github.com/noxworld-dev/opennox/actions"><img alt="OpenNox Workflow Status (dev)" src="https://img.shields.io/github/workflow/status/noxworld-dev/opennox/build-and-release?style=flat"></a>
+    <a href="https://www.gnu.org/licenses/gpl-3.0.en.html"><img alt="OpenNox license" src="https://img.shields.io/github/license/noxworld-dev/opennox?style=flat"></a>
+    <br>
+    <a href="https://www.patreon.com/opennox"><img alt="OpenNox on Patreon" src="https://img.shields.io/badge/patreon-Support%20us-blue?logo=patreon&logoColor=white&style=flat"></a>
+    <a href="https://discord.gg/HgDUeXhAyW"><img alt="OpenNox on Discord" src="https://img.shields.io/badge/discord-OpenNox-blue?logo=discord&logoColor=white&style=flat"></a>
+    <a href="https://matrix.to/#/#opennox:nwca.xyz"><img alt="OpenNox on Matrix" src="https://img.shields.io/badge/matrix-%23opennox-blue?logo=matrix&logoColor=white&style=flat"></a>
 </p>
 
 ## Download OpenNox
 
+<a href="https://github.com/noxworld-dev/opennox/releases"><img alt="OpenNox releases" src="https://img.shields.io/github/downloads/noxworld-dev/opennox/total?style=flat&label=releases"></a>
+<a href="https://snapcraft.io/opennox"><img alt="OpenNox Snap package" src="https://img.shields.io/badge/snap-Install-green?logo=snapcraft&logoColor=white&style=flat"></a>
+
 ### Release
 All release builds are made from the `dev` branch. Recent OpenNox releases can be found [here](<https://github.com/noxworld-dev/opennox/releases>).
 
-Linux releases are also available in `stable` channel of our Snap package:
-
-[![Get it from the Snap Store](https://snapcraft.io/static/images/badges/en/snap-store-white.svg)](https://snapcraft.io/opennox)
+Linux releases are also available in `stable` channel of our [Snap package](https://snapcraft.io/opennox).
 
 ### Nightly
 On each commit, an automated build of the `dev` branch is uploaded.
@@ -43,6 +47,8 @@ Linux nightly builds are also available in `edge` channel of our [Snap package](
 Read [CONTRIBUTING](CONTRIBUTING.md)!
 
 ## Legal
+
+<a href="https://www.gnu.org/licenses/gpl-3.0.en.html"><img alt="OpenNox license" src="https://img.shields.io/github/license/noxworld-dev/opennox?style=flat"></a>
 
 This project (OpenNox) is an unofficial community collaboration project for preservation, modding and compatibility purposes.
 This project has no direct affiliation with Electronic Arts Inc. and/or the "Nox" brand. "Nox" is an Electronic Arts Inc. brand. All Rights Reserved.
