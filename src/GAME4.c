@@ -6864,7 +6864,11 @@ int sub_500D50(int a1) {
 }
 
 //----- (00500D70) --------------------------------------------------------
+int nox_cheat_summon_nolimit = 0;
 bool nox_xxx_checkSummonedCreaturesLimit_500D70(int a1, int a2) {
+	if (nox_cheat_summon_nolimit) {
+		return 1;
+	}
 	int v2; // ebx
 
 	v2 = nox_xxx_guideGetUnitSize_427460(a2);

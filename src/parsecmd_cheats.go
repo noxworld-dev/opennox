@@ -69,6 +69,23 @@ func init() {
 		},
 	})
 	noxCmdCheat.Register(&console.Command{
+		Token:  "summon.nolimit",
+		HelpID: "cheatsummonnolimit",
+		Help:   "allows to summon any number of creatures (UNSTABLE)",
+		Flags:  console.Server | console.Cheat,
+		Func: func(ctx context.Context, c *console.Console, tokens []string) bool {
+			return noxCmdSetBool(c, tokens, func(allow bool) {
+				cheatSummonNoLimit(allow)
+				if allow {
+					c.Print(console.ColorLightYellow, "players can summon any number of creatures")
+					c.Print(console.ColorLightRed, "the game may be unstable with this enabled")
+				} else {
+					c.Print(console.ColorLightYellow, "summoning will work as it should")
+				}
+			})
+		},
+	})
+	noxCmdCheat.Register(&console.Command{
 		Token:  "gold",
 		HelpID: "cheatgoldhelp",
 		Flags:  console.Server | console.Cheat,

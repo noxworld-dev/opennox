@@ -5,6 +5,7 @@ package opennox
 extern unsigned int nox_client_consoleIsServer_823684;
 extern int nox_cheat_allowall;
 extern int nox_cheat_charmall;
+extern int nox_cheat_summon_nolimit;
 
 void nox_xxx_consoleTokenAddPair_4444C0(wchar_t* tok, wchar_t* tok2);
 int nox_gui_console_Print_450B90(unsigned char typ, wchar_t* str);
@@ -97,6 +98,10 @@ func cheatEquipAll(v bool) {
 
 func cheatCharmAll(v bool) {
 	C.nox_cheat_charmall = C.int(bool2int(v))
+}
+
+func cheatSummonNoLimit(v bool) {
+	C.nox_cheat_summon_nolimit = C.int(bool2int(v))
 }
 
 func initConsole(sm *strman.StringManager) {
