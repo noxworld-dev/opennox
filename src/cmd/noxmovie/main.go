@@ -44,7 +44,6 @@ func run(fname string) error {
 
 	// Initialize audio.
 	ail.Startup()
-	defer ail.Shutdown()
 
 	drv := ail.WaveOutOpen()
 	if e := ail.LastError(); e != "" {
@@ -56,17 +55,21 @@ func run(fname string) error {
 		return err
 	}
 
+	defer plr.Close()
+
 	plr.Start()
 	plr.Play()
-	plr.Close()
 
 	plr2, err := noxmovie.NewPlayer(fname, win, drv)
 	if err != nil {
 		return err
 	}
+
 	defer plr2.Close()
 
 	plr2.Start()
 	plr2.Play()
+
+	ail.Shutdown()
 	return nil
 }
