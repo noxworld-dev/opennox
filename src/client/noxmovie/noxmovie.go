@@ -23,15 +23,16 @@ type Frame struct {
 }
 
 type MoviePlayer struct {
-	queue     chan *Frame
-	movie     *movies.VqaFile
-	file      io.Closer
-	seat      seat.Seat
-	oldInputs seat.InputConfig
-	renderer  *render.Renderer
-	audioDrv  ail.Driver
-	audioSrc  ail.Sample
-	stop      chan struct{}
+	queue        chan *Frame
+	movie        *movies.VqaFile
+	file         io.Closer
+	seat         seat.Seat
+	oldInputs    seat.InputConfig
+	renderer     *render.Renderer
+	audioDrv     ail.Driver
+	audioSrc     ail.Sample
+	audioBuffers openal.Buffers
+	stop         chan struct{}
 }
 
 func (player *MoviePlayer) Start() {
@@ -93,16 +94,23 @@ func NewPlayerWithHandle(file io.ReadSeekCloser, mvSeat seat.Seat, audioDrv ail.
 
 	// TODO: actually replace the preexisting events
 	mvSeat.OnInput(func(ev seat.InputEvent) {
-		switch ev := ev.(type) {
+		switch evt := ev.(type) {
 		case seat.WindowEvent:
-			switch ev {
+			switch evt {
 			case seat.WindowClosed:
 				// If user tries to close the window, stop the loop.
 				player.Close()
 			}
-		case *seat.KeyboardEvent, *seat.MouseButtonEvent:
-			// Stop the loop on keyboard or mouse key press as well.
-			player.Close()
+		case *seat.KeyboardEvent:
+			if evt.Pressed {
+				// Stop the loop on keyboard key press as well.
+				player.Close()
+			}
+		case *seat.MouseButtonEvent:
+			if evt.Pressed {
+				// Stop the loop on mouse key press as well.
+				player.Close()
+			}
 		}
 	})
 
@@ -128,33 +136,11 @@ func (player *MoviePlayer) Close() {
 	player.file.Close()
 	player.audioSrc.Stop()
 
-	// Let's clear all remaining buffers as well
-	audioSrc := player.audioSrc.GetSource()
-	if audioSrc != nil {
-		alSrc := openal.Source(*audioSrc)
-		cnt := alSrc.BuffersProcessed()
-		if cnt > 0 {
-			bufs := make(openal.Buffers, cnt)
-			alSrc.UnqueueBuffers(bufs)
-			for i := range bufs {
-				bufs[i].Delete()
-			}
-		}
-		cnt = alSrc.BuffersQueued()
-		if cnt > 0 {
-			bufs := make(openal.Buffers, cnt)
-			alSrc.UnqueueBuffers(bufs)
-			for i := range bufs {
-				bufs[i].Delete()
-			}
-		}
-	}
-
+	// First we need to release the audio source, and only then delete the (possibly) attached buffers
 	player.audioSrc.Release()
-
-	// Let's consume all possible openal errors to prevent them for breaking somewhere after
-	// TODO: this is a hack, find the real cause of openal error "invalid name"!!!
-	openal.Err()
+	if len(player.audioBuffers) > 0 {
+		player.audioBuffers.Delete()
+	}
 
 	player.seat.ReplaceInputs(player.oldInputs)
 }
@@ -201,14 +187,6 @@ func (player *MoviePlayer) Play() {
 	)
 	//var currentFrameImg *noximage.Image16 = nil
 	time.Sleep(time.Second / time.Duration(player.movie.Header.Fps/5))
-
-	defer func() {
-		// Cleanup audio buffers
-		for i := 0; i < len(audioBuffers); i++ {
-			audioBuffers[i].Delete()
-		}
-	}()
-
 loop:
 	for {
 		// Process input events.
@@ -233,6 +211,7 @@ loop:
 				var buffer openal.Buffer
 				if len(audioBuffers) < 1 {
 					buffer = openal.NewBuffer()
+					player.audioBuffers = append(player.audioBuffers, buffer)
 				} else {
 					buffer = audioBuffers[0]
 					audioBuffers = audioBuffers[1:]

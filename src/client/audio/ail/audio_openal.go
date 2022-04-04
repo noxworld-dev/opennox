@@ -653,11 +653,11 @@ func (s Sample) Release() {
 	}
 	handles.AssertValid(uintptr(s))
 	if v := audioSamples.byHandle[s]; v != nil {
-		delete(audioSamples.byHandle, s)
-		for _, b := range v.hwbuf {
-			b.Delete()
-		}
 		v.source.Delete()
+		delete(audioSamples.byHandle, s)
+		if len(v.hwbuf) > 0 {
+			v.hwbuf.Delete()
+		}
 	}
 }
 
