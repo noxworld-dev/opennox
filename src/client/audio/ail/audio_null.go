@@ -35,6 +35,10 @@ func (h Timer) Release() {
 	handles.AssertValid(uintptr(h))
 }
 
+func (h Sample) GetSource() *uint32 {
+	return nil
+}
+
 func (h Sample) End() {}
 
 func (h Sample) Init() {}

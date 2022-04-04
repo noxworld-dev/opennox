@@ -859,6 +859,14 @@ func (h Timer) Release() {
 	}
 }
 
+func (h Sample) GetSource() *uint32 {
+	if env.IsE2E() {
+		return nil
+	}
+	s := h.get()
+	return (*uint32)(&s.source)
+}
+
 func (h Sample) End() {
 	if audioDebug {
 		audioLog.Println("AIL_end_sample")
