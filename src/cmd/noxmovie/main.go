@@ -4,7 +4,9 @@ import (
 	"errors"
 	"flag"
 	"fmt"
-	"image/color"
+	"image"
+	"image/draw"
+	"io"
 	_ "net/http/pprof"
 	"os"
 	"time"
@@ -42,16 +44,15 @@ type Frame struct {
 type MoviePlayer struct {
 	queue    chan *Frame
 	movie    *movies.VqaFile
-	file     *os.File
+	file     io.Closer // TODO: add Close() to movies.VqaFile instead
 	seat     seat.Seat
 	renderer *render.Renderer
 	audioDrv ail.Driver
 	audioSrc ail.Sample
 	stop     chan struct{}
-	closed   bool
 }
 
-func (player *MoviePlayer) StartDecodeRoutine() {
+func (player *MoviePlayer) Start() {
 	go player.decode()
 }
 
@@ -62,21 +63,20 @@ func (player *MoviePlayer) decode() {
 			return
 		default:
 		}
-		image, samples, err := player.movie.DecodeNextFrame()
+		frame, samples, err := player.movie.DecodeNextFrame()
 		if err != nil {
 			return
 		}
-		var img = noximage.NewImage16(image.Rect)
-		for x := 0; x < image.Rect.Max.X; x++ {
-			for y := 0; y < image.Rect.Max.Y; y++ {
-				img.SetRGBA(x, y, color.RGBA(image.NRGBAAt(x, y)))
-			}
-		}
-		var frame = &Frame{
-			Image: img,
+		img16 := noximage.NewImage16(frame.Rect)
+		draw.Draw(img16, img16.Rect, frame, image.Pt(0, 0), draw.Src)
+		select {
+		case <-player.stop:
+			return
+		case player.queue <- &Frame{
+			Image: img16,
 			Audio: samples,
+		}:
 		}
-		player.queue <- frame
 	}
 }
 
@@ -129,14 +129,15 @@ func NewPlayer(fname string, mvSeat seat.Seat, audioDrv ail.Driver) (plr *MovieP
 }
 
 func (player *MoviePlayer) Close() {
-	if player.closed {
+	select {
+	case <-player.stop:
 		return
+	default:
 	}
 	close(player.stop)
 	player.file.Close()
 	player.audioSrc.Stop()
 	player.audioSrc.Release()
-	player.closed = true
 	// TODO: restore the preexisting events on seat
 }
 
@@ -173,11 +174,19 @@ func (player *MoviePlayer) Play() {
 
 	framesChan := make(chan *Frame, player.movie.Header.Fps)
 
-	var currentFrame = 0
-	var samplesWithCommitedFrames = 0
-	var queuedSamples = 0
-	var finishedSamples = 0
-	var audioBuffers = make(openal.Buffers, 0)
+	var (
+		currentFrame              = 0
+		samplesWithCommitedFrames = 0
+		queuedSamples             = 0
+		finishedSamples           = 0
+		audioBuffers              openal.Buffers
+	)
+	defer func() {
+		// Cleanup audio buffers
+		for i := 0; i < len(audioBuffers); i++ {
+			audioBuffers[i].Delete()
+		}
+	}()
 	//var currentFrameImg *noximage.Image16 = nil
 	time.Sleep(time.Second / time.Duration(player.movie.Header.Fps/5))
 loop:
@@ -198,6 +207,8 @@ loop:
 	audioloop:
 		for {
 			select {
+			case <-player.stop:
+				break loop
 			case newFrame := <-player.queue:
 				var buffer openal.Buffer
 				if len(audioBuffers) < 1 {
@@ -214,14 +225,12 @@ loop:
 					alSrc.Play()
 				}
 				select {
-				case framesChan <- newFrame:
-					break
 				default:
 					nextFrame = <-framesChan
 					framesChan <- newFrame
 					break audioloop
+				case framesChan <- newFrame:
 				}
-				break
 			default:
 				select {
 				case nextFrame = <-framesChan:
@@ -233,8 +242,7 @@ loop:
 		}
 
 		// Now cleanup any finished audio buffers
-		processedCount := alSrc.BuffersProcessed()
-		if processedCount > 0 {
+		if processedCount := alSrc.BuffersProcessed(); processedCount > 0 {
 			buffersProcessed := make(openal.Buffers, processedCount)
 			alSrc.UnqueueBuffers(buffersProcessed)
 			audioBuffers = append(audioBuffers, buffersProcessed...)
@@ -255,24 +263,22 @@ loop:
 		// Now let's calculate the sleep time
 		// First let's get where we are at our playback
 		sampleDuration := time.Second / time.Duration(player.movie.Header.SampleRate)
-		currentSample := alSrc.GetOffsetSamples()
-		currentPosition := (time.Duration(currentSample) + time.Duration(finishedSamples)) * sampleDuration
+		currentSample := int(alSrc.GetOffsetSamples())
+		currentPosition := time.Duration(currentSample+finishedSamples) * sampleDuration
 		// Now let's determine when the next frame should be displayed
 		// We assume it should be no later than the next audio queue up
 		expectedSamplesCount := samplesWithCommitedFrames
 		expectedPosition := time.Duration(expectedSamplesCount) * sampleDuration
 		// Now let's determine the next wake up call time
-		sleep := expectedPosition - currentPosition
-		if sleep > 0 {
-			time.Sleep(sleep)
+		if sleep := expectedPosition - currentPosition; sleep > 0 {
+			select {
+			case <-player.stop:
+				break loop
+			case <-time.After(sleep):
+			}
 		}
 		//currentFrameImg = nextFrame.Image
 		currentFrame++
-	}
-
-	// Cleanup audio buffers
-	for i := 0; i < len(audioBuffers); i++ {
-		audioBuffers[i].Delete()
 	}
 }
 
@@ -306,10 +312,9 @@ func run(fname string) error {
 	if err != nil {
 		return err
 	}
+	defer plr.Close()
 
-	plr.StartDecodeRoutine()
-
+	plr.Start()
 	plr.Play()
-	plr.Close()
 	return nil
 }
