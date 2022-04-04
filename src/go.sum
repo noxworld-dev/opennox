@@ -39,6 +39,8 @@ cloud.google.com/go/storage v1.10.0/go.mod h1:FLPqc6j+Ki4BU591ie1oL6qBQGu2Bl/tZ9
 dmitri.shuralyov.com/gpu/mtl v0.0.0-20190408044501-666a987793e9/go.mod h1:H6x//7gZCb22OMCxBHrMx7a5I7Hp++hsVxbQ4BYO7hU=
 github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03qcyfWMU=
 github.com/BurntSushi/xgb v0.0.0-20160522181843-27f122750802/go.mod h1:IVnqGOEym/WlBOVXweHU+Q+/VP0lqqI8lqeDx9IjBqo=
+github.com/JoshuaDoes/adpcm-go v0.0.0-20190311011514-2274d526c08b h1:A4WVYEG3AMkVn8XGRDb/2ktcYpt2TmLLBJUYTZpm1+E=
+github.com/JoshuaDoes/adpcm-go v0.0.0-20190311011514-2274d526c08b/go.mod h1:nBimwikqpakInkp3ivpX0akRVhBLGKSc2tP9kKv66Ao=
 github.com/OneOfOne/xxhash v1.2.2/go.mod h1:HSdplMjZKSmBqAxg5vPj2TmRDmfkzw+cTzAElWljhcU=
 github.com/alecthomas/template v0.0.0-20160405071501-a0175ee3bccc/go.mod h1:LOuyumcjzFXgccqObfd/Ljyb9UuFJ6TxHnclSeseNhc=
 github.com/alecthomas/template v0.0.0-20190718012654-fb15b899a751/go.mod h1:LOuyumcjzFXgccqObfd/Ljyb9UuFJ6TxHnclSeseNhc=
@@ -92,6 +94,8 @@ github.com/envoyproxy/go-control-plane v0.9.9-0.20201210154907-fd9021fe5dad/go.m
 github.com/envoyproxy/go-control-plane v0.9.9-0.20210217033140-668b12f5399d/go.mod h1:cXg6YxExXjJnVBQHBLXeUAgxn2UodCpnH306RInaBQk=
 github.com/envoyproxy/protoc-gen-validate v0.1.0/go.mod h1:iSmxcyjqTsJpI2R4NaDN7+kN2VEUnK/pcBlmesArF7c=
 github.com/fatih/color v1.7.0/go.mod h1:Zm6kSWBoL9eyXnKyktHP6abPY2pDugNf5KwzbycvMj4=
+github.com/foize/go.fifo v0.0.0-20130327144150-3a04cfeec121 h1:4tcVl93sFQN4n6PYiJ6m11uypFWCpyybUpWV+HA7Fqg=
+github.com/foize/go.fifo v0.0.0-20130327144150-3a04cfeec121/go.mod h1:FnCzb+rCPKo7SBHmZYaSca9ymfnSHqh1E8jZz460/t0=
 github.com/fsnotify/fsnotify v1.4.7/go.mod h1:jwhsz4b93w/PPRr/qN1Yymfu8t87LnFCMoQvtojpjFo=
 github.com/fsnotify/fsnotify v1.4.9 h1:hsms1Qyu0jgnwNXIxa+/V/PDsU6CfLf6CNO8H7IWoS4=
 github.com/fsnotify/fsnotify v1.4.9/go.mod h1:znqG4EE+3YCdAaPaxE2ZRY/06pZUdp0tY4IgpuI1SZQ=
@@ -270,6 +274,16 @@ github.com/noxworld-dev/lobby v0.0.0-20220306183851-3877f0a7002d h1:mHN8Tn0EBYht
 github.com/noxworld-dev/lobby v0.0.0-20220306183851-3877f0a7002d/go.mod h1:Eg4ugV8a35SfRaSRmYtR5PnWOuUaN0LRwAHJ/xv/u5g=
 github.com/noxworld-dev/nat v0.1.0 h1:901X798aWD7HR7J4CAQ8+0C0Hk+zMPfwDqP6FSl1WG0=
 github.com/noxworld-dev/nat v0.1.0/go.mod h1:nuyzkNVgk/Eybj3dbJmm0vsX7xBxjqCczqN6cWkpfrM=
+github.com/noxworld-dev/vqa-decode v0.0.0-20210809230107-2f24c7e795b5 h1:Ee7P1cIGCgFyePPsq/gs5nvfVjTQk0PKfJH812Snnbo=
+github.com/noxworld-dev/vqa-decode v0.0.0-20210809230107-2f24c7e795b5/go.mod h1:L/NIDfAyZ3NbYIxPZ6onoSGKxJmcc9+pdJcTIrDPUag=
+github.com/noxworld-dev/vqa-decode v0.0.0-20220404011528-ad3bcd43fccb h1:ov/6A+gmf32UMvGXmkOlBEMwE9n71RlECfQfYwSgDZw=
+github.com/noxworld-dev/vqa-decode v0.0.0-20220404011528-ad3bcd43fccb/go.mod h1:L/NIDfAyZ3NbYIxPZ6onoSGKxJmcc9+pdJcTIrDPUag=
+github.com/noxworld-dev/vqa-decode v0.0.0-20220404012446-4f398f8663bb h1:i0TSR8aFokwev2IsBg9dw5wQoKlE40ZEJonmrbnupzU=
+github.com/noxworld-dev/vqa-decode v0.0.0-20220404012446-4f398f8663bb/go.mod h1:L/NIDfAyZ3NbYIxPZ6onoSGKxJmcc9+pdJcTIrDPUag=
+github.com/noxworld-dev/vqa-decode v0.0.0-20220404044140-2a5371fb99f1 h1:mC0vExaC80pPEvMfzYorXy+dU42jECT3AOo2hFLyFpE=
+github.com/noxworld-dev/vqa-decode v0.0.0-20220404044140-2a5371fb99f1/go.mod h1:L/NIDfAyZ3NbYIxPZ6onoSGKxJmcc9+pdJcTIrDPUag=
+github.com/noxworld-dev/vqa-decode v0.0.0-20220404062633-5925e2f104f6 h1:QeBiXb0Kuam0YJ+YgRZtpvT37xY0/j55W1i+IQQ3rQ8=
+github.com/noxworld-dev/vqa-decode v0.0.0-20220404062633-5925e2f104f6/go.mod h1:L/NIDfAyZ3NbYIxPZ6onoSGKxJmcc9+pdJcTIrDPUag=
 github.com/noxworld-dev/xwis v0.0.0-20211004170833-846701d6228d/go.mod h1:YE9AGHKE7I/U9guNTsv+jlPrDj45ZMp29H9Q/IgpWcI=
 github.com/noxworld-dev/xwis v0.0.0-20220204182326-c5d2fc18e75e h1:yMghTqz2j8k79+JVaSs/DOvTmgGVwGNGNvCchYP9Hcw=
 github.com/noxworld-dev/xwis v0.0.0-20220204182326-c5d2fc18e75e/go.mod h1:YE9AGHKE7I/U9guNTsv+jlPrDj45ZMp29H9Q/IgpWcI=
@@ -365,6 +379,10 @@ github.com/veandco/go-sdl2 v0.4.10 h1:8QoD2bhWl7SbQDflIAUYWfl9Vq+mT8/boJFAUzAScg
 github.com/veandco/go-sdl2 v0.4.10/go.mod h1:OROqMhHD43nT4/i9crJukyVecjPNYYuCofep6SNiAjY=
 github.com/xiang90/probing v0.0.0-20190116061207-43a291ad63a2/go.mod h1:UETIi67q53MR2AWcXfiuqkDkRtnGDLqkBTpCHuJHxtU=
 github.com/xordataexchange/crypt v0.0.3-0.20170626215501-b2862e3d0a77/go.mod h1:aYKd//L2LvnjZzWKhF00oedf4jCCReLcmhLdhm1A27Q=
+github.com/youpy/go-riff v0.0.0-20131220112943-557d78c11efb h1:RDh7U5Di6o7fblIBe7rVi9KnrcOXUbLwvvLLdP2InSI=
+github.com/youpy/go-riff v0.0.0-20131220112943-557d78c11efb/go.mod h1:83nxdDV4Z9RzrTut9losK7ve4hUnxUR8ASSz4BsKXwQ=
+github.com/youpy/go-wav v0.1.0 h1:MehxSoflnZoDmiILNQ6WMQpTuRuFpRnq213YqQ7WPRk=
+github.com/youpy/go-wav v0.1.0/go.mod h1:ZyTUfNrGKaH/wPNGf2W9Se6sNtZRlY+b98kckKmYLS8=
 github.com/yuin/goldmark v1.1.25/go.mod h1:3hX8gzYuyVAZsxl0MRgGTJEmQBFcNTphYh9decYSb74=
 github.com/yuin/goldmark v1.1.27/go.mod h1:3hX8gzYuyVAZsxl0MRgGTJEmQBFcNTphYh9decYSb74=
 github.com/yuin/goldmark v1.1.32/go.mod h1:3hX8gzYuyVAZsxl0MRgGTJEmQBFcNTphYh9decYSb74=

@@ -4,11 +4,7 @@ import (
 	"errors"
 	"flag"
 	"fmt"
-	"image"
-	"io"
-	"log"
-	"math"
-	"net/http"
+	"image/color"
 	_ "net/http/pprof"
 	"os"
 	"time"
@@ -18,14 +14,13 @@ import (
 	"nox/v1/client/seat"
 	"nox/v1/client/seat/sdl"
 	"nox/v1/common/alloc/handles"
-	noxcolor "nox/v1/common/color"
 	"nox/v1/common/noximage"
 	"nox/v1/common/types"
-)
 
-func init() {
-	go http.ListenAndServe(":6060", nil)
-}
+	"github.com/noxworld-dev/vqa-decode/movies"
+	"github.com/timshannon/go-openal/openal"
+	"github.com/youpy/go-wav"
+)
 
 var (
 	fMovie = flag.String("i", "intro.vqa", "movie file to open")
@@ -36,6 +31,248 @@ func main() {
 	if err := run(*fMovie); err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
+	}
+}
+
+type Frame struct {
+	Image *noximage.Image16
+	Audio [][2]int16
+}
+
+type MoviePlayer struct {
+	queue    chan *Frame
+	movie    *movies.VqaFile
+	file     *os.File
+	seat     seat.Seat
+	renderer *render.Renderer
+	audioDrv ail.Driver
+	audioSrc ail.Sample
+	stop     chan struct{}
+	closed   bool
+}
+
+func (player *MoviePlayer) StartDecodeRoutine() {
+	go player.decode()
+}
+
+func (player *MoviePlayer) decode() {
+	for {
+		select {
+		case <-player.stop:
+			return
+		default:
+		}
+		image, samples, err := player.movie.DecodeNextFrame()
+		if err != nil {
+			return
+		}
+		var img = noximage.NewImage16(image.Rect)
+		for x := 0; x < image.Rect.Max.X; x++ {
+			for y := 0; y < image.Rect.Max.Y; y++ {
+				img.SetRGBA(x, y, color.RGBA(image.NRGBAAt(x, y)))
+			}
+		}
+		var frame = &Frame{
+			Image: img,
+			Audio: samples,
+		}
+		player.queue <- frame
+	}
+}
+
+func NewPlayer(fname string, mvSeat seat.Seat, audioDrv ail.Driver) (plr *MoviePlayer, err error) {
+	vqaFile, err := os.Open(fname)
+	if err != nil {
+		return nil, err
+	}
+
+	vqa, err := movies.OpenMovieWithHandle(vqaFile)
+	if err != nil {
+		return nil, err
+	}
+
+	rend, err := render.New(mvSeat)
+	if err != nil {
+		return nil, err
+	}
+	queue := make(chan *Frame, vqa.Header.Fps*2)
+	stop := make(chan struct{})
+
+	audioSrc := audioDrv.AllocateSample()
+	var player = &MoviePlayer{
+		queue:    queue,
+		movie:    vqa,
+		file:     vqaFile,
+		seat:     mvSeat,
+		renderer: rend,
+		audioDrv: audioDrv,
+		audioSrc: audioSrc,
+		stop:     stop,
+	}
+
+	// TODO: actually replace the preexisting events
+	mvSeat.OnInput(func(ev seat.InputEvent) {
+		switch ev := ev.(type) {
+		case seat.WindowEvent:
+			switch ev {
+			case seat.WindowClosed:
+				// If user tries to close the window, stop the loop.
+				player.Close()
+			}
+		case *seat.KeyboardEvent, *seat.MouseButtonEvent:
+			// Stop the loop on keyboard or mouse key press as well.
+			player.Close()
+		}
+	})
+
+	return player, nil
+}
+
+func (player *MoviePlayer) Close() {
+	if player.closed {
+		return
+	}
+	close(player.stop)
+	player.file.Close()
+	player.audioSrc.Stop()
+	player.audioSrc.Release()
+	player.closed = true
+	// TODO: restore the preexisting events on seat
+}
+
+func convertSampleToData(samples []wav.Sample, format openal.Format) []byte {
+	var output = make([]byte, len(samples)*2*2)
+	for i := 0; i < len(samples); i++ {
+		left := samples[i].Values[0]
+		right := samples[i].Values[1]
+		output[i*4] = byte(left & 0xFF)
+		output[i*4+1] = byte((left >> 8) & 0xFF)
+		if format == openal.FormatMono16 {
+			output[i*4+2] = output[i*2]
+			output[i*4+3] = output[i*2+1]
+		} else {
+			output[i*4+2] = byte(right & 0xFF)
+			output[i*4+3] = byte((right >> 8) & 0xFF)
+		}
+	}
+	return output
+}
+
+func (player *MoviePlayer) Play() {
+	// TODO: if we got no audio, we could probably still keep displaying frames...
+	// Note that the frame delays are all calculated based on sound position
+	audioSrc := player.audioSrc.GetSource()
+	if audioSrc == nil {
+		player.Close()
+		return
+	}
+	alSrc := openal.Source(*audioSrc)
+	alSrc.SetLooping(false)
+	alSrc.SetPosition(&openal.Vector{0, 0, 0})
+	alSrc.SetGain(1)
+
+	framesChan := make(chan *Frame, player.movie.Header.Fps)
+
+	var currentFrame = 0
+	var samplesWithCommitedFrames = 0
+	var queuedSamples = 0
+	var finishedSamples = 0
+	var audioBuffers = make(openal.Buffers, 0)
+	//var currentFrameImg *noximage.Image16 = nil
+	time.Sleep(time.Second / time.Duration(player.movie.Header.Fps/5))
+loop:
+	for {
+		// Process input events.
+		player.seat.InputTick()
+
+		// Run until movie player tells us to stop.
+		select {
+		case <-player.stop:
+			break loop
+		default:
+		}
+
+		var nextFrame *Frame
+
+		// First, we attempt to buffer several frames of audio in advance to avoid audio overruns
+	audioloop:
+		for {
+			select {
+			case newFrame := <-player.queue:
+				var buffer openal.Buffer
+				if len(audioBuffers) < 1 {
+					buffer = openal.NewBuffer()
+				} else {
+					buffer = audioBuffers[0]
+					audioBuffers = audioBuffers[1:]
+				}
+				sampleRate := int32(player.movie.Header.SampleRate)
+				buffer.SetDataStereo16(newFrame.Audio, sampleRate)
+				queuedSamples += len(newFrame.Audio)
+				alSrc.QueueBuffer(buffer)
+				if alSrc.State() != openal.Playing {
+					alSrc.Play()
+				}
+				select {
+				case framesChan <- newFrame:
+					break
+				default:
+					nextFrame = <-framesChan
+					framesChan <- newFrame
+					break audioloop
+				}
+				break
+			default:
+				select {
+				case nextFrame = <-framesChan:
+					break audioloop
+				default:
+					break loop
+				}
+			}
+		}
+
+		// Now cleanup any finished audio buffers
+		processedCount := alSrc.BuffersProcessed()
+		if processedCount > 0 {
+			buffersProcessed := make(openal.Buffers, processedCount)
+			alSrc.UnqueueBuffers(buffersProcessed)
+			audioBuffers = append(audioBuffers, buffersProcessed...)
+			for i := 0; i < len(buffersProcessed); i++ {
+				b := audioBuffers[i]
+				samples := b.GetSize() / ((b.GetBits() / 8) * b.GetChannels())
+				finishedSamples += int(samples)
+			}
+		}
+
+		// Now time to deal with the frame
+		player.renderer.CopyBuffer(nextFrame.Image)
+		samplesWithCommitedFrames += len(nextFrame.Audio)
+
+		// Run audio callbacks.
+		ail.Serve()
+
+		// Now let's calculate the sleep time
+		// First let's get where we are at our playback
+		sampleDuration := time.Second / time.Duration(player.movie.Header.SampleRate)
+		currentSample := alSrc.GetOffsetSamples()
+		currentPosition := (time.Duration(currentSample) + time.Duration(finishedSamples)) * sampleDuration
+		// Now let's determine when the next frame should be displayed
+		// We assume it should be no later than the next audio queue up
+		expectedSamplesCount := samplesWithCommitedFrames
+		expectedPosition := time.Duration(expectedSamplesCount) * sampleDuration
+		// Now let's determine the next wake up call time
+		sleep := expectedPosition - currentPosition
+		if sleep > 0 {
+			time.Sleep(sleep)
+		}
+		//currentFrameImg = nextFrame.Image
+		currentFrame++
+	}
+
+	// Cleanup audio buffers
+	for i := 0; i < len(audioBuffers); i++ {
+		audioBuffers[i].Delete()
 	}
 }
 
@@ -65,106 +302,14 @@ func run(fname string) error {
 		return errors.New(e)
 	}
 
-	// Our new movie player.
-	pl, err := NewPlayer(win, drv, fname)
+	plr, err := NewPlayer(fname, win, drv)
 	if err != nil {
 		return err
 	}
-	defer pl.Close()
 
-	const fps = 30
-	dt := time.Second / fps
-	log.Printf("dt = %v", dt)
-	ticker := time.NewTicker(dt)
-	defer ticker.Stop()
-	stop := make(chan struct{})
+	plr.StartDecodeRoutine()
 
-	// Set callbacks for the input events.
-	win.OnInput(func(ev seat.InputEvent) {
-		switch ev := ev.(type) {
-		case seat.WindowEvent:
-			switch ev {
-			case seat.WindowClosed:
-				// If user tries to close the window, stop the loop.
-				close(stop)
-			}
-		case *seat.KeyboardEvent, *seat.MouseButtonEvent:
-			// Stop the loop on keyboard or mouse key press as well.
-			close(stop)
-		}
-	})
-	// Main loop.
-loop:
-	for {
-		select {
-		case <-stop:
-			break loop
-		case <-ticker.C:
-		}
-		// Process input events.
-		win.InputTick()
-		// Run until movie player tells us to stop.
-		if !pl.Tick() {
-			break
-		}
-		// Run audio callbacks.
-		ail.Serve()
-	}
-	// Return player decoding errors, if any.
-	return pl.Close()
-}
-
-func NewPlayer(sc seat.Screen, drv ail.Driver, fname string) (*Player, error) {
-	// Initialize renderer, it is responsible for preserving aspect ratio, creating SDL surfaces, etc.
-	rend, err := render.New(sc)
-	if err != nil {
-		return nil, err
-	}
-	// TODO: actually open file and prepare for decoding
-	log.Printf("opening file: %q", fname)
-	sz := sc.ScreenSize()
-	frame := noximage.NewImage16(image.Rect(0, 0, sz.W, sz.H))
-	return &Player{
-		sz:   sz,
-		rend: rend, audio: drv,
-		frame: frame,
-		black: make([]uint16, len(frame.Pix)), // for quick copy
-	}, nil
-}
-
-// Player implements Nox movie player.
-type Player struct {
-	sz    types.Size
-	rend  *render.Renderer
-	audio ail.Driver
-	black []uint16
-	frame *noximage.Image16
-	cur   int
-	file  io.Reader
-}
-
-func (p *Player) Close() error {
-	if p.audio != 0 {
-		p.audio.Close()
-		p.audio = 0
-	}
-	// TODO: cleanup; make sure it can be called safely multiple times (see defer)
+	plr.Play()
+	plr.Close()
 	return nil
-}
-
-func (p *Player) Tick() bool {
-	p.cur++
-	copy(p.frame.Pix, p.black)
-	// TODO: decode the frame
-	for x := 0; x < p.sz.W; x++ {
-		y := int(float64(p.sz.H) * (0.5 + 0.5*math.Sin(float64(x+p.cur%p.sz.W)/float64(p.sz.W)*math.Pi*4)))
-		if y < 0 || y >= p.sz.H {
-			continue
-		}
-		cl := noxcolor.ToRGBA5551(byte(p.cur%255), 0, 255-byte(p.cur%100), 255)
-		p.frame.SetRGBA5551(x, y, cl)
-	}
-	p.rend.CopyBuffer(p.frame)
-	// TODO: no idea how audio works, but package closely follows C
-	return true // TODO: return false once video ends
 }
