@@ -284,6 +284,8 @@ github.com/noxworld-dev/vqa-decode v0.0.0-20220404044140-2a5371fb99f1 h1:mC0vExa
 github.com/noxworld-dev/vqa-decode v0.0.0-20220404044140-2a5371fb99f1/go.mod h1:L/NIDfAyZ3NbYIxPZ6onoSGKxJmcc9+pdJcTIrDPUag=
 github.com/noxworld-dev/vqa-decode v0.0.0-20220404062633-5925e2f104f6 h1:QeBiXb0Kuam0YJ+YgRZtpvT37xY0/j55W1i+IQQ3rQ8=
 github.com/noxworld-dev/vqa-decode v0.0.0-20220404062633-5925e2f104f6/go.mod h1:L/NIDfAyZ3NbYIxPZ6onoSGKxJmcc9+pdJcTIrDPUag=
+github.com/noxworld-dev/vqa-decode v0.0.0-20220404183547-af27546eb30f h1:E7Uz4PTL/yJEJFiMiUHziJPLj8ysZ3Z3Bg9WAAk9hes=
+github.com/noxworld-dev/vqa-decode v0.0.0-20220404183547-af27546eb30f/go.mod h1:L/NIDfAyZ3NbYIxPZ6onoSGKxJmcc9+pdJcTIrDPUag=
 github.com/noxworld-dev/xwis v0.0.0-20211004170833-846701d6228d/go.mod h1:YE9AGHKE7I/U9guNTsv+jlPrDj45ZMp29H9Q/IgpWcI=
 github.com/noxworld-dev/xwis v0.0.0-20220204182326-c5d2fc18e75e h1:yMghTqz2j8k79+JVaSs/DOvTmgGVwGNGNvCchYP9Hcw=
 github.com/noxworld-dev/xwis v0.0.0-20220204182326-c5d2fc18e75e/go.mod h1:YE9AGHKE7I/U9guNTsv+jlPrDj45ZMp29H9Q/IgpWcI=
