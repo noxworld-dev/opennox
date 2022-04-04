@@ -42,14 +42,15 @@ type Frame struct {
 }
 
 type MoviePlayer struct {
-	queue    chan *Frame
-	movie    *movies.VqaFile
-	file     io.Closer // TODO: add Close() to movies.VqaFile instead
-	seat     seat.Seat
-	renderer *render.Renderer
-	audioDrv ail.Driver
-	audioSrc ail.Sample
-	stop     chan struct{}
+	queue     chan *Frame
+	movie     *movies.VqaFile
+	file      io.Closer
+	seat      seat.Seat
+	oldInputs seat.InputConfig
+	renderer  *render.Renderer
+	audioDrv  ail.Driver
+	audioSrc  ail.Sample
+	stop      chan struct{}
 }
 
 func (player *MoviePlayer) Start() {
@@ -99,15 +100,19 @@ func NewPlayer(fname string, mvSeat seat.Seat, audioDrv ail.Driver) (plr *MovieP
 	stop := make(chan struct{})
 
 	audioSrc := audioDrv.AllocateSample()
+
+	oldInputs := mvSeat.ReplaceInputs(nil)
+
 	var player = &MoviePlayer{
-		queue:    queue,
-		movie:    vqa,
-		file:     vqaFile,
-		seat:     mvSeat,
-		renderer: rend,
-		audioDrv: audioDrv,
-		audioSrc: audioSrc,
-		stop:     stop,
+		queue:     queue,
+		movie:     vqa,
+		file:      vqaFile,
+		seat:      mvSeat,
+		renderer:  rend,
+		audioDrv:  audioDrv,
+		audioSrc:  audioSrc,
+		stop:      stop,
+		oldInputs: oldInputs,
 	}
 
 	// TODO: actually replace the preexisting events
@@ -138,7 +143,7 @@ func (player *MoviePlayer) Close() {
 	player.file.Close()
 	player.audioSrc.Stop()
 	player.audioSrc.Release()
-	// TODO: restore the preexisting events on seat
+	player.seat.ReplaceInputs(player.oldInputs)
 }
 
 func convertSampleToData(samples []wav.Sample, format openal.Format) []byte {

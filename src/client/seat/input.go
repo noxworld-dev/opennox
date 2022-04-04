@@ -7,9 +7,13 @@ import (
 	"nox/v1/common/types"
 )
 
+type InputConfig []func(ev InputEvent)
+
 type Input interface {
 	// InputTick runs input event processing, triggering all relevant callback functions.
 	InputTick()
+	// ReplaceInputs replaces all inputs by a provided configuration, and returns the previous configuration
+	ReplaceInputs(InputConfig) InputConfig
 	// OnInput adds a handler function that will be called on each input event.
 	OnInput(fnc func(ev InputEvent))
 	// SetTextInput enables or disables text input mode.

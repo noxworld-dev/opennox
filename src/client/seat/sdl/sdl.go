@@ -96,6 +96,12 @@ func (win *Window) Close() error {
 	return err
 }
 
+func (win *Window) ReplaceInputs(cfg seat.InputConfig) seat.InputConfig {
+	oldCfg := win.onInput
+	win.onInput = cfg
+	return oldCfg
+}
+
 func (win *Window) OnInput(fnc func(ev seat.InputEvent)) {
 	win.onInput = append(win.onInput, fnc)
 }
