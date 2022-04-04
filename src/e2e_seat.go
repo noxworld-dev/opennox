@@ -15,6 +15,10 @@ type e2eSeat struct {
 	s seat.Seat
 }
 
+func (e *e2eSeat) ReplaceInputs(cfg seat.InputConfig) seat.InputConfig {
+	return e.s.ReplaceInputs(cfg)
+}
+
 func (e *e2eSeat) ScreenSize() types.Size {
 	return e.s.ScreenSize()
 }

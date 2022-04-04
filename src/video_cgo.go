@@ -68,9 +68,11 @@ import (
 
 	"nox/v1/client/gui"
 	"nox/v1/client/input"
+	"nox/v1/client/noxmovie"
 	"nox/v1/common/alloc"
 	noxcolor "nox/v1/common/color"
 	noxflags "nox/v1/common/flags"
+	"nox/v1/common/fs"
 	"nox/v1/common/memmap"
 	"nox/v1/common/noximage"
 	"nox/v1/common/player"
@@ -508,7 +510,9 @@ func drawGeneral_4B0340(a1 int) error {
 	*memmap.PtrUint32(0x5D4594, 1311932) = uint32(a1)
 	// FIXME
 	v1 := false
-	if noxflags.HasEngine(noxflags.EngineWindowed) || v1 || C.nox_video_renderTargetFlags&0x10 != 0 {
+	videoLog.Println("DrawGeneralStart")
+	if /*noxflags.HasEngine(noxflags.EngineWindowed) ||*/ v1 /*|| C.nox_video_renderTargetFlags&0x10 != 0*/ {
+		videoLog.Println("DrawGeneralSkip")
 		sub_4B05D0()
 		return nil
 	}
@@ -548,6 +552,18 @@ func drawGeneral_4B0340(a1 int) error {
 			return err
 		}
 		nox_video_initPixbuffer_486090(sz)
+	}
+
+	var movieString = C.GoString((*C.char)(memmap.PtrOff(0x5d4594, 1311940)))
+	videoLog.Println("DrawGeneral: movie string: " + movieString)
+	movieFile, err := fs.Open(movieString)
+	if err == nil {
+		plr, err := noxmovie.NewPlayerWithHandle(movieFile, noxSeat, audioDev)
+		if err == nil {
+			plr.Start()
+			plr.Play()
+			plr.Close()
+		}
 	}
 
 	// FIXME: play movies
