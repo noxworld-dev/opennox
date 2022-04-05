@@ -558,11 +558,12 @@ func drawGeneral_4B0340(a1 int) error {
 	videoLog.Println("DrawGeneral: movie string: " + movieString)
 	movieFile, err := fs.Open(movieString)
 	if err == nil {
+		defer movieFile.Close()
 		plr, err := noxmovie.NewPlayerWithHandle(movieFile, noxSeat, audioDev)
 		if err == nil {
+			defer plr.Close()
 			plr.Start()
 			plr.Play()
-			plr.Close()
 		}
 	}
 
