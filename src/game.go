@@ -80,6 +80,7 @@ import (
 	"errors"
 	"fmt"
 	"math"
+	"path/filepath"
 	"strconv"
 	"strings"
 	"sync"
@@ -183,17 +184,15 @@ func gameSetPlayState(st int) {
 }
 
 func nox_game_setMovieFile_4CB230(name string, out *C.char) bool {
-	filename := "movies\\" + name
-	gameLog.Println("movie check: ", filename)
-	fi, err := fs.Stat(filename)
+	filename := filepath.Join("movies", name)
+	_, err := fs.Stat(filename)
 	if err != nil {
-		gameLog.Println("movie not found: ", filename)
+		gameLog.Printf("movie not found: %q", filename)
 		return false
 	}
 	StrCopy(out, 127, filename)
-	gameLog.Println("movie found: ", fi.Name())
+	gameLog.Printf("movie found: %q", filename)
 	return true
-	//return C.nox_game_setMovieFile_4CB230(cname, out) != 0
 }
 
 func nox_game_rollLogoAndStart_4AB1F0() bool {

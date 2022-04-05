@@ -555,31 +555,16 @@ func drawGeneral_4B0340(a1 int) error {
 	}
 
 	var movieString = C.GoString((*C.char)(memmap.PtrOff(0x5d4594, 1311940)))
-	videoLog.Println("DrawGeneral: movie string: " + movieString)
-	movieFile, err := fs.Open(movieString)
-	if err == nil {
-		defer movieFile.Close()
-		plr, err := noxmovie.NewPlayerWithHandle(movieFile, noxSeat, audioDev)
-		if err == nil {
+	videoLog.Printf("DrawGeneral: movie string: %q", movieString)
+
+	if f, err := fs.Open(movieString); err == nil {
+		defer f.Close()
+		if plr, err := noxmovie.NewPlayerWithHandle(f, noxSeat, audioDev); err == nil {
 			defer plr.Close()
 			plr.Start()
 			plr.Play()
 		}
 	}
-
-	// FIXME: play movies
-	//#if 0
-	//#ifdef __linux__
-	//;
-	//if (nox_enable_audio) { // TODO: disable audio in movies instead
-	//char* path = nox_fs_normalize(&byte_5D4594[1311940]);
-	//PlayMovie(path);
-	//free(path);
-	//}
-	//#else
-	////PlayMovie(&byte_5D4594[1311940]);
-	//#endif
-	//#endif
 
 	if v2 == 0 {
 		nox_free_pixbuffers_486110()
