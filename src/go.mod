@@ -8,7 +8,7 @@ require (
 	github.com/julienschmidt/httprouter v1.3.0
 	github.com/noxworld-dev/lobby v0.0.0-20220306183851-3877f0a7002d
 	github.com/noxworld-dev/nat v0.1.0
-	github.com/noxworld-dev/vqa-decode v0.0.0-20220404183547-af27546eb30f
+	github.com/noxworld-dev/vqa-decode v0.0.0-20220408200150-8bbbe7a064f7
 	github.com/noxworld-dev/xwis v0.0.0-20220204182326-c5d2fc18e75e
 	github.com/prometheus/client_golang v1.12.1
 	github.com/spf13/cobra v1.2.1
@@ -17,7 +17,7 @@ require (
 	github.com/szhublox/opennoxcontrol v0.0.0-20211214215120-c4bc4281312f
 	github.com/timshannon/go-openal v0.0.0-20170220204755-e0ed4c67cffe
 	github.com/veandco/go-sdl2 v0.4.10
-	github.com/youpy/go-wav v0.1.0
+	github.com/youpy/go-wav v0.3.2
 	github.com/yuin/gopher-lua v0.0.0-20210529063254-f4c35e4016d9
 	golang.org/x/crypto v0.0.0-20220214200702-86341886e292
 	golang.org/x/image v0.0.0-20211028202545-6944b10bf410
@@ -30,7 +30,7 @@ require (
 
 require (
 	github.com/JoshuaDoes/adpcm-go v0.0.0-20190311011514-2274d526c08b // indirect
-	github.com/youpy/go-riff v0.0.0-20131220112943-557d78c11efb // indirect
+	github.com/youpy/go-riff v0.1.0 // indirect
 )
 
 require (
@@ -56,6 +56,7 @@ require (
 	github.com/spf13/jwalterweatherman v1.1.0 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/subosito/gotenv v1.2.0 // indirect
+	github.com/zaf/g711 v0.0.0-20220109202201-cf0017bf0359 // indirect
 	google.golang.org/protobuf v1.27.1 // indirect
 	gopkg.in/ini.v1 v1.62.0 // indirect
 	gopkg.in/irc.v3 v3.1.4 // indirect
