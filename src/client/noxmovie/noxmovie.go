@@ -184,9 +184,17 @@ func (player *MoviePlayer) Play() {
 		queuedSamples             = 0
 		finishedSamples           = 0
 		audioBuffers              openal.Buffers
+		sampleDuration            = time.Second / time.Duration(player.movie.Header.SampleRate)
+		currentFrameImg *noximage.Image16 = nil
 	)
 	//var currentFrameImg *noximage.Image16 = nil
-	time.Sleep(time.Second / time.Duration(player.movie.Header.Fps/5))
+	select {
+	case <-player.stop:
+		return
+	case <-time.After(time.Second / time.Duration(player.movie.Header.Fps/5)):
+	}
+
+
 loop:
 	for {
 		// Process input events.
@@ -235,39 +243,45 @@ loop:
 				case nextFrame = <-framesChan:
 					break audioloop
 				default:
-					break loop
+					nextFrame = nil
+					break audioloop
 				}
 			}
 		}
 
-		// Now cleanup any finished audio buffers
-		if processedCount := alSrc.BuffersProcessed(); processedCount > 0 {
-			buffersProcessed := make(openal.Buffers, processedCount)
-			alSrc.UnqueueBuffers(buffersProcessed)
-			audioBuffers = append(audioBuffers, buffersProcessed...)
-			for i := 0; i < len(buffersProcessed); i++ {
-				b := audioBuffers[i]
-				samples := b.GetSize() / ((b.GetBits() / 8) * b.GetChannels())
-				finishedSamples += int(samples)
-			}
-		}
+		if (nextFrame != nil) {
 
-		// Now time to deal with the frame
-		player.renderer.CopyBuffer(nextFrame.Image)
-		samplesWithCommitedFrames += len(nextFrame.Audio)
+			// Now cleanup any finished audio buffers
+			if processedCount := alSrc.BuffersProcessed(); processedCount > 0 {
+				buffersProcessed := make(openal.Buffers, processedCount)
+				alSrc.UnqueueBuffers(buffersProcessed)
+				audioBuffers = append(audioBuffers, buffersProcessed...)
+				for i := 0; i < len(buffersProcessed); i++ {
+					b := audioBuffers[i]
+					samples := b.GetSize() / ((b.GetBits() / 8) * b.GetChannels())
+					finishedSamples += int(samples)
+				}
+			}
+ 
+			samplesWithCommitedFrames += len(nextFrame.Audio)
+		}
 
 		// Run audio callbacks.
 		ail.Serve()
 
+		if currentFrameImg != nil {
+			player.renderer.CopyBuffer(currentFrameImg)
+		}
+
 		// Now let's calculate the sleep time
 		// First let's get where we are at our playback
-		sampleDuration := time.Second / time.Duration(player.movie.Header.SampleRate)
 		currentSample := int(alSrc.GetOffsetSamples())
 		currentPosition := time.Duration(currentSample+finishedSamples) * sampleDuration
 		// Now let's determine when the next frame should be displayed
 		// We assume it should be no later than the next audio queue up
 		expectedSamplesCount := samplesWithCommitedFrames
 		expectedPosition := time.Duration(expectedSamplesCount) * sampleDuration
+
 		// Now let's determine the next wake up call time
 		if sleep := expectedPosition - currentPosition; sleep > 0 {
 			select {
@@ -276,6 +290,13 @@ loop:
 			case <-time.After(sleep):
 			}
 		}
+
+		if nextFrame == nil {
+			break;
+		}
+
+		currentFrameImg = nextFrame.Image
+
 		//currentFrameImg = nextFrame.Image
 		currentFrame++
 	}
