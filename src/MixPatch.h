@@ -5,9 +5,6 @@
 
 void init_data_mix();
 
-#ifndef NOX_CGO
-int GameEx_DllMain(uint32_t fdwReason);
-#endif // NOX_CGO
 void OnLibraryNotice_256();
 void OnLibraryNotice_257();
 void OnLibraryNotice_258();

@@ -449,10 +449,6 @@ int sub_4627F0(uint32_t* a1) {
 	nox_point mpos = nox_client_getMousePos_4309F0();
 	nox_xxx_drawSetTextColor_434390(nox_color_white_2523948);
 	v2 = 0;
-#ifndef NOX_CGO
-	nox_xxx_Font_43F340(0);
-	nox_xxx_guiFontHeightMB_43F320(0);
-#endif // NOX_CGO
 	nox_client_drawSetColor_434460(nox_color_black_2650656);
 	nox_client_drawRectFilledOpaque_49CE30(*a1 + 11, a1[1] + 15, 200, 200);
 	sub_463370(*(uint32_t**)&dword_5d4594_1062456, &mpos, &v74);

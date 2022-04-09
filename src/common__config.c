@@ -760,10 +760,6 @@ int sub_432520() {
 
 //----- (00432590) --------------------------------------------------------
 int sub_432590() {
-#ifdef __EMSCRIPTEN__
-	nox_profiled_805856 = 1;
-	return 1;
-#endif
 	char* v0; // eax
 
 	strtok(0, " \r\t\n");
@@ -1036,24 +1032,7 @@ int sub_432AD0(int* a1) {
 }
 
 //----- (00432B00) --------------------------------------------------------
-#ifndef NOX_CGO
-extern int nox_win_depth_menu;
-void nox_common_parsecfg_videomode_apply(int w, int h, int d) {
-	d = 16; // 8 bit not supported
-	if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_WINDOWED_MODE)) {
-		nox_win_width_game = w;
-		nox_win_height_game = h;
-		nox_win_depth_game = d;
-		nox_win_depth_menu = d;
-
-		// FIXME: this will cause the game to change its window size to whatever set in nox.cfg right at the
-		// start! this is different from original game where window is only resized after joining the game
-		change_windowed_fullscreen();
-	}
-}
-#else  // NOX_CGO
 void nox_common_parsecfg_videomode_apply(int w, int h, int d);
-#endif // NOX_CGO
 int nox_common_parsecfg_videomode() {
 	char* v0; // eax
 	char* v2; // eax
@@ -1069,25 +1048,7 @@ int nox_common_parsecfg_videomode() {
 	v4 = strtok(0, " \r\t\n");
 	v5 = atoi(v4);
 	v6 = v5;
-#ifndef NOX_CGO
-	if (v5 == 8) {
-		if (!nox_video_bagexists_4300D0(0)) {
-			v6 = 16;
-		}
-	} else if (v5 == 16) {
-		if (!nox_video_bagexists_4300D0(1)) {
-			v6 = 8;
-		}
-	} else {
-		v6 = nox_video_bagexists_4300D0(1) ? 16 : 8;
-	}
-#else  // NOX_CGO
 	v6 = 16;
-#endif // NOX_CGO
-#ifdef __EMSCRIPTEN__
-	w = EM_ASM_INT(return Module['ingameWidth']());
-	h = EM_ASM_INT(return Module['ingameHeight']());
-#endif
 	nox_common_parsecfg_videomode_apply(w, h, v6);
 	return 1;
 }
@@ -1431,9 +1392,6 @@ void nox_common_writecfgfile(char* a1) {
 	nox_client_writeConfigHotkeys_42CDF0(f);
 	nox_fs_fprintf(f, "---\n");
 	nox_fs_close(f);
-#ifdef __EMSCRIPTEN__
-	EM_ASM(FS.syncfs(false, function(err){}));
-#endif
 }
 
 //----- (004332E0) --------------------------------------------------------

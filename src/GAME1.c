@@ -1,9 +1,5 @@
-#ifdef __EMSCRIPTEN__
-#include <emscripten/emscripten.h>
-#endif
 #include <math.h>
 
-#ifdef NOX_CGO
 void nox_xxx_unknown_libname_86_57F634() {}
 void nullsub_45() {}
 void nullsub_46() {}
@@ -16,7 +12,6 @@ void nullsub_67() {}
 void nullsub_68() {}
 void nullsub_69() {}
 void nullsub_70() {}
-#endif // NOX_CGO
 
 #include "GAME1.h"
 #include "GAME1_1.h"
@@ -125,12 +120,6 @@ unsigned int nox_video_dxFullScreen = 0;
 unsigned int nox_video_dxUnlockSurface = 0;
 HANDLE* nox_video_cursorDrawThreadHandle;
 
-#ifndef NOX_CGO
-uint32_t dword_5d4594_251704 = 0;
-uint32_t dword_5d4594_526284 = 0;
-nox_engine_flag nox_common_engineFlags = 0u;
-uint32_t nox_common_gameFlags;      // & 1 = host server; & 0x800 = solo game
-#endif                              // NOX_CGO
 int nox_server_gameSettingsUpdated; // If you define it as 1-byte bool, the game will crash
 
 extern unsigned int nox_gameFPS;
@@ -175,37 +164,8 @@ extern int table_27168_cnt;
 
 extern table_28760_t table_28760[];
 
-#ifndef NOX_CGO
-nox_playerInfo nox_playerinfo_arr[NOX_PLAYERINFO_MAX] = {0};
-
-void nox_common_setEngineFlag(const nox_engine_flag flags) { nox_common_engineFlags |= flags; }
-
-void nox_common_resetEngineFlag(const nox_engine_flag flags) { nox_common_engineFlags &= ~flags; }
-
-void nox_common_toggleEngineFlag(const nox_engine_flag flags) { nox_common_engineFlags ^= flags; }
-
-bool nox_common_getEngineFlag(const nox_engine_flag flags) { return (nox_common_engineFlags & flags) != 0; }
-
-void nox_exit(int exitCode) {
-#ifdef __EMSCRIPTEN__
-	nox_platform_sleep(0x32u);
-#endif
-	exit(exitCode);
-}
-void nox_on_exit(void (*fnc)(void)) { atexit(fnc); }
-#endif // NOX_CGO
-
 //----- (00401000) --------------------------------------------------------
 int nox_get_audio_enabled() { return nox_enable_audio; }
-
-#ifndef NOX_CGO
-//----- (00401020) --------------------------------------------------------
-wchar_t* nox_xxx_getNoxVer_401020() {
-	wchar_t* buf = (wchar_t*)getMemAt(0x5D4594, 0);
-	nox_swprintf(buf, L"V:%S", nox_version_string_180);
-	return buf;
-}
-#endif // NOX_CGO
 
 //----- (00401040) --------------------------------------------------------
 int sub_401040() {
@@ -218,229 +178,6 @@ int sub_401040() {
 
 //----- (00401060) --------------------------------------------------------
 int sub_401060() { return *getMemU32Ptr(0x5D4594, 264); }
-
-#ifndef NOX_CGO
-//----- (00401070) --------------------------------------------------------
-int cmain(int argc, const char* argv[]) {
-	int result; // eax
-	// int v20; // ebx
-	// int v21; // esi
-	// char* v23; // eax
-	// int v24; // [esp+10h] [ebp-434h]
-	// int v25; // [esp+14h] [ebp-430h]
-	// int v26; // [esp+18h] [ebp-42Ch]
-	// int v27; // [esp+1Ch] [ebp-428h]
-	// int v28; // [esp+20h] [ebp-424h]
-
-	// v24 = 0;
-	// v27 = 0;
-	nox_video_bag_var_2650640 = 0;
-	*getMemU32Ptr(0x8531A0, 2584) = 0;
-	nox_gameDisableMapDraw_5d4594_2650672 = 0;
-	nox_game_addStateCode_43BDD0(10);
-	nox_common_gameFlags_unset_40A540(-1);
-	nox_xxx_setGameFlags_40A4D0(3);
-	nox_common_setEngineFlag(NOX_ENGINE_FLAG_ENABLE_SOFT_SHADOW_EDGE);
-	dword_5d4594_2650652 = 0;
-	int v2 = nox_common_gameFlags_check_40A5C0(1);
-	nox_gameFPS = 30; // gameFPS
-	nox_frame_xxx_2598000 = v2;
-	nox_ticks_reset_416D40();
-	nox_xxx_setGameState_43DDF0(0);
-	nox_game_SetCliDrawFunc(0);
-	sub_43DE40(0);
-	nox_xxx_setGameFlags_40A4D0(256);
-	for (int i = 1; i < argc; i++) {
-		char* flag = argv[i];
-		if (!_strcmpi(flag, "-nolimit")) {
-			nox_xxx_setFrameLimit_43DDE0(0);
-			*getMemU32Ptr(0x587000, 84) = 0;
-		} else if (!_strcmpi(flag, "-serveronly")) {
-			nox_enable_audio = 0;
-			nox_common_setEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING | NOX_ENGINE_FLAG_SLEEP);
-		} else if (!_strcmpi(flag, "-sleep")) {
-			nox_common_setEngineFlag(NOX_ENGINE_FLAG_SLEEP);
-		} else if (!_strcmpi(flag, "-drop")) {
-			++i;
-			int v = atoi(argv[i]);
-			nox_net_setPacketDrop_552010(v);
-		} else if (!_strcmpi(flag, "-notext")) {
-			nox_common_setEngineFlag(NOX_ENGINE_FLAG_DISABLE_TEXT_RENDERING);
-		} else if (!_strcmpi(flag, "-nolog")) {
-			nox_xxx_log_4_close_413C00();
-		} else if (!_strcmpi(flag, "-lock")) {
-			nox_common_setEngineFlag(NOX_ENGINE_FLAG_LOCK_VIDEO_RESOLUTION);
-		} else if (!_strcmpi(flag, "-safe")) {
-			nox_common_resetEngineFlag(NOX_ENGINE_FLAG_ENABLE_SOFT_SHADOW_EDGE);
-			nox_common_setEngineFlag(NOX_ENGINE_FLAG_ENABLE_WINDOWED_MODE);
-			nox_enable_audio = 0;
-			nox_video_dxUnlockSurface = 1;
-			nox_xxx_useMMX_587000_80800 = 0;
-			*getMemU32Ptr(0x5D4594, 805840) = 1;
-			nox_enable_threads = 0;
-			int v12 = 16;
-			if (!nox_video_bagexists_4300D0(1)) {
-				v12 = 8;
-			}
-			nox_win_width_game = NOX_DEFAULT_WIDTH;
-			nox_win_height_game = NOX_DEFAULT_HEIGHT;
-			nox_win_depth_game = v12;
-			nox_win_width_menu = NOX_DEFAULT_WIDTH;
-			nox_win_height_menu = NOX_DEFAULT_HEIGHT;
-			nox_win_depth_menu = v12;
-		} else if (!_strcmpi(flag, "-noaudio")) {
-			nox_enable_audio = 0;
-		} else if (!_strcmpi(flag, "-noMMX")) {
-			nox_xxx_useMMX_587000_80800 = 0;
-			*getMemU32Ptr(0x5D4594, 805840) = 1;
-		} else if (!_strcmpi(flag, "-nothread")) {
-			nox_enable_threads = 0;
-		} else if (!_strcmpi(flag, "-vol")) {
-			++i;
-			*getMemU8Ptr(0x587000, 88) = atoi(argv[i]);
-		} else if (!_strcmpi(flag, "-noFloor")) {
-			nox_common_setEngineFlag(NOX_ENGINE_FLAG_DISABLE_FLOOR_RENDERING);
-		} else if (!_strcmpi(flag, "-noDraw")) {
-			nox_common_setEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING);
-		} else if (!_strcmpi(flag, "-port")) {
-			++i;
-			int v = atoi(argv[i]);
-			nox_xxx_setPortParam_40A3E0(v);
-		} else if (!_strcmpi(flag, "-clientport")) {
-			++i;
-			int v = atoi(argv[i]);
-			nox_xxx_setClientNetPort_40A410(v);
-		} else if (!_strcmpi(flag, "-nosoft")) {
-			nox_common_setEngineFlag(NOX_ENGINE_DISABLE_SOFT_LIGHTS);
-		}
-	}
-	char cwd[1024]; // [esp+44h] [ebp-400h]
-	nox_fs_workdir(cwd, 1023);
-	nox_fs_set_root(cwd);
-#if 0
-	nox_common_readSKU_fromRegistry_4D78C0();
-#endif
-	_controlfp(0x300u, 0x300u);
-	nox_win_width = 0;
-	nox_xxx_servSetPlrLimit_409F80(32);
-	*getMemU32Ptr(0x852978, 16) = nox_gameFPS >> 1;
-	nox_binfile_reset_4093A0();
-	nox_ensure_thing_bin();
-	result = nox_strman_readfile("nox.str"); // strange, should be .csf but it works anyway
-	if (!result) {
-		return 0;
-	}
-	nox_common_scanAllMaps_4D07F0();
-	nox_init_sound_index_40AED0();
-	nox_xxx_mapSetDataDefault_416500();
-	result = nox_common_readcfgfile("nox.cfg", 0);
-	if (!result) {
-		return 0;
-	}
-	if (!nox_profiled_805856) {
-		nox_setProfiledMode_4445C0();
-	}
-	nox_xxx_clear18hDD_416190();
-	nox_common_initRandom_415F70();
-	nox_xxx_bindevent_initStrings_42EAE0();
-	nox_xxx_loadLook_415D50();
-	nox_xxx_loadModifyers_4158C0();
-	nox_xxx_cmdTokensLoad_4444F0();
-	sub_4D11A0();
-	nox_video_resizewnd(0, 0, 16);
-	result = nox_xxx_video_43BF10_upd_video_mode(1);
-	if (!result) {
-		return 0;
-	}
-	nox_xxx_drawSelectColor_434350(nox_color_black_2650656);
-	nox_client_clearScreen_440900();
-	result = nox_video_read_videobag(nox_video_16bit);
-	if (!result) {
-		return 0;
-	}
-	result = sub_431370();
-	if (!result) {
-		return 0;
-	}
-	result = nox_audio_initall(nox_enable_audio);
-	if (!(result || !nox_enable_audio)) {
-		return result;
-	}
-	result = nox_xxx_loadAllBinFiles_415470();
-	if (!result) {
-		return 0;
-	}
-	result = nox_xxx_initInput_430190();
-	if (!result) {
-		return 0;
-	}
-	result = nox_xxx_mapAlloc_4101D0();
-	if (!result) {
-		return 0;
-	}
-	result = nox_xxx_tileAlloc_410F60_init();
-	if (!result) {
-		return 0;
-	}
-	nox_xxx_initSinCosTables_414C90();
-	nox_xxx_loadMapCycle_4D0A30();
-	nox_xxx_mapSelectFirst_4D0E00();
-	nox_netlist_init_40EA10();
-	sub_40B890(32);
-	sub_40B170(32);
-	sub_4134D0();
-	if (nox_strman_get_lang_code() == 6 || nox_strman_get_lang_code() == 8) {
-		nox_draw_setBold_43F680(0);
-	}
-	sub_413920();
-	if (!nox_client_initScreenParticles_431390()) {
-		return 0;
-	}
-	sub_4147E0(nox_video_getWindow_401FD0());
-	g_argc2 = argc;
-	g_argv2 = argv;
-	g_v20 = 0;
-	g_v21 = 0;
-	cmain_loop(0);
-	return result;
-}
-// 4015E2: variable 'v18' is possibly undefined
-// 4017F7: variable 'v22' is possibly undefined
-// 4093D0: using guessed type int sub_4093D0(void);
-// 413F80: using guessed type void nullsub_2(void);
-
-//----- (00401B20) --------------------------------------------------------
-void sub_401B20(char* a1) {
-	char* v1; // edi
-	int v2;   // eax
-
-	strcpy((char*)getMemAt(0x5D4594, 272), "\xecqX");
-	*getMemU32Ptr(0x5D4594, 404) = 1;
-	v1 = strtok(a1, " \t");
-	nox_xxx_gameResizeScreen_43BEF0_set_video_mode(0, 0, 0);
-	if (v1) {
-		do {
-			if (!strcmp("-window", v1)) {
-				*(uint32_t*)&nox_video_dxFullScreen = 0;
-				dword_5d4594_805860 = 0;
-			} else if (!strcmp("-swindow", v1)) {
-				*(uint32_t*)&nox_video_dxFullScreen = 0;
-				dword_5d4594_805860 = 1;
-			} else if (!strcmp("-minimize", v1)) {
-				*getMemU32Ptr(0x5D4594, 805864) = 1;
-			} else {
-				v2 = *getMemU32Ptr(0x5D4594, 404);
-				*getMemU32Ptr(0x5D4594, 272 + 4 * *getMemU32Ptr(0x5D4594, 404)) = v1;
-				*getMemU32Ptr(0x5D4594, 404) = v2 + 1;
-			}
-			v1 = strtok(0, " \t");
-		} while (v1);
-		*getMemU32Ptr(0x5D4594, 272 + 4 * *getMemU32Ptr(0x5D4594, 404)) = 0;
-	} else {
-		*getMemU32Ptr(0x5D4594, 272 + 4 * *getMemU32Ptr(0x5D4594, 404)) = 0;
-	}
-}
-#endif // NOX_CGO
 
 //----- (004093E0) --------------------------------------------------------
 void nox_xxx_parseRead_4093E0(FILE* a1, char* a2, int a3) {
@@ -847,25 +584,6 @@ void nox_xxx_set3512_40A340(int a1) { *getMemU32Ptr(0x5D4594, 3512) = a1; }
 //----- (0040A350) --------------------------------------------------------
 int nox_xxx_get3512_40A350() { return *getMemU32Ptr(0x5D4594, 3512); }
 
-//----- (0040A360) --------------------------------------------------------
-#ifndef NOX_CGO
-int nox_server_mapCRC = 0;
-void nox_xxx_setMapCRC_40A360(int crc) { nox_server_mapCRC = crc; }
-
-//----- (0040A370) --------------------------------------------------------
-int nox_xxx_getMapCRC_40A370() { return nox_server_mapCRC; }
-
-//----- (0040A380) --------------------------------------------------------
-void nox_xxx_mapLoad_40A380() {
-	nox_xxx_set3512_40A340(0);
-	nox_xxx_setMapCRC_40A360(0);
-	nox_xxx_gameSetMapPath_409D70((char*)getMemAt(0x5D4594, 3608));
-	nox_xxx_setGameFlags_40A4D0(3);
-	nox_common_gameFlags_unset_40A540(137212);
-	nox_server_gameSettingsUpdated = 1;
-}
-#endif // NOX_CGO
-
 //----- (0040A3C0) --------------------------------------------------------
 unsigned int sub_40A3C0(unsigned int a1) {
 	unsigned int result; // eax
@@ -876,26 +594,6 @@ unsigned int sub_40A3C0(unsigned int a1) {
 	}
 	return result;
 }
-
-#ifndef NOX_CGO
-//----- (0040A430) --------------------------------------------------------
-int nox_xxx_servGetPort_40A430() {
-	int result; // eax
-
-	result = *getMemU32Ptr(0x5D4594, 3524);
-	if (!*getMemU32Ptr(0x5D4594, 3524)) {
-		result = *getMemU32Ptr(0x587000, 4652);
-	}
-	return result;
-}
-//----- (0040A3E0) --------------------------------------------------------
-void nox_xxx_setPortParam_40A3E0(int a1) {
-	*getMemU32Ptr(0x5D4594, 3524) = a1;
-	char String[64]; // [esp+0h] [ebp-40h]
-	nox_sprintf(String, "Nox - %d", a1);
-	nox_video_setWinTitle_401FE0(String);
-}
-#endif // NOX_CGO
 
 //----- (0040A410) --------------------------------------------------------
 int nox_xxx_setClientNetPort_40A410(int a1) {
@@ -933,48 +631,6 @@ char* nox_xxx_gameSetServername_40A440(char* a1) {
 
 //----- (0040A4C0) --------------------------------------------------------
 char* nox_xxx_serverOptionsGetServername_40A4C0() { return (char*)getMemAt(0x5D4594, 1324); }
-
-//----- (0040A4D0) --------------------------------------------------------
-#ifndef NOX_CGO
-void nox_xxx_setGameFlags_40A4D0(unsigned int f) {
-	if ((f & nox_common_gameFlags) == f) {
-		return;
-	}
-	nox_common_gameFlags |= f;
-	if (f & 0x7FFF0) {
-		nox_server_gameSettingsUpdated = 1;
-	}
-	nox_xxx_guiChatShowHide_445730((nox_common_gameFlags & 0x17F0) != 128);
-	if (f & 0x4000000) {
-		if (nox_common_gameFlags & 1) {
-			nox_xxx_netPrintLineToAll_4DA390("Settings.c:SuddenDeathStart");
-		}
-	}
-}
-
-//----- (0040A540) --------------------------------------------------------
-void nox_common_gameFlags_unset_40A540(unsigned int f) {
-	if (nox_common_gameFlags & f) {
-		nox_common_gameFlags &= ~f;
-		if (f & 0x7FFF0) {
-			nox_server_gameSettingsUpdated = 1;
-		}
-	}
-	if (f & 0x4000000) {       // sudden death
-		dword_5d4594_3592 = 0; // countdown is ticking/set
-	}
-}
-
-//----- (0040A5B0) --------------------------------------------------------
-unsigned int nox_common_gameFlags_getVal_40A5B0() { return nox_common_gameFlags; }
-
-// Tests bitfield against gameFlags variable
-// I once called this variable mapFlags, but it is actually used for storing the current game mode (chat/DM/elim/ctf...)
-// as well whenether sudden death started and much more for ex. if this game client instance is hosting a server the
-// 1'st bit of this value is set
-//----- (0040A5C0) --------------------------------------------------------
-bool nox_common_gameFlags_check_40A5C0(unsigned int f) { return (f & nox_common_gameFlags) != 0; }
-#endif // NOX_CGO
 
 //----- (0040A5E0) --------------------------------------------------------
 int nox_xxx_ruleSetNoRespawn_40A5E0(int a1) {
@@ -1234,11 +890,6 @@ int sub_40AA30(int a1) {
 //----- (0040AA40) --------------------------------------------------------
 int sub_40AA40() { return *getMemU32Ptr(0x5D4594, 3476); }
 
-#ifndef NOX_CGO
-//----- (0040AA50) --------------------------------------------------------
-int sub_40AA50() { return *getMemU32Ptr(0x5D4594, 1392); }
-#endif // NOX_CGO
-
 //----- (0040AA60) --------------------------------------------------------
 int sub_40AA60(int a1) {
 	int result; // eax
@@ -1319,15 +970,6 @@ LABEL_31:
 	}
 	return result;
 }
-
-#ifndef NOX_CGO
-//----- (0040ABD0) --------------------------------------------------------
-bool nox_xxx_checkHasSoloMaps_40ABD0() {
-	struct _stat v1; // [esp+0h] [ebp-24h]
-
-	return _stat("maps\\con01a\\con01a.map", (int)&v1) == 0;
-}
-#endif // NOX_CGO
 
 //----- (0040AE90) --------------------------------------------------------
 int nox_xxx_PtFuncCompare_40AE90(const void* a1, const void* a2) {
@@ -6493,46 +6135,12 @@ int sub_413420(char a1) {
 
 //----- (004134D0) --------------------------------------------------------
 int sub_4134D0() {
-#ifndef NOX_CGO
-	dword_5d4594_251704 = 0;
-#endif // NOX_CGO
 	dword_5d4594_251708 = 0;
 	dword_5d4594_251712 = 0;
 	dword_5d4594_251716 = 0;
 	dword_5d4594_251720 = 0;
-#ifndef NOX_CGO
-	return sub_413850();
-#else // NOX_CGO
 	return 0;
-#endif // NOX_CGO
 }
-
-#ifndef NOX_CGO
-//----- (004134F0) --------------------------------------------------------
-void sub_4134F0() {
-	nox_game_cdState_251700 = 0;
-	dword_5d4594_251704 = 0;
-	dword_5d4594_251708 = 0;
-	dword_5d4594_251712 = 0;
-	dword_5d4594_251716 = 0;
-	dword_5d4594_251720 = 0;
-}
-
-//----- (00413760) --------------------------------------------------------
-void sub_413760() {
-	nox_xxx_setContinueMenuOrHost_43DDD0(0);
-	nox_game_exit_xxx_43DE60();
-	nox_game_cdState_251700 = 5;
-}
-
-//----- (00413780) --------------------------------------------------------
-void sub_413780() {
-	nox_game_cdState_251700 = 1;
-	if (dword_5d4594_251716) {
-		dword_5d4594_251716 = 0;
-	}
-}
-#endif // NOX_CGO
 
 //----- (004137A0) --------------------------------------------------------
 int sub_4137A0() {
@@ -6568,37 +6176,6 @@ int sub_4137E0() {
 	}
 	return result;
 }
-
-#ifndef NOX_CGO
-//----- (00413800) --------------------------------------------------------
-void nox_game_cdMaybeSwitchState_413800() {
-	if (!*getMemU32Ptr(0x5D4594, 251724)) {
-		*getMemU32Ptr(0x5D4594, 251724) = 1;
-		if (!nox_game_switchStates_43C0A0()) {
-			sub_413760();
-		}
-	}
-}
-
-//----- (00413830) --------------------------------------------------------
-int nox_xxx_testCD_413830() { return dword_5d4594_251704 != 0; }
-
-//----- (00413840) --------------------------------------------------------
-int nox_xxx_testCDAndSolo_413840() { return dword_5d4594_251704 == 2; }
-
-//----- (00413850) --------------------------------------------------------
-int sub_413850() {
-	int result; // eax
-
-	result = dword_5d4594_251728;
-	if (!dword_5d4594_251728) {
-		result = 1;
-		dword_5d4594_251728 = 1;
-		nox_game_cdState_251700 = 1;
-	}
-	return result;
-}
-#endif // NOX_CGO
 
 //----- (00413870) --------------------------------------------------------
 int sub_413870(int a1) {
@@ -6664,22 +6241,6 @@ void sub_413960() {
 
 //----- (004139B0) --------------------------------------------------------
 int sub_4139B0() { return dword_5d4594_251744 != 0; }
-
-#ifndef NOX_CGO
-//----- (00413A00) --------------------------------------------------------
-void sub_413A00(int a1) {
-	if (nox_common_gameFlags_check_40A5C0(2048) == 1) {
-		if (a1) {
-			nox_xxx_setGameFlags_40A4D0(0x40000);
-		} else {
-			if (!dword_5d4594_251744) {
-				nox_common_gameFlags_unset_40A540(0x40000);
-				nox_ticks_reset_416D40();
-			}
-		}
-	}
-}
-#endif // NOX_CGO
 
 //----- (00413A50) --------------------------------------------------------
 int nox_xxx_checkGameFlagPause_413A50() { return nox_common_gameFlags_check_40A5C0(0x40000); }
@@ -6786,80 +6347,6 @@ void* sub_4145C0(size_t a1, size_t a2) { return calloc(a1, a2); }
 
 //----- (004145E0) --------------------------------------------------------
 void sub_4145E0(void* lpMem) { free(lpMem); }
-
-//----- (004145F0) --------------------------------------------------------
-#ifndef NOX_CGO
-int nox_readHiddenCode_4145F0(char* a1) {
-	int v1;             // edi
-	FILE* v2;           // eax
-	void* v3;           // esi
-	char Buffer[8];     // [esp+8h] [ebp-110h]
-	char Filename[260]; // [esp+14h] [ebp-104h]
-
-	v1 = 0;
-	nox_fs_progname(Filename, 260);
-	v2 = nox_fs_open(Filename);
-	v3 = v2;
-	if (v2 != -1) {
-		int off = nox_fs_fseek_start(v2, 28);
-		if (off > 0 && nox_fs_fread(v3, Buffer, 8) == 8) {
-			nox_common_readHiddenExeMsg_414B30((uint8_t*)Buffer, (uint8_t*)a1);
-			v1 = 1;
-		}
-		nox_fs_close(v3);
-	}
-	return v1;
-}
-
-//----- (00414690) --------------------------------------------------------
-char sub_414690(unsigned int* a1, void (*a2)(char*)) {
-	unsigned int v2;  // esi
-	unsigned int v3;  // eax
-	unsigned int v4;  // eax
-	unsigned int v5;  // eax
-	bool v6;          // zf
-	unsigned int v7;  // eax
-	int Buffer;       // [esp+8h] [ebp-200h]
-	unsigned int v10; // [esp+Ch] [ebp-1FCh]
-	unsigned int v11; // [esp+10h] [ebp-1F8h]
-	char v12[16];
-	// uint8_t Data[32];      // [esp+24h] [ebp-1E4h]
-	// char ValueName[64]; // [esp+44h] [ebp-1C4h]
-	// char SubKey[128];   // [esp+84h] [ebp-184h]
-	char Filename[260]; // [esp+104h] [ebp-104h]
-
-	nox_fs_progname(Filename, 260);
-	a2(v12);
-	v2 = *(unsigned short*)&v12[6] | (32 * (*(unsigned short*)&v12[2] | (16 * *(unsigned short*)v12)));
-	if (sub_4149A0(Filename, &Buffer, &v10, &v11)) {
-		if (v10 && v11 && (v2 < v10 || v2 >= v11)) {
-			v3 = *a1;
-			LOBYTE(v3) = *a1 | 1;
-			*a1 = v3;
-		}
-		if (Buffer) {
-			v4 = sub_4148D0(Filename);
-			if (Buffer != v4) {
-				v5 = *a1;
-				LOBYTE(v5) = *a1 | 2;
-				*a1 = v5;
-			}
-		}
-	}
-	v6 = nox_common_getRegistryValue_414A40("Software\\Microsoft\\Windows\\CurrentVersion\\RunOnce", "nxsys") == 0;
-	v7 = *a1;
-	if (v6) {
-		if (v7) {
-			LOBYTE(v7) = nox_common_setRegistryValue_414A90("Software\\Microsoft\\Windows\\CurrentVersion\\RunOnce",
-															"nxsys", "");
-		}
-	} else {
-		LOBYTE(v7) = v7 | 4;
-		*a1 = v7;
-	}
-	return v7;
-}
-#endif // NOX_CGO
 
 //----- (00414800) --------------------------------------------------------
 int sub_414800() {
@@ -6968,58 +6455,6 @@ char* nox_common_convertWideToMbString_414B00(const wchar_t* lpWideCharStr, char
 	WideCharToMultiByte(0, 0, lpWideCharStr, -1, lpMultiByteStr, cbMultiByte, 0, 0);
 	return _strrev(lpMultiByteStr);
 }
-
-#ifndef NOX_CGO
-//----- (00414B30) --------------------------------------------------------
-void nox_common_readHiddenExeMsg_414B30(uint8_t* src_8byte, uint8_t* dst_12byte) {
-	// This decodes 8 bytes(a1) into 12 bytes(a2) using 5-bit encoding and an alphabet.
-	// Use something like the following to decode:
-	/*
-int main(){
-	uint64_t m = -1;
-	for (uint64_t src = 0; src <= m; ++src) {
-		uint8_t dst[13] = {0};
-		nox_common_readHiddenExeMsg_414B30((int)&src, (uint32_t*)&dst);
-		printf("%d: %s\n", src, dst);
-	}
-
-	return 0;
-}
-	 */
-	// It is likely simple enough to write a corresponding encoder.
-	// Given this is used only for displaying a message in the intro screen, that is not worth the time required.
-	// TODO: After cleanup: remove this functionality or replace with a constant if message in intro is desired.
-
-	const size_t str_len = 12;
-	uint8_t* encoded_data = src_8byte;
-	char* alphabet = *(char**)getMemAt(0x587000, 32604); // This is " ABCDEFGHIJKLMNOPQRSTUVWXYZ01234"
-
-	uint8_t* decoded_string = dst_12byte;
-
-	memset(decoded_string, 0, str_len + 1);
-
-	int enc_symbol_idx = 0;
-	uint8_t current_bit = 128u;
-	for (int i = str_len; i; --i) {
-		uint8_t dec_symbol_idx = 0u;
-		uint8_t v7 = 16u;
-
-		for (int j = 5; j; --j) {
-			if (current_bit & encoded_data[enc_symbol_idx]) {
-				dec_symbol_idx |= v7;
-			}
-			current_bit >>= 1u;
-			v7 >>= 1u;
-			if (current_bit == 0u) {
-				current_bit = 128u;
-				++enc_symbol_idx;
-			}
-		}
-
-		*decoded_string++ = alphabet[dec_symbol_idx];
-	}
-}
-#endif // NOX_CGO
 
 //----- (00414BA0) --------------------------------------------------------
 int sub_414BA0(int a1) {
@@ -7544,92 +6979,6 @@ int nox_thing_read_ability_415320(int a1) {
 	return 1;
 }
 
-#ifndef NOX_CGO
-//----- (00415470) --------------------------------------------------------
-bool nox_xxx_loadAllBinFiles_415470(void) {
-	if (!nox_xxx_parseSoundSetBin_424170("SoundSet.bin")) {
-		return 0;
-	}
-
-	char* buf = calloc(256 * 1024, 1);
-	if (!nox_xxx_parseModifierBin_412930("Modifier.bin", buf)) {
-		return 0;
-	}
-
-	nox_memfile* things = nox_open_thing_bin();
-	if (!things) {
-		return 0;
-	}
-
-	nox_memfile_seek_40AD10(things, 0, 0);
-	dword_5d4594_251540 = 0;
-	dword_5d4594_251568 = 0;
-	dword_5d4594_251572 = 0;
-	int sect = 0;
-	while (nox_memfile_read(&sect, 4, 1, things)) {
-		switch (sect) {
-		case 0x5350454C: // SPEL
-			if (!nox_thing_read_SPEL_4156B0(things, buf)) {
-				nox_memfile_free(things);
-				return 0;
-			}
-			break;
-		case 0x41554420: // AUD
-			if (nox_common_gameFlags_check_40A5C0(0x200000)) {
-				nox_thing_skip_AUD_414D40(things);
-			} else if (!nox_thing_read_audio_415660(things, buf)) {
-				nox_memfile_free(things);
-				return 0;
-			}
-			break;
-		case 0x41564E54: // AVNT
-			if (nox_common_gameFlags_check_40A5C0(0x200000)) {
-				nox_thing_skip_AVNT_452B00(things);
-			} else if (!nox_thing_read_AVNT_452890(things, buf)) {
-				nox_memfile_free(things);
-				return 0;
-			}
-			break;
-		case 0x57414C4C: // WALL
-			if (!nox_thing_read_WALL_410900(things, buf)) {
-				nox_memfile_free(things);
-				return 0;
-			}
-			break;
-		case 0x464C4F52: // FLOR
-			if (!nox_thing_read_FLOR_411540(things, buf)) {
-				nox_memfile_free(things);
-				return 0;
-			}
-			break;
-		case 0x45444745: // EDGE
-			if (!nox_thing_read_EDGE_411850(things, buf)) {
-				nox_memfile_free(things);
-				return 0;
-			}
-			break;
-		case 0x4142494C: // ABIL
-			if (!nox_thing_read_ABIL_415750(things, buf)) {
-				nox_memfile_free(things);
-				return 0;
-			}
-			break;
-		case 0x494D4147: // IMAG
-			if (!nox_thing_read_IMAG_415700(things, buf)) {
-				nox_memfile_free(things);
-				return 0;
-			}
-			nox_free_thing_bin();
-			free(buf);
-			return 1;
-		}
-	}
-	nox_free_thing_bin();
-	free(buf);
-	return 1;
-}
-#endif // NOX_CGO
-
 //----- (00415660) --------------------------------------------------------
 int nox_thing_read_audio_415660(nox_memfile* a1p, char* a2) {
 	int a1 = a1p;
@@ -7651,38 +7000,6 @@ int nox_thing_read_audio_415660(nox_memfile* a1p, char* a2) {
 	}
 	return 0;
 }
-
-#ifndef NOX_CGO
-//----- (004156B0) --------------------------------------------------------
-int nox_thing_read_SPEL_4156B0(nox_memfile* f, void* a2) {
-	int v2 = 0; // ebx
-	int v4;     // edi
-	v4 = nox_memfile_read_u32(f);
-	if (v4 <= 0) {
-		return 1;
-	}
-	while (nox_xxx_spellLoadSpells_424460(f, a2)) {
-		if (++v2 >= v4) {
-			return 1;
-		}
-	}
-	return 0;
-}
-
-//----- (00415700) --------------------------------------------------------
-int nox_thing_read_IMAG_415700(nox_memfile* f, char* buf) {
-	unsigned int cnt = nox_memfile_read_u32(f);
-	if (!nox_xxx_imgLoadAlloc_42F610(cnt)) {
-		return 0;
-	}
-	for (unsigned int i = 0; i < cnt; i++) {
-		if (!nox_thing_read_IMAG_one_42F660(f, buf)) {
-			return 0;
-		}
-	}
-	return 1;
-}
-#endif // NOX_CGO
 
 //----- (00415750) --------------------------------------------------------
 int nox_thing_read_ABIL_415750(nox_memfile* f, void* a2) {
@@ -8105,66 +7422,6 @@ int sub_415EC0(char* a1) {
 	return result;
 }
 
-#ifndef NOX_CGO
-//----- (004160D0) --------------------------------------------------------
-int nox_xxx_setKeybTimeout_4160D0(int a1) {
-	int result; // eax
-
-	result = a1;
-	if ((unsigned char)a1 < 0x18u) {
-		result = (unsigned char)a1;
-		*getMemU32Ptr(0x5D4594, 371268 + 4 * (unsigned char)a1) = nox_frame_xxx_2598000;
-	}
-	return result;
-}
-
-//----- (004160F0) --------------------------------------------------------
-bool nox_xxx_checkKeybTimeout_4160F0(unsigned char a1, unsigned int a2) {
-	return a1 < 0x18u && nox_frame_xxx_2598000 - *getMemU32Ptr(0x5D4594, 371268 + 4 * a1) > a2;
-}
-
-//----- (00416120) --------------------------------------------------------
-bool sub_416120(unsigned char a1) {
-	return a1 < 0x18u && nox_frame_xxx_2598000 != *getMemU32Ptr(0x5D4594, 371268 + 4 * a1);
-}
-
-//----- (00416150) --------------------------------------------------------
-int sub_416150(int a1, int a2) {
-	int result; // eax
-
-	result = a1;
-	if ((unsigned char)a1 < 0x18u) {
-		result = (unsigned char)a1;
-		*getMemU32Ptr(0x5D4594, 371268 + 4 * (unsigned char)a1) = a2;
-	}
-	return result;
-}
-
-//----- (00416170) --------------------------------------------------------
-int sub_416170(int a1) {
-	int result; // eax
-
-	result = a1;
-	if ((unsigned char)a1 < 0x18u) {
-		result = (unsigned char)a1;
-		*getMemU32Ptr(0x5D4594, 371268 + 4 * (unsigned char)a1) = 0;
-	}
-	return result;
-}
-
-//----- (00416190) --------------------------------------------------------
-int nox_xxx_clear18hDD_416190() {
-	int result; // eax
-
-	result = 0;
-	memset(getMemAt(0x5D4594, 371268), 0, 0x60u);
-	return result;
-}
-
-//----- (004161B0) --------------------------------------------------------
-int sub_4161B0(unsigned char a1) { return a1 < 0x18u && !*getMemU32Ptr(0x5D4594, 371268 + 4 * a1); }
-#endif // NOX_CGO
-
 //----- (004161E0) --------------------------------------------------------
 int sub_4161E0() {
 	int v0;            // ebx
@@ -8557,69 +7814,6 @@ int nox_check_tick_flags() {
 		   nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) && !nox_get_audio_enabled();
 }
 
-#ifndef NOX_CGO
-//----- (00416C70) --------------------------------------------------------
-unsigned long long nox_framerate_cur_ticks = 0;
-unsigned long long nox_framerate_next_ticks = 0;
-unsigned long long nox_framerate_step_ticks = 0;
-
-void nox_framerate_limit_416C70(int fps) {
-	if (fps) {
-		nox_framerate_step_ticks = 1000 / fps;
-	} else {
-		nox_framerate_step_ticks = 0;
-	}
-	long long ticks = nox_platform_get_ticks();
-	nox_framerate_cur_ticks = ticks;
-	nox_framerate_next_ticks = nox_framerate_step_ticks + ticks;
-}
-
-//----- (00416CD0) --------------------------------------------------------
-bool nox_ticks_should_update_416CD0() {
-	nox_framerate_cur_ticks = nox_platform_get_ticks();
-	return nox_framerate_cur_ticks >= nox_framerate_next_ticks;
-}
-
-//----- (00416D00) --------------------------------------------------------
-long long nox_ticks_until_next_416D00() {
-	long long diff = nox_framerate_next_ticks - (unsigned long long)nox_platform_get_ticks();
-	if (diff < 0 || (unsigned long long)diff > nox_framerate_next_ticks) {
-		return 0;
-	}
-	return diff;
-}
-
-//----- (00416D40) --------------------------------------------------------
-void nox_ticks_reset_416D40() {
-	*getMemU64Ptr(0x5D4594, 371764) = nox_platform_get_ticks();
-	*getMemU32Ptr(0x5D4594, 371772) = nox_frame_xxx_2598000;
-
-	nox_common_resetEngineFlag(NOX_ENGINE_FLAG_PAUSE);
-}
-
-//----- (00416D70) --------------------------------------------------------
-bool nox_ticks_check_416D70() {
-	float v2; // [esp+4h] [ebp-8h]
-
-	v2 = (double)(unsigned int)(nox_frame_xxx_2598000 - *getMemU32Ptr(0x5D4594, 371772)) *
-		 *getMemFloatPtr(0x587000, 54424);
-	return (double)(int)((unsigned long long)nox_platform_get_ticks() - *getMemU32Ptr(0x5D4594, 371764)) * 0.001 <= v2;
-}
-
-//----- (00416DD0) --------------------------------------------------------
-void nox_ticks_maybe_sleep_416DD0() {
-	int v1 = (long long)((double)(unsigned int)(nox_frame_xxx_2598000 - *getMemU32Ptr(0x5D4594, 371772)) *
-						 *getMemFloatPtr(0x587000, 54428));
-	int ms = v1 + *getMemU32Ptr(0x5D4594, 371764) - (unsigned long long)nox_platform_get_ticks();
-	if (ms > 0) {
-		nox_platform_sleep(ms);
-	}
-}
-
-//----- (00416E30) --------------------------------------------------------
-void nox_xxx_cliResetAllPlayers_416E30() { memset(nox_playerinfo_arr, 0, NOX_PLAYERINFO_MAX * sizeof(nox_playerInfo)); }
-#endif // NOX_CGO
-
 //----- (00416E50) --------------------------------------------------------
 char* nox_xxx_playerForceSendLessons_416E50(int a1) {
 	char* result; // eax
@@ -8638,102 +7832,6 @@ char* nox_xxx_playerForceSendLessons_416E50(int a1) {
 	}
 	return result;
 }
-
-#ifndef NOX_CGO
-//----- (00416EA0) --------------------------------------------------------
-nox_playerInfo* nox_common_playerInfoGetFirst_416EA0() {
-	for (int i = 0; i < NOX_PLAYERINFO_MAX; i++) {
-		if (nox_playerinfo_arr[i].active) {
-			return &nox_playerinfo_arr[i];
-		}
-	}
-	return 0;
-}
-
-//----- (00416EE0) --------------------------------------------------------
-nox_playerInfo* nox_common_playerInfoGetNext_416EE0(nox_playerInfo* p) {
-	if (!p) {
-		return 0;
-	}
-	for (int i = p->playerInd + 1; i < NOX_PLAYERINFO_MAX; i++) {
-		if (nox_playerinfo_arr[i].active) {
-			return &nox_playerinfo_arr[i];
-		}
-	}
-	return 0;
-}
-
-//----- (00416F40) --------------------------------------------------------
-int nox_common_playerInfoCount_416F40() {
-	int cnt = 0;
-	for (int i = 0; i < NOX_PLAYERINFO_MAX; i++) {
-		if (nox_playerinfo_arr[i].active) {
-			cnt++;
-		}
-	}
-	return cnt;
-}
-
-//----- (00416F60) --------------------------------------------------------
-nox_playerInfo* nox_common_playerInfoNew_416F60(int a1) {
-	nox_playerInfo* p = nox_common_playerInfoGetByID_417040(a1);
-	if (p) {
-		return p;
-	}
-	for (int i = 0; i < NOX_PLAYERINFO_MAX; i++) {
-		p = &nox_playerinfo_arr[i];
-		if (!p->active) {
-			nox_common_playerInfoReset_416FD0(p);
-			p->playerInd = i;
-			p->netCode = a1;
-			return p;
-		}
-	}
-	return 0;
-}
-
-//----- (00416FD0) --------------------------------------------------------
-void nox_common_playerInfoReset_416FD0(nox_playerInfo* p) {
-	memset(p, 0, sizeof(nox_playerInfo));
-	p->active = 1;
-	p->field_3648 = 4;
-}
-
-//----- (00417000) --------------------------------------------------------
-nox_playerInfo* nox_common_playerInfoResetInd_417000(int i) {
-	nox_playerInfo* p = &nox_playerinfo_arr[i];
-	nox_common_playerInfoReset_416FD0(p);
-	p->playerInd = i;
-	return p;
-}
-
-//----- (00417040) --------------------------------------------------------
-nox_playerInfo* nox_common_playerInfoGetByID_417040(int a1) {
-	for (int i = 0; i < NOX_PLAYERINFO_MAX; i++) {
-		nox_playerInfo* p = &nox_playerinfo_arr[i];
-		if (p->active && p->netCode == a1) {
-			p->playerInd = i;
-			return p;
-		}
-	}
-	return 0;
-}
-
-//----- (00417090) --------------------------------------------------------
-nox_playerInfo* nox_common_playerInfoFromNum_417090(int i) {
-	nox_playerInfo* p = &nox_playerinfo_arr[i];
-	if (!p->active) {
-		return 0;
-	}
-	p->playerInd = i;
-	return p;
-}
-
-//----- (00417090) --------------------------------------------------------
-nox_playerInfo* nox_common_playerInfoFromNumRaw(int i) {
-	return &nox_playerinfo_arr[i];
-}
-#endif // NOX_CGO
 
 //----- (004170D0) --------------------------------------------------------
 char* nox_xxx_playerByName_4170D0(wchar_t* a1) {
@@ -9331,24 +8429,6 @@ char* sub_417C00(char* a1, int a2) {
 
 //----- (00417CF0) --------------------------------------------------------
 int sub_417CF0() { return nox_server_teamsZzz_419030(0); }
-
-#ifndef NOX_CGO
-//----- (00417D50) --------------------------------------------------------
-void nox_xxx_SetGameplayFlag_417D50(int a1) {
-	dword_5d4594_526284 |= a1;
-}
-
-//----- (00417D70) --------------------------------------------------------
-void nox_xxx_UnsetGameplayFlags_417D70(int a1) {
-	dword_5d4594_526284 &= ~a1;
-}
-
-//----- (00417D90) --------------------------------------------------------
-int nox_xxx_GetGameplayFlags_417D90() { return dword_5d4594_526284; }
-
-//----- (00417DA0) --------------------------------------------------------
-bool nox_xxx_CheckGameplayFlags_417DA0(int a1) { return (a1 & dword_5d4594_526284) != 0; }
-#endif // NOX_CGO
 
 //----- (00417DC0) --------------------------------------------------------
 int sub_417DC0() { return dword_5d4594_526276; }

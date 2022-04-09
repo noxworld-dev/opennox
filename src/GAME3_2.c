@@ -1,6 +1,3 @@
-#ifdef __EMSCRIPTEN__
-#include <emscripten/emscripten.h>
-#endif
 #include <math.h>
 
 #ifdef _WIN32
@@ -132,15 +129,6 @@ nox_object_t* nox_server_objects_1556844 = 0;
 nox_object_t* nox_xxx_host_player_unit_3843628 = 0;
 
 nox_list_item_t nox_common_maplist = {0};
-
-#ifndef NOX_CGO
-uint32_t dword_5d4594_1563052 = 0;
-#endif // NOX_CGO
-
-// 4CD756: variable 'v5' is possibly undefined
-// 4CD767: variable 'v7' is possibly undefined
-// 4CD78B: variable 'v9' is possibly undefined
-// 4CD79C: variable 'v11' is possibly undefined
 
 //----- (004CDF80) --------------------------------------------------------
 int nox_xxx_updDrawDBall_4CDF80(int a1, int a2) {
@@ -770,104 +758,6 @@ int nox_xxx_mapValidateMB_4CF470(char* a1, int a2) {
 	return v2;
 }
 
-#ifndef NOX_CGO
-//----- (004CF990) --------------------------------------------------------
-void nox_xxx_mapReadSetFlags_4CF990() {
-	char* v0;          // esi
-	char* v1;          // eax
-	unsigned short v2; // ax
-	int v3 = 0;        // eax
-	int v4;            // esi
-	short v5;          // ax
-
-	v0 = sub_4165B0();
-	if (nox_common_gameFlags_check_40A5C0(1024) && (*getMemIntPtr(0x973F18, 3800) < 0 || !(v0[53] & 4))) {
-		nox_xxx_ruleSetNoRespawn_40A5E0(0);
-	}
-	sub_455C10();
-	sub_456050();
-	if (nox_common_gameFlags_check_40A5C0(4096) && *getMemIntPtr(0x973F18, 3800) < 0) {
-		sub_4D6B10(1);
-		nox_server_teamsZzz_419030(1);
-	}
-	v1 = nox_xxx_mapGetMapName_409B40();
-	if (nox_common_checkMapFile_4CFE10(v1)) {
-		v2 = nox_xxx_mapGetTypeMB_4CFFA0((int)getMemAt(0x973F18, 2408));
-		if (getMemByte(0x973F18, 3800) & 1) {
-			nox_common_gameFlags_unset_40A540(6128);
-			nox_xxx_createCoopTeam_417E10();
-			nox_xxx_setGameFlags_40A4D0(2048);
-		} else if (getMemByte(0x973F18, 3800) & 2) {
-			v4 = nox_common_gameFlags_check_40A5C0(128);
-			nox_common_gameFlags_unset_40A540(6128);
-			nox_xxx_setGameFlags_40A4D0(4096);
-			if (v4) {
-				LOBYTE(v3) = nox_server_setupQuestGame_4D6C70();
-			}
-		} else if ((int)*getMemU32Ptr(0x973F18, 3800) >= 0) {
-			if (!(*((uint16_t*)v0 + 26) & v2)) {
-				*((uint16_t*)v0 + 26) = sub_4CFC90((int)getMemAt(0x973F18, 2408)) | *((uint16_t*)v0 + 26) & 0xE80F;
-			}
-			if (!(v0[52] & 0x10)) {
-				nox_xxx_mapFindCrown_4CFC30();
-			}
-			v5 = *((uint16_t*)v0 + 26);
-			if (v5 & 0x20) {
-				v3 = nox_xxx_mapInfoSetCapflag_417EA0();
-				if (v3) {
-					nox_common_gameFlags_unset_40A540(6128);
-					nox_xxx_setGameFlags_40A4D0(32);
-				}
-			} else if (v5 & 0x40) {
-				LOBYTE(v3) = nox_xxx_mapInfoSetFlagball_417F30();
-				if (v3) {
-					nox_common_gameFlags_unset_40A540(6128);
-					nox_xxx_setGameFlags_40A4D0(64);
-					LOBYTE(v3) = nox_xxx_spellDisable_424BB0(132);
-				}
-			} else if (v5 & 0x10) {
-				v3 = nox_xxx_mapInfoSetKotr_4180D0();
-				if (v3) {
-					nox_common_gameFlags_unset_40A540(6128);
-					nox_xxx_setGameFlags_40A4D0(16);
-				}
-			} else if (v5 & 0x400) {
-				if (!nox_common_gameFlags_check_40A5C0(1024)) {
-					nox_xxx_ruleSetNoRespawn_40A5E0(1);
-				}
-				nox_common_gameFlags_unset_40A540(6128);
-				nox_xxx_setGameFlags_40A4D0(1024);
-			} else {
-				nox_common_gameFlags_unset_40A540(6128);
-				nox_xxx_setGameFlags_40A4D0(256);
-			}
-		} else {
-			sub_40A1F0(0);
-			nox_common_gameFlags_unset_40A540(6128);
-			nox_xxx_setGameFlags_40A4D0(128);
-			LOBYTE(v3) = nox_xxx_getTeamCounter_417DD0();
-			if ((uint8_t)v3) {
-				nox_xxx_teamAssignFlags_418640();
-				v3 = nox_xxx_CheckGameplayFlags_417DA0(2);
-				if (!v3) {
-					v3 = nox_common_gameFlags_check_40A5C0(0x8000);
-					if (!v3) {
-						LOBYTE(v3) = (unsigned int)nox_xxx_toggleAllTeamFlags_418690(1);
-					}
-				}
-			}
-		}
-	} else {
-		v3 = nox_common_gameFlags_check_40A5C0(512);
-		if (!v3) {
-			nox_common_gameFlags_unset_40A540(6128);
-			nox_xxx_setGameFlags_40A4D0(256);
-			LOBYTE(v3) = sub_4D0D90(1);
-		}
-	}
-}
-#endif // NOX_CGO
-
 //----- (004CFC30) --------------------------------------------------------
 void nox_xxx_mapFindCrown_4CFC30() {
 	int v0; // esi
@@ -912,54 +802,6 @@ int sub_4CFC90(int a1) {
 	return (v1 & 2) != 0 ? 4096 : 128;
 }
 
-#ifndef NOX_CGO
-//----- (004CFCE0) --------------------------------------------------------
-int nox_xxx_serverParseEntireMap_4CFCE0() {
-	uint32_t* v0; // eax
-	int v1;       // esi
-	int v3;       // [esp+4h] [ebp-114h]
-	int v4;       // [esp+8h] [ebp-110h]
-	int v5[2];
-	int v7;       // [esp+14h] [ebp-104h]
-	char v8[256]; // [esp+18h] [ebp-100h]
-
-	nox_xxx_fileReadWrite_426AC0_file3_fread(&v5[0], 4u);
-	nox_xxx_fileReadWrite_426AC0_file3_fread(&v5[1], 4u);
-	nox_xxx_mapWall_426A80(&v5);
-	while (1) {
-		LOBYTE(v3) = 0;
-		nox_xxx_fileReadWrite_426AC0_file3_fread(&v3, 1u);
-		if (!(uint8_t)v3) {
-			break;
-		}
-		nox_xxx_fileReadWrite_426AC0_file3_fread(v8, (unsigned char)v3);
-		nox_xxx_fileCryptReadCrcMB_426C20(&v7, 4u);
-		if (!nox_xxx_mapReadSection_426EA0(0, v8, &v4)) {
-			if (v4 == 1) {
-				return 0;
-			}
-			v0 = nox_xxx_newObjectByTypeID_4E3810(v8);
-			v1 = (int)v0;
-			if (!v0 || !((int (*)(uint32_t*, uint32_t))v0[176])(v0, 0)) {
-				goto LABEL_9;
-			}
-			nox_xxx_servMapLoadPlaceObj_4F3F50(v1, 0, 0);
-		}
-	}
-	if (!sub_579CA0()) {
-	LABEL_9:
-		nox_xxx_cryptClose_4269F0();
-		return 0;
-	}
-	sub_4DAF10();
-	if (nox_common_gameFlags_check_40A5C0(1)) {
-		nox_xxx_waypoint_5799C0();
-		nox_xxx_unitsNewAddToList_4DAC00();
-	}
-	return 1;
-}
-#endif // NOX_CGO
-
 //----- (004CFDF0) --------------------------------------------------------
 int sub_4CFDF0(int a1) {
 	int result; // eax
@@ -971,39 +813,6 @@ int sub_4CFDF0(int a1) {
 
 //----- (004CFE00) --------------------------------------------------------
 int sub_4CFE00() { return *getMemU32Ptr(0x5D4594, 1523072); }
-
-#ifndef NOX_CGO
-//----- (004CFE10) --------------------------------------------------------
-int nox_common_checkMapFile_4CFE10(const char* a1) {
-	char pbuf[256];
-	strcpy(pbuf, "maps\\");
-	strcat(pbuf, a1);
-	strcat(pbuf, "\\");
-	strcat(pbuf, a1);
-	strcat(pbuf, ".map");
-
-	if (!nox_xxx_cryptOpen_426910(pbuf, 1, 19)) {
-		return 0;
-	}
-	int magic = 0;
-	int crc = 0;
-	nox_xxx_fileReadWrite_426AC0_file3_fread(&magic, 4);
-	if (magic != -86065425) {     // 0xFADEBEEF
-		if (magic != -86050098) { // 0xFADEFACE
-			nox_xxx_cryptClose_4269F0();
-			return 0;
-		}
-		nox_xxx_fileCryptReadCrcMB_426C20(&crc, 4);
-	}
-	nox_xxx_fileReadWrite_426AC0_file3_fread(pbuf, 32);
-	if (!nox_server_mapRWMapInfo_42A6E0()) {
-		nox_xxx_cryptClose_4269F0();
-		return 0;
-	}
-	nox_xxx_cryptClose_4269F0();
-	return 1;
-}
-#endif // NOX_CGO
 
 //----- (004CFF50) --------------------------------------------------------
 int sub_4CFF50(int a1) {
@@ -1394,47 +1203,6 @@ void nox_common_maplist_add_4D0760(nox_map_list_item* map) {
 	}
 	nox_common_list_append_4258E0(it, map);
 }
-
-#ifndef NOX_CGO
-//----- (004D07F0) --------------------------------------------------------
-void nox_common_scanAddMap(char* filename) {
-	char name[12];
-	strncpy(name, filename, 8);
-	name[8] = 0;
-	if (!nox_common_checkMapFile_4CFE10(name)) {
-		return;
-	}
-	nox_map_list_item* map = calloc(1, sizeof(nox_map_list_item));
-	sub_425770(map);
-	strcpy(map->name, name);
-	map->field_6 = 1;
-	map->field_7 = *getMemU32Ptr(0x973F18, 3800);
-	map->field_8_0 = getMemByte(0x973F18, 3804);
-	map->field_8_1 = getMemByte(0x973F18, 3805);
-	nox_common_maplist_add_4D0760(map);
-}
-
-int nox_common_scanAllMaps_4D07F0() {
-	nox_common_list_clear_425760(&nox_common_maplist);
-
-	struct _WIN32_FIND_DATAA FindFileData;
-	HANDLE v1 = FindFirstFileA((const char*)"maps\\*.*", &FindFileData);
-	if (v1 == -1) {
-		return -1;
-	}
-	do {
-		if (FindFileData.dwFileAttributes & 0x10 &&
-			((_strnicmp(FindFileData.cFileName, "wiz", 3u) != 0 && _strnicmp(FindFileData.cFileName, "war", 3u) != 0 &&
-			  _strnicmp(FindFileData.cFileName, "con", 3u) != 0) ||
-			 FindFileData.cFileName[3] < 48 || FindFileData.cFileName[3] > 57) &&
-			strcmp(FindFileData.cFileName, ".") != 0 && strcmp(FindFileData.cFileName, "..") != 0) {
-
-			nox_common_scanAddMap(FindFileData.cFileName);
-		}
-	} while (FindNextFileA(v1, &FindFileData));
-	return FindClose(v1);
-}
-#endif // NOX_CGO
 
 //----- (004D0970) --------------------------------------------------------
 void nox_common_maplist_free_4D0970() {
@@ -2061,118 +1829,6 @@ int nox_xxx_parseGamedataBinPre_4D1630() {
 	return result;
 }
 
-#ifndef NOX_CGO
-//----- (004D1650) --------------------------------------------------------
-// Microsoft VisualC 2-14/net runtime
-void nox_xxx_unknown_libname_11_4D1650() {
-	nox_xxx_gamedataFree_419DB0();
-	nox_xxx_monsterListFree_5174F0();
-}
-
-//----- (004D1660) --------------------------------------------------------
-int nox_xxx_servNewSession_4D1660() {
-	sub_4D15C0();
-	dword_5d4594_2649712 = 2147483648;
-	nox_xxx_host_player_unit_3843628 = 0;
-	sub_4D7B40();
-	sub_41E4B0(0);
-	nox_server_ResetObjectGIDs_4E3C70();
-	sub_56F1C0();
-	nox_xxx_cliResetAllPlayers_416E30();
-	nox_netlist_resetAll_40EE60();
-	sub_4E4EF0();
-	sub_4E4ED0();
-	if (!nox_xxx_allocAudEventArray_501860()) {
-		return 0;
-	}
-	if (!nox_read_things_alternative_4E2B60()) {
-		return 0;
-	}
-	nox_motd_4463E0(1);
-	nox_server_teamsReset_417C60();
-	sub_4259C0();
-	sub_4D7C60();
-	nox_xxx_unitDefFindMaxDataSize_4E3320();
-	if (!sub_518770()) {
-		return 0;
-	}
-	nox_common_gameFlags_check_40A5C0(0x200000);
-	if (!nox_xxx_allocClassArrayObjects_4E3360(0x1388u)) {
-		return 0;
-	}
-	if (!sub_517AE0()) {
-		return 0;
-	}
-	if (!nox_xxx_allocVisitNodesArray_50AB90()) {
-		return 0;
-	}
-	if (!nox_xxx_allocSpellRelatedArrays_4FC9B0()) {
-		return 0;
-	}
-	if (!nox_xxx_allocSpringsArray_5112C0()) {
-		return 0;
-	}
-	if (!nox_xxx_allocDebugDataArray_57C410()) {
-		return 0;
-	}
-	if (!nox_xxx_allocGroupRelatedArrays_57BFB0()) {
-		return 0;
-	}
-	if (!nox_xxx_allocItemRespawnArray_4ECA60()) {
-		return 0;
-	}
-	if (!nox_xxx_registerShopClasses_50E2A0()) {
-		return 0;
-	}
-	if (!nox_xxx_allocMonsterRelatedArrays_50D780()) {
-		return 0;
-	}
-	if (!nox_xxx_allocVoteArray_5066D0()) {
-		return 0;
-	}
-	if (!nox_xxx_allocMagicWallArray_4FF730()) {
-		return 0;
-	}
-	if (!nox_xxx_monsterList_517520()) {
-		return 0;
-	}
-	sub_416920();
-	if (!nox_common_gameFlags_check_40A5C0(2048)) {
-		int v1 = nox_xxx_servGetPort_40A430();
-		*getMemU32Ptr(0x5D4594, 1548516) = nox_xxx_netAddPlayerHandler_4DEBC0(v1);
-		if (!nox_common_gameFlags_check_40A5C0(0x2000000)) {
-			nox_xxx_networkLog_init_413CC0();
-		}
-	}
-	nox_xxx_allocArrayExecAbilities_4FB990();
-	if (!nox_xxx_allocPendingOwnsArray_516EE0()) {
-		return 0;
-	}
-	sub_421B10();
-	sub_4DB0A0();
-	sub_4D0F30();
-	return 1;
-}
-
-//----- (004D17F0) --------------------------------------------------------
-int nox_xxx_servInitialMapLoad_4D17F0() {
-	sub_4E79B0(0);
-	if (!memcmp(nox_server_currentMapGetFilename_409B30(), getMemAt(0x5D4594, 1548720), 1u)) {
-		nox_xxx_gameSetMapPath_409D70("tutorial.map");
-	}
-	nox_xxx_netMapSendStop_519870();
-	if (!nox_xxx_mapExitAndCheckNext_4D1860_server()) {
-		return 0;
-	}
-	nox_xxx_setGameState_43DDF0(nox_xxx_gameTick_4D2580_server);
-	nox_netlist_resetAllInList_40EE90(1);
-	nox_xxx_setGameFlags_40A4D0(0x20000);
-	nox_xxx_netGameSettings_4DEF00();
-	nox_server_gameUnsetMapLoad_40A690();
-	return 1;
-}
-#endif // NOX_CGO
-
 //----- (004D23C0) --------------------------------------------------------
 int nox_xxx_servResetPlayers_4D23C0() {
 	char* i; // esi
@@ -2194,37 +1850,6 @@ int nox_xxx_servResetPlayers_4D23C0() {
 	nox_server_gameUnsetMapLoad_40A690();
 	return 1;
 }
-
-#ifndef NOX_CGO
-//----- (004D2450) --------------------------------------------------------
-void nox_xxx_mapLoad_4D2450(char* a1) {
-	char* v1;      // eax
-	char v3[1024]; // [esp+4h] [ebp-DB8h]
-	char v4[1024]; // [esp+404h] [ebp-9B8h]
-	char v5[1464]; // [esp+804h] [ebp-5B8h]
-
-	memcpy(v5, getMemAt(0x973F18, 2408), sizeof(v5));
-	strncpy(v4, a1, (strlen(a1) - 4 < 1024 ? strlen(a1) - 4 : 1024));
-	v4[strlen(a1) - 4] = 0;
-	nox_common_checkMapFile_4CFE10(v4);
-	sub_4CFDF0(*getMemIntPtr(0x973F18, 3800));
-	memcpy(getMemAt(0x973F18, 2408), v5, 0x5B8u);
-	dword_5d4594_1548524 = 1;
-	strcpy(v3, a1);
-	v1 = strchr(v3, 58);
-	if (v1) {
-		*v1 = 0;
-		strcpy((char*)getMemAt(0x5D4594, 1548536), v1 + 1);
-		nox_server_switchToWP_1548664 = 1;
-	} else {
-		nox_server_switchToWP_1548664 = 0;
-	}
-	if (sub_51A130()) {
-		nox_xxx_mapSendCancelAll_5198B0(0);
-	}
-	nox_xxx_gameSetMapPath_409D70(v3);
-}
-#endif // NOX_CGO
 
 //----- (004D2FF0) --------------------------------------------------------
 char* sub_4D2FF0() {
@@ -2286,55 +1911,6 @@ char* nox_xxx_netReportAllLatency_4D3050() {
 	}
 	return result;
 }
-
-//----- (004D3200) --------------------------------------------------------
-#ifndef NOX_CGO
-int nox_xxx_servEndSession_4D3200() {
-	char* v0;            // eax
-	char FileName[1024]; // [esp+0h] [ebp-400h]
-
-	sub_50D1E0();
-	sub_4DB100();
-	sub_421B10();
-	sub_516F10();
-	sub_4FF770();
-	nox_xxx_replayStopSave_4D33B0();
-	nox_xxx_replayStopReadMB_4D3530();
-	nox_xxx_cliResetAllPlayers_416E30();
-	sub_446490(1);
-	sub_4259F0();
-	nox_xxx_mapSwitchLevel_4D12E0(0);
-	nox_xxx_mapLoad_40A380();
-	sub_4E4DE0();
-	sub_57C460();
-	sub_57C030();
-	sub_511310();
-	nox_xxx_freeSpellRelated_4FCA80();
-	sub_50ABF0();
-	sub_517B30();
-	sub_5018D0();
-	sub_4ECA90();
-	sub_506720();
-	sub_50D820();
-	nox_xxx_deleteShopInventories_50E300();
-	sub_416950();
-	nox_xxx_freeGameObjectClass_4E3420();
-	nox_xxx_freeObjectTypes_4E2A20();
-	if (!nox_common_gameFlags_check_40A5C0(2048)) {
-		nox_server_netCloseHandler_4DEC60(*getMemUintPtr(0x5D4594, 1548516));
-		if (!nox_common_gameFlags_check_40A5C0(0x2000000)) {
-			nox_xxx_networkLog_close_413D00();
-		}
-	}
-	sub_56F3B0();
-	nullsub_23();
-	nox_netlist_resetAll_40EE60();
-	v0 = nox_fs_root();
-	nox_sprintf(FileName, "%s\\Save\\_temp_.dat", v0);
-	return nox_fs_remove(FileName);
-}
-#endif // NOX_CGO
-// 4E3440: using guessed type void nullsub_23(void);
 
 //----- (004D3310) --------------------------------------------------------
 int sub_4D3310(int a1) {
@@ -4703,16 +4279,6 @@ int nox_server_setupQuestGame_4D6C70() {
 	return sub_4D6A60();
 }
 
-#ifndef NOX_CGO
-//----- (004D6F30) --------------------------------------------------------
-int sub_4D6F30() { return *getMemU32Ptr(0x5D4594, 1556156); }
-
-//----- (004D6F40) --------------------------------------------------------
-void sub_4D6F40(int a1) {
-	*getMemU32Ptr(0x5D4594, 1556156) = a1;
-}
-#endif // NOX_CGO
-
 //----- (004D6F50) --------------------------------------------------------
 int nox_xxx_isQuest_4D6F50() { return *getMemU32Ptr(0x5D4594, 1556160); }
 
@@ -4748,26 +4314,6 @@ int sub_4D6F90(int a1) {
 
 //----- (004D6FA0) --------------------------------------------------------
 int sub_4D6FA0() { return *getMemU32Ptr(0x5D4594, 1556104); }
-
-#ifndef NOX_CGO
-//----- (004D6FB0) --------------------------------------------------------
-int nox_xxx_setQuestFlag_4D6FB0(int f) {
-	nox_xxx_questFlag_1556148 = f;
-	return f;
-}
-
-//----- (004D6FC0) --------------------------------------------------------
-int nox_xxx_getQuestFlag_4D6FC0() { return nox_xxx_questFlag_1556148; }
-
-//----- (004D7080) --------------------------------------------------------
-int nox_server_conCmdHandler_startSoloQuest_4D7080() {
-	nox_client_gui_flag_1556112 = 1;
-	nox_xxx_cliPlayMapIntro_44E0B0(1);
-	*getMemU32Ptr(0x5D4594, 1556152) = sub_416A00();
-	sub_4169E0();
-	return nox_xxx_setQuestFlag_4D6FB0(30);
-}
-#endif // NOX_CGO
 
 //----- (004D70B0) --------------------------------------------------------
 char* sub_4D70B0() {
@@ -5004,25 +4550,6 @@ void sub_4D7480(int a1) {
 		}
 	}
 }
-
-//----- (004D74F0) --------------------------------------------------------
-#ifndef NOX_CGO
-int nox_server_questNextStageThreshold_4D74F0(int lvl) {
-	if (lvl <= 4) {
-		return 5;
-	}
-	if (lvl <= 9) {
-		return 10;
-	}
-	if (lvl <= 14) {
-		return 15;
-	}
-	if (lvl <= 19) {
-		return 20;
-	}
-	return lvl;
-}
-#endif // NOX_CGO
 
 //----- (004D7520) --------------------------------------------------------
 char sub_4D7520(int a1) {
@@ -7863,25 +7390,6 @@ uint32_t* nox_xxx_unitClearPendingMB_4DB030() {
 	return result;
 }
 
-#ifndef NOX_CGO
-//----- (004DB0A0) --------------------------------------------------------
-int sub_4DB0A0() {
-	*getMemU8Ptr(0x5D4594, 1560984) = getMemByte(0x5D4594, 1563136);
-	dword_5d4594_1563080 = 0;
-	dword_5d4594_1563084 = 0;
-	dword_5d4594_1563096 = 0;
-	dword_5d4594_1563064 = 0;
-	dword_5d4594_1563092 = 0;
-	dword_5d4594_1563088 = 0;
-	dword_5d4594_1563044 = 0;
-	*getMemU32Ptr(0x5D4594, 1563048) = 0;
-	dword_5d4594_1563052 = 0;
-	*getMemU32Ptr(0x5D4594, 1563100) = 0;
-	*getMemU8Ptr(0x5D4594, 1563104) = getMemByte(0x5D4594, 1563140);
-	return 1;
-}
-#endif // NOX_CGO
-
 //----- (004DB100) --------------------------------------------------------
 int sub_4DB100() {
 	int result; // eax
@@ -7906,20 +7414,6 @@ unsigned int sub_4DB130(const char* a1) {
 	memcpy(getMemAt(0x5D4594, 1557900), a1, result);
 	return result;
 }
-
-#ifndef NOX_CGO
-//----- (004DB170) --------------------------------------------------------
-void sub_4DB170(int a1, int a2, int a3) {
-	dword_5d4594_1563092 = a3;
-	dword_5d4594_1563088 = nox_frame_xxx_2598000;
-	dword_5d4594_1563084 = a2;
-	dword_5d4594_1563080 = a1;
-	dword_5d4594_1563096 = a2 != 0;
-	if (!a1) {
-		sub_4DCBD0(0);
-	}
-}
-#endif // NOX_CGO
 
 //----- (004DB1B0) --------------------------------------------------------
 int nox_xxx_gameGet_4DB1B0() { return dword_5d4594_1563080; }
@@ -7962,304 +7456,6 @@ unsigned int nox_xxx_gameSetSoloSavePath_4DB270(const char* a1) {
 	memcpy(getMemAt(0x5D4594, 1559960), a1, result);
 	return result;
 }
-
-#ifndef NOX_CGO
-//----- (004DB2A0) --------------------------------------------------------
-char* nox_client_checkSaveMapExistsTmp_4DB2A0(char* a1) {
-	char* v1;      // eax
-	char* v2;      // eax
-	char v4[24];   // [esp+4h] [ebp-418h]
-	char v5[1024]; // [esp+1Ch] [ebp-400h]
-
-	strcpy(v5, a1);
-	v1 = strrchr(v5, ':');
-	if (v1) {
-		*v1 = 0;
-	}
-	strcpy(&v4[4], v5);
-	v4[strlen(v5)] = 0;
-	v2 = nox_fs_root();
-	nox_sprintf((char*)getMemAt(0x5D4594, 1558936), "%s\\Save\\%s\\%s\\%s", v2, "WORKING", &v4[4], v5);
-	return nox_fs_access((const char*)getMemAt(0x5D4594, 1558936), 0) != -1 ? getMemAt(0x5D4594, 1558936) : 0;
-}
-
-//----- (004DB540) --------------------------------------------------------
-bool nox_client_makeSaveDir_4DB540(char* saveName) {
-	char PathName[1024]; // [esp+0h] [ebp-400h]
-	nox_sprintf(PathName, "%s\\Save\\%s", nox_fs_root(), saveName);
-	return nox_fs_mkdir(PathName);
-}
-
-//----- (004DB790) --------------------------------------------------------
-int sub_4DB790(char* a1) {
-	nox_xxx_mapLoadOrSaveMB_4DCC70(1);
-	nox_xxx_setGameFlags_40A4D0(0x8000000);
-	sub_43F140(500);
-	int v1 = nox_xxx_soloLoadGame_4DB7E0_savegame(a1);
-	sub_43F1A0();
-	nox_common_gameFlags_unset_40A540(0x8000000);
-	*getMemU32Ptr(0x5D4594, 1563068) = nox_frame_xxx_2598000;
-	return v1;
-}
-
-//----- (004DBE10) --------------------------------------------------------
-void nox_savegame_rm_4DBE10(char* saveName, int rmDir) {
-	char* v8;                         // esi
-	int v9;                           // ebp
-	HANDLE v10;                       // ebx
-	char* v11;                        // ebx
-	char* v12;                        // edx
-	char* v13;                        // esi
-	bool v14;                         // zf
-	char* v18;                        // [esp+4h] [ebp-24948h]
-	int v19;                          // [esp+8h] [ebp-24944h]
-	char saveDir[NOX_FILEPATH_MAX];   // [esp+14Ch] [ebp-24800h]
-	char FileName[NOX_FILEPATH_MAX];  // [esp+54Ch] [ebp-24400h]
-	char v23[16 * NOX_FILEPATH_MAX];  // [esp+94Ch] [ebp-24000h]
-	char v24[128 * NOX_FILEPATH_MAX]; // [esp+494Ch] [ebp-20000h]
-
-	if (!saveName) {
-		return;
-	}
-	nox_sprintf(saveDir, "%s\\Save\\%s", nox_fs_root(), saveName);
-	if (nox_fs_access(saveDir, 0) == -1) {
-		return;
-	}
-	nox_sprintf(&FileName, "%s\\Player.plr", saveDir);
-	nox_fs_remove(&FileName);
-	nox_fs_set_workdir(saveDir);
-
-	int fileCnt = 0;
-	struct _WIN32_FIND_DATAA find; // [esp+Ch] [ebp-24940h]
-	HANDLE v5 = FindFirstFileA("*", &find);
-	if (v5 != -1) {
-		if (find.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY && strcmp(find.cFileName, ".") &&
-			strcmp(find.cFileName, "..")) {
-			strcpy(&v24[NOX_FILEPATH_MAX * fileCnt], find.cFileName);
-			++fileCnt;
-		}
-		while (FindNextFileA(v5, &find)) {
-			if (find.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY && strcmp(find.cFileName, ".") &&
-				strcmp(find.cFileName, "..")) {
-				strcpy(&v24[NOX_FILEPATH_MAX * fileCnt], find.cFileName);
-				++fileCnt;
-			}
-		}
-		FindClose(v5);
-	}
-	if (fileCnt > 0) {
-		v8 = v24;
-		v19 = fileCnt;
-		v18 = v24;
-		do {
-			nox_fs_set_workdir(v8);
-			v9 = 0;
-			v10 = FindFirstFileA("*", &find);
-			if (v10 != -1) {
-				if (!(find.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)) {
-					v9 = 1;
-					strcpy(v23, find.cFileName);
-				}
-				if (FindNextFileA(v10, &find)) {
-					v11 = &v23[NOX_FILEPATH_MAX * v9];
-					do {
-						if (!(find.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)) {
-							v12 = v11;
-							++v9;
-							v11 += NOX_FILEPATH_MAX;
-							strcpy(v12, find.cFileName);
-						}
-					} while (FindNextFileA(v10, &find));
-				}
-				FindClose(v10);
-				if (v9 > 0) {
-					v13 = v23;
-					do {
-						nox_fs_remove(v13);
-						v13 += NOX_FILEPATH_MAX;
-						--v9;
-					} while (v9);
-				}
-				v8 = v18;
-			}
-			nox_fs_set_workdir("..");
-			nox_fs_remove_dir(v8);
-			v8 += NOX_FILEPATH_MAX;
-			v14 = v19 == 1;
-			v18 = v8;
-			--v19;
-		} while (!v14);
-	}
-	nox_fs_set_workdir(nox_fs_root());
-	if (rmDir) {
-		nox_fs_remove_dir(saveDir);
-	}
-}
-// 4DBE10: using guessed type char var_20000[131072];
-// 4DBE10: using guessed type char var_24000[16384];
-
-//----- (004DC100) --------------------------------------------------------
-int nox_client_copySave_4DC100(char* from, char* saveName) {
-	int result;                            // eax
-	int v5;                                // ebp
-	HANDLE v6;                             // ebx
-	char* v7;                              // ebx
-	char* v8;                              // edx
-	int v9;                                // esi
-	char* v10;                             // edi
-	char* v11;                             // edi
-	int v12;                               // ebp
-	HANDLE v13;                            // ebx
-	char* v14;                             // ebx
-	char* v15;                             // edx
-	char* v16;                             // esi
-	bool v17;                              // cc
-	char* v18;                             // eax
-	HANDLE hFindFile;                      // [esp+10h] [ebp-25154h]
-	HANDLE hFindFilea;                     // [esp+10h] [ebp-25154h]
-	int v21;                               // [esp+14h] [ebp-25150h]
-	char* v22;                             // [esp+18h] [ebp-2514Ch]
-	int v23;                               // [esp+1Ch] [ebp-25148h]
-	int v24;                               // [esp+20h] [ebp-25144h]
-	struct _WIN32_FIND_DATAA FindFileData; // [esp+24h] [ebp-25140h]
-	char fromDir[1024];                   // [esp+164h] [ebp-25000h]
-	char toFile[1024];                // [esp+564h] [ebp-24C00h]
-	char fromFile[1024];           // [esp+964h] [ebp-24800h]
-	char toDir[1024];                        // [esp+D64h] [ebp-24400h]
-	char v30[16384];                       // [esp+1164h] [ebp-24000h]
-	char v31[131072];                      // [esp+5164h] [ebp-20000h]
-
-	v24 = 1;
-	nox_sprintf(&fromDir, "%s\\Save\\%s", nox_fs_root(), from);
-	nox_sprintf(&toDir, "%s\\Save\\%s", nox_fs_root(), saveName);
-	if (!nox_client_makeSaveDir_4DB540(saveName)) {
-		return 0;
-	}
-	nox_savegame_rm_4DBE10(saveName, 0);
-	nox_sprintf(&fromFile, "%s\\Player.plr", &fromDir);
-	nox_sprintf(&toFile, "%s\\Player.plr", &toDir);
-	result = nox_fs_copy(&fromFile, &toFile);
-	if (result) {
-		result = nox_fs_set_workdir(&fromDir);
-		if (result) {
-			v5 = 0;
-			v21 = 0;
-			v6 = FindFirstFileA("*", &FindFileData);
-			hFindFile = v6;
-			if (v6 == (HANDLE)-1) {
-				goto LABEL_48;
-			}
-			if (FindFileData.dwFileAttributes & 0x10 && strcmp(FindFileData.cFileName, ".") &&
-				strcmp(FindFileData.cFileName, "..")) {
-				v21 = 1;
-				strcpy(v31, FindFileData.cFileName);
-				v5 = 1;
-			}
-			if (FindNextFileA(v6, &FindFileData)) {
-				v7 = &v31[1024 * v5];
-				do {
-					if (FindFileData.dwFileAttributes & 0x10 && strcmp(FindFileData.cFileName, ".") &&
-						strcmp(FindFileData.cFileName, "..")) {
-						v8 = v7;
-						++v5;
-						v7 += 1024;
-						strcpy(v8, FindFileData.cFileName);
-					}
-				} while (FindNextFileA(hFindFile, &FindFileData));
-				v6 = hFindFile;
-				v21 = v5;
-			}
-			result = FindClose(v6);
-			if (result) {
-			LABEL_48:
-				result = nox_fs_set_workdir(&toDir);
-				if (result) {
-					v9 = 0;
-					if (v5 > 0) {
-						v10 = v31;
-						while (nox_fs_mkdir(v10)) {
-							++v9;
-							v10 += 1024;
-							if (v9 >= v5) {
-								goto LABEL_24;
-							}
-						}
-						return 0;
-					}
-				LABEL_24:
-					result = nox_fs_set_workdir(&fromDir);
-					if (result) {
-						v23 = 0;
-						if (v5 > 0) {
-							v11 = v31;
-							v22 = v31;
-							while (nox_fs_set_workdir(v11)) {
-								v12 = 0;
-								v13 = FindFirstFileA("*", &FindFileData);
-								hFindFilea = v13;
-								if (v13 != (HANDLE)-1) {
-									if (!(FindFileData.dwFileAttributes & 0x10)) {
-										v12 = 1;
-										strcpy(v30, FindFileData.cFileName);
-										v11 = v22;
-									}
-									if (FindNextFileA(v13, &FindFileData)) {
-										v14 = &v30[1024 * v12];
-										do {
-											if (!(FindFileData.dwFileAttributes & 0x10)) {
-												v15 = v14;
-												++v12;
-												v14 += 1024;
-												strcpy(v15, FindFileData.cFileName);
-											}
-										} while (FindNextFileA(hFindFilea, &FindFileData));
-										v13 = hFindFilea;
-										v11 = v22;
-									}
-									if (!FindClose(v13)) {
-										return 0;
-									}
-									if (v12 > 0) {
-										v16 = v30;
-										do {
-											nox_sprintf(&fromFile, "%s\\%s\\%s", &fromDir, v11, v16);
-											nox_sprintf(&toFile, "%s\\%s\\%s", &toDir, v11, v16);
-											if (!nox_fs_copy(&fromFile, &toFile)) {
-												v24 = 0;
-											}
-											v16 += 1024;
-											--v12;
-										} while (v12);
-									}
-								}
-								if (!nox_fs_set_workdir("..")) {
-									return 0;
-								}
-								v11 += 1024;
-								v17 = ++v23 < v21;
-								v22 = v11;
-								if (!v17) {
-									goto LABEL_45;
-								}
-							}
-							return 0;
-						}
-					LABEL_45:
-						v18 = nox_fs_root();
-						result = nox_fs_set_workdir(v18) ? v24 : 0;
-					}
-				}
-			}
-		}
-	}
-#ifdef __EMSCRIPTEN__
-	EM_ASM(FS.syncfs(false, function(err){}));
-#endif
-	return result;
-}
-#endif // NOX_CGO
-// 4DC100: using guessed type char var_20000[131072];
-// 4DC100: using guessed type char var_24000[16384];
 
 //----- (004DC550) --------------------------------------------------------
 int nox_client_countSaveFiles_4DC550() {
@@ -8337,65 +7533,6 @@ int nox_client_countPlayerFiles02_4DC630() {
 }
 // 4DC630: using guessed type char PathName[1024];
 
-#ifndef NOX_CGO
-//----- (004DC7D0) --------------------------------------------------------
-int nox_client_countPlayerFiles04_4DC7D0() {
-	int v0;                                // ebp
-	char* v1;                              // edi
-	HANDLE v5;                             // esi
-	char* v6;                              // eax
-	struct _WIN32_FIND_DATAA FindFileData; // [esp+10h] [ebp-E40h]
-	char PathName[1024];                   // [esp+150h] [ebp-D00h]
-	char v10[1280];                        // [esp+550h] [ebp-900h]
-	char v11[1024];                        // [esp+A50h] [ebp-400h]
-
-	v0 = 0;
-	v1 = nox_fs_root();
-	strcpy(PathName, v1);
-	strcat(PathName, "\\Save\\");
-	strcpy(v11, PathName);
-	nox_fs_mkdir(PathName);
-	nox_fs_set_workdir(PathName);
-	v5 = FindFirstFileA("*.plr", &FindFileData);
-	if (v5 != (HANDLE)-1) {
-		if (!(FindFileData.dwFileAttributes & 0x10)) {
-			nox_sprintf(PathName, "%s%s", v11, FindFileData.cFileName);
-			sub_41A000(PathName, v10);
-			if (v10[0] & 4) {
-				v0 = 1;
-			}
-		}
-		while (FindNextFileA(v5, &FindFileData)) {
-			if (!(FindFileData.dwFileAttributes & 0x10)) {
-				nox_sprintf(PathName, "%s%s", v11, FindFileData.cFileName);
-				sub_41A000(PathName, v10);
-				if (v10[0] & 4) {
-					++v0;
-				}
-			}
-		}
-		FindClose(v5);
-	}
-	v6 = nox_fs_root();
-	nox_fs_set_workdir(v6);
-	return v0;
-}
-// 4DC7D0: using guessed type char PathName[1024];
-
-//----- (004DC970) --------------------------------------------------------
-void nox_savegame_nameFromPath_4DC970(char* src, char* dst, int max) {
-	if (!src || !dst) {
-		return;
-	}
-	char* p = strrchr(src, '\\');
-	if (!p) {
-		return;
-	}
-	strncpy(dst, p - 8, 8);
-	dst[8] = 0;
-}
-#endif // NOX_CGO
-
 //----- (004DC9B0) --------------------------------------------------------
 char* sub_4DC9B0(char* a1) {
 	char* result; // eax
@@ -8412,74 +7549,6 @@ char* sub_4DC9B0(char* a1) {
 	}
 	return result;
 }
-
-#ifndef NOX_CGO
-//----- (004DCA00) --------------------------------------------------------
-char* nox_xxx_unused_4DCA00() {
-	unsigned int v0;                       // ebp
-	char* v1;                              // eax
-	HANDLE v2;                             // ebx
-	char* v3;                              // eax
-	char* v4;                              // eax
-	struct _WIN32_FIND_DATAA FindFileData; // [esp+8h] [ebp-D40h]
-	char FileName[1024];                   // [esp+148h] [ebp-C00h]
-	char PathName[1024];                   // [esp+548h] [ebp-800h]
-	char Buffer[1024];                     // [esp+948h] [ebp-400h]
-
-	v0 = 2;
-	nox_fs_workdir(Buffer, 1024);
-	v1 = nox_fs_root();
-	nox_sprintf(PathName, "%s\\Save\\", v1);
-	nox_fs_set_workdir(PathName);
-	v2 = FindFirstFileA("*", &FindFileData);
-	if (v2 != (HANDLE)-1) {
-		if (FindFileData.dwFileAttributes & 0x10) {
-			if (strcmp(FindFileData.cFileName, "..")) {
-				if (strcmp(FindFileData.cFileName, ".")) {
-					nox_sprintf(FileName, "%s%s\\Player.plr", PathName, FindFileData.cFileName);
-					if (nox_fs_access(FileName, 0) != -1) {
-						v3 = sub_4DC9B0(FileName);
-						if ((unsigned int)v3 >= 2) {
-							v0 = (unsigned int)(v3 + 1);
-						}
-					}
-				}
-			}
-		}
-		while (FindNextFileA(v2, &FindFileData)) {
-			if (FindFileData.dwFileAttributes & 0x10) {
-				if (strcmp(FindFileData.cFileName, "..")) {
-					if (strcmp(FindFileData.cFileName, ".")) {
-						nox_sprintf(FileName, "%s%s\\Player.plr", PathName, FindFileData.cFileName);
-						if (nox_fs_access(FileName, 0) != -1) {
-							v4 = sub_4DC9B0(FileName);
-							if ((unsigned int)v4 >= v0) {
-								v0 = (unsigned int)(v4 + 1);
-							}
-						}
-					}
-				}
-			}
-		}
-		FindClose(v2);
-	}
-	nox_fs_set_workdir(Buffer);
-	if (v0 > 0x270F) {
-		return 0;
-	}
-	nox_sprintf((char*)getMemAt(0x5D4594, 1563032), "SAVE%04d", v0);
-	return (char*)getMemAt(0x5D4594, 1563032);
-}
-
-//----- (004DCBD0) --------------------------------------------------------
-int sub_4DCBD0(int a1) {
-	int result; // eax
-
-	result = a1;
-	*getMemU32Ptr(0x5D4594, 1563076) = a1;
-	return result;
-}
-#endif // NOX_CGO
 
 //----- (004DCBE0) --------------------------------------------------------
 int sub_4DCBE0() { return *getMemU32Ptr(0x5D4594, 1563076); }
@@ -8615,42 +7684,6 @@ int sub_4DCE30() {
 	return sub_446140();
 }
 
-#ifndef NOX_CGO
-//----- (004DCE60) --------------------------------------------------------
-void sub_4DCE60(int a1) {
-	*getMemU32Ptr(0x5D4594, 1563100) = a1;
-}
-
-//----- (004DCE70) --------------------------------------------------------
-int sub_4DCE70() { return *getMemU32Ptr(0x5D4594, 1563100); }
-
-//----- (004DCE80) --------------------------------------------------------
-void sub_4DCE80(char* a1) {
-	if (a1) {
-		strcpy((char*)getMemAt(0x5D4594, 1563104), a1);
-	} else {
-		*getMemU32Ptr(0x5D4594, 1563104) = 0;
-		*getMemU32Ptr(0x5D4594, 1563108) = 0;
-		*getMemU32Ptr(0x5D4594, 1563112) = 0;
-		*getMemU32Ptr(0x5D4594, 1563116) = 0;
-		*getMemU32Ptr(0x5D4594, 1563120) = 0;
-	}
-}
-
-//----- (004DCED0) --------------------------------------------------------
-char* nox_xxx_getQuestMapName_4DCED0() { return getMemAt(0x5D4594, 1563104); }
-
-//----- (004DCEE0) --------------------------------------------------------
-void sub_4DCEE0(char* a1) {
-	if (a1) {
-		strcpy((char*)getMemAt(0x5D4594, 1560984), a1);
-		dword_5d4594_1563052 = 1;
-	} else {
-		dword_5d4594_1563052 = 0;
-	}
-}
-#endif // NOX_CGO
-
 //----- (004DCF80) --------------------------------------------------------
 int nox_xxx_sendGauntlet_4DCF80(int a1, char a2) {
 	char v4[3]; // [esp+0h] [ebp-4h]
@@ -8782,178 +7815,6 @@ char* nox_xxx_gameServerReadyMB_4DD180(int a1) {
 
 //----- (004DD310) --------------------------------------------------------
 void nox_xxx____setargv_15_4DD310() { *getMemU32Ptr(0x5D4594, 1563280) = 1; }
-
-//----- (004DD320) --------------------------------------------------------
-#ifndef NOX_CGO
-int nox_xxx_playerNew_4DD320(int ind, unsigned char* data) {
-	unsigned char v2 = data[152];
-	data[152] &= 0x7F;
-	int v3 = v2 >> 7;
-	if (ind != 31) {
-		if (!nox_common_gameFlags_check_40A5C0(4096) && v3 == 1) {
-			return 0;
-		}
-		if (nox_common_gameFlags_check_40A5C0(4096) && !v3) {
-			return 0;
-		}
-	}
-	char* v5 = sub_416640();
-	nox_netlist_resetByInd_40ED10(ind, 1);
-	nox_xxx_playerResetImportantCtr_4E4F40(ind);
-	sub_4E4F30(ind);
-
-	const char* ptyp;
-	if (data[67]) {
-		ptyp = "PlayerFemale";
-	} else if (*getMemU32Ptr(0x5D4594, 1563280)) {
-		ptyp = "Player";
-	} else {
-		ptyp = "NewPlayer";
-	}
-	nox_object_t* punit = nox_xxx_newObjectByTypeID_4E3810(ptyp);
-	if (!punit) {
-		return 0;
-	}
-	if (ind != 31) {
-		if (v5[100]) {
-			if ((unsigned char)(1 << data[66]) & (unsigned char)v5[100]) {
-				return 0;
-			}
-		}
-	}
-	nox_playerInfo* pl = nox_common_playerInfoResetInd_417000(ind);
-	if ((int)v5[102] >= 0) {
-		pl->field_10 = *(uint32_t*)(&data[97]) >> 1;
-		pl->field_12 = *(uint32_t*)(&data[101]) >> 1;
-	} else {
-		unsigned int v9 = *(uint32_t*)(&data[97]);
-		if (nox_win_width >= (int)v9) {
-			pl->field_10 = v9 >> 1;
-			pl->field_12 = *(uint32_t*)(&data[101]) >> 1;
-		} else {
-			pl->field_10 = nox_win_width / 2;
-			pl->field_12 = nox_win_height / 2;
-		}
-	}
-	strcpy(pl->serial, &data[105]);
-	pl->field_2135 = data[152];
-	nox_swprintf(pl->field_2072, L"%S", &data[142]);
-	strcpy(pl->field_2096, &data[128]);
-	pl->field_2068 = *(uint32_t*)(&data[138]);
-	if (pl->field_2068) {
-		void* v12 = sub_425A70(pl->field_2068);
-		if (!v12) {
-			v12 = sub_425AD0(pl->field_2068, pl->field_2072);
-		}
-		sub_425B30(v12, ind);
-	}
-	pl->frame_3596 = nox_frame_xxx_2598000;
-	pl->field_3676 = 2;
-	pl->field_3680 = 0;
-	memcpy(&pl->info, &data[0], 97);
-	nox_wcscpy(pl->name_final, pl->info.name);
-	pl->info.name_suff[0] = 0;
-	nox_xxx_playerCheckName_4DDA00(pl);
-	nox_xxx_playerInitColors_461460(pl);
-	pl->playerUnit = punit;
-	pl->field_2152 = 0;
-	pl->netCode = punit->field_9;
-	pl->field_2156 = nox_xxx_scavengerTreasureMax_4D1600();
-	int v15 = punit->data_update;
-	*(uint32_t*)(v15 + 276) = pl;
-	pl->prot_unit_hp_cur = nox_xxx_protectionCreateInt_56F400(*(unsigned short*)((int)punit->data_139 + 0));
-	pl->prot_unit_hp_max = nox_xxx_protectionCreateInt_56F400(*(unsigned short*)((int)punit->data_139 + 4));
-	pl->prot_unit_mana_cur = nox_xxx_protectionCreateInt_56F400(*(unsigned short*)(v15 + 4));
-	pl->prot_unit_mana_max = nox_xxx_protectionCreateInt_56F400(*(unsigned short*)(v15 + 8));
-	pl->prot_unit_experience = nox_xxx_protectionCreateFloat_56F440(punit->experience);
-	pl->prot_unit_mass = nox_xxx_protectionCreateFloat_56F440(punit->mass);
-	pl->prot_unit_field_85 = nox_xxx_protectionCreateInt_56F400(*(uint32_t*)(&punit->field_85));
-	pl->prot_player_class = nox_xxx_protectionCreateInt_56F400(pl->info.playerClass);
-	pl->prot_player_field_2235 = nox_xxx_protectionCreateInt_56F400(pl->info.field_2235);
-	pl->prot_player_field_2239 = nox_xxx_protectionCreateInt_56F400(pl->info.field_2239);
-	int v20 = nox_wcslen(pl->info.name);
-	int v21 = nox_xxx_protectionStringCRCLen_56FAE0(pl->info.name, 2 * v20);
-	pl->prot_player_orig_name = nox_xxx_protectionCreateInt_56F400(v21);
-	pl->prot_4632 = nox_xxx_protectionCreateInt_56F400(0);
-	pl->prot_4636 = nox_xxx_protectionCreateInt_56F400(0);
-	pl->prot_player_field_2164 = nox_xxx_protectionCreateInt_56F400(pl->field_2164);
-	pl->prot_4640 = nox_xxx_protectionCreateInt_56F400(0);
-	pl->prot_player_level = nox_xxx_protectionCreateInt_56F400(pl->field_3684); // level
-	pl->field_4648 = -1;
-	pl->field_4700 = 1;
-	if (dword_5d4594_2650652) {
-		sub_41D670(pl->field_2096);
-	}
-	nox_xxx_netNotifyRate_4D7F10(ind);
-	if (nox_common_gameFlags_check_40A5C0(4096)) {
-		nox_xxx_playerGoObserver_4E6860(pl, 0, 1);
-	} else if (nox_common_gameFlags_check_40A5C0(512)) {
-		nox_xxx_netReportPlayerStatus_417630(pl);
-	} else if (pl->playerInd == 31 && nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
-		nox_xxx_playerGoObserver_4E6860(pl, 0, 1);
-	} else if (nox_common_gameFlags_check_40A5C0(128)) {
-		if (sub_40A740()) {
-			if (!sub_40AA70(pl)) {
-				nox_xxx_playerGoObserver_4E6860(pl, 0, 1);
-			}
-		} else if (nox_xxx_CheckGameplayFlags_417DA0(4)) {
-			sub_4DF3C0(pl);
-		}
-	} else if (!nox_common_gameFlags_check_40A5C0(2048)) {
-		nox_xxx_playerGoObserver_4E6860(pl, 1, 1);
-	}
-	nox_xxx_servSendSettings_4DDB40(punit);
-	if (pl->playerInd == 31) {
-		nox_xxx_host_player_unit_3843628 = punit;
-	}
-	char v30[132];
-	nox_xxx_netNewPlayerMakePacket_4DDA90(v30, pl);
-	nox_xxx_netSendPacket0_4E5420(ind | 0x80, v30, 129, 0, 0);
-	pl->field_3676 = 2;
-	if (nox_xxx_check_flag_aaa_43AF70() == 1 && !nox_common_gameFlags_check_40A5C0(128)) {
-		sub_425F10(pl);
-	}
-	nox_xxx_createAt_4DAA50(punit, 0, 2944.0, 2944.0);
-	nox_xxx_unitsNewAddToList_4DAC00();
-	float2 v28;
-	if (nox_common_gameFlags_check_40A5C0(4096)) {
-		if (!sub_4E8210(punit, &v28)) {
-			nox_xxx_mapFindPlayerStart_4F7AB0(&v28, punit);
-		}
-	} else {
-		nox_xxx_mapFindPlayerStart_4F7AB0(&v28, punit);
-	}
-	nox_xxx_unitMove_4E7010(punit, &v28);
-	sub_422140(pl);
-	if (ind != 31) {
-		if (sub_459D70() == 2) {
-			char* v24 = nox_xxx_cliGamedataGet_416590(1);
-			nox_xxx_netGuiGameSettings_4DD9B0(1, v24, pl->playerInd);
-		} else {
-			char v29[60];
-			sub_459AA0(v29);
-			nox_xxx_netGuiGameSettings_4DD9B0(1, v29, pl->playerInd);
-		}
-	}
-	if (nox_common_gameFlags_check_40A5C0(49152)) {
-		if ((pl->field_3680 & 1) == 0) {
-			sub_509C30(pl);
-		}
-	}
-	if (!nox_common_gameFlags_check_40A5C0(2048)) {
-		if (nox_common_gameFlags_check_40A5C0(4096)) {
-			nox_game_sendQuestStage_4D6960(ind);
-			return punit->field_9;
-		}
-		unsigned char v27b[3];
-		v27b[0] = 0xE4; // MSG_FADE_BEGIN
-		v27b[1] = 1;
-		v27b[2] = 1;
-		nox_xxx_netSendPacket0_4E5420(ind, v27b, 3, 0, 0);
-	}
-	return punit->field_9;
-}
-#endif // NOX_CGO
 
 //----- (004DD9B0) --------------------------------------------------------
 int nox_xxx_netGuiGameSettings_4DD9B0(char a1, const void* a2, int a3) {
@@ -9468,14 +8329,10 @@ void sub_4DE790(int a1) {
 }
 
 //----- (004DE7C0) --------------------------------------------------------
-#ifdef NOX_CGO
 void nox_script_callByEvent_cgo(int eventCode, void* a1, void* a2);
-#endif // NOX_CGO
 void nox_xxx_playerForceDisconnect_4DE7C0(int ind) {
 	nox_playerInfo* plr = nox_common_playerInfoFromNum_417090(ind);
-#ifdef NOX_CGO
 	nox_script_callByEvent_cgo(31, plr, 0); // player leave
-#endif                                      // NOX_CGO
 	if (sub_4D12A0(ind)) {
 		sub_4D1250(ind);
 	}
@@ -9573,67 +8430,6 @@ void nox_xxx_playerForceDisconnect_4DE7C0(int ind) {
 		}
 	}
 }
-
-//----- (004DEAB0) --------------------------------------------------------
-#ifndef NOX_CGO
-char* nox_xxx_playerCallDisconnect_4DEAB0(int a1, char a2) {
-	char* result; // eax
-	char* v3;     // esi
-
-	result = nox_common_playerInfoFromNum_417090(a1);
-	v3 = result;
-	if (result) {
-		nox_xxx_playerDisconnFinish_4DE530((unsigned char)result[2064], a2);
-		nox_xxx_playerForceDisconnect_4DE7C0((unsigned char)v3[2064]);
-		result = (char*)nox_xxx_netStructReadPackets2_4DEC50((unsigned char)v3[2064]);
-	}
-	return result;
-}
-
-//----- (004DEB00) --------------------------------------------------------
-void nox_xxx_playerDisconnByPlrID_4DEB00(int a1) {
-	char* result = nox_common_playerInfoFromNum_417090(a1);
-	if (result) {
-		nox_xxx_playerCallDisconnect_4DEAB0((unsigned char)result[2064], 4);
-	}
-}
-
-//----- (004DEBC0) --------------------------------------------------------
-int nox_xxx_netAddPlayerHandler_4DEBC0(int port) {
-	int result; // eax
-
-	nox_net_struct_arg_t narg;
-	memset(&narg, 0, sizeof(nox_net_struct_arg_t));
-	narg.port = port;
-	narg.data_3_size = 0;
-	narg.field_4 = nox_xxx_servGetPlrLimit_409FA0();
-	narg.data_size = 2048;
-	nox_xxx_allocNetGQueue_5520B0(200, 1024);
-	narg.func_yyy = nox_xxx_netlist_ServRecv_4DEC30;
-	narg.func_xxx = nox_xxx_netFn_UpdateStream_4DF630;
-	result = nox_xxx_netInit_554380(&narg);
-	OnLibraryNotice_256();
-	*getMemU32Ptr(0x5D4594, 1563148) = result;
-	return result;
-}
-
-//----- (004DEC30) --------------------------------------------------------
-int nox_xxx_netlist_ServRecv_4DEC30(int a1, unsigned char* a2, signed int a3, void* a4) {
-	nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(a1 - 1, a2, a3);
-	return 1;
-}
-
-//----- (004DEC50) --------------------------------------------------------
-int nox_xxx_netStructReadPackets2_4DEC50(int a1) { return nox_xxx_netStructReadPackets_5545B0(a1 + 1); }
-
-//----- (004DEC60) --------------------------------------------------------
-void nox_server_netCloseHandler_4DEC60(unsigned int a1) {
-	nox_xxx_netStructReadPackets_5545B0(a1);
-	nox_server_netClose_5546A0(a1);
-	OnLibraryNotice_257();
-	sub_552450();
-}
-#endif // NOX_CGO
 
 //----- (004DEF00) --------------------------------------------------------
 int nox_xxx_netGameSettings_4DEF00() {

@@ -391,35 +391,6 @@ void nox_xxx_utilNormalizeVector_509F20(float2* a1) {
 	a1->field_4 = a1->field_4 / v1;
 }
 
-#ifndef NOX_CGO
-//----- (00509F60) --------------------------------------------------------
-void nox_ai_debug_printStack_509F60(nox_object_t* u, char* event) {
-	int v2;       // esi
-	char v3;      // al
-	int v5;       // edi
-	uint32_t* v6; // esi
-
-	v2 = *(uint32_t*)((int)u + 748);
-	nox_ai_debug_printf_5341A0("%d: stack (%s):\n", nox_frame_xxx_2598000, event);
-	v3 = *(uint8_t*)(v2 + 544);
-	if (v3 == -1) {
-		nox_ai_debug_printf_5341A0("  <stack empty>\n");
-		nox_ai_debug_printf_5341A0("----------------------------------------\n");
-	} else {
-		if (v3 >= 0) {
-			v5 = v3 + 1;
-			v6 = (uint32_t*)(v2 + 8 * (3 * v3 + 69));
-			do {
-				nox_ai_debug_printf_5341A0("  %s\n", *getMemU32Ptr(0x587000, 230096 + 4 * *v6));
-				v6 -= 6;
-				--v5;
-			} while (v5);
-		}
-		nox_ai_debug_printf_5341A0("----------------------------------------\n");
-	}
-}
-#endif // NOX_CGO
-
 //----- (00509FF0) --------------------------------------------------------
 int sub_509FF0(int a1) {
 	int result; // eax
@@ -1416,116 +1387,6 @@ int sub_50B520() {
 	}
 	return result;
 }
-
-#ifndef NOX_CGO
-//----- (0050B580) --------------------------------------------------------
-int nox_xxx_mapTraceObstacles_50B580(nox_object_t* a1p, float4* a3) {
-	int a1 = a1p;
-	float v2;   // edx
-	bool v3;    // c0
-	float v4;   // edx
-	float4 a1a; // [esp+0h] [ebp-10h]
-
-	if (a3->field_0 >= (double)a3->field_8) {
-		v2 = a3->field_0;
-		a1a.field_0 = a3->field_8;
-	} else {
-		v2 = a3->field_8;
-		a1a.field_0 = a3->field_0;
-	}
-	v3 = a3->field_4 < (double)a3->field_C;
-	a1a.field_8 = v2;
-	if (v3) {
-		v4 = a3->field_C;
-		a1a.field_4 = a3->field_4;
-	} else {
-		v4 = a3->field_4;
-		a1a.field_4 = a3->field_C;
-	}
-	a1a.field_C = v4;
-	dword_5d4594_2386156 = 1;
-	*getMemU32Ptr(0x5D4594, 2386148) = a1;
-	nox_xxx_getUnitsInRect_517C10(&a1a, sub_50B600, (int)a3);
-	return dword_5d4594_2386156;
-}
-
-//----- (0050B600) --------------------------------------------------------
-void sub_50B600(nox_object_t* a1p, float4* a1) {
-	float* arg0 = a1p;
-	int v2;    // eax
-	int v3;    // eax
-	double v4; // st6
-	double v5; // st7
-	double v6; // st7
-	double v7; // st7
-	double v8; // st7
-	float v9;  // [esp+10h] [ebp-30h]
-	float v10; // [esp+14h] [ebp-2Ch]
-	float v11; // [esp+1Ch] [ebp-24h]
-	float v12; // [esp+20h] [ebp-20h]
-	float v13; // [esp+24h] [ebp-1Ch]
-	float2 a3; // [esp+28h] [ebp-18h]
-	float4 a2; // [esp+30h] [ebp-10h]
-
-	if (dword_5d4594_2386156 && *(float**)getMemAt(0x5D4594, 2386148) != arg0) {
-		v2 = *((uint32_t*)arg0 + 2);
-		if (v2 & 6) {
-			if (nox_xxx_unitIsEnemyTo_5330C0(*getMemIntPtr(0x5D4594, 2386148), (int)arg0)) {
-				return;
-			}
-		} else if (!(v2 & 0x400008)) {
-			return;
-		}
-		if (!((uint8_t)((uint32_t*)arg0)[4] & 0x48) && (signed char)*((uint8_t*)arg0 + 8) >= 0) {
-			v3 = *((uint32_t*)arg0 + 43);
-			if (v3 == 2) {
-				if (nox_xxx_mathPointOnTheLine_57C8A0(a1, (float2*)arg0 + 7, &a3)) {
-					v4 = a3.field_4 - arg0[15];
-					if (v4 * v4 + (a3.field_0 - arg0[14]) * (a3.field_0 - arg0[14]) <= arg0[45]) {
-						dword_5d4594_2386156 = 0;
-					}
-				}
-			} else if (v3 == 3) {
-				v12 = arg0[48] + arg0[14];
-				v5 = arg0[49] + arg0[15];
-				a2.field_0 = v12;
-				v13 = v5;
-				v6 = arg0[50] + arg0[14];
-				a2.field_4 = v13;
-				v9 = v6;
-				v7 = arg0[51] + arg0[15];
-				a2.field_8 = v9;
-				v10 = v7;
-				v8 = arg0[52] + arg0[14];
-				a2.field_C = v10;
-				v11 = arg0[53] + arg0[15];
-				a3.field_0 = arg0[54] + arg0[14];
-				a3.field_4 = arg0[55] + arg0[15];
-				if (sub_427980(a1, &a2)) {
-					dword_5d4594_2386156 = 0;
-				} else {
-					a2.field_0 = v12;
-					a2.field_4 = v13;
-					a2.field_8 = v8;
-					a2.field_C = v11;
-					if (sub_427980(a1, &a2)) {
-						goto LABEL_22;
-					}
-					a2.field_0 = a3.field_0;
-					a2.field_4 = a3.field_4;
-					a2.field_8 = v8;
-					a2.field_C = v11;
-					if (sub_427980(a1, &a2) || (a2.field_0 = a3.field_0, a2.field_4 = a3.field_4, a2.field_8 = v9,
-												a2.field_C = v10, sub_427980(a1, &a2))) {
-					LABEL_22:
-						dword_5d4594_2386156 = 0;
-					}
-				}
-			}
-		}
-	}
-}
-#endif // NOX_CGO
 
 //----- (0050B810) --------------------------------------------------------
 int sub_50B810(int a1, float* a2) {
@@ -6767,18 +6628,6 @@ unsigned short* sub_5178E0(int a1, unsigned short* a2) {
 	return result;
 }
 
-//----- (00517970) --------------------------------------------------------
-#ifndef NOX_CGO
-void nox_xxx_moveUpdateSpecial_517970(nox_object_t* unit) {
-	sub_517870(unit);
-	if (sub_517590(unit->new_x, unit->new_y)) {
-		nox_xxx_unitCreateMissileSmth_517640(unit);
-	} else {
-		nox_xxx_delayedDeleteObject_4E5CC0(unit);
-	}
-}
-#endif // NOX_CGO
-
 //----- (005179B0) --------------------------------------------------------
 void nox_xxx_waypointMapRegister_5179B0(int a1) {
 	int v1;   // esi
@@ -8559,71 +8408,6 @@ int sub_51A950() { return *getMemU32Ptr(0x5D4594, 2388656); }
 int nox_players_controlBuffer_2388676[NOX_PLAYERINFO_MAX] = {0};
 int nox_players_controlBuffer_2388804[NOX_PLAYERINFO_MAX] = {0};
 nox_player_ctrl_t nox_players_controlBuffer_2388932[NOX_PLAYERINFO_MAX][128] = {0};
-
-#ifndef NOX_CGO
-//----- (0051AAA0) --------------------------------------------------------
-int sub_51AAA0(int a1, int a2, int a3) {
-	int v3;           // edi
-	int v4;           // ebp
-	uint32_t* v5;     // ebx
-	int v6;           // ecx
-	unsigned char v7; // al
-	int v9;           // [esp+8h] [ebp-4h]
-
-	v3 = 0;
-	v4 = 0;
-	v9 = 0;
-	if (a2 <= 0) {
-		return 0;
-	}
-	v5 = (uint32_t*)(a3 + 12);
-	do {
-		v6 = *(unsigned char*)(a1 + v4);
-		v4 += 4;
-		*(v5 - 1) = v6;
-		if (nox_ctrlevent_has_data_42D440(v6)) {
-			v7 = nox_ctrlevent_data_size_42D450(*(v5 - 1));
-			*v5 = 0;
-			memcpy(v5, (const void*)(v4 + a1), v7);
-			v4 += v7;
-			v3 = v9;
-		} else {
-			*v5 = 0;
-		}
-		v5[1] = 1;
-		++v3;
-		v5 += 6;
-		v9 = v3;
-	} while (v4 < a2);
-	return v3;
-}
-
-//----- (0051A960) --------------------------------------------------------
-int nox_xxx_playerSaveInput_51A960(int a1, unsigned char* a2) {
-	char* v2;      // eax
-	int v3;        // esi
-	int v5;        // eax
-	int v6;        // edx
-	int v7;        // [esp+Ch] [ebp-C04h]
-	char v8[3072]; // [esp+10h] [ebp-C00h]
-
-	v2 = nox_common_playerInfoFromNum_417090(a1);
-	v3 = *a2;
-	v7 = *a2;
-	if (v2 && !(v2[3680] & 0x10)) {
-		return v3 + 1;
-	}
-	v5 = sub_51AAA0((int)(a2 + 1), v3, (int)v8);
-	v6 = nox_players_controlBuffer_2388804[a1];
-	if (v6 + v5 < 128) {
-		nox_players_controlBuffer_2388804[a1] = v6 + v5;
-		memcpy(&nox_players_controlBuffer_2388932[a1][v6], v8, sizeof(nox_player_ctrl_t) * v5);
-		v3 = v7;
-	}
-	sub_51AA20(a1);
-	return v3 + 1;
-}
-#endif // NOX_CGO
 
 //----- (0051AA20) --------------------------------------------------------
 int sub_51AA20(int a1) {

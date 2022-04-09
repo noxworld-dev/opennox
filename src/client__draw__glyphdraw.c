@@ -33,11 +33,7 @@ int nox_thing_glyph_draw(int* a1, nox_drawable* dr) {
 	if (nox_xxx_spriteCheckFlag31_4356C0(*getMemIntPtr(0x852978, 8), 21)) {
 		nox_xxx_draw_434600(1);
 		sub_433E40(*getMemIntPtr(0x8531A0, 2572));
-#ifdef NOX_CGO
 		v3 = -1;
-#else  // NOX_CGO
-		v3 = nox_backbuffer_depth >= 16 ? -1 : -128;
-#endif // NOX_CGO
 	LABEL_9:
 		LOBYTE(a2) = v3;
 		goto LABEL_10;

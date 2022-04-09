@@ -54,15 +54,6 @@
 
 #include "common/fs/nox_fs.h"
 
-#ifndef NOX_CGO
-#include <SDL2/SDL_stdinc.h>
-#endif // NOX_CGO
-
-#ifdef __EMSCRIPTEN__
-#include <emscripten/emscripten.h>
-#include <emscripten/html5.h>
-#endif
-
 enum {
 	HANDLE_FILE,
 	HANDLE_PROCESS,
@@ -137,11 +128,6 @@ void* thread_start_wrapper(void* arglist) {
 }
 
 uintptr_t _beginthread(void (*start_address)(void*), unsigned int stack_size, void* arglist) {
-#ifdef __EMSCRIPTEN__
-	fprintf(stderr, "%s: unsupported\n");
-	while (1) {
-	}
-#endif
 	printf("thread start\n");
 	thread_arg_wrapper* arg = (thread_arg_wrapper*)calloc(1, sizeof(thread_arg_wrapper));
 	arg->start_address = start_address;
@@ -172,16 +158,10 @@ char* _strrev(char* str) {
 	return str;
 }
 
-#ifndef NOX_CGO
-char* _itoa(int val, char* s, int radix) { return SDL_itoa(val, s, radix); }
-
-char* _utoa(unsigned int val, char* s, int radix) { return SDL_uitoa(val, s, radix); }
-#else  // NOX_CGO
 char* nox_itoa(int val, char* s, int radix);
 char* nox_utoa(int val, char* s, int radix);
 char* _itoa(int val, char* s, int radix) { return nox_itoa(val, s, radix); }
 char* _utoa(unsigned int val, char* s, int radix) { return nox_utoa(val, s, radix); }
-#endif // NOX_CGO
 
 wchar_t* _itow(int val, wchar_t* s, int radix) {
 	char tmp[32];
@@ -305,31 +285,6 @@ int WideCharToMultiByte(unsigned int CodePage, uint32_t dwFlags, const wchar_t* 
 	abort();
 	return 0;
 }
-
-#ifdef __EMSCRIPTEN__
-void build_server_info(void* arg) {
-	static char oldbuf[256];
-	static int oldlen;
-	char buf[256];
-	int dummy[3] = {0, 0, 0};
-	int length, ready;
-
-	ready = EM_ASM_INT({ return network.isready(); });
-
-	if (!ready) {
-		oldlen = 0;
-		return;
-	}
-
-	length = nox_server_makeServerInfoPacket_554040(dummy, sizeof(buf), buf);
-	if (oldlen != length || memcmp(buf, oldbuf, length) != 0) {
-		memcpy(oldbuf, buf, length);
-		oldlen = length;
-
-		EM_ASM_({ network.registerServer($1 > 0 ? Module.HEAPU8.slice($0, $0 + $1) : null); }, oldbuf, oldlen);
-	}
-}
-#endif
 
 // Time functions
 // compatGetDateFormatA(Locale=2048, dwFlags=1, lpDate=0x1708c6a4, lpFormat=0x00000000, lpDateStr="nox.str:Warrior",
@@ -474,29 +429,6 @@ int FindClose(HANDLE hFindFile) {
 	return true;
 }
 
-#ifndef NOX_CGO
-int _open(const char* filename, int oflag, ...) {
-	va_list ap;
-	int fd;
-	char* converted = nox_fs_normalize(filename);
-
-	va_start(ap, oflag);
-	fd = open(converted, oflag, va_arg(ap, int));
-	va_end(ap);
-
-	free(converted);
-	return fd;
-}
-
-int _chmod(const char* filename, int mode) {
-	int result;
-	char* converted = nox_fs_normalize(filename);
-	result = chmod(converted, mode);
-	free(converted);
-	return result;
-}
-#endif // NOX_CGO
-
 int _stat(const char* path, struct _stat* buffer) {
 	int result;
 	char* converted = nox_fs_normalize(path);
@@ -610,7 +542,7 @@ int SetEvent(HANDLE hEvent) {
 	return 0;
 }
 
-#if defined(__APPLE__) || defined(__EMSCRIPTEN__) || defined(__CXGO__)
+#if defined(__APPLE__) || defined(__CXGO__)
 #else
 int pthread_timedjoin_np(void*, void*, void*);
 #endif
@@ -633,7 +565,7 @@ uint32_t WaitForSingleObject(HANDLE hHandle, uint32_t dwMilliseconds) {
 		result = 0;
 		if (dwMilliseconds == INFINITE)
 			pthread_join(thr, NULL);
-#if defined(__APPLE__) || defined(__EMSCRIPTEN__)
+#if defined(__APPLE__)
 		else
 			pthread_join(thr, NULL);
 #else
@@ -646,7 +578,7 @@ uint32_t WaitForSingleObject(HANDLE hHandle, uint32_t dwMilliseconds) {
 		result = 0;
 		if (dwMilliseconds == INFINITE)
 			pthread_mutex_lock(m);
-#if defined(__APPLE__) || defined(__EMSCRIPTEN__)
+#if defined(__APPLE__)
 		else
 			pthread_mutex_lock(m);
 #else

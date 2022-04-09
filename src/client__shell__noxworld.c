@@ -63,94 +63,6 @@ extern nox_video_mode nox_video_modes[7];
 int dword_5d4594_815104 = 0;
 nox_gui_animation* nox_wnd_xxx_815040 = 0;
 
-#ifndef NOX_CGO
-//----- (004373A0) --------------------------------------------------------
-void sub_4373A0() {
-	wchar_t* v0; // eax
-	wchar_t* v1; // eax
-	wchar_t* v2; // eax
-
-	if (!wndIsShown_nox_xxx_wndIsShown_46ACC0(*(int*)&dword_5d4594_815000)) {
-		nox_window_set_hidden(*(int*)&dword_5d4594_815000, 1);
-		dword_5d4594_815056 = 0;
-		nox_xxx_wnd_46C6E0(*(int*)&dword_5d4594_815000);
-		nox_xxx_windowFocus_46B500(*(int*)&nox_wol_wnd_world_814980);
-	}
-	if (*(int*)&dword_587000_87408 == 1 || *(int*)&dword_587000_87412 == -1) {
-		if (nox_game_createOrJoin_815048 == 1) {
-			nox_game_createOrJoin_815048 = 0;
-			nox_xxx_setMouseBounds_430A70(0, nox_win_width - 1, 0, nox_win_height - 1);
-			v2 = nox_strman_loadString_40F1D0("ChooseArea", 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 619);
-			nox_window_call_field_94(*(int*)&dword_5d4594_814996, 16385, (int)v2, 0);
-			nox_xxx_clientPlaySoundSpecial_452D80(231, 100);
-		} else {
-			nox_game_checkStateSwitch_43C1E0();
-			sub_49FF20();
-			if (dword_587000_87404 == 1) {
-				*getMemU32Ptr(0x5D4594, 815084) = 1;
-				sub_41E300(7);
-				sub_4207F0(4);
-				sub_40D380();
-			}
-			nox_xxx_clientPlaySoundSpecial_452D80(231, 100);
-		}
-	} else if (nox_game_createOrJoin_815048 == 1) {
-		nox_game_createOrJoin_815048 = 0;
-		nox_xxx_setMouseBounds_430A70(0, nox_win_width - 1, 0, nox_win_height - 1);
-		nox_xxx_wndClearCaptureMain_46ADE0(*(int*)&dword_5d4594_814984);
-		sub_4375C0(1);
-		v0 = nox_strman_loadString_40F1D0("JoinServer", 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 643);
-		nox_window_call_field_94(*(int*)&dword_5d4594_814996, 16385, (int)v0, 0);
-		nox_xxx_clientPlaySoundSpecial_452D80(231, 100);
-	} else {
-		sub_49FF20();
-		if (dword_587000_87404) {
-			dword_587000_87412 = -1;
-			nox_xxx_wndClearCaptureMain_46ADE0(*(int*)&dword_5d4594_814984);
-			nox_window_set_hidden(*(int*)&dword_5d4594_814984, 1);
-			nox_window_set_hidden(*(int*)&dword_5d4594_814988, 0);
-			v1 = nox_strman_loadString_40F1D0("ChooseArea", 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 660);
-			nox_window_call_field_94(*(int*)&dword_5d4594_814996, 16385, (int)v1, 0);
-			nox_client_refreshServerList_4378B0();
-			nox_xxx_clientPlaySoundSpecial_452D80(231, 100);
-		} else {
-			nox_game_checkStateSwitch_43C1E0();
-		}
-	}
-}
-
-//----- (004378B0) --------------------------------------------------------
-void nox_client_refreshServerList_4378B0() {
-	if (sub_44A4A0()) {
-		dword_5d4594_815104 = 1;
-		return;
-	}
-
-	*getMemU64Ptr(0x5D4594, 815076) = nox_platform_get_ticks();
-	dword_5d4594_815060 = 0;
-	sub_4379C0();
-	nox_window_call_field_94(*(int*)&dword_5d4594_815004, 16399, 0, 0);
-	sub_49FFA0(1);
-	nox_wol_server_result_cnt_815088 = 0;
-	if (dword_587000_87404) {
-		sub_41F370(1);
-		int v3 = sub_41E2F0();
-		sub_41DA70(v3, 12);
-	} else {
-		nox_client_setOnLobbyServer_555000(nox_client_OnLobbyServer_4375F0);
-		unsigned int ticks = nox_platform_get_ticks();
-		*getMemU32Ptr(0x5D4594, 814964) = ticks;
-		uint16_t port = nox_xxx_servGetPort_40A430();
-		nox_xxx_lobbyMakePacket_554AA0(port, 0, 0, ticks);
-		wchar_t* str = nox_strman_loadString_40F1D0("Wolchat.c:PleaseWait", 0,
-													"C:\\NoxPost\\src\\client\\shell\\noxworld.c", 1097);
-		nox_xxx_dialogMsgBoxCreate_449A10(*(int*)&nox_wol_wnd_world_814980, 0, str, 0, 0, 0);
-	}
-	dword_5d4594_815104 = 0;
-	*(uint64_t*)&qword_5d4594_815068 = *getMemU64Ptr(0x5D4594, 815076) + (long long)120000;
-}
-#endif // NOX_CGO
-
 //----- (004379F0) --------------------------------------------------------
 int nox_game_showGameSel_4379F0() {
 	uint32_t* v2;  // esi
@@ -400,16 +312,6 @@ int sub_4383A0() {
 
 //----- (00438770) --------------------------------------------------------
 void sub_438770_waitList();
-#ifndef NOX_CGO
-void sub_438770_waitList() {
-	if ((nox_platform_get_ticks() - *getMemU64Ptr(0x5D4594, 815076)) > 1000 && !dword_5d4594_815060 && !dword_587000_87404) {
-		sub_44A400();
-		sub_4379C0();
-		sub_4A0360();
-		dword_5d4594_815060 = 1;
-	}
-}
-#endif // NOX_CGO
 int sub_438770() {
 	int result;   // eax
 	long long v1; // rax
@@ -851,11 +753,6 @@ int nox_xxx_windowMultiplayerSub_439E70(int a1, unsigned int a2, int* a3, int a4
 			if (dword_587000_87404) {
 				sub_43A980();
 			}
-#ifndef NOX_CGO
-			else {
-				OnLibraryNotice_418();
-			}
-#endif // NOX_CGO
 			return 0;
 		case 10010:
 			sub_4373A0();

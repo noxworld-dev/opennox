@@ -172,13 +172,9 @@ LABEL_16:
 // 4F5580: using guessed type char var_400[1024];
 
 //----- (00502490) --------------------------------------------------------
-#ifdef NOX_CGO
 void nox_script_callByEvent_cgo(int eventCode, void* a1, void* a2);
-#endif // NOX_CGO
 unsigned char* nox_xxx_scriptCallByEventBlock_502490(int* a1, int a2, int a3, int eventCode) {
-#ifdef NOX_CGO
 	nox_script_callByEvent_cgo(eventCode, a2, a3);
-#endif // NOX_CGO
 	*getMemU32Ptr(0x5D4594, 1599076) = 0;
 	int v3 = a1[0];
 	if (*a1 & 1) {
@@ -1436,57 +1432,3 @@ int sub_508CB0(unsigned int* a1, int a2) {
 	}
 	return result;
 }
-
-#ifndef NOX_CGO
-//----- (00511B60) --------------------------------------------------------
-nox_object_t* nox_server_scriptValToObjectPtr_511B60(int val) {
-	if (val == -1) {
-		nox_object_t* obj = nox_script_get_caller();
-		if (!obj || (obj->obj_flags & 0x20) != 0) {
-			return 0;
-		}
-		return obj;
-	}
-	if (val == -2) {
-		nox_object_t* obj = nox_script_get_trigger();
-		if (!obj || (obj->obj_flags & 0x20) != 0) {
-			return 0;
-		}
-		return obj;
-	}
-	nox_object_t* obj1 = nox_xxx_script_511C50(val);
-	if (obj1) {
-		return obj1;
-	}
-
-	for (nox_object_t* obj = nox_server_getFirstObject_4DA790(); obj; obj = nox_server_getNextObject_4DA7A0(obj)) {
-		if ((obj->obj_flags & 0x20) == 0 && obj->script_id == val) {
-			nox_xxx_scriptPrepareFoundUnit_511D70(obj);
-			return obj;
-		}
-		for (nox_object_t* sub = obj->field_126; sub; sub = sub->field_124) {
-			if ((sub->obj_flags & 0x20) == 0 && sub->script_id == val) {
-				nox_xxx_scriptPrepareFoundUnit_511D70(sub);
-				return sub;
-			}
-		}
-	}
-	for (nox_object_t* obj = nox_server_getFirstObjectUninited_4DA870(); obj;
-		 obj = nox_server_getNextObjectUninited_4DA880(obj)) {
-		if ((obj->obj_flags & 0x20) == 0 && obj->script_id == val) {
-			nox_xxx_scriptPrepareFoundUnit_511D70(obj);
-			return obj;
-		}
-	}
-	return 0;
-}
-
-void nox_script_callOnEvent(const char* event, void* a1, void* a2) {
-	int n = strlen(event);
-	for (int i = 0; i < nox_script_count_xxx_1599640; i++) {
-		if (!strncmp(event, nox_script_arr_xxx_1599636[i].field_0, n)) {
-			nox_script_callByIndex_507310(i, a1, a2);
-		}
-	}
-}
-#endif // NOX_CGO

@@ -605,9 +605,6 @@ int nox_xxx_guiServerOptionsProcPre_4585D0(int a1, unsigned int a2, int a3, int 
 				return 1;
 			}
 			sub_459150();
-#ifndef NOX_CGO
-			OnLibraryNotice_261();
-#endif // NOX_CGO
 			result = 1;
 			break;
 		case 10146:

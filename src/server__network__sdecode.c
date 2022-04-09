@@ -28,10 +28,7 @@
 #include "server__network__playback.h"
 #include "server__system__trade.h"
 
-#ifdef NOX_CGO
 void noxOnSrvPacketDebug(int op, unsigned char* data, int sz);
-#endif // NOX_CGO
-
 extern unsigned int nox_frame_xxx_2598000;
 extern uint32_t nox_player_netCode_85319C;
 //----- (0051BAD0) --------------------------------------------------------
@@ -172,9 +169,7 @@ int nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned char* operat
 		return 1;
 	}
 	while (data < v91) {
-#ifdef NOX_CGO
 		unsigned char* old = data;
-#endif // NOX_CGO
 		v11 = 0;
 		int op = data[0];
 		switch (op) {
@@ -863,9 +858,7 @@ int nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned char* operat
 		default:
 			return 0;
 		}
-#ifdef NOX_CGO
 		noxOnSrvPacketDebug(op, old, data - old);
-#endif // NOX_CGO
 	}
 	*(uint32_t*)(v8 + 3596) = nox_frame_xxx_2598000;
 	return 1;

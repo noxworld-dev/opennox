@@ -5,10 +5,6 @@
 #include <wchar.h>
 #include <wctype.h>
 
-#ifdef __EMSCRIPTEN__
-#define wchar_t int16_t
-#endif
-
 #ifndef _WIN32
 // GCC wchar_t size is different than the one on Windows, so we must poison all the functions that expect invalid size.
 #pragma GCC poison fgetwln fgetws fputwc fputws fwprintf fwscanf mbrtowc mbsnrtowcs mbsrtowcs putwc putwchar swprintf  \

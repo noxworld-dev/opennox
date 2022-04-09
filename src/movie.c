@@ -3,11 +3,7 @@
 #include "common/fs/nox_fs.h"
 #include "input.h"
 
-#ifndef NOX_CGO
-#include <SDL2/SDL.h>
-#else // NOX_CGO
 #define SDL_Surface void
-#endif // NOX_CGO
 
 #ifdef NO_MOVIE
 
@@ -32,15 +28,7 @@ void DrawMovieFrame(uint8_t* frame, unsigned long cx, unsigned long cy) {
 		unsigned short* surfaceRow = (uint8_t*)(pixels) + (i * pitch);
 		unsigned short* frameRow = frame + (i * cx * 2);
 		for (int j = 0; j < cx; j++) {
-#ifndef __EMSCRIPTEN__
 			surfaceRow[j] = frameRow[j];
-#else
-			unsigned short a = ((frameRow[j] & (0x1 << 15)) >> 15);
-			unsigned short r = ((frameRow[j] & (0x1f << 10)) >> 10) << 11;
-			unsigned short g = ((frameRow[j] & (0x1f << 5)) >> 5) << 6;
-			unsigned short b = ((frameRow[j] & (0x1f << 0)) >> 0) << 1;
-			surfaceRow[j] = a | r | g | b;
-#endif
 		}
 	}
 	nox_video_showMovieFrame(movieSurface);

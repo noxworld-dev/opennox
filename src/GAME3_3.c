@@ -1,6 +1,3 @@
-#ifdef __EMSCRIPTEN__
-#include <emscripten/emscripten.h>
-#endif
 #include <math.h>
 
 #include "GAME1.h"
@@ -896,52 +893,6 @@ int sub_4E31E0(uint32_t* a1) {
 	}
 	return result;
 }
-
-#ifndef NOX_CGO
-//----- (004E3220) --------------------------------------------------------
-int nox_thing_read_xxx_4E3220(nox_memfile* a1p, char* a2, nox_objectType_t* a3p) {
-	int a1 = a1p;
-	int a3 = a3p;
-	char* v3;          // ebx
-	unsigned char* v4; // eax
-	char* v5;          // edi
-	unsigned char* v6; // ebp
-	int v7;            // eax
-	char* v8;          // eax
-	unsigned char v10; // [esp+18h] [ebp+8h]
-
-	v3 = a2;
-	while (1) {
-	LABEL_2:
-		v4 = *(unsigned char**)(a1 + 8);
-		v10 = *v4;
-		*(uint32_t*)(a1 + 8) = v4 + 1;
-		if (!v10) {
-			return 1;
-		}
-		nox_memfile_read(v3, 1u, v10, a1);
-		v3[v10] = 0;
-		v5 = strtok(v3, " \t\n\r");
-		v6 = getMemAt(0x587000, 201392);
-		if (*getMemU32Ptr(0x587000, 201396)) {
-			while (strcmp(v5, *(const char**)v6)) {
-				v7 = *((uint32_t*)v6 + 3);
-				v6 += 8;
-				if (!v7) {
-					goto LABEL_2;
-				}
-			}
-			v8 = strtok(0, "=");
-			if (v8) {
-				memmove(v3, v8 + 1, strlen(v8 + 1) + 1);
-			}
-			if (!(*((int (**)(int, int, char*))v6 + 1))(a3, a1, v3)) {
-				return 0;
-			}
-		}
-	}
-}
-#endif // NOX_CGO
 
 //----- (004E3320) --------------------------------------------------------
 void nox_xxx_unitDefFindMaxDataSize_4E3320() {
@@ -4306,25 +4257,6 @@ int nox_xxx_unitIsGameball_4E7C30(int a1) {
 	return 1;
 }
 
-#ifndef NOX_CGO
-//----- (004E7C80) --------------------------------------------------------
-int nox_xxx_unitIsUnitTT_4E7C80(nox_object_t* a1p, int a2) {
-	int a1 = a1p;
-	int result; // eax
-	int i;      // ecx
-
-	result = 0;
-	if (a1) {
-		for (i = *(uint32_t*)(a1 + 516); i; i = *(uint32_t*)(i + 512)) {
-			if (*(unsigned short*)(i + 4) == a2 && !(*(uint8_t*)(i + 16) & 0x20)) {
-				++result;
-			}
-		}
-	}
-	return result;
-}
-#endif // NOX_CGO
-
 //----- (004E7CC0) --------------------------------------------------------
 int sub_4E7CC0(int a1, int a2) {
 	int result; // eax
@@ -5296,11 +5228,7 @@ int sub_4E8E60() {
 }
 
 //----- (004E8F60) --------------------------------------------------------
-#ifdef NOX_CGO
 bool nox_server_questAllowDefault();
-#else  // !NOX_CGO
-bool nox_server_questAllowDefault() { return getenv("NOX_QUEST_WARP_ALWAYS_ALLOW") != 0; }
-#endif // NOX_CGO
 bool nox_server_questMaybeWarp_4E8F60() {
 	unsigned int curLvl = nox_game_getQuestStage_4E3CC0();
 	unsigned int toLvl = nox_server_questNextStageThreshold_4D74F0(curLvl);
@@ -7788,26 +7716,6 @@ int nox_xxx_unitsHaveSameTeam_4EC520(int a1, int a2) {
 	return 0;
 }
 
-#ifndef NOX_CGO
-//----- (004EC580) --------------------------------------------------------
-nox_object_t* nox_xxx_findParentChainPlayer_4EC580(nox_object_t* unitp) {
-	int unit = unitp;
-	int result; // eax
-	int i;      // ecx
-
-	result = unit;
-	if (unit) {
-		for (i = *(uint32_t*)(unit + 508); i; i = *(uint32_t*)(i + 508)) {
-			if (*(uint8_t*)(result + 8) & 4) {
-				break;
-			}
-			result = i;
-		}
-	}
-	return result;
-}
-#endif // NOX_CGO
-
 //----- (004EC5B0) --------------------------------------------------------
 void sub_4EC5B0() {
 	dword_5d4594_1568024 = 0;
@@ -9947,26 +9855,6 @@ void sub_4EF410(int a1, unsigned char a2) {
 	}
 }
 
-#ifndef NOX_CGO
-//----- (004EF500) --------------------------------------------------------
-void nox_xxx_set_god_4EF500(int a1) {
-	if (nox_common_gameFlags_check_40A5C0(2048)) {
-		if (a1 == 1) {
-			nox_common_setEngineFlag(NOX_ENGINE_FLAG_ADMIN | NOX_ENGINE_FLAG_GODMODE);
-		} else {
-			nox_common_resetEngineFlag(NOX_ENGINE_FLAG_ADMIN | NOX_ENGINE_FLAG_GODMODE);
-		}
-		char* result = nox_common_playerInfoGetFirst_416EA0();
-		for (int i = (int)result; result; i = (int)result) {
-			nox_xxx_spellAwardAll1_4EFD80(i);
-			nox_xxx_spellAwardAll2_4EFC80(i);
-			nox_xxx_spellAwardAll3_4EFE10(i);
-			result = nox_common_playerInfoGetNext_416EE0(i);
-		}
-	}
-}
-#endif // NOX_CGO
-
 //----- (004EF580) --------------------------------------------------------
 char nox_xxx_getRespawnWeaponFlags_4EF580() {
 	char v0; // bl
@@ -10223,93 +10111,6 @@ int nox_xxx_netSendPlayerRespawn_4EFC30(int a1, char a2) {
 	v3[8] = a2;
 	return nox_xxx_netSendPacket1_4E5390(255, (int)v3, 9, 0, 0);
 }
-
-#ifndef NOX_CGO
-//----- (004EFC80) --------------------------------------------------------
-void nox_xxx_spellAwardAll2_4EFC80(nox_playerInfo* a1p) {
-	int a1 = a1p;
-	int v1;       // edi
-	uint32_t* v2; // ebx
-	char v3;      // al
-
-	nox_xxx_playerResetProtectionCRC_56F7D0(*(uint32_t*)(a1 + 4636), 0);
-	v1 = 1;
-	v2 = (uint32_t*)(a1 + 3700);
-	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ADMIN)) {
-		do {
-			*v2 = 3;
-			nox_xxx_playerAwardSpellProtectionCRC_56FCE0(*(uint32_t*)(a1 + 4636), v1++, 3);
-			++v2;
-		} while (v1 < 137);
-	} else {
-		do {
-			*v2 = 0;
-			nox_xxx_playerAwardSpellProtectionCRC_56FCE0(*(uint32_t*)(a1 + 4636), v1++, 0);
-			++v2;
-		} while (v1 < 137);
-		if (nox_common_gameFlags_check_40A5C0(4096)) {
-			v3 = *(uint8_t*)(a1 + 2251);
-			if (v3 == 1) {
-				nox_xxx_spellGrantToPlayer_4FB550(*(uint32_t*)(a1 + 2056), 27, 1, 1, 1);
-			} else if (v3 == 2) {
-				nox_xxx_spellGrantToPlayer_4FB550(*(uint32_t*)(a1 + 2056), 9, 1, 1, 1);
-				nox_xxx_spellGrantToPlayer_4FB550(*(uint32_t*)(a1 + 2056), 41, 1, 1, 1);
-			}
-		}
-	}
-	nox_xxx_playerApplyProtectionCRC_56FD50(*(uint32_t*)(a1 + 4636), a1 + 3696, 137);
-}
-
-//----- (004EFD80) --------------------------------------------------------
-void nox_xxx_spellAwardAll1_4EFD80(nox_playerInfo* a1p) {
-	int a1 = a1p;
-	int v1;       // esi
-	uint32_t* v2; // ebx
-
-	nox_xxx_playerResetProtectionCRC_56F7D0(*(uint32_t*)(a1 + 4640), 0);
-	v1 = 1;
-	v2 = (uint32_t*)(a1 + 4248);
-	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ADMIN)) {
-		do {
-			*v2 = 1;
-			nox_xxx_playerAwardSpellProtectionCRC_56FCE0(*(uint32_t*)(a1 + 4640), v1++, 1);
-			++v2;
-		} while (v1 < 41);
-	} else {
-		do {
-			*v2 = 0;
-			nox_xxx_playerAwardSpellProtectionCRC_56FCE0(*(uint32_t*)(a1 + 4640), v1++, 0);
-			++v2;
-		} while (v1 < 41);
-	}
-	nox_xxx_playerApplyProtectionCRC_56FD50(*(uint32_t*)(a1 + 4640), a1 + 4244, 41);
-}
-
-//----- (004EFE10) --------------------------------------------------------
-void nox_xxx_spellAwardAll3_4EFE10(nox_playerInfo* a1p) {
-	int a1 = a1p;
-	int v2;       // esi
-	uint32_t* v3; // ebx
-
-	if (!*(uint8_t*)(a1 + 2251)) {
-		v2 = 1;
-		v3 = (uint32_t*)(a1 + 3700);
-		if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ADMIN)) {
-			do {
-				*v3 = 5;
-				nox_xxx_playerAwardSpellProtectionCRC_56FCE0(*(uint32_t*)(a1 + 4636), v2++, 5);
-				++v3;
-			} while (v2 < 6);
-		} else {
-			do {
-				*v3 = 0;
-				nox_xxx_playerAwardSpellProtectionCRC_56FCE0(*(uint32_t*)(a1 + 4636), v2++, 0);
-				++v3;
-			} while (v2 < 6);
-		}
-	}
-}
-#endif // NOX_CGO
 
 //----- (004EFE80) --------------------------------------------------------
 char nox_xxx_unitInitPlayer_4EFE80(int a1) {
@@ -14034,32 +13835,6 @@ int nox_xxx_mapReadWriteObjData_4F4530(nox_object_t* a1p, int a2) {
 	}
 	return result;
 }
-
-#ifndef NOX_CGO
-//----- (004F49A0) --------------------------------------------------------
-int nox_xxx_XFerDefault_4F49A0(nox_object_t* a1p, void* a2) {
-	int a1 = a1p;
-	int* v1;    // esi
-	int v2;     // edi
-	int result; // eax
-
-	v1 = (int*)a1;
-	v2 = *(uint32_t*)(a1 + 136);
-	a1 = 60;
-	nox_xxx_fileReadWrite_426AC0_file3_fread(&a1, 2u);
-	if ((short)a1 > 60) {
-		return 0;
-	}
-	result = nox_xxx_mapReadWriteObjData_4F4530(v1, (short)a1);
-	if (result) {
-		if (!v1[34] || nox_xxx_cryptGetXxx() != 1 || (result = nox_xxx_xfer_4F3E30(a1, (int)v1, v1[34])) != 0) {
-			v1[34] = v2;
-			result = 1;
-		}
-	}
-	return result;
-}
-#endif // NOX_CGO
 
 //----- (004F4A20) --------------------------------------------------------
 int nox_xxx_XFerSpellPagePedistal_4F4A20(int a1) {

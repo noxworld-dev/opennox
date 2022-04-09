@@ -35,13 +35,10 @@ Linux nightly builds are also available in `edge` channel of our [Snap package](
 
 ### Linux
 - [Linux](./docs/build-linux.md)
-- [Linux (C only)](./docs/build-linux-legacy.md)
   
 ### Windows
 - [Windows](./docs/build-windows.md)
 - [Windows (on Linux)](./docs/build-windows-on-linux.md)
-- [Windows (C only, MinGW)](./docs/build-windows-legacy-mingw.md)
-- [Windows (C only, MSVC)](./docs/build-windows-legacy-msvc.md)
 
 ## Contributing
 Read [CONTRIBUTING](CONTRIBUTING.md)!

@@ -86,12 +86,8 @@ void nox_gui_draw();
 nox_window* nox_window_new(nox_window* a1, int flags, int a3, int a4, int w, int h, int (*fnc)(int, int, int, int));
 int sub_46C5D0();
 int nox_window_set_all_funcs(nox_window* win, int (*a2)(int, int, int, int), int (*draw)(nox_window*, void*), void* a4);
-#ifndef NOX_CGO
-int nox_window_call_field_94(nox_window* win, int a2, int a3, int a4);
-#else // NOX_CGO
 int nox_window_call_field_94_fnc(nox_window* win, int a2, int a3, int a4, char* file, int line);
 #define nox_window_call_field_94(win, a2, a3, a4) nox_window_call_field_94_fnc(win, a2, a3, a4, __FILE__, __LINE__)
-#endif // NOX_CGO
 int nox_window_call_field_93(nox_window* win, int a2, int a3, int a4);
 nox_window* nox_xxx_wndGetFocus_46B4F0();
 int nox_xxx_windowFocus_46B500(nox_window* win);

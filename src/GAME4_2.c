@@ -322,41 +322,6 @@ int sub_51DED0() {
 	return 1;
 }
 
-#ifndef NOX_CGO
-//----- (0051DF90) --------------------------------------------------------
-int nox_xxx_xfer_saveObj_51DF90(nox_object_t* a1p) {
-	int a1 = a1p;
-	int v1;     // esi
-	int v2;     // eax
-	int result; // eax
-	int i;      // esi
-
-	v1 = a1;
-	if (*(uint8_t*)(a1 + 16) & 0x20) {
-		return 1;
-	}
-	LOWORD(v2) = sub_42C2E0(*(unsigned short*)(a1 + 4));
-	a1 = v2;
-	if (!(uint16_t)v2) {
-		return 0;
-	}
-	nox_xxx_fileReadWrite_426AC0_file3_fread(&a1, 2u);
-	nox_xxx_crypt_426C90();
-	result = (*(int (**)(int, uint32_t))(v1 + 704))(v1, 0);
-	if (result) {
-		nox_xxx_crypt_426D40();
-		for (i = *(uint32_t*)(v1 + 504); i; i = *(uint32_t*)(i + 496)) {
-			nox_xxx_xfer_saveObj_51DF90(i);
-		}
-		return 1;
-	}
-	return result;
-}
-#endif // NOX_CGO
-// 51DFAA: variable 'v2' is possibly undefined
-// 51DFC3: variable 'v4' is possibly undefined
-// 51DFDA: variable 'v5' is possibly undefined
-
 //----- (0051E010) --------------------------------------------------------
 int nox_xxx_mapSaveMap_51E010(char* a1, int a2) {
 	char* v2;         // edi
@@ -12167,23 +12132,6 @@ int nox_xxx_castFear_52DF40(int a1, int a2, int a3, int a4, int* a5, char a6) {
 	nox_xxx_buffApplyTo_4FF380(*a5, 11, v7, a6);
 	return 1;
 }
-
-#ifndef NOX_CGO
-//----- (0052DF80) --------------------------------------------------------
-void nox_xxx_objectApplyForce_52DF80(float* vec, nox_object_t* obj, float force) {
-	if (nox_xxx_isObjectMovable_52E020(obj)) {
-		float dx = obj->x - vec[0];
-		float dy = obj->y - vec[1];
-		float r = sqrt((double)dy * dy + (double)dx * dx) + 0.1;
-		double f = 10.0 * force / nox_xxx_objectGetMass_4E4A70(obj);
-		obj->force_x += (double)dx * f / r;
-		obj->force_y += (double)dy * f / r;
-		if ((obj->obj_class & 0x1) == 0) {
-			nox_xxx_unitHasCollideOrUpdateFn_537610(obj);
-		}
-	}
-}
-#endif // NOX_CGO
 
 //----- (0052E020) --------------------------------------------------------
 unsigned int nox_xxx_isObjectMovable_52E020(int a1) {

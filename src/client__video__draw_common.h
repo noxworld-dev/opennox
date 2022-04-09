@@ -2,11 +2,6 @@
 #ifndef NOX_PORT_CLIENT_VIDEO_DRAW_COMMON_H
 #define NOX_PORT_CLIENT_VIDEO_DRAW_COMMON_H
 
-#ifdef __EMSCRIPTEN__
-#include <emscripten/emscripten.h>
-#include <emscripten/html5.h>
-#endif
-
 #include "GAME1.h"
 #include "GAME1_1.h"
 #include "GAME1_3.h"
@@ -50,12 +45,8 @@
 int nox_getBackbufWidth();
 int nox_getBackbufHeight();
 
-#ifndef NOX_CGO
-#include <SDL2/SDL.h>
-#else // NOX_CGO
 #define SDL_Surface void
 #define __m64 void
-#endif // NOX_CGO
 
 extern unsigned char byte_581450_9176[160];
 extern unsigned char byte_581450_9336[160];
@@ -82,11 +73,7 @@ extern void* nox_draw_colorTablesRev_3804668;
 extern uint32_t dword_5d4594_1193584;
 extern int nox_backbuffer_pitch_3801808;
 extern uint32_t cpuid_5d4594_3801804;
-#ifndef NOX_CGO
-extern void* (*nox_video_getImagePixdata_func)(nox_video_bag_image_t*);
-#else  // NOX_CGO
 void* nox_video_getImagePixdata_func(nox_video_bag_image_t*);
-#endif // NOX_CGO
 extern void* dword_5d4594_810640;
 extern uint32_t dword_5d4594_1193516;
 extern uint32_t nox_video_pixmode_3799624;
@@ -140,19 +127,7 @@ extern short (*dword_6F7C40)();
 extern short (*dword_6F7C34)();
 extern void (*dword_975240)(uint32_t, uint32_t*, uint32_t*, uint32_t*);
 extern int (*dword_975380)(uint32_t, uint32_t, uint32_t);
-#ifndef NOX_CGO
-extern void (*nox_color_rgb_func)(uint8_t, uint8_t, uint8_t, uint32_t*);
-#endif // NOX_CGO
 
-#ifndef NOX_CGO
-extern SDL_Surface* g_backbuffer1;
-extern SDL_Surface* g_cursor_surf_6F7C48;
-extern SDL_Surface* g_cursor_surf;
-extern unsigned int g_format;
-
-extern int g_rotate;
-extern int g_rotated;
-#endif // NOX_CGO
 extern SDL_Surface* g_surface_973C60;
 extern SDL_Surface* g_surface_973C88;
 
@@ -162,7 +137,7 @@ void nox_video_setGamma(float v);
 extern int nox_backbuffer_pitchDiff;
 extern int nox_backbuffer_width32;
 
-#endif
+#endif // IGNORE_EXTERNS
 
 enum {
 	DDSCAPS_OFFSCREENPLAIN = 1,
@@ -175,14 +150,6 @@ int nox_video_getFullScreen();
 void nox_video_setFullScreen(int v);
 int nox_video_getScaled();
 void nox_video_setScaled(int v);
-
-#ifndef NOX_CGO
-#ifdef USE_SDL
-SDL_Window* nox_video_getWindow_401FD0();
-#else  // !USE_SDL
-HWND nox_video_getWindow_401FD0();
-#endif // USE_SDL
-#endif // NOX_CGO
 
 #ifdef USE_SDL
 void change_windowed_fullscreen();
@@ -248,10 +215,6 @@ void nox_video_copyBackBuffer3_4AD1E0();
 void nox_video_copyBackBuffer_4AD2A0();
 int sub_4B0300(char* a1);
 void sub_4B05D0();
-#ifndef NOX_CGO
-void sub_4B0640(int (*a1)(void));
-#else // NOX_CGO
 void sub_4B0640(void* a1);
-#endif // NOX_CGO
 
 #endif // NOX_PORT_CLIENT_VIDEO_DRAW_COMMON_H

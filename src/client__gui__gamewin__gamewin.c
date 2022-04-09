@@ -9,21 +9,6 @@
 #include "common__strman.h"
 #include "operators.h"
 
-//----- (0046B000) --------------------------------------------------------
-#ifndef NOX_CGO
-void nox_xxx_wndWddSetTooltip_46B000(nox_window_data* data, wchar_t* str) {
-	if (!str) {
-		data->tooltip[0] = 0;
-		return;
-	}
-	if (nox_wcslen(str) >= 64) {
-		str = nox_strman_loadString_40F1D0("TooltipTooLong", 0, "C:\\NoxPost\\src\\Client\\Gui\\GameWin\\gamewin.c",
-										   1004);
-	}
-	nox_wcscpy(data->tooltip, str);
-}
-#endif // NOX_CGO
-
 //----- (0046C140) --------------------------------------------------------
 void nox_xxx_clientPickup_46C140(nox_drawable* a1p) {
 	int a1 = a1p;

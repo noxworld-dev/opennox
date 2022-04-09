@@ -133,10 +133,6 @@ int sub_4C3760() {
 			v9 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1321232, 981);
 			sub_46AEE0((int)v9, (int)getMemAt(0x5D4594, 1321256));
 			v10 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1321228, 932);
-#ifndef NOX_CGO
-			v11 = nox_strman_loadString_40F1D0("WindowDir:Back", 0, "C:\\NoxPost\\src\\client\\Gui\\GuiInput.c", 603);
-			sub_46AEE0((int)v10, (int)v11);
-#endif // NOX_CGO
 			nox_xxx_wnd_46ABB0((int)v10, 1);
 			nox_window_set_hidden(*(int*)&dword_5d4594_1321228, 1);
 			result = 1;

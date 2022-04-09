@@ -522,9 +522,6 @@ func drawGeneral_4B0340(a1 int) error {
 	sub_44D8F0()
 	for C.sub_43DC40() != 0 || sub_44D930() {
 		sub_4312C0()
-		//#ifdef __EMSCRIPTEN__
-		//nox_platform_sleep(0x32u);
-		//#endif
 	}
 	sub_43E8E0(0)
 	v12 := C.sub_48B3E0(0)

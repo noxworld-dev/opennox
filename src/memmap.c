@@ -55,16 +55,16 @@ void* mem_getPtrSize(uintptr_t base, uintptr_t off, uintptr_t size) {
 	abort();
 	return 0;
 }
-#else  // NOX_CGO
+#else  // NOX_CGO_MEMMAP
 void* mem_getPtrSize(uintptr_t base, uintptr_t off, uintptr_t size);
-#endif // NOX_CGO
+#endif // NOX_CGO_MEMMAP
 
 // defined in the header, emits the signature; we need an implementation now
 #undef MEM_FUNC_PTR
 
 #ifndef NOX_CGO_MEMMAP
 void* mem_getPtr(uintptr_t base, uintptr_t off) { return mem_getPtrSize(base, off, MEMLOG_UNK_SIZE); }
-#endif // NOX_CGO
+#endif // NOX_CGO_MEMMAP
 #define MEM_FUNC_PTR(T, NAME, SIZE)                                                                                    \
 	T* NAME(uintptr_t base, uintptr_t off) { return (T*)mem_getPtrSize(base, off, SIZE); }
 

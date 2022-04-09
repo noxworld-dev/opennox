@@ -78,12 +78,8 @@ extern uint32_t nox_player_netCode_85319C;
 extern unsigned int nox_gameFPS;
 extern unsigned int nox_frame_xxx_2598000;
 
-#ifdef NOX_CGO
 void noxOnCliPacketDebug(int op, unsigned char* data, int sz);
 int nox_client_getFadeDuration();
-#else  // NOX_CGO
-int nox_client_getFadeDuration() { return 25; }
-#endif // NOX_CGO
 
 //----- (0048EA70) --------------------------------------------------------
 int nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
@@ -486,9 +482,7 @@ int nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 		return 1;
 	}
 	while (data < end) {
-#ifdef NOX_CGO
 		unsigned char* old = data;
-#endif // NOX_CGO
 		int op = data[0];
 		switch (op) {
 		case 33:
@@ -572,9 +566,6 @@ int nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 				sub_49C7A0();
 				nox_xxx_guiServerOptionsHide_4597E0(0);
 				sub_44A400();
-#ifndef NOX_CGO
-				sub_413850();
-#endif // NOX_CGO
 			}
 			data += 41;
 			break;
@@ -3500,9 +3491,6 @@ int nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 				if (*(uint8_t*)(data + 1) == 1) {
 					if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
 						nox_gameDisableMapDraw_5d4594_2650672 = 0;
-#ifndef NOX_CGO
-						sub_42EE00();
-#endif // NOX_CGO
 						sub_413A00(1);
 						nox_client_screenFadeXxx_44DB30(nox_client_getFadeDuration(), *(uint8_t*)(data + 2) == 1,
 														sub_44E020);
@@ -3936,9 +3924,7 @@ int nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 		default:
 			return 0;
 		}
-#ifdef NOX_CGO
 		noxOnCliPacketDebug(op, old, data - old);
-#endif // NOX_CGO
 	}
 	return 1;
 }

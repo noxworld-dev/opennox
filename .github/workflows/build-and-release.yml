@@ -18,7 +18,7 @@ env:
   DOCKER_IMAGE_NAME: ghcr.io/noxworld-dev/opennox
 
 jobs:
-  snapcraft_linux_go:
+  snapcraft_linux:
     name: Go build for Snapcraft
     runs-on: 'ubuntu-20.04'
     if: startsWith(github.ref, 'refs/tags/v') || (github.ref == 'refs/heads/dev')
@@ -50,8 +50,8 @@ jobs:
           snap: ${{ steps.snapcraft.outputs.snap }}
           release: stable
 
-  hybrid_linux_go:
-    name: Go build on Linux Host
+  hybrid_linux:
+    name: Build on Linux Host
     runs-on: ['self-hosted', 'ubuntu-20.04']
     strategy:
       fail-fast: true
@@ -73,7 +73,7 @@ jobs:
         run: |
           sudo dpkg --add-architecture i386
           sudo apt-get update -m
-          sudo apt-get install -y build-essential ccache cmake gcc gcc-multilib libsdl2-dev libsdl2-dev:i386 libopenal-dev:i386 libsdl2-2.0-0:i386 libopenal1:i386
+          sudo apt-get install -y build-essential ccache gcc gcc-multilib libsdl2-dev libsdl2-dev:i386 libopenal-dev:i386 libsdl2-2.0-0:i386 libopenal1:i386
 
       - name: Check GCC version
         run: gcc -v
@@ -100,11 +100,11 @@ jobs:
           if-no-files-found: error
           retention-days: 1
 
-  docker_server_go:
+  docker_server:
     name: Docker server build
     runs-on: [ 'self-hosted', 'ubuntu-20.04' ]
     if: startsWith(github.ref, 'refs/tags/') || (github.ref == 'refs/heads/dev') || (github.ref == 'refs/heads/ci_tests')
-    needs: [hybrid_linux_go]
+    needs: [hybrid_linux]
     strategy:
       fail-fast: true
 
@@ -159,8 +159,8 @@ jobs:
           docker tag $DOCKER_IMAGE_NAME:tmp $DOCKER_IMAGE_NAME:latest
           docker push $DOCKER_IMAGE_NAME:latest
 
-  hybrid_linux_mingw_go:
-    name: Go Win build on Linux Host
+  hybrid_linux_mingw:
+    name: Win build on Linux Host
     runs-on: ['self-hosted', 'ubuntu-20.04']
     strategy:
       fail-fast: true
@@ -182,7 +182,7 @@ jobs:
         run: |
           sudo dpkg --add-architecture i386
           sudo apt-get update -m
-          sudo apt-get install -y build-essential curl rsync zip unzip ccache cmake gcc gcc-multilib gcc-mingw-w64 libsdl2-dev libsdl2-dev:i386 libopenal-dev:i386 libsdl2-2.0-0:i386 libopenal1:i386
+          sudo apt-get install -y build-essential curl rsync zip unzip ccache gcc gcc-multilib gcc-mingw-w64 libsdl2-dev libsdl2-dev:i386 libopenal-dev:i386 libsdl2-2.0-0:i386 libopenal1:i386
 
       - name: Check GCC version
         run: gcc -v
@@ -232,122 +232,11 @@ jobs:
           if-no-files-found: error
           retention-days: 1
 
-  hybrid_linux_gcc:
-    name: alpine-386-gcc-github on Linux Host
-    runs-on: ['self-hosted', 'ubuntu-20.04']
-    strategy:
-      fail-fast: true
-
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-          submodules: true
-
-      - name: Set up cache for ccache
-        uses: actions/cache@v2
-        with:
-          path: ccache
-          key: ccache-gcc-i386
-          restore-keys: |
-            ccache-gcc-
-            ccache-
-
-      - name: Build GCC
-        uses: docker://noxworld/alpine-386-gcc-github
-
-#      - name: Prepare the binary
-#        run: |
-#          cp ./build/out /tmp/nox
-#          tar -czf /tmp/nox-linux.tar.gz /tmp/nox
-#
-#      - name: Upload the binary
-#        uses: actions/upload-artifact@v2
-#        if: startsWith(github.ref, 'refs/tags/v')
-#        with:
-#          name: nox-linux
-#          path: /tmp/nox-linux.tar.gz
-#          if-no-files-found: error
-#          retention-days: 1
-
-  hybrid_linux_wasm:
-    name: alpine-wasm-github on Linux Host
-    runs-on: ['self-hosted', 'ubuntu-20.04']
-    strategy:
-      fail-fast: true
-
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-          submodules: true
-
-      - name: Set up cache for emcache
-        uses: actions/cache@v2
-        with:
-          path: emcache
-          key: emcache-emsdk-wasm
-          restore-keys: |
-            emcache-emsdk-
-            emcache-
-
-      - name: Build WASM
-        uses: docker://noxworld/alpine-wasm-github
-
-  windows_native_hosted:
-    name: MSVC on WinServer 2019 Host
-    runs-on: windows-2019
-    strategy:
-      fail-fast: true
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-          submodules: true
-
-      - uses: lukka/get-cmake@latest
-
-      - name: Restore artifacts, or run vcpkg, build and cache artifacts
-        uses: lukka/run-vcpkg@v5
-        id: runvcpkg
-        with:
-          vcpkgArguments: '@${{ github.workspace }}/vcpkg.txt'
-          vcpkgTriplet: x86-windows
-          vcpkgDirectory: '${{ github.workspace }}/vcpkg'
-          vcpkgGitCommitId: '6185aa76504a5025f36754324abf307cc776f3da'
-
-      - name: Run CMake+gmake
-        uses: lukka/run-cmake@v3
-        id: runcmake
-        with:
-          useVcpkgToolchainFile: true
-          cmakeGenerator: 'VS16Win32'
-          cmakeListsOrSettingsJson: 'CMakeListsTxtBasic'
-          cmakeListsTxtPath: '${{ github.workspace }}/src/CMakeLists.txt'
-          cmakeBuildType: 'Release'
-          buildWithCMakeArgs: '--config Release'
-          buildDirectory: '${{ runner.workspace }}/b/gmake/'
-
-      - name: Prepare the binary
-        run: |
-          move ${{ runner.workspace }}\b\gmake\Release\out.exe ${{ runner.workspace }}\b\gmake\Release\nox.exe
-
-      - name: Upload the binary
-        uses: actions/upload-artifact@v2
-        if: startsWith(github.ref, 'refs/tags/')
-        with:
-           name: nox-win
-           path: |
-             ${{ runner.workspace }}\b\gmake\Release\*.exe
-             ${{ runner.workspace }}\b\gmake\Release\*.dll
-           if-no-files-found: error
-           retention-days: 1
-
   release_repackage_linux:
     name: Repackage Linux release
     runs-on: ['self-hosted', 'ubuntu-20.04']
     if: startsWith(github.ref, 'refs/tags/')
-    needs: [hybrid_linux_go]
+    needs: [hybrid_linux]
     steps:
       - uses: actions/checkout@v2
         with:
@@ -397,7 +286,7 @@ jobs:
       name: Repackage Windows release
       runs-on: ['self-hosted', 'ubuntu-20.04']
       if: startsWith(github.ref, 'refs/tags/')
-      needs: [hybrid_linux_mingw_go, windows_native_hosted]
+      needs: [hybrid_linux_mingw]
       steps:
         - name: Install NSIS
           run: sudo apt-get install -y nsis
@@ -457,7 +346,7 @@ jobs:
               /tmp/opennox-win-release/OpenNox-*.exe
             if-no-files-found: error
 
-  github_release_go:
+  github_release:
     name: Github release
     runs-on: [ 'self-hosted', 'ubuntu-20.04' ]
     if: startsWith(github.ref, 'refs/tags/')

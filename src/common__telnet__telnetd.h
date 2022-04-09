@@ -1,10 +1,6 @@
 #ifndef NOX_PORT_COMMON_TELNET_TELNETD
 #define NOX_PORT_COMMON_TELNET_TELNETD
 
-#ifdef __EMSCRIPTEN__
-#include "defs.h"
-#endif // __EMSCRIPTEN__
-
 #include <stdbool.h>
 #include <stddef.h>
 

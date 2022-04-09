@@ -111,15 +111,8 @@ int nox_thing_read_IMAG_one_42F660(nox_memfile* f, char* buf);
 nox_video_bag_image_t* nox_xxx_readImgMB_42FAA0(int known_idx, char a2, char* a3);
 int sub_42FAD0();
 void* nox_video_getImagePixdata_42FB30(nox_video_bag_image_t* img);
-#ifdef NOX_CGO
 nox_things_imageRef_t* nox_xxx_gLoadAnim_42FA20(char* a1);
 nox_video_bag_image_t* nox_xxx_gLoadImg_42F970(char* name);
-#else
-nox_things_imageRef_t* nox_xxx_gLoadAnim_42FA20(const char* a1);
-nox_video_bag_image_t* nox_xxx_gLoadImg_42F970(const char* name);
-void nox_video_bagReadImage_42FE30(nox_video_bag_section_t* ent);
-void nox_video_bag_decodeImagesInSection_42FF90(nox_video_bag_section_t* ent);
-#endif // NOX_CGO
 int sub_42FFF0(FILE* a1);
 bool nox_video_bagexists_4300D0(int a1);
 const char* nox_video_getbagfilename(int is16bit);

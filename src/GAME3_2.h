@@ -26,11 +26,7 @@ int sub_4CFC90(int a1);
 int nox_xxx_serverParseEntireMap_4CFCE0();
 int sub_4CFDF0(int a1);
 int sub_4CFE00();
-#ifdef NOX_CGO
 int nox_common_checkMapFile_4CFE10(char* a1);
-#else // NOX_CGO
-int nox_common_checkMapFile_4CFE10(const char* a1);
-#endif // NOX_CGO
 int sub_4CFF50(int a1);
 int nox_xxx_mapGetTypeMB_4CFFA0(void* a1);
 int sub_4CFFC0(int a1);

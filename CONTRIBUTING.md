@@ -64,12 +64,8 @@ The code in the `master` branch should be compilable, runnable, (mostly) regress
 
 - Linux:
   - Go + GCC
-  - GCC
 - Windows:
   - Go + MinGW
-  - MinGW
-  - VS2017
-- WASM
 - (others may be added)
 
 ## Pull Request guidelines

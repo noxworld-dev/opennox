@@ -5,26 +5,6 @@
 #include "defs.h"
 #include "static_assert.h"
 
-#ifndef NOX_CGO
-
-#define NOX_KEYEVENT_MAX 137
-typedef struct nox_keybind_t {
-	const char* name;
-	unsigned int key;
-	const char* title_id;
-	const wchar_t* title;
-} nox_keybind_t;
-
-#define NOX_BINDEVENT_MAX 41
-typedef struct nox_bindevent_t {
-	const char* name;
-	unsigned int key;
-	const wchar_t* title;
-} nox_bindevent_t;
-
-void nox_xxx_bindevent_initStrings_42EAE0();
-#endif // NOX_CGO
-
 #define NOX_CTRLEVENT_KEYS_NUM 8
 typedef struct nox_ctrlevent_key_t nox_ctrlevent_key_t;
 typedef struct nox_ctrlevent_key_t {

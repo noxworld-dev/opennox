@@ -100,13 +100,8 @@ void sub_43DDA0();
 void nox_xxx_setContinueMenuOrHost_43DDD0(int v);
 void nox_xxx_setFrameLimit_43DDE0(int a1);
 int nox_return_1_43DE10();
-#ifdef NOX_CGO
 void nox_game_SetCliDrawFunc(void* a1);
 int sub_43DE40(void* a1);
-#else  // NOX_CGO
-void nox_game_SetCliDrawFunc(int (*fnc)(void));
-int sub_43DE40(int (*a1)(void));
-#endif // NOX_CGO
 void nox_game_exit_xxx_43DE60();
 uint32_t* nox_xxx_gui_43E1A0(int a1);
 int sub_43E200();
@@ -301,10 +296,6 @@ int sub_44BB20(const char* a1);
 
 int nox_xxx_setGameState_43DDF0(int (*a1)(void));
 void sub_446AD0(int (*fnc)(void));
-#ifndef NOX_CGO
-uint32_t* nox_xxx_dialogMsgBoxCreate_449A10(nox_window* win, wchar_t* a2, wchar_t* text, int a4, void (*a5)(void), void (*a6)(void));
-#else // NOX_CGO
 void* nox_xxx_dialogMsgBoxCreate_449A10(nox_window* win, wchar_t* a2, wchar_t* text, int a4, void* a5, void* a6);
-#endif // NOX_CGO
 
 #endif // NOX_PORT_GAME1_3

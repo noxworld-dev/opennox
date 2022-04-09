@@ -31,30 +31,8 @@ int sub_4738D0() {
 	return 1;
 }
 
-#ifdef NOX_CGO
 bool nox_xxx_saveMakeFolder_0_4DB1D0();
 bool nox_client_makeSaveMapDir_4DB5A0(char* a1, char* a2);
-#else // NOX_CGO
-//----- (004DB1D0) --------------------------------------------------------
-bool nox_xxx_saveMakeFolder_0_4DB1D0() {
-	char* v0;            // eax
-	char PathName[1024]; // [esp+0h] [ebp-400h]
-
-	v0 = nox_fs_root();
-	nox_sprintf(PathName, "%s\\Save", v0);
-	return nox_fs_mkdir(PathName);
-}
-
-//----- (004DB5A0) --------------------------------------------------------
-bool nox_client_makeSaveMapDir_4DB5A0(char* a1, char* a2) {
-	char* v2;            // eax
-	char PathName[1024]; // [esp+0h] [ebp-400h]
-
-	v2 = nox_fs_root();
-	nox_sprintf(PathName, "%s\\Save\\%s\\%s", v2, a1, a2);
-	return nox_fs_mkdir(PathName);
-}
-#endif // NOX_CGO
 
 //----- (004DB600) --------------------------------------------------------
 int nox_xxx_saveMakePlayerLocation_4DB600(int a1) {

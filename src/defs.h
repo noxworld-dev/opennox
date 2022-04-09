@@ -329,33 +329,8 @@ typedef struct struc_36 {
 } struc_36;
 _Static_assert(sizeof(struc_36) == 28, "wrong size of struc_36 structure!");
 
-#ifndef NOX_CGO
-typedef struct {
-	char* data;            // 0, 0
-	uint32_t field_1;      // 1, 4
-	unsigned int bag_offs; // 2, 8
-	int size;              // 3, 12; sizeof decompressed data
-	int size_comp;         // 4, 16; sizeof compressed data
-	uint32_t field_5;      // 5, 20
-	int field_6;
-	void* field_7;
-	void* field_8;
-} nox_video_bag_section_t;
-_Static_assert(sizeof(nox_video_bag_section_t) == 36, "wrong size of nox_video_bag_section_t structure!");
-
-typedef struct nox_video_bag_image_t {
-	int offset;         // 0, 0
-	uint16_t field_1_0; // 1, 4
-	uint16_t field_1_1; // 1, 6
-	uint16_t sect_ind;  // 2, 8
-	uint16_t typ;       // 2, 10
-} nox_video_bag_image_t;
-_Static_assert(sizeof(nox_video_bag_image_t) == 12, "wrong size of nox_video_bag_image_t structure!");
-static int nox_video_bag_image_type(nox_video_bag_image_t* img) { return img->typ; }
-#else  // NOX_CGO
 typedef struct nox_video_bag_image_t nox_video_bag_image_t;
 int nox_video_bag_image_type(nox_video_bag_image_t* img);
-#endif // NOX_CGO
 
 typedef struct nox_thing nox_thing;
 typedef struct nox_drawable nox_drawable;

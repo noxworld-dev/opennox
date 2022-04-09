@@ -577,7 +577,6 @@ func cleanup() {
 	C.nox_common_maplist_free_4D0970()
 	nox_binfile_disable_409560()
 	C.sub_40AF30()
-	//C.sub_48B1B0() // does nothing on SDL
 	C.nox_free_thing_bin()
 	ail.Shutdown()
 }

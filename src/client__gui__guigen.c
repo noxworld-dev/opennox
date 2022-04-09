@@ -58,12 +58,6 @@ short nox_xxx_mapGenClientText_4A9D00(unsigned char* a1) {
 	if (++*getMemU32Ptr(0x5D4594, 1309672) >= 32) {
 		*getMemU32Ptr(0x5D4594, 1309672) = 0;
 	}
-#ifndef NOX_CGO
-	nox_xxx_directDrawBlitMB_48A220();
-#endif // NOX_CGO
 	nox_video_callCopyBackBuffer_4AD170();
-#ifndef NOX_CGO
-	sub_48A290_call_present();
-#endif // NOX_CGO
 	return v2;
 }
