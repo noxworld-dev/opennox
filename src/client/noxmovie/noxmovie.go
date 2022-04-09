@@ -174,7 +174,6 @@ func (player *MoviePlayer) Play() {
 		return
 	}
 	alSrc := openal.Source(*audioSrc)
-	alSrc.SetLooping(false)
 	alSrc.SetPosition(&openal.Vector{0, 0, 0})
 	alSrc.SetGain(1)
 
@@ -203,21 +202,21 @@ func (player *MoviePlayer) Play() {
 				close(framesChan)
 				return
 			case newFrame, ok := <-player.queue:
+				if processedCount := alSrc.BuffersProcessed(); processedCount > 0 {
+					buffersProcessed := make(openal.Buffers, processedCount)
+					alSrc.UnqueueBuffers(buffersProcessed)
+					audioBuffers = append(audioBuffers, buffersProcessed...)
+					for i := 0; i < len(buffersProcessed); i++ {
+						b := audioBuffers[i]
+						samples := b.GetSize() / ((b.GetBits() / 8) * b.GetChannels())
+						finishedSamples += int(samples)
+					}
+				}
+
 				if !ok {
 					// If we end up here, means the whole file is already decoded
 					// we have nothing left in buffers
 					// Time to finish the playback
-					// First we unqueue all processed buffers for accurate position counting
-					if processedCount := alSrc.BuffersProcessed(); processedCount > 0 {
-						buffersProcessed := make(openal.Buffers, processedCount)
-						alSrc.UnqueueBuffers(buffersProcessed)
-						audioBuffers = append(audioBuffers, buffersProcessed...)
-						for i := 0; i < len(buffersProcessed); i++ {
-							b := audioBuffers[i]
-							samples := b.GetSize() / ((b.GetBits() / 8) * b.GetChannels())
-							finishedSamples += int(samples)
-						}
-					}
 
 					// Let's notify the main thread that the buffer is "done":
 					close(framesChan)
@@ -239,6 +238,7 @@ func (player *MoviePlayer) Play() {
 				alSrc.QueueBuffer(buffer)
 				if alSrc.State() != openal.Playing {
 					alSrc.Play()
+					alSrc.SetLooping(false)
 				}
 				framesChan <- newFrame
 				break
