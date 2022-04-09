@@ -1,4 +1,4 @@
-package nox
+package opennox
 
 import (
 	"math/rand"

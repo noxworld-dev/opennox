@@ -1,4 +1,4 @@
-package nox
+package opennox
 
 /*
 #include "GAME1.h"
@@ -45,6 +45,7 @@ import (
 	"errors"
 	"flag"
 	"fmt"
+	"image"
 	"net/http"
 	_ "net/http/pprof"
 	"os"
@@ -57,17 +58,17 @@ import (
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/spf13/viper"
 
-	"nox/v1/client/audio/ail"
-	"nox/v1/common"
-	"nox/v1/common/alloc/handles"
-	"nox/v1/common/datapath"
-	"nox/v1/common/env"
-	noxflags "nox/v1/common/flags"
-	"nox/v1/common/keybind"
-	"nox/v1/common/log"
-	"nox/v1/common/memmap"
-	"nox/v1/common/types"
-	"nox/v1/internal/version"
+	"github.com/noxworld-dev/opennox-lib/client/keybind"
+	"github.com/noxworld-dev/opennox-lib/common"
+	"github.com/noxworld-dev/opennox-lib/datapath"
+	"github.com/noxworld-dev/opennox-lib/env"
+	"github.com/noxworld-dev/opennox-lib/log"
+
+	"github.com/noxworld-dev/opennox/v1/client/audio/ail"
+	"github.com/noxworld-dev/opennox/v1/common/alloc/handles"
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
+	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/internal/version"
 )
 
 func init() {
@@ -253,7 +254,7 @@ func RunArgs(args []string) (gerr error) {
 		return fmt.Errorf("failed to load strings file: %w", err)
 	}
 	if !*fServer && !*fNoDraw {
-		err := InitSeat(types.Size{W: noxDefaultWidth, H: noxDefaultHeight})
+		err := InitSeat(image.Point{X: noxDefaultWidth, Y: noxDefaultHeight})
 		if err != nil {
 			return err
 		}
@@ -344,9 +345,9 @@ func RunArgs(args []string) (gerr error) {
 		C.nox_video_dxUnlockSurface = 1
 		*memmap.PtrUint32(0x5D4594, 805840) = 1
 		C.nox_enable_threads = 0
-		mode := types.Size{
-			W: noxDefaultWidth,
-			H: noxDefaultHeight,
+		mode := image.Point{
+			X: noxDefaultWidth,
+			Y: noxDefaultHeight,
 		}
 		videoSetGameMode(mode)
 		videoSetMenuMode(mode)
@@ -408,11 +409,11 @@ func RunArgs(args []string) (gerr error) {
 		return fmt.Errorf("failed to load config file")
 	}
 	if env.IsE2E() {
-		videoSetGameMode(types.Size{W: 1024, H: 768})
+		videoSetGameMode(image.Point{X: 1024, Y: 768})
 	} else {
-		videoSetGameMode(types.Size{
-			W: viper.GetInt(configVideoWidth),
-			H: viper.GetInt(configVideoHeight),
+		videoSetGameMode(image.Point{
+			X: viper.GetInt(configVideoWidth),
+			Y: viper.GetInt(configVideoHeight),
 		})
 	}
 	if err := gameexReadConfig("game_ex.cfg"); err != nil {
@@ -425,7 +426,7 @@ func RunArgs(args []string) (gerr error) {
 	initConsole(strMan)
 	C.sub_4D11A0()
 	if !isDedicatedServer {
-		videoResizeView(types.Size{})
+		videoResizeView(image.Point{})
 		if err := gameResetVideoMode(true, true); err != nil {
 			return fmt.Errorf("failed to update video mode: %w", err)
 		}
@@ -514,17 +515,17 @@ func nox_xxx_getNoxVer_401020() *C.wchar_t {
 func nox_xxx_gameGetScreenBoundaries_43BEB0_get_video_mode(w, h, d *C.int) {
 	mode := videoGetGameMode()
 	if w != nil {
-		*w = C.int(mode.W)
+		*w = C.int(mode.X)
 	}
 	if h != nil {
-		*h = C.int(mode.H)
+		*h = C.int(mode.Y)
 	}
 	if d != nil {
 		*d = 16
 	}
 }
 
-func videoUpdateGameMode(mode types.Size) {
+func videoUpdateGameMode(mode image.Point) {
 	videoSetGameMode(mode)
 	changeWindowedOrFullscreen()
 }

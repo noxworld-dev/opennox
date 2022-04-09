@@ -1,14 +1,14 @@
 //go:build windows && !server
 // +build windows,!server
 
-package nox
+package opennox
 
 import (
 	glog "log"
 	"os"
 	"syscall"
 
-	"nox/v1/common/log"
+	"github.com/noxworld-dev/opennox-lib/log"
 )
 
 func init() {

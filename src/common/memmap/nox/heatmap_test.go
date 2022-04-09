@@ -1,4 +1,4 @@
-package nox
+package opennox
 
 import (
 	"fmt"
@@ -9,7 +9,7 @@ import (
 	"os"
 	"testing"
 
-	"nox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
 func TestHeatMaps(t *testing.T) {

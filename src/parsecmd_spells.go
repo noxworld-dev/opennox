@@ -1,10 +1,11 @@
-package nox
+package opennox
 
 import (
 	"context"
 
-	"nox/v1/common/console"
-	"nox/v1/common/things"
+	"github.com/noxworld-dev/opennox-lib/things"
+
+	"github.com/noxworld-dev/opennox-lib/console"
 )
 
 func init() {

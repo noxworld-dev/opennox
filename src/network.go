@@ -1,4 +1,4 @@
-package nox
+package opennox
 
 /*
 #include "defs.h"
@@ -53,14 +53,14 @@ import (
 	"unsafe"
 
 	"github.com/noxworld-dev/nat"
+	"github.com/noxworld-dev/opennox-lib/log"
+	"github.com/noxworld-dev/opennox-lib/noxnet"
+	"github.com/noxworld-dev/opennox-lib/platform"
+	"github.com/noxworld-dev/opennox-lib/things"
 
-	"nox/v1/common/alloc"
-	"nox/v1/common/log"
-	"nox/v1/common/memmap"
-	"nox/v1/common/noxnet"
-	"nox/v1/common/platform"
-	"nox/v1/common/serial"
-	"nox/v1/common/things"
+	"github.com/noxworld-dev/opennox/v1/common/alloc"
+	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/common/serial"
 )
 
 const (

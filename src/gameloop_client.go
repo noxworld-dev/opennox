@@ -1,7 +1,7 @@
 //go:build !server
 // +build !server
 
-package nox
+package opennox
 
 /*
 #include "GAME1.h"
@@ -22,18 +22,19 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"image"
 	"math"
 	"strings"
 	"unsafe"
 
-	"nox/v1/client/input"
-	"nox/v1/client/seat"
-	"nox/v1/common/alloc"
-	"nox/v1/common/datapath"
-	noxflags "nox/v1/common/flags"
-	"nox/v1/common/maps"
-	"nox/v1/common/memmap"
-	"nox/v1/common/types"
+	"github.com/noxworld-dev/opennox-lib/client/seat"
+	"github.com/noxworld-dev/opennox-lib/datapath"
+	"github.com/noxworld-dev/opennox-lib/maps"
+
+	"github.com/noxworld-dev/opennox/v1/client/input"
+	"github.com/noxworld-dev/opennox/v1/common/alloc"
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
+	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
 func drawAndPresent() {
@@ -183,10 +184,10 @@ func DrawSparks() {
 		rdr := (*C.nox_draw_viewport_t)(rdrP)
 		rdr.x1 = 0
 		rdr.y1 = 0
-		rdr.x2 = C.int(sz.W)
-		rdr.y2 = C.int(sz.H)
-		rdr.width = C.int(sz.W)
-		rdr.height = C.int(sz.H)
+		rdr.x2 = C.int(sz.X)
+		rdr.y2 = C.int(sz.Y)
+		rdr.width = C.int(sz.X)
+		rdr.height = C.int(sz.Y)
 		C.nox_client_screenParticlesDraw_431720(rdr)
 	} else {
 		vp := getViewport()
@@ -235,7 +236,7 @@ func generateMouseSparks(inp *input.Handler) {
 			for i := explosionSparks; i > 0; i-- {
 				v12 := randomIntMinMax(0, 255)
 				v13 := randomIntMinMax(6, 12)
-				pos := sincosTable16[v12].Mul(v13).Div(16).Add(types.Point{Y: -6})
+				pos := sincosTable16[v12].Mul(v13).Div(16).Add(image.Point{Y: -6})
 				v24 := randomIntMinMax(2, 5)
 				v16 := randomIntMinMax(2, 5)
 				C.nox_client_newScreenParticle_431540(4, C.int(pos.X+mpos.X), C.int(pos.Y+mpos.Y), C.int(pos.X), C.int(pos.Y), 1, C.char(v16), C.char(v24), 2, 1)

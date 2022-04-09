@@ -1,11 +1,11 @@
-package nox
+package opennox
 
 import "C"
 import (
+	"image"
 	"unsafe"
 
-	"nox/v1/client/gui"
-	"nox/v1/common/types"
+	"github.com/noxworld-dev/opennox/v1/client/gui"
 )
 
 const cursorSize = 64
@@ -15,7 +15,7 @@ var (
 	nox_xxx_cursorTypePrev_587000_151528 = gui.Cursor17
 	dword_5d4594_3798728                 bool
 	dword_5d4594_1097208                 int
-	dword_5d4594_1097212                 types.Point
+	dword_5d4594_1097212                 image.Point
 )
 
 func nox_client_setCursorType(v gui.Cursor) {
@@ -68,7 +68,7 @@ func getCursorAnimFrame(ref *noxImageRef, dt int) *Image { // sub_4BE640
 	}
 }
 
-func (r *NoxRender) sub_4BE710(ref *noxImageRef, pos types.Point, ind int) {
+func (r *NoxRender) sub_4BE710(ref *noxImageRef, pos image.Point, ind int) {
 	anim := ref.field24ptr()
 	imgs := anim.Images()
 	img := asImage(imgs[ind])

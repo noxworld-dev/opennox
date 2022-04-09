@@ -1,4 +1,4 @@
-package nox
+package opennox
 
 /*
 extern unsigned char byte_581450[23472];
@@ -16,8 +16,8 @@ import "C"
 import (
 	"unsafe"
 
-	"nox/v1/common/memmap"
-	_ "nox/v1/common/memmap/nox"
+	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	_ "github.com/noxworld-dev/opennox/v1/common/memmap/nox"
 )
 
 func init() {

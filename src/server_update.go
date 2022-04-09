@@ -1,4 +1,4 @@
-package nox
+package opennox
 
 /*
 #include "defs.h"
@@ -10,8 +10,8 @@ nox_object_t* nox_xxx_findObjectAtCursor_54AF40(nox_object_t* a1);
 */
 import "C"
 import (
-	"nox/v1/common/object"
-	"nox/v1/common/types"
+	"github.com/noxworld-dev/opennox-lib/object"
+	"github.com/noxworld-dev/opennox-lib/types"
 )
 
 func (s *Server) updateUnitsAAA() { // nox_xxx_updateUnits_51B100_A

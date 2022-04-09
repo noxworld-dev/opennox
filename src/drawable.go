@@ -1,4 +1,4 @@
-package nox
+package opennox
 
 /*
 #include "defs.h"
@@ -15,8 +15,6 @@ import "C"
 import (
 	"image"
 	"unsafe"
-
-	"nox/v1/common/types"
 )
 
 var (
@@ -57,21 +55,21 @@ func (s *Drawable) Ext() *drawableExt {
 	return p
 }
 
-func (s *Drawable) Pos() types.Point {
-	return types.Point{
+func (s *Drawable) Pos() image.Point {
+	return image.Point{
 		X: int(s.pos.x),
 		Y: int(s.pos.y),
 	}
 }
 
-func (s *Drawable) Point8() types.Point {
-	return types.Point{
+func (s *Drawable) Point8() image.Point {
+	return image.Point{
 		X: int(s.field_8),
 		Y: int(s.field_9),
 	}
 }
 
-func (s *Drawable) SetPos(p types.Point) {
+func (s *Drawable) SetPos(p image.Point) {
 	s.pos.x = C.int(p.X)
 	s.pos.y = C.int(p.Y)
 }
@@ -231,10 +229,10 @@ func nox_xxx_forEachSprite(rect image.Rectangle, fnc func(dr *Drawable)) {
 
 //export nox_drawable_find_49ABF0
 func nox_drawable_find_49ABF0(pt *C.nox_point, r C.int) *C.nox_drawable {
-	return nox_drawable_find(types.Point{X: int(pt.x), Y: int(pt.y)}, int(r)).C()
+	return nox_drawable_find(image.Point{X: int(pt.x), Y: int(pt.y)}, int(r)).C()
 }
 
-func nox_drawable_find(pt types.Point, r int) *Drawable {
+func nox_drawable_find(pt image.Point, r int) *Drawable {
 	xs := (pt.X - r) / nox_drawable_2d_div
 	if xs < 0 {
 		xs = 0

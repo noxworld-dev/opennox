@@ -1,11 +1,12 @@
-package nox
+package opennox
 
 import (
+	"image"
 	"unsafe"
 
-	"nox/v1/client/input"
-	"nox/v1/common/keybind"
-	"nox/v1/common/types"
+	"github.com/noxworld-dev/opennox-lib/client/keybind"
+
+	"github.com/noxworld-dev/opennox/v1/client/input"
 )
 
 var (
@@ -148,14 +149,14 @@ func asWindowEvent(ev int, a1, a2 uintptr) WindowEvent {
 		}
 		sx := uint16(a1 >> 0)
 		sy := uint16(a1 >> 16)
-		pos := types.Point{X: int(sx), Y: int(sy)}
+		pos := image.Point{X: int(sx), Y: int(sy)}
 		return &WindowMouseState{State: input.MouseStateCode(ev), Pos: pos}
 	}
 	switch ev {
 	case 17, 18:
 		sx := uint16(a1 >> 0)
 		sy := uint16(a1 >> 16)
-		pos := types.Point{X: int(sx), Y: int(sy)}
+		pos := image.Point{X: int(sx), Y: int(sy)}
 		return &WindowMouseUnk{Event: ev, Pos: pos}
 	}
 	return &RawEvent{Event: ev, Arg1: a1, Arg2: a2}
@@ -197,7 +198,7 @@ var _ WindowEvent = &WindowMouseState{}
 
 type WindowMouseState struct {
 	State input.MouseStateCode
-	Pos   types.Point
+	Pos   image.Point
 }
 
 func (ev *WindowMouseState) EventCode() int { return int(ev.State) }
@@ -212,7 +213,7 @@ var _ WindowEvent = &WindowMouseUnk{}
 
 type WindowMouseUnk struct {
 	Event int
-	Pos   types.Point
+	Pos   image.Point
 }
 
 func (ev *WindowMouseUnk) EventCode() int { return ev.Event }

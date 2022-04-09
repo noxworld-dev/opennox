@@ -1,4 +1,4 @@
-package nox
+package opennox
 
 /*
 #include "GAME1.h"
@@ -7,19 +7,20 @@ package nox
 import "C"
 import (
 	"fmt"
+	"image"
 	"sort"
 	"unsafe"
 
-	"nox/v1/common/types"
-	"nox/v1/common/wall"
-	"nox/v1/server/script"
+	"github.com/noxworld-dev/opennox-lib/script"
+	"github.com/noxworld-dev/opennox-lib/types"
+	"github.com/noxworld-dev/opennox-lib/wall"
 )
 
 func asWall(p unsafe.Pointer) *Wall {
 	return (*Wall)(p)
 }
 
-func (s *Server) getWallAtGrid(pos types.Point) *Wall {
+func (s *Server) getWallAtGrid(pos image.Point) *Wall {
 	p := C.nox_server_getWallAtGrid_410580(C.int(pos.X), C.int(pos.Y))
 	return asWall(p)
 }
@@ -34,7 +35,7 @@ func (s *Server) getWallNear(pos types.Pointf) *Wall {
 	}
 	// TODO: a better way
 	pi := wall.PosToGrid(pos)
-	try := []types.Point{
+	try := []image.Point{
 		{X: pi.X + 1, Y: pi.Y},
 		{X: pi.X - 1, Y: pi.Y},
 		{X: pi.X, Y: pi.Y + 1},
@@ -68,7 +69,7 @@ func (s *Server) getWallGroupByID(id string) *script.WallGroup {
 	var list []script.Wall
 	for wp := g.FirstItem(); wp != nil; wp = wp.Next() {
 		p := wp.Payload()
-		if wl := s.getWallAtGrid(types.Point{
+		if wl := s.getWallAtGrid(image.Point{
 			X: int(*(*C.int)(unsafe.Add(p, 0))),
 			Y: int(*(*C.int)(unsafe.Add(p, 4))),
 		}); wl != nil {
@@ -101,10 +102,10 @@ func (w *Wall) field4() byte {
 	return *(*byte)(w.field(4))
 }
 
-func (w *Wall) GridPos() types.Point {
+func (w *Wall) GridPos() image.Point {
 	x := int(*(*byte)(w.field(5)))
 	y := int(*(*byte)(w.field(6)))
-	return types.Point{
+	return image.Point{
 		X: x,
 		Y: y,
 	}

@@ -1,4 +1,4 @@
-package nox
+package opennox
 
 /*
 static int go_call_int_void_func(int (*fnc)(void)) { return fnc(); }

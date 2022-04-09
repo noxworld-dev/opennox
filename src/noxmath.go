@@ -1,9 +1,9 @@
-package nox
+package opennox
 
 import (
 	"math"
 
-	"nox/v1/common/types"
+	"github.com/noxworld-dev/opennox-lib/types"
 )
 
 func nox_xxx_math_509ED0(p types.Pointf) int32 {

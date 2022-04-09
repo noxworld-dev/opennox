@@ -1,12 +1,14 @@
-package nox
+package opennox
 
 import (
 	"context"
 	"strconv"
 
-	"nox/v1/common/console"
-	noxflags "nox/v1/common/flags"
-	"nox/v1/common/types"
+	"github.com/noxworld-dev/opennox-lib/types"
+
+	"github.com/noxworld-dev/opennox-lib/console"
+
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 )
 
 func init() {

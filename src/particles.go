@@ -1,4 +1,4 @@
-package nox
+package opennox
 
 /*
 #include "defs.h"
@@ -8,12 +8,12 @@ package nox
 import "C"
 import (
 	"encoding/binary"
+	"image"
 	"math"
 	"unsafe"
 
-	"nox/v1/common/alloc"
-	"nox/v1/common/alloc/handles"
-	"nox/v1/common/types"
+	"github.com/noxworld-dev/opennox/v1/common/alloc"
+	"github.com/noxworld-dev/opennox/v1/common/alloc/handles"
 )
 
 func (r *NoxRender) initParticles() {
@@ -185,7 +185,7 @@ func (p *Particle) genImage() {
 	}
 }
 
-func (p *Particle) DrawAt(pos types.Point) {
+func (p *Particle) DrawAt(pos image.Point) {
 	p.r.DrawImageAt(p.img, pos)
 }
 
@@ -194,7 +194,7 @@ func sub_4B6720(a1 *C.int2, a2, a3 C.int, a4 C.char) {
 	noxrend.DrawGlow(asPoint(unsafe.Pointer(a1)), uint32(a2), int(a3), int(a4))
 }
 
-func (r *NoxRender) DrawGlow(pos types.Point, cl uint32, a3 int, a4 int) { // sub_4B6720
+func (r *NoxRender) DrawGlow(pos image.Point, cl uint32, a3 int, a4 int) { // sub_4B6720
 	if !r.shouldDrawGlow() {
 		return
 	}
@@ -204,7 +204,7 @@ func (r *NoxRender) DrawGlow(pos types.Point, cl uint32, a3 int, a4 int) { // su
 	p.DrawAt(pos)
 }
 
-func (r *NoxRender) drawProtectEffectDefault(vp *Viewport, pos types.Point, dr *Drawable, phase, eff int, cl1, cl2 uint32, back bool) { // nox_client_drawXxxProtect_474BE0
+func (r *NoxRender) drawProtectEffectDefault(vp *Viewport, pos image.Point, dr *Drawable, phase, eff int, cl1, cl2 uint32, back bool) { // nox_client_drawXxxProtect_474BE0
 	opts := ProtectEffect{
 		Cnt:       2,
 		Height:    20,
@@ -249,7 +249,7 @@ func intAngle(val, min, max int) int {
 	return val
 }
 
-func (r *NoxRender) drawProtectEffect(vp *Viewport, pos types.Point, dr *Drawable, opts ProtectEffect, back bool) { // nox_client_drawXxxProtect
+func (r *NoxRender) drawProtectEffect(vp *Viewport, pos image.Point, dr *Drawable, opts ProtectEffect, back bool) { // nox_client_drawXxxProtect
 	frame := r.Frame()
 	phi := opts.Phase + opts.Speed*int(byte(frame)+*(*byte)(dr.field(128)))
 	for i := 0; i < opts.Cnt; i++ {
@@ -262,7 +262,7 @@ func (r *NoxRender) drawProtectEffect(vp *Viewport, pos types.Point, dr *Drawabl
 		ph2 = intAngle(ph2, 0, 256)
 
 		rad := opts.Radius
-		part := types.Point{
+		part := image.Point{
 			X: int(2 * rad * float32(sincosTable16[ph1].X)),
 			Y: int(2 * rad * float32(sincosTable16[ph1].Y)),
 		}
@@ -276,7 +276,7 @@ func (r *NoxRender) drawProtectEffect(vp *Viewport, pos types.Point, dr *Drawabl
 		if !draw {
 			continue
 		}
-		tail := types.Point{
+		tail := image.Point{
 			X: int(2 * rad * float32(sincosTable16[ph2].X)),
 			Y: int(2 * rad * float32(sincosTable16[ph2].Y)),
 		}
@@ -291,7 +291,7 @@ func (r *NoxRender) drawProtectEffect(vp *Viewport, pos types.Point, dr *Drawabl
 	}
 }
 
-func (r *NoxRender) drawProtectParticle(vp *Viewport, part, tail types.Point, partCl, tailCl uint32) { // nox_client_drawXxxProtectParticle_474DD0
+func (r *NoxRender) drawProtectParticle(vp *Viewport, part, tail image.Point, partCl, tailCl uint32) { // nox_client_drawXxxProtectParticle_474DD0
 	part = vp.toScreenPos(part)
 	tail = vp.toScreenPos(tail)
 
@@ -304,7 +304,7 @@ func (r *NoxRender) drawProtectParticle(vp *Viewport, part, tail types.Point, pa
 }
 
 // sincosTable16 assumes circle radius of 16, and expects an angle in range [0,256).
-var sincosTable16 = []types.Point{
+var sincosTable16 = []image.Point{
 	{16, 0}, {16, 0}, {16, 1}, {16, 1}, {16, 2}, {16, 2}, {16, 2}, {16, 3},
 	{16, 3}, {16, 4}, {16, 4}, {15, 4}, {15, 5}, {15, 5}, {15, 5}, {15, 6},
 	{15, 6}, {15, 6}, {14, 7}, {14, 7}, {14, 8}, {14, 8}, {14, 8}, {14, 9},

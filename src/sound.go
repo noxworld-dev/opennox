@@ -1,4 +1,4 @@
-package nox
+package opennox
 
 /*
 void nox_xxx_clientPlaySoundSpecial_452D80(int a1, int a2);

@@ -1,4 +1,4 @@
-package nox
+package opennox
 
 /*
 #include <stdint.h>
@@ -16,11 +16,12 @@ import (
 	"golang.org/x/image/font"
 	"golang.org/x/image/font/opentype"
 
-	"nox/v1/client/noxfont"
-	"nox/v1/common/alloc/handles"
-	"nox/v1/common/datapath"
-	"nox/v1/common/fs"
-	"nox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox-lib/datapath"
+	"github.com/noxworld-dev/opennox-lib/ifs"
+	"github.com/noxworld-dev/opennox-lib/noxfont"
+
+	"github.com/noxworld-dev/opennox/v1/common/alloc/handles"
+	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
 type fontFile struct {
@@ -88,9 +89,9 @@ func nox_xxx_FontDestroy_43F2E0() {
 }
 
 func loadFont(path string, size int) (font.Face, error) {
-	f, err := fs.Open(path + ".ttf")
+	f, err := ifs.Open(path + ".ttf")
 	if os.IsNotExist(err) {
-		f, err = fs.Open(path + ".otf")
+		f, err = ifs.Open(path + ".otf")
 	}
 	if err == nil {
 		fnt, err := opentype.ParseReaderAt(f)
@@ -109,7 +110,7 @@ func loadFont(path string, size int) (font.Face, error) {
 		// not closing the file, since it's still used by the font
 		return face, nil
 	}
-	f, err = fs.Open(path + noxfont.Ext)
+	f, err = ifs.Open(path + noxfont.Ext)
 	if err != nil {
 		return nil, err
 	}

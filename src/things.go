@@ -1,4 +1,4 @@
-package nox
+package opennox
 
 /*
 #include "memfile.h"
@@ -16,11 +16,12 @@ import (
 	"io"
 	"unsafe"
 
-	"nox/v1/common/alloc"
-	"nox/v1/common/crypt"
-	noxflags "nox/v1/common/flags"
-	"nox/v1/common/log"
-	"nox/v1/common/things"
+	"github.com/noxworld-dev/noxcrypt"
+	"github.com/noxworld-dev/opennox-lib/log"
+	"github.com/noxworld-dev/opennox-lib/things"
+
+	"github.com/noxworld-dev/opennox/v1/common/alloc"
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 )
 
 var (

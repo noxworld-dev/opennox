@@ -1,4 +1,4 @@
-package nox
+package opennox
 
 import (
 	"bufio"
@@ -19,10 +19,12 @@ import (
 
 	"golang.org/x/crypto/ssh"
 
-	"nox/v1/common/console"
-	"nox/v1/common/datapath"
-	"nox/v1/common/log"
-	"nox/v1/internal/version"
+	"github.com/noxworld-dev/opennox-lib/datapath"
+	"github.com/noxworld-dev/opennox-lib/log"
+
+	"github.com/noxworld-dev/opennox-lib/console"
+
+	"github.com/noxworld-dev/opennox/v1/internal/version"
 )
 
 const (

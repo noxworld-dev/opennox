@@ -3,7 +3,7 @@ package blobdata
 import (
 	_ "embed"
 
-	"nox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
 //go:embed blob_581450.dat

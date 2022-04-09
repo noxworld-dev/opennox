@@ -1,4 +1,4 @@
-package nox
+package opennox
 
 import (
 	"context"
@@ -8,9 +8,10 @@ import (
 	"os"
 	"sync/atomic"
 
-	"nox/v1/common/console"
-	"nox/v1/common/datapath"
-	"nox/v1/common/log"
+	"github.com/noxworld-dev/opennox-lib/datapath"
+	"github.com/noxworld-dev/opennox-lib/log"
+
+	"github.com/noxworld-dev/opennox-lib/console"
 )
 
 func init() {

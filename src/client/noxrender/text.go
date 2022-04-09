@@ -7,8 +7,7 @@ import (
 	"golang.org/x/image/font"
 	"golang.org/x/image/math/fixed"
 
-	noxcolor "nox/v1/common/color"
-	"nox/v1/common/types"
+	noxcolor "github.com/noxworld-dev/opennox-lib/color"
 )
 
 type RenderDataText interface {
@@ -66,7 +65,7 @@ func (r *NoxRender) FontHeight(fnt font.Face) int {
 	return fnt.Metrics().CapHeight.Round()
 }
 
-func (r *NoxRender) DrawString(font font.Face, str string, pos types.Point) int { // nox_xxx_drawString_43F6E0
+func (r *NoxRender) DrawString(font font.Face, str string, pos image.Point) int { // nox_xxx_drawString_43F6E0
 	if !r.p.ShouldDrawText() {
 		return pos.X
 	}
@@ -78,7 +77,7 @@ func (r *NoxRender) DrawString(font font.Face, str string, pos types.Point) int 
 	return r.drawStringLine(font, str, pos)
 }
 
-func (r *NoxRender) DrawStringStyle(font font.Face, str string, pos types.Point) int { // nox_xxx_drawStringStyle_43F7B0
+func (r *NoxRender) DrawStringStyle(font font.Face, str string, pos image.Point) int { // nox_xxx_drawStringStyle_43F7B0
 	if !r.p.ShouldDrawText() {
 		return pos.X
 	}
@@ -92,12 +91,12 @@ func (r *NoxRender) DrawStringStyle(font font.Face, str string, pos types.Point)
 	}
 	r.text.advance = 1
 	r.drawStringLine(font, str, pos)
-	x := r.drawStringLine(font, str, pos.Add(types.Point{X: 1}))
+	x := r.drawStringLine(font, str, pos.Add(image.Point{X: 1}))
 	r.text.advance = 0
 	return x
 }
 
-func (r *NoxRender) DrawStringHL(font font.Face, str string, pos types.Point) int { // nox_draw_drawStringHL_43F730
+func (r *NoxRender) DrawStringHL(font font.Face, str string, pos image.Point) int { // nox_draw_drawStringHL_43F730
 	if !r.p.ShouldDrawText() {
 		return pos.X
 	}
@@ -108,12 +107,12 @@ func (r *NoxRender) DrawStringHL(font font.Face, str string, pos types.Point) in
 	r.text.lineStart = pos.X
 	old := r.p.TextColor()
 	r.p.SetTextColor(r.p.Color())
-	r.drawStringLine(font, str, pos.Add(types.Point{X: 1, Y: 1}))
+	r.drawStringLine(font, str, pos.Add(image.Point{X: 1, Y: 1}))
 	r.p.SetTextColor(old)
 	return r.drawStringLine(font, str, pos)
 }
 
-func (r *NoxRender) drawStringLine(font font.Face, str string, pos types.Point) int { // nox_xxx_guiDrawString_4407F0
+func (r *NoxRender) drawStringLine(font font.Face, str string, pos image.Point) int { // nox_xxx_guiDrawString_4407F0
 	str = strings.NewReplacer(
 		"\n", "",
 		"\r", "",
@@ -121,7 +120,7 @@ func (r *NoxRender) drawStringLine(font font.Face, str string, pos types.Point) 
 	return r.drawString(font, str, pos)
 }
 
-func (r *NoxRender) drawString(fnt font.Face, s string, pos types.Point) int { // nox_xxx_StringDraw_43FE90
+func (r *NoxRender) drawString(fnt font.Face, s string, pos image.Point) int { // nox_xxx_StringDraw_43FE90
 	// FIXME: handle tab characters properly
 	if fnt == nil {
 		return pos.X
@@ -151,7 +150,7 @@ func (r *NoxRender) DrawStringWrappedHL(font font.Face, s string, rect image.Rec
 	r.text.lineStart = rect.Min.X
 	old := r.p.TextColor()
 	r.p.SetTextColor(r.p.Color())
-	pt := types.Point{X: 1, Y: 1}
+	pt := image.Point{X: 1, Y: 1}
 	rect2 := rect
 	rect2.Min = rect2.Min.Add(pt)
 	rect2.Max = rect2.Max.Add(pt)
@@ -169,9 +168,9 @@ func (r *NoxRender) getStringRuneAdvance(fnt font.Face, c rune) int {
 	return dx.Round()
 }
 
-type doStringFunc func(f font.Face, s string, p types.Point) int
+type doStringFunc func(f font.Face, s string, p image.Point) int
 
-func (r *NoxRender) doStringWrapped(font font.Face, s string, rect image.Rectangle, wordFnc doStringFunc, lineFnc func(s string)) (dot types.Point, bb image.Rectangle) {
+func (r *NoxRender) doStringWrapped(font font.Face, s string, rect image.Rectangle, wordFnc doStringFunc, lineFnc func(s string)) (dot image.Point, bb image.Rectangle) {
 	dot = rect.Min
 	bb.Min = rect.Min
 	bb.Max = rect.Min
@@ -188,7 +187,7 @@ func (r *NoxRender) doStringWrapped(font font.Face, s string, rect image.Rectang
 	str := []rune(s)
 
 	var (
-		wordP types.Point // relative to rect.Min
+		wordP image.Point // relative to rect.Min
 		word  []rune      // current word
 		line  []rune      // current line
 		wordN int         // words in the current line
@@ -299,7 +298,7 @@ func (r *NoxRender) SplitStringWrapped(fnt font.Face, s string, maxW int) []stri
 	return lines
 }
 
-func (r *NoxRender) advanceString(fnt font.Face, s string, p types.Point) int {
+func (r *NoxRender) advanceString(fnt font.Face, s string, p image.Point) int {
 	x := p.X
 	for _, c := range s {
 		x += r.getStringRuneAdvance(fnt, c)
@@ -307,13 +306,13 @@ func (r *NoxRender) advanceString(fnt font.Face, s string, p types.Point) int {
 	return x
 }
 
-func (r *NoxRender) GetStringSizeWrapped(fnt font.Face, s string, maxW int) types.Size { // nox_xxx_drawGetStringSize_43F840
+func (r *NoxRender) GetStringSizeWrapped(fnt font.Face, s string, maxW int) image.Point { // nox_xxx_drawGetStringSize_43F840
 	rect := image.Rect(0, 0, maxW, 0)
 	_, bb := r.doStringWrapped(fnt, s, rect, r.advanceString, nil)
-	return types.Size{W: bb.Dx(), H: bb.Dy()}
+	return image.Point{X: bb.Dx(), Y: bb.Dy()}
 }
 
-func (r *NoxRender) GetStringSizeWrappedStyle(fnt font.Face, s string, maxW int) types.Size { // nox_xxx_bookGetStringSize_43FA80
+func (r *NoxRender) GetStringSizeWrappedStyle(fnt font.Face, s string, maxW int) image.Point { // nox_xxx_bookGetStringSize_43FA80
 	if !r.text.useBold {
 		return r.GetStringSizeWrapped(fnt, s, maxW)
 	}

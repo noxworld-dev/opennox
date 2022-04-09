@@ -1,4 +1,4 @@
-package nox
+package opennox
 
 func abs(v int) int {
 	if v < 0 {

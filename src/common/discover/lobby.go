@@ -6,7 +6,7 @@ import (
 
 	"github.com/noxworld-dev/lobby"
 
-	"nox/v1/internal/version"
+	"github.com/noxworld-dev/opennox/v1/internal/version"
 )
 
 var (

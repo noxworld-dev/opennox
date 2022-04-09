@@ -1,4 +1,4 @@
-package nox
+package opennox
 
 const (
 	noxProtoVersionLegacy  = 0x0001039A

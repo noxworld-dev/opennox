@@ -1,12 +1,12 @@
-package nox
+package opennox
 
 import (
 	"fmt"
 	"net"
 	"net/http"
 
-	"nox/v1/common"
-	"nox/v1/common/log"
+	"github.com/noxworld-dev/opennox-lib/common"
+	"github.com/noxworld-dev/opennox-lib/log"
 )
 
 var (

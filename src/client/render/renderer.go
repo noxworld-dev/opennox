@@ -4,10 +4,9 @@ import (
 	"image"
 	"sync/atomic"
 
-	"nox/v1/client/seat"
-	"nox/v1/common/log"
-	"nox/v1/common/noximage"
-	"nox/v1/common/types"
+	"github.com/noxworld-dev/opennox-lib/client/seat"
+	"github.com/noxworld-dev/opennox-lib/log"
+	"github.com/noxworld-dev/opennox-lib/noximage"
 )
 
 var (
@@ -24,7 +23,7 @@ func New(sc seat.Screen) (*Renderer, error) {
 	if err := r.Init(sz); err != nil {
 		return nil, err
 	}
-	sc.OnScreenResize(func(sz types.Size) {
+	sc.OnScreenResize(func(sz image.Point) {
 		r.present(nil)
 	})
 	return r, nil
@@ -53,18 +52,18 @@ func (r *Renderer) Ticks() uint {
 }
 
 // Init the renderer.
-func (r *Renderer) Init(sz types.Size) error {
+func (r *Renderer) Init(sz image.Point) error {
 	if r.backbuf != nil {
 		return nil
 	}
-	Log.Printf("creating surface: %dx%d", sz.W, sz.H)
+	Log.Printf("creating surface: %dx%d", sz.X, sz.Y)
 	r.backbuf = r.sc.NewSurface(sz, r.filtering)
 	r.backbufFilt = r.filtering
 	return nil
 }
 
 // Reset the renderer.
-func (r *Renderer) Reset(sz types.Size) error {
+func (r *Renderer) Reset(sz image.Point) error {
 	return nil
 }
 
@@ -81,7 +80,7 @@ func (r *Renderer) CopyBuffer(img *noximage.Image16) {
 
 func (r *Renderer) present(img *noximage.Image16) {
 	sz := img.Size()
-	view := r.setViewport(float32(sz.W) / float32(sz.H))
+	view := r.setViewport(float32(sz.X) / float32(sz.Y))
 	if r.view != view {
 		r.view = view
 		for _, fnc := range r.onResize {
@@ -94,7 +93,7 @@ func (r *Renderer) present(img *noximage.Image16) {
 		}
 		copy(r.buf.Pix, img.Pix)
 		if bsz := r.backbuf.Size(); sz != bsz || r.filtering != r.backbufFilt {
-			Log.Printf("recreating surface: %dx%d -> %dx%d", bsz.W, bsz.H, sz.W, sz.H)
+			Log.Printf("recreating surface: %dx%d -> %dx%d", bsz.X, bsz.Y, sz.X, sz.Y)
 			if r.backbuf != nil {
 				r.backbuf.Destroy()
 				r.backbuf = nil
@@ -130,7 +129,7 @@ func (r *Renderer) GetFiltering() bool {
 func (r *Renderer) setViewport(ratio float32) image.Rectangle {
 	wsz := r.sc.ScreenSize()
 	if r.stretch {
-		return image.Rect(0, 0, wsz.W, wsz.H)
+		return image.Rect(0, 0, wsz.X, wsz.Y)
 	}
 	var (
 		offx     = 0
@@ -139,7 +138,7 @@ func (r *Renderer) setViewport(ratio float32) image.Rectangle {
 		vpx, vpy int
 	)
 
-	vpw, vph = wsz.W, wsz.H
+	vpw, vph = wsz.X, wsz.Y
 
 	// Maintain source aspect ratio
 	if r.rotate && float32(vph)-ratio*float32(vpw) > float32(vpw)-ratio*float32(vph) {

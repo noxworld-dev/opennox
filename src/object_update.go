@@ -1,4 +1,4 @@
-package nox
+package opennox
 
 /*
 #include "defs.h"
@@ -22,12 +22,13 @@ import (
 	"strings"
 	"unsafe"
 
-	"nox/v1/common/alloc"
-	noxflags "nox/v1/common/flags"
-	"nox/v1/common/memmap"
-	"nox/v1/common/object"
-	"nox/v1/common/types"
-	"nox/v1/common/unit/ai"
+	"github.com/noxworld-dev/opennox-lib/object"
+	"github.com/noxworld-dev/opennox-lib/types"
+
+	"github.com/noxworld-dev/opennox/v1/common/alloc"
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
+	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/common/unit/ai"
 )
 
 type noxObjectUpdateFuncs struct {

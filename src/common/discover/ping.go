@@ -12,7 +12,7 @@ import (
 
 	"github.com/noxworld-dev/lobby"
 
-	noxflags "nox/v1/common/flags"
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 )
 
 const (

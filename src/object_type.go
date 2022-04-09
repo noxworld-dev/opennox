@@ -1,4 +1,4 @@
-package nox
+package opennox
 
 /*
 #include "GAME3_2.h"
@@ -10,9 +10,9 @@ import (
 	"math"
 	"unsafe"
 
-	"nox/v1/common/object"
-	"nox/v1/common/types"
-	"nox/v1/server/script"
+	"github.com/noxworld-dev/opennox-lib/object"
+	"github.com/noxworld-dev/opennox-lib/script"
+	"github.com/noxworld-dev/opennox-lib/types"
 )
 
 func (s *Server) getObjectTypeByID(id string) *ObjectType { // nox_xxx_objectTypeByID_4E3830

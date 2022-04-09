@@ -1,4 +1,4 @@
-package nox
+package opennox
 
 import (
 	"os"
@@ -6,8 +6,8 @@ import (
 
 	"github.com/spf13/viper"
 
-	"nox/v1/common/env"
-	"nox/v1/common/log"
+	"github.com/noxworld-dev/opennox-lib/env"
+	"github.com/noxworld-dev/opennox-lib/log"
 )
 
 func init() {

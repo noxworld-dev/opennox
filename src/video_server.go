@@ -1,13 +1,12 @@
 //go:build server
 // +build server
 
-package nox
+package opennox
 
 import "C"
 import (
+	"image"
 	"unsafe"
-
-	"nox/v1/common/types"
 )
 
 //export sub_444D00
@@ -18,7 +17,7 @@ func sub_444D00() {
 func nox_video_showMovieFrame(s unsafe.Pointer) {
 }
 
-func resetRenderer(sz types.Size, _ bool) error {
+func resetRenderer(sz image.Point, _ bool) error {
 	return nil
 }
 

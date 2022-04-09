@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"image"
 
-	"nox/v1/client/seat"
-	"nox/v1/common/keybind"
-	"nox/v1/common/types"
+	"github.com/noxworld-dev/opennox-lib/client/keybind"
+	"github.com/noxworld-dev/opennox-lib/client/seat"
+	"github.com/noxworld-dev/opennox-lib/types"
 )
 
 const (
@@ -104,22 +104,22 @@ type noxMouseBtnInt struct {
 }
 
 type noxMouseStateInt struct {
-	pos   types.Point
+	pos   image.Point
 	wheel int
-	dpos  types.Point
+	dpos  image.Point
 	btn   [3]noxMouseBtnInt
 }
 
 type noxMouseEvent struct {
 	Type    noxMouseEventType
-	Pos     types.Point
+	Pos     image.Point
 	Wheel   int
 	Pressed bool
 	Seq     uint
 }
 
 func newMouseHandler(s Sequencer, chk Checker) *mouseHandler {
-	def := types.Size{W: seat.DefaultWidth, H: seat.DefaultHeight}
+	def := image.Point{X: seat.DefaultWidth, Y: seat.DefaultHeight}
 	h := &mouseHandler{
 		seq:   s,
 		chk:   chk,
@@ -145,7 +145,7 @@ type mouseHandler struct {
 	cur     noxMouseStateInt
 	prev    noxMouseStateInt
 	prevSeq uint
-	prevBtn [3]types.Point
+	prevBtn [3]image.Point
 
 	buffer  [mouseEventBuf]noxMouseStateInt
 	reading bool
@@ -240,9 +240,9 @@ func (h *mouseHandler) SetWinSize(rect image.Rectangle) {
 	h.win.SetWinSize(rect)
 }
 
-func (h *mouseHandler) SetDrawWinSize(sz types.Size) {
+func (h *mouseHandler) SetDrawWinSize(sz image.Point) {
 	h.win.SetDrawWinSize(sz)
-	h.setMouseBounds(image.Rect(0, 0, sz.W-1, sz.H-1))
+	h.setMouseBounds(image.Rect(0, 0, sz.X-1, sz.Y-1))
 }
 
 func (h *mouseHandler) pushEvent(e noxMouseEvent) bool {
@@ -277,11 +277,11 @@ func (h *mouseHandler) setMousePos(p image.Point) {
 	h.cur.pos = p
 }
 
-func (h *mouseHandler) GetMousePos() types.Point {
+func (h *mouseHandler) GetMousePos() image.Point {
 	return h.getMousePos()
 }
 
-func (h *mouseHandler) GetMouseRel() types.Point {
+func (h *mouseHandler) GetMouseRel() image.Point {
 	return h.getMouseRel()
 }
 
@@ -317,7 +317,7 @@ func (h *mouseHandler) changeMousePos(p image.Point, isAbs bool) {
 	h.setMousePos(p)
 }
 
-func (h *mouseHandler) nox_client_mouseBtnStateFinal(pos types.Point, btn MouseButton) {
+func (h *mouseHandler) nox_client_mouseBtnStateFinal(pos image.Point, btn MouseButton) {
 	cur := &h.cur.btn[btn]
 	if cur.state == ToMouseState(btn, NOX_MOUSE_DOWN) {
 		h.prevBtn[btn] = pos
@@ -388,7 +388,7 @@ func (h *mouseHandler) nox_client_nextMouseEvent_47DB20(e *noxMouseStateInt) boo
 	return true
 }
 
-func (h *mouseHandler) nox_client_mouseBtnStateApply(cseq uint, evt *noxMouseStateInt, pos types.Point, btn MouseButton) {
+func (h *mouseHandler) nox_client_mouseBtnStateApply(cseq uint, evt *noxMouseStateInt, pos image.Point, btn MouseButton) {
 	ev := &evt.btn[btn]
 	cur := &h.cur.btn[btn]
 	prevPos := h.prevBtn[btn]

@@ -1,4 +1,4 @@
-package nox
+package opennox
 
 /*
 int nox_xxx_guiDownloadAbort_4CC830(int a1, int a2, int a3, int a4);
@@ -7,17 +7,18 @@ int nox_xxx_guiDownloadProc_4CC890(int a1, int a2, int* a3, int a4);
 import "C"
 import (
 	"context"
+	"image"
 	"path/filepath"
 	"strings"
 	"unsafe"
 
-	"nox/v1/common/datapath"
-	noxflags "nox/v1/common/flags"
-	"nox/v1/common/keybind"
-	"nox/v1/common/log"
-	"nox/v1/common/maps"
-	"nox/v1/common/memmap"
-	"nox/v1/common/types"
+	"github.com/noxworld-dev/opennox-lib/client/keybind"
+	"github.com/noxworld-dev/opennox-lib/datapath"
+	"github.com/noxworld-dev/opennox-lib/log"
+	"github.com/noxworld-dev/opennox-lib/maps"
+
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
+	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
 var (
@@ -168,9 +169,9 @@ func nox_xxx_gameDownloadShowDialog_4CC770() C.int {
 	winDownload = newWindowFromFile("mapdnld.wnd", nox_xxx_guiDownloadProc_4CC890)
 	winDownload.SetAllFuncs(nox_xxx_guiDownloadAbort_4CC830, nil, nil)
 	mode := videoGetGameMode()
-	v3, v4 := mode.W, mode.H
+	v3, v4 := mode.X, mode.Y
 	max := videoGetMaxSize()
-	v5, v6 := max.W, max.H
+	v5, v6 := max.X, max.Y
 	v0 := v3
 	if v3 > v5 {
 		v0 = v5
@@ -181,7 +182,7 @@ func nox_xxx_gameDownloadShowDialog_4CC770() C.int {
 		v1 = v6
 		v4 = v6
 	}
-	winDownload.SetPos(types.Point{X: (v0 - 1024) / 2, Y: (v1 - 768) / 2})
+	winDownload.SetPos(image.Point{X: (v0 - 1024) / 2, Y: (v1 - 768) / 2})
 	nox_xxx_wndShowModalMB(winDownload)
 	return 1
 }

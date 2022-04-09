@@ -1,4 +1,4 @@
-package nox
+package opennox
 
 /*
 #include <stddef.h>
@@ -11,8 +11,8 @@ import (
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promauto"
 
-	"nox/v1/common/log"
-	"nox/v1/common/strman"
+	"github.com/noxworld-dev/opennox-lib/log"
+	"github.com/noxworld-dev/opennox-lib/strman"
 )
 
 var (

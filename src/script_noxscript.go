@@ -1,4 +1,4 @@
-package nox
+package opennox
 
 /*
 #include "server__script__script.h"
@@ -13,8 +13,8 @@ import (
 	"strings"
 	"unsafe"
 
-	"nox/v1/common/object"
-	"nox/v1/server/script"
+	"github.com/noxworld-dev/opennox-lib/object"
+	"github.com/noxworld-dev/opennox-lib/script"
 )
 
 type activators struct {

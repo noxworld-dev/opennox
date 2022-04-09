@@ -1,4 +1,4 @@
-package nox
+package opennox
 
 /*
 #include "GAME3_2.h"
@@ -14,13 +14,15 @@ static int nox_call_object_xfer(int (*fnc)(nox_object_t*, void*), nox_object_t* 
 import "C"
 import (
 	"fmt"
+	"image"
 	"strings"
 	"unsafe"
 
-	"nox/v1/common/alloc"
-	"nox/v1/common/object"
-	"nox/v1/common/types"
-	"nox/v1/server/script"
+	"github.com/noxworld-dev/opennox-lib/object"
+	"github.com/noxworld-dev/opennox-lib/script"
+	"github.com/noxworld-dev/opennox-lib/types"
+
+	"github.com/noxworld-dev/opennox/v1/common/alloc"
 )
 
 //export nox_xxx_findParentChainPlayer_4EC580
@@ -66,9 +68,9 @@ func asPointf(p unsafe.Pointer) types.Pointf {
 		Y: float32(cp.field_4),
 	}
 }
-func asPoint(p unsafe.Pointer) types.Point {
+func asPoint(p unsafe.Pointer) image.Point {
 	cp := (*C.nox_point)(p)
-	return types.Point{
+	return image.Point{
 		X: int(cp.x),
 		Y: int(cp.y),
 	}

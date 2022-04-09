@@ -11,7 +11,7 @@ import (
 
 	"github.com/noxworld-dev/lobby"
 
-	"nox/v1/common"
+	"github.com/noxworld-dev/opennox-lib/common"
 )
 
 const (

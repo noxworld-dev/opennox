@@ -1,4 +1,4 @@
-package nox
+package opennox
 
 /*
 #include "GAME1_2.h"
@@ -79,6 +79,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"image"
 	"math"
 	"path/filepath"
 	"strconv"
@@ -89,21 +90,21 @@ import (
 	"github.com/noxworld-dev/lobby"
 	"github.com/noxworld-dev/xwis"
 
-	"nox/v1/client/gui"
-	"nox/v1/common"
-	"nox/v1/common/alloc"
-	"nox/v1/common/console"
-	"nox/v1/common/discover"
-	"nox/v1/common/env"
-	noxflags "nox/v1/common/flags"
-	"nox/v1/common/log"
-	"nox/v1/common/memmap"
-	"nox/v1/common/object"
-	"nox/v1/common/types"
-	"nox/v1/common/unit/ai"
-	"nox/v1/internal/version"
+	"github.com/noxworld-dev/opennox-lib/common"
+	"github.com/noxworld-dev/opennox-lib/console"
+	"github.com/noxworld-dev/opennox-lib/env"
+	"github.com/noxworld-dev/opennox-lib/ifs"
+	"github.com/noxworld-dev/opennox-lib/log"
+	"github.com/noxworld-dev/opennox-lib/object"
+	"github.com/noxworld-dev/opennox-lib/types"
 
-	"nox/v1/common/fs"
+	"github.com/noxworld-dev/opennox/v1/client/gui"
+	"github.com/noxworld-dev/opennox/v1/common/alloc"
+	"github.com/noxworld-dev/opennox/v1/common/discover"
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
+	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/common/unit/ai"
+	"github.com/noxworld-dev/opennox/v1/internal/version"
 )
 
 var (
@@ -185,7 +186,7 @@ func gameSetPlayState(st int) {
 
 func nox_game_setMovieFile_4CB230(name string, out *C.char) bool {
 	filename := filepath.Join("movies", name)
-	_, err := fs.Stat(filename)
+	_, err := ifs.Stat(filename)
 	if err != nil {
 		gameLog.Printf("movie not found: %q", filename)
 		return false
@@ -364,7 +365,7 @@ type xwisInfoShort struct {
 	Players    []lobby.PlayerInfo
 	MaxPlayers int
 	Level      int
-	Res        types.Size
+	Res        image.Point
 }
 
 func (v *xwisInfoShort) Equal(v2 *xwisInfoShort) bool {
@@ -453,8 +454,8 @@ func (v xwisInfoShort) GameInfo() discover.GameInfo {
 			Port: v.Port,
 			Map:  v.Map,
 			Res: lobby.Resolution{
-				Width:   v.Res.W,
-				Height:  v.Res.H,
+				Width:   v.Res.X,
+				Height:  v.Res.Y,
 				HighRes: noxHighRes,
 			},
 			Mode: gameFlagsToMode(v.Flags),
@@ -582,10 +583,10 @@ func initGameSession435CC0() error {
 	vp := getViewport()
 	vp.x1 = 0
 	vp.y1 = 0
-	vp.x2 = C.int(sz.W - 1)
-	vp.y2 = C.int(sz.H - 1)
-	vp.width = C.int(sz.W)
-	vp.height = C.int(sz.H)
+	vp.x2 = C.int(sz.X - 1)
+	vp.y2 = C.int(sz.Y - 1)
+	vp.width = C.int(sz.X)
+	vp.height = C.int(sz.Y)
 	vp.field_10 = 0
 	vp.field_11 = 0
 	vp.field_12 = 0

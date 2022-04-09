@@ -1,4 +1,4 @@
-package nox
+package opennox
 
 /*
 extern unsigned int dword_5d4594_2516356;

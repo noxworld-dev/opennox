@@ -1,4 +1,4 @@
-package nox
+package opennox
 
 /*
 #include "GAME1.h"
@@ -63,7 +63,7 @@ import "C"
 import (
 	"unsafe"
 
-	"nox/v1/common/memmap/nox/blobdata"
+	"github.com/noxworld-dev/opennox/v1/common/memmap/nox/blobdata"
 )
 
 func initBlobData() {

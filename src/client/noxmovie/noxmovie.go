@@ -7,10 +7,11 @@ import (
 	"os"
 	"time"
 
-	"nox/v1/client/audio/ail"
-	"nox/v1/client/render"
-	"nox/v1/client/seat"
-	"nox/v1/common/noximage"
+	"github.com/noxworld-dev/opennox-lib/client/seat"
+	"github.com/noxworld-dev/opennox-lib/noximage"
+
+	"github.com/noxworld-dev/opennox/v1/client/audio/ail"
+	"github.com/noxworld-dev/opennox/v1/client/render"
 
 	"github.com/noxworld-dev/vqa-decode/movies"
 	"github.com/timshannon/go-openal/openal"
@@ -184,8 +185,8 @@ func (player *MoviePlayer) Play() {
 		queuedSamples             = 0
 		finishedSamples           = 0
 		audioBuffers              openal.Buffers
-		sampleDuration            = time.Second / time.Duration(player.movie.Header.SampleRate)
-		currentFrameImg *noximage.Image16 = nil
+		sampleDuration                              = time.Second / time.Duration(player.movie.Header.SampleRate)
+		currentFrameImg           *noximage.Image16 = nil
 	)
 	//var currentFrameImg *noximage.Image16 = nil
 	select {
@@ -193,7 +194,6 @@ func (player *MoviePlayer) Play() {
 		return
 	case <-time.After(time.Second / time.Duration(player.movie.Header.Fps/5)):
 	}
-
 
 loop:
 	for {
@@ -249,7 +249,7 @@ loop:
 			}
 		}
 
-		if (nextFrame != nil) {
+		if nextFrame != nil {
 
 			// Now cleanup any finished audio buffers
 			if processedCount := alSrc.BuffersProcessed(); processedCount > 0 {
@@ -262,7 +262,7 @@ loop:
 					finishedSamples += int(samples)
 				}
 			}
- 
+
 			samplesWithCommitedFrames += len(nextFrame.Audio)
 		}
 
@@ -292,7 +292,7 @@ loop:
 		}
 
 		if nextFrame == nil {
-			break;
+			break
 		}
 
 		currentFrameImg = nextFrame.Image

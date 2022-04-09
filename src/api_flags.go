@@ -1,10 +1,10 @@
-package nox
+package opennox
 
 import (
 	"encoding/json"
 	"net/http"
 
-	noxflags "nox/v1/common/flags"
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 )
 
 func init() {

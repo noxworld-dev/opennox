@@ -1,4 +1,4 @@
-package nox
+package opennox
 
 /*
 #include "client__gui__window.h"
@@ -13,17 +13,19 @@ import "C"
 import (
 	"context"
 	"fmt"
+	"image"
 	"unsafe"
 
-	"nox/v1/client/gui"
-	"nox/v1/common/alloc"
-	noxcolor "nox/v1/common/color"
-	"nox/v1/common/console"
-	noxflags "nox/v1/common/flags"
-	"nox/v1/common/keybind"
-	"nox/v1/common/memmap"
-	"nox/v1/common/types"
-	"nox/v1/internal/version"
+	"github.com/noxworld-dev/opennox-lib/client/keybind"
+	noxcolor "github.com/noxworld-dev/opennox-lib/color"
+
+	"github.com/noxworld-dev/opennox-lib/console"
+
+	"github.com/noxworld-dev/opennox/v1/client/gui"
+	"github.com/noxworld-dev/opennox/v1/common/alloc"
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
+	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/internal/version"
 )
 
 var (
@@ -140,11 +142,11 @@ func (c *guiConsole) Clear() {
 	c.scrollbox.Func94(asWindowEvent(0x400F, 0, 0))
 }
 
-func (c *guiConsole) Init(sz types.Size) *Window {
+func (c *guiConsole) Init(sz image.Point) *Window {
 	v0 := noxcolor.RGBA5551(memmap.Uint32(0x85B3FC, 956))
-	*memmap.PtrInt32(0x5D4594, 833704) = int32(sz.W) - 1
-	*memmap.PtrInt32(0x5D4594, 833708) = int32(sz.H) / 2
-	c.root = newWindowRaw(nil, 0x38, 0, 0, sz.W-1, sz.H/2, nil)
+	*memmap.PtrInt32(0x5D4594, 833704) = int32(sz.X) - 1
+	*memmap.PtrInt32(0x5D4594, 833708) = int32(sz.Y) / 2
+	c.root = newWindowRaw(nil, 0x38, 0, 0, sz.X-1, sz.Y/2, nil)
 	c.root.SetAllFuncs(func(win *Window, ev WindowEvent) WindowEventResp {
 		return nil
 	}, func(win *Window, a2 *WindowData) int {
@@ -156,11 +158,11 @@ func (c *guiConsole) Init(sz types.Size) *Window {
 		wsz := win.Size()
 		if a2.BackgroundColor() != gui.ColorTransparent {
 			if c.translucent {
-				noxrend.DrawRectFilledAlpha(pos.X, pos.Y, wsz.W, wsz.H)
+				noxrend.DrawRectFilledAlpha(pos.X, pos.Y, wsz.X, wsz.Y)
 				return 1
 			}
 			noxrend.Data().SetColor2(noxcolor.ExtendColor16(a2.BackgroundColor()))
-			noxrend.DrawRectFilledOpaque(pos.X, pos.Y, wsz.W, wsz.H)
+			noxrend.DrawRectFilledOpaque(pos.X, pos.Y, wsz.X, wsz.Y)
 		}
 		return 1
 	}, nil)

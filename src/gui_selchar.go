@@ -1,4 +1,4 @@
-package nox
+package opennox
 
 /*
 #include "GAME1.h"
@@ -69,18 +69,18 @@ import (
 	"time"
 	"unsafe"
 
-	"nox/v1/client/gui"
-	"nox/v1/common"
-	"nox/v1/common/alloc"
-	"nox/v1/common/datapath"
-	noxflags "nox/v1/common/flags"
-	"nox/v1/common/fs"
-	"nox/v1/common/keybind"
-	"nox/v1/common/log"
-	"nox/v1/common/memmap"
-	"nox/v1/common/strman"
-	"nox/v1/common/types"
-	"nox/v1/server"
+	"github.com/noxworld-dev/opennox-lib/client/keybind"
+	"github.com/noxworld-dev/opennox-lib/common"
+	"github.com/noxworld-dev/opennox-lib/datapath"
+	"github.com/noxworld-dev/opennox-lib/ifs"
+	"github.com/noxworld-dev/opennox-lib/log"
+	"github.com/noxworld-dev/opennox-lib/strman"
+
+	"github.com/noxworld-dev/opennox/v1/client/gui"
+	"github.com/noxworld-dev/opennox/v1/common/alloc"
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
+	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 const NOX_SAVEGAME_XXX_MAX = 14
@@ -485,15 +485,15 @@ func nox_xxx_findAutosaves_4A5150() {
 	v1 := winSelSave.ChildByID(501)
 	nox_xxx_wnd_46ABB0(v1, 1)
 	PathName := datapath.Save()
-	fs.Mkdir(PathName)
+	ifs.Mkdir(PathName)
 	if noxflags.HasGame(noxflags.GameModeCoop) {
 		p, _ := alloc.Calloc(NOX_SAVEGAME_XXX_MAX, unsafe.Sizeof(C.nox_savegame_xxx{}))
 		nox_xxx_saves_arr = unsafe.Slice((*C.nox_savegame_xxx)(p), NOX_SAVEGAME_XXX_MAX)
 		nox_savegame_sub_46CE40(wlist, wnames, wstyle, nox_xxx_saves_arr)
 		return
 	}
-	fs.Chdir(PathName)
-	files, _ := fs.ReadDir(PathName)
+	ifs.Chdir(PathName)
+	files, _ := ifs.ReadDir(PathName)
 	v0 := 0
 	for _, f := range files {
 		if !f.IsDir() && strings.HasSuffix(f.Name(), ".plr") {
@@ -546,7 +546,7 @@ func nox_xxx_findAutosaves_4A5150() {
 		}
 		wnames.Func94(&WindowEvent0x400d{Str: v25, Val: 14})
 	}
-	fs.Chdir(datapath.Data())
+	ifs.Chdir(datapath.Data())
 	if v9 != 0 {
 		v21 := winSelSave.ChildByID(503)
 		v22 := winSelSave.ChildByID(502)
@@ -594,7 +594,7 @@ func sub_4A5C70() {
 	} else {
 		ind := memmap.Uint32(0x5D4594, 1307772)
 		path := GoString(&nox_xxx_saves_arr[ind].path[0])
-		fs.Remove(path)
+		ifs.Remove(path)
 	}
 	winCharList.Func94(asWindowEvent(0x400F, 0, 0))
 	winCharListNames.Func94(asWindowEvent(0x400F, 0, 0))
@@ -611,7 +611,7 @@ var saveClasses = []string{
 func nox_savegame_sub_46CE40(wlist, wnames, wstyles *Window, sarr []C.nox_savegame_xxx) int {
 	const stringsFile = "C:\\NoxPost\\src\\client\\Gui\\GUISave.c"
 	PathName := datapath.Save()
-	fs.Mkdir(PathName)
+	ifs.Mkdir(PathName)
 	wlist.Func94(asWindowEvent(0x400F, 0, 0))
 	wnames.Func94(asWindowEvent(0x400F, 0, 0))
 	wstyles.Func94(asWindowEvent(0x400F, 0, 0))
@@ -1044,8 +1044,8 @@ func nox_savegame_sub_46C730() int {
 	sub_46AEE0(swin1, v5)
 	v6 := strMan.GetStringInFile("SaveGUILoad", "C:\\NoxPost\\src\\client\\Gui\\GUISave.c")
 	sub_46AEE0(swin2, v6)
-	dword_5d4594_1082856.SetPos(types.Point{
-		X: (nox_win_width - dword_5d4594_1082856.Size().W) / 2,
+	dword_5d4594_1082856.SetPos(image.Point{
+		X: (nox_win_width - dword_5d4594_1082856.Size().X) / 2,
 	})
 	dword_5d4594_1082856.Hide()
 	nox_xxx_wnd_46ABB0(dword_5d4594_1082856, 0)

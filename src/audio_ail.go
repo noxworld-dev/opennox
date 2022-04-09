@@ -1,4 +1,4 @@
-package nox
+package opennox
 
 /*
 #include <stdint.h>
@@ -41,9 +41,9 @@ import (
 	"strings"
 	"unsafe"
 
-	"nox/v1/client/audio/ail"
-	"nox/v1/common/alloc"
-	"nox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/client/audio/ail"
+	"github.com/noxworld-dev/opennox/v1/common/alloc"
+	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
 //export AIL_load_sample_buffer

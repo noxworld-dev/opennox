@@ -1,4 +1,4 @@
-package nox
+package opennox
 
 /*
 #include "GAME1_2.h"
@@ -78,15 +78,16 @@ import (
 
 	"golang.org/x/image/font"
 
-	"nox/v1/client/input"
-	"nox/v1/client/noxrender"
-	"nox/v1/common"
-	"nox/v1/common/alloc"
-	noxcolor "nox/v1/common/color"
-	noxflags "nox/v1/common/flags"
-	"nox/v1/common/memmap"
-	"nox/v1/common/noximage"
-	"nox/v1/common/types"
+	noxcolor "github.com/noxworld-dev/opennox-lib/color"
+	"github.com/noxworld-dev/opennox-lib/common"
+	"github.com/noxworld-dev/opennox-lib/noximage"
+	"github.com/noxworld-dev/opennox-lib/types"
+
+	"github.com/noxworld-dev/opennox/v1/client/input"
+	"github.com/noxworld-dev/opennox/v1/client/noxrender"
+	"github.com/noxworld-dev/opennox/v1/common/alloc"
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
+	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
 var (
@@ -130,9 +131,9 @@ func sub_4355B0(a1 C.int) {
 	getViewport().field_12 = a1
 }
 
-func nox_xxx_getSomeCoods() types.Point {
+func nox_xxx_getSomeCoods() image.Point {
 	vp := getViewport()
-	return types.Point{
+	return image.Point{
 		X: int(vp.field_6),
 		Y: int(vp.field_7),
 	}
@@ -168,8 +169,8 @@ func (vp *Viewport) C() *C.nox_draw_viewport_t {
 	return (*C.nox_draw_viewport_t)(unsafe.Pointer(vp))
 }
 
-func (vp *Viewport) toScreenPos(pos types.Point) types.Point { // sub_4739E0
-	return pos.Add(types.Point{
+func (vp *Viewport) toScreenPos(pos image.Point) image.Point { // sub_4739E0
+	return pos.Add(image.Point{
 		X: int(vp.x1) - int(vp.field_4),
 		Y: int(vp.y1) - int(vp.field_5),
 	})
@@ -256,9 +257,9 @@ func detectBestVideoSettings() { // nox_setProfiledMode_4445C0
 	}
 	C.nox_xxx_tileSetDrawFn_481420()
 	if !noxflags.HasEngine(noxflags.EngineWindowed) {
-		videoUpdateGameMode(types.Size{
-			W: noxDefaultWidth,
-			H: noxDefaultHeight,
+		videoUpdateGameMode(image.Point{
+			X: noxDefaultWidth,
+			Y: noxDefaultHeight,
 		})
 	}
 	C.nox_video_setCutSize_4766A0(C.int(cut))
@@ -499,7 +500,7 @@ func (r *NoxRender) nox_client_copyRect_49F6F0(x, y, w, h int) {
 
 func (r *NoxRender) setRectFullScreen() { // sub_437290
 	sz := r.PixBuffer().Size()
-	r.nox_client_copyRect_49F6F0(0, 0, sz.W, sz.H)
+	r.nox_client_copyRect_49F6F0(0, 0, sz.X, sz.Y)
 }
 
 //export nox_client_drawSetAlpha_434580
@@ -710,7 +711,7 @@ func (r *NoxRender) SetColor2(a1 uint32) { // nox_client_drawSetColor_434460
 	r.p.SetColor2(a1)
 }
 
-func (r *NoxRender) sub49EFA0(pos types.Point) { // sub_49EFA0
+func (r *NoxRender) sub49EFA0(pos image.Point) { // sub_49EFA0
 	C.sub_49EFA0(C.int(pos.X), C.int(pos.Y))
 }
 
@@ -726,16 +727,16 @@ func (r *NoxRender) SetTabWidth(w int) {
 	r.rnd.SetTabWidth(w)
 }
 
-func (r *NoxRender) DrawPoint(pos types.Point, rad int) { // nox_xxx_drawPointMB_499B70
+func (r *NoxRender) DrawPoint(pos image.Point, rad int) { // nox_xxx_drawPointMB_499B70
 	switch rad {
 	case 0, 1:
 		r.sub49EFA0(pos)
 	case 2:
 		r.DrawRectFilledOpaque(pos.X, pos.Y, 2, 2)
 	case 3:
-		r.sub49EFA0(pos.Add(types.Point{Y: -1}))
+		r.sub49EFA0(pos.Add(image.Point{Y: -1}))
 		r.DrawRectFilledOpaque(pos.X-1, pos.Y, 3, 1)
-		r.sub49EFA0(pos.Add(types.Point{Y: +1}))
+		r.sub49EFA0(pos.Add(image.Point{Y: +1}))
 	case 4:
 		r.DrawRectFilledOpaque(pos.X, pos.Y-1, 2, 1)
 		r.DrawRectFilledOpaque(pos.X-1, pos.Y, 4, 2)
@@ -755,15 +756,15 @@ func (r *NoxRender) DrawPoint(pos types.Point, rad int) { // nox_xxx_drawPointMB
 	}
 }
 
-func (r *NoxRender) nox_client_drawAddPoint_49F500(pos types.Point) {
+func (r *NoxRender) nox_client_drawAddPoint_49F500(pos image.Point) {
 	C.nox_client_drawAddPoint_49F500(C.int(pos.X), C.int(pos.Y))
 }
 
-func (r *NoxRender) nox_xxx_rasterPointRel_49F570(pos types.Point) {
+func (r *NoxRender) nox_xxx_rasterPointRel_49F570(pos image.Point) {
 	C.nox_xxx_rasterPointRel_49F570(C.int(pos.X), C.int(pos.Y))
 }
 
-func (r *NoxRender) DrawLineFromPoints(arr ...types.Point) { // nox_client_drawLineFromPoints_49E4B0
+func (r *NoxRender) DrawLineFromPoints(arr ...image.Point) { // nox_client_drawLineFromPoints_49E4B0
 	for _, p := range arr {
 		r.nox_client_drawAddPoint_49F500(p)
 	}
@@ -790,15 +791,15 @@ func (r *NoxRender) FontHeight(fnt font.Face) int {
 	return r.rnd.FontHeight(fnt)
 }
 
-func (r *NoxRender) DrawString(font font.Face, str string, pos types.Point) int { // nox_xxx_drawString_43F6E0
+func (r *NoxRender) DrawString(font font.Face, str string, pos image.Point) int { // nox_xxx_drawString_43F6E0
 	return r.rnd.DrawString(font, str, pos)
 }
 
-func (r *NoxRender) DrawStringStyle(font font.Face, str string, pos types.Point) int { // nox_xxx_drawStringStyle_43F7B0
+func (r *NoxRender) DrawStringStyle(font font.Face, str string, pos image.Point) int { // nox_xxx_drawStringStyle_43F7B0
 	return r.rnd.DrawStringStyle(font, str, pos)
 }
 
-func (r *NoxRender) DrawStringHL(font font.Face, str string, pos types.Point) int { // nox_draw_drawStringHL_43F730
+func (r *NoxRender) DrawStringHL(font font.Face, str string, pos image.Point) int { // nox_draw_drawStringHL_43F730
 	return r.rnd.DrawStringHL(font, str, pos)
 }
 
@@ -818,11 +819,11 @@ func (r *NoxRender) SplitStringWrapped(fnt font.Face, s string, maxW int) []stri
 	return r.rnd.SplitStringWrapped(fnt, s, maxW)
 }
 
-func (r *NoxRender) GetStringSizeWrapped(fnt font.Face, s string, maxW int) types.Size { // nox_xxx_drawGetStringSize_43F840
+func (r *NoxRender) GetStringSizeWrapped(fnt font.Face, s string, maxW int) image.Point { // nox_xxx_drawGetStringSize_43F840
 	return r.rnd.GetStringSizeWrapped(fnt, s, maxW)
 }
 
-func (r *NoxRender) GetStringSizeWrappedStyle(fnt font.Face, s string, maxW int) types.Size { // nox_xxx_bookGetStringSize_43FA80
+func (r *NoxRender) GetStringSizeWrappedStyle(fnt font.Face, s string, maxW int) image.Point { // nox_xxx_bookGetStringSize_43FA80
 	return r.rnd.GetStringSizeWrappedStyle(fnt, s, maxW)
 }
 
@@ -854,41 +855,41 @@ func nox_draw_setTabWidth_43FE20(v C.int) C.int {
 //export nox_draw_getFontAdvance_43F9E0
 func nox_draw_getFontAdvance_43F9E0(fnt unsafe.Pointer, sp *C.wchar_t, maxW C.int) C.int {
 	// TODO: this may be incorrect
-	return C.int(noxrend.GetStringSizeWrapped(asFont(fnt), GoWString(sp), int(maxW)).W)
+	return C.int(noxrend.GetStringSizeWrapped(asFont(fnt), GoWString(sp), int(maxW)).X)
 }
 
 //export nox_xxx_drawGetStringSize_43F840
 func nox_xxx_drawGetStringSize_43F840(font unsafe.Pointer, sp *C.wchar_t, outW, outH *C.int, maxW C.int) C.int {
 	sz := noxrend.GetStringSizeWrapped(asFont(font), GoWString(sp), int(maxW))
 	if outW != nil {
-		*outW = C.int(sz.W)
+		*outW = C.int(sz.X)
 	}
 	if outH != nil {
-		*outH = C.int(sz.H)
+		*outH = C.int(sz.Y)
 	}
-	return C.int(bool2int(sz != (types.Size{})))
+	return C.int(bool2int(sz != (image.Point{})))
 }
 
 //export nox_xxx_bookGetStringSize_43FA80
 func nox_xxx_bookGetStringSize_43FA80(font unsafe.Pointer, sp *C.wchar_t, outW, outH *C.int, maxW C.int) C.int {
 	sz := noxrend.GetStringSizeWrappedStyle(asFont(font), GoWString(sp), int(maxW))
 	if outW != nil {
-		*outW = C.int(sz.W)
+		*outW = C.int(sz.X)
 	}
 	if outH != nil {
-		*outH = C.int(sz.H)
+		*outH = C.int(sz.Y)
 	}
-	return C.int(bool2int(sz != (types.Size{})))
+	return C.int(bool2int(sz != (image.Point{})))
 }
 
 //export nox_xxx_drawString_43F6E0
 func nox_xxx_drawString_43F6E0(font unsafe.Pointer, sp *C.wchar_t, x, y C.int) C.int {
-	return C.int(noxrend.DrawString(asFont(font), GoWString(sp), types.Point{X: int(x), Y: int(y)}))
+	return C.int(noxrend.DrawString(asFont(font), GoWString(sp), image.Point{X: int(x), Y: int(y)}))
 }
 
 //export nox_draw_drawStringHL_43F730
 func nox_draw_drawStringHL_43F730(font unsafe.Pointer, sp *C.wchar_t, x, y C.int) C.int {
-	return C.int(noxrend.DrawStringHL(asFont(font), GoWString(sp), types.Point{X: int(x), Y: int(y)}))
+	return C.int(noxrend.DrawStringHL(asFont(font), GoWString(sp), image.Point{X: int(x), Y: int(y)}))
 }
 
 //export nox_xxx_drawStringWrap_43FAF0
@@ -908,15 +909,15 @@ func nox_xxx_bookDrawString_43FA80_43FD80(font unsafe.Pointer, s *C.wchar_t, x, 
 
 //export nox_xxx_drawStringStyle_43F7B0
 func nox_xxx_drawStringStyle_43F7B0(font unsafe.Pointer, sp *C.wchar_t, x, y C.int) C.int {
-	return C.int(noxrend.DrawStringStyle(asFont(font), GoWString(sp), types.Point{X: int(x), Y: int(y)}))
+	return C.int(noxrend.DrawStringStyle(asFont(font), GoWString(sp), image.Point{X: int(x), Y: int(y)}))
 }
 
 //export nox_video_drawAnimatedImageOrCursorAt_4BE6D0
 func nox_video_drawAnimatedImageOrCursorAt_4BE6D0(a1, a2, a3 C.int) {
-	noxrend.nox_video_drawAnimatedImageOrCursorAt(asImageRefP(unsafe.Pointer(uintptr(a1))), types.Point{X: int(a2), Y: int(a3)})
+	noxrend.nox_video_drawAnimatedImageOrCursorAt(asImageRefP(unsafe.Pointer(uintptr(a1))), image.Point{X: int(a2), Y: int(a3)})
 }
 
-func (r *NoxRender) nox_video_drawAnimatedImageOrCursorAt(ref *noxImageRef, pos types.Point) {
+func (r *NoxRender) nox_video_drawAnimatedImageOrCursorAt(ref *noxImageRef, pos image.Point) {
 	if v3 := getCursorAnimFrame(ref, 0); v3 != nil {
 		if dword_5d4594_3798728 {
 			r.noxDrawCursor(v3, pos)
@@ -1445,7 +1446,7 @@ func nox_client_queueWallsDraw(vp *Viewport, xmin, ymin int) { // nox_xxx_drawAl
 	ymax := ymin + int(vp.height)/common.GridStep + 4
 	for y := ymin; y <= ymax; y++ {
 		for x := xmin; x <= xmax; x++ {
-			wl := noxServer.getWallAtGrid(types.Point{X: x, Y: y})
+			wl := noxServer.getWallAtGrid(image.Point{X: x, Y: y})
 			if wl == nil {
 				continue
 			}
@@ -1666,7 +1667,7 @@ func nox_video_drawCircle_4B0B90(a1, a2, a3 C.int) {
 	noxrend.DrawCircle(int(a1), int(a2), int(a3))
 }
 
-func (r *NoxRender) DrawImageAt(img *Image, pos types.Point) {
+func (r *NoxRender) DrawImageAt(img *Image, pos image.Point) {
 	defer func() {
 		if r := recover(); r != nil {
 			panic(fmt.Errorf("panic drawing image %v: %v", img, r))
@@ -1677,11 +1678,11 @@ func (r *NoxRender) DrawImageAt(img *Image, pos types.Point) {
 		C.sub_49F780(C.int(memmap.Int32(0x973F18, 52)), C.int(memmap.Int32(0x973F18, 12)))
 		r.p.flag_0 = 1
 	}
-	r.rnd.HookImageDrawXxx = func(pos types.Point, sz types.Size) {
+	r.rnd.HookImageDrawXxx = func(pos image.Point, sz image.Point) {
 		*memmap.PtrInt32(0x973F18, 92) = int32(pos.X)
 		*memmap.PtrInt32(0x973F18, 84) = int32(pos.Y)
-		*memmap.PtrUint32(0x973F18, 88) = uint32(sz.W)
-		*memmap.PtrUint32(0x973F18, 76) = uint32(sz.H)
+		*memmap.PtrUint32(0x973F18, 88) = uint32(sz.X)
+		*memmap.PtrUint32(0x973F18, 76) = uint32(sz.Y)
 	}
 	if img != nil {
 		r.rnd.DrawImage16(img, pos)
@@ -1703,7 +1704,7 @@ func (r *NoxRender) DrawImageAt(img *Image, pos types.Point) {
 
 //export nox_client_drawImageAt_47D2C0
 func nox_client_drawImageAt_47D2C0(img *C.nox_video_bag_image_t, x, y C.int) {
-	noxrend.DrawImageAt(asImage(img), types.Point{X: int(x), Y: int(y)})
+	noxrend.DrawImageAt(asImage(img), image.Point{X: int(x), Y: int(y)})
 }
 
 func sub_47D200() {
@@ -1747,7 +1748,7 @@ func nox_video_getImagePixdata_42FB30(img *C.nox_video_bag_image_t) unsafe.Point
 //export nox_video_drawImageAt2_4B0820
 func nox_video_drawImageAt2_4B0820(a1 unsafe.Pointer, x, y C.int) {
 	p := noxrend.asParticle(a1)
-	p.DrawAt(types.Point{X: int(x), Y: int(y)})
+	p.DrawAt(image.Point{X: int(x), Y: int(y)})
 }
 
 func nox_draw_initColorTables_434CC0() {
@@ -1795,7 +1796,7 @@ var (
 	drawColorXxx1096436         uint32
 )
 
-func sub_499F60(p uint32, pos types.Point, a4 int, a5, a6, a7, a8, a9 int, a10 int) {
+func sub_499F60(p uint32, pos image.Point, a4 int, a5, a6, a7, a8, a9 int, a10 int) {
 	C.sub_499F60(C.int(p), C.int(pos.X), C.int(pos.Y), C.short(a4), C.char(a5), C.char(a6), C.char(a7), C.char(a8), C.char(a9), C.int(a10))
 }
 
@@ -1821,7 +1822,7 @@ func drawCreatureBackEffects(r *NoxRender, vp *Viewport, dr *Drawable) { // nox_
 			v22 := randomIntMinMax(3, 5)
 			v18 := randomIntMinMax(3, 6)
 			v14 := randomIntMinMax(2, 4)
-			pos2 := types.Point{
+			pos2 := image.Point{
 				X: randomIntMinMax(-10, 10),
 				Y: randomIntMinMax(-10, 10) + int(*(*int16)(dr.field(104))),
 			}
@@ -1830,7 +1831,7 @@ func drawCreatureBackEffects(r *NoxRender, vp *Viewport, dr *Drawable) { // nox_
 			v23 := randomIntMinMax(3, 5)
 			v19 := randomIntMinMax(3, 6)
 			v15 := randomIntMinMax(2, 4)
-			pos3 := types.Point{
+			pos3 := image.Point{
 				X: randomIntMinMax(-10, 10),
 				Y: randomIntMinMax(-10, 10) + int(*(*int16)(dr.field(104))),
 			}
@@ -1851,7 +1852,7 @@ func drawCreatureBackEffects(r *NoxRender, vp *Viewport, dr *Drawable) { // nox_
 			v24 := randomIntMinMax(3, 5)
 			v20 := randomIntMinMax(3, 6)
 			v16 := randomIntMinMax(2, 4)
-			pos2 := types.Point{
+			pos2 := image.Point{
 				X: randomIntMinMax(-10, 10),
 				Y: randomIntMinMax(-10, 10) + int(*(*int16)(dr.field(104))),
 			}
@@ -1860,7 +1861,7 @@ func drawCreatureBackEffects(r *NoxRender, vp *Viewport, dr *Drawable) { // nox_
 			v25 := randomIntMinMax(3, 5)
 			v21 := randomIntMinMax(3, 6)
 			v17 := randomIntMinMax(2, 4)
-			pos3 := types.Point{
+			pos3 := image.Point{
 				X: randomIntMinMax(-10, 10),
 				Y: randomIntMinMax(-10, 10) + int(*(*int16)(dr.field(104))),
 			}
@@ -1910,7 +1911,7 @@ func drawCreatureFrontEffects(r *NoxRender, vp *Viewport, dr *Drawable) { // nox
 			r.Data().setField17(1)
 			C.sub_433E40(C.int(C.nox_color_blue_2650684))
 		}
-		r.nox_video_drawAnimatedImageOrCursorAt(asImageRefP(*memmap.PtrPtr(0x5D4594, 1096456)), pos.Add(types.Point{X: -64, Y: -64}))
+		r.nox_video_drawAnimatedImageOrCursorAt(asImageRefP(*memmap.PtrPtr(0x5D4594, 1096456)), pos.Add(image.Point{X: -64, Y: -64}))
 		r.Data().setField17(0)
 	}
 	if dr.CheckFlag31(4) && !nox_xxx_checkGameFlagPause_413A50() {
@@ -1925,7 +1926,7 @@ func drawCreatureFrontEffects(r *NoxRender, vp *Viewport, dr *Drawable) { // nox
 			v36 := randomIntMinMax(3, 6)
 			v34 := randomIntMinMax(1, 2)
 			v32 := randomIntMinMax(0, v44)
-			pos2 := types.Point{
+			pos2 := image.Point{
 				X: randomIntMinMax(-v11, v11),
 				Y: randomIntMinMax(-v11, v11),
 			}
@@ -1943,7 +1944,7 @@ func drawCreatureFrontEffects(r *NoxRender, vp *Viewport, dr *Drawable) { // nox
 		v29 := int(dr.Field25()) + 12
 		v14 := int(dr.Field25())
 		v33 := randomIntMinMax(v14+8, v29)
-		pos2 := types.Point{
+		pos2 := image.Point{
 			X: randomIntMinMax(-6, 6),
 			Y: randomIntMinMax(-10, 10),
 		}
@@ -1962,7 +1963,7 @@ func drawCreatureFrontEffects(r *NoxRender, vp *Viewport, dr *Drawable) { // nox
 			v38 := int(*(*float32)(dr.field(48)))
 			v18 := int(*(*float32)(dr.field(48)))
 			v20 := int(dr.Field25())
-			pos2 := pos.Add(types.Point{
+			pos2 := pos.Add(image.Point{
 				X: randomIntMinMax(-v18, v38),
 				Y: randomIntMinMax(-10-v20, 0) + int(*(*int16)(dr.field(104))),
 			})

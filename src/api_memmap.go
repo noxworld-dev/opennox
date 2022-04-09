@@ -1,11 +1,11 @@
-package nox
+package opennox
 
 import (
 	"archive/zip"
 	"fmt"
 	"net/http"
 
-	"nox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
 func init() {

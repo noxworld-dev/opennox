@@ -1,10 +1,10 @@
-package nox
+package opennox
 
 import (
 	"encoding/json"
 	"net/http"
 
-	"nox/v1/common/player"
+	"github.com/noxworld-dev/opennox-lib/player"
 )
 
 type debugPlayerInfo struct {

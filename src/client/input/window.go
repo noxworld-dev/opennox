@@ -3,33 +3,33 @@ package input
 import (
 	"image"
 
-	"nox/v1/common/types"
+	"github.com/noxworld-dev/opennox-lib/types"
 )
 
 type window struct {
 	view  image.Rectangle // viewport inside the window
-	draw  types.Size      // size of the image that game draws
-	scale types.Sizef     // scale factors calculated from sizes above
+	draw  image.Point     // size of the image that game draws
+	scale types.Pointf    // scale factors calculated from sizes above
 }
 
-func (win *window) init(def types.Size) {
-	win.view = image.Rectangle{Max: def.Point()}
+func (win *window) init(def image.Point) {
+	win.view = image.Rectangle{Max: def}
 	win.draw = def
-	win.scale = types.Sizef{W: 1, H: 1}
+	win.scale = types.Pointf{X: 1, Y: 1}
 }
 
 func (win *window) updateScale() {
-	win.scale.W = float32(win.draw.W) / float32(win.view.Dx())
-	win.scale.H = float32(win.draw.H) / float32(win.view.Dy())
+	win.scale.X = float32(win.draw.X) / float32(win.view.Dx())
+	win.scale.Y = float32(win.draw.Y) / float32(win.view.Dy())
 }
 
 // toDrawSpace remaps window position to position on the video buffer
 func (win *window) toDrawSpace(p image.Point) image.Point {
 	p.X -= win.view.Min.X
 	p.Y -= win.view.Min.Y
-	p.X = int(float32(p.X) * win.scale.W)
-	p.Y = int(float32(p.Y) * win.scale.H)
-	return clamp(image.Rectangle{Max: win.draw.Point()}, p)
+	p.X = int(float32(p.X) * win.scale.X)
+	p.Y = int(float32(p.Y) * win.scale.Y)
+	return clamp(image.Rectangle{Max: win.draw}, p)
 }
 
 func clamp(r image.Rectangle, p image.Point) image.Point {
@@ -72,8 +72,8 @@ func (win *window) SetWinSize(rect image.Rectangle) {
 	win.updateScale()
 }
 
-func (win *window) SetDrawWinSize(sz types.Size) {
-	if sz.W == 0 || sz.H == 0 {
+func (win *window) SetDrawWinSize(sz image.Point) {
+	if sz.X == 0 || sz.Y == 0 {
 		return
 	}
 	win.draw = sz

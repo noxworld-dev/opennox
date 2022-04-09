@@ -1,11 +1,12 @@
-package nox
+package opennox
 
 import (
 	"context"
 
-	"nox/v1/common/env"
-	noxflags "nox/v1/common/flags"
-	"nox/v1/common/log"
+	"github.com/noxworld-dev/opennox-lib/env"
+	"github.com/noxworld-dev/opennox-lib/log"
+
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 
 	"github.com/noxworld-dev/nat"
 )

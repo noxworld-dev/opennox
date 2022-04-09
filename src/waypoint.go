@@ -1,4 +1,4 @@
-package nox
+package opennox
 
 /*
 extern unsigned int nox_xxx_waypointsHead_2523752;
@@ -8,8 +8,8 @@ import (
 	"strings"
 	"unsafe"
 
-	"nox/v1/common/types"
-	"nox/v1/server/script"
+	"github.com/noxworld-dev/opennox-lib/script"
+	"github.com/noxworld-dev/opennox-lib/types"
 )
 
 func asWaypoint(p unsafe.Pointer) *Waypoint {

@@ -1,4 +1,4 @@
-package nox
+package opennox
 
 import (
 	"context"
@@ -6,11 +6,12 @@ import (
 	"path/filepath"
 	"strings"
 
-	"nox/v1/common/console"
-	"nox/v1/common/datapath"
-	"nox/v1/common/maps"
-	"nox/v1/server/script"
-	"nox/v1/server/script/lua"
+	"github.com/noxworld-dev/opennox-lib/datapath"
+	"github.com/noxworld-dev/opennox-lib/maps"
+	"github.com/noxworld-dev/opennox-lib/script"
+	"github.com/noxworld-dev/opennox-lib/script/lua"
+
+	"github.com/noxworld-dev/opennox-lib/console"
 )
 
 type scriptLUA struct {

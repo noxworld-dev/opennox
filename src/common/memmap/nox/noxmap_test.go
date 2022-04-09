@@ -1,4 +1,4 @@
-package nox
+package opennox
 
 import (
 	"bytes"
@@ -14,7 +14,7 @@ import (
 	"strings"
 	"testing"
 
-	"nox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
 func TestIntersection(t *testing.T) {

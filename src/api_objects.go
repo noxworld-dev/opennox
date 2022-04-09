@@ -1,4 +1,4 @@
-package nox
+package opennox
 
 import (
 	"encoding/json"
@@ -6,8 +6,8 @@ import (
 	"strconv"
 	"strings"
 
-	"nox/v1/common/object"
-	"nox/v1/common/types"
+	"github.com/noxworld-dev/opennox-lib/object"
+	"github.com/noxworld-dev/opennox-lib/types"
 )
 
 type debugObjectType struct {

@@ -1,4 +1,4 @@
-package nox
+package opennox
 
 import (
 	"context"
@@ -7,8 +7,8 @@ import (
 
 	"github.com/noxworld-dev/lobby"
 
-	"nox/v1/common/discover"
-	noxflags "nox/v1/common/flags"
+	"github.com/noxworld-dev/opennox/v1/common/discover"
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 )
 
 func init() {

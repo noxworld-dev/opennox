@@ -6,7 +6,7 @@ import (
 	"strings"
 	"unicode"
 
-	noxcolor "nox/v1/common/color"
+	noxcolor "github.com/noxworld-dev/opennox-lib/color"
 )
 
 func ReadNextToken(r io.ByteReader) (string, error) {

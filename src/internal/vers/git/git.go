@@ -6,7 +6,7 @@ import (
 	"os/exec"
 	"strings"
 
-	"nox/v1/internal/version"
+	"github.com/noxworld-dev/opennox/v1/internal/version"
 )
 
 const defVersion = version.Series

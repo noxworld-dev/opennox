@@ -1,11 +1,12 @@
-package nox
+package opennox
 
 import (
 	"context"
 	"strings"
 
-	"nox/v1/common/console"
-	noxflags "nox/v1/common/flags"
+	"github.com/noxworld-dev/opennox-lib/console"
+
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 )
 
 var (

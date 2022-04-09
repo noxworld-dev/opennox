@@ -1,7 +1,7 @@
 package gui
 
 import (
-	noxcolor "nox/v1/common/color"
+	noxcolor "github.com/noxworld-dev/opennox-lib/color"
 )
 
 type StyleDefaults struct {

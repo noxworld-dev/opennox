@@ -5,7 +5,7 @@ import (
 	_ "embed"
 	"text/template"
 
-	"nox/v1/internal/vers/git"
+	"github.com/noxworld-dev/opennox/v1/internal/vers/git"
 )
 
 //go:embed opennox.desktop

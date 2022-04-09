@@ -1,4 +1,4 @@
-package nox
+package opennox
 
 /*
 #include "GAME1.h"
@@ -43,10 +43,10 @@ import (
 
 	"github.com/noxworld-dev/lobby"
 
-	"nox/v1/common/alloc"
-	"nox/v1/common/discover"
-	noxflags "nox/v1/common/flags"
-	"nox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/common/alloc"
+	"github.com/noxworld-dev/opennox/v1/common/discover"
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
+	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
 var (

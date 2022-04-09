@@ -23,10 +23,11 @@ import (
 
 	"github.com/timshannon/go-openal/openal"
 
-	"nox/v1/common/alloc/handles"
-	"nox/v1/common/env"
-	"nox/v1/common/fs"
-	"nox/v1/common/log"
+	"github.com/noxworld-dev/opennox-lib/env"
+	"github.com/noxworld-dev/opennox-lib/ifs"
+	"github.com/noxworld-dev/opennox-lib/log"
+
+	"github.com/noxworld-dev/opennox/v1/common/alloc/handles"
 )
 
 var (
@@ -662,7 +663,7 @@ func (s Sample) Release() {
 }
 
 func audioOpenStream(path string) (*audioStream, error) {
-	f, err := fs.Open(path)
+	f, err := ifs.Open(path)
 	if err != nil {
 		return nil, err
 	}

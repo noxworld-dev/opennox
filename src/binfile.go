@@ -1,4 +1,4 @@
-package nox
+package opennox
 
 /*
 #include <stdbool.h>
@@ -13,11 +13,11 @@ import (
 	"os"
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox-lib/ifs"
 	"golang.org/x/crypto/blowfish"
 
-	"nox/v1/common/crypt"
-	"nox/v1/common/fs"
-	"nox/v1/common/log"
+	"github.com/noxworld-dev/noxcrypt"
+	"github.com/noxworld-dev/opennox-lib/log"
 )
 
 var (
@@ -243,11 +243,11 @@ func BinfileOpen(path string, mode BinFileMode) (*Binfile, error) {
 	)
 	switch mode {
 	case BinFileRO:
-		f, err = fs.Open(path)
+		f, err = ifs.Open(path)
 	case BinFileWO:
-		f, err = fs.Create(path)
+		f, err = ifs.Create(path)
 	case BinFileRW:
-		f, err = fs.OpenFile(path, os.O_RDWR)
+		f, err = ifs.OpenFile(path, os.O_RDWR)
 	default:
 		return nil, fmt.Errorf("invalid mode: %d", mode)
 	}

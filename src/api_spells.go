@@ -1,10 +1,10 @@
-package nox
+package opennox
 
 import (
 	"encoding/json"
 	"net/http"
 
-	"nox/v1/common/things"
+	"github.com/noxworld-dev/opennox-lib/things"
 )
 
 type debugSpellDef struct {

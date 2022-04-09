@@ -1,7 +1,7 @@
 //go:build !server
 // +build !server
 
-package nox
+package opennox
 
 /*
 #include "GAME2_1.h"
@@ -11,10 +11,10 @@ package nox
 import "C"
 import (
 	"errors"
+	"image"
 	"unsafe"
 
-	"nox/v1/common/memmap"
-	"nox/v1/common/types"
+	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
 func clientDraw() bool {
@@ -34,7 +34,7 @@ func sub_444D00() {
 	nox_video_setBackBufferCopyFunc2_4AD150()
 }
 
-func resetRenderer(sz types.Size, init bool) error {
+func resetRenderer(sz image.Point, init bool) error {
 	if C.nox_video_renderTargetFlags&4 == 0 && !init {
 		if err := noxRendererS.Reset(sz); err != nil {
 			return err
@@ -49,7 +49,7 @@ func resetRenderer(sz types.Size, init bool) error {
 }
 
 func gameResetVideoMode(inMenu, force bool) error {
-	var mode types.Size
+	var mode image.Point
 	if inMenu {
 		if debugMainloop {
 			videoLog.Printf("gameUpdateVideoMode: menu (%s)", caller(1))
@@ -74,13 +74,13 @@ func gameResetVideoMode(inMenu, force bool) error {
 	return nil
 }
 
-func nox_video_setBackBufSizes_48A3D0(sz types.Size) int {
+func nox_video_setBackBufSizes_48A3D0(sz image.Point) int {
 	*memmap.PtrUint32(0x973F18, 2368) = 0
 
-	*memmap.PtrUint32(0x973F18, 136) = uint32(2 * sz.W)
+	*memmap.PtrUint32(0x973F18, 136) = uint32(2 * sz.X)
 	*memmap.PtrUint32(0x973F18, 2368) = 1
 
-	*memmap.PtrUint32(0x973F18, 2348) = uint32(sz.W / 2)
+	*memmap.PtrUint32(0x973F18, 2348) = uint32(sz.X / 2)
 	C.nox_video_modeXxx_3801780 = 1
 	return 1
 }

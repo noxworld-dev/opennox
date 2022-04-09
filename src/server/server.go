@@ -1,8 +1,9 @@
 package server
 
 import (
-	"nox/v1/common/console"
-	"nox/v1/common/strman"
+	"github.com/noxworld-dev/opennox-lib/strman"
+
+	"github.com/noxworld-dev/opennox-lib/console"
 )
 
 const (

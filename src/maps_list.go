@@ -1,4 +1,4 @@
-package nox
+package opennox
 
 /*
 #include "defs.h"
@@ -13,11 +13,12 @@ import (
 	"os"
 	"unsafe"
 
-	"nox/v1/common/alloc"
-	"nox/v1/common/datapath"
-	"nox/v1/common/fs"
-	"nox/v1/common/maps"
-	"nox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox-lib/datapath"
+	"github.com/noxworld-dev/opennox-lib/ifs"
+	"github.com/noxworld-dev/opennox-lib/maps"
+
+	"github.com/noxworld-dev/opennox/v1/common/alloc"
+	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
 var soloAllowMP = os.Getenv("NOX_SOLO_MP") == "true"
@@ -66,6 +67,6 @@ func nox_xxx_checkHasSoloMaps_40ABD0() C.bool {
 }
 
 func nox_xxx_checkHasSoloMaps() bool {
-	_, err := fs.Stat(datapath.Maps("con01a", "con01a.map"))
+	_, err := ifs.Stat(datapath.Maps("con01a", "con01a.map"))
 	return err == nil
 }

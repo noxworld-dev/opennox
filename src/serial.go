@@ -1,10 +1,10 @@
-package nox
+package opennox
 
 import "C"
 import (
 	"unsafe"
 
-	"nox/v1/common/serial"
+	"github.com/noxworld-dev/opennox/v1/common/serial"
 )
 
 //export nox_xxx_regGetSerial_420120

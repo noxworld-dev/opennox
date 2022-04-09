@@ -1,11 +1,12 @@
-package nox
+package opennox
 
 import "C"
 import (
-	"nox/v1/common/balance"
-	"nox/v1/common/datapath"
-	noxflags "nox/v1/common/flags"
-	"nox/v1/common/log"
+	"github.com/noxworld-dev/opennox-lib/balance"
+	"github.com/noxworld-dev/opennox-lib/datapath"
+	"github.com/noxworld-dev/opennox-lib/log"
+
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 )
 
 var (
@@ -45,7 +46,7 @@ func nox_xxx_gamedataGetFloatTable_419D70(k *C.char, i C.int) C.double {
 	return val
 }
 
-func gamedataTag() string {
+func gamedataTag() balance.Tag {
 	// TODO: check if it's a valid condition
 	if noxflags.HasGame(noxflags.GameModeCoop) {
 		return balance.TagSolo

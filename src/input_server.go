@@ -1,14 +1,14 @@
 //go:build server
 // +build server
 
-package nox
+package opennox
 
 import (
 	"image"
 
-	"nox/v1/client/input"
-	"nox/v1/common/keybind"
-	"nox/v1/common/types"
+	"github.com/noxworld-dev/opennox-lib/client/keybind"
+
+	"github.com/noxworld-dev/opennox/v1/client/input"
 )
 
 var (
@@ -66,9 +66,9 @@ func clientDraw() bool { return true }
 
 func drawAndPresent() {}
 
-func getMousePos() types.Point { return types.Point{} }
+func getMousePos() image.Point { return image.Point{} }
 
-func changeMousePos(pos types.Point, abs bool) {}
+func changeMousePos(pos image.Point, abs bool) {}
 
 func getInputSeq() uint { return 1 }
 

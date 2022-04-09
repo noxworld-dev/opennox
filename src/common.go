@@ -1,13 +1,14 @@
-package nox
+package opennox
 
 /*
 #include "defs.h"
 */
 import "C"
 import (
-	noxflags "nox/v1/common/flags"
-	"nox/v1/common/platform"
-	"nox/v1/common/prand"
+	"github.com/noxworld-dev/opennox-lib/platform"
+	"github.com/noxworld-dev/opennox-lib/prand"
+
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 )
 
 var (

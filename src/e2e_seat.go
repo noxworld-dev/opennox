@@ -1,8 +1,9 @@
-package nox
+package opennox
 
 import (
-	"nox/v1/client/seat"
-	"nox/v1/common/types"
+	"image"
+
+	"github.com/noxworld-dev/opennox-lib/client/seat"
 )
 
 func e2eWrapSeat(s seat.Seat) seat.Seat {
@@ -19,15 +20,15 @@ func (e *e2eSeat) ReplaceInputs(cfg seat.InputConfig) seat.InputConfig {
 	return e.s.ReplaceInputs(cfg)
 }
 
-func (e *e2eSeat) ScreenSize() types.Size {
+func (e *e2eSeat) ScreenSize() image.Point {
 	return e.s.ScreenSize()
 }
 
-func (e *e2eSeat) ScreenMaxSize() types.Size {
-	return types.Size{W: 1024, H: 768}
+func (e *e2eSeat) ScreenMaxSize() image.Point {
+	return image.Point{X: 1024, Y: 768}
 }
 
-func (e *e2eSeat) ResizeScreen(sz types.Size) {
+func (e *e2eSeat) ResizeScreen(sz image.Point) {
 	e.s.ResizeScreen(sz)
 }
 
@@ -39,11 +40,11 @@ func (e *e2eSeat) SetGamma(v float32) {
 	e.s.SetGamma(v)
 }
 
-func (e *e2eSeat) OnScreenResize(fnc func(sz types.Size)) {
+func (e *e2eSeat) OnScreenResize(fnc func(sz image.Point)) {
 	e.s.OnScreenResize(fnc)
 }
 
-func (e *e2eSeat) NewSurface(sz types.Size, filter bool) seat.Surface {
+func (e *e2eSeat) NewSurface(sz image.Point, filter bool) seat.Surface {
 	return e.s.NewSurface(sz, filter)
 }
 

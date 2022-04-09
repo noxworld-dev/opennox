@@ -1,13 +1,16 @@
-package nox
+package opennox
 
 import (
+	"image"
 	"time"
 
-	"nox/v1/common/console"
-	"nox/v1/common/log"
-	"nox/v1/common/object"
-	"nox/v1/common/types"
-	"nox/v1/server/script"
+	"github.com/noxworld-dev/opennox-lib/log"
+
+	"github.com/noxworld-dev/opennox-lib/object"
+	"github.com/noxworld-dev/opennox-lib/script"
+	"github.com/noxworld-dev/opennox-lib/types"
+
+	"github.com/noxworld-dev/opennox-lib/console"
 )
 
 var scriptLog = log.New("script")
@@ -153,7 +156,7 @@ func (s noxScript) WallNear(pos types.Pointf) script.Wall {
 	return w
 }
 
-func (s noxScript) WallAtGrid(pos types.Point) script.Wall {
+func (s noxScript) WallAtGrid(pos image.Point) script.Wall {
 	w := s.s.getWallAtGrid(pos)
 	if w == nil {
 		return nil

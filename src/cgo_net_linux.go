@@ -1,7 +1,7 @@
 //go:build linux
 // +build linux
 
-package nox
+package opennox
 
 /*
 #include <sys/ioctl.h>

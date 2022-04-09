@@ -1,4 +1,4 @@
-package nox
+package opennox
 
 /*
 #include "GAME1_3.h"
@@ -10,9 +10,10 @@ import (
 	"image"
 	"unsafe"
 
-	noxcolor "nox/v1/common/color"
-	noxflags "nox/v1/common/flags"
-	"nox/v1/internal/version"
+	noxcolor "github.com/noxworld-dev/opennox-lib/color"
+
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
+	"github.com/noxworld-dev/opennox/v1/internal/version"
 )
 
 var (
@@ -74,7 +75,7 @@ func nox_game_showLegal_4CC4E0() {
 	v0 := win.ChildByID(9980)
 	v8 := GoWString(C.sub_46AF00(unsafe.Pointer(v0.C())))
 	v1 := asFont(C.sub_46AF40(unsafe.Pointer(v0.C())))
-	v9 := noxrend.GetStringSizeWrapped(v1, v8, 640).H
+	v9 := noxrend.GetStringSizeWrapped(v1, v8, 640).Y
 	v0.SetPos(image.Pt(0, 477-v9))
 	vers := version.ClientVersion()
 	versText := win.ChildByID(9999)

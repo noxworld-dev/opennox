@@ -1,10 +1,10 @@
-package nox
+package opennox
 
 /*
 extern int dword_5d4594_3799524;
 */
 import "C"
-import "nox/v1/common/memmap"
+import "github.com/noxworld-dev/opennox/v1/common/memmap"
 
 //export sub_473670
 func sub_473670() C.int {

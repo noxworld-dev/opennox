@@ -4,13 +4,14 @@ import (
 	"errors"
 	"flag"
 	"fmt"
+	"image"
 	"os"
 
-	"nox/v1/client/audio/ail"
-	"nox/v1/client/noxmovie"
-	"nox/v1/client/seat/sdl"
-	"nox/v1/common/alloc/handles"
-	"nox/v1/common/types"
+	"github.com/noxworld-dev/opennox-lib/client/seat/sdl"
+
+	"github.com/noxworld-dev/opennox/v1/client/audio/ail"
+	"github.com/noxworld-dev/opennox/v1/client/noxmovie"
+	"github.com/noxworld-dev/opennox/v1/common/alloc/handles"
 )
 
 var (
@@ -32,10 +33,7 @@ func run(fname string) error {
 	defer handles.Release()
 
 	// Initialize SDL window.
-	sz := types.Size{
-		W: 640,
-		H: 480,
-	}
+	sz := image.Pt(640, 480)
 	win, err := sdl.New("Nox Movie Player", sz)
 	if err != nil {
 		return err

@@ -1,4 +1,4 @@
-package nox
+package opennox
 
 /*
 #include "defs.h"
@@ -14,9 +14,10 @@ import (
 	"os"
 	"unsafe"
 
-	noxflags "nox/v1/common/flags"
-	"nox/v1/common/log"
-	"nox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox-lib/log"
+
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
+	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
 const (

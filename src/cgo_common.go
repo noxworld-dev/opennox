@@ -1,4 +1,4 @@
-package nox
+package opennox
 
 /*
 #cgo CFLAGS: -fshort-wchar -fno-strict-aliasing -fno-strict-overflow

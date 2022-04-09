@@ -3,9 +3,10 @@ package noxrender
 import (
 	"encoding/binary"
 	"fmt"
+	"image"
 	"unsafe"
 
-	"nox/v1/common/types"
+	"github.com/noxworld-dev/opennox-lib/types"
 )
 
 type drawOp16Func func(dst []uint16, src []byte, val int) (outDst []uint16, outSrc []byte)
@@ -40,7 +41,7 @@ func NewRawImage(typ int, data []byte) Image16 {
 	return &rawImage{typ: typ, data: data}
 }
 
-func (r *NoxRender) DrawImage16(img Image16, pos types.Point) { // nox_client_xxxDraw16_4C7440
+func (r *NoxRender) DrawImage16(img Image16, pos image.Point) { // nox_client_xxxDraw16_4C7440
 	if img == nil {
 		return
 	}
@@ -104,7 +105,7 @@ func (r *NoxRender) DrawImage16(img Image16, pos types.Point) { // nox_client_xx
 	}
 }
 
-func (r *NoxRender) nox_client_drawImg_bbb_4C7860(img Image16, pos types.Point) {
+func (r *NoxRender) nox_client_drawImg_bbb_4C7860(img Image16, pos image.Point) {
 	data := img.Pixdata()
 	if len(data) == 0 {
 		return
@@ -162,7 +163,7 @@ func (r *NoxRender) nox_client_drawImg_bbb_4C7860(img Image16, pos types.Point) 
 	}
 }
 
-func (r *NoxRender) nox_client_drawImg_aaa_4C79F0(ops *drawOps, img Image16, pos types.Point) { // nox_client_drawImg_aaa_4C79F0
+func (r *NoxRender) nox_client_drawImg_aaa_4C79F0(ops *drawOps, img Image16, pos image.Point) { // nox_client_drawImg_aaa_4C79F0
 	src := img.Pixdata()
 	if len(src) == 0 {
 		return
@@ -188,7 +189,7 @@ func (r *NoxRender) nox_client_drawImg_aaa_4C79F0(ops *drawOps, img Image16, pos
 		r.dword_5d4594_3799476 = pos.Y + int(height)
 	}
 	if r.HookImageDrawXxx != nil {
-		r.HookImageDrawXxx(pos, types.Size{W: int(width), H: int(height)})
+		r.HookImageDrawXxx(pos, image.Point{X: int(width), Y: int(height)})
 	}
 	if r.p.Flag0() {
 		rc := types.Rect{Left: pos.X, Top: pos.Y, Right: pos.X + int(width), Bottom: pos.Y + int(height)}
@@ -242,7 +243,7 @@ func (r *NoxRender) nox_client_drawImg_aaa_4C79F0(ops *drawOps, img Image16, pos
 	}
 }
 
-func (r *NoxRender) nox_client_drawXxx_4C7C80(ops *drawOps, pix []byte, pos types.Point, width int, clip types.Rect) { // nox_client_drawXxx_4C7C80
+func (r *NoxRender) nox_client_drawXxx_4C7C80(ops *drawOps, pix []byte, pos image.Point, width int, clip types.Rect) { // nox_client_drawXxx_4C7C80
 	left := clip.Left
 	right := clip.Right
 	dy := clip.Top - pos.Y

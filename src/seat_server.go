@@ -1,13 +1,14 @@
 //go:build server
 // +build server
 
-package nox
+package opennox
 
 import (
-	"nox/v1/client/seat"
-	"nox/v1/common/types"
+	"image"
+
+	"github.com/noxworld-dev/opennox-lib/client/seat"
 )
 
-func newSeat(sz types.Size) (seat.Seat, error) {
+func newSeat(sz image.Point) (seat.Seat, error) {
 	return nil, nil
 }

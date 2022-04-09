@@ -1,4 +1,4 @@
-package nox
+package opennox
 
 /*
 #include "defs.h"
@@ -7,8 +7,9 @@ import "C"
 import (
 	"unsafe"
 
-	"nox/v1/common/things"
-	"nox/v1/common/unit/ai"
+	"github.com/noxworld-dev/opennox-lib/things"
+
+	"github.com/noxworld-dev/opennox/v1/common/unit/ai"
 )
 
 func (u *Unit) monsterCast(spellInd things.SpellID, target *Object) {

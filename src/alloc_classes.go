@@ -1,4 +1,4 @@
-package nox
+package opennox
 
 /*
 #include "common/alloc/classes/alloc_class.h"
@@ -7,7 +7,7 @@ import "C"
 import (
 	"unsafe"
 
-	"nox/v1/common/alloc"
+	"github.com/noxworld-dev/opennox/v1/common/alloc"
 )
 
 const DeadWord = 0xacacacac

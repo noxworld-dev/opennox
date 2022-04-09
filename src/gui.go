@@ -1,4 +1,4 @@
-package nox
+package opennox
 
 /*
 #include "GAME1_3.h"
@@ -23,14 +23,15 @@ import (
 
 	"golang.org/x/image/font"
 
-	"nox/v1/client/gui"
-	"nox/v1/client/input"
-	"nox/v1/common/alloc"
-	noxcolor "nox/v1/common/color"
-	"nox/v1/common/keybind"
-	"nox/v1/common/log"
-	"nox/v1/common/strman"
-	"nox/v1/common/types"
+	"github.com/noxworld-dev/opennox-lib/client/keybind"
+	noxcolor "github.com/noxworld-dev/opennox-lib/color"
+	"github.com/noxworld-dev/opennox-lib/log"
+	"github.com/noxworld-dev/opennox-lib/strman"
+	"github.com/noxworld-dev/opennox-lib/types"
+
+	"github.com/noxworld-dev/opennox/v1/client/gui"
+	"github.com/noxworld-dev/opennox/v1/client/input"
+	"github.com/noxworld-dev/opennox/v1/common/alloc"
 )
 
 var (
@@ -449,7 +450,7 @@ func keyBindingsCheckActive(inp *input.Handler) int {
 	return 1
 }
 
-func sub_4281F0(p types.Point, r types.Rect) bool {
+func sub_4281F0(p image.Point, r types.Rect) bool {
 	return p.X >= r.Left && p.X <= r.Right && p.Y >= r.Top && p.Y <= r.Bottom
 }
 

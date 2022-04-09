@@ -1,4 +1,4 @@
-package nox
+package opennox
 
 /*
 #include "defs.h"

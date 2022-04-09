@@ -1,7 +1,7 @@
-package nox
+package opennox
 
 import (
-	"nox/v1/server/script"
+	"github.com/noxworld-dev/opennox-lib/script"
 )
 
 type scriptEvents struct {

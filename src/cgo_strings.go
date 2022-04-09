@@ -1,4 +1,4 @@
-package nox
+package opennox
 
 /*
 #include <stddef.h>
@@ -10,7 +10,7 @@ import (
 	"unicode/utf16"
 	"unsafe"
 
-	"nox/v1/common/alloc"
+	"github.com/noxworld-dev/opennox/v1/common/alloc"
 )
 
 type wchar_t = C.wchar_t

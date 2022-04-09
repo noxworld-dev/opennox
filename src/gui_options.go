@@ -1,4 +1,4 @@
-package nox
+package opennox
 
 /*
 #include "client__gui__window.h"
@@ -17,9 +17,8 @@ import (
 
 	"github.com/spf13/viper"
 
-	"nox/v1/client/noxfont"
-	"nox/v1/common/strman"
-	"nox/v1/common/types"
+	"github.com/noxworld-dev/opennox-lib/noxfont"
+	"github.com/noxworld-dev/opennox-lib/strman"
 )
 
 const (
@@ -35,15 +34,15 @@ func init() {
 }
 
 var (
-	guiOptionsRes = types.Size{
-		W: noxDefaultWidth,
-		H: noxDefaultHeight,
+	guiOptionsRes = image.Point{
+		X: noxDefaultWidth,
+		Y: noxDefaultHeight,
 	}
 )
 
-func getResolutionOptions() []types.Size {
+func getResolutionOptions() []image.Point {
 	if noxHighRes {
-		return []types.Size{
+		return []image.Point{
 			{640, 480},
 			{800, 600},
 			{1024, 768},
@@ -56,7 +55,7 @@ func getResolutionOptions() []types.Size {
 			{3840, 2160},
 		}
 	}
-	return []types.Size{
+	return []image.Point{
 		{640, 480},
 		{720, 540},
 		{800, 600},
@@ -76,7 +75,7 @@ func nox_video_setMenuOptions(cwin *C.nox_window) {
 	root := asWindow(cwin)
 	mode := videoGetGameMode()
 	for i, res := range getResolutionOptions() {
-		if res == (types.Size{}) {
+		if res == (image.Point{}) {
 			continue
 		}
 		id := uint(guiIDMenuExt + i)
@@ -93,8 +92,8 @@ func nox_gui_menu_proc_ext(cid C.int) C.int {
 	opts := getResolutionOptions()
 	if id >= guiIDMenuExt && id < guiIDMenuExt+len(opts) {
 		guiOptionsRes = opts[id-guiIDMenuExt]
-		viper.Set(configVideoWidth, guiOptionsRes.W)
-		viper.Set(configVideoHeight, guiOptionsRes.H)
+		viper.Set(configVideoWidth, guiOptionsRes.X)
+		viper.Set(configVideoHeight, guiOptionsRes.Y)
 		writeConfigLater()
 	}
 	clientPlaySoundSpecial(921, 100)
@@ -136,12 +135,12 @@ func guiEnhanceOptions(root *Window) {
 		resWidth  = 70
 	)
 	for i, res := range resOpts {
-		if res == (types.Size{}) {
+		if res == (image.Point{}) {
 			continue
 		}
 		xi := i / resRows
 		yi := i % resRows
-		text := fmt.Sprintf("%4dx%d", res.W, res.H)
+		text := fmt.Sprintf("%4dx%d", res.X, res.Y)
 		b := NewRadioButton(root, uint(guiIDMenuExt+i), 112+resWidth*xi, 135+resHeight*yi, resWidth, resHeight, 1, text)
 		draw := b.DrawData()
 		draw.SetFont(small)

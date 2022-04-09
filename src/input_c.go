@@ -1,4 +1,4 @@
-package nox
+package opennox
 
 /*
 #include "GAME1_2.h"
@@ -46,13 +46,14 @@ import (
 	"sync"
 	"unsafe"
 
-	"nox/v1/client/gui"
-	"nox/v1/client/input"
-	"nox/v1/client/seat"
-	noxflags "nox/v1/common/flags"
-	"nox/v1/common/keybind"
-	"nox/v1/common/memmap"
-	"nox/v1/common/types"
+	"github.com/noxworld-dev/opennox-lib/client/keybind"
+	"github.com/noxworld-dev/opennox-lib/client/seat"
+	"github.com/noxworld-dev/opennox-lib/types"
+
+	"github.com/noxworld-dev/opennox/v1/client/gui"
+	"github.com/noxworld-dev/opennox/v1/client/input"
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
+	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
 var (
@@ -511,7 +512,7 @@ func nox_xxx_cursorUpdate_46B740_sprites(inp *input.Handler, v63 bool, v66 []int
 		}
 		return
 	}
-	var v65 types.Point
+	var v65 image.Point
 	if sprite.Flags28()&0x400006 == 0 || C.nox_xxx_sprite_4C3220(sprite.C()) != 0 || sprite.Flags28()&2 != 0 && sprite.Flags29()&8 != 0 || sprite.Flags28()&2 != 0 && sprite.Flags70()&0x10 != 0 {
 		v46 := asWindow(C.dword_5d4594_1062452)
 		for v47 := nox_win_xxx1_last; v47 != nil; v47 = v47.Prev() {
@@ -657,16 +658,16 @@ func nox_xxx_cursorUpdate_46B740(inp *input.Handler) {
 				if par := nox_win_1064916.Parent(); par != nil {
 					psz := par.Size()
 					if off.X+dp.X >= 0 {
-						if dp.X+end.X > psz.W {
-							dp.X = psz.W - end.X
+						if dp.X+end.X > psz.X {
+							dp.X = psz.X - end.X
 						}
 						v1 = nil
 					} else {
 						dp.X = -off.X
 					}
 					if off.Y+dp.Y >= 0 {
-						if dp.Y+end.Y > psz.H {
-							dp.Y = psz.H - end.Y
+						if dp.Y+end.Y > psz.Y {
+							dp.Y = psz.Y - end.Y
 						}
 					} else {
 						dp.Y = -off.Y
@@ -683,15 +684,15 @@ func nox_xxx_cursorUpdate_46B740(inp *input.Handler) {
 
 				vsz := videoGetWindowSize()
 				sz := nox_win_1064916.Size()
-				end = off.Add(sz.Point())
-				if end.X > vsz.W {
-					end.X = vsz.W
+				end = off.Add(sz)
+				if end.X > vsz.X {
+					end.X = vsz.X
 				}
-				if end.Y > vsz.H {
-					end.Y = vsz.H
+				if end.Y > vsz.Y {
+					end.Y = vsz.Y
 				}
 				nox_win_1064916.SetEnd(end)
-				nox_win_1064916.SetOffs(end.Sub(sz.Point()))
+				nox_win_1064916.SetOffs(end.Sub(sz))
 			}
 			nox_win_1064916.Func93(&WindowMouseState{State: input.NOX_MOUSE_LEFT_PRESSED, Pos: mpos})
 			states[input.NOX_MOUSE_LEFT] = 0

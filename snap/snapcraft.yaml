@@ -58,10 +58,6 @@ apps:
       - home
       - network
       - network-bind
-  tools:
-    command: bin/noxtools
-    plugs:
-      - home
 
 parts:
   i386:
@@ -98,7 +94,6 @@ parts:
       src/opennox: bin/
       src/opennox-hd: bin/
       src/opennox-server: bin/
-      src/noxtools: bin/
       src/*.desktop: usr/share/applications/
       snap/gui/opennox.png: usr/share/icons/hicolor/256x256/apps/
     stage:

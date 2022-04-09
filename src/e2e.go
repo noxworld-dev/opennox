@@ -1,8 +1,9 @@
-package nox
+package opennox
 
 import (
 	"bytes"
 	"fmt"
+	"image"
 	"image/png"
 	"math"
 	"os"
@@ -12,11 +13,11 @@ import (
 
 	"gopkg.in/yaml.v2"
 
-	"nox/v1/client/seat"
-	"nox/v1/common/keybind"
-	"nox/v1/common/log"
-	"nox/v1/common/platform"
-	"nox/v1/common/types"
+	"github.com/noxworld-dev/opennox-lib/client/keybind"
+	"github.com/noxworld-dev/opennox-lib/client/seat"
+	"github.com/noxworld-dev/opennox-lib/log"
+	"github.com/noxworld-dev/opennox-lib/platform"
+	"github.com/noxworld-dev/opennox-lib/types"
 )
 
 var (
@@ -35,7 +36,7 @@ var e2e struct {
 
 	slow       time.Duration
 	real       seat.Seat
-	realMouse  types.Point
+	realMouse  image.Point
 	realEnable bool
 
 	done     chan<- struct{}
@@ -101,10 +102,10 @@ func (sc *e2eScenario) Quit(dt time.Duration) {
 }
 
 func (sc *e2eScenario) Move(x, y int, name string) {
-	sc.Input(0, name, &seat.MouseMoveEvent{Pos: types.Point{X: x, Y: y}, Relative: false})
+	sc.Input(0, name, &seat.MouseMoveEvent{Pos: image.Point{X: x, Y: y}, Relative: false})
 }
 
-func (sc *e2eScenario) Click(pos types.Point, btn seat.MouseButton, name string) {
+func (sc *e2eScenario) Click(pos image.Point, btn seat.MouseButton, name string) {
 	sc.Input(0, name,
 		&seat.MouseMoveEvent{Pos: pos, Relative: false},
 		&seat.MouseButtonEvent{Button: btn, Pressed: true},
@@ -112,7 +113,7 @@ func (sc *e2eScenario) Click(pos types.Point, btn seat.MouseButton, name string)
 	sc.Input(1, "", &seat.MouseButtonEvent{Button: btn, Pressed: false})
 }
 
-func (sc *e2eScenario) ClickSlow(pos types.Point, btn seat.MouseButton, name string) {
+func (sc *e2eScenario) ClickSlow(pos image.Point, btn seat.MouseButton, name string) {
 	sc.Input(0, name, &seat.MouseMoveEvent{Pos: pos, Relative: false})
 	sc.Input(1, "", &seat.MouseButtonEvent{Button: btn, Pressed: true})
 	sc.Input(1, "", &seat.MouseButtonEvent{Button: btn, Pressed: false})
@@ -124,19 +125,19 @@ func (sc *e2eScenario) Key(key keybind.Key, name string) {
 }
 
 func (sc *e2eScenario) ClickLeft(x, y int, name string) {
-	sc.Click(types.Point{X: x, Y: y}, seat.MouseButtonLeft, name)
+	sc.Click(image.Point{X: x, Y: y}, seat.MouseButtonLeft, name)
 }
 
 func (sc *e2eScenario) ClickSlowLeft(x, y int, name string) {
-	sc.ClickSlow(types.Point{X: x, Y: y}, seat.MouseButtonLeft, name)
+	sc.ClickSlow(image.Point{X: x, Y: y}, seat.MouseButtonLeft, name)
 }
 
-func e2eAngToPos(ang float64, dist int) types.Point {
-	sz := types.Size{W: 1024, H: 768}
+func e2eAngToPos(ang float64, dist int) image.Point {
+	sz := image.Point{X: 1024, Y: 768}
 	rad := (0.5 - ang) * math.Pi
-	return types.Point{
-		X: sz.W/2 + int(math.Cos(rad)*float64(dist)),
-		Y: sz.H/2 - int(math.Sin(rad)*float64(dist)),
+	return image.Point{
+		X: sz.X/2 + int(math.Cos(rad)*float64(dist)),
+		Y: sz.Y/2 - int(math.Sin(rad)*float64(dist)),
 	}
 }
 
@@ -455,7 +456,7 @@ type e2eStepRaw struct {
 	Type string `yaml:"type"`
 
 	Relative bool         `yaml:"rel,omitempty"`
-	Pos      types.Point  `yaml:"pos,omitempty"`
+	Pos      image.Point  `yaml:"pos,omitempty"`
 	Rel      types.Pointf `yaml:"pos_rel,omitempty"`
 
 	Button  seat.MouseButton `yaml:"button,omitempty"`

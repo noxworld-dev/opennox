@@ -1,4 +1,4 @@
-package nox
+package opennox
 
 /*
 #include "GAME1_1.h"
@@ -11,12 +11,13 @@ import (
 	"strings"
 	"unsafe"
 
-	"nox/v1/common"
-	"nox/v1/common/alloc"
-	"nox/v1/common/datapath"
-	noxflags "nox/v1/common/flags"
-	"nox/v1/common/fs"
-	"nox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox-lib/common"
+	"github.com/noxworld-dev/opennox-lib/datapath"
+	"github.com/noxworld-dev/opennox-lib/ifs"
+
+	"github.com/noxworld-dev/opennox/v1/common/alloc"
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
+	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
 func nox_xxx_playerSaveToFile_41A140(path string, ind int) bool {
@@ -41,7 +42,7 @@ func sub4DB790(a1 string) int {
 
 //export nox_xxx_saveMakeFolder_0_4DB1D0
 func nox_xxx_saveMakeFolder_0_4DB1D0() C.bool {
-	return fs.Mkdir(datapath.Save()) == nil
+	return ifs.Mkdir(datapath.Save()) == nil
 }
 
 //export nox_client_makeSaveDir_4DB540
@@ -53,14 +54,14 @@ func nox_client_makeSaveDir_4DB540(cname *C.char) C.bool {
 
 func nox_client_makeSaveDir(name string) (string, error) {
 	dir := datapath.Save(name)
-	err := fs.Mkdir(dir)
+	err := ifs.Mkdir(dir)
 	return dir, err
 }
 
 //export nox_client_makeSaveMapDir_4DB5A0
 func nox_client_makeSaveMapDir_4DB5A0(a1c, a2c *C.char) C.bool {
 	a1, a2 := GoString(a1c), GoString(a2c)
-	return fs.Mkdir(datapath.Save(a1, a2)) == nil
+	return ifs.Mkdir(datapath.Save(a1, a2)) == nil
 }
 
 //export nox_savegame_rm_4DBE10
@@ -77,13 +78,13 @@ func nox_savegame_rm(name string, rmdir bool) error {
 		return nil
 	}
 	saveDir := datapath.Save(name)
-	if err := fs.RemoveAll(saveDir); err != nil {
+	if err := ifs.RemoveAll(saveDir); err != nil {
 		return err
 	}
 	// TODO: this should actually only remove the player file and map dirs; we just remove the whole dir instead
 	//       implement it properly later, if it makes any difference
 	if !rmdir {
-		if err := fs.Mkdir(saveDir); err != nil {
+		if err := ifs.Mkdir(saveDir); err != nil {
 			return err
 		}
 	}
@@ -111,7 +112,7 @@ func nox_client_copySave(from, to string) error {
 	}
 	// TODO: this should actually only copy the player file and map dirs; we just copy the whole dir instead
 	//       implement it properly later, if it makes any difference
-	return fs.CopyDir(fromDir, toDir)
+	return ifs.CopyDir(fromDir, toDir)
 }
 
 //export nox_client_checkSaveMapExistsTmp_4DB2A0
@@ -131,7 +132,7 @@ func nox_client_checkSaveMapExistsTmp(name string) (string, error) {
 	}
 	dir := strings.TrimSuffix(name, ".map")
 	fname := datapath.Save(common.SaveTmp, dir, name)
-	if _, err := fs.Stat(fname); err != nil {
+	if _, err := ifs.Stat(fname); err != nil {
 		return "", err
 	}
 	return fname, nil
@@ -149,7 +150,7 @@ func nox_client_countPlayerFiles04_4DC7D0() C.int {
 
 func nox_client_countPlayerFiles(flag byte) (int, error) {
 	dir := datapath.Save()
-	list, err := fs.ReadDir(dir)
+	list, err := ifs.ReadDir(dir)
 	if os.IsNotExist(err) {
 		return 0, nil
 	} else if err != nil {
@@ -172,7 +173,7 @@ func nox_client_countPlayerFiles(flag byte) (int, error) {
 }
 
 func sub_41A000_check0(path string) byte {
-	path = fs.Denormalize(path)
+	path = ifs.Denormalize(path)
 	cstr := CString(path)
 	defer StrFree(cstr)
 	save, freeSave := alloc.Bytes(1280)

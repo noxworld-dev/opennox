@@ -1,4 +1,4 @@
-package nox
+package opennox
 
 /*
 #include "defs.h"
@@ -10,7 +10,7 @@ import "C"
 import (
 	"unsafe"
 
-	"nox/v1/common/object"
+	"github.com/noxworld-dev/opennox-lib/object"
 )
 
 //export nox_xxx_xfer_saveObj_51DF90

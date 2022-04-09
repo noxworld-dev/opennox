@@ -1,11 +1,11 @@
-package nox
+package opennox
 
 /*
 #include <stdbool.h>
 */
 import "C"
 
-import noxflags "nox/v1/common/flags"
+import noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 
 var gameplayFlags uint32
 

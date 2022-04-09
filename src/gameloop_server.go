@@ -1,7 +1,7 @@
 //go:build server
 // +build server
 
-package nox
+package opennox
 
 import (
 	"image"

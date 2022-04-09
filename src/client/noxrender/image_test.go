@@ -16,10 +16,9 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"nox/v1/common/bag"
-	"nox/v1/common/noximage"
-	"nox/v1/common/noxtest"
-	"nox/v1/common/types"
+	"github.com/noxworld-dev/opennox-lib/bag"
+	"github.com/noxworld-dev/opennox-lib/noximage"
+	"github.com/noxworld-dev/opennox-lib/noxtest"
 )
 
 var drawBlends = []struct {
@@ -492,18 +491,27 @@ func TestDrawImage(t *testing.T) {
 			require.NoError(t, err)
 			t.Logf("typ: %d, off: %v", int(hdr.Type), hdr.Point)
 			require.Equal(t, c.typ, int(hdr.Type))
+			if debug {
+				pimg, err := bim.Decode()
+				require.NoError(t, err)
+				f, err := os.Create(filepath.Join(outDir, c.image+".png"))
+				require.NoError(t, err)
+				defer f.Close()
+				err = png.Encode(f, pimg)
+				require.NoError(t, err)
+			}
 
 			img := NewRawImage(int(bim.Type), data)
-			csz := types.Size{
-				W: (sz.W + hdr.Point.X) * 2,
-				H: (sz.H + hdr.Point.Y) * 2,
+			csz := image.Point{
+				X: (sz.X + hdr.Point.X) * 2,
+				Y: (sz.Y + hdr.Point.Y) * 2,
 			}
-			pos := image.Pt(sz.W/2, sz.H/2)
+			pos := image.Pt(sz.X/2, sz.Y/2)
 
 			for i, b := range drawBlends {
 				t.Run(b.name, func(t *testing.T) {
-					pix := newBackgroundPattern16(csz.W, csz.H)
-					d := newRenderData(csz.W, csz.H)
+					pix := newBackgroundPattern16(csz.X, csz.Y)
+					d := newRenderData(csz.X, csz.Y)
 					for k, v := range c.ops {
 						d.colorMultOp[k] = v
 					}

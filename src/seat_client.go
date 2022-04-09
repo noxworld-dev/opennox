@@ -1,7 +1,7 @@
 //go:build !server
 // +build !server
 
-package nox
+package opennox
 
 import (
 	"image"
@@ -9,14 +9,14 @@ import (
 
 	"github.com/spf13/viper"
 
-	"nox/v1/client/input"
-	"nox/v1/client/render"
-	"nox/v1/client/seat"
-	"nox/v1/client/seat/sdl"
-	"nox/v1/common/env"
-	"nox/v1/common/keybind"
-	"nox/v1/common/types"
-	"nox/v1/internal/version"
+	"github.com/noxworld-dev/opennox-lib/client/keybind"
+	"github.com/noxworld-dev/opennox-lib/client/seat"
+	"github.com/noxworld-dev/opennox-lib/client/seat/sdl"
+	"github.com/noxworld-dev/opennox-lib/env"
+
+	"github.com/noxworld-dev/opennox/v1/client/input"
+	"github.com/noxworld-dev/opennox/v1/client/render"
+	"github.com/noxworld-dev/opennox/v1/internal/version"
 )
 
 var (
@@ -96,11 +96,11 @@ func setSensitivity(v float32) {
 	inpHandlerS.SetSensitivity(v)
 }
 
-func getMousePos() types.Point {
+func getMousePos() image.Point {
 	return inpHandlerS.GetMousePos()
 }
 
-func changeMousePos(pos types.Point, abs bool) {
+func changeMousePos(pos image.Point, abs bool) {
 	inpHandlerS.ChangeMousePos(pos, abs)
 }
 
@@ -112,7 +112,7 @@ func setKeyFlag(key keybind.Key, val bool) {
 	inpHandlerS.SetKeyFlag(key, val)
 }
 
-func newSeat(sz types.Size) (seat.Seat, error) {
+func newSeat(sz image.Point) (seat.Seat, error) {
 	sst, err := sdl.New("OpenNox "+version.ClientVersion(), sz)
 	if err != nil {
 		return nil, err

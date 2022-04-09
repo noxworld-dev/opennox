@@ -1,4 +1,4 @@
-package nox
+package opennox
 
 import (
 	"context"
@@ -9,9 +9,10 @@ import (
 	"sort"
 	"strings"
 
-	noxflags "nox/v1/common/flags"
-	"nox/v1/common/log"
-	"nox/v1/internal/version"
+	"github.com/noxworld-dev/opennox-lib/log"
+
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
+	"github.com/noxworld-dev/opennox/v1/internal/version"
 )
 
 var (

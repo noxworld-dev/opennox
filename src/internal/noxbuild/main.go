@@ -11,23 +11,22 @@ import (
 	"strings"
 	"time"
 
-	"nox/v1/internal/vers/git"
+	"github.com/noxworld-dev/opennox/v1/internal/vers/git"
 )
 
 const (
 	BinOpenNox   = "opennox"
 	BinOpenNoxHD = "opennox-hd"
 	BinServer    = "opennox-server"
-	BinTools     = "noxtools"
 )
 
 const (
-	versPackage = "nox/v1/internal/version"
+	versPackage = "github.com/noxworld-dev/opennox/v1/internal/version"
 )
 
 var (
 	defTargets = []string{
-		BinOpenNox, BinOpenNoxHD, BinServer, BinTools,
+		BinOpenNox, BinOpenNoxHD, BinServer,
 	}
 	fOut  = flag.String("o", "", "output directory")
 	fSrc  = flag.String("s", "", "source directory")
@@ -66,8 +65,6 @@ func buildTarget(target string) error {
 	switch target {
 	default:
 		return fmt.Errorf("unsupported target: %q", target)
-	case BinTools, "tools":
-		return goBuild("noxtools", BinTools, nil)
 	case BinServer, "server":
 		return goBuild("opennox", BinServer, &buildOpts{
 			CGO: true, Tags: []string{"server"},

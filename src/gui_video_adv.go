@@ -1,4 +1,4 @@
-package nox
+package opennox
 
 /*
 #include "client__gui__window.h"
@@ -27,11 +27,12 @@ int nox_xxx_tileSetDrawFn_481420();
 */
 import "C"
 import (
-	"nox/v1/client/gui"
-	"nox/v1/client/noxfont"
-	noxcolor "nox/v1/common/color"
-	noxflags "nox/v1/common/flags"
-	"nox/v1/common/strman"
+	noxcolor "github.com/noxworld-dev/opennox-lib/color"
+	"github.com/noxworld-dev/opennox-lib/noxfont"
+	"github.com/noxworld-dev/opennox-lib/strman"
+
+	"github.com/noxworld-dev/opennox/v1/client/gui"
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 )
 
 var (

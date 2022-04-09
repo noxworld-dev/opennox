@@ -1,11 +1,13 @@
-package nox
+package opennox
 
 import (
-	"nox/v1/client/seat"
-	"nox/v1/common/env"
-	noxflags "nox/v1/common/flags"
-	"nox/v1/common/log"
-	"nox/v1/common/types"
+	"image"
+
+	"github.com/noxworld-dev/opennox-lib/client/seat"
+	"github.com/noxworld-dev/opennox-lib/env"
+	"github.com/noxworld-dev/opennox-lib/log"
+
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 )
 
 const (
@@ -16,15 +18,15 @@ const (
 
 var (
 	videoLog         = log.New("video")
-	noxVideoModeMenu = types.Size{
-		W: noxDefaultWidth,
-		H: noxDefaultHeight,
+	noxVideoModeMenu = image.Point{
+		X: noxDefaultWidth,
+		Y: noxDefaultHeight,
 	}
-	noxVideoMax = types.Size{
-		W: noxMaxWidth,
-		H: noxMaxHeight,
+	noxVideoMax = image.Point{
+		X: noxMaxWidth,
+		Y: noxMaxHeight,
 	}
-	noxVideoModes = []types.Size{
+	noxVideoModes = []image.Point{
 		{640, 480},
 		{800, 600},
 		{1024, 768},
@@ -43,20 +45,20 @@ func videoModeID() int {
 		}
 	}
 	for i, res := range noxVideoModes {
-		if mode.W == res.W {
+		if mode.X == res.X {
 			return i
 		}
 	}
 	for i, res := range noxVideoModes {
-		if mode.H == res.H {
+		if mode.Y == res.Y {
 			return i
 		}
 	}
-	area := mode.W * mode.H
+	area := mode.X * mode.Y
 	min := 0
 	ind := -1
 	for i, res := range noxVideoModes {
-		area2 := res.W * res.H
+		area2 := res.X * res.Y
 		if ind == -1 || abs(area-area2) < min {
 			ind = i
 			min = abs(area - area2)
@@ -65,36 +67,36 @@ func videoModeID() int {
 	return ind
 }
 
-func videoModeByID(code byte) (types.Size, bool) {
+func videoModeByID(code byte) (image.Point, bool) {
 	if int(code) >= len(noxVideoModes) {
-		return types.Size{}, false
+		return image.Point{}, false
 	}
 	return noxVideoModes[code], true
 }
 
-func videoGetMenuMode() types.Size {
+func videoGetMenuMode() image.Point {
 	return noxVideoModeMenu
 }
 
-func videoSetMenuMode(mode types.Size) {
+func videoSetMenuMode(mode image.Point) {
 	noxVideoModeMenu = mode
 }
 
-func videoSetMaxSize(sz types.Size) {
+func videoSetMaxSize(sz image.Point) {
 	noxVideoMax = sz
 }
 
-func videoGetMaxSize() types.Size {
+func videoGetMaxSize() image.Point {
 	return noxVideoMax
 }
 
-func videoResizeView(mode types.Size) {
+func videoResizeView(mode image.Point) {
 	max := videoGetMaxSize()
-	if mode.W > max.W {
-		mode.W = max.W
+	if mode.X > max.X {
+		mode.X = max.X
 	}
-	if mode.H > max.H {
-		mode.H = max.H
+	if mode.Y > max.Y {
+		mode.Y = max.Y
 	}
 	videoSetWindowSize(mode)
 }

@@ -6,7 +6,7 @@ import (
 	"net"
 	"time"
 
-	"nox/v1/common"
+	"github.com/noxworld-dev/opennox-lib/common"
 )
 
 const (

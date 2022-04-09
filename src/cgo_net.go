@@ -1,4 +1,4 @@
-package nox
+package opennox
 
 /*
 #include "nox_net.h"
@@ -13,9 +13,10 @@ import (
 	"syscall"
 	"unsafe"
 
-	"nox/v1/common/alloc"
-	"nox/v1/common/alloc/handles"
-	"nox/v1/common/log"
+	"github.com/noxworld-dev/opennox-lib/log"
+
+	"github.com/noxworld-dev/opennox/v1/common/alloc"
+	"github.com/noxworld-dev/opennox/v1/common/alloc/handles"
 )
 
 const (

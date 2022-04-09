@@ -1,15 +1,16 @@
-package nox
+package opennox
 
 import (
-	"nox/v1/client/seat"
-	"nox/v1/common/types"
+	"image"
+
+	"github.com/noxworld-dev/opennox-lib/client/seat"
 )
 
 var (
 	noxSeat seat.Seat
 )
 
-func InitSeat(sz types.Size) error {
+func InitSeat(sz image.Point) error {
 	s, err := newSeat(sz)
 	if err != nil {
 		return err
@@ -25,7 +26,7 @@ func FreeSeat() {
 	}
 }
 
-func setScreenSize(sz types.Size) {
+func setScreenSize(sz image.Point) {
 	if noxSeat != nil {
 		noxSeat.ResizeScreen(sz)
 	}

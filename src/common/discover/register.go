@@ -9,7 +9,7 @@ import (
 	"github.com/noxworld-dev/xwis"
 	"golang.org/x/sync/errgroup"
 
-	"nox/v1/common/log"
+	"github.com/noxworld-dev/opennox-lib/log"
 )
 
 const (

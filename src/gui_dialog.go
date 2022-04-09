@@ -1,4 +1,4 @@
-package nox
+package opennox
 
 /*
 #include "GAME1_1.h"
@@ -10,12 +10,13 @@ import (
 	"image"
 	"unsafe"
 
-	"nox/v1/client/gui"
-	"nox/v1/client/input"
-	"nox/v1/client/noxfont"
-	"nox/v1/common/keybind"
-	"nox/v1/common/memmap"
-	"nox/v1/common/strman"
+	"github.com/noxworld-dev/opennox-lib/client/keybind"
+	"github.com/noxworld-dev/opennox-lib/noxfont"
+	"github.com/noxworld-dev/opennox-lib/strman"
+
+	"github.com/noxworld-dev/opennox/v1/client/gui"
+	"github.com/noxworld-dev/opennox/v1/client/input"
+	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
 const (
@@ -120,7 +121,7 @@ func NewDialogWindow(a1 *Window, title string, text string, flags gui.DialogFlag
 	sub46C690(dia)
 	vsz := videoGetWindowSize()
 	sz := dia.Size()
-	dia.SetPos(image.Pt((vsz.W-sz.W)/2, (vsz.H-sz.H)/2))
+	dia.SetPos(image.Pt((vsz.X-sz.X)/2, (vsz.Y-sz.Y)/2))
 	sub449EA0(flags)
 	prev := nox_xxx_wndGetCaptureMain()
 	dword_5d4594_830236 = prev
@@ -201,7 +202,7 @@ func sub449EA0(flags gui.DialogFlags) {
 		setMouseBounds(image.Rect(off.X, off.Y, end.X, end.Y))
 	} else {
 		sz := videoGetWindowSize()
-		setMouseBounds(image.Rect(0, 0, sz.W-1, sz.H-1))
+		setMouseBounds(image.Rect(0, 0, sz.X-1, sz.Y-1))
 	}
 	*memmap.PtrUint32(0x5D4594, 830240) = uint32(flags)
 }

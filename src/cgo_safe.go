@@ -1,7 +1,7 @@
 //go:build safe
 // +build safe
 
-package nox
+package opennox
 
 /*
 #cgo CFLAGS: -g -O0 -DNOX_CGO_MEMMAP
@@ -26,8 +26,8 @@ import (
 	"os"
 	"unsafe"
 
-	"nox/v1/common/alloc"
-	"nox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/common/alloc"
+	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
 const cgoSafe = true

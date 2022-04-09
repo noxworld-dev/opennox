@@ -1,4 +1,4 @@
-package nox
+package opennox
 
 /*
 #include "GAME3_3.h"
@@ -13,12 +13,13 @@ import "C"
 import (
 	"unsafe"
 
-	"nox/v1/common/alloc"
-	noxflags "nox/v1/common/flags"
-	"nox/v1/common/object"
-	"nox/v1/common/types"
-	"nox/v1/common/unit/ai"
-	"nox/v1/server/script"
+	"github.com/noxworld-dev/opennox-lib/object"
+	"github.com/noxworld-dev/opennox-lib/script"
+	"github.com/noxworld-dev/opennox-lib/types"
+
+	"github.com/noxworld-dev/opennox/v1/common/alloc"
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
+	"github.com/noxworld-dev/opennox/v1/common/unit/ai"
 )
 
 //export nox_xxx_unitIsUnitTT_4E7C80

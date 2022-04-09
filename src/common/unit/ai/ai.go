@@ -3,7 +3,7 @@ package ai
 import (
 	"fmt"
 
-	"nox/v1/common/log"
+	"github.com/noxworld-dev/opennox-lib/log"
 )
 
 var (

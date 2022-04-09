@@ -1,4 +1,4 @@
-package nox
+package opennox
 
 /*
 #include "defs.h"
@@ -26,23 +26,24 @@ import (
 	"encoding/binary"
 	"errors"
 	"fmt"
+	"image"
 	"io"
 	"os"
 	"path/filepath"
 	"strings"
 	"unsafe"
 
-	"nox/v1/common"
-	"nox/v1/common/alloc"
-	"nox/v1/common/crypt"
-	"nox/v1/common/datapath"
-	noxflags "nox/v1/common/flags"
-	"nox/v1/common/fs"
-	"nox/v1/common/log"
-	"nox/v1/common/memmap"
-	"nox/v1/common/object"
-	"nox/v1/common/types"
-	"nox/v1/server/script/noxscript"
+	"github.com/noxworld-dev/noxcrypt"
+	"github.com/noxworld-dev/opennox-lib/common"
+	"github.com/noxworld-dev/opennox-lib/datapath"
+	"github.com/noxworld-dev/opennox-lib/ifs"
+	"github.com/noxworld-dev/opennox-lib/log"
+	"github.com/noxworld-dev/opennox-lib/object"
+	"github.com/noxworld-dev/opennox-lib/script/noxscript"
+
+	"github.com/noxworld-dev/opennox/v1/common/alloc"
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
+	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
 var (
@@ -114,7 +115,7 @@ func nox_server_mapRWScriptObject_505A40(a1 unsafe.Pointer) (gout int) {
 	C.dword_5d4594_1599644 = 0
 	if cryptFile.Mode() != BinFileRO {
 		cryptFileWriteU16(1)
-		f, err := fs.Open(fname)
+		f, err := ifs.Open(fname)
 		if os.IsNotExist(err) {
 			cryptFileWriteU32(0)
 			return 1
@@ -143,7 +144,7 @@ func nox_server_mapRWScriptObject_505A40(a1 unsafe.Pointer) (gout int) {
 	if nox_xxx_cryptGetXxx() != 1 {
 		return 0
 	}
-	f, err := fs.Create(fname)
+	f, err := ifs.Create(fname)
 	if err != nil {
 		mapLog.Println(err)
 		return 0
@@ -374,7 +375,7 @@ func nox_xxx_mapCliReadAll_4AC2B0(path string) error {
 	if path == "" {
 		return errors.New("empty map name")
 	}
-	path = fs.Normalize(path)
+	path = ifs.Normalize(path)
 	dir := filepath.Dir(path)
 	fname := filepath.Base(path)
 	name := strings.TrimSuffix(fname, filepath.Ext(fname))
@@ -382,11 +383,11 @@ func nox_xxx_mapCliReadAll_4AC2B0(path string) error {
 		dir = filepath.Join(common.MapsDir, name)
 	}
 	fpath := filepath.Join(dir, fname)
-	_, err := fs.Stat(fpath)
+	_, err := ifs.Stat(fpath)
 	if os.IsNotExist(err) {
 		err1 := err
 		v15 := filepath.Join(dir, name+".nxz")
-		if _, err := fs.Stat(v15); os.IsNotExist(err) {
+		if _, err := ifs.Stat(v15); os.IsNotExist(err) {
 			return err1
 		} else if err != nil {
 			return err
@@ -468,7 +469,7 @@ func nox_server_mapRWObjectData_504CF0_Read(a2 unsafe.Pointer, v16 unsafe.Pointe
 func nox_server_mapRWObjectData_504CF0_Write(a2 unsafe.Pointer) int {
 	for it := noxServer.firstServerObject(); it != nil; it = it.Next() {
 		pos := it.Pos()
-		if a2 == nil || sub_4280E0(types.Point{X: int(pos.X), Y: int(pos.Y)}, a2) {
+		if a2 == nil || sub_4280E0(image.Point{X: int(pos.X), Y: int(pos.Y)}, a2) {
 			if C.sub_4E3B80(C.int(it.objTypeInd())) != 0 && nox_xxx_xfer_saveObj51DF90(it) == 0 {
 				return 0
 			}
@@ -477,7 +478,7 @@ func nox_server_mapRWObjectData_504CF0_Write(a2 unsafe.Pointer) int {
 	for obj := firstServerObjectUpdatable2(); obj != nil; obj = obj.Next() {
 		if a2 != nil {
 			pos := obj.Pos()
-			if !sub_4280E0(types.Point{X: int(pos.X), Y: int(pos.Y)}, a2) {
+			if !sub_4280E0(image.Point{X: int(pos.X), Y: int(pos.Y)}, a2) {
 				continue
 			}
 		}
@@ -497,7 +498,7 @@ func nox_server_mapRWObjectData_504CF0_Write(a2 unsafe.Pointer) int {
 	return 0
 }
 
-func sub_4280E0(pt types.Point, a2p unsafe.Pointer) bool {
+func sub_4280E0(pt image.Point, a2p unsafe.Pointer) bool {
 	a2 := unsafe.Slice((*int32)(a2p), 8)
 	if pt.X < int(a2[2]) || pt.X > int(a2[4]) {
 		return false

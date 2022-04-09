@@ -5,7 +5,7 @@ import (
 
 	"golang.org/x/image/font"
 
-	"nox/v1/common/types"
+	"github.com/noxworld-dev/opennox-lib/types"
 )
 
 var _ RenderData = &testRenderData{}

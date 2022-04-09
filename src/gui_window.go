@@ -1,4 +1,4 @@
-package nox
+package opennox
 
 /*
 #include <stdlib.h>
@@ -25,14 +25,15 @@ static void nox_window_call_tooltip_func(nox_window* win, nox_window_data* data,
 */
 import "C"
 import (
+	"image"
 	"runtime/debug"
 	"unsafe"
 
-	"nox/v1/client/gui"
-	"nox/v1/common/alloc"
-	noxcolor "nox/v1/common/color"
-	"nox/v1/common/log"
-	"nox/v1/common/types"
+	noxcolor "github.com/noxworld-dev/opennox-lib/color"
+	"github.com/noxworld-dev/opennox-lib/log"
+
+	"github.com/noxworld-dev/opennox/v1/client/gui"
+	"github.com/noxworld-dev/opennox/v1/common/alloc"
 )
 
 var (
@@ -275,7 +276,7 @@ func newWindowRaw(parent *Window, status gui.StatusFlags, px, py, w, h int, fnc9
 	win.SetFlags(status)
 	win.width = C.int(w)
 	win.height = C.int(h)
-	win.SetPos(types.Point{X: px, Y: py})
+	win.SetPos(image.Point{X: px, Y: py})
 	win.draw_data.tooltip[0] = 0
 	win.setDraw(nil)
 	win.setFunc93(nil)
@@ -345,54 +346,54 @@ func (win *Window) SetFlags(v gui.StatusFlags) {
 	win.flags = C.nox_window_flags(v)
 }
 
-func (win *Window) Offs() types.Point { // nox_gui_getWindowOffs_46AA20
+func (win *Window) Offs() image.Point { // nox_gui_getWindowOffs_46AA20
 	if win == nil {
-		return types.Point{}
+		return image.Point{}
 	}
-	return types.Point{
+	return image.Point{
 		X: int(win.off_x),
 		Y: int(win.off_y),
 	}
 }
 
-func (win *Window) SetOffs(p types.Point) {
+func (win *Window) SetOffs(p image.Point) {
 	win.off_x = C.int(p.X)
 	win.off_y = C.int(p.Y)
 }
 
-func (win *Window) End() types.Point {
+func (win *Window) End() image.Point {
 	if win == nil {
-		return types.Point{}
+		return image.Point{}
 	}
-	return types.Point{
+	return image.Point{
 		X: int(win.end_x),
 		Y: int(win.end_y),
 	}
 }
 
-func (win *Window) SetEnd(p types.Point) {
+func (win *Window) SetEnd(p image.Point) {
 	win.end_x = C.int(p.X)
 	win.end_y = C.int(p.Y)
 }
 
-func (win *Window) Size() types.Size {
+func (win *Window) Size() image.Point {
 	if win == nil {
-		return types.Size{}
+		return image.Point{}
 	}
-	return types.Size{
-		W: int(win.width),
-		H: int(win.height),
+	return image.Point{
+		X: int(win.width),
+		Y: int(win.height),
 	}
 }
 
-func (win *Window) pointIn(p types.Point) bool {
+func (win *Window) pointIn(p image.Point) bool {
 	off, end := win.Offs(), win.End()
 	return p.X >= off.X && p.X <= end.X && p.Y >= off.Y && p.Y <= end.Y
 }
 
-func (win *Window) GlobalPos() types.Point { // nox_client_wndGetPosition_46AA60
+func (win *Window) GlobalPos() image.Point { // nox_client_wndGetPosition_46AA60
 	if win == nil {
-		return types.Point{}
+		return image.Point{}
 	}
 	pos := win.Offs()
 	for it := win.Parent(); it != nil; it = it.Parent() {
@@ -431,7 +432,7 @@ func (win *Window) ChildByID(id uint) *Window {
 	return nil
 }
 
-func (win *Window) ChildByPos(p types.Point) *Window {
+func (win *Window) ChildByPos(p image.Point) *Window {
 	if win == nil {
 		return nil
 	}
@@ -443,7 +444,7 @@ loop:
 		for it2 := it1.Parent(); it2 != nil; it2 = it2.Parent() {
 			off = off.Add(it2.Offs())
 		}
-		if p.X >= off.X && p.X <= off.X+sz.W && p.Y >= off.Y && p.Y <= off.Y+sz.H {
+		if p.X >= off.X && p.X <= off.X+sz.X && p.Y >= off.Y && p.Y <= off.Y+sz.Y {
 			if f := it1.Flags(); f.Has(8) && !f.Has(0x10) {
 				cur = it1
 				goto loop
@@ -759,7 +760,7 @@ func nox_window_setPos_46A9B0(p *C.nox_window, x, y C.int) C.int {
 	if win == nil {
 		return -2
 	}
-	win.SetPos(types.Point{X: int(x), Y: int(y)})
+	win.SetPos(image.Point{X: int(x), Y: int(y)})
 	return 0
 }
 
@@ -773,10 +774,10 @@ func wndIsShown_nox_xxx_wndIsShown_46ACC0(p *C.nox_window) C.int {
 	return C.int(bool2int(is))
 }
 
-func (win *Window) SetPos(pos types.Point) {
+func (win *Window) SetPos(pos image.Point) {
 	sz := win.Size()
 	win.SetOffs(pos)
-	win.SetEnd(pos.Add(sz.Point()))
+	win.SetEnd(pos.Add(sz))
 	win.fixCoords()
 }
 

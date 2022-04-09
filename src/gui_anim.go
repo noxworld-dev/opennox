@@ -1,4 +1,4 @@
-package nox
+package opennox
 
 /*
 #include "defs.h"
@@ -7,12 +7,13 @@ int sub_4A24F0();
 */
 import "C"
 import (
+	"image"
 	"unsafe"
 
-	"nox/v1/client/gui"
-	"nox/v1/common/alloc"
-	"nox/v1/common/env"
-	"nox/v1/common/types"
+	"github.com/noxworld-dev/opennox-lib/env"
+
+	"github.com/noxworld-dev/opennox/v1/client/gui"
+	"github.com/noxworld-dev/opennox/v1/common/alloc"
 )
 
 var guiAnimSpeed = 1
@@ -231,7 +232,7 @@ func nox_gui_makeAnimation_43C5B0(win *C.nox_window, x1, y1, x2, y2, in_dx, in_d
 }
 func nox_gui_makeAnimation(win *Window, x1, y1, x2, y2, in_dx, in_dy, out_dx, out_dy int) *guiAnim {
 	a := newGUIAnimation(win)
-	win.SetPos(types.Point{X: x2, Y: y2})
+	win.SetPos(image.Point{X: x2, Y: y2})
 	a.x1 = C.int(x1)
 	a.y1 = C.int(y1)
 	a.x2 = C.int(x2)

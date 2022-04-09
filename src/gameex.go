@@ -1,4 +1,4 @@
-package nox
+package opennox
 
 /*
 #include "defs.h"
@@ -22,6 +22,7 @@ import "C"
 import (
 	"bufio"
 	"encoding/binary"
+	"image"
 	"os"
 	"strconv"
 	"strings"
@@ -29,13 +30,13 @@ import (
 
 	"github.com/spf13/viper"
 
-	"nox/v1/common/alloc"
-	"nox/v1/common/datapath"
-	noxflags "nox/v1/common/flags"
-	"nox/v1/common/fs"
-	"nox/v1/common/keybind"
-	"nox/v1/common/log"
-	"nox/v1/common/types"
+	"github.com/noxworld-dev/opennox-lib/client/keybind"
+	"github.com/noxworld-dev/opennox-lib/datapath"
+	"github.com/noxworld-dev/opennox-lib/ifs"
+	"github.com/noxworld-dev/opennox-lib/log"
+
+	"github.com/noxworld-dev/opennox/v1/common/alloc"
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 )
 
 //export gameexSomeWeirdCheckFixmePlease
@@ -93,7 +94,7 @@ func gameexReadConfig(path string) error {
 	}()
 	path = datapath.Data(path)
 	gameex.configPath = path
-	f, err := fs.Open(path)
+	f, err := ifs.Open(path)
 	if os.IsNotExist(err) {
 		gameex.Log.Println("no config file")
 		return nil
@@ -286,7 +287,7 @@ func modifyWndInputHandler(a1 *Window, ev WindowEvent) WindowEventResp {
 		case 1938:
 			if !noxflags.HasGame(noxflags.GameModeSolo10) {
 				C.sub_4BDFD0()
-				asWindowP(unsafe.Pointer(uintptr(C.dword_5d4594_1316972))).SetPos(types.Point{X: 200, Y: 100})
+				asWindowP(unsafe.Pointer(uintptr(C.dword_5d4594_1316972))).SetPos(image.Point{X: 200, Y: 100})
 			}
 		case 1520:
 			if (C.gameex_flags>>1)&1 != 0 {

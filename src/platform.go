@@ -1,4 +1,4 @@
-package nox
+package opennox
 
 /*
 #include <stdbool.h>
@@ -7,9 +7,10 @@ import "C"
 import (
 	"time"
 
-	"nox/v1/common/env"
-	noxflags "nox/v1/common/flags"
-	"nox/v1/common/platform"
+	"github.com/noxworld-dev/opennox-lib/env"
+	"github.com/noxworld-dev/opennox-lib/platform"
+
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 )
 
 var (

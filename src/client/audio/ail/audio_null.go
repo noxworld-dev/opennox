@@ -4,7 +4,7 @@
 package ail
 
 import (
-	"nox/v1/common/alloc/handles"
+	"github.com/noxworld-dev/opennox/v1/common/alloc/handles"
 )
 
 func (dig Driver) AllocateSample() Sample {

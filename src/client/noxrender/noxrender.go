@@ -4,9 +4,9 @@ import (
 	"image"
 	"image/draw"
 
-	noxcolor "nox/v1/common/color"
-	"nox/v1/common/noximage"
-	"nox/v1/common/types"
+	noxcolor "github.com/noxworld-dev/opennox-lib/color"
+	"github.com/noxworld-dev/opennox-lib/noximage"
+	"github.com/noxworld-dev/opennox-lib/types"
 )
 
 type RenderData interface {
@@ -57,7 +57,7 @@ type NoxRender struct {
 	dword_5d4594_3799508 byte
 	dword_5d4594_3799552 uint32
 
-	HookImageDrawXxx func(pos types.Point, sz types.Size)
+	HookImageDrawXxx func(pos image.Point, sz image.Point)
 }
 
 func (r *NoxRender) PixBuffer() *noximage.Image16 {

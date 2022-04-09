@@ -89,8 +89,7 @@ jobs:
           cp ./src/opennox /tmp/opennox
           cp ./src/opennox-hd /tmp/opennox-hd
           cp ./src/opennox-server /tmp/opennox-server
-          cp ./src/noxtools /tmp/noxtools
-          tar -czf /tmp/opennox-linux.tar.gz /tmp/opennox /tmp/opennox-hd /tmp/opennox-server /tmp/noxtools
+          tar -czf /tmp/opennox-linux.tar.gz /tmp/opennox /tmp/opennox-hd /tmp/opennox-server
 
       - name: Upload the binary
         uses: actions/upload-artifact@v2
@@ -220,7 +219,6 @@ jobs:
           cp ./src/opennox.exe /tmp/opennox.exe
           cp ./src/opennox-hd.exe /tmp/opennox-hd.exe
           cp ./src/opennox-server.exe /tmp/opennox-server.exe
-          cp ./src/noxtools.exe /tmp/noxtools.exe
 
       - name: Upload the binary
         uses: actions/upload-artifact@v2
@@ -231,7 +229,6 @@ jobs:
             /tmp/opennox.exe
             /tmp/opennox-hd.exe
             /tmp/opennox-server.exe
-            /tmp/noxtools.exe
           if-no-files-found: error
           retention-days: 1
 

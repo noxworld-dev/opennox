@@ -1,4 +1,4 @@
-package nox
+package opennox
 
 /*
 #include "GAME1.h"
@@ -68,14 +68,15 @@ import (
 	"time"
 	"unsafe"
 
-	"nox/v1/client/gui"
-	"nox/v1/common/env"
-	noxflags "nox/v1/common/flags"
-	"nox/v1/common/log"
-	"nox/v1/common/memmap"
-	"nox/v1/common/noxnet"
-	"nox/v1/common/platform"
-	"nox/v1/common/serial"
+	"github.com/noxworld-dev/opennox-lib/env"
+	"github.com/noxworld-dev/opennox-lib/log"
+	"github.com/noxworld-dev/opennox-lib/noxnet"
+	"github.com/noxworld-dev/opennox-lib/platform"
+
+	"github.com/noxworld-dev/opennox/v1/client/gui"
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
+	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/common/serial"
 )
 
 var (
@@ -926,9 +927,9 @@ func CONNECT_RESULT_OK() error {
 		gameSetCliDrawFunc(nil)
 	} else {
 		if !noxflags.HasGame(noxflags.GameFlag21) {
-			if mode := videoGetGameMode(); mode.W == 0 || mode.H == 0 {
-				mode.W = noxDefaultWidth
-				mode.H = noxDefaultHeight
+			if mode := videoGetGameMode(); mode.X == 0 || mode.Y == 0 {
+				mode.X = noxDefaultWidth
+				mode.Y = noxDefaultHeight
 				videoUpdateGameMode(mode)
 			}
 			if err := gameUpdateVideoMode(false); err != nil {
@@ -1126,9 +1127,9 @@ func (s *Server) nox_xxx_gameSetMapPath_409D70(path string) {
 func map_download_finish() int {
 	nox_xxx_guiDownloadClose_4CC930()
 	if mapsend.downloadOK {
-		if mode := videoGetGameMode(); mode.W == 0 || mode.H == 0 {
-			mode.W = noxDefaultWidth
-			mode.H = noxDefaultHeight
+		if mode := videoGetGameMode(); mode.X == 0 || mode.Y == 0 {
+			mode.X = noxDefaultWidth
+			mode.Y = noxDefaultHeight
 			videoUpdateGameMode(mode)
 		}
 	}

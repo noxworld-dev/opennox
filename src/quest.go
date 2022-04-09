@@ -1,4 +1,4 @@
-package nox
+package opennox
 
 /*
 #include "GAME1_1.h"
@@ -20,11 +20,13 @@ import (
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promauto"
 
-	"nox/v1/common/console"
-	noxflags "nox/v1/common/flags"
-	"nox/v1/common/fs"
-	"nox/v1/common/log"
-	"nox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox-lib/ifs"
+	"github.com/noxworld-dev/opennox-lib/log"
+
+	"github.com/noxworld-dev/opennox-lib/console"
+
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
+	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
 const (
@@ -304,7 +306,7 @@ func sub_4DCF20() {
 			path := questPlayerFile
 			C.nox_xxx_cliPlrInfoLoadFromFile_41A2E0(internCStr(path), 31)
 			questPlayerSet = false
-			fs.Remove(path)
+			ifs.Remove(path)
 		}
 	}
 }

@@ -3,10 +3,9 @@ package input
 import (
 	"image"
 
-	"nox/v1/client/seat"
-	"nox/v1/common/keybind"
-	"nox/v1/common/log"
-	"nox/v1/common/types"
+	"github.com/noxworld-dev/opennox-lib/client/keybind"
+	"github.com/noxworld-dev/opennox-lib/client/seat"
+	"github.com/noxworld-dev/opennox-lib/log"
 )
 
 var (
@@ -77,12 +76,12 @@ func (h *Handler) SetSensitivity(v float32) {
 }
 
 // GetMousePos returns current mouse position in canvas coordinates.
-func (h *Handler) GetMousePos() types.Point {
+func (h *Handler) GetMousePos() image.Point {
 	return h.m.GetMousePos()
 }
 
 // GetMouseRel returns relative mouse position in canvas coordinates.
-func (h *Handler) GetMouseRel() types.Point {
+func (h *Handler) GetMouseRel() image.Point {
 	return h.m.GetMouseRel()
 }
 
@@ -211,7 +210,7 @@ func (h *Handler) SetWinSize(rect image.Rectangle) {
 }
 
 // SetDrawWinSize sets the canvas size for the window. All mouse input positions will be scaled to this size.
-func (h *Handler) SetDrawWinSize(sz types.Size) {
+func (h *Handler) SetDrawWinSize(sz image.Point) {
 	h.m.SetDrawWinSize(sz)
 }
 

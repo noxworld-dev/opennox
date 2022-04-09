@@ -1,4 +1,4 @@
-package nox
+package opennox
 
 import (
 	"archive/zip"
@@ -15,10 +15,10 @@ import (
 	"strings"
 	"sync"
 
-	"nox/v1/common/bag"
-	"nox/v1/common/datapath"
-	"nox/v1/common/log"
-	"nox/v1/common/noximage/pcx"
+	"github.com/noxworld-dev/opennox-lib/bag"
+	"github.com/noxworld-dev/opennox-lib/datapath"
+	"github.com/noxworld-dev/opennox-lib/log"
+	"github.com/noxworld-dev/opennox-lib/noximage/pcx"
 )
 
 var debugBagImages = os.Getenv("NOX_DEBUG_BAG_IMAGES") == "true"

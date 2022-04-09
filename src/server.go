@@ -1,4 +1,4 @@
-package nox
+package opennox
 
 /*
 #include "GAME1.h"
@@ -81,17 +81,19 @@ import (
 	"strings"
 	"unsafe"
 
-	"nox/v1/common"
-	"nox/v1/common/console"
-	"nox/v1/common/crypt"
-	"nox/v1/common/datapath"
-	noxflags "nox/v1/common/flags"
-	"nox/v1/common/fs"
-	"nox/v1/common/memmap"
-	"nox/v1/common/object"
-	"nox/v1/common/strman"
-	"nox/v1/server"
-	"nox/v1/server/script"
+	"github.com/noxworld-dev/noxcrypt"
+	"github.com/noxworld-dev/opennox-lib/common"
+	"github.com/noxworld-dev/opennox-lib/datapath"
+	"github.com/noxworld-dev/opennox-lib/ifs"
+	"github.com/noxworld-dev/opennox-lib/object"
+	"github.com/noxworld-dev/opennox-lib/script"
+	"github.com/noxworld-dev/opennox-lib/strman"
+
+	"github.com/noxworld-dev/opennox-lib/console"
+
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
+	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 var (
@@ -532,7 +534,7 @@ func (s *Server) nox_xxx_servEndSession_4D3200() {
 	}
 	C.sub_56F3B0()
 	C.nox_netlist_resetAll_40EE60()
-	_ = fs.Remove(datapath.Save("_temp_.dat"))
+	_ = ifs.Remove(datapath.Save("_temp_.dat"))
 }
 
 func sub_4D3C30() {
@@ -576,9 +578,9 @@ func (s *Server) nox_server_loadMapFile_4CF5F0(mname string, noCrypt bool) error
 		dir := strings.TrimSuffix(mname, filepath.Ext(mname))
 		fname = filepath.Join("maps", dir, mname)
 	}
-	if _, err := fs.Stat(fname); err != nil {
+	if _, err := ifs.Stat(fname); err != nil {
 		tname := strings.TrimSuffix(fname, filepath.Ext(mname)) + ".nxz"
-		if _, err := fs.Stat(tname); err != nil {
+		if _, err := ifs.Stat(tname); err != nil {
 			return err
 		}
 		if C.nox_xxx_mapNxzDecompress_57BC50(internCStr(tname), internCStr(fname)) == 0 {
@@ -656,7 +658,7 @@ func (s *Server) nox_server_xxxInitPlayerUnits_4FC6D0() {
 						if C.sub_41CFA0(internCStr(fname), C.int(pi)) == 0 && v5 == 0 {
 							C.nox_xxx_sendGauntlet_4DCF80(C.int(pi), 0)
 						}
-						fs.Remove(fname)
+						ifs.Remove(fname)
 					}
 					C.sub_4D6770(C.int(pi))
 				}

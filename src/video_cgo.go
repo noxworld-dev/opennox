@@ -1,4 +1,4 @@
-package nox
+package opennox
 
 /*
 #include "client__video__draw_common.h"
@@ -66,17 +66,18 @@ import (
 	"image"
 	"unsafe"
 
-	"nox/v1/client/gui"
-	"nox/v1/client/input"
-	"nox/v1/client/noxmovie"
-	"nox/v1/common/alloc"
-	noxcolor "nox/v1/common/color"
-	noxflags "nox/v1/common/flags"
-	"nox/v1/common/fs"
-	"nox/v1/common/memmap"
-	"nox/v1/common/noximage"
-	"nox/v1/common/player"
-	"nox/v1/common/types"
+	noxcolor "github.com/noxworld-dev/opennox-lib/color"
+	"github.com/noxworld-dev/opennox-lib/ifs"
+	"github.com/noxworld-dev/opennox-lib/noximage"
+	"github.com/noxworld-dev/opennox-lib/player"
+	"github.com/noxworld-dev/opennox-lib/types"
+
+	"github.com/noxworld-dev/opennox/v1/client/gui"
+	"github.com/noxworld-dev/opennox/v1/client/input"
+	"github.com/noxworld-dev/opennox/v1/client/noxmovie"
+	"github.com/noxworld-dev/opennox/v1/common/alloc"
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
+	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
 var (
@@ -101,27 +102,27 @@ var (
 		free     func()
 		rows     []*uint16
 		freeRows func()
-		onResize []func(sz types.Size)
+		onResize []func(sz image.Point)
 	}
 	func_5d4594_1311924 func()
 )
 
-func OnPixBufferResize(fnc func(sz types.Size)) {
+func OnPixBufferResize(fnc func(sz image.Point)) {
 	noxPixBuffer.onResize = append(noxPixBuffer.onResize, fnc)
 }
 
-func videoGetWindowSize() types.Size {
-	return types.Size{
-		W: nox_win_width,
-		H: nox_win_height,
+func videoGetWindowSize() image.Point {
+	return image.Point{
+		X: nox_win_width,
+		Y: nox_win_height,
 	}
 }
 
-func videoSetWindowSize(sz types.Size) {
-	C.nox_win_width = C.int(sz.W)
-	C.nox_win_height = C.int(sz.H)
-	nox_win_width = sz.W
-	nox_win_height = sz.H
+func videoSetWindowSize(sz image.Point) {
+	C.nox_win_width = C.int(sz.X)
+	C.nox_win_height = C.int(sz.Y)
+	nox_win_width = sz.X
+	nox_win_height = sz.Y
 }
 
 func cfgUpdateFullScreen() {
@@ -212,7 +213,7 @@ func get_video_mode_string(cid C.int) *C.wchar_t {
 		return internWStr("custom")
 	}
 	mode := noxVideoModes[id]
-	return internWStr(fmt.Sprintf("%dx%d", mode.W, mode.H))
+	return internWStr(fmt.Sprintf("%dx%d", mode.X, mode.Y))
 }
 
 //export nox_getBackbufWidth
@@ -243,34 +244,34 @@ func nox_video_sync_depths() C.bool {
 
 //export sub_430C30_set_video_max
 func sub_430C30_set_video_max(w, h C.int) {
-	videoSetMaxSize(types.Size{W: int(w), H: int(h)})
+	videoSetMaxSize(image.Point{X: int(w), Y: int(h)})
 }
 
 //export nox_xxx_screenGetSize_430C50_get_video_max
 func nox_xxx_screenGetSize_430C50_get_video_max(pw, ph *C.int) {
 	sz := videoGetMaxSize()
-	*pw = C.int(sz.W)
-	*ph = C.int(sz.H)
+	*pw = C.int(sz.X)
+	*ph = C.int(sz.Y)
 }
 
 //export nox_video_resizewnd
 func nox_video_resizewnd(w, h, d C.int) {
-	videoResizeView(types.Size{
-		W: int(w),
-		H: int(h),
+	videoResizeView(image.Point{
+		X: int(w),
+		Y: int(h),
 	})
 }
 
-func videoGetGameMode() types.Size {
-	return types.Size{
-		W: int(C.nox_win_width_game),
-		H: int(C.nox_win_height_game),
+func videoGetGameMode() image.Point {
+	return image.Point{
+		X: int(C.nox_win_width_game),
+		Y: int(C.nox_win_height_game),
 	}
 }
 
-func videoSetGameMode(mode types.Size) {
-	C.nox_win_width_game = C.int(mode.W)
-	C.nox_win_height_game = C.int(mode.H)
+func videoSetGameMode(mode image.Point) {
+	C.nox_win_width_game = C.int(mode.X)
+	C.nox_win_height_game = C.int(mode.Y)
 	C.nox_win_depth_game = 16
 	setScreenSize(mode)
 }
@@ -302,7 +303,7 @@ func nox_video_callCopyBackBuffer_4AD170() {
 	copyPixBuffer()
 }
 
-func videoInit(sz types.Size, flags int) error {
+func videoInit(sz image.Point, flags int) error {
 	C.dword_5d4594_823776 = 0
 	noxrend.SetData(asRenderData(&C.obj_5D4594_3799660))
 	C.nox_draw_curDrawData_3799572 = noxrend.Data().C()
@@ -326,8 +327,8 @@ func videoInitStub() {
 	C.nox_win_height = noxDefaultHeight
 }
 
-func drawInitAll(sz types.Size, flags int) error {
-	if err := nox_client_drawXxx_444AC0(sz.W, sz.H, flags); err != nil {
+func drawInitAll(sz image.Point, flags int) error {
+	if err := nox_client_drawXxx_444AC0(sz.X, sz.Y, flags); err != nil {
 		return err
 	}
 	if C.nox_video_modeXxx_3801780 != 1 {
@@ -420,7 +421,7 @@ func gameUpdateVideoMode(inMenu bool) error {
 	return gameResetVideoMode(inMenu, false)
 }
 
-func recreateBuffersAndTarget(sz types.Size) error {
+func recreateBuffersAndTarget(sz image.Point) error {
 	C.nox_video_freeFloorBuffer_430EC0()
 	if err := recreateRenderTarget(sz); err != nil {
 		videoLog.Println("recreate render target:", err)
@@ -433,7 +434,7 @@ func recreateBuffersAndTarget(sz types.Size) error {
 	return nil
 }
 
-func recreateRenderTarget(sz types.Size) error {
+func recreateRenderTarget(sz image.Point) error {
 	flags := uint(0)
 	if C.nox_video_dxFullScreen != 0 {
 		if C.nox_video_dxUnlockSurface != 0 {
@@ -473,7 +474,7 @@ func recreateRenderTarget(sz types.Size) error {
 	C.sub_49F6D0(1)
 	noxrend.setRectFullScreen()
 	//videoSet16Bit(C.nox_video_modeXxx_3801780 != 0)
-	*memmap.PtrUint32(0x973F18, 6060) = uint32(2 * sz.W * sz.H)
+	*memmap.PtrUint32(0x973F18, 6060) = uint32(2 * sz.X * sz.Y)
 	*memmap.PtrUint32(0x973F18, 7696) = uint32(bool2int(C.nox_video_modeXxx_3801780 == 1))
 	C.sub_430B50(0, 0, noxDefaultWidth-1, noxDefaultHeight-1)
 	return nil
@@ -532,8 +533,8 @@ func drawGeneral_4B0340(a1 int) error {
 	v2 := C.nox_video_modeXxx_3801780
 	var (
 		v4     int
-		prevSz types.Size
-		vpos   types.Point
+		prevSz image.Point
+		vpos   image.Point
 		v11    *Image
 	)
 	if v2 != 0 {
@@ -547,7 +548,7 @@ func drawGeneral_4B0340(a1 int) error {
 		nox_draw_freeColorTables_433C20()
 		nox_free_pixbuffers_486110()
 		C.nox_video_renderTargetFlags = C.int(v4)
-		sz := types.Size{W: noxDefaultWidth, H: noxDefaultHeight}
+		sz := image.Point{X: noxDefaultWidth, Y: noxDefaultHeight}
 		if err := resetRenderer(sz, false); err != nil {
 			return err
 		}
@@ -557,7 +558,7 @@ func drawGeneral_4B0340(a1 int) error {
 	var movieString = C.GoString((*C.char)(memmap.PtrOff(0x5d4594, 1311940)))
 	videoLog.Printf("DrawGeneral: movie string: %q", movieString)
 
-	if f, err := fs.Open(movieString); err == nil {
+	if f, err := ifs.Open(movieString); err == nil {
 		defer f.Close()
 		if plr, err := noxmovie.NewPlayerWithHandle(f, noxSeat, audioDev); err == nil {
 			defer plr.Close()
@@ -586,9 +587,9 @@ func drawGeneral_4B0340(a1 int) error {
 	return nil
 }
 
-func nox_video_initFloorBuffer_430BA0(sz types.Size) error {
+func nox_video_initFloorBuffer_430BA0(sz image.Point) error {
 	C.nox_xxx___cfltcvt_init_430CC0()
-	if C.nox_xxx_tileInitBuf_430DB0(C.int(sz.W), C.int(sz.H)) == 0 {
+	if C.nox_xxx_tileInitBuf_430DB0(C.int(sz.X), C.int(sz.Y)) == 0 {
 		return errors.New("VideoInit: error initializing floor buffer")
 	}
 	if lightsOutBuf == nil {
@@ -648,12 +649,12 @@ func sub_4AEBD0() {
 	C.dword_5d4594_3798636 = C.uint(v0 - 1)
 }
 
-func sub_49F610(sz types.Size) {
+func sub_49F610(sz image.Point) {
 	p := noxrend.Data()
 	p.flag_0 = 0
-	p.SetClipRect(types.Rect{Right: sz.W, Bottom: sz.H})
-	p.SetRect2(types.Rect{Right: sz.W - 1, Bottom: sz.H - 1})
-	p.SetRect3(types.Rect{Right: sz.W, Bottom: sz.H})
+	p.SetClipRect(types.Rect{Right: sz.X, Bottom: sz.Y})
+	p.SetRect2(types.Rect{Right: sz.X - 1, Bottom: sz.Y - 1})
+	p.SetRect3(types.Rect{Right: sz.X, Bottom: sz.Y})
 	C.dword_5d4594_1305748 = 0
 }
 
@@ -764,7 +765,7 @@ func nox_free_pixbuffers_486110() {
 	}
 }
 
-func nox_video_initPixbuffer_486090(sz types.Size) {
+func nox_video_initPixbuffer_486090(sz image.Point) {
 	videoLog.Printf("initializing pixbuffer: %v", sz)
 	nox_video_initPixbufferData_4861D0(sz)
 	nox_video_initPixbufferRows_486230()
@@ -773,11 +774,11 @@ func nox_video_initPixbuffer_486090(sz types.Size) {
 	}
 }
 
-func nox_video_initPixbufferData_4861D0(sz types.Size) {
+func nox_video_initPixbufferData_4861D0(sz image.Point) {
 	if memmap.Uint32(0x5D4594, 1193200) != 0 {
 		return
 	}
-	data, free := alloc.Uints16(uintptr(sz.W * sz.H))
+	data, free := alloc.Uints16(uintptr(sz.X * sz.Y))
 	noxPixBuffer.free = free
 	noxPixBuffer.img = noximage.NewImage16WithData(data, sz)
 	noxrend.SetPixBuffer(noxPixBuffer.img)
@@ -791,11 +792,11 @@ func nox_video_initPixbufferData_4861D0(sz types.Size) {
 
 func nox_video_initPixbufferRows_486230() {
 	sz := noxPixBuffer.img.Size()
-	ptrs, freeRows := alloc.Pointers(sz.H)
+	ptrs, freeRows := alloc.Pointers(sz.Y)
 	noxPixBuffer.rows = unsafe.Slice((**uint16)(unsafe.Pointer(&ptrs[0])), len(ptrs))
 	noxPixBuffer.freeRows = freeRows
 	C.nox_pixbuffer_rows_3798784 = (**C.uchar)(unsafe.Pointer(&noxPixBuffer.rows[0]))
-	for y := 0; y < sz.H; y++ {
+	for y := 0; y < sz.Y; y++ {
 		noxPixBuffer.rows[y] = &noxPixBuffer.img.Row(y)[0]
 	}
 
@@ -803,19 +804,19 @@ func nox_video_initPixbufferRows_486230() {
 		return
 	}
 
-	nox_pixbuffer_rows_3798776_arr, _ = alloc.Pointers(sz.H)
+	nox_pixbuffer_rows_3798776_arr, _ = alloc.Pointers(sz.Y)
 	C.nox_pixbuffer_rows_3798776 = (**C.uchar)(unsafe.Pointer(&nox_pixbuffer_rows_3798776_arr[0]))
-	for y := 0; y < sz.H; y++ {
-		nox_pixbuffer_rows_3798776_arr[y] = unsafe.Pointer(&nox_pixbuffer_3798788_arr[y*2*sz.W])
+	for y := 0; y < sz.Y; y++ {
+		nox_pixbuffer_rows_3798776_arr[y] = unsafe.Pointer(&nox_pixbuffer_3798788_arr[y*2*sz.X])
 	}
 }
 
 //export sub_48B3F0
 func sub_48B3F0(a1 unsafe.Pointer, a2, a3 C.int) C.int {
-	return C.int(noxrend.noxDrawCursor(asImageP(a1), types.Point{X: int(a2), Y: int(a3)}))
+	return C.int(noxrend.noxDrawCursor(asImageP(a1), image.Point{X: int(a2), Y: int(a3)}))
 }
 
-func (r *NoxRender) noxDrawCursor(a1 *Image, pos types.Point) int {
+func (r *NoxRender) noxDrawCursor(a1 *Image, pos image.Point) int {
 	if C.dword_5d4594_1193672 != 0 && a1 != nil {
 		r.DrawImageAt(a1, pos)
 	}
@@ -832,8 +833,8 @@ func nox_draw_setCutSize_476700(cutPerc C.int, a2 C.int) {
 	if a2 != 0 {
 		v7 := 0
 		for v7 < 4 {
-			perc = v2 + 100*(bsz.W-2*int(vp.x1))/bsz.W
-			v6 := perc * bsz.W / 100
+			perc = v2 + 100*(bsz.X-2*int(vp.x1))/bsz.X
+			v6 := perc * bsz.X / 100
 			if v2 >= 0 {
 				v2++
 			} else {
@@ -855,24 +856,24 @@ func nox_draw_setCutSize_476700(cutPerc C.int, a2 C.int) {
 	}
 	C.nox_video_cutSize = C.int(perc)
 
-	vp.x1 = C.int(uint32((bsz.W-perc*bsz.W/100)/2) & 0xFFFFFFFC)
+	vp.x1 = C.int(uint32((bsz.X-perc*bsz.X/100)/2) & 0xFFFFFFFC)
 	if vp.x1 < 0 {
 		vp.x1 = 0
 	}
 
-	vp.y1 = C.int((bsz.H - perc*bsz.H/100) / 2)
+	vp.y1 = C.int((bsz.Y - perc*bsz.Y/100) / 2)
 	if vp.y1 < 0 {
 		vp.y1 = 0
 	}
 
-	vp.x2 = C.int(uint32(bsz.W-int(vp.x1)+2) & 0xFFFFFFFC)
-	if int(vp.x2) >= bsz.W {
-		vp.x2 = C.int(bsz.W - 1)
+	vp.x2 = C.int(uint32(bsz.X-int(vp.x1)+2) & 0xFFFFFFFC)
+	if int(vp.x2) >= bsz.X {
+		vp.x2 = C.int(bsz.X - 1)
 	}
 
-	vp.y2 = C.int(bsz.H - int(vp.y1) - 1)
-	if int(vp.y2) >= bsz.H {
-		vp.y2 = C.int(bsz.H - 1)
+	vp.y2 = C.int(bsz.Y - int(vp.y1) - 1)
+	if int(vp.y2) >= bsz.Y {
+		vp.y2 = C.int(bsz.Y - 1)
 	}
 
 	vp.width = C.int(vp.x2 - vp.x1 + 1)
@@ -906,7 +907,7 @@ func nox_client_drawXxx_444AC0(w, h int, flags int) error {
 	if v7&4 != 0 {
 		panic("unreachable")
 	}
-	if err := resetRenderer(types.Size{W: v8, H: h}, true); err != nil {
+	if err := resetRenderer(image.Point{X: v8, Y: h}, true); err != nil {
 		return err
 	}
 	return nil
@@ -923,8 +924,8 @@ func sub_48B6B0(a1, a2, a3 byte) {
 	C.sub_433CD0(C.uchar(a1), C.uchar(a2), C.uchar(a3))
 }
 
-func sub_48B590() (a1 *Image, pos types.Point) {
-	return asImageP(C.dword_5d4594_1193624), types.Point{X: int(C.dword_5d4594_1193648), Y: int(C.dword_5d4594_1193524)}
+func sub_48B590() (a1 *Image, pos image.Point) {
+	return asImageP(C.dword_5d4594_1193624), image.Point{X: int(C.dword_5d4594_1193648), Y: int(C.dword_5d4594_1193524)}
 }
 
 func sub_48B680(a1 int) {
@@ -935,9 +936,9 @@ func sub_48B680(a1 int) {
 	}
 }
 
-func nox_video_cursorDrawImpl_477A30(r *NoxRender, inp *input.Handler, pos types.Point) {
+func nox_video_cursorDrawImpl_477A30(r *NoxRender, inp *input.Handler, pos image.Point) {
 	v18 := memmap.Uint32(0x973F18, 68)
-	pos = pos.Sub(types.Point{X: 64, Y: 64})
+	pos = pos.Sub(image.Point{X: 64, Y: 64})
 	*memmap.PtrUint32(0x973F18, 68) = 0
 	dword_5d4594_3798728 = true
 	defer func() {
@@ -962,24 +963,24 @@ func nox_video_cursorDrawImpl_477A30(r *NoxRender, inp *input.Handler, pos types
 	switch typ := nox_client_getCursorType(); typ {
 	case gui.CursorGrab:
 		str := strMan.GetStringInFile("GRAB", "C:\\NoxPost\\src\\Client\\Gui\\guicurs.c")
-		r.DrawString(nil, str, pos.Add(types.Point{X: 54, Y: 64 - fh}))
+		r.DrawString(nil, str, pos.Add(image.Point{X: 54, Y: 64 - fh}))
 		r.nox_video_drawAnimatedImageOrCursorAt(noxCursors.Grab, pos)
 	case gui.CursorPickup:
 		str := strMan.GetStringInFile("PICKUP", "C:\\NoxPost\\src\\Client\\Gui\\guicurs.c")
-		r.DrawString(nil, str, pos.Add(types.Point{X: 49, Y: 64 + fh}))
+		r.DrawString(nil, str, pos.Add(image.Point{X: 49, Y: 64 + fh}))
 		r.nox_video_drawAnimatedImageOrCursorAt(noxCursors.Pickup, pos)
 		dword_5d4594_1097208 = -2 * fh
 	case gui.CursorShop:
 		str := strMan.GetStringInFile("SHOPKEEPER", "C:\\NoxPost\\src\\Client\\Gui\\guicurs.c")
-		r.DrawString(nil, str, pos.Add(types.Point{X: 39, Y: 64 - fh}))
+		r.DrawString(nil, str, pos.Add(image.Point{X: 39, Y: 64 - fh}))
 		r.nox_video_drawAnimatedImageOrCursorAt(noxCursors.Trade, pos)
 	case gui.CursorTalk:
 		str := strMan.GetStringInFile("TALK", "C:\\NoxPost\\src\\Client\\Gui\\guicurs.c")
-		r.DrawString(nil, str, pos.Add(types.Point{X: 49, Y: 64 - fh}))
+		r.DrawString(nil, str, pos.Add(image.Point{X: 49, Y: 64 - fh}))
 		r.nox_video_drawAnimatedImageOrCursorAt(noxCursors.Talk, pos)
 	case gui.CursorIdentify, gui.CursorCantIdentify:
 		str := strMan.GetStringInFile("IDENTIFY", "C:\\NoxPost\\src\\Client\\Gui\\guicurs.c")
-		r.DrawString(nil, str, pos.Add(types.Point{X: 49, Y: +88}))
+		r.DrawString(nil, str, pos.Add(image.Point{X: 49, Y: +88}))
 		if typ == gui.CursorIdentify {
 			r.nox_video_drawAnimatedImageOrCursorAt(noxCursors.Identify, pos)
 		} else {
@@ -987,7 +988,7 @@ func nox_video_cursorDrawImpl_477A30(r *NoxRender, inp *input.Handler, pos types
 		}
 	case gui.CursorRepair:
 		str := strMan.GetStringInFile("REPAIR", "C:\\NoxPost\\src\\Client\\Gui\\guicurs.c")
-		r.DrawString(nil, str, pos.Add(types.Point{X: 49, Y: 64 - fh}))
+		r.DrawString(nil, str, pos.Add(image.Point{X: 49, Y: 64 - fh}))
 		r.nox_video_drawAnimatedImageOrCursorAt(noxCursors.Repair, pos)
 		dword_5d4594_1097208 = 2*fh + 4
 	case gui.CursorCreateGame:
@@ -1000,7 +1001,7 @@ func nox_video_cursorDrawImpl_477A30(r *NoxRender, inp *input.Handler, pos types
 		r.nox_video_drawAnimatedImageOrCursorAt(noxCursors.Sell, pos)
 	case gui.CursorUse:
 		str := strMan.GetStringInFile("USE", "C:\\NoxPost\\src\\Client\\Gui\\guicurs.c")
-		r.DrawString(nil, str, pos.Add(types.Point{X: 54, Y: 64 + fh}))
+		r.DrawString(nil, str, pos.Add(image.Point{X: 54, Y: 64 + fh}))
 		r.nox_video_drawAnimatedImageOrCursorAt(noxCursors.Use, pos)
 		dword_5d4594_1097208 = -2 * fh
 	case gui.CursorMoveArrow:
@@ -1097,12 +1098,12 @@ func nox_client_drawCursorAndTooltips_477830(r *NoxRender, inp *input.Handler) {
 		if pl == nil || pl.PlayerClass() != player.Warrior {
 			v2 := nox_xxx_spellIcon_424A90(C.int(nox_client_spellDragnDrop_1097192)) // Spell icon
 			if v2 != nil {
-				r.DrawImageAt(asImageP(unsafe.Pointer(v2)), mpos.Sub(types.Point{X: 15, Y: 15}))
+				r.DrawImageAt(asImageP(unsafe.Pointer(v2)), mpos.Sub(image.Point{X: 15, Y: 15}))
 			}
 		} else {
 			v2 := C.nox_xxx_spellGetAbilityIcon_425310(C.int(nox_client_spellDragnDrop_1097192), 0) // Ability icon
 			if v2 != nil {
-				r.DrawImageAt(asImageP(unsafe.Pointer(v2)), mpos.Sub(types.Point{X: 15, Y: 15}))
+				r.DrawImageAt(asImageP(unsafe.Pointer(v2)), mpos.Sub(image.Point{X: 15, Y: 15}))
 			}
 		}
 	}
@@ -1111,26 +1112,26 @@ func nox_client_drawCursorAndTooltips_477830(r *NoxRender, inp *input.Handler) {
 		sz := r.GetStringSizeWrapped(nil, str, 0)
 		px := mpos.X - dword_5d4594_1097204
 		py := mpos.Y - dword_5d4594_1097208
-		sz.W += 4
-		sz.H += 4
-		if px+sz.W >= nox_win_width {
-			px -= sz.W
+		sz.X += 4
+		sz.Y += 4
+		if px+sz.X >= nox_win_width {
+			px -= sz.X
 		}
 		if px < 0 {
 			px = 0
 		}
-		if py+sz.H >= nox_win_height {
-			py = nox_win_height - sz.H
+		if py+sz.Y >= nox_win_height {
+			py = nox_win_height - sz.Y
 		}
 		if py < 0 {
 			py = 0
 		}
-		r.DrawRectFilledAlpha(px, py, sz.W, sz.H)
+		r.DrawRectFilledAlpha(px, py, sz.X, sz.Y)
 		r.SetTextColor(uint32(C.nox_color_yellow_2589772))
 		r.DrawStringWrapped(nil, str, image.Rect(px+2, py+2, px+2, py+2))
 		if C.dword_5d4594_3799468 != 0 {
 			vp := getViewport()
-			if px < int(vp.x1) || px+sz.W > int(vp.x2) || py < int(vp.y1) || py+sz.H > int(vp.y2) {
+			if px < int(vp.x1) || px+sz.X > int(vp.x2) || py < int(vp.y1) || py+sz.Y > int(vp.y2) {
 				C.dword_5d4594_3799524 = 1
 			}
 		}

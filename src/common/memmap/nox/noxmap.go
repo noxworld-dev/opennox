@@ -1,6 +1,6 @@
-package nox
+package opennox
 
-import "nox/v1/common/memmap"
+import "github.com/noxworld-dev/opennox/v1/common/memmap"
 
 func init() {
 	memmap.RegisterBlob(0x581450, "byte_581450", 23472)

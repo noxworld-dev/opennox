@@ -1,4 +1,4 @@
-package nox
+package opennox
 
 /*
 #include <stddef.h>
@@ -76,10 +76,12 @@ import "C"
 import (
 	"context"
 
-	"nox/v1/common/console"
-	noxflags "nox/v1/common/flags"
-	"nox/v1/common/log"
-	"nox/v1/common/strman"
+	"github.com/noxworld-dev/opennox-lib/log"
+	"github.com/noxworld-dev/opennox-lib/strman"
+
+	"github.com/noxworld-dev/opennox-lib/console"
+
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 )
 
 var (

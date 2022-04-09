@@ -1,4 +1,4 @@
-package nox
+package opennox
 
 /*
 #include "defs.h"
@@ -8,7 +8,7 @@ import "C"
 import (
 	"unsafe"
 
-	"nox/v1/common/types"
+	"github.com/noxworld-dev/opennox-lib/types"
 )
 
 var byte_5D4594_3804364 [40]uint32

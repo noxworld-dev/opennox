@@ -1,7 +1,7 @@
 //go:build !highres
 // +build !highres
 
-package nox
+package opennox
 
 const (
 	NOX_CLIENT_VERS_CODE = noxProtoVersionLegacy

@@ -1,7 +1,7 @@
 //go:build windows
 // +build windows
 
-package nox
+package opennox
 
 /*
 #include <winsock2.h>

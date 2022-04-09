@@ -1,4 +1,4 @@
-package nox
+package opennox
 
 /*
 #include "memfile.h"
@@ -9,7 +9,7 @@ import (
 	"io"
 	"unsafe"
 
-	"nox/v1/common/alloc"
+	"github.com/noxworld-dev/opennox/v1/common/alloc"
 )
 
 func loadMemfile(path string, key int) (*MemFile, error) {

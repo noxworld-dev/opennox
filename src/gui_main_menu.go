@@ -1,4 +1,4 @@
-package nox
+package opennox
 
 /*
 #include "GAME1_2.h"
@@ -27,10 +27,11 @@ import "C"
 import (
 	"unsafe"
 
-	"nox/v1/common/alloc"
-	noxflags "nox/v1/common/flags"
-	"nox/v1/common/keybind"
-	"nox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox-lib/client/keybind"
+
+	"github.com/noxworld-dev/opennox/v1/common/alloc"
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
+	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
 var (

@@ -1,4 +1,4 @@
-package nox
+package opennox
 
 /*
 #include "GAME1.h"
@@ -27,18 +27,20 @@ import (
 	"encoding"
 	"encoding/binary"
 	"fmt"
+	"image"
 	"math"
 	"unsafe"
 
-	"nox/v1/common/alloc"
-	noxflags "nox/v1/common/flags"
-	"nox/v1/common/memmap"
-	"nox/v1/common/noxnet"
-	"nox/v1/common/object"
-	"nox/v1/common/player"
-	"nox/v1/common/things"
-	"nox/v1/common/types"
-	"nox/v1/server/script"
+	"github.com/noxworld-dev/opennox-lib/noxnet"
+	"github.com/noxworld-dev/opennox-lib/object"
+	"github.com/noxworld-dev/opennox-lib/player"
+	"github.com/noxworld-dev/opennox-lib/script"
+	"github.com/noxworld-dev/opennox-lib/things"
+	"github.com/noxworld-dev/opennox-lib/types"
+
+	"github.com/noxworld-dev/opennox/v1/common/alloc"
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
+	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
 const NOX_PLAYERINFO_MAX = int(C.NOX_PLAYERINFO_MAX)
@@ -599,7 +601,7 @@ var (
 
 type PlayerOpts struct {
 	Info      PlayerInfo
-	Screen    types.Size
+	Screen    image.Point
 	Serial    string
 	Field2096 string
 	Field2068 int
@@ -613,9 +615,9 @@ func (p *PlayerOpts) UnmarshalBinary(data []byte) error {
 		return fmt.Errorf("cannot unmarshal player opts: message too short: %d < %d", len(data), 153)
 	}
 	p.Info = *(*PlayerInfo)(unsafe.Pointer(&data[0])) // TODO: set fields individually
-	p.Screen = types.Size{
-		W: int(binary.LittleEndian.Uint32(data[97:101])),
-		H: int(binary.LittleEndian.Uint32(data[101:105])),
+	p.Screen = image.Point{
+		X: int(binary.LittleEndian.Uint32(data[97:101])),
+		Y: int(binary.LittleEndian.Uint32(data[101:105])),
 	}
 	p.Serial = GoStringS(data[105:128])
 	p.Field2096 = GoStringS(data[128:138])
@@ -628,8 +630,8 @@ func (p *PlayerOpts) UnmarshalBinary(data []byte) error {
 func (p *PlayerOpts) MarshalBinary() ([]byte, error) {
 	data := make([]byte, 153)
 	*(*PlayerInfo)(unsafe.Pointer(&data[0])) = p.Info // TODO: set fields individually
-	binary.LittleEndian.PutUint32(data[97:101], uint32(p.Screen.W))
-	binary.LittleEndian.PutUint32(data[101:105], uint32(p.Screen.H))
+	binary.LittleEndian.PutUint32(data[97:101], uint32(p.Screen.X))
+	binary.LittleEndian.PutUint32(data[101:105], uint32(p.Screen.Y))
 	StrCopyBytes(data[105:128], p.Serial)
 	StrCopyBytes(data[128:138], p.Field2096)
 	binary.LittleEndian.PutUint32(data[138:142], uint32(p.Field2068))
@@ -684,12 +686,12 @@ func (s *Server) newPlayer(ind int, opts *PlayerOpts) int {
 	}
 	pl := s.playerResetInd(ind)
 	if int8(v5[102]) >= 0 {
-		pl.field_10 = C.ushort(opts.Screen.W / 2)
-		pl.field_12 = C.ushort(opts.Screen.H / 2)
+		pl.field_10 = C.ushort(opts.Screen.X / 2)
+		pl.field_12 = C.ushort(opts.Screen.Y / 2)
 	} else {
-		if nox_win_width >= opts.Screen.W {
-			pl.field_10 = C.ushort(opts.Screen.W / 2)
-			pl.field_12 = C.ushort(opts.Screen.H / 2)
+		if nox_win_width >= opts.Screen.X {
+			pl.field_10 = C.ushort(opts.Screen.X / 2)
+			pl.field_12 = C.ushort(opts.Screen.Y / 2)
 		} else {
 			pl.field_10 = C.ushort(nox_win_width / 2)
 			pl.field_12 = C.ushort(nox_win_height / 2)

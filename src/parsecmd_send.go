@@ -1,4 +1,4 @@
-package nox
+package opennox
 
 /*
 #include "GAME2_1.h"
@@ -9,7 +9,7 @@ import "C"
 import (
 	"encoding/binary"
 
-	"nox/v1/common/noxnet"
+	"github.com/noxworld-dev/opennox-lib/noxnet"
 )
 
 func nox_xxx_netServerCmd_440950(id byte, cmd string) {

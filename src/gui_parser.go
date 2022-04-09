@@ -1,4 +1,4 @@
-package nox
+package opennox
 
 /*
 #include "client__gui__window.h"
@@ -16,12 +16,13 @@ import (
 	"strings"
 	"unsafe"
 
-	"nox/v1/client/gui"
-	"nox/v1/client/noxfont"
-	"nox/v1/common/alloc"
-	noxcolor "nox/v1/common/color"
-	"nox/v1/common/fs"
-	"nox/v1/common/strman"
+	noxcolor "github.com/noxworld-dev/opennox-lib/color"
+	"github.com/noxworld-dev/opennox-lib/ifs"
+	"github.com/noxworld-dev/opennox-lib/noxfont"
+	"github.com/noxworld-dev/opennox-lib/strman"
+
+	"github.com/noxworld-dev/opennox/v1/client/gui"
+	"github.com/noxworld-dev/opennox/v1/common/alloc"
 )
 
 //export nox_new_window_from_file
@@ -41,7 +42,7 @@ func newWindowFromFile(name string, fnc WindowFunc) *Window {
 	guiLog.Printf("load: %q", name)
 	path := filepath.Join("window", name)
 
-	f, err := fs.Open(path)
+	f, err := ifs.Open(path)
 	if err != nil {
 		guiLog.Printf("cannot load file %q: %v", path, err)
 		return nil

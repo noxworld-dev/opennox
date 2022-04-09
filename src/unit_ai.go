@@ -1,4 +1,4 @@
-package nox
+package opennox
 
 /*
 #include "defs.h"
@@ -15,10 +15,11 @@ import (
 	"math"
 	"unsafe"
 
-	noxflags "nox/v1/common/flags"
-	"nox/v1/common/object"
-	"nox/v1/common/types"
-	"nox/v1/common/unit/ai"
+	"github.com/noxworld-dev/opennox-lib/object"
+	"github.com/noxworld-dev/opennox-lib/types"
+
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
+	"github.com/noxworld-dev/opennox/v1/common/unit/ai"
 )
 
 //export nox_ai_debug_print

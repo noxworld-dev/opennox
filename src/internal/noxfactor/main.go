@@ -17,8 +17,8 @@ import (
 
 	"golang.org/x/sync/errgroup"
 
-	noxflags "nox/v1/common/flags"
-	"nox/v1/internal/noxfactor/c2gotok"
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
+	"github.com/noxworld-dev/opennox/v1/internal/noxfactor/c2gotok"
 )
 
 var (

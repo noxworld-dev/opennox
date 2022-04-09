@@ -1,4 +1,4 @@
-package nox
+package opennox
 
 /*
 #include "GAME2_2.h"
@@ -13,10 +13,11 @@ import (
 	"strings"
 	"unsafe"
 
-	"nox/v1/client/gui"
-	"nox/v1/common/alloc"
-	noxcolor "nox/v1/common/color"
-	"nox/v1/common/keybind"
+	"github.com/noxworld-dev/opennox-lib/client/keybind"
+	noxcolor "github.com/noxworld-dev/opennox-lib/color"
+
+	"github.com/noxworld-dev/opennox/v1/client/gui"
+	"github.com/noxworld-dev/opennox/v1/common/alloc"
 )
 
 type guiWidgetData interface {
@@ -239,15 +240,15 @@ func nox_xxx_wndStaticDrawWithImage_489550(win *Window, draw *WindowData) int {
 	}
 	if str := GoWString(data.text); str != "" {
 		r.Data().SetTextColor(draw.TextColorRaw())
-		y0 := wpos.Y + wsz.H/2 - fh/2
+		y0 := wpos.Y + wsz.Y/2 - fh/2
 		if data.center != 0 {
 			tsz := r.GetStringSizeWrapped(fnt, str, 0)
-			x0 := wpos.X + (wsz.W-tsz.W)/2
-			rect := image.Rect(x0, y0, x0+wsz.W, y0)
+			x0 := wpos.X + (wsz.X-tsz.X)/2
+			rect := image.Rect(x0, y0, x0+wsz.X, y0)
 			r.DrawStringWrapped(fnt, str, rect)
 		} else {
 			x0 := wpos.X + 2
-			rect := image.Rect(x0, y0, x0+wsz.W, y0)
+			rect := image.Rect(x0, y0, x0+wsz.X, y0)
 			r.DrawStringWrapped(fnt, str, rect)
 		}
 	}
@@ -269,7 +270,7 @@ func nox_xxx_wndStaticDrawNoImage(win *Window, draw *WindowData) int { // nox_xx
 	wpos := win.GlobalPos()
 	wsz := win.Size()
 	x, y := wpos.X, wpos.Y
-	w, h := wsz.W, wsz.H
+	w, h := wsz.X, wsz.Y
 	if win.Flags().Has(gui.StatusSmoothText) {
 		r.SetTextSmooting(true)
 	}
@@ -297,16 +298,16 @@ func nox_xxx_wndStaticDrawNoImage(win *Window, draw *WindowData) int { // nox_xx
 	if text := GoWString(wdata.text); text != "" && draw.TextColorRaw() != noxcolor.ExtendColor16(gui.ColorTransparent) {
 		r.Data().SetTextColor(draw.TextColorRaw())
 		sz := r.GetStringSizeWrapped(fnt, text, w)
-		cy := y + (h-sz.H)/2
+		cy := y + (h-sz.Y)/2
 		if wdata.center != 0 {
-			if sz.H > r.FontHeight(fnt) {
+			if sz.Y > r.FontHeight(fnt) {
 				dy := fnt.Metrics().CapHeight.Round()
 				for i, line := range r.SplitStringWrapped(fnt, text, w) {
 					if strings.TrimSpace(line) == "" {
 						continue
 					}
 					sz := r.GetStringSizeWrapped(fnt, line, w)
-					lx := x + (w-sz.W)/2
+					lx := x + (w-sz.X)/2
 					ly := cy + dy*i
 					if wdata.field_2 != 0 {
 						r.Data().SetTextColor(highlight)
@@ -321,7 +322,7 @@ func nox_xxx_wndStaticDrawNoImage(win *Window, draw *WindowData) int { // nox_xx
 					}
 				}
 			} else {
-				x += (w - sz.W) / 2
+				x += (w - sz.X) / 2
 				if wdata.field_2 != 0 {
 					r.Data().SetTextColor(highlight)
 					r.DrawStringWrapped(fnt, text, image.Rect(x-1, cy-1, x-1+w, cy-1))

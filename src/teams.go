@@ -1,4 +1,4 @@
-package nox
+package opennox
 
 /*
 #include "common__system__team.h"
@@ -20,12 +20,14 @@ import "C"
 import (
 	"unsafe"
 
-	"nox/v1/common/alloc"
-	"nox/v1/common/console"
-	noxflags "nox/v1/common/flags"
-	"nox/v1/common/memmap"
-	"nox/v1/common/noxnet"
-	"nox/v1/common/strman"
+	"github.com/noxworld-dev/opennox-lib/noxnet"
+	"github.com/noxworld-dev/opennox-lib/strman"
+
+	"github.com/noxworld-dev/opennox-lib/console"
+
+	"github.com/noxworld-dev/opennox/v1/common/alloc"
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
+	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
 //export nox_server_teamByXxx_418AE0

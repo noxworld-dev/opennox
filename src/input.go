@@ -1,8 +1,9 @@
-package nox
+package opennox
 
 import (
-	"nox/v1/common/keybind"
-	"nox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox-lib/client/keybind"
+
+	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
 var (
