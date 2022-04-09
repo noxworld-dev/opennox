@@ -62,4 +62,4 @@ require (
 	gopkg.in/yaml.v3 v3.0.0-20210107192922-496545a6307b // indirect
 )
 
-replace github.com/timshannon/go-openal => github.com/dennwc/go-openal v0.0.0-20220319130640-4ac4eb01d7d0
+replace github.com/timshannon/go-openal => github.com/noxworld-dev/go-openal v0.0.0-20220409202930-f35bd05741a2
