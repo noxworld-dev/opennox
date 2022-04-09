@@ -275,8 +275,8 @@ github.com/noxworld-dev/nat v0.1.0 h1:901X798aWD7HR7J4CAQ8+0C0Hk+zMPfwDqP6FSl1WG
 github.com/noxworld-dev/nat v0.1.0/go.mod h1:nuyzkNVgk/Eybj3dbJmm0vsX7xBxjqCczqN6cWkpfrM=
 github.com/noxworld-dev/noxcrypt v0.0.0-20220321183618-46f42bc13bf4 h1:Dz5AK38Vn8Diysic5o5ONiHiso/9gRAOhz/nLUxfBvk=
 github.com/noxworld-dev/noxcrypt v0.0.0-20220321183618-46f42bc13bf4/go.mod h1:LJpDABUOIGsHXO72pLYJgPpJQ9046Nn6Kqy/kN+xi0I=
-github.com/noxworld-dev/opennox-lib v0.0.0-20220405111933-06781b4dedc1 h1:WxPPs3YFEnu+mFeV9TBxmBk4cupzg0y6VqiqFylvGIs=
-github.com/noxworld-dev/opennox-lib v0.0.0-20220405111933-06781b4dedc1/go.mod h1:4ekjznt+8JZWNhk+/xteBdHccDUwediYAjZxf2k6uBI=
+github.com/noxworld-dev/opennox-lib v0.0.0-20220409095642-3fc673a4fa98 h1:UB59OR0VY28jOvQ05ejhAix0R2MLhWFKuAiY5qg7atE=
+github.com/noxworld-dev/opennox-lib v0.0.0-20220409095642-3fc673a4fa98/go.mod h1:wuvhrrgI58D4SWhzY7CNrlxWOQHoYvroUMhfDvRtixE=
 github.com/noxworld-dev/vqa-decode v0.0.0-20220408200150-8bbbe7a064f7 h1:RHk168W1N0o4FAcp2RIeNl5pzSeioH94OSL5cn2DV+4=
 github.com/noxworld-dev/vqa-decode v0.0.0-20220408200150-8bbbe7a064f7/go.mod h1:L/NIDfAyZ3NbYIxPZ6onoSGKxJmcc9+pdJcTIrDPUag=
 github.com/noxworld-dev/xwis v0.0.0-20220204182326-c5d2fc18e75e h1:yMghTqz2j8k79+JVaSs/DOvTmgGVwGNGNvCchYP9Hcw=
@@ -372,8 +372,8 @@ github.com/szhublox/opennoxcontrol v0.0.0-20211214215120-c4bc4281312f h1:OSN9HuB
 github.com/szhublox/opennoxcontrol v0.0.0-20211214215120-c4bc4281312f/go.mod h1:LGnjP368EU6Dq4sHpkgexqRqD5Mk/eBMqwmNKg7dJFc=
 github.com/tmc/grpc-websocket-proxy v0.0.0-20190109142713-0ad062ec5ee5/go.mod h1:ncp9v5uamzpCO7NfCPTXjqaC+bZgJeR0sMTm6dMHP7U=
 github.com/ugorji/go v1.1.4/go.mod h1:uQMGLiO92mf5W77hV/PUCpI3pbzQx3CRekS0kk+RGrc=
-github.com/veandco/go-sdl2 v0.4.17 h1:ehMJJTNjgPdVKzSG/PzoeRtRNNlrq6Vmhv8c0MGO3p8=
-github.com/veandco/go-sdl2 v0.4.17/go.mod h1:OROqMhHD43nT4/i9crJukyVecjPNYYuCofep6SNiAjY=
+github.com/veandco/go-sdl2 v0.4.10 h1:8QoD2bhWl7SbQDflIAUYWfl9Vq+mT8/boJFAUzAScgY=
+github.com/veandco/go-sdl2 v0.4.10/go.mod h1:OROqMhHD43nT4/i9crJukyVecjPNYYuCofep6SNiAjY=
 github.com/xiang90/probing v0.0.0-20190116061207-43a291ad63a2/go.mod h1:UETIi67q53MR2AWcXfiuqkDkRtnGDLqkBTpCHuJHxtU=
 github.com/xordataexchange/crypt v0.0.3-0.20170626215501-b2862e3d0a77/go.mod h1:aYKd//L2LvnjZzWKhF00oedf4jCCReLcmhLdhm1A27Q=
 github.com/youpy/go-riff v0.0.0-20131220112943-557d78c11efb/go.mod h1:83nxdDV4Z9RzrTut9losK7ve4hUnxUR8ASSz4BsKXwQ=
