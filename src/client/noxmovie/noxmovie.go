@@ -144,6 +144,9 @@ func (player *MoviePlayer) Close() {
 		player.audioBuffers.Delete()
 	}
 
+	// Consuming dangling errors
+	openal.Err()
+
 	player.seat.ReplaceInputs(player.oldInputs)
 }
 
