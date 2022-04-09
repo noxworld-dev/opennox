@@ -52,7 +52,7 @@ jobs:
 
   hybrid_linux:
     name: Build on Linux Host
-    runs-on: ['self-hosted', 'ubuntu-20.04']
+    runs-on: 'ubuntu-20.04'
     strategy:
       fail-fast: true
 
@@ -102,7 +102,7 @@ jobs:
 
   docker_server:
     name: Docker server build
-    runs-on: [ 'self-hosted', 'ubuntu-20.04' ]
+    runs-on: 'ubuntu-20.04'
     if: startsWith(github.ref, 'refs/tags/') || (github.ref == 'refs/heads/dev') || (github.ref == 'refs/heads/ci_tests')
     needs: [hybrid_linux]
     strategy:
@@ -161,7 +161,7 @@ jobs:
 
   hybrid_linux_mingw:
     name: Win build on Linux Host
-    runs-on: ['self-hosted', 'ubuntu-20.04']
+    runs-on: 'ubuntu-20.04'
     strategy:
       fail-fast: true
 
@@ -234,7 +234,7 @@ jobs:
 
   release_repackage_linux:
     name: Repackage Linux release
-    runs-on: ['self-hosted', 'ubuntu-20.04']
+    runs-on: 'ubuntu-20.04'
     if: startsWith(github.ref, 'refs/tags/')
     needs: [hybrid_linux]
     steps:
@@ -284,7 +284,7 @@ jobs:
 
   release_repackage_win:
       name: Repackage Windows release
-      runs-on: ['self-hosted', 'ubuntu-20.04']
+      runs-on: 'ubuntu-20.04'
       if: startsWith(github.ref, 'refs/tags/')
       needs: [hybrid_linux_mingw]
       steps:
@@ -348,7 +348,7 @@ jobs:
 
   github_release:
     name: Github release
-    runs-on: [ 'self-hosted', 'ubuntu-20.04' ]
+    runs-on: 'ubuntu-20.04'
     if: startsWith(github.ref, 'refs/tags/')
     needs: [release_repackage_linux, release_repackage_win]
     steps:
