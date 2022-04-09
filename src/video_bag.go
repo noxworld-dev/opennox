@@ -143,8 +143,7 @@ func (img *Image) Pixdata() []byte {
 		panic("cannot load")
 	}
 	// TODO: remove interning when we get rid of C renderer
-	img.cdata, img.cfree = alloc.Bytes(uintptr(len(data)))
-	copy(img.cdata, data)
+	img.cdata, img.cfree = alloc.CloneSlice(data)
 	return img.cdata
 }
 

@@ -50,8 +50,7 @@ func nox_common_scanAddMap(filename string) {
 		gameLog.Println("map list:", err)
 		return
 	}
-	mpp, _ := alloc.Malloc(unsafe.Sizeof(C.nox_map_list_item{}))
-	mp := (*C.nox_map_list_item)(mpp)
+	mp, _ := alloc.New(C.nox_map_list_item{})
 	C.sub_425770(unsafe.Pointer(mp))
 	StrCopy(&mp.name[0], 12, name)
 	mp.field_6 = 1

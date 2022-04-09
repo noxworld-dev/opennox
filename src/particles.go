@@ -58,7 +58,7 @@ func (p *Particle) C() unsafe.Pointer {
 }
 
 func (p *Particle) Free() {
-	alloc.FreeBytes(p.data)
+	alloc.FreeSlice(p.data)
 	p.data = nil
 	delete(p.r.particles.byOpts, p.opt)
 	delete(p.r.particles.byHandle, p.hnd)
@@ -102,7 +102,7 @@ func (r *NoxRender) newParticle(mul1, mul2 int) *Particle {
 func (p *Particle) genImage() {
 	rr := p.opt.rad
 	size := 2*(22*rr*(rr+1)/7+6*rr) + 17
-	p.data, _ = alloc.Bytes(uintptr(size))
+	p.data, _ = alloc.Make([]byte{}, size)
 	data := p.data
 	mul1 := p.opt.mul1
 	mul2 := p.opt.mul2

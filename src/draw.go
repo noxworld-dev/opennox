@@ -101,8 +101,7 @@ var (
 
 func getViewport() *Viewport {
 	viewport.Do(func() {
-		p, _ := alloc.Malloc(unsafe.Sizeof(Viewport{}))
-		viewport.ptr = asViewport((*C.nox_draw_viewport_t)(p))
+		viewport.ptr, _ = alloc.New(Viewport{})
 	})
 	return viewport.ptr
 }
@@ -287,8 +286,7 @@ func nox_draw_initColorTablesRev_434DA0() {
 		cb := uint32((i & bmask) << bshift)
 		nox_draw_colorTablesRev_3804668[i] = byte((28*(cb|7) + 150*(cg|7) + 76*(cr|7)) >> 8)
 	}
-	ptr, _ := alloc.Bytes(uintptr(len(nox_draw_colorTablesRev_3804668)))
-	copy(ptr, nox_draw_colorTablesRev_3804668)
+	ptr, _ := alloc.CloneSlice(nox_draw_colorTablesRev_3804668)
 	C.nox_draw_colorTablesRev_3804668 = unsafe.Pointer(&ptr[0])
 }
 
@@ -559,8 +557,7 @@ func (r *NoxRender) SetPixBuffer(pix *noximage.Image16) {
 }
 
 func newNoxRenderData() (*RenderData, func()) {
-	p, free := alloc.Malloc(unsafe.Sizeof(C.nox_render_data_t{}))
-	d := (*RenderData)(p)
+	d, free := alloc.New(RenderData{})
 	d.Reset()
 	return d, free
 }
@@ -1757,9 +1754,9 @@ func nox_draw_initColorTables_434CC0() {
 		mode = noxcolor.ModeRGBA5551
 	}
 	noxrend.SetColorMode(mode)
-	arrR, _ := alloc.Uints16(257)
-	arrG, _ := alloc.Uints16(257)
-	arrB, _ := alloc.Uints16(257)
+	arrR, _ := alloc.Make([]uint16{}, 257)
+	arrG, _ := alloc.Make([]uint16{}, 257)
+	arrB, _ := alloc.Make([]uint16{}, 257)
 	arrR = arrR[:256]
 	arrG = arrG[:256]
 	arrB = arrB[:256]

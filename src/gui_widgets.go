@@ -167,8 +167,7 @@ func newStaticText(par *Window, status gui.StatusFlags, px, py, w, h int, draw *
 		draw.win = win.C()
 	}
 	win.CopyDrawData(draw)
-	datap, _ := alloc.Malloc(unsafe.Sizeof(staticTextData{}))
-	wdata := (*staticTextData)(datap)
+	wdata, _ := alloc.New(staticTextData{})
 	*wdata = *data
 	win.widget_data = unsafe.Pointer(wdata)
 	return win

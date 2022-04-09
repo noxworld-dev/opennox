@@ -176,7 +176,7 @@ func sub_41A000_check0(path string) byte {
 	path = ifs.Denormalize(path)
 	cstr := CString(path)
 	defer StrFree(cstr)
-	save, freeSave := alloc.Bytes(1280)
+	save, freeSave := alloc.Make([]byte{}, 1280)
 	defer freeSave()
 	C.sub_41A000(cstr, (*C.nox_savegame_xxx)(unsafe.Pointer(&save[0])))
 	return save[0]

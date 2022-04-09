@@ -222,13 +222,13 @@ func sub_43F010(a1 unsafe.Pointer) C.int {
 //export sub_43EC30
 func sub_43EC30(a1 unsafe.Pointer) C.int {
 	smp := audioDev.AllocateSample()
-	v1, _ := alloc.Uints32(8)
+	v1, _ := alloc.Make([]uint32{}, 8)
 	*(**uint32)(unsafe.Add(a1, 272)) = &v1[0]
 	v1[0] = uint32(audioDev)
 	v1[1] = uint32(uintptr(a1))
 	v1[2] = uint32(smp)
-	b1, _ := alloc.Bytes(16384)
-	b2, _ := alloc.Bytes(16384)
+	b1, _ := alloc.Make([]byte{}, 16384)
+	b2, _ := alloc.Make([]byte{}, 16384)
 	v1[5] = uint32(uintptr(unsafe.Pointer(&b1[0])))
 	v1[6] = uint32(uintptr(unsafe.Pointer(&b2[0])))
 	if smp == 0 {

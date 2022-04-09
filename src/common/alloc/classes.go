@@ -16,6 +16,34 @@ var (
 	debugClasses = os.Getenv("NOX_DEBUG_ALLOC_CLASSES") == "true"
 )
 
+func AsClassT[T comparable](p unsafe.Pointer) ClassT[T] {
+	return ClassT[T]{Class: AsClass(p)}
+}
+
+func NewClassT[T comparable](name string, typ T, cnt int) ClassT[T] {
+	return ClassT[T]{Class: NewClass(name, unsafe.Sizeof(typ), cnt)}
+}
+
+func NewDynamicClassT[T comparable](name string, typ T, cnt int) ClassT[T] {
+	return ClassT[T]{Class: NewDynamicClass(name, unsafe.Sizeof(typ), cnt)}
+}
+
+type ClassT[T comparable] struct {
+	*Class
+}
+
+func (c ClassT[T]) NewObject() *T {
+	return (*T)(c.Class.NewObject())
+}
+
+func (c ClassT[T]) FreeObjectFirst(p *T) {
+	c.Class.FreeObjectFirst(unsafe.Pointer(p))
+}
+
+func (c ClassT[T]) FreeObjectLast(p *T) {
+	c.Class.FreeObjectLast(unsafe.Pointer(p))
+}
+
 const DeadChar = 0xAC
 
 var allocClasses = make(map[unsafe.Pointer]*Class)

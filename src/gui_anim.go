@@ -192,8 +192,7 @@ func nox_gui_findAnimationForDest_43C520(dest gui.StateID) *guiAnim {
 }
 
 func newGUIAnimation(win *Window) *guiAnim {
-	pp, _ := alloc.Malloc(unsafe.Sizeof(guiAnim{}))
-	p := (*guiAnim)(pp)
+	p, _ := alloc.New(guiAnim{})
 	p.win = win.C()
 	p.next = guiAnimationsHead.C()
 	if guiAnimationsHead != nil {

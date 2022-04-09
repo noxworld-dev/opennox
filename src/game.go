@@ -1063,9 +1063,8 @@ func nox_game_guiInit_473680() error {
 }
 
 func nox_xxx_mapFindPlayerStart_4F7AB0(a2 *Unit) types.Pointf {
-	p, freeCp := alloc.Malloc(unsafe.Sizeof(C.float2{}))
+	cp, freeCp := alloc.New(C.float2{})
 	defer freeCp()
-	cp := (*C.float2)(p)
 	C.nox_xxx_mapFindPlayerStart_4F7AB0(cp, a2.CObj())
 	return types.Pointf{
 		X: float32(cp.field_0),
@@ -1102,7 +1101,7 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() bool {
 		v7 := unsafe.Slice((*byte)(v7p), 58)
 		if noxflags.HasGame(noxflags.GameOnline) {
 			if v7[57] == 0 {
-				v63, freeV63 := alloc.Bytes(60)
+				v63, freeV63 := alloc.Make([]byte{}, 60)
 				defer freeV63()
 				copy(v63, GoStringS(v7))
 				v59 := *(*uint16)(unsafe.Pointer(&v7[52]))
@@ -1599,7 +1598,7 @@ func (s *Server) nox_xxx_netlist_4DEB50() {
 }
 
 func nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(ind int, data []byte) int {
-	cdata, cfree := alloc.Bytes(uintptr(len(data)))
+	cdata, cfree := alloc.Make([]byte{}, len(data))
 	defer cfree()
 	return nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_raw(ind, cdata)
 }

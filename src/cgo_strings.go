@@ -15,15 +15,7 @@ import (
 
 type wchar_t = C.wchar_t
 
-func StrFree(s *C.char) {
-	C.free(unsafe.Pointer(s))
-}
-
-func BytesFree(s unsafe.Pointer) {
-	C.free(s)
-}
-
-func WStrFree(s *C.wchar_t) {
+func StrFree[T comparable](s *T) {
 	C.free(unsafe.Pointer(s))
 }
 
@@ -34,13 +26,6 @@ func CStringArray(arr []string) []*C.char {
 	}
 	out = append(out, nil)
 	return out[:len(arr):len(arr)]
-}
-
-func StrLen(s *C.char) int {
-	if s == nil {
-		return 0
-	}
-	return alloc.Strlen(unsafe.Pointer(s))
 }
 
 func StrLenBytes(s []byte) int {
@@ -75,33 +60,6 @@ func StrNCopyBytes(dst []byte, src string) int {
 	n := copy(dst, src)
 	if n < len(dst) {
 		dst[n] = 0
-	}
-	return n
-}
-
-func WStrLen(s *C.wchar_t) int {
-	if s == nil {
-		return 0
-	}
-	n := 0
-	for *s != 0 {
-		s = (*C.wchar_t)(unsafe.Add(unsafe.Pointer(s), 2))
-		n++
-	}
-	return n
-}
-
-func WStrLenN(s *C.wchar_t, max int) int {
-	if s == nil {
-		return 0
-	}
-	n := 0
-	for *s != 0 {
-		s = (*C.wchar_t)(unsafe.Add(unsafe.Pointer(s), 2))
-		if n == max {
-			return n
-		}
-		n++
 	}
 	return n
 }
@@ -176,7 +134,7 @@ func GoWStringP(s unsafe.Pointer) string {
 }
 
 func GoWString(s *C.wchar_t) string {
-	n := WStrLen(s)
+	n := alloc.StrLen(s)
 	if n == 0 {
 		return ""
 	}
@@ -185,7 +143,7 @@ func GoWString(s *C.wchar_t) string {
 }
 
 func GoWStringN(s *C.wchar_t, max int) string {
-	n := WStrLenN(s, max)
+	n := alloc.StrLenN(s, max)
 	if n == 0 {
 		return ""
 	}
@@ -228,7 +186,7 @@ func CWStringCopyTo(dst *C.wchar_t, dstSz int, src string) {
 }
 
 func GoWStrSlice(arr **C.wchar_t) []string {
-	n := PtrArrLen(unsafe.Pointer(arr))
+	n := alloc.ZeroTermLen(arr)
 	return GoWStrSliceN(arr, n)
 }
 
@@ -237,21 +195,21 @@ func GoWStrSliceN(arr **C.wchar_t, n int) []string {
 		return nil
 	}
 	out := make([]string, 0, n)
-	for _, c := range unsafe.Slice((**C.wchar_t)(unsafe.Pointer(arr)), n) {
+	for _, c := range unsafe.Slice(arr, n) {
 		out = append(out, GoWString(c))
 	}
 	return out
 }
 
 func CWStrSlice(arr []string) ([]*C.wchar_t, func()) {
-	ptr, freeList := alloc.Calloc(len(arr)+1, ptrSize)
-	out := unsafe.Slice((**C.wchar_t)(ptr), len(arr))
+	out, freeList := alloc.Make([]*C.wchar_t{}, len(arr)+1)
+	out = out[:len(out)-1]
 	for i, s := range arr {
 		out[i], _ = CWString(s)
 	}
 	return out, func() {
 		for _, p := range out {
-			WStrFree(p)
+			StrFree(p)
 		}
 		freeList()
 	}

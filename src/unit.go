@@ -58,9 +58,8 @@ func (u *Unit) setPos(cp *C.float2) {
 }
 
 func (u *Unit) SetPos(p types.Pointf) {
-	pp, free := alloc.Malloc(unsafe.Sizeof(C.float2{}))
+	cp, free := alloc.New(C.float2{})
 	defer free()
-	cp := (*C.float2)(pp)
 	cp.field_0 = C.float(p.X)
 	cp.field_4 = C.float(p.Y)
 	u.setPos(cp)
@@ -346,7 +345,7 @@ func (u *Unit) clearActionStack() { // aka nox_xxx_monsterClearActionStack_50A3A
 	}
 }
 
-func (u *Unit) monsterPushAction(act ai.ActionType, args ...interface{}) *aiStack { // aka nox_xxx_monsterPushAction_50A260
+func (u *Unit) monsterPushAction(act ai.ActionType, args ...any) *aiStack { // aka nox_xxx_monsterPushAction_50A260
 	st := (*aiStack)(unsafe.Pointer(C.nox_xxx_monsterPushAction_50A260_impl(u.CObj(), C.int(act), internCStr("go"), 0)))
 	if len(args) != 0 {
 		st.SetArgs(args...)

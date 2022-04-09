@@ -105,7 +105,7 @@ func nox_strman_free_410020() {
 		StrFree(p)
 	}
 	for _, p := range strManW {
-		WStrFree(p)
+		StrFree(p)
 	}
 	strManC = make(map[string]*C.char)
 	strManW = make(map[string]*C.wchar_t)

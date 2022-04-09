@@ -590,7 +590,7 @@ func nox_video_initFloorBuffer_430BA0(sz image.Point) error {
 		return errors.New("VideoInit: error initializing floor buffer")
 	}
 	if lightsOutBuf == nil {
-		lightsOutBuf, _ = alloc.Uints32(6)
+		lightsOutBuf, _ = alloc.Make([]uint32{}, 6)
 		lightsOutBuf[0] = 255
 		lightsOutBuf[1] = 255
 		lightsOutBuf[2] = 255
@@ -600,7 +600,7 @@ func nox_video_initFloorBuffer_430BA0(sz image.Point) error {
 
 func nox_video_stopCursorDrawThread_48B350() {
 	if dword_5d4594_1193704_arr != nil {
-		alloc.FreePointers(dword_5d4594_1193704_arr)
+		alloc.FreeSlice(dword_5d4594_1193704_arr)
 		dword_5d4594_1193704_arr = nil
 		C.dword_5d4594_1193704 = nil
 	}
@@ -609,21 +609,21 @@ func nox_video_stopCursorDrawThread_48B350() {
 
 func sub_4AEDF0() {
 	height := noxPixBuffer.img.Rect.Dy()
-	dword_5d4594_3798632_arr, _ = alloc.Pointers(height)
+	dword_5d4594_3798632_arr, _ = alloc.Make([]unsafe.Pointer{}, height)
 	C.dword_5d4594_3798632 = (*C.char)(unsafe.Pointer(&dword_5d4594_3798632_arr[0]))
 
-	dword_5d4594_3798644_arr, _ = alloc.Bytes(uintptr(height) << 6)
+	dword_5d4594_3798644_arr, _ = alloc.Make([]byte{}, height<<6)
 	C.dword_5d4594_3798644 = (*C.char)(unsafe.Pointer(&dword_5d4594_3798644_arr[0]))
 }
 
 func sub_4AE540() {
 	if dword_5d4594_3798632_arr != nil {
-		alloc.FreePointers(dword_5d4594_3798632_arr)
+		alloc.FreeSlice(dword_5d4594_3798632_arr)
 		dword_5d4594_3798632_arr = nil
 		C.dword_5d4594_3798632 = nil
 	}
 	if dword_5d4594_3798644_arr != nil {
-		alloc.FreeBytes(dword_5d4594_3798644_arr)
+		alloc.FreeSlice(dword_5d4594_3798644_arr)
 		dword_5d4594_3798644_arr = nil
 		C.dword_5d4594_3798644 = nil
 	}
@@ -744,7 +744,7 @@ func nox_free_pixbuffers_486110() {
 		}
 
 		if nox_pixbuffer_3798788_arr != nil {
-			alloc.FreeBytes(nox_pixbuffer_3798788_arr)
+			alloc.FreeSlice(nox_pixbuffer_3798788_arr)
 			nox_pixbuffer_3798788_arr = nil
 			C.nox_pixbuffer_3798788 = nil
 		}
@@ -756,7 +756,7 @@ func nox_free_pixbuffers_486110() {
 		C.nox_pixbuffer_rows_3798784 = nil
 	}
 	if nox_pixbuffer_rows_3798776_arr != nil {
-		alloc.FreePointers(nox_pixbuffer_rows_3798776_arr)
+		alloc.FreeSlice(nox_pixbuffer_rows_3798776_arr)
 		nox_pixbuffer_rows_3798776_arr = nil
 		C.nox_pixbuffer_rows_3798776 = nil
 	}
@@ -775,7 +775,7 @@ func nox_video_initPixbufferData_4861D0(sz image.Point) {
 	if memmap.Uint32(0x5D4594, 1193200) != 0 {
 		return
 	}
-	data, free := alloc.Uints16(uintptr(sz.X * sz.Y))
+	data, free := alloc.Make([]uint16{}, sz.X*sz.Y)
 	noxPixBuffer.free = free
 	noxPixBuffer.img = noximage.NewImage16WithData(data, sz)
 	noxrend.SetPixBuffer(noxPixBuffer.img)
@@ -783,14 +783,14 @@ func nox_video_initPixbufferData_4861D0(sz image.Point) {
 		return
 	}
 
-	nox_pixbuffer_3798788_arr, _ = alloc.Bytes(uintptr(len(data)))
+	nox_pixbuffer_3798788_arr, _ = alloc.Make([]byte{}, len(data))
 	C.nox_pixbuffer_3798788 = (*C.uchar)(unsafe.Pointer(&nox_pixbuffer_3798788_arr[0]))
 }
 
 func nox_video_initPixbufferRows_486230() {
 	sz := noxPixBuffer.img.Size()
-	ptrs, freeRows := alloc.Pointers(sz.Y)
-	noxPixBuffer.rows = unsafe.Slice((**uint16)(unsafe.Pointer(&ptrs[0])), len(ptrs))
+	ptrs, freeRows := alloc.Make([]*uint16{}, sz.Y)
+	noxPixBuffer.rows = ptrs
 	noxPixBuffer.freeRows = freeRows
 	C.nox_pixbuffer_rows_3798784 = (**C.uchar)(unsafe.Pointer(&noxPixBuffer.rows[0]))
 	for y := 0; y < sz.Y; y++ {
@@ -801,7 +801,7 @@ func nox_video_initPixbufferRows_486230() {
 		return
 	}
 
-	nox_pixbuffer_rows_3798776_arr, _ = alloc.Pointers(sz.Y)
+	nox_pixbuffer_rows_3798776_arr, _ = alloc.Make([]unsafe.Pointer{}, sz.Y)
 	C.nox_pixbuffer_rows_3798776 = (**C.uchar)(unsafe.Pointer(&nox_pixbuffer_rows_3798776_arr[0]))
 	for y := 0; y < sz.Y; y++ {
 		nox_pixbuffer_rows_3798776_arr[y] = unsafe.Pointer(&nox_pixbuffer_3798788_arr[y*2*sz.X])
@@ -911,7 +911,7 @@ func nox_client_drawXxx_444AC0(w, h int, flags int) error {
 }
 
 func sub_48B800(a1 uint32) {
-	p, pfree := alloc.Uints32(3)
+	p, pfree := alloc.Make([]uint32{}, 3)
 	defer pfree()
 	C.sub_434480(C.int(a1), (*C.int)(unsafe.Pointer(&p[0])), (*C.int)(unsafe.Pointer(&p[1])), (*C.int)(unsafe.Pointer(&p[2])))
 	sub_48B6B0(byte(p[0]), byte(p[1]), byte(p[2]))
@@ -1073,7 +1073,7 @@ func nox_client_drawCursorAndTooltips_477830(r *NoxRender, inp *input.Handler) {
 		nox_xxx_cursorLoadAll_477710()
 	}
 	mpos := inp.GetMousePos()
-	vpp, freeVp := alloc.Malloc(unsafe.Sizeof(C.nox_draw_viewport_t{}))
+	vpp, freeVp := alloc.New(C.nox_draw_viewport_t{})
 	defer freeVp()
 	vp := asViewport((*C.nox_draw_viewport_t)(vpp))
 	vp.x1 = 0

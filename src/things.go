@@ -130,7 +130,7 @@ func nox_thing_read_IMAG_415700(f *MemFile) error {
 }
 
 func nox_thing_read_IMAG_one_42F660(f *MemFile) error {
-	refP, _ := alloc.Malloc(unsafe.Sizeof(C.nox_things_imageRef_t{}))
+	refP, _ := alloc.New(C.nox_things_imageRef_t{})
 	ref := asImageRef((*C.nox_things_imageRef_t)(refP))
 	nox_images_arr1_787156 = append(nox_images_arr1_787156, ref)
 
@@ -159,11 +159,10 @@ func nox_thing_read_IMAG_one_42F660(f *MemFile) error {
 		return nil
 	case 2:
 		sz := f.ReadU8()
-		arr, _ := alloc.Pointers(int(sz))
-		ptr, _ := alloc.Malloc(unsafe.Sizeof(noxImageRefAnim{}))
-		anim := (*noxImageRefAnim)(ptr)
+		arr, _ := alloc.Make([]*C.nox_video_bag_image_t{}, sz)
+		anim, _ := alloc.New(noxImageRefAnim{})
 		anim.on_end = nil
-		anim.images = (**C.nox_video_bag_image_t)(unsafe.Pointer(&arr[0]))
+		anim.images = &arr[0]
 		anim.images_sz = C.uchar(sz)
 		anim.field_2_1 = C.uchar(f.ReadU8())
 
@@ -179,12 +178,12 @@ func nox_thing_read_IMAG_one_42F660(f *MemFile) error {
 			if ind := int(f.ReadI32()); ind == -1 {
 				typ := f.ReadI8()
 				name2, _ := f.ReadString8()
-				arr[i] = unsafe.Pointer(nox_xxx_loadImage_47A8C0(byte(typ), name2).C())
+				arr[i] = nox_xxx_loadImage_47A8C0(byte(typ), name2).C()
 			} else {
-				arr[i] = unsafe.Pointer(bagImageByIndex(ind).C())
+				arr[i] = bagImageByIndex(ind).C()
 			}
 		}
-		ref.field_24 = ptr
+		ref.field_24 = unsafe.Pointer(anim.C())
 		return nil
 	default:
 		return fmt.Errorf("unsupported image kind: %d", int(kind))

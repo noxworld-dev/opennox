@@ -25,7 +25,6 @@ import (
 	"image"
 	"math"
 	"strings"
-	"unsafe"
 
 	"github.com/noxworld-dev/opennox-lib/client/seat"
 	"github.com/noxworld-dev/opennox-lib/datapath"
@@ -179,9 +178,8 @@ func mainloopDrawAndPresent(inp *input.Handler) {
 func DrawSparks() {
 	if C.nox_client_gui_flag_815132 != 0 {
 		sz := videoGetWindowSize()
-		rdrP, rdrFree := alloc.Malloc(unsafe.Sizeof(C.nox_draw_viewport_t{}))
+		rdr, rdrFree := alloc.New(C.nox_draw_viewport_t{})
 		defer rdrFree()
-		rdr := (*C.nox_draw_viewport_t)(rdrP)
 		rdr.x1 = 0
 		rdr.y1 = 0
 		rdr.x2 = C.int(sz.X)

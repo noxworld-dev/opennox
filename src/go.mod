@@ -1,6 +1,6 @@
 module github.com/noxworld-dev/opennox/v1
 
-go 1.17
+go 1.18
 
 require (
 	github.com/noxworld-dev/lobby v0.0.0-20220306183851-3877f0a7002d

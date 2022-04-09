@@ -36,7 +36,7 @@ func init() {
 	memmap.SetRuntimeChecks(true)
 }
 
-func checkPanicC(r interface{}, ok *C.bool) {
+func checkPanicC(r any, ok *C.bool) {
 	if r != nil {
 		fmt.Fprintln(os.Stderr, r)
 		*ok = false

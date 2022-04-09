@@ -47,7 +47,7 @@ func (s *aiStack) Type() ai.ActionType {
 	return ai.ActionType(s.action)
 }
 
-func (s *aiStack) SetArgs(args ...interface{}) {
+func (s *aiStack) SetArgs(args ...any) {
 	for i, v := range args {
 		p := s.ptr(i)
 		switch v := v.(type) {

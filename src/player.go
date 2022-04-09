@@ -794,7 +794,7 @@ func (s *Server) newPlayer(ind int, opts *PlayerOpts) int {
 			v24 := nox_xxx_cliGamedataGet_416590(1)
 			C.nox_xxx_netGuiGameSettings_4DD9B0(1, unsafe.Pointer(&v24[0]), C.int(pl.Index()))
 		} else {
-			v29, v29free := alloc.Bytes(60)
+			v29, v29free := alloc.Make([]byte{}, 60)
 			defer v29free()
 			C.sub_459AA0(unsafe.Pointer(&v29[0]))
 			C.nox_xxx_netGuiGameSettings_4DD9B0(1, unsafe.Pointer(&v29[0]), C.int(pl.Index()))
@@ -884,9 +884,8 @@ func nox_xxx_playerSpell_4FB2A0_magic_plyrspel(up *nox_object_t) {
 					nox_xxx_netInformTextMsg_4DA0F0(pl.Index(), 0, a1)
 					nox_xxx_aud_501960(232, u, 0, 0)
 				} else {
-					v14p, v14free := alloc.Malloc(unsafe.Sizeof(spellAcceptArg{}))
+					arg, v14free := alloc.New(spellAcceptArg{})
 					defer v14free()
-					arg := (*spellAcceptArg)(v14p)
 					arg.Obj = pl.obj_3640
 					if noxflags.HasGame(noxflags.GameModeQuest) && noxServer.spellHasFlags(spellInd, 32) {
 						if pl.obj_3640 != nil && !u.isEnemyTo(asObjectC(pl.obj_3640)) {

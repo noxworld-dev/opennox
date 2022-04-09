@@ -37,7 +37,7 @@ import (
 )
 
 var (
-	nox_alloc_window    *alloc.Class
+	nox_alloc_window    alloc.ClassT[C.nox_window]
 	nox_win_cur_focused *Window
 	nox_win_cur_input   *Window
 	nox_win_xxx1_first  *Window
@@ -263,10 +263,10 @@ func newUserWindow(parent *Window, id uint, status gui.StatusFlags, px, py, w, h
 }
 
 func newWindowRaw(parent *Window, status gui.StatusFlags, px, py, w, h int, fnc94 WindowFunc) *Window {
-	if nox_alloc_window == nil {
-		nox_alloc_window = alloc.NewClass("Window", unsafe.Sizeof(C.nox_window{}), 576)
+	if nox_alloc_window.Class == nil {
+		nox_alloc_window = alloc.NewClassT("Window", C.nox_window{}, 576)
 	}
-	win := asWindow((*C.nox_window)(nox_alloc_window.NewObject()))
+	win := asWindow(nox_alloc_window.NewObject())
 	if parent != nil {
 		win.setParent(parent)
 	} else {

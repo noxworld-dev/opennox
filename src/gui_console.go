@@ -14,7 +14,6 @@ import (
 	"context"
 	"fmt"
 	"image"
-	"unsafe"
 
 	"github.com/noxworld-dev/opennox-lib/client/keybind"
 	noxcolor "github.com/noxworld-dev/opennox-lib/color"
@@ -181,9 +180,8 @@ func (c *guiConsole) Init(sz image.Point) *Window {
 
 	drawData.SetStyleFlags(gui.StyleScrollListBox)
 
-	scrp, freeScr := alloc.Malloc(unsafe.Sizeof(scrollListBoxData{}))
+	scrollData, freeScr := alloc.New(scrollListBoxData{})
 	defer freeScr()
-	scrollData := (*scrollListBoxData)(scrp)
 	scrollData.count = 128
 	scrollData.line_height = 10
 	scrollData.field_1 = 1
@@ -197,9 +195,8 @@ func (c *guiConsole) Init(sz image.Point) *Window {
 	drawData.SetSelectedColor(v0)
 	drawData.SetTextColor(v0)
 
-	inpp, freeInp := alloc.Malloc(unsafe.Sizeof(entryFieldData{}))
+	inpData, freeInp := alloc.New(entryFieldData{})
 	defer freeInp()
-	inpData := (*entryFieldData)(inpp)
 	inpData.text[0] = 0
 	inpData.field_1024 = 0
 	inpData.field_1028 = 0

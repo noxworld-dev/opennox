@@ -211,7 +211,7 @@ func nox_input_getStringBuffer_57011C() *C.wchar_t {
 
 //export nox_input_freeStringBuffer_57011C
 func nox_input_freeStringBuffer_57011C(p *C.wchar_t) {
-	WStrFree(p)
+	StrFree(p)
 }
 
 func noxInputOnChar(c uint16) {

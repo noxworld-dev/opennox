@@ -367,9 +367,8 @@ func clientOnLobbyServer(info *LobbyServerInfo) int {
 		discover.Log.Printf("OnLobbyServer_4375F0: ignoring server %q: duplicate?", info.Address)
 		return 0
 	}
-	srvP, freeSrv := alloc.Malloc(unsafe.Sizeof(nox_gui_server_ent_t{}))
+	srv, freeSrv := alloc.New(nox_gui_server_ent_t{})
 	defer freeSrv()
-	srv := (*nox_gui_server_ent_t)(srvP)
 	srv.field_11_0 = C.short(info.Field_11_0)
 	srv.field_11_2 = C.short(info.Field_11_2)
 	srv.SetVersion(info.Version)
@@ -438,7 +437,7 @@ func sub_554D70(conn net.PacketConn, sock *Socket, csock nox_socket_t, a1 byte) 
 	} else {
 		argp = 1
 	}
-	buf, freeBuf := alloc.Bytes(256)
+	buf, freeBuf := alloc.Make([]byte{}, 256)
 	defer freeBuf()
 	for {
 		buf = buf[:cap(buf)]

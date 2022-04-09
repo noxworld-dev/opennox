@@ -24,7 +24,7 @@ func loadMemfile(path string, key int) (*MemFile, error) {
 	f.FileSeek(0, io.SeekEnd)
 	sz := f.Written()
 	f.FileSeek(0, io.SeekStart)
-	data, _ := alloc.Bytes(uintptr(sz))
+	data, _ := alloc.Make([]byte{}, sz)
 	_, err = io.ReadFull(f, data)
 	if err != nil {
 		return nil, err
@@ -33,8 +33,7 @@ func loadMemfile(path string, key int) (*MemFile, error) {
 }
 
 func newMemfile(data unsafe.Pointer, sz int) *MemFile {
-	nfp, _ := alloc.Malloc(unsafe.Sizeof(MemFile{}))
-	nf := asMemfileP(nfp)
+	nf, _ := alloc.New(MemFile{})
 	nf.size = C.int(sz)
 	nf.data = (*C.char)(data)
 	nf.cur = nf.data

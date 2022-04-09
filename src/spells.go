@@ -59,8 +59,7 @@ func nox_xxx_spellGetDefArrayPtr_424820() unsafe.Pointer {
 
 func getPhonemeTree() *phonemeLeaf {
 	if spellPhonemeTree == nil {
-		p, _ := alloc.Malloc(unsafe.Sizeof(phonemeLeaf{}))
-		spellPhonemeTree = (*phonemeLeaf)(p)
+		spellPhonemeTree, _ = alloc.New(phonemeLeaf{})
 	}
 	return spellPhonemeTree
 }
@@ -391,8 +390,7 @@ func (s *Server) createSpellFrom(def *things.Spell, isClient bool) error {
 		for _, ph := range sp.Def.Phonemes {
 			next := leaf.Pho[ph]
 			if next == nil {
-				p, _ := alloc.Malloc(unsafe.Sizeof(phonemeLeaf{}))
-				next = (*phonemeLeaf)(p)
+				next, _ = alloc.New(phonemeLeaf{})
 				leaf.Pho[ph] = next
 			}
 			leaf = next

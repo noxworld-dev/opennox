@@ -113,8 +113,7 @@ func asWindowDataP(data unsafe.Pointer) *WindowData {
 }
 
 func newWindowData() (*WindowData, func()) {
-	p, free := alloc.Malloc(unsafe.Sizeof(WindowData{}))
-	return asWindowDataP(p), free
+	return alloc.New(WindowData{})
 }
 
 type WindowData C.nox_window_data
@@ -476,7 +475,7 @@ func freeAllWindowsInList() { // sub_46C200
 			nox_win_1064916 = nil
 		}
 		win.Func94(WindowDestroy{})
-		nox_alloc_window.FreeObjectFirst(unsafe.Pointer(win.C()))
+		nox_alloc_window.FreeObjectFirst(win.C())
 		win = prev
 	}
 }
