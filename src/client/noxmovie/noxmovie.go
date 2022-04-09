@@ -78,7 +78,15 @@ func NewPlayerWithHandle(file io.ReadSeekCloser, mvSeat seat.Seat, audioDrv ail.
 	queue := make(chan *Frame, vqa.Header.Fps*2)
 	stop := make(chan struct{})
 
+	// Consuming dangling errors
+	openal.Err()
+
 	audioSrc := audioDrv.AllocateSample()
+
+	if audioSrc == 0 {
+		err := openal.Err()
+		return nil, err
+	}
 
 	oldInputs := mvSeat.ReplaceInputs(nil)
 
