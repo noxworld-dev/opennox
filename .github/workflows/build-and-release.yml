@@ -42,7 +42,29 @@ jobs:
           name: hybrid_docker_mingw_artifacts
           path: build
 
-
+  linux_docker:
+    name: Compile Linux binaries with a golang docker container
+    runs-on: 'ubuntu-20.04'
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          submodules: true
+          
+      - name: Get go cache
+        uses: actions/cache@v3
+        with:
+          path: gocache
+          key: linux-gocache-v1
+          
+      - uses: docker://ghcr.io/noxworld-dev/docker-build:latest-linux
+        name: Docker build
+      
+      - uses: actions/upload-artifact@v3
+        name: Upload artifacts
+        with:
+          name: linux_docker_artifacts
+          path: build
 
   snapcraft_linux:
     name: Go build for Snapcraft
