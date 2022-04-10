@@ -31,7 +31,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: gocache
-          key: mingw-gocache
+          key: mingw-gocache-v1
           
       - uses: docker://ghcr.io/noxworld-dev/docker-build:latest-win
         name: Docker build
@@ -41,6 +41,8 @@ jobs:
         with:
           name: hybrid_docker_mingw_artifacts
           path: build
+
+
 
   snapcraft_linux:
     name: Go build for Snapcraft
@@ -77,6 +79,7 @@ jobs:
   hybrid_linux:
     name: Build on Linux Host
     runs-on: 'ubuntu-20.04'
+    if: ${{ false }} # Disable for now
     strategy:
       fail-fast: true
 
@@ -186,6 +189,7 @@ jobs:
   hybrid_linux_mingw:
     name: Win build on Linux Host
     runs-on: 'ubuntu-20.04'
+    if: ${{ false }} # Disable for now
     strategy:
       fail-fast: true
 
