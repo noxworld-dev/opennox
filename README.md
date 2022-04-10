@@ -58,4 +58,6 @@ Westwood Studios is a trademark or registered trademark of Electronic Arts in th
 
 If not specified otherwise, the source code provided in this repository is licenced under the [GNU General Public License version 3](<https://www.gnu.org/licenses/gpl-3.0.html>). Please see the accompanying LICENSE file.
 
-OpenNox project additionally follows [C&C Remastered Modding guideline](https://www.ea.com/games/command-and-conquer/command-and-conquer-remastered/modding-faq). All changes to the project MUST follow these rules. 
+OpenNox logo created by [@CCHyper](https://github.com/CCHyper) under [CC0 license](https://creativecommons.org/share-your-work/public-domain/cc0/).
+
+OpenNox project additionally follows [C&C Remastered Modding guideline](https://www.ea.com/games/command-and-conquer/command-and-conquer-remastered/modding-faq). All changes to the project MUST follow these rules.
