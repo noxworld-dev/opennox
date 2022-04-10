@@ -3,6 +3,7 @@ package opennox
 import (
 	"os"
 	"path/filepath"
+	"runtime"
 
 	"github.com/spf13/viper"
 
@@ -25,6 +26,18 @@ func init() {
 		configPath = filepath.Join(wd, configName+"."+configExt)
 	}
 	viper.AddConfigPath(filepath.Dir(os.Args[0]))
+	if runtime.GOOS != "windows" {
+		if dir := os.Getenv("XDG_CONFIG_HOME"); dir != "" {
+			viper.AddConfigPath(filepath.Join(dir, "opennox", configName+"."+configExt))
+		}
+		if home, err := os.UserHomeDir(); err == nil {
+			// Linux Snapcraft installation replaces HOME variable
+			if rhome := os.Getenv("SNAP_REAL_HOME"); rhome != "" {
+				home = rhome
+			}
+			viper.AddConfigPath(filepath.Join(home, ".config/opennox", configName+"."+configExt))
+		}
+	}
 }
 
 const (
