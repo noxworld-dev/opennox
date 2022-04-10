@@ -100,12 +100,14 @@ func registerOnDataPathSet(fnc func()) {
 // Nox only works on 32bit
 var _ = [1]struct{}{}[unsafe.Sizeof(int(0))-4]
 
-func writeLogsToDir() error {
-	dir := filepath.Dir(os.Args[0])
-	if sdir := env.AppUserDir(); sdir != "" {
-		dir = sdir
+func writeLogsToDir(dir string) error {
+	if dir == "" {
+		dir = filepath.Dir(os.Args[0])
+		if sdir := env.AppUserDir(); sdir != "" {
+			dir = sdir
+		}
+		dir = filepath.Join(dir, "logs")
 	}
-	dir = filepath.Join(dir, "logs")
 	if err := os.MkdirAll(dir, 0755); err != nil {
 		return err
 	}
@@ -129,16 +131,6 @@ func RunArgs(args []string) (gerr error) {
 			// ok
 		}
 	}()
-	if !env.IsE2E() {
-		if err := writeLogsToDir(); err != nil {
-			log.Println("cannot persist logs:", err)
-		}
-		defer log.Close()
-	} else {
-		e2eInit()
-		defer e2eStop()
-	}
-	version.LogVersion()
 	flags := flag.NewFlagSet("", flag.ContinueOnError)
 	// TODO: add missing flag descriptions
 	rconDefHost := ""
@@ -180,10 +172,22 @@ func RunArgs(args []string) (gerr error) {
 		fPProf      = flags.String("pprof", "", "enable pprof")
 		fRcon       = flags.String("rcon", rconDefHost, "enable remote console")
 		fRconPass   = flags.String("rcon-pass", "", "remote console password")
+		fLogs       = flags.String("logs", "", "directory for logs")
 	)
 	if err := flags.Parse(args[1:]); err != nil {
 		return err
 	}
+	if !env.IsE2E() {
+		if err := writeLogsToDir(*fLogs); err != nil {
+			log.Println("cannot persist logs:", err)
+		}
+		defer log.Close()
+	} else {
+		e2eInit()
+		defer e2eStop()
+	}
+	version.LogVersion()
+
 	handles.Init()
 	defer handles.Release()
 	if !isDedicatedServer {
