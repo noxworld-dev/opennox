@@ -31,6 +31,7 @@ var (
 	fOut  = flag.String("o", "", "output directory")
 	fSrc  = flag.String("s", "", "source directory")
 	fOS   = flag.String("os", runtime.GOOS, "target OS to build for")
+	fArch = flag.String("arch", runtime.GOARCH, "target architecture to build for")
 	fSafe = flag.Bool("safe", false, "build a safe version (will run significantly slower)")
 	fTip  = flag.Bool("tip", false, "use gotip instead of go command")
 )
@@ -88,6 +89,7 @@ type buildOpts struct {
 
 func goBuild(cmd string, bin string, opts *buildOpts) error {
 	goos := *fOS
+	goarch := *fArch
 	switch goos {
 	case "windows":
 		if filepath.Ext(bin) == "" {
@@ -95,7 +97,7 @@ func goBuild(cmd string, bin string, opts *buildOpts) error {
 		}
 	}
 	bin = filepath.Join(*fOut, bin)
-	isCross := goos != runtime.GOOS
+	isCross := goos != runtime.GOOS || goarch != runtime.GOARCH
 	if opts == nil {
 		opts = &buildOpts{}
 	}
@@ -134,14 +136,20 @@ func goBuild(cmd string, bin string, opts *buildOpts) error {
 			"-asmflags=" + strconv.Quote(ASMFLAGS),
 		}
 	)
+	if opts.CGO {
+		switch goarch {
+		case "amd64":
+			goarch = "386"
+		}
+	}
 	envs = append(envs,
 		"GOOS="+goos,
+		"GOARCH="+goarch,
 	)
 	if opts.CGO {
 		envs = append(envs,
-			"GOARCH=386",
 			"CGO_ENABLED=1",
-			`CGO_CFLAGS_ALLOW=(-fshort-wchar)|(-fno-strict-aliasing)|(-fno-strict-overflow)`,
+			`CGO_CFLAGS_ALLOW=(-fsigned-char)|(-fshort-wchar)|(-fno-strict-aliasing)|(-fno-strict-overflow)`,
 		)
 		if isCross {
 			switch goos {
