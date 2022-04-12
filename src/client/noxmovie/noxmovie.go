@@ -217,8 +217,7 @@ func (player *MoviePlayer) Play() {
 					buffersProcessed := make(openal.Buffers, processedCount)
 					alSrc.UnqueueBuffers(buffersProcessed)
 					audioBuffers = append(audioBuffers, buffersProcessed...)
-					for i := 0; i < len(buffersProcessed); i++ {
-						b := audioBuffers[i]
+					for _, b := range buffersProcessed {
 						samples := b.GetSize() / ((b.GetBits() / 8) * b.GetChannels())
 						finishedSamples += int(samples)
 					}
