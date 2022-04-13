@@ -2181,7 +2181,7 @@ int sub_4E4DE0() {
 	}
 	*getMemU32Ptr(0x5D4594, 1565508) = 0;
 	memset(getMemAt(0x5D4594, 1565524), 0, 0x40u);
-	memset(getMemAt(0x5D4594, 1565124), 0, 0x180u);
+	memset(getMemAt(0x5D4594, 1565124), 0, 384);
 	dword_5d4594_1565512 = 0;
 	dword_5d4594_1565516 = 0;
 	v0 = 0;
@@ -2236,7 +2236,7 @@ int sub_4E4EF0() {
 	int result;        // eax
 
 	v0 = getMemAt(0x5D4594, 1565124);
-	memset(getMemAt(0x5D4594, 1565124), 0, 0x180u);
+	memset(getMemAt(0x5D4594, 1565124), 0, 384);
 	v1 = 0;
 	do {
 		v0[1] = 2;
@@ -2587,17 +2587,6 @@ int sub_4E55F0(unsigned char a1) {
 			result = v2;
 		} while (v2);
 	}
-	return result;
-}
-
-//----- (004E5630) --------------------------------------------------------
-int sub_4E5630(unsigned char a1, uint32_t* a2, uint32_t* a3, uint32_t* a4) {
-	int result; // eax
-
-	result = 12 * a1;
-	*a2 = *getMemU32Ptr(0x5D4594, 1565128 + result);
-	*a3 = getMemByte(0x5D4594, 1565125 + result);
-	*a4 = getMemByte(0x5D4594, 1565124 + result);
 	return result;
 }
 

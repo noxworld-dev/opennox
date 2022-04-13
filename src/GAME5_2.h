@@ -56,7 +56,6 @@ long long sub_553DC0(int a1);
 unsigned int sub_553E10(int a1);
 unsigned int sub_553E90(int a1);
 unsigned int sub_553E50(int a1);
-int sub_553ED0(int a3);
 void sub_553F40(int a1, int a2);
 void sub_553FC0(int a1, int a2);
 void nox_xxx_netCountData_554030(int a1, int a2);

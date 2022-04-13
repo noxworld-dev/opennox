@@ -7,7 +7,6 @@
 char nox_log_buf[512] = {0};
 
 FILE* nox_file_log_4 = 0;
-FILE* nox_file_band_log = 0;
 FILE* nox_file_net_log = 0;
 
 //----- (00413B00) --------------------------------------------------------
@@ -70,30 +69,6 @@ void nox_xxx_log_4_close_413C00() {
 	if (nox_file_log_4) {
 		nox_xxx_log_close_413AD0(nox_file_log_4);
 		nox_file_log_4 = 0;
-	}
-}
-
-//----- (00413C30) --------------------------------------------------------
-void nox_xxx_bandLog_open_413C30() {
-	nox_xxx_log_open_413B20(&nox_file_band_log, "band.log");
-	nox_fs_fputs_sync(nox_file_band_log,
-					  "Player,\tBPS, Frame, Threshold, Resend Interval, Resends Per Update, Sleep Interval\n\n");
-}
-
-//----- (00413C60) --------------------------------------------------------
-void nox_xxx_bandLog_close_413C60() {
-	nox_xxx_log_close_413AD0(nox_file_band_log);
-	nox_file_band_log = 0;
-}
-
-//----- (00413C80) --------------------------------------------------------
-void nox_xxx_bandLog_printf_413C80(char* fmt, ...) {
-	va_list va; // [esp+8h] [ebp+8h]
-
-	va_start(va, fmt);
-	nox_vsprintf(nox_log_buf, fmt, va);
-	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_LOG_BAND)) {
-		nox_fs_fputs_sync(nox_file_band_log, nox_log_buf);
 	}
 }
 

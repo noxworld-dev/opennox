@@ -36,7 +36,6 @@ extern void* nox_draw_defaultFont_816492;
 extern unsigned int dword_5d4594_2523804;
 extern unsigned int dword_5d4594_2650676;
 extern unsigned int dword_5d4594_2650680;
-extern unsigned int dword_5d4594_811896;
 extern unsigned int dword_5d4594_811904;
 extern unsigned int nox_client_gui_flag_815132;
 extern unsigned int dword_5d4594_1096432;
@@ -1021,9 +1020,7 @@ func nox_xxx_clientDrawAll_436100_draw() {
 		noxrend.SelectColor(uint32(C.nox_color_black_2650656))
 		noxrend.ClearScreen()
 	}
-	if C.dword_5d4594_811896 != 0 {
-		C.sub_4365C0()
-	}
+	noxPerfmon.Draw(noxrend)
 	if C.dword_5d4594_811904 != 0 {
 		C.sub_436F50()
 	}

@@ -414,39 +414,6 @@ LABEL_31:
 	return result;
 }
 
-//----- (004D3130) --------------------------------------------------------
-void sub_4D3130() {
-	char* result; // eax
-	int i;        // esi
-	int v2;       // [esp-14h] [ebp-24h]
-	int v3;       // [esp-14h] [ebp-24h]
-	int v4;       // [esp-10h] [ebp-20h]
-	int v5;       // [esp-Ch] [ebp-1Ch]
-	int v6;       // [esp-8h] [ebp-18h]
-	int v7;       // [esp-4h] [ebp-14h]
-	int v8;       // [esp+4h] [ebp-Ch]
-	int v9;       // [esp+8h] [ebp-8h]
-	int v10;      // [esp+Ch] [ebp-4h]
-
-	nox_xxx_bandLog_printf_413C80("\n");
-	result = nox_common_playerInfoGetFirst_416EA0();
-	for (i = (int)result; result; i = (int)result) {
-		sub_4E5630(*(uint8_t*)(i + 2064), &v10, &v9, &v8);
-		v7 = v8;
-		v6 = v9;
-		v5 = v10;
-		v4 = nox_frame_xxx_2598000;
-		if (*(uint8_t*)(i + 2064) == 31) {
-			v2 = sub_553ED0(0);
-			nox_xxx_bandLog_printf_413C80("%S, %d, %d, %d, %d, %d\n", i + 4704, v2, v4, v5, v6, v7);
-		} else {
-			v3 = sub_553ED0(*(unsigned char*)(i + 2064) + 1);
-			nox_xxx_bandLog_printf_413C80("%S, %d, %d, %d, %d, %d\n", i + 4704, v3, v4, v5, v6, v7);
-		}
-		result = nox_common_playerInfoGetNext_416EE0(i);
-	}
-}
-
 //----- (004D7140) --------------------------------------------------------
 int sub_4D7140(int a1) {
 	int result; // eax

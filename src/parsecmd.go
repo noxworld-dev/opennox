@@ -42,7 +42,6 @@ int nox_cmd_unset_fr(int, int, wchar_t**);
 int nox_cmd_set_net_debug(int, int, wchar_t**);
 int nox_cmd_unset_net_debug(int, int, wchar_t**);
 int nox_cmd_show_gui(int, int, wchar_t**);
-int nox_cmd_show_perfmon(int, int, wchar_t**);
 int nox_cmd_show_netstat(int, int, wchar_t**);
 int nox_cmd_show_info(int, int, wchar_t**);
 int nox_cmd_show_mem(int, int, wchar_t**);
@@ -193,7 +192,6 @@ var (
 		{Token: "game", HelpID: "showgamehelp", Flags: console.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_show_game)},
 		{Token: "motd", HelpID: "showmotdhelp", Flags: console.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_show_motd)},
 		{Token: "rank", HelpID: "showrankhelp", Flags: console.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_show_rank)},
-		{Token: "perfmon", HelpID: "showperfmonhelp", Flags: console.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_show_perfmon)},
 		{Token: "extents", HelpID: "showextentshelp", Flags: console.ClientServer | console.Cheat, Func: func(ctx context.Context, c *console.Console, tokens []string) bool {
 			clientPlaySoundSpecial(921, 100)
 			noxflags.ToggleEngine(noxflags.EngineShowExtents)
@@ -207,7 +205,6 @@ var (
 		{Token: "info", HelpID: "showinfohelp", Flags: console.ClientServer | console.NoHelp, LegacyFunc: wrapCommandC(nox_cmd_show_info)},
 		{Token: "mem", HelpID: "showmemhelp", Flags: console.ClientServer | console.Cheat, LegacyFunc: wrapCommandC(nox_cmd_show_mem)},
 		{Token: "netstat", HelpID: "shownetstathelp", Flags: console.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_show_netstat)},
-		{Token: "mmx", HelpID: "showmmxhelp", Flags: console.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_show_mmx)},
 		{Token: "seq", HelpID: "showseqhelp", Flags: console.ClientServer | console.Cheat, LegacyFunc: wrapCommandC(nox_cmd_show_seq)},
 	}}
 	noxCmdCheat = &console.Command{Token: "cheat", HelpID: "cheathelp", Flags: console.Server | console.Cheat, Sub: []*console.Command{
@@ -350,9 +347,6 @@ func nox_cmd_unset_net_debug(i C.int, n C.int, arr **C.wchar_t) C.int {
 }
 func nox_cmd_show_gui(i C.int, n C.int, arr **C.wchar_t) C.int {
 	return C.nox_cmd_show_gui(i, n, arr)
-}
-func nox_cmd_show_perfmon(i C.int, n C.int, arr **C.wchar_t) C.int {
-	return C.nox_cmd_show_perfmon(i, n, arr)
 }
 func nox_cmd_show_netstat(i C.int, n C.int, arr **C.wchar_t) C.int {
 	return C.nox_cmd_show_netstat(i, n, arr)

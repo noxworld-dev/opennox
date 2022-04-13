@@ -89,7 +89,7 @@ extern uint32_t dword_5d4594_1096284;
 extern void* dword_5d4594_1082864;
 extern uint32_t dword_587000_145664;
 extern uint32_t dword_5d4594_1096288;
-extern uint32_t dword_5d4594_2614264;
+extern uint32_t nox_perfmon_ping_2614264;
 extern uint32_t dword_5d4594_1047936;
 extern uint32_t dword_5d4594_1062488;
 extern uint32_t nox_xxx_xxxRenderGUI_587000_80832;
@@ -5055,8 +5055,8 @@ int nox_xxx_cliDrawLagometer_470770(int a1, int a2) {
 		}
 		++v6;
 	}
-	if (dword_5d4594_2614264 / 0xFAu) {
-		if (dword_5d4594_2614264 / 0xFAu == 1) {
+	if (nox_perfmon_ping_2614264 / 0xFAu) {
+		if (nox_perfmon_ping_2614264 / 0xFAu == 1) {
 			nox_xxx_drawSetTextColor_434390(nox_color_yellow_2589772);
 		} else {
 			nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x85B3FC, 940));
@@ -5064,7 +5064,7 @@ int nox_xxx_cliDrawLagometer_470770(int a1, int a2) {
 	} else {
 		nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x8531A0, 2572));
 	}
-	nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1090144), L"%d", dword_5d4594_2614264);
+	nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1090144), L"%d", nox_perfmon_ping_2614264);
 	nox_xxx_drawGetStringSize_43F840(*(int*)&dword_5d4594_1090140, getMemU16Ptr(0x5D4594, 1090144), &a1, 0, 0);
 	nox_xxx_drawString_43F6E0(*(int*)&dword_5d4594_1090140, getMemI16Ptr(0x5D4594, 1090144),
 							  xLeft + (*(int*)(v1 + 8) - a1) / 2, yTop + 22);

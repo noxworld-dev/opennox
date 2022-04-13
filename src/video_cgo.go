@@ -552,7 +552,7 @@ func drawGeneral_4B0340(a1 int) error {
 		nox_video_initPixbuffer_486090(sz)
 	}
 
-	var movieString = C.GoString((*C.char)(memmap.PtrOff(0x5d4594, 1311940)))
+	var movieString = GoString((*C.char)(memmap.PtrOff(0x5d4594, 1311940)))
 	videoLog.Printf("DrawGeneral: movie string: %q", movieString)
 
 	if f, err := ifs.Open(movieString); err == nil {

@@ -44,7 +44,6 @@ int nox_client_isConnected_43C700();
 int sub_43C710();
 void nox_xxx_gameSetCliConnected_43C720(int a1);
 int nox_xxx_netGet_43C750();
-int sub_43C760();
 int sub_43C790();
 int sub_43C7A0(int a1);
 int nox_xxx_netAddNetStruct4Host_43C7B0(char* cp, int hostshort, int a3, signed int* a4);

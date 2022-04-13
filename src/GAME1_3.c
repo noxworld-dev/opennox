@@ -70,7 +70,7 @@ extern uint32_t dword_5d4594_830208;
 extern uint32_t dword_587000_111668;
 extern uint32_t dword_5d4594_825768;
 extern uint32_t dword_5d4594_825736;
-extern uint32_t dword_5d4594_2614264;
+extern uint32_t nox_perfmon_ping_2614264;
 extern uint32_t dword_5d4594_830292;
 extern uint32_t dword_5d4594_815704;
 extern uint32_t nox_xxx_xxxRenderGUI_587000_80832;
@@ -282,17 +282,6 @@ int sub_43C6E0() { return !dword_5d4594_815704 && !dword_5d4594_815708; }
 //----- (0043C750) --------------------------------------------------------
 int nox_xxx_netGet_43C750() { return *(uint32_t*)getMemAt(0x5D4594, 815700); }
 
-//----- (0043C760) --------------------------------------------------------
-int sub_43C760() {
-	int v0; // esi
-
-	if (!nox_common_gameFlags_check_40A5C0(1)) {
-		return *getMemU32Ptr(0x5D4594, 815712);
-	}
-	v0 = nox_netlist_sizeByInd_40E9F0(31, 1);
-	return v0 + nox_netlist_sizeByInd2_40F0D0(31);
-}
-
 //----- (0043C790) --------------------------------------------------------
 int sub_43C790() { return *getMemU32Ptr(0x587000, 91876); }
 
@@ -317,7 +306,7 @@ int nox_xxx_netHandleCliPacket_43C860(int a1, unsigned char* a2, int a3, void* a
 		if (v4 == 33) {
 			sub_446380();
 		} else if (v4 == 36) {
-			dword_5d4594_2614264 = *(uint32_t*)(a2 + 1);
+			nox_perfmon_ping_2614264 = *(uint32_t*)(a2 + 1);
 		}
 	} else {
 		nox_xxx_netOnPacketRecvCli_48EA70(31, (unsigned int)a2, a3);

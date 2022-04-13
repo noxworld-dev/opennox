@@ -1010,27 +1010,6 @@ unsigned int sub_553E90(int a1) {
 	return v2 / (128 / a1);
 }
 
-//----- (00553ED0) --------------------------------------------------------
-int sub_553ED0(int a3) {
-	unsigned long long v1; // rax
-	long long v2;          // rdi
-	int v4;                // edi
-
-	v1 = nox_platform_get_ticks();
-	LODWORD(v2) = *getMemU32Ptr(0x5D4594, 2499052 + 8 * a3);
-	HIDWORD(v2) = *getMemU32Ptr(0x5D4594, 2499056 + 8 * a3);
-	if (v1 < v2 + 1000) {
-		return *getMemU32Ptr(0x5D4594, 2498536 + 4 * a3);
-	}
-	v4 = *getMemU32Ptr(0x5D4594, 2498024 + 4 * a3);
-	*getMemU32Ptr(0x5D4594, 2499052 + 8 * a3) = v1;
-	LODWORD(v1) = v4;
-	*getMemU32Ptr(0x5D4594, 2498536 + 4 * a3) = v4;
-	*getMemU32Ptr(0x5D4594, 2498024 + 4 * a3) = 0;
-	*getMemU32Ptr(0x5D4594, 2499056 + 8 * a3) = HIDWORD(v1);
-	return 0;
-}
-
 //----- (00553F40) --------------------------------------------------------
 void sub_553F40(int a1, int a2) {
 	*getMemU32Ptr(0x5D4594, 2495952) += a1;

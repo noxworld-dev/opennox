@@ -395,7 +395,7 @@ var noxMemmap = []struct {
 	{0x5D4594, 810640, 4, "dword_5d4594_810640"},                     // 0x69A424
 	{0x5D4594, 811068, 52, "nox_draw_viewport"},                      // 0x69A5D0
 	{0x5D4594, 811372, 4, "nox_game_playState_811372"},               // 0x69A700
-	{0x5D4594, 811896, 4, "dword_5d4594_811896"},                     // 0x69A90C
+	{0x5D4594, 811896, 4, "nox_perfmon_enable_811896"},               // 0x69A90C
 	{0x5D4594, 811904, 4, "dword_5d4594_811904"},                     // 0x69A914
 	{0x5D4594, 814548, 4, "dword_5d4594_814548"},                     // 0x69B368
 	{0x5D4594, 814552, 4, "nox_client_connError_814552"},             // 0x69B36C
@@ -1323,9 +1323,9 @@ var noxMemmap = []struct {
 	{0x85B3FC, 116, 4, "nox_color_cyan_2649820"},
 	{0x85B3FC, 952, 4, "nox_color_black_2650656"},
 	{0x85B3FC, 980, 4, "nox_color_blue_2650684"},
-	{0x852978, 20, 4, "dword_5d4594_2614264"},                   // 0x85298C
+	{0x852978, 20, 4, "nox_perfmon_ping_2614264"},               // 0x85298C
 	{0x85319C, 0, 4, "nox_player_netCode_85319C"},               // 0x85319C
-	{0x8531A0, 2568, 4, "dword_5d4594_2618900"},                 // 0x853BA8
+	{0x8531A0, 2568, 4, "nox_perfmon_latePackets_2618900"},      // 0x853BA8
 	{0x8531A0, 2580, 4, "dword_5d4594_2618912"},                 // 0x853BB4
 	{0x85B3FC, 0, 4, "nox_gameFPS"},                             // 0x85B3FC
 	{0x85B3FC, 8, 4, "dword_5d4594_2649712"},                    // 0x85B404

@@ -223,7 +223,6 @@ int nox_xxx_clientResetSpriteAndGui_4357D0(int argc, const char** argv);
 int nox_xxx_whenServerHostServer_435A10(signed int* a1);
 int nox_xxx_initGameSession_435CC0();
 int sub_435EB0();
-int sub_435F40();
 int sub_435F60();
 int nox_xxx_client_435F80_draw();
 int sub_436550();

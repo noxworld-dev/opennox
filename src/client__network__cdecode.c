@@ -49,7 +49,7 @@
 #include "client__network__inform.h"
 #include "client__shell__noxworld.h"
 extern uint32_t dword_5d4594_1200832;
-extern uint32_t dword_5d4594_2618900;
+extern uint32_t nox_perfmon_latePackets_2618900;
 extern uint32_t dword_5d4594_1200776;
 extern uint32_t dword_5d4594_1200796;
 extern uint32_t dword_5d4594_1200768;
@@ -61,7 +61,7 @@ extern uint32_t nox_xxx_wizardStrength_587000_312824;
 extern uint32_t nox_xxx_warriorMaxStrength_587000_312792;
 extern uint32_t nox_xxx_conjurerStrength_587000_312808;
 extern uint32_t nox_client_gui_flag_1556112;
-extern uint32_t dword_5d4594_2614264;
+extern uint32_t nox_perfmon_ping_2614264;
 extern uint32_t nox_xxx_xxxRenderGUI_587000_80832;
 extern uint32_t nox_xxx_warriorMaxMana_587000_312788;
 extern uint32_t dword_5d4594_1200804;
@@ -537,12 +537,12 @@ int nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 			}
 			v364 = v12;
 			if (!nox_common_gameFlags_check_40A5C0(1) && !v9) {
-				--dword_5d4594_2618900;
+				--nox_perfmon_latePackets_2618900;
 				++*getMemU32Ptr(0x85B3FC, 120);
 				return 1;
 			}
 			if (nox_frame_xxx_2598000 > (unsigned int)(v10 + 1)) {
-				dword_5d4594_2618900 += nox_frame_xxx_2598000 - v10;
+				nox_perfmon_latePackets_2618900 += nox_frame_xxx_2598000 - v10;
 			}
 			sub_43C650();
 			data += 3;
@@ -581,9 +581,9 @@ int nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 				sub_57B920(getMemAt(0x5D4594, 1198020));
 			}
 			dword_5d4594_1200804 = 0;
-			dword_5d4594_2618900 = 0;
+			nox_perfmon_latePackets_2618900 = 0;
 			*getMemU32Ptr(0x85B3FC, 120) = 0;
-			dword_5d4594_2614264 = 0;
+			nox_perfmon_ping_2614264 = 0;
 			dword_5d4594_1200832 = 0;
 			nox_xxx_cliSetSettingsAcquired_4169D0(0);
 			data += 7;

@@ -92,7 +92,6 @@ extern uint32_t nox_xxx_useAudio_587000_80772;
 extern uint32_t dword_5d4594_811904;
 extern uint32_t dword_5d4594_805988;
 extern uint32_t dword_5d4594_3805492;
-extern uint32_t dword_5d4594_811896;
 extern uint32_t dword_5d4594_805820;
 extern uint32_t dword_5d4594_741648;
 extern uint32_t dword_5d4594_815060;
@@ -4623,15 +4622,6 @@ int nox_xxx_cliToggleObsWindow_4357A0() {
 	} else {
 		result = nox_xxx_showObserverWindow_48CA70(1);
 	}
-	return result;
-}
-
-//----- (00435F40) --------------------------------------------------------
-int sub_435F40() {
-	int result; // eax
-
-	result = 1 - dword_5d4594_811896;
-	dword_5d4594_811896 = 1 - dword_5d4594_811896;
 	return result;
 }
 

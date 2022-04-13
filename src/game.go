@@ -54,7 +54,6 @@ extern unsigned char nox_net_lists_buf[2048];
 int sub_4EDD70();
 void sub_426060();
 void sub_417160();
-void sub_4D3130();
 void sub_502100();
 void sub_5524C0();
 char* sub_4DB160();
@@ -755,7 +754,7 @@ func (s *Server) runGameTickHooks() {
 
 func (s *Server) nox_xxx_gameTick_4D2580_server() bool {
 	defer s.runGameTickHooks()
-	v0 := platformTicks()
+	ticks := platformTicks()
 	v2 := false
 	if C.dword_5d4594_2650652 == 0 {
 		C.nox_netlist_resetAllInList_40EE90(1)
@@ -775,16 +774,13 @@ func (s *Server) nox_xxx_gameTick_4D2580_server() bool {
 		s.nox_xxx_replayTickMB_4D3580_net_playback(true)
 	}
 	if noxflags.HasEngine(noxflags.EngineLogBand) {
-		if v0-memmap.Uint64(0x5D4594, 1548684) > 1000 {
-			C.sub_4D3130()
-			*memmap.PtrUint64(0x5D4594, 1548684) = v0
-		}
+		noxLogBandwidth(ticks)
 	}
 	if noxflags.HasGame(noxflags.GameFlag4) {
 		nox_xxx_gameTick_4D2580_server_A1()
 		s.nox_xxx_gameTick_4D2580_server_A2(v2)
 	} else if C.dword_5d4594_1548524 == 0 {
-		if !s.nox_xxx_gameTick_4D2580_server_B(v0) {
+		if !s.nox_xxx_gameTick_4D2580_server_B(ticks) {
 			return true
 		}
 	} else if C.nox_xxx_check_flag_aaa_43AF70() == 0 || !v2 {
