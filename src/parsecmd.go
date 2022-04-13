@@ -13,9 +13,6 @@ int nox_client_quit_4460C0();
 int  sub_4D6B10(int a1);
 
 int nox_cmd_set_sysop(int, int, wchar_t**);
-int nox_cmd_list_weapons(int, int, wchar_t**);
-int nox_cmd_list_armor(int, int, wchar_t**);
-int nox_cmd_list_staffs(int, int, wchar_t**);
 int nox_cmd_show_game(int, int, wchar_t**);
 int nox_cmd_show_mmx(int, int, wchar_t**);
 int nox_cmd_load(int, int, wchar_t**);
@@ -130,10 +127,7 @@ func init() {
 
 var (
 	noxCmdList = &console.Command{Token: "list", HelpID: "listhelp", Flags: console.ClientServer, Sub: []*console.Command{
-		{Token: "armor", HelpID: "listarmorhelp", Flags: console.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_list_armor)},
 		{Token: "maps", HelpID: "listmapshelp", Flags: console.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_list_maps)},
-		{Token: "staffs", HelpID: "liststaffshelp", Flags: console.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_list_staffs)},
-		{Token: "weapons", HelpID: "listweaponshelp", Flags: console.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_list_weapons)},
 		{Token: "users", HelpID: "listusershelp", Flags: console.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_list_users)},
 	}}
 	noxCmdSet = &console.Command{Token: "set", HelpID: "sethelp", Flags: console.ClientServer, Sub: []*console.Command{
@@ -269,15 +263,6 @@ var (
 
 func nox_cmd_set_sysop(i C.int, n C.int, arr **C.wchar_t) C.int {
 	return C.nox_cmd_set_sysop(i, n, arr)
-}
-func nox_cmd_list_weapons(i C.int, n C.int, arr **C.wchar_t) C.int {
-	return C.nox_cmd_list_weapons(i, n, arr)
-}
-func nox_cmd_list_armor(i C.int, n C.int, arr **C.wchar_t) C.int {
-	return C.nox_cmd_list_armor(i, n, arr)
-}
-func nox_cmd_list_staffs(i C.int, n C.int, arr **C.wchar_t) C.int {
-	return C.nox_cmd_list_staffs(i, n, arr)
 }
 func nox_cmd_show_game(i C.int, n C.int, arr **C.wchar_t) C.int {
 	return C.nox_cmd_show_game(i, n, arr)
