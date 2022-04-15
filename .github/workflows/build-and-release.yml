@@ -31,7 +31,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: gocache
-          key: mingw-gocache-v1
+          key: mingw-gocache-v2
           
       - uses: docker://ghcr.io/noxworld-dev/docker-build:latest-win
         name: Docker build
@@ -55,7 +55,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: gocache
-          key: linux-gocache-v1
+          key: linux-gocache-v2
           
       - uses: docker://ghcr.io/noxworld-dev/docker-build:latest-linux
         name: Docker build
