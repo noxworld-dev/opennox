@@ -31,7 +31,9 @@ jobs:
         uses: actions/cache@v3
         with:
           path: gocache
-          key: mingw-gocache-v2
+          key: mingw-gocache-v3-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            mingw-gocache-v3-
           
       - uses: docker://ghcr.io/noxworld-dev/docker-build:latest-win
         name: Docker build
@@ -55,7 +57,9 @@ jobs:
         uses: actions/cache@v3
         with:
           path: gocache
-          key: linux-gocache-v2
+          key: linux-gocache-v3-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            linux-gocache-v3-
           
       - uses: docker://ghcr.io/noxworld-dev/docker-build:latest-linux
         name: Docker build
