@@ -19,14 +19,15 @@ env:
 
 jobs:
   hybrid_docker_mingw:
-    name: Cross compile Windows binaries with mingw on ArchLinux-based Linux environment
+    # Cross compile Windows binaries with mingw on ArchLinux-based Linux environment
+    name: Cross compile for Windows
     runs-on: 'ubuntu-20.04'
     steps:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
           submodules: true
-          
+
       - name: Get go cache
         uses: actions/cache@v3
         with:
@@ -34,25 +35,33 @@ jobs:
           key: mingw-gocache-v3-${{ hashFiles('**/go.sum') }}
           restore-keys: |
             mingw-gocache-v3-
-          
+
       - uses: docker://ghcr.io/noxworld-dev/docker-build:latest-win
         name: Docker build
-      
+
       - uses: actions/upload-artifact@v3
         name: Upload artifacts
+        if: startsWith(github.ref, 'refs/tags/') || (github.ref == 'refs/heads/dev') || (github.ref == 'refs/heads/ci_tests')
         with:
-          name: hybrid_docker_mingw_artifacts
-          path: build
+          name: opennox-win
+          path: |
+            build/opennox.exe
+            build/opennox-hd.exe
+            build/opennox-server.exe
+            build/*.dll
+          if-no-files-found: error
+          retention-days: 1
 
   linux_docker:
-    name: Compile Linux binaries with a golang docker container
+    # Compile Linux binaries with a golang docker container
+    name: Compile for Linux
     runs-on: 'ubuntu-20.04'
     steps:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
           submodules: true
-          
+
       - name: Get go cache
         uses: actions/cache@v3
         with:
@@ -60,15 +69,21 @@ jobs:
           key: linux-gocache-v3-${{ hashFiles('**/go.sum') }}
           restore-keys: |
             linux-gocache-v3-
-          
+
       - uses: docker://ghcr.io/noxworld-dev/docker-build:latest-linux
         name: Docker build
-      
+
       - uses: actions/upload-artifact@v3
         name: Upload artifacts
+        if: startsWith(github.ref, 'refs/tags/') || (github.ref == 'refs/heads/dev') || (github.ref == 'refs/heads/ci_tests')
         with:
-          name: linux_docker_artifacts
-          path: build
+          name: opennox-linux
+          path: |
+            build/opennox
+            build/opennox-hd
+            build/opennox-server
+          if-no-files-found: error
+          retention-days: 1
 
   snapcraft_linux:
     name: Go build for Snapcraft
@@ -102,62 +117,11 @@ jobs:
           snap: ${{ steps.snapcraft.outputs.snap }}
           release: stable
 
-  hybrid_linux:
-    name: Build on Linux Host
-    runs-on: 'ubuntu-20.04'
-    if: ${{ false }} # Disable for now
-    strategy:
-      fail-fast: true
-
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-          submodules: true
-
-      - uses: actions/setup-go@v2
-        with:
-          go-version: '1.18.x'
-
-      - name: Check Go version
-        run: go version
-
-      - name: Install C dependencies
-        run: |
-          sudo dpkg --add-architecture i386
-          sudo apt-get update -m
-          sudo apt-get install -y build-essential ccache gcc gcc-multilib libsdl2-dev libsdl2-dev:i386 libopenal-dev:i386 libsdl2-2.0-0:i386 libopenal1:i386
-
-      - name: Check GCC version
-        run: gcc -v
-
-      - name: Install Go dependencies
-        run: cd ./src && go mod download
-
-      - name: Go build
-        run: cd ./src && go run ./internal/noxbuild
-
-      - name: Prepare the binaries
-        run: |
-          cp ./src/opennox /tmp/opennox
-          cp ./src/opennox-hd /tmp/opennox-hd
-          cp ./src/opennox-server /tmp/opennox-server
-          tar -czf /tmp/opennox-linux.tar.gz /tmp/opennox /tmp/opennox-hd /tmp/opennox-server
-
-      - name: Upload the binary
-        uses: actions/upload-artifact@v2
-        if: startsWith(github.ref, 'refs/tags/') || (github.ref == 'refs/heads/dev') || (github.ref == 'refs/heads/ci_tests')
-        with:
-          name: opennox-linux
-          path: /tmp/opennox-linux.tar.gz
-          if-no-files-found: error
-          retention-days: 1
-
   docker_server:
     name: Docker server build
     runs-on: 'ubuntu-20.04'
     if: startsWith(github.ref, 'refs/tags/') || (github.ref == 'refs/heads/dev') || (github.ref == 'refs/heads/ci_tests')
-    needs: [hybrid_linux]
+    needs: [linux_docker]
     strategy:
       fail-fast: true
 
@@ -167,17 +131,20 @@ jobs:
           fetch-depth: 0
           submodules: true
 
-      - uses: actions/download-artifact@v2
-        with:
-          name: opennox-linux
-          path: ~/Downloads/
-
-      - name: Extract server binary
+      - name: Cleanup
         run: |
           rm -rf /tmp/linux-tmp
           mkdir -p /tmp/linux-tmp
-          tar -xvzf ~/Downloads/opennox-linux.tar.gz -C /tmp/linux-tmp/
-          cp /tmp/linux-tmp/tmp/opennox-server ./docker/opennox-server/opennox-server
+
+      - uses: actions/download-artifact@v2
+        with:
+          name: opennox-linux
+          path: /tmp/linux-tmp
+
+      - name: Extract server binary
+        run: |
+          ls -lh /tmp/linux-tmp
+          cp /tmp/linux-tmp/opennox-server ./docker/opennox-server/opennox-server
           rm -rf /tmp/linux-tmp
 
       - name: Docker build
@@ -212,85 +179,11 @@ jobs:
           docker tag $DOCKER_IMAGE_NAME:tmp $DOCKER_IMAGE_NAME:latest
           docker push $DOCKER_IMAGE_NAME:latest
 
-  hybrid_linux_mingw:
-    name: Win build on Linux Host
-    runs-on: 'ubuntu-20.04'
-    if: ${{ false }} # Disable for now
-    strategy:
-      fail-fast: true
-
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-          submodules: true
-
-      - uses: actions/setup-go@v2
-        with:
-          go-version: '1.18.x'
-
-      - name: Check Go version
-        run: go version
-
-      - name: Install C dependencies
-        run: |
-          sudo dpkg --add-architecture i386
-          sudo apt-get update -m
-          sudo apt-get install -y build-essential curl rsync zip unzip ccache gcc gcc-multilib gcc-mingw-w64 libsdl2-dev libsdl2-dev:i386 libopenal-dev:i386 libsdl2-2.0-0:i386 libopenal1:i386
-
-      - name: Check GCC version
-        run: gcc -v
-
-      - name: Install SDL MinGW package
-        run: |
-          cd /tmp
-          curl -so /tmp/sdl2.tar.gz https://www.libsdl.org/release/SDL2-devel-2.0.14-mingw.tar.gz
-          tar -xzf /tmp/sdl2.tar.gz
-          sudo rsync -r /tmp/SDL2-2.0.14/i686-w64-mingw32/include/ /usr/i686-w64-mingw32/include/
-          sudo rsync -r /tmp/SDL2-2.0.14/i686-w64-mingw32/lib/ /usr/i686-w64-mingw32/lib/
-          echo "405eaff3eb18f2e08fe669ef9e63bc9a8710b7d343756f238619761e9b60407d /tmp/sdl2.tar.gz" > /tmp/checksum.txt
-          sha256sum -c /tmp/checksum.txt
-
-      - name: Install OpenAL package
-        run: |
-          cd /tmp
-          curl -so /tmp/openal.zip https://openal-soft.org/openal-binaries/openal-soft-1.21.1-bin.zip
-          unzip -o /tmp/openal.zip
-          sudo rsync -r /tmp/openal-soft-1.21.1-bin/include/ /usr/i686-w64-mingw32/include/
-          sudo rsync -r /tmp/openal-soft-1.21.1-bin/libs/Win32/ /usr/i686-w64-mingw32/lib/
-          sudo ln -fs ./libOpenAL32.dll.a /usr/i686-w64-mingw32/lib/libOpenAL.dll.a
-          echo "2e4b005c4f8057adcf4459d9b239d3fe745a9128079b2a091f899550f2d931b0 /tmp/openal.zip" > /tmp/checksum.txt
-          sha256sum -c /tmp/checksum.txt
-
-      - name: Install Go dependencies
-        run: cd ./src && go mod download
-
-      - name: Go build
-        run: cd ./src && go run ./internal/noxbuild -os=windows
-
-      - name: Prepare the binary
-        run: |
-          cp ./src/opennox.exe /tmp/opennox.exe
-          cp ./src/opennox-hd.exe /tmp/opennox-hd.exe
-          cp ./src/opennox-server.exe /tmp/opennox-server.exe
-
-      - name: Upload the binary
-        uses: actions/upload-artifact@v2
-        if: startsWith(github.ref, 'refs/tags/')
-        with:
-          name: opennox-win
-          path: |
-            /tmp/opennox.exe
-            /tmp/opennox-hd.exe
-            /tmp/opennox-server.exe
-          if-no-files-found: error
-          retention-days: 1
-
   release_repackage_linux:
     name: Repackage Linux release
     runs-on: 'ubuntu-20.04'
-    if: startsWith(github.ref, 'refs/tags/')
-    needs: [hybrid_linux]
+    if: startsWith(github.ref, 'refs/tags/') || (github.ref == 'refs/heads/ci_tests')
+    needs: [linux_docker]
     steps:
       - uses: actions/checkout@v2
         with:
@@ -309,11 +202,11 @@ jobs:
 
       - name: Repackage release
         run: |
-          tar -xvzf /tmp/linux-tmp/opennox-linux.tar.gz -C /tmp/linux-tmp/
+          ls -lh /tmp/linux-tmp/
 
           rm -rf /tmp/opennox-linux
           mkdir -p /tmp/opennox-linux
-          cp /tmp/linux-tmp/tmp/* /tmp/opennox-linux
+          cp /tmp/linux-tmp/* /tmp/opennox-linux
           cp ./CHANGELOG.md /tmp/opennox-linux
 
           mkdir /tmp/opennox-linux/docs
@@ -339,8 +232,8 @@ jobs:
   release_repackage_win:
       name: Repackage Windows release
       runs-on: 'ubuntu-20.04'
-      if: startsWith(github.ref, 'refs/tags/')
-      needs: [hybrid_linux_mingw]
+      if: startsWith(github.ref, 'refs/tags/') || (github.ref == 'refs/heads/ci_tests')
+      needs: [hybrid_docker_mingw]
       steps:
         - name: Install NSIS
           run: sudo apt-get install -y nsis
@@ -357,23 +250,16 @@ jobs:
 
         - uses: actions/download-artifact@v2
           with:
-            name: nox-win # needed for SDL and OpenAL DLLs
-            path: /tmp/win-tmp/deps/
-
-        - uses: actions/download-artifact@v2
-          with:
             name: opennox-win
-            path: /tmp/win-tmp/opennox/
+            path: /tmp/win-tmp/
 
         - name: Repackage release
           run: |
+            ls -lh /tmp/win-tmp/
             rm -rf /tmp/opennox-win
             mkdir -p /tmp/opennox-win
-            ls -la /tmp/win-tmp/deps/
-            cp /tmp/win-tmp/deps/*.dll /tmp/opennox-win/
-            mv /tmp/opennox-win/OpenAL32.dll /tmp/opennox-win/libopenal-1.dll
-            ls -la /tmp/win-tmp/opennox/
-            cp /tmp/win-tmp/opennox/*.exe /tmp/opennox-win/
+            cp /tmp/win-tmp/*.exe /tmp/opennox-win/
+            cp /tmp/win-tmp/*.dll /tmp/opennox-win/
             cp ./CHANGELOG.md /tmp/opennox-win/
 
             mkdir /tmp/opennox-win/docs
