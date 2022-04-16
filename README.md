@@ -1,5 +1,5 @@
 <p align="center" style="font-size:32pt;font-style:bold">
-    <img src="docs/logo.png" width=400>
+    <img src="docs/images/logo.png" width=400>
 </p>
 <p align="center" style="font-size:12pt;font-style:bold">
     <b>OpenNox</b> is an open-source community collaboration project extending the Nox engine. 
@@ -12,6 +12,13 @@
     <a href="https://discord.gg/HgDUeXhAyW"><img alt="OpenNox on Discord" src="https://img.shields.io/badge/discord-OpenNox-blue?logo=discord&logoColor=white&style=flat"></a>
     <a href="https://matrix.to/#/#opennox:nwca.xyz"><img alt="OpenNox on Matrix" src="https://img.shields.io/badge/matrix-%23opennox-blue?logo=matrix&logoColor=white&style=flat"></a>
 </p>
+
+## Features
+
+OpenNox supports all vanilla Nox features. You should be able to complete the campaign and play online with OpenNox.
+If something doesn't work, please [open an issue](https://github.com/noxworld-dev/opennox/issues/new/choose).
+
+For a list of new features see [this page](docs/game-features.md).
 
 ## Download OpenNox
 
