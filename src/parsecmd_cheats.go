@@ -229,7 +229,7 @@ func noxCheatGold(ctx context.Context, c *console.Console, tokens []string) bool
 }
 
 func serverCheatInvincible(enable bool) {
-	if noxflags.HasGame(noxflags.GameModeCoop) {
+	if noxflags.HasGame(noxflags.GameModeCoop | noxflags.GameModeQuest) {
 		if enable {
 			noxflags.SetEngine(noxflags.EngineAdmin | noxflags.EngineGodMode)
 		} else {
@@ -239,7 +239,7 @@ func serverCheatInvincible(enable bool) {
 }
 
 func serverCheatSage(enable bool, max int) {
-	if noxflags.HasGame(noxflags.GameModeCoop) {
+	if noxflags.HasGame(noxflags.GameModeCoop | noxflags.GameModeQuest) {
 		for _, p := range noxServer.getPlayers() {
 			serverSetAllBeastScrolls(p, enable)
 			serverSetAllSpells(p, enable, max)
@@ -249,7 +249,7 @@ func serverCheatSage(enable bool, max int) {
 }
 
 func serverCheatScrolls(enable bool) {
-	if noxflags.HasGame(noxflags.GameModeCoop) {
+	if noxflags.HasGame(noxflags.GameModeCoop | noxflags.GameModeQuest) {
 		for _, p := range noxServer.getPlayers() {
 			serverSetAllBeastScrolls(p, enable)
 		}
@@ -257,7 +257,7 @@ func serverCheatScrolls(enable bool) {
 }
 
 func serverCheatSpells(enable bool, max int) {
-	if noxflags.HasGame(noxflags.GameModeCoop) {
+	if noxflags.HasGame(noxflags.GameModeCoop | noxflags.GameModeQuest) {
 		for _, p := range noxServer.getPlayers() {
 			serverSetAllSpells(p, enable, max)
 			serverSetAllWarriorAbilities(p, enable, max)
@@ -267,13 +267,13 @@ func serverCheatSpells(enable bool, max int) {
 
 func serverCheatAllSpells(enable bool, max int) {
 	serverCheatSage(enable, max)
-	if noxflags.HasGame(noxflags.GameModeCoop) {
+	if noxflags.HasGame(noxflags.GameModeCoop | noxflags.GameModeQuest) {
 		noxServer.spells.allowAll = enable
 	}
 }
 
 func noxCheatSetGod(ctx context.Context, c *console.Console, tokens []string) bool {
-	if !noxflags.HasGame(noxflags.GameModeQuest) {
+	if noxflags.HasGame(noxflags.GameModeCoop | noxflags.GameModeQuest) {
 		serverCheatGod(true)
 		str := strMan.GetStringInFile("godset", "parsecmd.c")
 		c.Print(console.ColorRed, str)
@@ -289,7 +289,7 @@ func noxCheatUnsetGod(ctx context.Context, c *console.Console, tokens []string) 
 }
 
 func serverCheatGod(enable bool) {
-	if noxflags.HasGame(noxflags.GameModeCoop) {
+	if noxflags.HasGame(noxflags.GameModeCoop | noxflags.GameModeQuest) {
 		serverCheatInvincible(enable)
 		serverCheatSage(enable, 0)
 	}
