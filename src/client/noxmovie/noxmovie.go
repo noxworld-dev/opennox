@@ -5,6 +5,7 @@ import (
 	"image/draw"
 	"io"
 	"os"
+	"sync"
 	"time"
 
 	"github.com/noxworld-dev/opennox-lib/client/seat"
@@ -84,8 +85,7 @@ func NewPlayerWithHandle(file io.ReadSeekCloser, mvSeat seat.Seat, audioDrv ail.
 	audioSrc := audioDrv.AllocateSample()
 
 	if audioSrc == 0 {
-		err := openal.Err()
-		return nil, err
+		return nil, openal.Err()
 	}
 
 	oldInputs := mvSeat.ReplaceInputs(nil)
@@ -153,7 +153,7 @@ func (player *MoviePlayer) Close() {
 	}
 
 	// Consuming dangling errors
-	openal.Err()
+	_ = openal.Err()
 
 	player.seat.ReplaceInputs(player.oldInputs)
 }
@@ -191,14 +191,10 @@ func (player *MoviePlayer) Play() {
 	framesChan := make(chan *Frame, player.movie.Header.Fps)
 
 	var (
-		currentFrame              = 0
-		samplesWithCommitedFrames = 0
-		queuedSamples             = 0
-		finishedSamples           = 0
-		sampleDuration            = time.Second / time.Duration(player.movie.Header.SampleRate)
-		audioBuffers              openal.Buffers
+		samplesMu       sync.RWMutex
+		finishedSamples = 0
+		queuedSamples   = 0
 	)
-	//var currentFrameImg *noximage.Image16 = nil
 	select {
 	case <-player.stop:
 		return
@@ -207,20 +203,25 @@ func (player *MoviePlayer) Play() {
 
 	// Audio thread
 	go func() {
+		var freeBuffers openal.Buffers
 		for {
 			select {
 			case <-player.stop:
 				close(framesChan)
 				return
 			case newFrame, ok := <-player.queue:
-				if processedCount := alSrc.BuffersProcessed(); processedCount > 0 {
-					buffersProcessed := make(openal.Buffers, processedCount)
-					alSrc.UnqueueBuffers(buffersProcessed)
-					audioBuffers = append(audioBuffers, buffersProcessed...)
-					for _, b := range buffersProcessed {
+				if processed := alSrc.BuffersProcessed(); processed > 0 {
+					processedBuffers := make(openal.Buffers, processed)
+					alSrc.UnqueueBuffers(processedBuffers)
+					finished := 0
+					for _, b := range processedBuffers {
 						samples := b.GetSize() / ((b.GetBits() / 8) * b.GetChannels())
-						finishedSamples += int(samples)
+						finished += int(samples)
 					}
+					samplesMu.Lock()
+					finishedSamples += finished
+					samplesMu.Unlock()
+					freeBuffers = append(freeBuffers, processedBuffers...)
 				}
 
 				if !ok {
@@ -235,26 +236,33 @@ func (player *MoviePlayer) Play() {
 
 				// Let's buffer all the received audio, and move the frames to the main thread channel
 				var buffer openal.Buffer
-				if len(audioBuffers) < 1 {
+				if len(freeBuffers) == 0 {
 					buffer = openal.NewBuffer()
 					player.audioBuffers = append(player.audioBuffers, buffer)
 				} else {
-					buffer = audioBuffers[0]
-					audioBuffers = audioBuffers[1:]
+					buffer = freeBuffers[0]
+					freeBuffers = freeBuffers[1:]
 				}
 				sampleRate := int32(player.movie.Header.SampleRate)
 				buffer.SetDataStereo16(newFrame.Audio, sampleRate)
+				samplesMu.Lock()
 				queuedSamples += len(newFrame.Audio)
 				alSrc.QueueBuffer(buffer)
+				samplesMu.Unlock()
 				if alSrc.State() != openal.Playing {
 					alSrc.Play()
 					alSrc.SetLooping(false)
 				}
 				framesChan <- newFrame
-				break
 			}
 		}
 	}()
+
+	var (
+		currentFrame              = 0
+		samplesWithCommitedFrames = 0
+		sampleDuration            = time.Second / time.Duration(player.movie.Header.SampleRate)
+	)
 
 loop:
 	for {
@@ -271,19 +279,19 @@ loop:
 				// If we end up here, means the whole file is already displayed
 				// we have nothing left in buffers
 				// Let's calculate how much time left in the audio buffers
-				pos := int(alSrc.GetOffsetSamples())
-				samplesLeft := queuedSamples - finishedSamples - pos
+				samplesMu.Lock()
+				samplesLeft := queuedSamples - finishedSamples - int(alSrc.GetOffsetSamples())
+				samplesMu.Unlock()
 				timeToSleepBeforeAudioEnd := time.Duration(samplesLeft) * sampleDuration
 
 				// ...And we just sleep before the audio finishes playing
 				select {
 				case <-player.stop:
 				case <-time.After(timeToSleepBeforeAudioEnd):
-					break loop
 				}
+				break loop
 			}
 			nextFrame = newFrame
-			break
 		}
 
 		// Run audio callbacks.
@@ -291,14 +299,15 @@ loop:
 
 		// Now let's calculate the sleep time
 		// First let's get where we are at our playback
-		currentSample := int(alSrc.GetOffsetSamples())
-		currentPosition := time.Duration(currentSample+finishedSamples) * sampleDuration
+		samplesMu.Lock()
+		currentPosition := time.Duration(int(alSrc.GetOffsetSamples())+finishedSamples) * sampleDuration
+		samplesMu.Unlock()
 		// Now let's determine when the next frame should be displayed
 		// We assume it should be no later than the next audio queue up
 		expectedSamplesCount := samplesWithCommitedFrames
 		expectedPosition := time.Duration(expectedSamplesCount) * sampleDuration
 
-		// Now let's determine the next wake up call time
+		// Now let's determine the next wakeup call time
 		if sleep := expectedPosition - currentPosition; sleep > 0 {
 			select {
 			case <-player.stop:
@@ -310,7 +319,5 @@ loop:
 		player.renderer.CopyBuffer(nextFrame.Image)
 		samplesWithCommitedFrames += len(nextFrame.Audio)
 		currentFrame++
-
-		//currentFrameImg = nextFrame.Image
 	}
 }
