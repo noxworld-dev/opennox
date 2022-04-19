@@ -52,7 +52,7 @@ func nox_server_teamNext_418B60(t *nox_team_t) *nox_team_t {
 
 //export nox_server_teamTitle_418C20
 func nox_server_teamTitle_418C20(a1 C.int) *C.wchar_t {
-	return internWStr(noxServer.teamTitle(byte(a1)))
+	return internWStr(noxServer.teamTitle(TeamColor(a1)))
 }
 
 //export nox_xxx_teamCreate_4186D0
@@ -78,7 +78,6 @@ func nox_server_teamsResetYyy_417D00() C.int {
 type TeamDef struct {
 	Name  strman.ID
 	Title string
-	Code  byte
 	Color *C.uint
 }
 
@@ -98,6 +97,8 @@ func asTeamP(p unsafe.Pointer) *Team {
 	return (*Team)(p)
 }
 
+type TeamColor byte
+
 type Team nox_team_t
 
 func (t *Team) C() *nox_team_t {
@@ -108,8 +109,8 @@ func (t *Team) Name() string {
 	return GoWString(&t.name[0])
 }
 
-func (t *Team) DefInd() byte {
-	return byte(t.def_ind)
+func (t *Team) ColorInd() TeamColor {
+	return TeamColor(t.def_ind)
 }
 
 func (t *Team) Ind57() byte {
@@ -138,22 +139,22 @@ func (t *Team) Active() bool {
 }
 
 type serverTeams struct {
-	defs []TeamDef
+	defs map[TeamColor]*TeamDef
 	arr  []nox_team_t
 }
 
 func (s *Server) allocTeams() {
-	s.teams.defs = []TeamDef{
-		{Name: "advserv.wnd:None", Code: 0, Color: &C.nox_color_white_2523948},
-		{Name: "modifier.db:MaterialTeamRedDesc", Code: 1, Color: &C.nox_color_red_2589776},
-		{Name: "modifier.db:MaterialTeamBlueDesc", Code: 2, Color: &C.nox_color_blue_2650684},
-		{Name: "modifier.db:MaterialTeamGreenDesc", Code: 3, Color: &C.nox_color_green_2614268},
-		{Name: "modifier.db:MaterialTeamCyanDesc", Code: 4, Color: &C.nox_color_cyan_2649820},
-		{Name: "modifier.db:MaterialTeamYellowDesc", Code: 5, Color: &C.nox_color_yellow_2589772},
-		{Name: "modifier.db:MaterialTeamVioletDesc", Code: 6, Color: &C.nox_color_violet_2598268},
-		{Name: "modifier.db:MaterialTeamBlackDesc", Code: 7, Color: &C.nox_color_black_2650656},
-		{Name: "modifier.db:MaterialTeamWhiteDesc", Code: 8, Color: &C.nox_color_white_2523948},
-		{Name: "modifier.db:MaterialTeamOrangeDesc", Code: 9, Color: &C.nox_color_orange_2614256},
+	s.teams.defs = map[TeamColor]*TeamDef{
+		0: {Name: "advserv.wnd:None", Color: &C.nox_color_white_2523948},
+		1: {Name: "modifier.db:MaterialTeamRedDesc", Color: &C.nox_color_red_2589776},
+		2: {Name: "modifier.db:MaterialTeamBlueDesc", Color: &C.nox_color_blue_2650684},
+		3: {Name: "modifier.db:MaterialTeamGreenDesc", Color: &C.nox_color_green_2614268},
+		4: {Name: "modifier.db:MaterialTeamCyanDesc", Color: &C.nox_color_cyan_2649820},
+		5: {Name: "modifier.db:MaterialTeamYellowDesc", Color: &C.nox_color_yellow_2589772},
+		6: {Name: "modifier.db:MaterialTeamVioletDesc", Color: &C.nox_color_violet_2598268},
+		7: {Name: "modifier.db:MaterialTeamBlackDesc", Color: &C.nox_color_black_2650656},
+		8: {Name: "modifier.db:MaterialTeamWhiteDesc", Color: &C.nox_color_white_2523948},
+		9: {Name: "modifier.db:MaterialTeamOrangeDesc", Color: &C.nox_color_orange_2614256},
 	}
 	s.teamsReloadTitles()
 	const teamsMax = 17
@@ -162,8 +163,7 @@ func (s *Server) allocTeams() {
 }
 
 func (s *Server) teamsReloadTitles() {
-	for i := range s.teams.defs {
-		t := &s.teams.defs[i]
+	for _, t := range s.teams.defs {
 		t.Title = s.Strings().GetStringInFile(t.Name, "C:\\NoxPost\\src\\common\\System\\team.c")
 	}
 }
@@ -317,12 +317,9 @@ func (s *Server) teamFindFreeInd() byte {
 	return 0
 }
 
-func (s *Server) teamTitle(a1 byte) string {
-	for i := range s.teams.defs {
-		t := &s.teams.defs[i]
-		if t.Code == a1 {
-			return t.Title
-		}
+func (s *Server) teamTitle(c TeamColor) string {
+	if t, ok := s.teams.defs[c]; ok {
+		return t.Title
 	}
 	return s.Strings().GetStringInFile("NoTeam", "C:\\NoxPost\\src\\common\\System\\team.c")
 }
@@ -331,11 +328,8 @@ func (s *Server) getTeamColor(t2 *Team) *C.uint {
 	if t2 == nil {
 		return nil
 	}
-	for i := range s.teams.defs {
-		td := &s.teams.defs[i]
-		if td.Code == t2.DefInd() {
-			return td.Color
-		}
+	if t, ok := s.teams.defs[t2.ColorInd()]; ok {
+		return t.Color
 	}
 	return nil
 }
