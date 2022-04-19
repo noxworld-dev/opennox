@@ -812,7 +812,7 @@ func (s *Server) nox_xxx_mapReadSetFlags_4CF990() {
 		noxflags.UnsetGame(noxflags.GameModeMask)
 		noxflags.SetGame(noxflags.GameModeQuest)
 		if isChat {
-			C.nox_server_setupQuestGame_4D6C70()
+			s.setupQuestGame()
 		}
 	} else if vv >= 0 {
 		f52 := (*uint16)(unsafe.Pointer(uintptr(unsafe.Pointer(&v0[0])) + 52))

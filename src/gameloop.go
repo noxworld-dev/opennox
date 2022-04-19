@@ -415,7 +415,7 @@ func mainloopReset() error {
 		log.Println("mainloopReset")
 	}
 	noxflags.UnsetGame(noxflags.GameFlag29)
-	noxflags.UnsetGame(noxflags.GameModeKOTR | noxflags.GameModeCTF | noxflags.GameModeFlagBall | noxflags.GameModeChat | noxflags.GameModeArena | noxflags.GameModeSolo10 | noxflags.GameModeElimination | noxflags.GameModeQuest | noxflags.GameFlag15 | noxflags.GameFlag16)
+	noxflags.UnsetGame(noxflags.GameModeMask | noxflags.GameFlag15 | noxflags.GameFlag16)
 	noxflags.UnsetGame(noxflags.GameFlag24 | noxflags.GameFlag21)
 	noxAudioServeT(300)
 	C.sub_43D990()
@@ -1116,7 +1116,7 @@ func (s *Server) nox_xxx_mapLoad_40A380() {
 	name := GoString((*C.char)(memmap.PtrOff(0x5D4594, 3608)))
 	s.nox_xxx_gameSetMapPath_409D70(name)
 	noxflags.SetGame(noxflags.GameHost | noxflags.GameClient)
-	noxflags.UnsetGame(noxflags.GameFlag3 | noxflags.GameFlag4 | noxflags.GameModeKOTR | noxflags.GameModeCTF | noxflags.GameModeFlagBall | noxflags.GameModeChat | noxflags.GameModeArena | noxflags.GameModeSolo10 | noxflags.GameModeElimination | noxflags.GameModeQuest | noxflags.GameFlag18) // TODO
+	noxflags.UnsetGame(noxflags.GameFlag3 | noxflags.GameFlag4 | noxflags.GameModeMask | noxflags.GameFlag18) // TODO
 	C.nox_server_gameSettingsUpdated = 1
 }
 

@@ -3678,7 +3678,8 @@ int nox_xxx_mapGenStartAlt_4D5F30() {
 }
 
 //----- (004D6000) --------------------------------------------------------
-int sub_4D6000(int a1) {
+int sub_4D6000(nox_object_t* a1p) {
+	int a1 = a1p;
 	int result; // eax
 	int v2;     // esi
 
@@ -4160,121 +4161,6 @@ int sub_4D6BE0() {
 	*getMemU32Ptr(0x5D4594, 1556100) = nox_xxx_wizardStrength_587000_312824;
 	*getMemU32Ptr(0x5D4594, 1556092) = nox_xxx_wizardSpeed_587000_312828;
 	return result;
-}
-
-//----- (004D6C70) --------------------------------------------------------
-int nox_server_setupQuestGame_4D6C70() {
-	int v3;                // edi
-	int v4;                // ebx
-	int v5;                // eax
-	int v6;                // esi
-	int v7;                // eax
-	int v8;                // eax
-	char v9;               // al
-	uint32_t* v10;         // esi
-	int v11;               // eax
-	int v12;               // eax
-	char* v13;             // eax
-	char* v14;             // edi
-	wchar_t* v15;          // eax
-	int j;                 // esi
-	unsigned char v18[20]; // [esp+10h] [ebp-14h]
-
-	nox_common_gameFlags_unset_40A540(6128);
-	nox_xxx_setGameFlags_40A4D0(4096);
-	if (!sub_4D6F30()) {
-		nox_game_setQuestStage_4E3CD0(0);
-	}
-	sub_4D0F30();
-	nox_common_resetEngineFlag(NOX_ENGINE_FLAG_ADMIN);
-	nox_common_gameFlags_unset_40A540(0x10000);
-	sub_4D9CF0(255);
-	for (int i = nox_xxx_getFirstPlayerUnit_4DA7C0(); i; i = nox_xxx_getNextPlayerUnit_4DA7F0(i)) {
-		*(uint32_t*)(*(uint32_t*)(*(uint32_t*)(i + 748) + 276) + 4792) = 0;
-	}
-	v3 = nox_xxx_getFirstPlayerUnit_4DA7C0();
-	if (v3) {
-		while (1) {
-			sub_4D6000(v3);
-			v4 = *(uint32_t*)(v3 + 748);
-			if (nox_common_gameFlags_check_40A5C0(1) &&
-				nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) &&
-				(v5 = *(uint32_t*)(v4 + 276), *(uint8_t*)(v5 + 2064) == 31)) {
-				*(uint32_t*)(v5 + 4792) = 0;
-			} else {
-				*(uint32_t*)(*(uint32_t*)(v4 + 276) + 4792) = sub_4E4100();
-			}
-			if (*(uint32_t*)(*(uint32_t*)(v4 + 276) + 4792) == 1) {
-				sub_4D9D20(255, v3);
-			}
-			nox_xxx_unitInitPlayer_4EFE80(v3);
-			nox_xxx_playerSubGold_4FA5D0(v3, *(uint32_t*)(*(uint32_t*)(v4 + 276) + 2164));
-			v6 = *(uint32_t*)(v3 + 504);
-			if ((int*)v6 != 0) {
-				while (1) {
-					v7 = *(uint32_t*)(v6 + 8);
-					int* v0 = *(int**)(v6 + 496);
-					if (!(v7 & 0x1000000)) {
-						if (!(!(v7 & 0x2000000) || sub_415D10((char*)*(unsigned short*)(v6 + 4)) & 0x405)) {
-							nox_xxx_delayedDeleteObject_4E5CC0(v6);
-						}
-					} else {
-						v8 = *(uint32_t*)(v6 + 12);
-						if (v8 & 0x8200) {
-							nox_xxx_delayedDeleteObject_4E5CC0(v6);
-						}
-					}
-					v6 = (int)v0;
-					if (!v0) {
-						break;
-					}
-				}
-			}
-			v9 = *(uint8_t*)(*(uint32_t*)(v4 + 276) + 2251);
-			if (v9) {
-				if (v9 == 1) {
-					v10 = nox_xxx_playerRespawnItem_4EF750(v3, "SulphorousFlareWand", 0, 1, 1);
-					*(uint32_t*)v18 = 0;
-					*(uint32_t*)&v18[4] = 0;
-					v11 = nox_xxx_modifGetIdByName_413290("Replenishment1");
-					*(uint32_t*)&v18[8] = nox_xxx_modifGetDescById_413330(v11);
-					*(uint32_t*)&v18[12] = 0;
-					*(uint16_t*)&v18[16] = 0;
-					*(uint16_t*)&v18[18] = 0;
-					nox_xxx_modifSetItemAttrs_4E4990((int)v10, (int*)v18);
-				} else if (v9 == 2) {
-					nox_xxx_playerRespawnItem_4EF750(v3, "Bow", 0, 1, 1);
-				}
-			} else {
-				nox_xxx_playerRespawnItem_4EF750(v3, "Sword", 0, 1, 1);
-			}
-			v12 = *(uint32_t*)(v4 + 276);
-			if (*(int**)(v12 + 4792) == 0) {
-				nox_xxx_playerGoObserver_4E6860(v12, 0, 0);
-			}
-			v3 = nox_xxx_getNextPlayerUnit_4DA7F0(v3);
-			if ((int*)v3 == 0) {
-				break;
-			}
-		}
-	}
-	nox_xxx_SetGameplayFlag_417D50(4);
-	nox_server_teamsZzz_419030(1);
-	v13 = nox_xxx_teamCreate_4186D0(0);
-	v14 = v13;
-	v13[56] = 9;
-	v15 = nox_server_teamTitle_418C20(9);
-	if (v15 != 0) {
-		sub_418800((wchar_t*)v14, v15, 1);
-	}
-	sub_4184D0((wchar_t*)v14);
-	for (j = nox_xxx_getFirstPlayerUnit_4DA7C0(); j != 0; j = nox_xxx_getNextPlayerUnit_4DA7F0(j)) {
-		if (*(uint32_t*)(*(uint32_t*)(*(uint32_t*)(j + 748) + 276) + 4792) == 1) {
-			nox_xxx_createAtImpl_4191D0(v14[57], j + 48, 1, *(uint32_t*)(j + 36), 0);
-		}
-	}
-	sub_4D6BE0();
-	return sub_4D6A60();
 }
 
 //----- (004D6F50) --------------------------------------------------------
@@ -6377,7 +6263,8 @@ int sub_4D9CF0(int a1) {
 }
 
 //----- (004D9D20) --------------------------------------------------------
-int sub_4D9D20(int a1, int a2) {
+int sub_4D9D20(int a1, nox_object_t* a2p) {
+	int a2 = a2p;
 	short v3;   // cx
 	char v5[4]; // [esp+0h] [ebp-4h]
 

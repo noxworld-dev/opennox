@@ -7298,7 +7298,7 @@ int sub_415CD0(char* a1) {
 }
 
 //----- (00415D10) --------------------------------------------------------
-int sub_415D10(char* a1) {
+int sub_415D10(int a1) {
 	int v1;           // ecx
 	unsigned char* i; // eax
 	int v3;           // esi
@@ -8803,7 +8803,8 @@ int sub_4183C0() {
 }
 
 //----- (004184D0) --------------------------------------------------------
-void sub_4184D0(wchar_t* a1) {
+void sub_4184D0(nox_team_t* a1p) {
+	wchar_t* a1 = a1p;
 	int v1;       // edi
 	uint32_t* v2; // ebp
 	char v3[18];  // [esp+4h] [ebp-14h]

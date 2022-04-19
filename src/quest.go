@@ -1,6 +1,7 @@
 package opennox
 
 /*
+#include "GAME1.h"
 #include "GAME1_1.h"
 #include "GAME3_2.h"
 #include "GAME3_3.h"
@@ -16,7 +17,10 @@ import (
 	"context"
 	"os"
 	"strconv"
+	"unsafe"
 
+	"github.com/noxworld-dev/opennox-lib/object"
+	"github.com/noxworld-dev/opennox-lib/player"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promauto"
 
@@ -25,6 +29,7 @@ import (
 
 	"github.com/noxworld-dev/opennox-lib/console"
 
+	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
@@ -245,7 +250,7 @@ func (s *Server) switchQuestIfRequested4D6FD0() {
 		return
 	}
 	mapName := s.getQuestMapName()
-	C.nox_server_setupQuestGame_4D6C70()
+	s.setupQuestGame()
 	var mapFile string
 	if mapName != "" {
 		mapFile = mapName + ".map"
@@ -256,6 +261,86 @@ func (s *Server) switchQuestIfRequested4D6FD0() {
 	s.setQuestMapName("")
 	s.nox_game_setQuestStage_4E3CD0(0)
 	sub_4169F0()
+}
+
+func (s *Server) setupQuestGame() {
+	noxflags.UnsetGame(noxflags.GameModeMask)
+	noxflags.SetGame(noxflags.GameModeQuest)
+	if !sub4D6F30() {
+		C.nox_game_setQuestStage_4E3CD0(0)
+	}
+	C.sub_4D0F30()
+	noxflags.UnsetEngine(noxflags.EngineAdmin)
+	noxflags.UnsetGame(noxflags.GameNotQuest)
+	C.sub_4D9CF0(255)
+	for _, u := range s.getPlayerUnits() {
+		u.ControllingPlayer().field_4792 = 0
+	}
+
+	for _, u := range s.getPlayerUnits() {
+		C.sub_4D6000(u.CObj())
+		pl := u.ControllingPlayer()
+		if noxflags.HasGame(noxflags.GameHost) && noxflags.HasEngine(noxflags.EngineNoRendering) {
+			if pl.Index() == NOX_PLAYERINFO_MAX-1 {
+				pl.field_4792 = 0
+			} else {
+				pl.field_4792 = C.uint(C.sub_4E4100())
+			}
+		} else {
+			pl.field_4792 = C.uint(C.sub_4E4100())
+		}
+		if pl.field_4792 == 1 {
+			C.sub_4D9D20(255, u.CObj())
+		}
+		C.nox_xxx_unitInitPlayer_4EFE80(u.CObj())
+		u.AddGold(-int(pl.gold))
+
+		var next *Object
+		for it := u.FirstItem(); it != nil; it = next {
+			next = it.NextItem()
+			if it.Class().HasAny(object.ClassWeapon) {
+				if it.SubClass()&0x8200 != 0 {
+					it.Delete()
+				}
+			} else {
+				if it.Class().HasAny(object.ClassArmor) && C.sub_415D10(C.int(it.objTypeInd()))&0x405 == 0 {
+					it.Delete()
+				}
+			}
+		}
+		switch pl.PlayerClass() {
+		case player.Warrior:
+			C.nox_xxx_playerRespawnItem_4EF750(u.CObj(), internCStr("Sword"), nil, 1, 1)
+		case player.Wizard:
+			item := asObjectC(C.nox_xxx_playerRespawnItem_4EF750(u.CObj(), internCStr("SulphorousFlareWand"), nil, 1, 1))
+
+			opt, freeOpt := alloc.Make([]unsafe.Pointer{}, 5)
+			mod := C.nox_xxx_modifGetIdByName_413290(internCStr("Replenishment1"))
+			opt[2] = unsafe.Pointer(C.nox_xxx_modifGetDescById_413330(mod))
+			C.nox_xxx_modifSetItemAttrs_4E4990(item.CObj(), (*C.int)(unsafe.Pointer(&opt[0])))
+			freeOpt()
+		case player.Conjurer:
+			C.nox_xxx_playerRespawnItem_4EF750(u.CObj(), internCStr("Bow"), nil, 1, 1)
+		}
+		if pl.field_4792 == 0 {
+			pl.GoObserver(false, false)
+		}
+	}
+	checkGameplayFlags(4)
+	s.teamsZzz(1)
+	t := s.teamCreate(0)
+	t.def_ind = 9
+	if title := s.teamTitle(9); title != "" {
+		t.setNameAnd68(title, 1)
+	}
+	C.sub_4184D0(t.C())
+	for _, u := range s.getPlayerUnits() {
+		if u.ControllingPlayer().field_4792 == 1 {
+			C.nox_xxx_createAtImpl_4191D0(C.uchar(t.Ind57()), unsafe.Pointer(u.teamPtr()), 1, C.int(u.field_9), 0)
+		}
+	}
+	C.sub_4D6BE0()
+	C.sub_4D6A60()
 }
 
 func (s *Server) setQuestFlag(v int) {

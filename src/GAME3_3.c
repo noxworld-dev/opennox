@@ -1921,7 +1921,8 @@ int* nox_xxx_setUnitBuffFlags_4E48F0(int a1, int a2) {
 }
 
 //----- (004E4990) --------------------------------------------------------
-int* nox_xxx_modifSetItemAttrs_4E4990(int a1, int* a2) {
+int* nox_xxx_modifSetItemAttrs_4E4990(nox_object_t* a1p, int* a2) {
+	int a1 = a1p;
 	int v2;      // eax
 	int v3;      // edx
 	int* result; // eax
@@ -9910,7 +9911,8 @@ int sub_4EF6F0(int a1) {
 }
 
 //----- (004EF750) --------------------------------------------------------
-uint32_t* nox_xxx_playerRespawnItem_4EF750(int a1, char* a2, int* a3, int a4, int a5) {
+nox_object_t* nox_xxx_playerRespawnItem_4EF750(nox_object_t* a1p, char* a2, int* a3, int a4, int a5) {
+	int a1 = a1p;
 	uint32_t* v5;                    // eax
 	uint32_t* v6;                    // esi
 	void (*v7)(uint32_t*, uint32_t); // eax
@@ -10102,7 +10104,8 @@ int nox_xxx_netSendPlayerRespawn_4EFC30(int a1, char a2) {
 }
 
 //----- (004EFE80) --------------------------------------------------------
-char nox_xxx_unitInitPlayer_4EFE80(int a1) {
+char nox_xxx_unitInitPlayer_4EFE80(nox_object_t* a1p) {
+	int a1 = a1p;
 	int v1;   // edi
 	int v2;   // eax
 	float v4; // [esp+0h] [ebp-Ch]

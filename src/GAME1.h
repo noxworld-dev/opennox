@@ -2,6 +2,7 @@
 #define NOX_PORT_GAME1
 
 #include "defs.h"
+#include "common__system__team.h"
 
 extern int nox_server_gameSettingsUpdated;
 
@@ -423,7 +424,7 @@ double nox_xxx_itemApplyDefendEffect_415C00(int a1);
 int nox_xxx_unitArmorInventoryEquipFlags_415C70(nox_object_t* item);
 int sub_415C90(const nox_object_t* item);
 int sub_415CD0(char* a1);
-int sub_415D10(char* a1);
+int sub_415D10(int a1);
 int sub_415DA0(wchar_t* a1);
 int sub_415DF0(char* a1);
 char* sub_415E40(char* a1);
@@ -515,7 +516,7 @@ int nox_xxx_mapInfoSetKotr_4180D0();
 void sub_4181F0(int a1);
 int sub_418390();
 int sub_4183C0();
-void sub_4184D0(wchar_t* a1);
+void sub_4184D0(nox_team_t* a1);
 int nox_xxx_wndGuiTeamCreate_4185B0();
 int nox_xxx_teamAssignFlags_418640();
 char* nox_xxx_toggleAllTeamFlags_418690(int a1);

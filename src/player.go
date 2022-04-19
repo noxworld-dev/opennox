@@ -332,6 +332,10 @@ func (p *Player) String() string {
 	return fmt.Sprintf("Player(%q)", p.Name())
 }
 
+func (p *Player) Gold() int {
+	return int(p.gold)
+}
+
 func (p *Player) IsHost() bool {
 	// TODO: better way
 	return p.UnitC() == HostPlayerUnit()
@@ -739,7 +743,7 @@ func (s *Server) newPlayer(ind int, opts *PlayerOpts) int {
 	pl.prot_4632 = C.uint(protectInt(0))
 	pl.prot_4636 = C.uint(protectInt(0))
 	pl.prot_4640 = C.uint(protectInt(0))
-	pl.prot_player_field_2164 = C.uint(protectInt(int(pl.field_2164)))
+	pl.prot_player_gold = C.uint(protectInt(int(pl.gold)))
 	pl.prot_player_level = C.uint(protectInt(int(pl.field_3684))) // level
 	pl.field_4648 = -1
 	pl.field_4700 = 1
