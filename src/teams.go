@@ -305,7 +305,7 @@ func (s *Server) teamFindFreeInd() byte {
 	for i := 1; i < len(s.teams.arr); i++ {
 		ok := true
 		for it := s.firstTeam(); it != nil; it = s.nextTeam(it) {
-			if it.Ind57() != byte(i) {
+			if it.Ind57() == byte(i) {
 				ok = false
 				break
 			}
