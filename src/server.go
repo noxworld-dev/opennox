@@ -124,6 +124,7 @@ type Server struct {
 	lua             scriptLUA
 	activators      activators
 	tickHooks       tickHooks
+	objs            serverObjects
 	teams           serverTeams
 	quest           questServer
 	mapSwitchWPName string

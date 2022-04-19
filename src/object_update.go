@@ -565,7 +565,7 @@ func nox_xxx_enemyAggro(self *Unit, r, max float32) *Object {
 		sin := memmap.Float32(0x587000, 194140+8*uintptr(self.field_31_0))
 		if !someFlag || vec.Y/dist*sin+vec.X/dist*cos > 0.5 {
 			dist2 := dist
-			if it.AsUnit().testBuff(10) {
+			if it.testBuff(10) {
 				dist2 /= 3
 			}
 			if dist2 < min {

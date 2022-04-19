@@ -461,7 +461,8 @@ int nox_xxx_monsterIsActionScheduled_50A090(int a1, int a2) {
 }
 
 //----- (0050A0D0) --------------------------------------------------------
-int nox_xxx_checkMobAction_50A0D0(int a1, int a2) {
+int nox_xxx_checkMobAction_50A0D0(nox_object_t* a1p, int a2) {
+	int a1 = a1p;
 	int v2;      // ecx
 	int v3;      // eax
 	uint32_t* i; // ecx

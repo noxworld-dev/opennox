@@ -363,14 +363,6 @@ func (u *Unit) monsterActionIsScheduled(act ai.ActionType) bool { // nox_xxx_mon
 	return false
 }
 
-func (u *Unit) buffFlags() uint32 {
-	return uint32(u.field_85)
-}
-
-func (u *Unit) testBuff(v byte) bool { // nox_xxx_testUnitBuffs_4FF350
-	return u.buffFlags()&(uint32(1)<<v) != 0
-}
-
 func (u *Unit) makeUnseen() { // nox_xxx_objectMakeUnseenByNoone_4E44E0
 	u.field_38 = 0
 }

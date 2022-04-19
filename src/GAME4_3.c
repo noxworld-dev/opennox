@@ -2607,81 +2607,6 @@ int nox_xxx_projAddVelocitySmth_533080(int a1, int a2, float a3, int a4) {
 	return result;
 }
 
-//----- (005330C0) --------------------------------------------------------
-int nox_xxx_unitIsEnemyTo_5330C0(nox_object_t* a1p, nox_object_t* a2p) {
-	int a1 = a1p;
-	int a2 = a2p;
-	int v2; // edx
-	int v3; // eax
-	int v5; // ecx
-	int v6; // edi
-	int v7; // esi
-	int v8; // eax
-
-	if (!*getMemU32Ptr(0x5D4594, 2488512)) {
-		*getMemU32Ptr(0x5D4594, 2488512) = nox_xxx_getNameId_4E3AA0("CarnivorousPlant");
-		*getMemU32Ptr(0x5D4594, 2488516) = nox_xxx_getNameId_4E3AA0("Polyp");
-		*getMemU32Ptr(0x5D4594, 2488520) = nox_xxx_getNameId_4E3AA0("WillOWisp");
-	}
-	if (a1) {
-		if (a2) {
-			if (a1 != a2) {
-				v2 = *(uint32_t*)(a2 + 8);
-				if (!(*(uint32_t*)(a2 + 8) & 2) || !(*(uint32_t*)(*(uint32_t*)(a2 + 748) + 1440) & 0x40000)) {
-					v3 = *(uint32_t*)(a1 + 8) & 4;
-					if (v3 && *(unsigned short*)(a2 + 4) == *getMemU32Ptr(0x5D4594, 2488516)) {
-						return 1;
-					}
-					if (v3 && v2 & 0x20000) {
-						return 1;
-					}
-					v5 = *(uint32_t*)(a1 + 8) & 2;
-					if ((!v5 || !(v2 & 0x20000)) &&
-						(!v3 || !(*(uint32_t*)(a2 + 8) & 2) || !(*(uint8_t*)(a2 + 12) & 0x20)) &&
-						(!v5 || !(*(uint8_t*)(a1 + 12) & 0x20) || !(v2 & 4))) {
-						if (nox_xxx_unitIsAFish_534B10(a1) || nox_xxx_unitIsAFrog_534B90(a1)) {
-							if (!nox_xxx_unitIsAFish_534B10(a2) && !nox_xxx_unitIsAFrog_534B90(a2)) {
-								return 1;
-							}
-						} else {
-							if (nox_xxx_unitIsARat_534B60(a1)) {
-								return !nox_xxx_unitIsARat_534B60(a2);
-							}
-							if (!nox_xxx_unitIsAFish_534B10(a2) &&
-								(!(*(uint8_t*)(a2 + 8) & 2) || !(*(uint8_t*)(a2 + 12) & 8)) &&
-								(!(*(uint8_t*)(a1 + 8) & 2) || !(*(uint8_t*)(a1 + 12) & 8)) &&
-								!nox_xxx_testUnitBuffs_4FF350(a1, 28) && !nox_xxx_testUnitBuffs_4FF350(a2, 28) &&
-								(!(*(uint8_t*)(a2 + 8) & 4) ||
-								 !(*(uint8_t*)(*(uint32_t*)(*(uint32_t*)(a2 + 748) + 276) + 3680) & 1))) {
-								v6 = nox_xxx_findParentChainPlayer_4EC580(a1);
-								v7 = nox_xxx_findParentChainPlayer_4EC580(a2);
-								if (v6 != v7 && !nox_xxx_servCompareTeams_419150(v6 + 48, v7 + 48)) {
-									v8 = *(uint32_t*)(v6 + 8);
-									if (v8 & 4 && *(uint32_t*)(v7 + 8) & 0x20000) {
-										return 1;
-									}
-									if (!(v8 & 2) || !(*(uint32_t*)(v7 + 8) & 0x20000)) {
-										if (!nox_common_gameFlags_check_40A5C0(4096) && *(uint8_t*)(a1 + 8) & 2 &&
-											*(unsigned short*)(a2 + 4) == *getMemU32Ptr(0x5D4594, 2488520)) {
-											return nox_xxx_checkMobAction_50A0D0(a2, 15) != 0;
-										}
-										if (nox_xxx_servObjectHasTeam_419130(v6 + 48) ||
-											nox_xxx_servObjectHasTeam_419130(v7 + 48) || !(*(uint8_t*)(v6 + 8) & 2) ||
-											!(*(uint8_t*)(v7 + 8) & 2)) {
-											return 1;
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-	return 0;
-}
-
 //----- (00533360) --------------------------------------------------------
 int sub_533360(nox_object_t* a1p, nox_object_t* a2p) {
 	int a1 = a1p;
@@ -3646,45 +3571,6 @@ unsigned int nox_xxx_mobRaiseZombie_534AB0(int a1) {
 		}
 	}
 	return result;
-}
-
-//----- (00534B10) --------------------------------------------------------
-int nox_xxx_unitIsAFish_534B10(int a1) {
-	int v1; // eax
-	int v2; // ecx
-
-	v1 = *getMemU32Ptr(0x5D4594, 2488544);
-	if (!*getMemU32Ptr(0x5D4594, 2488544)) {
-		*getMemU32Ptr(0x5D4594, 2488540) = nox_xxx_getNameId_4E3AA0("FishBig");
-		v1 = nox_xxx_getNameId_4E3AA0("FishSmall");
-		*getMemU32Ptr(0x5D4594, 2488544) = v1;
-	}
-	v2 = *(unsigned short*)(a1 + 4);
-	return (unsigned short)v2 == v1 || v2 == *getMemU32Ptr(0x5D4594, 2488540);
-}
-
-//----- (00534B60) --------------------------------------------------------
-int nox_xxx_unitIsARat_534B60(int a1) {
-	int v1; // eax
-
-	v1 = *getMemU32Ptr(0x5D4594, 2488548);
-	if (!*getMemU32Ptr(0x5D4594, 2488548)) {
-		v1 = nox_xxx_getNameId_4E3AA0("Rat");
-		*getMemU32Ptr(0x5D4594, 2488548) = v1;
-	}
-	return *(unsigned short*)(a1 + 4) == v1;
-}
-
-//----- (00534B90) --------------------------------------------------------
-int nox_xxx_unitIsAFrog_534B90(int a1) {
-	int v1; // eax
-
-	v1 = *getMemU32Ptr(0x5D4594, 2488552);
-	if (!*getMemU32Ptr(0x5D4594, 2488552)) {
-		v1 = nox_xxx_getNameId_4E3AA0("GreenFrog");
-		*getMemU32Ptr(0x5D4594, 2488552) = v1;
-	}
-	return *(unsigned short*)(a1 + 4) == v1;
 }
 
 //----- (00534BC0) --------------------------------------------------------

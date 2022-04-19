@@ -1,10 +1,11 @@
 package opennox
 
 /*
+#include "defs.h"
 #include "GAME3_2.h"
 #include "GAME3_3.h"
+#include "GAME4_1.h"
 #include "GAME4_3.h"
-#include "defs.h"
 extern nox_object_t* nox_server_objects_1556844;
 extern nox_object_t* nox_server_objects_uninited_1556860;
 extern nox_object_t* nox_server_objects_updatable2_1556848;
@@ -23,11 +24,56 @@ import (
 	"github.com/noxworld-dev/opennox-lib/types"
 
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 )
+
+type serverObjects struct {
+	types struct {
+		frog      int
+		rat       int
+		fishSmall int
+		fishBig   int
+		plant     int
+		polyp     int
+		wisp      int
+	}
+}
 
 //export nox_xxx_findParentChainPlayer_4EC580
 func nox_xxx_findParentChainPlayer_4EC580(obj *nox_object_t) *nox_object_t {
 	return asObjectC(obj).findOwnerChainPlayer().CObj()
+}
+
+//export nox_xxx_unitIsEnemyTo_5330C0
+func nox_xxx_unitIsEnemyTo_5330C0(a, b *nox_object_t) C.int {
+	if asObjectC(a).isEnemyTo(asObjectC(b)) {
+		return 1
+	}
+	return 0
+}
+
+//export nox_xxx_unitIsAFish_534B10
+func nox_xxx_unitIsAFish_534B10(obj *nox_object_t) C.int {
+	if asObjectC(obj).isFish() {
+		return 1
+	}
+	return 0
+}
+
+//export nox_xxx_unitIsARat_534B60
+func nox_xxx_unitIsARat_534B60(obj *nox_object_t) C.int {
+	if asObjectC(obj).isRat() {
+		return 1
+	}
+	return 0
+}
+
+//export nox_xxx_unitIsAFrog_534B90
+func nox_xxx_unitIsAFrog_534B90(obj *nox_object_t) C.int {
+	if asObjectC(obj).isFrog() {
+		return 1
+	}
+	return 0
 }
 
 type shapeKind uint32
@@ -287,7 +333,7 @@ func (obj *Object) IsMovable() bool {
 }
 
 func (obj *Object) team() byte {
-	return byte(obj.field_13)
+	return obj.teamPtr().field1
 }
 
 func (obj *Object) Team() *Team {
@@ -361,6 +407,14 @@ func (obj *Object) GetOwned516() []*Object {
 	return out
 }
 
+func (obj *Object) buffFlags() uint32 {
+	return uint32(obj.field_85)
+}
+
+func (obj *Object) testBuff(v byte) bool { // nox_xxx_testUnitBuffs_4FF350
+	return obj.buffFlags()&(uint32(1)<<v) != 0
+}
+
 func (obj *Object) AsUnit() *Unit {
 	// TODO: check somehow
 	return asUnit(unsafe.Pointer(obj))
@@ -380,6 +434,13 @@ func (obj *Object) ObjectType() script.ObjectType {
 		return nil
 	}
 	return t
+}
+
+func (obj *Object) teamPtr() *objectTeam {
+	if obj == nil {
+		return nil
+	}
+	return (*objectTeam)(unsafe.Pointer(&obj.field_12))
 }
 
 func (obj *Object) OwnerC() *Object {
@@ -565,8 +626,121 @@ func (obj *Object) forceDrop(item *Object) { // nox_xxx_invForceDropItem_4ED930
 	C.nox_xxx_drop_4ED790(obj.CObj(), item.CObj(), cpos)
 }
 
-func (obj *Object) isEnemyTo(obj2 noxObject) bool { // nox_xxx_unitIsEnemyTo_5330C0
-	return C.nox_xxx_unitIsEnemyTo_5330C0(obj.CObj(), toCObj(obj2)) != 0
+func (obj *Object) isEnemyTo(objp noxObject) bool { // nox_xxx_unitIsEnemyTo_5330C0
+	obj2 := asObjectC(toCObj(objp))
+	if obj == nil || obj2 == nil {
+		return false
+	}
+	if obj.CObj() == obj2.CObj() {
+		return false
+	}
+	srv := obj.getServer()
+	if srv.objs.types.plant == 0 {
+		srv.objs.types.plant = srv.getObjectTypeID("CarnivorousPlant")
+		srv.objs.types.polyp = srv.getObjectTypeID("Polyp")
+		srv.objs.types.wisp = srv.getObjectTypeID("WillOWisp")
+	}
+	if obj2.Class().HasAny(object.ClassMonster) {
+		if ud := obj2.AsUnit().updateDataMonster(); ud.field_360&0x40000 != 0 {
+			return false
+		}
+	}
+	if obj.Class().HasAny(object.ClassPlayer) && obj2.objTypeInd() == srv.objs.types.polyp {
+		return true
+	}
+	if obj.Class().HasAny(object.ClassPlayer) && obj2.Class().HasAny(object.ClassMonsterGenerator) {
+		return true
+	}
+	if obj.Class().HasAny(object.ClassMonster) && obj2.Class().HasAny(object.ClassMonsterGenerator) {
+		return false
+	}
+	if obj.Class().HasAny(object.ClassPlayer) && obj2.Class().HasAny(object.ClassMonster) && (obj2.SubClass()&0x20 != 0) {
+		return false
+	}
+	if obj.Class().HasAny(object.ClassMonster) && obj2.Class().HasAny(object.ClassPlayer) && (obj.SubClass()&0x20 != 0) {
+		return false
+	}
+	if obj.isFish() || obj.isFrog() {
+		return !obj2.isFish() && !obj2.isFrog()
+	}
+	if obj.isRat() {
+		return !obj2.isRat()
+	}
+	if obj2.isFish() {
+		return false
+	}
+	if obj2.Class().HasAny(2) && (obj2.SubClass()&0x8 != 0) {
+		return false
+	}
+	if obj.Class().HasAny(2) && (obj.SubClass()&0x8 != 0) {
+		return false
+	}
+	if obj.testBuff(28) || obj2.testBuff(28) {
+		return false
+	}
+	if obj2.Class().HasAny(object.ClassPlayer) {
+		if pl := obj2.AsUnit().ControllingPlayer(); pl.field_3680&0x1 != 0 {
+			return false
+		}
+	}
+	own1 := obj.findOwnerChainPlayer()
+	own2 := obj2.findOwnerChainPlayer()
+	if own1 == own2 {
+		return false
+	}
+	if nox_xxx_servCompareTeams_419150(own1.teamPtr(), own2.teamPtr()) {
+		return false
+	}
+	if own1.Class().HasAny(object.ClassPlayer) && own2.Class().HasAny(object.ClassMonsterGenerator) {
+		return true
+	}
+	if own1.Class().HasAny(object.ClassMonster) && own2.Class().HasAny(object.ClassMonsterGenerator) {
+		return false
+	}
+	if !noxflags.HasGame(noxflags.GameModeQuest) && obj.Class().HasAny(object.ClassMonster) && obj2.objTypeInd() == srv.objs.types.wisp {
+		return C.nox_xxx_checkMobAction_50A0D0(obj2.CObj(), 15) != 0
+	}
+	if nox_xxx_servObjectHasTeam_419130(own1.teamPtr()) || nox_xxx_servObjectHasTeam_419130(own2.teamPtr()) {
+		return true
+	}
+	if own1.Class().HasAny(object.ClassMonster) && own2.Class().HasAny(object.ClassMonster) {
+		return false
+	}
+	return true
+}
+
+func (obj *Object) isFish() bool {
+	if obj == nil {
+		return false
+	}
+	srv := obj.getServer()
+	if srv.objs.types.fishSmall == 0 {
+		srv.objs.types.fishSmall = srv.getObjectTypeID("FishSmall")
+		srv.objs.types.fishBig = srv.getObjectTypeID("FishBig")
+	}
+	return obj.objTypeInd() == srv.objs.types.fishSmall || obj.objTypeInd() == srv.objs.types.fishBig
+}
+
+func (obj *Object) isRat() bool {
+	if obj == nil {
+		return false
+	}
+	srv := obj.getServer()
+	if srv.objs.types.rat == 0 {
+		srv.objs.types.rat = srv.getObjectTypeID("Rat")
+	}
+	return obj.objTypeInd() == srv.objs.types.rat
+}
+
+func (obj *Object) isFrog() bool {
+	if obj == nil {
+		return false
+	}
+	srv := obj.getServer()
+	if srv.objs.types.frog == 0 {
+		srv.objs.types.frog = srv.getObjectTypeID("GreenFrog")
+	}
+	return obj.objTypeInd() == srv.objs.types.frog
 }
 
 func (obj *Object) findOwnerChainPlayer() *Object { // nox_xxx_findParentChainPlayer_4EC580

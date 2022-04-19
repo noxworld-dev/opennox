@@ -1019,7 +1019,7 @@ typedef struct {
 	uint32_t field_357; // 357, 1428
 	uint32_t field_358; // 358, 1432
 	uint32_t field_359; // 359, 1436
-	uint32_t field_360; // 360, 1440
+	uint32_t field_360; // 360, 1440 // TODO: flags?
 	uint32_t field_361; // 361, 1444
 	uint32_t field_362; // 362, 1448
 	uint32_t field_363; // 363, 1452

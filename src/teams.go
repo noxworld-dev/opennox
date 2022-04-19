@@ -75,6 +75,28 @@ func nox_server_teamsResetYyy_417D00() C.int {
 	return C.int(noxServer.teamsResetYyy())
 }
 
+type objectTeam struct {
+	field0 uint32
+	field1 byte
+}
+
+func nox_xxx_servObjectHasTeam_419130(p *objectTeam) bool {
+	if p == nil {
+		return false
+	}
+	return p.field1 != 0
+}
+
+func nox_xxx_servCompareTeams_419150(p1, p2 *objectTeam) bool {
+	if p1 == nil || p2 == nil {
+		return false
+	}
+	if p1.field1 == 0 || p2.field1 == 0 {
+		return false
+	}
+	return p1.field1 == p2.field1
+}
+
 type TeamDef struct {
 	Name  strman.ID
 	Title string
