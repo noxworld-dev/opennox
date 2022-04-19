@@ -425,8 +425,8 @@ func (s *Server) nox_xxx_servNewSession_4D1660() error {
 	if C.nox_xxx_allocVisitNodesArray_50AB90() == 0 {
 		return errors.New("nox_xxx_allocVisitNodesArray_50AB90 failed")
 	}
-	if C.nox_xxx_allocSpellRelatedArrays_4FC9B0() == 0 {
-		return errors.New("nox_xxx_allocSpellRelatedArrays_4FC9B0 failed")
+	if err := nox_xxx_allocSpellRelatedArrays_4FC9B0(); err != nil {
+		return err
 	}
 	if C.nox_xxx_allocSpringsArray_5112C0() == 0 {
 		return errors.New("nox_xxx_allocSpringsArray_5112C0 failed")
@@ -515,7 +515,7 @@ func (s *Server) nox_xxx_servEndSession_4D3200() {
 	C.sub_57C460()
 	C.sub_57C030()
 	C.sub_511310()
-	C.nox_xxx_freeSpellRelated_4FCA80()
+	nox_xxx_freeSpellRelated_4FCA80()
 	C.sub_50ABF0()
 	C.sub_517B30()
 	C.sub_5018D0()

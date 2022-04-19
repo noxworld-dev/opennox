@@ -1457,7 +1457,7 @@ char nox_xxx_monsterMainAIFn_547210(int a1) {
 				(sub_5343C0(v1) || nox_xxx_monsterCanAttackAtWill_534390(v1))) {
 				if (nox_xxx_checkMobAction_50A0D0(v1, 4)) {
 					if (nox_xxx_mobActionGet_50A020(v1) != 4 && !nox_xxx_checkMobAction_50A0D0(v1, 15)) {
-						v17 = sub_5335D0(v1, 100.0);
+						v17 = nox_xxx_enemyAggro_5335D0(v1, 100.0);
 						if (v17) {
 							if (*(uint8_t*)(v17 + 8) & 6) {
 								v18 = *(uint32_t*)(v2 + 1440);

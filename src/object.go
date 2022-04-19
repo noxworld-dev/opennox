@@ -440,6 +440,13 @@ func (obj *Object) Dir() uint16 {
 	return uint16(obj.direction)
 }
 
+func (obj *Object) curSpeed() float32 {
+	if obj == nil {
+		return 0
+	}
+	return float32(obj.speed_cur)
+}
+
 func (obj *Object) setDir(dir uint16) {
 	obj.field_31_0 = C.uint16_t(dir)
 	obj.direction = C.uint16_t(dir)
@@ -475,6 +482,11 @@ func (obj *Object) setPos(p types.Pointf) {
 func (obj *Object) setPrevPos(p types.Pointf) {
 	obj.prev_x = C.float(p.X)
 	obj.prev_y = C.float(p.Y)
+}
+
+func (obj *Object) setNewPos(p types.Pointf) {
+	obj.new_x = C.float(p.X)
+	obj.new_y = C.float(p.Y)
 }
 
 func (obj *Object) setVel(p types.Pointf) {

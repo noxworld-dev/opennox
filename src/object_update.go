@@ -14,11 +14,19 @@ void nullsub_65();
 void nullsub_69();
 void nullsub_70();
 
+extern uint32_t dword_5d4594_1569672;
+extern void* nox_alloc_magicEnt_1569668;
+extern void* nox_alloc_spellDur_1569724;
+extern void* nox_xxx_imagCasterUnit_1569664;
+
+void nox_xxx_maybeAnimatePixie_53D010(nox_object_t* a1, nox_object_t* a2);
 static int nox_call_objectType_parseUpdate_go(int (*fnc)(char*, void*), char* arg1, void* arg2) { return fnc(arg1, arg2); }
 */
 import "C"
 import (
+	"errors"
 	"fmt"
+	"math"
 	"strings"
 	"unsafe"
 
@@ -29,6 +37,10 @@ import (
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/common/unit/ai"
+)
+
+var (
+	noxPixieObjID int
 )
 
 type noxObjectUpdateFuncs struct {
@@ -358,4 +370,232 @@ func sub_4F9ED0(u *Unit) {
 	if ud.mana_cur < ud.mana_max && (gameFrame()%(300*gameFPS()/uint32(ud.mana_max))) == 0 {
 		C.nox_xxx_playerManaAdd_4EEB80(u.CObj(), 1)
 	}
+}
+
+func nox_xxx_allocSpellRelatedArrays_4FC9B0() error {
+	C.nox_alloc_spellDur_1569724 = alloc.NewClass("spellDuration", 120, 512).UPtr()
+	C.nox_alloc_magicEnt_1569668 = alloc.NewClass("magicEntityClass", 60, 64).UPtr()
+	imagCaster := noxServer.newObjectByTypeID("ImaginaryCaster")
+	if imagCaster == nil {
+		return errors.New("cannot find ImaginaryCaster object type")
+	}
+	C.nox_xxx_imagCasterUnit_1569664 = unsafe.Pointer(imagCaster.CObj())
+	nox_xxx_createAt_4DAA50(imagCaster, nil, types.Pointf{X: 2944.0, Y: 2944.0})
+	noxPixieObjID = noxServer.getObjectTypeID("Pixie")
+	*memmap.PtrUint32(0x5D4594, 1569676) = uint32(noxPixieObjID)
+	*memmap.PtrUint32(0x5D4594, 1569680) = uint32(noxServer.getObjectTypeID("MagicMissile"))
+	*memmap.PtrUint32(0x5D4594, 1569684) = uint32(noxServer.getObjectTypeID("SmallFist"))
+	*memmap.PtrUint32(0x5D4594, 1569688) = uint32(noxServer.getObjectTypeID("MediumFist"))
+	*memmap.PtrUint32(0x5D4594, 1569692) = uint32(noxServer.getObjectTypeID("LargeFist"))
+	*memmap.PtrUint32(0x5D4594, 1569696) = uint32(noxServer.getObjectTypeID("DeathBall"))
+	*memmap.PtrUint32(0x5D4594, 1569700) = uint32(noxServer.getObjectTypeID("Meteor"))
+	return nil
+}
+
+func nox_xxx_freeSpellRelated_4FCA80() {
+	alloc.AsClass(C.nox_alloc_spellDur_1569724).Free()
+	alloc.AsClass(C.nox_alloc_magicEnt_1569668).Free()
+	C.dword_5d4594_1569672 = 0
+	asUnit(C.nox_xxx_imagCasterUnit_1569664).Delete()
+	C.nox_xxx_imagCasterUnit_1569664 = nil
+}
+
+//export nox_xxx_updatePixie_53CD20
+func nox_xxx_updatePixie_53CD20(cobj *nox_object_t) {
+	u := asUnitC(cobj)
+	ud := unsafe.Slice((*uint32)(u.updateDataPtr()), 7)
+	if memmap.Uint32(0x5D4594, 2488696) == 0 {
+		dt := gamedataFloat("PixieReturnTimeout")
+		*memmap.PtrUint32(0x5D4594, 2488696) = uint32(float64(gameFPS()) * dt)
+	}
+
+	if deadline := ud[5]; deadline != 0 && gameFrame() > deadline {
+		u.Delete()
+		return
+	}
+
+	if targ := asObjectC(*(**nox_object_t)(unsafe.Pointer(&ud[1]))); targ != nil {
+		if targ.Flags().HasAny(object.FlagDestroyed | object.FlagDead) {
+			ud[1] = 0
+		}
+	}
+	var owner *Object = u.OwnerC()
+	if u.Flags().Has(object.FlagEnabled) {
+		if gameFrame()-uint32(u.field_34) > gameFPS()/4 {
+			targ := nox_xxx_pixieFindTarget_533570(u)
+			*(**nox_object_t)(unsafe.Pointer(&ud[1])) = targ.CObj()
+			if targ == owner {
+				ud[1] = 0
+			}
+			u.field_34 = C.uint(gameFrame())
+		}
+	} else {
+		ud[1] = 0
+	}
+	if owner != nil && owner.Class().HasAny(object.ClassPlayer) && owner.Flags().HasAny(object.FlagNoUpdate) {
+		ud[1] = 0
+	}
+	if targ := asObjectC(*(**nox_object_t)(unsafe.Pointer(&ud[1]))); targ != nil {
+		nox_xxx_pixieIdleAnimate_53CF90(u, targ.Pos().Sub(u.Pos()), 32)
+	} else {
+		_ = nox_xxx_maybeAnimatePixie_53D010
+		C.sub_518170(unsafe.Pointer(&u.x), 200.0, C.nox_xxx_maybeAnimatePixie_53D010, u.CObj())
+		if owner != nil {
+			if _, trok := nox_xxx_mapTraceRay_535250_00(u.Pos(), owner.Pos(), 9); trok {
+				nox_xxx_pixieIdleAnimate_53CF90(u, owner.Pos().Sub(u.Pos()), 25)
+			}
+		} else {
+			pos2 := types.Pointf{X: float32(u.float_39), Y: float32(u.float_40)}
+			if _, trok := nox_xxx_mapTraceRay_535250_00(u.Pos(), pos2, 9); trok {
+				nox_xxx_pixieIdleAnimate_53CF90(u, pos2.Sub(u.Pos()), 25)
+			}
+		}
+	}
+	u.float_28 = 0.9
+	u.setForce(types.Pointf{
+		X: memmap.Float32(0x587000, 194136+8*uintptr(u.Dir())) * u.curSpeed(),
+		Y: memmap.Float32(0x587000, 194140+8*uintptr(u.Dir())) * u.curSpeed(),
+	})
+	if (gameFrame()&8 == 0) && owner != nil {
+		if C.nox_xxx_mapCheck_537110(u.CObj(), owner.CObj()) == 1 {
+			ud[6] = gameFrame()
+		}
+		if gameFrame()-ud[6] > memmap.Uint32(0x5D4594, 2488696) {
+			nox_xxx_teleportPixie_4FD050(u, owner)
+			ud[6] = gameFrame()
+		}
+	}
+}
+
+func nox_xxx_pixieIdleAnimate_53CF90(obj *Unit, vec types.Pointf, ddir int) {
+	dir := int(obj.Dir())
+	cos := memmap.Float32(0x587000, 194136+8*uintptr(dir))
+	sin := memmap.Float32(0x587000, 194140+8*uintptr(dir))
+	if cos*vec.Y-sin*vec.X >= 0.0 {
+		dir += ddir
+		for dir >= 256 {
+			dir -= 256
+		}
+	} else {
+		dir -= ddir
+		for dir < 0 {
+			dir += 256
+		}
+	}
+	obj.direction = C.ushort(dir)
+}
+
+//export nox_xxx_maybeAnimatePixie_53D010
+func nox_xxx_maybeAnimatePixie_53D010(cit *nox_object_t, cu *nox_object_t) {
+	it := asObjectC(cit)
+	u := asUnitC(cu)
+	if noxPixieObjID == 0 {
+		noxPixieObjID = noxServer.getObjectTypeID("Pixie")
+	}
+	if it.objTypeInd() != noxPixieObjID {
+		return
+	}
+	if it != u.AsObject() && u.OwnerC() == it.OwnerC() {
+		nox_xxx_pixieIdleAnimate_53CF90(u, it.Pos().Sub(u.Pos()), 16)
+	}
+}
+
+func nox_xxx_teleportPixie_4FD050(u *Unit, owner *Object) {
+	pos := owner.Pos()
+	u.setPos(pos)
+	u.setPrevPos(pos)
+	u.setNewPos(pos)
+	nox_xxx_moveUpdateSpecial_517970(u.CObj())
+}
+
+func nox_xxx_pixieFindTarget_533570(u *Unit) *Object {
+	r := float32(640.0)
+	if !noxflags.HasGame(noxflags.GameModeQuest) {
+		r = 250.0
+	}
+	return nox_xxx_enemyAggro(u, r, math.MaxFloat32)
+}
+
+//export nox_xxx_teleportAllPixies_4FD090
+func nox_xxx_teleportAllPixies_4FD090(cobj *nox_object_t) {
+	u := asUnitC(cobj)
+	for it := u.FirstOwned516(); it != nil; it = it.NextOwned512() {
+		if it.objTypeInd() != noxPixieObjID {
+			continue
+		}
+		if it.Flags().HasAny(object.FlagDead) {
+			continue
+		}
+		if *(*uint32)(unsafe.Add(it.updateDataPtr(), 4)) == 0 {
+			nox_xxx_teleportPixie_4FD050(it.AsUnit(), u.AsObject())
+		}
+	}
+}
+
+//export nox_xxx_enemyAggro_5335D0
+func nox_xxx_enemyAggro_5335D0(cobj *nox_object_t, r float32) *nox_object_t {
+	return nox_xxx_enemyAggro(asUnitC(cobj), r, r).CObj()
+}
+
+func nox_xxx_enemyAggro(self *Unit, r, max float32) *Object {
+	var (
+		found    *Object
+		min      = max
+		someFlag = false
+	)
+	getUnitsInCircle(self.Pos(), r, func(it *Object) {
+		if self.AsObject() == it {
+			return
+		}
+		if !it.Class().HasAny(object.ClassMonsterGenerator | object.MaskUnits) {
+			return
+		}
+		if !self.isEnemyTo(it) {
+			return
+		}
+		if it.Flags().HasAny(object.FlagDead) {
+			return
+		}
+		if !nox_xxx_unitCanInteractWith_5370E0(self, it, 0) {
+			return
+		}
+		vec := it.Pos().Sub(self.Pos())
+		dist := float32(math.Sqrt(float64(vec.X*vec.X+vec.Y*vec.Y)) + 0.001)
+		cos := memmap.Float32(0x587000, 194136+8*uintptr(self.field_31_0))
+		sin := memmap.Float32(0x587000, 194140+8*uintptr(self.field_31_0))
+		if !someFlag || vec.Y/dist*sin+vec.X/dist*cos > 0.5 {
+			dist2 := dist
+			if it.AsUnit().testBuff(10) {
+				dist2 /= 3
+			}
+			if dist2 < min {
+				min = dist2
+				found = it
+			}
+		}
+	})
+	return found
+}
+
+//export sub_5336D0
+func sub_5336D0(cobj *nox_object_t) C.double {
+	obj := asObjectC(cobj)
+	var (
+		found *Object
+		minR2 = float32(math.MaxFloat32)
+	)
+	getUnitsInCircle(obj.Pos(), 1000.0, func(it *Object) {
+		if it.Class().HasAny(object.MaskUnits) && obj.isEnemyTo(it) && !it.Flags().HasAny(object.FlagDead|object.FlagDestroyed) {
+			vec := obj.Pos().Sub(it.Pos())
+			r2 := vec.X*vec.X + vec.Y*vec.Y
+			if r2 < minR2 {
+				minR2 = r2
+				found = it
+			}
+		}
+	})
+	if found == nil {
+		return -1.0
+	}
+	return C.double(math.Sqrt(float64(minR2)))
 }

@@ -1511,7 +1511,7 @@ func nox_xxx_getUnitsInRect_517C10_go(obj *C.nox_object_t, _ unsafe.Pointer) {
 	getUnitsInRectStack[len(getUnitsInRectStack)-1](asObjectC(obj))
 }
 
-func getUnitsInRect(rect types.Rectf, fnc func(obj *Object)) {
+func getUnitsInRect(rect types.Rectf, fnc func(it *Object)) {
 	getUnitsInRectStack = append(getUnitsInRectStack, fnc)
 	defer func() {
 		getUnitsInRectStack = getUnitsInRectStack[:len(getUnitsInRectStack)-1]
@@ -1526,6 +1526,23 @@ func nox_xxx_getUnitsInRect_517C10(rect types.Rectf, fnc unsafe.Pointer, payload
 	rr := (*types.Rectf)(rp)
 	*rr = rect
 	C.nox_xxx_getUnitsInRect_517C10((*C.float4)(rp), (*[0]byte)(fnc), payload)
+}
+
+func getUnitsInCircle(pos types.Pointf, r float32, fnc func(it *Object)) { // nox_xxx_unitsGetInCircle_517F90
+	rect := types.Rectf{
+		Left:   pos.X - r,
+		Top:    pos.Y - r,
+		Right:  pos.X + r,
+		Bottom: pos.Y + r,
+	}
+	r2 := r * r
+	getUnitsInRect(rect, func(obj *Object) {
+		vec := obj.Pos().Sub(pos)
+		if vec.X*vec.X+vec.Y*vec.Y > r2 {
+			return
+		}
+		fnc(obj)
+	})
 }
 
 func nox_xxx_calcDistance_4E6C00(obj1, obj2 noxObject) float32 {

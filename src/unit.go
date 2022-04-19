@@ -53,7 +53,7 @@ func (u *Unit) String() string {
 	return u.stringAs("Unit")
 }
 
-func (u *Unit) setPos(cp *C.float2) {
+func (u *Unit) move(cp *C.float2) {
 	C.nox_xxx_unitMove_4E7010(u.CObj(), cp)
 }
 
@@ -62,7 +62,7 @@ func (u *Unit) SetPos(p types.Pointf) {
 	defer free()
 	cp.field_0 = C.float(p.X)
 	cp.field_4 = C.float(p.Y)
-	u.setPos(cp)
+	u.move(cp)
 }
 
 func (u *Unit) Push(vec types.Pointf, force float32) {

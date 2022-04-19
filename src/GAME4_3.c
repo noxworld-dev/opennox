@@ -43,7 +43,6 @@ extern uint32_t dword_5d4594_2488644;
 extern uint32_t dword_5d4594_2489436;
 extern uint32_t dword_5d4594_2488724;
 extern uint32_t dword_5d4594_2489160;
-extern uint32_t dword_5d4594_2487992;
 extern uint32_t dword_5d4594_2488720;
 extern uint32_t dword_5d4594_2487932;
 extern uint32_t nox_xxx_lightningOwner_5d4594_2487900;
@@ -57,11 +56,9 @@ extern uint32_t dword_5d4594_3835348;
 extern uint32_t dword_5d4594_3835352;
 extern uint32_t dword_5d4594_2489432;
 extern uint32_t nox_xxx_lightningClosestTargetDistance_5d4594_2487912;
-extern uint32_t dword_5d4594_2487980;
 extern uint32_t dword_5d4594_3835356;
 extern uint32_t nox_xxx_warriorMaxMana_587000_312788;
 extern uint32_t nox_xxx_warriorMaxHealth_587000_312784;
-extern uint32_t dword_5d4594_2487984;
 extern uint32_t dword_5d4594_2487248;
 extern uint32_t nox_xxx_conjurerMaxHealth_587000_312800;
 extern uint32_t nox_xxx_wizardMaxHealth_587000_312816;
@@ -2708,141 +2705,6 @@ int sub_533360(nox_object_t* a1p, nox_object_t* a2p) {
 		}
 	}
 	return result;
-}
-
-//----- (005333F0) --------------------------------------------------------
-int nox_xxx_unused_5333F0(int a1) {
-	int v2; // [esp+0h] [ebp-4h]
-
-	v2 = 1142947840;
-	if (!nox_common_gameFlags_check_40A5C0(4096)) {
-		v2 = 1132068864;
-	}
-	dword_5d4594_2487984 = 0;
-	dword_5d4594_2487980 = 1259902592;
-	dword_5d4594_2487992 = 1;
-	nox_xxx_unitsGetInCircle_517F90((float2*)(a1 + 56), *(float*)&v2, nox_xxx_fnPickEnemyAggro_533460, a1);
-	return dword_5d4594_2487984;
-}
-
-//----- (00533460) --------------------------------------------------------
-void nox_xxx_fnPickEnemyAggro_533460(nox_object_t* it, nox_object_t* self) {
-	if (self == it) {
-		return;
-	}
-	if ((it->obj_class & 0x20006) == 0) {
-		return;
-	}
-	if (!nox_xxx_unitIsEnemyTo_5330C0(self, it)) {
-		return;
-	}
-	if ((it->obj_flags & 0x8000) != 0) {
-		return;
-	}
-	if (!nox_xxx_unitCanInteractWith_5370E0(self, it, 0)) {
-		return;
-	}
-	float dx = it->x - self->x;
-	float dy = it->y - self->y;
-	float dist = (float)sqrt(dy * dy + dx * dx) + 0.001;
-	float* v5 = getMemFloatPtr(0x587000, 194136 + 8 * self->field_31_0);
-	if (!dword_5d4594_2487992 || (dy / dist * v5[1] + dx / dist * v5[0] > 0.5)) {
-		double v6 = dist;
-		if (nox_xxx_testUnitBuffs_4FF350(it, 10)) {
-			v6 = v6 * 0.33333334;
-		}
-		if (v6 < *(float*)&dword_5d4594_2487980) {
-			*(float*)&dword_5d4594_2487980 = v6;
-			dword_5d4594_2487984 = it;
-		}
-	}
-}
-
-//----- (00533570) --------------------------------------------------------
-int sub_533570(nox_object_t* obj) {
-	float v2 = 640.0;
-	if (!nox_common_gameFlags_check_40A5C0(4096)) {
-		v2 = 250.0;
-	}
-	dword_5d4594_2487984 = 0;
-	dword_5d4594_2487992 = 0;
-	dword_5d4594_2487980 = 1259902592;
-	nox_xxx_unitsGetInCircle_517F90(&obj->x, v2, nox_xxx_fnPickEnemyAggro_533460, obj);
-	return dword_5d4594_2487984;
-}
-
-//----- (005335D0) --------------------------------------------------------
-int sub_5335D0(int a1, float a2) {
-	dword_5d4594_2487984 = 0;
-	dword_5d4594_2487992 = 0;
-	*(float*)&dword_5d4594_2487980 = a2;
-	nox_xxx_unitsGetInCircle_517F90((float2*)(a1 + 56), a2, nox_xxx_fnPickEnemyAggro_533460, a1);
-	return dword_5d4594_2487984;
-}
-
-//----- (00533610) --------------------------------------------------------
-int nox_xxx_unused_533610(int a1, int a2) {
-	char* v2;   // esi
-	char* v3;   // eax
-	int result; // eax
-
-	v2 = sub_533660(a1);
-	v3 = sub_533660(a2);
-	if (v2 && v3) {
-		result = v2[130] == v3[130];
-	} else {
-		result = 1;
-	}
-	return result;
-}
-
-//----- (00533660) --------------------------------------------------------
-char* sub_533660(int a1) {
-	int v1;  // eax
-	int2 v3; // [esp+4h] [ebp-8h]
-
-	v1 = *(uint32_t*)(a1 + 8);
-	if (v1 & 4) {
-		return nox_xxx_polygonGetByIdx_4214A0(*(uint32_t*)(*(uint32_t*)(*(uint32_t*)(a1 + 748) + 276) + 3664));
-	}
-	if (!(v1 & 2)) {
-		return 0;
-	}
-	v3.field_0 = nox_float2int(*(float*)(a1 + 56));
-	v3.field_4 = nox_float2int(*(float*)(a1 + 60));
-	return (char*)nox_xxx_polygonIsPlayerInPolygon_4217B0(&v3, 0);
-}
-
-//----- (005336D0) --------------------------------------------------------
-long double sub_5336D0(int a1) {
-	long double result; // st7
-
-	dword_5d4594_2487984 = 0;
-	dword_5d4594_2487980 = 1287568416;
-	nox_xxx_unitsGetInCircle_517F90((float2*)(a1 + 56), 1000.0, sub_533720, a1);
-	if (dword_5d4594_2487984) {
-		result = sqrt(*(float*)&dword_5d4594_2487980);
-	} else {
-		result = -1.0;
-	}
-	return result;
-}
-
-//----- (00533720) --------------------------------------------------------
-void sub_533720(int a1, int a2) {
-	double v2; // st7
-	double v3; // st6
-	double v4; // st5
-
-	if (*(uint8_t*)(a1 + 8) & 6 && nox_xxx_unitIsEnemyTo_5330C0(a2, a1) && !(*(uint32_t*)(a1 + 16) & 0x8020)) {
-		v2 = *(float*)(a2 + 56) - *(float*)(a1 + 56);
-		v3 = *(float*)(a2 + 60) - *(float*)(a1 + 60);
-		v4 = v3 * v3 + v2 * v2;
-		if (v4 < *(float*)&dword_5d4594_2487980) {
-			*(float*)&dword_5d4594_2487980 = v4;
-			dword_5d4594_2487984 = a1;
-		}
-	}
 }
 
 //----- (00533790) --------------------------------------------------------
@@ -5544,8 +5406,9 @@ int nox_xxx_unitCanInteractWith_5370E0(nox_object_t* a1, nox_object_t* a2, char 
 }
 
 //----- (00537110) --------------------------------------------------------
-int nox_xxx_mapCheck_537110(nox_object_t* a1p, int a2) {
+int nox_xxx_mapCheck_537110(nox_object_t* a1p, nox_object_t* a2p) {
 	int a1 = a1p;
+	int a2 = a2p;
 	int v2;     // eax
 	int v3;     // esi
 	int v4;     // eax
@@ -9483,145 +9346,6 @@ void nox_xxx_updateBlackPowderBurn_53CCB0(int a1) {
 	} else if (nox_frame_xxx_2598000 - v2 >= (unsigned int)(2 * nox_gameFPS)) {
 		nox_xxx_delayedDeleteObject_4E5CC0(a1);
 	}
-}
-
-//----- (0053CD20) --------------------------------------------------------
-void nox_xxx_updatePixie_53CD20(nox_object_t* obj) {
-	int v19;         // eax
-	float2 a2;       // [esp+10h] [ebp-18h]
-	float4 a1a;      // [esp+18h] [ebp-10h]
-
-	void* ud = obj->data_update;
-	uint32_t* v1 = ud;
-	if (!*getMemU32Ptr(0x5D4594, 2488696)) {
-		int dt = (int)nox_xxx_gamedataGetFloat_419D40("PixieReturnTimeout");
-		*getMemU32Ptr(0x5D4594, 2488696) = nox_gameFPS * dt;
-	}
-	unsigned int v4 = v1[5];
-	if (nox_frame_xxx_2598000 > v4 && v4) {
-		nox_xxx_delayedDeleteObject_4E5CC0(obj);
-		return;
-	}
-	int v6 = v1[1];
-	if (v6) {
-		int v7 = *(uint32_t*)(v6 + 16);
-		if (((v7 & 0x20) != 0) || ((v7 & 0x8000) != 0)) {
-			v1[1] = 0;
-		}
-	}
-	if (obj->obj_flags & 0x1000000) {
-		if ((nox_frame_xxx_2598000 - obj->field_34) > (nox_gameFPS / 4)) {
-			int v8 = sub_533570(obj);
-			v1[1] = v8;
-			if (v8 == obj->owner) {
-				v1[1] = 0;
-			}
-			obj->field_34 = nox_frame_xxx_2598000;
-		}
-	} else {
-		v1[1] = 0;
-	}
-	int v9 = obj->owner;
-	if (v9 && (*(uint8_t*)(v9 + 8) & 4) == 4 && (*(uint8_t*)(v9 + 16) & 2) == 2) {
-		v1[1] = 0;
-	}
-	if (!v1[1]) {
-		sub_518170(&obj->x, *getMemFloatPtr(0x587000, 277804), sub_53D010, obj);
-		int v12 = obj->owner;
-		if (obj->owner) {
-			a1a.field_0 = obj->x;
-			a1a.field_4 = obj->y;
-			a1a.field_8 = *(float*)(v12 + 56);
-			a1a.field_C = *(float*)(v12 + 60);
-			if (!nox_xxx_mapTraceRay_535250(&a1a, 0, 0, 9)) {
-				goto LABEL_29;
-			}
-			int v14 = obj->owner;
-			a2.field_0 = *(float*)(v14 + 56) - obj->x;
-			a2.field_4 = *(float*)(v14 + 60) - obj->y;
-		} else {
-			a1a.field_0 = obj->x;
-			a1a.field_4 = obj->y;
-			a1a.field_8 = obj->float_39;
-			a1a.field_C = obj->float_40;
-			if (!nox_xxx_mapTraceRay_535250(&a1a, 0, 0, 9)) {
-				goto LABEL_29;
-			}
-			a2.field_0 = obj->float_39 - obj->x;
-			a2.field_4 = obj->float_40 - obj->y;
-		}
-		nox_xxx_pixieIdleAnimate_53CF90(obj, &a2, 25);
-		goto LABEL_29;
-	}
-	a2.field_0 = *(float*)(v1[1] + 56) - obj->x;
-	a2.field_4 = *(float*)(v1[1] + 60) - obj->y;
-	nox_xxx_pixieIdleAnimate_53CF90(obj, &a2, 32);
-LABEL_29:
-	v19 = 8 * obj->direction;
-	obj->float_28 = 0.9;
-	obj->force_x = *getMemFloatPtr(0x587000, 194136 + v19) * obj->speed_cur;
-	obj->force_y = *getMemFloatPtr(0x587000, 194140 + v19) * obj->speed_cur;
-	if (((unsigned char)nox_frame_xxx_2598000 & 8) && obj->owner) {
-		if (nox_xxx_mapCheck_537110(obj, obj->owner) == 1) {
-			v1[6] = nox_frame_xxx_2598000;
-		}
-		if ((unsigned int)(nox_frame_xxx_2598000 - v1[6]) > *getMemIntPtr(0x5D4594, 2488696)) {
-			nox_xxx_teleportPixie_4FD050(obj, obj->owner);
-			v1[6] = nox_frame_xxx_2598000;
-		}
-	}
-}
-
-//----- (0053CF90) --------------------------------------------------------
-short nox_xxx_pixieIdleAnimate_53CF90(nox_object_t* a1p, float2* a2, short a3) {
-	int a1 = a1p;
-	short v3;     // dx
-	short result; // ax
-
-	v3 = *(uint16_t*)(a1 + 126);
-	if (*getMemFloatPtr(0x587000, 194136 + 8 * v3) * a2->field_4 -
-			*getMemFloatPtr(0x587000, 194140 + 8 * v3) * a2->field_0 >=
-		0.0) {
-		result = v3 + a3;
-		*(uint16_t*)(a1 + 126) = v3 + a3;
-		if ((short)(v3 + a3) >= 256) {
-			result = -256;
-			do {
-				*(uint16_t*)(a1 + 126) -= 256;
-			} while (*(uint16_t*)(a1 + 126) >= 256);
-		}
-	} else {
-		result = v3 - a3;
-		*(uint16_t*)(a1 + 126) = v3 - a3;
-		if ((short)(v3 - a3) < 0) {
-			do {
-				result += 256;
-			} while (result < 0);
-			*(uint16_t*)(a1 + 126) = result;
-		}
-	}
-	return result;
-}
-
-//----- (0053D010) --------------------------------------------------------
-short sub_53D010(int a1, int a2) {
-	int v2;     // eax
-	float2 a2a; // [esp+0h] [ebp-8h]
-
-	v2 = *getMemU32Ptr(0x5D4594, 2488692);
-	if (!*getMemU32Ptr(0x5D4594, 2488692)) {
-		v2 = nox_xxx_getNameId_4E3AA0("Pixie");
-		*getMemU32Ptr(0x5D4594, 2488692) = v2;
-	}
-	if (*(unsigned short*)(a1 + 4) == v2) {
-		LOWORD(v2) = a2;
-		if (a1 != a2 && *(uint32_t*)(a2 + 508) == *(uint32_t*)(a1 + 508)) {
-			a2a.field_0 = *(float*)(a1 + 56) - *(float*)(a2 + 56);
-			a2a.field_4 = *(float*)(a1 + 60) - *(float*)(a2 + 60);
-			LOWORD(v2) = nox_xxx_pixieIdleAnimate_53CF90(a2, &a2a, 16);
-		}
-	}
-	return v2;
 }
 
 //----- (0053D080) --------------------------------------------------------

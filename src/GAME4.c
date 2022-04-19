@@ -40,7 +40,7 @@ extern uint32_t dword_5d4594_3835392;
 extern uint32_t nox_xxx_resetMapInit_1569652;
 extern uint32_t dword_5d4594_3835312;
 extern uint32_t dword_5d4594_1568868;
-extern uint32_t nox_alloc_magicEnt_1569668;
+extern void* nox_alloc_magicEnt_1569668;
 extern void* nox_alloc_execAbil_1569644;
 extern void* nox_alloc_vote_1599652;
 extern uint32_t dword_5d4594_1599616;
@@ -49,7 +49,7 @@ extern void* nox_alloc_magicWall_1569748;
 extern uint32_t dword_5d4594_1599060;
 extern uint32_t dword_5d4594_1599592;
 extern uint32_t dword_5d4594_1599556;
-extern uint32_t dword_5d4594_1569664;
+extern void* nox_xxx_imagCasterUnit_1569664;
 extern uint32_t dword_5d4594_1599548;
 extern uint32_t dword_5d4594_1599480;
 extern uint32_t dword_5d4594_1599532;
@@ -3857,47 +3857,10 @@ int sub_4FC960(int a1, char a2) {
 	return result;
 }
 
-//----- (004FC9B0) --------------------------------------------------------
-int nox_xxx_allocSpellRelatedArrays_4FC9B0() {
-	int result; // eax
-
-	result = nox_xxx_spellCreateDurations_4FE850();
-	if (result) {
-		result = nox_new_alloc_class("magicEntityClass", 60, 64);
-		nox_alloc_magicEnt_1569668 = result;
-		if (result) {
-			result = nox_xxx_newObjectByTypeID_4E3810("ImaginaryCaster");
-			dword_5d4594_1569664 = result;
-			if (result) {
-				nox_xxx_createAt_4DAA50(result, 0, 2944.0, 2944.0);
-				*getMemU32Ptr(0x5D4594, 1569676) = nox_xxx_getNameId_4E3AA0("Pixie");
-				*getMemU32Ptr(0x5D4594, 1569680) = nox_xxx_getNameId_4E3AA0("MagicMissile");
-				*getMemU32Ptr(0x5D4594, 1569684) = nox_xxx_getNameId_4E3AA0("SmallFist");
-				*getMemU32Ptr(0x5D4594, 1569688) = nox_xxx_getNameId_4E3AA0("MediumFist");
-				*getMemU32Ptr(0x5D4594, 1569692) = nox_xxx_getNameId_4E3AA0("LargeFist");
-				*getMemU32Ptr(0x5D4594, 1569696) = nox_xxx_getNameId_4E3AA0("DeathBall");
-				*getMemU32Ptr(0x5D4594, 1569700) = nox_xxx_getNameId_4E3AA0("Meteor");
-				result = 1;
-			}
-		}
-	}
-	return result;
-}
-
-//----- (004FCA80) --------------------------------------------------------
-int nox_xxx_freeSpellRelated_4FCA80() {
-	sub_4FE880();
-	nox_free_alloc_class(*(void**)&nox_alloc_magicEnt_1569668);
-	dword_5d4594_1569672 = 0;
-	nox_xxx_delayedDeleteObject_4E5CC0(*(int*)&dword_5d4594_1569664);
-	dword_5d4594_1569664 = 0;
-	return 1;
-}
-
 //----- (004FCAC0) --------------------------------------------------------
 int nox_xxx_Fn_4FCAC0(int a1, int a2) {
 	sub_4FE8A0(a1);
-	nox_alloc_class_free_all(*(uint32_t**)&nox_alloc_magicEnt_1569668);
+	nox_alloc_class_free_all(nox_alloc_magicEnt_1569668);
 	dword_5d4594_1569672 = 0;
 	for (nox_object_t* u = nox_xxx_getFirstPlayerUnit_4DA7C0(); u; u = nox_xxx_getNextPlayerUnit_4DA7F0(u)) {
 		int v3 = u->data_update;
@@ -3912,7 +3875,7 @@ int nox_xxx_Fn_4FCAC0(int a1, int a2) {
 	}
 	if (a2) {
 		uint32_t* v4 = nox_xxx_newObjectByTypeID_4E3810("ImaginaryCaster");
-		dword_5d4594_1569664 = v4;
+		nox_xxx_imagCasterUnit_1569664 = v4;
 		if (!v4) {
 			return 0;
 		}
@@ -4040,7 +4003,7 @@ void nox_xxx_spellCastByBook_4FCB80() {
 			*(uint32_t*)(v17 + 52) = *(uint32_t*)(v0 + 52);
 		LABEL_40:
 			v18 = *(uint32_t*)(v0 + 52);
-			nox_alloc_class_free_obj_first(*(unsigned int**)&nox_alloc_magicEnt_1569668, (uint64_t*)v0);
+			nox_alloc_class_free_obj_first(nox_alloc_magicEnt_1569668, (uint64_t*)v0);
 			v0 = v18;
 		LABEL_48:
 			if (!v0) {
@@ -4201,33 +4164,6 @@ unsigned short sub_4FD030(int a1, short a2) {
 		result = nox_xxx_playerManaAdd_4EEB80(a1, a2);
 	}
 	return result;
-}
-
-//----- (004FD050) --------------------------------------------------------
-void nox_xxx_teleportPixie_4FD050(nox_object_t* a1p, int a2) {
-	uint32_t* a1 = a1p;
-	a1[16] = *(uint32_t*)(a2 + 56);
-	a1[17] = *(uint32_t*)(a2 + 60);
-	a1[14] = *(uint32_t*)(a2 + 56);
-	a1[15] = *(uint32_t*)(a2 + 60);
-	a1[18] = *(uint32_t*)(a2 + 56);
-	a1[19] = *(uint32_t*)(a2 + 60);
-	nox_xxx_moveUpdateSpecial_517970(a1);
-}
-
-//----- (004FD090) --------------------------------------------------------
-void sub_4FD090(int a1) {
-	int i;  // esi
-	int v2; // eax
-
-	for (i = *(uint32_t*)(a1 + 516); i; i = *(uint32_t*)(i + 512)) {
-		if (*(unsigned short*)(i + 4) == *getMemU32Ptr(0x5D4594, 1569676)) {
-			v2 = *(uint32_t*)(i + 16);
-			if ((v2 & 0x8000) == 0 && !*(uint32_t*)(*(uint32_t*)(i + 748) + 4)) {
-				nox_xxx_teleportPixie_4FD050((uint32_t*)i, a1);
-			}
-		}
-	}
 }
 
 //----- (004FD0E0) --------------------------------------------------------
@@ -4844,7 +4780,7 @@ LABEL_36:
 	v19 = nox_frame_xxx_2598000;
 	*(uint8_t*)(v9 + 188) = 1;
 	*(uint32_t*)(v9 + 216) = v19;
-	v20 = nox_alloc_class_new_obj_zero(*(uint32_t**)&nox_alloc_magicEnt_1569668);
+	v20 = nox_alloc_class_new_obj_zero(nox_alloc_magicEnt_1569668);
 	if (!v20) {
 		return 0;
 	}
@@ -4928,7 +4864,7 @@ void nox_xxx_spell_4FE680(int a1, float a2) {
 					dword_5d4594_1569672 = *(uint32_t*)(v2 + 52);
 				}
 				v12 = *(uint32_t*)(v2 + 52);
-				nox_alloc_class_free_obj_first(*(unsigned int**)&nox_alloc_magicEnt_1569668, (uint64_t*)v2);
+				nox_alloc_class_free_obj_first(nox_alloc_magicEnt_1569668, (uint64_t*)v2);
 				v2 = v12;
 			} else {
 				v2 = *(uint32_t*)(v2 + 52);
@@ -4969,18 +4905,6 @@ int nox_xxx_spellGetPower_4FE7B0(int a1, nox_object_t* a2p) {
 		result = *(uint32_t*)(*(uint32_t*)(a2 + 748) + 2040);
 	}
 	return result;
-}
-
-//----- (004FE850) --------------------------------------------------------
-int nox_xxx_spellCreateDurations_4FE850() {
-	nox_alloc_spellDur_1569724 = nox_new_alloc_class("spellDuration", 120, 512);
-	return nox_alloc_spellDur_1569724 != 0;
-}
-
-//----- (004FE880) --------------------------------------------------------
-void sub_4FE880() {
-	nox_free_alloc_class(nox_alloc_spellDur_1569724);
-	dword_5d4594_1569728 = 0;
 }
 
 //----- (004FE8A0) --------------------------------------------------------

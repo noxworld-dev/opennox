@@ -3761,7 +3761,7 @@ void nox_xxx_unitMove_4E7010(nox_object_t* obj, float2* a2) {
 		if (*(uint8_t*)(a1 + 8) & 2) {
 			sub_5346D0(a1);
 		}
-		sub_4FD090(a1);
+		nox_xxx_teleportAllPixies_4FD090(a1);
 		if (*(uint8_t*)(a1 + 8) & 6) {
 			nox_xxx_frameCounterSetCopyToNextFrame_5281D0();
 		}

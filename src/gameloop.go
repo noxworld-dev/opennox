@@ -74,6 +74,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/platform"
 
 	"github.com/noxworld-dev/opennox/v1/client/gui"
+	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/common/serial"
@@ -488,7 +489,7 @@ func nox_xxx_clientResetSpriteAndGui_4357D0(noSkip bool) bool {
 
 //----- (0048D7D0) --------------------------------------------------------
 func nox_xxx_chatInit_48D7D0() bool {
-	C.nox_alloc_chat_1197364 = unsafe.Pointer(nox_new_alloc_class(internCStr("Chat"), 692, 64))
+	C.nox_alloc_chat_1197364 = alloc.NewClass("Chat", 692, 64).UPtr()
 	return C.nox_alloc_chat_1197364 != nil
 }
 

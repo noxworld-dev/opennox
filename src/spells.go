@@ -817,7 +817,7 @@ func (s *Server) castSpellMissilesCustom(spellID things.SpellID, owner, caster *
 		msl := noxServer.newObjectByTypeID(opts.Projectile)
 		mud := msl.updateDataMissile()
 		nox_xxx_createAt_4DAA50(msl, owner, tpos)
-		mspeed := float32(noxRndCounter1.FloatClamp(opts.SpeedRndMin, opts.SpeedRndMax) * float64(msl.speed_cur))
+		mspeed := float32(noxRndCounter1.FloatClamp(opts.SpeedRndMin, opts.SpeedRndMax) * float64(msl.curSpeed()))
 		msl.speed_cur = C.float(mspeed)
 		msl.setDir(dir)
 		msl.setVel(types.Pointf{
