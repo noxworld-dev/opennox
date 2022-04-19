@@ -1095,15 +1095,15 @@ func sub_4703F0() {
 		guiFocus(nil)
 		asWindow(C.dword_5d4594_1090048).Hide()
 		asWindow(C.dword_5d4594_1090100).Hide()
-		*(*uint32)(unsafe.Add(*memmap.PtrPtr(6112660, 0x10A204), 4)) &= 0xFFFFFFF7
-		*(*uint32)(unsafe.Add(*memmap.PtrPtr(6112660, 0x10A208), 4)) &= 0xFFFFFFF7
+		*(*uint32)(unsafe.Add(*memmap.PtrPtr(6112660, 1090052), 4)) &= 0xFFFFFFF7
+		*(*uint32)(unsafe.Add(*memmap.PtrPtr(6112660, 1090056), 4)) &= 0xFFFFFFF7
 	case 1, 2:
 		nox_xxx_wndShowModalMB(asWindow(C.dword_5d4594_1090048))
 		sub := asWindow(C.dword_5d4594_1090100)
 		nox_xxx_wndShowModalMB(sub)
 		sub.Show()
-		*(*uint32)(unsafe.Add(*memmap.PtrPtr(6112660, 0x10A204), 4)) |= 8
-		*(*uint32)(unsafe.Add(*memmap.PtrPtr(6112660, 0x10A208), 4)) |= 8
+		*(*uint32)(unsafe.Add(*memmap.PtrPtr(6112660, 1090052), 4)) |= 8
+		*(*uint32)(unsafe.Add(*memmap.PtrPtr(6112660, 1090056), 4)) |= 8
 		C.dword_587000_145664 = 1
 	case 3, 4, 5:
 		C.dword_587000_145664 = 1

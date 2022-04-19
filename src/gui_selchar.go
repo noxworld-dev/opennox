@@ -344,12 +344,12 @@ func sub_448640() { sub_44A400() }
 //export sub_477530
 func sub_477530(a1 C.int) {
 	if a1 == 1 {
-		*memmap.PtrUint32(0x5D4594, 0x10BBCC) = uint32(C.nox_xxx_bookHideMB_45ACA0(0))
-		*memmap.PtrUint32(0x5D4594, 0x10BBD8) = uint32(C.sub_467C10())
+		*memmap.PtrUint32(0x5D4594, 1096652) = uint32(C.nox_xxx_bookHideMB_45ACA0(0))
+		*memmap.PtrUint32(0x5D4594, 1096664) = uint32(C.sub_467C10())
 		*memmap.PtrUint32(0x5D4594, 1096660) = uint32(C.nox_xxx_guiServerOptionsTryHide_4574D0())
 		C.nox_client_renderGUI_80828 = 0
-		*memmap.PtrUint32(0x5D4594, 0x10BBD0) = uint32(sub_473670())
-		if *memmap.PtrUint32(0x5D4594, 0x10BBD0) == 1 {
+		*memmap.PtrUint32(0x5D4594, 1096656) = uint32(sub_473670())
+		if *memmap.PtrUint32(0x5D4594, 1096656) == 1 {
 			nox_client_toggleMap_473610()
 		}
 		guiCon.Hide()
@@ -358,19 +358,19 @@ func sub_477530(a1 C.int) {
 		C.sub_4C35B0(1)
 		sub_46D6F0()
 		C.sub_460660()
-		*memmap.PtrUint32(0x5D4594, 0x10BBE0) = 1
+		*memmap.PtrUint32(0x5D4594, 1096672) = 1
 	} else {
-		*memmap.PtrUint32(0x5D4594, 0x10BBE0) = 0
-		if *memmap.PtrUint32(0x5D4594, 0x10BBCC) != 0 {
+		*memmap.PtrUint32(0x5D4594, 1096672) = 0
+		if *memmap.PtrUint32(0x5D4594, 1096652) != 0 {
 			C.nox_xxx_bookShowMB_45AD70(0)
 		}
-		if *memmap.PtrUint32(0x5D4594, 0x10BBD8) != 0 {
+		if *memmap.PtrUint32(0x5D4594, 1096664) != 0 {
 			C.sub_467BB0()
 		}
 		if *memmap.PtrUint32(0x5D4594, 1096660) != 0 {
 			C.nox_xxx_guiServerOptsLoad_457500()
 		}
-		if *memmap.PtrUint32(0x5D4594, 0x10BBD0) != 0 {
+		if *memmap.PtrUint32(0x5D4594, 1096656) != 0 {
 			nox_client_toggleMap_473610()
 		}
 		if C.nox_xxx_xxxRenderGUI_587000_80832 == 1 {
@@ -876,11 +876,11 @@ func nox_xxx_windowSelCharProc_4A5710(a1 *Window, e WindowEvent) WindowEventResp
 				v23d := (*C.nox_savegame_xxx)(memmap.PtrOff(0x85B3FC, 10980))
 				*v23d = v23
 				gamePopState()
-				if int32(*memmap.PtrUint8(0x85B3FC, 0x2FDE)) == 0 {
+				if int32(*memmap.PtrUint8(0x85B3FC, 12254)) == 0 {
 					noxServer.nox_xxx_gameSetMapPath_409D70("war01a.map")
-				} else if int32(*memmap.PtrUint8(0x85B3FC, 0x2FDE)) == 1 {
+				} else if int32(*memmap.PtrUint8(0x85B3FC, 12254)) == 1 {
 					noxServer.nox_xxx_gameSetMapPath_409D70("wiz01a.map")
-				} else if int32(*memmap.PtrUint8(0x85B3FC, 0x2FDE)) == 2 {
+				} else if int32(*memmap.PtrUint8(0x85B3FC, 12254)) == 2 {
 					noxServer.nox_xxx_gameSetMapPath_409D70("con01a.map")
 				}
 				if noxflags.HasGame(noxflags.GameModeCoop) {
@@ -920,7 +920,7 @@ func nox_xxx_windowSelCharProc_4A5710(a1 *Window, e WindowEvent) WindowEventResp
 				v16     gui.DialogFlags
 				v6, v15 string
 			)
-			*memmap.PtrInt32(0x5D4594, 0x13F47C) = v5
+			*memmap.PtrInt32(0x5D4594, 1307772) = v5
 			npath := datapath.SaveNameFromPath(spath)
 			nox_savegame_name_1307752 = npath
 			if noxflags.HasGame(noxflags.GameModeCoop) && nox_savegame_name_1307752 == common.SaveAuto {

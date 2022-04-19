@@ -13,6 +13,7 @@ import (
 	"os"
 	"path/filepath"
 	"strconv"
+	"strings"
 	"time"
 
 	"golang.org/x/sync/errgroup"
@@ -542,6 +543,31 @@ func (r *Refactorer) visitFlagsCall(n *ast.CallExpr, fnc string) {
 		n.Args[0] = &ast.Ident{Name: noxflags.GameFlag(val).GoString()}
 	}
 }
+func (r *Refactorer) visitMemmapCall(n *ast.CallExpr, fnc string) {
+	switch fnc {
+	case "PtrOff", "PtrPtr",
+		"PtrUint8", "PtrInt8", "PtrUint16", "PtrInt16",
+		"PtrUint32", "PtrInt32", "PtrUint64", "PtrInt64",
+		"PtrFloat32", "PtrFloat64",
+		"Uint8", "Int8", "Uint16", "Int16",
+		"Uint32", "Int32", "Uint64", "Int64",
+		"Float32", "Float64":
+		if len(n.Args) != 2 {
+			return
+		}
+		arg, ok := n.Args[1].(*ast.BasicLit)
+		if !ok || arg.Kind != token.INT || !strings.HasPrefix(arg.Value, "0x") {
+			return
+		}
+		val, err := strconv.ParseUint(arg.Value, 0, 64)
+		if err != nil {
+			log.Println(err)
+			return
+		}
+		r.fileChanged = true
+		arg.Value = strconv.FormatUint(val, 10)
+	}
+}
 func (r *Refactorer) visitCall(n *ast.CallExpr) {
 	switch fnc := n.Fun.(type) {
 	case *ast.Ident:
@@ -556,6 +582,8 @@ func (r *Refactorer) visitCall(n *ast.CallExpr) {
 			r.visitCCall(n, fnc.Sel.Name)
 		case "noxflags":
 			r.visitFlagsCall(n, fnc.Sel.Name)
+		case "memmap":
+			r.visitMemmapCall(n, fnc.Sel.Name)
 		}
 	}
 }
