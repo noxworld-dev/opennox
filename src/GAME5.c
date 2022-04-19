@@ -5825,24 +5825,6 @@ void nox_xxx_netNotifyPlayerDied_54DF00(int a1) {
 //----- (0054DF30) --------------------------------------------------------
 char nox_xxx_dieGlyph_54DF30(int a1) { return nox_xxx_trapBAH_537C10(a1, 0); }
 
-//----- (0054DF40) --------------------------------------------------------
-void nox_xxx_unused_54DF40(int a1) {
-	int v1;       // eax
-	uint32_t* v2; // eax
-
-	v1 = *getMemU32Ptr(0x5D4594, 2491692);
-	if (!*getMemU32Ptr(0x5D4594, 2491692)) {
-		v1 = nox_xxx_getNameId_4E3AA0("BlackPowderBarrelBreaking");
-		*getMemU32Ptr(0x5D4594, 2491692) = v1;
-	}
-	v2 = nox_xxx_newObjectWithTypeInd_4E3450(v1);
-	if (v2) {
-		nox_xxx_createAt_4DAA50((int)v2, 0, *(float*)(a1 + 56), *(float*)(a1 + 60));
-	}
-	nox_xxx_aud_501960(285, a1, 0, 0);
-	nox_xxx_delayedDeleteObject_4E5CC0(a1);
-}
-
 //----- (0054DFA0) --------------------------------------------------------
 void nox_xxx_dieBarrel_54DFA0(int a1) {
 	int v1;       // eax

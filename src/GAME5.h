@@ -140,7 +140,6 @@ void nox_xxx_playerUpdateScore_54D980(int a1, int a2, int a3, int a4);
 void nox_xxx_playerHandleKotrDeath_54DC40(int a1, int a2);
 void nox_xxx_netNotifyPlayerDied_54DF00(int a1);
 char nox_xxx_dieGlyph_54DF30(int a1);
-void nox_xxx_unused_54DF40(int a1);
 void nox_xxx_dieBarrel_54DFA0(int a1);
 void nox_xxx_dieCreateObject_54E010(int a1);
 short nox_xxx_dieSpawnObject_54E070(int a1);

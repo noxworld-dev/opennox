@@ -173,22 +173,6 @@ int sub_4617C0(int a1, int a2, const void* a3, int2* a4) {
 	return 0;
 }
 
-//----- (00461A30) --------------------------------------------------------
-int nox_xxx_unused_461A30(int a1, int a2) {
-	int v2;      // esi
-	wchar_t* v4; // eax
-
-	v2 = *(uint32_t*)(a1 + 396);
-	if (a2 != 6) {
-		return 0;
-	}
-	dword_5d4594_1049864 = 4;
-	v4 = nox_strman_loadString_40F1D0("GrabInstruction", 0, "C:\\NoxPost\\src\\Client\\Gui\\guiinv.c", 1220);
-	nox_xxx_printCentered_445490(v4);
-	nox_xxx_wndSetCaptureMain_46ADC0(v2);
-	return 1;
-}
-
 //----- (00461A80) --------------------------------------------------------
 void sub_461A80(int a1) {
 	int v1;       // ebx

@@ -4189,9 +4189,6 @@ void nox_client_screenParticlesDraw_431720(nox_draw_viewport_t* rdr) {
 //----- (00431770) --------------------------------------------------------
 char* nox_xxx_getHostInfoPtr_431770() { return (char*)getMemAt(0x5D4594, 807172); }
 
-//----- (00431780) --------------------------------------------------------
-char* nox_xxx_unused_431780() { return (char*)getMemAt(0x5D4594, 806060); }
-
 //----- (00431790) --------------------------------------------------------
 char* nox_xxx_copyServerIPAndPort_431790(char* a1) {
 	char* result; // eax
@@ -4564,9 +4561,6 @@ bool nox_xxx_spriteCheckFlag31_4356C0(nox_drawable* dr, char a2) {
 
 //----- (004356E0) --------------------------------------------------------
 void nox_xxx_spriteLoadError_4356E0() { *getMemU32Ptr(0x587000, 85720) = 0; }
-
-//----- (004356F0) --------------------------------------------------------
-char* nox_xxx_unused_4356F0() { return (char*)getMemAt(0x5D4594, 811280); }
 
 //----- (00435700) --------------------------------------------------------
 wchar_t* sub_435700(wchar_t* a1, int a2) {

@@ -1440,65 +1440,6 @@ void nox_gui_setQuestStage_450B00(int a1) { *getMemU32Ptr(0x5D4594, 832468) = a1
 //----- (00450B10) --------------------------------------------------------
 int nox_gui_getQuestStage_450B10() { return *getMemU32Ptr(0x5D4594, 832468); }
 
-//----- (00451430) --------------------------------------------------------
-void nox_xxx_unused_451430() {
-	int v0; // eax
-
-	if (nox_win_height == NOX_DEFAULT_HEIGHT || nox_win_width == NOX_DEFAULT_WIDTH) {
-		v0 = nox_xxx_guiFontHeightMB_43F320(0);
-		if (dword_5d4594_839884) {
-			if (dword_5d4594_839888) {
-				dword_5d4594_839884 = 0;
-				dword_5d4594_839888 = 0;
-			} else {
-				dword_5d4594_839884 = 320;
-				dword_5d4594_839888 = nox_win_height - 21 * v0;
-			}
-		} else if (dword_5d4594_839888) {
-			dword_5d4594_839884 = 320;
-			dword_5d4594_839888 = 0;
-		} else {
-			dword_5d4594_839888 = nox_win_height - 21 * v0;
-		}
-	}
-}
-
-//----- (004514F0) --------------------------------------------------------
-int nox_xxx_unused_4514F0() {
-	int result;        // eax
-	int v1;            // edi
-	int v2;            // esi
-	unsigned char* v3; // ebx
-
-	result = dword_5d4594_823776;
-	if (dword_5d4594_823776) {
-		v1 = nox_xxx_guiFontHeightMB_43F320(0);
-		nox_client_drawSetColor_434460(nox_color_black_2650656);
-		nox_client_drawRectFilledOpaque_49CE30(*(int*)&dword_5d4594_839884, *(int*)&dword_5d4594_839888, 320, 21 * v1);
-		nox_client_drawSetColor_434460(1);
-		nox_client_drawBorderLines_49CC70(*(int*)&dword_5d4594_839884, *(int*)&dword_5d4594_839888, 320, 21 * v1);
-		nox_xxx_drawSetTextColor_434390(1);
-		result = dword_5d4594_839888;
-		v2 = dword_5d4594_839888 + 20 * v1;
-		if (v2 > 0) {
-			v3 = getMemAt(0x5D4594, 835800);
-			do {
-				if ((int)v3 >= (int)getMemAt(0x5D4594, 835880)) {
-					break;
-				}
-				result = nox_xxx_drawStringWrap_43FAF0(0, *(uint16_t**)v3, dword_5d4594_839884 + 4, v2, 316, 0);
-				v2 -= v1;
-				v3 += 4;
-			} while (v2 > 0);
-		}
-	}
-	return result;
-}
-
-// 4514E0: using guessed type void  nullsub_4(uint32_t, uint32_t, uint32_t, uint32_t);
-
-// 4514E0: using guessed type void  nullsub_4(uint32_t, uint32_t, uint32_t, uint32_t);
-
 //----- (00451850) --------------------------------------------------------
 int sub_451850(int a2, int a3) {
 	int v2;            // edi

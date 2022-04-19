@@ -3766,51 +3766,6 @@ void sub_4FC440(int a1, int a2) {
 	}
 }
 
-//----- (004FC4A0) --------------------------------------------------------
-int nox_xxx_unused_4FC4A0(int a1, int a2, int a3) {
-	int result; // eax
-
-	result = a3;
-	*getMemU32Ptr(0x5D4594, 1568876 + 4 * (a2 + 6 * a1)) = a3;
-	return result;
-}
-
-//----- (004FC4C0) --------------------------------------------------------
-int nox_xxx_unused_4FC4C0(int a1) {
-	char* v1;  // esi
-	int v2;    // eax
-	int v3;    // ecx
-	double v4; // st7
-	double v5; // st6
-
-	v1 = nox_common_playerInfoGetFirst_416EA0();
-	if (!v1) {
-		return 0;
-	}
-	while (1) {
-		v2 = *((uint32_t*)v1 + 514);
-		if (v2) {
-			if (!v1[2251]) {
-				if (nox_common_playerIsAbilityActive_4FC250(v2, 2)) {
-					v3 = *((uint32_t*)v1 + 514);
-					v4 = *(float*)(a1 + 56) - *(float*)(v3 + 56);
-					v5 = *(float*)(a1 + 60) - *(float*)(v3 + 60);
-					if (sqrt(v5 * v5 + v4 * v4) + 0.1 < 300.0) {
-						if (nox_xxx_mapCheck_537110(v3, a1)) {
-							break;
-						}
-					}
-				}
-			}
-		}
-		v1 = nox_common_playerInfoGetNext_416EE0((int)v1);
-		if (!v1) {
-			return 0;
-		}
-	}
-	return 1;
-}
-
 //----- (004FC570) --------------------------------------------------------
 int nox_xxx_resetMapInit_4FC570(int a1) {
 	int result; // eax
@@ -4470,44 +4425,6 @@ void nox_xxx_collide_4FDF90(int a1, int a2) {
 		nox_xxx_spellBuffOff_4FF5B0(a1, 0);
 	}
 }
-
-//----- (004FE060) --------------------------------------------------------
-int nox_xxx_unused_4FE060(int a1, int a2) {
-	int v2;      // ebx
-	int v3;      // esi
-	int* v4;     // edi
-	int v5;      // eax
-	int result;  // eax
-	int v7[137]; // [esp+8h] [ebp-224h]
-
-	v2 = 0;
-	v3 = nox_xxx_spellFirstValid_424AD0();
-	if (!v3) {
-		goto LABEL_14;
-	}
-	v4 = v7;
-	do {
-		if (!sub_4FE100(v3)) {
-			v5 = nox_xxx_spellFlags_424A70(v3);
-			if (v5 & a1 || v5 & 0x1000000) {
-				if (v5 & a2) {
-					*v4 = v3;
-					++v2;
-					++v4;
-				}
-			}
-		}
-		v3 = nox_xxx_spellNextValid_424AF0(v3);
-	} while (v3);
-	if (v2) {
-		result = v7[nox_common_randomInt_415FA0(0, v2 - 1)];
-	} else {
-	LABEL_14:
-		result = 0;
-	}
-	return result;
-}
-// 4FE060: using guessed type int var_224[137];
 
 //----- (004FE100) --------------------------------------------------------
 int sub_4FE100(int a1) {
@@ -7472,19 +7389,6 @@ int sub_501AF0(int a1, float* a2, float* a3) {
 		v7 = 100;
 	}
 	return v7 <= *(int*)&dword_5d4594_1599068 ? 0 : v7;
-}
-
-//----- (00501BB0) --------------------------------------------------------
-unsigned int nox_xxx_unused_501BB0(int a1, float* a2, float* a3) {
-	int v3; // eax
-	int v4; // ecx
-
-	v3 = sub_501AF0(a1, a2, a3);
-	v4 = *getMemU32Ptr(0x5D4594, 1570292 + 28 * a1);
-	if (!v4) {
-		return 0;
-	}
-	return (v3 * v4) / 100;
 }
 
 //----- (00501C00) --------------------------------------------------------

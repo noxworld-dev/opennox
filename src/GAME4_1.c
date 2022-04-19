@@ -4415,20 +4415,6 @@ void sub_510000(int a1) {
 	nox_alloc_class_free_obj_first(*(unsigned int**)&nox_alloc_tradeSession_2386492, (uint64_t*)a1);
 }
 
-//----- (005100A0) --------------------------------------------------------
-int nox_xxx_unused_5100A0(int a1, int a2) {
-	int* v2;    // eax
-	int result; // eax
-
-	v2 = sub_50FFE0(*(uint32_t**)(a1 + 20), a2);
-	if (v2) {
-		result = *v2;
-	} else {
-		result = 0;
-	}
-	return result;
-}
-
 //----- (005103A0) --------------------------------------------------------
 int nox_xxx_getSomeShopData_5103A0(int a1, int a2) {
 	int v2;      // eax
@@ -4966,32 +4952,6 @@ void nox_xxx_updateDebugObjects_5113A0() {
 			}
 			v0 = v2;
 		} while (v2);
-	}
-}
-
-//----- (005114D0) --------------------------------------------------------
-void nox_xxx_unused_5114D0(int a1, int a2, int a3, int a4, int a5, int a6) {
-	float* v6;      // eax
-	double v7;      // st7
-	double v8;      // st6
-	long double v9; // st7
-
-	if (a1 && a2 && !(*(uint8_t*)(a1 + 16) & 0x20) && !(*(uint8_t*)(a2 + 16) & 0x20)) {
-		v6 = (float*)nox_alloc_class_new_obj_zero(*(uint32_t**)&nox_alloc_springs_2386568);
-		if (v6) {
-			*((uint32_t*)v6 + 4) = a3;
-			*((uint32_t*)v6 + 5) = a4;
-			*((uint32_t*)v6 + 2) = a1;
-			*((uint32_t*)v6 + 3) = a2;
-			*((uint32_t*)v6 + 6) = a5;
-			*((uint32_t*)v6 + 7) = a6;
-			v7 = *(float*)(a2 + 56) - *(float*)(a1 + 56);
-			v8 = *(float*)(a2 + 60) - *(float*)(a1 + 60);
-			v9 = sqrt(v8 * v8 + v7 * v7);
-			v6[8] = v9;
-			v6[9] = v9;
-			sub_511560((int)v6);
-		}
 	}
 }
 
@@ -6103,24 +6063,6 @@ int sub_516F10() {
 void sub_516F30() {
 	nox_alloc_class_free_all(*(uint32_t**)&nox_alloc_pendingOwn_2386916);
 	dword_5d4594_2386920 = 0;
-}
-
-//----- (00516F50) --------------------------------------------------------
-int nox_xxx_unused_516F50(int a1, int a2) {
-	int v2; // eax
-
-	v2 = nox_server_getFirstObjectUninited_4DA870();
-	if (!v2) {
-		return 0;
-	}
-	while (*(uint32_t*)(v2 + 44) != a2) {
-		v2 = nox_server_getNextObjectUninited_4DA880(v2);
-		if (!v2) {
-			return 0;
-		}
-	}
-	nox_xxx_unitSetOwner_4EC290(a1, v2);
-	return 1;
 }
 
 //----- (00516F90) --------------------------------------------------------
@@ -8854,109 +8796,6 @@ float* sub_51D5E0(float* a1) {
 				(dword_5d4594_3835364 != 1 || (result = (float*)sub_527380(&v2.field_0)) != 0)) {
 			result = (float*)1;
 		}
-	}
-	return result;
-}
-
-//----- (0051D650) --------------------------------------------------------
-float* nox_xxx_unused_51D650(float* a1) {
-	float* v1;     // esi
-	char v3[0x48]; // [esp+8h] [ebp-48h]
-
-	memcpy(v3, sub_4D3C70(), 0x48u);
-	nox_xxx_tileGetDefByName_51D4D0("NONE");
-	v1 = sub_51D5E0(a1);
-	nox_xxx_tileInitdataClear_4D3C50(v3);
-	return v1;
-}
-
-//----- (0051D6A0) --------------------------------------------------------
-int nox_xxx_unused_51D6A0(int a1) {
-	int result;    // eax
-	char v2[0x48]; // [esp+8h] [ebp-48h]
-
-	if (!a1) {
-		return 0;
-	}
-	if (!*(uint32_t*)a1) {
-		return 0;
-	}
-	memcpy(v2, sub_4D3C70(), 0x48u);
-	nox_xxx_tileGetDefByName_51D4D0("NONE");
-	result = sub_51D8F0((float2*)(a1 + 4));
-	if (result) {
-		if (dword_5d4594_3835364 != 1 || (result = sub_527380((float*)(a1 + 4))) != 0) {
-			nox_xxx_tileInitdataClear_4D3C50(v2);
-			*(uint32_t*)(a1 + 4) = 0;
-			*(uint32_t*)a1 = 0;
-			*(uint32_t*)(a1 + 8) = 0;
-			result = 1;
-		}
-	}
-	return result;
-}
-
-//----- (0051D740) --------------------------------------------------------
-int nox_xxx_unused_51D740(float* a1, int a2) {
-	double v2;  // st7
-	double v3;  // st6
-	int v4;     // ebx
-	int v5;     // esi
-	int v6;     // ebp
-	int v7;     // edx
-	int v8;     // edx
-	float v9;   // ecx
-	int result; // eax
-	int v11;    // eax
-	float v12;  // edx
-	int v13;    // eax
-	float v14;  // edx
-	float2 v15; // [esp+10h] [ebp-8h]
-	float v17;  // [esp+1Ch] [ebp+4h]
-
-	if (!nox_xxx_mapGenFixCoords_4D3D90((float2*)a1, &v15)) {
-		return 0;
-	}
-	if (!a2) {
-		return 0;
-	}
-	v2 = v15.field_0 + 11.5;
-	v3 = v15.field_4 + 11.5;
-	v4 = (long long)(v2 * 0.021739131);
-	v17 = v3;
-	v5 = (long long)(v3 * 0.021739131);
-	v6 = (int)(long long)v2 % 46;
-	v7 = (long long)v17 % 46;
-	if (v4 - 1 <= 0 || v4 >= 127 || v5 - 1 <= 0 || v5 >= 127) {
-		return 0;
-	}
-	if (v6 <= v7) {
-		if (46 - v6 > v7) {
-			v8 = (uint32_t)(ptr_5D4594_2650668[v4 - 1]) + 44 * v5 + 24;
-			goto LABEL_10;
-		}
-		v13 = (uint32_t)(ptr_5D4594_2650668[v4]) + 44 * v5 + 24;
-		v14 = v15.field_4;
-		*(float*)(a2 + 4) = v15.field_0;
-		*(uint32_t*)a2 = v13;
-		*(float*)(a2 + 8) = v14;
-		result = 1;
-	} else {
-		if (46 - v6 > v7) {
-			v8 = (uint32_t)(ptr_5D4594_2650668[v4]) + 44 * v5 - 20;
-		LABEL_10:
-			v9 = v15.field_4;
-			*(float*)(a2 + 4) = v15.field_0;
-			*(uint32_t*)a2 = v8;
-			*(float*)(a2 + 8) = v9;
-			return 1;
-		}
-		v11 = (uint32_t)(ptr_5D4594_2650668[v4]) + 44 * v5 + 4;
-		v12 = v15.field_4;
-		*(float*)(a2 + 4) = v15.field_0;
-		*(uint32_t*)a2 = v11;
-		*(float*)(a2 + 8) = v12;
-		result = 1;
 	}
 	return result;
 }

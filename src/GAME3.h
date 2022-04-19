@@ -109,7 +109,6 @@ int sub_4A9A10();
 int sub_4A9A30(unsigned char a1, unsigned char a2, unsigned char a3);
 short sub_4A9B20(int a1);
 short sub_4A9B70(short* a1);
-int nox_xxx_unused_4A9BC0(unsigned char a1, unsigned char a2, unsigned char a3);
 int sub_4A9C50(int a1);
 int nox_xxx_compassGenStrings_4A9C80();
 int nox_game_showOnlineOrLAN_413800();

@@ -3681,21 +3681,6 @@ int sub_47D3F0(int a1) {
 	return result;
 }
 
-//----- (0047D420) --------------------------------------------------------
-int nox_xxx_unused_47D420(int a1, int a2, int a3, int a4, int a5, int a6) {
-	int result; // eax
-
-	*getMemU32Ptr(0x973F18, 120) = 1;
-	*getMemU32Ptr(0x973F18, 104) = a1 << 16;
-	*getMemU32Ptr(0x973F18, 8) = a2 << 16;
-	*getMemU32Ptr(0x973F18, 36) = a3 << 16;
-	result = a4 << 16;
-	*getMemU32Ptr(0x973F18, 32) = a4 << 16;
-	*getMemU32Ptr(0x973F18, 100) = a5 << 16;
-	*getMemU32Ptr(0x973F18, 20) = a6 << 16;
-	return result;
-}
-
 //----- (0047D4E0) --------------------------------------------------------
 short nox_xxx_video_ReadTile_Real_47D4E0(uint32_t* a1) {
 	int v1;       // ecx
@@ -9305,50 +9290,6 @@ int* sub_487A10(int a1, int a2) {
 
 //----- (00487A60) --------------------------------------------------------
 int sub_487A60(int a1) { return (*(int (**)(int))(a1 + 216))(a1); }
-
-//----- (00487A70) --------------------------------------------------------
-int nox_xxx_unused_487A70(uint32_t* a1, int (*a2)(char*)) {
-	int* v2;           // eax
-	int i;             // edi
-	unsigned char* v4; // esi
-	int v5;            // ecx
-	unsigned char* v6; // edx
-	int* v8;           // [esp+Ch] [ebp-CCh]
-	char v9[200];      // [esp+10h] [ebp-C8h]
-
-	a2((char*)getMemAt(0x587000, 155148));
-	nox_sprintf(v9, "%s (%d)\n", **(uint32_t**)(a1[5] + 12), a1[47]);
-	a2(v9);
-	nox_sprintf(v9, "si: %05d ms (%05d,%d) \n", a1[56], a1[58], a1[60]);
-	a2(v9);
-	nox_sprintf(v9, "Chan:TYPE: STATE :  SAMPLE  :PRI :VOL:\n");
-	a2(v9);
-	v2 = sub_4877D0((int)a1, (int*)&v8);
-	for (i = 0; v2; v2 = sub_4877F0(&v8)) {
-		if (v2[31] & 1) {
-			v4 = getMemAt(0x587000, 155264);
-		} else {
-			v4 = getMemAt(0x587000, 155272);
-			if (!(v2[31] & 4)) {
-				v4 = getMemAt(0x587000, 155280);
-			}
-		}
-		v5 = v2[3];
-		if (v5 < 4096) {
-			v6 = getMemAt(0x587000, 155296);
-			if (v5 != 1) {
-				v6 = getMemAt(0x587000, 155304);
-			}
-		} else {
-			v6 = getMemAt(0x587000, 155288);
-		}
-		nox_sprintf(v9, "#%2d :%s:%s:0x%08x:%4d:%3d:\n", i, v6, v4, v2[72], v2[30],
-					(100 * ((unsigned int)v2[45] >> 16)) >> 14);
-		a2(v9);
-		++i;
-	}
-	return ((int (*)(unsigned char*))a2)(getMemAt(0x587000, 155344));
-}
 
 //----- (00487BC0) --------------------------------------------------------
 uint32_t* sub_487BC0(size_t a1) {

@@ -1924,15 +1924,6 @@ int sub_4D3310(int a1) {
 //----- (004D3320) --------------------------------------------------------
 int sub_4D3320() { return *getMemU32Ptr(0x5D4594, 1548716); }
 
-//----- (004D3330) --------------------------------------------------------
-void nox_xxx_unused_4D3330() {
-	if (nox_common_gameFlags_check_40A5C0(0x2000000)) {
-		nox_xxx_networkLog_printf_413D30("Failed to create channel, exiting game.");
-		nox_xxx_setContinueMenuOrHost_43DDD0(0);
-		nox_game_exit_xxx_43DE60();
-	}
-}
-
 //----- (004D39F0) --------------------------------------------------------
 int sub_4D39F0(const char* a3) {
 	unsigned int v1;    // ecx
@@ -3798,46 +3789,6 @@ int sub_4D61F0(int a1) {
 	return result;
 }
 
-//----- (004D6240) --------------------------------------------------------
-int nox_xxx_unused_4D6240(int a1, int a2) {
-	int result; // eax
-	int v3;     // eax
-
-	result = a1;
-	if (a1) {
-		if ((*(uint8_t*)(a1 + 16) & 0x20) != 32) {
-			v3 = *(uint32_t*)(a1 + 748);
-			*(uint32_t*)(*(uint32_t*)(v3 + 276) + 4684) += a2;
-			result = *(uint32_t*)(v3 + 276);
-			*(uint32_t*)(result + 4692) |= 0x20u;
-		}
-	}
-	return result;
-}
-
-//----- (004D6290) --------------------------------------------------------
-int nox_xxx_unused_4D6290(int a1) {
-	int result;  // eax
-	int v2;      // eax
-	char v3[16]; // [esp+0h] [ebp-10h]
-
-	result = a1;
-	if (a1) {
-		v2 = *(uint32_t*)(a1 + 748);
-		v3[0] = -16;
-		v3[1] = 11;
-		*(uint16_t*)&v3[2] = *(uint16_t*)(*(uint32_t*)(v2 + 276) + 4652);
-		*(uint16_t*)&v3[4] = *(uint16_t*)(*(uint32_t*)(v2 + 276) + 4656);
-		*(uint16_t*)&v3[6] = *(uint16_t*)(*(uint32_t*)(v2 + 276) + 4660);
-		*(uint16_t*)&v3[8] = *(uint16_t*)(*(uint32_t*)(v2 + 276) + 4664);
-		*(uint16_t*)&v3[10] = *(uint16_t*)(*(uint32_t*)(v2 + 276) + 4668);
-		*(uint16_t*)&v3[12] = *(uint16_t*)(*(uint32_t*)(v2 + 276) + 4672);
-		*(uint16_t*)&v3[14] = *(uint16_t*)(*(uint32_t*)(v2 + 276) + 4684);
-		result = nox_xxx_netSendPacket0_4E5420(*(unsigned char*)(*(uint32_t*)(v2 + 276) + 2064), v3, 16, 0, 1);
-	}
-	return result;
-}
-
 //----- (004D6360) --------------------------------------------------------
 int sub_4D6360(int a1) {
 	int result; // eax
@@ -3863,66 +3814,6 @@ int sub_4D63B0(int a1) {
 		v2 = *(uint32_t*)(a1 + 748);
 		LOWORD(a1) = 1776;
 		HIWORD(a1) = *(uint16_t*)(*(uint32_t*)(v2 + 276) + 4660);
-		result = nox_xxx_netSendPacket0_4E5420(*(unsigned char*)(*(uint32_t*)(v2 + 276) + 2064), &a1, 4, 0, 1);
-	}
-	return result;
-}
-
-//----- (004D6400) --------------------------------------------------------
-int nox_xxx_unused_4D6400(int a1) {
-	int result; // eax
-	int v2;     // eax
-
-	result = a1;
-	if (a1) {
-		v2 = *(uint32_t*)(a1 + 748);
-		LOWORD(a1) = 2032;
-		HIWORD(a1) = *(uint16_t*)(*(uint32_t*)(v2 + 276) + 4664);
-		result = nox_xxx_netSendPacket0_4E5420(*(unsigned char*)(*(uint32_t*)(v2 + 276) + 2064), &a1, 4, 0, 1);
-	}
-	return result;
-}
-
-//----- (004D6450) --------------------------------------------------------
-int nox_xxx_unused_4D6450(int a1) {
-	int result; // eax
-	int v2;     // eax
-
-	result = a1;
-	if (a1) {
-		v2 = *(uint32_t*)(a1 + 748);
-		LOWORD(a1) = 2288;
-		HIWORD(a1) = *(uint16_t*)(*(uint32_t*)(v2 + 276) + 4668);
-		result = nox_xxx_netSendPacket0_4E5420(*(unsigned char*)(*(uint32_t*)(v2 + 276) + 2064), &a1, 4, 0, 1);
-	}
-	return result;
-}
-
-//----- (004D64A0) --------------------------------------------------------
-int nox_xxx_unused_4D64A0(int a1) {
-	int result; // eax
-	int v2;     // eax
-
-	result = a1;
-	if (a1) {
-		v2 = *(uint32_t*)(a1 + 748);
-		LOWORD(a1) = 2544;
-		HIWORD(a1) = *(uint16_t*)(*(uint32_t*)(v2 + 276) + 4672);
-		result = nox_xxx_netSendPacket0_4E5420(*(unsigned char*)(*(uint32_t*)(v2 + 276) + 2064), &a1, 4, 0, 1);
-	}
-	return result;
-}
-
-//----- (004D64F0) --------------------------------------------------------
-int nox_xxx_unused_4D64F0(int a1) {
-	int result; // eax
-	int v2;     // eax
-
-	result = a1;
-	if (a1) {
-		v2 = *(uint32_t*)(a1 + 748);
-		LOWORD(a1) = 2800;
-		HIWORD(a1) = *(uint16_t*)(*(uint32_t*)(v2 + 276) + 4684);
 		result = nox_xxx_netSendPacket0_4E5420(*(unsigned char*)(*(uint32_t*)(v2 + 276) + 2064), &a1, 4, 0, 1);
 	}
 	return result;
@@ -6285,17 +6176,6 @@ int sub_4D9D60(int a1, int a2) {
 	*(uint16_t*)&v4[3] = *(uint16_t*)(a2 + 36);
 	v4[2] = *(uint8_t*)(v2 + 320);
 	return nox_xxx_netSendPacket0_4E5420(a1, v4, 5, 0, 1);
-}
-
-//----- (004D9DB0) --------------------------------------------------------
-int nox_xxx_unused_4D9DB0(int a1, int a2, int a3) {
-	char v4[8]; // [esp+0h] [ebp-8h]
-
-	*(uint16_t*)&v4[6] = *(uint16_t*)(a2 + 36);
-	v4[0] = -16;
-	v4[1] = 21;
-	*(uint32_t*)&v4[2] = a3;
-	return nox_xxx_netSendPacket0_4E5420(a1, v4, 8, 0, 1);
 }
 
 //----- (004D9DF0) --------------------------------------------------------

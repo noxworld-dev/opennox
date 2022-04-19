@@ -2796,18 +2796,6 @@ void nox_xxx_netImportant_4E5770(unsigned char a1, int a2) {
 	}
 }
 
-//----- (004E5A90) --------------------------------------------------------
-int nox_xxx_unused_4E5A90() {
-	int v0; // eax
-	int i;  // ecx
-
-	v0 = dword_5d4594_1565512;
-	for (i = 0; v0; ++i) {
-		v0 = *(uint32_t*)(v0 + 408);
-	}
-	return dword_5d4594_1565520 - i;
-}
-
 //----- (004E5AD0) --------------------------------------------------------
 void nox_xxx_playerRemoveSpawnedStuff_4E5AD0(int a1) {
 	char v1; // al
@@ -3887,15 +3875,6 @@ int sub_4E7350(int a1) {
 		break;
 	}
 	return result;
-}
-
-//----- (004E7410) --------------------------------------------------------
-int nox_xxx_unused_4E7410(int a1) {
-	if (*(uint8_t*)(a1 + 16) & 0x40) {
-		return 1;
-	}
-	nox_xxx_objectUnkUpdateCoords_4E7290(a1);
-	return *(float*)(a1 + 240) - *(float*)(a1 + 232) < 85.0 && *(float*)(a1 + 244) - *(float*)(a1 + 236) < 85.0;
 }
 
 //----- (004E7470) --------------------------------------------------------
@@ -9076,55 +9055,6 @@ int sub_4EE2F0(int a1, int a2, int* a3) {
 
 //----- (004EE370) --------------------------------------------------------
 int nox_xxx_dropAnkhTradable_4EE370(int a1, int a2, int* a3) { return nox_xxx_dropDefault_4ED290(a1, a2, (float2*)a3); }
-
-//----- (004EE390) --------------------------------------------------------
-int nox_xxx_unused_4EE390(int a1) {
-	int result; // eax
-	int v2;     // ecx
-
-	result = a1;
-	if (a1) {
-		v2 = *(uint32_t*)(a1 + 556);
-		if (v2) {
-			*(uint32_t*)(v2 + 12) = 0;
-			result = *(uint32_t*)(a1 + 556);
-			*(uint32_t*)(result + 8) = 0;
-		} else {
-			*(uint32_t*)0xC = 0;
-			*(uint32_t*)(*(uint32_t*)(a1 + 556) + 8) = dword_5d4594_1568260;
-			if (dword_5d4594_1568260) {
-				*(uint32_t*)(dword_5d4594_1568260 + 448) = a1;
-			}
-			dword_5d4594_1568260 = a1;
-		}
-	}
-	return result;
-}
-
-//----- (004EE3E0) --------------------------------------------------------
-void nox_xxx_unused_4EE3E0(int a1) {
-	int v1; // eax
-	int v2; // ecx
-	int v3; // eax
-	int v4; // ecx
-
-	if (a1) {
-		v1 = *(uint32_t*)(a1 + 556);
-		if (v1) {
-			v2 = *(uint32_t*)(v1 + 8);
-			if (v2) {
-				*(uint32_t*)(*(uint32_t*)(v2 + 556) + 12) = *(uint32_t*)(v1 + 12);
-			}
-			v3 = *(uint32_t*)(a1 + 556);
-			v4 = *(uint32_t*)(v3 + 12);
-			if (v4) {
-				*(uint32_t*)(*(uint32_t*)(v4 + 556) + 8) = *(uint32_t*)(v3 + 8);
-			} else {
-				dword_5d4594_1568260 = *(uint32_t*)(v3 + 8);
-			}
-		}
-	}
-}
 
 //----- (004EE430) --------------------------------------------------------
 int sub_4EE430() { return dword_5d4594_1568260; }

@@ -109,7 +109,6 @@ void sub_47D370(int a1);
 int sub_47D380(int a1, int a2);
 int sub_47D3F0(int a1);
 void sub_47D400(int a1, char a2);
-int nox_xxx_unused_47D420(int a1, int a2, int a3, int a4, int a5, int a6);
 int nox_video_bag_decodeImageSwitch_47D480(void* data, nox_video_bag_image_t* img);
 short nox_xxx_video_ReadTile_Real_47D4E0(uint32_t* a1);
 void nox_xxx_video_ReadSprite_Real_47D530(void* data);
@@ -118,7 +117,6 @@ unsigned char sub_47DBC0();
 void nox_xxx_keyboard_47DBD0();
 int sub_47FCE0(uint32_t* a1, int a2);
 int nox_xxx_setupSomeVideo_47FEF0();
-int nox_xxx_unused_4800F0();
 char sub_4801B0(uint8_t* a2, uint8_t* a3);
 uint16_t* sub_4801E0(uint8_t* a1, uint16_t* a2);
 uint8_t* sub_480220(uint8_t* a1, uint8_t* a2);
@@ -286,7 +284,5 @@ int sub_48C0C0(void* a1, uint32_t* a2, uint32_t* a3);
 void sub_48C170(int4* a1, int4* a2);
 char sub_48C420();
 short sub_48C480();
-
-int nox_xxx_unused_487A70(uint32_t* a1, int (*a2)(char*));
 
 #endif // NOX_PORT_GAME2_2
